@@ -35,4 +35,21 @@ theorem sq_modEq_one_24_of_mod_two_three
     simp [Nat.ModEq]
   exact (hn.pow 2).trans (unit_residue_sq_modEq_one_24 hclass)
 
+/-- Every prime other than `2` and `3` has square congruent to `1` modulo `24`. -/
+theorem prime_sq_modEq_one_24
+    {q : ℕ}
+    (hq : q.Prime)
+    (hq2 : q ≠ 2)
+    (hq3 : q ≠ 3) :
+    Nat.ModEq 24 (q ^ 2) 1 := by
+  have h2 : q % 2 = 1 := (hq.eq_two_or_odd).resolve_left hq2
+  have h3 : q % 3 ≠ 0 := by
+    intro hmod
+    have hdiv : 3 ∣ q := Nat.dvd_iff_mod_eq_zero.mpr hmod
+    have hcases : 3 = 1 ∨ 3 = q := (Nat.dvd_prime hq).mp hdiv
+    rcases hcases with hfalse | hqeq
+    · omega
+    · exact hq3 hqeq.symm
+  exact sq_modEq_one_24_of_mod_two_three h2 h3
+
 end RHLean.Arithmetic
