@@ -7,12 +7,11 @@ namespace RHLean.Kernel
 /-- A packet is a fixed finite sum of an underlying sequence. -/
 def packet {R : Type*} [AddCommMonoid R]
     (x : ℕ → R) (u M : ℕ) : R :=
-  ∑ k in Finset.Ico u (u + M), x k
+  ∑ k ∈ Finset.Ico u (u + M), x k
 
 /-- Extending an observation horizon cannot alter an already defined packet. -/
-set_option linter.unusedVariables false in
 theorem packet_horizon_independent {R : Type*} [AddCommMonoid R]
-    (x : ℕ → R) (u M N₁ N₂ : ℕ) :
+    (x : ℕ → R) (u M _N₁ _N₂ : ℕ) :
     packet x u M = packet x u M := rfl
 
 /-- Concatenating adjacent fixed packets gives the longer fixed packet. -/
@@ -32,7 +31,7 @@ theorem packet_add_packet {R : Type*} [AddCommMonoid R]
 
 /-- Prefix energy grows by appending one nonnegative square; prior terms are unchanged. -/
 def prefixEnergy (s : ℕ → ℝ) (N : ℕ) : ℝ :=
-  ∑ n in Finset.range N, (s n) ^ 2
+  ∑ n ∈ Finset.range N, (s n) ^ 2
 
 theorem prefixEnergy_succ (s : ℕ → ℝ) (N : ℕ) :
     prefixEnergy s (N + 1) = prefixEnergy s N + (s N) ^ 2 := by
