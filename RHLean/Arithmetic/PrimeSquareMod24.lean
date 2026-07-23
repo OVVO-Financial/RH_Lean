@@ -42,8 +42,7 @@ theorem prime_sq_modEq_one_24
     (hq2 : q ≠ 2)
     (hq3 : q ≠ 3) :
     Nat.ModEq 24 (q ^ 2) 1 := by
-  have hodd : Odd q := (hq.eq_two_or_odd).resolve_left hq2
-  have h2 : q % 2 = 1 := Nat.odd_iff.mp hodd
+  have h2 : q % 2 = 1 := (hq.eq_two_or_odd).resolve_left hq2
   have h3 : q % 3 ≠ 0 := by
     intro hmod
     have hdiv : 3 ∣ q := Nat.dvd_iff_mod_eq_zero.mpr hmod
