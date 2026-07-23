@@ -11,7 +11,7 @@ The project has distinct structural branches that meet only at the final analyti
 - the exact factor-geometry/cofactor-channel branch;
 - the full signed Gram and block-contraction closure branch.
 
-See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the arithmetic and resonance dependency graph, and [`SIGNED_GRAM_ARCHITECTURE.md`](SIGNED_GRAM_ARCHITECTURE.md) for the cross-shell, projection, leakage, and Lyapunov closure architecture.
+See [`FORMALIZATION_SEQUENCE.md`](FORMALIZATION_SEQUENCE.md) for the canonical compiled inventory, current checkpoint, and implementation order. See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the arithmetic and resonance dependency graph, and [`SIGNED_GRAM_ARCHITECTURE.md`](SIGNED_GRAM_ARCHITECTURE.md) for the cross-shell, projection, leakage, and Lyapunov closure architecture.
 
 ## Verification
 
@@ -45,38 +45,21 @@ The high sector must not be formalized as a sum of independently small positive 
 
 A theorem-predicted rank-one subtraction is not an orthogonal projection unless equality of the coefficients is separately proved. Pythagorean identities may be used only for genuinely orthogonal projections.
 
-## Revised formalization sequence
+## Current status
 
-Completed exact foundations:
+The compiled library now contains:
 
-1. Project scaffold, CI, Fermat coordinates, and fixed-packet identities.
-2. Exact Möbius doubling: `μ (2*a) = -μ a` for odd `a`.
-3. Exact four-slot compression `(+,-,+,0)`.
-4. Universal prime-3 activation and deterministic three-cycle.
+- exact Möbius doubling, four-slot compression, and universal prime-3 activation;
+- prime-square congruences modulo `24` and the exact `1`/`9` dichotomy modulo `40`;
+- corrected modulus-`2r` quadratic numerator periodicity, exponent congruence, and the exact shift-by-`r` arithmetic dichotomy;
+- Fermat midpoint/half-gap coordinates, squared complex recovery, exact cofactor parabolas, conformal Jacobian identities, and the two-to-one complex-square fiber theorem;
+- fixed-packet kernel foundations.
 
-Current and next focused PRs:
+The next dependency is the complex quadratic phase API and exact additive-character sign law. The reduced Gauss factor, exact small-modulus resonance, signed Gram machinery, leakage operator, Lyapunov closure, certified computation layer, and RH bridge remain open obligations.
 
-5. Squared complex recovery.
-6. Prime-square congruences, culminating in `q^2 ≡ 1 (mod 24)` for primes `q > 3`.
-7. Quadratic phase periodicity modulo `2r` and the exact shift-by-`r` sign law.
-8. Corrected reduced quadratic Gauss factor over the units of `ZMod (2*r)`.
-9. Exact modulus-6 and modulus-24 resonance theorems, including norm-one coherence at `(a,r)=(1,3)`.
-10. Cofactor parabolas, conformal Jacobian, and `2ab` lifetime geometry.
-11. Type-separated prime-3 cell-mask mean-energy theorem.
-12. Exact mod-40 reduced square classes: `q^2 ≡ 1` or `9 (mod 40)` for primes `q > 5`.
-13. Exact height-shell recombination and full signed Gram identity.
-14. Orthogonal projection residual and energy decomposition, separated from theorem-predicted subtraction.
-15. Scale-dependent major-arc projection with corrected modulus-`2r` modes.
-16. Explicit resonant/nonresonant leakage block operator.
-17. Abstract affine block contraction in a weighted Lyapunov norm with forcing.
-18. Certified finite-range certificate checker.
-19. Explicit resonant cancellation across Möbius-weighted cofactor channels.
-20. Low-height spacing and incidence bounds.
-21. Joint Gram control indexed by height shell, cofactor block, and denominator mode.
-22. Actual-start signed-frame theorem.
-23. RH bridge only after every unconditional obligation is discharged.
+The numbered implementation order is maintained only in [`FORMALIZATION_SEQUENCE.md`](FORMALIZATION_SEQUENCE.md).
 
-The corrected analytic architecture is:
+## Closure architecture
 
 ```text
 exact Möbius and factor geometry
