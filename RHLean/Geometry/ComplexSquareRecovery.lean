@@ -14,12 +14,13 @@ theorem fermatPoint_sq_re (c q : ℝ) :
 /-- The imaginary coordinate of the squared Fermat point is the factor imbalance. -/
 theorem fermatPoint_sq_im (c q : ℝ) :
     ((fermatPoint c q) ^ 2).im = (q ^ 2 - c ^ 2) / 2 := by
-  simp [fermatPoint, pow_two]
+  rw [show (fermatPoint c q) ^ 2 = fermatPoint c q * fermatPoint c q by
+    rw [pow_two]]
+  simp only [fermatPoint, Complex.mul_im]
   calc
     fermatA c q * fermatB c q + fermatB c q * fermatA c q =
         2 * fermatA c q * fermatB c q := by ring
-    _ = (q ^ 2 - c ^ 2) / 2 := by
-      simpa [pow_two] using square_imaginary_coordinate c q
+    _ = (q ^ 2 - c ^ 2) / 2 := square_imaginary_coordinate c q
 
 /-- The squared point is exactly the product/imbalance coordinate pair. -/
 theorem fermatPoint_sq (c q : ℝ) :
