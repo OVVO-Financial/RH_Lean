@@ -11,7 +11,8 @@ The unit is evaluated through its canonical `ZMod` representative. Positivity of
 noncomputable def quadraticUnitPhase
     (a : ℤ) (r : ℕ) (hr : 0 < r)
     (u : (ZMod (2 * r))ˣ) : ℂ := by
-  letI : NeZero (2 * r) := ⟨by omega⟩
+  letI : NeZero (2 * r) :=
+    ⟨Nat.mul_ne_zero (by norm_num) (Nat.ne_of_gt hr)⟩
   exact quadraticPhase a (r : ℤ) (u.val.val : ℤ)
 
 /-- The corrected reduced quadratic Gauss sum.
@@ -21,7 +22,8 @@ intentionally no public modulus-`r` version.
 -/
 noncomputable def reducedQuadraticGauss
     (a : ℤ) (r : ℕ) (hr : 0 < r) : ℂ := by
-  letI : NeZero (2 * r) := ⟨by omega⟩
+  letI : NeZero (2 * r) :=
+    ⟨Nat.mul_ne_zero (by norm_num) (Nat.ne_of_gt hr)⟩
   exact ∑ u : (ZMod (2 * r))ˣ, quadraticUnitPhase a r hr u
 
 /-- The reduced quadratic Gauss factor normalized by `φ(2 * r)`.
