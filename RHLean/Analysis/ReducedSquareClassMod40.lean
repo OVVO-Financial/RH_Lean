@@ -39,14 +39,15 @@ theorem quadraticPhaseMod40_eq_squareResidueMode
       squareClassModeMod40 a (squareResidueMod40 q) := by
   unfold quadraticPhaseMod40 squareClassModeMod40 squareResidueMod40
   apply additiveCharacter_eq_of_sub_dvd
-  have hdecompNat :
-      q ^ 2 = q ^ 2 % 40 + 40 * (q ^ 2 / 40) := by
-    simpa using (Nat.mod_add_div (q ^ 2) 40).symm
-  have hdecomp := congrArg (fun n : ℕ => (n : ℤ)) hdecompNat
-  push_cast at hdecomp
-  refine ⟨a * ((q ^ 2 / 40 : ℕ) : ℤ), ?_⟩
-  rw [hdecomp]
-  ring
+  have hdvd := (Nat.mod_modEq (q ^ 2) 40).dvd
+  push_cast at hdvd
+  rcases hdvd with ⟨k, hk⟩
+  refine ⟨a * k, ?_⟩
+  calc
+    a * (q : ℤ) ^ 2 - a * ((q ^ 2 % 40 : ℕ) : ℤ) =
+        a * ((q : ℤ) ^ 2 - ((q ^ 2 % 40 : ℕ) : ℤ)) := by ring
+    _ = a * (40 * k) := by rw [hk]
+    _ = 40 * (a * k) := by ring
 
 /-- The canonical quadratic phase at `r = 20` is exactly the modulus-`40` phase. -/
 theorem quadraticPhase_twenty_eq_mod40
