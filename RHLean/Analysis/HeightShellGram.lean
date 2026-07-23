@@ -68,14 +68,10 @@ theorem shellReInner_heightShellSum_left
     shellReInner (𝕜 := 𝕜) (heightShellSum shell n) (shell m) =
       ∑ i in Finset.range n,
         shellReInner (𝕜 := 𝕜) (shell i) (shell m) := by
-  induction n with
-  | zero =>
-      simp [heightShellSum, shellReInner]
-  | succ n ih =>
-      rw [heightShellSum_succ]
-      have ih' := ih
-      unfold shellReInner at ih' ⊢
-      rw [inner_add_left, RCLike.re.map_add, ih', Finset.sum_range_succ]
+  unfold shellReInner heightShellSum
+  rw [sum_inner]
+  exact map_sum (RCLike.re : 𝕜 →+ ℝ)
+    (fun i => inner 𝕜 (shell i) (shell m)) (Finset.range n)
 
 /--
 Exact height-shell Gram identity. The full signed shell recombination remains
@@ -93,8 +89,9 @@ theorem energy_sum_heightShells
       simp [heightShellSum, heightShellDiagonalEnergy,
         heightShellOffDiagonalGram]
   | succ n ih =>
-      rw [heightShellSum_succ, norm_add_sq, ih,
-        heightShellDiagonalEnergy_succ,
+      rw [heightShellSum_succ]
+      rw [norm_add_sq (𝕜 := 𝕜)]
+      rw [ih, heightShellDiagonalEnergy_succ,
         heightShellOffDiagonalGram_succ]
       have hcross :=
         shellReInner_heightShellSum_left (𝕜 := 𝕜) shell n n
