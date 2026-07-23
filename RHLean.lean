@@ -7,6 +7,7 @@ import RHLean.Arithmetic.PrimeSquareMod24
 import RHLean.Arithmetic.PrimeSquareMod40
 import RHLean.Arithmetic.PrimeThreeActivation
 import RHLean.Geometry.CofactorParabolas
+import RHLean.Geometry.ComplexSquareFiber
 import RHLean.Geometry.ComplexSquareRecovery
 import RHLean.Geometry.FermatCoordinates
 import RHLean.Geometry.SquareMapConformality
