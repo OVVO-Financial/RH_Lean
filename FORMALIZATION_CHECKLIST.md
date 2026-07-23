@@ -92,6 +92,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#25** — Established the mandatory closeout checklist and refreshed the Phase I checkpoint.
 - [x] **#26** — Added explicit `[x]`/`[ ]` completion markers to the checklist and canonical roadmap.
 - [x] **#27** — Proved the exact rational prime-3 cell-mask mean `1/3` and squared mean-mode energy `1/9` in a dedicated namespace.
+- [x] **#28** — Proved exact `2ab` finite differences, linear common-shift displacement, monotonicity, and vertical-window lifetime criteria.
 
 ## 5. Theorem-layer completion checklist
 
@@ -105,8 +106,8 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 ### Phase II — remaining exact combinatorial and geometry layers
 
 - [x] **5. Prime-3 cell-mask mean energy** — PR #27.
-- [ ] **6. `2ab` displacement and lifetime geometry** — next dependency.
-- [ ] **7. Reduced square-class phase support modulo `40`**.
+- [x] **6. `2ab` displacement and lifetime geometry** — PR #28.
+- [ ] **7. Reduced square-class phase support modulo `40`** — next dependency.
 
 ### Phase III — exact signed Hilbert/Gram machinery
 
@@ -129,20 +130,20 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ## 6. Current checkpoint
 
-PR #27, **Formalize prime-3 cell-mask mean energy**, completes Phase II item 5.
+PR #28, **Formalize `2ab` displacement and lifetime geometry**, completes Phase II item 6.
 
-- Principal new module: `RHLean.CellMask.PrimeThreeMeanEnergy`.
-- Central statements: the three rational divisibility indicators sum to `1`, the cell mean is exactly `1/3`, and the squared mean-mode energy is exactly `1/9`.
-- Protected invariants: the module imports only the arithmetic activation layer, remains entirely rational-valued, and provides no coercion or theorem path into `RHLean.QuadraticPrimePhase`.
-- Deliberate exclusions: no claim treats `1/9` as a bound on the normalized quadratic Gauss factor; no leakage, frame, asymptotic, or RH statement is added.
+- Principal new module: `RHLean.Geometry.TwoABDisplacement`.
+- Central statements: `squareMapY` is exactly the Fermat-coordinate `2ab`; midpoint and half-gap scans have displacements `2bh` and `2ah`; independent factor scans have exact quadratic finite differences; a common factor shift has exact linear displacement `h(q-c)`; parity-preserving scans, monotonicity, and vertical-window lifetime/exit criteria follow exactly.
+- Protected invariants: all sign and positivity hypotheses are explicit; the layer is exact algebraic geometry and introduces no asymptotic estimate, numerical certificate, or phase/cell-mask coercion.
+- Deliberate exclusions: no reduced square-class phase theorem, shell Gram identity, leakage estimate, contraction claim, or RH premise is added.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **6: `2ab` displacement and lifetime geometry**.
+The next focused PR is unchecked item **7: reduced square-class phase support modulo `40`**.
 
 It must:
 
-- formalize exact finite differences of the imaginary squared coordinate;
-- state scanning and lifetime identities before asymptotic inequalities;
-- keep all sign and positivity assumptions explicit.
+- factor the merged prime-square dichotomy into a reusable reduced-square-class API;
+- prove the corresponding phase expression has at most two exact square-class modes;
+- avoid inferring reinforcement without a coefficient theorem.
