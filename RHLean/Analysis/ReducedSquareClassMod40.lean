@@ -32,22 +32,31 @@ theorem prime_squareResidueMod40_isReduced
   · exact Or.inl (by simpa [squareResidueMod40, Nat.ModEq] using h1)
   · exact Or.inr (by simpa [squareResidueMod40, Nat.ModEq] using h9)
 
+/-- A square congruence modulo `40` gives exact equality with its complex class mode. -/
+theorem quadraticPhaseMod40_eq_squareClassMode_of_modEq
+    (a : ℤ) {q s : ℕ}
+    (h : Nat.ModEq 40 (q ^ 2) s) :
+    quadraticPhaseMod40 a q = squareClassModeMod40 a s := by
+  unfold quadraticPhaseMod40 squareClassModeMod40
+  apply additiveCharacter_eq_of_sub_dvd
+  have hdvd := h.symm.dvd
+  rcases hdvd with ⟨k, hk⟩
+  have hpow : (q : ℤ) ^ 2 = ((q ^ 2 : ℕ) : ℤ) := by
+    norm_cast
+  refine ⟨a * k, ?_⟩
+  calc
+    a * (q : ℤ) ^ 2 - a * (s : ℤ) =
+        a * (((q ^ 2 : ℕ) : ℤ) - (s : ℤ)) := by rw [hpow]; ring
+    _ = a * ((40 : ℤ) * k) := by rw [hk]
+    _ = (40 : ℤ) * (a * k) := by ring
+
 /-- Reducing the square numerator modulo `40` leaves the complex phase unchanged. -/
 theorem quadraticPhaseMod40_eq_squareResidueMode
     (a : ℤ) (q : ℕ) :
     quadraticPhaseMod40 a q =
       squareClassModeMod40 a (squareResidueMod40 q) := by
-  unfold quadraticPhaseMod40 squareClassModeMod40 squareResidueMod40
-  apply additiveCharacter_eq_of_sub_dvd
-  have hdvd := (Nat.mod_modEq (q ^ 2) 40).dvd
-  push_cast at hdvd
-  rcases hdvd with ⟨k, hk⟩
-  refine ⟨a * k, ?_⟩
-  calc
-    a * (q : ℤ) ^ 2 - a * ((q ^ 2 % 40 : ℕ) : ℤ) =
-        a * ((q : ℤ) ^ 2 - ((q ^ 2 % 40 : ℕ) : ℤ)) := by ring
-    _ = a * (40 * k) := by rw [hk]
-    _ = 40 * (a * k) := by ring
+  apply quadraticPhaseMod40_eq_squareClassMode_of_modEq
+  exact (Nat.mod_modEq (q ^ 2) 40).symm
 
 /-- The canonical quadratic phase at `r = 20` is exactly the modulus-`40` phase. -/
 theorem quadraticPhase_twenty_eq_mod40
@@ -68,10 +77,9 @@ theorem prime_quadraticPhase_twenty_eq_mode_one_or_nine
     (hq5 : q ≠ 5) :
     quadraticPhase a 20 (q : ℤ) = squareClassModeMod40 a 1 ∨
       quadraticPhase a 20 (q : ℤ) = squareClassModeMod40 a 9 := by
-  rw [quadraticPhase_twenty_eq_mod40,
-    quadraticPhaseMod40_eq_squareResidueMode]
-  rcases prime_squareResidueMod40_isReduced hq hq2 hq5 with h1 | h9
-  · exact Or.inl (by rw [h1])
-  · exact Or.inr (by rw [h9])
+  rw [quadraticPhase_twenty_eq_mod40]
+  rcases prime_sq_modEq_one_or_nine_40 hq hq2 hq5 with h1 | h9
+  · exact Or.inl (quadraticPhaseMod40_eq_squareClassMode_of_modEq a h1)
+  · exact Or.inr (quadraticPhaseMod40_eq_squareClassMode_of_modEq a h9)
 
 end RHLean.QuadraticPrimePhase
