@@ -11,9 +11,12 @@ def fourSlotCellSum (k : ℕ) : ℤ :=
 /-- The second slot is the exact negative of its odd source. -/
 theorem moebius_four_mul_add_two (k : ℕ) :
     μ (4 * k + 2) = -μ (2 * k + 1) := by
-  have hodd : Odd (2 * k + 1) := by
-    omega
-  convert moebius_two_mul_of_odd (2 * k + 1) hodd using 1 <;> omega
+  have hodd : Odd (2 * k + 1) := odd_two_mul_add_one k
+  calc
+    μ (4 * k + 2) = μ (2 * (2 * k + 1)) := by
+      congr 1
+      ring
+    _ = -μ (2 * k + 1) := moebius_two_mul_of_odd (2 * k + 1) hodd
 
 /-- The fourth slot vanishes because it is divisible by `2^2`. -/
 theorem moebius_four_mul_add_four (k : ℕ) :
@@ -22,7 +25,7 @@ theorem moebius_four_mul_add_four (k : ℕ) :
   intro hsq
   have hnot := (Nat.squarefree_iff_prime_squarefree.mp hsq) 2 Nat.prime_two
   apply hnot
-  exact ⟨k + 1, by omega⟩
+  exact ⟨k + 1, by ring⟩
 
 /-- Exact `(+,-,+,0)` identification of every complete four-slot cell. -/
 theorem exact_four_slot_cell (k : ℕ) :
