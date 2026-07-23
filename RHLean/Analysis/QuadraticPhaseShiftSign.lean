@@ -9,14 +9,7 @@ theorem exp_int_mul_pi_mul_I_eq_neg_one_pow
     Complex.exp
         (((n : ℂ) * (Real.pi : ℂ)) * Complex.I) =
       (-1 : ℂ) ^ n := by
-  have harg :
-      (n : ℂ) * (Real.pi : ℂ) =
-        (((n : ℝ) * Real.pi : ℝ) : ℂ) := by
-    push_cast
-    rfl
-  rw [harg, Complex.exp_mul_I]
-  rw [← Complex.ofReal_cos, ← Complex.ofReal_sin]
-  simp [Real.cos_int_mul_pi, Real.sin_int_mul_pi, Int.cast_negOnePow]
+  rw [mul_assoc, Complex.exp_int_mul, Complex.exp_pi_mul_I]
 
 /-- Adding `r * k` to a numerator modulo `2*r` contributes exactly `(-1)^k`. -/
 theorem additiveCharacter_add_half_modulus
