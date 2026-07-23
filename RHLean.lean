@@ -9,4 +9,5 @@ import RHLean.Arithmetic.PrimeThreeActivation
 import RHLean.Geometry.CofactorParabolas
 import RHLean.Geometry.ComplexSquareRecovery
 import RHLean.Geometry.FermatCoordinates
+import RHLean.Geometry.SquareMapConformality
 import RHLean.Kernel.FixedPackets
