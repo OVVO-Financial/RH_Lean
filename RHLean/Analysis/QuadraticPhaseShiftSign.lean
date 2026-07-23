@@ -14,7 +14,8 @@ theorem exp_int_mul_pi_mul_I_eq_neg_one_pow
         (((n : ℝ) * Real.pi : ℝ) : ℂ) := by
     push_cast
     rfl
-  rw [harg, Complex.exp_ofReal_mul_I]
+  rw [harg, Complex.exp_mul_I]
+  rw [← Complex.ofReal_cos, ← Complex.ofReal_sin]
   simp [Real.cos_int_mul_pi, Real.sin_int_mul_pi, Int.cast_negOnePow]
 
 /-- Adding `r * k` to a numerator modulo `2*r` contributes exactly `(-1)^k`. -/
