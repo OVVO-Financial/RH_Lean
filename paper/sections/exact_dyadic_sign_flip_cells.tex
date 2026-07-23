@@ -1,0 +1,332 @@
+% Drop-in replacement section for the latest fixed-packet paper.
+% Insert immediately after "Exact least-prime channels" and before the
+% existing prime-3 Fourier discussion.
+
+\subsection{Exact dyadic sign-flip cells}
+\label{subsec:exact-dyadic-cells}
+
+The prime-$2$ mechanism is stronger than a channel-level heuristic.  It
+compresses the raw M\"obius sequence into an exact, permanent four-slot cell
+before any averaging, projection, or asymptotic estimate is applied.
+
+\begin{theorem}[Exact dyadic sign reversal]
+\label{thm:exact-dyadic-sign-reversal}
+For every odd integer $a\ge1$,
+\begin{equation}
+ \boxed{\mu(2a)=-\mu(a).}
+ \label{eq:mobius-doubling-odd}
+\end{equation}
+The identity includes nonsquarefree $a$: in that case both sides vanish.
+\end{theorem}
+
+\begin{proof}
+If $a$ is squarefree, then $\gcd(2,a)=1$ because $a$ is odd.  Multiplicativity
+of the M\"obius function and $\mu(2)=-1$ give
+\[
+ \mu(2a)=\mu(2)\mu(a)=-\mu(a).
+\]
+If $a$ is not squarefree, some prime square divides $a$, hence the same prime
+square divides $2a$.  Therefore $\mu(a)=\mu(2a)=0$.
+\end{proof}
+
+Taking $a=2k+1$ gives the exact middle-slot identity
+\begin{equation}
+ \boxed{
+ \mu(4k+2)
+ =\mu\bigl(2(2k+1)\bigr)
+ =-\mu(2k+1).
+ }
+ \label{eq:four-k-plus-two-flip}
+\end{equation}
+Also,
+\begin{equation}
+ \boxed{\mu(4k+4)=0,}
+ \label{eq:fourth-slot-zero}
+\end{equation}
+because $4\mid4k+4$.
+
+\begin{definition}[Complete four-slot cell]
+\label{def:complete-four-slot-cell}
+For $k\ge0$, define
+\begin{equation}
+ \mathbf C_k
+ :=\bigl(
+    \mu(4k+1),
+    \mu(4k+2),
+    \mu(4k+3),
+    \mu(4k+4)
+   \bigr).
+ \label{eq:four-slot-cell-raw}
+\end{equation}
+Its scalar compression is
+\begin{equation}
+ C_k:=\sum_{j=1}^{4}\mu(4k+j).
+ \label{eq:compressed-cell-definition}
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Exact cell compression]
+\label{thm:exact-cell-compression}
+Every complete four-slot cell has the exact form
+\begin{equation}
+ \boxed{
+ \mathbf C_k
+ =\bigl(
+   \mu(4k+1),
+   -\mu(2k+1),
+   \mu(4k+3),
+   0
+  \bigr).
+ }
+ \label{eq:four-slot-cell-exact}
+\end{equation}
+Consequently,
+\begin{equation}
+ \boxed{
+ C_k
+ =\mu(4k+1)-\mu(2k+1)+\mu(4k+3).
+ }
+ \label{eq:compressed-cell-exact}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Substitute \cref{eq:four-k-plus-two-flip,eq:fourth-slot-zero} into
+\cref{eq:four-slot-cell-raw,eq:compressed-cell-definition}.
+\end{proof}
+
+The sign pattern $(+,-,+,0)$ is therefore not an expected local pattern and
+not a consequence of averaging.  It is an exact algebraic identity in every
+complete cell.  In particular,
+\begin{equation}
+ \boxed{
+ p=2\text{ creates the permanent }(+,-,+,0)\text{ cell}.
+ }
+ \label{eq:p2-creates-cell}
+\end{equation}
+The coherent common component of an odd source and its double has already
+cancelled before the packet norm is formed:
+\begin{equation}
+ \mu(a)\phi_a+\mu(2a)\phi_{2a}
+ =\mu(a)\bigl(\phi_a-\phi_{2a}\bigr).
+ \label{eq:doubling-column-difference}
+\end{equation}
+Thus the analytic problem concerns the difference of two fixed incidence
+columns, not two unrestricted full columns.
+
+\subsubsection{Prime $3$ acts on the already-compressed cell}
+
+The three active entries in the $k$th cell are $4k+1$, $4k+2$, and $4k+3$.
+Since $4\equiv1\pmod3$,
+\begin{equation}
+ 4k+j\equiv k+j\pmod3.
+ \label{eq:p3-cell-residues}
+\end{equation}
+The three active slots therefore occupy all three residue classes modulo $3$.
+
+\begin{theorem}[Universal prime-$3$ activation]
+\label{thm:universal-prime-three-activation}
+Every complete four-slot cell contains exactly one active entry divisible by
+$3$.  The affected slot cycles deterministically:
+\begin{equation}
+\begin{array}{c|c}
+ k\bmod3 & \text{active multiple of }3\\
+ \hline
+ 0 & 4k+3\\
+ 1 & 4k+2\\
+ 2 & 4k+1
+\end{array}
+\label{eq:p3-slot-cycle}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The residues of the three active entries are $k+1,k+2,k$ modulo $3$, which
+are pairwise distinct and exhaust $\mathbb Z/3\mathbb Z$.  Reading off the
+zero residue for each value of $k\bmod3$ gives \cref{eq:p3-slot-cycle}.
+\end{proof}
+
+Accordingly,
+\begin{equation}
+ \boxed{
+ p=3\text{ necessarily acts on exactly one of the three active channels}.
+ }
+ \label{eq:p3-disrupts-cell}
+\end{equation}
+The correct order of operations is therefore
+\[
+ \text{raw M\"obius values}
+ \xrightarrow{\ p=2\ }
+ \text{exact }(+,-,+,0)\text{ cells}
+ \xrightarrow{\ p=3\ }
+ \text{one compulsory channel disruption per cell}.
+\]
+The prime-$3$ Fourier factor discussed below acts on this exact compressed
+cell; it is not an independent heuristic mask placed directly on the raw
+integer sequence.
+
+\subsubsection{Exact packet compression and boundary cost}
+
+For an integer interval $(A,B]$, let
+\begin{equation}
+ \mathcal K(A,B)
+ :=\left\{k\ge0:
+       A<4k+1\ \text{ and }\ 4k+4\le B
+   \right\}
+ \label{eq:complete-cell-index-set}
+\end{equation}
+be the complete cells contained in the interval.  The interval is the disjoint
+union of these complete cells and at most two terminal fragments.
+
+\begin{proposition}[Complete-cell packet identity]
+\label{prop:complete-cell-packet-identity}
+For every finite cell-index interval $I$,
+\begin{equation}
+ \boxed{
+ \sum_{n\in4I+\{1,2,3,4\}}\mu(n)
+ =\sum_{k\in I}C_k.
+ }
+ \label{eq:complete-cell-interval-identity}
+\end{equation}
+More generally,
+\begin{equation}
+ \sum_{A<n\le B}\mu(n)
+ =\sum_{k\in\mathcal K(A,B)}C_k+E(A,B),
+ \label{eq:arbitrary-packet-compression}
+\end{equation}
+where $E(A,B)$ is supported only on the two terminal fragments.  For arbitrary
+integer endpoints, $E(A,B)$ contains at most six M\"obius values and therefore
+\begin{equation}
+ |E(A,B)|\le6.
+ \label{eq:universal-boundary-six}
+\end{equation}
+\end{proposition}
+
+For the half-square packet grid used in this paper,
+\[
+ X_m=\left\lfloor\frac{m^2}{2}\right\rfloor
+ \equiv0\text{ or }2\pmod4.
+\]
+If an endpoint is $2$ modulo $4$, one of the two adjacent boundary integers is
+a multiple of $4$ and has M\"obius value zero.  Hence the sharper packet bound
+is available.
+
+\begin{theorem}[Half-square packet compression]
+\label{thm:half-square-packet-compression}
+For
+\[
+ \mathcal B_{u,M}=(X_u,X_{u+M}],
+ \qquad
+ S_{u,M}=\sum_{X_u<n\le X_{u+M}}\mu(n),
+\]
+one has
+\begin{equation}
+ \boxed{
+ S_{u,M}
+ =
+ \sum_{k=\lceil X_u/4\rceil}^{\lfloor X_{u+M}/4\rfloor-1}
+ \left[
+  \mu(4k+1)-\mu(2k+1)+\mu(4k+3)
+ \right]
+ +E_{u,M},
+ }
+ \label{eq:half-square-compressed-packet}
+\end{equation}
+where $E_{u,M}$ contains at most three nonzero M\"obius values.  In particular,
+\begin{equation}
+ \boxed{|E_{u,M}|\le3.}
+ \label{eq:half-square-boundary-three}
+\end{equation}
+Consequently,
+\begin{equation}
+ \boxed{
+ \sum_{u=M}^{2M-1}|E_{u,M}|^2\le9M.
+ }
+ \label{eq:boundary-energy-nine-M}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The complete cells contained in $(X_u,X_{u+M}]$ give the displayed compressed
+sum by \cref{thm:exact-cell-compression}.  Each endpoint is $0$ or $2$ modulo
+$4$.  Endpoint class $0$ produces no fragment.  Endpoint class $2$ produces a
+fragment of two integers, but at the left endpoint one is the terminal
+multiple of $4$ and hence has M\"obius value zero.  Across both ends there are
+at most three nonzero terms.  The energy estimate follows by summing the
+pointwise bound $|E_{u,M}|^2\le9$ over exactly $M$ starting indices.
+\end{proof}
+
+Define the exact compressed packet
+\begin{equation}
+ \widetilde S_{u,M}
+ :=
+ \sum_{k=\lceil X_u/4\rceil}^{\lfloor X_{u+M}/4\rfloor-1}
+ \left[
+  \mu(4k+1)-\mu(2k+1)+\mu(4k+3)
+ \right].
+ \label{eq:compressed-packet-definition}
+\end{equation}
+Then $S_{u,M}=\widetilde S_{u,M}+E_{u,M}$ with boundary energy $O(M)$.
+The raw and compressed variance criteria are therefore equivalent at the
+$M^{3+\varepsilon}$ scale.  Indeed, applying
+$|x+y|^2\le2|x|^2+2|y|^2$ in both directions gives
+\begin{equation}
+ \sum_{u=M}^{2M-1}|S_{u,M}|^2
+ \asymp_{\mathrm{target}}
+ \sum_{u=M}^{2M-1}|\widetilde S_{u,M}|^2,
+ \label{eq:raw-compressed-energy-equivalence}
+\end{equation}
+where the discrepancy is bounded using \cref{eq:boundary-energy-nine-M}.
+
+The principal packet problem should therefore be stated in its algebraically
+compressed form:
+\begin{equation}
+ \boxed{
+ \sum_{u=M}^{2M-1}
+ \left|
+ \sum_{k=\lceil X_u/4\rceil}^{\lfloor X_{u+M}/4\rfloor-1}
+ \left[
+  \mu(4k+1)-\mu(2k+1)+\mu(4k+3)
+ \right]
+ \right|^2
+ \ll_{\varepsilon}M^{3+\varepsilon}.
+ }
+ \label{eq:compressed-master-variance}
+\end{equation}
+Thus the open frame estimate acts on an already compressed signed process.
+It does not begin with raw independent M\"obius columns.
+
+\begin{conjecture}[Compressed actual-start signed-frame contraction]
+\label{conj:compressed-actual-start-frame}
+For every $\varepsilon>0$ there exist $\eta>0$, $0<\rho<1$, and
+$C_{\varepsilon}<\infty$, independent of $M$, such that the fixed actual-start
+compressed packet state satisfies
+\begin{equation}
+ \mathcal E_{\mathrm{comp}}(M)
+ \le
+ \rho\,\mathcal E_{\mathrm{parent,comp}}(M)
+ +C_{\varepsilon}M^{3-\eta+\varepsilon},
+ \label{eq:compressed-frame-recursion}
+\end{equation}
+where the parent energy is assembled only from strictly smaller numerical
+scales and all actual starts, cross-cell terms, Fejer weights, and completion
+terms are retained in the same signed quadratic form.
+\end{conjecture}
+
+By the uniform closure theorem, \cref{conj:compressed-actual-start-frame}
+would imply a finite $M$-independent bound after cubic normalization.  The
+structural dependency is now explicit:
+\begin{equation}
+ \boxed{
+ \mu(2a)=-\mu(a)
+ \Longrightarrow
+ (+,-,+,0)\text{ exact cells}
+ \Longrightarrow
+ p=3\text{ universal disruption}
+ \Longrightarrow
+ 2ab\text{ displacement/lifetime control}
+ \Longrightarrow
+ \text{compressed signed-frame problem}.
+ }
+ \label{eq:structural-dependency-chain}
+\end{equation}
