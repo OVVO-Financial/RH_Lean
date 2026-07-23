@@ -95,6 +95,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#28** — Proved exact `2ab` finite differences, linear common-shift displacement, monotonicity, and vertical-window lifetime criteria.
 - [x] **#29** — Proved exact reduced square-class phase support modulo `40`, with eligible prime phases confined to the class-`1` and class-`9` modes.
 - [x] **#30** — Proved the exact height-shell Gram identity with every off-diagonal real inner product retained and the full signed shell sum kept inside the norm.
+- [x] **#31** — Defined the true orthogonal coefficient and residual, proved exact orthogonality and Pythagorean energy decomposition, and kept theorem-predicted subtraction separate.
 
 ## 5. Theorem-layer completion checklist
 
@@ -114,8 +115,8 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 ### Phase III — exact signed Hilbert/Gram machinery
 
 - [x] **8. Height-shell Gram identity** — PR #30.
-- [ ] **9. Orthogonal residual** — next dependency.
-- [ ] **10. Scale-dependent resonant projection skeleton**.
+- [x] **9. Orthogonal residual** — PR #31.
+- [ ] **10. Scale-dependent resonant projection skeleton** — next dependency.
 - [ ] **11. Explicit resonant/nonresonant leakage operator**.
 - [ ] **12. Abstract weighted affine Lyapunov closure**.
 
@@ -132,27 +133,25 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ## 6. Current checkpoint
 
-PR #30, **Formalize exact height-shell Gram identity**, completes Phase III item 8.
+PR #31, **Formalize orthogonal residual**, completes Phase III item 9.
 
-- Principal new module: `RHLean.Analysis.HeightShellGram`.
-- Central statements: the first `n` ordered shell components are recombined as one vector; the diagonal energy is the sum of individual squared norms; the off-diagonal Gram term enumerates every pair `i < j < n` exactly once; and
+- Principal new module: `RHLean.Analysis.OrthogonalResidual`.
+- Central statements: for a nonzero prediction vector `P`, the true coefficient is `inner 𝕜 P B / inner 𝕜 P P`; subtracting that rank-one component produces a residual orthogonal to `P` in both inner-product orientations; the residual and projection component recombine exactly to `B`; and
 
   ```text
-  ‖∑_{i<n} S_i‖²
-  = ∑_{i<n} ‖S_i‖²
-    + 2 * ∑_{j<n} ∑_{i<j} re⟪S_i,S_j⟫.
+  ‖B‖² = ‖E_orth‖² + ‖beta_orth • P‖².
   ```
 
-- Protected invariants: the theorem is valid over real or complex inner-product spaces; the full signed shell sum remains inside the norm; every off-diagonal real inner product is retained and may have either sign.
-- Deliberate exclusions: no shellwise positivity, independent shell-smallness estimate, orthogonal projection, Pythagorean residual theorem, leakage estimate, contraction claim, numerical certificate, or RH premise is added.
+- Protected invariants: mathlib's second-argument linearity is respected over both real and complex scalar fields; theorem-predicted subtraction and its residual are separate definitions; no orthogonality or Pythagorean identity is inferred for a predicted coefficient without a separate equality to the true orthogonal coefficient.
+- Deliberate exclusions: no scale-dependent resonant projection, leakage operator, contraction theorem, numerical certificate, or RH bridge premise is added.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **9: orthogonal residual**.
+The next focused PR is unchecked item **10: scale-dependent resonant projection skeleton**.
 
 It must:
 
-- define the true orthogonal coefficient and residual;
-- prove exact orthogonality and the Pythagorean energy decomposition;
-- keep theorem-predicted subtraction as a separate object and infer no orthogonality for it without a coefficient-equality theorem.
+- define the denominator cutoff and modulus-`2r` resonant modes;
+- define the scale-dependent resonant and nonresonant components;
+- prove only the algebraic decomposition until orthogonality is separately established.
