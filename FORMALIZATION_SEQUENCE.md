@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports twenty-one theorem modules.
+The root library currently imports twenty-two theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -128,9 +128,17 @@ The root library currently imports twenty-one theorem modules.
 21. `RHLean.Kernel.FixedPackets`
     - fixed-packet definitions and exact packet identities used by the later kernel and Gram layers.
 
+### Exact signed Hilbert/Gram machinery
+
+22. `RHLean.Analysis.HeightShellGram`
+    - ordered finite height-shell sums over `0 ≤ i < n`;
+    - exact diagonal shell energy;
+    - explicit off-diagonal Gram enumeration `∑_{j<n} ∑_{i<j} re⟪S_i,S_j⟫`;
+    - exact identity keeping the full signed shell sum inside the norm.
+
 ## 2. Current checkpoint
 
-Phase I and Phase II are complete. Phase II items 5, 6, and 7 are completed by PRs #27, #28, and #29.
+Phase I and Phase II are complete. Phase III item 8, the exact height-shell Gram identity, is completed by PR #30.
 
 The library now contains:
 
@@ -142,13 +150,20 @@ The library now contains:
 - the normalized `(a,r)=(1,3)` factor and its norm-one theorem;
 - a dedicated rational cell-mask module with exact mean `1/3` and squared mean-mode energy `1/9`;
 - exact `2ab` finite-difference geometry, including the linear common-shift displacement `h(q-c)` and exact vertical-window lifetime criterion;
-- exact reduced square-class phase support modulo `40`: every eligible prime phase at `r = 20` is one of the class-`1` or class-`9` modes.
+- exact reduced square-class phase support modulo `40`: every eligible prime phase at `r = 20` is one of the class-`1` or class-`9` modes;
+- the exact height-shell energy expansion
 
-The square-class theorem is a support statement only. It does not infer reinforcement, coefficient size, multiplicity, cancellation, or dominance without a separate coefficient theorem.
+  ```text
+  ‖∑_{i<n} S_i‖²
+  = ∑_{i<n} ‖S_i‖²
+    + 2 * ∑_{j<n} ∑_{i<j} re⟪S_i,S_j⟫.
+  ```
+
+The shell sum remains inside the norm, and no off-diagonal real inner product is discarded or replaced by a shellwise positivity or independent-smallness estimate.
 
 The following remain open:
 
-- exact signed shell Gram identities and orthogonal residuals;
+- true orthogonal residual and Pythagorean decomposition;
 - scale-dependent resonant projection, leakage, and Lyapunov closure;
 - explicit number-theoretic resonant cancellation and low-height control;
 - certified finite-range verification;
@@ -185,11 +200,13 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
 
 ### Phase III — exact signed Hilbert/Gram machinery
 
-- [ ] **8. Height-shell Gram identity** — next dependency.
-  - prove the exact energy expansion with all off-diagonal real inner products retained;
-  - keep the shell sum inside the norm.
+- [x] **8. Height-shell Gram identity** — completed by PR #30.
+  - defined the ordered full shell sum, diagonal energy, and exact unordered-pair Gram sum;
+  - proved the exact energy expansion over real or complex inner-product spaces;
+  - retained every off-diagonal real inner product and kept the full signed shell sum inside the norm;
+  - introduced no shellwise positivity or independent-smallness substitute.
 
-- [ ] **9. Orthogonal residual**.
+- [ ] **9. Orthogonal residual** — next dependency.
   - define the true orthogonal coefficient and residual;
   - prove orthogonality and Pythagorean energy decomposition;
   - keep theorem-predicted subtraction as a separate object.
@@ -249,6 +266,10 @@ correct reduced Gauss factors and exact resonances
         ↓
 exact cell-mask energy, remaining geometry, and reduced square-class support
         ↓
+exact full signed height-shell Gram identity
+        ↓
+true orthogonal residual
++
 scale-dependent resonant/nonresonant decomposition
 +
 full signed shell/cofactor/mode Gram identity
