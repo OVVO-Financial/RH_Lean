@@ -4,7 +4,7 @@ This file is the mandatory closeout record for every pull request in `RH_Lean`.
 
 `FORMALIZATION_SEQUENCE.md` remains the single source of truth for theorem dependency order. This checklist records the exact execution process, non-negotiable proof rules, and the append-only ledger of successful PRs.
 
-A theorem PR is not complete unless this file is updated on the same branch. Because the new ledger entry reaches `main` only when that PR is merged, every entry visible on `main` records a successful PR.
+A PR is not complete unless this file is updated on the same branch. Because the new ledger entry reaches `main` only when that PR is merged, every entry visible on `main` records a successful PR.
 
 ## 1. Non-negotiable proof rules
 
@@ -49,7 +49,7 @@ Each PR description and checklist update must identify:
 - PR number and title;
 - theorem layer or documentation layer completed;
 - principal new modules or files;
-- central proved statements;
+- central changes and proved statements;
 - invariants protected;
 - CI command and final result;
 - next dependency in `FORMALIZATION_SEQUENCE.md`.
@@ -84,7 +84,7 @@ This ledger is append-only. An entry visible on `main` means that PR reached `ma
 | #22 | Proved the exact shift-by-`r` complex sign law. |
 | #23 | Defined the reduced quadratic Gauss factor over `(ZMod (2 * r))ˣ` and its totient normalization. |
 | #24 | Proved exact small-modulus resonance at moduli `6` and `24`, including the normalized `(a,r)=(1,3)` factor and its norm-one theorem. |
-| Checklist policy PR | Establishes this mandatory closeout checklist and refreshes the canonical sequence after Phase I. |
+| #25 | Establishes this mandatory closeout checklist and refreshes the canonical sequence after Phase I. |
 
 ## 5. Current checkpoint
 
