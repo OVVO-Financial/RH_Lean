@@ -95,7 +95,7 @@ theorem energy_sum_heightShells
         heightShellOffDiagonalGram_succ]
       have hcross :=
         shellReInner_heightShellSum_left (𝕜 := 𝕜) shell n n
-      unfold shellReInner at hcross
+      unfold shellReInner at hcross ⊢
       rw [hcross]
       ring
 
