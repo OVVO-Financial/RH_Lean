@@ -5,15 +5,14 @@ namespace RHLean.QuadraticPrimePhase
 
 /-- The quadratic phase attached to a unit modulo the corrected modulus `2 * r`.
 
-The unit is evaluated through its canonical `ZMod` representative. Positivity of
-`r` supplies the finite `ZMod (2 * r)` instance used by the later unit-group sum.
+The unit is evaluated through its canonical `ZMod` representative. The nonzero
+modulus instance is explicit because extracting the canonical representative of
+`ZMod (2 * r)` requires it.
 -/
 noncomputable def quadraticUnitPhase
-    (a : ℤ) (r : ℕ) (hr : 0 < r)
-    (u : (ZMod (2 * r))ˣ) : ℂ := by
-  letI : NeZero (2 * r) :=
-    ⟨Nat.mul_ne_zero (by norm_num) (Nat.ne_of_gt hr)⟩
-  exact quadraticPhase a (r : ℤ) (u.val.val : ℤ)
+    (a : ℤ) (r : ℕ) [NeZero (2 * r)]
+    (u : (ZMod (2 * r))ˣ) : ℂ :=
+  quadraticPhase a (r : ℤ) (u.val.val : ℤ)
 
 /-- The corrected reduced quadratic Gauss sum.
 
@@ -24,7 +23,7 @@ noncomputable def reducedQuadraticGauss
     (a : ℤ) (r : ℕ) (hr : 0 < r) : ℂ := by
   letI : NeZero (2 * r) :=
     ⟨Nat.mul_ne_zero (by norm_num) (Nat.ne_of_gt hr)⟩
-  exact ∑ u : (ZMod (2 * r))ˣ, quadraticUnitPhase a r hr u
+  exact ∑ u : (ZMod (2 * r))ˣ, quadraticUnitPhase a r u
 
 /-- The reduced quadratic Gauss factor normalized by `φ(2 * r)`.
 
