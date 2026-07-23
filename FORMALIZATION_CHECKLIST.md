@@ -93,6 +93,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#26** — Added explicit `[x]`/`[ ]` completion markers to the checklist and canonical roadmap.
 - [x] **#27** — Proved the exact rational prime-3 cell-mask mean `1/3` and squared mean-mode energy `1/9` in a dedicated namespace.
 - [x] **#28** — Proved exact `2ab` finite differences, linear common-shift displacement, monotonicity, and vertical-window lifetime criteria.
+- [x] **#29** — Proved exact reduced square-class phase support modulo `40`, with eligible prime phases confined to the class-`1` and class-`9` modes.
 
 ## 5. Theorem-layer completion checklist
 
@@ -107,11 +108,11 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 - [x] **5. Prime-3 cell-mask mean energy** — PR #27.
 - [x] **6. `2ab` displacement and lifetime geometry** — PR #28.
-- [ ] **7. Reduced square-class phase support modulo `40`** — next dependency.
+- [x] **7. Reduced square-class phase support modulo `40`** — PR #29.
 
 ### Phase III — exact signed Hilbert/Gram machinery
 
-- [ ] **8. Height-shell Gram identity**.
+- [ ] **8. Height-shell Gram identity** — next dependency.
 - [ ] **9. Orthogonal residual**.
 - [ ] **10. Scale-dependent resonant projection skeleton**.
 - [ ] **11. Explicit resonant/nonresonant leakage operator**.
@@ -130,20 +131,20 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ## 6. Current checkpoint
 
-PR #28, **Formalize `2ab` displacement and lifetime geometry**, completes Phase II item 6.
+PR #29, **Formalize reduced square-class phase support modulo `40`**, completes Phase II item 7 and therefore completes Phase II.
 
-- Principal new module: `RHLean.Geometry.TwoABDisplacement`.
-- Central statements: `squareMapY` is exactly the Fermat-coordinate `2ab`; midpoint and half-gap scans have displacements `2bh` and `2ah`; independent factor scans have exact quadratic finite differences; a common factor shift has exact linear displacement `h(q-c)`; parity-preserving scans, monotonicity, and vertical-window lifetime/exit criteria follow exactly.
-- Protected invariants: all sign and positivity hypotheses are explicit; the layer is exact algebraic geometry and introduces no asymptotic estimate, numerical certificate, or phase/cell-mask coercion.
-- Deliberate exclusions: no reduced square-class phase theorem, shell Gram identity, leakage estimate, contraction claim, or RH premise is added.
+- Principal new module: `RHLean.Analysis.ReducedSquareClassMod40`.
+- Central statements: the reusable reduced square-class predicate contains exactly `1` and `9`; every eligible prime has one of those square residues modulo `40`; reducing the square numerator modulo `40` preserves the additive character; the canonical quadratic phase at `r = 20` equals one of the two exact class modes.
+- Protected invariants: modulus `40 = 2 * 20` remains explicit; the result is an exact support statement only; no coefficient, multiplicity, cancellation, dominance, or reinforcement theorem is inferred.
+- Deliberate exclusions: no height-shell Gram expansion, projection, leakage estimate, contraction claim, numerical certificate, or RH premise is added.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **7: reduced square-class phase support modulo `40`**.
+The next focused PR is unchecked item **8: height-shell Gram identity**.
 
 It must:
 
-- factor the merged prime-square dichotomy into a reusable reduced-square-class API;
-- prove the corresponding phase expression has at most two exact square-class modes;
-- avoid inferring reinforcement without a coefficient theorem.
+- prove the exact energy expansion with all off-diagonal real inner products retained;
+- keep the full signed shell sum inside the norm;
+- introduce no shellwise positivity or independent-smallness substitute.
