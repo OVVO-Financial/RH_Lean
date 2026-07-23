@@ -10,6 +10,7 @@ import RHLean.Arithmetic.MoebiusDoubling
 import RHLean.Arithmetic.PrimeSquareMod24
 import RHLean.Arithmetic.PrimeSquareMod40
 import RHLean.Arithmetic.PrimeThreeActivation
+import RHLean.CellMask.PrimeThreeMeanEnergy
 import RHLean.Geometry.CofactorParabolas
 import RHLean.Geometry.ComplexSquareFiber
 import RHLean.Geometry.ComplexSquareRecovery
