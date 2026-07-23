@@ -83,7 +83,8 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#22** — Proved the exact shift-by-`r` complex sign law.
 - [x] **#23** — Defined the reduced quadratic Gauss factor over `(ZMod (2 * r))ˣ` and its totient normalization.
 - [x] **#24** — Proved exact small-modulus resonance at moduli `6` and `24`, including the normalized `(a,r)=(1,3)` factor and its norm-one theorem.
-- [x] **#25** — Established this mandatory closeout checklist, explicit completion markers, and the refreshed Phase I checkpoint.
+- [x] **#25** — Established the mandatory closeout checklist and refreshed the Phase I checkpoint.
+- [x] **#26** — Added explicit `[x]`/`[ ]` completion markers to the checklist and canonical roadmap.
 
 ## 5. Theorem-layer completion checklist
 
