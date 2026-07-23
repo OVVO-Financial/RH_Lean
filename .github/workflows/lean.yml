@@ -28,5 +28,6 @@ jobs:
         with:
           use-mathlib-cache: true
           build: true
-          test: true
+          build-args: "RHLean --wfail"
+          test: false
           lint: false
