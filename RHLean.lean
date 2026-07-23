@@ -7,6 +7,7 @@ import RHLean.Analysis.QuadraticPhaseShiftSign
 import RHLean.Analysis.QuadraticShiftDichotomy
 import RHLean.Analysis.ReducedQuadraticGauss
 import RHLean.Analysis.ReducedSquareClassMod40
+import RHLean.Analysis.ResonantLeakage
 import RHLean.Analysis.ResonantProjection
 import RHLean.Analysis.SmallModulusResonance
 import RHLean.Arithmetic.FourSlotCell
