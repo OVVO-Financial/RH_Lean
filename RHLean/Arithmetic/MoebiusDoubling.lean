@@ -1,4 +1,4 @@
-import Mathlib.NumberTheory.ArithmeticFunction.Moebius
+import Mathlib
 
 open scoped ArithmeticFunction.Moebius
 
