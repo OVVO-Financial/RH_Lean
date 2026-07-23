@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports eighteen theorem modules.
+The root library currently imports nineteen theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -38,27 +38,34 @@ The root library currently imports eighteen theorem modules.
    - the sixteen unit residue classes modulo `40`;
    - prime-square dichotomy `q^2 ≡ 1` or `9 (mod 40)` for primes other than `2` and `5`.
 
+### Cell-mask exact energy
+
+6. `RHLean.CellMask.PrimeThreeMeanEnergy`
+   - rational divisibility indicators for the three active cell channels;
+   - exact indicator sum equal to `1` in every complete cell;
+   - exact rational mean `1/3` and squared mean-mode energy `1/9`.
+
 ### Corrected modulus-`2r` phase architecture
 
-6. `RHLean.Analysis.QuadraticPhasePeriod`
+7. `RHLean.Analysis.QuadraticPhasePeriod`
    - exact difference-of-squares factorization;
    - preservation of quadratic numerators modulo `2r`;
    - explicit shift-by-`r` and shift-by-`2r` identities.
 
-7. `RHLean.Analysis.QuadraticExponentCongruence`
+8. `RHLean.Analysis.QuadraticExponentCongruence`
    - exact quadratic exponent congruence relation modulo `2r`;
    - reflexivity, symmetry, transitivity, input-congruence compatibility, and `2r` periodicity.
 
-8. `RHLean.Analysis.QuadraticShiftDichotomy`
+9. `RHLean.Analysis.QuadraticShiftDichotomy`
    - if `a*r` is even, shifting by `r` preserves the exponent class;
    - if `a*r` is odd, shifting by `r` moves the exponent by exactly half the modulus.
 
-9. `RHLean.Analysis.ComplexQuadraticPhase`
-   - complex additive character with integer numerator and modulus;
-   - corrected quadratic phase using modulus `2r`;
-   - exact congruence invariance and `2r` periodicity.
+10. `RHLean.Analysis.ComplexQuadraticPhase`
+    - complex additive character with integer numerator and modulus;
+    - corrected quadratic phase using modulus `2r`;
+    - exact congruence invariance and `2r` periodicity.
 
-10. `RHLean.Analysis.QuadraticPhaseShiftSign`
+11. `RHLean.Analysis.QuadraticPhaseShiftSign`
     - exact half-turn exponential identity;
     - exact sign law
 
@@ -66,12 +73,12 @@ The root library currently imports eighteen theorem modules.
     phase(a,r,u+r) = (-1)^(a*r) * phase(a,r,u).
     ```
 
-11. `RHLean.Analysis.ReducedQuadraticGauss`
+12. `RHLean.Analysis.ReducedQuadraticGauss`
     - unit-level phase over `(ZMod (2*r))ˣ`;
     - corrected reduced Gauss sum;
     - normalization by `Nat.totient (2*r)`.
 
-12. `RHLean.Analysis.SmallModulusResonance`
+13. `RHLean.Analysis.SmallModulusResonance`
     - exact unit-square identities modulo `6` and `24`;
     - coherent reduced sums at those moduli;
     - exact normalized value at `(a,r)=(1,3)`;
@@ -79,39 +86,39 @@ The root library currently imports eighteen theorem modules.
 
 ### Factor geometry
 
-13. `RHLean.Geometry.FermatCoordinates`
+14. `RHLean.Geometry.FermatCoordinates`
     - midpoint and signed half-gap coordinates;
     - exact recovery of both factors;
     - real and imaginary coordinates after squaring;
     - squared-radius identity.
 
-14. `RHLean.Geometry.ComplexSquareRecovery`
+15. `RHLean.Geometry.ComplexSquareRecovery`
     - exact complex Fermat point;
     - squared image equals product/imbalance coordinates;
     - exact recovery of both factor squares without sign choices.
 
-15. `RHLean.Geometry.CofactorParabolas`
+16. `RHLean.Geometry.CofactorParabolas`
     - exact lower-factor and upper-factor parabolas;
     - simultaneous membership of each squared factor pair in both cofactor curves.
 
-16. `RHLean.Geometry.SquareMapConformality`
+17. `RHLean.Geometry.SquareMapConformality`
     - exact Jacobian action of complex squaring;
     - common norm and inner-product scale `4 * (a^2 + b^2)`;
     - orthogonality preservation and determinant identity.
 
-17. `RHLean.Geometry.ComplexSquareFiber`
+18. `RHLean.Geometry.ComplexSquareFiber`
     - exact fiber theorem `z^2 = w^2 ↔ z = w ∨ z = -w`;
     - injectivity on the positive-real branch;
     - injectivity of Fermat coordinates and positive-midpoint squared images.
 
 ### Kernel foundations
 
-18. `RHLean.Kernel.FixedPackets`
+19. `RHLean.Kernel.FixedPackets`
     - fixed-packet definitions and exact packet identities used by the later kernel and Gram layers.
 
 ## 2. Current checkpoint
 
-Phase I, the corrected complex quadratic-phase layer, is complete.
+Phase I, the corrected complex quadratic-phase layer, is complete. Phase II item 5, the prime-3 cell-mask mean energy, is completed by PR #27.
 
 The library now contains:
 
@@ -120,13 +127,13 @@ The library now contains:
 - the exact shift-by-`r` sign law;
 - the reduced unit-group Gauss sum over `(ZMod (2*r))ˣ`;
 - exact modulus-6 and modulus-24 coherence;
-- the normalized `(a,r)=(1,3)` factor and its norm-one theorem.
+- the normalized `(a,r)=(1,3)` factor and its norm-one theorem;
+- a dedicated rational cell-mask module with exact mean `1/3` and squared mean-mode energy `1/9`.
 
-The prime-3 complex phase factor remains type-separated from the rational cell-mask mean energy.
+The rational prime-3 cell-mask theorem remains type-separated from the complex prime-phase factor: no coercion or theorem path uses `1/9` as a bound on the normalized quadratic Gauss factor.
 
 The following remain open:
 
-- type-separated prime-3 cell-mask mean energy;
 - `2ab` displacement and lifetime geometry;
 - reduced square-class phase support modulo `40`;
 - exact signed shell Gram identities and orthogonal residuals;
@@ -148,12 +155,12 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
 
 ### Phase II — remaining exact combinatorial and geometry layers
 
-- [ ] **5. Prime-3 cell-mask mean energy** — next dependency.
-  - introduce a dedicated cell-mask namespace/module;
-  - prove the exact rational-valued mean-energy statement;
-  - ensure no coercion or theorem path treats `1/9` as a bound for the quadratic prime-phase factor.
+- [x] **5. Prime-3 cell-mask mean energy** — completed by PR #27.
+  - introduced the dedicated `RHLean.CellMask` namespace and module;
+  - proved the exact rational-valued mean and squared mean-mode energy;
+  - preserved strict separation from the complex quadratic prime-phase factor.
 
-- [ ] **6. `2ab` displacement and lifetime geometry**.
+- [ ] **6. `2ab` displacement and lifetime geometry** — next dependency.
   - formalize exact finite differences of the imaginary squared coordinate;
   - state scanning/lifetime identities before asymptotic inequalities;
   - keep sign and positivity assumptions explicit.
