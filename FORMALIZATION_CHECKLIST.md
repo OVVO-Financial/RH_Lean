@@ -129,7 +129,7 @@ PR #27, **Formalize prime-3 cell-mask mean energy**, completes Phase II item 5.
 - Central statements: the three rational divisibility indicators sum to `1`, the cell mean is exactly `1/3`, and the squared mean-mode energy is exactly `1/9`.
 - Protected invariants: the module imports only the arithmetic activation layer, remains entirely rational-valued, and provides no coercion or theorem path into `RHLean.QuadraticPrimePhase`.
 - Deliberate exclusions: no claim treats `1/9` as a bound on the normalized quadratic Gauss factor; no leakage, frame, asymptotic, or RH statement is added.
-- Validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`; final GitHub Actions result is recorded in the draft PR.
+- Validation: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail` both passed in GitHub Actions run #75 with no warnings.
 
 ## 7. Next dependency
 
