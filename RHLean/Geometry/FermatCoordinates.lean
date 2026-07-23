@@ -3,10 +3,10 @@ import Mathlib
 namespace RHLean.Geometry
 
 /-- Fermat midpoint coordinate. -/
-def fermatA (c q : ℝ) : ℝ := (c + q) / 2
+noncomputable def fermatA (c q : ℝ) : ℝ := (c + q) / 2
 
 /-- Fermat signed half-gap coordinate. -/
-def fermatB (c q : ℝ) : ℝ := (q - c) / 2
+noncomputable def fermatB (c q : ℝ) : ℝ := (q - c) / 2
 
 /-- The midpoint and half-gap recover the lower factor. -/
 theorem fermatA_sub_fermatB (c q : ℝ) :
