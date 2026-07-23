@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports twenty-two theorem modules.
+The root library currently imports twenty-three theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -136,9 +136,15 @@ The root library currently imports twenty-two theorem modules.
     - explicit off-diagonal Gram enumeration `∑_{j<n} ∑_{i<j} re⟪S_i,S_j⟫`;
     - exact identity keeping the full signed shell sum inside the norm.
 
+23. `RHLean.Analysis.OrthogonalResidual`
+    - true projection coefficient onto a nonzero prediction vector under mathlib's inner-product convention;
+    - exact orthogonal residual and two-sided inner-product orthogonality;
+    - exact recombination and Pythagorean energy decomposition;
+    - theorem-predicted subtraction and residual kept as separate definitions.
+
 ## 2. Current checkpoint
 
-Phase I and Phase II are complete. Phase III item 8, the exact height-shell Gram identity, is completed by PR #30.
+Phase I and Phase II are complete. Phase III item 8, the exact height-shell Gram identity, is completed by PR #30. Phase III item 9, the orthogonal residual, is completed by PR #31.
 
 The library now contains:
 
@@ -156,14 +162,22 @@ The library now contains:
   ```text
   ‖∑_{i<n} S_i‖²
   = ∑_{i<n} ‖S_i‖²
-    + 2 * ∑_{j<n} ∑_{i<j} re⟪S_i,S_j⟫.
+    + 2 * ∑_{j<n} ∑_{i<j} re⟪S_i,S_j⟫;
   ```
 
-The shell sum remains inside the norm, and no off-diagonal real inner product is discarded or replaced by a shellwise positivity or independent-smallness estimate.
+- for nonzero `P`, the exact orthogonal decomposition
+
+  ```text
+  beta_orth = ⟪P,B⟫ / ⟪P,P⟫,
+  E_orth = B - beta_orth • P,
+  ⟪P,E_orth⟫ = ⟪E_orth,P⟫ = 0,
+  ‖B‖² = ‖E_orth‖² + ‖beta_orth • P‖².
+  ```
+
+The shell sum remains inside the norm, and no off-diagonal real inner product is discarded or replaced by a shellwise positivity or independent-smallness estimate. The theorem-predicted coefficient remains separate from the true orthogonal coefficient, so no orthogonality or Pythagorean identity is available for the predicted residual without a separate coefficient-equality theorem.
 
 The following remain open:
 
-- true orthogonal residual and Pythagorean decomposition;
 - scale-dependent resonant projection, leakage, and Lyapunov closure;
 - explicit number-theoretic resonant cancellation and low-height control;
 - certified finite-range verification;
@@ -206,12 +220,13 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
   - retained every off-diagonal real inner product and kept the full signed shell sum inside the norm;
   - introduced no shellwise positivity or independent-smallness substitute.
 
-- [ ] **9. Orthogonal residual** — next dependency.
-  - define the true orthogonal coefficient and residual;
-  - prove orthogonality and Pythagorean energy decomposition;
-  - keep theorem-predicted subtraction as a separate object.
+- [x] **9. Orthogonal residual** — completed by PR #31.
+  - defined the true coefficient `⟪P,B⟫ / ⟪P,P⟫` for nonzero `P` using mathlib's second-argument linearity;
+  - defined the corresponding residual and proved orthogonality in both inner-product orientations;
+  - proved exact recombination and Pythagorean energy decomposition;
+  - defined theorem-predicted subtraction and residual separately, with equality to the orthogonal residual requiring a separate coefficient-equality hypothesis.
 
-- [ ] **10. Scale-dependent resonant projection skeleton**.
+- [ ] **10. Scale-dependent resonant projection skeleton** — next dependency.
   - define the denominator cutoff and modulus-`2r` resonant modes;
   - prove only algebraic decomposition until orthogonality is established.
 
