@@ -35,6 +35,7 @@ def prefixEnergy (s : ℕ → ℝ) (N : ℕ) : ℝ :=
 
 theorem prefixEnergy_succ (s : ℕ → ℝ) (N : ℕ) :
     prefixEnergy s (N + 1) = prefixEnergy s N + (s N) ^ 2 := by
-  simp [prefixEnergy]
+  simpa [prefixEnergy] using
+    (Finset.sum_range_succ (fun n => (s n) ^ 2) N)
 
 end RHLean.Kernel
