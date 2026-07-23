@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports twenty theorem modules.
+The root library currently imports twenty-one theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -84,47 +84,53 @@ The root library currently imports twenty theorem modules.
     - exact normalized value at `(a,r)=(1,3)`;
     - exact norm-one theorem.
 
+14. `RHLean.Analysis.ReducedSquareClassMod40`
+    - reusable reduced square-class predicate with exact classes `1` and `9`;
+    - exact reduction of the modulus-`40` quadratic numerator to its square residue;
+    - exact theorem that every eligible prime phase at `r = 20` lies in one of two complex square-class modes;
+    - no coefficient, multiplicity, cancellation, or reinforcement claim.
+
 ### Factor geometry
 
-14. `RHLean.Geometry.FermatCoordinates`
+15. `RHLean.Geometry.FermatCoordinates`
     - midpoint and signed half-gap coordinates;
     - exact recovery of both factors;
     - real and imaginary coordinates after squaring;
     - squared-radius identity.
 
-15. `RHLean.Geometry.ComplexSquareRecovery`
+16. `RHLean.Geometry.ComplexSquareRecovery`
     - exact complex Fermat point;
     - squared image equals product/imbalance coordinates;
     - exact recovery of both factor squares without sign choices.
 
-16. `RHLean.Geometry.CofactorParabolas`
+17. `RHLean.Geometry.CofactorParabolas`
     - exact lower-factor and upper-factor parabolas;
     - simultaneous membership of each squared factor pair in both cofactor curves.
 
-17. `RHLean.Geometry.TwoABDisplacement`
+18. `RHLean.Geometry.TwoABDisplacement`
     - exact identification of the imaginary squared coordinate with `2ab`;
     - exact midpoint, half-gap, upper-factor, and lower-factor finite differences;
     - exact linear common-shift displacement and parity-preserving specialization;
     - explicit monotonicity and vertical-window lifetime criteria.
 
-18. `RHLean.Geometry.SquareMapConformality`
+19. `RHLean.Geometry.SquareMapConformality`
     - exact Jacobian action of complex squaring;
     - common norm and inner-product scale `4 * (a^2 + b^2)`;
     - orthogonality preservation and determinant identity.
 
-19. `RHLean.Geometry.ComplexSquareFiber`
+20. `RHLean.Geometry.ComplexSquareFiber`
     - exact fiber theorem `z^2 = w^2 ↔ z = w ∨ z = -w`;
     - injectivity on the positive-real branch;
     - injectivity of Fermat coordinates and positive-midpoint squared images.
 
 ### Kernel foundations
 
-20. `RHLean.Kernel.FixedPackets`
+21. `RHLean.Kernel.FixedPackets`
     - fixed-packet definitions and exact packet identities used by the later kernel and Gram layers.
 
 ## 2. Current checkpoint
 
-Phase I, the corrected complex quadratic-phase layer, is complete. Phase II items 5 and 6 are completed by PRs #27 and #28.
+Phase I and Phase II are complete. Phase II items 5, 6, and 7 are completed by PRs #27, #28, and #29.
 
 The library now contains:
 
@@ -135,13 +141,13 @@ The library now contains:
 - exact modulus-6 and modulus-24 coherence;
 - the normalized `(a,r)=(1,3)` factor and its norm-one theorem;
 - a dedicated rational cell-mask module with exact mean `1/3` and squared mean-mode energy `1/9`;
-- exact `2ab` finite-difference geometry, including the linear common-shift displacement `h(q-c)` and exact vertical-window lifetime criterion.
+- exact `2ab` finite-difference geometry, including the linear common-shift displacement `h(q-c)` and exact vertical-window lifetime criterion;
+- exact reduced square-class phase support modulo `40`: every eligible prime phase at `r = 20` is one of the class-`1` or class-`9` modes.
 
-The rational prime-3 cell-mask theorem remains type-separated from the complex prime-phase factor: no coercion or theorem path uses `1/9` as a bound on the normalized quadratic Gauss factor.
+The square-class theorem is a support statement only. It does not infer reinforcement, coefficient size, multiplicity, cancellation, or dominance without a separate coefficient theorem.
 
 The following remain open:
 
-- reduced square-class phase support modulo `40`;
 - exact signed shell Gram identities and orthogonal residuals;
 - scale-dependent resonant projection, leakage, and Lyapunov closure;
 - explicit number-theoretic resonant cancellation and low-height control;
@@ -172,14 +178,14 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
   - stated parity-preserving scan, monotonicity, and lifetime/window identities before asymptotic inequalities;
   - kept all order and positivity assumptions explicit.
 
-- [ ] **7. Reduced square-class phase support modulo `40`** — next dependency.
-  - factor the merged prime-square dichotomy into a reusable reduced-square-class API;
-  - prove the corresponding phase expression has at most two exact square-class modes;
-  - do not infer reinforcement without a coefficient theorem.
+- [x] **7. Reduced square-class phase support modulo `40`** — completed by PR #29.
+  - factored the merged prime-square dichotomy into a reusable reduced-square-class API;
+  - proved the canonical phase at `r = 20` has at most the exact class-`1` and class-`9` modes for eligible primes;
+  - made no reinforcement or coefficient claim.
 
 ### Phase III — exact signed Hilbert/Gram machinery
 
-- [ ] **8. Height-shell Gram identity**.
+- [ ] **8. Height-shell Gram identity** — next dependency.
   - prove the exact energy expansion with all off-diagonal real inner products retained;
   - keep the shell sum inside the norm.
 
@@ -241,7 +247,7 @@ compiled modulus-2r exponent and complex-phase arithmetic
         ↓
 correct reduced Gauss factors and exact resonances
         ↓
-exact cell-mask energy and remaining geometry
+exact cell-mask energy, remaining geometry, and reduced square-class support
         ↓
 scale-dependent resonant/nonresonant decomposition
 +
