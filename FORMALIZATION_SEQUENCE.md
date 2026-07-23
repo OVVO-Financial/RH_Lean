@@ -137,84 +137,84 @@ The following remain open:
 
 ## 3. Formalization sequence from the current checkpoint
 
-Each item below is intended to be a small reviewable PR. Generic algebraic or functional-analytic lemmas should be proved before their number-theoretic instantiations.
+Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means merged and compiled on `main`; `[ ]` means still open.
 
-### Phase I — corrected complex quadratic-phase layer — complete
+### Phase I — corrected complex quadratic-phase layer
 
-1. **Complex quadratic phase API** — completed by PR #21.
-2. **Exact shift-by-`r` sign law** — completed by PR #22.
-3. **Corrected reduced quadratic Gauss factor** — completed by PR #23.
-4. **Exact small-modulus resonance** — completed by PR #24.
+- [x] **1. Complex quadratic phase API** — completed by PR #21.
+- [x] **2. Exact shift-by-`r` sign law** — completed by PR #22.
+- [x] **3. Corrected reduced quadratic Gauss factor** — completed by PR #23.
+- [x] **4. Exact small-modulus resonance** — completed by PR #24.
 
-### Phase II — finish the remaining exact combinatorial and geometry layers
+### Phase II — remaining exact combinatorial and geometry layers
 
-5. **Prime-3 cell-mask mean energy**
-   - introduce a dedicated cell-mask namespace/module;
-   - prove the exact rational-valued mean-energy statement;
-   - ensure no coercion or theorem path treats `1/9` as a bound for the quadratic prime-phase factor.
+- [ ] **5. Prime-3 cell-mask mean energy** — next dependency.
+  - introduce a dedicated cell-mask namespace/module;
+  - prove the exact rational-valued mean-energy statement;
+  - ensure no coercion or theorem path treats `1/9` as a bound for the quadratic prime-phase factor.
 
-6. **`2ab` displacement and lifetime geometry**
-   - formalize exact finite differences of the imaginary squared coordinate;
-   - state scanning/lifetime identities before asymptotic inequalities;
-   - keep sign and positivity assumptions explicit.
+- [ ] **6. `2ab` displacement and lifetime geometry**.
+  - formalize exact finite differences of the imaginary squared coordinate;
+  - state scanning/lifetime identities before asymptotic inequalities;
+  - keep sign and positivity assumptions explicit.
 
-7. **Reduced square-class phase support modulo `40`**
-   - factor the merged prime-square dichotomy into a reusable reduced-square-class API;
-   - prove the corresponding phase expression has at most two exact square-class modes;
-   - do not infer reinforcement without a coefficient theorem.
+- [ ] **7. Reduced square-class phase support modulo `40`**.
+  - factor the merged prime-square dichotomy into a reusable reduced-square-class API;
+  - prove the corresponding phase expression has at most two exact square-class modes;
+  - do not infer reinforcement without a coefficient theorem.
 
-### Phase III — build the exact signed Hilbert/Gram machinery
+### Phase III — exact signed Hilbert/Gram machinery
 
-8. **Height-shell Gram identity**
-   - prove the exact energy expansion with all off-diagonal real inner products retained;
-   - the shell sum remains inside the norm.
+- [ ] **8. Height-shell Gram identity**.
+  - prove the exact energy expansion with all off-diagonal real inner products retained;
+  - keep the shell sum inside the norm.
 
-9. **Orthogonal residual**
-   - define the true orthogonal coefficient and residual;
-   - prove orthogonality and Pythagorean energy decomposition;
-   - keep theorem-predicted subtraction as a separate object.
+- [ ] **9. Orthogonal residual**.
+  - define the true orthogonal coefficient and residual;
+  - prove orthogonality and Pythagorean energy decomposition;
+  - keep theorem-predicted subtraction as a separate object.
 
-10. **Scale-dependent resonant projection skeleton**
-    - define the denominator cutoff and modulus-`2r` resonant modes;
-    - prove only algebraic decomposition until orthogonality is established.
+- [ ] **10. Scale-dependent resonant projection skeleton**.
+  - define the denominator cutoff and modulus-`2r` resonant modes;
+  - prove only algebraic decomposition until orthogonality is established.
 
-11. **Explicit resonant/nonresonant leakage operator**
-    - expose the four block maps `A_M`, `B_M`, `C_M`, and `D_M`;
-    - include low-height and boundary forcing explicitly.
+- [ ] **11. Explicit resonant/nonresonant leakage operator**.
+  - expose the four block maps `A_M`, `B_M`, `C_M`, and `D_M`;
+  - include low-height and boundary forcing explicitly.
 
-12. **Abstract weighted affine Lyapunov closure**
-    - prove the generic contraction-with-forcing theorem independently of number theory;
-    - support either a full weighted block contraction or a proved triangular alternative.
+- [ ] **12. Abstract weighted affine Lyapunov closure**.
+  - prove the generic contraction-with-forcing theorem independently of number theory;
+  - support either a full weighted block contraction or a proved triangular alternative.
 
-### Phase IV — instantiate the number-theoretic closure
+### Phase IV — number-theoretic closure
 
-13. **Resonant/nonresonant decomposition of the actual residual**
-    - connect the complex quadratic phase and cofactor channels to the scale-dependent projection.
+- [ ] **13. Resonant/nonresonant decomposition of the actual residual**.
+  - connect the complex quadratic phase and cofactor channels to the scale-dependent projection.
 
-14. **Explicit resonant cancellation across Möbius-weighted cofactor channels**
-    - retain denominator-mode and cofactor interactions;
-    - do not seek shellwise positivity.
+- [ ] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels**.
+  - retain denominator-mode and cofactor interactions;
+  - do not seek shellwise positivity.
 
-15. **Low-height spacing, incidence, endpoint, and boundary estimates**
-    - prove the analytic forcing bounds required by the block recurrence.
+- [ ] **15. Low-height spacing, incidence, endpoint, and boundary estimates**.
+  - prove the analytic forcing bounds required by the block recurrence.
 
-16. **Joint Gram control**
-    - index simultaneously by height shell, cofactor block, and denominator mode;
-    - retain cross-shell, cross-cofactor, resonant/nonresonant, and mode interactions.
+- [ ] **16. Joint Gram control**.
+  - index simultaneously by height shell, cofactor block, and denominator mode;
+  - retain cross-shell, cross-cofactor, resonant/nonresonant, and mode interactions.
 
-17. **Certified finite-range certificate checker**
-    - prove the checker correct in Lean;
-    - import numerical runs only as checked data with checksums and code-version metadata.
+- [ ] **17. Certified finite-range certificate checker**.
+  - prove the checker correct in Lean;
+  - import numerical runs only as checked data with checksums and code-version metadata.
 
-18. **Uniform full residual bound**
-    - instantiate the weighted affine closure with all analytic obligations discharged.
+- [ ] **18. Uniform full residual bound**.
+  - instantiate the weighted affine closure with all analytic obligations discharged.
 
-19. **Actual-start signed-frame theorem**
-    - derive the theorem from the unconditional residual bound and exact starting configuration.
+- [ ] **19. Actual-start signed-frame theorem**.
+  - derive the theorem from the unconditional residual bound and exact starting configuration.
 
-20. **RH bridge**
-    - add only after every unconditional obligation above has been formally proved;
-    - no equivalent form of RH may enter earlier as a premise.
+- [ ] **20. RH bridge**.
+  - add only after every unconditional obligation above has been formally proved;
+  - no equivalent form of RH may enter earlier as a premise.
 
 ## 4. Dependency spine
 
@@ -252,7 +252,9 @@ This file is the single source of truth for implementation order.
 
 Whenever a theorem layer is merged, the same PR must:
 
-- move that layer into the compiled inventory;
+- change that item from `[ ]` to `[x]`;
+- record the completing PR number;
+- move the corresponding module into the compiled inventory;
 - revise the current checkpoint;
-- identify the next dependency;
-- update `FORMALIZATION_CHECKLIST.md` with its successful PR ledger entry and closeout record.
+- identify the next unchecked dependency;
+- update `FORMALIZATION_CHECKLIST.md` with the same explicit status and successful PR ledger entry.
