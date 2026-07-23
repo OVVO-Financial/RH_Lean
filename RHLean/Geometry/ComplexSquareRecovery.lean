@@ -18,7 +18,8 @@ theorem fermatPoint_sq_im (c q : ℝ) :
   calc
     fermatA c q * fermatB c q + fermatB c q * fermatA c q =
         2 * fermatA c q * fermatB c q := by ring
-    _ = (q ^ 2 - c ^ 2) / 2 := square_imaginary_coordinate c q
+    _ = (q ^ 2 - c ^ 2) / 2 := by
+      simpa [pow_two] using square_imaginary_coordinate c q
 
 /-- The squared point is exactly the product/imbalance coordinate pair. -/
 theorem fermatPoint_sq (c q : ℝ) :
