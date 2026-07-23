@@ -96,6 +96,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#29** — Proved exact reduced square-class phase support modulo `40`, with eligible prime phases confined to the class-`1` and class-`9` modes.
 - [x] **#30** — Proved the exact height-shell Gram identity with every off-diagonal real inner product retained and the full signed shell sum kept inside the norm.
 - [x] **#31** — Defined the true orthogonal coefficient and residual, proved exact orthogonality and Pythagorean energy decomposition, and kept theorem-predicted subtraction separate.
+- [x] **#32** — Defined the scale-dependent cutoff and canonical modulus-`2r` resonant modes, exposed the resonant span and extraction skeleton, and proved only exact algebraic recombination.
 
 ## 5. Theorem-layer completion checklist
 
@@ -116,8 +117,8 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 - [x] **8. Height-shell Gram identity** — PR #30.
 - [x] **9. Orthogonal residual** — PR #31.
-- [ ] **10. Scale-dependent resonant projection skeleton** — next dependency.
-- [ ] **11. Explicit resonant/nonresonant leakage operator**.
+- [x] **10. Scale-dependent resonant projection skeleton** — PR #32.
+- [ ] **11. Explicit resonant/nonresonant leakage operator** — next dependency.
 - [ ] **12. Abstract weighted affine Lyapunov closure**.
 
 ### Phase IV — number-theoretic closure
@@ -133,25 +134,26 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ## 6. Current checkpoint
 
-PR #31, **Formalize orthogonal residual**, completes Phase III item 9.
+PR #32, **Formalize scale-dependent resonant projection skeleton**, completes Phase III item 10.
 
-- Principal new module: `RHLean.Analysis.OrthogonalResidual`.
-- Central statements: for a nonzero prediction vector `P`, the true coefficient is `inner 𝕜 P B / inner 𝕜 P P`; subtracting that rank-one component produces a residual orthogonal to `P` in both inner-product orientations; the residual and projection component recombine exactly to `B`; and
+- Principal new module: `RHLean.Analysis.ResonantProjection`.
+- Central statements: a scale-`M` resonant mode carries an integer numerator and a positive denominator `r ≤ R0(M)`; its exact quadratic phase has canonical period `2r`; a resonant projection skeleton declares the mode vectors, their span, and a scale-dependent linear extraction whose output lies in that span; and
 
   ```text
-  ‖B‖² = ‖E_orth‖² + ‖beta_orth • P‖².
+  x_res(M) + x_non(M) = x,
+  x_non(M) = x - x_res(M).
   ```
 
-- Protected invariants: mathlib's second-argument linearity is respected over both real and complex scalar fields; theorem-predicted subtraction and its residual are separate definitions; no orthogonality or Pythagorean identity is inferred for a predicted coefficient without a separate equality to the true orthogonal coefficient.
-- Deliberate exclusions: no scale-dependent resonant projection, leakage operator, contraction theorem, numerical certificate, or RH bridge premise is added.
+- Protected invariants: the quadratic phase remains at modulus `2r`; the extraction is not assumed idempotent, self-adjoint, or orthogonal; no Pythagorean identity or norm splitting is inferred from the algebraic decomposition.
+- Deliberate exclusions: no leakage block maps, low-height or boundary forcing, contraction estimate, numerical certificate, or RH bridge premise is added.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **10: scale-dependent resonant projection skeleton**.
+The next focused PR is unchecked item **11: explicit resonant/nonresonant leakage operator**.
 
 It must:
 
-- define the denominator cutoff and modulus-`2r` resonant modes;
-- define the scale-dependent resonant and nonresonant components;
-- prove only the algebraic decomposition until orthogonality is separately established.
+- expose the four block maps `A_M`, `B_M`, `C_M`, and `D_M`;
+- define resonant and nonresonant forcing with low-height and boundary terms explicit;
+- make no contraction claim until the separate Lyapunov layer is proved.
