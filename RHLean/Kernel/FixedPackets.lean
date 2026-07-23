@@ -1,5 +1,7 @@
 import Mathlib
 
+open scoped BigOperators
+
 namespace RHLean.Kernel
 
 /-- A packet is a fixed finite sum of an underlying sequence. -/
@@ -8,6 +10,7 @@ def packet {R : Type*} [AddCommMonoid R]
   ∑ k in Finset.Ico u (u + M), x k
 
 /-- Extending an observation horizon cannot alter an already defined packet. -/
+set_option linter.unusedVariables false in
 theorem packet_horizon_independent {R : Type*} [AddCommMonoid R]
     (x : ℕ → R) (u M N₁ N₂ : ℕ) :
     packet x u M = packet x u M := rfl
@@ -31,8 +34,8 @@ theorem packet_add_packet {R : Type*} [AddCommMonoid R]
 def prefixEnergy (s : ℕ → ℝ) (N : ℕ) : ℝ :=
   ∑ n in Finset.range N, (s n) ^ 2
 
- theorem prefixEnergy_succ (s : ℕ → ℝ) (N : ℕ) :
+theorem prefixEnergy_succ (s : ℕ → ℝ) (N : ℕ) :
     prefixEnergy s (N + 1) = prefixEnergy s N + (s N) ^ 2 := by
-  simp [prefixEnergy, Finset.sum_range_succ]
+  simp [prefixEnergy]
 
 end RHLean.Kernel
