@@ -1,4 +1,4 @@
-import Mathlib.Analysis.InnerProductSpace.Basic
+import Mathlib
 
 open scoped BigOperators InnerProductSpace
 
@@ -36,14 +36,15 @@ def heightShellOffDiagonalGram {𝕜 E : Type*} [RCLike 𝕜]
 theorem heightShellSum_succ {E : Type*} [AddCommMonoid E]
     (shell : ℕ → E) (n : ℕ) :
     heightShellSum shell (n + 1) = heightShellSum shell n + shell n := by
-  simp [heightShellSum, Finset.sum_range_succ]
+  simpa [heightShellSum] using Finset.sum_range_succ shell n
 
 /-- Appending one shell adds exactly its diagonal energy. -/
 theorem heightShellDiagonalEnergy_succ {E : Type*} [SeminormedAddCommGroup E]
     (shell : ℕ → E) (n : ℕ) :
     heightShellDiagonalEnergy shell (n + 1) =
       heightShellDiagonalEnergy shell n + ‖shell n‖ ^ 2 := by
-  simp [heightShellDiagonalEnergy, Finset.sum_range_succ]
+  simpa [heightShellDiagonalEnergy] using
+    Finset.sum_range_succ (fun i => ‖shell i‖ ^ 2) n
 
 /-- Appending shell `n` adds all and only the cross terms with earlier shells. -/
 theorem heightShellOffDiagonalGram_succ
@@ -54,17 +55,27 @@ theorem heightShellOffDiagonalGram_succ
       heightShellOffDiagonalGram (𝕜 := 𝕜) shell n +
         ∑ i in Finset.range n,
           shellReInner (𝕜 := 𝕜) (shell i) (shell n) := by
-  simp [heightShellOffDiagonalGram, Finset.sum_range_succ]
+  simpa [heightShellOffDiagonalGram] using
+    Finset.sum_range_succ
+      (fun j => ∑ i in Finset.range j,
+        shellReInner (𝕜 := 𝕜) (shell i) (shell j)) n
 
-/-- The newest shell's cross term is the sum of its inner products with all prior shells. -/
+/-- Any shell's cross term with the first `n` shells expands term by term. -/
 theorem shellReInner_heightShellSum_left
     {𝕜 E : Type*} [RCLike 𝕜]
     [SeminormedAddCommGroup E] [InnerProductSpace 𝕜 E]
-    (shell : ℕ → E) (n : ℕ) :
-    shellReInner (𝕜 := 𝕜) (heightShellSum shell n) (shell n) =
+    (shell : ℕ → E) (m n : ℕ) :
+    shellReInner (𝕜 := 𝕜) (heightShellSum shell n) (shell m) =
       ∑ i in Finset.range n,
-        shellReInner (𝕜 := 𝕜) (shell i) (shell n) := by
-  simp [shellReInner, heightShellSum, sum_inner]
+        shellReInner (𝕜 := 𝕜) (shell i) (shell m) := by
+  induction n with
+  | zero =>
+      simp [heightShellSum, shellReInner]
+  | succ n ih =>
+      rw [heightShellSum_succ]
+      have ih' := ih
+      unfold shellReInner at ih' ⊢
+      rw [inner_add_left, RCLike.re.map_add, ih', Finset.sum_range_succ]
 
 /--
 Exact height-shell Gram identity. The full signed shell recombination remains
@@ -86,7 +97,7 @@ theorem energy_sum_heightShells
         heightShellDiagonalEnergy_succ,
         heightShellOffDiagonalGram_succ]
       have hcross :=
-        shellReInner_heightShellSum_left (𝕜 := 𝕜) shell n
+        shellReInner_heightShellSum_left (𝕜 := 𝕜) shell n n
       unfold shellReInner at hcross
       rw [hcross]
       ring
