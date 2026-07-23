@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports twenty-four theorem modules.
+The root library currently imports twenty-five theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -148,9 +148,15 @@ The root library currently imports twenty-four theorem modules.
     - declared resonant span and scale-dependent linear extraction into that span;
     - exact algebraic resonant/nonresonant recombination with no orthogonality claim.
 
+25. `RHLean.Analysis.ResonantLeakage`
+    - separately typed resonant and nonresonant state spaces;
+    - explicit scale-dependent block maps `A_M`, `B_M`, `C_M`, and `D_M`;
+    - separate low-height, endpoint, and boundary forcing in both recurrence rows;
+    - exact affine recurrence with no contraction or triangularity claim.
+
 ## 2. Current checkpoint
 
-Phase I and Phase II are complete. Phase III item 8, the exact height-shell Gram identity, is completed by PR #30. Phase III item 9, the orthogonal residual, is completed by PR #31. Phase III item 10, the scale-dependent resonant projection skeleton, is completed by PR #32.
+Phase I and Phase II are complete. Phase III item 8, the exact height-shell Gram identity, is completed by PR #30. Phase III item 9, the orthogonal residual, is completed by PR #31. Phase III item 10, the scale-dependent resonant projection skeleton, is completed by PR #32. Phase III item 11, the explicit resonant/nonresonant leakage operator, is completed by PR #33.
 
 The library now contains:
 
@@ -184,14 +190,23 @@ The library now contains:
 
   ```text
   x_res(M) + x_non(M) = x,
-  x_non(M) = x - x_res(M).
+  x_non(M) = x - x_res(M);
   ```
 
-The shell sum remains inside the norm, and no off-diagonal real inner product is discarded or replaced by a shellwise positivity or independent-smallness estimate. The theorem-predicted coefficient remains separate from the true orthogonal coefficient. The scale-dependent extraction is not assumed idempotent, self-adjoint, or orthogonal, so no Pythagorean identity or norm splitting is inferred from its algebraic decomposition.
+- the exact two-row affine block recurrence
+
+  ```text
+  R_M = A_M R_parent + B_M N_parent
+        + f_R^low + f_R^endpoint + f_R^boundary,
+  N_M = C_M R_parent + D_M N_parent
+        + f_N^low + f_N^endpoint + f_N^boundary.
+  ```
+
+The shell sum remains inside the norm, and no off-diagonal real inner product is discarded or replaced by a shellwise positivity or independent-smallness estimate. The theorem-predicted coefficient remains separate from the true orthogonal coefficient. The scale-dependent extraction is not assumed idempotent, self-adjoint, or orthogonal. Both leakage directions and all forcing channels remain visible, and no contraction, triangularity, or norm estimate is inferred from the affine recurrence.
 
 The following remain open:
 
-- explicit resonant/nonresonant leakage and Lyapunov closure;
+- abstract weighted affine Lyapunov closure;
 - explicit number-theoretic resonant cancellation and low-height control;
 - certified finite-range verification;
 - actual-start signed-frame theorem and the final RH bridge.
@@ -245,11 +260,13 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
   - defined the resonant span and a scale-dependent linear extraction into that span;
   - proved only the algebraic resonant/nonresonant recombination, with no idempotence, orthogonality, or Pythagorean claim.
 
-- [ ] **11. Explicit resonant/nonresonant leakage operator** — next dependency.
-  - expose the four block maps `A_M`, `B_M`, `C_M`, and `D_M`;
-  - include low-height and boundary forcing explicitly.
+- [x] **11. Explicit resonant/nonresonant leakage operator** — completed by PR #33.
+  - exposed the four scale-dependent block maps `A_M`, `B_M`, `C_M`, and `D_M`;
+  - typed the two state spaces and both leakage directions separately;
+  - kept low-height, endpoint, and boundary forcing explicit in both recurrence rows;
+  - proved the exact affine recurrence and introduced no contraction, triangularity, or norm estimate.
 
-- [ ] **12. Abstract weighted affine Lyapunov closure**.
+- [ ] **12. Abstract weighted affine Lyapunov closure** — next dependency.
   - prove the generic contraction-with-forcing theorem independently of number theory;
   - support either a full weighted block contraction or a proved triangular alternative.
 
