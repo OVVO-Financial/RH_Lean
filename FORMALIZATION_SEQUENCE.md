@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports twenty-three theorem modules.
+The root library currently imports twenty-four theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -142,9 +142,15 @@ The root library currently imports twenty-three theorem modules.
     - exact recombination and Pythagorean energy decomposition;
     - theorem-predicted subtraction and residual kept as separate definitions.
 
+24. `RHLean.Analysis.ResonantProjection`
+    - scale-dependent cutoff and positive resonant denominators `r ≤ R0(M)`;
+    - exact quadratic modes with canonical period `2r`;
+    - declared resonant span and scale-dependent linear extraction into that span;
+    - exact algebraic resonant/nonresonant recombination with no orthogonality claim.
+
 ## 2. Current checkpoint
 
-Phase I and Phase II are complete. Phase III item 8, the exact height-shell Gram identity, is completed by PR #30. Phase III item 9, the orthogonal residual, is completed by PR #31.
+Phase I and Phase II are complete. Phase III item 8, the exact height-shell Gram identity, is completed by PR #30. Phase III item 9, the orthogonal residual, is completed by PR #31. Phase III item 10, the scale-dependent resonant projection skeleton, is completed by PR #32.
 
 The library now contains:
 
@@ -171,14 +177,21 @@ The library now contains:
   beta_orth = ⟪P,B⟫ / ⟪P,P⟫,
   E_orth = B - beta_orth • P,
   ⟪P,E_orth⟫ = ⟪E_orth,P⟫ = 0,
-  ‖B‖² = ‖E_orth‖² + ‖beta_orth • P‖².
+  ‖B‖² = ‖E_orth‖² + ‖beta_orth • P‖²;
   ```
 
-The shell sum remains inside the norm, and no off-diagonal real inner product is discarded or replaced by a shellwise positivity or independent-smallness estimate. The theorem-predicted coefficient remains separate from the true orthogonal coefficient, so no orthogonality or Pythagorean identity is available for the predicted residual without a separate coefficient-equality theorem.
+- a scale-dependent resonant skeleton with positive denominators `r ≤ R0(M)`, canonical phase period `2r`, a declared resonant span, and the exact algebraic decomposition
+
+  ```text
+  x_res(M) + x_non(M) = x,
+  x_non(M) = x - x_res(M).
+  ```
+
+The shell sum remains inside the norm, and no off-diagonal real inner product is discarded or replaced by a shellwise positivity or independent-smallness estimate. The theorem-predicted coefficient remains separate from the true orthogonal coefficient. The scale-dependent extraction is not assumed idempotent, self-adjoint, or orthogonal, so no Pythagorean identity or norm splitting is inferred from its algebraic decomposition.
 
 The following remain open:
 
-- scale-dependent resonant projection, leakage, and Lyapunov closure;
+- explicit resonant/nonresonant leakage and Lyapunov closure;
 - explicit number-theoretic resonant cancellation and low-height control;
 - certified finite-range verification;
 - actual-start signed-frame theorem and the final RH bridge.
@@ -226,11 +239,13 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
   - proved exact recombination and Pythagorean energy decomposition;
   - defined theorem-predicted subtraction and residual separately, with equality to the orthogonal residual requiring a separate coefficient-equality hypothesis.
 
-- [ ] **10. Scale-dependent resonant projection skeleton** — next dependency.
-  - define the denominator cutoff and modulus-`2r` resonant modes;
-  - prove only algebraic decomposition until orthogonality is established.
+- [x] **10. Scale-dependent resonant projection skeleton** — completed by PR #32.
+  - defined scale-dependent resonant mode indices with positive denominator `r ≤ R0(M)`;
+  - defined the exact quadratic mode and proved its canonical `2r` periodicity;
+  - defined the resonant span and a scale-dependent linear extraction into that span;
+  - proved only the algebraic resonant/nonresonant recombination, with no idempotence, orthogonality, or Pythagorean claim.
 
-- [ ] **11. Explicit resonant/nonresonant leakage operator**.
+- [ ] **11. Explicit resonant/nonresonant leakage operator** — next dependency.
   - expose the four block maps `A_M`, `B_M`, `C_M`, and `D_M`;
   - include low-height and boundary forcing explicitly.
 
