@@ -6,6 +6,8 @@ This file is the mandatory closeout record for every pull request in `RH_Lean`.
 
 A PR is not complete unless this file is updated on the same branch. Because a checked ledger entry reaches `main` only when that PR is merged, every `[x]` entry visible on `main` records a successful PR.
 
+The closeout state must be prepopulated on the implementation branch before the substantive CI run intended to gate merge. Do not create a post-green documentation-only commit merely to record that CI passed. Once the substantive checks are green, merge the already-prepopulated branch unless a substantive correction is required.
+
 ## 1. Non-negotiable proof rules
 
 Every PR must preserve all of the following:
@@ -24,7 +26,7 @@ Every PR must preserve all of the following:
 
 ## 2. Per-PR execution checklist
 
-Copy this task list into the working notes for every PR and check each item before merge:
+Copy this task list into the pull-request description and prepopulate it on the implementation branch before the substantive merge-gating CI run:
 
 - [ ] Confirm the preceding PR is green and merged; read the current `main` head.
 - [ ] Read `FORMALIZATION_SEQUENCE.md` and this checklist.
@@ -34,26 +36,30 @@ Copy this task list into the working notes for every PR and check each item befo
 - [ ] Branch from current `main` as `agent/<focused-description>`.
 - [ ] Implement the smallest stable module or documentation change.
 - [ ] Import every new theorem module from `RHLean.lean`.
-- [ ] Update `FORMALIZATION_SEQUENCE.md` when project state changes.
-- [ ] Update this checklist with explicit `[x]` and `[ ]` status markers.
-- [ ] Append the successful PR ledger entry on the same branch.
+- [ ] Prepopulate `FORMALIZATION_SEQUENCE.md` with the completed layer, compiled inventory, checkpoint, and next dependency.
+- [ ] Prepopulate this checklist with explicit `[x]` and `[ ]` status markers and the successful-PR ledger entry.
+- [ ] Prepopulate the pull-request description with the execution checklist and closeout record.
 - [ ] Pass `bash scripts/audit_assumptions.sh`.
 - [ ] Pass `lake build RHLean --wfail` with no warnings.
 - [ ] Fix only failures observed in exact CI logs.
+- [ ] Do not add a documentation-only commit after green CI merely to record the result; GitHub check status is authoritative.
+- [ ] If a substantive correction changes the branch after CI, update the prepopulated closeout state with that correction and rerun the required checks.
 - [ ] Merge only after green CI and explicit authorization.
 - [ ] Begin the next PR only after confirming the merge on current `main`.
 
 ## 3. Required PR closeout record
 
-Each PR description and checklist update must identify:
+Each PR description and prepopulated checklist update must identify:
 
 - PR number and title;
 - theorem layer or documentation layer completed;
 - principal new modules or files;
 - central changes and proved statements;
 - invariants protected;
-- CI commands and final result;
+- CI commands that gate merge;
 - next dependency in `FORMALIZATION_SEQUENCE.md`.
+
+The final CI result belongs in GitHub's check status and may also be recorded in the PR description without changing repository files. A green result never requires a follow-up documentation-only commit.
 
 ## 4. Successful PR ledger
 
@@ -129,7 +135,7 @@ PR #27, **Formalize prime-3 cell-mask mean energy**, completes Phase II item 5.
 - Central statements: the three rational divisibility indicators sum to `1`, the cell mean is exactly `1/3`, and the squared mean-mode energy is exactly `1/9`.
 - Protected invariants: the module imports only the arithmetic activation layer, remains entirely rational-valued, and provides no coercion or theorem path into `RHLean.QuadraticPrimePhase`.
 - Deliberate exclusions: no claim treats `1/9` as a bound on the normalized quadratic Gauss factor; no leakage, frame, asymptotic, or RH statement is added.
-- Validation: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail` both passed in GitHub Actions run #75 with no warnings.
+- Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
