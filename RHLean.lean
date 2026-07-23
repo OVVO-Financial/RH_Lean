@@ -1,3 +1,4 @@
+import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.QuadraticExponentCongruence
 import RHLean.Analysis.QuadraticPhasePeriod
 import RHLean.Analysis.QuadraticShiftDichotomy
