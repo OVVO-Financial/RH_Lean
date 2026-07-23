@@ -39,16 +39,10 @@ theorem quadraticPhaseMod40_eq_squareClassMode_of_modEq
     quadraticPhaseMod40 a q = squareClassModeMod40 a s := by
   unfold quadraticPhaseMod40 squareClassModeMod40
   apply additiveCharacter_eq_of_sub_dvd
-  have hdvd := h.symm.dvd
-  rcases hdvd with ⟨k, hk⟩
-  have hpow : (q : ℤ) ^ 2 = ((q ^ 2 : ℕ) : ℤ) := by
-    norm_cast
-  refine ⟨a * k, ?_⟩
-  calc
-    a * (q : ℤ) ^ 2 - a * (s : ℤ) =
-        a * (((q ^ 2 : ℕ) : ℤ) - (s : ℤ)) := by rw [hpow]; ring
-    _ = a * ((40 : ℤ) * k) := by rw [hk]
-    _ = (40 : ℤ) * (a * k) := by ring
+  have hdvd :
+      (40 : ℤ) ∣ ((q ^ 2 : ℕ) : ℤ) - (s : ℤ) := by
+    simpa only [neg_sub] using h.dvd.neg
+  simpa only [Nat.cast_pow, mul_sub] using hdvd.mul_left a
 
 /-- Reducing the square numerator modulo `40` leaves the complex phase unchanged. -/
 theorem quadraticPhaseMod40_eq_squareResidueMode
@@ -62,7 +56,7 @@ theorem quadraticPhaseMod40_eq_squareResidueMode
 theorem quadraticPhase_twenty_eq_mod40
     (a : ℤ) (q : ℕ) :
     quadraticPhase a 20 (q : ℤ) = quadraticPhaseMod40 a q := by
-  simp [quadraticPhase, quadraticPhaseMod40]
+  rfl
 
 /-- Every eligible prime phase at modulus `40` lies in one of exactly two square-class modes.
 
