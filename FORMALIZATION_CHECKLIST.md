@@ -94,6 +94,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#27** — Proved the exact rational prime-3 cell-mask mean `1/3` and squared mean-mode energy `1/9` in a dedicated namespace.
 - [x] **#28** — Proved exact `2ab` finite differences, linear common-shift displacement, monotonicity, and vertical-window lifetime criteria.
 - [x] **#29** — Proved exact reduced square-class phase support modulo `40`, with eligible prime phases confined to the class-`1` and class-`9` modes.
+- [x] **#30** — Proved the exact height-shell Gram identity with every off-diagonal real inner product retained and the full signed shell sum kept inside the norm.
 
 ## 5. Theorem-layer completion checklist
 
@@ -112,8 +113,8 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ### Phase III — exact signed Hilbert/Gram machinery
 
-- [ ] **8. Height-shell Gram identity** — next dependency.
-- [ ] **9. Orthogonal residual**.
+- [x] **8. Height-shell Gram identity** — PR #30.
+- [ ] **9. Orthogonal residual** — next dependency.
 - [ ] **10. Scale-dependent resonant projection skeleton**.
 - [ ] **11. Explicit resonant/nonresonant leakage operator**.
 - [ ] **12. Abstract weighted affine Lyapunov closure**.
@@ -131,20 +132,27 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ## 6. Current checkpoint
 
-PR #29, **Formalize reduced square-class phase support modulo `40`**, completes Phase II item 7 and therefore completes Phase II.
+PR #30, **Formalize exact height-shell Gram identity**, completes Phase III item 8.
 
-- Principal new module: `RHLean.Analysis.ReducedSquareClassMod40`.
-- Central statements: the reusable reduced square-class predicate contains exactly `1` and `9`; every eligible prime has one of those square residues modulo `40`; reducing the square numerator modulo `40` preserves the additive character; the canonical quadratic phase at `r = 20` equals one of the two exact class modes.
-- Protected invariants: modulus `40 = 2 * 20` remains explicit; the result is an exact support statement only; no coefficient, multiplicity, cancellation, dominance, or reinforcement theorem is inferred.
-- Deliberate exclusions: no height-shell Gram expansion, projection, leakage estimate, contraction claim, numerical certificate, or RH premise is added.
+- Principal new module: `RHLean.Analysis.HeightShellGram`.
+- Central statements: the first `n` ordered shell components are recombined as one vector; the diagonal energy is the sum of individual squared norms; the off-diagonal Gram term enumerates every pair `i < j < n` exactly once; and
+
+  ```text
+  ‖∑_{i<n} S_i‖²
+  = ∑_{i<n} ‖S_i‖²
+    + 2 * ∑_{j<n} ∑_{i<j} re⟪S_i,S_j⟫.
+  ```
+
+- Protected invariants: the theorem is valid over real or complex inner-product spaces; the full signed shell sum remains inside the norm; every off-diagonal real inner product is retained and may have either sign.
+- Deliberate exclusions: no shellwise positivity, independent shell-smallness estimate, orthogonal projection, Pythagorean residual theorem, leakage estimate, contraction claim, numerical certificate, or RH premise is added.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **8: height-shell Gram identity**.
+The next focused PR is unchecked item **9: orthogonal residual**.
 
 It must:
 
-- prove the exact energy expansion with all off-diagonal real inner products retained;
-- keep the full signed shell sum inside the norm;
-- introduce no shellwise positivity or independent-smallness substitute.
+- define the true orthogonal coefficient and residual;
+- prove exact orthogonality and the Pythagorean energy decomposition;
+- keep theorem-predicted subtraction as a separate object and infer no orthogonality for it without a coefficient-equality theorem.
