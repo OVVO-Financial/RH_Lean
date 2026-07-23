@@ -1,0 +1,38 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=blue!55!black]{hyperref}
+\usepackage[nameinlink,capitalise,noabbrev]{cleveref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\Repart}{\operatorname{Re}}
+
+\title{Exact Dyadic Sign-Flip Cells and Compressed Fixed Packets}
+\author{Fred Viole\\OVVO Labs}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This standalone build contains the exact paper revision promoting the identity
+$\mu(2a)=-\mu(a)$ for odd $a$ to a principal structural theorem.  It proves
+the exact $(+,-,+,0)$ four-slot cell, universal prime-$3$ activation, and the
+fixed-packet compression with an $O(M)$ boundary-energy cost.  In the full
+paper this section is inserted after the least-prime channel identity and
+before the prime-$3$ Fourier discussion.
+\end{abstract}
+
+\section{Dyadic cell compression}
+\input{sections/exact_dyadic_sign_flip_cells}
+
+\end{document}
