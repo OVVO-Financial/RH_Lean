@@ -85,6 +85,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#24** — Proved exact small-modulus resonance at moduli `6` and `24`, including the normalized `(a,r)=(1,3)` factor and its norm-one theorem.
 - [x] **#25** — Established the mandatory closeout checklist and refreshed the Phase I checkpoint.
 - [x] **#26** — Added explicit `[x]`/`[ ]` completion markers to the checklist and canonical roadmap.
+- [x] **#27** — Proved the exact rational prime-3 cell-mask mean `1/3` and squared mean-mode energy `1/9` in a dedicated namespace.
 
 ## 5. Theorem-layer completion checklist
 
@@ -97,8 +98,8 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ### Phase II — remaining exact combinatorial and geometry layers
 
-- [ ] **5. Prime-3 cell-mask mean energy** — next dependency.
-- [ ] **6. `2ab` displacement and lifetime geometry**.
+- [x] **5. Prime-3 cell-mask mean energy** — PR #27.
+- [ ] **6. `2ab` displacement and lifetime geometry** — next dependency.
 - [ ] **7. Reduced square-class phase support modulo `40`**.
 
 ### Phase III — exact signed Hilbert/Gram machinery
@@ -122,15 +123,20 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ## 6. Current checkpoint
 
-Phase I is fully checked. The prime-3 complex phase result remains strictly separate from the rational cell-mask mean energy.
+PR #27, **Formalize prime-3 cell-mask mean energy**, completes Phase II item 5.
+
+- Principal new module: `RHLean.CellMask.PrimeThreeMeanEnergy`.
+- Central statements: the three rational divisibility indicators sum to `1`, the cell mean is exactly `1/3`, and the squared mean-mode energy is exactly `1/9`.
+- Protected invariants: the module imports only the arithmetic activation layer, remains entirely rational-valued, and provides no coercion or theorem path into `RHLean.QuadraticPrimePhase`.
+- Deliberate exclusions: no claim treats `1/9` as a bound on the normalized quadratic Gauss factor; no leakage, frame, asymptotic, or RH statement is added.
+- Validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`; final GitHub Actions result is recorded in the draft PR.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **5: prime-3 cell-mask mean energy**.
+The next focused PR is unchecked item **6: `2ab` displacement and lifetime geometry**.
 
 It must:
 
-- introduce the dedicated cell-mask namespace/module;
-- prove the exact rational-valued mean-energy statement;
-- preserve type separation from the complex prime-phase factor;
-- avoid treating `1/9` as a bound on the normalized quadratic Gauss factor.
+- formalize exact finite differences of the imaginary squared coordinate;
+- state scanning and lifetime identities before asymptotic inequalities;
+- keep all sign and positivity assumptions explicit.
