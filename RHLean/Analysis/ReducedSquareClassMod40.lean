@@ -41,7 +41,7 @@ theorem quadraticPhaseMod40_eq_squareClassMode_of_modEq
   apply additiveCharacter_eq_of_sub_dvd
   have hdvd :
       (40 : ℤ) ∣ ((q ^ 2 : ℕ) : ℤ) - (s : ℤ) := by
-    simpa only [neg_sub] using h.dvd.neg
+    simpa only [neg_sub] using h.dvd.neg_right
   simpa only [Nat.cast_pow, mul_sub] using hdvd.mul_left a
 
 /-- Reducing the square numerator modulo `40` leaves the complex phase unchanged. -/
