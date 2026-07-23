@@ -1,5 +1,6 @@
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.HeightShellGram
+import RHLean.Analysis.OrthogonalResidual
 import RHLean.Analysis.QuadraticExponentCongruence
 import RHLean.Analysis.QuadraticPhasePeriod
 import RHLean.Analysis.QuadraticPhaseShiftSign
