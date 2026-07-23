@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports nineteen theorem modules.
+The root library currently imports twenty theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -101,24 +101,30 @@ The root library currently imports nineteen theorem modules.
     - exact lower-factor and upper-factor parabolas;
     - simultaneous membership of each squared factor pair in both cofactor curves.
 
-17. `RHLean.Geometry.SquareMapConformality`
+17. `RHLean.Geometry.TwoABDisplacement`
+    - exact identification of the imaginary squared coordinate with `2ab`;
+    - exact midpoint, half-gap, upper-factor, and lower-factor finite differences;
+    - exact linear common-shift displacement and parity-preserving specialization;
+    - explicit monotonicity and vertical-window lifetime criteria.
+
+18. `RHLean.Geometry.SquareMapConformality`
     - exact Jacobian action of complex squaring;
     - common norm and inner-product scale `4 * (a^2 + b^2)`;
     - orthogonality preservation and determinant identity.
 
-18. `RHLean.Geometry.ComplexSquareFiber`
+19. `RHLean.Geometry.ComplexSquareFiber`
     - exact fiber theorem `z^2 = w^2 ↔ z = w ∨ z = -w`;
     - injectivity on the positive-real branch;
     - injectivity of Fermat coordinates and positive-midpoint squared images.
 
 ### Kernel foundations
 
-19. `RHLean.Kernel.FixedPackets`
+20. `RHLean.Kernel.FixedPackets`
     - fixed-packet definitions and exact packet identities used by the later kernel and Gram layers.
 
 ## 2. Current checkpoint
 
-Phase I, the corrected complex quadratic-phase layer, is complete. Phase II item 5, the prime-3 cell-mask mean energy, is completed by PR #27.
+Phase I, the corrected complex quadratic-phase layer, is complete. Phase II items 5 and 6 are completed by PRs #27 and #28.
 
 The library now contains:
 
@@ -128,13 +134,13 @@ The library now contains:
 - the reduced unit-group Gauss sum over `(ZMod (2*r))ˣ`;
 - exact modulus-6 and modulus-24 coherence;
 - the normalized `(a,r)=(1,3)` factor and its norm-one theorem;
-- a dedicated rational cell-mask module with exact mean `1/3` and squared mean-mode energy `1/9`.
+- a dedicated rational cell-mask module with exact mean `1/3` and squared mean-mode energy `1/9`;
+- exact `2ab` finite-difference geometry, including the linear common-shift displacement `h(q-c)` and exact vertical-window lifetime criterion.
 
 The rational prime-3 cell-mask theorem remains type-separated from the complex prime-phase factor: no coercion or theorem path uses `1/9` as a bound on the normalized quadratic Gauss factor.
 
 The following remain open:
 
-- `2ab` displacement and lifetime geometry;
 - reduced square-class phase support modulo `40`;
 - exact signed shell Gram identities and orthogonal residuals;
 - scale-dependent resonant projection, leakage, and Lyapunov closure;
@@ -160,12 +166,13 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
   - proved the exact rational-valued mean and squared mean-mode energy;
   - preserved strict separation from the complex quadratic prime-phase factor.
 
-- [ ] **6. `2ab` displacement and lifetime geometry** — next dependency.
-  - formalize exact finite differences of the imaginary squared coordinate;
-  - state scanning/lifetime identities before asymptotic inequalities;
-  - keep sign and positivity assumptions explicit.
+- [x] **6. `2ab` displacement and lifetime geometry** — completed by PR #28.
+  - formalized exact finite differences of the imaginary squared coordinate;
+  - proved common factor translation has exact linear displacement `h(q-c)`;
+  - stated parity-preserving scan, monotonicity, and lifetime/window identities before asymptotic inequalities;
+  - kept all order and positivity assumptions explicit.
 
-- [ ] **7. Reduced square-class phase support modulo `40`**.
+- [ ] **7. Reduced square-class phase support modulo `40`** — next dependency.
   - factor the merged prime-square dichotomy into a reusable reduced-square-class API;
   - prove the corresponding phase expression has at most two exact square-class modes;
   - do not infer reinforcement without a coefficient theorem.
