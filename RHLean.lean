@@ -1,3 +1,4 @@
+import RHLean.Analysis.QuadraticExponentCongruence
 import RHLean.Analysis.QuadraticPhasePeriod
 import RHLean.Arithmetic.FourSlotCell
 import RHLean.Arithmetic.MoebiusDoubling
