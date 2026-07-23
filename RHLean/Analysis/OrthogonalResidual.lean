@@ -20,14 +20,14 @@ def orthogonalCoefficient {𝕜 E : Type*} [RCLike 𝕜]
 def orthogonalResidual {𝕜 E : Type*} [RCLike 𝕜]
     [NormedAddCommGroup E] [InnerProductSpace 𝕜 E]
     (P B : E) (hP : P ≠ 0) : E :=
-  B - orthogonalCoefficient P B hP • P
+  B - orthogonalCoefficient (𝕜 := 𝕜) P B hP • P
 
 /-- The prediction vector is orthogonal to the true orthogonal residual. -/
 theorem inner_orthogonalResidual_eq_zero
     {𝕜 E : Type*} [RCLike 𝕜]
     [NormedAddCommGroup E] [InnerProductSpace 𝕜 E]
     (P B : E) (hP : P ≠ 0) :
-    inner 𝕜 P (orthogonalResidual P B hP) = 0 := by
+    inner 𝕜 P (orthogonalResidual (𝕜 := 𝕜) P B hP) = 0 := by
   have hPP : inner 𝕜 P P ≠ 0 :=
     (inner_self_ne_zero (𝕜 := 𝕜)).2 hP
   unfold orthogonalResidual
@@ -40,7 +40,7 @@ theorem orthogonalResidual_inner_eq_zero
     {𝕜 E : Type*} [RCLike 𝕜]
     [NormedAddCommGroup E] [InnerProductSpace 𝕜 E]
     (P B : E) (hP : P ≠ 0) :
-    inner 𝕜 (orthogonalResidual P B hP) P = 0 := by
+    inner 𝕜 (orthogonalResidual (𝕜 := 𝕜) P B hP) P = 0 := by
   exact (inner_eq_zero_symm (𝕜 := 𝕜)).2
     (inner_orthogonalResidual_eq_zero (𝕜 := 𝕜) P B hP)
 
@@ -49,7 +49,8 @@ theorem orthogonalResidual_add_projection
     {𝕜 E : Type*} [RCLike 𝕜]
     [NormedAddCommGroup E] [InnerProductSpace 𝕜 E]
     (P B : E) (hP : P ≠ 0) :
-    orthogonalResidual P B hP + orthogonalCoefficient P B hP • P = B := by
+    orthogonalResidual (𝕜 := 𝕜) P B hP +
+      orthogonalCoefficient (𝕜 := 𝕜) P B hP • P = B := by
   simp [orthogonalResidual]
 
 /-- Exact Pythagorean energy decomposition for the true orthogonal residual. -/
@@ -58,15 +59,15 @@ theorem orthogonalResidual_energy_decomposition
     [NormedAddCommGroup E] [InnerProductSpace 𝕜 E]
     (P B : E) (hP : P ≠ 0) :
     ‖B‖ ^ 2 =
-      ‖orthogonalResidual P B hP‖ ^ 2 +
-        ‖orthogonalCoefficient P B hP • P‖ ^ 2 := by
+      ‖orthogonalResidual (𝕜 := 𝕜) P B hP‖ ^ 2 +
+        ‖orthogonalCoefficient (𝕜 := 𝕜) P B hP • P‖ ^ 2 := by
   calc
     ‖B‖ ^ 2 =
-        ‖orthogonalResidual P B hP +
-          orthogonalCoefficient P B hP • P‖ ^ 2 := by
+        ‖orthogonalResidual (𝕜 := 𝕜) P B hP +
+          orthogonalCoefficient (𝕜 := 𝕜) P B hP • P‖ ^ 2 := by
       rw [orthogonalResidual_add_projection (𝕜 := 𝕜) P B hP]
-    _ = ‖orthogonalResidual P B hP‖ ^ 2 +
-        ‖orthogonalCoefficient P B hP • P‖ ^ 2 := by
+    _ = ‖orthogonalResidual (𝕜 := 𝕜) P B hP‖ ^ 2 +
+        ‖orthogonalCoefficient (𝕜 := 𝕜) P B hP • P‖ ^ 2 := by
       rw [norm_add_sq (𝕜 := 𝕜)]
       rw [inner_smul_right]
       rw [orthogonalResidual_inner_eq_zero (𝕜 := 𝕜) P B hP]
@@ -88,7 +89,7 @@ Pythagorean identity is attached to this definition.
 def theoremPredictedResidual {𝕜 E : Type*} [RCLike 𝕜]
     [NormedAddCommGroup E] [InnerProductSpace 𝕜 E]
     (betaPred : 𝕜) (P B : E) : E :=
-  B - theoremPredictedSubtraction betaPred P
+  B - theoremPredictedSubtraction (𝕜 := 𝕜) betaPred P
 
 /--
 A theorem-predicted residual agrees with the orthogonal residual only after a
@@ -98,8 +99,9 @@ theorem theoremPredictedResidual_eq_orthogonalResidual_of_coefficient_eq
     {𝕜 E : Type*} [RCLike 𝕜]
     [NormedAddCommGroup E] [InnerProductSpace 𝕜 E]
     (betaPred : 𝕜) (P B : E) (hP : P ≠ 0)
-    (hbeta : betaPred = orthogonalCoefficient P B hP) :
-    theoremPredictedResidual betaPred P B = orthogonalResidual P B hP := by
+    (hbeta : betaPred = orthogonalCoefficient (𝕜 := 𝕜) P B hP) :
+    theoremPredictedResidual (𝕜 := 𝕜) betaPred P B =
+      orthogonalResidual (𝕜 := 𝕜) P B hP := by
   simp [theoremPredictedResidual, theoremPredictedSubtraction,
     orthogonalResidual, hbeta]
 
