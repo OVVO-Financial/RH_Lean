@@ -1,3 +1,4 @@
+import Mathlib.Analysis.Complex.Trigonometric
 import RHLean.Analysis.ComplexQuadraticPhase
 
 namespace RHLean.QuadraticPrimePhase
@@ -12,8 +13,9 @@ theorem exp_int_mul_pi_mul_I_eq_neg_one_pow
       (n : ℂ) * (Real.pi : ℂ) =
         (((n : ℝ) * Real.pi : ℝ) : ℂ) := by
     push_cast
+    rfl
   rw [harg, Complex.exp_ofReal_mul_I]
-  simp [Real.cos_int_mul_pi, Real.sin_int_mul_pi]
+  simp [Real.cos_int_mul_pi, Real.sin_int_mul_pi, Int.cast_negOnePow]
 
 /-- Adding `r * k` to a numerator modulo `2*r` contributes exactly `(-1)^k`. -/
 theorem additiveCharacter_add_half_modulus
@@ -28,7 +30,6 @@ theorem additiveCharacter_add_half_modulus
         (x : ℂ) / ((2 * r : ℤ) : ℂ) + (k : ℂ) / 2 := by
     push_cast
     field_simp [hrC]
-    ring
   have hturn :
       ((k : ℂ) / 2) *
           (2 * (Real.pi : ℂ) * Complex.I) =
