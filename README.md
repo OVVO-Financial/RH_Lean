@@ -2,7 +2,7 @@
 
 Lean 4 formalization of the square-prefix Möbius program.
 
-The repository is intentionally developed through small, reviewable pull requests. Machine-checked theorems are kept separate from the explicitly isolated open actual-start signed-frame input.
+This repository is the focused formalization initiative. It is intentionally developed through small, reviewable pull requests. Machine-checked theorems are kept separate from the explicitly isolated open actual-start signed-frame input.
 
 ## Verification
 
@@ -10,9 +10,10 @@ Every pull request runs:
 
 ```bash
 bash scripts/audit_assumptions.sh
-lake build
-lake test
+lake build RHLean --wfail
 ```
+
+`RH_Lean` is currently a library-only Lake project, so CI does not invoke `lake test` until a dedicated test runner is added.
 
 The source audit rejects `sorry` and `admit`. Axioms are rejected everywhere except the dedicated file `RHLean/Open/ActualStartFrame.lean`, where the remaining analytic input will be stated explicitly and never hidden inside definitions.
 
