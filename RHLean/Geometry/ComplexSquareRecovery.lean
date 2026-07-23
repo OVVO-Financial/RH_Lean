@@ -14,9 +14,7 @@ theorem fermatPoint_sq_re (c q : ℝ) :
 /-- The imaginary coordinate of the squared Fermat point is the factor imbalance. -/
 theorem fermatPoint_sq_im (c q : ℝ) :
     ((fermatPoint c q) ^ 2).im = (q ^ 2 - c ^ 2) / 2 := by
-  change
-    fermatA c q * fermatB c q + fermatB c q * fermatA c q =
-      (q ^ 2 - c ^ 2) / 2
+  simp [fermatPoint, pow_two]
   calc
     fermatA c q * fermatB c q + fermatB c q * fermatA c q =
         2 * fermatA c q * fermatB c q := by ring
