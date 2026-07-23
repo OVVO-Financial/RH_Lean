@@ -9,12 +9,12 @@ namespace RHLean.Analysis
 /-- The ordered sum of the first `n` height-shell components. -/
 def heightShellSum {E : Type*} [AddCommMonoid E]
     (shell : ℕ → E) (n : ℕ) : E :=
-  ∑ i in Finset.range n, shell i
+  ∑ i ∈ Finset.range n, shell i
 
 /-- The sum of the individual shell energies. -/
 def heightShellDiagonalEnergy {E : Type*} [SeminormedAddCommGroup E]
     (shell : ℕ → E) (n : ℕ) : ℝ :=
-  ∑ i in Finset.range n, ‖shell i‖ ^ 2
+  ∑ i ∈ Finset.range n, ‖shell i‖ ^ 2
 
 /-- The real part of the inner product, valid over real or complex scalars. -/
 def shellReInner {𝕜 E : Type*} [RCLike 𝕜]
@@ -29,8 +29,8 @@ ordered pair `i < j < n` exactly once.
 def heightShellOffDiagonalGram {𝕜 E : Type*} [RCLike 𝕜]
     [SeminormedAddCommGroup E] [InnerProductSpace 𝕜 E]
     (shell : ℕ → E) (n : ℕ) : ℝ :=
-  ∑ j in Finset.range n,
-    ∑ i in Finset.range j, shellReInner (𝕜 := 𝕜) (shell i) (shell j)
+  ∑ j ∈ Finset.range n,
+    ∑ i ∈ Finset.range j, shellReInner (𝕜 := 𝕜) (shell i) (shell j)
 
 /-- Appending one shell adds it to the full signed shell sum. -/
 theorem heightShellSum_succ {E : Type*} [AddCommMonoid E]
@@ -53,11 +53,11 @@ theorem heightShellOffDiagonalGram_succ
     (shell : ℕ → E) (n : ℕ) :
     heightShellOffDiagonalGram (𝕜 := 𝕜) shell (n + 1) =
       heightShellOffDiagonalGram (𝕜 := 𝕜) shell n +
-        ∑ i in Finset.range n,
+        ∑ i ∈ Finset.range n,
           shellReInner (𝕜 := 𝕜) (shell i) (shell n) := by
   simpa [heightShellOffDiagonalGram] using
     Finset.sum_range_succ
-      (fun j => ∑ i in Finset.range j,
+      (fun j => ∑ i ∈ Finset.range j,
         shellReInner (𝕜 := 𝕜) (shell i) (shell j)) n
 
 /-- Any shell's cross term with the first `n` shells expands term by term. -/
@@ -66,7 +66,7 @@ theorem shellReInner_heightShellSum_left
     [SeminormedAddCommGroup E] [InnerProductSpace 𝕜 E]
     (shell : ℕ → E) (m n : ℕ) :
     shellReInner (𝕜 := 𝕜) (heightShellSum shell n) (shell m) =
-      ∑ i in Finset.range n,
+      ∑ i ∈ Finset.range n,
         shellReInner (𝕜 := 𝕜) (shell i) (shell m) := by
   unfold shellReInner heightShellSum
   rw [sum_inner]
