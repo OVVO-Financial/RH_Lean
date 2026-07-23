@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports fourteen theorem modules.
+The root library currently imports eighteen theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -38,7 +38,7 @@ The root library currently imports fourteen theorem modules.
    - the sixteen unit residue classes modulo `40`;
    - prime-square dichotomy `q^2 ≡ 1` or `9 (mod 40)` for primes other than `2` and `5`.
 
-### Corrected modulus-`2r` exponent arithmetic
+### Corrected modulus-`2r` phase architecture
 
 6. `RHLean.Analysis.QuadraticPhasePeriod`
    - exact difference-of-squares factorization;
@@ -51,95 +51,105 @@ The root library currently imports fourteen theorem modules.
 
 8. `RHLean.Analysis.QuadraticShiftDichotomy`
    - if `a*r` is even, shifting by `r` preserves the exponent class;
-   - if `a*r` is odd, shifting by `r` moves the exponent by exactly half the modulus;
-   - exact arithmetic precursor of the eventual complex sign law.
+   - if `a*r` is odd, shifting by `r` moves the exponent by exactly half the modulus.
+
+9. `RHLean.Analysis.ComplexQuadraticPhase`
+   - complex additive character with integer numerator and modulus;
+   - corrected quadratic phase using modulus `2r`;
+   - exact congruence invariance and `2r` periodicity.
+
+10. `RHLean.Analysis.QuadraticPhaseShiftSign`
+    - exact half-turn exponential identity;
+    - exact sign law
+
+    ```text
+    phase(a,r,u+r) = (-1)^(a*r) * phase(a,r,u).
+    ```
+
+11. `RHLean.Analysis.ReducedQuadraticGauss`
+    - unit-level phase over `(ZMod (2*r))ˣ`;
+    - corrected reduced Gauss sum;
+    - normalization by `Nat.totient (2*r)`.
+
+12. `RHLean.Analysis.SmallModulusResonance`
+    - exact unit-square identities modulo `6` and `24`;
+    - coherent reduced sums at those moduli;
+    - exact normalized value at `(a,r)=(1,3)`;
+    - exact norm-one theorem.
 
 ### Factor geometry
 
-9. `RHLean.Geometry.FermatCoordinates`
-   - midpoint and signed half-gap coordinates;
-   - exact recovery of both factors;
-   - real and imaginary coordinates after squaring;
-   - squared-radius identity.
+13. `RHLean.Geometry.FermatCoordinates`
+    - midpoint and signed half-gap coordinates;
+    - exact recovery of both factors;
+    - real and imaginary coordinates after squaring;
+    - squared-radius identity.
 
-10. `RHLean.Geometry.ComplexSquareRecovery`
+14. `RHLean.Geometry.ComplexSquareRecovery`
     - exact complex Fermat point;
     - squared image equals product/imbalance coordinates;
     - exact recovery of both factor squares without sign choices.
 
-11. `RHLean.Geometry.CofactorParabolas`
+15. `RHLean.Geometry.CofactorParabolas`
     - exact lower-factor and upper-factor parabolas;
     - simultaneous membership of each squared factor pair in both cofactor curves.
 
-12. `RHLean.Geometry.SquareMapConformality`
+16. `RHLean.Geometry.SquareMapConformality`
     - exact Jacobian action of complex squaring;
     - common norm and inner-product scale `4 * (a^2 + b^2)`;
     - orthogonality preservation and determinant identity.
 
-13. `RHLean.Geometry.ComplexSquareFiber`
+17. `RHLean.Geometry.ComplexSquareFiber`
     - exact fiber theorem `z^2 = w^2 ↔ z = w ∨ z = -w`;
     - injectivity on the positive-real branch;
     - injectivity of Fermat coordinates and positive-midpoint squared images.
 
 ### Kernel foundations
 
-14. `RHLean.Kernel.FixedPackets`
+18. `RHLean.Kernel.FixedPackets`
     - fixed-packet definitions and exact packet identities used by the later kernel and Gram layers.
 
 ## 2. Current checkpoint
 
-The exact arithmetic and factor-geometry foundations are now substantially developed.
+Phase I, the corrected complex quadratic-phase layer, is complete.
 
-The corrected quadratic-phase branch is complete only at the **integer exponent-congruence level**. The library does not yet define the complex additive character, the reduced quadratic Gauss factor, or the exact small-modulus normalized factors.
+The library now contains:
+
+- integer exponent congruence modulo `2r`;
+- the exact complex quadratic phase and full-period invariance;
+- the exact shift-by-`r` sign law;
+- the reduced unit-group Gauss sum over `(ZMod (2*r))ˣ`;
+- exact modulus-6 and modulus-24 coherence;
+- the normalized `(a,r)=(1,3)` factor and its norm-one theorem.
+
+The prime-3 complex phase factor remains type-separated from the rational cell-mask mean energy.
 
 The following remain open:
 
-- complex phase invariance and the shift-by-`r` sign law;
-- reduced unit-group Gauss sums over `(ZMod (2*r))ˣ`;
-- exact modulus-6 and modulus-24 resonance and norm-one coherence at `(a,r)=(1,3)`;
 - type-separated prime-3 cell-mask mean energy;
 - `2ab` displacement and lifetime geometry;
+- reduced square-class phase support modulo `40`;
 - exact signed shell Gram identities and orthogonal residuals;
 - scale-dependent resonant projection, leakage, and Lyapunov closure;
 - explicit number-theoretic resonant cancellation and low-height control;
 - certified finite-range verification;
 - actual-start signed-frame theorem and the final RH bridge.
 
-## 3. Formalization sequence from current `main`
+## 3. Formalization sequence from the current checkpoint
 
 Each item below is intended to be a small reviewable PR. Generic algebraic or functional-analytic lemmas should be proved before their number-theoretic instantiations.
 
-### Phase I — finish the corrected complex quadratic-phase layer
+### Phase I — corrected complex quadratic-phase layer — complete
 
-1. **Complex quadratic phase API**
-   - add `RHLean.Analysis.ComplexQuadraticPhase`;
-   - define the additive character and quadratic phase with an explicit nonzero-modulus contract;
-   - prove invariance from `QuadraticExponentCongruent`;
-   - prove `2r` periodicity.
-
-2. **Exact shift-by-`r` sign law**
-   - convert the merged arithmetic dichotomy into
-
-   ```text
-   phase(a,r,u+r) = (-1)^(a*r) * phase(a,r,u).
-   ```
-
-3. **Corrected reduced quadratic Gauss factor**
-   - add `RHLean.Analysis.ReducedQuadraticGauss`;
-   - sum over `(ZMod (2*r))ˣ` only;
-   - define the normalized factor using `Nat.totient (2*r)`;
-   - do not expose an old modulus-`r` public API.
-
-4. **Exact small-modulus resonance**
-   - add unit-square theorems for `ZMod 6` and `ZMod 24`;
-   - compute the normalized factor at `(a,r)=(1,3)`;
-   - prove its norm is exactly `1`;
-   - keep this theorem in `RHLean.QuadraticPrimePhase`.
+1. **Complex quadratic phase API** — completed by PR #21.
+2. **Exact shift-by-`r` sign law** — completed by PR #22.
+3. **Corrected reduced quadratic Gauss factor** — completed by PR #23.
+4. **Exact small-modulus resonance** — completed by PR #24.
 
 ### Phase II — finish the remaining exact combinatorial and geometry layers
 
 5. **Prime-3 cell-mask mean energy**
-   - introduce `RHLean.CellMask`;
+   - introduce a dedicated cell-mask namespace/module;
    - prove the exact rational-valued mean-energy statement;
    - ensure no coercion or theorem path treats `1/9` as a bound for the quadratic prime-phase factor.
 
@@ -213,11 +223,11 @@ compiled Möbius/cell arithmetic
 +
 compiled factor geometry
 +
-compiled modulus-2r exponent arithmetic
-        ↓
-complex quadratic phase and exact sign law
+compiled modulus-2r exponent and complex-phase arithmetic
         ↓
 correct reduced Gauss factors and exact resonances
+        ↓
+exact cell-mask energy and remaining geometry
         ↓
 scale-dependent resonant/nonresonant decomposition
 +
@@ -238,4 +248,11 @@ RH bridge only after unconditional closure
 
 This file is the single source of truth for implementation order.
 
-`README.md`, `ARCHITECTURE.md`, and `SIGNED_GRAM_ARCHITECTURE.md` may summarize or link to this sequence, but should not maintain independent numbered roadmaps. Whenever a theorem layer is merged, update this inventory by moving it from the open sequence into the compiled inventory and revising the checkpoint before beginning unrelated work.
+`README.md`, `ARCHITECTURE.md`, and `SIGNED_GRAM_ARCHITECTURE.md` may summarize or link to this sequence, but should not maintain independent numbered roadmaps.
+
+Whenever a theorem layer is merged, the same PR must:
+
+- move that layer into the compiled inventory;
+- revise the current checkpoint;
+- identify the next dependency;
+- update `FORMALIZATION_CHECKLIST.md` with its successful PR ledger entry and closeout record.
