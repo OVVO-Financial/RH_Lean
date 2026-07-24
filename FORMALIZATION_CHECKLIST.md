@@ -123,6 +123,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#51** — Realized the exact square-prefix Mertens value as a normalized ordered sum over `ActualCofactorChannel`, with the lower Möbius factor separated to match `actualResidualEntry`.
 - [x] **#52** — Defined the exact `|Y| ≤ Λ n` height partition, finite pair/channel supports, and exact low/high signal recombination.
 - [x] **#53** — Defined the finite reduced Farey modes, exact tripling phase action, entry-shell assignment, and contiguous ordered-channel packet windows.
+- [x] **#54** — Chose the exact source-entry shell, constructed concrete high-sector `ActualResidualData`, defined singleton source-entry amplitudes, and proved exact high-sector recombination without collapsing ordered orientations.
+- [x] **#55** — Constructed concrete contiguous transport data and proved the complete tripling signed defect: finite boundary prefix plus explicit phase mismatch on the shared window; also restored the full branch-wide merge-gating workflow.
 
 ## 5. Theorem-layer completion checklist
 
@@ -176,60 +178,63 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **25. Concrete square-prefix cofactor-channel realization** — PR #51.
 - [x] **26. Exact high/low height partition and finite channel supports** — PR #52.
 - [x] **27. Reduced Farey modes, exact phase action, entry shells, and contiguous packet windows** — PR #53.
-- [ ] **28. Concrete high-height shell choice, `ActualResidualData` constructor, amplitudes, and exact high-sector recombination**.
-- [ ] **29. Tripling-compatible packet transport and full signed defect identity**.
+- [x] **28. Concrete high-height shell choice, `ActualResidualData` constructor, amplitudes, and exact high-sector recombination** — PR #54.
+- [x] **29. Tripling-compatible packet transport and full signed defect identity** — PR #55.
 
 ## 6. Current checkpoint
 
-Principal definitions in `RHLean.Proof.NormalizedCofactorExpansion`:
+Principal definitions in `RHLean.Proof.ConcreteSquarePrefixHighResidual`:
 
-- `distinctPrimeCount`;
-- `alphaWeightRat`;
-- `normalizedCofactorWeightRat`;
-- `orderedCoprimeFactorPairs`;
-- `normalizedFiberExpansionRat`.
+- `zeroFareyModeLabel`;
+- `squarePrefixHighShell`;
+- `squarePrefixHighSourcePacketStart`;
+- `squarePrefixHighSourcePacketLength`;
+- `squarePrefixHighResidualAmplitude`;
+- `squarePrefixHighResidualData`.
 
-Principal definitions in `RHLean.Proof.SquarePrefixHeightPartition`:
+Principal theorems added by PR #54:
 
-- `IsLowHeightChannel`;
-- `squarePrefixCofactorPairs`;
-- `squarePrefixLowHeightPairs`;
-- `squarePrefixHighHeightPairs`;
-- `squarePrefixLowHeightExpansionRat`;
-- `squarePrefixHighHeightExpansionRat`.
+- `squarePrefixHighHeightExpansionRat_eq_pairSum`;
+- `squarePrefixHighHeightExpansion_eq_channelSum`;
+- `squarePrefixHighSourcePacket_range`;
+- `squarePrefixHighResidualPacket_eq`;
+- `actualResidual_squarePrefixHighResidualData_eq_channelSum`;
+- `actualResidual_squarePrefixHighResidualData_eq_highHeightExpansion`.
 
-Principal definitions in `RHLean.Proof.FareyModesAndTransportWindows`:
+Principal definitions in `RHLean.Proof.TriplingPacketTransport`:
 
-- `fareyModePairs`;
-- `fareyModeLabels`;
-- `fareyResonantMode`;
-- `fareyChannelPhase`;
-- `orderedChannelEntryShell`;
-- `orderedChannelTransitionIndex`;
-- `orderedTransportPacketStart`;
-- `orderedTransportPacketLength`;
-- `squarePrefixEntryShellCount`.
+- `normalizedFareyTransportEntry`;
+- `normalizedFareyTransportPacket`;
+- `squarePrefixHighTransportAmplitude`;
+- `squarePrefixHighTransportData`;
+- `triplingPhaseTransport`;
+- `triplingBoundaryPacket`;
+- `triplingTransportedBasePacket`;
+- `triplingSignedDefect`;
+- `SquarePrefixHighTriplingPair`;
+- `squarePrefixHighTriplingModeContribution`;
+- `squarePrefixHighTriplingModeDefect`.
 
-Principal theorems added by PR #53:
+Principal theorems added by PR #55:
 
-- `mem_fareyModePairs`;
-- `mem_fareyModeLabels`;
-- `fareyResonantMode_numerator_of_mem`;
-- `fareyResonantMode_denominator_of_mem`;
-- `fareyChannelPhase_tripled`;
-- `orderedTransportPacket_range`;
-- `orderedTransportPacket_eq_intervalSum`;
-- `orderedChannelEntryShell_lt_squarePrefixEntryShellCount`.
+- `actualResidualEntry_squarePrefixHighTransportData_ownShell`;
+- `actualResidualPacket_squarePrefixHighTransportData_ownShell`;
+- `orderedChannelEntryShell_le_tripled`;
+- `normalizedFareyTransportPacket_eq_boundary_add_common`;
+- `normalizedFareyTransportEntry_phaseAligned_cancel`;
+- `normalizedFareyTransportEntry_add_two_tripled_eq_phaseDefect`;
+- `normalizedFareyTransportPacket_add_two_tripled_eq_signedDefect`;
+- `actualResidualPacket_squarePrefixHighTransportData_tripling_signedDefect`;
+- `squarePrefixHighTriplingModeContribution_eq_defect`;
+- `squarePrefixHighTriplingModeContribution_energy_eq_defect`.
 
-The exact channel, height, rational-mode, phase-action, entry-shell, and packet-window prerequisites are now compiled. The manuscript does not specify a unique finite high-height shell formula; choosing that shell structure remains part of the concrete residual-data constructor rather than being hidden in this layer.
+The exact normalized channel arithmetic, high/low partition, finite Farey support, source-entry realization, contiguous transport windows, and one-pair all-mode signed defect are now compiled. The all-mode norm is taken only after signed recombination.
 
 ## 7. Remaining obligations
 
-- choose and prove a concrete finite high-height shell assignment;
-- construct concrete `ActualResidualData` using the compiled channel, Farey-mode, shell, and packet data;
-- define the concrete packet-indexed amplitudes and prove exact high-sector recombination;
-- prove tripling-compatible packet transport and the full signed defect identity;
-- prove the high-sector signed-Gram and local prediction-energy estimates;
+- construct the complete concrete tripling-pair/unpaired-channel decomposition for the full high family;
+- prove the uniform high-sector signed-Gram estimate, retaining cross-pair, cross-shell, cross-row, and cross-mode interactions;
+- prove the local prediction-energy estimate yielding `H N^(2+ε)`;
 - construct the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control;
 - import or formalize the classical theorem
   `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`.
