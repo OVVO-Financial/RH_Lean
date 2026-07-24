@@ -1,0 +1,1 @@
+This revision updates the canonical manuscript after merged PRs #44 and #45: local low/high criterion equivalence, concrete square-prefix Mertens interpolation, direct classical Mertens-RH hook, and repository reproducibility links. It does not claim the open high-sector estimate or RH.
