@@ -134,8 +134,11 @@ theorem squarePrefixMertens_eq_canonicalLow_add_high
   exact canonicalTotalPrefix_eq_low_add_high Λ n
 
 /-- Explicit typed form of the manuscript's elementary canonical low-block
-estimate. The intended realization has `bound = floor Λ`; the bridge below
-requires only a finite nonnegative uniform bound. -/
+estimate. For the nontrivial canonical sources the manuscript gives the
+`floor Λ` occupancy bound. Because this exact square-prefix convention folds the
+isolated `μ(1)` term into the low block, a direct uniform realization may use
+`floor Λ + 1`, or handle that one endpoint separately. The bridge below requires
+only a finite nonnegative uniform bound. -/
 structure CanonicalLowIncrementControl (Λ : ℝ) where
   bound : ℝ
   bound_nonneg : 0 ≤ bound
