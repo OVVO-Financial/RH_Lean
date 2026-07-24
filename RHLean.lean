@@ -28,3 +28,4 @@ import RHLean.Geometry.FermatCoordinates
 import RHLean.Geometry.SquareMapConformality
 import RHLean.Geometry.TwoABDisplacement
 import RHLean.Kernel.FixedPackets
+import RHLean.Verification.FiniteRangeCertificates
