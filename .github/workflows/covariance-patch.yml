@@ -1,6 +1,7 @@
 name: Canonical covariance patch
 
 on:
+  pull_request:
   push:
     branches: [agent/canonical-centered-covariance]
   workflow_dispatch:
