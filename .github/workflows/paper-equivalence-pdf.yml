@@ -5,10 +5,12 @@ on:
     branches: [agent/update-paper-equivalence-pdf]
     paths:
       - paper/apply_equivalence_revision.py
+      - paper/run_equivalence_revision.py
       - .github/workflows/paper-equivalence-pdf.yml
   pull_request:
     paths:
       - paper/apply_equivalence_revision.py
+      - paper/run_equivalence_revision.py
       - .github/workflows/paper-equivalence-pdf.yml
   workflow_dispatch:
 
@@ -28,7 +30,7 @@ jobs:
 
       - name: Apply deterministic equivalence revision
         working-directory: repo
-        run: python paper/apply_equivalence_revision.py
+        run: python paper/run_equivalence_revision.py
 
       - name: Compile LaTeX paper
         uses: xu-cheng/latex-action@v3
