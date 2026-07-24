@@ -202,11 +202,11 @@ theorem resonantActualResidualPacket_pair_cancel
       resonantActualResidualPacket skeleton M data shell
         (doubledCofactorChannel pair) denominatorMode = 0 := by
   rw [resonantActualResidualPacket_eq_moebiusScalar_smul_unweighted,
-    resonantActualResidualPacket_eq_moebiusScalar_smul_unweighted]
+    resonantActualResidualPacket_eq_moebiusScalar_smul_unweighted,
+    resonantUnweightedResidualPacket_base_eq_doubled
+      skeleton M data shell pair hcompat denominatorMode hmode]
   simp only [baseCofactorChannel, doubledCofactorChannel]
-  rw [resonantUnweightedResidualPacket_base_eq_doubled
-      skeleton M data shell pair hcompat denominatorMode hmode,
-    moebiusScalar_two_mul_of_odd pair.baseCofactor hcompat.baseOdd]
+  rw [moebiusScalar_two_mul_of_odd pair.baseCofactor hcompat.baseOdd]
   simp
 
 /-- The actual joint denominator-mode contribution of one cofactor channel. -/
