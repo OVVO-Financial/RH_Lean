@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports twenty-eight theorem modules.
+The root library currently imports twenty-nine theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -177,37 +177,48 @@ The root library currently imports twenty-eight theorem modules.
     - exact cancellation after scale-dependent extraction for each retained denominator mode, each joint cofactor-mode contribution, and every finite certified pair family;
     - no assertion that all actual channels are paired or that unpaired, low-height, endpoint, or boundary terms vanish.
 
+29. `RHLean.Analysis.ActualForcingEstimates`
+    - positive separated low-height shell positions and a proved spacing-to-incidence bound;
+    - explicit resonant and nonresonant low-height finite sums with cutoff-times-envelope estimates;
+    - left and right endpoint sources retained separately with two-sided triangle bounds;
+    - finite boundary sources with independent incidence caps and pointwise envelopes;
+    - exact instantiation of all six forcing fields of `ResonantLeakageOperator ℂ ℂ ℂ` while preserving the four block maps;
+    - combined rowwise and weighted forcing bounds for the compiled Lyapunov interface;
+    - no decay rate, contraction, numerical constant, or joint Gram estimate asserted.
+
 ## 2. Current checkpoint
 
-Phase I, Phase II, and Phase III are complete. Phase IV item 13 is completed by PR #35. Phase IV item 14, explicit resonant cancellation across Möbius-weighted cofactor channels, is completed on the implementation branch for anticipated PR #36.
+Phase I, Phase II, and Phase III are complete. Phase IV items 13 and 14 are completed by PRs #35 and #36. Phase IV item 15, low-height spacing, incidence, endpoint, and boundary estimates, is completed on the implementation branch for anticipated PR #37.
 
-The actual residual remains explicitly indexed by scale, height shell, cofactor channel, denominator mode, packet start, packet length, and packet index. For a certified pair with odd base cofactor `a` and doubled cofactor `2a`, the new layer keeps the upper factor, shell, and denominator mode fixed and proves
-
-```text
-μ(2a) = -μ(a)
-```
-
-inside the complex packet contribution. Compatibility is not hidden: both channels must occur in the actual cofactor set, and packet starts, packet lengths, and full packet-indexed amplitudes must agree for every retained denominator mode.
-
-The resulting exact cancellation is
+The actual forcing layer now keeps the six recurrence sources separate:
 
 ```text
-R_packet(a, mode) + R_packet(2a, mode) = 0,
+lowHeightResonant, lowHeightNonresonant,
+endpointResonant, endpointNonresonant,
+boundaryResonant, boundaryNonresonant.
 ```
 
-followed by the joint denominator-mode identity
+For low-height shells, positive pairwise separation implies strict monotonicity. Embedding the separated positions into `Fin (cutoff + 1)` gives the exact incidence bound
 
 ```text
-R_cofactor(a) + R_cofactor(2a) = 0.
+lowHeightCount(M) ≤ lowHeightCutoff(M) + 1.
 ```
 
-Every finite family of separately certified pairs therefore has zero total resonant contribution. The theorem does not claim that the actual channel set is exhausted by such pairs, does not discard unpaired channels, and does not replace the signed cofactor/mode interaction with shellwise positivity or independent mode estimates.
+Uniform pointwise envelopes then give explicit finite-sum bounds in both rows. Left and right endpoints remain separate before applying the triangle inequality. Boundary terms retain an explicit finite incidence cap and an independent pointwise envelope.
 
-The canonical denominator modulus remains `2 * r`. The prime-3 rational cell-mask mechanism remains in its separate namespace. No orthogonality, Pythagorean identity, zero leakage, triangularity, contraction, low-height estimate, endpoint estimate, boundary estimate, numerical verification, uniform residual bound, or RH statement is introduced.
+Replacing only the six forcing fields of an existing complex leakage operator yields exact rowwise estimates
+
+```text
+‖resonantForcing(M)‖ ≤ resonantForcingBound(M),
+‖nonresonantForcing(M)‖ ≤ nonresonantForcingBound(M),
+```
+
+and the weighted estimate required by the Lyapunov layer. The four block maps `A_M`, `B_M`, `C_M`, and `D_M` are unchanged.
+
+No decay law, contraction, triangularity, zero leakage, joint Gram control, finite numerical verification, uniform residual bound, or RH statement is introduced.
 
 The following remain open:
 
-- low-height spacing, incidence, endpoint, and boundary estimates;
 - joint signed Gram control retaining all cross interactions;
 - certified finite-range verification;
 - the uniform full residual bound;
@@ -248,17 +259,21 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
   - proves only declared-span membership and exact algebraic recombination;
   - packages the result as the separately typed state used by later leakage and Lyapunov theorems.
 
-- [x] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — anticipated PR #36.
+- [x] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — completed by PR #36.
   - defines explicit odd/base and doubled cofactor channels with the upper factor retained;
   - records channel membership and exact packet compatibility separately for every retained denominator mode;
   - factors the actual packet and its extracted component by the exact complex Möbius scalar;
   - proves exact per-mode, joint denominator-mode, and finite certified-pair-family cancellation;
   - makes no exhaustive-pairing, unpaired-term, low-height, endpoint, boundary, contraction, or smallness claim.
 
-- [ ] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — next dependency.
-  - prove the analytic forcing bounds required by the block recurrence.
+- [x] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — anticipated PR #37.
+  - derives low-height incidence from positive spacing and a finite height cutoff;
+  - proves separate resonant and nonresonant low-height finite-sum estimates;
+  - retains left/right endpoint and finite boundary sources separately;
+  - instantiates the six forcing fields of the compiled leakage operator without changing its four block maps;
+  - proves rowwise and weighted forcing bounds, with no unproved decay or contraction claim.
 
-- [ ] **16. Joint Gram control**.
+- [ ] **16. Joint Gram control** — next dependency.
   - index simultaneously by height shell, cofactor block, and denominator mode;
   - retain cross-shell, cross-cofactor, resonant/nonresonant, and mode interactions.
 
@@ -301,7 +316,7 @@ explicit leakage operator and abstract Lyapunov closure
         ↓
 exact resonant cancellation for certified Möbius cofactor pairs
         ↓
-low-height and boundary forcing estimates
+low-height, endpoint, and boundary forcing estimates
         ↓
 full joint signed Gram contraction
         ↓
