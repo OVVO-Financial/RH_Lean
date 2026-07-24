@@ -31,10 +31,10 @@ jobs:
           test: false
           lint: false
 
-      - name: Compile normalized cofactor proof module
+      - name: Compile normalized cofactor proof modules
         run: |
           set +e
-          lake env lean RHLean/Proof/NormalizedCofactorExpansion.lean > proof-build.log 2>&1
+          lake env lean RHLean/Proof/NormalizedCofactorTripling.lean > proof-build.log 2>&1
           status=$?
           printf '%s\n' "$status" > proof-build.status
           exit 0
