@@ -63,6 +63,49 @@ theorem coprime_of_mem_orderedCoprimeFactorPairs
     Nat.Coprime c q :=
   (mem_orderedCoprimeFactorPairs.mp h).2.2
 
+/-- Factors of a squarefree product are automatically coprime. -/
+theorem coprime_factors_of_squarefree
+    {m c q : ℕ}
+    (hsq : Squarefree m)
+    (hprod : c * q = m) :
+    Nat.Coprime c q := by
+  apply Nat.coprime_iff_isRelPrime.mpr
+  apply IsRelPrime.of_squarefree_mul
+  simpa [hprod] using hsq
+
+/-- For squarefree products, the coprimality filter on the divisor antidiagonal is redundant. -/
+theorem orderedCoprimeFactorPairs_eq_divisorsAntidiagonal
+    (m : ℕ) (hsq : Squarefree m) :
+    orderedCoprimeFactorPairs m = m.divisorsAntidiagonal := by
+  ext p
+  simp only [orderedCoprimeFactorPairs, Finset.mem_filter]
+  constructor
+  · exact fun h => h.1
+  · intro hp
+    refine ⟨hp, coprime_factors_of_squarefree hsq ?_⟩
+    exact (Nat.mem_divisorsAntidiagonal.mp hp).1
+
+/-- A positive squarefree fiber has one ordered factor pair for each subset of prime factors. -/
+theorem orderedCoprimeFactorPairs_card_of_squarefree
+    (m : ℕ) (hsq : Squarefree m) :
+    (orderedCoprimeFactorPairs m).card =
+      2 ^ distinctPrimeCount m := by
+  rw [orderedCoprimeFactorPairs_eq_divisorsAntidiagonal m hsq]
+  calc
+    m.divisorsAntidiagonal.card = m.divisors.card := by
+      rw [← Nat.map_div_right_divisors]
+      simp
+    _ = m.primeFactors.prod (fun p => m.factorization p + 1) :=
+      Nat.card_divisors hsq.ne_zero
+    _ = m.primeFactors.prod (fun _ => 2) := by
+      apply Finset.prod_congr rfl
+      intro p hp
+      rw [Nat.factorization_eq_one_of_squarefree hsq
+        (Nat.prime_of_mem_primeFactors hp)
+        (Nat.dvd_of_mem_primeFactors hp)]
+    _ = 2 ^ distinctPrimeCount m := by
+      simp [distinctPrimeCount]
+
 /-- Möbius multiplicativity, cast into `ℚ`. -/
 theorem moebius_mul_cast_rat_of_coprime
     {c q : ℕ}
