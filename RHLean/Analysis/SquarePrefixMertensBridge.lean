@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.GeometricRHReduction
+import RHLean.Analysis.RiemannHypothesisBridge
 
 noncomputable section
 
@@ -150,11 +150,13 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
     MertensEnergyBoundedStatement := by
   intro ε hε
   rcases hS (2 * ε) (by linarith) with ⟨C, hC, hbound⟩
-  refine ⟨2 * C + 32, by nlinarith, ?_⟩
+  have hconstant : 0 ≤ 2 * C + 32 :=
+    add_nonneg (mul_nonneg (by norm_num) hC) (by norm_num)
+  refine ⟨2 * C + 32, hconstant, ?_⟩
   intro x
   by_cases hx0 : x = 0
   · subst x
-    simp [mertensSummatory]
+    simpa [mertensSummatory] using hconstant
   · let r := Nat.sqrt x
     have hr : 1 ≤ r := by
       dsimp [r]
@@ -207,9 +209,6 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
         · exact hexp
       · positivity
     have hrplusSq : (r + 1 : ℝ) ^ 2 ≤ 4 * ((x + 1 : ℕ) : ℝ) := by
-      have hr_le_x : r ≤ x := by
-        dsimp [r]
-        exact Nat.sqrt_le_self x
       have hnat : (r + 1) ^ 2 ≤ 4 * (x + 1) := by
         have hsquare : (r + 1) ^ 2 = r ^ 2 + 2 * r + 1 := by ring
         rw [hsquare]
@@ -252,7 +251,7 @@ theorem mertensEnergyBounded_iff_squarePrefixEnergyBounded :
   exact ⟨squarePrefixEnergyBounded_of_mertensEnergyBounded,
     mertensEnergyBounded_of_squarePrefixEnergyBounded⟩
 
-/-- The current project pointwise criterion, specialized to the concrete square-prefix sequence. -/
+/-- The current pointwise criterion for the concrete square-prefix sequence. -/
 def SquarePrefixCurrentPointwiseBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ C : ℝ, 0 ≤ C ∧
@@ -260,7 +259,7 @@ def SquarePrefixCurrentPointwiseBoundedStatement : Prop :=
         ‖squarePrefixMertens N‖ ^ 2 ≤
           C * Real.rpow (N : ℝ) (2 + ε)
 
-/-- The shifted exact square-prefix criterion and the current project criterion are equivalent. -/
+/-- The shifted exact square-prefix criterion and the current pointwise criterion are equivalent. -/
 theorem squarePrefixEnergyBounded_iff_currentPointwise :
     SquarePrefixEnergyBoundedStatement ↔
       SquarePrefixCurrentPointwiseBoundedStatement := by
@@ -296,9 +295,11 @@ theorem squarePrefixEnergyBounded_iff_currentPointwise :
     intro n
     by_cases hn0 : n = 0
     · subst n
-      have hzle : Z ≤ C + Z := le_add_of_nonneg_left hC
-      change Z ≤ (C + Z) * Real.rpow (1 : ℝ) (2 + ε)
-      simpa using hzle
+      have hzle :
+          ‖squarePrefixMertens 0‖ ^ 2 ≤
+            C + ‖squarePrefixMertens 0‖ ^ 2 :=
+        le_add_of_nonneg_left hC
+      simpa [Z] using hzle
     · have hn : 1 ≤ n := Nat.pos_of_ne_zero hn0
       have h := hbound n hn
       have hbase : (n : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ n
@@ -315,145 +316,5 @@ theorem squarePrefixEnergyBounded_iff_currentPointwise :
 structure ClassicalMertensRHCriterion where
   iff_riemannHypothesis :
     MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement
-
-/-- A concrete identification of an actual-start sequence with the manuscript's `S_n`. -/
-structure ActualStartSquarePrefixRealization
-    {skeleton : ResonantProjectionSkeleton ℂ ℂ}
-    {data : (M : ℕ) → ActualResidualData skeleton.cutoff M}
-    (start : ActualStartConfiguration skeleton data) where
-  actual_eq_squarePrefix : ∀ n, start.actual n = squarePrefixMertens n
-
-/-- The current actual-start pointwise criterion is exactly the concrete square-prefix criterion. -/
-theorem actualStart_pointwiseSquareBounded_iff_squarePrefixCurrent
-    {skeleton : ResonantProjectionSkeleton ℂ ℂ}
-    {data : (M : ℕ) → ActualResidualData skeleton.cutoff M}
-    (start : ActualStartConfiguration skeleton data)
-    (realization : ActualStartSquarePrefixRealization start) :
-    ActualStartPointwiseSquareBoundedStatement start ↔
-      SquarePrefixCurrentPointwiseBoundedStatement := by
-  constructor <;> intro h ε hε
-  · rcases h ε hε with ⟨C, hC, hbound⟩
-    refine ⟨C, hC, ?_⟩
-    intro N hN
-    rw [← realization.actual_eq_squarePrefix N]
-    exact hbound N hN
-  · rcases h ε hε with ⟨C, hC, hbound⟩
-    refine ⟨C, hC, ?_⟩
-    intro N hN
-    rw [realization.actual_eq_squarePrefix N]
-    exact hbound N hN
-
-/-- Pointwise actual-start control implies uniform local control by a direct window sum. -/
-theorem actualStart_uniformLocalBounded_of_pointwiseSquareBounded
-    {skeleton : ResonantProjectionSkeleton ℂ ℂ}
-    {data : (M : ℕ) → ActualResidualData skeleton.cutoff M}
-    (start : ActualStartConfiguration skeleton data)
-    (hpoint : ActualStartPointwiseSquareBoundedStatement start) :
-    ActualStartUniformLocalBoundedStatement start := by
-  intro ε hε
-  rcases hpoint ε hε with ⟨C, hC, hbound⟩
-  let K := Real.rpow 2 (2 + ε)
-  refine ⟨C * K, mul_nonneg hC (Real.rpow_nonneg (by norm_num) _), ?_⟩
-  intro N H hH hHN
-  have hN : 1 ≤ N := hH.trans hHN
-  unfold actualStartLocalFrameEnergy
-  calc
-    (∑ h ∈ Finset.range H, ‖start.actual (N + h)‖ ^ 2) ≤
-        ∑ _h ∈ Finset.range H,
-          (C * K) * Real.rpow (N : ℝ) (2 + ε) := by
-      apply Finset.sum_le_sum
-      intro h hh
-      have hhlt : h < H := Finset.mem_range.mp hh
-      have hindex : 1 ≤ N + h := le_add_right hN
-      have hboundIndex := hbound (N + h) hindex
-      have hindexNat : N + h ≤ 2 * N := by omega
-      have hindexR : ((N + h : ℕ) : ℝ) ≤ 2 * (N : ℝ) := by exact_mod_cast hindexNat
-      have hexp : 0 ≤ 2 + ε := by linarith
-      have hp := Real.rpow_le_rpow (by positivity) hindexR hexp
-      have hmul :
-          Real.rpow (2 * (N : ℝ)) (2 + ε) =
-            Real.rpow 2 (2 + ε) * Real.rpow (N : ℝ) (2 + ε) :=
-        Real.mul_rpow (by norm_num) (by positivity)
-      calc
-        ‖start.actual (N + h)‖ ^ 2 ≤
-            C * Real.rpow ((N + h : ℕ) : ℝ) (2 + ε) := hboundIndex
-        _ ≤ C * Real.rpow (2 * (N : ℝ)) (2 + ε) :=
-          mul_le_mul_of_nonneg_left hp hC
-        _ = (C * K) * Real.rpow (N : ℝ) (2 + ε) := by
-          rw [hmul]
-          simp only [K, mul_assoc]
-    _ = (H : ℝ) * ((C * K) * Real.rpow (N : ℝ) (2 + ε)) := by simp
-    _ = (C * K) * (H : ℝ) * Real.rpow (N : ℝ) (2 + ε) := by ring
-
-/-- Uniform local and pointwise actual-start criteria are equivalent. -/
-theorem actualStart_uniformLocalBounded_iff_pointwiseSquareBounded
-    {skeleton : ResonantProjectionSkeleton ℂ ℂ}
-    {data : (M : ℕ) → ActualResidualData skeleton.cutoff M}
-    (start : ActualStartConfiguration skeleton data) :
-    ActualStartUniformLocalBoundedStatement start ↔
-      ActualStartPointwiseSquareBoundedStatement start := by
-  exact ⟨actualStart_pointwiseSquareBounded_of_uniformLocalBounded start,
-    actualStart_uniformLocalBounded_of_pointwiseSquareBounded start⟩
-
-/-- The concrete actual-start criterion is RH once the standard classical theorem is supplied. -/
-theorem actualStart_uniformLocalBounded_iff_riemannHypothesis_of_mertens
-    {skeleton : ResonantProjectionSkeleton ℂ ℂ}
-    {data : (M : ℕ) → ActualResidualData skeleton.cutoff M}
-    (start : ActualStartConfiguration skeleton data)
-    (realization : ActualStartSquarePrefixRealization start)
-    (criterion : ClassicalMertensRHCriterion) :
-    ActualStartUniformLocalBoundedStatement start ↔
-      RiemannHypothesisStatement := by
-  calc
-    ActualStartUniformLocalBoundedStatement start ↔
-        ActualStartPointwiseSquareBoundedStatement start :=
-      actualStart_uniformLocalBounded_iff_pointwiseSquareBounded start
-    _ ↔ SquarePrefixCurrentPointwiseBoundedStatement :=
-      actualStart_pointwiseSquareBounded_iff_squarePrefixCurrent start realization
-    _ ↔ SquarePrefixEnergyBoundedStatement :=
-      squarePrefixEnergyBounded_iff_currentPointwise.symm
-    _ ↔ MertensEnergyBoundedStatement :=
-      mertensEnergyBounded_iff_squarePrefixEnergyBounded.symm
-    _ ↔ RiemannHypothesisStatement := criterion.iff_riemannHypothesis
-
-/-- The existing bridge structure is constructed mechanically from the canonical Mertens adapter. -/
-def ActualStartRHBridge.ofMertens
-    {skeleton : ResonantProjectionSkeleton ℂ ℂ}
-    {data : (M : ℕ) → ActualResidualData skeleton.cutoff M}
-    (start : ActualStartConfiguration skeleton data)
-    (localSignedFrame_to_uniformLocalBounded :
-      ActualStartLocalSignedFrameStatement start →
-        ActualStartUniformLocalBoundedStatement start)
-    (realization : ActualStartSquarePrefixRealization start)
-    (criterion : ClassicalMertensRHCriterion) :
-    ActualStartRHBridge start where
-  localSignedFrame_to_uniformLocalBounded :=
-    localSignedFrame_to_uniformLocalBounded
-  riemannHypothesis_to_uniformLocalBounded :=
-    (actualStart_uniformLocalBounded_iff_riemannHypothesis_of_mertens
-      start realization criterion).mpr
-  pointwiseSquareBounded_to_riemannHypothesis := fun hpoint =>
-    (actualStart_uniformLocalBounded_iff_riemannHypothesis_of_mertens
-      start realization criterion).mp
-      (actualStart_uniformLocalBounded_of_pointwiseSquareBounded start hpoint)
-
-/-- No project-specific RH bridge remains in the final geometric equivalence theorem. -/
-theorem actualStart_highUniformLocalBounded_iff_riemannHypothesis_of_mertens
-    {skeleton : ResonantProjectionSkeleton ℂ ℂ}
-    {data : (M : ℕ) → ActualResidualData skeleton.cutoff M}
-    (start : ActualStartConfiguration skeleton data)
-    (partition : ActualStartGeometricPartition start)
-    (realization : ActualStartSquarePrefixRealization start)
-    (criterion : ClassicalMertensRHCriterion) :
-    ActualStartHighUniformLocalBoundedStatement partition ↔
-      RiemannHypothesisStatement := by
-  calc
-    ActualStartHighUniformLocalBoundedStatement partition ↔
-        ActualStartUniformLocalBoundedStatement start :=
-      (actualStart_uniformLocalBounded_iff_highUniformLocalBounded
-        start partition).symm
-    _ ↔ RiemannHypothesisStatement :=
-      actualStart_uniformLocalBounded_iff_riemannHypothesis_of_mertens
-        start realization criterion
 
 end RHLean.Analysis
