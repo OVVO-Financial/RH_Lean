@@ -42,6 +42,7 @@ Copy this task list into the pull-request description and prepopulate it on the 
 - [ ] Pass `bash scripts/audit_assumptions.sh`.
 - [ ] Pass `lake build RHLean --wfail` with no warnings.
 - [ ] Fix only failures observed in exact CI logs.
+- [ ] After three failed substantive attempts, request the complete job log as a diagnostic delimiter and continue until green.
 - [ ] Do not add a documentation-only commit after green CI merely to record the result; GitHub check status is authoritative.
 - [ ] If a substantive correction changes the branch after CI, update the prepopulated closeout state with that correction and rerun the required checks.
 - [ ] Merge only after green CI and explicit authorization.
@@ -103,6 +104,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#36** — Formalized exact scale-dependent resonant cancellation for explicitly compatible odd/doubled Möbius cofactor pairs while retaining every denominator-mode and cofactor interaction.
 - [x] **#37** — Proved low-height spacing-to-incidence, endpoint, boundary, rowwise, and weighted actual forcing estimates for the compiled leakage and Lyapunov interfaces.
 - [x] **#38** — Formalized the complete shell/cofactor/mode/row joint index, exact recombination to the actual residual, and the full signed joint Gram control interface.
+- [x] **#39** — Added the sound executable finite-range certificate checker, exact metadata and payload validation, and the accepted-certificate import boundary.
 
 ## 5. Theorem-layer completion checklist
 
@@ -132,69 +134,77 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **13. Resonant/nonresonant decomposition of the actual residual** — PR #35.
 - [x] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — PR #36.
 - [x] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — PR #37.
-- [x] **16. Joint Gram control** — anticipated PR #38.
-- [ ] **17. Certified finite-range certificate checker** — next dependency.
-- [ ] **18. Uniform full residual bound**.
+- [x] **16. Joint Gram control** — PR #38.
+- [x] **17. Certified finite-range certificate checker** — anticipated PR #39.
+- [ ] **18. Uniform full residual bound** — next dependency.
 - [ ] **19. Actual-start signed-frame theorem**.
 - [ ] **20. RH bridge**.
 
 ## 6. Current checkpoint
 
-Anticipated PR #38, **Formalize full joint signed Gram control**, completes Phase IV item 16 on the implementation branch.
+Anticipated PR #39, **Formalize certified finite-range certificates**, completes Phase IV item 17 on the implementation branch.
 
-- Principal new module: `RHLean.Analysis.JointGramControl`.
+- Principal new module: `RHLean.Verification.FiniteRangeCertificates`.
+- Principal structures:
+  - `FiniteRangeCertificateMetadata`;
+  - `FiniteRangeCertificateExpectation`;
+  - `ExactDecompositionCheckpoint`;
+  - `PrimeResidueCheckpoint`;
+  - `JointGramCertificateCheckpoint`;
+  - `FiniteRangeCertificateRow`;
+  - `FiniteRangeCertificate`;
+  - `AcceptedFiniteRangeCertificate`.
 - Principal definitions:
-  - `ActualResidualRow`;
-  - `actualJointRowPacket`;
-  - `ActualJointGramIndex`;
-  - `actualJointGramEntry`;
-  - `actualJointGramEquivFin`;
-  - `actualJointGramEnumeratedIndex`;
-  - `actualJointGramEnumeratedEntry`;
-  - `actualJointGramCard`;
-  - `actualJointGramSum`;
-  - `actualJointGramDiagonalEnergy`;
-  - `actualJointGramOffDiagonal`;
-  - `actualJointGramEnergy`;
-  - `ActualJointGramRecurrenceControl`.
+  - `integerChecksumWord`;
+  - `payloadChecksumStep`;
+  - `payloadChecksumWords`;
+  - `decompositionPayloadWords`;
+  - `primeResiduePayloadWords`;
+  - `jointGramPayloadWords`;
+  - `finiteRangeRowPayloadWords`;
+  - `finiteRangeCertificatePayloadChecksum`;
+  - `expectedOffDiagonalCount`;
+  - `reconstructedJointEnergy`;
+  - `ExactDecompositionCheckpoint.Valid`;
+  - `PrimeResidueCheckpoint.Valid`;
+  - `FiniteRangeCertificateRow.Valid`;
+  - `FiniteRangeCertificate.Valid`;
+  - `checkFiniteRangeCertificate`.
 - Principal theorems:
-  - `actualJointRowPacket_recombine`;
-  - `actualJointGramSum_eq_fintypeSum`;
-  - `actualJointGramFintypeSum_eq_actualResidual`;
-  - `actualJointGramSum_eq_actualResidual`;
-  - `actualResidual_energy_eq_jointGram`;
-  - `actualResidual_energy_le_of_jointGram_control`;
-  - `actualResidual_energy_le_of_jointGram_recurrence`.
-- Central statements:
+  - `checkFiniteRangeCertificate_sound`;
+  - `AcceptedFiniteRangeCertificate.valid`;
+  - `AcceptedFiniteRangeCertificate.metadata_eq`;
+  - `AcceptedFiniteRangeCertificate.payloadChecksum_eq`;
+  - `AcceptedFiniteRangeCertificate.row_valid`.
+- Central checked obligations:
 
   ```text
-  actualJointGramSum(M) = actualResidual(M),
+  total decomposition = resonant + nonresonant,
+  sum(residue-class counts) = prime count,
+  jointCard = shellCount * cofactorCount * denominatorModeCount * 2,
+  claimedJointEnergy = sum(diagonalTerms) + 2 * sum(offDiagonalTerms),
+  rhoDenominator * claimedJointEnergy
+    ≤ rhoNumerator * parentJointEnergy + rhoDenominator * forcing.
   ```
 
-  and
-
-  ```text
-  ‖actualResidual(M)‖²
-    = jointDiagonalEnergy(M) + 2 * jointOffDiagonalGram(M).
-  ```
-
-  A recursive full-joint-Gram inequality therefore yields the corresponding actual residual energy inequality without independently bounding any shell, cofactor, row, or denominator mode.
 - Protected invariants:
-  - height shell, actual cofactor channel, denominator mode, and residual row remain separate coordinates;
-  - the residual row is exact algebraic extraction/remainder, with no orthogonality assumption;
-  - all cross-shell, cross-cofactor, resonant/nonresonant, and denominator-mode interactions remain in the signed off-diagonal sum;
-  - no numerical finite-range data or unchecked constants are introduced;
-  - the prime-3 cell-mask and canonical modulus-`2r` phase mechanisms remain untouched.
+  - generated rows cover the declared finite range exactly and in order;
+  - code version, source commit, and external data checksum must match an explicit expectation;
+  - the numeric payload checksum is recomputed from every numeric field rather than trusted;
+  - all diagonal and signed off-diagonal joint-Gram terms remain present;
+  - no componentwise shell, cofactor, residual-row, or denominator-mode smallness condition is introduced;
+  - no generated run becomes a theorem without a proof that the executable checker returned `true`.
 - Deliberate exclusions:
-  - no shellwise positivity or independent shell/cofactor/row/mode smallness;
-  - no numerical certificate, contraction factor, decay law, uniform residual bound, actual-start theorem, or RH premise.
+  - no numerical run or checked finite-range dataset is included;
+  - no cryptographic claim is made for the deterministic internal payload checksum;
+  - no contraction constant, decay law, uniform residual bound, actual-start theorem, or RH premise is asserted.
 - Pinned API inspection:
-  - exact signatures were checked for `Fintype.equivFin`, `Fintype.sum_equiv`, `Fin.sum_univ_eq_sum_range`, `Fin.sum_univ_two`, and the compiled height-shell and actual-residual APIs against Lean 4 / mathlib `v4.24.0`;
-  - the implementation uses finite equivalence reindexing, exact packet recombination, and the compiled signed Gram identity only.
+  - exact compiled signatures were checked for `decide`, `of_decide_eq_true`, `List.foldl`, `List.flatMap`, `List.sum`, `List.Nodup`, `List.get`, finite `Fin` quantification, integer order, and the compiled joint-Gram interface against Lean 4 / mathlib `v4.24.0`;
+  - the checker uses exact natural/integer arithmetic and a decidable proposition only.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **17: certified finite-range certificate checker**.
+The next focused PR is unchecked item **18: uniform full residual bound**.
 
-It must prove the checker sound in Lean and accept numerical data only through explicit checked records carrying range, checksum, and code-version metadata. It must not embed an unchecked numerical conclusion, weaken the full signed joint Gram target, or begin until PR #38 is green, merged, and explicitly authorized.
+It must instantiate the compiled weighted affine closure using actual joint-Gram recurrence control, actual forcing bounds, and any accepted finite-range base certificate. It must keep every analytic hypothesis explicit, must not use an unchecked numerical constant, and must not begin until PR #39 is green, merged, and explicitly authorized.
