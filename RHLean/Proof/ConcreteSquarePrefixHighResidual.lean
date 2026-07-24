@@ -18,14 +18,16 @@ def zeroFareyModeLabel : ℕ :=
 /-- Every positive Farey cutoff contains the exact zero mode. -/
 theorem zeroFareyModeLabel_mem (R : ℕ) (hR : 0 < R) :
     zeroFareyModeLabel ∈ fareyModeLabels R := by
+  have hR1 : 1 ≤ R := by omega
   rw [mem_fareyModeLabels]
-  simp [mem_fareyModePairs, hR]
+  simp [mem_fareyModePairs, hR1]
 
 /-- Product fibers are pairwise disjoint because an ordered pair has one exact product. -/
 theorem orderedCoprimeFactorPairs_pairwiseDisjoint (Q : ℕ) :
     Set.PairwiseDisjoint (↑(Finset.range (Q + 1)))
       orderedCoprimeFactorPairs := by
   intro m _ m' _ hne
+  change Disjoint (orderedCoprimeFactorPairs m) (orderedCoprimeFactorPairs m')
   rw [Finset.disjoint_left]
   intro p hp hp'
   have hprod := product_eq_of_mem_orderedCoprimeFactorPairs hp
@@ -106,7 +108,6 @@ theorem squarePrefixHighSourcePacket_range
   ext k
   simp [squarePrefixHighSourcePacketStart,
     squarePrefixHighSourcePacketLength, squarePrefixHighShell]
-  omega
 
 /-- Exact packet-indexed amplitude for the signal realization. The channel
 coefficient appears once: in its entry shell, at the zero Farey mode, and at the
@@ -191,6 +192,12 @@ theorem squarePrefixHighResidualPacket_eq
         0 := by
   classical
   unfold RHLean.Analysis.actualResidualPacket
+  change RHLean.Kernel.packet
+      (RHLean.Analysis.actualResidualEntry
+        (squarePrefixHighResidualData cutoff M hcutoff Λ n)
+        shell channel modeLabel)
+      (squarePrefixHighSourcePacketStart shell channel modeLabel)
+      (squarePrefixHighSourcePacketLength shell channel modeLabel) = _
   rw [packet_length_one]
   unfold RHLean.Analysis.actualResidualEntry
     squarePrefixHighResidualData
@@ -248,6 +255,7 @@ theorem actualResidual_squarePrefixHighResidualData_eq_channelSum
   classical
   unfold RHLean.Analysis.actualResidual RHLean.Analysis.heightShellSum
     RHLean.Analysis.actualResidualShell
+  simp only [squarePrefixHighResidualData]
   simp_rw [squarePrefixHighModeSum_eq]
   rw [Finset.sum_comm]
   apply Finset.sum_congr rfl
@@ -256,7 +264,7 @@ theorem actualResidual_squarePrefixHighResidualData_eq_channelSum
       Finset.range (squarePrefixEntryShellCount n) :=
     Finset.mem_range.mpr (squarePrefixHighShell_lt_shellCount hchannel)
   rw [Finset.sum_eq_single (squarePrefixHighShell channel)]
-  · simp
+  · rfl
   · intro shell _ hne
     simp [hne]
   · intro hnot
