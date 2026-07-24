@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-paper:
@@ -39,6 +39,17 @@ jobs:
           working_directory: repo/paper
           latexmk_use_xelatex: false
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      - name: Commit revised source and PDF
+        if: github.event_name == 'push'
+        working-directory: repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.tex
+          git add paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.pdf
+          git diff --cached --quiet || git commit -m "Update paper with exact geometric RH equivalence"
+          git push origin HEAD:agent/update-paper-equivalence-pdf
 
       - name: Upload revised paper artifacts
         uses: actions/upload-artifact@v4
