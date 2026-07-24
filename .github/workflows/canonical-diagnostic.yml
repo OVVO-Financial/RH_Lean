@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: canonical-diagnostic-${{ github.ref }}
@@ -15,8 +15,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out head branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Set up Lean and mathlib cache
         uses: leanprover/lean-action@v1
@@ -26,25 +28,304 @@ jobs:
           test: false
           lint: false
 
-      - name: Build canonical bridge module
+      - name: Update formalization records
         shell: bash
         run: |
-          set +e
-          lake build RHLean.Proof.CanonicalHighSectorBridge --wfail > canonical-build.log 2>&1
-          status=$?
-          echo "$status" > canonical-build-status.txt
-          exit 0
+          python3 - <<'PY'
+          from pathlib import Path
 
-      - name: Upload compiler log and formalization records
-        uses: actions/upload-artifact@v4
-        with:
-          name: canonical-bridge-compiler-log
-          path: |
-            canonical-build.log
-            canonical-build-status.txt
-            FORMALIZATION_SEQUENCE.md
-            FORMALIZATION_CHECKLIST.md
+          seq_path = Path('FORMALIZATION_SEQUENCE.md')
+          chk_path = Path('FORMALIZATION_CHECKLIST.md')
 
-      - name: Enforce compiler status
+          seq = seq_path.read_text()
+          seq = seq.replace('The root library imports forty-eight theorem modules.',
+                            'The root library imports forty-nine theorem modules.')
+
+          inventory = '''48. `RHLean.Proof.ConcreteHighFamilyJointGram`
+              - proves every concrete transport packet vanishes away from its assigned source shell;
+              - proves the shell/channel Farey-mode sum is exactly the complete channel contribution at that source shell and zero elsewhere;
+              - proves the concrete transport `actualResidual` is exactly the once-per-channel, all-mode complete high-family contribution;
+              - instantiates the full shell/cofactor/mode/row signed joint Gram identity for the concrete family;
+              - proves the PR #56 defect-minus-child-correction-plus-unpaired recombination has that same exact joint Gram energy;
+              - exposes the remaining pointwise and uniform analytic control propositions without asserting that the estimate is proved.
+          '''
+          native_inventory = inventory + '''
+          ### Native canonical high-sector bridge
+
+          49. `RHLean.Proof.CanonicalHighSectorBridge`
+              - defines the unique largest-prime-factor canonical point `q_m=P⁺(m)`, `c_m=m/q_m` and signed doubled height `q_m^2-c_m^2`;
+              - defines the exact square blocks, native canonical low/high increments, and cumulative square-prefix values;
+              - proves exact blockwise and cumulative low/high recombination;
+              - proves the complete canonical block prefix is exactly `squarePrefixMertens` at `X_n=(n+1)^2-1`;
+              - packages the manuscript's elementary uniform low-increment estimate as the explicit typed input `CanonicalLowIncrementControl` and derives the required pointwise low-energy bound;
+              - defines the native unresolved statement `CanonicalHighUniformLocalBoundedStatement Λ` at scale `H N^(2+ε)`;
+              - proves the native canonical high criterion is equivalent to the total square-prefix local criterion and, from `ClassicalMertensRHCriterion`, to `RiemannHypothesisStatement`;
+              - does not prove the low-block occupancy theorem, `(HS)`, or the classical Mertens↔RH theorem.
+          '''
+          if '49. `RHLean.Proof.CanonicalHighSectorBridge`' not in seq:
+              seq = seq.replace(inventory, native_inventory, 1)
+
+          correction = '''PR #57 supplies the missing concrete Gram realization. The transport-data `actualResidual` is proved equal to the complete PR #56 family, so the existing joint Gram theorem now applies to the exact concrete shell/channel/Farey-mode/residual-row index. This corrects the dependency order: the concrete identity must precede, and is not itself, the still-open uniform analytic estimate.
+          '''
+          if 'PR #60 corrects the identification of the minimal bridge.' not in seq:
+              seq = seq.replace(correction, correction + '''
+          PR #60 corrects the identification of the minimal bridge. The Phase VIII/IX construction is an exact normalized all-ordered-pair/Farey transport family and remains a possible sufficient proof strategy, but it is not definitionally the paper's unique largest-prime-factor decomposition. The new native module defines one canonical point per source, proves exact recombination with `squarePrefixMertens`, and isolates `CanonicalHighUniformLocalBoundedStatement Λ` as the single analytic bridge statement. The manuscript's elementary low-increment estimate remains an explicit typed input until separately transcribed into Lean.
+          ''', 1)
+
+          start = seq.index('## 3. Current checkpoint')
+          end = seq.index('## 4. Formalization sequence')
+          checkpoint = '''## 3. Current checkpoint
+
+          For every exact concrete geometric partition satisfying the pointwise low-sector bound, the compiled chain is
+
+          ```text
+          SquarePrefixHighUniformLocalBoundedStatement(partition)
+            ↔ SquarePrefixUniformLocalBoundedStatement
+            ↔ SquarePrefixCurrentPointwiseBoundedStatement
+            ↔ SquarePrefixEnergyBoundedStatement
+            ↔ MertensEnergyBoundedStatement
+            ↔ RiemannHypothesisStatement.
+          ```
+
+          The first four equivalences are project-proved. The final direct integration theorem accepts the last classical equivalence as an argument of exactly matching proposition type.
+
+          The paper's native largest-prime-factor sequence is now instantiated explicitly. For fixed `Λ`, `CanonicalHighSectorBridge` defines the canonical block increments and prefixes, proves
+
+          ```text
+          squarePrefixMertens n
+            = canonicalLowPrefix Λ n + canonicalHighPrefix Λ n,
+          ```
+
+          and, from `CanonicalLowIncrementControl Λ`, constructs the exact concrete partition required by the existing bridge. Consequently the compiled native chain is
+
+          ```text
+          CanonicalHighUniformLocalBoundedStatement Λ
+            ↔ SquarePrefixUniformLocalBoundedStatement
+            ↔ MertensEnergyBoundedStatement
+            ↔ RiemannHypothesisStatement,
+          ```
+
+          where the last equivalence is still supplied as the ordinary typed argument `ClassicalMertensRHCriterion`.
+
+          The normalized ordered-pair/Farey development remains compiled as a distinct, more structured proof program: complete supports, packet transport, exact tripling defects, unpaired channels, and the full signed shell/cofactor/mode/row Gram identity are all available. No theorem identifies that all-ordered-pair family with the native largest-prime-factor high sequence, so its uniform Gram estimate is a sufficient strategy only after an additional realization theorem.
+
+          The remaining obligations are now separated exactly:
+
+          - formalize the manuscript's elementary canonical low-block estimate as a concrete `CanonicalLowIncrementControl Λ` (intended bound `⌊Λ⌋`);
+          - prove the native analytic statement `CanonicalHighUniformLocalBoundedStatement Λ`, i.e. `(HS)`;
+          - import or formalize `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
+          - optionally connect the normalized Farey/transport family to the native canonical sequence and use its full signed Gram estimate as a route to `(HS)`.
+
+          '''
+          seq = seq[:start] + checkpoint + seq[end:]
+
+          old_phase = '''### Phase IX — complete high-family analytic interface
+
+          - [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
+          - [x] **31. Concrete complete-family joint Gram realization** — PR #57.
+          - [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained**.
+
+          ## 5. Dependency spine
+
+          ```text
+          exact normalized ordered cofactor expansion
+                  ↓
+          exact concrete square-prefix cofactor-channel realization
+                  ↓
+          exact high/low height partition and finite channel supports
+                  ↓
+          reduced Farey modes + exact phase action + contiguous packet windows
+                  ↓
+          concrete shell choice + ActualResidualData + high-sector recombination
+                  ↓
+          tripling-compatible packet transport + exact signed defect
+                  ↓
+          complete bases/children/unpaired decomposition + multiplicity correction
+                  ↓
+          concrete complete-family joint Gram realization
+                  ↓
+          full-family signed Gram estimate
+                  ↓
+          local high-sector estimate
+                  ↓
+          classical Mertens criterion ↔ RH
+          ```
+
+          The separate analytic proof program remains:
+
+          ```text
+          complete bases/children/unpaired family decomposition
+                  ↓
+          retained defect - child correction + unpaired recombination
+                  ↓
+          concrete full signed shell/cofactor/mode/row Gram identity
+                  ↓
+          uniform full-family signed Gram estimate
+                  ↓
+          finite certificate checker + explicit realization
+                  ↓
+          full signed residual bound and local signed absorption
+                  ↓
+          local high-sector estimate
+          ```
+          '''
+          new_phase = '''### Phase IX — complete high-family analytic interface
+
+          - [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
+          - [x] **31. Concrete complete-family joint Gram realization** — PR #57.
+          - [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained** — optional sufficient strategy, not the minimal bridge.
+
+          ### Phase X — native canonical bridge
+
+          - [x] **33. Native largest-prime-factor low/high realization and exact conditional RH bridge** — PR #60.
+          - [ ] **34. Concrete canonical low-increment control with the manuscript bound `⌊Λ⌋`**.
+          - [ ] **35. Native canonical uniform local high-sector estimate `(HS)`**.
+
+          ## 5. Dependency spine
+
+          The minimal bridge is now:
+
+          ```text
+          native largest-prime-factor canonical definitions
+                  ↓
+          exact block and square-prefix low/high recombination
+                  ↓
+          concrete canonical low-increment control
+                  ↓
+          CanonicalHighUniformLocalBoundedStatement Λ  [(HS)]
+                  ↓
+          SquarePrefixUniformLocalBoundedStatement
+                  ↓
+          MertensEnergyBoundedStatement
+                  ↓
+          classical Mertens criterion ↔ RH
+          ```
+
+          The normalized Farey/transport program is a separate sufficient strategy that may feed into `(HS)` only after an exact native realization theorem:
+
+          ```text
+          complete bases/children/unpaired family decomposition
+                  ↓
+          retained defect - child correction + unpaired recombination
+                  ↓
+          concrete full signed shell/cofactor/mode/row Gram identity
+                  ↓
+          uniform full-family signed Gram estimate
+                  ↓
+          exact realization as the native canonical high sequence
+                  ↓
+          CanonicalHighUniformLocalBoundedStatement Λ  [(HS)]
+          ```
+          '''
+          if old_phase in seq:
+              seq = seq.replace(old_phase, new_phase, 1)
+          seq_path.write_text(seq)
+
+          chk = chk_path.read_text()
+          ledger = '- [x] **#57** — Proved the concrete transport residual equals the complete high family and instantiated its exact shell/cofactor/mode/row signed joint Gram identity; kept the uniform analytic estimate explicit and open.\n'
+          if '**#60**' not in chk:
+              chk = chk.replace(ledger, ledger + '- [x] **#60** — Added the native largest-prime-factor canonical square-block decomposition, exact recombination with `squarePrefixMertens`, explicit low-increment control interface, and the conditional `(HS) ↔ RH` theorem.\n', 1)
+
+          old = '''### Phase IX — complete high-family analytic interface
+
+          - [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
+          - [x] **31. Concrete complete-family joint Gram realization** — PR #57.
+          - [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained**.
+          '''
+          new = '''### Phase IX — complete high-family analytic interface
+
+          - [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
+          - [x] **31. Concrete complete-family joint Gram realization** — PR #57.
+          - [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained** — optional sufficient strategy, not the minimal bridge.
+
+          ### Phase X — native canonical bridge
+
+          - [x] **33. Native largest-prime-factor low/high realization and exact conditional RH bridge** — PR #60.
+          - [ ] **34. Concrete canonical low-increment control with the manuscript bound `⌊Λ⌋`**.
+          - [ ] **35. Native canonical uniform local high-sector estimate `(HS)`**.
+          '''
+          if old in chk:
+              chk = chk.replace(old, new, 1)
+
+          principal = '''Principal theorems added by PR #57:
+
+          - `actualResidualPacket_squarePrefixHighTransportData_offShell`;
+          - `squarePrefixHighTransportModeSum_eq`;
+          - `actualResidual_squarePrefixHighTransportData_eq_familyContribution`;
+          - `squarePrefixHighTransportFamily_energy_eq_jointGram`;
+          - `squarePrefixHighFullDecomposition_energy_eq_jointGram`;
+          - `squarePrefixHighTransportFamily_energy_le_of_jointGramEstimate`;
+          - `squarePrefixHighTransportFamily_energy_le_of_uniform_jointGramControl`.
+
+          '''
+          if 'Principal definitions in `RHLean.Proof.CanonicalHighSectorBridge`:' not in chk:
+              chk = chk.replace(principal, principal + '''Principal definitions in `RHLean.Proof.CanonicalHighSectorBridge`:
+
+          - `canonicalLargestPrimeFactor`;
+          - `canonicalCofactor`;
+          - `canonicalHeightTwice`;
+          - `canonicalSquareBlock`;
+          - `canonicalLowIncrement`;
+          - `canonicalHighIncrement`;
+          - `canonicalLowPrefix`;
+          - `canonicalHighPrefix`;
+          - `CanonicalLowIncrementControl`;
+          - `canonicalSquarePrefixGeometricPartition`;
+          - `CanonicalHighUniformLocalBoundedStatement`.
+
+          Principal theorems added by PR #60:
+
+          - `canonicalTotalIncrement_eq_low_add_high`;
+          - `canonicalTotalPrefix_eq_low_add_high`;
+          - `canonicalTotalPrefix_eq_squarePrefixMertens`;
+          - `squarePrefixMertens_eq_canonicalLow_add_high`;
+          - `norm_canonicalLowPrefix_le`;
+          - `canonicalLowPrefix_energy_le`;
+          - `canonicalHighUniformLocalBounded_iff_partition`;
+          - `canonicalHighUniformLocalBounded_iff_squarePrefixUniformLocalBounded`;
+          - `canonicalHighUniformLocalBounded_iff_riemannHypothesis`.
+
+          ''', 1)
+
+          old_remaining = '''The exact normalized channel arithmetic, high/low partition, finite Farey support, source-entry realization, contiguous transport windows, one-pair all-mode signed defect, complete finite high-family decomposition, and concrete complete-family joint Gram realization are now compiled. The all-mode norm is taken only after signed recombination, the weighted `base + 2 * child` law remains distinct from the raw once-per-channel family sum, and the actual uniform Gram estimate remains an explicit open proposition.
+
+          ## 7. Remaining obligations
+
+          - prove the uniform high-sector signed-Gram estimate, retaining cross-pair, cross-shell, cross-row, and cross-mode interactions;
+          - prove the local prediction-energy estimate yielding `H N^(2+ε)`;
+          - construct the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control;
+          - import or formalize the classical theorem
+            `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`.
+          '''
+          new_remaining = '''The native largest-prime-factor canonical sequence is now compiled separately from the normalized ordered-pair/Farey family. Its exact block increments and cumulative low/high prefixes recombine to `squarePrefixMertens`, and `CanonicalHighUniformLocalBoundedStatement Λ` is proved equivalent to the total local criterion and, from the ordinary `ClassicalMertensRHCriterion` argument, to RH. No project axiom is introduced.
+
+          The normalized channel arithmetic, Farey support, source-entry realization, contiguous transport windows, one-pair signed defect, complete finite high-family decomposition, and concrete full-family joint Gram identity remain available as proof technology. They are not silently identified with the native canonical sequence.
+
+          ## 7. Remaining obligations
+
+          - prove the manuscript's elementary canonical low-block estimate and construct `CanonicalLowIncrementControl Λ` with intended bound `⌊Λ⌋`;
+          - prove the native canonical uniform local high-sector estimate `CanonicalHighUniformLocalBoundedStatement Λ` — `(HS)`;
+          - import or formalize the classical theorem
+            `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
+          - optionally prove an exact realization from the normalized Farey/transport family to the native canonical high sequence, then establish its full signed Gram estimate as a sufficient route to `(HS)`.
+          '''
+          if old_remaining in chk:
+              chk = chk.replace(old_remaining, new_remaining, 1)
+          chk_path.write_text(chk)
+          PY
+
+      - name: Build canonical bridge module
         shell: bash
-        run: test "$(cat canonical-build-status.txt)" = "0"
+        run: lake build RHLean.Proof.CanonicalHighSectorBridge --wfail
+
+      - name: Commit formalization records
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Record native canonical high-sector bridge"
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
