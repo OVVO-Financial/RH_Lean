@@ -163,7 +163,12 @@ theorem squareBlockSmoothTransportGramBound_iff_riemannHypothesis
     (criterion : RHLean.Analysis.ClassicalMertensRHCriterion) :
     SquareBlockSmoothTransportGramBound ↔
       RHLean.Analysis.RiemannHypothesisStatement := by
-  rw [squareBlockSmoothTransportGramBound_iff_squarePrefixUniformLocalBounded]
-  exact RHLean.Analysis.squarePrefix_uniformLocalBounded_iff_riemannHypothesis criterion
+  calc
+    SquareBlockSmoothTransportGramBound ↔
+        RHLean.Analysis.SquarePrefixUniformLocalBoundedStatement :=
+      squareBlockSmoothTransportGramBound_iff_squarePrefixUniformLocalBounded
+    _ ↔ RHLean.Analysis.MertensEnergyBoundedStatement :=
+      RHLean.Analysis.squarePrefix_uniformLocalBounded_iff_mertensEnergyBounded
+    _ ↔ RHLean.Analysis.RiemannHypothesisStatement := criterion.iff_riemannHypothesis
 
 end RHLean.Proof
