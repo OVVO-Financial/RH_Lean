@@ -32,18 +32,4 @@ jobs:
           lint: false
 
       - name: Build Lean project
-        id: lean-build
-        shell: bash
-        run: |
-          set +e
-          lake build RHLean --wfail > build.log 2>&1
-          status=$?
-          grep -n -E 'error:|warning:' build.log | tail -160 || true
-          exit "$status"
-
-      - name: Upload Lean build log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: mertens-adapter-build-log
-          path: build.log
+        run: lake build RHLean --wfail
