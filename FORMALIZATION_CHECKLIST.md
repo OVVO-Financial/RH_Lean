@@ -101,6 +101,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#34** — Proved the abstract full weighted block-contraction closure with an explicit invariant bound and a decay-weighted forcing corollary.
 - [x] **#35** — Defined the explicitly indexed actual residual, connected it to scale-dependent resonant extraction, proved declared-span membership and exact algebraic recombination, and packaged it as the separately typed state used by the leakage and Lyapunov layers.
 - [x] **#36** — Formalized exact scale-dependent resonant cancellation for explicitly compatible odd/doubled Möbius cofactor pairs while retaining every denominator-mode and cofactor interaction.
+- [x] **#37** — Proved low-height spacing-to-incidence, endpoint, boundary, rowwise, and weighted actual forcing estimates for the compiled leakage and Lyapunov interfaces.
 
 ## 5. Theorem-layer completion checklist
 
@@ -128,9 +129,9 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 ### Phase IV — number-theoretic closure
 
 - [x] **13. Resonant/nonresonant decomposition of the actual residual** — PR #35.
-- [x] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — anticipated PR #36.
-- [ ] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — next dependency.
-- [ ] **16. Joint Gram control**.
+- [x] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — PR #36.
+- [x] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — anticipated PR #37.
+- [ ] **16. Joint Gram control** — next dependency.
 - [ ] **17. Certified finite-range certificate checker**.
 - [ ] **18. Uniform full residual bound**.
 - [ ] **19. Actual-start signed-frame theorem**.
@@ -138,67 +139,74 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ## 6. Current checkpoint
 
-Anticipated PR #36, **Formalize explicit resonant Möbius cofactor cancellation**, completes Phase IV item 14 on the implementation branch.
+Anticipated PR #37, **Formalize actual low-height and boundary forcing estimates**, completes Phase IV item 15 on the implementation branch.
 
-- Principal new module: `RHLean.Analysis.ResonantCofactorCancellation`.
+- Principal new module: `RHLean.Analysis.ActualForcingEstimates`.
 - Principal definitions:
-  - `moebiusScalar`;
-  - `CofactorDoublingPair`;
-  - `baseCofactorChannel`;
-  - `doubledCofactorChannel`;
-  - `actualResidualUnweightedEntry`;
-  - `actualResidualUnweightedPacket`;
-  - `resonantActualResidualPacket`;
-  - `resonantUnweightedResidualPacket`;
-  - `MöbiusCofactorPairCompatibility`;
-  - `actualCofactorModeContribution`;
-  - `resonantActualCofactorContribution`;
-  - `resonantActualCofactorPairFamilyContribution`.
+  - `LowHeightSpacingData`;
+  - `ActualLowHeightForcingData`;
+  - `actualLowHeightResonant`;
+  - `actualLowHeightNonresonant`;
+  - `ActualEndpointForcingData`;
+  - `actualEndpointResonant`;
+  - `actualEndpointNonresonant`;
+  - `ActualBoundaryForcingData`;
+  - `actualBoundaryResonant`;
+  - `actualBoundaryNonresonant`;
+  - `ActualForcingData`;
+  - `actualResonantForcing`;
+  - `actualNonresonantForcing`;
+  - `actualResonantForcingBound`;
+  - `actualNonresonantForcingBound`;
+  - `withActualForcing`;
+  - `actualWeightedForcingNorm`;
+  - `actualWeightedForcingBound`.
 - Principal theorems:
-  - `moebiusScalar_two_mul_of_odd`;
-  - `actualResidualEntry_eq_moebiusScalar_mul_unweighted`;
-  - `actualResidualPacket_eq_moebiusScalar_mul_unweighted`;
-  - `resonantActualResidualPacket_eq_moebiusScalar_smul_unweighted`;
-  - `actualResidualUnweightedPacket_base_eq_doubled`;
-  - `resonantUnweightedResidualPacket_base_eq_doubled`;
-  - `resonantActualResidualPacket_pair_cancel`;
-  - `resonantActualCofactorContribution_eq_sum_packets`;
-  - `resonantActualCofactorPair_cancel`;
-  - `resonantActualCofactorPairFamilyContribution_eq_zero`.
+  - `lowHeight_height_strictMono`;
+  - `lowHeight_count_le_cutoff_succ`;
+  - `norm_fin_sum_le_card_mul`;
+  - `norm_actualLowHeightResonant_le_cutoff`;
+  - `norm_actualLowHeightNonresonant_le_cutoff`;
+  - `norm_actualEndpointResonant_le`;
+  - `norm_actualEndpointNonresonant_le`;
+  - `norm_actualBoundaryResonant_le`;
+  - `norm_actualBoundaryNonresonant_le`;
+  - `norm_actualResonantForcing_le`;
+  - `norm_actualNonresonantForcing_le`;
+  - `resonantForcing_withActualForcing`;
+  - `nonresonantForcing_withActualForcing`;
+  - `norm_resonantForcing_withActualForcing_le`;
+  - `norm_nonresonantForcing_withActualForcing_le`;
+  - `actualWeightedForcingNorm_le`.
 - Central statements:
 
   ```text
-  R_packet(a, denominatorMode) + R_packet(2a, denominatorMode) = 0
+  lowHeightCount(M) ≤ lowHeightCutoff(M) + 1,
   ```
 
-  for every retained denominator mode of an explicitly compatible pair, and
+  together with
 
   ```text
-  R_cofactor(a) + R_cofactor(2a) = 0.
+  ‖resonantForcing(M)‖ ≤ resonantForcingBound(M),
+  ‖nonresonantForcing(M)‖ ≤ nonresonantForcingBound(M),
+  weightedForcingNorm(M) ≤ weightedForcingBound(M).
   ```
-
-  Every finite family of certified pairs therefore has zero total resonant contribution.
-- Explicit hypotheses:
-  - the base cofactor is odd;
-  - both base and doubled channels occur in `data.cofactorChannels`;
-  - packet starts and packet lengths agree for every retained denominator mode;
-  - the complete packet-indexed amplitudes agree for every retained denominator mode.
 - Protected invariants:
-  - denominator modes are retained in the exact signed sum rather than bounded independently;
-  - the upper factor and both cofactor channels remain visible;
-  - the quadratic phase remains the compiled `resonantQuadraticMode` with canonical modulus `2 * r`;
-  - the prime-3 rational cell-mask mechanism is not imported or conflated with complex resonant cancellation;
-  - no unpaired channel or low-height, endpoint, or boundary term is discarded.
+  - low-height, left/right endpoint, and boundary sources remain separately represented in both recurrence rows;
+  - the four leakage block maps remain unchanged when the actual forcing data are installed;
+  - positive spacing, cutoff incidence, boundary incidence caps, and pointwise envelopes remain explicit hypotheses;
+  - no cross-shell, cross-cofactor, resonant/nonresonant, or denominator-mode Gram interaction is discarded;
+  - no numerical claim is introduced.
 - Deliberate exclusions:
-  - no claim that all actual channels admit compatible partners or that the pair family exhausts the cofactor set;
-  - no shellwise positivity, independent mode smallness, orthogonality, Pythagorean identity, zero leakage, triangularity, contraction, forcing estimate, numerical verification, uniform bound, or RH premise.
+  - no claimed decay rate for any forcing envelope;
+  - no contraction, triangularity, zero leakage, shellwise positivity, independent mode smallness, finite-range certificate, uniform residual bound, or RH premise.
 - Pinned API inspection:
-  - exact compiled signatures were checked for `RHLean.Arithmetic.moebius_two_mul_of_odd`, `RHLean.Kernel.packet`, `actualResidualEntry`, `actualResidualPacket`, `ResonantProjectionSkeleton.extraction`, linear-map scalar preservation, finite-sum distribution, and `Finset.sum_eq_zero` against Lean 4 / mathlib `v4.24.0`;
-  - the implementation uses only the compiled project APIs, explicit finite sums, linearity, and exact additive cancellation.
+  - exact compiled signatures were checked for `Fintype.card_le_of_injective`, `StrictMono.injective`, `norm_sum_le`, `Finset.sum_le_sum`, `norm_add_le`, `exact_mod_cast`, `mul_le_mul_of_nonneg_right`, and the existing leakage and Lyapunov interfaces against Lean 4 / mathlib `v4.24.0`;
+  - the implementation uses finite sums, complex norms, explicit incidence embeddings, triangle inequalities, and nonnegative weighted combination only.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **15: low-height spacing, incidence, endpoint, and boundary estimates**.
+The next focused PR is unchecked item **16: joint Gram control**.
 
-It must prove the actual forcing estimates required by both rows of the compiled leakage recurrence, keeping low-height, endpoint, and boundary sources separate. It must not begin until PR #36 is green, merged, and explicitly authorized.
+It must index simultaneously by height shell, cofactor block, resonant/nonresonant row, and denominator mode, retaining all cross interactions. It must not replace the full signed Gram object by independent shell, cofactor, or mode bounds, and it must not begin until PR #37 is green, merged, and explicitly authorized.
