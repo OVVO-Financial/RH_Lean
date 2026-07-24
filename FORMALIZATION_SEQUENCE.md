@@ -25,7 +25,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-The root library imports forty-eight theorem modules.
+The root library imports forty-nine theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -230,6 +230,18 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - proves the PR #56 defect-minus-child-correction-plus-unpaired recombination has that same exact joint Gram energy;
     - exposes the remaining pointwise and uniform analytic control propositions without asserting that the estimate is proved.
 
+### Native canonical high-sector bridge
+
+49. `RHLean.Proof.CanonicalHighSectorBridge`
+    - defines the unique largest-prime-factor canonical point `q_m=P⁺(m)`, `c_m=m/q_m` and signed doubled height `q_m^2-c_m^2`;
+    - defines the exact square blocks, native canonical low/high increments, and cumulative square-prefix values;
+    - proves exact blockwise and cumulative low/high recombination;
+    - proves the complete canonical block prefix is exactly `squarePrefixMertens` at `X_n=(n+1)^2-1`;
+    - packages the manuscript's elementary uniform low-increment estimate as the explicit typed input `CanonicalLowIncrementControl` and derives the required pointwise low-energy bound;
+    - defines the native unresolved statement `CanonicalHighUniformLocalBoundedStatement Λ` at scale `H N^(2+ε)`;
+    - proves the native canonical high criterion is equivalent to the total square-prefix local criterion and, from `ClassicalMertensRHCriterion`, to `RiemannHypothesisStatement`;
+    - does not prove the low-block occupancy theorem, `(HS)`, or the classical Mertens↔RH theorem.
+
 ## 2. Correction history
 
 PR #42 compiled an axiom-free conditional theorem with the global prefix target
@@ -270,6 +282,8 @@ PR #56 completes the finite high-family bookkeeping. Retained new-prime bases an
 
 PR #57 supplies the missing concrete Gram realization. The transport-data `actualResidual` is proved equal to the complete PR #56 family, so the existing joint Gram theorem now applies to the exact concrete shell/channel/Farey-mode/residual-row index. This corrects the dependency order: the concrete identity must precede, and is not itself, the still-open uniform analytic estimate.
 
+PR #60 corrects the identification of the minimal bridge. The Phase VIII/IX construction is an exact normalized all-ordered-pair/Farey transport family and remains a possible sufficient proof strategy, but it is not definitionally the paper's unique largest-prime-factor decomposition. The new native module defines one canonical point per source, proves exact recombination with `squarePrefixMertens`, and isolates `CanonicalHighUniformLocalBoundedStatement Λ` as the single analytic bridge statement. The manuscript's elementary low-increment estimate remains an explicit typed input until separately transcribed into Lean.
+
 ## 3. Current checkpoint
 
 For every exact concrete geometric partition satisfying the pointwise low-sector bound, the compiled chain is
@@ -285,14 +299,32 @@ SquarePrefixHighUniformLocalBoundedStatement(partition)
 
 The first four equivalences are project-proved. The final direct integration theorem accepts the last classical equivalence as an argument of exactly matching proposition type.
 
-The concrete square-prefix Mertens value now has an exact normalized ordered-channel realization, an exact low/high signal partition at `|Y| ≤ Λ n`, finite reduced Farey modes with canonical modulus `2r`, concrete source-entry residual data, contiguous transport data, and a complete exact tripling identity whose defect is the finite boundary prefix plus the explicit phase mismatch on the common window. The complete finite high support is now split exactly into retained new-prime bases, their injective tripled children, and explicit unpaired channels; at contribution level, the full all-mode family is the retained signed defects minus the one-copy child multiplicity correction plus the unpaired contribution. The concrete transport residual is now proved equal to that complete family, and its energy is exactly the single four-coordinate signed joint Gram expression retaining every cross-shell, cross-channel, cross-mode, and cross-row interaction.
+The paper's native largest-prime-factor sequence is now instantiated explicitly. For fixed `Λ`, `CanonicalHighSectorBridge` defines the canonical block increments and prefixes, proves
 
-The following remain analytically open or require concrete data, but are not Mertens/RH reconciliation gaps:
+```text
+squarePrefixMertens n
+  = canonicalLowPrefix Λ n + canonicalHighPrefix Λ n,
+```
 
-- proving a uniform high-sector signed-Gram estimate for the complete family, including unpaired channels and all cross-pair interactions;
-- proving the local prediction-energy estimate yielding `H N^(2+ε)`;
-- constructing the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control;
-- importing or formalizing the classical theorem `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`.
+and, from `CanonicalLowIncrementControl Λ`, constructs the exact concrete partition required by the existing bridge. Consequently the compiled native chain is
+
+```text
+CanonicalHighUniformLocalBoundedStatement Λ
+  ↔ SquarePrefixUniformLocalBoundedStatement
+  ↔ MertensEnergyBoundedStatement
+  ↔ RiemannHypothesisStatement,
+```
+
+where the last equivalence is still supplied as the ordinary typed argument `ClassicalMertensRHCriterion`.
+
+The normalized ordered-pair/Farey development remains compiled as a distinct, more structured proof program: complete supports, packet transport, exact tripling defects, unpaired channels, and the full signed shell/cofactor/mode/row Gram identity are all available. No theorem identifies that all-ordered-pair family with the native largest-prime-factor high sequence, so its uniform Gram estimate is a sufficient strategy only after an additional realization theorem.
+
+The remaining obligations are now separated exactly:
+
+- formalize the manuscript's elementary canonical low-block estimate as a concrete `CanonicalLowIncrementControl Λ` (intended bound `⌊Λ⌋`);
+- prove the native analytic statement `CanonicalHighUniformLocalBoundedStatement Λ`, i.e. `(HS)`;
+- import or formalize `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
+- optionally connect the normalized Farey/transport family to the native canonical sequence and use its full signed Gram estimate as a route to `(HS)`.
 
 ## 4. Formalization sequence
 
@@ -357,35 +389,35 @@ The following remain analytically open or require concrete data, but are not Mer
 
 - [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
 - [x] **31. Concrete complete-family joint Gram realization** — PR #57.
-- [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained**.
+- [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained** — optional sufficient strategy, not the minimal bridge.
+
+### Phase X — native canonical bridge
+
+- [x] **33. Native largest-prime-factor low/high realization and exact conditional RH bridge** — PR #60.
+- [ ] **34. Concrete canonical low-increment control with the manuscript bound `⌊Λ⌋`**.
+- [ ] **35. Native canonical uniform local high-sector estimate `(HS)`**.
 
 ## 5. Dependency spine
 
+The minimal bridge is now:
+
 ```text
-exact normalized ordered cofactor expansion
+native largest-prime-factor canonical definitions
         ↓
-exact concrete square-prefix cofactor-channel realization
+exact block and square-prefix low/high recombination
         ↓
-exact high/low height partition and finite channel supports
+concrete canonical low-increment control
         ↓
-reduced Farey modes + exact phase action + contiguous packet windows
+CanonicalHighUniformLocalBoundedStatement Λ  [(HS)]
         ↓
-concrete shell choice + ActualResidualData + high-sector recombination
+SquarePrefixUniformLocalBoundedStatement
         ↓
-tripling-compatible packet transport + exact signed defect
-        ↓
-complete bases/children/unpaired decomposition + multiplicity correction
-        ↓
-concrete complete-family joint Gram realization
-        ↓
-full-family signed Gram estimate
-        ↓
-local high-sector estimate
+MertensEnergyBoundedStatement
         ↓
 classical Mertens criterion ↔ RH
 ```
 
-The separate analytic proof program remains:
+The normalized Farey/transport program is a separate sufficient strategy that may feed into `(HS)` only after an exact native realization theorem:
 
 ```text
 complete bases/children/unpaired family decomposition
@@ -396,9 +428,7 @@ concrete full signed shell/cofactor/mode/row Gram identity
         ↓
 uniform full-family signed Gram estimate
         ↓
-finite certificate checker + explicit realization
+exact realization as the native canonical high sequence
         ↓
-full signed residual bound and local signed absorption
-        ↓
-local high-sector estimate
+CanonicalHighUniformLocalBoundedStatement Λ  [(HS)]
 ```

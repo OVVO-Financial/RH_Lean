@@ -127,6 +127,7 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#55** — Constructed concrete contiguous transport data and proved the complete tripling signed defect: finite boundary prefix plus explicit phase mismatch on the shared window; also restored the full branch-wide merge-gating workflow.
 - [x] **#56** — Decomposed the complete high support into retained new-prime bases, injective tripled children, and explicit unpaired channels; proved the raw-family multiplicity correction and complete all-mode contribution identity.
 - [x] **#57** — Proved the concrete transport residual equals the complete high family and instantiated its exact shell/cofactor/mode/row signed joint Gram identity; kept the uniform analytic estimate explicit and open.
+- [x] **#60** — Added the native largest-prime-factor canonical square-block decomposition, exact recombination with `squarePrefixMertens`, explicit low-increment control interface, and the conditional `(HS) ↔ RH` theorem.
 
 ## 5. Theorem-layer completion checklist
 
@@ -187,7 +188,13 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 
 - [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
 - [x] **31. Concrete complete-family joint Gram realization** — PR #57.
-- [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained**.
+- [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained** — optional sufficient strategy, not the minimal bridge.
+
+### Phase X — native canonical bridge
+
+- [x] **33. Native largest-prime-factor low/high realization and exact conditional RH bridge** — PR #60.
+- [ ] **34. Concrete canonical low-increment control with the manuscript bound `⌊Λ⌋`**.
+- [ ] **35. Native canonical uniform local high-sector estimate `(HS)`**.
 
 ## 6. Current checkpoint
 
@@ -277,15 +284,43 @@ Principal theorems added by PR #57:
 - `squarePrefixHighTransportFamily_energy_le_of_jointGramEstimate`;
 - `squarePrefixHighTransportFamily_energy_le_of_uniform_jointGramControl`.
 
-The exact normalized channel arithmetic, high/low partition, finite Farey support, source-entry realization, contiguous transport windows, one-pair all-mode signed defect, complete finite high-family decomposition, and concrete complete-family joint Gram realization are now compiled. The all-mode norm is taken only after signed recombination, the weighted `base + 2 * child` law remains distinct from the raw once-per-channel family sum, and the actual uniform Gram estimate remains an explicit open proposition.
+Principal definitions in `RHLean.Proof.CanonicalHighSectorBridge`:
+
+- `canonicalLargestPrimeFactor`;
+- `canonicalCofactor`;
+- `canonicalHeightTwice`;
+- `canonicalSquareBlock`;
+- `canonicalLowIncrement`;
+- `canonicalHighIncrement`;
+- `canonicalLowPrefix`;
+- `canonicalHighPrefix`;
+- `CanonicalLowIncrementControl`;
+- `canonicalSquarePrefixGeometricPartition`;
+- `CanonicalHighUniformLocalBoundedStatement`.
+
+Principal theorems added by PR #60:
+
+- `canonicalTotalIncrement_eq_low_add_high`;
+- `canonicalTotalPrefix_eq_low_add_high`;
+- `canonicalTotalPrefix_eq_squarePrefixMertens`;
+- `squarePrefixMertens_eq_canonicalLow_add_high`;
+- `norm_canonicalLowPrefix_le`;
+- `canonicalLowPrefix_energy_le`;
+- `canonicalHighUniformLocalBounded_iff_partition`;
+- `canonicalHighUniformLocalBounded_iff_squarePrefixUniformLocalBounded`;
+- `canonicalHighUniformLocalBounded_iff_riemannHypothesis`.
+
+The native largest-prime-factor canonical sequence is now compiled separately from the normalized ordered-pair/Farey family. Its exact block increments and cumulative low/high prefixes recombine to `squarePrefixMertens`, and `CanonicalHighUniformLocalBoundedStatement Λ` is proved equivalent to the total local criterion and, from the ordinary `ClassicalMertensRHCriterion` argument, to RH. No project axiom is introduced.
+
+The normalized channel arithmetic, Farey support, source-entry realization, contiguous transport windows, one-pair signed defect, complete finite high-family decomposition, and concrete full-family joint Gram identity remain available as proof technology. They are not silently identified with the native canonical sequence.
 
 ## 7. Remaining obligations
 
-- prove the uniform high-sector signed-Gram estimate, retaining cross-pair, cross-shell, cross-row, and cross-mode interactions;
-- prove the local prediction-energy estimate yielding `H N^(2+ε)`;
-- construct the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control;
+- prove the manuscript's elementary canonical low-block estimate and construct `CanonicalLowIncrementControl Λ` with intended bound `⌊Λ⌋`;
+- prove the native canonical uniform local high-sector estimate `CanonicalHighUniformLocalBoundedStatement Λ` — `(HS)`;
 - import or formalize the classical theorem
-  `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`.
+  `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
+- optionally prove an exact realization from the normalized Farey/transport family to the native canonical high sequence, then establish its full signed Gram estimate as a sufficient route to `(HS)`.
 
 Merge-gating commands remain:
 
