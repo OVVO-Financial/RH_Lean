@@ -58,17 +58,26 @@ theorem actualFiniteRangeJointGram_energy_le_baseBound
   rcases realization.accepted.valid with
     ⟨_hcode, _hsource, _hdata, _hpayload, _hrange,
       hvalueDenominator, _hrhoDenominator, _hrho, hlength, _hrows⟩
+  have hstart : certificate.rangeStart = 0 := by
+    simpa [certificate] using realization.rangeStart_eq_zero
+  have hMcertificate : M ≤ certificate.rangeEnd := by
+    simpa [certificate] using hM
+  have hlengthCertificate :
+      certificate.rows.length =
+        certificate.rangeEnd - certificate.rangeStart + 1 := by
+    simpa [certificate] using hlength
   have hlength' : certificate.rows.length = certificate.rangeEnd + 1 := by
-    simpa [certificate, realization.rangeStart_eq_zero] using hlength
+    simpa [hstart] using hlengthCertificate
   have hindex : M < certificate.rows.length := by
     omega
   let index : Fin certificate.rows.length := ⟨M, hindex⟩
+  have henergyRaw := realization.energy_eq index
+  rw [realization.rangeStart_eq_zero, zero_add] at henergyRaw
   have henergy_eq :
       (certificate.valueDenominator : ℝ) *
           actualJointGramEnergy skeleton M (data M) =
         ((certificate.rows.get index).jointGram.claimedJointEnergy : ℝ) := by
-    simpa [certificate, index, realization.rangeStart_eq_zero] using
-      realization.energy_eq index
+    simpa [certificate, index] using henergyRaw
   let energyNumerators : List ℝ :=
     certificate.rows.map
       (fun row => |((row.jointGram.claimedJointEnergy : ℤ) : ℝ)|)
