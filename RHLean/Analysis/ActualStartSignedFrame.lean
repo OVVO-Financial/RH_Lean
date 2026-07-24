@@ -29,21 +29,21 @@ def actualStartFrameEnergy
     {skeleton : ResonantProjectionSkeleton ℂ ℂ}
     {data : (M : ℕ) → ActualResidualData skeleton.cutoff M}
     (start : ActualStartConfiguration skeleton data) (N : ℕ) : ℝ :=
-  ∑ M in Finset.range N, ‖start.actual M‖ ^ 2
+  ∑ M ∈ Finset.range N, ‖start.actual M‖ ^ 2
 
 /-- Prefix energy of the theorem-predicted leading coefficients. -/
 def actualStartPredictionFrameEnergy
     {skeleton : ResonantProjectionSkeleton ℂ ℂ}
     {data : (M : ℕ) → ActualResidualData skeleton.cutoff M}
     (start : ActualStartConfiguration skeleton data) (N : ℕ) : ℝ :=
-  ∑ M in Finset.range N, ‖start.prediction M‖ ^ 2
+  ∑ M ∈ Finset.range N, ‖start.prediction M‖ ^ 2
 
 /-- Prefix energy of the compiled actual residual. -/
 def actualStartResidualFrameEnergy
     {skeleton : ResonantProjectionSkeleton ℂ ℂ}
     (data : (M : ℕ) → ActualResidualData skeleton.cutoff M)
     (N : ℕ) : ℝ :=
-  ∑ M in Finset.range N, ‖actualResidual (data M)‖ ^ 2
+  ∑ M ∈ Finset.range N, ‖actualResidual (data M)‖ ^ 2
 
 /--
 The signed prediction-residual interaction retained by the exact starting
@@ -54,7 +54,7 @@ def actualStartSignedInteraction
     {skeleton : ResonantProjectionSkeleton ℂ ℂ}
     {data : (M : ℕ) → ActualResidualData skeleton.cutoff M}
     (start : ActualStartConfiguration skeleton data) (N : ℕ) : ℝ :=
-  2 * ∑ M in Finset.range N,
+  2 * ∑ M ∈ Finset.range N,
     shellReInner (𝕜 := ℂ) ((2 : ℂ) • start.prediction M)
       (actualResidual (data M))
 
@@ -108,8 +108,8 @@ theorem actualStart_residualFrameEnergy_le
     actualStartResidualFrameEnergy data N ≤ (N : ℝ) * bound := by
   unfold actualStartResidualFrameEnergy
   calc
-    (∑ M in Finset.range N, ‖actualResidual (data M)‖ ^ 2) ≤
-        ∑ _M in Finset.range N, bound := by
+    (∑ M ∈ Finset.range N, ‖actualResidual (data M)‖ ^ 2) ≤
+        ∑ _M ∈ Finset.range N, bound := by
       exact Finset.sum_le_sum fun M _hM => hbound M
     _ = (N : ℝ) * bound := by simp
 
