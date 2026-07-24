@@ -37,6 +37,7 @@ import RHLean.Geometry.SquareMapConformality
 import RHLean.Geometry.TwoABDisplacement
 import RHLean.Kernel.FixedPackets
 import RHLean.Proof.ConcreteSquarePrefixCofactorRealization
+import RHLean.Proof.ConcreteSquarePrefixHighResidual
 import RHLean.Proof.FareyModesAndTransportWindows
 import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
