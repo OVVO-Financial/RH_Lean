@@ -99,6 +99,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#32** — Defined the scale-dependent cutoff and canonical modulus-`2r` resonant modes, exposed the resonant span and extraction skeleton, and proved only exact algebraic recombination.
 - [x] **#33** — Exposed the four resonant/nonresonant block maps and exact affine recurrence with low-height, endpoint, and boundary forcing kept explicit.
 - [x] **#34** — Proved the abstract full weighted block-contraction closure with an explicit invariant bound and a decay-weighted forcing corollary.
+- [x] **#35** — Defined the explicitly indexed actual residual, connected it to scale-dependent resonant extraction, proved declared-span membership and exact algebraic recombination, and packaged it as the separately typed state used by the leakage and Lyapunov layers.
 
 ## 5. Theorem-layer completion checklist
 
@@ -125,8 +126,8 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ### Phase IV — number-theoretic closure
 
-- [ ] **13. Resonant/nonresonant decomposition of the actual residual** — next dependency.
-- [ ] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels**.
+- [x] **13. Resonant/nonresonant decomposition of the actual residual** — PR #35.
+- [ ] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — next dependency.
 - [ ] **15. Low-height spacing, incidence, endpoint, and boundary estimates**.
 - [ ] **16. Joint Gram control**.
 - [ ] **17. Certified finite-range certificate checker**.
@@ -136,34 +137,51 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ## 6. Current checkpoint
 
-PR #34, **Formalize abstract weighted affine Lyapunov closure**, completes Phase III item 12.
+PR #35, **Formalize actual residual resonant/nonresonant decomposition**, completes Phase IV item 13.
 
-- Principal new module: `RHLean.Analysis.BlockLyapunovClosure`.
-- Central statements: nonnegative weights define a full resonant/nonresonant Lyapunov value; any strictly descending affine recurrence
+- Principal new module: `RHLean.Analysis.ActualResidualDecomposition`.
+- Principal definitions:
+  - `ActualCofactorChannel`;
+  - `ActualResidualData`;
+  - `actualResidualReducedModeFactor`;
+  - `actualResidualEntry`;
+  - `actualResidualPacket`;
+  - `actualResidualShell`;
+  - `actualResidual`;
+  - `resonantActualResidual`;
+  - `nonresonantActualResidual`;
+  - `actualResidualState`.
+- Principal theorems:
+  - `actualCofactorChannel_mem_bothParabolas`;
+  - `actualResidualMode_modulus`;
+  - `resonantActualResidual_mem_resonantSubspace`;
+  - `actualResidual_eq_resonant_add_nonresonant`;
+  - `actualResidualState_resonant`;
+  - `actualResidualState_nonresonant`;
+  - `actualResidual_eq_state_sum`.
+- Central statement:
 
   ```text
-  L_n ≤ rho * L_ancestor(n) + forcing_n,
-  0 ≤ rho < 1,
-  forcing_n ≤ C
+  actualResidual = resonantActualResidual + nonresonantActualResidual.
   ```
 
-  remains below the explicit invariant bound
-
-  ```text
-  max B0 (C / (1 - rho)).
-  ```
-
-  The theorem is specialized to the full weighted block state, and a decay-weighted forcing estimate closes whenever `decay_n ≤ 1` and the forcing scale is nonnegative.
-- Protected invariants: the full resonant/nonresonant state remains coupled; nonzero leakage is permitted inside the separately supplied contraction inequality; every base-range, descent, contraction, forcing, and decay hypothesis is explicit.
-- Deliberate exclusions: no contraction is inferred from the affine leakage operator, no triangularity or zero leakage is assumed, and no number-theoretic forcing estimate, numerical certificate, or RH bridge premise is added.
+- Protected invariants:
+  - canonical quadratic modulus `2 * r` remains explicit through `ResonantModeIndex` and `resonantQuadraticMode`;
+  - prime-3 cell-mask energy remains completely separate from the complex prime-phase residual;
+  - scale, shell, cofactor, denominator-mode, packet-start, packet-length, and packet-index arguments remain visible;
+  - the full signed cofactor/mode shell sum and full shell recombination are retained;
+  - the state is exactly `ResonantNonresonantState ℂ ℂ`, so it enters the existing leakage and Lyapunov APIs without an opaque adapter.
+- Deliberate exclusions:
+  - no orthogonality, idempotence, self-adjointness, or Pythagorean identity;
+  - no zero leakage, triangularity, contraction, cancellation, or smallness;
+  - no low-height, endpoint, boundary, shellwise positivity, numerical, uniform-bound, or RH claim.
+- Pinned API inspection:
+  - exact project signatures were checked for `ResonantModeIndex`, `resonantModeModulus`, `resonantQuadraticMode`, `normalizedReducedQuadraticGauss`, `RHLean.Kernel.packet`, `heightShellSum`, `resonantComponent_mem_resonantSubspace`, `resonantComponent_add_nonresonantComponent`, and `ResonantNonresonantState` against the repository pinned to mathlib `v4.24.0`;
+  - the implementation uses only definitional equalities, existing compiled project theorems, finite sums, and additive simplification; it introduces no speculative version-sensitive theorem name.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **13: resonant/nonresonant decomposition of the actual residual**.
+The next focused PR is unchecked item **14: explicit resonant cancellation across Möbius-weighted cofactor channels**.
 
-It must:
-
-- connect the actual complex quadratic phase and cofactor channels to the scale-dependent resonant projection;
-- instantiate the separately typed resonant/nonresonant state without assuming orthogonality or zero leakage;
-- preserve modulus `2r` and keep analytic cancellation and forcing bounds for later dedicated layers.
+It must retain denominator-mode and cofactor interactions and must not replace the signed joint structure with shellwise positivity or independent mode bounds. It must not begin until PR #35 is green, merged, and explicitly authorized.
