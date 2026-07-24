@@ -24,6 +24,8 @@ Every PR must preserve all of the following:
 - introduce numerical finite-range claims only through a proved certificate checker;
 - keep accepted-certificate validity separate from the mathematical realization that identifies checked data with actual theorem quantities;
 - do not infer the sharp constant-`4` starting frame inequality from residual size alone; retain the signed prediction-residual interaction explicitly;
+- in the final bridge, expose every analytic implication or equivalence as a typed premise rather than an axiom or hidden assumption;
+- do not describe a conditional bridge theorem as an unconditional proof of RH;
 - treat every warning as a CI failure because the project builds with `--wfail`.
 
 ## 2. Per-PR execution checklist
@@ -33,12 +35,12 @@ Copy this task list into the pull-request description and prepopulate it on the 
 - [ ] Confirm the preceding PR is green and merged; read the current `main` head.
 - [ ] Read `FORMALIZATION_SEQUENCE.md` and this checklist.
 - [ ] Select exactly one dependency-bounded theorem or documentation layer.
-- [ ] State what the PR proves, what it does not prove, and the next dependency.
+- [ ] State what the PR proves, what it does not prove, and the next dependency or remaining external obligation.
 - [ ] Inspect exact theorem names and signatures at mathlib `v4.24.0`.
 - [ ] Branch from current `main` as `agent/<focused-description>`.
 - [ ] Implement the smallest stable module or documentation change.
 - [ ] Import every new theorem module from `RHLean.lean`.
-- [ ] Prepopulate `FORMALIZATION_SEQUENCE.md` with the completed layer, compiled inventory, checkpoint, and next dependency.
+- [ ] Prepopulate `FORMALIZATION_SEQUENCE.md` with the completed layer, compiled inventory, checkpoint, and next dependency or remaining external obligation.
 - [ ] Prepopulate this checklist with explicit `[x]` and `[ ]` status markers and the successful-PR ledger entry.
 - [ ] Prepopulate the pull-request description with the execution checklist and closeout record.
 - [ ] Pass `bash scripts/audit_assumptions.sh`.
@@ -60,7 +62,7 @@ Each PR description and prepopulated checklist update must identify:
 - central changes and proved statements;
 - invariants protected;
 - CI commands that gate merge;
-- next dependency in `FORMALIZATION_SEQUENCE.md`.
+- next dependency or remaining external obligation in `FORMALIZATION_SEQUENCE.md`.
 
 The final CI result belongs in GitHub's check status and may also be recorded in the PR description without changing repository files. A green result never requires a follow-up documentation-only commit.
 
@@ -109,6 +111,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#39** — Added the sound executable finite-range certificate checker, exact metadata and payload validation, and the accepted-certificate import boundary.
 - [x] **#40** — Connected accepted finite-range data to actual joint energies through an explicit realization, packaged asymptotic full-joint recurrence control, and proved the uniform actual residual-energy bound.
 - [x] **#41** — Defined the exact actual-start configuration, retained its signed prediction-residual interaction, and derived the sharp constant-`4` finite-prefix frame inequality from uniform residual control plus explicit signed absorption.
+- [x] **#42** — Anticipated: formalizes the explicit conditional bridge from the compiled actual-start signed-frame theorem to mathlib's `RiemannHypothesis`, with both analytic bridge obligations visible and no project axiom.
 
 ## 5. Theorem-layer completion checklist
 
@@ -141,83 +144,64 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **16. Joint Gram control** — PR #38.
 - [x] **17. Certified finite-range certificate checker** — PR #39.
 - [x] **18. Uniform full residual bound** — PR #40.
-- [x] **19. Actual-start signed-frame theorem** — anticipated PR #41.
-- [ ] **20. RH bridge** — next dependency.
+- [x] **19. Actual-start signed-frame theorem** — PR #41.
+- [x] **20. Explicit RH bridge** — anticipated PR #42.
 
 ## 6. Current checkpoint
 
-Anticipated PR #41, **Formalize the actual-start signed-frame theorem**, completes Phase IV item 19 on the implementation branch.
+Anticipated PR #42, **Formalize the explicit Riemann Hypothesis bridge**, completes the numbered Phase IV module sequence.
 
-- Principal new module: `RHLean.Analysis.ActualStartSignedFrame`.
-- Principal structures:
-  - `ActualStartConfiguration`;
-  - `ActualStartSignedFrameControl`.
+- Principal new module: `RHLean.Analysis.RiemannHypothesisBridge`.
 - Principal definitions:
-  - `actualStartFrameEnergy`;
-  - `actualStartPredictionFrameEnergy`;
-  - `actualStartResidualFrameEnergy`;
-  - `actualStartSignedInteraction`.
+  - `RiemannHypothesisStatement`;
+  - `ActualStartSignedFrameStatement`;
+  - `ActualStartPrefixBoundedStatement`.
+- Principal structure:
+  - `ActualStartRHBridge`.
 - Principal theorems:
-  - `actualStart_energy_identity_at`;
-  - `actualStart_frame_energy_identity`;
-  - `actualStart_residualFrameEnergy_le`;
-  - `actualStart_signedFrame_of_uniform_residual_bound`;
-  - `actualStart_signedFrame`.
-- Exact starting configuration:
+  - `actualStart_prefixBounded_iff_riemannHypothesis`;
+  - `riemannHypothesis_of_actualStartSignedFrame`;
+  - `riemannHypothesis_of_compiled_actualStartClosure`.
+- The concrete asymptotic criterion is:
 
   ```text
-  actual(M) = 2 * prediction(M) + actualResidual(M).
+  ∀ ε > 0,
+    actualStartFrameEnergy(N) = O(N^(3+ε)).
   ```
 
-- Exact finite-prefix signed identity:
+- The bridge keeps two distinct analytic obligations explicit:
 
   ```text
-  actualFrameEnergy(N)
-    = 4 * predictionFrameEnergy(N)
-      + residualFrameEnergy(N)
-      + signedPredictionResidualInteraction(N).
+  ActualStartSignedFrameStatement start
+    → ActualStartPrefixBoundedStatement start
+
+  ActualStartPrefixBoundedStatement start
+    ↔ RiemannHypothesisStatement.
   ```
 
-- Uniform residual accumulation:
-
-  ```text
-  residualFrameEnergy(N)
-    ≤ N * affineInvariantBound.
-  ```
-
-- Explicit signed absorption:
-
-  ```text
-  signedPredictionResidualInteraction(N)
-    ≤ -N * affineInvariantBound.
-  ```
-
-- Final frame conclusion:
-
-  ```text
-  actualFrameEnergy(N) ≤ 4 * predictionFrameEnergy(N)
-  ```
-
-  for every finite prefix `N`.
+- The final theorem composes these fields with the compiled item-19 theorem and returns mathlib's formal `RiemannHypothesis` proposition.
 - Protected invariants:
-  - the theorem-predicted coefficient `2` is an exact starting identity, not an orthogonal coefficient claim;
-  - the residual is the compiled actual residual controlled through the full signed joint Gram;
-  - the prediction-residual cross term remains signed and visible;
-  - the sharp constant `4` is not inferred from residual size alone;
-  - all finite-range realization and asymptotic-control instances remain explicit;
-  - no componentwise shell, cofactor, row, or denominator-mode positivity estimate is introduced;
-  - no RH premise or equivalent statement appears.
+  - no project axiom is introduced;
+  - the bridge fields are ordinary typed premises, not declarations treated as proved;
+  - the signed-frame theorem retains every finite-range realization, asymptotic-control, starting-configuration, and signed-interaction hypothesis;
+  - the theorem-predicted coefficient remains distinct from an orthogonal projection coefficient;
+  - the full signed joint Gram and modulus-`2r` architecture remain unchanged;
+  - the result is not described as an unconditional proof of RH.
 - Deliberate exclusions:
-  - no numerical run is imported;
-  - no automatic certificate realization or asymptotic contraction is claimed;
-  - no orthogonality or Pythagorean identity is asserted for the theorem-predicted coefficient;
-  - no RH bridge is stated.
+  - no `ActualStartRHBridge` instance is constructed;
+  - no axiom-free proof of the prefix-bounded/RH equivalence is supplied;
+  - no proof that the concrete signed-frame inequality yields the asymptotic prefix criterion is supplied;
+  - no numerical run or hidden equivalence is imported from another repository.
 - Pinned API inspection:
-  - exact compiled signatures were checked for `norm_add_sq`, `norm_smul`, `Finset.mul_sum`, `Finset.sum_add_distrib`, `Finset.sum_le_sum`, `shellReInner`, and `uniform_actualResidual_energy_bound` against Lean 4 / mathlib `v4.24.0`.
+  - exact signatures were checked for mathlib's `RiemannHypothesis`, `IsBigO` notation at `Filter.atTop`, and the compiled `actualStart_signedFrame` theorem against Lean 4 / mathlib `v4.24.0`.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
-## 7. Next dependency
+## 7. Remaining external obligations
 
-The next focused PR is unchecked item **20: RH bridge**.
+The numbered implementation sequence is complete, but the following mathematical work remains before any unconditional RH claim is possible:
 
-It must use the completed actual-start signed-frame theorem without introducing RH or an equivalent statement as a premise. The exact bridge theorem and every external equivalence used by it must be inspected and stated explicitly before implementation.
+- construct the concrete `ActualStartRHBridge.signedFrame_to_prefixBounded` proof;
+- prove `ActualStartRHBridge.prefixBounded_iff_riemannHypothesis` without an axiom;
+- instantiate the accepted finite-range realization and every asymptotic/full-joint/start/signed-interaction control field in the final theorem.
+
+A green PR #42 therefore certifies the correctness of the explicit conditional bridge, not an unconditional proof of the Riemann Hypothesis.
