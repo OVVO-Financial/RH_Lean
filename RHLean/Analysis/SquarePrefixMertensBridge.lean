@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.RiemannHypothesisBridge
+import RHLean.Analysis.GeometricRHReduction
 
 noncomputable section
 
