@@ -1,6 +1,7 @@
 name: Render paper PDF
 
 on:
+  pull_request:
   push:
     branches:
       - agent/render-lean-complete-paper
