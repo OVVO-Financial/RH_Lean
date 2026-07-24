@@ -1,0 +1,32 @@
+name: Render paper PDF
+
+on:
+  push:
+    branches:
+      - agent/render-lean-complete-paper
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX paper
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.tex
+          working_directory: paper
+          latexmk_use_xelatex: false
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete
+          path: paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.pdf
+          if-no-files-found: error
