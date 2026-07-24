@@ -20,12 +20,12 @@ The governing invariants are:
   total/high criterion equivalence must use the two norm inequalities and the
   separately proved local low-sector bound;
 - the canonical square-prefix endpoint is exactly `X_n = (n+1)^2 - 1`;
-- the only external theorem at the final integration point is the standard
-  classical equivalence between the Mertens growth criterion and RH.
+- the final mathlib integration theorem must accept the classical Mertens↔RH
+  equivalence directly, without an abstract start-sequence bridge.
 
 ## 1. Compiled inventory
 
-The root library imports thirty-eight theorem modules.
+The root library imports thirty-nine theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -146,15 +146,22 @@ and derives the sharp prefix inequality only from explicit signed absorption.
     - proves the concrete translated-window low bound;
     - proves concrete total↔high local-criterion equivalence;
     - proves concrete uniform-local↔pointwise↔square-prefix↔Mertens equivalence;
-    - proves
+    - proves the concrete high-sector criterion↔RH theorem from the classical criterion.
+
+39. `RHLean.Analysis.MathlibMertensHook`
+    - exposes the zero-friction future integration theorem
 
       ```text
-      SquarePrefixHighUniformLocalBoundedStatement partition
-        ↔ RiemannHypothesisStatement
+      squarePrefix_highUniformLocalBounded_iff_riemannHypothesis_of_classical_iff
       ```
 
-      from only `partition : SquarePrefixGeometricPartition` and
-      `criterion : ClassicalMertensRHCriterion`.
+    - accepts directly
+
+      ```text
+      criterion : MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement
+      ```
+
+      with no project-specific bridge constructor or realization argument.
 
 No abstract start-sequence realization, indexing adapter, exponent adapter, localization adapter, or project-specific RH bridge remains in this final theorem.
 
@@ -180,7 +187,7 @@ Taking `H = 1` gives the pointwise square-prefix estimate.
 
 PR #44 proved that exact signal recombination plus the elementary low-sector bound gives total↔high local-criterion equivalence by norm inequalities. No low/high cross-term estimate is needed.
 
-PR #45 closes the project-specific Mertens adapter. It fixes the exact endpoint `X_n=(n+1)^2-1`, proves square interpolation and all exponent/localization conversions, and states the final geometric equivalence directly for the concrete square-prefix Mertens sequence. The future mathlib integration point is now exactly one standard theorem.
+PR #45 closes the project-specific Mertens adapter. It fixes the exact endpoint `X_n=(n+1)^2-1`, proves square interpolation and all exponent/localization conversions, states the final geometric equivalence directly for the concrete square-prefix Mertens sequence, and adds a theorem accepting the classical Mertens↔RH equivalence itself.
 
 ## 3. Current checkpoint
 
@@ -195,7 +202,7 @@ SquarePrefixHighUniformLocalBoundedStatement(partition)
   ↔ RiemannHypothesisStatement.
 ```
 
-The first four equivalences are project-proved. The last arrow is represented by the single field of `ClassicalMertensRHCriterion` and is the only theorem that a future mathlib Mertens formalization must supply.
+The first four equivalences are project-proved. The final direct integration theorem accepts the last classical equivalence as an argument of exactly matching proposition type.
 
 The following remain analytically open or require concrete data, but are not Mertens/RH reconciliation gaps:
 
@@ -248,11 +255,11 @@ The following remain analytically open or require concrete data, but are not Mer
 
 ### Phase VII — concrete Mertens closure
 
-- [x] **23. Concrete square-prefix Mertens and direct geometry adapter** — PR #45.
+- [x] **23. Concrete square-prefix Mertens and direct mathlib adapter** — PR #45.
   - proves the exact `M(x) ↔ S_n` interpolation at `X_n=(n+1)^2-1`;
   - proves all shifted/current/local criterion conversions;
   - removes `ActualStartSquarePrefixRealization` and `ActualStartRHBridge` from the final concrete theorem;
-  - leaves only the standard classical Mertens↔RH theorem as the future mathlib input.
+  - adds a direct theorem accepting the classical Mertens↔RH equivalence itself.
 
 ## 5. Dependency spine
 
