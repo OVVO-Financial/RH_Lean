@@ -139,22 +139,26 @@ theorem squarePrefixLowHeightChannels_disjoint_highHeightChannels
       hpLow hqHigh
 
 /-- Exact low-height part of the normalized square-prefix channel expansion. -/
-def squarePrefixLowHeightExpansionRat (Λ : ℝ) (n : ℕ) : ℚ :=
-  ∑ m ∈ Finset.range (RHLean.Analysis.squarePrefixEndpoint n + 1),
-    ∑ p ∈ orderedCoprimeFactorPairs m,
-      if IsLowHeightPair Λ n p then
-        (((μ p.1 : ℤ) : ℚ)) *
-          normalizedChannelAmplitudeRat (actualChannelOfPair p)
-      else 0
+noncomputable def squarePrefixLowHeightExpansionRat (Λ : ℝ) (n : ℕ) : ℚ := by
+  classical
+  exact
+    ∑ m ∈ Finset.range (RHLean.Analysis.squarePrefixEndpoint n + 1),
+      ∑ p ∈ orderedCoprimeFactorPairs m,
+        if IsLowHeightPair Λ n p then
+          (((μ p.1 : ℤ) : ℚ)) *
+            normalizedChannelAmplitudeRat (actualChannelOfPair p)
+        else 0
 
 /-- Exact high-height part of the normalized square-prefix channel expansion. -/
-def squarePrefixHighHeightExpansionRat (Λ : ℝ) (n : ℕ) : ℚ :=
-  ∑ m ∈ Finset.range (RHLean.Analysis.squarePrefixEndpoint n + 1),
-    ∑ p ∈ orderedCoprimeFactorPairs m,
-      if IsLowHeightPair Λ n p then 0
-      else
-        (((μ p.1 : ℤ) : ℚ)) *
-          normalizedChannelAmplitudeRat (actualChannelOfPair p)
+noncomputable def squarePrefixHighHeightExpansionRat (Λ : ℝ) (n : ℕ) : ℚ := by
+  classical
+  exact
+    ∑ m ∈ Finset.range (RHLean.Analysis.squarePrefixEndpoint n + 1),
+      ∑ p ∈ orderedCoprimeFactorPairs m,
+        if IsLowHeightPair Λ n p then 0
+        else
+          (((μ p.1 : ℤ) : ℚ)) *
+            normalizedChannelAmplitudeRat (actualChannelOfPair p)
 
 /-- The normalized ordered expansion splits exactly into its low- and high-height
 parts, with the original product-fiber indexing unchanged. -/
@@ -191,9 +195,9 @@ theorem squarePrefixMertens_eq_lowHeight_add_highHeight
     RHLean.Analysis.squarePrefixMertens n =
       squarePrefixLowHeightExpansion Λ n +
         squarePrefixHighHeightExpansion Λ n := by
+  have hrat := squarePrefixCofactorExpansionRat_eq_low_add_high Λ n
+  have hcast := congrArg (fun x : ℚ => (x : ℂ)) hrat
   rw [← squarePrefixCofactorExpansion_cast_eq_squarePrefixMertens]
-  unfold squarePrefixLowHeightExpansion squarePrefixHighHeightExpansion
-  rw [squarePrefixCofactorExpansionRat_eq_low_add_high]
-  push_cast
+  simpa [squarePrefixLowHeightExpansion, squarePrefixHighHeightExpansion] using hcast
 
 end RHLean.Proof
