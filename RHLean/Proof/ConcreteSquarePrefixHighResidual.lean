@@ -196,12 +196,10 @@ theorem squarePrefixHighResidualPacket_eq
       (RHLean.Analysis.actualResidualEntry
         (squarePrefixHighResidualData cutoff M hcutoff Λ n)
         shell channel modeLabel)
-      (squarePrefixHighSourcePacketStart shell channel modeLabel)
-      (squarePrefixHighSourcePacketLength shell channel modeLabel) = _
+      (squarePrefixHighShell channel) 1 = _
   rw [packet_length_one]
   unfold RHLean.Analysis.actualResidualEntry
     squarePrefixHighResidualData
-    squarePrefixHighSourcePacketStart
     squarePrefixHighResidualAmplitude
   by_cases hshell : shell = squarePrefixHighShell channel
   · by_cases hmode : modeLabel = zeroFareyModeLabel
@@ -255,7 +253,12 @@ theorem actualResidual_squarePrefixHighResidualData_eq_channelSum
   classical
   unfold RHLean.Analysis.actualResidual RHLean.Analysis.heightShellSum
     RHLean.Analysis.actualResidualShell
-  simp only [squarePrefixHighResidualData]
+  change (∑ shell ∈ Finset.range (squarePrefixEntryShellCount n),
+    ∑ channel ∈ squarePrefixHighHeightChannels Λ n,
+      ∑ modeLabel ∈ fareyModeLabels (cutoff M),
+        RHLean.Analysis.actualResidualPacket
+          (squarePrefixHighResidualData cutoff M hcutoff Λ n)
+          shell channel modeLabel) = _
   simp_rw [squarePrefixHighModeSum_eq]
   rw [Finset.sum_comm]
   apply Finset.sum_congr rfl
