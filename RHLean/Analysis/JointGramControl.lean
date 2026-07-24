@@ -221,13 +221,19 @@ theorem actualJointGramFintypeSum_eq_actualResidual
       intro shell
       unfold actualResidualShell
       simp only [Finset.univ_eq_attach]
-      rw [Finset.sum_attach]
+      rw [Finset.sum_attach
+        (f := fun channel =>
+          ∑ denominatorMode ∈ data.denominatorModes.attach,
+            actualResidualPacket data shell channel denominatorMode)]
       apply Finset.sum_congr rfl
       intro channel _
-      rw [Finset.sum_attach]
+      rw [Finset.sum_attach
+        (f := fun denominatorMode =>
+          actualResidualPacket data shell channel denominatorMode)]
     _ = actualResidual data := by
       simpa [actualResidual, heightShellSum] using
-        (Fin.sum_univ_eq_sum_range (f := actualResidualShell data))
+        (Fin.sum_univ_eq_sum_range
+          (actualResidualShell data) data.shellCount)
 
 /-- The enumerated complete joint sum is exactly the actual residual. -/
 theorem actualJointGramSum_eq_actualResidual
