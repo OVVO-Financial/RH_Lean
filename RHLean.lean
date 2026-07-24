@@ -4,6 +4,7 @@ import RHLean.Analysis.ActualStartLocalSignedFrame
 import RHLean.Analysis.ActualStartSignedFrame
 import RHLean.Analysis.BlockLyapunovClosure
 import RHLean.Analysis.ComplexQuadraticPhase
+import RHLean.Analysis.GeometricRHReduction
 import RHLean.Analysis.HeightShellGram
 import RHLean.Analysis.JointGramControl
 import RHLean.Analysis.OrthogonalResidual
