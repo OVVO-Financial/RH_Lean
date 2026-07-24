@@ -8,9 +8,7 @@ open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Proof
 
-/-- Complex coefficient compatibility with the `ActualResidualData` convention:
-the lower Möbius factor is applied by `actualResidualEntry`, while the remaining
-normalized channel amplitude carries the dyadic weight and upper Möbius factor. -/
+/-- Complex coefficient compatibility with the `ActualResidualData` convention. -/
 theorem lowerMoebius_mul_normalizedChannelAmplitude
     (c q : ℕ) :
     (((μ c : ℤ) : ℂ)) *
@@ -21,9 +19,17 @@ theorem lowerMoebius_mul_normalizedChannelAmplitude
     congrArg (fun x : ℚ => (x : ℂ))
       (lowerMoebius_mul_normalizedChannelAmplitudeRat c q)
 
-/-- The full normalized Farey transport entry before finite packet summation. It
-keeps the arithmetic coefficient, exact channel phase, and packet-index phase
-as three visible factors. -/
+/-- Channel-valued form of the exact coefficient compatibility theorem. -/
+theorem lowerMoebius_mul_normalizedChannelAmplitude_of_channel
+    (channel : RHLean.Analysis.ActualCofactorChannel) :
+    (((μ channel.lowerCofactor : ℤ) : ℂ)) *
+        normalizedChannelAmplitude channel =
+      normalizedCofactorWeight
+        channel.lowerCofactor channel.upperFactor := by
+  rcases channel with ⟨c, q⟩
+  exact lowerMoebius_mul_normalizedChannelAmplitude c q
+
+/-- The full normalized Farey transport entry before finite packet summation. -/
 def normalizedFareyTransportEntry
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -57,10 +63,7 @@ theorem normalizedFareyTransportPacket_eq_intervalSum
     orderedTransportPacket_eq_intervalSum
       (normalizedFareyTransportEntry mode channel) 0 channel 0
 
-/-- Transport amplitude for the concrete high-height dynamical packet data. The
-exact normalized coefficient remains separated from the lower Möbius factor,
-and the complete channel phase is inserted before the packet-index phase applied
-by `actualResidualEntry`. -/
+/-- Transport amplitude for the concrete high-height dynamical packet data. -/
 def squarePrefixHighTransportAmplitude
     (cutoff : ℕ → ℕ) (M : ℕ) (hcutoff : 0 < cutoff M)
     (shell : ℕ) (channel : RHLean.Analysis.ActualCofactorChannel)
@@ -72,9 +75,7 @@ def squarePrefixHighTransportAmplitude
   else
     0
 
-/-- Concrete high-height transport data. This is distinct from the singleton
-source-entry realization used for exact high-sector signal recombination: it uses
-the compiled contiguous transport windows and all retained Farey modes. -/
+/-- Concrete high-height transport data, distinct from the singleton exact-signal data. -/
 noncomputable def squarePrefixHighTransportData
     (cutoff : ℕ → ℕ) (M : ℕ) (hcutoff : 0 < cutoff M)
     (Λ : ℝ) (n : ℕ) : RHLean.Analysis.ActualResidualData cutoff M where
@@ -86,8 +87,7 @@ noncomputable def squarePrefixHighTransportData
   packetLength := orderedTransportPacketLength
   amplitude := squarePrefixHighTransportAmplitude cutoff M hcutoff
 
-/-- At its assigned source shell, the concrete transport entry is exactly the
-normalized arithmetic/Farey/packet-index entry. -/
+/-- At its assigned source shell, the concrete transport entry is exact. -/
 theorem actualResidualEntry_squarePrefixHighTransportData_ownShell
     (cutoff : ℕ → ℕ) (M : ℕ) (hcutoff : 0 < cutoff M)
     (Λ : ℝ) (n : ℕ)
@@ -103,12 +103,11 @@ theorem actualResidualEntry_squarePrefixHighTransportData_ownShell
     squarePrefixHighTransportData
     squarePrefixHighTransportAmplitude
     normalizedFareyTransportEntry
-  simp only [if_pos rfl]
-  rw [lowerMoebius_mul_normalizedChannelAmplitude]
+  simp only [ite_true]
+  rw [lowerMoebius_mul_normalizedChannelAmplitude_of_channel]
   ring
 
-/-- At its own source shell, an actual transport packet is exactly the normalized
-contiguous Farey transport packet. -/
+/-- At its source shell, an actual transport packet is the normalized packet. -/
 theorem actualResidualPacket_squarePrefixHighTransportData_ownShell
     (cutoff : ℕ → ℕ) (M : ℕ) (hcutoff : 0 < cutoff M)
     (Λ : ℝ) (n : ℕ)
@@ -132,8 +131,7 @@ theorem actualResidualPacket_squarePrefixHighTransportData_ownShell
   exact actualResidualEntry_squarePrefixHighTransportData_ownShell
     cutoff M hcutoff Λ n channel modeLabel packetIndex
 
-/-- The explicit phase multiplier relating `(3c,q)` to `(c,q)`. It contains no
-Möbius sign; the arithmetic sign is already carried by the normalized coefficient. -/
+/-- The explicit phase multiplier relating `(3c,q)` to `(c,q)`. -/
 def triplingPhaseTransport
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -142,16 +140,16 @@ def triplingPhaseTransport
     (-8 * mode.numerator) (mode.denominator : ℤ)
     (channel.lowerCofactor : ℤ)
 
-/-- The compiled channel-phase transport law in named transport-factor form. -/
+/-- Channel-phase transport with no Möbius sign inserted into the phase. -/
 theorem fareyChannelPhase_tripled_eq_transport_mul
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
     (channel : RHLean.Analysis.ActualCofactorChannel) :
     fareyChannelPhase mode (tripledCofactorChannel channel) =
       triplingPhaseTransport mode channel * fareyChannelPhase mode channel := by
-  exact fareyChannelPhase_tripled mode channel
+  simpa [triplingPhaseTransport] using fareyChannelPhase_tripled mode channel
 
-/-- Tripling cannot move an ordered channel to an earlier source-entry shell. -/
+/-- Tripling cannot move a channel to an earlier entry shell. -/
 theorem orderedChannelEntryShell_le_tripled
     (channel : RHLean.Analysis.ActualCofactorChannel) :
     orderedChannelEntryShell channel ≤
@@ -164,16 +162,14 @@ theorem orderedChannelEntryShell_le_tripled
     _ = (3 * channel.lowerCofactor) * channel.upperFactor := by
       simp [Nat.mul_assoc]
 
-/-- Tripling the lower cofactor leaves the smoothness-transition index unchanged. -/
+/-- Tripling leaves the transition index unchanged. -/
 @[simp] theorem orderedChannelTransitionIndex_tripled
     (channel : RHLean.Analysis.ActualCofactorChannel) :
     orderedChannelTransitionIndex (tripledCofactorChannel channel) =
       orderedChannelTransitionIndex channel := by
   rfl
 
-/-- The finite base-channel prefix removed when transport begins only at the
-tripled entry shell. The `min` handles the case in which the tripled channel enters
-after the transition, leaving the common transport window empty. -/
+/-- The finite base-channel prefix removed by the later tripled entry shell. -/
 def triplingBoundaryPacket
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -183,8 +179,7 @@ def triplingBoundaryPacket
         (orderedChannelTransitionIndex channel)),
     normalizedFareyTransportEntry mode channel packetIndex
 
-/-- The base profile restricted to the exact packet window shared with its
-tripled channel. -/
+/-- The base profile restricted to the exact window shared with the tripled channel. -/
 def triplingTransportedBasePacket
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -194,8 +189,7 @@ def triplingTransportedBasePacket
         (orderedChannelTransitionIndex channel),
     normalizedFareyTransportEntry mode channel packetIndex
 
-/-- The exact full packet splits into the boundary prefix and the common
-tripling-transport window. -/
+/-- The full base packet is boundary prefix plus common transport window. -/
 theorem normalizedFareyTransportPacket_eq_boundary_add_common
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -216,8 +210,7 @@ theorem normalizedFareyTransportPacket_eq_boundary_add_common
     simp only [Finset.mem_Ico] at hboundary hcommon
     omega
 
-/-- Pointwise phase-aligned child-plus-twice-parent cancellation on the common
-packet window. -/
+/-- Pointwise phase-aligned child-plus-twice-parent cancellation. -/
 theorem normalizedFareyTransportEntry_phaseAligned_cancel
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -242,7 +235,7 @@ theorem normalizedFareyTransportEntry_phaseAligned_cancel
     fareyChannelPhase_tripled_eq_transport_mul]
   ring
 
-/-- Unaligned pointwise cancellation leaves exactly the explicit phase defect. -/
+/-- Unaligned pointwise cancellation leaves the exact phase defect. -/
 theorem normalizedFareyTransportEntry_add_two_tripled_eq_phaseDefect
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -258,7 +251,7 @@ theorem normalizedFareyTransportEntry_add_two_tripled_eq_phaseDefect
     mode channel packetIndex h3
   linear_combination hcancel
 
-/-- Summed phase-aligned cancellation on the entire common packet window. -/
+/-- Summed phase-aligned cancellation on the common packet window. -/
 theorem triplingTransportedBasePacket_phaseAligned_cancel
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -277,7 +270,7 @@ theorem triplingTransportedBasePacket_phaseAligned_cancel
   exact normalizedFareyTransportEntry_phaseAligned_cancel
     mode channel packetIndex h3
 
-/-- Summed unaligned common-window identity with the exact phase defect retained. -/
+/-- Summed unaligned common-window identity. -/
 theorem triplingTransportedBasePacket_add_two_tripled_eq_phaseDefect
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -297,8 +290,7 @@ theorem triplingTransportedBasePacket_add_two_tripled_eq_phaseDefect
   exact normalizedFareyTransportEntry_add_two_tripled_eq_phaseDefect
     mode channel packetIndex h3
 
-/-- Boundary plus phase mismatch: the complete exact signed defect left by
-tripling one normalized Farey transport packet. -/
+/-- Boundary plus phase mismatch: the complete signed tripling defect. -/
 def triplingSignedDefect
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -307,9 +299,7 @@ def triplingSignedDefect
     (1 - triplingPhaseTransport mode channel) *
       triplingTransportedBasePacket mode channel
 
-/-- Full signed packet identity. No shell, mode, endpoint, or boundary term is
-discarded: tripling leaves exactly the finite boundary prefix plus the explicit
-phase defect on the common transport window. -/
+/-- Full signed packet identity with every boundary and phase term retained. -/
 theorem normalizedFareyTransportPacket_add_two_tripled_eq_signedDefect
     {cutoff : ℕ → ℕ} {M : ℕ}
     (mode : RHLean.Analysis.ResonantModeIndex cutoff M)
@@ -334,8 +324,7 @@ theorem normalizedFareyTransportPacket_add_two_tripled_eq_signedDefect
         mode channel h3]
       rfl
 
-/-- A retained concrete tripling pair. Both ordered channels remain explicit in
-the high-height support, and the new-prime hypothesis is recorded separately. -/
+/-- A retained concrete tripling pair. -/
 structure SquarePrefixHighTriplingPair (Λ : ℝ) (n : ℕ) where
   base : RHLean.Analysis.ActualCofactorChannel
   newPrime : ¬ 3 ∣ base.lowerCofactor * base.upperFactor
@@ -343,23 +332,20 @@ structure SquarePrefixHighTriplingPair (Λ : ℝ) (n : ℕ) where
   tripled_mem : tripledCofactorChannel base ∈
     squarePrefixHighHeightChannels Λ n
 
-/-- The base source shell of a retained tripling pair is inside the concrete
-finite shell range. -/
+/-- The base shell of a retained pair is in the finite shell range. -/
 theorem SquarePrefixHighTriplingPair.baseShell_lt
     {Λ : ℝ} {n : ℕ} (pair : SquarePrefixHighTriplingPair Λ n) :
     squarePrefixHighShell pair.base < squarePrefixEntryShellCount n :=
   squarePrefixHighShell_lt_shellCount pair.base_mem
 
-/-- The tripled source shell of a retained tripling pair is inside the concrete
-finite shell range. -/
+/-- The tripled shell of a retained pair is in the finite shell range. -/
 theorem SquarePrefixHighTriplingPair.tripledShell_lt
     {Λ : ℝ} {n : ℕ} (pair : SquarePrefixHighTriplingPair Λ n) :
     squarePrefixHighShell (tripledCofactorChannel pair.base) <
       squarePrefixEntryShellCount n :=
   squarePrefixHighShell_lt_shellCount pair.tripled_mem
 
-/-- Full signed defect identity expressed through the actual transport-data
-packet interface at the two exact source shells. -/
+/-- Full signed defect through the concrete transport-data packet interface. -/
 theorem actualResidualPacket_squarePrefixHighTransportData_tripling_signedDefect
     (cutoff : ℕ → ℕ) (M : ℕ) (hcutoff : 0 < cutoff M)
     (Λ : ℝ) (n : ℕ) (pair : SquarePrefixHighTriplingPair Λ n)
@@ -379,8 +365,7 @@ theorem actualResidualPacket_squarePrefixHighTransportData_tripling_signedDefect
     (fareyResonantMode cutoff M hcutoff modeLabel)
     pair.base pair.newPrime
 
-/-- Complete signed child-plus-twice-parent contribution with all retained Farey
-modes summed jointly. -/
+/-- Complete signed child-plus-twice-parent contribution over all retained modes. -/
 def squarePrefixHighTriplingModeContribution
     (cutoff : ℕ → ℕ) (M : ℕ) (hcutoff : 0 < cutoff M)
     (Λ : ℝ) (n : ℕ) (pair : SquarePrefixHighTriplingPair Λ n) : ℂ :=
@@ -401,8 +386,7 @@ def squarePrefixHighTriplingModeDefect
     triplingSignedDefect
       (fareyResonantMode cutoff M hcutoff modeLabel) pair.base
 
-/-- Exact all-mode signed defect identity. Cross-mode cancellation remains inside
-the single finite sum and is not replaced by separate positive mode estimates. -/
+/-- Exact all-mode signed defect identity. -/
 theorem squarePrefixHighTriplingModeContribution_eq_defect
     (cutoff : ℕ → ℕ) (M : ℕ) (hcutoff : 0 < cutoff M)
     (Λ : ℝ) (n : ℕ) (pair : SquarePrefixHighTriplingPair Λ n) :
@@ -416,8 +400,7 @@ theorem squarePrefixHighTriplingModeContribution_eq_defect
   exact actualResidualPacket_squarePrefixHighTransportData_tripling_signedDefect
     cutoff M hcutoff Λ n pair modeLabel
 
-/-- Energy form of the exact all-mode defect identity. The norm is taken only
-after the signed denominator-mode recombination. -/
+/-- Energy after the complete signed mode recombination. -/
 theorem squarePrefixHighTriplingModeContribution_energy_eq_defect
     (cutoff : ℕ → ℕ) (M : ℕ) (hcutoff : 0 < cutoff M)
     (Λ : ℝ) (n : ℕ) (pair : SquarePrefixHighTriplingPair Λ n) :
