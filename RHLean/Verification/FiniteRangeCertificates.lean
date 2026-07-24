@@ -39,6 +39,11 @@ def ExactDecompositionCheckpoint.Valid
   checkpoint.totalReal = checkpoint.resonantReal + checkpoint.nonresonantReal ∧
     checkpoint.totalImag = checkpoint.resonantImag + checkpoint.nonresonantImag
 
+instance instDecidableExactDecompositionCheckpointValid
+    (checkpoint : ExactDecompositionCheckpoint) : Decidable checkpoint.Valid := by
+  unfold ExactDecompositionCheckpoint.Valid
+  infer_instance
+
 /-- Prime and residue-class counts recorded at one checked scale. -/
 structure PrimeResidueCheckpoint where
   residueModulus : ℕ
@@ -59,6 +64,11 @@ def PrimeResidueCheckpoint.Valid
     (∀ index : Fin checkpoint.residueClasses.length,
       checkpoint.residueClasses.get index < checkpoint.residueModulus) ∧
     checkpoint.residueClassCounts.sum = checkpoint.primeCount
+
+instance instDecidablePrimeResidueCheckpointValid
+    (checkpoint : PrimeResidueCheckpoint) : Decidable checkpoint.Valid := by
+  unfold PrimeResidueCheckpoint.Valid
+  infer_instance
 
 /--
 The exact signed joint-Gram payload at one scale. The diagonal and off-diagonal
@@ -210,6 +220,13 @@ def FiniteRangeCertificateRow.Valid
       (certificate.rhoNumerator : ℤ) * row.jointGram.parentJointEnergy +
         (certificate.rhoDenominator : ℤ) * row.jointGram.forcing
 
+instance instDecidableFiniteRangeCertificateRowValid
+    (certificate : FiniteRangeCertificate)
+    (expectedScale : ℕ)
+    (row : FiniteRangeCertificateRow) : Decidable (row.Valid certificate expectedScale) := by
+  unfold FiniteRangeCertificateRow.Valid
+  infer_instance
+
 /--
 The trusted semantic proposition checked for a complete finite-range
 certificate. Rows must cover the declared interval exactly and in order.
@@ -232,6 +249,12 @@ def FiniteRangeCertificate.Valid
       (certificate.rows.get index).Valid certificate
         (certificate.rangeStart + index)
 
+instance instDecidableFiniteRangeCertificateValid
+    (expectation : FiniteRangeCertificateExpectation)
+    (certificate : FiniteRangeCertificate) : Decidable (certificate.Valid expectation) := by
+  unfold FiniteRangeCertificate.Valid
+  infer_instance
+
 /-- Executable checker used at the generated-data import boundary. -/
 def checkFiniteRangeCertificate
     (expectation : FiniteRangeCertificateExpectation)
@@ -244,7 +267,8 @@ theorem checkFiniteRangeCertificate_sound
     (certificate : FiniteRangeCertificate)
     (hchecked : checkFiniteRangeCertificate expectation certificate = true) :
     certificate.Valid expectation := by
-  exact of_decide_eq_true hchecked
+  apply of_decide_eq_true
+  simpa [checkFiniteRangeCertificate] using hchecked
 
 /--
 Only certificates accompanied by a proof that the executable checker returned
