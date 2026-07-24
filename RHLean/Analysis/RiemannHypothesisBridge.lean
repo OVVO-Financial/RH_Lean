@@ -9,6 +9,8 @@ open Filter Asymptotics
 
 namespace RHLean.Analysis
 
+open RHLean.Verification
+
 /-- Mathlib's formal proposition expressing the Riemann Hypothesis. -/
 def RiemannHypothesisStatement : Prop := RiemannHypothesis
 
