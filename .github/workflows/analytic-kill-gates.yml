@@ -1,0 +1,52 @@
+name: Analytic kill gates
+
+on:
+  pull_request:
+    paths:
+      - "scripts/Squared_Complex_Gram_4096/analytic_kill_gates.py"
+      - "scripts/Squared_Complex_Gram_4096/squared_space_reproducibility_v3.py"
+      - ".github/workflows/analytic-kill-gates.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  run-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy numba
+
+      - name: Run N=4096 analytic falsification gates
+        run: |
+          python scripts/Squared_Complex_Gram_4096/analytic_kill_gates.py \
+            --nmax 4096 \
+            --boundary-mmax 2048 \
+            --rmax 240 \
+            --cutoff 60 \
+            --lambda-high 16 \
+            --out analytic_gate_results
+
+      - name: Publish report in job summary
+        if: always()
+        run: |
+          if [ -f analytic_gate_results/gate_report.md ]; then
+            cat analytic_gate_results/gate_report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload gate artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: analytic-kill-gate-results
+          path: analytic_gate_results
