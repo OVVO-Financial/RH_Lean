@@ -39,4 +39,5 @@ import RHLean.Kernel.FixedPackets
 import RHLean.Proof.ConcreteSquarePrefixCofactorRealization
 import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
+import RHLean.Proof.SquarePrefixHeightPartition
 import RHLean.Verification.FiniteRangeCertificates
