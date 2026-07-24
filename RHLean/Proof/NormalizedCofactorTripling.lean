@@ -24,6 +24,5 @@ theorem alphaWeightRat_three_mul
   unfold alphaWeightRat
   rw [distinctPrimeCount_three_mul n h3, pow_succ]
   field_simp
-  ring
 
 end RHLean.Proof
