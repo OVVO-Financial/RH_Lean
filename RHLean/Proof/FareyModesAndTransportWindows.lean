@@ -158,6 +158,7 @@ theorem fareyChannelPhase_tripled
       (mode.denominator : ℤ) (channel.lowerCofactor : ℤ)
   unfold fareyChannelPhase tripledCofactorChannel
   simp only
+  push_cast
   rw [hcofactor]
   ring
 
