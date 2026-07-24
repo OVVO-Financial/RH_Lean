@@ -121,7 +121,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#45** — Closed the project-specific Mertens adapter: concrete `M(x)`, exact `X_n=(n+1)^2-1`, square interpolation, pointwise/local conversion, direct concrete geometry theorem, and zero-friction future mathlib hook.
 - [x] **#49** — Proved the exact normalized ordered cofactor expansion, the `-1/2` tripling coefficient law, and child-plus-twice-parent cancellation over `ℚ` and `ℂ`.
 - [x] **#51** — Realized the exact square-prefix Mertens value as a normalized ordered sum over `ActualCofactorChannel`, with the lower Möbius factor separated to match `actualResidualEntry`.
-- [x] **#52** — Defined the exact manuscript height selector `|Y| ≤ Λ n`, constructed finite low/high normalized channel supports, and proved exact signal-level recombination.
+- [x] **#52** — Defined the exact `|Y| ≤ Λ n` height partition, finite pair/channel supports, and exact low/high signal recombination.
+- [x] **#53** — Defined the finite reduced Farey modes, exact tripling phase action, entry-shell assignment, and contiguous ordered-channel packet windows.
 
 ## 5. Theorem-layer completion checklist
 
@@ -174,8 +175,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **24. Normalized ordered cofactor expansion and exact tripling scaling** — PR #49.
 - [x] **25. Concrete square-prefix cofactor-channel realization** — PR #51.
 - [x] **26. Exact high/low height partition and finite channel supports** — PR #52.
-- [ ] **27. Farey mode action, shell assignment, and contiguous packet-window derivation**.
-- [ ] **28. Concrete `ActualResidualData` constructor and exact high-sector recombination**.
+- [x] **27. Reduced Farey modes, exact phase action, entry shells, and contiguous packet windows** — PR #53.
+- [ ] **28. Concrete high-height shell choice, `ActualResidualData` constructor, amplitudes, and exact high-sector recombination**.
 - [ ] **29. Tripling-compatible packet transport and full signed defect identity**.
 
 ## 6. Current checkpoint
@@ -188,47 +189,46 @@ Principal definitions in `RHLean.Proof.NormalizedCofactorExpansion`:
 - `orderedCoprimeFactorPairs`;
 - `normalizedFiberExpansionRat`.
 
-Principal definitions in `RHLean.Proof.ConcreteSquarePrefixCofactorRealization`:
-
-- `actualChannelOfPair`;
-- `normalizedChannelAmplitudeRat`;
-- `normalizedChannelAmplitude`;
-- `squarePrefixCofactorExpansionRat`.
-
 Principal definitions in `RHLean.Proof.SquarePrefixHeightPartition`:
 
-- `squarePrefixHeightCutoff`;
-- `IsLowHeightChannel` and `IsLowHeightPair`;
+- `IsLowHeightChannel`;
 - `squarePrefixCofactorPairs`;
-- `squarePrefixLowHeightPairs` and `squarePrefixHighHeightPairs`;
-- `squarePrefixCofactorChannels`;
-- `squarePrefixLowHeightChannels` and `squarePrefixHighHeightChannels`;
-- `squarePrefixLowHeightExpansionRat` and `squarePrefixHighHeightExpansionRat`.
+- `squarePrefixLowHeightPairs`;
+- `squarePrefixHighHeightPairs`;
+- `squarePrefixLowHeightExpansionRat`;
+- `squarePrefixHighHeightExpansionRat`.
 
-Principal theorems added by PRs #49, #51, and #52:
+Principal definitions in `RHLean.Proof.FareyModesAndTransportWindows`:
 
-- `normalizedFiber_eq_moebius_rat`;
-- `normalizedFiberExpansion_cast_eq_mertens`;
-- `normalized_tripling_scaling_rat`;
-- `normalized_cancellation_identity`;
-- `lowerMoebius_mul_normalizedChannelAmplitudeRat`;
-- `squarePrefixCofactorExpansionRat_eq_normalizedFiberExpansionRat`;
-- `squarePrefixCofactorExpansion_cast_eq_squarePrefixMertens`;
-- `squarePrefixLowHeightPairs_union_highHeightPairs`;
-- `squarePrefixLowHeightPairs_disjoint_highHeightPairs`;
-- `squarePrefixLowHeightChannels_union_highHeightChannels`;
-- `squarePrefixLowHeightChannels_disjoint_highHeightChannels`;
-- `squarePrefixCofactorExpansionRat_eq_low_add_high`;
-- `squarePrefixMertens_eq_lowHeight_add_highHeight`.
+- `fareyModePairs`;
+- `fareyModeLabels`;
+- `fareyResonantMode`;
+- `fareyChannelPhase`;
+- `orderedChannelEntryShell`;
+- `orderedChannelTransitionIndex`;
+- `orderedTransportPacketStart`;
+- `orderedTransportPacketLength`;
+- `squarePrefixEntryShellCount`.
 
-The exact arithmetic channel realization and exact manuscript height partition are now complete. They do not yet define shell assignment, denominator-mode action, packet support, or a concrete `ActualResidualData` value.
+Principal theorems added by PR #53:
+
+- `mem_fareyModePairs`;
+- `mem_fareyModeLabels`;
+- `fareyResonantMode_numerator_of_mem`;
+- `fareyResonantMode_denominator_of_mem`;
+- `fareyChannelPhase_tripled`;
+- `orderedTransportPacket_range`;
+- `orderedTransportPacket_eq_intervalSum`;
+- `orderedChannelEntryShell_lt_squarePrefixEntryShellCount`.
+
+The exact channel, height, rational-mode, phase-action, entry-shell, and packet-window prerequisites are now compiled. The manuscript does not specify a unique finite high-height shell formula; choosing that shell structure remains part of the concrete residual-data constructor rather than being hidden in this layer.
 
 ## 7. Remaining obligations
 
-- derive shell assignments and the Farey denominator-mode action;
-- derive contiguous packet starts and packet lengths;
-- construct concrete `ActualResidualData` without opaque support or amplitude fields;
-- prove exact high-sector recombination and tripling-compatible packet transport;
+- choose and prove a concrete finite high-height shell assignment;
+- construct concrete `ActualResidualData` using the compiled channel, Farey-mode, shell, and packet data;
+- define the concrete packet-indexed amplitudes and prove exact high-sector recombination;
+- prove tripling-compatible packet transport and the full signed defect identity;
 - prove the high-sector signed-Gram and local prediction-energy estimates;
 - construct the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control;
 - import or formalize the classical theorem
