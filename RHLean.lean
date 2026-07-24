@@ -1,3 +1,4 @@
+import RHLean.Analysis.BlockLyapunovClosure
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.HeightShellGram
 import RHLean.Analysis.OrthogonalResidual
