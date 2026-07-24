@@ -98,6 +98,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#31** — Defined the true orthogonal coefficient and residual, proved exact orthogonality and Pythagorean energy decomposition, and kept theorem-predicted subtraction separate.
 - [x] **#32** — Defined the scale-dependent cutoff and canonical modulus-`2r` resonant modes, exposed the resonant span and extraction skeleton, and proved only exact algebraic recombination.
 - [x] **#33** — Exposed the four resonant/nonresonant block maps and exact affine recurrence with low-height, endpoint, and boundary forcing kept explicit.
+- [x] **#34** — Proved the abstract full weighted block-contraction closure with an explicit invariant bound and a decay-weighted forcing corollary.
 
 ## 5. Theorem-layer completion checklist
 
@@ -120,11 +121,11 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **9. Orthogonal residual** — PR #31.
 - [x] **10. Scale-dependent resonant projection skeleton** — PR #32.
 - [x] **11. Explicit resonant/nonresonant leakage operator** — PR #33.
-- [ ] **12. Abstract weighted affine Lyapunov closure** — next dependency.
+- [x] **12. Abstract weighted affine Lyapunov closure** — PR #34.
 
 ### Phase IV — number-theoretic closure
 
-- [ ] **13. Resonant/nonresonant decomposition of the actual residual**.
+- [ ] **13. Resonant/nonresonant decomposition of the actual residual** — next dependency.
 - [ ] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels**.
 - [ ] **15. Low-height spacing, incidence, endpoint, and boundary estimates**.
 - [ ] **16. Joint Gram control**.
@@ -135,28 +136,34 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 
 ## 6. Current checkpoint
 
-PR #33, **Formalize explicit resonant/nonresonant leakage operator**, completes Phase III item 11.
+PR #34, **Formalize abstract weighted affine Lyapunov closure**, completes Phase III item 12.
 
-- Principal new module: `RHLean.Analysis.ResonantLeakage`.
-- Central statements: resonant and nonresonant state spaces are separately typed; the four scale-dependent linear block maps `A_M`, `B_M`, `C_M`, and `D_M` are explicit; low-height, endpoint, and boundary forcing are separate in both rows; and the exact affine recurrence is
+- Principal new module: `RHLean.Analysis.BlockLyapunovClosure`.
+- Central statements: nonnegative weights define a full resonant/nonresonant Lyapunov value; any strictly descending affine recurrence
 
   ```text
-  R_M = A_M R_parent + B_M N_parent
-        + f_R^low + f_R^endpoint + f_R^boundary,
-  N_M = C_M R_parent + D_M N_parent
-        + f_N^low + f_N^endpoint + f_N^boundary.
+  L_n ≤ rho * L_ancestor(n) + forcing_n,
+  0 ≤ rho < 1,
+  forcing_n ≤ C
   ```
 
-- Protected invariants: both leakage directions remain visible; no triangularity, zero leakage, contraction, norm estimate, or Lyapunov inequality is assumed or inferred.
-- Deliberate exclusions: no number-theoretic instantiation, forcing bound, numerical certificate, or RH bridge premise is added.
+  remains below the explicit invariant bound
+
+  ```text
+  max B0 (C / (1 - rho)).
+  ```
+
+  The theorem is specialized to the full weighted block state, and a decay-weighted forcing estimate closes whenever `decay_n ≤ 1` and the forcing scale is nonnegative.
+- Protected invariants: the full resonant/nonresonant state remains coupled; nonzero leakage is permitted inside the separately supplied contraction inequality; every base-range, descent, contraction, forcing, and decay hypothesis is explicit.
+- Deliberate exclusions: no contraction is inferred from the affine leakage operator, no triangularity or zero leakage is assumed, and no number-theoretic forcing estimate, numerical certificate, or RH bridge premise is added.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **12: abstract weighted affine Lyapunov closure**.
+The next focused PR is unchecked item **13: resonant/nonresonant decomposition of the actual residual**.
 
 It must:
 
-- prove the generic contraction-with-forcing theorem independently of number theory;
-- support a full weighted block contraction or a separately proved triangular alternative;
-- make every contraction constant, forcing bound, and descent hypothesis explicit.
+- connect the actual complex quadratic phase and cofactor channels to the scale-dependent resonant projection;
+- instantiate the separately typed resonant/nonresonant state without assuming orthogonality or zero leakage;
+- preserve modulus `2r` and keep analytic cancellation and forcing bounds for later dedicated layers.
