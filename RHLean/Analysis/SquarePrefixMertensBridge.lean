@@ -9,7 +9,7 @@ namespace RHLean.Analysis
 
 /-- The complex-valued Mertens summatory function, including the harmless `mu(0) = 0` term. -/
 def mertensSummatory (x : ℕ) : ℂ :=
-  ∑ m in Finset.range (x + 1), (((μ m : ℤ) : ℂ))
+  Finset.sum (Finset.range (x + 1)) fun m => (((μ m : ℤ) : ℂ))
 
 /-- The manuscript's exact complete-square endpoint `X_n = (n+1)^2 - 1`. -/
 def squarePrefixEndpoint (n : ℕ) : ℕ :=
@@ -25,7 +25,10 @@ def squarePrefixMertens (n : ℕ) : ℂ :=
 @[simp] theorem mertensSummatory_succ (x : ℕ) :
     mertensSummatory (x + 1) =
       mertensSummatory x + (((μ (x + 1) : ℤ) : ℂ)) := by
-  simp [mertensSummatory, Finset.sum_range_succ, add_assoc]
+  unfold mertensSummatory
+  simpa only [Nat.add_assoc] using
+    (Finset.sum_range_succ
+      (f := fun m : ℕ => (((μ m : ℤ) : ℂ))) (x + 1))
 
 private theorem norm_moebius_cast_le_one (n : ℕ) :
     ‖(((μ n : ℤ) : ℂ))‖ ≤ 1 := by
@@ -59,33 +62,41 @@ theorem norm_mertensSummatory_sub_le (a b : ℕ) (hab : a ≤ b) :
           _ ≤ ((b - a : ℕ) : ℝ) + 1 :=
             add_le_add (ih hab') (norm_moebius_cast_le_one (b + 1))
           _ = (((b + 1) - a : ℕ) : ℝ) := by
-            congr 1
-            omega
+            have hnat : b - a + 1 = (b + 1) - a := by omega
+            exact_mod_cast hnat
 
 /-- The endpoint immediately precedes the next square. -/
 theorem squarePrefixEndpoint_add_one (n : ℕ) :
     squarePrefixEndpoint n + 1 = (n + 1) ^ 2 := by
   unfold squarePrefixEndpoint
-  have h : 1 ≤ (n + 1) ^ 2 := by positivity
+  have h : 1 ≤ (n + 1) ^ 2 := by
+    nlinarith [Nat.zero_le n]
   exact Nat.sub_add_cancel h
 
 private theorem rpow_sq_one_add_half (x ε : ℝ) (hx : 0 ≤ x) :
     Real.rpow (x ^ 2) (1 + ε / 2) = Real.rpow x (2 + ε) := by
+  have htwo : Real.rpow x (2 : ℝ) = x ^ (2 : ℕ) :=
+    Real.rpow_natCast x 2
   calc
     Real.rpow (x ^ 2) (1 + ε / 2) =
-        Real.rpow (Real.rpow x (2 : ℝ)) (1 + ε / 2) := by
-      rw [Real.rpow_natCast]
-    _ = Real.rpow x ((2 : ℝ) * (1 + ε / 2)) := by
-      rw [← Real.rpow_mul hx]
+        Real.rpow (Real.rpow x (2 : ℝ)) (1 + ε / 2) :=
+      congrArg (fun t : ℝ => Real.rpow t (1 + ε / 2)) htwo.symm
+    _ = Real.rpow x ((2 : ℝ) * (1 + ε / 2)) :=
+      (Real.rpow_mul hx (2 : ℝ) (1 + ε / 2)).symm
     _ = Real.rpow x (2 + ε) := by ring_nf
 
 private theorem rpow_two_add_two_mul (x ε : ℝ) (hx : 0 ≤ x) :
     Real.rpow x (2 + 2 * ε) = Real.rpow (x ^ 2) (1 + ε) := by
+  have htwo : Real.rpow x (2 : ℝ) = x ^ (2 : ℕ) :=
+    Real.rpow_natCast x 2
   calc
-    Real.rpow x (2 + 2 * ε) = Real.rpow x ((2 : ℝ) * (1 + ε)) := by ring_nf
+    Real.rpow x (2 + 2 * ε) = Real.rpow x ((2 : ℝ) * (1 + ε)) := by
+      congr 1
+      ring
     _ = Real.rpow (Real.rpow x (2 : ℝ)) (1 + ε) :=
       Real.rpow_mul hx (2 : ℝ) (1 + ε)
-    _ = Real.rpow (x ^ 2) (1 + ε) := by rw [Real.rpow_natCast]
+    _ = Real.rpow (x ^ 2) (1 + ε) :=
+      congrArg (fun t : ℝ => Real.rpow t (1 + ε)) htwo
 
 /-- The standard squared Mertens growth criterion, with critical exponent `1`. -/
 def MertensEnergyBoundedStatement : Prop :=
@@ -130,7 +141,7 @@ theorem squarePrefixEnergyBounded_of_mertensEnergyBounded
     _ = C * Real.rpow (((n + 1 : ℕ) : ℝ) ^ 2) (1 + ε / 2) := by
       rw [hendpoint]
     _ = C * Real.rpow ((n + 1 : ℕ) : ℝ) (2 + ε) := by
-      rw [rpow_sq_one_add_half]
+      rw [rpow_sq_one_add_half ((n + 1 : ℕ) : ℝ) ε]
       positivity
 
 /-- Square-prefix control interpolates to the full Mertens criterion using `|mu| <= 1`. -/
@@ -143,7 +154,7 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
   intro x
   by_cases hx0 : x = 0
   · subst x
-    simp [mertensSummatory]
+    simp [mertensSummatory, hC]
   · let r := Nat.sqrt x
     have hr : 1 ≤ r := by
       dsimp [r]
@@ -165,6 +176,8 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
       have hx_lt : x < (r + 1) ^ 2 := by
         dsimp [r]
         exact Nat.lt_succ_sqrt' x
+      have hsquare : (r + 1) ^ 2 = r ^ 2 + 2 * r + 1 := by ring
+      rw [hsquare] at hx_lt
       rw [hendpoint]
       omega
     have hgap := norm_mertensSummatory_sub_le (squarePrefixEndpoint n) x hendpoint_le
@@ -182,12 +195,12 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
     have hsampleR :
         ‖squarePrefixMertens n‖ ^ 2 ≤
           C * Real.rpow (r : ℝ) (2 + 2 * ε) := by
-      simpa [hn1] using hsample
+      simpa only [hn1] using hsample
     have hexp : 0 ≤ 1 + ε := by linarith
     have hrpowSample :
         Real.rpow (r : ℝ) (2 + 2 * ε) ≤
           Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
-      rw [rpow_two_add_two_mul]
+      rw [rpow_two_add_two_mul (r : ℝ) ε]
       · apply Real.rpow_le_rpow
         · positivity
         · exact_mod_cast (hr_sq_le.trans (Nat.le_succ x))
@@ -197,16 +210,18 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
       have hr_le_x : r ≤ x := by
         dsimp [r]
         exact Nat.sqrt_le_self x
-      have hrR : (r : ℝ) ≤ (x : ℝ) := by exact_mod_cast hr_le_x
-      have hxR : 1 ≤ (x : ℝ) := by exact_mod_cast (Nat.pos_of_ne_zero hx0)
-      have hsqrt : (r : ℝ) ^ 2 ≤ (x : ℝ) := by exact_mod_cast hr_sq_le
-      nlinarith
+      have hnat : (r + 1) ^ 2 ≤ 4 * (x + 1) := by
+        have hsquare : (r + 1) ^ 2 = r ^ 2 + 2 * r + 1 := by ring
+        rw [hsquare]
+        omega
+      exact_mod_cast hnat
     have hbasePow :
         ((x + 1 : ℕ) : ℝ) ≤
           Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
-      have hbase : (1 : ℝ) ≤ ((x + 1 : ℕ) : ℝ) := by positivity
+      have hbase : (1 : ℝ) ≤ ((x + 1 : ℕ) : ℝ) := by
+        exact_mod_cast (Nat.succ_le_succ (Nat.zero_le x))
       have hone : (1 : ℝ) ≤ 1 + ε := by linarith
-      simpa [Real.rpow_one] using
+      simpa only [Real.rpow_one] using
         Real.rpow_le_rpow_of_exponent_le hbase hone
     have hsampleFinal :
         ‖squarePrefixMertens n‖ ^ 2 ≤
@@ -229,7 +244,7 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
         nlinarith
       _ ≤ (2 * C + 32) *
             Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
-        nlinarith
+        nlinarith [hbasePow]
 
 /-- Square sampling loses no information at the critical Mertens growth scale. -/
 theorem mertensEnergyBounded_iff_squarePrefixEnergyBounded :
@@ -259,35 +274,41 @@ theorem squarePrefixEnergyBounded_iff_currentPointwise :
       exact_mod_cast (by omega : N + 1 ≤ 2 * N)
     have hexp : 0 ≤ 2 + ε := by linarith
     have hp := Real.rpow_le_rpow (by positivity) hNadd hexp
+    have hmul :
+        Real.rpow (2 * (N : ℝ)) (2 + ε) =
+          Real.rpow 2 (2 + ε) * Real.rpow (N : ℝ) (2 + ε) :=
+      Real.mul_rpow (by norm_num) (by positivity)
     calc
       ‖squarePrefixMertens N‖ ^ 2 ≤
           C * Real.rpow ((N + 1 : ℕ) : ℝ) (2 + ε) := hbound N
       _ ≤ C * Real.rpow (2 * (N : ℝ)) (2 + ε) :=
         mul_le_mul_of_nonneg_left hp hC
       _ = (C * K) * Real.rpow (N : ℝ) (2 + ε) := by
-        rw [Real.mul_rpow (by norm_num) (by positivity)]
-        ring
+        rw [hmul]
+        rfl
   · intro hcurrent ε hε
     rcases hcurrent ε hε with ⟨C, hC, hbound⟩
     let Z := ‖squarePrefixMertens 0‖ ^ 2
-    refine ⟨C + Z, add_nonneg hC (sq_nonneg _), ?_⟩
+    have hZ : 0 ≤ Z := by
+      dsimp [Z]
+      positivity
+    refine ⟨C + Z, add_nonneg hC hZ, ?_⟩
     intro n
     by_cases hn0 : n = 0
     · subst n
-      simp [Z]
+      have hzle : Z ≤ C + Z := le_add_of_nonneg_left hC
+      simpa only [Z, Nat.cast_one, Real.one_rpow, mul_one] using hzle
     · have hn : 1 ≤ n := Nat.pos_of_ne_zero hn0
       have h := hbound n hn
       have hbase : (n : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ n
       have hexp : 0 ≤ 2 + ε := by linarith
       have hp := Real.rpow_le_rpow (by positivity) hbase hexp
-      calc
-        ‖squarePrefixMertens n‖ ^ 2 ≤
-            C * Real.rpow (n : ℝ) (2 + ε) := h
-        _ ≤ C * Real.rpow ((n + 1 : ℕ) : ℝ) (2 + ε) :=
-          mul_le_mul_of_nonneg_left hp hC
-        _ ≤ (C + Z) * Real.rpow ((n + 1 : ℕ) : ℝ) (2 + ε) := by
-          gcongr
-          exact sq_nonneg _
+      have hfactor :
+          C * Real.rpow ((n + 1 : ℕ) : ℝ) (2 + ε) ≤
+            (C + Z) * Real.rpow ((n + 1 : ℕ) : ℝ) (2 + ε) :=
+        mul_le_mul_of_nonneg_right (le_add_of_nonneg_right hZ)
+          (Real.rpow_nonneg (by positivity) _)
+      exact h.trans ((mul_le_mul_of_nonneg_left hp hC).trans hfactor)
 
 /-- Future mathlib integration needs to provide only this standard classical theorem. -/
 structure ClassicalMertensRHCriterion where
@@ -313,11 +334,13 @@ theorem actualStart_pointwiseSquareBounded_iff_squarePrefixCurrent
   · rcases h ε hε with ⟨C, hC, hbound⟩
     refine ⟨C, hC, ?_⟩
     intro N hN
-    simpa [realization.actual_eq_squarePrefix] using hbound N hN
+    rw [← realization.actual_eq_squarePrefix N]
+    exact hbound N hN
   · rcases h ε hε with ⟨C, hC, hbound⟩
     refine ⟨C, hC, ?_⟩
     intro N hN
-    simpa [realization.actual_eq_squarePrefix] using hbound N hN
+    rw [realization.actual_eq_squarePrefix N]
+    exact hbound N hN
 
 /-- Pointwise actual-start control implies uniform local control by a direct window sum. -/
 theorem actualStart_uniformLocalBounded_of_pointwiseSquareBounded
@@ -346,14 +369,18 @@ theorem actualStart_uniformLocalBounded_of_pointwiseSquareBounded
       have hindexR : ((N + h : ℕ) : ℝ) ≤ 2 * (N : ℝ) := by exact_mod_cast hindexNat
       have hexp : 0 ≤ 2 + ε := by linarith
       have hp := Real.rpow_le_rpow (by positivity) hindexR hexp
+      have hmul :
+          Real.rpow (2 * (N : ℝ)) (2 + ε) =
+            Real.rpow 2 (2 + ε) * Real.rpow (N : ℝ) (2 + ε) :=
+        Real.mul_rpow (by norm_num) (by positivity)
       calc
         ‖start.actual (N + h)‖ ^ 2 ≤
             C * Real.rpow ((N + h : ℕ) : ℝ) (2 + ε) := hboundIndex
         _ ≤ C * Real.rpow (2 * (N : ℝ)) (2 + ε) :=
           mul_le_mul_of_nonneg_left hp hC
         _ = (C * K) * Real.rpow (N : ℝ) (2 + ε) := by
-          rw [Real.mul_rpow (by norm_num) (by positivity)]
-          ring
+          rw [hmul]
+          rfl
     _ = (H : ℝ) * ((C * K) * Real.rpow (N : ℝ) (2 + ε)) := by simp
     _ = (C * K) * (H : ℝ) * Real.rpow (N : ℝ) (2 + ε) := by ring
 
