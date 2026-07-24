@@ -122,7 +122,7 @@ theorem squarePrefix_localEnergy_le_two_low_add_high
     localSequenceEnergy squarePrefixMertens N H ≤
       2 * squarePrefixLocalLowEnergy partition N H +
         2 * squarePrefixLocalHighEnergy partition N H := by
-  unfold localSequenceEnergy squarePrefixLocalLowEnergy squarePrefixLocalHighEnergy
+  unfold squarePrefixLocalLowEnergy squarePrefixLocalHighEnergy localSequenceEnergy
   rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
   apply Finset.sum_le_sum
   intro h hh
@@ -135,7 +135,7 @@ theorem squarePrefix_localHighEnergy_le_two_total_add_low
     squarePrefixLocalHighEnergy partition N H ≤
       2 * localSequenceEnergy squarePrefixMertens N H +
         2 * squarePrefixLocalLowEnergy partition N H := by
-  unfold localSequenceEnergy squarePrefixLocalLowEnergy squarePrefixLocalHighEnergy
+  unfold squarePrefixLocalLowEnergy squarePrefixLocalHighEnergy localSequenceEnergy
   rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
   apply Finset.sum_le_sum
   intro h hh
