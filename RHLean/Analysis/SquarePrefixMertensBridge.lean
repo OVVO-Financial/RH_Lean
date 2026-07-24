@@ -171,6 +171,9 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
     have hr_sq_le : r ^ 2 ≤ x := by
       dsimp [r]
       exact Nat.sqrt_le' x
+    have hr_le_x : r ≤ x := by
+      dsimp [r]
+      exact Nat.sqrt_le_self x
     have hendpoint_le : squarePrefixEndpoint n ≤ x := by
       rw [hendpoint]
       exact le_trans (Nat.sub_le _ _) hr_sq_le
