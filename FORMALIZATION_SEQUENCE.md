@@ -25,7 +25,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-The root library imports forty-two theorem modules.
+The root library imports forty-three theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -184,6 +184,12 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - proves exact coefficient compatibility with `actualResidualEntry`'s convention;
     - proves the normalized channel expansion at `X_n=(n+1)^2-1` equals `squarePrefixMertens n`.
 
+43. `RHLean.Proof.SquarePrefixHeightPartition`
+    - defines the manuscript cutoff `|Y| ≤ Λ n` using the exact squared-complex ordinate;
+    - constructs complete, low-height, and high-height ordered-pair and channel supports;
+    - proves exact cover and disjointness of the low/high supports;
+    - proves exact rational and complex low/high recombination without changing the normalized product-fiber indexing.
+
 ## 2. Correction history
 
 PR #42 compiled an axiom-free conditional theorem with the global prefix target
@@ -212,6 +218,8 @@ PR #49 corrects the factor-pair arithmetic by proving the exact normalized order
 
 PR #51 supplies the first exact concrete realization bridge from those normalized ordered coefficients to the square-prefix Mertens sequence and the existing `ActualCofactorChannel` convention. It deliberately stops before shells, modes, Farey actions, and packet windows.
 
+PR #52 defines the manuscript's exact height selector on the normalized ordered channels and proves the finite low/high support partition and exact signal recombination. It does not infer an energy subtraction identity and stops before shell, mode, and packet data.
+
 ## 3. Current checkpoint
 
 For every exact concrete geometric partition satisfying the pointwise low-sector bound, the compiled chain is
@@ -227,13 +235,13 @@ SquarePrefixHighUniformLocalBoundedStatement(partition)
 
 The first four equivalences are project-proved. The final direct integration theorem accepts the last classical equivalence as an argument of exactly matching proposition type.
 
-The concrete square-prefix Mertens value now also has an exact normalized ordered-channel realization with the lower Möbius factor separated exactly as required by `actualResidualEntry`.
+The concrete square-prefix Mertens value now has an exact normalized ordered-channel realization and an exact low/high signal partition at `|Y| ≤ Λ n`, with the lower Möbius factor separated exactly as required by `actualResidualEntry`.
 
 The following remain analytically open or require concrete data, but are not Mertens/RH reconciliation gaps:
 
-- defining the manuscript's exact high/low channel partition from the normalized channel realization;
-- deriving the shell, denominator-mode, packet-start, and packet-length data required for a concrete `ActualResidualData` constructor;
-- proving the Farey mode action under `(c,q) ↦ (3c,q)`;
+- deriving shell assignments and the Farey denominator-mode action;
+- deriving exact contiguous packet starts and packet lengths;
+- constructing a concrete `ActualResidualData` value from those derived supports;
 - proving the high-sector signed-Gram estimate itself;
 - proving the local prediction-energy estimate yielding `H N^(2+ε)`;
 - constructing the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control.
@@ -292,8 +300,8 @@ The following remain analytically open or require concrete data, but are not Mer
 
 - [x] **24. Normalized ordered cofactor expansion and exact tripling scaling** — PR #49.
 - [x] **25. Concrete square-prefix cofactor-channel realization** — PR #51.
-- [ ] **26. Exact high/low channel partition and concrete residual-data prerequisites**.
-- [ ] **27. Farey mode action and contiguous packet-window derivation**.
+- [x] **26. Exact high/low height partition and finite channel supports** — PR #52.
+- [ ] **27. Farey mode action, shell assignment, and contiguous packet-window derivation**.
 - [ ] **28. Concrete `ActualResidualData` constructor and exact high-sector recombination**.
 - [ ] **29. Tripling-compatible packet transport and full signed defect identity**.
 
@@ -304,9 +312,9 @@ exact normalized ordered cofactor expansion
         ↓
 exact concrete square-prefix cofactor-channel realization
         ↓
-exact high/low channel partition
+exact high/low height partition and finite channel supports
         ↓
-Farey mode action and contiguous packet windows
+Farey mode action, shell assignment, and contiguous packet windows
         ↓
 concrete ActualResidualData and exact high-sector recombination
         ↓

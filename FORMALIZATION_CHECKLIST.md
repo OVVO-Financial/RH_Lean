@@ -121,6 +121,7 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#45** — Closed the project-specific Mertens adapter: concrete `M(x)`, exact `X_n=(n+1)^2-1`, square interpolation, pointwise/local conversion, direct concrete geometry theorem, and zero-friction future mathlib hook.
 - [x] **#49** — Proved the exact normalized ordered cofactor expansion, the `-1/2` tripling coefficient law, and child-plus-twice-parent cancellation over `ℚ` and `ℂ`.
 - [x] **#51** — Realized the exact square-prefix Mertens value as a normalized ordered sum over `ActualCofactorChannel`, with the lower Möbius factor separated to match `actualResidualEntry`.
+- [x] **#52** — Defined the exact manuscript height selector `|Y| ≤ Λ n`, constructed finite low/high normalized channel supports, and proved exact signal-level recombination.
 
 ## 5. Theorem-layer completion checklist
 
@@ -172,8 +173,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 
 - [x] **24. Normalized ordered cofactor expansion and exact tripling scaling** — PR #49.
 - [x] **25. Concrete square-prefix cofactor-channel realization** — PR #51.
-- [ ] **26. Exact high/low channel partition and concrete residual-data prerequisites**.
-- [ ] **27. Farey mode action and contiguous packet-window derivation**.
+- [x] **26. Exact high/low height partition and finite channel supports** — PR #52.
+- [ ] **27. Farey mode action, shell assignment, and contiguous packet-window derivation**.
 - [ ] **28. Concrete `ActualResidualData` constructor and exact high-sector recombination**.
 - [ ] **29. Tripling-compatible packet transport and full signed defect identity**.
 
@@ -194,7 +195,17 @@ Principal definitions in `RHLean.Proof.ConcreteSquarePrefixCofactorRealization`:
 - `normalizedChannelAmplitude`;
 - `squarePrefixCofactorExpansionRat`.
 
-Principal theorems added by PRs #49 and #51:
+Principal definitions in `RHLean.Proof.SquarePrefixHeightPartition`:
+
+- `squarePrefixHeightCutoff`;
+- `IsLowHeightChannel` and `IsLowHeightPair`;
+- `squarePrefixCofactorPairs`;
+- `squarePrefixLowHeightPairs` and `squarePrefixHighHeightPairs`;
+- `squarePrefixCofactorChannels`;
+- `squarePrefixLowHeightChannels` and `squarePrefixHighHeightChannels`;
+- `squarePrefixLowHeightExpansionRat` and `squarePrefixHighHeightExpansionRat`.
+
+Principal theorems added by PRs #49, #51, and #52:
 
 - `normalizedFiber_eq_moebius_rat`;
 - `normalizedFiberExpansion_cast_eq_mertens`;
@@ -203,14 +214,19 @@ Principal theorems added by PRs #49 and #51:
 - `lowerMoebius_mul_normalizedChannelAmplitudeRat`;
 - `squarePrefixCofactorExpansionRat_eq_normalizedFiberExpansionRat`;
 - `squarePrefixCofactorExpansion_cast_eq_squarePrefixMertens`;
-- `squarePrefixMertens_eq_normalizedChannelSum`.
+- `squarePrefixLowHeightPairs_union_highHeightPairs`;
+- `squarePrefixLowHeightPairs_disjoint_highHeightPairs`;
+- `squarePrefixLowHeightChannels_union_highHeightChannels`;
+- `squarePrefixLowHeightChannels_disjoint_highHeightChannels`;
+- `squarePrefixCofactorExpansionRat_eq_low_add_high`;
+- `squarePrefixMertens_eq_lowHeight_add_highHeight`.
 
-The exact arithmetic channel realization is now complete. It does not yet define a high/low channel selector, shell assignment, denominator-mode action, packet support, or concrete `ActualResidualData` value.
+The exact arithmetic channel realization and exact manuscript height partition are now complete. They do not yet define shell assignment, denominator-mode action, packet support, or a concrete `ActualResidualData` value.
 
 ## 7. Remaining obligations
 
-- define the manuscript's intended high/low channel partition from the exact normalized cofactor realization;
-- derive shell assignments, Farey denominator-mode action, contiguous packet starts, and packet lengths;
+- derive shell assignments and the Farey denominator-mode action;
+- derive contiguous packet starts and packet lengths;
 - construct concrete `ActualResidualData` without opaque support or amplitude fields;
 - prove exact high-sector recombination and tripling-compatible packet transport;
 - prove the high-sector signed-Gram and local prediction-energy estimates;
