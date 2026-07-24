@@ -1,0 +1,1 @@
+The branch workflow applies `apply_equivalence_revision.py` to the canonical paper and compiles the revised PDF. The generated `.tex` and `.pdf` are uploaded together as the `squared-complex-framework-paper` artifact.
