@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports twenty-nine theorem modules.
+The root library currently imports thirty theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -186,41 +186,47 @@ The root library currently imports twenty-nine theorem modules.
     - combined rowwise and weighted forcing bounds for the compiled Lyapunov interface;
     - no decay rate, contraction, numerical constant, or joint Gram estimate asserted.
 
+30. `RHLean.Analysis.JointGramControl`
+    - complete finite index over height shell, actual cofactor channel, denominator mode, and resonant/nonresonant row;
+    - exact rowwise packet recombination without orthogonality assumptions;
+    - a finite ordinal enumeration that retains every complete joint index exactly once;
+    - exact equality of the enumerated joint sum with the actual residual;
+    - exact diagonal-plus-signed-off-diagonal Gram identity for the actual residual energy;
+    - a single full joint-Gram control and recursive-control interface;
+    - no independent shell, cofactor, row, or denominator-mode positivity or smallness claim.
+
 ## 2. Current checkpoint
 
-Phase I, Phase II, and Phase III are complete. Phase IV items 13 and 14 are completed by PRs #35 and #36. Phase IV item 15, low-height spacing, incidence, endpoint, and boundary estimates, is completed on the implementation branch for anticipated PR #37.
+Phase I, Phase II, and Phase III are complete. Phase IV items 13 through 15 are completed by PRs #35 through #37. Phase IV item 16, joint Gram control, is completed on the implementation branch for anticipated PR #38.
 
-The actual forcing layer now keeps the six recurrence sources separate:
-
-```text
-lowHeightResonant, lowHeightNonresonant,
-endpointResonant, endpointNonresonant,
-boundaryResonant, boundaryNonresonant.
-```
-
-For low-height shells, positive pairwise separation implies strict monotonicity. Embedding the separated positions into `Fin (cutoff + 1)` gives the exact incidence bound
+The actual contribution is indexed simultaneously by
 
 ```text
-lowHeightCount(M) ≤ lowHeightCutoff(M) + 1.
+(height shell, cofactor channel, denominator mode, residual row).
 ```
 
-Uniform pointwise envelopes then give explicit finite-sum bounds in both rows. Left and right endpoints remain separate before applying the triangle inequality. Boundary terms retain an explicit finite incidence cap and an independent pointwise envelope.
+The row coordinate keeps the scale-dependent resonant extraction and its exact algebraic remainder separate at packet level. Their sum is the original packet, with no orthogonality or Pythagorean premise.
 
-Replacing only the six forcing fields of an existing complex leakage operator yields exact rowwise estimates
+The complete finite joint index is enumerated exactly once, and the resulting full signed sum satisfies
 
 ```text
-‖resonantForcing(M)‖ ≤ resonantForcingBound(M),
-‖nonresonantForcing(M)‖ ≤ nonresonantForcingBound(M),
+actualJointGramSum(M) = actualResidual(M).
 ```
 
-and the weighted estimate required by the Lyapunov layer. The four block maps `A_M`, `B_M`, `C_M`, and `D_M` are unchanged.
+Applying the compiled finite Gram identity to this enumeration gives
 
-No decay law, contraction, triangularity, zero leakage, joint Gram control, finite numerical verification, uniform residual bound, or RH statement is introduced.
+```text
+‖actualResidual(M)‖²
+  = jointDiagonalEnergy(M) + 2 * jointOffDiagonalGram(M).
+```
+
+Because each enumerated position carries all four coordinates, the off-diagonal term retains cross-shell, cross-cofactor, resonant/nonresonant, and denominator-mode interactions. A bound on this single signed expression immediately controls the actual residual energy, and the recursive interface keeps `rho`, parent energy, and forcing explicit.
+
+No numerical certificate, numerical constant, contraction factor, decay law, uniform residual bound, or RH statement is introduced.
 
 The following remain open:
 
-- joint signed Gram control retaining all cross interactions;
-- certified finite-range verification;
+- a certified finite-range certificate checker;
 - the uniform full residual bound;
 - the actual-start signed-frame theorem and final RH bridge.
 
@@ -266,18 +272,21 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
   - proves exact per-mode, joint denominator-mode, and finite certified-pair-family cancellation;
   - makes no exhaustive-pairing, unpaired-term, low-height, endpoint, boundary, contraction, or smallness claim.
 
-- [x] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — anticipated PR #37.
+- [x] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — completed by PR #37.
   - derives low-height incidence from positive spacing and a finite height cutoff;
   - proves separate resonant and nonresonant low-height finite-sum estimates;
   - retains left/right endpoint and finite boundary sources separately;
   - instantiates the six forcing fields of the compiled leakage operator without changing its four block maps;
   - proves rowwise and weighted forcing bounds, with no unproved decay or contraction claim.
 
-- [ ] **16. Joint Gram control** — next dependency.
-  - index simultaneously by height shell, cofactor block, and denominator mode;
-  - retain cross-shell, cross-cofactor, resonant/nonresonant, and mode interactions.
+- [x] **16. Joint Gram control** — anticipated PR #38.
+  - indexes simultaneously by height shell, actual cofactor channel, denominator mode, and residual row;
+  - proves exact packet-row and full-index recombination to the actual residual;
+  - retains every signed off-diagonal interaction in one complete Gram expression;
+  - exposes direct and recursive full-joint-Gram control interfaces;
+  - makes no numerical, finite-range, uniform-bound, or RH claim.
 
-- [ ] **17. Certified finite-range certificate checker**.
+- [ ] **17. Certified finite-range certificate checker** — next dependency.
   - prove the checker correct in Lean;
   - import numerical runs only as checked data with checksums and code-version metadata.
 
@@ -318,7 +327,9 @@ exact resonant cancellation for certified Möbius cofactor pairs
         ↓
 low-height, endpoint, and boundary forcing estimates
         ↓
-full joint signed Gram contraction
+full joint signed Gram control
+        ↓
+certified finite-range checker
         ↓
 uniform full residual bound
         ↓
