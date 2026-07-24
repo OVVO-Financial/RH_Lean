@@ -22,6 +22,7 @@ Every PR must preserve all of the following:
 - keep the full signed shell sum inside the norm and retain cross-shell Gram terms;
 - keep theorem-predicted rank-one subtraction separate from true orthogonal projection;
 - introduce numerical finite-range claims only through a proved certificate checker;
+- keep accepted-certificate validity separate from the mathematical realization that identifies checked data with actual theorem quantities;
 - treat every warning as a CI failure because the project builds with `--wfail`.
 
 ## 2. Per-PR execution checklist
@@ -105,6 +106,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#37** — Proved low-height spacing-to-incidence, endpoint, boundary, rowwise, and weighted actual forcing estimates for the compiled leakage and Lyapunov interfaces.
 - [x] **#38** — Formalized the complete shell/cofactor/mode/row joint index, exact recombination to the actual residual, and the full signed joint Gram control interface.
 - [x] **#39** — Added the sound executable finite-range certificate checker, exact metadata and payload validation, and the accepted-certificate import boundary.
+- [x] **#40** — Connected accepted finite-range data to actual joint energies through an explicit realization, packaged asymptotic full-joint recurrence control, and proved the uniform actual residual-energy bound.
 
 ## 5. Theorem-layer completion checklist
 
@@ -135,76 +137,75 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — PR #36.
 - [x] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — PR #37.
 - [x] **16. Joint Gram control** — PR #38.
-- [x] **17. Certified finite-range certificate checker** — anticipated PR #39.
-- [ ] **18. Uniform full residual bound** — next dependency.
-- [ ] **19. Actual-start signed-frame theorem**.
+- [x] **17. Certified finite-range certificate checker** — PR #39.
+- [x] **18. Uniform full residual bound** — anticipated PR #40.
+- [ ] **19. Actual-start signed-frame theorem** — next dependency.
 - [ ] **20. RH bridge**.
 
 ## 6. Current checkpoint
 
-Anticipated PR #39, **Formalize certified finite-range certificates**, completes Phase IV item 17 on the implementation branch.
+Anticipated PR #40, **Formalize the uniform actual residual bound**, completes Phase IV item 18 on the implementation branch.
 
-- Principal new module: `RHLean.Verification.FiniteRangeCertificates`.
+- Principal new module: `RHLean.Analysis.UniformResidualBound`.
 - Principal structures:
-  - `FiniteRangeCertificateMetadata`;
-  - `FiniteRangeCertificateExpectation`;
-  - `ExactDecompositionCheckpoint`;
-  - `PrimeResidueCheckpoint`;
-  - `JointGramCertificateCheckpoint`;
-  - `FiniteRangeCertificateRow`;
-  - `FiniteRangeCertificate`;
-  - `AcceptedFiniteRangeCertificate`.
+  - `ActualFiniteRangeJointGramRealization`;
+  - `ActualJointGramAsymptoticControl`.
 - Principal definitions:
-  - `integerChecksumWord`;
-  - `payloadChecksumStep`;
-  - `payloadChecksumWords`;
-  - `decompositionPayloadWords`;
-  - `primeResiduePayloadWords`;
-  - `jointGramPayloadWords`;
-  - `finiteRangeRowPayloadWords`;
-  - `finiteRangeCertificatePayloadChecksum`;
-  - `expectedOffDiagonalCount`;
-  - `reconstructedJointEnergy`;
-  - `ExactDecompositionCheckpoint.Valid`;
-  - `PrimeResidueCheckpoint.Valid`;
-  - `FiniteRangeCertificateRow.Valid`;
-  - `FiniteRangeCertificate.Valid`;
-  - `checkFiniteRangeCertificate`.
+  - `finiteRangeCertificateBaseBound`.
 - Principal theorems:
-  - `checkFiniteRangeCertificate_sound`;
-  - `AcceptedFiniteRangeCertificate.valid`;
-  - `AcceptedFiniteRangeCertificate.metadata_eq`;
-  - `AcceptedFiniteRangeCertificate.payloadChecksum_eq`;
-  - `AcceptedFiniteRangeCertificate.row_valid`.
-- Central checked obligations:
+  - `actualFiniteRangeJointGram_energy_le_baseBound`;
+  - `uniform_actualResidual_energy_bound`.
+- Central finite-range realization statement:
 
   ```text
-  total decomposition = resonant + nonresonant,
-  sum(residue-class counts) = prime count,
-  jointCard = shellCount * cofactorCount * denominatorModeCount * 2,
-  claimedJointEnergy = sum(diagonalTerms) + 2 * sum(offDiagonalTerms),
-  rhoDenominator * claimedJointEnergy
-    ≤ rhoNumerator * parentJointEnergy + rhoDenominator * forcing.
+  valueDenominator * actualJointGramEnergy(M)
+    = checked claimedJointEnergy(M).
   ```
 
+- The base bound is computed internally from the accepted certificate:
+
+  ```text
+  certificateBaseBound
+    = sum_M |claimedJointEnergy(M)| / valueDenominator.
+  ```
+
+- Central asymptotic-control statement:
+
+  ```text
+  actualJointGramEnergy(M)
+    ≤ rho * actualJointGramEnergy(ancestor(M))
+      + actualWeightedForcingBound(M),
+  ancestor(M) < M,
+  actualWeightedForcingBound(M) ≤ forcingBound,
+  0 ≤ rho < 1.
+  ```
+
+- Uniform conclusion:
+
+  ```text
+  ‖actualResidual(M)‖²
+    ≤ affineInvariantBound rho forcingBound certificateBaseBound
+  ```
+
+  for every scale `M`.
 - Protected invariants:
-  - generated rows cover the declared finite range exactly and in order;
-  - code version, source commit, and external data checksum must match an explicit expectation;
-  - the numeric payload checksum is recomputed from every numeric field rather than trusted;
-  - all diagonal and signed off-diagonal joint-Gram terms remain present;
-  - no componentwise shell, cofactor, residual-row, or denominator-mode smallness condition is introduced;
-  - no generated run becomes a theorem without a proof that the executable checker returned `true`.
+  - acceptance of generated data and mathematical realization of that data are distinct;
+  - the finite base maximum is not trusted as external metadata but replaced by an internally computed dominating sum;
+  - the high-range target remains the one complete signed joint-Gram recurrence;
+  - the forcing term is the compiled actual weighted forcing bound;
+  - no independent shell, cofactor, residual-row, or denominator-mode smallness is introduced;
+  - no RH premise or equivalent statement appears.
 - Deliberate exclusions:
-  - no numerical run or checked finite-range dataset is included;
-  - no cryptographic claim is made for the deterministic internal payload checksum;
-  - no contraction constant, decay law, uniform residual bound, actual-start theorem, or RH premise is asserted.
+  - no numerical run is imported;
+  - no automatic realization theorem is claimed;
+  - no automatic asymptotic contraction theorem is claimed;
+  - no unchecked constant, actual-start signed-frame theorem, or RH bridge is asserted.
 - Pinned API inspection:
-  - exact compiled signatures were checked for `decide`, `of_decide_eq_true`, `List.foldl`, `List.flatMap`, `List.sum`, `List.Nodup`, `List.get`, finite `Fin` quantification, integer order, and the compiled joint-Gram interface against Lean 4 / mathlib `v4.24.0`;
-  - the checker uses exact natural/integer arithmetic and a decidable proposition only.
+  - exact signatures were checked for `List.get_mem`, `List.mem_map`, `List.single_le_sum`, `le_abs_self`, `le_div_iff₀`, `uniform_bound_of_affine_descent`, `ActualJointGramRecurrenceControl`, `actualWeightedForcingBound`, and `actualResidual_energy_eq_jointGram` against Lean 4 / mathlib `v4.24.0`.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **18: uniform full residual bound**.
+The next focused PR is unchecked item **19: actual-start signed-frame theorem**.
 
-It must instantiate the compiled weighted affine closure using actual joint-Gram recurrence control, actual forcing bounds, and any accepted finite-range base certificate. It must keep every analytic hypothesis explicit, must not use an unchecked numerical constant, and must not begin until PR #39 is green, merged, and explicitly authorized.
+It must derive the exact starting theorem from the uniform residual-energy inequality and the exact starting configuration. Every finite-range realization and asymptotic-control instance required by the result must remain explicit. It must not introduce RH or an equivalent premise and must not begin until PR #40 is green, merged, and explicitly authorized.
