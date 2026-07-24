@@ -8,6 +8,7 @@ import RHLean.Analysis.ConcreteSquarePrefixGeometry
 import RHLean.Analysis.GeometricRHReduction
 import RHLean.Analysis.HeightShellGram
 import RHLean.Analysis.JointGramControl
+import RHLean.Analysis.MathlibMertensHook
 import RHLean.Analysis.OrthogonalResidual
 import RHLean.Analysis.QuadraticExponentCongruence
 import RHLean.Analysis.QuadraticPhasePeriod
