@@ -42,7 +42,7 @@ theorem weightedBlockLyapunov_nonneg
 The invariant upper bound for an affine recurrence with contraction factor
 `rho`, uniform forcing bound `forcingBound`, and initial-range bound `baseBound`.
 -/
-def affineInvariantBound (rho forcingBound baseBound : ℝ) : ℝ :=
+noncomputable def affineInvariantBound (rho forcingBound baseBound : ℝ) : ℝ :=
   max baseBound (forcingBound / (1 - rho))
 
 /--
@@ -70,8 +70,8 @@ theorem uniform_bound_of_affine_descent
       · calc
           value n ≤ baseBound := hbase n hn
           _ ≤ affineInvariantBound rho forcingBound baseBound := by
-            simpa [affineInvariantBound] using
-              (le_max_left baseBound (forcingBound / (1 - rho)))
+            unfold affineInvariantBound
+            exact le_max_left _ _
       · have hn_gt : N0 < n := by omega
         have hparent :
             value (ancestor n) ≤ affineInvariantBound rho forcingBound baseBound :=
@@ -89,8 +89,8 @@ theorem uniform_bound_of_affine_descent
         have hquotient :
             forcingBound / (1 - rho) ≤
               affineInvariantBound rho forcingBound baseBound := by
-          simpa [affineInvariantBound] using
-            (le_max_right baseBound (forcingBound / (1 - rho)))
+          unfold affineInvariantBound
+          exact le_max_right _ _
         have hinvariant :
             forcingBound ≤
               affineInvariantBound rho forcingBound baseBound * (1 - rho) :=
