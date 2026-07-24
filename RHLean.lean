@@ -3,6 +3,7 @@ import RHLean.Analysis.ActualResidualDecomposition
 import RHLean.Analysis.BlockLyapunovClosure
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.HeightShellGram
+import RHLean.Analysis.JointGramControl
 import RHLean.Analysis.OrthogonalResidual
 import RHLean.Analysis.QuadraticExponentCongruence
 import RHLean.Analysis.QuadraticPhasePeriod
