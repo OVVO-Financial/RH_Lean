@@ -13,44 +13,34 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build-paper:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
-          show-progress: false
+      - name: Clone branch quietly
+        run: |
+          git clone --quiet --depth 1 --branch agent/update-paper-equivalence-pdf \
+            https://github.com/OVVO-Financial/RH_Lean.git repo
 
       - name: Apply deterministic equivalence revision
+        working-directory: repo
         run: python paper/apply_equivalence_revision.py
 
       - name: Compile LaTeX paper
         uses: xu-cheng/latex-action@v3
         with:
           root_file: Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.tex
-          working_directory: paper
+          working_directory: repo/paper
           latexmk_use_xelatex: false
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
-
-      - name: Commit revised source and PDF to branch
-        if: github.event_name != 'pull_request'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.tex
-          git add paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.pdf
-          git diff --cached --quiet || git commit -m "Update paper with exact geometric RH equivalence"
-          git push
 
       - name: Upload revised paper artifacts
         uses: actions/upload-artifact@v4
         with:
           name: squared-complex-framework-paper
           path: |
-            paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.tex
-            paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.pdf
+            repo/paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.tex
+            repo/paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.pdf
           if-no-files-found: error
