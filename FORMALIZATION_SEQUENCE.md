@@ -25,7 +25,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-The root library imports forty-four theorem modules.
+The root library imports forty-six theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -197,6 +197,23 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - defines the entry shell `⌊√(cq)⌋`, transition index `q-1`, and exact contiguous packet window `[⌊√(cq)⌋,q-1)`;
     - proves every retained square-prefix channel has an entry shell in `0,…,n`.
 
+45. `RHLean.Proof.ConcreteSquarePrefixHighResidual`
+    - proves product fibers are pairwise disjoint and flattens the high expansion without changing ordered-pair indexing;
+    - reindexes the exact high sum through the injective `ActualCofactorChannel` map;
+    - chooses the source-entry block `⌊√(cq)⌋` as the concrete finite shell assignment;
+    - retains the complete reduced Farey label support and isolates the exact zero label `(0,1)`;
+    - defines singleton source-entry packets so both ordered orientations remain represented even when a transport interval is empty;
+    - constructs concrete `ActualResidualData` and proves its `actualResidual` is exactly `squarePrefixHighHeightExpansion`.
+
+46. `RHLean.Proof.TriplingPacketTransport`
+    - defines normalized arithmetic/Farey/packet-index transport entries and concrete contiguous transport data;
+    - proves the transport data agrees exactly with the existing `actualResidualEntry` and packet interfaces at each channel's source shell;
+    - proves tripling moves the entry shell weakly upward while retaining the transition index;
+    - splits the base packet exactly into a finite boundary prefix and the window shared with the tripled channel;
+    - proves phase-aligned child-plus-twice-parent cancellation on the common window from the `-1/2` coefficient law and exact phase transport;
+    - proves the unaligned phase-defect identity and the complete boundary-plus-phase signed defect formula;
+    - retains all Farey modes in one signed sum and takes energy only after that recombination.
+
 ## 2. Correction history
 
 PR #42 compiled an axiom-free conditional theorem with the global prefix target
@@ -227,7 +244,11 @@ PR #51 supplies the first exact concrete realization bridge from those normalize
 
 PR #52 defines the manuscript's exact height selector on the normalized ordered channels and proves the finite low/high support partition and exact signal recombination. It does not infer an energy subtraction identity and stops before shell, mode, and packet data.
 
-PR #53 formalizes the exact reduced Farey support, encoded denominator-mode labels, the tripling phase action, and the contiguous ordered-channel packet window. It corrects the prior roadmap by recording that the manuscript does not specify a canonical finite high-height shell formula; that concrete shell choice remains part of the `ActualResidualData` constructor.
+PR #53 formalizes the exact reduced Farey support, encoded denominator-mode labels, the tripling phase action, and the contiguous ordered-channel packet window. It records that the manuscript does not specify a unique independent high-height shell formula; the source-entry shell is chosen by the concrete residual constructor.
+
+PR #54 chooses the exact source-entry block as the finite high-height shell assignment and constructs concrete `ActualResidualData` whose residual is the exact high-height signal. It also corrects a hidden indexing obstruction: the transport interval can be empty for a reversed ordered channel, so exact signal realization uses a distinct singleton source-entry packet while preserving the transport window for the later dynamical layer.
+
+PR #55 formalizes that dynamical layer. The tripled packet is the suffix beginning at `⌊√(3cq)⌋`; the omitted base prefix is retained as an explicit boundary packet. On the common window, exact coefficient scaling and phase transport give phase-aligned cancellation, while the unaligned identity leaves precisely `(1-D)` times the common base packet. No unmatched channel, mode, or boundary term is silently removed.
 
 ## 3. Current checkpoint
 
@@ -244,17 +265,14 @@ SquarePrefixHighUniformLocalBoundedStatement(partition)
 
 The first four equivalences are project-proved. The final direct integration theorem accepts the last classical equivalence as an argument of exactly matching proposition type.
 
-The concrete square-prefix Mertens value now has an exact normalized ordered-channel realization, an exact low/high signal partition at `|Y| ≤ Λ n`, a finite reduced Farey mode support with canonical modulus `2r`, and exact contiguous ordered-channel packet windows.
+The concrete square-prefix Mertens value now has an exact normalized ordered-channel realization, an exact low/high signal partition at `|Y| ≤ Λ n`, finite reduced Farey modes with canonical modulus `2r`, concrete source-entry residual data, contiguous transport data, and a complete exact tripling identity whose defect is the finite boundary prefix plus the explicit phase mismatch on the common window.
 
 The following remain analytically open or require concrete data, but are not Mertens/RH reconciliation gaps:
 
-- choosing and proving a concrete finite high-height shell assignment;
-- constructing a concrete `ActualResidualData` value from the compiled channel, mode, shell, and packet supports;
-- deriving the concrete packet-indexed amplitude and exact high-sector recombination;
-- proving tripling-compatible packet transport and the full signed defect identity;
-- proving the high-sector signed-Gram estimate itself;
+- proving a uniform high-sector signed-Gram estimate for the complete family, including unpaired channels and all cross-pair interactions;
 - proving the local prediction-energy estimate yielding `H N^(2+ε)`;
-- constructing the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control.
+- constructing the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control;
+- importing or formalizing the classical theorem `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`.
 
 ## 4. Formalization sequence
 
@@ -312,8 +330,8 @@ The following remain analytically open or require concrete data, but are not Mer
 - [x] **25. Concrete square-prefix cofactor-channel realization** — PR #51.
 - [x] **26. Exact high/low height partition and finite channel supports** — PR #52.
 - [x] **27. Reduced Farey modes, exact phase action, entry shells, and contiguous packet windows** — PR #53.
-- [ ] **28. Concrete high-height shell choice, `ActualResidualData` constructor, amplitudes, and exact high-sector recombination**.
-- [ ] **29. Tripling-compatible packet transport and full signed defect identity**.
+- [x] **28. Concrete high-height shell choice, `ActualResidualData` constructor, amplitudes, and exact high-sector recombination** — PR #54.
+- [x] **29. Tripling-compatible packet transport and full signed defect identity** — PR #55.
 
 ## 5. Dependency spine
 
@@ -328,7 +346,9 @@ reduced Farey modes + exact phase action + contiguous packet windows
         ↓
 concrete shell choice + ActualResidualData + high-sector recombination
         ↓
-tripling-compatible full signed Gram transport
+tripling-compatible packet transport + exact signed defect
+        ↓
+full-family signed Gram estimate
         ↓
 local high-sector estimate
         ↓
@@ -338,7 +358,9 @@ classical Mertens criterion ↔ RH
 The separate analytic proof program remains:
 
 ```text
-full signed shell/cofactor/mode/row Gram identity
+complete concrete joint family and defect recombination
+        ↓
+full signed shell/cofactor/mode/row Gram estimate
         ↓
 finite certificate checker + explicit realization
         ↓
