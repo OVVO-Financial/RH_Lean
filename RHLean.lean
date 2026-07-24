@@ -47,4 +47,5 @@ import RHLean.Proof.CompleteHighFamilyDecomposition
 import RHLean.Proof.ConcreteHighFamilyJointGram
 import RHLean.Proof.CanonicalHighSectorBridge
 import RHLean.Proof.CanonicalHighSectorCovariance
+import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Verification.FiniteRangeCertificates
