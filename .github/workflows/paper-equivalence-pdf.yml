@@ -6,6 +6,10 @@ on:
     paths:
       - paper/apply_equivalence_revision.py
       - .github/workflows/paper-equivalence-pdf.yml
+  pull_request:
+    paths:
+      - paper/apply_equivalence_revision.py
+      - .github/workflows/paper-equivalence-pdf.yml
   workflow_dispatch:
 
 permissions:
@@ -17,6 +21,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Apply deterministic equivalence revision
         run: python paper/apply_equivalence_revision.py
@@ -30,6 +36,7 @@ jobs:
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
 
       - name: Commit revised source and PDF to branch
+        if: github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
