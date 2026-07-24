@@ -1,0 +1,184 @@
+from pathlib import Path
+
+seq_path = Path("FORMALIZATION_SEQUENCE.md")
+chk_path = Path("FORMALIZATION_CHECKLIST.md")
+seq = seq_path.read_text()
+chk = chk_path.read_text()
+
+
+def replace_once(text: str, old: str, new: str, label: str) -> str:
+    count = text.count(old)
+    if count != 1:
+        raise RuntimeError(f"{label}: expected one match, found {count}")
+    return text.replace(old, new, 1)
+
+
+seq = replace_once(
+    seq,
+    "The root library imports forty-six theorem modules.",
+    "The root library imports forty-seven theorem modules.",
+    "module count",
+)
+
+inventory_anchor = """46. `RHLean.Proof.TriplingPacketTransport`
+    - defines normalized arithmetic/Farey/packet-index transport entries and concrete contiguous transport data;
+    - proves the transport data agrees exactly with the existing `actualResidualEntry` and packet interfaces at each channel's source shell;
+    - proves tripling moves the entry shell weakly upward while retaining the transition index;
+    - splits the base packet exactly into a finite boundary prefix and the window shared with the tripled channel;
+    - proves phase-aligned child-plus-twice-parent cancellation on the common window from the `-1/2` coefficient law and exact phase transport;
+    - proves the unaligned phase-defect identity and the complete boundary-plus-phase signed defect formula;
+    - retains all Farey modes in one signed sum and takes energy only after that recombination.
+"""
+inventory_new = inventory_anchor + """
+47. `RHLean.Proof.CompleteHighFamilyDecomposition`
+    - defines retained new-prime bases, their injective tripled-child image, and every remaining high channel as an explicit unpaired channel;
+    - proves the exact disjoint support decomposition `high = bases ⊔ children ⊔ unpaired`;
+    - proves the corresponding generic finite-sum decomposition without collapsing ordered orientations;
+    - defines complete all-mode transport contributions for channels, retained raw pairs, retained signed defects, child multiplicity correction, and unpaired channels;
+    - proves that the raw once-per-channel retained pair sum is the weighted signed-defect sum minus one child copy;
+    - proves the complete high-family identity with every retained defect, child correction, and unmatched contribution visible before any norm or Gram estimate.
+"""
+seq = replace_once(seq, inventory_anchor, inventory_new, "inventory")
+
+history_anchor = """PR #55 formalizes that dynamical layer. The tripled packet is the suffix beginning at `⌊√(3cq)⌋`; the omitted base prefix is retained as an explicit boundary packet. On the common window, exact coefficient scaling and phase transport give phase-aligned cancellation, while the unaligned identity leaves precisely `(1-D)` times the common base packet. No unmatched channel, mode, or boundary term is silently removed.
+"""
+history_new = history_anchor + """
+PR #56 completes the finite high-family bookkeeping. Retained new-prime bases and their injective tripled children form a disjoint paired support, every remaining high channel is retained explicitly, and the raw once-per-channel pair contribution is identified as the weighted PR #55 defect minus one child copy. Thus the full family is decomposed exactly without pretending that the factor-of-two transport identity is an ordinary set-pair cancellation.
+"""
+seq = replace_once(seq, history_anchor, history_new, "history")
+
+checkpoint = "The concrete square-prefix Mertens value now has an exact normalized ordered-channel realization, an exact low/high signal partition at `|Y| ≤ Λ n`, finite reduced Farey modes with canonical modulus `2r`, concrete source-entry residual data, contiguous transport data, and a complete exact tripling identity whose defect is the finite boundary prefix plus the explicit phase mismatch on the common window."
+seq = replace_once(
+    seq,
+    checkpoint,
+    checkpoint
+    + " The complete finite high support is now split exactly into retained new-prime bases, their injective tripled children, and explicit unpaired channels; at contribution level, the full all-mode family is the retained signed defects minus the one-copy child multiplicity correction plus the unpaired contribution.",
+    "checkpoint",
+)
+
+phase_anchor = """- [x] **29. Tripling-compatible packet transport and full signed defect identity** — PR #55.
+
+## 5. Dependency spine
+"""
+phase_new = """- [x] **29. Tripling-compatible packet transport and full signed defect identity** — PR #55.
+
+### Phase IX — complete high-family analytic interface
+
+- [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
+- [ ] **31. Uniform full-family signed Gram estimate with all cross interactions retained**.
+
+## 5. Dependency spine
+"""
+seq = replace_once(seq, phase_anchor, phase_new, "phase IX")
+seq = replace_once(
+    seq,
+    "tripling-compatible packet transport + exact signed defect\n        ↓\nfull-family signed Gram estimate",
+    "tripling-compatible packet transport + exact signed defect\n        ↓\ncomplete bases/children/unpaired decomposition + multiplicity correction\n        ↓\nfull-family signed Gram estimate",
+    "dependency spine",
+)
+seq = replace_once(
+    seq,
+    "complete concrete joint family and defect recombination\n        ↓\nfull signed shell/cofactor/mode/row Gram estimate",
+    "complete bases/children/unpaired family decomposition\n        ↓\nretained defect - child correction + unpaired recombination\n        ↓\nfull signed shell/cofactor/mode/row Gram estimate",
+    "analytic spine",
+)
+
+ledger = "- [x] **#55** — Constructed concrete contiguous transport data and proved the complete tripling signed defect: finite boundary prefix plus explicit phase mismatch on the shared window; also restored the full branch-wide merge-gating workflow.\n"
+chk = replace_once(
+    chk,
+    ledger,
+    ledger
+    + "- [x] **#56** — Decomposed the complete high support into retained new-prime bases, injective tripled children, and explicit unpaired channels; proved the raw-family multiplicity correction and complete all-mode contribution identity.\n",
+    "ledger",
+)
+
+chk_phase = """- [x] **29. Tripling-compatible packet transport and full signed defect identity** — PR #55.
+
+## 6. Current checkpoint
+"""
+chk_phase_new = """- [x] **29. Tripling-compatible packet transport and full signed defect identity** — PR #55.
+
+### Phase IX — complete high-family analytic interface
+
+- [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
+- [ ] **31. Uniform full-family signed Gram estimate with all cross interactions retained**.
+
+## 6. Current checkpoint
+"""
+chk = replace_once(chk, chk_phase, chk_phase_new, "checklist phase IX")
+
+checkpoint_anchor = "The exact normalized channel arithmetic, high/low partition, finite Farey support, source-entry realization, contiguous transport windows, and one-pair all-mode signed defect are now compiled. The all-mode norm is taken only after signed recombination.\n"
+checkpoint_block = """Principal definitions in `RHLean.Proof.CompleteHighFamilyDecomposition`:
+
+- `squarePrefixHighTriplingBases`;
+- `squarePrefixHighTriplingChildren`;
+- `squarePrefixHighTriplingCovered`;
+- `squarePrefixHighUnpairedChannels`;
+- `squarePrefixHighChannelModeContribution`;
+- `squarePrefixHighTransportFamilyContribution`;
+- `squarePrefixHighRetainedDefectContribution`;
+- `squarePrefixHighRetainedChildCorrection`;
+- `squarePrefixHighUnpairedModeContribution`.
+
+Principal theorems added by PR #56:
+
+- `tripledCofactorChannel_injective`;
+- `squarePrefixHighTriplingBases_disjoint_children`;
+- `squarePrefixHighTriplingCovered_union_unpaired`;
+- `squarePrefixHighUnpairedChannels_reason`;
+- `sum_squarePrefixHighHeightChannels_eq_pairs_add_unpaired`;
+- `squarePrefixHighTransportFamilyContribution_eq_pair_add_unpaired`;
+- `squarePrefixHighChannelModeContribution_add_two_tripled_eq_defect`;
+- `squarePrefixHighChannelModeContribution_add_tripled_eq_defect_sub_tripled`;
+- `squarePrefixHighRetainedPairContribution_eq_defect_sub_childCorrection`;
+- `squarePrefixHighTransportFamilyContribution_eq_full_decomposition`.
+
+The exact normalized channel arithmetic, high/low partition, finite Farey support, source-entry realization, contiguous transport windows, one-pair all-mode signed defect, and complete finite high-family decomposition are now compiled. The all-mode norm is taken only after signed recombination, and the weighted `base + 2 * child` law remains distinct from the raw once-per-channel family sum.
+"""
+chk = replace_once(chk, checkpoint_anchor, checkpoint_block, "checkpoint details")
+chk = replace_once(
+    chk,
+    "- construct the complete concrete tripling-pair/unpaired-channel decomposition for the full high family;\n",
+    "",
+    "remaining obligation",
+)
+
+seq_path.write_text(seq)
+chk_path.write_text(chk)
+
+Path(".github/workflows/lean.yml").write_text(
+    """name: Lean verification
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Audit unfinished proofs and axioms
+        run: bash scripts/audit_assumptions.sh
+
+      - name: Build Lean project
+        uses: leanprover/lean-action@v1
+        with:
+          use-mathlib-cache: true
+          build: true
+          build-args: \"RHLean --wfail\"
+          test: false
+          lint: false
+"""
+)
