@@ -23,6 +23,7 @@ Every PR must preserve all of the following:
 - keep theorem-predicted rank-one subtraction separate from true orthogonal projection;
 - introduce numerical finite-range claims only through a proved certificate checker;
 - keep accepted-certificate validity separate from the mathematical realization that identifies checked data with actual theorem quantities;
+- do not infer the sharp constant-`4` starting frame inequality from residual size alone; retain the signed prediction-residual interaction explicitly;
 - treat every warning as a CI failure because the project builds with `--wfail`.
 
 ## 2. Per-PR execution checklist
@@ -107,6 +108,7 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **#38** — Formalized the complete shell/cofactor/mode/row joint index, exact recombination to the actual residual, and the full signed joint Gram control interface.
 - [x] **#39** — Added the sound executable finite-range certificate checker, exact metadata and payload validation, and the accepted-certificate import boundary.
 - [x] **#40** — Connected accepted finite-range data to actual joint energies through an explicit realization, packaged asymptotic full-joint recurrence control, and proved the uniform actual residual-energy bound.
+- [x] **#41** — Defined the exact actual-start configuration, retained its signed prediction-residual interaction, and derived the sharp constant-`4` finite-prefix frame inequality from uniform residual control plus explicit signed absorption.
 
 ## 5. Theorem-layer completion checklist
 
@@ -138,74 +140,84 @@ This ledger is append-only. A checked entry visible on `main` means that PR reac
 - [x] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — PR #37.
 - [x] **16. Joint Gram control** — PR #38.
 - [x] **17. Certified finite-range certificate checker** — PR #39.
-- [x] **18. Uniform full residual bound** — anticipated PR #40.
-- [ ] **19. Actual-start signed-frame theorem** — next dependency.
-- [ ] **20. RH bridge**.
+- [x] **18. Uniform full residual bound** — PR #40.
+- [x] **19. Actual-start signed-frame theorem** — anticipated PR #41.
+- [ ] **20. RH bridge** — next dependency.
 
 ## 6. Current checkpoint
 
-Anticipated PR #40, **Formalize the uniform actual residual bound**, completes Phase IV item 18 on the implementation branch.
+Anticipated PR #41, **Formalize the actual-start signed-frame theorem**, completes Phase IV item 19 on the implementation branch.
 
-- Principal new module: `RHLean.Analysis.UniformResidualBound`.
+- Principal new module: `RHLean.Analysis.ActualStartSignedFrame`.
 - Principal structures:
-  - `ActualFiniteRangeJointGramRealization`;
-  - `ActualJointGramAsymptoticControl`.
+  - `ActualStartConfiguration`;
+  - `ActualStartSignedFrameControl`.
 - Principal definitions:
-  - `finiteRangeCertificateBaseBound`.
+  - `actualStartFrameEnergy`;
+  - `actualStartPredictionFrameEnergy`;
+  - `actualStartResidualFrameEnergy`;
+  - `actualStartSignedInteraction`.
 - Principal theorems:
-  - `actualFiniteRangeJointGram_energy_le_baseBound`;
-  - `uniform_actualResidual_energy_bound`.
-- Central finite-range realization statement:
+  - `actualStart_energy_identity_at`;
+  - `actualStart_frame_energy_identity`;
+  - `actualStart_residualFrameEnergy_le`;
+  - `actualStart_signedFrame_of_uniform_residual_bound`;
+  - `actualStart_signedFrame`.
+- Exact starting configuration:
 
   ```text
-  valueDenominator * actualJointGramEnergy(M)
-    = checked claimedJointEnergy(M).
+  actual(M) = 2 * prediction(M) + actualResidual(M).
   ```
 
-- The base bound is computed internally from the accepted certificate:
+- Exact finite-prefix signed identity:
 
   ```text
-  certificateBaseBound
-    = sum_M |claimedJointEnergy(M)| / valueDenominator.
+  actualFrameEnergy(N)
+    = 4 * predictionFrameEnergy(N)
+      + residualFrameEnergy(N)
+      + signedPredictionResidualInteraction(N).
   ```
 
-- Central asymptotic-control statement:
+- Uniform residual accumulation:
 
   ```text
-  actualJointGramEnergy(M)
-    ≤ rho * actualJointGramEnergy(ancestor(M))
-      + actualWeightedForcingBound(M),
-  ancestor(M) < M,
-  actualWeightedForcingBound(M) ≤ forcingBound,
-  0 ≤ rho < 1.
+  residualFrameEnergy(N)
+    ≤ N * affineInvariantBound.
   ```
 
-- Uniform conclusion:
+- Explicit signed absorption:
 
   ```text
-  ‖actualResidual(M)‖²
-    ≤ affineInvariantBound rho forcingBound certificateBaseBound
+  signedPredictionResidualInteraction(N)
+    ≤ -N * affineInvariantBound.
   ```
 
-  for every scale `M`.
+- Final frame conclusion:
+
+  ```text
+  actualFrameEnergy(N) ≤ 4 * predictionFrameEnergy(N)
+  ```
+
+  for every finite prefix `N`.
 - Protected invariants:
-  - acceptance of generated data and mathematical realization of that data are distinct;
-  - the finite base maximum is not trusted as external metadata but replaced by an internally computed dominating sum;
-  - the high-range target remains the one complete signed joint-Gram recurrence;
-  - the forcing term is the compiled actual weighted forcing bound;
-  - no independent shell, cofactor, residual-row, or denominator-mode smallness is introduced;
+  - the theorem-predicted coefficient `2` is an exact starting identity, not an orthogonal coefficient claim;
+  - the residual is the compiled actual residual controlled through the full signed joint Gram;
+  - the prediction-residual cross term remains signed and visible;
+  - the sharp constant `4` is not inferred from residual size alone;
+  - all finite-range realization and asymptotic-control instances remain explicit;
+  - no componentwise shell, cofactor, row, or denominator-mode positivity estimate is introduced;
   - no RH premise or equivalent statement appears.
 - Deliberate exclusions:
   - no numerical run is imported;
-  - no automatic realization theorem is claimed;
-  - no automatic asymptotic contraction theorem is claimed;
-  - no unchecked constant, actual-start signed-frame theorem, or RH bridge is asserted.
+  - no automatic certificate realization or asymptotic contraction is claimed;
+  - no orthogonality or Pythagorean identity is asserted for the theorem-predicted coefficient;
+  - no RH bridge is stated.
 - Pinned API inspection:
-  - exact signatures were checked for `List.get_mem`, `List.mem_map`, `List.single_le_sum`, `le_abs_self`, `le_div_iff₀`, `uniform_bound_of_affine_descent`, `ActualJointGramRecurrenceControl`, `actualWeightedForcingBound`, and `actualResidual_energy_eq_jointGram` against Lean 4 / mathlib `v4.24.0`.
+  - exact compiled signatures were checked for `norm_add_sq`, `norm_smul`, `Finset.mul_sum`, `Finset.sum_add_distrib`, `Finset.sum_le_sum`, `shellReInner`, and `uniform_actualResidual_energy_bound` against Lean 4 / mathlib `v4.24.0`.
 - Merge-gating validation commands: `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail`.
 
 ## 7. Next dependency
 
-The next focused PR is unchecked item **19: actual-start signed-frame theorem**.
+The next focused PR is unchecked item **20: RH bridge**.
 
-It must derive the exact starting theorem from the uniform residual-energy inequality and the exact starting configuration. Every finite-range realization and asymptotic-control instance required by the result must remain explicit. It must not introduce RH or an equivalent premise and must not begin until PR #40 is green, merged, and explicitly authorized.
+It must use the completed actual-start signed-frame theorem without introducing RH or an equivalent statement as a premise. The exact bridge theorem and every external equivalence used by it must be inspected and stated explicitly before implementation.

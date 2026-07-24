@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports thirty-two theorem modules.
+The root library currently imports thirty-three theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -213,47 +213,54 @@ The root library currently imports thirty-two theorem modules.
     - a uniform theorem for `‖actualResidual(M)‖²` obtained from the compiled affine invariant bound;
     - no componentwise shell/cofactor/row/mode estimate, automatic certificate realization, automatic asymptotic contraction, numerical run, or RH claim.
 
+33. `RHLean.Analysis.ActualStartSignedFrame`
+    - an exact starting configuration `actual(M) = 2 • prediction(M) + actualResidual(M)`;
+    - exact pointwise and finite-prefix energy identities retaining the signed prediction-residual interaction;
+    - finite-prefix residual control derived from the compiled uniform residual-energy theorem;
+    - an explicit signed-interaction absorption condition required for the sharp constant-`4` frame inequality;
+    - the actual-start signed-frame theorem with finite-range realization and asymptotic full-joint control still explicit;
+    - no inference of the sharp frame constant from residual size alone and no RH claim.
+
 ## 2. Current checkpoint
 
-Phase I, Phase II, and Phase III are complete. Phase IV items 13 through 17 are completed by PRs #35 through #39. Phase IV item 18, the uniform full residual closure theorem, is completed on the implementation branch for anticipated PR #40.
+Phase I, Phase II, and Phase III are complete. Phase IV items 13 through 18 are completed by PRs #35 through #40. Phase IV item 19, the actual-start signed-frame theorem, is completed on the implementation branch for anticipated PR #41.
 
-The finite base range is represented by an accepted certificate plus `ActualFiniteRangeJointGramRealization`. This realization is intentionally separate from acceptance: the executable checker proves that the generated payload is internally valid, while the realization theorem identifies each checked integer numerator with the corresponding mathematical value
-
-```text
-valueDenominator * actualJointGramEnergy(M) = claimedJointEnergy(M).
-```
-
-The canonical base bound is computed from the certificate itself:
+The starting configuration records the exact algebraic identity
 
 ```text
-sum_M |claimedJointEnergy(M)| / valueDenominator.
+actual(M) = 2 * prediction(M) + actualResidual(M).
 ```
 
-Above the certified range, `ActualJointGramAsymptoticControl` keeps the remaining analytic obligations explicit:
+For every finite prefix, the compiled inner-product identity gives
 
 ```text
-ancestor(M) < M,
-actualJointGramEnergy(M)
-  ≤ rho * actualJointGramEnergy(ancestor(M))
-    + actualWeightedForcingBound(M),
-actualWeightedForcingBound(M) ≤ forcingBound,
-0 ≤ rho < 1.
+actualFrameEnergy(N)
+  = 4 * predictionFrameEnergy(N)
+    + residualFrameEnergy(N)
+    + signedPredictionResidualInteraction(N).
 ```
 
-The compiled affine descent theorem then gives, for every scale `M`,
+The uniform residual theorem bounds the accumulated residual energy by `N` times the affine invariant bound. The sharp frame inequality is obtained only when the signed interaction absorbs that complete residual budget:
 
 ```text
-‖actualResidual(M)‖²
-  ≤ affineInvariantBound rho forcingBound certificateBaseBound.
+signedPredictionResidualInteraction(N)
+  ≤ -N * affineInvariantBound.
 ```
 
-The result controls the exact full signed residual energy through `actualResidual_energy_eq_jointGram`. It does not replace the signed recombination by independent positive component bounds and does not assert that certificate realization or asymptotic control is automatic.
+Under the accepted finite-range realization, explicit asymptotic full-joint control, exact starting identity, and this signed absorption condition, the theorem proves
 
-No numerical run, unchecked constant, actual-start theorem, or RH statement is introduced.
+```text
+actualFrameEnergy(N) ≤ 4 * predictionFrameEnergy(N)
+```
 
-The following remain open:
+for every finite prefix `N`.
 
-- the actual-start signed-frame theorem;
+The signed interaction remains visible and may be negative. It is not replaced by an absolute-value estimate, and the constant `4` is not inferred from a residual norm bound alone.
+
+No RH statement or equivalent premise is introduced.
+
+The following remains open:
+
 - the final RH bridge.
 
 ## 3. Formalization sequence from the current checkpoint
@@ -288,20 +295,17 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
 - [x] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — completed by PR #37.
 - [x] **16. Joint Gram control** — completed by PR #38.
 - [x] **17. Certified finite-range certificate checker** — completed by PR #39.
-- [x] **18. Uniform full residual bound** — anticipated PR #40.
-  - separates accepted-certificate validity from mathematical realization of the checked energies;
-  - computes the finite base bound from checked payload data rather than accepting an external maximum;
-  - retains the full signed joint-Gram recurrence and actual weighted forcing bound as explicit asymptotic control;
-  - proves the uniform actual residual-energy inequality through the compiled affine invariant theorem;
-  - makes no automatic realization, automatic contraction, numerical-run, actual-start, or RH claim.
+- [x] **18. Uniform full residual bound** — completed by PR #40.
+- [x] **19. Actual-start signed-frame theorem** — anticipated PR #41.
+  - defines the exact actual-start decomposition with leading coefficient `2`;
+  - proves the exact pointwise and finite-prefix signed energy identities;
+  - derives finite-prefix residual control from the uniform actual residual bound;
+  - keeps signed prediction-residual absorption explicit;
+  - proves the sharp constant-`4` frame inequality without orthogonality or componentwise positivity assumptions.
 
-- [ ] **19. Actual-start signed-frame theorem** — next dependency.
-  - derive the theorem from the uniform residual theorem and exact starting configuration;
-  - keep every required realization and asymptotic-control instance explicit.
-
-- [ ] **20. RH bridge**.
+- [ ] **20. RH bridge** — next dependency.
   - add only after every unconditional obligation above has been formally proved;
-  - no equivalent form of RH may enter earlier as a premise.
+  - no equivalent form of RH may enter as a hidden premise.
 
 ## 4. Dependency spine
 
@@ -336,7 +340,7 @@ certified finite-range checker and mathematical realization
         ↓
 uniform full residual bound from explicit asymptotic control
         ↓
-actual-start signed-frame theorem
+actual-start signed-frame theorem with signed interaction retained
         ↓
 RH bridge only after unconditional closure
 ```
