@@ -27,7 +27,7 @@ jobs:
         continue-on-error: true
         uses: leanprover/lean-action@v1
         with:
-          use-mathlib-cache: false
+          use-mathlib-cache: true
           build: false
           test: false
           lint: false
