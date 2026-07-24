@@ -2,360 +2,244 @@
 
 This document is the canonical implementation order for `RH_Lean`.
 
-It records only what is actually compiled on the implementation branch, distinguishes completed algebraic layers from still-open analytic obligations, and orders future work by theorem dependency rather than by narrative order in the research notes.
+It records only what is actually compiled, distinguishes exact algebraic layers from unproved analytic obligations, and preserves corrections explicitly rather than rewriting the PR history.
 
-The governing invariants remain unchanged:
+The governing invariants are:
 
 - no `sorry`, `admit`, new axioms, opaque theorem substitutes, weakened statements, changed indexing, or circular RH assumptions;
 - modulus `2r`, not `r`, is the canonical quadratic-phase modulus;
-- the prime-3 cell-mask energy and the prime-3 quadratic phase factor remain type-separated;
-- the high-sector target is the full signed Gram recombination, not independent positivity or smallness of every shell;
-- numerical finite-range claims enter only through a proved certificate checker.
+- the prime-3 cell-mask energy and prime-3 quadratic phase remain type-separated;
+- the high-sector target is the full signed Gram recombination, not separate shellwise positivity;
+- theorem-predicted subtraction remains distinct from true orthogonal projection;
+- numerical finite-range claims enter only through a proved certificate checker;
+- a prefix estimate from zero must never be presented as a uniform local-window estimate;
+- the RH bridge must use the manuscript's uniform local criterion
+  `V_loc(N,H) ≪_ε H N^(2+ε)` for `1 ≤ H ≤ N`, not merely a global
+  `O(N^(3+ε))` average.
 
 ## 1. Compiled inventory
 
-The root library currently imports thirty-four theorem modules.
+The root library imports thirty-five theorem modules.
 
 ### Arithmetic and cell structure
 
 1. `RHLean.Arithmetic.MoebiusDoubling`
-   - exact Möbius doubling for odd inputs;
-   - core theorem: `μ (2 * a) = -μ a`.
-
 2. `RHLean.Arithmetic.FourSlotCell`
-   - exact four-slot compression;
-   - deterministic `(+,-,+,0)` structure.
-
 3. `RHLean.Arithmetic.PrimeThreeActivation`
-   - universal prime-3 activation;
-   - exact deterministic three-cycle.
-
 4. `RHLean.Arithmetic.PrimeSquareMod24`
-   - residue classification modulo `24`;
-   - prime-square theorem `q^2 ≡ 1 (mod 24)` for primes other than `2` and `3`.
-
 5. `RHLean.Arithmetic.PrimeSquareMod40`
-   - the sixteen unit residue classes modulo `40`;
-   - prime-square dichotomy `q^2 ≡ 1` or `9 (mod 40)` for primes other than `2` and `5`.
-
-### Cell-mask exact energy
-
 6. `RHLean.CellMask.PrimeThreeMeanEnergy`
-   - rational divisibility indicators for the three active cell channels;
-   - exact indicator sum equal to `1` in every complete cell;
-   - exact rational mean `1/3` and squared mean-mode energy `1/9`.
+
+These modules compile the exact Möbius doubling and four-slot identities, prime-3 activation and mean energy, and the required prime-square congruence classes.
 
 ### Corrected modulus-`2r` phase architecture
 
 7. `RHLean.Analysis.QuadraticPhasePeriod`
-   - exact difference-of-squares factorization;
-   - preservation of quadratic numerators modulo `2r`;
-   - explicit shift-by-`r` and shift-by-`2r` identities.
-
 8. `RHLean.Analysis.QuadraticExponentCongruence`
-   - exact quadratic exponent congruence relation modulo `2r`;
-   - reflexivity, symmetry, transitivity, input-congruence compatibility, and `2r` periodicity.
-
 9. `RHLean.Analysis.QuadraticShiftDichotomy`
-   - if `a*r` is even, shifting by `r` preserves the exponent class;
-   - if `a*r` is odd, shifting by `r` moves the exponent by exactly half the modulus.
-
 10. `RHLean.Analysis.ComplexQuadraticPhase`
-    - complex additive character with integer numerator and modulus;
-    - corrected quadratic phase using modulus `2r`;
-    - exact congruence invariance and `2r` periodicity.
-
 11. `RHLean.Analysis.QuadraticPhaseShiftSign`
-    - exact half-turn exponential identity;
-    - exact sign law
-
-    ```text
-    phase(a,r,u+r) = (-1)^(a*r) * phase(a,r,u).
-    ```
-
 12. `RHLean.Analysis.ReducedQuadraticGauss`
-    - unit-level phase over `(ZMod (2*r))ˣ`;
-    - corrected reduced Gauss sum;
-    - normalization by `Nat.totient (2*r)`.
-
 13. `RHLean.Analysis.SmallModulusResonance`
-    - exact unit-square identities modulo `6` and `24`;
-    - coherent reduced sums at those moduli;
-    - exact normalized value at `(a,r)=(1,3)`;
-    - exact norm-one theorem.
-
 14. `RHLean.Analysis.ReducedSquareClassMod40`
-    - reusable reduced square-class predicate with exact classes `1` and `9`;
-    - exact reduction of the modulus-`40` quadratic numerator to its square residue;
-    - every eligible prime phase at `r = 20` lies in one of two complex square-class modes;
-    - no coefficient, multiplicity, cancellation, or reinforcement claim.
+
+These modules retain the canonical modulus `2r`, exact shift signs, reduced Gauss normalization, small-modulus resonance, and the two exact square-class modes modulo `40`.
 
 ### Factor geometry
 
 15. `RHLean.Geometry.FermatCoordinates`
-    - midpoint and signed half-gap coordinates;
-    - exact recovery of both factors;
-    - real and imaginary coordinates after squaring;
-    - squared-radius identity.
-
 16. `RHLean.Geometry.ComplexSquareRecovery`
-    - exact complex Fermat point;
-    - squared image equals product/imbalance coordinates;
-    - exact recovery of both factor squares without sign choices.
-
 17. `RHLean.Geometry.CofactorParabolas`
-    - exact lower-factor and upper-factor parabolas;
-    - simultaneous membership of each squared factor pair in both cofactor curves.
-
 18. `RHLean.Geometry.TwoABDisplacement`
-    - exact identification of the imaginary squared coordinate with `2ab`;
-    - exact midpoint, half-gap, upper-factor, and lower-factor finite differences;
-    - exact linear common-shift displacement and parity-preserving specialization;
-    - explicit monotonicity and vertical-window lifetime criteria.
-
 19. `RHLean.Geometry.SquareMapConformality`
-    - exact Jacobian action of complex squaring;
-    - common norm and inner-product scale `4 * (a^2 + b^2)`;
-    - orthogonality preservation and determinant identity.
-
 20. `RHLean.Geometry.ComplexSquareFiber`
-    - exact fiber theorem `z^2 = w^2 ↔ z = w ∨ z = -w`;
-    - injectivity on the positive-real branch;
-    - injectivity of Fermat coordinates and positive-midpoint squared images.
 
-### Kernel foundations
+These modules compile the midpoint/half-gap coordinates, squared complex recovery, cofactor parabolas, `2ab` displacement, conformality, and positive-branch injectivity.
+
+### Kernel and exact signed Hilbert/Gram machinery
 
 21. `RHLean.Kernel.FixedPackets`
-    - fixed-packet definitions and exact packet identities used by later kernel and Gram layers.
-
-### Exact signed Hilbert/Gram machinery
-
 22. `RHLean.Analysis.HeightShellGram`
-    - ordered finite height-shell sums over `0 ≤ i < n`;
-    - exact diagonal shell energy;
-    - explicit off-diagonal Gram enumeration `∑_{j<n} ∑_{i<j} re⟪S_i,S_j⟫`;
-    - exact identity keeping the full signed shell sum inside the norm.
-
 23. `RHLean.Analysis.OrthogonalResidual`
-    - true projection coefficient onto a nonzero prediction vector under mathlib's inner-product convention;
-    - exact orthogonal residual and two-sided inner-product orthogonality;
-    - exact recombination and Pythagorean energy decomposition;
-    - theorem-predicted subtraction and residual kept as separate definitions.
-
 24. `RHLean.Analysis.ResonantProjection`
-    - scale-dependent cutoff and positive resonant denominators `r ≤ R0(M)`;
-    - exact quadratic modes with canonical period `2r`;
-    - declared resonant span and scale-dependent linear extraction into that span;
-    - exact algebraic resonant/nonresonant recombination with no orthogonality claim.
-
 25. `RHLean.Analysis.ResonantLeakage`
-    - separately typed resonant and nonresonant state spaces;
-    - explicit scale-dependent block maps `A_M`, `B_M`, `C_M`, and `D_M`;
-    - separate low-height, endpoint, and boundary forcing in both recurrence rows;
-    - exact affine recurrence with no contraction or triangularity claim.
-
 26. `RHLean.Analysis.BlockLyapunovClosure`
-    - nonnegative resonant and nonresonant Lyapunov weights with abstract component sizes;
-    - explicit invariant bound `max B0 (C / (1 - rho))` for descending affine recurrences;
-    - full weighted block-contraction closure with all base, descent, contraction, and forcing hypotheses explicit;
-    - decay-weighted forcing corollary with no number-theoretic instantiation.
-
 27. `RHLean.Analysis.ActualResidualDecomposition`
-    - explicitly indexed cofactor channels with exact squared-map geometry;
-    - finite scale-`M` shell, cofactor, denominator-mode, packet-start, packet-length, and packet-index data;
-    - exact Möbius-weighted complex quadratic packet entries using the canonical modulus `2r`;
-    - full signed cofactor/mode shell sums and full shell recombination;
-    - scale-dependent resonant extraction, exact algebraic remainder, span membership, and exact recombination;
-    - direct packaging as `ResonantNonresonantState ℂ ℂ` for the leakage and Lyapunov layers.
-
 28. `RHLean.Analysis.ResonantCofactorCancellation`
-    - complex Möbius scalar and exact odd/doubled sign reversal;
-    - explicit base/doubled cofactor-pair indices with the upper factor retained;
-    - actual unweighted packet entries and fixed packets with the canonical quadratic phase unchanged;
-    - exact factorization of actual entries and packets by their Möbius scalar;
-    - explicit compatibility certificates recording channel membership and denominator-mode packet data;
-    - exact cancellation after scale-dependent extraction for each retained denominator mode, each joint cofactor-mode contribution, and every finite certified pair family;
-    - no assertion that all actual channels are paired or that unpaired, low-height, endpoint, or boundary terms vanish.
-
 29. `RHLean.Analysis.ActualForcingEstimates`
-    - positive separated low-height shell positions and a proved spacing-to-incidence bound;
-    - explicit resonant and nonresonant low-height finite sums with cutoff-times-envelope estimates;
-    - left and right endpoint sources retained separately with two-sided triangle bounds;
-    - finite boundary sources with independent incidence caps and pointwise envelopes;
-    - exact instantiation of all six forcing fields of `ResonantLeakageOperator ℂ ℂ ℂ` while preserving the four block maps;
-    - combined rowwise and weighted forcing bounds for the compiled Lyapunov interface;
-    - no decay rate, contraction, numerical constant, or joint Gram estimate asserted.
-
 30. `RHLean.Analysis.JointGramControl`
-    - complete finite index over height shell, actual cofactor channel, denominator mode, and resonant/nonresonant row;
-    - exact rowwise packet recombination without orthogonality assumptions;
-    - a finite ordinal enumeration that retains every complete joint index exactly once;
-    - exact equality of the enumerated joint sum with the actual residual;
-    - exact diagonal-plus-signed-off-diagonal Gram identity for the actual residual energy;
-    - a single full joint-Gram control and recursive-control interface;
-    - no independent shell, cofactor, row, or denominator-mode positivity or smallness claim.
 
-### Certified verification and closure boundary
+These modules keep the full shell/cofactor/mode/row recombination inside the norm, retain every signed off-diagonal Gram term, separate true orthogonal projection from theorem-predicted subtraction, and expose the full block recurrence and Lyapunov closure hypotheses.
+
+### Certified verification, residual closure, and actual-start frame
 
 31. `RHLean.Verification.FiniteRangeCertificates`
-    - explicit code-version, source-commit, external data-checksum, and recomputed numeric payload-checksum metadata;
-    - exact integer-numerator decomposition checkpoints with a common positive denominator;
-    - prime totals and residue-class counts with positive modulus, distinct in-range classes, and exact count recombination;
-    - complete signed joint-Gram checkpoint data retaining every diagonal and off-diagonal term;
-    - exact reconstruction of the full signed joint energy and scaled recurrence inequality at every declared scale;
-    - executable `checkFiniteRangeCertificate` with a proved soundness theorem and an accepted-certificate boundary;
-    - no numerical run, numerical constant, uniform residual bound, or RH claim.
-
 32. `RHLean.Analysis.UniformResidualBound`
-    - an explicit realization structure tying accepted checked energy numerators to the actual signed joint-Gram energy at each certified scale;
-    - a canonical finite-range base bound computed internally as the sum of absolute checked energy numerators divided by the positive common denominator;
-    - an asymptotic-control structure retaining the strict ancestor descent, one complete signed joint-Gram recurrence, and the actual weighted forcing bound;
-    - a uniform theorem for `‖actualResidual(M)‖²` obtained from the compiled affine invariant bound;
-    - no componentwise shell/cofactor/row/mode estimate, automatic certificate realization, automatic asymptotic contraction, numerical run, or RH claim.
-
 33. `RHLean.Analysis.ActualStartSignedFrame`
-    - an exact starting configuration `actual(M) = 2 • prediction(M) + actualResidual(M)`;
-    - exact pointwise and finite-prefix energy identities retaining the signed prediction-residual interaction;
-    - finite-prefix residual control derived from the compiled uniform residual-energy theorem;
-    - an explicit signed-interaction absorption condition required for the sharp constant-`4` frame inequality;
-    - the actual-start signed-frame theorem with finite-range realization and asymptotic full-joint control still explicit;
-    - no inference of the sharp frame constant from residual size alone and no RH claim.
 
-34. `RHLean.Analysis.RiemannHypothesisBridge`
-    - mathlib's formal `RiemannHypothesis` proposition exposed as `RiemannHypothesisStatement`;
-    - the concrete `O(N^(3+ε))` prefix criterion attached to the actual-start frame energy;
-    - an explicit `ActualStartRHBridge` separating signed-frame transport from the analytic prefix/RH equivalence;
-    - a final composition theorem from the compiled signed-frame closure and a supplied bridge instance to `RiemannHypothesisStatement`;
-    - no project axiom and no claim that either analytic bridge field has been proved in `RH_Lean`.
-
-## 2. Current checkpoint
-
-Phase I, Phase II, Phase III, and the numbered Phase IV implementation sequence are complete through anticipated PR #42.
-
-The compiled library proves the full algebraic and signed-Gram chain through the actual-start frame statement
+The certificate checker is sound but does not manufacture a numerical run or a mathematical realization. The uniform residual theorem retains the finite realization and asymptotic full-joint control explicitly. The actual-start theorem proves the exact prefix identity
 
 ```text
-actualFrameEnergy(N) ≤ 4 * predictionFrameEnergy(N)
+actualFrameEnergy(N)
+  = 4 * predictionFrameEnergy(N)
+    + residualFrameEnergy(N)
+    + signedPredictionResidualInteraction(N)
 ```
 
-under the explicit finite-range realization, asymptotic joint-Gram control, exact starting configuration, and signed interaction absorption hypotheses.
+and derives the sharp prefix inequality only from explicit signed absorption.
 
-The final module defines the corresponding asymptotic criterion
+### Corrected uniform-local layer and RH bridge
+
+34. `RHLean.Analysis.ActualStartLocalSignedFrame`
+    - defines actual, prediction, residual, and signed-interaction energies on `[N,N+H)`;
+    - proves the exact local signed energy identity;
+    - proves the residual contribution is at most `H * bound` from the pointwise residual bound;
+    - introduces `ActualStartLocalSignedFrameControl`, separate from prefix control;
+    - proves the sharp constant-`4` frame inequality on every finite window;
+    - proves the local theorem specializes to the old prefix theorem at `N = 0`.
+
+35. `RHLean.Analysis.RiemannHypothesisBridge`
+    - exposes mathlib's `RiemannHypothesis` as `RiemannHypothesisStatement`;
+    - defines `ActualStartLocalSignedFrameStatement`;
+    - defines the manuscript's uniform local criterion
+
+      ```text
+      V_loc(N,H) ≪_ε H N^(2+ε),  1 ≤ H ≤ N;
+      ```
+
+    - defines the pointwise square-prefix statement;
+    - proves the elementary manuscript step `uniform local → pointwise` by taking `H = 1`;
+    - separates the remaining prediction transport, RH-to-local direction, and pointwise/Mertens-to-RH direction as ordinary fields of `ActualStartRHBridge`;
+    - composes the compiled local frame theorem with that explicit bridge;
+    - introduces no project axiom and makes no unconditional RH claim.
+
+## 2. Correction of the PR #42 target
+
+PR #42 compiled an axiom-free conditional theorem, but its asymptotic target was the global prefix average
 
 ```text
-∀ ε > 0,
-  actualFrameEnergy(N) = O(N^(3+ε))
+actualStartFrameEnergy(N) = O(N^(3+ε)).
 ```
 
-and packages the two remaining analytic arrows as `ActualStartRHBridge`:
+That statement is a natural cubic benchmark, but it is not the manuscript's pointwise RH criterion. A global prefix inequality does not imply a translated local-window inequality by subtraction.
+
+The manuscript's actual criterion is
 
 ```text
-ActualStartSignedFrameStatement start
-  → ActualStartPrefixBoundedStatement start
-
-ActualStartPrefixBoundedStatement start
-  ↔ RiemannHypothesisStatement.
+∀ ε > 0, ∃ C ≥ 0, ∀ N H,
+  1 ≤ H → H ≤ N →
+  V_loc(N,H) ≤ C * H * N^(2+ε).
 ```
 
-`riemannHypothesis_of_compiled_actualStartClosure` proves their exact composition. This is an axiom-free conditional theorem: it does not construct an `ActualStartRHBridge` instance and therefore does not claim an unconditional proof of the Riemann Hypothesis.
+Taking `H = 1` gives the pointwise square-prefix estimate used in the Mertens interpolation argument. The corrective local layer is therefore a genuine missing dependency, not a cosmetic restatement.
 
-No unchecked numerical run, hidden RH premise, or project axiom is introduced.
+PR #43 corrects the formal target while preserving the historical fact that PR #42 was formally valid as a conditional composition theorem.
 
-The remaining mathematical obligations are external to the completed numbered module sequence:
+## 3. Current checkpoint
 
-- prove the signed-frame-to-prefix-bounded transport for the concrete square-prefix quantities;
-- prove the prefix-bounded/RH analytic equivalence without an axiom;
-- instantiate every finite-range realization, asymptotic-control, starting-configuration, and signed-interaction field used by the final theorem.
+The compiled algebraic and signed-Gram chain now reaches the exact local statement
 
-## 3. Formalization sequence from the current checkpoint
+```text
+actualStartLocalFrameEnergy(start,N,H)
+  ≤ 4 * actualStartLocalPredictionFrameEnergy(start,N,H)
+```
 
-Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means completed on the implementation branch and anticipated for the stated PR.
+under explicit finite-range realization, asymptotic full-joint control, exact starting configuration, and uniform local signed-interaction absorption.
+
+The corrected bridge then uses:
+
+```text
+local signed-frame
+  → uniform local square-prefix bound
+  → pointwise square-prefix bound          [proved by H = 1]
+  → RiemannHypothesis.
+```
+
+The reverse RH-to-uniform-local direction is retained separately so that the final criterion can be stated as an equivalence once its concrete classical/realization proof is supplied.
+
+The following remain unproved and explicit:
+
+- the concrete prediction estimate transporting the local signed-frame inequality to `H N^(2+ε)`;
+- the identification of `start.actual N` with the manuscript's square-prefix Mertens quantity;
+- the RH-to-uniform-local Mertens direction;
+- the pointwise square-prefix/Mertens interpolation implication to RH;
+- the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction-control instances.
+
+## 4. Formalization sequence
 
 ### Phase I — corrected complex quadratic-phase layer
 
-- [x] **1. Complex quadratic phase API** — completed by PR #21.
-- [x] **2. Exact shift-by-`r` sign law** — completed by PR #22.
-- [x] **3. Corrected reduced quadratic Gauss factor** — completed by PR #23.
-- [x] **4. Exact small-modulus resonance** — completed by PR #24.
+- [x] **1. Complex quadratic phase API** — PR #21.
+- [x] **2. Exact shift-by-`r` sign law** — PR #22.
+- [x] **3. Corrected reduced quadratic Gauss factor** — PR #23.
+- [x] **4. Exact small-modulus resonance** — PR #24.
 
-### Phase II — remaining exact combinatorial and geometry layers
+### Phase II — exact combinatorial and geometry layers
 
-- [x] **5. Prime-3 cell-mask mean energy** — completed by PR #27.
-- [x] **6. `2ab` displacement and lifetime geometry** — completed by PR #28.
-- [x] **7. Reduced square-class phase support modulo `40`** — completed by PR #29.
+- [x] **5. Prime-3 cell-mask mean energy** — PR #27.
+- [x] **6. `2ab` displacement and lifetime geometry** — PR #28.
+- [x] **7. Reduced square-class phase support modulo `40`** — PR #29.
 
 ### Phase III — exact signed Hilbert/Gram machinery
 
-- [x] **8. Height-shell Gram identity** — completed by PR #30.
-- [x] **9. Orthogonal residual** — completed by PR #31.
-- [x] **10. Scale-dependent resonant projection skeleton** — completed by PR #32.
-- [x] **11. Explicit resonant/nonresonant leakage operator** — completed by PR #33.
-- [x] **12. Abstract weighted affine Lyapunov closure** — completed by PR #34.
+- [x] **8. Height-shell Gram identity** — PR #30.
+- [x] **9. Orthogonal residual** — PR #31.
+- [x] **10. Scale-dependent resonant projection skeleton** — PR #32.
+- [x] **11. Explicit resonant/nonresonant leakage operator** — PR #33.
+- [x] **12. Abstract weighted affine Lyapunov closure** — PR #34.
 
 ### Phase IV — number-theoretic closure
 
-- [x] **13. Resonant/nonresonant decomposition of the actual residual** — completed by PR #35.
-- [x] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — completed by PR #36.
-- [x] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — completed by PR #37.
-- [x] **16. Joint Gram control** — completed by PR #38.
-- [x] **17. Certified finite-range certificate checker** — completed by PR #39.
-- [x] **18. Uniform full residual bound** — completed by PR #40.
-- [x] **19. Actual-start signed-frame theorem** — completed by PR #41.
-- [x] **20. Explicit RH bridge** — anticipated PR #42.
-  - defines the actual-start signed-frame and prefix-bounded propositions;
-  - exposes the signed-frame transport and prefix/RH equivalence as separate bridge fields;
-  - composes the completed signed-frame theorem with those explicit fields;
-  - introduces no axiom and makes no unconditional RH claim.
+- [x] **13. Actual residual decomposition** — PR #35.
+- [x] **14. Resonant Möbius cofactor cancellation** — PR #36.
+- [x] **15. Low-height, endpoint, and boundary estimates** — PR #37.
+- [x] **16. Full joint signed Gram control** — PR #38.
+- [x] **17. Certified finite-range checker** — PR #39.
+- [x] **18. Uniform full residual bound** — PR #40.
+- [x] **19. Actual-start prefix signed-frame theorem** — PR #41.
+- [x] **20. Explicit global conditional bridge** — PR #42; formally valid but insufficient as the manuscript's RH criterion.
 
-## 4. Dependency spine
+### Phase V — corrected localization
+
+- [x] **21. Uniform local signed-frame and corrected RH criterion** — anticipated PR #43.
+  - proves the exact `[N,N+H)` energy identity;
+  - adds local signed absorption as a separate hypothesis;
+  - proves the sharp local frame inequality;
+  - replaces the global cubic bridge target with the manuscript's uniform local bound;
+  - proves the `H = 1` extraction to a pointwise square-prefix bound;
+  - keeps the remaining classical Mertens/RH directions and concrete realization obligations explicit.
+
+## 5. Dependency spine
 
 ```text
-compiled Möbius/cell arithmetic
-+
-compiled factor geometry
-+
-compiled modulus-2r exponent and complex-phase arithmetic
+exact arithmetic, factor geometry, and modulus-2r phase structure
         ↓
-correct reduced Gauss factors and exact resonances
+full signed shell/cofactor/mode/row Gram identity
         ↓
-exact cell-mask energy, remaining geometry, and reduced square-class support
+finite certificate checker + explicit realization
         ↓
-exact full signed height-shell Gram identity
+weighted affine full-joint residual closure
         ↓
-true orthogonal residual
-+
-scale-dependent resonant/nonresonant projection
-+
-actual residual with explicit shell/cofactor/denominator/packet indexing
-+
-explicit leakage operator and abstract Lyapunov closure
+actual-start prefix signed frame
         ↓
-exact resonant cancellation for certified Möbius cofactor pairs
+separate uniform local signed-interaction control
         ↓
-low-height, endpoint, and boundary forcing estimates
+uniform local actual-start signed frame
         ↓
-full joint signed Gram control
+prediction transport to H N^(2+ε)
         ↓
-certified finite-range checker and mathematical realization
+H = 1 pointwise square-prefix bound
         ↓
-uniform full residual bound from explicit asymptotic control
-        ↓
-actual-start signed-frame theorem with signed interaction retained
-        ↓
-explicit conditional RH bridge with every analytic obligation visible
+Mertens interpolation / classical RH criterion
 ```
 
-## 5. Maintenance rule
-
-This file is the single source of truth for implementation order.
-
-`README.md`, `ARCHITECTURE.md`, and `SIGNED_GRAM_ARCHITECTURE.md` may summarize or link to this sequence, but should not maintain independent numbered roadmaps.
+## 6. Maintenance rule
 
 Whenever a theorem layer is merged, the same PR must:
 
-- change that item from `[ ]` to `[x]`;
 - record the completing PR number;
-- move the corresponding module into the compiled inventory;
-- revise the current checkpoint;
-- identify any remaining unproved obligations explicitly;
-- update `FORMALIZATION_CHECKLIST.md` with the same explicit status and successful PR ledger entry.
+- update the compiled inventory and current checkpoint;
+- preserve corrections explicitly rather than silently changing historical claims;
+- identify every remaining unproved realization or analytic implication;
+- update `FORMALIZATION_CHECKLIST.md` on the same branch;
+- pass `bash scripts/audit_assumptions.sh` and `lake build RHLean --wfail` with no warnings.
