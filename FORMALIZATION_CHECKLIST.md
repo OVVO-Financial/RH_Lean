@@ -119,6 +119,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#43** — Corrected the bridge to uniform local windows, proved the exact local frame layer and `H = 1` extraction, and preserved all remaining classical/realization obligations explicitly.
 - [x] **#44** — Proved the exact geometric low/high reduction: translated-window low bound, total↔high local criterion, and high-sector criterion↔RH through the explicit bridge.
 - [x] **#45** — Closed the project-specific Mertens adapter: concrete `M(x)`, exact `X_n=(n+1)^2-1`, square interpolation, pointwise/local conversion, direct concrete geometry theorem, and zero-friction future mathlib hook.
+- [x] **#49** — Proved the normalized ordered cofactor expansion, exact `-1/2` tripling scaling, and child-plus-twice-parent cancellation.
+- [ ] **#50** — Formalize the exact square-prefix cofactor-channel realization without introducing shells, modes, or packets.
 
 ## 5. Theorem-layer completion checklist
 
@@ -166,6 +168,12 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 
 - [x] **23. Concrete square-prefix Mertens adapter and direct mathlib hook** — PR #45.
 
+### Phase VIII — normalized cofactor realization
+
+- [x] **24. Normalized ordered cofactor expansion and tripling arithmetic** — PR #49.
+- [ ] **25. Concrete square-prefix cofactor-channel realization** — PR #50.
+- [ ] **26. Concrete shell/mode/packet residual constructor** — next dependency.
+
 ## 6. Current checkpoint
 
 Principal definitions in `RHLean.Analysis.SquarePrefixMertensBridge`:
@@ -186,6 +194,23 @@ Principal definitions in `RHLean.Analysis.ConcreteSquarePrefixGeometry`:
 - `squarePrefixLocalHighEnergy`;
 - `SquarePrefixHighUniformLocalBoundedStatement`.
 
+Principal definitions in `RHLean.Proof.NormalizedCofactorExpansion` and `RHLean.Proof.NormalizedCofactorTripling`:
+
+- `distinctPrimeCount`;
+- `alphaWeightRat`;
+- `normalizedCofactorWeightRat`;
+- `orderedCoprimeFactorPairs`;
+- `normalizedFiberExpansionRat`;
+- `normalized_tripling_scaling_rat`;
+- `normalized_cancellation_identity`.
+
+Principal definitions targeted by PR #50 in `RHLean.Proof.ConcreteSquarePrefixCofactorRealization`:
+
+- `actualChannelOfPair`;
+- `normalizedChannelAmplitudeRat`;
+- `normalizedChannelValue`;
+- `squarePrefixNormalizedChannelSum`.
+
 Principal theorems:
 
 - `norm_mertensSummatory_sub_le`;
@@ -195,7 +220,12 @@ Principal theorems:
 - `squarePrefix_uniformLocalBounded_iff_currentPointwise`;
 - `squarePrefix_uniformLocalBounded_iff_mertensEnergyBounded`;
 - `squarePrefix_highUniformLocalBounded_iff_riemannHypothesis`;
-- `squarePrefix_highUniformLocalBounded_iff_riemannHypothesis_of_classical_iff`.
+- `squarePrefix_highUniformLocalBounded_iff_riemannHypothesis_of_classical_iff`;
+- `normalizedFiberExpansion_cast_eq_mertens`;
+- `normalized_tripling_scaling`;
+- `normalized_cancellation_identity`;
+- `normalizedFiberExpansion_squarePrefix`;
+- `squarePrefixNormalizedChannelSum_eq_mertens`.
 
 The final direct integration theorem accepts exactly:
 
@@ -215,6 +245,7 @@ No abstract `ActualStartConfiguration`, realization equality, square-index adapt
 
 ## 7. Remaining obligations
 
+- derive the manuscript's shell assignment, denominator-mode action, contiguous packet support, and geometric amplitudes as a concrete `ActualResidualData` constructor under `RHLean/Proof/`;
 - supply the manuscript's intended high/low point-cloud decomposition as a concrete `SquarePrefixGeometricPartition`;
 - prove the high-sector signed-Gram estimate itself;
 - prove the local prediction-energy estimate yielding `H N^(2+ε)`;
@@ -222,7 +253,7 @@ No abstract `ActualStartConfiguration`, realization equality, square-index adapt
 - import or formalize the classical theorem
   `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`.
 
-All project-specific reconciliation between that classical theorem and the concrete square-prefix geometric criterion is complete.
+All project-specific reconciliation between that classical theorem and the concrete square-prefix geometric criterion is complete. The normalized factor arithmetic and exact cofactor-channel recombination are also complete once PR #50 merges; packet realization remains open.
 
 Merge-gating commands remain:
 
