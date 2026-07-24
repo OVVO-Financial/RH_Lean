@@ -17,4 +17,13 @@ theorem moebius_three_mul
   push_cast
   ring
 
+/-- The dyadic multiplicity weight is halved when a new prime factor `3` is introduced. -/
+theorem alphaWeightRat_three_mul
+    (n : ℕ) (h3 : ¬ 3 ∣ n) :
+    alphaWeightRat (3 * n) = (1 / 2 : ℚ) * alphaWeightRat n := by
+  unfold alphaWeightRat
+  rw [distinctPrimeCount_three_mul n h3, pow_succ]
+  field_simp
+  ring
+
 end RHLean.Proof
