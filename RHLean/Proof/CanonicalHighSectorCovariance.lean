@@ -70,6 +70,7 @@ theorem localSequenceEnergy_eq_coherentMean_add_centeredCovariance
     (fun h => (f (N + h)).re) H (Nat.zero_lt_of_lt hH)
   have him := real_sum_sq_eq_mean_add_centered
     (fun h => (f (N + h)).im) H (Nat.zero_lt_of_lt hH)
+  simp only [pow_two] at hre him
   unfold RHLean.Analysis.localSequenceEnergy localCoherentMeanEnergy
     localCenteredCovarianceEnergy localWindowMean
   simp only [Complex.sq_norm, Complex.normSq_apply, Complex.sub_re, Complex.sub_im]
