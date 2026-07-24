@@ -25,7 +25,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-The root library imports forty-seven theorem modules.
+The root library imports forty-eight theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -222,6 +222,14 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - proves that the raw once-per-channel retained pair sum is the weighted signed-defect sum minus one child copy;
     - proves the complete high-family identity with every retained defect, child correction, and unmatched contribution visible before any norm or Gram estimate.
 
+48. `RHLean.Proof.ConcreteHighFamilyJointGram`
+    - proves every concrete transport packet vanishes away from its assigned source shell;
+    - proves the shell/channel Farey-mode sum is exactly the complete channel contribution at that source shell and zero elsewhere;
+    - proves the concrete transport `actualResidual` is exactly the once-per-channel, all-mode complete high-family contribution;
+    - instantiates the full shell/cofactor/mode/row signed joint Gram identity for the concrete family;
+    - proves the PR #56 defect-minus-child-correction-plus-unpaired recombination has that same exact joint Gram energy;
+    - exposes the remaining pointwise and uniform analytic control propositions without asserting that the estimate is proved.
+
 ## 2. Correction history
 
 PR #42 compiled an axiom-free conditional theorem with the global prefix target
@@ -260,6 +268,8 @@ PR #55 formalizes that dynamical layer. The tripled packet is the suffix beginni
 
 PR #56 completes the finite high-family bookkeeping. Retained new-prime bases and their injective tripled children form a disjoint paired support, every remaining high channel is retained explicitly, and the raw once-per-channel pair contribution is identified as the weighted PR #55 defect minus one child copy. Thus the full family is decomposed exactly without pretending that the factor-of-two transport identity is an ordinary set-pair cancellation.
 
+PR #57 supplies the missing concrete Gram realization. The transport-data `actualResidual` is proved equal to the complete PR #56 family, so the existing joint Gram theorem now applies to the exact concrete shell/channel/Farey-mode/residual-row index. This corrects the dependency order: the concrete identity must precede, and is not itself, the still-open uniform analytic estimate.
+
 ## 3. Current checkpoint
 
 For every exact concrete geometric partition satisfying the pointwise low-sector bound, the compiled chain is
@@ -275,7 +285,7 @@ SquarePrefixHighUniformLocalBoundedStatement(partition)
 
 The first four equivalences are project-proved. The final direct integration theorem accepts the last classical equivalence as an argument of exactly matching proposition type.
 
-The concrete square-prefix Mertens value now has an exact normalized ordered-channel realization, an exact low/high signal partition at `|Y| ≤ Λ n`, finite reduced Farey modes with canonical modulus `2r`, concrete source-entry residual data, contiguous transport data, and a complete exact tripling identity whose defect is the finite boundary prefix plus the explicit phase mismatch on the common window. The complete finite high support is now split exactly into retained new-prime bases, their injective tripled children, and explicit unpaired channels; at contribution level, the full all-mode family is the retained signed defects minus the one-copy child multiplicity correction plus the unpaired contribution.
+The concrete square-prefix Mertens value now has an exact normalized ordered-channel realization, an exact low/high signal partition at `|Y| ≤ Λ n`, finite reduced Farey modes with canonical modulus `2r`, concrete source-entry residual data, contiguous transport data, and a complete exact tripling identity whose defect is the finite boundary prefix plus the explicit phase mismatch on the common window. The complete finite high support is now split exactly into retained new-prime bases, their injective tripled children, and explicit unpaired channels; at contribution level, the full all-mode family is the retained signed defects minus the one-copy child multiplicity correction plus the unpaired contribution. The concrete transport residual is now proved equal to that complete family, and its energy is exactly the single four-coordinate signed joint Gram expression retaining every cross-shell, cross-channel, cross-mode, and cross-row interaction.
 
 The following remain analytically open or require concrete data, but are not Mertens/RH reconciliation gaps:
 
@@ -346,7 +356,8 @@ The following remain analytically open or require concrete data, but are not Mer
 ### Phase IX — complete high-family analytic interface
 
 - [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
-- [ ] **31. Uniform full-family signed Gram estimate with all cross interactions retained**.
+- [x] **31. Concrete complete-family joint Gram realization** — PR #57.
+- [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained**.
 
 ## 5. Dependency spine
 
@@ -365,6 +376,8 @@ tripling-compatible packet transport + exact signed defect
         ↓
 complete bases/children/unpaired decomposition + multiplicity correction
         ↓
+concrete complete-family joint Gram realization
+        ↓
 full-family signed Gram estimate
         ↓
 local high-sector estimate
@@ -379,7 +392,9 @@ complete bases/children/unpaired family decomposition
         ↓
 retained defect - child correction + unpaired recombination
         ↓
-full signed shell/cofactor/mode/row Gram estimate
+concrete full signed shell/cofactor/mode/row Gram identity
+        ↓
+uniform full-family signed Gram estimate
         ↓
 finite certificate checker + explicit realization
         ↓
