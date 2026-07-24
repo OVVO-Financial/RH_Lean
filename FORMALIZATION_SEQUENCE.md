@@ -15,11 +15,14 @@ The governing invariants are:
 - a prefix estimate from zero must never be presented as a uniform local-window estimate;
 - the RH bridge must use the manuscript's uniform local criterion
   `V_loc(N,H) ≪_ε H N^(2+ε)` for `1 ≤ H ≤ N`, not merely a global
-  `O(N^(3+ε))` average.
+  `O(N^(3+ε))` average;
+- an exact low/high signal decomposition does not give an energy subtraction identity;
+  total/high criterion equivalence must use the two norm inequalities and the
+  separately proved local low-sector bound.
 
 ## 1. Compiled inventory
 
-The root library imports thirty-five theorem modules.
+The root library imports thirty-six theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -113,7 +116,25 @@ and derives the sharp prefix inequality only from explicit signed absorption.
     - composes the compiled local frame theorem with that explicit bridge;
     - introduces no project axiom and makes no unconditional RH claim.
 
-## 2. Correction of the PR #42 target
+### Exact geometric low/high reduction
+
+36. `RHLean.Analysis.GeometricRHReduction`
+    - defines `ActualStartGeometricPartition` with exact signal-level recombination
+      `actual = low + high`;
+    - carries the proved pointwise squared low-sector estimate as explicit geometric data;
+    - defines translated-window low and high energies;
+    - proves the elementary uniform local low-sector bound `V_low(N,H) ≤ 4 K H N^2`;
+    - proves both energy inequalities
+
+      ```text
+      V_total ≤ 2 V_low + 2 V_high,
+      V_high  ≤ 2 V_total + 2 V_low;
+      ```
+
+    - proves the total and high-sector `H N^(2+ε)` criteria are equivalent without estimating a cross term;
+    - composes that result with `ActualStartRHBridge` to state the pure architectural equivalence between the geometric high-sector criterion and RH.
+
+## 2. Correction history
 
 PR #42 compiled an axiom-free conditional theorem, but its asymptotic target was the global prefix average
 
@@ -123,7 +144,7 @@ actualStartFrameEnergy(N) = O(N^(3+ε)).
 
 That statement is a natural cubic benchmark, but it is not the manuscript's pointwise RH criterion. A global prefix inequality does not imply a translated local-window inequality by subtraction.
 
-The manuscript's actual criterion is
+PR #43 corrected the target to
 
 ```text
 ∀ ε > 0, ∃ C ≥ 0, ∀ N H,
@@ -131,39 +152,45 @@ The manuscript's actual criterion is
   V_loc(N,H) ≤ C * H * N^(2+ε).
 ```
 
-Taking `H = 1` gives the pointwise square-prefix estimate used in the Mertens interpolation argument. The corrective local layer is therefore a genuine missing dependency, not a cosmetic restatement.
+Taking `H = 1` gives the pointwise square-prefix estimate used in the Mertens interpolation argument.
 
-PR #43 corrects the formal target while preserving the historical fact that PR #42 was formally valid as a conditional composition theorem.
+PR #44 resolves the next architectural issue. The exact signal identity
+
+```text
+S = S_low + S_high
+```
+
+does not imply an energy subtraction identity because the low/high cross term remains. However, the two elementary norm inequalities and the proved local low-sector bound show that the total and high-sector local growth criteria are exactly equivalent. The cross term never needs a separate estimate.
 
 ## 3. Current checkpoint
 
-The compiled algebraic and signed-Gram chain now reaches the exact local statement
+The compiled chain now distinguishes two statements:
+
+1. the analytic theorem to be proved inside the signed-Gram architecture;
+2. the unconditional equivalence showing that theorem is exactly the geometric form of the RH criterion.
+
+For an exact geometric partition with pointwise low-sector bound,
 
 ```text
-actualStartLocalFrameEnergy(start,N,H)
-  ≤ 4 * actualStartLocalPredictionFrameEnergy(start,N,H)
+ActualStartHighUniformLocalBoundedStatement(partition)
+  ↔ ActualStartUniformLocalBoundedStatement(start)
+  ↔ RiemannHypothesisStatement
 ```
 
-under explicit finite-range realization, asymptotic full-joint control, exact starting configuration, and uniform local signed-interaction absorption.
+where the final equivalence uses the explicit classical/realization fields of `ActualStartRHBridge`.
 
-The corrected bridge then uses:
-
-```text
-local signed-frame
-  → uniform local square-prefix bound
-  → pointwise square-prefix bound          [proved by H = 1]
-  → RiemannHypothesis.
-```
-
-The reverse RH-to-uniform-local direction is retained separately so that the final criterion can be stated as an equivalence once its concrete classical/realization proof is supplied.
+The first equivalence is fully proved by the new geometric reduction module. It requires no high-sector estimate and no control of the low/high cross term.
 
 The following remain unproved and explicit:
 
-- the concrete prediction estimate transporting the local signed-frame inequality to `H N^(2+ε)`;
-- the identification of `start.actual N` with the manuscript's square-prefix Mertens quantity;
-- the RH-to-uniform-local Mertens direction;
-- the pointwise square-prefix/Mertens interpolation implication to RH;
+- the concrete construction identifying `start.actual N` with the manuscript's square-prefix Mertens quantity;
+- the concrete construction of the manuscript's low/high geometric partition and its pointwise low-sector constant;
+- the RH-to-uniform-local Mertens direction inside Lean;
+- the pointwise square-prefix/Mertens interpolation implication to RH inside Lean;
+- the local prediction estimate transporting the signed-frame inequality to `H N^(2+ε)`;
 - the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction-control instances.
+
+The geometric reduction itself is no longer an open analytic obligation.
 
 ## 4. Formalization sequence
 
@@ -201,36 +228,44 @@ The following remain unproved and explicit:
 
 ### Phase V — corrected localization
 
-- [x] **21. Uniform local signed-frame and corrected RH criterion** — anticipated PR #43.
-  - proves the exact `[N,N+H)` energy identity;
-  - adds local signed absorption as a separate hypothesis;
-  - proves the sharp local frame inequality;
-  - replaces the global cubic bridge target with the manuscript's uniform local bound;
-  - proves the `H = 1` extraction to a pointwise square-prefix bound;
-  - keeps the remaining classical Mertens/RH directions and concrete realization obligations explicit.
+- [x] **21. Uniform local signed-frame and corrected RH criterion** — PR #43.
+
+### Phase VI — geometric criterion equivalence
+
+- [x] **22. Exact low/high geometric reduction** — PR #44.
+  - proves the translated-window low-sector bound from the pointwise linear geometric bound;
+  - proves total↔high local-criterion equivalence by norm inequalities;
+  - proves high-sector criterion↔RH through the explicit square-prefix bridge;
+  - does not assume or prove the high-sector estimate itself.
 
 ## 5. Dependency spine
 
 ```text
 exact arithmetic, factor geometry, and modulus-2r phase structure
         ↓
+exact signal-level low/high geometric partition
+        ↓
+elementary translated-window low-sector bound
+        ↓
+total local criterion ↔ high-sector local criterion
+        ↓
+classical square-prefix Mertens bridge ↔ RH
+```
+
+The separate analytic proof program remains:
+
+```text
 full signed shell/cofactor/mode/row Gram identity
         ↓
 finite certificate checker + explicit realization
         ↓
 weighted affine full-joint residual closure
         ↓
-actual-start prefix signed frame
-        ↓
-separate uniform local signed-interaction control
-        ↓
 uniform local actual-start signed frame
         ↓
 prediction transport to H N^(2+ε)
         ↓
-H = 1 pointwise square-prefix bound
-        ↓
-Mertens interpolation / classical RH criterion
+high-sector local criterion
 ```
 
 ## 6. Maintenance rule
