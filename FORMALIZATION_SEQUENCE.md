@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports thirty theorem modules.
+The root library currently imports thirty-one theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -195,38 +195,51 @@ The root library currently imports thirty theorem modules.
     - a single full joint-Gram control and recursive-control interface;
     - no independent shell, cofactor, row, or denominator-mode positivity or smallness claim.
 
+### Certified verification boundary
+
+31. `RHLean.Verification.FiniteRangeCertificates`
+    - explicit code-version, source-commit, external data-checksum, and recomputed numeric payload-checksum metadata;
+    - exact integer-numerator decomposition checkpoints with a common positive denominator;
+    - prime totals and residue-class counts with positive modulus, distinct in-range classes, and exact count recombination;
+    - complete signed joint-Gram checkpoint data retaining every diagonal and off-diagonal term;
+    - exact reconstruction of the full signed joint energy and scaled recurrence inequality at every declared scale;
+    - executable `checkFiniteRangeCertificate` with a proved soundness theorem and an accepted-certificate boundary;
+    - no numerical run, numerical constant, uniform residual bound, or RH claim.
+
 ## 2. Current checkpoint
 
-Phase I, Phase II, and Phase III are complete. Phase IV items 13 through 15 are completed by PRs #35 through #37. Phase IV item 16, joint Gram control, is completed on the implementation branch for anticipated PR #38.
+Phase I, Phase II, and Phase III are complete. Phase IV items 13 through 16 are completed by PRs #35 through #38. Phase IV item 17, the certified finite-range certificate checker, is completed on the implementation branch for anticipated PR #39.
 
-The actual contribution is indexed simultaneously by
-
-```text
-(height shell, cofactor channel, denominator mode, residual row).
-```
-
-The row coordinate keeps the scale-dependent resonant extraction and its exact algebraic remainder separate at packet level. Their sum is the original packet, with no orthogonality or Pythagorean premise.
-
-The complete finite joint index is enumerated exactly once, and the resulting full signed sum satisfies
+Generated data are represented by a `FiniteRangeCertificate` carrying:
 
 ```text
-actualJointGramSum(M) = actualResidual(M).
+code version, source commit, external data checksum,
+recomputed numeric payload checksum,
+range endpoints, common value denominator,
+contraction numerator/denominator, and ordered rows.
 ```
 
-Applying the compiled finite Gram identity to this enumeration gives
+Each row retains exact resonant/nonresonant decomposition checkpoints, prime totals and residue-class counts, and the complete signed joint-Gram payload. The checker verifies the declared joint cardinality
 
 ```text
-‖actualResidual(M)‖²
-  = jointDiagonalEnergy(M) + 2 * jointOffDiagonalGram(M).
+shellCount * cofactorCount * denominatorModeCount * 2,
 ```
 
-Because each enumerated position carries all four coordinates, the off-diagonal term retains cross-shell, cross-cofactor, resonant/nonresonant, and denominator-mode interactions. A bound on this single signed expression immediately controls the actual residual energy, and the recursive interface keeps `rho`, parent energy, and forcing explicit.
+checks the diagonal and strict off-diagonal term counts, reconstructs
 
-No numerical certificate, numerical constant, contraction factor, decay law, uniform residual bound, or RH statement is introduced.
+```text
+claimedJointEnergy
+  = sum(diagonalTerms) + 2 * sum(offDiagonalTerms),
+```
+
+and verifies the denominator-cleared recurrence inequality without independently bounding any shell, cofactor, residual row, or denominator mode.
+
+The executable checker is defined by decision of a trusted proposition, and `checkFiniteRangeCertificate_sound` proves that a successful check implies the full proposition. Numerical data can cross the import boundary only through `AcceptedFiniteRangeCertificate`, which requires a proof that the checker returned `true`. This PR deliberately imports no numerical run.
+
+No numerical finite-range conclusion, contraction constant, decay law, uniform residual bound, actual-start theorem, or RH statement is introduced.
 
 The following remain open:
 
-- a certified finite-range certificate checker;
 - the uniform full residual bound;
 - the actual-start signed-frame theorem and final RH bridge.
 
@@ -279,18 +292,21 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
   - instantiates the six forcing fields of the compiled leakage operator without changing its four block maps;
   - proves rowwise and weighted forcing bounds, with no unproved decay or contraction claim.
 
-- [x] **16. Joint Gram control** — anticipated PR #38.
+- [x] **16. Joint Gram control** — completed by PR #38.
   - indexes simultaneously by height shell, actual cofactor channel, denominator mode, and residual row;
   - proves exact packet-row and full-index recombination to the actual residual;
   - retains every signed off-diagonal interaction in one complete Gram expression;
   - exposes direct and recursive full-joint-Gram control interfaces;
   - makes no numerical, finite-range, uniform-bound, or RH claim.
 
-- [ ] **17. Certified finite-range certificate checker** — next dependency.
-  - prove the checker correct in Lean;
-  - import numerical runs only as checked data with checksums and code-version metadata.
+- [x] **17. Certified finite-range certificate checker** — anticipated PR #39.
+  - defines explicit metadata expectations and recomputes a deterministic checksum from every numeric payload field;
+  - verifies exact decomposition checkpoints, prime/residue counts, complete joint cardinality, and all diagonal/off-diagonal term counts;
+  - reconstructs the full signed joint energy and checks the scaled recurrence inequality for every ordered range row;
+  - proves executable-checker soundness and exposes an accepted-certificate import boundary;
+  - imports no numerical run and proves no finite numerical conclusion.
 
-- [ ] **18. Uniform full residual bound**.
+- [ ] **18. Uniform full residual bound** — next dependency.
   - instantiate the weighted affine closure with all analytic obligations discharged.
 
 - [ ] **19. Actual-start signed-frame theorem**.
