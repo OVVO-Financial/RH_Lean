@@ -1,0 +1,28 @@
+name: Canonical bridge diagnostic
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: canonical-diagnostic-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build canonical bridge module
+        uses: leanprover/lean-action@v1
+        with:
+          use-mathlib-cache: true
+          build: true
+          build-args: "RHLean.Proof.CanonicalHighSectorBridge --wfail"
+          test: false
+          lint: false
