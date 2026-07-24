@@ -150,11 +150,11 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
     MertensEnergyBoundedStatement := by
   intro ε hε
   rcases hS (2 * ε) (by linarith) with ⟨C, hC, hbound⟩
-  refine ⟨2 * C + 32, by positivity, ?_⟩
+  refine ⟨2 * C + 32, by nlinarith, ?_⟩
   intro x
   by_cases hx0 : x = 0
   · subst x
-    simp [mertensSummatory, hC]
+    simp [mertensSummatory]
   · let r := Nat.sqrt x
     have hr : 1 ≤ r := by
       dsimp [r]
@@ -285,7 +285,7 @@ theorem squarePrefixEnergyBounded_iff_currentPointwise :
         mul_le_mul_of_nonneg_left hp hC
       _ = (C * K) * Real.rpow (N : ℝ) (2 + ε) := by
         rw [hmul]
-        rfl
+        simp only [K, mul_assoc]
   · intro hcurrent ε hε
     rcases hcurrent ε hε with ⟨C, hC, hbound⟩
     let Z := ‖squarePrefixMertens 0‖ ^ 2
@@ -297,7 +297,8 @@ theorem squarePrefixEnergyBounded_iff_currentPointwise :
     by_cases hn0 : n = 0
     · subst n
       have hzle : Z ≤ C + Z := le_add_of_nonneg_left hC
-      simpa only [Z, Nat.cast_one, Real.one_rpow, mul_one] using hzle
+      change Z ≤ (C + Z) * Real.rpow (1 : ℝ) (2 + ε)
+      simpa using hzle
     · have hn : 1 ≤ n := Nat.pos_of_ne_zero hn0
       have h := hbound n hn
       have hbase : (n : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ n
@@ -380,7 +381,7 @@ theorem actualStart_uniformLocalBounded_of_pointwiseSquareBounded
           mul_le_mul_of_nonneg_left hp hC
         _ = (C * K) * Real.rpow (N : ℝ) (2 + ε) := by
           rw [hmul]
-          rfl
+          simp only [K, mul_assoc]
     _ = (H : ℝ) * ((C * K) * Real.rpow (N : ℝ) (2 + ε)) := by simp
     _ = (C * K) * (H : ℝ) * Real.rpow (N : ℝ) (2 + ε) := by ring
 
