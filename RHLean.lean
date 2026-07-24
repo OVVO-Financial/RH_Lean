@@ -42,4 +42,5 @@ import RHLean.Proof.FareyModesAndTransportWindows
 import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.SquarePrefixHeightPartition
+import RHLean.Proof.TriplingPacketTransport
 import RHLean.Verification.FiniteRangeCertificates
