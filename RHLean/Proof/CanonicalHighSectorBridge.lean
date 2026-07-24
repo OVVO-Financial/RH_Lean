@@ -118,7 +118,8 @@ theorem canonicalTotalPrefix_eq_squarePrefixMertens (n : ℕ) :
       unfold RHLean.Analysis.squarePrefixMertens RHLean.Analysis.mertensSummatory
       rw [RHLean.Analysis.squarePrefixEndpoint_add_one]
       rw [RHLean.Analysis.squarePrefixEndpoint_add_one]
-      have hle : (n + 1) ^ 2 ≤ (n + 2) ^ 2 := by nlinarith
+      have hle : (n + 1) ^ 2 ≤ (n + 2) ^ 2 := by
+        exact Nat.pow_le_pow_left (by omega) 2
       simpa [canonicalMoebiusWeight, Nat.add_assoc] using
         (Finset.sum_range_add_sum_Ico
           (fun m : ℕ => canonicalMoebiusWeight m) hle)
@@ -170,7 +171,20 @@ theorem canonicalLowPrefix_energy_le
     have hindex : (n + 1 : ℝ) ≤ 2 * (n : ℝ) := by exact_mod_cast hindexNat
     have hnorm_nonneg : 0 ≤ ‖canonicalLowPrefix Λ n‖ := norm_nonneg _
     have hn_nonneg : 0 ≤ (n : ℝ) := by positivity
-    nlinarith [control.bound_nonneg]
+    have hupper :
+        ‖canonicalLowPrefix Λ n‖ ≤
+          (2 * (n : ℝ)) * control.bound := by
+      calc
+        ‖canonicalLowPrefix Λ n‖ ≤ (n + 1 : ℝ) * control.bound := hnorm
+        _ ≤ (2 * (n : ℝ)) * control.bound :=
+          mul_le_mul_of_nonneg_right hindex control.bound_nonneg
+    have hupper_nonneg : 0 ≤ (2 * (n : ℝ)) * control.bound :=
+      mul_nonneg (mul_nonneg (by norm_num) hn_nonneg) control.bound_nonneg
+    calc
+      ‖canonicalLowPrefix Λ n‖ ^ 2 ≤
+          ((2 * (n : ℝ)) * control.bound) ^ 2 :=
+        (sq_le_sq₀ hnorm_nonneg hupper_nonneg).2 hupper
+      _ = (4 * control.bound ^ 2) * (n : ℝ) ^ 2 := by ring
 
 /-- The native canonical decomposition as an exact concrete geometric partition
 accepted by the already-proved local RH bridge. -/
