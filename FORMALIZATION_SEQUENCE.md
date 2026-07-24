@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports twenty-seven theorem modules.
+The root library currently imports twenty-eight theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -168,43 +168,45 @@ The root library currently imports twenty-seven theorem modules.
     - scale-dependent resonant extraction, exact algebraic remainder, span membership, and exact recombination;
     - direct packaging as `ResonantNonresonantState ℂ ℂ` for the leakage and Lyapunov layers.
 
+28. `RHLean.Analysis.ResonantCofactorCancellation`
+    - complex Möbius scalar and exact odd/doubled sign reversal;
+    - explicit base/doubled cofactor-pair indices with the upper factor retained;
+    - actual unweighted packet entries and fixed packets with the canonical quadratic phase unchanged;
+    - exact factorization of actual entries and packets by their Möbius scalar;
+    - explicit compatibility certificates recording channel membership and denominator-mode packet data;
+    - exact cancellation after scale-dependent extraction for each retained denominator mode, each joint cofactor-mode contribution, and every finite certified pair family;
+    - no assertion that all actual channels are paired or that unpaired, low-height, endpoint, or boundary terms vanish.
+
 ## 2. Current checkpoint
 
-Phase I, Phase II, and Phase III are complete. Phase IV item 13, the resonant/nonresonant decomposition of the actual residual, is completed by PR #35.
+Phase I, Phase II, and Phase III are complete. Phase IV item 13 is completed by PR #35. Phase IV item 14, explicit resonant cancellation across Möbius-weighted cofactor channels, is completed on the implementation branch for anticipated PR #36.
 
-The library now contains the exact arithmetic, geometry, modulus-`2r` phase, fixed-packet, signed shell, projection, leakage, and abstract Lyapunov layers, together with an explicit actual residual whose indices remain visible:
-
-```text
-actualResidual(M)
-  = ∑ shell
-      ∑ cofactor channel
-        ∑ denominator mode
-          fixedPacket(
-            μ(cofactor) * amplitude * quadraticPhase(a,r,k)
-          ).
-```
-
-For the scale-dependent extraction:
+The actual residual remains explicitly indexed by scale, height shell, cofactor channel, denominator mode, packet start, packet length, and packet index. For a certified pair with odd base cofactor `a` and doubled cofactor `2a`, the new layer keeps the upper factor, shell, and denominator mode fixed and proves
 
 ```text
-R_M = extraction M actualResidual(M),
-N_M = actualResidual(M) - R_M,
-actualResidual(M) = R_M + N_M.
+μ(2a) = -μ(a)
 ```
 
-The pair is packaged exactly as
+inside the complex packet contribution. Compatibility is not hidden: both channels must occur in the actual cofactor set, and packet starts, packet lengths, and full packet-indexed amplitudes must agree for every retained denominator mode.
+
+The resulting exact cancellation is
 
 ```text
-ResonantNonresonantState ℂ ℂ
+R_packet(a, mode) + R_packet(2a, mode) = 0,
 ```
 
-and therefore is the concrete state shape consumed by the compiled leakage and Lyapunov layers.
+followed by the joint denominator-mode identity
 
-The canonical denominator modulus remains `2 * r`. The prime-3 rational cell-mask mechanism remains in its separate namespace and does not enter this residual definition. No orthogonality, idempotence, self-adjointness, Pythagorean identity, cancellation, contraction, triangularity, zero leakage, smallness, boundary estimate, numerical verification, uniform bound, or RH statement is introduced.
+```text
+R_cofactor(a) + R_cofactor(2a) = 0.
+```
+
+Every finite family of separately certified pairs therefore has zero total resonant contribution. The theorem does not claim that the actual channel set is exhausted by such pairs, does not discard unpaired channels, and does not replace the signed cofactor/mode interaction with shellwise positivity or independent mode estimates.
+
+The canonical denominator modulus remains `2 * r`. The prime-3 rational cell-mask mechanism remains in its separate namespace. No orthogonality, Pythagorean identity, zero leakage, triangularity, contraction, low-height estimate, endpoint estimate, boundary estimate, numerical verification, uniform residual bound, or RH statement is introduced.
 
 The following remain open:
 
-- explicit resonant cancellation across Möbius-weighted cofactor channels;
 - low-height spacing, incidence, endpoint, and boundary estimates;
 - joint signed Gram control retaining all cross interactions;
 - certified finite-range verification;
@@ -246,11 +248,14 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
   - proves only declared-span membership and exact algebraic recombination;
   - packages the result as the separately typed state used by later leakage and Lyapunov theorems.
 
-- [ ] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — next dependency.
-  - retain denominator-mode and cofactor interactions;
-  - do not seek shellwise positivity or independent mode bounds.
+- [x] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — anticipated PR #36.
+  - defines explicit odd/base and doubled cofactor channels with the upper factor retained;
+  - records channel membership and exact packet compatibility separately for every retained denominator mode;
+  - factors the actual packet and its extracted component by the exact complex Möbius scalar;
+  - proves exact per-mode, joint denominator-mode, and finite certified-pair-family cancellation;
+  - makes no exhaustive-pairing, unpaired-term, low-height, endpoint, boundary, contraction, or smallness claim.
 
-- [ ] **15. Low-height spacing, incidence, endpoint, and boundary estimates**.
+- [ ] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — next dependency.
   - prove the analytic forcing bounds required by the block recurrence.
 
 - [ ] **16. Joint Gram control**.
@@ -294,7 +299,7 @@ actual residual with explicit shell/cofactor/denominator/packet indexing
 +
 explicit leakage operator and abstract Lyapunov closure
         ↓
-explicit resonant cancellation across Möbius-weighted cofactor channels
+exact resonant cancellation for certified Möbius cofactor pairs
         ↓
 low-height and boundary forcing estimates
         ↓
