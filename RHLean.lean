@@ -15,6 +15,7 @@ import RHLean.Analysis.ResonantCofactorCancellation
 import RHLean.Analysis.ResonantLeakage
 import RHLean.Analysis.ResonantProjection
 import RHLean.Analysis.SmallModulusResonance
+import RHLean.Analysis.UniformResidualBound
 import RHLean.Arithmetic.FourSlotCell
 import RHLean.Arithmetic.MoebiusDoubling
 import RHLean.Arithmetic.PrimeSquareMod24
