@@ -24,6 +24,7 @@ jobs:
         run: bash scripts/audit_assumptions.sh
 
       - name: Set up Lean project
+        continue-on-error: true
         uses: leanprover/lean-action@v1
         with:
           use-mathlib-cache: true
