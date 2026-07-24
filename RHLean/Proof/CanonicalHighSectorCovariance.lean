@@ -57,7 +57,9 @@ private theorem real_sum_sq_eq_mean_add_centered
         simp [S, nsmul_eq_mul]
   change (∑ h ∈ Finset.range H, g h ^ 2) =
     (H : ℝ) * μ ^ 2 + ∑ h ∈ Finset.range H, (g h - μ) ^ 2
-  nlinarith [hexpand]
+  rw [← hmean] at hexpand
+  ring_nf at hexpand ⊢
+  linarith
 
 /-- Exact finite-window decomposition into coherent mean energy and centered
 covariance energy. -/
@@ -74,7 +76,8 @@ theorem localSequenceEnergy_eq_coherentMean_add_centeredCovariance
   simp only [Complex.sq_norm, Complex.normSq_apply, Complex.sub_re, Complex.sub_im]
   rw [Finset.sum_add_distrib]
   rw [Finset.sum_add_distrib]
-  nlinarith
+  ring_nf at hre him ⊢
+  linarith
 
 /-- Coherent mean energy is nonnegative. -/
 theorem localCoherentMeanEnergy_nonneg
