@@ -29,6 +29,24 @@ theorem lowerMoebius_mul_normalizedChannelAmplitude_of_channel
   rcases channel with ⟨c, q⟩
   exact lowerMoebius_mul_normalizedChannelAmplitude c q
 
+/-- Reassociate the explicit lower Möbius factor before applying coefficient compatibility. -/
+theorem lowerMoebius_mul_normalizedChannelAmplitude_mul
+    (channel : RHLean.Analysis.ActualCofactorChannel)
+    (z w : ℂ) :
+    ((((μ channel.lowerCofactor : ℤ) : ℂ)) *
+        (normalizedChannelAmplitude channel * z)) * w =
+      (normalizedCofactorWeight
+          channel.lowerCofactor channel.upperFactor * z) * w := by
+  calc
+    ((((μ channel.lowerCofactor : ℤ) : ℂ)) *
+        (normalizedChannelAmplitude channel * z)) * w =
+      (((((μ channel.lowerCofactor : ℤ) : ℂ)) *
+          normalizedChannelAmplitude channel) * z) * w := by
+        ring
+    _ = (normalizedCofactorWeight
+          channel.lowerCofactor channel.upperFactor * z) * w := by
+        rw [lowerMoebius_mul_normalizedChannelAmplitude_of_channel]
+
 /-- The full normalized Farey transport entry before finite packet summation. -/
 def normalizedFareyTransportEntry
     {cutoff : ℕ → ℕ} {M : ℕ}
@@ -104,26 +122,12 @@ theorem actualResidualEntry_squarePrefixHighTransportData_ownShell
     squarePrefixHighTransportAmplitude
     normalizedFareyTransportEntry
   simp only [ite_true]
-  calc
-    ((((μ channel.lowerCofactor : ℤ) : ℂ)) *
-          (normalizedChannelAmplitude channel *
-            fareyChannelPhase
-              (fareyResonantMode cutoff M hcutoff modeLabel) channel)) *
-        RHLean.Analysis.resonantQuadraticMode
-          (fareyResonantMode cutoff M hcutoff modeLabel) (packetIndex : ℤ)) =
-      (((((μ channel.lowerCofactor : ℤ) : ℂ)) *
-          normalizedChannelAmplitude channel) *
-            fareyChannelPhase
-              (fareyResonantMode cutoff M hcutoff modeLabel) channel) *
-        RHLean.Analysis.resonantQuadraticMode
-          (fareyResonantMode cutoff M hcutoff modeLabel) (packetIndex : ℤ) := by
-      ring
-    _ = normalizedCofactorWeight channel.lowerCofactor channel.upperFactor *
-          fareyChannelPhase
-            (fareyResonantMode cutoff M hcutoff modeLabel) channel *
-          RHLean.Analysis.resonantQuadraticMode
-            (fareyResonantMode cutoff M hcutoff modeLabel) (packetIndex : ℤ) := by
-      rw [lowerMoebius_mul_normalizedChannelAmplitude_of_channel]
+  exact lowerMoebius_mul_normalizedChannelAmplitude_mul
+    channel
+    (fareyChannelPhase
+      (fareyResonantMode cutoff M hcutoff modeLabel) channel)
+    (RHLean.Analysis.resonantQuadraticMode
+      (fareyResonantMode cutoff M hcutoff modeLabel) (packetIndex : ℤ))
 
 /-- At its source shell, an actual transport packet is the normalized packet. -/
 theorem actualResidualPacket_squarePrefixHighTransportData_ownShell
