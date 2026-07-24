@@ -190,9 +190,9 @@ theorem distinctPrimeCount_three_mul
   unfold distinctPrimeCount
   calc
     (3 * n).primeFactors.card =
-        (3.primeFactors ∪ n.primeFactors).card := by
+        ((3 : ℕ).primeFactors ∪ n.primeFactors).card := by
       rw [hcop.primeFactors_mul]
-    _ = 3.primeFactors.card + n.primeFactors.card :=
+    _ = (3 : ℕ).primeFactors.card + n.primeFactors.card :=
       Finset.card_union_of_disjoint hcop.disjoint_primeFactors
     _ = 1 + n.primeFactors.card := by
       rw [Nat.prime_three.primeFactors]
