@@ -119,6 +119,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#43** — Corrected the bridge to uniform local windows, proved the exact local frame layer and `H = 1` extraction, and preserved all remaining classical/realization obligations explicitly.
 - [x] **#44** — Proved the exact geometric low/high reduction: translated-window low bound, total↔high local criterion, and high-sector criterion↔RH through the explicit bridge.
 - [x] **#45** — Closed the project-specific Mertens adapter: concrete `M(x)`, exact `X_n=(n+1)^2-1`, square interpolation, pointwise/local conversion, direct concrete geometry theorem, and zero-friction future mathlib hook.
+- [x] **#49** — Proved the exact normalized ordered cofactor expansion, the `-1/2` tripling coefficient law, and child-plus-twice-parent cancellation over `ℚ` and `ℂ`.
+- [x] **#51** — Realized the exact square-prefix Mertens value as a normalized ordered sum over `ActualCofactorChannel`, with the lower Möbius factor separated to match `actualResidualEntry`.
 
 ## 5. Theorem-layer completion checklist
 
@@ -166,63 +168,55 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 
 - [x] **23. Concrete square-prefix Mertens adapter and direct mathlib hook** — PR #45.
 
+### Phase VIII — normalized cofactor realization
+
+- [x] **24. Normalized ordered cofactor expansion and exact tripling scaling** — PR #49.
+- [x] **25. Concrete square-prefix cofactor-channel realization** — PR #51.
+- [ ] **26. Exact high/low channel partition and concrete residual-data prerequisites**.
+- [ ] **27. Farey mode action and contiguous packet-window derivation**.
+- [ ] **28. Concrete `ActualResidualData` constructor and exact high-sector recombination**.
+- [ ] **29. Tripling-compatible packet transport and full signed defect identity**.
+
 ## 6. Current checkpoint
 
-Principal definitions in `RHLean.Analysis.SquarePrefixMertensBridge`:
+Principal definitions in `RHLean.Proof.NormalizedCofactorExpansion`:
 
-- `mertensSummatory`;
-- `squarePrefixEndpoint`;
-- `squarePrefixMertens`;
-- `MertensEnergyBoundedStatement`;
-- `SquarePrefixEnergyBoundedStatement`;
-- `SquarePrefixCurrentPointwiseBoundedStatement`;
-- `ClassicalMertensRHCriterion`.
+- `distinctPrimeCount`;
+- `alphaWeightRat`;
+- `normalizedCofactorWeightRat`;
+- `orderedCoprimeFactorPairs`;
+- `normalizedFiberExpansionRat`.
 
-Principal definitions in `RHLean.Analysis.ConcreteSquarePrefixGeometry`:
+Principal definitions in `RHLean.Proof.ConcreteSquarePrefixCofactorRealization`:
 
-- `SquarePrefixUniformLocalBoundedStatement`;
-- `SquarePrefixGeometricPartition`;
-- `squarePrefixLocalLowEnergy`;
-- `squarePrefixLocalHighEnergy`;
-- `SquarePrefixHighUniformLocalBoundedStatement`.
+- `actualChannelOfPair`;
+- `normalizedChannelAmplitudeRat`;
+- `normalizedChannelAmplitude`;
+- `squarePrefixCofactorExpansionRat`.
 
-Principal theorems:
+Principal theorems added by PRs #49 and #51:
 
-- `norm_mertensSummatory_sub_le`;
-- `mertensEnergyBounded_iff_squarePrefixEnergyBounded`;
-- `squarePrefixEnergyBounded_iff_currentPointwise`;
-- `squarePrefix_uniformLocalBounded_iff_highUniformLocalBounded`;
-- `squarePrefix_uniformLocalBounded_iff_currentPointwise`;
-- `squarePrefix_uniformLocalBounded_iff_mertensEnergyBounded`;
-- `squarePrefix_highUniformLocalBounded_iff_riemannHypothesis`;
-- `squarePrefix_highUniformLocalBounded_iff_riemannHypothesis_of_classical_iff`.
+- `normalizedFiber_eq_moebius_rat`;
+- `normalizedFiberExpansion_cast_eq_mertens`;
+- `normalized_tripling_scaling_rat`;
+- `normalized_cancellation_identity`;
+- `lowerMoebius_mul_normalizedChannelAmplitudeRat`;
+- `squarePrefixCofactorExpansionRat_eq_normalizedFiberExpansionRat`;
+- `squarePrefixCofactorExpansion_cast_eq_squarePrefixMertens`;
+- `squarePrefixMertens_eq_normalizedChannelSum`.
 
-The final direct integration theorem accepts exactly:
-
-```text
-partition : SquarePrefixGeometricPartition
-criterion : MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement
-```
-
-and concludes:
-
-```text
-SquarePrefixHighUniformLocalBoundedStatement partition
-  ↔ RiemannHypothesisStatement.
-```
-
-No abstract `ActualStartConfiguration`, realization equality, square-index adapter, exponent adapter, local-window adapter, or `ActualStartRHBridge` remains in this theorem's signature.
+The exact arithmetic channel realization is now complete. It does not yet define a high/low channel selector, shell assignment, denominator-mode action, packet support, or concrete `ActualResidualData` value.
 
 ## 7. Remaining obligations
 
-- supply the manuscript's intended high/low point-cloud decomposition as a concrete `SquarePrefixGeometricPartition`;
-- prove the high-sector signed-Gram estimate itself;
-- prove the local prediction-energy estimate yielding `H N^(2+ε)`;
+- define the manuscript's intended high/low channel partition from the exact normalized cofactor realization;
+- derive shell assignments, Farey denominator-mode action, contiguous packet starts, and packet lengths;
+- construct concrete `ActualResidualData` without opaque support or amplitude fields;
+- prove exact high-sector recombination and tripling-compatible packet transport;
+- prove the high-sector signed-Gram and local prediction-energy estimates;
 - construct the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control;
 - import or formalize the classical theorem
   `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`.
-
-All project-specific reconciliation between that classical theorem and the concrete square-prefix geometric criterion is complete.
 
 Merge-gating commands remain:
 
