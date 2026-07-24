@@ -58,10 +58,16 @@ theorem canonicalTotalPrefix_eq_smooth_sub_transport (n : ℕ) :
     canonicalTotalPrefix n = squareBlockSmoothTransportResidual n := by
   unfold canonicalTotalPrefix squareBlockSmoothTransportResidual
     squareBlockSmoothPrefix squareBlockTransportPrefix
-  rw [Finset.sum_sub_distrib]
-  apply Finset.sum_congr rfl
-  intro k hk
-  exact canonicalTotalIncrement_eq_smooth_sub_transport k
+  calc
+    (∑ j ∈ Finset.range (n + 1), canonicalTotalIncrement j) =
+        ∑ k ∈ Finset.range (n + 1),
+          (squareBlockSmoothIncrement k - squareBlockTransportIncrement k) := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      exact canonicalTotalIncrement_eq_smooth_sub_transport k
+    _ = (∑ k ∈ Finset.range (n + 1), squareBlockSmoothIncrement k) -
+          ∑ k ∈ Finset.range (n + 1), squareBlockTransportIncrement k := by
+      rw [Finset.sum_sub_distrib]
 
 /-- The cumulative smooth-minus-transport residual is exactly the concrete
 square-prefix Mertens sequence. -/
@@ -101,7 +107,7 @@ theorem squareBlockSmoothTransportJointEnergy_eq_localResidualEnergy
   unfold squareBlockSmoothTransportJointEnergy squareBlockLocalSmoothEnergy
     squareBlockLocalTransportEnergy squareBlockLocalSmoothTransportInteraction
     RHLean.Analysis.localSequenceEnergy squareBlockSmoothTransportResidual
-  rw [Finset.sum_add_distrib, Finset.sum_add_distrib]
+  rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro h hh
   ring
