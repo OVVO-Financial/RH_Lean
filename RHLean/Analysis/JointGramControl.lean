@@ -177,8 +177,13 @@ theorem actualJointGramSum_eq_fintypeSum
       have hindex :
           (index : ℕ) < Fintype.card (ActualJointGramIndex data) := by
         simpa [actualJointGramCard] using index.isLt
-      simp [actualJointGramEnumeratedEntry, hindex,
-        actualJointGramEnumeratedIndex]
+      unfold actualJointGramEnumeratedEntry
+      split
+      · apply congrArg (actualJointGramEntry skeleton M data)
+        apply congrArg (fun i => (actualJointGramEquivFin data).symm i)
+        exact Fin.ext rfl
+      · rename_i hnot
+        exact (hnot hindex).elim
     _ = ∑ index : ActualJointGramIndex data,
           actualJointGramEntry skeleton M data index := by
       exact (Fintype.sum_equiv
@@ -203,9 +208,26 @@ theorem actualJointGramFintypeSum_eq_actualResidual
   simp_rw [Fintype.sum_prod_type]
   simp only [actualJointGramEntry]
   simp_rw [sum_actualJointRowPacket]
-  rw [Fin.sum_univ_eq_sum_range]
-  simp_rw [Finset.sum_attach]
-  rfl
+  calc
+    (∑ shell : Fin data.shellCount,
+      ∑ channel : {channel : ActualCofactorChannel //
+          channel ∈ data.cofactorChannels},
+        ∑ denominatorMode : {denominatorMode : ℕ //
+            denominatorMode ∈ data.denominatorModes},
+          actualResidualPacket data shell channel denominatorMode) =
+        ∑ shell : Fin data.shellCount,
+          actualResidualShell data shell := by
+      apply Fintype.sum_congr
+      intro shell
+      unfold actualResidualShell
+      simp only [Finset.univ_eq_attach]
+      rw [Finset.sum_attach]
+      apply Finset.sum_congr rfl
+      intro channel _
+      rw [Finset.sum_attach]
+    _ = actualResidual data := by
+      simpa [actualResidual, heightShellSum] using
+        (Fin.sum_univ_eq_sum_range (f := actualResidualShell data))
 
 /-- The enumerated complete joint sum is exactly the actual residual. -/
 theorem actualJointGramSum_eq_actualResidual
