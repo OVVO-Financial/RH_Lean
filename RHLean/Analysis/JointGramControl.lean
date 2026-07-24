@@ -49,6 +49,19 @@ theorem actualJointRowPacket_recombine
     actualResidualPacket data shell channel denominatorMode := by
   simp [actualJointRowPacket, actualResonantRow, actualNonresonantRow]
 
+/-- Summing over the two explicit residual rows recovers the original packet. -/
+theorem sum_actualJointRowPacket
+    (skeleton : ResonantProjectionSkeleton ℂ ℂ) (M : ℕ)
+    (data : ActualResidualData skeleton.cutoff M)
+    (shell : ℕ) (channel : ActualCofactorChannel)
+    (denominatorMode : ℕ) :
+    (∑ row : ActualResidualRow,
+      actualJointRowPacket skeleton M data shell channel denominatorMode row) =
+      actualResidualPacket data shell channel denominatorMode := by
+  rw [Fin.sum_univ_two]
+  exact actualJointRowPacket_recombine
+    skeleton M data shell channel denominatorMode
+
 /--
 The complete finite joint index. Height shell, cofactor channel, denominator
 mode, and residual row remain separate coordinates. Membership in the actual
@@ -157,9 +170,12 @@ theorem actualJointGramSum_eq_fintypeSum
         ∑ index : Fin (actualJointGramCard data),
           actualJointGramEntry skeleton M data
             (actualJointGramEnumeratedIndex data index) := by
-      rw [Fin.sum_univ_eq_sum_range]
-      simp [actualJointGramSum, actualJointGramCard, heightShellSum,
-        actualJointGramEnumeratedEntry, actualJointGramEnumeratedIndex]
+      unfold actualJointGramSum heightShellSum
+      rw [← Fin.sum_univ_eq_sum_range]
+      apply Fintype.sum_congr
+      intro index
+      simp [actualJointGramCard, actualJointGramEnumeratedEntry,
+        actualJointGramEnumeratedIndex]
     _ = ∑ index : ActualJointGramIndex data,
           actualJointGramEntry skeleton M data index := by
       exact (Fintype.sum_equiv
@@ -171,7 +187,7 @@ theorem actualJointGramSum_eq_fintypeSum
             (actualJointGramEnumeratedIndex data index))
         (by
           intro index
-          simp [actualJointGramCard, actualJointGramEnumeratedIndex])).symm
+          simp [actualJointGramEnumeratedIndex])).symm
 
 /-- The complete joint-index sum is exactly the actual residual. -/
 theorem actualJointGramFintypeSum_eq_actualResidual
@@ -181,10 +197,10 @@ theorem actualJointGramFintypeSum_eq_actualResidual
       actualJointGramEntry skeleton M data index) =
       actualResidual data := by
   classical
-  simp [ActualJointGramIndex, actualJointGramEntry, actualJointRowPacket,
-    actualResonantRow, actualNonresonantRow, Fin.sum_univ_two,
-    actualResidual, actualResidualShell, heightShellSum,
-    Fin.sum_univ_eq_sum_range]
+  simp_rw [Fintype.sum_prod_type]
+  simp only [actualJointGramEntry]
+  simp_rw [sum_actualJointRowPacket]
+  simp [actualResidual, actualResidualShell, heightShellSum]
 
 /-- The enumerated complete joint sum is exactly the actual residual. -/
 theorem actualJointGramSum_eq_actualResidual
