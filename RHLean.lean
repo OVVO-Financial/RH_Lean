@@ -36,7 +36,6 @@ import RHLean.Geometry.FermatCoordinates
 import RHLean.Geometry.SquareMapConformality
 import RHLean.Geometry.TwoABDisplacement
 import RHLean.Kernel.FixedPackets
-import RHLean.Proof.CompleteHighFamilyDecomposition
 import RHLean.Proof.ConcreteSquarePrefixCofactorRealization
 import RHLean.Proof.ConcreteSquarePrefixHighResidual
 import RHLean.Proof.FareyModesAndTransportWindows
@@ -44,4 +43,5 @@ import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.SquarePrefixHeightPartition
 import RHLean.Proof.TriplingPacketTransport
+import RHLean.Proof.CompleteHighFamilyDecomposition
 import RHLean.Verification.FiniteRangeCertificates
