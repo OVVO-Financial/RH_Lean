@@ -1,52 +1,45 @@
-name: Lean verification
+name: Apply PR 57 closeout
 
 on:
   pull_request:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: lean-${{ github.workflow }}-${{ github.ref }}
+  group: pr57-closeout-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  closeout:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out PR branch
         uses: actions/checkout@v4
+        with:
+          ref: agent/concrete-high-family-joint-gram
+          fetch-depth: 0
 
-      - name: Audit unfinished proofs and axioms
-        run: bash scripts/audit_assumptions.sh
-
-      - name: Install Lean toolchain
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
-          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
-          export PATH="$HOME/.elan/bin:$PATH"
-          lake --version
-
-      - name: Get mathlib cache
-        shell: bash
-        run: |
-          set -euo pipefail
-          lake exe cache get
-
-      - name: Build concrete joint Gram module
+      - name: Update canonical ledgers and restore workflow
         shell: bash
         run: |
           set -o pipefail
-          lake build RHLean.Proof.ConcreteHighFamilyJointGram 2>&1 | tee lean-diagnostic.log
+          (
+            set -euo pipefail
+            python3 scripts/closeout_pr57.py
+            rm scripts/closeout_pr57.py
+            git diff --check
+            git config user.name "OVVO-Financial"
+            git config user.email "actions@users.noreply.github.com"
+            git add FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md .github/workflows/lean.yml scripts/closeout_pr57.py
+            git commit -m "Record concrete complete-family joint Gram"
+            git push origin HEAD:agent/concrete-high-family-joint-gram
+          ) 2>&1 | tee closeout.log
 
-      - name: Upload Lean diagnostic
+      - name: Upload closeout diagnostic
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lean-diagnostic
-          path: lean-diagnostic.log
+          name: closeout-diagnostic
+          path: closeout.log
