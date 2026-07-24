@@ -28,6 +28,10 @@ Every PR must preserve all of the following:
 - keep exact signal recombination separate from energy identities: if
   `S = S_low + S_high`, the total/high criterion equivalence must use norm
   inequalities plus the proved low-sector bound, not subtraction of energies;
+- use the exact manuscript endpoint `X_n = (n+1)^2 - 1` for the concrete square-prefix sequence;
+- expose the final external input exactly as
+  `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
+- do not reintroduce an abstract start-sequence realization or project-specific RH bridge into the final concrete theorem;
 - expose every remaining analytic implication, equivalence, and realization as an ordinary typed premise;
 - do not describe a conditional bridge as an unconditional proof of RH;
 - treat every warning as a CI failure because the project builds with `--wfail`.
@@ -113,7 +117,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#41** — Proved the exact actual-start prefix signed-frame theorem with explicit signed absorption.
 - [x] **#42** — Formalized an axiom-free conditional global-prefix RH bridge; later identified as insufficient for the manuscript's uniform local criterion.
 - [x] **#43** — Corrected the bridge to uniform local windows, proved the exact local frame layer and `H = 1` extraction, and preserved all remaining classical/realization obligations explicitly.
-- [x] **#44** — Proves the exact geometric low/high reduction: translated-window low bound, total↔high local criterion, and high-sector criterion↔RH through the explicit bridge.
+- [x] **#44** — Proved the exact geometric low/high reduction: translated-window low bound, total↔high local criterion, and high-sector criterion↔RH through the explicit bridge.
+- [x] **#45** — Closed the project-specific Mertens adapter: concrete `M(x)`, exact `X_n=(n+1)^2-1`, square interpolation, pointwise/local conversion, direct concrete geometry theorem, and zero-friction future mathlib hook.
 
 ## 5. Theorem-layer completion checklist
 
@@ -157,43 +162,67 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 
 - [x] **22. Exact low/high geometric reduction** — PR #44.
 
+### Phase VII — concrete Mertens closure
+
+- [x] **23. Concrete square-prefix Mertens adapter and direct mathlib hook** — PR #45.
+
 ## 6. Current checkpoint
 
-Principal definitions in `RHLean.Analysis.GeometricRHReduction`:
+Principal definitions in `RHLean.Analysis.SquarePrefixMertensBridge`:
 
-- `localSequenceEnergy`;
-- `ActualStartGeometricPartition`;
-- `actualStartLocalLowEnergy`;
-- `actualStartLocalHighEnergy`;
-- `ActualStartHighUniformLocalBoundedStatement`.
+- `mertensSummatory`;
+- `squarePrefixEndpoint`;
+- `squarePrefixMertens`;
+- `MertensEnergyBoundedStatement`;
+- `SquarePrefixEnergyBoundedStatement`;
+- `SquarePrefixCurrentPointwiseBoundedStatement`;
+- `ClassicalMertensRHCriterion`.
+
+Principal definitions in `RHLean.Analysis.ConcreteSquarePrefixGeometry`:
+
+- `SquarePrefixUniformLocalBoundedStatement`;
+- `SquarePrefixGeometricPartition`;
+- `squarePrefixLocalLowEnergy`;
+- `squarePrefixLocalHighEnergy`;
+- `SquarePrefixHighUniformLocalBoundedStatement`.
 
 Principal theorems:
 
-- `actualStart_localLowEnergy_le`;
-- `actualStart_lowUniformLocalBounded`;
-- `actualStart_localFrameEnergy_le_two_low_add_high`;
-- `actualStart_localHighEnergy_le_two_total_add_low`;
-- `actualStart_uniformLocalBounded_iff_highUniformLocalBounded`;
-- `actualStart_highUniformLocalBounded_iff_riemannHypothesis`.
+- `norm_mertensSummatory_sub_le`;
+- `mertensEnergyBounded_iff_squarePrefixEnergyBounded`;
+- `squarePrefixEnergyBounded_iff_currentPointwise`;
+- `squarePrefix_uniformLocalBounded_iff_highUniformLocalBounded`;
+- `squarePrefix_uniformLocalBounded_iff_currentPointwise`;
+- `squarePrefix_uniformLocalBounded_iff_mertensEnergyBounded`;
+- `squarePrefix_highUniformLocalBounded_iff_riemannHypothesis`;
+- `squarePrefix_highUniformLocalBounded_iff_riemannHypothesis_of_classical_iff`.
 
-The architectural equivalence is now explicit:
+The final direct integration theorem accepts exactly:
 
 ```text
-high-sector uniform local criterion
-  ↔ total square-prefix uniform local criterion
+partition : SquarePrefixGeometricPartition
+criterion : MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement
+```
+
+and concludes:
+
+```text
+SquarePrefixHighUniformLocalBoundedStatement partition
   ↔ RiemannHypothesisStatement.
 ```
 
-The first equivalence is proved without any estimate of the low/high cross term. The second remains mediated by the explicit `ActualStartRHBridge`, because mathlib does not currently supply the concrete square-prefix Mertens realization and classical criterion as compiled project theorems.
+No abstract `ActualStartConfiguration`, realization equality, square-index adapter, exponent adapter, local-window adapter, or `ActualStartRHBridge` remains in this theorem's signature.
 
 ## 7. Remaining obligations
 
-- construct the concrete square-prefix Mertens `ActualStartConfiguration`;
-- construct the concrete geometric low/high partition and discharge its pointwise low-sector bound;
-- formalize the classical RH-to-local Mertens direction inside Lean;
-- formalize the square-prefix interpolation implication to RH inside Lean;
+- supply the manuscript's intended high/low point-cloud decomposition as a concrete `SquarePrefixGeometricPartition`;
+- prove the high-sector signed-Gram estimate itself;
 - prove the local prediction-energy estimate yielding `H N^(2+ε)`;
-- construct the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control.
+- construct the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control;
+- import or formalize the classical theorem
+  `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`.
+
+All project-specific reconciliation between that classical theorem and the concrete square-prefix geometric criterion is complete.
 
 Merge-gating commands remain:
 
