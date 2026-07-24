@@ -35,13 +35,15 @@ jobs:
           echo "$status" > canonical-build-status.txt
           exit 0
 
-      - name: Upload compiler log
+      - name: Upload compiler log and formalization records
         uses: actions/upload-artifact@v4
         with:
           name: canonical-bridge-compiler-log
           path: |
             canonical-build.log
             canonical-build-status.txt
+            FORMALIZATION_SEQUENCE.md
+            FORMALIZATION_CHECKLIST.md
 
       - name: Enforce compiler status
         shell: bash
