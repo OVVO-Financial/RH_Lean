@@ -46,4 +46,5 @@ import RHLean.Proof.TriplingPacketTransport
 import RHLean.Proof.CompleteHighFamilyDecomposition
 import RHLean.Proof.ConcreteHighFamilyJointGram
 import RHLean.Proof.CanonicalHighSectorBridge
+import RHLean.Proof.CanonicalHighSectorCovariance
 import RHLean.Verification.FiniteRangeCertificates
