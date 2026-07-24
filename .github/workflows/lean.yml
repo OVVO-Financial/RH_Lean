@@ -23,23 +23,11 @@ jobs:
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
 
-      - name: Set up Lean project
+      - name: Build Lean project
         uses: leanprover/lean-action@v1
         with:
           use-mathlib-cache: true
-          build: false
+          build: true
+          build-args: "RHLean --wfail"
           test: false
           lint: false
-
-      - name: Build Farey mode module
-        shell: bash
-        run: |
-          set -o pipefail
-          lake build RHLean.Proof.FareyModesAndTransportWindows 2>&1 | tee lean-diagnostic.log
-
-      - name: Upload Lean diagnostic
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lean-diagnostic
-          path: lean-diagnostic.log
