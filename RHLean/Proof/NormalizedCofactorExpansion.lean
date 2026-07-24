@@ -82,7 +82,7 @@ theorem normalizedCofactorWeightRat_eq_on_fiber
   have hprod := product_eq_of_mem_orderedCoprimeFactorPairs hmem
   have hcop := coprime_of_mem_orderedCoprimeFactorPairs hmem
   unfold normalizedCofactorWeightRat
-  rw [← mul_assoc, moebius_mul_cast_rat_of_coprime hcop, hprod]
+  rw [mul_assoc, moebius_mul_cast_rat_of_coprime hcop, hprod]
 
 /-- Cast bridge from the rational companion to the existing complex Mertens sum. -/
 theorem mertensSummatoryRat_cast (Q : ℕ) :
