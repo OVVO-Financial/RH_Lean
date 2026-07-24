@@ -187,9 +187,10 @@ theorem distinctPrimeCount_three_mul
     distinctPrimeCount (3 * n) = distinctPrimeCount n + 1 := by
   have hcop : Nat.Coprime 3 n :=
     Nat.prime_three.coprime_iff_not_dvd.mpr h3
+  have hnot : 3 ∉ n.primeFactors := by
+    simp [h3]
   unfold distinctPrimeCount
-  rw [hcop.primeFactors_mul]
-  rw [Finset.card_union_of_disjoint hcop.disjoint_primeFactors]
-  simp [add_comm]
+  rw [hcop.primeFactors_mul, Nat.prime_three.primeFactors]
+  simpa [hnot, add_comm] using Finset.card_insert_of_notMem hnot
 
 end RHLean.Proof
