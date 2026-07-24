@@ -104,8 +104,26 @@ theorem actualResidualEntry_squarePrefixHighTransportData_ownShell
     squarePrefixHighTransportAmplitude
     normalizedFareyTransportEntry
   simp only [ite_true]
-  rw [lowerMoebius_mul_normalizedChannelAmplitude_of_channel]
-  ring
+  calc
+    ((((μ channel.lowerCofactor : ℤ) : ℂ)) *
+          (normalizedChannelAmplitude channel *
+            fareyChannelPhase
+              (fareyResonantMode cutoff M hcutoff modeLabel) channel)) *
+        RHLean.Analysis.resonantQuadraticMode
+          (fareyResonantMode cutoff M hcutoff modeLabel) (packetIndex : ℤ)) =
+      (((((μ channel.lowerCofactor : ℤ) : ℂ)) *
+          normalizedChannelAmplitude channel) *
+            fareyChannelPhase
+              (fareyResonantMode cutoff M hcutoff modeLabel) channel) *
+        RHLean.Analysis.resonantQuadraticMode
+          (fareyResonantMode cutoff M hcutoff modeLabel) (packetIndex : ℤ) := by
+      ring
+    _ = normalizedCofactorWeight channel.lowerCofactor channel.upperFactor *
+          fareyChannelPhase
+            (fareyResonantMode cutoff M hcutoff modeLabel) channel *
+          RHLean.Analysis.resonantQuadraticMode
+            (fareyResonantMode cutoff M hcutoff modeLabel) (packetIndex : ℤ) := by
+      rw [lowerMoebius_mul_normalizedChannelAmplitude_of_channel]
 
 /-- At its source shell, an actual transport packet is the normalized packet. -/
 theorem actualResidualPacket_squarePrefixHighTransportData_ownShell
