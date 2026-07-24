@@ -174,7 +174,10 @@ theorem actualJointGramSum_eq_fintypeSum
       rw [← Fin.sum_univ_eq_sum_range]
       apply Fintype.sum_congr
       intro index
-      simp [actualJointGramCard, actualJointGramEnumeratedEntry,
+      have hindex :
+          (index : ℕ) < Fintype.card (ActualJointGramIndex data) := by
+        simpa [actualJointGramCard] using index.isLt
+      simp [actualJointGramEnumeratedEntry, hindex,
         actualJointGramEnumeratedIndex]
     _ = ∑ index : ActualJointGramIndex data,
           actualJointGramEntry skeleton M data index := by
@@ -200,7 +203,9 @@ theorem actualJointGramFintypeSum_eq_actualResidual
   simp_rw [Fintype.sum_prod_type]
   simp only [actualJointGramEntry]
   simp_rw [sum_actualJointRowPacket]
-  simp [actualResidual, actualResidualShell, heightShellSum]
+  rw [Fin.sum_univ_eq_sum_range]
+  simp_rw [Finset.sum_attach]
+  rfl
 
 /-- The enumerated complete joint sum is exactly the actual residual. -/
 theorem actualJointGramSum_eq_actualResidual
