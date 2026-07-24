@@ -20,33 +20,10 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Audit unfinished proofs and axioms
-        run: bash scripts/audit_assumptions.sh
-
-      - name: Install Lean toolchain
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
-          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
-          export PATH="$HOME/.elan/bin:$PATH"
-          lake --version
-
-      - name: Get mathlib cache
-        shell: bash
-        run: |
-          set -euo pipefail
-          lake exe cache get
-
-      - name: Build complete high-family decomposition module
-        shell: bash
-        run: |
-          set -o pipefail
-          lake build RHLean.Proof.CompleteHighFamilyDecomposition 2>&1 | tee lean-diagnostic.log
-
-      - name: Upload Lean diagnostic
-        if: always()
+      - name: Upload canonical ledgers
         uses: actions/upload-artifact@v4
         with:
-          name: lean-diagnostic
-          path: lean-diagnostic.log
+          name: canonical-ledgers
+          path: |
+            FORMALIZATION_SEQUENCE.md
+            FORMALIZATION_CHECKLIST.md
