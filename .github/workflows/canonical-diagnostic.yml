@@ -18,11 +18,31 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Build canonical bridge module
+      - name: Set up Lean and mathlib cache
         uses: leanprover/lean-action@v1
         with:
           use-mathlib-cache: true
-          build: true
-          build-args: "RHLean.Proof.CanonicalHighSectorBridge --wfail"
+          build: false
           test: false
           lint: false
+
+      - name: Build canonical bridge module
+        shell: bash
+        run: |
+          set +e
+          lake build RHLean.Proof.CanonicalHighSectorBridge --wfail > canonical-build.log 2>&1
+          status=$?
+          echo "$status" > canonical-build-status.txt
+          exit 0
+
+      - name: Upload compiler log
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-bridge-compiler-log
+          path: |
+            canonical-build.log
+            canonical-build-status.txt
+
+      - name: Enforce compiler status
+        shell: bash
+        run: test "$(cat canonical-build-status.txt)" = "0"
