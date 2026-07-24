@@ -20,9 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone branch quietly
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git clone --quiet --depth 1 --branch agent/update-paper-equivalence-pdf \
-            https://github.com/OVVO-Financial/RH_Lean.git repo
+            "https://x-access-token:${GH_TOKEN}@github.com/OVVO-Financial/RH_Lean.git" repo
 
       - name: Apply deterministic equivalence revision
         working-directory: repo
