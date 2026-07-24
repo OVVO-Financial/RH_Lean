@@ -193,7 +193,7 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 ### Phase X — native canonical bridge
 
 - [x] **33. Native largest-prime-factor low/high realization and exact conditional RH bridge** — PR #60.
-- [ ] **34. Concrete canonical low-increment control with the manuscript bound `⌊Λ⌋`**.
+- [ ] **34. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly**.
 - [ ] **35. Native canonical uniform local high-sector estimate `(HS)`**.
 
 ## 6. Current checkpoint
@@ -316,7 +316,7 @@ The normalized channel arithmetic, Farey support, source-entry realization, cont
 
 ## 7. Remaining obligations
 
-- prove the manuscript's elementary canonical low-block estimate and construct `CanonicalLowIncrementControl Λ` with intended bound `⌊Λ⌋`;
+- prove the manuscript's elementary canonical low-block estimate and construct `CanonicalLowIncrementControl Λ` with manuscript bound `⌊Λ⌋` for nontrivial sources, with the isolated `m=1` term handled separately or absorbed by `⌊Λ⌋+1`;
 - prove the native canonical uniform local high-sector estimate `CanonicalHighUniformLocalBoundedStatement Λ` — `(HS)`;
 - import or formalize the classical theorem
   `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;

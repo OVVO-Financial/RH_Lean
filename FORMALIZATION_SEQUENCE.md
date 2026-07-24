@@ -321,7 +321,7 @@ The normalized ordered-pair/Farey development remains compiled as a distinct, mo
 
 The remaining obligations are now separated exactly:
 
-- formalize the manuscript's elementary canonical low-block estimate as a concrete `CanonicalLowIncrementControl Λ` (intended bound `⌊Λ⌋`);
+- formalize the manuscript's elementary canonical low-block estimate as a concrete `CanonicalLowIncrementControl Λ` (manuscript bound `⌊Λ⌋` for nontrivial sources, with the isolated `m=1` term handled separately or absorbed by `⌊Λ⌋+1`);
 - prove the native analytic statement `CanonicalHighUniformLocalBoundedStatement Λ`, i.e. `(HS)`;
 - import or formalize `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
 - optionally connect the normalized Farey/transport family to the native canonical sequence and use its full signed Gram estimate as a route to `(HS)`.
@@ -394,7 +394,7 @@ The remaining obligations are now separated exactly:
 ### Phase X — native canonical bridge
 
 - [x] **33. Native largest-prime-factor low/high realization and exact conditional RH bridge** — PR #60.
-- [ ] **34. Concrete canonical low-increment control with the manuscript bound `⌊Λ⌋`**.
+- [ ] **34. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly**.
 - [ ] **35. Native canonical uniform local high-sector estimate `(HS)`**.
 
 ## 5. Dependency spine
