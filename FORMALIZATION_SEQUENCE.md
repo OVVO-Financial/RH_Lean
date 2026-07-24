@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports twenty-five theorem modules.
+The root library currently imports twenty-six theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -154,9 +154,15 @@ The root library currently imports twenty-five theorem modules.
     - separate low-height, endpoint, and boundary forcing in both recurrence rows;
     - exact affine recurrence with no contraction or triangularity claim.
 
+26. `RHLean.Analysis.BlockLyapunovClosure`
+    - nonnegative resonant and nonresonant Lyapunov weights with abstract component sizes;
+    - explicit invariant bound `max B0 (C / (1 - rho))` for descending affine recurrences;
+    - full weighted block-contraction closure with all base, descent, contraction, and forcing hypotheses explicit;
+    - decay-weighted forcing corollary with no number-theoretic instantiation.
+
 ## 2. Current checkpoint
 
-Phase I and Phase II are complete. Phase III item 8, the exact height-shell Gram identity, is completed by PR #30. Phase III item 9, the orthogonal residual, is completed by PR #31. Phase III item 10, the scale-dependent resonant projection skeleton, is completed by PR #32. Phase III item 11, the explicit resonant/nonresonant leakage operator, is completed by PR #33.
+Phase I and Phase II are complete. Phase III item 8, the exact height-shell Gram identity, is completed by PR #30. Phase III item 9, the orthogonal residual, is completed by PR #31. Phase III item 10, the scale-dependent resonant projection skeleton, is completed by PR #32. Phase III item 11, the explicit resonant/nonresonant leakage operator, is completed by PR #33. Phase III item 12, the abstract weighted affine Lyapunov closure, is completed by PR #34.
 
 The library now contains:
 
@@ -202,11 +208,23 @@ The library now contains:
         + f_N^low + f_N^endpoint + f_N^boundary.
   ```
 
-The shell sum remains inside the norm, and no off-diagonal real inner product is discarded or replaced by a shellwise positivity or independent-smallness estimate. The theorem-predicted coefficient remains separate from the true orthogonal coefficient. The scale-dependent extraction is not assumed idempotent, self-adjoint, or orthogonal. Both leakage directions and all forcing channels remain visible, and no contraction, triangularity, or norm estimate is inferred from the affine recurrence.
+- the abstract weighted affine closure
+
+  ```text
+  L_M ≤ rho * L_parent + forcing_M,
+  0 ≤ rho < 1,
+  forcing_M ≤ C
+  ⇒
+  L_M ≤ max B0 (C / (1 - rho))
+  ```
+
+  along every strictly descending ancestor chain, with the initial-range bound, descent hypothesis, contraction inequality, and forcing bound all explicit.
+
+The shell sum remains inside the norm, and no off-diagonal real inner product is discarded or replaced by a shellwise positivity or independent-smallness estimate. The theorem-predicted coefficient remains separate from the true orthogonal coefficient. The scale-dependent extraction is not assumed idempotent, self-adjoint, or orthogonal. Both leakage directions and all forcing channels remain visible. The Lyapunov theorem assumes a full weighted block contraction; it does not infer that contraction from the affine recurrence and introduces no number-theoretic estimate.
 
 The following remain open:
 
-- abstract weighted affine Lyapunov closure;
+- resonant/nonresonant decomposition of the actual residual;
 - explicit number-theoretic resonant cancellation and low-height control;
 - certified finite-range verification;
 - actual-start signed-frame theorem and the final RH bridge.
@@ -266,13 +284,15 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
   - kept low-height, endpoint, and boundary forcing explicit in both recurrence rows;
   - proved the exact affine recurrence and introduced no contraction, triangularity, or norm estimate.
 
-- [ ] **12. Abstract weighted affine Lyapunov closure** — next dependency.
-  - prove the generic contraction-with-forcing theorem independently of number theory;
-  - support either a full weighted block contraction or a proved triangular alternative.
+- [x] **12. Abstract weighted affine Lyapunov closure** — completed by PR #34.
+  - defined a weighted Lyapunov value on the full separately typed resonant/nonresonant state;
+  - proved the explicit invariant bound for a descending affine recurrence with `0 ≤ rho < 1`;
+  - specialized the theorem to full weighted block contraction and decay-weighted forcing;
+  - kept every base-range, descent, contraction, forcing, and decay hypothesis explicit and introduced no number-theoretic estimate.
 
 ### Phase IV — number-theoretic closure
 
-- [ ] **13. Resonant/nonresonant decomposition of the actual residual**.
+- [ ] **13. Resonant/nonresonant decomposition of the actual residual** — next dependency.
   - connect the complex quadratic phase and cofactor channels to the scale-dependent projection.
 
 - [ ] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels**.
