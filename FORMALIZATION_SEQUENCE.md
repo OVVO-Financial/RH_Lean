@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports thirty-three theorem modules.
+The root library currently imports thirty-four theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -221,51 +221,55 @@ The root library currently imports thirty-three theorem modules.
     - the actual-start signed-frame theorem with finite-range realization and asymptotic full-joint control still explicit;
     - no inference of the sharp frame constant from residual size alone and no RH claim.
 
+34. `RHLean.Analysis.RiemannHypothesisBridge`
+    - mathlib's formal `RiemannHypothesis` proposition exposed as `RiemannHypothesisStatement`;
+    - the concrete `O(N^(3+ε))` prefix criterion attached to the actual-start frame energy;
+    - an explicit `ActualStartRHBridge` separating signed-frame transport from the analytic prefix/RH equivalence;
+    - a final composition theorem from the compiled signed-frame closure and a supplied bridge instance to `RiemannHypothesisStatement`;
+    - no project axiom and no claim that either analytic bridge field has been proved in `RH_Lean`.
+
 ## 2. Current checkpoint
 
-Phase I, Phase II, and Phase III are complete. Phase IV items 13 through 18 are completed by PRs #35 through #40. Phase IV item 19, the actual-start signed-frame theorem, is completed on the implementation branch for anticipated PR #41.
+Phase I, Phase II, Phase III, and the numbered Phase IV implementation sequence are complete through anticipated PR #42.
 
-The starting configuration records the exact algebraic identity
-
-```text
-actual(M) = 2 * prediction(M) + actualResidual(M).
-```
-
-For every finite prefix, the compiled inner-product identity gives
-
-```text
-actualFrameEnergy(N)
-  = 4 * predictionFrameEnergy(N)
-    + residualFrameEnergy(N)
-    + signedPredictionResidualInteraction(N).
-```
-
-The uniform residual theorem bounds the accumulated residual energy by `N` times the affine invariant bound. The sharp frame inequality is obtained only when the signed interaction absorbs that complete residual budget:
-
-```text
-signedPredictionResidualInteraction(N)
-  ≤ -N * affineInvariantBound.
-```
-
-Under the accepted finite-range realization, explicit asymptotic full-joint control, exact starting identity, and this signed absorption condition, the theorem proves
+The compiled library proves the full algebraic and signed-Gram chain through the actual-start frame statement
 
 ```text
 actualFrameEnergy(N) ≤ 4 * predictionFrameEnergy(N)
 ```
 
-for every finite prefix `N`.
+under the explicit finite-range realization, asymptotic joint-Gram control, exact starting configuration, and signed interaction absorption hypotheses.
 
-The signed interaction remains visible and may be negative. It is not replaced by an absolute-value estimate, and the constant `4` is not inferred from a residual norm bound alone.
+The final module defines the corresponding asymptotic criterion
 
-No RH statement or equivalent premise is introduced.
+```text
+∀ ε > 0,
+  actualFrameEnergy(N) = O(N^(3+ε))
+```
 
-The following remains open:
+and packages the two remaining analytic arrows as `ActualStartRHBridge`:
 
-- the final RH bridge.
+```text
+ActualStartSignedFrameStatement start
+  → ActualStartPrefixBoundedStatement start
+
+ActualStartPrefixBoundedStatement start
+  ↔ RiemannHypothesisStatement.
+```
+
+`riemannHypothesis_of_compiled_actualStartClosure` proves their exact composition. This is an axiom-free conditional theorem: it does not construct an `ActualStartRHBridge` instance and therefore does not claim an unconditional proof of the Riemann Hypothesis.
+
+No unchecked numerical run, hidden RH premise, or project axiom is introduced.
+
+The remaining mathematical obligations are external to the completed numbered module sequence:
+
+- prove the signed-frame-to-prefix-bounded transport for the concrete square-prefix quantities;
+- prove the prefix-bounded/RH analytic equivalence without an axiom;
+- instantiate every finite-range realization, asymptotic-control, starting-configuration, and signed-interaction field used by the final theorem.
 
 ## 3. Formalization sequence from the current checkpoint
 
-Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means completed on the implementation branch and anticipated for the stated PR; `[ ]` means still open.
+Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means completed on the implementation branch and anticipated for the stated PR.
 
 ### Phase I — corrected complex quadratic-phase layer
 
@@ -296,16 +300,12 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
 - [x] **16. Joint Gram control** — completed by PR #38.
 - [x] **17. Certified finite-range certificate checker** — completed by PR #39.
 - [x] **18. Uniform full residual bound** — completed by PR #40.
-- [x] **19. Actual-start signed-frame theorem** — anticipated PR #41.
-  - defines the exact actual-start decomposition with leading coefficient `2`;
-  - proves the exact pointwise and finite-prefix signed energy identities;
-  - derives finite-prefix residual control from the uniform actual residual bound;
-  - keeps signed prediction-residual absorption explicit;
-  - proves the sharp constant-`4` frame inequality without orthogonality or componentwise positivity assumptions.
-
-- [ ] **20. RH bridge** — next dependency.
-  - add only after every unconditional obligation above has been formally proved;
-  - no equivalent form of RH may enter as a hidden premise.
+- [x] **19. Actual-start signed-frame theorem** — completed by PR #41.
+- [x] **20. Explicit RH bridge** — anticipated PR #42.
+  - defines the actual-start signed-frame and prefix-bounded propositions;
+  - exposes the signed-frame transport and prefix/RH equivalence as separate bridge fields;
+  - composes the completed signed-frame theorem with those explicit fields;
+  - introduces no axiom and makes no unconditional RH claim.
 
 ## 4. Dependency spine
 
@@ -342,7 +342,7 @@ uniform full residual bound from explicit asymptotic control
         ↓
 actual-start signed-frame theorem with signed interaction retained
         ↓
-RH bridge only after unconditional closure
+explicit conditional RH bridge with every analytic obligation visible
 ```
 
 ## 5. Maintenance rule
@@ -357,5 +357,5 @@ Whenever a theorem layer is merged, the same PR must:
 - record the completing PR number;
 - move the corresponding module into the compiled inventory;
 - revise the current checkpoint;
-- identify the next unchecked dependency;
+- identify any remaining unproved obligations explicitly;
 - update `FORMALIZATION_CHECKLIST.md` with the same explicit status and successful PR ledger entry.
