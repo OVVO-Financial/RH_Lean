@@ -25,6 +25,9 @@ Every PR must preserve all of the following:
 - use the manuscript's uniform local criterion
   `V_loc(N,H) ≪_ε H N^(2+ε)` for `1 ≤ H ≤ N` in the RH bridge;
 - do not substitute the weaker global `O(N^(3+ε))` average for that local criterion;
+- keep exact signal recombination separate from energy identities: if
+  `S = S_low + S_high`, the total/high criterion equivalence must use norm
+  inequalities plus the proved low-sector bound, not subtraction of energies;
 - expose every remaining analytic implication, equivalence, and realization as an ordinary typed premise;
 - do not describe a conditional bridge as an unconditional proof of RH;
 - treat every warning as a CI failure because the project builds with `--wfail`.
@@ -109,7 +112,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#40** — Connected accepted data to actual joint energies and proved the uniform residual-energy bound.
 - [x] **#41** — Proved the exact actual-start prefix signed-frame theorem with explicit signed absorption.
 - [x] **#42** — Formalized an axiom-free conditional global-prefix RH bridge; later identified as insufficient for the manuscript's uniform local criterion.
-- [x] **#43** — Anticipated: corrects the bridge to uniform local windows, proves the exact local frame layer and `H = 1` extraction, and preserves all remaining classical/realization obligations explicitly.
+- [x] **#43** — Corrected the bridge to uniform local windows, proved the exact local frame layer and `H = 1` extraction, and preserved all remaining classical/realization obligations explicitly.
+- [x] **#44** — Proves the exact geometric low/high reduction: translated-window low bound, total↔high local criterion, and high-sector criterion↔RH through the explicit bridge.
 
 ## 5. Theorem-layer completion checklist
 
@@ -147,58 +151,48 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 
 ### Phase V — corrected localization
 
-- [x] **21. Uniform local signed-frame and corrected RH criterion** — anticipated PR #43.
+- [x] **21. Uniform local signed-frame and corrected RH criterion** — PR #43.
 
-## 6. Current corrective checkpoint
+### Phase VI — geometric criterion equivalence
 
-Anticipated PR #43 adds `RHLean.Analysis.ActualStartLocalSignedFrame` and corrects `RHLean.Analysis.RiemannHypothesisBridge`.
+- [x] **22. Exact low/high geometric reduction** — PR #44.
 
-Principal local definitions:
+## 6. Current checkpoint
 
-- `actualStartLocalFrameEnergy`;
-- `actualStartLocalPredictionFrameEnergy`;
-- `actualStartLocalResidualFrameEnergy`;
-- `actualStartLocalSignedInteraction`.
+Principal definitions in `RHLean.Analysis.GeometricRHReduction`:
 
-Principal local theorems:
+- `localSequenceEnergy`;
+- `ActualStartGeometricPartition`;
+- `actualStartLocalLowEnergy`;
+- `actualStartLocalHighEnergy`;
+- `ActualStartHighUniformLocalBoundedStatement`.
 
-- `actualStart_localFrame_energy_identity`;
-- `actualStart_localResidualFrameEnergy_le`;
-- `actualStart_localSignedFrame_of_uniform_residual_bound`;
-- `actualStart_localSignedFrame`;
-- `actualStart_signedFrame_of_localSignedFrame`.
+Principal theorems:
 
-Corrected bridge definitions:
+- `actualStart_localLowEnergy_le`;
+- `actualStart_lowUniformLocalBounded`;
+- `actualStart_localFrameEnergy_le_two_low_add_high`;
+- `actualStart_localHighEnergy_le_two_total_add_low`;
+- `actualStart_uniformLocalBounded_iff_highUniformLocalBounded`;
+- `actualStart_highUniformLocalBounded_iff_riemannHypothesis`.
 
-- `ActualStartLocalSignedFrameStatement`;
-- `ActualStartUniformLocalBoundedStatement`;
-- `ActualStartPointwiseSquareBoundedStatement`;
-- `ActualStartRHBridge`.
-
-Corrected bridge theorems:
-
-- `actualStart_pointwiseSquareBounded_of_uniformLocalBounded`;
-- `actualStart_uniformLocalBounded_iff_riemannHypothesis`;
-- `riemannHypothesis_of_actualStartLocalSignedFrame`;
-- corrected `riemannHypothesis_of_compiled_actualStartClosure`.
-
-The exact criterion is now
+The architectural equivalence is now explicit:
 
 ```text
-∀ ε > 0, ∃ C ≥ 0, ∀ N H,
-  1 ≤ H → H ≤ N →
-  actualStartLocalFrameEnergy(start,N,H)
-    ≤ C * H * N^(2+ε).
+high-sector uniform local criterion
+  ↔ total square-prefix uniform local criterion
+  ↔ RiemannHypothesisStatement.
 ```
 
-The elementary `H = 1` extraction is proved. Prefix control is not used as a substitute for local control.
+The first equivalence is proved without any estimate of the low/high cross term. The second remains mediated by the explicit `ActualStartRHBridge`, because mathlib does not currently supply the concrete square-prefix Mertens realization and classical criterion as compiled project theorems.
 
 ## 7. Remaining obligations
 
+- construct the concrete square-prefix Mertens `ActualStartConfiguration`;
+- construct the concrete geometric low/high partition and discharge its pointwise low-sector bound;
+- formalize the classical RH-to-local Mertens direction inside Lean;
+- formalize the square-prefix interpolation implication to RH inside Lean;
 - prove the local prediction-energy estimate yielding `H N^(2+ε)`;
-- identify the actual-start coefficients with the square-prefix Mertens quantities;
-- formalize the RH-to-local Mertens direction;
-- formalize the pointwise square-prefix/Mertens interpolation implication to RH;
 - construct the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control.
 
 Merge-gating commands remain:
