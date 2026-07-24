@@ -25,7 +25,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-The root library imports forty-six theorem modules.
+The root library imports forty-seven theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -214,6 +214,14 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - proves the unaligned phase-defect identity and the complete boundary-plus-phase signed defect formula;
     - retains all Farey modes in one signed sum and takes energy only after that recombination.
 
+47. `RHLean.Proof.CompleteHighFamilyDecomposition`
+    - defines retained new-prime bases, their injective tripled-child image, and every remaining high channel as an explicit unpaired channel;
+    - proves the exact disjoint support decomposition `high = bases ⊔ children ⊔ unpaired`;
+    - proves the corresponding generic finite-sum decomposition without collapsing ordered orientations;
+    - defines complete all-mode transport contributions for channels, retained raw pairs, retained signed defects, child multiplicity correction, and unpaired channels;
+    - proves that the raw once-per-channel retained pair sum is the weighted signed-defect sum minus one child copy;
+    - proves the complete high-family identity with every retained defect, child correction, and unmatched contribution visible before any norm or Gram estimate.
+
 ## 2. Correction history
 
 PR #42 compiled an axiom-free conditional theorem with the global prefix target
@@ -250,6 +258,8 @@ PR #54 chooses the exact source-entry block as the finite high-height shell assi
 
 PR #55 formalizes that dynamical layer. The tripled packet is the suffix beginning at `⌊√(3cq)⌋`; the omitted base prefix is retained as an explicit boundary packet. On the common window, exact coefficient scaling and phase transport give phase-aligned cancellation, while the unaligned identity leaves precisely `(1-D)` times the common base packet. No unmatched channel, mode, or boundary term is silently removed.
 
+PR #56 completes the finite high-family bookkeeping. Retained new-prime bases and their injective tripled children form a disjoint paired support, every remaining high channel is retained explicitly, and the raw once-per-channel pair contribution is identified as the weighted PR #55 defect minus one child copy. Thus the full family is decomposed exactly without pretending that the factor-of-two transport identity is an ordinary set-pair cancellation.
+
 ## 3. Current checkpoint
 
 For every exact concrete geometric partition satisfying the pointwise low-sector bound, the compiled chain is
@@ -265,7 +275,7 @@ SquarePrefixHighUniformLocalBoundedStatement(partition)
 
 The first four equivalences are project-proved. The final direct integration theorem accepts the last classical equivalence as an argument of exactly matching proposition type.
 
-The concrete square-prefix Mertens value now has an exact normalized ordered-channel realization, an exact low/high signal partition at `|Y| ≤ Λ n`, finite reduced Farey modes with canonical modulus `2r`, concrete source-entry residual data, contiguous transport data, and a complete exact tripling identity whose defect is the finite boundary prefix plus the explicit phase mismatch on the common window.
+The concrete square-prefix Mertens value now has an exact normalized ordered-channel realization, an exact low/high signal partition at `|Y| ≤ Λ n`, finite reduced Farey modes with canonical modulus `2r`, concrete source-entry residual data, contiguous transport data, and a complete exact tripling identity whose defect is the finite boundary prefix plus the explicit phase mismatch on the common window. The complete finite high support is now split exactly into retained new-prime bases, their injective tripled children, and explicit unpaired channels; at contribution level, the full all-mode family is the retained signed defects minus the one-copy child multiplicity correction plus the unpaired contribution.
 
 The following remain analytically open or require concrete data, but are not Mertens/RH reconciliation gaps:
 
@@ -333,6 +343,11 @@ The following remain analytically open or require concrete data, but are not Mer
 - [x] **28. Concrete high-height shell choice, `ActualResidualData` constructor, amplitudes, and exact high-sector recombination** — PR #54.
 - [x] **29. Tripling-compatible packet transport and full signed defect identity** — PR #55.
 
+### Phase IX — complete high-family analytic interface
+
+- [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
+- [ ] **31. Uniform full-family signed Gram estimate with all cross interactions retained**.
+
 ## 5. Dependency spine
 
 ```text
@@ -348,6 +363,8 @@ concrete shell choice + ActualResidualData + high-sector recombination
         ↓
 tripling-compatible packet transport + exact signed defect
         ↓
+complete bases/children/unpaired decomposition + multiplicity correction
+        ↓
 full-family signed Gram estimate
         ↓
 local high-sector estimate
@@ -358,7 +375,9 @@ classical Mertens criterion ↔ RH
 The separate analytic proof program remains:
 
 ```text
-complete concrete joint family and defect recombination
+complete bases/children/unpaired family decomposition
+        ↓
+retained defect - child correction + unpaired recombination
         ↓
 full signed shell/cofactor/mode/row Gram estimate
         ↓

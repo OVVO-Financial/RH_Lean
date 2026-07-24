@@ -125,6 +125,7 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#53** — Defined the finite reduced Farey modes, exact tripling phase action, entry-shell assignment, and contiguous ordered-channel packet windows.
 - [x] **#54** — Chose the exact source-entry shell, constructed concrete high-sector `ActualResidualData`, defined singleton source-entry amplitudes, and proved exact high-sector recombination without collapsing ordered orientations.
 - [x] **#55** — Constructed concrete contiguous transport data and proved the complete tripling signed defect: finite boundary prefix plus explicit phase mismatch on the shared window; also restored the full branch-wide merge-gating workflow.
+- [x] **#56** — Decomposed the complete high support into retained new-prime bases, injective tripled children, and explicit unpaired channels; proved the raw-family multiplicity correction and complete all-mode contribution identity.
 
 ## 5. Theorem-layer completion checklist
 
@@ -181,6 +182,11 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **28. Concrete high-height shell choice, `ActualResidualData` constructor, amplitudes, and exact high-sector recombination** — PR #54.
 - [x] **29. Tripling-compatible packet transport and full signed defect identity** — PR #55.
 
+### Phase IX — complete high-family analytic interface
+
+- [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
+- [ ] **31. Uniform full-family signed Gram estimate with all cross interactions retained**.
+
 ## 6. Current checkpoint
 
 Principal definitions in `RHLean.Proof.ConcreteSquarePrefixHighResidual`:
@@ -228,11 +234,35 @@ Principal theorems added by PR #55:
 - `squarePrefixHighTriplingModeContribution_eq_defect`;
 - `squarePrefixHighTriplingModeContribution_energy_eq_defect`.
 
-The exact normalized channel arithmetic, high/low partition, finite Farey support, source-entry realization, contiguous transport windows, and one-pair all-mode signed defect are now compiled. The all-mode norm is taken only after signed recombination.
+Principal definitions in `RHLean.Proof.CompleteHighFamilyDecomposition`:
+
+- `squarePrefixHighTriplingBases`;
+- `squarePrefixHighTriplingChildren`;
+- `squarePrefixHighTriplingCovered`;
+- `squarePrefixHighUnpairedChannels`;
+- `squarePrefixHighChannelModeContribution`;
+- `squarePrefixHighTransportFamilyContribution`;
+- `squarePrefixHighRetainedDefectContribution`;
+- `squarePrefixHighRetainedChildCorrection`;
+- `squarePrefixHighUnpairedModeContribution`.
+
+Principal theorems added by PR #56:
+
+- `tripledCofactorChannel_injective`;
+- `squarePrefixHighTriplingBases_disjoint_children`;
+- `squarePrefixHighTriplingCovered_union_unpaired`;
+- `squarePrefixHighUnpairedChannels_reason`;
+- `sum_squarePrefixHighHeightChannels_eq_pairs_add_unpaired`;
+- `squarePrefixHighTransportFamilyContribution_eq_pair_add_unpaired`;
+- `squarePrefixHighChannelModeContribution_add_two_tripled_eq_defect`;
+- `squarePrefixHighChannelModeContribution_add_tripled_eq_defect_sub_tripled`;
+- `squarePrefixHighRetainedPairContribution_eq_defect_sub_childCorrection`;
+- `squarePrefixHighTransportFamilyContribution_eq_full_decomposition`.
+
+The exact normalized channel arithmetic, high/low partition, finite Farey support, source-entry realization, contiguous transport windows, one-pair all-mode signed defect, and complete finite high-family decomposition are now compiled. The all-mode norm is taken only after signed recombination, and the weighted `base + 2 * child` law remains distinct from the raw once-per-channel family sum.
 
 ## 7. Remaining obligations
 
-- construct the complete concrete tripling-pair/unpaired-channel decomposition for the full high family;
 - prove the uniform high-sector signed-Gram estimate, retaining cross-pair, cross-shell, cross-row, and cross-mode interactions;
 - prove the local prediction-energy estimate yielding `H N^(2+ε)`;
 - construct the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control;

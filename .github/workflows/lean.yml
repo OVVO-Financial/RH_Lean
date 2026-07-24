@@ -1,45 +1,33 @@
-name: Apply item 30 closeout
+name: Lean verification
 
 on:
   pull_request:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: item30-closeout-${{ github.ref }}
+  group: lean-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  closeout:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out PR branch
+      - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          ref: agent/complete-high-family-decomposition
-          fetch-depth: 0
 
-      - name: Update canonical ledgers and restore workflow
-        shell: bash
-        run: |
-          set -o pipefail
-          (
-            set -euo pipefail
-            python3 scripts/closeout_pr56.py
-            rm scripts/closeout_pr56.py
-            git diff --check
-            git config user.name "OVVO-Financial"
-            git config user.email "actions@users.noreply.github.com"
-            git add FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md .github/workflows/lean.yml scripts/closeout_pr56.py
-            git commit -m "Record complete high-family decomposition"
-            git push origin HEAD:agent/complete-high-family-decomposition
-          ) 2>&1 | tee closeout.log
+      - name: Audit unfinished proofs and axioms
+        run: bash scripts/audit_assumptions.sh
 
-      - name: Upload closeout diagnostic
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Build Lean project
+        uses: leanprover/lean-action@v1
         with:
-          name: closeout-diagnostic
-          path: closeout.log
+          use-mathlib-cache: true
+          build: true
+          build-args: "RHLean --wfail"
+          test: false
+          lint: false
