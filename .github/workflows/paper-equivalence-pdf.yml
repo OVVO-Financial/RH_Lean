@@ -23,6 +23,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref || github.ref_name }}
+          show-progress: false
 
       - name: Apply deterministic equivalence revision
         run: python paper/apply_equivalence_revision.py
