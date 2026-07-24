@@ -127,8 +127,10 @@ theorem actualStart_lowUniformLocalBounded
   have hpow : (N : ℝ) ^ 2 ≤ Real.rpow (N : ℝ) (2 + ε) := by
     rw [← Real.rpow_natCast]
     exact (Real.monotone_rpow_of_base_ge_one hbase) hexponent
-  have hcoefficient : 0 ≤ 4 * partition.lowConstant * (H : ℝ) := by
-    positivity
+  have hfourLow : 0 ≤ 4 * partition.lowConstant :=
+    mul_nonneg (by norm_num) partition.lowConstant_nonneg
+  have hcoefficient : 0 ≤ 4 * partition.lowConstant * (H : ℝ) :=
+    mul_nonneg hfourLow (Nat.cast_nonneg H)
   calc
     actualStartLocalLowEnergy partition N H ≤
         4 * partition.lowConstant * (H : ℝ) * (N : ℝ) ^ 2 :=
