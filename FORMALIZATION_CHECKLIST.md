@@ -126,6 +126,7 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#54** — Chose the exact source-entry shell, constructed concrete high-sector `ActualResidualData`, defined singleton source-entry amplitudes, and proved exact high-sector recombination without collapsing ordered orientations.
 - [x] **#55** — Constructed concrete contiguous transport data and proved the complete tripling signed defect: finite boundary prefix plus explicit phase mismatch on the shared window; also restored the full branch-wide merge-gating workflow.
 - [x] **#56** — Decomposed the complete high support into retained new-prime bases, injective tripled children, and explicit unpaired channels; proved the raw-family multiplicity correction and complete all-mode contribution identity.
+- [x] **#57** — Proved the concrete transport residual equals the complete high family and instantiated its exact shell/cofactor/mode/row signed joint Gram identity; kept the uniform analytic estimate explicit and open.
 
 ## 5. Theorem-layer completion checklist
 
@@ -185,7 +186,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 ### Phase IX — complete high-family analytic interface
 
 - [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
-- [ ] **31. Uniform full-family signed Gram estimate with all cross interactions retained**.
+- [x] **31. Concrete complete-family joint Gram realization** — PR #57.
+- [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained**.
 
 ## 6. Current checkpoint
 
@@ -259,7 +261,23 @@ Principal theorems added by PR #56:
 - `squarePrefixHighRetainedPairContribution_eq_defect_sub_childCorrection`;
 - `squarePrefixHighTransportFamilyContribution_eq_full_decomposition`.
 
-The exact normalized channel arithmetic, high/low partition, finite Farey support, source-entry realization, contiguous transport windows, one-pair all-mode signed defect, and complete finite high-family decomposition are now compiled. The all-mode norm is taken only after signed recombination, and the weighted `base + 2 * child` law remains distinct from the raw once-per-channel family sum.
+Principal definitions in `RHLean.Proof.ConcreteHighFamilyJointGram`:
+
+- `squarePrefixHighFullFamilyJointGramEnergy`;
+- `SquarePrefixHighFullFamilyJointGramEstimateAt`;
+- `SquarePrefixHighFullFamilyJointGramBoundedBy`.
+
+Principal theorems added by PR #57:
+
+- `actualResidualPacket_squarePrefixHighTransportData_offShell`;
+- `squarePrefixHighTransportModeSum_eq`;
+- `actualResidual_squarePrefixHighTransportData_eq_familyContribution`;
+- `squarePrefixHighTransportFamily_energy_eq_jointGram`;
+- `squarePrefixHighFullDecomposition_energy_eq_jointGram`;
+- `squarePrefixHighTransportFamily_energy_le_of_jointGramEstimate`;
+- `squarePrefixHighTransportFamily_energy_le_of_uniform_jointGramControl`.
+
+The exact normalized channel arithmetic, high/low partition, finite Farey support, source-entry realization, contiguous transport windows, one-pair all-mode signed defect, complete finite high-family decomposition, and concrete complete-family joint Gram realization are now compiled. The all-mode norm is taken only after signed recombination, the weighted `base + 2 * child` law remains distinct from the raw once-per-channel family sum, and the actual uniform Gram estimate remains an explicit open proposition.
 
 ## 7. Remaining obligations
 
