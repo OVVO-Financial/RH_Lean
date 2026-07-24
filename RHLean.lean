@@ -44,4 +44,5 @@ import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.SquarePrefixHeightPartition
 import RHLean.Proof.TriplingPacketTransport
 import RHLean.Proof.CompleteHighFamilyDecomposition
+import RHLean.Proof.ConcreteHighFamilyJointGram
 import RHLean.Verification.FiniteRangeCertificates
