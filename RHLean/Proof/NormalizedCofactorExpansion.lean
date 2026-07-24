@@ -127,10 +127,58 @@ theorem normalizedCofactorWeightRat_eq_on_fiber
   unfold normalizedCofactorWeightRat
   rw [mul_assoc, moebius_mul_cast_rat_of_coprime hcop, hprod]
 
+/-- The normalized sum over every ordered coprime product fiber equals the Möbius value. -/
+theorem normalizedFiber_eq_moebius_rat (m : ℕ) :
+    ∑ p ∈ orderedCoprimeFactorPairs m,
+        normalizedCofactorWeightRat p.1 p.2 =
+      (((μ m : ℤ) : ℚ)) := by
+  by_cases hm0 : m = 0
+  · subst m
+    simp [orderedCoprimeFactorPairs]
+  · by_cases hmu : μ m = 0
+    · have hmuRat : (((μ m : ℤ) : ℚ)) = 0 := by simp [hmu]
+      rw [hmuRat]
+      apply Finset.sum_eq_zero
+      intro p hp
+      rw [normalizedCofactorWeightRat_eq_on_fiber hp]
+      simp [hmu]
+    · have hsq : Squarefree m :=
+        ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmu
+      calc
+        (∑ p ∈ orderedCoprimeFactorPairs m,
+            normalizedCofactorWeightRat p.1 p.2) =
+            ∑ _p ∈ orderedCoprimeFactorPairs m,
+              alphaWeightRat m * (((μ m : ℤ) : ℚ)) := by
+          apply Finset.sum_congr rfl
+          intro p hp
+          exact normalizedCofactorWeightRat_eq_on_fiber hp
+        _ = ((orderedCoprimeFactorPairs m).card : ℚ) *
+              (alphaWeightRat m * (((μ m : ℤ) : ℚ))) := by
+          simp
+        _ = (((μ m : ℤ) : ℚ)) := by
+          rw [orderedCoprimeFactorPairs_card_of_squarefree m hsq]
+          unfold alphaWeightRat
+          push_cast
+          field_simp
+
+/-- The fibered normalized expansion is exactly the rational Mertens sum. -/
+theorem normalizedFiberExpansion_eq_mertens_rat (Q : ℕ) :
+    normalizedFiberExpansionRat Q = mertensSummatoryRat Q := by
+  unfold normalizedFiberExpansionRat mertensSummatoryRat
+  apply Finset.sum_congr rfl
+  intro m _
+  exact normalizedFiber_eq_moebius_rat m
+
 /-- Cast bridge from the rational companion to the existing complex Mertens sum. -/
 theorem mertensSummatoryRat_cast (Q : ℕ) :
     ((mertensSummatoryRat Q : ℚ) : ℂ) =
       RHLean.Analysis.mertensSummatory Q := by
   simp [mertensSummatoryRat, RHLean.Analysis.mertensSummatory]
+
+/-- The complex cast of the normalized fiber expansion equals the Analysis Mertens sum. -/
+theorem normalizedFiberExpansion_cast_eq_mertens (Q : ℕ) :
+    ((normalizedFiberExpansionRat Q : ℚ) : ℂ) =
+      RHLean.Analysis.mertensSummatory Q := by
+  rw [normalizedFiberExpansion_eq_mertens_rat, mertensSummatoryRat_cast]
 
 end RHLean.Proof
