@@ -43,7 +43,7 @@ theorem lowerMoebius_mul_normalizedChannelAmplitudeRat
         normalizedChannelAmplitudeRat
           { lowerCofactor := c, upperFactor := q } =
       normalizedCofactorWeightRat c q := by
-  unfold normalizedChannelAmplitudeRat normalizedCofactorWeightRat
+  simp only [normalizedChannelAmplitudeRat, normalizedCofactorWeightRat]
   ring
 
 /-- Pair-indexed form of the exact coefficient compatibility theorem. -/
@@ -52,8 +52,8 @@ theorem pairLowerMoebius_mul_normalizedChannelAmplitudeRat
     (((μ p.1 : ℤ) : ℚ)) *
         normalizedChannelAmplitudeRat (actualChannelOfPair p) =
       normalizedCofactorWeightRat p.1 p.2 := by
-  simpa [actualChannelOfPair] using
-    lowerMoebius_mul_normalizedChannelAmplitudeRat p.1 p.2
+  rcases p with ⟨c, q⟩
+  exact lowerMoebius_mul_normalizedChannelAmplitudeRat c q
 
 /-- The exact ordered-cofactor realization at the manuscript square-prefix
 endpoint, still valued in `ℚ`. -/
@@ -84,9 +84,9 @@ theorem squarePrefixCofactorExpansion_cast_eq_squarePrefixMertens
     ((squarePrefixCofactorExpansionRat n : ℚ) : ℂ) =
       RHLean.Analysis.squarePrefixMertens n := by
   rw [squarePrefixCofactorExpansionRat_eq_normalizedFiberExpansionRat]
-  simpa [RHLean.Analysis.squarePrefixMertens] using
-    normalizedFiberExpansion_cast_eq_mertens
-      (RHLean.Analysis.squarePrefixEndpoint n)
+  rw [RHLean.Analysis.squarePrefixMertens]
+  exact normalizedFiberExpansion_cast_eq_mertens
+    (RHLean.Analysis.squarePrefixEndpoint n)
 
 /-- Expanded finite-sum form of the concrete square-prefix cofactor
 realization. -/
