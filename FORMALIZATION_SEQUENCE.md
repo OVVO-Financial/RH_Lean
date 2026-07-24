@@ -25,7 +25,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-The root library imports thirty-nine theorem modules.
+The root library imports forty-two theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -165,6 +165,26 @@ and derives the sharp prefix inequality only from explicit signed absorption.
 
 No abstract start-sequence realization, indexing adapter, exponent adapter, localization adapter, or project-specific RH bridge remains in this final theorem.
 
+### Normalized cofactor arithmetic and concrete channel realization
+
+40. `RHLean.Proof.NormalizedCofactorExpansion`
+    - defines `α(n)=2^{-ω(n)}` over `ℚ`;
+    - proves the ordered coprime factor fiber has the exact normalized Möbius sum `μ(m)`;
+    - proves the normalized fiber expansion equals the concrete Mertens sum without changing indexing.
+
+41. `RHLean.Proof.NormalizedCofactorTripling`
+    - proves `α(3n)=α(n)/2` when `3 ∤ n`;
+    - proves the normalized tripling coefficient law `a(3c,q)=-a(c,q)/2`;
+    - proves exact child-plus-twice-parent cancellation over `ℚ` and `ℂ`.
+
+42. `RHLean.Proof.ConcreteSquarePrefixCofactorRealization`
+    - maps ordered factor pairs into `ActualCofactorChannel`;
+    - removes exactly the lower Möbius factor already supplied by `actualResidualEntry`;
+    - specializes the normalized expansion to `X_n=(n+1)^2-1`;
+    - proves exact recombination of `squarePrefixMertens` from normalized cofactor-channel values.
+
+These proof modules do not define shells, denominator modes, packet windows, a high/low point-cloud partition, or a concrete `ActualResidualData` instance.
+
 ## 2. Correction history
 
 PR #42 compiled an axiom-free conditional theorem with the global prefix target
@@ -189,6 +209,10 @@ PR #44 proved that exact signal recombination plus the elementary low-sector bou
 
 PR #45 closes the project-specific Mertens adapter. It fixes the exact endpoint `X_n=(n+1)^2-1`, proves square interpolation and all exponent/localization conversions, states the final geometric equivalence directly for the concrete square-prefix Mertens sequence, and adds a theorem accepting the classical Mertens↔RH equivalence itself.
 
+PR #49 corrects the factor-channel arithmetic. The unweighted factor-pair sum overcounts squarefree integers; the exact ordered expansion uses `2^{-ω(cq)}` and forces the tripling ratio `1:-1/2`, hence child plus twice parent cancellation.
+
+PR #50 adds the first exact realization bridge from that normalized arithmetic to the cofactor-channel convention used by `ActualResidualData`. It deliberately stops before shells, modes, packets, and the high/low point-cloud decomposition.
+
 ## 3. Current checkpoint
 
 For every exact concrete geometric partition satisfying the pointwise low-sector bound, the compiled chain is
@@ -204,10 +228,19 @@ SquarePrefixHighUniformLocalBoundedStatement(partition)
 
 The first four equivalences are project-proved. The final direct integration theorem accepts the last classical equivalence as an argument of exactly matching proposition type.
 
+The concrete square-prefix value also has an exact normalized ordered cofactor-channel recombination:
+
+```text
+squarePrefixMertens(n)
+  = ∑_{m≤X_n} ∑_{(c,q): cq=m, gcd(c,q)=1}
+      μ(c) * (2^{-ω(cq)} μ(q)).
+```
+
 The following remain analytically open or require concrete data, but are not Mertens/RH reconciliation gaps:
 
-- proving the high-sector signed-Gram estimate itself;
+- supplying the manuscript's intended shell, mode, and packet decomposition as a concrete `ActualResidualData` constructor under `RHLean/Proof/`;
 - supplying the manuscript's intended low/high point-cloud partition as a `SquarePrefixGeometricPartition`;
+- proving the high-sector signed-Gram estimate itself;
 - proving the local prediction-energy estimate yielding `H N^(2+ε)`;
 - constructing the concrete finite-range realization, asymptotic contraction, exact start, and local signed-interaction control.
 
@@ -261,10 +294,20 @@ The following remain analytically open or require concrete data, but are not Mer
   - removes `ActualStartSquarePrefixRealization` and `ActualStartRHBridge` from the final concrete theorem;
   - adds a direct theorem accepting the classical Mertens↔RH equivalence itself.
 
+### Phase VIII — normalized cofactor realization
+
+- [x] **24. Normalized ordered cofactor expansion and tripling arithmetic** — PR #49.
+- [ ] **25. Concrete square-prefix cofactor-channel realization** — PR #50.
+- [ ] **26. Concrete shell/mode/packet residual constructor** — next dependency after PR #50.
+
 ## 5. Dependency spine
 
 ```text
-exact arithmetic, factor geometry, and modulus-2r phase structure
+exact normalized ordered cofactor expansion
+        ↓
+exact square-prefix cofactor-channel realization
+        ↓
+concrete shell / mode / contiguous packet realization
         ↓
 exact concrete square-prefix low/high geometric partition
         ↓
