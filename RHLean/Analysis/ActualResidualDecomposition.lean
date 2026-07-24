@@ -160,9 +160,7 @@ theorem actualResidual_eq_resonant_add_nonresonant
     actualResidual data =
       resonantActualResidual skeleton M data +
         nonresonantActualResidual skeleton M data := by
-  simpa [resonantActualResidual, nonresonantActualResidual] using
-    (resonantComponent_add_nonresonantComponent
-      skeleton M (actualResidual data)).symm
+  simp [resonantActualResidual, nonresonantActualResidual]
 
 /--
 The actual residual enters the leakage and Lyapunov layers as their already
