@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports thirty-one theorem modules.
+The root library currently imports thirty-two theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -195,7 +195,7 @@ The root library currently imports thirty-one theorem modules.
     - a single full joint-Gram control and recursive-control interface;
     - no independent shell, cofactor, row, or denominator-mode positivity or smallness claim.
 
-### Certified verification boundary
+### Certified verification and closure boundary
 
 31. `RHLean.Verification.FiniteRangeCertificates`
     - explicit code-version, source-commit, external data-checksum, and recomputed numeric payload-checksum metadata;
@@ -206,42 +206,55 @@ The root library currently imports thirty-one theorem modules.
     - executable `checkFiniteRangeCertificate` with a proved soundness theorem and an accepted-certificate boundary;
     - no numerical run, numerical constant, uniform residual bound, or RH claim.
 
+32. `RHLean.Analysis.UniformResidualBound`
+    - an explicit realization structure tying accepted checked energy numerators to the actual signed joint-Gram energy at each certified scale;
+    - a canonical finite-range base bound computed internally as the sum of absolute checked energy numerators divided by the positive common denominator;
+    - an asymptotic-control structure retaining the strict ancestor descent, one complete signed joint-Gram recurrence, and the actual weighted forcing bound;
+    - a uniform theorem for `‖actualResidual(M)‖²` obtained from the compiled affine invariant bound;
+    - no componentwise shell/cofactor/row/mode estimate, automatic certificate realization, automatic asymptotic contraction, numerical run, or RH claim.
+
 ## 2. Current checkpoint
 
-Phase I, Phase II, and Phase III are complete. Phase IV items 13 through 16 are completed by PRs #35 through #38. Phase IV item 17, the certified finite-range certificate checker, is completed on the implementation branch for anticipated PR #39.
+Phase I, Phase II, and Phase III are complete. Phase IV items 13 through 17 are completed by PRs #35 through #39. Phase IV item 18, the uniform full residual closure theorem, is completed on the implementation branch for anticipated PR #40.
 
-Generated data are represented by a `FiniteRangeCertificate` carrying:
-
-```text
-code version, source commit, external data checksum,
-recomputed numeric payload checksum,
-range endpoints, common value denominator,
-contraction numerator/denominator, and ordered rows.
-```
-
-Each row retains exact resonant/nonresonant decomposition checkpoints, prime totals and residue-class counts, and the complete signed joint-Gram payload. The checker verifies the declared joint cardinality
+The finite base range is represented by an accepted certificate plus `ActualFiniteRangeJointGramRealization`. This realization is intentionally separate from acceptance: the executable checker proves that the generated payload is internally valid, while the realization theorem identifies each checked integer numerator with the corresponding mathematical value
 
 ```text
-shellCount * cofactorCount * denominatorModeCount * 2,
+valueDenominator * actualJointGramEnergy(M) = claimedJointEnergy(M).
 ```
 
-checks the diagonal and strict off-diagonal term counts, reconstructs
+The canonical base bound is computed from the certificate itself:
 
 ```text
-claimedJointEnergy
-  = sum(diagonalTerms) + 2 * sum(offDiagonalTerms),
+sum_M |claimedJointEnergy(M)| / valueDenominator.
 ```
 
-and verifies the denominator-cleared recurrence inequality without independently bounding any shell, cofactor, residual row, or denominator mode.
+Above the certified range, `ActualJointGramAsymptoticControl` keeps the remaining analytic obligations explicit:
 
-The executable checker is defined by decision of a trusted proposition, and `checkFiniteRangeCertificate_sound` proves that a successful check implies the full proposition. Numerical data can cross the import boundary only through `AcceptedFiniteRangeCertificate`, which requires a proof that the checker returned `true`. This PR deliberately imports no numerical run.
+```text
+ancestor(M) < M,
+actualJointGramEnergy(M)
+  ≤ rho * actualJointGramEnergy(ancestor(M))
+    + actualWeightedForcingBound(M),
+actualWeightedForcingBound(M) ≤ forcingBound,
+0 ≤ rho < 1.
+```
 
-No numerical finite-range conclusion, contraction constant, decay law, uniform residual bound, actual-start theorem, or RH statement is introduced.
+The compiled affine descent theorem then gives, for every scale `M`,
+
+```text
+‖actualResidual(M)‖²
+  ≤ affineInvariantBound rho forcingBound certificateBaseBound.
+```
+
+The result controls the exact full signed residual energy through `actualResidual_energy_eq_jointGram`. It does not replace the signed recombination by independent positive component bounds and does not assert that certificate realization or asymptotic control is automatic.
+
+No numerical run, unchecked constant, actual-start theorem, or RH statement is introduced.
 
 The following remain open:
 
-- the uniform full residual bound;
-- the actual-start signed-frame theorem and final RH bridge.
+- the actual-start signed-frame theorem;
+- the final RH bridge.
 
 ## 3. Formalization sequence from the current checkpoint
 
@@ -271,46 +284,20 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
 ### Phase IV — number-theoretic closure
 
 - [x] **13. Resonant/nonresonant decomposition of the actual residual** — completed by PR #35.
-  - defines explicit cofactor channels and their exact cofactor-parabola geometry;
-  - retains the scale, shell, cofactor, denominator-mode, packet-start, packet-length, and packet-index arguments;
-  - uses the exact Möbius weight, fixed packet, and canonical complex quadratic phase;
-  - defines the resonant component by the scale-dependent extraction and the nonresonant component as the exact remainder;
-  - proves only declared-span membership and exact algebraic recombination;
-  - packages the result as the separately typed state used by later leakage and Lyapunov theorems.
-
 - [x] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — completed by PR #36.
-  - defines explicit odd/base and doubled cofactor channels with the upper factor retained;
-  - records channel membership and exact packet compatibility separately for every retained denominator mode;
-  - factors the actual packet and its extracted component by the exact complex Möbius scalar;
-  - proves exact per-mode, joint denominator-mode, and finite certified-pair-family cancellation;
-  - makes no exhaustive-pairing, unpaired-term, low-height, endpoint, boundary, contraction, or smallness claim.
-
 - [x] **15. Low-height spacing, incidence, endpoint, and boundary estimates** — completed by PR #37.
-  - derives low-height incidence from positive spacing and a finite height cutoff;
-  - proves separate resonant and nonresonant low-height finite-sum estimates;
-  - retains left/right endpoint and finite boundary sources separately;
-  - instantiates the six forcing fields of the compiled leakage operator without changing its four block maps;
-  - proves rowwise and weighted forcing bounds, with no unproved decay or contraction claim.
-
 - [x] **16. Joint Gram control** — completed by PR #38.
-  - indexes simultaneously by height shell, actual cofactor channel, denominator mode, and residual row;
-  - proves exact packet-row and full-index recombination to the actual residual;
-  - retains every signed off-diagonal interaction in one complete Gram expression;
-  - exposes direct and recursive full-joint-Gram control interfaces;
-  - makes no numerical, finite-range, uniform-bound, or RH claim.
+- [x] **17. Certified finite-range certificate checker** — completed by PR #39.
+- [x] **18. Uniform full residual bound** — anticipated PR #40.
+  - separates accepted-certificate validity from mathematical realization of the checked energies;
+  - computes the finite base bound from checked payload data rather than accepting an external maximum;
+  - retains the full signed joint-Gram recurrence and actual weighted forcing bound as explicit asymptotic control;
+  - proves the uniform actual residual-energy inequality through the compiled affine invariant theorem;
+  - makes no automatic realization, automatic contraction, numerical-run, actual-start, or RH claim.
 
-- [x] **17. Certified finite-range certificate checker** — anticipated PR #39.
-  - defines explicit metadata expectations and recomputes a deterministic checksum from every numeric payload field;
-  - verifies exact decomposition checkpoints, prime/residue counts, complete joint cardinality, and all diagonal/off-diagonal term counts;
-  - reconstructs the full signed joint energy and checks the scaled recurrence inequality for every ordered range row;
-  - proves executable-checker soundness and exposes an accepted-certificate import boundary;
-  - imports no numerical run and proves no finite numerical conclusion.
-
-- [ ] **18. Uniform full residual bound** — next dependency.
-  - instantiate the weighted affine closure with all analytic obligations discharged.
-
-- [ ] **19. Actual-start signed-frame theorem**.
-  - derive the theorem from the unconditional residual bound and exact starting configuration.
+- [ ] **19. Actual-start signed-frame theorem** — next dependency.
+  - derive the theorem from the uniform residual theorem and exact starting configuration;
+  - keep every required realization and asymptotic-control instance explicit.
 
 - [ ] **20. RH bridge**.
   - add only after every unconditional obligation above has been formally proved;
@@ -345,9 +332,9 @@ low-height, endpoint, and boundary forcing estimates
         ↓
 full joint signed Gram control
         ↓
-certified finite-range checker
+certified finite-range checker and mathematical realization
         ↓
-uniform full residual bound
+uniform full residual bound from explicit asymptotic control
         ↓
 actual-start signed-frame theorem
         ↓
