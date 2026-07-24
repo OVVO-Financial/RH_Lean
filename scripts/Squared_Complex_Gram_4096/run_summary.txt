@@ -1,0 +1,23 @@
+Square-prefix squared-complex-space reproducibility run v3
+N_max: 4096
+X_max: 16785408
+prime_count: 1078362
+squarefree_sources_m_ge_2: 10204280
+max_observed_canonical_cofactor: 692835
+max_dyadic_cofactor_threshold: 16777216
+
+Exact checks
+max_abs_S_minus_A_plus_T: 0
+nonzero_prefix_identity_errors: 0
+norm_identity_violations: 0
+cofactor_curve_identity_violations: 0
+height_lifetime_violations: 0
+cofactor_cascade_full_error: 0
+
+Local-ratio log-log slope: -0.004947461592
+
+Interpretation
+R_C(x)=1-sum_{c<=C} mu(c)[pi(x/c)-pi(Pplus(c))].
+At the largest dyadic threshold, R_C(X_n)=M(X_n) exactly for all tested n.
+The c=1 curve alone has order N^5/log^2(N) energy; the cascade records how
+successive cofactor scales cancel that coherent prime contribution.

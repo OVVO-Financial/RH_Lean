@@ -1,0 +1,6 @@
+lambda,n_min,n_max,general_count_bound,observed_max_total_count,n_at_max_total_count,odd_count_bound,observed_max_odd_count,even_count_bound,observed_max_even_count,general_incidence_bound,observed_max_total_incidence,n_at_max_total_incidence,odd_incidence_bound,observed_max_odd_incidence,even_incidence_bound,observed_max_even_incidence
+1.0,128,4096,0,0,128,0,0,1,0,0.0,0,128,0.0,0,3.0,0
+2.0,128,4096,2,1,130,1,0,1,1,10.0,1,130,5.0,0,5.0,1
+4.0,128,4096,4,2,137,2,1,2,1,36.0,4,155,18.0,2,18.0,2
+8.0,128,4096,8,4,193,4,2,4,2,136.0,10,193,68.0,6,68.0,5
+16.0,128,4096,16,6,395,8,3,8,3,528.0,26,765,264.0,16,264.0,13
