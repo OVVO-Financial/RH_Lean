@@ -2,7 +2,7 @@
 
 This document is the canonical implementation order for `RH_Lean`.
 
-It records only what is actually compiled on `main`, distinguishes completed algebraic layers from still-open analytic obligations, and orders future work by theorem dependency rather than by narrative order in the research notes.
+It records only what is actually compiled on the implementation branch, distinguishes completed algebraic layers from still-open analytic obligations, and orders future work by theorem dependency rather than by narrative order in the research notes.
 
 The governing invariants remain unchanged:
 
@@ -14,7 +14,7 @@ The governing invariants remain unchanged:
 
 ## 1. Compiled inventory
 
-The root library currently imports twenty-six theorem modules.
+The root library currently imports twenty-seven theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -87,7 +87,7 @@ The root library currently imports twenty-six theorem modules.
 14. `RHLean.Analysis.ReducedSquareClassMod40`
     - reusable reduced square-class predicate with exact classes `1` and `9`;
     - exact reduction of the modulus-`40` quadratic numerator to its square residue;
-    - exact theorem that every eligible prime phase at `r = 20` lies in one of two complex square-class modes;
+    - every eligible prime phase at `r = 20` lies in one of two complex square-class modes;
     - no coefficient, multiplicity, cancellation, or reinforcement claim.
 
 ### Factor geometry
@@ -126,7 +126,7 @@ The root library currently imports twenty-six theorem modules.
 ### Kernel foundations
 
 21. `RHLean.Kernel.FixedPackets`
-    - fixed-packet definitions and exact packet identities used by the later kernel and Gram layers.
+    - fixed-packet definitions and exact packet identities used by later kernel and Gram layers.
 
 ### Exact signed Hilbert/Gram machinery
 
@@ -160,78 +160,60 @@ The root library currently imports twenty-six theorem modules.
     - full weighted block-contraction closure with all base, descent, contraction, and forcing hypotheses explicit;
     - decay-weighted forcing corollary with no number-theoretic instantiation.
 
+27. `RHLean.Analysis.ActualResidualDecomposition`
+    - explicitly indexed cofactor channels with exact squared-map geometry;
+    - finite scale-`M` shell, cofactor, denominator-mode, packet-start, packet-length, and packet-index data;
+    - exact Möbius-weighted complex quadratic packet entries using the canonical modulus `2r`;
+    - full signed cofactor/mode shell sums and full shell recombination;
+    - scale-dependent resonant extraction, exact algebraic remainder, span membership, and exact recombination;
+    - direct packaging as `ResonantNonresonantState ℂ ℂ` for the leakage and Lyapunov layers.
+
 ## 2. Current checkpoint
 
-Phase I and Phase II are complete. Phase III item 8, the exact height-shell Gram identity, is completed by PR #30. Phase III item 9, the orthogonal residual, is completed by PR #31. Phase III item 10, the scale-dependent resonant projection skeleton, is completed by PR #32. Phase III item 11, the explicit resonant/nonresonant leakage operator, is completed by PR #33. Phase III item 12, the abstract weighted affine Lyapunov closure, is completed by PR #34.
+Phase I, Phase II, and Phase III are complete. Phase IV item 13, the resonant/nonresonant decomposition of the actual residual, is completed by PR #35.
 
-The library now contains:
+The library now contains the exact arithmetic, geometry, modulus-`2r` phase, fixed-packet, signed shell, projection, leakage, and abstract Lyapunov layers, together with an explicit actual residual whose indices remain visible:
 
-- integer exponent congruence modulo `2r`;
-- the exact complex quadratic phase and full-period invariance;
-- the exact shift-by-`r` sign law;
-- the reduced unit-group Gauss sum over `(ZMod (2*r))ˣ`;
-- exact modulus-6 and modulus-24 coherence;
-- the normalized `(a,r)=(1,3)` factor and its norm-one theorem;
-- a dedicated rational cell-mask module with exact mean `1/3` and squared mean-mode energy `1/9`;
-- exact `2ab` finite-difference geometry, including the linear common-shift displacement `h(q-c)` and exact vertical-window lifetime criterion;
-- exact reduced square-class phase support modulo `40`: every eligible prime phase at `r = 20` is one of the class-`1` or class-`9` modes;
-- the exact height-shell energy expansion
+```text
+actualResidual(M)
+  = ∑ shell
+      ∑ cofactor channel
+        ∑ denominator mode
+          fixedPacket(
+            μ(cofactor) * amplitude * quadraticPhase(a,r,k)
+          ).
+```
 
-  ```text
-  ‖∑_{i<n} S_i‖²
-  = ∑_{i<n} ‖S_i‖²
-    + 2 * ∑_{j<n} ∑_{i<j} re⟪S_i,S_j⟫;
-  ```
+For the scale-dependent extraction:
 
-- for nonzero `P`, the exact orthogonal decomposition
+```text
+R_M = extraction M actualResidual(M),
+N_M = actualResidual(M) - R_M,
+actualResidual(M) = R_M + N_M.
+```
 
-  ```text
-  beta_orth = ⟪P,B⟫ / ⟪P,P⟫,
-  E_orth = B - beta_orth • P,
-  ⟪P,E_orth⟫ = ⟪E_orth,P⟫ = 0,
-  ‖B‖² = ‖E_orth‖² + ‖beta_orth • P‖²;
-  ```
+The pair is packaged exactly as
 
-- a scale-dependent resonant skeleton with positive denominators `r ≤ R0(M)`, canonical phase period `2r`, a declared resonant span, and the exact algebraic decomposition
+```text
+ResonantNonresonantState ℂ ℂ
+```
 
-  ```text
-  x_res(M) + x_non(M) = x,
-  x_non(M) = x - x_res(M);
-  ```
+and therefore is the concrete state shape consumed by the compiled leakage and Lyapunov layers.
 
-- the exact two-row affine block recurrence
-
-  ```text
-  R_M = A_M R_parent + B_M N_parent
-        + f_R^low + f_R^endpoint + f_R^boundary,
-  N_M = C_M R_parent + D_M N_parent
-        + f_N^low + f_N^endpoint + f_N^boundary.
-  ```
-
-- the abstract weighted affine closure
-
-  ```text
-  L_M ≤ rho * L_parent + forcing_M,
-  0 ≤ rho < 1,
-  forcing_M ≤ C
-  ⇒
-  L_M ≤ max B0 (C / (1 - rho))
-  ```
-
-  along every strictly descending ancestor chain, with the initial-range bound, descent hypothesis, contraction inequality, and forcing bound all explicit.
-
-The shell sum remains inside the norm, and no off-diagonal real inner product is discarded or replaced by a shellwise positivity or independent-smallness estimate. The theorem-predicted coefficient remains separate from the true orthogonal coefficient. The scale-dependent extraction is not assumed idempotent, self-adjoint, or orthogonal. Both leakage directions and all forcing channels remain visible. The Lyapunov theorem assumes a full weighted block contraction; it does not infer that contraction from the affine recurrence and introduces no number-theoretic estimate.
+The canonical denominator modulus remains `2 * r`. The prime-3 rational cell-mask mechanism remains in its separate namespace and does not enter this residual definition. No orthogonality, idempotence, self-adjointness, Pythagorean identity, cancellation, contraction, triangularity, zero leakage, smallness, boundary estimate, numerical verification, uniform bound, or RH statement is introduced.
 
 The following remain open:
 
-- resonant/nonresonant decomposition of the actual residual;
-- explicit number-theoretic resonant cancellation and low-height control;
+- explicit resonant cancellation across Möbius-weighted cofactor channels;
+- low-height spacing, incidence, endpoint, and boundary estimates;
+- joint signed Gram control retaining all cross interactions;
 - certified finite-range verification;
-- actual-start signed-frame theorem and the final RH bridge.
+- the uniform full residual bound;
+- the actual-start signed-frame theorem and final RH bridge.
 
 ## 3. Formalization sequence from the current checkpoint
 
-Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means merged and compiled on `main`; `[ ]` means still open.
+Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means completed on the implementation branch and anticipated for the stated PR; `[ ]` means still open.
 
 ### Phase I — corrected complex quadratic-phase layer
 
@@ -243,61 +225,30 @@ Each item is a small, reviewable PR. The checkbox is authoritative: `[x]` means 
 ### Phase II — remaining exact combinatorial and geometry layers
 
 - [x] **5. Prime-3 cell-mask mean energy** — completed by PR #27.
-  - introduced the dedicated `RHLean.CellMask` namespace and module;
-  - proved the exact rational-valued mean and squared mean-mode energy;
-  - preserved strict separation from the complex quadratic prime-phase factor.
-
 - [x] **6. `2ab` displacement and lifetime geometry** — completed by PR #28.
-  - formalized exact finite differences of the imaginary squared coordinate;
-  - proved common factor translation has exact linear displacement `h(q-c)`;
-  - stated parity-preserving scan, monotonicity, and lifetime/window identities before asymptotic inequalities;
-  - kept all order and positivity assumptions explicit.
-
 - [x] **7. Reduced square-class phase support modulo `40`** — completed by PR #29.
-  - factored the merged prime-square dichotomy into a reusable reduced-square-class API;
-  - proved the canonical phase at `r = 20` has at most the exact class-`1` and class-`9` modes for eligible primes;
-  - made no reinforcement or coefficient claim.
 
 ### Phase III — exact signed Hilbert/Gram machinery
 
 - [x] **8. Height-shell Gram identity** — completed by PR #30.
-  - defined the ordered full shell sum, diagonal energy, and exact unordered-pair Gram sum;
-  - proved the exact energy expansion over real or complex inner-product spaces;
-  - retained every off-diagonal real inner product and kept the full signed shell sum inside the norm;
-  - introduced no shellwise positivity or independent-smallness substitute.
-
 - [x] **9. Orthogonal residual** — completed by PR #31.
-  - defined the true coefficient `⟪P,B⟫ / ⟪P,P⟫` for nonzero `P` using mathlib's second-argument linearity;
-  - defined the corresponding residual and proved orthogonality in both inner-product orientations;
-  - proved exact recombination and Pythagorean energy decomposition;
-  - defined theorem-predicted subtraction and residual separately, with equality to the orthogonal residual requiring a separate coefficient-equality hypothesis.
-
 - [x] **10. Scale-dependent resonant projection skeleton** — completed by PR #32.
-  - defined scale-dependent resonant mode indices with positive denominator `r ≤ R0(M)`;
-  - defined the exact quadratic mode and proved its canonical `2r` periodicity;
-  - defined the resonant span and a scale-dependent linear extraction into that span;
-  - proved only the algebraic resonant/nonresonant recombination, with no idempotence, orthogonality, or Pythagorean claim.
-
 - [x] **11. Explicit resonant/nonresonant leakage operator** — completed by PR #33.
-  - exposed the four scale-dependent block maps `A_M`, `B_M`, `C_M`, and `D_M`;
-  - typed the two state spaces and both leakage directions separately;
-  - kept low-height, endpoint, and boundary forcing explicit in both recurrence rows;
-  - proved the exact affine recurrence and introduced no contraction, triangularity, or norm estimate.
-
 - [x] **12. Abstract weighted affine Lyapunov closure** — completed by PR #34.
-  - defined a weighted Lyapunov value on the full separately typed resonant/nonresonant state;
-  - proved the explicit invariant bound for a descending affine recurrence with `0 ≤ rho < 1`;
-  - specialized the theorem to full weighted block contraction and decay-weighted forcing;
-  - kept every base-range, descent, contraction, forcing, and decay hypothesis explicit and introduced no number-theoretic estimate.
 
 ### Phase IV — number-theoretic closure
 
-- [ ] **13. Resonant/nonresonant decomposition of the actual residual** — next dependency.
-  - connect the complex quadratic phase and cofactor channels to the scale-dependent projection.
+- [x] **13. Resonant/nonresonant decomposition of the actual residual** — completed by PR #35.
+  - defines explicit cofactor channels and their exact cofactor-parabola geometry;
+  - retains the scale, shell, cofactor, denominator-mode, packet-start, packet-length, and packet-index arguments;
+  - uses the exact Möbius weight, fixed packet, and canonical complex quadratic phase;
+  - defines the resonant component by the scale-dependent extraction and the nonresonant component as the exact remainder;
+  - proves only declared-span membership and exact algebraic recombination;
+  - packages the result as the separately typed state used by later leakage and Lyapunov theorems.
 
-- [ ] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels**.
+- [ ] **14. Explicit resonant cancellation across Möbius-weighted cofactor channels** — next dependency.
   - retain denominator-mode and cofactor interactions;
-  - do not seek shellwise positivity.
+  - do not seek shellwise positivity or independent mode bounds.
 
 - [ ] **15. Low-height spacing, incidence, endpoint, and boundary estimates**.
   - prove the analytic forcing bounds required by the block recurrence.
@@ -337,13 +288,17 @@ exact full signed height-shell Gram identity
         ↓
 true orthogonal residual
 +
-scale-dependent resonant/nonresonant decomposition
+scale-dependent resonant/nonresonant projection
 +
-full signed shell/cofactor/mode Gram identity
+actual residual with explicit shell/cofactor/denominator/packet indexing
 +
-explicit leakage operator and forcing
+explicit leakage operator and abstract Lyapunov closure
         ↓
-weighted affine block contraction
+explicit resonant cancellation across Möbius-weighted cofactor channels
+        ↓
+low-height and boundary forcing estimates
+        ↓
+full joint signed Gram contraction
         ↓
 uniform full residual bound
         ↓
