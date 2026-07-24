@@ -267,7 +267,7 @@ theorem actualResidual_squarePrefixHighResidualData_eq_channelSum
       Finset.range (squarePrefixEntryShellCount n) :=
     Finset.mem_range.mpr (squarePrefixHighShell_lt_shellCount hchannel)
   rw [Finset.sum_eq_single (squarePrefixHighShell channel)]
-  · rfl
+  · simp
   · intro shell _ hne
     simp [hne]
   · intro hnot
