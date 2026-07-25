@@ -47,6 +47,7 @@ import RHLean.Proof.TriplingPacketTransport
 import RHLean.Proof.CompleteHighFamilyDecomposition
 import RHLean.Proof.ConcreteHighFamilyJointGram
 import RHLean.Proof.CanonicalHighSectorBridge
+import RHLean.Proof.CanonicalLowOccupancy
 import RHLean.Proof.CanonicalHighSectorCovariance
 import RHLean.Proof.RealSquareBlockIncrements
 import RHLean.Proof.SquareBlockPartialMomentBalance
