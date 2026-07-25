@@ -42,30 +42,31 @@ def signedPowerNat (d : ℕ) (x : ℝ) : ℝ :=
 /-- Upper partial moment of natural degree `d` over a finite index set. -/
 def upperPartialMomentNat {ι : Type*}
     (d : ℕ) (s : Finset ι) (x : ι → ℝ) : ℝ :=
-  ∑ i in s, positivePart (x i) ^ d
+  ∑ i ∈ s, positivePart (x i) ^ d
 
 /-- Lower partial moment of natural degree `d` over a finite index set. -/
 def lowerPartialMomentNat {ι : Type*}
     (d : ℕ) (s : Finset ι) (x : ι → ℝ) : ℝ :=
-  ∑ i in s, negativePart (x i) ^ d
+  ∑ i ∈ s, negativePart (x i) ^ d
 
 /-- Signed natural-power moment over a finite index set. -/
 def signedPowerMomentNat {ι : Type*}
     (d : ℕ) (s : Finset ι) (x : ι → ℝ) : ℝ :=
-  ∑ i in s, signedPowerNat d (x i)
+  ∑ i ∈ s, signedPowerNat d (x i)
 
 /-- Absolute natural-power mass over a finite index set. -/
 def absolutePowerMomentNat {ι : Type*}
     (d : ℕ) (s : Finset ι) (x : ι → ℝ) : ℝ :=
-  ∑ i in s, |x i| ^ d
+  ∑ i ∈ s, |x i| ^ d
 
 /-- The upper-minus-lower partial moment is exactly the signed power moment. -/
 theorem upperPartialMomentNat_sub_lowerPartialMomentNat
     {ι : Type*} (d : ℕ) (s : Finset ι) (x : ι → ℝ) :
     upperPartialMomentNat d s x - lowerPartialMomentNat d s x =
       signedPowerMomentNat d s x := by
-  simp [upperPartialMomentNat, lowerPartialMomentNat,
-    signedPowerMomentNat, signedPowerNat, Finset.sum_sub_distrib]
+  unfold upperPartialMomentNat lowerPartialMomentNat signedPowerMomentNat
+  rw [← Finset.sum_sub_distrib]
+  rfl
 
 /-- At every positive natural degree, the sum of the two pointwise partial
 powers is the corresponding absolute power. -/
@@ -99,11 +100,11 @@ theorem upperPartialMomentNat_add_lowerPartialMomentNat
 
 /-- The ordinary finite signed sum. -/
 def finiteSignedSum {ι : Type*} (s : Finset ι) (x : ι → ℝ) : ℝ :=
-  ∑ i in s, x i
+  ∑ i ∈ s, x i
 
 /-- The ordinary finite absolute mass. -/
 def finiteAbsoluteMass {ι : Type*} (s : Finset ι) (x : ι → ℝ) : ℝ :=
-  ∑ i in s, |x i|
+  ∑ i ∈ s, |x i|
 
 /-- Degree-one upper partial mass. -/
 def upperPartialMass {ι : Type*} (s : Finset ι) (x : ι → ℝ) : ℝ :=
