@@ -77,8 +77,8 @@
   {\end{quote}}
 
 \title{\textbf{A Squared-Complex Framework for Square-Prefix M\"obius Sums}\\[0.5em]
-\large Exact arithmetic, cofactor geometry, signed Gram structure,\\
-an RH-equivalent local criterion, and Lean formalization}
+\large Exact arithmetic, canonical cofactor geometry, the elementary pointwise bridge,\\
+and axiom-free Lean formalization}
 \author{Fred Viole\\OVVO Labs}
 \date{July 2026}
 
@@ -91,43 +91,56 @@ an RH-equivalent local criterion, and Lean formalization}
 \maketitle
 
 \begin{abstract}
-This paper develops a geometric and formal framework for square-prefix values of the Mertens function.  At the complete cutoff
+This paper develops an exact geometric framework for square-prefix values of the Mertens function.  At the complete cutoff
 \[
  X_n=(n+1)^2-1,
 \]
-a squarefree integer cannot contain two prime factors larger than $n+1$.  This elementary observation gives an exact smooth--transport decomposition
+a squarefree integer cannot contain two prime factors larger than $n+1$.  This gives the exact smooth--transport decomposition
 \[
  S_n=M(X_n)=A_n-T_n,
 \]
 where $A_n$ is the signed mass already smooth at the square-root cutoff and $T_n$ records sources with one prime factor still beyond it.
 
-The arithmetic is then placed in squared complex coordinates.  For a factor pair $cq=m$, write
+Each squarefree source $m>1$ has a unique canonical factor pair
 \[
- a=\frac{c+q}{2},\qquad b=\frac{q-c}{2},\qquad
- (a+bi)^2=m+i\frac{q^2-c^2}{2}.
+ q_m=\Pplus(m),\qquad c_m=\frac{m}{q_m}.
 \]
-The real coordinate is the source integer, while the imaginary coordinate
+Writing
 \[
- Y=2ab=\frac{q^2-c^2}{2}
+ a_m=\frac{c_m+q_m}{2},\qquad b_m=\frac{q_m-c_m}{2},
 \]
-records factor imbalance.  Fixed cofactors trace explicit parabolas, the prefix cutoff is a moving vertical boundary, and the smoothness cutoff is a moving parabola.  Their intersection occurs exactly at the arithmetic transition $q=R$.  In these coordinates, a source enters the prefix, occupies the transport region, and later moves into the smooth region; that internal transfer telescopes identically in $A-T$.
-
-The same coordinate $Y$ controls both geometry and time.  Low height forces a small factor gap, bounded occupancy in each square block, and bounded transport lifetime.  This yields a proved cubic bound for the low-height sector without requiring sign cancellation.  The quadratic map is conformal, with Jacobian $c^2+q^2$, and therefore supplies the two powers of geometric dilution suggested by the cubic energy scale.  This scaling mechanism does not by itself prove cancellation; it identifies the scale on which the unresolved high-height interaction must be controlled.
-
-The high sector is formulated as one signed Gram problem rather than a collection of positive shell estimates.  Exact dyadic M\"obius compression, deterministic prime-$3$ activation, the congruences $q^2\equiv1\pmod{24}$ and $q^2\equiv1$ or $9\pmod{40}$, and the corrected modulus-$2r$ quadratic phase expose the resonant modes that must be separated from the nonresonant packet state.  Numerical diagnostics show that individual shell energies can be large even when their signed recombination is small, confirming that the off-diagonal Gram terms are structurally essential.
-
-The Riemann Hypothesis enters through the uniform local square-prefix criterion
+gives
 \[
- \sum_{n=N}^{N+H-1}|S_n|^2\ll_\eps HN^{2+\eps},
- \qquad 1\le H\le N,
+ (a_m+b_m i)^2=m+iY_m,
+ \qquad
+ Y_m=\frac{q_m^2-c_m^2}{2}.
 \]
-whose converse follows by taking $H=1$ and applying square-block interpolation to the classical Mertens criterion.  The accompanying Lean project compiles fifty-five theorem modules covering the exact arithmetic, squared-complex geometry, modulus-$2r$ phase architecture, signed Gram identities, residual decomposition, finite certificate interface, local signed-frame theorem, square-endpoint interpolation, and the canonical low-height occupancy theorem.  The low-sector control is now constructed internally with the sharp nontrivial bound $\lfloor\Lambda\rfloor$ and the single $m=1$ endpoint correction.  The unresolved project mathematics is the native high-sector estimate; the final classical Mertens--RH equivalence remains an ordinary typed theorem argument.  No project axiom or unconditional proof of RH is claimed.
+The real coordinate is the source integer and the imaginary coordinate records canonical factor imbalance.  Fixed cofactors trace explicit parabolas, the prefix cutoff is a moving vertical boundary, and the smoothness cutoff is a moving parabola.  Their intersection occurs exactly at the arithmetic transition $q=R$, so internal transport-to-smooth transfers telescope identically in $A-T$.
+
+For a fixed height threshold $\Lambda>0$, the canonical source population splits into low and high sectors according to $|Y_m|\le\Lambda e(m)$ or $|Y_m|>\Lambda e(m)$, where $e(m)=\lfloor\sqrt m\rfloor$.  Low height forces a small factor gap, bounded square-block occupancy, and bounded transport lifetime.  This yields the elementary pointwise bound
+\[
+ |S_N^{\mathrm{low}}(\Lambda)|\ll_\Lambda N.
+\]
+The latest reduction removes every unnecessary averaging parameter from the remaining logical burden.  For each fixed $\Lambda>0$, the Riemann Hypothesis is equivalent to the single finite-sum inequality
+\[
+ \boxed{
+ \left|S_N^{\mathrm{high}}(\Lambda)\right|^2
+ \ll_{\eps,\Lambda}N^{2+\eps}.
+ }
+\]
+Equivalently, because $S_N=A_N-T_N$ and the low sector is elementary,
+\[
+ \boxed{|A_N-T_N|\ll_\eps N^{1+\eps}.}
+\]
+The formerly emphasized translated-window estimate follows by summing the pointwise bound over $N\le n<N+H\le2N$, and conversely gives the pointwise bound by taking $H=1$.
+
+The accompanying Lean development formalizes the exact arithmetic and geometry, the signed Hilbert identities, the concrete square-prefix Mertens bridge, and the native largest-prime-factor low/high realization.  The hard analytic bound and the classical Mertens--RH theorem remain explicit ordinary typed premises.  No project axiom and no unconditional proof of RH is claimed.
 \end{abstract}
 
 \section*{How to read this paper}
-The paper has four layers.  First, the square-root cutoff gives an exact arithmetic decomposition.  Second, squared complex coordinates turn that decomposition into a moving geometric partition with explicit cofactor curves, entry times, and transition times.  Third, the remaining high-height problem is organized as a signed Gram and block-contraction problem, supported by reproducible numerical diagnostics.  Fourth, the Lean development records which algebraic and geometric layers are machine checked and isolates the analytic statements that still require proof.
+The paper has three layers.  First, the square-root cutoff gives an exact arithmetic decomposition.  Second, the unique largest-prime-factor pair is embedded in squared complex coordinates, producing explicit cofactor curves, entry times, transition times, and a canonical height.  Third, the low sector is closed by an elementary occupancy estimate, reducing the entire remaining theorem to one pointwise high-sector inequality.  The Lean development records exactly which of these steps are machine checked.
 
-Readers interested mainly in the RH connection may begin with \cref{sec:introduction,sec:local-criterion,sec:lean,sec:status}.  Readers interested in the geometry may begin with \cref{sec:full-fibre,sec:canonical-cloud,sec:cofactor-curves,sec:moving-cutoff}.  The numerical section is evidence and diagnosis, not a substitute for the missing uniform theorem.
+Readers interested mainly in the RH connection may begin with \cref{sec:introduction,sec:low-cubic,sec:high-sector,sec:local-criterion,sec:lean,sec:status}.  Readers interested in the geometry may begin with \cref{sec:full-fibre,sec:canonical-cloud,sec:cofactor-curves,sec:moving-cutoff}.  The numerical section is evidence and diagnosis, not a substitute for the missing pointwise theorem.
 
 \medskip
 
@@ -227,47 +240,56 @@ As $R$ increases, a canonical point enters the prefix at $R=\sqrt{cq}$ and cross
 
 \begin{theorem}[Low-height clustering and lifetime]
 \label{thm:intro-low}
-Let $m=cq\in B_n$ be a canonical source with $m>1$ and $\mu(m)\ne0$, and let
+Let $m=cq\in B_n$ be canonical and let
 \[
  Y_m=\frac{q^2-c^2}{2}.
 \]
 Then, for $H\ge0$,
 \[
- \#\{m\in B_n:m>1,\ \mu(m)\ne0,\ |Y_m|\le H\}
- \le\left\lfloor\frac{H}{n}\right\rfloor.
+ \#\{m\in B_n:|Y_m|\le H\}
+ \le\left\lfloor\frac{H}{n}\right\rfloor,
 \]
-The count is zero when $H=n$.  For odd sources the bound improves to
+and the count is zero when $H=n$.  For odd sources the bound improves to
 $\lfloor H/(2n)\rfloor$.
 If $Y_m>0$, the transport lifetime satisfies
 \[
  L(m)\le\frac{2Y_m}{q}.
 \]
-Consequently, for fixed $\Lambda$, the nontrivial M\"obius support with
-$|Y_m|\le\Lambda n$ has occupancy at most $\lfloor\Lambda\rfloor$ in every
-square block.  Restoring the isolated source $m=1$ gives the uniform increment
-bound $\|\Delta_n^{\mathrm{low}}\|\le\lfloor\Lambda\rfloor+1$.
+Consequently, for fixed $\Lambda$, the canonical points with $|Y_m|\le\Lambda n$ have uniformly bounded block occupancy, and the transport members have uniformly bounded lifetime.
 \end{theorem}
 
-\begin{theorem}[Major-arc rank-one law for cofactor blocks]
-\label{thm:intro-major-rank-one}
-Fix $\eta>0$ and a dyadic cofactor scale $C\asymp N^\alpha$ with
-$0\le\alpha\le1-\eta$.  On the local square-prefix interval
-$N\le n<2N$, let
+\begin{theorem}[Elementary canonical pointwise criterion]
+\label{thm:intro-canonical-HS}
+Fix $\Lambda>0$.  Extend the harmless conventions $\Pplus(1)=1$, $c_1=1$, and $Y_1=0$.  For the square block $B_j=[j^2,(j+1)^2)$ define
 \[
- B_C(n):=-\sum_{C<c\le2C}\mu(c)\Pi_c(X_n),
+ d_j^{\mathrm{high}}(\Lambda)
+ :=
+ \sum_{\substack{m\in B_j\\|Y_m|>\Lambda j}}\mu(m),
  \qquad
- a_C:=\sum_{C<c\le2C}\frac{\mu(c)}{c},
+ S_N^{\mathrm{high}}(\Lambda)
+ :=\sum_{0\le j\le N}d_j^{\mathrm{high}}(\Lambda).
 \]
-and let $P_n=-\pi(X_n)$ be the prime-curve vector.  Then
-\[
+Then the following are equivalent:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em,itemsep=0.25em]
+\item the Riemann Hypothesis;
+\item for every $\eps>0$,
+\begin{equation}
  \boxed{
- B_C(n)=\frac{2}{2-\alpha}\,a_C P_n
- +O_\eta\!\left(\frac{N^2}{\log^2N}\right)
+ |S_N^{\mathrm{high}}(\Lambda)|^2
+ \ll_{\eps,\Lambda}N^{2+\eps};
  }
-\]
-uniformly for $N\le n<2N$.  Consequently, the local Gram matrix of any
-fixed collection of such cofactor blocks is a rank-one prime-curve main
-term plus an error of order $O_\eta(N^5/\log^3N)$ entrywise.
+ \tag{PHS}
+ \label{eq:intro-canonical-PHS}
+\end{equation}
+\item for every $\eps>0$ and $1\le H\le N$,
+\begin{equation}
+ \sum_{n=N}^{N+H-1}|S_n^{\mathrm{high}}(\Lambda)|^2
+ \ll_{\eps,\Lambda}HN^{2+\eps}.
+ \tag{HS}
+ \label{eq:intro-canonical-HS}
+\end{equation}
+\end{enumerate}
+The equivalence uses only the exact low/high recombination, the elementary low-sector bound, square-endpoint interpolation, and the classical Mertens criterion.  The implication \textup{(ii)}$\Rightarrow$\textup{(iii)} follows from $N+h<2N$; the reverse implication is the single choice $H=1$.
 \end{theorem}
 
 \begin{theorem}[Quadratic conformal expansion]
@@ -326,7 +348,7 @@ $e(aq^2/(2r))$ is periodic modulo $2r$; the correct reduced-residue model is the
 \end{theorem}
 
 
-The remaining theorem is an operator estimate: prove that the high-height, cross-curve signed interactions inherit this geometric dilution when inserted into the exact square-prefix kernel.  No claim is made that a coordinate change alone proves cancellation; the point is that the coordinate change exposes the exact two-power scale and localizes the unresolved interaction.
+The remaining theorem is the pointwise inequality \eqref{eq:intro-canonical-PHS}.  The local estimate \eqref{eq:intro-canonical-HS} is an exact equivalent.  No claim is made that the coordinate change alone supplies cancellation; it identifies the native arithmetic quantity, the correct scale, and the signed interaction that must be controlled.
 
 %======================================================================
 \section{Square prefixes and the arithmetic decomposition}
@@ -402,6 +424,26 @@ Put $q=\Pplus(m)$ and $c=m/q$.  If $c\ge R$, then $m=cq>R^2$, contrary to $m\le 
 \begin{proof}[Proof of \cref{thm:intro-decomposition}]
 Partition the squarefree $m\le X_n$ according to whether $\Pplus(m)\le R_n$ or $\Pplus(m)>R_n$.  The first population contributes $A_n$.  By \cref{lem:one-large}, the second population is uniquely $m=cq$ with $c<R_n<q$, and each source has weight $-\mu(c)$.  The total second contribution is therefore $-T_n$.
 \end{proof}
+
+\begin{corollary}[Elementary smooth--transport RH inequality]
+\label{cor:elementary-AT-RH}
+The Riemann Hypothesis is equivalent to either of the following square-prefix estimates:
+\begin{align}
+ |A_N-T_N|^2&\ll_\eps N^{2+\eps},
+ \label{eq:elementary-AT-squared}\\
+ |A_N-T_N|&\ll_\eps N^{1+\eps}.
+ \label{eq:elementary-AT-linear}
+\end{align}
+Here and below the two exponent conventions are equivalent after renaming $\eps$.
+\end{corollary}
+
+\begin{proof}
+By \cref{thm:intro-decomposition}, $A_N-T_N=M((N+1)^2-1)$.  The classical Mertens criterion gives the estimates under RH.  Conversely, every $x$ lies within one square block of an endpoint $(N+1)^2-1$, and $|\mu(m)|\le1$, so the endpoint estimate interpolates to $M(x)\ll_\eps x^{1/2+\eps}$.
+\end{proof}
+
+\begin{remark}[Why this is the most elementary total formulation]
+The inequality \cref{eq:elementary-AT-linear} contains no shell, window, covariance, probability space, or operator.  It asks only that the two exact cumulative arithmetic terms in $S_N=A_N-T_N$ agree to square-root scale.  The high-sector formulation introduced later removes the part of this agreement already forced by elementary geometry.
+\end{remark}
 
 
 \subsection{The largest-prime cofactor identity}
@@ -479,163 +521,10 @@ $-\pi(x)$, because $\Pplus(1)=1$.  No term with $c>x/2$ can occur.
 cofactor-parabola decomposition.  It shows that the Mertens function is
 not obtained by proving that the prime curve is small.  The prime curve
 $-\pi(x)$ is cancelled by the M\"obius-weighted collection of all
-curves $c\ge2$.  The geometric and large-sieve parts of the paper are
-methods for controlling the rate of this exact cancellation on square
-prefixes.
+curves $c\ge2$.
 \end{remark}
 
 
-\subsection{A proved rank-one major-arc approximation}
-\label{subsec:major-rank-one}
-
-The first analytic component of the cofactor cascade can be proved
-unconditionally.  It explains why the small-cofactor Gram matrix is
-nearly rank one and identifies the scalar coefficients governing its
-large coherent mode.
-
-For a dyadic block $C<c\le2C$, define
-\begin{equation}
- B_C(n)
- :=-\sum_{C<c\le2C}\mu(c)\Pi_c(X_n),
- \qquad
- a_C:=\sum_{C<c\le2C}\frac{\mu(c)}{c},
- \label{eq:block-vector-aC}
-\end{equation}
-and write
-\begin{equation}
- P_n:=-\pi(X_n).
- \label{eq:prime-vector-P}
-\end{equation}
-
-\begin{theorem}[Polynomial-range major-arc rank-one law]
-\label{thm:major-rank-one}
-Fix $\eta>0$.  Let $N$ tend to infinity, let
-$0\le\alpha\le1-\eta$, and choose a dyadic $C$ satisfying
-$C\asymp N^\alpha$.  Uniformly for $N\le n<2N$,
-\begin{equation}
- \boxed{
- B_C(n)
- =\lambda_\alpha a_C P_n
- +O_\eta\!\left(\frac{N^2}{\log^2N}\right),
- \qquad
- \lambda_\alpha:=\frac{2}{2-\alpha}.
- }
- \label{eq:major-rank-one-pointwise}
-\end{equation}
-Consequently,
-\begin{equation}
- \sum_{N\le n<2N}
- \left|B_C(n)-\lambda_\alpha a_C P_n\right|^2
- \ll_\eta \frac{N^5}{\log^4N}.
- \label{eq:major-rank-one-L2}
-\end{equation}
-If $D\asymp N^\beta$ with $0\le\beta\le1-\eta$, then
-\begin{equation}
- \boxed{
- \langle B_C,B_D\rangle_{[N,2N)}
- =\lambda_\alpha\lambda_\beta a_Ca_D
- \|P\|_{[N,2N)}^2
- +O_\eta\!\left(\frac{N^5}{\log^3N}\right).
- }
- \label{eq:major-rank-one-Gram}
-\end{equation}
-\end{theorem}
-
-\begin{proof}
-For $c\asymp N^\alpha$ and $N\le n<2N$, one has
-$X_n/c\gg_\eta N^{1+\eta}$, while $\Pplus(c)\le c\ll N^{1-\eta}$.
-Thus, for sufficiently large $N$, the positive part in $\Pi_c(X_n)$ is
-inactive and
-\[
- \Pi_c(X_n)=\pi(X_n/c)-\pi(\Pplus(c)).
-\]
-The prime number theorem with its standard first remainder term gives,
-uniformly in this range,
-\[
- \pi(X_n/c)
- =\frac{X_n/c}{\log(X_n/c)}
- +O_\eta\!\left(\frac{X_n}{c\log^2N}\right),
-\]
-and
-\[
- \pi(X_n)
- =\frac{X_n}{\log X_n}
- +O\!\left(\frac{X_n}{\log^2N}\right).
-\]
-Since
-\[
- \frac{\log X_n}{\log(X_n/c)}
- =\frac{2}{2-\alpha}+O_\eta\!\left(\frac1{\log N}\right),
-\]
-it follows that
-\[
- \pi(X_n/c)
- =\frac{\lambda_\alpha}{c}\pi(X_n)
- +O_\eta\!\left(\frac{N^2}{c\log^2N}\right).
-\]
-Summing the error uses
-$\sum_{C<c\le2C}c^{-1}\ll1$.  The fixed lower-prime exclusions satisfy
-\[
- \sum_{C<c\le2C}\pi(\Pplus(c))
- \le\sum_{C<c\le2C}c
- \ll C^2
- \ll_\eta N^{2-2\eta},
-\]
-which is absorbed by $N^2/\log^2N$.  This proves
-\cref{eq:major-rank-one-pointwise}.  Squaring and summing over $N$ local
-prefixes gives \cref{eq:major-rank-one-L2}.  Finally, write each block as
-its prime-vector main term plus its error and apply Cauchy--Schwarz,
-using $\|P\|_{[N,2N)}\asymp N^{5/2}/\log N$.
-\end{proof}
-
-\begin{corollary}[Rank-one major-arc Gram matrix]
-\label{cor:rank-one-Gram}
-For finitely many polynomial cofactor blocks with exponents bounded by
-$1-\eta$, their local Gram matrix has the form
-\begin{equation}
- G_N
- =\|P\|_{[N,2N)}^2\,vv^{\mathsf T}+E_N,
- \qquad
- v_j=\lambda_{\alpha_j}a_{C_j},
- \label{eq:Gram-rank-one-form}
-\end{equation}
-with every entry of $E_N$ bounded by
-$O_\eta(N^5/\log^3N)$.  Thus the coherent major-arc component cancels
-between dyadic cofactor blocks entirely through the scalar harmonic
-M\"obius coefficients $a_{C_j}$, before any minor-arc estimate is used.
-\end{corollary}
-
-\begin{remark}[What this theorem accomplishes]
-\Cref{thm:major-rank-one} is a genuine major-arc cancellation theorem
-for substantial ranges $C\asymp N^\alpha$, $\alpha<1$.  It is not RH:
-it does not control cofactor scales $C\gtrsim N$, nor does it supply a
-power saving for the rank-one remainder.  It does prove that the large
-small-cofactor interactions are analytically organized rather than
-arbitrary, and it identifies the exact main term that the
-Squared-Cofactor Large Sieve must remove.
-\end{remark}
-
-For
-\[
- \vect A_N=(A_1,\ldots,A_N)^{\mathsf T},
- \quad
- \vect T_N=(T_1,\ldots,T_N)^{\mathsf T},
- \quad
- \vect S_N=(S_1,\ldots,S_N)^{\mathsf T},
-\]
-we have
-\begin{equation}
- \vect S_N=\vect A_N-\vect T_N
- \label{eq:vector-AT}
-\end{equation}
-and
-\begin{equation}
- \sum_{n\le N}|S_n|^2
- =\norm{\vect A_N-\vect T_N}_2^2.
- \label{eq:energy-AT}
-\end{equation}
-
-%======================================================================
 \section{All factor pairs above one integer}
 \label{sec:full-fibre}
 %======================================================================
@@ -1497,21 +1386,6 @@ But $|q-c|=1$ makes $c+q$ odd, whereas $2n$ is even.  Hence equality is
 impossible and the set is empty.
 \end{proof}
 
-\begin{remark}[Machine-checked canonical low control]
-The Lean modules \texttt{RHLean.Analysis.CanonicalHighSectorCore} and
-\texttt{RHLean.Analysis.CanonicalLowOccupancy} formalize the largest-prime-factor
-pair, the one-product-per-positive-gap lemma, the height-to-gap implication, and
-the sharp occupancy bound on nonzero M\"obius support.  They also isolate the
-single $m=1$ endpoint and construct the concrete uniform control
-\[
- \|\Delta_n^{\mathrm{low}}(\Lambda)\|
- \le \lfloor\Lambda\rfloor+1.
-\]
-Thus the low-sector input used by the canonical high-sector equivalence is no
-longer an external hypothesis.  The unresolved internal statement is the
-high-sector estimate itself.
-\end{remark}
-
 \subsection{Parity-refined bounds}
 
 The factor gap has a prescribed parity:
@@ -1832,38 +1706,6 @@ By contrast, the expression obtained by summing representatives modulo $3$ is
 That vanishing is an artifact of using a modulus on which the phase is not
 well-defined.
 
-\begin{caution}[Cell-mask Fourier mass and prime-phase coherence are different]
-\label{caution:cell-mask-vs-prime-phase}
-The ideal prime-$3$ cell mask $(+1,-1,+1)$ has mean amplitude $1/3$ and mean-mode
-energy $1/9$.  This is a statement in the cell-index Fourier variable.  It is not a
-bound for the quadratic prime exponential sum at $\alpha=1/3$, whose corrected
-rational factor has magnitude $1$ by \cref{eq:r3-corrected-factor}.  The coherent
-prime-phase mode must first be represented explicitly and cancelled across the
-M\"obius-weighted cofactor channels; only the complementary component is eligible
-for the cell-mask contraction estimate.
-\end{caution}
-
-\begin{definition}[Dyadic squared-cofactor exponential sum]
-\label{def:squared-cofactor-sum}
-For dyadic $C,Q\ge1$, define
-\begin{equation}
- F_{C,Q}(\alpha)
- :=
- \sum_{\substack{C<c\le2C\\\mu(c)\ne0}}
- -\mu(c)e\!\left(-\alpha\frac{c^2}{2}\right)
- \sum_{\substack{Q<q\le2Q\\q\ {\rm prime}\\q>\Pplus(c)}}
- e\!\left(\alpha\frac{q^2}{2}\right).
- \label{eq:F-CQ}
-\end{equation}
-\end{definition}
-
-A concrete analytic route is a major/minor-arc decomposition for
-$F_{C,Q}$, coupled to the Fourier representation of localized
-squared-space kernels.  The major arcs must reproduce and cancel the
-coherent cofactor-curve main terms, while the minor arcs must satisfy a
-large-sieve or mean-square estimate.  This is the analytic content that
-the conformal geometry identifies but does not itself prove.
-
 %======================================================================
 \section{Vertical spacing over a fixed product}
 \label{sec:vertical-spacing}
@@ -1897,380 +1739,224 @@ If admissible $b$ values differ by at least $h$, then
 At square scale $m\asymp n^2$, vertical spacing is at least order $n$.  This agrees with the conformal scale factor in \cref{eq:square-scale-expansion}.
 
 %======================================================================
-\section{Square-prefix energy as a signed kernel}
-\label{sec:variance-kernel}
-%======================================================================
-
-\begin{motivation}
-Energy bounds are quadratic statements.  Rewriting the prefix variance as a kernel makes the diagonal and off-diagonal contributions visible and prepares the signed Gram formulation.
-\end{motivation}
-
-For a canonical point $w_m$, define
-\begin{equation}
- p_n(w_m):=\1_{\{e(m)\le n\}}.
- \label{eq:prefix-indicator}
-\end{equation}
-Then
-\begin{equation}
- S_n=\int p_n(w)\,d\nu(w).
- \label{eq:S-integral}
-\end{equation}
-For a terminal index $N$, define
-\begin{equation}
- K_N(w,w')
- :=\sum_{n=1}^{N}p_n(w)p_n(w').
- \label{eq:prefix-kernel}
-\end{equation}
-Since each $p_n$ is a tail indicator,
-\begin{equation}
- K_N(w,w')
- =
- \bigl(N-\max\{e(w),e(w')\}+1\bigr)_+.
- \label{eq:prefix-kernel-explicit}
-\end{equation}
-Therefore
-\begin{equation}
- \boxed{
- \sum_{n=1}^{N}|S_n|^2
- =
- \iint_{\mathscr W\times\mathscr W}
- K_N(w,w')\,d\nu(w)d\nu(w').
- }
- \label{eq:variance-kernel}
-\end{equation}
-
-The channel indicators satisfy
-\begin{equation}
- p_n=a_n+u_n,
- \label{eq:channel-indicator-sum}
-\end{equation}
-so the kernel splits exactly into smooth--smooth, transport--transport, and two cross terms.
-
-For transport, the overlap kernel has the interval form
-\begin{equation}
- K_N^{UU}(w,w')
- =
- \#\left(
- [e(w),h(w))
- \cap
- [e(w'),h(w'))
- \cap
- [1,N]
- \right).
- \label{eq:transport-overlap}
-\end{equation}
-Consequently,
-\begin{equation}
- K_N^{UU}(w,w')
- \le\min\{L(w),L(w')\}.
- \label{eq:transport-overlap-bound}
-\end{equation}
-The imaginary coordinate therefore controls temporal support through \cref{eq:L-w}.
-
-%======================================================================
-\section{The proved cubic bound at low height}
+\section{The proved local bound at low height}
 \label{sec:low-cubic}
 %======================================================================
 
 \begin{motivation}
-This is the closed part of the analytic argument: the low-height sector already obeys the cubic scale for geometric reasons.
+This is the closed part of the bridge.  Geometry alone bounds the low-height increment in each nontrivial square block, and the isolated unit source is a finite endpoint.  The resulting cumulative low sector has translated-window energy of order $HN^2$.
 \end{motivation}
 
-Fix $\Lambda>0$.  Assign each source $m$ to its entry block
+Fix $\Lambda>0$.  Use the canonical conventions
+\[
+ \Pplus(1)=1,\qquad c_1=1,\qquad Y_1=0,
+\]
+and assign every integer $m$ to its square block
 \begin{equation}
- j=e(m)=\lfloor\sqrt m\rfloor
+ j=e(m)=\lfloor\sqrt m\rfloor.
  \label{eq:entry-block}
 \end{equation}
-and define the low-height block increment
-\begin{equation}
- d_j^{\mathrm{low}}
- :=
- \sum_{\substack{m\in B_j\\|Y_m|\le\Lambda j}}
- \mu(m).
- \label{eq:low-block-increment}
-\end{equation}
-By \cref{eq:constant-occupancy},
-\begin{equation}
- |d_j^{\mathrm{low}}|
- \le\lfloor\Lambda\rfloor.
- \label{eq:low-block-bound}
-\end{equation}
 Define
+\begin{align}
+ d_j^{\mathrm{low}}(\Lambda)
+ &:={}
+ \sum_{\substack{m\in B_j\\|Y_m|\le\Lambda j}}\mu(m),
+ \label{eq:low-block-increment}\\
+ d_j^{\mathrm{high}}(\Lambda)
+ &:={}
+ \sum_{\substack{m\in B_j\\|Y_m|>\Lambda j}}\mu(m).
+ \label{eq:high-block-increment}
+\end{align}
+The predicates are complementary, so the complete block increment satisfies
 \begin{equation}
- S_n^{\mathrm{low}}
- :=\sum_{j\le n}d_j^{\mathrm{low}}.
- \label{eq:low-prefix}
+ \sum_{m\in B_j}\mu(m)
+ =d_j^{\mathrm{low}}(\Lambda)+d_j^{\mathrm{high}}(\Lambda).
+ \label{eq:block-low-high-recombination}
 \end{equation}
-Even under complete sign coherence,
+
+The block $B_0=[0,1)$ contains only $0$, whose M\"obius weight is zero, so
 \begin{equation}
- |S_n^{\mathrm{low}}|
- \le\lfloor\Lambda\rfloor n.
- \label{eq:low-prefix-bound}
+ d_0^{\mathrm{low}}(\Lambda)=d_0^{\mathrm{high}}(\Lambda)=0.
+ \label{eq:zero-block-endpoint}
 \end{equation}
-Hence
+The unit source $m=1$ lies in $B_1=[1,4)$ and is low because $Y_1=0$.  For every block, the nontrivial low sources satisfy the occupancy bound in \cref{eq:constant-occupancy}; hence
 \begin{equation}
  \boxed{
- \sum_{n\le N}|S_n^{\mathrm{low}}|^2
- \ll_{\Lambda}N^3.
+ |d_j^{\mathrm{low}}(\Lambda)|
+ \le \lfloor\Lambda\rfloor+\1_{\{j=1\}}
+ \le \lfloor\Lambda\rfloor+1.
  }
+ \label{eq:low-block-bound}
+\end{equation}
+Equivalently, one may separate the single $m=1$ contribution and retain the sharper bound $\lfloor\Lambda\rfloor$ for the remaining nontrivial population.
+
+Define the cumulative sectors
+\begin{align}
+ S_n^{\mathrm{low}}(\Lambda)
+ &:={}
+ \sum_{0\le j\le n}d_j^{\mathrm{low}}(\Lambda),
+ \label{eq:low-prefix}\\
+ S_n^{\mathrm{high}}(\Lambda)
+ &:={}
+ \sum_{0\le j\le n}d_j^{\mathrm{high}}(\Lambda).
+ \label{eq:high-prefix}
+\end{align}
+Summing \cref{eq:block-low-high-recombination} over $0\le j\le n$ gives the exact native decomposition
+\begin{equation}
+ \boxed{
+ S_n=M((n+1)^2-1)
+ =S_n^{\mathrm{low}}(\Lambda)+S_n^{\mathrm{high}}(\Lambda).
+ }
+ \label{eq:low-high-split}
+\end{equation}
+
+For $n\ge1$, the blocks $B_1,\ldots,B_n$ contain all sources up to $X_n$, the unit source occurs once, and therefore
+\begin{equation}
+ |S_n^{\mathrm{low}}(\Lambda)|
+ \le1+\lfloor\Lambda\rfloor n
+ \le(\lfloor\Lambda\rfloor+1)n.
+ \label{eq:low-prefix-bound}
+\end{equation}
+Consequently, if $N\ge1$ and $1\le H\le N$, then every
+$n\in[N,N+H)$ satisfies $n<2N$, and hence
+\begin{equation}
+ \boxed{
+ \sum_{n=N}^{N+H-1}
+ |S_n^{\mathrm{low}}(\Lambda)|^2
+ \le
+ 4(\lfloor\Lambda\rfloor+1)^2HN^2.
+ }
+ \label{eq:low-local-bound}
+\end{equation}
+The global cubic consequence is
+\begin{equation}
+ \sum_{n\le N}|S_n^{\mathrm{low}}(\Lambda)|^2
+ \ll_{\Lambda}N^3.
  \label{eq:low-cubic}
 \end{equation}
 No M\"obius cancellation is used.
 
-Let
-\begin{equation}
- S_n=S_n^{\mathrm{low}}+S_n^{\mathrm{high}}.
- \label{eq:low-high-split}
-\end{equation}
-Then
-\begin{equation}
- \sum_{n\le N}|S_n|^2
- \le
- 2\sum_{n\le N}|S_n^{\mathrm{low}}|^2
- +
- 2\sum_{n\le N}|S_n^{\mathrm{high}}|^2.
- \label{eq:energy-low-high}
-\end{equation}
-Thus the low-height sector is already on the cubic scale.  The entire unresolved variance problem may be localized to the high-height point cloud.
+Finally, from \cref{eq:low-high-split},
+\begin{align}
+ |S_n|^2
+ &\le2|S_n^{\mathrm{low}}|^2+2|S_n^{\mathrm{high}}|^2,
+ \label{eq:total-from-low-high}\\
+ |S_n^{\mathrm{high}}|^2
+ &\le2|S_n|^2+2|S_n^{\mathrm{low}}|^2.
+ \label{eq:high-from-total-low}
+\end{align}
+These two norm inequalities, rather than an invalid energy subtraction identity, give the exact equivalence between the total and high-sector local criteria.
 
 %======================================================================
-\section{The unresolved high-height problem}
+\section{The elementary pointwise high-height bridge}
 \label{sec:high-sector}
 %======================================================================
 
 \begin{motivation}
-Everything difficult is concentrated here.  The high sector cannot be controlled shell by shell; it requires cross-curve and cross-shell cancellation inside one operator estimate.
+Everything difficult is concentrated in one finite signed sum.  The translated-window, Gram, covariance, and partial-moment formulations are useful proof interfaces, but the logical burden is already complete at one point.
 \end{motivation}
 
-The high sector consists of canonical points satisfying
-\begin{equation}
- |Y_m|>\Lambda e(m).
- \label{eq:high-sector}
-\end{equation}
-These points lie far from the real axis relative to their square scale,
-but they remain highly structured:
-
-\begin{enumerate}[leftmargin=1.7em,itemsep=0.3em]
-\item they lie on the explicit curves $\gamma_c$;
-\item their horizontal coordinates are prime samples $x=cq$ with
-      $q>\Pplus(c)$;
-\item their one-dimensional curve spacing is expanded by
-      $\sqrt{c^2+q^2}$;
-\item two-dimensional factor regions are expanded by
-      $c^2+q^2$;
-\item positive-height points have exact transport intervals
-      $[e(m),h(m))$;
-\item each curve crosses every moving cutoff exactly once and
-      orthogonally.
-\end{enumerate}
-
-For each squarefree cofactor $c$, define the signed curve measure
-\begin{equation}
- \nu_c
- :=
- -\mu(c)
- \sum_{\substack{q\text{ prime}\\q>\Pplus(c)}}
- \delta_{\,cq+i(q^2-c^2)/2}.
- \label{eq:nu-c}
-\end{equation}
-Then
-\begin{equation}
- \nu=\delta_1+\sum_{c\ge1}\nu_c,
- \label{eq:nu-curve-sum}
-\end{equation}
-and the variance decomposes as
-\begin{equation}
- \sum_{c,c'}
- \iint K_N(w,w')\,d\nu_c(w)d\nu_{c'}(w').
- \label{eq:curve-interactions}
-\end{equation}
-
-The curve $c=1$ is not a negligible boundary case.  By
-\cref{eq:prime-curve-prefix,eq:prime-curve-asymptotic}, its unsigned
-energy is of order $N^5/\log^2N$.  The cubic residual therefore requires
-near-complete cancellation between this prime curve and the remaining
-cofactor curves.  The numerical results in \cref{sec:numerics} measure
-that cancellation directly.
-
-\subsection{The kernel-weighted large-sieve target}
-
-Fix a local prefix interval
-\begin{equation}
- I=[N,N+H),
- \qquad 1\le H\le N,
- \label{eq:local-prefix-I}
-\end{equation}
-and dyadic ranges $C<c\le2C$, $Q<q\le2Q$.  Let
-$\omega_{I,\ell}(c,q)$ be a smooth localization to the prefix interval,
-the transport interval, and a high vertical shell $\ell$.  Define
-\begin{equation}
- F_{C,Q,\ell}^{I}(\alpha)
- :=
- \sum_{\substack{C<c\le2C\\\mu(c)\ne0}}
- -\mu(c)e\!\left(-\alpha\frac{c^2}{2}\right)
- \sum_{\substack{Q<q\le2Q\\q\text{ prime}\\q>\Pplus(c)}}
- \omega_{I,\ell}(c,q)
- e\!\left(\alpha\frac{q^2}{2}\right).
- \label{eq:F-CQ-local}
-\end{equation}
-Let $\widehat K_{I,\ell}(\alpha)\ge0$ be the Fourier multiplier of the
-corresponding localized positive semidefinite prefix/transport-overlap
-kernel.
-
-For parameters $R_0,\Delta\ge1$, define the major arcs
-\begin{equation}
- \mathfrak M(R_0,\Delta)
- :=
- \bigcup_{1\le r\le R_0}
- \bigcup_{\substack{0\le a<r\\(a,r)=1}}
- \left\{
- \alpha\in\mathbb R/\mathbb Z:
- \left|\alpha-\frac ar\right|
- \le\frac{\Delta}{rN^2}
- \right\}.
- \label{eq:major-arcs}
-\end{equation}
-For $\alpha=a/r+\beta$ on such an arc, the rational quadratic phase is
-periodic modulo $2r$ by \cref{prop:phase-modulus-two-r}.  The explicit
-Hardy--Littlewood model must therefore replace the prime indicator in
-\cref{eq:F-CQ-local} by its reduced-residue main term modulo $2r$:
-\begin{align}
- \mathcal M_{C,Q,\ell}^{I}(\alpha)
- &:={}
- \sum_{\substack{C<c\le2C\\\mu(c)\ne0}}
- -\mu(c)e\!\left(-\alpha\frac{c^2}{2}\right)
- \gamma(a,r)
- \int_Q^{2Q}
- \omega_{I,\ell}(c,t)
- e\!\left(\beta\frac{t^2}{2}\right)
- \frac{dt}{\log t},
- \label{eq:major-arc-model-corrected}\\
- \gamma(a,r)
- &:={}
- \frac{1}{\varphi(2r)}
- \sum_{\substack{u\bmod 2r\\(u,2r)=1}}
- e\!\left(\frac{au^2}{2r}\right).
- \label{eq:quadratic-Gauss-prime-corrected}
-\end{align}
-Primes dividing $2r$ are treated as explicit exceptional terms; they are absent
-whenever the prime range begins above $2R_0$.  Outside
-$\mathfrak M(R_0,\Delta)$, put $\mathcal M_{C,Q,\ell}^{I}=0$.
-
-
-Let $R_0=R_0(M)=M^{o(1)}$ be the major-arc denominator cutoff at packet scale $M$.
-Let $P_{\mathrm{res},M}$ denote the orthogonal projection in the localized packet
-Hilbert space onto the span of the corrected rational major-arc modes with
-$r\le R_0(M)$, and put $P_{\mathrm{nr},M}=I-P_{\mathrm{res},M}$.  This is a
-finite-dimensional projection at each scale, but it is not one fixed finite
-projection for all scales.  For the compressed signed packet state $Z_M$, write
-\begin{equation}
- Z_M=Z_M^{\mathrm{res}}+Z_M^{\mathrm{nr}},
+For fixed $\Lambda>0$, the canonical high increment and prefix are those of
+\cref{eq:high-block-increment,eq:high-prefix}:
+\[
+ d_j^{\mathrm{high}}(\Lambda)
+ =
+ \sum_{\substack{j^2\le m<(j+1)^2\\|Y_m|>\Lambda j}}\mu(m),
  \qquad
- Z_M^{\mathrm{res}}=P_{\mathrm{res},M}Z_M,
- \qquad
- Z_M^{\mathrm{nr}}=P_{\mathrm{nr},M}Z_M.
- \label{eq:resonant-nonresonant-state}
-\end{equation}
-At each fixed scale,
+ S_N^{\mathrm{high}}(\Lambda)
+ =\sum_{0\le j\le N}d_j^{\mathrm{high}}(\Lambda).
+\]
+Equivalently, with $X_N=(N+1)^2-1$ and $e(m)=\lfloor\sqrt m\rfloor$,
 \begin{equation}
  \boxed{
- \|Z_M\|^2=\|Z_M^{\mathrm{res}}\|^2+\|Z_M^{\mathrm{nr}}\|^2.
+ S_N^{\mathrm{high}}(\Lambda)
+ =
+ \sum_{\substack{1\le m\le X_N\\
+ |\Pplus(m)^2-(m/\Pplus(m))^2|>2\Lambda e(m)}}\mu(m).
  }
- \label{eq:resonant-energy-split}
+ \label{eq:high-single-finite-sum}
 \end{equation}
-The resonant term is controlled only after summing the corrected major-arc models
-across the M\"obius-weighted cofactor ranges.  The nonresonant term is the proper
-input to minor-arc and cell-mask contraction estimates.  Because
-$P_{\mathrm{res},M}$ changes with $M$, scale descent can transfer mass between the
-two components; this leakage must be included in the recursive state rather than
-silently discarded.
+Thus the remaining statement can be written without block notation.
 
-\begin{conjecture}[Joint kernel-weighted Squared-Cofactor Large Sieve]
-\label{conj:squared-cofactor-large-sieve}
-For every $\eps>0$, there are choices
-$R_0=N^{o(1)}$ and $\Delta=N^{o(1)}$ such that, uniformly for
-$1\le H\le N$,
-\begin{align}
- &\int_{\mathbb R/\mathbb Z}
- \left|
- \sum_{C,Q,\ell}
- \left(
- F_{C,Q,\ell}^{I}(\alpha)
- -\mathcal M_{C,Q,\ell}^{I}(\alpha)
- \right)
- \right|^2
- \widehat K_I(\alpha)\,d\alpha
- \ll_\eps HN^{2+\eps},
- \label{eq:cofactor-large-sieve-remainder}\\
- &\int_{\mathbb R/\mathbb Z}
- \left|
- \sum_{C,Q,\ell}
- \mathcal M_{C,Q,\ell}^{I}(\alpha)
- \right|^2
- \widehat K_I(\alpha)\,d\alpha
- \ll_\eps HN^{2+\eps}.
- \label{eq:cofactor-large-sieve-major}
-\end{align}
-The dyadic sums range only over cells meeting the high sector and the prefix
-interval.  The sums over cofactor ranges, prime ranges, and height shells remain
-\emph{inside} the absolute square.  Consequently all cross-curve, cross-shell, and
-cross-frequency terms are retained.
+\begin{conjecture}[Elementary canonical pointwise estimate]
+\label{conj:canonical-PHS}
+For every $\eps>0$ there is a finite constant $C_{\eps,\Lambda}$ such that, for every $N\ge1$,
+\begin{equation}
+ \boxed{
+ \left|S_N^{\mathrm{high}}(\Lambda)\right|^2
+ \le C_{\eps,\Lambda}N^{2+\eps}.
+ }
+ \tag{PHS}
+ \label{eq:canonical-PHS}
+\end{equation}
+Equivalently, after renaming $\eps$,
+\begin{equation}
+ \left|S_N^{\mathrm{high}}(\Lambda)\right|
+ \ll_{\eps,\Lambda}N^{1+\eps}.
+ \label{eq:canonical-PHS-linear}
+\end{equation}
 \end{conjecture}
 
-The first estimate is the joint kernel-weighted nonresonant and major-arc error
-bound.  The second is the required cancellation of the corrected explicit
-major-arc models across cofactor scales, including the exact $2$--$3$ resonance
-lattice from \cref{cor:perfect-prime-coherence}.  Both clauses are necessary:
-at zero frequency, and at several nonzero rational frequencies, the prime curve
-has full coherent size.  A uniform pointwise square-root estimate is therefore
-false.  Equally, the extended numerical experiment below shows that a positive
-sum of separate shell energies is far too large.  The conjecture therefore places
-the entire signed recombination in the norm generated by the square-prefix kernel.
+\begin{theorem}[Elementary native bridge]
+\label{thm:canonical-PHS-iff-RH}
+For every fixed $\Lambda>0$, \cref{conj:canonical-PHS} is equivalent to the Riemann Hypothesis.
+\end{theorem}
 
-For a finite shell partition $\{\mathscr H_\ell\}$ of the high sector, write
-\begin{equation}
- S_n^{\mathrm{high}}=\sum_{\ell}S_n^{[\ell]},
+\begin{proof}
+The low sector satisfies
+\[
+ |S_N^{\mathrm{low}}(\Lambda)|^2
+ \ll_\Lambda N^2.
+\]
+The exact recombination $S_N=S_N^{\mathrm{low}}+S_N^{\mathrm{high}}$ and the two inequalities
+\[
+ |S_N|^2\le2|S_N^{\mathrm{low}}|^2+2|S_N^{\mathrm{high}}|^2,
  \qquad
- G_{\ell m}(N):=\sum_{n\le N}
- S_n^{[\ell]}\overline{S_n^{[m]}}.
- \label{eq:height-shell-Gram}
-\end{equation}
-Then
-\begin{equation}
- \boxed{
- \sum_{n\le N}|S_n^{\mathrm{high}}|^2
- =\mathbf 1^*G(N)\mathbf 1
- =\sum_\ell G_{\ell\ell}(N)
- +2\Repart\sum_{\ell<m}G_{\ell m}(N).
- }
- \label{eq:height-shell-recombination}
-\end{equation}
+ |S_N^{\mathrm{high}}|^2\le2|S_N|^2+2|S_N^{\mathrm{low}}|^2
+\]
+show that \cref{eq:canonical-PHS} is equivalent to the pointwise square-prefix Mertens estimate.  By square-endpoint interpolation, that estimate is equivalent to the classical Mertens criterion and hence to RH.
+\end{proof}
 
-\begin{conjecture}[Joint high-sector signed Gram estimate]
-\label{conj:high-kernel}
-After removing the low-height sector controlled by \cref{eq:low-cubic}, the
-full signed shell Gram form satisfies, for every $\eps>0$,
+\subsection{Equivalent translated-window formulation}
+
+The formerly emphasized local statement is now an immediate equivalent packaging.
+
+\begin{conjecture}[Canonical high-sector uniform local estimate]
+\label{conj:canonical-HS}
+For every $\eps>0$ there is a finite constant $C_{\eps,\Lambda}$ such that, for every $N\ge1$ and $1\le H\le N$,
 \begin{equation}
  \boxed{
- \mathbf 1^*G(N)\mathbf 1
- \ll_{\eps,\Lambda}N^{3+\eps}.
+ \sum_{n=N}^{N+H-1}
+ \left|S_n^{\mathrm{high}}(\Lambda)\right|^2
+ \le C_{\eps,\Lambda}HN^{2+\eps}.
  }
- \label{eq:high-kernel-bound}
+ \tag{HS}
+ \label{eq:canonical-HS}
 \end{equation}
-No separate estimate $\sum_\ell G_{\ell\ell}(N)\ll N^{3+\eps}$ is assumed or
-expected.  The two clauses of \cref{conj:squared-cofactor-large-sieve} are a
-sufficient analytic route because they preserve the off-diagonal terms needed for
-cross-shell and cross-curve cancellation.
 \end{conjecture}
 
-This formulation is stronger and more accurate than rewriting RH in the coordinate
-$Y$.  It asks for control of one joint Gram matrix indexed simultaneously by
-cofactor ranges, prime ranges, height shells, and rational phase modes.  The precise
-analytic obstruction is not the size of the shell diagonals; it is the uniform
-signed alignment of their off-diagonal interactions inside the actual-start packet
-kernel.
+\begin{proposition}[Pointwise--local equivalence]
+\label{prop:PHS-HS-equivalence}
+For fixed $\Lambda>0$, \cref{conj:canonical-PHS} and \cref{conj:canonical-HS} are equivalent.
+\end{proposition}
 
-%======================================================================
+\begin{proof}
+The local estimate gives the pointwise estimate by taking $H=1$.  Conversely, if $N\le n<N+H$ and $H\le N$, then $n<2N$.  Applying \cref{eq:canonical-PHS} at each $n$ and summing gives
+\[
+ \sum_{n=N}^{N+H-1}|S_n^{\mathrm{high}}|^2
+ \le C_{\eps,\Lambda}H(2N)^{2+\eps},
+\]
+and the fixed factor $2^{2+\eps}$ is absorbed into the constant.
+\end{proof}
+
+\begin{theorem}[The local native bridge]
+\label{thm:canonical-HS-iff-RH}
+For every fixed $\Lambda>0$, \cref{conj:canonical-HS} is equivalent to the Riemann Hypothesis.
+\end{theorem}
+
+\begin{proof}
+Combine \cref{prop:PHS-HS-equivalence,thm:canonical-PHS-iff-RH}.
+\end{proof}
 
 \section{Why the cubic scale is natural}
 \label{sec:exponent-accounting}
@@ -2322,23 +2008,44 @@ Thus a unit area of factor combinations is diluted by $n^{-2}$ in the squared pl
  \label{eq:N3-accounting}
 \end{equation}
 
-The low-height theorem proves this reduction directly in the region $|Y|\lesssim n$.  The high-height conjecture asks for the corresponding operator statement in the remaining region.
+The low-height theorem proves this reduction directly in the region $|Y|\lesssim n$.  The pointwise high-height conjecture asks for the corresponding signed cancellation in the remaining region.
 
-%======================================================================
-\section{The RH-equivalent local criterion}
+\section{The pointwise and local RH criteria}
 \label{sec:local-criterion}
 %======================================================================
 
 \begin{motivation}
-A global average is not enough to recover pointwise Mertens control.  The uniform translated-window estimate is the correct RH-equivalent statement because it allows the decisive choice $H=1$.
+The pointwise square-prefix estimate is the minimal RH-equivalent statement.  The translated-window estimate is equivalent because it includes $H=1$ and because pointwise bounds sum over windows with $H\le N$.
 \end{motivation}
 
-The global cubic energy is the natural benchmark, but a fully pointwise converse is obtained from a uniform local estimate.  Define
+Define
 \begin{equation}
  V_{\mathrm{loc}}(N,H)
  :=\sum_{n=N}^{N+H-1}|S_n|^2.
  \label{eq:Vloc}
 \end{equation}
+
+\begin{theorem}[Elementary pointwise square-prefix criterion]
+\label{thm:pointwise-square-prefix-RH}
+The Riemann Hypothesis is equivalent to the statement that, for every $\eps>0$,
+\begin{equation}
+ \boxed{|S_N|^2\ll_\eps N^{2+\eps}.}
+ \label{eq:pointwise-square-prefix-RH}
+\end{equation}
+Equivalently,
+\begin{equation}
+ |A_N-T_N|\ll_\eps N^{1+\eps}.
+ \label{eq:pointwise-AT-RH-again}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Under RH, $M(x)\ll_\delta x^{1/2+\delta}$ for every $\delta>0$, and $X_N\asymp N^2$.  Conversely, if $N^2\le x<(N+1)^2$, then
+\[
+ |M(x)-M(N^2-1)|\le2N+1
+\]
+because $|\mu(m)|\le1$.  Thus the square-endpoint estimate interpolates to $M(x)\ll_\eps x^{1/2+\eps}$, the classical Mertens criterion.  The $A-T$ formulation follows from \cref{thm:intro-decomposition}.
+\end{proof}
 
 \begin{theorem}[Uniform local square-prefix criterion]
 \label{thm:local-RH}
@@ -2349,39 +2056,20 @@ The Riemann Hypothesis is equivalent to the statement that, for every $\eps>0$,
  \qquad(1\le H\le N).
  \label{eq:local-RH}
 \end{equation}
+Moreover, \cref{eq:local-RH} is equivalent directly to the pointwise estimate \cref{eq:pointwise-square-prefix-RH}.
 \end{theorem}
 
 \begin{proof}
-Under RH, the classical Mertens criterion gives
+The local estimate implies the pointwise estimate by setting $H=1$.  Conversely, if $N\le n<N+H$ and $H\le N$, then $n<2N$.  Applying \cref{eq:pointwise-square-prefix-RH} to each term and summing yields
 \[
- M(x)\ll_\delta x^{1/2+\delta}
+ V_{\mathrm{loc}}(N,H)
+ \ll_\eps H(2N)^{2+\eps}
+ \ll_\eps HN^{2+\eps}.
 \]
-for every $\delta>0$.  Since $X_n\asymp n^2$, one has
-\[
- |S_n|^2\ll_\eps n^{2+\eps},
-\]
-and summing $H$ consecutive terms gives \cref{eq:local-RH}.
-
-Conversely, set $H=1$.  Then
-\[
- |S_N|^2\ll_\eps N^{2+\eps},
-\]
-so $|S_N|\ll_\eta N^{1+\eta}$ for every $\eta>0$.  If
-\[
- n^2\le x<(n+1)^2,
-\]
-then
-\[
- |M(x)-M(n^2-1)|\le2n+1
-\]
-because $|\mu(m)|\le1$.  Therefore
-\[
- M(x)\ll_\eta x^{1/2+\eta},
-\]
-which is equivalent to RH.
+Now use \cref{thm:pointwise-square-prefix-RH}.
 \end{proof}
 
-A local version of \cref{conj:high-kernel} would therefore complete the argument without relying on a global-average converse.
+By \cref{thm:canonical-PHS-iff-RH,prop:PHS-HS-equivalence}, the pointwise high-sector inequality \cref{eq:canonical-PHS} is the minimal native arithmetic form of the same criterion.  Global cubic energy remains a natural diagnostic, but it is not needed in the logical equivalence.
 
 %======================================================================
 \section{Numerical evidence and preregistered diagnostics}
@@ -2668,113 +2356,6 @@ dyadic $C$ for all six prefix checkpoints
 $N=128,256,512,1024,2048,4096$.
 
 
-\subsection{The dyadic Gram matrix and the $16<c\le32$ spike}
-\label{subsec:dyadic-Gram}
-
-Let $B_j$ denote the complete square-prefix vector contributed by the
-cofactor block
-\[
- 2^{j-1}<c\le2^j,
-\]
-with $B_0=P$ for $c=1$.  The exact Gram matrix is
-\begin{equation}
- G_{ij}(N):=\langle B_i,B_j\rangle_{1\le n\le N}.
- \label{eq:dyadic-Gram}
-\end{equation}
-The following table compares the harmonic M\"obius coefficient
-\[
- a_j=\sum_{2^{j-1}<c\le2^j}\frac{\mu(c)}{c}
-\]
-from \cref{thm:major-rank-one} with the finite-sample regression
-coefficient
-\[
- \widehat\beta_j
- :=\frac{\langle P,B_j\rangle}{\|P\|^2}.
-\]
-
-\begin{table}[htbp]
-\centering
-\caption{Dyadic cofactor block geometry at $N=4096$.  The close
-agreement of signs, the nearly unit correlations, and the Gram spectrum
-below exhibit the major-arc rank-one structure.}
-\label{tab:dyadic-Gram-blocks}
-\scriptsize
-\setlength{\tabcolsep}{4.0pt}
-\begin{tabular}{lrrrrr}
-\toprule
-block & $a_j$ & $\widehat\beta_j$ & corr$(P,B_j)$ & $\|B_j\|^2/N^3$ & $\Delta V/N^3$\\
-\midrule
-$1<c\le2$   & $-0.500000$ & $-0.524110$ & $-0.999999$ & 4024.9308 & $-11334.1246$\\
-$2<c\le4$   & $-0.333333$ & $-0.359551$ & $-0.999997$ & 1894.2410 & $-3120.0154$\\
-$4<c\le8$   & $-0.176190$ & $-0.198795$ & $-0.999993$ & 579.0658 & $-98.6476$\\
-$8<c\le16$  & $ 0.070263$ & $ 0.085079$ & $ 0.999979$ & 106.0651 & $-99.5560$\\
-$16<c\le32$ & $-0.123472$ & $-0.155995$ & $-0.999970$ & 356.5833 & $ 344.6598$\\
-$32<c\le64$ & $ 0.078716$ & $ 0.103523$ & $ 0.999952$ & 157.0458 & $-308.3374$\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-For the block $B_{16,32}$ one finds
-\begin{align}
- \frac{\|B_{16,32}\|^2}{N^3}&=356.583335,\\
- \frac{\langle P,B_{16,32}\rangle}{N^3}&=-2285.725157,\\
- \operatorname{corr}(P,B_{16,32})&=-0.999970.
- \label{eq:block-16-32-prime}
-\end{align}
-Thus the proposed balance
-$\langle P,B_{16,32}\rangle\approx-\frac12\|B_{16,32}\|^2$
-is not what occurs.  Instead,
-\begin{equation}
- \boxed{
- \langle P,B_{16,32}\rangle
- =-6.410073\,\|B_{16,32}\|^2
- \quad\text{at }N=4096.
- }
- \label{eq:block-16-32-ratio}
-\end{equation}
-The block is almost a negative scalar multiple of the prime curve, as
-predicted by the rank-one theorem.
-
-The cascade spike has a different cause.  Let $R_{16}$ be the cumulative
-residual after the blocks through $c\le16$.  Then
-\begin{equation}
- \frac{\langle R_{16},B_{16,32}\rangle}{N^3}
- =-5.961775,
- \label{eq:R16-block-inner}
-\end{equation}
-so
-\begin{align}
- \frac{V_{32}-V_{16}}{N^3}
- &=\frac{\|B_{16,32}\|^2
- +2\langle R_{16},B_{16,32}\rangle}{N^3}\\
- &=356.583335-11.923550\\
- &=344.659785.
- \label{eq:block-spike-identity}
-\end{align}
-By $C=16$, the prime-like coherent mode has already been almost
-annihilated.  The block $16<c\le32$ therefore reintroduces that mode
-rather than cancelling it.  The next block $32<c\le64$ has
-\[
- \frac{\langle R_{32},B_{32,64}\rangle}{N^3}=-232.691603
-\]
-and lowers the energy by $308.337391N^3$, repairing most of the spike.
-
-The Gram matrix itself is nearly rank one.  For the six blocks through
-$c\le32$, its largest eigenvalue contains
-\begin{equation}
- 0.999998101
- \label{eq:Gram-top-share-32}
-\end{equation}
-of the trace and
-$\lambda_2/\lambda_1=1.8926\times10^{-6}$.  Through $c\le64$, the
-corresponding values are $0.999997519$ and
-$2.4696\times10^{-6}$.  Restricting to the high sector
-$|Y|>16n$ changes these figures only to $0.999998118$ and
-$1.8753\times10^{-6}$ through $c\le32$.  The observed rank-one mode is
-therefore a high-sector phenomenon, not an artifact of the already
-controlled low-height points.
-
-
 \subsection{Independent extension through $N=2^{14}$}
 \label{subsec:numerics-16384}
 
@@ -3030,645 +2611,103 @@ This range passes the preliminary scale-stability test
 $\widehat\theta\le0.10$, but it is not long enough to determine the
 asymptotic law.
 
-\subsection{Further diagnostics}
-
-The next numerical stage must resolve the complete joint Gram structure, not merely
-produce additional diagonal energies.  At each dyadic scale it should report:
-
-\begin{enumerate}[leftmargin=1.7em,itemsep=0.3em]
-\item both the theorem-predicted coefficient $\lambda_\sigma a_C$ and the exact
-      orthogonal coefficient $\widehat\beta_C$ for every cofactor block;
-\item the full height-shell Gram matrix $G_{\ell m}$ and its spectrum;
-\item cross-shell contributions grouped by cofactor and prime ranges;
-\item exact reduced-square phase classes modulo $2r$ for all retained major arcs;
-\item the resonant/nonresonant leakage created by replacing
-      $P_{\mathrm{res},M}$ with $P_{\mathrm{res},M'}$ under scale descent;
-\item the low-height and endpoint forcing vectors before and after projection;
-\item the contribution of every indexed cell to the full signed quantity
-      $\mathbf1^*G_M\mathbf1$.
-\end{enumerate}
-
-The preregistered pass condition is no longer that each shell or localized cell be
-small.  It is that the full recombined Gram form obey a scale-uniform bound after the
-explicit major-arc modes have been modeled with modulus $2r$.  A computation may
-therefore pass even when individual shell diagonals grow, provided the corresponding
-off-diagonal cancellation is stable and quantitatively explained.  Conversely, a
-small aggregate residual without a stable cross-shell and cross-curve mechanism is
-not evidence for the required uniform theorem.
-
-%======================================================================
-
 \section{Machine-checked formalization}
 \label{sec:lean}
 %======================================================================
 
 \begin{motivation}
-Formalization is used here as a mathematical audit.  It forces every index, modulus, projection, sign, and quantifier to be stated explicitly.  In particular, it exposed the difference between a global cubic average and the genuinely RH-equivalent uniform local estimate.
+Formalization is used as a mathematical audit.  It forces every index, cutoff, modulus, projection, sign, and quantifier to be explicit.
 \end{motivation}
 
 The accompanying Lean 4 project is available at
 \[
  \texttt{https://github.com/OVVO-Financial/RH\_Lean}.
 \]
-It is pinned to mathlib \texttt{v4.24.0} and currently imports thirty-nine theorem modules.  The source audit rejects \texttt{sorry}, \texttt{admit}, newly introduced axioms, and hidden theorem substitutes; the full library is built with warnings treated as errors.
-
-The formal development is organized by dependency rather than by the narrative order of this paper.
+It is pinned to mathlib \texttt{v4.24.0} and imports fifty-eight theorem modules, covering the minimal bridge described below together with additional exploratory modules not needed for it.  The source audit rejects \texttt{sorry}, \texttt{admit}, newly introduced axioms, opaque theorem substitutes, weakened statements, and circular RH assumptions; the full library builds with warnings treated as errors.
 
 \subsection{Arithmetic, phase, and geometry}
 
-The compiled arithmetic layer includes M\"obius doubling, four-slot compression, deterministic prime-$3$ activation, the prime-square congruence modulo $24$, and the two square classes modulo $40$.  The phase layer uses the canonical modulus $2r$, proves the shift-by-$r$ sign law, defines the reduced Gauss factor over $(\mathbb Z/2r\mathbb Z)^\times$, and keeps the prime-$3$ cell-mask energy separate from the prime-$3$ quadratic resonance.
+The compiled arithmetic layer includes M\"obius doubling, exact prime-square congruences, and the normalized cofactor expansion.  The phase layer uses the canonical modulus $2r$, proves the shift-by-$r$ sign law, and defines the reduced Gauss factor over $(\mathbb Z/2r\mathbb Z)^\times$.
 
-The geometry layer formalizes Fermat midpoint/half-gap coordinates, squared-complex recovery, cofactor parabolas, the $2ab$ displacement laws, conformality of the square map, and the two-sheeted square fibre with positive-branch injectivity.
+The geometry layer formalizes Fermat midpoint/half-gap coordinates, squared-complex recovery, cofactor parabolas, the $2ab$ displacement laws, conformality, and positive-branch injectivity.
 
-\subsection{Signed Gram and residual architecture}
+\subsection{Concrete square-prefix and Mertens bridge}
 
-The Hilbert-space layer proves the exact height-shell Gram identity with every off-diagonal real inner product retained.  It defines the true orthogonal coefficient and residual, proves orthogonality and the Pythagorean identity, and keeps that projection separate from the theorem-predicted coefficient used in the number-theoretic decomposition.
-
-Subsequent modules define the scale-dependent resonant projection, resonant/nonresonant leakage, the weighted affine Lyapunov closure, the fully indexed actual residual, exact resonant cancellation for certified M\"obius cofactor pairs, forcing estimates, and the full shell/cofactor/mode/row signed Gram recombination.  No theorem replaces the joint signed form by separate positive shell bounds.
-
-\subsection{Certificates, actual-start identities, and localization}
-
-The finite-range checker verifies exact integer checkpoint data and has a proved soundness theorem.  Acceptance of a certificate is deliberately separate from the mathematical realization that identifies the checked data with the analytic quantities in this paper.
-
-The actual-start modules formalize
+Lean defines
 \[
- \operatorname{actual}(M)
- =2\operatorname{prediction}(M)+\operatorname{residual}(M)
-\]
-and the exact signed energy identity
-\[
- \begin{aligned}
- \operatorname{actualEnergy}
- &=4\operatorname{predictionEnergy}
- +\operatorname{residualEnergy}\\
- &\qquad+\operatorname{signedPredictionResidualInteraction}.
- \end{aligned}
-\]
-The sharp constant-$4$ inequality is obtained only when the signed interaction explicitly absorbs the residual budget.
-
-The corrected localization layer repeats these definitions on every interval $[N,N+H)$.  It introduces a separate local signed-interaction hypothesis, proves the exact windowed energy identity, and proves the sharp local frame inequality.  A prefix estimate beginning at zero is never used as a substitute for a translated local estimate.
-
-\subsection{The corrected RH bridge}
-
-The formal RH target is the manuscript's local criterion
-\[
- V_{\mathrm{loc}}(N,H)\ll_\eps HN^{2+\eps},
- \qquad 1\le H\le N,
-\]
-not merely the global benchmark $V(N)=O(N^{3+\eps})$.  Lean proves the elementary localization step from the uniform local estimate to the pointwise bound by taking $H=1$.
-
-The final bridge then has the schematic form
-\[
- \begin{gathered}
- \text{local signed frame}
- \Longrightarrow \text{uniform local square-prefix bound}
- \Longrightarrow \text{pointwise square-prefix bound}\\
- \Longrightarrow \text{Riemann Hypothesis}.
- \end{gathered}
-\]
-The reverse RH-to-local implication is retained separately so that the criterion can be stated as an equivalence.
-
-What Lean currently proves is an axiom-free conditional composition theorem: all remaining implications are ordinary typed premises, not project axioms.  The unconstructed inputs are the concrete prediction estimate giving the $HN^{2+\eps}$ scale, the identification of the formal actual-start coefficient with the square-prefix Mertens value, the two classical Mertens/RH directions, and the concrete realization, contraction, starting-configuration, and local signed-interaction instances.
-
-This is the intended boundary.  The formalization does not claim RH; it records exactly what has been reduced to what, and prevents a global-average statement from being mistaken for the local criterion.
-
-%======================================================================
-\section{Fixed packets, small-prime channels, and uniform control}
-\label{sec:fixed-packet}
-%======================================================================
-
-\begin{motivation}
-The packets themselves do not change when the observation horizon grows.  Making that fixedness explicit removes a false source of operator evolution and isolates the real scale-dependent leakage.
-\end{motivation}
-
-This section isolates a logical point that is easy to obscure when one works with a
-family of finite matrices indexed by the scale.  The arithmetic packets themselves do
-not change as the horizon grows.  What changes is only which fixed packets are being
-observed and how they are normalized.  This distinction removes a spurious source of
-``operator evolution'' and places the remaining proof obligation in its sharpest form.
-
-\subsection{A universal fixed packet system}
-
-Retain the complete half-square grid
-\[
- X_m=\left\lfloor\frac{m^2}{2}\right\rfloor
-\]
-and the complete block sums
-\[
- \Delta_m:=M(X_{m+1})-M(X_m)
- =\sum_{X_m<n\le X_{m+1}}\mu(n).
-\]
-For every starting index $u$ and length $L$, define the complete packet
-\begin{equation}
- \mathcal B_{u,L}:=(X_u,X_{u+L}],
+ M(x)=\sum_{m\le x}\mu(m),
  \qquad
- S_{u,L}:=\sum_{m=u}^{u+L-1}\Delta_m.
- \label{eq:fixed-packet-def}
-\end{equation}
-Once $u$ and $L$ are fixed, both $\mathcal B_{u,L}$ and $S_{u,L}$ are fixed forever.
-Passing to a larger horizon does not alter any earlier block or packet.
-
-\begin{proposition}[No retroactive packet deformation]
-\label{prop:no-retroactive}
-For every $u,L$ and every observation horizon $H\ge u+L$, the value of
-$S_{u,L}$ is independent of $H$.  If a finite packet vector is enlarged by appending
-additional packet coordinates, its previously existing coordinates are unchanged.
-\end{proposition}
-
-\begin{proof}
-The value in \cref{eq:fixed-packet-def} is a finite sum of the already fixed block
-values $\Delta_u,\ldots,\Delta_{u+L-1}$.  No later block occurs in that sum.
-\end{proof}
-
-It is therefore preferable to define one universal incidence system.  For an
-arithmetic source $w$, let
-\[
- \Phi_w(u,L):=\1_{\{w\in\mathcal B_{u,L}\}}.
-\]
-The infinite column $\Phi_w$ is fixed.  A scale-$M$ operator is merely a coordinate
-restriction
-\[
- P_M\Phi_w=\bigl(\Phi_w(u,M)\bigr)_{M\le u<2M}.
-\]
-If $A_\infty$ denotes the universal synthesis map, then
-\begin{equation}
- A_M=P_MA_\infty,
+ X_n=(n+1)^2-1,
  \qquad
- K_M=A_\infty^*P_M^*P_MA_\infty.
- \label{eq:universal-restriction}
-\end{equation}
-Thus $K_M$ changes with $M$ only because the observation projection changes.  The
-arithmetic columns do not move.
-
-For nested square prefixes the same point is even more transparent.  Let
-\[
- p_n(w):=\1_{\{e(w)\le n\}}.
+ S_n=M(X_n),
 \]
-Then the prefix kernel satisfies the exact rank-one update
-\begin{equation}
- K_{N+1}=K_N+p_{N+1}\otimes p_{N+1},
- \label{eq:rank-one-prefix-update}
-\end{equation}
-and consequently
-\begin{equation}
- V(N+1)=V(N)+|S_{N+1}|^2.
- \label{eq:variance-append}
-\end{equation}
-No previous term is changed.
-
-\subsection{The role of the $2ab$ coordinate}
-
-The fixed-packet formulation corrects the interpretation of the squared height.
-The coordinate
+proves square-block interpolation, and proves the equivalence of the uniform local, pointwise square-prefix, square-prefix energy, and Mertens energy criteria.  The final integration theorem accepts the classical proposition
 \[
- Y=2ab=\frac{q^2-c^2}{2}
+ \texttt{MertensEnergyBoundedStatement}
+ \ \Longleftrightarrow\ 
+ \texttt{RiemannHypothesisStatement}
 \]
-does not describe how an old packet deforms when a new packet is added.  It determines
-the permanent activation interval of the canonical factor point.  If
+directly as an ordinary theorem argument.
+
+\subsection{Native canonical high-sector module}
+
+The module
 \[
- e(cq)=\lfloor\sqrt{cq}\rfloor,
- \qquad h(cq)=q-1,
+ \texttt{RHLean.Proof.CanonicalHighSectorBridge}
 \]
-then
+defines the largest-prime canonical factor $q_m=\Pplus(m)$, the cofactor $c_m=m/q_m$, the doubled signed height $q_m^2-c_m^2$, the exact square blocks, and the native low/high increments and prefixes.  It proves
 \[
- I(c,q):=\{n:e(cq)\le n\le h(cq)\}
-\]
-is fixed, and its incidence column is
-\[
- \phi_{c,q}(n)=\1_{I(c,q)}(n).
-\]
-The exact continuous lifetime identity from \cref{sec:lifetime-law} may be written
-\begin{equation}
- Y
- =\frac{q\tau}{2}
-   \left(1+\sqrt{c/q}\right)\left(1+c/q\right),
- \qquad
- \tau=q-\sqrt{cq}.
- \label{eq:Y-fixed-lifetime}
-\end{equation}
-Hence $Y/q$ controls the length of a fixed incidence interval.  Differences in
-$Y$ control differences among fixed columns; they do not cause retroactive changes.
-
-For the low-frequency atoms
-\[
- v_r(\theta)=\1_{[-1/N,1/N]}(\theta)e(r\theta),
-\]
-one has, for $|r-s|\ll N$,
-\begin{equation}
- \norm{v_r-v_s}_2^2
- =\frac{8\pi^2}{3}\frac{(r-s)^2}{N^3}
- +O\!\left(\frac{(r-s)^4}{N^5}\right).
- \label{eq:packet-column-modulus}
-\end{equation}
-Consequently, the $2ab$ spacing controls a modulus of continuity for the fixed packet
-columns.  This is the functional-analytic image of the squared-space spacing law.
-
-\subsection{Least-prime channels}
-
-Every squarefree integer $n>1$ has the unique small-prime representation
-\[
- n=pa,
- \qquad p=P^-(n),
- \qquad P^-(a)>p,
- \qquad \mu(pa)=-\mu(a).
-\]
-For the fixed packet $\mathcal B_{u,M}$, define
-\begin{equation}
- L_{p,M}(u)
- :=-\!\!\sum_{\substack{X_u/p<a\le X_{u+M}/p\\
-                         \mu(a)\ne0,\ P^-(a)>p}}
-       \mu(a).
- \label{eq:small-prime-layer-fixed}
-\end{equation}
-Then, coordinatewise,
-\begin{equation}
- \vect S_M=\sum_p\vect L_{p,M}.
- \label{eq:small-prime-fixed-recursion}
-\end{equation}
-This is an identity among fixed packet vectors.  The $p=2$ channel is the exact
-sign-reversed odd squarefree parent process at numerical scale $1/2$, corresponding
-to block scale $M/\sqrt2$.  Every $p\ge3$ parent lies at numerical scale at most
-$1/3$.
-
-\subsection{Dyadic sign-flip cells}
-\label{subsec:exact-dyadic-cells}
-
-The prime-$2$ mechanism is stronger than a channel-level heuristic.  It compresses
-the raw M\"obius sequence into an exact permanent four-slot cell before averaging,
-projection, or asymptotic estimation.
-
-\begin{theorem}[Exact dyadic sign reversal]
-\label{thm:exact-dyadic-sign-reversal}
-For every odd integer $a\ge1$,
-\begin{equation}
- \boxed{\mu(2a)=-\mu(a).}
- \label{eq:mobius-doubling-odd}
-\end{equation}
-This includes nonsquarefree $a$, for which both sides vanish.
-\end{theorem}
-
-\begin{proof}
-If $a$ is squarefree, then $\gcd(2,a)=1$ and multiplicativity gives
-$\mu(2a)=\mu(2)\mu(a)=-\mu(a)$.  If $a$ is not squarefree, the same prime
-square divides both $a$ and $2a$, so both M\"obius values are zero.
-\end{proof}
-
-Taking $a=2k+1$ and using $4\mid4k+4$ yields
-\begin{equation}
- \mu(4k+2)=-\mu(2k+1),
- \qquad
- \mu(4k+4)=0.
- \label{eq:dyadic-two-identities}
-\end{equation}
-
-\begin{theorem}[Exact four-slot cell compression]
-\label{thm:exact-four-slot-cell}
-Define
-\[
- \mathbf C_k
- :=\bigl(\mu(4k+1),\mu(4k+2),\mu(4k+3),\mu(4k+4)\bigr).
-\]
-Then
-\begin{equation}
- \boxed{
- \mathbf C_k
- =\bigl(\mu(4k+1),-\mu(2k+1),\mu(4k+3),0\bigr).
- }
- \label{eq:exact-four-slot-cell}
-\end{equation}
-Its scalar compression is
-\begin{equation}
- \boxed{
- C_k=\mu(4k+1)-\mu(2k+1)+\mu(4k+3).
- }
- \label{eq:compressed-cell}
-\end{equation}
-\end{theorem}
-
-The pattern $(+,-,+,0)$ is therefore exact.  At the fixed-column level,
-\begin{equation}
- \mu(a)\phi_a+\mu(2a)\phi_{2a}
- =\mu(a)(\phi_a-\phi_{2a}),
- \label{eq:exact-doubling-column-difference}
-\end{equation}
-so the common component cancels before the packet norm is formed.
-
-\subsubsection{Universal prime-$3$ activation}
-
-Since $4\equiv1\pmod3$, the three active slots have residues
-$k+1,k+2,k$ modulo $3$.
-
-\begin{theorem}[Prime-$3$ active-slot cycle]
-\label{thm:prime-three-active-slot-cycle}
-Exactly one of $4k+1,4k+2,4k+3$ is divisible by $3$.  The affected slot is
-\begin{equation}
- \begin{array}{c|c}
- k\bmod3&\text{active multiple of }3\\
- \hline
- 0&4k+3\\
- 1&4k+2\\
- 2&4k+1
- \end{array}
- \label{eq:prime-three-slot-cycle}
-\end{equation}
-\end{theorem}
-
-Thus prime $2$ first creates the exact three-active-channel cell, and prime $3$
-then acts on one compulsory channel in every cell.  Up to cyclic translation, the
-ideal live sign mask is
-\[
- m_3=(+1,-1,+1),
-\]
-whose normalized Fourier squared magnitudes are
-\begin{equation}
- \frac19,\qquad\frac49,\qquad\frac49.
- \label{eq:p3-cell-fourier-masses}
-\end{equation}
-The mean-mode energy factor $1/9$ concerns the cell-index mask only.  By
-\cref{caution:cell-mask-vs-prime-phase}, it does not suppress the exactly coherent
-quadratic prime phase at $\alpha=1/3$.
-
-\subsubsection{Complete-cell and half-square packet equivalence}
-
-For a finite cell-index interval $I$,
-\begin{equation}
- \boxed{
- \sum_{n\in4I+\{1,2,3,4\}}\mu(n)
- =\sum_{k\in I}C_k.
- }
- \label{eq:complete-cell-packet-identity}
-\end{equation}
-For an arbitrary integer interval $(A,B]$, complete cells leave only two endpoint
-fragments, so
-\begin{equation}
- \sum_{A<n\le B}\mu(n)
- =\sum_{k\in\mathcal K(A,B)}C_k+E(A,B),
- \qquad |E(A,B)|\le6.
- \label{eq:arbitrary-cell-packet}
-\end{equation}
-
-For the half-square grid $X_m=\lfloor m^2/2\rfloor$, each endpoint is $0$ or $2$
-modulo $4$.  A fragment adjacent to an endpoint of class $2$ contains a multiple of
-$4$, whose M\"obius value is zero.  Therefore the fixed packet
-$\mathcal B_{u,M}=(X_u,X_{u+M}]$ satisfies
-\begin{equation}
- \boxed{
- S_{u,M}
- =\sum_{k=\lceil X_u/4\rceil}^{\lfloor X_{u+M}/4\rfloor-1}
- \bigl[\mu(4k+1)-\mu(2k+1)+\mu(4k+3)\bigr]
- +E_{u,M},
- }
- \label{eq:half-square-compressed-packet}
-\end{equation}
-with
-\begin{equation}
- \boxed{|E_{u,M}|\le3,
- \qquad
- \sum_{u=M}^{2M-1}|E_{u,M}|^2\le9M.}
- \label{eq:half-square-boundary-energy}
-\end{equation}
-
-Define
-\begin{equation}
- \widetilde S_{u,M}
- :=\sum_{k=\lceil X_u/4\rceil}^{\lfloor X_{u+M}/4\rfloor-1}
- \bigl[\mu(4k+1)-\mu(2k+1)+\mu(4k+3)\bigr].
- \label{eq:compressed-packet-state}
-\end{equation}
-Then $S_{u,M}=\widetilde S_{u,M}+E_{u,M}$ with boundary energy $O(M)$, so the
-raw and compressed packet-energy criteria are equivalent at the
-$M^{3+\eps}$ scale.  The primary actual-start problem is therefore
-\begin{equation}
- \boxed{
- \sum_{u=M}^{2M-1}|\widetilde S_{u,M}|^2
- \ll_\eps M^{3+\eps}.
- }
- \label{eq:compressed-master-variance}
-\end{equation}
-The open operator estimate acts on this already compressed signed process.
-
-\subsection{Small-prime cell contraction versus rational resonances}
-
-The prime-$2$ parity mask has the exact low-mode factor
-\begin{equation}
- \rho_2=\frac{35+3\sqrt{65}}{70}=0.845525332\ldots.
- \label{eq:rho2-fixed}
-\end{equation}
-For the ideal cell mask, the prime-$3$ mean-mode energy factor is
-\begin{equation}
- \rho_{3,\mathrm{cell}}=\frac19.
- \label{eq:rho3-cell-fixed}
-\end{equation}
-These factors can enter a global contraction budget only after the corrected rational
-major-arc component has been projected out or explicitly included in the parent state.
-The exact modes from \cref{cor:perfect-prime-coherence} are not leakage errors; they
-are genuine coherent modes requiring cofactor cancellation.
-
-\subsection{The signed Gram form}
-
-Separate the fixed child-feature columns by the sign of the parent cofactor and write
-\[
- Z_+=\sum_{\mu(a)=+1}\Phi_{a,M},
- \qquad
- Z_-=\sum_{\mu(a)=-1}\Phi_{a,M}.
-\]
-The exact signed packet state is $Z_+-Z_-$.  If
-\[
- A=\norm{Z_+}^2,
- \qquad B=\norm{Z_-}^2,
- \qquad
- \cos\vartheta=\frac{\Repart\ip{Z_+}{Z_-}}{\sqrt{AB}},
-\]
-then
-\begin{equation}
- \norm{Z_+-Z_-}^2
- =\left(\sqrt A-\sqrt B\right)^2
-  +2\sqrt{AB}\left(1-\cos\vartheta\right).
- \label{eq:directional-defect-fixed}
-\end{equation}
-The two terms are respectively the directional mass defect and the directional
-profile defect.  The required cancellation is therefore not generic orthogonality;
-it is near-concordance of the two opposite-sign aggregate profiles.
-
-Equivalently, with synthesis operators $U_M$ and $V_M$ for the two sign classes, the
-joint Gram matrix is
-\[
- \mathbb G_M=
- \begin{pmatrix}
-  U_M^*U_M&U_M^*V_M\\
-  V_M^*U_M&V_M^*V_M
- \end{pmatrix}\succeq0.
-\]
-A natural sufficient condition is a small pair of Schur-complement defects, together
-with spectral balance of $U_M^*U_M$ and $V_M^*V_M$.  This is the operator form of
-concordance saturation.
-
-\subsection{Uniform bounds and the quantifier issue}
-
-The fixedness of every finite packet does not by itself give the RH estimate.  The
-necessary assertion is a uniform bound with one constant independent of the scale.
-Define
-\begin{equation}
- q_\eps(N):=\frac{V(N)}{N^{3+\eps}},
- \qquad
- Q_\eps(N):=\sup_{1\le m\le N}q_\eps(m).
- \label{eq:normalized-energy-fixed}
-\end{equation}
-The target is
-\begin{equation}
- \boxed{\displaystyle
-  \sup_{N\ge1}q_\eps(N)<\infty.}
- \label{eq:finite-uniform-bound}
-\end{equation}
-This is the precise sense in which the proof requires a finite bound with no growing
-$N$-dependent coefficient.  It is not enough that for each fixed $N$ one may choose a
-new constant $C_N$.
-
-\begin{theorem}[Uniform closure from strict scale descent]
-\label{thm:uniform-closure}
-Suppose that there exist $N_0$, $0<\rho<1$, $\eta>0$, and $C_\eps<\infty$, all
-independent of $N$, such that for $N\ge N_0$,
-\begin{equation}
- q_\eps(N)
- \le \rho\,Q_\eps\!\left(N/\sqrt2+O(1)\right)
-      +C_\eps N^{-\eta}.
- \label{eq:strict-scale-recursion}
-\end{equation}
-Then \cref{eq:finite-uniform-bound} holds.  In particular,
-\[
- V(N)\ll_\eps N^{3+\eps}.
-\]
-\end{theorem}
-
-\begin{proof}
-Iterate \cref{eq:strict-scale-recursion} until the ancestral scale is at most $N_0$.
-After $k\asymp\log N$ steps,
-\[
- q_\eps(N)
- \le \rho^kQ_\eps(N_0)
- +C_\eps\sum_{j=0}^{k-1}
-   \rho^j\left(N2^{-j/2}\right)^{-\eta}.
-\]
-Choose $\eta>0$ small enough that $\rho2^{\eta/2}<1$.  The geometric series is
-uniformly bounded, and the first term tends to zero.  Enlarging the final constant to
-cover $N<N_0$ proves the claim.
-\end{proof}
-
-The theorem shows exactly why the fixed-packet insight is useful but not circular.
-It eliminates retroactive deformation and leaves only a uniform smaller-scale
-comparison.  Once the coefficient $\rho$ is strictly below one, the finite uniform
-bound is elementary.
-
-\subsection{The resonant/nonresonant channel budget}
-
-Let $P_{\mathrm{res},M}$ be the scale-dependent rational-mode projection from
-\cref{eq:resonant-nonresonant-state}.  The candidate prime budget applies only to
-the nonresonant diagonal action after all retained modulus-$2r$ modes have been
-extracted.  Its orientation value remains
-\begin{equation}
- \rho_{\mathrm{nr,cand}}
- =2^{-3/2}\rho_2
-  +3^{-3/2}\rho_{3,\mathrm{cell}}
-  +\rho_{\ge5,\mathrm{nr}},
- \label{eq:candidate-budget-corrected}
-\end{equation}
-and, conditionally on
-\begin{equation}
- \rho_{\ge5,\mathrm{nr}}
- \le\sum_{p\ge5}p^{-3/2}+o(1),
- \label{eq:pge5-budget-corrected}
-\end{equation}
-the numerical orientation
-\begin{equation}
- 2^{-3/2}\rho_2
- +3^{-3/2}\frac19
- +\sum_{p\ge5}p^{-3/2}
- \approx0.624
- \label{eq:point-six-two-four-budget}
-\end{equation}
-leaves a margin below one.  This is not a bound for the full state, and it is not
-even sufficient for the projected state unless resonant/nonresonant leakage and
-additive forcing are controlled.  The facts $|\gamma(1,3)|=1$ and
-$\rho_{3,\mathrm{cell}}=1/9$ remain compatible because they act in different
-Fourier variables.
-
-To expose the feedback explicitly, let
-\[
- R_M=P_{\mathrm{res},M}Z_M,
- \qquad
- N_M=P_{\mathrm{nr},M}Z_M.
-\]
-A parent-to-child descent has the schematic form
-\begin{equation}
- \begin{pmatrix}R_M\\N_M\end{pmatrix}
+ \texttt{squarePrefixMertens}\ n
  =
- \begin{pmatrix}A_M&B_M\\C_M&D_M\end{pmatrix}
- \begin{pmatrix}R_{\mathrm{par}(M)}\\N_{\mathrm{par}(M)}\end{pmatrix}
+ \texttt{canonicalLowPrefix}\ \Lambda\ n
  +
- \begin{pmatrix}f_M^{R}\\f_M^{N}\end{pmatrix}.
- \label{eq:resonant-block-recursion}
-\end{equation}
-Here $B_M$ and $C_M$ include projection leakage, while $f_M^R,f_M^N$ contain
-low-height, endpoint, and completion forcing.  A bound on $D_M$ alone does not
-close the argument.
-
-\begin{conjecture}[Joint actual-start block Lyapunov contraction]
-\label{conj:corrected-fixed-packet-frame}
-For every $\eps>0$ there exist $\eta>0$, $0<\rho<1$, $C_\eps<\infty$, and a
-positive definite scale-uniform Lyapunov form $\mathcal L$ such that, for every
-actual-start compressed packet state,
-\begin{equation}
- \boxed{
- \left\|
- \begin{pmatrix}A_M&B_M\\C_M&D_M\end{pmatrix}
- \right\|_{\mathcal L}
- \le\rho<1,
- }
- \label{eq:block-Lyapunov-contraction}
-\end{equation}
-and
-\begin{equation}
- \boxed{
- \left\|\begin{pmatrix}f_M^R\\f_M^N\end{pmatrix}\right\|_{\mathcal L}^2
- \le C_\eps M^{3-\eta+\eps}.
- }
- \label{eq:block-forcing-bound}
-\end{equation}
-The Lyapunov energy is the full actual-start signed Gram form: sums over height
-shells, cofactor ranges, prime modes, and resonant/nonresonant components remain
-inside the norm.  All Fejer weights, cross-cell terms, cross-prime terms, boundary
-fragments, and ancestral completion terms are retained.
-\end{conjecture}
-
-A slightly weaker sufficient alternative is a triangular theorem in which the
-resonant component is bounded independently, the leakage into the nonresonant
-component is summable, and the nonresonant diagonal block contracts uniformly.
-Either formulation must prevent low-height or boundary forcing from being
-reprojected coherently into a later resonant mode.
-
-Combining \cref{conj:corrected-fixed-packet-frame} with
-\cref{thm:uniform-closure} yields the finite normalized bound.  The corrected final
-target is therefore
-\begin{equation}
+ \texttt{canonicalHighPrefix}\ \Lambda\ n.
+\]
+The module
+\[
+ \texttt{RHLean.Analysis.CanonicalLowOccupancy}
+\]
+proves the elementary low-height clustering estimate unconditionally: on the nonzero-M\"obius, $m>1$ support of a fixed square block, the map from a source to its absolute factor gap $|q_m-c_m|$ is injective into $\{1,\dots,\lfloor\Lambda\rfloor\}$, using only $|q_m-c_m|\ge1$, the exact product identity $q_mc_m=m$, and the elementary growth bound $q_m+c_m\ge2j$ on block $j$.  Restoring the single source $m=1$ gives the uniform bound $\lfloor\Lambda\rfloor+1$, and this
+\[
+ \texttt{CanonicalLowIncrementControl}\ \Lambda
+\]
+instance is constructed directly, with no remaining hypothesis.  It defines the unresolved proposition
+\[
+ \texttt{CanonicalHighUniformLocalBoundedStatement}\ \Lambda.
+\]
+Using the realized low-control object, Lean proves
+\[
+ \begin{aligned}
+ &\texttt{CanonicalHighUniformLocalBoundedStatement}\ \Lambda\\
+ &\qquad\Longleftrightarrow
+ \texttt{SquarePrefixUniformLocalBoundedStatement}.
+ \end{aligned}
+\]
+Given the classical Mertens--RH criterion, it then proves
+\[
  \boxed{
  \begin{aligned}
- &\text{joint resonant cancellation}
- +\text{cross-shell signed Gram control}\\
- &\qquad
- +\text{nonresonant contraction}
- +\text{leakage/forcing control}.
+ &\texttt{CanonicalHighUniformLocalBoundedStatement}\ \Lambda\\
+ &\qquad\Longleftrightarrow
+ \texttt{RiemannHypothesisStatement},
  \end{aligned}
  }
- \label{eq:final-two-part-target}
-\end{equation}
+\]
+with the classical criterion as the only remaining theorem argument.  This composition is axiom-free.
 
-%======================================================================
+The remaining formal obligation is precisely:
+\begin{enumerate}[leftmargin=1.7em,itemsep=0.3em]
+\item prove the native pointwise high-sector estimate (PHS), equivalently the existing local statement (HS); the classical Mertens energy criterion equivalent to RH is imported as an ordinary theorem argument, not proved from scratch.
+\end{enumerate}
+
+No unconditional proof of RH is asserted by the Lean development.
+
 \section{What is proved, formalized, and still open}
 \label{sec:status}
 %======================================================================
 
 \begin{motivation}
-There are three different claims to track: a result may be proved in the manuscript, formalized in Lean, or still required for the RH implication.  Combining those categories into a single word such as ``proved'' would obscure the actual state of the program.
+There are three different claims to track: a statement may be proved in the manuscript, formalized in Lean, or still required analytically.  The canonical bridge now makes that boundary especially sharp.
 \end{motivation}
 
 \begin{table}[htbp]
@@ -3676,43 +2715,46 @@ There are three different claims to track: a result may be proved in the manuscr
 \caption{Mathematical and formal status of the program.}
 \label{tab:status}
 \small
-\renewcommand{\arraystretch}{1.22}
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.46\textwidth}
-                >{\raggedright\arraybackslash}p{0.20\textwidth}
-                >{\raggedright\arraybackslash}p{0.22\textwidth}}
+\renewcommand{\arraystretch}{1.20}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.43\textwidth}
+                >{\raggedright\arraybackslash}p{0.22\textwidth}
+                >{\raggedright\arraybackslash}p{0.25\textwidth}}
 \toprule
 Layer & Mathematical status & Lean status\\
 \midrule
 Square-root smooth--transport decomposition and channel telescoping
 & Proved
-& Core identities represented in the compiled architecture\\
-Squared-complex recovery, cofactor parabolas, $2ab$ displacement, conformality, and square fibres
+& Core identities formalized\\
+Squared-complex recovery, canonical cofactor curves, $2ab$ displacement, conformality, and square fibres
 & Proved
 & Formalized\\
-Dyadic M\"obius compression, prime-$3$ activation, and prime-square congruences
+Canonical low-height clustering and lifetime for $m>1$
 & Proved
-& Formalized\\
-Modulus-$2r$ phases, reduced Gauss factors, and small-modulus resonance
+& Formalized; \texttt{CanonicalLowIncrementControl} constructed with no remaining hypothesis\\
+Isolated source $m=1$
+& Finite endpoint, handled explicitly
+& Folded into the initial low block by convention\\
+Exact canonical low/high square-prefix recombination
 & Proved
+& Formalized in the canonical bridge module\\
+Pointwise total criterion $\Longleftrightarrow$ pointwise canonical high criterion
+& Proved by two norm inequalities and the low bound
+& Exposed through the compiled square-prefix and canonical bridges\\
+Pointwise criterion $\Longleftrightarrow$ uniform local criterion
+& Proved by $H=1$ and summation over $n<2N$
+& Formalized for the concrete square-prefix sequence\\
+Uniform local square-prefix criterion $\Longleftrightarrow$ Mertens energy criterion
+& Proved in the project framework
 & Formalized\\
-Height-shell Gram identity, true orthogonal residual, and resonant/nonresonant decomposition
-& Proved as exact structural identities
-& Formalized\\
-Finite certificate checker and abstract weighted block closure
-& Proved as interfaces and conditional closure theorems
-& Formalized\\
-Actual-start prefix and local signed-frame inequalities
-& Conditional on explicit realization, contraction, and signed-absorption data
-& Formalized with all premises visible\\
-Uniform local $\Rightarrow$ pointwise step at $H=1$
-& Proved
-& Formalized\\
-Prediction transport to $HN^{2+\eps}$ and identification with the square-prefix Mertens quantity
-& Open
-& Exposed as explicit premises\\
-Classical Mertens interpolation/RH bridge in the concrete formal model
-& Standard analytic route, not yet constructed in the project
-& Exposed as explicit premises\\
+Classical Mertens criterion $\Longleftrightarrow$ RH
+& Standard analytic theorem
+& Exact proposition exposed as a typed premise\\
+Elementary pointwise high-sector estimate (PHS)
+& Open; equivalent to RH
+& Pointwise burden exposed through the compiled bridges\\
+Translated-window high-sector estimate (HS)
+& Open; exactly equivalent to (PHS)
+& Exact proposition exposed, not assumed\\
 Unconditional proof of RH
 & Not claimed
 & Not claimed\\
@@ -3720,41 +2762,84 @@ Unconditional proof of RH
 \end{tabular}
 \end{table}
 
-The open theorem is therefore specific.  At every scale, the finite-dimensional resonant modes must cancel across M\"obius-weighted cofactor curves; the complementary state must contract; the off-diagonal shell, curve, row, and mode interactions must remain inside one signed Gram form; and the leakage and forcing created by scale descent must be controlled uniformly on translated windows.  The numerical experiments show why this formulation is necessary: the shell diagonals can be large while their signed recombination is small.
+The exact logical spine is therefore
+\[
+ \begin{aligned}
+ \text{canonical definitions}
+ &\Longrightarrow \text{exact low/high recombination}\\
+ &\Longrightarrow
+ \bigl(\text{canonical (PHS)}\Longleftrightarrow
+       \text{total pointwise criterion}\bigr)\\
+ &\Longleftrightarrow
+ \bigl(\text{canonical (HS)}\Longleftrightarrow
+       \text{total local criterion}\bigr)\\
+ &\Longleftrightarrow \mathrm{RH}.
+ \end{aligned}
+\]
+The elementary low-control theorem and the classical Mertens--RH equivalence remain visible as their own obligations.  The local and pointwise formulations carry the same information; the pointwise form is the more elementary statement.
 
-The formal project sharpens this boundary further.  It has already checked the algebraic identities, the corrected modulus, the projection distinctions, the joint-index bookkeeping, the local window identities, and the $H=1$ localization.  What remains is not a vague appeal to cancellation but a finite list of concrete analytic and realization obligations.
+The open analytic content is not a collection of unrelated conjectures.  It is one pointwise statement: the complete native canonical high-prefix signal must satisfy $|S_N^{\mathrm{high}}(\Lambda)|^2=O_{\eps,\Lambda}(N^{2+\eps})$.  The translated-window estimate follows by summation and returns the pointwise statement at $H=1$.  No reformulation of that quantity enlarges or narrows the minimal bridge.
 
 %======================================================================
-\section{Conclusion and next theorem}
+\section{Conclusion and the remaining theorem}
 \label{sec:conclusion}
 %======================================================================
 
-The main contribution of this paper is a change in organization.  Square-prefix M\"obius sums are not treated as an undifferentiated cancellation problem.  They are decomposed into exact arithmetic channels, embedded in a squared-complex geometry, and recombined as one signed Gram problem.
-
-The square-root cutoff gives the exact identity
+The main contribution of this paper is an exact reorganization of the square-prefix M\"obius problem.  The square-root cutoff gives
 \[
- S_n=A_n-T_n.
+ S_N=A_N-T_N.
 \]
-The squared point
+The unique largest-prime factorization
 \[
- w_m=m+i\frac{q^2-c^2}{2}
+ q_m=\Pplus(m),\qquad c_m=m/q_m
 \]
-then records the source integer and its canonical factor imbalance simultaneously.  Fixed cofactors lie on parabolas, the prefix and smoothness conditions become moving boundaries, and their intersection is the exact transition $q=R$.  The movement from transport to smoothness is internal bookkeeping and cancels identically.
-
-The ordinate $Y=(q^2-c^2)/2$ does more than draw the picture.  It controls factor gap, local occupancy, and transport lifetime.  This closes the low-height sector at the cubic scale without invoking global sign cancellation.  Conformality of the square map explains the two-power geometric dilution that makes that scale natural.
-
-The high-height problem is different.  The numerical data show that separate shell energies are not small; only their signed recombination is.  The correct target must therefore retain the full off-diagonal Gram structure, distinguish exact resonant modes from the nonresonant state, and control projection leakage under scale descent.  Fixed packets and exact small-prime identities reduce the ambiguity but do not eliminate the need for this operator estimate.
-
-The RH connection is now stated in its correct local form:
+produces the squared point
 \[
- \sum_{n=N}^{N+H-1}|S_n|^2\ll_\eps HN^{2+\eps},
- \qquad 1\le H\le N.
+ w_m=m+i\frac{q_m^2-c_m^2}{2},
 \]
-Taking $H=1$ gives the pointwise square-prefix estimate, and square-block interpolation connects it to the classical Mertens criterion.  The accompanying Lean development formalizes the exact coordinate system, phase normalization, signed Gram architecture, residual and local-frame identities, certificate boundary, and the elementary localization step without adding a project axiom.
+which records the source integer and its canonical factor imbalance simultaneously.  Fixed cofactors lie on parabolas, the prefix and smoothness conditions become moving boundaries, and their intersection is the exact transition $q=R$.  Internal transport-to-smooth movement cancels identically in the arithmetic bookkeeping.
 
-The next theorem is therefore precise: construct the concrete local prediction bound and full signed block contraction, identify the formal actual-start coefficients with the square-prefix Mertens values, and discharge the remaining Mertens/RH bridge fields.  Proving that theorem would close the geometric reduction rather than merely add another estimate to it.
+The ordinate $Y_m=(q_m^2-c_m^2)/2$ controls factor gap, local occupancy, and transport lifetime.  This closes the low sector pointwise:
+\[
+ |S_N^{\mathrm{low}}(\Lambda)|\ll_\Lambda N.
+\]
+After that elementary step, the entire RH problem in the native geometry is the single finite-sum inequality
+\begin{equation}
+ \boxed{
+ \left|
+ \sum_{\substack{1\le m\le (N+1)^2-1\\
+ |\Pplus(m)^2-(m/\Pplus(m))^2|>
+ 2\Lambda\lfloor\sqrt m\rfloor}}
+ \mu(m)
+ \right|^2
+ \ll_{\eps,\Lambda}N^{2+\eps}.
+ }
+ \tag{PHS}
+ \label{eq:conclusion-PHS}
+\end{equation}
+No window, covariance, shell, probability space, or operator is needed to state it.  Equivalently, before removing the elementary low sector, the total smooth--transport target is
+\begin{equation}
+ \boxed{|A_N-T_N|\ll_\eps N^{1+\eps}.}
+ \label{eq:conclusion-AT}
+\end{equation}
+
+The translated-window estimate
+\[
+ \sum_{n=N}^{N+H-1}|S_n^{\mathrm{high}}(\Lambda)|^2
+ \ll_{\eps,\Lambda}HN^{2+\eps}
+\]
+is exactly equivalent: choose $H=1$ in one direction and sum the pointwise estimate over $n<2N$ in the other.
+
+The accompanying Lean development machine-checks the native canonical definitions, the elementary low-height occupancy bound and the resulting unconditional low-increment control, the exact recombination with the square-prefix Mertens sequence, the total/high local equivalence, and the final conditional composition with RH.  No project axiom is introduced.  The remaining work is correspondingly precise:
+\begin{enumerate}[leftmargin=1.7em,itemsep=0.3em]
+\item prove the elementary pointwise high-sector inequality (PHS);
+\item supply the classical Mertens--RH theorem in Lean.
+\end{enumerate}
+
+Thus the paper does not claim an unconditional proof of RH.  It gives an exact arithmetic and geometric reduction and identifies the most elementary remaining inequality: one square-prefix, one canonical high-sector selector, and one square-root-scale bound.
 
 %======================================================================
+
 \appendix
 \section{Notation}
 
@@ -3786,8 +2871,6 @@ $h(m)$ & smoothness-transition index $q-1$\\
 $L(m)$ & discrete transport lifetime\\
 $\tau(c,q)$ & signed continuous delay $q-\sqrt{cq}$\\
 $K_N$ & cumulative square-prefix kernel\\
-$P_{\mathrm{res},M}$ & scale-dependent orthogonal major-arc projection\\
-$G_{\ell m}(N)$ & joint height-shell Gram matrix\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -3942,7 +3025,7 @@ The asymptotic diagnostics are not proofs; their purpose is to identify
 which geometric or analytic component fails first as the range is
 extended.
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{12}
 
 \bibitem{titchmarsh}
 E. C. Titchmarsh,
@@ -3964,6 +3047,16 @@ Cambridge University Press, 2006.
 F. Viole,
 \emph{Complex Space Factorization},
 working paper.
+
+\bibitem{berck-hihn}
+P. Berck and J. Hihn,
+Using the semivariance to estimate safety-first rules,
+\emph{American Journal of Agricultural Economics} \textbf{64} (1982), 298--300.
+
+\bibitem{atwood}
+J. A. Atwood,
+Demonstration of the use of lower partial moments to improve safety-first probability limits,
+\emph{American Journal of Agricultural Economics} \textbf{67} (1985), 880--886.
 
 \end{thebibliography}
 
