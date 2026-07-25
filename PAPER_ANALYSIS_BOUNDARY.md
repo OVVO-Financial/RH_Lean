@@ -1,6 +1,6 @@
 # Paper / Analysis Boundary
 
-This repository uses the source hierarchy as an epistemic boundary.
+This repository uses the source hierarchy as a content boundary.
 
 ## `RHLean/Analysis/`
 
@@ -17,35 +17,28 @@ The paper may reference Lean source files only under `RHLean/Analysis/`.
 
 ## `RHLean/Proof/`
 
-`Proof/` contains active attempts to prove, strengthen, or replace the unresolved estimates:
+`Proof/` contains active proof technology, superseded bridge tracks, and attempts to prove, strengthen, or replace unresolved estimates:
 
 - candidate sufficient conditions not adopted into the paper;
-- baseline, partial-moment, prime-interval, large-sieve, and operator attack routes;
+- baseline, partial-moment, prime-interval, large-sieve, resonant, Gram, Lyapunov, and operator attack routes;
 - experimental decompositions and conjectural interfaces;
-- bridge theorems whose mathematical content is not yet part of the manuscript.
+- bridge theorems whose mathematical content is not part of the current manuscript.
 
-A result moves from `Proof/` to `Analysis/` only when the corresponding mathematics is incorporated into the paper and the dependency direction remains acyclic.
+A file is classified by whether its mathematical content is represented in the current paper, not solely by which implementation modules it imports. Lean's module graph must remain acyclic, but a paper-facing `Analysis` module may import supporting proof-technology declarations when the paper-facing theorem is packaged there.
 
-## Dependency invariant
+## CI invariant
 
-An `Analysis` module must never import a `Proof` module. `Proof` may import `Analysis`.
+The CI script `scripts/check_paper_analysis_boundary.sh` enforces that no paper TeX source references Lean files or modules under `Proof`, `Arithmetic`, `Geometry`, `Kernel`, `CellMask`, or `Verification`. Paper-facing Lean source references must use only `RHLean/Analysis/` or `RHLean.Analysis.*`.
 
-The CI script `scripts/check_paper_analysis_boundary.sh` enforces:
-
-1. no `RHLean/Analysis/**/*.lean` file imports `RHLean.Proof.*`;
-2. no paper TeX source references Lean files or modules under `Proof`, `Arithmetic`, `Geometry`, `Kernel`, `CellMask`, or `Verification`;
-3. paper-facing Lean source references use only `RHLean/Analysis/` or `RHLean.Analysis.*`.
+Every reclassification must also pass the assumption audit and `lake build RHLean --wfail`, which verify that the resulting import graph is valid and the project still compiles.
 
 ## Stacked migration sequence
 
 The repository is being reorganized through green, merge-in-order pull requests:
 
-1. establish and enforce this boundary;
-2. move manuscript arithmetic and small-prime modules into `Analysis/`;
-3. move manuscript geometry, fibre, and fixed-packet modules into `Analysis/`;
-4. move manuscript exact realization, height partition, transport, and signed-Gram modules into `Analysis/`;
-5. move or wrap the manuscript certificate interface under `Analysis/`;
-6. update the paper's Lean inventory and status language so it references only `Analysis/` sources;
-7. retain post-paper attack routes under `Proof/`.
+1. classify paper-described mathematics under `Analysis/`;
+2. classify proof technology and superseded bridge tracks under `Proof/`;
+3. update every import, inventory, checklist, and paper module-path reference;
+4. retain explicit unresolved premises and avoid changing theorem statements during architectural moves.
 
 Each pull request must pass the assumption audit and `lake build RHLean --wfail` before the next stacked branch begins.

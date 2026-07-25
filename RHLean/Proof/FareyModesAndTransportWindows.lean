@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.SquarePrefixHeightPartition
+import RHLean.Analysis.SquarePrefixHeightPartition
 
 noncomputable section
 
