@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: lean-${{ github.workflow }}-${{ github.ref }}
@@ -17,16 +17,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out repository branch
         uses: actions/checkout@v4
-
-      - name: Upload formalization records
-        uses: actions/upload-artifact@v4
         with:
-          name: formalization-records
-          path: |
-            FORMALIZATION_SEQUENCE.md
-            FORMALIZATION_CHECKLIST.md
+          ref: agent/square-block-increment-energy
+
+      - name: Apply formalization record updates
+        run: |
+          python .github/update_formalization_records.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md
+          git commit -m "Update formalization records for increment energy" || true
+          git push origin HEAD:agent/square-block-increment-energy
 
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
