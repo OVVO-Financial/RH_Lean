@@ -47,7 +47,7 @@ The off-diagonal Gram terms are mathematically essential and may be negative.
 Planned module:
 
 ```text
-RHLean/Analysis/HeightShellGram.lean
+RHLean/Proof/HeightShellGram.lean
 ```
 
 Target theorem shape:
@@ -87,7 +87,7 @@ Only the second construction supports the exact orthogonality and Pythagorean id
 Planned module:
 
 ```text
-RHLean/Analysis/OrthogonalResidual.lean
+RHLean/Proof/OrthogonalResidual.lean
 ```
 
 Target theorem shapes:
@@ -119,7 +119,7 @@ The corrected quadratic factors use modulus `2*r`.
 Planned module:
 
 ```text
-RHLean/Analysis/ResonantProjection.lean
+RHLean/Proof/ResonantProjection.lean
 ```
 
 The state decomposition is
@@ -144,7 +144,7 @@ Scale descent must track feedback between resonant and nonresonant states. A sca
 Planned module:
 
 ```text
-RHLean/Analysis/ResonantLeakage.lean
+RHLean/Proof/ResonantLeakage.lean
 ```
 
 The structural recurrence is
@@ -170,7 +170,7 @@ The actual closure condition is contraction of the full block operator in a weig
 Planned module:
 
 ```text
-RHLean/Analysis/BlockLyapunovClosure.lean
+RHLean/Proof/BlockLyapunovClosure.lean
 ```
 
 Proposed state structure:

@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.JointGramControl
+import RHLean.Proof.JointGramControl
 
 open scoped BigOperators
 

@@ -47,7 +47,7 @@ These modules compile the exact Möbius doubling and four-slot identities, prime
 11. `RHLean.Analysis.QuadraticPhaseShiftSign`
 12. `RHLean.Analysis.ReducedQuadraticGauss`
 13. `RHLean.Analysis.SmallModulusResonance`
-14. `RHLean.Analysis.ReducedSquareClassMod40`
+14. `RHLean.Proof.ReducedSquareClassMod40`
 
 These modules retain the canonical modulus `2r`, exact shift signs, reduced Gauss normalization, small-modulus resonance, and the two exact square-class modes modulo `40`.
 
@@ -65,23 +65,23 @@ These modules compile the midpoint/half-gap coordinates, squared complex recover
 ### Kernel and exact signed Hilbert/Gram machinery
 
 21. `RHLean.Kernel.FixedPackets`
-22. `RHLean.Analysis.HeightShellGram`
-23. `RHLean.Analysis.OrthogonalResidual`
-24. `RHLean.Analysis.ResonantProjection`
-25. `RHLean.Analysis.ResonantLeakage`
-26. `RHLean.Analysis.BlockLyapunovClosure`
-27. `RHLean.Analysis.ActualResidualDecomposition`
-28. `RHLean.Analysis.ResonantCofactorCancellation`
-29. `RHLean.Analysis.ActualForcingEstimates`
-30. `RHLean.Analysis.JointGramControl`
+22. `RHLean.Proof.HeightShellGram`
+23. `RHLean.Proof.OrthogonalResidual`
+24. `RHLean.Proof.ResonantProjection`
+25. `RHLean.Proof.ResonantLeakage`
+26. `RHLean.Proof.BlockLyapunovClosure`
+27. `RHLean.Proof.ActualResidualDecomposition`
+28. `RHLean.Proof.ResonantCofactorCancellation`
+29. `RHLean.Proof.ActualForcingEstimates`
+30. `RHLean.Proof.JointGramControl`
 
 These modules keep the full shell/cofactor/mode/row recombination inside the norm, retain every signed off-diagonal Gram term, separate true orthogonal projection from theorem-predicted subtraction, and expose the full block recurrence and Lyapunov closure hypotheses.
 
 ### Certified verification, residual closure, and actual-start frame
 
 31. `RHLean.Verification.FiniteRangeCertificates`
-32. `RHLean.Analysis.UniformResidualBound`
-33. `RHLean.Analysis.ActualStartSignedFrame`
+32. `RHLean.Proof.UniformResidualBound`
+33. `RHLean.Proof.ActualStartSignedFrame`
 
 The certificate checker is sound but does not manufacture a numerical run or a mathematical realization. The uniform residual theorem retains the finite realization and asymptotic full-joint control explicitly. The actual-start theorem proves the exact prefix identity
 
@@ -96,7 +96,7 @@ and derives the sharp prefix inequality only from explicit signed absorption.
 
 ### Corrected uniform-local layer and RH bridge
 
-34. `RHLean.Analysis.ActualStartLocalSignedFrame`
+34. `RHLean.Proof.ActualStartLocalSignedFrame`
     - defines actual, prediction, residual, and signed-interaction energies on `[N,N+H)`;
     - proves the exact local signed energy identity;
     - proves the residual contribution is at most `H * bound` from the pointwise residual bound;
@@ -104,7 +104,7 @@ and derives the sharp prefix inequality only from explicit signed absorption.
     - proves the sharp constant-`4` frame inequality on every finite window;
     - proves the local theorem specializes to the old prefix theorem at `N = 0`.
 
-35. `RHLean.Analysis.RiemannHypothesisBridge`
+35. `RHLean.Proof.RiemannHypothesisBridge`
     - exposes mathlib's `RiemannHypothesis` as `RiemannHypothesisStatement`;
     - defines the manuscript's uniform local criterion and pointwise criterion;
     - proves `uniform local → pointwise` by taking `H = 1`;
@@ -112,7 +112,7 @@ and derives the sharp prefix inequality only from explicit signed absorption.
 
 ### Exact geometric low/high reduction
 
-36. `RHLean.Analysis.GeometricRHReduction`
+36. `RHLean.Proof.GeometricRHReduction`
     - defines `ActualStartGeometricPartition` with exact signal-level recombination;
     - proves the translated-window low-sector bound;
     - proves

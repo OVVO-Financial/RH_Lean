@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.JointGramControl
+import RHLean.Proof.JointGramControl
 import RHLean.Proof.CompleteHighFamilyDecomposition
 
 noncomputable section

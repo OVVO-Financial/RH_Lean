@@ -1,7 +1,7 @@
 import Mathlib
-import RHLean.Analysis.HeightShellGram
+import RHLean.Proof.HeightShellGram
 import RHLean.Analysis.ReducedQuadraticGauss
-import RHLean.Analysis.ResonantLeakage
+import RHLean.Proof.ResonantLeakage
 import RHLean.Arithmetic.MoebiusDoubling
 import RHLean.Geometry.CofactorParabolas
 import RHLean.Kernel.FixedPackets

@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.ActualResidualDecomposition
+import RHLean.Proof.ActualResidualDecomposition
 
 noncomputable section
 

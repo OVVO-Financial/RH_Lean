@@ -1,6 +1,6 @@
 import Mathlib
 import RHLean.Analysis.CanonicalLowOccupancy
-import RHLean.Analysis.GeometricRHReduction
+import RHLean.Proof.GeometricRHReduction
 
 /-!
 # Canonical high-sector criterion bridge

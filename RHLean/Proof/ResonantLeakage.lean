@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.ResonantProjection
+import RHLean.Proof.ResonantProjection
 
 namespace RHLean.Analysis
 
