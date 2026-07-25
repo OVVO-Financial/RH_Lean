@@ -61,7 +61,7 @@ theorem abs_realCanonicalMoebiusWeight_le_one (m : ℕ) :
 theorem card_canonicalSquareBlock (j : ℕ) :
     (canonicalSquareBlock j).card = 2 * j + 1 := by
   unfold canonicalSquareBlock
-  rw [Finset.card_Ico]
+  rw [Nat.card_Ico]
   omega
 
 /-- A block increment is bounded by the number of integers in its square
