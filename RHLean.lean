@@ -44,6 +44,7 @@ import RHLean.Kernel.FixedPackets
 import RHLean.Proof.BirthMovingAbsorption
 import RHLean.Proof.CumulativeHeightFlow
 import RHLean.Proof.LifetimeActiveSet
+import RHLean.Proof.LifetimeLocalEnergyCriterion
 import RHLean.Proof.LifetimeOverlapKernel
 import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
