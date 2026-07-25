@@ -5,9 +5,13 @@ import RHLean.Analysis.GeometricRHReduction
 /-!
 # Canonical high-sector criterion bridge
 
-The exact canonical arithmetic, low/high decomposition, and unconditional
-low-occupancy control live in the analysis layer. This proof module packages
-them as the repository's protected geometric criterion and RH bridge.
+This paper-facing analysis module packages the exact canonical arithmetic,
+low/high decomposition, and unconditional low-occupancy control as the
+repository's protected geometric criterion and RH bridge.
+
+The declarations remain in namespace `RHLean.Proof` for API compatibility with
+the existing downstream development; their source module now lies in the
+paper-facing `Analysis` hierarchy.
 -/
 
 noncomputable section

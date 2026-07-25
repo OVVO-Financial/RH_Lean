@@ -135,7 +135,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#67** — Added generic finite partial moments, the exact degree-one signed-sum and absolute-mass identities, guarded balance-ratio form, and the permanent multi-route roadmap.
 - [x] **#68** — Added real canonical square-block increments, exact complex-cast and cumulative Mertens bridges, and the elementary total-variation bound.
 - [x] **#69** — Added the denominator-free degree-one partial-moment balance premise and proved it implies the protected pointwise and uniform-local criteria and conditionally RH.
-- [ ] **#72** — Moves the canonical arithmetic core into `Analysis`, proves sharp low-height occupancy on nonzero Möbius support, isolates `m=1`, constructs unconditional low-increment control, removes the internal low-sector hypothesis from the native high-sector bridge, and passes the paper/Analysis boundary check, source audit, and full `RHLean --wfail` build.
+- [x] **#72** — Moved the canonical arithmetic core into `Analysis`, proved sharp low-height occupancy on nonzero Möbius support, isolated `m=1`, constructed unconditional low-increment control, removed the internal low-sector hypothesis from the native high-sector bridge, and passed the paper/Analysis boundary check, source audit, and full `RHLean --wfail` build.
+- [ ] **#74** — Moves the paper-facing canonical high-sector criterion and typed RH bridge from `Proof` to `Analysis`, preserves theorem APIs, and updates all imports, paper references, and inventories without changing the protected equivalence spine.
 
 ## 5. Theorem-layer completion checklist
 
