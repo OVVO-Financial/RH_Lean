@@ -121,7 +121,7 @@ The Riemann Hypothesis enters through the uniform local square-prefix criterion
  \sum_{n=N}^{N+H-1}|S_n|^2\ll_\eps HN^{2+\eps},
  \qquad 1\le H\le N,
 \]
-whose converse follows by taking $H=1$ and applying square-block interpolation to the classical Mertens criterion.  The accompanying Lean project compiles thirty-nine theorem modules covering the exact arithmetic, squared-complex geometry, modulus-$2r$ phase architecture, signed Gram identities, residual decomposition, finite certificate interface, local signed-frame theorem, and the elementary $H=1$ localization step.  The remaining analytic and realization hypotheses are exposed as ordinary typed premises; no project axiom or unconditional proof of RH is claimed.
+whose converse follows by taking $H=1$ and applying square-block interpolation to the classical Mertens criterion.  The accompanying Lean project compiles fifty-five theorem modules covering the exact arithmetic, squared-complex geometry, modulus-$2r$ phase architecture, signed Gram identities, residual decomposition, finite certificate interface, local signed-frame theorem, square-endpoint interpolation, and the canonical low-height occupancy theorem.  The low-sector control is now constructed internally with the sharp nontrivial bound $\lfloor\Lambda\rfloor$ and the single $m=1$ endpoint correction.  The unresolved project mathematics is the native high-sector estimate; the final classical Mertens--RH equivalence remains an ordinary typed theorem argument.  No project axiom or unconditional proof of RH is claimed.
 \end{abstract}
 
 \section*{How to read this paper}
@@ -227,22 +227,25 @@ As $R$ increases, a canonical point enters the prefix at $R=\sqrt{cq}$ and cross
 
 \begin{theorem}[Low-height clustering and lifetime]
 \label{thm:intro-low}
-Let $m=cq\in B_n$ be canonical and let
+Let $m=cq\in B_n$ be a canonical source with $m>1$ and $\mu(m)\ne0$, and let
 \[
  Y_m=\frac{q^2-c^2}{2}.
 \]
 Then, for $H\ge0$,
 \[
- \#\{m\in B_n:|Y_m|\le H\}
- \le\left\lfloor\frac{H}{n}\right\rfloor,
+ \#\{m\in B_n:m>1,\ \mu(m)\ne0,\ |Y_m|\le H\}
+ \le\left\lfloor\frac{H}{n}\right\rfloor.
 \]
-and the count is zero when $H=n$.  For odd sources the bound improves to
+The count is zero when $H=n$.  For odd sources the bound improves to
 $\lfloor H/(2n)\rfloor$.
 If $Y_m>0$, the transport lifetime satisfies
 \[
  L(m)\le\frac{2Y_m}{q}.
 \]
-Consequently, for fixed $\Lambda$, the canonical points with $|Y_m|\le\Lambda n$ have uniformly bounded block occupancy, and the transport members have uniformly bounded lifetime.
+Consequently, for fixed $\Lambda$, the nontrivial M\"obius support with
+$|Y_m|\le\Lambda n$ has occupancy at most $\lfloor\Lambda\rfloor$ in every
+square block.  Restoring the isolated source $m=1$ gives the uniform increment
+bound $\|\Delta_n^{\mathrm{low}}\|\le\lfloor\Lambda\rfloor+1$.
 \end{theorem}
 
 \begin{theorem}[Major-arc rank-one law for cofactor blocks]
@@ -1493,6 +1496,21 @@ If $|Y|\le n$, the inequalities force $d=1$ and $c+q=2n$.
 But $|q-c|=1$ makes $c+q$ odd, whereas $2n$ is even.  Hence equality is
 impossible and the set is empty.
 \end{proof}
+
+\begin{remark}[Machine-checked canonical low control]
+The Lean modules \texttt{RHLean.Analysis.CanonicalHighSectorCore} and
+\texttt{RHLean.Analysis.CanonicalLowOccupancy} formalize the largest-prime-factor
+pair, the one-product-per-positive-gap lemma, the height-to-gap implication, and
+the sharp occupancy bound on nonzero M\"obius support.  They also isolate the
+single $m=1$ endpoint and construct the concrete uniform control
+\[
+ \|\Delta_n^{\mathrm{low}}(\Lambda)\|
+ \le \lfloor\Lambda\rfloor+1.
+\]
+Thus the low-sector input used by the canonical high-sector equivalence is no
+longer an external hypothesis.  The unresolved internal statement is the
+high-sector estimate itself.
+\end{remark}
 
 \subsection{Parity-refined bounds}
 

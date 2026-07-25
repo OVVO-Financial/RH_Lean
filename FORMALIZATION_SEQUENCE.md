@@ -25,7 +25,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-The root library imports fifty-three theorem modules.
+The root library imports fifty-five theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -230,26 +230,38 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - proves the PR #56 defect-minus-child-correction-plus-unpaired recombination has that same exact joint Gram energy;
     - exposes the remaining pointwise and uniform analytic control propositions without asserting that the estimate is proved.
 
-### Native canonical high-sector bridge
+### Native canonical high-sector analysis and bridge
 
-49. `RHLean.Proof.CanonicalHighSectorBridge`
+49. `RHLean.Analysis.CanonicalHighSectorCore`
     - defines the unique largest-prime-factor canonical point `q_m=P⁺(m)`, `c_m=m/q_m` and signed doubled height `q_m^2-c_m^2`;
     - defines the exact square blocks, native canonical low/high increments, and cumulative square-prefix values;
     - proves exact blockwise and cumulative low/high recombination;
     - proves the complete canonical block prefix is exactly `squarePrefixMertens` at `X_n=(n+1)^2-1`;
-    - packages the manuscript's elementary uniform low-increment estimate as the explicit typed input `CanonicalLowIncrementControl` and derives the required pointwise low-energy bound;
-    - defines the native unresolved statement `CanonicalHighUniformLocalBoundedStatement Λ` at scale `H N^(2+ε)`;
-    - proves the native canonical high criterion is equivalent to the total square-prefix local criterion and, from `ClassicalMertensRHCriterion`, to `RiemannHypothesisStatement`;
-    - does not prove the low-block occupancy theorem, `(HS)`, or the classical Mertens↔RH theorem.
+    - defines `CanonicalLowIncrementControl` and derives the pointwise low-energy consequence of any uniform increment bound.
 
-50. `RHLean.Proof.CanonicalHighSectorCovariance`
+50. `RHLean.Analysis.CanonicalLowOccupancy`
+    - proves the canonical largest-prime-factor/cofactor product identities and the exact absolute-gap height formula;
+    - proves that a fixed positive absolute factor gap contributes at most one source to a square block;
+    - proves low height forces `|q_m-c_m| ≤ Λ`;
+    - proves the sharp nontrivial nonzero-Möbius occupancy bound `card ≤ floor Λ`;
+    - isolates the single `m=1` endpoint and proves `‖canonicalLowIncrement Λ j‖ ≤ floor Λ + 1`;
+    - constructs `canonicalLowIncrementControl Λ` unconditionally.
+
+51. `RHLean.Proof.CanonicalHighSectorBridge`
+    - constructs the concrete geometric partition from the analysis-layer canonical sequence;
+    - defines the unresolved native statement `CanonicalHighUniformLocalBoundedStatement Λ` at scale `H N^(2+ε)`;
+    - proves the native canonical high criterion is equivalent to the protected square-prefix uniform-local criterion with the proved low control inserted;
+    - proves the conditional equivalence to `RiemannHypothesisStatement` from `ClassicalMertensRHCriterion`;
+    - leaves only `(HS)` and the external classical Mertens↔RH theorem unproved.
+
+52. `RHLean.Proof.CanonicalHighSectorCovariance`
     - defines the finite-window sum, mean, coherent mean energy, and centered covariance energy;
     - proves the exact identity `local energy = coherent mean energy + centered covariance energy`;
     - proves the centered term vanishes at `H=1`, so one-point control is entirely coherent;
     - proves the canonical high-sector criterion is exactly the conjunction of coherent and centered control;
     - preserves both analytic estimates as explicit open propositions and derives the conditional RH bridge without introducing an operator realization.
 
-51. `RHLean.Proof.SquareBlockSmoothTransportGram`
+53. `RHLean.Proof.SquareBlockSmoothTransportGram`
     - defines the exact canonical smooth contribution and sign-reversed large-prime transport contribution in each square block;
     - proves blockwise and cumulative `smooth - transport` recombination from the common origin;
     - proves the cumulative residual is exactly `squarePrefixMertens`;
@@ -257,7 +269,7 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - proves the joint Gram energy is exactly the cumulative residual local energy and hence the existing square-prefix local energy;
     - exposes `SquareBlockSmoothTransportGramBound` as an ordinary open premise equivalent to the existing local criterion and, conditionally, to RH.
 
-52. `RHLean.Proof.SquareBlockIncrementEnergy`
+54. `RHLean.Proof.SquareBlockIncrementEnergy`
     - defines the stronger global increment-energy premise at the corrected scale `K^(1+ε)`;
     - proves the cumulative residual is the finite sum of the exact smooth-minus-transport increments;
     - applies finite Cauchy–Schwarz to obtain the RH-scale cumulative pointwise estimate;
@@ -265,7 +277,7 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - derives the smooth/transport Gram premise and the conditional RH implication;
     - does not prove the strong increment estimate or replace the weaker minimal cumulative criterion.
 
-53. `RHLean.Proof.SquareBlockTransportBaseline`
+55. `RHLean.Proof.SquareBlockTransportBaseline`
     - defines a deterministic transport approximation for arbitrary `F : ℝ → ℂ`;
     - defines the exact error relative to the existing canonical transport increment;
     - proves `transport = approximation + error`;
@@ -313,7 +325,7 @@ PR #56 completes the finite high-family bookkeeping. Retained new-prime bases an
 
 PR #57 supplies the missing concrete Gram realization. The transport-data `actualResidual` is proved equal to the complete PR #56 family, so the existing joint Gram theorem now applies to the exact concrete shell/channel/Farey-mode/residual-row index. This corrects the dependency order: the concrete identity must precede, and is not itself, the still-open uniform analytic estimate.
 
-PR #60 corrects the identification of the minimal bridge. The Phase VIII/IX construction is an exact normalized all-ordered-pair/Farey transport family and remains a possible sufficient proof strategy, but it is not definitionally the paper's unique largest-prime-factor decomposition. The new native module defines one canonical point per source, proves exact recombination with `squarePrefixMertens`, and isolates `CanonicalHighUniformLocalBoundedStatement Λ` as the single analytic bridge statement. The manuscript's elementary low-increment estimate remains an explicit typed input until separately transcribed into Lean.
+PR #60 corrects the identification of the minimal bridge. The Phase VIII/IX construction is an exact normalized all-ordered-pair/Farey transport family and remains a possible sufficient proof strategy, but it is not definitionally the paper's unique largest-prime-factor decomposition. The native module defines one canonical point per source, proves exact recombination with `squarePrefixMertens`, and isolates `CanonicalHighUniformLocalBoundedStatement Λ` as the single analytic bridge statement. PR #72 subsequently moves the exact canonical arithmetic into the analysis layer and machine-checks the elementary low-height occupancy theorem, including the isolated `m=1` endpoint, so the low-increment control is no longer an uninstantiated premise.
 
 PR #62 decomposes every finite local high-sector energy exactly into a coherent mean contribution and a centered covariance contribution. The `H=1` specialization proves that the centered term vanishes identically, so covariance control alone cannot discharge the pointwise burden. No source-level operator or analytic estimate is inferred from the algebraic decomposition.
 
@@ -322,6 +334,8 @@ PR #63 defines the exact canonical smooth-minus-transport square-block split and
 PR #64 corrects the proposed increment-energy exponent: a global second moment sufficient for RH must be `O(K^(1+ε))`, not `O(K^(2+ε))`. The new layer formalizes that stronger premise and proves by finite Cauchy–Schwarz that it implies the existing cumulative pointwise and uniform-local criteria, while leaving the strong arithmetic estimate explicit and unproved.
 
 PR #65 adds an arbitrary deterministic baseline coordinate split of the existing transport. It proves exact blockwise and cumulative recombination but deliberately does not attach prime-count interval semantics or any analytic estimate.
+
+PR #72 proves the manuscript's canonical low-height occupancy theorem in the analysis layer. It establishes one product per positive absolute gap, the sharp `floor Λ` count on nonzero Möbius support away from `m=1`, the uniform `floor Λ + 1` increment bound, and an unconditional `CanonicalLowIncrementControl Λ`. The canonical high-sector bridge therefore has no remaining internal low-sector hypothesis.
 
 ## 3. Current checkpoint
 
@@ -345,7 +359,7 @@ squarePrefixMertens n
   = canonicalLowPrefix Λ n + canonicalHighPrefix Λ n,
 ```
 
-and, from `CanonicalLowIncrementControl Λ`, constructs the exact concrete partition required by the existing bridge. Consequently the compiled native chain is
+and `CanonicalLowOccupancy` constructs `canonicalLowIncrementControl Λ` unconditionally from the machine-checked occupancy theorem. Consequently the compiled native chain is
 
 ```text
 CanonicalHighUniformLocalBoundedStatement Λ
@@ -354,7 +368,7 @@ CanonicalHighUniformLocalBoundedStatement Λ
   ↔ RiemannHypothesisStatement,
 ```
 
-where the last equivalence is supplied as the ordinary typed argument `ClassicalMertensRHCriterion`.
+with no remaining internal low-sector premise. The last equivalence is supplied as the ordinary typed argument `ClassicalMertensRHCriterion`; the unresolved project mathematics is exactly the native high-sector estimate `(HS)`.
 
 The smooth/transport and increment-energy layers add the compiled sufficient hierarchy
 
