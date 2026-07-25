@@ -7,7 +7,7 @@ import RHLean.Analysis.ConcreteSquarePrefixGeometry
 This analysis module contains the exact largest-prime-factor canonical geometry,
 its square-block low/high decomposition, and the abstract low-increment control
 interface. Analytic criterion and RH implication theorems remain in
-`RHLean.Proof.CanonicalHighSectorBridge`.
+`RHLean.Analysis.CanonicalHighSectorBridge`.
 
 The namespace is retained as `RHLean.Proof` for API compatibility with the
 existing repository theorem names while the dependency-carrying source file is
