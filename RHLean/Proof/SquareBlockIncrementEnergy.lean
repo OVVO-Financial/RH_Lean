@@ -91,7 +91,9 @@ theorem norm_squareBlockSmoothTransportResidual_sq_le_of_incrementEnergy
     calc
       (n : ℝ) * Real.rpow (n : ℝ) (1 + ε / 2) =
           Real.rpow (n : ℝ) 1 * Real.rpow (n : ℝ) (1 + ε / 2) := by
-        simp only [Real.rpow_one]
+        exact congrArg
+          (fun x : ℝ => x * Real.rpow (n : ℝ) (1 + ε / 2))
+          (Real.rpow_one (n : ℝ)).symm
       _ = Real.rpow (n : ℝ) (1 + (1 + ε / 2)) :=
         (Real.rpow_add hn_pos 1 (1 + ε / 2)).symm
       _ = Real.rpow (n : ℝ) (2 + ε / 2) := by
