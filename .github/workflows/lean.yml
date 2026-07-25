@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: lean-${{ github.workflow }}-${{ github.ref }}
@@ -17,22 +17,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out PR head
+      - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-
-      - name: Fix one-time formalization sequence numbering
-        if: github.repository == 'OVVO-Financial/RH_Lean' && github.head_ref == 'agent/analysis-canonical-low-occupancy'
-        run: |
-          python scripts/fix_canonical_inventory_numbers.py
-          if ! git diff --quiet -- FORMALIZATION_SEQUENCE.md; then
-            git config user.name "OVVO Lean Automation"
-            git config user.email "actions@users.noreply.github.com"
-            git add FORMALIZATION_SEQUENCE.md
-            git commit -m "Fix canonical analysis sequence numbering"
-            git push origin HEAD:${{ github.head_ref }}
-          fi
 
       - name: Check paper / Analysis boundary
         run: bash scripts/check_paper_analysis_boundary.sh
