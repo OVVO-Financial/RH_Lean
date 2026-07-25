@@ -118,7 +118,13 @@ theorem movingCanonicalHighSum_succ
   rw [movingCanonicalHighSet_succ]
   rw [Finset.sum_union (movingCanonicalRetained_disjoint_entry Λ N)]
   have hcross := movingCanonicalCrossingSet_subset Λ N
-  rw [Finset.sum_sdiff hcross]
+  have hpartition :
+      (∑ m ∈ movingCanonicalHighSet Λ N \ movingCanonicalCrossingSet Λ N,
+          canonicalMoebiusWeight m) +
+        ∑ m ∈ movingCanonicalCrossingSet Λ N, canonicalMoebiusWeight m =
+          ∑ m ∈ movingCanonicalHighSet Λ N, canonicalMoebiusWeight m := by
+    exact Finset.sum_sdiff hcross
+  rw [← hpartition]
   ring
 
 /-- Entry membership is exactly membership at the new stage without membership
