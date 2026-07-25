@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.GeometricRHReduction
+import RHLean.Proof.GeometricRHReduction
 
 noncomputable section
 

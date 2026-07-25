@@ -1,7 +1,7 @@
-import RHLean.Analysis.ActualForcingEstimates
-import RHLean.Analysis.ActualResidualDecomposition
-import RHLean.Analysis.ActualStartLocalSignedFrame
-import RHLean.Analysis.ActualStartSignedFrame
+import RHLean.Proof.ActualForcingEstimates
+import RHLean.Proof.ActualResidualDecomposition
+import RHLean.Proof.ActualStartLocalSignedFrame
+import RHLean.Proof.ActualStartSignedFrame
 import RHLean.Analysis.BlockLyapunovClosure
 import RHLean.Analysis.CanonicalHighSectorBridge
 import RHLean.Analysis.CanonicalHighSectorCore
@@ -9,7 +9,7 @@ import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.ConcreteSquarePrefixGeometry
 import RHLean.Analysis.FinitePartialMoments
-import RHLean.Analysis.GeometricRHReduction
+import RHLean.Proof.GeometricRHReduction
 import RHLean.Analysis.HeightShellGram
 import RHLean.Analysis.JointGramControl
 import RHLean.Analysis.MathlibMertensHook
@@ -23,10 +23,10 @@ import RHLean.Analysis.ReducedSquareClassMod40
 import RHLean.Analysis.ResonantCofactorCancellation
 import RHLean.Analysis.ResonantLeakage
 import RHLean.Analysis.ResonantProjection
-import RHLean.Analysis.RiemannHypothesisBridge
+import RHLean.Proof.RiemannHypothesisBridge
 import RHLean.Analysis.SmallModulusResonance
 import RHLean.Analysis.SquarePrefixMertensBridge
-import RHLean.Analysis.UniformResidualBound
+import RHLean.Proof.UniformResidualBound
 import RHLean.Arithmetic.FourSlotCell
 import RHLean.Arithmetic.MoebiusDoubling
 import RHLean.Arithmetic.PrimeSquareMod24
