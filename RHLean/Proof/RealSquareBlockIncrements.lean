@@ -1,6 +1,6 @@
 import Mathlib
 import RHLean.Analysis.FinitePartialMoments
-import RHLean.Proof.CanonicalHighSectorBridge
+import RHLean.Analysis.CanonicalHighSectorBridge
 
 noncomputable section
 
