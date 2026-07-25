@@ -7,11 +7,11 @@ import RHLean.Proof.HeightShellReconstruction
 
 A canonical source atom `(j,m)` is active at stage `t` when it has already been
 born (`j ≤ t`) and its fixed doubled `2ab` height remains above the current
-moving boundary.  This module proves that the translated-window conjugate
+moving boundary. This module proves that the translated-window conjugate
 energy of any finite weighted atom population is exactly a pair Gram form whose
 kernel counts common active times.
 
-The result is entirely finite and algebraic.  It introduces no cancellation or
+The result is entirely finite and algebraic. It introduces no cancellation or
 asymptotic assumption.
 -/
 
@@ -52,10 +52,9 @@ def lifetimeWindowPairEnergy
     (U : Finset CanonicalSourceAtom)
     (w : CanonicalSourceAtom → ℂ) (Λ : ℝ) (N H : ℕ) : ℂ :=
   ∑ h ∈ Finset.range H,
-    ∑ pq ∈ U.product U,
-      if IsLifetimeActive Λ pq.1 (N + h) ∧
-          IsLifetimeActive Λ pq.2 (N + h) then
-        conj (w pq.1) * w pq.2
+    ∑ p ∈ U, ∑ q ∈ U,
+      if IsLifetimeActive Λ p (N + h) ∧ IsLifetimeActive Λ q (N + h) then
+        conj (w p) * w q
       else 0
 
 /-- The overlap kernel counts, as a complex scalar, how many stages in the
@@ -71,9 +70,8 @@ def lifetimeOverlapKernel
 def lifetimeOverlapGram
     (U : Finset CanonicalSourceAtom)
     (w : CanonicalSourceAtom → ℂ) (Λ : ℝ) (N H : ℕ) : ℂ :=
-  ∑ pq ∈ U.product U,
-    conj (w pq.1) * w pq.2 *
-      lifetimeOverlapKernel Λ N H pq.1 pq.2
+  ∑ p ∈ U, ∑ q ∈ U,
+    conj (w p) * w q * lifetimeOverlapKernel Λ N H p q
 
 /-- At one stage, the conjugate square of the active amplitude is exactly its
 ordered-pair expansion. -/
@@ -81,13 +79,12 @@ theorem lifetimeAmplitude_conj_mul_eq_pairEnergy
     (U : Finset CanonicalSourceAtom)
     (w : CanonicalSourceAtom → ℂ) (Λ : ℝ) (t : ℕ) :
     conj (lifetimeAmplitude U w Λ t) * lifetimeAmplitude U w Λ t =
-      ∑ pq ∈ U.product U,
-        if IsLifetimeActive Λ pq.1 t ∧ IsLifetimeActive Λ pq.2 t then
-          conj (w pq.1) * w pq.2
+      ∑ p ∈ U, ∑ q ∈ U,
+        if IsLifetimeActive Λ p t ∧ IsLifetimeActive Λ q t then
+          conj (w p) * w q
         else 0 := by
   classical
   unfold lifetimeAmplitude
-  rw [Finset.sum_product]
   simp_rw [map_sum]
   rw [Finset.sum_mul]
   apply Finset.sum_congr rfl
@@ -121,12 +118,15 @@ theorem lifetimeWindowPairEnergy_eq_overlapGram
   unfold lifetimeWindowPairEnergy lifetimeOverlapGram lifetimeOverlapKernel
   rw [Finset.sum_comm]
   apply Finset.sum_congr rfl
-  intro pq hpq
+  intro p hp
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro q hq
   rw [Finset.mul_sum]
   apply Finset.sum_congr rfl
   intro h hh
-  by_cases hactive : IsLifetimeActive Λ pq.1 (N + h) ∧
-      IsLifetimeActive Λ pq.2 (N + h)
+  by_cases hactive : IsLifetimeActive Λ p (N + h) ∧
+      IsLifetimeActive Λ q (N + h)
   · simp [hactive]
   · simp [hactive]
 
