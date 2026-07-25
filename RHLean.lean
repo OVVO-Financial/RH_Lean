@@ -43,7 +43,7 @@ import RHLean.Kernel.FixedPackets
 import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.ConcreteSquarePrefixCofactorRealization
-import RHLean.Proof.SquarePrefixHeightPartition
+import RHLean.Analysis.SquarePrefixHeightPartition
 import RHLean.Proof.FareyModesAndTransportWindows
 import RHLean.Proof.ConcreteSquarePrefixHighResidual
 import RHLean.Proof.TriplingPacketTransport

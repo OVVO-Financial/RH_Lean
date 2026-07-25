@@ -184,7 +184,7 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - proves exact coefficient compatibility with `actualResidualEntry`'s convention;
     - proves the normalized channel expansion at `X_n=(n+1)^2-1` equals `squarePrefixMertens n`.
 
-43. `RHLean.Proof.SquarePrefixHeightPartition`
+43. `RHLean.Analysis.SquarePrefixHeightPartition`
     - defines the manuscript cutoff `|Y| ≤ Λ n` using the exact squared-complex ordinate;
     - constructs complete, low-height, and high-height ordered-pair and channel supports;
     - proves exact cover and disjointness of the low/high supports;
