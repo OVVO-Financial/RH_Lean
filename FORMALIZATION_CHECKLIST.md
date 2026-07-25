@@ -40,7 +40,7 @@ Every PR must preserve all of the following:
 
 Copy this task list into the PR description and prepopulate it before merge-gating CI:
 
-- [ ] Confirm the preceding PR is green and merged; read current `main`.
+- [ ] Confirm the preceding dependency PR is green; read current `main` and the green head when stacking.
 - [ ] Read the canonical sequence and checklist.
 - [ ] Select exactly one dependency-bounded theorem or corrective layer.
 - [ ] State what the PR proves, what it corrects, what it excludes, and what remains.
@@ -55,7 +55,7 @@ Copy this task list into the PR description and prepopulate it before merge-gati
 - [ ] After three failed substantive attempts, request the complete job log as a diagnostic delimiter and continue until green.
 - [ ] Do not add a documentation-only commit after green CI.
 - [ ] Merge only after green CI and explicit authorization.
-- [ ] Begin the next PR only after confirming the merge on current `main`.
+- [ ] Begin the next dependency-bounded PR after the preceding PR is green; stack explicitly until it reaches `main`.
 
 ## 3. Required closeout record
 
@@ -131,7 +131,11 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#62** — Proved the exact coherent-mean and centered-covariance decomposition of canonical high-sector local energy, including the `H=1` collapse and the conditional conjunction↔RH bridge.
 - [x] **#63** — Added the exact square-block smooth-minus-transport decomposition, cumulative Mertens realization, complete signed joint Gram energy, and conditional criterion↔RH bridge.
 - [x] **#64** — Added the corrected `K^(1+ε)` increment-energy premise and proved its finite-Cauchy–Schwarz hierarchy to the existing cumulative local criterion, Gram premise, and conditional RH statement.
-- [ ] **#65** — Adds the generic deterministic baseline transport approximation, exact transport error, blockwise baseline decomposition, cumulative decomposition, and square-prefix Mertens identity; no prime-count realization or analytic estimate is claimed.
+- [x] **#65** — Added the generic deterministic baseline transport approximation, exact transport error, blockwise baseline decomposition, cumulative decomposition, and square-prefix Mertens identity; no prime-count realization or analytic estimate is claimed.
+- [x] **#67** — Added generic finite partial moments, the exact degree-one signed-sum and absolute-mass identities, guarded balance-ratio form, and the permanent multi-route roadmap.
+- [x] **#68** — Added real canonical square-block increments, exact complex-cast and cumulative Mertens bridges, and the elementary total-variation bound.
+- [x] **#69** — Added the denominator-free degree-one partial-moment balance premise and proved it implies the protected pointwise and uniform-local criteria and conditionally RH.
+- [ ] **#72** — Moves the canonical arithmetic core into `Analysis`, proves sharp low-height occupancy on nonzero Möbius support, isolates `m=1`, constructs unconditional low-increment control, and removes the internal low-sector hypothesis from the native high-sector bridge.
 
 ## 5. Theorem-layer completion checklist
 
