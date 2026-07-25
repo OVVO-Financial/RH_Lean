@@ -26,6 +26,12 @@ its moving-boundary absorption time. -/
 def IsLifetimeActive (Λ : ℝ) (p : CanonicalSourceAtom) (t : ℕ) : Prop :=
   p.1 ≤ t ∧ IsMovingCanonicalHigh Λ t p.2
 
+instance instDecidableIsLifetimeActive
+    (Λ : ℝ) (p : CanonicalSourceAtom) (t : ℕ) :
+    Decidable (IsLifetimeActive Λ p t) := by
+  unfold IsLifetimeActive IsMovingCanonicalHigh
+  infer_instance
+
 /-- Weighted amplitude of the atoms alive at stage `t`. -/
 def lifetimeAmplitude
     (U : Finset CanonicalSourceAtom)
