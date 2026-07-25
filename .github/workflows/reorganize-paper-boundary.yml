@@ -1,0 +1,64 @@
+name: Reorganize paper boundary
+
+on:
+  push:
+    branches:
+      - agent/paper-analysis-height-partition
+
+permissions:
+  contents: write
+
+jobs:
+  reorganize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Move paper-facing module and repair references
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git mv RHLean/Proof/SquarePrefixHeightPartition.lean RHLean/Analysis/SquarePrefixHeightPartition.lean
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          replacements = {
+              "RHLean.Proof.SquarePrefixHeightPartition": "RHLean.Analysis.SquarePrefixHeightPartition",
+              "RHLean.Proof.CanonicalHighSectorBridge": "RHLean.Analysis.CanonicalHighSectorBridge",
+          }
+
+          files = subprocess.check_output(["git", "ls-files", "-z"]).decode().split("\0")
+          for name in files:
+              if not name:
+                  continue
+              path = Path(name)
+              try:
+                  text = path.read_text()
+              except (UnicodeDecodeError, IsADirectoryError):
+                  continue
+              updated = text
+              for old, new in replacements.items():
+                  updated = updated.replace(old, new)
+              if updated != text:
+                  path.write_text(updated)
+          PY
+
+          if git grep -n "RHLean.Proof.SquarePrefixHeightPartition"; then
+            echo "stale SquarePrefixHeightPartition module path remains" >&2
+            exit 1
+          fi
+          if git grep -n "RHLean.Proof.CanonicalHighSectorBridge" -- '*.tex'; then
+            echo "stale CanonicalHighSectorBridge paper path remains" >&2
+            exit 1
+          fi
+
+          git rm .github/workflows/reorganize-paper-boundary.yml
+          git add -A
+          git commit -m "Move paper-facing height partition to Analysis"
+          git push origin HEAD:${GITHUB_REF_NAME}
