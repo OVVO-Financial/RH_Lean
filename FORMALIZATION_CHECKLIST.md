@@ -128,6 +128,9 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#56** — Decomposed the complete high support into retained new-prime bases, injective tripled children, and explicit unpaired channels; proved the raw-family multiplicity correction and complete all-mode contribution identity.
 - [x] **#57** — Proved the concrete transport residual equals the complete high family and instantiated its exact shell/cofactor/mode/row signed joint Gram identity; kept the uniform analytic estimate explicit and open.
 - [x] **#60** — Added the native largest-prime-factor canonical square-block decomposition, exact recombination with `squarePrefixMertens`, explicit low-increment control interface, and the conditional `(HS) ↔ RH` theorem.
+- [x] **#62** — Proved the exact coherent-mean and centered-covariance decomposition of canonical high-sector local energy, including the `H=1` collapse and the conditional conjunction↔RH bridge.
+- [x] **#63** — Added the exact square-block smooth-minus-transport decomposition, cumulative Mertens realization, complete signed joint Gram energy, and conditional criterion↔RH bridge.
+- [ ] **#64** — Adds the corrected `K^(1+ε)` increment-energy premise and proves its finite-Cauchy–Schwarz hierarchy to the existing cumulative local criterion, Gram premise, and conditional RH statement.
 
 ## 5. Theorem-layer completion checklist
 
@@ -190,11 +193,14 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **31. Concrete complete-family joint Gram realization** — PR #57.
 - [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained** — optional sufficient strategy, not the minimal bridge.
 
-### Phase X — native canonical bridge
+### Phase X — native canonical bridge and cumulative smooth/transport hierarchy
 
 - [x] **33. Native largest-prime-factor low/high realization and exact conditional RH bridge** — PR #60.
-- [ ] **34. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly**.
-- [ ] **35. Native canonical uniform local high-sector estimate `(HS)`**.
+- [x] **34. Canonical coherent-mean and centered-covariance decomposition** — PR #62.
+- [x] **35. Exact square-block smooth/transport joint Gram realization** — PR #63.
+- [ ] **36. Strong square-block increment-energy sufficient hierarchy** — PR #64.
+- [ ] **37. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly**.
+- [ ] **38. Native canonical uniform local high-sector estimate `(HS)`**.
 
 ## 6. Current checkpoint
 
@@ -310,6 +316,64 @@ Principal theorems added by PR #60:
 - `canonicalHighUniformLocalBounded_iff_squarePrefixUniformLocalBounded`;
 - `canonicalHighUniformLocalBounded_iff_riemannHypothesis`.
 
+Principal definitions in `RHLean.Proof.CanonicalHighSectorCovariance`:
+
+- `localWindowSum`;
+- `localWindowMean`;
+- `localCoherentMeanEnergy`;
+- `localCenteredCovarianceEnergy`;
+- `SequenceUniformLocalBoundedStatement`;
+- `CoherentMeanUniformLocalBoundedStatement`;
+- `CenteredCovarianceUniformLocalBoundedStatement`;
+- `CanonicalHighCoherentMeanUniformLocalBoundedStatement`;
+- `CanonicalHighCenteredCovarianceUniformLocalBoundedStatement`.
+
+Principal theorems added by PR #62:
+
+- `localSequenceEnergy_eq_coherentMean_add_centeredCovariance`;
+- `localCenteredCovarianceEnergy_one`;
+- `localCoherentMeanEnergy_one`;
+- `sequenceUniformLocalBounded_iff_coherentMean_and_centeredCovariance`;
+- `canonicalHighUniformLocalBounded_iff_coherentMean_and_centeredCovariance`;
+- `canonicalHighCoherentMean_and_centeredCovariance_iff_riemannHypothesis`.
+
+Principal definitions in `RHLean.Proof.SquareBlockSmoothTransportGram`:
+
+- `squareBlockSmoothIncrement`;
+- `squareBlockTransportIncrement`;
+- `squareBlockSmoothPrefix`;
+- `squareBlockTransportPrefix`;
+- `squareBlockSmoothTransportResidual`;
+- `squareBlockLocalSmoothEnergy`;
+- `squareBlockLocalTransportEnergy`;
+- `squareBlockLocalSmoothTransportInteraction`;
+- `squareBlockSmoothTransportJointEnergy`;
+- `SquareBlockSmoothTransportGramBound`.
+
+Principal theorems added by PR #63:
+
+- `canonicalTotalIncrement_eq_smooth_sub_transport`;
+- `canonicalTotalPrefix_eq_smooth_sub_transport`;
+- `squareBlockSmoothTransportResidual_eq_squarePrefixMertens`;
+- `squareBlockSmoothTransportJointEnergy_eq_localResidualEnergy`;
+- `squareBlockSmoothTransportJointEnergy_eq_squarePrefixLocalEnergy`;
+- `squareBlockSmoothTransportJointEnergy_eq_coherentMean_add_centeredCovariance`;
+- `squareBlockSmoothTransportGramBound_iff_squarePrefixUniformLocalBounded`;
+- `squareBlockSmoothTransportGramBound_iff_riemannHypothesis`.
+
+Principal definition in `RHLean.Proof.SquareBlockIncrementEnergy`:
+
+- `SquareBlockIncrementEnergyBoundedStatement`.
+
+Principal theorems added by PR #64:
+
+- `squareBlockSmoothTransportResidual_eq_sum_increment`;
+- `norm_squareBlockSmoothTransportResidual_sq_le_of_incrementEnergy`;
+- `squarePrefixCurrentPointwiseBounded_of_incrementEnergy`;
+- `squarePrefixUniformLocalBounded_of_incrementEnergy`;
+- `squareBlockSmoothTransportGramBound_of_incrementEnergy`;
+- `riemannHypothesis_of_squareBlockIncrementEnergy`.
+
 The native largest-prime-factor canonical sequence is now compiled separately from the normalized ordered-pair/Farey family. Its exact block increments and cumulative low/high prefixes recombine to `squarePrefixMertens`, and `CanonicalHighUniformLocalBoundedStatement Λ` is proved equivalent to the total local criterion and, from the ordinary `ClassicalMertensRHCriterion` argument, to RH. No project axiom is introduced.
 
 The normalized channel arithmetic, Farey support, source-entry realization, contiguous transport windows, one-pair signed defect, complete finite high-family decomposition, and concrete full-family joint Gram identity remain available as proof technology. They are not silently identified with the native canonical sequence.
@@ -320,7 +384,8 @@ The normalized channel arithmetic, Farey support, source-entry realization, cont
 - prove the native canonical uniform local high-sector estimate `CanonicalHighUniformLocalBoundedStatement Λ` — `(HS)`;
 - import or formalize the classical theorem
   `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
-- optionally prove an exact realization from the normalized Farey/transport family to the native canonical high sequence, then establish its full signed Gram estimate as a sufficient route to `(HS)`.
+- optionally prove an exact realization from the normalized Farey/transport family to the native canonical high sequence, then establish its full signed Gram estimate as a sufficient route to `(HS)`;
+- optionally prove `SquareBlockIncrementEnergyBoundedStatement` at the corrected `K^(1+ε)` scale as a stronger sufficient route to the existing cumulative criterion.
 
 Merge-gating commands remain:
 
