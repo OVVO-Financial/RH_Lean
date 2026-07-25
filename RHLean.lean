@@ -5,6 +5,7 @@ import RHLean.Analysis.ActualStartSignedFrame
 import RHLean.Analysis.BlockLyapunovClosure
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.ConcreteSquarePrefixGeometry
+import RHLean.Analysis.FinitePartialMoments
 import RHLean.Analysis.GeometricRHReduction
 import RHLean.Analysis.HeightShellGram
 import RHLean.Analysis.JointGramControl
