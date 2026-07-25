@@ -94,8 +94,11 @@ theorem birthCanonicalStillHigh_disjoint_absorbed
       (birthCanonicalStillHighAtomSet Λ N)
       (absorbedCanonicalHighAtomSet Λ N) := by
   classical
-  unfold absorbedCanonicalHighAtomSet
-  exact Finset.disjoint_sdiff_right
+  rw [Finset.disjoint_left]
+  intro p hpStill hpAbsorbed
+  have hpNotStill : p ∉ birthCanonicalStillHighAtomSet Λ N := by
+    exact (Finset.mem_sdiff.mp hpAbsorbed).2
+  exact hpNotStill hpStill
 
 /-- Exact signed decomposition of birth-high mass. -/
 theorem birthCanonicalHighAtomMass_eq_still_add_absorbed
@@ -137,6 +140,17 @@ theorem mem_absorbedCanonicalHighAtomSet_iff
       p ∈ birthCanonicalHighAtomSet Λ N ∧
         ¬ IsMovingCanonicalHigh Λ N p.2 := by
   classical
-  simp [absorbedCanonicalHighAtomSet, birthCanonicalStillHighAtomSet]
+  constructor
+  · intro hp
+    rcases Finset.mem_sdiff.mp hp with ⟨hpBirth, hpNotStill⟩
+    refine ⟨hpBirth, ?_⟩
+    intro hpMoving
+    apply hpNotStill
+    exact Finset.mem_filter.mpr ⟨hpBirth, hpMoving⟩
+  · rintro ⟨hpBirth, hpNotMoving⟩
+    apply Finset.mem_sdiff.mpr
+    refine ⟨hpBirth, ?_⟩
+    intro hpStill
+    exact hpNotMoving (Finset.mem_filter.mp hpStill).2
 
 end RHLean.Proof
