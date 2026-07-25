@@ -47,7 +47,7 @@ These modules compile the exact Möbius doubling and four-slot identities, prime
 11. `RHLean.Analysis.QuadraticPhaseShiftSign`
 12. `RHLean.Analysis.ReducedQuadraticGauss`
 13. `RHLean.Analysis.SmallModulusResonance`
-14. `RHLean.Analysis.ReducedSquareClassMod40`
+14. `RHLean.Proof.ReducedSquareClassMod40`
 
 These modules retain the canonical modulus `2r`, exact shift signs, reduced Gauss normalization, small-modulus resonance, and the two exact square-class modes modulo `40`.
 
@@ -65,15 +65,15 @@ These modules compile the midpoint/half-gap coordinates, squared complex recover
 ### Kernel and exact signed Hilbert/Gram machinery
 
 21. `RHLean.Kernel.FixedPackets`
-22. `RHLean.Analysis.HeightShellGram`
-23. `RHLean.Analysis.OrthogonalResidual`
-24. `RHLean.Analysis.ResonantProjection`
-25. `RHLean.Analysis.ResonantLeakage`
-26. `RHLean.Analysis.BlockLyapunovClosure`
+22. `RHLean.Proof.HeightShellGram`
+23. `RHLean.Proof.OrthogonalResidual`
+24. `RHLean.Proof.ResonantProjection`
+25. `RHLean.Proof.ResonantLeakage`
+26. `RHLean.Proof.BlockLyapunovClosure`
 27. `RHLean.Proof.ActualResidualDecomposition`
-28. `RHLean.Analysis.ResonantCofactorCancellation`
+28. `RHLean.Proof.ResonantCofactorCancellation`
 29. `RHLean.Proof.ActualForcingEstimates`
-30. `RHLean.Analysis.JointGramControl`
+30. `RHLean.Proof.JointGramControl`
 
 These modules keep the full shell/cofactor/mode/row recombination inside the norm, retain every signed off-diagonal Gram term, separate true orthogonal projection from theorem-predicted subtraction, and expose the full block recurrence and Lyapunov closure hypotheses.
 

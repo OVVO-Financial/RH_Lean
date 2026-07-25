@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.ResonantLeakage
+import RHLean.Proof.ResonantLeakage
 
 namespace RHLean.Analysis
 
