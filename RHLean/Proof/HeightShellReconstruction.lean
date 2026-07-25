@@ -119,13 +119,12 @@ theorem unequalHeightOffDiagonalEnergy_eq_sum_active_shells
   · simp [hdiag]
   · by_cases hh : height p.1 = height p.2
     · simp [hh]
-    · have hmem : shell p.1 p.2 ∈ activeHeightShells s height shell := by
-        simp [activeHeightShells, hp, hdiag, hh]
-      rw [Finset.sum_eq_single (shell p.1 p.2)]
-      · simp [hdiag, hh]
-      · intro k hk hne
-        simp [hne]
-      · exact hmem
+    · have hfiltered : p ∈ (s.product s).filter fun q =>
+          q.1 ≠ q.2 ∧ height q.1 ≠ height q.2 := by
+        exact Finset.mem_filter.mpr ⟨hp, hdiag, hh⟩
+      have hmem : shell p.1 p.2 ∈ activeHeightShells s height shell := by
+        exact Finset.mem_image.mpr ⟨p, hfiltered, rfl⟩
+      simp [hdiag, hh, hmem]
 
 /-- Exact shell reconstruction of the conjugate square. -/
 theorem finiteAmplitude_shell_reconstruction
@@ -139,7 +138,8 @@ theorem finiteAmplitude_shell_reconstruction
             heightShellEnergy s w height shell k := by
   rw [conj_mul_finiteAmplitude_eq_totalPairEnergy]
   rw [totalPairEnergy_eq_diagonal_add_equal_add_unequal]
-  rw [unequalHeightOffDiagonalEnergy_eq_sum_active_shells]
+  rw [unequalHeightOffDiagonalEnergy_eq_sum_active_shells
+    (s := s) (w := w) (height := height) (shell := shell)]
 
 /-- Bounds for the diagonal, equal-height term, and every active shell combine
 by the triangle inequality into a bound for the squared amplitude. This is the
