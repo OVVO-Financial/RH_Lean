@@ -25,7 +25,7 @@ jobs:
       - name: Fix one-time formalization sequence numbering
         if: github.repository == 'OVVO-Financial/RH_Lean' && github.head_ref == 'agent/analysis-canonical-low-occupancy'
         run: |
-          python scripts/fix_canonical_sequence_numbers.py
+          python scripts/fix_canonical_inventory_numbers.py
           if ! git diff --quiet -- FORMALIZATION_SEQUENCE.md; then
             git config user.name "OVVO Lean Automation"
             git config user.email "actions@users.noreply.github.com"
