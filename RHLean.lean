@@ -49,6 +49,7 @@ import RHLean.Proof.ConcreteHighFamilyJointGram
 import RHLean.Proof.CanonicalHighSectorBridge
 import RHLean.Proof.CanonicalHighSectorCovariance
 import RHLean.Proof.RealSquareBlockIncrements
+import RHLean.Proof.SquareBlockPartialMomentBalance
 import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockIncrementEnergy
 import RHLean.Proof.SquareBlockTransportBaseline
