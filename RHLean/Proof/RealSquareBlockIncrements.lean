@@ -62,6 +62,8 @@ theorem card_canonicalSquareBlock (j : ℕ) :
     (canonicalSquareBlock j).card = 2 * j + 1 := by
   unfold canonicalSquareBlock
   rw [Nat.card_Ico]
+  have hsq : (j + 1) ^ 2 = j ^ 2 + (2 * j + 1) := by ring
+  rw [hsq]
   omega
 
 /-- A block increment is bounded by the number of integers in its square
