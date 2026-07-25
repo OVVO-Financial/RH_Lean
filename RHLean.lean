@@ -3,6 +3,8 @@ import RHLean.Analysis.ActualResidualDecomposition
 import RHLean.Analysis.ActualStartLocalSignedFrame
 import RHLean.Analysis.ActualStartSignedFrame
 import RHLean.Analysis.BlockLyapunovClosure
+import RHLean.Analysis.CanonicalHighSectorCore
+import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.ConcreteSquarePrefixGeometry
 import RHLean.Analysis.FinitePartialMoments
