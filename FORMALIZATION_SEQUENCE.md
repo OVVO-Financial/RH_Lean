@@ -25,7 +25,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-The root library imports forty-nine theorem modules.
+The root library imports fifty-two theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -242,6 +242,29 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - proves the native canonical high criterion is equivalent to the total square-prefix local criterion and, from `ClassicalMertensRHCriterion`, to `RiemannHypothesisStatement`;
     - does not prove the low-block occupancy theorem, `(HS)`, or the classical Mertens↔RH theorem.
 
+50. `RHLean.Proof.CanonicalHighSectorCovariance`
+    - defines the finite-window sum, mean, coherent mean energy, and centered covariance energy;
+    - proves the exact identity `local energy = coherent mean energy + centered covariance energy`;
+    - proves the centered term vanishes at `H=1`, so one-point control is entirely coherent;
+    - proves the canonical high-sector criterion is exactly the conjunction of coherent and centered control;
+    - preserves both analytic estimates as explicit open propositions and derives the conditional RH bridge without introducing an operator realization.
+
+51. `RHLean.Proof.SquareBlockSmoothTransportGram`
+    - defines the exact canonical smooth contribution and sign-reversed large-prime transport contribution in each square block;
+    - proves blockwise and cumulative `smooth - transport` recombination from the common origin;
+    - proves the cumulative residual is exactly `squarePrefixMertens`;
+    - defines both diagonal energies and the complete signed smooth/transport interaction before forming the joint Gram energy;
+    - proves the joint Gram energy is exactly the cumulative residual local energy and hence the existing square-prefix local energy;
+    - exposes `SquareBlockSmoothTransportGramBound` as an ordinary open premise equivalent to the existing local criterion and, conditionally, to RH.
+
+52. `RHLean.Proof.SquareBlockIncrementEnergy`
+    - defines the stronger global increment-energy premise at the corrected scale `K^(1+ε)`;
+    - proves the cumulative residual is the finite sum of the exact smooth-minus-transport increments;
+    - applies finite Cauchy–Schwarz to obtain the RH-scale cumulative pointwise estimate;
+    - reuses the existing pointwise-to-uniform-local theorem to derive the repository's minimal cumulative criterion;
+    - derives the smooth/transport Gram premise and the conditional RH implication;
+    - does not prove the strong increment estimate or replace the weaker minimal cumulative criterion.
+
 ## 2. Correction history
 
 PR #42 compiled an axiom-free conditional theorem with the global prefix target
@@ -284,6 +307,12 @@ PR #57 supplies the missing concrete Gram realization. The transport-data `actua
 
 PR #60 corrects the identification of the minimal bridge. The Phase VIII/IX construction is an exact normalized all-ordered-pair/Farey transport family and remains a possible sufficient proof strategy, but it is not definitionally the paper's unique largest-prime-factor decomposition. The new native module defines one canonical point per source, proves exact recombination with `squarePrefixMertens`, and isolates `CanonicalHighUniformLocalBoundedStatement Λ` as the single analytic bridge statement. The manuscript's elementary low-increment estimate remains an explicit typed input until separately transcribed into Lean.
 
+PR #62 decomposes every finite local high-sector energy exactly into a coherent mean contribution and a centered covariance contribution. The `H=1` specialization proves that the centered term vanishes identically, so covariance control alone cannot discharge the pointwise burden. No source-level operator or analytic estimate is inferred from the algebraic decomposition.
+
+PR #63 defines the exact canonical smooth-minus-transport square-block split and retains the complete signed interaction in the joint Gram energy. The cumulative residual is proved equal to `squarePrefixMertens`, so the new typed Gram premise is definitionally the existing cumulative local criterion rather than a separate diagonal estimate.
+
+PR #64 corrects the proposed increment-energy exponent: a global second moment sufficient for RH must be `O(K^(1+ε))`, not `O(K^(2+ε))`. The new layer formalizes that stronger premise and proves by finite Cauchy–Schwarz that it implies the existing cumulative pointwise and uniform-local criteria, while leaving the strong arithmetic estimate explicit and unproved.
+
 ## 3. Current checkpoint
 
 For every exact concrete geometric partition satisfying the pointwise low-sector bound, the compiled chain is
@@ -317,6 +346,19 @@ CanonicalHighUniformLocalBoundedStatement Λ
 
 where the last equivalence is still supplied as the ordinary typed argument `ClassicalMertensRHCriterion`.
 
+The smooth/transport and increment-energy layers add the following compiled sufficient hierarchy:
+
+```text
+SquareBlockIncrementEnergyBoundedStatement
+  → SquarePrefixCurrentPointwiseBoundedStatement
+  → SquarePrefixUniformLocalBoundedStatement
+  ↔ SquareBlockSmoothTransportGramBound
+  ↔ MertensEnergyBoundedStatement
+  ↔ RiemannHypothesisStatement,
+```
+
+where the first implication uses finite Cauchy–Schwarz at the corrected `K^(1+ε)` increment-energy scale and the last equivalence remains the ordinary typed classical criterion. The increment-energy premise is stronger than, and does not replace, the minimal cumulative local criterion.
+
 The normalized ordered-pair/Farey development remains compiled as a distinct, more structured proof program: complete supports, packet transport, exact tripling defects, unpaired channels, and the full signed shell/cofactor/mode/row Gram identity are all available. No theorem identifies that all-ordered-pair family with the native largest-prime-factor high sequence, so its uniform Gram estimate is a sufficient strategy only after an additional realization theorem.
 
 The remaining obligations are now separated exactly:
@@ -324,7 +366,8 @@ The remaining obligations are now separated exactly:
 - formalize the manuscript's elementary canonical low-block estimate as a concrete `CanonicalLowIncrementControl Λ` (manuscript bound `⌊Λ⌋` for nontrivial sources, with the isolated `m=1` term handled separately or absorbed by `⌊Λ⌋+1`);
 - prove the native analytic statement `CanonicalHighUniformLocalBoundedStatement Λ`, i.e. `(HS)`;
 - import or formalize `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
-- optionally connect the normalized Farey/transport family to the native canonical sequence and use its full signed Gram estimate as a route to `(HS)`.
+- optionally connect the normalized Farey/transport family to the native canonical sequence and use its full signed Gram estimate as a route to `(HS)`;
+- optionally prove `SquareBlockIncrementEnergyBoundedStatement` as a stronger sufficient route, keeping its `K^(1+ε)` scale distinct from the minimal cumulative criterion.
 
 ## 4. Formalization sequence
 
@@ -391,11 +434,14 @@ The remaining obligations are now separated exactly:
 - [x] **31. Concrete complete-family joint Gram realization** — PR #57.
 - [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained** — optional sufficient strategy, not the minimal bridge.
 
-### Phase X — native canonical bridge
+### Phase X — native canonical bridge and cumulative smooth/transport hierarchy
 
 - [x] **33. Native largest-prime-factor low/high realization and exact conditional RH bridge** — PR #60.
-- [ ] **34. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly**.
-- [ ] **35. Native canonical uniform local high-sector estimate `(HS)`**.
+- [x] **34. Canonical coherent-mean and centered-covariance decomposition** — PR #62.
+- [x] **35. Exact square-block smooth/transport joint Gram realization** — PR #63.
+- [ ] **36. Strong square-block increment-energy sufficient hierarchy** — PR #64.
+- [ ] **37. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly**.
+- [ ] **38. Native canonical uniform local high-sector estimate `(HS)`**.
 
 ## 5. Dependency spine
 
