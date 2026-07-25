@@ -25,7 +25,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-The root library imports fifty-two theorem modules.
+The root library imports fifty-three theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -265,6 +265,14 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - derives the smooth/transport Gram premise and the conditional RH implication;
     - does not prove the strong increment estimate or replace the weaker minimal cumulative criterion.
 
+53. `RHLean.Proof.SquareBlockTransportBaseline`
+    - defines a deterministic transport approximation for arbitrary `F : ℝ → ℂ`;
+    - defines the exact error relative to the existing canonical transport increment;
+    - proves `transport = approximation + error`;
+    - proves `canonical increment = baseline main increment - baseline transport error`;
+    - proves the corresponding common-origin cumulative identity and concrete square-prefix Mertens identity;
+    - does not identify transport with a prime-count interval sum, choose a baseline, or prove an analytic estimate.
+
 ## 2. Correction history
 
 PR #42 compiled an axiom-free conditional theorem with the global prefix target
@@ -313,6 +321,8 @@ PR #63 defines the exact canonical smooth-minus-transport square-block split and
 
 PR #64 corrects the proposed increment-energy exponent: a global second moment sufficient for RH must be `O(K^(1+ε))`, not `O(K^(2+ε))`. The new layer formalizes that stronger premise and proves by finite Cauchy–Schwarz that it implies the existing cumulative pointwise and uniform-local criteria, while leaving the strong arithmetic estimate explicit and unproved.
 
+PR #65 adds an arbitrary deterministic baseline coordinate split of the existing transport. It proves exact blockwise and cumulative recombination but deliberately does not attach prime-count interval semantics or any analytic estimate.
+
 ## 3. Current checkpoint
 
 For every exact concrete geometric partition satisfying the pointwise low-sector bound, the compiled chain is
@@ -328,7 +338,7 @@ SquarePrefixHighUniformLocalBoundedStatement(partition)
 
 The first four equivalences are project-proved. The final direct integration theorem accepts the last classical equivalence as an argument of exactly matching proposition type.
 
-The paper's native largest-prime-factor sequence is now instantiated explicitly. For fixed `Λ`, `CanonicalHighSectorBridge` defines the canonical block increments and prefixes, proves
+The paper's native largest-prime-factor sequence is instantiated explicitly. For fixed `Λ`, `CanonicalHighSectorBridge` proves
 
 ```text
 squarePrefixMertens n
@@ -344,9 +354,9 @@ CanonicalHighUniformLocalBoundedStatement Λ
   ↔ RiemannHypothesisStatement,
 ```
 
-where the last equivalence is still supplied as the ordinary typed argument `ClassicalMertensRHCriterion`.
+where the last equivalence is supplied as the ordinary typed argument `ClassicalMertensRHCriterion`.
 
-The smooth/transport and increment-energy layers add the following compiled sufficient hierarchy:
+The smooth/transport and increment-energy layers add the compiled sufficient hierarchy
 
 ```text
 SquareBlockIncrementEnergyBoundedStatement
@@ -354,20 +364,19 @@ SquareBlockIncrementEnergyBoundedStatement
   → SquarePrefixUniformLocalBoundedStatement
   ↔ SquareBlockSmoothTransportGramBound
   ↔ MertensEnergyBoundedStatement
-  ↔ RiemannHypothesisStatement,
+  ↔ RiemannHypothesisStatement.
 ```
 
-where the first implication uses finite Cauchy–Schwarz at the corrected `K^(1+ε)` increment-energy scale and the last equivalence remains the ordinary typed classical criterion. The increment-energy premise is stronger than, and does not replace, the minimal cumulative local criterion.
+The baseline layer adds only the exact coordinate identity
 
-The normalized ordered-pair/Farey development remains compiled as a distinct, more structured proof program: complete supports, packet transport, exact tripling defects, unpaired channels, and the full signed shell/cofactor/mode/row Gram identity are all available. No theorem identifies that all-ordered-pair family with the native largest-prime-factor high sequence, so its uniform Gram estimate is a sufficient strategy only after an additional realization theorem.
+```text
+squarePrefixMertens
+  = baseline main prefix - baseline transport error prefix.
+```
 
-The remaining obligations are now separated exactly:
+It creates no independent criterion until later analytic hypotheses are explicitly stated and proved sufficient.
 
-- formalize the manuscript's elementary canonical low-block estimate as a concrete `CanonicalLowIncrementControl Λ` (manuscript bound `⌊Λ⌋` for nontrivial sources, with the isolated `m=1` term handled separately or absorbed by `⌊Λ⌋+1`);
-- prove the native analytic statement `CanonicalHighUniformLocalBoundedStatement Λ`, i.e. `(HS)`;
-- import or formalize `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
-- optionally connect the normalized Farey/transport family to the native canonical sequence and use its full signed Gram estimate as a route to `(HS)`;
-- optionally prove `SquareBlockIncrementEnergyBoundedStatement` as a stronger sufficient route, keeping its `K^(1+ε)` scale distinct from the minimal cumulative criterion.
+The complete multi-route roadmap is recorded in `MULTIROUTE_FORMALIZATION_PLAN.md`.
 
 ## 4. Formalization sequence
 
@@ -414,10 +423,6 @@ The remaining obligations are now separated exactly:
 ### Phase VII — concrete Mertens closure
 
 - [x] **23. Concrete square-prefix Mertens and direct mathlib adapter** — PR #45.
-  - proves the exact `M(x) ↔ S_n` interpolation at `X_n=(n+1)^2-1`;
-  - proves all shifted/current/local criterion conversions;
-  - removes `ActualStartSquarePrefixRealization` and `ActualStartRHBridge` from the final concrete theorem;
-  - adds a direct theorem accepting the classical Mertens↔RH equivalence itself.
 
 ### Phase VIII — normalized cofactor realization
 
@@ -439,13 +444,46 @@ The remaining obligations are now separated exactly:
 - [x] **33. Native largest-prime-factor low/high realization and exact conditional RH bridge** — PR #60.
 - [x] **34. Canonical coherent-mean and centered-covariance decomposition** — PR #62.
 - [x] **35. Exact square-block smooth/transport joint Gram realization** — PR #63.
-- [ ] **36. Strong square-block increment-energy sufficient hierarchy** — PR #64.
-- [ ] **37. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly**.
-- [ ] **38. Native canonical uniform local high-sector estimate `(HS)`**.
+- [x] **36. Strong square-block increment-energy sufficient hierarchy** — PR #64.
+- [x] **37. Generic deterministic baseline transport split** — PR #65.
+- [ ] **38. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly**.
+- [ ] **39. Native canonical uniform local high-sector estimate `(HS)`**.
+
+### Phase XI — finite signed-moment routes
+
+- [ ] **40. Generic finite partial moments with the degree-one signed-sum identity and guarded ratio form**.
+- [ ] **41. Sign-valued degree collapse for `{-1,0,1}` sequences**.
+- [ ] **42. Real square-block increments and exact complex-cast bridge**.
+- [ ] **43. Elementary square-block total-variation bound**.
+- [ ] **44. Degree-one partial-moment balance sufficient criterion**.
+- [ ] **45. Common-normalized signed empirical discrepancy sufficient criterion**.
+
+### Phase XII — baseline energy and descriptive block structure
+
+- [ ] **46. Exact baseline main/error signed joint-energy identity**.
+- [ ] **47. Strong diagonal baseline-main plus baseline-error sufficient criterion**.
+- [ ] **48. Generic finite atomic block bridge**.
+- [ ] **49. Generic implied logarithmic-base transform**.
+- [ ] **50. Deterministic Viole function definitions and midpoint interpolation**.
+- [ ] **51. Correct Viole asymptotic expansion and explicit third-order bias**.
+
+### Phase XIII — prime-count transport realization
+
+- [ ] **52. Exact canonical largest-prime-factor transport reindexing into prime/cofactor pairs**.
+- [ ] **53. Restricted pulled-back prime-interval realization with exact endpoints**.
+- [ ] **54. Two-index baseline interval discrepancy identity**.
+- [ ] **55. Triangular Möbius transport operator and finite Cauchy–Schwarz bounds**.
+- [ ] **56. Cancellation-aware transport large-sieve premise as a sufficient route**.
+
+### Phase XIV — further energy and weighted-moment routes
+
+- [ ] **57. Increment coherent-mean and centered-energy decomposition**.
+- [ ] **58. Weighted signed Möbius power-moment identities**.
+- [ ] **59. Finite certificate checkers for partial moments, baselines, prime blocks, and transport operators**.
 
 ## 5. Dependency spine
 
-The minimal bridge is now:
+The minimal bridge remains
 
 ```text
 native largest-prime-factor canonical definitions
@@ -463,18 +501,6 @@ MertensEnergyBoundedStatement
 classical Mertens criterion ↔ RH
 ```
 
-The normalized Farey/transport program is a separate sufficient strategy that may feed into `(HS)` only after an exact native realization theorem:
+The new multi-route branches may feed only into the existing pointwise, local, increment-energy, or native high-sector propositions. They do not replace the protected spine.
 
-```text
-complete bases/children/unpaired family decomposition
-        ↓
-retained defect - child correction + unpaired recombination
-        ↓
-concrete full signed shell/cofactor/mode/row Gram identity
-        ↓
-uniform full-family signed Gram estimate
-        ↓
-exact realization as the native canonical high sequence
-        ↓
-CanonicalHighUniformLocalBoundedStatement Λ  [(HS)]
-```
+See `MULTIROUTE_FORMALIZATION_PLAN.md` for theorem classifications, nonclaims, and the mandatory PR order.
