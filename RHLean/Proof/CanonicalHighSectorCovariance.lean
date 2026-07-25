@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.CanonicalHighSectorBridge
+import RHLean.Analysis.CanonicalHighSectorBridge
 
 noncomputable section
 
