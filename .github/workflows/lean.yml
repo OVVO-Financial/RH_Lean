@@ -22,15 +22,15 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Apply one-time canonical occupancy documentation patch
+      - name: Fix one-time canonical occupancy TeX escape
         if: github.repository == 'OVVO-Financial/RH_Lean' && github.head_ref == 'agent/analysis-canonical-low-occupancy'
         run: |
-          python scripts/patch_canonical_low_occupancy_docs.py
-          if ! git diff --quiet -- FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.tex; then
+          python scripts/fix_canonical_low_paper_escape.py
+          if ! git diff --quiet -- paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.tex; then
             git config user.name "OVVO Lean Automation"
             git config user.email "actions@users.noreply.github.com"
-            git add FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.tex
-            git commit -m "Update canonical low occupancy documentation"
+            git add paper/Squared_Complex_Framework_for_Square_Prefix_Mobius_Sums_Lean_Complete.tex
+            git commit -m "Fix canonical low occupancy paper escape"
             git push origin HEAD:${{ github.head_ref }}
           fi
 
