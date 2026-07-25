@@ -135,7 +135,7 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#67** — Added generic finite partial moments, the exact degree-one signed-sum and absolute-mass identities, guarded balance-ratio form, and the permanent multi-route roadmap.
 - [x] **#68** — Added real canonical square-block increments, exact complex-cast and cumulative Mertens bridges, and the elementary total-variation bound.
 - [x] **#69** — Added the denominator-free degree-one partial-moment balance premise and proved it implies the protected pointwise and uniform-local criteria and conditionally RH.
-- [ ] **#72** — Moves the canonical arithmetic core into `Analysis`, proves sharp low-height occupancy on nonzero Möbius support, isolates `m=1`, constructs unconditional low-increment control, and removes the internal low-sector hypothesis from the native high-sector bridge.
+- [ ] **#72** — Moves the canonical arithmetic core into `Analysis`, proves sharp low-height occupancy on nonzero Möbius support, isolates `m=1`, constructs unconditional low-increment control, removes the internal low-sector hypothesis from the native high-sector bridge, and passes the paper/Analysis boundary check, source audit, and full `RHLean --wfail` build.
 
 ## 5. Theorem-layer completion checklist
 
@@ -195,258 +195,26 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 ### Phase IX — complete high-family analytic interface
 
 - [x] **30. Complete tripling-pair/unpaired-channel decomposition and exact multiplicity correction** — PR #56.
-- [x] **31. Concrete complete-family joint Gram realization** — PR #57.
-- [ ] **32. Uniform full-family signed Gram estimate with all cross interactions retained** — optional sufficient strategy, not the minimal bridge.
+- [x] **31. Concrete complete-family shell/channel/mode/row Gram realization** — PR #57.
 
-### Phase X — native canonical bridge and cumulative smooth/transport hierarchy
+### Phase X — native canonical high-sector criterion
 
-- [x] **33. Native largest-prime-factor low/high realization and exact conditional RH bridge** — PR #60.
-- [x] **34. Canonical coherent-mean and centered-covariance decomposition** — PR #62.
-- [x] **35. Exact square-block smooth/transport joint Gram realization** — PR #63.
-- [x] **36. Strong square-block increment-energy sufficient hierarchy** — PR #64.
-- [ ] **37. Generic deterministic baseline transport split** — PR #65.
-- [ ] **38. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly**.
-- [ ] **39. Native canonical uniform local high-sector estimate `(HS)`**.
+- [x] **32. Native largest-prime-factor canonical decomposition and `(HS) ↔ RH` bridge** — PR #60.
+- [x] **33. Canonical coherent-mean / centered-covariance split** — PR #62.
+- [x] **34. Exact square-block smooth-minus-transport Gram identity** — PR #63.
+- [x] **35. Strong square-block increment-energy hierarchy** — PR #64.
+- [x] **36. Generic deterministic transport baseline decomposition** — PR #65.
+- [x] **37. Generic finite partial moments and degree-one balance identity** — PR #67.
+- [x] **38. Real canonical square-block increments and total-variation bound** — PR #68.
+- [x] **39. Degree-one partial-moment balance sufficient criterion** — PR #69.
+- [ ] **40. Canonical low-height occupancy and realized low-sector control** — PR #72.
 
-### Phase XI — finite signed-moment routes
+## 6. Current formalization frontier
 
-- [ ] **40. Generic finite partial moments with the degree-one signed-sum identity and guarded ratio form**.
-- [ ] **41. Sign-valued degree collapse for `{-1,0,1}` sequences**.
-- [ ] **42. Real square-block increments and exact complex-cast bridge**.
-- [ ] **43. Elementary square-block total-variation bound**.
-- [ ] **44. Degree-one partial-moment balance sufficient criterion**.
-- [ ] **45. Common-normalized signed empirical discrepancy sufficient criterion**.
+The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, and conditional bridge layers are now machine checked. The remaining theorem-level obligations are:
 
-### Phase XII — baseline energy and descriptive block structure
+1. prove the native canonical high-sector estimate `(HS)`;
+2. supply or import the classical Mertens-energy equivalence with RH as a theorem of exactly the required proposition type;
+3. optionally prove stronger sufficient routes such as the square-block increment-energy or partial-moment balance premises.
 
-- [ ] **46. Exact baseline main/error signed joint-energy identity**.
-- [ ] **47. Strong diagonal baseline-main plus baseline-error sufficient criterion**.
-- [ ] **48. Generic finite atomic block bridge**.
-- [ ] **49. Generic implied logarithmic-base transform**.
-- [ ] **50. Deterministic Viole function definitions and midpoint interpolation**.
-- [ ] **51. Correct Viole asymptotic expansion and explicit third-order bias**.
-
-### Phase XIII — prime-count transport realization
-
-- [ ] **52. Exact canonical largest-prime-factor transport reindexing into prime/cofactor pairs**.
-- [ ] **53. Restricted pulled-back prime-interval realization with exact endpoints**.
-- [ ] **54. Two-index baseline interval discrepancy identity**.
-- [ ] **55. Triangular Möbius transport operator and finite Cauchy–Schwarz bounds**.
-- [ ] **56. Cancellation-aware transport large-sieve premise as a sufficient route**.
-
-### Phase XIV — further energy and weighted-moment routes
-
-- [ ] **57. Increment coherent-mean and centered-energy decomposition**.
-- [ ] **58. Weighted signed Möbius power-moment identities**.
-- [ ] **59. Finite certificate checkers for partial moments, baselines, prime blocks, and transport operators**.
-
-## 6. Current checkpoint
-
-Principal definitions in `RHLean.Proof.ConcreteSquarePrefixHighResidual`:
-
-- `zeroFareyModeLabel`;
-- `squarePrefixHighShell`;
-- `squarePrefixHighSourcePacketStart`;
-- `squarePrefixHighSourcePacketLength`;
-- `squarePrefixHighResidualAmplitude`;
-- `squarePrefixHighResidualData`.
-
-Principal theorems added by PR #54:
-
-- `squarePrefixHighHeightExpansionRat_eq_pairSum`;
-- `squarePrefixHighHeightExpansion_eq_channelSum`;
-- `squarePrefixHighSourcePacket_range`;
-- `squarePrefixHighResidualPacket_eq`;
-- `actualResidual_squarePrefixHighResidualData_eq_channelSum`;
-- `actualResidual_squarePrefixHighResidualData_eq_highHeightExpansion`.
-
-Principal definitions in `RHLean.Proof.TriplingPacketTransport`:
-
-- `normalizedFareyTransportEntry`;
-- `normalizedFareyTransportPacket`;
-- `squarePrefixHighTransportAmplitude`;
-- `squarePrefixHighTransportData`;
-- `triplingPhaseTransport`;
-- `triplingBoundaryPacket`;
-- `triplingTransportedBasePacket`;
-- `triplingSignedDefect`;
-- `SquarePrefixHighTriplingPair`;
-- `squarePrefixHighTriplingModeContribution`;
-- `squarePrefixHighTriplingModeDefect`.
-
-Principal theorems added by PR #55:
-
-- `actualResidualEntry_squarePrefixHighTransportData_ownShell`;
-- `actualResidualPacket_squarePrefixHighTransportData_ownShell`;
-- `orderedChannelEntryShell_le_tripled`;
-- `normalizedFareyTransportPacket_eq_boundary_add_common`;
-- `normalizedFareyTransportEntry_phaseAligned_cancel`;
-- `normalizedFareyTransportEntry_add_two_tripled_eq_phaseDefect`;
-- `normalizedFareyTransportPacket_add_two_tripled_eq_signedDefect`;
-- `actualResidualPacket_squarePrefixHighTransportData_tripling_signedDefect`;
-- `squarePrefixHighTriplingModeContribution_eq_defect`;
-- `squarePrefixHighTriplingModeContribution_energy_eq_defect`.
-
-Principal definitions in `RHLean.Proof.CompleteHighFamilyDecomposition`:
-
-- `squarePrefixHighTriplingBases`;
-- `squarePrefixHighTriplingChildren`;
-- `squarePrefixHighTriplingCovered`;
-- `squarePrefixHighUnpairedChannels`;
-- `squarePrefixHighChannelModeContribution`;
-- `squarePrefixHighTransportFamilyContribution`;
-- `squarePrefixHighRetainedDefectContribution`;
-- `squarePrefixHighRetainedChildCorrection`;
-- `squarePrefixHighUnpairedModeContribution`.
-
-Principal theorems added by PR #56:
-
-- `tripledCofactorChannel_injective`;
-- `squarePrefixHighTriplingBases_disjoint_children`;
-- `squarePrefixHighTriplingCovered_union_unpaired`;
-- `squarePrefixHighUnpairedChannels_reason`;
-- `sum_squarePrefixHighHeightChannels_eq_pairs_add_unpaired`;
-- `squarePrefixHighTransportFamilyContribution_eq_pair_add_unpaired`;
-- `squarePrefixHighChannelModeContribution_add_two_tripled_eq_defect`;
-- `squarePrefixHighChannelModeContribution_add_tripled_eq_defect_sub_tripled`;
-- `squarePrefixHighRetainedPairContribution_eq_defect_sub_childCorrection`;
-- `squarePrefixHighTransportFamilyContribution_eq_full_decomposition`.
-
-Principal definitions in `RHLean.Proof.ConcreteHighFamilyJointGram`:
-
-- `squarePrefixHighFullFamilyJointGramEnergy`;
-- `SquarePrefixHighFullFamilyJointGramEstimateAt`;
-- `SquarePrefixHighFullFamilyJointGramBoundedBy`.
-
-Principal theorems added by PR #57:
-
-- `actualResidualPacket_squarePrefixHighTransportData_offShell`;
-- `squarePrefixHighTransportModeSum_eq`;
-- `actualResidual_squarePrefixHighTransportData_eq_familyContribution`;
-- `squarePrefixHighTransportFamily_energy_eq_jointGram`;
-- `squarePrefixHighFullDecomposition_energy_eq_jointGram`;
-- `squarePrefixHighTransportFamily_energy_le_of_jointGramEstimate`;
-- `squarePrefixHighTransportFamily_energy_le_of_uniform_jointGramControl`.
-
-Principal definitions in `RHLean.Proof.CanonicalHighSectorBridge`:
-
-- `canonicalLargestPrimeFactor`;
-- `canonicalCofactor`;
-- `canonicalHeightTwice`;
-- `canonicalSquareBlock`;
-- `canonicalLowIncrement`;
-- `canonicalHighIncrement`;
-- `canonicalLowPrefix`;
-- `canonicalHighPrefix`;
-- `CanonicalLowIncrementControl`;
-- `canonicalSquarePrefixGeometricPartition`;
-- `CanonicalHighUniformLocalBoundedStatement`.
-
-Principal theorems added by PR #60:
-
-- `canonicalTotalIncrement_eq_low_add_high`;
-- `canonicalTotalPrefix_eq_low_add_high`;
-- `canonicalTotalPrefix_eq_squarePrefixMertens`;
-- `squarePrefixMertens_eq_canonicalLow_add_high`;
-- `norm_canonicalLowPrefix_le`;
-- `canonicalLowPrefix_energy_le`;
-- `canonicalHighUniformLocalBounded_iff_partition`;
-- `canonicalHighUniformLocalBounded_iff_squarePrefixUniformLocalBounded`;
-- `canonicalHighUniformLocalBounded_iff_riemannHypothesis`.
-
-Principal definitions in `RHLean.Proof.CanonicalHighSectorCovariance`:
-
-- `localWindowSum`;
-- `localWindowMean`;
-- `localCoherentMeanEnergy`;
-- `localCenteredCovarianceEnergy`;
-- `SequenceUniformLocalBoundedStatement`;
-- `CoherentMeanUniformLocalBoundedStatement`;
-- `CenteredCovarianceUniformLocalBoundedStatement`;
-- `CanonicalHighCoherentMeanUniformLocalBoundedStatement`;
-- `CanonicalHighCenteredCovarianceUniformLocalBoundedStatement`.
-
-Principal theorems added by PR #62:
-
-- `localSequenceEnergy_eq_coherentMean_add_centeredCovariance`;
-- `localCenteredCovarianceEnergy_one`;
-- `localCoherentMeanEnergy_one`;
-- `sequenceUniformLocalBounded_iff_coherentMean_and_centeredCovariance`;
-- `canonicalHighUniformLocalBounded_iff_coherentMean_and_centeredCovariance`;
-- `canonicalHighCoherentMean_and_centeredCovariance_iff_riemannHypothesis`.
-
-Principal definitions in `RHLean.Proof.SquareBlockSmoothTransportGram`:
-
-- `squareBlockSmoothIncrement`;
-- `squareBlockTransportIncrement`;
-- `squareBlockSmoothPrefix`;
-- `squareBlockTransportPrefix`;
-- `squareBlockSmoothTransportResidual`;
-- `squareBlockLocalSmoothEnergy`;
-- `squareBlockLocalTransportEnergy`;
-- `squareBlockLocalSmoothTransportInteraction`;
-- `squareBlockSmoothTransportJointEnergy`;
-- `SquareBlockSmoothTransportGramBound`.
-
-Principal theorems added by PR #63:
-
-- `canonicalTotalIncrement_eq_smooth_sub_transport`;
-- `canonicalTotalPrefix_eq_smooth_sub_transport`;
-- `squareBlockSmoothTransportResidual_eq_squarePrefixMertens`;
-- `squareBlockSmoothTransportJointEnergy_eq_localResidualEnergy`;
-- `squareBlockSmoothTransportJointEnergy_eq_squarePrefixLocalEnergy`;
-- `squareBlockSmoothTransportJointEnergy_eq_coherentMean_add_centeredCovariance`;
-- `squareBlockSmoothTransportGramBound_iff_squarePrefixUniformLocalBounded`;
-- `squareBlockSmoothTransportGramBound_iff_riemannHypothesis`.
-
-Principal definition in `RHLean.Proof.SquareBlockIncrementEnergy`:
-
-- `SquareBlockIncrementEnergyBoundedStatement`.
-
-Principal theorems added by PR #64:
-
-- `squareBlockSmoothTransportResidual_eq_sum_increment`;
-- `norm_squareBlockSmoothTransportResidual_sq_le_of_incrementEnergy`;
-- `squarePrefixCurrentPointwiseBounded_of_incrementEnergy`;
-- `squarePrefixUniformLocalBounded_of_incrementEnergy`;
-- `squareBlockSmoothTransportGramBound_of_incrementEnergy`;
-- `riemannHypothesis_of_squareBlockIncrementEnergy`.
-
-Principal definitions in `RHLean.Proof.SquareBlockTransportBaseline`:
-
-- `squareBlockEndpointReal`;
-- `squareBlockBaselineTransportApprox`;
-- `squareBlockBaselineTransportError`;
-- `squareBlockBaselineMainIncrement`;
-- `squareBlockBaselineMainPrefix`;
-- `squareBlockBaselineTransportErrorPrefix`.
-
-Principal theorems added by PR #65:
-
-- `squareBlockTransportIncrement_eq_baselineApprox_add_error`;
-- `canonicalTotalIncrement_eq_baselineMain_sub_error`;
-- `squareBlockSmoothTransportResidual_eq_baselineMain_sub_error`;
-- `squarePrefixMertens_eq_baselineMain_sub_error`.
-
-The native largest-prime-factor canonical sequence is compiled separately from the normalized ordered-pair/Farey family. Its exact block increments and cumulative low/high prefixes recombine to `squarePrefixMertens`, and `CanonicalHighUniformLocalBoundedStatement Λ` is proved equivalent to the total local criterion and, from the ordinary `ClassicalMertensRHCriterion` argument, to RH. No project axiom is introduced.
-
-The generic baseline layer is only an exact coordinate decomposition of the native transport. It does not identify transport with a prime-counting interval sum, select `Li` or the Viole function, or infer an analytic estimate.
-
-The complete future criterion lattice and dependency gates are recorded in `MULTIROUTE_FORMALIZATION_PLAN.md`.
-
-## 7. Remaining obligations
-
-- prove the manuscript's elementary canonical low-block estimate and construct `CanonicalLowIncrementControl Λ` with manuscript bound `⌊Λ⌋` for nontrivial sources, with the isolated `m=1` term handled separately or absorbed by `⌊Λ⌋+1`;
-- prove the native canonical uniform local high-sector estimate `CanonicalHighUniformLocalBoundedStatement Λ` — `(HS)`;
-- import or formalize the classical theorem
-  `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
-- optionally prove an exact realization from the normalized Farey/transport family to the native canonical high sequence, then establish its full signed Gram estimate as a sufficient route to `(HS)`;
-- optionally prove the new partial-moment, signed-discrepancy, baseline-energy, prime-interval, transport-operator, weighted-moment, and finite-certificate routes in the order recorded by `MULTIROUTE_FORMALIZATION_PLAN.md`;
-- keep every new route one-way into the compiled pointwise/local criteria unless a reverse implication is separately proved.
-
-Merge-gating commands remain:
-
-```bash
-bash scripts/audit_assumptions.sh
-lake build RHLean --wfail
-```
+Until those items are discharged, the repository remains an axiom-free conditional reduction rather than an unconditional proof of RH.
