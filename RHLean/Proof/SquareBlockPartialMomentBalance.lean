@@ -110,13 +110,16 @@ theorem squarePrefixCurrentPointwiseBounded_of_partialMomentBalance
   have hcoefficient_nonneg :
       0 ≤ C * Real.rpow (N : ℝ) ε :=
     mul_nonneg hC (Real.rpow_nonneg (Nat.cast_nonneg N) _)
+  have htwo :
+      Real.rpow (N : ℝ) (2 : ℝ) = (N : ℝ) ^ (2 : ℕ) :=
+    Real.rpow_natCast (N : ℝ) 2
   have hrpow_mul :
       (N : ℝ) ^ 2 * Real.rpow (N : ℝ) ε =
         Real.rpow (N : ℝ) (2 + ε) := by
     calc
       (N : ℝ) ^ 2 * Real.rpow (N : ℝ) ε =
           Real.rpow (N : ℝ) 2 * Real.rpow (N : ℝ) ε := by
-        rw [Real.rpow_natCast]
+        rw [htwo]
       _ = Real.rpow (N : ℝ) (2 + ε) :=
         (Real.rpow_add hNpos 2 ε).symm
   have hnormCast :
