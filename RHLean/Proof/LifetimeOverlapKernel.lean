@@ -86,10 +86,17 @@ theorem lifetimeAmplitude_conj_mul_eq_pairEnergy
           conj (w pq.1) * w pq.2
         else 0 := by
   classical
-  let wt : CanonicalSourceAtom → ℂ := fun p =>
-    if IsLifetimeActive Λ p t then w p else 0
-  have hpair := conj_mul_finiteAmplitude_eq_totalPairEnergy U wt
-  simpa [lifetimeAmplitude, finiteAmplitude, totalPairEnergy, wt] using hpair
+  unfold lifetimeAmplitude
+  rw [Finset.sum_product]
+  simp_rw [map_sum]
+  rw [Finset.sum_mul]
+  apply Finset.sum_congr rfl
+  intro p hpU
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro q hqU
+  by_cases hp : IsLifetimeActive Λ p t <;>
+    by_cases hq : IsLifetimeActive Λ q t <;> simp [hp, hq]
 
 /-- Exact translated-window expansion into time-indexed pair energies. -/
 theorem lifetimeWindowEnergy_eq_pairEnergy
