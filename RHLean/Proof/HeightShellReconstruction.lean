@@ -5,16 +5,13 @@ import RHLean.Analysis.CanonicalHighSectorCore
 # Exact height-shell reconstruction
 
 This Proof-side module isolates the algebraic step that must precede any
-large-sieve or near-resonance conjecture.  For a finite weighted population it
-expands the conjugate square of the total amplitude into
-
-* diagonal energy;
-* off-diagonal equal-height energy; and
-* off-diagonal unequal-height energy.
+large-sieve or near-resonance conjecture. For a finite weighted population it
+expands the conjugate square of the total amplitude into diagonal,
+off-diagonal equal-height, and off-diagonal unequal-height energy.
 
 An arbitrary shell labelling then partitions the unequal-height term exactly
-into the finite set of shells that actually occur.  No analytic estimate is
-assumed.  The final norm theorem records precisely how diagonal, equal-height,
+into the finite set of labels that actually occur. No analytic estimate is
+assumed. The final norm theorem records precisely how diagonal, equal-height,
 and shell bounds combine to control the total amplitude.
 -/
 
@@ -32,34 +29,40 @@ def finiteAmplitude (s : Finset α) (w : α → ℂ) : ℂ :=
 
 /-- The full ordered-pair energy. -/
 def totalPairEnergy (s : Finset α) (w : α → ℂ) : ℂ :=
-  ∑ x ∈ s, ∑ y ∈ s, conj (w x) * w y
+  ∑ p ∈ s.product s, conj (w p.1) * w p.2
 
 /-- The diagonal part of the ordered-pair energy. -/
-def diagonalPairEnergy (s : Finset α) (w : α → ℂ) : ℂ :=
-  ∑ x ∈ s, conj (w x) * w x
+def diagonalPairEnergy
+    [DecidableEq α] (s : Finset α) (w : α → ℂ) : ℂ :=
+  ∑ p ∈ s.product s,
+    if p.1 = p.2 then conj (w p.1) * w p.2 else 0
 
 /-- Off-diagonal energy carried by pairs having exactly equal height. -/
 def equalHeightOffDiagonalEnergy
     [DecidableEq α] (s : Finset α) (w : α → ℂ) (height : α → ℝ) : ℂ :=
-  ∑ x ∈ s, ∑ y ∈ s,
-    if x ≠ y ∧ height x = height y then conj (w x) * w y else 0
+  ∑ p ∈ s.product s,
+    if p.1 ≠ p.2 ∧ height p.1 = height p.2 then
+      conj (w p.1) * w p.2
+    else 0
 
 /-- Off-diagonal energy carried by pairs having unequal height. -/
 def unequalHeightOffDiagonalEnergy
     [DecidableEq α] (s : Finset α) (w : α → ℂ) (height : α → ℝ) : ℂ :=
-  ∑ x ∈ s, ∑ y ∈ s,
-    if x ≠ y ∧ height x ≠ height y then conj (w x) * w y else 0
+  ∑ p ∈ s.product s,
+    if p.1 ≠ p.2 ∧ height p.1 ≠ height p.2 then
+      conj (w p.1) * w p.2
+    else 0
 
-/-- The energy assigned to one height-difference shell.  The shell map is
+/-- The energy assigned to one height-difference shell. The shell map is
 arbitrary: later analytic work may choose dyadic, smooth, modular, or
 problem-adapted shells. -/
 def heightShellEnergy
     [DecidableEq α] [DecidableEq κ]
     (s : Finset α) (w : α → ℂ) (height : α → ℝ)
     (shell : α → α → κ) (k : κ) : ℂ :=
-  ∑ x ∈ s, ∑ y ∈ s,
-    if x ≠ y ∧ height x ≠ height y ∧ shell x y = k then
-      conj (w x) * w y
+  ∑ p ∈ s.product s,
+    if p.1 ≠ p.2 ∧ height p.1 ≠ height p.2 ∧ shell p.1 p.2 = k then
+      conj (w p.1) * w p.2
     else 0
 
 /-- The finite set of shell labels that actually occur among unequal-height
@@ -76,7 +79,9 @@ theorem conj_mul_finiteAmplitude_eq_totalPairEnergy
     (s : Finset α) (w : α → ℂ) :
     conj (finiteAmplitude s w) * finiteAmplitude s w = totalPairEnergy s w := by
   classical
-  simp [finiteAmplitude, totalPairEnergy, Finset.mul_sum, Finset.sum_mul]
+  simp [finiteAmplitude, totalPairEnergy, Finset.sum_product,
+    Finset.mul_sum, Finset.sum_mul]
+  exact Finset.sum_comm
 
 /-- Exact three-way partition of the total ordered-pair energy. -/
 theorem totalPairEnergy_eq_diagonal_add_equal_add_unequal
@@ -88,18 +93,14 @@ theorem totalPairEnergy_eq_diagonal_add_equal_add_unequal
   classical
   unfold totalPairEnergy diagonalPairEnergy
     equalHeightOffDiagonalEnergy unequalHeightOffDiagonalEnergy
-  rw [← Finset.sum_add_distrib]
+  rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
-  intro x hx
-  rw [← Finset.sum_add_distrib]
-  apply Finset.sum_congr rfl
-  intro y hy
-  by_cases hxy : x = y
-  · subst y
-    simp
-  · by_cases hh : height x = height y
-    · simp [hxy, hh]
-    · simp [hxy, hh]
+  intro p hp
+  by_cases hdiag : p.1 = p.2
+  · simp [hdiag]
+  · by_cases hh : height p.1 = height p.2
+    · simp [hdiag, hh]
+    · simp [hdiag, hh]
 
 /-- The unequal-height energy is exactly the sum over all active shells. -/
 theorem unequalHeightOffDiagonalEnergy_eq_sum_active_shells
@@ -113,19 +114,15 @@ theorem unequalHeightOffDiagonalEnergy_eq_sum_active_shells
   unfold unequalHeightOffDiagonalEnergy heightShellEnergy
   rw [Finset.sum_comm]
   apply Finset.sum_congr rfl
-  intro x hx
-  rw [Finset.sum_comm]
-  apply Finset.sum_congr rfl
-  intro y hy
-  by_cases hxy : x = y
-  · subst y
-    simp
-  · by_cases hh : height x = height y
+  intro p hp
+  by_cases hdiag : p.1 = p.2
+  · simp [hdiag]
+  · by_cases hh : height p.1 = height p.2
     · simp [hh]
-    · have hmem : shell x y ∈ activeHeightShells s height shell := by
-        simp [activeHeightShells, hx, hy, hxy, hh]
-      rw [Finset.sum_eq_single (shell x y)]
-      · simp [hxy, hh]
+    · have hmem : shell p.1 p.2 ∈ activeHeightShells s height shell := by
+        simp [activeHeightShells, hp, hdiag, hh]
+      rw [Finset.sum_eq_single (shell p.1 p.2)]
+      · simp [hdiag, hh]
       · intro k hk hne
         simp [hne]
       · exact hmem
@@ -145,7 +142,7 @@ theorem finiteAmplitude_shell_reconstruction
   rw [unequalHeightOffDiagonalEnergy_eq_sum_active_shells]
 
 /-- Bounds for the diagonal, equal-height term, and every active shell combine
-by the triangle inequality into a bound for the squared amplitude.  This is the
+by the triangle inequality into a bound for the squared amplitude. This is the
 precise abstract implication that later analytic shell estimates must feed. -/
 theorem norm_finiteAmplitude_sq_le_of_shell_bounds
     [DecidableEq α] [DecidableEq κ]
@@ -167,7 +164,7 @@ theorem norm_finiteAmplitude_sq_le_of_shell_bounds
             ∑ k ∈ activeHeightShells s height shell,
               heightShellEnergy s w height shell k‖ := by
     rw [← hrecon]
-    simp [norm_mul, pow_two]
+    simp [pow_two]
   rw [hnorm]
   calc
     ‖diagonalPairEnergy s w + equalHeightOffDiagonalEnergy s w height +
@@ -182,18 +179,22 @@ theorem norm_finiteAmplitude_sq_le_of_shell_bounds
     _ ≤ diagonalBound + equalHeightBound +
           ∑ k ∈ activeHeightShells s height shell,
             ‖heightShellEnergy s w height shell k‖ := by
-          gcongr
-          exact norm_sum_le _ _
+          exact add_le_add
+            (add_le_add hdiag hequal)
+            (norm_sum_le _ _)
     _ ≤ diagonalBound + equalHeightBound +
           ∑ k ∈ activeHeightShells s height shell, shellBound k := by
-          gcongr
-          exact Finset.sum_le_sum fun k hk => hshell k hk
+          exact add_le_add_left
+            (Finset.sum_le_sum fun k hk => hshell k hk)
+            (diagonalBound + equalHeightBound)
 
 /-- Canonical high-sector atoms, represented without collapsing the block
-index.  Keeping `(j,m)` prevents any hidden identification between the real
+index. Keeping `(j,m)` prevents any hidden identification between the real
 source coordinate and the height coordinate. -/
-def canonicalHighAtomSet (Λ : ℝ) (n : ℕ) : Finset (Sigma fun _ : ℕ => ℕ) :=
-  (Finset.range (n + 1)).sigma fun j =>
+noncomputable def canonicalHighAtomSet
+    (Λ : ℝ) (n : ℕ) : Finset (Sigma fun _ : ℕ => ℕ) := by
+  classical
+  exact (Finset.range (n + 1)).sigma fun j =>
     (canonicalSquareBlock j).filter fun m => IsCanonicalHighHeight Λ j m
 
 /-- Möbius weight of a canonical high-sector atom. -/
@@ -210,8 +211,9 @@ theorem finiteAmplitude_canonicalHighAtomSet_eq_canonicalHighPrefix
     finiteAmplitude (canonicalHighAtomSet Λ n) canonicalHighAtomWeight =
       canonicalHighPrefix Λ n := by
   classical
-  simp [finiteAmplitude, canonicalHighAtomSet, canonicalHighAtomWeight,
-    canonicalHighPrefix, canonicalHighIncrement]
+  unfold finiteAmplitude canonicalHighAtomSet canonicalHighAtomWeight
+  rw [Finset.sum_sigma]
+  simp [canonicalHighPrefix, canonicalHighIncrement, Finset.sum_filter]
 
 /-- Canonical specialization: every chosen shell map on high-sector atoms gives
 an exact reconstruction of the current RH-equivalent high-sector square. -/
@@ -228,6 +230,7 @@ theorem canonicalHighPrefix_shell_reconstruction
             heightShellEnergy
               (canonicalHighAtomSet Λ n) canonicalHighAtomWeight
               canonicalHighAtomHeight shell k := by
+  classical
   rw [← finiteAmplitude_canonicalHighAtomSet_eq_canonicalHighPrefix]
   exact finiteAmplitude_shell_reconstruction
     (canonicalHighAtomSet Λ n) canonicalHighAtomWeight canonicalHighAtomHeight shell
