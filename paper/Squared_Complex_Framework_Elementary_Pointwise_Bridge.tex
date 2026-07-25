@@ -2653,7 +2653,7 @@ directly as an ordinary theorem argument.
 
 The module
 \[
- \texttt{RHLean.Analysis.CanonicalHighSectorCore}
+ \texttt{RHLean.Proof.CanonicalHighSectorBridge}
 \]
 defines the largest-prime canonical factor $q_m=\Pplus(m)$, the cofactor $c_m=m/q_m$, the doubled signed height $q_m^2-c_m^2$, the exact square blocks, and the native low/high increments and prefixes.  It proves
 \[
@@ -2671,15 +2671,10 @@ proves the elementary low-height clustering estimate unconditionally: on the non
 \[
  \texttt{CanonicalLowIncrementControl}\ \Lambda
 \]
-instance is constructed directly, with no remaining hypothesis.  The paper-facing criterion module
+instance is constructed directly, with no remaining hypothesis.  It defines the unresolved proposition
 \[
- \texttt{RHLean.Analysis.CanonicalHighSectorBridge}
+ \texttt{CanonicalHighUniformLocalBoundedStatement}\ \Lambda.
 \]
-defines the unresolved proposition
-\[
- \texttt{CanonicalHighUniformLocalBoundedStatement}\ \Lambda
-\]
-and composes the exact canonical realization with the protected square-prefix and typed classical Mertens--RH bridges.
 Using the realized low-control object, Lean proves
 \[
  \begin{aligned}
