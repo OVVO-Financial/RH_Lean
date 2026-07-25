@@ -239,7 +239,7 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - proves the complete canonical block prefix is exactly `squarePrefixMertens` at `X_n=(n+1)^2-1`;
     - defines `CanonicalLowIncrementControl` and derives the pointwise low-energy consequence of any uniform increment bound.
 
-52. `RHLean.Analysis.CanonicalLowOccupancy`
+50. `RHLean.Analysis.CanonicalLowOccupancy`
     - proves the canonical largest-prime-factor/cofactor product identities and the exact absolute-gap height formula;
     - proves that a fixed positive absolute factor gap contributes at most one source to a square block;
     - proves low height forces `|q_m-c_m| ≤ Λ`;
@@ -247,7 +247,7 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - isolates the single `m=1` endpoint and proves `‖canonicalLowIncrement Λ j‖ ≤ floor Λ + 1`;
     - constructs `canonicalLowIncrementControl Λ` unconditionally.
 
-53. `RHLean.Proof.CanonicalHighSectorBridge`
+51. `RHLean.Proof.CanonicalHighSectorBridge`
     - constructs the concrete geometric partition from the analysis-layer canonical sequence;
     - defines the unresolved native statement `CanonicalHighUniformLocalBoundedStatement Λ` at scale `H N^(2+ε)`;
     - proves the native canonical high criterion is equivalent to the protected square-prefix uniform-local criterion with the proved low control inserted;
