@@ -134,7 +134,7 @@ theorem upperPartialMass_add_lowerPartialMass_eq_finiteAbsoluteMass
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro i hi
-  exact positivePart_add_negativePart (x i)
+  simpa using positivePart_add_negativePart (x i)
 
 /-- Denominator-free degree-one balance numerator. -/
 def degreeOneBalanceNumerator {ι : Type*}
