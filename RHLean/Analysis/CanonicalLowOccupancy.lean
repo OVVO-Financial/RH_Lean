@@ -295,11 +295,16 @@ theorem card_canonicalNontrivialLowSupport_le_floor
     {Λ : ℝ} {j : ℕ} (hj : 1 ≤ j) :
     (canonicalNontrivialLowSupport Λ j).card ≤ Nat.floor Λ := by
   classical
-  have hinj : Set.InjOn canonicalAbsoluteGap ↑(canonicalNontrivialLowSupport Λ j) := by
+  have hinj :
+      Set.InjOn canonicalAbsoluteGap
+        (↑(canonicalNontrivialLowSupport Λ j) : Set ℕ) := by
     intro m hm m' hm' hgap
-    simp only [canonicalNontrivialLowSupport, Finset.mem_filter] at hm hm'
+    have hmFin : m ∈ canonicalNontrivialLowSupport Λ j := hm
+    have hm'Fin : m' ∈ canonicalNontrivialLowSupport Λ j := hm'
+    have hmData := Finset.mem_filter.mp hmFin
+    have hm'Data := Finset.mem_filter.mp hm'Fin
     exact eq_of_canonicalAbsoluteGap_eq_in_block
-      hm.1 hm'.1 hm.2.1 hm'.2.1 hgap rfl
+      hmData.1 hm'Data.1 hmData.2.1 hm'Data.2.1 hgap rfl
   have hrange :
       (canonicalNontrivialLowSupport Λ j).image canonicalAbsoluteGap ⊆
         Finset.Icc 1 (Nat.floor Λ) := by
@@ -362,8 +367,17 @@ theorem card_canonicalLowSupport_le_floor_add_one
   · have hj0 : j = 0 := by omega
     subst j
     have hsupportEmpty : canonicalLowSupport Λ 0 = ∅ := by
-      ext m
-      simp [canonicalLowSupport, canonicalSquareBlock]
+      apply Finset.eq_empty_iff_forall_notMem.mpr
+      intro m hm
+      have hmData := Finset.mem_filter.mp hm
+      have hmIco : m ∈ Finset.Ico 0 1 := by
+        simpa [canonicalSquareBlock] using hmData.1
+      have hmEq : m = 0 := by
+        have := Finset.mem_Ico.mp hmIco
+        omega
+      have hμ : μ m ≠ 0 := hmData.2.1
+      subst m
+      exact hμ (by simp)
     simp [hsupportEmpty]
 
 /-- Every canonical Möbius weight has complex norm at most one. -/
