@@ -73,7 +73,7 @@ theorem canonicalLifetimeAmplitude_self_eq_activeMass
   classical
   unfold canonicalLifetimeAmplitude canonicalLifetimeUniverse lifetimeAmplitude
     lifetimeActiveAtomMass canonicalAtomMass lifetimeActiveAtomSet
-  rfl
+  simp [canonicalHighAtomWeight, Finset.sum_filter]
 
 /-- Exact decomposition of the existing canonical high prefix into the
 lifetime-active mass and absorbed mass. -/
