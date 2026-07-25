@@ -34,34 +34,17 @@ jobs:
             git push origin HEAD:${{ github.head_ref }}
           fi
 
+      - name: Check paper / Analysis boundary
+        run: bash scripts/check_paper_analysis_boundary.sh
+
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
 
-      - name: Set up Lean
+      - name: Build Lean project
         uses: leanprover/lean-action@v1
         with:
           use-mathlib-cache: true
-          build: false
+          build: true
+          build-args: "RHLean --wfail"
           test: false
           lint: false
-
-      - name: Build Lean project
-        id: lean-build
-        shell: bash
-        run: |
-          set +e
-          lake build RHLean --wfail 2>&1 | tee lean-build.log
-          status=${PIPESTATUS[0]}
-          echo "status=$status" >> "$GITHUB_OUTPUT"
-          exit 0
-
-      - name: Upload Lean build diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lean-build-diagnostics
-          path: lean-build.log
-
-      - name: Fail if Lean build failed
-        if: steps.lean-build.outputs.status != '0'
-        run: exit 1
