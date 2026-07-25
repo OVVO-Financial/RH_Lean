@@ -96,7 +96,7 @@ This is only a coordinate split of the existing largest-prime-factor transport o
 Planned module:
 
 ```text
-RHLean.Analysis.FinitePartialMoments
+RHLean.Proof.FinitePartialMoments
 ```
 
 Define for a finite real sequence and `d > 0`

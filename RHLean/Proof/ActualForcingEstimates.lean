@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.BlockLyapunovClosure
+import RHLean.Proof.BlockLyapunovClosure
 
 noncomputable section
 

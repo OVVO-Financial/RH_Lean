@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.HeightShellGram
+import RHLean.Proof.HeightShellGram
 import RHLean.Proof.UniformResidualBound
 
 noncomputable section

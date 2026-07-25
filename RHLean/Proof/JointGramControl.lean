@@ -1,7 +1,7 @@
 import Mathlib
 import RHLean.Proof.ActualForcingEstimates
 import RHLean.Proof.ActualResidualDecomposition
-import RHLean.Analysis.HeightShellGram
+import RHLean.Proof.HeightShellGram
 
 noncomputable section
 

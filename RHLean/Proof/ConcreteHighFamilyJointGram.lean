@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.JointGramControl
+import RHLean.Proof.JointGramControl
 import RHLean.Proof.CompleteHighFamilyDecomposition
 
 noncomputable section
@@ -89,7 +89,7 @@ theorem actualResidual_squarePrefixHighTransportData_eq_familyContribution
 /-- The concrete complete-family joint Gram energy, with shell, cofactor channel,
 Farey mode, and resonant/nonresonant row retained as separate coordinates. -/
 noncomputable def squarePrefixHighFullFamilyJointGramEnergy
-    (skeleton : RHLean.Analysis.ResonantProjectionSkeleton ℂ ℂ)
+    (skeleton : RHLean.Proof.ResonantProjectionSkeleton ℂ ℂ)
     (M : ℕ) (hcutoff : 0 < skeleton.cutoff M)
     (Λ : ℝ) (n : ℕ) : ℝ :=
   RHLean.Analysis.actualJointGramEnergy skeleton M
@@ -99,7 +99,7 @@ noncomputable def squarePrefixHighFullFamilyJointGramEnergy
 cross-channel, cross-mode, and cross-row interaction remains in the single joint
 Gram expression. -/
 theorem squarePrefixHighTransportFamily_energy_eq_jointGram
-    (skeleton : RHLean.Analysis.ResonantProjectionSkeleton ℂ ℂ)
+    (skeleton : RHLean.Proof.ResonantProjectionSkeleton ℂ ℂ)
     (M : ℕ) (hcutoff : 0 < skeleton.cutoff M)
     (Λ : ℝ) (n : ℕ) :
     ‖squarePrefixHighTransportFamilyContribution
@@ -115,7 +115,7 @@ theorem squarePrefixHighTransportFamily_energy_eq_jointGram
 same exact full joint Gram energy. The norm is taken only after all three signed
 families have been recombined. -/
 theorem squarePrefixHighFullDecomposition_energy_eq_jointGram
-    (skeleton : RHLean.Analysis.ResonantProjectionSkeleton ℂ ℂ)
+    (skeleton : RHLean.Proof.ResonantProjectionSkeleton ℂ ℂ)
     (M : ℕ) (hcutoff : 0 < skeleton.cutoff M)
     (Λ : ℝ) (n : ℕ) :
     ‖(squarePrefixHighRetainedDefectContribution
@@ -134,7 +134,7 @@ theorem squarePrefixHighFullDecomposition_energy_eq_jointGram
 endpoint. This is a proposition about the single complete signed Gram quantity,
 not a list of separate positive component bounds. -/
 def SquarePrefixHighFullFamilyJointGramEstimateAt
-    (skeleton : RHLean.Analysis.ResonantProjectionSkeleton ℂ ℂ)
+    (skeleton : RHLean.Proof.ResonantProjectionSkeleton ℂ ℂ)
     (M : ℕ) (hcutoff : 0 < skeleton.cutoff M)
     (Λ : ℝ) (n : ℕ) (bound : ℝ) : Prop :=
   squarePrefixHighFullFamilyJointGramEnergy
@@ -143,7 +143,7 @@ def SquarePrefixHighFullFamilyJointGramEstimateAt
 /-- A concrete full-family joint Gram estimate gives the corresponding complete
 high-family energy bound without discarding any cross interaction. -/
 theorem squarePrefixHighTransportFamily_energy_le_of_jointGramEstimate
-    (skeleton : RHLean.Analysis.ResonantProjectionSkeleton ℂ ℂ)
+    (skeleton : RHLean.Proof.ResonantProjectionSkeleton ℂ ℂ)
     (M : ℕ) (hcutoff : 0 < skeleton.cutoff M)
     (Λ : ℝ) (n : ℕ) (bound : ℝ)
     (hestimate : SquarePrefixHighFullFamilyJointGramEstimateAt
@@ -157,7 +157,7 @@ theorem squarePrefixHighTransportFamily_energy_le_of_jointGramEstimate
 analytic proof of this proposition is intentionally not supplied by the exact
 recombination layer. -/
 def SquarePrefixHighFullFamilyJointGramBoundedBy
-    (skeleton : RHLean.Analysis.ResonantProjectionSkeleton ℂ ℂ)
+    (skeleton : RHLean.Proof.ResonantProjectionSkeleton ℂ ℂ)
     (Λ : ℝ) (bound : ℕ → ℕ → ℝ) : Prop :=
   ∀ M n, ∀ hcutoff : 0 < skeleton.cutoff M,
     SquarePrefixHighFullFamilyJointGramEstimateAt
@@ -166,7 +166,7 @@ def SquarePrefixHighFullFamilyJointGramBoundedBy
 /-- Uniform joint Gram control transfers directly to the complete concrete
 high-family energy. -/
 theorem squarePrefixHighTransportFamily_energy_le_of_uniform_jointGramControl
-    (skeleton : RHLean.Analysis.ResonantProjectionSkeleton ℂ ℂ)
+    (skeleton : RHLean.Proof.ResonantProjectionSkeleton ℂ ℂ)
     (Λ : ℝ) (bound : ℕ → ℕ → ℝ)
     (hcontrol : SquarePrefixHighFullFamilyJointGramBoundedBy
       skeleton Λ bound)
