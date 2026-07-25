@@ -49,4 +49,5 @@ import RHLean.Proof.CanonicalHighSectorBridge
 import RHLean.Proof.CanonicalHighSectorCovariance
 import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockIncrementEnergy
+import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Verification.FiniteRangeCertificates
