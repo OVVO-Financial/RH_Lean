@@ -3,6 +3,7 @@ import RHLean.Analysis.ActualResidualDecomposition
 import RHLean.Analysis.ActualStartLocalSignedFrame
 import RHLean.Analysis.ActualStartSignedFrame
 import RHLean.Analysis.BlockLyapunovClosure
+import RHLean.Analysis.CanonicalHighSectorBridge
 import RHLean.Analysis.CanonicalHighSectorCore
 import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Analysis.ComplexQuadraticPhase
@@ -48,7 +49,6 @@ import RHLean.Proof.ConcreteSquarePrefixHighResidual
 import RHLean.Proof.TriplingPacketTransport
 import RHLean.Proof.CompleteHighFamilyDecomposition
 import RHLean.Proof.ConcreteHighFamilyJointGram
-import RHLean.Proof.CanonicalHighSectorBridge
 import RHLean.Proof.CanonicalHighSectorCovariance
 import RHLean.Proof.RealSquareBlockIncrements
 import RHLean.Proof.SquareBlockPartialMomentBalance
