@@ -52,6 +52,7 @@ import RHLean.Proof.DeathShellDivisorFibers
 import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Analysis.DyadicTransportCanonicalForm
 import RHLean.Analysis.ExactActivityPrimeIntervals
+import RHLean.Analysis.DynamicVioleBaseline
 import RHLean.Proof.LifetimeActiveSet
 import RHLean.Proof.LifetimeEndpointDecomposition
 import RHLean.Proof.LifetimeLocalEnergyCriterion
