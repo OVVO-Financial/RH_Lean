@@ -12,8 +12,8 @@ The empirical study replaced that fixed rate by
 
 ```text
 log b(x) = 2 + a / log x + b / (log x)^2,
-a = 22.407744267,
-b = -152.128575193.
+a = 22.407744267407335,
+b = -152.12857519277964.
 ```
 
 The coefficients below are represented as exact rationals. They were fitted on
@@ -31,14 +31,14 @@ noncomputable section
 namespace RHLean.Proof
 
 /-- Fitted coefficient of `1 / log x` in the dynamic logarithmic-base exponent.
-The decimal `22.407744267` is stored exactly. -/
+The full fitted decimal `22.407744267407335` is stored exactly. -/
 def dynamicVioleFitA : ℝ :=
-  22407744267 / 1000000000
+  22407744267407335 / 1000000000000000
 
 /-- Fitted coefficient of `1 / (log x)^2` in the dynamic logarithmic-base
-exponent. The decimal `-152.128575193` is stored exactly. -/
+exponent. The full fitted decimal `-152.12857519277964` is stored exactly. -/
 def dynamicVioleFitB : ℝ :=
-  -(152128575193 / 1000000000)
+  -(15212857519277964 / 100000000000000)
 
 /-- The fitted value of `log b(x)`, where `b(x)` is the effective logarithmic
 base used by the dynamic Viole denominator. -/
