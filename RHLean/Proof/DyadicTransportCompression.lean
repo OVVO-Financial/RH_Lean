@@ -139,7 +139,7 @@ theorem finiteTransportContribution_add_dyadicChild
       intro h
       exact hp (finiteTransportActive_parent_of_child h)
     simp [finiteTransportContribution, dyadicBoundaryContribution, hp, hchild,
-      hweight, dyadicBoundaryActive_iff_parent_and_not_child]
+      dyadicBoundaryActive_iff_parent_and_not_child]
 
 /-- Finite raw transport packet of one channel. -/
 def finiteTransportPacket (N c q : ℕ) : ℂ :=
