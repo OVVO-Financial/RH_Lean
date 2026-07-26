@@ -21,11 +21,17 @@ The governing invariants are:
   separately proved local low-sector bound;
 - the canonical square-prefix endpoint is exactly `X_n = (n+1)^2 - 1`;
 - the final mathlib integration theorem must accept the classical Mertens↔RH
-  equivalence directly, without an abstract start-sequence bridge.
+  equivalence directly, without an abstract start-sequence bridge;
+- a death-shell divisor bound must sum divisor fibers over every integer height
+  in the half-open shell window, not use the divisor count of one endpoint;
+- a bound on the death process alone does not bound the endpoint survivor
+  discrepancy `birth - death`;
+- a cofactor-parity decomposition must be finite, include `ω(c)=0`, and use
+  `μ(cq)=-μ(c)` only on nonzero Möbius support.
 
 ## 1. Compiled inventory
 
-The root library imports fifty-five theorem modules.
+The root library imports seventy theorem modules.
 
 ### Arithmetic and cell structure
 
@@ -285,6 +291,26 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
     - proves the corresponding common-origin cumulative identity and concrete square-prefix Mertens identity;
     - does not identify transport with a prime-count interval sum, choose a baseline, or prove an analytic estimate.
 
+### Finite signed moments, lifetime flow, and death-shell arithmetic
+
+56. `RHLean.Proof.FinitePartialMoments`
+57. `RHLean.Proof.RealSquareBlockIncrements`
+58. `RHLean.Proof.SquareBlockPartialMomentBalance`
+59. `RHLean.Proof.HeightShellReconstruction`
+60. `RHLean.Proof.CumulativeHeightFlow`
+61. `RHLean.Proof.BirthMovingAbsorption`
+62. `RHLean.Proof.LifetimeOverlapKernel`
+63. `RHLean.Proof.LifetimeActiveSet`
+64. `RHLean.Proof.LifetimeLocalEnergyCriterion`
+65. `RHLean.Proof.LifetimeEndpointDecomposition`
+66. `RHLean.Proof.DeathProcessArithmetic`
+67. `RHLean.Proof.DeathProcessShellIdentity`
+68. `RHLean.Proof.DeathShellCardinalityAndCentering`
+69. `RHLean.Proof.CompleteFermatSieve`
+70. `RHLean.Proof.DeathShellDivisorFibers`
+
+These modules compile the exact finite partial-moment identities and their square-block specialization; reconstruct canonical height-shell energies; define the cumulative moving boundary and lifetime interval system; prove the active/birth/death endpoint identities; identify each death increment with a thin factorized shell sum; transfer shell cardinality to pointwise and cumulative death-process bounds; verify the complete mod-twenty Fermat sieve; and inject each positive-cutoff shell into the divisor fibers over its full finite integer-height window.
+
 ## 2. Correction history
 
 PR #42 compiled an axiom-free conditional theorem with the global prefix target
@@ -335,7 +361,25 @@ PR #64 corrects the proposed increment-energy exponent: a global second moment s
 
 PR #65 adds an arbitrary deterministic baseline coordinate split of the existing transport. It proves exact blockwise and cumulative recombination but deliberately does not attach prime-count interval semantics or any analytic estimate.
 
+PRs #67-#69 formalize finite partial moments, real square-block increments, total variation, and the degree-one balance sufficient route. The balance estimate remains an explicit premise; the finite identities do not themselves prove cancellation.
+
 PR #72 proves the manuscript's canonical low-height occupancy theorem in the analysis layer. It establishes one product per positive absolute gap, the sharp `floor Λ` count on nonzero Möbius support away from `m=1`, the uniform `floor Λ + 1` increment bound, and an unconditional `CanonicalLowIncrementControl Λ`. The canonical high-sector bridge therefore has no remaining internal low-sector hypothesis.
+
+PRs #73-#77 enforce the paper/Analysis boundary and relocate paper-facing and proof-technology modules without changing their theorem APIs. PR #78 then adds the exact canonical height-shell reconstruction.
+
+PRs #79-#85 distinguish the cumulative moving boundary from the birth-block high prefix, build the lifetime-overlap kernel and active set, and prove the exact endpoint identity `active = birth - death`. They also record that death-process control alone is insufficient: the survivor discrepancy remains a separate local-energy obligation.
+
+PRs #86-#89 define the exact death shell, prove `ΔD_t` equals its Möbius mass, and transfer shell-cardinality bounds to death-process bounds and centered decompositions. No asymptotic shell estimate is asserted there.
+
+PR #92 verifies the complete Fermat sieve modulo twenty, including both mod-four parity lanes and the exceptional factor-five classes.
+
+PR #93 corrects the proposed one-endpoint divisor estimate. A shell spans every integer height in a half-open interval, so the valid elementary theorem is
+
+```text
+#S_t ≤ ∑_{k in I_{Λ,t}} τ(k),
+```
+
+proved by the injective code `m ↦ (|q_m^2-c_m^2|, |q_m-c_m|)`. The unsupported statement `#S_t ≤ τ(2Λ(t+1))` is false in general and is not formalized.
 
 ## 3. Current checkpoint
 
@@ -389,6 +433,17 @@ squarePrefixMertens
 ```
 
 It creates no independent criterion until later analytic hypotheses are explicitly stated and proved sufficient.
+
+The lifetime/death route now contains the exact identities
+
+```text
+active_t = birth_t - death_t,
+Δ death_t = deathHeightShellMass Λ t,
+‖Δ death_t‖ ≤ #S_t
+             ≤ ∑_{k in I_{Λ,t}} τ(k).
+```
+
+The last inequality is the exact finite divisor-fiber theorem on the PR #93 branch for `0 < Λ`. A classical subpolynomial divisor estimate would convert it into the expected shell-cardinality growth bound for fixed `Λ`, but that analytic theorem is not yet in the repository. Even a complete death-process estimate would still leave the endpoint discrepancy `birth - death` to control.
 
 The complete multi-route roadmap is recorded in `MULTIROUTE_FORMALIZATION_PLAN.md`.
 
@@ -460,16 +515,16 @@ The complete multi-route roadmap is recorded in `MULTIROUTE_FORMALIZATION_PLAN.m
 - [x] **35. Exact square-block smooth/transport joint Gram realization** — PR #63.
 - [x] **36. Strong square-block increment-energy sufficient hierarchy** — PR #64.
 - [x] **37. Generic deterministic baseline transport split** — PR #65.
-- [ ] **38. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly**.
+- [x] **38. Concrete canonical low-increment control with the manuscript nontrivial-source bound `⌊Λ⌋` and the isolated `m=1` endpoint handled explicitly** — PR #72.
 - [ ] **39. Native canonical uniform local high-sector estimate `(HS)`**.
 
 ### Phase XI — finite signed-moment routes
 
-- [ ] **40. Generic finite partial moments with the degree-one signed-sum identity and guarded ratio form**.
-- [ ] **41. Sign-valued degree collapse for `{-1,0,1}` sequences**.
-- [ ] **42. Real square-block increments and exact complex-cast bridge**.
-- [ ] **43. Elementary square-block total-variation bound**.
-- [ ] **44. Degree-one partial-moment balance sufficient criterion**.
+- [x] **40. Generic finite partial moments with the degree-one signed-sum identity and guarded ratio form** — PR #67.
+- [x] **41. Sign-valued degree collapse for `{-1,0,1}` sequences** — PR #67.
+- [x] **42. Real square-block increments and exact complex-cast bridge** — PR #68.
+- [x] **43. Elementary square-block total-variation bound** — PR #68.
+- [x] **44. Degree-one partial-moment balance sufficient criterion** — PR #69.
 - [ ] **45. Common-normalized signed empirical discrepancy sufficient criterion**.
 
 ### Phase XII — baseline energy and descriptive block structure
@@ -495,6 +550,24 @@ The complete multi-route roadmap is recorded in `MULTIROUTE_FORMALIZATION_PLAN.m
 - [ ] **58. Weighted signed Möbius power-moment identities**.
 - [ ] **59. Finite certificate checkers for partial moments, baselines, prime blocks, and transport operators**.
 
+### Phase XV — height-shell reconstruction and lifetime/death-shell route
+
+- [x] **60. Exact canonical high-sector height-shell reconstruction** — PR #78.
+- [x] **61. Cumulative moving-height flow** — PR #79.
+- [x] **62. Birth-high absorption bridge** — PRs #80 and #81.
+- [x] **63. Exact lifetime-overlap kernel** — PR #82.
+- [x] **64. Lifetime active-set bridge** — PR #83.
+- [x] **65. Honest lifetime local-energy criterion** — PR #84.
+- [x] **66. Lifetime endpoint decomposition** — PR #85.
+- [x] **67. Death-process arithmetic shell structure** — PR #86.
+- [x] **68. Death increment equals death-shell Möbius mass** — PR #87.
+- [x] **69. Shell-cardinality transfer and centering** — PR #89.
+- [x] **70. Complete verified Fermat sieve** — PR #92.
+- [ ] **71. Exact death-shell divisor-fiber bound over the full integer window** — PR #93.
+- [ ] **72. Exact finite cofactor-`ω` parity decomposition, including `ω(c)=0`**.
+- [ ] **73. Classical divisor-window asymptotic or stronger signed shell cancellation estimate**.
+- [ ] **74. Endpoint survivor-discrepancy local-energy control**.
+
 ## 5. Dependency spine
 
 The minimal bridge remains
@@ -515,6 +588,22 @@ MertensEnergyBoundedStatement
 classical Mertens criterion ↔ RH
 ```
 
-The new multi-route branches may feed only into the existing pointwise, local, increment-energy, or native high-sector propositions. They do not replace the protected spine.
+The lifetime/death branch supplies a distinct sufficient route into the same protected local criterion:
+
+```text
+exact moving-boundary and endpoint identities
+        ↓
+ΔD_t = death-shell Möbius mass
+        ↓
+#S_t ≤ full-window divisor sum
+        ↓
+analytic death-process control
+        +
+endpoint survivor-discrepancy control
+        ↓
+SquarePrefixUniformLocalBoundedStatement.
+```
+
+The exact divisor-fiber theorem does not by itself provide the analytic divisor estimate, cofactor cancellation, or survivor-discrepancy bound. The new multi-route branches may feed only into the existing pointwise, local, increment-energy, or native high-sector propositions. They do not replace the protected spine.
 
 See `MULTIROUTE_FORMALIZATION_PLAN.md` for theorem classifications, nonclaims, and the mandatory PR order.
