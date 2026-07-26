@@ -42,17 +42,17 @@ theorem movingHigh_implies_birthHigh
   unfold IsMovingCanonicalHigh at hhigh
   exact (not_lt_of_ge hlow) hhigh
 
-/-- A generic sum over the square prefix is the iterated sum over its square
-blocks. -/
-theorem sum_range_squarePrefix_eq_sum_squareBlocks
+/-- A generic iterated sum over canonical square blocks equals the sum over the
+whole square prefix. -/
+theorem sum_squareBlocks_eq_sum_range_squarePrefix
     (f : ℕ → ℂ) (n : ℕ) :
-    (∑ m ∈ Finset.range ((n + 1) ^ 2), f m) =
-      ∑ j ∈ Finset.range (n + 1), ∑ m ∈ canonicalSquareBlock j, f m := by
+    (∑ j ∈ Finset.range (n + 1), ∑ m ∈ canonicalSquareBlock j, f m) =
+      ∑ m ∈ Finset.range ((n + 1) ^ 2), f m := by
   induction n with
   | zero => simp [canonicalSquareBlock]
   | succ n ih =>
       rw [Finset.sum_range_succ]
-      rw [← ih]
+      rw [ih]
       have hle : (n + 1) ^ 2 ≤ (n + 2) ^ 2 := by
         exact Nat.pow_le_pow_left (by omega) 2
       simpa [canonicalSquareBlock, Nat.add_assoc] using
@@ -70,7 +70,9 @@ theorem lifetimeActiveAtomMass_eq_movingCanonicalHighSum
     movingCanonicalHighSum canonicalMoebiusMass movingCanonicalHighSet
     cumulativeSquarePrefixSet
   rw [Finset.sum_filter, Finset.sum_sigma]
-  rw [sum_range_squarePrefix_eq_sum_squareBlocks]
+  simp only [Finset.sum_filter]
+  rw [← sum_squareBlocks_eq_sum_range_squarePrefix
+    (fun m => if IsMovingCanonicalHigh Λ t m then canonicalMoebiusWeight m else 0) t]
   apply Finset.sum_congr rfl
   intro j hj
   have hjt : j ≤ t := Nat.le_of_lt_succ (Finset.mem_range.mp hj)
@@ -82,13 +84,17 @@ theorem lifetimeActiveAtomMass_eq_movingCanonicalHighSum
     simp [hmove, hbirth]
   · simp [hmove]
 
+/-- The high part of the square block born at stage `t+1`. -/
+noncomputable def newCanonicalHighBlock (Λ : ℝ) (t : ℕ) : Finset ℕ := by
+  classical
+  exact (canonicalSquareBlock (t + 1)).filter
+    (IsCanonicalHighHeight Λ (t + 1))
+
 /-- The moving-high entry population is exactly the high part of the newly born
 square block. -/
 theorem movingCanonicalEntrySet_eq_newHighBlock
     {Λ : ℝ} (hΛ : 0 ≤ Λ) (t : ℕ) :
-    movingCanonicalEntrySet Λ t =
-      (canonicalSquareBlock (t + 1)).filter
-        (IsCanonicalHighHeight Λ (t + 1)) := by
+    movingCanonicalEntrySet Λ t = newCanonicalHighBlock Λ t := by
   classical
   ext m
   constructor
@@ -104,12 +110,14 @@ theorem movingCanonicalEntrySet_eq_newHighBlock
       have hmOldHigh : IsMovingCanonicalHigh Λ t m :=
         movingHigh_anti_stage hΛ (Nat.le_succ t) hmNewHigh
       exact hmNotOld (Finset.mem_filter.mpr ⟨hmOldRange, hmOldHigh⟩)
+    unfold newCanonicalHighBlock
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_Ico.mpr ⟨hmGe, hmLt⟩, ?_⟩
     unfold IsCanonicalHighHeight IsCanonicalLowHeight
     intro hlow
     exact (not_lt_of_ge hlow) hmNewHigh
   · intro hm
+    unfold newCanonicalHighBlock at hm
     rcases Finset.mem_filter.mp hm with ⟨hmBlock, hmBirthHigh⟩
     rcases Finset.mem_Ico.mp hmBlock with ⟨hmGe, hmLt⟩
     apply (mem_movingCanonicalEntrySet_iff Λ t m).2
@@ -132,7 +140,8 @@ theorem movingCanonicalEntryMass_eq_canonicalHighIncrement
   classical
   unfold movingCanonicalEntryMass canonicalMoebiusMass canonicalHighIncrement
   rw [movingCanonicalEntrySet_eq_newHighBlock hΛ]
-  simp [Finset.sum_filter]
+  unfold newCanonicalHighBlock
+  rw [Finset.sum_filter]
 
 /-- Exact set-level bridge: for nonnegative `Λ`, the discrete increment of the
 absorbed birth-high mass is the Möbius mass of the crossed moving-height shell. -/
@@ -140,25 +149,29 @@ theorem lifetimeDeathIncrement_eq_deathHeightShellMass
     {Λ : ℝ} (hΛ : 0 ≤ Λ) (t : ℕ) :
     lifetimeDeathIncrement Λ t = deathHeightShellMass Λ t := by
   rw [deathHeightShellMass_eq_crossingMass]
-  unfold lifetimeDeathIncrement lifetimeDeathMass
-  rw [lifetimeDeathMass_eq_absorbed]
-  rw [lifetimeDeathMass_eq_absorbed]
-  have hbirth_t := lifetimeBirthMass_eq_active_add_death Λ t
-  have hbirth_succ := lifetimeBirthMass_eq_active_add_death Λ (t + 1)
+  unfold lifetimeDeathIncrement
+  have hdeath_t :
+      lifetimeDeathMass Λ t =
+        lifetimeBirthMass Λ t - lifetimeActiveAtomMass Λ t := by
+    rw [lifetimeBirthMass_eq_active_add_death]
+    ring
+  have hdeath_succ :
+      lifetimeDeathMass Λ (t + 1) =
+        lifetimeBirthMass Λ (t + 1) - lifetimeActiveAtomMass Λ (t + 1) := by
+    rw [lifetimeBirthMass_eq_active_add_death]
+    ring
   have hbirthIncrement :
       lifetimeBirthMass Λ (t + 1) =
         lifetimeBirthMass Λ t + canonicalHighIncrement Λ (t + 1) := by
-    unfold lifetimeBirthMass birthCanonicalHighAtomMass canonicalAtomMass
-      birthCanonicalHighAtomSet
+    rw [lifetimeBirthMass_eq_canonicalHighPrefix,
+      lifetimeBirthMass_eq_canonicalHighPrefix]
+    unfold canonicalHighPrefix
     rw [Finset.sum_range_succ]
-    rfl
-  have hactive_t := lifetimeActiveAtomMass_eq_movingCanonicalHighSum hΛ t
-  have hactive_succ := lifetimeActiveAtomMass_eq_movingCanonicalHighSum hΛ (t + 1)
-  have hmove := movingCanonicalHighSum_succ Λ t
-  have hentry := movingCanonicalEntryMass_eq_canonicalHighIncrement hΛ t
-  rw [← lifetimeDeathMass_eq_absorbed Λ (t + 1),
-    ← lifetimeDeathMass_eq_absorbed Λ t]
-  nlinarith [hbirth_t, hbirth_succ, hbirthIncrement, hactive_t,
-    hactive_succ, hmove, hentry]
+  rw [hdeath_succ, hdeath_t, hbirthIncrement,
+    lifetimeActiveAtomMass_eq_movingCanonicalHighSum hΛ (t + 1),
+    lifetimeActiveAtomMass_eq_movingCanonicalHighSum hΛ t,
+    movingCanonicalHighSum_succ,
+    movingCanonicalEntryMass_eq_canonicalHighIncrement hΛ]
+  ring
 
 end RHLean.Proof
