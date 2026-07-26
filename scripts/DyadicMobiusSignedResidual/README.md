@@ -26,7 +26,11 @@ R_F(t) = sum_{c <= t, squarefree} mu(c) * ( E(U(t,c)) - E(L(t,c)-1) ).
    * reciprocal endpoint `ceil(S/(2c)) - 1 == floor((S-1)/(2c)) == U(t,2c)`;
    * lower-endpoint form `L(t,c) - 1 == max(t+1, U(t,2c))`;
    * regime threshold `U(t,2c) >= t+1  <==>  2c <= t`;
-   * non-emptiness `L(t,c) <= U(t,c)  <==>  c <= t`.
+   * non-emptiness `L(t,c) <= U(t,c)  <==>  c <= t`;
+   * **(T0)** nested floor `U(t,2c) == U_c//2`, `U(t,4c) == U_c//4`;
+   * **(T1)** exact constant-mode mass `|I(t,c)| - |I(t,2c)|`:
+     `U_c//4 + (U_c mod 2)` in region I (`≈ S/4c`), but `(t+1) + (U_c mod 2)` in
+     the transition region II — **not** `≈ S/4c` there.
 
 2. **Exact three-region decomposition** of `R_F(t)` obtained by pairing each odd
    `c` with `2c` via `mu(2c) = -mu(c)`. Verified against the direct sum with a

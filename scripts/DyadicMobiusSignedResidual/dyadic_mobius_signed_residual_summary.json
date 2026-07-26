@@ -8,6 +8,11 @@
     "reciprocal_endpoint": "ceil(S/(2c)) - 1 == floor((S-1)/(2c)) == U(t,2c)",
     "lower_endpoint": "L(t,c) - 1 == max(t+1, U(t,2c))",
     "regime_threshold": "U(t,2c) >= t+1  <==>  2c <= t",
+    "nested_floor_T0": "U(t,2c) == U_c//2 ,  U(t,4c) == U_c//4",
+    "constant_mode_mass_T1": {
+      "region_I_deep": "|I(t,c)|-|I(t,2c)| == U_c//4 + (U_c mod 2)  (~ S/4c)",
+      "region_II_transition": "|I(t,c)|-|I(t,2c)| == (t+1) + (U_c mod 2)  (NOT ~ S/4c)"
+    },
     "identity_tmax": 500,
     "decomposition_tmax": 900,
     "decomposition_max_abs_error": 9.947598300641403e-14

@@ -107,6 +107,29 @@ def check_endpoint_identities(t_max: int) -> None:
             assert (L(t, c) <= U(t, c)) == (c <= t), (t, c)
 
 
+def check_constant_mode_identities(t_max: int) -> None:
+    """(T0) nested floor and (T1) exact constant-mode mass m_{t,c} = |I(t,c)|-|I(t,2c)|.
+
+      (T0)  U(t,2c) == U_c//2 ,  U(t,4c) == U_c//4 .
+      (T1)  region I  (4c<=t):   m == U_c//4 + (U_c mod 2) ,
+            region II (t/4<c<=t/2): m == (t+1) + (U_c mod 2) .
+    """
+    def length(t, c):
+        lo, hi = L(t, c), U(t, c)
+        return hi - lo + 1 if lo <= hi else 0
+
+    for t in range(4, t_max + 1):
+        for c in range(1, t + 1):
+            Uc = U(t, c)
+            assert U(t, 2 * c) == Uc // 2, (t, c)          # (T0)
+            assert U(t, 4 * c) == Uc // 4, (t, c)          # (T0)
+            m = length(t, c) - length(t, 2 * c)
+            if 4 * c <= t:
+                assert m == Uc // 4 + (Uc % 2), (t, c)     # (T1) region I
+            elif 2 * c <= t:
+                assert m == (t + 1) + (Uc % 2), (t, c)     # (T1) region II
+
+
 def R_direct(t: int, mu: list[int], g) -> float:
     tot = 0.0
     for c in range(1, t + 1):
@@ -439,7 +462,9 @@ def main() -> None:
 
     print(f"[1/5] exact endpoint identities for t <= {args.identity_tmax} ...")
     check_endpoint_identities(args.identity_tmax)
-    print("      OK (reciprocal endpoint, regime threshold, non-emptiness).")
+    check_constant_mode_identities(args.identity_tmax)
+    print("      OK (reciprocal endpoint, regime threshold, non-emptiness,")
+    print("          nested floor (T0), exact constant-mode mass (T1)).")
 
     print(f"[2/5] exact three-region decomposition for t <= {args.decomp_tmax} "
           "(random E) ...")
@@ -489,6 +514,12 @@ def main() -> None:
             "reciprocal_endpoint": "ceil(S/(2c)) - 1 == floor((S-1)/(2c)) == U(t,2c)",
             "lower_endpoint": "L(t,c) - 1 == max(t+1, U(t,2c))",
             "regime_threshold": "U(t,2c) >= t+1  <==>  2c <= t",
+            "nested_floor_T0": "U(t,2c) == U_c//2 ,  U(t,4c) == U_c//4",
+            "constant_mode_mass_T1": {
+                "region_I_deep": "|I(t,c)|-|I(t,2c)| == U_c//4 + (U_c mod 2)  (~ S/4c)",
+                "region_II_transition":
+                    "|I(t,c)|-|I(t,2c)| == (t+1) + (U_c mod 2)  (NOT ~ S/4c)",
+            },
             "identity_tmax": args.identity_tmax,
             "decomposition_tmax": args.decomp_tmax,
             "decomposition_max_abs_error": max_err,

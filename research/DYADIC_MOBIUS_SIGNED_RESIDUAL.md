@@ -120,6 +120,27 @@ There is **never any overlap**: the symmetric difference of `I(t,c)` and
 reciprocal annulus* with cut point `U_2c`. This is the exact form of the
 "reciprocal nesting" noted in the handoff.
 
+**Nested-floor identity — EXACT.** Because `⌊⌊X/c⌋/k⌋ = ⌊X/(kc)⌋`,
+
+```text
+U_2c = ⌊U_c / 2⌋ ,        U_4c = ⌊U_c / 4⌋ .                                   (T0)
+```
+
+So the cut points of the annulus are just the successive halvings of `U_c`. The
+**exact constant-mode mass** `m_{t,c} := |I(t,c)| - |I(t,2c)| = Ŵ_{t,c}(0)` then
+evaluates in closed form, per regime, using (T0):
+
+```text
+region I  (4c <= t) :   m_{t,c} = ⌊U_c/4⌋ + (U_c mod 2)  = S/(4c) + O(1) ,
+region II (t/4<c<=t/2): m_{t,c} = (t+1)   + (U_c mod 2) .                       (T1)
+```
+
+Both lines are verified exactly. **The transition regime is the sharp
+correction:** there the lower node is clamped from `U_4c = ⌊U_c/4⌋` to the
+finite-horizon value `t+1`, so `m_{t,c}` is essentially the *constant* `t+1` (a
+parity bit aside) — **not** `≈ S/(4c)`. At `c ≍ t/2` the two differ by a fixed
+factor (`≈ 1.44` numerically), so `S/(4c)` must not be used in region II.
+
 ### 1.5 The paired difference — EXACT
 
 Let `G` be any cumulative, and write the interval increment
@@ -302,10 +323,10 @@ The three regions probe genuinely different ranges of `E`, matching Attack D:
   cannot touch it — the partner `2c` is out of range.
 
 **But the RH-strength difficulty is not confined to region III.** The paired
-regions I and II each carry a nonzero constant mode `≈ S/(4c)` (§4.5), and this
-mode probes `E` over the long union interval `[S/4c, S/c]` — which at the
-`c ≍ t/2` end reaches down to `[N, 2N]` as well. So the principal-mode obstruction
-is present in *both* the paired sum and the tail. Pairing reorganizes it into an
+regions each carry a nonzero constant mode of the exact mass (T1) — `≈ S/(4c)` in
+region I, and the *constant* `t+1+(U_c mod 2)` in region II — and this mode probes
+`E` over the union interval, which at the `c ≍ t/2` end reaches down to `[N, 2N]`.
+So the principal-mode obstruction is present in *both* the paired sum and the tail. Pairing reorganizes it into an
 unequal adjacent-shell contrast; it does not move it into the tail. The correct
 one-line summary is:
 
@@ -331,11 +352,15 @@ Its zero-frequency (constant) mode is the length difference of the two shells,
 Ŵ_{t,c}(0) = |I(t,c)| - |I(t,2c)| .
 ```
 
-In the deep range `c <= t/4` the shells have lengths `≈ S/(2c)` and `≈ S/(4c)`, so
+By (T1) this is nonzero and known exactly:
 
 ```text
-Ŵ_{t,c}(0) ≈ S/(4c)  >  0     (verified: mean ratio 1.0000, strictly positive).
+Ŵ_{t,c}(0) = m_{t,c} = ⌊U_c/4⌋ + (U_c mod 2)   (region I,  ≈ S/(4c)) ,
+             m_{t,c} = (t+1)   + (U_c mod 2)   (region II, the exact value) .
 ```
+
+In the deep range it is `≈ S/(4c) > 0`; in the transition range it is the
+*constant* `t+1` up to a parity bit (do **not** substitute `S/(4c)` there).
 
 **The raw Möbius pair is therefore not a mean-zero (Haar) wavelet.** Pairing
 converts a single-slab count into an unequal-length two-shell contrast that
@@ -361,10 +386,11 @@ Write `ℓ_1 = |I(t,c)|`, `ℓ_2 = |I(t,2c)|`, and the shell averages
 Δ_F(t,c) - Δ_F(t,2c) = (ℓ_1 - ℓ_2) · A_{2c}   +   ℓ_1 · (A_c - A_{2c}) .         (N)
 ```
 
-The first term is the **surviving constant mode** (`ℓ_1 - ℓ_2 ≈ S/(4c)` times the
-child-shell average discrepancy); the second is the **genuinely centered
-two-shell comparison** (mean-zero against the length-normalized kernel
-`1_{I(t,c)}/ℓ_1 - 1_{I(t,2c)}/ℓ_2`). Equivalently, using the average
+The first term is the **surviving constant mode**: the exact mass
+`ℓ_1 - ℓ_2 = m_{t,c}` of (T1) times the child-shell average discrepancy `A_{2c}`.
+The second is the **genuinely centered two-shell comparison** (mean-zero against
+the length-normalized kernel `1_{I(t,c)}/ℓ_1 - 1_{I(t,2c)}/ℓ_2`). Equivalently,
+using the average
 `ē_F = (Σ_{J} e_F)/|J|` over the union `J = I(t,2c) ∪ I(t,c)`,
 
 ```text
@@ -388,20 +414,22 @@ their cancellation.
 ## 5. The sharpest resulting theorem to attack
 
 Target (as in the handoff §7), with the `c`-sum kept inside the square and the
-Möbius signs retained:
+Möbius signs retained. Because the pairing sends odd `c ∈ [C,2C)` to its partner
+`2c ∈ [2C,4C)`, it is **not internally closed on one dyadic band**; state the
+target either globally (all `c <= t`, which is what §2 decomposes) or on the
+adjacent pair of bands `[C,4C)`:
 
-> **Target (plausible; RH-adjacent).** For `1 <= H <= N`, `1 <= C <= N`,
+> **Target (plausible; RH-adjacent).** For `1 <= H <= N`,
 > ```text
-> Σ_{t=N}^{N+H-1} | Σ_{C<=c<2C, c<=t} μ(c) Δ_E(t,c) |^2  ≪_ε  H N^{2+ε} .
+> Σ_{t=N}^{N+H-1} | Σ_{c<=t} μ(c) Δ_E(t,c) |^2  ≪_ε  H N^{2+ε}
 > ```
+> (and the analogous bound with a smooth cutoff `w(c/C)` on the two-band range
+> `[C,4C)`, the partner `2c` then always lying in the same window).
 
-The pairing identity of §2 (equivalently form (G)) splits the target, by the
-triangle inequality, into the paired block and the unpaired odd tail:
-
-The pairing splits the target into **paired block + unpaired odd tail**, and the
-constant-mode split (N) further separates the paired block. Rather than one
-estimate, formulate the three distinct sub-targets that the corrected geometry
-exposes.
+The global identity of §2 decomposes this, by the triangle inequality, into the
+**paired block + unpaired odd tail**, and the constant-mode split (N) further
+separates the paired block. The corrected geometry exposes three distinct exact
+sub-objects.
 
 * **(J) Centered shell estimate — OPEN (the "may eventually be arc-amenable"
   part).**
@@ -413,15 +441,23 @@ exposes.
   component for which a Fourier / Vaughan / large-sieve treatment may eventually
   be appropriate — *after* an exponential representation is built (see cautions).
 
-* **(K) Constant-mode interaction estimate — OPEN (the principal obstruction).**
+* **(K) Constant-mode interaction — OPEN (the principal obstruction), now exact.**
+  Using (T1), the region-II constant-mode object is
   ```text
-  Σ_{t=N}^{N+H-1} | Σ_{c∼C, odd} μ(c) ( ℓ_1(t,c) - ℓ_2(t,c) ) A_{2c} |^2  ≪_ε  H N^{2+ε}.
+  K_II(t;C) = Σ_{t/4<c<=t/2, c∼C, odd} μ(c) · ( t + 1 + (U_c mod 2) ) · A_{2c} ,   (T2)
   ```
-  Here `ℓ_1 - ℓ_2 ≈ S/(4c)` is the surviving principal mode. It must be studied
-  **jointly with the baseline and probably with the complementary main term
-  `L + Ĥ^F`** (handoff Attack G's joint-operator / joint-Gram suggestion), **not**
-  sent through a generic minor-arc argument. Empirically (K) is the *dominant*
-  raw component of the paired block (§4.6).
+  and in region I the weight `t+1+(U_c mod 2)` is replaced by `⌊U_c/4⌋+(U_c mod 2)`.
+  In (T2) the mass is `t+1` up to a parity bit — a **near-constant weight
+  independent of `c`** — so `K_II` is essentially `(t+1) · Σ_c μ(c) A_{2c}` plus a
+  parity-twisted remainder. The right averaged lemma is therefore not a bound on
+  `K` alone but a **joint** one:
+  ```text
+  Σ_{t=N}^{N+H-1} | K_II(t;C) + J_II(t;C) |^2  ≪_ε  H N^{2+ε} ,                    (T-joint)
+  ```
+  i.e. a bound on the region-II *paired sum itself* (`= K_II + J_II` by (N)),
+  written with the exact weight (T2). This must be studied **jointly with the
+  baseline and probably the complementary main term `L + Ĥ^F`** (handoff Attack G),
+  **not** sent through a generic minor-arc argument.
 
   *Caveat (from §4.6):* (J) and (K) individually exceed the paired sum and are
   strongly anti-correlated; proving both separately is sufficient but strictly
@@ -456,12 +492,14 @@ draft of this note):
 **Honest conclusion.** Dyadic Möbius pairing is an *exact* reduction. Its
 concrete, rigorous gains are: (i) the two-shell contrast identities of §1.5; (ii) the exact low-Mertens forms (F) and (G) (with elementary proofs); and
 (iii) the exact constant-mode / centered split (H)/(N). What it does **not** do:
-it does not produce a mean-zero wavelet — each pair keeps a constant mode
-`≈ S/(4c)` (§4.5–§4.6) — it does not by itself introduce a Fourier decomposition,
-and it does not confine the RH-strength difficulty to the tail. **Neither the
-paired block nor the odd tail is automatically principal-mode free.** The correct
-next analytic step is the constant-mode interaction (K), studied jointly with the
-baseline and the complementary main term, not a minor-arc estimate.
+it does not produce a mean-zero wavelet — each pair keeps a constant mode of the
+exact mass (T1) (`≈ S/(4c)` deep, `= t+1+(U_c mod 2)` in transition) — it does not
+by itself introduce a Fourier decomposition, and it does not confine the
+RH-strength difficulty to the tail. **Neither the paired block nor the odd tail is
+automatically principal-mode free.** The correct next analytic step is the joint
+region-II estimate (T-joint) for the exact constant-mode object (T2), studied
+together with the baseline and the complementary main term, not a minor-arc
+estimate.
 
 ---
 
@@ -472,8 +510,9 @@ baseline and the complementary main term, not a minor-arc estimate.
   disjoint union = contiguous annulus with cut point `U_2c` (§1.4).
 * *Does repeated pairing compress to odd boundary channels?* — Yes, and it
   terminates immediately: `μ(4c)=0`, so the dyadic ray dies after two terms; the
-  survivors are exactly the odd boundary `t/2 < c <= t` (§2), the residual-side
-  analogue of `dyadicCofactorBoundary`.
+  *unpaired* survivors are exactly the odd boundary `t/2 < c <= t` (§2), the
+  residual-side analogue of `dyadicCofactorBoundary`. (The paired channels do not
+  vanish — see (K)/(T2).)
 * *How large are the boundary intervals?* — Region III intervals are short
   prefixes `[t+2, floor(X/c)]` of length up to `≈ t` (`U_c` up to `2t+2`); the
   paired-region slabs range up to length `≈ N^2/c`.
@@ -484,10 +523,10 @@ baseline and the complementary main term, not a minor-arc estimate.
 * *Does the principal major arc cancel between parent and child?* — **No, not at
   the Fourier level.** The *point evaluation* `E(t+1)` is removed from the deep
   region (a pointwise identity, coefficient (P)), but the pair's zero-frequency
-  mode is `≈ S/(4c) ≠ 0` (§4.5), so the principal arc is not annihilated by
+  mode is the exact nonzero mass (T1) (§4.5), so the principal arc is not annihilated by
   pairing. It must be handled by the baseline/complementary-term interaction.
 * *Is the RH-strength difficulty isolated into the tail by pairing?* — **No.**
-  The paired block keeps a constant mode `≈ S/(4c)` (§4.5–§4.6); empirically it is
+  The paired block keeps a constant mode of exact mass (T1) (§4.5–§4.6); empirically it is
   *larger* than the tail. Pairing reorganizes the obstruction into an unequal
   two-shell contrast (targets (J),(K)); it does not confine it to the tail (Tail).
 * *Can Vaughan be applied only to the shorter boundary sums?* — Only after the
