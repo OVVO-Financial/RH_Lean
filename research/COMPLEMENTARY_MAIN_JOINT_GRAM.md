@@ -53,6 +53,14 @@ far from `1`: `Main − R_F` is **not** near-projection-like. So the theorem's
 `Main − R_F` subtraction and the true orthogonal residual are genuinely separate
 objects — as the repository's orthogonal-residual formalization insists.
 
+The empirical quantities here are exactly the finite instances of the merged
+`RHLean/Proof/NearOrthogonality.lean` (PR #103) API: `α_orth` is
+`orthogonalCoefficient P B` (with `P = −Ĥ^F`, `B = L`); the gap `1 − α_orth` is
+`orthogonalCoefficient − 1 = projectionDefect 1 / ⟪P,P⟫`
+(`orthogonalCoefficient_sub_predicted_eq_projectionDefect_div`); and the energy
+excess of coefficient `1` over the orthogonal minimum is
+`theoremPredictedResidual_energy_eq_orthogonal_add_projectionDefect`.
+
 ## 3. The residual pairing block — REPRODUCED
 
 For the pairing pieces `K, J, T` (constant-mode / centered / tail,
@@ -99,13 +107,20 @@ gaps that need the collaborator's exact definitions to close:
    tends to `1`, with a controlled energy excess for coefficient `1`. This is
    where the largest internal mode is almost annihilated by the theorem's
    recombination, so it is a Gram-to-orthogonal-residual bridge, not a coarse
-   main-vs-residual split.
+   main-vs-residual split. The exact finite algebra for this bridge now lives in
+   `RHLean/Proof/NearOrthogonality.lean` (PR #103): `projectionDefect`,
+   `orthogonalCoefficient`, the coefficient-gap identity, and the excess-energy
+   decomposition. The open analytic step is the asymptotic
+   `orthogonalCoefficient(L, −Ĥ^F) → 1` with a quantitative rate.
 2. **Block II — `K + J` (joint).** Keep the large negative `2⟨K,J⟩`; never bound
    the constant-mode and centered pieces separately.
 3. **Block III — compressed `Main` + compressed paired residual + tail `T`** in a
    small block-Gram, once Blocks I–II are compressed.
 4. **Exact energy-excess identity** comparing coefficient `1` with the true
-   orthogonal coefficient, formalized.
+   orthogonal coefficient — **now formalized** in
+   `RHLean/Proof/NearOrthogonality.lean`
+   (`theoremPredictedResidual_energy_eq_orthogonal_add_projectionDefect`); apply
+   it with `P = −Ĥ^F`, `B = L`, `betaPred = 1`.
 5. Directional partial-moment matrices are for **attribution only**: they recover
    centered covariance/PCA exactly, but individual Rayleigh contributions can
    dwarf the final eigenvalue and cancel heavily.
