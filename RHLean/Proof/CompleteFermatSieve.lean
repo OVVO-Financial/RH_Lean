@@ -169,16 +169,16 @@ theorem fermatDigitPairsMod10_card (r : Fin 10) :
 
 /-- Finite mod-four classification for Lane A. -/
 theorem fermatParity_one_mod_four
-    (a b : Fin 4)
-    (h : ((a.val : ZMod 4) ^ 2 - (b.val : ZMod 4) ^ 2) = 1) :
-    a.val % 2 = 1 ∧ b.val % 2 = 0 := by
+    (a b : Fin 4) :
+    ((a.val : ZMod 4) ^ 2 - (b.val : ZMod 4) ^ 2 = 1) →
+      a.val % 2 = 1 ∧ b.val % 2 = 0 := by
   fin_cases a <;> fin_cases b <;> native_decide
 
 /-- Finite mod-four classification for Lane B. -/
 theorem fermatParity_three_mod_four
-    (a b : Fin 4)
-    (h : ((a.val : ZMod 4) ^ 2 - (b.val : ZMod 4) ^ 2) = 3) :
-    a.val % 2 = 0 ∧ b.val % 2 = 1 := by
+    (a b : Fin 4) :
+    ((a.val : ZMod 4) ^ 2 - (b.val : ZMod 4) ^ 2 = 3) →
+      a.val % 2 = 0 ∧ b.val % 2 = 1 := by
   fin_cases a <;> fin_cases b <;> native_decide
 
 /-- In either odd Fermat lane, `4` divides the doubled product `2ab`. -/
