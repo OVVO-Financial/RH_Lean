@@ -62,7 +62,7 @@ def deathFermatA (q c : ℕ) : ℕ :=
 
 /-- Death-shell Fermat `b` coordinate for a prime-cofactor pair. -/
 def deathFermatB (q c : ℕ) : ℕ :=
-  q.absDiff c / 2
+  if q ≤ c then (c - q) / 2 else (q - c) / 2
 
 /-- The mod-twenty terminal sieve applied directly to a death-shell pair. -/
 def deathFermatDigitAdmissible (N q c : ℕ) : Bool :=
@@ -166,8 +166,8 @@ theorem four_dvd_two_mul_of_fermatParity
     4 ∣ 2 * a * b := by
   rcases h with ⟨_, hb⟩ | ⟨ha, _⟩
   · rcases hb with ⟨k, rfl⟩
-    exact ⟨a * k, by omega⟩
+    refine ⟨a * k, by ring⟩
   · rcases ha with ⟨k, rfl⟩
-    exact ⟨k * b, by omega⟩
+    refine ⟨k * b, by ring⟩
 
 end RHLean.Proof
