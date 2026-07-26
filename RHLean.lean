@@ -42,6 +42,7 @@ import RHLean.Geometry.SquareMapConformality
 import RHLean.Geometry.TwoABDisplacement
 import RHLean.Kernel.FixedPackets
 import RHLean.Proof.BirthMovingAbsorption
+import RHLean.Proof.CompleteFermatSieve
 import RHLean.Proof.CumulativeHeightFlow
 import RHLean.Proof.DeathProcessArithmetic
 import RHLean.Proof.DeathProcessShellIdentity
