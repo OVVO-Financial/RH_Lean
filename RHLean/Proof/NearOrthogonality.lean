@@ -145,7 +145,7 @@ def finitePrediction
 by conjugate-linearity of the first inner-product argument. -/
 def finiteConjugateCoefficientPrefix
     (a : ℕ → 𝕜) (n : ℕ) : 𝕜 :=
-  inclusivePrefix (fun k => star (a k)) n
+  inclusivePrefix (fun k => (starRingEnd 𝕜) (a k)) n
 
 /-- The scalar defect weight attached to one prediction atom. -/
 def finiteDefectWeight
@@ -158,7 +158,7 @@ theorem projectionDefect_finitePrediction_eq_sum
     (betaPred : 𝕜) (a : ℕ → 𝕜) (atom : ℕ → E) (B : E) (n : ℕ) :
     projectionDefect (𝕜 := 𝕜) betaPred (finitePrediction a atom n) B =
       ∑ k ∈ Finset.range (n + 1),
-        star (a k) *
+        (starRingEnd 𝕜) (a k) *
           finiteDefectWeight atom
             (theoremPredictedResidual (𝕜 := 𝕜) betaPred
               (finitePrediction a atom n) B) k := by
@@ -187,7 +187,7 @@ theorem projectionDefect_finitePrediction_eq_abel
   rw [projectionDefect_finitePrediction_eq_sum]
   simpa [finiteConjugateCoefficientPrefix, finiteDefectWeight] using
     (finite_abel_identity
-      (fun k => star (a k))
+      (fun k => (starRingEnd 𝕜) (a k))
       (fun k => inner 𝕜 (atom k)
         (theoremPredictedResidual (𝕜 := 𝕜) betaPred
           (finitePrediction a atom n) B)) n)
