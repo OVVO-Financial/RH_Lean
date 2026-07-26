@@ -39,6 +39,9 @@ Every PR must preserve all of the following:
 - any cofactor-parity decomposition must be finite, include the `ω(c)=0` class, and restrict the identity `μ(cq)=-μ(c)` to nonzero Möbius support;
 - exact `2ab` source transfer, square-root inversion, and prime-first Fubini are realization theorems, not contraction estimates;
 - low-to-high prime transport must retain prime density and the full signed scale-transfer discrepancy; raw Euclidean interval scaling is not an analytic substitute;
+- dyadic compression preserves the full signed process: it replaces common suffixes by explicit boundary packets but is not itself an operator contraction;
+- the compressed high transport family is the `P+(m)>R` part of the complete odd annulus, not the full annulus;
+- a transport-only energy premise must not be labeled the protected RH criterion without separate smooth-complement or signed-interaction control;
 - finite correlation, regression, and baseline-fit claims are diagnostics unless accepted through an explicit certificate checker;
 - treat every warning as a CI failure because the project builds with `--wfail`.
 
@@ -162,7 +165,8 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#92** — Added the complete verified Fermat sieve, including both mod-four lanes and the factor-five cases.
 - [x] **#93** — Added the exact injection of every positive-cutoff death shell into divisor fibers over the full integer shell window, the resulting divisor-sum cardinality bound, and its death-process consequences.
 - [x] **#94** — Proved the exact finite cofactor-`ω` parity decomposition of each positive-cutoff death increment, including `ω(c)=0` and removal of zero Möbius terms.
-- [ ] **#95** — Tests and formalizes exact `2ab` source transfer, square-root inversion, prime-dilation Fubini, baseline-scaled low plus full discrepancy, and the reproducible finite-range experiment without claiming an asymptotic estimate.
+- [x] **#95** — Formalized exact `2ab` source transfer, square-root inversion, prime-dilation Fubini, baseline-scaled low plus full discrepancy, and the reproducible finite-range experiment without claiming an asymptotic estimate.
+- [x] **#96** — Proved exact dyadic parent/child packet cancellation, complete odd-cofactor transport reindexing, canonical source coordinates and signs, explicit boundary classification, and the complete odd dyadic-annulus Mertens identity.
 
 ## 5. Theorem-layer completion checklist
 
@@ -254,38 +258,41 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 
 ### Phase XII — exact `2ab` scale transfer
 
-- [ ] **54. Exact source and finite-family `entered = smooth - transport` realization** — PR #95.
-- [ ] **55. Canonical dynamic smooth-minus-transport and exact `2ab` dilation** — PR #95.
-- [ ] **56. Baseline-scaled low plus complete signed discrepancy identity** — PR #95.
-- [ ] **57. Finite cofactor-first/prime-first transport Fubini identity** — PR #95.
+- [x] **54. Exact source and finite-family `entered = smooth - transport` realization** — PR #95.
+- [x] **55. Canonical dynamic smooth-minus-transport and exact `2ab` dilation** — PR #95.
+- [x] **56. Baseline-scaled low plus complete signed discrepancy identity** — PR #95.
+- [x] **57. Finite cofactor-first/prime-first transport Fubini identity** — PR #95.
+
+### Phase XIII — exact dyadic transport compression
+
+- [x] **58. Odd-parent/doubled-child packet cancellation and residual boundary packet** — PR #96.
+- [x] **59. Complete lower-cofactor prefix compression and transport reindexing** — PR #96.
+- [x] **60. Canonical high-source side conditions, largest-prime identity, and source sign** — PR #96.
+- [x] **61. Complete odd dyadic-annulus realization of square-prefix Mertens** — PR #96.
 
 ## 6. Current formalization frontier
 
-The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell identity, divisor-fiber, and finite cofactor-parity layers are machine checked. On the PR #95 branch the exact `2ab` scale-transfer layer additionally proves
+The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell, `2ab` scale-transfer, and dyadic-compression layers are machine checked. The merged exact identities now include
 
 ```text
 entered = smooth - transport,
 squarePrefixMertens = squareRootSmoothMass - squareRootTransportMass,
 iota_R(x)=R^2/x,
-weighted high observable = baseline-scaled low observable + discrepancy,
-cofactor-first transport pairs = prime-first lower-cofactor fibers.
+cofactor-first transport pairs = prime-first lower-cofactor fibers,
+parent packet + doubled-child packet = dyadic boundary packet,
+T_R = sum_{R<q≤X, q prime} sum_{c odd, X<2cq≤2X} mu(c),
+-T_R = the corresponding canonical source-sign sum,
+M(B) = sum_{m odd, B<2m≤2B} mu(m).
 ```
 
-The accompanying analytical reindexing gives, for `X=R^2-1`,
-
-```text
-T_R = ∑_{R<q≤X, q prime} M(floor(X/q))
-    = ∑_{d<R} K_R(d) M(d).
-```
-
-The reproducible experiment verifies all exact identities with zero integer error through `R=10000`; those finite results remain diagnostics rather than asymptotic theorems.
+The reproducible `2ab` experiment verifies its finite identities with zero integer error through `R=10000`; those numerical results remain diagnostics rather than asymptotic theorems. The transport-only high subset is not substituted for the complete annulus or the full `A-T` residual.
 
 The remaining theorem-level obligations are:
 
 1. prove the native canonical high-sector estimate `(HS)`, or a sufficient route implying the protected pointwise/local criterion;
 2. supply or import the classical Mertens-energy equivalence with RH as a theorem of exactly the required proposition type;
-3. identify the prime-first finite fiber directly with the existing Lean `mertensSummatory` API and formalize the reciprocal kernel `K_R(d)`;
-4. prove a cancellation-aware prime-dilation operator or signed scale-transfer discrepancy estimate, retaining the born-smooth remainder and full interaction;
+3. formalize the reciprocal kernel `K_R(d)`; the prime-first finite fiber and its odd dyadic compression are now machine checked;
+4. prove a cancellation-aware dyadic smooth/high joint estimate or signed scale-transfer discrepancy estimate, retaining the born-smooth remainder and full interaction;
 5. prove a genuine divisor-window asymptotic or a stronger cancellation estimate for the death shells;
 6. control the endpoint survivor discrepancy `birth - death`, since death-process control alone is insufficient;
 7. optionally prove stronger sufficient routes such as the square-block increment-energy or partial-moment balance premises.
