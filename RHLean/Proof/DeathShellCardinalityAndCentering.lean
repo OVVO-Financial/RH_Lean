@@ -22,14 +22,6 @@ open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Proof
 
-/-- Every canonical Möbius weight has norm at most one. -/
-theorem norm_canonicalMoebiusWeight_le_one (m : ℕ) :
-    ‖canonicalMoebiusWeight m‖ ≤ 1 := by
-  rcases ArithmeticFunction.moebius_eq_or m with h | h | h
-  · simp [canonicalMoebiusWeight, h]
-  · simp [canonicalMoebiusWeight, h]
-  · simp [canonicalMoebiusWeight, h]
-
 /-- The norm of a death-shell Möbius mass is bounded by the number of sources
 in that shell. -/
 theorem norm_deathHeightShellMass_le_card
@@ -82,13 +74,12 @@ theorem norm_lifetimeDeathMass_le_initial_add_sum_majorant
         ‖∑ t ∈ Finset.range n, lifetimeDeathIncrement Λ t‖ := norm_add_le _ _
     _ ≤ ‖lifetimeDeathMass Λ 0‖ +
         ∑ t ∈ Finset.range n, ‖lifetimeDeathIncrement Λ t‖ := by
-      gcongr
-      exact norm_sum_le _ _
+      exact add_le_add_left (norm_sum_le _ _) _
     _ ≤ ‖lifetimeDeathMass Λ 0‖ +
         ∑ t ∈ Finset.range n, control.majorant t := by
-      gcongr
-      exact Finset.sum_le_sum fun t _ =>
-        norm_lifetimeDeathIncrement_le_majorant hΛ control t
+      exact add_le_add_left
+        (Finset.sum_le_sum fun t _ =>
+          norm_lifetimeDeathIncrement_le_majorant hΛ control t) _
 
 /-- Centered shell increment relative to an arbitrary deterministic bias
 profile `b`. -/
@@ -122,11 +113,21 @@ theorem lifetimeDeathMass_eq_initial_add_bias_add_centered
         centeredDeathShellPrefix Λ b n := by
   rw [lifetimeDeathMass_eq_zero_add_sum_increments]
   unfold deathShellBiasPrefix centeredDeathShellPrefix
-  rw [← Finset.sum_add_distrib]
-  apply congrArg (fun z => lifetimeDeathMass Λ 0 + z)
-  apply Finset.sum_congr rfl
-  intro t ht
-  exact lifetimeDeathIncrement_eq_bias_add_centered Λ b t
+  calc
+    lifetimeDeathMass Λ 0 +
+        ∑ t ∈ Finset.range n, lifetimeDeathIncrement Λ t =
+      lifetimeDeathMass Λ 0 +
+        ∑ t ∈ Finset.range n,
+          (b t + centeredDeathShellIncrement Λ b t) := by
+      apply congrArg (fun z => lifetimeDeathMass Λ 0 + z)
+      apply Finset.sum_congr rfl
+      intro t ht
+      exact lifetimeDeathIncrement_eq_bias_add_centered Λ b t
+    _ = lifetimeDeathMass Λ 0 +
+          ∑ t ∈ Finset.range n, b t +
+          ∑ t ∈ Finset.range n, centeredDeathShellIncrement Λ b t := by
+      rw [Finset.sum_add_distrib]
+      ring
 
 /-- RH-scale local energy for a cumulative deterministic bias profile. -/
 def DeathShellBiasUniformLocalBoundedStatement (b : ℕ → ℂ) : Prop :=
