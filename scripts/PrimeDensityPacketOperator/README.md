@@ -1,8 +1,13 @@
 # Prime-density packet-operator reproducibility
 
-This directory contains one self-contained numerical test for the exact dyadic odd-annulus framework.
+> **Correction after PR #99:** `prime_density_packet_operator.py` implements the historical midpoint-lifetime model. Its exact packet-start and recombination checks remain valid, and its aggregate prediction remains a useful finite diagnostic. Its cofactor-resolved rank, diagonal, and Mellin structure are **not canonical**: later tests show those features are dominated by the deterministic midpoint-lifetime mismatch.
 
-## Run
+The corrected exact-activity diagnostics live in `../ExactActivityPrimeVariance/` and are described in:
+
+- `../../research/PRIME_DENSITY_PACKET_OPERATOR.md`;
+- `../../research/PR99_CORRECTION_EXACT_ACTIVITY.md`.
+
+## Historical run
 
 ```bash
 python prime_density_packet_operator.py \
@@ -26,7 +31,7 @@ The default run sieves through
 
 and may require substantial memory.
 
-## What is exact
+## What remains exact
 
 The script checks, with integer error zero:
 
@@ -35,15 +40,15 @@ The script checks, with integer error zero:
 - the algebraic recombination
 
   ```text
-  S = (L + H_hat) + (H - H_hat).
+  S = (L + H_hat_mid) + (H - H_hat_mid).
   ```
 
-## What is only numerical evidence
+## Historical numerical evidence
 
-The following are finite diagnostics, not proved asymptotic estimates:
+The following remain finite diagnostics of the midpoint-lifetime approximation, not asymptotic theorems:
 
-- accuracy of the local prime-density packet-bias prediction;
-- correlation of the modeled and exact high packet processes;
-- normalized local energies and fitted growth slopes.
+- packet-bias prediction accuracy;
+- aggregate correlation of the midpoint model and exact high process;
+- normalized local energies over the reported finite windows.
 
-See `../../research/PRIME_DENSITY_PACKET_OPERATOR.md` for the proof-facing interpretation and the two remaining analytic obligations.
+Do not use this model's cofactor-row diagonal, singular vectors, or Mellin projections as properties of the exact prime discrepancy. Use the exact-activity suite instead.
