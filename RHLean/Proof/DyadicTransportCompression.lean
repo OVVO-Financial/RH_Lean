@@ -77,7 +77,8 @@ def dyadicBoundaryContribution (N c q t : ℕ) : ℂ :=
 theorem sqrt_mul_le_sqrt_dyadicChild_mul (c q : ℕ) :
     Nat.sqrt (c * q) ≤ Nat.sqrt (dyadicChildCofactor c * q) := by
   apply Nat.sqrt_le_sqrt
-  exact Nat.mul_le_mul_right q (by omega : c ≤ dyadicChildCofactor c)
+  unfold dyadicChildCofactor
+  exact Nat.mul_le_mul_right q (by omega)
 
 /-- Möbius doubling flips the full source weight when the parent product is odd. -/
 theorem canonicalMoebiusWeight_dyadicChild
@@ -129,8 +130,8 @@ theorem finiteTransportContribution_add_dyadicChild
     finiteTransportContribution N c q t +
         finiteTransportContribution N (dyadicChildCofactor c) q t =
       dyadicBoundaryContribution N c q t := by
-  rw [canonicalMoebiusWeight_dyadicChild hc hq]
   unfold finiteTransportContribution dyadicBoundaryContribution
+  rw [canonicalMoebiusWeight_dyadicChild hc hq]
   rw [dyadicBoundaryActive_iff_parent_and_not_child]
   by_cases hp : IsFiniteTransportActive N c q t
   · by_cases hchild : IsFiniteTransportActive N (dyadicChildCofactor c) q t <;>
@@ -197,21 +198,21 @@ theorem no_finiteTransportActive_dyadicChild_iff
   · intro hnone
     by_contra hnot
     push_neg at hnot
-    have hentryHorizon : Nat.sqrt (dyadicChildCofactor c * q) ≤ N :=
-      Nat.le_of_not_gt hnot.1
+    have hentryHorizon : Nat.sqrt (dyadicChildCofactor c * q) ≤ N := hnot.1
     have hentryTransition :
-        Nat.sqrt (dyadicChildCofactor c * q) < q - 1 :=
-      Nat.lt_of_not_ge hnot.2
+        Nat.sqrt (dyadicChildCofactor c * q) < q - 1 := hnot.2
     apply hnone
     refine ⟨Nat.sqrt (dyadicChildCofactor c * q), ?_⟩
     constructor
     · exact le_rfl
     · unfold finiteTransportUpper
       exact lt_min hentryTransition (by omega)
-  · rintro (hHorizon | hTransition) ⟨t, ht⟩
-    · have htUpper := (lt_min_iff.mp ht.2).2
+  · rintro (hHorizon | hTransition)
+    · rintro ⟨t, htLower, htUpper⟩
+      have htHorizon : t < N + 1 := (lt_min_iff.mp htUpper).2
       omega
-    · have htUpper := (lt_min_iff.mp ht.2).1
+    · rintro ⟨t, htLower, htUpper⟩
+      have htTransition : t < q - 1 := (lt_min_iff.mp htUpper).1
       omega
 
 /-- Every unmatched doubled child is therefore an explicit finite-horizon or
@@ -285,7 +286,7 @@ theorem canonicalMoebiusWeight_two_mul (c : ℕ) :
       (canonicalMoebiusWeight_dyadicChild
         (c := c) (q := 1) hc (by norm_num : Odd 1))
   · rw [if_neg hc]
-    have heven : Even c := not_odd_iff_even.mp hc
+    have heven : Even c := Nat.not_odd_iff_even.mp hc
     have hzero : μ (2 * c) = 0 := by
       apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
       intro hsq
@@ -305,20 +306,29 @@ theorem sum_double_eq_sum_evenCofactorPrefix (B : ℕ) :
   classical
   refine Finset.sum_bij (fun d _ => 2 * d) ?_ ?_ ?_ ?_
   · intro d hd
-    have hdData := Finset.mem_Icc.mp hd
-    apply mem_evenCofactorPrefix.mpr
-    refine ⟨by omega, ?_, ⟨d, by omega⟩⟩
-    omega
+    rcases Finset.mem_Icc.mp hd with ⟨hd1, hdB⟩
+    have h2dB : 2 * d ≤ B := by
+      have hmul := (Nat.le_div_iff_mul_le (by omega : 0 < 2)).1 hdB
+      simpa [Nat.mul_comm] using hmul
+    exact mem_evenCofactorPrefix.mpr
+      ⟨by omega, h2dB, ⟨d, by omega⟩⟩
   · intro d1 hd1 d2 hd2 h
+    change 2 * d1 = 2 * d2 at h
     omega
   · intro c hc
-    have hcData := mem_evenCofactorPrefix.mp hc
-    let d := c / 2
-    have hdouble : 2 * d = c := by
-      exact Nat.two_mul_div_two_of_even hcData.2.2
-    refine ⟨d, ?_, hdouble⟩
+    rcases mem_evenCofactorPrefix.mp hc with ⟨hc1, hcB, hceven⟩
+    have hdouble : 2 * (c / 2) = c := Nat.two_mul_div_two_of_even hceven
+    refine ⟨c / 2, ?_, hdouble⟩
     apply Finset.mem_Icc.mpr
-    constructor <;> omega
+    constructor
+    · have hcne : c ≠ 0 := by omega
+      have hcgt : 1 < c := Nat.one_lt_of_ne_zero_of_even hcne hceven
+      omega
+    · apply (Nat.le_div_iff_mul_le (by omega : 0 < 2)).2
+      have hmul : c / 2 * 2 = c := by
+        simpa [Nat.mul_comm] using hdouble
+      rw [hmul]
+      exact hcB
   · intro d hd
     rfl
 
@@ -353,9 +363,9 @@ theorem sum_Icc_eq_odd_add_even (B : ℕ) :
       apply Finset.sum_congr rfl
       intro c hc
       by_cases hodd : Odd c
-      · have hnotEven : ¬Even c := not_even_iff_odd.mpr hodd
+      · have hnotEven : ¬Even c := Nat.not_even_iff_odd.mpr hodd
         simp [hodd, hnotEven]
-      · have heven : Even c := not_odd_iff_even.mp hodd
+      · have heven : Even c := Nat.not_odd_iff_even.mp hodd
         simp [hodd, heven]
     _ =
         (∑ c ∈ oddCofactorPrefix B, canonicalMoebiusWeight c) +
@@ -412,28 +422,24 @@ def squareRootDyadicTransportBoundaryMass (R : ℕ) : ℂ :=
   ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
     if q.Prime then dyadicPrimeFiberBoundaryMass R q else 0
 
-/-- For `q > R`, the reciprocal cofactor cutoff lies strictly below `R`. -/
+/-- For `q > R > 0`, the reciprocal cofactor cutoff lies strictly below `R`. -/
 theorem squareRootEndpoint_div_lt
-    {R q : ℕ} (hRq : R < q) (hq : 0 < q) :
+    {R q : ℕ} (hR : 0 < R) (hRq : R < q) (hq : 0 < q) :
     squareRootEndpoint R / q < R := by
   apply (Nat.div_lt_iff_lt_mul hq).2
   unfold squareRootEndpoint
-  by_cases hR : R = 0
-  · subst R
-    simp
-  · have hRpos : 0 < R := Nat.pos_of_ne_zero hR
-    have hmul : R ^ 2 < R * q := by
-      nlinarith
-    exact lt_of_le_of_lt (Nat.sub_le _ _) hmul
+  have hmul : R ^ 2 < R * q := by
+    nlinarith
+  exact lt_of_le_of_lt (Nat.sub_le _ _) hmul
 
 /-- Each prime-first lower-cofactor fiber is exactly the positive Möbius prefix
 through the reciprocal cutoff. -/
 theorem primeDilatedLowCofactorMass_eq_cofactorMobiusPrefixMass
-    (R q : ℕ) (hRq : R < q) (hq : 0 < q) :
+    (R q : ℕ) (hR : 0 < R) (hRq : R < q) (hq : 0 < q) :
     primeDilatedLowCofactorMass R q =
       cofactorMobiusPrefixMass (squareRootEndpoint R / q) := by
   unfold primeDilatedLowCofactorMass cofactorMobiusPrefixMass
-  have hBlt := squareRootEndpoint_div_lt hRq hq
+  have hBlt := squareRootEndpoint_div_lt hR hRq hq
   have hset :
       (Finset.Ico 1 R).filter
           (fun c => c * q ≤ squareRootEndpoint R) =
@@ -457,10 +463,10 @@ theorem primeDilatedLowCofactorMass_eq_cofactorMobiusPrefixMass
 
 /-- Exact odd-boundary form of every prime-first lower-cofactor fiber. -/
 theorem primeDilatedLowCofactorMass_eq_dyadicPrimeFiberBoundaryMass
-    (R q : ℕ) (hRq : R < q) (hq : 0 < q) :
+    (R q : ℕ) (hR : 0 < R) (hRq : R < q) (hq : 0 < q) :
     primeDilatedLowCofactorMass R q =
       dyadicPrimeFiberBoundaryMass R q := by
-  rw [primeDilatedLowCofactorMass_eq_cofactorMobiusPrefixMass R q hRq hq]
+  rw [primeDilatedLowCofactorMass_eq_cofactorMobiusPrefixMass R q hR hRq hq]
   exact cofactorMobiusPrefixMass_eq_dyadicBoundaryMass _
 
 /-- The original complete transport sum equals the exact dyadic odd-cofactor
@@ -470,15 +476,20 @@ theorem squareRootTransportCofactorFirst_eq_dyadicBoundaryMass (R : ℕ) :
     squareRootTransportCofactorFirst R =
       squareRootDyadicTransportBoundaryMass R := by
   rw [squareRootTransportCofactorFirst_eq_primeFirst]
-  unfold squareRootTransportPrimeFirst squareRootDyadicTransportBoundaryMass
-  apply Finset.sum_congr rfl
-  intro q hqmem
-  by_cases hprime : q.Prime
-  · have hRq : R < q := (Finset.mem_Ioc.mp hqmem).1
-    have hqpos : 0 < q := hprime.pos
-    simp only [hprime, if_true]
-    exact primeDilatedLowCofactorMass_eq_dyadicPrimeFiberBoundaryMass
-      R q hRq hqpos
-  · simp [hprime]
+  by_cases hR0 : R = 0
+  · subst R
+    simp [squareRootTransportPrimeFirst, squareRootDyadicTransportBoundaryMass,
+      squareRootEndpoint]
+  · have hR : 0 < R := Nat.pos_of_ne_zero hR0
+    unfold squareRootTransportPrimeFirst squareRootDyadicTransportBoundaryMass
+    apply Finset.sum_congr rfl
+    intro q hqmem
+    by_cases hprime : q.Prime
+    · have hRq : R < q := (Finset.mem_Ioc.mp hqmem).1
+      have hqpos : 0 < q := hprime.pos
+      simp only [hprime, if_true]
+      exact primeDilatedLowCofactorMass_eq_dyadicPrimeFiberBoundaryMass
+        R q hR hRq hqpos
+    · simp [hprime]
 
 end RHLean.Proof
