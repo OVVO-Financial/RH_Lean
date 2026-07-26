@@ -37,6 +37,9 @@ Every PR must preserve all of the following:
 - for death shells, count divisor fibers over every integer height in the half-open shell window; never replace that sum by the divisor count of one endpoint;
 - a death-process estimate alone does not control the survivor discrepancy `birth - death`; retain both endpoint obligations;
 - any cofactor-parity decomposition must be finite, include the `ω(c)=0` class, and restrict the identity `μ(cq)=-μ(c)` to nonzero Möbius support;
+- exact `2ab` source transfer, square-root inversion, and prime-first Fubini are realization theorems, not contraction estimates;
+- low-to-high prime transport must retain prime density and the full signed scale-transfer discrepancy; raw Euclidean interval scaling is not an analytic substitute;
+- finite correlation, regression, and baseline-fit claims are diagnostics unless accepted through an explicit certificate checker;
 - treat every warning as a CI failure because the project builds with `--wfail`.
 
 ## 2. Per-PR execution checklist
@@ -157,7 +160,9 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#88** — Published the death-process reduction and reproducible exploratory data.
 - [x] **#89** — Proved shell-cardinality control of death increments and exact bias/centering decompositions.
 - [x] **#92** — Added the complete verified Fermat sieve, including both mod-four lanes and the factor-five cases.
-- [ ] **#93** — Adds the exact injection of every positive-cutoff death shell into divisor fibers over the full integer shell window, the resulting divisor-sum cardinality bound, and its death-process consequences.
+- [x] **#93** — Added the exact injection of every positive-cutoff death shell into divisor fibers over the full integer shell window, the resulting divisor-sum cardinality bound, and its death-process consequences.
+- [x] **#94** — Proved the exact finite cofactor-`ω` parity decomposition of each positive-cutoff death increment, including `ω(c)=0` and removal of zero Möbius terms.
+- [ ] **#95** — Tests and formalizes exact `2ab` source transfer, square-root inversion, prime-dilation Fubini, baseline-scaled low plus full discrepancy, and the reproducible finite-range experiment without claiming an asymptotic estimate.
 
 ## 5. Theorem-layer completion checklist
 
@@ -244,25 +249,45 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **49. Death increment equals shell mass** — PR #87.
 - [x] **50. Shell-cardinality transfer and centering** — PR #89.
 - [x] **51. Complete Fermat sieve constraints** — PR #92.
-- [ ] **52. Exact death-shell divisor-fiber bound** — PR #93.
+- [x] **52. Exact death-shell divisor-fiber bound** — PR #93.
+- [x] **53. Exact finite cofactor-`ω` parity decomposition** — PR #94.
+
+### Phase XII — exact `2ab` scale transfer
+
+- [ ] **54. Exact source and finite-family `entered = smooth - transport` realization** — PR #95.
+- [ ] **55. Canonical dynamic smooth-minus-transport and exact `2ab` dilation** — PR #95.
+- [ ] **56. Baseline-scaled low plus complete signed discrepancy identity** — PR #95.
+- [ ] **57. Finite cofactor-first/prime-first transport Fubini identity** — PR #95.
 
 ## 6. Current formalization frontier
 
-The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell identity, and shell-cardinality transfer layers are machine checked. On the PR #93 branch the next exact finite layer is the divisor-fiber injection
+The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell identity, divisor-fiber, and finite cofactor-parity layers are machine checked. On the PR #95 branch the exact `2ab` scale-transfer layer additionally proves
 
 ```text
-#S_t ≤ ∑_{k in I_{Λ,t}} τ(k),
+entered = smooth - transport,
+squarePrefixMertens = squareRootSmoothMass - squareRootTransportMass,
+iota_R(x)=R^2/x,
+weighted high observable = baseline-scaled low observable + discrepancy,
+cofactor-first transport pairs = prime-first lower-cofactor fibers.
 ```
 
-where `I_{Λ,t}` is the complete finite set of integer heights in the half-open shell window. A one-endpoint bound by `τ(2Λ(t+1))` is not a valid substitute.
+The accompanying analytical reindexing gives, for `X=R^2-1`,
+
+```text
+T_R = ∑_{R<q≤X, q prime} M(floor(X/q))
+    = ∑_{d<R} K_R(d) M(d).
+```
+
+The reproducible experiment verifies all exact identities with zero integer error through `R=10000`; those finite results remain diagnostics rather than asymptotic theorems.
 
 The remaining theorem-level obligations are:
 
-1. prove the native canonical high-sector estimate `(HS)`;
+1. prove the native canonical high-sector estimate `(HS)`, or a sufficient route implying the protected pointwise/local criterion;
 2. supply or import the classical Mertens-energy equivalence with RH as a theorem of exactly the required proposition type;
-3. formalize the exact finite cofactor-`ω` parity decomposition on nonzero Möbius support, including `ω(c)=0`;
-4. prove a genuine divisor-window asymptotic or a stronger cancellation estimate for the death shells;
-5. control the endpoint survivor discrepancy `birth - death`, since death-process control alone is insufficient;
-6. optionally prove stronger sufficient routes such as the square-block increment-energy or partial-moment balance premises.
+3. identify the prime-first finite fiber directly with the existing Lean `mertensSummatory` API and formalize the reciprocal kernel `K_R(d)`;
+4. prove a cancellation-aware prime-dilation operator or signed scale-transfer discrepancy estimate, retaining the born-smooth remainder and full interaction;
+5. prove a genuine divisor-window asymptotic or a stronger cancellation estimate for the death shells;
+6. control the endpoint survivor discrepancy `birth - death`, since death-process control alone is insufficient;
+7. optionally prove stronger sufficient routes such as the square-block increment-energy or partial-moment balance premises.
 
 Until those items are discharged, the repository remains an axiom-free conditional reduction rather than an unconditional proof of RH.
