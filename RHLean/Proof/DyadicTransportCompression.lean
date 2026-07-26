@@ -11,6 +11,11 @@ odd lower cofactor `c` and an odd upper prime `q`, the channels `(c,q)` and
 nested entry indices.  Their common transport suffix therefore cancels
 identically, leaving only the boundary packet between the two entry scales.
 
+The second half of the module applies the same involution to every lower-cofactor
+fiber of the paper's transport term.  It proves that the complete original
+transport sum is exactly a sum over odd cofactors in the dyadic boundary
+`B/2 < c <= B`, where `B = floor((R^2-1)/q)`.
+
 All statements in this file are finite identities.  No cancellation estimate or
 RH implication is asserted.
 -/
@@ -80,9 +85,9 @@ theorem canonicalMoebiusWeight_dyadicChild
     canonicalMoebiusWeight (dyadicChildCofactor c * q) =
       -canonicalMoebiusWeight (c * q) := by
   have hodd : Odd (c * q) := hc.mul hq
-  have hμ := RHLean.Arithmetic.moebius_two_mul_of_odd (c * q) hodd
+  have hmu := RHLean.Arithmetic.moebius_two_mul_of_odd (c * q) hodd
   simpa [dyadicChildCofactor, canonicalMoebiusWeight, Nat.mul_assoc] using
-    congrArg (fun z : ℤ => (z : ℂ)) hμ
+    congrArg (fun z : ℤ => (z : ℂ)) hmu
 
 /-- Prime-specialized form of the dyadic Möbius sign flip. -/
 theorem canonicalMoebiusWeight_dyadicChild_of_prime
@@ -225,5 +230,255 @@ theorem no_finiteTransportActive_dyadicChild_iff_boundary
       IsDyadicFiniteHorizonBoundary N c q ∨
         IsDyadicBornSmoothBoundary c q := by
   exact no_finiteTransportActive_dyadicChild_iff N c q
+
+/-! ## Exact compression of complete lower-cofactor fibers -/
+
+/-- Positive odd cofactors through `B`. -/
+def oddCofactorPrefix (B : ℕ) : Finset ℕ :=
+  (Finset.Icc 1 B).filter Odd
+
+/-- Positive even cofactors through `B`. -/
+def evenCofactorPrefix (B : ℕ) : Finset ℕ :=
+  (Finset.Icc 1 B).filter Even
+
+/-- Odd cofactors in the dyadic boundary `B/2 < c <= B`. -/
+def dyadicCofactorBoundary (B : ℕ) : Finset ℕ :=
+  oddCofactorPrefix B \ oddCofactorPrefix (B / 2)
+
+@[simp] theorem mem_oddCofactorPrefix {B c : ℕ} :
+    c ∈ oddCofactorPrefix B ↔ 1 ≤ c ∧ c ≤ B ∧ Odd c := by
+  simp [oddCofactorPrefix, and_assoc]
+
+@[simp] theorem mem_evenCofactorPrefix {B c : ℕ} :
+    c ∈ evenCofactorPrefix B ↔ 1 ≤ c ∧ c ≤ B ∧ Even c := by
+  simp [evenCofactorPrefix, and_assoc]
+
+/-- The set-difference definition is exactly the explicit dyadic boundary. -/
+@[simp] theorem mem_dyadicCofactorBoundary {B c : ℕ} :
+    c ∈ dyadicCofactorBoundary B ↔
+      1 ≤ c ∧ c ≤ B ∧ Odd c ∧ B < 2 * c := by
+  constructor
+  · intro h
+    rcases Finset.mem_sdiff.mp h with ⟨hbig, hsmall⟩
+    rcases mem_oddCofactorPrefix.mp hbig with ⟨hc1, hcB, hcodd⟩
+    have hhalf : B / 2 < c := by
+      by_contra hnot
+      apply hsmall
+      exact mem_oddCofactorPrefix.mpr
+        ⟨hc1, Nat.le_of_not_gt hnot, hcodd⟩
+    exact ⟨hc1, hcB, hcodd, by omega⟩
+  · rintro ⟨hc1, hcB, hcodd, hdouble⟩
+    apply Finset.mem_sdiff.mpr
+    refine ⟨mem_oddCofactorPrefix.mpr ⟨hc1, hcB, hcodd⟩, ?_⟩
+    intro hsmall
+    have hhalf := (mem_oddCofactorPrefix.mp hsmall).2.1
+    omega
+
+/-- Doubling any cofactor is either the negative odd-parent weight or zero when
+the parent is even (because the doubled integer is then divisible by `4`). -/
+theorem canonicalMoebiusWeight_two_mul (c : ℕ) :
+    canonicalMoebiusWeight (2 * c) =
+      if Odd c then -canonicalMoebiusWeight c else 0 := by
+  by_cases hc : Odd c
+  · rw [if_pos hc]
+    simpa [dyadicChildCofactor] using
+      (canonicalMoebiusWeight_dyadicChild
+        (c := c) (q := 1) hc (by norm_num : Odd 1))
+  · rw [if_neg hc]
+    have heven : Even c := not_odd_iff_even.mp hc
+    have hzero : μ (2 * c) = 0 := by
+      apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
+      intro hsq
+      have hnot := (Nat.squarefree_iff_prime_squarefree.mp hsq) 2 Nat.prime_two
+      apply hnot
+      rcases heven with ⟨k, hk⟩
+      refine ⟨k, ?_⟩
+      rw [hk]
+      ring
+    simp [canonicalMoebiusWeight, hzero]
+
+/-- Even cofactors through `B` are in bijection with positive integers through
+`B/2`. -/
+theorem sum_double_eq_sum_evenCofactorPrefix (B : ℕ) :
+    (∑ d ∈ Finset.Icc 1 (B / 2), canonicalMoebiusWeight (2 * d)) =
+      ∑ c ∈ evenCofactorPrefix B, canonicalMoebiusWeight c := by
+  classical
+  refine Finset.sum_bij (fun d _ => 2 * d) ?_ ?_ ?_ ?_
+  · intro d hd
+    have hdData := Finset.mem_Icc.mp hd
+    apply mem_evenCofactorPrefix.mpr
+    refine ⟨by omega, ?_, ⟨d, by omega⟩⟩
+    omega
+  · intro d1 hd1 d2 hd2 h
+    omega
+  · intro c hc
+    have hcData := mem_evenCofactorPrefix.mp hc
+    let d := c / 2
+    have hdouble : 2 * d = c := by
+      exact Nat.two_mul_div_two_of_even hcData.2.2
+    refine ⟨d, ?_, hdouble⟩
+    apply Finset.mem_Icc.mpr
+    constructor <;> omega
+  · intro d hd
+    rfl
+
+/-- The even-cofactor mass is the negative odd-cofactor mass at half scale. -/
+theorem sum_evenCofactorPrefix_eq_neg_odd_half (B : ℕ) :
+    (∑ c ∈ evenCofactorPrefix B, canonicalMoebiusWeight c) =
+      -∑ d ∈ oddCofactorPrefix (B / 2), canonicalMoebiusWeight d := by
+  rw [← sum_double_eq_sum_evenCofactorPrefix]
+  calc
+    (∑ d ∈ Finset.Icc 1 (B / 2), canonicalMoebiusWeight (2 * d)) =
+        ∑ d ∈ Finset.Icc 1 (B / 2),
+          if Odd d then -canonicalMoebiusWeight d else 0 := by
+      apply Finset.sum_congr rfl
+      intro d hd
+      exact canonicalMoebiusWeight_two_mul d
+    _ = ∑ d ∈ oddCofactorPrefix (B / 2), -canonicalMoebiusWeight d := by
+      unfold oddCofactorPrefix
+      rw [Finset.sum_filter]
+    _ = -∑ d ∈ oddCofactorPrefix (B / 2), canonicalMoebiusWeight d := by
+      simp
+
+/-- Every positive prefix splits exactly into its odd and even cofactors. -/
+theorem sum_Icc_eq_odd_add_even (B : ℕ) :
+    (∑ c ∈ Finset.Icc 1 B, canonicalMoebiusWeight c) =
+      (∑ c ∈ oddCofactorPrefix B, canonicalMoebiusWeight c) +
+        ∑ c ∈ evenCofactorPrefix B, canonicalMoebiusWeight c := by
+  calc
+    (∑ c ∈ Finset.Icc 1 B, canonicalMoebiusWeight c) =
+        ∑ c ∈ Finset.Icc 1 B,
+          ((if Odd c then canonicalMoebiusWeight c else 0) +
+            (if Even c then canonicalMoebiusWeight c else 0)) := by
+      apply Finset.sum_congr rfl
+      intro c hc
+      by_cases hodd : Odd c
+      · have hnotEven : ¬Even c := not_even_iff_odd.mpr hodd
+        simp [hodd, hnotEven]
+      · have heven : Even c := not_odd_iff_even.mp hodd
+        simp [hodd, heven]
+    _ =
+        (∑ c ∈ oddCofactorPrefix B, canonicalMoebiusWeight c) +
+          ∑ c ∈ evenCofactorPrefix B, canonicalMoebiusWeight c := by
+      rw [Finset.sum_add_distrib]
+      unfold oddCofactorPrefix evenCofactorPrefix
+      rw [Finset.sum_filter, Finset.sum_filter]
+
+/-- The half-scale odd prefix is contained in the full odd prefix. -/
+theorem oddCofactorPrefix_half_subset (B : ℕ) :
+    oddCofactorPrefix (B / 2) ⊆ oddCofactorPrefix B := by
+  intro c hc
+  rcases mem_oddCofactorPrefix.mp hc with ⟨hc1, hcB, hcodd⟩
+  exact mem_oddCofactorPrefix.mpr ⟨hc1, by omega, hcodd⟩
+
+/-- Complex Möbius mass of the complete positive prefix through `B`. -/
+def cofactorMobiusPrefixMass (B : ℕ) : ℂ :=
+  ∑ c ∈ Finset.Icc 1 B, canonicalMoebiusWeight c
+
+/-- Möbius mass of the exact odd dyadic boundary. -/
+def dyadicCofactorBoundaryMass (B : ℕ) : ℂ :=
+  ∑ c ∈ dyadicCofactorBoundary B, canonicalMoebiusWeight c
+
+/-- Exact dyadic compression of every complete lower-cofactor prefix. -/
+theorem cofactorMobiusPrefixMass_eq_dyadicBoundaryMass (B : ℕ) :
+    cofactorMobiusPrefixMass B = dyadicCofactorBoundaryMass B := by
+  unfold cofactorMobiusPrefixMass dyadicCofactorBoundaryMass
+  rw [sum_Icc_eq_odd_add_even, sum_evenCofactorPrefix_eq_neg_odd_half]
+  have hsubset := oddCofactorPrefix_half_subset B
+  have hpartition :
+      (∑ c ∈ oddCofactorPrefix B \ oddCofactorPrefix (B / 2),
+          canonicalMoebiusWeight c) +
+        ∑ c ∈ oddCofactorPrefix (B / 2), canonicalMoebiusWeight c =
+          ∑ c ∈ oddCofactorPrefix B, canonicalMoebiusWeight c := by
+    exact Finset.sum_sdiff hsubset
+  unfold dyadicCofactorBoundary
+  calc
+    (∑ c ∈ oddCofactorPrefix B, canonicalMoebiusWeight c) +
+          -∑ c ∈ oddCofactorPrefix (B / 2), canonicalMoebiusWeight c =
+        (∑ c ∈ oddCofactorPrefix B, canonicalMoebiusWeight c) -
+          ∑ c ∈ oddCofactorPrefix (B / 2), canonicalMoebiusWeight c := by ring
+    _ = ∑ c ∈ oddCofactorPrefix B \ oddCofactorPrefix (B / 2),
+          canonicalMoebiusWeight c := by
+      exact (eq_sub_of_add_eq hpartition).symm
+
+/-! ## Exact compression of the complete transport term -/
+
+/-- Dyadic boundary mass in the lower-cofactor fiber of an upper prime `q`. -/
+def dyadicPrimeFiberBoundaryMass (R q : ℕ) : ℂ :=
+  dyadicCofactorBoundaryMass (squareRootEndpoint R / q)
+
+/-- The complete paper transport term after exact dyadic compression. -/
+def squareRootDyadicTransportBoundaryMass (R : ℕ) : ℂ :=
+  ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+    if q.Prime then dyadicPrimeFiberBoundaryMass R q else 0
+
+/-- For `q > R`, the reciprocal cofactor cutoff lies strictly below `R`. -/
+theorem squareRootEndpoint_div_lt
+    {R q : ℕ} (hRq : R < q) (hq : 0 < q) :
+    squareRootEndpoint R / q < R := by
+  apply (Nat.div_lt_iff_lt_mul hq).2
+  unfold squareRootEndpoint
+  by_cases hR : R = 0
+  · subst R
+    simp
+  · have hRpos : 0 < R := Nat.pos_of_ne_zero hR
+    have hmul : R ^ 2 < R * q := by
+      nlinarith
+    exact lt_of_le_of_lt (Nat.sub_le _ _) hmul
+
+/-- Each prime-first lower-cofactor fiber is exactly the positive Möbius prefix
+through the reciprocal cutoff. -/
+theorem primeDilatedLowCofactorMass_eq_cofactorMobiusPrefixMass
+    (R q : ℕ) (hRq : R < q) (hq : 0 < q) :
+    primeDilatedLowCofactorMass R q =
+      cofactorMobiusPrefixMass (squareRootEndpoint R / q) := by
+  unfold primeDilatedLowCofactorMass cofactorMobiusPrefixMass
+  have hBlt := squareRootEndpoint_div_lt hRq hq
+  have hset :
+      (Finset.Ico 1 R).filter
+          (fun c => c * q ≤ squareRootEndpoint R) =
+        Finset.Icc 1 (squareRootEndpoint R / q) := by
+    ext c
+    simp only [Finset.mem_filter, Finset.mem_Ico, Finset.mem_Icc]
+    constructor
+    · rintro ⟨⟨hc1, hcR⟩, hmul⟩
+      exact ⟨hc1, (Nat.le_div_iff_mul_le hq).2 hmul⟩
+    · rintro ⟨hc1, hcB⟩
+      exact ⟨⟨hc1, lt_of_le_of_lt hcB hBlt⟩,
+        (Nat.le_div_iff_mul_le hq).1 hcB⟩
+  calc
+    (∑ c ∈ Finset.Ico 1 R,
+        if c * q ≤ squareRootEndpoint R then canonicalMoebiusWeight c else 0) =
+      ∑ c ∈ (Finset.Ico 1 R).filter
+          (fun c => c * q ≤ squareRootEndpoint R), canonicalMoebiusWeight c := by
+        rw [Finset.sum_filter]
+    _ = ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R / q),
+          canonicalMoebiusWeight c := by rw [hset]
+
+/-- Exact odd-boundary form of every prime-first lower-cofactor fiber. -/
+theorem primeDilatedLowCofactorMass_eq_dyadicPrimeFiberBoundaryMass
+    (R q : ℕ) (hRq : R < q) (hq : 0 < q) :
+    primeDilatedLowCofactorMass R q =
+      dyadicPrimeFiberBoundaryMass R q := by
+  rw [primeDilatedLowCofactorMass_eq_cofactorMobiusPrefixMass R q hRq hq]
+  exact cofactorMobiusPrefixMass_eq_dyadicBoundaryMass _
+
+/-- The original complete transport sum equals the exact dyadic odd-cofactor
+boundary sum.  No transport source is discarded; the equality is finite Fubini
+followed by Möbius doubling inside every prime fiber. -/
+theorem squareRootTransportCofactorFirst_eq_dyadicBoundaryMass (R : ℕ) :
+    squareRootTransportCofactorFirst R =
+      squareRootDyadicTransportBoundaryMass R := by
+  rw [squareRootTransportCofactorFirst_eq_primeFirst]
+  unfold squareRootTransportPrimeFirst squareRootDyadicTransportBoundaryMass
+  apply Finset.sum_congr rfl
+  intro q hqmem
+  by_cases hprime : q.Prime
+  · have hRq : R < q := (Finset.mem_Ioc.mp hqmem).1
+    have hqpos : 0 < q := hprime.pos
+    simp only [hprime, if_true]
+    exact primeDilatedLowCofactorMass_eq_dyadicPrimeFiberBoundaryMass
+      R q hRq hqpos
+  · simp [hprime]
 
 end RHLean.Proof
