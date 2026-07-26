@@ -272,24 +272,20 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 
 ## 6. Current formalization frontier
 
-The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell identity, divisor-fiber, and finite cofactor-parity layers are machine checked. On the PR #95 branch the exact `2ab` scale-transfer layer additionally proves
+The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell, `2ab` scale-transfer, and dyadic-compression layers are machine checked. The merged exact identities now include
 
 ```text
 entered = smooth - transport,
 squarePrefixMertens = squareRootSmoothMass - squareRootTransportMass,
 iota_R(x)=R^2/x,
-weighted high observable = baseline-scaled low observable + discrepancy,
-cofactor-first transport pairs = prime-first lower-cofactor fibers.
+cofactor-first transport pairs = prime-first lower-cofactor fibers,
+parent packet + doubled-child packet = dyadic boundary packet,
+T_R = sum_{R<q≤X, q prime} sum_{c odd, X<2cq≤2X} mu(c),
+-T_R = the corresponding canonical source-sign sum,
+M(B) = sum_{m odd, B<2m≤2B} mu(m).
 ```
 
-The accompanying analytical reindexing gives, for `X=R^2-1`,
-
-```text
-T_R = ∑_{R<q≤X, q prime} M(floor(X/q))
-    = ∑_{d<R} K_R(d) M(d).
-```
-
-The reproducible experiment verifies all exact identities with zero integer error through `R=10000`; those finite results remain diagnostics rather than asymptotic theorems.
+The reproducible `2ab` experiment verifies its finite identities with zero integer error through `R=10000`; those numerical results remain diagnostics rather than asymptotic theorems. The transport-only high subset is not substituted for the complete annulus or the full `A-T` residual.
 
 The remaining theorem-level obligations are:
 

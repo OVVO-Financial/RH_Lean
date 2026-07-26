@@ -171,15 +171,14 @@ The high transport family is only the `P+(m)>R` part of this complete annulus. T
 
 ## 8. Next structural and analytic tests
 
-The next dependency-bounded work should combine the scale-transfer operator with the retained arithmetic coordinates:
+The next dependency-bounded work should combine the exact dyadic support with the retained arithmetic coordinates:
 
-1. identify each prime-first lower cofactor fiber directly with the existing `mertensSummatory` API;
-2. group the exact transform by `d=floor((R^2-1)/q)` and formalize the kernel `K_R(d)`;
-3. refine the kernel or discrepancy by Fermat residue lane, cofactor `omega`, and orientation;
-4. test whether multiplication by a new prime, orientation reversal, or another canonical transport maps admissible lanes to admissible lanes while flipping the Mobius sign;
-5. retain every unmatched boundary term and the born-smooth remainder explicitly;
-6. state a cancellation-aware operator estimate sufficient for the protected pointwise or uniform-local criterion;
-7. preserve the complete signed interaction when passing to energy.
+1. group the exact prime transform by `d=floor((R^2-1)/q)` and formalize the reciprocal kernel `K_R(d)`;
+2. refine the dyadic high/smooth partition by Fermat residue lane, cofactor `omega`, and orientation;
+3. test whether orientation reversal or another canonical transport pairs the smooth complement with the compressed high packets while flipping the Möbius sign;
+4. retain every unmatched boundary term and the born-smooth remainder explicitly;
+5. state a cancellation-aware joint estimate sufficient for the protected pointwise or uniform-local criterion;
+6. preserve the complete signed interaction when passing to energy.
 
 A successful operator or pairing theorem could be materially stronger than applying an unrestricted almost-prime asymptotic to the wrong population.
 

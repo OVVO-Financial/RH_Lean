@@ -492,6 +492,16 @@ T_R = ∑_{R<q≤X, q prime} M(floor(X/q))
 
 Thus the high transport term is an exact lower-triangular prime-dilation operator on lower-scale Mertens data. The remaining theorem is not the realization but a cancellation-aware operator or discrepancy estimate, with the born-smooth remainder and full signed interaction retained.
 
+Dyadic compression further proves
+
+```text
+parent packet + doubled-child packet = explicit boundary packet,
+-T_R = canonical `P+(m)>R` part of the odd top-half annulus,
+M(X_R) = complete odd top-half annulus.
+```
+
+The smooth `P+(m)<=R` complement remains part of the protected residual. Therefore the next analytic step is a joint smooth/high estimate or a direct complete-annulus estimate, not an identification of transport alone with the RH criterion.
+
 The complete multi-route roadmap is recorded in `MULTIROUTE_FORMALIZATION_PLAN.md`, and the strategic invariants are summarized in `BIG_PICTURE_PROOF_MAP.md`.
 
 ## 4. Formalization sequence
