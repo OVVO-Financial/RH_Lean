@@ -1,4 +1,4 @@
-name: Close dyadic transport formalization docs
+name: Finalize dyadic transport closeout
 
 on:
   push:
@@ -16,212 +16,104 @@ jobs:
         with:
           ref: agent/dyadic-transport-closeout
           fetch-depth: 0
-      - name: Update canonical formalization documents
+      - name: Finalize canonical documents and remove one-shot workflow
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          marker = 'PR #96 adds exact dyadic transport compression.'
-
-          p = Path('FORMALIZATION_SEQUENCE.md')
+          p = Path('BIG_PICTURE_PROOF_MAP.md')
           s = p.read_text()
-          if marker not in s:
-              s = s.replace(
-                  'The root library imports seventy-three theorem modules.',
-                  'The root library imports seventy-five theorem modules.',
-                  1,
-              )
-              old = '''71. `RHLean.Proof.DeathShellCofactorParity`
-          72. `RHLean.Proof.TwoABScaleTransfer`
-          73. `RHLean.Proof.TwoABPrimeDilation`
+          old = '''The next dependency-bounded work should combine the scale-transfer operator with the retained arithmetic coordinates:
 
-          These modules compile the exact finite partial-moment identities and their square-block specialization; reconstruct canonical height-shell energies; define the cumulative moving boundary and lifetime interval system; prove the active/birth/death endpoint identities; identify each death increment with a thin factorized shell sum; transfer shell cardinality to pointwise and cumulative death-process bounds; verify the complete mod-twenty Fermat sieve; inject each positive-cutoff shell into the divisor fibers over its full finite integer-height window; regroup each shell by finite cofactor-`ω` parity fibers; prove exact source-resolved `entered = smooth - transport`; formalize square-root inversion and `2ab` dilation; and expose the complete finite weighted prime-dilation discrepancy and prime-first Fubini identity.
+          1. identify each prime-first lower cofactor fiber directly with the existing `mertensSummatory` API;
+          2. group the exact transform by `d=floor((R^2-1)/q)` and formalize the kernel `K_R(d)`;
+          3. refine the kernel or discrepancy by Fermat residue lane, cofactor `omega`, and orientation;
+          4. test whether multiplication by a new prime, orientation reversal, or another canonical transport maps admissible lanes to admissible lanes while flipping the Mobius sign;
+          5. retain every unmatched boundary term and the born-smooth remainder explicitly;
+          6. state a cancellation-aware operator estimate sufficient for the protected pointwise or uniform-local criterion;
+          7. preserve the complete signed interaction when passing to energy.
           '''
-              new = '''71. `RHLean.Proof.DeathShellCofactorParity`
-          72. `RHLean.Proof.TwoABScaleTransfer`
-          73. `RHLean.Proof.TwoABPrimeDilation`
-          74. `RHLean.Proof.DyadicTransportCompression`
-          75. `RHLean.Proof.DyadicTransportCanonicalForm`
+          new = '''The next dependency-bounded work should combine the exact dyadic support with the retained arithmetic coordinates:
 
-          These modules compile the exact finite partial-moment identities and their square-block specialization; reconstruct canonical height-shell energies; define the cumulative moving boundary and lifetime interval system; prove the active/birth/death endpoint identities; identify each death increment with a thin factorized shell sum; transfer shell cardinality to pointwise and cumulative death-process bounds; verify the complete mod-twenty Fermat sieve; inject each positive-cutoff shell into the divisor fibers over its full finite integer-height window; regroup each shell by finite cofactor-`ω` parity fibers; prove exact source-resolved `entered = smooth - transport`; formalize square-root inversion and `2ab` dilation; expose the complete finite weighted prime-dilation discrepancy and prime-first Fubini identity; compress every parent/doubled-child common transport suffix to an explicit dyadic boundary packet; and identify both the canonical high-source subset and the complete odd dyadic annulus.
+          1. group the exact prime transform by `d=floor((R^2-1)/q)` and formalize the reciprocal kernel `K_R(d)`;
+          2. refine the dyadic high/smooth partition by Fermat residue lane, cofactor `omega`, and orientation;
+          3. test whether orientation reversal or another canonical transport pairs the smooth complement with the compressed high packets while flipping the Möbius sign;
+          4. retain every unmatched boundary term and the born-smooth remainder explicitly;
+          5. state a cancellation-aware joint estimate sufficient for the protected pointwise or uniform-local criterion;
+          6. preserve the complete signed interaction when passing to energy.
           '''
-              assert old in s
+          if old in s:
               s = s.replace(old, new, 1)
-
-              anchor = '''PR #95 tests and formalizes the `2ab` scale-transfer route. It proves exact source and finite-family `entered = smooth - transport`, the canonical square-prefix smooth-minus-transport identity, square-root inversion and `λ^2=q/c`, a total baseline-scaled-low plus discrepancy identity, and finite cofactor-first/prime-first Fubini reindexing. The accompanying experiment verifies the exact lower-Mertens transform with zero integer error through `R=10000`, while random-sign controls show that the exceptional contraction is arithmetic rather than generic geometry. No finite correlation or baseline fit is promoted to an asymptotic theorem.
-          '''
-              insert = anchor + '''
-          PR #96 adds exact dyadic transport compression. For an odd parent `(c,q)` and doubled child `(2c,q)`, it proves opposite Möbius weights, nested entry times, a common transition endpoint, and exact cancellation of the entire common suffix, leaving the boundary packet from `floor(sqrt(cq))` to the earlier of `floor(sqrt(2cq))`, `q-1`, and the finite horizon. It then proves, for `X=R^2-1`,
-
-          ```text
-          T_R = sum over q prime, R<q<=X,
-                  sum over c odd, X<2cq<=2X of mu(c),
-          -T_R = sum over the same canonical sources of mu(cq),
-          M(B) = sum over m odd, B<2m<=2B of mu(m).
-          ```
-
-          The high transport source sum is only the `P+(m)>R` part of the complete odd annulus. The complementary `P+(m)<=R` smooth population is not a negligible boundary, and a transport-only energy estimate is not silently identified with the protected full residual criterion.
-          '''
-              assert anchor in s
-              s = s.replace(anchor, insert, 1)
-
-              old = '''### Phase XVI — exact `2ab` scale transfer and prime-dilation operator
-
-          - [ ] **75. Exact source and finite-family `entered = smooth - transport` realization** — PR #95.
-          - [ ] **76. Canonical square-prefix smooth-minus-transport realization and exact `2ab` dilation** — PR #95.
-          - [ ] **77. Baseline-scaled low plus complete discrepancy identity** — PR #95.
-          - [ ] **78. Finite cofactor-first/prime-first transport Fubini identity** — PR #95.
-          - [ ] **79. Direct Lean identification of each prime-first fiber with `M(floor((R^2-1)/q))`**.
-          - [ ] **80. Reciprocal-interval kernel `K_R(d)` realization**.
-          - [ ] **81. Cancellation-aware prime-dilation operator or signed discrepancy estimate sufficient for the protected criterion**.
-          '''
-              new = '''### Phase XVI — exact `2ab` scale transfer and prime-dilation operator
-
-          - [x] **75. Exact source and finite-family `entered = smooth - transport` realization** — PR #95.
-          - [x] **76. Canonical square-prefix smooth-minus-transport realization and exact `2ab` dilation** — PR #95.
-          - [x] **77. Baseline-scaled low plus complete discrepancy identity** — PR #95.
-          - [x] **78. Finite cofactor-first/prime-first transport Fubini identity** — PR #95.
-          - [x] **79. Direct Lean identification of each prime-first fiber with the finite Mertens prefix** — PR #96.
-          - [ ] **80. Reciprocal-interval kernel `K_R(d)` realization**.
-          - [ ] **81. Cancellation-aware prime-dilation operator or signed discrepancy estimate sufficient for the protected criterion**.
-
-          ### Phase XVII — exact dyadic transport compression
-
-          - [x] **82. Odd-parent/doubled-child pointwise and packet cancellation** — PR #96.
-          - [x] **83. Exact finite-horizon and born-smooth boundary classification** — PR #96.
-          - [x] **84. Complete transport reindexing to odd cofactor fibers `X<2cq<=2X`** — PR #96.
-          - [x] **85. Canonical source-sign form with `q=P+(cq)` and exact cofactor recovery** — PR #96.
-          - [x] **86. Complete odd dyadic-annulus identity `M(B)=sum_{B<2m<=2B, m odd} mu(m)`** — PR #96.
-          - [ ] **87. Dyadic smooth/high joint local-energy estimate with the full signed interaction retained**.
-          '''
-              assert old in s
-              s = s.replace(old, new, 1)
-
-              anchor = '''Exact scale transfer does not by itself prove contraction. The new multi-route branches may feed only into the existing pointwise, local, increment-energy, or native high-sector propositions. They do not replace the protected spine.
-          '''
-              insert = '''Exact scale transfer does not by itself prove contraction. The dyadic compression now sharpens the operator support:
-
-          ```text
-          parent lifetime + doubled-child lifetime
-                  = fixed-log-width boundary packet,
-          -T_R    = canonical high part of the odd top-half annulus,
-          M(X_R)  = complete odd top-half annulus
-                  = smooth complement + canonical high part.
-          ```
-
-          Consequently the single dyadic inequality definitionally equal to the protected criterion is the local energy of the complete odd annulus. A bound for the high transport subset alone is a separate possible component and requires control of the smooth complement or their full signed interaction. The new multi-route branches may feed only into the existing pointwise, local, increment-energy, or native high-sector propositions. They do not replace the protected spine.
-          '''
-              assert anchor in s
-              s = s.replace(anchor, insert, 1)
-              p.write_text(s)
+          p.write_text(s)
 
           p = Path('FORMALIZATION_CHECKLIST.md')
           s = p.read_text()
-          if '**#96**' not in s:
-              old = '''- exact `2ab` source transfer, square-root inversion, and prime-first Fubini are realization theorems, not contraction estimates;
-          - low-to-high prime transport must retain prime density and the full signed scale-transfer discrepancy; raw Euclidean interval scaling is not an analytic substitute;
-          - finite correlation, regression, and baseline-fit claims are diagnostics unless accepted through an explicit certificate checker;
-          - treat every warning as a CI failure because the project builds with `--wfail`.
+          old = '''The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell identity, divisor-fiber, and finite cofactor-parity layers are machine checked. On the PR #95 branch the exact `2ab` scale-transfer layer additionally proves
+
+          ```text
+          entered = smooth - transport,
+          squarePrefixMertens = squareRootSmoothMass - squareRootTransportMass,
+          iota_R(x)=R^2/x,
+          weighted high observable = baseline-scaled low observable + discrepancy,
+          cofactor-first transport pairs = prime-first lower-cofactor fibers.
+          ```
+
+          The accompanying analytical reindexing gives, for `X=R^2-1`,
+
+          ```text
+          T_R = ∑_{R<q≤X, q prime} M(floor(X/q))
+              = ∑_{d<R} K_R(d) M(d).
+          ```
+
+          The reproducible experiment verifies all exact identities with zero integer error through `R=10000`; those finite results remain diagnostics rather than asymptotic theorems.
           '''
-              new = '''- exact `2ab` source transfer, square-root inversion, and prime-first Fubini are realization theorems, not contraction estimates;
-          - low-to-high prime transport must retain prime density and the full signed scale-transfer discrepancy; raw Euclidean interval scaling is not an analytic substitute;
-          - dyadic compression preserves the full signed process: it replaces common suffixes by explicit boundary packets but is not itself an operator contraction;
-          - the compressed high transport family is the `P+(m)>R` part of the complete odd annulus, not the full annulus;
-          - a transport-only energy premise must not be labeled the protected RH criterion without separate smooth-complement or signed-interaction control;
-          - finite correlation, regression, and baseline-fit claims are diagnostics unless accepted through an explicit certificate checker;
-          - treat every warning as a CI failure because the project builds with `--wfail`.
+          new = '''The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell, `2ab` scale-transfer, and dyadic-compression layers are machine checked. The merged exact identities now include
+
+          ```text
+          entered = smooth - transport,
+          squarePrefixMertens = squareRootSmoothMass - squareRootTransportMass,
+          iota_R(x)=R^2/x,
+          cofactor-first transport pairs = prime-first lower-cofactor fibers,
+          parent packet + doubled-child packet = dyadic boundary packet,
+          T_R = sum_{R<q≤X, q prime} sum_{c odd, X<2cq≤2X} mu(c),
+          -T_R = the corresponding canonical source-sign sum,
+          M(B) = sum_{m odd, B<2m≤2B} mu(m).
+          ```
+
+          The reproducible `2ab` experiment verifies its finite identities with zero integer error through `R=10000`; those numerical results remain diagnostics rather than asymptotic theorems. The transport-only high subset is not substituted for the complete annulus or the full `A-T` residual.
           '''
-              assert old in s
+          if old in s:
               s = s.replace(old, new, 1)
+          p.write_text(s)
 
-              old = '''- [ ] **#95** — Tests and formalizes exact `2ab` source transfer, square-root inversion, prime-dilation Fubini, baseline-scaled low plus full discrepancy, and the reproducible finite-range experiment without claiming an asymptotic estimate.
-          '''
-              new = '''- [x] **#95** — Formalized exact `2ab` source transfer, square-root inversion, prime-dilation Fubini, baseline-scaled low plus full discrepancy, and the reproducible finite-range experiment without claiming an asymptotic estimate.
-          - [x] **#96** — Proved exact dyadic parent/child packet cancellation, complete odd-cofactor transport reindexing, canonical source coordinates and signs, explicit boundary classification, and the complete odd dyadic-annulus Mertens identity.
-          '''
-              assert old in s
-              s = s.replace(old, new, 1)
-
-              old = '''### Phase XII — exact `2ab` scale transfer
-
-          - [ ] **54. Exact source and finite-family `entered = smooth - transport` realization** — PR #95.
-          - [ ] **55. Canonical dynamic smooth-minus-transport and exact `2ab` dilation** — PR #95.
-          - [ ] **56. Baseline-scaled low plus complete signed discrepancy identity** — PR #95.
-          - [ ] **57. Finite cofactor-first/prime-first transport Fubini identity** — PR #95.
-          '''
-              new = '''### Phase XII — exact `2ab` scale transfer
-
-          - [x] **54. Exact source and finite-family `entered = smooth - transport` realization** — PR #95.
-          - [x] **55. Canonical dynamic smooth-minus-transport and exact `2ab` dilation** — PR #95.
-          - [x] **56. Baseline-scaled low plus complete signed discrepancy identity** — PR #95.
-          - [x] **57. Finite cofactor-first/prime-first transport Fubini identity** — PR #95.
-
-          ### Phase XIII — exact dyadic transport compression
-
-          - [x] **58. Odd-parent/doubled-child packet cancellation and residual boundary packet** — PR #96.
-          - [x] **59. Complete lower-cofactor prefix compression and transport reindexing** — PR #96.
-          - [x] **60. Canonical high-source side conditions, largest-prime identity, and source sign** — PR #96.
-          - [x] **61. Complete odd dyadic-annulus realization of square-prefix Mertens** — PR #96.
-          '''
-              assert old in s
-              s = s.replace(old, new, 1)
-
-              old = '''3. identify the prime-first finite fiber directly with the existing Lean `mertensSummatory` API and formalize the reciprocal kernel `K_R(d)`;
-          4. prove a cancellation-aware prime-dilation operator or signed scale-transfer discrepancy estimate, retaining the born-smooth remainder and full interaction;
-          '''
-              new = '''3. formalize the reciprocal kernel `K_R(d)`; the prime-first finite fiber and its odd dyadic compression are now machine checked;
-          4. prove a cancellation-aware dyadic smooth/high joint estimate or signed scale-transfer discrepancy estimate, retaining the born-smooth remainder and full interaction;
-          '''
-              assert old in s
-              s = s.replace(old, new, 1)
-              p.write_text(s)
-
-          p = Path('BIG_PICTURE_PROOF_MAP.md')
+          p = Path('FORMALIZATION_SEQUENCE.md')
           s = p.read_text()
-          if '## 6. Exact dyadic compression and the complete annulus' not in s:
-              anchor = '## 6. Corrections that must remain permanent\n'
-              section = '''## 6. Exact dyadic compression and the complete annulus
-
-          Möbius doubling gives an exact sign-reversing transport. For odd `c` and odd prime `q`, the parent `(c,q)` and child `(2c,q)` have opposite source weights, the same transition `q-1`, and nested entries. Their common lifetime suffix cancels identically, leaving only
-
-          ```text
-          [floor(sqrt(cq)), min(floor(sqrt(2cq)), q-1, horizon+1)).
-          ```
-
-          For `X=R^2-1`, every prime-first cofactor fiber compresses exactly to its odd dyadic boundary:
-
-          ```text
-          T_R = sum_{R<q<=X, q prime}
-                  sum_{c odd, X<2cq<=2X} mu(c),
-          -T_R = sum over the same sources of mu(cq).
-          ```
-
-          Lean proves on every retained pair that `q=P+(cq)`, the canonical cofactor is `c`, `c<R<q`, and `cq<=X<2cq`.
-
-          Separately, for every `B`,
-
-          ```text
-          M(B) = sum_{m odd, B<2m<=2B} mu(m).
-          ```
-
-          The high transport family is only the `P+(m)>R` part of this complete annulus. The `P+(m)<=R` smooth complement is not a small boundary; for example, at `R=5`, the source `15` belongs to the odd annulus for `X=24` but has largest prime factor `5`, so it is smooth rather than transport. Therefore the protected single dyadic criterion is the local energy of the complete annulus, equivalently the full `A-T` residual. A transport-only estimate is a distinct possible component and must retain the smooth complement or the complete signed interaction.
-
+          anchor = '''Thus the high transport term is an exact lower-triangular prime-dilation operator on lower-scale Mertens data. The remaining theorem is not the realization but a cancellation-aware operator or discrepancy estimate, with the born-smooth remainder and full signed interaction retained.
           '''
+          insert = anchor + '''
+          Dyadic compression further proves
+
+          ```text
+          parent packet + doubled-child packet = explicit boundary packet,
+          -T_R = canonical `P+(m)>R` part of the odd top-half annulus,
+          M(X_R) = complete odd top-half annulus.
+          ```
+
+          The smooth `P+(m)<=R` complement remains part of the protected residual. Therefore the next analytic step is a joint smooth/high estimate or a direct complete-annulus estimate, not an identification of transport alone with the RH criterion.
+          '''
+          if insert not in s:
               assert anchor in s
-              s = s.replace(anchor, section + '## 7. Corrections that must remain permanent\n', 1)
-              s = s.replace('## 7. Next structural and analytic tests',
-                            '## 8. Next structural and analytic tests', 1)
-              s = s.replace('## 8. Acceptance rule for every future PR',
-                            '## 9. Acceptance rule for every future PR', 1)
-              p.write_text(s)
+              s = s.replace(anchor, insert, 1)
+          p.write_text(s)
           PY
-      - name: Commit canonical document updates
+          rm .github/workflows/export-formalization-docs.yml
+      - name: Commit final closeout
         run: |
           if git diff --quiet; then
             exit 0
           fi
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md BIG_PICTURE_PROOF_MAP.md
-          git commit -m "Record exact dyadic transport compression"
+          git add -A
+          git commit -m "Finalize dyadic transport closeout"
           git push origin HEAD:agent/dyadic-transport-closeout
