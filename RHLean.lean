@@ -46,6 +46,7 @@ import RHLean.Proof.CumulativeHeightFlow
 import RHLean.Proof.DeathProcessArithmetic
 import RHLean.Proof.DeathProcessShellIdentity
 import RHLean.Proof.DeathShellCardinalityAndCentering
+import RHLean.Proof.FermatSieveConstraints
 import RHLean.Proof.LifetimeActiveSet
 import RHLean.Proof.LifetimeEndpointDecomposition
 import RHLean.Proof.LifetimeLocalEnergyCriterion
