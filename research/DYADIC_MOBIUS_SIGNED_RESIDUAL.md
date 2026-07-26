@@ -122,22 +122,36 @@ reciprocal annulus* with cut point `U_2c`. This is the exact form of the
 
 ### 1.5 The paired difference — EXACT
 
-Let `G` be any cumulative. From the table and (L),
+Let `G` be any cumulative, and write the interval increment
+`E_G[a,b] := G(b) - G(a-1)` (`= 0` when `a > b`). From the table and (L), the
+signed pair is the **difference of two adjacent multiplicative shells**:
 
 ```text
-(I)   4c <= t :      Δ_G(t,c) - Δ_G(t,2c) = G(U_c) - 2 G(U_2c) + G(U_4c) ,
-(II)  t/4<c<=t/2 :   Δ_G(t,c) - Δ_G(t,2c) = G(U_c) - 2 G(U_2c) + G(t+1) ,
-(III) t/2<c<=t :     Δ_G(t,c)              = G(U_c) -   G(t+1)   (unpaired).
+(I)   4c <= t :      Δ_G(t,c) - Δ_G(t,2c) = E_G[U_2c+1, U_c] - E_G[U_4c+1, U_2c] ,
+(II)  t/4<c<=t/2 :   Δ_G(t,c) - Δ_G(t,2c) = E_G[U_2c+1, U_c] - E_G[t+2,   U_2c] ,
+(III) t/2<c<=t :     Δ_G(t,c)              = E_G[t+2,   U_c]           (unpaired).
 ```
 
-**The pair does not collapse to a shorter interval.** It collapses to a
-*discrete second difference of `G` on the geometric reciprocal grid*
-`{ X/(2^j c) }_{j=0,1,2}` — a one-scale **reciprocal Laplacian**. The shared node
-`U_2c` acquires weight `-2`; a single-slab prime count is replaced by the
-*difference of the discrepancies of two adjacent reciprocal slabs*. In region I
-the bottom node is the next reciprocal point `U_4c`; in region II it is clamped
-to the principal endpoint `t+1`; in the unpaired region III it is the principal
-endpoint `t+1` with weight `-1`.
+Equivalently, on point evaluations, this is
+`G(U_c) - 2 G(U_2c) + G(U_4c)` (I), `G(U_c) - 2 G(U_2c) + G(t+1)` (II),
+`G(U_c) - G(t+1)` (III).
+
+**The pair does not collapse to a shorter interval.** It is a *signed contrast
+of two adjacent reciprocal shells*
+```text
+(S/2c, S/c]   minus   (S/4c, S/2c]        (up to floors),
+```
+meeting exactly at the shared node `U_2c`. The two shells have **unequal
+lengths** (a factor of two): the upper shell has length `≈ S/(2c)`, the lower
+`≈ S/(4c)`. This is a one-scale reciprocal difference operator, **not** a
+mean-zero (Haar) wavelet — a point made precise in §8. In region I the bottom
+node is the next reciprocal point `U_4c`; in region II it is clamped to the
+finite-horizon value `t+2`; in the unpaired region III there is no lower shell.
+
+Note the point-evaluation `E(t+1)` (the diagonal endpoint) is genuinely absent
+from region I. This is a *pointwise* cancellation of that one boundary value; it
+is not the same as cancellation at the principal Fourier frequency, which does
+**not** occur (§8).
 
 ---
 
@@ -172,11 +186,15 @@ regions II and III. Collecting its coefficient,
 ```
 
 (Identity (P) is verified exactly, integer arithmetic, in the script.) So the
-**principal major-arc content of `R_F(t)` is exactly `E(t+1)` times a difference
-of two short odd-Möbius sums**. This is the concrete realization of the handoff
-warning: the Möbius signs must be retained through the principal arc — discarding
+**contribution of the diagonal point evaluation `E(t+1)` is exactly `E(t+1)`
+times a difference of two short odd-Möbius sums**. This is one concrete
+realization of the handoff warning: the Möbius signs must be retained — discarding
 them (sign-blind Cauchy–Schwarz in `c`) destroys the cancellation in (P) and
 reintroduces the full `E(t+1)` at strength `~ t`.
+
+Caution: (P) concerns only the single value `E(t+1)`. It is **not** the principal
+Fourier frequency of the pairing, which is a different object and does **not**
+cancel — see §8.
 
 ---
 
@@ -199,11 +217,50 @@ hyperbolic band:
 and `R_F(t) = Π(t) - (baseline analogue of Π with 1[p prime] -> dF)`. The band
 `cp ∈ [S/2, S)` with `p > sqrt(S) = t+1` forces `c < t+1`. This is a Vaughan-type
 object at the **balanced point** `c, p ≍ sqrt(S) = N`, `cp ≍ N^2`. The dyadic
-pairing of §2 is exactly the identity that, inside (B):
+pairing of §2 rewrites, inside this object, single-slab prime indicators as
+adjacent-slab differences and removes the diagonal point evaluation `E(t+1)`
+from the deep region — but it does **not** introduce any Fourier variable, and it
+does **not** annihilate the principal (zero) frequency (§8).
 
-* **cancels the `p`-lower-endpoint (principal-arc) mass** in the paired regions
-  (I, and the top node of II), and
-* replaces single-slab prime indicators by **adjacent-slab differences**.
+---
+
+## 3.5 Exact low-Mertens representations — EXACT
+
+Fix a dyadic band `C <= c < 2C` and swap the two finite sums (over `c` and over
+the prime variable `n`). Write `e_F(n) = 1_P(n) - (F(n) - F(n-1))` so that
+`Δ_F(t,c) = Σ_{n ∈ I(t,c)} e_F(n)`. For a fixed `n`, membership `n ∈ I(t,c)` is
+`n >= t+2` together with `ceil(S/(2n)) <= c <= floor((S-1)/n)`. Hence, with
+`M(x) = Σ_{m<=x} μ(m)`,
+
+```text
+R_F(t;C) = Σ_{n >= t+2, A_n <= B_n} e_F(n) · [ M(B_n) - M(A_n - 1) ] ,        (F)
+   A_n = max( C, ceil(S/(2n)) ) ,   B_n = min( 2C-1, t, floor((S-1)/n) ) .
+```
+
+This is the sharp exact low-Mertens form (the correct version of Attack C at
+fixed `t`). The Möbius coefficient of a fixed prime `n` is a short Mertens sum
+over the reciprocal `c`-window `S/(2n) <~ c <~ S/n`, of length `≈ S/(2n)`. This
+`c`-support must not be confused with the endpoint motion
+`U_d - U_{d+1} = O(S/d^2 + 1)`, which is the *reciprocal derivative in `c`* and
+governs Abel summation, a different (and weaker) transformation that does not use
+`μ(2c) = -μ(c)`.
+
+The paired block (odd `c ∈ [C,2C)` with `2c <= t`) has the analogous exact
+odd-Mertens form. With `M_odd(x) = Σ_{m<=x, 2∤m} μ(m)` and
+`D_* = min(2C-1, ⌊t/2⌋)`,
+
+```text
+P_F(t;C) = Σ_{n >= t+2} e_F(n) · (                                            (G)
+     [ M_odd(B_+) - M_odd(A_+ - 1) ]   over the reciprocal c-annulus [S/2n, S/n]
+   - [ M_odd(B_-) - M_odd(A_- - 1) ] ) over the reciprocal c-annulus [S/4n, S/2n]
+   A_± = max(C, ceil(S/((2 or 4)n))),  B_± = min(D_*, floor((S-1)/((1 or 2)n))),
+```
+each empty interval read as zero. Both (F) and (G) are verified to machine
+precision against the direct band sums (companion script). Because they hold for
+a *random* `e_F`, they are pure endpoint/Möbius identities with no arithmetic
+input. Form (G) exhibits the coefficient of each `e_F(n)` as a **difference of
+odd-Möbius sums on two adjacent reciprocal `c`-annuli** — the low-Mertens image
+of the two-shell contrast of §1.5.
 
 ---
 
@@ -237,6 +294,38 @@ is the analytically hard one. These are finite diagnostics only.
 
 ---
 
+## 4.5 The principal frequency does not cancel algebraically — EXACT
+
+The two-shell weight of a single pair is `W_{t,c}(n) = 1_{I(t,c)}(n) - 1_{I(t,2c)}(n)`.
+Its zero-frequency (constant) mode is the length difference of the two shells,
+
+```text
+Ŵ_{t,c}(0) = |I(t,c)| - |I(t,2c)| .
+```
+
+In the deep range `c <= t/4` the shells have lengths `≈ S/(2c)` and `≈ S/(4c)`, so
+
+```text
+Ŵ_{t,c}(0) ≈ S/(4c)  >  0     (verified: mean ratio 1.0000, strictly positive).
+```
+
+**The raw Möbius pair is therefore not a mean-zero (Haar) wavelet.** Pairing
+converts a single-slab count into an unequal-length two-shell contrast that
+retains a substantial constant mode. Consequently the principal Fourier frequency
+of the pairing does **not** vanish from parent–child cancellation alone; any
+saving at `α = 0` must come from the discrete baseline subtraction (`e_F` already
+has the smooth main term removed), from the outer Möbius sum over many `c`, or
+from interaction with the complementary main term `L + Ĥ^F`. This is exactly why
+the project architecture places the *signed principal major arc* as a separate
+step immediately after exact dyadic pairing, not as something the pairing
+disposes of.
+
+(This corrects any reading of §1.5/§2.1 in which "removing the diagonal point
+`E(t+1)`" is mistaken for "handling the principal arc." The former is a pointwise
+identity; the latter is a Fourier statement that is false for the raw pair.)
+
+---
+
 ## 5. The sharpest resulting theorem to attack
 
 Target (as in the handoff §7), with the `c`-sum kept inside the square and the
@@ -247,32 +336,32 @@ Möbius signs retained:
 > Σ_{t=N}^{N+H-1} | Σ_{C<=c<2C, c<=t} μ(c) Δ_E(t,c) |^2  ≪_ε  H N^{2+ε} .
 > ```
 
-The pairing identity of §2 reduces this to three independent sub-estimates.
-Introduce a smooth dyadic cutoff `w(c/C)` (so the cross-band pairing is
-harmless up to `O(1)` boundary channels per band):
+The pairing identity of §2 (equivalently form (G)) splits the target, by the
+triangle inequality, into the paired block and the unpaired odd tail:
 
-* **(A) Paired second-difference estimate — PLAUSIBLE.** For the region-I/II
-  family
-  ```text
-  Σ_{t=N}^{N+H-1} | Σ_{odd c ≍ C} μ(c) ( E(U_c) - 2E(U_2c) + E(U_{4c or t+1}) ) |^2
-        ≪_ε  H N^{2+ε} .
-  ```
-  Here the extra reciprocal second difference is a genuine smoothing. The route
-  is: expand the prime part by Vaughan's identity, keep `Σ_c μ(c)` intact, and
-  apply the large sieve to the resulting bilinear forms; the second difference
-  supplies an extra `(scale)^{-1}`-type saving on each slab pair. For small `C`
-  (region I) this is a Type-I / hyperbola sum and should be provable
-  unconditionally. **This is the part Vaughan + large sieve can plausibly close.**
+* **(A) Paired block `P_F(t;C)` — OPEN, but the natural next lemma is explicit.**
+  Its exact content is (G): the coefficient of each `e_F(n)` is the difference of
+  odd-Mertens sums on two adjacent reciprocal `c`-annuli. By §4.5 this pair still
+  carries a nonzero constant mode `≈ S/(4c)`, so the *first* genuine analytic
+  lemma is **not** a minor-arc bound. It must:
+  1. split `e_F = 1_P - dF` and control the deterministic baseline part of (G) —
+     which is a smooth weight against short *odd*-Mertens differences, and is
+     **not** automatically negligible (§7);
+  2. isolate and estimate the surviving constant (zero-frequency) mode of the
+     two-shell weight, deciding whether it cancels against the baseline or the
+     complementary main term `L + Ĥ^F`;
+  3. only then introduce a Fourier/exponential representation of the moving
+     reciprocal indicators and pass to major/minor arcs.
 
-* **(B) Principal major-arc term — PLAUSIBLE (conditional strength known).** By
-  (P) the `E(t+1)` contribution is
-  ```text
-  E(t+1) · ( M_odd(t/4,t/2] - M_odd(t/2,t] ) .
-  ```
-  Its mean square over `t ∈ [N, N+H)` is `≤ max_t|E(t+1)|^2 · Σ_t |ΔM_odd|^2`.
-  Unconditionally `M_odd(·) = o(t)`; on RH `≪ t^{1/2+ε}`. This term is *not* the
-  obstruction — the obstruction is that it must be handled **before** any
-  Cauchy–Schwarz in `c`, which the pairing makes possible.
+  For small `C` (region I) the annuli are long and `c` is small, so this is the
+  most tractable regime (Type-I / Dirichlet-hyperbola in flavour); it is *not*
+  yet a solved "Vaughan + large sieve" estimate.
+
+* **(B) Diagonal point term — controlled by short Möbius sums.** By (P) the
+  `E(t+1)` contribution is `E(t+1)·(M_odd(t/4,t/2] - M_odd(t/2,t])`; its mean
+  square is `≤ max_t|E(t+1)|^2 · Σ_t |ΔM_odd|^2`. This is a genuinely smaller,
+  well-posed sub-object — provided the Möbius signs are kept, which the pairing
+  makes possible.
 
 * **(C) Unpaired balanced tail — OPEN (RH strength).** The region-III sum
   ```text
@@ -280,18 +369,32 @@ harmless up to `O(1)` boundary channels per band):
   ```
   is the balanced Type-II core `c ≍ p ≍ N`, `cp < S`. At `H = 1` it is
   equivalent to a short-interval variance bound
-  `∫_N^{2N} |E(x)-E(N)|^2 dx ≪ N^{2+ε}` of RH strength, and cannot be expected
-  from Vaughan + large sieve alone. **This is the irreducible residual core.**
+  `∫_N^{2N} |E(x)-E(N)|^2 dx ≪ N^{2+ε}` of RH strength. Pairing **cannot** remove
+  it — the partner `2c` is out of range. **This is the irreducible residual core.**
 
-**Honest conclusion.** Dyadic Möbius pairing is an *exact* reduction. It
-performs three concrete gains — (i) algebraic cancellation of the principal
-low endpoint in the paired regions, (ii) conversion of single-slab prime counts
-into smoother reciprocal second differences, (iii) exact factorization of the
-surviving principal-arc mass into `E(t+1)` times short Möbius sums with signs
-intact — and it *isolates* the RH-strength difficulty into the thin unpaired
-odd tail `t/2 < c <= t`. It does **not** by itself defeat that tail. The
-sharpest theorem cleanly attackable by Vaughan's identity and the large sieve is
-(A) together with (B); (C) is the genuinely open, RH-adjacent residual.
+Two cautions on the intended machinery (both were over-optimistic in the first
+draft of this note):
+
+* No Fourier variable is present in (F)/(G); before any large-sieve or minor-arc
+  step one must first *build* an exponential representation of the moving
+  interval indicators, and replace `1_P` by a `Λ`-weighted sum (Vaughan) at the
+  cost of a `log`/partial-summation whose coefficients depend discontinuously on
+  `n` and `t`.
+* A uniform square-root cancellation bound for Mertens exponential sums,
+  `Σ_{d∼X} M(d) e(αd) ≪ X^{1/2+ε}`, is **not** a standard unconditional input
+  (near `α = 0` it is entangled with the size of `M` itself) and must not be
+  assumed.
+
+**Honest conclusion.** Dyadic Möbius pairing is an *exact* reduction. Its
+concrete, rigorous gains are: (i) the two-shell contrast identities (A)–(D) of
+§1.5; (ii) the exact low-Mertens forms (F) and (G); (iii) removal of the diagonal
+point evaluation `E(t+1)` from the deep region and its exact factorization (P)
+with signs intact; and (iv) exact isolation of the RH-strength difficulty into
+the thin unpaired odd tail `t/2 < c <= t`. What it does **not** do: it does not
+produce a mean-zero wavelet (§4.5), it does not by itself introduce a Fourier
+decomposition, and it does not defeat the balanced tail (C). The correct next
+analytic step is the constant-mode/baseline lemma for the paired block (A), not a
+minor-arc estimate.
 
 ---
 
@@ -307,14 +410,19 @@ sharpest theorem cleanly attackable by Vaughan's identity and the large sieve is
 * *How large are the boundary intervals?* — Region III intervals are short
   prefixes `[t+2, floor(X/c)]` of length up to `≈ t` (`U_c` up to `2t+2`); the
   paired-region slabs range up to length `≈ N^2/c`.
-* *Does the principal major arc cancel between parent and child?* — In the paired
-  regions I (and the top node of II) the principal endpoint `t+1` is eliminated
-  by pairing. The surviving principal mass is exactly (P): `E(t+1)` times a
-  difference of short odd-Möbius sums — small precisely because the signs are
-  kept.
-* *Can Vaughan be applied only to the shorter boundary sums?* — Yes for (A)/(B).
-  The residual balanced tail (C) is not shortened by pairing and remains RH
-  strength.
+* *Does the parent–child difference become boundary intervals or a dyadic
+  annulus?* — A **dyadic annulus**: a signed contrast of two adjacent unequal
+  reciprocal shells (A)–(D), not a short boundary interval. Its low-Mertens image
+  is (G).
+* *Does the principal major arc cancel between parent and child?* — **No, not at
+  the Fourier level.** The *point evaluation* `E(t+1)` is removed from the deep
+  region (a pointwise identity, coefficient (P)), but the pair's zero-frequency
+  mode is `≈ S/(4c) ≠ 0` (§4.5), so the principal arc is not annihilated by
+  pairing. It must be handled by the baseline/complementary-term interaction.
+* *Can Vaughan be applied only to the shorter boundary sums?* — Only after the
+  constant-mode/baseline lemma of (A) and after building a Fourier representation;
+  the "Vaughan + standard large sieve" framing is premature. The balanced tail
+  (C) is not shortened by pairing and remains RH strength.
 
 ---
 
@@ -323,7 +431,12 @@ sharpest theorem cleanly attackable by Vaughan's identity and the large sieve is
 Mirror the transport-side compression on the residual side: define, at fixed `t`,
 the parent/child residual contribution and prove the pointwise three-region
 identity of §1.5 (pure endpoint algebra + `moebius_two_mul_of_odd`), then the
-`Σ_c` decomposition of §2 and the principal-endpoint coefficient (P). All of
-these are finite exact identities with no analytic content; the mean-square
-targets (A)–(C) stay as explicit open propositions used only through a
-conditional bridge, exactly as recommended for the earlier variance target.
+`Σ_c` decomposition of §2, the principal-endpoint coefficient (P), and the
+finite Fubini swaps giving the low-Mertens forms (F) and (G). All of these are
+finite exact identities with no analytic content and are exactly the layer that
+can be formalized now. The mean-square targets (A)–(C), and specifically the
+constant-mode/baseline lemma flagged in §5, stay as explicit open propositions
+used only through a conditional bridge — exactly as recommended for the earlier
+variance target. Formalizing (F)/(G) also makes it impossible to silently reuse
+the two conflated reciprocal derivatives (`c`-support `≈ S/(2n)` versus endpoint
+motion `O(S/c^2)`), since both appear explicitly.

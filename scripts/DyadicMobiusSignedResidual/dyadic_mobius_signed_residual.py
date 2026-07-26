@@ -149,6 +149,132 @@ def check_decomposition(t_max: int) -> float:
 
 
 # --------------------------------------------------------------------------
+# exact low-Mertens representations (F) and paired (G), and the zero-frequency
+# shell mass -- these were contributed as a correction/sharpening of the note.
+# All are E-independent endpoint/Moebius identities (checked against random E).
+# --------------------------------------------------------------------------
+def mertens_prefix(n: int, odd_only: bool = False) -> list[int]:
+    """Cumulative M(x) = sum_{c<=x} mu(c) (or only odd c) on 0..n."""
+    mu = mobius_table(n)
+    out = [0] * (n + 1)
+    s = 0
+    for c in range(1, n + 1):
+        if not odd_only or c % 2 == 1:
+            s += mu[c]
+        out[c] = s
+    return out
+
+
+def R_band_direct(t: int, C: int, mu: list[int], g_prefix) -> float:
+    """R_F(t;C) = sum_{C<=c<2C, c<=t} mu(c) Delta_F(t,c), Delta via prefix of E."""
+    tot = 0.0
+    for c in range(C, min(2 * C - 1, t) + 1):
+        m = mu[c]
+        if not m:
+            continue
+        lo, hi = L(t, c), U(t, c)
+        if lo <= hi:
+            tot += m * (g_prefix[hi] - g_prefix[lo - 1])
+    return tot
+
+
+def R_band_form_F(t: int, C: int, Mpre: list[int], g_at) -> float:
+    """Exact form (F): swap the finite c- and n-sums.
+
+    R_F(t;C) = sum_{n>=t+2, A_n<=B_n} e_F(n) [ M(B_n) - M(A_n-1) ],
+      A_n = max(C, ceil(S/(2n))),   B_n = min(2C-1, t, floor((S-1)/n)).
+    """
+    S = (t + 1) ** 2
+    D = min(2 * C - 1, t)
+    tot = 0.0
+    for n in range(t + 2, U(t, C) + 1):
+        A = max(C, -(-S // (2 * n)))
+        B = min(D, (S - 1) // n)
+        if A <= B:
+            tot += g_at(n) * (Mpre[B] - Mpre[A - 1])
+    return tot
+
+
+def P_band_direct(t: int, C: int, mu: list[int], g_prefix) -> float:
+    """Paired block: odd c in [C,2C) with 2c<=t, mu(c)[Delta(c) - Delta(2c)]."""
+    def delta(c):
+        lo, hi = L(t, c), U(t, c)
+        return g_prefix[hi] - g_prefix[lo - 1] if lo <= hi else 0.0
+
+    tot = 0.0
+    for c in range(C, 2 * C):
+        if c % 2 == 0 or 2 * c > t:
+            continue
+        m = mu[c]
+        if m:
+            tot += m * (delta(c) - delta(2 * c))
+    return tot
+
+
+def P_band_form_G(t: int, C: int, Modd: list[int], g_at) -> float:
+    """Exact paired form (G): difference of odd-Mertens sums on two reciprocal
+    c-annuli [S/2n,S/n] and [S/4n,S/2n]."""
+    S = (t + 1) ** 2
+    Dstar = min(2 * C - 1, t // 2)
+    tot = 0.0
+    for n in range(t + 2, U(t, C) + 1):
+        Ap = max(C, -(-S // (2 * n)))
+        Bp = min(Dstar, (S - 1) // n)
+        Am = max(C, -(-S // (4 * n)))
+        Bm = min(Dstar, (S - 1) // (2 * n))
+        coeff = 0
+        if Ap <= Bp:
+            coeff += Modd[Bp] - Modd[Ap - 1]
+        if Am <= Bm:
+            coeff -= Modd[Bm] - Modd[Am - 1]
+        if coeff:
+            tot += g_at(n) * coeff
+    return tot
+
+
+def check_low_mertens_forms(t_max: int) -> dict:
+    """Verify (F), (G) against direct band sums with a random E, and confirm the
+    nonzero zero-frequency shell mass |I(t,c)| - |I(t,2c)| ~ S/(4c)."""
+    rng = random.Random(31415)
+    hi = (t_max + 2) ** 2 + 10
+    vals = [rng.uniform(-1.0, 1.0) for _ in range(hi + 2)]
+    gpref = [0.0] * (hi + 2)
+    for n in range(1, hi + 2):
+        gpref[n] = gpref[n - 1] + (vals[n] if n <= hi else 0.0)
+    g_at = vals.__getitem__
+    mu = mobius_table(hi)
+    Mpre = mertens_prefix(hi, odd_only=False)
+    Modd = mertens_prefix(hi, odd_only=True)
+
+    max_F = max_G = 0.0
+    for t in range(50, t_max + 1):
+        for C in (max(2, t // 8), max(2, t // 4), max(2, t // 3), max(2, t // 2)):
+            max_F = max(max_F, abs(R_band_direct(t, C, mu, gpref)
+                                   - R_band_form_F(t, C, Mpre, g_at)))
+            max_G = max(max_G, abs(P_band_direct(t, C, mu, gpref)
+                                   - P_band_form_G(t, C, Modd, g_at)))
+
+    # zero-frequency shell mass in the deep range c <= t/4
+    ratios = []
+    all_pos = True
+    for t in (t_max // 2, t_max):
+        S = (t + 1) ** 2
+        for c in range(2, t // 4 + 1):
+            len_c = max(0, U(t, c) - L(t, c) + 1)
+            len_2c = max(0, U(t, 2 * c) - L(t, 2 * c) + 1)
+            d = len_c - len_2c
+            all_pos = all_pos and d > 0
+            ratios.append(d / (S / (4 * c)))
+    return {
+        "form_F_max_abs_error": max_F,
+        "form_G_max_abs_error": max_G,
+        "zero_freq_mass_ratio_to_S_over_4c_mean":
+            sum(ratios) / len(ratios) if ratios else 0.0,
+        "zero_freq_mass_strictly_positive": all_pos,
+    }
+
+
+# --------------------------------------------------------------------------
 # magnitude diagnostics with the genuine prime error
 # --------------------------------------------------------------------------
 def build_prime_error(y_max: int):
@@ -241,22 +367,34 @@ def main() -> None:
                     help="range for exact endpoint identity checks")
     ap.add_argument("--decomp-tmax", type=int, default=900,
                     help="range for the exact three-region decomposition check")
+    ap.add_argument("--forms-tmax", type=int, default=400,
+                    help="range for the exact low-Mertens forms (F), (G) check")
     ap.add_argument("--centers", type=int, nargs="*", default=[1500, 2800],
                     help="scales N for magnitude diagnostics")
     ap.add_argument("--span", type=int, default=40, help="short window H")
     ap.add_argument("--output", type=str, default=None)
     args = ap.parse_args()
 
-    print(f"[1/3] exact endpoint identities for t <= {args.identity_tmax} ...")
+    print(f"[1/4] exact endpoint identities for t <= {args.identity_tmax} ...")
     check_endpoint_identities(args.identity_tmax)
     print("      OK (reciprocal endpoint, regime threshold, non-emptiness).")
 
-    print(f"[2/3] exact three-region decomposition for t <= {args.decomp_tmax} "
+    print(f"[2/4] exact three-region decomposition for t <= {args.decomp_tmax} "
           "(random E) ...")
     max_err = check_decomposition(args.decomp_tmax)
     print(f"      max |R_direct - (I+II+III)| = {max_err:.3e} (floating-point).")
 
-    print(f"[3/3] magnitude diagnostics at N in {args.centers}, H = {args.span} ...")
+    print(f"[3/4] exact low-Mertens forms (F), (G) and zero-frequency mass "
+          f"for t <= {args.forms_tmax} (random E) ...")
+    forms = check_low_mertens_forms(args.forms_tmax)
+    print(f"      max |R_band - form(F)| = {forms['form_F_max_abs_error']:.3e}")
+    print(f"      max |P_band - form(G)| = {forms['form_G_max_abs_error']:.3e}")
+    print(f"      zero-freq shell mass / (S/4c): mean = "
+          f"{forms['zero_freq_mass_ratio_to_S_over_4c_mean']:.4f}, "
+          f"strictly positive: {forms['zero_freq_mass_strictly_positive']} "
+          f"(pair is NOT mean-zero).")
+
+    print(f"[4/4] magnitude diagnostics at N in {args.centers}, H = {args.span} ...")
     diagnostics = magnitude_diagnostics(args.centers, args.span)
     for d in diagnostics:
         print(
@@ -290,6 +428,23 @@ def main() -> None:
         },
         "principal_endpoint_coefficient":
             "coeff of E(t+1) == M_odd(t/4,t/2] - M_odd(t/2,t]",
+        "low_mertens_forms": {
+            "form_F":
+                "R_F(t;C) = sum_{n>=t+2} e_F(n)[M(B_n)-M(A_n-1)], "
+                "A_n=max(C,ceil(S/2n)), B_n=min(2C-1,t,floor((S-1)/n))",
+            "form_G":
+                "P_F(t;C) = sum_n e_F(n)(M_odd on [S/2n,S/n] annulus "
+                "- M_odd on [S/4n,S/2n] annulus)",
+            "form_F_max_abs_error": forms["form_F_max_abs_error"],
+            "form_G_max_abs_error": forms["form_G_max_abs_error"],
+            "zero_frequency_shell_mass":
+                "|I(t,c)| - |I(t,2c)| ~ S/(4c) > 0 : the raw pair is NOT a "
+                "mean-zero wavelet; a substantial constant mode survives",
+            "zero_freq_mass_ratio_to_S_over_4c_mean":
+                forms["zero_freq_mass_ratio_to_S_over_4c_mean"],
+            "zero_freq_mass_strictly_positive":
+                forms["zero_freq_mass_strictly_positive"],
+        },
         "magnitude_diagnostics": diagnostics,
         "classification": {
             "exact": [
@@ -298,9 +453,15 @@ def main() -> None:
                 "parent/child adjacency (disjoint reciprocal slabs)",
                 "three-region decomposition",
                 "principal-endpoint coefficient",
+                "low-Mertens forms (F) and (G)",
+                "nonzero zero-frequency shell mass ~ S/(4c)",
             ],
             "finite_evidence": ["region RMS magnitudes at the tested scales"],
             "open": [
+                "no Fourier variable is present yet; before any minor-arc "
+                "analysis one must isolate the surviving constant (zero-freq) "
+                "mode of the two-shell weight and decide whether it cancels "
+                "against the baseline / complementary main term",
                 "mean-square bound for the unpaired balanced tail (region III)",
                 "equivalently a short-interval variance bound of RH strength",
             ],

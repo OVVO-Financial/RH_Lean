@@ -43,7 +43,16 @@ R_F(t) = sum_{c <= t, squarefree} mu(c) * ( E(U(t,c)) - E(L(t,c)-1) ).
    coefficient of `E(t+1)` in `R_F(t)` equals
    `M_odd(t/4, t/2] - M_odd(t/2, t]`, a difference of short odd-Moebius sums.
 
-4. **Finite magnitude diagnostics** for regions I, II, III using the genuine
+4. **Exact low-Mertens forms (F) and (G)** (Fubini swap of the `c`- and prime
+   sums), checked against the direct band sums with a random `E`:
+   * `(F)  R_F(t;C) = sum_{n>=t+2} e_F(n)[M(B_n) - M(A_n-1)]`;
+   * `(G)  P_F(t;C) = sum_n e_F(n)( M_odd on [S/2n,S/n] - M_odd on [S/4n,S/2n] )`.
+
+5. **Nonzero zero-frequency shell mass**: `|I(t,c)| - |I(t,2c)| ~ S/(4c) > 0`,
+   confirming the raw dyadic pair is **not** a mean-zero wavelet (the two shells
+   have unequal length), so pairing does not annihilate the principal frequency.
+
+6. **Finite magnitude diagnostics** for regions I, II, III using the genuine
    prime error `E = pi - F`, `F(y) = sum_{2<=n<=y} 1/log n`.
 
 ## Run
@@ -65,7 +74,10 @@ No third-party dependencies (standard library only).
 ## Classification
 
 - **exact**: all endpoint identities, the regime thresholds, parent/child
-  adjacency, the three-region decomposition, the principal-endpoint coefficient;
+  adjacency, the three-region decomposition, the principal-endpoint coefficient,
+  the low-Mertens forms (F)/(G), and the nonzero zero-frequency shell mass;
 - **finite evidence**: the region RMS magnitudes at the tested scales;
-- **open**: every uniform mean-square bound, in particular the unpaired balanced
-  tail (region III), which is of RH strength.
+- **open**: every uniform mean-square bound. In particular the first genuine
+  analytic step is the constant-mode/baseline lemma for the paired block (no
+  Fourier variable is present in (F)/(G) yet); and the unpaired balanced tail
+  (region III) is of RH strength.

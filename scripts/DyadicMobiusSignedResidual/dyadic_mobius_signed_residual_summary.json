@@ -18,6 +18,15 @@
     "III_unpaired_tail": "odd t/2 < c <= t : mu(c)[E(U_c) - E(t+1)]"
   },
   "principal_endpoint_coefficient": "coeff of E(t+1) == M_odd(t/4,t/2] - M_odd(t/2,t]",
+  "low_mertens_forms": {
+    "form_F": "R_F(t;C) = sum_{n>=t+2} e_F(n)[M(B_n)-M(A_n-1)], A_n=max(C,ceil(S/2n)), B_n=min(2C-1,t,floor((S-1)/n))",
+    "form_G": "P_F(t;C) = sum_n e_F(n)(M_odd on [S/2n,S/n] annulus - M_odd on [S/4n,S/2n] annulus)",
+    "form_F_max_abs_error": 1.9539925233402755e-13,
+    "form_G_max_abs_error": 1.9895196601282805e-13,
+    "zero_frequency_shell_mass": "|I(t,c)| - |I(t,2c)| ~ S/(4c) > 0 : the raw pair is NOT a mean-zero wavelet; a substantial constant mode survives",
+    "zero_freq_mass_ratio_to_S_over_4c_mean": 1.0000123177766977,
+    "zero_freq_mass_strictly_positive": true
+  },
   "magnitude_diagnostics": [
     {
       "N": 1500,
@@ -46,12 +55,15 @@
       "regime thresholds",
       "parent/child adjacency (disjoint reciprocal slabs)",
       "three-region decomposition",
-      "principal-endpoint coefficient"
+      "principal-endpoint coefficient",
+      "low-Mertens forms (F) and (G)",
+      "nonzero zero-frequency shell mass ~ S/(4c)"
     ],
     "finite_evidence": [
       "region RMS magnitudes at the tested scales"
     ],
     "open": [
+      "no Fourier variable is present yet; before any minor-arc analysis one must isolate the surviving constant (zero-freq) mode of the two-shell weight and decide whether it cancels against the baseline / complementary main term",
       "mean-square bound for the unpaired balanced tail (region III)",
       "equivalently a short-interval variance bound of RH strength"
     ]
