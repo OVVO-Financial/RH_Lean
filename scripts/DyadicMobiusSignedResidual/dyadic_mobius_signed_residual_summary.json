@@ -27,6 +27,30 @@
     "zero_freq_mass_ratio_to_S_over_4c_mean": 1.0000123177766977,
     "zero_freq_mass_strictly_positive": true
   },
+  "constant_mode_split": {
+    "identity_N": "pair = (l1-l2) A_2c + l1 (A_c - A_2c), A_c=Delta(c)/l1, A_2c=Delta(2c)/l2",
+    "note": "K (constant mode) and J (centered) each exceed the paired sum and largely cancel; the unpaired tail is smaller than the paired sum -- the RH-strength difficulty is NOT isolated in the tail",
+    "diagnostics": [
+      {
+        "N": 1500,
+        "H": 40,
+        "split_identity_max_abs_error": 2.842170943040401e-14,
+        "rms_paired": 157.57129973475912,
+        "rms_constant_mode_K": 264.2195025604608,
+        "rms_centered_J": 306.3187062074944,
+        "rms_unpaired_tail": 23.59260136052569
+      },
+      {
+        "N": 2800,
+        "H": 40,
+        "split_identity_max_abs_error": 2.2737367544323206e-13,
+        "rms_paired": 239.94345386497974,
+        "rms_constant_mode_K": 882.1695379567733,
+        "rms_centered_J": 988.1818471695515,
+        "rms_unpaired_tail": 78.30640827679859
+      }
+    ]
+  },
   "magnitude_diagnostics": [
     {
       "N": 1500,

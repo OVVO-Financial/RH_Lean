@@ -52,7 +52,14 @@ R_F(t) = sum_{c <= t, squarefree} mu(c) * ( E(U(t,c)) - E(L(t,c)-1) ).
    confirming the raw dyadic pair is **not** a mean-zero wavelet (the two shells
    have unequal length), so pairing does not annihilate the principal frequency.
 
-6. **Finite magnitude diagnostics** for regions I, II, III using the genuine
+6. **Constant-mode / centered split (N)** `pair = (l1-l2) A_2c + l1 (A_c - A_2c)`,
+   verified exactly, and measured with the real prime error: the constant-mode
+   part `K` and the centered part `J` each **exceed** the paired sum and largely
+   cancel, while the unpaired odd tail is **smaller** than the paired sum. This
+   substantiates that the RH-strength difficulty is *not* isolated in the tail —
+   the paired block keeps a dominant constant mode.
+
+7. **Finite magnitude diagnostics** for regions I, II, III using the genuine
    prime error `E = pi - F`, `F(y) = sum_{2<=n<=y} 1/log n`.
 
 ## Run

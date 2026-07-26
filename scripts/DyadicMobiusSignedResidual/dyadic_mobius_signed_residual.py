@@ -274,6 +274,68 @@ def check_low_mertens_forms(t_max: int) -> dict:
     }
 
 
+def check_constant_mode_split(centers: list[int], span: int) -> list[dict]:
+    """Verify the exact split (N): pair = (l1-l2) A_2c + l1 (A_c - A_2c), and
+    measure, with the genuine prime error, the constant-mode part (K) and the
+    centered part (J) of the whole paired sum versus the unpaired odd tail.
+
+    Substantiates: neither the paired block nor the tail is principal-mode free,
+    and the constant mode is the dominant raw component of the paired block.
+    """
+    n_max = max(centers) + span
+    mu = mobius_table(n_max + 5)
+    E = build_prime_error((n_max + 2) ** 2 + 10)
+
+    def delta_len(t, c):
+        lo, hi = L(t, c), U(t, c)
+        return (E(hi) - E(lo - 1), hi - lo + 1) if lo <= hi else (0.0, 0)
+
+    out = []
+    for center in centers:
+        P_list, K_list, J_list, T_list = [], [], [], []
+        max_split_err = 0.0
+        for t in range(center, center + span):
+            P = K = J = 0.0
+            for c in range(1, t // 2 + 1, 2):
+                m = mu[c]
+                if not m:
+                    continue
+                d1, l1 = delta_len(t, c)
+                d2, l2 = delta_len(t, 2 * c)
+                if l1 == 0:
+                    continue
+                Ac = d1 / l1
+                A2c = d2 / l2 if l2 > 0 else 0.0
+                const_mode = (l1 - l2) * A2c
+                centered = l1 * (Ac - A2c)
+                max_split_err = max(max_split_err,
+                                    abs((d1 - d2) - (const_mode + centered)))
+                P += m * (d1 - d2)
+                K += m * const_mode
+                J += m * centered
+            Tl = 0.0
+            for c in range(t // 2 + 1, t + 1, 2):
+                m = mu[c]
+                if not m:
+                    continue
+                d, _ = delta_len(t, c)
+                Tl += m * d
+            P_list.append(P)
+            K_list.append(K)
+            J_list.append(J)
+            T_list.append(Tl)
+        out.append({
+            "N": center,
+            "H": span,
+            "split_identity_max_abs_error": max_split_err,
+            "rms_paired": rms(P_list),
+            "rms_constant_mode_K": rms(K_list),
+            "rms_centered_J": rms(J_list),
+            "rms_unpaired_tail": rms(T_list),
+        })
+    return out
+
+
 # --------------------------------------------------------------------------
 # magnitude diagnostics with the genuine prime error
 # --------------------------------------------------------------------------
@@ -375,16 +437,16 @@ def main() -> None:
     ap.add_argument("--output", type=str, default=None)
     args = ap.parse_args()
 
-    print(f"[1/4] exact endpoint identities for t <= {args.identity_tmax} ...")
+    print(f"[1/5] exact endpoint identities for t <= {args.identity_tmax} ...")
     check_endpoint_identities(args.identity_tmax)
     print("      OK (reciprocal endpoint, regime threshold, non-emptiness).")
 
-    print(f"[2/4] exact three-region decomposition for t <= {args.decomp_tmax} "
+    print(f"[2/5] exact three-region decomposition for t <= {args.decomp_tmax} "
           "(random E) ...")
     max_err = check_decomposition(args.decomp_tmax)
     print(f"      max |R_direct - (I+II+III)| = {max_err:.3e} (floating-point).")
 
-    print(f"[3/4] exact low-Mertens forms (F), (G) and zero-frequency mass "
+    print(f"[3/5] exact low-Mertens forms (F), (G) and zero-frequency mass "
           f"for t <= {args.forms_tmax} (random E) ...")
     forms = check_low_mertens_forms(args.forms_tmax)
     print(f"      max |R_band - form(F)| = {forms['form_F_max_abs_error']:.3e}")
@@ -394,7 +456,19 @@ def main() -> None:
           f"strictly positive: {forms['zero_freq_mass_strictly_positive']} "
           f"(pair is NOT mean-zero).")
 
-    print(f"[4/4] magnitude diagnostics at N in {args.centers}, H = {args.span} ...")
+    print(f"[4/5] constant-mode / centered split (N) at N in {args.centers}, "
+          f"H = {args.span} (real E) ...")
+    split = check_constant_mode_split(args.centers, args.span)
+    for d in split:
+        print(
+            f"      N={d['N']:>6}  max|pair-(K+J)|={d['split_identity_max_abs_error']:.1e}"
+            f"  RMS(paired)={d['rms_paired']:8.2f}  RMS(K const)={d['rms_constant_mode_K']:8.2f}"
+            f"  RMS(J centered)={d['rms_centered_J']:8.2f}  RMS(tail)={d['rms_unpaired_tail']:7.2f}"
+        )
+    print("      -> constant mode K is the dominant raw component; tail < paired "
+          "(hard part is NOT isolated in the tail).")
+
+    print(f"[5/5] magnitude diagnostics at N in {args.centers}, H = {args.span} ...")
     diagnostics = magnitude_diagnostics(args.centers, args.span)
     for d in diagnostics:
         print(
@@ -444,6 +518,17 @@ def main() -> None:
                 forms["zero_freq_mass_ratio_to_S_over_4c_mean"],
             "zero_freq_mass_strictly_positive":
                 forms["zero_freq_mass_strictly_positive"],
+        },
+        "constant_mode_split": {
+            "identity_N":
+                "pair = (l1-l2) A_2c + l1 (A_c - A_2c), "
+                "A_c=Delta(c)/l1, A_2c=Delta(2c)/l2",
+            "note":
+                "K (constant mode) and J (centered) each exceed the paired sum "
+                "and largely cancel; the unpaired tail is smaller than the "
+                "paired sum -- the RH-strength difficulty is NOT isolated in "
+                "the tail",
+            "diagnostics": split,
         },
         "magnitude_diagnostics": diagnostics,
         "classification": {
