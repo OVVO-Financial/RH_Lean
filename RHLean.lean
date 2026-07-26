@@ -43,6 +43,7 @@ import RHLean.Geometry.TwoABDisplacement
 import RHLean.Kernel.FixedPackets
 import RHLean.Proof.BirthMovingAbsorption
 import RHLean.Proof.CumulativeHeightFlow
+import RHLean.Proof.DeathProcessArithmetic
 import RHLean.Proof.LifetimeActiveSet
 import RHLean.Proof.LifetimeEndpointDecomposition
 import RHLean.Proof.LifetimeLocalEnergyCriterion
