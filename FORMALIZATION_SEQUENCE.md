@@ -316,10 +316,10 @@ No abstract start-sequence realization, indexing adapter, exponent adapter, loca
 69. `RHLean.Proof.CompleteFermatSieve`
 70. `RHLean.Proof.DeathShellDivisorFibers`
 71. `RHLean.Proof.DeathShellCofactorParity`
-72. `RHLean.Proof.TwoABScaleTransfer`
-73. `RHLean.Proof.TwoABPrimeDilation`
-74. `RHLean.Proof.DyadicTransportCompression`
-75. `RHLean.Proof.DyadicTransportCanonicalForm`
+72. `RHLean.Analysis.TwoABScaleTransfer`
+73. `RHLean.Analysis.TwoABPrimeDilation`
+74. `RHLean.Analysis.DyadicTransportCompression`
+75. `RHLean.Analysis.DyadicTransportCanonicalForm`
 
 These modules compile the exact finite partial-moment identities and their square-block specialization; reconstruct canonical height-shell energies; define the cumulative moving boundary and lifetime interval system; prove the active/birth/death endpoint identities; identify each death increment with a thin factorized shell sum; transfer shell cardinality to pointwise and cumulative death-process bounds; verify the complete mod-twenty Fermat sieve; inject each positive-cutoff shell into the divisor fibers over its full finite integer-height window; regroup each shell by finite cofactor-`ω` parity fibers; prove exact source-resolved `entered = smooth - transport`; formalize square-root inversion and `2ab` dilation; expose the complete finite weighted prime-dilation discrepancy and prime-first Fubini identity; compress every parent/doubled-child common transport suffix to an explicit dyadic boundary packet; and identify both the canonical high-source subset and the complete odd dyadic annulus.
 

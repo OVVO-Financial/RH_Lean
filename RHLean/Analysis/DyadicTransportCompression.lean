@@ -1,6 +1,6 @@
 import Mathlib
 import RHLean.Arithmetic.MoebiusDoubling
-import RHLean.Proof.TwoABPrimeDilation
+import RHLean.Analysis.TwoABPrimeDilation
 
 /-!
 # Exact dyadic compression of canonical transport packets
@@ -18,6 +18,10 @@ transport sum is exactly a sum over odd cofactors in the dyadic boundary
 
 All statements in this file are finite identities.  No cancellation estimate or
 RH implication is asserted.
+
+This module is classified under `RHLean/Analysis/` because its content is
+represented in the bridge paper; the namespace remains `RHLean.Proof` for API
+compatibility with existing references.
 -/
 
 noncomputable section
