@@ -124,7 +124,7 @@ theorem finite_abel_identity (a w : ℕ → R) (n : ℕ) :
   induction n with
   | zero => simp [inclusivePrefix]
   | succ n ih =>
-      rw [Finset.sum_range_succ, Finset.sum_range_succ]
+      rw [Finset.sum_range_succ]
       rw [ih]
       simp only [inclusivePrefix, Finset.sum_range_succ]
       ring
@@ -166,7 +166,7 @@ theorem projectionDefect_finitePrediction_eq_sum
   rw [sum_inner]
   apply Finset.sum_congr rfl
   intro k hk
-  simp
+  rw [inner_smul_left]
 
 /-- Exact Abel reduction of a finite weighted Hilbert-space projection defect. -/
 theorem projectionDefect_finitePrediction_eq_abel
