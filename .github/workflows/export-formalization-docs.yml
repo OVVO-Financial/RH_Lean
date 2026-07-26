@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - agent/twoab-scale-transfer
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
