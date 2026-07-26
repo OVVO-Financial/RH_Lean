@@ -59,10 +59,10 @@ theorem deathShellHeightNat_pos_of_mem
     exact lt_of_le_of_lt hthreshold hwindow.1
   exact_mod_cast hheightReal
 
-/-- The integer height of every source in a positive-cutoff shell belongs to
-that shell's finite integer window. -/
+/-- The integer height of every source in a shell belongs to that shell's
+finite integer window. -/
 theorem deathShellHeightNat_mem_integerWindow
-    {Λ : ℝ} (hΛ : 0 < Λ) {t m : ℕ}
+    {Λ : ℝ} {t m : ℕ}
     (hm : m ∈ deathHeightShellSet Λ t) :
     deathShellHeightNat m ∈ deathShellIntegerWindow Λ t := by
   have hshell := mem_deathHeightShellSet_implies_shell Λ t m hm
@@ -107,7 +107,7 @@ theorem deathShellDivisorCode_mem_fibers
     deathShellDivisorCode m ∈ deathShellDivisorFibers Λ t := by
   apply Finset.mem_sigma.mpr
   constructor
-  · exact deathShellHeightNat_mem_integerWindow hΛ hm
+  · exact deathShellHeightNat_mem_integerWindow hm
   · change canonicalAbsoluteGap m ∈ (deathShellHeightNat m).divisors
     apply Nat.mem_divisors.mpr
     constructor
@@ -128,11 +128,10 @@ theorem deathShellDivisorCode_injOn
   have hheightPos : 0 < deathShellHeightNat m :=
     deathShellHeightNat_pos_of_mem hΛ hm
   have hgapPos : 0 < canonicalAbsoluteGap m := by
-    have hmul :
-        0 < canonicalAbsoluteGap m *
-          (canonicalPairLo m + canonicalPairHi m) := by
-      simpa [deathShellHeightNat] using hheightPos
-    exact (Nat.mul_pos_iff.mp hmul).1
+    apply Nat.pos_of_ne_zero
+    intro hgapZero
+    rw [deathShellHeightNat, hgapZero, zero_mul] at hheightPos
+    exact (Nat.lt_irrefl 0) hheightPos
   have hsum :
       canonicalPairLo m + canonicalPairHi m =
         canonicalPairLo n + canonicalPairHi n := by
@@ -180,8 +179,12 @@ control interface. -/
 noncomputable def deathShellDivisorCardinalityControl
     (Λ : ℝ) (hΛ : 0 < Λ) : DeathShellCardinalityControl Λ where
   majorant := deathShellDivisorMajorant Λ
-  majorant_nonneg := fun _ => by positivity
+  majorant_nonneg := fun _ => by
+    unfold deathShellDivisorMajorant
+    positivity
   card_le := fun t => by
+    change ((deathHeightShellSet Λ t).card : ℝ) ≤
+      ((∑ k ∈ deathShellIntegerWindow Λ t, k.divisors.card : ℕ) : ℝ)
     exact_mod_cast card_deathHeightShellSet_le_divisorSum hΛ t
 
 /-- The exact shell identity and divisor-fiber bound control every death
