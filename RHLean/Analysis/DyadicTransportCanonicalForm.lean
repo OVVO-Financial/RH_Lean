@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.DyadicTransportCompression
+import RHLean.Analysis.DyadicTransportCompression
 
 /-!
 # Canonical source form of dyadic transport compression
@@ -24,6 +24,10 @@ The module also records the distinct complete-annulus identity
 
 The high transport source mass is only the `P+(m) > R` part of that annulus; it
 is not the complete annulus and is not by itself the protected RH residual.
+
+This module is classified under `RHLean/Analysis/` because its content is
+represented in the bridge paper; the namespace remains `RHLean.Proof` for API
+compatibility with existing references.
 -/
 
 noncomputable section

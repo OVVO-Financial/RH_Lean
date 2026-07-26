@@ -49,8 +49,8 @@ import RHLean.Proof.DeathProcessShellIdentity
 import RHLean.Proof.DeathShellCardinalityAndCentering
 import RHLean.Proof.DeathShellCofactorParity
 import RHLean.Proof.DeathShellDivisorFibers
-import RHLean.Proof.DyadicTransportCompression
-import RHLean.Proof.DyadicTransportCanonicalForm
+import RHLean.Analysis.DyadicTransportCompression
+import RHLean.Analysis.DyadicTransportCanonicalForm
 import RHLean.Proof.LifetimeActiveSet
 import RHLean.Proof.LifetimeEndpointDecomposition
 import RHLean.Proof.LifetimeLocalEnergyCriterion
@@ -70,6 +70,6 @@ import RHLean.Proof.SquareBlockPartialMomentBalance
 import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockIncrementEnergy
 import RHLean.Proof.SquareBlockTransportBaseline
-import RHLean.Proof.TwoABScaleTransfer
-import RHLean.Proof.TwoABPrimeDilation
+import RHLean.Analysis.TwoABScaleTransfer
+import RHLean.Analysis.TwoABPrimeDilation
 import RHLean.Verification.FiniteRangeCertificates
