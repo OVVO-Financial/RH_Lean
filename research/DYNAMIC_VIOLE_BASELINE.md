@@ -23,8 +23,8 @@ the fitted effective logarithmic-base exponent is
 
 ```text
 s(x) = log b(x)
-     = 2 + 22.407744267 / log x
-         - 152.128575193 / (log x)^2.
+     = 2 + 22.407744267407335 / log x
+         - 152.12857519277964 / (log x)^2.
 ```
 
 The dynamic correction is
@@ -42,8 +42,8 @@ VF_dyn(r) = r^2 / (log(r^2) - G(xi_r)).
 The cumulative baseline is the piecewise-linear interpolant through the anchors
 `(xi_r, VF_dyn(r))`.
 
-The decimal coefficients are represented in Lean as exact rational numbers. Their
-empirical origin is not promoted to a theorem.
+The full fitted decimals from the experiment summary are represented in Lean as exact
+rational numbers. Their empirical origin is not promoted to a theorem.
 
 ## Empirical protocol
 
@@ -68,12 +68,16 @@ interpretation is deliberately limited:
 - it removes a substantial rowwise interval bias relative to Li;
 - it does not by itself remove the signed RH-hard residual.
 
+The phrase “Möbius high-pass filter” is useful empirical shorthand, but it is not an
+unconditional square-root-cancellation theorem: a general estimate of size
+`O(C^(1/2+epsilon))` for a smooth Möbius-weighted sum would itself be RH-strength.
+
 ## Logical boundary
 
 Lean proves only:
 
 1. the exact deterministic formula;
-2. its midpoint interpolation identities;
+2. its local midpoint-segment interpolation identities;
 3. its exact specialization of the generic square-block baseline decomposition.
 
 Lean does not assert that dynamic VF approximates `pi`, outperforms `li`, satisfies a
