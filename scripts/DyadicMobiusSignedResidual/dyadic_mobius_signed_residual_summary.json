@@ -1,0 +1,59 @@
+{
+  "object": "signed exact-activity residual R_F(t)",
+  "endpoints": {
+    "lower": "max(t+2, ceil((t+1)^2/(2c)))",
+    "upper": "floor(((t+1)^2-1)/c)"
+  },
+  "exact_identities": {
+    "reciprocal_endpoint": "ceil(S/(2c)) - 1 == floor((S-1)/(2c)) == U(t,2c)",
+    "lower_endpoint": "L(t,c) - 1 == max(t+1, U(t,2c))",
+    "regime_threshold": "U(t,2c) >= t+1  <==>  2c <= t",
+    "identity_tmax": 500,
+    "decomposition_tmax": 900,
+    "decomposition_max_abs_error": 9.947598300641403e-14
+  },
+  "three_regions": {
+    "I_both_hyperbolic": "odd c <= t/4 : mu(c)[E(U_c) - 2E(U_2c) + E(U_4c)]",
+    "II_parent_hyp_child_prefix": "odd t/4 < c <= t/2 : mu(c)[E(U_c) - 2E(U_2c) + E(t+1)]",
+    "III_unpaired_tail": "odd t/2 < c <= t : mu(c)[E(U_c) - E(t+1)]"
+  },
+  "principal_endpoint_coefficient": "coeff of E(t+1) == M_odd(t/4,t/2] - M_odd(t/2,t]",
+  "magnitude_diagnostics": [
+    {
+      "N": 1500,
+      "H": 40,
+      "rms_region_I": 157.46417774828316,
+      "rms_region_II": 20.47534395729169,
+      "rms_region_III_unpaired_tail": 28.277055914112015,
+      "rms_paired_I_plus_II": 157.57129973475912,
+      "rms_total_R_F": 178.58698610110832,
+      "principal_coeff_identity_max_err": 0.0
+    },
+    {
+      "N": 2800,
+      "H": 40,
+      "rms_region_I": 225.52671504376826,
+      "rms_region_II": 40.845009869454124,
+      "rms_region_III_unpaired_tail": 109.14546494481547,
+      "rms_paired_I_plus_II": 239.94345386497974,
+      "rms_total_R_F": 336.93715116108996,
+      "principal_coeff_identity_max_err": 0.0
+    }
+  ],
+  "classification": {
+    "exact": [
+      "endpoint identities",
+      "regime thresholds",
+      "parent/child adjacency (disjoint reciprocal slabs)",
+      "three-region decomposition",
+      "principal-endpoint coefficient"
+    ],
+    "finite_evidence": [
+      "region RMS magnitudes at the tested scales"
+    ],
+    "open": [
+      "mean-square bound for the unpaired balanced tail (region III)",
+      "equivalently a short-interval variance bound of RH strength"
+    ]
+  }
+}
