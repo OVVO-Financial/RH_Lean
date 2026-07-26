@@ -192,7 +192,6 @@ theorem squareRootInversion_interval_length
     squareRootInversion R c - R = (R / c) * (R - c) := by
   unfold squareRootInversion
   field_simp [hc]
-  ring
 
 /-- Normalized doubled `2ab` height of a positive factor pair. -/
 def normalizedTwoABHeight (c q : ℝ) : ℝ :=
@@ -205,7 +204,6 @@ theorem normalizedTwoABHeight_eq_factorRatio
     normalizedTwoABHeight c q = ((q / c) - (c / q)) / 2 := by
   unfold normalizedTwoABHeight
   field_simp [hc, hq]
-  ring
 
 /-- Continuous source dilation from entry scale `sqrt(cq)` to transition scale
 `q`. -/
@@ -221,7 +219,6 @@ theorem factorDilation_sq
   unfold factorDilation
   rw [div_pow, Real.sq_sqrt hprod]
   field_simp [hc.ne', hq.ne', hsqrt_ne]
-  ring
 
 /-- Lower baseline difference on the interval below the square-root cutoff. -/
 def baselineLowDifference (F : ℝ → ℂ) (R c : ℝ) : ℂ :=
