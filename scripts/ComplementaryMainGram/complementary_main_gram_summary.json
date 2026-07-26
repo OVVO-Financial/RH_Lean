@@ -1,0 +1,99 @@
+{
+  "object": "complementary main L+Hhat_F, and residual pairing Gram",
+  "definitions": {
+    "H": "sum_{c<=t,ODD} -mu(c)(pi(U)-pi(L-1))",
+    "Hhat_F": "sum_{c<=t,ODD} -mu(c)(F(U)-F(L-1))",
+    "S": "M_odd((t+1)^2-1) - M_odd(ceil((t+1)^2/2)-1)",
+    "L": "S - H (born-smooth)",
+    "RF_odd": "Hhat_F - H = Main - S (physical, odd cofactor; closes EXACTLY)",
+    "RF_pair": "K + J + T (dyadic pairing; ALL-cofactor reorganization)"
+  },
+  "baseline": "trapezoidal cumulative 1/log (li-type)",
+  "reproduced_qualitatively": [
+    "near-total cancellation of L+Hhat_F (survival < 0.01%)",
+    "raw cosine(L,Hhat) < -0.9999",
+    "L+Hhat_F nearly projection-like (alpha_orth close to 1)",
+    "Main-RF_odd not projection-like (alpha far from 1)",
+    "2<K,J> dominant negative residual cross term; K/T, J/T negligible"
+  ],
+  "open_reconciliation": [
+    "exact digits are definition/baseline/scale sensitive; a Li-baseline collaborator report at (N,H)=(2800,640) gives ~2x different amplitudes",
+    "the physical residual RF_odd is odd-cofactor, but the pairing K+J+T is the all-cofactor reorganization; they differ by even-cofactor terms (convention_gap). A unified 5-component [L,Hhat,-K,-J,-T] closure needs the residual/pairing cofactor convention pinned down."
+  ],
+  "grid": [
+    {
+      "N": 900,
+      "H": 180,
+      "closure_Main_minus_RFodd_eq_S_maxerr": 0.0,
+      "energies": {
+        "L": 7270262976.0,
+        "Hhat": 7450822422.651076,
+        "H": 7316332424.0,
+        "S": 6427176.0,
+        "Main": 1468533.4288418845,
+        "RF_odd": 4433670.064281803,
+        "RF_pair": 7388927.260210028,
+        "K": 7901134.832035146,
+        "J": 18457827.4551841,
+        "T": 52393.84682289775
+      },
+      "convention_gap_RFpair_vs_RFodd": 0.2645936374474375,
+      "complementary_main": {
+        "survival_pct": 0.009975714351717905,
+        "raw_cosine_L_Hhat": -0.9999754633968158,
+        "centered_corr_L_Hhat": -0.9978958468775824,
+        "alpha_orth_L_on_negHhat": 0.9877847055160958,
+        "gap_from_1": 0.012215294483904238,
+        "energy_excess_coeff1_over_opt": 4.116182385469576
+      },
+      "main_minus_RFodd": {
+        "alpha_orth_Main_on_RFodd": -0.059202928867616286,
+        "energy_excess_coeff1_over_opt": 4.423403212518292
+      },
+      "residual_pairing_gram_all_cofactor": {
+        "2_K_J": -19744771.00079766,
+        "2_K_T": -236898.52518934297,
+        "2_J_T": 959240.6521549101,
+        "2_K_J_over_RFpair_energy": -2.6722107696370014,
+        "centered_corr_K_J": -0.8244288227899753
+      }
+    },
+    {
+      "N": 1200,
+      "H": 240,
+      "closure_Main_minus_RFodd_eq_S_maxerr": 0.0,
+      "energies": {
+        "L": 26582567847.0,
+        "Hhat": 27102973540.88329,
+        "H": 26685333214.0,
+        "S": 14618083.0,
+        "Main": 3345191.3817822724,
+        "RF_odd": 10344443.99741881,
+        "RF_pair": 20698289.958588835,
+        "K": 62441340.7639226,
+        "J": 121902555.95682034,
+        "T": 117203.35149577858
+      },
+      "convention_gap_RFpair_vs_RFodd": 0.500074881876941,
+      "complementary_main": {
+        "survival_pct": 0.00623108437635552,
+        "raw_cosine_L_Hhat": -0.9999846723954261,
+        "centered_corr_L_Hhat": -0.9980264447475825,
+        "alpha_orth_L_on_negHhat": 0.9903377597208102,
+        "gap_from_1": 0.009662240279189827,
+        "energy_excess_coeff1_over_opt": 4.1050937816658175
+      },
+      "main_minus_RFodd": {
+        "alpha_orth_Main_on_RFodd": -0.04487663237534045,
+        "energy_excess_coeff1_over_opt": 4.397264207818329
+      },
+      "residual_pairing_gram_all_cofactor": {
+        "2_K_J": -165700598.68692586,
+        "2_K_T": -2003248.4583031952,
+        "2_J_T": 3941037.0315792672,
+        "2_K_J_over_RFpair_energy": -8.0055211816263,
+        "centered_corr_K_J": -0.9485284251801976
+      }
+    }
+  ]
+}
