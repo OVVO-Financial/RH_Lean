@@ -48,7 +48,7 @@ def exactActivityPrimeInterval (t c : ℕ) : Finset ℕ :=
 @[simp] theorem mem_exactActivityPrimeInterval {t c q : ℕ} :
     q ∈ exactActivityPrimeInterval t c ↔
       q.Prime ∧ exactActivityPrimeLower t c ≤ q ∧ q ≤ exactActivityPrimeUpper t c := by
-  simp [exactActivityPrimeInterval, and_comm, and_left_comm, and_assoc]
+  simp [exactActivityPrimeInterval, and_comm]
 
 /-- The compressed packet activity predicate is exactly the three elementary
 product inequalities, provided `t` lies inside the finite horizon. -/
@@ -117,6 +117,7 @@ theorem exactActivityPrimeBounds_iff_product_bounds
       exact (Nat.le_div_iff_mul_le hc).1 hupper
     have hproductLe : c * q ≤ (t + 1) ^ 2 - 1 := by
       simpa [Nat.mul_comm] using hdiv
+    have hsquarePos : 0 < (t + 1) ^ 2 := by positivity
     have hproductLt : c * q < (t + 1) ^ 2 := by omega
     exact ⟨hparts.1, hmiddle, hproductLt⟩
   · rintro ⟨hq, hmiddle, hproductLt⟩
