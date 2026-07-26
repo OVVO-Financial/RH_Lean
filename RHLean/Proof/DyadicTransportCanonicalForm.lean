@@ -12,10 +12,10 @@ For `X = R^2 - 1`, every retained pair satisfies
 
 * `q` is prime and `R < q <= X`;
 * `c` is positive, odd, and `c < R < q`;
-* `c*q <= X < 2*c*q`.
+* `c*q <= X < 2*c*q`;
+* `q = P+(c*q)` and `c` is the canonical cofactor.
 
-Hence `q` is the unique upper prime coordinate of a canonical high source.  The
-paper transport coefficient is `mu(c)`, whereas the source coefficient is
+The paper transport coefficient is `mu(c)`, whereas the source coefficient is
 `mu(c*q) = -mu(c)`.  Both exact forms are recorded below.
 
 The module also records the distinct complete-annulus identity
@@ -44,7 +44,7 @@ instance instDecidableIsDyadicCanonicalHighSource (R c q : ℕ) :
   infer_instance
 
 /-- Every compressed source lies in the upper half of the square-prefix range
-and retains all canonical prime/cofactor side conditions explicitly. -/
+and retains all elementary prime/cofactor side conditions explicitly. -/
 theorem arithmetic_of_isDyadicCanonicalHighSource
     {R c q : ℕ} (hR : 0 < R)
     (h : IsDyadicCanonicalHighSource R c q) :
@@ -74,6 +74,53 @@ theorem arithmetic_of_isDyadicCanonicalHighSource
         _ ≤ squareRootEndpoint R := hle
     omega
   exact ⟨hqPrime, hRq, hqX, hc1, hcR, hcq, hcOdd, hupper, hlower⟩
+
+/-- A prime strictly larger than its positive cofactor is the canonical largest
+prime factor of their product. -/
+theorem canonicalLargestPrimeFactor_mul_prime_eq
+    {c q : ℕ} (hc : 0 < c) (hcq : c < q) (hq : q.Prime) :
+    canonicalLargestPrimeFactor (c * q) = q := by
+  have hm1 : 1 < c * q := by
+    calc
+      1 < q := hq.one_lt
+      _ = 1 * q := by simp
+      _ ≤ c * q := Nat.mul_le_mul_right q hc
+  have hqmem : q ∈ (c * q).primeFactors := by
+    apply hq.mem_primeFactors
+    · exact ⟨c, by simp [Nat.mul_comm]⟩
+    · exact Nat.mul_ne_zero (Nat.ne_of_gt hc) hq.ne_zero
+  have hall : ∀ p ∈ (c * q).primeFactors, p ≤ q := by
+    intro p hp
+    have hpPrime := Nat.prime_of_mem_primeFactors hp
+    have hpDvd := Nat.dvd_of_mem_primeFactors hp
+    rcases hpPrime.dvd_mul.mp hpDvd with hpc | hpq
+    · exact (Nat.le_of_dvd hc hpc).trans hcq.le
+    · exact ((Nat.prime_dvd_prime_iff_eq hpPrime hq).mp hpq).le
+  unfold canonicalLargestPrimeFactor
+  rw [dif_pos hm1]
+  exact ((c * q).primeFactors.max'_eq_iff
+    (Nat.nonempty_primeFactors.mpr hm1) q).2 ⟨hqmem, hall⟩
+
+/-- The canonical cofactor of `c*q` is the original lower factor whenever `q`
+is prime and strictly larger than `c`. -/
+theorem canonicalCofactor_mul_prime_eq
+    {c q : ℕ} (hc : 0 < c) (hcq : c < q) (hq : q.Prime) :
+    canonicalCofactor (c * q) = c := by
+  unfold canonicalCofactor
+  rw [canonicalLargestPrimeFactor_mul_prime_eq hc hcq hq]
+  exact Nat.mul_div_right c hq.pos
+
+/-- Full canonical coordinate certificate for every retained dyadic high source. -/
+theorem canonicalCoordinates_of_isDyadicCanonicalHighSource
+    {R c q : ℕ} (hR : 0 < R)
+    (h : IsDyadicCanonicalHighSource R c q) :
+    canonicalLargestPrimeFactor (c * q) = q ∧
+      canonicalCofactor (c * q) = c := by
+  have hdata := arithmetic_of_isDyadicCanonicalHighSource hR h
+  exact ⟨canonicalLargestPrimeFactor_mul_prime_eq
+      (Nat.zero_lt_of_lt hdata.2.2.2.1) hdata.2.2.2.2.2.1 hdata.1,
+    canonicalCofactor_mul_prime_eq
+      (Nat.zero_lt_of_lt hdata.2.2.2.1) hdata.2.2.2.2.2.1 hdata.1⟩
 
 /-- A prime larger than the positive cofactor flips the source Möbius weight. -/
 theorem canonicalMoebiusWeight_mul_prime_eq_neg
