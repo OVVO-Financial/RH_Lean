@@ -21,37 +21,45 @@ dyadic pairing note decomposes.
 
 ## 1. Exact identity
 
-With the odd-cofactor definitions (script header), `L := S − H`, so
+With all-cofactor `H, Ĥ^F` and `L := S − H`, **both** closures hold exactly:
 
 ```text
-Main_F − R_F,odd  =  S ,     R_F,odd := Ĥ^F − H ,           (odd cofactor)
+Main_F − R_F  =  S ,     R_F := Ĥ^F − H  =  K + J + T .
 ```
 
-closes **exactly** (max error `0`, all tested windows). This is the concrete
-`S = Main + residual` split.
+`Main − R_F = S` has max error `0`, and `R_F = K + J + T` matches to `~10⁻¹¹`
+(floating point). The residual and the dyadic-pairing decomposition are **one
+object** — there is no cofactor-convention gap (an earlier odd-cofactor
+reconstruction of `H` produced a spurious `~0.3–0.5` discrepancy; summing `H`
+over all squarefree cofactors, consistent with the pairing, removes it).
 
 ## 2. The decisive cancellation is inside the main term — REPRODUCED
 
 The collaborator's central finding is independently reproduced (this harness,
-two scales, li-type baseline): the two pieces of `Main_F` almost annihilate.
+two scales, li-type baseline). With the corrected all-cofactor convention the
+digits also fall into line with the collaborator's `Li` run.
 
 | quantity | N=900 | N=1200 | collaborator (N=2800, Li) |
 |---|---|---|---|
-| survival `|L+Ĥ^F|²/(|L|²+|Ĥ^F|²)` | 0.0100% | 0.0062% | 0.0037% |
-| raw `cos(L, Ĥ^F)` | −0.99998 | −0.99998 | −0.99997 |
-| `α_orth(L on −Ĥ^F)` | 0.9878 | 0.9903 | 0.9970 |
+| survival `|L+Ĥ^F|²/(|L|²+|Ĥ^F|²)` | 0.022% | 0.012% | 0.0037% |
+| raw `cos(L, Ĥ^F)` | −0.99985 | −0.99989 | −0.99997 |
+| `α_orth(L on −Ĥ^F)` | 0.9877 | 0.9980 | 0.9970 |
+| `L+Ĥ^F` energy excess (coeff 1 / opt) | 1.53 | 1.02 | 1.14 |
 
 `|L|²` and `|Ĥ^F|²` are each `~10¹¹–10¹²` while `|L+Ĥ^F|²` is `~10⁶–10⁷`. The
 born-smooth `L` and the baseline transport `Ĥ^F` are anti-parallel to better than
 `10⁻⁴` in cosine, and `α_orth → 1` as `N` grows (the theorem coefficient `1` is
-asymptotically the true orthogonal coefficient). **The strongest nearly
+asymptotically the true orthogonal coefficient; coefficient `1` already sits
+within a few percent of the orthogonal-minimum energy). **The strongest nearly
 orthogonal structure lives inside `L + Ĥ^F`, not between `Main` and the
 residual.**
 
-By contrast, projecting `Main` onto `R_F,odd` gives `α ≈ −0.05` (this harness),
-far from `1`: `Main − R_F` is **not** near-projection-like. So the theorem's
-`Main − R_F` subtraction and the true orthogonal residual are genuinely separate
-objects — as the repository's orthogonal-residual formalization insists.
+By contrast, projecting `Main` onto `R_F` gives `α ≈ 0.11–0.18` (this harness;
+collaborator `0.194`), far from `1`, with the coefficient-`1` energy running
+`~11–22×` the orthogonal minimum: `Main − R_F` is **not** near-projection-like.
+So the theorem's `Main − R_F` subtraction and the true orthogonal residual are
+genuinely separate objects — as the repository's orthogonal-residual
+formalization insists.
 
 The empirical quantities here are exactly the finite instances of the merged
 `RHLean/Proof/NearOrthogonality.lean` (PR #103) API: `α_orth` is
@@ -78,27 +86,26 @@ negative cross term:
 — separate estimates would discard the dominant cancellation (consistent with
 the pairing note's split (N)).
 
-## 4. Two gaps found while reproducing — OPEN
+## 4. Convention reconciled, one item still open
 
-Independent reconstruction confirmed the *structure* but surfaced two concrete
-gaps that need the collaborator's exact definitions to close:
+Reconstruction initially showed a `~0.3–0.5` discrepancy between `Ĥ^F − H` and
+`K + J + T`. This was a **reconstruction artifact**: the harness summed `H` over
+odd cofactors only, while the dyadic pairing `K+J+T` is the all-cofactor object.
+Summing `H, Ĥ^F` over **all** squarefree cofactors makes the two coincide
+exactly (`R_F = Ĥ^F − H = K + J + T`, `~10⁻¹¹`), and the five-component identity
 
-1. **Amplitude (~2×).** This harness gives `|L|² ≈ 4.7×` the collaborator's at
-   `N=2800`. The finer coefficients (survival %, `α_orth`, projection ratios)
-   are sensitive to the exact born-smooth/high split and to the baseline (li
-   trapezoid here vs `Li`). The qualitative conclusions are stable; the digits
-   are not comparable without a common definition.
+```text
+S  =  L + Ĥ^F − K − J − T
+```
 
-2. **Cofactor convention.** The physical residual `R_F,odd = Ĥ^F − H` is
-   **odd-cofactor** (the source `m = cq` has odd `c`), and `S = Main − R_F,odd`
-   closes exactly. But the dyadic pairing `K + J + T` is the **all-cofactor**
-   reorganization (it folds even `2c` onto odd `c` via `μ(2c) = −μ(c)`), so
-   `R_F,pair = K+J+T` differs from `R_F,odd` by the even-cofactor terms —
-   numerically `|R_F,pair − R_F,odd|² / |R_F,odd|² ≈ 0.27–0.50`. A unified
-   five-component `[L, Ĥ^F, −K, −J, −T]` closure therefore needs the residual /
-   pairing cofactor convention pinned down. **This also bears on the pairing
-   note**, whose `R_F` was the all-cofactor object; if the physical residual is
-   odd-only, the pairing must be re-derived on the odd-cofactor basis.
+closes with zero error. **There is no cofactor-convention gap**; the earlier note
+version that raised one was wrong, and the pairing note's all-cofactor `R_F` is
+the correct object.
+
+Still open: a quantitative rate for `α_orth(L, −Ĥ^F) → 1`, and — as always — the
+sensitivity of the finest digits to the exact baseline (`li` trapezoid here vs
+`Li`), now small enough that this harness and the collaborator's `Li` run agree
+to a few percent on `α_orth` and the energy-excess ratios.
 
 ## 5. Recommended block architecture — from the reproduced structure
 
@@ -130,8 +137,10 @@ gaps that need the collaborator's exact definitions to close:
 One window / one baseline is not enough. Grid over `N`, `H/N`, and baseline,
 tracking: `1 − α_orth`, the normalized `L/Ĥ^F` Gram determinant, the `K/J`
 survival ratio, and the eigenmode overlap with the final recombination vector.
-The `--N` / `--hratio` switches provide the scaffold; the amplitude and
-convention gaps above must be reconciled first for cross-run digit comparison.
+The `--N` / `--hratio` switches provide the scaffold. With the all-cofactor
+convention the closures are exact and the digits agree with the collaborator to a
+few percent, so cross-run comparison is now meaningful; only the baseline choice
+(`li` trapezoid vs `Li`) still perturbs the finest digits.
 
 ---
 

@@ -28,21 +28,23 @@ For height t and cofactor c, with S=(t+1)^2, exact endpoints
     L(t,c) = max(t+2, ceil(S/(2c))) ,  U(t,c) = floor((S-1)/c) ,
 and E(y) = pi(y) - F(y) for a baseline F:
 
-    H[t]      =  sum_{c<=t, odd} -mu(c) ( pi(U) - pi(L-1) )        (signed high)
-    Hhat_F[t] =  sum_{c<=t, odd} -mu(c) ( F(U)  - F(L-1)  )        (baseline transport)
+    H[t]      =  sum_{c<=t, all sqfree} -mu(c) ( pi(U) - pi(L-1) )  (signed high)
+    Hhat_F[t] =  sum_{c<=t, all sqfree} -mu(c) ( F(U)  - F(L-1)  )  (baseline transport)
     S[t]      =  M_odd((t+1)^2 - 1) - M_odd(ceil((t+1)^2/2) - 1)   (odd dyadic annulus)
     L[t]      =  S[t] - H[t]                                        (born-smooth)
     Main[t]   =  L[t] + Hhat_F[t]
-    RF_odd[t] =  Main[t] - S[t] = Hhat_F[t] - H[t]                  (physical residual)
+    RF[t]     =  Main[t] - S[t] = Hhat_F[t] - H[t]                  (residual)
 
-The odd-cofactor closure  S = Main - RF_odd  holds EXACTLY (checked; max err 0).
+H, Hhat_F run over ALL squarefree cofactors, so the residual RF = Hhat_F - H
+coincides with the dyadic-pairing residual K + J + T
+(research/DYADIC_MOBIUS_SIGNED_RESIDUAL.md): they are one object, with no
+cofactor-convention gap. Both closures
 
-K, J, T are the constant-mode / centered / tail pieces of the dyadic PAIRING
-residual (research/DYADIC_MOBIUS_SIGNED_RESIDUAL.md). The pairing folds even
-cofactors 2c back onto odd c via mu(2c) = -mu(c), so RF_pair = K + J + T is the
-ALL-cofactor reorganization and differs from the odd-only physical residual
-RF_odd by the even-cofactor terms. The script reports this convention gap rather
-than forcing a false unified closure.
+    Main - RF == S      and      RF == K + J + T
+
+hold EXACTLY (checked; max err ~ 0). K, J, T are the constant-mode / centered /
+tail pieces of that residual, taken on the odd parents c with the even child 2c
+folded in via mu(2c) = -mu(c).
 
 IMPORTANT CAVEAT. The exact born-smooth/high split and the baseline choice fix
 the finer coefficients (survival %, alpha_orth, projection ratios) but not the
@@ -141,7 +143,10 @@ def analyse_window(N: int, H: int, pi, F, mu_small, Modd) -> dict:
         Hprime = 0.0
         Hf = 0.0
         K = J = T = 0.0
-        for c in range(1, t + 1, 2):
+        # H, Hhat_F run over ALL squarefree cofactors (consistent with the
+        # all-cofactor pairing residual K+J+T); the pairing decomposition is
+        # taken on the odd parents c, folding the even child 2c via mu(2c)=-mu(c).
+        for c in range(1, t + 1):
             mc = mu_small[c]
             if mc == 0:
                 continue
@@ -152,7 +157,9 @@ def analyse_window(N: int, H: int, pi, F, mu_small, Modd) -> dict:
             dF = F[hi] - F[lo - 1]
             Hprime += (-mc) * dpi
             Hf += (-mc) * dF
-            # residual increment E = pi - F
+            if c % 2 == 0:
+                continue  # even cofactors enter H/Hhat only; pairing uses odd parents
+            # residual increment E = pi - F, odd parent c
             d1 = dpi - dF
             l1 = hi - lo + 1
             if 2 * c <= t:
@@ -175,15 +182,14 @@ def analyse_window(N: int, H: int, pi, F, mu_small, Modd) -> dict:
         T_.append(T)
 
     Main = [a + b for a, b in zip(L_, Hh_)]
-    # Physical residual is ODD-cofactor: RF_odd = Hhat - H. Then Main - RF_odd = S
-    # holds EXACTLY by construction (L := S - H).
-    RF_odd = [hf - hn for hf, hn in zip(Hh_, Hn_)]
-    max_S_close = max(abs(m - rf - s) for m, rf, s in zip(Main, RF_odd, S_))
-    # Pairing residual RF_pair = K + J + T is the ALL-cofactor reorganization
-    # (it folds even 2c back in via mu(2c)=-mu(c)); it differs from RF_odd by the
-    # even-cofactor terms. Report the gap honestly rather than forcing a closure.
+    # With all-cofactor H, the physical residual RF = Hhat - H coincides with the
+    # pairing residual K + J + T (single object, no cofactor-convention gap), and
+    # Main - RF = S holds EXACTLY (L := S - H).
+    RF = [hf - hn for hf, hn in zip(Hh_, Hn_)]
     RF_pair = [a + b + c for a, b, c in zip(K_, J_, T_)]
-    conv_gap = energy([p - o for p, o in zip(RF_pair, RF_odd)]) / energy(RF_odd)
+    max_S_close = max(abs(m - rf - s) for m, rf, s in zip(Main, RF, S_))
+    # residual between the two ways of writing the same residual (should be ~0):
+    pairing_maxerr = max(abs(a - b) for a, b in zip(RF, RF_pair))
 
     def cos(x, y):
         return dot(x, y) / math.sqrt(energy(x) * energy(y))
@@ -195,19 +201,18 @@ def analyse_window(N: int, H: int, pi, F, mu_small, Modd) -> dict:
     negHh = [-a for a in Hh_]
     a_orth = dot(L_, negHh) / energy(Hh_)  # L on -Hhat
     resid_opt = [a - a_orth * b for a, b in zip(L_, negHh)]
-    aMR = dot(Main, RF_odd) / energy(RF_odd)
-    resid_MR_opt = [a - aMR * b for a, b in zip(Main, RF_odd)]
+    aMR = dot(Main, RF) / energy(RF)
+    resid_MR_opt = [a - aMR * b for a, b in zip(Main, RF)]
 
     return {
         "N": N, "H": H,
-        "closure_Main_minus_RFodd_eq_S_maxerr": max_S_close,
+        "closure_Main_minus_RF_eq_S_maxerr": max_S_close,
+        "RF_eq_KplusJplusT_maxerr": pairing_maxerr,
         "energies": {
             "L": energy(L_), "Hhat": energy(Hh_), "H": energy(Hn_),
-            "S": energy(S_), "Main": energy(Main),
-            "RF_odd": energy(RF_odd), "RF_pair": energy(RF_pair),
+            "S": energy(S_), "Main": energy(Main), "RF": energy(RF),
             "K": energy(K_), "J": energy(J_), "T": energy(T_),
         },
-        "convention_gap_RFpair_vs_RFodd": conv_gap,
         "complementary_main": {
             "survival_pct": energy(Main) / (energy(L_) + energy(Hh_)) * 100.0,
             "raw_cosine_L_Hhat": cos(L_, Hh_),
@@ -216,16 +221,16 @@ def analyse_window(N: int, H: int, pi, F, mu_small, Modd) -> dict:
             "gap_from_1": 1.0 - a_orth,
             "energy_excess_coeff1_over_opt": energy(Main) / energy(resid_opt),
         },
-        "main_minus_RFodd": {
-            "alpha_orth_Main_on_RFodd": aMR,
+        "main_minus_RF": {
+            "alpha_orth_Main_on_RF": aMR,
             "energy_excess_coeff1_over_opt":
-                energy([a - b for a, b in zip(Main, RF_odd)]) / energy(resid_MR_opt),
+                energy([a - b for a, b in zip(Main, RF)]) / energy(resid_MR_opt),
         },
-        "residual_pairing_gram_all_cofactor": {
+        "residual_pairing_gram": {
             "2_K_J": 2 * dot(K_, J_),
             "2_K_T": 2 * dot(K_, T_),
             "2_J_T": 2 * dot(J_, T_),
-            "2_K_J_over_RFpair_energy": 2 * dot(K_, J_) / energy(RF_pair),
+            "2_K_J_over_RF_energy": 2 * dot(K_, J_) / energy(RF),
             "centered_corr_K_J": cos(centered(K_), centered(J_)),
         },
     }
@@ -251,47 +256,47 @@ def main() -> None:
         Modd = odd_mertens(mu_full)
         res = analyse_window(N, H, pi, F, mu_full, Modd)
         cm = res["complementary_main"]
-        rg = res["residual_pairing_gram_all_cofactor"]
-        print(f"   odd-cofactor closure (Main - RF_odd == S) max err = "
-              f"{res['closure_Main_minus_RFodd_eq_S_maxerr']:.2e}")
+        rg = res["residual_pairing_gram"]
+        print(f"   closure (Main - RF == S) max err = "
+              f"{res['closure_Main_minus_RF_eq_S_maxerr']:.2e}   "
+              f"RF == K+J+T max err = {res['RF_eq_KplusJplusT_maxerr']:.2e}")
         print(f"   main survival = {cm['survival_pct']:.5f}%  "
               f"cos(L,Hhat) = {cm['raw_cosine_L_Hhat']:.7f}  "
               f"alpha_orth = {cm['alpha_orth_L_on_negHhat']:.6f}  "
               f"coeff1/opt = {cm['energy_excess_coeff1_over_opt']:.3f}")
-        print(f"   Main-RF_odd: alpha = {res['main_minus_RFodd']['alpha_orth_Main_on_RFodd']:.4f}  "
-              f"coeff1/opt = {res['main_minus_RFodd']['energy_excess_coeff1_over_opt']:.3f}")
-        print(f"   [all-cofactor pairing] 2<K,J>/|RF_pair|^2 = {rg['2_K_J_over_RFpair_energy']:.3f}  "
+        print(f"   Main-RF: alpha = {res['main_minus_RF']['alpha_orth_Main_on_RF']:.4f}  "
+              f"coeff1/opt = {res['main_minus_RF']['energy_excess_coeff1_over_opt']:.3f}")
+        print(f"   2<K,J>/|RF|^2 = {rg['2_K_J_over_RF_energy']:.3f}  "
               f"corr(K,J) = {rg['centered_corr_K_J']:.4f}  "
               f"(2<K,T>={rg['2_K_T']:.2e}, 2<J,T>={rg['2_J_T']:.2e})")
-        print(f"   convention gap |RF_pair - RF_odd|^2 / |RF_odd|^2 = "
-              f"{res['convention_gap_RFpair_vs_RFodd']:.3f}")
         results.append(res)
 
     summary = {
         "object": "complementary main L+Hhat_F, and residual pairing Gram",
         "definitions": {
-            "H": "sum_{c<=t,ODD} -mu(c)(pi(U)-pi(L-1))",
-            "Hhat_F": "sum_{c<=t,ODD} -mu(c)(F(U)-F(L-1))",
+            "H": "sum_{c<=t, all sqfree} -mu(c)(pi(U)-pi(L-1))",
+            "Hhat_F": "sum_{c<=t, all sqfree} -mu(c)(F(U)-F(L-1))",
             "S": "M_odd((t+1)^2-1) - M_odd(ceil((t+1)^2/2)-1)",
             "L": "S - H (born-smooth)",
-            "RF_odd": "Hhat_F - H = Main - S (physical, odd cofactor; closes EXACTLY)",
-            "RF_pair": "K + J + T (dyadic pairing; ALL-cofactor reorganization)",
+            "RF": "Hhat_F - H = Main - S = K + J + T (single residual; closes EXACTLY)",
         },
         "baseline": "trapezoidal cumulative 1/log (li-type)",
+        "exact_closures": [
+            "Main - RF == S  (max err ~ 0)",
+            "RF == K + J + T  (all-cofactor H; NO cofactor-convention gap)",
+        ],
         "reproduced_qualitatively": [
             "near-total cancellation of L+Hhat_F (survival < 0.01%)",
             "raw cosine(L,Hhat) < -0.9999",
             "L+Hhat_F nearly projection-like (alpha_orth close to 1)",
-            "Main-RF_odd not projection-like (alpha far from 1)",
+            "Main-RF not projection-like (alpha far from 1)",
             "2<K,J> dominant negative residual cross term; K/T, J/T negligible",
         ],
-        "open_reconciliation": [
-            "exact digits are definition/baseline/scale sensitive; a Li-baseline "
-            "collaborator report at (N,H)=(2800,640) gives ~2x different amplitudes",
-            "the physical residual RF_odd is odd-cofactor, but the pairing K+J+T "
-            "is the all-cofactor reorganization; they differ by even-cofactor "
-            "terms (convention_gap). A unified 5-component [L,Hhat,-K,-J,-T] "
-            "closure needs the residual/pairing cofactor convention pinned down.",
+        "open": [
+            "exact digits are baseline/scale sensitive; a Li-baseline collaborator "
+            "report at (N,H)=(2800,640) gives ~2x different amplitudes than this "
+            "li-trapezoid harness",
+            "quantitative asymptotic alpha_orth(L,-Hhat) -> 1 (rate)",
         ],
         "grid": results,
     }
