@@ -111,9 +111,17 @@ theorem lifetimeDeathMass_eq_zero_add_sum_increments
   | zero => simp
   | succ n ih =>
       rw [Finset.sum_range_succ]
-      rw [← ih]
-      unfold lifetimeDeathIncrement
-      ring
+      calc
+        lifetimeDeathMass Λ (n + 1) =
+            lifetimeDeathMass Λ n + lifetimeDeathIncrement Λ n := by
+          unfold lifetimeDeathIncrement
+          ring
+        _ = (lifetimeDeathMass Λ 0 +
+              ∑ t ∈ Finset.range n, lifetimeDeathIncrement Λ t) +
+              lifetimeDeathIncrement Λ n := by rw [ih]
+        _ = lifetimeDeathMass Λ 0 +
+              ((∑ t ∈ Finset.range n, lifetimeDeathIncrement Λ t) +
+                lifetimeDeathIncrement Λ n) := by ring
 
 /-- The shell mass is exactly the existing moving-boundary crossing mass. -/
 theorem deathHeightShellMass_eq_crossingMass
