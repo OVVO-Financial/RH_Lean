@@ -86,9 +86,9 @@ theorem canonicalLargestPrimeFactor_mul_prime_eq
       _ = 1 * q := by simp
       _ ≤ c * q := Nat.mul_le_mul_right q hc
   have hqmem : q ∈ (c * q).primeFactors := by
-    apply hq.mem_primeFactors
-    · exact ⟨c, by simp [Nat.mul_comm]⟩
-    · exact Nat.mul_ne_zero (Nat.ne_of_gt hc) hq.ne_zero
+    exact Nat.mem_primeFactors.mpr
+      ⟨hq, ⟨c, by simp [Nat.mul_comm]⟩,
+        Nat.mul_ne_zero (Nat.ne_of_gt hc) hq.ne_zero⟩
   have hall : ∀ p ∈ (c * q).primeFactors, p ≤ q := by
     intro p hp
     have hpPrime := Nat.prime_of_mem_primeFactors hp
@@ -108,7 +108,7 @@ theorem canonicalCofactor_mul_prime_eq
     canonicalCofactor (c * q) = c := by
   unfold canonicalCofactor
   rw [canonicalLargestPrimeFactor_mul_prime_eq hc hcq hq]
-  exact Nat.mul_div_right c hq.pos
+  simpa [Nat.mul_comm] using Nat.mul_div_right c hq.pos
 
 /-- Full canonical coordinate certificate for every retained dyadic high source. -/
 theorem canonicalCoordinates_of_isDyadicCanonicalHighSource
