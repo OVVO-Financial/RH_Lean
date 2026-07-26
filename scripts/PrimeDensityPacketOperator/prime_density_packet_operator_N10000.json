@@ -1,0 +1,174 @@
+{
+  "classification": {
+    "exact": [
+      "complete odd-annulus reconstruction",
+      "cofactor short-prime-interval packet-start identity",
+      "modeled decomposition S=(L+H_hat)+(H-H_hat)"
+    ],
+    "finite_numerical_evidence_only": [
+      "prime-density bias accuracy",
+      "scale stability of the two modeled local energies"
+    ],
+    "not_claimed": [
+      "uniform analytic local-energy bound",
+      "Riemann Hypothesis proof"
+    ]
+  },
+  "nmax": 10000,
+  "integer_cutoff": 100020000,
+  "runtime_seconds": 5.13470983505249,
+  "exact_checks": {
+    "annulus_vs_square_prefix_mertens_max_error": 0,
+    "identity_nmax": 4000,
+    "cofactor_signed_start_max_error": 0,
+    "cofactor_count_start_max_error": 0,
+    "modeled_recombination_max_error": 0.0
+  },
+  "windows": [
+    {
+      "window": [500, 1000],
+      "exact_packet_bias": 0.04006839600340404,
+      "predicted_packet_bias": 0.03979227112890843,
+      "packet_bias_relative_error": -0.00689133836233804,
+      "raw_high_energy_over_HN2": 71.829330424,
+      "residual_energy_over_HN2": 0.7481008197160226,
+      "complementary_main_energy_over_HN2": 0.6595708922717106,
+      "complete_annulus_energy_over_HN2": 0.070480696,
+      "corr_high_predicted": 0.9970797547360412,
+      "recombination_max_error": 0.0
+    },
+    {
+      "window": [750, 1500],
+      "exact_packet_bias": 0.035074392195797575,
+      "predicted_packet_bias": 0.035579898154252304,
+      "packet_bias_relative_error": 0.014412393966310716,
+      "raw_high_energy_over_HN2": 128.4725367111111,
+      "residual_energy_over_HN2": 0.7731600190248855,
+      "complementary_main_energy_over_HN2": 0.6726485883999845,
+      "complete_annulus_energy_over_HN2": 0.076010688,
+      "corr_high_predicted": 0.9983822614432669,
+      "recombination_max_error": 0.0
+    },
+    {
+      "window": [1000, 2000],
+      "exact_packet_bias": 0.033239363403710816,
+      "predicted_packet_bias": 0.033423319695350874,
+      "packet_bias_relative_error": 0.005534290455740846,
+      "raw_high_energy_over_HN2": 195.809821175,
+      "residual_energy_over_HN2": 0.755506739568486,
+      "complementary_main_energy_over_HN2": 0.703135757055527,
+      "complete_annulus_energy_over_HN2": 0.060926302,
+      "corr_high_predicted": 0.9990302224209593,
+      "recombination_max_error": 0.0
+    },
+    {
+      "window": [1250, 2500],
+      "exact_packet_bias": 0.03148159569109953,
+      "predicted_packet_bias": 0.031391628068325815,
+      "packet_bias_relative_error": -0.0028577847087704468,
+      "raw_high_energy_over_HN2": 269.507532359168,
+      "residual_energy_over_HN2": 0.723176695986252,
+      "complementary_main_energy_over_HN2": 0.6818830422797859,
+      "complete_annulus_energy_over_HN2": 0.068368764416,
+      "corr_high_predicted": 0.9992811467863736,
+      "recombination_max_error": 0.0
+    },
+    {
+      "window": [1500, 3000],
+      "exact_packet_bias": 0.030117288450069578,
+      "predicted_packet_bias": 0.030266494894714255,
+      "packet_bias_relative_error": 0.004954179221414369,
+      "raw_high_energy_over_HN2": 351.7909581025185,
+      "residual_energy_over_HN2": 0.7593745910025088,
+      "complementary_main_energy_over_HN2": 0.6915517327989675,
+      "complete_annulus_energy_over_HN2": 0.06750387585185186,
+      "corr_high_predicted": 0.9994557501773075,
+      "recombination_max_error": 0.0
+    },
+    {
+      "window": [2000, 4000],
+      "exact_packet_bias": 0.02786665546487276,
+      "predicted_packet_bias": 0.027853659152107416,
+      "packet_bias_relative_error": -0.00046637504747295926,
+      "raw_high_energy_over_HN2": 537.342813321875,
+      "residual_energy_over_HN2": 0.6825070796169064,
+      "complementary_main_energy_over_HN2": 0.6843680391108229,
+      "complete_annulus_energy_over_HN2": 0.070573708,
+      "corr_high_predicted": 0.9996614292334569,
+      "recombination_max_error": 0.0
+    },
+    {
+      "window": [2500, 5000],
+      "exact_packet_bias": 0.026386034474266542,
+      "predicted_packet_bias": 0.02646220708595829,
+      "packet_bias_relative_error": 0.0028868533377396062,
+      "raw_high_energy_over_HN2": 752.222446438976,
+      "residual_energy_over_HN2": 0.7462887931435618,
+      "complementary_main_energy_over_HN2": 0.7276296689487307,
+      "complete_annulus_energy_over_HN2": 0.04771028352,
+      "corr_high_predicted": 0.9998094843568825,
+      "recombination_max_error": 0.0
+    },
+    {
+      "window": [3000, 6000],
+      "exact_packet_bias": 0.025344706024595046,
+      "predicted_packet_bias": 0.02523699864035094,
+      "packet_bias_relative_error": -0.004249699489099844,
+      "raw_high_energy_over_HN2": 983.0921771544815,
+      "residual_energy_over_HN2": 0.7424532199225926,
+      "complementary_main_energy_over_HN2": 0.6831179298615735,
+      "complete_annulus_energy_over_HN2": 0.0762027667037037,
+      "corr_high_predicted": 0.9997856100052898,
+      "recombination_max_error": 0.0
+    },
+    {
+      "window": [4000, 8000],
+      "exact_packet_bias": 0.023725503717100915,
+      "predicted_packet_bias": 0.023755336243024252,
+      "packet_bias_relative_error": 0.0012574032686114838,
+      "raw_high_energy_over_HN2": 1524.7278220872345,
+      "residual_energy_over_HN2": 0.7416425667382192,
+      "complementary_main_energy_over_HN2": 0.7528701619255539,
+      "complete_annulus_energy_over_HN2": 0.0638013418125,
+      "corr_high_predicted": 0.9998751444307262,
+      "recombination_max_error": 0.0
+    },
+    {
+      "window": [4500, 9000],
+      "exact_packet_bias": 0.022901901051678136,
+      "predicted_packet_bias": 0.022933637339425786,
+      "packet_bias_relative_error": 0.0013857490553311122,
+      "raw_high_energy_over_HN2": 1813.5889757269686,
+      "residual_energy_over_HN2": 0.7739824566762386,
+      "complementary_main_energy_over_HN2": 0.6976847632799305,
+      "complete_annulus_energy_over_HN2": 0.07569836070233196,
+      "corr_high_predicted": 0.9998913079836713,
+      "recombination_max_error": 0.0
+    },
+    {
+      "window": [5000, 10000],
+      "exact_packet_bias": 0.022526863982781226,
+      "predicted_packet_bias": 0.022514996010818154,
+      "packet_bias_relative_error": -0.0005268364017354011,
+      "raw_high_energy_over_HN2": 2126.67894740188,
+      "residual_energy_over_HN2": 0.6606621373098552,
+      "complementary_main_energy_over_HN2": 0.6783367575146374,
+      "complete_annulus_energy_over_HN2": 0.071754235392,
+      "corr_high_predicted": 0.9999001102535212,
+      "recombination_max_error": 0.0
+    }
+  ],
+  "summary_large_windows": {
+    "median_abs_packet_bias_relative_error": 0.0028577847087704468,
+    "max_abs_packet_bias_relative_error": 0.005534290455740846,
+    "min_corr_high_predicted": 0.9990302224209593,
+    "residual_energy_range": [0.6606621373098552, 0.7739824566762386],
+    "complementary_main_energy_range": [0.6783367575146374, 0.7528701619255539],
+    "normalized_energy_loglog_slopes": {
+      "raw_high": 1.4858973410387346,
+      "residual": -0.020015216460233555,
+      "complementary_main": 0.011577481432424859,
+      "complete_annulus": 0.06445397494724331
+    }
+  }
+}
