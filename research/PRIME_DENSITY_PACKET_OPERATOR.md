@@ -1,47 +1,38 @@
-# Prime-Density Packet Operator: Proof-Leverage Test
+# Prime-Density Packet Operator: Corrected Exact-Activity Formulation
 
-## Executive result
+## Correction to PR #99
 
-This finite reproducibility test found the first proof-relevant simplification produced by the squared-factor geometry.
-
-The exact high packet process `H` is enormous on the protected local-energy scale. A deterministic, no-fit prime-density model `H_hat`, built only from the cofactor Möbius values and the geometric packet intervals, yields the exact decomposition
+PR #99 introduced a deterministic midpoint-lifetime model for the high packet process and reported a numerically stable decomposition
 
 \[
-S=(L+\widehat H)+(H-\widehat H).
+S=(L+\widehat H_{\mathrm{mid}})+(H-\widehat H_{\mathrm{mid}}).
 \]
 
-On every tested window `[N,2N)` from `N=1000` through `N=5000`, **both summands separately have energy of order `H N^2`**:
+The exact algebraic recombination and the cofactor packet-start identity remain valid. The later cofactor-resolved diagnostics, however, showed that the midpoint-lifetime model is **not** the correct object for diagnosing the prime-count residual.
 
-- residual `R = H-H_hat`: normalized energy `0.661` to `0.774`;
-- complementary main term `M = L+H_hat`: normalized energy `0.678` to `0.753`;
-- complete annulus `S=M+R`: normalized energy `0.048` to `0.076`.
+The large cofactor diagonal, near-rank-one singular mode, and apparent Mellin structure reported after PR #99 were produced almost entirely by the deterministic mismatch between:
 
-The fitted log-log slopes of the normalized energies were:
+1. the exact packet lifetime of each prime source; and
+2. the single lifetime assigned to all prime mass in a birth interval through its midpoint.
 
-| object | fitted slope |
-|---|---:|
-| raw high packet process `H` | `+1.486` |
-| residual `H-H_hat` | `-0.020` |
-| complementary main `L+H_hat` | `+0.012` |
-| complete annulus `S` | `+0.064` |
+Those features belong to the approximation error, not to the true prime-count discrepancy. They must not be used as evidence for a Mellin-separable parity problem or a Möbius power-saving theorem.
 
-Thus the raw high operator grows rapidly after normalization, while the two prime-density pieces are numerically scale-stable.
-
-This is not a proof, but it is an explicit demonstration that the geometry identifies a main term unavailable in the raw Mertens formulation and removes the large coherent growth without fitting parameters to the output.
+The canonical model is now the **exact-activity density model** defined below.
 
 ## Repository classification
 
-This contribution advances the analytic routes recorded in `BIG_PICTURE_PROOF_MAP.md` Sections 5--6 and the open formalization items 80--81 and 87. Its status is deliberately split:
+This document keeps four layers separate:
 
-- **exact identities:** odd-annulus reconstruction, cofactor short-prime-interval packet-start identity, and `S=(L+H_hat)+(H-H_hat)`;
-- **finite numerical evidence:** bias accuracy, correlations, normalized energies, and fitted slopes through `N=10000`;
-- **open analytic obligations:** uniform local-energy bounds for both modeled terms.
+- **exact finite identities:** packet activity, cofactor reindexing, and algebraic decompositions;
+- **deterministic approximation:** logarithmic-integral mass on the exact active prime interval;
+- **finite diagnostics:** scaling, rank, and projection measurements over finite ranges;
+- **open analytic premises:** uniform local-energy bounds.
 
-No RH implication is asserted from the finite run.
+No finite computation in this directory proves an asymptotic estimate or an RH implication.
 
 ## 1. Exact cofactor packet-start identity
 
-For square block `n >= 2`, every high packet start has a unique representation
+For square block `n >= 2`, every retained odd-cofactor packet start has a unique representation
 
 \[
 m=cq,
@@ -55,7 +46,7 @@ q\ge n+2,
 n^2\le cq <(n+1)^2.
 \]
 
-Because `q>c`, it is automatically the largest prime factor and
+Since `q>c`, it is the largest prime factor and
 
 \[
 \mu(cq)=-\mu(c).
@@ -77,152 +68,182 @@ and
 W_n(c)=\pi(U_n(c))-\pi(L_n(c)).
 \]
 
-Then the signed and unsigned packet-start counts are exactly
+Then the signed packet-start count is exactly
 
 \[
-F_n=-\sum_{\substack{c\le n\\c\text{ odd}}}\mu(c)W_n(c),
+F_n=-\sum_{\substack{c\le n\\c\text{ odd}}}\mu(c)W_n(c).
+\]
+
+The independent finite verifier reports zero integer error through `n=4000`. This lower-dimensional identity remains the durable exact result of PR #99.
+
+## 2. Exact activity at time `t`
+
+A source `m=cq` born at entry shell
+
+\[
+e(c,q)=\lfloor\sqrt{cq}\rfloor
+\]
+
+remains in the compressed high packet until
+
+\[
+\min\bigl(\lfloor\sqrt{2cq}\rfloor,q-1\bigr).
+\]
+
+For fixed time `t` and odd cofactor `c`, the source is active exactly when the prime `q` lies in the integer interval
+
+\[
+L(t,c)\le q\le U(t,c),
+\]
+
+where
+
+\[
+L(t,c)=\max\!\left(
+ t+2,
+ \left\lceil\frac{(t+1)^2}{2c}\right\rceil
+\right),
 \]
 
 \[
-G_n=\sum_{\substack{c\le n\\c\text{ odd}}}\mu(c)^2W_n(c).
+U(t,c)=\left\lfloor\frac{(t+1)^2-1}{c}\right\rfloor.
 \]
 
-The identity was verified through `n=4000`, corresponding to integer cutoff `16,008,000`, with:
-
-- maximum signed error: `0`;
-- maximum count error: `0`;
-- number of nonzero errors: `0`.
-
-This is a genuine dimensional reduction: the packet starts at integer scale `m ~ n^2` become a cofactor sum over `c <= n`, with the prime variable absorbed into an explicit short-interval weight.
-
-## 2. Analytic prediction of the drifting packet bias
-
-Replace the exact prime count `W_n(c)` by its local prime-density main term. With real interval endpoints
+Thus the exact cofactor contribution to the high packet process is
 
 \[
-\ell_n(c)=\max\!\left(n+1,\frac{n^2}{c}\right),
-\qquad
-u_n(c)=\frac{(n+1)^2-1}{c},
+H_{t,c}
+=-\mu(c)\Bigl(\pi(U(t,c))-\pi(L(t,c)-1)\Bigr).
 \]
 
-use
+This is the activity-level identity that the Lean formalization should expose.
+
+## 3. Canonical exact-activity density model
+
+Define
 
 \[
-\widehat W_n(c)
+\widehat H^{\mathrm{active}}_{t,c}
+=-\mu(c)
+\int_{L(t,c)-1/2}^{U(t,c)+1/2}\frac{dq}{\log q}.
+\]
+
+Summing over odd squarefree cofactors gives
+
+\[
+\widehat H^{\mathrm{active}}_t
+=\sum_c \widehat H^{\mathrm{active}}_{t,c}.
+\]
+
+The corrected residual is therefore
+
+\[
+R_t^{\mathrm{prime}}
+=H_t-\widehat H^{\mathrm{active}}_t
+\]
+
+\[
+=-\sum_c\mu(c)\left[
+\pi(U(t,c))-\pi(L(t,c)-1)
+-
+\int_{L(t,c)-1/2}^{U(t,c)+1/2}\frac{dq}{\log q}
+\right].
+\]
+
+The complete square-prefix process has the exact algebraic decomposition
+
+\[
+S
 =
-\frac{\nu_n(c)-\ell_n(c)}
-{\log\sqrt{\nu_n(c)\ell_n(c)}}.
+\underbrace{L+\widehat H^{\mathrm{active}}}_{\text{complementary main term}}
++
+\underbrace{H-\widehat H^{\mathrm{active}}}_{\text{prime-count residual}}.
 \]
 
-This gives an entirely deterministic prediction
+The deterministic midpoint-lifetime mismatch is thereby absorbed into the complementary main term, where structured geometric contributions belong.
+
+## 4. Why the midpoint model was misleading
+
+Let `H_mid` denote the historical PR #99 model, which replaced every prime in one birth interval by the interval midpoint and assigned the resulting expected mass one common packet endpoint. Then identically
 
 \[
-\widehat\beta_I
+H-H_{\mathrm{mid}}
 =
-\frac{-\sum_{n\in I}\sum_c\mu(c)\widehat W_n(c)}
-{\sum_{n\in I}\sum_c\mu(c)^2\widehat W_n(c)}.
+\underbrace{H-H_{\mathrm{li,active}}}_{\text{pure prime discrepancy}}
++
+\underbrace{H_{\mathrm{li,active}}-H_{\mathrm{mid}}}_{\text{lifetime mismatch}}.
 \]
 
-No packet signs are fitted, and no exact prime locations are used.
+In the dominant cofactor band at `N=5000`:
 
-### Results through `N=10000`
+| matrix | diagonal / `HN^2` | signed energy / `HN^2` | top singular-mode share |
+|---|---:|---:|---:|
+| historical midpoint residual | `1.770249` | `0.710138` | `99.492%` |
+| pure prime discrepancy | `0.001432` | `0.001068` | `51.856%` |
+| deterministic lifetime mismatch | `1.699036` | `0.682913` | `99.526%` |
 
-For the reported dyadic and overlapping windows from `[1000,2000)` through `[5000,10000)`:
+The lifetime mismatch accounts for approximately `95.98%` of the oversized diagonal and essentially all of the near-rank-one phenomenon.
 
-- median absolute relative bias error: `0.286%`;
-- worst absolute relative bias error: `0.553%`;
-- minimum correlation between the exact high process and the no-fit operator model: `0.999030`.
+Therefore:
 
-Earlier stress diagnostics also showed that a harmonic predictor omitting the geometric prime-density factor `1/log(n^2/c)` fails badly. The prime-density weight is therefore essential; the successful model is not a generic declining trend fit.
+- the midpoint model remains a useful aggregate predictor;
+- it is noncanonical for cofactor-resolved energy analysis;
+- its rank-one and Mellin diagnostics must not be transferred to the exact prime discrepancy.
 
-## 3. Full packet-overlap operator
+## 5. Corrected finite scaling evidence
 
-The start calculation is not the decisive test. Each source remains active on its full packet interval
+The exact-activity prime discrepancy was tested in dyadic cofactor bands through `N=200000`. For `N>10000`, the computation sampled 1000 evenly spaced times in `[N,2N)` and searched the dangerous large-cofactor region `c >= N/64`.
 
-\[
-[n,\,\min(\lfloor\sqrt{2cq}\rfloor,q-1)).
-\]
+| `N` | dominant band | sign-blind diagonal / `HN^2` | signed energy / `HN^2` |
+|---:|:---:|---:|---:|
+| 1,000 | `[512,1024)` | `0.00222918` | `0.000949265` |
+| 2,000 | `[1024,2048)` | `0.00169418` | `0.000748006` |
+| 5,000 | `[2048,4096)` | `0.00143206` | `0.0010653` |
+| 10,000 | `[4096,8192)` | `0.0011979` | `0.000534473` |
+| 20,000 | `[8192,16384)` | `0.00100999` | `0.000734911` |
+| 50,000 | `[16384,32768)` | `0.000888216` | `0.000578571` |
+| 100,000 | `[32768,65536)` | `0.000803612` | `0.000599927` |
+| 200,000 | `[65536,131072)` | `0.000667425` | `0.000194819` |
 
-The direct model preserves the cofactor and its predicted lifetime. For each `(n,c)`, it:
+The finite power fit for the dominant sign-blind diagonal is `-0.214`; the polylogarithmic fit is approximately `(log N)^(-2.009)` and has the lower log-residual sum of squares.
 
-1. replaces the prime count in the admissible `q` interval by the local prime-density weight;
-2. uses the midpoint `q` to determine the packet endpoint;
-3. adds the signed expected mass `-mu(c) * weight` to that complete interval.
+This evidence does **not** prove a uniform theorem. It does show that the true prime discrepancy has no observed positive-power diagonal excess over this range, so no Möbius off-diagonal power saving is numerically required for the residual.
 
-This produces the deterministic process `H_hat`.
+## 6. Corrected analytic target
 
-### Full-operator results
-
-| Window | Raw `H` energy | Residual `H-H_hat` | Main `L+H_hat` | Complete `S` | Corr(`H`,`H_hat`) |
-|---|---:|---:|---:|---:|---:|
-| `[1000,2000)` | 195.810 | 0.756 | 0.703 | 0.061 | 0.999030 |
-| `[1500,3000)` | 351.791 | 0.759 | 0.692 | 0.068 | 0.999456 |
-| `[2000,4000)` | 537.343 | 0.683 | 0.684 | 0.071 | 0.999661 |
-| `[2500,5000)` | 752.222 | 0.746 | 0.728 | 0.048 | 0.999809 |
-| `[3000,6000)` | 983.092 | 0.742 | 0.683 | 0.076 | 0.999786 |
-| `[4000,8000)` | 1524.728 | 0.742 | 0.753 | 0.064 | 0.999875 |
-| `[4500,9000)` | 1813.589 | 0.774 | 0.698 | 0.076 | 0.999891 |
-| `[5000,10000)` | 2126.679 | 0.661 | 0.678 | 0.072 | 0.999900 |
-
-All energies are divided by `H N^2` on the window `[N,N+H)=[N,2N)`.
-
-The exact recombination error
+For every translated window `[N,N+H)` and every dyadic cofactor band `c ~ C`, the first analytic premise should be the sign-blind variance estimate
 
 \[
-(L+\widehat H)+(H-\widehat H)-S
-\]
-
-was identically zero.
-
-The unexplained share of the raw high energy fell from `0.386%` at `N=1000` to `0.031%` at `N=5000`.
-
-## 4. What has now been demonstrated
-
-The geometry has produced more than a renamed Mertens sum:
-
-1. **Exact lower-dimensional identity.** Packet starts at scale `n^2` reduce to cofactor Möbius sums over `c <= n` with explicit prime-count weights.
-2. **Analytic coherent-mode formula.** A no-fit PNT weight predicts the observed scale-dependent sign bias to near random-fluctuation accuracy.
-3. **Proof-scale operator decomposition.** After the cofactor/lifetime main term is removed, both the residual and its smooth-complement partner are individually stable on the desired `H N^2` scale.
-4. **The improvement survives packet overlap.** It is not an artifact of diagonal energy or start counts.
-
-This is the explicit test number theorists would demand: the geometric coordinates expose an analytic main term that is not visible in the raw Mertens sequence and whose removal changes the normalized growth exponent from approximately `+1.49` to approximately `0` over the tested range.
-
-## 5. What remains to prove
-
-The numerical result suggests the following two-theorem program.
-
-### Theorem A: aggregate prime-density approximation
-
-Prove that the exact packet operator `H` and the deterministic prime-density model `H_hat` satisfy, uniformly on translated dyadic windows,
-
-\[
-\sum_{n=N}^{N+H-1}|H_n-\widehat H_n|^2
+\sum_{t=N}^{N+H-1}
+\sum_{c\sim C}
+\left|
+\pi(U(t,c))-\pi(L(t,c)-1)
+-
+\int_{L(t,c)-1/2}^{U(t,c)+1/2}\frac{dq}{\log q}
+\right|^2
 \ll_\varepsilon HN^{2+\varepsilon}.
 \]
 
-The exact cofactor formula shows that this is an averaged prime-count error problem over reciprocal short intervals, weighted by `mu(c)` and the packet-overlap kernel.
+There are only logarithmically many dyadic bands. A suitable bandwise estimate can therefore feed the full residual through standard norm inequalities with an `N^epsilon` allowance.
 
-### Theorem B: complementary main-term control
-
-Prove
+The second premise remains the complementary-main estimate
 
 \[
-\sum_{n=N}^{N+H-1}|L_n+\widehat H_n|^2
+\sum_{t=N}^{N+H-1}
+\left|L_t+\widehat H^{\mathrm{active}}_t\right|^2
 \ll_\varepsilon HN^{2+\varepsilon}.
 \]
 
-Here the expected prime-density high process should cancel the smooth complement before any residual Möbius cancellation is invoked.
+Once the residual premise is established, this second estimate is the RH-strength component expressed in explicit exact-activity coordinates.
 
-Together, the exact identity
+## 7. Permanent nonclaims
 
-\[
-S=(L+\widehat H)+(H-\widehat H)
-\]
+The corrected evidence does not establish:
 
-would give the protected square-prefix criterion.
+- a uniform short-interval prime-variance theorem for this reciprocal interval family;
+- applicability of a specific Gallagher, Selberg, Goldston--Montgomery, or pair-correlation theorem without an endpoint and averaging reduction;
+- a low-rank Mellin description of the pure prime discrepancy;
+- a Möbius Type-II power saving;
+- an unconditional RH implication.
 
-## 6. Honest conclusion
-
-This is still numerical evidence, not a proof of either theorem.
-
-But it changes the status of the program. The framework has now delivered a concrete, no-fit, proof-relevant decomposition in which both new terms display the target normalization separately. The next paper should be organized around this prime-density packet operator, not around isolated high-sector smallness, fixed scalar bias, or operator contraction.
+The exact-activity interval identity and its conditional bridge should be formalized first. Any external analytic theorem must then be matched to the precise discrete two-parameter interval family rather than invoked by analogy.
