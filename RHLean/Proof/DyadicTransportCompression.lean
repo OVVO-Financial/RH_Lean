@@ -130,16 +130,16 @@ theorem finiteTransportContribution_add_dyadicChild
     finiteTransportContribution N c q t +
         finiteTransportContribution N (dyadicChildCofactor c) q t =
       dyadicBoundaryContribution N c q t := by
-  unfold finiteTransportContribution dyadicBoundaryContribution
-  rw [canonicalMoebiusWeight_dyadicChild hc hq]
-  rw [dyadicBoundaryActive_iff_parent_and_not_child]
+  have hweight := canonicalMoebiusWeight_dyadicChild hc hq
   by_cases hp : IsFiniteTransportActive N c q t
   · by_cases hchild : IsFiniteTransportActive N (dyadicChildCofactor c) q t <;>
-      simp [hp, hchild]
+      simp [finiteTransportContribution, dyadicBoundaryContribution, hp, hchild,
+        hweight, dyadicBoundaryActive_iff_parent_and_not_child]
   · have hchild : ¬IsFiniteTransportActive N (dyadicChildCofactor c) q t := by
       intro h
       exact hp (finiteTransportActive_parent_of_child h)
-    simp [hp, hchild]
+    simp [finiteTransportContribution, dyadicBoundaryContribution, hp, hchild,
+      hweight, dyadicBoundaryActive_iff_parent_and_not_child]
 
 /-- Finite raw transport packet of one channel. -/
 def finiteTransportPacket (N c q : ℕ) : ℂ :=
@@ -310,8 +310,9 @@ theorem sum_double_eq_sum_evenCofactorPrefix (B : ℕ) :
     have h2dB : 2 * d ≤ B := by
       have hmul := (Nat.le_div_iff_mul_le (by omega : 0 < 2)).1 hdB
       simpa [Nat.mul_comm] using hmul
-    exact mem_evenCofactorPrefix.mpr
-      ⟨by omega, h2dB, ⟨d, by omega⟩⟩
+    have hpos : 1 ≤ 2 * d := by omega
+    have heven : Even (2 * d) := even_two_mul d
+    exact mem_evenCofactorPrefix.mpr ⟨hpos, h2dB, heven⟩
   · intro d1 hd1 d2 hd2 h
     change 2 * d1 = 2 * d2 at h
     omega
