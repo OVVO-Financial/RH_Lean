@@ -34,6 +34,9 @@ Every PR must preserve all of the following:
 - do not reintroduce an abstract start-sequence realization or project-specific RH bridge into the final concrete theorem;
 - expose every remaining analytic implication, equivalence, and realization as an ordinary typed premise;
 - do not describe a conditional bridge as an unconditional proof of RH;
+- for death shells, count divisor fibers over every integer height in the half-open shell window; never replace that sum by the divisor count of one endpoint;
+- a death-process estimate alone does not control the survivor discrepancy `birth - death`; retain both endpoint obligations;
+- any cofactor-parity decomposition must be finite, include the `ω(c)=0` class, and restrict the identity `μ(cq)=-μ(c)` to nonzero Möbius support;
 - treat every warning as a CI failure because the project builds with `--wfail`.
 
 ## 2. Per-PR execution checklist
@@ -136,7 +139,25 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **#68** — Added real canonical square-block increments, exact complex-cast and cumulative Mertens bridges, and the elementary total-variation bound.
 - [x] **#69** — Added the denominator-free degree-one partial-moment balance premise and proved it implies the protected pointwise and uniform-local criteria and conditionally RH.
 - [x] **#72** — Moved the canonical arithmetic core into `Analysis`, proved sharp low-height occupancy on nonzero Möbius support, isolated `m=1`, constructed unconditional low-increment control, removed the internal low-sector hypothesis from the native high-sector bridge, and passed the paper/Analysis boundary check, source audit, and full `RHLean --wfail` build.
-- [ ] **#74** — Moves the paper-facing canonical high-sector criterion and typed RH bridge from `Proof` to `Analysis`, preserves theorem APIs, and updates all imports, paper references, and inventories without changing the protected equivalence spine.
+- [x] **#73** — Established and enforced the paper/Analysis source-boundary contract.
+- [x] **#74** — Moved the paper-facing canonical high-sector criterion and typed RH bridge from `Proof` to `Analysis` without changing theorem APIs.
+- [x] **#75** — Moved the paper height partition into `Analysis` and repaired paper source references.
+- [x] **#76** — Moved the superseded bridge track into `Proof`.
+- [x] **#77** — Moved proof-technology modules into `Proof`.
+- [x] **#78** — Added exact canonical high-sector height-shell reconstruction.
+- [x] **#79** — Added the exact cumulative moving-height flow.
+- [x] **#80** — Added exact birth-high absorption on the stacked branch.
+- [x] **#81** — Promoted the birth-high absorption bridge to `main`.
+- [x] **#82** — Added the exact `2ab` lifetime-overlap kernel.
+- [x] **#83** — Added the exact lifetime active-set bridge.
+- [x] **#84** — Added the honest two-premise lifetime local-energy criterion.
+- [x] **#85** — Added the lifetime endpoint decomposition `active = birth - death`.
+- [x] **#86** — Added death-process arithmetic and the exact half-open shell predicate.
+- [x] **#87** — Proved that each death increment equals its death-shell Möbius mass.
+- [x] **#88** — Published the death-process reduction and reproducible exploratory data.
+- [x] **#89** — Proved shell-cardinality control of death increments and exact bias/centering decompositions.
+- [x] **#92** — Added the complete verified Fermat sieve, including both mod-four lanes and the factor-five cases.
+- [ ] **#93** — Adds the exact injection of every positive-cutoff death shell into divisor fibers over the full integer shell window, the resulting divisor-sum cardinality bound, and its death-process consequences.
 
 ## 5. Theorem-layer completion checklist
 
@@ -208,14 +229,40 @@ A checked entry visible on `main` means the PR reached `main` through the requir
 - [x] **37. Generic finite partial moments and degree-one balance identity** — PR #67.
 - [x] **38. Real canonical square-block increments and total-variation bound** — PR #68.
 - [x] **39. Degree-one partial-moment balance sufficient criterion** — PR #69.
-- [ ] **40. Canonical low-height occupancy and realized low-sector control** — PR #72.
+- [x] **40. Canonical low-height occupancy and realized low-sector control** — PR #72.
+
+### Phase XI — height-shell reconstruction and lifetime/death flow
+
+- [x] **41. Exact canonical high-sector height-shell reconstruction** — PR #78.
+- [x] **42. Cumulative moving-height flow** — PR #79.
+- [x] **43. Birth-high absorption bridge** — PRs #80 and #81.
+- [x] **44. Exact lifetime-overlap kernel** — PR #82.
+- [x] **45. Lifetime active-set bridge** — PR #83.
+- [x] **46. Honest lifetime local-energy criterion** — PR #84.
+- [x] **47. Lifetime endpoint decomposition** — PR #85.
+- [x] **48. Death-process arithmetic shell structure** — PR #86.
+- [x] **49. Death increment equals shell mass** — PR #87.
+- [x] **50. Shell-cardinality transfer and centering** — PR #89.
+- [x] **51. Complete Fermat sieve constraints** — PR #92.
+- [ ] **52. Exact death-shell divisor-fiber bound** — PR #93.
 
 ## 6. Current formalization frontier
 
-The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, and conditional bridge layers are now machine checked. The remaining theorem-level obligations are:
+The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell identity, and shell-cardinality transfer layers are machine checked. On the PR #93 branch the next exact finite layer is the divisor-fiber injection
+
+```text
+#S_t ≤ ∑_{k in I_{Λ,t}} τ(k),
+```
+
+where `I_{Λ,t}` is the complete finite set of integer heights in the half-open shell window. A one-endpoint bound by `τ(2Λ(t+1))` is not a valid substitute.
+
+The remaining theorem-level obligations are:
 
 1. prove the native canonical high-sector estimate `(HS)`;
 2. supply or import the classical Mertens-energy equivalence with RH as a theorem of exactly the required proposition type;
-3. optionally prove stronger sufficient routes such as the square-block increment-energy or partial-moment balance premises.
+3. formalize the exact finite cofactor-`ω` parity decomposition on nonzero Möbius support, including `ω(c)=0`;
+4. prove a genuine divisor-window asymptotic or a stronger cancellation estimate for the death shells;
+5. control the endpoint survivor discrepancy `birth - death`, since death-process control alone is insufficient;
+6. optionally prove stronger sufficient routes such as the square-block increment-energy or partial-moment balance premises.
 
 Until those items are discharged, the repository remains an axiom-free conditional reduction rather than an unconditional proof of RH.
