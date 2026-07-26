@@ -68,4 +68,6 @@ import RHLean.Proof.SquareBlockPartialMomentBalance
 import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockIncrementEnergy
 import RHLean.Proof.SquareBlockTransportBaseline
+import RHLean.Proof.TwoABScaleTransfer
+import RHLean.Proof.TwoABPrimeDilation
 import RHLean.Verification.FiniteRangeCertificates

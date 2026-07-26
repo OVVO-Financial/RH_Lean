@@ -1,0 +1,252 @@
+name: Close scale-transfer formalization docs
+
+on:
+  push:
+    branches:
+      - agent/twoab-scale-transfer
+
+permissions:
+  contents: write
+
+jobs:
+  closeout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/twoab-scale-transfer
+          fetch-depth: 0
+      - name: Update canonical formalization documents
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('FORMALIZATION_SEQUENCE.md')
+          s = p.read_text()
+          if 'PR #95 tests and formalizes the `2ab` scale-transfer route.' not in s:
+              old = '''- a cofactor-parity decomposition must be finite, include `ω(c)=0`, and use
+            `μ(cq)=-μ(c)` only on nonzero Möbius support.
+          '''
+              new = '''- a cofactor-parity decomposition must be finite, include `ω(c)=0`, and use
+            `μ(cq)=-μ(c)` only on nonzero Möbius support;
+          - exact `2ab` source transfer, square-root inversion, or prime-first Fubini
+            reindexing is a realization theorem, not by itself a contraction estimate;
+          - raw Euclidean interval scaling does not model prime transport: any analytic
+            low-to-high estimate must retain prime density and the complete signed
+            scale-transfer discrepancy;
+          - finite correlations and baseline `R^2` values remain numerical diagnostics
+            unless introduced through the repository's certificate architecture.
+          '''
+              assert old in s
+              s = s.replace(old, new, 1)
+              s = s.replace('The root library imports seventy theorem modules.',
+                            'The root library imports seventy-three theorem modules.', 1)
+              old = '''68. `RHLean.Proof.DeathShellCardinalityAndCentering`
+          69. `RHLean.Proof.CompleteFermatSieve`
+          70. `RHLean.Proof.DeathShellDivisorFibers`
+
+          These modules compile the exact finite partial-moment identities and their square-block specialization; reconstruct canonical height-shell energies; define the cumulative moving boundary and lifetime interval system; prove the active/birth/death endpoint identities; identify each death increment with a thin factorized shell sum; transfer shell cardinality to pointwise and cumulative death-process bounds; verify the complete mod-twenty Fermat sieve; and inject each positive-cutoff shell into the divisor fibers over its full finite integer-height window.
+          '''
+              new = '''68. `RHLean.Proof.DeathShellCardinalityAndCentering`
+          69. `RHLean.Proof.CompleteFermatSieve`
+          70. `RHLean.Proof.DeathShellDivisorFibers`
+          71. `RHLean.Proof.DeathShellCofactorParity`
+          72. `RHLean.Proof.TwoABScaleTransfer`
+          73. `RHLean.Proof.TwoABPrimeDilation`
+
+          These modules compile the exact finite partial-moment identities and their square-block specialization; reconstruct canonical height-shell energies; define the cumulative moving boundary and lifetime interval system; prove the active/birth/death endpoint identities; identify each death increment with a thin factorized shell sum; transfer shell cardinality to pointwise and cumulative death-process bounds; verify the complete mod-twenty Fermat sieve; inject each positive-cutoff shell into the divisor fibers over its full finite integer-height window; regroup each shell by finite cofactor-`ω` parity fibers; prove exact source-resolved `entered = smooth - transport`; formalize square-root inversion and `2ab` dilation; and expose the complete finite weighted prime-dilation discrepancy and prime-first Fubini identity.
+          '''
+              assert old in s
+              s = s.replace(old, new, 1)
+              anchor = '''proved by the injective code `m ↦ (|q_m^2-c_m^2|, |q_m-c_m|)`. The unsupported statement `#S_t ≤ τ(2Λ(t+1))` is false in general and is not formalized.
+          '''
+              insert = '''proved by the injective code `m ↦ (|q_m^2-c_m^2|, |q_m-c_m|)`. The unsupported statement `#S_t ≤ τ(2Λ(t+1))` is false in general and is not formalized.
+
+          PR #94 proves the exact finite cofactor-parity decomposition of each positive-cutoff death shell. On nonzero Möbius support it proves `μ(m)=(-1)^(ω(c_m)+1)`, retains the `ω(c)=0` class, and regroups the actual death increment as the complete finite alternating sum over represented cofactor-prime-count fibers. It proves no cancellation estimate.
+
+          PR #95 tests and formalizes the `2ab` scale-transfer route. It proves exact source and finite-family `entered = smooth - transport`, the canonical square-prefix smooth-minus-transport identity, square-root inversion and `λ^2=q/c`, a total baseline-scaled-low plus discrepancy identity, and finite cofactor-first/prime-first Fubini reindexing. The accompanying experiment verifies the exact lower-Mertens transform with zero integer error through `R=10000`, while random-sign controls show that the exceptional contraction is arithmetic rather than generic geometry. No finite correlation or baseline fit is promoted to an asymptotic theorem.
+          '''
+              assert anchor in s
+              s = s.replace(anchor, insert, 1)
+              anchor = '''The last inequality is the exact finite divisor-fiber theorem on the PR #93 branch for `0 < Λ`. A classical subpolynomial divisor estimate would convert it into the expected shell-cardinality growth bound for fixed `Λ`, but that analytic theorem is not yet in the repository. Even a complete death-process estimate would still leave the endpoint discrepancy `birth - death` to control.
+
+          The complete multi-route roadmap is recorded in `MULTIROUTE_FORMALIZATION_PLAN.md`.
+          '''
+              insert = '''The last inequality is the exact finite divisor-fiber theorem for `0 < Λ`. A classical subpolynomial divisor estimate would convert it into the expected shell-cardinality growth bound for fixed `Λ`, but that analytic theorem is not yet in the repository. Even a complete death-process estimate would still leave the endpoint discrepancy `birth - death` to control.
+
+          The `2ab` scale-transfer route now contains the exact realization identities
+
+          ```text
+          entered = smooth - transport,
+          squarePrefixMertens = squareRootSmoothMass - squareRootTransportMass,
+          iota_R(x) = R^2/x,
+          iota_sqrt(cq)(c) = q,
+          weighted high observable = baseline-scaled low observable + discrepancy,
+          cofactor-first transport pairs = prime-first lower-cofactor fibers.
+          ```
+
+          For `X=R^2-1`, finite Fubini gives analytically
+
+          ```text
+          T_R = ∑_{R<q≤X, q prime} M(floor(X/q))
+              = ∑_{d<R} K_R(d) M(d).
+          ```
+
+          Thus the high transport term is an exact lower-triangular prime-dilation operator on lower-scale Mertens data. The remaining theorem is not the realization but a cancellation-aware operator or discrepancy estimate, with the born-smooth remainder and full signed interaction retained.
+
+          The complete multi-route roadmap is recorded in `MULTIROUTE_FORMALIZATION_PLAN.md`, and the strategic invariants are summarized in `BIG_PICTURE_PROOF_MAP.md`.
+          '''
+              assert anchor in s
+              s = s.replace(anchor, insert, 1)
+              old = '''- [ ] **71. Exact death-shell divisor-fiber bound over the full integer window** — PR #93.
+          - [ ] **72. Exact finite cofactor-`ω` parity decomposition, including `ω(c)=0`**.
+          - [ ] **73. Classical divisor-window asymptotic or stronger signed shell cancellation estimate**.
+          - [ ] **74. Endpoint survivor-discrepancy local-energy control**.
+          '''
+              new = '''- [x] **71. Exact death-shell divisor-fiber bound over the full integer window** — PR #93.
+          - [x] **72. Exact finite cofactor-`ω` parity decomposition, including `ω(c)=0`** — PR #94.
+          - [ ] **73. Classical divisor-window asymptotic or stronger signed shell cancellation estimate**.
+          - [ ] **74. Endpoint survivor-discrepancy local-energy control**.
+
+          ### Phase XVI — exact `2ab` scale transfer and prime-dilation operator
+
+          - [ ] **75. Exact source and finite-family `entered = smooth - transport` realization** — PR #95.
+          - [ ] **76. Canonical square-prefix smooth-minus-transport realization and exact `2ab` dilation** — PR #95.
+          - [ ] **77. Baseline-scaled low plus complete discrepancy identity** — PR #95.
+          - [ ] **78. Finite cofactor-first/prime-first transport Fubini identity** — PR #95.
+          - [ ] **79. Direct Lean identification of each prime-first fiber with `M(floor((R^2-1)/q))`**.
+          - [ ] **80. Reciprocal-interval kernel `K_R(d)` realization**.
+          - [ ] **81. Cancellation-aware prime-dilation operator or signed discrepancy estimate sufficient for the protected criterion**.
+          '''
+              assert old in s
+              s = s.replace(old, new, 1)
+              anchor = '''The exact divisor-fiber theorem does not by itself provide the analytic divisor estimate, cofactor cancellation, or survivor-discrepancy bound. The new multi-route branches may feed only into the existing pointwise, local, increment-energy, or native high-sector propositions. They do not replace the protected spine.
+          '''
+              insert = '''The exact divisor-fiber theorem does not by itself provide the analytic divisor estimate, cofactor cancellation, or survivor-discrepancy bound.
+
+          The `2ab` scale-transfer branch is another compatible route:
+
+          ```text
+          exact source entry/transition geometry
+                  ↓
+          square-root inversion and prime-first Fubini
+                  ↓
+          T_R = ∑_{d<R} K_R(d) M(d)
+                  ↓
+          cancellation-aware operator/discrepancy estimate
+                  +
+          born-smooth remainder and full signed interaction
+                  ↓
+          SquarePrefixCurrentPointwiseBoundedStatement
+                  ↓
+          SquarePrefixUniformLocalBoundedStatement.
+          ```
+
+          Exact scale transfer does not by itself prove contraction. The new multi-route branches may feed only into the existing pointwise, local, increment-energy, or native high-sector propositions. They do not replace the protected spine.
+          '''
+              assert anchor in s
+              s = s.replace(anchor, insert, 1)
+              p.write_text(s)
+
+          p = Path('FORMALIZATION_CHECKLIST.md')
+          s = p.read_text()
+          if '**#95**' not in s:
+              old = '''- any cofactor-parity decomposition must be finite, include the `ω(c)=0` class, and restrict the identity `μ(cq)=-μ(c)` to nonzero Möbius support;
+          - treat every warning as a CI failure because the project builds with `--wfail`.
+          '''
+              new = '''- any cofactor-parity decomposition must be finite, include the `ω(c)=0` class, and restrict the identity `μ(cq)=-μ(c)` to nonzero Möbius support;
+          - exact `2ab` source transfer, square-root inversion, and prime-first Fubini are realization theorems, not contraction estimates;
+          - low-to-high prime transport must retain prime density and the full signed scale-transfer discrepancy; raw Euclidean interval scaling is not an analytic substitute;
+          - finite correlation, regression, and baseline-fit claims are diagnostics unless accepted through an explicit certificate checker;
+          - treat every warning as a CI failure because the project builds with `--wfail`.
+          '''
+              assert old in s
+              s = s.replace(old, new, 1)
+              old = '''- [ ] **#93** — Adds the exact injection of every positive-cutoff death shell into divisor fibers over the full integer shell window, the resulting divisor-sum cardinality bound, and its death-process consequences.
+          '''
+              new = '''- [x] **#93** — Added the exact injection of every positive-cutoff death shell into divisor fibers over the full integer shell window, the resulting divisor-sum cardinality bound, and its death-process consequences.
+          - [x] **#94** — Proved the exact finite cofactor-`ω` parity decomposition of each positive-cutoff death increment, including `ω(c)=0` and removal of zero Möbius terms.
+          - [ ] **#95** — Tests and formalizes exact `2ab` source transfer, square-root inversion, prime-dilation Fubini, baseline-scaled low plus full discrepancy, and the reproducible finite-range experiment without claiming an asymptotic estimate.
+          '''
+              assert old in s
+              s = s.replace(old, new, 1)
+              old = '''- [ ] **52. Exact death-shell divisor-fiber bound** — PR #93.
+
+          ## 6. Current formalization frontier
+
+          The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell identity, and shell-cardinality transfer layers are machine checked. On the PR #93 branch the next exact finite layer is the divisor-fiber injection
+
+          ```text
+          #S_t ≤ ∑_{k in I_{Λ,t}} τ(k),
+          ```
+
+          where `I_{Λ,t}` is the complete finite set of integer heights in the half-open shell window. A one-endpoint bound by `τ(2Λ(t+1))` is not a valid substitute.
+
+          The remaining theorem-level obligations are:
+
+          1. prove the native canonical high-sector estimate `(HS)`;
+          2. supply or import the classical Mertens-energy equivalence with RH as a theorem of exactly the required proposition type;
+          3. formalize the exact finite cofactor-`ω` parity decomposition on nonzero Möbius support, including `ω(c)=0`;
+          4. prove a genuine divisor-window asymptotic or a stronger cancellation estimate for the death shells;
+          5. control the endpoint survivor discrepancy `birth - death`, since death-process control alone is insufficient;
+          6. optionally prove stronger sufficient routes such as the square-block increment-energy or partial-moment balance premises.
+
+          Until those items are discharged, the repository remains an axiom-free conditional reduction rather than an unconditional proof of RH.
+          '''
+              new = '''- [x] **52. Exact death-shell divisor-fiber bound** — PR #93.
+          - [x] **53. Exact finite cofactor-`ω` parity decomposition** — PR #94.
+
+          ### Phase XII — exact `2ab` scale transfer
+
+          - [ ] **54. Exact source and finite-family `entered = smooth - transport` realization** — PR #95.
+          - [ ] **55. Canonical dynamic smooth-minus-transport and exact `2ab` dilation** — PR #95.
+          - [ ] **56. Baseline-scaled low plus complete signed discrepancy identity** — PR #95.
+          - [ ] **57. Finite cofactor-first/prime-first transport Fubini identity** — PR #95.
+
+          ## 6. Current formalization frontier
+
+          The exact combinatorial, geometric, signed-Gram, residual, canonical low-occupancy, lifetime-flow, death-shell identity, divisor-fiber, and finite cofactor-parity layers are machine checked. On the PR #95 branch the exact `2ab` scale-transfer layer additionally proves
+
+          ```text
+          entered = smooth - transport,
+          squarePrefixMertens = squareRootSmoothMass - squareRootTransportMass,
+          iota_R(x)=R^2/x,
+          weighted high observable = baseline-scaled low observable + discrepancy,
+          cofactor-first transport pairs = prime-first lower-cofactor fibers.
+          ```
+
+          The accompanying analytical reindexing gives, for `X=R^2-1`,
+
+          ```text
+          T_R = ∑_{R<q≤X, q prime} M(floor(X/q))
+              = ∑_{d<R} K_R(d) M(d).
+          ```
+
+          The reproducible experiment verifies all exact identities with zero integer error through `R=10000`; those finite results remain diagnostics rather than asymptotic theorems.
+
+          The remaining theorem-level obligations are:
+
+          1. prove the native canonical high-sector estimate `(HS)`, or a sufficient route implying the protected pointwise/local criterion;
+          2. supply or import the classical Mertens-energy equivalence with RH as a theorem of exactly the required proposition type;
+          3. identify the prime-first finite fiber directly with the existing Lean `mertensSummatory` API and formalize the reciprocal kernel `K_R(d)`;
+          4. prove a cancellation-aware prime-dilation operator or signed scale-transfer discrepancy estimate, retaining the born-smooth remainder and full interaction;
+          5. prove a genuine divisor-window asymptotic or a stronger cancellation estimate for the death shells;
+          6. control the endpoint survivor discrepancy `birth - death`, since death-process control alone is insufficient;
+          7. optionally prove stronger sufficient routes such as the square-block increment-energy or partial-moment balance premises.
+
+          Until those items are discharged, the repository remains an axiom-free conditional reduction rather than an unconditional proof of RH.
+          '''
+              assert old in s
+              s = s.replace(old, new, 1)
+              p.write_text(s)
+          PY
+      - name: Commit canonical document updates
+        run: |
+          if git diff --quiet; then
+            exit 0
+          fi
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md
+          git commit -m "Record exact 2ab scale-transfer route"
+          git push origin HEAD:agent/twoab-scale-transfer
