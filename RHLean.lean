@@ -60,6 +60,7 @@ import RHLean.Proof.DeathProcessShellIdentity
 import RHLean.Proof.DeathShellCardinalityAndCentering
 import RHLean.Proof.DeathShellCofactorParity
 import RHLean.Proof.DeathShellDivisorFibers
+import RHLean.Proof.LowOmegaHighOrientation
 import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Analysis.DyadicTransportCanonicalForm
 import RHLean.Analysis.ExactActivityPrimeIntervals

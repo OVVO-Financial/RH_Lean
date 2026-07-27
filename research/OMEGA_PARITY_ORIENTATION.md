@@ -106,9 +106,25 @@ The high/low split is not free of theorems. For squarefree `m` with
 
 Hence `Q_1` and `Q_2` are entirely high-orientation, which the data confirms
 (`Q_k low = 0` for `k <= 2` at every scale). The low orientation begins only at
-`omega(m) >= 3`. This is a clean, provable statement, but it is a support fact
-about where classes live, not amplitude control, and is deliberately **not**
-promoted into the Lean theorem graph on its own.
+`omega(m) >= 3`.
+
+This is a clean, unconditional statement, and it is now compiled in
+`RHLean.Proof.LowOmegaHighOrientation`:
+
+```text
+canonicalCofactor_lt_largestPrimeFactor :
+  Squarefree m → 1 < m → m.primeFactors.card ≤ 2 →
+    canonicalCofactor m < canonicalLargestPrimeFactor m
+lt_largestPrimeFactor_sq :                  ... → m < (canonicalLargestPrimeFactor m) ^ 2
+canonicalHeightTwice_pos_of_card_primeFactors_le_two :
+                                            ... → 0 < canonicalHeightTwice m
+```
+
+Because `canonicalHeightTwice m = P⁺(m)^2 - c^2`, the cofactor inequality is
+exactly the positive-height (pure `q > c`, high-orientation) statement. It is a
+support fact about where the `omega ≤ 2` classes live, not amplitude control: it
+lets those terms be treated as pure high-orientation mass without splitting the
+smooth/transport interaction, but it does not bound any cumulative sum.
 
 ## 5. Verdict
 
