@@ -83,6 +83,39 @@ The following are not withdrawn:
 - finite Abel identities, with no claim that absolute variation proves the
   signed estimate.
 
+## Closed route: fixed consecutive omega-class (2-vs-3) parity
+
+**Status: CLOSED AS A LEVER. Recorded by this note.**
+
+The route proposed proving a parity balance between the 2-prime-factor and
+3-prime-factor classes (`Q_2 ~ Q_3`, pairwise `Q_{2j} ~ Q_{2j+1}`) to force
+`M(N)` small, using the already-compiled cofactor-`omega` coordinate
+(`RHLean.Proof.DeathShellCofactorParity`, `N_k`).
+
+Predeclared falsification (survives only if `|Q_2 - Q_3|` stays `o(|Q_2|)` and
+keeps its sign) failed: the gap is orders larger than `M`, grows, and changes
+sign by `X = 4e6`. `M` is small by simultaneous cancellation across all classes,
+not by any two-class balance — confirming `BIG_PICTURE_PROOF_MAP.md` §3.
+
+The parity instinct is not wasted: reorganizing the same alternating sum by
+largest-prime orientation (`P+(m)` above/below `sqrt(m)`) gives
+`M = A_high + A_low` with `A_high ~ -A_low` and `|M|/|A_high|` decreasing
+(0.174 -> 0.0087 through `4e6`). But that is exactly the smooth/transport
+residual the program already protects, not a new mechanism.
+
+See [`research/OMEGA_PARITY_ORIENTATION.md`](research/OMEGA_PARITY_ORIENTATION.md)
+and [`experiments/omega_parity_orientation.py`](experiments/omega_parity_orientation.py).
+
+### Do not repeat this route by
+
+- enlarging `X` and re-checking `Q_2` versus `Q_3`;
+- renaming `N_2/N_3` or pairing a different fixed consecutive `omega` class;
+- treating the orientation near-cancellation `A_high ~ -A_low` as new — it is the
+  existing smooth-minus-transport target re-encoded.
+
+A future omega-parity theorem must control the full transport sum `A_high`
+itself, with the `sqrt(m)` boundary geometry retained.
+
 ## Active, materially distinct routes
 
 ### 1. Multi-prime Möbius cubes
