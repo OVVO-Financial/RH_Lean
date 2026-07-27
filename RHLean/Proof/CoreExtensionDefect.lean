@@ -66,8 +66,11 @@ theorem coefficientGap_numerator_eq_neg_defect
         localWindowInner L prediction N H =
       -localWindowInner (complementaryMainSequence L prediction)
         prediction N H := by
-  simp [localWindowEnergy, localWindowInner, complementaryMainSequence]
-  ring_nf
+  simp only [localWindowEnergy, localWindowInner, complementaryMainSequence]
+  rw [← Finset.sum_sub_distrib, ← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro h hh
+  ring
 
 /--
 If `prediction = -Hhat` has the exact cofactor expansion, the coefficient-gap
