@@ -1,5 +1,7 @@
 import Mathlib
 
+noncomputable section
+
 namespace RHLean.Analysis
 
 /-- Scalar two-vector energy `‖B - β P‖²` written from Gram data. -/
