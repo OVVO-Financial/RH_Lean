@@ -28,7 +28,7 @@ theorem booleanCube_inserted_half_eq_neg
   intro t ht
   have hat : a ∉ t :=
     Finset.notMem_of_mem_powerset_of_notMem ht ha
-  simp [booleanCubeSign, Finset.card_insert_of_not_mem, hat, pow_succ]
+  simp [booleanCubeSign, Finset.card_insert_of_notMem, hat, pow_succ]
 
 /-- Every positive-dimensional complete Boolean cube has exact alternating cancellation. -/
 theorem booleanCubeAlternatingSum_eq_zero
@@ -40,8 +40,8 @@ theorem booleanCubeAlternatingSum_eq_zero
     exact (Finset.insert_erase ha).symm
   rw [hdecomp]
   unfold booleanCubeAlternatingSum
-  rw [Finset.sum_powerset_insert (Finset.not_mem_erase a s)]
-  rw [booleanCube_inserted_half_eq_neg (Finset.not_mem_erase a s)]
+  rw [Finset.sum_powerset_insert (Finset.notMem_erase a s)]
+  rw [booleanCube_inserted_half_eq_neg (Finset.notMem_erase a s)]
   ring
 
 /-- Complete-cube cancellation written directly as a parity sum. -/
