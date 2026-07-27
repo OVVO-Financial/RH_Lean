@@ -32,18 +32,24 @@ theorem reconstruct (d : EndpointCoreDecomposition n) :
 
 /-- The lower endpoint divides the represented integer. -/
 theorem lower_dvd (d : EndpointCoreDecomposition n) : d.lower ∣ n := by
-  rw [← d.product_eq]
-  exact dvd_mul_of_dvd_left (dvd_mul_right d.lower d.core) d.upper
+  refine ⟨d.core * d.upper, ?_⟩
+  calc
+    n = d.lower * d.core * d.upper := d.product_eq.symm
+    _ = d.lower * (d.core * d.upper) := by simp [Nat.mul_assoc]
 
 /-- The upper endpoint divides the represented integer. -/
 theorem upper_dvd (d : EndpointCoreDecomposition n) : d.upper ∣ n := by
-  rw [← d.product_eq]
-  exact dvd_mul_left d.upper (d.lower * d.core)
+  refine ⟨d.lower * d.core, ?_⟩
+  calc
+    n = d.lower * d.core * d.upper := d.product_eq.symm
+    _ = d.upper * (d.lower * d.core) := by ac_rfl
 
 /-- The middle core divides the represented integer. -/
 theorem core_dvd (d : EndpointCoreDecomposition n) : d.core ∣ n := by
-  rw [← d.product_eq]
-  exact dvd_mul_of_dvd_left (dvd_mul_left d.core d.lower) d.upper
+  refine ⟨d.lower * d.upper, ?_⟩
+  calc
+    n = d.lower * d.core * d.upper := d.product_eq.symm
+    _ = d.core * (d.lower * d.upper) := by ac_rfl
 
 /-- Every prime divisor of the core lies strictly between the two endpoints. -/
 theorem prime_dvd_core_between
@@ -55,17 +61,17 @@ theorem prime_dvd_core_between
 /-- Removing the two prime endpoints preserves the Möbius value of the core. -/
 theorem moebius_eq_core (d : EndpointCoreDecomposition n) :
     μ n = μ d.core := by
-  rw [← d.product_eq]
-  exact RHLean.Geometry.moebius_endpoint_pair_preserves
-    d.lower d.core d.upper d.lower_prime d.upper_prime
-      d.lower_core_coprime d.lower_core_upper_coprime
+  calc
+    μ n = μ (d.lower * d.core * d.upper) := congrArg μ d.product_eq.symm
+    _ = μ d.core := RHLean.Geometry.moebius_endpoint_pair_preserves
+      d.lower d.core d.upper d.lower_prime d.upper_prime
+        d.lower_core_coprime d.lower_core_upper_coprime
 
 /-- Empty middle core gives the semiprime endpoint case. -/
 theorem product_eq_of_core_eq_one
     (d : EndpointCoreDecomposition n) (hcore : d.core = 1) :
     d.lower * d.upper = n := by
-  rw [← d.product_eq, hcore]
-  simp
+  simpa [hcore] using d.product_eq
 
 /-- A nontrivial core cannot contain either endpoint as a prime divisor. -/
 theorem endpoints_not_dvd_core (d : EndpointCoreDecomposition n) :
