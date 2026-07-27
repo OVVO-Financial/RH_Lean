@@ -13,6 +13,8 @@ The project has distinct structural branches that meet only at the final analyti
 
 See [`FORMALIZATION_SEQUENCE.md`](FORMALIZATION_SEQUENCE.md) for the canonical compiled inventory, current checkpoint, and implementation order. See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the arithmetic and resonance dependency graph, and [`SIGNED_GRAM_ARCHITECTURE.md`](SIGNED_GRAM_ARCHITECTURE.md) for the cross-shell, projection, leakage, and Lyapunov closure architecture.
 
+The exploratory note [`LEAST_PRIME_PARABOLA_ENDPOINT_CUBES.md`](LEAST_PRIME_PARABOLA_ENDPOINT_CUBES.md) records the exact first-hit least-prime parabola, double-endpoint core, and truncated Boolean-cube decompositions. These identities are not yet part of the compiled Lean theorem graph. The companion script [`experiments/least_prime_endpoint_cubes.py`](experiments/least_prime_endpoint_cubes.py) is diagnostic only and does not replace certified computation.
+
 ## Verification
 
 Every pull request runs:
