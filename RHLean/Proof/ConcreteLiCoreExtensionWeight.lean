@@ -113,6 +113,9 @@ theorem weightedLiDefect_eq_endpoint_add_primeError
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro c hc
+  change (μ c : ℝ) * liDynamicCoreExtensionWeight L N H c =
+    (μ c : ℝ) * endpointCoreExtensionWeight L N H c +
+      (μ c : ℝ) * liPrimeErrorWeight L N H c
   rw [liDynamicWeight_eq_endpoint_add_primeError]
   ring
 
@@ -136,14 +139,18 @@ def LiPrimeErrorWeightedBound (L : ℕ → ℝ) : Prop :=
 
 /-- Separate endpoint and prime-error estimates bound the full weighted defect. -/
 theorem weightedLiDefect_abs_le
-    (L : ℕ → ℝ) (N H endpointBound errorBound : ℝ)
+    (L : ℕ → ℝ) (N H : ℕ) (endpointBound errorBound : ℝ)
     (hEndpoint : |endpointWeightedMobiusSum L N H| ≤ endpointBound)
     (hError : |liPrimeErrorMobiusSum L N H| ≤ errorBound) :
     |weightedCoreExtensionDefect (liWindowCoreSupport N H)
         (liComplementaryMain L N H) liActivityIncrement N H| ≤
       endpointBound + errorBound := by
   rw [weightedLiDefect_eq_endpoint_add_primeError]
-  exact le_trans (abs_add _ _) (add_le_add hEndpoint hError)
+  calc
+    |endpointWeightedMobiusSum L N H + liPrimeErrorMobiusSum L N H| ≤
+        |endpointWeightedMobiusSum L N H| +
+          |liPrimeErrorMobiusSum L N H| := abs_add_le _ _
+    _ ≤ endpointBound + errorBound := add_le_add hEndpoint hError
 
 /-- A weighted-defect estimate at the prediction-energy scale gives the desired
 coefficient-gap estimate. This is the machine-checked end of the reduction. -/
@@ -157,9 +164,18 @@ theorem liCoefficientGap_abs_le
     |1 - twoVectorOptimalCoefficient
         (localWindowEnergy (liWindowPrediction N H) N H)
         (localWindowInner L (liWindowPrediction N H) N H)| ≤ gapBound := by
-  rw [one_sub_optimalCoefficient_eq_weightedCoreExtension
-    (liWindowCoreSupport N H) L liActivityIncrement N H (ne_of_gt henergy)]
-  rw [abs_div, abs_neg]
+  have hgap :
+      1 - twoVectorOptimalCoefficient
+          (localWindowEnergy (liWindowPrediction N H) N H)
+          (localWindowInner L (liWindowPrediction N H) N H) =
+        -weightedCoreExtensionDefect (liWindowCoreSupport N H)
+            (liComplementaryMain L N H) liActivityIncrement N H /
+          localWindowEnergy (liWindowPrediction N H) N H := by
+    simpa [liWindowPrediction, liComplementaryMain] using
+      one_sub_optimalCoefficient_eq_weightedCoreExtension
+        (liWindowCoreSupport N H) L liActivityIncrement N H
+        (ne_of_gt henergy)
+  rw [hgap, abs_div, abs_neg]
   exact (div_le_iff₀ henergy).2 hdefect
 
 end RHLean.Analysis
