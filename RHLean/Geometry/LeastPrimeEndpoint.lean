@@ -19,7 +19,6 @@ theorem firstHitHeight_eq_parabola (p r n : ℝ) (hp : p ≠ 0) (hn : n = p * r)
   subst n
   rw [firstHitHeight_eq]
   field_simp [hp]
-  ring
 
 /-- The first-hit Fermat point squares to the vertical fibre at the product `p*r`. -/
 theorem firstHitPoint_sq (p r : ℝ) :
