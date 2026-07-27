@@ -49,8 +49,8 @@ theorem core_unique
       _ = e.lower * e.core * e.upper := e.product_eq.symm
   rw [hlower, hupper] at hprod
   have hmiddle : e.lower * d.core = e.lower * e.core :=
-    Nat.mul_right_cancel hprod
-  exact Nat.mul_left_cancel hmiddle
+    Nat.mul_right_cancel e.upper_prime.pos hprod
+  exact Nat.mul_left_cancel e.lower_prime.pos hmiddle
 
 /-- Canonical endpoint/core components are unique. -/
 theorem components_unique
