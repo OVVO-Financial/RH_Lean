@@ -175,7 +175,7 @@ theorem liCoefficientGap_abs_le
       one_sub_optimalCoefficient_eq_weightedCoreExtension
         (liWindowCoreSupport N H) L liActivityIncrement N H
         (ne_of_gt henergy)
-  rw [hgap, abs_div, abs_neg]
+  rw [hgap, abs_div, abs_neg, abs_of_pos henergy]
   exact (div_le_iff₀ henergy).2 hdefect
 
 end RHLean.Analysis
