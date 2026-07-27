@@ -51,7 +51,6 @@ theorem localWindowInner_mobiusBaseline
   rw [Finset.sum_comm]
   apply Finset.sum_congr rfl
   intro c hc
-  rw [Finset.mul_sum]
   apply Finset.sum_congr rfl
   intro h hh
   ring
@@ -68,7 +67,7 @@ theorem coefficientGap_numerator_eq_neg_defect
       -localWindowInner (complementaryMainSequence L prediction)
         prediction N H := by
   simp [localWindowEnergy, localWindowInner, complementaryMainSequence]
-  ring
+  ring_nf
 
 /--
 If `prediction = -Hhat` has the exact cofactor expansion, the coefficient-gap
@@ -110,7 +109,6 @@ theorem one_sub_optimalCoefficient_eq_weightedCoreExtension
   unfold twoVectorOptimalCoefficient
   rw [← coefficientGap_numerator_eq_weightedCoreExtension]
   field_simp [henergy]
-  ring
 
 /-- Explicit decomposition of a dynamic weight into geometric core-extension and error. -/
 structure DynamicCoreExtensionApproximation
