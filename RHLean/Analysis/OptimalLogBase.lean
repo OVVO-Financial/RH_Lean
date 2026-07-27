@@ -40,6 +40,11 @@ counting function `P`, whenever the relevant denominators are nonzero. -/
 def optimalLogBase (P : ℝ → ℝ) (x : ℝ) : ℝ :=
   Real.exp (P x * Real.log x / x)
 
+/-- The exact optimum logarithmic base is always positive. -/
+theorem optimalLogBase_pos (P : ℝ → ℝ) (x : ℝ) :
+    0 < optimalLogBase P x := by
+  exact Real.exp_pos _
+
 /-- The logarithm of the optimum base is exactly the normalized counting
 ratio. -/
 @[simp] theorem log_optimalLogBase (P : ℝ → ℝ) (x : ℝ) :
