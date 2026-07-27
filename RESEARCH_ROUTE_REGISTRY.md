@@ -20,7 +20,7 @@ components, or replacing one sign-blind inequality by another.
 
 ## Closed route: single-prime dyadic Li-residual cancellation
 
-**Status: CLOSED AS AN RH MECHANISM.**
+**Status: CLOSED AS AN RH MECHANISM. Recorded by PR #105.**
 
 The route tested the following proposed mechanism:
 
