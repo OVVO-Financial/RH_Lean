@@ -31,6 +31,7 @@ import RHLean.Proof.RiemannHypothesisBridge
 import RHLean.Analysis.SmallModulusResonance
 import RHLean.Analysis.SquarePrefixMertensBridge
 import RHLean.Proof.UniformResidualBound
+import RHLean.Arithmetic.BooleanCubeCancellation
 import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.EndpointCoreDecomposition
 import RHLean.Arithmetic.FourSlotCell
