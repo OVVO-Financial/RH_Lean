@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Test the corrected dynamic-denominator Viole baseline through 10^8.
+"""Test the square-index dynamic-denominator Viole baseline through 10^8.
 
 The effective logarithmic base is constrained by
 
-    log b(x) = 1 + a / log x + b / (log x)^2,
+    log b(r) = 1 + a / log r + b / (log r)^2,
 
-so b(x) -> e. The coefficients are fitted only on square-block midpoints from
+so b(r) -> e. The Euler correction uses log_b(r), while the main denominator
+retains log(r^2). Coefficients are fitted only on square-block midpoints from
 10^3 through 10^5, frozen, and then evaluated on later decades.
 
 Dependencies: numpy, pandas, scipy.
@@ -28,7 +29,6 @@ LI2 = float(expi(math.log(2.0)))
 
 
 def prime_counts_at(checkpoints: np.ndarray, nmax: int) -> tuple[np.ndarray, int]:
-    """Return exact pi(x) at sorted checkpoints using a segmented sieve."""
     limit = int(math.isqrt(nmax))
     base = np.ones(limit + 1, dtype=np.bool_)
     base[:2] = False
@@ -65,15 +65,15 @@ def li(x: np.ndarray) -> np.ndarray:
     return expi(np.log(np.asarray(x, dtype=np.float64))) - LI2
 
 
-def correction_from_log_base_exponent(log_x: np.ndarray, exponent: np.ndarray) -> np.ndarray:
-    t = log_x / exponent
+def correction_from_log_base_exponent(log_r: np.ndarray, exponent: np.ndarray) -> np.ndarray:
+    t = log_r / exponent
     return (1.0 + t) * np.log1p(1.0 / t)
 
 
-def fit_dynamic(log_x: np.ndarray, target: np.ndarray, mask: np.ndarray):
+def fit_dynamic(log_r: np.ndarray, target: np.ndarray, mask: np.ndarray):
     def residual(parameters: np.ndarray) -> np.ndarray:
         a, b = parameters
-        L = log_x[mask]
+        L = log_r[mask]
         exponent = 1.0 + a / L + b / L**2
         if np.any(exponent <= 0):
             return np.full(mask.sum(), 1e6)
@@ -96,20 +96,17 @@ def main() -> None:
 
     pi_x, pi_nmax = prime_counts_at(integer_midpoints, NMAX)
     pi_x = pi_x.astype(np.float64)
-    log_xi = np.log(xi)
+    log_r = np.log(r.astype(np.float64))
+    log_r2 = np.log(r.astype(np.float64) ** 2)
 
-    target_correction = np.log(r.astype(np.float64) ** 2) - (
-        r.astype(np.float64) ** 2
-    ) / pi_x
+    target_correction = log_r2 - (r.astype(np.float64) ** 2) / pi_x
     train = (xi >= 1_000) & (xi <= 100_000)
-    fit = fit_dynamic(log_xi, target_correction, train)
+    fit = fit_dynamic(log_r, target_correction, train)
     a_dynamic, b_dynamic = map(float, fit.x)
 
-    exponent = 1.0 + a_dynamic / log_xi + b_dynamic / log_xi**2
-    correction = correction_from_log_base_exponent(log_xi, exponent)
-    dynamic_vf = r.astype(np.float64) ** 2 / (
-        np.log(r.astype(np.float64) ** 2) - correction
-    )
+    exponent = 1.0 + a_dynamic / log_r + b_dynamic / log_r**2
+    correction = correction_from_log_base_exponent(log_r, exponent)
+    dynamic_vf = r.astype(np.float64) ** 2 / (log_r2 - correction)
     logarithmic_integral = li(xi)
 
     ranges = [
@@ -125,7 +122,7 @@ def main() -> None:
         vf_error = dynamic_vf[mask] - pi_x[mask]
         li_error = logarithmic_integral[mask] - pi_x[mask]
         for name, error, other_error in [
-            ("Dynamic VF e-asymptotic", vf_error, li_error),
+            ("Dynamic VF square-index", vf_error, li_error),
             ("Li", li_error, vf_error),
         ]:
             rows.append({
@@ -136,9 +133,7 @@ def main() -> None:
                 "mae": float(np.abs(error).mean()),
                 "rmse": float(np.sqrt(np.mean(error * error))),
                 "max_abs": float(np.abs(error).max()),
-                "pointwise_win_rate": float(
-                    np.mean(np.abs(error) < np.abs(other_error))
-                ),
+                "pointwise_win_rate": float(np.mean(np.abs(error) < np.abs(other_error))),
                 "min_log_base_exponent": float(exponent[mask].min()),
                 "max_log_base_exponent": float(exponent[mask].max()),
             })
@@ -150,7 +145,8 @@ def main() -> None:
         "NMAX": NMAX,
         "pi_NMAX": int(pi_nmax),
         "fit_range": [1000, 100000],
-        "formula": "log b(x)=1+a/log(x)+b/log(x)^2",
+        "formula": "log b(r)=1+a/log(r)+b/log(r)^2",
+        "correction_variable": "log_b(r)",
         "a": a_dynamic,
         "b": b_dynamic,
         "asymptotic_base": "e",
@@ -159,20 +155,16 @@ def main() -> None:
     (OUT / "summary.json").write_text(json.dumps(summary, indent=2))
 
     report = [
-        "# Corrected e-asymptotic dynamic Viole test",
+        "# Square-index e-asymptotic dynamic Viole test",
         "",
         f"`a = {a_dynamic:.15f}`",
         f"`b = {b_dynamic:.15f}`",
         "",
-        metrics.pivot(index="range", columns="model", values="rmse")
-        .round(6)
-        .to_markdown(),
+        metrics.pivot(index="range", columns="model", values="rmse").round(6).to_markdown(),
         "",
         "## Pointwise win rates",
         "",
-        metrics.pivot(index="range", columns="model", values="pointwise_win_rate")
-        .round(6)
-        .to_markdown(),
+        metrics.pivot(index="range", columns="model", values="pointwise_win_rate").round(6).to_markdown(),
     ]
     (OUT / "REPORT.md").write_text("\n".join(report))
 
