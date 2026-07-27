@@ -39,6 +39,7 @@ import RHLean.Geometry.CofactorParabolas
 import RHLean.Geometry.ComplexSquareFiber
 import RHLean.Geometry.ComplexSquareRecovery
 import RHLean.Geometry.FermatCoordinates
+import RHLean.Geometry.LeastPrimeEndpoint
 import RHLean.Geometry.SquareMapConformality
 import RHLean.Geometry.TwoABDisplacement
 import RHLean.Kernel.FixedPackets
