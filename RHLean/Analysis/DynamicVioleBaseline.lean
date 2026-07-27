@@ -5,20 +5,21 @@ import RHLean.Proof.SquareBlockTransportBaseline
 # Dynamic-denominator Viole baseline
 
 This module formalizes the square-block prime-counting baseline tested in
-`experiments/vf_dynamic_test.py`.
+`experiments/vf_dynamic_e_asymptote_test.py`.
 
 The original Viole function used one fixed logarithmic-base convergence rate.
-The empirical study replaced that fixed rate by
+The corrected empirical study replaces that fixed rate by
 
 ```text
-log b(x) = 2 + a / log x + b / (log x)^2,
-a = 22.407744267407335,
-b = -152.12857519277964.
+log b(x) = 1 + a / log x + b / (log x)^2,
+a = 40.64408021414064,
+b = -233.433772115277.
 ```
 
-The coefficients below are represented as exact rationals. They were fitted on
-square-block midpoints from `10^3` through `10^5` and then frozen before testing
-through `10^7`.
+The leading constant is `1`, so the effective base satisfies `b(x) -> e` as
+`x -> infinity`. The coefficients below are represented as exact rationals.
+They were fitted on square-block midpoints from `10^3` through `10^5` and then
+frozen before testing through `10^8`.
 
 This file formalizes only the deterministic function and its exact insertion
 into the existing arbitrary-baseline decomposition. It does not assert any
@@ -30,20 +31,22 @@ noncomputable section
 
 namespace RHLean.Proof
 
-/-- Fitted coefficient of `1 / log x` in the dynamic logarithmic-base exponent.
-The full fitted decimal `22.407744267407335` is stored exactly. -/
+/-- Fitted coefficient of `1 / log x` in the corrected dynamic logarithmic-base
+exponent. The full fitted decimal `40.64408021414064` is stored exactly. -/
 def dynamicVioleFitA : ℝ :=
-  22407744267407335 / 1000000000000000
+  4064408021414064 / 100000000000000
 
-/-- Fitted coefficient of `1 / (log x)^2` in the dynamic logarithmic-base
-exponent. The full fitted decimal `-152.12857519277964` is stored exactly. -/
+/-- Fitted coefficient of `1 / (log x)^2` in the corrected dynamic
+logarithmic-base exponent. The full fitted decimal `-233.433772115277` is
+stored exactly. -/
 def dynamicVioleFitB : ℝ :=
-  -(15212857519277964 / 100000000000000)
+  -(233433772115277 / 1000000000000)
 
 /-- The fitted value of `log b(x)`, where `b(x)` is the effective logarithmic
-base used by the dynamic Viole denominator. -/
+base used by the dynamic Viole denominator. The leading constant `1` encodes
+the intended asymptotic base `e`. -/
 def dynamicVioleLogBaseExponent (x : ℝ) : ℝ :=
-  2 + dynamicVioleFitA / Real.log x +
+  1 + dynamicVioleFitA / Real.log x +
     dynamicVioleFitB / (Real.log x) ^ 2
 
 /-- The corresponding positive formal base `b(x) = exp(log b(x))`.
@@ -126,8 +129,8 @@ def dynamicVioleBaseline (x : ℝ) : ℂ :=
   (dynamicVioleBaselineReal x : ℂ)
 
 /-- Exact specialization of the existing arbitrary-baseline decomposition to
-the dynamic Viole baseline. This is algebraic and imports no empirical error
-claim. -/
+the corrected dynamic Viole baseline. This is algebraic and imports no
+empirical error claim. -/
 theorem squarePrefixMertens_eq_dynamicVioleMain_sub_error (n : ℕ) :
     RHLean.Analysis.squarePrefixMertens n =
       squareBlockBaselineMainPrefix dynamicVioleBaseline n -
