@@ -43,7 +43,7 @@ All scripts write into
 `scripts/DyadicLiRouteFalsification/results/` unless `--outdir` is supplied by
 the primary script.
 
-## Retained result tables
+## Generated result tables
 
 - `kj_falsification_grid.csv`
 - `kj_falsification_summary.csv`
@@ -54,5 +54,6 @@ the primary script.
 - `exact_cancellation_window_tests.csv`
 - `exact_cancellation_svd_tests.csv`
 
-The per-time profile CSV files and plots are regenerated rather than retained
-in the repository.
+The result tables, per-time profile CSV files, and plots are regenerated rather
+than retained in the repository. The permanent numerical summary and strategic
+verdict are recorded in the research note.
