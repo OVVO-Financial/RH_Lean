@@ -42,7 +42,7 @@ theorem booleanCubeAlternatingSum_eq_zero
   unfold booleanCubeAlternatingSum
   rw [Finset.sum_powerset_insert (Finset.notMem_erase a s)]
   rw [booleanCube_inserted_half_eq_neg (Finset.notMem_erase a s)]
-  ring
+  simp
 
 /-- Complete-cube cancellation written directly as a parity sum. -/
 theorem sum_neg_one_pow_card_powerset_eq_zero
