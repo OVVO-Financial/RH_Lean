@@ -8,6 +8,7 @@ import RHLean.Analysis.CanonicalHighSectorCore
 import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.ConcreteSquarePrefixGeometry
+import RHLean.Proof.EndpointCubeAnalyticClosure
 import RHLean.Proof.FinitePartialMoments
 import RHLean.Proof.GeometricRHReduction
 import RHLean.Proof.HeightShellGram
