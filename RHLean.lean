@@ -30,6 +30,7 @@ import RHLean.Proof.ResonantProjection
 import RHLean.Proof.RiemannHypothesisBridge
 import RHLean.Analysis.SmallModulusResonance
 import RHLean.Analysis.SquarePrefixMertensBridge
+import RHLean.Proof.SpectralEndpointGramBridge
 import RHLean.Proof.UniformResidualBound
 import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.EndpointCoreDecomposition
