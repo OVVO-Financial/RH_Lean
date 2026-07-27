@@ -9,6 +9,8 @@ import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.ConcreteSquarePrefixGeometry
 import RHLean.Proof.ComplementaryMainGram
+import RHLean.Proof.ConcreteLiCoreExtensionWeight
+import RHLean.Proof.CoreExtensionDefect
 import RHLean.Proof.EndpointCubeAnalyticClosure
 import RHLean.Proof.EndpointProjectionBridge
 import RHLean.Proof.FinitePartialMoments
