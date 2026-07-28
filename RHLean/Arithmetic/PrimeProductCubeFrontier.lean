@@ -1,3 +1,5 @@
+import Mathlib.Algebra.Order.BigOperators.Group.Finset
+import Mathlib.NumberTheory.Prime.Basic
 import RHLean.Arithmetic.TruncatedBooleanCube
 
 open scoped BigOperators
@@ -8,7 +10,7 @@ namespace RHLean.Arithmetic
 
 /-- Product represented by a finite face of prime coordinates. -/
 def primeFaceProduct (t : Finset ℕ) : ℕ :=
-  ∏ p in t, p
+  t.prod id
 
 /-- Concrete finite support used by the prime-product cube: the face belongs to
 `S` and its represented squarefree product lies below the cutoff `X`. -/
@@ -24,7 +26,7 @@ theorem primeProductAdmissible_downward
   intro u v huv hv
   refine ⟨huv.trans hv.1, ?_⟩
   exact le_trans
-    (Finset.prod_le_prod_of_subset_of_one_le huv (by
+    (Finset.prod_le_prod_of_subset_of_one_le' huv (by
       intro p hpv hpu
       exact (hprime p (hv.1 hpv)).one_le))
     hv.2
@@ -87,8 +89,9 @@ theorem firstFailureBoundary_primeProduct_eq
       have hprod_insert :
           primeFaceProduct (insert ell t) = ell * primeFaceProduct t := by
         simp [primeFaceProduct, hell_not_mem]
-      rw [hprod_insert] at hchild
-      exact (Nat.not_lt_of_ge hchild.2) ht.2.2
+      have hchild_le : primeFaceProduct (insert ell t) ≤ X := hchild.2
+      rw [hprod_insert] at hchild_le
+      exact (Nat.not_lt_of_ge hchild_le) ht.2.2
 
 /-- Exact arithmetic specialization of the truncated-cube theorem.
 
