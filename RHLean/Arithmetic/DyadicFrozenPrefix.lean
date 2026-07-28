@@ -33,11 +33,11 @@ theorem moebius_eq_neg_sum_properDivisors {n : ℕ} (hn : 1 < n) :
     congrArg (fun f : ArithmeticFunction ℤ => f n)
       ArithmeticFunction.moebius_mul_coe_zeta
   have hsum : ∑ d ∈ n.divisors, μ d = 0 := by
-    simpa only [ArithmeticFunction.mul_apply, ArithmeticFunction.zeta_apply,
-      ArithmeticFunction.one_apply, hn.ne', if_false, mul_one,
-      Nat.sum_divisorsAntidiagonal'] using hconv
-  have hnmem : n ∈ n.divisors := Nat.mem_divisors.mpr ⟨dvd_rfl, hn.ne'⟩
-  rw [← Finset.sum_erase_add _ hnmem] at hsum
+    rw [ArithmeticFunction.coe_mul_zeta_apply] at hconv
+    simpa [ArithmeticFunction.one_apply, hn.ne'] using hconv
+  have hnmem : n ∈ n.divisors := Nat.mem_divisors.mpr ⟨dvd_rfl, by omega⟩
+  have herase := Finset.sum_erase_add _ _ hnmem
+  rw [herase] at hsum
   linarith
 
 /-- On `(N,2N]`, the frozen proper-divisor set is the full proper-divisor set. -/
@@ -50,11 +50,11 @@ theorem frozenProperDivisors_eq {N n : ℕ}
     Finset.mem_erase, Nat.mem_divisors]
   constructor
   · rintro ⟨hdN, hdvd, hdn⟩
-    exact ⟨Nat.ne_of_lt hdn, hdvd, hn.ne'⟩
+    exact ⟨Nat.ne_of_lt hdn, hdvd, by omega⟩
   · rintro ⟨hdn, hdvd, _⟩
-    exact ⟨Nat.lt_succ_iff.mpr (properDivisor_le_base hnN hn2 hdvd (Nat.lt_of_le_of_ne
-      (Nat.le_of_dvd (by omega) hdvd) hdn)), hdvd, lt_of_le_of_ne
-      (Nat.le_of_dvd (by omega) hdvd) hdn⟩
+    have hle : d ≤ n := Nat.le_of_dvd (by omega) hdvd
+    have hlt : d < n := lt_of_le_of_ne hle hdn
+    exact ⟨Nat.lt_succ_iff.mpr (properDivisor_le_base hnN hn2 hdvd hlt), hdvd, hlt⟩
 
 /-- Pointwise frozen-prefix reconstruction on the next dyadic block. -/
 theorem moebius_eq_neg_frozenPrefixSum {N n : ℕ}
@@ -78,12 +78,16 @@ theorem dyadic_moebius_increment_eq_frozen_weighted_sum (N : ℕ) :
           exact moebius_eq_neg_frozenPrefixSum hn.1 hn.2
     _ = -∑ d ∈ Finset.range (N + 1),
           ∑ n ∈ dyadicBlock N, if d ∣ n then μ d else 0 := by
-          simp [frozenProperDivisors, Finset.sum_comm]
+          simp only [frozenProperDivisors, Finset.sum_neg_distrib, Finset.sum_filter]
+          rw [Finset.sum_comm]
     _ = -∑ d ∈ Finset.range (N + 1), (dyadicDivisorWeight N d : ℤ) * μ d := by
           apply congrArg Neg.neg
           apply Finset.sum_congr rfl
           intro d hd
-          simp [dyadicDivisorWeight, mul_comm]
+          change (∑ n ∈ dyadicBlock N, if d ∣ n then μ d else 0) =
+            (((dyadicBlock N).filter fun n => d ∣ n).card : ℤ) * μ d
+          rw [← Finset.sum_filter]
+          simp
 
 /-- The finite prime contribution in the new dyadic block. -/
 def dyadicPrimeBirths (N : ℕ) : ℕ :=
@@ -111,7 +115,9 @@ theorem dyadic_increment_eq_inherited_sub_primeBirths (N : ℕ) :
       _ = -(dyadicPrimeBirths N : ℤ) := by
             simp [dyadicPrimeBirths]
   rw [hprime]
-  simp [dyadicInheritedCompositeMass]
+  change -(dyadicPrimeBirths N : ℤ) + dyadicInheritedCompositeMass N =
+    dyadicInheritedCompositeMass N - dyadicPrimeBirths N
+  abel
 
 /-- A typed finite cancellation premise for the dyadic frozen-prefix operator. -/
 def DyadicFrozenPrefixCancellation : Prop :=
