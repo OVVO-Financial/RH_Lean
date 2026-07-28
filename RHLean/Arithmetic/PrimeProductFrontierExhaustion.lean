@@ -61,8 +61,9 @@ theorem selectedFace_admissible_of_fullyExtendable
     primeProductAdmissible S X A := by
   have hcombined : primeProductAdmissible S X (A ∪ t) :=
     (mem_fullyExtendablePrimeFaces.mp ht).2
-  exact primeProductAdmissible_downward hprime
-    (Finset.subset_union_left) hcombined
+  have hdown : CubeDownwardClosed (primeProductAdmissible S X) :=
+    primeProductAdmissible_downward hprime
+  exact hdown A (A ∪ t) Finset.subset_union_left hcombined
 
 /-- Once the selected prime product exceeds `X`, no face can survive all of
 those extensions.  Thus the final fully extendable remainder is exactly empty. -/
@@ -72,7 +73,7 @@ theorem fullyExtendablePrimeFaces_eq_empty_of_cutoff
     (hX : X < primeFaceProduct A) :
     fullyExtendablePrimeFaces S X A = ∅ := by
   classical
-  apply Finset.eq_empty_iff_forall_not_mem.mpr
+  apply Finset.eq_empty_iff_forall_notMem.mpr
   intro t ht
   have hAadm : primeProductAdmissible S X A :=
     selectedFace_admissible_of_fullyExtendable hprime ht
