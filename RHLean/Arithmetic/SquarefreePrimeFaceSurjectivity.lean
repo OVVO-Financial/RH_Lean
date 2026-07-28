@@ -24,7 +24,7 @@ theorem squarefreePrimeFace_subset_primesUpTo
   intro p hp
   have hpData := Nat.mem_primeFactors.mp hp
   have hpPrime : Nat.Prime p := hpData.1
-  have hpDvd : p ∣ n := hpData.2
+  have hpDvd : p ∣ n := hpData.2.1
   have hnPos : 0 < n := Nat.pos_of_ne_zero hn.ne_zero
   have hpLeN : p ≤ n := Nat.le_of_dvd hnPos hpDvd
   exact mem_primesUpTo.mpr ⟨hpPrime, hpLeN.trans hnX⟩
