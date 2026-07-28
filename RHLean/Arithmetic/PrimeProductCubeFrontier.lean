@@ -1,5 +1,4 @@
-import Mathlib.Algebra.Order.BigOperators.Group.Finset
-import Mathlib.NumberTheory.Prime.Basic
+import Mathlib
 import RHLean.Arithmetic.TruncatedBooleanCube
 
 open scoped BigOperators
