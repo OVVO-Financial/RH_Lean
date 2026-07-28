@@ -46,6 +46,7 @@ import RHLean.Arithmetic.PrimeFaceProductUniqueness
 import RHLean.Arithmetic.SquarefreePrimeFaceSurjectivity
 import RHLean.Arithmetic.AdmissibleFaceSquarefreeImage
 import RHLean.Arithmetic.TruncatedCubeMertensPrefix
+import RHLean.Arithmetic.MoebiusPrefixFrontierIdentity
 import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.EndpointCoreDecomposition
 import RHLean.Arithmetic.FourSlotCell
