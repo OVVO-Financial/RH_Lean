@@ -10,7 +10,9 @@ namespace RHLean.Proof
 /-- The normalized ordered-factor weight is symmetric in its two coordinates. -/
 theorem normalizedCofactorWeightRat_comm (c q : ℕ) :
     normalizedCofactorWeightRat c q = normalizedCofactorWeightRat q c := by
-  simp [normalizedCofactorWeightRat, Nat.mul_comm, mul_comm]
+  unfold normalizedCofactorWeightRat
+  rw [Nat.mul_comm c q]
+  ring
 
 /-- Moving the fresh factor `3` to the upper coordinate gives the same `-1/2`
 scaling as moving it to the lower coordinate. -/
