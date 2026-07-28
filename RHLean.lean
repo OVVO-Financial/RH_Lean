@@ -49,6 +49,7 @@ import RHLean.Arithmetic.TruncatedCubeMertensPrefix
 import RHLean.Arithmetic.MoebiusPrefixFrontierIdentity
 import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.EndpointCoreDecomposition
+import RHLean.Arithmetic.DyadicFrozenPrefix
 import RHLean.Arithmetic.FourSlotCell
 import RHLean.Arithmetic.MoebiusDoubling
 import RHLean.Arithmetic.PrimeSquareMod24
