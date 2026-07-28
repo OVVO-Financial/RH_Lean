@@ -59,24 +59,47 @@ theorem truncatedCubeAlternatingSum_eq_firstFailureBoundary
   classical
   have hdecomp : s = insert a (s.erase a) := by
     exact (Finset.insert_erase ha).symm
-  rw [hdecomp]
   unfold truncatedCubeAlternatingSum firstFailureBoundaryAlternatingSum
     firstFailureBoundary
-  rw [Finset.sum_powerset_insert (Finset.notMem_erase a s)]
-  simp only [Finset.erase_insert, Finset.notMem_erase, Finset.sum_filter]
-  rw [← Finset.sum_add_distrib]
-  apply Finset.sum_congr rfl
-  intro t ht
-  have hat : a ∉ t :=
-    Finset.notMem_of_mem_powerset_of_notMem ht (Finset.notMem_erase a s)
-  by_cases hchild : admissible (insert a t)
-  · have hparent : admissible t :=
-      hdown t (insert a t) (Finset.subset_insert a t) hchild
-    simp [hchild, hparent, booleanCubeSign,
-      Finset.card_insert_of_notMem, hat, pow_succ]
-  · by_cases hparent : admissible t
-    · simp [hchild, hparent]
-    · simp [hchild, hparent]
+  calc
+    (∑ t ∈ s.powerset, if admissible t then booleanCubeSign t else 0) =
+        ∑ t ∈ (insert a (s.erase a)).powerset,
+          if admissible t then booleanCubeSign t else 0 := by
+      rw [← hdecomp]
+    _ =
+        (∑ t ∈ (s.erase a).powerset,
+          if admissible t then booleanCubeSign t else 0) +
+        ∑ t ∈ (s.erase a).powerset,
+          if admissible (insert a t) then
+            booleanCubeSign (insert a t) else 0 := by
+      rw [Finset.sum_powerset_insert (Finset.notMem_erase a s)]
+    _ =
+        ∑ t ∈ (s.erase a).powerset,
+          ((if admissible t then booleanCubeSign t else 0) +
+            if admissible (insert a t) then
+              booleanCubeSign (insert a t) else 0) := by
+      rw [Finset.sum_add_distrib]
+    _ =
+        ∑ t ∈ (s.erase a).powerset,
+          if admissible t ∧ ¬ admissible (insert a t) then
+            booleanCubeSign t else 0 := by
+      apply Finset.sum_congr rfl
+      intro t ht
+      have hat : a ∉ t :=
+        Finset.notMem_of_mem_powerset_of_notMem ht (Finset.notMem_erase a s)
+      by_cases hchild : admissible (insert a t)
+      · have hparent : admissible t :=
+          hdown t (insert a t) (Finset.subset_insert a t) hchild
+        simp [hchild, hparent, booleanCubeSign,
+          Finset.card_insert_of_notMem, hat, pow_succ]
+      · by_cases hparent : admissible t
+        · simp [hchild, hparent]
+        · simp [hchild, hparent]
+    _ =
+        ∑ t ∈ (s.erase a).powerset.filter
+          (fun t => admissible t ∧ ¬ admissible (insert a t)),
+          booleanCubeSign t := by
+      rw [Finset.sum_filter]
 
 /-- If every admitted parent extends across coordinate `a`, then the truncated
 cube is complete in that coordinate and its alternating mass is exactly zero. -/
