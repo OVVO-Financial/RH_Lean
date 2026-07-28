@@ -8,8 +8,9 @@ noncomputable section
 namespace RHLean.Arithmetic
 
 /-- The finite set of all faces admitted by the prime-product cutoff at `X`. -/
-def admissiblePrimeFaces (X : ℕ) : Finset (Finset ℕ) :=
-  (primesUpTo X).powerset.filter
+def admissiblePrimeFaces (X : ℕ) : Finset (Finset ℕ) := by
+  classical
+  exact (primesUpTo X).powerset.filter
     (primeProductAdmissible (primesUpTo X) X)
 
 /-- The finite set of squarefree natural numbers not exceeding `X`. -/
@@ -19,12 +20,8 @@ def squarefreeUpTo (X : ℕ) : Finset ℕ :=
 @[simp] theorem mem_admissiblePrimeFaces {X : ℕ} {t : Finset ℕ} :
     t ∈ admissiblePrimeFaces X ↔
       primeProductAdmissible (primesUpTo X) X t := by
-  constructor
-  · intro ht
-    exact (Finset.mem_filter.mp ht).2
-  · intro ht
-    apply Finset.mem_filter.mpr
-    exact ⟨Finset.mem_powerset.mpr ht.1, ht⟩
+  classical
+  simp [admissiblePrimeFaces]
 
 @[simp] theorem mem_squarefreeUpTo {X n : ℕ} :
     n ∈ squarefreeUpTo X ↔ Squarefree n ∧ n ≤ X := by
