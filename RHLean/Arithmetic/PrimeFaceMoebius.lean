@@ -29,7 +29,7 @@ theorem moebius_primeFaceProduct_eq_booleanCubeSign
           simpa [primeFaceProduct] using hpdiv
         rcases (Prime.dvd_finset_prod_iff hpPrime.prime id).mp hpdiv' with
           ⟨q, hqt, hpq⟩
-        rcases (htPrime q hqt).eq_one_or_self_of_dvd hpq with hpOne | hpqEq
+        rcases (htPrime q hqt).eq_one_or_self_of_dvd p hpq with hpOne | hpqEq
         · exact hpPrime.ne_one hpOne
         · exact hp (hpqEq ▸ hqt)
       have hprod :
