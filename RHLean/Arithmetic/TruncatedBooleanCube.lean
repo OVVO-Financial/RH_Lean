@@ -41,7 +41,7 @@ def firstFailureBoundaryAlternatingSum {α : Type*} [DecidableEq α]
     t ∈ firstFailureBoundary s a admissible ↔
       t ⊆ s.erase a ∧ admissible t ∧ ¬ admissible (insert a t) := by
   classical
-  simp [firstFailureBoundary, and_assoc]
+  simp [firstFailureBoundary]
 
 /-- Exact one-coordinate truncated-cube decomposition.
 
@@ -63,7 +63,8 @@ theorem truncatedCubeAlternatingSum_eq_firstFailureBoundary
   unfold truncatedCubeAlternatingSum firstFailureBoundaryAlternatingSum
     firstFailureBoundary
   rw [Finset.sum_powerset_insert (Finset.notMem_erase a s)]
-  rw [Finset.sum_filter]
+  simp only [Finset.erase_insert, Finset.notMem_erase, Finset.sum_filter]
+  rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro t ht
   have hat : a ∉ t :=
@@ -87,6 +88,7 @@ theorem truncatedCubeAlternatingSum_eq_zero_of_no_firstFailure
     (hcomplete : ∀ t ∈ (s.erase a).powerset,
       admissible t → admissible (insert a t)) :
     truncatedCubeAlternatingSum s admissible = 0 := by
+  classical
   rw [truncatedCubeAlternatingSum_eq_firstFailureBoundary ha hdown]
   unfold firstFailureBoundaryAlternatingSum firstFailureBoundary
   apply Finset.sum_eq_zero
