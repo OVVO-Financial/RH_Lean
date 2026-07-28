@@ -13,7 +13,7 @@ def primesUpTo (X : ℕ) : Finset ℕ :=
 
 @[simp] theorem mem_primesUpTo {X p : ℕ} :
     p ∈ primesUpTo X ↔ Nat.Prime p ∧ p ≤ X := by
-  simp [primesUpTo, Nat.lt_succ_iff]
+  simp [primesUpTo, Nat.lt_succ_iff, and_comm]
 
 /-- Every coordinate in `primesUpTo X` is prime. -/
 theorem prime_of_mem_primesUpTo {X p : ℕ}
