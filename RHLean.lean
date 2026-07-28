@@ -48,6 +48,8 @@ import RHLean.Arithmetic.SquarefreePrimeFaceSurjectivity
 import RHLean.Arithmetic.AdmissibleFaceSquarefreeImage
 import RHLean.Arithmetic.TruncatedCubeMertensPrefix
 import RHLean.Arithmetic.MoebiusPrefixFrontierIdentity
+import RHLean.Arithmetic.LeastPrimeDepthHierarchy
+import RHLean.Arithmetic.SignedBuchstabRecursion
 import RHLean.Arithmetic.PrimeAveragedFrontierIdentity
 import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.EndpointCoreDecomposition
