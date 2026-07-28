@@ -37,8 +37,7 @@ theorem conditionedPrimeProductAdmissible_downward
 /-- The generic first-failure boundary of the conditioned cube is exactly the
 ordered prime-product frontier introduced in the exhaustion layer. -/
 theorem firstFailureBoundary_conditioned_eq_ordered
-    {S A : Finset ℕ} {X ell : ℕ}
-    (hell : ell ∈ S \ A) :
+    {S A : Finset ℕ} {X ell : ℕ} :
     firstFailureBoundary (S \ A) ell
         (conditionedPrimeProductAdmissible S X A) =
       orderedPrimeProductFrontier S X A ell := by
@@ -98,6 +97,6 @@ theorem conditionedPrimeCubeAlternatingSum_eq_orderedFrontier
   rw [truncatedCubeAlternatingSum_eq_firstFailureBoundary hell
     (conditionedPrimeProductAdmissible_downward hprime)]
   unfold firstFailureBoundaryAlternatingSum
-  rw [firstFailureBoundary_conditioned_eq_ordered hell]
+  rw [firstFailureBoundary_conditioned_eq_ordered]
 
 end RHLean.Arithmetic
