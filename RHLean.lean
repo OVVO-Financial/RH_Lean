@@ -20,6 +20,7 @@ import RHLean.Proof.HeightShellReconstruction
 import RHLean.Proof.JointGramControl
 import RHLean.Analysis.MathlibMertensHook
 import RHLean.Proof.OrthogonalResidual
+import RHLean.Analysis.FreshPrimeOscillationTransfer
 import RHLean.Proof.NearOrthogonality
 import RHLean.Analysis.QuadraticExponentCongruence
 import RHLean.Analysis.QuadraticPhasePeriod
