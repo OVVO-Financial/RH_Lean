@@ -148,9 +148,11 @@ theorem dyadic_telescoping_series (F : ℕ → ℤ) (N K : ℕ) :
           simp [pow_succ, Nat.mul_comm, Nat.mul_left_comm]
         _ = F (2 ^ K * N) + dyadicIncrement F (2 ^ K * N) := by
           simp [dyadicIncrement]
-        _ = F N + ∑ j ∈ Finset.range K, dyadicIncrement F (2 ^ j * N) +
-              dyadicIncrement F (2 ^ K * N) := by
-          rw [ih]
+        _ = (F N + ∑ j ∈ Finset.range K, dyadicIncrement F (2 ^ j * N)) +
+              dyadicIncrement F (2 ^ K * N) := by rw [ih]
+        _ = F N +
+              (∑ j ∈ Finset.range K, dyadicIncrement F (2 ^ j * N) +
+                dyadicIncrement F (2 ^ K * N)) := by
           exact add_assoc _ _ _
 
 /-- The Möbius prefix, including `0`; the zero term contributes nothing. -/
