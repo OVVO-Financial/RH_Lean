@@ -161,7 +161,7 @@ theorem roughMoebiusSum_buchstab {q y : ℕ} (hq : q.Prime) :
       exact hmG hmG'
     apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
     intro hsf
-    exact hq.not_unit (hsf q hqsq)
+    exact hq.not_isUnit (hsf q hqsq)
   -- `Σ_{A\B} μ + Σ_C μ = 0`.
   have hAB : (∑ m ∈ A \ B, (μ m)) + (∑ m ∈ C, (μ m)) = 0 := by
     rw [← Finset.sum_subset hGsub hzero, hGdef, Finset.sum_image hinj,
