@@ -43,7 +43,8 @@ theorem primeFaceProduct_eq_iff
       · exact (hpPrime.ne_one hpOne).elim
       · exact hpqEq ▸ hqt
   · intro htu
-    simpa [htu]
+    subst u
+    rfl
 
 /-- Equality of prime-face products is therefore literal equality for faces
 admissible in the canonical ambient set of all primes up to `X`. -/
