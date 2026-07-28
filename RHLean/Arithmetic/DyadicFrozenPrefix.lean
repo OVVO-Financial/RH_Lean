@@ -38,7 +38,7 @@ theorem moebius_eq_neg_sum_properDivisors {n : ℕ} (hn : 1 < n) :
     exact hconv
   have hnmem : n ∈ n.divisors := Nat.mem_divisors.mpr ⟨dvd_rfl, by omega⟩
   have hsplit : (∑ d ∈ n.divisors.erase n, μ d) + μ n = 0 := by
-    rw [Finset.sum_erase_add _ hnmem]
+    rw [Finset.sum_erase_add (s := n.divisors) (f := fun d => μ d) hnmem]
     exact hsum
   linarith
 
@@ -151,7 +151,7 @@ theorem dyadic_telescoping_series (F : ℕ → ℤ) (N K : ℕ) :
         _ = F N + ∑ j ∈ Finset.range K, dyadicIncrement F (2 ^ j * N) +
               dyadicIncrement F (2 ^ K * N) := by
           rw [ih]
-          abel
+          exact add_assoc _ _ _
 
 /-- The Möbius prefix, including `0`; the zero term contributes nothing. -/
 def moebiusPrefix (N : ℕ) : ℤ := ∑ n ∈ Finset.range (N + 1), μ n
