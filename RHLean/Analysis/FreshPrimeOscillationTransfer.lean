@@ -57,8 +57,9 @@ theorem oscillatoryPart_freshPrimeUpdate
     (P parent compressedCopy : E) (hP : P ≠ 0) :
     oscillatoryPart P (freshPrimeUpdate parent compressedCopy) hP =
       oscillatoryPart P parent hP - oscillatoryPart P compressedCopy hP := by
-  unfold oscillatoryPart orthogonalResidual freshPrimeUpdate
+  unfold oscillatoryPart orthogonalResidual
   rw [orthogonalCoefficient_freshPrimeUpdate]
+  unfold freshPrimeUpdate
   simp [sub_smul]
   abel
 
