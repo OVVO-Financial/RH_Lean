@@ -11,7 +11,7 @@ namespace RHLean.Arithmetic
 `X` gives a simultaneous family identity rather than a single-coordinate one. -/
 theorem sum_moebiusPrefix_eq_sum_primeFrontiers
     (X : ℕ) :
-    (∑ ell ∈ primesUpTo X, ∑ n ∈ Finset.range (X + 1), μ n) =
+    (∑ _ell ∈ primesUpTo X, ∑ n ∈ Finset.range (X + 1), μ n) =
       ∑ ell ∈ primesUpTo X,
         ∑ t ∈ primeProductFirstFailureBoundary (primesUpTo X) X ell,
           μ (primeFaceProduct t) := by
