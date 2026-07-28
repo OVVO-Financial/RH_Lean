@@ -39,6 +39,7 @@ import RHLean.Arithmetic.BooleanCubeCancellation
 import RHLean.Arithmetic.TruncatedBooleanCube
 import RHLean.Arithmetic.PrimeProductCubeFrontier
 import RHLean.Arithmetic.PrimeProductFrontierExhaustion
+import RHLean.Arithmetic.ConditionedPrimeFrontierStep
 import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.EndpointCoreDecomposition
 import RHLean.Arithmetic.FourSlotCell
