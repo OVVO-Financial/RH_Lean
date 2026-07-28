@@ -37,6 +37,7 @@ import RHLean.Proof.SpectralEndpointGramBridge
 import RHLean.Proof.UniformResidualBound
 import RHLean.Arithmetic.BooleanCubeCancellation
 import RHLean.Arithmetic.TruncatedBooleanCube
+import RHLean.Arithmetic.PrimeProductCubeFrontier
 import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.EndpointCoreDecomposition
 import RHLean.Arithmetic.FourSlotCell
