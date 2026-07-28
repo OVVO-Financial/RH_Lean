@@ -21,7 +21,12 @@ def squarefreeUpTo (X : ℕ) : Finset ℕ :=
     t ∈ admissiblePrimeFaces X ↔
       primeProductAdmissible (primesUpTo X) X t := by
   classical
-  simp [admissiblePrimeFaces]
+  constructor
+  · intro ht
+    exact (Finset.mem_filter.mp ht).2
+  · intro ht
+    apply Finset.mem_filter.mpr
+    exact ⟨Finset.mem_powerset.mpr ht.1, ht⟩
 
 @[simp] theorem mem_squarefreeUpTo {X n : ℕ} :
     n ∈ squarefreeUpTo X ↔ Squarefree n ∧ n ≤ X := by
