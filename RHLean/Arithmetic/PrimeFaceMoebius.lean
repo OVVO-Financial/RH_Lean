@@ -25,14 +25,18 @@ theorem moebius_primeFaceProduct_eq_booleanCubeSign
       have hcop : Nat.Coprime p (primeFaceProduct t) := by
         rw [hpPrime.coprime_iff_not_dvd]
         intro hpdiv
-        rcases (hpPrime.prime.dvd_finsetProd_iff id).mp hpdiv with
+        have hpdiv' : p ∣ t.prod id := by
+          simpa [primeFaceProduct] using hpdiv
+        rcases (Prime.dvd_finsetProd_iff hpPrime.prime id).mp hpdiv' with
           ⟨q, hqt, hpq⟩
         have hpAssoc : Associated p q :=
           hpPrime.prime.associated_of_dvd (htPrime q hqt).prime hpq
         have hpqEq : p = q := by simpa using hpAssoc
         exact hp (hpqEq ▸ hqt)
-      rw [primeFaceProduct]
-      simp only [Finset.prod_insert hp]
+      have hprod :
+          primeFaceProduct (insert p t) = p * primeFaceProduct t := by
+        simp [primeFaceProduct, hp]
+      rw [hprod]
       rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop]
       rw [ArithmeticFunction.moebius_apply_prime hpPrime]
       rw [ih htPrime]
@@ -53,6 +57,8 @@ theorem truncatedPrimeProductCube_eq_moebius_frontier
   symm
   apply moebius_primeFaceProduct_eq_booleanCubeSign
   intro p hp
-  exact hprime p ((mem_primeProductFirstFailureBoundary.mp ht).1 hp)
+  have hpErase : p ∈ S.erase ell :=
+    (mem_primeProductFirstFailureBoundary.mp ht).1 hp
+  exact hprime p (Finset.mem_of_mem_erase hpErase)
 
 end RHLean.Arithmetic
