@@ -34,10 +34,10 @@ theorem moebius_eq_neg_sum_properDivisors {n : ℕ} (hn : 1 < n) :
       ArithmeticFunction.moebius_mul_coe_zeta
   have hsum : ∑ d ∈ n.divisors, μ d = 0 := by
     rw [ArithmeticFunction.coe_mul_zeta_apply] at hconv
-    simpa [ArithmeticFunction.one_apply, hn.ne'] using hconv
+    rw [ArithmeticFunction.one_apply, if_neg hn.ne'] at hconv
+    exact hconv
   have hnmem : n ∈ n.divisors := Nat.mem_divisors.mpr ⟨dvd_rfl, by omega⟩
-  have herase := Finset.sum_erase_add _ _ hnmem
-  rw [herase] at hsum
+  rw [← Finset.sum_erase_add _ hnmem] at hsum
   linarith
 
 /-- On `(N,2N]`, the frozen proper-divisor set is the full proper-divisor set. -/
@@ -80,6 +80,16 @@ theorem dyadic_moebius_increment_eq_frozen_weighted_sum (N : ℕ) :
           ∑ n ∈ dyadicBlock N, if d ∣ n then μ d else 0 := by
           simp only [frozenProperDivisors, Finset.sum_neg_distrib, Finset.sum_filter]
           rw [Finset.sum_comm]
+          apply congrArg Neg.neg
+          apply Finset.sum_congr rfl
+          intro d hd
+          apply Finset.sum_congr rfl
+          intro n hn
+          have hdN : d ≤ N := Nat.le_of_lt_succ (Finset.mem_range.mp hd)
+          have hNn : N < n := by
+            exact (Finset.mem_Icc.mp hn).1
+          have hdn : d < n := lt_of_le_of_lt hdN hNn
+          simp [hdn]
     _ = -∑ d ∈ Finset.range (N + 1), (dyadicDivisorWeight N d : ℤ) * μ d := by
           apply congrArg Neg.neg
           apply Finset.sum_congr rfl
@@ -118,6 +128,36 @@ theorem dyadic_increment_eq_inherited_sub_primeBirths (N : ℕ) :
   change -(dyadicPrimeBirths N : ℤ) + dyadicInheritedCompositeMass N =
     dyadicInheritedCompositeMass N - dyadicPrimeBirths N
   abel
+
+/-- The increment of an integer-valued prefix function across one doubling. -/
+def dyadicIncrement (F : ℕ → ℤ) (N : ℕ) : ℤ := F (2 * N) - F N
+
+/-- Exact finite partial-sum identity underlying the infinite dyadic series. -/
+theorem dyadic_telescoping_series (F : ℕ → ℤ) (N K : ℕ) :
+    F (2 ^ K * N) =
+      F N + ∑ j ∈ Finset.range K, dyadicIncrement F (2 ^ j * N) := by
+  induction K with
+  | zero => simp
+  | succ K ih =>
+      rw [Finset.sum_range_succ]
+      calc
+        F (2 ^ (K + 1) * N) = F (2 * (2 ^ K * N)) := by
+          congr 1
+          simp [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm]
+        _ = F (2 ^ K * N) + dyadicIncrement F (2 ^ K * N) := by
+          simp [dyadicIncrement]
+        _ = F N + ∑ j ∈ Finset.range K, dyadicIncrement F (2 ^ j * N) +
+              dyadicIncrement F (2 ^ K * N) := by rw [ih]
+
+/-- The Möbius prefix, including `0`; the zero term contributes nothing. -/
+def moebiusPrefix (N : ℕ) : ℤ := ∑ n ∈ Finset.range (N + 1), μ n
+
+/-- Möbius prefixes are exact partial sums of their permanent dyadic increments. -/
+theorem moebiusPrefix_dyadic_series (N K : ℕ) :
+    moebiusPrefix (2 ^ K * N) =
+      moebiusPrefix N +
+        ∑ j ∈ Finset.range K, dyadicIncrement moebiusPrefix (2 ^ j * N) :=
+  dyadic_telescoping_series moebiusPrefix N K
 
 /-- A typed finite cancellation premise for the dyadic frozen-prefix operator. -/
 def DyadicFrozenPrefixCancellation : Prop :=
