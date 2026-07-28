@@ -41,6 +41,7 @@ import RHLean.Arithmetic.PrimeProductCubeFrontier
 import RHLean.Arithmetic.PrimeProductFrontierExhaustion
 import RHLean.Arithmetic.ConditionedPrimeFrontierStep
 import RHLean.Arithmetic.PrimeFaceMoebius
+import RHLean.Arithmetic.PrimesUpToFrontier
 import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.EndpointCoreDecomposition
 import RHLean.Arithmetic.FourSlotCell
