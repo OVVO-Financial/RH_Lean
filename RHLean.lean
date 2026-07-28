@@ -70,6 +70,7 @@ import RHLean.Proof.LifetimeLocalEnergyCriterion
 import RHLean.Proof.LifetimeOverlapKernel
 import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
+import RHLean.Proof.SymmetricPrimeExtension
 import RHLean.Proof.ConcreteSquarePrefixCofactorRealization
 import RHLean.Analysis.SquarePrefixHeightPartition
 import RHLean.Proof.FareyModesAndTransportWindows
