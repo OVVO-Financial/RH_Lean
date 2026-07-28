@@ -9,12 +9,12 @@ namespace RHLean.Analysis
 /-- Total unsigned extension mass carried by a finite parent family. -/
 def channelMass {ι : Type*} [DecidableEq ι]
     (parents : Finset ι) (mass : ι → ℝ) : ℝ :=
-  ∑ c in parents, mass c
+  ∑ c ∈ parents, mass c
 
 /-- Total extension mass landing in a chosen phase window. -/
 def phaseMass {ι : Type*} [DecidableEq ι]
     (parents : Finset ι) (phase : ι → ℝ) : ℝ :=
-  ∑ c in parents, phase c
+  ∑ c ∈ parents, phase c
 
 /-- Normalized extension rate into a chosen phase window. -/
 def channelRate {ι : Type*} [DecidableEq ι]
@@ -24,7 +24,7 @@ def channelRate {ι : Type*} [DecidableEq ι]
 /-- The `L¹` discrepancy from the target phase proportion `α`. -/
 def channelDiscrepancy {ι : Type*} [DecidableEq ι]
     (parents : Finset ι) (mass phase : ι → ℝ) (α : ℝ) : ℝ :=
-  ∑ c in parents, |phase c - α * mass c|
+  ∑ c ∈ parents, |phase c - α * mass c|
 
 /--
 A summed channel-discrepancy bound controls the deviation of the aggregate
@@ -40,9 +40,9 @@ theorem abs_channelRate_sub_target_le
       |phaseMass parents phase - α * channelMass parents mass| ≤
         channelDiscrepancy parents mass phase α := by
     have habs :
-        |∑ c in parents, (phase c - α * mass c)| ≤
-          ∑ c in parents, |phase c - α * mass c| :=
-      abs_sum_le_sum_abs _ _
+        |∑ c ∈ parents, (phase c - α * mass c)| ≤
+          ∑ c ∈ parents, |phase c - α * mass c| := by
+      exact Finset.abs_sum_le_sum_abs _ _
     simpa [phaseMass, channelMass, channelDiscrepancy, Finset.mul_sum] using habs
   have hrate :
       channelRate parents mass phase - α =
@@ -79,7 +79,7 @@ theorem abs_parity_channelRate_sub_le
             ring
     _ ≤ |channelRate parentsPlus mass phase - α| +
           |α - channelRate parentsMinus mass phase| :=
-      abs_add _ _
+      abs_add_le _ _
     _ = |channelRate parentsPlus mass phase - α| +
           |channelRate parentsMinus mass phase - α| := by
       rw [abs_sub_comm α (channelRate parentsMinus mass phase)]
