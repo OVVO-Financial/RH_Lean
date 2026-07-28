@@ -27,7 +27,7 @@ theorem moebius_primeFaceProduct_eq_booleanCubeSign
         intro hpdiv
         have hpdiv' : p ∣ t.prod id := by
           simpa [primeFaceProduct] using hpdiv
-        rcases (Prime.dvd_finsetProd_iff hpPrime.prime id).mp hpdiv' with
+        rcases (Prime.dvd_finset_prod_iff hpPrime.prime id).mp hpdiv' with
           ⟨q, hqt, hpq⟩
         have hpAssoc : Associated p q :=
           hpPrime.prime.associated_of_dvd (htPrime q hqt).prime hpq
