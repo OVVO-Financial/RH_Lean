@@ -298,7 +298,7 @@ theorem moebius_eq_moebiusSign (s : FullFactorizationState) :
     μ s.value = s.moebiusSign := by
   rw [moebiusSign]
   by_cases hsq : Squarefree s.value
-  · rw [if_pos hsq, omega, distinctPrimeFactorDepth,
+  · rw [if_pos hsq, omega,
       ← fullPrimeFactorDepth_eq_distinctPrimeFactorDepth hsq]
     exact moebius_eq_negOnePow_fullPrimeFactorDepth hsq
   · rw [if_neg hsq]
@@ -349,13 +349,11 @@ def ofCanonical (n q : ℕ) (hq : q.Prime) (hn : n ≠ 0) : FullPrimeTransportEd
 
 theorem child_ne_zero (e : FullPrimeTransportEdge) : e.child ≠ 0 := by
   intro h0
-  have : e.childState.factorization = 0 := by
+  have hzero : e.childState.factorization = 0 := by
     rw [e.childState.is_canonical, e.childState_value, h0, Nat.factorization_zero]
-  rw [e.factorization_update] at this
-  have hterm : (Finsupp.single e.terminal 1) e.terminal = 0 := by
-    have := congrArg (fun f => f e.terminal) this
-    simpa [Finsupp.single_eq_same] using this
-  simp [Finsupp.single_eq_same] at hterm
+  rw [e.factorization_update] at hzero
+  have hcontra := congrArg (fun f => f e.terminal) hzero
+  simp at hcontra
 
 theorem parent_ne_zero (e : FullPrimeTransportEdge) : e.parent ≠ 0 := by
   intro h0
