@@ -25,16 +25,18 @@ def canonicalPopulationBlock (m : ℕ) : Finset ℕ :=
   Finset.Ico (m ^ 2) ((m + 1) ^ 2)
 
 /-- A bounded triple `(n,c,q)` is a canonical activation when `n=cq`, `q` is
-prime, and `q` is the greatest prime divisor of `n`. -/
+prime, and every prime factor of `n` is at most `q`.  The finite
+`primeFactors` formulation is equivalent to saying that `q` is a greatest
+prime divisor and makes the bounded predicate directly decidable. -/
 def IsCanonicalActivationTriple (m : ℕ) (t : ℕ × (ℕ × ℕ)) : Prop :=
   t.1 ∈ canonicalPopulationBlock m ∧
   t.2.2.Prime ∧
   t.2.1 * t.2.2 = t.1 ∧
-  IsGreatestPrimeDivisor t.1 t.2.2
+  ∀ ℓ ∈ t.1.primeFactors, ℓ ≤ t.2.2
 
 instance instDecidableIsCanonicalActivationTriple (m : ℕ) (t : ℕ × (ℕ × ℕ)) :
     Decidable (IsCanonicalActivationTriple m t) := by
-  unfold IsCanonicalActivationTriple IsGreatestPrimeDivisor
+  unfold IsCanonicalActivationTriple
   infer_instance
 
 /-- All bounded canonical activation triples for square block `m`.  The bound
@@ -85,7 +87,7 @@ theorem canonicalActivationSum_eq_three_zones
       intro h
       exact (not_lt_of_ge h.1) hsmall
     have hnotLarge : ¬upper < t.2.2 := by
-      exact not_lt_of_ge (hlu.trans (Nat.le_of_lt hsmall))
+      exact not_lt_of_ge ((Nat.le_of_lt hsmall).trans hlu)
     simp [hsmall, hnotTransition, hnotLarge]
   · have hlower : lower ≤ t.2.2 := Nat.le_of_not_gt hsmall
     by_cases htransition : t.2.2 ≤ upper
@@ -106,7 +108,7 @@ def transitionActivationTriples (m r : ℕ) : Finset (ℕ × (ℕ × ℕ)) :=
     transitionLower m r ≤ t.2.2 ∧ t.2.2 ≤ transitionUpper m r
 
 /-- Elementary transition-band counting target.  The condition `2r ≤ m`
-keeps the terminal prime uniformly comparable to `m`; an absolute constant
+keeps the terminal prime uniformly comparable to `m`; an absolute factor
 then bounds the number of possible parents for each candidate terminal value. -/
 def CanonicalTransitionBandCountStatement : Prop :=
   ∃ C : ℕ, 0 < C ∧
