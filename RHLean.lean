@@ -54,6 +54,7 @@ import RHLean.Arithmetic.TruncatedCubeMertensPrefix
 import RHLean.Arithmetic.MoebiusPrefixFrontierIdentity
 import RHLean.Arithmetic.LeastPrimeDepthHierarchy
 import RHLean.Arithmetic.FullPrimeFactorizationState
+import RHLean.Arithmetic.SquareBlockParityPopulation
 import RHLean.Arithmetic.SignedBuchstabRecursion
 import RHLean.Arithmetic.PrimeAveragedFrontierIdentity
 import RHLean.Arithmetic.CanonicalEndpointCore
