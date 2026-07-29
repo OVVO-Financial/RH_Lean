@@ -24,6 +24,7 @@ import RHLean.Analysis.LogWeightedPrimeExtensionEndpoint
 import RHLean.Analysis.MathlibMertensHook
 import RHLean.Proof.OrthogonalResidual
 import RHLean.Analysis.FreshPrimeOscillationTransfer
+import RHLean.Analysis.PrimeBoundaryDefectBridge
 import RHLean.Proof.NearOrthogonality
 import RHLean.Analysis.QuadraticExponentCongruence
 import RHLean.Analysis.QuadraticPhasePeriod
