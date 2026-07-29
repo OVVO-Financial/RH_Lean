@@ -52,7 +52,7 @@ contributions cancel exactly. -/
 theorem freshPrime_pair_cancel_of_both_mem
     (W : Finset ℕ) (e : PrimeTransportEdge)
     (hfresh : ¬ e.terminal ∣ e.parent)
-    (hparent : e.parent ∈ W) (hchild : e.child ∈ W) :
+    (_hparent : e.parent ∈ W) (_hchild : e.child ∈ W) :
     μ e.parent + μ e.child = 0 := by
   rw [PrimeTransportEdge.moebius_child_eq_neg_parent e hfresh]
   ring
