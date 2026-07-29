@@ -85,6 +85,7 @@ import RHLean.Proof.DeathShellCofactorParity
 import RHLean.Proof.FullFactorizationBridge
 import RHLean.Proof.CanonicalSignedParent
 import RHLean.Proof.OneBlockInvariant
+import RHLean.Proof.MutableSupportBound
 import RHLean.Proof.DeathShellDivisorFibers
 import RHLean.Proof.LowOmegaHighOrientation
 import RHLean.Analysis.DyadicTransportCompression
