@@ -67,7 +67,9 @@ theorem canonicalCofactor_le_oldParentCutoff_three :
     ∀ n : ℕ, n ∈ squareBlockInterval 3 → Squarefree n → 1 < n →
       canonicalCofactor n ≤ oldParentCutoff 3 := by
   intro n hn hsq hn1
-  simp only [squareBlockInterval, Finset.mem_Ico] at hn
+  have hnBounds : 9 ≤ n ∧ n < 16 := by
+    simpa [squareBlockInterval, Finset.mem_Ico] using hn
+  rcases hnBounds with ⟨hnLower, hnUpper⟩
   interval_cases n <;>
     norm_num [canonicalCofactor, canonicalLargestPrimeFactor, oldParentCutoff] at hsq ⊢
 
@@ -76,7 +78,9 @@ theorem canonicalCofactor_le_oldParentCutoff_four :
     ∀ n : ℕ, n ∈ squareBlockInterval 4 → Squarefree n → 1 < n →
       canonicalCofactor n ≤ oldParentCutoff 4 := by
   intro n hn hsq hn1
-  simp only [squareBlockInterval, Finset.mem_Ico] at hn
+  have hnBounds : 16 ≤ n ∧ n < 25 := by
+    simpa [squareBlockInterval, Finset.mem_Ico] using hn
+  rcases hnBounds with ⟨hnLower, hnUpper⟩
   interval_cases n <;>
     norm_num [canonicalCofactor, canonicalLargestPrimeFactor, oldParentCutoff] at hsq ⊢
 
