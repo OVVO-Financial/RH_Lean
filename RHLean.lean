@@ -98,6 +98,7 @@ import RHLean.Proof.LifetimeActiveSet
 import RHLean.Proof.LifetimeEndpointDecomposition
 import RHLean.Proof.LifetimeLocalEnergyCriterion
 import RHLean.Proof.LifetimeOverlapKernel
+import RHLean.Proof.InternalBlockLifetimeGram
 import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.SymmetricPrimeExtension
