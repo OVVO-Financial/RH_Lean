@@ -5,10 +5,10 @@ import RHLean.Proof.CanonicalSignedParent
 /-!
 # One-block invariant architecture (issue #146)
 
-The finite seed absorbs square blocks `3` and `4`. From block `5` onward, every
-squarefree state is inherited from a canonical full-factorization parent in the
-frozen old carrier. The quantitative estimate remains an explicit field of the
-invariant rather than an assumed theorem.
+Square blocks `1` and `2` are the fixed seed. Their union is `{1, 2, 3}`:
+block `1 = [1,2)` contains no primes and block `2 = [2,4)` contains `2,3`.
+Every block from `3` onward is inherited from canonical full-factorization
+parents in the frozen earlier carrier.
 -/
 
 noncomputable section
@@ -59,19 +59,14 @@ theorem three_le_canonicalLargestPrimeFactor
   simp at hprod
   omega
 
-/-- **Uniform prior-carrier theorem after the finite seed.** For every square
-block `a ≥ 5`, the canonical cofactor of each squarefree state already lies in
-the frozen old parent carrier. -/
-theorem canonicalCofactor_le_oldParentCutoff
-    {a n : ℕ} (ha : 5 ≤ a)
-    (hn : n ∈ squareBlockInterval a)
+/-- The first block after the fixed seed already uses only the frozen carrier. -/
+theorem canonicalCofactor_le_oldParentCutoff_three
+    {n : ℕ} (hn : n ∈ squareBlockInterval 3)
     (hsq : Squarefree n) (hn1 : 1 < n) :
-    canonicalCofactor n ≤ oldParentCutoff a := by
-  have hnBounds : a ^ 2 ≤ n ∧ n < (a + 1) ^ 2 := by
+    canonicalCofactor n ≤ oldParentCutoff 3 := by
+  have hnBounds : 9 ≤ n ∧ n < 16 := by
     simpa [squareBlockInterval, Finset.mem_Ico] using hn
-  have hn2 : 2 < n := by
-    have : 9 ≤ a ^ 2 := by nlinarith
-    omega
+  have hn2 : 2 < n := by omega
   have hq3 : 3 ≤ canonicalLargestPrimeFactor n :=
     three_le_canonicalLargestPrimeFactor hsq hn2
   have hprod := canonicalCofactor_mul_largestPrimeFactor hn1
@@ -81,17 +76,96 @@ theorem canonicalCofactor_le_oldParentCutoff
       _ ≤ canonicalCofactor n * canonicalLargestPrimeFactor n :=
         Nat.mul_le_mul_left _ hq3
       _ = n := hprod
-  have h5a : 5 * a ≤ a * a := Nat.mul_le_mul_right a ha
-  have hquad : 4 * a + 2 ≤ a ^ 2 := by
-    rw [pow_two]
+  change canonicalCofactor n ≤ 4
+  by_contra hnot
+  have hcEq : canonicalCofactor n = 5 := by omega
+  have hqEq : canonicalLargestPrimeFactor n = 3 := by omega
+  have hnEq : n = 15 := by omega
+  have h5 : 5 ∈ n.primeFactors := by
+    subst n
+    norm_num
+  have h5le : 5 ≤ canonicalLargestPrimeFactor n :=
+    primeFactor_le_canonicalLargestPrimeFactor hn1 h5
+  omega
+
+/-- The second block after the fixed seed already uses only the frozen carrier. -/
+theorem canonicalCofactor_le_oldParentCutoff_four
+    {n : ℕ} (hn : n ∈ squareBlockInterval 4)
+    (hsq : Squarefree n) (hn1 : 1 < n) :
+    canonicalCofactor n ≤ oldParentCutoff 4 := by
+  have hnBounds : 16 ≤ n ∧ n < 25 := by
+    simpa [squareBlockInterval, Finset.mem_Ico] using hn
+  have hn2 : 2 < n := by omega
+  have hq3 : 3 ≤ canonicalLargestPrimeFactor n :=
+    three_le_canonicalLargestPrimeFactor hsq hn2
+  have hprod := canonicalCofactor_mul_largestPrimeFactor hn1
+  have hthree : 3 * canonicalCofactor n ≤ n := by
+    calc
+      3 * canonicalCofactor n = canonicalCofactor n * 3 := by omega
+      _ ≤ canonicalCofactor n * canonicalLargestPrimeFactor n :=
+        Nat.mul_le_mul_left _ hq3
+      _ = n := hprod
+  change canonicalCofactor n ≤ 7
+  by_contra hnot
+  have hcEq : canonicalCofactor n = 8 := by omega
+  have hcSq : Squarefree (canonicalCofactor n) :=
+    squarefree_canonicalCofactor hsq hn1
+  rw [hcEq] at hcSq
+  norm_num [Squarefree] at hcSq
+
+/-- **Uniform prior-carrier theorem.** Blocks `1` and `2` are the fixed seed;
+every square block `a ≥ 3` is inherited from the frozen old parent carrier. -/
+theorem canonicalCofactor_le_oldParentCutoff
+    {a n : ℕ} (ha : 3 ≤ a)
+    (hn : n ∈ squareBlockInterval a)
+    (hsq : Squarefree n) (hn1 : 1 < n) :
+    canonicalCofactor n ≤ oldParentCutoff a := by
+  rcases lt_trichotomy a 5 with haLt | haEq | haGt
+  · have haCases : a = 3 ∨ a = 4 := by omega
+    rcases haCases with rfl | rfl
+    · exact canonicalCofactor_le_oldParentCutoff_three hn hsq hn1
+    · exact canonicalCofactor_le_oldParentCutoff_four hn hsq hn1
+  · subst a
+    have hnBounds : 5 ^ 2 ≤ n ∧ n < (5 + 1) ^ 2 := by
+      simpa [squareBlockInterval, Finset.mem_Ico] using hn
+    have hn2 : 2 < n := by omega
+    have hq3 : 3 ≤ canonicalLargestPrimeFactor n :=
+      three_le_canonicalLargestPrimeFactor hsq hn2
+    have hprod := canonicalCofactor_mul_largestPrimeFactor hn1
+    have hthree : 3 * canonicalCofactor n ≤ n := by
+      calc
+        3 * canonicalCofactor n = canonicalCofactor n * 3 := by omega
+        _ ≤ canonicalCofactor n * canonicalLargestPrimeFactor n :=
+          Nat.mul_le_mul_left _ hq3
+        _ = n := hprod
+    change canonicalCofactor n ≤ (5 ^ 2 - 1) / 2
     omega
-  have hscale : 2 * (a + 1) ^ 2 ≤ 3 * a ^ 2 := by
-    nlinarith
-  have htwoLt : 2 * canonicalCofactor n < a ^ 2 := by
-    nlinarith
-  have htwoLe : canonicalCofactor n * 2 ≤ a ^ 2 - 1 := by
-    omega
-  exact (Nat.le_div_iff_mul_le (by omega : 0 < 2)).2 htwoLe
+  · have ha5 : 5 ≤ a := by omega
+    have hnBounds : a ^ 2 ≤ n ∧ n < (a + 1) ^ 2 := by
+      simpa [squareBlockInterval, Finset.mem_Ico] using hn
+    have hn2 : 2 < n := by
+      have : 9 ≤ a ^ 2 := by nlinarith
+      omega
+    have hq3 : 3 ≤ canonicalLargestPrimeFactor n :=
+      three_le_canonicalLargestPrimeFactor hsq hn2
+    have hprod := canonicalCofactor_mul_largestPrimeFactor hn1
+    have hthree : 3 * canonicalCofactor n ≤ n := by
+      calc
+        3 * canonicalCofactor n = canonicalCofactor n * 3 := by omega
+        _ ≤ canonicalCofactor n * canonicalLargestPrimeFactor n :=
+          Nat.mul_le_mul_left _ hq3
+        _ = n := hprod
+    have h5a : 5 * a ≤ a * a := Nat.mul_le_mul_right a ha5
+    have hquad : 4 * a + 2 ≤ a ^ 2 := by
+      rw [pow_two]
+      omega
+    have hscale : 2 * (a + 1) ^ 2 ≤ 3 * a ^ 2 := by
+      nlinarith
+    have htwoLt : 2 * canonicalCofactor n < a ^ 2 := by
+      nlinarith
+    have htwoLe : canonicalCofactor n * 2 ≤ a ^ 2 - 1 := by
+      omega
+    exact (Nat.le_div_iff_mul_le (by omega : 0 < 2)).2 htwoLe
 
 /-- Full-factorization inheritance statement for one square block. -/
 def PriorCarrierDeterminesBlock (a : ℕ) : Prop :=
@@ -113,10 +187,10 @@ theorem priorCarrierDeterminesBlock_of_parent_bound
     canonicalSignedParent_moebius hsq hn1,
     canonicalSignedParent_omega_succ hsq hn1⟩
 
-/-- Every square block after the finite seed is completely determined by the
-frozen prior carrier. -/
+/-- Every square block after seed blocks `1` and `2` is completely determined by
+the frozen prior carrier. -/
 theorem priorCarrierDeterminesBlock
-    {a : ℕ} (ha : 5 ≤ a) : PriorCarrierDeterminesBlock a :=
+    {a : ℕ} (ha : 3 ≤ a) : PriorCarrierDeterminesBlock a :=
   priorCarrierDeterminesBlock_of_parent_bound
     (fun _ hn hsq hn1 => canonicalCofactor_le_oldParentCutoff ha hn hsq hn1)
 
@@ -131,7 +205,6 @@ def completedBlockPrefixSum : ℕ → ℤ
     completedBlockPrefixSum (N + 1) =
       completedBlockPrefixSum N + squareBlockMoebius (N + 1) := rfl
 
-/-- The finite state required at stage `N`. -/
 structure OneBlockInvariant (N : ℕ) where
   nextBlockInherited : PriorCarrierDeterminesBlock (N + 1)
   signedFrontier : ℤ
@@ -139,7 +212,6 @@ structure OneBlockInvariant (N : ℕ) where
   energyBudget : ℕ
   energy_control : signedFrontier ^ 2 ≤ (energyBudget : ℤ)
 
-/-- Exact data needed to extend a valid stage by one finite block. -/
 structure OneBlockExtensionData (N : ℕ) (hN : OneBlockInvariant N) where
   followingBlockInherited : PriorCarrierDeterminesBlock (N + 2)
   nextSignedFrontier : ℤ
@@ -148,7 +220,6 @@ structure OneBlockExtensionData (N : ℕ) (hN : OneBlockInvariant N) where
   nextEnergyBudget : ℕ
   next_energy_control : nextSignedFrontier ^ 2 ≤ (nextEnergyBudget : ℤ)
 
-/-- The exact one-block extension constructor demanded by issue #146. -/
 def oneBlockInvariant_succ
     {N : ℕ} (hN : OneBlockInvariant N)
     (hstep : OneBlockExtensionData N hN) :
@@ -166,13 +237,10 @@ def oneBlockInvariant_succ
   energyBudget := hstep.nextEnergyBudget
   energy_control := hstep.next_energy_control
 
-/-- Uniform one-block law: every valid finite stage admits valid extension data. -/
 def OneBlockExtensionLaw : Prop :=
   ∀ N : ℕ, ∀ hN : OneBlockInvariant N,
     Nonempty (OneBlockExtensionData N hN)
 
-/-- A base invariant plus the uniform one-block law yields every finite stage by
-ordinary induction. -/
 theorem oneBlockInvariant_all
     (h0 : OneBlockInvariant 0)
     (hlaw : OneBlockExtensionLaw) :
@@ -185,7 +253,6 @@ theorem oneBlockInvariant_all
       obtain ⟨hstep⟩ := hlaw N hN
       exact ⟨oneBlockInvariant_succ hN hstep⟩
 
-/-- The precise unresolved theorem package for issue #146. -/
 def OneBlockInvariantClosureStatement : Prop :=
   Nonempty (OneBlockInvariant 0) ∧ OneBlockExtensionLaw
 
