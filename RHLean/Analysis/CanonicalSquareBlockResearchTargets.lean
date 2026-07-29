@@ -55,7 +55,7 @@ def SquarePrefixPNTGrowthStatement : Prop :=
 def canonicalEnvelopeTestMaxBlock : ℕ := 5000
 
 /-- Largest observed absolute square-block increment through block `5000` in
-the recorded experiment.  This constant is metadata, not a proved theorem. -/
+the recorded experiment.  This value is metadata, not a proved theorem. -/
 def canonicalEnvelopeObservedMaximum : ℕ := 216
 
 /-- Machine-checkable finite certificate target corresponding to the experiment.
@@ -66,7 +66,7 @@ def CanonicalEnvelopeFiniteCertificateStatement : Prop :=
       canonicalEnvelopeObservedMaximum
 
 /-- Numerical square-root-envelope target on the tested dyadic range.  The
-constant `6` safely covers the observed mature envelope ratios. -/
+factor `6` safely covers the observed mature envelope ratios. -/
 def CanonicalEnvelopeSquareRootCertificateStatement : Prop :=
   ∀ m j : ℕ,
     20 ≤ m → m ≤ 2500 → m ≤ j → j ≤ 2 * m →
