@@ -6,7 +6,7 @@ import RHLean.Proof.FullFactorizationBridge
 
 For a squarefree `n > 1` the canonical largest-prime decomposition
 `n = c · q`, `q = P⁺(n)`, has `q ∤ c` automatically (squarefreeness), so the
-certified `canonicalTransportEdge` is always *fresh*.  Reading everything through
+certified `canonicalTransportEdge` is always *fresh*. Reading everything through
 the complete factorization states, this gives the canonical signed-parent
 identity without compressing the parent depth:
 
@@ -30,17 +30,13 @@ canonical cofactor: the canonical transport is always fresh. -/
 theorem canonicalLargestPrimeFactor_not_dvd_cofactor
     {n : ℕ} (hsq : Squarefree n) (hn : 1 < n) :
     ¬ canonicalLargestPrimeFactor n ∣ canonicalCofactor n := by
-  intro hdvd
   have hprod : canonicalCofactor n * canonicalLargestPrimeFactor n = n :=
     canonicalCofactor_mul_largestPrimeFactor hn
   have hprime : (canonicalLargestPrimeFactor n).Prime :=
     canonicalLargestPrimeFactor_prime hn
-  obtain ⟨k, hk⟩ := hdvd
-  have hsqdvd :
-      canonicalLargestPrimeFactor n * canonicalLargestPrimeFactor n ∣ n := by
-    refine ⟨k, ?_⟩
-    rw [← hprod, hk]; ring
-  exact hprime.not_isUnit (hsq _ hsqdvd)
+  have hcop : Nat.Coprime (canonicalCofactor n) (canonicalLargestPrimeFactor n) :=
+    coprime_factors_of_squarefree hsq hprod
+  exact hprime.coprime_iff_not_dvd.mp hcop.symm
 
 /-- The canonical cofactor of a squarefree number is squarefree. -/
 theorem squarefree_canonicalCofactor
@@ -48,7 +44,7 @@ theorem squarefree_canonicalCofactor
     Squarefree (canonicalCofactor n) :=
   hsq.squarefree_of_dvd ⟨_, (canonicalCofactor_mul_largestPrimeFactor hn).symm⟩
 
-/-- **Canonical signed-parent Möbius identity.**  For squarefree `n > 1`,
+/-- **Canonical signed-parent Möbius identity.** For squarefree `n > 1`,
 `μ n = -μ(canonicalCofactor n)`, read through the certified transport edge with
 freshness discharged from squarefreeness. -/
 theorem canonicalSignedParent_moebius
@@ -57,7 +53,7 @@ theorem canonicalSignedParent_moebius
   canonicalTransport_moebius_child n hn
     (canonicalLargestPrimeFactor_not_dvd_cofactor hsq hn)
 
-/-- **Canonical parent depth increment.**  The complete factorization depth of
+/-- **Canonical parent depth increment.** The complete factorization depth of
 `n` exceeds that of its canonical cofactor by exactly one. -/
 theorem canonicalSignedParent_bigOmega_succ {n : ℕ} (hn : 1 < n) :
     (FullFactorizationState.canonical n).bigOmega
