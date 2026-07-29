@@ -74,7 +74,9 @@ theorem prefixCombSweepDiscrepancy_succ (n r : ℕ) :
     prefixCombSweepDiscrepancy n (r + 1) =
       prefixCombSweepDiscrepancy n r -
         μ (r + 1) * (prefixCombNewCoverageCount n (r + 1) : ℤ) := by
-  simp [prefixCombSweepDiscrepancy]
+  unfold prefixCombSweepDiscrepancy
+  rw [Finset.sum_range_succ]
+  ring
 
 /-- Actual Möbius increment of square block `n`. -/
 def prefixCombBlockIncrement (n : ℕ) : ℤ :=
