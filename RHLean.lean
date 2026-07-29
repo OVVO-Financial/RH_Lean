@@ -18,6 +18,7 @@ import RHLean.Proof.GeometricRHReduction
 import RHLean.Proof.HeightShellGram
 import RHLean.Proof.HeightShellReconstruction
 import RHLean.Proof.JointGramControl
+import RHLean.Analysis.LogWeightedPrimeExtension
 import RHLean.Analysis.MathlibMertensHook
 import RHLean.Proof.OrthogonalResidual
 import RHLean.Analysis.FreshPrimeOscillationTransfer
