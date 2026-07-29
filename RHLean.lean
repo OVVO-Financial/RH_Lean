@@ -59,6 +59,7 @@ import RHLean.Arithmetic.PrimeAveragedFrontierIdentity
 import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.EndpointCoreDecomposition
 import RHLean.Arithmetic.DyadicFrozenPrefix
+import RHLean.Arithmetic.SquareBlockPrefixCombSweep
 import RHLean.Arithmetic.FourSlotCell
 import RHLean.Arithmetic.MoebiusDoubling
 import RHLean.Arithmetic.PrimeSquareMod24
