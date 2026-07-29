@@ -30,7 +30,7 @@ theorem prod_primeFactors_eq_self_of_squarefree
           rw [Nat.factorization_eq_one_of_squarefree hs hpPrime hpDvd, pow_one]
     _ = n.factorization.prod (fun p k => p ^ k) := by
           rw [Nat.prod_factorization_eq_prod_primeFactors]
-    _ = n := Nat.prod_factorization_pow_eq_self hs.ne_zero
+    _ = n := Nat.factorization_prod_pow_eq_self hs.ne_zero
 
 /-- The logarithm of a finite product of positive naturals is the sum of their
 logarithms.  This local lemma avoids depending on a version-sensitive global
