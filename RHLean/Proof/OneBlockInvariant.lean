@@ -5,13 +5,10 @@ import RHLean.Proof.CanonicalSignedParent
 /-!
 # One-block invariant architecture (issue #146)
 
-This module makes the governing finite induction architecture explicit.
-
-The completed prefix is represented by the exact recursive sum of square-block
-increments. The next block is not treated as independent: its nonzero
-squarefree states are inherited from canonical full-factorization parents in
-the already-frozen carrier. The quantitative estimate is kept as an explicit
-field of the invariant rather than silently assumed.
+The finite seed absorbs square blocks `3` and `4`. From block `5` onward, every
+squarefree state is inherited from a canonical full-factorization parent in the
+frozen old carrier. The quantitative estimate remains an explicit field of the
+invariant rather than an assumed theorem.
 -/
 
 noncomputable section
@@ -62,87 +59,39 @@ theorem three_le_canonicalLargestPrimeFactor
   simp at hprod
   omega
 
-/-- The first small post-seed block satisfies the old-carrier bound directly. -/
-theorem canonicalCofactor_le_oldParentCutoff_three :
-    ∀ n : ℕ, n ∈ squareBlockInterval 3 → Squarefree n → 1 < n →
-      canonicalCofactor n ≤ oldParentCutoff 3 := by
-  intro n hn hsq hn1
-  have hnBounds : 9 ≤ n ∧ n < 16 := by
-    simpa [squareBlockInterval, Finset.mem_Ico] using hn
-  rcases hnBounds with ⟨hnLower, hnUpper⟩
-  interval_cases n <;>
-    norm_num [canonicalCofactor, canonicalLargestPrimeFactor, oldParentCutoff] at hsq ⊢
-
-/-- The second small post-seed block satisfies the old-carrier bound directly. -/
-theorem canonicalCofactor_le_oldParentCutoff_four :
-    ∀ n : ℕ, n ∈ squareBlockInterval 4 → Squarefree n → 1 < n →
-      canonicalCofactor n ≤ oldParentCutoff 4 := by
-  intro n hn hsq hn1
-  have hnBounds : 16 ≤ n ∧ n < 25 := by
-    simpa [squareBlockInterval, Finset.mem_Ico] using hn
-  rcases hnBounds with ⟨hnLower, hnUpper⟩
-  interval_cases n <;>
-    norm_num [canonicalCofactor, canonicalLargestPrimeFactor, oldParentCutoff] at hsq ⊢
-
-/-- **Uniform prior-carrier theorem.** For every square block from `a = 3`
-onward, the canonical cofactor of each squarefree state already lies in the
-frozen old parent carrier.
-
-The proof uses the canonical largest prime factor `q`. For `n > 2`, `q ≥ 3`, so
-`3c ≤ n < (a+1)²`. From `a ≥ 5`, the elementary comparison
-`2(a+1)² ≤ 3a²` gives `2c < a²`, hence `c ≤ (a²-1)/2`. Blocks `3` and `4` are
-the finite post-seed base cases. -/
+/-- **Uniform prior-carrier theorem after the finite seed.** For every square
+block `a ≥ 5`, the canonical cofactor of each squarefree state already lies in
+the frozen old parent carrier. -/
 theorem canonicalCofactor_le_oldParentCutoff
-    {a n : ℕ} (ha : 3 ≤ a)
+    {a n : ℕ} (ha : 5 ≤ a)
     (hn : n ∈ squareBlockInterval a)
     (hsq : Squarefree n) (hn1 : 1 < n) :
     canonicalCofactor n ≤ oldParentCutoff a := by
-  rcases lt_trichotomy a 5 with haLt | haEq | haGt
-  · have haCases : a = 3 ∨ a = 4 := by omega
-    rcases haCases with rfl | rfl
-    · exact canonicalCofactor_le_oldParentCutoff_three n hn hsq hn1
-    · exact canonicalCofactor_le_oldParentCutoff_four n hn hsq hn1
-  · subst a
-    have hnBounds : 5 ^ 2 ≤ n ∧ n < (5 + 1) ^ 2 := by
-      simpa [squareBlockInterval, Finset.mem_Ico] using hn
-    have hn2 : 2 < n := by omega
-    have hq3 : 3 ≤ canonicalLargestPrimeFactor n :=
-      three_le_canonicalLargestPrimeFactor hsq hn2
-    have hprod := canonicalCofactor_mul_largestPrimeFactor hn1
-    have hthree : 3 * canonicalCofactor n ≤ n := by
-      calc
-        3 * canonicalCofactor n = canonicalCofactor n * 3 := by omega
-        _ ≤ canonicalCofactor n * canonicalLargestPrimeFactor n :=
-          Nat.mul_le_mul_left _ hq3
-        _ = n := hprod
-    change canonicalCofactor n ≤ (5 ^ 2 - 1) / 2
+  have hnBounds : a ^ 2 ≤ n ∧ n < (a + 1) ^ 2 := by
+    simpa [squareBlockInterval, Finset.mem_Ico] using hn
+  have hn2 : 2 < n := by
+    have : 9 ≤ a ^ 2 := by nlinarith
     omega
-  · have ha5 : 5 ≤ a := by omega
-    have hnBounds : a ^ 2 ≤ n ∧ n < (a + 1) ^ 2 := by
-      simpa [squareBlockInterval, Finset.mem_Ico] using hn
-    have hn2 : 2 < n := by
-      have : 9 ≤ a ^ 2 := by nlinarith
-      omega
-    have hq3 : 3 ≤ canonicalLargestPrimeFactor n :=
-      three_le_canonicalLargestPrimeFactor hsq hn2
-    have hprod := canonicalCofactor_mul_largestPrimeFactor hn1
-    have hthree : 3 * canonicalCofactor n ≤ n := by
-      calc
-        3 * canonicalCofactor n = canonicalCofactor n * 3 := by omega
-        _ ≤ canonicalCofactor n * canonicalLargestPrimeFactor n :=
-          Nat.mul_le_mul_left _ hq3
-        _ = n := hprod
-    have h5a : 5 * a ≤ a * a := Nat.mul_le_mul_right a ha5
-    have hquad : 4 * a + 2 ≤ a ^ 2 := by
-      rw [pow_two]
-      omega
-    have hscale : 2 * (a + 1) ^ 2 ≤ 3 * a ^ 2 := by
-      nlinarith
-    have htwoLt : 2 * canonicalCofactor n < a ^ 2 := by
-      nlinarith
-    have htwoLe : canonicalCofactor n * 2 ≤ a ^ 2 - 1 := by
-      omega
-    exact (Nat.le_div_iff_mul_le (by omega : 0 < 2)).2 htwoLe
+  have hq3 : 3 ≤ canonicalLargestPrimeFactor n :=
+    three_le_canonicalLargestPrimeFactor hsq hn2
+  have hprod := canonicalCofactor_mul_largestPrimeFactor hn1
+  have hthree : 3 * canonicalCofactor n ≤ n := by
+    calc
+      3 * canonicalCofactor n = canonicalCofactor n * 3 := by omega
+      _ ≤ canonicalCofactor n * canonicalLargestPrimeFactor n :=
+        Nat.mul_le_mul_left _ hq3
+      _ = n := hprod
+  have h5a : 5 * a ≤ a * a := Nat.mul_le_mul_right a ha
+  have hquad : 4 * a + 2 ≤ a ^ 2 := by
+    rw [pow_two]
+    omega
+  have hscale : 2 * (a + 1) ^ 2 ≤ 3 * a ^ 2 := by
+    nlinarith
+  have htwoLt : 2 * canonicalCofactor n < a ^ 2 := by
+    nlinarith
+  have htwoLe : canonicalCofactor n * 2 ≤ a ^ 2 - 1 := by
+    omega
+  exact (Nat.le_div_iff_mul_le (by omega : 0 < 2)).2 htwoLe
 
 /-- Full-factorization inheritance statement for one square block. -/
 def PriorCarrierDeterminesBlock (a : ℕ) : Prop :=
@@ -152,8 +101,8 @@ def PriorCarrierDeterminesBlock (a : ℕ) : Prop :=
     (FullFactorizationState.canonical n).omega =
       (FullFactorizationState.canonical (canonicalCofactor n)).omega + 1
 
-/-- Once the elementary parent-cutoff estimate is available, all sign and parity
-parts of one-block inheritance follow from the merged full-factorization bridge. -/
+/-- Once the parent-cutoff estimate is available, all sign and parity parts of
+one-block inheritance follow from the full-factorization bridge. -/
 theorem priorCarrierDeterminesBlock_of_parent_bound
     {a : ℕ}
     (hbound : ∀ n : ℕ, n ∈ squareBlockInterval a → Squarefree n → 1 < n →
@@ -164,10 +113,10 @@ theorem priorCarrierDeterminesBlock_of_parent_bound
     canonicalSignedParent_moebius hsq hn1,
     canonicalSignedParent_omega_succ hsq hn1⟩
 
-/-- Every post-seed square block is completely determined by the frozen prior
-carrier, with signs and parity read from complete factorization states. -/
+/-- Every square block after the finite seed is completely determined by the
+frozen prior carrier. -/
 theorem priorCarrierDeterminesBlock
-    {a : ℕ} (ha : 3 ≤ a) : PriorCarrierDeterminesBlock a :=
+    {a : ℕ} (ha : 5 ≤ a) : PriorCarrierDeterminesBlock a :=
   priorCarrierDeterminesBlock_of_parent_bound
     (fun _ hn hsq hn1 => canonicalCofactor_le_oldParentCutoff ha hn hsq hn1)
 
@@ -182,7 +131,7 @@ def completedBlockPrefixSum : ℕ → ℤ
     completedBlockPrefixSum (N + 1) =
       completedBlockPrefixSum N + squareBlockMoebius (N + 1) := rfl
 
-/-- The finite state that issue #146 requires at stage `N`. -/
+/-- The finite state required at stage `N`. -/
 structure OneBlockInvariant (N : ℕ) where
   nextBlockInherited : PriorCarrierDeterminesBlock (N + 1)
   signedFrontier : ℤ
@@ -223,7 +172,7 @@ def OneBlockExtensionLaw : Prop :=
     Nonempty (OneBlockExtensionData N hN)
 
 /-- A base invariant plus the uniform one-block law yields every finite stage by
-ordinary induction. No completed infinity is used. -/
+ordinary induction. -/
 theorem oneBlockInvariant_all
     (h0 : OneBlockInvariant 0)
     (hlaw : OneBlockExtensionLaw) :
