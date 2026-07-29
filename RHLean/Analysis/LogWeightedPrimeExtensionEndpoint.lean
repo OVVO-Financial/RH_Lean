@@ -18,7 +18,7 @@ namespace RHLean.Analysis
 /-- The squarefree endpoint child fiber.  Non-squarefree endpoints contribute
 zero, matching their Möbius weight. -/
 def logWeightedEndpointFiber (n : ℕ) : ℝ :=
-  if hs : Squarefree n then
+  if Squarefree n then
     ∑ p ∈ n.primeFactors, moebiusReal (n / p) * Real.log p
   else
     0
@@ -27,9 +27,9 @@ def logWeightedEndpointFiber (n : ℕ) : ℝ :=
 theorem logWeightedEndpointFiber_eq (n : ℕ) :
     logWeightedEndpointFiber n = -moebiusReal n * Real.log n := by
   by_cases hs : Squarefree n
-  · simp only [logWeightedEndpointFiber, dif_pos hs]
+  · simp only [logWeightedEndpointFiber, if_pos hs]
     exact sum_log_p_mu_parent_eq_neg_mu_log n hs
-  · simp only [logWeightedEndpointFiber, dif_neg hs]
+  · simp only [logWeightedEndpointFiber, if_neg hs]
     have hmu : μ n = 0 :=
       ArithmeticFunction.moebius_eq_zero_of_not_squarefree hs
     simp [moebiusReal, hmu]
@@ -43,9 +43,10 @@ block. -/
 theorem logWeightedEndpointFiberMass_eq_neg_logWeightedBlock (N : ℕ) :
     logWeightedEndpointFiberMass N = -logWeightedBlock N := by
   unfold logWeightedEndpointFiberMass logWeightedBlock
-  rw [Finset.sum_neg_distrib]
+  rw [← Finset.sum_neg_distrib]
   apply Finset.sum_congr rfl
   intro n hn
   rw [logWeightedEndpointFiber_eq]
+  ring
 
 end RHLean.Analysis
