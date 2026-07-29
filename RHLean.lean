@@ -6,6 +6,8 @@ import RHLean.Proof.BlockLyapunovClosure
 import RHLean.Analysis.CanonicalHighSectorBridge
 import RHLean.Analysis.CanonicalHighSectorCore
 import RHLean.Analysis.CanonicalLowOccupancy
+import RHLean.Analysis.CanonicalSquareBlockZones
+import RHLean.Analysis.CanonicalSquareBlockResearchTargets
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.ConcreteSquarePrefixGeometry
 import RHLean.Proof.ComplementaryMainGram
@@ -55,6 +57,7 @@ import RHLean.Arithmetic.LeastPrimeDepthHierarchy
 import RHLean.Arithmetic.SignedBuchstabRecursion
 import RHLean.Arithmetic.PrimeAveragedFrontierIdentity
 import RHLean.Arithmetic.CanonicalEndpointCore
+import RHLean.Arithmetic.CanonicalTerminalPrimeExtension
 import RHLean.Arithmetic.EndpointCoreDecomposition
 import RHLean.Arithmetic.DyadicFrozenPrefix
 import RHLean.Arithmetic.FourSlotCell
