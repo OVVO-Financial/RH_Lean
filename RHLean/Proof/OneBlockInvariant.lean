@@ -8,13 +8,13 @@ import RHLean.Proof.CanonicalSignedParent
 This module makes the governing finite induction architecture explicit.
 
 The completed prefix is represented by the exact recursive sum of square-block
-increments.  The next block is not treated as independent: its nonzero
+increments. The next block is not treated as independent: its nonzero
 squarefree states must be inherited from canonical full-factorization parents in
-the already-frozen carrier.  The quantitative estimate is kept as an explicit
+the already-frozen carrier. The quantitative estimate is kept as an explicit
 field of the invariant rather than silently assumed.
 
-Nothing in this module claims the open quantitative preservation theorem.  It
-proves the exact structural implication:
+Nothing in this module claims the open quantitative preservation theorem. It
+constructs the exact structural implication:
 
 ```text
 OneBlockInvariant N + OneBlockExtensionData N -> OneBlockInvariant (N+1).
@@ -77,7 +77,7 @@ def completedBlockPrefixSum : ℕ → ℤ
 /-- The finite state that issue #146 requires at stage `N`.
 
 It retains the next-block parent inheritance, an exact signed frontier value for
-the completed prefix, and a quantitative energy budget.  The budget is genuine
+the completed prefix, and a quantitative energy budget. The budget is genuine
 data, not an asserted theorem hidden behind notation. -/
 structure OneBlockInvariant (N : ℕ) where
   nextBlockInherited : PriorCarrierDeterminesBlock (N + 1)
@@ -89,7 +89,7 @@ structure OneBlockInvariant (N : ℕ) where
 /-- Exact data needed to extend a valid stage by one finite block.
 
 The open mathematics sits in constructing this data uniformly with a useful
-next budget.  The structural update itself is elementary. -/
+next budget. The structural update itself is elementary. -/
 structure OneBlockExtensionData (N : ℕ) (hN : OneBlockInvariant N) where
   followingBlockInherited : PriorCarrierDeterminesBlock (N + 2)
   nextSignedFrontier : ℤ
@@ -98,8 +98,8 @@ structure OneBlockExtensionData (N : ℕ) (hN : OneBlockInvariant N) where
   nextEnergyBudget : ℕ
   next_energy_control : nextSignedFrontier ^ 2 ≤ (nextEnergyBudget : ℤ)
 
-/-- The exact one-block extension implication demanded by issue #146. -/
-theorem oneBlockInvariant_succ
+/-- The exact one-block extension constructor demanded by issue #146. -/
+def oneBlockInvariant_succ
     {N : ℕ} (hN : OneBlockInvariant N)
     (hstep : OneBlockExtensionData N hN) :
     OneBlockInvariant (N + 1) where
@@ -122,7 +122,7 @@ def OneBlockExtensionLaw : Prop :=
     Nonempty (OneBlockExtensionData N hN)
 
 /-- A base invariant plus the uniform one-block law yields every finite stage by
-ordinary induction.  No completed infinity is used. -/
+ordinary induction. No completed infinity is used. -/
 theorem oneBlockInvariant_all
     (h0 : OneBlockInvariant 0)
     (hlaw : OneBlockExtensionLaw) :
@@ -137,10 +137,10 @@ theorem oneBlockInvariant_all
 
 /-- The precise unresolved theorem package for issue #146.
 
-The structural induction is complete above.  Closing this statement requires the
+The structural induction is complete above. Closing this statement requires the
 uniform parent-cutoff theorem and, critically, a quantitatively controlled
 extension datum at every stage. -/
 def OneBlockInvariantClosureStatement : Prop :=
-  ∃ h0 : OneBlockInvariant 0, OneBlockExtensionLaw
+  Nonempty (OneBlockInvariant 0) ∧ OneBlockExtensionLaw
 
 end RHLean.Proof
