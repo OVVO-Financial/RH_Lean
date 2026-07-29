@@ -111,6 +111,7 @@ import RHLean.Proof.ConcreteHighFamilyJointGram
 import RHLean.Proof.CanonicalHighSectorCovariance
 import RHLean.Proof.RealSquareBlockIncrements
 import RHLean.Proof.SquareBlockCoherentGram
+import RHLean.Proof.CoherentGramVanishingTransfer
 import RHLean.Proof.SquareBlockPartialMomentBalance
 import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockIncrementEnergy
