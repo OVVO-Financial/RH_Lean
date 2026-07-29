@@ -76,7 +76,7 @@ def CanonicalEnvelopeSquareRootCertificateStatement : Prop :=
 /-- Complete strictly elementary closure package.  The transition estimate is
 finite counting; the two outer statements are the remaining open inputs. -/
 def CanonicalThreeZoneElementaryClosurePackage : Prop :=
-  CanonicalTerminalPrimeExtensionExistenceStatement ∧
+  RHLean.Arithmetic.CanonicalTerminalPrimeExtensionExistenceStatement ∧
   CanonicalActivationSumIdentificationStatement ∧
   CanonicalTransitionBandCountStatement ∧
   LargeTerminalZoneCancellationStatement ∧
@@ -85,7 +85,7 @@ def CanonicalThreeZoneElementaryClosurePackage : Prop :=
 /-- Analytic closure package.  This deliberately labels the imported
 PNT-strength cancellation rather than presenting it as an elementary proof. -/
 def CanonicalThreeZoneAnalyticClosurePackage : Prop :=
-  CanonicalTerminalPrimeExtensionExistenceStatement ∧
+  RHLean.Arithmetic.CanonicalTerminalPrimeExtensionExistenceStatement ∧
   CanonicalActivationSumIdentificationStatement ∧
   CanonicalTransitionBandCountStatement ∧
   LargeTerminalZoneCancellationStatement ∧
