@@ -41,7 +41,7 @@ theorem squareBlockCoherentGramMass_eq_prefix_sq (N : ℕ) :
     squareBlockCoherentGramMass N = (realCanonicalTotalPrefix N) ^ 2 := by
   unfold squareBlockCoherentGramMass squareBlockIncrementGramEntry
     realCanonicalTotalPrefix
-  rw [Finset.sum_mul_sum]
+  rw [← Finset.sum_mul_sum]
   ring
 
 /-- The coherent square-block Gram mass is nonnegative. -/
