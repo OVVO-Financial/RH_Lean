@@ -90,6 +90,7 @@ import RHLean.Proof.VanishingTransitionRelevance
 import RHLean.Proof.DeathShellDivisorFibers
 import RHLean.Proof.LowOmegaHighOrientation
 import RHLean.Analysis.DyadicTransportCompression
+import RHLean.Proof.DyadicCompressedPacketGram
 import RHLean.Analysis.DyadicTransportCanonicalForm
 import RHLean.Analysis.ExactActivityPrimeIntervals
 import RHLean.Analysis.DynamicVioleBaseline
