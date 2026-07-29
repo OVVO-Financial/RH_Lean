@@ -1,16 +1,20 @@
 import Mathlib
 
 /-!
-# Square-block prefix-comb sweep: numbered blocks 1 through 10
+# Square-block prefix-comb sweep: blocks 1 through 10
 
-The user-facing block numbering is one-based:
+There are two distinct block structures and they must not be conflated.
 
-* block `1` is `[0^2,1^2) = {0}` and contains no primes;
-* block `2` is `[1^2,2^2) = {1,2,3}`;
-* blocks `1` and `2` together form the initial seed parent block `{1,2,3}`.
+The seed parent blocks are
 
-Internally, `prefixCombSquareBlock n` retains the natural zero-based shell index
-`[n^2,(n+1)^2)`. Thus numbered block `k` is internal shell `k-1`.
+* parent block `1`: `[1,2) = {1}`;
+* parent block `2`: `[2,4) = {2,3}`.
+
+Their union is the initial seed parent reservoir `{1,2,3}`. Parent block `1`
+contains no primes.
+
+The generated target blocks are square shells `[n^2,(n+1)^2)`. The first target
+shell generated from the complete seed parent reservoir is `[4,9)`.
 
 A target block starts as dots and is filled by successively overlaying fresh-prime
 combs from the fixed old prefix. The first-cover convention removes redundant
@@ -24,24 +28,27 @@ noncomputable section
 
 namespace RHLean.Arithmetic
 
-/-- The half-open square shell `[n^2,(n+1)^2)`, with zero-based shell index `n`. -/
+/-- The half-open square target shell `[n^2,(n+1)^2)`. -/
 def prefixCombSquareBlock (n : ℕ) : Finset ℕ :=
   Finset.Icc (n ^ 2) ((n + 1) ^ 2 - 1)
 
-/-- One-based numbered square block. Block `1` is internal shell `0`. -/
-def numberedPrefixCombSquareBlock (k : ℕ) : Finset ℕ :=
-  prefixCombSquareBlock (k - 1)
+/-- Seed parent block `1`, namely `[1,2) = {1}`. -/
+def prefixCombSeedParentBlockOne : Finset ℕ :=
+  Finset.Ico 1 2
 
-/-- The combined first two numbered blocks, with the non-arithmetic point `0`
-removed, form the seed parent block. -/
+/-- Seed parent block `2`, namely `[2,4) = {2,3}`. -/
+def prefixCombSeedParentBlockTwo : Finset ℕ :=
+  Finset.Ico 2 4
+
+/-- The complete initial seed parent reservoir. -/
 def prefixCombSeedParentBlock : Finset ℕ :=
-  (numberedPrefixCombSquareBlock 1 ∪ numberedPrefixCombSquareBlock 2).erase 0
+  prefixCombSeedParentBlockOne ∪ prefixCombSeedParentBlockTwo
 
-/-- Largest parent available to generate shell `n`.
+/-- Largest parent available to generate square shell `n`.
 
-Shell `2` (numbered block `3`) is the first generated block and uses the complete
-seed parent block `{1,2,3}`. From shell `3` onward, the general half-prefix ceiling
-is sufficient. -/
+Shell `2`, namely `[4,9)`, is the first generated target shell and uses the full
+seed parent reservoir `{1,2,3}`. From shell `3` onward, the half-prefix ceiling is
+sufficient. -/
 def prefixCombParentCeiling (n : ℕ) : ℕ :=
   if n = 2 then 3 else (n ^ 2 - 1) / 2
 
@@ -55,7 +62,7 @@ def firstCoveredByPrefixComb (c x : ℕ) : Bool :=
   activeFreshPrimeCombHit c x &&
     !decide (∃ d ∈ Finset.range c, activeFreshPrimeCombHit d x = true)
 
-/-- Genuinely new teeth contributed by parent `c` to shell `n`. -/
+/-- Genuinely new teeth contributed by parent `c` to square shell `n`. -/
 def firstCoverTeeth (n c : ℕ) : Finset ℕ :=
   (prefixCombSquareBlock n).filter fun x => firstCoveredByPrefixComb c x
 
@@ -99,34 +106,38 @@ def prefixCombPositiveSupport (n : ℕ) : Finset ℕ :=
 def prefixCombNegativeSupport (n : ℕ) : Finset ℕ :=
   (prefixCombSquareBlock n).filter fun x => decide (μ x = -1)
 
-/-! ## Combined seed parent block -/
+/-! ## Seed parent blocks -/
 
-theorem prefixComb_numbered_block_one_has_no_primes :
-    (numberedPrefixCombSquareBlock 1).filter (fun x => decide (Nat.Prime x)) = ∅ := by
+theorem prefixComb_seed_parent_block_one_exact :
+    prefixCombSeedParentBlockOne = ({1} : Finset ℕ) := by
+  native_decide
+
+theorem prefixComb_seed_parent_block_one_has_no_primes :
+    prefixCombSeedParentBlockOne.filter (fun x => decide (Nat.Prime x)) = ∅ := by
+  native_decide
+
+theorem prefixComb_seed_parent_block_two_exact :
+    prefixCombSeedParentBlockTwo = ([2, 3] : List ℕ).toFinset := by
   native_decide
 
 theorem prefixComb_seed_parent_block_exact :
     prefixCombSeedParentBlock = ([1, 2, 3] : List ℕ).toFinset := by
   native_decide
 
-theorem prefixComb_numbered_block_two_increment :
-    prefixCombBlockIncrement 1 = -1 := by
-  native_decide
+/-! ## First generated target shell `[4,9)` -/
 
-/-! ## First generated block: numbered block 3, internal shell 2 -/
-
-theorem prefixComb_numbered_block_three_trace :
+theorem prefixComb_first_generated_shell_trace :
     firstCoverTeeth 2 1 = ([5, 7] : List ℕ).toFinset ∧
     firstCoverTeeth 2 2 = ([6] : List ℕ).toFinset := by
   native_decide
 
-theorem prefixComb_numbered_block_three_complete :
+theorem prefixComb_first_generated_shell_complete :
     uncoveredSquarefreePositions 2 = ∅ ∧
       prefixCombSweepDiscrepancy 2 (prefixCombParentCeiling 2) =
         prefixCombBlockIncrement 2 := by
   native_decide
 
-/-! ## Recovered first-cover traces for the following shells -/
+/-! ## Recovered first-cover traces for the following square shells -/
 
 theorem prefixComb_shell_three_trace :
     firstCoverTeeth 3 1 = ([11, 13] : List ℕ).toFinset ∧
@@ -191,9 +202,9 @@ theorem prefixComb_shell_ten_trace :
     firstCoverTeeth 10 15 = ([105] : List ℕ).toFinset := by
   native_decide
 
-/-! ## Exact completion for numbered blocks 3 through 10 -/
+/-! ## Exact completion for the first generated target shells -/
 
-theorem prefixComb_numbered_blocks_three_to_ten_complete :
+theorem prefixComb_generated_shells_two_to_nine_complete :
     uncoveredSquarefreePositions 2 = ∅ ∧
     uncoveredSquarefreePositions 3 = ∅ ∧
     uncoveredSquarefreePositions 4 = ∅ ∧
@@ -204,7 +215,7 @@ theorem prefixComb_numbered_blocks_three_to_ten_complete :
     uncoveredSquarefreePositions 9 = ∅ := by
   native_decide
 
-theorem prefixComb_numbered_blocks_three_to_ten_exact_sweep :
+theorem prefixComb_generated_shells_two_to_nine_exact_sweep :
     prefixCombSweepDiscrepancy 2 (prefixCombParentCeiling 2) = prefixCombBlockIncrement 2 ∧
     prefixCombSweepDiscrepancy 3 (prefixCombParentCeiling 3) = prefixCombBlockIncrement 3 ∧
     prefixCombSweepDiscrepancy 4 (prefixCombParentCeiling 4) = prefixCombBlockIncrement 4 ∧
@@ -215,7 +226,7 @@ theorem prefixComb_numbered_blocks_three_to_ten_exact_sweep :
     prefixCombSweepDiscrepancy 9 (prefixCombParentCeiling 9) = prefixCombBlockIncrement 9 := by
   native_decide
 
-theorem prefixComb_numbered_blocks_one_to_ten_increments :
+theorem prefixComb_square_shell_increments_zero_to_nine :
     prefixCombBlockIncrement 0 = 0 ∧
     prefixCombBlockIncrement 1 = -1 ∧
     prefixCombBlockIncrement 2 = -1 ∧
@@ -228,7 +239,7 @@ theorem prefixComb_numbered_blocks_one_to_ten_increments :
     prefixCombBlockIncrement 9 = 5 := by
   native_decide
 
-theorem prefixComb_numbered_blocks_three_to_ten_mixed_sign :
+theorem prefixComb_generated_shells_two_to_nine_mixed_sign :
     prefixCombPositiveSupport 2 ≠ ∅ ∧ prefixCombNegativeSupport 2 ≠ ∅ ∧
     prefixCombPositiveSupport 3 ≠ ∅ ∧ prefixCombNegativeSupport 3 ≠ ∅ ∧
     prefixCombPositiveSupport 4 ≠ ∅ ∧ prefixCombNegativeSupport 4 ≠ ∅ ∧
