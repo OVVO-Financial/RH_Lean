@@ -196,4 +196,217 @@ theorem squareBlockMoebius_eq_fullDepthParity (m : ℕ) :
             intro k hk
             simp
 
+/-! ## Phase 1: explicit certified full-factorization state
+
+`FullFactorizationState` makes the complete prime factorization a first-class
+certified object.  Every Möbius/depth reader below takes the state, so a
+compressed transport display `n = c * q` can never be read as a two-prime
+factorization: the state always carries `n.factorization` with multiplicity.
+-/
+
+/-- The canonical complete-factorization state of a natural number.  It carries
+`Nat.factorization` together with a proof that this finsupp is the true
+factorization of `value`; the proof field makes the state unique per `value`. -/
+structure FullFactorizationState where
+  value : ℕ
+  factorization : ℕ →₀ ℕ
+  is_canonical : factorization = value.factorization
+
+namespace FullFactorizationState
+
+/-- Canonical constructor from a natural number. -/
+def canonical (n : ℕ) : FullFactorizationState := ⟨n, n.factorization, rfl⟩
+
+@[simp] theorem canonical_value (n : ℕ) : (canonical n).value = n := rfl
+
+@[simp] theorem canonical_factorization (n : ℕ) :
+    (canonical n).factorization = n.factorization := rfl
+
+/-- Uniqueness / proof irrelevance: a state is determined by its value. -/
+theorem eq_of_value_eq {s t : FullFactorizationState}
+    (h : s.value = t.value) : s = t := by
+  obtain ⟨sv, sf, hs⟩ := s
+  obtain ⟨tv, tf, ht⟩ := t
+  subst hs ht
+  cases h
+  rfl
+
+@[simp] theorem canonical_value_self (s : FullFactorizationState) :
+    canonical s.value = s :=
+  eq_of_value_eq (by simp)
+
+/-- Complete prime support of the state. -/
+def support (s : FullFactorizationState) : Finset ℕ := s.factorization.support
+
+/-- Prime-factor count with multiplicity, `Ω`, read from the complete
+factorization (mathlib's `cardFactors`). -/
+def bigOmega (s : FullFactorizationState) : ℕ :=
+  fullPrimeFactorDepth s.value
+
+/-- Distinct prime-factor count, `ω` (mathlib's `cardDistinctFactors`). -/
+def omega (s : FullFactorizationState) : ℕ :=
+  distinctPrimeFactorDepth s.value
+
+/-- Squarefree state: no prime occurs with exponent `≥ 2`. -/
+def IsSquarefreeState (s : FullFactorizationState) : Prop :=
+  ∀ p, s.factorization p ≤ 1
+
+/-- State-native Möbius sign: the alternating parity of the distinct-prime count
+on the squarefree support, and zero otherwise. -/
+noncomputable def moebiusSign (s : FullFactorizationState) : ℤ :=
+  if Squarefree s.value then (-1 : ℤ) ^ s.omega else 0
+
+/-- Support elements are prime. -/
+theorem prime_of_mem_support (s : FullFactorizationState) {p : ℕ}
+    (hp : p ∈ s.support) : p.Prime := by
+  rw [support, s.is_canonical, Nat.support_factorization] at hp
+  exact Nat.prime_of_mem_primeFactors hp
+
+/-- The state support is exactly the complete prime set of the value. -/
+theorem support_eq_primeFactors (s : FullFactorizationState) :
+    s.support = s.value.primeFactors := by
+  rw [support, s.is_canonical, Nat.support_factorization]
+
+/-- The complete factorization reconstructs the value (nonzero value). -/
+theorem prod_pow_factorization_eq (s : FullFactorizationState)
+    (hn : s.value ≠ 0) :
+    s.factorization.prod (fun p e => p ^ e) = s.value := by
+  rw [s.is_canonical]
+  exact Nat.factorization_prod_pow_eq_self hn
+
+/-- `bigOmega` is exactly `cardFactors`. -/
+theorem bigOmega_eq_cardFactors (s : FullFactorizationState) :
+    s.bigOmega = ArithmeticFunction.cardFactors s.value := rfl
+
+/-- `omega` is exactly `cardDistinctFactors`. -/
+theorem omega_eq_cardDistinctFactors (s : FullFactorizationState) :
+    s.omega = ArithmeticFunction.cardDistinctFactors s.value := rfl
+
+/-- On a squarefree value, complete and distinct depth agree. -/
+theorem bigOmega_eq_omega_of_squarefree (s : FullFactorizationState)
+    (hsq : Squarefree s.value) : s.bigOmega = s.omega :=
+  fullPrimeFactorDepth_eq_distinctPrimeFactorDepth hsq
+
+/-- On a nonzero value, the state squarefree predicate matches squarefreeness. -/
+theorem isSquarefreeState_iff (s : FullFactorizationState) (hn : s.value ≠ 0) :
+    IsSquarefreeState s ↔ Squarefree s.value := by
+  rw [IsSquarefreeState, s.is_canonical]
+  exact (Nat.squarefree_iff_factorization_le_one hn).symm
+
+/-- `μ` of the value equals the state-native Möbius sign. -/
+theorem moebius_eq_moebiusSign (s : FullFactorizationState) :
+    μ s.value = s.moebiusSign := by
+  rw [moebiusSign]
+  by_cases hsq : Squarefree s.value
+  · rw [if_pos hsq, omega,
+      ← fullPrimeFactorDepth_eq_distinctPrimeFactorDepth hsq]
+    exact moebius_eq_negOnePow_fullPrimeFactorDepth hsq
+  · rw [if_neg hsq]
+    exact moebius_eq_zero_of_not_squarefree_fullState hsq
+
+/-- Repeated prime exponents force Möbius value zero. -/
+theorem moebius_eq_zero_of_not_isSquarefreeState (s : FullFactorizationState)
+    (hn : s.value ≠ 0) (h : ¬ IsSquarefreeState s) : μ s.value = 0 := by
+  apply moebius_eq_zero_of_not_squarefree_fullState
+  rwa [isSquarefreeState_iff s hn] at h
+
+end FullFactorizationState
+
+/-- A certified transport edge: parent and child each carry a complete
+factorization state, the terminal prime is appended, and the child factorization
+is the explicit parent-plus-one-prime update.  There is deliberately no
+factor-depth field: depth is always read from the states. -/
+structure FullPrimeTransportEdge where
+  parent : ℕ
+  child : ℕ
+  terminal : ℕ
+  terminal_prime : terminal.Prime
+  parentState : FullFactorizationState
+  childState : FullFactorizationState
+  parentState_value : parentState.value = parent
+  childState_value : childState.value = child
+  product_eq : parent * terminal = child
+  factorization_update :
+    childState.factorization
+      = parentState.factorization + Finsupp.single terminal 1
+
+namespace FullPrimeTransportEdge
+
+/-- The canonical fresh transport edge `n ↦ n * q` for a prime `q` and `n ≠ 0`. -/
+def ofCanonical (n q : ℕ) (hq : q.Prime) (hn : n ≠ 0) : FullPrimeTransportEdge where
+  parent := n
+  child := n * q
+  terminal := q
+  terminal_prime := hq
+  parentState := FullFactorizationState.canonical n
+  childState := FullFactorizationState.canonical (n * q)
+  parentState_value := rfl
+  childState_value := rfl
+  product_eq := rfl
+  factorization_update := by
+    simp only [FullFactorizationState.canonical_factorization]
+    rw [Nat.factorization_mul hn hq.ne_zero, hq.factorization]
+
+theorem child_ne_zero (e : FullPrimeTransportEdge) : e.child ≠ 0 := by
+  intro h0
+  have hzero : e.childState.factorization = 0 := by
+    rw [e.childState.is_canonical, e.childState_value, h0, Nat.factorization_zero]
+  rw [e.factorization_update] at hzero
+  have hcontra := congrArg (fun f => f e.terminal) hzero
+  simp at hcontra
+
+theorem parent_ne_zero (e : FullPrimeTransportEdge) : e.parent ≠ 0 := by
+  intro h0
+  exact e.child_ne_zero (by rw [← e.product_eq, h0, zero_mul])
+
+/-- A fresh extension increases `bigOmega` by exactly one. -/
+theorem bigOmega_child_eq_succ (e : FullPrimeTransportEdge) :
+    e.childState.bigOmega = e.parentState.bigOmega + 1 := by
+  rw [FullFactorizationState.bigOmega, FullFactorizationState.bigOmega,
+    e.parentState_value, e.childState_value, fullPrimeFactorDepth,
+    fullPrimeFactorDepth, ← e.product_eq,
+    ArithmeticFunction.cardFactors_mul e.parent_ne_zero e.terminal_prime.ne_zero,
+    ArithmeticFunction.cardFactors_apply_prime e.terminal_prime]
+
+/-- A fresh extension flips the Möbius sign. -/
+theorem moebius_child_eq_neg_parent (e : FullPrimeTransportEdge)
+    (hfresh : ¬ e.terminal ∣ e.parent) :
+    μ e.child = -μ e.parent := by
+  have hcop : Nat.Coprime e.parent e.terminal :=
+    (e.terminal_prime.coprime_iff_not_dvd).2 hfresh |>.symm
+  calc
+    μ e.child = μ (e.parent * e.terminal) := by rw [e.product_eq]
+    _ = μ e.parent * μ e.terminal :=
+      ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop
+    _ = μ e.parent * (-1) := by
+      rw [ArithmeticFunction.moebius_apply_prime e.terminal_prime]
+    _ = -μ e.parent := by ring
+
+/-- A collision makes the terminal exponent at least two in the child state. -/
+theorem two_le_child_factorization_terminal (e : FullPrimeTransportEdge)
+    (hcollision : e.terminal ∣ e.parent) :
+    2 ≤ e.childState.factorization e.terminal := by
+  have hpar : 1 ≤ e.parentState.factorization e.terminal := by
+    rw [e.parentState.is_canonical, e.parentState_value]
+    exact (Nat.Prime.factorization_pos_of_dvd e.terminal_prime e.parent_ne_zero
+      hcollision)
+  have := congrArg (fun f => f e.terminal) e.factorization_update
+  simp only [Finsupp.coe_add, Pi.add_apply, Finsupp.single_eq_same] at this
+  omega
+
+/-- A collision therefore gives Möbius value zero. -/
+theorem moebius_child_eq_zero_of_collision (e : FullPrimeTransportEdge)
+    (hcollision : e.terminal ∣ e.parent) :
+    μ e.child = 0 := by
+  apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
+  intro hsq
+  have hchild : Squarefree e.childState.value := by rw [e.childState_value]; exact hsq
+  have := (FullFactorizationState.isSquarefreeState_iff e.childState
+    (by rw [e.childState_value]; exact e.child_ne_zero)).2 hchild
+  have h2 := two_le_child_factorization_terminal e hcollision
+  have := this e.terminal
+  omega
+
+end FullPrimeTransportEdge
+
 end RHLean.Arithmetic

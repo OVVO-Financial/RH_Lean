@@ -49,6 +49,10 @@ jobs:
           name: lean-build-log
           path: lean-build.log
 
+      - name: Print Lean build log
+        if: always()
+        run: cat lean-build.log
+
       - name: Fail if Lean build failed
         if: steps.directbuild.outcome == 'failure'
         run: exit 1
