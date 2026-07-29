@@ -86,7 +86,7 @@ instance instDecidableCollision (d : CanonicalTerminalPrimeExtension n) :
 theorem fresh_or_collision (d : CanonicalTerminalPrimeExtension n) :
     d.Fresh ∨ d.Collision := by
   unfold Fresh Collision
-  exact Classical.em (d.terminal ∣ d.parent)
+  exact (Classical.em (d.terminal ∣ d.parent)).symm
 
 /-- A fresh canonical terminal-prime extension flips the Möbius sign. -/
 theorem moebiusReal_eq_neg_parent_of_fresh
@@ -102,9 +102,13 @@ theorem moebiusReal_eq_neg_parent_of_fresh
 theorem moebiusReal_eq_zero_of_collision
     (d : CanonicalTerminalPrimeExtension n) (hcollision : d.Collision) :
     moebiusReal n = 0 := by
+  obtain ⟨k, hk⟩ := hcollision
   have hsq : d.terminal * d.terminal ∣ n := by
-    rw [← d.product_eq]
-    exact Nat.mul_dvd_mul_right d.terminal hcollision
+    refine ⟨k, ?_⟩
+    calc
+      n = d.parent * d.terminal := d.product_eq.symm
+      _ = (d.terminal * k) * d.terminal := by rw [hk]
+      _ = (d.terminal * d.terminal) * k := by ac_rfl
   have hnot : ¬ Squarefree n := by
     intro hs
     exact d.terminal_prime.not_isUnit (hs d.terminal hsq)
