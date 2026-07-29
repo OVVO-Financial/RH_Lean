@@ -48,10 +48,11 @@ theorem three_le_canonicalLargestPrimeFactor
     constructor
     · intro hp
       have hpPrime : p.Prime := (Nat.mem_primeFactors.mp hp).1
+      have hpTwo : 2 ≤ p := hpPrime.two_le
       have hpLe : p ≤ canonicalLargestPrimeFactor n :=
         primeFactor_le_canonicalLargestPrimeFactor hn1 hp
       have hpEq : p = 2 := by omega
-      simpa [hpEq]
+      simp [hpEq]
     · intro hp
       have hpEq : p = 2 := by simpa using hp
       subst p
@@ -61,17 +62,17 @@ theorem three_le_canonicalLargestPrimeFactor
   simp at hprod
   omega
 
-/-- The two small post-seed blocks satisfy the old-carrier bound directly. -/
+/-- The first small post-seed block satisfies the old-carrier bound directly. -/
 theorem canonicalCofactor_le_oldParentCutoff_three :
     ∀ n : ℕ, n ∈ squareBlockInterval 3 → Squarefree n → 1 < n →
       canonicalCofactor n ≤ oldParentCutoff 3 := by
-  native_decide
+  decide
 
 /-- The second small post-seed block satisfies the old-carrier bound directly. -/
 theorem canonicalCofactor_le_oldParentCutoff_four :
     ∀ n : ℕ, n ∈ squareBlockInterval 4 → Squarefree n → 1 < n →
       canonicalCofactor n ≤ oldParentCutoff 4 := by
-  native_decide
+  decide
 
 /-- **Uniform prior-carrier theorem.** For every square block from `a = 3`
 onward, the canonical cofactor of each squarefree state already lies in the
@@ -158,7 +159,7 @@ carrier, with signs and parity read from complete factorization states. -/
 theorem priorCarrierDeterminesBlock
     {a : ℕ} (ha : 3 ≤ a) : PriorCarrierDeterminesBlock a :=
   priorCarrierDeterminesBlock_of_parent_bound
-    (fun n hn hsq hn1 => canonicalCofactor_le_oldParentCutoff ha hn hsq hn1)
+    (fun _ hn hsq hn1 => canonicalCofactor_le_oldParentCutoff ha hn hsq hn1)
 
 /-- Exact cumulative discrepancy after the first `N` square blocks. -/
 def completedBlockPrefixSum : ℕ → ℤ
