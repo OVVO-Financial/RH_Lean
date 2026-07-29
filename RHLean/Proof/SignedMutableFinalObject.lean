@@ -1,17 +1,17 @@
 import Mathlib
 import RHLean.Proof.MutableSupportBound
-import RHLean.Analysis.CanonicalHighSectorBridge
+import RHLean.Analysis.ConcreteSquarePrefixGeometry
 
 /-!
 # Signed mutable prefix as the terminal arithmetic object
 
 The terminal object is not the cardinality of the mutable support and not an
-independent packet-Gram premise.  It is the signed Möbius mass carried by the
+independent packet-Gram premise. It is the signed Möbius mass carried by the
 mutable support in each square block, accumulated from the common origin.
 
 When the settled complement has zero Möbius mass, this signed mutable block
-sum is exactly the complete square-block increment.  Consequently its prefix
-is exactly the square-prefix Mertens sequence once the existing square-prefix
+sum is exactly the complete square-block increment. Consequently its prefix
+is exactly the square-prefix Mertens sequence once the existing exact
 identification is supplied.
 -/
 
@@ -57,7 +57,7 @@ theorem signedMutablePrefix_eq_squareBlockMoebiusPrefix
   exact signedMutableBlockSum_eq_squareBlockMoebius U hU hinterior k
 
 /-- RH-scale translated-window energy control for the cumulative signed mutable
-sum.  This is the final analytic object suggested by the experiments. -/
+sum. This is the final analytic object suggested by the experiments. -/
 def SignedMutableUniformLocalBoundedStatement
     (U : ℕ → Finset ℕ) : Prop :=
   ∀ ε : ℝ, 0 < ε →
@@ -66,9 +66,9 @@ def SignedMutableUniformLocalBoundedStatement
         RHLean.Analysis.localSequenceEnergy (signedMutablePrefix U) N H ≤
           C * (H : ℝ) * Real.rpow (N : ℝ) (2 + ε)
 
-/-- Once the already-established exact identification with the square-prefix
-Mertens sequence is supplied, the signed mutable local-energy statement is
-literally the repository's protected square-prefix criterion. -/
+/-- Once the exact identification with the square-prefix Mertens sequence is
+supplied, the signed mutable local-energy statement is literally the
+repository's protected square-prefix criterion. -/
 theorem signedMutableUniformLocalBounded_implies_squarePrefixUniformLocal
     (U : ℕ → Finset ℕ)
     (hidentify : ∀ n, signedMutablePrefix U n =
@@ -82,8 +82,8 @@ theorem signedMutableUniformLocalBounded_implies_squarePrefixUniformLocal
   simpa [RHLean.Analysis.localSequenceEnergy, hidentify] using
     hlocal N H hH hHN
 
-/-- Conditional RH closure with the signed mutable prefix as the sole final
-analytic object. -/
+/-- Conditional RH closure with the cumulative signed mutable sum as the sole
+final analytic object. All subsequent arrows are existing repository bridges. -/
 theorem riemannHypothesis_of_signedMutableUniformLocalBounded
     (U : ℕ → Finset ℕ)
     (criterion : RHLean.Analysis.ClassicalMertensRHCriterion)
@@ -91,8 +91,9 @@ theorem riemannHypothesis_of_signedMutableUniformLocalBounded
       RHLean.Analysis.squarePrefixMertens n)
     (hbound : SignedMutableUniformLocalBoundedStatement U) :
     RHLean.Analysis.RiemannHypothesisStatement := by
-  exact criterion
-    (signedMutableUniformLocalBounded_implies_squarePrefixUniformLocal
-      U hidentify hbound)
+  apply criterion.iff_riemannHypothesis.mp
+  apply RHLean.Analysis.squarePrefix_uniformLocalBounded_iff_mertensEnergyBounded.mp
+  exact signedMutableUniformLocalBounded_implies_squarePrefixUniformLocal
+    U hidentify hbound
 
 end RHLean.Proof
