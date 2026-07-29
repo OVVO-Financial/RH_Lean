@@ -44,7 +44,7 @@ private theorem realIncrement_eq_squareBlockMoebius (n : ℕ) :
     realCanonicalTotalIncrement n = (squareBlockMoebius n : ℝ) := by
   unfold realCanonicalTotalIncrement realCanonicalMoebiusWeight
     canonicalSquareBlock squareBlockMoebius squareBlockInterval
-  rfl
+  norm_cast
 
 /-- The full seed telescope through block `N` is the sum of the exact block
 increments. -/
@@ -73,8 +73,12 @@ theorem squarePrefixPNT_of_squareBlockDiscrepancyVanishes
   filter_upwards [eventually_ge_atTop (max K T)] with N hN
   have hKN : K ≤ N := le_trans (le_max_left K T) hN
   have hTN : T ≤ N := le_trans (le_max_right K T) hN
-  have hNpos : 0 < N + 1 := Nat.succ_pos N
-  have hNreal : 0 < ((N + 1 : ℕ) : ℝ) := by exact_mod_cast hNpos
+  have hK0K : K0 ≤ K := by
+    dsimp [K]
+    exact le_max_left _ _
+  have hKpos : 0 < K := by
+    dsimp [K]
+    omega
   have hprefixSplit :
       realCanonicalTotalPrefix N =
         (∑ n ∈ Finset.range K, (squareBlockMoebius n : ℝ)) +
@@ -91,8 +95,8 @@ theorem squarePrefixPNT_of_squareBlockDiscrepancyVanishes
       |(squareBlockMoebius n : ℝ)| ≤ (ε / 4) * (n : ℝ) := by
     intro n hn
     have hnK : K ≤ n := (Finset.mem_Ico.mp hn).1
-    have hK0n : K0 ≤ n := le_trans (le_max_left K0 1) hnK
-    have hnpos : 0 < n := lt_of_lt_of_le (by omega : 0 < K) hnK
+    have hK0n : K0 ≤ n := le_trans hK0K hnK
+    have hnpos : 0 < n := lt_of_lt_of_le hKpos hnK
     have hnorm := hK0 n hK0n
     unfold normalizedSquareBlockDiscrepancy at hnorm
     have hnreal : 0 < (n : ℝ) := by exact_mod_cast hnpos
@@ -112,26 +116,32 @@ theorem squarePrefixPNT_of_squareBlockDiscrepancyVanishes
             intro n hn
             have hnle : n ≤ N := by omega
             exact (htailPoint n hn).trans
-              (mul_le_mul_of_nonneg_left (by exact_mod_cast (Nat.le_succ_of_le hnle))
-                (by linarith))
+              (mul_le_mul_of_nonneg_left
+                (by exact_mod_cast (Nat.le_succ_of_le hnle)) (by linarith))
       _ = ((Finset.Ico K (N + 1)).card : ℝ) *
           ((ε / 4) * ((N + 1 : ℕ) : ℝ)) := by simp [mul_comm]
       _ ≤ ((N + 1 : ℕ) : ℝ) *
           ((ε / 4) * ((N + 1 : ℕ) : ℝ)) := by
             gcongr
-            exact_mod_cast (Finset.card_Ico_le K (N + 1))
+            have hcardNat : (Finset.Ico K (N + 1)).card ≤ N + 1 := by
+              rw [Nat.card_Ico]
+              omega
+            exact_mod_cast hcardNat
       _ = (ε / 4) * (((N + 1 : ℕ) : ℝ) ^ 2) := by ring
   have hheadSmall : A ≤ (ε / 4) * (((N + 1 : ℕ) : ℝ) ^ 2) := by
     have hTreal : 4 * A / ε < (T : ℝ) := by exact_mod_cast hT
     have hTle : (T : ℝ) ≤ ((N + 1 : ℕ) : ℝ) := by
       exact_mod_cast (le_trans hTN (Nat.le_succ N))
-    have hOne : (1 : ℝ) ≤ ((N + 1 : ℕ) : ℝ) := by exact_mod_cast (Nat.succ_le_succ (Nat.zero_le N))
-    have hsquare : ((N + 1 : ℕ) : ℝ) ≤ (((N + 1 : ℕ) : ℝ) ^ 2) := by nlinarith
-    have hεpos : 0 < ε := hε
-    have : 4 * A < ε * (((N + 1 : ℕ) : ℝ) ^ 2) := by
-      have hquot : 4 * A / ε < (((N + 1 : ℕ) : ℝ) ^ 2) :=
-        lt_of_lt_of_le hTreal (le_trans hTle hsquare)
-      exact (div_lt_iff₀ hεpos).mp hquot
+    have hOne : (1 : ℝ) ≤ ((N + 1 : ℕ) : ℝ) := by
+      exact_mod_cast (Nat.succ_le_succ (Nat.zero_le N))
+    have hsquare : ((N + 1 : ℕ) : ℝ) ≤ (((N + 1 : ℕ) : ℝ) ^ 2) := by
+      nlinarith
+    have hquot : 4 * A / ε < (((N + 1 : ℕ) : ℝ) ^ 2) :=
+      lt_of_lt_of_le hTreal (le_trans hTle hsquare)
+    have hmul : 4 * A < (((N + 1 : ℕ) : ℝ) ^ 2) * ε :=
+      (div_lt_iff₀ hε).mp hquot
+    have hmul' : 4 * A < ε * (((N + 1 : ℕ) : ℝ) ^ 2) := by
+      simpa [mul_comm] using hmul
     linarith
   have hprefAbs :
       |realCanonicalTotalPrefix N| ≤
@@ -141,7 +151,8 @@ theorem squarePrefixPNT_of_squareBlockDiscrepancyVanishes
       |(∑ n ∈ Finset.range K, (squareBlockMoebius n : ℝ)) +
           ∑ n ∈ Finset.Ico K (N + 1), (squareBlockMoebius n : ℝ)| ≤
           |∑ n ∈ Finset.range K, (squareBlockMoebius n : ℝ)| +
-          |∑ n ∈ Finset.Ico K (N + 1), (squareBlockMoebius n : ℝ)| := abs_add _ _
+          |∑ n ∈ Finset.Ico K (N + 1), (squareBlockMoebius n : ℝ)| :=
+        abs_add_le _ _
       _ ≤ A + (ε / 4) * (((N + 1 : ℕ) : ℝ) ^ 2) :=
         add_le_add hhead htailAbs
       _ ≤ (ε / 2) * (((N + 1 : ℕ) : ℝ) ^ 2) := by linarith
@@ -180,9 +191,9 @@ theorem mertensPNT_of_squarePrefixPNT
   let r := Nat.sqrt x
   let n := r - 1
   have hxpos : 0 < x := by
-    have : 0 < max ((N0 + 1) ^ 2) X0 := by
-      exact lt_of_lt_of_le (Nat.zero_lt_succ _) (le_max_left _ _)
-    omega
+    have hbasePos : 0 < (N0 + 1) ^ 2 := by positivity
+    have hbase : (N0 + 1) ^ 2 ≤ x := le_trans (le_max_left _ _) hx
+    exact lt_of_lt_of_le hbasePos hbase
   have hr : 1 ≤ r := by
     dsimp [r]
     exact Nat.sqrt_pos.mpr hxpos
@@ -190,10 +201,13 @@ theorem mertensPNT_of_squarePrefixPNT
   have hr_sq_le : r ^ 2 ≤ x := by
     dsimp [r]
     exact Nat.sqrt_le' x
+  have hr_le_x : r ≤ x := by
+    dsimp [r]
+    exact Nat.sqrt_le_self x
   have hn0 : N0 ≤ n := by
     have hN0sq : (N0 + 1) ^ 2 ≤ x := le_trans (le_max_left _ _) hx
     have hN0r : N0 + 1 ≤ r := by
-      exact (Nat.le_sqrt hN0sq)
+      exact (Nat.le_sqrt).2 hN0sq
     omega
   have hendpoint : RHLean.Analysis.squarePrefixEndpoint n = r ^ 2 - 1 := by
     unfold RHLean.Analysis.squarePrefixEndpoint
@@ -236,10 +250,17 @@ theorem mertensPNT_of_squarePrefixPNT
         rw [hsquare]
         omega
       exact_mod_cast hnat
+    have hεsq : 0 < ε ^ 2 := sq_pos_of_pos hε
+    have hxlargeRaw : 16 < (x : ℝ) * ε ^ 2 :=
+      (div_lt_iff₀ hεsq).mp hX0real
     have hxlarge : 16 < ε ^ 2 * ((x + 1 : ℕ) : ℝ) := by
-      have hεsq : 0 < ε ^ 2 := sq_pos_of_pos hε
-      have : 16 < ε ^ 2 * (x : ℝ) := (div_lt_iff₀ hεsq).mp hX0real
-      nlinarith
+      have hxcast : (x : ℝ) ≤ ((x + 1 : ℕ) : ℝ) := by exact_mod_cast (Nat.le_succ x)
+      have hmono : (x : ℝ) * ε ^ 2 ≤ ((x + 1 : ℕ) : ℝ) * ε ^ 2 :=
+        mul_le_mul_of_nonneg_right hxcast (sq_nonneg ε)
+      have : 16 < ((x + 1 : ℕ) : ℝ) * ε ^ 2 := lt_of_lt_of_le hxlargeRaw hmono
+      simpa [mul_comm] using this
+    have hXpos : 0 < ((x + 1 : ℕ) : ℝ) := by positivity
+    have hscaled := mul_lt_mul_of_pos_right hxlarge hXpos
     have hnonneg : 0 ≤ (r + 1 : ℝ) := by positivity
     have hεnonneg : 0 ≤ ε := le_of_lt hε
     nlinarith [sq_nonneg (ε * ((x + 1 : ℕ) : ℝ) - 4 * (r + 1 : ℝ))]
