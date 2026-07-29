@@ -83,6 +83,7 @@ import RHLean.Proof.DeathProcessShellIdentity
 import RHLean.Proof.DeathShellCardinalityAndCentering
 import RHLean.Proof.DeathShellCofactorParity
 import RHLean.Proof.FullFactorizationBridge
+import RHLean.Proof.CanonicalSignedParent
 import RHLean.Proof.DeathShellDivisorFibers
 import RHLean.Proof.LowOmegaHighOrientation
 import RHLean.Analysis.DyadicTransportCompression
