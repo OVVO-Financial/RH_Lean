@@ -20,13 +20,17 @@ factors. -/
 theorem prod_primeFactors_eq_self_of_squarefree
     {n : ℕ} (hs : Squarefree n) :
     ∏ p ∈ n.primeFactors, p = n := by
-  have hfac := Nat.prod_primeFactors_pow_factorization hs.ne_zero
-  rw [hfac]
-  apply Finset.prod_congr rfl
-  intro p hp
-  have hpPrime : p.Prime := Nat.prime_of_mem_primeFactors hp
-  have hpDvd : p ∣ n := Nat.dvd_of_mem_primeFactors hp
-  rw [Nat.factorization_eq_one_of_squarefree hs hpPrime hpDvd, pow_one]
+  calc
+    (∏ p ∈ n.primeFactors, p) =
+        ∏ p ∈ n.primeFactors, p ^ n.factorization p := by
+          apply Finset.prod_congr rfl
+          intro p hp
+          have hpPrime : p.Prime := Nat.prime_of_mem_primeFactors hp
+          have hpDvd : p ∣ n := Nat.dvd_of_mem_primeFactors hp
+          rw [Nat.factorization_eq_one_of_squarefree hs hpPrime hpDvd, pow_one]
+    _ = n.factorization.prod (fun p k => p ^ k) := by
+          rw [Nat.prod_factorization_eq_prod_primeFactors]
+    _ = n := Nat.prod_factorization_pow_eq_self hs.ne_zero
 
 /-- The logarithm of a finite product of positive naturals is the sum of their
 logarithms.  This local lemma avoids depending on a version-sensitive global
@@ -74,11 +78,12 @@ theorem moebiusReal_div_prime_eq_neg
       exact Nat.mul_dvd_mul_left p hpd
     exact hpPrime.not_isUnit (hs p hsq)
   have hflip := moebiusReal_prime_mul hpPrime hnot
-  simpa [hmul] using hflip
+  rw [hmul] at hflip
+  linarith
 
 /-- Local logarithmic child-fiber identity on squarefree support. -/
 theorem sum_log_p_mu_parent_eq_neg_mu_log
-    (n : ℕ) (hs : Squarefree n) (hn : 1 < n) :
+    (n : ℕ) (hs : Squarefree n) :
     (∑ p ∈ n.primeFactors,
       moebiusReal (n / p) * Real.log p) =
       -moebiusReal n * Real.log n := by
