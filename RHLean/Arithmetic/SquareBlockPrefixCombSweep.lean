@@ -8,11 +8,11 @@ as dots and is filled by successively overlaying fresh-prime combs from the fixe
 old prefix.
 
 The first-cover convention removes redundant factorizations: a block position is
-counted only for the least parent whose active comb reaches it.  Since the least
+counted only for the least parent whose active comb reaches it. Since the least
 parent corresponds to deleting the largest available fresh prime, this is the
 finite canonical sweep used by the project.
 
-Blocks `1` and `2` are retained explicitly as seed exceptions.  Blocks `3` through
+Blocks `1` and `2` are retained explicitly as seed exceptions. Blocks `3` through
 `10` are completely covered by the old parent ceiling and satisfy the exact
 first-cover signed recurrence.
 -/
@@ -42,7 +42,7 @@ def activeFreshPrimeCombHit (c x : ℕ) : Bool :=
 parent does. -/
 def firstCoveredByPrefixComb (c x : ℕ) : Bool :=
   activeFreshPrimeCombHit c x &&
-    !((Finset.range c).any fun d => activeFreshPrimeCombHit d x)
+    !decide (∃ d ∈ Finset.range c, activeFreshPrimeCombHit d x = true)
 
 /-- Genuinely new teeth contributed by parent `c` to block `n`. -/
 def firstCoverTeeth (n c : ℕ) : Finset ℕ :=
@@ -54,8 +54,8 @@ def prefixCombNewCoverageCount (n c : ℕ) : ℕ :=
 
 /-- Whether a nonzero block position is reached by some parent in the old prefix. -/
 def coveredByOldPrefix (n x : ℕ) : Bool :=
-  (Finset.range (prefixCombParentCeiling n)).any fun i =>
-    activeFreshPrimeCombHit (i + 1) x
+  decide (∃ i ∈ Finset.range (prefixCombParentCeiling n),
+    activeFreshPrimeCombHit (i + 1) x = true)
 
 /-- Nonzero Möbius positions not reached by the old-prefix comb sweep. -/
 def uncoveredSquarefreePositions (n : ℕ) : Finset ℕ :=
@@ -66,7 +66,7 @@ def uncoveredSquarefreePositions (n : ℕ) : Finset ℕ :=
 Parent `i+1` contributes the opposite of its Möbius sign at every newly covered
 position. -/
 def prefixCombSweepDiscrepancy (n r : ℕ) : ℤ :=
-  ∑ i in Finset.range r,
+  (Finset.range r).sum fun i =>
     -(μ (i + 1)) * (prefixCombNewCoverageCount n (i + 1) : ℤ)
 
 /-- The sweep has the exact one-parent recurrence. -/
@@ -74,11 +74,11 @@ theorem prefixCombSweepDiscrepancy_succ (n r : ℕ) :
     prefixCombSweepDiscrepancy n (r + 1) =
       prefixCombSweepDiscrepancy n r -
         μ (r + 1) * (prefixCombNewCoverageCount n (r + 1) : ℤ) := by
-  simp [prefixCombSweepDiscrepancy, Finset.sum_range_succ]
+  simp [prefixCombSweepDiscrepancy]
 
 /-- Actual Möbius increment of square block `n`. -/
 def prefixCombBlockIncrement (n : ℕ) : ℤ :=
-  ∑ x in prefixCombSquareBlock n, μ x
+  (prefixCombSquareBlock n).sum fun x => μ x
 
 /-- Positive nonzero support of a square block. -/
 def prefixCombPositiveSupport (n : ℕ) : Finset ℕ :=
