@@ -183,4 +183,31 @@ theorem dyadicFullWindowGramEnergy_eq_compressed_decomposition
   exact dyadicFullBlockGram_eq_compressed_add_unmatched_add_cross
     U c q unmatched N (A + s) (A + t) hc hq
 
+/-- Finite-window coherent energy of the compressed paired packet system. -/
+def dyadicCompressedWindowGramEnergy
+    {ι : Type*} (U : Finset ι) (c q : ι → ℕ)
+    (N A H : ℕ) : ℂ :=
+  ∑ s ∈ Finset.range H,
+    ∑ t ∈ Finset.range H,
+      dyadicCompressedPairBlockGram U c q N (A + s) (A + t)
+
+/-- The exact worst-case vanishing condition suggested by the packet experiments.
+After normalization by `H * A^2`, the compressed packet Gram energy tends to
+zero uniformly over every translated window contained in the finite horizon.
+
+This is written in epsilon form so the worst-case quantifiers are explicit:
+for every positive `ε`, all sufficiently large block scales `A` and every
+admissible `N,H` satisfy the normalized bound by `ε`. -/
+def DyadicCompressedWorstCaseNormalizedEnergyTendsToZero
+    {ι : Type*} (U : Finset ι) (c q : ι → ℕ) : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ A₀ : ℕ,
+      ∀ N A H : ℕ,
+        A₀ ≤ A →
+        1 ≤ H →
+        H ≤ A →
+        A + H ≤ N + 1 →
+        ‖dyadicCompressedWindowGramEnergy U c q N A H‖ ≤
+          ε * (H : ℝ) * (A : ℝ) ^ 2
+
 end RHLean.Proof
