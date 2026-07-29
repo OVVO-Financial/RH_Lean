@@ -68,6 +68,7 @@ theorem fullPrimeFactorDepth_eq_distinctPrimeFactorDepth
     {n : ℕ} (hsq : Squarefree n) :
     fullPrimeFactorDepth n = distinctPrimeFactorDepth n := by
   have hn0 : n ≠ 0 := hsq.ne_zero
+  symm
   simpa [fullPrimeFactorDepth, distinctPrimeFactorDepth] using
     (ArithmeticFunction.cardDistinctFactors_eq_cardFactors_iff_squarefree hn0).2 hsq
 
@@ -166,10 +167,10 @@ theorem squareBlockMoebius_eq_fullDepthParity (m : ℕ) :
           (-1 : ℤ) ^ fullPrimeFactorDepth n := by
       apply Finset.sum_congr rfl
       intro n hn
-      have hμ : μ n ≠ 0 := by
+      have hnData : n ∈ fullFactorSquareBlock m ∧ μ n ≠ 0 := by
         simpa [fullFactorSquareBlockSupport] using hn
       have hsq : Squarefree n :=
-        ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hμ
+        ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hnData.2
       exact moebius_eq_negOnePow_fullPrimeFactorDepth hsq
     _ = ∑ k ∈ fullFactorSquareBlockDepthValues m,
           (fullFactorSquareBlockDepthCount m k : ℤ) * (-1 : ℤ) ^ k := by
