@@ -142,12 +142,15 @@ theorem dyadicFullBlockGram_eq_compressed_add_unmatched_add_cross
   unfold dyadicFullBlockGram dyadicCompressedPairBlockGram
     dyadicUnmatchedBlockGram dyadicCompressedUnmatchedCrossGram
     dyadicUnmatchedCompressedCrossGram
-  simp_rw [dyadicFullCoordinate_eq_compressed c q unmatched N s _
-      (hc _ ‹_›) (hq _ ‹_›),
-    dyadicFullCoordinate_eq_compressed c q unmatched N t _
-      (hc _ ‹_›) (hq _ ‹_›),
-    dyadicCompressedFullCoordinate, map_add, add_mul, mul_add,
-    Finset.sum_add_distrib]
+  rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib,
+    ← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro i hi
+  rw [dyadicFullCoordinate_eq_compressed c q unmatched N s i
+      (hc i hi) (hq i hi),
+    dyadicFullCoordinate_eq_compressed c q unmatched N t i
+      (hc i hi) (hq i hi)]
+  simp only [dyadicCompressedFullCoordinate, map_add]
   ring
 
 /-- Finite-window coherent energy of the complete coordinate system. -/
