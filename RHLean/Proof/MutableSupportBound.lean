@@ -34,11 +34,14 @@ theorem abs_sum_moebius_le_card (s : Finset ℕ) :
   induction s using Finset.induction_on with
   | empty => simp
   | @insert a s ha ih =>
-      rw [Finset.sum_insert ha, Finset.card_insert_of_not_mem ha]
+      rw [Finset.sum_insert ha, Finset.card_insert_of_notMem ha]
       push_cast
-      calc
-        |μ a + ∑ m ∈ s, μ m| ≤ |μ a| + |∑ m ∈ s, μ m| := abs_add _ _
-        _ ≤ 1 + (s.card : ℤ) := add_le_add (abs_moebius_le_one a) ih
+      have ihBounds :
+          -(s.card : ℤ) ≤ ∑ m ∈ s, μ m ∧
+            ∑ m ∈ s, μ m ≤ (s.card : ℤ) :=
+        abs_le.mp ih
+      rcases ArithmeticFunction.moebius_eq_or a with h | h | h <;>
+        rw [h] <;> omega
 
 /-- If the settled interior of square block `n` has zero Möbius mass, the complete
 block discrepancy is exactly the Möbius mass carried by the mutable support. -/
