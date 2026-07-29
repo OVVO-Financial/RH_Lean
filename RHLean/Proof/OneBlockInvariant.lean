@@ -79,8 +79,10 @@ theorem canonicalCofactor_le_oldParentCutoff_three
   change canonicalCofactor n ≤ 4
   by_contra hnot
   have hcEq : canonicalCofactor n = 5 := by omega
-  have hqEq : canonicalLargestPrimeFactor n = 3 := by omega
-  have hnEq : n = 15 := by omega
+  have hqEq : canonicalLargestPrimeFactor n = 3 := by
+    nlinarith [hprod]
+  have hnEq : n = 15 := by
+    nlinarith [hprod]
   have h5 : 5 ∈ n.primeFactors := by
     subst n
     norm_num
@@ -112,6 +114,8 @@ theorem canonicalCofactor_le_oldParentCutoff_four
     squarefree_canonicalCofactor hsq hn1
   rw [hcEq] at hcSq
   norm_num [Squarefree] at hcSq
+  have hbad := hcSq 2 (by norm_num)
+  norm_num at hbad
 
 /-- **Uniform prior-carrier theorem.** Blocks `1` and `2` are the fixed seed;
 every square block `a ≥ 3` is inherited from the frozen old parent carrier. -/
