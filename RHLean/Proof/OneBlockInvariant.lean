@@ -66,13 +66,19 @@ theorem three_le_canonicalLargestPrimeFactor
 theorem canonicalCofactor_le_oldParentCutoff_three :
     ∀ n : ℕ, n ∈ squareBlockInterval 3 → Squarefree n → 1 < n →
       canonicalCofactor n ≤ oldParentCutoff 3 := by
-  decide
+  intro n hn hsq hn1
+  simp only [squareBlockInterval, Finset.mem_Ico] at hn
+  interval_cases n <;>
+    norm_num [canonicalCofactor, canonicalLargestPrimeFactor, oldParentCutoff] at hsq ⊢
 
 /-- The second small post-seed block satisfies the old-carrier bound directly. -/
 theorem canonicalCofactor_le_oldParentCutoff_four :
     ∀ n : ℕ, n ∈ squareBlockInterval 4 → Squarefree n → 1 < n →
       canonicalCofactor n ≤ oldParentCutoff 4 := by
-  decide
+  intro n hn hsq hn1
+  simp only [squareBlockInterval, Finset.mem_Ico] at hn
+  interval_cases n <;>
+    norm_num [canonicalCofactor, canonicalLargestPrimeFactor, oldParentCutoff] at hsq ⊢
 
 /-- **Uniform prior-carrier theorem.** For every square block from `a = 3`
 onward, the canonical cofactor of each squarefree state already lies in the
