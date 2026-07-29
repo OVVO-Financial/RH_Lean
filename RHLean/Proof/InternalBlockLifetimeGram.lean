@@ -86,10 +86,7 @@ theorem internalLifetimeBlockGramEntry_conj_symm
       internalLifetimeBlockGramEntry U w Λ t s := by
   classical
   unfold internalLifetimeBlockGramEntry
-  simp_rw [map_sum, map_mul, conj_conj]
-  apply Finset.sum_congr rfl
-  intro p hp
-  ring
+  simp [mul_comm]
 
 /-- The diagonal is the sum of coordinate energies. -/
 theorem internalLifetimeBlockGramEntry_self
@@ -125,14 +122,12 @@ theorem sum_internalLifetimeBlockGramEntry_eq_coordinateEnergy
         (∑ t ∈ Finset.range H,
           internalLifetimeCoordinate w Λ (N + t) p) := by
   classical
-  unfold internalLifetimeBlockGramEntry
-  rw [Finset.sum_comm]
-  apply Finset.sum_congr rfl
-  intro p hp
-  rw [Finset.sum_comm]
-  simp_rw [Finset.sum_mul, Finset.mul_sum]
-  simp_rw [map_sum]
-  ring
+  induction U using Finset.induction_on with
+  | empty =>
+      simp [internalLifetimeBlockGramEntry]
+  | @insert p U hp ih =>
+      simp [internalLifetimeBlockGramEntry, hp, ih,
+        Finset.sum_add_distrib, Finset.sum_mul, Finset.mul_sum, map_sum]
 
 /-- General lag row over a finite starting-block window. -/
 def internalLifetimeLagCorrelation
