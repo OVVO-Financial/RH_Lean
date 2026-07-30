@@ -35,7 +35,7 @@ theorem finiteTorusPairing_eq_spectral
         ∑ x : ZMod N,
           (((N : ℂ)⁻¹) *
               ∑ r : ZMod N,
-                (((ZMod.stdAddChar (r * x) : Circle) : ℂ) * ZMod.dft f r)) *
+                (ZMod.stdAddChar (r * x) * ZMod.dft f r)) *
             g x := by
       apply Finset.sum_congr rfl
       intro x hx
@@ -44,7 +44,7 @@ theorem finiteTorusPairing_eq_spectral
     _ = ((N : ℂ)⁻¹) *
         ∑ x : ZMod N,
           (∑ r : ZMod N,
-            (((ZMod.stdAddChar (r * x) : Circle) : ℂ) * ZMod.dft f r)) *
+            (ZMod.stdAddChar (r * x) * ZMod.dft f r)) *
             g x := by
       rw [Finset.mul_sum]
       apply Finset.sum_congr rfl
@@ -54,7 +54,7 @@ theorem finiteTorusPairing_eq_spectral
         ∑ r : ZMod N,
           ZMod.dft f r *
             ∑ x : ZMod N,
-              (((ZMod.stdAddChar (r * x) : Circle) : ℂ) * g x) := by
+              (ZMod.stdAddChar (r * x) * g x) := by
       congr 1
       rw [Finset.sum_comm]
       apply Finset.sum_congr rfl
@@ -62,6 +62,7 @@ theorem finiteTorusPairing_eq_spectral
       rw [Finset.sum_mul]
       apply Finset.sum_congr rfl
       intro x hx
+      rw [mul_comm r x]
       ring
     _ = ((N : ℂ)⁻¹) *
         ∑ r : ZMod N, ZMod.dft f r * ZMod.dft g (-r) := by
@@ -72,7 +73,7 @@ theorem finiteTorusPairing_eq_spectral
       congr 1
       apply Finset.sum_congr rfl
       intro x hx
-      simp only [neg_mul, mul_neg, neg_neg, smul_eq_mul]
+      simp only [mul_neg, neg_neg, smul_eq_mul]
       ring
 
 end RHLean.Analysis
