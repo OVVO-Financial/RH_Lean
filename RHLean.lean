@@ -133,5 +133,6 @@ import RHLean.Analysis.PrimeWheelFourierReduction
 import RHLean.Analysis.PrimeWheelTorusRealization
 import RHLean.Analysis.PrimeWheelJointSpectrum
 import RHLean.Analysis.PrimeWheelHarmonicCriterion
+import RHLean.Analysis.PrimeWheelConductorGram
 import RHLean.Analysis.PrimeWheelRHBridge
 import RHLean.Analysis.PrimorialWheelHarmonicReduction
