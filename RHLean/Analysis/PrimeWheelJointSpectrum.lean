@@ -5,11 +5,7 @@ open scoped BigOperators
 
 noncomputable section
 
-namespace RHLean.Analysis
-
-open RHLean.Arithmetic
-
-namespace PrimeWheelFiniteSystem
+namespace RHLean.Arithmetic.PrimeWheelFiniteSystem
 
 /-- Zero-padded raw seeded field on the arithmetic block. -/
 def torusRawBlockField
@@ -34,7 +30,7 @@ theorem torusJointField_eq_raw_sub_two_smooth
       W.torusRawBlockField z - 2 * W.torusSmoothCoreBlockField z := by
   funext z
   unfold torusJointField torusRawBlockField torusSmoothCoreBlockField
-    PrimeWheelFiniteSystem.correctedSite correctedPrimeWheelSite
+    correctedSite correctedPrimeWheelSite
   by_cases hz : W.lower < z.val ∧ z.val ≤ W.upper
   · simp [hz]
     ring
@@ -90,6 +86,4 @@ theorem spectralPrefix_raw_smooth_decomposition
   intro r hr
   rw [W.jointSpectrum_eq_raw_sub_two_smooth]
 
-end PrimeWheelFiniteSystem
-
-end RHLean.Analysis
+end RHLean.Arithmetic.PrimeWheelFiniteSystem
