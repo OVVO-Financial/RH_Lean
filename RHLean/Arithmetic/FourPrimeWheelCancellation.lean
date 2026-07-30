@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Arithmetic.PrimorialWheelCancellation
 
 /-!
 # Four-prime wheel cancellation
@@ -74,6 +75,20 @@ theorem fourPrimeWheel_halfPeriod_sign_reversal (r : ℕ)
     (hr : r < fourPrimeWheelPeriod) :
     fourPrimeWheelSign (r + 105) = -fourPrimeWheelSign r := by
   interval_cases r <;> native_decide
+
+/-- The concrete `2,3,5,7` wheel satisfies the abstract half-reversal law with
+odd-prime cell length `105`. -/
+theorem fourPrimeWheel_hasHalfReversal :
+    HasWheelHalfReversal 105 fourPrimeWheelSign := by
+  intro r hr
+  exact fourPrimeWheel_halfPeriod_sign_reversal r (by omega)
+
+/-- The concrete complete-cell cancellation is an instance of the general
+primorial half-reversal theorem. -/
+theorem fourPrimeWheel_completeCell_zero_generalized :
+    ∑ r ∈ Finset.range (2 * 105), fourPrimeWheelSign r = 0 :=
+  sum_two_mul_cell_eq_zero_of_halfReversal
+    105 fourPrimeWheelSign fourPrimeWheel_hasHalfReversal
 
 /-- A partial wheel segment has absolute signed mass at most its length. -/
 theorem abs_fourPrimeWheel_partial_sum_le_length (a L : ℕ) :
