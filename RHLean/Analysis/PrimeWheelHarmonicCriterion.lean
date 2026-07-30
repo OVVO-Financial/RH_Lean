@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.PrimeWheelFourierReduction
+import RHLean.Analysis.PrimeWheelTorusRealization
 
 open scoped BigOperators
 
@@ -37,6 +38,11 @@ def PrimeWheelHarmonicNonconcentration
 /-- A family of finite lossless torus embeddings. -/
 def PrimeWheelTorusCertificates (W : PrimeWheelFamily) : Prop :=
   ∀ k : ℕ, (W k).TorusRealizationCertificate
+
+/-- Canonical lossless torus certificates for every finite wheel family. -/
+def canonicalPrimeWheelTorusCertificates
+    (W : PrimeWheelFamily) : PrimeWheelTorusCertificates W :=
+  fun k => (W k).canonicalTorusRealizationCertificate
 
 /-- The finite harmonic nonconcentration statement is exactly the arithmetic
 residual bound once the zero-padding realization is proved. -/
@@ -76,7 +82,7 @@ finite regrouping identity; it asserts no decay estimate. -/
 theorem jointSpectrumEnergy_eq_sum_conductors
     (W : PrimeWheelFiniteSystem) :
     (∑ r : ZMod W.modulus, ‖W.jointSpectrum r‖ ^ 2) =
-      ∑ q ∈ Finset.range (W.modulus + 1), W.jointConductorEnergy q := by
+      ∑ q ∈ Finset.range (W.modulus + 1), jointConductorEnergy W q := by
   classical
   unfold jointConductorEnergy
   rw [Finset.sum_comm]
