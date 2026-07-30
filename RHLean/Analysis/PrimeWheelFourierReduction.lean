@@ -6,11 +6,7 @@ open scoped ArithmeticFunction.Moebius BigOperators ComplexConjugate
 
 noncomputable section
 
-namespace RHLean.Analysis
-
-open RHLean.Arithmetic
-
-namespace PrimeWheelFiniteSystem
+namespace RHLean.Arithmetic.PrimeWheelFiniteSystem
 
 /-- Zero-padded corrected field on the common finite torus. -/
 def torusJointField (W : PrimeWheelFiniteSystem) : ZMod W.modulus → ℂ :=
@@ -25,7 +21,7 @@ def torusPrefixWindow (W : PrimeWheelFiniteSystem) (x : ℕ) : ZMod W.modulus �
 
 /-- Physical-space pairing of the joint field with the pinned interval window. -/
 def torusPrefixPairing (W : PrimeWheelFiniteSystem) (x : ℕ) : ℂ :=
-  finiteTorusPairing W.torusJointField (W.torusPrefixWindow x)
+  RHLean.Analysis.finiteTorusPairing W.torusJointField (W.torusPrefixWindow x)
 
 /-- A torus realization certificate records the lossless zero-padding statement.
 It contains only a finite equality, and can be discharged independently of all
@@ -55,7 +51,7 @@ def spectralPrefix (W : PrimeWheelFiniteSystem) (x : ℕ) : ℂ :=
 theorem torusPrefixPairing_eq_spectralPrefix
     (W : PrimeWheelFiniteSystem) (x : ℕ) :
     W.torusPrefixPairing x = W.spectralPrefix x := by
-  exact finiteTorusPairing_eq_spectral
+  exact RHLean.Analysis.finiteTorusPairing_eq_spectral
     W.torusJointField (W.torusPrefixWindow x)
 
 /-- Once the lossless zero-padding certificate is supplied, the spectral prefix
@@ -115,6 +111,4 @@ def intervalGramNormSq
     (W : PrimeWheelFiniteSystem) (x : ℕ) : ℝ :=
   ‖W.spectralPrefix x‖ ^ 2
 
-end PrimeWheelFiniteSystem
-
-end RHLean.Analysis
+end RHLean.Arithmetic.PrimeWheelFiniteSystem
