@@ -19,13 +19,9 @@ open scoped BigOperators
 
 namespace RHLean.Arithmetic
 
-/-- A sign pattern on a cell of length `2 * Q` has the primorial half-reversal
-property when its second half is the pointwise negative of its first half. -/
 def HasWheelHalfReversal (Q : ℕ) (f : ℕ → ℤ) : Prop :=
   ∀ r < Q, f (Q + r) = -f r
 
-/-- Exact cancellation of any complete wheel cell whose second half is the
-negative of its first half. -/
 theorem sum_two_mul_cell_eq_zero_of_halfReversal
     (Q : ℕ) (f : ℕ → ℤ)
     (hrev : HasWheelHalfReversal Q f) :
@@ -42,12 +38,9 @@ theorem sum_two_mul_cell_eq_zero_of_halfReversal
   rw [hsecond]
   ring
 
-/-- A wheel pattern is periodic with period `P`. -/
 def HasWheelPeriod (P : ℕ) (f : ℕ → ℤ) : Prop :=
   ∀ n, f (n + P) = f n
 
-/-- Iterating a one-period identity gives invariance under any whole number of
-periods. -/
 theorem wheel_period_mul
     {P : ℕ} {f : ℕ → ℤ}
     (hperiod : HasWheelPeriod P f) :
@@ -60,13 +53,13 @@ theorem wheel_period_mul
   | succ q ih =>
       intro n
       have hstep := hperiod (q * P + n)
-      rw [Nat.succ_mul, Nat.add_assoc] at hstep
       calc
-        f ((q + 1) * P + n) = f (q * P + n) := hstep
+        f ((q + 1) * P + n) = f ((q * P + n) + P) := by
+          congr 1
+          omega
+        _ = f (q * P + n) := hstep
         _ = f n := ih n
 
-/-- Every translated complete `2Q`-cell also cancels when the wheel is
-`2Q`-periodic. -/
 theorem translated_two_mul_cell_eq_zero
     (Q q : ℕ) (f : ℕ → ℤ)
     (hperiod : HasWheelPeriod (2 * Q) f)
@@ -82,11 +75,9 @@ theorem translated_two_mul_cell_eq_zero
           exact htranslate r
     _ = 0 := sum_two_mul_cell_eq_zero_of_halfReversal Q f hrev
 
-/-- Pointwise unit control for a wheel sign. -/
 def IsUnitWheelSign (f : ℕ → ℤ) : Prop :=
   ∀ n, |f n| ≤ 1
 
-/-- Any incomplete wheel fragment contributes at most its number of entries. -/
 theorem abs_wheel_fragment_le_length
     (f : ℕ → ℤ) (hunit : IsUnitWheelSign f)
     (a L : ℕ) :
@@ -94,19 +85,13 @@ theorem abs_wheel_fragment_le_length
   calc
     |∑ r ∈ Finset.range L, f (a + r)|
         ≤ ∑ r ∈ Finset.range L, |f (a + r)| := by
-          simpa only [Int.norm_eq_abs] using
-            (norm_sum_le (Finset.range L) (fun r => f (a + r)))
+          exact Finset.abs_sum_le_sum_abs _ _
     _ ≤ ∑ _r ∈ Finset.range L, (1 : ℤ) := by
           apply Finset.sum_le_sum
           intro r hr
           exact hunit (a + r)
     _ = (L : ℤ) := by simp
 
-/-- Abstract complete-cell plus boundary principle.
-
-If an interval has been split into complete wheel cells and a residual fragment
-of length `L`, then all possible signed discrepancy is carried by that residual
-fragment. -/
 theorem wheel_discrepancy_carried_by_boundary
     (f : ℕ → ℤ) (hunit : IsUnitWheelSign f)
     (boundaryStart boundaryLength : ℕ) :
