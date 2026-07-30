@@ -35,7 +35,7 @@ lemma prod_localPrimeComb_eq_negOnePow_filter_card
       rw [ih hSPrime]
       by_cases hpn : p ∣ n
       · simp [Finset.filter_insert, hpn, hpS, pow_succ]
-      · simp [Finset.filter_insert, hpn, hpS]
+      · simp [Finset.filter_insert, hpn]
 
 lemma seededPrimeComb_eq_neg_negOnePow_filter_card
     (S : Finset ℕ) (n : ℕ)
