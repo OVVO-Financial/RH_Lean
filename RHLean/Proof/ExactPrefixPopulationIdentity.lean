@@ -22,12 +22,9 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 
-/-- The sign assigned to `x` by its canonical frozen-prefix parent.  Squareful
-positions receive zero, exactly as the Mobius function does. -/
 def canonicalPrefixAssignedSign (x : ℕ) : ℤ :=
   if Squarefree x then -μ (canonicalCofactor x) else 0
 
-/-- The exact pointwise population law above the seed. -/
 theorem canonicalPrefixAssignedSign_eq_moebius
     {x : ℕ} (hx : 1 < x) :
     canonicalPrefixAssignedSign x = μ x := by
@@ -40,8 +37,6 @@ theorem canonicalPrefixAssignedSign_eq_moebius
       exact hsq (ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hne)
     exact hzero.symm
 
-/-- Every squarefree target entry is assigned from a parent in the frozen old
-carrier, and its assigned sign is its actual Mobius sign. -/
 theorem exact_prefix_population_pointwise
     {a x : ℕ} (ha : 3 ≤ a)
     (hxBlock : x ∈ squareBlockInterval a) :
@@ -57,14 +52,9 @@ theorem exact_prefix_population_pointwise
   · intro hsq
     exact canonicalCofactor_le_oldParentCutoff ha hxBlock hsq hx1
 
-/-- Total signed mass created by populating the initially empty target block
-from canonical frozen-prefix parents. -/
 def canonicalPrefixPopulationMass (a : ℕ) : ℤ :=
   ∑ x ∈ squareBlockInterval a, canonicalPrefixAssignedSign x
 
-/-- **Exact populated-block identity.**  From block `3` onward, the signed mass
-produced by the empty-block population mechanism is exactly the actual square
-block Mobius increment. -/
 theorem canonicalPrefixPopulationMass_eq_squareBlockMoebius
     {a : ℕ} (ha : 3 ≤ a) :
     canonicalPrefixPopulationMass a = squareBlockMoebius a := by
@@ -73,16 +63,13 @@ theorem canonicalPrefixPopulationMass_eq_squareBlockMoebius
   intro x hx
   exact (exact_prefix_population_pointwise ha hx).1
 
-/-- Canonical parent fiber inside target block `a`. -/
 def canonicalParentFiber (a c : ℕ) : Finset ℕ :=
   (squareBlockInterval a).filter fun x =>
     Squarefree x ∧ canonicalCofactor x = c
 
-/-- Signed mass carried by one canonical parent fiber. -/
 def canonicalParentFiberMass (a c : ℕ) : ℤ :=
   ∑ x ∈ canonicalParentFiber a c, μ x
 
-/-- Every entry of one canonical fiber has the opposite sign of its parent. -/
 theorem canonicalParentFiberMass_eq
     {a c : ℕ} (ha : 3 ≤ a) :
     canonicalParentFiberMass a c =
@@ -103,12 +90,9 @@ theorem canonicalParentFiberMass_eq
             have : 9 ≤ a ^ 2 := by nlinarith
             omega
           rw [canonicalSignedParent_moebius hsq hx1, hparent]
-    _ = -μ c * ((canonicalParentFiber a c).card : ℤ) := by simp
+    _ = -μ c * ((canonicalParentFiber a c).card : ℤ) := by
+      simp [mul_comm]
 
-/-- Exact criterion exposed by the population mechanism: a parent fiber is
-unbiased exactly when it is empty or its parent has zero Mobius sign.  Thus
-coverage alone cannot make a nonempty squarefree parent fiber cancel internally;
-cancellation must occur between distinct parent fibers of opposite sign. -/
 theorem canonicalParentFiberMass_eq_zero_iff
     {a c : ℕ} (ha : 3 ≤ a) :
     canonicalParentFiberMass a c = 0 ↔
@@ -125,7 +109,7 @@ theorem canonicalParentFiberMass_eq_zero_iff
       exact hcard
   · intro h
     rcases h with hmu | hfiber
-    · simp [canonicalParentFiberMass_eq ha, hmu]
-    · simp [canonicalParentFiberMass_eq ha, hfiber]
+    · simp [hmu]
+    · simp [hfiber]
 
 end RHLean.Proof
