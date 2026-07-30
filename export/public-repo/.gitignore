@@ -1,0 +1,15 @@
+.DS_Store
+formalization/.lake/
+formalization/build/
+formalization/lean-build.log
+paper/*.aux
+paper/*.bbl
+paper/*.bcf
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.run.xml
+paper/*.synctex.gz
+paper/*.toc
