@@ -43,7 +43,7 @@ private theorem card_multiples_prime_below_square
   rw [hset]
   have hinj : Set.InjOn (fun a : ℕ => p * a) (Finset.range p : Set ℕ) := by
     intro a ha b hb hab
-    exact Nat.mul_left_cancel hab
+    exact Nat.eq_of_mul_eq_mul_left hp.pos hab
   rw [Finset.card_image_iff.mpr hinj, Finset.card_range]
 
 private theorem card_square_multiples_below_square
@@ -61,7 +61,7 @@ private theorem card_square_multiples_below_square
       omega
     · intro hn
       subst n
-      exact ⟨by positivity, dvd_zero _⟩
+      exact ⟨pow_pos hp.pos 2, dvd_zero _⟩
   simp [hset]
 
 /-- Exact local constant-mode multiplier of one square-sensitive prime comb. -/
@@ -101,7 +101,7 @@ theorem localPrimeComb_complete_sum
     _ = ((p ^ 2 : ℕ) : ℤ) - 2 * (p : ℤ) + 1 := by
       rw [htotal, hpcount, hsqcount]
     _ = (((p - 1) ^ 2 : ℕ) : ℤ) := by
-      rw [Nat.cast_pow, Nat.cast_sub hp.one_le]
+      push_cast [Nat.cast_sub hp.one_le]
       ring
 
 /-- Independent CRT-coordinate assignment for the complete square-sensitive
@@ -124,7 +124,7 @@ theorem primeWheelCRTMass_eq_neg_prod_localSums (S : Finset ℕ) :
         ∑ x : Fin (p.val ^ 2), localPrimeComb p.val x.val := by
   classical
   unfold primeWheelCRTMass primeWheelCRTState
-  rw [← Finset.sum_neg_distrib]
+  rw [Finset.sum_neg_distrib]
   apply congrArg Neg.neg
   symm
   simpa using
@@ -145,36 +145,41 @@ theorem primeWheelCRTMass_eq_neg_prod_primeFactors
   intro p
   exact localPrimeComb_complete_sum (hprime p.val p.property)
 
+private def localPrimeCombCRTAtom
+    (p : ℕ) (hp : Nat.Prime p)
+    (x s : Fin (p ^ 2)) : ℂ := by
+  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  exact (((localPrimeComb p x.val : ℤ) : ℂ)) *
+    ZMod.stdAddChar
+      (-(((x.val : ℕ) : ZMod (p ^ 2)) *
+        ((s.val : ℕ) : ZMod (p ^ 2))))
+
 /-- Unnormalized local Fourier coefficient of one square-sensitive comb. -/
 def localPrimeCombCRTSpectrum
-    (p : ℕ) (s : Fin (p ^ 2)) : ℂ :=
-  ∑ x : Fin (p ^ 2),
-    (((localPrimeComb p x.val : ℤ) : ℂ)) *
-      ZMod.stdAddChar
-        (-(((x.val : ℕ) : ZMod (p ^ 2)) *
-          ((s.val : ℕ) : ZMod (p ^ 2))))
+    (p : ℕ) (hp : Nat.Prime p) (s : Fin (p ^ 2)) : ℂ :=
+  ∑ x : Fin (p ^ 2), localPrimeCombCRTAtom p hp x s
 
 /-- Complete Fourier transform on the independent CRT coordinate product. -/
 def primeWheelCRTSpectrum
     (S : Finset ℕ)
+    (hprime : ∀ p ∈ S, Nat.Prime p)
     (r : ∀ p : {p // p ∈ S}, Fin (p.val ^ 2)) : ℂ :=
   ∑ x : PrimeWheelCRTPoint S,
     -∏ p : {p // p ∈ S},
-      ((((localPrimeComb p.val (x p).val : ℤ) : ℂ)) *
-        ZMod.stdAddChar
-          (-((((x p).val : ℕ) : ZMod (p.val ^ 2)) *
-            (((r p).val : ℕ) : ZMod (p.val ^ 2)))))
+      localPrimeCombCRTAtom p.val (hprime p.val p.property) (x p) (r p)
 
 /-- Exact tensor-product formula for the complete raw comb spectrum in CRT
 coordinates. -/
 theorem primeWheelCRTSpectrum_eq_neg_prod_local
     (S : Finset ℕ)
+    (hprime : ∀ p ∈ S, Nat.Prime p)
     (r : ∀ p : {p // p ∈ S}, Fin (p.val ^ 2)) :
-    primeWheelCRTSpectrum S r =
-      -∏ p : {p // p ∈ S}, localPrimeCombCRTSpectrum p.val (r p) := by
+    primeWheelCRTSpectrum S hprime r =
+      -∏ p : {p // p ∈ S},
+        localPrimeCombCRTSpectrum p.val (hprime p.val p.property) (r p) := by
   classical
   unfold primeWheelCRTSpectrum localPrimeCombCRTSpectrum
-  rw [← Finset.sum_neg_distrib]
+  rw [Finset.sum_neg_distrib]
   apply congrArg Neg.neg
   symm
   simpa using
@@ -182,9 +187,6 @@ theorem primeWheelCRTSpectrum_eq_neg_prod_local
       (t := fun p : {p // p ∈ S} =>
         (Finset.univ : Finset (Fin (p.val ^ 2))))
       (f := fun p x =>
-        ((((localPrimeComb p.val x.val : ℤ) : ℂ)) *
-          ZMod.stdAddChar
-            (-(((x.val : ℕ) : ZMod (p.val ^ 2)) *
-              (((r p).val : ℕ) : ZMod (p.val ^ 2))))))
+        localPrimeCombCRTAtom p.val (hprime p.val p.property) x (r p)))
 
 end RHLean.Analysis
