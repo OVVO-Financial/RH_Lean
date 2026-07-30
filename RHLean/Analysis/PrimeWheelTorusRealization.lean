@@ -28,38 +28,31 @@ theorem torusPrefixPairing_eq_corrected_sum
       exact hn.2
     · intro hn
       exact ⟨lt_of_le_of_lt hn.2 hxmod, hn⟩
+  let F : ZMod W.modulus → ℂ := fun z =>
+    (if W.lower < z.val ∧ z.val ≤ W.upper then
+        ((W.correctedSite z.val : ℤ) : ℂ)
+      else 0) *
+    (if W.lower < z.val ∧ z.val ≤ x then 1 else 0)
   unfold torusPrefixPairing RHLean.Analysis.finiteTorusPairing torusJointField
     torusPrefixWindow
+  change (∑ z : ZMod W.modulus, F z) = _
   calc
-    (∑ z : ZMod W.modulus,
-        (if W.lower < z.val ∧ z.val ≤ W.upper then
-            ((W.correctedSite z.val : ℤ) : ℂ)
-          else 0) *
-        (if W.lower < z.val ∧ z.val ≤ x then 1 else 0)) =
-      ∑ i : Fin W.modulus,
-        (if W.lower < i.val ∧ i.val ≤ W.upper then
-            ((W.correctedSite i.val : ℤ) : ℂ)
-          else 0) *
-        (if W.lower < i.val ∧ i.val ≤ x then 1 else 0) := by
-      symm
-      simpa using
-        (ZMod.finEquiv W.modulus).sum_comp
-          (fun z : ZMod W.modulus =>
-            (if W.lower < z.val ∧ z.val ≤ W.upper then
-                ((W.correctedSite z.val : ℤ) : ℂ)
-              else 0) *
-            (if W.lower < z.val ∧ z.val ≤ x then 1 else 0))
+    (∑ z : ZMod W.modulus, F z) =
+        ∑ i : Fin W.modulus, F ((ZMod.finEquiv W.modulus) i) := by
+      exact ((ZMod.finEquiv W.modulus).sum_comp F).symm
     _ = ∑ n ∈ Finset.range W.modulus,
         if W.lower < n ∧ n ≤ x then
           (((W.correctedSite n : ℤ) : ℂ)) else 0 := by
       rw [Finset.sum_range]
       apply Finset.sum_congr rfl
       intro i hi
+      have hval : ((ZMod.finEquiv W.modulus) i).val = i.val := by
+        rfl
       by_cases hwin : W.lower < i.val ∧ i.val ≤ x
       · have hfull : W.lower < i.val ∧ i.val ≤ W.upper :=
           ⟨hwin.1, hwin.2.trans hupper⟩
-        simp [hwin, hfull]
-      · simp [hwin]
+        simp [F, hval, hwin, hfull]
+      · simp [F, hval, hwin]
     _ = ∑ n ∈ W.prefixInterval x,
         (((W.correctedSite n : ℤ) : ℂ)) := by
       unfold prefixInterval
