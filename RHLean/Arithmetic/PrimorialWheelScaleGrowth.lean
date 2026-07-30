@@ -80,7 +80,6 @@ theorem primorialBlockLower_blockIndex_lt
         omega
       have hnot : ¬ x ≤ primorialBlockUpper j :=
         Nat.find_min (primorialBlock_exists x) hjlt
-      rw [hfind]
       unfold primorialBlockLower
       unfold primorialBlockUpper at hnot
       omega
