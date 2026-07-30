@@ -59,12 +59,9 @@ theorem prefixWindowSpectrum_neg_eq_phase_mul_dirichlet
       rw [Finset.sum_range]
       apply Finset.sum_congr rfl
       intro i hi
-      have hval : ((finNatCastEquivZMod' W.modulus) i).val = i.val := by
-        change ((i.val : ZMod W.modulus).val) = i.val
-        exact ZMod.val_natCast_of_lt i.isLt
       by_cases hwin : W.lower < i.val ∧ i.val ≤ W.lower + N
-      · simp [F, hval, hwin]
-      · simp [F, hval, hwin]
+      · simp [F, finNatCastEquivZMod', hwin]
+      · simp [F, finNatCastEquivZMod', hwin]
     _ = ∑ n ∈ Finset.Ioc W.lower (W.lower + N),
         ZMod.stdAddChar ((n : ZMod W.modulus) * r) := by
       rw [← Finset.sum_filter]
@@ -89,8 +86,7 @@ theorem prefixWindowSpectrum_neg_eq_phase_mul_dirichlet
     _ = ∑ j ∈ Finset.range N,
         ZMod.stdAddChar ((((W.lower + 1) + j : ℕ) : ZMod W.modulus) * r) := by
       rw [Finset.sum_Ico_eq_sum_range]
-      congr 1
-      omega
+      simp [Nat.add_assoc]
     _ = primeWheelPinnedPhase W r * primeWheelDirichletKernel W N r := by
       unfold primeWheelPinnedPhase primeWheelDirichletKernel
       rw [Finset.mul_sum]
@@ -117,7 +113,7 @@ paired with the finite Dirichlet response. -/
 theorem spectralPrefix_lower_add_eq_dirichletPrefix
     (W : PrimeWheelFiniteSystem) (N : ℕ)
     (hupper : W.lower + N ≤ W.upper) :
-    W.spectralPrefix (W.lower + N) = W.primeWheelDirichletPrefix N := by
+    W.spectralPrefix (W.lower + N) = primeWheelDirichletPrefix W N := by
   unfold PrimeWheelFiniteSystem.spectralPrefix primeWheelDirichletPrefix
     primeWheelPinnedCoefficient
   rw [Finset.mul_sum]
@@ -132,10 +128,11 @@ theorem primorialWheel_dirichletPrefix_eq_mertens_sub
     (k N : ℕ)
     (hNpos : 0 < N)
     (hupper : primorialBlockLower k + N ≤ primorialBlockUpper k) :
-    (primorialWheelSystem k).primeWheelDirichletPrefix N =
+    primeWheelDirichletPrefix (primorialWheelSystem k) N =
       mertensSummatory (primorialBlockLower k + N) -
         mertensSummatory (primorialBlockLower k) := by
-  rw [← spectralPrefix_lower_add_eq_dirichletPrefix _ _ hupper]
+  rw [← spectralPrefix_lower_add_eq_dirichletPrefix
+    (primorialWheelSystem k) N hupper]
   apply primorialWheel_spectralPrefix_eq_mertens_sub
   · omega
   · exact hupper
