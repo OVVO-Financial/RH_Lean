@@ -55,8 +55,12 @@ lemma moebius_eq_negOnePow_primeFactors_card
   have h := moebius_primeFaceProduct_eq_booleanCubeSign n.primeFactors hprime
   unfold primeFaceProduct booleanCubeSign at h
   change μ (n.primeFactors.prod id) = (-1 : ℤ) ^ n.primeFactors.card at h
-  rw [Nat.prod_primeFactors_of_squarefree hsq] at h
-  exact h
+  have hprod : n.primeFactors.prod id = n := by
+    simpa using Nat.prod_primeFactors_of_squarefree hsq
+  calc
+    μ n = μ (n.primeFactors.prod id) := by
+      exact congrArg μ hprod.symm
+    _ = (-1 : ℤ) ^ n.primeFactors.card := h
 
 lemma filter_dvd_eq_primeFactors_inter
     (S : Finset ℕ) {n : ℕ} (hn0 : n ≠ 0)
