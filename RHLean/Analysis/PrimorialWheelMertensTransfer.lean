@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Arithmetic.PrimorialWheelScaleGrowth
 import RHLean.Arithmetic.PrimorialWheelPrefixIdentity
 import RHLean.Analysis.PrimeWheelHarmonicCriterion
+import RHLean.Analysis.PrimeWheelRHBridge
 
 open scoped BigOperators
 
@@ -30,30 +31,35 @@ private theorem two_mul_rpow_endpoint_le
         ((primorialEndpoint (k + 1) + 1 : ℕ) : ℝ) := by
     exact_mod_cast hscaleNat
   have hexp : 0 ≤ 1 + ε := by linarith
-  have hpow := Real.rpow_le_rpow (by positivity : 0 ≤ (2 : ℝ) *
-      ((primorialEndpoint k + 1 : ℕ) : ℝ)) hscale hexp
+  have hpow := Real.rpow_le_rpow
+    (by positivity : 0 ≤ (2 : ℝ) * ((primorialEndpoint k + 1 : ℕ) : ℝ))
+    hscale hexp
   have htwo : (0 : ℝ) < 2 := by norm_num
+  have hq0 : 0 ≤ Real.rpow 2 (-ε) := Real.rpow_nonneg (by norm_num) _
   have hfactor :
       Real.rpow 2 (-ε) * Real.rpow 2 (1 + ε) = 2 := by
     calc
       Real.rpow 2 (-ε) * Real.rpow 2 (1 + ε) =
-          Real.rpow 2 ((-ε) + (1 + ε)) := by
-            rw [Real.rpow_add htwo]
+          Real.rpow 2 ((-ε) + (1 + ε)) :=
+        (Real.rpow_add htwo (-ε) (1 + ε)).symm
       _ = Real.rpow 2 1 := by congr 1 <;> ring
-      _ = 2 := Real.rpow_one 2
+      _ = 2 := by norm_num
   calc
     2 * Real.rpow ((primorialEndpoint k + 1 : ℕ) : ℝ) (1 + ε) =
         (Real.rpow 2 (-ε) * Real.rpow 2 (1 + ε)) *
           Real.rpow ((primorialEndpoint k + 1 : ℕ) : ℝ) (1 + ε) := by
-            rw [hfactor]
+      rw [hfactor]
+    _ = Real.rpow 2 (-ε) *
+        (Real.rpow 2 (1 + ε) *
+          Real.rpow ((primorialEndpoint k + 1 : ℕ) : ℝ) (1 + ε)) := by ring
     _ = Real.rpow 2 (-ε) *
         Real.rpow ((2 : ℝ) * ((primorialEndpoint k + 1 : ℕ) : ℝ))
           (1 + ε) := by
-            rw [Real.mul_rpow (by positivity) (by positivity)]
-            ring
+      apply congrArg (fun t : ℝ => Real.rpow 2 (-ε) * t)
+      exact (Real.mul_rpow (by norm_num) (by positivity)).symm
     _ ≤ Real.rpow 2 (-ε) *
         Real.rpow ((primorialEndpoint (k + 1) + 1 : ℕ) : ℝ) (1 + ε) :=
-      mul_le_mul_of_nonneg_left hpow (Real.rpow_nonneg (by norm_num) _)
+      mul_le_mul_of_nonneg_left hpow hq0
 
 /-- A global Mertens-energy bound immediately controls every synchronized
 primorial residual. -/
@@ -64,6 +70,9 @@ theorem primorialWheel_residualBounded_of_mertensEnergy
   rcases hM ε hε with ⟨C, hC, hbound⟩
   refine ⟨4 * C, mul_nonneg (by norm_num) hC, ?_⟩
   intro k x hlower hupper
+  change primorialBlockLower k < x at hlower
+  change x ≤ primorialBlockUpper k at hupper
+  change ‖(((primorialWheelSystem k).residual x : ℤ) : ℂ)‖ ^ 2 ≤ _
   rw [primorialWheel_residual_cast_eq_mertens_sub k hlower hupper]
   have hsq := norm_sq_add_le_two
     (mertensSummatory x) (-mertensSummatory (primorialBlockLower k))
@@ -116,16 +125,28 @@ theorem primorialWheel_endpointEnergyBounded_of_residualBounded
   | h k ih =>
       by_cases hk0 : k = 0
       · subst k
-        have hpow : 1 ≤ Real.rpow (((primorialEndpoint 0 + 1 : ℕ) : ℝ)) (1 + ε) :=
-          Real.one_le_rpow (by positivity) (by linarith)
+        have hbase :
+            (1 : ℝ) ≤ ((primorialEndpoint 0 + 1 : ℕ) : ℝ) := by
+          exact_mod_cast Nat.succ_le_succ (Nat.zero_le (primorialEndpoint 0))
+        have hpow := Real.one_le_rpow hbase (by linarith : 0 ≤ 1 + ε)
         have hBD : B0 ≤ D := by dsimp [D]; nlinarith
-        exact hBD.trans (by nlinarith [mul_le_mul_of_nonneg_left hpow hD0])
+        calc
+          ‖mertensSummatory (primorialEndpoint 0)‖ ^ 2 = B0 := rfl
+          _ ≤ D := hBD
+          _ ≤ D * Real.rpow ((primorialEndpoint 0 + 1 : ℕ) : ℝ) (1 + ε) := by
+            nlinarith [mul_le_mul_of_nonneg_left hpow hD0]
       by_cases hk1 : k = 1
       · subst k
-        have hpow : 1 ≤ Real.rpow (((primorialEndpoint 1 + 1 : ℕ) : ℝ)) (1 + ε) :=
-          Real.one_le_rpow (by positivity) (by linarith)
+        have hbase :
+            (1 : ℝ) ≤ ((primorialEndpoint 1 + 1 : ℕ) : ℝ) := by
+          exact_mod_cast Nat.succ_le_succ (Nat.zero_le (primorialEndpoint 1))
+        have hpow := Real.one_le_rpow hbase (by linarith : 0 ≤ 1 + ε)
         have hBD : B1 ≤ D := by dsimp [D]; nlinarith
-        exact hBD.trans (by nlinarith [mul_le_mul_of_nonneg_left hpow hD0])
+        calc
+          ‖mertensSummatory (primorialEndpoint 1)‖ ^ 2 = B1 := rfl
+          _ ≤ D := hBD
+          _ ≤ D * Real.rpow ((primorialEndpoint 1 + 1 : ℕ) : ℝ) (1 + ε) := by
+            nlinarith [mul_le_mul_of_nonneg_left hpow hD0]
       have hkge : 2 ≤ k := by omega
       let j := k - 1
       have hj1 : 1 ≤ j := by dsimp [j]; omega
@@ -137,8 +158,14 @@ theorem primorialWheel_endpointEnergyBounded_of_residualBounded
         dsimp [j]
         omega
       have hjlower : primorialBlockLower j = primorialEndpoint j := rfl
-      have hinc := hbound j (primorialBlockUpper j)
-        (primorialEndpoint_strictMono (Nat.lt_succ_self j)) le_rfl
+      have hinc0 := hbound j (primorialBlockUpper j)
+        (by change primorialBlockLower j < primorialBlockUpper j
+            exact primorialEndpoint_strictMono (Nat.lt_succ_self j))
+        (by change primorialBlockUpper j ≤ primorialBlockUpper j; exact le_rfl)
+      have hinc :
+          ‖(((primorialWheelSystem j).residual (primorialBlockUpper j) : ℤ) : ℂ)‖ ^ 2 ≤
+            C * Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
+        simpa [primorialWheelFamily, primorialBlockUpper] using hinc0
       have hres := primorialWheel_endpointResidual_cast_eq_mertens_sub j
       have hsum :
           mertensSummatory (primorialEndpoint k) =
@@ -150,6 +177,15 @@ theorem primorialWheel_endpointEnergyBounded_of_residualBounded
         (mertensSummatory (primorialEndpoint j))
         ((((primorialWheelSystem j).residual (primorialBlockUpper j) : ℤ) : ℂ))
       have hscale := two_mul_rpow_endpoint_le hε hj1
+      have hsD :
+          2 * (D * Real.rpow ((primorialEndpoint j + 1 : ℕ) : ℝ) (1 + ε)) ≤
+            (q * D) * Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
+        calc
+          2 * (D * Real.rpow ((primorialEndpoint j + 1 : ℕ) : ℝ) (1 + ε)) =
+              D * (2 * Real.rpow ((primorialEndpoint j + 1 : ℕ) : ℝ) (1 + ε)) := by ring
+          _ ≤ D * (q * Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε)) :=
+            mul_le_mul_of_nonneg_left hscale hD0
+          _ = (q * D) * Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε) := by ring
       rw [hsum]
       calc
         ‖mertensSummatory (primorialEndpoint j) +
@@ -158,22 +194,22 @@ theorem primorialWheel_endpointEnergyBounded_of_residualBounded
                 2 * ‖(((primorialWheelSystem j).residual
                   (primorialBlockUpper j) : ℤ) : ℂ)‖ ^ 2 := hadd
         _ ≤ 2 * (D * Real.rpow ((primorialEndpoint j + 1 : ℕ) : ℝ) (1 + ε)) +
-              2 * (C * Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε)) := by
-                rw [← hjupper]
-                exact add_le_add
-                  (mul_le_mul_of_nonneg_left hprev (by norm_num))
-                  (mul_le_mul_of_nonneg_left hinc (by norm_num))
-        _ ≤ (q * D + 2 * C) *
-              Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
-                have hs := mul_le_mul_of_nonneg_left hscale hD0
-                nlinarith
+              2 * (C * Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε)) :=
+          add_le_add
+            (mul_le_mul_of_nonneg_left hprev (by norm_num))
+            (mul_le_mul_of_nonneg_left hinc (by norm_num))
+        _ ≤ (q * D) * Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε) +
+              2 * C * Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
+          exact add_le_add hsD le_rfl
+        _ = (q * D + 2 * C) *
+              Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε) := by ring
         _ ≤ D * Real.rpow ((primorialEndpoint k + 1 : ℕ) : ℝ) (1 + ε) := by
-                have hpownonneg := Real.rpow_nonneg
-                  (show 0 ≤ (((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ)) by positivity)
-                  (1 + ε)
-                have hlast := mul_le_mul_of_nonneg_right hcontract hpownonneg
-                have hjk' : j + 1 = k := by dsimp [j]; omega
-                simpa [hjk'] using hlast
+          have hpownonneg := Real.rpow_nonneg
+            (show 0 ≤ (((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ)) by positivity)
+            (1 + ε)
+          have hlast := mul_le_mul_of_nonneg_right hcontract hpownonneg
+          have hjk' : j + 1 = k := by dsimp [j]; omega
+          simpa [hjk'] using hlast
 
 /-- The primorial residual criterion is exactly the ordinary global
 Mertens-energy criterion.  No prime-number theorem or asymptotic prime estimate
@@ -186,8 +222,9 @@ theorem primorialWheel_residualBounded_iff_mertensEnergy :
     rcases hR ε hε with ⟨C, hC, hresidual⟩
     rcases primorialWheel_endpointEnergyBounded_of_residualBounded hR ε hε with
       ⟨D, hD, hendpoint⟩
-    refine ⟨2 * D + 2 * C, add_nonneg (mul_nonneg (by norm_num) hD)
-      (mul_nonneg (by norm_num) hC), ?_⟩
+    let K : ℝ := 2 * D + 2 * C
+    have hK0 : 0 ≤ K := by dsimp [K]; nlinarith
+    refine ⟨K, hK0, ?_⟩
     intro x
     by_cases hx0 : x = 0
     · subst x
@@ -195,10 +232,10 @@ theorem primorialWheel_residualBounded_iff_mertensEnergy :
     by_cases hx1 : x = 1
     · subst x
       have h := hendpoint 0
-      simpa [primorialEndpoint_zero] using
-        h.trans (by
-          have hp := Real.rpow_nonneg (by positivity : (0 : ℝ) ≤ 2) (1 + ε)
-          nlinarith)
+      have hDK : D ≤ K := by dsimp [K]; nlinarith
+      have hp := Real.rpow_nonneg (by positivity : (0 : ℝ) ≤ 2) (1 + ε)
+      simpa [primorialEndpoint_zero, K] using
+        h.trans (mul_le_mul_of_nonneg_right hDK hp)
     have hx2 : 2 ≤ x := by omega
     let k := primorialBlockIndex x
     have hlower : primorialBlockLower k < x :=
@@ -214,7 +251,10 @@ theorem primorialWheel_residualBounded_iff_mertensEnergy :
     have hadd := norm_sq_add_le_two
       (mertensSummatory (primorialBlockLower k))
       ((((primorialWheelSystem k).residual x : ℤ) : ℂ))
-    have hendpointLower := hendpoint k
+    have hendpointLower :
+        ‖mertensSummatory (primorialBlockLower k)‖ ^ 2 ≤
+          D * Real.rpow ((primorialBlockLower k + 1 : ℕ) : ℝ) (1 + ε) := by
+      simpa [primorialBlockLower] using hendpoint k
     have hbaseNat : primorialBlockLower k + 1 ≤ x + 1 := by omega
     have hbase :
         ((primorialBlockLower k + 1 : ℕ) : ℝ) ≤ ((x + 1 : ℕ) : ℝ) := by
@@ -222,9 +262,33 @@ theorem primorialWheel_residualBounded_iff_mertensEnergy :
     have hpow := Real.rpow_le_rpow (by positivity) hbase (by linarith : 0 ≤ 1 + ε)
     have hendpointX := hendpointLower.trans
       (mul_le_mul_of_nonneg_left hpow hD)
-    have hresidualX := hresidual k x hlower hupper
+    have hlowerFam : (primorialWheelFamily k).lower < x := by
+      change primorialBlockLower k < x
+      exact hlower
+    have hupperFam : x ≤ (primorialWheelFamily k).upper := by
+      change x ≤ primorialBlockUpper k
+      exact hupper
+    have hresidual0 := hresidual k x hlowerFam hupperFam
+    have hresidualX :
+        ‖(((primorialWheelSystem k).residual x : ℤ) : ℂ)‖ ^ 2 ≤
+          C * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
+      simpa [primorialWheelFamily] using hresidual0
+    have hpownonneg := Real.rpow_nonneg
+      (show 0 ≤ (((x + 1 : ℕ) : ℝ)) by positivity) (1 + ε)
     rw [hsum]
-    exact hadd.trans (by nlinarith)
+    calc
+      ‖mertensSummatory (primorialBlockLower k) +
+          (((primorialWheelSystem k).residual x : ℤ) : ℂ)‖ ^ 2
+          ≤ 2 * ‖mertensSummatory (primorialBlockLower k)‖ ^ 2 +
+              2 * ‖(((primorialWheelSystem k).residual x : ℤ) : ℂ)‖ ^ 2 := hadd
+      _ ≤ 2 * (D * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε)) +
+            2 * (C * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε)) :=
+        add_le_add
+          (mul_le_mul_of_nonneg_left hendpointX (by norm_num))
+          (mul_le_mul_of_nonneg_left hresidualX (by norm_num))
+      _ = K * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
+        dsimp [K]
+        ring
   · exact primorialWheel_residualBounded_of_mertensEnergy
 
 /-- Canonical, fully proved global transfer package for the concrete primorial
