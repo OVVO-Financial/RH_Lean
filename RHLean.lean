@@ -90,6 +90,7 @@ import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.ExactPrefixPopulationIdentity
 import RHLean.Proof.SeededPopulationInduction
 import RHLean.Proof.CollisionCellFrontierBound
+import RHLean.Proof.PrimeCombDiscrepancyRecurrence
 import RHLean.Proof.MutableSupportBound
 import RHLean.Proof.VanishingTransitionRelevance
 import RHLean.Proof.MutablePNTClosure
