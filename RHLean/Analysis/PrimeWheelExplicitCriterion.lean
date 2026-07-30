@@ -50,8 +50,13 @@ theorem primorialWheelDirichletNonconcentration_iff_harmonic :
     have hlower :
         primorialBlockLower k < primorialBlockLower k + N := by omega
     have hH := hbound k (primorialBlockLower k + N) hlower hupper
+    change
+      ‖(primorialWheelSystem k).spectralPrefix
+          ((primorialWheelSystem k).lower + N)‖ ^ 2 ≤
+        C * Real.rpow
+          ((((primorialWheelSystem k).lower + N) + 1 : ℕ) : ℝ) (1 + ε) at hH
     rw [spectralPrefix_lower_add_eq_dirichletPrefix
       (primorialWheelSystem k) N hupper] at hH
-    simpa [primorialWheelFamily, primorialWheelSystem] using hH
+    simpa [primorialWheelSystem] using hH
 
 end RHLean.Analysis
