@@ -136,10 +136,11 @@ theorem primorialWheel_dirichletPrefix_eq_mertens_sub
         mertensSummatory (primorialBlockLower k) := by
   rw [← spectralPrefix_lower_add_eq_dirichletPrefix
     (primorialWheelSystem k) N hupper]
+  have hlower : primorialBlockLower k < primorialBlockLower k + N :=
+    Nat.lt_add_of_pos_right hNpos
   have hlowerSys :
       (primorialWheelSystem k).lower < (primorialWheelSystem k).lower + N := by
-    change primorialBlockLower k < primorialBlockLower k + N
-    omega
+    simpa [primorialWheelSystem] using hlower
   have hupperSys :
       (primorialWheelSystem k).lower + N ≤ (primorialWheelSystem k).upper := by
     change primorialBlockLower k + N ≤ primorialBlockUpper k
@@ -147,6 +148,6 @@ theorem primorialWheel_dirichletPrefix_eq_mertens_sub
   rw [(primorialWheelSystem k).spectralPrefix_eq_residual
     (primorialWheelSystem k).canonicalTorusRealizationCertificate
     hlowerSys hupperSys]
-  exact primorialWheel_residual_cast_eq_mertens_sub k (by omega) hupper
+  exact primorialWheel_residual_cast_eq_mertens_sub k hlower hupper
 
 end RHLean.Analysis
