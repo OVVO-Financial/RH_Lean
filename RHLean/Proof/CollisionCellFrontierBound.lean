@@ -18,15 +18,16 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 
-/-- If the complement of `U` in `B` has zero signed mass, then the full sum is
-exactly the sum over `U`. -/
 theorem sum_eq_frontier_sum_of_complement_zero
     {α : Type*} [DecidableEq α]
     (B U : Finset α) (f : α → ℤ)
     (hU : U ⊆ B)
     (hsettled : ∑ x ∈ B \ U, f x = 0) :
     ∑ x ∈ B, f x = ∑ x ∈ U, f x := by
-  have hdisj : Disjoint (B \ U) U := Finset.disjoint_sdiff_left
+  have hdisj : Disjoint (B \ U) U := by
+    refine Finset.disjoint_left.mpr ?_
+    intro x hxBU hxU
+    exact (Finset.mem_sdiff.mp hxBU).2 hxU
   have hunion : (B \ U) ∪ U = B := by
     ext x
     simp only [Finset.mem_union, Finset.mem_sdiff]
@@ -45,8 +46,6 @@ theorem sum_eq_frontier_sum_of_complement_zero
       rw [Finset.sum_union hdisj]
     _ = ∑ x ∈ U, f x := by rw [hsettled, zero_add]
 
-/-- If every entry has absolute weight at most one, then a zero-mass settled
-region leaves discrepancy at most the frontier cardinality. -/
 theorem abs_sum_le_frontier_card_of_complement_zero
     {α : Type*} [DecidableEq α]
     (B U : Finset α) (f : α → ℤ)
@@ -57,17 +56,13 @@ theorem abs_sum_le_frontier_card_of_complement_zero
   rw [sum_eq_frontier_sum_of_complement_zero B U f hU hsettled]
   calc
     |∑ x ∈ U, f x| ≤ ∑ x ∈ U, |f x| := by
-      simpa only [Int.norm_eq_abs] using
-        (norm_sum_le U (fun x => f x))
+      exact Finset.abs_sum_le_sum_abs _ _
     _ ≤ ∑ _x ∈ U, (1 : ℤ) := by
       apply Finset.sum_le_sum
       intro x hx
       exact hunit x (hU hx)
     _ = (U.card : ℤ) := by simp
 
-/-- Square-block specialization.  If the complement of `U` is a disjoint union
-of complete collision cells and hence has zero Mobius mass, the block increment
-is supported entirely on `U`. -/
 theorem abs_squareBlockMoebius_le_frontier_card
     (n : ℕ) (U : Finset ℕ)
     (hU : U ⊆ squareBlockInterval n)
@@ -77,18 +72,10 @@ theorem abs_squareBlockMoebius_le_frontier_card
   apply abs_sum_le_frontier_card_of_complement_zero
       (squareBlockInterval n) U (fun x => μ x) hU
   · intro x hx
-    have hbound : |μ x| ≤ (1 : ℤ) := by
-      rcases Int.natAbs_eq_zero_or_pos (μ x) with hzero | hpos
-      · simpa [Int.natAbs_eq_zero.mp hzero]
-      · have hvals : μ x = -1 ∨ μ x = 0 ∨ μ x = 1 := by
-          simpa using ArithmeticFunction.moebius_eq_neg_one_or_zero_or_one x
-        rcases hvals with h | h | h <;> simp [h]
-    exact hbound
+    rcases ArithmeticFunction.moebius_eq_neg_one_or_zero_or_one x with h | h | h <;>
+      simp [h]
   · exact hsettled
 
-/-- Two-error form: if `U` is split into a cell-boundary part and an unresolved
-prime-frontier part, then the discrepancy is bounded by the sum of their
-cardinalities. -/
 theorem abs_squareBlockMoebius_le_boundary_add_unresolved
     (n : ℕ) (boundary unresolved : Finset ℕ)
     (hboundary : boundary ⊆ squareBlockInterval n)
