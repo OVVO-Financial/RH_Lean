@@ -59,9 +59,12 @@ theorem prefixWindowSpectrum_neg_eq_phase_mul_dirichlet
       rw [Finset.sum_range]
       apply Finset.sum_congr rfl
       intro i hi
+      change F (i.val : ZMod W.modulus) = _
+      have hval : ((i.val : ZMod W.modulus).val) = i.val :=
+        ZMod.val_natCast_of_lt i.isLt
       by_cases hwin : W.lower < i.val ∧ i.val ≤ W.lower + N
-      · simp [F, finNatCastEquivZMod', hwin]
-      · simp [F, finNatCastEquivZMod', hwin]
+      · simp [F, hval, hwin]
+      · simp [F, hval, hwin]
     _ = ∑ n ∈ Finset.Ioc W.lower (W.lower + N),
         ZMod.stdAddChar ((n : ZMod W.modulus) * r) := by
       rw [← Finset.sum_filter]
@@ -86,7 +89,7 @@ theorem prefixWindowSpectrum_neg_eq_phase_mul_dirichlet
     _ = ∑ j ∈ Finset.range N,
         ZMod.stdAddChar ((((W.lower + 1) + j : ℕ) : ZMod W.modulus) * r) := by
       rw [Finset.sum_Ico_eq_sum_range]
-      simp [Nat.add_assoc]
+      rw [show W.lower + (N + 1) - (W.lower + 1) = N by omega]
     _ = primeWheelPinnedPhase W r * primeWheelDirichletKernel W N r := by
       unfold primeWheelPinnedPhase primeWheelDirichletKernel
       rw [Finset.mul_sum]
@@ -133,8 +136,8 @@ theorem primorialWheel_dirichletPrefix_eq_mertens_sub
         mertensSummatory (primorialBlockLower k) := by
   rw [← spectralPrefix_lower_add_eq_dirichletPrefix
     (primorialWheelSystem k) N hupper]
-  apply primorialWheel_spectralPrefix_eq_mertens_sub
-  · omega
-  · exact hupper
+  rw [(primorialWheelSystem k).spectralPrefix_eq_residual
+    (primorialWheelSystem k).canonicalTorusRealizationCertificate]
+  exact primorialWheel_residual_cast_eq_mertens_sub k (by omega) hupper
 
 end RHLean.Analysis
