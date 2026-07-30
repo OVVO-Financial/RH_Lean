@@ -61,6 +61,7 @@ import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.EndpointCoreDecomposition
 import RHLean.Arithmetic.DyadicFrozenPrefix
 import RHLean.Arithmetic.SquareBlockPrefixCombSweep
+import RHLean.Arithmetic.PrimorialWheelCancellation
 import RHLean.Arithmetic.FourPrimeWheelCancellation
 import RHLean.Arithmetic.FourSlotCell
 import RHLean.Arithmetic.MoebiusDoubling
@@ -86,6 +87,7 @@ import RHLean.Proof.DeathShellCofactorParity
 import RHLean.Proof.FullFactorizationBridge
 import RHLean.Proof.CanonicalSignedParent
 import RHLean.Proof.OneBlockInvariant
+import RHLean.Proof.ExactPrefixPopulationIdentity
 import RHLean.Proof.MutableSupportBound
 import RHLean.Proof.VanishingTransitionRelevance
 import RHLean.Proof.MutablePNTClosure
