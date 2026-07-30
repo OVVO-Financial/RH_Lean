@@ -13,7 +13,8 @@ theorem wheelPrime_add_two_le (k : ℕ) : k + 2 ≤ wheelPrime k := by
 theorem two_mul_primorialEndpoint_le_succ (k : ℕ) :
     2 * primorialEndpoint k ≤ primorialEndpoint (k + 1) := by
   rw [primorialEndpoint_succ]
-  exact Nat.mul_le_mul_left (primorialEndpoint k) (wheelPrime_prime k).two_le
+  simpa [Nat.mul_comm] using
+    Nat.mul_le_mul_left (primorialEndpoint k) (wheelPrime_prime k).two_le
 
 /-- After the first prime, every primorial step grows by at least a factor of three. -/
 theorem three_mul_primorialEndpoint_le_succ
@@ -22,7 +23,7 @@ theorem three_mul_primorialEndpoint_le_succ
   rw [primorialEndpoint_succ]
   have hp : 3 ≤ wheelPrime k := by
     exact le_trans (by omega) (wheelPrime_add_two_le k)
-  exact Nat.mul_le_mul_left (primorialEndpoint k) hp
+  simpa [Nat.mul_comm] using Nat.mul_le_mul_left (primorialEndpoint k) hp
 
 /-- In the shifted scale used by the Mertens-energy statement, every primorial
 step after the first expands by at least a factor of two. -/
@@ -51,30 +52,34 @@ theorem nat_le_primorialBlockUpper (x : ℕ) :
   unfold primorialBlockUpper
   exact (Nat.le_succ x).trans (succ_le_primorialEndpoint_succ x)
 
+private theorem primorialBlock_exists (x : ℕ) :
+    ∃ k : ℕ, x ≤ primorialBlockUpper k :=
+  ⟨x, nat_le_primorialBlockUpper x⟩
+
 /-- Least synchronized primorial block whose right endpoint contains `x`. -/
 def primorialBlockIndex (x : ℕ) : ℕ :=
-  Nat.find ⟨x, nat_le_primorialBlockUpper x⟩
+  Nat.find (primorialBlock_exists x)
 
 /-- The least selected block always contains `x` at its right endpoint. -/
 theorem le_primorialBlockUpper_blockIndex (x : ℕ) :
     x ≤ primorialBlockUpper (primorialBlockIndex x) := by
-  exact Nat.find_spec ⟨x, nat_le_primorialBlockUpper x⟩
+  exact Nat.find_spec (primorialBlock_exists x)
 
 /-- Every `x ≥ 2` lies strictly beyond the left endpoint of its least selected
 primorial block. -/
 theorem primorialBlockLower_blockIndex_lt
     {x : ℕ} (hx : 2 ≤ x) :
     primorialBlockLower (primorialBlockIndex x) < x := by
-  classical
-  let hex : ∃ k : ℕ, x ≤ primorialBlockUpper k :=
-    ⟨x, nat_le_primorialBlockUpper x⟩
-  change primorialBlockLower (Nat.find hex) < x
-  cases hfind : Nat.find hex with
+  unfold primorialBlockIndex
+  cases hfind : Nat.find (primorialBlock_exists x) with
   | zero =>
       simpa [primorialBlockLower, primorialEndpoint_zero] using hx
   | succ j =>
-      have hnot : ¬ x ≤ primorialBlockUpper j := by
-        exact Nat.find_min' hex (by omega)
+      have hjlt : j < Nat.find (primorialBlock_exists x) := by
+        rw [hfind]
+        omega
+      have hnot : ¬ x ≤ primorialBlockUpper j :=
+        Nat.find_min (primorialBlock_exists x) hjlt
       unfold primorialBlockLower primorialBlockUpper
       rw [hfind] at hnot ⊢
       omega
