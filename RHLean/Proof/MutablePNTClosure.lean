@@ -27,14 +27,12 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 
-/-- PNT at the exact square-prefix endpoints, in epsilon/eventually form. -/
 def SquarePrefixPNTStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∀ᶠ N : ℕ in atTop,
       ‖RHLean.Analysis.squarePrefixMertens N‖ ≤
         ε * (((N + 1 : ℕ) : ℝ) ^ 2)
 
-/-- The classical Möbius formulation of the prime number theorem. -/
 def MertensPNTStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∀ᶠ x : ℕ in atTop,
@@ -46,8 +44,6 @@ private theorem realIncrement_eq_squareBlockMoebius (n : ℕ) :
     canonicalSquareBlock squareBlockMoebius squareBlockInterval
   norm_cast
 
-/-- The full seed telescope through block `N` is the sum of the exact block
-increments. -/
 theorem realCanonicalTotalPrefix_eq_sum_squareBlockMoebius (N : ℕ) :
     realCanonicalTotalPrefix N =
       ∑ n ∈ Finset.range (N + 1), (squareBlockMoebius n : ℝ) := by
@@ -56,8 +52,6 @@ theorem realCanonicalTotalPrefix_eq_sum_squareBlockMoebius (N : ℕ) :
   intro n hn
   exact realIncrement_eq_squareBlockMoebius n
 
-/-- Deterministic summation lemma: `Δ_n = o(n)` implies the complete
-seed-to-current telescope is `o(N^2)`. -/
 theorem squarePrefixPNT_of_squareBlockDiscrepancyVanishes
     (hΔ : SquareBlockDiscrepancyVanishes) :
     SquarePrefixPNTStatement := by
@@ -114,7 +108,8 @@ theorem squarePrefixPNT_of_squareBlockDiscrepancyVanishes
           (ε / 4) * ((N + 1 : ℕ) : ℝ) := by
             apply Finset.sum_le_sum
             intro n hn
-            have hnle : n ≤ N := by omega
+            have hnle : n ≤ N :=
+              Nat.lt_succ_iff.mp (Finset.mem_Ico.mp hn).2
             exact (htailPoint n hn).trans
               (mul_le_mul_of_nonneg_left
                 (by exact_mod_cast (Nat.le_succ_of_le hnle)) (by linarith))
@@ -166,8 +161,6 @@ theorem squarePrefixPNT_of_squareBlockDiscrepancyVanishes
     have hsquareNonneg : 0 ≤ (((N + 1 : ℕ) : ℝ) ^ 2) := sq_nonneg _
     nlinarith)
 
-/-- Vanishing mutable relevance closes the PNT estimate at square-prefix
-endpoints. -/
 theorem squarePrefixPNT_of_transitionRelevanceVanishes
     (U : ℕ → Finset ℕ)
     (hU : ∀ n, U n ⊆ squareBlockInterval n)
@@ -178,15 +171,13 @@ theorem squarePrefixPNT_of_transitionRelevanceVanishes
     (squareBlockDiscrepancyVanishes_of_transitionRelevanceVanishes
       U hU hinterior hvanish)
 
-/-- Square-prefix PNT control interpolates to the full Mertens function because
-an arbitrary integer lies only `O(sqrt x)` terms beyond the preceding square. -/
 theorem mertensPNT_of_squarePrefixPNT
     (hS : SquarePrefixPNTStatement) :
     MertensPNTStatement := by
   intro ε hε
   have hsample := hS (ε / 2) (by linarith)
   rcases (eventually_atTop.1 hsample) with ⟨N0, hN0⟩
-  obtain ⟨X0 : ℕ, hX0⟩ := exists_nat_gt (16 / ε ^ 2)
+  obtain ⟨X0 : ℕ, hX0⟩ := exists_nat_gt (64 / ε ^ 2)
   filter_upwards [eventually_ge_atTop (max ((N0 + 1) ^ 2) X0)] with x hx
   let r := Nat.sqrt x
   let n := r - 1
@@ -207,7 +198,7 @@ theorem mertensPNT_of_squarePrefixPNT
   have hn0 : N0 ≤ n := by
     have hN0sq : (N0 + 1) ^ 2 ≤ x := le_trans (le_max_left _ _) hx
     have hN0r : N0 + 1 ≤ r := by
-      exact (Nat.le_sqrt).2 hN0sq
+      exact (Nat.le_sqrt).2 (by simpa [pow_two] using hN0sq)
     omega
   have hendpoint : RHLean.Analysis.squarePrefixEndpoint n = r ^ 2 - 1 := by
     unfold RHLean.Analysis.squarePrefixEndpoint
@@ -241,29 +232,42 @@ theorem mertensPNT_of_squarePrefixPNT
         (ε / 2) * ((x + 1 : ℕ) : ℝ) :=
     hsampleR.trans (mul_le_mul_of_nonneg_left hrSqR (by linarith))
   have hX0le : X0 ≤ x := le_trans (le_max_right _ _) hx
-  have hX0real : 16 / ε ^ 2 < (x : ℝ) := by
+  have hX0real : 64 / ε ^ 2 < (x : ℝ) := by
     exact lt_of_lt_of_le (by exact_mod_cast hX0) (by exact_mod_cast hX0le)
   have hsqrtSmall : 2 * (r + 1 : ℝ) ≤ (ε / 2) * ((x + 1 : ℕ) : ℝ) := by
-    have hrplusSq : (r + 1 : ℝ) ^ 2 ≤ 4 * ((x + 1 : ℕ) : ℝ) := by
+    let X : ℝ := ((x + 1 : ℕ) : ℝ)
+    let a : ℝ := (r + 1 : ℝ)
+    have haSq : a ^ 2 ≤ 4 * X := by
+      dsimp [a, X]
       have hnat : (r + 1) ^ 2 ≤ 4 * (x + 1) := by
         have hsquare : (r + 1) ^ 2 = r ^ 2 + 2 * r + 1 := by ring
         rw [hsquare]
         omega
       exact_mod_cast hnat
     have hεsq : 0 < ε ^ 2 := sq_pos_of_pos hε
-    have hxlargeRaw : 16 < (x : ℝ) * ε ^ 2 :=
+    have hxlargeRaw : 64 < (x : ℝ) * ε ^ 2 :=
       (div_lt_iff₀ hεsq).mp hX0real
-    have hxlarge : 16 < ε ^ 2 * ((x + 1 : ℕ) : ℝ) := by
-      have hxcast : (x : ℝ) ≤ ((x + 1 : ℕ) : ℝ) := by exact_mod_cast (Nat.le_succ x)
-      have hmono : (x : ℝ) * ε ^ 2 ≤ ((x + 1 : ℕ) : ℝ) * ε ^ 2 :=
+    have hxcast : (x : ℝ) ≤ X := by
+      dsimp [X]
+      exact_mod_cast (Nat.le_succ x)
+    have hxlarge : 64 < ε ^ 2 * X := by
+      have hmono : (x : ℝ) * ε ^ 2 ≤ X * ε ^ 2 :=
         mul_le_mul_of_nonneg_right hxcast (sq_nonneg ε)
-      have : 16 < ((x + 1 : ℕ) : ℝ) * ε ^ 2 := lt_of_lt_of_le hxlargeRaw hmono
+      have : 64 < X * ε ^ 2 := lt_of_lt_of_le hxlargeRaw hmono
       simpa [mul_comm] using this
-    have hXpos : 0 < ((x + 1 : ℕ) : ℝ) := by positivity
-    have hscaled := mul_lt_mul_of_pos_right hxlarge hXpos
-    have hnonneg : 0 ≤ (r + 1 : ℝ) := by positivity
-    have hεnonneg : 0 ≤ ε := le_of_lt hε
-    nlinarith [sq_nonneg (ε * ((x + 1 : ℕ) : ℝ) - 4 * (r + 1 : ℝ))]
+    have hXpos : 0 < X := by dsimp [X]; positivity
+    have hprod : 64 * X < ε ^ 2 * X ^ 2 := by
+      nlinarith
+    have hscaled : 16 * a ^ 2 ≤ 64 * X := by
+      nlinarith
+    have hsquares : (4 * a) ^ 2 < (ε * X) ^ 2 := by
+      nlinarith
+    have ha : 0 ≤ a := by dsimp [a]; positivity
+    have hεX : 0 ≤ ε * X := mul_nonneg (le_of_lt hε) (le_of_lt hXpos)
+    have hlinear : 4 * a ≤ ε * X := by
+      nlinarith
+    dsimp [a, X] at hlinear ⊢
+    linarith
   calc
     ‖RHLean.Analysis.mertensSummatory x‖ =
         ‖RHLean.Analysis.squarePrefixMertens n +
@@ -279,7 +283,6 @@ theorem mertensPNT_of_squarePrefixPNT
       add_le_add hsampleFinal (hgapR.trans hsqrtSmall)
     _ = ε * ((x + 1 : ℕ) : ℝ) := by ring
 
-/-- Complete PNT closure from the mutable-support architecture. -/
 theorem mertensPNT_of_transitionRelevanceVanishes
     (U : ℕ → Finset ℕ)
     (hU : ∀ n, U n ⊆ squareBlockInterval n)
