@@ -127,6 +127,7 @@ import RHLean.Verification.FiniteRangeCertificates
 import RHLean.Analysis.FiniteTorusFourierPairing
 import RHLean.Arithmetic.PrimeWheelFiniteSystem
 import RHLean.Arithmetic.PrimorialWheelScale
+import RHLean.Arithmetic.PrimorialWheelScaleGrowth
 import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 import RHLean.Arithmetic.PrimorialWheelPrefixIdentity
 import RHLean.Analysis.PrimeWheelFourierReduction
