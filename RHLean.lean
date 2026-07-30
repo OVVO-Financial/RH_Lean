@@ -124,3 +124,14 @@ import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Analysis.TwoABScaleTransfer
 import RHLean.Analysis.TwoABPrimeDilation
 import RHLean.Verification.FiniteRangeCertificates
+import RHLean.Analysis.FiniteTorusFourierPairing
+import RHLean.Arithmetic.PrimeWheelFiniteSystem
+import RHLean.Arithmetic.PrimorialWheelScale
+import RHLean.Arithmetic.PrimeWheelMobiusRecovery
+import RHLean.Arithmetic.PrimorialWheelPrefixIdentity
+import RHLean.Analysis.PrimeWheelFourierReduction
+import RHLean.Analysis.PrimeWheelTorusRealization
+import RHLean.Analysis.PrimeWheelJointSpectrum
+import RHLean.Analysis.PrimeWheelHarmonicCriterion
+import RHLean.Analysis.PrimeWheelRHBridge
+import RHLean.Analysis.PrimorialWheelHarmonicReduction
