@@ -29,6 +29,7 @@ jobs:
       - name: Set up Lean
         uses: leanprover/lean-action@v1
         with:
+          lake-package-directory: export/public-repo/formalization
           use-mathlib-cache: true
           build: false
           test: false
