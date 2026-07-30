@@ -34,8 +34,8 @@ lemma prod_localPrimeComb_eq_negOnePow_filter_card
       rw [localPrimeComb_eq_ite_dvd_of_squarefree hpPrime hsq]
       rw [ih hSPrime]
       by_cases hpn : p ∣ n
-      · simp [hpn, hpS, pow_succ]
-      · simp [hpn, hpS]
+      · simp [Finset.filter_insert, hpn, hpS, pow_succ]
+      · simp [Finset.filter_insert, hpn, hpS]
 
 lemma seededPrimeComb_eq_neg_negOnePow_filter_card
     (S : Finset ℕ) (n : ℕ)
@@ -53,7 +53,9 @@ lemma moebius_eq_negOnePow_primeFactors_card
     intro p hp
     exact (Nat.mem_primeFactors.mp hp).1
   have h := moebius_primeFaceProduct_eq_booleanCubeSign n.primeFactors hprime
-  rw [primeFaceProduct, Nat.prod_primeFactors_of_squarefree hsq] at h
+  have hprod : n.primeFactors.prod id = n := by
+    simpa using Nat.prod_primeFactors_of_squarefree hsq
+  rw [hprod] at h
   simpa [booleanCubeSign] using h
 
 lemma filter_dvd_eq_primeFactors_inter
@@ -96,7 +98,7 @@ lemma large_primeFactors_card_le_one
     (n.primeFactors \ S).card ≤ 1 := by
   classical
   rw [Finset.card_le_one_iff]
-  intro p hp q hq
+  intro p q hp hq
   have hpData := Finset.mem_sdiff.mp hp
   have hqData := Finset.mem_sdiff.mp hq
   have hpMem := Nat.mem_primeFactors.mp hpData.1
@@ -195,6 +197,7 @@ lemma correctedPrimeWheelSite_eq_moebius
         seededPrimeComb_eq_neg_moebius_of_smooth S hprime hsmooth
       simp [correctedPrimeWheelSite, primeWheelSmoothCoreSite, hnupper,
         hsmooth, hraw]
+      ring
     · have hraw := seededPrimeComb_eq_moebius_of_not_smooth
         S hprime hcover hsq hnupper hsmooth
       simp [correctedPrimeWheelSite, primeWheelSmoothCoreSite, hnupper,
@@ -202,7 +205,7 @@ lemma correctedPrimeWheelSite_eq_moebius
   · have hraw := seededPrimeComb_eq_zero_of_not_squarefree
       S hcover hnpos hnupper hsq
     have hmu := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-    simp [correctedPrimeWheelSite, primeWheelSmoothCoreSite, hsq, hraw, hmu]
+    simp [correctedPrimeWheelSite, primeWheelSmoothCoreSite, hraw, hmu]
 
 theorem primorialWheelSqrtCoverage (k : ℕ) :
     PrimeWheelSqrtCoverage (primorialWheelPrimes k)
