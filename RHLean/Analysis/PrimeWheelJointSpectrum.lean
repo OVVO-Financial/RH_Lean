@@ -30,9 +30,10 @@ theorem torusJointField_eq_raw_sub_two_smooth
       W.torusRawBlockField z - 2 * W.torusSmoothCoreBlockField z := by
   funext z
   unfold torusJointField torusRawBlockField torusSmoothCoreBlockField
-    correctedSite correctedPrimeWheelSite
+    correctedSite correctedPrimeWheelSite rawSite smoothCoreSite
   by_cases hz : W.lower < z.val ∧ z.val ≤ W.upper
   · simp [hz]
+    push_cast
     ring
   · simp [hz]
 
@@ -53,8 +54,9 @@ theorem jointSpectrum_eq_raw_sub_two_smooth
       W.rawBlockSpectrum r - 2 * W.smoothCoreBlockSpectrum r := by
   unfold jointSpectrum rawBlockSpectrum smoothCoreBlockSpectrum
   rw [W.torusJointField_eq_raw_sub_two_smooth]
-  simp only [map_sub, ZMod.dft_const_mul]
-  rfl
+  simp only [ZMod.dft_apply, smul_eq_mul, mul_sub, Finset.sum_sub_distrib]
+  rw [← Finset.mul_sum]
+  ring
 
 /-- Explicit finite additive-character formula for the raw coefficient. -/
 theorem rawBlockSpectrum_apply
