@@ -42,7 +42,9 @@ private theorem two_mul_rpow_endpoint_le
       Real.rpow 2 (-ε) * Real.rpow 2 (1 + ε) =
           Real.rpow 2 ((-ε) + (1 + ε)) :=
         (Real.rpow_add htwo (-ε) (1 + ε)).symm
-      _ = Real.rpow 2 1 := by congr 1 <;> ring
+      _ = Real.rpow 2 1 := by
+        congr 1
+        ring
       _ = 2 := by norm_num
   calc
     2 * Real.rpow ((primorialEndpoint k + 1 : ℕ) : ℝ) (1 + ε) =
