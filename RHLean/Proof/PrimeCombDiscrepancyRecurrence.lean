@@ -125,11 +125,13 @@ def blockTenPrimeFiveUpdate : PrimeCombUpdate where
   negativeDeaths := 0
   updateLaw := by norm_num
 
-example : blockTenPrimeFiveUpdate.after = 0 := rfl
+/-- Machine-checkable block-10 certificate for the restoring `5`-comb step. -/
+theorem blockTenPrimeFive_increment :
+    blockTenPrimeFiveUpdate.after - blockTenPrimeFiveUpdate.before = 3 := by
+  norm_num [blockTenPrimeFiveUpdate]
 
-example : blockTenPrimeFiveUpdate.increment_eq =
-    (show (0 : ℤ) - (-3) = -(1 : ℤ) + 2 * 2 + 0 by norm_num) := by
-  norm_num [blockTenPrimeFiveUpdate,
-    PrimeCombUpdate.collisionImbalance, PrimeCombUpdate.deathImbalance]
+/-- The compact recurrence reproduces the exact block-10 update `-3 -> 0`. -/
+theorem blockTenPrimeFive_after : blockTenPrimeFiveUpdate.after = 0 := by
+  norm_num [blockTenPrimeFiveUpdate]
 
 end RHLean.Proof
