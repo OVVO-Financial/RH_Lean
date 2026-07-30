@@ -5,11 +5,7 @@ open scoped BigOperators
 
 noncomputable section
 
-namespace RHLean.Analysis
-
-open RHLean.Arithmetic
-
-namespace PrimeWheelFiniteSystem
+namespace RHLean.Arithmetic.PrimeWheelFiniteSystem
 
 /-- Zero-padding into a modulus larger than the arithmetic block is lossless:
 the torus pairing is exactly the corrected site sum over `(lower,x]`. -/
@@ -32,7 +28,7 @@ theorem torusPrefixPairing_eq_corrected_sum
       exact hn.2
     · intro hn
       exact ⟨lt_of_le_of_lt hn.2 hxmod, hn⟩
-  unfold torusPrefixPairing finiteTorusPairing torusJointField
+  unfold torusPrefixPairing RHLean.Analysis.finiteTorusPairing torusJointField
     torusPrefixWindow prefixInterval
   calc
     (∑ z : ZMod W.modulus,
@@ -79,7 +75,11 @@ def canonicalTorusRealizationCertificate
     push_cast
     rfl
 
-end PrimeWheelFiniteSystem
+end RHLean.Arithmetic.PrimeWheelFiniteSystem
+
+namespace RHLean.Analysis
+
+open RHLean.Arithmetic
 
 /-- Canonical family of torus certificates. -/
 def canonicalPrimeWheelTorusCertificates
