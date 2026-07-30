@@ -30,9 +30,11 @@ theorem moebius_Ioc_cast_eq_mertens_sub
   unfold RHLean.Analysis.mertensSummatory
   have hinterval : Finset.Ioc a x = Finset.Ico (a + 1) (x + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Ioc, Finset.mem_Ico]
+    omega
   rw [hinterval]
-  linarith
+  apply (eq_sub_iff_add_eq).2
+  simpa [add_comm] using hsplit
 
 /-- Exact complex prefix residual identity in the form used by the harmonic
 reduction. -/
