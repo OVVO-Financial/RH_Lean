@@ -88,6 +88,7 @@ import RHLean.Proof.FullFactorizationBridge
 import RHLean.Proof.CanonicalSignedParent
 import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.ExactPrefixPopulationIdentity
+import RHLean.Proof.SeededPopulationInduction
 import RHLean.Proof.MutableSupportBound
 import RHLean.Proof.VanishingTransitionRelevance
 import RHLean.Proof.MutablePNTClosure
