@@ -7,6 +7,17 @@ noncomputable section
 
 namespace RHLean.Arithmetic.PrimeWheelFiniteSystem
 
+/-- The canonical equivalence that represents a residue by its least natural
+representative.  This avoids relying on definitional reduction of `ZMod.finEquiv`
+at a variable modulus. -/
+private def finNatCastEquivZMod (n : ℕ) [NeZero n] : Fin n ≃ ZMod n where
+  toFun i := (i.val : ZMod n)
+  invFun z := ⟨z.val, ZMod.val_lt z⟩
+  left_inv i := by
+    apply Fin.ext
+    exact ZMod.val_natCast_of_lt i.isLt
+  right_inv z := ZMod.natCast_zmod_val z
+
 /-- Zero-padding into a modulus larger than the arithmetic block is lossless:
 the torus pairing is exactly the corrected site sum over `(lower,x]`. -/
 theorem torusPrefixPairing_eq_corrected_sum
@@ -38,16 +49,17 @@ theorem torusPrefixPairing_eq_corrected_sum
   change (∑ z : ZMod W.modulus, F z) = _
   calc
     (∑ z : ZMod W.modulus, F z) =
-        ∑ i : Fin W.modulus, F ((ZMod.finEquiv W.modulus) i) := by
-      exact ((ZMod.finEquiv W.modulus).sum_comp F).symm
+        ∑ i : Fin W.modulus, F ((finNatCastEquivZMod W.modulus) i) := by
+      exact ((finNatCastEquivZMod W.modulus).sum_comp F).symm
     _ = ∑ n ∈ Finset.range W.modulus,
         if W.lower < n ∧ n ≤ x then
           (((W.correctedSite n : ℤ) : ℂ)) else 0 := by
       rw [Finset.sum_range]
       apply Finset.sum_congr rfl
       intro i hi
-      have hval : ((ZMod.finEquiv W.modulus) i).val = i.val := by
-        rfl
+      have hval : ((finNatCastEquivZMod W.modulus) i).val = i.val := by
+        change ((i.val : ZMod W.modulus).val) = i.val
+        exact ZMod.val_natCast_of_lt i.isLt
       by_cases hwin : W.lower < i.val ∧ i.val ≤ x
       · have hfull : W.lower < i.val ∧ i.val ≤ W.upper :=
           ⟨hwin.1, hwin.2.trans hupper⟩
