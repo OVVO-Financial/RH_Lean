@@ -81,6 +81,13 @@ theorem finiteTorusPairing_eq_spectral
       congr 1
       apply Finset.sum_congr rfl
       intro r hr
-      simp only [ZMod.dft_apply, neg_mul, neg_neg, smul_eq_mul]
+      apply congrArg (fun z : ℂ => ZMod.dft f r * z)
+      rw [ZMod.dft_apply]
+      apply Finset.sum_congr rfl
+      intro x hx
+      simp only [smul_eq_mul]
+      congr 1
+      congr 1
+      ring
 
 end RHLean.Analysis
