@@ -39,9 +39,7 @@ theorem succ_le_primorialEndpoint_succ (n : ℕ) :
     n + 1 ≤ primorialEndpoint (n + 1) := by
   induction n with
   | zero =>
-      exact Nat.succ_le_iff.mpr
-        (primorialEndpoint_strictMono (Nat.lt_succ_self 0) |>
-          (by simpa using ·))
+      exact primorialEndpoint_pos 1
   | succ n ih =>
       have hdouble := two_mul_primorialEndpoint_le_succ (n + 1)
       omega
@@ -68,18 +66,17 @@ theorem primorialBlockLower_blockIndex_lt
     {x : ℕ} (hx : 2 ≤ x) :
     primorialBlockLower (primorialBlockIndex x) < x := by
   classical
-  unfold primorialBlockIndex
   let hex : ∃ k : ℕ, x ≤ primorialBlockUpper k :=
     ⟨x, nat_le_primorialBlockUpper x⟩
-  let k := Nat.find hex
-  change primorialBlockLower k < x
-  cases k with
+  change primorialBlockLower (Nat.find hex) < x
+  cases hfind : Nat.find hex with
   | zero =>
       simpa [primorialBlockLower, primorialEndpoint_zero] using hx
   | succ j =>
-      have hnot : ¬ x ≤ primorialBlockUpper j :=
-        Nat.find_min' hex (Nat.lt_succ_self j)
-      unfold primorialBlockLower primorialBlockUpper at hnot ⊢
+      have hnot : ¬ x ≤ primorialBlockUpper j := by
+        exact Nat.find_min' hex (by omega)
+      unfold primorialBlockLower primorialBlockUpper
+      rw [hfind] at hnot ⊢
       omega
 
 end RHLean.Arithmetic
