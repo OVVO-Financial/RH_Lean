@@ -89,7 +89,7 @@ theorem prefixWindowSpectrum_neg_eq_phase_mul_dirichlet
     _ = ∑ j ∈ Finset.range N,
         ZMod.stdAddChar ((((W.lower + 1) + j : ℕ) : ZMod W.modulus) * r) := by
       rw [Finset.sum_Ico_eq_sum_range]
-      rw [show W.lower + (N + 1) - (W.lower + 1) = N by omega]
+      rw [show W.lower + N + 1 - (W.lower + 1) = N by omega]
     _ = primeWheelPinnedPhase W r * primeWheelDirichletKernel W N r := by
       unfold primeWheelPinnedPhase primeWheelDirichletKernel
       rw [Finset.mul_sum]
@@ -136,8 +136,17 @@ theorem primorialWheel_dirichletPrefix_eq_mertens_sub
         mertensSummatory (primorialBlockLower k) := by
   rw [← spectralPrefix_lower_add_eq_dirichletPrefix
     (primorialWheelSystem k) N hupper]
+  have hlowerSys :
+      (primorialWheelSystem k).lower < (primorialWheelSystem k).lower + N := by
+    change primorialBlockLower k < primorialBlockLower k + N
+    omega
+  have hupperSys :
+      (primorialWheelSystem k).lower + N ≤ (primorialWheelSystem k).upper := by
+    change primorialBlockLower k + N ≤ primorialBlockUpper k
+    exact hupper
   rw [(primorialWheelSystem k).spectralPrefix_eq_residual
-    (primorialWheelSystem k).canonicalTorusRealizationCertificate]
+    (primorialWheelSystem k).canonicalTorusRealizationCertificate
+    hlowerSys hupperSys]
   exact primorialWheel_residual_cast_eq_mertens_sub k (by omega) hupper
 
 end RHLean.Analysis
