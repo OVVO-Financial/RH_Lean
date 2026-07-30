@@ -75,7 +75,7 @@ def reducedAdditiveConductor
 def jointConductorEnergy
     (W : PrimeWheelFiniteSystem) (q : ℕ) : ℝ :=
   ∑ r : ZMod W.modulus,
-    if reducedAdditiveConductor r = q then ‖W.jointSpectrum r‖ ^ 2 else 0
+    if q = reducedAdditiveConductor r then ‖W.jointSpectrum r‖ ^ 2 else 0
 
 /-- Exact conductor partition of total joint spectral energy.  This is only a
 finite regrouping identity; it asserts no decay estimate. -/
@@ -93,7 +93,8 @@ theorem jointSpectrumEnergy_eq_sum_conductors
     split_ifs
     · exact Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt W.modulus_pos)
     · exact Nat.div_le_self _ _
-  simp only [Finset.sum_ite_eq', Finset.mem_range]
-  rw [if_pos (Nat.lt_succ_iff.mpr hcond)]
+  have hmem : reducedAdditiveConductor r ∈ Finset.range (W.modulus + 1) := by
+    exact Finset.mem_range.mpr (Nat.lt_succ_iff.mpr hcond)
+  simp [hmem]
 
 end RHLean.Analysis
