@@ -50,8 +50,9 @@ def IsPrimeWheelSmooth (S : Finset ℕ) (n : ℕ) : Prop :=
 /-- The sitewise smooth-core contribution.  The magnitude cut is fixed at the
 right endpoint and is not mixed with the later moving prefix window. -/
 def primeWheelSmoothCoreSite
-    (S : Finset ℕ) (upper n : ℕ) : ℤ :=
-  if n ≤ upper ∧ IsPrimeWheelSmooth S n then seededPrimeComb S n else 0
+    (S : Finset ℕ) (upper n : ℕ) : ℤ := by
+  classical
+  exact if n ≤ upper ∧ IsPrimeWheelSmooth S n then seededPrimeComb S n else 0
 
 /-- Corrected site field: raw seed field minus twice the sites whose provisional
 seed orientation is extraneous. -/
@@ -115,13 +116,10 @@ theorem residual_eq_corrected_sum
     (W : PrimeWheelFiniteSystem) (x : ℕ) :
     W.residual x = ∑ n ∈ W.prefixInterval x, W.correctedSite n := by
   classical
-  unfold residual rawPrefix smoothCorePrefix correctedSite
+  unfold residual rawPrefix smoothCorePrefix correctedSite rawSite smoothCoreSite
     correctedPrimeWheelSite prefixInterval
   rw [Finset.mul_sum]
   rw [← Finset.sum_sub_distrib]
-  apply Finset.sum_congr rfl
-  intro n hn
-  ring
 
 /-- A pointwise arithmetic certificate immediately yields the exact nested-prefix
 Möbius identity. -/
