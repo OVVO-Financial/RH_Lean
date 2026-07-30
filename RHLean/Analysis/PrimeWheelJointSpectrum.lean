@@ -33,8 +33,6 @@ theorem torusJointField_eq_raw_sub_two_smooth
     correctedSite correctedPrimeWheelSite rawSite smoothCoreSite
   by_cases hz : W.lower < z.val ∧ z.val ≤ W.upper
   · simp [hz]
-    push_cast
-    ring
   · simp [hz]
 
 /-- DFT of the zero-padded raw block field. -/
@@ -55,8 +53,17 @@ theorem jointSpectrum_eq_raw_sub_two_smooth
   unfold jointSpectrum rawBlockSpectrum smoothCoreBlockSpectrum
   rw [W.torusJointField_eq_raw_sub_two_smooth]
   simp only [ZMod.dft_apply, smul_eq_mul, mul_sub, Finset.sum_sub_distrib]
-  rw [← Finset.mul_sum]
-  ring
+  have hscalar :
+      (∑ x : ZMod W.modulus,
+          ZMod.stdAddChar (-(x * r)) *
+            (2 * W.torusSmoothCoreBlockField x)) =
+        2 * ∑ x : ZMod W.modulus,
+          ZMod.stdAddChar (-(x * r)) * W.torusSmoothCoreBlockField x := by
+    rw [Finset.mul_sum]
+    apply Finset.sum_congr rfl
+    intro x hx
+    ring
+  rw [hscalar]
 
 /-- Explicit finite additive-character formula for the raw coefficient. -/
 theorem rawBlockSpectrum_apply
