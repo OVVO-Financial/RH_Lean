@@ -73,7 +73,7 @@ theorem primorialSquareSensitiveModulus_pos (k : ℕ) :
   apply Finset.prod_pos
   intro p hp
   have hpPrime : Nat.Prime p := prime_of_mem_primesUpTo hp
-  positivity
+  exact pow_pos hpPrime.pos 2
 
 /-- The chosen common torus modulus is positive. -/
 theorem primorialCommonTorusModulus_pos (k : ℕ) :
