@@ -23,6 +23,9 @@ jobs:
       - name: Audit unfinished proofs and project-local axioms
         run: bash scripts/audit_assumptions.sh
 
+      - name: Check exported numerical scripts
+        run: python -m py_compile ../numerics/squared_space_reproducibility_v3.py ../numerics/analytic_kill_gates.py
+
       - name: Set up Lean
         uses: leanprover/lean-action@v1
         with:
