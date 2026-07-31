@@ -51,6 +51,9 @@
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{example}[theorem]{Example}
 
+\crefname{conjecture}{open theorem}{open theorems}
+\Crefname{conjecture}{Open theorem}{Open theorems}
+
 \newcommand{\N}{\mathbb N}
 \newcommand{\Z}{\mathbb Z}
 \newcommand{\C}{\mathbb C}
@@ -165,6 +168,7 @@ is the Dirichlet kernel.  The final theorem to be proved is
 \ll_{\varepsilon} W_k^{1/2+\varepsilon}.
 \end{equation}
 All conceptual translations terminate at \eqref{eq:intro-target}.  It is a finite, pinned-origin, special-vector harmonic-analysis problem.
+\newpage
 
 \section{Arithmetic notation and the primorial blocks}
 
@@ -535,12 +539,10 @@ The complete wheel controls the bulk constant mode.  The prefix $x$ cuts through
 
 \section{Finite computations through the eighth primorial block}
 
-The exact identities above are mathematical statements.  Exhaustive computation tests implementation fidelity and measures the still-unproved size of $R_k(x)$.
+The exact identities above are mathematical statements.  Exhaustive computation tests implementation fidelity and measures the still-unproved size of $R_k(x)$.\\
 
-The deterministic Python validation program for this section is available directly at
-\begin{center}
-\href{https://github.com/OVVO-Financial/prime-wheel-mobius/blob/main/numerics/primorial_block_validation.py}{\texttt{numerics/primorial\_block\_validation.py}}.
-\end{center}
+
+
 
 That program checked every integer and every nested prefix through
 \[
@@ -576,6 +578,12 @@ $k$ & $W_k$ & $\max_{x\in B_k}|R_k(x)|$ & maximizing $x$ & $\max |R_k(x)|/\sqrt{
 The maximum of $|M(x)|$ for $x\le W_8$ was $1{,}078$ at $x=7{,}109{,}110$, and $M(W_8)=278$.
 
 \statusbox{rust}{These values are finite-range evidence only.  They do not prove that $|R_k(x)|/\sqrt{x-W_{k-1}}$ remains bounded.  The target retained in this paper is only the RH-equivalent $x^{\varepsilon}$-allowed estimate.  The constant-one Mertens conjecture was disproved by Odlyzko and te Riele \cite{OdlyzkoTeRiele}.}
+
+\medskip
+
+The deterministic Python validation program for this section is available directly at \href{https://github.com/OVVO-Financial/prime-wheel-mobius/blob/main/numerics/primorial_block_validation.py}{\texttt{numerics/primorial\_block\_validation.py}}.
+
+
 
 \section{A single finite torus for both arithmetic components}
 
