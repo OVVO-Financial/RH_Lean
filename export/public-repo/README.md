@@ -1,29 +1,34 @@
-# Prime-Wheel Formalization Export
+# Prime-Wheel Möbius
 
-This directory is a copy-ready seed for a new public repository accompanying the paper **A Squared-Complex Framework for Square-Prefix Möbius Sums**.
+Public companion repository for **Seeded Prime-Comb Dynamics and the Finite Harmonic Reduction of Primorial-Block Möbius Sums**.
 
-Copy the contents of `export/public-repo/` into the root of the new repository. The export is intentionally isolated from the broader `RH_Lean` sandbox.
+This repository separates the paper-facing theorem chain from the broader `RH_Lean` sandbox.
 
 ## Contents
 
-- `paper/` — manuscript source and paper build notes.
-- `formalization/` — standalone Lean 4 project pinned to Lean/mathlib `v4.24.0`.
-- `numerics/` — deterministic paper reproduction script and analytic falsification gates.
-- `docs/` — theorem status, source provenance, and publication checklist.
-- `.github/workflows/` — Lean verification and numerical reproducibility workflows.
+- `paper/` - current manuscript source and build notes.
+- `formalization/` - standalone Lean 4 project pinned to Lean/mathlib `v4.24.0`.
+- `numerics/` - finite primorial-block validation and analytic falsification gates.
+- `docs/` - theorem status, source provenance, and publication checklist.
+- `.github/workflows/` - Lean verification and numerical reproducibility.
 
 ## Mathematical boundary
 
-The formalization proves the complete exact reduction
+The formalization proves the exact chain
 
-`explicit pinned Dirichlet nonconcentration ↔ prime-wheel harmonic bound ↔ primorial residual bound ↔ global Mertens-energy bound`.
+```text
+explicit pinned Dirichlet estimate
+<-> harmonic nonconcentration
+<-> finite wheel residual bound
+<-> global Mertens-energy bound.
+```
 
-It does **not** assert either remaining mathematical input:
+It does **not** claim an unconditional proof of the Riemann Hypothesis. Two inputs remain explicit:
 
-1. the RH-scale maximal Dirichlet/nonconcentration bound;
-2. the classical theorem `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`.
+1. the maximal pinned Dirichlet/nonconcentration estimate;
+2. the classical theorem connecting the stated Mertens-energy bound to Mathlib's Riemann Hypothesis proposition.
 
-The public endpoint accepts only the classical criterion as an explicit theorem argument. The primorial-to-global Mertens bridge is constructed internally and is not assumed.
+See [`docs/THEOREM_STATUS.md`](docs/THEOREM_STATUS.md).
 
 ## Lean build
 
@@ -36,8 +41,10 @@ bash scripts/audit_assumptions.sh
 
 ## Paper
 
-The LaTeX source is at `paper/Squared_Complex_Framework_Elementary_Pointwise_Bridge.tex`. See `paper/README.md` for compilation instructions.
+The manuscript source is [`paper/seeded_prime_comb_harmonic_reduction.tex`](paper/seeded_prime_comb_harmonic_reduction.tex).
 
 ## Numerical reproduction
 
-See `numerics/README.md`. Numerical outputs are diagnostics and GitHub Actions artifacts; they are not theorem premises.
+The deterministic validation program used in Section 7 is [`numerics/primorial_block_validation.py`](numerics/primorial_block_validation.py).
+
+See [`numerics/README.md`](numerics/README.md) for exact commands, status boundaries, and generated hash manifests.
