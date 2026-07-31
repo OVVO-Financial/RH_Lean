@@ -1,0 +1,19 @@
+name: Diagnose export paper chunks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  hashes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/update-public-export-paper-numerics
+      - name: Print staged chunk hashes
+        run: sha256sum .export-paper-parts/part*
