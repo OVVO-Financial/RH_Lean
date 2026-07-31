@@ -29,7 +29,7 @@ import numpy as np
 
 
 def load_repro_module(path: Path):
-    spec = importlib.util.spec_from_file_location("squared_space_repro", path)
+    spec = importlib.util.spec_from_file_location("primorial_block_validation", path)
     if spec is None or spec.loader is None:
         raise RuntimeError(f"Unable to load {path}")
     module = importlib.util.module_from_spec(spec)
@@ -288,7 +288,7 @@ def main() -> None:
     args.out.mkdir(parents=True, exist_ok=True)
 
     script_dir = Path(__file__).resolve().parent
-    repro = load_repro_module(script_dir / "squared_space_reproducibility_v3.py")
+    repro = load_repro_module(script_dir / "primorial_block_validation.py")
 
     max_half_square = half_square(3 * args.boundary_mmax) + 4
     max_square_prefix = (args.nmax + 1) ** 2 - 1

@@ -2,6 +2,9 @@
 formalization/.lake/
 formalization/build/
 formalization/lean-build.log
+numerics/__pycache__/
+numerics/*.pyc
+numerics/results/
 paper/*.aux
 paper/*.bbl
 paper/*.bcf
@@ -10,6 +13,7 @@ paper/*.fdb_latexmk
 paper/*.fls
 paper/*.log
 paper/*.out
+paper/*.pdf
 paper/*.run.xml
 paper/*.synctex.gz
 paper/*.toc

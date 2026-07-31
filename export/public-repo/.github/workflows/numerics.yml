@@ -13,7 +13,7 @@ permissions:
 jobs:
   reproduce:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -29,14 +29,21 @@ jobs:
       - name: Record environment
         run: |
           mkdir -p numerics/results
-          python --version > numerics/results/environment.txt
-          python -m pip freeze >> numerics/results/environment.txt
+          python --version > numerics/results/python-version.txt
+          python -m pip freeze > numerics/results/python-packages.txt
 
-      - name: Run paper reproducibility suite
+      - name: Record source hashes
         run: |
-          python numerics/squared_space_reproducibility_v3.py \
+          sha256sum \
+            numerics/primorial_block_validation.py \
+            numerics/analytic_kill_gates.py \
+            > numerics/results/SOURCE_SHA256SUMS.txt
+
+      - name: Run finite primorial-block validation
+        run: |
+          python numerics/primorial_block_validation.py \
             --nmax 4096 \
-            --out numerics/results/squared_space_repro_v2
+            --out numerics/results/primorial_block_validation
 
       - name: Run analytic falsification gates
         run: |
@@ -46,16 +53,18 @@ jobs:
             --rmax 240 \
             --cutoff 60 \
             --lambda-high 16 \
-            --out numerics/results/analytic_gate_results
+            --out numerics/results/analytic_kill_gates
 
-      - name: Hash outputs
-        if: always()
+      - name: Hash generated results
         run: |
-          find numerics/results -type f -print0 | sort -z | xargs -0 sha256sum > numerics/results/SHA256SUMS.txt
+          find numerics/results -type f \
+            ! -name 'SHA256SUMS.txt' \
+            -print0 | sort -z | xargs -0 sha256sum \
+            > numerics/results/SHA256SUMS.txt
 
       - name: Upload numerical archive
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: numerical-reproducibility-archive
+          name: prime-wheel-numerical-results
           path: numerics/results

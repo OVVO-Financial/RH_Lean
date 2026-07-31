@@ -1,17 +1,30 @@
 # Numerical reproducibility
 
-This directory contains deterministic numerical material referenced by the paper. These computations are diagnostics and reproducibility checks; they are not premises of the Lean theorems.
+The numerical programs are deterministic diagnostics and implementation checks. They are not theorem premises and do not prove the remaining maximal nonconcentration estimate.
 
-## Main paper run
+Install the pinned Python dependencies:
 
 ```bash
 python -m pip install -r requirements.txt
-python squared_space_reproducibility_v3.py \
-  --nmax 4096 \
-  --out results/squared_space_repro_v2
 ```
 
-The script reports exact integer identity checks and writes the CSV diagnostics named in its module docstring.
+## Finite primorial-block validation
+
+This is the program linked directly from Section 7 of the paper:
+
+```bash
+python primorial_block_validation.py \
+  --nmax 4096 \
+  --out results/primorial_block_validation
+```
+
+The implementation is byte-for-byte identical to the file previously named `squared_space_reproducibility_v3.py`; only its repository path changed. Its reused Git blob SHA is:
+
+```text
+98ad192eb59c1ad9cf31ab8cdbfc43cf0f8497ed
+```
+
+The historical module docstring is retained unchanged to preserve byte-level provenance.
 
 ## Analytic falsification gates
 
@@ -22,11 +35,16 @@ python analytic_kill_gates.py \
   --rmax 240 \
   --cutoff 60 \
   --lambda-high 16 \
-  --out results/analytic_gate_results
+  --out results/analytic_kill_gates
 ```
 
-The gates are explicitly diagnostic. In particular, reduced-mode inventories are not projection-norm proofs and do not establish the remaining maximal nonconcentration estimate.
+These gates test exact identities and search for finite-range failure modes. Passing them is not a proof of the open theorem.
 
-## Reproducibility record
+## Hash record
 
-The original sandbox did not contain a committed generated-output directory or fixed Python lockfile. The public workflow records package versions in each run and uploads all generated outputs as a GitHub Actions artifact. After selecting a release environment, commit a lockfile and release archive with `SHA256SUMS.txt` if permanent byte-for-byte reproduction is required.
+The numerical GitHub Actions workflow writes:
+
+- `results/SOURCE_SHA256SUMS.txt` for the two Python source files;
+- `results/SHA256SUMS.txt` for the generated numerical artifacts.
+
+The generated archive hash can change when paths, metadata, or output files change. The main validation program's content identity is separately preserved by the Git blob SHA above.

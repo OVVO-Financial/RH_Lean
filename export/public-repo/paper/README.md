@@ -1,15 +1,25 @@
-# Paper source
+# Paper
 
-The manuscript source is:
+The current manuscript is:
 
-`Squared_Complex_Framework_Elementary_Pointwise_Bridge.tex`
-
-A typical local build is:
-
-```bash
-latexmk -pdf Squared_Complex_Framework_Elementary_Pointwise_Bridge.tex
+```text
+seeded_prime_comb_harmonic_reduction.tex
 ```
 
-The source uses standard AMS packages together with TikZ/PGFPlots. A TeX Live installation including `latexmk`, `tikz`, `pgfplots`, `cleveref`, and `microtype` is recommended.
+It is titled **Seeded Prime-Comb Dynamics and the Finite Harmonic Reduction of Primorial-Block Möbius Sums**.
 
-Before publication, add the final paper URL, DOI, SSRN identifier, or journal citation to the repository root README.
+Compile from this directory with:
+
+```bash
+latexmk -pdf seeded_prime_comb_harmonic_reduction.tex
+```
+
+A standard TeX installation should provide `fontenc`, `inputenc`, `lmodern`, `microtype`, `geometry`, the AMS packages, `booktabs`, `array`, `longtable`, `enumitem`, `xcolor`, `hyperref`, `cleveref`, `fancyhdr`, and `lastpage`.
+
+The source contains clickable links to the public Lean theorem files after the corresponding proofs. Section 7 links directly to:
+
+```text
+../numerics/primorial_block_validation.py
+```
+
+The numerical computations are evidence and implementation checks; they are not premises of the formal theorem chain.
