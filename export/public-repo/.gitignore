@@ -2,6 +2,8 @@
 formalization/.lake/
 formalization/build/
 formalization/lean-build.log
+numerics/__pycache__/
+numerics/*.pyc
 numerics/results/
 paper/*.aux
 paper/*.bbl
