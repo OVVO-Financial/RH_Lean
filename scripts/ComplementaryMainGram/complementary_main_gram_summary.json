@@ -1,0 +1,100 @@
+{
+  "object": "complementary main L+Hhat_F, and residual pairing Gram",
+  "definitions": {
+    "H": "sum_{c<=t, all sqfree} -mu(c)(pi(U)-pi(L-1))",
+    "Hhat_F": "sum_{c<=t, all sqfree} -mu(c)(F(U)-F(L-1))",
+    "S": "M_odd((t+1)^2-1) - M_odd(ceil((t+1)^2/2)-1)",
+    "L": "S - H (born-smooth)",
+    "RF": "Hhat_F - H = Main - S = K + J + T (single residual; closes EXACTLY)"
+  },
+  "baseline": "trapezoidal cumulative 1/log (li-type)",
+  "exact_closures": [
+    "Main - RF == S  (max err ~ 0)",
+    "RF == K + J + T  (all-cofactor H; NO cofactor-convention gap)"
+  ],
+  "reproduced_qualitatively": [
+    "near-total cancellation of L+Hhat_F (survival < 0.01%)",
+    "raw cosine(L,Hhat) < -0.9999",
+    "L+Hhat_F nearly projection-like (alpha_orth close to 1)",
+    "Main-RF not projection-like (alpha far from 1)",
+    "2<K,J> dominant negative residual cross term; K/T, J/T negligible"
+  ],
+  "open": [
+    "exact digits are baseline/scale sensitive; a Li-baseline collaborator report at (N,H)=(2800,640) gives ~2x different amplitudes than this li-trapezoid harness",
+    "quantitative asymptotic alpha_orth(L,-Hhat) -> 1 (rate)"
+  ],
+  "grid": [
+    {
+      "N": 900,
+      "H": 180,
+      "closure_Main_minus_RF_eq_S_maxerr": 0.0,
+      "RF_eq_KplusJplusT_maxerr": 9.322320693172514e-12,
+      "energies": {
+        "L": 1475312074.0,
+        "Hhat": 1511929413.203129,
+        "H": 1499796346.0,
+        "S": 6427176.0,
+        "Main": 661912.1469119077,
+        "RF": 7388927.260210009,
+        "K": 7901134.832035146,
+        "J": 18457827.4551841,
+        "T": 52393.84682289775
+      },
+      "complementary_main": {
+        "survival_pct": 0.022157972488914435,
+        "raw_cosine_L_Hhat": -0.9998535402803788,
+        "centered_corr_L_Hhat": -0.9770433436081696,
+        "alpha_orth_L_on_negHhat": 0.9876716296989483,
+        "gap_from_1": 0.012328370301051716,
+        "energy_excess_coeff1_over_opt": 1.5317929441754161
+      },
+      "main_minus_RF": {
+        "alpha_orth_Main_on_RF": 0.10987138930609584,
+        "energy_excess_coeff1_over_opt": 11.222292444138677
+      },
+      "residual_pairing_gram": {
+        "2_K_J": -19744771.00079766,
+        "2_K_T": -236898.52518934297,
+        "2_J_T": 959240.6521549101,
+        "2_K_J_over_RF_energy": -2.672210769637008,
+        "centered_corr_K_J": -0.8244288227899753
+      }
+    },
+    {
+      "N": 1200,
+      "H": 240,
+      "closure_Main_minus_RF_eq_S_maxerr": 0.0,
+      "RF_eq_KplusJplusT_maxerr": 1.8701484805205837e-11,
+      "energies": {
+        "L": 5768577667.0,
+        "Hhat": 5790739823.595841,
+        "H": 5835905094.0,
+        "S": 14618083.0,
+        "Main": 1331284.4848757999,
+        "RF": 20698289.958588876,
+        "K": 62441340.7639226,
+        "J": 121902555.95682034,
+        "T": 117203.35149577858
+      },
+      "complementary_main": {
+        "survival_pct": 0.01151698174186214,
+        "raw_cosine_L_Hhat": -0.9998866679088995,
+        "centered_corr_L_Hhat": -0.9790734000910909,
+        "alpha_orth_L_on_negHhat": 0.9979714646317738,
+        "gap_from_1": 0.0020285353682262253,
+        "energy_excess_coeff1_over_opt": 1.018225195240911
+      },
+      "main_minus_RF": {
+        "alpha_orth_Main_on_RF": 0.1790363227661044,
+        "energy_excess_coeff1_over_opt": 21.889210272742353
+      },
+      "residual_pairing_gram": {
+        "2_K_J": -165700598.68692586,
+        "2_K_T": -2003248.4583031952,
+        "2_J_T": 3941037.0315792672,
+        "2_K_J_over_RF_energy": -8.005521181626284,
+        "centered_corr_K_J": -0.9485284251801976
+      }
+    }
+  ]
+}

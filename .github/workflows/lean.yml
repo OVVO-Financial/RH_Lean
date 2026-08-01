@@ -2,9 +2,12 @@ name: Lean verification
 
 on:
   pull_request:
-  push:
-    branches: [main]
-  workflow_dispatch:
+    paths:
+      - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
+      - 'lean-toolchain'                 # Lean version bumps
+      - 'lake-manifest.json'             # dependency/Mathlib bumps
+      - '.github/workflows/lean.yml'     # changes to the CI itself
+  workflow_dispatch:                     # manual "Run workflow" button
 
 permissions:
   contents: read
@@ -45,6 +48,10 @@ jobs:
         with:
           name: lean-build-log
           path: lean-build.log
+
+      - name: Print Lean build log
+        if: always()
+        run: cat lean-build.log
 
       - name: Fail if Lean build failed
         if: steps.directbuild.outcome == 'failure'

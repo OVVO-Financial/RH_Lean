@@ -133,7 +133,33 @@ Mobius arithmetic gives the exceptional contraction.
 
 The next analytic target is a cancellation-aware bound for the triangular kernel or for the exact weighted scale-transfer discrepancy. An absolute row-sum estimate discards the signed mechanism and is expected to be too weak.
 
-## 6. Corrections that must remain permanent
+## 6. Exact dyadic compression and the complete annulus
+
+Möbius doubling gives an exact sign-reversing transport. For odd `c` and odd prime `q`, the parent `(c,q)` and child `(2c,q)` have opposite source weights, the same transition `q-1`, and nested entries. Their common lifetime suffix cancels identically, leaving only
+
+```text
+[floor(sqrt(cq)), min(floor(sqrt(2cq)), q-1, horizon+1)).
+```
+
+For `X=R^2-1`, every prime-first cofactor fiber compresses exactly to its odd dyadic boundary:
+
+```text
+T_R = sum_{R<q<=X, q prime}
+        sum_{c odd, X<2cq<=2X} mu(c),
+-T_R = sum over the same sources of mu(cq).
+```
+
+Lean proves on every retained pair that `q=P+(cq)`, the canonical cofactor is `c`, `c<R<q`, and `cq<=X<2cq`.
+
+Separately, for every `B`,
+
+```text
+M(B) = sum_{m odd, B<2m<=2B} mu(m).
+```
+
+The high transport family is only the `P+(m)>R` part of this complete annulus. The `P+(m)<=R` smooth complement is not a small boundary; for example, at `R=5`, the source `15` belongs to the odd annulus for `X=24` but has largest prime factor `5`, so it is smooth rather than transport. Therefore the protected single dyadic criterion is the local energy of the complete annulus, equivalently the full `A-T` residual. A transport-only estimate is a distinct possible component and must retain the smooth complement or the complete signed interaction.
+
+## 7. Corrections that must remain permanent
 
 1. If every shell increment were exactly zero, then the cumulative death process would be constant. Autocorrelation matters for nonzero or only statistically centered increments, not for identically zero increments.
 2. Landau's theorem counts unrestricted almost-primes up to a size parameter. It does not directly give an asymptotic for the canonical largest-prime-factor population inside a constant-width difference-of-squares shell.
@@ -143,21 +169,20 @@ The next analytic target is a cancellation-aware bound for the triangular kernel
 6. Raw Euclidean interval scaling is not the correct aggregate model; prime density is an essential component of the low-to-high operator.
 7. A high finite-range correlation or `R^2` is evidence and diagnosis, not an asymptotic estimate.
 
-## 7. Next structural and analytic tests
+## 8. Next structural and analytic tests
 
-The next dependency-bounded work should combine the scale-transfer operator with the retained arithmetic coordinates:
+The next dependency-bounded work should combine the exact dyadic support with the retained arithmetic coordinates:
 
-1. identify each prime-first lower cofactor fiber directly with the existing `mertensSummatory` API;
-2. group the exact transform by `d=floor((R^2-1)/q)` and formalize the kernel `K_R(d)`;
-3. refine the kernel or discrepancy by Fermat residue lane, cofactor `omega`, and orientation;
-4. test whether multiplication by a new prime, orientation reversal, or another canonical transport maps admissible lanes to admissible lanes while flipping the Mobius sign;
-5. retain every unmatched boundary term and the born-smooth remainder explicitly;
-6. state a cancellation-aware operator estimate sufficient for the protected pointwise or uniform-local criterion;
-7. preserve the complete signed interaction when passing to energy.
+1. group the exact prime transform by `d=floor((R^2-1)/q)` and formalize the reciprocal kernel `K_R(d)`;
+2. refine the dyadic high/smooth partition by Fermat residue lane, cofactor `omega`, and orientation;
+3. test whether orientation reversal or another canonical transport pairs the smooth complement with the compressed high packets while flipping the Möbius sign;
+4. retain every unmatched boundary term and the born-smooth remainder explicitly;
+5. state a cancellation-aware joint estimate sufficient for the protected pointwise or uniform-local criterion;
+6. preserve the complete signed interaction when passing to energy.
 
 A successful operator or pairing theorem could be materially stronger than applying an unrestricted almost-prime asymptotic to the wrong population.
 
-## 8. Acceptance rule for every future PR
+## 9. Acceptance rule for every future PR
 
 Every PR must state:
 

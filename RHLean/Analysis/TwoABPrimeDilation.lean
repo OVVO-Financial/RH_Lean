@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.TwoABScaleTransfer
+import RHLean.Analysis.TwoABScaleTransfer
 
 /-!
 # Prime dilation and exact scale-transfer discrepancy
@@ -16,6 +16,10 @@ experiment.
 
 These are exact identities. No bound for the discrepancy or the prime-dilation
 operator is asserted.
+
+This module is classified under `RHLean/Analysis/` because its content is
+represented in the bridge paper; the namespace remains `RHLean.Proof` for API
+compatibility with existing references.
 -/
 
 noncomputable section

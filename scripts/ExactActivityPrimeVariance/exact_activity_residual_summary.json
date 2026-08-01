@@ -1,0 +1,35 @@
+{
+  "correction_to_pr": 99,
+  "canonical_model": "exact active-prime interval",
+  "activity_interval": {
+    "lower": "max(t+2, ceil((t+1)^2/(2c)))",
+    "upper": "floor(((t+1)^2-1)/c)"
+  },
+  "dominant_band_split_N5000": {
+    "band": [2048, 4096],
+    "historical_midpoint_diagonal_over_HN2": 1.770249,
+    "pure_prime_diagonal_over_HN2": 0.001432,
+    "lifetime_mismatch_diagonal_over_HN2": 1.699036,
+    "lifetime_share_of_historical_diagonal": 0.9598
+  },
+  "pure_prime_dominant_band_scaling": [
+    {"N": 1000, "band": [512, 1024], "diagonal_over_HN2": 0.00222918, "signed_over_HN2": 0.000949265},
+    {"N": 2000, "band": [1024, 2048], "diagonal_over_HN2": 0.00169418, "signed_over_HN2": 0.000748006},
+    {"N": 5000, "band": [2048, 4096], "diagonal_over_HN2": 0.00143206, "signed_over_HN2": 0.0010653},
+    {"N": 10000, "band": [4096, 8192], "diagonal_over_HN2": 0.0011979, "signed_over_HN2": 0.000534473},
+    {"N": 20000, "band": [8192, 16384], "diagonal_over_HN2": 0.00100999, "signed_over_HN2": 0.000734911},
+    {"N": 50000, "band": [16384, 32768], "diagonal_over_HN2": 0.000888216, "signed_over_HN2": 0.000578571},
+    {"N": 100000, "band": [32768, 65536], "diagonal_over_HN2": 0.000803612, "signed_over_HN2": 0.000599927},
+    {"N": 200000, "band": [65536, 131072], "diagonal_over_HN2": 0.000667425, "signed_over_HN2": 0.000194819}
+  ],
+  "finite_fits": {
+    "power_slope": -0.214,
+    "polylog_exponent": -2.009,
+    "interpretation": "finite evidence only"
+  },
+  "withdrawn_interpretations": [
+    "near-rank-one pure prime discrepancy",
+    "single Mellin-mode description of the pure prime discrepancy",
+    "Möbius Type-II power saving forced by the residual diagonal"
+  ]
+}

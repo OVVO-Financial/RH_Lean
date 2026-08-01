@@ -321,7 +321,7 @@ cancellation is arithmetic.
 
 ## 9. What is proved in Lean
 
-`RHLean/Proof/TwoABScaleTransfer.lean` proves without an analytic premise:
+`RHLean/Analysis/TwoABScaleTransfer.lean` proves without an analytic premise:
 
 1. exact source and finite-family `entered = smooth - transport` identities;
 2. exact canonical entry and largest-prime transition indices;
@@ -331,7 +331,7 @@ cancellation is arithmetic.
 6. `lambda^2=q/c` for continuous source dilation;
 7. exact finite weighted low-to-high scaling for every deterministic baseline.
 
-`RHLean/Proof/TwoABPrimeDilation.lean` additionally proves:
+`RHLean/Analysis/TwoABPrimeDilation.lean` additionally proves:
 
 8. at radius `sqrt(cq)`, square-root inversion exchanges `c` and `q` exactly;
 9. every observed upper interval is the baseline-scaled lower interval plus one

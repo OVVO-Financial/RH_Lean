@@ -18,6 +18,10 @@ It keeps three statements separate:
 No estimate for the multiplier-weighted Mobius sum is asserted. In particular,
 the exact scale transfer is a realization theorem, not an RH-scale cancellation
 theorem.
+
+This module is classified under `RHLean/Analysis/` because its content is
+represented in the bridge paper; the namespace remains `RHLean.Proof` for API
+compatibility with existing references.
 -/
 
 noncomputable section
