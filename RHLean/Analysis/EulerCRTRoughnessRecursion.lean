@@ -131,11 +131,12 @@ theorem roughMoebius_wheel_recursion
         rw [hL, hR, neg_zero]
   · -- `p ∤ n`: coprimality to `W` and to `W/p` agree.
     rw [if_neg hpn, sub_zero]
+    unfold roughMoebius
     by_cases hcop : Nat.Coprime n W
-    · simp [roughMoebius, hcop, (coprime_wheel_div_of_not_dvd hp hpW hpn).2 hcop]
+    · rw [if_pos hcop, if_pos ((coprime_wheel_div_of_not_dvd hp hpW hpn).2 hcop)]
     · have hnc : ¬ Nat.Coprime n (W / p) :=
         fun h => hcop ((coprime_wheel_div_of_not_dvd hp hpW hpn).1 h)
-      simp [roughMoebius, hcop, hnc]
+      rw [if_neg hcop, if_neg hnc]
 
 /-! ### The rough summatory function and the one-prime removal step -/
 
@@ -160,16 +161,10 @@ private theorem sum_dvd_div_range (p : ℕ) (f : ℕ → ℤ) :
   | succ x ih =>
       rw [Finset.sum_range_succ, ih]
       by_cases hdvd : p ∣ (x + 1)
-      · rw [if_pos hdvd]
-        have hbound : (x + 1) / p + 1 = (x / p + 1) + 1 := by
-          rw [Nat.succ_div, if_pos hdvd]
-        rw [hbound, Finset.sum_range_succ]
-        congr 1
-        rw [Nat.succ_div, if_pos hdvd]
-      · rw [if_neg hdvd, add_zero]
-        have hbound : (x + 1) / p + 1 = x / p + 1 := by
-          rw [Nat.succ_div, if_neg hdvd]
-        rw [hbound]
+      · have hdiv : (x + 1) / p = x / p + 1 := by rw [Nat.succ_div, if_pos hdvd]
+        rw [if_pos hdvd, hdiv, ← Finset.sum_range_succ]
+      · have hdiv : (x + 1) / p = x / p := by rw [Nat.succ_div, if_neg hdvd, add_zero]
+        rw [if_neg hdvd, add_zero, hdiv]
 
 /-- **One-prime Euler–CRT roughness removal.** For squarefree `W` and a prime
 `p ∣ W`, the multiplicative finite difference `𝒟_p T_W` equals `T_{W/p}`. -/
