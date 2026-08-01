@@ -124,6 +124,7 @@ import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Analysis.TwoABScaleTransfer
 import RHLean.Analysis.TwoABPrimeDilation
 import RHLean.Verification.FiniteRangeCertificates
+import RHLean.Analysis.EulerCRTRoughnessRecursion
 import RHLean.Analysis.FiniteTorusFourierPairing
 import RHLean.Arithmetic.PrimeWheelFiniteSystem
 import RHLean.Arithmetic.PrimorialWheelScale
