@@ -120,7 +120,7 @@ itself, with the `sqrt(m)` boundary geometry retained.
 
 ### 1. Multi-prime Möbius cubes
 
-**Status: UNTESTED.**
+**Status: TESTED / OPEN. Recorded by Issue #171.**
 
 Replace the one-prime operator `(I-T_2)` by finite products such as
 
@@ -133,6 +133,69 @@ Replace the one-prime operator `(I-T_2)` by finite products such as
 The required diagnostic must include complete interior cubes, every boundary
 face, the rough-core tail, and coherent/centered energies. Interior improvement
 is insufficient if boundary faces inherit the full coherent obstruction.
+
+Issue #171 ran this diagnostic on completed primorial blocks up to
+`W = 9,699,690`. Keep the four statuses below distinct.
+
+**Exact algebra established (identities, not estimates).**
+
+- The primorial-block residual is exactly the top Walsh coefficient of the
+  cofactor field on the Boolean divisor cube: `R_N = 2^k \hat f_N([k])`.
+- The comb–cofactor and mixed-Boolean-difference identities hold exactly.
+- The Euler–CRT roughness recursion `D_p T_W = T_{W/p}` (and its iterate
+  `prod_{p|d} D_p T_W = T_{W/d}`, telescoping to `M`) holds coefficientwise for
+  squarefree `W`, elementarily.
+- The completed prime-extension endpoint identity
+  `Z_{W->pW} = A_p(W,pW] + U_p A_p(W/p,W]` holds, with the local `{2,3}`-channel
+  maps acting as exact isometries of `N(T + D sqrt(-2)) = T^2 + 2 D^2`
+  (`z -> -z` for `p = 1 mod 6`, `z -> conj z` for `p = 5 mod 6`; square
+  deletion is contractive).
+
+**Falsified sub-mechanism (predeclared test).**
+
+- Pure CRT boundary sparsity does **not** explain the high-degree collapse.
+  High-degree packets are abundant (top-degree support fraction ~0.82 at
+  `W = 2310`, ~0.83 at `W = 30030`); geometric degree energy alone suppresses
+  the top layer only to the percent scale. This kills the "few packets reach
+  high codimension" explanation.
+
+**Diagnostic observation (numeric, not a theorem).**
+
+- The decisive high-degree suppression is Euler-weighted destructive
+  interference across the surviving packets: the degree-coherence ratio
+  `kappa_j` shows a transition from strong constructive coherence at low degree
+  to sub-incoherent recombination near the cube dimension.
+- The two-channel ellipse `D^2 + (1/2) T^2 <= phi(W)` held at every tested
+  prefix, at utilization ~0.61–0.93. This is evidence of near-sharpness, **not**
+  evidence of eventual failure and **not** a proof; the sequence is neither
+  monotone nor shown to stay below 1.
+
+**Unresolved analytic premise (open, RH-scale).**
+
+- The missing theorem is a degree-by-degree Euler–CRT coherence / spectral-gap
+  bound controlling energy propagation into the highest Boolean layers,
+  equivalently a completed-wheel non-zero-frequency lower bound. In the
+  two-channel contrast coordinate `T(x) = sum mu(n) eta(n)`, the twisted series
+  is governed by `1/L(s, chi_{-3})` while `M` is governed by `1/zeta`; a
+  full-prefix bound of the conjectured strength would therefore **imply** both
+  RH for `zeta` and the corresponding statement for `L(s, chi_{-3})`, and is at
+  least as deep as their conjunction. The two-coordinate endpoint state is
+  **not closed** (the child endpoint is not a function of the parent `(T,D)`
+  pair alone), so any proof needs an enlarged packet/character/Gram state; the
+  interior no-overshoot bound is a separate open target.
+
+### Do not repeat this route by
+
+- rerunning the same completed-wheel prefix statistic only at a larger `W` and
+  reporting "no violation found" as if it settled the constant;
+- renaming the same two-dimensional `(T,D)` state (8-channel, 2-channel,
+  `Z[sqrt(-2)]`, spectral-gap, backward-descent) and presenting it as a new
+  mechanism — the missing coordinates are not added by any of these;
+- introducing the analytic coherence bound as a Lean `axiom`, a `sorry`, or a
+  hypothesis wired into the protected RH theorem chain.
+
+The exact-identity layer above is suitable for independent formalization; the
+analytic premise must remain a named, unproven `Prop`.
 
 ### 2. Fixed multiplicative wavelets
 
