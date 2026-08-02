@@ -330,3 +330,59 @@ Until those items are discharged, the repository remains an axiom-free condition
 - [ ] Audit the full mask-specific diagonal family on the 14-dimensional quotient.
 - [ ] If diagonal feasibility fails, produce an exact rational dual certificate before moving to genuinely off-diagonal forms.
 - [ ] Any feasible rule must be tested for extension closure on the 31-dimensional `210 -> 2310` quotient.
+
+## Append-only reconciliation: PRs #175, #176, #177
+
+### PR #175 — formalization document reconciliation
+
+- [x] `FORMALIZATION_SEQUENCE.md` root inventory rederived from the live `RHLean.lean` import surface (145 theorem modules).
+- [x] PRs #172 and #173 recorded in this ledger.
+- [x] Euler–CRT slice placed before any extension-compatible spectral, Gram, endpoint, or no-overshoot estimate.
+- [x] Documentation only; no Lean source or theorem statement changed.
+
+### PR #176 — mask-specific diagonal Gram audit
+
+- [x] `research/MASK_SPECIFIC_DIAGONAL_30_210.md` added.
+- [x] `scripts/MaskSpecificDiagonalAudit/verify.py` added (standard library only).
+- [x] Exact rational dual certificate: any non-circular diagonal family needs parent budget `>= 368/3`.
+- [x] No Lean source, axiom surface, or protected-chain import changed.
+- [ ] Classification narrowed by the later dichotomy audit: the certificate refutes the seed constant `2`, not the diagonal family. See below.
+
+### PR #177 — off-diagonal quotient tautology
+
+- [x] `research/OFFDIAGONAL_QUOTIENT_TAUTOLOGY_30_210.md` added.
+- [x] `scripts/OffDiagonalQuotientTautology/verify.py` added (standard library only).
+- [x] Rank-one off-diagonal form shown feasible with exact parent budget `25/6 < 16`.
+- [x] No Lean source, axiom surface, or protected-chain import changed.
+- [ ] `V_210` misidentified as the null space of `chi_31`; the missing mask is `15`. Verdict "not quotient-stable" withdrawn. See below.
+
+## Append-only: Gram/Lyapunov dichotomy cycle
+
+### Research artifacts
+
+- [x] `research/GRAM_LYAPUNOV_DICHOTOMY.md` added.
+- [x] `scripts/GramLyapunovDichotomy/verify.py` added (standard library only; recomputes every prior published row rather than importing it).
+- [x] Zero-direct-square dichotomy proved exactly.
+- [x] Missing full-old-wheel-mask lemma proved exactly and checked at three consecutive primorial extensions.
+- [x] Tautology regeneration proved at `30 -> 210`, `210 -> 2310`, `2310 -> 30030`.
+- [x] Trajectory-pinning sandwich proved exactly; band factors below 5 through `(30030, 510510]`.
+- [x] PR #176 reclassified from CLOSED to OPEN AT A LARGER CONSTANT (`c >= 46/3`).
+- [x] PR #177 `V_210` misidentification confirmed and corrected.
+- [x] `RESEARCH_ROUTE_REGISTRY.md` records the closed sub-route.
+- [ ] Growth of the required constant `c_k` across two consecutive extensions: NOT TESTED.
+
+### Lean slice — NOT YET VERIFIED
+
+- [x] `roughInterval` and `roughInterval_wheel_recursion` added to `RHLean/Analysis/EulerCRTRoughnessRecursion.lean`.
+- [x] `scripts/check_paper_analysis_boundary.sh` passed locally.
+- [x] `scripts/audit_assumptions.sh` passed locally (source-level: no `sorry`, `admit`, or new `axiom`).
+- [ ] `lake build RHLean --wfail`: **NOT RUN**. The session runtime's network policy blocks `release.lean-lang.org`, so no Lean toolchain could be installed and no local compilation was possible. `lean.yml` is `pull_request`-triggered only, so the branch push produced no CI run either.
+- [ ] This slice must not be treated as LEAN-FORMALIZED until a CI run reports `lake build RHLean --wfail` green.
+
+### Current next dependency
+
+- [x] Audit the full mask-specific diagonal family on the 14-dimensional quotient (PR #176).
+- [x] Test genuinely off-diagonal forms (PR #177).
+- [x] Determine whether the declared next family is non-empty: it is not (dichotomy).
+- [ ] Reproduce the PR #176 dual construction at `210 -> 2310` and report the required constant `c_k` at two consecutive extensions.
+- [ ] Solve the state-closure problem: an induction state preserved by prime extension on which parent and child bounds concern the same object.

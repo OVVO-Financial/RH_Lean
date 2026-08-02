@@ -16,7 +16,10 @@ Contents (this slice only):
 * `multDiff p F x` — the one-prime multiplicative finite difference
   `(𝒟_p F)(x) = F(x) − F(⌊x/p⌋)`;
 * `roughMoebius_wheel_recursion` — the coefficientwise identity;
-* `roughMertens_wheel_recursion` — `𝒟_p T_W = T_{W/p}` for `p ∣ W`, `W` squarefree.
+* `roughMertens_wheel_recursion` — `𝒟_p T_W = T_{W/p}` for `p ∣ W`, `W` squarefree;
+* `roughInterval W L U` — the rough interval sum `T_W(U) − T_W(L)`;
+* `roughInterval_wheel_recursion` — the interval form of the same recursion,
+  `T_{W/p}(L,U] = T_W(L,U] − T_W(⌊L/p⌋,⌊U/p⌋]`.
 
 Later slices (iteration over divisors, telescope to `M`, the `ℤ[√−2]`
 isometries, the Boolean/Walsh layer) are added only once this slice is green in
@@ -180,5 +183,29 @@ theorem roughMertens_wheel_recursion
     exact Finset.sum_congr rfl (fun n _ => roughMoebius_wheel_recursion hp hpW hW n)
   rw [hpoint, Finset.sum_sub_distrib, sum_dvd_div_range p (roughMoebius W) x]
   rfl
+
+/-! ### Interval form of the one-prime removal step -/
+
+/-- The rough interval sum `T_W(L,U] = T_W(U) − T_W(L)`. -/
+def roughInterval (W L U : ℕ) : ℤ := roughMertens W U - roughMertens W L
+
+/-- **Interval form of the one-prime Euler–CRT roughness removal.**  Removing the
+prime `p` from the wheel subtracts the sum over the dilated interval:
+`T_{W/p}(L,U] = T_W(L,U] − T_W(⌊L/p⌋,⌊U/p⌋]`.
+
+This is the exact two-channel `A − B` split used by the interval-packet
+recursion: `A` is the sum over the interval itself and `B` the sum over its
+`p`-dilate.  It is a direct consequence of `roughMertens_wheel_recursion`; no
+analytic estimate is involved. -/
+theorem roughInterval_wheel_recursion
+    {W p : ℕ} (hp : p.Prime) (hpW : p ∣ W) (hW : Squarefree W) (L U : ℕ) :
+    roughInterval (W / p) L U
+      = roughInterval W L U - roughInterval W (L / p) (U / p) := by
+  have hU := roughMertens_wheel_recursion hp hpW hW U
+  have hL := roughMertens_wheel_recursion hp hpW hW L
+  unfold multDiff at hU hL
+  unfold roughInterval
+  rw [← hU, ← hL]
+  ring
 
 end RHLean.Analysis
