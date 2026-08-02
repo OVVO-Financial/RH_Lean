@@ -19,7 +19,10 @@ Contents (this slice only):
 * `roughMertens_wheel_recursion` — `𝒟_p T_W = T_{W/p}` for `p ∣ W`, `W` squarefree;
 * `roughInterval W L U` — the rough interval sum `T_W(U) − T_W(L)`;
 * `roughInterval_wheel_recursion` — the interval form of the same recursion,
-  `T_{W/p}(L,U] = T_W(L,U] − T_W(⌊L/p⌋,⌊U/p⌋]`.
+  `T_{W/p}(L,U] = T_W(L,U] − T_W(⌊L/p⌋,⌊U/p⌋]`;
+* `roughMertens_prime_extension` — the prime-*extension* direction,
+  `T_{pW}(x) = T_W(x) + T_{pW}(⌊x/p⌋)`, which is the scale-indexed state
+  transfer discussed in the research notes.
 
 Later slices (iteration over divisors, telescope to `M`, the `ℤ[√−2]`
 isometries, the Boolean/Walsh layer) are added only once this slice is green in
@@ -206,6 +209,29 @@ theorem roughInterval_wheel_recursion
   unfold multDiff at hU hL
   unfold roughInterval
   rw [← hU, ← hL]
+  ring
+
+/-! ### The prime-extension direction -/
+
+/-- **Prime extension of the roughness wheel.**  Adjoining a prime `p` to a
+squarefree wheel `W` satisfies `T_{pW}(x) = T_W(x) + T_{pW}(⌊x/p⌋)`.
+
+This is `roughMertens_wheel_recursion` applied to the wheel `pW` and rearranged;
+it is the transfer law for the scale-indexed state `y ↦ T_W(y)`, on which the
+parent and child assertions are statements about the same object.  Iterating it
+gives the geometric form `T_{pW}(x) = ∑_{j ≥ 0} T_W(⌊x/pʲ⌋)`, which is not
+formalized here.  Nothing analytic is claimed: the descent through this law
+costs a factor `2` per prime removed, and that loss is exactly the unproved
+cancellation the research notes record as open. -/
+theorem roughMertens_prime_extension
+    {W p : ℕ} (hp : p.Prime) (hpW : Squarefree (p * W)) (x : ℕ) :
+    roughMertens (p * W) x = roughMertens W x + roughMertens (p * W) (x / p) := by
+  have hdvd : p ∣ p * W := ⟨W, rfl⟩
+  have hdiv : (p * W) / p = W := Nat.mul_div_cancel_left W hp.pos
+  have h := roughMertens_wheel_recursion hp hdvd hpW x
+  rw [hdiv] at h
+  unfold multDiff at h
+  rw [← h]
   ring
 
 end RHLean.Analysis

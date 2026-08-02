@@ -205,7 +205,62 @@ strength, produces no growth — and closure requires growth.
 `c_3` at `2310 -> 30030` was attempted and is **not** reported: the
 floating-point LP breaks down at that dynamic range.
 
-### State closure: the obstruction is an interval mismatch
+### State closure: SOLVED, and it was not the bottleneck
+
+**Status: SOLVED. Recorded by
+[`research/PRIME_EXTENSION_STATE_CLOSURE.md`](research/PRIME_EXTENSION_STATE_CLOSURE.md)
+and [`scripts/PrimeExtensionStateClosure/verify.py`](scripts/PrimeExtensionStateClosure/verify.py).**
+
+A genuinely closed prime-extension state exists. It is not an enlargement of the
+packet state — it is a change of index. Take as state the whole **scale-indexed**
+rough summatory function `T_W : y |-> sum_{n <= y, (n,W)=1} mu(n)`, and as the
+level-`W` assertion a sup bound `|T_W(y)| <= Phi(y)` for `y <= X`. Parent and
+child assertions are then the same predicate on the same kind of object over the
+same scales. The exact transfer law is
+
+```text
+T_{pW}(x) = T_W(x) + T_{pW}(floor(x/p)),
+T_{pW}(x) = sum_{j >= 0} T_W(floor(x/p^j)),
+```
+
+and reading it downward gives the exact telescope
+`M(x) = sum_{d|W} mu(d) T_W(floor(x/d))`.
+
+**Having this changes nothing**, for two independently sufficient reasons:
+
+1. **The generic descent costs a factor `2` per prime.** The triangle inequality
+   gives only `|M(x)| <= 2^k sup_{y<=x} |T_{W_k}(y)|`. Measured at `x = 20000`
+   where `|M(x)| = 26`, the slack runs `19x, 80x, 265x, 745x` for
+   `W_k = 6, 30, 210, 2310`. With `W_k` the primorial of primes up to `z` the
+   loss is `2^{pi(z)}`.
+2. **The base case is RH-equivalent.** For `p_k < y < p_{k+1}^2` one has exactly
+   `T_{W_k}(y) = 1 + k - pi(y)`, verified for `k = 1..5`. A sup bound on the base
+   is a prime-counting error bound; at RH strength it is the conclusion.
+
+So state closure is **not** the bottleneck, and the earlier framing that listed
+it as the remaining content of obligation A is corrected here. The bottleneck is
+signed cancellation.
+
+### Reframing of obligation A
+
+Obligation A should no longer be stated as "construct an enlarged
+extension-compatible state with a positive quadratic form": that formulation is
+now closed from three directions (the dichotomy, the trajectory pinning, and the
+state closure above). State it as what it always reduced to:
+
+> Exhibit signed cancellation between `T_{pW}(x)` and `T_{pW}(floor(x/p))` — or
+> equivalently among the `2^k` terms of the exact telescope
+> `M(x) = sum_{d|W} mu(d) T_W(floor(x/d))` — strong enough to beat the `2^k`
+> triangle-inequality loss.
+
+Three successive cycles have found the same shape: an exact structure that
+reproduces the target rather than controlling it. Full telescoping is
+tautological; the zero-direct-square Gram class exists exactly when the
+annihilator reconstructs the target; and the closed induction has an
+RH-equivalent base. Any proposal that does not address the signed sum directly
+is, on that evidence, a reparameterization.
+
+### Superseded: the interval-mismatch diagnosis
 
 The enlarged extension state has components on different intervals: `A_C(U)` sums
 over the child block `(W, pW]` while `B_C(U)` sums over the dilate `(W/p, U/p]`,
@@ -219,6 +274,10 @@ and `W/p` is never the previous primorial `W_{k-1}`. Two distinct failures follo
 
 No positive form on the current enlarged state can close the induction, whatever
 its feasibility at any single wheel.
+
+That diagnosis stands for the packet state. Its **prescription** — enlarge the
+packet state — was wrong: the fix is to stop indexing by block, as recorded in
+the state-closure entry above.
 
 A future Gram argument must first solve the state-closure problem: exhibit an
 induction state preserved by prime extension on which the parent and child bounds

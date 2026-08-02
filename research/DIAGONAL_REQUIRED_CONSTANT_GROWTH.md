@@ -1,8 +1,8 @@
-# Required-constant growth test for the diagonal family: `30 -> 210` and `210 -> 2310`
+# Required-constant growth test for the diagonal family: `30 -> 210 -> 2310 -> 30030`
 
 ## Status
 
-**Predeclared test executed. Outcome: NO GROWTH.**
+**Predeclared test executed. Outcome: NO GROWTH across three consecutive extensions.**
 
 The previous cycle narrowed PR #176 from *CLOSED BY EXACT RATIONAL SEPARATING
 CERTIFICATE* to *OPEN AT A LARGER CONSTANT*, on the ground that a certificate
@@ -14,10 +14,11 @@ the extension chain, and predeclared:
 > **GROWING `c_k`:** the family is closed for the first time, with the growth
 > exhibited.
 
-The measurement has now been run at the first two consecutive primorial
-extensions. The required constant does **not** grow. It falls, by a factor of
-roughly `0.43`, and the same direction is reproduced by four independent test
-families. **The diagonal family is not closed.**
+The measurement has now been run at the first three consecutive primorial
+extensions. The required constant does **not** grow: it falls by a factor of
+roughly `0.43` from the first to the second, reproduced by four independent test
+families, and at the third it remains bounded and far below `c_1`.
+**The diagonal family is not closed.**
 
 Verifier: [`scripts/DiagonalConstantGrowth/verify.py`](../scripts/DiagonalConstantGrowth/verify.py)
 (exact rational, standard library only).
@@ -170,11 +171,73 @@ little meaning. What survives all three is the operational conclusion:
 > open. The burden is on any future closure claim to exhibit growth, not on this
 > note to exclude it.
 
-**(d) A third extension was attempted and failed.** At `2310 -> 30030` the
-floating-point LP breaks down (unbounded pivot with no positive ratio) at the
-dynamic range involved — states over 27720 integers give squared entries in the
-millions. No `c_3` is reported. A third data point needs exact or better
-conditioned arithmetic and is left as future work.
+**(d) A third extension was attempted; the solver fails, not the problem.**
+
+At `2310 -> 30030` the hand-rolled floating-point simplex reports an unbounded
+ray and returns no value. That report is **wrong**, and it is worth recording why,
+because the earlier note left it as an unexplained "breakdown".
+
+An unbounded dual would mean an infeasible primal. But the primal is provably
+feasible: the uniform construction
+
+```text
+x_D = lambda  for D != 0,   y_C = 2 lambda / (p-1),   lambda = max_U s_0(U)^2 / sum_{D!=0} s_D(U)^2
+```
+
+satisfies all three constraint families at every level by construction, and gives
+the exact (very weak) bounds
+
+| extension | `lambda` | `b` | `c` |
+|:--|--:|--:|--:|
+| `30 -> 210` | `1/15` | `1792/5` | `44.80` |
+| `210 -> 2310` | `9/71` | `9819936/355` | `576.29` |
+| `2310 -> 30030` | `25/423` | `228198400/423` | `1123.91` |
+
+So the level-3 LP is feasible and bounded. The failure is in the solver: the LP
+is massively degenerate — every row has right-hand side `0` except one — and a
+Dantzig entering rule with a smallest-ratio tie-break stalls on it. Column
+equilibration cut the level-2 solve time from 340 s to 3.4 s and reproduced its
+optimum exactly, but did not fix the level-3 stall.
+
+The uniform construction's numbers *rise* across levels. That is **not** evidence
+of growth: they are upper bounds, and rising upper bounds are uninformative about
+the truth. They are reported only to establish feasibility and to bound the
+search.
+
+### A third data point, obtained by sidestepping the stall
+
+The stall is avoided by solving the LP on a **subsample** of the test family and
+then repairing the resulting weights exactly against the **full** family. The
+repair scales `x` up until output domination holds on every one of the 16300
+states, then scales `y` up until extension compatibility holds on every one; the
+result is feasible for the full family whatever its origin, so the budget it
+attains is a valid upper bound on the full LP optimum. Validated by reproducing
+the level-2 optimum exactly (repair factors `1.0000`, `1.0000`).
+
+At `2310 -> 30030` with a 1254-state subsample (repair factors `1.3306` and
+`1.5843`):
+
+```text
+b_3 <= 17992014840030231/12500000000000 = 1439.3612...
+c_3 <= 5997338280010077/2000000000000000 = 2.9986691...
+```
+
+and the subsample LP optimum, being a relaxation, gives the indicative lower end
+`c_3 >~ 1.8334` (float-derived, **not** exactly certified).
+
+So the three-level picture is
+
+```text
+c_1 = 4.5248843    (exact LP optimum, two-sided)
+c_2 = 1.9589591    (exact LP optimum, two-sided)
+c_3 in [~1.83, 2.9987]   (upper end exactly certified, lower end indicative)
+```
+
+The constant is **bounded** across three consecutive extensions and stays far
+below `c_1`. The level-3 bracket straddles `c_2`, so this does **not** establish
+that the fall continues — only that no growth is exhibited. That distinction is
+the whole content of the test, and it is the reason `c_3` is reported as a
+bracket rather than a value.
 
 ## 6. Effect on the ledger
 
@@ -234,7 +297,9 @@ the previous cycle.
 - `c_2 < c_1`, hence no growth: **PROVED EXACTLY** for the declared families;
   **NOT** proved for the true minimal constants;
 - PR #176 remains **OPEN AT A LARGER CONSTANT**;
-- `c_3` at `2310 -> 30030`: **NOT COMPUTED** (numerical breakdown);
+- `c_3` at `2310 -> 30030`: **UPPER BOUND PROVED EXACTLY**
+  (`c_3 <= 5997338280010077/2000000000000000`); lower end indicative only, and
+  the bracket does not resolve `c_3` against `c_2`;
 - interval mismatch of the enlarged state: **PROVED EXACTLY** (elementary, three
   extensions tabulated);
 - state closure: **STILL OPEN**;
