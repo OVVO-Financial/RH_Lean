@@ -116,6 +116,64 @@ and [`experiments/omega_parity_orientation.py`](experiments/omega_parity_orienta
 A future omega-parity theorem must control the full transport sum `A_high`
 itself, with the `sqrt(m)` boundary geometry retained.
 
+## Closed route: Euler–CRT roughness as an RH mechanism
+
+**Status: CLOSED AS A STANDALONE RH-DISCOVERY ROUTE. Owner decision recorded by PR #180.**
+
+The exact Euler–CRT identities, their Lean formalizations, and the finite no-go
+certificates are retained. What is closed is the proposal that repeated wheel
+extension, packet enlargement, positive Gram/Lyapunov control, or cancellation
+inside the exact divisor telescope supplies an independent RH mechanism.
+
+The closure rests on four convergent findings:
+
+1. **Single-wheel positive forms are tautological or trajectory-pinned.** The
+   zero-direct-square class exists exactly when a compatibility annihilator
+   reconstructs the target; pointwise variants are pinned to the target scale.
+2. **The required diagonal constant does not exhibit growth.** Exact finite-family
+   certificates remain bounded through three consecutive primorial extensions;
+   the separating-certificate program therefore does not close the family.
+3. **A prime-extension-closed state exists, but its base is RH-equivalent.** The
+   scale-indexed rough summatory function closes exactly under prime extension,
+   yet the resulting descent merely reproduces the target and loses cancellation.
+4. **The telescope-cancellation target is not viable.** Marginal bounds make the
+   triangle inequality optimal; the honest cancellation requirement worsens with
+   every prime added; regrouping exactly undoes the expansion; and bounded-depth
+   truncation misses the last-mile parity cancellation.
+
+See
+[`research/GRAM_LYAPUNOV_DICHOTOMY.md`](research/GRAM_LYAPUNOV_DICHOTOMY.md),
+[`research/DIAGONAL_REQUIRED_CONSTANT_GROWTH.md`](research/DIAGONAL_REQUIRED_CONSTANT_GROWTH.md),
+[`research/PRIME_EXTENSION_STATE_CLOSURE.md`](research/PRIME_EXTENSION_STATE_CLOSURE.md),
+and
+[`research/TELESCOPE_CANCELLATION_LIMITS.md`](research/TELESCOPE_CANCELLATION_LIMITS.md).
+
+### Exact results retained
+
+- coefficientwise Euler–CRT roughness removal;
+- interval roughness recursion;
+- prime-extension transfer for the scale-indexed rough summatory function;
+- Boolean/Walsh and packet identities already formalized or recorded;
+- exact rational finite certificates and route-falsification verifiers.
+
+### Do not repeat this route by
+
+- enlarging the primorial wheel and asking the same telescope to create more
+  cancellation;
+- regrouping, truncating, or reweighting the invertible divisor expansion without
+  introducing genuinely new joint arithmetic information;
+- searching another one-wheel positive form, sparsity pattern, symmetry class,
+  or coordinate renaming;
+- treating a closed-state identity or an RH-equivalent base estimate as a
+  reduction;
+- importing centered Type-I/II estimates that leave the coherent mode untouched,
+  which is already forbidden by the closed dyadic Li-residual route.
+
+A successor may reuse the exact Euler–CRT infrastructure only if it introduces a
+materially new, non-invertible mechanism—such as a bilinear decomposition with
+an explicit coherent-mode estimate—and passes the registry acceptance rule from
+the outset.
+
 ## Closed sub-route: single-wheel Gram/Lyapunov feasibility search
 
 **Status: CLOSED AS A DISCOVERY METHOD. Recorded by this note.**
@@ -333,7 +391,11 @@ are statements about the same object. The current enlarged state mixes scales
 
 ### 1. Multi-prime Möbius cubes
 
-**Status: TESTED / OPEN. Recorded by Issue #171.**
+**Status: CLOSED AS A STANDALONE RH MECHANISM. See the Euler–CRT route closure above.**
+
+The exact algebra and finite diagnostics below are retained as infrastructure,
+but this item is no longer an active route unless a successor introduces a
+materially new non-invertible mechanism satisfying the acceptance rule.
 
 Replace the one-prime operator `(I-T_2)` by finite products such as
 
@@ -383,19 +445,16 @@ Issue #171 ran this diagnostic on completed primorial blocks up to
   evidence of eventual failure and **not** a proof; the sequence is neither
   monotone nor shown to stay below 1.
 
-**Unresolved analytic premise (open, RH-scale).**
+**Former analytic premise (withdrawn as a route target).**
 
-- The missing theorem is a degree-by-degree Euler–CRT coherence / spectral-gap
-  bound controlling energy propagation into the highest Boolean layers,
-  equivalently a completed-wheel non-zero-frequency lower bound. In the
-  two-channel contrast coordinate `T(x) = sum mu(n) eta(n)`, the twisted series
-  is governed by `1/L(s, chi_{-3})` while `M` is governed by `1/zeta`; a
-  full-prefix bound of the conjectured strength would therefore **imply** both
-  RH for `zeta` and the corresponding statement for `L(s, chi_{-3})`, and is at
-  least as deep as their conjunction. The two-coordinate endpoint state is
-  **not closed** (the child endpoint is not a function of the parent `(T,D)`
-  pair alone), so any proof needs an enlarged packet/character/Gram state; the
-  interior no-overshoot bound is a separate open target.
+- The degree-by-degree Euler–CRT coherence / spectral-gap premise remains a
+  mathematically meaningful statement, but within this branch it is not a
+  reduction: the surrounding exact structures are invertible re-expressions of
+  the target, and the full-prefix strength would already imply RH-scale control
+  for both `zeta` and `L(s, chi_{-3})`.
+- It must not be reintroduced as a Lean `axiom`, `sorry`, or protected-chain
+  hypothesis, nor presented as progress without a genuinely new mechanism that
+  controls the coherent mode.
 
 ### Do not repeat this route by
 
@@ -407,8 +466,7 @@ Issue #171 ran this diagnostic on completed primorial blocks up to
 - introducing the analytic coherence bound as a Lean `axiom`, a `sorry`, or a
   hypothesis wired into the protected RH theorem chain.
 
-The exact-identity layer above is suitable for independent formalization; the
-analytic premise must remain a named, unproven `Prop`.
+The exact-identity layer above remains suitable for independent formalization.
 
 ### 2. Fixed multiplicative wavelets
 
