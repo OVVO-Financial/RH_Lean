@@ -3,11 +3,7 @@ name: Reconcile formalization ledger
 on:
   push:
     branches:
-      - agent/reconcile-formalization-ledger
-  pull_request:
-    branches:
       - main
-    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
@@ -19,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: agent/reconcile-formalization-ledger
+          ref: main
           fetch-depth: 0
 
       - name: Reconcile canonical documents
@@ -67,4 +63,4 @@ jobs:
             exit 0
           fi
           git commit -m 'Reconcile formalization ledger after PRs 172 and 173'
-          git push origin HEAD:agent/reconcile-formalization-ledger
+          git push origin HEAD:main
