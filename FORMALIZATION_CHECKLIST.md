@@ -371,13 +371,19 @@ Until those items are discharged, the repository remains an axiom-free condition
 - [x] `RESEARCH_ROUTE_REGISTRY.md` records the closed sub-route.
 - [ ] Growth of the required constant `c_k` across two consecutive extensions: NOT TESTED.
 
-### Lean slice — NOT YET VERIFIED
+### Lean slice — VERIFIED by PR #178 / CI run #697
 
 - [x] `roughInterval` and `roughInterval_wheel_recursion` added to `RHLean/Analysis/EulerCRTRoughnessRecursion.lean`.
-- [x] `scripts/check_paper_analysis_boundary.sh` passed locally.
-- [x] `scripts/audit_assumptions.sh` passed locally (source-level: no `sorry`, `admit`, or new `axiom`).
-- [ ] `lake build RHLean --wfail`: **NOT RUN**. The session runtime's network policy blocks `release.lean-lang.org`, so no Lean toolchain could be installed and no local compilation was possible. `lean.yml` is `pull_request`-triggered only, so the branch push produced no CI run either.
-- [ ] This slice must not be treated as LEAN-FORMALIZED until a CI run reports `lake build RHLean --wfail` green.
+- [x] `scripts/check_paper_analysis_boundary.sh` passed.
+- [x] `scripts/audit_assumptions.sh` passed.
+- [x] `lake build RHLean --wfail` passed. Lean verification run **#697** (`30728380660`) on PR #178, head `85d1d28454713ac712fad0860b08d8c07b27d0f8`, merge commit `43a6262b6d356597074a7fafb58ca602e82b8d61`, merged 2026-08-02.
+- [x] `roughInterval` and `roughInterval_wheel_recursion` are therefore classified **LEAN-FORMALIZED**.
+
+The provisional "NOT RUN / must not be treated as formalized" marking recorded when
+this slice was written is superseded: it reflected a session runtime whose network
+policy blocked `release.lean-lang.org`, preventing local compilation, and a
+`pull_request`-triggered `lean.yml` that produced no run on a bare branch push.
+Both were resolved by opening PR #178.
 
 ### Current next dependency
 
@@ -386,3 +392,30 @@ Until those items are discharged, the repository remains an axiom-free condition
 - [x] Determine whether the declared next family is non-empty: it is not (dichotomy).
 - [ ] Reproduce the PR #176 dual construction at `210 -> 2310` and report the required constant `c_k` at two consecutive extensions.
 - [ ] Solve the state-closure problem: an induction state preserved by prime extension on which parent and child bounds concern the same object.
+
+## Append-only: required-constant growth test
+
+### Research artifacts
+
+- [x] `research/DIAGONAL_REQUIRED_CONSTANT_GROWTH.md` added.
+- [x] `scripts/DiagonalConstantGrowth/verify.py` added (standard library only; embeds two-sided exact rational certificates).
+- [x] LP dual shown equivalent to the PR #176 certificate structure; `368/3` reproduced as the exact optimum of its own test family.
+- [x] Exact dual certificate at `30 -> 210`: `b_1 >= 7819/216`, so `c_1 >= 7819/1728 = 4.5248843...`.
+- [x] Exact primal certificate at `210 -> 2310`: `b_2 <= 23511351/250000`, so `c_2 <= 7837117/4000000 = 1.9592793...`.
+- [x] Predeclared growth test discharged: the required constant FALLS, ratio at most `0.4330`.
+- [x] Same direction reproduced by four independent test families.
+- [x] PR #176 confirmed **OPEN AT A LARGER CONSTANT** by direct measurement.
+- [x] State-closure obstruction identified exactly as an interval mismatch (wheel-depth recursion versus per-block budget).
+- [ ] `c_3` at `2310 -> 30030`: NOT COMPUTED — the floating-point LP breaks down at that dynamic range.
+- [ ] True minimal constants (full quantified constraints, not a finite test family): NOT DETERMINED.
+- [ ] State closure itself: STILL OPEN.
+
+### Lean
+
+- [x] No Lean source, axiom surface, or protected theorem-chain import changed by this cycle.
+
+### Current next dependency
+
+- [x] Reproduce the PR #176 dual construction at `210 -> 2310` and report `c_k` at two consecutive extensions.
+- [ ] Recompute `c_3` with exact or better-conditioned arithmetic to extend the growth test to a third extension.
+- [ ] Solve the prime-extension state-closure problem: an induction state on which the parent and child bounds concern the same object, bridging wheel-depth recursion and per-block budget.
