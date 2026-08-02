@@ -116,6 +116,64 @@ and [`experiments/omega_parity_orientation.py`](experiments/omega_parity_orienta
 A future omega-parity theorem must control the full transport sum `A_high`
 itself, with the `sqrt(m)` boundary geometry retained.
 
+## Closed route: Euler–CRT roughness as an RH mechanism
+
+**Status: CLOSED AS A STANDALONE RH-DISCOVERY ROUTE. Owner decision recorded by PR #180.**
+
+The exact Euler–CRT identities, their Lean formalizations, and the finite no-go
+certificates are retained. What is closed is the proposal that repeated wheel
+extension, packet enlargement, positive Gram/Lyapunov control, or cancellation
+inside the exact divisor telescope supplies an independent RH mechanism.
+
+The closure rests on four convergent findings:
+
+1. **Single-wheel positive forms are tautological or trajectory-pinned.** The
+   zero-direct-square class exists exactly when a compatibility annihilator
+   reconstructs the target; pointwise variants are pinned to the target scale.
+2. **The required diagonal constant does not exhibit growth.** Exact finite-family
+   certificates remain bounded through three consecutive primorial extensions;
+   the separating-certificate program therefore does not close the family.
+3. **A prime-extension-closed state exists, but its base is RH-equivalent.** The
+   scale-indexed rough summatory function closes exactly under prime extension,
+   yet the resulting descent merely reproduces the target and loses cancellation.
+4. **The telescope-cancellation target is not viable.** Marginal bounds make the
+   triangle inequality optimal; the honest cancellation requirement worsens with
+   every prime added; regrouping exactly undoes the expansion; and bounded-depth
+   truncation misses the last-mile parity cancellation.
+
+See
+[`research/GRAM_LYAPUNOV_DICHOTOMY.md`](research/GRAM_LYAPUNOV_DICHOTOMY.md),
+[`research/DIAGONAL_REQUIRED_CONSTANT_GROWTH.md`](research/DIAGONAL_REQUIRED_CONSTANT_GROWTH.md),
+[`research/PRIME_EXTENSION_STATE_CLOSURE.md`](research/PRIME_EXTENSION_STATE_CLOSURE.md),
+and
+[`research/TELESCOPE_CANCELLATION_LIMITS.md`](research/TELESCOPE_CANCELLATION_LIMITS.md).
+
+### Exact results retained
+
+- coefficientwise Euler–CRT roughness removal;
+- interval roughness recursion;
+- prime-extension transfer for the scale-indexed rough summatory function;
+- Boolean/Walsh and packet identities already formalized or recorded;
+- exact rational finite certificates and route-falsification verifiers.
+
+### Do not repeat this route by
+
+- enlarging the primorial wheel and asking the same telescope to create more
+  cancellation;
+- regrouping, truncating, or reweighting the invertible divisor expansion without
+  introducing genuinely new joint arithmetic information;
+- searching another one-wheel positive form, sparsity pattern, symmetry class,
+  or coordinate renaming;
+- treating a closed-state identity or an RH-equivalent base estimate as a
+  reduction;
+- importing centered Type-I/II estimates that leave the coherent mode untouched,
+  which is already forbidden by the closed dyadic Li-residual route.
+
+A successor may reuse the exact Euler–CRT infrastructure only if it introduces a
+materially new, non-invertible mechanism—such as a bilinear decomposition with
+an explicit coherent-mode estimate—and passes the registry acceptance rule from
+the outset.
+
 ## Closed sub-route: single-wheel Gram/Lyapunov feasibility search
 
 **Status: CLOSED AS A DISCOVERY METHOD. Recorded by this note.**
@@ -205,7 +263,106 @@ strength, produces no growth — and closure requires growth.
 `c_3` at `2310 -> 30030` was attempted and is **not** reported: the
 floating-point LP breaks down at that dynamic range.
 
-### State closure: the obstruction is an interval mismatch
+### State closure: SOLVED, and it was not the bottleneck
+
+**Status: SOLVED. Recorded by
+[`research/PRIME_EXTENSION_STATE_CLOSURE.md`](research/PRIME_EXTENSION_STATE_CLOSURE.md)
+and [`scripts/PrimeExtensionStateClosure/verify.py`](scripts/PrimeExtensionStateClosure/verify.py).**
+
+A genuinely closed prime-extension state exists. It is not an enlargement of the
+packet state — it is a change of index. Take as state the whole **scale-indexed**
+rough summatory function `T_W : y |-> sum_{n <= y, (n,W)=1} mu(n)`, and as the
+level-`W` assertion a sup bound `|T_W(y)| <= Phi(y)` for `y <= X`. Parent and
+child assertions are then the same predicate on the same kind of object over the
+same scales. The exact transfer law is
+
+```text
+T_{pW}(x) = T_W(x) + T_{pW}(floor(x/p)),
+T_{pW}(x) = sum_{j >= 0} T_W(floor(x/p^j)),
+```
+
+and reading it downward gives the exact telescope
+`M(x) = sum_{d|W} mu(d) T_W(floor(x/d))`.
+
+**Having this changes nothing**, for two independently sufficient reasons:
+
+1. **The generic descent costs a factor `2` per prime.** The triangle inequality
+   gives only `|M(x)| <= 2^k sup_{y<=x} |T_{W_k}(y)|`. Measured at `x = 20000`
+   where `|M(x)| = 26`, the slack runs `19x, 80x, 265x, 745x` for
+   `W_k = 6, 30, 210, 2310`. With `W_k` the primorial of primes up to `z` the
+   loss is `2^{pi(z)}`.
+2. **The base case is RH-equivalent.** For `p_k < y < p_{k+1}^2` one has exactly
+   `T_{W_k}(y) = 1 + k - pi(y)`, verified for `k = 1..5`. A sup bound on the base
+   is a prime-counting error bound; at RH strength it is the conclusion.
+
+So state closure is **not** the bottleneck, and the earlier framing that listed
+it as the remaining content of obligation A is corrected here. The bottleneck is
+signed cancellation.
+
+### Telescope-cancellation target: WITHDRAWN
+
+**Status: NOT VIABLE. Recorded by
+[`research/TELESCOPE_CANCELLATION_LIMITS.md`](research/TELESCOPE_CANCELLATION_LIMITS.md)
+and [`scripts/TelescopeCancellationLimits/verify.py`](scripts/TelescopeCancellationLimits/verify.py).**
+
+The reframing below was tested and fails. Four exact checks:
+
+1. **Marginal no-go (proved).** With only per-term bounds
+   `|T_W(x/d)| <= Phi_d`, the best derivable bound is `sum_d Phi_d`, attained at
+   `t_d = mu(d) Phi_d`. The triangle inequality is optimal among arguments using
+   per-term bounds; joint information across `d` is required.
+2. **Monotone worsening (measured).** The honest triangle bound
+   `sum_{d|W} |T_W(x/d)|` divided by `|M(x)|` is exactly `1` at the **empty**
+   wheel and increases monotonically with every prime added — `1.0, 1.4, 10.8,
+   41.4, 105.5, 189.2, 289.2` for `k = 0..6` at `x = 100000`. The optimal wheel
+   is the empty one; the telescope is an expansion, not a reduction.
+3. **Regrouping collapse (proved).** Pairing `d` with `pd` along any wheel prime
+   returns the telescope for `W/p`. The expansion is exactly invertible, so no
+   grouping extracts information.
+4. **Truncation failure (measured).** Brun-style truncation at `omega(d) <= r`
+   oscillates (`-773, +1142, -573, +21, -48` at `W = 210`, `x = 100000`,
+   `M = -48`) with error above the target at every depth short of full. The
+   cancellation is entirely last-mile, and the `L1` mass is spread — the largest
+   term is `12-15%`, the top four `34-46%`.
+
+Also corrected: earlier notes quote the loss as `2^k sup |T_W|`. The honest
+triangle bound is `sum_{d|W}|T_W(x/d)|`, about `8x` smaller at
+`W = 30030, x = 100000` (`13882` against `107840`). The conclusion is unchanged.
+
+Classically this is the **Legendre sieve** for `mu`, and the blow-up is its known
+failure mode. Brun/Selberg escapes buy bounds for sifted counts, but `M` is
+parity-sensitive (`mu(n) = (-1)^{omega(n)}` on squarefree `n`), so Selberg's
+parity phenomenon obstructs them here.
+
+### Do not repeat this route by
+
+- seeking cancellation among telescope terms at a larger wheel — the requirement
+  strictly grows with the wheel;
+- regrouping, pairing, or reordering the telescope — every grouping collapses it;
+- truncating the inclusion-exclusion at bounded level and bounding the tail;
+- restating the roughness recursion in new coordinates and calling the result a
+  new mechanism.
+
+### Superseded reframing of obligation A
+
+Obligation A should no longer be stated as "construct an enlarged
+extension-compatible state with a positive quadratic form": that formulation is
+now closed from three directions (the dichotomy, the trajectory pinning, and the
+state closure above). State it as what it always reduced to:
+
+> Exhibit signed cancellation between `T_{pW}(x)` and `T_{pW}(floor(x/p))` — or
+> equivalently among the `2^k` terms of the exact telescope
+> `M(x) = sum_{d|W} mu(d) T_W(floor(x/d))` — strong enough to beat the `2^k`
+> triangle-inequality loss.
+
+Three successive cycles have found the same shape: an exact structure that
+reproduces the target rather than controlling it. Full telescoping is
+tautological; the zero-direct-square Gram class exists exactly when the
+annihilator reconstructs the target; and the closed induction has an
+RH-equivalent base. Any proposal that does not address the signed sum directly
+is, on that evidence, a reparameterization.
+
+### Superseded: the interval-mismatch diagnosis
 
 The enlarged extension state has components on different intervals: `A_C(U)` sums
 over the child block `(W, pW]` while `B_C(U)` sums over the dilate `(W/p, U/p]`,
@@ -220,6 +377,10 @@ and `W/p` is never the previous primorial `W_{k-1}`. Two distinct failures follo
 No positive form on the current enlarged state can close the induction, whatever
 its feasibility at any single wheel.
 
+That diagnosis stands for the packet state. Its **prescription** — enlarge the
+packet state — was wrong: the fix is to stop indexing by block, as recorded in
+the state-closure entry above.
+
 A future Gram argument must first solve the state-closure problem: exhibit an
 induction state preserved by prime extension on which the parent and child bounds
 are statements about the same object. The current enlarged state mixes scales
@@ -230,7 +391,11 @@ are statements about the same object. The current enlarged state mixes scales
 
 ### 1. Multi-prime Möbius cubes
 
-**Status: TESTED / OPEN. Recorded by Issue #171.**
+**Status: CLOSED AS A STANDALONE RH MECHANISM. See the Euler–CRT route closure above.**
+
+The exact algebra and finite diagnostics below are retained as infrastructure,
+but this item is no longer an active route unless a successor introduces a
+materially new non-invertible mechanism satisfying the acceptance rule.
 
 Replace the one-prime operator `(I-T_2)` by finite products such as
 
@@ -280,19 +445,16 @@ Issue #171 ran this diagnostic on completed primorial blocks up to
   evidence of eventual failure and **not** a proof; the sequence is neither
   monotone nor shown to stay below 1.
 
-**Unresolved analytic premise (open, RH-scale).**
+**Former analytic premise (withdrawn as a route target).**
 
-- The missing theorem is a degree-by-degree Euler–CRT coherence / spectral-gap
-  bound controlling energy propagation into the highest Boolean layers,
-  equivalently a completed-wheel non-zero-frequency lower bound. In the
-  two-channel contrast coordinate `T(x) = sum mu(n) eta(n)`, the twisted series
-  is governed by `1/L(s, chi_{-3})` while `M` is governed by `1/zeta`; a
-  full-prefix bound of the conjectured strength would therefore **imply** both
-  RH for `zeta` and the corresponding statement for `L(s, chi_{-3})`, and is at
-  least as deep as their conjunction. The two-coordinate endpoint state is
-  **not closed** (the child endpoint is not a function of the parent `(T,D)`
-  pair alone), so any proof needs an enlarged packet/character/Gram state; the
-  interior no-overshoot bound is a separate open target.
+- The degree-by-degree Euler–CRT coherence / spectral-gap premise remains a
+  mathematically meaningful statement, but within this branch it is not a
+  reduction: the surrounding exact structures are invertible re-expressions of
+  the target, and the full-prefix strength would already imply RH-scale control
+  for both `zeta` and `L(s, chi_{-3})`.
+- It must not be reintroduced as a Lean `axiom`, `sorry`, or protected-chain
+  hypothesis, nor presented as progress without a genuinely new mechanism that
+  controls the coherent mode.
 
 ### Do not repeat this route by
 
@@ -304,8 +466,7 @@ Issue #171 ran this diagnostic on completed primorial blocks up to
 - introducing the analytic coherence bound as a Lean `axiom`, a `sorry`, or a
   hypothesis wired into the protected RH theorem chain.
 
-The exact-identity layer above is suitable for independent formalization; the
-analytic premise must remain a named, unproven `Prop`.
+The exact-identity layer above remains suitable for independent formalization.
 
 ### 2. Fixed multiplicative wavelets
 

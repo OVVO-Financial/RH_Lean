@@ -5,14 +5,21 @@ Discharges the criterion predeclared in `research/GRAM_LYAPUNOV_DICHOTOMY.md`:
 a separating certificate closes a Gram family only if the required constant
 `c_k = b_k / phi(W_k)` grows along the extension chain.
 
-Two exact rational certificates are checked, for the canonical test family (all
+Three exact rational certificates are checked, for the canonical test family (all
 realized prefix states of the block, used both as test vectors and budget cuts):
 
-* `30 -> 210`   a DUAL-feasible point, proving   b_1 >= 7819/216;
-* `210 -> 2310` a PRIMAL-feasible point, proving b_2 <= 23511351/250000.
+* `30 -> 210`     a DUAL-feasible point,   proving b_1 >= 7819/216;
+* `210 -> 2310`   a PRIMAL-feasible point, proving b_2 <= 23511351/250000;
+* `2310 -> 30030` a PRIMAL-feasible point, proving b_3 <= 17992014840030231/12500000000000.
 
-Together these give `c_2 < c_1` — the constant falls, so the certificate method
-exhibits no growth and the diagonal family is NOT closed.
+The first two give `c_2 < c_1` — the constant falls. The third keeps `c_3` far
+below `c_1`, so the constant is bounded across three consecutive extensions. No
+growth is exhibited, and closure requires growth, so the diagonal family is NOT
+closed.
+
+The level-3 point came from a subsampled LP and was then repaired exactly against
+the FULL test family, so it is valid for the full family whatever its origin. It
+is an upper bound only and does not resolve whether `c_3` exceeds `c_2`.
 
 Only the Python standard library is used.
 """
@@ -94,6 +101,25 @@ LEVEL2_Y = [
 ]
 LEVEL2_BOUND = F(23511351, 250000)
 
+# 2310 -> 30030: exact PRIMAL-feasible point (12 nonzero child, 8 nonzero parent
+# weights), obtained from a subsampled LP and then repaired exactly against the
+# FULL test family, so it is valid for the full family regardless of its origin.
+LEVEL3_X = {
+    2: "452843311653/4000000000000", 4: "1247237695581/4000000000000",
+    8: "4266892468647/4000000000000", 16: "60511848627/400000000000",
+    24: "132293858079/2000000000000", 32: "2567042453139/4000000000000",
+    33: "98295495237/500000000000", 36: "201959685267/1000000000000",
+    40: "30504213807/200000000000", 41: "677540247/160000000000",
+    48: "260913670341/2000000000000", 56: "28587088929/250000000000",
+}
+LEVEL3_Y = {
+    0: "579362993209/6250000000000", 1: "90426079601/3125000000000",
+    2: "36212414953/25000000000000", 4: "273409079801/5000000000000",
+    8: "631501266253/6250000000000", 12: "87019902541/6250000000000",
+    16: "18650799739/3125000000000", 24: "822643248713/25000000000000",
+}
+LEVEL3_BOUND = F(17992014840030231, 12500000000000)
+
 
 # ------------------------------------------------------------------- checking
 
@@ -158,6 +184,37 @@ def check_level2_primal() -> F:
     return bound
 
 
+def check_level3_primal() -> F:
+    """Verify primal feasibility at 2310 -> 30030, returning the certified bound."""
+    primes = (2, 3, 5, 7, 11, 13)
+    dim, half, p = 64, 32, 13
+    tests = prefix_states(2310, 30030, primes)
+    cuts = tests
+    assert len(tests) == 16300, len(tests)
+
+    x = [F(0)] * (dim - 1)
+    for D, t in LEVEL3_X.items():
+        x[D - 1] = F(t)
+    y = [F(0)] * half
+    for C, t in LEVEL3_Y.items():
+        y[C] = F(t)
+    assert all(t >= 0 for t in x + y)
+
+    def qx(v):
+        return sum((x[D - 1] * v[D] ** 2 for D in range(1, dim) if x[D - 1]), F(0))
+
+    def qy(v):
+        return sum((y[C] * (v[C] ** 2 + v[C + half] ** 2) for C in range(half) if y[C]), F(0))
+
+    for v in tests:
+        assert qx(v) >= v[0] ** 2, "output domination"
+        assert F(p - 1, 2) * qy(v) >= qx(v), "extension compatibility"
+
+    bound = max(qy(u) / 2 for u in cuts)
+    assert bound == LEVEL3_BOUND, (bound, LEVEL3_BOUND)
+    return bound
+
+
 def check_interval_mismatch() -> None:
     """The two components of the enlarged state live on different intervals."""
     rows = ((6, 30, 7), (30, 210, 11), (210, 2310, 13))
@@ -200,7 +257,18 @@ def main() -> None:
     print("[3] These are bounds for the declared finite test family only; they do NOT")
     print("    prove the true minimal constants decrease.  See the report's confounds.")
 
-    print("[4] State-closure obstruction (interval mismatch):")
+    b3 = check_level3_primal()
+    phi3 = euler_phi(2310)
+    c3 = b3 / phi3
+    print(f"[4] 2310 -> 30030 exact primal certificate: b_3 <= {float(b3):.4f}")
+    print(f"[4]              phi(2310) = {phi3}       c_3 <= {float(c3):.7f}")
+    assert c3 < c1
+    print(f"[4] c_3 <= {float(c3):.4f} stays far below c_1 = {float(c1):.4f}: the constant is")
+    print("    BOUNDED across three consecutive extensions, so no growth is exhibited.")
+    print("    This certificate is an upper bound from a subsample-derived point; it does")
+    print("    NOT resolve whether c_3 exceeds c_2, and no such claim is made.")
+
+    print("[5] State-closure obstruction (interval mismatch):")
     check_interval_mismatch()
 
     print("\nALL EXACT CHECKS PASSED")

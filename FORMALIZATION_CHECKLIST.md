@@ -406,7 +406,7 @@ Both were resolved by opening PR #178.
 - [x] Same direction reproduced by four independent test families.
 - [x] PR #176 confirmed **OPEN AT A LARGER CONSTANT** by direct measurement.
 - [x] State-closure obstruction identified exactly as an interval mismatch (wheel-depth recursion versus per-block budget).
-- [ ] `c_3` at `2310 -> 30030`: NOT COMPUTED — the floating-point LP breaks down at that dynamic range.
+- [x] `c_3` at `2310 -> 30030`: upper bound proved exactly, `c_3 <= 2.9986691`, via subsampled LP plus exact full-family repair. The constant is bounded across three extensions.
 - [ ] True minimal constants (full quantified constraints, not a finite test family): NOT DETERMINED.
 - [ ] State closure itself: STILL OPEN.
 
@@ -417,5 +417,60 @@ Both were resolved by opening PR #178.
 ### Current next dependency
 
 - [x] Reproduce the PR #176 dual construction at `210 -> 2310` and report `c_k` at two consecutive extensions.
-- [ ] Recompute `c_3` with exact or better-conditioned arithmetic to extend the growth test to a third extension.
+- [x] Extend the growth test to a third extension (done: subsample LP plus exact repair).
+- [ ] Resolve `c_3` against `c_2`: the level-3 bracket `[~1.83, 2.9987]` straddles `c_2 = 1.9590`.
 - [ ] Solve the prime-extension state-closure problem: an induction state on which the parent and child bounds concern the same object, bridging wheel-depth recursion and per-block budget.
+
+## Append-only: prime-extension state closure
+
+### Research artifacts
+
+- [x] `research/PRIME_EXTENSION_STATE_CLOSURE.md` added.
+- [x] `scripts/PrimeExtensionStateClosure/verify.py` added (standard library only).
+- [x] Closed prime-extension state exhibited: the scale-indexed rough summatory function `T_W`.
+- [x] Exact one-step transfer `T_pW(x) = T_W(x) + T_pW(x/p)` verified.
+- [x] Exact geometric transfer `T_pW(x) = sum_j T_W(x/p^j)` verified.
+- [x] Exact telescope `M(x) = sum_{d|W} mu(d) T_W(x/d)` verified for `W = 6, 30, 210, 2310`.
+- [x] `2^k` descent loss measured exactly: slack `19x, 80x, 265x, 745x` at `x = 20000`.
+- [x] Base case `T_{W_k}(y) = 1 + k - pi(y)` on `(p_k, p_{k+1}^2)` verified for `k = 1..5`.
+- [x] Established that the closed induction is NOT a reduction; obligation A reframed as signed cancellation.
+- [x] Corrected the previous cycle's framing that listed state closure as the remaining content of obligation A.
+- [ ] Signed cancellation between `T_pW(x)` and `T_pW(x/p)`: STILL OPEN, UNTOUCHED.
+
+### Lean slice — NOT YET VERIFIED
+
+- [x] `roughMertens_prime_extension` added to `RHLean/Analysis/EulerCRTRoughnessRecursion.lean`.
+- [x] `scripts/check_paper_analysis_boundary.sh` passed locally.
+- [x] `scripts/audit_assumptions.sh` passed locally (source-level only; does not compile Lean).
+- [ ] `lake build RHLean --wfail`: NOT RUN. `release.lean-lang.org` remains blocked by this runtime's network policy, and `lean.yml` is `pull_request`-triggered, so a branch push produces no run.
+- [ ] Must not be treated as LEAN-FORMALIZED until a CI run reports the full build green.
+
+The theorem is a three-line rearrangement of the already-compiled
+`roughMertens_wheel_recursion` applied to the wheel `p * W`, taking
+`Squarefree (p * W)` as a hypothesis so that no squarefree-product lemma name
+has to be guessed against mathlib `v4.24.0`.
+
+## Append-only: telescope-cancellation limits
+
+### Research artifacts
+
+- [x] `research/TELESCOPE_CANCELLATION_LIMITS.md` added.
+- [x] `scripts/TelescopeCancellationLimits/verify.py` added (standard library only).
+- [x] Corrected the quoted loss from `2^k sup|T_W|` to the honest triangle bound `sum_{d|W}|T_W(x/d)|` (about `8x` smaller at `W = 30030`, `x = 100000`).
+- [x] Marginal-information no-go proved: with per-term bounds only, the triangle inequality is optimal.
+- [x] Monotone worsening measured: the ratio is exactly `1` at the empty wheel and increases with every prime added, `k = 0..6`, three values of `x`.
+- [x] Regrouping collapse proved for four wheel/prime pairs.
+- [x] Truncation failure measured at three wheels; cancellation is entirely last-mile.
+- [x] Telescope-cancellation formulation of obligation A **WITHDRAWN**.
+- [ ] Whether to declare the Euler–CRT roughness branch exhausted: **owner decision**, not taken by this cycle.
+
+### Lean
+
+- [x] No Lean source, axiom surface, or protected theorem-chain import changed by this cycle.
+- [ ] `roughMertens_prime_extension` (added in the previous cycle) remains **NOT CI-VERIFIED**.
+
+### Current next dependency
+
+- [x] Attack the reframed obligation A (telescope cancellation) — done; the formulation is not viable.
+- [ ] Owner decision on whether the Euler–CRT roughness branch is closed as an RH route.
+- [ ] If continued: any successor route must be assessed against the existing closed dyadic Li-residual entry, which already forbids repeating centered Vaughan/Type-I/II bounds that leave the coherent mode untouched.
