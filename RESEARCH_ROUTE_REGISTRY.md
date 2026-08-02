@@ -241,7 +241,51 @@ So state closure is **not** the bottleneck, and the earlier framing that listed
 it as the remaining content of obligation A is corrected here. The bottleneck is
 signed cancellation.
 
-### Reframing of obligation A
+### Telescope-cancellation target: WITHDRAWN
+
+**Status: NOT VIABLE. Recorded by
+[`research/TELESCOPE_CANCELLATION_LIMITS.md`](research/TELESCOPE_CANCELLATION_LIMITS.md)
+and [`scripts/TelescopeCancellationLimits/verify.py`](scripts/TelescopeCancellationLimits/verify.py).**
+
+The reframing below was tested and fails. Four exact checks:
+
+1. **Marginal no-go (proved).** With only per-term bounds
+   `|T_W(x/d)| <= Phi_d`, the best derivable bound is `sum_d Phi_d`, attained at
+   `t_d = mu(d) Phi_d`. The triangle inequality is optimal among arguments using
+   per-term bounds; joint information across `d` is required.
+2. **Monotone worsening (measured).** The honest triangle bound
+   `sum_{d|W} |T_W(x/d)|` divided by `|M(x)|` is exactly `1` at the **empty**
+   wheel and increases monotonically with every prime added — `1.0, 1.4, 10.8,
+   41.4, 105.5, 189.2, 289.2` for `k = 0..6` at `x = 100000`. The optimal wheel
+   is the empty one; the telescope is an expansion, not a reduction.
+3. **Regrouping collapse (proved).** Pairing `d` with `pd` along any wheel prime
+   returns the telescope for `W/p`. The expansion is exactly invertible, so no
+   grouping extracts information.
+4. **Truncation failure (measured).** Brun-style truncation at `omega(d) <= r`
+   oscillates (`-773, +1142, -573, +21, -48` at `W = 210`, `x = 100000`,
+   `M = -48`) with error above the target at every depth short of full. The
+   cancellation is entirely last-mile, and the `L1` mass is spread — the largest
+   term is `12-15%`, the top four `34-46%`.
+
+Also corrected: earlier notes quote the loss as `2^k sup |T_W|`. The honest
+triangle bound is `sum_{d|W}|T_W(x/d)|`, about `8x` smaller at
+`W = 30030, x = 100000` (`13882` against `107840`). The conclusion is unchanged.
+
+Classically this is the **Legendre sieve** for `mu`, and the blow-up is its known
+failure mode. Brun/Selberg escapes buy bounds for sifted counts, but `M` is
+parity-sensitive (`mu(n) = (-1)^{omega(n)}` on squarefree `n`), so Selberg's
+parity phenomenon obstructs them here.
+
+### Do not repeat this route by
+
+- seeking cancellation among telescope terms at a larger wheel — the requirement
+  strictly grows with the wheel;
+- regrouping, pairing, or reordering the telescope — every grouping collapses it;
+- truncating the inclusion-exclusion at bounded level and bounding the tail;
+- restating the roughness recursion in new coordinates and calling the result a
+  new mechanism.
+
+### Superseded reframing of obligation A
 
 Obligation A should no longer be stated as "construct an enlarged
 extension-compatible state with a positive quadratic form": that formulation is

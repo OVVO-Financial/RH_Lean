@@ -449,3 +449,28 @@ The theorem is a three-line rearrangement of the already-compiled
 `roughMertens_wheel_recursion` applied to the wheel `p * W`, taking
 `Squarefree (p * W)` as a hypothesis so that no squarefree-product lemma name
 has to be guessed against mathlib `v4.24.0`.
+
+## Append-only: telescope-cancellation limits
+
+### Research artifacts
+
+- [x] `research/TELESCOPE_CANCELLATION_LIMITS.md` added.
+- [x] `scripts/TelescopeCancellationLimits/verify.py` added (standard library only).
+- [x] Corrected the quoted loss from `2^k sup|T_W|` to the honest triangle bound `sum_{d|W}|T_W(x/d)|` (about `8x` smaller at `W = 30030`, `x = 100000`).
+- [x] Marginal-information no-go proved: with per-term bounds only, the triangle inequality is optimal.
+- [x] Monotone worsening measured: the ratio is exactly `1` at the empty wheel and increases with every prime added, `k = 0..6`, three values of `x`.
+- [x] Regrouping collapse proved for four wheel/prime pairs.
+- [x] Truncation failure measured at three wheels; cancellation is entirely last-mile.
+- [x] Telescope-cancellation formulation of obligation A **WITHDRAWN**.
+- [ ] Whether to declare the Euler–CRT roughness branch exhausted: **owner decision**, not taken by this cycle.
+
+### Lean
+
+- [x] No Lean source, axiom surface, or protected theorem-chain import changed by this cycle.
+- [ ] `roughMertens_prime_extension` (added in the previous cycle) remains **NOT CI-VERIFIED**.
+
+### Current next dependency
+
+- [x] Attack the reframed obligation A (telescope cancellation) — done; the formulation is not viable.
+- [ ] Owner decision on whether the Euler–CRT roughness branch is closed as an RH route.
+- [ ] If continued: any successor route must be assessed against the existing closed dyadic Li-residual entry, which already forbids repeating centered Vaughan/Type-I/II bounds that leave the coherent mode untouched.
