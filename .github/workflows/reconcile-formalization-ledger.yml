@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - agent/reconcile-formalization-ledger
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
@@ -64,5 +68,3 @@ jobs:
           fi
           git commit -m 'Reconcile formalization ledger after PRs 172 and 173'
           git push origin HEAD:agent/reconcile-formalization-ledger
-
-# trigger second push after workflow registration
