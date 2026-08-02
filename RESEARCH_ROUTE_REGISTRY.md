@@ -171,6 +171,55 @@ verified by
 - treating the `210 -> 2310` check as a discriminating test of quotient
   stability.
 
+### Growth test discharged: the required constant does not grow
+
+The predeclared growth test has been run at the first two consecutive primorial
+extensions, for the canonical test family (all realized prefix states of the
+block). See
+[`research/DIAGONAL_REQUIRED_CONSTANT_GROWTH.md`](research/DIAGONAL_REQUIRED_CONSTANT_GROWTH.md)
+and [`scripts/DiagonalConstantGrowth/verify.py`](scripts/DiagonalConstantGrowth/verify.py).
+
+Two-sided exact rational certificates give
+
+```text
+c_1 >= 7819/1728   = 4.5248843...      (30 -> 210,   exact dual certificate)
+c_2 <= 7837117/4e6 = 1.9592793...      (210 -> 2310, exact primal certificate)
+```
+
+so the required constant **falls** by a factor of about `0.43`. The same
+direction is reproduced by four independent test families. The LP dual used is
+exactly PR #176's certificate structure, and the method reproduces PR #176's
+`368/3` as the exact optimum of its own test family.
+
+Under the predeclared criterion this is the FEASIBLE branch: **the non-circular
+mask-specific diagonal family is not closed, and PR #176 stays OPEN AT A LARGER
+CONSTANT** — now on direct measurement, not only on the logical objection.
+
+These are bounds for declared finite test families; they do **not** prove the
+true minimal constants decrease. The bounds are strongly family-dependent (at
+`30 -> 210` the value rises from `4.52` to `66.25` as the family is enriched),
+and a fixed rule covers a smaller fraction of the larger cube at the higher
+level. What is established is that the certificate method, at comparable
+strength, produces no growth — and closure requires growth.
+
+`c_3` at `2310 -> 30030` was attempted and is **not** reported: the
+floating-point LP breaks down at that dynamic range.
+
+### State closure: the obstruction is an interval mismatch
+
+The enlarged extension state has components on different intervals: `A_C(U)` sums
+over the child block `(W, pW]` while `B_C(U)` sums over the dilate `(W/p, U/p]`,
+and `W/p` is never the previous primorial `W_{k-1}`. Two distinct failures follow:
+
+- **scale** — `A` is child-scale (`max|A_C| = 92` against `max|B_C| = 11` over
+  `(30,210]`, under a declared budget of `16`);
+- **direction** — the extension law is a recursion in *wheel depth at fixed
+  interval*, while the budget is a statement *per block*. These are different
+  recursions and the framework supplies no bridge.
+
+No positive form on the current enlarged state can close the induction, whatever
+its feasibility at any single wheel.
+
 A future Gram argument must first solve the state-closure problem: exhibit an
 induction state preserved by prime extension on which the parent and child bounds
 are statements about the same object. The current enlarged state mixes scales
