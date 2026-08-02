@@ -298,3 +298,35 @@ The remaining theorem-level obligations are:
 7. optionally prove stronger sufficient routes such as the square-block increment-energy or partial-moment balance premises.
 
 Until those items are discharged, the repository remains an axiom-free conditional reduction rather than an unconditional proof of RH.
+
+
+## Append-only reconciliation: PRs #172 and #173
+
+### PR #172 — research route registry
+
+- [x] `RESEARCH_ROUTE_REGISTRY.md` added.
+- [x] Exact identities are separated from tested/open analytic routes.
+- [x] Spectral-gap, positive-Gram, and no-overshoot obligations remain explicitly open.
+- [x] No theorem module or root import was introduced by this documentation-only PR.
+
+### PR #173 — Euler–CRT roughness recursion
+
+- [x] `RHLean/Analysis/EulerCRTRoughnessRecursion.lean` added.
+- [x] `RHLean.Analysis.EulerCRTRoughnessRecursion` imported by `RHLean.lean`.
+- [x] Exact rough Möbius wheel recursion compiled.
+- [x] Exact rough Mertens wheel recursion compiled.
+- [x] Boundary audit passed on the merged PR.
+- [x] Assumption audit passed on the merged PR.
+- [x] `lake build RHLean --wfail` passed on the merged PR.
+- [ ] No extension-compatible quadratic inequality has been proved.
+- [ ] No completed-endpoint bound has been proved.
+- [ ] No interior no-overshoot theorem has been proved.
+
+### Current next dependency
+
+- [x] Exact `30 -> 210` signed child operator audited.
+- [x] Exact arithmetic compatibility quotient identified as 14-dimensional.
+- [x] Self-similar Hamming-level diagonal flip-energy ansatz eliminated by an exact separating certificate.
+- [ ] Audit the full mask-specific diagonal family on the 14-dimensional quotient.
+- [ ] If diagonal feasibility fails, produce an exact rational dual certificate before moving to genuinely off-diagonal forms.
+- [ ] Any feasible rule must be tested for extension closure on the 31-dimensional `210 -> 2310` quotient.

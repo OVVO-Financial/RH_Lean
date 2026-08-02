@@ -38,7 +38,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-The root library imports seventy-five theorem modules.
+The root library currently imports 145 theorem modules, as enumerated directly by `RHLean.lean`.
 
 ### Arithmetic and cell structure
 
@@ -713,3 +713,14 @@ M(X_R)  = complete odd top-half annulus
 Consequently the single dyadic inequality definitionally equal to the protected criterion is the local energy of the complete odd annulus. A bound for the high transport subset alone is a separate possible component and requires control of the smooth complement or their full signed interaction. The new multi-route branches may feed only into the existing pointwise, local, increment-energy, or native high-sector propositions. They do not replace the protected spine.
 
 See `MULTIROUTE_FORMALIZATION_PLAN.md` for theorem classifications, nonclaims, and the mandatory PR order.
+
+
+## Reconciliation after PRs #172 and #173
+
+This append-only reconciliation records the repository state after the two merged route-establishment pull requests.
+
+- **PR #172 — route registry:** added `RESEARCH_ROUTE_REGISTRY.md`. This is a research-status registry, not a theorem module and therefore is not imported by `RHLean.lean`.
+- **PR #173 — exact Euler–CRT roughness recursion:** added `RHLean.Analysis.EulerCRTRoughnessRecursion` and imported it from `RHLean.lean`. The compiled result supplies the exact rough Möbius and rough Mertens wheel recursion, including `roughMertens_wheel_recursion`.
+- **Dependency placement:** the Euler–CRT recursion belongs after the finite arithmetic/Boolean-cube identities and before any proposed extension-compatible spectral, Gram, or no-overshoot estimate. It is an exact algebraic input, not the missing analytic estimate.
+- **Open boundary:** no spectral gap, extension-compatible positive Gram form, completed-wheel bound, or interior no-overshoot theorem follows from PR #173. Those remain open analytic premises and must not be recorded as compiled consequences.
+- **Current research target:** the self-similar Hamming-level diagonal flip-energy ansatz for the exact `30 -> 210` extension has been eliminated by an exact finite separating certificate. The next admissible search is a mask-specific diagonal or genuinely off-diagonal positive form on the exact 14-dimensional compatibility quotient, with exact rational feasibility or an exact rational dual certificate, followed by a `210 -> 2310` extension-closure test.
