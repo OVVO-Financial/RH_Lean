@@ -116,6 +116,67 @@ and [`experiments/omega_parity_orientation.py`](experiments/omega_parity_orienta
 A future omega-parity theorem must control the full transport sum `A_high`
 itself, with the `sqrt(m)` boundary geometry retained.
 
+## Closed sub-route: single-wheel Gram/Lyapunov feasibility search
+
+**Status: CLOSED AS A DISCOVERY METHOD. Recorded by this note.**
+
+This closes the search *method* used by PRs #176 and #177 — fixing one primorial
+extension `W -> pW` and testing whether some positive quadratic form satisfies
+output domination, the seed budget, and extension compatibility there. It does
+**not** close obligation A, and it does **not** close any route in the sense of
+the analytic premise being refuted.
+
+Two exact theorems, in
+[`research/GRAM_LYAPUNOV_DICHOTOMY.md`](research/GRAM_LYAPUNOV_DICHOTOMY.md) and
+verified by
+[`scripts/GramLyapunovDichotomy/verify.py`](scripts/GramLyapunovDichotomy/verify.py):
+
+- **Dichotomy.** A PSD form with zero direct target square dominates the target
+  on the compatibility space `V` **iff** `e_0 notin V`, i.e. iff the compatibility
+  annihilator determines the target coordinate. So "annihilator independence" and
+  "zero direct target square" — the two conditions declared admissible by
+  PR #177 — are jointly unsatisfiable.
+- **Regeneration.** For consecutive primorials the full **old**-wheel divisibility
+  mask is never realized in `(W, pW]` (the only multiple of `W` there that is
+  squarefree and coprime-compatible is `n = pW`, which carries the full **new**
+  mask). Hence `e_0 notin V` at every level and the tautological rank-one form
+  regenerates at every level — checked at `30 -> 210`, `210 -> 2310`,
+  `2310 -> 30030`.
+- **Trajectory pinning.** Any admissible form obeys
+  `R_U^2 <= Q(s_U) <= 2 phi(pW)` on realized states. The band factor is exact and
+  below 5 for every primorial block through `(30030, 510510]`, so no admissible
+  form carries independent arithmetic content along the trajectory.
+
+### Corrections to previously recorded verdicts
+
+- PR #177's `V_210` is misidentified: it is defined by `chi_31`, but mask `31` is
+  realized (by `n = 2310`); the missing mask is `15 = {2,3,5,7}`. The published
+  `-2` survives on the correct quotient, but the verdict "not quotient-stable" is
+  **withdrawn** — the mechanism regenerates and is instead eliminated by the
+  dichotomy.
+- PR #176's certificate is exact and reproduces, but its classification is
+  narrowed from **CLOSED** to **OPEN AT A LARGER CONSTANT**: the seed constant
+  `2` in `2 phi(W)` is free (the extension law `b(pW) = (p-1) b(W)` holds for any
+  `c`, and `|R| <~ sqrt(c phi(W))` is RH-strength for any fixed `c`), so the
+  certificate proves `c >= 46/3`, not nonexistence.
+
+### Do not repeat this route by
+
+- running another one-wheel feasibility search with a different sparsity pattern,
+  symmetry reduction, or rank bound — every wheel is feasible, for a reason now
+  fully characterized;
+- reporting a separating certificate at a single wheel as a family closure
+  without exhibiting growth of the required constant `c_k` across at least two
+  consecutive extensions;
+- treating the `210 -> 2310` check as a discriminating test of quotient
+  stability.
+
+A future Gram argument must first solve the state-closure problem: exhibit an
+induction state preserved by prime extension on which the parent and child bounds
+are statements about the same object. The current enlarged state mixes scales
+(`max|A_C| = 92` child-scale against `max|B_C| = 11` parent-scale over
+`(30, 210]`, under a declared budget of `16`).
+
 ## Active, materially distinct routes
 
 ### 1. Multi-prime Möbius cubes
