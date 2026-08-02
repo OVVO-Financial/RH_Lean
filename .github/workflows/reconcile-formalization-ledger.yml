@@ -1,0 +1,66 @@
+name: Reconcile formalization ledger
+
+on:
+  push:
+    branches:
+      - agent/reconcile-formalization-ledger
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/reconcile-formalization-ledger
+          fetch-depth: 0
+
+      - name: Reconcile canonical documents
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          root = Path('RHLean.lean').read_text()
+          import_count = sum(1 for line in root.splitlines() if line.startswith('import '))
+
+          sequence_path = Path('FORMALIZATION_SEQUENCE.md')
+          sequence = sequence_path.read_text()
+          old_inventory = 'The root library imports seventy-five theorem modules.'
+          new_inventory = (
+              f'The root library currently imports {import_count} theorem modules, '
+              'as enumerated directly by `RHLean.lean`.'
+          )
+          if old_inventory in sequence:
+              sequence = sequence.replace(old_inventory, new_inventory, 1)
+          elif new_inventory not in sequence:
+              raise SystemExit('Could not locate the compiled-inventory sentence')
+
+          sequence_marker = '## Reconciliation after PRs #172 and #173'
+          if sequence_marker not in sequence:
+              sequence += f'''\n\n{sequence_marker}\n\nThis append-only reconciliation records the repository state after the two merged route-establishment pull requests.\n\n- **PR #172 — route registry:** added `RESEARCH_ROUTE_REGISTRY.md`. This is a research-status registry, not a theorem module and therefore is not imported by `RHLean.lean`.\n- **PR #173 — exact Euler–CRT roughness recursion:** added `RHLean.Analysis.EulerCRTRoughnessRecursion` and imported it from `RHLean.lean`. The compiled result supplies the exact rough Möbius and rough Mertens wheel recursion, including `roughMertens_wheel_recursion`.\n- **Dependency placement:** the Euler–CRT recursion belongs after the finite arithmetic/Boolean-cube identities and before any proposed extension-compatible spectral, Gram, or no-overshoot estimate. It is an exact algebraic input, not the missing analytic estimate.\n- **Open boundary:** no spectral gap, extension-compatible positive Gram form, completed-wheel bound, or interior no-overshoot theorem follows from PR #173. Those remain open analytic premises and must not be recorded as compiled consequences.\n- **Current research target:** the self-similar Hamming-level diagonal flip-energy ansatz for the exact `30 -> 210` extension has been eliminated by an exact finite separating certificate. The next admissible search is a mask-specific diagonal or genuinely off-diagonal positive form on the exact 14-dimensional compatibility quotient, with exact rational feasibility or an exact rational dual certificate, followed by a `210 -> 2310` extension-closure test.\n'''
+          sequence_path.write_text(sequence)
+
+          checklist_path = Path('FORMALIZATION_CHECKLIST.md')
+          checklist = checklist_path.read_text()
+          checklist_marker = '## Append-only reconciliation: PRs #172 and #173'
+          if checklist_marker not in checklist:
+              checklist += f'''\n\n{checklist_marker}\n\n### PR #172 — research route registry\n\n- [x] `RESEARCH_ROUTE_REGISTRY.md` added.\n- [x] Exact identities are separated from tested/open analytic routes.\n- [x] Spectral-gap, positive-Gram, and no-overshoot obligations remain explicitly open.\n- [x] No theorem module or root import was introduced by this documentation-only PR.\n\n### PR #173 — Euler–CRT roughness recursion\n\n- [x] `RHLean/Analysis/EulerCRTRoughnessRecursion.lean` added.\n- [x] `RHLean.Analysis.EulerCRTRoughnessRecursion` imported by `RHLean.lean`.\n- [x] Exact rough Möbius wheel recursion compiled.\n- [x] Exact rough Mertens wheel recursion compiled.\n- [x] Boundary audit passed on the merged PR.\n- [x] Assumption audit passed on the merged PR.\n- [x] `lake build RHLean --wfail` passed on the merged PR.\n- [ ] No extension-compatible quadratic inequality has been proved.\n- [ ] No completed-endpoint bound has been proved.\n- [ ] No interior no-overshoot theorem has been proved.\n\n### Current next dependency\n\n- [x] Exact `30 -> 210` signed child operator audited.\n- [x] Exact arithmetic compatibility quotient identified as 14-dimensional.\n- [x] Self-similar Hamming-level diagonal flip-energy ansatz eliminated by an exact separating certificate.\n- [ ] Audit the full mask-specific diagonal family on the 14-dimensional quotient.\n- [ ] If diagonal feasibility fails, produce an exact rational dual certificate before moving to genuinely off-diagonal forms.\n- [ ] Any feasible rule must be tested for extension closure on the 31-dimensional `210 -> 2310` quotient.\n'''
+          checklist_path.write_text(checklist)
+          PY
+
+      - name: Commit reconciliation
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md
+          if git diff --cached --quiet; then
+            echo 'No reconciliation changes needed.'
+            exit 0
+          fi
+          git commit -m 'Reconcile formalization ledger after PRs 172 and 173'
+          git push origin HEAD:agent/reconcile-formalization-ledger
