@@ -7,6 +7,14 @@ noncomputable section
 
 namespace RHLean.Arithmetic
 
+/-- `IsPrimeWheelSmooth` unfolds to a squarefree test together with a bounded
+quantifier over `Nat.primeFactors`, so it is decidable.  The instance has to be
+available before the population filters below, otherwise `Finset.filter` cannot
+elaborate. -/
+instance instDecidableIsPrimeWheelSmooth (S : Finset ℕ) (n : ℕ) :
+    Decidable (IsPrimeWheelSmooth S n) :=
+  inferInstanceAs (Decidable (Squarefree n ∧ ∀ p ∈ n.primeFactors, p ∈ S))
+
 namespace PrimeWheelFiniteSystem
 
 /-- Sites in the pinned prefix killed by at least one prime square. -/
@@ -69,6 +77,8 @@ theorem squareFactorSites_disjoint_combResolvedSites
   classical
   rw [Finset.disjoint_left]
   intro n hn0 hn1
+  rw [mem_squareFactorSites] at hn0
+  rw [mem_combResolvedSites] at hn1
   exact hn0.2 hn1.2.1
 
 /-- Square-factor sites are disjoint from the smooth core. -/
@@ -78,6 +88,8 @@ theorem squareFactorSites_disjoint_smoothCoreSites
   classical
   rw [Finset.disjoint_left]
   intro n hn0 hn1
+  rw [mem_squareFactorSites] at hn0
+  rw [mem_smoothCoreSites] at hn1
   exact hn0.2 hn1.2.1
 
 /-- Comb-resolved sites are disjoint from the smooth core. -/
@@ -87,6 +99,8 @@ theorem combResolvedSites_disjoint_smoothCoreSites
   classical
   rw [Finset.disjoint_left]
   intro n hn0 hn1
+  rw [mem_combResolvedSites] at hn0
+  rw [mem_smoothCoreSites] at hn1
   exact hn0.2.2 hn1.2
 
 /-- Exact finite density identity:
@@ -111,7 +125,6 @@ theorem density_card_decomposition
   rw [← W.densitySites_partition x]
   rw [Finset.card_union_of_disjoint hABC]
   rw [Finset.card_union_of_disjoint hAB]
-  omega
 
 /-- The raw comb is zero on the square-factor population. -/
 theorem rawSite_eq_zero_on_squareFactorSites
@@ -193,18 +206,20 @@ theorem moebius_sum_eq_resolved_add_smooth
       (∑ n ∈ W.combResolvedSites x, μ n) +
       (∑ n ∈ W.smoothCoreSites x, μ n) := by
   classical
-  rw [← W.densitySites_partition x]
-  rw [Finset.sum_union (W.squareFactorSites_disjoint_combResolvedSites x)]
-  rw [Finset.sum_union]
-  · have hzero : ∑ n ∈ W.squareFactorSites x, μ n = 0 := by
-      apply Finset.sum_eq_zero
-      intro n hn
-      exact ArithmeticFunction.moebius_eq_zero_of_not_squarefree
-        ((W.mem_squareFactorSites x n).mp hn).2
-    rw [hzero, zero_add]
-  · rw [Finset.disjoint_union_left]
+  have hABC :
+      Disjoint (W.squareFactorSites x ∪ W.combResolvedSites x)
+        (W.smoothCoreSites x) := by
+    rw [Finset.disjoint_union_left]
     exact ⟨W.squareFactorSites_disjoint_smoothCoreSites x,
       W.combResolvedSites_disjoint_smoothCoreSites x⟩
+  have hzero : ∑ n ∈ W.squareFactorSites x, μ n = 0 := by
+    apply Finset.sum_eq_zero
+    intro n hn
+    exact ArithmeticFunction.moebius_eq_zero_of_not_squarefree
+      ((W.mem_squareFactorSites x n).mp hn).2
+  rw [← W.densitySites_partition x, Finset.sum_union hABC,
+    Finset.sum_union (W.squareFactorSites_disjoint_combResolvedSites x),
+    hzero, zero_add]
 
 end PrimeWheelFiniteSystem
 
