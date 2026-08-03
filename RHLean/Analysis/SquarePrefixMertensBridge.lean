@@ -234,7 +234,7 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
           ‖squarePrefixMertens n +
             (mertensSummatory x - squarePrefixMertens n)‖ ^ 2 := by
         congr 1
-        ring
+        ring_nf
       _ ≤ 2 * ‖squarePrefixMertens n‖ ^ 2 +
             2 * ‖mertensSummatory x - squarePrefixMertens n‖ ^ 2 :=
         norm_sq_add_le_two _ _
