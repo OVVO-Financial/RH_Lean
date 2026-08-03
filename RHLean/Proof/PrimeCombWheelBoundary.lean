@@ -55,8 +55,13 @@ theorem PrimeCombWheelSplit.abs_increment_sub_complete_le_boundary
     |(s.total.after - s.total.before) -
       (s.complete.after - s.complete.before)| ≤
       2 * (s.boundary.length : ℤ) := by
-  rw [s.increment_eq_complete_add_boundary]
-  ring_nf
+  have hcancel :
+      (s.total.after - s.total.before) -
+        (s.complete.after - s.complete.before) =
+        s.boundary.after - s.boundary.before := by
+    rw [s.beforeSplit, s.afterSplit]
+    ring
+  rw [hcancel]
   exact s.boundary.abs_increment_le_two_mul_length
 
 theorem PrimeCombWheelSplit.abs_total_after_le_complete_add_boundary
@@ -78,6 +83,8 @@ def TwoFragmentWheelBoundary.length (b : TwoFragmentWheelBoundary) : ℕ :=
 theorem TwoFragmentWheelBoundary.length_lt_two_mul_period
     (b : TwoFragmentWheelBoundary) :
     b.length < 2 * b.period := by
+  have hleft := b.left_lt
+  have hright := b.right_lt
   unfold TwoFragmentWheelBoundary.length
   omega
 

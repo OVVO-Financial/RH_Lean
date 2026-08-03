@@ -178,7 +178,7 @@ contain `Nat.sqrt x` under a local definition, and letting the nonlinear
 arithmetic tactics see through that definition forces repeated `whnf` on the
 `Nat.sqrt` recursion, which exhausts the heartbeat budget. -/
 private theorem four_mul_le_of_sq_le_of_lt
-    {a X ε : ℝ} (hε : 0 < ε) (ha : 0 ≤ a) (hX : 0 < X)
+    {a X ε : ℝ} (hε : 0 < ε) (hX : 0 < X)
     (hsq : a ^ 2 ≤ 4 * X) (hbig : 64 < ε ^ 2 * X) :
     4 * a ≤ ε * X := by
   have hεX : 0 ≤ ε * X := mul_nonneg hε.le hX.le
@@ -275,8 +275,7 @@ theorem mertensPNT_of_squarePrefixPNT
       have hchain : 64 < ((x + 1 : ℕ) : ℝ) * ε ^ 2 :=
         lt_of_lt_of_le hxlargeRaw hmono
       simpa [mul_comm] using hchain
-    have hapos : (0 : ℝ) ≤ (r : ℝ) + 1 := by positivity
-    have hlinear := four_mul_le_of_sq_le_of_lt hε hapos hXpos haSq hxlarge
+    have hlinear := four_mul_le_of_sq_le_of_lt hε hXpos haSq hxlarge
     linarith
   calc
     ‖RHLean.Analysis.mertensSummatory x‖ =

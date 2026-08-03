@@ -35,13 +35,13 @@ def fourPrimeWheelSign (n : ℕ) : ℤ :=
 /-- The wheel sign is always `+1` or `-1`. -/
 theorem fourPrimeWheelSign_eq_one_or_neg_one (n : ℕ) :
     fourPrimeWheelSign n = 1 ∨ fourPrimeWheelSign n = -1 := by
-  unfold fourPrimeWheelSign
+  simp only [fourPrimeWheelSign]
   split_ifs <;> norm_num
 
 /-- Exact `210`-periodicity. -/
 @[simp] theorem fourPrimeWheelSign_add_period (n : ℕ) :
     fourPrimeWheelSign (n + fourPrimeWheelPeriod) = fourPrimeWheelSign n := by
-  simp [fourPrimeWheelSign, fourPrimeWheelPeriod, Nat.add_mod]
+  simp [fourPrimeWheelSign, fourPrimeWheelPeriod]
 
 /-- The first complete four-prime wheel has zero signed mass. -/
 theorem fourPrimeWheel_completeCell_zero :
@@ -57,7 +57,7 @@ theorem fourPrimeWheel_translatedCell_zero (q : ℕ) :
       fourPrimeWheelSign (q * fourPrimeWheelPeriod + r) = fourPrimeWheelSign r := by
     intro r
     unfold fourPrimeWheelSign
-    simp [fourPrimeWheelPeriod, Nat.add_mod, Nat.mul_mod]
+    simp [fourPrimeWheelPeriod, Nat.add_mod]
   calc
     ∑ r ∈ Finset.range fourPrimeWheelPeriod,
         fourPrimeWheelSign (q * fourPrimeWheelPeriod + r) =
@@ -74,14 +74,23 @@ sign.  This is checked on the finite residue system modulo `210`. -/
 theorem fourPrimeWheel_halfPeriod_sign_reversal (r : ℕ)
     (hr : r < fourPrimeWheelPeriod) :
     fourPrimeWheelSign (r + 105) = -fourPrimeWheelSign r := by
-  interval_cases r <;> native_decide
+  have hbound : r < 210 := by
+    unfold fourPrimeWheelPeriod at hr
+    exact hr
+  have hall : ∀ k < 210, fourPrimeWheelSign (k + 105) = -fourPrimeWheelSign k := by
+    native_decide
+  exact hall r hbound
 
 /-- The concrete `2,3,5,7` wheel satisfies the abstract half-reversal law with
 odd-prime cell length `105`. -/
 theorem fourPrimeWheel_hasHalfReversal :
     HasWheelHalfReversal 105 fourPrimeWheelSign := by
   intro r hr
-  exact fourPrimeWheel_halfPeriod_sign_reversal r (by omega)
+  have hrp : r < fourPrimeWheelPeriod := by
+    unfold fourPrimeWheelPeriod
+    omega
+  have h := fourPrimeWheel_halfPeriod_sign_reversal r hrp
+  rwa [Nat.add_comm r 105] at h
 
 /-- The concrete complete-cell cancellation is an instance of the general
 primorial half-reversal theorem. -/
@@ -99,9 +108,8 @@ theorem abs_fourPrimeWheel_partial_sum_le_length (a L : ℕ) :
     rcases fourPrimeWheelSign_eq_one_or_neg_one (a + j) with h | h <;> simp [h]
   calc
     |∑ j ∈ Finset.range L, fourPrimeWheelSign (a + j)|
-        ≤ ∑ j ∈ Finset.range L, |fourPrimeWheelSign (a + j)| := by
-          simpa only [Int.norm_eq_abs] using
-            (norm_sum_le (Finset.range L) (fun j => fourPrimeWheelSign (a + j)))
+        ≤ ∑ j ∈ Finset.range L, |fourPrimeWheelSign (a + j)| :=
+          Finset.abs_sum_le_sum_abs _ _
     _ ≤ ∑ _j ∈ Finset.range L, (1 : ℤ) := by
           exact Finset.sum_le_sum hpoint
     _ = (L : ℤ) := by simp
