@@ -171,6 +171,26 @@ theorem squarePrefixPNT_of_transitionRelevanceVanishes
     (squareBlockDiscrepancyVanishes_of_transitionRelevanceVanishes
       U hU hinterior hvanish)
 
+/-- Arithmetic core of the square-root interpolation step.
+
+Stated for opaque reals on purpose.  In the main proof the corresponding terms
+contain `Nat.sqrt x` under a local definition, and letting the nonlinear
+arithmetic tactics see through that definition forces repeated `whnf` on the
+`Nat.sqrt` recursion, which exhausts the heartbeat budget. -/
+private theorem four_mul_le_of_sq_le_of_lt
+    {a X ε : ℝ} (hε : 0 < ε) (ha : 0 ≤ a) (hX : 0 < X)
+    (hsq : a ^ 2 ≤ 4 * X) (hbig : 64 < ε ^ 2 * X) :
+    4 * a ≤ ε * X := by
+  have hεX : 0 ≤ ε * X := mul_nonneg hε.le hX.le
+  have hstep : (4 * a) ^ 2 < (ε * X) ^ 2 := by
+    nlinarith [hsq, mul_lt_mul_of_pos_right hbig hX]
+  by_contra hcon
+  push_neg at hcon
+  have hlt : (ε * X) * (ε * X) < (4 * a) * (4 * a) :=
+    mul_self_lt_mul_self hεX hcon
+  nlinarith [hstep, hlt]
+
+set_option maxHeartbeats 400000 in
 theorem mertensPNT_of_squarePrefixPNT
     (hS : SquarePrefixPNTStatement) :
     MertensPNTStatement := by
@@ -235,10 +255,7 @@ theorem mertensPNT_of_squarePrefixPNT
   have hX0real : 64 / ε ^ 2 < (x : ℝ) := by
     exact lt_of_lt_of_le (by exact_mod_cast hX0) (by exact_mod_cast hX0le)
   have hsqrtSmall : 2 * (r + 1 : ℝ) ≤ (ε / 2) * ((x + 1 : ℕ) : ℝ) := by
-    let X : ℝ := ((x + 1 : ℕ) : ℝ)
-    let a : ℝ := (r + 1 : ℝ)
-    have haSq : a ^ 2 ≤ 4 * X := by
-      dsimp [a, X]
+    have haSq : ((r : ℝ) + 1) ^ 2 ≤ 4 * ((x + 1 : ℕ) : ℝ) := by
       have hnat : (r + 1) ^ 2 ≤ 4 * (x + 1) := by
         have hsquare : (r + 1) ^ 2 = r ^ 2 + 2 * r + 1 := by ring
         rw [hsquare]
@@ -247,26 +264,19 @@ theorem mertensPNT_of_squarePrefixPNT
     have hεsq : 0 < ε ^ 2 := sq_pos_of_pos hε
     have hxlargeRaw : 64 < (x : ℝ) * ε ^ 2 :=
       (div_lt_iff₀ hεsq).mp hX0real
-    have hxcast : (x : ℝ) ≤ X := by
-      dsimp [X]
+    have hxcast : (x : ℝ) ≤ ((x + 1 : ℕ) : ℝ) := by
       exact_mod_cast (Nat.le_succ x)
-    have hxlarge : 64 < ε ^ 2 * X := by
-      have hmono : (x : ℝ) * ε ^ 2 ≤ X * ε ^ 2 :=
+    have hXpos : (0 : ℝ) < ((x + 1 : ℕ) : ℝ) := by
+      have hpos : 0 < x + 1 := Nat.succ_pos x
+      exact_mod_cast hpos
+    have hxlarge : 64 < ε ^ 2 * ((x + 1 : ℕ) : ℝ) := by
+      have hmono : (x : ℝ) * ε ^ 2 ≤ ((x + 1 : ℕ) : ℝ) * ε ^ 2 :=
         mul_le_mul_of_nonneg_right hxcast (sq_nonneg ε)
-      have : 64 < X * ε ^ 2 := lt_of_lt_of_le hxlargeRaw hmono
-      simpa [mul_comm] using this
-    have hXpos : 0 < X := by dsimp [X]; positivity
-    have hprod : 64 * X < ε ^ 2 * X ^ 2 := by
-      nlinarith
-    have hscaled : 16 * a ^ 2 ≤ 64 * X := by
-      nlinarith
-    have hsquares : (4 * a) ^ 2 < (ε * X) ^ 2 := by
-      nlinarith
-    have ha : 0 ≤ a := by dsimp [a]; positivity
-    have hεX : 0 ≤ ε * X := mul_nonneg (le_of_lt hε) (le_of_lt hXpos)
-    have hlinear : 4 * a ≤ ε * X := by
-      nlinarith
-    dsimp [a, X] at hlinear ⊢
+      have hchain : 64 < ((x + 1 : ℕ) : ℝ) * ε ^ 2 :=
+        lt_of_lt_of_le hxlargeRaw hmono
+      simpa [mul_comm] using hchain
+    have hapos : (0 : ℝ) ≤ (r : ℝ) + 1 := by positivity
+    have hlinear := four_mul_le_of_sq_le_of_lt hε hapos hXpos haSq hxlarge
     linarith
   calc
     ‖RHLean.Analysis.mertensSummatory x‖ =

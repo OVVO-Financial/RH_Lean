@@ -56,7 +56,7 @@ theorem wheel_period_mul
       calc
         f ((q + 1) * P + n) = f ((q * P + n) + P) := by
           congr 1
-          omega
+          ring
         _ = f (q * P + n) := hstep
         _ = f n := ih n
 

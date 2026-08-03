@@ -72,7 +72,7 @@ theorem abs_squareBlockMoebius_le_frontier_card
   apply abs_sum_le_frontier_card_of_complement_zero
       (squareBlockInterval n) U (fun x => μ x) hU
   · intro x hx
-    rcases ArithmeticFunction.moebius_eq_neg_one_or_zero_or_one x with h | h | h <;>
+    rcases ArithmeticFunction.moebius_eq_or x with h | h | h <;>
       simp [h]
   · exact hsettled
 

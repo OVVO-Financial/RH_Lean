@@ -77,7 +77,6 @@ theorem PrimeCombUpdate.abs_after_le (u : PrimeCombUpdate) :
     _ = |u.before| + (u.firstHits : ℤ)
           + 2 * |u.collisionImbalance| + |u.deathImbalance| := by
           simp [abs_mul]
-          ring
 
 def PrimeCombUpdate.HasRestoringEstimate
     (u : PrimeCombUpdate) (alpha error : ℝ) : Prop :=
