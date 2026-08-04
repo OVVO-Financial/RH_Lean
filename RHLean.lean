@@ -155,3 +155,4 @@ import RHLean.Proof.TwoAnchorSlackCoverage
 import RHLean.Proof.DegreeShellTransfer
 import RHLean.Proof.AbstractEnergyRecurrence
 import RHLean.Proof.TernaryRefinementBound
+import RHLean.Proof.SignedCanonicalHeight
