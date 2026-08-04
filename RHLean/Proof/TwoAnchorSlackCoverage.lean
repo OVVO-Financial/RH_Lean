@@ -174,7 +174,12 @@ theorem slack_nonneg_of_endpoint_reserve {K b y qU qx : ℝ}
   linarith
 
 /-- The reserve demanded at `y` by the backward route, made explicit: it is the
-exact quantity `S_K(U)` must dominate, cross term included. -/
+exact quantity `S_K(U)` must dominate, cross term included.  Note what this says:
+the reserve hypothesis of `slack_nonneg_of_endpoint_reserve` is *equivalent* to its
+conclusion, so keeping the cross term is a re-parameterization, not a reduction.
+The anchor route is useful precisely because it discards the cross term and turns
+a signed statement into a magnitude statement — at the price
+`anchor_excess_eq_cross`. -/
 theorem endpoint_reserve_eq {K b y qU qx : ℝ} :
     slack K b qU - (K ^ 2 * (qU - qx) + (b - y) ^ 2 - 2 * b * (b - y)) =
       slack K y qx := by

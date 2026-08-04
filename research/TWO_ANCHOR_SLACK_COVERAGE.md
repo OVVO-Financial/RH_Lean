@@ -22,8 +22,8 @@ Recomputation: `scripts/TwoAnchorSlackCoverage/verify.py` (anchor algebra,
 the complete block `(13#, 17#]`, the reported diagnostics) and
 `scripts/TwoAnchorSlackCoverage/block_scan.c` (every prefix through `29#`).
 Every finite value quoted in issue #184 that these reproduce is marked
-**reproduced** below; the two that could not be checked from published data are
-marked explicitly.
+**reproduced** below; the values that could not be checked from the published
+data are marked explicitly as such.
 
 ---
 
@@ -107,6 +107,11 @@ Both **reproduced**. The correct reading:
   global trough (`M = -25071` at `x = 3773166681`, ratio `0.5234713516`) nor the
   crest (`M = 21791` at `x = 5439294781`, ratio `0.3789484274`). Both ratios
   **reproduced**; the two extremal locations are new here.
+* The earlier trough/crest orientation claim also **reproduces** and is exactly the
+  coverage statement: `A_L(trough) = -28587` and `B_U(crest) = -26803`, so the
+  trough is covered by the left anchor (`-25071 <= 3516`) and the crest by the
+  right one (`21791 >= -5012`). What the bottleneck adds is that the *normalized*
+  extremizer sits at neither.
 
 So the flexible statement in the issue is the right one: *use the favourable
 anchor when available, and endpoint reserve otherwise.*
@@ -196,6 +201,25 @@ The honest statement is therefore:
 > orientation obligation into a magnitude obligation at a known, bounded price —
 > a factor `1.22` to `1.73` in `K` on mature blocks — and it leaves the entire
 > analytic difficulty in the shell estimate for `A(x)`.
+
+### The endpoint-reserve route is exact, and therefore not a reduction
+
+`endpoint_reserve_eq` records that
+
+```text
+S_K(U) - (K^2 r(x) + B(x)^2 - 2 M(U) B(x)) = S_K(x)
+```
+
+identically. So the reserve hypothesis "`S_K(U)` dominates the demand at `x`" is
+*equivalent to* the conclusion `S_K(x) >= 0`, not weaker than it. Backward filling
+with the cross term retained is a re-parameterization of the target, and every
+unit of difficulty stays where it was. That is exactly why the anchor route earns
+its constant: discarding a favourable cross term is the only step that converts a
+signed obligation into a magnitude one.
+
+The practical reading of repair option 2: endpoint reserve is what one falls back
+on where no covering anchor exists, but it does not lighten the shell estimate
+there — on those prefixes the requirement is precisely `K >= K_*`.
 
 ---
 

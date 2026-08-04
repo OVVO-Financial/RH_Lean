@@ -177,6 +177,38 @@ theorem booleanLeafCount_nine :
 
 theorem boolean_lt_ternary_nine : (512 : ℕ) < 19683 := by norm_num
 
+/-! ## The fibre normalization at the bottleneck
+
+Exact recomputed values at `x_* = 1109331447`: the distinguished prime-`2` fibre is
+`P_2 = -59685/4` and its support mass is `m_2 = (3/4) A_2` with `A_2 = 718357949`.
+Both normalizations quoted for that point are pinned here by exact rational
+sandwiches, which is the form a boundedness statement `|P_2| <= C sqrt(m_2)` needs;
+no convergence to a universal constant is asserted. -/
+
+/-- `P_2(x_*)`, exactly. -/
+def fibreValue : ℚ := -59685 / 4
+
+/-- `m_2(x_*) = (3/4) A_2`, exactly. -/
+def fibreMass : ℚ := 3 / 4 * 718357949
+
+theorem fibreValue_eq : fibreValue = -14921.25 := by
+  norm_num [fibreValue]
+
+theorem fibreMass_eq : fibreMass = 538768461.75 := by
+  norm_num [fibreMass]
+
+/-- `|P_2| / sqrt(m_2) = 0.642841...`, as an exact rational sandwich. -/
+theorem fibre_normalization :
+    (0.6428 : ℚ) ^ 2 * fibreMass < fibreValue ^ 2 ∧
+      fibreValue ^ 2 < (0.6429 : ℚ) ^ 2 * fibreMass := by
+  constructor <;> norm_num [fibreValue, fibreMass]
+
+/-- `alpha_2 sqrt(x_*) = 0.92243...` with `alpha_2 = |P_2|/m_2`, again exactly. -/
+theorem fibre_scale :
+    (0.9224 : ℚ) ^ 2 < (fibreValue / fibreMass) ^ 2 * 1109331447 ∧
+      (fibreValue / fibreMass) ^ 2 * 1109331447 < (0.9225 : ℚ) ^ 2 := by
+  constructor <;> norm_num [fibreValue, fibreMass]
+
 /-! ## The high-degree tail is not discardable
 
 The degree shells reported at the `29#` normalized bottleneck.  Their exact sum is
@@ -188,16 +220,18 @@ def bottleneckShell : List ℚ :=
     58276.938, 21526.179, -1187.797, -1099.593, 38.485]
 
 /-- Low-degree head `E_0 + ... + E_4`. -/
-def bottleneckHead : ℚ := (bottleneckShell.take 5).sum
+def bottleneckHead : ℚ :=
+  510598.977 + (-1352337.222) + 1014743.270 + 80096.189 + (-345576.676)
 
 /-- High-degree tail `E_5 + ... + E_9`. -/
-def bottleneckTail : ℚ := (bottleneckShell.drop 5).sum
+def bottleneckTail : ℚ :=
+  58276.938 + 21526.179 + (-1187.797) + (-1099.593) + 38.485
 
 theorem bottleneckHead_eq : bottleneckHead = -92475.462 := by
-  norm_num [bottleneckHead, bottleneckShell]
+  norm_num [bottleneckHead]
 
 theorem bottleneckTail_eq : bottleneckTail = 77554.212 := by
-  norm_num [bottleneckTail, bottleneckShell]
+  norm_num [bottleneckTail]
 
 /-- The reported shells reproduce the independently recomputed fibre value
 `P_2(x_*) = -14921.25`. -/
