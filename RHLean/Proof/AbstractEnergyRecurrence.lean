@@ -170,11 +170,15 @@ theorem homogeneous_of_affine {f g A C : ℝ}
 /-- Young's inequality in the form used to absorb the bulk-boundary cross term. -/
 theorem sq_add_le_of_pos (s t : ℝ) {η : ℝ} (hη : 0 < η) :
     (s + t) ^ 2 ≤ (1 + η) * s ^ 2 + (1 + η⁻¹) * t ^ 2 := by
-  rw [← mul_le_mul_left hη]
-  have ht2 : η * η⁻¹ * t ^ 2 = t ^ 2 := by
-    rw [mul_inv_cancel₀ hη.ne']
+  have hne : η ≠ 0 := ne_of_gt hη
+  have hinv : (0 : ℝ) ≤ η⁻¹ := le_of_lt (inv_pos.mpr hη)
+  have key : 0 ≤ η⁻¹ * (η * s - t) ^ 2 := mul_nonneg hinv (sq_nonneg _)
+  have h1 : η⁻¹ * η = 1 := inv_mul_cancel₀ hne
+  have expand : η⁻¹ * (η * s - t) ^ 2 =
+      (η⁻¹ * η) * (η * s ^ 2) - 2 * (η⁻¹ * η) * (s * t) + η⁻¹ * t ^ 2 := by
     ring
-  nlinarith [sq_nonneg (η * s - t), ht2]
+  rw [h1] at expand
+  nlinarith [key, expand]
 
 section Normed
 

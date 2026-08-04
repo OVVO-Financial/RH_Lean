@@ -130,9 +130,10 @@ theorem frobenius_poly {q : ℝ} (hq : 2 ≤ q) (P X1 X2 : ℝ) :
       _ ≤ q ^ 4 * V := mul_le_mul_of_nonneg_right hb hV
   linarith
 
-/-- The three squared row norms, in cleared form, are below `6`, `8` and `1`. -/
+/-- The three squared row norms, in cleared form, are below `6`, `8` and `1`.
+The certificates are `(q-1)^4 < q^4`, `32q^3 - 50q^2 + 30q - 6 > 0` and `2q - 2 > 0`. -/
 theorem row_norm_bounds {q : ℝ} (hq : 2 ≤ q) :
-    (q - 1) ^ 4 * 6 ≤ 6 * q ^ 4 ∧
+    (q - 1) ^ 4 ≤ q ^ 4 ∧
       (2 * q - 1) ^ 2 * (1 + (q - 2) ^ 2 + (q - 1) ^ 2) ≤ 8 * q ^ 4 ∧
       q ^ 2 * (1 + (q - 1) ^ 2) ≤ q ^ 4 := by
   refine ⟨by nlinarith, by nlinarith, by nlinarith⟩
