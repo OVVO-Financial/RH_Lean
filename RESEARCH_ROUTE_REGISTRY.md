@@ -523,7 +523,41 @@ Settled by this route:
   `(19#, 23#]`, which has `7933289` uncovered prefixes. An anchor-bracketing
   property for consecutive primorial endpoints is false as stated.
 
+### 6. Stage energy recurrence `E_q <= A E_{q^-} + C x`
+
+**Status: ALGEBRAIC LAYER FORMALIZED. THE `(A, C)` INEQUALITY IS THE OPEN THEOREM.**
+
+The iterated consequence of a one-stage affine energy recurrence is exact algebra
+and is proved in
+[`RHLean/Proof/AbstractEnergyRecurrence.lean`](RHLean/Proof/AbstractEnergyRecurrence.lean):
+from `E_{j₀} <= B x` and `E_{j+1} <= A_j E_j + C_j x`,
+
+```text
+E_n <= (prod_r A_r) B x + x sum_s C_s prod_{r>s} A_r,
+|Λ_n V_n|^2 <= D_n x [ B prod_r A_r + sum_s C_s prod_{r>s} A_r ].
+```
+
+Measured so far: `B_{<=7}^emp = 29.850695` on every prefix of `(30030, 510510]`,
+with mature-prefix inflations `A_11 = 1.179208`, `A_13 = 1.125960`,
+`A_17 = 1.289167`, and a largest post-`7` inflation `A_11 = 3.624432` at the `29#`
+bottleneck declining to `1.265988` at `29`. The honest status is
+`A_q^emp < 3.7` on the tested stages. See
+[`research/STAGE_ENERGY_RECURRENCE.md`](research/STAGE_ENERGY_RECURRENCE.md).
+
 ### Do not repeat this route by
+
+- reading the iterated estimate as progress toward `M(x)`: it is an implication
+  from constants nobody has proved exist;
+- folding the asymptotic specialization `D_n = 3^n` and
+  `n = O(log x / log log x)` into the algebraic lemma — that converts a lemma
+  into a conditional theorem;
+- quoting `A_q^emp < 3.7` as a bound: it is a finite measurement on tested
+  stages, and the unrestricted-prefix column of the same table is where the
+  boundary regime shows;
+- guessing the `C/S/W` operators in order to recompute the energy — two published
+  prime-`3` triples do not determine them.
+
+### Do not repeat the anchor route by
 
 - asserting that anchor selection bounds anything: it converts a signed
   obligation into a magnitude obligation and leaves the shell estimate untouched;

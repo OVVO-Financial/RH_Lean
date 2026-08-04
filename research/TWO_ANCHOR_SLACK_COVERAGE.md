@@ -349,7 +349,9 @@ data above says it cannot be obtained prime by prime.
    concrete test case, with `7933289` prefixes covered by no block endpoint.
 3. A uniform bound on the transfer product, retaining the full degree range: the
    head/tail split forbids truncation and the survivor factors forbid a
-   prime-by-prime contraction argument.
+   prime-by-prime contraction argument. The stage-energy route to this bound, its
+   measured constants and its blocked recomputation are in
+   [`STAGE_ENERGY_RECURRENCE.md`](STAGE_ENERGY_RECURRENCE.md).
 4. Whether `K_anchor` stays bounded as blocks grow. It is `1.22`, `1.91`, `3.31`,
    `1.73` times `K_*` on the last four blocks; the reduction is only useful if
    that ratio does not grow.

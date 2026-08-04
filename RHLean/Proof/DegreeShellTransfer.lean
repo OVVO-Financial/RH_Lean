@@ -99,6 +99,22 @@ theorem sum_shellStep_window (C T : V →+ V) {E : ℕ → V} {n N : ℕ}
   have hEm : E m = 0 := hE m (by omega)
   rw [sum_shellStep, Finset.sum_range_succ E m, hEm, add_zero, AddMonoidHom.add_apply]
 
+/-- One adjunction with the three local classes kept separate, as the programme
+states it: `E_d^{(j+1)} = C_q E_d^{(j)} + (S_q + W_q) E_{d-1}^{(j)}`. -/
+def shellStepThree (C S W : V →+ V) (E : ℕ → V) : ℕ → V := shellStep C (S + W) E
+
+theorem shellStepThree_succ (C S W : V →+ V) (E : ℕ → V) (d : ℕ) :
+    shellStepThree C S W E (d + 1) = C (E (d + 1)) + (S + W) (E d) := rfl
+
+/-- **Evaluation at one, three-operator form.**
+`evalOne (step_q E) = (C_q + S_q + W_q) (evalOne E)`. -/
+theorem sum_shellStepThree_window (C S W : V →+ V) {E : ℕ → V} {n N : ℕ}
+    (hE : Supported E n) (hn : n < N) :
+    ∑ d ∈ Finset.range N, shellStepThree C S W E d =
+      (C + S + W) (∑ d ∈ Finset.range N, E d) := by
+  unfold shellStepThree
+  rw [sum_shellStep_window C (S + W) hE hn, add_assoc]
+
 /-- Adjoining a whole list of primes, innermost first. -/
 def shellSteps (ops : List ((V →+ V) × (V →+ V))) (E : ℕ → V) : ℕ → V :=
   ops.foldr (fun p F => shellStep p.1 p.2 F) E
