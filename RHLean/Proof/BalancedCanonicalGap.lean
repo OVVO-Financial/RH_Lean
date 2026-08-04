@@ -50,9 +50,8 @@ theorem factor_sum_ge_two_n {n u d : ℕ} (hblock : InSquareBlock n u d) :
     nlinarith
   nlinarith [hblock.1]
 
-/-- Any positive lower endpoint in `B_n` satisfies `u ≤ n`, without a balance
-assumption. -/
-theorem left_le_block_index {n u d : ℕ} (hu : 1 ≤ u)
+/-- Any lower endpoint in `B_n` satisfies `u ≤ n`, without a balance assumption. -/
+theorem left_le_block_index {n u d : ℕ}
     (hblock : InSquareBlock n u d) : u ≤ n := by
   by_contra hcon
   have hnu : n < u := by omega
@@ -70,7 +69,7 @@ theorem scale_localization {n u d : ℕ} (hu : 1 ≤ u)
   have huvlt : u + d < 2 * u := by omega
   have hn2lt : n ^ 2 < 2 * u ^ 2 := by
     nlinarith [hblock.1]
-  have hun : u ≤ n := left_le_block_index hu hblock
+  have hun : u ≤ n := left_le_block_index hblock
   have hnuv : n ≤ u + d := by
     by_contra hcon
     have huv_n : u + d < n := by omega
@@ -123,7 +122,6 @@ theorem prime_dvd_right_le_left {u d p : ℕ} (hu : 1 ≤ u)
     intro heq
     apply hcomp
     simpa [heq] using hp
-  have hplt : p < u + d := lt_of_le_of_ne hple hpne
   obtain ⟨k, hk⟩ := hpdvd
   have hk2 : 2 ≤ k := by
     by_contra hnot
@@ -147,6 +145,7 @@ theorem coprime_of_right_prime {u d : ℕ} (hu : 1 ≤ u)
 theorem coprime_of_left_prime {u d : ℕ} (hu : 1 ≤ u)
     (hbal : BalancedGap u d) (huprime : u.Prime) :
     Nat.Coprime u (u + d) := by
+  rcases hbal with ⟨hdpos, hdlt⟩
   apply (huprime.coprime_iff_not_dvd).2
   intro hdvd
   obtain ⟨k, hk⟩ := hdvd
@@ -154,13 +153,12 @@ theorem coprime_of_left_prime {u d : ℕ} (hu : 1 ≤ u)
     by_contra hnot
     have hkle : k ≤ 1 := by omega
     interval_cases k <;> simp_all
-  have huvlt : u + d < 2 * u := (right_between hbal).2
+  have huvlt : u + d < 2 * u := by omega
   nlinarith
 
 /-- A prime upper endpoint satisfies the dominant-prime condition. -/
 theorem dominant_right_of_prime {u d : ℕ} (hu : 1 ≤ u)
-    (hbal : BalancedGap u d) (hv : (u + d).Prime) :
-    DominantPrime (u + d) u := by
+    (hv : (u + d).Prime) : DominantPrime (u + d) u := by
   refine ⟨hv, ?_⟩
   intro p hp hpdvd
   have hple : p ≤ u := Nat.le_of_dvd (by omega) hpdvd
@@ -189,11 +187,11 @@ theorem canonicalPair_iff_endpoint_prime {u d : ℕ} (hu : 1 ≤ u)
     rcases hend with huprime | hvprime
     · by_cases hv : (u + d).Prime
       · exact ⟨coprime_of_right_prime hu hbal hv,
-          Or.inl (dominant_right_of_prime hu hbal hv)⟩
+          Or.inl (dominant_right_of_prime hu hv)⟩
       · exact ⟨coprime_of_left_prime hu hbal huprime,
           Or.inr (dominant_left_of_prime hu hbal huprime hv)⟩
     · exact ⟨coprime_of_right_prime hu hbal hvprime,
-        Or.inl (dominant_right_of_prime hu hbal hvprime)⟩
+        Or.inl (dominant_right_of_prime hu hvprime)⟩
 
 /-! ## The symmetric balanced coefficient -/
 
@@ -202,8 +200,9 @@ def indicator (P : Prop) [Decidable P] : ℤ :=
   if P then 1 else 0
 
 /-- The actual canonical source coefficient for the unordered pair. -/
-def canonicalCoefficient (u d : ℕ) : ℤ :=
-  if CanonicalPair u d then (μ (u * (u + d)) : ℤ) else 0
+noncomputable def canonicalCoefficient (u d : ℕ) : ℤ := by
+  classical
+  exact if CanonicalPair u d then (μ (u * (u + d)) : ℤ) else 0
 
 /-- The symmetric balanced coefficient. -/
 def beta (u d : ℕ) : ℤ :=
@@ -218,6 +217,7 @@ theorem moebius_product_of_canonical {u d : ℕ} (hcan : CanonicalPair u d) :
 /-- In the balanced regime the canonical source coefficient is exactly `beta`. -/
 theorem canonicalCoefficient_eq_beta {u d : ℕ} (hu : 1 ≤ u)
     (hbal : BalancedGap u d) : canonicalCoefficient u d = beta u d := by
+  classical
   by_cases hend : u.Prime ∨ (u + d).Prime
   · have hcan : CanonicalPair u d :=
       (canonicalPair_iff_endpoint_prime hu hbal).2 hend
@@ -283,37 +283,42 @@ def pairUniverse (n : ℕ) : Finset (ℕ × ℕ) :=
 /-- Every positive pair in `B_n` occurs in `pairUniverse n`. -/
 theorem mem_pairUniverse_of_block {n u d : ℕ} (hu : 1 ≤ u)
     (hblock : InSquareBlock n u d) : (u, d) ∈ pairUniverse n := by
-  have hun : u ≤ n := left_le_block_index hu hblock
+  have hun : u ≤ n := left_le_block_index hblock
+  have hult : u < n + 1 := by omega
   have huv_le_prod : u + d ≤ u * (u + d) := by
     nlinarith
   have hdlt : d < (n + 1) ^ 2 + 1 := by
     nlinarith [hblock.2]
-  simp [pairUniverse, hun, hdlt]
+  simp [pairUniverse, hult, hdlt]
 
 /-- The active high-band predicate.  `K` is a threshold for the doubled height. -/
 def HighPair (n K : ℕ) (p : ℕ × ℕ) : Prop :=
   1 ≤ p.1 ∧ InSquareBlock n p.1 p.2 ∧ K < doubledHeight p.1 p.2
 
 /-- The full canonical high-band block increment. -/
-def highBandBlockIncrement (n K : ℕ) : ℤ :=
-  ∑ p ∈ pairUniverse n,
+noncomputable def highBandBlockIncrement (n K : ℕ) : ℤ := by
+  classical
+  exact ∑ p ∈ pairUniverse n,
     if HighPair n K p then canonicalCoefficient p.1 p.2 else 0
 
 /-- The balanced part `0 < d < u`; positivity of `d` follows automatically from
 `HighPair`. -/
-def balancedHighBandBlockIncrement (n K : ℕ) : ℤ :=
-  ∑ p ∈ pairUniverse n,
+noncomputable def balancedHighBandBlockIncrement (n K : ℕ) : ℤ := by
+  classical
+  exact ∑ p ∈ pairUniverse n,
     if HighPair n K p ∧ p.2 < p.1 then beta p.1 p.2 else 0
 
 /-- The extreme part `u ≤ d`. -/
-def extremeHighBandBlockIncrement (n K : ℕ) : ℤ :=
-  ∑ p ∈ pairUniverse n,
+noncomputable def extremeHighBandBlockIncrement (n K : ℕ) : ℤ := by
+  classical
+  exact ∑ p ∈ pairUniverse n,
     if HighPair n K p ∧ p.1 ≤ p.2 then canonicalCoefficient p.1 p.2 else 0
 
 /-- **Exact reconstruction of the high-band block increment.** -/
 theorem highBandBlockIncrement_eq_balanced_add_extreme (n K : ℕ) :
     highBandBlockIncrement n K =
       balancedHighBandBlockIncrement n K + extremeHighBandBlockIncrement n K := by
+  classical
   unfold highBandBlockIncrement balancedHighBandBlockIncrement
     extremeHighBandBlockIncrement
   rw [← Finset.sum_add_distrib]
