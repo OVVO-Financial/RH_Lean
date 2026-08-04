@@ -496,6 +496,45 @@ kernel estimate is merely the same coherent obstruction expressed in squared
 complex/cofactor-parabola coordinates. If so, it is a reparameterization rather
 than a new route.
 
+### 5. Anchor coverage of the frozen-prefix slack invariant
+
+**Status: EXACT LAYER FORMALIZED. THE ESTIMATE IT REDUCES TO IS OPEN.**
+
+The forward and backward slack identities for `S_K(x) = K^2 Q(x) - M(x)^2` are
+the *same* statement about an anchor value `c` and an interior value `y = M(x)`:
+`c` covers `y` when `c(y-c) <= 0`, and the cross-term-free obligation is then
+`c^2 + (y-c)^2 <= K^2 Q(x)`. Formalized in
+[`RHLean/Proof/TwoAnchorSlackCoverage.lean`](RHLean/Proof/TwoAnchorSlackCoverage.lean),
+with the exact recomputations in
+[`scripts/TwoAnchorSlackCoverage/`](scripts/TwoAnchorSlackCoverage/) and the
+discussion in
+[`research/TWO_ANCHOR_SLACK_COVERAGE.md`](research/TWO_ANCHOR_SLACK_COVERAGE.md).
+
+Settled by this route:
+
+- opposite-sign frozen endpoints cover every interior value, and same-sign
+  endpoints leave exactly the excursions beyond both anchors;
+- no single anchor is universal, so neither left- nor right-orientation alone can
+  be the pointwise mechanism;
+- the price of discarding a favourable cross term is exactly that cross term,
+  `-2c(y-c)`, so coverage is free but the constant is not;
+- consecutive primorial endpoints are **not** always opposite in sign: four of
+  the nine consecutive pairs through `29#` are same-sign, including
+  `(19#, 23#]`, which has `7933289` uncovered prefixes. An anchor-bracketing
+  property for consecutive primorial endpoints is false as stated.
+
+### Do not repeat this route by
+
+- asserting that anchor selection bounds anything: it converts a signed
+  obligation into a magnitude obligation and leaves the shell estimate untouched;
+- quoting an all-frozen-anchor constant as progress — `M(2#) = 0` is a frozen
+  anchor, a zero anchor is lossless, and the resulting excursion is the whole
+  Mertens value, i.e. the original problem;
+- assuming completed endpoints bracket the interior excursions of their own
+  block;
+- treating an unfavourable cross term as a refutation of backward filling: it is
+  a demand on the endpoint reserve.
+
 ## Acceptance rule for future routes
 
 A proposed route must state:

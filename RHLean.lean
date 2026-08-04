@@ -151,3 +151,5 @@ import RHLean.Analysis.PrimeWheelExplicitCriterion
 import RHLean.Analysis.PrimeWheelRHBridge
 import RHLean.Analysis.PrimorialWheelMertensTransfer
 import RHLean.Analysis.PrimorialWheelHarmonicReduction
+import RHLean.Proof.TwoAnchorSlackCoverage
+import RHLean.Proof.DegreeShellTransfer
