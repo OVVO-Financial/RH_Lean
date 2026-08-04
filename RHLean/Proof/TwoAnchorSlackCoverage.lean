@@ -192,7 +192,7 @@ theorem endpoint_reserve_eq {K b y qU qx : ℝ} :
 real value: the first covers `[c, ∞)` and the second `(-∞, c']`. -/
 theorem covers_of_nonpos_of_nonneg {c c' : ℝ} (hc : c ≤ 0) (hc' : 0 ≤ c') (y : ℝ) :
     Covers c y ∨ Covers c' y := by
-  rcases le_or_lt c y with h | h
+  rcases le_or_gt c y with h | h
   · left
     unfold Covers
     nlinarith [mul_nonneg (neg_nonneg.mpr hc) (sub_nonneg.mpr h)]
@@ -204,8 +204,8 @@ theorem covers_of_nonpos_of_nonneg {c c' : ℝ} (hc : c ≤ 0) (hc' : 0 ≤ c') 
 at least one favourable anchor. -/
 theorem covers_of_mul_nonpos {c c' : ℝ} (h : c * c' ≤ 0) (y : ℝ) :
     Covers c y ∨ Covers c' y := by
-  rcases le_or_lt c 0 with hc | hc
-  · rcases le_or_lt 0 c' with hc' | hc'
+  rcases le_or_gt c 0 with hc | hc
+  · rcases le_or_gt 0 c' with hc' | hc'
     · exact covers_of_nonpos_of_nonneg hc hc' y
     · refine Or.inl ?_
       have hc0 : 0 ≤ c := by nlinarith
