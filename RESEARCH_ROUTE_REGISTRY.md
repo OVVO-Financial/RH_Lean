@@ -496,6 +496,79 @@ kernel estimate is merely the same coherent obstruction expressed in squared
 complex/cofactor-parabola coordinates. If so, it is a reparameterization rather
 than a new route.
 
+### 5. Anchor coverage of the frozen-prefix slack invariant
+
+**Status: EXACT LAYER FORMALIZED. THE ESTIMATE IT REDUCES TO IS OPEN.**
+
+The forward and backward slack identities for `S_K(x) = K^2 Q(x) - M(x)^2` are
+the *same* statement about an anchor value `c` and an interior value `y = M(x)`:
+`c` covers `y` when `c(y-c) <= 0`, and the cross-term-free obligation is then
+`c^2 + (y-c)^2 <= K^2 Q(x)`. Formalized in
+[`RHLean/Proof/TwoAnchorSlackCoverage.lean`](RHLean/Proof/TwoAnchorSlackCoverage.lean),
+with the exact recomputations in
+[`scripts/TwoAnchorSlackCoverage/`](scripts/TwoAnchorSlackCoverage/) and the
+discussion in
+[`research/TWO_ANCHOR_SLACK_COVERAGE.md`](research/TWO_ANCHOR_SLACK_COVERAGE.md).
+
+Settled by this route:
+
+- opposite-sign frozen endpoints cover every interior value, and same-sign
+  endpoints leave exactly the excursions beyond both anchors;
+- no single anchor is universal, so neither left- nor right-orientation alone can
+  be the pointwise mechanism;
+- the price of discarding a favourable cross term is exactly that cross term,
+  `-2c(y-c)`, so coverage is free but the constant is not;
+- consecutive primorial endpoints are **not** always opposite in sign: four of
+  the nine consecutive pairs through `29#` are same-sign, including
+  `(19#, 23#]`, which has `7933289` uncovered prefixes. An anchor-bracketing
+  property for consecutive primorial endpoints is false as stated.
+
+### 6. Stage energy recurrence `E_q <= A E_{q^-} + C x`
+
+**Status: ALGEBRAIC LAYER FORMALIZED. THE `(A, C)` INEQUALITY IS THE OPEN THEOREM.**
+
+The iterated consequence of a one-stage affine energy recurrence is exact algebra
+and is proved in
+[`RHLean/Proof/AbstractEnergyRecurrence.lean`](RHLean/Proof/AbstractEnergyRecurrence.lean):
+from `E_{j₀} <= B x` and `E_{j+1} <= A_j E_j + C_j x`,
+
+```text
+E_n <= (prod_r A_r) B x + x sum_s C_s prod_{r>s} A_r,
+|Λ_n V_n|^2 <= D_n x [ B prod_r A_r + sum_s C_s prod_{r>s} A_r ].
+```
+
+Measured so far: `B_{<=7}^emp = 29.850695` on every prefix of `(30030, 510510]`,
+with mature-prefix inflations `A_11 = 1.179208`, `A_13 = 1.125960`,
+`A_17 = 1.289167`, and a largest post-`7` inflation `A_11 = 3.624432` at the `29#`
+bottleneck declining to `1.265988` at `29`. The honest status is
+`A_q^emp < 3.7` on the tested stages. See
+[`research/STAGE_ENERGY_RECURRENCE.md`](research/STAGE_ENERGY_RECURRENCE.md).
+
+### Do not repeat this route by
+
+- reading the iterated estimate as progress toward `M(x)`: it is an implication
+  from constants nobody has proved exist;
+- folding the asymptotic specialization `D_n = 3^n` and
+  `n = O(log x / log log x)` into the algebraic lemma — that converts a lemma
+  into a conditional theorem;
+- quoting `A_q^emp < 3.7` as a bound: it is a finite measurement on tested
+  stages, and the unrestricted-prefix column of the same table is where the
+  boundary regime shows;
+- guessing the `C/S/W` operators in order to recompute the energy — two published
+  prime-`3` triples do not determine them.
+
+### Do not repeat the anchor route by
+
+- asserting that anchor selection bounds anything: it converts a signed
+  obligation into a magnitude obligation and leaves the shell estimate untouched;
+- quoting an all-frozen-anchor constant as progress — `M(2#) = 0` is a frozen
+  anchor, a zero anchor is lossless, and the resulting excursion is the whole
+  Mertens value, i.e. the original problem;
+- assuming completed endpoints bracket the interior excursions of their own
+  block;
+- treating an unfavourable cross term as a refutation of backward filling: it is
+  a demand on the endpoint reserve.
+
 ## Acceptance rule for future routes
 
 A proposed route must state:
