@@ -136,7 +136,8 @@ theorem row_norm_bounds {q : ℝ} (hq : 2 ≤ q) :
     (q - 1) ^ 4 ≤ q ^ 4 ∧
       (2 * q - 1) ^ 2 * (1 + (q - 2) ^ 2 + (q - 1) ^ 2) ≤ 8 * q ^ 4 ∧
       q ^ 2 * (1 + (q - 1) ^ 2) ≤ q ^ 4 := by
-  refine ⟨by nlinarith, by nlinarith, by nlinarith⟩
+  refine ⟨?_, by nlinarith, by nlinarith⟩
+  gcongr <;> linarith
 
 end TernaryRefinement
 
