@@ -121,6 +121,137 @@ theorem eval_le (A C E : ℕ → ℝ) (x B : ℝ) (j₀ : ℕ)
     mul_le_mul_of_nonneg_left h hD
   linarith
 
+/-! ## Stating the one-stage inequality correctly
+
+`E_q(x) ≤ A E_{q^-}(x) + C x` is **not** a homogeneous Gram inequality and cannot
+be one.  `homogeneous_of_affine` is the obstruction: if the affine bound held at
+every dilation of a state, the additive constant would be invisible and the bound
+would collapse to the homogeneous `f ≤ A g`.  So the inequality is meaningful only
+
+* on the normalized legal arithmetic states arising at prefix `x`, or
+* through a split of the refinement into a homogeneous bulk map and a bounded
+  boundary vector, `T_{q,x} v = T_q^bulk v + b_{q,x}`.
+
+`energy_affine_step` is the second route, with the cross term absorbed by Young's
+inequality: from `‖T^bulk v‖^2 ≤ A₀ ‖v‖^2` and `‖b_{q,x}‖^2 ≤ C₀ x` it produces
+
+```text
+E_q(x) ≤ (1 + η) A₀ E_{q^-}(x) + (1 + η⁻¹) C₀ x
+```
+
+for every `η > 0`, which is exactly the shape `energy_le` iterates.  Only the
+triangle inequality is used, so the statement holds in any normed group. -/
+
+/-- **Scaling obstruction.**  An affine energy bound that survives every dilation
+of a state forces the homogeneous bound: the additive constant dilutes like
+`lam⁻²` and contributes nothing in the limit.  Hence an estimate with a genuine
+`C x` term must be restricted to a normalization-fixed family of states. -/
+theorem homogeneous_of_affine {f g A C : ℝ}
+    (h : ∀ lam : ℝ, 1 ≤ lam → lam ^ 2 * f ≤ A * (lam ^ 2 * g) + C) :
+    f ≤ A * g := by
+  by_contra hcon
+  push_neg at hcon
+  set d : ℝ := f - A * g with hdef
+  have hd : 0 < d := by
+    simp only [hdef]
+    linarith
+  obtain ⟨n, hn⟩ := Archimedean.arch (C + 1) hd
+  rw [nsmul_eq_mul] at hn
+  set lam : ℝ := max 1 (n : ℝ) with hlamdef
+  have hlam1 : (1 : ℝ) ≤ lam := le_max_left _ _
+  have hlamn : (n : ℝ) ≤ lam := le_max_right _ _
+  have hsq : lam ≤ lam ^ 2 := by nlinarith
+  have hbig : C + 1 ≤ lam ^ 2 * d := by nlinarith [hn, hlamn, hd, hsq]
+  have hstep := h lam hlam1
+  have hexp : lam ^ 2 * d = lam ^ 2 * f - A * (lam ^ 2 * g) := by
+    rw [hdef]; ring
+  linarith
+
+/-- Young's inequality in the form used to absorb the bulk-boundary cross term. -/
+theorem sq_add_le_of_pos (s t : ℝ) {η : ℝ} (hη : 0 < η) :
+    (s + t) ^ 2 ≤ (1 + η) * s ^ 2 + (1 + η⁻¹) * t ^ 2 := by
+  rw [← mul_le_mul_left hη]
+  have ht2 : η * η⁻¹ * t ^ 2 = t ^ 2 := by
+    rw [mul_inv_cancel₀ hη.ne']
+    ring
+  nlinarith [sq_nonneg (η * s - t), ht2]
+
+section Normed
+
+variable {F : Type*} [NormedAddCommGroup F]
+
+/-- **Bulk-plus-boundary refinement step.**  A homogeneous bulk bound and a
+bounded boundary vector give the affine one-stage inequality, for every splitting
+parameter `η > 0`.  This is the legitimate form of `E_q ≤ A E_{q^-} + C x`: the
+multiplicative factor `(1 + η) A₀` is an operator bound while the additive term
+`(1 + η⁻¹) C₀ x` is a boundary bound, and neither pretends to be the other. -/
+theorem energy_affine_step {u b : F} {A₀ C₀ Eprev x η : ℝ} (hη : 0 < η)
+    (hbulk : ‖u‖ ^ 2 ≤ A₀ * Eprev) (hb : ‖b‖ ^ 2 ≤ C₀ * x) :
+    ‖u + b‖ ^ 2 ≤ (1 + η) * (A₀ * Eprev) + (1 + η⁻¹) * (C₀ * x) := by
+  have htri : ‖u + b‖ ≤ ‖u‖ + ‖b‖ := norm_add_le u b
+  have h0 : 0 ≤ ‖u + b‖ := norm_nonneg _
+  have hu : 0 ≤ ‖u‖ := norm_nonneg u
+  have hbn : 0 ≤ ‖b‖ := norm_nonneg b
+  have hsq : ‖u + b‖ ^ 2 ≤ (‖u‖ + ‖b‖) ^ 2 := by nlinarith
+  have hyoung := sq_add_le_of_pos ‖u‖ ‖b‖ hη
+  have h1 : (0 : ℝ) ≤ 1 + η := by linarith
+  have h2 : (0 : ℝ) ≤ 1 + η⁻¹ := by
+    have : 0 < η⁻¹ := inv_pos.mpr hη
+    linarith
+  nlinarith [mul_le_mul_of_nonneg_left hbulk h1, mul_le_mul_of_nonneg_left hb h2]
+
+end Normed
+
+/-! ## The evaluation constant `D_n = 3^n` is not an assumption
+
+Each refinement replaces a component `Z` by three children summing to `Z`, so
+Cauchy-Schwarz bounds the **parent** energy by three times the child energy.
+Iterating from the unresolved stage, where the single component is the fibre
+value itself, gives `|P_2|^2 = E_0 <= 3^n E_n`, which is exactly the third
+hypothesis of the programme with `D_n = 3^n`.
+
+Note which way this runs.  The tensor structure bounds `E_{j+1}` from **below**
+and never from above: three children with a small signed sum can have arbitrarily
+large squares.  So every upper bound `E_{j+1} <= A E_j + C x` is arithmetic
+content about the legal states, and no part of it can be recovered from the shell
+combinatorics.  That is the precise sense in which the `(A, C)` inequality is the
+whole remaining problem. -/
+
+theorem sq_add_three_le (a b c : ℝ) :
+    (a + b + c) ^ 2 ≤ 3 * (a ^ 2 + b ^ 2 + c ^ 2) := by
+  nlinarith [sq_nonneg (a - b), sq_nonneg (b - c), sq_nonneg (a - c)]
+
+/-- Summed over the parents of one refinement stage. -/
+theorem sum_sq_add_three_le {ι : Type*} (s : Finset ι) (a b c : ι → ℝ) :
+    ∑ i ∈ s, (a i + b i + c i) ^ 2 ≤
+      3 * ∑ i ∈ s, (a i ^ 2 + b i ^ 2 + c i ^ 2) := by
+  rw [Finset.mul_sum]
+  exact Finset.sum_le_sum fun i _ => sq_add_three_le (a i) (b i) (c i)
+
+/-- `n` refinement stages lose at most a factor `3^n`. -/
+theorem le_pow_three_mul {E : ℕ → ℝ} (h : ∀ j, E j ≤ 3 * E (j + 1)) (n : ℕ) :
+    E 0 ≤ 3 ^ n * E n := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+    have h3 : (0 : ℝ) ≤ 3 ^ n := by positivity
+    calc E 0 ≤ 3 ^ n * E n := ih
+      _ ≤ 3 ^ n * (3 * E (n + 1)) := mul_le_mul_of_nonneg_left (h n) h3
+      _ = 3 ^ (n + 1) * E (n + 1) := by ring
+
+/-- **The full chain with no unproved evaluation constant.**  The base bound, the
+one-stage recurrence and the three-way Cauchy-Schwarz give the fibre estimate
+directly; `D_n = 3^n` is discharged rather than assumed. -/
+theorem eval_le_three_pow (A C E : ℕ → ℝ) (x B : ℝ) (j₀ : ℕ)
+    (hA : ∀ r, 0 ≤ A r)
+    (hbase : E j₀ ≤ B * x)
+    (hstep : ∀ j, j₀ ≤ j → E (j + 1) ≤ A j * E j + C j * x)
+    (hCS : ∀ j, E j ≤ 3 * E (j + 1))
+    (n : ℕ) (hn : j₀ ≤ n) :
+    E 0 ≤ 3 ^ n * ((B * inflation A j₀ n + additive A C j₀ n) * x) :=
+  eval_le A C E x B j₀ hA hbase hstep n hn (E 0) (3 ^ n) (by positivity)
+    (le_pow_three_mul hCS n)
+
 /-! ## Uniform stage constants
 
 The only collapse performed here is replacing each `A r` by a common upper bound.

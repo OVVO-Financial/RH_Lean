@@ -78,8 +78,15 @@ def stage_energies(
 # ---------------------------------------------------------------------------
 
 
-def additive_cost(prev: StageSeries, cur: StageSeries, A: float) -> tuple[float, int]:
-    """`C_min(A) = max_N (E_q(N) - A E_{q^-}(N))/x(N)`, with the maximizing index."""
+def additive_cost(
+    prev: StageSeries, cur: StageSeries, A: float, positive_part: bool = True
+) -> tuple[float, int]:
+    """`C_min(A) = sup_N (E_q(N) - A E_{q^-}(N))_+ / x(N)`, with the maximizing index.
+
+    The positive part is the frontier convention: `C_q(A) = 0` exactly when `A` is
+    already large enough that no prefix has a defect.  Pass ``positive_part=False``
+    to see the raw maximum, whose negative value measures how much slack `A` has.
+    """
     best, arg = None, -1
     for i, (ec, ep, x) in enumerate(zip(cur.energy, prev.energy, cur.location)):
         if x <= 0:
@@ -89,6 +96,8 @@ def additive_cost(prev: StageSeries, cur: StageSeries, A: float) -> tuple[float,
             best, arg = v, i
     if best is None:
         raise ValueError("no prefix with positive location")
+    if positive_part:
+        best = max(best, 0.0)
     return best, arg
 
 
@@ -244,5 +253,60 @@ def _self_test() -> None:
     print("3^j components Z_sigma(N); see the module docstring.")
 
 
+# ---------------------------------------------------------------------------
+# audit of the reported frontier
+# ---------------------------------------------------------------------------
+
+#: zero-defect thresholds on every prefix of (30030, 510510]
+REPORTED_THRESHOLD = {11: 1.569005, 13: 1.384105, 17: 2.857660}
+
+#: reported C_q(A) frontier on the same block
+REPORTED_FRONTIER = {
+    11: {1.0: 3.04208, 1.25: 0.0017606, 1.5: 4.32e-5, 2.0: 0.0},
+    13: {1.0: 1.01628, 1.25: 0.0003161, 1.5: 0.0, 2.0: 0.0},
+    17: {1.0: 0.006365, 1.25: 0.0008501, 1.5: 6.53e-5, 2.0: 1.45e-5},
+}
+
+#: worst A = 1 defect split as (total, bulk, cross, terminal tail)
+REPORTED_SPLIT = {11: (1551444, 1552956, -1559, 47), 13: (498132, 494739, 3421, -28)}
+
+#: post-7 inflation factors at the resolved 29# bottleneck, q = 11,13,17,19,23,29
+REPORTED_BOTTLENECK = [3.6244, 2.3790, 1.7798, 1.5528, 1.3837, 1.2660]
+
+
+def frontier_audit() -> None:
+    """Internal-consistency audit of the reported frontier.
+
+    This does not recompute the energies — that needs `resolve`, see the module
+    docstring. It checks the reported numbers against each other, which is the
+    part that can be checked without them.
+    """
+    print("\n## audit of the reported frontier")
+
+    for q, (total, bulk, cross, tail) in REPORTED_SPLIT.items():
+        assert bulk + cross + tail == total, (q, bulk + cross + tail, total)
+        print(f"   q={q}: bulk {bulk} + cross {cross} + tail {tail} = {total}"
+              f"   bulk share {100 * bulk / total:.3f}%")
+    print("   both A=1 defect splits reconstruct their totals exactly:          ok")
+
+    for q, row in REPORTED_FRONTIER.items():
+        for A, c in row.items():
+            assert (c == 0.0) == (A >= REPORTED_THRESHOLD[q]), (q, A, c)
+    print("   C_q(A) vanishes exactly when A reaches the threshold A*_q:        ok")
+
+    worst = max(REPORTED_THRESHOLD.values())
+    print(f"   max_q A*_q = {worst:.6f}  ->  (A, C) = (3, 0) covers q = 11,13,17")
+    for A in (1.0, 1.25, 1.5, 2.0):
+        m = max(REPORTED_FRONTIER[q][A] for q in REPORTED_FRONTIER)
+        print(f"   A = {A:<5} max_q C_q(A) = {m:.6g}")
+
+    f = REPORTED_BOTTLENECK
+    assert all(f[i] > f[i + 1] for i in range(len(f) - 1)), "factors must decline"
+    print(f"   29# bottleneck factors decline monotonically from {f[0]} to {f[-1]}")
+    print(f"   max = {max(f)}  ->  (A, C) = (4, 0) at that single resolved state")
+    print("   NOTE: the 29# row is one resolved state, not an exhaustive scan.")
+
+
 if __name__ == "__main__":
     _self_test()
+    frontier_audit()
