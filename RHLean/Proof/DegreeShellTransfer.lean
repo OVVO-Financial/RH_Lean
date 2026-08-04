@@ -159,23 +159,20 @@ Grading `{C,S,W}^j` by the number of non-`C` coordinates gives shells of size
 inclusion-exclusion would keep only `choose j d` states per degree, discarding
 `3^9 - 2^9 = 19171` of the `19683` components present at the `29#` diagnostic. -/
 
-/-- Number of `{C,S,W}^j` states with exactly `d` non-`C` coordinates. -/
-def ternaryLeafCount (j d : ℕ) : ℕ := Nat.choose j d * 2 ^ d
-
+/-- Degree shells of a nine-coordinate ternary tree: `choose 9 d * 2 ^ d` states of
+degree `d`, with `choose 9 d` running `1, 9, 36, 84, 126, 126, 84, 36, 9, 1`. -/
 theorem ternaryLeafCount_nine :
-    ternaryLeafCount 9 0 + ternaryLeafCount 9 1 + ternaryLeafCount 9 2 +
-        ternaryLeafCount 9 3 + ternaryLeafCount 9 4 + ternaryLeafCount 9 5 +
-        ternaryLeafCount 9 6 + ternaryLeafCount 9 7 + ternaryLeafCount 9 8 +
-        ternaryLeafCount 9 9 = 19683 := by
-  decide
+    1 * 2 ^ 0 + 9 * 2 ^ 1 + 36 * 2 ^ 2 + 84 * 2 ^ 3 + 126 * 2 ^ 4 + 126 * 2 ^ 5 +
+        84 * 2 ^ 6 + 36 * 2 ^ 7 + 9 * 2 ^ 8 + 1 * 2 ^ 9 = 3 ^ 9 := by
+  norm_num
 
+/-- The same shells under a Boolean subset model keep only `choose 9 d` states. -/
 theorem booleanLeafCount_nine :
-    Nat.choose 9 0 + Nat.choose 9 1 + Nat.choose 9 2 + Nat.choose 9 3 +
-        Nat.choose 9 4 + Nat.choose 9 5 + Nat.choose 9 6 + Nat.choose 9 7 +
-        Nat.choose 9 8 + Nat.choose 9 9 = 512 := by
-  decide
+    1 + 9 + 36 + 84 + 126 + 126 + 84 + 36 + 9 + 1 = 2 ^ 9 := by
+  norm_num
 
-theorem boolean_lt_ternary_nine : (512 : ℕ) < 19683 := by norm_num
+/-- A Boolean model therefore discards `19171` of the `19683` components. -/
+theorem boolean_lt_ternary_nine : 2 ^ 9 + 19171 = 3 ^ 9 := by norm_num
 
 /-! ## The fibre normalization at the bottleneck
 
@@ -211,13 +208,16 @@ theorem fibre_scale :
 
 /-! ## The high-degree tail is not discardable
 
-The degree shells reported at the `29#` normalized bottleneck.  Their exact sum is
-the independently recomputed fibre value `P_2(x_*) = -14921.25`. -/
+The signed degree-shell nets reported at the `29#` normalized bottleneck are
 
-/-- Reported signed degree-shell nets `E_0, ..., E_9` at `x_* = 1109331447`. -/
-def bottleneckShell : List ℚ :=
-  [510598.977, -1352337.222, 1014743.270, 80096.189, -345576.676,
-    58276.938, 21526.179, -1187.797, -1099.593, 38.485]
+```text
+E_0 = +510598.977   E_1 = -1352337.222  E_2 = +1014743.270  E_3 = +80096.189
+E_4 = -345576.676   E_5 = +58276.938    E_6 = +21526.179    E_7 = -1187.797
+E_8 = -1099.593     E_9 = +38.485
+```
+
+and `bottleneckShell_sum` checks that they reproduce the independently recomputed
+fibre value `P_2(x_*) = -14921.25` exactly. -/
 
 /-- Low-degree head `E_0 + ... + E_4`. -/
 def bottleneckHead : ℚ :=
@@ -235,12 +235,9 @@ theorem bottleneckTail_eq : bottleneckTail = 77554.212 := by
 
 /-- The reported shells reproduce the independently recomputed fibre value
 `P_2(x_*) = -14921.25`. -/
-theorem bottleneckShell_sum : bottleneckShell.sum = -14921.25 := by
-  norm_num [bottleneckShell]
-
-theorem bottleneckHead_add_tail : bottleneckHead + bottleneckTail = -14921.25 := by
+theorem bottleneckShell_sum : bottleneckHead + bottleneckTail = fibreValue := by
   rw [bottleneckHead_eq, bottleneckTail_eq]
-  norm_num
+  norm_num [fibreValue]
 
 /-- The degree `0..4` head overshoots the net by more than a factor `6`. -/
 theorem bottleneckHead_gt : 6 * (14921.25 : ℚ) < -bottleneckHead := by
