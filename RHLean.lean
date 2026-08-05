@@ -13,3 +13,5 @@ import RHLean.Proof.AbstractEnergyRecurrence
 import RHLean.Proof.TernaryRefinementBound
 import RHLean.Proof.SignedCanonicalHeight
 import RHLean.Proof.BalancedCanonicalGap
+import RHLean.Proof.CanonicalGapPrefixGram
+import RHLean.Proof.CanonicalGapAncestryFlow
