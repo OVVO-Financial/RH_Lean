@@ -160,7 +160,7 @@ remainder into its balanced part (`d < u`, evaluated by `beta`) and its extreme 
 (`u <= d`). The split is an identity, not an estimate: nothing is discarded, and the
 extreme part remains to be handled.
 
-### Both decompositions are exact and neither may be estimated piecewise
+### Both decompositions are exact; the raw pieces fail, and one term is why
 
 This is the measurement that constrains how the balanced results can be used.
 `scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` computes the prefix sum
