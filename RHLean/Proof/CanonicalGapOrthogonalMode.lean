@@ -44,7 +44,7 @@ theorem timePrefixInner_add (H : ℕ) (a b : ℕ → ℤ) :
   unfold timePrefixInner
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
-  intro r hr
+  intro r _hr
   rw [prefixSum_add]
   ring
 
