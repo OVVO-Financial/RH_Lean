@@ -159,3 +159,4 @@ import RHLean.Proof.SignedCanonicalHeight
 import RHLean.Proof.BalancedCanonicalGap
 import RHLean.Proof.CanonicalGapPrefixGram
 import RHLean.Proof.CanonicalGapBridgeGram
+import RHLean.Proof.CanonicalGapOrthogonalMode
