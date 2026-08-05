@@ -49,53 +49,80 @@ A theorem-predicted rank-one subtraction is not an orthogonal projection unless 
 
 ## Current status
 
-**The formal reduction is complete.** `RH_Lean` gives an axiom-clean, kernel-checked
-equivalence between the Riemann Hypothesis and a concrete finite projected-renewal
-quadratic bound:
+**The formal reduction chain is complete.** For every `Λ ≥ 0`, `RH_Lean` proves the unconditional structural equivalence
 
 ```text
 ProjectedRenewalQuadraticBoundedStatement Λ
-  ↔ CanonicalHighUniformLocalBoundedStatement Λ
-  ↔ RiemannHypothesisStatement
+  ↔ CanonicalHighUniformLocalBoundedStatement Λ.
 ```
 
-for every `Λ ≥ 0`, in
+Given an ordinary theorem argument
+
+```text
+criterion : ClassicalMertensRHCriterion,
+```
+
+the repository also proves
+
+```text
+CanonicalHighUniformLocalBoundedStatement Λ
+  ↔ RiemannHypothesisStatement,
+```
+
+and therefore the terminal theorem
+
+```text
+ProjectedRenewalQuadraticBoundedStatement Λ
+  ↔ RiemannHypothesisStatement.
+```
+
+These results are in
 [`RHLean/Proof/CanonicalGapAncestryQuadraticClosure.lean`](RHLean/Proof/CanonicalGapAncestryQuadraticClosure.lean).
-The equivalence and all structural bridges are complete. `RiemannHypothesisStatement`
-is Mathlib's `RiemannHypothesis`. Every carrying theorem depends on exactly
-`[propext, Classical.choice, Quot.sound]` and nothing else — checked against the
-kernel, not by grepping sources, in
-[`RHLean/Proof/TerminalAxiomAudit.lean`](RHLean/Proof/TerminalAxiomAudit.lean).
+`RiemannHypothesisStatement` is Mathlib's `RiemannHypothesis`. The three terminal
+carrying theorems depend on exactly `[propext, Classical.choice, Quot.sound]` and
+nothing else. The kernel output is regression-checked with `#guard_msgs` in
+[`RHLean/Proof/TerminalAxiomAudit.lean`](RHLean/Proof/TerminalAxiomAudit.lean), so an
+additional axiom dependency fails the build.
 
-### The two open inputs
+### The two remaining obligations
 
-Being axiom-clean is not the same as being unconditional. The chain rests on exactly
-two unproved inputs, and both are visible in the type signatures:
+Being axiom-clean is not the same as being unconditional. Two mathematical obligations remain visible:
 
-1. **`ProjectedRenewalQuadraticBoundedStatement`** — the remaining analytic estimate.
-   Because the equivalence above is proved, this is not comparable to RH or of
-   RH strength: it **is** RH. Proving it would be proving RH. Nothing in this
-   repository proves it and nothing claims to.
-2. **`ClassicalMertensRHCriterion`** — declared once in
-   [`RHLean/Analysis/SquarePrefixMertensBridge.lean`](RHLean/Analysis/SquarePrefixMertensBridge.lean),
-   consumed as a hypothesis in eleven places, never constructed. It encodes the
-   genuine classical theorem `M(x) = O(x^{1/2+ε}) ⟺ RH`. Supplying it as a typed
-   argument rather than an axiom is deliberate: it stays visible in every dependent
-   signature. Formalizing it would eliminate the last externally supplied classical
-   equivalence and make the reduction end-to-end. It would **not** solve or weaken the
-   remaining estimate — the project would then have one open input instead of an open
-   input plus a classical theorem parameter.
+1. **`ProjectedRenewalQuadraticBoundedStatement`** is the open analytic proposition.
+   Once `ClassicalMertensRHCriterion` is supplied, the proved equivalence shows that
+   establishing this proposition establishes RH. Nothing in this repository proves it
+   or claims to.
+2. **`ClassicalMertensRHCriterion`** is declared once in
+   [`RHLean/Analysis/SquarePrefixMertensBridge.lean`](RHLean/Analysis/SquarePrefixMertensBridge.lean)
+   and is passed explicitly through the theorem signatures that use the classical
+   Mertens/RH equivalence. It is never constructed in the repository. Formalizing this
+   known classical theorem would eliminate the externally supplied theorem argument
+   and make the reduction chain end-to-end; it would not prove or weaken the remaining
+   analytic proposition.
 
 ### `Λ = 0` is the canonical terminal formulation
 
-`Λ` is not an optimization parameter and must not be treated as an unused degree of
-freedom. The equivalence holds for every `Λ ≥ 0`, so every instance is exactly RH and
-none is easier. Measured in
-[`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`](scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c),
-raising `Λ` makes the normalized energy strictly worse rather than better, because
-`S^high = S_total − S^low` and the low band's own prefix is `O(Λn)`. At `Λ = 0` the
-statement reads `Σ_h |M((N+h+1)² − 1)|² ≪_ε H·N^{2+ε}`, the classical criterion
-itself. See route 7 in
+The theorem holds for every `Λ ≥ 0`, so changing `Λ` does not change the logical
+strength of the terminal proposition. The finite diagnostic
+[`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`](scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c)
+finds no sustained gain from increasing `Λ`: the values for `Λ = 0, 1, 2` are
+essentially flat with small nonmonotone variation, while `Λ = 5, 10, 25` are materially
+worse on the tested windows. This is numerical evidence, not an asymptotic theorem.
+
+The structural reason for preferring `Λ = 0` is that
+`S^high = S_total − S^low`, while the low-band counting theorem permits a prefix of
+size `O(Λn)`. Removing more of an already controlled low band can therefore introduce
+rather than remove a coherent drift. With no observed benefit and the simplest
+statement at `Λ = 0`, that endpoint is the canonical formulation for future work.
+There the proposition is the square-endpoint local energy estimate
+
+```text
+Σ_{h<H} |M((N+h+1)² − 1)|² ≪_ε H·N^{2+ε}.
+```
+
+The proved square-prefix bridge identifies this formulation with the classical Mertens
+criterion at the level required for the terminal equivalence; the displayed estimate
+should not be read as a separately proved pointwise bound. See route 7 in
 [`RESEARCH_ROUTE_REGISTRY.md`](RESEARCH_ROUTE_REGISTRY.md).
 
 ### Priorities
@@ -123,7 +150,7 @@ list. In particular the signed Gram machinery and the RH bridge, listed here as 
 in earlier revisions, are complete — the bridge is the equivalence recorded at the top
 of this section.
 
-What remains open is stated above: the analytic estimate, which is RH, and
+What remains open is stated above: the analytic proposition and the formalization of
 `ClassicalMertensRHCriterion`. Separately, the certified-computation layer described
 under **Verification** is still open, so every finite-range measurement in
 [`scripts/`](scripts/) — including those that closed the routes in the registry — is
