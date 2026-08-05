@@ -14,16 +14,16 @@ open CanonicalGapPrefixGram
 
 The numerical scan showed that raw balanced/extreme anti-alignment contains a dominant
 linear prefix mode and, on long windows, a second anti-alignment in the orthogonal
-residual.  This file records the exact finite algebra without introducing division.
+residual. This file records the exact finite algebra without introducing division.
 -/
 
 /-- Squared norm of the linear prefix vector `(1,2,...,H)`. -/
 def timeNormSq (H : ℕ) : ℤ :=
-  ∑ r in Finset.range H, (((r + 1 : ℕ) : ℤ) ^ 2)
+  ∑ r ∈ Finset.range H, (((r + 1 : ℕ) : ℤ) ^ 2)
 
 /-- Inner product of a prefix vector with `(1,2,...,H)`. -/
 def timePrefixInner (H : ℕ) (a : ℕ → ℤ) : ℤ :=
-  ∑ r in Finset.range H, ((r + 1 : ℕ) : ℤ) * prefixSum H a r
+  ∑ r ∈ Finset.range H, ((r + 1 : ℕ) : ℤ) * prefixSum H a r
 
 /-- Division-free numerator of the cross energy after orthogonal projection away
 from the linear prefix vector. -/
