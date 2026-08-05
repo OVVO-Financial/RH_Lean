@@ -62,15 +62,46 @@ theorem bridgePrefix_add (H : ℕ) (a b : ℕ → ℤ) (r : ℕ) :
   rw [hsucc]
   ring
 
+/-- The bridge Gram form is additive in its first argument. -/
+theorem bridgeCrossEnergy_add_left
+    (H : ℕ) (a b c : ℕ → ℤ) :
+    bridgeCrossEnergy H (fun i => a i + b i) c =
+      bridgeCrossEnergy H a c + bridgeCrossEnergy H b c := by
+  unfold bridgeCrossEnergy
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [bridgePrefix_add]
+  ring
+
+/-- The bridge Gram form is additive in its second argument. -/
+theorem bridgeCrossEnergy_add_right
+    (H : ℕ) (a b c : ℕ → ℤ) :
+    bridgeCrossEnergy H a (fun i => b i + c i) =
+      bridgeCrossEnergy H a b + bridgeCrossEnergy H a c := by
+  unfold bridgeCrossEnergy
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [bridgePrefix_add]
+  ring
+
+/-- The bridge Gram form is symmetric. -/
+theorem bridgeCrossEnergy_comm (H : ℕ) (a b : ℕ → ℤ) :
+    bridgeCrossEnergy H a b = bridgeCrossEnergy H b a := by
+  unfold bridgeCrossEnergy
+  apply Finset.sum_congr rfl
+  intro r _hr
+  ring
+
 /-- Exact balanced/extreme energy ledger after removing the constant increment mode. -/
 theorem bridgeEnergy_add (H : ℕ) (a b : ℕ → ℤ) :
     bridgeEnergy H (fun i => a i + b i) =
       bridgeEnergy H a + 2 * bridgeCrossEnergy H a b + bridgeEnergy H b := by
-  unfold bridgeEnergy bridgeCrossEnergy
-  rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
-  apply Finset.sum_congr rfl
-  intro r _hr
-  rw [bridgePrefix_add]
+  unfold bridgeEnergy
+  rw [bridgeCrossEnergy_add_left]
+  simp_rw [bridgeCrossEnergy_add_right]
+  rw [bridgeCrossEnergy_comm H b a]
   ring
 
 /-- Arithmetic instantiation for the balanced and extreme canonical high-band
