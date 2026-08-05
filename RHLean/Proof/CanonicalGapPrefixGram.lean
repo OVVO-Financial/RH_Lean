@@ -44,7 +44,7 @@ theorem prefixSum_add (H : ℕ) (a b : ℕ → ℤ) (r : ℕ) :
   unfold prefixSum
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
-  intro i hi
+  intro i _hi
   by_cases hir : i ≤ r <;> simp [hir]
 
 /-- The exact balanced/extreme prefix-energy ledger. -/
@@ -54,7 +54,7 @@ theorem prefixEnergy_add (H : ℕ) (a b : ℕ → ℤ) :
   unfold prefixEnergy prefixCrossEnergy
   rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
-  intro r hr
+  intro r _hr
   rw [prefixSum_add]
   ring
 
@@ -76,7 +76,7 @@ theorem prefixKernelCount_eq_sub_max (H i j : ℕ) :
       (Finset.range H).filter (fun r => i ≤ r ∧ j ≤ r) =
         (Finset.range H).filter (fun r => max i j ≤ r) := by
     apply Finset.filter_congr
-    intro r hr
+    intro r _hr
     omega
   rw [hfilter, card_filter_ge]
 
@@ -88,10 +88,10 @@ theorem prefixSum_mul_prefixSum (H : ℕ) (a b : ℕ → ℤ) (r : ℕ) :
   unfold prefixSum
   rw [Finset.sum_mul]
   apply Finset.sum_congr rfl
-  intro i hi
+  intro i _hi
   rw [Finset.mul_sum]
   apply Finset.sum_congr rfl
-  intro j hj
+  intro j _hj
   by_cases hir : i ≤ r <;> by_cases hjr : j ≤ r <;> simp [hir, hjr]
 
 /-- The prefix-summation energy is exactly the Gram form with kernel counting the
@@ -111,16 +111,16 @@ theorem prefixCrossEnergy_eq_kernelCrossEnergy
     _ = ∑ i ∈ Finset.range H, ∑ j ∈ Finset.range H, ∑ r ∈ Finset.range H,
           if i ≤ r ∧ j ≤ r then a i * b j else 0 := by
             apply Finset.sum_congr rfl
-            intro i hi
+            intro i _hi
             rw [Finset.sum_comm]
     _ = ∑ i ∈ Finset.range H, ∑ j ∈ Finset.range H,
           (prefixKernelCount H i j : ℤ) * a i * b j := by
             apply Finset.sum_congr rfl
-            intro i hi
+            intro i _hi
             apply Finset.sum_congr rfl
-            intro j hj
+            intro j _hj
             rw [← Finset.sum_filter]
-            simp [prefixKernelCount]
+            simp [prefixKernelCount, mul_assoc]
 
 /-- Closed-form kernel identity. -/
 theorem prefixCrossEnergy_eq_sub_max_kernel
@@ -131,9 +131,9 @@ theorem prefixCrossEnergy_eq_sub_max_kernel
   rw [prefixCrossEnergy_eq_kernelCrossEnergy]
   unfold kernelCrossEnergy
   apply Finset.sum_congr rfl
-  intro i hi
+  intro i _hi
   apply Finset.sum_congr rfl
-  intro j hj
+  intro j _hj
   rw [prefixKernelCount_eq_sub_max]
 
 /-- Instantiation of the exact ledger for the arithmetic balanced/extreme block
