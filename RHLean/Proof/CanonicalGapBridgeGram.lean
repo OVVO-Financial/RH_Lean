@@ -19,7 +19,7 @@ The integer-scaled bridge
 `H * prefix(r) - (r+1) * endpoint`
 
 is the prefix obtained after removing the constant increment mode, without introducing
-fractions.  This is the exact object used by the canonical-gap scanner.
+fractions. This is the exact object used by the canonical-gap scanner.
 -/
 
 /-- The total increment over a length-`H` window. -/
@@ -33,7 +33,7 @@ def bridgePrefix (H : ℕ) (a : ℕ → ℤ) (r : ℕ) : ℤ :=
 
 /-- Bilinear Gram form of the zero-mode-removed prefix bridges. -/
 def bridgeCrossEnergy (H : ℕ) (a b : ℕ → ℤ) : ℤ :=
-  ∑ r in Finset.range H, bridgePrefix H a r * bridgePrefix H b r
+  ∑ r ∈ Finset.range H, bridgePrefix H a r * bridgePrefix H b r
 
 /-- Quadratic bridge energy. -/
 def bridgeEnergy (H : ℕ) (a : ℕ → ℤ) : ℤ :=
