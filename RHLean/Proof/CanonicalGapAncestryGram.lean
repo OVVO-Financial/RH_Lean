@@ -2,10 +2,13 @@ import RHLean.Proof.CanonicalGapAncestryEnergyBridge
 
 open scoped BigOperators
 
+noncomputable section
+
 namespace RHLean.Proof
 
 namespace CanonicalGapAncestryGram
 
+open CanonicalGapAncestryBridge
 open CanonicalGapAncestryEnergyBridge
 open CanonicalGapPrefixGram
 
