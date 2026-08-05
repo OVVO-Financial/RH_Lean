@@ -82,9 +82,11 @@ theorem sourcePrefix_eq_activeSource_sum (B x : ℕ) :
   rw [Finset.sum_filter]
   apply Finset.sum_congr rfl
   intro s _hs
-  by_cases hadm : SourceAdmissible s <;>
-    by_cases hclock : sourceClock B s ≤ x <;>
-      simp [sourceClock, sourceWeight, hadm, hclock]
+  by_cases hadm : SourceAdmissible s
+  · by_cases hclock : sourceClock B s ≤ x
+    · simp [sourceClock, sourceWeight, hadm, hclock]
+    · simp [sourceClock, sourceWeight, hadm, hclock]
+  · simp [sourceClock, sourceWeight, hadm]
 
 /-- Exact finite reindexing from native source indices to squarefree integers. -/
 theorem sourcePrefix_eq_squarefreeInteger_sum
@@ -101,8 +103,7 @@ theorem sourcePrefix_eq_squarefreeInteger_sum
     have hprodle :=
       (sourceClock_le_iff_sourceProduct_le_endpoint (x := x) s).1 hsdata.2
     have hprodgt := one_lt_sourceProduct_of_admissible hsdata.1
-    change sourceProduct s < RHLean.Analysis.squarePrefixEndpoint x + 1 ∧
-      2 ≤ sourceProduct s ∧ Squarefree (sourceProduct s)
+    simp only [activeSquarefreeIntegerSet, Finset.mem_filter, Finset.mem_range]
     exact ⟨Nat.lt_succ_of_le hprodle, hprodgt,
       sourceProduct_squarefree_of_admissible hsdata.1⟩
   · intro s₁ hs₁ s₂ hs₂ heq
@@ -122,7 +123,8 @@ theorem sourcePrefix_eq_squarefreeInteger_sum
     have hmB : m ≤ B := hmend.trans hB
     let s := canonicalSourceIndex B m hmdata.2.2 hmgt hmB
     refine ⟨s, ?_, ?_⟩
-    · change SourceAdmissible s ∧ sourceClock B s ≤ x
+    · apply Finset.mem_filter.mpr
+      refine ⟨Finset.mem_univ s, ?_⟩
       refine ⟨canonicalSourceIndex_admissible hmdata.2.2 hmgt hmB, ?_⟩
       apply (sourceClock_le_iff_sourceProduct_le_endpoint (x := x) s).2
       rw [canonicalSourceIndex_product hmdata.2.2 hmgt hmB]
@@ -180,7 +182,7 @@ theorem sourcePrefix_add_indicator_eq_mertens_sum
       (f := fun m : ℕ => (μ m : ℤ)) hend]
     have hsmall :
         (∑ m ∈ Finset.range 2, (μ m : ℤ)) = 1 := by
-      norm_num [ArithmeticFunction.moebius_apply_one]
+      simp [Finset.sum_range_succ, ArithmeticFunction.moebius_apply_one]
     rw [hsmall]
     simp [indicator, hx1, add_comm]
 
