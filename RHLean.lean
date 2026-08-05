@@ -15,3 +15,5 @@ import RHLean.Proof.SignedCanonicalHeight
 import RHLean.Proof.BalancedCanonicalGap
 import RHLean.Proof.CanonicalGapPrefixGram
 import RHLean.Proof.CanonicalGapAncestryFlow
+
+-- Canonical-gap cancellation architecture: exact finite layer only.
