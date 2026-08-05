@@ -160,3 +160,4 @@ import RHLean.Proof.BalancedCanonicalGap
 import RHLean.Proof.CanonicalGapPrefixGram
 import RHLean.Proof.CanonicalGapBridgeGram
 import RHLean.Proof.CanonicalGapOrthogonalMode
+import RHLean.Proof.CanonicalGapAncestryFlow
