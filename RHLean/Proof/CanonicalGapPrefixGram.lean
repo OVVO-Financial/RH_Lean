@@ -167,6 +167,81 @@ theorem prefixCrossEnergy_eq_sub_max_kernel
   intro j _hj
   rw [prefixKernelCount_eq_sub_max]
 
+/-! ## Mean-zero bridge mode -/
+
+/-- Integer-scaled mean-zero bridge prefix. This is `H` times the prefix after
+subtracting the window mean from the increment sequence. -/
+def bridgePrefix (H : ℕ) (a : ℕ → ℤ) (r : ℕ) : ℤ :=
+  (H : ℤ) * prefixSum H a r -
+    ((r + 1 : ℕ) : ℤ) * prefixSum H a (H - 1)
+
+/-- Bilinear Gram form of the integer-scaled bridge prefixes. -/
+def bridgeCrossEnergy (H : ℕ) (a b : ℕ → ℤ) : ℤ :=
+  ∑ r ∈ Finset.range H, bridgePrefix H a r * bridgePrefix H b r
+
+/-- Quadratic energy of the integer-scaled bridge prefixes. -/
+def bridgeEnergy (H : ℕ) (a : ℕ → ℤ) : ℤ :=
+  bridgeCrossEnergy H a a
+
+/-- The bridge prefix is additive in the increment sequence. -/
+theorem bridgePrefix_add (H : ℕ) (a b : ℕ → ℤ) (r : ℕ) :
+    bridgePrefix H (fun i => a i + b i) r =
+      bridgePrefix H a r + bridgePrefix H b r := by
+  unfold bridgePrefix
+  rw [prefixSum_add, prefixSum_add]
+  ring
+
+/-- The terminal bridge prefix vanishes exactly. -/
+theorem bridgePrefix_last_eq_zero
+    {H : ℕ} (hH : 1 ≤ H) (a : ℕ → ℤ) :
+    bridgePrefix H a (H - 1) = 0 := by
+  unfold bridgePrefix
+  have hlast : H - 1 + 1 = H := by omega
+  rw [hlast]
+  ring
+
+/-- The bridge Gram form is additive in its first argument. -/
+theorem bridgeCrossEnergy_add_left
+    (H : ℕ) (a b c : ℕ → ℤ) :
+    bridgeCrossEnergy H (fun i => a i + b i) c =
+      bridgeCrossEnergy H a c + bridgeCrossEnergy H b c := by
+  unfold bridgeCrossEnergy
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [bridgePrefix_add]
+  ring
+
+/-- The bridge Gram form is additive in its second argument. -/
+theorem bridgeCrossEnergy_add_right
+    (H : ℕ) (a b c : ℕ → ℤ) :
+    bridgeCrossEnergy H a (fun i => b i + c i) =
+      bridgeCrossEnergy H a b + bridgeCrossEnergy H a c := by
+  unfold bridgeCrossEnergy
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [bridgePrefix_add]
+  ring
+
+/-- The bridge Gram form is symmetric. -/
+theorem bridgeCrossEnergy_comm (H : ℕ) (a b : ℕ → ℤ) :
+    bridgeCrossEnergy H a b = bridgeCrossEnergy H b a := by
+  unfold bridgeCrossEnergy
+  apply Finset.sum_congr rfl
+  intro r _hr
+  ring
+
+/-- Exact energy ledger after removal of each sequence's coherent increment mode. -/
+theorem bridgeEnergy_add (H : ℕ) (a b : ℕ → ℤ) :
+    bridgeEnergy H (fun i => a i + b i) =
+      bridgeEnergy H a + 2 * bridgeCrossEnergy H a b + bridgeEnergy H b := by
+  unfold bridgeEnergy
+  rw [bridgeCrossEnergy_add_left]
+  simp_rw [bridgeCrossEnergy_add_right]
+  rw [bridgeCrossEnergy_comm H b a]
+  ring
+
 /-- Instantiation of the exact ledger for the arithmetic balanced/extreme block
 increments. -/
 theorem balanced_extreme_prefix_energy_ledger
@@ -183,6 +258,25 @@ theorem balanced_extreme_prefix_energy_ledger
       prefixEnergy H
           (fun r => BalancedCanonicalGap.extremeHighBandBlockIncrement (N + r) K) := by
   exact prefixEnergy_add H
+    (fun r => BalancedCanonicalGap.balancedHighBandBlockIncrement (N + r) K)
+    (fun r => BalancedCanonicalGap.extremeHighBandBlockIncrement (N + r) K)
+
+/-- Balanced/extreme bridge ledger after exact removal of each coherent increment
+mode. -/
+theorem balanced_extreme_bridge_energy_ledger
+    (H N K : ℕ) :
+    bridgeEnergy H
+        (fun r =>
+          BalancedCanonicalGap.balancedHighBandBlockIncrement (N + r) K +
+          BalancedCanonicalGap.extremeHighBandBlockIncrement (N + r) K) =
+      bridgeEnergy H
+          (fun r => BalancedCanonicalGap.balancedHighBandBlockIncrement (N + r) K) +
+      2 * bridgeCrossEnergy H
+          (fun r => BalancedCanonicalGap.balancedHighBandBlockIncrement (N + r) K)
+          (fun r => BalancedCanonicalGap.extremeHighBandBlockIncrement (N + r) K) +
+      bridgeEnergy H
+          (fun r => BalancedCanonicalGap.extremeHighBandBlockIncrement (N + r) K) := by
+  exact bridgeEnergy_add H
     (fun r => BalancedCanonicalGap.balancedHighBandBlockIncrement (N + r) K)
     (fun r => BalancedCanonicalGap.extremeHighBandBlockIncrement (N + r) K)
 
