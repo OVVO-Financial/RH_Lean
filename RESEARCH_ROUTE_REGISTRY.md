@@ -557,6 +557,48 @@ bottleneck declining to `1.265988` at `29`. The honest status is
 - guessing the `C/S/W` operators in order to recompute the energy — two published
   prime-`3` triples do not determine them.
 
+### 7. Signed canonical height, balanced factor pairs
+
+**Status: THE FINITE LAYER IS FORMALIZED. THE PIECEWISE STRATEGY IS CLOSED.**
+
+The corrected clock, the low-imbalance counting theorem and the low-band energy are
+exact and formalized in
+[`RHLean/Proof/SignedCanonicalHeight.lean`](RHLean/Proof/SignedCanonicalHeight.lean);
+the balanced regime `0 < d < u` is exact and formalized in
+[`RHLean/Proof/BalancedCanonicalGap.lean`](RHLean/Proof/BalancedCanonicalGap.lean).
+Both are re-verified by direct enumeration in
+`scripts/TwoAnchorSlackCoverage/signed_height_check.py` and
+`scripts/TwoAnchorSlackCoverage/balanced_gap_check.py`.
+
+What the balanced layer buys: the largest-prime condition collapses to primality of
+one endpoint, the doubled height is pinned to `dn` within constants `2` and `3`
+(measured range `[2.0014, 2.6667]`), and the canonical coefficient becomes the
+symmetric `beta = mu(u) mu(u+d) 1_{u or u+d prime}`.
+
+What it does **not** buy, measured in
+`scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` over blocks `n <= 1900`:
+every piece of both exact decompositions has prefix growth above the `n^{1+eps}` the
+target needs. The balanced and extreme halves each grow like `n^{1.701}` against a
+true `n^{1.096}`, and each is roughly `500x` its own sum at `N = 1900`. Inside `beta`,
+only `A = -mu(u) 1_{u+d prime}` attains exponent `1.000`; `B` is `1.338`, the overlap
+count `C` is `1.714`, and `A + B` is `1.406`. See
+[`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4.
+
+### Do not repeat this route by
+
+- bounding the balanced part and the extreme part separately and adding them: both
+  are `n^{0.6}` too large, so the sum of any two valid bounds misses the target by
+  that factor no matter how sharp each one is;
+- estimating `A`, `B` and `C` term by term — only `A` meets the target, and even
+  `A + B` does not;
+- treating `highBandBlockIncrement_eq_balanced_add_extreme` or
+  `beta_symmetric_identity` as reductions: they are exact rewritings that say what
+  the object is, and they license no piecewise estimate;
+- carrying the endpoint-prime characterization outside `0 < d < u`: it genuinely
+  fails there, first coprime witness `u = 2`, `v = 9`, `d = 7`;
+- quoting the counting theorem `#{Z <= H} <= 1 + floor(H/n)` as controlling the high
+  band — it is a low-imbalance statement and says nothing above the threshold.
+
 ### Do not repeat the anchor route by
 
 - asserting that anchor selection bounds anything: it converts a signed

@@ -13,6 +13,8 @@ sections 1–4 of the source note was checked; all hold. The recomputation is
 | transport-born / born-smooth versus `sign(Y_*)` | **exact**, boundary located |
 | low-imbalance counting theorem | **exact**, formalized |
 | low-band local energy | **exact**, formalized |
+| balanced-regime endpoint characterization and symmetric coefficient | **exact**, formalized |
+| exact balanced/extreme split of the high-band block increment | **exact**, formalized |
 | high canonical-imbalance population `Z(m) > n^{1+delta}` | **open** — the remaining target |
 
 Nothing is connected to the protected theorem graph.
@@ -115,7 +117,96 @@ gap band is absorbed into the final epsilon-loss.
 
 ---
 
-## 4. What remains
+## 4. The balanced regime
+
+`RHLean/Proof/BalancedCanonicalGap.lean` works the fixed-gap representation of §2 in
+the **balanced regime** `0 < d < u`, and `scripts/TwoAnchorSlackCoverage/balanced_gap_check.py`
+re-tests every statement by direct enumeration (all pairs with `u <= 700`, `d <= 4000`).
+All checks pass.
+
+**Scale localization.** `n^2 < 2u^2` and `u <= n <= u+d < 2n`. Both endpoints sit
+within a bounded factor of the block index, so the square-block map is a translation
+up to bounded distortion.
+
+**Height sandwich.** `2dn <= 2Z < 3dn`, i.e. `2Z` and `dn` agree to within the
+explicit constants `2` and `3`. This upgrades §2's one-sided `dn <= H` to a genuine
+two-sided comparison, which is what lets a height threshold be read as a gap
+threshold and back. Measured over the enumeration, `2Z/(dn)` runs over
+`[2.0014, 2.6667]`: the lower constant `2` is essentially attained and the true
+supremum is `8/3`, so the proved upper constant `3` is safe but not sharp.
+
+**Endpoint-prime characterization.** In the balanced regime, being the canonical
+largest-prime split is *equivalent* to at least one endpoint being prime. The
+largest-prime condition — normally a global statement about `P⁺` — collapses to a
+primality test on two numbers. The balance hypothesis is doing real work: outside
+`0 < d < u` the equivalence fails, and not only degenerately. The first coprime
+witness is `u = 2`, `v = 9`, `d = 7`, where `u` is prime but `9` carries the larger
+prime factor `3`, so neither endpoint dominates.
+
+**The symmetric coefficient.** Writing `beta(u,d) = mu(u) mu(u+d) 1_{u or u+d prime}`,
+the canonical source coefficient equals `beta` throughout the balanced regime, and
+
+```text
+beta = -mu(u) 1_{u+d prime} - mu(u+d) 1_{u prime} - 1_{u prime} 1_{u+d prime}.
+```
+
+These are exactly the two signed channels of §5 below, with the prime-prime overlap
+subtracted once — verified across all four prime/composite cases and by enumeration.
+The two channels are therefore not merely coupled by choice; they are two halves of a
+single symmetric object plus a diagonal correction.
+
+**Exact reconstruction.** The finite high-band block increment splits with no
+remainder into its balanced part (`d < u`, evaluated by `beta`) and its extreme part
+(`u <= d`). The split is an identity, not an estimate: nothing is discarded, and the
+extreme part remains to be handled.
+
+### Both decompositions are exact and neither may be estimated piecewise
+
+This is the measurement that constrains how the balanced results can be used.
+`scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` computes the prefix sum
+of every piece of both decompositions over blocks `n <= 1900` (`m < 3.6 * 10^6`) and
+fits `|prefix| ~ n^alpha`. The target's prefix form is `|sum_{n<=N} d_n| << N^{1+eps}`,
+so the question for each piece is whether `alpha` is `1` or larger.
+
+| piece | `alpha` | prefix at `N = 1900` |
+|---|---|---|
+| balanced part `0 < d < u` | 1.701 | `-24993` |
+| extreme part `u <= d` | 1.701 | `+25045` |
+| **total (the truth)** | **1.096** | **`+52`** |
+| `A = -mu(u) 1_{u+d prime}` | 1.000 | `-66` |
+| `B = -mu(u+d) 1_{u prime}` | 1.338 | `-466` |
+| `C = -1_{u prime} 1_{u+d prime}` | 1.714 | `-24461` |
+| `A + B` (Möbius channels only) | 1.406 | `-532` |
+| `beta = A + B + C` | 1.701 | `-24993` |
+
+Three things follow.
+
+1. **The balanced/extreme split destroys the cancellation.** Each half is about
+   `500x` its own sum at `N = 1900`, and each grows like `n^{1.70}` where the truth
+   grows like `n^{1.10}`. Bounding the two halves separately and adding them cannot
+   reach the target — it is short by a factor `n^{0.6}`, and no sharpening of the
+   individual bounds can recover it, because the halves genuinely are that large.
+
+2. **Within `beta`, the obstruction is the overlap term, and it is a count.**
+   `C` is minus the number of balanced coprime prime-prime pairs in the block: a
+   monotone positive count with no cancellation available, contributing `-24461` of
+   the balanced part's `-24993`. This is a clean identification — the obstruction is
+   a prime-pair counting function, not an unknown Möbius correlation.
+
+3. **`B` is over budget too.** Only `A` attains exponent `1`. `B` sits at `1.338` and
+   `A + B` at `1.406`, so even discarding `C` and keeping just the two Möbius channels
+   does not reach `1 + eps`. The cancellation is global across all three terms *and*
+   across the balanced/extreme boundary simultaneously.
+
+So `beta_symmetric_identity` and `highBandBlockIncrement_eq_balanced_add_extreme`
+are useful as exact rewritings — they say what the object *is* — but neither licenses
+a term-by-term estimate. Any argument that bounds `A`, `B`, `C`, the balanced part or
+the extreme part in isolation is provably insufficient before it is attempted. This
+is the same lesson as the two signed channels in §5: the pieces must stay coupled.
+
+---
+
+## 5. What remains
 
 The high canonical-imbalance population `Z(m) > n^{1+delta}`, retaining both signs:
 
@@ -147,3 +238,26 @@ the side condition being automatic for composite `u + d < 2u`. The block index i
 Möbius-prime shifted correlations. Existing averaged-shift results give qualitative
 cancellation over sufficiently many shifts but not the square-root-strength local
 energy needed here, so the two signed channels must remain coupled.
+
+§4 sharpens what "remains" means. The balanced part of the high band is now written
+exactly, in closed form, as the symmetric coefficient `beta` — no side conditions and
+no case analysis survive. So the open problem is no longer "identify the high-band
+channels"; it is the single estimate
+
+```text
+sum_{r=0}^{H-1} | sum_{n=N}^{N+r} beta-block-sum(n) |^2  <<_eps  H N^{2+eps},
+```
+
+for the balanced part, plus a separate treatment of the extreme part `u <= d`. The
+extreme part is not covered by any of the balanced results: the endpoint-prime
+characterization genuinely fails there (`u = 2`, `v = 9`), so its coefficient is still
+the unreduced `canonicalCoefficient`.
+
+That sizing has now been done, and it is negative: the extreme part is **not** small,
+and neither is the balanced part. Each carries a prefix of about `25000` at `N = 1900`
+where the true total is `52`. So the sentence above is the wrong target — the balanced
+estimate and a separate extreme estimate cannot be combined, because both are `n^{0.6}`
+too large. What must be estimated is the coupled object. The balanced results narrow
+*what* has to cancel — the overlap term `C` is a prime-pair count, and `A` already
+meets the target on its own — but they do not produce a piece that can be bounded
+alone. See the table in §4.
