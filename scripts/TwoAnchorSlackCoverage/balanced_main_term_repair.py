@@ -1,7 +1,7 @@
 """Can the balanced/extreme split be rescued by subtracting a main term?
 
-`balanced_split_frontier.py` shows the raw halves grow like `n^{1.70}` against a true
-`n^{1.10}`, so a piecewise estimate of the raw halves cannot reach the target.  This
+`balanced_split_frontier.py` shows the raw halves drift to `13.2 N` against a true
+`0.43 N`, so a piecewise estimate of the raw halves cannot reach the target.  This
 script asks the follow-up question: is the excess a *smooth main term* that can be
 identified and subtracted, or is it genuine unstructured growth?
 
@@ -84,47 +84,60 @@ for n in range(2, NMAX + 1):
     Cpredicted[n] = -pred
 
 
-def exponent(block, lo=200):
+SAMPLES = (300, 600, 900, 1200, 1500, 1900)
+
+
+def trajectory(block):
+    """prefix/N at the sample points, and the max over all N >= 200.
+
+    The diagnostic is |prefix|/N, not a fitted log-log exponent: these series change
+    sign repeatedly and a least-squares fit on log |prefix| reports growth that is not
+    there.  See the note in balanced_split_frontier.py.
+    """
     S = 0.0
-    xs, ys = [], []
+    at, worst = {}, 0.0
     for n in range(2, NMAX + 1):
         S += block[n]
-        if n >= lo and abs(S) >= 1:
-            xs.append(math.log(n))
-            ys.append(math.log(abs(S)))
-    if len(xs) < 10:
-        return float("nan"), S
-    mx = sum(xs) / len(xs)
-    my = sum(ys) / len(ys)
-    num = sum((x - mx) * (y - my) for x, y in zip(xs, ys))
-    den = sum((x - mx) ** 2 for x in xs)
-    return num / den, S
+        if n >= 200:
+            worst = max(worst, abs(S) / n)
+        if n in SAMPLES:
+            at[n] = S / n
+    return at, worst, S
 
 
 rows = [
     ("balanced half, raw", balanced),
     ("C = -N_pp, the overlap term", Cactual),
-    ("Cpred, prime-density prediction of C", Cpredicted),
-    ("C - Cpred", [Cactual[n] - Cpredicted[n] for n in range(NMAX + 1)]),
+    ("Cpred, density prediction of C", Cpredicted),
+    ("balanced - C   (exact count)", [balanced[n] - Cactual[n]
+                                      for n in range(NMAX + 1)]),
     ("balanced - Cpred   <-- the repair", [balanced[n] - Cpredicted[n]
                                            for n in range(NMAX + 1)]),
 ]
 
-print(f"{'series':<40} {'exponent':>9} {'prefix at N=1900':>18}")
-print("-" * 69)
+print("prefix sum divided by N.  Bounded = within the target; drifting = over it.")
+print()
+hdr = (f"{'series':<36}" + "".join(f"{n:>9}" for n in SAMPLES)
+       + f"{'max|.|/N':>10}" + f"{'prefix':>10}")
+print(hdr)
+print("-" * len(hdr))
 for name, blk in rows:
-    a, S = exponent(blk)
-    print(f"{name:<40} {a:9.3f} {S:18.1f}")
+    at, worst, S = trajectory(blk)
+    print(f"{name:<36}" + "".join(f"{at[n]:9.3f}" for n in SAMPLES)
+          + f"{worst:10.3f}" + f"{S:10.0f}")
 
 print()
-print("The target needs exponent 1 + eps; the true total sits at 1.096.")
+print("For reference the true total has max|prefix|/N = 0.430 on the same range.")
 print()
-print("Reading: the raw balanced half is at 1.70 and fails.  Subtracting the single")
-print("explicit main term Cpred -- a prime-density count, carrying no Mobius input --")
-print("brings it to 0.69, inside the target with room to spare.  The excess was")
-print("therefore a main term, not unstructured growth, and it is identifiable in")
-print("closed form.  Because the two halves sum to the true total, subtracting Cpred")
-print("from the balanced half and adding it to the extreme half repairs both at once.")
+print("Reading: the raw balanced half drifts to 13.2 N and fails.  Subtracting the")
+print("main term brings it to 0.39 N -- indistinguishable in scale from the true")
+print("total's 0.43 N.  The excess was therefore a main term, not unstructured")
+print("growth, and it is identifiable in closed form.")
+print()
+print("Both the exact count C and its Mobius-free density prediction Cpred work, which")
+print("matters: the repair needs only an asymptotic for the prime-pair count, not the")
+print("count itself.  Because the two halves sum to the true total, subtracting from")
+print("the balanced half and adding to the extreme half repairs both at once.")
 print()
 print("So the split is usable after main-term subtraction.  What is NOT usable is the")
 print("split applied to the raw halves, and that is what balanced_split_frontier.py")

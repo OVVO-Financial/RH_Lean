@@ -164,45 +164,49 @@ extreme part remains to be handled.
 
 This is the measurement that constrains how the balanced results can be used.
 `scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` computes the prefix sum
-of every piece of both decompositions over blocks `n <= 1900` (`m < 3.6 * 10^6`) and
-fits `|prefix| ~ n^alpha`. The target's prefix form is `|sum_{n<=N} d_n| << N^{1+eps}`,
-so the question for each piece is whether `alpha` is `1` or larger.
+of every piece of both decompositions over blocks `n <= 1900` (`m < 3.6 * 10^6`). The
+target's prefix form is `|sum_{n<=N} d_n| << N^{1+eps}`, so the diagnostic is
+`|prefix| / N`: bounded means the piece is within the target, upward drift means it is
+not.
 
-| piece | `alpha` | prefix at `N = 1900` |
-|---|---|---|
-| balanced part `0 < d < u` | 1.701 | `-24993` |
-| extreme part `u <= d` | 1.701 | `+25045` |
-| **total (the truth)** | **1.096** | **`+52`** |
-| `A = -mu(u) 1_{u+d prime}` | 1.000 | `-66` |
-| `B = -mu(u+d) 1_{u prime}` | 1.338 | `-466` |
-| `C = -1_{u prime} 1_{u+d prime}` | 1.714 | `-24461` |
-| `A + B` (Möbius channels only) | 1.406 | `-532` |
-| `beta = A + B + C` | 1.701 | `-24993` |
+| piece | `N=300` | `600` | `900` | `1200` | `1500` | `1900` | `max |·|/N` |
+|---|---|---|---|---|---|---|---|
+| `A = -mu(u) 1_{u+d prime}` | −0.197 | −0.140 | 0.064 | 0.005 | −0.099 | −0.035 | **0.309** |
+| `B = -mu(u+d) 1_{u prime}` | −0.130 | 0.100 | 0.054 | −0.137 | 0.115 | −0.245 | **0.245** |
+| `C = -1_{u prime} 1_{u+d prime}` | −3.437 | −5.628 | −7.550 | −9.263 | −10.901 | −12.874 | 12.874 |
+| `A + B` (Möbius channels) | −0.327 | −0.040 | 0.119 | −0.132 | 0.017 | −0.280 | **0.394** |
+| `beta = A+B+C` = balanced half | −3.763 | −5.668 | −7.431 | −9.395 | −10.884 | −13.154 | 13.154 |
+| extreme half | 3.793 | 5.457 | 7.358 | 9.349 | 10.758 | 13.182 | 13.228 |
+| **total (the truth)** | 0.030 | −0.212 | −0.073 | −0.046 | −0.126 | 0.027 | **0.430** |
+
+> **Methodological note.** Do not fit a log-log exponent to these series. Every piece
+> except `C` changes sign repeatedly, and `log |prefix|` plunges at each crossing, so
+> least squares on `log |prefix|` against `log n` reports growth that is not there. An
+> earlier pass of this record did exactly that and recorded `1.338` for `B` and
+> `1.406` for `A + B`; both are artifacts, and the trajectories above show both are
+> bounded. Only `C` is monotone, and only for `C` is the fitted `1.714` meaningful.
 
 Three things follow.
 
-1. **The balanced/extreme split destroys the cancellation.** Each half is about
-   `500x` its own sum at `N = 1900`, and each grows like `n^{1.70}` where the truth
-   grows like `n^{1.10}`. Bounding the two halves separately and adding them cannot
-   reach the target — it is short by a factor `n^{0.6}`, and no sharpening of the
-   individual bounds can recover it, because the halves genuinely are that large.
+1. **The balanced/extreme split destroys the cancellation.** Each half reaches
+   `13.2 N` and is still climbing, against the truth's `0.43 N`, and each is about
+   `500x` its own sum at `N = 1900`. Bounding the two halves separately and adding
+   them cannot reach the target, and no sharpening of the individual bounds recovers
+   it, because the halves genuinely are that large.
 
-2. **Within `beta`, the obstruction is the overlap term, and it is a count.**
-   `C` is minus the number of balanced coprime prime-prime pairs in the block: a
-   monotone positive count with no cancellation available, contributing `-24461` of
-   the balanced part's `-24993`. This is a clean identification — the obstruction is
-   a prime-pair counting function, not an unknown Möbius correlation.
+2. **The obstruction is exactly one piece, and it is a count.** `C` is minus the
+   number of balanced coprime prime-prime pairs in the block: monotone, with no
+   cancellation available, contributing `-24461` of the balanced half's `-24993`. It
+   grows like `N^{0.71}` per unit `N`.
 
-3. **`B` is over budget too.** Only `A` attains exponent `1`. `B` sits at `1.338` and
-   `A + B` at `1.406`, so even discarding `C` and keeping just the two Möbius channels
-   does not reach `1 + eps`. The cancellation is global across all three terms *and*
-   across the balanced/extreme boundary simultaneously.
+3. **The Möbius content is already fine.** `A`, `B` and `A + B` are all bounded, at
+   `0.309`, `0.245` and `0.394` — the same scale as the true total's `0.430`. So the
+   balanced half fails *only* because it carries `C`, and the extreme half fails only
+   because it carries `-C`.
 
-So `beta_symmetric_identity` and `highBandBlockIncrement_eq_balanced_add_extreme`
-are useful as exact rewritings — they say what the object *is* — but neither licenses
-a term-by-term estimate. Any argument that bounds `A`, `B`, `C`, the balanced part or
-the extreme part in isolation is provably insufficient before it is attempted. This
-is the same lesson as the two signed channels in §5: the pieces must stay coupled.
+So `beta_symmetric_identity` and `highBandBlockIncrement_eq_balanced_add_extreme` are
+exact rewritings that do not by themselves license a term-by-term estimate — but they
+localize the entire failure in a single explicit, Möbius-free counting function.
 
 ### The same statement in the energy norm: the cross term is the whole estimate
 
@@ -270,26 +274,31 @@ overlap term `C`. And `N_pp` can be replaced by a prime-density prediction `Cpre
 that uses no Möbius input at all: for each prime `u <= n` the admissible window for
 `u+d` is an explicit interval, and primes in it have density `1/log`. Measured:
 
-| series | `alpha` | prefix at `N = 1900` |
-|---|---|---|
-| balanced half, raw | 1.701 | `-24993` |
-| `C = -N_pp` | 1.714 | `-24461` |
-| `Cpred`, density prediction of `C` | 1.685 | `-25119` |
-| `C - Cpred` | 1.060 | `+658` |
-| **`balanced - Cpred`** | **0.693** | **`+126`** |
+| series | prefix at `N = 1900` | `max |·|/N` | verdict |
+|---|---|---|---|
+| balanced half, raw | `-24993` | 13.154 | fails |
+| `C = -N_pp` | `-24461` | 12.874 | fails |
+| `Cpred`, density prediction of `C` | `-25119` | 13.220 | fails |
+| `balanced - C` (exact count subtracted) | `-532` | 0.394 | **passes** |
+| `balanced - Cpred` (density subtracted) | `+126` | 0.444 | **passes** |
 
-The raw half is at `1.70` and fails; subtracting the single explicit main term brings
-it to `0.693`, inside the `1 + eps` target with room to spare. Since the two halves
-sum to the true total, subtracting `Cpred` from the balanced half and adding it to the
-extreme half repairs both at once.
+The raw half drifts to `13.2 N`; after subtracting the main term it is bounded at
+`0.39 N` — indistinguishable in scale from the true total's `0.43 N`. Both the exact
+count and its Möbius-free density prediction work, which matters: the repair does not
+need the prime-pair count itself, only an asymptotic for it. Since the two halves sum
+to the true total, subtracting from the balanced half and adding to the extreme half
+repairs both at once.
 
 **So the split is usable — after main-term subtraction, and only then.** The correct
 statement of the obstruction is not "the halves cannot be estimated" but "the halves
 carry a common prime-pair main term of size `n` per block which must be removed before
 either is estimated." That main term is explicit, it is a prime count rather than a
 Möbius correlation, and removing it is a finite deterministic step. What remains after
-removal is a centred object at exponent `0.693`, comfortably inside budget on the
-measured range.
+removal is a centred object bounded by `0.44 N` on the measured range — inside budget,
+and at the same scale as the truth itself.
+
+This also explains why `A`, `B` and `A + B` are individually fine: none of them is
+the overlap term. The Möbius channels of the balanced half never carried the problem.
 
 ---
 

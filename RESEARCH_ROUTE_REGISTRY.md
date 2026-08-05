@@ -581,12 +581,13 @@ Gram kernel `H - max(i,j)`, is formalized in
 [`RHLean/Proof/CanonicalGapPrefixGram.lean`](RHLean/Proof/CanonicalGapPrefixGram.lean).
 
 What none of this buys, measured in
-`scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` over blocks `n <= 1900`:
-every piece of both exact decompositions has prefix growth above the `n^{1+eps}` the
-target needs. The balanced and extreme halves each grow like `n^{1.701}` against a
-true `n^{1.096}`, and each is roughly `500x` its own sum at `N = 1900`. Inside `beta`,
-only `A = -mu(u) 1_{u+d prime}` attains exponent `1.000`; `B` is `1.338`, the overlap
-count `C` is `1.714`, and `A + B` is `1.406`.
+`scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` over blocks `n <= 1900`.
+The diagnostic is `|prefix|/N`, since the target's prefix form is `<< N^{1+eps}`; a
+piece passes if that stays bounded. The balanced and extreme halves each drift to
+`13.2 N` and are still climbing, against the true total's `0.43 N`, and each is
+roughly `500x` its own sum at `N = 1900`. Inside `beta`, the failure is carried by
+exactly one term: the overlap count `C` reaches `12.9 N`, while `A`, `B` and `A + B`
+are all bounded at `0.309`, `0.245` and `0.394` — the same scale as the truth.
 
 `scripts/TwoAnchorSlackCoverage/prefix_gram_cross.py` says the same thing in the
 energy norm the target actually uses. The prefix correlation
@@ -601,10 +602,11 @@ half fails it alone.
 form: the three primality cases contribute `+N_pp, -N_pp, -N_pp`, so the balanced
 half's main term is `-N_pp`, exactly the overlap term `C`, and `N_pp` can be replaced
 by a prime-density prediction `Cpred` carrying no Möbius input. Subtracting it moves
-the balanced half from exponent `1.701` to **`0.693`** (prefix `+126` at `N = 1900`),
-inside the `1 + eps` target with room to spare — and repairs the extreme half at the
-same time, since the two sum to the true total. So the split **is** usable, after
-main-term subtraction and only then. See
+the balanced half from `13.2 N` to **`0.44 N`** (prefix `+126` at `N = 1900`), and
+subtracting the exact count instead gives `0.39 N` — either way indistinguishable in
+scale from the true total's `0.43 N`. It repairs the extreme half at the same time,
+since the two sum to the true total. So the split **is** usable, after main-term
+subtraction and only then. See
 [`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4.
 
 ### Do not repeat this route by
@@ -614,8 +616,10 @@ main-term subtraction and only then. See
   factor no matter how sharp each one is — subtract `Cpred` first;
 - conversely, reading the frontier table as closing the split: it closes the raw
   split only, and the subtracted version passes on the whole measured range;
-- estimating `A`, `B` and `C` term by term — only `A` meets the target, and even
-  `A + B` does not;
+- fitting a log-log exponent to any of these prefix series except `C`: they change
+  sign repeatedly, `log |prefix|` plunges at each crossing, and least squares then
+  reports growth that is not there. An earlier pass recorded `1.338` for `B` and
+  `1.406` for `A + B` this way; both are artifacts. Use `|prefix|/N`;
 - treating `highBandBlockIncrement_eq_balanced_add_extreme`,
   `beta_symmetric_identity` or `prefixEnergy_add` as reductions: they are exact
   rewritings that say what the object is, and they license no piecewise estimate;
