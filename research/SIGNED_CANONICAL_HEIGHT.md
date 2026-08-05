@@ -378,8 +378,10 @@ Two consequences worth stating flatly.
 Riemann Hypothesis. No further reduction can exist, because there is nothing left
 between it and the conclusion.
 
-**`Λ` cannot be tuned.** The equivalence holds for *every* `Λ ≥ 0`, so every instance
-is exactly RH and none is easier. The measurement in
+**`Λ` is not an optimization parameter.** It should be treated as fixed at `0`, not as
+one endpoint in a search over cutoffs. The equivalence holds for *every* `Λ ≥ 0`, so
+every instance is exactly RH and none is easier; there is nothing to search over. The
+measurement in
 `scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c` confirms this
 operationally and adds that raising `Λ` makes the constant strictly worse:
 

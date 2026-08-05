@@ -620,7 +620,9 @@ but it does not bound the diagonals. See
   factor no matter how sharp each one is — subtract `Cpred` first;
 - conversely, reading the frontier table as closing the split: it closes the raw
   split only, and the subtracted version passes on the whole measured range;
-- tuning `Λ` in the terminal statement, or expecting the low/high split to reduce it.
+- treating `Λ` as an unused degree of freedom, or expecting the low/high split to
+  reduce the terminal statement. `Λ = 0` is the canonical terminal formulation, not
+  one endpoint in a search over cutoffs.
   `ProjectedRenewalQuadraticBoundedStatement Λ ↔ RH` holds for **every** `Λ ≥ 0`, so
   every instance is exactly RH and none is easier. Measured
   (`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`), raising `Λ` makes
