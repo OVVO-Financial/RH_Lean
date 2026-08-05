@@ -1,6 +1,6 @@
 import Mathlib
 import RHLean.Proof.CanonicalGapAncestryFlow
-import RHLean.Proof.CanonicalGapPrefixGram
+import RHLean.Proof.CanonicalSignedParent
 
 open scoped ArithmeticFunction.Moebius BigOperators
 
@@ -12,295 +12,387 @@ namespace CanonicalGapAncestryBridge
 
 open CanonicalGapAncestryFlow
 open CanonicalGapAncestryFlow.ParentFlow
-open CanonicalGapPrefixGram
 
 /-!
-# Concrete realization and termination of the canonical ancestry flow
+# Concrete canonical ancestry realization and termination
 
-For a fixed distinguished prime `q`, a canonical core is a positive squarefree
-integer `c`, coprime to `q`, all of whose prime divisors are strictly below `q`.
-The source represented by the core is `q*c`.
+This module realizes the abstract ancestry flow from
+`CanonicalGapAncestryFlow.lean` on the repository's native canonical
+largest-prime factorization.
 
-A core with `c ≤ q` is transport-oriented and is a root. A core with `q < c`
-is smooth-oriented. Its parent is obtained by stripping the largest prime divisor
-of `c`. This module proves, without assumptions or axioms, that:
+An index is a pair `(q,c)` of bounded natural numbers.  It is active precisely
+when `q` is prime, `c` is positive and squarefree, `q` is coprime to `c`, and
+every prime divisor of `c` is strictly below `q`.  Thus `q` is the distinguished
+largest prime of the represented source `q*c`.
 
-* every smooth-oriented core has exactly one such largest-prime parent;
-* the parent is again an admissible core and has strictly smaller rank;
-* the Möbius weight reverses sign along the parent edge;
-* on a bounded core universe the successor operator is nilpotent;
-* the renewal equation therefore has a genuinely finite alternating expansion;
-* the expansion survives the integer-square-root clock pushforward;
-* the resulting square-block increment sequence telescopes exactly to that
-  pushed-forward canonical source field.
+Transport-oriented sources (`c ≤ q`) are roots.  Smooth-oriented sources
+(`q < c`) have the unique parent obtained by replacing `c` by its canonical
+cofactor, i.e. by stripping the largest prime divisor of `c`.  The parent core
+is strictly smaller and the Möbius sign reverses exactly.
 
-No analytic prefix-energy estimate is asserted here.
+Because the core decreases along every parent edge, the bounded flow is
+nilpotent.  Consequently the renewal equation has a genuinely finite,
+tail-free alternating expansion.  The last section pushes this exact identity
+through the integer-square-root source clock and records the induced
+square-block telescoping identity.
+
+No analytic prefix-energy estimate is asserted.
 -/
 
-/-- Arithmetic admissibility of a core below the distinguished prime `q`. -/
-def CoreAdmissible (q c : ℕ) : Prop :=
-  1 ≤ c ∧ Squarefree c ∧ Nat.Coprime q c ∧
+/-- Finite universe of candidate distinguished-prime/core pairs. -/
+abbrev SourceIndex (B : ℕ) := Fin (B + 1) × Fin (B + 1)
+
+/-- Distinguished-prime coordinate. -/
+def sourcePrime {B : ℕ} (s : SourceIndex B) : ℕ := s.1.1
+
+/-- Core coordinate. -/
+def sourceCore {B : ℕ} (s : SourceIndex B) : ℕ := s.2.1
+
+/-- Integer represented by a source index. -/
+def sourceProduct {B : ℕ} (s : SourceIndex B) : ℕ :=
+  sourcePrime s * sourceCore s
+
+/-- Native arithmetic admissibility of a canonical source pair. -/
+def CanonicalSourceData (q c : ℕ) : Prop :=
+  q.Prime ∧ 1 ≤ c ∧ Squarefree c ∧ Nat.Coprime q c ∧
     ∀ p : ℕ, p.Prime → p ∣ c → p < q
 
-/-- A bounded finite universe of admissible canonical cores. -/
-def CoreIndex (q B : ℕ) :=
-  {c : Fin (B + 1) // CoreAdmissible q c.1}
+/-- Admissibility of a bounded source index. -/
+def SourceAdmissible {B : ℕ} (s : SourceIndex B) : Prop :=
+  CanonicalSourceData (sourcePrime s) (sourceCore s)
 
-noncomputable instance coreIndexFintype (q B : ℕ) : Fintype (CoreIndex q B) := by
-  classical
-  unfold CoreIndex
-  infer_instance
+/-- Smooth-oriented sources are precisely admissible sources whose core exceeds
+its distinguished prime. -/
+def SmoothOriented {B : ℕ} (s : SourceIndex B) : Prop :=
+  SourceAdmissible s ∧ sourcePrime s < sourceCore s
 
-/-- The natural-number core represented by an index. -/
-def coreValue {q B : ℕ} (s : CoreIndex q B) : ℕ := s.1.1
+/-- Transport-oriented sources are the complementary admissible roots. -/
+def TransportOriented {B : ℕ} (s : SourceIndex B) : Prop :=
+  SourceAdmissible s ∧ sourceCore s ≤ sourcePrime s
 
-@[simp] theorem coreValue_lt_succ {q B : ℕ} (s : CoreIndex q B) :
-    coreValue s < B + 1 := s.1.2
-
-@[simp] theorem coreValue_pos {q B : ℕ} (s : CoreIndex q B) :
-    1 ≤ coreValue s := s.2.1
-
-/-- The largest prime divisor of `c`, with value `1` in the irrelevant range
-`c ≤ 1`. -/
-noncomputable def largestPrimeFactor (c : ℕ) : ℕ :=
-  if h : 1 < c then
-    c.primeFactors.max' ((Nat.nonempty_primeFactors).2 h)
-  else 1
-
-/-- The largest prime factor belongs to the prime-factor finset. -/
-theorem largestPrimeFactor_mem {c : ℕ} (hc : 1 < c) :
-    largestPrimeFactor c ∈ c.primeFactors := by
-  rw [largestPrimeFactor, dif_pos hc]
-  exact Finset.max'_mem c.primeFactors ((Nat.nonempty_primeFactors).2 hc)
-
-/-- The largest prime factor is prime. -/
-theorem largestPrimeFactor_prime {c : ℕ} (hc : 1 < c) :
-    (largestPrimeFactor c).Prime :=
-  Nat.prime_of_mem_primeFactors (largestPrimeFactor_mem hc)
-
-/-- The largest prime factor divides the number. -/
-theorem largestPrimeFactor_dvd {c : ℕ} (hc : 1 < c) :
-    largestPrimeFactor c ∣ c :=
-  Nat.dvd_of_mem_primeFactors (largestPrimeFactor_mem hc)
-
-/-- Every prime divisor is bounded by the selected largest prime factor. -/
-theorem prime_dvd_le_largestPrimeFactor {c r : ℕ} (hc : 1 < c)
-    (hr : r.Prime) (hrc : r ∣ c) : r ≤ largestPrimeFactor c := by
-  have hc0 : c ≠ 0 := by omega
-  have hrmem : r ∈ c.primeFactors :=
-    (Nat.mem_primeFactors_of_ne_zero hc0).2 ⟨hr, hrc⟩
-  rw [largestPrimeFactor, dif_pos hc]
-  exact Finset.le_max' c.primeFactors r hrmem
-
-/-- Core obtained by stripping the largest prime factor. -/
-def strippedCore (c : ℕ) : ℕ := c / largestPrimeFactor c
-
-/-- Exact factor reconstruction after stripping. -/
-theorem strippedCore_mul_largestPrimeFactor {c : ℕ} (hc : 1 < c) :
-    strippedCore c * largestPrimeFactor c = c := by
-  exact Nat.div_mul_cancel (largestPrimeFactor_dvd hc)
-
-/-- The stripped core is positive. -/
-theorem strippedCore_pos {c : ℕ} (hc : 1 < c) : 1 ≤ strippedCore c := by
-  have hp := (largestPrimeFactor_prime hc).two_le
-  have hfac := strippedCore_mul_largestPrimeFactor hc
+/-- The canonical cofactor is positive for every nontrivial integer. -/
+theorem canonicalCofactor_pos {c : ℕ} (hc : 1 < c) :
+    1 ≤ canonicalCofactor c := by
+  have hprod := canonicalCofactor_mul_largestPrimeFactor hc
   by_contra h
-  have ha : strippedCore c = 0 := by omega
-  rw [ha, zero_mul] at hfac
+  have hz : canonicalCofactor c = 0 := by omega
+  rw [hz, zero_mul] at hprod
   omega
 
-/-- Stripping strictly decreases the core. -/
-theorem strippedCore_lt {c : ℕ} (hc : 1 < c) : strippedCore c < c := by
-  have ha := strippedCore_pos hc
-  have hp := (largestPrimeFactor_prime hc).two_le
-  have hfac := strippedCore_mul_largestPrimeFactor hc
+/-- Stripping the largest prime factor strictly decreases a nontrivial integer. -/
+theorem canonicalCofactor_lt_self {c : ℕ} (hc : 1 < c) :
+    canonicalCofactor c < c := by
+  have hpos := canonicalCofactor_pos hc
+  have hp2 := (canonicalLargestPrimeFactor_prime hc).two_le
+  have hprod := canonicalCofactor_mul_largestPrimeFactor hc
   nlinarith
 
-/-- The stripped core divides the original core. -/
-theorem strippedCore_dvd {c : ℕ} (hc : 1 < c) : strippedCore c ∣ c := by
-  exact ⟨largestPrimeFactor c, (strippedCore_mul_largestPrimeFactor hc).symm⟩
+/-- The canonical cofactor divides the original integer. -/
+theorem canonicalCofactor_dvd {c : ℕ} (hc : 1 < c) :
+    canonicalCofactor c ∣ c :=
+  ⟨canonicalLargestPrimeFactor c,
+    (canonicalCofactor_mul_largestPrimeFactor hc).symm⟩
 
-/-- Squarefreeness makes the stripped core coprime to the removed prime. -/
-theorem largestPrimeFactor_coprime_strippedCore {c : ℕ}
-    (hc : 1 < c) (hsq : Squarefree c) :
-    Nat.Coprime (largestPrimeFactor c) (strippedCore c) := by
-  have hsqprod : Squarefree (strippedCore c * largestPrimeFactor c) := by
-    simpa [strippedCore_mul_largestPrimeFactor hc] using hsq
-  exact (Nat.coprime_of_squarefree_mul hsqprod).symm
+/-- The stripped parent remains an admissible core below the same distinguished
+prime. -/
+theorem canonicalParentData {q c : ℕ}
+    (hdata : CanonicalSourceData q c) (hsmooth : q < c) :
+    CanonicalSourceData q (canonicalCofactor c) := by
+  rcases hdata with ⟨hq, hcpos, hsq, hcop, hdom⟩
+  have hcgt : 1 < c := lt_trans hq.one_lt hsmooth
+  have hdiv := canonicalCofactor_dvd hcgt
+  refine ⟨hq, canonicalCofactor_pos hcgt,
+    squarefree_canonicalCofactor hsq hcgt,
+    hcop.coprime_dvd_right hdiv, ?_⟩
+  intro p hp hpc
+  exact hdom p hp (hpc.trans hdiv)
 
-/-- The stripped factorization has the removed prime as its unique maximal prime. -/
-theorem largestPrimeFactor_coreMaxPrime {c : ℕ}
-    (hc : 1 < c) (hsq : Squarefree c) :
-    CoreMaxPrime (largestPrimeFactor c) (strippedCore c) := by
-  refine ⟨largestPrimeFactor_prime hc,
-    largestPrimeFactor_coprime_strippedCore hc hsq, ?_⟩
-  intro r hr hra
-  have hrdivc : r ∣ c := hra.trans (strippedCore_dvd hc)
-  have hrle := prime_dvd_le_largestPrimeFactor hc hr hrdivc
-  have hrne : r ≠ largestPrimeFactor c := by
-    intro heq
-    subst r
-    have hp_dvd_one : largestPrimeFactor c ∣ 1 := by
-      rw [← largestPrimeFactor_coprime_strippedCore hc hsq]
-      exact Nat.dvd_gcd (dvd_refl _) hra
-    exact (largestPrimeFactor_prime hc).ne_one (Nat.dvd_one.mp hp_dvd_one)
+/-- Concrete stripped parent in the same bounded universe. -/
+noncomputable def parentIndex {B : ℕ} (s : SourceIndex B)
+    (h : SmoothOriented s) : SourceIndex B :=
+  (s.1,
+    ⟨canonicalCofactor (sourceCore s),
+      lt_trans
+        (canonicalCofactor_lt_self (lt_trans h.1.1.one_lt h.2))
+        s.2.2⟩)
+
+@[simp] theorem sourcePrime_parentIndex {B : ℕ} (s : SourceIndex B)
+    (h : SmoothOriented s) :
+    sourcePrime (parentIndex s h) = sourcePrime s := rfl
+
+@[simp] theorem sourceCore_parentIndex {B : ℕ} (s : SourceIndex B)
+    (h : SmoothOriented s) :
+    sourceCore (parentIndex s h) = canonicalCofactor (sourceCore s) := rfl
+
+/-- The concrete parent is admissible. -/
+theorem parentIndex_admissible {B : ℕ} (s : SourceIndex B)
+    (h : SmoothOriented s) : SourceAdmissible (parentIndex s h) := by
+  change CanonicalSourceData (sourcePrime s)
+    (canonicalCofactor (sourceCore s))
+  exact canonicalParentData h.1 h.2
+
+/-- Deterministic parent map.  Nonadmissible candidates and transport-oriented
+sources are roots; smooth-oriented sources strip their largest core prime. -/
+noncomputable def sourceParent {B : ℕ} (s : SourceIndex B) :
+    Option (SourceIndex B) :=
+  if h : SmoothOriented s then some (parentIndex s h) else none
+
+/-- A source has a parent exactly when it is smooth-oriented. -/
+theorem sourceParent_isSome_iff {B : ℕ} (s : SourceIndex B) :
+    (sourceParent s).isSome ↔ SmoothOriented s := by
+  by_cases h : SmoothOriented s <;> simp [sourceParent, h]
+
+/-- Roothood is the negation of smooth orientation. -/
+theorem sourceParent_eq_none_iff {B : ℕ} (s : SourceIndex B) :
+    sourceParent s = none ↔ ¬ SmoothOriented s := by
+  by_cases h : SmoothOriented s <;> simp [sourceParent, h]
+
+/-- On admissible sources, roothood is exactly transport orientation. -/
+theorem sourceParent_eq_none_iff_transport {B : ℕ} (s : SourceIndex B)
+    (hadm : SourceAdmissible s) :
+    sourceParent s = none ↔ TransportOriented s := by
+  rw [sourceParent_eq_none_iff]
+  unfold SmoothOriented TransportOriented
+  simp only [hadm, true_and]
   omega
 
-/-- Stripping preserves canonical core admissibility. -/
-theorem strippedCore_admissible {q c : ℕ}
-    (hcgt : 1 < c) (hc : CoreAdmissible q c) :
-    CoreAdmissible q (strippedCore c) := by
-  rcases hc with ⟨hcpos, hsq, hcop, hdom⟩
-  have hadvd : strippedCore c ∣ c := strippedCore_dvd hcgt
-  refine ⟨strippedCore_pos hcgt,
-    Squarefree.squarefree_of_dvd hadvd hsq,
-    hcop.coprime_dvd_right hadvd, ?_⟩
-  intro r hr hra
-  exact hdom r hr (hra.trans hadvd)
-
-/-- The concrete stripped parent inside the same bounded universe. -/
-noncomputable def strippedIndex {q B : ℕ} (hq : q.Prime)
-    (s : CoreIndex q B) (hsmooth : q < coreValue s) : CoreIndex q B := by
-  have hcgt : 1 < coreValue s := lt_trans hq.one_lt hsmooth
-  exact ⟨⟨strippedCore (coreValue s),
-      lt_trans (strippedCore_lt hcgt) (coreValue_lt_succ s)⟩,
-    strippedCore_admissible hcgt s.2⟩
-
-/-- Concrete parent map: transport-oriented cores are roots; smooth-oriented
-cores strip their largest prime factor. -/
-noncomputable def coreParent {q B : ℕ} (hq : q.Prime)
-    (s : CoreIndex q B) : Option (CoreIndex q B) :=
-  if h : q < coreValue s then some (strippedIndex hq s h) else none
-
-/-- Smooth orientation is exactly the existence of a parent. -/
-theorem coreParent_isSome_iff {q B : ℕ} (hq : q.Prime) (s : CoreIndex q B) :
-    (coreParent hq s).isSome ↔ q < coreValue s := by
-  by_cases h : q < coreValue s <;> simp [coreParent, h]
-
-/-- Transport orientation is exactly roothood. -/
-theorem coreParent_eq_none_iff {q B : ℕ} (hq : q.Prime) (s : CoreIndex q B) :
-    coreParent hq s = none ↔ coreValue s ≤ q := by
-  by_cases h : q < coreValue s
-  · simp [coreParent, h]
-  · have hle : coreValue s ≤ q := by omega
-    simp [coreParent, h, hle]
-
-/-- Every smooth-oriented source has a concrete parent. -/
-theorem smoothSource_has_parent {q B : ℕ} (hq : q.Prime) (s : CoreIndex q B)
-    (hsmooth : q < coreValue s) :
-    coreParent hq s = some (strippedIndex hq s hsmooth) := by
-  simp [coreParent, hsmooth]
+/-- Every smooth-oriented source has its concrete parent. -/
+theorem smoothSource_has_parent {B : ℕ} (s : SourceIndex B)
+    (h : SmoothOriented s) :
+    sourceParent s = some (parentIndex s h) := by
+  simp [sourceParent, h]
 
 /-- Every smooth-oriented source has exactly one parent index. -/
-theorem smoothSource_parent_unique {q B : ℕ} (hq : q.Prime) (s : CoreIndex q B)
-    (hsmooth : q < coreValue s) :
-    ∃! t : CoreIndex q B, coreParent hq s = some t := by
-  refine ⟨strippedIndex hq s hsmooth, smoothSource_has_parent hq s hsmooth, ?_⟩
+theorem smoothSource_parent_unique {B : ℕ} (s : SourceIndex B)
+    (h : SmoothOriented s) :
+    ∃! t : SourceIndex B, sourceParent s = some t := by
+  refine ⟨parentIndex s h, smoothSource_has_parent s h, ?_⟩
   intro t ht
-  rw [smoothSource_has_parent hq s hsmooth] at ht
+  rw [smoothSource_has_parent s h] at ht
   exact Option.some.inj ht.symm
 
-/-- Arithmetic witness for a canonical largest-prime parent. -/
-def IsLargestPrimeParent (q c a p : ℕ) : Prop :=
-  c = a * p ∧ CoreMaxPrime p a ∧ p < q ∧ Nat.Coprime p (q * a)
+/-! ## Exact Möbius sign reversal -/
 
-/-- The selected largest-prime factor is below `q` and coprime to the full parent. -/
-theorem stripped_isLargestPrimeParent {q c : ℕ} (hq : q.Prime)
-    (hsmooth : q < c) (hc : CoreAdmissible q c) :
-    IsLargestPrimeParent q c (strippedCore c) (largestPrimeFactor c) := by
-  have hcgt : 1 < c := lt_trans hq.one_lt hsmooth
-  have hpprime := largestPrimeFactor_prime hcgt
-  have hpdvd := largestPrimeFactor_dvd hcgt
-  have hpltq := hc.2.2.2 _ hpprime hpdvd
-  have hpq : Nat.Coprime (largestPrimeFactor c) q :=
-    (Nat.coprime_of_lt_prime hpprime.ne_zero hpltq hq).symm
-  have hpa := largestPrimeFactor_coprime_strippedCore hcgt hc.2.1
-  refine ⟨(strippedCore_mul_largestPrimeFactor hcgt).symm,
-    largestPrimeFactor_coreMaxPrime hcgt hc.2.1, hpltq, ?_⟩
-  exact (Nat.coprime_mul_iff_right).2 ⟨hpq, hpa⟩
+/-- Möbius weight of an admissible source, and zero outside the canonical source
+universe. -/
+noncomputable def sourceWeight {B : ℕ} (s : SourceIndex B) : ℤ :=
+  if SourceAdmissible s then (μ (sourceProduct s) : ℤ) else 0
 
-/-- The arithmetic largest-prime parent witness is unique. -/
-theorem largestPrimeParent_unique {q c a a' p p' : ℕ}
-    (h : IsLargestPrimeParent q c a p)
-    (h' : IsLargestPrimeParent q c a' p') : a = a' ∧ p = p' := by
-  have hp : p = p' :=
-    coreMaxPrime_unique_factor h.2.1 h'.2.1 (h.1.symm.trans h'.1)
-  have ha_mul : a * p = a' * p := by
-    calc
-      a * p = c := h.1.symm
-      _ = a' * p' := h'.1
-      _ = a' * p := by rw [hp]
-  have ha : a = a' := Nat.mul_right_cancel h.2.1.prime.pos ha_mul
-  exact ⟨ha, hp⟩
+/-- Evaluation of the weight on an admissible source. -/
+theorem sourceWeight_of_admissible {B : ℕ} (s : SourceIndex B)
+    (h : SourceAdmissible s) :
+    sourceWeight s = (μ (sourceProduct s) : ℤ) := by
+  simp [sourceWeight, h]
 
-/-- Every actual smooth-oriented canonical core admits a unique arithmetic
-largest-prime parent witness. -/
-theorem smoothSource_exists_unique_largestPrimeParent {q c : ℕ}
-    (hq : q.Prime) (hsmooth : q < c) (hc : CoreAdmissible q c) :
-    ∃! ap : ℕ × ℕ, IsLargestPrimeParent q c ap.1 ap.2 := by
-  refine ⟨(strippedCore c, largestPrimeFactor c),
-    stripped_isLargestPrimeParent hq hsmooth hc, ?_⟩
-  rintro ⟨a, p⟩ hap
-  have huniq := largestPrimeParent_unique
-    (stripped_isLargestPrimeParent hq hsmooth hc) hap
-  exact Prod.ext huniq.1.symm huniq.2.symm
-
-/-- Möbius weight of a bounded canonical source. -/
-def coreWeight (q : ℕ) {B : ℕ} (s : CoreIndex q B) : ℤ :=
-  (μ (q * coreValue s) : ℤ)
-
-/-- Exact sign reversal under the concrete largest-prime parent map. -/
-theorem coreWeight_stripped_eq_neg {q B : ℕ} (hq : q.Prime)
-    (s : CoreIndex q B) (hsmooth : q < coreValue s) :
-    coreWeight q s = -coreWeight q (strippedIndex hq s hsmooth) := by
-  have hcgt : 1 < coreValue s := lt_trans hq.one_lt hsmooth
-  have hparent := stripped_isLargestPrimeParent hq hsmooth s.2
-  have hfactor := hparent.1
-  have hcop := hparent.2.2.2
-  have hmul :
-      q * coreValue s =
-        (q * strippedCore (coreValue s)) * largestPrimeFactor (coreValue s) := by
-    calc
-      q * coreValue s =
-          q * (strippedCore (coreValue s) * largestPrimeFactor (coreValue s)) :=
-        congrArg (fun n : ℕ => q * n) hfactor
-      _ = (q * strippedCore (coreValue s)) * largestPrimeFactor (coreValue s) := by
-        ring
-  change (μ (q * coreValue s) : ℤ) =
-    -(μ (q * strippedCore (coreValue s)) : ℤ)
+/-- Stripping the largest core prime reverses the Möbius sign of the represented
+source. -/
+theorem sourceMobius_parent {B : ℕ} (s : SourceIndex B)
+    (h : SmoothOriented s) :
+    (μ (sourceProduct s) : ℤ) =
+      -(μ (sourceProduct (parentIndex s h)) : ℤ) := by
+  rcases h.1 with ⟨hq, hcpos, hsq, hcop, hdom⟩
+  have hcgt : 1 < sourceCore s := lt_trans hq.one_lt h.2
+  have hparent := parentIndex_admissible s h
+  have hparentCop :
+      Nat.Coprime (sourcePrime s) (canonicalCofactor (sourceCore s)) := by
+    simpa only [sourcePrime_parentIndex, sourceCore_parentIndex] using
+      hparent.2.2.2.1
+  have hchild := canonicalSignedParent_moebius hsq hcgt
+  change (μ (sourcePrime s * sourceCore s) : ℤ) =
+    -(μ (sourcePrime s * canonicalCofactor (sourceCore s)) : ℤ)
   calc
-    (μ (q * coreValue s) : ℤ) =
-        μ ((q * strippedCore (coreValue s)) * largestPrimeFactor (coreValue s)) :=
-      congrArg (fun n : ℕ => (μ n : ℤ)) hmul
-    _ = (μ (q * strippedCore (coreValue s)) : ℤ) *
-          μ (largestPrimeFactor (coreValue s)) :=
-      ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop.symm
-    _ = -(μ (q * strippedCore (coreValue s)) : ℤ) := by
-      rw [ArithmeticFunction.moebius_apply_prime
-        (largestPrimeFactor_prime hcgt)]
+    (μ (sourcePrime s * sourceCore s) : ℤ) =
+        μ (sourcePrime s) * μ (sourceCore s) :=
+      ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop
+    _ = μ (sourcePrime s) * (-μ (canonicalCofactor (sourceCore s))) := by
+      rw [hchild]
+    _ = -(μ (sourcePrime s) * μ (canonicalCofactor (sourceCore s))) := by
       ring
+    _ = -(μ (sourcePrime s * canonicalCofactor (sourceCore s)) : ℤ) := by
+      rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime
+        hparentCop]
 
-/-- Pointwise sign reversal for the concrete parent map. -/
-theorem coreWeight_signReversal {q B : ℕ} (hq : q.Prime)
-    (s t : CoreIndex q B) (hparent : coreParent hq s = some t) :
-    coreWeight q s = -coreWeight q t := by
-  by_cases hsmooth : q < coreValue s
-  · have ht : strippedIndex hq s hsmooth = t := by
-      simpa [coreParent, hsmooth] using hparent
+/-- Exact sign reversal of the concrete source weights. -/
+theorem sourceWeight_parentIndex {B : ℕ} (s : SourceIndex B)
+    (h : SmoothOriented s) :
+    sourceWeight s = -sourceWeight (parentIndex s h) := by
+  rw [sourceWeight_of_admissible s h.1,
+    sourceWeight_of_admissible (parentIndex s h)
+      (parentIndex_admissible s h)]
+  exact sourceMobius_parent s h
+
+/-- Pointwise sign reversal along every concrete parent edge. -/
+theorem sourceWeight_signReversal {B : ℕ} (s t : SourceIndex B)
+    (hparent : sourceParent s = some t) :
+    sourceWeight s = -sourceWeight t := by
+  by_cases h : SmoothOriented s
+  · have ht : parentIndex s h = t := by
+      simpa [sourceParent, h] using hparent
     subst t
-    exact coreWeight_stripped_eq_neg hq s hsmooth
-  · simp [coreParent, hsmooth] at hparent
+    exact sourceWeight_parentIndex s h
+  · simp [sourceParent, h] at hparent
 
-/-- The concrete finite parent flow on all bounded admissible cores. -/
-noncomputable def boundedCoreFlow {q B : ℕ} (hq : q.Prime) :
-    ParentFlow (CoreIndex q B) where
-  parent := coreParent hq
-  weight := coreWeight q
-  signReversal := coreWeight_signReversal hq
+/-- Concrete finite parent flow on the bounded canonical source universe. -/
+noncomputable def boundedSourceFlow (B : ℕ) : ParentFlow (SourceIndex B) where
+  parent := sourceParent
+  weight := sourceWeight
+  signReversal := sourceWeight_signReversal
 
-/-! ## Ranked termination -/
+/-! ## Exhaustive realization of native canonical sources -/
 
-/-- A finite parent flow equipped with a strict parent rank and a global height. -/
+/-- Every prime divisor is at most the native canonical largest prime factor. -/
+theorem prime_dvd_le_canonicalLargestPrimeFactor {m p : ℕ}
+    (hm : 1 < m) (hp : p.Prime) (hpm : p ∣ m) :
+    p ≤ canonicalLargestPrimeFactor m := by
+  have hm0 : m ≠ 0 := by omega
+  have hmem : p ∈ m.primeFactors :=
+    (Nat.mem_primeFactors_of_ne_zero hm0).2 ⟨hp, hpm⟩
+  unfold canonicalLargestPrimeFactor
+  rw [dif_pos hm]
+  exact Finset.le_max' m.primeFactors p hmem
+
+/-- Every squarefree `m > 1` produces admissible native source data
+`(P⁺(m), m/P⁺(m))`. -/
+theorem canonicalSourceData_of_squarefree {m : ℕ}
+    (hsq : Squarefree m) (hm : 1 < m) :
+    CanonicalSourceData (canonicalLargestPrimeFactor m)
+      (canonicalCofactor m) := by
+  have hprime := canonicalLargestPrimeFactor_prime hm
+  have hprod := canonicalCofactor_mul_largestPrimeFactor hm
+  have hcorepos : 1 ≤ canonicalCofactor m := canonicalCofactor_pos hm
+  have hcop : Nat.Coprime (canonicalLargestPrimeFactor m)
+      (canonicalCofactor m) :=
+    hprime.coprime_iff_not_dvd.mpr
+      (canonicalLargestPrimeFactor_not_dvd_cofactor hsq hm)
+  refine ⟨hprime, hcorepos, squarefree_canonicalCofactor hsq hm, hcop, ?_⟩
+  intro p hp hpc
+  have hcoreDvd : canonicalCofactor m ∣ m := canonicalCofactor_dvd hm
+  have hle := prime_dvd_le_canonicalLargestPrimeFactor hm hp
+    (hpc.trans hcoreDvd)
+  have hne : p ≠ canonicalLargestPrimeFactor m := by
+    intro heq
+    subst p
+    exact (canonicalLargestPrimeFactor_not_dvd_cofactor hsq hm) hpc
+  omega
+
+/-- Every bounded squarefree source has a concrete bounded source index. -/
+noncomputable def canonicalSourceIndex (B m : ℕ)
+    (hsq : Squarefree m) (hm : 1 < m) (hB : m ≤ B) : SourceIndex B := by
+  have hqle : canonicalLargestPrimeFactor m ≤ m :=
+    Nat.le_of_dvd (by omega) (canonicalLargestPrimeFactor_dvd hm)
+  have hcle : canonicalCofactor m ≤ m :=
+    Nat.le_of_dvd (by omega) (canonicalCofactor_dvd hm)
+  exact
+    (⟨canonicalLargestPrimeFactor m, by omega⟩,
+      ⟨canonicalCofactor m, by omega⟩)
+
+/-- The native index of a squarefree integer is admissible. -/
+theorem canonicalSourceIndex_admissible {B m : ℕ}
+    (hsq : Squarefree m) (hm : 1 < m) (hB : m ≤ B) :
+    SourceAdmissible (canonicalSourceIndex B m hsq hm hB) := by
+  change CanonicalSourceData (canonicalLargestPrimeFactor m)
+    (canonicalCofactor m)
+  exact canonicalSourceData_of_squarefree hsq hm
+
+/-- The native source index reconstructs the original integer exactly. -/
+theorem canonicalSourceIndex_product {B m : ℕ}
+    (hsq : Squarefree m) (hm : 1 < m) (hB : m ≤ B) :
+    sourceProduct (canonicalSourceIndex B m hsq hm hB) = m := by
+  change canonicalLargestPrimeFactor m * canonicalCofactor m = m
+  simpa [Nat.mul_comm] using canonicalCofactor_mul_largestPrimeFactor hm
+
+/-- The native source index carries the original Möbius weight. -/
+theorem canonicalSourceIndex_weight {B m : ℕ}
+    (hsq : Squarefree m) (hm : 1 < m) (hB : m ≤ B) :
+    sourceWeight (canonicalSourceIndex B m hsq hm hB) = (μ m : ℤ) := by
+  rw [sourceWeight_of_admissible _
+    (canonicalSourceIndex_admissible hsq hm hB),
+    canonicalSourceIndex_product hsq hm hB]
+
+/-- In any admissible pair, the displayed prime is the native canonical largest
+prime factor of the represented product. -/
+theorem sourcePrime_eq_canonicalLargestPrimeFactor {B : ℕ}
+    (s : SourceIndex B) (h : SourceAdmissible s) :
+    sourcePrime s = canonicalLargestPrimeFactor (sourceProduct s) := by
+  rcases h with ⟨hq, hcpos, hsq, hcop, hdom⟩
+  have hm : 1 < sourceProduct s := by
+    unfold sourceProduct
+    nlinarith [hq.two_le]
+  have hqDvd : sourcePrime s ∣ sourceProduct s :=
+    ⟨sourceCore s, rfl⟩
+  have hqle := prime_dvd_le_canonicalLargestPrimeFactor hm hq hqDvd
+  have hp := canonicalLargestPrimeFactor_prime hm
+  have hpDvd := canonicalLargestPrimeFactor_dvd hm
+  change canonicalLargestPrimeFactor (sourceProduct s) ∣
+    sourcePrime s * sourceCore s at hpDvd
+  have hple : canonicalLargestPrimeFactor (sourceProduct s) ≤ sourcePrime s := by
+    rcases hp.dvd_mul.mp hpDvd with hpq | hpc
+    · exact Nat.le_of_dvd hq.pos hpq
+    · exact (hdom _ hp hpc).le
+  exact Nat.le_antisymm hqle hple
+
+/-- In any admissible pair, the displayed core is the native canonical cofactor
+of the represented product. -/
+theorem sourceCore_eq_canonicalCofactor {B : ℕ}
+    (s : SourceIndex B) (h : SourceAdmissible s) :
+    sourceCore s = canonicalCofactor (sourceProduct s) := by
+  rcases h with ⟨hq, hcpos, hsq, hcop, hdom⟩
+  have hm : 1 < sourceProduct s := by
+    unfold sourceProduct
+    nlinarith [hq.two_le]
+  have hqeq := sourcePrime_eq_canonicalLargestPrimeFactor s
+    ⟨hq, hcpos, hsq, hcop, hdom⟩
+  have hcanon := canonicalCofactor_mul_largestPrimeFactor hm
+  rw [← hqeq] at hcanon
+  have hmul : canonicalCofactor (sourceProduct s) * sourcePrime s =
+      sourceCore s * sourcePrime s := by
+    calc
+      canonicalCofactor (sourceProduct s) * sourcePrime s =
+          sourceProduct s := hcanon
+      _ = sourcePrime s * sourceCore s := rfl
+      _ = sourceCore s * sourcePrime s := Nat.mul_comm _ _
+  exact (Nat.mul_right_cancel hq.pos hmul).symm
+
+/-- Admissible source products are collision-free. -/
+theorem sourceProduct_injective_on_admissible {B : ℕ}
+    {s t : SourceIndex B} (hs : SourceAdmissible s)
+    (ht : SourceAdmissible t) (hprod : sourceProduct s = sourceProduct t) :
+    s = t := by
+  apply Prod.ext
+  · apply Fin.ext
+    change sourcePrime s = sourcePrime t
+    calc
+      sourcePrime s = canonicalLargestPrimeFactor (sourceProduct s) :=
+        sourcePrime_eq_canonicalLargestPrimeFactor s hs
+      _ = canonicalLargestPrimeFactor (sourceProduct t) := by rw [hprod]
+      _ = sourcePrime t :=
+        (sourcePrime_eq_canonicalLargestPrimeFactor t ht).symm
+  · apply Fin.ext
+    change sourceCore s = sourceCore t
+    calc
+      sourceCore s = canonicalCofactor (sourceProduct s) :=
+        sourceCore_eq_canonicalCofactor s hs
+      _ = canonicalCofactor (sourceProduct t) := by rw [hprod]
+      _ = sourceCore t :=
+        (sourceCore_eq_canonicalCofactor t ht).symm
+
+/-- Every bounded squarefree `m > 1` has exactly one admissible source index. -/
+theorem canonicalSourceIndex_existsUnique {B m : ℕ}
+    (hsq : Squarefree m) (hm : 1 < m) (hB : m ≤ B) :
+    ∃! s : SourceIndex B, SourceAdmissible s ∧ sourceProduct s = m := by
+  let s₀ := canonicalSourceIndex B m hsq hm hB
+  have hs₀ : SourceAdmissible s₀ :=
+    canonicalSourceIndex_admissible hsq hm hB
+  have hp₀ : sourceProduct s₀ = m :=
+    canonicalSourceIndex_product hsq hm hB
+  refine ⟨s₀, ⟨hs₀, hp₀⟩, ?_⟩
+  intro s hs
+  exact sourceProduct_injective_on_admissible hs.1 hs₀
+    (hs.2.trans hp₀.symm)
+
+/-! ## Ranked termination and tail-free renewal -/
+
+/-- Finite parent flow with a strictly decreasing natural-number rank. -/
 structure RankedParentFlow (ι : Type*) [Fintype ι] where
   flow : ParentFlow ι
   rank : ι → ℕ
@@ -310,154 +402,145 @@ structure RankedParentFlow (ι : Type*) [Fintype ι] where
 
 namespace RankedParentFlow
 
-/-- The signed alternating tail vanishes pointwise once its depth exceeds the
-rank of the node. -/
+/-- The alternating tail vanishes pointwise once its depth exceeds the rank. -/
 theorem alternatingTail_apply_eq_zero_of_rank_lt
     {ι : Type*} [Fintype ι] (F : RankedParentFlow ι)
-    (f : ι → ℤ) {depth : ℕ} :
-    ∀ i, F.rank i < depth →
-      alternatingTail F.flow.successorOperator f depth i = 0 := by
+    (f : ι → ℤ) : ∀ depth i,
+      F.rank i < depth →
+        alternatingTail F.flow.successorOperator f depth i = 0 := by
+  intro depth
   induction depth with
   | zero =>
       intro i hi
       omega
   | succ d ih =>
       intro i hi
+      simp only [alternatingTail]
       cases hparent : F.flow.parent i with
-      | none => simp [alternatingTail, ParentFlow.successorOperator, hparent]
+      | none =>
+          simp [ParentFlow.successorOperator, hparent]
       | some p =>
           have hrank := F.parent_rank_lt i p hparent
           have hpdepth : F.rank p < d := by omega
           have hzero := ih p hpdepth
-          simpa [alternatingTail, ParentFlow.successorOperator, hparent] using
-            congrArg (fun z : ℤ => -z) hzero
+          change -alternatingTail F.flow.successorOperator f d p = 0
+          rw [hzero]
+          simp
 
-/-- The full alternating tail is zero at the declared finite height. -/
+/-- The entire terminal generation vanishes at the declared finite height. -/
 theorem alternatingTail_eq_zero
     {ι : Type*} [Fintype ι] (F : RankedParentFlow ι) (f : ι → ℤ) :
     alternatingTail F.flow.successorOperator f F.height = 0 := by
   funext i
-  exact alternatingTail_apply_eq_zero_of_rank_lt F f i
+  exact alternatingTail_apply_eq_zero_of_rank_lt F f F.height i
     (F.rank_lt_height i)
 
-/-- A ranked finite flow has an exact tail-free alternating renewal expansion. -/
+/-- Exact tail-free finite alternating expansion. -/
 theorem finite_alternating_expansion
     {ι : Type*} [Fintype ι] (F : RankedParentFlow ι) :
     F.flow.weight =
       alternatingPrefix F.flow.successorOperator F.flow.rootField F.height := by
-  exact finite_renewal_identity
-    (F.flow.weight_eq_root_sub_successor)
+  exact finite_renewal_identity F.flow.weight_eq_root_sub_successor
     (alternatingTail_eq_zero F F.flow.weight)
 
 end RankedParentFlow
 
-/-- The concrete core flow is ranked by the core itself and terminates before
+/-- The concrete flow is ranked by its core coordinate and terminates before
 `B+1` generations. -/
-noncomputable def boundedCoreRankedFlow {q B : ℕ} (hq : q.Prime) :
-    RankedParentFlow (CoreIndex q B) where
-  flow := boundedCoreFlow (B := B) hq
-  rank := coreValue
+noncomputable def boundedSourceRankedFlow (B : ℕ) :
+    RankedParentFlow (SourceIndex B) where
+  flow := boundedSourceFlow B
+  rank := sourceCore
   height := B + 1
-  rank_lt_height := coreValue_lt_succ
+  rank_lt_height := fun s => s.2.2
   parent_rank_lt := by
     intro s t hparent
-    by_cases hsmooth : q < coreValue s
-    · have ht : strippedIndex hq s hsmooth = t := by
-        simpa [boundedCoreFlow, coreParent, hsmooth] using hparent
+    by_cases h : SmoothOriented s
+    · have ht : parentIndex s h = t := by
+        simpa [boundedSourceFlow, sourceParent, h] using hparent
       subst t
-      exact strippedCore_lt (lt_trans hq.one_lt hsmooth)
-    · simp [boundedCoreFlow, coreParent, hsmooth] at hparent
+      exact canonicalCofactor_lt_self (lt_trans h.1.1.one_lt h.2)
+    · simp [boundedSourceFlow, sourceParent, h] at hparent
 
-/-- Explicit transport-oriented root field. -/
-theorem boundedCore_rootField_apply {q B : ℕ} (hq : q.Prime)
-    (s : CoreIndex q B) :
-    (boundedCoreFlow (B := B) hq).rootField s =
-      if coreValue s ≤ q then coreWeight q s else 0 := by
-  by_cases hroot : coreValue s ≤ q
-  · have hpnone : coreParent hq s = none :=
-      (coreParent_eq_none_iff hq s).2 hroot
-    simp [ParentFlow.rootField, boundedCoreFlow, hpnone, hroot]
-  · have hsmooth : q < coreValue s := by omega
-    have hpsome := smoothSource_has_parent hq s hsmooth
-    simp [ParentFlow.rootField, boundedCoreFlow, hpsome, hroot]
-
-/-- Exact finite alternating expansion of the full bounded canonical source field
+/-- Exact finite alternating expansion of every bounded canonical source weight
 from the transport-oriented root field. -/
-theorem boundedCore_weight_eq_finite_alternating {q B : ℕ} (hq : q.Prime) :
-    (boundedCoreFlow (B := B) hq).weight =
-      alternatingPrefix (boundedCoreFlow (B := B) hq).successorOperator
-        (boundedCoreFlow (B := B) hq).rootField (B + 1) := by
+theorem boundedSource_weight_eq_finite_alternating (B : ℕ) :
+    (boundedSourceFlow B).weight =
+      alternatingPrefix (boundedSourceFlow B).successorOperator
+        (boundedSourceFlow B).rootField (B + 1) := by
   exact RankedParentFlow.finite_alternating_expansion
-    (boundedCoreRankedFlow (B := B) hq)
+    (boundedSourceRankedFlow B)
 
-/-! ## Integer-square-root clock realization -/
+/-! ## Integer-square-root clock and square-block realization -/
 
-/-- Entry clock of a bounded canonical source. -/
-def coreClock (q : ℕ) {B : ℕ} (s : CoreIndex q B) : ℕ :=
-  Nat.sqrt (q * coreValue s)
+/-- Native integer-square-root entry clock of a source. -/
+def sourceClock (B : ℕ) (s : SourceIndex B) : ℕ :=
+  Nat.sqrt (sourceProduct s)
 
-/-- Full bounded canonical source prefix after integer-square-root clock pushforward. -/
-def coreSourcePrefix {q B : ℕ} (hq : q.Prime) (x : ℕ) : ℤ :=
-  clockPushforward (coreClock (B := B) q) x
-    (boundedCoreFlow (B := B) hq).weight
+/-- Full bounded canonical source prefix under the native entry clock. -/
+def sourcePrefix (B x : ℕ) : ℤ :=
+  clockPushforward (sourceClock B) x (boundedSourceFlow B).weight
 
-/-- The prefix is literally the finite sum of all admitted source weights whose
-integer-square-root clocks have fired. -/
-theorem coreSourcePrefix_eq_sum {q B : ℕ} (hq : q.Prime) (x : ℕ) :
-    coreSourcePrefix (B := B) hq x =
-      ∑ s : CoreIndex q B,
-        if Nat.sqrt (q * coreValue s) ≤ x then (μ (q * coreValue s) : ℤ) else 0 := by
+/-- Literal finite-sum form of the clock-pushed source prefix. -/
+theorem sourcePrefix_eq_sum (B x : ℕ) :
+    sourcePrefix B x =
+      ∑ s : SourceIndex B,
+        if Nat.sqrt (sourceProduct s) ≤ x then sourceWeight s else 0 := by
   rfl
 
-/-- The concrete renewal identity survives the actual integer-square-root clock. -/
-theorem coreSourcePrefix_renewal {q B : ℕ} (hq : q.Prime) (x : ℕ) :
-    coreSourcePrefix (B := B) hq x =
-      clockPushforward (coreClock (B := B) q) x
-        (boundedCoreFlow (B := B) hq).rootField -
-      clockPushforward (coreClock (B := B) q) x
-        ((boundedCoreFlow (B := B) hq).successorOperator
-          (boundedCoreFlow (B := B) hq).weight) := by
-  exact (boundedCoreFlow (B := B) hq).clockPushforward_renewal
-    (coreClock (B := B) q) x
+/-- Every represented squarefree integer retains its native integer-square-root
+clock. -/
+theorem canonicalSourceIndex_clock {B m : ℕ}
+    (hsq : Squarefree m) (hm : 1 < m) (hB : m ≤ B) :
+    sourceClock B (canonicalSourceIndex B m hsq hm hB) = Nat.sqrt m := by
+  unfold sourceClock
+  rw [canonicalSourceIndex_product hsq hm hB]
 
-/-- The clock-pushed source field is exactly the clock pushforward of the finite
-alternating successor expansion; there is no terminal tail. -/
-theorem coreSourcePrefix_eq_finite_alternating {q B : ℕ}
-    (hq : q.Prime) (x : ℕ) :
-    coreSourcePrefix (B := B) hq x =
-      clockPushforward (coreClock (B := B) q) x
-        (alternatingPrefix (boundedCoreFlow (B := B) hq).successorOperator
-          (boundedCoreFlow (B := B) hq).rootField (B + 1)) := by
-  unfold coreSourcePrefix
-  rw [boundedCore_weight_eq_finite_alternating (B := B) hq]
+/-- The exact renewal identity survives the actual integer-square-root clock. -/
+theorem sourcePrefix_renewal (B x : ℕ) :
+    sourcePrefix B x =
+      clockPushforward (sourceClock B) x (boundedSourceFlow B).rootField -
+      clockPushforward (sourceClock B) x
+        ((boundedSourceFlow B).successorOperator
+          (boundedSourceFlow B).weight) := by
+  unfold sourcePrefix
+  exact (boundedSourceFlow B).clockPushforward_renewal (sourceClock B) x
+
+/-- The clock-pushed source field is exactly the finite alternating successor
+expansion, with no terminal tail. -/
+theorem sourcePrefix_eq_finite_alternating (B x : ℕ) :
+    sourcePrefix B x =
+      clockPushforward (sourceClock B) x
+        (alternatingPrefix (boundedSourceFlow B).successorOperator
+          (boundedSourceFlow B).rootField (B + 1)) := by
+  unfold sourcePrefix
+  rw [boundedSource_weight_eq_finite_alternating B]
 
 /-- Square-block increment induced by the exact clock-pushed source field. -/
-def coreBlockIncrement {q B : ℕ} (hq : q.Prime) : ℕ → ℤ
-  | 0 => coreSourcePrefix (B := B) hq 0
-  | n + 1 =>
-      coreSourcePrefix (B := B) hq (n + 1) -
-        coreSourcePrefix (B := B) hq n
+def sourceBlockIncrement (B : ℕ) : ℕ → ℤ
+  | 0 => sourcePrefix B 0
+  | n + 1 => sourcePrefix B (n + 1) - sourcePrefix B n
 
-/-- The block increments telescope exactly back to the canonical source prefix. -/
-theorem sum_coreBlockIncrement_eq_prefix {q B : ℕ} (hq : q.Prime) (x : ℕ) :
-    ∑ n ∈ Finset.range (x + 1), coreBlockIncrement (B := B) hq n =
-      coreSourcePrefix (B := B) hq x := by
+/-- The induced block increments telescope exactly to the canonical source
+prefix. -/
+theorem sum_sourceBlockIncrement_eq_prefix (B x : ℕ) :
+    ∑ n ∈ Finset.range (x + 1), sourceBlockIncrement B n = sourcePrefix B x := by
   induction x with
-  | zero => simp [coreBlockIncrement]
+  | zero => simp [sourceBlockIncrement]
   | succ x ih =>
       rw [Finset.sum_range_succ, ih]
-      simp [coreBlockIncrement]
+      simp [sourceBlockIncrement]
 
-/-- The cumulative square-block field is therefore exactly the finite alternating
-successor flow under the integer-square-root clock. -/
-theorem sum_coreBlockIncrement_eq_finite_alternating {q B : ℕ}
-    (hq : q.Prime) (x : ℕ) :
-    ∑ n ∈ Finset.range (x + 1), coreBlockIncrement (B := B) hq n =
-      clockPushforward (coreClock (B := B) q) x
-        (alternatingPrefix (boundedCoreFlow (B := B) hq).successorOperator
-          (boundedCoreFlow (B := B) hq).rootField (B + 1)) := by
-  rw [sum_coreBlockIncrement_eq_prefix (B := B) hq x,
-    coreSourcePrefix_eq_finite_alternating (B := B) hq x]
+/-- Final finite bridge: cumulative square-block source increments are exactly
+the integer-square-root pushforward of the tail-free alternating successor
+flow. -/
+theorem sum_sourceBlockIncrement_eq_finite_alternating (B x : ℕ) :
+    ∑ n ∈ Finset.range (x + 1), sourceBlockIncrement B n =
+      clockPushforward (sourceClock B) x
+        (alternatingPrefix (boundedSourceFlow B).successorOperator
+          (boundedSourceFlow B).rootField (B + 1)) := by
+  rw [sum_sourceBlockIncrement_eq_prefix B x,
+    sourcePrefix_eq_finite_alternating B x]
 
 end CanonicalGapAncestryBridge
 
