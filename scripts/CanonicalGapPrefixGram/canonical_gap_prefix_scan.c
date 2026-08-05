@@ -76,6 +76,42 @@ static Energy energy_range(const int64_t *PB, const int64_t *PE,
   return R;
 }
 
+typedef struct {
+  __int128 qbb, qee, qbe, qtot;
+} BridgeEnergy;
+
+static BridgeEnergy bridge_energy_range(const int64_t *PB, const int64_t *PE,
+                                         const __int128 *SB, const __int128 *SE,
+                                         const __int128 *SBB, const __int128 *SEE,
+                                         const __int128 *SBE,
+                                         const __int128 *STB, const __int128 *STE,
+                                         uint64_t s, uint64_t w) {
+  uint64_t a = s + 1, z = s + w;
+  __int128 sumB = SB[z] - SB[a - 1];
+  __int128 sumE = SE[z] - SE[a - 1];
+  __int128 sumBB = SBB[z] - SBB[a - 1];
+  __int128 sumEE = SEE[z] - SEE[a - 1];
+  __int128 sumBE = SBE[z] - SBE[a - 1];
+  __int128 sumjB = STB[z] - STB[a - 1];
+  __int128 sumjE = STE[z] - STE[a - 1];
+  __int128 b0 = PB[s], e0 = PE[s];
+  __int128 dB = PB[z] - PB[s], dE = PE[z] - PE[s];
+  __int128 sumt = (__int128)w * (w + 1) / 2;
+  __int128 sumt2 = (__int128)w * (w + 1) * (2 * (__int128)w + 1) / 6;
+  __int128 localBB = sumBB - 2 * b0 * sumB + (__int128)w * b0 * b0;
+  __int128 localEE = sumEE - 2 * e0 * sumE + (__int128)w * e0 * e0;
+  __int128 localBE = sumBE - b0 * sumE - e0 * sumB + (__int128)w * b0 * e0;
+  __int128 tB = sumjB - (__int128)s * sumB - b0 * sumt;
+  __int128 tE = sumjE - (__int128)s * sumE - e0 * sumt;
+  BridgeEnergy R;
+  R.qbb = (__int128)w * w * localBB - 2 * (__int128)w * dB * tB + dB * dB * sumt2;
+  R.qee = (__int128)w * w * localEE - 2 * (__int128)w * dE * tE + dE * dE * sumt2;
+  R.qbe = (__int128)w * w * localBE - (__int128)w * dE * tB
+          - (__int128)w * dB * tE + dB * dE * sumt2;
+  R.qtot = R.qbb + 2 * R.qbe + R.qee;
+  return R;
+}
+
 static int cmp_ld(const void *a, const void *b) {
   long double x = *(const long double*)a, y = *(const long double*)b;
   return (x > y) - (x < y);
@@ -208,6 +244,8 @@ int main(int argc, char **argv) {
     __int128 *SBB = calloc(H + 1, sizeof(__int128));
     __int128 *SEE = calloc(H + 1, sizeof(__int128));
     __int128 *SBE = calloc(H + 1, sizeof(__int128));
+    __int128 *STB = calloc(H + 1, sizeof(__int128));
+    __int128 *STE = calloc(H + 1, sizeof(__int128));
     for (uint64_t i = 0; i < H; i++) {
       PB[i+1] = PB[i] + B[k][i];
       PE[i+1] = PE[i] + E[k][i];
@@ -216,61 +254,61 @@ int main(int argc, char **argv) {
       SBB[i+1] = SBB[i] + (__int128)PB[i+1] * PB[i+1];
       SEE[i+1] = SEE[i] + (__int128)PE[i+1] * PE[i+1];
       SBE[i+1] = SBE[i] + (__int128)PB[i+1] * PE[i+1];
+      STB[i+1] = STB[i] + (__int128)(i + 1) * PB[i+1];
+      STE[i+1] = STE[i] + (__int128)(i + 1) * PE[i+1];
     }
 
     printf("## threshold %s\n\n", mode_name[k]);
-    printf("| width | windows | cross<0 | total<min(parts) | median rho | min rho | max rho | median cancellation | full/representative QBB | QEE | 2QBE | QTOT |\n");
-    printf("|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|\n");
+    printf("| width | windows | cross<0 | total<min(parts) | median rho | median cancellation | detrended cross<0 | median detrended rho | median detrended cancellation | representative QBB | QEE | 2QBE | QTOT |\n");
+    printf("|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|\n");
     for (int wi = 0; wi < NWIDTH; wi++) {
       uint64_t w = widths[wi]; if (w > H) continue;
       uint64_t nw = H - w + 1;
       long double *rhos = malloc(nw * sizeof(long double));
       long double *cans = malloc(nw * sizeof(long double));
-      uint64_t neg = 0, below = 0;
+      long double *brhos = malloc(nw * sizeof(long double));
+      long double *bcans = malloc(nw * sizeof(long double));
+      uint64_t neg = 0, below = 0, bneg = 0;
       long double minrho = 2, maxrho = -2;
       Energy rep = energy_range(PB,PE,SB,SE,SBB,SEE,SBE,0,w);
       for (uint64_t s = 0; s < nw; s++) {
         Energy R = energy_range(PB,PE,SB,SE,SBB,SEE,SBE,s,w);
+        BridgeEnergy C = bridge_energy_range(PB,PE,SB,SE,SBB,SEE,SBE,STB,STE,s,w);
         if (R.qbe < 0) neg++;
+        if (C.qbe < 0) bneg++;
         if (R.qtot < (R.qbb < R.qee ? R.qbb : R.qee)) below++;
         long double rho = 0;
         if (R.qbb > 0 && R.qee > 0)
           rho = i128_to_ld(R.qbe) / sqrtl(i128_to_ld(R.qbb) * i128_to_ld(R.qee));
         long double den = i128_to_ld(R.qbb + R.qee);
         long double can = den > 0 ? 1.0L - i128_to_ld(R.qtot) / den : 0;
-        rhos[s] = rho; cans[s] = can;
+        long double brho = 0;
+        if (C.qbb > 0 && C.qee > 0)
+          brho = i128_to_ld(C.qbe) / sqrtl(i128_to_ld(C.qbb) * i128_to_ld(C.qee));
+        long double bden = i128_to_ld(C.qbb + C.qee);
+        long double can = bden > 0 ? 1.0L - i128_to_ld(C.qtot) / bden : 0;
+        rhos[s] = rho; cans[s] = can; brhos[s] = brho; bcans[s] = bcan;
         if (rho < minrho) minrho = rho;
         if (rho > maxrho) maxrho = rho;
       }
       qsort(rhos,nw,sizeof(long double),cmp_ld);
       qsort(cans,nw,sizeof(long double),cmp_ld);
+      qsort(brhos,nw,sizeof(long double),cmp_ld);
+      qsort(bcans,nw,sizeof(long double),cmp_ld);
       long double medrho = rhos[nw/2], medcan = cans[nw/2];
-      printf("| %" PRIu64 " | %" PRIu64 " | %.2Lf%% | %.2Lf%% | %.6Lf | %.6Lf | %.6Lf | %.2Lf%% | ",
-             w,nw,100.0L*neg/nw,100.0L*below/nw,medrho,minrho,maxrho,100.0L*medcan);
+      long double medbrho = brhos[nw/2], medbcan = bcans[nw/2];
+      printf("| %" PRIu64 " | %" PRIu64 " | %.2Lf%% | %.2Lf%% | %.6Lf | %.2Lf%% | %.2Lf%% | %.6Lf | %.2Lf%% | ",
+             w,nw,100.0L*neg/nw,100.0L*below/nw,medrho,100.0L*medcan,
+             100.0L*bneg/nw,medbrho,100.0L*medbcan);
       print_i128(rep.qbb); printf(" | "); print_i128(rep.qee); printf(" | ");
       print_i128(2*rep.qbe); printf(" | "); print_i128(rep.qtot); printf(" |\n");
-      free(rhos); free(cans);
+      free(rhos); free(cans); free(brhos); free(bcans);
     }
     Energy F = energy_range(PB,PE,SB,SE,SBB,SEE,SBE,0,H);
     long double rhoF = (F.qbb > 0 && F.qee > 0) ?
       i128_to_ld(F.qbe)/sqrtl(i128_to_ld(F.qbb)*i128_to_ld(F.qee)) : 0;
     long double canF = (F.qbb+F.qee)>0 ?
       1.0L - i128_to_ld(F.qtot)/i128_to_ld(F.qbb+F.qee) : 0;
-    printf("\nfull window endpoints: B=%" PRId64 ", E=%" PRId64 ", B+E=%" PRId64 "\n", F.Bend,F.Eend,F.Bend+F.Eend);
-    printf("full window rho=%.12Lf, cancellation=%.6Lf%%\n",rhoF,100*canF);
-    if (H <= N) {
-      long double target = (long double)H * (long double)N * (long double)N;
-      printf("relative to H*N^2: QBB=%.9Lf, QEE=%.9Lf, QTOT=%.9Lf, diagonal/total=%.3Lf\n",
-             i128_to_ld(F.qbb)/target, i128_to_ld(F.qee)/target,
-             i128_to_ld(F.qtot)/target,
-             F.qtot > 0 ? i128_to_ld(F.qbb + F.qee)/i128_to_ld(F.qtot) : 0);
-    }
-    printf("\n");
-
-    free(PB); free(PE); free(SB); free(SE); free(SBB); free(SEE); free(SBE);
-  }
-
-  for (int k = 0; k < NMODE; k++) { free(B[k]); free(E[k]); }
-  free(B); free(E); free(direct); free(sqcount); free(mu); free(prod); free(lpf); free(primes);
-  return mismatch ? 1 : 0;
-}
+    BridgeEnergy CF = bridge_energy_range(PB,PE,SB,SE,SBB,SEE,SBE,STB,STE,0,H);
+    long double brhoF = (CF.qbb > 0 && CF.qee > 0) ?
+      i128_to_ld(CF.qbe)/sqrtl-®ιάjΧ
