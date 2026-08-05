@@ -99,7 +99,8 @@ theorem localSequenceEnergy_sourceHighPrefix_eq_projectedRenewalGramValue
 /-- A canonical finite source cutoff covering every square-prefix endpoint in a
 translated window.  A sum is used so no separate monotonicity lemma is needed. -/
 def windowSourceBound (N H : ℕ) : ℕ :=
-  ∑ r in Finset.range H, RHLean.Analysis.squarePrefixEndpoint (N + r)
+  Finset.sum (Finset.range H) fun r =>
+    RHLean.Analysis.squarePrefixEndpoint (N + r)
 
 /-- Every endpoint occurring in the window is bounded by `windowSourceBound`. -/
 theorem squarePrefixEndpoint_le_windowSourceBound
