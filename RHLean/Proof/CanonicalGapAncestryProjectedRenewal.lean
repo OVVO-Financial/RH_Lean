@@ -183,8 +183,8 @@ theorem windowPathCrossEnergy_sub_left
       intro r _hr
       ring
     _ = (∑ r ∈ Finset.range H, a r * c r) -
-          ∑ r ∈ Finset.range H, b r * c r :=
-      Finset.sum_sub_distrib
+          ∑ r ∈ Finset.range H, b r * c r := by
+      rw [Finset.sum_sub_distrib]
 
 /-- Cross energy is additive over subtraction in its second argument. -/
 theorem windowPathCrossEnergy_sub_right
@@ -199,8 +199,8 @@ theorem windowPathCrossEnergy_sub_right
       intro r _hr
       ring
     _ = (∑ r ∈ Finset.range H, a r * b r) -
-          ∑ r ∈ Finset.range H, a r * c r :=
-      Finset.sum_sub_distrib
+          ∑ r ∈ Finset.range H, a r * c r := by
+      rw [Finset.sum_sub_distrib]
 
 /-- Full raw Gram expansion of a three-component difference. -/
 theorem windowPathEnergy_sub_sub
