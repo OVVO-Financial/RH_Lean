@@ -82,11 +82,8 @@ theorem sourcePrefix_eq_activeSource_sum (B x : ℕ) :
   rw [Finset.sum_filter]
   apply Finset.sum_congr rfl
   intro s _hs
-  by_cases hadm : SourceAdmissible s
-  · by_cases hclock : sourceClock B s ≤ x
-    · simp [sourceClock, sourceWeight, hadm, hclock]
-    · simp [sourceClock, sourceWeight, hadm, hclock]
-  · simp [sourceClock, sourceWeight, hadm]
+  by_cases hadm : SourceAdmissible s <;>
+    simp [sourceClock, sourceWeight, hadm]
 
 /-- Exact finite reindexing from native source indices to squarefree integers. -/
 theorem sourcePrefix_eq_squarefreeInteger_sum
@@ -182,7 +179,7 @@ theorem sourcePrefix_add_indicator_eq_mertens_sum
       (f := fun m : ℕ => (μ m : ℤ)) hend]
     have hsmall :
         (∑ m ∈ Finset.range 2, (μ m : ℤ)) = 1 := by
-      simp [Finset.sum_range_succ, ArithmeticFunction.moebius_apply_one]
+      simp [Finset.sum_range_succ]
     rw [hsmall]
     simp [indicator, hx1, add_comm]
 
