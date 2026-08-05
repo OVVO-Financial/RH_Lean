@@ -295,10 +295,10 @@ def successorOperator (F : ParentFlow ι) : (ι → ℤ) →+ (ι → ℤ) where
     | some p => f p
   map_zero' := by
     funext i
-    cases h : F.parent i <;> simp [h]
+    cases F.parent i <;> rfl
   map_add' f g := by
     funext i
-    cases h : F.parent i <;> simp [h]
+    cases F.parent i <;> rfl
 
 /-- The exact finite successor reindexing: roots minus the parent pullback. -/
 theorem weight_eq_root_sub_successor (F : ParentFlow ι) :
@@ -329,9 +329,15 @@ theorem clockPushforward_renewal (F : ParentFlow ι)
     clockPushforward clock x F.weight =
       clockPushforward clock x (rootField F) -
         clockPushforward clock x (successorOperator F F.weight) := by
-  rw [weight_eq_root_sub_successor F]
-  exact map_sub (clockPushforward clock x) (rootField F)
-    (successorOperator F F.weight)
+  calc
+    clockPushforward clock x F.weight =
+        clockPushforward clock x
+          (rootField F - successorOperator F F.weight) := by
+            rw [weight_eq_root_sub_successor F]
+    _ = clockPushforward clock x (rootField F) -
+          clockPushforward clock x (successorOperator F F.weight) :=
+      map_sub (clockPushforward clock x) (rootField F)
+        (successorOperator F F.weight)
 
 end ParentFlow
 
