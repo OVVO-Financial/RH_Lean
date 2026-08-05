@@ -90,11 +90,12 @@ theorem sourcePrefix_eq_squarefreeInteger_sum
   refine Finset.sum_bij (fun s _hs => sourceProduct s) ?_ ?_ ?_ ?_
   · intro s hs
     simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hs ⊢
-    refine ⟨?_, sourceProduct_squarefree_of_admissible hs.1⟩
-    rw [Finset.mem_range]
-    have hclock :=
-      (sourceClock_le_iff_sourceProduct_le_endpoint s).1 hs.2
-    omega
+    refine ⟨?_, ?_, sourceProduct_squarefree_of_admissible hs.1⟩
+    · rw [Finset.mem_range]
+      have hclock :=
+        (sourceClock_le_iff_sourceProduct_le_endpoint s).1 hs.2
+      omega
+    · exact (one_lt_sourceProduct_of_admissible hs.1).le
   · intro s₁ hs₁ s₂ hs₂ heq
     simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hs₁ hs₂
     exact sourceProduct_injective_on_admissible hs₁.1 hs₂.1 heq
