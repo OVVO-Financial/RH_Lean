@@ -107,7 +107,10 @@ theorem squarePrefixEndpoint_le_windowSourceBound
     {N H r : ℕ} (hr : r ∈ Finset.range H) :
     RHLean.Analysis.squarePrefixEndpoint (N + r) ≤ windowSourceBound N H := by
   unfold windowSourceBound
-  exact Finset.single_le_sum (fun _ _ => Nat.zero_le _) hr
+  exact Finset.single_le_sum
+    (s := Finset.range H)
+    (f := fun t => RHLean.Analysis.squarePrefixEndpoint (N + t))
+    (fun _ _ => Nat.zero_le _) hr
 
 /-- The final experiment-led analytic statement.  For each translated window,
 the bounded source universe may be enlarged only enough to realize that window;
