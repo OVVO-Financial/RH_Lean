@@ -43,26 +43,35 @@ theorem sourceClock_le_iff_sourceProduct_le_endpoint
     {B x : ℕ} (s : SourceIndex B) :
     sourceClock B s ≤ x ↔
       sourceProduct s ≤ RHLean.Analysis.squarePrefixEndpoint x := by
-  unfold sourceClock RHLean.Analysis.squarePrefixEndpoint
+  unfold sourceClock
   constructor
   · intro hclock
-    have hlt := Nat.lt_succ_sqrt' (sourceProduct s)
-    have hsquare :
-        (Nat.sqrt (sourceProduct s) + 1) ^ 2 ≤ (x + 1) ^ 2 :=
-      Nat.pow_le_pow_left (Nat.succ_le_succ hclock) 2
+    have hsqrt : Nat.sqrt (sourceProduct s) < x + 1 := by omega
+    have hlt : sourceProduct s < (x + 1) ^ 2 :=
+      (Nat.sqrt_lt').1 hsqrt
+    rw [← RHLean.Analysis.squarePrefixEndpoint_add_one x] at hlt
     omega
   · intro hprod
-    have hlt : sourceProduct s < (x + 1) ^ 2 := by omega
-    exact Nat.lt_succ_iff.mp ((Nat.sqrt_lt').2 hlt)
+    have hlt :
+        sourceProduct s < RHLean.Analysis.squarePrefixEndpoint x + 1 :=
+      Nat.lt_succ_of_le hprod
+    rw [RHLean.Analysis.squarePrefixEndpoint_add_one x] at hlt
+    have hsqrt : Nat.sqrt (sourceProduct s) < x + 1 :=
+      (Nat.sqrt_lt').2 hlt
+    omega
 
 /-- Active admissible sources under a square-prefix clock. -/
-def activeSourceSet (B x : ℕ) : Finset (SourceIndex B) :=
-  Finset.univ.filter fun s => SourceAdmissible s ∧ sourceClock B s ≤ x
+noncomputable def activeSourceSet (B x : ℕ) : Finset (SourceIndex B) := by
+  classical
+  exact Finset.univ.filter fun s =>
+    SourceAdmissible s ∧ sourceClock B s ≤ x
 
 /-- Squarefree integers larger than one under the same clock. -/
-def activeSquarefreeIntegerSet (x : ℕ) : Finset ℕ :=
-  (Finset.range (RHLean.Analysis.squarePrefixEndpoint x + 1)).filter
-    fun m => 2 ≤ m ∧ Squarefree m
+noncomputable def activeSquarefreeIntegerSet (x : ℕ) : Finset ℕ := by
+  classical
+  exact
+    (Finset.range (RHLean.Analysis.squarePrefixEndpoint x + 1)).filter
+      fun m => 2 ≤ m ∧ Squarefree m
 
 /-- The source prefix is the sum over active admissible source indices. -/
 theorem sourcePrefix_eq_activeSource_sum (B x : ℕ) :
@@ -71,12 +80,11 @@ theorem sourcePrefix_eq_activeSource_sum (B x : ℕ) :
   rw [sourcePrefix_eq_sum]
   unfold activeSourceSet
   rw [Finset.sum_filter]
-  simp_rw [sourceWeight]
   apply Finset.sum_congr rfl
   intro s _hs
   by_cases hadm : SourceAdmissible s <;>
-    by_cases hclock : Nat.sqrt (sourceProduct s) ≤ x <;>
-      simp [sourceClock, hadm, hclock]
+    by_cases hclock : sourceClock B s ≤ x <;>
+      simp [sourceClock, sourceWeight, hadm, hclock]
 
 /-- Exact finite reindexing from native source indices to squarefree integers. -/
 theorem sourcePrefix_eq_squarefreeInteger_sum
@@ -86,37 +94,44 @@ theorem sourcePrefix_eq_squarefreeInteger_sum
       ∑ m ∈ activeSquarefreeIntegerSet x, (μ m : ℤ) := by
   classical
   rw [sourcePrefix_eq_activeSource_sum]
-  unfold activeSourceSet activeSquarefreeIntegerSet
   refine Finset.sum_bij (fun s _hs => sourceProduct s) ?_ ?_ ?_ ?_
   · intro s hs
-    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hs ⊢
-    refine ⟨?_, ?_, sourceProduct_squarefree_of_admissible hs.1⟩
-    · rw [Finset.mem_range]
-      have hclock :=
-        (sourceClock_le_iff_sourceProduct_le_endpoint s).1 hs.2
-      omega
-    · omega
+    have hsdata : SourceAdmissible s ∧ sourceClock B s ≤ x := by
+      simpa [activeSourceSet] using hs
+    have hprodle :=
+      (sourceClock_le_iff_sourceProduct_le_endpoint (x := x) s).1 hsdata.2
+    have hprodgt := one_lt_sourceProduct_of_admissible hsdata.1
+    change sourceProduct s < RHLean.Analysis.squarePrefixEndpoint x + 1 ∧
+      2 ≤ sourceProduct s ∧ Squarefree (sourceProduct s)
+    exact ⟨Nat.lt_succ_of_le hprodle, hprodgt,
+      sourceProduct_squarefree_of_admissible hsdata.1⟩
   · intro s₁ hs₁ s₂ hs₂ heq
-    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hs₁ hs₂
-    exact sourceProduct_injective_on_admissible hs₁.1 hs₂.1 heq
+    have hs₁data : SourceAdmissible s₁ ∧ sourceClock B s₁ ≤ x := by
+      simpa [activeSourceSet] using hs₁
+    have hs₂data : SourceAdmissible s₂ ∧ sourceClock B s₂ ≤ x := by
+      simpa [activeSourceSet] using hs₂
+    exact sourceProduct_injective_on_admissible hs₁data.1 hs₂data.1 heq
   · intro m hm
-    simp only [Finset.mem_filter, Finset.mem_range] at hm
-    rcases hm with ⟨hmend, hm2, hsq⟩
-    have hmgt : 1 < m := by omega
-    have hmB : m ≤ B := by
-      apply le_trans _ hB
-      omega
-    let s := canonicalSourceIndex B m hsq hmgt hmB
+    have hmdata :
+        m < RHLean.Analysis.squarePrefixEndpoint x + 1 ∧
+          2 ≤ m ∧ Squarefree m := by
+      simpa [activeSquarefreeIntegerSet] using hm
+    have hmgt : 1 < m := hmdata.2.1
+    have hmend : m ≤ RHLean.Analysis.squarePrefixEndpoint x :=
+      Nat.lt_succ_iff.mp hmdata.1
+    have hmB : m ≤ B := hmend.trans hB
+    let s := canonicalSourceIndex B m hmdata.2.2 hmgt hmB
     refine ⟨s, ?_, ?_⟩
-    · simp only [Finset.mem_filter, Finset.mem_univ, true_and]
-      refine ⟨canonicalSourceIndex_admissible hsq hmgt hmB, ?_⟩
-      apply (sourceClock_le_iff_sourceProduct_le_endpoint s).2
-      rw [canonicalSourceIndex_product hsq hmgt hmB]
-      omega
-    · exact canonicalSourceIndex_product hsq hmgt hmB
+    · change SourceAdmissible s ∧ sourceClock B s ≤ x
+      refine ⟨canonicalSourceIndex_admissible hmdata.2.2 hmgt hmB, ?_⟩
+      apply (sourceClock_le_iff_sourceProduct_le_endpoint (x := x) s).2
+      rw [canonicalSourceIndex_product hmdata.2.2 hmgt hmB]
+      exact hmend
+    · exact canonicalSourceIndex_product hmdata.2.2 hmgt hmB
   · intro s hs
-    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hs
-    exact sourceWeight_of_admissible s hs.1
+    have hsdata : SourceAdmissible s ∧ sourceClock B s ≤ x := by
+      simpa [activeSourceSet] using hs
+    exact sourceWeight_of_admissible s hsdata.1
 
 /-- Filtering to squarefree terms does not change the Möbius tail beginning at
 `m=2`. -/
@@ -141,7 +156,7 @@ theorem activeSquarefreeInteger_sum_eq_Ico_sum (x : ℕ) :
   rw [← Finset.sum_filter]
   congr 1
   ext m
-  simp
+  simp [and_comm]
 
 /-- Exact integer-valued realization, including the exceptional clock `x=0`. -/
 theorem sourcePrefix_add_indicator_eq_mertens_sum
@@ -156,12 +171,18 @@ theorem sourcePrefix_add_indicator_eq_mertens_sum
   · subst x
     simp [RHLean.Analysis.squarePrefixEndpoint, indicator]
   · have hx1 : 1 ≤ x := Nat.one_le_iff_ne_zero.mpr hx
+    have htwo : 2 ≤ x + 1 := by omega
     have hend : 2 ≤ RHLean.Analysis.squarePrefixEndpoint x + 1 := by
-      unfold RHLean.Analysis.squarePrefixEndpoint
-      nlinarith
+      rw [RHLean.Analysis.squarePrefixEndpoint_add_one]
+      exact le_trans (by norm_num : 2 ≤ 2 ^ 2)
+        (Nat.pow_le_pow_left htwo 2)
     rw [← Finset.sum_range_add_sum_Ico
       (f := fun m : ℕ => (μ m : ℤ)) hend]
-    simp [indicator, hx1, ArithmeticFunction.moebius_apply_one]
+    have hsmall :
+        (∑ m ∈ Finset.range 2, (μ m : ℤ)) = 1 := by
+      norm_num [ArithmeticFunction.moebius_apply_one]
+    rw [hsmall]
+    simp [indicator, hx1, add_comm]
 
 /-- Exact complex realization with the endpoint correction expressed explicitly. -/
 theorem sourcePrefix_add_indicator_eq_squarePrefixMertens
