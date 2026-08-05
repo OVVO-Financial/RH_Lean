@@ -69,7 +69,7 @@ theorem bridgeEnergy_add (H : ℕ) (a b : ℕ → ℤ) :
   unfold bridgeEnergy bridgeCrossEnergy
   rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
-  intro r hr
+  intro r _hr
   rw [bridgePrefix_add]
   ring
 
