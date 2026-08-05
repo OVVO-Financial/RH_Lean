@@ -35,7 +35,7 @@ def orthogonalResidualCrossNumerator
 /-- Division-free numerator of the orthogonal residual energy. -/
 def orthogonalResidualEnergyNumerator
     (H : ℕ) (a : ℕ → ℤ) : ℤ :=
-  orthogonalResidualCrossNumerator H a a
+  timeNormSq H * prefixEnergy H a - timePrefixInner H a ^ 2
 
 /-- The coherent inner product is additive. -/
 theorem timePrefixInner_add (H : ℕ) (a b : ℕ → ℤ) :
@@ -53,8 +53,7 @@ theorem timeNormSq_mul_prefixEnergy_eq_coherent_add_residual
     (H : ℕ) (a : ℕ → ℤ) :
     timeNormSq H * prefixEnergy H a =
       timePrefixInner H a ^ 2 + orthogonalResidualEnergyNumerator H a := by
-  unfold orthogonalResidualEnergyNumerator orthogonalResidualCrossNumerator
-    prefixEnergy
+  unfold orthogonalResidualEnergyNumerator
   ring
 
 /-- The residual numerator has the same balanced/extreme Gram ledger. -/
