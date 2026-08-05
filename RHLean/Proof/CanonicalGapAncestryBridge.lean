@@ -98,7 +98,7 @@ prime. -/
 theorem canonicalParentData {q c : ℕ}
     (hdata : CanonicalSourceData q c) (hsmooth : q < c) :
     CanonicalSourceData q (canonicalCofactor c) := by
-  rcases hdata with ⟨hq, hcpos, hsq, hcop, hdom⟩
+  rcases hdata with ⟨hq, _hcpos, hsq, hcop, hdom⟩
   have hcgt : 1 < c := lt_trans hq.one_lt hsmooth
   have hdiv := canonicalCofactor_dvd hcgt
   refine ⟨hq, canonicalCofactor_pos hcgt,
@@ -134,17 +134,20 @@ theorem parentIndex_admissible {B : ℕ} (s : SourceIndex B)
 /-- Deterministic parent map.  Nonadmissible candidates and transport-oriented
 sources are roots; smooth-oriented sources strip their largest core prime. -/
 noncomputable def sourceParent {B : ℕ} (s : SourceIndex B) :
-    Option (SourceIndex B) :=
-  if h : SmoothOriented s then some (parentIndex s h) else none
+    Option (SourceIndex B) := by
+  classical
+  exact if h : SmoothOriented s then some (parentIndex s h) else none
 
 /-- A source has a parent exactly when it is smooth-oriented. -/
 theorem sourceParent_isSome_iff {B : ℕ} (s : SourceIndex B) :
     (sourceParent s).isSome ↔ SmoothOriented s := by
+  classical
   by_cases h : SmoothOriented s <;> simp [sourceParent, h]
 
 /-- Roothood is the negation of smooth orientation. -/
 theorem sourceParent_eq_none_iff {B : ℕ} (s : SourceIndex B) :
     sourceParent s = none ↔ ¬ SmoothOriented s := by
+  classical
   by_cases h : SmoothOriented s <;> simp [sourceParent, h]
 
 /-- On admissible sources, roothood is exactly transport orientation. -/
@@ -160,6 +163,7 @@ theorem sourceParent_eq_none_iff_transport {B : ℕ} (s : SourceIndex B)
 theorem smoothSource_has_parent {B : ℕ} (s : SourceIndex B)
     (h : SmoothOriented s) :
     sourceParent s = some (parentIndex s h) := by
+  classical
   simp [sourceParent, h]
 
 /-- Every smooth-oriented source has exactly one parent index. -/
@@ -175,13 +179,15 @@ theorem smoothSource_parent_unique {B : ℕ} (s : SourceIndex B)
 
 /-- Möbius weight of an admissible source, and zero outside the canonical source
 universe. -/
-noncomputable def sourceWeight {B : ℕ} (s : SourceIndex B) : ℤ :=
-  if SourceAdmissible s then (μ (sourceProduct s) : ℤ) else 0
+noncomputable def sourceWeight {B : ℕ} (s : SourceIndex B) : ℤ := by
+  classical
+  exact if SourceAdmissible s then (μ (sourceProduct s) : ℤ) else 0
 
 /-- Evaluation of the weight on an admissible source. -/
 theorem sourceWeight_of_admissible {B : ℕ} (s : SourceIndex B)
     (h : SourceAdmissible s) :
     sourceWeight s = (μ (sourceProduct s) : ℤ) := by
+  classical
   simp [sourceWeight, h]
 
 /-- Stripping the largest core prime reverses the Möbius sign of the represented
@@ -190,7 +196,7 @@ theorem sourceMobius_parent {B : ℕ} (s : SourceIndex B)
     (h : SmoothOriented s) :
     (μ (sourceProduct s) : ℤ) =
       -(μ (sourceProduct (parentIndex s h)) : ℤ) := by
-  rcases h.1 with ⟨hq, hcpos, hsq, hcop, hdom⟩
+  rcases h.1 with ⟨hq, _hcpos, hsq, hcop, _hdom⟩
   have hcgt : 1 < sourceCore s := lt_trans hq.one_lt h.2
   have hparent := parentIndex_admissible s h
   have hparentCop :
@@ -225,6 +231,7 @@ theorem sourceWeight_parentIndex {B : ℕ} (s : SourceIndex B)
 theorem sourceWeight_signReversal {B : ℕ} (s t : SourceIndex B)
     (hparent : sourceParent s = some t) :
     sourceWeight s = -sourceWeight t := by
+  classical
   by_cases h : SmoothOriented s
   · have ht : parentIndex s h = t := by
       simpa [sourceParent, h] using hparent
@@ -258,7 +265,6 @@ theorem canonicalSourceData_of_squarefree {m : ℕ}
     CanonicalSourceData (canonicalLargestPrimeFactor m)
       (canonicalCofactor m) := by
   have hprime := canonicalLargestPrimeFactor_prime hm
-  have hprod := canonicalCofactor_mul_largestPrimeFactor hm
   have hcorepos : 1 ≤ canonicalCofactor m := canonicalCofactor_pos hm
   have hcop : Nat.Coprime (canonicalLargestPrimeFactor m)
       (canonicalCofactor m) :=
@@ -277,7 +283,7 @@ theorem canonicalSourceData_of_squarefree {m : ℕ}
 
 /-- Every bounded squarefree source has a concrete bounded source index. -/
 noncomputable def canonicalSourceIndex (B m : ℕ)
-    (hsq : Squarefree m) (hm : 1 < m) (hB : m ≤ B) : SourceIndex B := by
+    (_hsq : Squarefree m) (hm : 1 < m) (hB : m ≤ B) : SourceIndex B := by
   have hqle : canonicalLargestPrimeFactor m ≤ m :=
     Nat.le_of_dvd (by omega) (canonicalLargestPrimeFactor_dvd hm)
   have hcle : canonicalCofactor m ≤ m :=
@@ -314,7 +320,7 @@ prime factor of the represented product. -/
 theorem sourcePrime_eq_canonicalLargestPrimeFactor {B : ℕ}
     (s : SourceIndex B) (h : SourceAdmissible s) :
     sourcePrime s = canonicalLargestPrimeFactor (sourceProduct s) := by
-  rcases h with ⟨hq, hcpos, hsq, hcop, hdom⟩
+  rcases h with ⟨hq, hcpos, _hsq, _hcop, hdom⟩
   have hm : 1 < sourceProduct s := by
     unfold sourceProduct
     nlinarith [hq.two_le]
@@ -415,7 +421,7 @@ theorem alternatingTail_apply_eq_zero_of_rank_lt
       omega
   | succ d ih =>
       intro i hi
-      simp only [alternatingTail]
+      simp only [alternatingTail, Pi.neg_apply]
       cases hparent : F.flow.parent i with
       | none =>
           simp [ParentFlow.successorOperator, hparent]
@@ -423,9 +429,7 @@ theorem alternatingTail_apply_eq_zero_of_rank_lt
           have hrank := F.parent_rank_lt i p hparent
           have hpdepth : F.rank p < d := by omega
           have hzero := ih p hpdepth
-          change -alternatingTail F.flow.successorOperator f d p = 0
-          rw [hzero]
-          simp
+          simp [ParentFlow.successorOperator, hparent, hzero]
 
 /-- The entire terminal generation vanishes at the declared finite height. -/
 theorem alternatingTail_eq_zero
@@ -454,6 +458,7 @@ noncomputable def boundedSourceRankedFlow (B : ℕ) :
   height := B + 1
   rank_lt_height := fun s => s.2.2
   parent_rank_lt := by
+    classical
     intro s t hparent
     by_cases h : SmoothOriented s
     · have ht : parentIndex s h = t := by
