@@ -575,13 +575,25 @@ one endpoint, the doubled height is pinned to `dn` within constants `2` and `3`
 (measured range `[2.0014, 2.6667]`), and the canonical coefficient becomes the
 symmetric `beta = mu(u) mu(u+d) 1_{u or u+d prime}`.
 
-What it does **not** buy, measured in
+The exact prefix-energy ledger `E(bal + ext) = E(bal) + 2 Cross + E(ext)`, with the
+Gram kernel `H - max(i,j)`, is formalized in
+[`RHLean/Proof/CanonicalGapPrefixGram.lean`](RHLean/Proof/CanonicalGapPrefixGram.lean).
+
+What none of this buys, measured in
 `scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` over blocks `n <= 1900`:
 every piece of both exact decompositions has prefix growth above the `n^{1+eps}` the
 target needs. The balanced and extreme halves each grow like `n^{1.701}` against a
 true `n^{1.096}`, and each is roughly `500x` its own sum at `N = 1900`. Inside `beta`,
 only `A = -mu(u) 1_{u+d prime}` attains exponent `1.000`; `B` is `1.338`, the overlap
-count `C` is `1.714`, and `A + B` is `1.406`. See
+count `C` is `1.714`, and `A + B` is `1.406`.
+
+`scripts/TwoAnchorSlackCoverage/prefix_gram_cross.py` says the same thing in the
+energy norm the target actually uses. The prefix correlation
+`rho = Cross / sqrt(E(bal) E(ext))` converges to `-1` (`-0.989, -0.992, -0.998,
+-0.999` at `(N,H) = (400,100), (700,175), (1000,250), (1400,350)`). Against the budget
+`H N^2`, `E(total)/HN^2` sits at the `10^-2` level with no drift while `E(bal)/HN^2`
+runs `1.51, 2.09, 4.69, 9.44` and keeps climbing: the total meets the target and each
+half fails it alone. See
 [`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4.
 
 ### Do not repeat this route by
@@ -591,9 +603,14 @@ count `C` is `1.714`, and `A + B` is `1.406`. See
   that factor no matter how sharp each one is;
 - estimating `A`, `B` and `C` term by term — only `A` meets the target, and even
   `A + B` does not;
-- treating `highBandBlockIncrement_eq_balanced_add_extreme` or
-  `beta_symmetric_identity` as reductions: they are exact rewritings that say what
-  the object is, and they license no piecewise estimate;
+- treating `highBandBlockIncrement_eq_balanced_add_extreme`,
+  `beta_symmetric_identity` or `prefixEnergy_add` as reductions: they are exact
+  rewritings that say what the object is, and they license no piecewise estimate;
+- dropping the ledger's cross term or bounding it by Cauchy–Schwarz: `Cross` is the
+  dominant term, two to three orders of magnitude above `E(total)`, and
+  `|Cross| <= sqrt(E(bal) E(ext))` is near-equality here, so applying it yields
+  `E(total) <= (sqrt(E(bal)) + sqrt(E(ext)))^2`, built from two quantities that are
+  each already over budget;
 - carrying the endpoint-prime characterization outside `0 < d < u`: it genuinely
   fails there, first coprime witness `u = 2`, `v = 9`, `d = 7`;
 - quoting the counting theorem `#{Z <= H} <= 1 + floor(H/n)` as controlling the high
