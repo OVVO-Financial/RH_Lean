@@ -37,7 +37,7 @@ import RHLean.Proof.ResonantLeakage
 import RHLean.Proof.ResonantProjection
 import RHLean.Proof.RiemannHypothesisBridge
 import RHLean.Analysis.SmallModulusResonance
-import RHLean.Analysis.SquarePrefixMertensBridge
+import RHLean.Analysis.MertensEnergyCriterion
 import RHLean.Proof.SpectralEndpointGramBridge
 import RHLean.Proof.UniformResidualBound
 import RHLean.Arithmetic.BooleanCubeCancellation
@@ -147,7 +147,7 @@ import RHLean.Analysis.PrimeWheelCompleteSpectrum
 import RHLean.Analysis.PrimeWheelHarmonicCriterion
 import RHLean.Analysis.PrimeWheelConductorGram
 import RHLean.Analysis.PrimeWheelDirichletResponse
-import RHLean.Analysis.PrimeWheelExplicitCriterion
+import RHLean.Analysis.PrimorialWheelExplicitCriterion
 import RHLean.Analysis.PrimeWheelRHBridge
 import RHLean.Analysis.PrimorialWheelMertensTransfer
 import RHLean.Analysis.PrimorialWheelHarmonicReduction
