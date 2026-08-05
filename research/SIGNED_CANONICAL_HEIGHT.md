@@ -204,6 +204,50 @@ a term-by-term estimate. Any argument that bounds `A`, `B`, `C`, the balanced pa
 the extreme part in isolation is provably insufficient before it is attempted. This
 is the same lesson as the two signed channels in §5: the pieces must stay coupled.
 
+### The same statement in the energy norm: the cross term is the whole estimate
+
+`RHLean/Proof/CanonicalGapPrefixGram.lean` supplies the exact prefix-energy ledger
+
+```text
+E(bal + ext) = E(bal) + 2 Cross(bal, ext) + E(ext),
+```
+
+together with the closed-form Gram kernel `#{r < H : i <= r and j <= r} = H - max(i,j)`.
+This is the right frame for the target, which is an energy bound, and the frontier
+above says exactly what the ledger's three terms must look like.
+`scripts/TwoAnchorSlackCoverage/prefix_gram_cross.py` evaluates all of them on real
+windows of blocks `[N, N+H)`. The identity holds exactly in every window — it is
+checked, not assumed — and the sizes are:
+
+| `N` | `H` | `E(bal)` | `E(ext)` | `2 Cross` | `E(total)` | `rho` | `E(bal)/HN²` | `E(total)/HN²` |
+|---|---|---|---|---|---|---|---|---|
+| 400 | 100 | `2.42e7` | `2.92e7` | `-5.26e7` | `7.9e5` | `-0.989` | 1.51 | 0.050 |
+| 700 | 175 | `1.79e8` | `1.92e8` | `-3.68e8` | `3.1e6` | `-0.992` | 2.09 | 0.036 |
+| 1000 | 250 | `1.17e9` | `9.11e8` | `-2.06e9` | `2.0e7` | `-0.998` | 4.69 | 0.079 |
+| 1400 | 350 | `6.48e9` | `7.56e9` | `-1.40e10` | `5.6e7` | `-0.999` | 9.44 | 0.082 |
+
+`rho = Cross / sqrt(E(bal) E(ext))` is the prefix correlation between the two halves.
+It converges to `-1`.
+
+The last two columns settle the question. The target is `E << H N^{2+eps}`.
+`E(total)/HN²` sits at the `10^-2` level with no upward drift across the whole range,
+so **the total meets the target**. `E(bal)/HN²` runs `1.51, 2.09, 4.69, 9.44` and keeps
+climbing, so **the balanced half fails the same target on its own**, and by symmetry so
+does the extreme half.
+
+Three consequences for using the ledger:
+
+* `Cross` cannot be dropped. It is the dominant term, not a remainder — it is larger
+  in magnitude than `E(total)` by two to three orders of magnitude.
+* `Cross` cannot be handled by Cauchy–Schwarz. `|Cross| <= sqrt(E(bal) E(ext))` is
+  true and nearly an equality here, and applying it gives
+  `E(total) <= (sqrt(E(bal)) + sqrt(E(ext)))²`, a bound built from two quantities that
+  are each already over budget. Any estimate of `Cross` that does not reproduce both
+  its sign and its near-extremal magnitude throws away the entire cancellation.
+* Therefore the ledger is an exact accounting of *where* the cancellation lives, and
+  it localizes it entirely in the cross term. That is genuine information. It is not
+  a reduction: it does not produce a smaller object to estimate.
+
 ---
 
 ## 5. What remains
