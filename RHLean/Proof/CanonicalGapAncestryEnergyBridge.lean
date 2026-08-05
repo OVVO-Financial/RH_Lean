@@ -255,7 +255,6 @@ theorem signedSourceGeneration_succ (B j : ℕ) :
       simp [ParentFlow.successorOperator, hparent]
   | some p =>
       simp [ParentFlow.successorOperator, hparent, pow_succ]
-      ring
 
 /-- Reindexing the positive generations pulls one successor through the whole
 finite sum. -/
@@ -291,7 +290,6 @@ theorem alternatingPrefix_eq_sum_signedSourceGenerations
       simp [alternatingPrefix]
   | succ depth ih =>
       rw [alternatingPrefix, Finset.sum_range_succ']
-      simp only [Nat.succ_eq_add_one]
       rw [signedSourceGeneration_zero,
         sum_signedSourceGeneration_succ, ← ih]
       abel
