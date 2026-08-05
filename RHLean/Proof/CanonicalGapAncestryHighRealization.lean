@@ -350,6 +350,9 @@ theorem canonicalHighIntegerIncrement_cast
   unfold canonicalHighIntegerIncrement canonicalHighIncrement
     canonicalMoebiusWeight
   push_cast
+  apply Finset.sum_congr rfl
+  intro m _hm
+  rfl
 
 /-- Casting the integer high prefix gives the native complex high prefix. -/
 theorem canonicalHighIntegerPrefix_cast
@@ -384,8 +387,9 @@ theorem localSequenceEnergy_sourceHighPrefix_eq_canonicalHighPrefix
   unfold RHLean.Analysis.localSequenceEnergy
   apply Finset.sum_congr rfl
   intro r hr
-  simpa using congrArg (fun z : ℂ => ‖z‖ ^ 2)
-    (sourceHighPrefix_cast_eq_canonicalHighPrefix hΛ (hB r hr))
+  change ‖((sourceHighPrefix Λ B (N + r) : ℤ) : ℂ)‖ ^ 2 =
+    ‖canonicalHighPrefix Λ (N + r)‖ ^ 2
+  rw [sourceHighPrefix_cast_eq_canonicalHighPrefix hΛ (hB r hr)]
 
 end CanonicalGapAncestryHighRealization
 
