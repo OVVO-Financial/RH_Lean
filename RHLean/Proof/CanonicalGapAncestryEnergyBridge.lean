@@ -204,6 +204,233 @@ theorem sourcePrefix_add_one_eq_squarePrefixMertens
   have h := sourcePrefix_add_indicator_eq_squarePrefixMertens hB
   simpa [indicator, hx, Int.cast_add] using h
 
+/-! ## Finite successor generations -/
+
+/-- Unsigned generation `j`, obtained by pulling the transport-root field through
+`j` successor steps. -/
+def sourceGeneration (B j : ℕ) : SourceIndex B → ℤ :=
+  ((boundedSourceFlow B).successorOperator^[j])
+    (boundedSourceFlow B).rootField
+
+/-- Signed generation with the alternating renewal sign kept separate from the
+unsigned successor field. -/
+def signedSourceGeneration (B j : ℕ) : SourceIndex B → ℤ := fun s =>
+  (-1 : ℤ) ^ j * sourceGeneration B j s
+
+/-- The zeroth unsigned generation is the transport-root field. -/
+theorem sourceGeneration_zero (B : ℕ) :
+    sourceGeneration B 0 = (boundedSourceFlow B).rootField := by
+  rfl
+
+/-- One more generation is one more application of the successor operator. -/
+theorem sourceGeneration_succ (B j : ℕ) :
+    sourceGeneration B (j + 1) =
+      (boundedSourceFlow B).successorOperator (sourceGeneration B j) := by
+  unfold sourceGeneration
+  simpa only [Nat.succ_eq_add_one] using
+    Function.iterate_succ_apply'
+      (boundedSourceFlow B).successorOperator j
+      (boundedSourceFlow B).rootField
+
+/-- The zeroth signed generation is still the transport-root field. -/
+theorem signedSourceGeneration_zero (B : ℕ) :
+    signedSourceGeneration B 0 = (boundedSourceFlow B).rootField := by
+  funext s
+  simp [signedSourceGeneration, sourceGeneration_zero]
+
+/-- Consecutive signed generations satisfy the same alternating successor
+recursion as the finite renewal expansion. -/
+theorem signedSourceGeneration_succ (B j : ℕ) :
+    signedSourceGeneration B (j + 1) =
+      - (boundedSourceFlow B).successorOperator
+          (signedSourceGeneration B j) := by
+  funext s
+  change
+    (-1 : ℤ) ^ (j + 1) * sourceGeneration B (j + 1) s =
+      - ((boundedSourceFlow B).successorOperator
+          (fun t => (-1 : ℤ) ^ j * sourceGeneration B j t)) s
+  rw [sourceGeneration_succ]
+  cases hparent : (boundedSourceFlow B).parent s with
+  | none =>
+      simp [ParentFlow.successorOperator, hparent]
+  | some p =>
+      simp [ParentFlow.successorOperator, hparent, pow_succ]
+
+/-- Reindexing the positive generations pulls one successor through the whole
+finite sum. -/
+theorem sum_signedSourceGeneration_succ (B depth : ℕ) :
+    (∑ j ∈ Finset.range depth, signedSourceGeneration B (j + 1)) =
+      - (boundedSourceFlow B).successorOperator
+          (∑ j ∈ Finset.range depth, signedSourceGeneration B j) := by
+  calc
+    (∑ j ∈ Finset.range depth, signedSourceGeneration B (j + 1)) =
+        ∑ j ∈ Finset.range depth,
+          - (boundedSourceFlow B).successorOperator
+              (signedSourceGeneration B j) := by
+            apply Finset.sum_congr rfl
+            intro j _hj
+            rw [signedSourceGeneration_succ]
+    _ = - ∑ j ∈ Finset.range depth,
+          (boundedSourceFlow B).successorOperator
+            (signedSourceGeneration B j) := by
+          rw [Finset.sum_neg_distrib]
+    _ = - (boundedSourceFlow B).successorOperator
+          (∑ j ∈ Finset.range depth, signedSourceGeneration B j) := by
+          rw [map_sum]
+
+/-- The recursive `alternatingPrefix` is the conventional finite sum of the
+signed successor generations. -/
+theorem alternatingPrefix_eq_sum_signedSourceGenerations
+    (B depth : ℕ) :
+    alternatingPrefix (boundedSourceFlow B).successorOperator
+        (boundedSourceFlow B).rootField depth =
+      ∑ j ∈ Finset.range depth, signedSourceGeneration B j := by
+  induction depth with
+  | zero =>
+      simp [alternatingPrefix]
+  | succ depth ih =>
+      rw [alternatingPrefix, Finset.sum_range_succ']
+      rw [signedSourceGeneration_zero,
+        sum_signedSourceGeneration_succ, ← ih]
+      abel
+
+/-- Pointwise finite recombination of the bounded source weight from all signed
+generations. -/
+theorem sourceWeight_eq_sum_signedGenerations (B : ℕ) :
+    (boundedSourceFlow B).weight =
+      ∑ j ∈ Finset.range (B + 1), signedSourceGeneration B j := by
+  rw [boundedSource_weight_eq_finite_alternating,
+    alternatingPrefix_eq_sum_signedSourceGenerations]
+
+/-! ## Clock-pushed generation increments -/
+
+/-- Clock-pushed prefix of one unsigned successor generation. -/
+def generationPrefix (B j x : ℕ) : ℤ :=
+  clockPushforward (sourceClock B) x (sourceGeneration B j)
+
+/-- Square-block increment of one unsigned successor generation. -/
+def generationBlockIncrement (B j : ℕ) : ℕ → ℤ
+  | 0 => generationPrefix B j 0
+  | n + 1 => generationPrefix B j (n + 1) - generationPrefix B j n
+
+/-- Clock pushforward commutes exactly with the fixed sign of one generation. -/
+theorem clockPushforward_signedSourceGeneration (B j x : ℕ) :
+    clockPushforward (sourceClock B) x (signedSourceGeneration B j) =
+      (-1 : ℤ) ^ j * generationPrefix B j x := by
+  classical
+  unfold signedSourceGeneration generationPrefix
+  change
+    (∑ s : SourceIndex B,
+      if sourceClock B s ≤ x then
+        (-1 : ℤ) ^ j * sourceGeneration B j s else 0) =
+      (-1 : ℤ) ^ j *
+        ∑ s : SourceIndex B,
+          if sourceClock B s ≤ x then sourceGeneration B j s else 0
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro s _hs
+  by_cases hclock : sourceClock B s ≤ x <;> simp [hclock]
+
+/-- The native source prefix is the finite signed sum of its clock-pushed
+unsigned generation prefixes. -/
+theorem sourcePrefix_eq_generation_sum (B x : ℕ) :
+    sourcePrefix B x =
+      ∑ j ∈ Finset.range (B + 1),
+        (-1 : ℤ) ^ j * generationPrefix B j x := by
+  unfold sourcePrefix
+  rw [sourceWeight_eq_sum_signedGenerations]
+  rw [map_sum]
+  apply Finset.sum_congr rfl
+  intro j _hj
+  exact clockPushforward_signedSourceGeneration B j x
+
+/-- Every source block increment is the full finite signed sum of its unsigned
+generation block increments. -/
+theorem sourceBlockIncrement_eq_generation_sum (B n : ℕ) :
+    sourceBlockIncrement B n =
+      ∑ j ∈ Finset.range (B + 1),
+        (-1 : ℤ) ^ j * generationBlockIncrement B j n := by
+  cases n with
+  | zero =>
+      simpa [sourceBlockIncrement, generationBlockIncrement] using
+        sourcePrefix_eq_generation_sum B 0
+  | succ n =>
+      change
+        sourcePrefix B (n + 1) - sourcePrefix B n =
+          ∑ j ∈ Finset.range (B + 1),
+            (-1 : ℤ) ^ j *
+              (generationPrefix B j (n + 1) - generationPrefix B j n)
+      rw [sourcePrefix_eq_generation_sum B (n + 1),
+        sourcePrefix_eq_generation_sum B n]
+      rw [← Finset.sum_sub_distrib]
+      apply Finset.sum_congr rfl
+      intro j _hj
+      ring
+
+/-- Generation block increments telescope exactly to the clock-pushed generation
+prefix. -/
+theorem sum_generationBlockIncrement_eq_prefix (B j x : ℕ) :
+    ∑ n ∈ Finset.range (x + 1), generationBlockIncrement B j n =
+      generationPrefix B j x := by
+  induction x with
+  | zero =>
+      simp [generationBlockIncrement]
+  | succ x ih =>
+      rw [Finset.sum_range_succ, ih]
+      simp [generationBlockIncrement]
+
+/-! ## Actual windows with inherited backlog -/
+
+/-- Generation value inherited from before a window beginning at `N`. -/
+def generationBacklog (B j N : ℕ) : ℤ :=
+  generationPrefix B j (N - 1)
+
+/-- Actual generation prefix at offset `r`, consisting of inherited backlog plus
+all block increments in `[N, N+r]`. -/
+def generationWindowPrefix (B j N r : ℕ) : ℤ :=
+  generationBacklog B j N +
+    ∑ n ∈ Finset.Icc N (N + r), generationBlockIncrement B j n
+
+/-- Backlog plus the within-window increments reconstructs the actual generation
+prefix, not merely its displacement from the window origin. -/
+theorem generationWindowPrefix_eq
+    {B j N r : ℕ} (hN : 1 ≤ N) :
+    generationWindowPrefix B j N r = generationPrefix B j (N + r) := by
+  have hIcc : Finset.Icc N (N + r) = Finset.Ico N (N + r + 1) := by
+    ext n
+    simp
+    omega
+  have hsplit : N ≤ N + r + 1 := by omega
+  have hNrange : N - 1 + 1 = N := by omega
+  unfold generationWindowPrefix generationBacklog
+  rw [hIcc]
+  calc
+    generationPrefix B j (N - 1) +
+        ∑ n ∈ Finset.Ico N (N + r + 1), generationBlockIncrement B j n =
+      (∑ n ∈ Finset.range N, generationBlockIncrement B j n) +
+        ∑ n ∈ Finset.Ico N (N + r + 1),
+          generationBlockIncrement B j n := by
+            rw [← sum_generationBlockIncrement_eq_prefix B j (N - 1),
+              hNrange]
+    _ = ∑ n ∈ Finset.range (N + r + 1),
+          generationBlockIncrement B j n := by
+            exact Finset.sum_range_add_sum_Ico
+              (f := generationBlockIncrement B j) hsplit
+    _ = generationPrefix B j (N + r) := by
+          simpa using sum_generationBlockIncrement_eq_prefix B j (N + r)
+
+/-- Summing the actual generation windows, including their inherited backlogs,
+recovers the actual full source prefix at every point in the window. -/
+theorem sourcePrefix_eq_generationWindow_sum
+    {B N r : ℕ} (hN : 1 ≤ N) :
+    sourcePrefix B (N + r) =
+      ∑ j ∈ Finset.range (B + 1),
+        (-1 : ℤ) ^ j * generationWindowPrefix B j N r := by
+  rw [sourcePrefix_eq_generation_sum]
+  apply Finset.sum_congr rfl
+  intro j _hj
+  rw [generationWindowPrefix_eq hN]
+
 end CanonicalGapAncestryEnergyBridge
 
 end RHLean.Proof
