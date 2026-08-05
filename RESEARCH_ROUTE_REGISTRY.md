@@ -559,8 +559,9 @@ bottleneck declining to `1.265988` at `29`. The honest status is
 
 ### 7. Signed canonical height, balanced factor pairs
 
-**Status: THE FINITE LAYER IS FORMALIZED. THE RAW PIECEWISE STRATEGY IS CLOSED; THE
-MAIN-TERM-SUBTRACTED ONE IS OPEN AND PASSES ON THE MEASURED RANGE.**
+**Status: THE FINITE LAYER IS FORMALIZED. PIECEWISE ESTIMATION OF THE TWO SECTORS IS
+CLOSED — raw, window-mean-subtracted, and explicit-main-term-subtracted alike. All
+three diagonal energies diverge from the budget; only the rate differs.**
 
 The corrected clock, the low-imbalance counting theorem and the low-band energy are
 exact and formalized in
@@ -601,12 +602,15 @@ half fails it alone.
 `scripts/TwoAnchorSlackCoverage/balanced_main_term_repair.py` identifies it in closed
 form: the three primality cases contribute `+N_pp, -N_pp, -N_pp`, so the balanced
 half's main term is `-N_pp`, exactly the overlap term `C`, and `N_pp` can be replaced
-by a prime-density prediction `Cpred` carrying no Möbius input. Subtracting it moves
-the balanced half from `13.2 N` to **`0.44 N`** (prefix `+126` at `N = 1900`), and
-subtracting the exact count instead gives `0.39 N` — either way indistinguishable in
-scale from the true total's `0.43 N`. It repairs the extreme half at the same time,
-since the two sum to the true total. So the split **is** usable, after main-term
-subtraction and only then. See
+by a prime-density prediction `Cpred` carrying no Möbius input. In the prefix norm at
+`n <= 1900` this looks like a repair: the balanced half moves from `13.2 N` to
+`0.44 N` (`0.39 N` with the exact count), matching the truth's `0.43 N`.
+
+**It is not a repair.** In the energy norm at larger `N`, which is the diagnostic the
+target uses, the subtracted half diverges again — see the do-not-repeat list below and
+[`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4. The
+main term is real and removing it helps by a factor of `60` against mean subtraction,
+but it does not bound the diagonals. See
 [`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4.
 
 ### Do not repeat this route by
@@ -623,13 +627,23 @@ subtraction and only then. See
 - treating `highBandBlockIncrement_eq_balanced_add_extreme`,
   `beta_symmetric_identity` or `prefixEnergy_add` as reductions: they are exact
   rewritings that say what the object is, and they license no piecewise estimate;
-- reading the prefix-Gram scan's long-window bridge failure as closing the sector
-  split: that failure is a property of **mean** subtraction, which can only remove a
-  drift linear across the window. Substituting the explicit main term `Cpred` holds
-  both diagonals at the budget scale where the bridge is two orders above it —
-  `0.071/0.253/0.973/1.009` against `0.65/11.14/27.50/105.21` at `N = 1000` to
-  `20000` (`scripts/TwoAnchorSlackCoverage/main_term_vs_bridge.c`, which reproduces
-  that scan's raw and bridge columns to every reported digit);
+- subtracting a coherent mode and expecting the sectors to become separately
+  estimable. Measured at `H = N` for `N = 1000, 5000, 10000, 20000, 40000` by
+  `scripts/TwoAnchorSlackCoverage/main_term_vs_bridge.c` (which reproduces the
+  prefix-Gram scan's raw and bridge columns to every reported digit), `Q_BB/(HN^2)` is
+
+  ```text
+  raw           104.75   1232.00   3552.50   11071.62   33339.64     ~ N^1.56
+  window mean     0.65     11.14     27.50     105.21     266.31     ~ N^1.64
+  minus Cpred     0.071     0.253     0.973      1.009      4.434     ~ N^1.08
+  ```
+
+  All three diverge. The explicit main term is much the best of them — `60x` below the
+  bridge at `N = 40000` — and still does not bound the diagonal;
+- reading the `0.973 -> 1.009` step from `N = 10000` to `20000` as convergence: the
+  next point is `4.434`. The step ratios are `3.55, 3.85, 1.04, 4.39`, and an earlier
+  pass of this registry recorded that single small ratio as a flattening. It was noise
+  in a rising sequence;
 - dropping the ledger's cross term or bounding it by Cauchy–Schwarz: `Cross` is the
   dominant term, two to three orders of magnitude above `E(total)`, and
   `|Cross| <= sqrt(E(bal) E(ext))` is near-equality here, so applying it yields

@@ -5,7 +5,11 @@
 script asks the follow-up question: is the excess a *smooth main term* that can be
 identified and subtracted, or is it genuine unstructured growth?
 
-It is a main term, and it is a single explicit one.
+It is a main term, and it is a single explicit one.  But subtracting it is NOT a
+repair: this script measures the prefix norm at n <= 1900, where the subtracted half
+comes inside budget, while main_term_vs_bridge.c measures the energy norm the target
+actually uses out to N = 40000 and finds the same subtracted half diverging again
+(0.071, 0.253, 0.973, 1.009, 4.434, growing like N^1.08).  Read the two together.
 
 Where it comes from.  Split the balanced pair population by primality of the two
 endpoints and let `N_pp(n)` be the number of balanced coprime prime-prime pairs whose
@@ -139,6 +143,7 @@ print("matters: the repair needs only an asymptotic for the prime-pair count, no
 print("count itself.  Because the two halves sum to the true total, subtracting from")
 print("the balanced half and adding to the extreme half repairs both at once.")
 print()
-print("So the split is usable after main-term subtraction.  What is NOT usable is the")
-print("split applied to the raw halves, and that is what balanced_split_frontier.py")
-print("and prefix_gram_cross.py rule out.")
+print("This is the prefix norm at n <= 1900 only.  In the energy norm out to N = 40000")
+print("the same subtraction diverges (main_term_vs_bridge.c), so the split is not")
+print("usable even after main-term subtraction -- the main term is real and removing")
+print("it helps by a large factor, but it does not bound the sector diagonals.")

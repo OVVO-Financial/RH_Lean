@@ -5,8 +5,18 @@
  * finds that at long windows the separate bridge energies still exceed the budget:
  * Q^o_BB/(H N^2) is 0.65, 11.1, 27.5 at [1000,2000), [5000,10000), [10000,20000).
  *
- * That is a statement about mean subtraction.  This program tests the other repair:
+ * That is a statement about mean subtraction.  This program tests the other candidate:
  * subtracting an explicit arithmetic main term rather than an empirical window mean.
+ *
+ * RESULT: it is much better and still not enough.  At H = N and N = 1000 .. 40000,
+ * Q_BB/(H N^2) is
+ *
+ *   raw           104.75  1232.00  3552.50  11071.62  33339.64    ~ N^1.56
+ *   window mean     0.65    11.14    27.50    105.21    266.31    ~ N^1.64
+ *   minus Cpred     0.071    0.253    0.973     1.009     4.434    ~ N^1.08
+ *
+ * All three diverge from the budget.  Do not read the 0.973 -> 1.009 step as
+ * convergence; the next point is 4.434.
  * The main term is the prime-density prediction of the balanced prime-pair count,
  *
  *   Cpred(n) = - sum_{u prime <= n} |W_u(n)| / log(mid W_u(n)),

@@ -252,12 +252,17 @@ Three consequences for using the ledger:
   it localizes it entirely in the cross term. That is genuine information. It is not
   a reduction: it does not produce a smaller object to estimate.
 
-### The excess is a main term, and subtracting it repairs the split
+### The excess is a main term, and subtracting it helps but does not suffice
 
-Everything above rules out estimating the **raw** halves. It does not say the split is
-useless, because it does not say whether the excess is structured. It is, and
-`scripts/TwoAnchorSlackCoverage/balanced_main_term_repair.py` identifies it in closed
-form.
+Everything above rules out estimating the **raw** halves. It does not say whether the
+excess is structured. It is, and `scripts/TwoAnchorSlackCoverage/balanced_main_term_repair.py`
+identifies it in closed form.
+
+> **Read this section with the next one.** What follows measures the prefix norm at
+> `n <= 1900`, where subtracting the main term does bring the balanced half inside
+> budget. The energy norm at `N` up to `40000` — the diagnostic the target actually
+> uses, in the next section — shows the subtracted half diverging again. The main term
+> is real and removing it helps by a large factor; it is not a repair.
 
 Split the balanced pair population by primality of the endpoints and let `N_pp(n)`
 count the balanced coprime prime-prime pairs with product in `B_n`. With
@@ -289,13 +294,16 @@ need the prime-pair count itself, only an asymptotic for it. Since the two halve
 to the true total, subtracting from the balanced half and adding to the extreme half
 repairs both at once.
 
-**So the split is usable — after main-term subtraction, and only then.** The correct
-statement of the obstruction is not "the halves cannot be estimated" but "the halves
-carry a common prime-pair main term of size `n` per block which must be removed before
-either is estimated." That main term is explicit, it is a prime count rather than a
-Möbius correlation, and removing it is a finite deterministic step. What remains after
-removal is a centred object bounded by `0.44 N` on the measured range — inside budget,
-and at the same scale as the truth itself.
+So on this range and in this norm the subtracted halves are inside budget. **That does
+not survive the energy norm at larger `N`** — see the next section, where the same
+subtraction gives `0.071, 0.253, 0.973, 1.009, 4.434` for `N = 1000` to `40000`,
+growing like `N^{1.08}`. The prefix norm at `n <= 1900` is simply too weak and too
+short to see it.
+
+What stands is the structural part: the halves carry a common prime-pair main term of
+size `n` per block, it is explicit, it is a prime count rather than a Möbius
+correlation, and removing it is a finite deterministic step that removes most — but
+not all — of the excess.
 
 This also explains why `A`, `B` and `A + B` are individually fine: none of them is
 the overlap term. The Möbius channels of the balanced half never carried the problem.
@@ -315,32 +323,42 @@ main term identified above varies nonlinearly across `[N, 2N)`. So the two repai
 not interchangeable. `scripts/TwoAnchorSlackCoverage/main_term_vs_bridge.c` runs both
 on the same windows:
 
-| window | `H/N` | raw `Q_BB/(HN²)` | bridge | **minus `Cpred`** | `Q_tot/(HN²)` |
+| window | `H/N` | raw `Q_BB/(HN²)` | bridge | minus `Cpred` | `Q_tot/(HN²)` |
 |---|---|---|---|---|---|
-| `[1000,2000)` | 1.00 | 104.75 | 0.65 | **0.071** | 0.10884 |
-| `[5000,10000)` | 1.00 | 1232.00 | 11.14 | **0.253** | 0.08159 |
-| `[10000,20000)` | 1.00 | 3552.50 | 27.50 | **0.973** | 0.09036 |
-| `[20000,40000)` | 1.00 | 11071.62 | 105.21 | **1.009** | 0.08561 |
+| `[1000,2000)` | 1.00 | 104.75 | 0.65 | 0.071 | 0.10884 |
+| `[5000,10000)` | 1.00 | 1232.00 | 11.14 | 0.253 | 0.08159 |
+| `[10000,20000)` | 1.00 | 3552.50 | 27.50 | 0.973 | 0.09036 |
+| `[20000,40000)` | 1.00 | 11071.62 | 105.21 | 1.009 | 0.08561 |
+| `[40000,80000)` | 1.00 | 33339.64 | 266.31 | 4.434 | 0.09115 |
 
 The raw and bridge columns reproduce the prefix-Gram scan's own figures to every
 digit it reports (`104.754`, `1232.004`, `3552.497`, and `0.645512`, `11.142857`,
 `27.502757`), from an independent implementation — so the comparison is like-for-like.
 
-Across a 20-fold range in `N` the bridge diverges from `0.65` to `105.21`, while the
-explicit main term rises to about `1` and then flattens: `0.973 → 1.009` as `N`
-doubles from `10000` to `20000`, a `3.7%` increase against the bridge's `283%`. The
-extreme half behaves the same way (`0.253, 0.306, 1.246, 1.194`).
+**The main term does not rescue the split.** These series are monotone, so a fitted
+exponent in `N` is meaningful here: raw `1.562`, bridge `1.641`, minus-`Cpred`
+`1.078`. All three diverge. The explicit main term is the better repair by a wide
+margin — `60x` smaller than the bridge at `N = 40000`, and growing at roughly `N^1.08`
+against the bridge's `N^1.64` — but it still does not hold the diagonals at the budget
+scale.
 
-**Caveats, because four points is not a proof.** `Cpred` is a crude density model —
-`1/log` at the interval midpoint — and its own modelling error necessarily grows with
-`N`, so what is bounded here is this model's residual, not the method's limit. A
-sharper main term should do better, not worse. The apparent flattening rests on the
-last two points and should be re-checked further out before it is leaned on. What the
-table does establish, at the scales both scans cover, is that the long-window failure
-recorded in the prefix-Gram scan is a property of mean subtraction rather than of
-sector splitting as such: replacing the empirical mean with the explicit arithmetic
-main term removes it by a factor of `22`–`44`, and keeps both diagonals at the budget
-scale where the bridge is two orders of magnitude above it.
+An earlier version of this section claimed the minus-`Cpred` column flattened, on the
+strength of `0.973 → 1.009` from `N = 10000` to `20000`. The next point is `4.434`.
+That plateau was noise in a rising sequence, not convergence; the step ratios are
+`3.55, 3.85, 1.04, 4.39`, and reading the one small ratio as a trend was wrong.
+
+So the prefix-Gram scan's verdict stands, and applies more widely than to mean
+subtraction alone: **separate diagonal estimates are the wrong primary target**, for
+the raw halves, for the bridge, and for this main-term-subtracted version. What the
+comparison establishes is narrower than a repair — the failure rate depends strongly
+on how the coherent mode is removed, and an arithmetic main term removes far more of
+it than an empirical window mean does.
+
+Whether a sharper main term would do better is untested. `Cpred` is crude — `1/log` at
+the interval midpoint — and its own modelling error grows with `N`, so some of the
+residual `N^1.08` is certainly the model rather than the arithmetic. But that is a
+conjecture about an uncomputed quantity, and the measured fact is that this main term
+diverges.
 
 ---
 
