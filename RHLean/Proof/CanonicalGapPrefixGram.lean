@@ -17,21 +17,21 @@ parts.  This file records the corresponding exact prefix-energy decomposition.
 It is pure finite algebra: no cancellation estimate is asserted.
 -/
 
-/-- Prefix sum through index `r`, inclusive. -/
-def prefix (a : ℕ → ℤ) (r : ℕ) : ℤ :=
+/-- Partial sum through index `r`, inclusive. -/
+def partialSum (a : ℕ → ℤ) (r : ℕ) : ℤ :=
   ∑ j ∈ Finset.range (r + 1), a j
 
-/-- Prefix energy over `H` successive prefixes. -/
+/-- Prefix energy over `H` successive partial sums. -/
 def prefixEnergy (H : ℕ) (a : ℕ → ℤ) : ℤ :=
-  ∑ r ∈ Finset.range H, prefix a r ^ 2
+  ∑ r ∈ Finset.range H, partialSum a r ^ 2
 
-/-- Twice the signed cross energy of two prefix paths. -/
+/-- Twice the signed cross energy of two partial-sum paths. -/
 def twicePrefixCross (H : ℕ) (a b : ℕ → ℤ) : ℤ :=
-  ∑ r ∈ Finset.range H, 2 * prefix a r * prefix b r
+  ∑ r ∈ Finset.range H, 2 * partialSum a r * partialSum b r
 
-@[simp] theorem prefix_add (a b : ℕ → ℤ) (r : ℕ) :
-    prefix (fun j => a j + b j) r = prefix a r + prefix b r := by
-  simp [prefix, Finset.sum_add_distrib]
+@[simp] theorem partialSum_add (a b : ℕ → ℤ) (r : ℕ) :
+    partialSum (fun j => a j + b j) r = partialSum a r + partialSum b r := by
+  simp [partialSum, Finset.sum_add_distrib]
 
 /-- The signed cross energy is symmetric. -/
 theorem twicePrefixCross_comm (H : ℕ) (a b : ℕ → ℤ) :
@@ -47,16 +47,17 @@ theorem prefixEnergy_add (H : ℕ) (a b : ℕ → ℤ) :
       prefixEnergy H a + twicePrefixCross H a b + prefixEnergy H b := by
   unfold prefixEnergy twicePrefixCross
   calc
-    (∑ r ∈ Finset.range H, prefix (fun j => a j + b j) r ^ 2) =
+    (∑ r ∈ Finset.range H, partialSum (fun j => a j + b j) r ^ 2) =
         ∑ r ∈ Finset.range H,
-          (prefix a r ^ 2 + 2 * prefix a r * prefix b r + prefix b r ^ 2) := by
+          (partialSum a r ^ 2 + 2 * partialSum a r * partialSum b r +
+            partialSum b r ^ 2) := by
       apply Finset.sum_congr rfl
       intro r hr
-      rw [prefix_add]
+      rw [partialSum_add]
       ring
-    _ = (∑ r ∈ Finset.range H, prefix a r ^ 2) +
-          (∑ r ∈ Finset.range H, 2 * prefix a r * prefix b r) +
-          (∑ r ∈ Finset.range H, prefix b r ^ 2) := by
+    _ = (∑ r ∈ Finset.range H, partialSum a r ^ 2) +
+          (∑ r ∈ Finset.range H, 2 * partialSum a r * partialSum b r) +
+          (∑ r ∈ Finset.range H, partialSum b r ^ 2) := by
       rw [Finset.sum_add_distrib, Finset.sum_add_distrib]
 
 open BalancedCanonicalGap
