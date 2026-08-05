@@ -14,6 +14,8 @@ open CanonicalGapAncestryBridge
 open CanonicalGapAncestryEnergyBridge
 open CanonicalGapAncestryGram
 
+attribute [local instance] Classical.propDecidable
+
 /-!
 # Canonical high-source realization
 
@@ -332,17 +334,13 @@ theorem canonicalHighIntegerPrefix_eq_activeHighSquarefree_sum
   · by_cases hsq : Squarefree m
     · by_cases hhigh : IsCanonicalHighHeight Λ (Nat.sqrt m) m <;>
         simp [hm2, hsq, hhigh]
-    · have hμ : μ m = 0 :=
-        ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-      simp [hm2, hsq, hμ]
+    · simp [hm2, hsq]
   · have hm01 : m = 0 ∨ m = 1 := by omega
     rcases hm01 with rfl | rfl
     · simp
-    · have hlow : IsCanonicalLowHeight Λ (Nat.sqrt 1) 1 := by
-        simp [IsCanonicalLowHeight, canonicalHeightTwice,
-          canonicalLargestPrimeFactor, canonicalCofactor]
-        nlinarith
-      simp [hm2, IsCanonicalHighHeight, hlow]
+    · simp [hm2, IsCanonicalHighHeight, IsCanonicalLowHeight,
+        canonicalHeightTwice, canonicalLargestPrimeFactor,
+        canonicalCofactor, hΛ]
 
 /-- Casting the integer high increment gives the native complex increment. -/
 theorem canonicalHighIntegerIncrement_cast
@@ -352,7 +350,6 @@ theorem canonicalHighIntegerIncrement_cast
   unfold canonicalHighIntegerIncrement canonicalHighIncrement
     canonicalMoebiusWeight
   push_cast
-  rfl
 
 /-- Casting the integer high prefix gives the native complex high prefix. -/
 theorem canonicalHighIntegerPrefix_cast
@@ -387,7 +384,8 @@ theorem localSequenceEnergy_sourceHighPrefix_eq_canonicalHighPrefix
   unfold RHLean.Analysis.localSequenceEnergy
   apply Finset.sum_congr rfl
   intro r hr
-  rw [sourceHighPrefix_cast_eq_canonicalHighPrefix hΛ (hB r hr)]
+  simpa using congrArg (fun z : ℂ => ‖z‖ ^ 2)
+    (sourceHighPrefix_cast_eq_canonicalHighPrefix hΛ (hB r hr))
 
 end CanonicalGapAncestryHighRealization
 
