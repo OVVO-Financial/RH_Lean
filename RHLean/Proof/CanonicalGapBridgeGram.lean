@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.CanonicalGapPrefixGram
+import RHLean.Proof.CanonicalExtremeHeight
 
 open scoped BigOperators
 
