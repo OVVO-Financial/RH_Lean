@@ -70,6 +70,7 @@ theorem sourcePrefix_eq_activeSource_sum (B x : ℕ) :
   classical
   rw [sourcePrefix_eq_sum]
   unfold activeSourceSet
+  rw [Finset.sum_filter]
   simp_rw [sourceWeight]
   apply Finset.sum_congr rfl
   intro s _hs
