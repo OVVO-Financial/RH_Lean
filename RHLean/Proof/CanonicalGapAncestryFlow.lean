@@ -298,6 +298,7 @@ def successorOperator (F : ParentFlow ι) : (ι → ℤ) →+ (ι → ℤ) where
     cases F.parent i <;> rfl
   map_add' f g := by
     funext i
+    simp only [Pi.add_apply]
     cases F.parent i <;> rfl
 
 /-- The exact finite successor reindexing: roots minus the parent pullback. -/
@@ -329,11 +330,12 @@ theorem clockPushforward_renewal (F : ParentFlow ι)
     clockPushforward clock x F.weight =
       clockPushforward clock x (rootField F) -
         clockPushforward clock x (successorOperator F F.weight) := by
+  have hfield := weight_eq_root_sub_successor F
   calc
     clockPushforward clock x F.weight =
         clockPushforward clock x
-          (rootField F - successorOperator F F.weight) := by
-            rw [weight_eq_root_sub_successor F]
+          (rootField F - successorOperator F F.weight) :=
+      congrArg (fun v => clockPushforward clock x v) hfield
     _ = clockPushforward clock x (rootField F) -
           clockPushforward clock x (successorOperator F F.weight) :=
       map_sub (clockPushforward clock x) (rootField F)
@@ -369,7 +371,7 @@ theorem renewal_eq_root_add_smooth {S : M →+ M} {U V : M}
   simpa [successorSmoothField, sub_eq_add_neg] using hrenew
 
 /-- Exact finite renewal identity with its unresolved terminal generation. -/
-theorem alternatingPrefix_add_tail {S : M →+ M} {U V : M}
+theorem alternatingPrefix_add_tail {S : M →+ M} {U V : M]
     (hrenew : V = U - S V) (depth : ℕ) :
     alternatingPrefix S U depth + alternatingTail S V depth = V := by
   induction depth with
