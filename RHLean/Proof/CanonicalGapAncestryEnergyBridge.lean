@@ -245,7 +245,11 @@ theorem signedSourceGeneration_succ (B j : ℕ) :
       - (boundedSourceFlow B).successorOperator
           (signedSourceGeneration B j) := by
   funext s
-  rw [signedSourceGeneration, signedSourceGeneration, sourceGeneration_succ]
+  change
+    (-1 : ℤ) ^ (j + 1) * sourceGeneration B (j + 1) s =
+      - ((boundedSourceFlow B).successorOperator
+          (fun t => (-1 : ℤ) ^ j * sourceGeneration B j t)) s
+  rw [sourceGeneration_succ]
   cases hparent : (boundedSourceFlow B).parent s with
   | none =>
       simp [ParentFlow.successorOperator, hparent]
@@ -290,7 +294,7 @@ theorem alternatingPrefix_eq_sum_signedSourceGenerations
       simp only [Nat.succ_eq_add_one]
       rw [signedSourceGeneration_zero,
         sum_signedSourceGeneration_succ, ← ih]
-      simp [sub_eq_add_neg]
+      abel
 
 /-- Pointwise finite recombination of the bounded source weight from all signed
 generations. -/
@@ -353,8 +357,12 @@ theorem sourceBlockIncrement_eq_generation_sum (B n : ℕ) :
       simpa [sourceBlockIncrement, generationBlockIncrement] using
         sourcePrefix_eq_generation_sum B 0
   | succ n =>
-      rw [sourceBlockIncrement, generationBlockIncrement,
-        sourcePrefix_eq_generation_sum B (n + 1),
+      change
+        sourcePrefix B (n + 1) - sourcePrefix B n =
+          ∑ j ∈ Finset.range (B + 1),
+            (-1 : ℤ) ^ j *
+              (generationPrefix B j (n + 1) - generationPrefix B j n)
+      rw [sourcePrefix_eq_generation_sum B (n + 1),
         sourcePrefix_eq_generation_sum B n]
       rw [← Finset.sum_sub_distrib]
       apply Finset.sum_congr rfl
