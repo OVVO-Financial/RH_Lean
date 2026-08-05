@@ -20,7 +20,8 @@ prime extension of a transport-oriented parent. The extension reverses the
 Möbius sign, while the parent and child enter the square-prefix process at their
 own integer-square-root clocks.
 
-The final section isolates the abstract finite renewal algebra
+The final sections derive a concrete finite-parent renewal equation and isolate
+the abstract finite renewal algebra
 
 ```text
 V = U - S V,
@@ -60,6 +61,17 @@ structure BornSmoothChild (q a p : ℕ) : Prop where
   extension : LegalExtension q a p
   entersSmooth : q < a * p
   remainsBalanced : a * p < 2 * q
+
+/-- Expanded characterization of a legal born-smooth child. -/
+theorem bornSmoothChild_iff (q a p : ℕ) :
+    BornSmoothChild q a p ↔
+      ExtremeTransportParent q a ∧ LegalExtension q a p ∧
+        q < a * p ∧ a * p < 2 * q := by
+  constructor
+  · intro h
+    exact ⟨h.parent, h.extension, h.entersSmooth, h.remainsBalanced⟩
+  · rintro ⟨hparent, hextension, hlo, hhi⟩
+    exact ⟨hparent, hextension, hlo, hhi⟩
 
 /-- Stripping the extension prime from a legal born-smooth child recovers its
 extreme transport parent. -/
@@ -223,6 +235,107 @@ theorem ancestryPairValue_window {q a p N r : ℕ}
       (μ (q * a) : ℤ) *
         indicator (parentClock q a ≤ N + r ∧ N + r < childClock q a p) :=
   ancestryPairValue_eq_interval h
+
+/-- Exact decomposition of an activity interval relative to a window origin.
+The three terms are: activity already open at `N`, an opening after `N`, and a
+closing after `N`. -/
+theorem activityIndicator_window_decomposition {s t N r : ℕ} (hst : s ≤ t) :
+    indicator (s ≤ N + r ∧ N + r < t) =
+      indicator (s ≤ N ∧ N < t) +
+      indicator (N < s ∧ s ≤ N + r) -
+      indicator (N < t ∧ t ≤ N + r) := by
+  by_cases hsn : s ≤ N <;>
+  by_cases hnt : N < t <;>
+  by_cases hsr : s ≤ N + r <;>
+  by_cases hrt : N + r < t <;>
+  by_cases hns : N < s <;>
+  by_cases htr : t ≤ N + r <;>
+  simp [indicator, hsn, hnt, hsr, hrt, hns, htr] <;> omega
+
+/-- Exact window-boundary decomposition of one legal ancestry edge. -/
+theorem ancestryPairValue_window_decomposition {q a p N r : ℕ}
+    (h : BornSmoothChild q a p) :
+    ancestryPairValue q a p (N + r) =
+      (μ (q * a) : ℤ) *
+          indicator (parentClock q a ≤ N ∧ N < childClock q a p) +
+      (μ (q * a) : ℤ) *
+          indicator (N < parentClock q a ∧ parentClock q a ≤ N + r) -
+      (μ (q * a) : ℤ) *
+          indicator (N < childClock q a p ∧ childClock q a p ≤ N + r) := by
+  rw [ancestryPairValue_window h]
+  rw [activityIndicator_window_decomposition (parentClock_le_childClock h)]
+  ring
+
+/-! ## Concrete finite-parent renewal equation -/
+
+section FiniteParentFlow
+
+variable {ι : Type*} [Fintype ι]
+
+/-- A finite signed field with at most one parent per node and exact sign reversal
+along every parent edge. -/
+structure ParentFlow (ι : Type*) [Fintype ι] where
+  parent : ι → Option ι
+  weight : ι → ℤ
+  signReversal : ∀ i p, parent i = some p → weight i = -weight p
+
+namespace ParentFlow
+
+/-- Restriction of the field to root nodes. -/
+def rootField (F : ParentFlow ι) : ι → ℤ := fun i =>
+  match F.parent i with
+  | none => F.weight i
+  | some _ => 0
+
+/-- Pull a field from the unique parent of each nonroot node. -/
+def successorOperator (F : ParentFlow ι) : (ι → ℤ) →+ (ι → ℤ) where
+  toFun f i :=
+    match F.parent i with
+    | none => 0
+    | some p => f p
+  map_zero' := by
+    funext i
+    cases h : F.parent i <;> simp [h]
+  map_add' f g := by
+    funext i
+    cases h : F.parent i <;> simp [h]
+
+/-- The exact finite successor reindexing: roots minus the parent pullback. -/
+theorem weight_eq_root_sub_successor (F : ParentFlow ι) :
+    F.weight = rootField F - successorOperator F F.weight := by
+  funext i
+  cases hparent : F.parent i with
+  | none => simp [rootField, successorOperator, hparent]
+  | some p =>
+      have hsign := F.signReversal i p hparent
+      simp [rootField, successorOperator, hparent, hsign]
+
+/-- Push a finite signed field through arbitrary integer clocks. -/
+def clockPushforward (clock : ι → ℕ) (x : ℕ) : (ι → ℤ) →+ ℤ where
+  toFun f := ∑ i, if clock i ≤ x then f i else 0
+  map_zero' := by simp
+  map_add' f g := by
+    classical
+    simp only [Pi.add_apply]
+    rw [← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro i _hi
+    by_cases hix : clock i ≤ x <;> simp [hix]
+
+/-- The renewal equation survives every square-block or other clock pushforward
+without changing the clocks. -/
+theorem clockPushforward_renewal (F : ParentFlow ι)
+    (clock : ι → ℕ) (x : ℕ) :
+    clockPushforward clock x F.weight =
+      clockPushforward clock x (rootField F) -
+        clockPushforward clock x (successorOperator F F.weight) := by
+  rw [weight_eq_root_sub_successor F]
+  exact map_sub (clockPushforward clock x) (rootField F)
+    (successorOperator F F.weight)
+
+end ParentFlow
+
+end FiniteParentFlow
 
 /-! ## Abstract successor renewal algebra -/
 
