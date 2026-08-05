@@ -69,11 +69,13 @@ theorem bornSmoothChild_parent {q a p : ℕ} (h : BornSmoothChild q a p) :
 /-- The stripped parent lies on the extreme side of the gap boundary. -/
 theorem parent_extreme_gap {q a p : ℕ} (h : BornSmoothChild q a p) :
     a ≤ q - a := by
+  have hext : 2 * a ≤ q := h.parent.extreme
   omega
 
 /-- The stripped parent is a canonical unordered factor pair. -/
 theorem parent_canonicalPair {q a p : ℕ} (h : BornSmoothChild q a p) :
     CanonicalPair a (q - a) := by
+  have hext : 2 * a ≤ q := h.parent.extreme
   have haq : a ≤ q := by omega
   have hadd : a + (q - a) = q := Nat.add_sub_of_le haq
   unfold CanonicalPair
@@ -83,6 +85,8 @@ theorem parent_canonicalPair {q a p : ℕ} (h : BornSmoothChild q a p) :
 /-- The extended child lies in the balanced gap region. -/
 theorem child_balancedGap {q a p : ℕ} (h : BornSmoothChild q a p) :
     BalancedGap q (a * p - q) := by
+  have hlo : q < a * p := h.entersSmooth
+  have hhi : a * p < 2 * q := h.remainsBalanced
   constructor <;> omega
 
 /-- The extended child is a canonical unordered factor pair. -/
@@ -102,7 +106,7 @@ theorem child_weight_eq_neg_parent {q a p : ℕ} (h : BornSmoothChild q a p) :
       ring
     _ = (μ (q * a) : ℤ) * μ p :=
       ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime
-        h.extension.coprimeParent
+        h.extension.coprimeParent.symm
     _ = -(μ (q * a) : ℤ) := by
       rw [ArithmeticFunction.moebius_apply_prime h.extension.coreMax.prime]
       ring
@@ -143,7 +147,9 @@ theorem smoothParent_unique {q c a a' p p' : ℕ}
     coreMaxPrime_unique_factor h.2.extension.coreMax
       h'.2.extension.coreMax hprod
   have ha_mul : a * p = a' * p := by simpa [hp] using hprod
-  exact ⟨Nat.mul_right_cancel ha_mul, hp⟩
+  have ha : a = a' :=
+    Nat.mul_right_cancel h.2.extension.coreMax.prime.pos ha_mul
+  exact ⟨ha, hp⟩
 
 /-! ## Distinct parent and child clocks -/
 
@@ -157,8 +163,9 @@ def childClock (q a p : ℕ) : ℕ := Nat.sqrt (q * (a * p))
 theorem parentClock_le_childClock {q a p : ℕ} (h : BornSmoothChild q a p) :
     parentClock q a ≤ childClock q a p := by
   apply Nat.sqrt_le_sqrt
-  have hpone : 1 ≤ p := h.extension.coreMax.prime.one_le
-  nlinarith
+  have ha : a ≤ a * p :=
+    Nat.le_mul_of_pos_right a h.extension.coreMax.prime.pos
+  exact Nat.mul_le_mul_left q ha
 
 /-- Integer-valued indicator. -/
 def indicator (P : Prop) [Decidable P] : ℤ := if P then 1 else 0
