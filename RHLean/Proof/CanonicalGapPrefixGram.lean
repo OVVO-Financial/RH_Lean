@@ -47,15 +47,46 @@ theorem prefixSum_add (H : ℕ) (a b : ℕ → ℤ) (r : ℕ) :
   intro i _hi
   by_cases hir : i ≤ r <;> simp [hir]
 
+/-- The prefix Gram form is additive in its first argument. -/
+theorem prefixCrossEnergy_add_left
+    (H : ℕ) (a b c : ℕ → ℤ) :
+    prefixCrossEnergy H (fun i => a i + b i) c =
+      prefixCrossEnergy H a c + prefixCrossEnergy H b c := by
+  unfold prefixCrossEnergy
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [prefixSum_add]
+  ring
+
+/-- The prefix Gram form is additive in its second argument. -/
+theorem prefixCrossEnergy_add_right
+    (H : ℕ) (a b c : ℕ → ℤ) :
+    prefixCrossEnergy H a (fun i => b i + c i) =
+      prefixCrossEnergy H a b + prefixCrossEnergy H a c := by
+  unfold prefixCrossEnergy
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [prefixSum_add]
+  ring
+
+/-- The prefix Gram form is symmetric. -/
+theorem prefixCrossEnergy_comm (H : ℕ) (a b : ℕ → ℤ) :
+    prefixCrossEnergy H a b = prefixCrossEnergy H b a := by
+  unfold prefixCrossEnergy
+  apply Finset.sum_congr rfl
+  intro r _hr
+  ring
+
 /-- The exact balanced/extreme prefix-energy ledger. -/
 theorem prefixEnergy_add (H : ℕ) (a b : ℕ → ℤ) :
     prefixEnergy H (fun i => a i + b i) =
       prefixEnergy H a + 2 * prefixCrossEnergy H a b + prefixEnergy H b := by
-  unfold prefixEnergy prefixCrossEnergy
-  rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
-  apply Finset.sum_congr rfl
-  intro r _hr
-  rw [prefixSum_add]
+  unfold prefixEnergy
+  rw [prefixCrossEnergy_add_left]
+  simp_rw [prefixCrossEnergy_add_right]
+  rw [prefixCrossEnergy_comm H b a]
   ring
 
 /-- Counting a terminal interval in `range H`. -/
