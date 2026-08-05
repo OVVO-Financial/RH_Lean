@@ -165,3 +165,4 @@ import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.CanonicalGapAncestryEnergyBridge
 import RHLean.Proof.CanonicalGapAncestryGram
 import RHLean.Proof.CanonicalGapAncestryHighRealization
+import RHLean.Proof.CanonicalGapAncestryProjectedRenewal
