@@ -76,7 +76,7 @@ theorem sourcePrefix_eq_activeSource_sum (B x : ℕ) :
   intro s _hs
   by_cases hadm : SourceAdmissible s <;>
     by_cases hclock : Nat.sqrt (sourceProduct s) ≤ x <;>
-      simp [hadm, hclock]
+      simp [sourceClock, hadm, hclock]
 
 /-- Exact finite reindexing from native source indices to squarefree integers. -/
 theorem sourcePrefix_eq_squarefreeInteger_sum
@@ -95,7 +95,7 @@ theorem sourcePrefix_eq_squarefreeInteger_sum
       have hclock :=
         (sourceClock_le_iff_sourceProduct_le_endpoint s).1 hs.2
       omega
-    · exact (one_lt_sourceProduct_of_admissible hs.1).le
+    · omega
   · intro s₁ hs₁ s₂ hs₂ heq
     simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hs₁ hs₂
     exact sourceProduct_injective_on_admissible hs₁.1 hs₂.1 heq
