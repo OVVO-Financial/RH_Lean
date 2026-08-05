@@ -371,7 +371,7 @@ theorem renewal_eq_root_add_smooth {S : M →+ M} {U V : M}
   simpa [successorSmoothField, sub_eq_add_neg] using hrenew
 
 /-- Exact finite renewal identity with its unresolved terminal generation. -/
-theorem alternatingPrefix_add_tail {S : M →+ M} {U V : M]
+theorem alternatingPrefix_add_tail {S : M →+ M} {U V : M}
     (hrenew : V = U - S V) (depth : ℕ) :
     alternatingPrefix S U depth + alternatingTail S V depth = V := by
   induction depth with
