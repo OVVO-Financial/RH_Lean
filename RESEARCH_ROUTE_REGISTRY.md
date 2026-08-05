@@ -559,7 +559,8 @@ bottleneck declining to `1.265988` at `29`. The honest status is
 
 ### 7. Signed canonical height, balanced factor pairs
 
-**Status: THE FINITE LAYER IS FORMALIZED. THE PIECEWISE STRATEGY IS CLOSED.**
+**Status: THE FINITE LAYER IS FORMALIZED. THE RAW PIECEWISE STRATEGY IS CLOSED; THE
+MAIN-TERM-SUBTRACTED ONE IS OPEN AND PASSES ON THE MEASURED RANGE.**
 
 The corrected clock, the low-imbalance counting theorem and the low-band energy are
 exact and formalized in
@@ -593,14 +594,26 @@ energy norm the target actually uses. The prefix correlation
 -0.999` at `(N,H) = (400,100), (700,175), (1000,250), (1400,350)`). Against the budget
 `H N^2`, `E(total)/HN^2` sits at the `10^-2` level with no drift while `E(bal)/HN^2`
 runs `1.51, 2.09, 4.69, 9.44` and keeps climbing: the total meets the target and each
-half fails it alone. See
+half fails it alone.
+
+**But the excess is a main term, not unstructured growth.**
+`scripts/TwoAnchorSlackCoverage/balanced_main_term_repair.py` identifies it in closed
+form: the three primality cases contribute `+N_pp, -N_pp, -N_pp`, so the balanced
+half's main term is `-N_pp`, exactly the overlap term `C`, and `N_pp` can be replaced
+by a prime-density prediction `Cpred` carrying no Möbius input. Subtracting it moves
+the balanced half from exponent `1.701` to **`0.693`** (prefix `+126` at `N = 1900`),
+inside the `1 + eps` target with room to spare — and repairs the extreme half at the
+same time, since the two sum to the true total. So the split **is** usable, after
+main-term subtraction and only then. See
 [`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4.
 
 ### Do not repeat this route by
 
-- bounding the balanced part and the extreme part separately and adding them: both
-  are `n^{0.6}` too large, so the sum of any two valid bounds misses the target by
-  that factor no matter how sharp each one is;
+- bounding the **raw** balanced and extreme parts separately and adding them: both are
+  `n^{0.6}` too large, so the sum of any two valid bounds misses the target by that
+  factor no matter how sharp each one is — subtract `Cpred` first;
+- conversely, reading the frontier table as closing the split: it closes the raw
+  split only, and the subtracted version passes on the whole measured range;
 - estimating `A`, `B` and `C` term by term — only `A` meets the target, and even
   `A + B` does not;
 - treating `highBandBlockIncrement_eq_balanced_add_extreme`,

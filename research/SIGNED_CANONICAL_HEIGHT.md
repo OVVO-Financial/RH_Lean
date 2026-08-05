@@ -248,6 +248,49 @@ Three consequences for using the ledger:
   it localizes it entirely in the cross term. That is genuine information. It is not
   a reduction: it does not produce a smaller object to estimate.
 
+### The excess is a main term, and subtracting it repairs the split
+
+Everything above rules out estimating the **raw** halves. It does not say the split is
+useless, because it does not say whether the excess is structured. It is, and
+`scripts/TwoAnchorSlackCoverage/balanced_main_term_repair.py` identifies it in closed
+form.
+
+Split the balanced pair population by primality of the endpoints and let `N_pp(n)`
+count the balanced coprime prime-prime pairs with product in `B_n`. With
+`beta = mu(u) mu(u+d) 1_{u or u+d prime}`:
+
+| case | value of `beta` | contribution |
+|---|---|---|
+| both prime | `+1` on every pair | `+N_pp` |
+| `u` prime, `u+d` composite | `-mu(u+d)`, and `sum_{composite} mu = sum_{all} mu - sum_{prime} mu ~ +N_pp` | `-N_pp` |
+| `u+d` prime, `u` composite | symmetric | `-N_pp` |
+
+so the predicted main term of the whole balanced half is `-N_pp`, which is exactly the
+overlap term `C`. And `N_pp` can be replaced by a prime-density prediction `Cpred`
+that uses no Möbius input at all: for each prime `u <= n` the admissible window for
+`u+d` is an explicit interval, and primes in it have density `1/log`. Measured:
+
+| series | `alpha` | prefix at `N = 1900` |
+|---|---|---|
+| balanced half, raw | 1.701 | `-24993` |
+| `C = -N_pp` | 1.714 | `-24461` |
+| `Cpred`, density prediction of `C` | 1.685 | `-25119` |
+| `C - Cpred` | 1.060 | `+658` |
+| **`balanced - Cpred`** | **0.693** | **`+126`** |
+
+The raw half is at `1.70` and fails; subtracting the single explicit main term brings
+it to `0.693`, inside the `1 + eps` target with room to spare. Since the two halves
+sum to the true total, subtracting `Cpred` from the balanced half and adding it to the
+extreme half repairs both at once.
+
+**So the split is usable — after main-term subtraction, and only then.** The correct
+statement of the obstruction is not "the halves cannot be estimated" but "the halves
+carry a common prime-pair main term of size `n` per block which must be removed before
+either is estimated." That main term is explicit, it is a prime count rather than a
+Möbius correlation, and removing it is a finite deterministic step. What remains after
+removal is a centred object at exponent `0.693`, comfortably inside budget on the
+measured range.
+
 ---
 
 ## 5. What remains
