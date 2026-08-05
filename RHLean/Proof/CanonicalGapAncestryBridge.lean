@@ -429,7 +429,13 @@ theorem alternatingTail_apply_eq_zero_of_rank_lt
           have hrank := F.parent_rank_lt i p hparent
           have hpdepth : F.rank p < d := by omega
           have hzero := ih p hpdepth
-          simp [ParentFlow.successorOperator, hparent, hzero]
+          have hstep :
+              F.flow.successorOperator
+                  (alternatingTail F.flow.successorOperator f d) i =
+                alternatingTail F.flow.successorOperator f d p := by
+            simp [ParentFlow.successorOperator, hparent]
+          rw [hstep, hzero]
+          simp
 
 /-- The entire terminal generation vanishes at the declared finite height. -/
 theorem alternatingTail_eq_zero
