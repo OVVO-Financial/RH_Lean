@@ -362,7 +362,57 @@ diverges.
 
 ---
 
-## 5. What remains
+## 5. The terminal statement, and why `Λ` is not a lever
+
+PR #196 closed the formal reduction:
+`ProjectedRenewalQuadraticBoundedStatement Λ ↔ RiemannHypothesisStatement`, given
+`ClassicalMertensRHCriterion`. Kernel-checked in
+[`RHLean/Proof/TerminalAxiomAudit.lean`](../RHLean/Proof/TerminalAxiomAudit.lean):
+all three carrying theorems print `[propext, Classical.choice, Quot.sound]` and
+nothing else.
+
+Two consequences worth stating flatly.
+
+**The remaining step is RH, not an approach to RH.** The equivalence is proved, so
+`ProjectedRenewalQuadraticBoundedStatement` is neither easier nor harder than the
+Riemann Hypothesis. No further reduction can exist, because there is nothing left
+between it and the conclusion.
+
+**`Λ` cannot be tuned.** The equivalence holds for *every* `Λ ≥ 0`, so every instance
+is exactly RH and none is easier. The measurement in
+`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c` confirms this
+operationally and adds that raising `Λ` makes the constant strictly worse:
+
+| `Λ` | `Q/(HN²)`, `N=1000` | `Q/(HN²)`, `N=4000` |
+|---|---|---|
+| 0 | 0.0609 | 0.0638 |
+| 1 | 0.0609 | 0.0638 |
+| 2 | 0.0614 | 0.0636 |
+| 5 | 0.0828 | 0.0734 |
+| 10 | 0.1455 | 0.1015 |
+| 25 | 0.9248 | 0.4804 |
+
+The reason is structural. `S^high = S_total − S^low`, and the low band's own prefix is
+`O(Λn)` — that is exactly the content of the unconditional counting theorem of §2.
+Subtracting a quantity of size `Λn` from a near-cancelling total *introduces* a drift
+of that size, so the high sector inherits a defect the total does not have. The low
+band was already harmless; removing it costs.
+
+So the low/high split, and the counting theorem that controls the low band, do not
+reduce the terminal difficulty. They were worth proving — they establish the low band
+is not where the problem lives — but they buy nothing further. **The cleanest form of
+the remaining statement is `Λ = 0`**, where `canonicalHighPrefix 0 n` is the full
+square-block Möbius prefix and the statement reads
+
+```text
+sum_{h<H} |M((N+h+1)^2 - 1)|^2  <<_eps  H N^{2+eps},
+```
+
+which is `M(x) << x^{1/2+eps}` — the classical criterion, i.e. RH itself.
+
+---
+
+## 6. What remains
 
 The high canonical-imbalance population `Z(m) > n^{1+delta}`, retaining both signs:
 

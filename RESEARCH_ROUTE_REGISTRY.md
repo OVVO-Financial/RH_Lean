@@ -620,6 +620,16 @@ but it does not bound the diagonals. See
   factor no matter how sharp each one is — subtract `Cpred` first;
 - conversely, reading the frontier table as closing the split: it closes the raw
   split only, and the subtracted version passes on the whole measured range;
+- tuning `Λ` in the terminal statement, or expecting the low/high split to reduce it.
+  `ProjectedRenewalQuadraticBoundedStatement Λ ↔ RH` holds for **every** `Λ ≥ 0`, so
+  every instance is exactly RH and none is easier. Measured
+  (`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`), raising `Λ` makes
+  the constant strictly worse — `Q/(HN²)` runs `0.061, 0.061, 0.061, 0.083, 0.145,
+  0.925` at `Λ = 0,1,2,5,10,25` for `N = H = 1000`. The reason is structural:
+  `S^high = S_total − S^low` and `|S^low_n| = O(Λn)` by the counting theorem, so
+  removing the low band injects a drift the total does not have. The counting theorem
+  establishes the low band is not where the problem lives; it buys nothing beyond
+  that, and `Λ = 0` is the cleanest form of what remains;
 - fitting a log-log exponent to any of these prefix series except `C`: they change
   sign repeatedly, `log |prefix|` plunges at each crossing, and least squares then
   reports growth that is not there. An earlier pass recorded `1.338` for `B` and
