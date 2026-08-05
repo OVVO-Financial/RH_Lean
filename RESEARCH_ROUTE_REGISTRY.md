@@ -623,6 +623,13 @@ subtraction and only then. See
 - treating `highBandBlockIncrement_eq_balanced_add_extreme`,
   `beta_symmetric_identity` or `prefixEnergy_add` as reductions: they are exact
   rewritings that say what the object is, and they license no piecewise estimate;
+- reading the prefix-Gram scan's long-window bridge failure as closing the sector
+  split: that failure is a property of **mean** subtraction, which can only remove a
+  drift linear across the window. Substituting the explicit main term `Cpred` holds
+  both diagonals at the budget scale where the bridge is two orders above it —
+  `0.071/0.253/0.973/1.009` against `0.65/11.14/27.50/105.21` at `N = 1000` to
+  `20000` (`scripts/TwoAnchorSlackCoverage/main_term_vs_bridge.c`, which reproduces
+  that scan's raw and bridge columns to every reported digit);
 - dropping the ledger's cross term or bounding it by Cauchy–Schwarz: `Cross` is the
   dominant term, two to three orders of magnitude above `E(total)`, and
   `|Cross| <= sqrt(E(bal) E(ext))` is near-equality here, so applying it yields

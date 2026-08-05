@@ -300,6 +300,48 @@ and at the same scale as the truth itself.
 This also explains why `A`, `B` and `A + B` are individually fine: none of them is
 the overlap term. The Möbius channels of the balanced half never carried the problem.
 
+### Explicit main term versus window mean
+
+[`research/CANONICAL_GAP_PREFIX_GRAM_SCAN.md`](CANONICAL_GAP_PREFIX_GRAM_SCAN.md)
+removes the coherent increment mode a different way: by subtracting each sequence's
+**window mean**, the Brownian-bridge construction. Its verdict is that this works at
+short windows but fails at long ones — at `H = N` the separate bridge energies
+`Q^o_BB/(HN^2)` are `0.65`, `11.1`, `27.5` at `N = 1000, 5000, 10000`, i.e. over
+budget and climbing.
+
+That is a statement about mean subtraction specifically, and the distinction matters.
+The window mean can only remove a drift that is linear across the window, while the
+main term identified above varies nonlinearly across `[N, 2N)`. So the two repairs are
+not interchangeable. `scripts/TwoAnchorSlackCoverage/main_term_vs_bridge.c` runs both
+on the same windows:
+
+| window | `H/N` | raw `Q_BB/(HN²)` | bridge | **minus `Cpred`** | `Q_tot/(HN²)` |
+|---|---|---|---|---|---|
+| `[1000,2000)` | 1.00 | 104.75 | 0.65 | **0.071** | 0.10884 |
+| `[5000,10000)` | 1.00 | 1232.00 | 11.14 | **0.253** | 0.08159 |
+| `[10000,20000)` | 1.00 | 3552.50 | 27.50 | **0.973** | 0.09036 |
+| `[20000,40000)` | 1.00 | 11071.62 | 105.21 | **1.009** | 0.08561 |
+
+The raw and bridge columns reproduce the prefix-Gram scan's own figures to every
+digit it reports (`104.754`, `1232.004`, `3552.497`, and `0.645512`, `11.142857`,
+`27.502757`), from an independent implementation — so the comparison is like-for-like.
+
+Across a 20-fold range in `N` the bridge diverges from `0.65` to `105.21`, while the
+explicit main term rises to about `1` and then flattens: `0.973 → 1.009` as `N`
+doubles from `10000` to `20000`, a `3.7%` increase against the bridge's `283%`. The
+extreme half behaves the same way (`0.253, 0.306, 1.246, 1.194`).
+
+**Caveats, because four points is not a proof.** `Cpred` is a crude density model —
+`1/log` at the interval midpoint — and its own modelling error necessarily grows with
+`N`, so what is bounded here is this model's residual, not the method's limit. A
+sharper main term should do better, not worse. The apparent flattening rests on the
+last two points and should be re-checked further out before it is leaned on. What the
+table does establish, at the scales both scans cover, is that the long-window failure
+recorded in the prefix-Gram scan is a property of mean subtraction rather than of
+sector splitting as such: replacing the empirical mean with the explicit arithmetic
+main term removes it by a factor of `22`–`44`, and keeps both diagonals at the budget
+scale where the bridge is two orders of magnitude above it.
+
 ---
 
 ## 5. What remains
