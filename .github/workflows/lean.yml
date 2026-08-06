@@ -1,59 +1,58 @@
-name: PR 199 editorial cleanup
+name: Lean verification
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
     paths:
-      - '**.lean'
-      - '**.md'
-      - '.github/workflows/lean.yml'
+      - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
+      - 'lean-toolchain'                 # Lean version bumps
+      - 'lake-manifest.json'             # dependency/Mathlib bumps
+      - '.github/workflows/lean.yml'     # changes to the CI itself
+  workflow_dispatch:                     # manual "Run workflow" button
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: pr-199-editorial-cleanup-${{ github.ref }}
+  group: lean-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  cleanup:
-    if: github.event.pull_request.number == 199 && github.actor != 'github-actions[bot]'
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out PR branch
+      - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Check paper / Analysis boundary
+        run: bash scripts/check_paper_analysis_boundary.sh
+
+      - name: Audit unfinished proofs and axioms
+        run: bash scripts/audit_assumptions.sh
+
+      - name: Set up Lean
+        uses: leanprover/lean-action@v1
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
 
-      - name: Apply editorial corrections
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
+      - name: Build Lean project
+        id: directbuild
+        continue-on-error: true
+        run: lake build RHLean --wfail > lean-build.log 2>&1
 
-          path = Path('research/SIGNED_CANONICAL_HEIGHT.md')
-          text = path.read_text(encoding='utf-8')
-          replacements = {
-              '> least squares on `log |prefix|` against `log n` reports growth that is not there. An\n> an earlier pass':
-                  '> least squares on `log |prefix|` against `log n` reports growth that is not there. An\n> earlier pass',
-              'Everything above rules out estimating the **raw** halves. It does not say whether the\nexcess is structured.':
-                  'Everything above rejects separate estimation of the **raw** halves under the\ndeclared finite diagnostic. It does not say whether the excess is structured.',
-          }
-          for old, new in replacements.items():
-              if old not in text:
-                  raise SystemExit(f'expected text not found: {old!r}')
-              text = text.replace(old, new, 1)
-          path.write_text(text, encoding='utf-8')
-          PY
+      - name: Upload Lean build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-build-log
+          path: lean-build.log
 
-      - name: Commit editorial corrections
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add research/SIGNED_CANONICAL_HEIGHT.md
-          git commit -m 'Polish finite-diagnostic wording'
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+      - name: Print Lean build log
+        if: always()
+        run: cat lean-build.log
+
+      - name: Fail if Lean build failed
+        if: steps.directbuild.outcome == 'failure'
+        run: exit 1
