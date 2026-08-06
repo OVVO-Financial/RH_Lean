@@ -18,6 +18,11 @@ def additiveCoconductor
     {N : ℕ} [NeZero N] (r : ZMod N) : ℕ :=
   Nat.gcd r.val N
 
+@[simp] theorem additiveCoconductor_zero
+    {N : ℕ} [NeZero N] :
+    additiveCoconductor (0 : ZMod N) = N := by
+  simp [additiveCoconductor]
+
 /-- Every additive co-conductor divides the ambient modulus. -/
 theorem additiveCoconductor_dvd_modulus
     {N : ℕ} [NeZero N] (r : ZMod N) :
