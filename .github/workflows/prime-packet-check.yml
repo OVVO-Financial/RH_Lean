@@ -1,0 +1,18 @@
+name: Prime packet check
+
+on:
+  push:
+    branches:
+      - agent/canonical-prime-packets
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          test: false
+          lint: false
+          check-reservoir-eligibility: false
