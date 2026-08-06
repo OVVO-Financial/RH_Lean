@@ -689,33 +689,46 @@ prefix — the terminal quantity at `Λ = 0`.
 A positive square-function strategy needs `sum_α ‖Z_α‖² <<_eps H N^{2+eps}`. With only
 `O((log B)²)` packets, Cauchy–Schwarz then closes the target after an epsilon
 adjustment, so **the diagonal bound alone carries the entire burden and any pairwise
-almost-orthogonality condition is analytically redundant.** Measured by
+almost-orthogonality condition is analytically redundant.**
+
+Note what kind of failure this is. The diagonal premise does imply the target —
+`diagonal ⟹ P ⟹ MertensEnergyBounded` — so it is not insufficient. It is
+**structurally overstrong**: it prohibits the cancellation that produces the target.
+Exact recombination did not fail; the proposed positive estimate is the wrong shape.
+Measured by
 `scripts/TwoAnchorSlackCoverage/packet_kappa.c` on global prefixes at `H = N`:
 
-| `N` | `κ_raw` | `κ_q` | `D_raw/(HN²)` | `D_q/(HN²)` | `‖ΣZ‖²/(HN²)` | live packets |
-|---|---|---|---|---|---|---|
-| 500 | 70,441 | 31,928 | 4,997 | 2,265 | 0.0709 | 109 |
-| 1000 | 265,991 | 119,714 | 16,220 | 7,300 | 0.0610 | 131 |
-| 2000 | 760,557 | 340,687 | 53,708 | 24,058 | 0.0706 | 155 |
+| `N` | `κ_raw` | `κ_q` | `D_raw/(HN²)` | `D_q/(HN²)` | `‖ΣZ‖²/(HN²)` | `max‖Z_{j,k}‖_∞/n` | `max‖Σ Z‖_∞/n` | live |
+|---|---|---|---|---|---|---|---|---|
+| 500 | 70,430 | 31,901 | 4,971 | 2,252 | 0.0706 | 35.1 | 0.426 | 109 |
+| 1000 | 265,454 | 119,429 | 16,177 | 7,278 | 0.0609 | 63.8 | 0.396 | 131 |
+| 2000 | 760,146 | 340,441 | 53,637 | 24,022 | 0.0706 | 116.8 | 0.408 | 155 |
 
 Here `κ = D/E` with `D = sum_α ‖Z_α‖²` and `E = ‖sum_α Z_α‖²`; `Y_k = sum_j Z_{j,k}`
 gives the `q`-fibre grouping. By the exact identity
 `2 sum_{α<β} <Z_α,Z_β> / D = 1/κ − 1`, a large `κ` forces the aggregate cross term to
 `−D/2`; the measured value is `−1.0000` to four decimals in every row.
 
-Three findings.
+Four findings.
 
 1. **The diagonal is over budget by a power of `N`, not a polylog.** `D_raw` is
-   `53,708 ×` the target scale at `N = 2000` and both `κ` fit `N^{1.71}` across the
+   `53,637 ×` the target scale at `N = 2000` and both `κ` fit `N^{1.71}` across the
    range. Shrinking `ε` absorbs logarithms, not `N^{1.7}`.
 2. **Grouping by distinguished-prime scale does not help.** `κ_q` grows at the same
    rate as `κ_raw`, with a constant ratio ≈ 2.2. Even the coarsest prime-scale
    grouping destroys the cancellation.
-3. **There is no coarsest stable grouping.** Two pieces (balanced/extreme, route 7)
-   already give `κ = 67…249` and rising; 155 packets give `7.6 × 10^5`. Individual
-   packet prefixes run about `18 N` while the total runs `0.26 N`, so each packet
-   carries its own count-driven main term of order `N` and they cancel only in the
-   full sum.
+3. **No stable grouping was found among the tested natural groupings.** Both the
+   balanced–extreme split of route 7 (`κ = 67…249`, rising) and the
+   distinguished-prime fibre grouping here exhibit growing diagonal inflation. This
+   is not a claim that every conceivable grouping is unstable — a specially designed
+   signed grouping could preserve the relevant cross term, and finding one is the only
+   remaining use of this coordinate layer.
+4. **The individual packet prefixes diverge while the total does not.** The largest
+   packet prefix runs `35.1 n`, `63.8 n`, `116.8 n` across the range — growing like
+   `N^{0.87}` — while the total stays flat at `0.40…0.43 n`. Each packet carries its
+   own count-driven main term and they cancel only in the full sum. The extremal
+   `q`-fibre maximum coincides exactly with the extremal packet maximum in every row,
+   so the worst fibre is dominated by a single `(j,k)` cell.
 
 ### Do not repeat this route by
 

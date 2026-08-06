@@ -116,6 +116,7 @@ int main(int argc, char **argv) {
   double budget = (double)H * (double)N * (double)N;
   /* global prefixes; accumulate energy on [N, N+H) */
   double Draw = 0.0, Dq = 0.0, Etot = 0.0;
+  double maxPk = 0.0, maxQf = 0.0;      /* max |prefix| / n over the window */
   int live = 0;
   double *Yk = calloc(MAXS * nb, sizeof(double));       /* q-fibre increments */
   double *tot = calloc(nb, sizeof(double));
@@ -129,7 +130,11 @@ int main(int argc, char **argv) {
         if (a[n] != 0.0f) any = 1;
         Yk[k * nb + n] += a[n];
         tot[n] += a[n];
-        if (n >= N) E += S * S;
+        if (n >= N && n < nmax) {
+          E += S * S;
+          double t = fabs(S) / (double)n;
+          if (t > maxPk) maxPk = t;
+        }
       }
       if (any) { live++; Draw += E; }
     }
@@ -138,11 +143,24 @@ int main(int argc, char **argv) {
     for (size_t n = 0; n < nb; n++) {
       S += Yk[k * nb + n];
       if (Yk[k * nb + n] != 0.0) any = 1;
-      if (n >= N) E += S * S;
+      if (n >= N && n < nmax) {
+        E += S * S;
+        double t = fabs(S) / (double)n;
+        if (t > maxQf) maxQf = t;
+      }
     }
     if (any) Dq += E;
   }
-  { double S = 0.0; for (size_t n = 0; n < nb; n++) { S += tot[n]; if (n >= N) Etot += S * S; } }
+  double maxTot = 0.0;
+  { double S = 0.0;
+    for (size_t n = 0; n < nb; n++) {
+      S += tot[n];
+      if (n >= N && n < nmax) {
+        Etot += S * S;
+        double t = fabs(S) / (double)n;
+        if (t > maxTot) maxTot = t;
+      }
+    } }
 
   printf("window [%llu,%llu)  H/N = %.2f   global prefixes, Lambda = 0\n",
          (unsigned long long)N, (unsigned long long)nmax, (double)H / (double)N);
@@ -151,6 +169,9 @@ int main(int argc, char **argv) {
   printf("  ||sum Z||^2 / (H N^2)        : %12.5f\n", Etot / budget);
   printf("  D_raw / (H N^2)              : %12.5f\n", Draw / budget);
   printf("  D_q   / (H N^2)              : %12.5f\n", Dq / budget);
+  printf("  max |Z_(j,k) prefix| / n     : %12.3f\n", maxPk);
+  printf("  max |Y_k   prefix| / n       : %12.3f\n", maxQf);
+  printf("  max |total prefix| / n       : %12.3f\n", maxTot);
   printf("  kappa_raw = D_raw / E        : %12.2f   cross/D = %+.4f\n",
          Draw / Etot, Etot / Draw - 1.0);
   printf("  kappa_q   = D_q   / E        : %12.2f   cross/D = %+.4f\n",
