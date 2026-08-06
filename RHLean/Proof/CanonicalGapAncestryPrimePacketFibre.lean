@@ -21,6 +21,9 @@ open CanonicalGapAncestryProjectedRenewal
 summing over the distinguished-prime scale `k`.  This module proves it one `k` at a
 time, which is the object a `q`-fibre diagnostic actually measures.
 
+All identities in this file are exact finite identities; no analytic estimate is
+introduced.
+
 Two generic lemmas do the work, and neither uses successor or ancestry arithmetic:
 
 * `sourceQPacketField_eq_qpPacket_sum` — a single `q`-packet refines into its
