@@ -675,6 +675,73 @@ but it does not produce evidence for a bounded separate-diagonal estimate on the
 - quoting the counting theorem `#{Z <= H} <= 1 + floor(H/n)` as controlling the high
   band — it is a low-imbalance statement and says nothing above the threshold.
 
+### 8. Dyadic prime-packet positive square function
+
+**Status: THE POSITIVE DIAGONAL STRATEGY IS CLOSED. The exact packet coordinates
+are retained.**
+
+Packet coordinates as in `CanonicalGapAncestryPrimePacketScales`: for a source `m`
+with `q = P⁺(m)` and core `c = m/q`, put `k = Nat.log 2 q` and
+`j = Nat.log 2 P⁺(c)`, giving triangular support `j ≤ k`. Every squarefree `m` lands
+in exactly one packet, so the packet prefixes sum to the full square-block Möbius
+prefix — the terminal quantity at `Λ = 0`.
+
+A positive square-function strategy needs `sum_α ‖Z_α‖² <<_eps H N^{2+eps}`. With only
+`O((log B)²)` packets, Cauchy–Schwarz then closes the target after an epsilon
+adjustment, so **the diagonal bound alone carries the entire burden and any pairwise
+almost-orthogonality condition is analytically redundant.** Measured by
+`scripts/TwoAnchorSlackCoverage/packet_kappa.c` on global prefixes at `H = N`:
+
+| `N` | `κ_raw` | `κ_q` | `D_raw/(HN²)` | `D_q/(HN²)` | `‖ΣZ‖²/(HN²)` | live packets |
+|---|---|---|---|---|---|---|
+| 500 | 70,441 | 31,928 | 4,997 | 2,265 | 0.0709 | 109 |
+| 1000 | 265,991 | 119,714 | 16,220 | 7,300 | 0.0610 | 131 |
+| 2000 | 760,557 | 340,687 | 53,708 | 24,058 | 0.0706 | 155 |
+
+Here `κ = D/E` with `D = sum_α ‖Z_α‖²` and `E = ‖sum_α Z_α‖²`; `Y_k = sum_j Z_{j,k}`
+gives the `q`-fibre grouping. By the exact identity
+`2 sum_{α<β} <Z_α,Z_β> / D = 1/κ − 1`, a large `κ` forces the aggregate cross term to
+`−D/2`; the measured value is `−1.0000` to four decimals in every row.
+
+Three findings.
+
+1. **The diagonal is over budget by a power of `N`, not a polylog.** `D_raw` is
+   `53,708 ×` the target scale at `N = 2000` and both `κ` fit `N^{1.71}` across the
+   range. Shrinking `ε` absorbs logarithms, not `N^{1.7}`.
+2. **Grouping by distinguished-prime scale does not help.** `κ_q` grows at the same
+   rate as `κ_raw`, with a constant ratio ≈ 2.2. Even the coarsest prime-scale
+   grouping destroys the cancellation.
+3. **There is no coarsest stable grouping.** Two pieces (balanced/extreme, route 7)
+   already give `κ = 67…249` and rising; 155 packets give `7.6 × 10^5`. Individual
+   packet prefixes run about `18 N` while the total runs `0.26 N`, so each packet
+   carries its own count-driven main term of order `N` and they cancel only in the
+   full sum.
+
+### Do not repeat this route by
+
+- proposing a packet dispersion or almost-orthogonality statement before the diagonal
+  is measured: the pairwise-decay condition is redundant given the diagonal bound, and
+  the diagonal bound is false on the tested range;
+- reading exact packet recombination or model independence as analytic progress. The
+  `PartialBaseline` section is generic over an arbitrary `AddCommGroup` with arbitrary
+  `root`, `actual`, `model`; its proofs are `by_cases … <;> simp` and `abel`. It holds
+  verbatim with `actual := 0`, so it certifies bookkeeping consistency and cannot rank
+  packet systems;
+- taking algebraic annihilation `Q_α m = 0` as evidence about the arithmetic. That can
+  be manufactured for almost any chosen `m`. Fidelity of `m` to the true main profile
+  is a separate estimate, and route 7's `Cpred` is the warning: explicit, Möbius-free
+  and non-circular, and its modelling error still grew like `N^{1.08}`;
+- substituting realized trajectory amplification for an operator norm when measuring
+  stage inflation — the theorem needs `‖T_t|_{coh⊥}‖_{2→2}`, and measuring along
+  observed data gives only a lower bound.
+
+### Retained
+
+The packet coordinates, the triangular support, the exact recombination and the
+model-independence guardrail are correct and are kept as an exact coordinate layer.
+What is closed is the use of a positive packet square function as the estimation
+mechanism.
+
 ### Do not repeat the anchor route by
 
 - asserting that anchor selection bounds anything: it converts a signed
