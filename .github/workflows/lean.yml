@@ -1,6 +1,9 @@
 name: Lean verification
 
 on:
+  push:
+    branches:
+      - agent/prime-packet-fibre-ci
   pull_request:
     paths:
       - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
