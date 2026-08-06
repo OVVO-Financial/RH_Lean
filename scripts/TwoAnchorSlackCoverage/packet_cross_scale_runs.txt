@@ -1,0 +1,44 @@
+Commands:
+  cc -O3 -std=c11 -Wall -Wextra -o packet_cross_scale packet_cross_scale.c -lm
+  ./packet_cross_scale 2000 2000
+  ./packet_cross_scale 5000 5000
+  ./packet_cross_scale 2000 1
+  ./packet_cross_scale 5000 1
+
+All four runs:
+  Gram identity check  : PASS
+  top gatekeeper audit : PASS
+
+Key summaries:
+
+N=2000 H=2000
+  live scales: 23
+  eta first-cross 50/90/99%: 4/6/8
+  top first-cross 50/90/99%: 3/4/5
+  eta stable within 10/5/1%: 12/15/15
+  top stable within 10/5/1%: 12/15/16
+  tail TV at w=5, global/top: 0.979607 / 0.478901
+  best width<=8 contiguous block kappa: 3548.061 at width 8 phase 6
+
+N=5000 H=5000
+  live scales: 26
+  eta first-cross 50/90/99%: 4/7/8
+  top first-cross 50/90/99%: 3/5/5
+  eta stable within 10/5/1%: 14/16/17
+  top stable within 10/5/1%: 14/16/17
+  tail TV at w=5, global/top: 1.031919 / 0.553238
+  best width<=8 contiguous block kappa: 14952.312 at width 8 phase 4
+
+N=2000 H=1
+  live scales: 21
+  eta stable within 10/5/1%: 11/14/14
+  top stable within 10/5/1%: 11/13/14
+  tail TV at w=5, global/top: 0.880911 / 0.376895
+  best width<=8 contiguous block kappa: 1681.480 at width 8 phase 7
+
+N=5000 H=1
+  live scales: 24
+  eta stable within 10/5/1%: 15/16/16
+  top stable within 10/5/1%: 13/16/16
+  tail TV at w=5, global/top: 1.168242 / 0.573742
+  best width<=8 contiguous block kappa: 4695.892 at width 8 phase 5
