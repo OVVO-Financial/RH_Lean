@@ -170,3 +170,4 @@ import RHLean.Proof.CanonicalGapAncestryPrimePackets
 import RHLean.Proof.CanonicalGapAncestryQuadraticClosure
 import RHLean.Proof.TerminalAxiomAudit
 import RHLean.Proof.TerminalMertensReduction
+import RHLean.Proof.CanonicalGapAncestryPrimePacketFibre
