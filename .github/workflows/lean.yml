@@ -34,101 +34,80 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
+          import re
 
-          def replace(path: str, old: str, new: str) -> None:
+          def sub(path: str, pattern: str, replacement: str) -> None:
               p = Path(path)
               text = p.read_text(encoding="utf-8")
-              if old not in text:
-                  raise SystemExit(f"expected text not found in {path}: {old[:100]!r}")
-              p.write_text(text.replace(old, new, 1), encoding="utf-8")
+              updated, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
+              if count != 1:
+                  raise SystemExit(f"expected one match in {path}, found {count}: {pattern[:100]!r}")
+              p.write_text(updated, encoding="utf-8")
 
           registry = "RESEARCH_ROUTE_REGISTRY.md"
-          replace(
+          sub(
               registry,
-              """**Status: THE FINITE LAYER IS FORMALIZED. PIECEWISE ESTIMATION OF THE TWO SECTORS IS
-          CLOSED — raw, window-mean-subtracted, and explicit-main-term-subtracted alike. All
-          three diagonal energies diverge from the budget; only the rate differs.**""",
+              r"\*\*Status: THE FINITE LAYER IS FORMALIZED\..*?three diagonal energies diverge from the budget; only the rate differs\.\*\*",
               """**Status: THE FINITE LAYER IS FORMALIZED. FINITE DIAGNOSTICS REJECT
           PIECEWISE ESTIMATION OF THE TWO SECTORS — raw, window-mean-subtracted, and
           explicit-main-term-subtracted — on the measured ranges. The separate diagonal
           ratios rise rather than stabilize at the tested scales. This is a route-closing
           diagnostic, not an asymptotic theorem.**""",
           )
-          replace(
+          sub(
               registry,
-              """The prefix correlation
-          `rho = Cross / sqrt(E(bal) E(ext))` converges to `-1` (`-0.989, -0.992, -0.998,
-          -0.999` at `(N,H) = (400,100), (700,175), (1000,250), (1400,350)`). Against the budget
-          `H N^2`, `E(total)/HN^2` sits at the `10^-2` level with no drift while `E(bal)/HN^2`
-          runs `1.51, 2.09, 4.69, 9.44` and keeps climbing: the total meets the target and each
-          half fails it alone.""",
+              r"The prefix correlation\n`rho = Cross / sqrt\(E\(bal\) E\(ext\)\)` converges to `-1`.*?half fails it alone\.",
               """The measured prefix correlation
           `rho = Cross / sqrt(E(bal) E(ext))` approaches `-1` on the tested windows
           (`-0.989, -0.992, -0.998, -0.999` at `(N,H) = (400,100), (700,175),
-          `(1000,250), (1400,350)`). Against the budget `H N^2`, the observed
+          (1000,250), (1400,350)`). Against the budget `H N^2`, the observed
           `E(total)/HN^2` values stay at the `10^-2` scale while `E(bal)/HN^2` runs
           `1.51, 2.09, 4.69, 9.44`. Thus the total is compatible with the target on this
           range, whereas separate-half estimates are strongly disfavored there.""",
           )
-          replace(
+          sub(
               registry,
-              """the subtracted half diverges again — see the do-not-repeat list below and""",
-              """the subtracted-half ratio rises again on larger tested windows — see the do-not-repeat list below and""",
+              r"the subtracted half diverges again",
+              "the subtracted-half ratio rises again on larger tested windows",
           )
-          replace(
+          sub(
               registry,
-              """- bounding the **raw** balanced and extreme parts separately and adding them: both are
-            `n^{0.6}` too large, so the sum of any two valid bounds misses the target by that
-            factor no matter how sharp each one is — subtract `Cpred` first;""",
+              r"- bounding the \*\*raw\*\* balanced and extreme parts separately and adding them: both are\n  `n\^\{0\.6\}` too large,.*?subtract `Cpred` first;",
               """- bounding the **raw** balanced and extreme parts separately and adding them: over the
             tested range their normalized prefixes grow roughly like an additional `n^{0.6}`
             factor, so this decomposition fails its declared numerical stop criterion;""",
           )
-          replace(
+          sub(
               registry,
-              """Measured
-            (`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`), raising `Λ` makes
-            the constant strictly worse — `Q/(HN²)` runs `0.061, 0.061, 0.061, 0.083, 0.145,
-            0.925` at `Λ = 0,1,2,5,10,25` for `N = H = 1000`.""",
+              r"Measured\n  \(`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence\.c`\), raising `Λ` makes\n  the constant strictly worse — `Q/\(HN²\)` runs `0\.061, 0\.061, 0\.061, 0\.083, 0\.145,\n  0\.925` at `Λ = 0,1,2,5,10,25` for `N = H = 1000`\.",
               """Measured
             (`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`), increasing `Λ`
             produces no sustained improvement: `Λ = 0,1,2` are essentially flat with small
-            nonmonotone variation, while `Λ = 5,10,25` are materially worse.
-            For `N = H = 1000`, `Q/(HN²)` runs `0.061, 0.061, 0.061, 0.083, 0.145,
-            0.925` at `Λ = 0,1,2,5,10,25`.""",
+            nonmonotone variation, while `Λ = 5,10,25` are materially worse. For
+            `N = H = 1000`, `Q/(HN²)` runs `0.061, 0.061, 0.061, 0.083, 0.145, 0.925`
+            at `Λ = 0,1,2,5,10,25`.""",
           )
-          replace(
+          sub(
               registry,
-              """  All three diverge. The explicit main term is much the best of them — `60x` below the
-            bridge at `N = 40000` — and still does not bound the diagonal;""",
+              r"  All three diverge\. The explicit main term is much the best of them — `60x` below the\n  bridge at `N = 40000` — and still does not bound the diagonal;",
               """  All three normalized sequences rise over the tested range. The explicit main term is
             much the best of them — `60x` below the bridge at `N = 40000` — but the data do
             not support a bounded separate-diagonal estimate;""",
           )
 
           research = "research/SIGNED_CANONICAL_HEIGHT.md"
-          replace(
+          sub(
               research,
-              """The target's prefix form is `|sum_{n<=N} d_n| << N^{1+eps}`, so the diagnostic is
-          `|prefix| / N`: bounded means the piece is within the target, upward drift means it is
-          not.""",
+              r"The\ntarget's prefix form is `\|sum_\{n<=N\} d_n\| << N\^\{1\+eps\}`, so the diagnostic is\n`\|prefix\| / N`: bounded means the piece is within the target, upward drift means it is\nnot\.",
               """The target's prefix form is `|sum_{n<=N} d_n| << N^{1+eps}`, so the diagnostic is
           `|prefix| / N`. A stable ratio is compatible with the target on the tested range;
           sustained upward drift rejects the proposed piecewise mechanism at that range. It
           does not by itself prove an asymptotic theorem.""",
           )
-          replace(
+          sub(research, r"It converges to `-1`\.", "It approaches `-1` across the measured windows.")
+          sub(
               research,
-              """It converges to `-1`.""",
-              """It approaches `-1` across the measured windows.""",
-          )
-          replace(
-              research,
-              """The last two columns settle the question. The target is `E << H N^{2+eps}`.
-          `E(total)/HN²` sits at the `10^-2` level with no upward drift across the whole range,
-          so **the total meets the target**. `E(bal)/HN²` runs `1.51, 2.09, 4.69, 9.44` and keeps
-          climbing, so **the balanced half fails the same target on its own**, and by symmetry so
-          does the extreme half.""",
+              r"The last two columns settle the question\. The target is `E << H N\^\{2\+eps\}`\..*?does the extreme half\.",
               """The last two columns settle the declared finite test. The target scale is
           `E << H N^{2+eps}`. On the measured windows, `E(total)/HN²` stays at the `10^-2`
           scale, which is compatible with the target, while `E(bal)/HN²` runs
@@ -136,14 +115,9 @@ jobs:
           balanced half alone; by the same calculation the extreme half is not a viable
           separate target either. These are finite diagnostics, not asymptotic proofs.""",
           )
-          replace(
+          sub(
               research,
-              """**The main term does not rescue the split.** These series are monotone, so a fitted
-          exponent in `N` is meaningful here: raw `1.562`, bridge `1.641`, minus-`Cpred`
-          `1.078`. All three diverge. The explicit main term is the better repair by a wide
-          margin — `60x` smaller than the bridge at `N = 40000`, and growing at roughly `N^1.08`
-          against the bridge's `N^1.64` — but it still does not hold the diagonals at the budget
-          scale.""",
+              r"\*\*The main term does not rescue the split\.\*\* These series are monotone, so a fitted\nexponent in `N` is meaningful here: raw `1\.562`, bridge `1\.641`, minus-`Cpred`\n`1\.078`\. All three diverge\..*?scale\.",
               """**The main term does not rescue the split on the tested range.** The normalized
           sequences are monotone at the sampled points, so descriptive log-log fits give raw
           `1.562`, bridge `1.641`, and minus-`Cpred` `1.078`. These fits summarize the finite
@@ -151,98 +125,89 @@ jobs:
           repair by a wide margin — `60x` smaller than the bridge at `N = 40000` — but its
           normalized ratio still rises and therefore fails the route's declared stop criterion.""",
           )
-          replace(
+          sub(
               research,
-              """But that is a
-          conjecture about an uncomputed quantity, and the measured fact is that this main term
-          diverges.""",
+              r"But that is a\nconjecture about an uncomputed quantity, and the measured fact is that this main term\ndiverges\.",
               """But that is a
           conjecture about an uncomputed quantity. The measured fact is only that this residual
           ratio rises over the sampled range.""",
           )
-          replace(
+          sub(
               research,
-              """No further reduction can exist, because there is nothing left
-          between it and the conclusion.""",
+              r"No further reduction can exist, because there is nothing left\nbetween it and the conclusion\.",
               """No weaker formal bridge remains in the current chain: once the classical
           criterion is supplied, proving this proposition proves RH.""",
           )
-          replace(
+          sub(
               research,
-              """operationally and adds that raising `Λ` makes the constant strictly worse:""",
+              r"operationally and adds that raising `Λ` makes the constant strictly worse:",
               """operationally: it finds no sustained improvement from increasing `Λ`, and large
           values are materially worse on both tested windows:""",
           )
-          replace(
+          sub(
               research,
-              """Subtracting a quantity of size `Λn` from a near-cancelling total *introduces* a drift
-          of that size, so the high sector inherits a defect the total does not have.""",
+              r"Subtracting a quantity of size `Λn` from a near-cancelling total \*introduces\* a drift\nof that size, so the high sector inherits a defect the total does not have\.",
               """Subtracting a quantity permitted to be as large as `Λn` from a near-cancelling total
           can introduce a coherent drift that the total itself does not have.""",
           )
-          replace(
+          sub(
               research,
-              """which is `M(x) << x^{1/2+eps}` — the classical criterion, i.e. RH itself.""",
+              r"which is `M\(x\) << x\^\{1/2\+eps\}` — the classical criterion, i\.e\. RH itself\.",
               """which is the square-endpoint energy formulation connected by the proved bridge to
           the classical Mertens criterion. The displayed local-energy estimate is not itself a
           separately proved pointwise bound.""",
           )
-          replace(
+          sub(
               research,
-              """because both are `n^{0.6}`
-          too large.""",
+              r"because both are `n\^\{0\.6\}`\ntoo large\.",
               """because their measured normalized prefixes carry roughly an additional
           `n^{0.6}` factor over this finite range.""",
           )
 
           gap = Path("scripts/TwoAnchorSlackCoverage/balanced_gap_check.py")
           text = gap.read_text(encoding="utf-8")
-          old = """LIM = 3_000_000
-          spf = list(range(LIM + 1))"""
-          new = """UMAX = 700          # enumerate every pair with lower endpoint u <= UMAX
-          GMAX = 4000         # and gap d <= GMAX
-          LIM = UMAX * (UMAX + GMAX)
-          spf = list(range(LIM + 1))"""
-          if old not in text:
+          text, count = re.subn(
+              r"LIM = 3_000_000\n",
+              "UMAX = 700          # enumerate every pair with lower endpoint u <= UMAX\n"
+              "GMAX = 4000         # and gap d <= GMAX\n"
+              "LIM = UMAX * (UMAX + GMAX)\n",
+              text,
+              count=1,
+          )
+          if count != 1:
               raise SystemExit("balanced_gap_check.py limit block not found")
-          text = text.replace(old, new, 1)
-          old = """UMAX = 700          # enumerate every pair with lower endpoint u <= UMAX
-          GMAX = 4000         # and gap d <= GMAX
-
-          failures = 0"""
-          if old not in text:
+          text, count = re.subn(
+              r"\nUMAX = 700          # enumerate every pair with lower endpoint u <= UMAX\nGMAX = 4000         # and gap d <= GMAX\n",
+              "\n",
+              text,
+              count=1,
+          )
+          if count != 1:
               raise SystemExit("balanced_gap_check.py duplicate bounds not found")
-          text = text.replace(old, "failures = 0", 1)
           gap.write_text(text, encoding="utf-8")
 
-          replace(
+          sub(
               "scripts/TwoAnchorSlackCoverage/prefix_gram_cross.py",
-              """print("The two budget columns are the point.  E(total)/H N^2 stays at the 1e-2 level")
-          print("and shows no upward drift, so the total meets the target.  E(bal)/H N^2 climbs")
-          print("past 1 and keeps climbing, so the balanced half fails the same target on its")
-          print("own -- and so does the extreme half, symmetrically.")""",
+              r"print\(\"The two budget columns are the point\.  E\(total\)/H N\^2 stays at the 1e-2 level\"\)\nprint\(\"and shows no upward drift, so the total meets the target\.  E\(bal\)/H N\^2 climbs\"\)\nprint\(\"past 1 and keeps climbing, so the balanced half fails the same target on its\"\)\nprint\(\"own -- and so does the extreme half, symmetrically\.\"\)",
               """print("The two budget columns are the point.  On these windows, E(total)/H N^2")
           print("stays at the 1e-2 scale and is compatible with the target.  E(bal)/H N^2")
           print("rises sharply, so the finite diagnostic rejects estimating the balanced half")
           print("alone -- and likewise the extreme half.  This is not an asymptotic proof.")""",
           )
-          replace(
+          sub(
               "scripts/TwoAnchorSlackCoverage/main_term_vs_bridge.c",
-              """ * All three diverge from the budget.  Do not read the 0.973 -> 1.009 step as
-          * convergence; the next point is 4.434.""",
-              """ * All three normalized sequences rise over the tested range.  This is a finite
-          * route diagnostic, not a proof of asymptotic divergence.  Do not read the
-          * 0.973 -> 1.009 step as convergence; the next point is 4.434.""",
+              r" \* All three diverge from the budget\.  Do not read the 0\.973 -> 1\.009 step as\n \* convergence; the next point is 4\.434\.",
+              """ * All three normalized sequences rise over the tested range. This is a finite
+           * route diagnostic, not a proof of asymptotic divergence. Do not read the
+           * 0.973 -> 1.009 step as convergence; the next point is 4.434.""",
           )
-          replace(
+          sub(
               "scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c",
-              """ *   - if the ratio is essentially flat in Lambda, the split buys nothing here, the
-          *     counting theorem does not reduce the remaining difficulty, and effort on
-          *     low-band refinement should stop.""",
+              r" \*   - if the ratio is essentially flat in Lambda, the split buys nothing here, the\n \*     counting theorem does not reduce the remaining difficulty, and effort on\n \*     low-band refinement should stop\.",
               """ *   - if the ratio is essentially flat in Lambda, the split buys nothing here;
-          *   - if the ratio rises, larger cutoffs are counterproductive on the tested range.
-          * In either non-improving branch, the counting theorem does not reduce the remaining
-          * difficulty and effort on low-band refinement should stop absent a new mechanism.""",
+           *   - if the ratio rises, larger cutoffs are counterproductive on the tested range.
+           * In either non-improving branch, the counting theorem does not reduce the remaining
+           * difficulty and effort on low-band refinement should stop absent a new mechanism.""",
           )
           PY
 
