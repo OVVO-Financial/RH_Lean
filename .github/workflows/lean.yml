@@ -1,5 +1,5 @@
 name: Lean verification
-run-name: Lean verification for PR #${{ inputs.pr_number || github.event.pull_request.number || 'manual' }}
+run-name: "Lean verification for PR #${{ inputs.pr_number || github.event.pull_request.number || 'manual' }}"
 
 on:
   pull_request:
