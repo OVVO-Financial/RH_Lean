@@ -1,14 +1,43 @@
-# Cross-scale cancellation diagnostic
+# Square-prefix cross-scale cancellation diagnostic
 
 ## Scope
 
-This record tests the only remaining proposed use of the dyadic distinguished-prime
-`q`-fibres after the positive diagonal route was closed: a bounded-width signed block
-mechanism that keeps the exact top prime boundary attached to its compensator.
+This record tests one proposed use of the dyadic distinguished-prime `q`-fibres
+inside the **square-prefix Mertens representation**: a bounded-width signed block
+mechanism that keeps the exact square-prefix top prime boundary attached to its
+compensator.
+
+Every squarefree integer `m` is placed in the square block
+
+```text
+n = floor(sqrt(m)),
+```
+
+and in the largest-prime dyadic fibre
+
+```text
+q = P+(m),
+k = floor(log_2 q).
+```
+
+Thus the paths being measured are
+
+```text
+F_k(n) = sum_{m < (n+1)^2, floor(log_2 P+(m)) = k} mu(m),
+```
+
+and `sum_k F_k(n)` is the square-prefix Mertens value at `(n+1)^2 - 1`.
 
 The diagnostic is finite and route-falsifying, not an asymptotic theorem.
 
-For global prefix paths `F_k` on a window, define
+### Non-scope
+
+This experiment does **not** test the repository's primorial prime-wheel blocks,
+their torus Fourier modes, their reduced additive conductors, or the prime-wheel
+harmonic nonconcentration statement. A separate prime-wheel experiment is required
+before drawing any conclusion about that route.
+
+For global square-prefix paths `F_k` on a window, define
 
 ```text
 G_{k,l} = sum_n F_k(n) F_l(n)
@@ -24,7 +53,7 @@ eta_w = -2 sum_{k<l, l-k <= w} G_{k,l} / (D-E),
 
 so full width gives `eta = 1` exactly.
 
-For the formal gatekeeper, the top scale changes with `n`:
+For the formal square-prefix gatekeeper, the top scale changes with `n`:
 
 ```text
 k_top(n) = floor(log_2 ((n+1)^2 - 1)).
@@ -39,11 +68,12 @@ theta_w =
 ```
 
 `theta_share_w` divides the same numerator by its full-width value. Positive offset
-mass means cancellation of the top fibre; negative mass means reinforcement.
+mass means cancellation of the square-prefix top fibre; negative mass means
+reinforcement.
 
 The implementation uses integer increments and prefixes and `__int128` quadratic
-sums. Every run checks both the exact Gram identity and the numeric top-fibre identity
-against the pure prime contribution.
+sums. Every run checks both the exact Gram identity and the numeric square-prefix
+top-fibre identity against the pure prime contribution.
 
 ## Reproduction
 
@@ -87,9 +117,9 @@ At `H=N`, the apparently favorable first crossings hide large signed tails:
 Thus width five captures a large net top-row cancellation, but the omitted signed
 variation is still roughly half of the full top-row cancellation and about the entire
 global required cross-term. The cumulative answer stabilizes only at widths `15` to
-`17`, a substantial fraction of all live scales.
+`17`, a substantial fraction of all live largest-prime scales.
 
-## Mandatory top-fibre compensators
+## Mandatory square-prefix top-fibre compensators
 
 The dominant dynamic-top offsets at `H=N` are:
 
@@ -108,14 +138,15 @@ The dominant dynamic-top offsets at `H=N` are:
 | 5000 | -14 | -0.159906 |
 | 5000 | -13 | -0.086712 |
 
-The nearest lower scale, `k_top-1`, reinforces the prime boundary rather than
-cancelling it. The leading compensators are `k_top-2` and `k_top-3`, with `k_top-4`
-secondary. Far lower scales then make material corrections. This is a concrete
-compensator signature, but not a bounded-width closure.
+The nearest lower largest-prime scale, `k_top-1`, reinforces the square-prefix prime
+boundary rather than cancelling it. The leading compensators are `k_top-2` and
+`k_top-3`, with `k_top-4` secondary. Far lower scales then make material corrections.
+This is a concrete compensator signature in the square-prefix coordinate system, but
+not a bounded-width closure.
 
-## Disjoint contiguous block test
+## Disjoint contiguous largest-prime-scale block test
 
-For each width and phase, the diagnostic partitions scales by
+For each width and phase, the diagnostic partitions largest-prime scales by
 
 ```text
 block(k) = floor((k + phase) / width)
@@ -143,24 +174,25 @@ the best `H=N` value changes from `253.050` at width 16 and phase 8 for `N=2000`
 
 ## Decision
 
-**The bounded-width contiguous `q`-block route fails the predeclared acceptance
-criteria.**
+**The bounded-width contiguous largest-prime-scale block route fails the predeclared
+acceptance criteria inside the square-prefix representation.**
 
 1. The net first-crossing widths look small, but signed tail variation remains of the
    same order as the full required cancellation.
 2. Stable locality requires width `15` to `17`, not a fixed small neighborhood on the
    tested range.
-3. The mandatory top fibre has identifiable nearby compensators, but `k_top-1`
-   reinforces it and far scales make non-negligible corrections.
+3. The mandatory square-prefix top fibre has identifiable nearby compensators, but
+   `k_top-1` reinforces it and far scales make non-negligible corrections.
 4. Disjoint block energies are huge, grow between `N=2000` and `N=5000`, depend
    violently on phase, and fail at `H=1` as well as `H=N`.
 
 This does not prove that every conceivable data-independent signed transform of the
-`q`-fibres is impossible. It closes the natural bounded-width locality mechanism that
-motivated `eta_w`. The `q`-packet layer should now be retained as an exact audit and
-obstruction layer rather than the primary estimation coordinate.
+square-prefix `q`-fibres is impossible. It closes the natural bounded-width locality
+mechanism that motivated `eta_w`. The square-prefix `q`-packet layer should now be
+retained as an exact audit and obstruction layer rather than treated as a positive or
+bounded-locality estimation coordinate.
 
-The next proof search should move to a coordinate system in which cancellation is
-built into the atoms, specifically the original chain-impulse Fourier packets or the
-two-anchor centered residual. Every replacement must still pass the merged top-fibre
-gatekeeper test explicitly.
+No conclusion about the primorial prime-wheel harmonic route follows from this
+experiment. That route requires a separate diagnostic built from the actual
+prime-wheel spectral-prefix atoms or reduced-conductor components, while retaining
+all cross-conductor Gram terms.
