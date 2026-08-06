@@ -1,9 +1,9 @@
 name: Prime packet check
 
 on:
-  push:
+  pull_request:
     branches:
-      - agent/canonical-prime-packets
+      - main
   workflow_dispatch:
 
 jobs:
