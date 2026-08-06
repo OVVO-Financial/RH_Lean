@@ -1,7 +1,7 @@
 import Mathlib
 import RHLean.Analysis.PrimeWheelFourierReduction
 
-open scoped BigOperators
+open scoped BigOperators ComplexConjugate
 open AddChar
 
 noncomputable section
@@ -131,7 +131,7 @@ theorem primeWheelCoconductorComponent_eq_ramanujanKernel
       apply Finset.sum_congr rfl
       intro r hr
       by_cases hcond : d = additiveCoconductor r
-      · simp [hcond]
+      · simp [hcond, mul_assoc]
       · simp [hcond]
     _ = ((W.modulus : ℂ)⁻¹) *
         ∑ r : ZMod W.modulus,
@@ -147,7 +147,11 @@ theorem primeWheelCoconductorComponent_eq_ramanujanKernel
       apply Finset.sum_congr rfl
       intro r hr
       by_cases hcond : d = additiveCoconductor r
-      · simp [hcond, Finset.sum_mul, Finset.mul_sum]
+      · simp only [hcond, if_true]
+        rw [Finset.sum_mul]
+        apply Finset.sum_congr rfl
+        intro a ha
+        rw [Finset.mul_sum]
       · simp [hcond]
     _ = ((W.modulus : ℂ)⁻¹) *
         ∑ a : ZMod W.modulus,
@@ -177,7 +181,7 @@ theorem primeWheelCoconductorComponent_eq_ramanujanKernel
       apply Finset.sum_congr rfl
       intro r hr
       by_cases hcond : d = additiveCoconductor r
-      · simp [hcond]
+      · simp only [hcond, if_true]
         have hchar :
             ZMod.stdAddChar (-(a * r)) *
                 ZMod.stdAddChar (-(b * (-r))) =
@@ -185,8 +189,14 @@ theorem primeWheelCoconductorComponent_eq_ramanujanKernel
           rw [← map_add_eq_mul]
           congr 1
           ring
-        rw [hchar]
-        ring
+        calc
+          (ZMod.stdAddChar (-(a * r)) * W.torusJointField a) *
+                (ZMod.stdAddChar (-(b * (-r))) * W.torusPrefixWindow x b) =
+              W.torusJointField a * W.torusPrefixWindow x b *
+                (ZMod.stdAddChar (-(a * r)) *
+                  ZMod.stdAddChar (-(b * (-r)))) := by ring
+          _ = W.torusJointField a * W.torusPrefixWindow x b *
+                ZMod.stdAddChar ((b - a) * r) := by rw [hchar]
       · simp [hcond]
 
 end RHLean.Analysis
