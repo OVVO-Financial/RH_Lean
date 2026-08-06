@@ -585,12 +585,13 @@ Gram kernel `H - max(i,j)`, is formalized in
 
 What none of this buys, measured in
 `scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` over blocks `n <= 1900`.
-The diagnostic is `|prefix|/N`, since the target's prefix form is `<< N^{1+eps}`; a
-piece passes if that stays bounded. The balanced and extreme halves each drift to
+The diagnostic is `|prefix|/N`, since the target's prefix form is
+`<< N^{1+eps}`. Stability is treated as finite compatibility with the target; upward
+drift triggers the route's stop criterion. The balanced and extreme halves each drift to
 `13.2 N` and are still climbing, against the true total's `0.43 N`, and each is
 roughly `500x` its own sum at `N = 1900`. Inside `beta`, the failure is carried by
 exactly one term: the overlap count `C` reaches `12.9 N`, while `A`, `B` and `A + B`
-are all bounded at `0.309`, `0.245` and `0.394` — the same scale as the truth.
+have observed maxima `0.309`, `0.245` and `0.394` — the same measured scale as the truth.
 
 `scripts/TwoAnchorSlackCoverage/prefix_gram_cross.py` says the same thing in the
 energy norm the target actually uses. The measured prefix correlation
@@ -613,7 +614,7 @@ by a prime-density prediction `Cpred` carrying no Möbius input. In the prefix n
 target uses, the subtracted-half ratio rises again on larger tested windows — see the do-not-repeat list below and
 [`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4. The
 main term is real and removing it helps by a factor of `60` against mean subtraction,
-but it does not bound the diagonals. See
+but it does not produce evidence for a bounded separate-diagonal estimate on the tested scales. See
 [`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4.
 
 ### Do not repeat this route by
@@ -621,11 +622,13 @@ but it does not bound the diagonals. See
 - bounding the **raw** balanced and extreme parts separately and adding them: over the
   tested range their normalized prefixes grow roughly like an additional `n^{0.6}`
   factor, so this decomposition fails its declared numerical stop criterion;
-- conversely, reading the frontier table as closing the split: it closes the raw
-  split only, and the subtracted version passes on the whole measured range;
+- conversely, treating the short prefix table as validating the subtracted split:
+  it is compatible only in that prefix diagnostic, while the larger energy windows
+  trigger the stop criterion;
 - treating `Λ` as an unused degree of freedom, or expecting the low/high split to
   reduce the terminal statement. `Λ = 0` is the canonical terminal formulation, not
   one endpoint in a search over cutoffs.
+  given `ClassicalMertensRHCriterion`,
   `ProjectedRenewalQuadraticBoundedStatement Λ ↔ RH` holds for **every** `Λ ≥ 0`, so
   every instance is exactly RH and none is easier. Measured
   (`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`), increasing `Λ`
@@ -634,7 +637,7 @@ but it does not bound the diagonals. See
   `N = H = 1000`, `Q/(HN²)` runs `0.061, 0.061, 0.061, 0.083, 0.145, 0.925`
   at `Λ = 0,1,2,5,10,25`. The reason is structural:
   `S^high = S_total − S^low` and `|S^low_n| = O(Λn)` by the counting theorem, so
-  removing the low band injects a drift the total does not have. The counting theorem
+  removing the low band can inject a coherent drift the total does not have. The counting theorem
   establishes the low band is not where the problem lives; it buys nothing beyond
   that, and `Λ = 0` is the cleanest form of what remains;
 - fitting a log-log exponent to any of these prefix series except `C`: they change

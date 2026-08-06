@@ -182,31 +182,32 @@ does not by itself prove an asymptotic theorem.
 > **Methodological note.** Do not fit a log-log exponent to these series. Every piece
 > except `C` changes sign repeatedly, and `log |prefix|` plunges at each crossing, so
 > least squares on `log |prefix|` against `log n` reports growth that is not there. An
-> earlier pass of this record did exactly that and recorded `1.338` for `B` and
-> `1.406` for `A + B`; both are artifacts, and the trajectories above show both are
-> bounded. Only `C` is monotone, and only for `C` is the fitted `1.714` meaningful.
+> an earlier pass of this record did exactly that and recorded `1.338` for `B` and
+> `1.406` for `A + B`; both are artifacts. The measured trajectories of `B` and
+> `A + B` remain small on this range. Only `C` is monotone on the sampled range,
+> and its fitted `1.714` is a descriptive finite-range exponent, not a theorem.
 
 Three things follow.
 
-1. **The balanced/extreme split destroys the cancellation.** Each half reaches
-   `13.2 N` and is still climbing, against the truth's `0.43 N`, and each is about
-   `500x` its own sum at `N = 1900`. Bounding the two halves separately and adding
-   them cannot reach the target, and no sharpening of the individual bounds recovers
-   it, because the halves genuinely are that large.
+1. **The balanced/extreme split destroys the observed cancellation.** Each half
+   reaches `13.2 N` and is still climbing on the tested range, against the truth's
+   `0.43 N`, and each is about `500x` its own sum at `N = 1900`. This fails the
+   predeclared finite stop criterion for separate estimates; it is not a proof that
+   every conceivable asymptotic treatment of the pieces is impossible.
 
-2. **The obstruction is exactly one piece, and it is a count.** `C` is minus the
-   number of balanced coprime prime-prime pairs in the block: monotone, with no
-   cancellation available, contributing `-24461` of the balanced half's `-24993`. It
-   grows like `N^{0.71}` per unit `N`.
+2. **The measured obstruction is exactly one piece, and it is a count.** `C` is
+   minus the number of balanced coprime prime-prime pairs in the block and contributes
+   `-24461` of the balanced half's `-24993` at `N = 1900`. It is monotone on the
+   sampled range; a descriptive fit there is approximately `N^{0.71}` per unit `N`.
 
-3. **The Möbius content is already fine.** `A`, `B` and `A + B` are all bounded, at
-   `0.309`, `0.245` and `0.394` — the same scale as the true total's `0.430`. So the
-   balanced half fails *only* because it carries `C`, and the extreme half fails only
-   because it carries `-C`.
+3. **The measured Möbius channels remain small.** The observed maxima of `A`, `B`
+   and `A + B` are `0.309`, `0.245` and `0.394`, the same scale as the total's
+   observed `0.430`. On this range, the excess of the two halves is carried by `C`
+   and `-C`; this statement is diagnostic rather than asymptotic.
 
 So `beta_symmetric_identity` and `highBandBlockIncrement_eq_balanced_add_extreme` are
 exact rewritings that do not by themselves license a term-by-term estimate — but they
-localize the entire failure in a single explicit, Möbius-free counting function.
+localize the measured excess in a single explicit, Möbius-free counting function.
 
 ### The same statement in the energy norm: the cross term is the whole estimate
 
@@ -262,8 +263,9 @@ identifies it in closed form.
 > **Read this section with the next one.** What follows measures the prefix norm at
 > `n <= 1900`, where subtracting the main term does bring the balanced half inside
 > budget. The energy norm at `N` up to `40000` — the diagnostic the target actually
-> uses, in the next section — shows the subtracted half diverging again. The main term
-> is real and removing it helps by a large factor; it is not a repair.
+> uses, in the next section — shows the normalized subtracted-half ratio rising again.
+> The main term is real and removing it helps by a large factor, but it fails the
+> declared finite energy test.
 
 Split the balanced pair population by primality of the endpoints and let `N_pp(n)`
 count the balanced coprime prime-prime pairs with product in `B_n`. With
@@ -288,33 +290,32 @@ that uses no Möbius input at all: for each prime `u <= n` the admissible window
 | `balanced - C` (exact count subtracted) | `-532` | 0.394 | **passes** |
 | `balanced - Cpred` (density subtracted) | `+126` | 0.444 | **passes** |
 
-The raw half drifts to `13.2 N`; after subtracting the main term it is bounded at
-`0.39 N` — indistinguishable in scale from the true total's `0.43 N`. Both the exact
-count and its Möbius-free density prediction work, which matters: the repair does not
-need the prime-pair count itself, only an asymptotic for it. Since the two halves sum
-to the true total, subtracting from the balanced half and adding to the extreme half
-repairs both at once.
+The raw half reaches `13.2 N`; after subtracting the main term, the maximum
+observed ratio is `0.39 N`, the same finite scale as the total's `0.43 N`. Both the
+exact count and its Möbius-free density prediction reproduce this short-range repair.
+Since the two halves sum to the total, the same deterministic subtraction may be
+transferred between them without changing the exact reconstruction.
 
 So on this range and in this norm the subtracted halves are inside budget. **That does
 not survive the energy norm at larger `N`** — see the next section, where the same
 subtraction gives `0.071, 0.253, 0.973, 1.009, 4.434` for `N = 1000` to `40000`,
-growing like `N^{1.08}`. The prefix norm at `n <= 1900` is simply too weak and too
-short to see it.
+with a descriptive finite-range fit near `N^{1.08}`. The prefix diagnostic at
+`n <= 1900` is too short and too weak to reveal that later rise.
 
-What stands is the structural part: the halves carry a common prime-pair main term of
-size `n` per block, it is explicit, it is a prime count rather than a Möbius
-correlation, and removing it is a finite deterministic step that removes most — but
-not all — of the excess.
+What stands is the structural part: the common main term is the explicit
+prime-pair count `N_pp`, not a Möbius correlation, and subtracting it is a finite
+deterministic step that removes most — but not all — of the measured excess.
 
-This also explains why `A`, `B` and `A + B` are individually fine: none of them is
-the overlap term. The Möbius channels of the balanced half never carried the problem.
+This also explains the finite table: `A`, `B` and `A + B` exclude the overlap
+term and remain small on the sampled range. The measured excess is not in those
+Möbius channels.
 
 ### Explicit main term versus window mean
 
 [`research/CANONICAL_GAP_PREFIX_GRAM_SCAN.md`](CANONICAL_GAP_PREFIX_GRAM_SCAN.md)
 removes the coherent increment mode a different way: by subtracting each sequence's
-**window mean**, the Brownian-bridge construction. Its verdict is that this works at
-short windows but fails at long ones — at `H = N` the separate bridge energies
+**window mean**, the Brownian-bridge construction. Its finite verdict is that this works on the tested short windows but fails the
+declared criterion on the tested long windows — at `H = N` the separate bridge energies
 `Q^o_BB/(HN^2)` are `0.65`, `11.1`, `27.5` at `N = 1000, 5000, 10000`, i.e. over
 budget and climbing.
 
@@ -357,7 +358,7 @@ it than an empirical window mean does.
 
 Whether a sharper main term would do better is untested. `Cpred` is crude — `1/log` at
 the interval midpoint — and its own modelling error grows with `N`, so some of the
-residual `N^1.08` is certainly the model rather than the arithmetic. But that is a
+residual fit may partly reflect the model rather than the arithmetic. But that is a
 conjecture about an uncomputed quantity. The measured fact is only that this residual
 ratio rises over the sampled range.
 
