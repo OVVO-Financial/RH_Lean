@@ -65,11 +65,7 @@ jobs:
           `1.51, 2.09, 4.69, 9.44`. Thus the total is compatible with the target on this
           range, whereas separate-half estimates are strongly disfavored there.""",
           )
-          sub(
-              registry,
-              r"the subtracted half diverges again",
-              "the subtracted-half ratio rises again on larger tested windows",
-          )
+          sub(registry, r"the subtracted half diverges again", "the subtracted-half ratio rises again on larger tested windows")
           sub(
               registry,
               r"- bounding the \*\*raw\*\* balanced and extreme parts separately and adding them: both are\n  `n\^\{0\.6\}` too large,.*?subtract `Cpred` first;",
@@ -225,75 +221,13 @@ jobs:
           cc -std=c11 -Wall -Wextra -Werror -fsyntax-only \
             scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c
 
-      - name: Restore normal Lean workflow and commit cleanup
+      - name: Commit validated cleanup
         shell: bash
         run: |
           set -euo pipefail
-          cat > .github/workflows/lean.yml <<'EOF'
-          name: Lean verification
-
-          on:
-            pull_request:
-              paths:
-                - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
-                - 'lean-toolchain'                 # Lean version bumps
-                - 'lake-manifest.json'             # dependency/Mathlib bumps
-                - '.github/workflows/lean.yml'     # changes to the CI itself
-            workflow_dispatch:                     # manual "Run workflow" button
-
-          permissions:
-            contents: read
-
-          concurrency:
-            group: lean-${{ github.workflow }}-${{ github.ref }}
-            cancel-in-progress: true
-
-          jobs:
-            build:
-              runs-on: ubuntu-latest
-              steps:
-                - name: Check out repository
-                  uses: actions/checkout@v4
-
-                - name: Check paper / Analysis boundary
-                  run: bash scripts/check_paper_analysis_boundary.sh
-
-                - name: Audit unfinished proofs and axioms
-                  run: bash scripts/audit_assumptions.sh
-
-                - name: Set up Lean
-                  uses: leanprover/lean-action@v1
-                  with:
-                    use-mathlib-cache: true
-                    build: false
-                    test: false
-                    lint: false
-
-                - name: Build Lean project
-                  id: directbuild
-                  continue-on-error: true
-                  run: lake build RHLean --wfail > lean-build.log 2>&1
-
-                - name: Upload Lean build log
-                  if: always()
-                  uses: actions/upload-artifact@v4
-                  with:
-                    name: lean-build-log
-                    path: lean-build.log
-
-                - name: Print Lean build log
-                  if: always()
-                  run: cat lean-build.log
-
-                - name: Fail if Lean build failed
-                  if: steps.directbuild.outcome == 'failure'
-                  run: exit 1
-          EOF
-
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add \
-            .github/workflows/lean.yml \
             RESEARCH_ROUTE_REGISTRY.md \
             research/SIGNED_CANONICAL_HEIGHT.md \
             scripts/TwoAnchorSlackCoverage/balanced_gap_check.py \
