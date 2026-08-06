@@ -1,35 +1,84 @@
 name: Lean verification
+run-name: Lean verification for PR #${{ inputs.pr_number || github.event.pull_request.number || 'manual' }}
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
-      - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
-      - 'lean-toolchain'                 # Lean version bumps
-      - 'lake-manifest.json'             # dependency/Mathlib bumps
-      - '.github/workflows/lean.yml'     # changes to the CI itself
-  workflow_dispatch:                     # manual "Run workflow" button
+      - '**/*.lean'
+      - '*.lean'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+      - '.github/workflows/lean.yml'
+      - '.github/workflows/lean-pr-watchdog.yml'
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull request number whose merge ref should be verified'
+        required: false
+        type: string
+      head_sha:
+        description: 'Pull request head SHA on which to publish the verification status'
+        required: false
+        type: string
 
 permissions:
   contents: read
+  statuses: write
 
 concurrency:
-  group: lean-${{ github.workflow }}-${{ github.ref }}
+  group: lean-${{ inputs.pr_number || github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PR_NUMBER: ${{ inputs.pr_number || github.event.pull_request.number }}
+      STATUS_SHA: ${{ inputs.head_sha || github.event.pull_request.head.sha || github.sha }}
     steps:
-      - name: Check out repository
+      - name: Mark Lean verification pending
+        if: env.PR_NUMBER != ''
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: process.env.STATUS_SHA,
+              state: 'pending',
+              context: 'Lean verification',
+              description: 'Lean verification is running',
+              target_url: `${process.env.GITHUB_SERVER_URL}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`
+            });
+
+      - name: Check out pull request merge
+        if: env.PR_NUMBER != ''
         uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ env.PR_NUMBER }}/merge
+          persist-credentials: false
+
+      - name: Check out repository
+        if: env.PR_NUMBER == ''
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Check paper / Analysis boundary
+        id: boundary
+        continue-on-error: true
         run: bash scripts/check_paper_analysis_boundary.sh
 
       - name: Audit unfinished proofs and axioms
+        id: audit
+        continue-on-error: true
         run: bash scripts/audit_assumptions.sh
 
       - name: Set up Lean
+        id: setup
+        continue-on-error: true
         uses: leanprover/lean-action@v1
         with:
           use-mathlib-cache: true
@@ -39,20 +88,45 @@ jobs:
 
       - name: Build Lean project
         id: directbuild
+        if: steps.boundary.outcome == 'success' && steps.audit.outcome == 'success' && steps.setup.outcome == 'success'
         continue-on-error: true
         run: lake build RHLean --wfail > lean-build.log 2>&1
 
       - name: Upload Lean build log
-        if: always()
+        if: always() && hashFiles('lean-build.log') != ''
         uses: actions/upload-artifact@v4
         with:
           name: lean-build-log
           path: lean-build.log
 
       - name: Print Lean build log
-        if: always()
+        if: always() && hashFiles('lean-build.log') != ''
         run: cat lean-build.log
 
-      - name: Fail if Lean build failed
-        if: steps.directbuild.outcome == 'failure'
+      - name: Publish Lean verification result
+        if: always() && env.PR_NUMBER != ''
+        continue-on-error: true
+        uses: actions/github-script@v7
+        env:
+          VERIFY_SUCCESS: ${{ steps.boundary.outcome == 'success' && steps.audit.outcome == 'success' && steps.setup.outcome == 'success' && steps.directbuild.outcome == 'success' }}
+        with:
+          script: |
+            const success = process.env.VERIFY_SUCCESS === 'true';
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: process.env.STATUS_SHA,
+              state: success ? 'success' : 'failure',
+              context: 'Lean verification',
+              description: success ? 'Lean verification passed' : 'Lean verification failed',
+              target_url: `${process.env.GITHUB_SERVER_URL}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`
+            });
+
+      - name: Fail if Lean verification failed
+        if: >-
+          always() &&
+          (steps.boundary.outcome != 'success' ||
+           steps.audit.outcome != 'success' ||
+           steps.setup.outcome != 'success' ||
+           steps.directbuild.outcome != 'success')
         run: exit 1
