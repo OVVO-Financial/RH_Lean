@@ -15,8 +15,9 @@
  *   window mean     0.65    11.14    27.50    105.21    266.31    ~ N^1.64
  *   minus Cpred     0.071    0.253    0.973     1.009     4.434    ~ N^1.08
  *
- * All three diverge from the budget.  Do not read the 0.973 -> 1.009 step as
- * convergence; the next point is 4.434.
+ * All three normalized sequences rise over the tested range. This is a finite
+ * route diagnostic, not a proof of asymptotic divergence. Do not read the
+ * 0.973 -> 1.009 step as convergence; the next point is 4.434.
  * The main term is the prime-density prediction of the balanced prime-pair count,
  *
  *   Cpred(n) = - sum_{u prime <= n} |W_u(n)| / log(mid W_u(n)),

@@ -7,7 +7,7 @@ check that passes trivially rather than as a silent gap.
 """
 import math
 
-LIM = 3_000_000
+LIM = UMAX * (UMAX + GMAX)
 spf = list(range(LIM + 1))
 for i in range(2, int(LIM ** 0.5) + 1):
     if spf[i] == i:

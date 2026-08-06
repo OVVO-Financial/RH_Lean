@@ -24,9 +24,10 @@
  * Predeclared reading:
  *   - if the ratio falls substantially with Lambda, the low/high split is buying
  *     something for the terminal estimate and Lambda is a real parameter to tune;
- *   - if the ratio is essentially flat in Lambda, the split buys nothing here, the
- *     counting theorem does not reduce the remaining difficulty, and effort on
- *     low-band refinement should stop.
+ *   - if the ratio is essentially flat in Lambda, the split buys nothing here;
+ *   - if the ratio rises, larger cutoffs are counterproductive on the tested range.
+ * In either non-improving branch, the counting theorem does not reduce the remaining
+ * difficulty and effort on low-band refinement should stop absent a new mechanism.
  *
  * Build: cc -O2 -o terminal_lambda_dependence terminal_lambda_dependence.c -lm
  * Usage: ./terminal_lambda_dependence N H

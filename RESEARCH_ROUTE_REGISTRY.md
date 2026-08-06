@@ -559,9 +559,11 @@ bottleneck declining to `1.265988` at `29`. The honest status is
 
 ### 7. Signed canonical height, balanced factor pairs
 
-**Status: THE FINITE LAYER IS FORMALIZED. PIECEWISE ESTIMATION OF THE TWO SECTORS IS
-CLOSED — raw, window-mean-subtracted, and explicit-main-term-subtracted alike. All
-three diagonal energies diverge from the budget; only the rate differs.**
+**Status: THE FINITE LAYER IS FORMALIZED. FINITE DIAGNOSTICS REJECT
+PIECEWISE ESTIMATION OF THE TWO SECTORS — raw, window-mean-subtracted, and
+explicit-main-term-subtracted — on the measured ranges. The separate diagonal
+ratios rise rather than stabilize at the tested scales. This is a route-closing
+diagnostic, not an asymptotic theorem.**
 
 The corrected clock, the low-imbalance counting theorem and the low-band energy are
 exact and formalized in
@@ -591,12 +593,13 @@ exactly one term: the overlap count `C` reaches `12.9 N`, while `A`, `B` and `A 
 are all bounded at `0.309`, `0.245` and `0.394` — the same scale as the truth.
 
 `scripts/TwoAnchorSlackCoverage/prefix_gram_cross.py` says the same thing in the
-energy norm the target actually uses. The prefix correlation
-`rho = Cross / sqrt(E(bal) E(ext))` converges to `-1` (`-0.989, -0.992, -0.998,
--0.999` at `(N,H) = (400,100), (700,175), (1000,250), (1400,350)`). Against the budget
-`H N^2`, `E(total)/HN^2` sits at the `10^-2` level with no drift while `E(bal)/HN^2`
-runs `1.51, 2.09, 4.69, 9.44` and keeps climbing: the total meets the target and each
-half fails it alone.
+energy norm the target actually uses. The measured prefix correlation
+`rho = Cross / sqrt(E(bal) E(ext))` approaches `-1` on the tested windows
+(`-0.989, -0.992, -0.998, -0.999` at `(N,H) = (400,100), (700,175),
+(1000,250), (1400,350)`). Against the budget `H N^2`, the observed
+`E(total)/HN^2` values stay at the `10^-2` scale while `E(bal)/HN^2` runs
+`1.51, 2.09, 4.69, 9.44`. Thus the total is compatible with the target on this
+range, whereas separate-half estimates are strongly disfavored there.
 
 **But the excess is a main term, not unstructured growth.**
 `scripts/TwoAnchorSlackCoverage/balanced_main_term_repair.py` identifies it in closed
@@ -607,7 +610,7 @@ by a prime-density prediction `Cpred` carrying no Möbius input. In the prefix n
 `0.44 N` (`0.39 N` with the exact count), matching the truth's `0.43 N`.
 
 **It is not a repair.** In the energy norm at larger `N`, which is the diagnostic the
-target uses, the subtracted half diverges again — see the do-not-repeat list below and
+target uses, the subtracted-half ratio rises again on larger tested windows — see the do-not-repeat list below and
 [`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4. The
 main term is real and removing it helps by a factor of `60` against mean subtraction,
 but it does not bound the diagonals. See
@@ -615,9 +618,9 @@ but it does not bound the diagonals. See
 
 ### Do not repeat this route by
 
-- bounding the **raw** balanced and extreme parts separately and adding them: both are
-  `n^{0.6}` too large, so the sum of any two valid bounds misses the target by that
-  factor no matter how sharp each one is — subtract `Cpred` first;
+- bounding the **raw** balanced and extreme parts separately and adding them: over the
+  tested range their normalized prefixes grow roughly like an additional `n^{0.6}`
+  factor, so this decomposition fails its declared numerical stop criterion;
 - conversely, reading the frontier table as closing the split: it closes the raw
   split only, and the subtracted version passes on the whole measured range;
 - treating `Λ` as an unused degree of freedom, or expecting the low/high split to
@@ -625,9 +628,11 @@ but it does not bound the diagonals. See
   one endpoint in a search over cutoffs.
   `ProjectedRenewalQuadraticBoundedStatement Λ ↔ RH` holds for **every** `Λ ≥ 0`, so
   every instance is exactly RH and none is easier. Measured
-  (`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`), raising `Λ` makes
-  the constant strictly worse — `Q/(HN²)` runs `0.061, 0.061, 0.061, 0.083, 0.145,
-  0.925` at `Λ = 0,1,2,5,10,25` for `N = H = 1000`. The reason is structural:
+  (`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`), increasing `Λ`
+  produces no sustained improvement: `Λ = 0,1,2` are essentially flat with small
+  nonmonotone variation, while `Λ = 5,10,25` are materially worse. For
+  `N = H = 1000`, `Q/(HN²)` runs `0.061, 0.061, 0.061, 0.083, 0.145, 0.925`
+  at `Λ = 0,1,2,5,10,25`. The reason is structural:
   `S^high = S_total − S^low` and `|S^low_n| = O(Λn)` by the counting theorem, so
   removing the low band injects a drift the total does not have. The counting theorem
   establishes the low band is not where the problem lives; it buys nothing beyond
@@ -650,8 +655,9 @@ but it does not bound the diagonals. See
   minus Cpred     0.071     0.253     0.973      1.009      4.434     ~ N^1.08
   ```
 
-  All three diverge. The explicit main term is much the best of them — `60x` below the
-  bridge at `N = 40000` — and still does not bound the diagonal;
+  All three normalized sequences rise over the tested range. The explicit main term is
+  much the best of them — `60x` below the bridge at `N = 40000` — but the data do
+  not support a bounded separate-diagonal estimate;
 - reading the `0.973 -> 1.009` step from `N = 10000` to `20000` as convergence: the
   next point is `4.434`. The step ratios are `3.55, 3.85, 1.04, 4.39`, and an earlier
   pass of this registry recorded that single small ratio as a flattening. It was noise

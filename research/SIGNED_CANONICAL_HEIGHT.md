@@ -164,10 +164,10 @@ extreme part remains to be handled.
 
 This is the measurement that constrains how the balanced results can be used.
 `scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` computes the prefix sum
-of every piece of both decompositions over blocks `n <= 1900` (`m < 3.6 * 10^6`). The
-target's prefix form is `|sum_{n<=N} d_n| << N^{1+eps}`, so the diagnostic is
-`|prefix| / N`: bounded means the piece is within the target, upward drift means it is
-not.
+of every piece of both decompositions over blocks `n <= 1900` (`m < 3.6 * 10^6`). The target's prefix form is `|sum_{n<=N} d_n| << N^{1+eps}`, so the diagnostic is
+`|prefix| / N`. A stable ratio is compatible with the target on the tested range;
+sustained upward drift rejects the proposed piecewise mechanism at that range. It
+does not by itself prove an asymptotic theorem.
 
 | piece | `N=300` | `600` | `900` | `1200` | `1500` | `1900` | `max |·|/N` |
 |---|---|---|---|---|---|---|---|
@@ -231,13 +231,14 @@ checked, not assumed — and the sizes are:
 | 1400 | 350 | `6.48e9` | `7.56e9` | `-1.40e10` | `5.6e7` | `-0.999` | 9.44 | 0.082 |
 
 `rho = Cross / sqrt(E(bal) E(ext))` is the prefix correlation between the two halves.
-It converges to `-1`.
+It approaches `-1` across the measured windows.
 
-The last two columns settle the question. The target is `E << H N^{2+eps}`.
-`E(total)/HN²` sits at the `10^-2` level with no upward drift across the whole range,
-so **the total meets the target**. `E(bal)/HN²` runs `1.51, 2.09, 4.69, 9.44` and keeps
-climbing, so **the balanced half fails the same target on its own**, and by symmetry so
-does the extreme half.
+The last two columns settle the declared finite test. The target scale is
+`E << H N^{2+eps}`. On the measured windows, `E(total)/HN²` stays at the `10^-2`
+scale, which is compatible with the target, while `E(bal)/HN²` runs
+`1.51, 2.09, 4.69, 9.44` and rises sharply. Thus the data reject estimating the
+balanced half alone; by the same calculation the extreme half is not a viable
+separate target either. These are finite diagnostics, not asymptotic proofs.
 
 Three consequences for using the ledger:
 
@@ -335,12 +336,12 @@ The raw and bridge columns reproduce the prefix-Gram scan's own figures to every
 digit it reports (`104.754`, `1232.004`, `3552.497`, and `0.645512`, `11.142857`,
 `27.502757`), from an independent implementation — so the comparison is like-for-like.
 
-**The main term does not rescue the split.** These series are monotone, so a fitted
-exponent in `N` is meaningful here: raw `1.562`, bridge `1.641`, minus-`Cpred`
-`1.078`. All three diverge. The explicit main term is the better repair by a wide
-margin — `60x` smaller than the bridge at `N = 40000`, and growing at roughly `N^1.08`
-against the bridge's `N^1.64` — but it still does not hold the diagonals at the budget
-scale.
+**The main term does not rescue the split on the tested range.** The normalized
+sequences are monotone at the sampled points, so descriptive log-log fits give raw
+`1.562`, bridge `1.641`, and minus-`Cpred` `1.078`. These fits summarize the finite
+data; they do not prove asymptotic exponents. The explicit main term is the better
+repair by a wide margin — `60x` smaller than the bridge at `N = 40000` — but its
+normalized ratio still rises and therefore fails the route's declared stop criterion.
 
 An earlier version of this section claimed the minus-`Cpred` column flattened, on the
 strength of `0.973 → 1.009` from `N = 10000` to `20000`. The next point is `4.434`.
@@ -357,8 +358,8 @@ it than an empirical window mean does.
 Whether a sharper main term would do better is untested. `Cpred` is crude — `1/log` at
 the interval midpoint — and its own modelling error grows with `N`, so some of the
 residual `N^1.08` is certainly the model rather than the arithmetic. But that is a
-conjecture about an uncomputed quantity, and the measured fact is that this main term
-diverges.
+conjecture about an uncomputed quantity. The measured fact is only that this residual
+ratio rises over the sampled range.
 
 ---
 
@@ -375,15 +376,16 @@ Two consequences worth stating flatly.
 
 **The remaining step is RH, not an approach to RH.** The equivalence is proved, so
 `ProjectedRenewalQuadraticBoundedStatement` is neither easier nor harder than the
-Riemann Hypothesis. No further reduction can exist, because there is nothing left
-between it and the conclusion.
+Riemann Hypothesis. No weaker formal bridge remains in the current chain: once the classical
+criterion is supplied, proving this proposition proves RH.
 
 **`Λ` is not an optimization parameter.** It should be treated as fixed at `0`, not as
 one endpoint in a search over cutoffs. The equivalence holds for *every* `Λ ≥ 0`, so
 every instance is exactly RH and none is easier; there is nothing to search over. The
 measurement in
 `scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c` confirms this
-operationally and adds that raising `Λ` makes the constant strictly worse:
+operationally: it finds no sustained improvement from increasing `Λ`, and large
+values are materially worse on both tested windows:
 
 | `Λ` | `Q/(HN²)`, `N=1000` | `Q/(HN²)`, `N=4000` |
 |---|---|---|
@@ -396,8 +398,8 @@ operationally and adds that raising `Λ` makes the constant strictly worse:
 
 The reason is structural. `S^high = S_total − S^low`, and the low band's own prefix is
 `O(Λn)` — that is exactly the content of the unconditional counting theorem of §2.
-Subtracting a quantity of size `Λn` from a near-cancelling total *introduces* a drift
-of that size, so the high sector inherits a defect the total does not have. The low
+Subtracting a quantity permitted to be as large as `Λn` from a near-cancelling total
+can introduce a coherent drift that the total itself does not have. The low
 band was already harmless; removing it costs.
 
 So the low/high split, and the counting theorem that controls the low band, do not
@@ -410,7 +412,9 @@ square-block Möbius prefix and the statement reads
 sum_{h<H} |M((N+h+1)^2 - 1)|^2  <<_eps  H N^{2+eps},
 ```
 
-which is `M(x) << x^{1/2+eps}` — the classical criterion, i.e. RH itself.
+which is the square-endpoint energy formulation connected by the proved bridge to
+the classical Mertens criterion. The displayed local-energy estimate is not itself a
+separately proved pointwise bound.
 
 ---
 
@@ -464,8 +468,8 @@ the unreduced `canonicalCoefficient`.
 That sizing has now been done, and it is negative: the extreme part is **not** small,
 and neither is the balanced part. Each carries a prefix of about `25000` at `N = 1900`
 where the true total is `52`. So the sentence above is the wrong target — the balanced
-estimate and a separate extreme estimate cannot be combined, because both are `n^{0.6}`
-too large. What must be estimated is the coupled object. The balanced results narrow
+estimate and a separate extreme estimate cannot be combined, because their measured normalized prefixes carry roughly an additional
+`n^{0.6}` factor over this finite range. What must be estimated is the coupled object. The balanced results narrow
 *what* has to cancel — the overlap term `C` is a prime-pair count, and `A` already
 meets the target on its own — but they do not produce a piece that can be bounded
 alone. See the table in §4.
