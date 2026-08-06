@@ -711,9 +711,10 @@ gives the `q`-fibre grouping. By the exact identity
 
 Four findings.
 
-1. **The diagonal is over budget by a power of `N`, not a polylog.** `D_raw` is
-   `53,637 ×` the target scale at `N = 2000` and both `κ` fit `N^{1.71}` across the
-   range. Shrinking `ε` absorbs logarithms, not `N^{1.7}`.
+1. **The diagonal is far over budget, and the excess grows with `N`.** `D_raw/(HN²)`
+   runs `4,971 → 16,177 → 53,637` as `N` runs `500 → 1000 → 2000`, roughly tripling
+   per doubling. Shrinking `ε` absorbs logarithms; this is not a logarithm on the
+   tested range. (Three points fix no exponent — the values are the record.)
 2. **Grouping by distinguished-prime scale does not help.** `κ_q` grows at the same
    rate as `κ_raw`, with a constant ratio ≈ 2.2. Even the coarsest prime-scale
    grouping destroys the cancellation.
@@ -722,13 +723,23 @@ Four findings.
    distinguished-prime fibre grouping here exhibit growing diagonal inflation. This
    is not a claim that every conceivable grouping is unstable — a specially designed
    signed grouping could preserve the relevant cross term, and finding one is the only
-   remaining use of this coordinate layer.
-4. **The individual packet prefixes diverge while the total does not.** The largest
-   packet prefix runs `35.1 n`, `63.8 n`, `116.8 n` across the range — growing like
-   `N^{0.87}` — while the total stays flat at `0.40…0.43 n`. Each packet carries its
-   own count-driven main term and they cancel only in the full sum. The extremal
-   `q`-fibre maximum coincides exactly with the extremal packet maximum in every row,
-   so the worst fibre is dominated by a single `(j,k)` cell.
+   remaining use of this coordinate layer. Any such grouping must keep the `j = 0`
+   prime cells attached to something that cancels them.
+4. **The extremal packet is a pure prime count.** The maximum normalized packet
+   prefix increases from `35.1` to `116.8` as `N` increases from `500` to `2000`,
+   while the normalized total remains between `0.396` and `0.426`. The script emits
+   argmax coordinates, so this is identity of maximizers and not merely equality of
+   maxima: packet argmax `(j,k,n)` is `(0,19,999)`, `(0,21,1999)`, `(0,23,3999)`, the
+   fibre argmax is the same `(k,n)` in each case, and the single-cell share is
+   `1.0000` with the next-largest contribution exactly `0`. The extremal `q`-fibre
+   therefore *is* one `(j,k)` cell, not merely dominated by one.
+
+   That cell is identifiable. `j = 0` means `P⁺(c) = 1`, so `c = 1` and `m` is prime;
+   `k` is the top dyadic band below `n²`. Its prefix is minus the count of primes in
+   that band — checked at `n = 999`, where `|Z| = 35108 = π(10⁶) − π(2¹⁹)` exactly.
+   So the natural packet coordinates isolate a monotone prime-counting function with
+   no cancellation available, which is the same obstruction route 7 found in the
+   prime-pair overlap term `C`, here in its bare form.
 
 ### Do not repeat this route by
 

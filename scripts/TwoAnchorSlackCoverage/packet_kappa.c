@@ -117,6 +117,8 @@ int main(int argc, char **argv) {
   /* global prefixes; accumulate energy on [N, N+H) */
   double Draw = 0.0, Dq = 0.0, Etot = 0.0;
   double maxPk = 0.0, maxQf = 0.0;      /* max |prefix| / n over the window */
+  size_t apJ = 0, apK = 0, apN = 0;     /* argmax of the packet maximum */
+  size_t afK = 0, afN = 0;              /* argmax of the fibre maximum */
   int live = 0;
   double *Yk = calloc(MAXS * nb, sizeof(double));       /* q-fibre increments */
   double *tot = calloc(nb, sizeof(double));
@@ -133,7 +135,7 @@ int main(int argc, char **argv) {
         if (n >= N && n < nmax) {
           E += S * S;
           double t = fabs(S) / (double)n;
-          if (t > maxPk) maxPk = t;
+          if (t > maxPk) { maxPk = t; apJ = j; apK = k; apN = n; }
         }
       }
       if (any) { live++; Draw += E; }
@@ -146,7 +148,7 @@ int main(int argc, char **argv) {
       if (n >= N && n < nmax) {
         E += S * S;
         double t = fabs(S) / (double)n;
-        if (t > maxQf) maxQf = t;
+        if (t > maxQf) { maxQf = t; afK = k; afN = n; }
       }
     }
     if (any) Dq += E;
@@ -172,6 +174,25 @@ int main(int argc, char **argv) {
   printf("  max |Z_(j,k) prefix| / n     : %12.3f\n", maxPk);
   printf("  max |Y_k   prefix| / n       : %12.3f\n", maxQf);
   printf("  max |total prefix| / n       : %12.3f\n", maxTot);
+  printf("    packet argmax (j,k,n)      : (%zu, %zu, %zu)\n", apJ, apK, apN);
+  printf("    fibre  argmax (k,n)        : (%zu, %zu)\n", afK, afN);
+  /* At the fibre argmax, list the contributing packet prefixes to test whether a
+     single (j,k) cell dominates, rather than inferring it from equal maxima. */
+  {
+    double fib = 0.0, best = 0.0, secondBest = 0.0; size_t bestJ = 0;
+    for (size_t j = 0; j < MAXS; j++) {
+      float *a = incr + ((size_t)j * MAXS + afK) * nb;
+      double S = 0.0;
+      for (size_t n = 0; n <= afN; n++) S += a[n];
+      fib += S;
+      double v = fabs(S);
+      if (v > best) { secondBest = best; best = v; bestJ = j; }
+      else if (v > secondBest) secondBest = v;
+    }
+    printf("    at fibre argmax: |Y_k| = %.1f, largest |Z_(j,k)| = %.1f (j=%zu),"
+           " next = %.1f\n", fabs(fib), best, bestJ, secondBest);
+    printf("    single-cell share          : %12.4f\n", best / (fabs(fib) + 1e-12));
+  }
   printf("  kappa_raw = D_raw / E        : %12.2f   cross/D = %+.4f\n",
          Draw / Etot, Etot / Draw - 1.0);
   printf("  kappa_q   = D_q   / E        : %12.2f   cross/D = %+.4f\n",
