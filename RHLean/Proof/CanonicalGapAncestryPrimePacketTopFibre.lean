@@ -152,6 +152,7 @@ theorem sourceProjectedSuccessorPQPacketPrefix_topQScale_eq_zero
         have hcore := sourceCore_eq_one_of_active_topQScale
           s hsmooth.1 hclock hscale
         have hq2 := hsmooth.1.1.two_le
+        have hq_lt_core := hsmooth.2
         omega
       have hzero :=
         sourceProjectedSuccessorField_eq_zero_of_not_smooth Λ B s hnotSmooth
