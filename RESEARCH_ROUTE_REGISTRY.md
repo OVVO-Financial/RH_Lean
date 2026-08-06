@@ -557,6 +557,124 @@ bottleneck declining to `1.265988` at `29`. The honest status is
 - guessing the `C/S/W` operators in order to recompute the energy — two published
   prime-`3` triples do not determine them.
 
+### 7. Signed canonical height, balanced factor pairs
+
+**Status: THE FINITE LAYER IS FORMALIZED. FINITE DIAGNOSTICS REJECT
+PIECEWISE ESTIMATION OF THE TWO SECTORS — raw, window-mean-subtracted, and
+explicit-main-term-subtracted — on the measured ranges. The separate diagonal
+ratios rise rather than stabilize at the tested scales. This is a route-closing
+diagnostic, not an asymptotic theorem.**
+
+The corrected clock, the low-imbalance counting theorem and the low-band energy are
+exact and formalized in
+[`RHLean/Proof/SignedCanonicalHeight.lean`](RHLean/Proof/SignedCanonicalHeight.lean);
+the balanced regime `0 < d < u` is exact and formalized in
+[`RHLean/Proof/BalancedCanonicalGap.lean`](RHLean/Proof/BalancedCanonicalGap.lean).
+Both are re-verified by direct enumeration in
+`scripts/TwoAnchorSlackCoverage/signed_height_check.py` and
+`scripts/TwoAnchorSlackCoverage/balanced_gap_check.py`.
+
+What the balanced layer buys: the largest-prime condition collapses to primality of
+one endpoint, the doubled height is pinned to `dn` within constants `2` and `3`
+(measured range `[2.0014, 2.6667]`), and the canonical coefficient becomes the
+symmetric `beta = mu(u) mu(u+d) 1_{u or u+d prime}`.
+
+The exact prefix-energy ledger `E(bal + ext) = E(bal) + 2 Cross + E(ext)`, with the
+Gram kernel `H - max(i,j)`, is formalized in
+[`RHLean/Proof/CanonicalGapPrefixGram.lean`](RHLean/Proof/CanonicalGapPrefixGram.lean).
+
+What none of this buys, measured in
+`scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` over blocks `n <= 1900`.
+The diagnostic is `|prefix|/N`, since the target's prefix form is
+`<< N^{1+eps}`. Stability is treated as finite compatibility with the target; upward
+drift triggers the route's stop criterion. The balanced and extreme halves each drift to
+`13.2 N` and are still climbing, against the true total's `0.43 N`, and each is
+roughly `500x` its own sum at `N = 1900`. Inside `beta`, the failure is carried by
+exactly one term: the overlap count `C` reaches `12.9 N`, while `A`, `B` and `A + B`
+have observed maxima `0.309`, `0.245` and `0.394` — the same measured scale as the truth.
+
+`scripts/TwoAnchorSlackCoverage/prefix_gram_cross.py` says the same thing in the
+energy norm the target actually uses. The measured prefix correlation
+`rho = Cross / sqrt(E(bal) E(ext))` approaches `-1` on the tested windows
+(`-0.989, -0.992, -0.998, -0.999` at `(N,H) = (400,100), (700,175),
+(1000,250), (1400,350)`). Against the budget `H N^2`, the observed
+`E(total)/HN^2` values stay at the `10^-2` scale while `E(bal)/HN^2` runs
+`1.51, 2.09, 4.69, 9.44`. Thus the total is compatible with the target on this
+range, whereas separate-half estimates are strongly disfavored there.
+
+**But the excess is a main term, not unstructured growth.**
+`scripts/TwoAnchorSlackCoverage/balanced_main_term_repair.py` identifies it in closed
+form: the three primality cases contribute `+N_pp, -N_pp, -N_pp`, so the balanced
+half's main term is `-N_pp`, exactly the overlap term `C`, and `N_pp` can be replaced
+by a prime-density prediction `Cpred` carrying no Möbius input. In the prefix norm at
+`n <= 1900` this looks like a repair: the balanced half moves from `13.2 N` to
+`0.44 N` (`0.39 N` with the exact count), matching the truth's `0.43 N`.
+
+**It is not a repair.** In the energy norm at larger `N`, which is the diagnostic the
+target uses, the subtracted-half ratio rises again on larger tested windows — see the do-not-repeat list below and
+[`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4. The
+main term is real and removing it helps by a factor of `60` against mean subtraction,
+but it does not produce evidence for a bounded separate-diagonal estimate on the tested scales. See
+[`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4.
+
+### Do not repeat this route by
+
+- bounding the **raw** balanced and extreme parts separately and adding them: over the
+  tested range their normalized prefixes grow roughly like an additional `n^{0.6}`
+  factor, so this decomposition fails its declared numerical stop criterion;
+- conversely, treating the short prefix table as validating the subtracted split:
+  it is compatible only in that prefix diagnostic, while the larger energy windows
+  trigger the stop criterion;
+- treating `Λ` as an unused degree of freedom, or expecting the low/high split to
+  reduce the terminal statement. `Λ = 0` is the canonical terminal formulation, not
+  one endpoint in a search over cutoffs.
+  given `ClassicalMertensRHCriterion`,
+  `ProjectedRenewalQuadraticBoundedStatement Λ ↔ RH` holds for **every** `Λ ≥ 0`, so
+  every instance is exactly RH and none is easier. Measured
+  (`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`), increasing `Λ`
+  produces no sustained improvement: `Λ = 0,1,2` are essentially flat with small
+  nonmonotone variation, while `Λ = 5,10,25` are materially worse. For
+  `N = H = 1000`, `Q/(HN²)` runs `0.061, 0.061, 0.061, 0.083, 0.145, 0.925`
+  at `Λ = 0,1,2,5,10,25`. The reason is structural:
+  `S^high = S_total − S^low` and `|S^low_n| = O(Λn)` by the counting theorem, so
+  removing the low band can inject a coherent drift the total does not have. The counting theorem
+  establishes the low band is not where the problem lives; it buys nothing beyond
+  that, and `Λ = 0` is the cleanest form of what remains;
+- fitting a log-log exponent to any of these prefix series except `C`: they change
+  sign repeatedly, `log |prefix|` plunges at each crossing, and least squares then
+  reports growth that is not there. An earlier pass recorded `1.338` for `B` and
+  `1.406` for `A + B` this way; both are artifacts. Use `|prefix|/N`;
+- treating `highBandBlockIncrement_eq_balanced_add_extreme`,
+  `beta_symmetric_identity` or `prefixEnergy_add` as reductions: they are exact
+  rewritings that say what the object is, and they license no piecewise estimate;
+- subtracting a coherent mode and expecting the sectors to become separately
+  estimable. Measured at `H = N` for `N = 1000, 5000, 10000, 20000, 40000` by
+  `scripts/TwoAnchorSlackCoverage/main_term_vs_bridge.c` (which reproduces the
+  prefix-Gram scan's raw and bridge columns to every reported digit), `Q_BB/(HN^2)` is
+
+  ```text
+  raw           104.75   1232.00   3552.50   11071.62   33339.64     ~ N^1.56
+  window mean     0.65     11.14     27.50     105.21     266.31     ~ N^1.64
+  minus Cpred     0.071     0.253     0.973      1.009      4.434     ~ N^1.08
+  ```
+
+  All three normalized sequences rise over the tested range. The explicit main term is
+  much the best of them — `60x` below the bridge at `N = 40000` — but the data do
+  not support a bounded separate-diagonal estimate;
+- reading the `0.973 -> 1.009` step from `N = 10000` to `20000` as convergence: the
+  next point is `4.434`. The step ratios are `3.55, 3.85, 1.04, 4.39`, and an earlier
+  pass of this registry recorded that single small ratio as a flattening. It was noise
+  in a rising sequence;
+- dropping the ledger's cross term or bounding it by Cauchy–Schwarz: `Cross` is the
+  dominant term, two to three orders of magnitude above `E(total)`, and
+  `|Cross| <= sqrt(E(bal) E(ext))` is near-equality here, so applying it yields
+  `E(total) <= (sqrt(E(bal)) + sqrt(E(ext)))^2`, built from two quantities that are
+  each already over budget;
+- carrying the endpoint-prime characterization outside `0 < d < u`: it genuinely
+  fails there, first coprime witness `u = 2`, `v = 9`, `d = 7`;
+- quoting the counting theorem `#{Z <= H} <= 1 + floor(H/n)` as controlling the high
+  band — it is a low-imbalance statement and says nothing above the threshold.
+
 ### Do not repeat the anchor route by
 
 - asserting that anchor selection bounds anything: it converts a signed
