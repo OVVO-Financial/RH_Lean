@@ -675,6 +675,97 @@ but it does not produce evidence for a bounded separate-diagonal estimate on the
 - quoting the counting theorem `#{Z <= H} <= 1 + floor(H/n)` as controlling the high
   band — it is a low-imbalance statement and says nothing above the threshold.
 
+### 8. Dyadic prime-packet positive square function
+
+**Status: THE POSITIVE DIAGONAL STRATEGY IS CLOSED. The exact packet coordinates
+are retained.**
+
+Packet coordinates as in `CanonicalGapAncestryPrimePacketScales`: for a source `m`
+with `q = P⁺(m)` and core `c = m/q`, put `k = Nat.log 2 q` and
+`j = Nat.log 2 P⁺(c)`, giving triangular support `j ≤ k`. Every squarefree `m` lands
+in exactly one packet, so the packet prefixes sum to the full square-block Möbius
+prefix — the terminal quantity at `Λ = 0`.
+
+A positive square-function strategy needs `sum_α ‖Z_α‖² <<_eps H N^{2+eps}`. With only
+`O((log B)²)` packets, Cauchy–Schwarz then closes the target after an epsilon
+adjustment, so **the diagonal bound alone carries the entire burden and any pairwise
+almost-orthogonality condition is analytically redundant.**
+
+Note what kind of failure this is. The diagonal premise does imply the target —
+`diagonal ⟹ P ⟹ MertensEnergyBounded` — so it is not insufficient. It is
+**structurally overstrong**: it prohibits the cancellation that produces the target.
+Exact recombination did not fail; the proposed positive estimate is the wrong shape.
+Measured by
+`scripts/TwoAnchorSlackCoverage/packet_kappa.c` on global prefixes at `H = N`:
+
+| `N` | `κ_raw` | `κ_q` | `D_raw/(HN²)` | `D_q/(HN²)` | `‖ΣZ‖²/(HN²)` | `max‖Z_{j,k}‖_∞/n` | `max‖Σ Z‖_∞/n` | live |
+|---|---|---|---|---|---|---|---|---|
+| 500 | 70,430 | 31,901 | 4,971 | 2,252 | 0.0706 | 35.1 | 0.426 | 109 |
+| 1000 | 265,454 | 119,429 | 16,177 | 7,278 | 0.0609 | 63.8 | 0.396 | 131 |
+| 2000 | 760,146 | 340,441 | 53,637 | 24,022 | 0.0706 | 116.8 | 0.408 | 155 |
+
+Here `κ = D/E` with `D = sum_α ‖Z_α‖²` and `E = ‖sum_α Z_α‖²`; `Y_k = sum_j Z_{j,k}`
+gives the `q`-fibre grouping. By the exact identity
+`2 sum_{α<β} <Z_α,Z_β> / D = 1/κ − 1`, a large `κ` forces the aggregate cross term to
+`−D/2`; the measured value is `−1.0000` to four decimals in every row.
+
+Four findings.
+
+1. **The diagonal is far over budget, and the excess grows with `N`.** `D_raw/(HN²)`
+   runs `4,971 → 16,177 → 53,637` as `N` runs `500 → 1000 → 2000`, roughly tripling
+   per doubling. Shrinking `ε` absorbs logarithms; this is not a logarithm on the
+   tested range. (Three points fix no exponent — the values are the record.)
+2. **Grouping by distinguished-prime scale does not help.** `κ_q` grows at the same
+   rate as `κ_raw`, with a constant ratio ≈ 2.2. Even the coarsest prime-scale
+   grouping destroys the cancellation.
+3. **No stable grouping was found among the tested natural groupings.** Both the
+   balanced–extreme split of route 7 (`κ = 67…249`, rising) and the
+   distinguished-prime fibre grouping here exhibit growing diagonal inflation. This
+   is not a claim that every conceivable grouping is unstable — a specially designed
+   signed grouping could preserve the relevant cross term, and finding one is the only
+   remaining use of this coordinate layer. Any such grouping must keep the `j = 0`
+   prime cells attached to something that cancels them.
+4. **The extremal packet is a pure prime count.** The maximum normalized packet
+   prefix increases from `35.1` to `116.8` as `N` increases from `500` to `2000`,
+   while the normalized total remains between `0.396` and `0.426`. The script emits
+   argmax coordinates, so this is identity of maximizers and not merely equality of
+   maxima: packet argmax `(j,k,n)` is `(0,19,999)`, `(0,21,1999)`, `(0,23,3999)`, the
+   fibre argmax is the same `(k,n)` in each case, and the single-cell share is
+   `1.0000` with the next-largest contribution exactly `0`. The extremal `q`-fibre
+   therefore *is* one `(j,k)` cell, not merely dominated by one.
+
+   That cell is identifiable. `j = 0` means `P⁺(c) = 1`, so `c = 1` and `m` is prime;
+   `k` is the top dyadic band below `n²`. Its prefix is minus the count of primes in
+   that band — checked at `n = 999`, where `|Z| = 35108 = π(10⁶) − π(2¹⁹)` exactly.
+   So the natural packet coordinates isolate a monotone prime-counting function with
+   no cancellation available, which is the same obstruction route 7 found in the
+   prime-pair overlap term `C`, here in its bare form.
+
+### Do not repeat this route by
+
+- proposing a packet dispersion or almost-orthogonality statement before the diagonal
+  is measured: the pairwise-decay condition is redundant given the diagonal bound, and
+  the diagonal bound is false on the tested range;
+- reading exact packet recombination or model independence as analytic progress. The
+  `PartialBaseline` section is generic over an arbitrary `AddCommGroup` with arbitrary
+  `root`, `actual`, `model`; its proofs are `by_cases … <;> simp` and `abel`. It holds
+  verbatim with `actual := 0`, so it certifies bookkeeping consistency and cannot rank
+  packet systems;
+- taking algebraic annihilation `Q_α m = 0` as evidence about the arithmetic. That can
+  be manufactured for almost any chosen `m`. Fidelity of `m` to the true main profile
+  is a separate estimate, and route 7's `Cpred` is the warning: explicit, Möbius-free
+  and non-circular, and its modelling error still grew like `N^{1.08}`;
+- substituting realized trajectory amplification for an operator norm when measuring
+  stage inflation — the theorem needs `‖T_t|_{coh⊥}‖_{2→2}`, and measuring along
+  observed data gives only a lower bound.
+
+### Retained
+
+The packet coordinates, the triangular support, the exact recombination and the
+model-independence guardrail are correct and are kept as an exact coordinate layer.
+What is closed is the use of a positive packet square function as the estimation
+mechanism.
+
 ### Do not repeat the anchor route by
 
 - asserting that anchor selection bounds anything: it converts a signed
