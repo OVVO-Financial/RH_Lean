@@ -1,13 +1,16 @@
 """Independent check of RHLean/Proof/BalancedCanonicalGap.lean.
 
 Every theorem in that module is a statement about factor pairs (u, u+d) whose
-product lies in the square block B_n = [n^2, (n+1)^2).  Each is re-tested here by
+product lies in the square block B_n = [n^2, (n+1)^2). Each is re-tested here by
 direct enumeration, so a Lean statement that says less than intended shows up as a
 check that passes trivially rather than as a silent gap.
 """
 import math
 
+UMAX = 700          # enumerate every pair with lower endpoint u <= UMAX
+GMAX = 4000         # and gap d <= GMAX
 LIM = UMAX * (UMAX + GMAX)
+
 spf = list(range(LIM + 1))
 for i in range(2, int(LIM ** 0.5) + 1):
     if spf[i] == i:
@@ -37,9 +40,6 @@ def mu(m):
 def is_prime(m):
     return m >= 2 and spf[m] == m
 
-
-UMAX = 700          # enumerate every pair with lower endpoint u <= UMAX
-GMAX = 4000         # and gap d <= GMAX
 
 failures = 0
 
@@ -128,7 +128,7 @@ for u, v, d in pairs():
 report("canonicalPair_iff_endpoint_prime", bad_iff, tot_iff,
        f"({n_can} canonical pairs)")
 
-# The equivalence is genuinely balance-dependent.  Outside 0 < d < u it fails, and
+# The equivalence is genuinely balance-dependent. Outside 0 < d < u it fails, and
 # not only in the degenerate d = 0 / non-coprime cases: the first coprime witness is
 # the honest one, where u is prime but does not dominate the prime factors of v.
 bad_unbal = 0
