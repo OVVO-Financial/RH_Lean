@@ -1,178 +1,58 @@
-name: PR 199 documentation cleanup
+name: Lean verification
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
     paths:
-      - '**.lean'
-      - '**.md'
-      - '.github/workflows/lean.yml'
+      - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
+      - 'lean-toolchain'                 # Lean version bumps
+      - 'lake-manifest.json'             # dependency/Mathlib bumps
+      - '.github/workflows/lean.yml'     # changes to the CI itself
+  workflow_dispatch:                     # manual "Run workflow" button
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: pr-199-doc-cleanup-${{ github.ref }}
+  group: lean-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  cleanup:
-    if: github.event.pull_request.number == 199 && github.actor != 'github-actions[bot]'
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out PR branch
+      - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Check paper / Analysis boundary
+        run: bash scripts/check_paper_analysis_boundary.sh
+
+      - name: Audit unfinished proofs and axioms
+        run: bash scripts/audit_assumptions.sh
+
+      - name: Set up Lean
+        uses: leanprover/lean-action@v1
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
 
-      - name: Qualify remaining finite claims
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
+      - name: Build Lean project
+        id: directbuild
+        continue-on-error: true
+        run: lake build RHLean --wfail > lean-build.log 2>&1
 
-          def sub(path: str, pattern: str, replacement: str) -> None:
-              p = Path(path)
-              text = p.read_text(encoding="utf-8")
-              updated, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
-              if count != 1:
-                  raise SystemExit(f"expected one match in {path}, found {count}: {pattern[:100]!r}")
-              p.write_text(updated, encoding="utf-8")
+      - name: Upload Lean build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-build-log
+          path: lean-build.log
 
-          research = "research/SIGNED_CANONICAL_HEIGHT.md"
-          sub(
-              research,
-              r"> earlier pass of this record did exactly that and recorded `1\.338` for `B` and\n> `1\.406` for `A \+ B`; both are artifacts, and the trajectories above show both are\n> bounded\. Only `C` is monotone, and only for `C` is the fitted `1\.714` meaningful\.",
-              """> an earlier pass of this record did exactly that and recorded `1.338` for `B` and
-          > `1.406` for `A + B`; both are artifacts. The measured trajectories of `B` and
-          > `A + B` remain small on this range. Only `C` is monotone on the sampled range,
-          > and its fitted `1.714` is a descriptive finite-range exponent, not a theorem.""",
-          )
-          sub(
-              research,
-              r"1\. \*\*The balanced/extreme split destroys the cancellation\.\*\* Each half reaches\n   `13\.2 N` and is still climbing, against the truth's `0\.43 N`, and each is about\n   `500x` its own sum at `N = 1900`\. Bounding the two halves separately and adding\n   them cannot reach the target, and no sharpening of the individual bounds recovers\n   it, because the halves genuinely are that large\.",
-              """1. **The balanced/extreme split destroys the observed cancellation.** Each half
-             reaches `13.2 N` and is still climbing on the tested range, against the truth's
-             `0.43 N`, and each is about `500x` its own sum at `N = 1900`. This fails the
-             predeclared finite stop criterion for separate estimates; it is not a proof that
-             every conceivable asymptotic treatment of the pieces is impossible.""",
-          )
-          sub(
-              research,
-              r"2\. \*\*The obstruction is exactly one piece, and it is a count\.\*\* `C` is minus the\n   number of balanced coprime prime-prime pairs in the block: monotone, with no\n   cancellation available, contributing `-24461` of the balanced half's `-24993`\. It\n   grows like `N\^\{0\.71\}` per unit `N`\.",
-              """2. **The measured obstruction is exactly one piece, and it is a count.** `C` is
-             minus the number of balanced coprime prime-prime pairs in the block and contributes
-             `-24461` of the balanced half's `-24993` at `N = 1900`. It is monotone on the
-             sampled range; a descriptive fit there is approximately `N^{0.71}` per unit `N`.""",
-          )
-          sub(
-              research,
-              r"3\. \*\*The Möbius content is already fine\.\*\* `A`, `B` and `A \+ B` are all bounded, at\n   `0\.309`, `0\.245` and `0\.394` — the same scale as the true total's `0\.430`\. So the\n   balanced half fails \*only\* because it carries `C`, and the extreme half fails only\n   because it carries `-C`\.",
-              """3. **The measured Möbius channels remain small.** The observed maxima of `A`, `B`
-             and `A + B` are `0.309`, `0.245` and `0.394`, the same scale as the total's
-             observed `0.430`. On this range, the excess of the two halves is carried by `C`
-             and `-C`; this statement is diagnostic rather than asymptotic.""",
-          )
-          sub(
-              research,
-              r"localize the entire failure in a single explicit, Möbius-free counting function\.",
-              "localize the measured excess in a single explicit, Möbius-free counting function.",
-          )
-          sub(
-              research,
-              r"> uses, in the next section — shows the subtracted half diverging again\. The main term\n> is real and removing it helps by a large factor; it is not a repair\.",
-              """> uses, in the next section — shows the normalized subtracted-half ratio rising again.
-          > The main term is real and removing it helps by a large factor, but it fails the
-          > declared finite energy test.""",
-          )
-          sub(
-              research,
-              r"The raw half drifts to `13\.2 N`; after subtracting the main term it is bounded at\n`0\.39 N` — indistinguishable in scale from the true total's `0\.43 N`\. Both the exact\ncount and its Möbius-free density prediction work, which matters: the repair does not\nneed the prime-pair count itself, only an asymptotic for it\. Since the two halves sum\nto the true total, subtracting from the balanced half and adding to the extreme half\nrepairs both at once\.",
-              """The raw half reaches `13.2 N`; after subtracting the main term, the maximum
-          observed ratio is `0.39 N`, the same finite scale as the total's `0.43 N`. Both the
-          exact count and its Möbius-free density prediction reproduce this short-range repair.
-          Since the two halves sum to the total, the same deterministic subtraction may be
-          transferred between them without changing the exact reconstruction.""",
-          )
-          sub(
-              research,
-              r"growing like `N\^\{1\.08\}`\. The prefix norm at `n <= 1900` is simply too weak and too\nshort to see it\.",
-              """with a descriptive finite-range fit near `N^{1.08}`. The prefix diagnostic at
-          `n <= 1900` is too short and too weak to reveal that later rise.""",
-          )
-          sub(
-              research,
-              r"What stands is the structural part: the halves carry a common prime-pair main term of\nsize `n` per block, it is explicit, it is a prime count rather than a Möbius\ncorrelation, and removing it is a finite deterministic step that removes most — but\nnot all — of the excess\.",
-              """What stands is the structural part: the common main term is the explicit
-          prime-pair count `N_pp`, not a Möbius correlation, and subtracting it is a finite
-          deterministic step that removes most — but not all — of the measured excess.""",
-          )
-          sub(
-              research,
-              r"This also explains why `A`, `B` and `A \+ B` are individually fine: none of them is\nthe overlap term\. The Möbius channels of the balanced half never carried the problem\.",
-              """This also explains the finite table: `A`, `B` and `A + B` exclude the overlap
-          term and remain small on the sampled range. The measured excess is not in those
-          Möbius channels.""",
-          )
-          sub(
-              research,
-              r"Its verdict is that this works at\nshort windows but fails at long ones — at `H = N` the separate bridge energies",
-              """Its finite verdict is that this works on the tested short windows but fails the
-          declared criterion on the tested long windows — at `H = N` the separate bridge energies""",
-          )
-          sub(
-              research,
-              r"residual `N\^1\.08` is certainly the model rather than the arithmetic\.",
-              "residual fit may partly reflect the model rather than the arithmetic.",
-          )
+      - name: Print Lean build log
+        if: always()
+        run: cat lean-build.log
 
-          registry = "RESEARCH_ROUTE_REGISTRY.md"
-          sub(
-              registry,
-              r"The diagnostic is `\|prefix\|/N`, since the target's prefix form is `<< N\^\{1\+eps\}`; a\npiece passes if that stays bounded\.",
-              """The diagnostic is `|prefix|/N`, since the target's prefix form is
-          `<< N^{1+eps}`. Stability is treated as finite compatibility with the target; upward
-          drift triggers the route's stop criterion.""",
-          )
-          sub(
-              registry,
-              r"are all bounded at `0\.309`, `0\.245` and `0\.394` — the same scale as the truth\.",
-              "have observed maxima `0.309`, `0.245` and `0.394` — the same measured scale as the truth.",
-          )
-          sub(
-              registry,
-              r"but it does not bound the diagonals\.",
-              "but it does not produce evidence for a bounded separate-diagonal estimate on the tested scales.",
-          )
-          sub(
-              registry,
-              r"- conversely, reading the frontier table as closing the split: it closes the raw\n  split only, and the subtracted version passes on the whole measured range;",
-              """- conversely, treating the short prefix table as validating the subtracted split:
-            it is compatible only in that prefix diagnostic, while the larger energy windows
-            trigger the stop criterion;""",
-          )
-          sub(
-              registry,
-              r"`ProjectedRenewalQuadraticBoundedStatement Λ ↔ RH` holds for \*\*every\*\* `Λ ≥ 0`, so",
-              """given `ClassicalMertensRHCriterion`,
-            `ProjectedRenewalQuadraticBoundedStatement Λ ↔ RH` holds for **every** `Λ ≥ 0`, so""",
-          )
-          sub(
-              registry,
-              r"removing the low band injects a drift the total does not have\.",
-              "removing the low band can inject a coherent drift the total does not have.",
-          )
-          PY
-
-      - name: Commit documentation cleanup
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add RESEARCH_ROUTE_REGISTRY.md research/SIGNED_CANONICAL_HEIGHT.md
-          git commit -m 'Tie route conclusions to finite diagnostics'
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+      - name: Fail if Lean build failed
+        if: steps.directbuild.outcome == 'failure'
+        run: exit 1
