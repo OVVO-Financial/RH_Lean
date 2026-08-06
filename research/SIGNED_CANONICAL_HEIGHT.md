@@ -182,7 +182,7 @@ does not by itself prove an asymptotic theorem.
 > **Methodological note.** Do not fit a log-log exponent to these series. Every piece
 > except `C` changes sign repeatedly, and `log |prefix|` plunges at each crossing, so
 > least squares on `log |prefix|` against `log n` reports growth that is not there. An
-> an earlier pass of this record did exactly that and recorded `1.338` for `B` and
+> earlier pass of this record did exactly that and recorded `1.338` for `B` and
 > `1.406` for `A + B`; both are artifacts. The measured trajectories of `B` and
 > `A + B` remain small on this range. Only `C` is monotone on the sampled range,
 > and its fitted `1.714` is a descriptive finite-range exponent, not a theorem.
@@ -256,8 +256,8 @@ Three consequences for using the ledger:
 
 ### The excess is a main term, and subtracting it helps but does not suffice
 
-Everything above rules out estimating the **raw** halves. It does not say whether the
-excess is structured. It is, and `scripts/TwoAnchorSlackCoverage/balanced_main_term_repair.py`
+Everything above rejects separate estimation of the **raw** halves under the
+declared finite diagnostic. It does not say whether the excess is structured. It is, and `scripts/TwoAnchorSlackCoverage/balanced_main_term_repair.py`
 identifies it in closed form.
 
 > **Read this section with the next one.** What follows measures the prefix norm at
