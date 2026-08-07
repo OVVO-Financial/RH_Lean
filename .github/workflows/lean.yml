@@ -1,4 +1,3 @@
-# Full-audit bootstrap: remove once the audit pass has a substantive fix.
 name: Lean source audits
 
 on:
@@ -51,11 +50,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Lean and restore build cache
+      - name: Set up Lean, restore build cache, and audit imports
         uses: leanprover/lean-action@v1
         with:
           use-github-cache: true
           use-mathlib-cache: true
+          mk_all-check: true
           build: false
           test: false
           lint: false
