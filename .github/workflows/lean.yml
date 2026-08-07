@@ -1,6 +1,13 @@
 name: Lean source audits
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '**.lean'                        # warm the trusted main-branch Lean cache
+      - 'lean-toolchain'                 # Lean version bumps invalidate compiled artifacts
+      - 'lake-manifest.json'             # dependency/Mathlib bumps invalidate compiled artifacts
+      - '.github/workflows/lean.yml'     # changes to this audit workflow
   pull_request:
     types: [opened, synchronize, reopened, edited]
     paths:
@@ -43,9 +50,10 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Lean
+      - name: Set up Lean and restore build cache
         uses: leanprover/lean-action@v1
         with:
+          use-github-cache: true
           use-mathlib-cache: true
           build: false
           test: false
