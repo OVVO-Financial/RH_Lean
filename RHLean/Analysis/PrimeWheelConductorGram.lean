@@ -3,6 +3,7 @@ import RHLean.Analysis.PrimeWheelHarmonicCriterion
 import RHLean.Analysis.PrimeWheelCoconductorGram
 import RHLean.Analysis.PrimeWheelCoconductorTail
 import RHLean.Analysis.PrimeWheelCoconductorTailBound
+import RHLean.Analysis.PrimeWheelCoconductorLowGram
 
 open scoped BigOperators ComplexConjugate
 
