@@ -1,6 +1,7 @@
 import RHLean.Analysis.PrimeWheelHarmonicCriterion
 import RHLean.Analysis.SquarePrefixMertensBridge
 import RHLean.Proof.RiemannHypothesisBridge
+import RHLean.Analysis.PrimeWheelPeriodicRawAttack
 
 noncomputable section
 
