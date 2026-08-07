@@ -49,6 +49,7 @@ This manifest lists the Lean source snapshots copied into `export_square_block/l
 - `RHLean/Proof/DeathProcessShellIdentity.lean` — exact death-shell identity.
 - `RHLean/Proof/DeathShellDivisorFibers.lean` — divisor-fibre majorant for the death shell.
 - `RHLean/Proof/DeathShellSubpolynomial.lean` — subpolynomial divisor-window estimate and unconditional RH-scale death-process local bound.
+- `RHLean/Analysis/SquareBlockDeathProcess.lean` — paper-facing Analysis wrapper for the divisor-window and accumulated-death estimates.
 - `RHLean/Analysis/SquareBlockSurvivorBridge.lean` — paper-facing active-survivor kernel and endpoint reduction after death removal.
 
 ## Scope boundary
