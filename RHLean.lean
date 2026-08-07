@@ -153,6 +153,7 @@ import RHLean.Analysis.PrimeWheelConductorGram
 import RHLean.Analysis.PrimeWheelDirichletResponse
 import RHLean.Analysis.SquareWheelNesting
 import RHLean.Analysis.SquareWheelQuadraticSampling
+import RHLean.Analysis.SquareWheelZeroModeElimination
 import RHLean.Analysis.PrimorialWheelExplicitCriterion
 import RHLean.Analysis.PrimeWheelRHBridge
 import RHLean.Analysis.PrimorialWheelMertensTransfer
