@@ -113,6 +113,28 @@ theorem primeWheelCoconductorPairedSum_eq_two_mul_component
   rw [hneg]
   ring
 
+private theorem coconductorAtom_eq_reducedModulusSupport
+    (W : PrimeWheelFiniteSystem) (x : ℕ) {d : ℕ}
+    (r : ZMod W.modulus)
+    (hdlt : d < W.modulus) :
+    (if d = additiveCoconductor r then
+        W.spectralPrefixAtom x r
+      else 0) =
+      if primeWheelReducedModulusOfCoconductor W d =
+          reducedAdditiveConductor r then
+        if d = additiveCoconductor r then
+          W.spectralPrefixAtom x r
+        else 0
+      else 0 := by
+  by_cases hr : d = additiveCoconductor r
+  · have hq :
+        primeWheelReducedModulusOfCoconductor W d =
+          reducedAdditiveConductor r :=
+      (reducedAdditiveConductor_eq_reducedModulus_of_coconductor
+        W r hr hdlt).symm
+    simp [hr, hq]
+  · simp [hr]
+
 /-- On a proper packet, every active half of the paired summand carries the
 same reduced-modulus label `Q / d`.  This theorem records the label without yet
 claiming a quotient-level primitive-residue bijection. -/
@@ -134,21 +156,7 @@ theorem primeWheelCoconductorPairedAtom_reducedModulus_support
         else 0
       else 0) := by
   unfold primeWheelCoconductorPairedAtom
-  by_cases hr : d = additiveCoconductor r
-  · have hq :=
-      reducedAdditiveConductor_eq_reducedModulus_of_coconductor
-        W r hr hdlt
-    by_cases hnr : d = additiveCoconductor (-r)
-    · have hnq :=
-        reducedAdditiveConductor_eq_reducedModulus_of_coconductor
-          W (-r) hnr hdlt
-      simp [hr, hnr, hq, hnq]
-    · simp [hr, hnr, hq]
-  · by_cases hnr : d = additiveCoconductor (-r)
-    · have hnq :=
-        reducedAdditiveConductor_eq_reducedModulus_of_coconductor
-          W (-r) hnr hdlt
-      simp [hr, hnr, hnq]
-    · simp [hr, hnr]
+  rw [coconductorAtom_eq_reducedModulusSupport W x r hdlt]
+  rw [coconductorAtom_eq_reducedModulusSupport W x (-r) hdlt]
 
 end RHLean.Analysis
