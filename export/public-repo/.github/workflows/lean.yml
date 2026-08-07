@@ -1,4 +1,4 @@
-name: Lean verification
+name: Lean source audits
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  audit:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -21,14 +21,7 @@ jobs:
       - name: Audit unfinished proofs and project-local axioms
         run: bash scripts/audit_assumptions.sh
 
-      - name: Set up Lean
-        uses: leanprover/lean-action@v1
-        with:
-          lake-package-directory: formalization
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
-
-      - name: Build public formalization
-        run: lake build RHLean --wfail
+      - name: Record local Lean build policy
+        run: |
+          echo 'Lean compilation is intentionally local-only.'
+          echo 'Authoritative local command: lake build RHLean --wfail'

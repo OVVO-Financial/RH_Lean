@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Analysis.PrimeWheelHarmonicCriterion
 import RHLean.Analysis.PrimeWheelCoconductorGram
 import RHLean.Analysis.PrimeWheelCoconductorTail
+import RHLean.Analysis.PrimeWheelCoconductorTailBound
 
 open scoped BigOperators ComplexConjugate
 

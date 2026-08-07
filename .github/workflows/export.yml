@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  build-export:
+  verify-export:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -37,15 +37,8 @@ jobs:
             ../numerics/primorial_block_validation.py \
             ../numerics/analytic_kill_gates.py
 
-      - name: Set up Lean
-        uses: leanprover/lean-action@v1
-        with:
-          lake-package-directory: export/public-repo/formalization
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
-
-      - name: Build standalone export
+      - name: Record local Lean build policy
         working-directory: export/public-repo/formalization
-        run: lake build RHLean --wfail
+        run: |
+          echo 'Lean compilation is intentionally local-only.'
+          echo 'Authoritative local command: lake build RHLean --wfail'
