@@ -66,7 +66,7 @@ private theorem exactAddOrderIndicator_eq_moebius
       rw [Finset.sum_eq_single (addOrderOf r)]
       · simp
       · intro b hb hne
-        simp [hne, Ne.symm hne]
+        simp [Ne.symm hne]
       · intro hnot
         exact (hnot hmem).elim
     · dsimp [f, g]
@@ -108,8 +108,11 @@ private theorem nsmul_eq_zero_iff_quotient_dvd_val
         _ = 0 := h
     have hNdiv : N ∣ d * r.val :=
       (ZMod.natCast_eq_zero_iff (d * r.val) N).mp hcast
-    rw [← hprod] at hNdiv
-    exact (Nat.mul_dvd_mul_iff_left hdpos).mp hNdiv
+    have hfactor : d * (N / d) ∣ N := by
+      rw [hprod]
+    have hmul : d * (N / d) ∣ d * r.val :=
+      dvd_trans hfactor hNdiv
+    exact (Nat.mul_dvd_mul_iff_left hdpos).mp hmul
   · intro hdiv
     have hmul : d * (N / d) ∣ d * r.val :=
       (Nat.mul_dvd_mul_iff_left hdpos).mpr hdiv
@@ -149,8 +152,11 @@ private theorem quotient_mul_eq_zero_iff_dvd_val
       (ZMod.natCast_eq_zero_iff ((N / d) * z.val) N).mp hcast
     have hprod' : (N / d) * d = N := by
       simpa [Nat.mul_comm] using hprod
-    rw [← hprod'] at hNdiv
-    exact (Nat.mul_dvd_mul_iff_left hqpos).mp hNdiv
+    have hfactor : (N / d) * d ∣ N := by
+      rw [hprod']
+    have hmul : (N / d) * d ∣ (N / d) * z.val :=
+      dvd_trans hfactor hNdiv
+    exact (Nat.mul_dvd_mul_iff_left hqpos).mp hmul
   · intro hdiv
     have hmul : (N / d) * d ∣ (N / d) * z.val :=
       (Nat.mul_dvd_mul_iff_left hqpos).mpr hdiv
@@ -227,8 +233,17 @@ private theorem zmod_torsion_character_sum
           rw [Finset.sum_filter]
           apply Finset.sum_congr rfl
           intro n hn
-          rw [nsmul_eq_zero_iff_quotient_dvd_val hd]
-          rw [ZMod.val_natCast_of_lt (Finset.mem_range.mp hn)]
+          have hiff :
+              d • ((n : ℕ) : ZMod N) = 0 ↔ N / d ∣ n := by
+            have h := nsmul_eq_zero_iff_quotient_dvd_val
+              hd ((n : ℕ) : ZMod N)
+            rw [ZMod.val_natCast_of_lt (Finset.mem_range.mp hn)] at h
+            exact h
+          by_cases hzero : d • ((n : ℕ) : ZMod N) = 0
+          · have hdiv : N / d ∣ n := hiff.mp hzero
+            simp [hzero, hdiv]
+          · have hdiv : ¬ N / d ∣ n := fun h => hzero (hiff.mpr h)
+            simp [hzero, hdiv]
     _ = ∑ a ∈ Finset.range d,
         ZMod.stdAddChar
           (z * ((((N / d) * a : ℕ) : ZMod N))) := by
@@ -316,8 +331,10 @@ theorem primeWheelReducedConductorKernel_eq_torsionSums
             intro r hr
             rw [reducedAdditiveConductor_eq_addOrderOf W r]
             by_cases hord : addOrderOf r = q
-            · simp [hord]
-            · simp [hord, eq_comm]
+            · have hrev : q = addOrderOf r := hord.symm
+              simp [hord, hrev]
+            · have hrev : q ≠ addOrderOf r := fun h => hord h.symm
+              simp [hord, hrev]
     _ =
       ∑ r : ZMod W.modulus,
         (∑ d ∈ q.divisors,
@@ -337,10 +354,14 @@ theorem primeWheelReducedConductorKernel_eq_torsionSums
               rw [Finset.sum_mul]
               apply Finset.sum_congr rfl
               intro d hd
-              rw [addOrderOf_dvd_iff_nsmul_eq_zero]
+              have hiff : addOrderOf r ∣ d ↔ d • r = 0 :=
+                addOrderOf_dvd_iff_nsmul_eq_zero
               by_cases hzero : d • r = 0
-              · simp [hzero]
-              · simp [hzero]
+              · have hdiv : addOrderOf r ∣ d := hiff.mpr hzero
+                simp [hzero, hdiv]
+              · have hdiv : ¬ addOrderOf r ∣ d :=
+                  fun h => hzero (hiff.mp h)
+                simp [hzero, hdiv]
     _ =
       ∑ d ∈ q.divisors,
         (((μ (q / d) : ℤ) : ℂ)) *
@@ -361,16 +382,21 @@ theorem primeWheelReducedConductorKernel_eq_ramanujanDivisorKernel
       (((ramanujanDivisorKernel q z.val 0 : ℤ) : ℂ)) := by
   classical
   rw [primeWheelReducedConductorKernel_eq_torsionSums W hq z]
-  have hN : W.modulus ≠ 0 := Nat.ne_of_gt W.modulus_pos
   unfold ramanujanDivisorKernel
+  push_cast
   apply Finset.sum_congr rfl
   intro d hd
   have hdq : d ∣ q := Nat.dvd_of_mem_divisors hd
   have hdN : d ∣ W.modulus := dvd_trans hdq hqmod
   rw [zmod_torsion_character_sum hdN z]
-  rw [Nat.modEq_zero_iff_dvd]
   by_cases hdiv : d ∣ z.val
-  · simp [hdiv]
-  · simp [hdiv]
+  · have hmod : Nat.ModEq d z.val 0 :=
+      Nat.modEq_zero_iff_dvd.mpr hdiv
+    simp [hdiv, hmod]
+    ring
+  · have hmod : ¬ Nat.ModEq d z.val 0 := by
+      intro h
+      exact hdiv (Nat.modEq_zero_iff_dvd.mp h)
+    simp [hdiv, hmod]
 
 end RHLean.Analysis
