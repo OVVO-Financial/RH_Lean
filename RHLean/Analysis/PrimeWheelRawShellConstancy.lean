@@ -37,7 +37,13 @@ private theorem addOrderOf_unit_mul
       (fun w : ZMod N => (u⁻¹ : ZMod N) * w) h
     simpa [nsmul_eq_mul, mul_assoc, mul_left_comm, mul_comm] using h'
   · intro h
-    simpa [nsmul_eq_mul, h, mul_assoc, mul_left_comm, mul_comm]
+    have hn : ((n : ZMod N) * z) = 0 := by
+      simpa [nsmul_eq_mul] using h
+    calc
+      z * ((u : ZMod N) * (n : ZMod N)) =
+          (u : ZMod N) * ((n : ZMod N) * z) := by
+        ring
+      _ = 0 := by rw [hn]; simp
 
 /-- A divisor `d` of a nonzero modulus has additive order exactly `N / d`
 when regarded as a residue modulo `N`. -/
