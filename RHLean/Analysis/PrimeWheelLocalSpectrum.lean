@@ -320,10 +320,26 @@ theorem localPrimeCombNaturalSpectrum_eq_explicit
   have hprime := localPrimeMultipleCharacterIteSum_eq p hp r
   have hsquare := localSquareMultipleCharacterSum_eq_one p hp r
   unfold localPrimeCombNaturalSpectrum
-  rw [Fin.sum_univ_eq_sum_range]
   calc
-    (∑ n ∈ Finset.range (p ^ 2),
-        (((localPrimeComb p n : ℤ) : ℂ)) * χ n) =
+    (∑ x : Fin (p ^ 2),
+        (((localPrimeComb p x.val : ℤ) : ℂ)) *
+          ZMod.stdAddChar
+            (-(((x.val : ℕ) : ZMod (p ^ 2)) * r))) =
+      ∑ n ∈ Finset.range (p ^ 2),
+        (((localPrimeComb p n : ℤ) : ℂ)) *
+          ZMod.stdAddChar
+            (-(((n : ℕ) : ZMod (p ^ 2)) * r)) := by
+              exact Fin.sum_univ_eq_sum_range
+                (fun n : ℕ =>
+                  (((localPrimeComb p n : ℤ) : ℂ)) *
+                    ZMod.stdAddChar
+                      (-(((n : ℕ) : ZMod (p ^ 2)) * r)))
+                (p ^ 2)
+    _ =
+      ∑ n ∈ Finset.range (p ^ 2),
+        (((localPrimeComb p n : ℤ) : ℂ)) * χ n := by
+          rfl
+    _ =
       ∑ n ∈ Finset.range (p ^ 2),
         (χ n - 2 * (if p ∣ n then χ n else 0) +
           (if p ^ 2 ∣ n then χ n else 0)) := by
