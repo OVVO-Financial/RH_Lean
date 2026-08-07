@@ -118,13 +118,18 @@ private theorem rawExpansionDivisor_factorization_apply
   classical
   rw [rawExpansionDivisor_factorization S hprime e]
   simp [Finsupp.single_apply]
-  apply Finset.sum_eq_single_of_mem p
-  · simp
-  · intro q hq hqp
-    rw [if_neg]
-    intro hval
-    apply hqp
-    exact Subtype.ext hval
+  calc
+    (∑ x ∈ S.attach, if ↑x = ↑p then ↑(e x) else 0) =
+        (if ↑p = ↑p then ↑(e p) else 0) := by
+          apply Finset.sum_eq_single_of_mem p
+          · simp
+          · intro q hq hqp
+            rw [if_neg]
+            intro hval
+            apply hqp
+            exact Subtype.ext hval
+    _ = ↑(e p) := by
+      rw [if_pos rfl]
 
 private theorem rawExpansionDivisor_dvd_iff_pointwise
     (S : Finset ℕ)
