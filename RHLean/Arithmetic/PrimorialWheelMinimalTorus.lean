@@ -49,7 +49,7 @@ theorem primorialSquareSensitiveModulus_dvd_minimalTorusModulus
 theorem primorialMinimalLiftMultiplier_pos (k : ℕ) :
     0 < primorialMinimalLiftMultiplier k := by
   unfold primorialMinimalLiftMultiplier
-  simpa using Nat.succ_pos (primorialBlockUpper k / primorialSquareSensitiveModulus k)
+  exact Nat.succ_pos _
 
 /-- The minimal common torus modulus is positive. -/
 theorem primorialMinimalTorusModulus_pos (k : ℕ) :
