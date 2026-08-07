@@ -143,6 +143,7 @@ import RHLean.Arithmetic.PrimorialWheelScale
 import RHLean.Arithmetic.PrimorialWheelScaleGrowth
 import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 import RHLean.Arithmetic.PrimorialWheelPrefixIdentity
+import RHLean.Analysis.SquareWheelNesting
 import RHLean.Analysis.PrimeWheelFourierReduction
 import RHLean.Analysis.PrimeWheelTorusRealization
 import RHLean.Analysis.PrimeWheelJointSpectrum
