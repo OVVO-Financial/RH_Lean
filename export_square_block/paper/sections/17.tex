@@ -1,0 +1,107 @@
+\section{The proved local bound at low height}
+\label{sec:low-cubic}
+%======================================================================
+
+This is the closed part of the bridge.  Geometry alone bounds the low-height increment in each nontrivial square block, and the isolated unit source is a finite endpoint.  The resulting cumulative low sector has translated-window energy of order $HN^2$.
+
+Fix $\Lambda>0$.  Use the canonical conventions
+\[
+ \Pplus(1)=1,\qquad c_1=1,\qquad Y_1=0,
+\]
+and assign every integer $m$ to its square block
+\begin{equation}
+ j=e(m)=\lfloor\sqrt m\rfloor.
+ \label{eq:entry-block}
+\end{equation}
+Define
+\begin{align}
+ d_j^{\mathrm{low}}(\Lambda)
+ &:={}
+ \sum_{\substack{m\in B_j\\|Y_m|\le\Lambda j}}\mu(m),
+ \label{eq:low-block-increment}\\
+ d_j^{\mathrm{high}}(\Lambda)
+ &:={}
+ \sum_{\substack{m\in B_j\\|Y_m|>\Lambda j}}\mu(m).
+ \label{eq:high-block-increment}
+\end{align}
+The predicates are complementary, so the complete block increment satisfies
+\begin{equation}
+ \sum_{m\in B_j}\mu(m)
+ =d_j^{\mathrm{low}}(\Lambda)+d_j^{\mathrm{high}}(\Lambda).
+ \label{eq:block-low-high-recombination}
+\end{equation}
+
+The block $B_0=[0,1)$ contains only $0$, whose M\"obius weight is zero, so
+\begin{equation}
+ d_0^{\mathrm{low}}(\Lambda)=d_0^{\mathrm{high}}(\Lambda)=0.
+ \label{eq:zero-block-endpoint}
+\end{equation}
+The unit source $m=1$ lies in $B_1=[1,4)$ and is low because $Y_1=0$.  For every block, the nontrivial low sources satisfy the occupancy bound in \cref{eq:constant-occupancy}; hence
+\begin{equation}
+ \boxed{
+ |d_j^{\mathrm{low}}(\Lambda)|
+ \le \lfloor\Lambda\rfloor+\1_{\{j=1\}}
+ \le \lfloor\Lambda\rfloor+1.
+ }
+ \label{eq:low-block-bound}
+\end{equation}
+Equivalently, one may separate the single $m=1$ contribution and retain the sharper bound $\lfloor\Lambda\rfloor$ for the remaining nontrivial population.
+
+Define the cumulative sectors
+\begin{align}
+ S_n^{\mathrm{low}}(\Lambda)
+ &:={}
+ \sum_{0\le j\le n}d_j^{\mathrm{low}}(\Lambda),
+ \label{eq:low-prefix}\\
+ S_n^{\mathrm{high}}(\Lambda)
+ &:={}
+ \sum_{0\le j\le n}d_j^{\mathrm{high}}(\Lambda).
+ \label{eq:high-prefix}
+\end{align}
+Summing \cref{eq:block-low-high-recombination} over $0\le j\le n$ gives the exact native decomposition
+\begin{equation}
+ \boxed{
+ S_n=M((n+1)^2-1)
+ =S_n^{\mathrm{low}}(\Lambda)+S_n^{\mathrm{high}}(\Lambda).
+ }
+ \label{eq:low-high-split}
+\end{equation}
+
+For $n\ge1$, the blocks $B_1,\ldots,B_n$ contain all sources up to $X_n$, the unit source occurs once, and therefore
+\begin{equation}
+ |S_n^{\mathrm{low}}(\Lambda)|
+ \le1+\lfloor\Lambda\rfloor n
+ \le(\lfloor\Lambda\rfloor+1)n.
+ \label{eq:low-prefix-bound}
+\end{equation}
+Consequently, if $N\ge1$ and $1\le H\le N$, then every $n\in[N,N+H)$ satisfies $n<2N$, and hence
+\begin{equation}
+ \boxed{
+ \sum_{n=N}^{N+H-1}
+ |S_n^{\mathrm{low}}(\Lambda)|^2
+ \le
+ 4(\lfloor\Lambda\rfloor+1)^2HN^2.
+ }
+ \label{eq:low-local-bound}
+\end{equation}
+The global cubic consequence is
+\begin{equation}
+ \sum_{n\le N}|S_n^{\mathrm{low}}(\Lambda)|^2
+ \ll_{\Lambda}N^3.
+ \label{eq:low-cubic}
+\end{equation}
+No M\"obius cancellation is used.
+\leanxref{Lean proof}{canonical low-height occupancy and low-increment control}{https://github.com/OVVO-Financial/RH_Lean/blob/main/export_square_block/lean/RHLean/Analysis/CanonicalLowOccupancy.lean}
+
+Finally, from \cref{eq:low-high-split},
+\begin{align}
+ |S_n|^2
+ &\le2|S_n^{\mathrm{low}}|^2+2|S_n^{\mathrm{high}}|^2,
+ \label{eq:total-from-low-high}\\
+ |S_n^{\mathrm{high}}|^2
+ &\le2|S_n|^2+2|S_n^{\mathrm{low}}|^2.
+ \label{eq:high-from-total-low}
+\end{align}
+These two norm inequalities, rather than an invalid energy subtraction identity, give the exact equivalence between the total and high-sector local criteria.
+
+%======================================================================
