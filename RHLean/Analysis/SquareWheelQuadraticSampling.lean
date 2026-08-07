@@ -206,4 +206,16 @@ theorem primeWheel_zeroFrequencyPrefixContribution
       ((W.modulus : ℂ)⁻¹) * (((W.residual W.upper : ℤ) : ℂ)) * (N : ℂ) := by
   rw [primeWheelPinnedCoefficient_zero, primeWheelDirichletKernel_zero]
 
+/-- Every prefix inside the arithmetic wheel block has a strict zero-frequency
+contraction ratio `N/modulus < 1`. -/
+theorem primeWheel_zeroFrequencyRatio_lt_one
+    (W : PrimeWheelFiniteSystem) (N : ℕ)
+    (hupper : W.lower + N ≤ W.upper) :
+    (N : ℝ) / (W.modulus : ℝ) < 1 := by
+  have hNle : N ≤ W.upper := by omega
+  have hNlt : N < W.modulus := lt_of_le_of_lt hNle W.upper_lt_modulus
+  have hNltReal : (N : ℝ) < (W.modulus : ℝ) := by exact_mod_cast hNlt
+  have hQpos : 0 < (W.modulus : ℝ) := by exact_mod_cast W.modulus_pos
+  exact (div_lt_one hQpos).2 hNltReal
+
 end RHLean.Analysis
