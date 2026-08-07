@@ -6,6 +6,8 @@ import RHLean.Proof.BlockLyapunovClosure
 import RHLean.Analysis.CanonicalHighSectorBridge
 import RHLean.Analysis.CanonicalHighSectorCore
 import RHLean.Analysis.CanonicalLowOccupancy
+import RHLean.Analysis.CanonicalExtremePrimeSupport
+import RHLean.Analysis.SquareBlockSurvivorBridge
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.ConcreteSquarePrefixGeometry
 import RHLean.Proof.ComplementaryMainGram
