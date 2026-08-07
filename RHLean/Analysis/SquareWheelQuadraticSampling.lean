@@ -61,17 +61,20 @@ theorem reducedAdditiveConductor_eq_addOrderOf
     (W : PrimeWheelFiniteSystem) (r : ZMod W.modulus) :
     reducedAdditiveConductor r = addOrderOf r := by
   have hQ : W.modulus ≠ 0 := Nat.ne_of_gt W.modulus_pos
-  calc
-    reducedAdditiveConductor r =
-        W.modulus / Nat.gcd r.val W.modulus := by
-      simp [reducedAdditiveConductor]
-    _ = W.modulus / Nat.gcd W.modulus r.val := by
-      rw [Nat.gcd_comm]
-    _ = addOrderOf ((r.val : ℕ) : ZMod W.modulus) := by
-      symm
-      exact ZMod.addOrderOf_coe r.val hQ
-    _ = addOrderOf r := by
-      rw [ZMod.natCast_zmod_val]
+  by_cases hr : r = 0
+  · subst r
+    simp [reducedAdditiveConductor]
+  · calc
+      reducedAdditiveConductor r =
+          W.modulus / Nat.gcd r.val W.modulus := by
+        simp [reducedAdditiveConductor, hr]
+      _ = W.modulus / Nat.gcd W.modulus r.val := by
+        rw [Nat.gcd_comm]
+      _ = addOrderOf ((r.val : ℕ) : ZMod W.modulus) := by
+        symm
+        exact ZMod.addOrderOf_coe r.val hQ
+      _ = addOrderOf r := by
+        rw [ZMod.natCast_zmod_val]
 
 /-- Exact geometric-series form of one nonzero Dirichlet response. -/
 theorem primeWheelDirichletKernel_eq_geom_of_ne_zero
@@ -139,7 +142,10 @@ theorem primeWheelPinnedPhase_mul_samplePower_eq_quadraticPhase
     dsimp [N, squareWheelSampleLength]
     exact Nat.add_sub_of_le hlower
   have hclock : W.lower + 1 + N = (n + 1) ^ 2 := by
-    rw [hanchor, RHLean.Analysis.squarePrefixEndpoint_add_one]
+    calc
+      W.lower + 1 + N = W.lower + N + 1 := by omega
+      _ = RHLean.Analysis.squarePrefixEndpoint n + 1 := by rw [hanchor]
+      _ = (n + 1) ^ 2 := RHLean.Analysis.squarePrefixEndpoint_add_one n
   have hpow :
       ZMod.stdAddChar r ^ N =
         ZMod.stdAddChar (((N : ℕ) : ZMod W.modulus) * r) := by
@@ -296,8 +302,10 @@ theorem primeWheelDirichletPrefix_sample_eq_squareWheelSampleResponse
   intro r hrmem
   by_cases hr0 : r = 0
   · subst r
-    simp [squareWheelSampleFrequencyAtom,
-      primeWheel_zeroFrequencyPrefixContribution]
+    unfold squareWheelSampleFrequencyAtom
+    rw [if_pos rfl]
+    exact primeWheel_zeroFrequencyPrefixContribution
+      W (squareWheelSampleLength W n)
   · rw [primeWheelPinnedAtom_sample_eq_quadraticAtom W n r hr0 hlower]
     simp [squareWheelSampleFrequencyAtom, hr0]
 
