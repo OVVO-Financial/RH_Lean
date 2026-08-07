@@ -241,9 +241,9 @@ private theorem zmod_torsion_character_sum
             exact h
           by_cases hzero : d • ((n : ℕ) : ZMod N) = 0
           · have hdiv : N / d ∣ n := hiff.mp hzero
-            simp [hzero, hdiv]
+            rw [if_pos hzero, if_pos hdiv]
           · have hdiv : ¬ N / d ∣ n := fun h => hzero (hiff.mpr h)
-            simp [hzero, hdiv]
+            rw [if_neg hzero, if_neg hdiv]
     _ = ∑ a ∈ Finset.range d,
         ZMod.stdAddChar
           (z * ((((N / d) * a : ℕ) : ZMod N))) := by
@@ -332,9 +332,9 @@ theorem primeWheelReducedConductorKernel_eq_torsionSums
             rw [reducedAdditiveConductor_eq_addOrderOf W r]
             by_cases hord : addOrderOf r = q
             · have hrev : q = addOrderOf r := hord.symm
-              simp [hord, hrev]
+              rw [if_pos hrev, if_pos hord, one_mul]
             · have hrev : q ≠ addOrderOf r := fun h => hord h.symm
-              simp [hord, hrev]
+              rw [if_neg hrev, if_neg hord, zero_mul]
     _ =
       ∑ r : ZMod W.modulus,
         (∑ d ∈ q.divisors,
@@ -358,10 +358,12 @@ theorem primeWheelReducedConductorKernel_eq_torsionSums
                 addOrderOf_dvd_iff_nsmul_eq_zero
               by_cases hzero : d • r = 0
               · have hdiv : addOrderOf r ∣ d := hiff.mpr hzero
-                simp [hzero, hdiv]
+                rw [if_pos hdiv, if_pos hzero]
+                ring
               · have hdiv : ¬ addOrderOf r ∣ d :=
                   fun h => hzero (hiff.mp h)
-                simp [hzero, hdiv]
+                rw [if_neg hdiv, if_neg hzero]
+                ring
     _ =
       ∑ d ∈ q.divisors,
         (((μ (q / d) : ℤ) : ℂ)) *
