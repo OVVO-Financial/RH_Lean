@@ -50,15 +50,19 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Lean, restore build cache, and audit imports
+      - name: Set up Lean and restore build cache
         uses: leanprover/lean-action@v1
         with:
           use-github-cache: true
           use-mathlib-cache: true
-          mk_all-check: true
           build: false
           test: false
           lint: false
+
+      - name: Audit Lean import coverage
+        run: |
+          lake exe mk_all
+          git diff --exit-code -- RHLean.lean
 
       - name: Build Lean project
         id: directbuild
@@ -66,14 +70,14 @@ jobs:
         run: lake build RHLean --wfail > lean-build.log 2>&1
 
       - name: Upload Lean build log
-        if: always()
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: lean-build-log
           path: lean-build.log
 
       - name: Print Lean build log
-        if: always()
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
         run: cat lean-build.log
 
       - name: Fail if Lean build failed
