@@ -84,7 +84,11 @@ private theorem localFullCharacterSum
         ∑ x : Fin (p ^ 2), F (finNatCastEquivZMod (p ^ 2) x) := by
           apply Finset.sum_congr rfl
           intro x hx
-          unfold F finNatCastEquivZMod
+          change
+            ZMod.stdAddChar
+                (-(((x.val : ℕ) : ZMod (p ^ 2)) * r)) =
+              ZMod.stdAddChar
+                (((x.val : ℕ) : ZMod (p ^ 2)) * (-r))
           congr 1
           ring
     _ = ∑ z : ZMod (p ^ 2), F z :=
@@ -122,8 +126,7 @@ private theorem primeMulFrequency_eq_zero_iff
             ((r.val : ℕ) : ZMod (p ^ 2))) := by
               rw [ZMod.natCast_zmod_val]
       _ = (((p * r.val : ℕ) : ZMod (p ^ 2))) := by
-            push_cast
-            rfl
+            rw [Nat.cast_mul]
       _ = 0 := hcast
 
 /-- The natural numbers below `p^2` divisible by `p` are exactly
@@ -176,6 +179,9 @@ private theorem localPrimeMultipleCharacterSum_eq
       (ZMod.stdAddChar : AddChar (ZMod (p ^ 2)) ℂ) a b
     rw [← hpow]
     congr 1
+    change
+      -((((p * a : ℕ) : ZMod (p ^ 2))) * r) =
+        a • b
     dsimp [b]
     simp [nsmul_eq_mul]
     ring
@@ -201,8 +207,18 @@ private theorem localPrimeMultipleCharacterSum_eq
         ZMod.injective_stdAddChar (by simpa using h)
       exact hb hzero
     have hbsmul : p • b = 0 := by
-      dsimp [b]
-      simp [nsmul_eq_mul, pow_two]
+      change
+        ((p : ℕ) : ZMod (p ^ 2)) *
+            (-(((p : ℕ) : ZMod (p ^ 2)) * r)) = 0
+      calc
+        ((p : ℕ) : ZMod (p ^ 2)) *
+            (-(((p : ℕ) : ZMod (p ^ 2)) * r)) =
+          -((((p ^ 2 : ℕ) : ZMod (p ^ 2))) * r) := by
+            push_cast
+            ring
+        _ = 0 := by
+          rw [ZMod.natCast_self]
+          simp
     have hpow : ZMod.stdAddChar b ^ p = 1 := by
       calc
         ZMod.stdAddChar b ^ p = ZMod.stdAddChar (p • b) := by
@@ -336,9 +352,6 @@ theorem localPrimeCombCRTSpectrum_eq_explicit
       localPrimeCombNaturalSpectrum p hp r =
         localPrimeCombCRTSpectrum p hp s := by
     unfold localPrimeCombNaturalSpectrum localPrimeCombCRTSpectrum
-      localPrimeCombCRTAtom
-    apply Finset.sum_congr rfl
-    intro x hx
     rfl
   have hzero : r = 0 ↔ s.val = 0 := by
     dsimp [r]
@@ -374,18 +387,37 @@ theorem localPrimeCombNaturalSpectrum_eq_typeCoefficient
   by_cases hr : r = 0
   · simp [hr, hp.ne_one]
   · by_cases hdiv : p ∣ r.val
-    · have hp2 : p ≠ 1 := hp.ne_one
-      have hppow : p ^ 2 ≠ p := by
+    · have hppow : p ^ 2 ≠ p := by
         intro h
         have hp2le := hp.two_le
         nlinarith
-      simp [hr, hdiv, hp2, hppow]
-    · have hp2 : p ^ 2 ≠ 1 := by
+      simp [hr, hdiv, hp.ne_one, hppow]
+    · have hpSqNeOne : p ^ 2 ≠ 1 := by
         have hp2le := hp.two_le
         nlinarith
-      have hppow : p ^ 2 ≠ p := by
+      have hpSqNeP : p ^ 2 ≠ p := by
         have hp2le := hp.two_le
         nlinarith
-      simp [hr, hdiv, hp.ne_one, hp2, hppow]
+      simp [hr, hdiv, hp.ne_one, hpSqNeOne, hpSqNeP]
+
+/-- The complete raw CRT spectrum is an explicit product of the local
+three-case coefficients.  No norm has been taken and all local signs remain. -/
+theorem primeWheelCRTSpectrum_eq_neg_prod_explicit
+    (S : Finset ℕ)
+    (hprime : ∀ p ∈ S, Nat.Prime p)
+    (r : ∀ p : {p // p ∈ S}, Fin (p.val ^ 2)) :
+    primeWheelCRTSpectrum S hprime r =
+      -∏ p : {p // p ∈ S},
+        (if (r p).val = 0 then
+          ((((p.val - 1) ^ 2 : ℕ) : ℂ))
+        else if p.val ∣ (r p).val then
+          1 - 2 * (p.val : ℂ)
+        else 1) := by
+  rw [primeWheelCRTSpectrum_eq_neg_prod_local]
+  apply congrArg Neg.neg
+  apply Fintype.prod_congr
+  intro p
+  exact localPrimeCombCRTSpectrum_eq_explicit
+    p.val (hprime p.val p.property) (r p)
 
 end RHLean.Analysis
