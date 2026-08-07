@@ -290,13 +290,17 @@ theorem card_divisors_le_subpolynomial
       Real.rpow (((Cn ^ k) * n : ℕ) : ℝ) (k : ℝ)⁻¹ =
         (Cn : ℝ) * Real.rpow (n : ℝ) (k : ℝ)⁻¹ := by
     simp only [Nat.cast_mul, Nat.cast_pow]
+    have hCnRoot :
+        Real.rpow ((Cn : ℝ) ^ k) (k : ℝ)⁻¹ = (Cn : ℝ) := by
+      exact Real.pow_rpow_inv_natCast
+        (x := (Cn : ℝ)) (n := k) (by positivity) (Nat.ne_of_gt hkPos)
     calc
       Real.rpow ((Cn : ℝ) ^ k * (n : ℝ)) (k : ℝ)⁻¹ =
           Real.rpow ((Cn : ℝ) ^ k) (k : ℝ)⁻¹ *
             Real.rpow (n : ℝ) (k : ℝ)⁻¹ :=
         Real.mul_rpow (by positivity) (by positivity)
       _ = (Cn : ℝ) * Real.rpow (n : ℝ) (k : ℝ)⁻¹ := by
-        rw [Real.pow_rpow_inv_natCast (by positivity) (Nat.ne_of_gt hkPos)]
+        rw [hCnRoot]
   have hbase : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
   have hexp :
       Real.rpow (n : ℝ) (k : ℝ)⁻¹ ≤ Real.rpow (n : ℝ) ε :=
@@ -465,8 +469,9 @@ theorem deathShellDivisorMajorant_subpolynomial
           0 ≤ Cτ * Real.rpow ((L * (t + 1) : ℕ) : ℝ) ε :=
         mul_nonneg hCτ (Real.rpow_nonneg (by positivity) ε)
       exact mul_le_mul_of_nonneg_right hcardReal hfactorNonneg
-    _ = C * Real.rpow ((t + 1 : ℕ) : ℝ) ε := by
-      rw [hscale]
+    _ = C * Real.rpow ((t : ℝ) + 1) ε := by
+      have hsucc : (((t + 1 : ℕ) : ℝ)) = (t : ℝ) + 1 := by norm_num
+      rw [hscale, hsucc]
       dsimp [C]
       ring
 
@@ -522,7 +527,11 @@ theorem norm_lifetimeDeathMass_le_rpow
   have hraw := norm_lifetimeDeathMass_le_initial_add_sum_divisorMajorant hΛ n
   have hsplit :
       Real.rpow B (1 + ε) = B * Real.rpow B ε := by
-    rw [Real.rpow_add hbasePos 1 ε, Real.rpow_one]
+    calc
+      Real.rpow B (1 + ε) =
+          Real.rpow B 1 * Real.rpow B ε :=
+        Real.rpow_add hbasePos 1 ε
+      _ = B * Real.rpow B ε := by rw [Real.rpow_one]
   have htail :
       (n : ℝ) * (Cinc * Real.rpow B ε) ≤
         Cinc * Real.rpow B (1 + ε) := by
@@ -609,10 +618,17 @@ theorem lifetimeDeathUniformLocalBounded
       have hphase :
           (Real.rpow (((2 * N : ℕ) : ℝ)) (1 + δ)) ^ 2 =
             Real.rpow (((2 * N : ℕ) : ℝ)) (2 + 2 * δ) := by
-        rw [← Real.rpow_natCast]
-        rw [← Real.rpow_mul hbase0]
-        congr 1
-        ring
+        let X : ℝ := ((2 * N : ℕ) : ℝ)
+        have hX0 : 0 ≤ X := by dsimp [X]; positivity
+        calc
+          (Real.rpow X (1 + δ)) ^ 2 =
+              Real.rpow (Real.rpow X (1 + δ)) (2 : ℝ) := by
+            exact (Real.rpow_natCast (Real.rpow X (1 + δ)) 2).symm
+          _ = Real.rpow X ((1 + δ) * 2) := by
+            exact (Real.rpow_mul hX0 (1 + δ) 2).symm
+          _ = Real.rpow X (2 + 2 * δ) := by
+            congr 1
+            ring
       have htwoN :
           Real.rpow (((2 * N : ℕ) : ℝ)) (2 + 2 * δ) =
             Real.rpow 2 (2 + 2 * δ) *
