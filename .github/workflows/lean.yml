@@ -50,16 +50,26 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Lean and restore build cache
+      - name: Set up Lean and Mathlib
         uses: leanprover/lean-action@v1
         with:
-          use-github-cache: true
+          use-github-cache: false
           use-mathlib-cache: true
           build: false
           test: false
           lint: false
 
-      - name: Audit Lean import coverage
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+
+      - name: Generate Lean root import manifest
+        id: importaudit
+        continue-on-error: true
         run: |
           set +e
           lake exe mk_all
@@ -71,10 +81,28 @@ jobs:
           fi
           exit "$mk_status"
 
+      - name: Upload generated Lean root manifest
+        if: steps.importaudit.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-rhlean-root
+          path: RHLean.lean
+
+      - name: Fail if Lean import manifest is stale
+        if: steps.importaudit.outcome == 'failure'
+        run: exit 1
+
       - name: Build Lean project
         id: directbuild
         continue-on-error: true
         run: lake build RHLean --wfail > lean-build.log 2>&1
+
+      - name: Save RHLean build cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
 
       - name: Upload Lean build log
         if: ${{ always() && hashFiles('lean-build.log') != '' }}
