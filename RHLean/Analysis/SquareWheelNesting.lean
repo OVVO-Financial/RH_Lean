@@ -144,7 +144,7 @@ theorem norm_sum_canonicalTotalIncrement_Ico_le_two_mul_of_wheelResidual_bound
       primorialBlockLower k ≤ RHLean.Analysis.squarePrefixEndpoint b)
     (hrightUpper :
       RHLean.Analysis.squarePrefixEndpoint b ≤ primorialBlockUpper k)
-    (B : ℝ) (hB : 0 ≤ B)
+    (B : ℝ)
     (hresidual : ∀ x : ℕ,
       primorialBlockLower k ≤ x → x ≤ primorialBlockUpper k →
       ‖((((primorialWheelSystem k).residual x : ℤ) : ℂ))‖ ≤ B) :
@@ -179,7 +179,7 @@ theorem norm_canonicalTotalIncrement_le_two_mul_of_wheelResidual_bound
       primorialBlockLower k ≤ RHLean.Analysis.squarePrefixEndpoint j)
     (hrightUpper :
       RHLean.Analysis.squarePrefixEndpoint j ≤ primorialBlockUpper k)
-    (B : ℝ) (hB : 0 ≤ B)
+    (B : ℝ)
     (hresidual : ∀ x : ℕ,
       primorialBlockLower k ≤ x → x ≤ primorialBlockUpper k →
       ‖((((primorialWheelSystem k).residual x : ℤ) : ℂ))‖ ≤ B) :
@@ -187,6 +187,6 @@ theorem norm_canonicalTotalIncrement_le_two_mul_of_wheelResidual_bound
   simpa using
     (norm_sum_canonicalTotalIncrement_Ico_le_two_mul_of_wheelResidual_bound
       k j j hj (by omega) hleftLower hleftUpper hrightLower hrightUpper
-      B hB hresidual)
+      B hresidual)
 
 end RHLean.Proof
