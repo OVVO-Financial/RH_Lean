@@ -51,11 +51,11 @@ theorem squareWheelSampleResponse_eq_nonzero_add_zero
   calc
     (∑ r : ZMod W.modulus, squareWheelSampleFrequencyAtom W n r) =
         ∑ r : ZMod W.modulus,
-          (if r = 0 then 0 else squareWheelQuadraticFrequencyAtom W n r) +
+          ((if r = 0 then 0 else squareWheelQuadraticFrequencyAtom W n r) +
           (if r = 0 then
             ((W.modulus : ℂ)⁻¹) * (((W.residual W.upper : ℤ) : ℂ)) *
               (squareWheelSampleLength W n : ℂ)
-          else 0) := by
+          else 0)) := by
       apply Finset.sum_congr rfl
       intro r hr
       by_cases hr0 : r = 0
