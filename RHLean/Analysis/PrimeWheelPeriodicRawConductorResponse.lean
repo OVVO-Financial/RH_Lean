@@ -11,8 +11,11 @@ left periodic and only the smooth correction is zero-padded.  This file groups
 that exact response by reduced additive conductor before taking any norm.
 
 The raw and smooth terms are kept in the same conductor packet, and every
-packet satisfies an exact `raw - 2 * smooth` identity.  These are finite
-regrouping theorems only; no cancellation estimate is asserted.
+packet satisfies an exact `raw - 2 * smooth` identity.  A shell on which the raw
+spectrum is constant collapses exactly to its additive-character kernel.  This
+is the finite Ramanujan-kernel step needed before any analytic estimate.
+
+These are finite regrouping theorems only; no cancellation estimate is asserted.
 -/
 
 open scoped BigOperators
@@ -155,5 +158,171 @@ theorem primorialPeriodicRawResidual_eq_sum_conductorResponses
         primorialPeriodicRawJointConductorResponse k x q := by
   rw [← primorialPeriodicRawSpectralPrefix_eq_residual k hlower hupper]
   exact primorialPeriodicRawSpectralPrefix_eq_sum_conductorResponses k x
+
+/-- The window response carried by one reduced-conductor shell after factoring
+out a shell-constant raw Fourier coefficient. -/
+def primorialReducedConductorWindowResponse
+    (k x q : ℕ) : ℂ :=
+  ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+    if q = reducedAdditiveConductor r then
+      (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
+        (primorialMinimalWheelSystem k).prefixWindowSpectrum x (-r)
+    else 0
+
+/-- Additive-character kernel of one reduced-conductor shell.  On the natural
+CRT torus this is the finite kernel that becomes the classical Ramanujan sum
+once the primitive-residue parametrization is installed. -/
+def primorialReducedConductorKernel
+    (k q : ℕ)
+    (z : ZMod (primorialMinimalWheelSystem k).modulus) : ℂ :=
+  ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+    if q = reducedAdditiveConductor r then
+      ZMod.stdAddChar (z * r)
+    else 0
+
+/-- Physical-space pairing of a pinned prefix with one reduced-conductor
+character kernel. -/
+def primorialReducedConductorRamanujanWindow
+    (k x q : ℕ) : ℂ :=
+  (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
+    ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
+      (primorialMinimalWheelSystem k).torusPrefixWindow x z *
+        primorialReducedConductorKernel k q z
+
+/-- Sum of the shell-restricted window transforms is exactly the pinned window
+paired with the shell character kernel. -/
+theorem primorialReducedConductor_prefixSpectrumSum_eq_kernelPairing
+    (k x q : ℕ) :
+    (∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+      if q = reducedAdditiveConductor r then
+        (primorialMinimalWheelSystem k).prefixWindowSpectrum x (-r)
+      else 0) =
+      ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
+        (primorialMinimalWheelSystem k).torusPrefixWindow x z *
+          primorialReducedConductorKernel k q z := by
+  classical
+  unfold PrimeWheelFiniteSystem.prefixWindowSpectrum
+    primorialReducedConductorKernel
+  simp only [ZMod.dft_apply, smul_eq_mul]
+  calc
+    (∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+      if q = reducedAdditiveConductor r then
+        ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
+          ZMod.stdAddChar (-(z * (-r))) *
+            (primorialMinimalWheelSystem k).torusPrefixWindow x z
+      else 0) =
+      ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+        ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
+          if q = reducedAdditiveConductor r then
+            ZMod.stdAddChar (z * r) *
+              (primorialMinimalWheelSystem k).torusPrefixWindow x z
+          else 0 := by
+            apply Finset.sum_congr rfl
+            intro r hr
+            by_cases hq : q = reducedAdditiveConductor r
+            · simp only [hq, if_true]
+              apply Finset.sum_congr rfl
+              intro z hz
+              congr 1
+              congr 1
+              ring
+            · simp [hq]
+    _ =
+      ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
+        ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+          if q = reducedAdditiveConductor r then
+            ZMod.stdAddChar (z * r) *
+              (primorialMinimalWheelSystem k).torusPrefixWindow x z
+          else 0 := by
+            exact Finset.sum_comm
+    _ =
+      ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
+        (primorialMinimalWheelSystem k).torusPrefixWindow x z *
+          ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+            if q = reducedAdditiveConductor r then
+              ZMod.stdAddChar (z * r)
+            else 0 := by
+              apply Finset.sum_congr rfl
+              intro z hz
+              rw [Finset.mul_sum]
+              apply Finset.sum_congr rfl
+              intro r hr
+              by_cases hq : q = reducedAdditiveConductor r
+              · simp [hq]
+                ring
+              · simp [hq]
+
+/-- The normalized shell window response is exactly its Ramanujan-kernel
+pairing. -/
+theorem primorialReducedConductorWindowResponse_eq_ramanujanWindow
+    (k x q : ℕ) :
+    primorialReducedConductorWindowResponse k x q =
+      primorialReducedConductorRamanujanWindow k x q := by
+  classical
+  unfold primorialReducedConductorWindowResponse
+    primorialReducedConductorRamanujanWindow
+  calc
+    (∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+      if q = reducedAdditiveConductor r then
+        (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
+          (primorialMinimalWheelSystem k).prefixWindowSpectrum x (-r)
+      else 0) =
+      (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
+        ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+          if q = reducedAdditiveConductor r then
+            (primorialMinimalWheelSystem k).prefixWindowSpectrum x (-r)
+          else 0 := by
+            rw [Finset.mul_sum]
+            apply Finset.sum_congr rfl
+            intro r hr
+            by_cases hq : q = reducedAdditiveConductor r
+            · simp [hq]
+            · simp [hq]
+    _ =
+      (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
+        ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
+          (primorialMinimalWheelSystem k).torusPrefixWindow x z *
+            primorialReducedConductorKernel k q z := by
+              rw [primorialReducedConductor_prefixSpectrumSum_eq_kernelPairing]
+
+/-- If the periodic raw spectrum is constant on a reduced-conductor shell, its
+entire shell response factors exactly as that coefficient times the normalized
+Ramanujan window.  The constancy hypothesis is an explicit theorem argument,
+not an axiom or hidden estimate. -/
+theorem primorialPeriodicRawConductorResponse_eq_constant_mul_ramanujanWindow
+    (k x q : ℕ) (C : ℂ)
+    (hconst : ∀ r : ZMod (primorialMinimalWheelSystem k).modulus,
+      q = reducedAdditiveConductor r →
+        primorialPeriodicRawSpectrum k r = C) :
+    primorialPeriodicRawConductorResponse k x q =
+      C * primorialReducedConductorRamanujanWindow k x q := by
+  classical
+  rw [← primorialReducedConductorWindowResponse_eq_ramanujanWindow]
+  unfold primorialPeriodicRawConductorResponse
+    primorialPeriodicRawSpectralAtom
+    primorialReducedConductorWindowResponse
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro r hr
+  by_cases hq : q = reducedAdditiveConductor r
+  · simp only [hq, if_true]
+    rw [hconst r hq]
+    ring
+  · simp [hq]
+
+/-- Under the same exact shell-constancy hypothesis, the actual corrected
+packet is raw Ramanujan response minus twice the smooth packet.  This is the
+signed form that later estimates must preserve. -/
+theorem primorialPeriodicRawJointConductorResponse_eq_constantRamanujan_sub_two_smooth
+    (k x q : ℕ) (C : ℂ)
+    (hconst : ∀ r : ZMod (primorialMinimalWheelSystem k).modulus,
+      q = reducedAdditiveConductor r →
+        primorialPeriodicRawSpectrum k r = C) :
+    primorialPeriodicRawJointConductorResponse k x q =
+      C * primorialReducedConductorRamanujanWindow k x q -
+        2 * primorialPeriodicSmoothConductorResponse k x q := by
+  rw [primorialPeriodicRawJointConductorResponse_eq_raw_sub_two_smooth]
+  rw [primorialPeriodicRawConductorResponse_eq_constant_mul_ramanujanWindow
+    k x q C hconst]
 
 end RHLean.Analysis
