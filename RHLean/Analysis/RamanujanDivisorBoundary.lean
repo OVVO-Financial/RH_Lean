@@ -64,7 +64,7 @@ theorem sum_moebius_divisors_eq_one_or_zero (q : ℕ) :
     _ = (1 : ArithmeticFunction ℤ) q := by
       rw [ArithmeticFunction.coe_zeta_mul_moebius]
     _ = if q = 1 then 1 else 0 := by
-      simp
+      exact ArithmeticFunction.one_apply
 
 /-- Complementary-divisor form of the same Möbius cancellation. -/
 theorem sum_moebius_complementary_divisors_eq_zero
@@ -73,8 +73,7 @@ theorem sum_moebius_complementary_divisors_eq_zero
   calc
     (∑ d ∈ q.divisors, μ (q / d)) =
         ∑ d ∈ q.divisors, μ d := by
-          simpa using
-            (Nat.sum_div_divisors q (fun d : ℕ => μ d))
+          exact Nat.sum_div_divisors q (fun d : ℕ => μ d)
     _ = 0 := by
       rw [sum_moebius_divisors_eq_one_or_zero q]
       simp [Nat.ne_of_gt hq]
