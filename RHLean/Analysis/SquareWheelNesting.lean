@@ -21,8 +21,12 @@ inside one primorial block,
 More generally every consecutive run of complete square blocks telescopes to
 one difference of wheel-residual values. Therefore a uniform wheel-residual
 bound controls all such block runs with only the sharp triangle-inequality
-factor two. This file contains only exact finite identities and deterministic
-norm transfers; it asserts no new analytic estimate.
+factor two. Conversely, any route from individual block estimates back to the
+wheel residual must retain cancellation in these consecutive signed sums; an
+absolute-value sum over the blocks loses a full square-root factor.
+
+This file contains only exact finite identities and deterministic norm transfers;
+it asserts no new analytic estimate.
 -/
 
 noncomputable section
