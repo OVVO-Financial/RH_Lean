@@ -110,9 +110,7 @@ theorem thirty_le_primorialEndpoint_three : 30 ≤ primorialEndpoint 3 := by
     30 = 6 * 5 := by norm_num
     _ ≤ primorialEndpoint 2 * wheelPrime 2 :=
       Nat.mul_le_mul hE2 five_le_wheelPrime_two
-    _ = primorialEndpoint 3 := by
-      symm
-      simpa using primorialEndpoint_succ 2
+    _ = primorialEndpoint 3 := (primorialEndpoint_succ 2).symm
 
 /-- Every synchronized block from `k=2` onward has right endpoint at least 30. -/
 theorem thirty_le_primorialBlockUpper
