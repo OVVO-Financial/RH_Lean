@@ -2,20 +2,24 @@
 \label{sec:lean}
 %======================================================================
 
-Formalization is used here as a mathematical audit: every cutoff, endpoint convention, canonical factor, sign, support condition, and unresolved analytic premise is explicit.  The Lean 4 development is in the repository
+Formalization is used here as a mathematical audit: every cutoff, endpoint convention, canonical factor, sign, support condition, and unresolved analytic premise is explicit.  The canonical repository for the standalone square-block paper and its paper-facing Lean source is
 \[
- \texttt{https://github.com/OVVO-Financial/RH\_Lean}
+ \texttt{https://github.com/OVVO-Financial/RH\_Square\_Block}.
 \]
-and is pinned to mathlib \texttt{v4.24.0}.  The authoritative build command is
+The formal development is pinned to mathlib \texttt{v4.24.0}.  The Lean sources published with this paper are a curated publication snapshot of modules verified in the full development; the authoritative verification command for that source is
 \[
  \texttt{lake build RHLean -{}-wfail}.
 \]
 
-For this paper there is a dedicated source export at
+The standalone repository places the publication source at
 \[
- \texttt{export\_square\_block/}.
+ \texttt{paper/},
 \]
-It contains only the square-block manuscript and the Lean source snapshots needed to support its arithmetic, geometry, canonical low/high decomposition, lifetime death estimate, and square-prefix RH bridge.  Modules belonging to other block architectures or to a later synthesis are deliberately excluded from this standalone export.
+the curated Lean source at
+\[
+ \texttt{lean/RHLean/},
+\]
+and the module inventory in \texttt{MODULES.md}.  It contains only the square-block manuscript and the Lean source snapshots needed to support its arithmetic, geometry, canonical low/high decomposition, lifetime death estimate, and square-prefix RH bridge.  Modules belonging to other block architectures or to a later synthesis are deliberately excluded from this standalone repository.
 
 \subsection{Paper-facing square-prefix spine}
 
@@ -31,7 +35,7 @@ The exported formal spine contains:
 \item \texttt{SquareBlockSurvivorBridge.lean}: a paper-facing wrapper for the exact active-survivor cofactor operator and the death-removal equivalence.
 \end{itemize}
 
-The export also contains the intrinsic squared-complex geometry and exact scale-transfer source used in the body of the paper: Fermat coordinates, complex-square recovery, cofactor parabolas, the $2ab$ displacement identities, conformality, prime-first transport transfer, reciprocal prime dilation, and the dyadic transport identities.  No theorem from another block architecture is required for any statement in this manuscript.
+The repository also contains the intrinsic squared-complex geometry and exact scale-transfer source used in the body of the paper: Fermat coordinates, complex-square recovery, cofactor parabolas, the $2ab$ displacement identities, conformality, prime-first transport transfer, reciprocal prime dilation, and the dyadic transport identities.  No theorem from another block architecture is required for any statement in this manuscript.
 
 \subsection{Assumption boundary}
 
