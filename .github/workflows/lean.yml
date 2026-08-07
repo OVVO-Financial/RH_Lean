@@ -61,8 +61,15 @@ jobs:
 
       - name: Audit Lean import coverage
         run: |
+          set +e
           lake exe mk_all
-          git diff --exit-code -- RHLean.lean
+          mk_status=$?
+          set -e
+          git diff -- RHLean.lean
+          if ! git diff --quiet -- RHLean.lean; then
+            exit 1
+          fi
+          exit "$mk_status"
 
       - name: Build Lean project
         id: directbuild
