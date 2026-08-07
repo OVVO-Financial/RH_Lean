@@ -61,7 +61,13 @@ theorem ramanujanDivisorKernel_sub_eq_shift
   intro d hd
   have hdq : d ∣ q := Nat.dvd_of_mem_divisors hd
   have hdN : d ∣ N := dvd_trans hdq hqmod
-  rw [modEq_sub_val_zero_iff hdN a b]
+  have hiff := modEq_sub_val_zero_iff hdN a b
+  by_cases hmod : Nat.ModEq d (b - a).val 0
+  · have hshift : Nat.ModEq d b.val a.val := hiff.mp hmod
+    rw [if_pos hmod, if_pos hshift]
+  · have hshift : ¬ Nat.ModEq d b.val a.val :=
+      fun h => hmod (hiff.mpr h)
+    rw [if_neg hmod, if_neg hshift]
 
 /-- Any value-dependent sum over the pinned torus prefix is exactly the
 corresponding natural sum over `(lower,x]`. -/
@@ -77,11 +83,23 @@ private theorem zmodPrefixValSum_eq_Ioc
     (∑ z : ZMod W.modulus,
       (if W.lower < z.val ∧ z.val ≤ x then 1 else 0) * f z.val) =
       ∑ i : Fin W.modulus,
+        (if W.lower <
+              (finNatCastEquivZModBoundary W.modulus i).val ∧
+            (finNatCastEquivZModBoundary W.modulus i).val ≤ x then 1 else 0) *
+          f (finNatCastEquivZModBoundary W.modulus i).val := by
+            exact ((finNatCastEquivZModBoundary W.modulus).sum_comp
+              (fun z : ZMod W.modulus =>
+                (if W.lower < z.val ∧ z.val ≤ x then 1 else 0) *
+                  f z.val)).symm
+    _ = ∑ i : Fin W.modulus,
         (if W.lower < i.val ∧ i.val ≤ x then 1 else 0) * f i.val := by
-          exact ((finNatCastEquivZModBoundary W.modulus).sum_comp
-            (fun z : ZMod W.modulus =>
-              (if W.lower < z.val ∧ z.val ≤ x then 1 else 0) *
-                f z.val)).symm
+          apply Finset.sum_congr rfl
+          intro i hi
+          have hval :
+              (finNatCastEquivZModBoundary W.modulus i).val = i.val := by
+            change ((i.val : ZMod W.modulus)).val = i.val
+            exact ZMod.val_natCast_of_lt i.isLt
+          rw [hval]
     _ = ∑ n ∈ Finset.range W.modulus,
         (if W.lower < n ∧ n ≤ x then 1 else 0) * f n := by
           exact Fin.sum_univ_eq_sum_range
@@ -119,14 +137,29 @@ private theorem zmodSmoothBlockValSum_eq_Ioc
           ((W.smoothCoreSite z.val : ℤ) : ℂ)
         else 0) * f z.val) =
       ∑ i : Fin W.modulus,
-        (if W.lower < i.val ∧ i.val ≤ W.upper then
-            ((W.smoothCoreSite i.val : ℤ) : ℂ)
-          else 0) * f i.val := by
+        (if W.lower <
+              (finNatCastEquivZModBoundary W.modulus i).val ∧
+            (finNatCastEquivZModBoundary W.modulus i).val ≤ W.upper then
+            ((W.smoothCoreSite
+              (finNatCastEquivZModBoundary W.modulus i).val : ℤ) : ℂ)
+          else 0) *
+          f (finNatCastEquivZModBoundary W.modulus i).val := by
             exact ((finNatCastEquivZModBoundary W.modulus).sum_comp
               (fun z : ZMod W.modulus =>
                 (if W.lower < z.val ∧ z.val ≤ W.upper then
                     ((W.smoothCoreSite z.val : ℤ) : ℂ)
                   else 0) * f z.val)).symm
+    _ = ∑ i : Fin W.modulus,
+        (if W.lower < i.val ∧ i.val ≤ W.upper then
+            ((W.smoothCoreSite i.val : ℤ) : ℂ)
+          else 0) * f i.val := by
+            apply Finset.sum_congr rfl
+            intro i hi
+            have hval :
+                (finNatCastEquivZModBoundary W.modulus i).val = i.val := by
+              change ((i.val : ZMod W.modulus)).val = i.val
+              exact ZMod.val_natCast_of_lt i.isLt
+            rw [hval]
     _ = ∑ n ∈ Finset.range W.modulus,
         (if W.lower < n ∧ n ≤ W.upper then
             ((W.smoothCoreSite n : ℤ) : ℂ)
@@ -498,6 +531,7 @@ theorem primorialPeriodicRawJointConductorResponse_eq_divisorBoundary
       (primorialMinimalWheelSystem k) r
   rw [primorialPeriodicRawJointConductorResponse_eq_frequencyRamanujan_sub_two_smooth
     k x q r hr]
+  unfold primorialReducedConductorRamanujanWindow
   rw [primeWheelReducedConductorRamanujanWindow_eq_divisorBoundary
     (primorialMinimalWheelSystem k) hx hq hqmod]
   rw [primorialPeriodicSmoothConductorResponse_eq_generic]
