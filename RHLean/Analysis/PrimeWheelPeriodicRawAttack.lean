@@ -8,6 +8,7 @@ import RHLean.Analysis.PrimeWheelRawShellConstancy
 import RHLean.Analysis.RamanujanDivisorBoundary
 import RHLean.Analysis.PrimeWheelRamanujanIdentification
 import RHLean.Analysis.PrimeWheelRamanujanBoundaryReduction
+import RHLean.Analysis.PrimeWheelRawConductorCoefficient
 
 /-!
 # Periodic-raw conductor attack umbrella
@@ -22,8 +23,10 @@ actual periodic raw spectrum, and the identification of every occupied reduced-
 conductor character kernel with the classical divisor-form Ramanujan sum.
 For every conductor `q > 1`, both the raw interval and every shifted smooth
 interval have their common bulk term cancelled exactly, leaving only finite
-Möbius-weighted divisor-residue boundary defects.  The raw and smooth terms stay
-in the same signed packet before any norm is taken.
+Möbius-weighted divisor-residue boundary defects.  The remaining common raw
+shell Fourier coefficient is also eliminated: it is an exact finite arithmetic
+divisor-tail sum indexed by the three local exponents `0,1,2`.  Thus the final
+signed packet contains no unidentified Fourier scalar before any norm is taken.
 
 No analytic estimate is claimed here.
 -/
