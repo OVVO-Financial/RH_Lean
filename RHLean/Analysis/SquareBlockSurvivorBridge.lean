@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.SquareBlockDeathProcess
 import RHLean.Proof.SurvivorZeroMode
 
 /-!
