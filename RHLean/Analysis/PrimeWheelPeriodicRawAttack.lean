@@ -28,14 +28,14 @@ Möbius-weighted divisor-residue boundary defects.  The remaining common raw
 shell Fourier coefficient is also eliminated: it is an exact finite arithmetic
 divisor-tail sum indexed by the three local exponents `0,1,2`.
 
-The normalized raw conductor coefficient now has an exact local product law.
+The normalized raw conductor coefficient has an exact local product law.
 First-power conductor coordinates cost at most `2/p`, square coordinates cost
-exactly `1/p^2`, and the total absolute mass over all exponent-pattern
-conductors is the finite Euler product `prod_p (1 + 1/p^2)`.  A marked
-generating identity isolates the wheel primes not dividing the pinned
-primorial lower endpoint.  Thus the remaining analytic target may be phrased as
-a weighted conductor-average problem rather than a uniform unweighted pinned
-estimate.
+exactly `1/p^2`, and the total absolute mass over all exponent patterns is the
+finite Euler product `prod_p (1 + 1/p^2)`.  A marked generating identity isolates
+the wheel primes not dividing the pinned primorial lower endpoint.  These are
+finite structural diagnostics only: they do not by themselves bound the signed
+`q > 1` packet.  Any remaining analytic argument must preserve the global
+interaction of raw, smooth, and zero-mode contributions before norms are taken.
 
 No analytic estimate is claimed here.
 -/
