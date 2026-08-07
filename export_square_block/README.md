@@ -117,12 +117,10 @@ See [`MODULES.md`](MODULES.md) for the complete curated inventory.
 
 ## Repository layout
 
-- `paper/main.tex` — manuscript entry point.
+- `paper/squared-complex_framework.tex` — manuscript entry point.
 - `paper/sections/` — modular publication source.
 - `lean/RHLean/` — curated paper-facing Lean source.
 - `MODULES.md` — module-by-module mathematical scope.
-
-The contents of `export_square_block/` are intended to mirror the root of `square-block-mobius`.
 
 ## Build the paper
 
@@ -130,9 +128,7 @@ From the standalone repository root:
 
 ```bash
 cd paper
-pdflatex main.tex
-pdflatex main.tex
-pdflatex main.tex
+pdflatex squared-complex_framework.tex
 ```
 
 Three passes resolve the table of contents, theorem references, and page count.
