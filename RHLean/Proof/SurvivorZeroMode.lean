@@ -192,6 +192,7 @@ private theorem survivorSource_to_pair_mem
     (hm : m ∈ survivorSquarefreeSourceSet Λ t) :
     (canonicalCofactor m, canonicalLargestPrimeFactor m) ∈
       survivorZeroModePairSet Λ t := by
+  classical
   rcases Finset.mem_filter.mp hm with ⟨hmMoving, hsupport⟩
   rcases hsupport with ⟨hmgt, hsq⟩
   have hmMoving' := hmMoving
@@ -251,6 +252,7 @@ private theorem survivorPair_surjective
     (cq : ℕ × ℕ) (hcq : cq ∈ survivorZeroModePairSet Λ t) :
     ∃ m ∈ survivorSquarefreeSourceSet Λ t,
       (canonicalCofactor m, canonicalLargestPrimeFactor m) = cq := by
+  classical
   rcases Finset.mem_filter.mp hcq with ⟨_hbase, hpair⟩
   rcases hpair with ⟨hdata, hmulX, hhigh⟩
   have hqPrime := hdata.1
@@ -444,12 +446,13 @@ theorem survivorZeroMode_core_eq_one_of_endpoint_lt_two_mul_prime
     (hq : q ∈ survivorZeroModePrimeFiber Λ t c)
     (hlarge : RHLean.Analysis.squarePrefixEndpoint t < 2 * q) :
     c = 1 := by
+  classical
   rcases Finset.mem_filter.mp hq with ⟨_hqRange, hpair⟩
   have hprod : c * q ≤ RHLean.Analysis.squarePrefixEndpoint t := hpair.2.1
   by_contra hne
   have hc2 : 2 ≤ c := by omega
   have htwo : 2 * q ≤ c * q := Nat.mul_le_mul_right q hc2
-  omega
+  exact (not_le_of_gt hlarge) (htwo.trans hprod)
 
 /-- The explicit zero mode has exactly the same translated-window energy as the
 actual lifetime-active survivor sequence. -/
