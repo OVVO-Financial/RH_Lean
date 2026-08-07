@@ -15,7 +15,9 @@ No estimate and no external block architecture is used here.
 
 noncomputable section
 
-namespace RHLean.Proof
+namespace RHLean.Analysis
+
+open RHLean.Proof
 
 /-- If `m <= x` and twice its canonical largest prime is already above `x`,
 then its canonical cofactor is one. -/
@@ -23,8 +25,14 @@ theorem canonicalCofactor_eq_one_of_endpoint_lt_two_mul_largestPrime
     {x m : ℕ} (hmgt : 1 < m) (hmx : m ≤ x)
     (hlarge : x < 2 * canonicalLargestPrimeFactor m) :
     canonicalCofactor m = 1 := by
-  have hc1 : 1 ≤ canonicalCofactor m := canonicalCofactor_pos hmgt
   have hprod := canonicalCofactor_mul_largestPrimeFactor hmgt
+  have hc1 : 1 ≤ canonicalCofactor m := by
+    by_contra hnot
+    have hc0 : canonicalCofactor m = 0 := by omega
+    have hprod0 := hprod
+    rw [hc0] at hprod0
+    simp at hprod0
+    omega
   by_contra hne
   have hc2 : 2 ≤ canonicalCofactor m := by omega
   have htwo :
@@ -82,4 +90,4 @@ theorem canonicalCofactor_le_half_of_le_endpoint
       _ ≤ x := hmx
   omega
 
-end RHLean.Proof
+end RHLean.Analysis
