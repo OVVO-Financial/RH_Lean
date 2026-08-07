@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Arithmetic.PrimorialWheelMinimalTorus
+import RHLean.Arithmetic.PrimorialWheelScaleGrowth
 
 /-!
 # Elementary lower bound for the square-sensitive raw period
@@ -148,7 +149,6 @@ theorem primorialMinimalLiftMultiplier_eq_one
     primorialMinimalLiftMultiplier k = 1 := by
   unfold primorialMinimalLiftMultiplier
   rw [Nat.div_eq_of_lt (primorialBlockUpper_lt_squareSensitiveModulus hk)]
-  simp
 
 /-- The minimal common torus is exactly the natural raw CRT period on every
 block `k>=2`. -/
