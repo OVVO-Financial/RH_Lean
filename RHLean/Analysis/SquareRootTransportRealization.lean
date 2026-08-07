@@ -154,6 +154,12 @@ private theorem transportPair_surjective
   have hcofactor : canonicalCofactor (cq.1 * cq.2) = cq.1 :=
     canonicalCofactor_mul_prime_eq hcPos hcqLt hqPrime
   have hpred : R - 1 + 1 = R := Nat.sub_add_cancel hR
+  have hRsqOne : 1 ≤ R ^ 2 := by
+    have hp := Nat.pow_le_pow_left hR 2
+    norm_num at hp ⊢
+    exact hp
+  have hsubadd : R ^ 2 - 1 + 1 = R ^ 2 :=
+    Nat.sub_add_cancel hRsqOne
   have hXlt : squareRootEndpoint R < R ^ 2 := by
     unfold squareRootEndpoint
     omega
