@@ -1,0 +1,162 @@
+\section{Reproducibility}
+\label{app:reproducibility}
+
+The numerical tables in \cref{sec:numerics} are reproduced by the standalone script
+\begin{verbatim}
+python squared_space_reproducibility_v3.py \
+  --nmax 4096 \
+  --out squared_space_repro_v2
+\end{verbatim}
+using Python, NumPy, and Numba.  No network data, probabilistic sampling, or floating-point primality test is used.
+
+\subsection{Deterministic algorithm}
+
+\begin{enumerate}[leftmargin=1.7em,itemsep=0.3em]
+\item Set
+\[
+ X_{\max}=(N_{\max}+1)^2-1.
+\]
+\item Run a linear sieve through $X_{\max}$ to compute:
+\[
+ \mu(m),\qquad
+ \operatorname{spf}(m),\qquad
+ \Pplus(m),\qquad
+ \pi(m).
+\]
+\item Form
+\[
+ S_n=M((n+1)^2-1)
+\]
+by integer prefix summation.
+\item Construct $A_n$ and $T_n$ independently from the source entry/transition intervals:
+\[
+ e(m)=\lfloor\sqrt m\rfloor,
+ \qquad
+ h(m)=\Pplus(m)-1.
+\]
+A squarefree source contributes to $T$ on $[e,h)$ and to $A$ on $[\max\{e,h\},N_{\max}]$.
+\item For every squarefree $m>1$, put
+\[
+ q=\Pplus(m),
+ \qquad
+ c=m/q,
+ \qquad
+ 2Y=q^2-c^2.
+\]
+Verify the norm, curve, and lifetime identities using integers only.
+\item Compute the cofactor-$1$ curve exactly as
+\[
+ S_n^{(1)}=-\pi(X_n),
+\]
+then set
+\[
+ S_n^{(\ge2)}=S_n-S_n^{(1)}
+\]
+and evaluate all three terms in \cref{eq:prime-rest-energy}.
+\item Bin every squarefree source by the least dyadic threshold $C=2^j$ containing its canonical cofactor $c=m/\Pplus(m)$.  Cumulatively sum the bins to obtain $R_C(X_n)$ and $V_C(N)$ for every dyadic $C$ and every reported $N$.
+\item Evaluate the total, odd, and even low-height counts and incidences for $\Lambda=1,2,4,8,16$.
+\item Run the exact major-arc regression tests:
+\[
+ q^2\equiv1\pmod{24}\quad(2000<q\le4000),
+\]
+verify the eight full-coherence frequencies in \cref{tab:toy-prime-resonance}, verify the old modulus-$3$ expression is zero, and verify the corrected normalized modulus-$6$ factor has unit norm.
+\item Evaluate $\mathfrak R(N)$ for dyadic bases $128,256,512,1024,2048$ and all dyadic window lengths $H\le N$.
+\end{enumerate}
+
+\subsection{Generated output files}
+
+The script writes:
+
+\begin{table}[htbp]
+\centering
+\caption{Machine-readable reproducibility outputs.}
+\label{tab:repro-files}
+\small
+\begin{tabular}{lp{0.58\textwidth}}
+\toprule
+File & Contents\\
+\midrule
+\texttt{run\_summary.txt}
+& range, source counts, exact violation counts, and local-ratio slope\\
+\texttt{prefix\_energy.csv}
+& $S_N$, total energy, and $A$--$T$ component energies\\
+\texttt{prime\_curve\_decomposition.csv}
+& $c=1$, $c\ge2$, cross term, correlation, and residual ratio\\
+\texttt{cofactor\_cascade.csv}
+& $R_C(X_N)$ and $V_C(N)$ for every dyadic $C$ and reported $N$\\
+\texttt{low\_height\_diagnostics.csv}
+& sharpened total/parity bounds and observed clustering/lifetime maxima\\
+\texttt{local\_ratio\_diagnostics.csv}
+& worst local ratios and maximizing intervals\\
+\texttt{major\_arc\_regression.csv}
+& exact mod-$24$ checks, rational test frequencies, and old-versus-corrected Gauss factors\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the reported run, the summary must read:
+\begin{verbatim}
+N_max: 4096
+X_max: 16785408
+prime_count: 1078362
+squarefree_sources_m_ge_2: 10204280
+max_observed_canonical_cofactor: 692835
+max_dyadic_cofactor_threshold: 16777216
+max_abs_S_minus_A_plus_T: 0
+nonzero_prefix_identity_errors: 0
+norm_identity_violations: 0
+cofactor_curve_identity_violations: 0
+height_lifetime_violations: 0
+prime_square_mod24_violations_2000_4000: 0
+old_modulus_3_factor_abs: 0
+corrected_modulus_6_factor_abs: 1
+cofactor_cascade_full_error: 0
+local_ratio_log_log_slope: -0.004947461592
+\end{verbatim}
+
+\subsection{\texorpdfstring{Extended $N=16384$ diagnostic run}{Extended N=16384 diagnostic run}}
+
+The extended values in \cref{subsec:numerics-16384} were produced by a separate memory-limited computation reaching $X_N\approx2.68\times10^8$.  They are presented as numerical diagnostics, not as machine-checked theorems.  A release-grade archive should include the exact source, compiler and package versions, all integer checkpoints, the shell Gram matrix, and cryptographic hashes.  Until those files are attached, only the algebraic congruence statements and identities proved elsewhere in the paper have unconditional theorem status.
+
+\subsection{Integrity hashes}
+
+The SHA-256 hashes of the revised script and machine-readable outputs are listed in the release archive and in the accompanying \texttt{SHA256SUMS.txt}.  This avoids copying stale hashes into the manuscript when the numerical protocol is extended.
+
+The exact checks are binary: any nonzero violation invalidates the run. The asymptotic diagnostics are not proofs; their purpose is to identify which geometric or analytic component fails first as the range is extended.
+
+\begin{thebibliography}{12}
+
+\bibitem{titchmarsh}
+E. C. Titchmarsh,
+\emph{The Theory of the Riemann Zeta-Function},
+2nd ed., revised by D. R. Heath-Brown,
+Oxford University Press, 1986.
+
+\bibitem{montgomery-vaughan}
+H. L. Montgomery and R. C. Vaughan,
+\emph{Multiplicative Number Theory I: Classical Theory},
+Cambridge University Press, 2007.
+
+\bibitem{tao-vu}
+T. Tao and V. Vu,
+\emph{Additive Combinatorics},
+Cambridge University Press, 2006.
+
+\bibitem{viole-complex}
+F. Viole,
+\emph{Complex Space Factorization},
+working paper.
+
+\bibitem{berck-hihn}
+P. Berck and J. Hihn,
+Using the semivariance to estimate safety-first rules,
+\emph{American Journal of Agricultural Economics} \textbf{64} (1982), 298--300.
+
+\bibitem{atwood}
+J. A. Atwood,
+Demonstration of the use of lower partial moments to improve safety-first probability limits,
+\emph{American Journal of Agricultural Economics} \textbf{67} (1985), 880--886.
+
+\end{thebibliography}
+
+\end{document}

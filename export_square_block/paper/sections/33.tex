@@ -1,0 +1,51 @@
+\section{Conclusion and the remaining theorem}
+\label{sec:conclusion}
+%======================================================================
+
+The square-prefix framework begins with the exact endpoint
+\[
+ X_N=(N+1)^2-1
+\]
+and the unique canonical factorization
+\[
+ q_m=\Pplus(m),\qquad c_m=m/q_m.
+\]
+The squared-complex coordinate
+\[
+ w_m=m+i\frac{q_m^2-c_m^2}{2}
+\]
+turns canonical factor imbalance into a geometric height while preserving the source integer exactly.  Fixed cofactors lie on explicit parabolas, the prefix and smoothness conditions become moving boundaries, and internal transport-to-smooth transfers telescope from the total Mertens value.
+
+The endpoint support is now completely explicit.  The canonical cofactor always satisfies $c_m\le\lfloor x/2\rfloor$ for a nontrivial source $m\le x$, and the new complementary statement says that every \emph{composite} source also satisfies
+\[
+ \Pplus(m)\le\left\lfloor\frac{x}{2}\right\rfloor.
+\]
+Therefore the only sources in the extreme-largest-prime region are the primes themselves on the $c=1$ curve.
+
+At low canonical height, factor-gap spacing gives uniformly bounded occupancy in each square block and hence
+\[
+ |S_N^{\mathrm{low}}(\Lambda)|\ll_\Lambda N.
+\]
+At high height, the lifetime decomposition separates the active survivor from completed deaths.  The completed death process is no longer an analytic obstruction: its bounded-width doubled-height window is dominated by a finite divisor sum, yielding subpolynomial increments and the RH-scale bound \cref{eq:death-local-energy}.
+
+Thus the remaining square-block theorem may be stated directly on the active cofactor operator
+\[
+ Z_\Lambda(t)
+ =-\sum_c\mu(c)\mathcal K_{\Lambda,t}(c).
+\]
+The unresolved estimate is
+\begin{equation}
+ \boxed{
+ \sum_{h=0}^{H-1}|Z_\Lambda(N+h)|^2
+ \ll_{\eps,\Lambda}H N^{2+\eps}
+ \qquad(1\le H\le N).
+ }
+ \label{eq:conclusion-survivor}
+\end{equation}
+Taking $H=1$ gives the corresponding pointwise square-root-scale estimate.  Conversely, the pointwise estimate sums over $N\le n<N+H<2N$, so the two formulations carry the same information up to the usual renaming of $\eps$.
+
+The accompanying Lean export contains only the modules supporting these square-block statements.  A later synthesis paper may relate the square-block framework to other exact coordinate systems, but that relationship is intentionally outside the scope of the present paper.
+
+The paper therefore makes no unconditional RH claim.  It gives a self-contained exact square-block arithmetic and geometry, closes the low sector and the lifetime death process, isolates the pure-prime extreme fibre, and leaves one explicit signed survivor power saving as the remaining analytic theorem.
+
+\appendix

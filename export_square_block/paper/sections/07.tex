@@ -1,0 +1,86 @@
+\section{Fixed-cofactor parabolas}
+\label{sec:cofactor-curves}
+%======================================================================
+
+Once the cofactor is fixed, the canonical points are no longer an unstructured cloud.  They lie on explicit curves, which lets arithmetic transitions be read geometrically.
+
+Fix a positive cofactor $c$ and let $q$ vary.  In squared Cartesian coordinates,
+\begin{equation}
+ x=cq,
+ \qquad
+ y=\frac{q^2-c^2}{2}.
+ \label{eq:curve-param}
+\end{equation}
+Eliminating $q=x/c$ gives the cofactor parabola
+\begin{equation}
+ \boxed{
+ \gamma_c(x)
+ =\frac{x^2-c^4}{2c^2}.
+ }
+ \label{eq:gamma-c}
+\end{equation}
+The canonical point cloud is not the filled region between envelopes.  It is the arithmetic sampling
+\begin{equation}
+ x=cq,
+ \qquad
+ q\text{ prime},
+ \qquad
+ q>\Pplus(c),
+ \label{eq:curve-sampling}
+\end{equation}
+on the family \cref{eq:gamma-c}.
+
+The curve crosses the real axis at
+\begin{equation}
+ x=c^2.
+ \label{eq:curve-axis-cross}
+\end{equation}
+Points to the right have $q>c$ and positive ordinate; points to the left have $q<c$ and negative ordinate.
+
+The $c=1$ curve is
+\begin{equation}
+ \gamma_1(x)=\frac{x^2-1}{2}.
+ \label{eq:prime-curve}
+\end{equation}
+Its arithmetic samples are exactly the prime points, since $m=1\cdot q=q$.  It is the outer positive envelope of the complete canonical cloud.  The curve
+\begin{equation}
+ \gamma_3(x)=\frac{x^2-81}{18}
+ \label{eq:three-curve}
+\end{equation}
+is the first nontrivial odd-cofactor envelope used in semiprime search.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.92\textwidth,
+  height=0.55\textwidth,
+  xmin=0,xmax=60,
+  ymin=-20,ymax=1850,
+  xlabel={$x=\Repart w=cq$},
+  ylabel={$y=\Impart w=(q^2-c^2)/2$},
+  grid=major,
+  legend style={at={(0.98,0.98)},anchor=north east,fill=white,draw=gray!40},
+  samples=240,
+  domain=0:60,
+  clip=true
+]
+  \addplot[very thick,rust] {(x^2-1)/2};
+  \addlegendentry{$\gamma_1$}
+  \addplot[very thick,navy] {(x^2-81)/18};
+  \addlegendentry{$\gamma_3$}
+  \addplot[very thick,teal] {(x^2-625)/50};
+  \addlegendentry{$\gamma_5$}
+  \addplot[very thick,black,dashed] {(10000-x^2)/200};
+  \addlegendentry{$\Gamma_{10}$}
+  \addplot[only marks,mark=*,mark size=2.2pt,black] coordinates {(10,49.5) (30,45.5) (50,37.5)};
+  \node[anchor=south west,font=\small] at (axis cs:10,49.5) {$c=1$};
+  \node[anchor=south west,font=\small] at (axis cs:30,45.5) {$c=3$};
+  \node[anchor=south west,font=\small] at (axis cs:50,37.5) {$c=5$};
+\end{axis}
+\end{tikzpicture}
+\caption{Cofactor parabolas $\gamma_c$ and the moving cutoff parabola $\Gamma_R$ for $R=10$.  Each $\gamma_c$ meets $\Gamma_R$ at $x=cR$.  Actual canonical points are discrete prime samples on the curves.}
+\label{fig:cofactor-parabolas}
+\end{figure}
+
+%======================================================================

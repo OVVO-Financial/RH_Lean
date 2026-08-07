@@ -1,0 +1,214 @@
+\section{Square prefixes and the arithmetic decomposition}
+\label{sec:arithmetic}
+%======================================================================
+
+The square-root cutoff is the arithmetic hinge of the paper.  Before introducing geometry, we isolate the exact decomposition that the geometry is meant to explain.
+
+Define the complete square block
+\begin{equation}
+ B_n:=\{m\in\N:n^2\le m<(n+1)^2\},
+ \label{eq:block}
+\end{equation}
+the square-root cutoff
+\begin{equation}
+ R_n:=n+1,
+ \label{eq:Rn}
+\end{equation}
+and the complete-prefix endpoint
+\begin{equation}
+ X_n:=R_n^2-1=(n+1)^2-1.
+ \label{eq:Xn}
+\end{equation}
+The square-prefix Mertens value is
+\begin{equation}
+ S_n:=M(X_n)=\sum_{m\le X_n}\mu(m).
+ \label{eq:Sn}
+\end{equation}
+Because $\mu(R_n^2)=0$ for $R_n>1$, one may equally write $S_n=M(R_n^2)$.
+
+Write $\Pplus(m)$ for the largest prime factor of $m$, with $\Pplus(1)=1$.
+
+\begin{definition}[Smooth and transport terms]
+\label{def:AT}
+Define
+\begin{align}
+ A_n
+ &:={\sum}_{\substack{1\le m\le X_n\\\Pplus(m)\le R_n}}\mu(m),
+ \label{eq:An}\\
+ T_n
+ &:={\sum}_{1\le c<R_n}\mu(c)
+ \left[
+ \pi\!\left(\left\lfloor\frac{X_n}{c}\right\rfloor\right)-\pi(R_n)
+ \right].
+ \label{eq:Tn}
+\end{align}
+\end{definition}
+
+\begin{lemma}[One-large-prime closure]
+\label{lem:one-large}
+Let $m\le R^2-1$ be squarefree.  If $\Pplus(m)>R$, then there is a unique factorization
+\begin{equation}
+ m=cq,
+ \qquad
+ 1\le c<R<q,
+ \qquad
+ q\text{ prime},
+ \label{eq:one-large}
+\end{equation}
+where $q=\Pplus(m)$.  Moreover,
+\begin{equation}
+ \mu(m)=-\mu(c).
+ \label{eq:mobius-peel}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Put $q=\Pplus(m)$ and $c=m/q$.  If $c\ge R$, then $m=cq>R^2$, contrary to $m\le R^2-1$.  Since $m$ is squarefree, $q\nmid c$ and $\mu(cq)=-\mu(c)$.  Uniqueness follows from the largest-prime choice.
+\end{proof}
+\leanxref{Lean support}{canonical largest-prime and cofactor arithmetic}{https://github.com/OVVO-Financial/RH_Lean/blob/main/export_square_block/lean/RHLean/Analysis/CanonicalHighSectorCore.lean}
+
+\begin{proof}[Proof of \cref{thm:intro-decomposition}]
+Partition the squarefree $m\le X_n$ according to whether $\Pplus(m)\le R_n$ or $\Pplus(m)>R_n$.  The first population contributes $A_n$.  By \cref{lem:one-large}, the second population is uniquely $m=cq$ with $c<R_n<q$, and each source has weight $-\mu(c)$.  The total second contribution is therefore $-T_n$.
+\end{proof}
+
+\begin{corollary}[Elementary smooth--transport RH inequality]
+\label{cor:elementary-AT-RH}
+The Riemann Hypothesis is equivalent to either of the following square-prefix estimates:
+\begin{align}
+ |A_N-T_N|^2&\ll_\eps N^{2+\eps},
+ \label{eq:elementary-AT-squared}\\
+ |A_N-T_N|&\ll_\eps N^{1+\eps}.
+ \label{eq:elementary-AT-linear}
+\end{align}
+Here and below the two exponent conventions are equivalent after renaming $\eps$.
+\end{corollary}
+
+\begin{proof}
+By \cref{thm:intro-decomposition}, $A_N-T_N=M((N+1)^2-1)$.  The classical Mertens criterion gives the estimates under RH.  Conversely, every $x$ lies within one square block of an endpoint $(N+1)^2-1$, and $|\mu(m)|\le1$, so the endpoint estimate interpolates to $M(x)\ll_\eps x^{1/2+\eps}$.
+\end{proof}
+
+\begin{remark}[Why this is the most elementary total formulation]
+The inequality \cref{eq:elementary-AT-linear} contains no shell, window, covariance, probability space, or operator.  It asks only that the two exact cumulative arithmetic terms in $S_N=A_N-T_N$ agree to square-root scale.  The high-sector formulation introduced later removes the part of this agreement already forced by elementary geometry.
+\end{remark}
+
+\subsection{The largest-prime cofactor identity}
+\label{subsec:central-identity}
+
+For $c\ge1$, define the prime-tail counting function
+\begin{equation}
+ \Pi_c(x)
+ :=
+ \#\left\{
+ q\text{ prime}:
+ \Pplus(c)<q\le\left\lfloor\frac{x}{c}\right\rfloor
+ \right\}.
+ \label{eq:Pi-c}
+\end{equation}
+Equivalently,
+\begin{equation}
+ \Pi_c(x)
+ =
+ \left(
+ \pi\!\left(\left\lfloor\frac{x}{c}\right\rfloor\right)
+ -\pi(\Pplus(c))
+ \right)_{+},
+ \label{eq:Pi-c-positive-part}
+\end{equation}
+where $(u)_+:=\max\{u,0\}$.  The positive part is essential when
+$x/c<\Pplus(c)$.
+
+\begin{theorem}[Exact largest-prime cofactor expansion]
+\label{thm:central-M-identity}
+For every real $x\ge1$,
+\begin{equation}
+ \boxed{
+ M(x)
+ =
+ 1-\sum_{c\ge1}\mu(c)\Pi_c(x).
+ }
+ \label{eq:central-M-identity-compact}
+\end{equation}
+The sum is finite, and separating the prime curve $c=1$ gives
+\begin{equation}
+ \boxed{
+ M(x)
+ =
+ 1-\pi(x)
+ -\sum_{2\le c\le x/2}
+ \mu(c)
+ \left(
+ \pi\!\left(\left\lfloor\frac{x}{c}\right\rfloor\right)
+ -\pi(\Pplus(c))
+ \right)_{+}.
+ }
+ \label{eq:central-M-identity}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Every squarefree $m>1$ has a unique largest prime factor
+$q=\Pplus(m)$.  Writing $c=m/q$, one has
+\[
+ q>\Pplus(c),
+ \qquad
+ \mu(m)=\mu(cq)=-\mu(c).
+\]
+Conversely, every pair consisting of a squarefree $c$ and a prime
+$q>\Pplus(c)$ produces the squarefree integer $m=cq$ whose largest
+prime factor is $q$.  The condition $m\le x$ is exactly $q\le x/c$.
+Summing $-\mu(c)$ over these unique pairs proves
+\cref{eq:central-M-identity-compact}.  The $c=1$ term is
+$-\pi(x)$, because $\Pplus(1)=1$.  No term with $c>x/2$ can occur.
+\end{proof}
+
+\begin{theorem}[Extreme largest-prime support and the pure-prime fibre]
+\label{thm:extreme-largest-prime}
+Let $x\ge2$ and let $1<m\le x$ be an integer.  Put
+\[
+ q=\Pplus(m),\qquad c=\frac{m}{q}.
+\]
+If
+\begin{equation}
+ x<2q,
+ \label{eq:extreme-q-condition}
+\end{equation}
+then
+\begin{equation}
+ \boxed{c=1,\qquad m=q,}
+ \label{eq:extreme-prime-fibre}
+\end{equation}
+so $m$ is prime.  Equivalently, every composite integer $m\le x$ satisfies
+\begin{equation}
+ \boxed{\Pplus(m)\le\left\lfloor\frac{x}{2}\right\rfloor.}
+ \label{eq:composite-largest-prime-half}
+\end{equation}
+Moreover, for every genuine canonical product $m=cq\le x$ with $c\ge2$ one also has
+\begin{equation}
+ \boxed{q\le\left\lfloor\frac{x}{2}\right\rfloor,\qquad
+ c\le\left\lfloor\frac{x}{2}\right\rfloor.}
+ \label{eq:both-canonical-factors-half}
+\end{equation}
+Thus canonical sources below $x$ split sharply into the pure prime fibre $c=1$ and genuine product fibres $c\ge2$; the extreme-largest-prime region contains no composites.
+\end{theorem}
+
+\begin{proof}
+Since $q\mid m$, write $m=cq$ with $c\ge1$.  If $c\ge2$, then
+\[
+ 2q\le cq=m\le x,
+\]
+contradicting $x<2q$.  Hence $c=1$, so $m=q$ is prime.  The contrapositive gives \cref{eq:composite-largest-prime-half}.  For a genuine product $c\ge2$, the inequality $2q\le cq\le x$ gives the bound on $q$; since every canonical prime satisfies $q\ge2$, the inequality $2c\le cq\le x$ gives the bound on $c$.
+\end{proof}
+\leanxref{Lean proof}{canonicalCofactor_eq_one_of_endpoint_lt_two_mul_largestPrime; canonicalLargestPrimeFactor_le_half_of_ne_largestPrime}{https://github.com/OVVO-Financial/RH_Lean/blob/main/export_square_block/lean/RHLean/Analysis/CanonicalExtremePrimeSupport.lean}
+
+\begin{remark}[Two different half-support facts]
+The bounds in \cref{thm:extreme-largest-prime} should not be conflated.  The already-used cofactor support $c\le\lfloor x/2\rfloor$ follows from the trivial fact that the canonical prime is at least $2$.  The new extreme-prime statement says that a \emph{composite} source also has $q\le\lfloor x/2\rfloor$.  The only sources whose largest prime exceeds that threshold are the primes themselves on the $c=1$ fibre.
+\end{remark}
+
+\begin{remark}[Central analytic engine]
+\Cref{eq:central-M-identity} is the exact arithmetic form of the
+cofactor-parabola decomposition.  It shows that the Mertens function is
+not obtained by proving that the prime curve is small.  The prime curve
+$-\pi(x)$ is cancelled by the M\"obius-weighted collection of all
+curves $c\ge2$.
+\end{remark}
+

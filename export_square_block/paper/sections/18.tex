@@ -1,0 +1,108 @@
+\section{Lifetime refinement and the divisor-window death bound}
+\label{sec:lifetime-death}
+%======================================================================
+
+The low/high split classifies a source at its birth square block.  A complementary dynamic description follows the same canonical source after birth.  At stage $t$, define the current moving-high condition
+\begin{equation}
+ 2\Lambda t<|q_m^2-c_m^2|.
+ \label{eq:moving-high-condition}
+\end{equation}
+A source born high either remains active at stage $t$ or has crossed the moving height boundary and entered the accumulated death mass.  Writing $Z_\Lambda(t)$ for the active survivor mass and $D_\Lambda(t)$ for accumulated deaths, the birth-high prefix has the exact decomposition
+\begin{equation}
+ \boxed{S_t^{\mathrm{high}}(\Lambda)=Z_\Lambda(t)+D_\Lambda(t).}
+ \label{eq:high-active-death}
+\end{equation}
+No probability model is involved; this is finite signed bookkeeping on the canonical source set.
+
+The death increment from stage $t$ to $t+1$ is supported on the doubled-height shell
+\begin{equation}
+ 2\Lambda t<|q^2-c^2|\le2\Lambda(t+1).
+ \label{eq:death-shell-window}
+\end{equation}
+The integer window in \cref{eq:death-shell-window} contains at most $\lfloor2\Lambda\rfloor+1$ possible heights.  For a fixed positive height $k=|q^2-c^2|$, the factorization
+\begin{equation}
+ k=|q-c|(q+c)
+ \label{eq:height-factorization}
+\end{equation}
+embeds the corresponding canonical pairs into divisor data for $k$.  This gives a deterministic divisor majorant for every death shell.
+
+\begin{theorem}[Subpolynomial divisor-window death estimate]
+\label{thm:death-subpolynomial}
+Fix $\Lambda>0$.  For every $\delta>0$ there is a constant $C_{\Lambda,\delta}$ such that
+\begin{align}
+ \|D_\Lambda(t+1)-D_\Lambda(t)\|
+ &\le C_{\Lambda,\delta}(t+1)^\delta,
+ \label{eq:death-increment-subpoly}\\
+ \|D_\Lambda(n)\|
+ &\le C_{\Lambda,\delta}(n+1)^{1+\delta}.
+ \label{eq:death-mass-subpoly}
+\end{align}
+Consequently, for every $\eps>0$ there is $C_{\Lambda,\eps}$ such that for $1\le H\le N$,
+\begin{equation}
+ \boxed{
+ \sum_{h=0}^{H-1}\|D_\Lambda(N+h)\|^2
+ \le C_{\Lambda,\eps}H N^{2+\eps}.
+ }
+ \label{eq:death-local-energy}
+\end{equation}
+Thus the completed death process is already below the protected RH-scale local-energy threshold.
+\end{theorem}
+
+\begin{proof}
+The shell window has bounded cardinality depending only on $\Lambda$.  For each integer height $k$ in that window, \cref{eq:height-factorization} bounds the number of canonical source pairs by the divisor count $\tau(k)$.  The classical elementary estimate $\tau(k)\ll_\delta k^\delta$ therefore gives \cref{eq:death-increment-subpoly}; summing the increments gives \cref{eq:death-mass-subpoly}.  For \cref{eq:death-local-energy}, apply the pointwise estimate with a smaller exponent, for example $\delta=\eps/4$, square it, use $N+h+1\le2N$ for $h<H\le N$, and absorb the resulting fixed power of $2$ into the constant.
+\end{proof}
+\leanxref{Lean proof}{squareBlockDeathShellDivisorMajorant_subpolynomial; squareBlockDeathIncrement_subpolynomial; squareBlockDeathUniformLocalBounded}{https://github.com/OVVO-Financial/RH_Lean/blob/main/export_square_block/lean/RHLean/Analysis/SquareBlockDeathProcess.lean}
+
+\subsection{The explicit active survivor operator}
+
+On the nonzero M\"obius support every active source has a unique canonical pair $m=cq$ with $q$ prime, $q>\Pplus(c)$, and $\mu(cq)=-\mu(c)$.  Put $X_t=(t+1)^2-1$ and define
+\begin{equation}
+ \mathcal K_{\Lambda,t}(c)
+ :=\#\left\{
+ q\text{ prime}:\
+ q>\Pplus(c),\ cq\le X_t,\ 2\Lambda t<|q^2-c^2|
+ \right\}.
+ \label{eq:survivor-kernel}
+\end{equation}
+Then the active survivor is the finite signed cofactor operator
+\begin{equation}
+ \boxed{
+ Z_\Lambda(t)
+ =-\sum_{1\le c\le X_t/2}\mu(c)\,\mathcal K_{\Lambda,t}(c).
+ }
+ \label{eq:survivor-zero-mode}
+\end{equation}
+The upper limit $X_t/2$ is exact for nontrivial sources because every canonical prime is at least $2$.  By \cref{thm:extreme-largest-prime}, any active source with $q>X_t/2$ belongs to the pure prime fibre $c=1$; every composite active source has $c\ge2$ and $q\le\lfloor X_t/2\rfloor$.
+
+\begin{corollary}[Death removal]
+\label{cor:death-removal}
+For fixed $\Lambda>0$, the RH-scale uniform local bound for the native high prefix is equivalent to the same bound for the active survivor sequence $Z_\Lambda(t)$.
+\end{corollary}
+
+\begin{proof}
+Use the exact recombination \cref{eq:high-active-death}, the death bound \cref{eq:death-local-energy}, and the two elementary inequalities
+\[
+ \|u+v\|^2\le2\|u\|^2+2\|v\|^2,
+ \qquad
+ \|u\|^2\le2\|u+v\|^2+2\|v\|^2.
+\]
+\end{proof}
+\leanxref{Lean proof}{squareBlockSurvivor_localEnergy_eq_lifetimeActive; squareBlockSurvivorPowerSaving_iff_endpointDiscrepancy}{https://github.com/OVVO-Financial/RH_Lean/blob/main/export_square_block/lean/RHLean/Analysis/SquareBlockSurvivorBridge.lean}
+
+\begin{conjecture}[Square-block survivor power saving]
+\label{conj:survivor-power-saving}
+For every $\eps>0$ there is a finite constant $C_{\eps,\Lambda}$ such that for all $1\le H\le N$,
+\begin{equation}
+ \boxed{
+ \sum_{h=0}^{H-1}
+ \left|
+ \sum_{c}\mu(c)\,\mathcal K_{\Lambda,N+h}(c)
+ \right|^2
+ \le C_{\eps,\Lambda}H N^{2+\eps}.
+ }
+ \label{eq:survivor-power-saving}
+\end{equation}
+By \cref{cor:death-removal}, this is an equivalent square-block form of the remaining native high-sector estimate.  It is not proved in this paper.
+\end{conjecture}
+
+%======================================================================

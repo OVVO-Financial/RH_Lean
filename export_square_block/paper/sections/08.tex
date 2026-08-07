@@ -1,0 +1,113 @@
+\section{Two moving boundaries}
+\label{sec:moving-cutoff}
+%======================================================================
+
+The decomposition changes with the cutoff.  The goal here is to represent that changing arithmetic classification as motion of two simple boundaries through one fixed point cloud.
+
+Fix $R>0$.  The complete arithmetic prefix is
+\begin{equation}
+ \mathscr P_R
+ :=\{w=x+iy\in\mathscr W:x<R^2\}.
+ \label{eq:prefix-region}
+\end{equation}
+Since $V=q^2=|w|+y$, the smooth condition $q\le R$ is
+\begin{equation}
+ |w|+y\le R^2.
+ \label{eq:smooth-radial}
+\end{equation}
+Define
+\begin{align}
+ \mathscr A_R
+ &:={\{w\in\mathscr P_R:|w|+\Impart w\le R^2\}},
+ \label{eq:A-region}\\
+ \mathscr U_R
+ &:={\{w\in\mathscr P_R:|w|+\Impart w>R^2\}}.
+ \label{eq:U-region}
+\end{align}
+The prefix is the disjoint union
+\begin{equation}
+ \mathscr P_R=\mathscr A_R\,\dot\cup\,\mathscr U_R.
+ \label{eq:region-partition}
+\end{equation}
+
+Solving \cref{eq:smooth-radial} on the boundary gives
+\begin{equation}
+ \boxed{
+ \Gamma_R(x)=\frac{R^4-x^2}{2R^2}.
+ }
+ \label{eq:Gamma-R}
+\end{equation}
+Inside the prefix strip $x<R^2$, the smooth region lies below the graph and the transport region lies above it.
+
+In null coordinates, the same regions are even simpler:
+\begin{align}
+ \mathscr P_R&:\quad UV<R^4,
+ \label{eq:prefix-UV}\\
+ \mathscr A_R&:\quad UV<R^4,\quad V\le R^2,
+ \label{eq:smooth-UV}\\
+ \mathscr U_R&:\quad UV<R^4,\quad V>R^2.
+ \label{eq:transport-UV}
+\end{align}
+For a transport point, $UV<R^4<V^2$, so automatically $U<R^2$.  Thus
+\begin{equation}
+ \mathscr U_R:\quad U<R^2<V,
+ \qquad
+ UV<R^4.
+ \label{eq:transport-null-clean}
+\end{equation}
+This is exactly $c<R<q$.
+
+\subsection{Intersection with every cofactor curve}
+
+\begin{proposition}[Intersection factorization]
+\label{prop:intersection-factorization}
+For $c,R>0$,
+\begin{equation}
+ \gamma_c(x)-\Gamma_R(x)
+ =
+ \frac{(R^2+c^2)(x^2-c^2R^2)}{2c^2R^2}.
+ \label{eq:curve-gap}
+\end{equation}
+Consequently,
+\begin{equation}
+ \gamma_c(x)=\Gamma_R(x)
+ \iff x=cR.
+ \label{eq:curve-intersection}
+\end{equation}
+At the arithmetic point $x=cq$,
+\begin{equation}
+ \gamma_c(cq)-\Gamma_R(cq)
+ =
+ \frac{(R^2+c^2)(q^2-R^2)}{2R^2}.
+ \label{eq:point-gap}
+\end{equation}
+\end{proposition}
+
+The sign is therefore exact:
+\begin{align}
+ q<R&\iff w_{c,q}\text{ lies below }\Gamma_R,
+ \label{eq:below}\\
+ q>R&\iff w_{c,q}\text{ lies above }\Gamma_R.
+ \label{eq:above}
+\end{align}
+
+\begin{proposition}[Orthogonal crossing]
+\label{prop:orthogonal-crossing}
+At the intersection $x=cR$,
+\begin{equation}
+ \gamma_c'(cR)=\frac{R}{c},
+ \qquad
+ \Gamma_R'(cR)=-\frac{c}{R},
+ \label{eq:orthogonal-slopes}
+\end{equation}
+so
+\begin{equation}
+ \gamma_c'(cR)\Gamma_R'(cR)=-1.
+ \label{eq:orthogonal-product}
+\end{equation}
+Hence each cofactor curve meets the moving cutoff orthogonally.
+\end{proposition}
+
+The transition is therefore transverse, never tangent.  A canonical point cannot remain trapped in a thin boundary layer as the cutoff passes its largest prime.
+
+%======================================================================

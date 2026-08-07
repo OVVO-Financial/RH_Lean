@@ -1,0 +1,106 @@
+\section{The elementary pointwise high-height bridge}
+\label{sec:high-sector}
+%======================================================================
+
+Everything difficult is concentrated in one finite signed sum.  The translated-window, Gram, covariance, and partial-moment formulations are useful proof interfaces, but the logical burden is already complete at one point.
+
+For fixed $\Lambda>0$, the canonical high increment and prefix are those of \cref{eq:high-block-increment,eq:high-prefix}:
+\[
+ d_j^{\mathrm{high}}(\Lambda)
+ =
+ \sum_{\substack{j^2\le m<(j+1)^2\\|Y_m|>\Lambda j}}\mu(m),
+ \qquad
+ S_N^{\mathrm{high}}(\Lambda)
+ =\sum_{0\le j\le N}d_j^{\mathrm{high}}(\Lambda).
+\]
+Equivalently, with $X_N=(N+1)^2-1$ and $e(m)=\lfloor\sqrt m\rfloor$,
+\begin{equation}
+ \boxed{
+ S_N^{\mathrm{high}}(\Lambda)
+ =
+ \sum_{\substack{1\le m\le X_N\\
+ |\Pplus(m)^2-(m/\Pplus(m))^2|>2\Lambda e(m)}}\mu(m).
+ }
+ \label{eq:high-single-finite-sum}
+\end{equation}
+Thus the remaining statement can be written without block notation.
+
+\begin{conjecture}[Elementary canonical pointwise estimate]
+\label{conj:canonical-PHS}
+For every $\eps>0$ there is a finite constant $C_{\eps,\Lambda}$ such that, for every $N\ge1$,
+\begin{equation}
+ \boxed{
+ \left|S_N^{\mathrm{high}}(\Lambda)\right|^2
+ \le C_{\eps,\Lambda}N^{2+\eps}.
+ }
+ \tag{PHS}
+ \label{eq:canonical-PHS}
+\end{equation}
+Equivalently, after renaming $\eps$,
+\begin{equation}
+ \left|S_N^{\mathrm{high}}(\Lambda)\right|
+ \ll_{\eps,\Lambda}N^{1+\eps}.
+ \label{eq:canonical-PHS-linear}
+\end{equation}
+\end{conjecture}
+
+\begin{theorem}[Elementary native bridge]
+\label{thm:canonical-PHS-iff-RH}
+For every fixed $\Lambda>0$, \cref{conj:canonical-PHS} is equivalent to the Riemann Hypothesis.
+\end{theorem}
+
+\begin{proof}
+The low sector satisfies
+\[
+ |S_N^{\mathrm{low}}(\Lambda)|^2
+ \ll_\Lambda N^2.
+\]
+The exact recombination $S_N=S_N^{\mathrm{low}}+S_N^{\mathrm{high}}$ and the two inequalities
+\[
+ |S_N|^2\le2|S_N^{\mathrm{low}}|^2+2|S_N^{\mathrm{high}}|^2,
+ \qquad
+ |S_N^{\mathrm{high}}|^2\le2|S_N|^2+2|S_N^{\mathrm{low}}|^2
+\]
+show that \cref{eq:canonical-PHS} is equivalent to the pointwise square-prefix Mertens estimate.  By square-endpoint interpolation, that estimate is equivalent to the classical Mertens criterion and hence to RH.
+\end{proof}
+
+\subsection{Equivalent translated-window formulation}
+
+The formerly emphasized local statement is now an immediate equivalent packaging.
+
+\begin{conjecture}[Canonical high-sector uniform local estimate]
+\label{conj:canonical-HS}
+For every $\eps>0$ there is a finite constant $C_{\eps,\Lambda}$ such that, for every $N\ge1$ and $1\le H\le N$,
+\begin{equation}
+ \boxed{
+ \sum_{n=N}^{N+H-1}
+ \left|S_n^{\mathrm{high}}(\Lambda)\right|^2
+ \le C_{\eps,\Lambda}HN^{2+\eps}.
+ }
+ \tag{HS}
+ \label{eq:canonical-HS}
+\end{equation}
+\end{conjecture}
+
+\begin{proposition}[Pointwise--local equivalence]
+\label{prop:PHS-HS-equivalence}
+For fixed $\Lambda>0$, \cref{conj:canonical-PHS} and \cref{conj:canonical-HS} are equivalent.
+\end{proposition}
+
+\begin{proof}
+The local estimate gives the pointwise estimate by taking $H=1$.  Conversely, if $N\le n<N+H$ and $H\le N$, then $n<2N$.  Applying \cref{eq:canonical-PHS} at each $n$ and summing gives
+\[
+ \sum_{n=N}^{N+H-1}|S_n^{\mathrm{high}}|^2
+ \le C_{\eps,\Lambda}H(2N)^{2+\eps},
+\]
+and the fixed factor $2^{2+\eps}$ is absorbed into the constant.
+\end{proof}
+
+\begin{theorem}[The local native bridge]
+\label{thm:canonical-HS-iff-RH}
+For every fixed $\Lambda>0$, \cref{conj:canonical-HS} is equivalent to the Riemann Hypothesis.
+\end{theorem}
+
+\begin{proof}
+Combine \cref{prop:PHS-HS-equivalence,thm:canonical-PHS-iff-RH}.
+\end{proof}

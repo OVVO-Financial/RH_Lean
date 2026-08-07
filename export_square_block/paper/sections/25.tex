@@ -1,0 +1,28 @@
+\subsection{Smooth--transport matching}
+
+\begin{table}[htbp]
+\centering
+\caption{Exact cumulative prefix energies.  Every entry is computed from all prefixes $1\le n\le N$.}
+\label{tab:prefix-energy-numerical}
+\scriptsize
+\setlength{\tabcolsep}{4.2pt}
+\begin{tabular}{rccccc}
+\toprule
+$N$ &
+$\|A\|^2/N^3$ &
+$\|T\|^2/N^3$ &
+$\langle A,T\rangle/N^3$ &
+$\|A-T\|^2/N^3$ &
+$S_N$\\
+\midrule
+128  & 0.490490 & 0.469682 & 0.475665 & 0.008842 & $-18$\\
+256  & 1.386025 & 1.338898 & 1.356626 & 0.011671 & $4$\\
+512  & 3.709722 & 3.668905 & 3.685593 & 0.007442 & $38$\\
+1024 & 9.831997 & 9.807089 & 9.814616 & 0.009853 & $288$\\
+2048 & 26.661079 & 26.658451 & 26.655516 & 0.008497 & $263$\\
+4096 & 72.821788 & 73.064243 & 72.938028 & 0.009974 & $329$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The residual remains near the cubic scale while the two component energies increase substantially.
