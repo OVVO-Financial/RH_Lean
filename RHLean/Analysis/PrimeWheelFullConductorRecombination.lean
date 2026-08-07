@@ -33,6 +33,16 @@ theorem reducedAdditiveConductor_eq_one_iff_zero
   rw [reducedAdditiveConductor_eq_addOrderOf W r]
   exact AddMonoid.addOrderOf_eq_one_iff
 
+/-- Predicate-oriented form used by conductor-shell sums. -/
+theorem one_eq_reducedAdditiveConductor_iff_zero
+    (W : PrimeWheelFiniteSystem) (r : ZMod W.modulus) :
+    1 = reducedAdditiveConductor r ↔ r = 0 := by
+  constructor
+  · intro h
+    exact (reducedAdditiveConductor_eq_one_iff_zero W r).mp h.symm
+  · intro h
+    exact ((reducedAdditiveConductor_eq_one_iff_zero W r).mpr h).symm
+
 /-- Consequently the complete conductor-one joint response consists of the
 single zero-frequency atom. -/
 theorem primorialPeriodicRawJointConductorResponse_one_eq_zeroAtom
@@ -41,7 +51,7 @@ theorem primorialPeriodicRawJointConductorResponse_one_eq_zeroAtom
       primorialPeriodicRawJointSpectralAtom k x 0 := by
   classical
   unfold primorialPeriodicRawJointConductorResponse
-  simp [eq_comm, reducedAdditiveConductor_eq_one_iff_zero]
+  simp [one_eq_reducedAdditiveConductor_iff_zero]
 
 /-- A conductor value that does not divide the ambient modulus carries no
 frequency and therefore has zero joint response. -/
@@ -88,12 +98,12 @@ theorem primorialPeriodicRawResidual_eq_sum_divisorConductorResponses
       simpa [N] using hqdiv
     simp [hqdiv, hzero]
 
-/-- Every positive divisor conductor is realized by the canonical residue
-`N / q`, so the nontrivial boundary theorem can be instantiated without an
-external shell representative. -/
+/-- Every divisor conductor is realized by the canonical residue `N / q`, so
+the nontrivial boundary theorem can be instantiated without an external shell
+representative. -/
 private theorem reducedAdditiveConductor_natCast_quotient
     (W : PrimeWheelFiniteSystem) (q : ℕ)
-    (hqmod : q ∣ W.modulus) (hqpos : 0 < q) :
+    (hqmod : q ∣ W.modulus) :
     reducedAdditiveConductor
         (((W.modulus / q : ℕ) : ZMod W.modulus)) = q := by
   rw [reducedAdditiveConductor_eq_addOrderOf W]
@@ -141,8 +151,7 @@ theorem primorialPeriodicRawJointConductorResponse_eq_explicit_of_divisor
   have hr : q = reducedAdditiveConductor r := by
     dsimp [r]
     exact (reducedAdditiveConductor_natCast_quotient
-      (primorialMinimalWheelSystem k) q hqmod
-      (Nat.zero_lt_of_lt hq)).symm
+      (primorialMinimalWheelSystem k) q hqmod).symm
   unfold primorialPeriodicRawExplicitNontrivialConductorPacket
   exact primorialPeriodicRawJointConductorResponse_eq_arithmeticDivisorBoundary
     k x q r hr hq hx
