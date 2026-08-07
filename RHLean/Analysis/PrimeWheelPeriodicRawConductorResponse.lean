@@ -346,6 +346,9 @@ theorem primorialPeriodicRawConductorResponse_eq_constant_mul_ramanujanWindow
       C * primorialReducedConductorRamanujanWindow k x q := by
   classical
   rw [← primorialReducedConductorWindowResponse_eq_ramanujanWindow]
+  change primorialPeriodicRawConductorResponse k x q =
+    C * primeWheelReducedConductorWindowResponse
+      (primorialMinimalWheelSystem k) x q
   unfold primorialPeriodicRawConductorResponse
     primorialPeriodicRawSpectralAtom
     primeWheelReducedConductorWindowResponse
