@@ -109,7 +109,7 @@ theorem sum_canonicalTotalIncrement_Ico_eq_primorialResidual_sub
       k hrightLower hrightUpper,
     primorialWheel_residual_cast_eq_mertens_sub_le
       k hleftLower hleftUpper]
-  ring
+  simp only [RHLean.Analysis.squarePrefixMertens]
 
 /-- Single-block specialization of the exact nesting theorem. -/
 theorem canonicalTotalIncrement_eq_primorialResidual_sub
