@@ -98,6 +98,7 @@ import RHLean.Proof.MutablePNTClosure
 import RHLean.Proof.SignedMutableFinalObject
 import RHLean.Proof.DeathShellDivisorFibers
 import RHLean.Proof.DeathShellSubpolynomial
+import RHLean.Proof.SurvivorZeroMode
 import RHLean.Proof.LowOmegaHighOrientation
 import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Proof.DyadicCompressedPacketGram
@@ -150,6 +151,8 @@ import RHLean.Analysis.PrimeWheelCompleteSpectrum
 import RHLean.Analysis.PrimeWheelHarmonicCriterion
 import RHLean.Analysis.PrimeWheelConductorGram
 import RHLean.Analysis.PrimeWheelDirichletResponse
+import RHLean.Analysis.SquareWheelNesting
+import RHLean.Analysis.SquareWheelQuadraticSampling
 import RHLean.Analysis.PrimorialWheelExplicitCriterion
 import RHLean.Analysis.PrimeWheelRHBridge
 import RHLean.Analysis.PrimorialWheelMertensTransfer
