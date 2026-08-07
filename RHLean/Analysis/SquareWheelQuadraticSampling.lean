@@ -11,17 +11,23 @@ For a pinned wheel prefix ending at
 
 `X_n = (n+1)^2 - 1`,
 
-the prefix length is `N = X_n - lower`.  The pinned start phase is the additive
+the prefix length is `N = X_n - lower`. The pinned start phase is the additive
 character at `lower+1`; multiplying it by the `N`th power arising from the
 Dirichlet kernel gives exactly the quadratic phase at `(n+1)^2`.
 
 This module also records the exact conductor annihilation behind square-to-square
-runs.  A nonzero frequency has additive order equal to its reduced additive
-conductor.  Hence its finite Dirichlet kernel vanishes whenever that reduced
-conductor divides the interval length.  Applied to a square run, the relevant
+runs. A nonzero frequency has additive order equal to its reduced additive
+conductor. Hence its finite Dirichlet kernel vanishes whenever that reduced
+conductor divides the interval length. Applied to a square run, the relevant
 length is a difference of two squares.
 
-These are exact finite identities.  No nonconcentration or power-saving estimate
+Finally, the additive zero frequency is identified exactly. Its joint Fourier
+coefficient is the complete wheel endpoint residual itself, and its contribution
+to a prefix of length `N` is multiplied by the explicit factor `N/modulus`.
+Thus the only self-referential Fourier mode comes with a strict finite contraction
+whenever the prefix lies inside the zero-padded wheel torus.
+
+These are exact finite identities. No nonconcentration or power-saving estimate
 is asserted here.
 -/
 
@@ -61,7 +67,7 @@ theorem reducedAdditiveConductor_eq_addOrderOf
     _ = addOrderOf r := by
       rw [ZMod.natCast_zmod_val]
 
-/-- Exact conductor annihilation of one finite Dirichlet response.  Every
+/-- Exact conductor annihilation of one finite Dirichlet response. Every
 nonzero frequency vanishes on an interval whose length is a multiple of its
 reduced additive conductor. -/
 theorem primeWheelDirichletKernel_eq_zero_of_reducedConductor_dvd
@@ -143,16 +149,61 @@ theorem primeWheelPinnedPhase_mul_samplePower_eq_quadraticPhase
     _ = ((((n + 1) ^ 2 : ℕ) : ZMod W.modulus) * r) := by
       rw [hcast]
 
-/-- Square-run specialization of conductor annihilation.  If a nonzero
+/-- Square-run specialization of conductor annihilation. If a nonzero
 frequency's reduced conductor divides the difference of the two square
 endpoints, then its interval Dirichlet response is exactly zero. -/
 theorem primeWheelDirichletKernel_squareRun_eq_zero
     (W : PrimeWheelFiniteSystem) (u v : ℕ)
     (r : ZMod W.modulus) (hr : r ≠ 0)
-    (huv : u ≤ v)
     (hdiv : reducedAdditiveConductor r ∣ v ^ 2 - u ^ 2) :
     primeWheelDirichletKernel W (v ^ 2 - u ^ 2) r = 0 := by
   exact primeWheelDirichletKernel_eq_zero_of_reducedConductor_dvd
     W (v ^ 2 - u ^ 2) r hr hdiv
+
+/-- At zero additive frequency, the complete joint Fourier coefficient is
+exactly the total corrected mass of the arithmetic wheel block. -/
+theorem primeWheel_jointSpectrum_zero_eq_residual_upper
+    (W : PrimeWheelFiniteSystem) :
+    W.jointSpectrum 0 = (((W.residual W.upper : ℤ) : ℂ)) := by
+  classical
+  have hpair : W.jointSpectrum 0 = W.torusPrefixPairing W.upper := by
+    unfold PrimeWheelFiniteSystem.jointSpectrum
+      PrimeWheelFiniteSystem.torusPrefixPairing
+      RHLean.Analysis.finiteTorusPairing
+      PrimeWheelFiniteSystem.torusJointField
+      PrimeWheelFiniteSystem.torusPrefixWindow
+    rw [ZMod.dft_apply]
+    apply Finset.sum_congr rfl
+    intro z hz
+    by_cases hsupport : W.lower < z.val ∧ z.val ≤ W.upper
+    · simp [hsupport]
+    · simp [hsupport]
+  rw [hpair]
+  exact
+    W.canonicalTorusRealizationCertificate.pairing_eq_residual
+      W.upper W.lower_lt_upper le_rfl
+
+/-- The pinned coefficient at zero frequency is the endpoint residual divided
+by the torus modulus. -/
+theorem primeWheelPinnedCoefficient_zero
+    (W : PrimeWheelFiniteSystem) :
+    primeWheelPinnedCoefficient W 0 =
+      ((W.modulus : ℂ)⁻¹) * (((W.residual W.upper : ℤ) : ℂ)) := by
+  simp [primeWheelPinnedCoefficient, primeWheelPinnedPhase,
+    primeWheel_jointSpectrum_zero_eq_residual_upper]
+
+/-- The zero-frequency Dirichlet kernel is exactly the interval length. -/
+@[simp] theorem primeWheelDirichletKernel_zero
+    (W : PrimeWheelFiniteSystem) (N : ℕ) :
+    primeWheelDirichletKernel W N 0 = (N : ℂ) := by
+  simp [primeWheelDirichletKernel]
+
+/-- Consequently the zero-frequency contribution to a prefix of length `N` is
+exactly `(N/modulus)` times the complete wheel endpoint residual. -/
+theorem primeWheel_zeroFrequencyPrefixContribution
+    (W : PrimeWheelFiniteSystem) (N : ℕ) :
+    primeWheelPinnedCoefficient W 0 * primeWheelDirichletKernel W N 0 =
+      ((W.modulus : ℂ)⁻¹) * (((W.residual W.upper : ℤ) : ℂ)) * (N : ℂ) := by
+  rw [primeWheelPinnedCoefficient_zero, primeWheelDirichletKernel_zero]
 
 end RHLean.Analysis
