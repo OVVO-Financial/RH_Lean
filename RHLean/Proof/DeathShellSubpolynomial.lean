@@ -527,11 +527,14 @@ theorem norm_lifetimeDeathMass_le_rpow
   have hraw := norm_lifetimeDeathMass_le_initial_add_sum_divisorMajorant hΛ n
   have hsplit :
       Real.rpow B (1 + ε) = B * Real.rpow B ε := by
+    have hB1 : Real.rpow B 1 = B := by
+      exact Real.rpow_one B
     calc
       Real.rpow B (1 + ε) =
           Real.rpow B 1 * Real.rpow B ε :=
         Real.rpow_add hbasePos 1 ε
-      _ = B * Real.rpow B ε := by rw [Real.rpow_one]
+      _ = B * Real.rpow B ε := by
+        rw [hB1]
   have htail :
       (n : ℝ) * (Cinc * Real.rpow B ε) ≤
         Cinc * Real.rpow B (1 + ε) := by
