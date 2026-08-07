@@ -93,7 +93,8 @@ theorem originalVFImpliedBase_tendsto_e
     Tendsto originalVFImpliedBase atTop (𝓝 (Real.exp 1)) := by
   have hcont : ContinuousAt (fun z : ℝ => Real.exp (1 / (1 - z))) 0 := by
     fun_prop (disch := norm_num)
-  simpa [originalVFImpliedBase, originalVFImpliedLogBase, Function.comp_def] using
-    hcont.tendsto.comp hRatio
+  change Tendsto (fun x : ℝ => Real.exp (1 / (1 - originalVFCorrectionRatio x)))
+    atTop (𝓝 (Real.exp 1))
+  simpa only [Function.comp_apply] using hcont.tendsto.comp hRatio
 
 end RHLean.Analysis
