@@ -132,7 +132,9 @@ private theorem rawExpansionDivisor_dvd_modulus
     (rawExpansionFactors_pairwise_isCoprime S hprime e)
   intro p
   have he : (e p).val ≤ 2 := by omega
-  exact dvd_trans (pow_dvd_pow p.val he) (hperiod p.val p.property)
+  have hpow : p.val ^ (e p).val ∣ p.val ^ 2 :=
+    (Nat.pow_dvd_pow_iff_le_right (hprime p.val p.property).one_lt).mpr he
+  exact dvd_trans hpow (hperiod p.val p.property)
 
 /-- The complete seeded comb is exactly the finite expansion over simultaneous
 prime-power divisibility conditions. -/
@@ -245,13 +247,21 @@ private theorem rawDivisorCharacterSum
       ∑ i : Fin N, F (finNatCastEquivZModRawCoefficient N i) := by
         exact ((finNatCastEquivZModRawCoefficient N).sum_comp F).symm
     _ =
+      ∑ i : Fin N,
+        (if d ∣ i.val then (1 : ℂ) else 0) *
+          ZMod.stdAddChar (-(((i.val : ℕ) : ZMod N) * r)) := by
+            apply Finset.sum_congr rfl
+            intro i hi
+            have hval :
+                (finNatCastEquivZModRawCoefficient N i).val = i.val := by
+              change ((i.val : ZMod N)).val = i.val
+              exact ZMod.val_natCast_of_lt i.isLt
+            dsimp [F, finNatCastEquivZModRawCoefficient]
+            rw [ZMod.val_natCast_of_lt i.isLt]
+    _ =
       ∑ n ∈ Finset.range N,
         (if d ∣ n then (1 : ℂ) else 0) *
           ZMod.stdAddChar (-(((n : ℕ) : ZMod N) * r)) := by
-            change
-              (∑ i : Fin N,
-                (if d ∣ i.val then (1 : ℂ) else 0) *
-                  ZMod.stdAddChar (-(((i.val : ℕ) : ZMod N) * r))) = _
             exact Fin.sum_univ_eq_sum_range
               (fun n : ℕ =>
                 (if d ∣ n then (1 : ℂ) else 0) *
@@ -370,20 +380,65 @@ theorem seededPrimeCombDFT_eq_rawConductorArithmeticCoefficient
                   intro z hz
                   rw [seededPrimeComb_cast_eq_rawExpansion S hprime z.val]
     _ =
+      ∑ z : ZMod N,
+        -(∑ e : PrimeWheelRawExpansionPoint S,
+          primeWheelRawExpansionWeight S e *
+            ((if primeWheelRawExpansionDivisor S e ∣ z.val then
+              (1 : ℂ) else 0) * ZMod.stdAddChar (-(z * r)))) := by
+                apply Finset.sum_congr rfl
+                intro z hz
+                calc
+                  ZMod.stdAddChar (-(z * r)) *
+                      (-∑ e : PrimeWheelRawExpansionPoint S,
+                        primeWheelRawExpansionWeight S e *
+                          (if primeWheelRawExpansionDivisor S e ∣ z.val then
+                            (1 : ℂ) else 0)) =
+                    -(ZMod.stdAddChar (-(z * r)) *
+                      ∑ e : PrimeWheelRawExpansionPoint S,
+                        primeWheelRawExpansionWeight S e *
+                          (if primeWheelRawExpansionDivisor S e ∣ z.val then
+                            (1 : ℂ) else 0)) := by ring
+                  _ =
+                    -(∑ e : PrimeWheelRawExpansionPoint S,
+                      ZMod.stdAddChar (-(z * r)) *
+                        (primeWheelRawExpansionWeight S e *
+                          (if primeWheelRawExpansionDivisor S e ∣ z.val then
+                            (1 : ℂ) else 0))) := by
+                              rw [Finset.mul_sum]
+                  _ =
+                    -(∑ e : PrimeWheelRawExpansionPoint S,
+                      primeWheelRawExpansionWeight S e *
+                        ((if primeWheelRawExpansionDivisor S e ∣ z.val then
+                          (1 : ℂ) else 0) *
+                            ZMod.stdAddChar (-(z * r)))) := by
+                              apply congrArg Neg.neg
+                              apply Finset.sum_congr rfl
+                              intro e he
+                              ring
+    _ =
+      -∑ z : ZMod N,
+        ∑ e : PrimeWheelRawExpansionPoint S,
+          primeWheelRawExpansionWeight S e *
+            ((if primeWheelRawExpansionDivisor S e ∣ z.val then
+              (1 : ℂ) else 0) * ZMod.stdAddChar (-(z * r))) := by
+                rw [Finset.sum_neg_distrib]
+    _ =
+      -∑ e : PrimeWheelRawExpansionPoint S,
+        ∑ z : ZMod N,
+          primeWheelRawExpansionWeight S e *
+            ((if primeWheelRawExpansionDivisor S e ∣ z.val then
+              (1 : ℂ) else 0) * ZMod.stdAddChar (-(z * r))) := by
+                rw [Finset.sum_comm]
+    _ =
       -∑ e : PrimeWheelRawExpansionPoint S,
         primeWheelRawExpansionWeight S e *
           (∑ z : ZMod N,
             (if primeWheelRawExpansionDivisor S e ∣ z.val then
               (1 : ℂ) else 0) * ZMod.stdAddChar (-(z * r))) := by
-                rw [Finset.sum_comm]
-                rw [Finset.sum_neg_distrib]
                 apply congrArg Neg.neg
                 apply Finset.sum_congr rfl
                 intro e he
                 rw [Finset.mul_sum]
-                apply Finset.sum_congr rfl
-                intro z hz
-                ring
     _ =
       -∑ e : PrimeWheelRawExpansionPoint S,
         primeWheelRawExpansionWeight S e *
