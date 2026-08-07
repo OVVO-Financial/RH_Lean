@@ -351,17 +351,19 @@ private theorem abs_localPrimeRawSignedConductorWeight_eq
     exact_mod_cast hp.one_le
   have hden : 0 < (p : ℝ) ^ 2 := by positivity
   fin_cases c
-  · simp [localPrimeRawSignedConductorWeight,
-      localPrimeRawAbsoluteConductorWeight, abs_of_nonneg,
-      div_nonneg, sq_nonneg, le_of_lt hden]
-  · have hneg : 1 - 2 * (p : ℝ) ≤ 0 := by nlinarith
-    simp [localPrimeRawSignedConductorWeight,
-      localPrimeRawAbsoluteConductorWeight, abs_of_nonpos,
-      hneg, abs_div, abs_of_pos hden]
+  · change
+      |((p : ℝ) - 1) ^ 2 / (p : ℝ) ^ 2| =
+        ((p : ℝ) - 1) ^ 2 / (p : ℝ) ^ 2
+    exact abs_of_nonneg (div_nonneg (sq_nonneg _) (le_of_lt hden))
+  · change
+      |(1 - 2 * (p : ℝ)) / (p : ℝ) ^ 2| =
+        (2 * (p : ℝ) - 1) / (p : ℝ) ^ 2
+    have hnum : 1 - 2 * (p : ℝ) ≤ 0 := by nlinarith
+    rw [abs_div, abs_of_nonpos hnum, abs_of_pos hden]
     ring
-  · simp [localPrimeRawSignedConductorWeight,
-      localPrimeRawAbsoluteConductorWeight, abs_of_nonneg,
-      div_nonneg, le_of_lt hden]
+  · change
+      |1 / (p : ℝ) ^ 2| = 1 / (p : ℝ) ^ 2
+    exact abs_of_nonneg (div_nonneg zero_le_one (le_of_lt hden))
 
 /-- Norm of the actual normalized arithmetic coefficient is the explicit
 product of local absolute conductor weights. -/
@@ -384,6 +386,20 @@ theorem norm_primeWheelRawConductorArithmeticCoefficient_normalized_eq
   exact abs_localPrimeRawSignedConductorWeight_eq
     p.val (hprime p.val p.property) (c p)
 
+private theorem localPrimeRawAbsoluteConductorWeight_nonneg
+    (p : ℕ) (hp : Nat.Prime p) (c : Fin 3) :
+    0 ≤ localPrimeRawAbsoluteConductorWeight p c := by
+  have hpR : (2 : ℝ) ≤ p := by
+    exact_mod_cast hp.two_le
+  fin_cases c
+  · change 0 ≤ ((p : ℝ) - 1) ^ 2 / (p : ℝ) ^ 2
+    positivity
+  · change 0 ≤ (2 * (p : ℝ) - 1) / (p : ℝ) ^ 2
+    have hnum : 0 ≤ 2 * (p : ℝ) - 1 := by nlinarith
+    positivity
+  · change 0 ≤ 1 / (p : ℝ) ^ 2
+    positivity
+
 private theorem localPrimeRawAbsoluteConductorWeight_le_decayEnvelope
     (p : ℕ) (hp : Nat.Prime p) (c : Fin 3) :
     localPrimeRawAbsoluteConductorWeight p c ≤
@@ -394,17 +410,20 @@ private theorem localPrimeRawAbsoluteConductorWeight_le_decayEnvelope
     exact_mod_cast hp.pos
   have hden : 0 < (p : ℝ) ^ 2 := by positivity
   fin_cases c
-  · simp [localPrimeRawAbsoluteConductorWeight,
-      localPrimeRawConductorDecayEnvelope]
-    apply (div_le_one hden).2
-    nlinarith [sq_nonneg ((p : ℝ) - 1)]
-  · simp [localPrimeRawAbsoluteConductorWeight,
-      localPrimeRawConductorDecayEnvelope]
+  · change ((p : ℝ) - 1) ^ 2 / (p : ℝ) ^ 2 ≤ 1
     apply (div_le_iff₀ hden).2
-    field_simp [ne_of_gt hp0]
+    nlinarith [sq_nonneg ((p : ℝ) - 1)]
+  · change
+      (2 * (p : ℝ) - 1) / (p : ℝ) ^ 2 ≤ 2 / (p : ℝ)
+    apply (div_le_iff₀ hden).2
+    have hrewrite :
+        (2 / (p : ℝ)) * (p : ℝ) ^ 2 = 2 * (p : ℝ) := by
+      field_simp [ne_of_gt hp0]
+      ring
+    rw [hrewrite]
     nlinarith
-  · simp [localPrimeRawAbsoluteConductorWeight,
-      localPrimeRawConductorDecayEnvelope]
+  · change 1 / (p : ℝ) ^ 2 ≤ 1 / (p : ℝ) ^ 2
+    exact le_rfl
 
 /-- Pointwise conductor decay.  Every first-power conductor coordinate costs at
 most `2/p`, and every square coordinate costs exactly `1/p^2`. -/
@@ -418,7 +437,8 @@ theorem primeWheelRawConductorPatternAbsoluteWeight_le_decayEnvelope
     primeWheelRawConductorPatternDecayEnvelope
   apply Finset.prod_le_prod
   · intro p hp
-    exact (localPrimeRawAbsoluteConductorWeight p.val (c p)).nonneg
+    exact localPrimeRawAbsoluteConductorWeight_nonneg
+      p.val (hprime p.val p.property) (c p)
   · intro p hp
     exact localPrimeRawAbsoluteConductorWeight_le_decayEnvelope
       p.val (hprime p.val p.property) (c p)
@@ -510,7 +530,9 @@ private theorem sum_localPrimeRawMarkedWeight
   · simp [hm, localPrimeRawAbsoluteConductorWeight, Fin.sum_univ_succ]
     field_simp [hp0]
     ring
-  · simp [hm, sum_localPrimeRawAbsoluteConductorWeight p hp]
+  · rw [if_neg hm]
+    simp only [hm, false_and, if_false, mul_one]
+    exact sum_localPrimeRawAbsoluteConductorWeight p hp
 
 /-- Exact marked generating identity.  Marked primes contribute the local
 polynomial `((p-1)/p)^2 + (2/p)t`; unmarked primes contribute `1 + 1/p^2`. -/
