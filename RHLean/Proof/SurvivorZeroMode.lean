@@ -34,10 +34,10 @@ and the current high-height condition
 `2*Lambda*t < |q^2-c^2|`.
 
 The module proves this finite identity and the translated-window equivalence to
-the remaining lifetime endpoint premise.  In the combined square-wheel route,
+the remaining lifetime endpoint premise. In the combined square-wheel route,
 this survivor state is one arithmetic coordinate of the square-endpoint
 oscillation, not an instruction to estimate each square block or each survivor
-state independently.  The companion square-wheel modules retain cancellation
+state independently. The companion square-wheel modules retain cancellation
 across consecutive square blocks and expose the same residual through the
 primorial wheel spectrum.
 
@@ -445,7 +445,6 @@ theorem survivorZeroMode_core_eq_one_of_endpoint_lt_two_mul_prime
     (hlarge : RHLean.Analysis.squarePrefixEndpoint t < 2 * q) :
     c = 1 := by
   rcases Finset.mem_filter.mp hq with ⟨_hqRange, hpair⟩
-  have hc1 : 1 ≤ c := hpair.1.2.1
   have hprod : c * q ≤ RHLean.Analysis.squarePrefixEndpoint t := hpair.2.1
   by_contra hne
   have hc2 : 2 ≤ c := by omega
@@ -464,7 +463,7 @@ theorem survivorZeroMode_localEnergy_eq_lifetimeActive
   rw [← lifetimeActiveAtomMass_eq_survivorZeroMode hΛ]
 
 /-- The remaining lifetime-active RH-scale statement, written directly on the
-explicit signed cofactor zero-mode operator.  The companion square-wheel layer
+explicit signed cofactor zero-mode operator. The companion square-wheel layer
 shows how differences of complete square endpoints sit inside primorial-wheel
 residual oscillation, so this is not intended to be estimated independently of
 that oscillation. -/
