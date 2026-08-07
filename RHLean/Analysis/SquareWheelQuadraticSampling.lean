@@ -67,6 +67,26 @@ theorem reducedAdditiveConductor_eq_addOrderOf
     _ = addOrderOf r := by
       rw [ZMod.natCast_zmod_val]
 
+/-- Exact geometric-series form of one nonzero Dirichlet response. -/
+theorem primeWheelDirichletKernel_eq_geom_of_ne_zero
+    (W : PrimeWheelFiniteSystem) (N : ℕ)
+    (r : ZMod W.modulus) (hr : r ≠ 0) :
+    primeWheelDirichletKernel W N r =
+      (ZMod.stdAddChar r ^ N - 1) / (ZMod.stdAddChar r - 1) := by
+  have hchar : ZMod.stdAddChar r ≠ 1 := by
+    intro h
+    have hzero : r = 0 :=
+      ZMod.injective_stdAddChar (by simpa using h)
+    exact hr hzero
+  have hsum :
+      primeWheelDirichletKernel W N r =
+        ∑ j ∈ Finset.range N, ZMod.stdAddChar r ^ j := by
+    unfold primeWheelDirichletKernel
+    apply Finset.sum_congr rfl
+    intro j hj
+    exact squareWheel_stdAddChar_nat_mul W r j
+  rw [hsum, geom_sum_eq hchar N]
+
 /-- Exact conductor annihilation of one finite Dirichlet response. Every
 nonzero frequency vanishes on an interval whose length is a multiple of its
 reduced additive conductor. -/
@@ -75,11 +95,6 @@ theorem primeWheelDirichletKernel_eq_zero_of_reducedConductor_dvd
     (r : ZMod W.modulus) (hr : r ≠ 0)
     (hdiv : reducedAdditiveConductor r ∣ N) :
     primeWheelDirichletKernel W N r = 0 := by
-  have hchar : ZMod.stdAddChar r ≠ 1 := by
-    intro h
-    have hzero : r = 0 :=
-      ZMod.injective_stdAddChar (by simpa using h)
-    exact hr hzero
   have horder : addOrderOf r ∣ N := by
     rw [← reducedAdditiveConductor_eq_addOrderOf W r]
     exact hdiv
@@ -94,14 +109,7 @@ theorem primeWheelDirichletKernel_eq_zero_of_reducedConductor_dvd
           (ZMod.stdAddChar : AddChar (ZMod W.modulus) ℂ) N r
       _ = ZMod.stdAddChar 0 := by rw [hnsmul]
       _ = 1 := AddChar.map_zero_eq_one _
-  have hsum :
-      primeWheelDirichletKernel W N r =
-        ∑ j ∈ Finset.range N, ZMod.stdAddChar r ^ j := by
-    unfold primeWheelDirichletKernel
-    apply Finset.sum_congr rfl
-    intro j hj
-    exact squareWheel_stdAddChar_nat_mul W r j
-  rw [hsum, geom_sum_eq hchar N, hpow]
+  rw [primeWheelDirichletKernel_eq_geom_of_ne_zero W N r hr, hpow]
   simp
 
 /-- Prefix length from the wheel anchor to the `n`th complete-square endpoint. -/
@@ -148,6 +156,41 @@ theorem primeWheelPinnedPhase_mul_samplePower_eq_quadraticPhase
         ring
     _ = ((((n + 1) ^ 2 : ℕ) : ZMod W.modulus) * r) := by
       rw [hcast]
+
+/-- Explicit nonzero-frequency atom seen when the wheel prefix is sampled at a
+complete-square endpoint. -/
+def squareWheelQuadraticFrequencyAtom
+    (W : PrimeWheelFiniteSystem) (n : ℕ)
+    (r : ZMod W.modulus) : ℂ :=
+  ((W.modulus : ℂ)⁻¹) * W.jointSpectrum r *
+    ((ZMod.stdAddChar
+        (((((n + 1) ^ 2 : ℕ) : ZMod W.modulus)) * r) -
+      primeWheelPinnedPhase W r) /
+      (ZMod.stdAddChar r - 1))
+
+/-- At every nonzero frequency, the exact pinned Dirichlet atom at a square
+endpoint is the explicit quadratic atom above. -/
+theorem primeWheelPinnedAtom_sample_eq_quadraticAtom
+    (W : PrimeWheelFiniteSystem) (n : ℕ)
+    (r : ZMod W.modulus) (hr : r ≠ 0)
+    (hlower : W.lower ≤ RHLean.Analysis.squarePrefixEndpoint n) :
+    primeWheelPinnedCoefficient W r *
+        primeWheelDirichletKernel W (squareWheelSampleLength W n) r =
+      squareWheelQuadraticFrequencyAtom W n r := by
+  rw [primeWheelDirichletKernel_eq_geom_of_ne_zero
+    W (squareWheelSampleLength W n) r hr]
+  have hphase :=
+    primeWheelPinnedPhase_mul_samplePower_eq_quadraticPhase W n r hlower
+  have hnum :
+      primeWheelPinnedPhase W r *
+          (ZMod.stdAddChar r ^ squareWheelSampleLength W n - 1) =
+        ZMod.stdAddChar
+            (((((n + 1) ^ 2 : ℕ) : ZMod W.modulus)) * r) -
+          primeWheelPinnedPhase W r := by
+    rw [mul_sub, mul_one, hphase]
+  unfold primeWheelPinnedCoefficient squareWheelQuadraticFrequencyAtom
+  rw [← hnum]
+  ring
 
 /-- Square-run specialization of conductor annihilation. If a nonzero
 frequency's reduced conductor divides the difference of the two square
