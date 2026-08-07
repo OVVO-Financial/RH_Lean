@@ -1,0 +1,64 @@
+\section{Four equivalent coordinate systems}
+\label{sec:coordinates}
+%======================================================================
+
+Different calculations become simple in different coordinates.  The point is not to multiply notation, but to move between product, factor-gap, norm, and null coordinates without losing information.
+
+Let
+\begin{equation}
+ w=x+iy
+ =cq+i\frac{q^2-c^2}{2},
+ \qquad
+ \rho:=|w|=\sqrt{x^2+y^2}.
+ \label{eq:w-rho}
+\end{equation}
+Then
+\begin{equation}
+ \rho=\frac{c^2+q^2}{2}.
+ \label{eq:rho-cq}
+\end{equation}
+The most useful coordinate charts are collected in \cref{tab:coordinates}.
+
+\begin{table}[htbp]
+\centering
+\caption{Equivalent coordinates for a canonical squared factor point.}
+\label{tab:coordinates}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.21\textwidth} >{\raggedright\arraybackslash}p{0.31\textwidth} >{\raggedright\arraybackslash}p{0.34\textwidth}}
+\toprule
+Coordinate system & Definition & Exact inverse information\\
+\midrule
+Factor coordinates & $(c,q)$ & $m=cq$, $q=\Pplus(m)$\\
+Fermat coordinates & $a=(c+q)/2$, $b=(q-c)/2$ & $c=a-b$, $q=a+b$\\
+Squared Cartesian & $x=cq$, $y=(q^2-c^2)/2$ & $w=x+iy=(a+ib)^2$\\
+Radial-null & $U=\rho-y$, $V=\rho+y$ & $U=c^2$, $V=q^2$, $x^2=UV$\\
+Square-root & $a^2=(\rho+x)/2$, $b^2=(\rho-x)/2$ & sign of $b$ is sign of $y$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The central identities are
+\begin{equation}
+ \boxed{
+ U:=\rho-y=c^2,
+ \qquad
+ V:=\rho+y=q^2.
+ }
+ \label{eq:UV}
+\end{equation}
+Consequently,
+\begin{equation}
+ x=\sqrt{UV}=cq,
+ \qquad
+ y=\frac{V-U}{2}.
+ \label{eq:xy-UV}
+\end{equation}
+
+These null coordinates linearize the arithmetic cutoffs.  They also make the meaning of $2ab$ exact:
+\begin{equation}
+ \boxed{Y=2ab=\frac{V-U}{2},}
+ \label{eq:Y-null}
+\end{equation}
+so the imaginary coordinate is half the separation between the squared canonical factors.
+
+%======================================================================
