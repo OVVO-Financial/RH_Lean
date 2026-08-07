@@ -1,0 +1,58 @@
+\section{The moving-region interpretation of $A-T$}
+\label{sec:moving-region-AT}
+%======================================================================
+
+This section translates the algebraic identity $A-T$ into a geometric partition.  It is the bridge between the original Mertens sum and the later kernel formulation.
+
+Using the signed measure \cref{eq:signed-measure}, define
+\begin{equation}
+ \mathcal A(R):=\nu(\mathscr A_R),
+ \qquad
+ \mathcal U(R):=\nu(\mathscr U_R).
+ \label{eq:AU-measures}
+\end{equation}
+At $R=R_n$,
+\begin{equation}
+ \mathcal A(R_n)=A_n,
+ \qquad
+ \mathcal U(R_n)=-T_n.
+ \label{eq:AU-AT}
+\end{equation}
+Indeed, the transport points satisfy $c<R_n<q$ and carry signed point mass
+\[
+ \mu(cq)=-\mu(c).
+\]
+Therefore
+\begin{equation}
+ \boxed{
+ S_n
+ =\nu(\mathscr P_{R_n})
+ =\mathcal A(R_n)+\mathcal U(R_n)
+ =A_n-T_n.
+ }
+ \label{eq:geometric-AT}
+\end{equation}
+
+Equivalently, define projectors
+\begin{align}
+ P_R(w)&:=\1_{\{\Repart w<R^2\}},
+ \label{eq:P-projector}\\
+ Q_R(w)&:=\1_{\{|w|+\Impart w\le R^2\}}.
+ \label{eq:Q-projector}
+\end{align}
+Then
+\begin{align}
+ \mathcal A(R)&=\int P_RQ_R\,d\nu,
+ \label{eq:A-projector}\\
+ \mathcal U(R)&=\int P_R(1-Q_R)\,d\nu,
+ \label{eq:U-projector}\\
+ S(R)&=\int P_R\,d\nu.
+ \label{eq:S-projector}
+\end{align}
+The identity is the pointwise partition
+\begin{equation}
+ P_R=P_RQ_R+P_R(1-Q_R).
+ \label{eq:projector-partition}
+\end{equation}
+
+%======================================================================
