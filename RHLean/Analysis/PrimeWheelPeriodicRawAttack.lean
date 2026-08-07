@@ -10,6 +10,7 @@ import RHLean.Analysis.PrimeWheelRamanujanIdentification
 import RHLean.Analysis.PrimeWheelRamanujanBoundaryReduction
 import RHLean.Analysis.PrimeWheelRawConductorCoefficient
 import RHLean.Analysis.PrimeWheelRawConductorWeight
+import RHLean.Analysis.PrimeWheelFullConductorRecombination
 
 /-!
 # Periodic-raw conductor attack umbrella
@@ -34,8 +35,15 @@ exactly `1/p^2`, and the total absolute mass over all exponent patterns is the
 finite Euler product `prod_p (1 + 1/p^2)`.  A marked generating identity isolates
 the wheel primes not dividing the pinned primorial lower endpoint.  These are
 finite structural diagnostics only: they do not by themselves bound the signed
-`q > 1` packet.  Any remaining analytic argument must preserve the global
-interaction of raw, smooth, and zero-mode contributions before norms are taken.
+`q > 1` packet.
+
+The full-conductor recombination restores the conductor-one shell before any
+norm is taken.  Conductor one is proved to be exactly the additive zero
+frequency; the historical corrected residual is then written as that zero atom
+plus the explicit divisor-boundary packets over all divisor conductors `q > 1`.
+Accordingly, the nonzero response and the `q > 1` packet are auxiliary exact
+coordinates, not standalone RH-scale obligations.  The critical path remains
+the full corrected residual with zero, raw, and smooth cancellation preserved.
 
 No analytic estimate is claimed here.
 -/
