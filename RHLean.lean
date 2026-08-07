@@ -102,6 +102,7 @@ import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Proof.DyadicCompressedPacketGram
 import RHLean.Analysis.DyadicTransportCanonicalForm
 import RHLean.Analysis.SquareRootMatchedTransport
+import RHLean.Analysis.SquareRootTransportRealization
 import RHLean.Analysis.ExactActivityPrimeIntervals
 import RHLean.Analysis.DynamicVioleBaseline
 import RHLean.Analysis.GrowingParentPhaseUniformity
