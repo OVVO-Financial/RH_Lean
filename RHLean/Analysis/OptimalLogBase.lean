@@ -72,7 +72,9 @@ theorem optimalLogBase_tendsto_e
     (P : ℝ → ℝ)
     (hPNT : Tendsto (fun x : ℝ => P x * Real.log x / x) atTop (𝓝 1)) :
     Tendsto (optimalLogBase P) atTop (𝓝 (Real.exp 1)) := by
-  simpa [optimalLogBase] using Real.continuousAt_exp.tendsto.comp hPNT
+  have hExp : ContinuousAt Real.exp (1 : ℝ) := by
+    fun_prop
+  simpa [optimalLogBase, Function.comp_def] using hExp.tendsto.comp hPNT
 
 /-- Equivalent formulation using the normalized ratio as a named function. -/
 def normalizedCountingRatio (P : ℝ → ℝ) (x : ℝ) : ℝ :=
