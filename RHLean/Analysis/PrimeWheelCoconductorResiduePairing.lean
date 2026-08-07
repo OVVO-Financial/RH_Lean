@@ -132,7 +132,7 @@ private theorem coconductorAtom_eq_reducedModulusSupport
           reducedAdditiveConductor r :=
       (reducedAdditiveConductor_eq_reducedModulus_of_coconductor
         W r hr hdlt).symm
-    simp [hr, hq]
+    rw [if_pos hr, if_pos hq]
   · simp [hr]
 
 /-- On a proper packet, every active half of the paired summand carries the
@@ -156,7 +156,8 @@ theorem primeWheelCoconductorPairedAtom_reducedModulus_support
         else 0
       else 0) := by
   unfold primeWheelCoconductorPairedAtom
-  rw [coconductorAtom_eq_reducedModulusSupport W x r hdlt]
-  rw [coconductorAtom_eq_reducedModulusSupport W x (-r) hdlt]
+  exact congrArg₂ (fun a b : ℂ => a + b)
+    (coconductorAtom_eq_reducedModulusSupport W x r hdlt)
+    (coconductorAtom_eq_reducedModulusSupport W x (-r) hdlt)
 
 end RHLean.Analysis
