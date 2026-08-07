@@ -74,12 +74,14 @@ private theorem localPrimeComb_cast_eq_expansion (p n : ℕ) :
   by_cases hsq : p ^ 2 ∣ n
   · have hp : p ∣ n := dvd_trans (dvd_pow_self p (by norm_num)) hsq
     simp [localPrimeComb, localPrimeCombExpansionWeight,
-      Fin.sum_univ_succ, hp, hsq] <;> norm_num
+      Fin.sum_univ_succ, hp, hsq]
+    norm_num
   · by_cases hp : p ∣ n
     · simp [localPrimeComb, localPrimeCombExpansionWeight,
-        Fin.sum_univ_succ, hp, hsq] <;> norm_num
+        Fin.sum_univ_succ, hp, hsq]
+      norm_num
     · simp [localPrimeComb, localPrimeCombExpansionWeight,
-        Fin.sum_univ_succ, hp, hsq] <;> norm_num
+        Fin.sum_univ_succ, hp, hsq]
 
 /-- Distinct prime-power factors selected by an expansion point are pairwise
 relatively prime in the natural-number monoid. -/
@@ -268,8 +270,8 @@ private theorem rawDivisorCharacterSum
           apply Finset.sum_congr rfl
           intro n hn
           by_cases hdiv : d ∣ n
-          · rw [if_pos hdiv]
-          · rw [if_neg hdiv]
+          · simp only [if_pos hdiv, one_mul]
+          · simp only [if_neg hdiv, zero_mul]
     _ =
       ∑ a ∈ Finset.range (N / d),
         ZMod.stdAddChar (-((((d * a : ℕ) : ZMod N)) * r)) := by
