@@ -1,6 +1,6 @@
-# Lean module manifest — square-block paper
+# Square-Block Möbius — Lean module manifest
 
-This manifest lists the Lean source snapshots copied into `export_square_block/lean/`. The list is curated by **mathematical paper scope**, not by transitive import closure. Supporting implementation modules that the selected files import remain in their normal locations in the parent `RH_Lean` repository.
+This manifest lists the curated Lean source snapshots published under `lean/` in **Square-Block Möbius**. The inventory is selected by **mathematical paper scope**, not by transitive import closure. The modules were verified in the full Lean development before publication export; supporting implementation modules outside the square-block paper remain outside this standalone snapshot.
 
 ## Square-prefix criterion and canonical decomposition
 
