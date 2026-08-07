@@ -61,12 +61,20 @@ private def finNatCastEquivZMod (n : ℕ) [NeZero n] : Fin n ≃ ZMod n where
     exact ZMod.val_natCast_of_lt i.isLt
   right_inv z := ZMod.natCast_zmod_val z
 
+/-- Complete additive-character sum on the local `p^2` torus, written over
+least representatives.  The definition hides the `NeZero (p^2)` instance so
+later theorem statements do not depend on typeclass synthesis from primality. -/
+private def localFullRangeCharacterSum
+    (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) : ℂ := by
+  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  exact ∑ n ∈ Finset.range (p ^ 2),
+    ZMod.stdAddChar
+      (-(((n : ℕ) : ZMod (p ^ 2)) * r))
+
 /-- Complete additive-character orthogonality on the local `p^2` torus. -/
-private theorem localFullCharacterSum
+private theorem localFullRangeCharacterSum_eq
     (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) :
-    (∑ x : Fin (p ^ 2),
-      ZMod.stdAddChar
-        (-(((x.val : ℕ) : ZMod (p ^ 2)) * r))) =
+    localFullRangeCharacterSum p hp r =
       if r = 0 then (((p ^ 2 : ℕ) : ℂ)) else 0 := by
   letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
   let F : ZMod (p ^ 2) → ℂ := fun z =>
@@ -77,20 +85,30 @@ private theorem localFullCharacterSum
     have h := AddChar.sum_mulShift
       (-r) (ZMod.isPrimitive_stdAddChar (p ^ 2))
     simpa [F, ZMod.card] using h
+  unfold localFullRangeCharacterSum
   calc
-    (∑ x : Fin (p ^ 2),
+    (∑ n ∈ Finset.range (p ^ 2),
         ZMod.stdAddChar
-          (-(((x.val : ℕ) : ZMod (p ^ 2)) * r))) =
-        ∑ x : Fin (p ^ 2), F (finNatCastEquivZMod (p ^ 2) x) := by
-          apply Finset.sum_congr rfl
-          intro x hx
-          change
-            ZMod.stdAddChar
-                (-(((x.val : ℕ) : ZMod (p ^ 2)) * r)) =
-              ZMod.stdAddChar
-                (((x.val : ℕ) : ZMod (p ^ 2)) * (-r))
-          congr 1
-          ring
+          (-(((n : ℕ) : ZMod (p ^ 2)) * r))) =
+      ∑ x : Fin (p ^ 2),
+        ZMod.stdAddChar
+          (-(((x.val : ℕ) : ZMod (p ^ 2)) * r)) := by
+            symm
+            exact Fin.sum_univ_eq_sum_range
+              (fun n : ℕ =>
+                ZMod.stdAddChar
+                  (-(((n : ℕ) : ZMod (p ^ 2)) * r)))
+              (p ^ 2)
+    _ = ∑ x : Fin (p ^ 2), F (finNatCastEquivZMod (p ^ 2) x) := by
+      apply Finset.sum_congr rfl
+      intro x hx
+      change
+        ZMod.stdAddChar
+            (-(((x.val : ℕ) : ZMod (p ^ 2)) * r)) =
+          ZMod.stdAddChar
+            (((x.val : ℕ) : ZMod (p ^ 2)) * (-r))
+      congr 1
+      ring
     _ = ∑ z : ZMod (p ^ 2), F z :=
       (finNatCastEquivZMod (p ^ 2)).sum_comp F
     _ = if r = 0 then (((p ^ 2 : ℕ) : ℂ)) else 0 := horth
@@ -207,9 +225,8 @@ private theorem localPrimeMultipleCharacterSum_eq
         ZMod.injective_stdAddChar (by simpa using h)
       exact hb hzero
     have hbsmul : p • b = 0 := by
-      change
-        ((p : ℕ) : ZMod (p ^ 2)) *
-            (-(((p : ℕ) : ZMod (p ^ 2)) * r)) = 0
+      dsimp [b]
+      simp only [nsmul_eq_mul]
       calc
         ((p : ℕ) : ZMod (p ^ 2)) *
             (-(((p : ℕ) : ZMod (p ^ 2)) * r)) =
@@ -245,41 +262,46 @@ private theorem squareMultiplesBelowSquare_eq_singleton
     subst n
     exact ⟨pow_pos hp.pos 2, dvd_zero _⟩
 
+/-- The square-multiple indicator character sum. -/
+private def localSquareMultipleCharacterSum
+    (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) : ℂ := by
+  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  exact ∑ n ∈ Finset.range (p ^ 2),
+    if p ^ 2 ∣ n then
+      ZMod.stdAddChar
+        (-(((n : ℕ) : ZMod (p ^ 2)) * r))
+    else 0
+
 /-- The square-multiple indicator contributes exactly the zero residue. -/
 private theorem localSquareMultipleCharacterSum_eq_one
     (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) :
-    (∑ n ∈ Finset.range (p ^ 2),
-      if p ^ 2 ∣ n then
-        ZMod.stdAddChar
-          (-(((n : ℕ) : ZMod (p ^ 2)) * r))
-      else 0) = 1 := by
+    localSquareMultipleCharacterSum p hp r = 1 := by
   letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  unfold localSquareMultipleCharacterSum
   rw [← Finset.sum_filter,
     squareMultiplesBelowSquare_eq_singleton p hp]
   simp
 
-/-- Range form of complete character orthogonality. -/
-private theorem localFullRangeCharacterSum
-    (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) :
-    (∑ n ∈ Finset.range (p ^ 2),
+/-- Range-form `p`-multiple character sum, with the additive-character instance
+hidden in the definition. -/
+private def localPrimeMultipleCharacterIteSum
+    (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) : ℂ := by
+  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  exact ∑ n ∈ Finset.range (p ^ 2),
+    if p ∣ n then
       ZMod.stdAddChar
-        (-(((n : ℕ) : ZMod (p ^ 2)) * r))) =
-      if r = 0 then (((p ^ 2 : ℕ) : ℂ)) else 0 := by
-  have h := localFullCharacterSum p hp r
-  rw [Fin.sum_univ_eq_sum_range] at h
-  exact h
+        (-(((n : ℕ) : ZMod (p ^ 2)) * r))
+    else 0
 
 /-- Range form of the `p`-multiple character orthogonality identity. -/
 private theorem localPrimeMultipleCharacterIteSum_eq
     (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) :
-    (∑ n ∈ Finset.range (p ^ 2),
-      if p ∣ n then
-        ZMod.stdAddChar
-          (-(((n : ℕ) : ZMod (p ^ 2)) * r))
-      else 0) =
+    localPrimeMultipleCharacterIteSum p hp r =
       if p ∣ r.val then (p : ℂ) else 0 := by
+  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
   have h := localPrimeMultipleCharacterSum_eq p hp r
   unfold localPrimeMultipleCharacterSum at h
+  unfold localPrimeMultipleCharacterIteSum
   rw [Finset.sum_filter] at h
   exact h
 
@@ -294,7 +316,7 @@ theorem localPrimeCombNaturalSpectrum_eq_explicit
   let χ : ℕ → ℂ := fun n =>
     ZMod.stdAddChar
       (-(((n : ℕ) : ZMod (p ^ 2)) * r))
-  have hfull := localFullRangeCharacterSum p hp r
+  have hfull := localFullRangeCharacterSum_eq p hp r
   have hprime := localPrimeMultipleCharacterIteSum_eq p hp r
   have hsquare := localSquareMultipleCharacterSum_eq_one p hp r
   unfold localPrimeCombNaturalSpectrum
@@ -320,6 +342,11 @@ theorem localPrimeCombNaturalSpectrum_eq_explicit
           if p ^ 2 ∣ n then χ n else 0) := by
             rw [Finset.sum_add_distrib, Finset.sum_sub_distrib]
             rw [← Finset.mul_sum]
+    _ =
+      localFullRangeCharacterSum p hp r -
+        2 * localPrimeMultipleCharacterIteSum p hp r +
+        localSquareMultipleCharacterSum p hp r := by
+          rfl
     _ =
       (if r = 0 then (((p ^ 2 : ℕ) : ℂ)) else 0) -
         2 * (if p ∣ r.val then (p : ℂ) else 0) + 1 := by
@@ -385,20 +412,16 @@ theorem localPrimeCombNaturalSpectrum_eq_typeCoefficient
   rw [localPrimeCombNaturalSpectrum_eq_explicit]
   unfold localPrimeSpectrumType localPrimeSpectrumCoefficient
   by_cases hr : r = 0
-  · simp [hr, hp.ne_one]
+  · simp [hr]
   · by_cases hdiv : p ∣ r.val
-    · have hppow : p ^ 2 ≠ p := by
-        intro h
-        have hp2le := hp.two_le
-        nlinarith
-      simp [hr, hdiv, hp.ne_one, hppow]
+    · simp [hr, hdiv, hp.ne_one]
     · have hpSqNeOne : p ^ 2 ≠ 1 := by
         have hp2le := hp.two_le
         nlinarith
       have hpSqNeP : p ^ 2 ≠ p := by
         have hp2le := hp.two_le
         nlinarith
-      simp [hr, hdiv, hp.ne_one, hpSqNeOne, hpSqNeP]
+      simp [hr, hdiv, hpSqNeOne, hpSqNeP]
 
 /-- The complete raw CRT spectrum is an explicit product of the local
 three-case coefficients.  No norm has been taken and all local signs remain. -/
