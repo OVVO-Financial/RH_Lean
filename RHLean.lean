@@ -98,6 +98,7 @@ import RHLean.Proof.MutablePNTClosure
 import RHLean.Proof.SignedMutableFinalObject
 import RHLean.Proof.DeathShellDivisorFibers
 import RHLean.Proof.DeathShellSubpolynomial
+import RHLean.Proof.SurvivorZeroMode
 import RHLean.Proof.LowOmegaHighOrientation
 import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Proof.DyadicCompressedPacketGram
