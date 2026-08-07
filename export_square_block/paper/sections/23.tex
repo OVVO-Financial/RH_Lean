@@ -1,0 +1,26 @@
+\subsection{Deterministic exact checks}
+
+The implementation independently constructed $S_n$, $A_n$, and $T_n$ from the source entry and transition intervals.  Over all $4096$ prefixes,
+\begin{equation}
+ \max_{n\le4096}|S_n-(A_n-T_n)|=0.
+ \label{eq:exact-AT-numerical}
+\end{equation}
+Across all $10{,}204{,}280$ squarefree sources, the following violation counts were also zero:
+
+\begin{table}[htbp]
+\centering
+\caption{Exact squared-space verification through $X_{\max}$.}
+\label{tab:exact-checks}
+\small
+\begin{tabular}{lr}
+\toprule
+Check & Violations\\
+\midrule
+$(q^2+c^2)^2=(2m)^2+(q^2-c^2)^2$ & 0\\
+$c^2(q^2-c^2)=m^2-c^4$ & 0\\
+height--lifetime inequality & 0\\
+prefix identity $S_n=A_n-T_n$ & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
