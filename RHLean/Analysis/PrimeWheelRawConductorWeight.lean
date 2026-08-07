@@ -119,13 +119,15 @@ private theorem rawExpansionDivisor_factorization_apply
   rw [rawExpansionDivisor_factorization S hprime e]
   simp [Finsupp.single_apply]
   calc
-    (∑ x ∈ S.attach, if x = p then ↑(e x) else 0) =
-        (if p = p then ↑(e p) else 0) := by
+    (∑ x ∈ S.attach, if x.val = p.val then (e x).val else 0) =
+        (if p.val = p.val then (e p).val else 0) := by
           apply Finset.sum_eq_single_of_mem p
           · simp
           · intro q _ hqp
-            rw [if_neg hqp]
-    _ = ↑(e p) := by
+            rw [if_neg]
+            intro hval
+            exact hqp (Subtype.ext hval)
+    _ = (e p).val := by
       rw [if_pos rfl]
 
 private theorem rawExpansionDivisor_dvd_iff_pointwise
