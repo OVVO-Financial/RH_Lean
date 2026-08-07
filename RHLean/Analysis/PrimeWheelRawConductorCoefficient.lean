@@ -21,7 +21,7 @@ Therefore the raw DFT coefficient is a finite arithmetic divisor-tail sum.
 No CRT dual-frequency choice, Fourier estimate, or norm inequality is needed.
 -/
 
-open scoped BigOperators
+open scoped ArithmeticFunction.Moebius BigOperators
 
 noncomputable section
 
@@ -32,7 +32,7 @@ open RHLean.Arithmetic.PrimeWheelFiniteSystem
 
 /-- One exponent `0`, `1`, or `2` for every selected prime coordinate. -/
 abbrev PrimeWheelRawExpansionPoint (S : Finset ℕ) :=
-  ∀ p : {p // p ∈ S}, Fin 3
+  ∀ _p : {p // p ∈ S}, Fin 3
 
 /-- Local coefficient in the three-term divisor expansion of one prime comb. -/
 def localPrimeCombExpansionWeight (e : Fin 3) : ℂ :=
@@ -74,30 +74,30 @@ private theorem localPrimeComb_cast_eq_expansion (p n : ℕ) :
   by_cases hsq : p ^ 2 ∣ n
   · have hp : p ∣ n := dvd_trans (dvd_pow_self p (by norm_num)) hsq
     simp [localPrimeComb, localPrimeCombExpansionWeight,
-      Fin.sum_univ_succ, hp, hsq]
+      Fin.sum_univ_succ, hp, hsq] <;> norm_num
   · by_cases hp : p ∣ n
     · simp [localPrimeComb, localPrimeCombExpansionWeight,
-        Fin.sum_univ_succ, hp, hsq]
+        Fin.sum_univ_succ, hp, hsq] <;> norm_num
     · simp [localPrimeComb, localPrimeCombExpansionWeight,
-        Fin.sum_univ_succ, hp, hsq]
+        Fin.sum_univ_succ, hp, hsq] <;> norm_num
 
 /-- Distinct prime-power factors selected by an expansion point are pairwise
-coprime. -/
-private theorem rawExpansionFactors_pairwise_isCoprime
+relatively prime in the natural-number monoid. -/
+private theorem rawExpansionFactors_pairwise_isRelPrime
     (S : Finset ℕ)
     (hprime : ∀ p ∈ S, Nat.Prime p)
     (e : PrimeWheelRawExpansionPoint S) :
     Pairwise
-      (Function.onFun IsCoprime
+      (Function.onFun IsRelPrime
         (fun p : {p // p ∈ S} => p.val ^ (e p).val)) := by
   intro p q hpq
   have hpne : p.val ≠ q.val := by
     intro h
     apply hpq
     exact Subtype.ext h
-  exact
+  exact Nat.coprime_iff_isRelPrime.mp
     (Nat.coprime_pow_primes (e p).val (e q).val
-      (hprime p.val p.property) (hprime q.val q.property) hpne).isCoprime
+      (hprime p.val p.property) (hprime q.val q.property) hpne)
 
 /-- The product expansion divisor divides `n` iff every selected local prime
 power divides `n`. -/
@@ -116,8 +116,8 @@ private theorem rawExpansionDivisor_dvd_iff
       (Finset.mem_univ p)
   · intro h
     unfold primeWheelRawExpansionDivisor
-    exact Fintype.prod_dvd_of_coprime
-      (rawExpansionFactors_pairwise_isCoprime S hprime e) h
+    exact Fintype.prod_dvd_of_isRelPrime
+      (rawExpansionFactors_pairwise_isRelPrime S hprime e) h
 
 /-- If every local square period divides an ambient modulus, then every divisor
 appearing in the finite prime-comb expansion also divides that modulus. -/
@@ -128,8 +128,8 @@ private theorem rawExpansionDivisor_dvd_modulus
     (e : PrimeWheelRawExpansionPoint S) :
     primeWheelRawExpansionDivisor S e ∣ N := by
   unfold primeWheelRawExpansionDivisor
-  apply Fintype.prod_dvd_of_coprime
-    (rawExpansionFactors_pairwise_isCoprime S hprime e)
+  apply Fintype.prod_dvd_of_isRelPrime
+    (rawExpansionFactors_pairwise_isRelPrime S hprime e)
   intro p
   have he : (e p).val ≤ 2 := by omega
   have hpow : p.val ^ (e p).val ∣ p.val ^ 2 :=
@@ -166,7 +166,6 @@ private theorem seededPrimeComb_cast_eq_rawExpansion
         ∏ p : {p // p ∈ S},
           (localPrimeCombExpansionWeight (e p) *
             (if p.val ^ (e p).val ∣ n then (1 : ℂ) else 0)) := by
-              symm
               simpa using
                 (Finset.prod_univ_sum
                   (t := fun _p : {p // p ∈ S} =>
@@ -252,10 +251,6 @@ private theorem rawDivisorCharacterSum
           ZMod.stdAddChar (-(((i.val : ℕ) : ZMod N) * r)) := by
             apply Finset.sum_congr rfl
             intro i hi
-            have hval :
-                (finNatCastEquivZModRawCoefficient N i).val = i.val := by
-              change ((i.val : ZMod N)).val = i.val
-              exact ZMod.val_natCast_of_lt i.isLt
             dsimp [F, finNatCastEquivZModRawCoefficient]
             rw [ZMod.val_natCast_of_lt i.isLt]
     _ =
@@ -273,8 +268,8 @@ private theorem rawDivisorCharacterSum
           apply Finset.sum_congr rfl
           intro n hn
           by_cases hdiv : d ∣ n
-          · rw [if_pos hdiv, one_mul]
-          · rw [if_neg hdiv, zero_mul]
+          · rw [if_pos hdiv]
+          · rw [if_neg hdiv]
     _ =
       ∑ a ∈ Finset.range (N / d),
         ZMod.stdAddChar (-((((d * a : ℕ) : ZMod N)) * r)) := by
@@ -459,18 +454,22 @@ theorem primorialPeriodicRawSpectrum_eq_rawConductorArithmeticCoefficient
     primorialPeriodicRawSpectrum k r =
       primorialRawConductorArithmeticCoefficient k
         (reducedAdditiveConductor r) := by
+  letI : NeZero (primorialMinimalTorusModulus k) :=
+    ⟨Nat.ne_of_gt (primorialMinimalTorusModulus_pos k)⟩
   unfold primorialPeriodicRawSpectrum primorialPeriodicRawTorusField
     primorialRawConductorArithmeticCoefficient
   change
     ZMod.dft
         (fun z : ZMod (primorialMinimalWheelSystem k).modulus =>
           (((seededPrimeComb (primorialWheelPrimes k) z.val : ℤ) : ℂ))) r = _
-  rw [seededPrimeCombDFT_eq_rawConductorArithmeticCoefficient
+  have h := seededPrimeCombDFT_eq_rawConductorArithmeticCoefficient
+    (N := (primorialMinimalWheelSystem k).modulus)
     (S := primorialWheelPrimes k)
     (fun p hp => prime_of_mem_primesUpTo hp)
-    (fun p hp => primorialPrimeSquare_dvd_minimalTorusModulus k p hp) r]
+    (fun p hp => primorialPrimeSquare_dvd_minimalTorusModulus k p hp) r
   rw [← reducedAdditiveConductor_eq_addOrderOf
-    (primorialMinimalWheelSystem k) r]
+    (primorialMinimalWheelSystem k) r] at h
+  exact h
 
 /-- Final exact signed packet with the shell coefficient eliminated.  Every term
 is now finite arithmetic data: the raw divisor-tail coefficient, Möbius weights,
