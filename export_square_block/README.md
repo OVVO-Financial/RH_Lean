@@ -1,8 +1,14 @@
 # Square Block Paper Export
 
-This directory is the publication export for **A Squared-Complex Framework for Square-Prefix Möbius Sums**.
+This directory is the staging export for **A Squared-Complex Framework for Square-Prefix Möbius Sums**.
 
-It is intentionally limited to the square-block framework. The paper is self-contained at the level of its arithmetic, geometry, lifetime refinement, and Lean-facing theorem interfaces. A later synthesis paper may compare or combine this framework with other architectures, but that material is outside this export.
+The canonical standalone publication repository is:
+
+https://github.com/OVVO-Financial/RH_Square_Block
+
+The contents of `export_square_block/` are intended to mirror the root of that repository: `paper/`, `lean/`, and `MODULES.md`.
+
+This export is intentionally limited to the square-block framework. The paper is self-contained at the level of its arithmetic, geometry, lifetime refinement, and Lean-facing theorem interfaces. A later synthesis paper may compare or combine this framework with other architectures, but that material is outside this export.
 
 ## Contents
 
@@ -19,7 +25,7 @@ The canonical factorization of a nontrivial source is
 m=cq,\qquad q=P^+(m).
 \]
 
-Two different endpoint support facts are now stated separately:
+Two different endpoint support facts are stated separately:
 
 1. because the canonical prime satisfies `q ≥ 2`, every canonical cofactor below `x` satisfies
    \[
@@ -39,15 +45,15 @@ Z_\Lambda(t)=-\sum_c \mu(c)\,\mathcal K_{\Lambda,t}(c).
 
 No power-saving estimate for that survivor operator is claimed as proved.
 
-## Lean build
+## Lean verification
 
-The copied Lean files are a **curated paper-facing snapshot**, not a second independent Lake project. Ordinary transitive scaffolding remains in the parent repository. The authoritative verification command is run at the repository root:
+The copied Lean files are a **curated paper-facing snapshot**, not a second independent Lake project. Ordinary transitive scaffolding remains in the formal development repository. The authoritative source verification command is:
 
 ```powershell
 lake build RHLean --wfail
 ```
 
-The three new paper-facing modules introduced with this export are:
+The three paper-facing modules introduced with this export are:
 
 ```text
 RHLean.Analysis.CanonicalExtremePrimeSupport
@@ -55,14 +61,14 @@ RHLean.Analysis.SquareBlockDeathProcess
 RHLean.Analysis.SquareBlockSurvivorBridge
 ```
 
-They are wired into the root `RHLean` target and are also copied under `export_square_block/lean/` for publication review.
+They are wired into the full `RHLean` target before publication export and are also copied under `lean/` for review in the standalone repository.
 
 ## LaTeX build
 
-From this directory:
+From the standalone repository root:
 
 ```bash
-cd export_square_block/paper
+cd paper
 pdflatex main.tex
 pdflatex main.tex
 pdflatex main.tex
