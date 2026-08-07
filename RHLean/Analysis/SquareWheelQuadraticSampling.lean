@@ -261,4 +261,70 @@ theorem primeWheel_zeroFrequencyRatio_lt_one
   have hQpos : 0 < (W.modulus : ℝ) := by exact_mod_cast W.modulus_pos
   exact (div_lt_one hQpos).2 hNltReal
 
+/-- Full frequency atom seen by a square sample: the zero frequency is the
+contractive endpoint self-coupling, and every nonzero frequency is the explicit
+quadratic atom. -/
+def squareWheelSampleFrequencyAtom
+    (W : PrimeWheelFiniteSystem) (n : ℕ)
+    (r : ZMod W.modulus) : ℂ :=
+  if r = 0 then
+    ((W.modulus : ℂ)⁻¹) * (((W.residual W.upper : ℤ) : ℂ)) *
+      (squareWheelSampleLength W n : ℂ)
+  else
+    squareWheelQuadraticFrequencyAtom W n r
+
+/-- Complete quadratic-response sum at one square endpoint. -/
+def squareWheelSampleResponse
+    (W : PrimeWheelFiniteSystem) (n : ℕ) : ℂ :=
+  ∑ r : ZMod W.modulus, squareWheelSampleFrequencyAtom W n r
+
+/-- The phase/Dirichlet prefix sampled at a square endpoint is exactly the
+quadratic-response sum. -/
+theorem primeWheelDirichletPrefix_sample_eq_squareWheelSampleResponse
+    (W : PrimeWheelFiniteSystem) (n : ℕ)
+    (hlower : W.lower ≤ RHLean.Analysis.squarePrefixEndpoint n) :
+    primeWheelDirichletPrefix W (squareWheelSampleLength W n) =
+      squareWheelSampleResponse W n := by
+  classical
+  unfold primeWheelDirichletPrefix squareWheelSampleResponse
+  apply Finset.sum_congr rfl
+  intro r hrmem
+  by_cases hr0 : r = 0
+  · subst r
+    simp [squareWheelSampleFrequencyAtom,
+      primeWheel_zeroFrequencyPrefixContribution]
+  · rw [primeWheelPinnedAtom_sample_eq_quadraticAtom W n r hr0 hlower]
+    simp [squareWheelSampleFrequencyAtom, hr0]
+
+/-- The actual arithmetic residual at every square endpoint inside a wheel block
+is exactly the quadratic-response sum. This is the direct meeting point of the
+square-block and prime-wheel tracks. -/
+theorem primeWheelResidual_squareEndpoint_eq_squareWheelSampleResponse
+    (W : PrimeWheelFiniteSystem) (n : ℕ)
+    (hlower : W.lower < RHLean.Analysis.squarePrefixEndpoint n)
+    (hupper : RHLean.Analysis.squarePrefixEndpoint n ≤ W.upper) :
+    (((W.residual (RHLean.Analysis.squarePrefixEndpoint n) : ℤ) : ℂ)) =
+      squareWheelSampleResponse W n := by
+  let N := squareWheelSampleLength W n
+  have hlowerLe : W.lower ≤ RHLean.Analysis.squarePrefixEndpoint n :=
+    Nat.le_of_lt hlower
+  have hanchor : W.lower + N = RHLean.Analysis.squarePrefixEndpoint n := by
+    dsimp [N, squareWheelSampleLength]
+    exact Nat.add_sub_of_le hlowerLe
+  have hupperN : W.lower + N ≤ W.upper := by
+    rw [hanchor]
+    exact hupper
+  calc
+    (((W.residual (RHLean.Analysis.squarePrefixEndpoint n) : ℤ) : ℂ)) =
+        W.spectralPrefix (RHLean.Analysis.squarePrefixEndpoint n) :=
+      (W.spectralPrefix_eq_residual W.canonicalTorusRealizationCertificate
+        hlower hupper).symm
+    _ = W.spectralPrefix (W.lower + N) := by rw [hanchor]
+    _ = primeWheelDirichletPrefix W N :=
+      spectralPrefix_lower_add_eq_dirichletPrefix W N hupperN
+    _ = squareWheelSampleResponse W n := by
+      dsimp [N]
+      exact primeWheelDirichletPrefix_sample_eq_squareWheelSampleResponse
+        W n hlowerLe
+
 end RHLean.Analysis
