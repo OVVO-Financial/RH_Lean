@@ -9,6 +9,7 @@ import RHLean.Analysis.RamanujanDivisorBoundary
 import RHLean.Analysis.PrimeWheelRamanujanIdentification
 import RHLean.Analysis.PrimeWheelRamanujanBoundaryReduction
 import RHLean.Analysis.PrimeWheelRawConductorCoefficient
+import RHLean.Analysis.PrimeWheelRawConductorWeight
 
 /-!
 # Periodic-raw conductor attack umbrella
@@ -25,8 +26,16 @@ For every conductor `q > 1`, both the raw interval and every shifted smooth
 interval have their common bulk term cancelled exactly, leaving only finite
 Möbius-weighted divisor-residue boundary defects.  The remaining common raw
 shell Fourier coefficient is also eliminated: it is an exact finite arithmetic
-divisor-tail sum indexed by the three local exponents `0,1,2`.  Thus the final
-signed packet contains no unidentified Fourier scalar before any norm is taken.
+divisor-tail sum indexed by the three local exponents `0,1,2`.
+
+The normalized raw conductor coefficient now has an exact local product law.
+First-power conductor coordinates cost at most `2/p`, square coordinates cost
+exactly `1/p^2`, and the total absolute mass over all exponent-pattern
+conductors is the finite Euler product `prod_p (1 + 1/p^2)`.  A marked
+generating identity isolates the wheel primes not dividing the pinned
+primorial lower endpoint.  Thus the remaining analytic target may be phrased as
+a weighted conductor-average problem rather than a uniform unweighted pinned
+estimate.
 
 No analytic estimate is claimed here.
 -/
