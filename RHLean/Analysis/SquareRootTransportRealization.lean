@@ -225,12 +225,18 @@ theorem squareRootTransportMass_pred_eq_cofactorFirst
     (R : ℕ) (hR : 1 ≤ R) :
     squareRootTransportMass (R - 1) =
       squareRootTransportCofactorFirst R := by
-  rw [squareRootTransportMass_eq_neg_highSourceMass R hR]
-  have hsum :=
-    sum_squareRootHighTransportSourceSet_eq_pairProducts R hR
-  have hneg := congrArg Neg.neg hsum
-  rw [squareRootTransportPairSourceMass_eq_cofactorFirst R]
-  simpa [squareRootTransportPairSourceMass] using hneg
+  calc
+    squareRootTransportMass (R - 1) =
+        -∑ m ∈ squareRootHighTransportSourceSet R,
+          canonicalMoebiusWeight m :=
+      squareRootTransportMass_eq_neg_highSourceMass R hR
+    _ = squareRootTransportPairSourceMass R := by
+      have hsum :=
+        sum_squareRootHighTransportSourceSet_eq_pairProducts R hR
+      have hneg := congrArg Neg.neg hsum
+      simpa [squareRootTransportPairSourceMass] using hneg
+    _ = squareRootTransportCofactorFirst R :=
+      squareRootTransportPairSourceMass_eq_cofactorFirst R
 
 /-- Consequently the PR #212 matched decomposition is now literally the
 original square-prefix Mertens identity. -/
