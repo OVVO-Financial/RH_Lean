@@ -65,7 +65,7 @@ where $q=\Pplus(m)$.  Moreover,
 \begin{proof}
 Put $q=\Pplus(m)$ and $c=m/q$.  If $c\ge R$, then $m=cq>R^2$, contrary to $m\le R^2-1$.  Since $m$ is squarefree, $q\nmid c$ and $\mu(cq)=-\mu(c)$.  Uniqueness follows from the largest-prime choice.
 \end{proof}
-\leanxref{Lean support}{canonical largest-prime and cofactor arithmetic}{https://github.com/OVVO-Financial/RH_Square_Block/blob/main/lean/RHLean/Analysis/CanonicalHighSectorCore.lean}
+\leanxref{Lean support}{canonical largest-prime and cofactor arithmetic}{https://github.com/OVVO-Financial/square-block-mobius/blob/main/lean/RHLean/Analysis/CanonicalHighSectorCore.lean}
 
 \begin{proof}[Proof of \cref{thm:intro-decomposition}]
 Partition the squarefree $m\le X_n$ according to whether $\Pplus(m)\le R_n$ or $\Pplus(m)>R_n$.  The first population contributes $A_n$.  By \cref{lem:one-large}, the second population is uniquely $m=cq$ with $c<R_n<q$, and each source has weight $-\mu(c)$.  The total second contribution is therefore $-T_n$.
@@ -198,7 +198,7 @@ Since $q\mid m$, write $m=cq$ with $c\ge1$.  If $c\ge2$, then
 \]
 contradicting $x<2q$.  Hence $c=1$, so $m=q$ is prime.  The contrapositive gives \cref{eq:composite-largest-prime-half}.  For a genuine product $c\ge2$, the inequality $2q\le cq\le x$ gives the bound on $q$; since every canonical prime satisfies $q\ge2$, the inequality $2c\le cq\le x$ gives the bound on $c$.
 \end{proof}
-\leanxref{Lean proof}{canonicalCofactor_eq_one_of_endpoint_lt_two_mul_largestPrime; canonicalLargestPrimeFactor_le_half_of_ne_largestPrime}{https://github.com/OVVO-Financial/RH_Square_Block/blob/main/lean/RHLean/Analysis/CanonicalExtremePrimeSupport.lean}
+\leanxref{Lean proof}{canonicalCofactor_eq_one_of_endpoint_lt_two_mul_largestPrime; canonicalLargestPrimeFactor_le_half_of_ne_largestPrime}{https://github.com/OVVO-Financial/square-block-mobius/blob/main/lean/RHLean/Analysis/CanonicalExtremePrimeSupport.lean}
 
 \begin{remark}[Two different half-support facts]
 The bounds in \cref{thm:extreme-largest-prime} should not be conflated.  The already-used cofactor support $c\le\lfloor x/2\rfloor$ follows from the trivial fact that the canonical prime is at least $2$.  The new extreme-prime statement says that a \emph{composite} source also has $q\le\lfloor x/2\rfloor$.  The only sources whose largest prime exceeds that threshold are the primes themselves on the $c=1$ fibre.
