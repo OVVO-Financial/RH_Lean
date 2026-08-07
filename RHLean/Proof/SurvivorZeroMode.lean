@@ -6,7 +6,7 @@ import RHLean.Proof.DeathShellSubpolynomial
 /-!
 # Exact survivor zero-mode realization
 
-PR #214 discharges the lifetime death process unconditionally.  This module
+PR #214 discharges the lifetime death process unconditionally. This module
 puts the sole remaining lifetime discrepancy on an explicit canonical
 cofactor/prime operator.
 
@@ -20,7 +20,7 @@ canonical factorization
 `m = c*q`,
 
 where `q` is prime, `c` is positive and squarefree, `q` is coprime to `c`, and
-every prime divisor of `c` is strictly below `q`.  The lifetime survivor is
+every prime divisor of `c` is strictly below `q`. The lifetime survivor is
 therefore exactly the zero-mode cofactor sum
 
 `sum_c K_{Lambda,t}(c) * (-mu(c))`,
@@ -50,17 +50,12 @@ namespace RHLean.Proof
 open CanonicalGapAncestryBridge
 
 /-- The exact admissibility predicate for one survivor cofactor/prime pair at
-stage `t`.  The represented integer is `c*q`. -/
+stage `t`. The represented integer is `c*q`. -/
 def IsSurvivorZeroModePair (Λ : ℝ) (t c q : ℕ) : Prop :=
   CanonicalSourceData q c ∧
     c * q ≤ RHLean.Analysis.squarePrefixEndpoint t ∧
       2 * Λ * (t : ℝ) <
         |(q : ℝ) ^ 2 - (c : ℝ) ^ 2|
-
-instance instDecidableIsSurvivorZeroModePair
-    (Λ : ℝ) (t c q : ℕ) : Decidable (IsSurvivorZeroModePair Λ t c q) := by
-  unfold IsSurvivorZeroModePair
-  infer_instance
 
 /-- Admissible survivor primes in the fixed cofactor fibre `c`. -/
 noncomputable def survivorZeroModePrimeFiber
@@ -75,7 +70,7 @@ alive primes in the cofactor fibre `c`. -/
 def survivorZeroModeKernel (Λ : ℝ) (t c : ℕ) : ℕ :=
   (survivorZeroModePrimeFiber Λ t c).card
 
-/-- The explicit signed zero-mode operator.  Since an admissible fresh prime
+/-- The explicit signed zero-mode operator. Since an admissible fresh prime
 reverses the Mobius sign, every prime in the `c` fibre contributes
 `-mu(c)`. -/
 def survivorZeroMode (Λ : ℝ) (t : ℕ) : ℂ :=
@@ -194,7 +189,8 @@ private theorem survivorSource_to_pair_mem
     (hm : m ∈ survivorSquarefreeSourceSet Λ t) :
     (canonicalCofactor m, canonicalLargestPrimeFactor m) ∈
       survivorZeroModePairSet Λ t := by
-  rcases Finset.mem_filter.mp hm with ⟨hmMoving, hmgt, hsq⟩
+  rcases Finset.mem_filter.mp hm with ⟨hmMoving, hsupport⟩
+  rcases hsupport with ⟨hmgt, hsq⟩
   have hmMoving' := hmMoving
   unfold movingCanonicalHighSet at hmMoving'
   rcases Finset.mem_filter.mp hmMoving' with ⟨hmPrefix, hhigh⟩
@@ -221,7 +217,9 @@ private theorem survivorSource_to_pair_mem
       ⟨Finset.mem_Icc.mpr ⟨hdata.2.1, hcX⟩,
         Finset.mem_Icc.mpr ⟨hdata.1.two_le, hqX⟩⟩
   · refine ⟨hdata, ?_, ?_⟩
-    · simpa [canonicalCofactor_mul_largestPrimeFactor hmgt] using hmX
+    · have hprod := canonicalCofactor_mul_largestPrimeFactor hmgt
+      rw [hprod]
+      exact hmX
     · simpa [canonicalHeightTwice] using hhigh
 
 private theorem survivorSource_pair_injective
@@ -250,8 +248,7 @@ private theorem survivorPair_surjective
     (cq : ℕ × ℕ) (hcq : cq ∈ survivorZeroModePairSet Λ t) :
     ∃ m ∈ survivorSquarefreeSourceSet Λ t,
       (canonicalCofactor m, canonicalLargestPrimeFactor m) = cq := by
-  rcases Finset.mem_filter.mp hcq with ⟨hbase, hpair⟩
-  rcases Finset.mem_product.mp hbase with ⟨hcMem, hqMem⟩
+  rcases Finset.mem_filter.mp hcq with ⟨_hbase, hpair⟩
   rcases hpair with ⟨hdata, hmulX, hhigh⟩
   have hqPrime := hdata.1
   have hc1 := hdata.2.1
@@ -354,10 +351,10 @@ theorem survivorZeroModePairSourceMass_eq_zeroMode
       apply Finset.sum_congr rfl
       intro c hc
       unfold survivorZeroModeKernel survivorZeroModePrimeFiber
-      rw [Finset.sum_filter]
+      rw [← Finset.sum_filter]
       simp
 
-/-- **Exact survivor zero-mode identity.**  The actual lifetime-active survivor
+/-- **Exact survivor zero-mode identity.** The actual lifetime-active survivor
 mass is the explicit signed cofactor kernel. -/
 theorem lifetimeActiveAtomMass_eq_survivorZeroMode
     {Λ : ℝ} (hΛ : 0 ≤ Λ) (t : ℕ) :
@@ -388,7 +385,7 @@ def survivorCompositeZeroMode (Λ : ℝ) (t : ℕ) : ℂ :=
       survivorZeroModeKernel Λ t c • (-canonicalMoebiusWeight c)
     else 0
 
-/-- Exact prime/composite partition of the survivor zero mode.  This is only a
+/-- Exact prime/composite partition of the survivor zero mode. This is only a
 structural split: the prime fibre is not claimed to satisfy the target power
 bound separately. -/
 theorem survivorZeroMode_eq_prime_add_composite
@@ -406,7 +403,7 @@ theorem survivorZeroMode_eq_prime_add_composite
   · have hc2 : 2 ≤ c := by omega
     simp [hcone, hc2]
 
-/-- General extreme-largest-prime observation.  If `m<=x` and twice its
+/-- General extreme-largest-prime observation. If `m<=x` and twice its
 canonical largest prime is already above `x`, then its canonical cofactor is
 one. -/
 theorem canonicalCofactor_eq_one_of_endpoint_lt_two_mul_largestPrime
@@ -499,7 +496,7 @@ theorem survivorZeroModePowerSaving_iff_endpointDiscrepancy
     SurvivorZeroModePowerSavingStatement Λ ↔
       LifetimeEndpointDiscrepancyUniformLocalBoundedStatement Λ := by
   rw [survivorZeroModePowerSaving_iff_lifetimeActive hΛ,
-    lifetimeActiveUniformLocalBounded_iff_endpointDiscrepancy]
+    lifetimeActiveUniformLocalBounded_iff_endpointDiscrepancy Λ]
 
 /-- The protected square-prefix criterion follows from a power saving on the
 explicit survivor zero mode. -/
