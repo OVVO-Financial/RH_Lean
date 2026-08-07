@@ -27,6 +27,12 @@ to a prefix of length `N` is multiplied by the explicit factor `N/modulus`.
 Thus the only self-referential Fourier mode comes with a strict finite contraction
 whenever the prefix lies inside the zero-padded wheel torus.
 
+The analytic point of the bridge is therefore not to bound individual square
+blocks separately.  It is to bound the actual wheel residual on the square
+sample set using a contractive zero mode plus nonzero reduced-conductor
+quadratic responses, while arbitrary points are later recovered from the short
+incomplete square fragment.
+
 These are exact finite identities. No nonconcentration or power-saving estimate
 is asserted here.
 -/
