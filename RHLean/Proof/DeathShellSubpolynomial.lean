@@ -12,18 +12,17 @@ namespace RHLean.Proof
 # Subpolynomial divisor windows and unconditional death-process control
 
 This module discharges the analytic death-process premise in the lifetime
-endpoint decomposition. The proof is self-contained over pinned Mathlib:
+endpoint decomposition.
 
-* an elementary finite-exception argument proves `tau(n) <= C_eps n^eps`;
-* the death shell occupies a uniformly bounded-width integer-height window;
-* the existing divisor-fiber injection then gives a subpolynomial bound for
-  every death increment;
-* summation gives `D_n = O(n^(1+eps))`;
-* consequently the death process satisfies the repository's RH-scale translated
-  local-energy bound unconditionally.
+The divisor bound is proved internally from the prime-factor product formula.
+For a fixed positive integer `k`, only finitely many prime/exponent pairs can
+fail the local estimate `(a + 1)^k ≤ p^a`; those exceptional factors are
+absorbed into a `k`-dependent constant. This gives `tau(n) = O_eps(n^eps)`.
 
-After this module the lifetime endpoint criterion has only one analytic premise:
-the survivor, or birth-minus-death, discrepancy.
+The existing death-shell divisor-fiber injection then yields a subpolynomial
+bound for every death increment, a pointwise `O(n^(1+eps))` bound for the
+cumulative death process, and finally the translated local-energy estimate used
+by the repository's endpoint criterion.
 -/
 
 private def divisorExponentThreshold (k : ℕ) : ℕ :=
@@ -66,15 +65,19 @@ private theorem factorization_succ_le_two_pow_div
     apply (Nat.le_div_iff_mul_le hkpos).2
     simpa [divisorExponentThreshold, q, Nat.mul_comm] using ha
   have hq4 : 4 ≤ q := le_trans (le_max_left 4 (2 * k)) hqThreshold
+  have htwoK : 2 * k ≤ q :=
+    le_trans (le_max_right 4 (2 * k)) hqThreshold
   have ha_lt : a < k * (q + 1) := by
     simpa [q] using Nat.lt_mul_div_succ a hkpos
   have ha_succ : a + 1 ≤ k * (q + 1) := by omega
-  have hk_le_pred : k ≤ q - 1 := by omega
+  have hqOne : 1 ≤ q := by omega
+  have hqSucc : q + 1 ≤ 2 * q := by omega
   have hmul : k * (q + 1) ≤ q ^ 2 := by
     calc
-      k * (q + 1) ≤ (q - 1) * (q + 1) :=
-        Nat.mul_le_mul_right (q + 1) hk_le_pred
-      _ ≤ q ^ 2 := by nlinarith
+      k * (q + 1) ≤ k * (2 * q) := Nat.mul_le_mul_left k hqSucc
+      _ = (2 * k) * q := by ring
+      _ ≤ q * q := Nat.mul_le_mul_right q htwoK
+      _ = q ^ 2 := by ring
   exact ha_succ.trans (hmul.trans (sq_le_two_pow_of_four_le q hq4))
 
 private theorem divisor_factor_pow_le_exception_mul
@@ -99,7 +102,11 @@ private theorem divisor_factor_pow_le_exception_mul
         Nat.pow_le_pow_left hbase k
       have hpPowOne : 1 ≤ p ^ a := Nat.one_le_pow a p hpPrime.pos
       dsimp [A, P, a] at hpow hpPowOne ⊢
-      nlinarith
+      calc
+        (n.factorization p + 1) ^ k ≤ divisorExponentThreshold k ^ k := hpow
+        _ = divisorExponentThreshold k ^ k * 1 := by simp
+        _ ≤ divisorExponentThreshold k ^ k * p ^ n.factorization p :=
+          Nat.mul_le_mul_left _ hpPowOne
     · simpa [A, P, a] using hbad
   · rw [if_neg]
     · by_cases hlargeExponent : A ≤ a
@@ -172,14 +179,19 @@ private theorem divisor_exception_product_le
   have hcard :
       ((n.primeFactors).filter fun p => p < P ∧ n.factorization p < A).card ≤ P := by
     simpa [A, P] using badPrimeFactors_card_le k n
+  have hApos : 0 < A := by
+    dsimp [A, divisorExponentThreshold]
+    have hmax : 0 < max 4 (2 * k) :=
+      lt_of_lt_of_le (by norm_num) (le_max_left 4 (2 * k))
+    exact Nat.mul_pos (by omega) hmax
   rw [Finset.prod_ite
     (fun _p => A ^ k) (fun _p => (1 : ℕ))]
-  simp only [Finset.prod_const, Finset.prod_one, mul_one]
+  simp only [Finset.prod_const, one_pow, mul_one]
   have hpow :
       (A ^ k) ^ ((n.primeFactors).filter fun p =>
         p < P ∧ n.factorization p < A).card ≤
         (A ^ k) ^ P :=
-    Nat.pow_le_pow_right (by omega) hcard
+    Nat.pow_le_pow_right (pow_pos hApos k) hcard
   calc
     (A ^ k) ^ ((n.primeFactors).filter fun p =>
         p < P ∧ n.factorization p < A).card ≤
@@ -189,9 +201,8 @@ private theorem divisor_exception_product_le
     _ = (A ^ P) ^ k := by rw [pow_mul]
     _ = C ^ k := by rfl
 
-/-- Elementary subpolynomial divisor estimate in a power-denominator form.
-For every positive integer `k`, the `k`th power of the divisor count is at most
-a fixed `k`-dependent constant times `n`. -/
+/-- For every positive integer `k`, the `k`th power of the divisor count is at
+most a fixed `k`-dependent constant times `n`. -/
 theorem card_divisors_pow_le_constant_mul
     (k n : ℕ) (hk : 1 ≤ k) :
     n.divisors.card ^ k ≤
@@ -199,7 +210,8 @@ theorem card_divisors_pow_le_constant_mul
   classical
   by_cases hn : n = 0
   · subst n
-    simp
+    have hk0 : k ≠ 0 := by omega
+    simp [hk0]
   · rw [Nat.card_divisors hn]
     rw [← Finset.prod_pow]
     have hterm :
@@ -238,8 +250,8 @@ theorem card_divisors_pow_le_constant_mul
             Nat.mul_le_mul_right _ hexception
       _ = (divisorExceptionalConstant k) ^ k * n := by rw [hprimeProd]
 
-/-- The classical divisor bound `tau(n) = O_eps(n^eps)`, proved here from the
-finite-exception factorization argument above. -/
+/-- Classical subpolynomial divisor bound, proved from the finite-exception
+factorization argument above. -/
 theorem card_divisors_le_subpolynomial
     {ε : ℝ} (hε : 0 < ε) :
     ∃ C : ℝ, 0 ≤ C ∧
@@ -255,10 +267,9 @@ theorem card_divisors_le_subpolynomial
   have hk : 1 ≤ k := by omega
   have hInvExp : (k : ℝ)⁻¹ ≤ ε := by
     have hmul : 1 < (k : ℝ) * ε := by
-      have := (div_lt_iff₀ hε).mp hkLarge
-      nlinarith
+      exact (div_lt_iff₀ hε).mp hkLarge
     have hdiv : 1 / (k : ℝ) < ε :=
-      (div_lt_iff₀ hkRealPos).2 (by nlinarith [hmul])
+      (div_lt_iff₀ hkRealPos).2 (by simpa [mul_comm] using hmul)
     simpa [one_div] using hdiv.le
   let Cn := divisorExceptionalConstant k
   refine ⟨(Cn : ℝ), by positivity, ?_⟩
@@ -278,9 +289,14 @@ theorem card_divisors_le_subpolynomial
   have hrootEq :
       Real.rpow (((Cn ^ k) * n : ℕ) : ℝ) (k : ℝ)⁻¹ =
         (Cn : ℝ) * Real.rpow (n : ℝ) (k : ℝ)⁻¹ := by
-    push_cast
-    rw [Real.mul_rpow (by positivity) (by positivity)]
-    rw [Real.pow_rpow_inv_natCast (by positivity) (Nat.ne_of_gt hkPos)]
+    simp only [Nat.cast_mul, Nat.cast_pow]
+    calc
+      Real.rpow ((Cn : ℝ) ^ k * (n : ℝ)) (k : ℝ)⁻¹ =
+          Real.rpow ((Cn : ℝ) ^ k) (k : ℝ)⁻¹ *
+            Real.rpow (n : ℝ) (k : ℝ)⁻¹ :=
+        Real.mul_rpow (by positivity) (by positivity)
+      _ = (Cn : ℝ) * Real.rpow (n : ℝ) (k : ℝ)⁻¹ := by
+        rw [Real.pow_rpow_inv_natCast (by positivity) (Nat.ne_of_gt hkPos)]
   have hbase : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
   have hexp :
       Real.rpow (n : ℝ) (k : ℝ)⁻¹ ≤ Real.rpow (n : ℝ) ε :=
@@ -293,7 +309,7 @@ theorem card_divisors_le_subpolynomial
     _ ≤ (Cn : ℝ) * Real.rpow (n : ℝ) ε :=
       mul_le_mul_of_nonneg_left hexp (by positivity)
 
-/-- A fixed real-width death shell contains uniformly many integer heights. -/
+/-- Uniform integer width of a fixed real-width death shell. -/
 def deathShellIntegerWindowWidth (Λ : ℝ) : ℕ :=
   Nat.floor (2 * Λ) + 1
 
@@ -319,14 +335,17 @@ theorem card_deathShellIntegerWindow_le_width
         m ≤ Nat.floor (2 * Λ * ((t + 1 : ℕ) : ℝ)) := by
       omega
     have hUpperNonneg : 0 ≤ 2 * Λ * ((t + 1 : ℕ) : ℝ) := by positivity
+    have hmUpperCast :
+        (m : ℝ) ≤ (Nat.floor (2 * Λ * ((t + 1 : ℕ) : ℝ)) : ℝ) := by
+      exact_mod_cast hmUpperFloor
     have hmUpperReal :
-        (m : ℝ) ≤ 2 * Λ * ((t + 1 : ℕ) : ℝ) := by
-      exact (by exact_mod_cast hmUpperFloor).trans (Nat.floor_le hUpperNonneg)
-    have hFloorLower : (Nat.floor a : ℝ) ≤ a := Nat.floor_le ha0
+        (m : ℝ) ≤ 2 * Λ * ((t + 1 : ℕ) : ℝ) :=
+      hmUpperCast.trans (Nat.floor_le hUpperNonneg)
     have hmLower : Nat.floor a < m := by
       have hmLowerReal : (Nat.floor a : ℝ) < (m : ℝ) := by
         have hmStrict : a < (m : ℝ) := by simpa [a] using hmData.2
-        linarith
+        have hFloorLower : (Nat.floor a : ℝ) ≤ a := Nat.floor_le ha0
+        exact lt_of_le_of_lt hFloorLower hmStrict
       exact_mod_cast hmLowerReal
     have haFloorSucc : a < (Nat.floor a : ℝ) + 1 := Nat.lt_floor_add_one a
     have hmUpperStrict :
@@ -356,9 +375,12 @@ theorem deathShellIntegerWindow_element_le_width_mul
   have hmUpperFloor :
       m ≤ Nat.floor (2 * Λ * ((t + 1 : ℕ) : ℝ)) := by omega
   have hUpperNonneg : 0 ≤ 2 * Λ * ((t + 1 : ℕ) : ℝ) := by positivity
+  have hmUpperCast :
+      (m : ℝ) ≤ (Nat.floor (2 * Λ * ((t + 1 : ℕ) : ℝ)) : ℝ) := by
+    exact_mod_cast hmUpperFloor
   have hmUpperReal :
-      (m : ℝ) ≤ 2 * Λ * ((t + 1 : ℕ) : ℝ) := by
-    exact (by exact_mod_cast hmUpperFloor).trans (Nat.floor_le hUpperNonneg)
+      (m : ℝ) ≤ 2 * Λ * ((t + 1 : ℕ) : ℝ) :=
+    hmUpperCast.trans (Nat.floor_le hUpperNonneg)
   have hWidth :
       2 * Λ < (deathShellIntegerWindowWidth Λ : ℝ) := by
     unfold deathShellIntegerWindowWidth
@@ -366,8 +388,8 @@ theorem deathShellIntegerWindow_element_le_width_mul
   have htPos : 0 < ((t + 1 : ℕ) : ℝ) := by positivity
   have hmLt :
       (m : ℝ) <
-        (deathShellIntegerWindowWidth Λ : ℝ) * ((t + 1 : ℕ) : ℝ) := by
-    exact lt_of_le_of_lt hmUpperReal (mul_lt_mul_of_pos_right hWidth htPos)
+        (deathShellIntegerWindowWidth Λ : ℝ) * ((t + 1 : ℕ) : ℝ) :=
+    lt_of_le_of_lt hmUpperReal (mul_lt_mul_of_pos_right hWidth htPos)
   have hmLtNat : m < deathShellIntegerWindowWidth Λ * (t + 1) := by
     exact_mod_cast hmLt
   exact Nat.le_of_lt hmLtNat
@@ -385,7 +407,12 @@ theorem deathShellDivisorMajorant_subpolynomial
   have hLpos : 0 < L := by
     dsimp [L, deathShellIntegerWindowWidth]
     omega
-  refine ⟨C, by dsimp [C]; positivity, ?_⟩
+  have hC : 0 ≤ C := by
+    dsimp [C]
+    exact mul_nonneg
+      (mul_nonneg (by positivity) hCτ)
+      (Real.rpow_nonneg (by positivity) ε)
+  refine ⟨C, hC, ?_⟩
   intro t
   have hcard := card_deathShellIntegerWindow_le_width hΛ.le t
   have hterm : ∀ m ∈ deathShellIntegerWindow Λ t,
@@ -397,15 +424,28 @@ theorem deathShellDivisorMajorant_subpolynomial
       have hnonneg : 0 ≤ 2 * Λ * (t : ℝ) := by positivity
       exact lt_of_le_of_lt hnonneg hLower
     have hmPos : 1 ≤ m := by
-      have : 0 < m := by exact_mod_cast hmPosReal
+      have hmNatPos : 0 < m := by exact_mod_cast hmPosReal
       omega
     have hdiv := hτ m hmPos
     have hmLe := deathShellIntegerWindow_element_le_width_mul hΛ.le hm
+    have hmLeReal :
+        (m : ℝ) ≤ ((L * (t + 1) : ℕ) : ℝ) := by
+      exact_mod_cast hmLe
     have hpow :
         Real.rpow (m : ℝ) ε ≤
-          Real.rpow ((L * (t + 1) : ℕ) : ℝ) ε := by
-      exact Real.rpow_le_rpow (by positivity) (by exact_mod_cast hmLe) hε.le
+          Real.rpow ((L * (t + 1) : ℕ) : ℝ) ε :=
+      Real.rpow_le_rpow (by positivity) hmLeReal hε.le
     exact hdiv.trans (mul_le_mul_of_nonneg_left hpow hCτ)
+  have hscale :
+      Real.rpow ((L * (t + 1) : ℕ) : ℝ) ε =
+        Real.rpow (L : ℝ) ε *
+          Real.rpow ((t + 1 : ℕ) : ℝ) ε := by
+    have hcast :
+        (((L * (t + 1) : ℕ) : ℝ)) =
+          (L : ℝ) * ((t + 1 : ℕ) : ℝ) := by
+      norm_num
+    rw [hcast]
+    exact Real.mul_rpow (by positivity) (by positivity)
   unfold deathShellDivisorMajorant
   push_cast
   calc
@@ -414,15 +454,20 @@ theorem deathShellDivisorMajorant_subpolynomial
           Cτ * Real.rpow ((L * (t + 1) : ℕ) : ℝ) ε := by
       exact Finset.sum_le_sum fun m hm => hterm m hm
     _ = ((deathShellIntegerWindow Λ t).card : ℝ) *
-        (Cτ * Real.rpow ((L * (t + 1) : ℕ) : ℝ) ε) := by simp [mul_comm]
+        (Cτ * Real.rpow ((L * (t + 1) : ℕ) : ℝ) ε) := by
+      simp [mul_comm]
     _ ≤ (L : ℝ) *
         (Cτ * Real.rpow ((L * (t + 1) : ℕ) : ℝ) ε) := by
-      gcongr
-      exact_mod_cast hcard
+      have hcardReal :
+          ((deathShellIntegerWindow Λ t).card : ℝ) ≤ (L : ℝ) := by
+        exact_mod_cast hcard
+      have hfactorNonneg :
+          0 ≤ Cτ * Real.rpow ((L * (t + 1) : ℕ) : ℝ) ε :=
+        mul_nonneg hCτ (Real.rpow_nonneg (by positivity) ε)
+      exact mul_le_mul_of_nonneg_right hcardReal hfactorNonneg
     _ = C * Real.rpow ((t + 1 : ℕ) : ℝ) ε := by
+      rw [hscale]
       dsimp [C]
-      push_cast
-      rw [Real.mul_rpow (by positivity) (by positivity)]
       ring
 
 /-- Every discrete death increment is subpolynomial. -/
@@ -450,62 +495,71 @@ theorem norm_lifetimeDeathMass_le_rpow
   let C := D0 + Cinc
   refine ⟨C, by dsimp [C, D0]; positivity, ?_⟩
   intro n
-  have hbase : (1 : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by
+  let B : ℝ := ((n + 1 : ℕ) : ℝ)
+  have hbase : 1 ≤ B := by
+    dsimp [B]
     exact_mod_cast (Nat.succ_le_succ (Nat.zero_le n))
-  have hbasePos : 0 < ((n + 1 : ℕ) : ℝ) := lt_of_lt_of_le zero_lt_one hbase
+  have hbasePos : 0 < B := lt_of_lt_of_le zero_lt_one hbase
   have hsum :
       (∑ t ∈ Finset.range n, deathShellDivisorMajorant Λ t) ≤
-        (n : ℝ) *
-          (Cinc * Real.rpow ((n + 1 : ℕ) : ℝ) ε) := by
+        (n : ℝ) * (Cinc * Real.rpow B ε) := by
     calc
       (∑ t ∈ Finset.range n, deathShellDivisorMajorant Λ t) ≤
-          ∑ _t ∈ Finset.range n,
-            Cinc * Real.rpow ((n + 1 : ℕ) : ℝ) ε := by
+          ∑ _t ∈ Finset.range n, Cinc * Real.rpow B ε := by
         apply Finset.sum_le_sum
         intro t ht
         have htLe : t + 1 ≤ n + 1 := by
           have htLt : t < n := Finset.mem_range.mp ht
           omega
+        have htLeReal : ((t + 1 : ℕ) : ℝ) ≤ B := by
+          dsimp [B]
+          exact_mod_cast htLe
         have hpow :
-            Real.rpow ((t + 1 : ℕ) : ℝ) ε ≤
-              Real.rpow ((n + 1 : ℕ) : ℝ) ε :=
-          Real.rpow_le_rpow (by positivity) (by exact_mod_cast htLe) hε.le
+            Real.rpow ((t + 1 : ℕ) : ℝ) ε ≤ Real.rpow B ε :=
+          Real.rpow_le_rpow (by positivity) htLeReal hε.le
         exact (hinc t).trans (mul_le_mul_of_nonneg_left hpow hCinc)
-      _ = (n : ℝ) *
-          (Cinc * Real.rpow ((n + 1 : ℕ) : ℝ) ε) := by simp
+      _ = (n : ℝ) * (Cinc * Real.rpow B ε) := by simp
   have hraw := norm_lifetimeDeathMass_le_initial_add_sum_divisorMajorant hΛ n
-  have htail :
-      (n : ℝ) * (Cinc * Real.rpow ((n + 1 : ℕ) : ℝ) ε) ≤
-        Cinc * Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε) := by
+  have hsplit :
+      Real.rpow B (1 + ε) = B * Real.rpow B ε := by
     rw [Real.rpow_add hbasePos 1 ε, Real.rpow_one]
-    have hn : (n : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ n
-    have hpnonneg : 0 ≤ Real.rpow ((n + 1 : ℕ) : ℝ) ε := by positivity
-    nlinarith
-  have hRone :
-      1 ≤ Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε) :=
+  have htail :
+      (n : ℝ) * (Cinc * Real.rpow B ε) ≤
+        Cinc * Real.rpow B (1 + ε) := by
+    have hn : (n : ℝ) ≤ B := by
+      dsimp [B]
+      exact_mod_cast Nat.le_succ n
+    have hpnonneg : 0 ≤ Real.rpow B ε :=
+      Real.rpow_nonneg (le_of_lt hbasePos) ε
+    calc
+      (n : ℝ) * (Cinc * Real.rpow B ε) =
+          Cinc * ((n : ℝ) * Real.rpow B ε) := by ring
+      _ ≤ Cinc * (B * Real.rpow B ε) := by
+        exact mul_le_mul_of_nonneg_left
+          (mul_le_mul_of_nonneg_right hn hpnonneg) hCinc
+      _ = Cinc * Real.rpow B (1 + ε) := by rw [hsplit]
+  have hRone : 1 ≤ Real.rpow B (1 + ε) :=
     Real.one_le_rpow hbase (by linarith)
   calc
     ‖lifetimeDeathMass Λ n‖ ≤ D0 +
         ∑ t ∈ Finset.range n, deathShellDivisorMajorant Λ t := by
       simpa [D0] using hraw
-    _ ≤ D0 + (n : ℝ) *
-        (Cinc * Real.rpow ((n + 1 : ℕ) : ℝ) ε) :=
+    _ ≤ D0 + (n : ℝ) * (Cinc * Real.rpow B ε) :=
       add_le_add_left hsum D0
-    _ ≤ D0 * Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε) +
-        Cinc * Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε) := by
-      have hD0 :
-          D0 ≤ D0 * Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε) := by
+    _ ≤ D0 * Real.rpow B (1 + ε) +
+        Cinc * Real.rpow B (1 + ε) := by
+      have hD0 : D0 ≤ D0 * Real.rpow B (1 + ε) := by
         calc
           D0 = D0 * 1 := by ring
-          _ ≤ D0 * Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε) :=
+          _ ≤ D0 * Real.rpow B (1 + ε) :=
             mul_le_mul_of_nonneg_left hRone (by dsimp [D0]; positivity)
       exact add_le_add hD0 htail
-    _ = C * Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε) := by
+    _ = C * Real.rpow B (1 + ε) := by
       dsimp [C]
       ring
 
-/-- The death process satisfies the exact RH-scale translated local-energy
-statement unconditionally. -/
+/-- The death process satisfies the repository's RH-scale translated local
+energy statement unconditionally. -/
 theorem lifetimeDeathUniformLocalBounded
     {Λ : ℝ} (hΛ : 0 < Λ) :
     LifetimeDeathUniformLocalBoundedStatement Λ := by
@@ -514,11 +568,14 @@ theorem lifetimeDeathUniformLocalBounded
   have hδ : 0 < δ := by dsimp [δ]; linarith
   rcases norm_lifetimeDeathMass_le_rpow hΛ hδ with ⟨C, hC, hpoint⟩
   let K : ℝ := C ^ 2 * Real.rpow 2 (2 + 2 * δ)
-  refine ⟨K, by dsimp [K]; positivity, ?_⟩
+  have hK : 0 ≤ K := by
+    dsimp [K]
+    exact mul_nonneg (sq_nonneg C)
+      (Real.rpow_nonneg (by norm_num) (2 + 2 * δ))
+  refine ⟨K, hK, ?_⟩
   intro N H hH hHN
   have hN : 1 ≤ N := le_trans hH hHN
   have hNReal : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
-  have hNPos : 0 < (N : ℝ) := lt_of_lt_of_le zero_lt_one hNReal
   unfold RHLean.Analysis.localSequenceEnergy
   calc
     (∑ h ∈ Finset.range H, ‖lifetimeDeathMass Λ (N + h)‖ ^ 2) ≤
@@ -529,55 +586,66 @@ theorem lifetimeDeathUniformLocalBounded
       have hhLt : h < H := Finset.mem_range.mp hh
       have hstage : N + h + 1 ≤ 2 * N := by omega
       have hpoint' := hpoint (N + h)
+      have hstageReal :
+          ((N + h + 1 : ℕ) : ℝ) ≤ ((2 * N : ℕ) : ℝ) := by
+        exact_mod_cast hstage
       have hpowStage :
           Real.rpow ((N + h + 1 : ℕ) : ℝ) (1 + δ) ≤
-            Real.rpow ((2 * N : ℕ) : ℝ) (1 + δ) := by
-        apply Real.rpow_le_rpow (by positivity) (by exact_mod_cast hstage)
-        linarith
+            Real.rpow ((2 * N : ℕ) : ℝ) (1 + δ) :=
+        Real.rpow_le_rpow (by positivity) hstageReal (by linarith)
       have hnorm :
           ‖lifetimeDeathMass Λ (N + h)‖ ≤
             C * Real.rpow ((2 * N : ℕ) : ℝ) (1 + δ) :=
         hpoint'.trans (mul_le_mul_of_nonneg_left hpowStage hC)
+      have hupperNonneg :
+          0 ≤ C * Real.rpow ((2 * N : ℕ) : ℝ) (1 + δ) :=
+        mul_nonneg hC
+          (Real.rpow_nonneg (by positivity) (1 + δ))
       have hsquare :
           ‖lifetimeDeathMass Λ (N + h)‖ ^ 2 ≤
             (C * Real.rpow ((2 * N : ℕ) : ℝ) (1 + δ)) ^ 2 := by
-        nlinarith [norm_nonneg (lifetimeDeathMass Λ (N + h)),
-          mul_nonneg hC (Real.rpow_nonneg (by positivity) _)]
+        nlinarith [norm_nonneg (lifetimeDeathMass Λ (N + h)), hupperNonneg]
+      have hbase0 : 0 ≤ (((2 * N : ℕ) : ℝ)) := by positivity
+      have hphase :
+          (Real.rpow (((2 * N : ℕ) : ℝ)) (1 + δ)) ^ 2 =
+            Real.rpow (((2 * N : ℕ) : ℝ)) (2 + 2 * δ) := by
+        rw [← Real.rpow_natCast]
+        rw [← Real.rpow_mul hbase0]
+        congr 1
+        ring
+      have htwoN :
+          Real.rpow (((2 * N : ℕ) : ℝ)) (2 + 2 * δ) =
+            Real.rpow 2 (2 + 2 * δ) *
+              Real.rpow (N : ℝ) (2 + 2 * δ) := by
+        have hcast : (((2 * N : ℕ) : ℝ)) = 2 * (N : ℝ) := by norm_num
+        rw [hcast]
+        exact Real.mul_rpow (by norm_num) (by positivity)
+      have hexp : 2 + 2 * δ ≤ 2 + ε := by
+        dsimp [δ]
+        linarith
+      have hpowN :
+          Real.rpow (N : ℝ) (2 + 2 * δ) ≤
+            Real.rpow (N : ℝ) (2 + ε) :=
+        Real.rpow_le_rpow_of_exponent_le hNReal hexp
+      have htwoNonneg : 0 ≤ Real.rpow 2 (2 + 2 * δ) :=
+        Real.rpow_nonneg (by norm_num) (2 + 2 * δ)
+      have hinner :
+          Real.rpow 2 (2 + 2 * δ) * Real.rpow (N : ℝ) (2 + 2 * δ) ≤
+            Real.rpow 2 (2 + 2 * δ) * Real.rpow (N : ℝ) (2 + ε) :=
+        mul_le_mul_of_nonneg_left hpowN htwoNonneg
       calc
         ‖lifetimeDeathMass Λ (N + h)‖ ^ 2 ≤
             (C * Real.rpow ((2 * N : ℕ) : ℝ) (1 + δ)) ^ 2 := hsquare
         _ = C ^ 2 * Real.rpow ((2 * N : ℕ) : ℝ) (2 + 2 * δ) := by
-          rw [mul_pow]
-          have hbase0 : 0 ≤ (((2 * N : ℕ) : ℝ)) := by positivity
-          have hphase :
-              Real.rpow (((2 * N : ℕ) : ℝ)) (2 + 2 * δ) =
-                (Real.rpow (((2 * N : ℕ) : ℝ)) (1 + δ)) ^ 2 := by
-            calc
-              Real.rpow (((2 * N : ℕ) : ℝ)) (2 + 2 * δ) =
-                  Real.rpow (((2 * N : ℕ) : ℝ)) ((1 + δ) * 2) := by
-                    congr 1
-                    ring
-              _ = (Real.rpow (((2 * N : ℕ) : ℝ)) (1 + δ)) ^ (2 : ℝ) :=
-                Real.rpow_mul hbase0 (1 + δ) 2
-              _ = (Real.rpow (((2 * N : ℕ) : ℝ)) (1 + δ)) ^ (2 : ℕ) := by
-                rw [Real.rpow_natCast]
-          rw [hphase]
+          rw [mul_pow, hphase]
         _ = C ^ 2 *
             (Real.rpow 2 (2 + 2 * δ) *
               Real.rpow (N : ℝ) (2 + 2 * δ)) := by
-          push_cast
-          rw [Real.mul_rpow (by norm_num) (by positivity)]
+          rw [htwoN]
         _ ≤ C ^ 2 *
             (Real.rpow 2 (2 + 2 * δ) *
-              Real.rpow (N : ℝ) (2 + ε)) := by
-          have hexp : 2 + 2 * δ ≤ 2 + ε := by
-            dsimp [δ]
-            linarith
-          have hpowN :
-              Real.rpow (N : ℝ) (2 + 2 * δ) ≤
-                Real.rpow (N : ℝ) (2 + ε) :=
-            Real.rpow_le_rpow_of_exponent_le hNReal hexp
-          gcongr
+              Real.rpow (N : ℝ) (2 + ε)) :=
+          mul_le_mul_of_nonneg_left hinner (sq_nonneg C)
         _ = K * Real.rpow (N : ℝ) (2 + ε) := by
           dsimp [K]
           ring
