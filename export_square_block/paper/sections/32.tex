@@ -1,0 +1,66 @@
+\section{What is proved, formalized, and still open}
+\label{sec:status}
+%======================================================================
+
+\begin{table}[htbp]
+\centering
+\caption{Mathematical and formal status of the square-block framework.}
+\label{tab:status}
+\small
+\renewcommand{\arraystretch}{1.20}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.43\textwidth}
+                >{\raggedright\arraybackslash}p{0.22\textwidth}
+                >{\raggedright\arraybackslash}p{0.25\textwidth}}
+\toprule
+Layer & Mathematical status & Lean status\\
+\midrule
+Square-root smooth--transport decomposition and channel telescoping
+& Proved & Formalized\\
+Canonical largest-prime/cofactor expansion
+& Proved & Formalized\\
+Extreme-prime support $P^+(m)>\lfloor x/2\rfloor\Rightarrow m$ prime
+& Proved & Formalized\\
+Squared-complex recovery, cofactor curves, $2ab$ displacement, conformality
+& Proved & Formalized\\
+Canonical low-height clustering and uniform low-increment control
+& Proved & Formalized unconditionally\\
+Exact canonical low/high square-prefix recombination
+& Proved & Formalized\\
+Prime-first transport transfer, reciprocal prime dilation, and dyadic transport identities
+& Proved exact finite identities & Machine-checked\\
+Bounded-width death shell and divisor majorant
+& Proved & Formalized\\
+Subpolynomial death increments and RH-scale accumulated-death local bound
+& Proved & Formalized unconditionally\\
+Explicit active survivor cofactor operator $Z_\Lambda(t)$
+& Exact finite identity & Formalized\\
+High-sector local criterion $\Longleftrightarrow$ survivor local criterion
+& Proved using death control & Formalized\\
+Pointwise square-prefix criterion $\Longleftrightarrow$ uniform local criterion
+& Proved & Formalized\\
+Square-prefix criterion $\Longleftrightarrow$ Mertens energy criterion
+& Proved in project framework & Formalized\\
+Classical Mertens criterion $\Longleftrightarrow$ RH
+& Standard analytic theorem & Typed theorem premise\\
+Survivor power saving \cref{eq:survivor-power-saving}
+& Open; equivalent square-block obstruction & Explicit proposition, not assumed\\
+Unconditional proof of RH
+& Not claimed & Not claimed\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The standalone logical spine is therefore
+\[
+ \begin{aligned}
+ \text{canonical square-block geometry}
+ &\Longrightarrow \text{exact low/high decomposition}\\
+ &\Longrightarrow \text{unconditional low control}\\
+ &\Longrightarrow \text{lifetime split into survivor + death}\\
+ &\Longrightarrow \text{unconditional death control}\\
+ &\Longrightarrow \text{survivor power saving}\\
+ &\Longleftrightarrow \text{square-prefix Mertens criterion}\\
+ &\Longleftrightarrow \mathrm{RH},
+ \end{aligned}
+\]
+where the final equivalence uses the standard classical Mertens--RH theorem.  The sole framework-specific analytic step not proved here is the signed survivor estimate.  All preceding reductions are finite arithmetic or elementary estimates.
