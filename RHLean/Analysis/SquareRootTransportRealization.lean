@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.SquareRootMatchedTransport
+import RHLean.Proof.CanonicalGapAncestryBridge
 
 /-!
 # Realize the original square-root transport term
@@ -153,12 +154,14 @@ private theorem transportPair_surjective
   have hcofactor : canonicalCofactor (cq.1 * cq.2) = cq.1 :=
     canonicalCofactor_mul_prime_eq hcPos hcqLt hqPrime
   have hpred : R - 1 + 1 = R := Nat.sub_add_cancel hR
+  have hXlt : squareRootEndpoint R < R ^ 2 := by
+    unfold squareRootEndpoint
+    omega
   have hmPrefix : cq.1 * cq.2 ∈ cumulativeSquarePrefixSet (R - 1) := by
     simp only [cumulativeSquarePrefixSet, Finset.mem_range, hpred]
-    unfold squareRootEndpoint at hmulX
-    omega
+    exact lt_of_le_of_lt hmulX hXlt
   have hmHigh : R < canonicalLargestPrimeFactor (cq.1 * cq.2) := by
-    simpa [hlargest] using hRq
+    simpa only [hlargest] using hRq
   refine ⟨cq.1 * cq.2, Finset.mem_filter.mpr ⟨hmPrefix, hmHigh⟩, ?_⟩
   apply Prod.ext
   · exact hcofactor
@@ -176,7 +179,8 @@ theorem sum_squareRootHighTransportSourceSet_eq_pairProducts
     (fun m _hm => (canonicalCofactor m, canonicalLargestPrimeFactor m))
     (fun m hm => highTransportSource_to_pair_mem hR hm)
     (fun m hm n hn hmn => highTransportSource_pair_injective hR hm hn hmn)
-    (fun cq hcq => transportPair_surjective hR cq hcq)
+    (fun cq hcq => by
+      simpa using (transportPair_surjective hR cq hcq))
     ?_
   intro m hm
   have hmgt : 1 < m :=
@@ -203,21 +207,44 @@ theorem squareRootTransportPairSourceMass_eq_cofactorFirst
   classical
   unfold squareRootTransportPairSourceMass squareRootTransportPairSet
     squareRootTransportCofactorFirst
-  rw [Finset.sum_filter, Finset.sum_product]
-  apply Finset.sum_congr rfl
-  intro c hc
-  apply Finset.sum_congr rfl
-  intro q hq
-  by_cases hprime : q.Prime
-  · by_cases hmul : c * q ≤ squareRootEndpoint R
-    · have hcData := Finset.mem_Ico.mp hc
-      have hqData := Finset.mem_Ioc.mp hq
-      have hcPos : 0 < c := Nat.zero_lt_of_lt hcData.1
-      have hcq : c < q := lt_trans hcData.2 hqData.1
-      have hweight := canonicalMoebiusWeight_mul_prime_eq_neg hcPos hcq hprime
-      simp [hprime, hmul, hweight]
-    · simp [hprime, hmul]
-  · simp [hprime]
+  rw [Finset.sum_filter]
+  calc
+    (∑ cq ∈ (Finset.Ico 1 R).product (Finset.Ioc R (squareRootEndpoint R)),
+        if cq.2.Prime ∧ cq.1 * cq.2 ≤ squareRootEndpoint R then
+          -canonicalMoebiusWeight (cq.1 * cq.2)
+        else 0) =
+      ∑ c ∈ Finset.Ico 1 R,
+        ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+          if q.Prime ∧ c * q ≤ squareRootEndpoint R then
+            -canonicalMoebiusWeight (c * q)
+          else 0 := by
+      simpa only using
+        (Finset.sum_product
+          (s := Finset.Ico 1 R)
+          (t := Finset.Ioc R (squareRootEndpoint R))
+          (f := fun cq : ℕ × ℕ =>
+            if cq.2.Prime ∧ cq.1 * cq.2 ≤ squareRootEndpoint R then
+              -canonicalMoebiusWeight (cq.1 * cq.2)
+            else 0))
+    _ = ∑ c ∈ Finset.Ico 1 R,
+          ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+            if q.Prime ∧ c * q ≤ squareRootEndpoint R then
+              canonicalMoebiusWeight c
+            else 0 := by
+      apply Finset.sum_congr rfl
+      intro c hc
+      apply Finset.sum_congr rfl
+      intro q hq
+      by_cases hprime : q.Prime
+      · by_cases hmul : c * q ≤ squareRootEndpoint R
+        · have hcData := Finset.mem_Ico.mp hc
+          have hqData := Finset.mem_Ioc.mp hq
+          have hcPos : 0 < c := Nat.zero_lt_of_lt hcData.1
+          have hcq : c < q := lt_trans hcData.2 hqData.1
+          have hweight := canonicalMoebiusWeight_mul_prime_eq_neg hcPos hcq hprime
+          simp [hprime, hmul, hweight]
+        · simp [hprime, hmul]
+      · simp [hprime]
 
 /-- The prime-dilated `T_R` of PR #212 is exactly the original dynamic transport
 term appearing in `squarePrefixMertens = smooth - transport`. -/
