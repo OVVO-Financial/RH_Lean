@@ -1,5 +1,8 @@
 import Mathlib
 import RHLean.Arithmetic.PrimeWheelMobiusRecovery
+import RHLean.Arithmetic.PrimorialWheelPrefixIdentity
+
+open scoped ArithmeticFunction.Moebius BigOperators
 
 /-!
 # Minimal common torus for one primorial wheel block
@@ -46,7 +49,7 @@ theorem primorialSquareSensitiveModulus_dvd_minimalTorusModulus
 theorem primorialMinimalLiftMultiplier_pos (k : ℕ) :
     0 < primorialMinimalLiftMultiplier k := by
   unfold primorialMinimalLiftMultiplier
-  omega
+  simpa using Nat.succ_pos (primorialBlockUpper k / primorialSquareSensitiveModulus k)
 
 /-- The minimal common torus modulus is positive. -/
 theorem primorialMinimalTorusModulus_pos (k : ℕ) :
@@ -66,9 +69,15 @@ theorem primorialBlockUpper_lt_minimalTorusModulus (k : ℕ) :
     dsimp [P]
     exact primorialSquareSensitiveModulus_pos k
   have hmod : U % P < P := Nat.mod_lt U hP
-  have hdiv : U / P * P + U % P = U := Nat.div_add_mod U P
-  dsimp [primorialMinimalTorusModulus, primorialMinimalLiftMultiplier, U, P]
-  omega
+  have hdiv : U = U / P * P + U % P := by
+    calc
+      U = P * (U / P) + U % P := (Nat.div_add_mod U P).symm
+      _ = U / P * P + U % P := by rw [Nat.mul_comm P (U / P)]
+  change U < (U / P + 1) * P
+  calc
+    U = U / P * P + U % P := hdiv
+    _ < U / P * P + P := Nat.add_lt_add_left hmod _
+    _ = (U / P + 1) * P := by simp [Nat.add_mul]
 
 /-- The minimal common modulus never exceeds `upper + rawPeriod`. -/
 theorem primorialMinimalTorusModulus_le_upper_add_rawPeriod (k : ℕ) :
@@ -76,13 +85,10 @@ theorem primorialMinimalTorusModulus_le_upper_add_rawPeriod (k : ℕ) :
       primorialBlockUpper k + primorialSquareSensitiveModulus k := by
   let U := primorialBlockUpper k
   let P := primorialSquareSensitiveModulus k
-  have hP : 0 < P := by
-    dsimp [P]
-    exact primorialSquareSensitiveModulus_pos k
-  have hdiv : U / P * P + U % P = U := Nat.div_add_mod U P
-  have hmod : U % P ≤ P := Nat.le_of_lt (Nat.mod_lt U hP)
-  dsimp [primorialMinimalTorusModulus, primorialMinimalLiftMultiplier, U, P]
-  omega
+  change (U / P + 1) * P ≤ U + P
+  calc
+    (U / P + 1) * P = U / P * P + P := by simp [Nat.add_mul]
+    _ ≤ U + P := Nat.add_le_add_right (Nat.div_mul_le_self U P) P
 
 /-- Concrete primorial wheel on the minimal common torus.  Its arithmetic block,
 prime coordinates, and corrected site field are identical to the historical
