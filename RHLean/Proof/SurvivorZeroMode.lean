@@ -7,7 +7,7 @@ import RHLean.Proof.DeathShellSubpolynomial
 # Exact survivor zero-mode realization
 
 PR #214 discharges the lifetime death process unconditionally. This module
-puts the sole remaining lifetime discrepancy on an explicit canonical
+puts the remaining lifetime-active component on an explicit canonical
 cofactor/prime operator.
 
 At stage `t`, write
@@ -33,10 +33,13 @@ and the current high-height condition
 
 `2*Lambda*t < |q^2-c^2|`.
 
-The module proves this finite identity, splits the pure-prime `c=1` fibre from
-the genuine composite fibres `c>=2`, and records that the corresponding
-translated-window power-saving statement is exactly the sole endpoint
-analytic premise remaining after PR #214.
+The module proves this finite identity and the translated-window equivalence to
+the remaining lifetime endpoint premise.  In the combined square-wheel route,
+this survivor state is one arithmetic coordinate of the square-endpoint
+oscillation, not an instruction to estimate each square block or each survivor
+state independently.  The companion square-wheel modules retain cancellation
+across consecutive square blocks and expose the same residual through the
+primorial wheel spectrum.
 
 No power-saving estimate is assumed or proved here.
 -/
@@ -460,8 +463,11 @@ theorem survivorZeroMode_localEnergy_eq_lifetimeActive
   intro h hh
   rw [← lifetimeActiveAtomMass_eq_survivorZeroMode hΛ]
 
-/-- The one remaining RH-scale analytic statement, now written directly on the
-explicit signed cofactor zero-mode operator. -/
+/-- The remaining lifetime-active RH-scale statement, written directly on the
+explicit signed cofactor zero-mode operator.  The companion square-wheel layer
+shows how differences of complete square endpoints sit inside primorial-wheel
+residual oscillation, so this is not intended to be estimated independently of
+that oscillation. -/
 def SurvivorZeroModePowerSavingStatement (Λ : ℝ) : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ C : ℝ, 0 ≤ C ∧
@@ -489,8 +495,8 @@ theorem survivorZeroModePowerSaving_iff_lifetimeActive
     rw [survivorZeroMode_localEnergy_eq_lifetimeActive hΛ]
     exact hbound N H hH hHN
 
-/-- After PR #214, the explicit zero-mode power saving is exactly the sole
-remaining endpoint discrepancy premise. -/
+/-- After PR #214, the explicit zero-mode power saving is exactly the remaining
+lifetime endpoint discrepancy premise. -/
 theorem survivorZeroModePowerSaving_iff_endpointDiscrepancy
     {Λ : ℝ} (hΛ : 0 ≤ Λ) :
     SurvivorZeroModePowerSavingStatement Λ ↔
