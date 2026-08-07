@@ -103,6 +103,60 @@ private theorem zmodPrefixValSum_eq_Ioc
       · simp [hmem]
       · simp [hmem]
 
+/-- Any value-dependent pairing with the zero-padded smooth block is exactly the
+corresponding natural sum on the arithmetic block. -/
+private theorem zmodSmoothBlockValSum_eq_Ioc
+    (W : PrimeWheelFiniteSystem) (f : ℕ → ℂ) :
+    (∑ z : ZMod W.modulus,
+      W.torusSmoothCoreBlockField z * f z.val) =
+      ∑ n ∈ Finset.Ioc W.lower W.upper,
+        (((W.smoothCoreSite n : ℤ) : ℂ)) * f n := by
+  classical
+  unfold PrimeWheelFiniteSystem.torusSmoothCoreBlockField
+  calc
+    (∑ z : ZMod W.modulus,
+      (if W.lower < z.val ∧ z.val ≤ W.upper then
+          ((W.smoothCoreSite z.val : ℤ) : ℂ)
+        else 0) * f z.val) =
+      ∑ i : Fin W.modulus,
+        (if W.lower < i.val ∧ i.val ≤ W.upper then
+            ((W.smoothCoreSite i.val : ℤ) : ℂ)
+          else 0) * f i.val := by
+            exact ((finNatCastEquivZModBoundary W.modulus).sum_comp
+              (fun z : ZMod W.modulus =>
+                (if W.lower < z.val ∧ z.val ≤ W.upper then
+                    ((W.smoothCoreSite z.val : ℤ) : ℂ)
+                  else 0) * f z.val)).symm
+    _ = ∑ n ∈ Finset.range W.modulus,
+        (if W.lower < n ∧ n ≤ W.upper then
+            ((W.smoothCoreSite n : ℤ) : ℂ)
+          else 0) * f n := by
+            exact Fin.sum_univ_eq_sum_range
+              (fun n : ℕ =>
+                (if W.lower < n ∧ n ≤ W.upper then
+                    ((W.smoothCoreSite n : ℤ) : ℂ)
+                  else 0) * f n)
+              W.modulus
+    _ = ∑ n ∈ Finset.Ioc W.lower W.upper,
+        (((W.smoothCoreSite n : ℤ) : ℂ)) * f n := by
+      have hfilter :
+          (Finset.range W.modulus).filter
+              (fun n => W.lower < n ∧ n ≤ W.upper) =
+            Finset.Ioc W.lower W.upper := by
+        ext n
+        simp only [Finset.mem_filter, Finset.mem_range, Finset.mem_Ioc]
+        constructor
+        · intro hn
+          exact hn.2
+        · intro hn
+          exact ⟨lt_of_le_of_lt hn.2 W.upper_lt_modulus, hn⟩
+      rw [← hfilter, Finset.sum_filter]
+      apply Finset.sum_congr rfl
+      intro n hn
+      by_cases hmem : W.lower < n ∧ n ≤ W.upper
+      · simp [hmem]
+      · simp [hmem]
+
 /-- The normalized reduced-conductor window is literally a pinned interval sum
 of the classical divisor-form Ramanujan kernel. -/
 theorem primeWheelReducedConductorRamanujanWindow_eq_divisorInterval
@@ -341,39 +395,53 @@ theorem primeWheelSmoothConductorResponse_eq_ramanujanPacket
           (((ramanujanDivisorInterval q a.val W.lower x : ℤ) : ℂ)) := by
             apply Finset.sum_congr rfl
             intro a ha
-            rw [Finset.mul_sum]
-            apply congrArg
+            have hinner :
+                (∑ b : ZMod W.modulus,
+                  W.torusPrefixWindow x b *
+                    primeWheelReducedConductorKernel W q (b - a)) =
+                  (((ramanujanDivisorInterval q a.val W.lower x : ℤ) : ℂ)) := by
+              calc
+                (∑ b : ZMod W.modulus,
+                  W.torusPrefixWindow x b *
+                    primeWheelReducedConductorKernel W q (b - a)) =
+                  ∑ b : ZMod W.modulus,
+                    W.torusPrefixWindow x b *
+                      (((ramanujanDivisorKernel q b.val a.val : ℤ) : ℂ)) := by
+                        apply Finset.sum_congr rfl
+                        intro b hb
+                        rw [primeWheelReducedConductorKernel_eq_ramanujanDivisorKernel
+                          W hq hqmod (b - a)]
+                        rw [ramanujanDivisorKernel_sub_eq_shift hqmod a b]
+                _ = ∑ n ∈ Finset.Ioc W.lower x,
+                    (((ramanujanDivisorKernel q n a.val : ℤ) : ℂ)) := by
+                      exact zmodPrefixValSum_eq_Ioc W
+                        (lt_of_le_of_lt hx W.upper_lt_modulus)
+                        (fun n => (((ramanujanDivisorKernel q n a.val : ℤ) : ℂ)))
+                _ = (((ramanujanDivisorInterval q a.val W.lower x : ℤ) : ℂ)) := by
+                      unfold ramanujanDivisorInterval ramanujanDivisorSumOn
+                      push_cast
+                      rfl
             calc
               (∑ b : ZMod W.modulus,
-                W.torusPrefixWindow x b *
+                W.torusSmoothCoreBlockField a * W.torusPrefixWindow x b *
                   primeWheelReducedConductorKernel W q (b - a)) =
-                ∑ b : ZMod W.modulus,
-                  W.torusPrefixWindow x b *
-                    (((ramanujanDivisorKernel q b.val a.val : ℤ) : ℂ)) := by
-                      apply Finset.sum_congr rfl
-                      intro b hb
-                      rw [primeWheelReducedConductorKernel_eq_ramanujanDivisorKernel
-                        W hq hqmod (b - a)]
-                      rw [ramanujanDivisorKernel_sub_eq_shift hqmod a b]
-              _ = ∑ n ∈ Finset.Ioc W.lower x,
-                  (((ramanujanDivisorKernel q n a.val : ℤ) : ℂ)) := by
-                    exact zmodPrefixValSum_eq_Ioc W
-                      (lt_of_le_of_lt hx W.upper_lt_modulus)
-                      (fun n => (((ramanujanDivisorKernel q n a.val : ℤ) : ℂ)))
-              _ = (((ramanujanDivisorInterval q a.val W.lower x : ℤ) : ℂ)) := by
-                    unfold ramanujanDivisorInterval ramanujanDivisorSumOn
-                    push_cast
-                    rfl
+                W.torusSmoothCoreBlockField a *
+                  (∑ b : ZMod W.modulus,
+                    W.torusPrefixWindow x b *
+                      primeWheelReducedConductorKernel W q (b - a)) := by
+                        rw [Finset.mul_sum]
+                        apply Finset.sum_congr rfl
+                        intro b hb
+                        ring
+              _ = W.torusSmoothCoreBlockField a *
+                  (((ramanujanDivisorInterval q a.val W.lower x : ℤ) : ℂ)) := by
+                    rw [hinner]
     _ = (((primeWheelSmoothRamanujanPacket W x q : ℤ) : ℂ)) := by
+      rw [zmodSmoothBlockValSum_eq_Ioc W
+        (fun n => (((ramanujanDivisorInterval q n W.lower x : ℤ) : ℂ)))]
       unfold primeWheelSmoothRamanujanPacket primeWheelSmoothDivisorSites
-      unfold PrimeWheelFiniteSystem.torusSmoothCoreBlockField
-      let G : ℕ → ℂ := fun n =>
-        (((W.smoothCoreSite n : ℤ) : ℂ)) *
-          (((ramanujanDivisorInterval q n W.lower x : ℤ) : ℂ))
-      have hblock := zmodPrefixValSum_eq_Ioc W W.upper_lt_modulus G
-      simp only [G] at hblock
-      rw [hblock]
       push_cast
+      rw [Finset.sum_filter]
       apply Finset.sum_congr rfl
       intro n hn
       have hnupper : n ≤ W.upper := (Finset.mem_Ioc.mp hn).2
@@ -381,18 +449,8 @@ theorem primeWheelSmoothConductorResponse_eq_ramanujanPacket
       simp only [hnupper, true_and]
       by_cases hcrit : Squarefree n ∧
           n ∣ primeWheelCoordinateProduct W.primeCoordinates
-      · have hmem :
-            n ∈ (Finset.Ioc W.lower W.upper).filter
-              (fun a => Squarefree a ∧
-                a ∣ primeWheelCoordinateProduct W.primeCoordinates) := by
-          exact Finset.mem_filter.mpr ⟨hn, hcrit⟩
-        simp [hcrit, hmem]
-      · have hnotmem :
-            n ∉ (Finset.Ioc W.lower W.upper).filter
-              (fun a => Squarefree a ∧
-                a ∣ primeWheelCoordinateProduct W.primeCoordinates) := by
-          simp [hcrit]
-        simp [hcrit, hnotmem]
+      · simp [hcrit]
+      · simp [hcrit]
 
 /-- For a nontrivial conductor, the smooth Fourier packet is already a purely
 arithmetic divisor-boundary packet. -/
