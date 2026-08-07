@@ -138,9 +138,8 @@ theorem primeWheelPinnedPhase_mul_samplePower_eq_quadraticPhase
   have hanchor : W.lower + N = RHLean.Analysis.squarePrefixEndpoint n := by
     dsimp [N, squareWheelSampleLength]
     exact Nat.add_sub_of_le hlower
-  have hendpoint := RHLean.Analysis.squarePrefixEndpoint_add_one n
   have hclock : W.lower + 1 + N = (n + 1) ^ 2 := by
-    omega
+    rw [hanchor, RHLean.Analysis.squarePrefixEndpoint_add_one]
   have hpow :
       ZMod.stdAddChar r ^ N =
         ZMod.stdAddChar (((N : ℕ) : ZMod W.modulus) * r) := by
