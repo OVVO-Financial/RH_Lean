@@ -90,7 +90,9 @@ theorem norm_primeWheelDirichletKernel_le_geometric
     calc
       ‖ZMod.stdAddChar r ^ N - 1‖ ≤
           ‖ZMod.stdAddChar r ^ N‖ + ‖(1 : ℂ)‖ := norm_sub_le _ _
-      _ = 2 := by simp
+      _ = 2 := by
+        simp
+        norm_num
   have hden : 0 < ‖ZMod.stdAddChar r - 1‖ := by
     exact norm_pos_iff.mpr (sub_ne_zero.mpr hchar)
   exact (div_le_div_iff_of_pos_right hden).2 hnum
