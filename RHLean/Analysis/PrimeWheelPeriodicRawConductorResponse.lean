@@ -58,9 +58,9 @@ theorem primorialPeriodicRawJointSpectralAtom_eq_raw_sub_two_smooth
     primorialPeriodicRawJointSpectralAtom k x r =
       primorialPeriodicRawSpectralAtom k x r -
         2 * primorialPeriodicSmoothSpectralAtom k x r := by
-  rw [primorialPeriodicRawJointSpectrum_eq_raw_sub_two_smooth]
   unfold primorialPeriodicRawJointSpectralAtom
     primorialPeriodicRawSpectralAtom primorialPeriodicSmoothSpectralAtom
+  rw [primorialPeriodicRawJointSpectrum_eq_raw_sub_two_smooth]
   ring
 
 /-- The complete periodic-raw spectral prefix is the sum of its frequency atoms. -/
@@ -118,8 +118,7 @@ theorem primorialPeriodicRawJointConductorResponse_eq_raw_sub_two_smooth
   intro r hr
   by_cases hq : q = reducedAdditiveConductor r
   · simp only [hq, if_true]
-    rw [primorialPeriodicRawJointSpectralAtom_eq_raw_sub_two_smooth]
-    ring
+    exact primorialPeriodicRawJointSpectralAtom_eq_raw_sub_two_smooth k x r
   · simp [hq]
 
 /-- Exact conductor partition of the complete actual periodic-raw response. -/
@@ -161,84 +160,110 @@ theorem primorialPeriodicRawResidual_eq_sum_conductorResponses
 
 /-- The window response carried by one reduced-conductor shell after factoring
 out a shell-constant raw Fourier coefficient. -/
-def primorialReducedConductorWindowResponse
-    (k x q : ℕ) : ℂ :=
-  ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+def primeWheelReducedConductorWindowResponse
+    (W : PrimeWheelFiniteSystem) (x q : ℕ) : ℂ :=
+  ∑ r : ZMod W.modulus,
     if q = reducedAdditiveConductor r then
-      (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
-        (primorialMinimalWheelSystem k).prefixWindowSpectrum x (-r)
+      ((W.modulus : ℂ)⁻¹) * W.prefixWindowSpectrum x (-r)
     else 0
 
-/-- Additive-character kernel of one reduced-conductor shell.  On the natural
-CRT torus this is the finite kernel that becomes the classical Ramanujan sum
-once the primitive-residue parametrization is installed. -/
-def primorialReducedConductorKernel
-    (k q : ℕ)
-    (z : ZMod (primorialMinimalWheelSystem k).modulus) : ℂ :=
-  ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+/-- Additive-character kernel of one reduced-conductor shell. -/
+def primeWheelReducedConductorKernel
+    (W : PrimeWheelFiniteSystem) (q : ℕ) (z : ZMod W.modulus) : ℂ :=
+  ∑ r : ZMod W.modulus,
     if q = reducedAdditiveConductor r then
       ZMod.stdAddChar (z * r)
     else 0
 
 /-- Physical-space pairing of a pinned prefix with one reduced-conductor
 character kernel. -/
-def primorialReducedConductorRamanujanWindow
+def primeWheelReducedConductorRamanujanWindow
+    (W : PrimeWheelFiniteSystem) (x q : ℕ) : ℂ :=
+  ((W.modulus : ℂ)⁻¹) *
+    ∑ z : ZMod W.modulus,
+      W.torusPrefixWindow x z * primeWheelReducedConductorKernel W q z
+
+/-- Primorial specialization of the generic reduced-conductor window response. -/
+abbrev primorialReducedConductorWindowResponse
     (k x q : ℕ) : ℂ :=
-  (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
-    ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
-      (primorialMinimalWheelSystem k).torusPrefixWindow x z *
-        primorialReducedConductorKernel k q z
+  primeWheelReducedConductorWindowResponse (primorialMinimalWheelSystem k) x q
+
+/-- Primorial specialization of the generic reduced-conductor kernel. -/
+abbrev primorialReducedConductorKernel
+    (k q : ℕ)
+    (z : ZMod (primorialMinimalWheelSystem k).modulus) : ℂ :=
+  primeWheelReducedConductorKernel (primorialMinimalWheelSystem k) q z
+
+/-- Primorial specialization of the generic Ramanujan-kernel window. -/
+abbrev primorialReducedConductorRamanujanWindow
+    (k x q : ℕ) : ℂ :=
+  primeWheelReducedConductorRamanujanWindow
+    (primorialMinimalWheelSystem k) x q
+
+/-- DFT of the prefix window at `-r`, with the double sign simplified before
+entering any conductor-shell sum. -/
+private theorem primeWheelPrefixWindowSpectrum_neg
+    (W : PrimeWheelFiniteSystem) (x : ℕ) (r : ZMod W.modulus) :
+    W.prefixWindowSpectrum x (-r) =
+      ∑ z : ZMod W.modulus,
+        ZMod.stdAddChar (z * r) * W.torusPrefixWindow x z := by
+  unfold PrimeWheelFiniteSystem.prefixWindowSpectrum
+  rw [ZMod.dft_apply]
+  simp only [smul_eq_mul]
+  apply Finset.sum_congr rfl
+  intro z hz
+  have harg : -(z * (-r)) = z * r := by ring
+  rw [harg]
 
 /-- Sum of the shell-restricted window transforms is exactly the pinned window
 paired with the shell character kernel. -/
-theorem primorialReducedConductor_prefixSpectrumSum_eq_kernelPairing
-    (k x q : ℕ) :
-    (∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+theorem primeWheelReducedConductor_prefixSpectrumSum_eq_kernelPairing
+    (W : PrimeWheelFiniteSystem) (x q : ℕ) :
+    (∑ r : ZMod W.modulus,
       if q = reducedAdditiveConductor r then
-        (primorialMinimalWheelSystem k).prefixWindowSpectrum x (-r)
+        W.prefixWindowSpectrum x (-r)
       else 0) =
-      ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
-        (primorialMinimalWheelSystem k).torusPrefixWindow x z *
-          primorialReducedConductorKernel k q z := by
+      ∑ z : ZMod W.modulus,
+        W.torusPrefixWindow x z * primeWheelReducedConductorKernel W q z := by
   classical
-  unfold PrimeWheelFiniteSystem.prefixWindowSpectrum
-    primorialReducedConductorKernel
-  simp only [ZMod.dft_apply, smul_eq_mul]
   calc
-    (∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+    (∑ r : ZMod W.modulus,
       if q = reducedAdditiveConductor r then
-        ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
-          ZMod.stdAddChar (-(z * (-r))) *
-            (primorialMinimalWheelSystem k).torusPrefixWindow x z
+        W.prefixWindowSpectrum x (-r)
       else 0) =
-      ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
-        ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
+      ∑ r : ZMod W.modulus,
+        if q = reducedAdditiveConductor r then
+          ∑ z : ZMod W.modulus,
+            ZMod.stdAddChar (z * r) * W.torusPrefixWindow x z
+        else 0 := by
+          apply Finset.sum_congr rfl
+          intro r hr
+          by_cases hq : q = reducedAdditiveConductor r
+          · simp only [hq, if_true]
+            rw [primeWheelPrefixWindowSpectrum_neg W x r]
+          · simp [hq]
+    _ =
+      ∑ r : ZMod W.modulus,
+        ∑ z : ZMod W.modulus,
           if q = reducedAdditiveConductor r then
-            ZMod.stdAddChar (z * r) *
-              (primorialMinimalWheelSystem k).torusPrefixWindow x z
+            ZMod.stdAddChar (z * r) * W.torusPrefixWindow x z
           else 0 := by
             apply Finset.sum_congr rfl
             intro r hr
             by_cases hq : q = reducedAdditiveConductor r
-            · simp only [hq, if_true]
-              apply Finset.sum_congr rfl
-              intro z hz
-              congr 1
-              congr 1
-              ring
+            · simp [hq]
             · simp [hq]
     _ =
-      ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
-        ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+      ∑ z : ZMod W.modulus,
+        ∑ r : ZMod W.modulus,
           if q = reducedAdditiveConductor r then
-            ZMod.stdAddChar (z * r) *
-              (primorialMinimalWheelSystem k).torusPrefixWindow x z
+            ZMod.stdAddChar (z * r) * W.torusPrefixWindow x z
           else 0 := by
-            exact Finset.sum_comm
+            rw [Finset.sum_comm]
     _ =
-      ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
-        (primorialMinimalWheelSystem k).torusPrefixWindow x z *
-          ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+      ∑ z : ZMod W.modulus,
+        W.torusPrefixWindow x z *
+          ∑ r : ZMod W.modulus,
             if q = reducedAdditiveConductor r then
               ZMod.stdAddChar (z * r)
             else 0 := by
@@ -251,26 +276,42 @@ theorem primorialReducedConductor_prefixSpectrumSum_eq_kernelPairing
               · simp [hq]
                 ring
               · simp [hq]
+    _ =
+      ∑ z : ZMod W.modulus,
+        W.torusPrefixWindow x z * primeWheelReducedConductorKernel W q z := by
+          rfl
+
+/-- Primorial specialization of the generic shell-kernel pairing. -/
+theorem primorialReducedConductor_prefixSpectrumSum_eq_kernelPairing
+    (k x q : ℕ) :
+    (∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+      if q = reducedAdditiveConductor r then
+        (primorialMinimalWheelSystem k).prefixWindowSpectrum x (-r)
+      else 0) =
+      ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
+        (primorialMinimalWheelSystem k).torusPrefixWindow x z *
+          primorialReducedConductorKernel k q z := by
+  exact primeWheelReducedConductor_prefixSpectrumSum_eq_kernelPairing
+    (primorialMinimalWheelSystem k) x q
 
 /-- The normalized shell window response is exactly its Ramanujan-kernel
 pairing. -/
-theorem primorialReducedConductorWindowResponse_eq_ramanujanWindow
-    (k x q : ℕ) :
-    primorialReducedConductorWindowResponse k x q =
-      primorialReducedConductorRamanujanWindow k x q := by
+theorem primeWheelReducedConductorWindowResponse_eq_ramanujanWindow
+    (W : PrimeWheelFiniteSystem) (x q : ℕ) :
+    primeWheelReducedConductorWindowResponse W x q =
+      primeWheelReducedConductorRamanujanWindow W x q := by
   classical
-  unfold primorialReducedConductorWindowResponse
-    primorialReducedConductorRamanujanWindow
+  unfold primeWheelReducedConductorWindowResponse
+    primeWheelReducedConductorRamanujanWindow
   calc
-    (∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+    (∑ r : ZMod W.modulus,
       if q = reducedAdditiveConductor r then
-        (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
-          (primorialMinimalWheelSystem k).prefixWindowSpectrum x (-r)
+        ((W.modulus : ℂ)⁻¹) * W.prefixWindowSpectrum x (-r)
       else 0) =
-      (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
-        ∑ r : ZMod (primorialMinimalWheelSystem k).modulus,
+      ((W.modulus : ℂ)⁻¹) *
+        ∑ r : ZMod W.modulus,
           if q = reducedAdditiveConductor r then
-            (primorialMinimalWheelSystem k).prefixWindowSpectrum x (-r)
+            W.prefixWindowSpectrum x (-r)
           else 0 := by
             rw [Finset.mul_sum]
             apply Finset.sum_congr rfl
@@ -279,11 +320,18 @@ theorem primorialReducedConductorWindowResponse_eq_ramanujanWindow
             · simp [hq]
             · simp [hq]
     _ =
-      (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
-        ∑ z : ZMod (primorialMinimalWheelSystem k).modulus,
-          (primorialMinimalWheelSystem k).torusPrefixWindow x z *
-            primorialReducedConductorKernel k q z := by
-              rw [primorialReducedConductor_prefixSpectrumSum_eq_kernelPairing]
+      ((W.modulus : ℂ)⁻¹) *
+        ∑ z : ZMod W.modulus,
+          W.torusPrefixWindow x z * primeWheelReducedConductorKernel W q z := by
+            rw [primeWheelReducedConductor_prefixSpectrumSum_eq_kernelPairing]
+
+/-- Primorial specialization of the normalized shell-window identity. -/
+theorem primorialReducedConductorWindowResponse_eq_ramanujanWindow
+    (k x q : ℕ) :
+    primorialReducedConductorWindowResponse k x q =
+      primorialReducedConductorRamanujanWindow k x q := by
+  exact primeWheelReducedConductorWindowResponse_eq_ramanujanWindow
+    (primorialMinimalWheelSystem k) x q
 
 /-- If the periodic raw spectrum is constant on a reduced-conductor shell, its
 entire shell response factors exactly as that coefficient times the normalized
@@ -300,7 +348,7 @@ theorem primorialPeriodicRawConductorResponse_eq_constant_mul_ramanujanWindow
   rw [← primorialReducedConductorWindowResponse_eq_ramanujanWindow]
   unfold primorialPeriodicRawConductorResponse
     primorialPeriodicRawSpectralAtom
-    primorialReducedConductorWindowResponse
+    primeWheelReducedConductorWindowResponse
   rw [Finset.mul_sum]
   apply Finset.sum_congr rfl
   intro r hr
