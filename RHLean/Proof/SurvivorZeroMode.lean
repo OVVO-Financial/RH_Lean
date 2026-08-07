@@ -448,6 +448,7 @@ theorem survivorZeroMode_core_eq_one_of_endpoint_lt_two_mul_prime
     c = 1 := by
   classical
   rcases Finset.mem_filter.mp hq with ⟨_hqRange, hpair⟩
+  have hc1 : 1 ≤ c := hpair.1.2.1
   have hprod : c * q ≤ RHLean.Analysis.squarePrefixEndpoint t := hpair.2.1
   by_contra hne
   have hc2 : 2 ≤ c := by omega
