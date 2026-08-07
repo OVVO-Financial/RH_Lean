@@ -1,0 +1,62 @@
+\subsection{The dyadic cofactor cascade}
+\label{subsec:cofactor-cascade}
+
+For $C\ge1$, define the partial cofactor residual
+\begin{equation}
+ R_C(x)
+ :=
+ 1-\sum_{1\le c\le C}\mu(c)\Pi_c(x),
+ \label{eq:R-C}
+\end{equation}
+and its square-prefix energy
+\begin{equation}
+ V_C(N)
+ :=
+ \sum_{n\le N}|R_C(X_n)|^2.
+ \label{eq:V-C}
+\end{equation}
+Thus
+\[
+ R_1(x)=1-\pi(x),
+\]
+and $R_C(x)=M(x)$ once $C$ contains every canonical cofactor that can occur below $x$.  The cascade tests how successive dyadic cofactor ranges cancel the prime curve.
+
+\begin{table}[htbp]
+\centering
+\caption{Complete dyadic cofactor cascade at $N=4096$.  The third column is $V_C(4096)/4096^3$; the fourth is $V_C/V_1$.  The final row is exact because the largest observed canonical cofactor is $692{,}835<2^{20}$.}
+\label{tab:cofactor-cascade}
+\scriptsize
+\setlength{\tabcolsep}{7pt}
+\begin{tabular}{rrrr}
+\toprule
+$C$ & $R_C(X_{4096})$ & $V_C/N^3$ & $V_C/V_1$\\
+\midrule
+1 & -1,078,361 & 14652.492160 & 1.000e+00 \\
+2 & -513,936 & 3318.367550 & 2.265e-01 \\
+4 & -127,056 & 198.352150 & 1.354e-02 \\
+8 & 86,580 & 99.704527 & 6.805e-03 \\
+16 & -4,620 & 0.148513 & 1.014e-05 \\
+32 & 162,415 & 344.808298 & 2.353e-02 \\
+64 & 51,754 & 36.470907 & 2.489e-03 \\
+128 & 75,937 & 76.897452 & 5.248e-03 \\
+256 & 67,189 & 59.850472 & 4.085e-03 \\
+512 & 81,166 & 84.906888 & 5.795e-03 \\
+1,024 & 71,179 & 60.275193 & 4.114e-03 \\
+2,048 & 43,260 & 15.704342 & 1.072e-03 \\
+4,096 & 3,633 & 4.361902 & 2.977e-04 \\
+8,192 & -39,326 & 14.649760 & 9.998e-04 \\
+16,384 & -15,331 & 1.552681 & 1.060e-04 \\
+32,768 & -2,326 & 0.051346 & 3.504e-06 \\
+65,536 & 4,622 & 0.142635 & 9.735e-06 \\
+131,072 & 708 & 0.011615 & 7.927e-07 \\
+262,144 & 206 & 0.009590 & 6.545e-07 \\
+524,288 & 332 & 0.009980 & 6.811e-07 \\
+1,048,576 & 329 & 0.009974 & 6.807e-07 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The cascade is strongly nonmonotone.  The first four cofactor scales reduce the normalized energy from $14652.49$ at $C=1$ to $0.1485$ at $C=16$, but the next dyadic block raises it to $344.81$ at $C=32$. Subsequent blocks repeatedly destroy and recreate coherent mass before the residual settles near the final cubic scale.  This rules out a simple monotone ``more cofactors means more cancellation'' picture. The analytic estimate must control a signed cascade of dyadic cross-terms.
+
+The machine-readable file \texttt{cofactor\_cascade.csv} reports every dyadic $C$ for all six prefix checkpoints $N=128,256,512,1024,2048,4096$.
+
