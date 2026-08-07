@@ -26,10 +26,10 @@ namespace RHLean.Analysis
 open RHLean.Arithmetic
 open RHLean.Arithmetic.PrimeWheelFiniteSystem
 
-/-- Divisibility of the least representative by a divisor of the ambient
-modulus is equivalent to vanishing after canonical reduction. -/
+/-- Divisibility of the least representative by `d` is equivalent to vanishing
+after canonical reduction modulo `d`. -/
 private theorem dvd_val_iff_cast_eq_zero
-    {N d : ℕ} [NeZero N] (hd : d ∣ N) (z : ZMod N) :
+    {N d : ℕ} [NeZero N] (z : ZMod N) :
     d ∣ z.val ↔ (z.cast : ZMod d) = 0 := by
   rw [ZMod.cast_eq_val]
   exact (ZMod.natCast_eq_zero_iff z.val d).symm
@@ -40,7 +40,8 @@ private theorem dvd_unit_mul_val_iff
     {N d : ℕ} [NeZero N] (hd : d ∣ N)
     (u : (ZMod N)ˣ) (z : ZMod N) :
     d ∣ ((u : ZMod N) * z).val ↔ d ∣ z.val := by
-  rw [dvd_val_iff_cast_eq_zero hd, dvd_val_iff_cast_eq_zero hd]
+  rw [dvd_val_iff_cast_eq_zero ((u : ZMod N) * z),
+    dvd_val_iff_cast_eq_zero z]
   rw [ZMod.cast_mul hd]
   have hu : IsUnit (((u : ZMod N).cast : ZMod d)) :=
     ZMod.isUnit_cast_of_dvd hd u
@@ -102,11 +103,16 @@ theorem primorialPeriodicRawTorusField_unit_mul
         ((u : ZMod (primorialMinimalWheelSystem k).modulus) * z) =
       primorialPeriodicRawTorusField k z := by
   unfold primorialPeriodicRawTorusField
-    PrimeWheelFiniteSystem.rawSite primorialMinimalWheelSystem
-  rw [seededPrimeComb_unit_mul_val
-    (primorialWheelPrimes k)
-    (fun p hp => primorialPrimeSquare_dvd_minimalTorusModulus k p hp)
-    u z]
+    PrimeWheelFiniteSystem.rawSite
+  change
+    (((seededPrimeComb (primorialWheelPrimes k)
+      (((u : ZMod (primorialMinimalWheelSystem k).modulus) * z).val) : ℤ) : ℂ)) =
+      (((seededPrimeComb (primorialWheelPrimes k) z.val : ℤ) : ℂ))
+  exact congrArg (fun a : ℤ => (a : ℂ))
+    (seededPrimeComb_unit_mul_val
+      (S := primorialWheelPrimes k)
+      (fun p hp => primorialPrimeSquare_dvd_minimalTorusModulus k p hp)
+      u z)
 
 /-- Physical unit invariance as an equality of functions. -/
 theorem primorialPeriodicRawTorusField_comp_unitMul
