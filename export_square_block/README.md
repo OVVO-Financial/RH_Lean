@@ -47,14 +47,15 @@ The copied Lean files are a **curated paper-facing snapshot**, not a second inde
 lake build RHLean --wfail
 ```
 
-The two new paper-facing modules introduced with this export are:
+The three new paper-facing modules introduced with this export are:
 
 ```text
 RHLean.Analysis.CanonicalExtremePrimeSupport
+RHLean.Analysis.SquareBlockDeathProcess
 RHLean.Analysis.SquareBlockSurvivorBridge
 ```
 
-They are also copied under `export_square_block/lean/` for publication review.
+They are wired into the root `RHLean` target and are also copied under `export_square_block/lean/` for publication review.
 
 ## LaTeX build
 
