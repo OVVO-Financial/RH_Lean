@@ -1,0 +1,137 @@
+\section{All factor pairs above one integer}
+\label{sec:full-fibre}
+%======================================================================
+
+A fixed integer has many factor pairs.  This section describes the complete geometric fibre first, so that the later canonical M\"obius point is not confused with the whole factorization geometry.
+
+The factorization geometry and the smooth--transport geometry use the same coordinate map but different point selections.  This distinction is essential.
+
+Fix $N\ge1$ and consider every positive factor pair
+\begin{equation}
+ uv=N,
+ \qquad
+ 1\le u\le v.
+ \label{eq:factor-pair}
+\end{equation}
+Define the Fermat coordinates
+\begin{equation}
+ a=\frac{u+v}{2},
+ \qquad
+ b=\frac{v-u}{2}\ge0.
+ \label{eq:full-Fermat}
+\end{equation}
+Then
+\begin{equation}
+ u=a-b,
+ \qquad
+ v=a+b,
+ \qquad
+ N=a^2-b^2.
+ \label{eq:full-recovery}
+\end{equation}
+The coordinates lie in $\frac12\Z$; they are integers when $u$ and $v$ have the same parity.
+
+Squaring the complex factor gives
+\begin{equation}
+ (a+bi)^2=N+iY,
+ \qquad
+ \boxed{Y=2ab=\frac{v^2-u^2}{2}.}
+ \label{eq:full-square}
+\end{equation}
+Thus all factorizations of a fixed $N$ lie on the vertical fibre
+\begin{equation}
+ \Repart w=N.
+ \label{eq:vertical-fibre}
+\end{equation}
+
+\subsection{Square-root tests}
+
+Let
+\begin{equation}
+ w=N+iY,
+ \qquad
+ \rho=|w|=\sqrt{N^2+Y^2}.
+ \label{eq:rho-full}
+\end{equation}
+Then
+\begin{align}
+ a^2&=\frac{\rho+N}{2},
+ \label{eq:a-square}\\
+ b^2&=\frac{\rho-N}{2},
+ \label{eq:b-square}\\
+ u^2&=\rho-Y,
+ \label{eq:u-square}\\
+ v^2&=\rho+Y.
+ \label{eq:v-square}
+\end{align}
+Accordingly, a candidate vertical ordinate $Y$ corresponds to an exact factorization if and only if the relevant square and parity conditions hold.  The identity
+\begin{equation}
+ \sqrt{N^2+Y^2}=a^2+b^2
+ \label{eq:hypotenuse}
+\end{equation}
+is the right-triangle form of the same condition.
+
+\subsection{Admissible intervals}
+
+For a factor pair $u(N/u)=N$ with $1\le u\le\sqrt N$,
+\begin{equation}
+ a(u)=\frac{u+N/u}{2},
+ \qquad
+ b(u)=\frac{N/u-u}{2}.
+ \label{eq:ab-u}
+\end{equation}
+Both functions decrease as $u$ increases toward $\sqrt N$.  Therefore the full positive factor fibre satisfies
+\begin{align}
+ \sqrt N&\le a\le\frac{N+1}{2},
+ \label{eq:a-full-range}\\
+ 0&\le b\le\frac{N-1}{2},
+ \label{eq:b-full-range}\\
+ 0&\le Y\le\frac{N^2-1}{2}.
+ \label{eq:Y-full-range}
+\end{align}
+For integer enumeration one uses $a\ge\lceil\sqrt N\rceil$ with the parity required by $N$.
+
+The upper endpoint corresponds to the trivial factor pair $1\cdot N$.  If the trivial factor is excluded and the smallest permitted odd factor is $3$, then
+\begin{align}
+ a&\le\frac{N+9}{6},
+ \label{eq:a-three}\\
+ b&\le\frac{N-9}{6},
+ \label{eq:b-three}\\
+ Y&\le\frac{N^2-81}{18}.
+ \label{eq:Y-three}
+\end{align}
+These are the nontrivial odd-factor or semiprime-search envelopes.  They are not the universal bounds for the complete factor fibre.
+
+\begin{example}[The fibre $N=309$]
+The trivial factor pair $1\cdot309$ gives
+\[
+ (a,b)=(155,154),
+ \qquad
+ w=309+47740i.
+\]
+The nontrivial factorization $3\cdot103$ gives
+\[
+ (a,b)=(53,50),
+ \qquad
+ w=309+5300i.
+\]
+The latter is the highest point allowed by the nontrivial odd-factor condition $u\ge3$, but not the highest point on the full factor fibre.
+\end{example}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=Latex,node distance=13mm]
+  \node[draw,rounded corners,fill=blue!5,align=center,minimum width=31mm,minimum height=12mm] (factor) {$uv=N$\\factor coordinates};
+  \node[draw,rounded corners,fill=green!6,align=center,minimum width=35mm,minimum height=12mm,right=of factor] (fermat) {$a=(u+v)/2$\\$b=(v-u)/2$};
+  \node[draw,rounded corners,fill=red!5,align=center,minimum width=38mm,minimum height=12mm,right=of fermat] (square) {$w=N+iY$\\$Y=2ab$};
+  \node[draw,rounded corners,fill=gray!8,align=center,minimum width=38mm,minimum height=12mm,below=of square] (null) {$U=|w|-Y=u^2$\\$V=|w|+Y=v^2$};
+  \draw[->,thick] (factor) -- (fermat);
+  \draw[->,thick] (fermat) -- node[above,font=\small] {$z\mapsto z^2$} (square);
+  \draw[->,thick] (square) -- (null);
+  \draw[->,thick,bend left=20] (null.west) to node[below,font=\small] {exact recovery} (factor.south);
+\end{tikzpicture}
+\caption{Equivalent coordinate systems on a complete factor fibre.  The squared coordinates retain the factor pair exactly.}
+\label{fig:coordinate-map}
+\end{figure}
+
+%======================================================================
