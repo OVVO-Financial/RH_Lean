@@ -1,3 +1,4 @@
+# Full-audit bootstrap: remove once the audit pass has a substantive fix.
 name: Lean source audits
 
 on:
