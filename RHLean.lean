@@ -222,6 +222,7 @@ import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Proof.SquareRootAncestryRoot
 import RHLean.Proof.SquareRootAncestrySuccessor
+import RHLean.Proof.SurvivorPairEffectiveModulus
 import RHLean.Proof.SurvivorResidueCollisionReindex
 import RHLean.Proof.SurvivorResidueCovariance
 import RHLean.Proof.SurvivorResidueCovarianceCriterion
