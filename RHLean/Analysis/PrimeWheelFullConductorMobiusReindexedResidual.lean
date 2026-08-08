@@ -205,47 +205,49 @@ theorem primorialPeriodicRawResidual_eq_mobiusReindexed
     sum_primorialSmoothPackets_eq_collapsed k x
   have hsmoothCast :
       (∑ q ∈ (primorialMinimalWheelSystem k).modulus.divisors,
-        (((primeWheelSmoothBoundaryPacket
+        ((primeWheelSmoothBoundaryPacket
             (primorialMinimalWheelSystem k) x q +
           primeWheelSmoothBulkMass (primorialMinimalWheelSystem k) *
             ((Finset.Ioc (primorialMinimalWheelSystem k).lower x).card : ℤ) *
             (if q = 1 then 1 else 0) : ℤ) : ℂ)) =
-        (((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ)) := by
-    exact_mod_cast hsmoothInt
+        ((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ) := by
+    have h := congrArg (fun z : ℤ => (z : ℂ)) hsmoothInt
+    push_cast at h
+    exact h
   have hsmooth :
       (∑ q ∈ (primorialMinimalWheelSystem k).modulus.divisors,
         2 * (Ninv *
-          (((primeWheelSmoothBoundaryPacket
+          ((primeWheelSmoothBoundaryPacket
               (primorialMinimalWheelSystem k) x q +
             primeWheelSmoothBulkMass (primorialMinimalWheelSystem k) *
               ((Finset.Ioc (primorialMinimalWheelSystem k).lower x).card : ℤ) *
               (if q = 1 then 1 else 0) : ℤ) : ℂ))) =
         Ninv *
-          (2 * (((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ))) := by
+          (2 * ((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ)) := by
     calc
       (∑ q ∈ (primorialMinimalWheelSystem k).modulus.divisors,
         2 * (Ninv *
-          (((primeWheelSmoothBoundaryPacket
+          ((primeWheelSmoothBoundaryPacket
               (primorialMinimalWheelSystem k) x q +
             primeWheelSmoothBulkMass (primorialMinimalWheelSystem k) *
               ((Finset.Ioc (primorialMinimalWheelSystem k).lower x).card : ℤ) *
               (if q = 1 then 1 else 0) : ℤ) : ℂ))) =
         (2 * Ninv) *
-          ∑ q ∈ (primorialMinimalWheelSystem k).modulus.divisors,
-            (((primeWheelSmoothBoundaryPacket
+          (∑ q ∈ (primorialMinimalWheelSystem k).modulus.divisors,
+            ((primeWheelSmoothBoundaryPacket
                 (primorialMinimalWheelSystem k) x q +
               primeWheelSmoothBulkMass (primorialMinimalWheelSystem k) *
                 ((Finset.Ioc (primorialMinimalWheelSystem k).lower x).card : ℤ) *
-                (if q = 1 then 1 else 0) : ℤ) : ℂ) := by
+                (if q = 1 then 1 else 0) : ℤ) : ℂ)) := by
           rw [Finset.mul_sum]
           apply Finset.sum_congr rfl
           intro q hq
           ring
       _ = (2 * Ninv) *
-          (((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ)) := by
+          ((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ) := by
             rw [hsmoothCast]
       _ = Ninv *
-          (2 * (((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ))) := by
+          (2 * ((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ)) := by
             ring
   rw [Finset.sum_sub_distrib, hraw, hsmooth]
   dsimp [Ninv]
