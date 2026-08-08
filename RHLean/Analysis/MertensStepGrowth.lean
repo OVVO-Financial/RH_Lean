@@ -6,8 +6,8 @@ import RHLean.Analysis.MertensStepFunction
 
 The pointwise `r > 1/2` Mertens bound is converted into the Landau form used by
 Abel summation and Mellin transforms.  We first absorb the harmless `n + 1`
-shift on the natural summatory function, then compose with the natural floor.
-Near zero the step function vanishes identically.
+shift on the natural summatory function, then pass directly to the real
+floor-step function.  Near zero the step function vanishes identically.
 -/
 
 noncomputable section
@@ -49,32 +49,56 @@ theorem mertensSummatory_isBigO_rpow
       rw [hfactor]
       ring
     _ = (K * Real.rpow (2 : ℝ) r) * ‖Real.rpow (n : ℝ) r‖ := by
-      rw [Real.norm_eq_abs]
-      rw [abs_of_nonneg (Real.rpow_nonneg (by positivity) r)]
+      congr 1
+      exact (abs_of_nonneg (Real.rpow_nonneg (by positivity) r)).symm
 
 /-- The real floor-step Mertens function inherits the same power growth at
-infinity. -/
+infinity.  This proof uses only the elementary bound `floor(t) + 1 ≤ 2t` for
+`t ≥ 1`, avoiding any extra asymptotic floor API. -/
 theorem mertensStep_isBigO_rpow_atTop
     (hM : MertensEnergyBoundedStatement) {r : ℝ}
     (hr : (1 : ℝ) / 2 < r) :
     mertensStep =O[atTop] (fun t : ℝ => t ^ r) := by
+  rcases mertensPowerGrowth_of_energy hM hr with ⟨K, hK, hbound⟩
   have hr0 : 0 ≤ r := by linarith
-  have h :=
-    (mertensSummatory_isBigO_rpow hM hr).comp_tendsto
-      tendsto_nat_floor_atTop
-  have hfloor :
-      (fun t : ℝ => ((⌊t⌋₊ : ℕ) : ℝ)) ~[atTop] (fun t : ℝ => t) :=
-    Asymptotics.isEquivalent_nat_floor
-  have h' := h.trans <|
-    hfloor.isBigO.rpow hr0 (eventually_ge_atTop (0 : ℝ))
-  simpa only [mertensStep_eq_mertensSummatory_floor] using h'
+  refine IsBigO.of_bound (K * Real.rpow (2 : ℝ) r) ?_
+  filter_upwards [eventually_ge_atTop (1 : ℝ)] with t ht
+  have ht0 : 0 ≤ t := by linarith
+  rw [mertensStep_eq_mertensSummatory_floor]
+  have hfloor : (((⌊t⌋₊ : ℕ) : ℝ)) ≤ t :=
+    Nat.floor_le ht0
+  have hshift : ((((⌊t⌋₊ + 1 : ℕ) : ℝ))) ≤ 2 * t := by
+    push_cast
+    linarith
+  have hrpow :
+      Real.rpow ((((⌊t⌋₊ + 1 : ℕ) : ℝ))) r ≤
+        Real.rpow (2 * t) r :=
+    Real.rpow_le_rpow (by positivity) hshift hr0
+  have hmul :
+      K * Real.rpow ((((⌊t⌋₊ + 1 : ℕ) : ℝ))) r ≤
+        K * Real.rpow (2 * t) r :=
+    mul_le_mul_of_nonneg_left hrpow hK
+  have hfactor :
+      Real.rpow (2 * t) r =
+        Real.rpow (2 : ℝ) r * Real.rpow t r :=
+    Real.mul_rpow (by positivity) ht0
+  calc
+    ‖mertensSummatory ⌊t⌋₊‖ ≤
+        K * Real.rpow ((((⌊t⌋₊ + 1 : ℕ) : ℝ))) r := hbound ⌊t⌋₊
+    _ ≤ K * Real.rpow (2 * t) r := hmul
+    _ = (K * Real.rpow (2 : ℝ) r) * Real.rpow t r := by
+      rw [hfactor]
+      ring
+    _ = (K * Real.rpow (2 : ℝ) r) * ‖Real.rpow t r‖ := by
+      congr 1
+      exact (abs_of_nonneg (Real.rpow_nonneg ht0 r)).symm
 
 /-- Near zero the Mertens step function is zero, hence it is `O(t^a)` for every
 real exponent `a`. -/
 theorem mertensStep_isBigO_rpow_zero (a : ℝ) :
     mertensStep =O[nhdsWithin (0 : ℝ) (Set.Ioi 0)] (fun t : ℝ => t ^ a) := by
   refine IsBigO.of_bound 0 ?_
-  have hIio : Set.Iio (1 : ℝ) ∈ 𝓝 (0 : ℝ) := Iio_mem_nhds
+  have hIio : Set.Iio (1 : ℝ) ∈ nhds (0 : ℝ) := Iio_mem_nhds
   have hIio' : Set.Iio (1 : ℝ) ∈ nhdsWithin (0 : ℝ) (Set.Ioi 0) :=
     mem_nhdsWithin_of_mem_nhds hIio
   filter_upwards [hIio'] with t ht
