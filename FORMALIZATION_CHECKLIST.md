@@ -474,3 +474,35 @@ has to be guessed against mathlib `v4.24.0`.
 - [x] Attack the reframed obligation A (telescope cancellation) — done; the formulation is not viable.
 - [ ] Owner decision on whether the Euler–CRT roughness branch is closed as an RH route.
 - [ ] If continued: any successor route must be assessed against the existing closed dyadic Li-residual entry, which already forbids repeating centered Vaughan/Type-I/II bounds that leave the coherent mode untouched.
+
+## Append-only: survivor residue covariance route
+
+### PR #266 — survivor covariance criterion
+
+- [x] Preceding dependency PR #265 confirmed merged and green.
+- [x] `RHLean/Proof/SurvivorResidueCovarianceCriterion.lean` added and imported by `RHLean.lean`.
+- [x] Exact survivor recovery from the residue masses is proved.
+- [x] Finite Cauchy--Schwarz proves `|S_t|^2 ≤ s V_{t,s} = s(D_{t,s}+C_{t,s})` with the signed cross term retained.
+- [x] A prescribed positive modulus schedule and translated-window covariance-budget power-saving proposition are isolated as the only new analytic premise.
+- [x] That premise is proved sufficient for `SurvivorZeroModePowerSavingStatement`, the protected square-prefix local criterion, and the existing conditional RH bridge.
+- [x] No covariance-defect estimate, favorable modulus schedule, independence assertion, or unsigned exceptional-set estimate is claimed.
+- [x] Final merge-gating CI run `31271557551` passed the paper/Analysis boundary check, assumption audit, generated-root check, and `lake build RHLean --wfail` on frozen head `9ee3bc5d4b596bb3e5347c4ac93d2bc5543c5c34` (after rerunning an infrastructure-cancelled hosted job without changing the branch).
+- [x] PR #266 merged at `ec4003b958df07a537445603391e2c94e6d06831`.
+- [ ] Remaining analytic obligation: prove a signed covariance-defect bound strong enough for the scheduled local budget.
+
+### PR #268 — source-pair collision ledger
+
+- [x] Preceding dependency PR #266 confirmed merged and green at `ec4003b958df07a537445603391e2c94e6d06831`.
+- [x] Branch `agent/survivor-collision-reindex` created from that current `main` merge commit.
+- [x] `RHLean/Proof/SurvivorResidueCollisionReindex.lean` added and imported by `RHLean.lean`.
+- [x] Active prime-pair collisions are defined by equality of signed doubled-height residues modulo `s`.
+- [x] The indicator-sum collision count is proved equal to the cardinality of the actual filtered prime-pair set.
+- [x] The exact identity `sum_u K(c,u) K(c',u) = collisionCount(c,c')` is compiled.
+- [x] Each cofactor Gram block is proved exactly `μ(c) μ(c') * collisionCount(c,c')`.
+- [x] The complete cross-cofactor covariance is proved equal to the explicit Möbius-signed collision ledger over unequal cofactors.
+- [x] No collision-density, covariance-sign, covariance-defect, primitive/nonprimitive asymptotic, or power-saving estimate is claimed.
+- [x] Exploratory CI run `31271891332` on head `2c35516ef0d01dfebfe5b68f88b56b8d07e09344` passed the paper/Analysis boundary check, assumption audit, generated-root check, and `lake build RHLean --wfail` with no warnings before this closeout commit.
+- [x] A branch-history integration regression removed the already-merged PR #266 criterion file and its root import; PR #268 restores the exact file blob from merge commit `ec4003b958df07a537445603391e2c94e6d06831` and restores the root import before the final merge gate, without changing the #266 theorem content.
+- [x] The final merge-gating run must include this checklist and `FORMALIZATION_SEQUENCE.md` closeout record on the same branch.
+- [ ] Remaining exact dependency: formalize the pair-effective-modulus/rough-denominator resonance criterion on the collision height difference.
+- [ ] Remaining analytic obligation: prove signed cancellation in the collision ledger strong enough for the scheduled covariance budget; do not replace it by an unsigned exceptional-set bound.
