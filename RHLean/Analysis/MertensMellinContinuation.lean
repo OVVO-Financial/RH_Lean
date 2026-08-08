@@ -44,7 +44,8 @@ theorem differentiableAt_mertensMellinContinuation
     · simpa only [neg_neg] using htop
     · simp only [neg_re]
       linarith
-    · convert hbot using 1 <;> ring
+    · convert hbot using 1
+      ring_nf
     · simp only [neg_re]
       linarith
   have hcomp :
