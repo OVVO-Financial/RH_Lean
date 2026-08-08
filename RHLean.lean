@@ -228,6 +228,7 @@ import RHLean.Proof.SurvivorPrimeFaceFrontier
 import RHLean.Proof.SurvivorResidueCollisionReindex
 import RHLean.Proof.SurvivorResidueCovariance
 import RHLean.Proof.SurvivorResidueCovarianceCriterion
+import RHLean.Proof.SurvivorResiduePrimeToggle
 import RHLean.Proof.SurvivorZeroMode
 import RHLean.Proof.SymmetricPrimeExtension
 import RHLean.Proof.TerminalAxiomAudit
