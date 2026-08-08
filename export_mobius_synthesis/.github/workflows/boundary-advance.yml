@@ -66,4 +66,12 @@ jobs:
         env:
           GITHUB_TOKEN: ""
           GH_TOKEN: ""
-        run: lake env lean /tmp/mobius_boundary_witness.lean
+        run: |
+          set -o pipefail
+          lake env lean /tmp/mobius_boundary_witness.lean 2>&1 | tee /tmp/mobius_boundary_witness.log
+
+      - name: Reject nonstandard axiom dependencies
+        if: steps.policy.outputs.needs_lean == 'true'
+        run: |
+          python /tmp/check_boundary_advance.py \
+            --audit-axioms-log /tmp/mobius_boundary_witness.log
