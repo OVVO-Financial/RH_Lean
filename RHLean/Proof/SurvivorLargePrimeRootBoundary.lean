@@ -37,7 +37,8 @@ theorem survivor_largePrime_cofactor_le_t_sub_seven
   have hlower : (t - 6) * (t + 9) ≤ c * q :=
     Nat.mul_le_mul hc hq
   have hsub6 : t - 6 + 6 = t := by omega
-  have hendPos : 1 ≤ (t + 1) ^ 2 := by positivity
+  have hendPositive : 0 < (t + 1) ^ 2 := by positivity
+  have hendPos : 1 ≤ (t + 1) ^ 2 := by omega
   have hend : RHLean.Analysis.squarePrefixEndpoint t + 1 = (t + 1) ^ 2 := by
     unfold RHLean.Analysis.squarePrefixEndpoint
     exact Nat.sub_add_cancel hendPos
