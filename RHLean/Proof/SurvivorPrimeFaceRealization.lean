@@ -85,8 +85,9 @@ theorem canonicalSourceData_primeFaceProduct
     rcases hpPrime.eq_one_or_self_of_dvd q hqp with hq1 | hqeq
     · exact hq.ne_one hq1
     · have hpBound := (mem_primesUpTo.mp (hu hpu)).2
-      have : q < q := by simpa only [hqeq] using hpBound
-      exact (lt_irrefl q) this
+      have hpLe : p ≤ p - 1 := by simpa only [hqeq] using hpBound
+      have hp2 : 2 ≤ p := hpPrime.two_le
+      omega
   refine ⟨hq, hcpos, hsq, hq.coprime_iff_not_dvd.mpr hnotdvd, ?_⟩
   intro p hp hpd
   have hpd' : p ∣ u.prod id := by
@@ -97,7 +98,9 @@ theorem canonicalSourceData_primeFaceProduct
   rcases hrPrime.eq_one_or_self_of_dvd p hpr with hp1 | hpeq
   · exact (hp.ne_one hp1).elim
   · have hrBound := (mem_primesUpTo.mp (hu hru)).2
-    simpa only [hpeq] using hrBound
+    have hpBound : p ≤ q - 1 := by simpa only [hpeq] using hrBound
+    have hq2 : 2 ≤ q := hq.two_le
+    omega
 
 /-- On a prime face below `q`, the abstract high predicate is exactly the actual
 survivor-pair predicate of its represented cofactor. -/
