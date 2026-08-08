@@ -1,79 +1,74 @@
-# Möbius synthesis boundary policy
-
-The synthesis endpoint is intentionally frozen at the canonical nonzero response
-`H_{k,n} = squareWheelNonzeroSampleResponse (...)`. Exact rewrites, new bases,
-reindexings, conductor reorganizations, equivalent energies, and other alternate
-representations are not counted as progress by themselves.
+# Möbius synthesis PR boundary policy
 
 The required PR check is `boundary-advance`.
 
-## Canonical contract
+The gate is intentionally a **scope gate**, not a mathematical novelty oracle. It should prevent the synthesis repository from becoming a dumping ground for one-sided square-block work, one-sided prime-wheel work, or notation-only churn. It should not require every useful synthesis PR to immediately improve the final bound on the nonzero response.
 
-`RHLean/Analysis/MobiusSynthesisBoundary.lean` defines two propositions.
+A Lean-source research PR therefore has two accepted lanes.
 
-- `NonzeroResponsePowerBound r` is a uniform pointwise bound on the canonical
-  nonzero response at exponent `r`, for every complete square sample in every
-  synchronized primorial block with `k >= 2`.
-- `NonzeroResponseRHScale` is the final target: `NonzeroResponsePowerBound
-  (1/2 + epsilon)` for every positive epsilon.
+## Lane A: quantitative frontier advance
 
-The contract is immutable inside an ordinary boundary-advance PR. A contributor
-cannot weaken or redefine the predicate and then use the weakened statement as
-its own witness.
+`RHLean/Analysis/MobiusSynthesisBoundary.lean` retains the canonical quantitative endpoint for
 
-## Certified frontier
+`H_{k,n} = squareWheelNonzeroSampleResponse (...)`.
 
-`boundary/frontier.json` records the strongest certified state.
+`boundary/frontier.json` records the strongest certified quantitative state. A quantitative PR must make one of the strict transitions below:
 
-The initial state is `exact_reduction`: the zero mode has been eliminated, the
-coupling is uniformly contractive, and the nonzero response is exactly identified
-with the collapsed expansion-reindexed numerator, but no nontrivial pointwise
-power saving is certified.
-
-A research PR touching Lean source must make one of these strict transitions:
-
-1. `exact_reduction -> power_bound`, with a rational exponent strictly below 1;
+1. `exact_reduction -> power_bound`, with a rational exponent strictly below `1`;
 2. `power_bound(r_old) -> power_bound(r_new)`, with `r_new < r_old`;
 3. either open state -> `rh_scale`.
 
-The candidate manifest must name a Lean module and theorem. The workflow creates
-an independent Lean `example` whose type is exactly the claimed canonical
-predicate and then asks Lean to check it. A theorem about an equivalent
-representation does not pass unless it actually proves the bound on the canonical
-response.
+The candidate manifest names a Lean module and theorem. The workflow creates an independent Lean `example` whose type is exactly the claimed canonical predicate and asks Lean to check it. This lane therefore still requires a genuine quantitative strengthening of the existing `H_{k,n}` boundary.
+
+## Lane B: cross-track synthesis advance
+
+A PR may instead add an exact theorem that advances the **synthesis architecture** without yet improving the exponent on `H_{k,n}`.
+
+`boundary/synthesis.json` is a monotone ledger for this lane. The candidate must increment `revision` by exactly one and record a `last_witness` containing:
+
+- the changed Lean module;
+- the new witness theorem;
+- a nonempty summary of the synthesis step;
+- one or more `square_anchors` naming pre-existing square-block declarations;
+- one or more `prime_wheel_anchors` naming pre-existing prime-wheel declarations.
+
+The accepted square-side families include square-prefix, square-block, survivor, lifetime, death-shell, and ancestry declarations. The accepted wheel-side families include primorial, prime-wheel, Ramanujan, conductor, and coconductor declarations.
+
+The checker requires every declared anchor to pre-exist on the base branch. After Lean loads the candidate theorem, the workflow prints the theorem declaration and verifies that the declared square and wheel anchors actually occur in it. Merely importing both tracks is therefore insufficient.
+
+This lane intentionally allows exact identities, transfer theorems, shared residual statements, sampling theorems, compatibility results, or other structural results when they genuinely couple the two initiatives in synthesis form.
+
+## What still fails
+
+The gate rejects a Lean research PR if it does not satisfy either lane.
+
+In particular, the following do not qualify by themselves:
+
+- an isolated square-block theorem with no prime-wheel participation;
+- an isolated prime-wheel theorem with no square-block participation;
+- a new basis, reindexing, or equivalent energy confined to one track;
+- a theorem that merely imports both tracks but whose declaration does not invoke both;
+- newly invented anchor declarations used to self-certify the same PR;
+- a quantitative frontier edit that does not strictly strengthen the certified bound.
+
+A cross-track theorem can be exact and can leave the `H_{k,n}` exponent unchanged. That is the deliberate relaxation from the original policy.
 
 ## Maintenance changes
 
-A PR that does not change `RHLean.lean` or a Lean file below `RHLean/` may leave
-the certified frontier unchanged. This permits documentation, CI, and repository
-maintenance without pretending that such work advances the analytic boundary.
+A PR that does not change `RHLean.lean` or a Lean file below `RHLean/` may leave both research ledgers unchanged. This permits documentation, CI, and repository maintenance without pretending such work is mathematical progress.
 
-Any Lean mathematical source change with an unchanged frontier fails closed.
-This is deliberate: the synthesis repository is not the default destination for
-more exact decomposition once the canonical residual has already been isolated.
+Any Lean mathematical source change must carry either a quantitative frontier certificate or a cross-track synthesis certificate.
 
 ## Trust model
 
-The workflow uses `pull_request_target` only to obtain the workflow and checker
-from the trusted base branch. It then checks out the candidate with persisted Git
-credentials disabled and grants only read access. The candidate cannot make its
-own edited copy of `scripts/check_boundary_advance.py` decide the current PR.
+The workflow uses `pull_request_target` only to obtain the workflow and checker from the trusted base branch. It then checks out the candidate with persisted Git credentials disabled and grants only read access. The candidate cannot make its own edited copy of `scripts/check_boundary_advance.py` decide the current PR.
 
-The Lean build runs with no GitHub token exported to the build step. The boundary
-contract itself is also rejected if modified in the same research PR.
+The Lean build runs with no GitHub token exported to the build step. The quantitative contract itself is rejected if modified in the same research PR.
 
-After the witness type-checks, the workflow runs `#print axioms` on the witness
-and rejects any dependency outside Lean's standard logical axioms `propext`,
-`Classical.choice`, and `Quot.sound`. In particular, a contributor cannot make a
-fresh axiom whose type is the desired bound and use that as a boundary advance.
+After the witness type-checks, the workflow runs `#print axioms` and rejects dependencies outside Lean's standard logical axioms `propext`, `Classical.choice`, and `Quot.sound`. In particular, a contributor cannot make a fresh axiom whose type is the desired result and use that as a research advance.
 
 ## Repository settings
 
-For the standalone `mobius-synthesis` repository, protect the default branch and
-make the status check named `boundary-advance` required. Also enable Code Owner
-review for the gate infrastructure listed in `.github/CODEOWNERS`.
+For the standalone `mobius-synthesis` repository, protect the default branch and make the status check named `boundary-advance` required. Also enable Code Owner review for the gate infrastructure listed in `.github/CODEOWNERS`.
 
-Inside the parent `RH_Lean` repository this workflow is intentionally stored
-under `export_mobius_synthesis/.github/workflows/`. GitHub does not execute nested
-workflow directories there. It becomes an active root workflow when this export
-is published as the standalone synthesis repository.
+Inside the parent `RH_Lean` repository this workflow is intentionally stored under `export_mobius_synthesis/.github/workflows/`. GitHub does not execute nested workflow directories there. It becomes an active root workflow when this export is published as the standalone synthesis repository.
