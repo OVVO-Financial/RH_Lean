@@ -4,6 +4,7 @@ import RHLean.Analysis.CanonicalHighSectorCore
 import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.ConcreteSquarePrefixGeometry
+import RHLean.Analysis.DivisorUpperMobius
 import RHLean.Analysis.DyadicTransportCanonicalForm
 import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Analysis.DynamicVioleBaseline
