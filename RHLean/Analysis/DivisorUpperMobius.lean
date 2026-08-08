@@ -78,4 +78,53 @@ theorem sum_complex_moebius_upper_divisors_eq_one_or_zero
         if d = D then 1 else 0 := by
   exact_mod_cast sum_moebius_upper_divisors_eq_one_or_zero hd hdpos hD
 
+/-- Ambient-modulus form used by conductor tails.  If `D | N`, restricting the
+sum over divisors of `N` to those that also divide `D` recovers the same
+upper-divisor Möbius delta. -/
+theorem sum_complex_moebius_upper_divisors_ambient_eq_one_or_zero
+    {d D N : ℕ} (hDN : D ∣ N) (hN : N ≠ 0) (hdpos : 0 < d) :
+    (∑ q ∈ N.divisors,
+      if d ∣ q then
+        if q ∣ D then (((μ (q / d) : ℤ) : ℂ)) else 0
+      else 0) =
+        if d = D then 1 else 0 := by
+  classical
+  by_cases hdD : d ∣ D
+  · have hD : D ≠ 0 := Nat.ne_zero_of_dvd_ne_zero hN hDN
+    calc
+      (∑ q ∈ N.divisors,
+        if d ∣ q then
+          if q ∣ D then (((μ (q / d) : ℤ) : ℂ)) else 0
+        else 0) =
+        ∑ q ∈ N.divisors,
+          if q ∣ D then
+            (if d ∣ q then (((μ (q / d) : ℤ) : ℂ)) else 0)
+          else 0 := by
+            apply Finset.sum_congr rfl
+            intro q hq
+            by_cases hdq : d ∣ q <;> by_cases hqD : q ∣ D <;>
+              simp [hdq, hqD]
+      _ =
+        ∑ q ∈ N.divisors.filter (fun q => q ∣ D),
+          if d ∣ q then (((μ (q / d) : ℤ) : ℂ)) else 0 := by
+            rw [Finset.sum_filter]
+      _ =
+        ∑ q ∈ D.divisors,
+          if d ∣ q then (((μ (q / d) : ℤ) : ℂ)) else 0 := by
+            rw [Nat.divisors_filter_dvd_of_dvd hN hDN]
+      _ = if d = D then 1 else 0 :=
+        sum_complex_moebius_upper_divisors_eq_one_or_zero hdD hdpos hD
+  · have hne : d ≠ D := by
+      intro h
+      exact hdD (h ▸ dvd_rfl)
+    rw [if_neg hne]
+    apply Finset.sum_eq_zero
+    intro q hq
+    by_cases hdq : d ∣ q
+    · have hnqD : ¬q ∣ D := by
+        intro hqD
+        exact hdD (dvd_trans hdq hqD)
+      simp [hdq, hnqD]
+    · simp [hdq]
+
 end RHLean.Analysis
