@@ -36,11 +36,14 @@ theorem survivor_largePrime_cofactor_le_t_sub_seven
   have hc : t - 6 ≤ c := by omega
   have hlower : (t - 6) * (t + 9) ≤ c * q :=
     Nat.mul_le_mul hc hq
-  have hsub : t - 6 + 6 = t := by omega
+  have hsub6 : t - 6 + 6 = t := by omega
+  have hendPos : 1 ≤ (t + 1) ^ 2 := by positivity
+  have hend : RHLean.Analysis.squarePrefixEndpoint t + 1 = (t + 1) ^ 2 := by
+    unfold RHLean.Analysis.squarePrefixEndpoint
+    exact Nat.sub_add_cancel hendPos
   have hpoly :
       RHLean.Analysis.squarePrefixEndpoint t < (t - 6) * (t + 9) := by
-    unfold RHLean.Analysis.squarePrefixEndpoint
-    nlinarith
+    nlinarith [hsub6, hend]
   exact (not_lt_of_ge hprod) (hpoly.trans_le hlower)
 
 /-- For `Lambda=16`, the high-height inequality is automatic outside the first
@@ -56,16 +59,28 @@ theorem survivor_sixteen_height_automatic_of_far_largePrime
   have hcReal : (c : ℝ) ≤ (t - 7 : ℕ) := by exact_mod_cast hcNat
   have hsub7Real : ((t - 7 : ℕ) : ℝ) + 7 = (t : ℝ) := by
     exact_mod_cast hsub7
+  have hqReal : (t : ℝ) + 9 ≤ (q : ℝ) := by exact_mod_cast hq
   have hqNonneg : 0 ≤ (q : ℝ) := by positivity
   have hcNonneg : 0 ≤ (c : ℝ) := by positivity
+  have ht9Nonneg : 0 ≤ (t : ℝ) + 9 := by positivity
+  have ht7Nonneg : 0 ≤ ((t - 7 : ℕ) : ℝ) := by positivity
   have hqSq : ((t : ℝ) + 9) ^ 2 ≤ (q : ℝ) ^ 2 := by
-    nlinarith [sq_nonneg ((q : ℝ) - ((t : ℝ) + 9))]
+    have hmul :
+        0 ≤ ((q : ℝ) - ((t : ℝ) + 9)) * ((q : ℝ) + ((t : ℝ) + 9)) :=
+      mul_nonneg (sub_nonneg.mpr hqReal) (add_nonneg hqNonneg ht9Nonneg)
+    nlinarith
   have hcSq : (c : ℝ) ^ 2 ≤ ((t - 7 : ℕ) : ℝ) ^ 2 := by
-    nlinarith [sq_nonneg (((t - 7 : ℕ) : ℝ) - (c : ℝ))]
+    have hmul :
+        0 ≤ (((t - 7 : ℕ) : ℝ) - (c : ℝ)) *
+          (((t - 7 : ℕ) : ℝ) + (c : ℝ)) :=
+      mul_nonneg (sub_nonneg.mpr hcReal) (add_nonneg ht7Nonneg hcNonneg)
+    nlinarith
   have hgap :
       32 * (t : ℝ) < (q : ℝ) ^ 2 - (c : ℝ) ^ 2 := by
     nlinarith
-  have hgapNonneg : 0 ≤ (q : ℝ) ^ 2 - (c : ℝ) ^ 2 := le_of_lt hgap
+  have hbaseNonneg : 0 ≤ 32 * (t : ℝ) := by positivity
+  have hgapNonneg : 0 ≤ (q : ℝ) ^ 2 - (c : ℝ) ^ 2 :=
+    hbaseNonneg.trans (le_of_lt hgap)
   rw [abs_of_nonneg hgapNonneg]
   norm_num at hgap ⊢
   exact hgap
