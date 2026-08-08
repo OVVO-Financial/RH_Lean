@@ -6,7 +6,8 @@ import RHLean.Proof.SurvivorResidueCollisionReindex
 # Survivor pair effective modulus
 
 This module formalizes the elementary arithmetic reduction behind the
-nonprimitive survivor resonance diagnostic.
+nonprimitive survivor resonance diagnostic and connects it to the actual active
+source-pair collision fibres.
 
 For a reduced Farey numerator/denominator pair `(a,r)` and a nonnegative height
 gap `Delta`, define the pair-effective quadratic modulus
@@ -27,8 +28,11 @@ The central theorem proves exactly
 q_eff | 24  <->  s(r) | Delta
 ```
 
-when `gcd(a,r)=1` and `r>0`.  It is then instantiated on the actual survivor
-source-pair height gap.  No density estimate or cancellation estimate is made.
+when `gcd(a,r)=1` and `r>0`.  On actual survivor sources this is further proved
+equivalent to collision of the two signed heights modulo `s(r)`.  Hence the
+low-effective exceptional sector is numerator-independent and is literally a
+rough-denominator collision fibre.  No density estimate or cancellation
+estimate is made.
 -/
 
 noncomputable section
@@ -133,5 +137,94 @@ theorem survivorPairEffectiveModulus_dvd_24_iff_of_fareyModePair
   have hmem := mem_fareyModePairs.mp hp
   exact survivorPairEffectiveModulus_dvd_24_iff_roughDenominator_dvd_heightGap
     p.1 p.2 c q c' q' (by omega) hmem.2.1
+
+/-- Equality of signed survivor height residues modulo `s` is exactly
+` s | Delta ` for the actual absolute pair-height gap. -/
+theorem survivorHeightResidue_eq_iff_dvd_pairHeightGap
+    (s c q c' q' : ℕ) :
+    survivorHeightResidue s c q = survivorHeightResidue s c' q' ↔
+      s ∣ survivorPairHeightGap c q c' q' := by
+  constructor
+  · intro h
+    have hz :
+        (((survivorHeightDifference c q - survivorHeightDifference c' q' : ℤ)) :
+          ZMod s) = 0 := by
+      push_cast
+      exact sub_eq_zero.mpr h
+    have hdvd :
+        (s : ℤ) ∣ survivorHeightDifference c q - survivorHeightDifference c' q' :=
+      (ZMod.intCast_zmod_eq_zero_iff_dvd
+        (survivorHeightDifference c q - survivorHeightDifference c' q') s).mp hz
+    exact Int.natCast_dvd.mp hdvd
+  · intro h
+    have hdvd :
+        (s : ℤ) ∣ survivorHeightDifference c q - survivorHeightDifference c' q' :=
+      Int.natCast_dvd.mpr h
+    have hz :
+        (((survivorHeightDifference c q - survivorHeightDifference c' q' : ℤ)) :
+          ZMod s) = 0 :=
+      (ZMod.intCast_zmod_eq_zero_iff_dvd
+        (survivorHeightDifference c q - survivorHeightDifference c' q') s).mpr hdvd
+    push_cast at hz
+    exact sub_eq_zero.mp hz
+
+/-- The filtered active collision pair set is exactly active-fibre membership
+plus divisibility of the actual pair-height gap. -/
+theorem mem_survivorResidueCollisionPairSet_iff_heightGap
+    (Λ : ℝ) (t s c c' q q' : ℕ) :
+    (q, q') ∈ survivorResidueCollisionPairSet Λ t s c c' ↔
+      q ∈ survivorZeroModePrimeFiber Λ t c ∧
+        q' ∈ survivorZeroModePrimeFiber Λ t c' ∧
+          s ∣ survivorPairHeightGap c q c' q' := by
+  classical
+  simp only [survivorResidueCollisionPairSet, Finset.mem_filter]
+  constructor
+  · rintro ⟨hprod, hres⟩
+    have hp := Finset.mem_product.mp hprod
+    exact ⟨hp.1, hp.2,
+      (survivorHeightResidue_eq_iff_dvd_pairHeightGap s c q c' q').mp hres⟩
+  · rintro ⟨hq, hq', hgap⟩
+    exact ⟨Finset.mem_product.mpr ⟨hq, hq'⟩,
+      (survivorHeightResidue_eq_iff_dvd_pairHeightGap s c q c' q').mpr hgap⟩
+
+/-- Low effective conductor is exactly collision modulo the rough Farey
+denominator.  This is the direct resonance-to-collision bridge needed by the
+signed covariance ledger. -/
+theorem survivorPairEffectiveModulus_dvd_24_iff_roughResidueCollision
+    (a r c q c' q' : ℕ) (hr : 0 < r) (hcop : Nat.Coprime a r) :
+    survivorPairEffectiveModulus a r (survivorPairHeightGap c q c' q') ∣ 24 ↔
+      survivorHeightResidue (survivorFareyRoughDenominator r) c q =
+        survivorHeightResidue (survivorFareyRoughDenominator r) c' q' := by
+  rw [survivorPairEffectiveModulus_dvd_24_iff_roughDenominator_dvd_heightGap
+    a r c q c' q' hr hcop]
+  exact
+    (survivorHeightResidue_eq_iff_dvd_pairHeightGap
+      (survivorFareyRoughDenominator r) c q c' q').symm
+
+/-- Over a fixed Farey denominator, membership in the low-effective exceptional
+sector is independent of the reduced numerator. -/
+theorem survivorPairLowEffective_numerator_independent
+    (a b r c q c' q' : ℕ) (hr : 0 < r)
+    (ha : Nat.Coprime a r) (hb : Nat.Coprime b r) :
+    (survivorPairEffectiveModulus a r (survivorPairHeightGap c q c' q') ∣ 24) ↔
+      (survivorPairEffectiveModulus b r (survivorPairHeightGap c q c' q') ∣ 24) := by
+  rw [survivorPairEffectiveModulus_dvd_24_iff_roughDenominator_dvd_heightGap
+      a r c q c' q' hr ha,
+    survivorPairEffectiveModulus_dvd_24_iff_roughDenominator_dvd_heightGap
+      b r c q c' q' hr hb]
+
+/-- Active low-effective source pairs are literally the collision fibre at the
+rough denominator.  No numerator-dependent exceptional set remains. -/
+theorem mem_roughCollisionPairSet_iff_lowEffective
+    (Λ : ℝ) (t a r c c' q q' : ℕ) (hr : 0 < r)
+    (hcop : Nat.Coprime a r) :
+    (q, q') ∈ survivorResidueCollisionPairSet Λ t
+        (survivorFareyRoughDenominator r) c c' ↔
+      q ∈ survivorZeroModePrimeFiber Λ t c ∧
+        q' ∈ survivorZeroModePrimeFiber Λ t c' ∧
+          survivorPairEffectiveModulus a r (survivorPairHeightGap c q c' q') ∣ 24 := by
+  rw [mem_survivorResidueCollisionPairSet_iff_heightGap]
+  rw [survivorPairEffectiveModulus_dvd_24_iff_roughDenominator_dvd_heightGap
+    a r c q c' q' hr hcop]
 
 end RHLean.Proof
