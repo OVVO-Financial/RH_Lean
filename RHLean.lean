@@ -19,6 +19,9 @@ import RHLean.Analysis.LogWeightedPrimeExtensionFiber
 import RHLean.Analysis.MathlibMertensHook
 import RHLean.Analysis.MertensEnergyCriterion
 import RHLean.Analysis.MertensPowerGrowth
+import RHLean.Analysis.MertensStepFunction
+import RHLean.Analysis.MertensStepAsymptotics
+import RHLean.Analysis.MertensMellinContinuation
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
