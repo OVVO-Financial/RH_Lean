@@ -187,9 +187,10 @@ theorem sourceRootPrefix_eq_pairMass
       by_contra hnot
       have hRc : R ≤ sourceCore s := Nat.le_of_not_gt hnot
       have hRq : R ≤ sourcePrime s := hRc.trans hsdata.2.2.2
-      have hRR : R * R ≤ sourceCore s * sourcePrime s :=
-        Nat.mul_le_mul hRc hRq
-      have hXlt : squareRootEndpoint R < R * R := by
+      have hRR : R ^ 2 ≤ sourceCore s * sourcePrime s := by
+        simpa [pow_two] using Nat.mul_le_mul hRc hRq
+      have hRsqpos : 0 < R ^ 2 := by positivity
+      have hXlt : squareRootEndpoint R < R ^ 2 := by
         unfold squareRootEndpoint
         omega
       have hmul : sourceCore s * sourcePrime s ≤ squareRootEndpoint R := by
