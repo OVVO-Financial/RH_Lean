@@ -218,6 +218,7 @@ import RHLean.Proof.SquareBlockIncrementEnergy
 import RHLean.Proof.SquareBlockPartialMomentBalance
 import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockTransportBaseline
+import RHLean.Proof.SquareRootAncestryRoot
 import RHLean.Proof.SurvivorZeroMode
 import RHLean.Proof.SymmetricPrimeExtension
 import RHLean.Proof.TerminalAxiomAudit
