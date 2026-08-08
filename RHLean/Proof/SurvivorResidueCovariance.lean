@@ -114,6 +114,14 @@ def survivorResidueCrossCofactorCovariance
   survivorResidueFullCofactorGram Λ t s -
     survivorResidueDiagonalEnergy Λ t s
 
+/-- The explicit `c ≠ c'` Gram ledger.  For each outer cofactor `c`, the inner
+sum is over the same finite cofactor range with `c` erased. -/
+def survivorResidueOffDiagonalCofactorGram
+    (Λ : ℝ) (t s : ℕ) [NeZero s] : ℤ :=
+  ∑ c ∈ survivorResidueCofactorRange t,
+    ∑ c' ∈ (survivorResidueCofactorRange t).erase c,
+      survivorResidueCofactorGramBlock Λ t s c c'
+
 /-- The residue kernels partition the complete active prime fibre. -/
 theorem sum_survivorResidueKernel_eq_zeroModeKernel
     (Λ : ℝ) (t s c : ℕ) [NeZero s] :
@@ -199,6 +207,35 @@ theorem survivorResidueDiagonalEnergy_eq_sum_diagonalGram
   classical
   unfold survivorResidueDiagonalEnergy survivorResidueCofactorGramBlock
   rw [Finset.sum_comm]
+
+/-- The full cofactor Gram is exactly diagonal plus the explicit `c ≠ c'`
+ledger. -/
+theorem survivorResidueFullCofactorGram_eq_diagonal_add_offDiagonal
+    (Λ : ℝ) (t s : ℕ) [NeZero s] :
+    survivorResidueFullCofactorGram Λ t s =
+      survivorResidueDiagonalEnergy Λ t s +
+        survivorResidueOffDiagonalCofactorGram Λ t s := by
+  classical
+  rw [survivorResidueDiagonalEnergy_eq_sum_diagonalGram]
+  unfold survivorResidueFullCofactorGram survivorResidueOffDiagonalCofactorGram
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro c hc
+  have hsplit :=
+    Finset.sum_erase_add
+      (s := survivorResidueCofactorRange t)
+      (f := fun c' => survivorResidueCofactorGramBlock Λ t s c c') hc
+  simpa [add_comm] using hsplit.symm
+
+/-- Therefore the signed cross-cofactor covariance is literally the explicit
+sum over unequal cofactors. -/
+theorem survivorResidueCrossCofactorCovariance_eq_offDiagonal
+    (Λ : ℝ) (t s : ℕ) [NeZero s] :
+    survivorResidueCrossCofactorCovariance Λ t s =
+      survivorResidueOffDiagonalCofactorGram Λ t s := by
+  unfold survivorResidueCrossCofactorCovariance
+  rw [survivorResidueFullCofactorGram_eq_diagonal_add_offDiagonal]
+  ring
 
 /-- Exact decomposition `V = D + C`. -/
 theorem survivorResidueEnergy_eq_diagonal_add_crossCovariance
