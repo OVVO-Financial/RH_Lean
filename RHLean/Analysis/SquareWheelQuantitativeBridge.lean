@@ -27,51 +27,82 @@ noncomputable section
 namespace RHLean.Arithmetic
 
 /-- Bertrand plus the three distinct primes `2`, `3`, and a prime just above
-`(y+1)/2` gives a quantitative lower bound for the full prime product. -/
+`y/2` gives a quantitative lower bound for the full prime product.  The endpoint
+`y = 5` is the unique small case where Bertrand may return `3`, and is discharged
+from the explicit primes `2`, `3`, and `5`. -/
 theorem three_mul_lt_primeProductUpTo
     (y : ℕ) (hy : 5 ≤ y) :
     3 * y < primeProductUpTo y := by
-  let n := (y + 1) / 2
-  have hn0 : n ≠ 0 := by
-    dsimp [n]
+  by_cases hy5 : y = 5
+  · subst y
+    have h2mem : 2 ∈ primesUpTo 5 :=
+      mem_primesUpTo.mpr ⟨Nat.prime_two, by omega⟩
+    have h3mem : 3 ∈ primesUpTo 5 :=
+      mem_primesUpTo.mpr ⟨Nat.prime_three, by omega⟩
+    have h5mem : 5 ∈ primesUpTo 5 :=
+      mem_primesUpTo.mpr ⟨Nat.prime_five, by omega⟩
+    have h3erase : 3 ∈ (primesUpTo 5).erase 2 := by
+      exact Finset.mem_erase.mpr ⟨by omega, h3mem⟩
+    have h5erase : 5 ∈ (primesUpTo 5).erase 2 := by
+      exact Finset.mem_erase.mpr ⟨by omega, h5mem⟩
+    have hrest :
+        3 * 5 ≤ ∏ q ∈ (primesUpTo 5).erase 2, q := by
+      exact Finset.mul_le_prod
+        (fun q hq =>
+          (prime_of_mem_primesUpTo (Finset.mem_of_mem_erase hq)).one_le)
+        h3erase h5erase (by omega)
+    have hprod : 30 ≤ primeProductUpTo 5 := by
+      calc
+        30 = 2 * (3 * 5) := by norm_num
+        _ ≤ 2 * (∏ q ∈ (primesUpTo 5).erase 2, q) :=
+          Nat.mul_le_mul_left 2 hrest
+        _ = primeProductUpTo 5 := by
+          unfold primeProductUpTo
+          exact Finset.mul_prod_erase
+            (primesUpTo 5) (fun q : ℕ => q) h2mem
     omega
-  rcases Nat.bertrand n hn0 with ⟨p, hpPrime, hnp, hp2n⟩
-  have hn3 : 3 ≤ n := by
-    dsimp [n]
-    omega
-  have hpgt3 : 3 < p := lt_of_le_of_lt hn3 hnp
-  have hpY : p ≤ y := by
-    dsimp [n] at hp2n
-    omega
-  have h2mem : 2 ∈ primesUpTo y :=
-    mem_primesUpTo.mpr ⟨Nat.prime_two, by omega⟩
-  have h3mem : 3 ∈ primesUpTo y :=
-    mem_primesUpTo.mpr ⟨Nat.prime_three, by omega⟩
-  have hpmem : p ∈ primesUpTo y :=
-    mem_primesUpTo.mpr ⟨hpPrime, hpY⟩
-  have h3erase : 3 ∈ (primesUpTo y).erase 2 := by
-    exact Finset.mem_erase.mpr ⟨by omega, h3mem⟩
-  have hperase : p ∈ (primesUpTo y).erase 2 := by
-    exact Finset.mem_erase.mpr ⟨by omega, hpmem⟩
-  have hrest :
-      3 * p ≤ ∏ q ∈ (primesUpTo y).erase 2, q := by
-    exact Finset.mul_le_prod
-      (fun q hq =>
-        (prime_of_mem_primesUpTo (Finset.mem_of_mem_erase hq)).one_le)
-      h3erase hperase (by omega)
-  have hprod : 6 * p ≤ primeProductUpTo y := by
-    calc
-      6 * p = 2 * (3 * p) := by ring
-      _ ≤ 2 * (∏ q ∈ (primesUpTo y).erase 2, q) :=
-        Nat.mul_le_mul_left 2 hrest
-      _ = primeProductUpTo y := by
-        unfold primeProductUpTo
-        exact Finset.mul_prod_erase
-          (primesUpTo y) (fun q : ℕ => q) h2mem
-  have hylt : 3 * y < 6 * p := by
-    dsimp [n] at hnp
-    omega
-  exact hylt.trans_le hprod
+  · have hy6 : 6 ≤ y := by omega
+    let n := y / 2
+    have hn0 : n ≠ 0 := by
+      dsimp [n]
+      omega
+    rcases Nat.bertrand n hn0 with ⟨p, hpPrime, hnp, hp2n⟩
+    have hn3 : 3 ≤ n := by
+      dsimp [n]
+      omega
+    have hpgt3 : 3 < p := lt_of_le_of_lt hn3 hnp
+    have hpY : p ≤ y := by
+      dsimp [n] at hp2n
+      omega
+    have h2mem : 2 ∈ primesUpTo y :=
+      mem_primesUpTo.mpr ⟨Nat.prime_two, by omega⟩
+    have h3mem : 3 ∈ primesUpTo y :=
+      mem_primesUpTo.mpr ⟨Nat.prime_three, by omega⟩
+    have hpmem : p ∈ primesUpTo y :=
+      mem_primesUpTo.mpr ⟨hpPrime, hpY⟩
+    have h3erase : 3 ∈ (primesUpTo y).erase 2 := by
+      exact Finset.mem_erase.mpr ⟨by omega, h3mem⟩
+    have hperase : p ∈ (primesUpTo y).erase 2 := by
+      exact Finset.mem_erase.mpr ⟨by omega, hpmem⟩
+    have hrest :
+        3 * p ≤ ∏ q ∈ (primesUpTo y).erase 2, q := by
+      exact Finset.mul_le_prod
+        (fun q hq =>
+          (prime_of_mem_primesUpTo (Finset.mem_of_mem_erase hq)).one_le)
+        h3erase hperase (by omega)
+    have hprod : 6 * p ≤ primeProductUpTo y := by
+      calc
+        6 * p = 2 * (3 * p) := by ring
+        _ ≤ 2 * (∏ q ∈ (primesUpTo y).erase 2, q) :=
+          Nat.mul_le_mul_left 2 hrest
+        _ = primeProductUpTo y := by
+          unfold primeProductUpTo
+          exact Finset.mul_prod_erase
+            (primesUpTo y) (fun q : ℕ => q) h2mem
+    have hylt : 3 * y < 6 * p := by
+      dsimp [n] at hnp
+      omega
+    exact hylt.trans_le hprod
 
 /-- From block `k >= 2`, the natural square-sensitive period exceeds six times
 the full primorial block endpoint. -/
@@ -184,6 +215,14 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_expansionReindexed
   have hsample :=
     primeWheelResidual_squareEndpoint_eq_nonzero_add_zero
       (primorialMinimalWheelSystem k) n hlower hupper
+  change
+    ((((primorialMinimalWheelSystem k).residual
+      (squarePrefixEndpoint n) : ℤ) : ℂ)) =
+      squareWheelNonzeroSampleResponse (primorialMinimalWheelSystem k) n +
+        squareWheelSampleRatio (primorialMinimalWheelSystem k) n *
+          ((((primorialMinimalWheelSystem k).residual
+            (primorialBlockUpper k) : ℤ) : ℂ))
+    at hsample
   have hminSample :
       (primorialMinimalWheelSystem k).residual (squarePrefixEndpoint n) =
         (primorialWheelSystem k).residual (squarePrefixEndpoint n) :=
