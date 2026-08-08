@@ -19,128 +19,121 @@ Neither coordinate system sees what the other sees naturally. The synthesis beco
 
 That is the architectural strengthening supplied by the synthesis:
 
-> the square and wheel criteria are not just separately equivalent to RH; their residuals are joined by exact identities before any unresolved asymptotic estimate is invoked.
+> The square and wheel criteria are not just separately equivalent to RH; their residuals are joined by exact identities before any unresolved asymptotic estimate is invoked.
 
 ## One residual, two coordinate systems
 
 Let
 
-- $L_k$ and $U_k$ denote the lower and upper endpoints of the $k$th synchronized primorial block;
-- $W_k:=\operatorname{primorialMinimalWheelSystem}(k)$ denote the minimal-torus wheel attached to that block;
+- $L_k$ and $U_k$ denote the lower and upper endpoints of the synchronized primorial block indexed by $k$;
+- $W_k$ denote the minimal-torus wheel `primorialMinimalWheelSystem k` attached to that block;
 - $Q_k$ denote its modulus;
 - $X_n=(n+1)^2-1$ denote the complete square-prefix endpoints;
 - $R_k(x)$ denote the corrected wheel residual at an admissible point $x$.
 
 The minimal wheel is not a different arithmetic model from the historical larger torus. On the entire synchronized block it has the same corrected Möbius recovery and the same integer residual. Only the ambient torus modulus is reduced. This matters because the zero-frequency coupling is proportional to the sampled interval length divided by that modulus, so replacing an oversized torus by the natural minimal one makes the self-coupling transparent rather than hiding it in an artificial scale.
 
-On the wheel side it is convenient, at manuscript level, to package the collapsed numerator schematically as
+On the wheel side it is convenient, at manuscript level, to package the collapsed numerator schematically. Write $A_k(x)$, $B_k(x)$, and $C_k(x)$ for the synthesis-level pieces called `RawExpansionBoundary`, `RawRetainedBulk`, and `SmoothCollapsedBoundaryBulk`, respectively. Then define
 
-$$
-F_k(x):=
-\operatorname{RawExpansionBoundary}_k(x)
-+\operatorname{RawRetainedBulk}_k(x)
--2\operatorname{SmoothCollapsedBoundaryBulk}_k(x),
-$$
+```math
+F_k(x) := A_k(x) + B_k(x) - 2C_k(x).
+```
 
-so that
+The wheel residual is then written schematically as
 
-$$
-R_k(x)=Q_k^{-1}F_k(x).
-$$
+```math
+R_k(x) = Q_k^{-1} F_k(x).
+```
 
-The three displayed labels are synthesis notation for the boundary and bulk pieces remaining after the raw-conductor and smooth-conductor collapses. They should not be read as promises that declarations with exactly those names occur in the current Lean snapshot. The checked-in formal route is distributed across the periodic-raw, conductor-weight, Ramanujan-identification, and divisor-boundary modules listed below.
+The three code labels are synthesis notation for the boundary and bulk pieces remaining after the raw-conductor and smooth-conductor collapses. They should not be read as promises that declarations with exactly those names occur in the current Lean snapshot. The checked-in formal route is distributed across the periodic-raw, conductor-weight, Ramanujan-identification, and divisor-boundary modules listed below.
 
 On the square-sampling side the exact decomposition is cleaner. At a complete square endpoint inside the block,
 
-$$
-R_k(X_n)=H_{k,n}+\rho_{k,n}R_k(U_k),
+```math
+R_k(X_n) = H_{k,n} + \rho_{k,n} R_k(U_k),
 \qquad
-\rho_{k,n}=\frac{X_n-L_k}{Q_k},
-$$
+\rho_{k,n} = \frac{X_n-L_k}{Q_k}.
+```
 
-where $H_{k,n}$ is the contribution of the nonzero additive frequencies and $\rho_{k,n}R_k(U_k)$ is the additive zero mode. In Lean, the nonzero piece is represented by `squareWheelNonzeroSampleResponse`, and the full response is split exactly into that term plus `squareWheelSampleRatio` times the endpoint residual.
+Here $H_{k,n}$ is the contribution of the nonzero additive frequencies, while $\rho_{k,n}R_k(U_k)$ is the additive zero mode. In Lean, the nonzero piece is represented by `squareWheelNonzeroSampleResponse`, and the full response is split exactly into that term plus `squareWheelSampleRatio` times the endpoint residual.
 
 This identity is the key bridge. The difficult object is no longer an undifferentiated Mertens residual. It is the nonzero response $H_{k,n}$ after the self-referential zero frequency has been exposed explicitly.
 
 ## Exact elimination of the zero mode
 
-Let $n_*$ be the last complete square sample in the block and define the terminal tail
+Let $n_{\star}$ be the last complete square sample in the block and define the terminal tail by
 
-$$
-T_{k,n_*}:=R_k(U_k)-R_k(X_{n_*}).
-$$
+```math
+T_{k,n_{\star}} := R_k(U_k) - R_k(X_{n_{\star}}).
+```
 
-Substituting the square-sample identity at $n_*$ and solving for the endpoint residual gives the exact algebraic elimination
+Substituting the square-sample identity at $n_{\star}$ and solving for the endpoint residual gives the exact algebraic elimination
 
-$$
-R_k(U_k)
-=
-\frac{H_{k,n_*}+T_{k,n_*}}{1-\rho_{k,n_*}}.
-$$
+```math
+R_k(U_k) = \frac{H_{k,n_{\star}} + T_{k,n_{\star}}}{1-\rho_{k,n_{\star}}}.
+```
 
 This is not an asymptotic heuristic. The generic wheel identity is machine checked in `RHLean.Analysis.SquareWheelZeroModeElimination` as `primeWheelEndpointResidual_eq_eliminated`. The same module also proves interpolation from a complete square sample to an arbitrary later point of the same primorial block and records the squared terminal estimate
 
-$$
-|T_{k,n_*}|^2<9(U_k+1).
-$$
+```math
+|T_{k,n_{\star}}|^2 < 9(U_k+1).
+```
 
-Thus the incomplete terminal square is already at square-root scale. It cannot be the source of any exponent larger than the RH exponent. Once the denominator is bounded away from zero, the endpoint residual is controlled by $H_{k,n_*}$ plus an explicitly harmless square-root term.
+Thus the incomplete terminal square is already at square-root scale. It cannot be the source of any exponent larger than the RH exponent. Once the denominator is bounded away from zero, the endpoint residual is controlled by $H_{k,n_{\star}}$ plus an explicitly harmless square-root term.
 
 The module also proves the corresponding eliminated formula for every other square sample: after one distinguished sample removes the endpoint zero mode, every complete square residual in the block depends only on nonzero responses and the same short terminal tail.
 
 ## Quantitative contraction
 
-The strict inequality $\rho_{k,n}<1$ follows as soon as the wheel modulus lies beyond the arithmetic endpoint. The checked-in `RHLean.Arithmetic.PrimeProductLowerBound` formalizes this fact for synchronized blocks from $k=2$ onward and proves that the minimal torus is then exactly the natural square-sensitive CRT period.
+The strict inequality $\rho_{k,n}<1$ follows as soon as the wheel modulus lies beyond the arithmetic endpoint. The checked-in `RHLean.Arithmetic.PrimeProductLowerBound` formalizes this fact for synchronized blocks from $k\ge2$ onward and proves that the minimal torus is then exactly the natural square-sensitive CRT period.
 
 A stronger elementary sharpening gives a uniform numerical contraction. Put
 
-$$
-y=\lfloor\sqrt{U_k}\rfloor.
-$$
+```math
+y = \lfloor \sqrt{U_k} \rfloor.
+```
 
 For $y\ge5$, apply Bertrand's postulate to
 
-$$
-n=\left\lfloor\frac{y+1}{2}\right\rfloor.
-$$
+```math
+n = \lfloor (y+1)/2 \rfloor.
+```
 
 There is a prime $p$ with $n<p<2n$, hence $3<p\le y$. Since $2$, $3$, and $p$ are distinct primes not exceeding $y$,
 
-$$
-\prod_{q\le y}q\ge 6p>3y.
-$$
+```math
+\prod_{q\le y} q \ge 6p > 3y.
+```
 
 For the square-sensitive period this yields
 
-$$
-Q_k=\left(\prod_{q\le y}q\right)^2>9y^2.
-$$
+```math
+Q_k = \left(\prod_{q\le y} q\right)^2 > 9y^2.
+```
 
 Because $U_k<(y+1)^2$ and $y\ge5$,
 
-$$
-9y^2>6U_k,
-$$
+```math
+9y^2 > 6U_k,
+```
 
 and therefore, for every complete square sample in the block,
 
-$$
-0\le\rho_{k,n}\le\frac{U_k}{Q_k}<\frac16.
-$$
+```math
+0 \le \rho_{k,n} \le \frac{U_k}{Q_k} < \frac{1}{6}.
+```
 
 Consequently
 
-$$
-\frac{1}{1-\rho_{k,n_*}}\le\frac65,
-$$
+```math
+\frac{1}{1-\rho_{k,n_{\star}}} \le \frac{6}{5},
+```
 
 and the exact eliminated identity gives
 
-$$
-|R_k(U_k)|
-\le
-\frac65\Bigl(|H_{k,n_*}|+3\sqrt{U_k+1}\Bigr).
-$$
+```math
+|R_k(U_k)| \le \frac{6}{5}\left(|H_{k,n_{\star}}| + 3\sqrt{U_k+1}\right).
+```
 
 This is the quantitative reason the zero mode is no longer the analytic obstruction: its feedback coefficient is uniformly contractive, while the terminal interpolation term is already of RH size.
 
@@ -196,14 +189,15 @@ These are structural statements. None of them supplies the final cancellation es
 
 ## The one remaining open target
 
-After the two coordinate systems are joined and the zero mode is eliminated, the remaining analytic target can be stated once:
+After the two coordinate systems are joined and the zero mode is eliminated, the remaining analytic target can be stated once.
 
-$$
-\boxed{
-|H_{k,n}|\ll_\varepsilon (X_n+1)^{1/2+\varepsilon}
-\quad\text{uniformly for complete square samples inside the synchronized wheels.}
-}
-$$
+**Open target**
+
+```math
+|H_{k,n}| \ll_{\varepsilon} (X_n+1)^{1/2+\varepsilon}.
+```
+
+The estimate is required uniformly for complete square samples inside the synchronized wheels.
 
 This is the point of the synthesis. Square geometry has already removed the self-referential zero mode and bounded the incomplete terminal square. Wheel geometry has already exposed the nonzero conductor organization and its Ramanujan and divisor-boundary form. What remains is a genuine cancellation estimate for the signed nonzero response.
 
@@ -219,8 +213,11 @@ The architecture is now intentionally frozen at the level of exact reductions. A
 
 Accordingly, the default research question for any proposed addition is:
 
-> Does this statement produce a uniform gain toward
-> $|H_{k,n}|\ll_\varepsilon (X_n+1)^{1/2+\varepsilon}$?
+> Does this statement produce a uniform gain toward the open bound below?
+
+```math
+|H_{k,n}| \ll_{\varepsilon} (X_n+1)^{1/2+\varepsilon}.
+```
 
 If not, it belongs upstream in one of the companion structural tracks rather than downstream at the synthesis endpoint.
 
