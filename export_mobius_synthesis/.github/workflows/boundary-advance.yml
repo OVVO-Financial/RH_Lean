@@ -1,0 +1,69 @@
+name: Boundary advance
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobius-boundary-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  boundary-advance:
+    name: boundary-advance
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out trusted base gate
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Preserve trusted checker
+        run: cp scripts/check_boundary_advance.py /tmp/check_boundary_advance.py
+
+      - name: Check out candidate head
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Evaluate strict frontier transition
+        id: policy
+        run: |
+          python /tmp/check_boundary_advance.py \
+            --repo . \
+            --base-sha "${{ github.event.pull_request.base.sha }}" \
+            --head-sha "${{ github.event.pull_request.head.sha }}" \
+            --github-output "$GITHUB_OUTPUT" \
+            --lean-check-file /tmp/mobius_boundary_witness.lean
+
+      - name: Set up Lean and Mathlib
+        if: steps.policy.outputs.needs_lean == 'true'
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Build candidate Lean source
+        if: steps.policy.outputs.needs_lean == 'true'
+        env:
+          GITHUB_TOKEN: ""
+          GH_TOKEN: ""
+        run: lake build RHLean --wfail
+
+      - name: Type-check canonical boundary witness
+        if: steps.policy.outputs.needs_lean == 'true'
+        env:
+          GITHUB_TOKEN: ""
+          GH_TOKEN: ""
+        run: lake env lean /tmp/mobius_boundary_witness.lean
