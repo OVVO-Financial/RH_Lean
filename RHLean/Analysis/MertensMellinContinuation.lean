@@ -26,7 +26,10 @@ def mertensMellinContinuation (s : ℂ) : ℂ :=
   s * mellin mertensStep (-s)
 
 /-- The Mertens energy criterion makes the Mellin continuation holomorphic at
-every point strictly to the right of the critical line. -/
+every point strictly to the right of the critical line.  The auxiliary exponent
+`r` is chosen strictly between `1/2` and `re s`; the Mellin strip is then read at
+`-s`, with upper boundary `-r` and a harmless lower boundary one unit below
+`-re s`. -/
 theorem differentiableAt_mertensMellinContinuation
     (hM : MertensEnergyBoundedStatement) {s : ℂ}
     (hs : (1 : ℝ) / 2 < s.re) :
