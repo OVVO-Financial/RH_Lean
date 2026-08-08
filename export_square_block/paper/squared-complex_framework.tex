@@ -180,6 +180,15 @@ This viewpoint separates three logically different mechanisms:
 \end{enumerate}
 The first two are proved here.  The third is the central open estimate.  The coordinate change does not prove cancellation by itself; it identifies the correct state space, scale, and interaction that a proof must control.
 
+The classical criterion this program targets is
+\begin{equation}\label{eq:classical-rh-criterion}
+ \mathrm{RH}
+ \quad\Longleftrightarrow\quad
+ M(x)=O_{\eps}\!\left(x^{1/2+\eps}\right)
+ \quad\text{for every }\eps>0;
+\end{equation}
+see, for example, \cite[Ch.~14]{titchmarsh} or \cite{montgomery-vaughan}.  The purpose of the square-block coordinate change is not to assume cancellation in $M(x)$, but to relocate the entire unresolved content of \cref{eq:classical-rh-criterion} onto one explicit finite signed operator, isolated from the exact geometric bookkeeping that surrounds it.
+
 The main exact results are summarized below.
 
 \begin{theorem}[Exact square-root decomposition]
@@ -349,7 +358,7 @@ The remaining theorem is the pointwise inequality \eqref{eq:intro-canonical-PHS}
 \label{sec:arithmetic}
 %======================================================================
 
-The square-root cutoff is the arithmetic hinge of the paper.  Before introducing geometry, we isolate the exact decomposition that the geometry is meant to explain.
+The square-root cutoff is the arithmetic hinge of the paper.  Before introducing geometry, we isolate the exact decomposition that the geometry is meant to explain.  The largest-prime cofactor construction used throughout extends the canonical factorization framework developed in \cite{viole-complex}.
 
 Define the complete square block
 \begin{equation}
@@ -431,7 +440,7 @@ Here and below the two exponent conventions are equivalent after renaming $\eps$
 \end{corollary}
 
 \begin{proof}
-By \cref{thm:intro-decomposition}, $A_N-T_N=M((N+1)^2-1)$.  The classical Mertens criterion gives the estimates under RH.  Conversely, every $x$ lies within one square block of an endpoint $(N+1)^2-1$, and $|\mu(m)|\le1$, so the endpoint estimate interpolates to $M(x)\ll_\eps x^{1/2+\eps}$.
+By \cref{thm:intro-decomposition}, $A_N-T_N=M((N+1)^2-1)$.  The classical Mertens criterion \cref{eq:classical-rh-criterion} \cite{titchmarsh,montgomery-vaughan} gives the estimates under RH.  Conversely, every $x$ lies within one square block of an endpoint $(N+1)^2-1$, and $|\mu(m)|\le1$, so the endpoint estimate interpolates to $M(x)\ll_\eps x^{1/2+\eps}$.
 \end{proof}
 
 \begin{remark}[Why this is the most elementary total formulation]
@@ -1440,7 +1449,7 @@ Identities \cref{eq:transport-primefirst,eq:prime-dilation,eq:baseline-split} ar
 \label{sec:two-compressions}
 %======================================================================
 
-Two exact identities in this program compress a M\"obius sum by M\"obius doubling.  Both are genuinely \emph{dyadic}: each pairs a source with its factor-$2$ multiple and uses the sign law $\mu(2m)=-\mu(m)$ on odd $m$.  They are nonetheless different theorems acting on different objects---one on consecutive integers inside a fixed cell, the other on the cofactor fibers of the transport term---and they must not be conflated.  Keeping them distinct is a permanent structural requirement, not a matter of exposition.
+Two exact identities in this program compress a M\"obius sum by M\"obius doubling.  Both are genuinely \emph{dyadic}, in the same decompose-by-scale sense used throughout additive combinatorics \cite{tao-vu}: each pairs a source with its factor-$2$ multiple and uses the sign law $\mu(2m)=-\mu(m)$ on odd $m$.  They are nonetheless different theorems acting on different objects---one on consecutive integers inside a fixed cell, the other on the cofactor fibers of the transport term---and they must not be conflated.  Keeping them distinct is a permanent structural requirement, not a matter of exposition.
 
 \subsection{Mechanism~I: four-slot cell doubling}
 
@@ -2128,6 +2137,18 @@ For every $\eps>0$ there is a finite constant $C_{\eps,\Lambda}$ such that for a
 \end{equation}
 By \cref{cor:death-removal}, this is an equivalent square-block form of the remaining native high-sector estimate.  It is not proved in this paper.
 \end{conjecture}
+
+\subsection{Why this is not an immediate large-sieve consequence}
+\label{subsec:why-not-large-sieve}
+
+Expanding the square in \cref{eq:survivor-power-saving} produces a diagonal term, controlled by the trivial bound $\mathcal K_{\Lambda,t}(c)\le X_t/c$ summed with the divisor bound on $\mu(c)$, and an off-diagonal term
+\begin{equation}
+ \sum_{c\ne c'}\mu(c)\mu(c')\,\mathcal K_{\Lambda,N+h}(c)\,\mathcal K_{\Lambda,N+h}(c'),
+ \label{eq:survivor-off-diagonal}
+\end{equation}
+which carries all of the difficulty.  This has the shape of a bilinear form that classical large-sieve inequalities \cite{montgomery-vaughan} are built to control, and it is natural to ask why such an inequality does not close \cref{eq:survivor-power-saving} outright.
+
+Two features prevent a direct application.  First, the standard large-sieve duality argument buys power saving by averaging the underlying exponential sum over a range of frequencies or translations; here $\mathcal K_{\Lambda,t}(c)$ counts primes $q$ in a window fixed by the single arithmetic condition $2\Lambda t<|q^2-c^2|$, at one synchronized scale $t$, not over a family of shifts.  Second, a genuine power saving requires a controlled map from off-diagonal pairs $(c,c')$ to a shared modulus or conductor with sub-square multiplicity, so that Cauchy--Schwarz against a summable spectral weight produces cancellation rather than reproducing the trivial bound; no such map is constructed in this paper.  Both obstacles are the same genus of difficulty that appears in pinned or unaveraged large-sieve settings generally, and \cref{conj:survivor-power-saving} should be read as asking for exactly that kind of result, not as an application of an existing one.
 
 %======================================================================
 
@@ -2822,6 +2843,8 @@ The fitted log--log slope of $\mathfrak R(N)$ over these five dyadic scales is
 \end{equation}
 This range passes the preliminary scale-stability test $\widehat\theta\le0.10$, but it is not long enough to determine the asymptotic law.
 
+\statusbox{rust}{A near-flat empirical exponent over a handful of dyadic scales is exactly the signature that historically misled the constant-one Mertens conjecture before its disproof by Odlyzko and te~Riele \cite{OdlyzkoTeRiele}: finite-range stability of a ratio is not evidence for a matching asymptotic bound. \cref{eq:local-slope} is reported as a diagnostic against gross mechanism failure, not as evidence toward \cref{conj:survivor-power-saving}.}
+
 \section{Machine-checked formalization}
 \label{sec:lean}
 %======================================================================
@@ -3157,6 +3180,11 @@ H. L. Montgomery and R. C. Vaughan,
 \emph{Multiplicative Number Theory I: Classical Theory},
 Cambridge University Press, 2007.
 
+\bibitem{OdlyzkoTeRiele}
+A. M. Odlyzko and H. J. J. te Riele,
+Disproof of the Mertens conjecture,
+\emph{Journal f\"ur die reine und angewandte Mathematik} \textbf{357} (1985), 138--160.
+
 \bibitem{tao-vu}
 T. Tao and V. Vu,
 \emph{Additive Combinatorics},
@@ -3164,18 +3192,9 @@ Cambridge University Press, 2006.
 
 \bibitem{viole-complex}
 F. Viole,
-\emph{Complex Space Factorization},
+\emph{On the Distribution of Prime Numbers},
 working paper.
 
-\bibitem{berck-hihn}
-P. Berck and J. Hihn,
-Using the semivariance to estimate safety-first rules,
-\emph{American Journal of Agricultural Economics} \textbf{64} (1982), 298--300.
-
-\bibitem{atwood}
-J. A. Atwood,
-Demonstration of the use of lower partial moments to improve safety-first probability limits,
-\emph{American Journal of Agricultural Economics} \textbf{67} (1985), 880--886.
 
 \end{thebibliography}
 
