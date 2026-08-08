@@ -23,6 +23,7 @@ FRONTIER_PATH = "boundary/frontier.json"
 CONTRACT_PATH = "RHLean/Analysis/MobiusSynthesisBoundary.lean"
 LEAN_IDENT_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_']*(?:\.[A-Za-z_][A-Za-z0-9_']*)*$")
 ALLOWED_KINDS = {"exact_reduction", "power_bound", "rh_scale"}
+ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 
 
 class GateError(RuntimeError):
@@ -188,8 +189,38 @@ def lean_check_source(module: str, theorem: str, exponent: Fraction | None) -> s
             "example : NonzeroResponsePowerBound "
             f"(({exponent.numerator} : ℝ) / {exponent.denominator}) := {theorem}"
         )
+    lines.append(f"#print axioms {theorem}")
     lines.append("")
     return "\n".join(lines)
+
+
+def audit_axioms_log(path: Path) -> None:
+    if not path.is_file():
+        raise GateError(f"axiom audit log does not exist: {path}")
+    text = path.read_text(encoding="utf-8", errors="replace")
+    if "does not depend on any axioms" in text:
+        print("BOUNDARY AXIOM AUDIT: PASS (witness has no axiom dependencies)")
+        return
+    matches = re.findall(r"depends on axioms:\s*\[([^]]*)\]", text, flags=re.DOTALL)
+    if not matches:
+        raise GateError("could not locate Lean #print axioms output for the boundary witness")
+    names: set[str] = set()
+    for payload in matches:
+        for item in payload.split(","):
+            name = item.strip()
+            if name:
+                names.add(name)
+    unexpected = names - ALLOWED_AXIOMS
+    if unexpected:
+        raise GateError(
+            "boundary witness depends on nonstandard axioms: "
+            + ", ".join(sorted(unexpected))
+        )
+    print(
+        "BOUNDARY AXIOM AUDIT: PASS (only standard logical axioms: "
+        + (", ".join(sorted(names)) if names else "none")
+        + ")"
+    )
 
 
 def write_output(path: str | None, key: str, value: str) -> None:
@@ -202,14 +233,21 @@ def write_output(path: str | None, key: str, value: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo", default=".")
-    parser.add_argument("--base-sha", required=True)
-    parser.add_argument("--head-sha", required=True)
+    parser.add_argument("--base-sha")
+    parser.add_argument("--head-sha")
+    parser.add_argument("--audit-axioms-log")
     parser.add_argument("--github-output")
     parser.add_argument("--lean-check-file", default="/tmp/mobius_boundary_witness.lean")
     args = parser.parse_args()
 
     repo = Path(args.repo).resolve()
     try:
+        if args.audit_axioms_log:
+            audit_axioms_log(Path(args.audit_axioms_log))
+            return 0
+        if not args.base_sha or not args.head_sha:
+            raise GateError("--base-sha and --head-sha are required for frontier evaluation")
+
         changed = changed_files(repo, args.base_sha, args.head_sha)
         source_changed = {
             path
