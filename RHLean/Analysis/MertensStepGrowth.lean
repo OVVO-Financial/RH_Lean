@@ -99,7 +99,8 @@ real exponent `a`. -/
 theorem mertensStep_isBigO_rpow_zero (a : ℝ) :
     mertensStep =O[nhdsWithin (0 : ℝ) (Set.Ioi 0)] (fun t : ℝ => t ^ a) := by
   refine IsBigO.of_bound 0 ?_
-  have hIio : Set.Iio (1 : ℝ) ∈ nhds (0 : ℝ) := Iio_mem_nhds zero_lt_one
+  have hIio : Set.Iio (1 : ℝ) ∈ nhds (0 : ℝ) :=
+    isOpen_Iio.mem_nhds (by norm_num)
   have hIio' : Set.Iio (1 : ℝ) ∈ nhdsWithin (0 : ℝ) (Set.Ioi 0) :=
     mem_nhdsWithin_of_mem_nhds hIio
   filter_upwards [hIio'] with t ht
