@@ -34,20 +34,24 @@ theorem mellin_mertensStep_neg_eq_integral_Ioi_one (s : ℂ) :
   rw [← integral_indicator measurableSet_Ioi,
     ← integral_indicator measurableSet_Ioi]
   apply integral_congr_ae
-  filter_upwards [Measure.ae_ne volume (1 : ℝ)] with t ht1
+  filter_upwards [(countable_singleton (1 : ℝ)).ae_notMem volume] with t ht1
+  have ht1' : t ≠ 1 := by simpa using ht1
   by_cases h1 : 1 < t
   · have h0 : 0 < t := zero_lt_one.trans h1
-    rw [Set.indicator_of_mem h0, Set.indicator_of_mem h1]
+    have ht0 : t ∈ Set.Ioi (0 : ℝ) := h0
+    have ht1Ioi : t ∈ Set.Ioi (1 : ℝ) := h1
+    rw [Set.indicator_of_mem ht0, Set.indicator_of_mem ht1Ioi]
     simp only [smul_eq_mul]
     ring_nf
   · have hle : t ≤ 1 := le_of_not_gt h1
-    have hlt : t < 1 := lt_of_le_of_ne hle ht1
+    have hlt : t < 1 := lt_of_le_of_ne hle ht1'
     have hz : mertensStep t = 0 := mertensStep_eq_zero_of_lt_one hlt
+    have hn1 : t ∉ Set.Ioi (1 : ℝ) := h1
     by_cases h0 : 0 < t
-    · rw [Set.indicator_of_mem h0, Set.indicator_of_notMem h1, hz]
+    · have ht0 : t ∈ Set.Ioi (0 : ℝ) := h0
+      rw [Set.indicator_of_mem ht0, Set.indicator_of_notMem hn1, hz]
       simp
     · have hn0 : t ∉ Set.Ioi (0 : ℝ) := h0
-      have hn1 : t ∉ Set.Ioi (1 : ℝ) := h1
       rw [Set.indicator_of_notMem hn0, Set.indicator_of_notMem hn1]
 
 /-- On the classical half-plane, the Mellin continuation is exactly the
