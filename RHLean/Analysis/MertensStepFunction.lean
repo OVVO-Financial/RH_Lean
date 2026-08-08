@@ -30,8 +30,8 @@ theorem sum_Icc_one_moebius_eq_mertensSummatory (n : ℕ) :
     (∑ k ∈ Icc 1 n, (((μ k : ℤ) : ℂ))) = mertensSummatory n := by
   unfold mertensSummatory
   rw [Nat.range_succ_eq_Icc_zero]
-  rw [← insert_Icc_add_one_left_eq_Icc n.zero_le,
-    sum_insert (by aesop)]
+  rw [← Finset.insert_Icc_add_one_left_eq_Icc n.zero_le,
+    Finset.sum_insert (by aesop)]
   simp
 
 /-- Hence the real step function is literally `M(floor t)`. -/
@@ -59,6 +59,6 @@ theorem mertensStep_locallyIntegrableOn :
       (m := 1) (a := 0) le_rfl hconst
   have hIci : LocallyIntegrableOn mertensStep (Ici 0) := by
     simpa [mertensStep] using hsum
-  exact hIci.mono Ioi_subset_Ici_self
+  exact hIci.mono_set Set.Ioi_subset_Ici_self
 
 end RHLean.Analysis
