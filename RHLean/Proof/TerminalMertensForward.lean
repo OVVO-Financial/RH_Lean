@@ -10,7 +10,7 @@ proof actually uses.  This file plugs that theorem into
 `TerminalMertensReduction` and records the resulting unconditional implication
 from the projected-renewal estimate to Mathlib's Riemann Hypothesis.
 
-The reverse implication `RH -> MertensEnergyBoundedStatement` is not needed by
+The reverse implication `RH → MertensEnergyBoundedStatement` is not needed by
 this forward route and is not asserted here.
 -/
 
@@ -35,7 +35,7 @@ Mertens/RH criterion supplied by the caller. Once the projected-renewal
 quadratic estimate is proved, RH follows outright. -/
 theorem projectedRenewalQuadraticBounded_imp_riemannHypothesis_unconditional
     {Λ : ℝ} (hΛ : 0 ≤ Λ) :
-    ProjectedRenewalQuadraticBoundedStatement Λ ->
+    ProjectedRenewalQuadraticBoundedStatement Λ →
       RiemannHypothesisStatement :=
   projectedRenewalQuadraticBounded_imp_riemannHypothesis
     hΛ mertensForwardCriterion
