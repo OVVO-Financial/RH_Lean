@@ -80,6 +80,7 @@ theorem sq_sum_survivorResidueSignedMass_le_modulus_mul_energy
     (((∑ u : ZMod s, survivorResidueSignedMass Λ t s u : ℤ) : ℝ)) ^ 2 =
         (∑ u : ZMod s,
           ((survivorResidueSignedMass Λ t s u : ℤ) : ℝ)) ^ 2 := by
+      push_cast
       rfl
     _ ≤ (s : ℝ) *
           ∑ u : ZMod s,
@@ -90,13 +91,21 @@ theorem sq_sum_survivorResidueSignedMass_le_modulus_mul_energy
       push_cast
       simp [pow_two]
 
+/-- Squared complex norm of an integer cast, expressed as a real integer
+quadratic form. -/
+private theorem survivor_norm_intCast_complex_sq (z : ℤ) :
+    ‖((z : ℤ) : ℂ)‖ ^ 2 = ((z * z : ℤ) : ℝ) := by
+  rw [Complex.sq_norm]
+  norm_num [Complex.normSq_apply]
+
 /-- Unconditional pointwise residue-energy control of the survivor amplitude. -/
 theorem norm_sq_survivorZeroMode_le_modulus_mul_residueEnergy
     (Λ : ℝ) (t s : ℕ) [NeZero s] :
     ‖survivorZeroMode Λ t‖ ^ 2 ≤
       (s : ℝ) * ((survivorResidueEnergy Λ t s : ℤ) : ℝ) := by
   rw [survivorZeroMode_eq_intCast_sum_survivorResidueSignedMass Λ t s]
-  simpa [Complex.norm_intCast, sq_abs] using
+  rw [survivor_norm_intCast_complex_sq]
+  simpa [pow_two] using
     sq_sum_survivorResidueSignedMass_le_modulus_mul_energy Λ t s
 
 /-- The same pointwise bridge written in the signed diagonal-plus-covariance
@@ -110,32 +119,29 @@ theorem norm_sq_survivorZeroMode_le_modulus_mul_diagonal_add_crossCovariance
   rw [← survivorResidueEnergy_eq_diagonal_add_crossCovariance]
   exact norm_sq_survivorZeroMode_le_modulus_mul_residueEnergy Λ t s
 
+/-- Unsheduled signed covariance budget at one positive modulus. -/
+def survivorResidueCovarianceBudgetAt
+    (Λ : ℝ) (t s : ℕ) [NeZero s] : ℝ :=
+  (s : ℝ) *
+    (((survivorResidueDiagonalEnergy Λ t s +
+      survivorResidueCrossCofactorCovariance Λ t s : ℤ) : ℝ))
+
+/-- At fixed positive modulus the signed covariance budget is exactly modulus
+times the positive residue energy. -/
+theorem survivorResidueCovarianceBudgetAt_eq_modulus_mul_energy
+    (Λ : ℝ) (t s : ℕ) [NeZero s] :
+    survivorResidueCovarianceBudgetAt Λ t s =
+      (s : ℝ) * ((survivorResidueEnergy Λ t s : ℤ) : ℝ) := by
+  unfold survivorResidueCovarianceBudgetAt
+  rw [survivorResidueEnergy_eq_diagonal_add_crossCovariance]
+
 /-- The signed covariance budget associated with a prescribed positive modulus
 schedule. It is exactly `s_t * (D_{t,s_t} + C_{t,s_t})`. -/
 def survivorResidueCovarianceBudget
     (Λ : ℝ) (schedule : SurvivorResidueModulusSchedule) (t : ℕ) : ℝ := by
   letI : NeZero (schedule.modulus t) :=
     ⟨Nat.ne_of_gt (schedule.positive t)⟩
-  exact
-    (schedule.modulus t : ℝ) *
-      (((survivorResidueDiagonalEnergy Λ t (schedule.modulus t) +
-        survivorResidueCrossCofactorCovariance Λ t (schedule.modulus t) : ℤ) : ℝ))
-
-/-- The covariance budget is exactly modulus times the positive residue energy. -/
-theorem survivorResidueCovarianceBudget_eq_modulus_mul_energy
-    (Λ : ℝ) (schedule : SurvivorResidueModulusSchedule) (t : ℕ) :
-    survivorResidueCovarianceBudget Λ schedule t =
-      (schedule.modulus t : ℝ) *
-        ((survivorResidueEnergy Λ t (schedule.modulus t) : ℤ) : ℝ) := by
-  letI : NeZero (schedule.modulus t) :=
-    ⟨Nat.ne_of_gt (schedule.positive t)⟩
-  change
-    (schedule.modulus t : ℝ) *
-        (((survivorResidueDiagonalEnergy Λ t (schedule.modulus t) +
-          survivorResidueCrossCofactorCovariance Λ t (schedule.modulus t) : ℤ) : ℝ)) =
-      (schedule.modulus t : ℝ) *
-        ((survivorResidueEnergy Λ t (schedule.modulus t) : ℤ) : ℝ)
-  rw [survivorResidueEnergy_eq_diagonal_add_crossCovariance]
+  exact survivorResidueCovarianceBudgetAt Λ t (schedule.modulus t)
 
 /-- The scheduled covariance budget pointwise dominates the survivor energy. -/
 theorem norm_sq_survivorZeroMode_le_covarianceBudget
@@ -144,12 +150,7 @@ theorem norm_sq_survivorZeroMode_le_covarianceBudget
       survivorResidueCovarianceBudget Λ schedule t := by
   letI : NeZero (schedule.modulus t) :=
     ⟨Nat.ne_of_gt (schedule.positive t)⟩
-  change
-    ‖survivorZeroMode Λ t‖ ^ 2 ≤
-      (schedule.modulus t : ℝ) *
-        (((survivorResidueDiagonalEnergy Λ t (schedule.modulus t) +
-          survivorResidueCrossCofactorCovariance Λ t (schedule.modulus t) : ℤ) : ℝ))
-  exact
+  simpa [survivorResidueCovarianceBudget, survivorResidueCovarianceBudgetAt] using
     norm_sq_survivorZeroMode_le_modulus_mul_diagonal_add_crossCovariance
       Λ t (schedule.modulus t)
 
