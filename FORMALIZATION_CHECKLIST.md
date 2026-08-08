@@ -506,3 +506,31 @@ has to be guessed against mathlib `v4.24.0`.
 - [x] The final merge-gating run must include this checklist and `FORMALIZATION_SEQUENCE.md` closeout record on the same branch.
 - [ ] Remaining exact dependency: formalize the pair-effective-modulus/rough-denominator resonance criterion on the collision height difference.
 - [ ] Remaining analytic obligation: prove signed cancellation in the collision ledger strong enough for the scheduled covariance budget; do not replace it by an unsigned exceptional-set bound.
+
+## Append-only: elementary prime-sieve transport and PNT centering
+
+### PR #277 — elementary prime-sieve transport bridge
+
+- [x] `RHLean/Proof/PrimeSievePostSqrtGap.lean` proves the arbitrary post-square-root all-plus sieve identity
+  `M_y^+(x) - M(x) = 2 * sum_{y < q <= x, q prime} M(floor(x/q))`.
+- [x] Every unresolved source is reindexed by its unique canonical cofactor/large-prime pair and the cofactor batch is identified with the lower-scale Mertens prime tail.
+- [x] `RHLean/Proof/PrimeSieveSquareRootTransport.lean` specializes to `x=R^2-1`, `y=R` and proves `before = smooth + transport`, `before - M = 2 * transport`, and `before + M = 2 * smooth`.
+- [x] Parent and `export_mobius_synthesis` theorem files are byte-identical.
+- [x] PR #277 merged from frozen green head `e072a6b0eefc9f0801c74b34dfb1481661545efd` after run `31281054795` passed the boundary audit, assumption audit, generated-root check, and `lake build RHLean --wfail`.
+- [ ] These exact identities do not bound the transport term or the synthesis nonzero response.
+
+### PR #278 — Li-density PNT centering through `H_{k,n}`
+
+- [x] `RHLean/Analysis/PrimeSievePNTCentering.lean` uses the repository's existing logarithmic-integral convention, with singleton deterministic mass `Li(q)-Li(q-1)`.
+- [x] The prime tail is split exactly into deterministic PNT bulk plus the signed prime-indicator-minus-Li-density error.
+- [x] The PNT-corrected all-plus state satisfies `M = corrected all-plus - 2 * prime error` above the square-root cutoff.
+- [x] `primorialSquareZeroModeCenter` uses the actual wheel coefficient `(X_n-L_k)/Q_k`, not arithmetic-block interpolation.
+- [x] The canonical nonzero response is proved exactly
+  `H_{k,n} = centered PNT-corrected comb - 2 * centered prime error`,
+  equivalently `centered all-plus - 2 * centered PNT bulk - 2 * centered prime error`.
+- [x] The norm transfer `||H|| <= ||centered PNT-corrected comb|| + 2 ||centered prime error||` is formalized.
+- [x] The new module is mirrored byte-for-byte into `export_mobius_synthesis`; both roots import it and the synthesis manifest records 247 modules.
+- [x] The density convention is aligned with `ExactActivityPrimeIntervals` and `ConcreteLiCoreExtensionWeight` rather than introducing a competing midpoint or pointwise-density model.
+- [ ] No PNT error estimate, Bombieri--Vinogradov estimate, large-sieve estimate, or RH-scale power saving is claimed by this exact layer.
+- [ ] Remaining analytic targets: control the centered PNT-corrected comb and the centered prime-distribution error at a strength sufficient for the existing `H_{k,n}` power-bound interface.
+- [ ] Final merge-gating CI must run after this checklist and `FORMALIZATION_SEQUENCE.md` closeout are both present on the frozen head.
