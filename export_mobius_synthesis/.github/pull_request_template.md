@@ -1,9 +1,12 @@
-## Boundary classification
+## Research classification
 
 - [ ] Maintenance or documentation only; no Lean mathematical source changed.
-- [ ] Quantitative boundary advance.
+- [ ] Quantitative frontier advance.
+- [ ] Cross-track synthesis advance.
 
-If this is a quantitative advance, update `boundary/frontier.json` and provide:
+### Quantitative lane
+
+If this PR improves the analytic frontier, update `boundary/frontier.json` and provide:
 
 - Previous frontier:
 - New frontier:
@@ -11,12 +14,25 @@ If this is a quantitative advance, update `boundary/frontier.json` and provide:
 - Witness theorem:
 - Certified exponent, if using `power_bound`:
 
-The witness theorem must prove the canonical predicate from
-`RHLean.Analysis.MobiusSynthesisBoundary`. Equivalent decompositions,
-reindexings, alternate bases, and other representation-only changes to Lean
-mathematical source are intentionally rejected by the `boundary-advance` check.
+The witness theorem must prove the canonical predicate from `RHLean.Analysis.MobiusSynthesisBoundary`.
+
+### Synthesis lane
+
+If this PR adds exact synthesis structure without improving the `H_{k,n}` exponent, increment `boundary/synthesis.json` by exactly one and provide:
+
+- Synthesis summary:
+- Witness module:
+- Witness theorem:
+- Square-block anchors used:
+- Prime-wheel anchors used:
+
+The anchors must already exist on the base branch and must occur directly in the printed Lean witness declaration. Importing both initiatives without using both does not pass.
+
+Exact bridge identities, transfer results, shared residual statements, and compatibility theorems are allowed when they genuinely couple square-block and prime-wheel machinery in synthesis form.
 
 ## Validation
 
 - [ ] `lake build RHLean --wfail`
-- [ ] The boundary witness type-checks against the canonical contract.
+- [ ] The research witness type-checks.
+- [ ] `#print axioms` reports only standard logical axioms.
+- [ ] For the synthesis lane, the witness directly invokes both track anchors.
