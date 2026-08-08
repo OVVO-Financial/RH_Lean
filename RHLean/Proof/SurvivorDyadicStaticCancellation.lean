@@ -39,11 +39,13 @@ namespace RHLean.Proof
 
 /-- One signed cofactor contribution in a fixed upper-prime survivor fibre. -/
 def survivorFixedPrimeCofactorTerm
-    (Λ : ℝ) (t q c : ℕ) : ℂ :=
-  if IsSurvivorZeroModePair Λ t c q then
-    -canonicalMoebiusWeight c
-  else
-    0
+    (Λ : ℝ) (t q c : ℕ) : ℂ := by
+  classical
+  exact
+    if IsSurvivorZeroModePair Λ t c q then
+      -canonicalMoebiusWeight c
+    else
+      0
 
 /-- Complete signed survivor mass in one fixed upper-prime fibre. -/
 def survivorFixedPrimeCofactorMass
@@ -65,6 +67,7 @@ theorem survivorFixedPrimeCofactorTerm_two_mul_of_odd
         canonicalMoebiusWeight d
       else
         0 := by
+  classical
   unfold survivorFixedPrimeCofactorTerm
   rw [canonicalMoebiusWeight_two_mul d, if_pos hd]
   by_cases hactive : IsSurvivorZeroModePair Λ t (2 * d) q <;>
@@ -79,6 +82,7 @@ theorem survivorDyadicPairContribution_eq_activityDifference
           canonicalMoebiusWeight d else 0) -
         (if IsSurvivorZeroModePair Λ t d q then
           canonicalMoebiusWeight d else 0) := by
+  classical
   unfold survivorDyadicPairContribution survivorFixedPrimeCofactorTerm
   rw [canonicalMoebiusWeight_two_mul d, if_pos hd]
   by_cases hp : IsSurvivorZeroModePair Λ t d q <;>
@@ -93,6 +97,7 @@ theorem survivorDyadicPairContribution_eq_zero_of_activity_iff
       IsSurvivorZeroModePair Λ t d q ↔
         IsSurvivorZeroModePair Λ t (2 * d) q) :
     survivorDyadicPairContribution Λ t q d = 0 := by
+  classical
   unfold survivorDyadicPairContribution survivorFixedPrimeCofactorTerm
   rw [canonicalMoebiusWeight_two_mul d, if_pos hd]
   by_cases hparent : IsSurvivorZeroModePair Λ t d q
@@ -120,12 +125,13 @@ theorem survivorDyadic_activity_ne_of_pairContribution_ne_zero
 theorem survivorFixedPrimeCofactorTerm_two_mul_of_even
     (Λ : ℝ) (t q d : ℕ) (hd : Even d) :
     survivorFixedPrimeCofactorTerm Λ t q (2 * d) = 0 := by
+  classical
   unfold survivorFixedPrimeCofactorTerm
   have hnotOdd : ¬ Odd d := Nat.not_odd_iff_even.mpr hd
   rw [canonicalMoebiusWeight_two_mul d, if_neg hnotOdd]
   simp
 
-private theorem sum_Icc_eq_odd_add_even
+private theorem survivor_sum_Icc_eq_odd_add_even
     (B : ℕ) (f : ℕ → ℂ) :
     (∑ c ∈ Finset.Icc 1 B, f c) =
       (∑ c ∈ oddCofactorPrefix B, f c) +
@@ -149,7 +155,7 @@ private theorem sum_Icc_eq_odd_add_even
       unfold oddCofactorPrefix evenCofactorPrefix
       rw [Finset.sum_filter, Finset.sum_filter]
 
-private theorem sum_evenCofactorPrefix_eq_sum_double
+private theorem survivor_sum_evenCofactorPrefix_eq_sum_double
     (B : ℕ) (f : ℕ → ℂ) :
     (∑ c ∈ evenCofactorPrefix B, f c) =
       ∑ d ∈ Finset.Icc 1 (B / 2), f (2 * d) := by
@@ -161,8 +167,9 @@ private theorem sum_evenCofactorPrefix_eq_sum_double
     have h2dB : 2 * d ≤ B := by
       have hmul := (Nat.le_div_iff_mul_le (by omega : 0 < 2)).1 hdB
       simpa [Nat.mul_comm] using hmul
+    have hpos : 1 ≤ 2 * d := by omega
     exact mem_evenCofactorPrefix.mpr
-      ⟨by omega, h2dB, even_two_mul d⟩
+      ⟨hpos, h2dB, even_two_mul d⟩
   · intro d1 _hd1 d2 _hd2 h
     change 2 * d1 = 2 * d2 at h
     omega
@@ -183,7 +190,7 @@ private theorem sum_evenCofactorPrefix_eq_sum_double
   · intro d _hd
     rfl
 
-private theorem sum_double_survivorTerm_eq_odd_half
+private theorem survivor_sum_double_eq_odd_half
     (Λ : ℝ) (t q B : ℕ) :
     (∑ d ∈ Finset.Icc 1 (B / 2),
       survivorFixedPrimeCofactorTerm Λ t q (2 * d)) =
@@ -229,11 +236,13 @@ theorem survivorFixedPrimeCofactorMass_eq_dyadicPairs_add_boundary
     unfold dyadicCofactorBoundary
     exact (Finset.sum_sdiff hsubset).symm
   unfold survivorFixedPrimeCofactorMass
-  rw [sum_Icc_eq_odd_add_even B
+  change
+    (∑ c ∈ Finset.Icc 1 B, survivorFixedPrimeCofactorTerm Λ t q c) = _
+  rw [survivor_sum_Icc_eq_odd_add_even B
     (fun c => survivorFixedPrimeCofactorTerm Λ t q c)]
-  rw [sum_evenCofactorPrefix_eq_sum_double B
+  rw [survivor_sum_evenCofactorPrefix_eq_sum_double B
     (fun c => survivorFixedPrimeCofactorTerm Λ t q c)]
-  rw [sum_double_survivorTerm_eq_odd_half Λ t q B]
+  rw [survivor_sum_double_eq_odd_half Λ t q B]
   rw [hoddSplit]
   unfold survivorDyadicPairContribution
   rw [← Finset.sum_add_distrib]
