@@ -1,18 +1,16 @@
 # Square-Block Möbius
 
-**Square-Block Möbius** is the publication staging tree for **A Squared-Complex Framework for Square-Prefix Möbius Sums**.
+**Square-Block Möbius** develops a square-block approach to the Möbius and Mertens functions, together with a machine-checked Lean formalization of its exact arithmetic and geometric reductions.
 
-Canonical standalone repository:
+The central idea is to group integers between consecutive squares and track how canonical Möbius sources are born, persist, and disappear as the square scale advances. This produces an exact square-endpoint description of the Mertens path and isolates the remaining cancellation problem in a concrete signed survivor operator.
 
-https://github.com/OVVO-Financial/square-block-mobius
-
-This repository groups integers between consecutive squares and studies how canonical Möbius sources are born, move, and disappear across square scale.
+The accompanying manuscript is **A Squared-Complex Framework for Square-Prefix Möbius Sums**.
 
 ## Why square blocks?
 
-- **Square blocks**: partitioning the integers into intervals between consecutive squares. This exposes a natural **lifetime flow**: arithmetic contributions are born, persist across a controlled range of blocks, and eventually disappear. The resulting decomposition shows that the Mertens path is essentially determined by its values at square endpoints, with only the elementary within-block interpolation cost remaining.
+- **Square blocks**: partition the integers into intervals between consecutive squares. This exposes a natural **lifetime flow**: arithmetic contributions are born, persist across a controlled range of blocks, and eventually disappear. The resulting decomposition shows that the Mertens path is essentially determined by its values at square endpoints, with only the elementary within-block interpolation cost remaining.
 - **Exact square-root cutoff**: at $X_n=(n+1)^2-1$, a squarefree integer cannot contain two prime factors larger than $n+1$. This gives an exact one-large-prime decomposition rather than an approximation.
-- **Canonical factor geometry**: every nontrivial squarefree source has a unique largest-prime factorization $m=cq,\qquad q=P^+(m)$ and the squared-complex coordinate $\left(\frac{c+q}{2}+i\frac{q-c}{2}\right)^2=m+i\frac{q^2-c^2}{2}$ records the source integer and the factor imbalance simultaneously.
+- **Canonical factor geometry**: every nontrivial squarefree source has a unique largest-prime factorization $m=cq$, with $q=P^+(m)$. The squared-complex coordinate $\left(\frac{c+q}{2}+i\frac{q-c}{2}\right)^2=m+i\frac{q^2-c^2}{2}$ records the source integer and its factor imbalance simultaneously.
 - **Lifetime refinement**: the high population splits exactly into active survivors and completed deaths. The death process is controlled by a bounded-width divisor window, leaving one explicit signed survivor operator as the remaining analytic object.
 
 ## Exact square-prefix reduction
@@ -20,7 +18,9 @@ This repository groups integers between consecutive squares and studies how cano
 Write
 
 $$
-S_n=M(X_n),\qquad X_n=(n+1)^2-1.
+S_n=M(X_n),
+\qquad
+X_n=(n+1)^2-1.
 $$
 
 The square-root cutoff gives the exact decomposition
@@ -29,57 +29,61 @@ $$
 \boxed{S_n=A_n-T_n.}
 $$
 
-The geometry then separates the canonical source population by signed height
+The canonical source population is then organized by signed height
 
 $$
 Y_m=\frac{q_m^2-c_m^2}{2}.
 $$
 
-For fixed $\Lambda>0$, low height has uniformly bounded occupancy in each square block. Consequently the cumulative low sector is controlled without using Möbius cancellation. The unresolved cancellation can therefore be isolated in the high sector.
+For fixed $\Lambda>0$, the low-height population has uniformly bounded occupancy in each square block. Consequently, the cumulative low sector can be controlled without using Möbius cancellation. The unresolved cancellation is therefore isolated in the high sector.
 
-Following high sources through their lifetimes gives
+Following high sources through their lifetimes gives 
 
-$$
-\boxed{S_t^{\mathrm{high}}(\Lambda)=Z_\Lambda(t)+D_\Lambda(t),}
-$$
+$$\boxed{S_t^{\mathrm{high}}(\Lambda)=Z_\Lambda(t)+D_\Lambda(t).}$$
 
-where the accumulated death mass $D_\Lambda$ already satisfies the required local-energy scale. The remaining active survivor is the explicit signed cofactor operator
+The accumulated death mass $D_\Lambda$ already satisfies the required local-energy scale. The remaining active survivor is the explicit signed cofactor operator 
 
-$$
-\boxed{
-Z_\Lambda(t)
-=-\sum_c\mu(c)\,\mathcal K_{\Lambda,t}(c).
-}
-$$
+$$\boxed{Z_\Lambda(t)=-\sum_c \mu(c)\,\mathcal K_{\Lambda,t}(c).}$$
 
-This is the analytic frontier of the standalone square-block paper.
+This survivor operator is the analytic frontier of the project.
 
 ## What is proved and what remains open
 
-The manuscript and paper-facing Lean source establish the exact arithmetic decomposition, squared-complex recovery, cofactor geometry, endpoint support laws, low-height occupancy, lifetime bookkeeping, and the divisor-window bound for completed deaths.
+The manuscript and Lean formalization establish the exact arithmetic decomposition, squared-complex recovery, cofactor geometry, endpoint support laws, low-height occupancy, lifetime bookkeeping, and the divisor-window bound for completed deaths.
 
-The remaining survivor power-saving estimate is stated explicitly as an **open theorem**. Through the square-prefix bridge and the classical Mertens criterion, this estimate has the strength required for the Riemann Hypothesis. It is **not proved** in this repository, and the repository does not claim an unconditional proof of RH.
+The remaining power-saving estimate for the survivor operator is stated explicitly as an **open theorem**.
 
-Two endpoint support facts are kept separate:
+Through the square-prefix reduction and the classical Mertens criterion, a bound of the required strength would yield the Riemann Hypothesis. That estimate is **not proved** here, and this repository does not claim an unconditional proof of RH.
 
-1. because every canonical prime satisfies $q\ge 2$, every canonical cofactor below $x$ satisfies
-   $c\le \lfloor x/2\rfloor$;
-2. if $m\le x$ is composite, then $P^+(m)\le \lfloor x/2\rfloor$.
-   Equivalently, if $P^+(m)>\lfloor x/2\rfloor$, then $c=1$ and $m$ itself is prime.
+Two endpoint support facts are kept separate.
 
-## Machine-checked source
+First, because every canonical prime satisfies $q\ge 2$, every canonical cofactor below $x$ satisfies
 
-The `lean/` directory is a **curated paper-facing snapshot** of modules verified in the full Lean development. It is selected by mathematical scope rather than by transitive import closure, so the publication snapshot is not a second independent Lake project.
+$$
+c\le \left\lfloor\frac{x}{2}\right\rfloor.
+$$
 
-The authoritative verification command in the full development is:
+Second, if $m\le x$ is composite, then
 
-```bash
-lake build RHLean --wfail
-```
+$$
+P^+(m)\le \left\lfloor\frac{x}{2}\right\rfloor.
+$$
 
-The source audit also rejects unfinished proofs and project-local theorem substitutes such as `sorry`, `admit`, new axioms, and opaque constants standing in for results.
+Equivalently, if
 
-Key paper-facing modules include:
+$$
+P^+(m)>\left\lfloor\frac{x}{2}\right\rfloor,
+$$
+
+then $c=1$ and $m$ itself is prime.
+
+## Machine-checked Lean source
+
+The `lean/RHLean/` directory contains the Lean formalization accompanying the manuscript.
+
+The formal source covers the square-prefix Mertens bridge, canonical high-sector decomposition, low-height occupancy, extreme-prime support, lifetime death process, and survivor reduction, together with the arithmetic and geometric lemmas required by those results.
+
+Key modules include:
 
 ```text
 RHLean.Analysis.SquarePrefixMertensBridge
@@ -89,30 +93,42 @@ RHLean.Analysis.CanonicalHighSectorBridge
 RHLean.Analysis.CanonicalExtremePrimeSupport
 RHLean.Analysis.SquareBlockDeathProcess
 RHLean.Analysis.SquareBlockSurvivorBridge
-```
+````
 
-See [`MODULES.md`](MODULES.md) for the complete curated inventory.
+`MODULES.md` describes the mathematical role of the included Lean modules.
+
+The formalization maintains a strict proof boundary: unfinished proofs and theorem substitutes such as `sorry`, `admit`, added axioms, or opaque constants standing in for mathematical results are not accepted as proofs of the stated results.
 
 ## Repository layout
 
-- `paper/squared-complex_framework.tex` — manuscript entry point.
-- `paper/sections/` — modular publication source.
-- `lean/RHLean/` — curated paper-facing Lean source.
-- `MODULES.md` — module-by-module mathematical scope.
-
-The contents of `export_square_block/` are intended to mirror the root of `square-block-mobius`.
+* `paper/squared-complex_framework.tex` — complete manuscript source.
+* `lean/RHLean/` — machine-checked Lean formalization.
+* `MODULES.md` — guide to the formal modules and their mathematical roles.
 
 ## Build the paper
 
-From the standalone repository root:
+From the repository root:
 
 ```bash
 cd paper
 pdflatex squared-complex_framework.tex
+pdflatex squared-complex_framework.tex
+pdflatex squared-complex_framework.tex
 ```
 
-Three passes resolve the table of contents, theorem references, and page count.
+Multiple passes resolve the table of contents, cross-references, and final page count.
 
 ## Status convention
 
-The manuscript uses a strict status boundary: theorem, proposition, lemma, and corollary labels denote proved statements from the stated definitions or standard cited results; statements labelled **Open theorem** are unresolved analytic obligations. Numerical evidence is diagnostic and is not promoted to theorem status.
+The manuscript maintains a strict distinction between proved results and unresolved analytic obligations.
+
+Statements labelled **theorem**, **proposition**, **lemma**, or **corollary** are proved from the stated definitions or explicitly cited standard results.
+
+Statements labelled **Open theorem** are unresolved.
+
+Numerical evidence is diagnostic only and is not promoted to theorem status.
+
+The central unresolved problem is therefore precise: prove the required power-saving estimate for the signed survivor operator
+
+$$Z_\Lambda(t)=-\sum_c \mu(c)\,\mathcal K_{\Lambda,t}(c).$$
+
