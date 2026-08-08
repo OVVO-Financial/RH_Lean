@@ -38,9 +38,10 @@ theorem mertensSummatory_isBigO_rpow
         K * Real.rpow (2 * (n : ℝ)) r :=
     mul_le_mul_of_nonneg_left hrpow hK
   have hfactor :
-      Real.rpow (2 * (n : ℝ)) r =
-        Real.rpow (2 : ℝ) r * Real.rpow (n : ℝ) r :=
-    Real.mul_rpow (by positivity) (by positivity)
+      Real.rpow (2 * (n : ℕ) : ℝ) r =
+        Real.rpow (2 : ℝ) r * Real.rpow (n : ℝ) r := by
+    norm_num only [Nat.cast_ofNat]
+    exact Real.mul_rpow (by positivity) (by positivity)
   calc
     ‖mertensSummatory n‖ ≤
         K * Real.rpow (((n + 1 : ℕ) : ℝ)) r := hbound n
@@ -98,7 +99,7 @@ real exponent `a`. -/
 theorem mertensStep_isBigO_rpow_zero (a : ℝ) :
     mertensStep =O[nhdsWithin (0 : ℝ) (Set.Ioi 0)] (fun t : ℝ => t ^ a) := by
   refine IsBigO.of_bound 0 ?_
-  have hIio : Set.Iio (1 : ℝ) ∈ nhds (0 : ℝ) := Iio_mem_nhds
+  have hIio : Set.Iio (1 : ℝ) ∈ nhds (0 : ℝ) := Iio_mem_nhds zero_lt_one
   have hIio' : Set.Iio (1 : ℝ) ∈ nhdsWithin (0 : ℝ) (Set.Ioi 0) :=
     mem_nhdsWithin_of_mem_nhds hIio
   filter_upwards [hIio'] with t ht
