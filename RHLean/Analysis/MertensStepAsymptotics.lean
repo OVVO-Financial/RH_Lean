@@ -5,9 +5,9 @@ import RHLean.Analysis.MertensStepFunction
 # Mertens step-function asymptotics
 
 The pointwise power estimate coming from `MertensEnergyBoundedStatement` is
-naturally stated at the integer scale `floor(t) + 1`.  Mellin continuation wants
-a real-variable asymptotic estimate at infinity.  Since for `t >= 1` we have
-`floor(t) + 1 <= 2t`, every exponent `r > 1/2` gives the required
+already supplied by the merged `MertensStepFunction` layer.  This module does
+only the real-variable lift needed by Mellin continuation: since for `t >= 1`
+we have `floor(t) + 1 <= 2t`, every exponent `r > 1/2` gives the required
 `M(floor t) = O(t^r)` bound.
 -/
 
