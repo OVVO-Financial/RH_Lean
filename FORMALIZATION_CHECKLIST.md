@@ -495,7 +495,7 @@ has to be guessed against mathlib `v4.24.0`.
 - [x] Preceding dependency PR #266 confirmed merged and green at `ec4003b958df07a537445603391e2c94e6d06831`.
 - [x] Branch `agent/survivor-collision-reindex` created from that current `main` merge commit.
 - [x] `RHLean/Proof/SurvivorResidueCollisionReindex.lean` added and imported by `RHLean.lean`.
-- [x] Active prime-pair collisions are defined by equality of signed doubled-height residues modulo `s`.
+- [x] Active prime-pair collisions are defined by equality of signed doubled-height residue modulo `s`.
 - [x] The indicator-sum collision count is proved equal to the cardinality of the actual filtered prime-pair set.
 - [x] The exact identity `sum_u K(c,u) K(c',u) = collisionCount(c,c')` is compiled.
 - [x] Each cofactor Gram block is proved exactly `μ(c) μ(c') * collisionCount(c,c')`.
@@ -534,3 +534,19 @@ has to be guessed against mathlib `v4.24.0`.
 - [ ] No PNT error estimate, Bombieri--Vinogradov estimate, large-sieve estimate, or RH-scale power saving is claimed by this exact layer.
 - [ ] Remaining analytic targets: control the centered PNT-corrected comb and the centered prime-distribution error at a strength sufficient for the existing `H_{k,n}` power-bound interface.
 - [ ] Final merge-gating CI must run after this checklist and `FORMALIZATION_SEQUENCE.md` closeout are both present on the frozen head.
+
+### PR #279 — reciprocal quotient reindexing of the PNT error
+
+- [x] `RHLean/Analysis/PrimeSieveQuotientPNTError.lean` defines the exact positive quotient support `1 <= d <= floor(x/(y+1))` and the literal fibre `floor(x/q)=d` inside `y<q<=x`.
+- [x] Every positive quotient fibre is proved equal to the reciprocal interval `max(y,floor(x/(d+1))) < q <= floor(x/d)`.
+- [x] A generic finite Mertens-weighted quotient reindexing is machine checked before any prime-density specialization.
+- [x] The canonical singleton Li masses `Li(q)-Li(q-1)` are proved to telescope on every integer interval and hence on every reciprocal quotient interval.
+- [x] The reciprocal prime-count discrepancy is defined exactly as actual prime count minus the telescoped Li endpoint mass.
+- [x] `primeSievePNTBulk`, `primeSieveMertensPrimeTail`, and `primeSievePNTError` are each reindexed exactly by quotient fibres; in particular `primeSievePNTError = sum_d discrepancy(d) * M(d)`.
+- [x] The deterministic Li main term is proved to cancel algebraically between the PNT-corrected all-plus state and the reciprocal PNT error, leaving the exact prime-tail form.
+- [x] The reciprocal-interval PNT error is pushed through `primorialSquareZeroModeCenter`, yielding `H_{k,n} = centered PNT-corrected comb - 2 * centered reciprocal prime-count discrepancy` and the corresponding norm transfer.
+- [x] Parent and `export_mobius_synthesis` theorem files are byte-identical; both roots import the module and the synthesis manifest is synchronized to 248 modules.
+- [x] Exploratory CI run `31284430868` on head `25ec0d56db835a9a2e30941c0806b3562611b7b4` passed the paper/Analysis audit, assumption audit, generated-root check, and `lake build RHLean --wfail` before this closeout commit.
+- [ ] No pointwise or averaged PNT error estimate, short-interval theorem, Bombieri--Vinogradov estimate, large-sieve estimate, or RH-scale power saving is claimed.
+- [ ] Remaining analytic targets are separate: control the centered PNT-corrected comb and control the centered Mertens-weighted reciprocal-interval prime discrepancies strongly enough for the existing `H_{k,n}` power-bound interface.
+- [ ] The final merge-gating CI must run on one frozen head after this checklist, `FORMALIZATION_SEQUENCE.md`, and synthesis provenance updates are all present.
