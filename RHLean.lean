@@ -224,7 +224,6 @@ import RHLean.Proof.SquareRootAncestryRoot
 import RHLean.Proof.SquareRootAncestrySuccessor
 import RHLean.Proof.SurvivorResidueCollisionReindex
 import RHLean.Proof.SurvivorResidueCovariance
-import RHLean.Proof.SurvivorResidueCovarianceCriterion
 import RHLean.Proof.SurvivorZeroMode
 import RHLean.Proof.SymmetricPrimeExtension
 import RHLean.Proof.TerminalAxiomAudit
