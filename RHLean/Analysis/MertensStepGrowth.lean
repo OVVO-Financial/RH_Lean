@@ -49,7 +49,8 @@ theorem mertensSummatory_isBigO_rpow
       rw [hfactor]
       ring
     _ = (K * Real.rpow (2 : ℝ) r) * ‖Real.rpow (n : ℝ) r‖ := by
-      rw [Real.norm_eq_abs, abs_of_nonneg (Real.rpow_nonneg (by positivity) r)]
+      rw [Real.norm_eq_abs]
+      rw [abs_of_nonneg (Real.rpow_nonneg (by positivity) r)]
 
 /-- The real floor-step Mertens function inherits the same power growth at
 infinity. -/
@@ -61,17 +62,20 @@ theorem mertensStep_isBigO_rpow_atTop
   have h :=
     (mertensSummatory_isBigO_rpow hM hr).comp_tendsto
       tendsto_nat_floor_atTop
+  have hfloor :
+      (fun t : ℝ => ((⌊t⌋₊ : ℕ) : ℝ)) ~[atTop] (fun t : ℝ => t) :=
+    Asymptotics.isEquivalent_nat_floor
   have h' := h.trans <|
-    isEquivalent_nat_floor.isBigO.rpow hr0 (eventually_ge_atTop (0 : ℝ))
+    hfloor.isBigO.rpow hr0 (eventually_ge_atTop (0 : ℝ))
   simpa only [mertensStep_eq_mertensSummatory_floor] using h'
 
 /-- Near zero the Mertens step function is zero, hence it is `O(t^a)` for every
 real exponent `a`. -/
 theorem mertensStep_isBigO_rpow_zero (a : ℝ) :
-    mertensStep =O[𝓝[>] 0] (fun t : ℝ => t ^ a) := by
+    mertensStep =O[nhdsWithin (0 : ℝ) (Set.Ioi 0)] (fun t : ℝ => t ^ a) := by
   refine IsBigO.of_bound 0 ?_
   have hIio : Set.Iio (1 : ℝ) ∈ 𝓝 (0 : ℝ) := Iio_mem_nhds
-  have hIio' : Set.Iio (1 : ℝ) ∈ 𝓝[>] (0 : ℝ) :=
+  have hIio' : Set.Iio (1 : ℝ) ∈ nhdsWithin (0 : ℝ) (Set.Ioi 0) :=
     mem_nhdsWithin_of_mem_nhds hIio
   filter_upwards [hIio'] with t ht
   rw [mertensStep_eq_zero_of_lt_one ht]
