@@ -403,7 +403,7 @@ PR #96 adds exact dyadic transport compression. For an odd parent `(c,q)` and do
 T_R = sum over q prime, R<q<=X,
         sum over c odd, X<2cq<=2X of mu(c),
 -T_R = sum over the same canonical sources of mu(cq),
-M(B) = sum over m odd, B<2m<=2B of mu(m).
+M(B) = sum over m odd, B<2m<=2B} mu(m).
 ```
 
 The high transport source sum is only the `P+(m)>R` part of the complete odd annulus. The complementary `P+(m)<=R` smooth population is not a negligible boundary, and a transport-only energy estimate is not silently identified with the protected full residual criterion.
@@ -743,8 +743,19 @@ This append-only reconciliation records the repository state after the two merge
 - [x] Exploratory CI run `31271219185` passed the paper/Analysis boundary audit, assumption audit, generated-root check, and `lake build RHLean --wfail` on head `15bf8d20280021c3a11dceb16b363e7cdd155585` before this closeout commit.
 - [ ] No covariance-defect estimate is proved by PR #266; that is the remaining analytic content.
 
+### PR #268 — exact source-pair collision reindex
+
+- [x] `RHLean/Proof/SurvivorResidueCollisionReindex.lean` added and imported from `RHLean.lean`.
+- [x] The active collision pair set is the filtered product of the two survivor prime fibres with equal signed doubled-height residue.
+- [x] The indicator-sum collision count is proved equal to the cardinality of that actual pair set.
+- [x] The identity `sum_u K(c,u) K(c',u) = collisionCount(c,c')` is machine checked.
+- [x] Each cofactor Gram block is exactly `mu(c) * mu(c') * collisionCount(c,c')`.
+- [x] The full cross-cofactor covariance is exactly the Möbius-signed collision ledger over unequal cofactors.
+- [x] Exploratory CI run `31271891332` passed the paper/Analysis boundary audit, assumption audit, generated-root check, and `lake build RHLean --wfail` on head `2c35516ef0d01dfebfe5b68f88b56b8d07e09344` before this closeout commit.
+- [ ] No collision-density, sign, or power-saving estimate is asserted.
+
 ### Current next dependency
 
-- [ ] Reindex `C_{t,s}` exactly as a Möbius-signed count of active source-pair collisions with equal `q^2-c^2 mod s`.
-- [ ] Formalize the pair-effective-modulus/rough-denominator resonance criterion on that exact collision ledger.
-- [ ] Only after those exact bridges are compiled, attack the signed congruence-fibre covariance estimate; do not replace it by an unsigned exceptional-set bound.
+- [x] Reindex `C_{t,s}` exactly as a Möbius-signed count of active source-pair collisions with equal `q^2-c^2 mod s` — PR #268.
+- [ ] Formalize the pair-effective-modulus/rough-denominator resonance criterion on the exact collision ledger.
+- [ ] Only after that exact bridge is compiled, attack the signed congruence-fibre covariance estimate; do not replace it by an unsigned exceptional-set bound.
