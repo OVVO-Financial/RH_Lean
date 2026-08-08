@@ -163,8 +163,11 @@ theorem sum_survivorResidueSignedMass_eq_integerZeroMode
   apply Finset.sum_congr rfl
   intro c _hc
   rw [← Finset.mul_sum]
-  rw [sum_survivorResidueKernel_eq_zeroModeKernel]
-  norm_num
+  have hkernel :
+      (∑ u : ZMod s, (survivorResidueKernel Λ t s c u : ℤ)) =
+        (survivorZeroModeKernel Λ t c : ℤ) := by
+    exact_mod_cast sum_survivorResidueKernel_eq_zeroModeKernel Λ t s c
+  rw [hkernel]
 
 /-- Exact full cofactor Gram expansion of the positive residue energy. -/
 theorem survivorResidueEnergy_eq_fullCofactorGram
@@ -298,6 +301,7 @@ theorem intCast_survivorResidueEnergy_eq_spectral
         (fun u : ZMod s => ((survivorResidueSignedMass Λ t s u : ℤ) : ℂ)) := by
           unfold RHLean.Analysis.finiteTorusPairing
           push_cast
+          rfl
     _ = RHLean.Analysis.finiteTorusSpectralPairing
           (fun u : ZMod s => ((survivorResidueSignedMass Λ t s u : ℤ) : ℂ))
           (fun u : ZMod s => ((survivorResidueSignedMass Λ t s u : ℤ) : ℂ)) :=
@@ -311,6 +315,7 @@ theorem intCast_survivorResidueDiagonalEnergy_eq_spectral
   classical
   unfold survivorResidueDiagonalEnergy survivorResidueDiagonalSpectralEnergy
   push_cast
+  rw [Finset.sum_comm]
   apply Finset.sum_congr rfl
   intro c _hc
   change
@@ -329,8 +334,9 @@ theorem intCast_survivorResidueCrossCovariance_eq_spectral
       survivorResidueCrossSpectralCovariance Λ t s := by
   unfold survivorResidueCrossCofactorCovariance
     survivorResidueCrossSpectralCovariance
+  rw [← survivorResidueEnergy_eq_fullCofactorGram]
   push_cast
-  rw [← intCast_survivorResidueEnergy_eq_spectral,
-    ← intCast_survivorResidueDiagonalEnergy_eq_spectral]
+  rw [intCast_survivorResidueEnergy_eq_spectral,
+    intCast_survivorResidueDiagonalEnergy_eq_spectral]
 
 end RHLean.Proof
