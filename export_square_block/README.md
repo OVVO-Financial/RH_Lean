@@ -6,11 +6,7 @@ Canonical standalone repository:
 
 https://github.com/OVVO-Financial/square-block-mobius
 
-Companion finite prime-wheel viewpoint:
-
-https://github.com/OVVO-Financial/prime-wheel-mobius
-
-The two repositories organize the Möbius problem from different finite structures. **Prime-Wheel Möbius** evolves the field prime by prime on completed wheel blocks. **Square-Block Möbius** groups integers between consecutive squares and studies how canonical Möbius sources are born, move, and disappear across square scale.
+This repository groups integers between consecutive squares and studies how canonical Möbius sources are born, move, and disappear across square scale.
 
 ## Why square blocks?
 
@@ -121,6 +117,8 @@ See [`MODULES.md`](MODULES.md) for the complete curated inventory.
 - `paper/sections/` — modular publication source.
 - `lean/RHLean/` — curated paper-facing Lean source.
 - `MODULES.md` — module-by-module mathematical scope.
+
+The contents of `export_square_block/` are intended to mirror the root of `square-block-mobius`.
 
 ## Build the paper
 
