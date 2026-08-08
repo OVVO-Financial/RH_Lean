@@ -17,6 +17,7 @@ import RHLean.Analysis.LogWeightedPrimeExtensionEndpoint
 import RHLean.Analysis.LogWeightedPrimeExtensionFiber
 import RHLean.Analysis.MathlibMertensHook
 import RHLean.Analysis.MertensEnergyCriterion
+import RHLean.Analysis.MertensPowerGrowth
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
@@ -56,7 +57,6 @@ import RHLean.Analysis.QuadraticPhasePeriod
 import RHLean.Analysis.QuadraticPhaseShiftSign
 import RHLean.Analysis.QuadraticShiftDichotomy
 import RHLean.Analysis.RamanujanDivisorBoundary
-import RHLean.Analysis.RamanujanDivisorBoundaryBulk
 import RHLean.Analysis.ReducedQuadraticGauss
 import RHLean.Analysis.SmallModulusResonance
 import RHLean.Analysis.SquareBlockDeathProcess
