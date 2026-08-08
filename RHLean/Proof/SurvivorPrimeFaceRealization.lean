@@ -85,7 +85,8 @@ theorem canonicalSourceData_primeFaceProduct
     rcases hpPrime.eq_one_or_self_of_dvd q hqp with hq1 | hqeq
     · exact hq.ne_one hq1
     · have hpBound := (mem_primesUpTo.mp (hu hpu)).2
-      omega
+      have : q < q := by simpa only [hqeq] using hpBound
+      exact (lt_irrefl q) this
   refine ⟨hq, hcpos, hsq, hq.coprime_iff_not_dvd.mpr hnotdvd, ?_⟩
   intro p hp hpd
   have hpd' : p ∣ u.prod id := by
@@ -96,7 +97,7 @@ theorem canonicalSourceData_primeFaceProduct
   rcases hrPrime.eq_one_or_self_of_dvd p hpr with hp1 | hpeq
   · exact (hp.ne_one hp1).elim
   · have hrBound := (mem_primesUpTo.mp (hu hru)).2
-    omega
+    simpa only [hpeq] using hrBound
 
 /-- On a prime face below `q`, the abstract high predicate is exactly the actual
 survivor-pair predicate of its represented cofactor. -/
@@ -184,14 +185,6 @@ theorem survivorFixedPrimeActiveMobiusMass_eq_faceAlternating
     simp [hhigh, moebius_primeFaceProduct_eq_booleanCubeSign u hprime]
   · simp [hhigh]
 
-private theorem survivorFixedPrimeCofactorTerm_eq_if
-    (Λ : ℝ) (t q c : ℕ) :
-    survivorFixedPrimeCofactorTerm Λ t q c =
-      if IsSurvivorZeroModePair Λ t c q then -canonicalMoebiusWeight c else 0 := by
-  classical
-  unfold survivorFixedPrimeCofactorTerm survivorFixedPrimeActivityIndicator
-  by_cases h : IsSurvivorZeroModePair Λ t c q <;> simp [h]
-
 /-- The actual fixed-prime survivor mass is the negative complex cast of the
 prime-face alternating high mass. -/
 theorem survivorFixedPrimeCofactorMass_eq_neg_faceAlternating
@@ -208,7 +201,8 @@ theorem survivorFixedPrimeCofactorMass_eq_neg_faceAlternating
         if IsSurvivorZeroModePair Λ t c q then -canonicalMoebiusWeight c else 0 := by
       apply Finset.sum_congr rfl
       intro c _hc
-      exact survivorFixedPrimeCofactorTerm_eq_if Λ t q c
+      unfold survivorFixedPrimeCofactorTerm survivorFixedPrimeActivityIndicator
+      by_cases h : IsSurvivorZeroModePair Λ t c q <;> simp [h]
     _ = ∑ c ∈ survivorFixedPrimeActiveCofactors Λ t q,
         -canonicalMoebiusWeight c := by
       unfold survivorFixedPrimeActiveCofactors
@@ -230,7 +224,7 @@ theorem survivorFixedPrimeCofactorMass_eq_neg_threeFrontiers
     (Λ : ℝ) (t : ℕ) {q ell : ℕ} (hq : q.Prime) (hΛ : 0 ≤ Λ)
     (hell : ell ∈ survivorPrimeFaceAmbient q) :
     survivorFixedPrimeCofactorMass Λ t q =
-      -(((firstFailureBoundaryAlternatingSum (survivorPrimeFaceAmbient q) ell
+      -((firstFailureBoundaryAlternatingSum (survivorPrimeFaceAmbient q) ell
             (survivorPrimeFaceTransportPrefix Λ t q) +
           firstFailureBoundaryAlternatingSum (survivorPrimeFaceAmbient q) ell
             (survivorPrimeFaceProductPrefix t q) -
