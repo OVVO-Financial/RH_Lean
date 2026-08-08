@@ -211,9 +211,8 @@ theorem primorialPeriodicRawResidual_eq_mobiusReindexed
             ((Finset.Ioc (primorialMinimalWheelSystem k).lower x).card : ℤ) *
             (if q = 1 then 1 else 0) : ℤ) : ℂ)) =
         ((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ) := by
-    have h := congrArg (fun z : ℤ => (z : ℂ)) hsmoothInt
-    push_cast at h
-    exact h
+    have h := congrArg (Int.castRingHom ℂ) hsmoothInt
+    simpa only [map_sum] using h
   have hsmooth :
       (∑ q ∈ (primorialMinimalWheelSystem k).modulus.divisors,
         2 * (Ninv *
@@ -249,8 +248,23 @@ theorem primorialPeriodicRawResidual_eq_mobiusReindexed
       _ = Ninv *
           (2 * ((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ)) := by
             ring
-  rw [Finset.sum_sub_distrib, hraw, hsmooth]
-  dsimp [Ninv]
-  ring
+  rw [Finset.sum_sub_distrib]
+  calc
+    _ = Ninv *
+          (primorialRawCollapsedBoundaryPairing k x +
+            primorialRawRetainedBulk k x) -
+        Ninv *
+          (2 * ((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ)) :=
+      congrArg₂ (· - ·) hraw hsmooth
+    _ = Ninv *
+        (primorialRawCollapsedBoundaryPairing k x +
+          primorialRawRetainedBulk k x -
+          2 * ((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ)) := by
+            ring
+    _ = (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
+        (primorialRawCollapsedBoundaryPairing k x +
+          primorialRawRetainedBulk k x -
+          2 * ((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ)) := by
+            rfl
 
 end RHLean.Analysis
