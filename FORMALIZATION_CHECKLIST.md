@@ -502,6 +502,7 @@ has to be guessed against mathlib `v4.24.0`.
 - [x] The complete cross-cofactor covariance is proved equal to the explicit Möbius-signed collision ledger over unequal cofactors.
 - [x] No collision-density, covariance-sign, covariance-defect, primitive/nonprimitive asymptotic, or power-saving estimate is claimed.
 - [x] Exploratory CI run `31271891332` on head `2c35516ef0d01dfebfe5b68f88b56b8d07e09344` passed the paper/Analysis boundary check, assumption audit, generated-root check, and `lake build RHLean --wfail` with no warnings before this closeout commit.
+- [x] A branch-history integration regression removed the already-merged PR #266 criterion file and its root import; PR #268 restores the exact file blob from merge commit `ec4003b958df07a537445603391e2c94e6d06831` and restores the root import before the final merge gate, without changing the #266 theorem content.
 - [x] The final merge-gating run must include this checklist and `FORMALIZATION_SEQUENCE.md` closeout record on the same branch.
 - [ ] Remaining exact dependency: formalize the pair-effective-modulus/rough-denominator resonance criterion on the collision height difference.
 - [ ] Remaining analytic obligation: prove signed cancellation in the collision ledger strong enough for the scheduled covariance budget; do not replace it by an unsigned exceptional-set bound.
