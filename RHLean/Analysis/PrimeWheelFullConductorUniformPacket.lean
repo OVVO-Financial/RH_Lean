@@ -29,20 +29,20 @@ bulk terms are nonzero only at conductor one. -/
 def primorialPeriodicRawExplicitAllConductorPacket
     (k x q : ℕ) : ℂ :=
   primorialRawConductorArithmeticCoefficient k q *
-      ((((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
-        ((((∑ d ∈ q.divisors,
-          μ (q / d) *
-            divisorIntervalBoundary d 0
-              (primorialMinimalWheelSystem k).lower x) +
+      (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹ *
+        (((∑ d ∈ q.divisors,
+            μ (q / d) *
+              divisorIntervalBoundary d 0
+                (primorialMinimalWheelSystem k).lower x) +
           ((Finset.Ioc (primorialMinimalWheelSystem k).lower x).card : ℤ) *
             (if q = 1 then 1 else 0) : ℤ) : ℂ)) -
     2 *
-      ((((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
-        (((primeWheelSmoothBoundaryPacket
-            (primorialMinimalWheelSystem k) x q +
-          primeWheelSmoothBulkMass (primorialMinimalWheelSystem k) *
-            ((Finset.Ioc (primorialMinimalWheelSystem k).lower x).card : ℤ) *
-            (if q = 1 then 1 else 0) : ℤ) : ℂ))
+      (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹ *
+        ((primeWheelSmoothBoundaryPacket
+              (primorialMinimalWheelSystem k) x q +
+            primeWheelSmoothBulkMass (primorialMinimalWheelSystem k) *
+              ((Finset.Ioc (primorialMinimalWheelSystem k).lower x).card : ℤ) *
+              (if q = 1 then 1 else 0) : ℤ) : ℂ))
 
 /-- Every actual divisor conductor, including conductor one, is exactly the
 same explicit arithmetic boundary-plus-bulk packet. -/
