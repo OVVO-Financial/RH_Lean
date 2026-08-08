@@ -12,19 +12,19 @@ This repository groups integers between consecutive squares and studies how cano
 
 - **Square blocks**: partitioning the integers into intervals between consecutive squares. This exposes a natural **lifetime flow**: arithmetic contributions are born, persist across a controlled range of blocks, and eventually disappear. The resulting decomposition shows that the Mertens path is essentially determined by its values at square endpoints, with only the elementary within-block interpolation cost remaining.
 - **Exact square-root cutoff**: at
-  \[
+  $$
   X_n=(n+1)^2-1,
-  \]
+  $$
   a squarefree integer cannot contain two prime factors larger than `n+1`. This gives an exact one-large-prime decomposition rather than an approximation.
 - **Canonical factor geometry**: every nontrivial squarefree source has a unique largest-prime factorization
-  \[
+  $$
   m=cq,\qquad q=P^+(m),
-  \]
+  $$
   and the squared-complex coordinate
-  \[
+  $$
   \left(\frac{c+q}{2}+i\frac{q-c}{2}\right)^2
   =m+i\frac{q^2-c^2}{2}
-  \]
+  $$
   records the source integer and the factor imbalance simultaneously.
 - **Lifetime refinement**: the high population splits exactly into active survivors and completed deaths. The death process is controlled by a bounded-width divisor window, leaving one explicit signed survivor operator as the remaining analytic object.
 
@@ -32,38 +32,38 @@ This repository groups integers between consecutive squares and studies how cano
 
 Write
 
-\[
+$$
 S_n=M(X_n),\qquad X_n=(n+1)^2-1.
-\]
+$$
 
 The square-root cutoff gives the exact decomposition
 
-\[
+$$
 \boxed{S_n=A_n-T_n.}
-\]
+$$
 
 The geometry then separates the canonical source population by signed height
 
-\[
+$$
 Y_m=\frac{q_m^2-c_m^2}{2}.
-\]
+$$
 
 For fixed `Λ > 0`, low height has uniformly bounded occupancy in each square block. Consequently the cumulative low sector is controlled without using Möbius cancellation. The unresolved cancellation can therefore be isolated in the high sector.
 
 Following high sources through their lifetimes gives
 
-\[
+$$
 \boxed{S_t^{\mathrm{high}}(\Lambda)=Z_\Lambda(t)+D_\Lambda(t),}
-\]
+$$
 
 where the accumulated death mass `D_Λ` already satisfies the required local-energy scale. The remaining active survivor is the explicit signed cofactor operator
 
-\[
+$$
 \boxed{
 Z_\Lambda(t)
 =-\sum_c\mu(c)\,\mathcal K_{\Lambda,t}(c).
 }
-\]
+$$
 
 This is the analytic frontier of the standalone square-block paper.
 
@@ -76,13 +76,13 @@ The remaining survivor power-saving estimate is stated explicitly as an **open t
 Two endpoint support facts are kept separate:
 
 1. because every canonical prime satisfies `q ≥ 2`, every canonical cofactor below `x` satisfies
-   \[
+   $$
    c\le \lfloor x/2\rfloor;
-   \]
+   $$
 2. if `m ≤ x` is composite, then
-   \[
+   $$
    P^+(m)\le \lfloor x/2\rfloor.
-   \]
+   $$
    Equivalently, if `P^+(m) > floor(x/2)`, then `c=1` and `m` itself is prime.
 
 ## Machine-checked source
