@@ -57,7 +57,6 @@ theorem survivorZeroMode_eq_intCast_sum_survivorResidueSignedMass
   intro c _hc
   rw [nsmul_eq_mul']
   unfold canonicalMoebiusWeight
-  push_cast
   ring
 
 /-- Finite Cauchy--Schwarz on the signed residue masses. -/
@@ -81,7 +80,7 @@ theorem sq_sum_survivorResidueSignedMass_le_modulus_mul_energy
     (((∑ u : ZMod s, survivorResidueSignedMass Λ t s u : ℤ) : ℝ)) ^ 2 =
         (∑ u : ZMod s,
           ((survivorResidueSignedMass Λ t s u : ℤ) : ℝ)) ^ 2 := by
-      push_cast
+      rfl
     _ ≤ (s : ℝ) *
           ∑ u : ZMod s,
             ((survivorResidueSignedMass Λ t s u : ℤ) : ℝ) ^ 2 := hreal
@@ -96,7 +95,7 @@ theorem norm_sq_survivorZeroMode_le_modulus_mul_residueEnergy
     (Λ : ℝ) (t s : ℕ) [NeZero s] :
     ‖survivorZeroMode Λ t‖ ^ 2 ≤
       (s : ℝ) * ((survivorResidueEnergy Λ t s : ℤ) : ℝ) := by
-  rw [survivorZeroMode_eq_intCast_sum_survivorResidueSignedMass]
+  rw [survivorZeroMode_eq_intCast_sum_survivorResidueSignedMass Λ t s]
   simpa [Complex.norm_intCast, sq_abs] using
     sq_sum_survivorResidueSignedMass_le_modulus_mul_energy Λ t s
 
@@ -130,8 +129,13 @@ theorem survivorResidueCovarianceBudget_eq_modulus_mul_energy
         ((survivorResidueEnergy Λ t (schedule.modulus t) : ℤ) : ℝ) := by
   letI : NeZero (schedule.modulus t) :=
     ⟨Nat.ne_of_gt (schedule.positive t)⟩
-  unfold survivorResidueCovarianceBudget
-  rw [← survivorResidueEnergy_eq_diagonal_add_crossCovariance]
+  change
+    (schedule.modulus t : ℝ) *
+        (((survivorResidueDiagonalEnergy Λ t (schedule.modulus t) +
+          survivorResidueCrossCofactorCovariance Λ t (schedule.modulus t) : ℤ) : ℝ)) =
+      (schedule.modulus t : ℝ) *
+        ((survivorResidueEnergy Λ t (schedule.modulus t) : ℤ) : ℝ)
+  rw [survivorResidueEnergy_eq_diagonal_add_crossCovariance]
 
 /-- The scheduled covariance budget pointwise dominates the survivor energy. -/
 theorem norm_sq_survivorZeroMode_le_covarianceBudget
@@ -140,9 +144,13 @@ theorem norm_sq_survivorZeroMode_le_covarianceBudget
       survivorResidueCovarianceBudget Λ schedule t := by
   letI : NeZero (schedule.modulus t) :=
     ⟨Nat.ne_of_gt (schedule.positive t)⟩
-  rw [survivorResidueCovarianceBudget_eq_modulus_mul_energy]
+  change
+    ‖survivorZeroMode Λ t‖ ^ 2 ≤
+      (schedule.modulus t : ℝ) *
+        (((survivorResidueDiagonalEnergy Λ t (schedule.modulus t) +
+          survivorResidueCrossCofactorCovariance Λ t (schedule.modulus t) : ℤ) : ℝ))
   exact
-    norm_sq_survivorZeroMode_le_modulus_mul_residueEnergy
+    norm_sq_survivorZeroMode_le_modulus_mul_diagonal_add_crossCovariance
       Λ t (schedule.modulus t)
 
 /-- The exact remaining translated-window analytic statement on the signed
