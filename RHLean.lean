@@ -221,6 +221,7 @@ import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Proof.SurvivorZeroMode
 import RHLean.Proof.SymmetricPrimeExtension
 import RHLean.Proof.TerminalAxiomAudit
+import RHLean.Proof.TerminalMertensForward
 import RHLean.Proof.TerminalMertensReduction
 import RHLean.Proof.TernaryRefinementBound
 import RHLean.Proof.TriplingPacketTransport
