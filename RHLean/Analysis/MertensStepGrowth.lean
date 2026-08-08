@@ -40,7 +40,6 @@ theorem mertensSummatory_isBigO_rpow
   have hfactor :
       Real.rpow (2 * (n : ℕ) : ℝ) r =
         Real.rpow (2 : ℝ) r * Real.rpow (n : ℝ) r := by
-    norm_num only [Nat.cast_ofNat]
     exact Real.mul_rpow (by positivity) (by positivity)
   calc
     ‖mertensSummatory n‖ ≤
