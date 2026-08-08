@@ -45,6 +45,8 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 
+local attribute [instance] Classical.propDecidable
+
 /-- Prime coordinates available to a canonical cofactor below distinguished
 prime `q`. -/
 def survivorPrimeFaceAmbient (q : ℕ) : Finset ℕ :=
