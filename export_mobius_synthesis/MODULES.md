@@ -1,6 +1,6 @@
 # Möbius Synthesis — Lean source map
 
-This export intentionally contains the full import-audited `RHLean` source snapshot rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The synchronized manifest currently imports **246 Lean modules**, and every imported `RHLean.*` module is mirrored under the corresponding path in `RHLean/` using the same Git blob as the parent development.
+This export intentionally contains the full import-audited `RHLean` source snapshot rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The synchronized manifest currently imports **247 Lean modules**, and every imported `RHLean.*` module is mirrored under the corresponding path in `RHLean/` using the same Git blob as the parent development.
 
 ## Elementary prime-sieve seam
 
@@ -29,7 +29,34 @@ before - M(R^2-1) = 2 * transport
 before + M(R^2-1) = 2 * smooth.
 ```
 
-This is a foundational representation theorem, not a quantitative estimate. It does not alter the synthesis endpoint or claim progress on the open nonzero-response bound.
+`RHLean.Analysis.PrimeSievePNTCentering` then separates the explicit prime tail into a deterministic logarithmic-integral density bulk and the exact prime-indicator discrepancy. Its singleton density uses the same Li convention as the existing exact-activity prime-density route:
+
+```text
+density(q) = Li(q) - Li(q-1).
+```
+
+The module proves the exact split
+
+```text
+prime tail = PNT bulk + prime-distribution error
+```
+
+and pushes it through the **actual** square-wheel zero-mode centering coefficient `(X_n-L_k)/Q_k`. Thus the canonical nonzero response has the exact forms
+
+```text
+H_{k,n} = centered PNT-corrected comb - 2 * centered prime error
+```
+
+and
+
+```text
+H_{k,n}
+  = centered all-plus comb
+    - 2 * centered PNT bulk
+    - 2 * centered prime error.
+```
+
+It also proves the corresponding norm-transfer inequality. These are exact interfaces, not prime-distribution estimates: no PNT error bound, Bombieri–Vinogradov estimate, large-sieve estimate, or RH-scale power saving is asserted.
 
 ## Square-block track
 
@@ -70,6 +97,7 @@ The modules most directly joining the two descriptions include:
 
 - `RHLean.Proof.PrimeSievePostSqrtGap`
 - `RHLean.Proof.PrimeSieveSquareRootTransport`
+- `RHLean.Analysis.PrimeSievePNTCentering`
 - `RHLean.Arithmetic.PrimorialWheelMinimalTorus`
 - `RHLean.Arithmetic.PrimeProductLowerBound`
 - `RHLean.Analysis.SquareWheelNesting`
@@ -88,7 +116,7 @@ The modules most directly joining the two descriptions include:
 - `RHLean.Analysis.RamanujanDivisorBoundaryBulk`
 - `RHLean.Analysis.PrimorialWheelMertensTransfer`
 
-The prime-sieve modules give the elementary seam: fresh-prime parity produces the square-root transport variable exactly. `SquareWheelQuantitativeBridge` remains the synthesis-facing quantitative endpoint of the later spectral bridge: it proves the factor-six modulus separation, the uniform square-sample ratio bound below `1/6`, defines `primorialExpansionReindexedNumerator`, and identifies `squareWheelNonzeroSampleResponse` with the expansion-reindexed numerator after the zero mode is removed.
+The prime-sieve modules give the elementary seam: fresh-prime parity produces the square-root transport variable exactly, then Li-density centering exposes its deterministic prime bulk and exact prime-count discrepancy. `SquareWheelQuantitativeBridge` remains the synthesis-facing quantitative endpoint of the later spectral bridge: it proves the factor-six modulus separation, the uniform square-sample ratio bound below `1/6`, defines `primorialExpansionReindexedNumerator`, and identifies `squareWheelNonzeroSampleResponse` with the expansion-reindexed numerator after the zero mode is removed. `PrimeSievePNTCentering` proves that the same `H_{k,n}` can simultaneously be read as the actual wheel centering of the PNT-corrected prime-sieve process plus its residual prime-distribution error.
 
 ## Mertens and zeta bridge
 
@@ -110,7 +138,7 @@ The current parent development also contains the forward analytic chain needed a
 
 ## Modules added since the original 214-module synthesis snapshot
 
-The current synchronized parent manifest contains **32** modules beyond the original 214-module synthesis snapshot. The previous synthesis export had already synchronized 21 of them. This synchronization catches up the nine survivor modules that were subsequently imported by the parent root and adds the two new elementary prime-sieve seam modules.
+The current synchronized parent manifest contains **33** modules beyond the original 214-module synthesis snapshot. The previous synchronization reached 246 modules; this change adds the one new PNT-centering seam module while retaining the two elementary prime-sieve bridge modules and the earlier survivor synchronization.
 
 Previously synchronized 21-module delta:
 
@@ -138,7 +166,7 @@ RHLean.Proof.SquareRootAncestrySuccessor
 RHLean.Proof.TerminalMertensForward
 ```
 
-Additional 11-module synchronization in this change:
+Subsequent 11-module synchronization:
 
 ```text
 RHLean.Proof.SurvivorDyadicStaticCancellation
@@ -152,6 +180,12 @@ RHLean.Proof.SurvivorResidueCovarianceCriterion
 RHLean.Proof.SurvivorResiduePrimeToggle
 RHLean.Proof.PrimeSievePostSqrtGap
 RHLean.Proof.PrimeSieveSquareRootTransport
+```
+
+Current one-module synchronization:
+
+```text
+RHLean.Analysis.PrimeSievePNTCentering
 ```
 
 ## Scope and synchronization policy

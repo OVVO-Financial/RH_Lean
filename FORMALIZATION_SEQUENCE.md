@@ -759,3 +759,39 @@ This append-only reconciliation records the repository state after the two merge
 - [x] Reindex `C_{t,s}` exactly as a Möbius-signed count of active source-pair collisions with equal `q^2-c^2 mod s` — PR #268.
 - [ ] Formalize the pair-effective-modulus/rough-denominator resonance criterion on the exact collision ledger.
 - [ ] Only after that exact bridge is compiled, attack the signed congruence-fibre covariance estimate; do not replace it by an unsigned exceptional-set bound.
+
+## Append-only: elementary prime-sieve transport and PNT centering
+
+The live root import manifest on this branch now contains **247 Lean modules**; the earlier 145-module inventory header above is historical and is superseded by the generated `RHLean.lean` manifest.
+
+### PR #277 — elementary prime-sieve transport bridge
+
+- [x] The existing prime-comb semantics are reoriented to an all-plus running state without introducing a second Möbius process.
+- [x] For `sqrt x < y`, the exact finite identity
+  `M_y^+(x) - M(x) = 2 * sum_{y < q <= x, q prime} M(floor(x/q))`
+  is proved by unique unresolved large-prime factorization and one final Möbius sign flip.
+- [x] At `x=R^2-1`, `y=R`, the running state is proved exactly `A_R+T_R`, while the completed state is `A_R-T_R`; hence `before-M=2T_R` and `before+M=2A_R`.
+- [x] This is the elementary synthesis seam connecting prime-wheel reconstruction to the original square-block smooth/transport architecture.
+
+### PR #278 — Li-density centering pushed through the canonical nonzero response
+
+- [x] `RHLean.Analysis.PrimeSievePNTCentering` splits the explicit prime tail using the repository's canonical logarithmic-integral singleton mass `Li(q)-Li(q-1)`.
+- [x] The exact decomposition is `prime tail = deterministic PNT bulk + prime-indicator-minus-Li-density error`.
+- [x] The corresponding corrected all-plus state satisfies `M = corrected all-plus - 2 * prime error` whenever the prime cutoff is strictly above the square root.
+- [x] The square-wheel centering operator is formalized with the actual coefficient `(X_n-L_k)/Q_k`; it is not replaced by arithmetic-block interpolation.
+- [x] `squareWheelNonzeroSampleResponse`, the canonical `H_{k,n}` boundary object, is proved exactly equal to the same centering applied to `M`.
+- [x] Therefore
+
+  ```text
+  H_{k,n} = centered PNT-corrected comb - 2 * centered prime error
+          = centered all-plus comb
+            - 2 * centered PNT bulk
+            - 2 * centered prime error.
+  ```
+
+- [x] The norm transfer
+  `||H|| <= ||centered PNT-corrected comb|| + 2 ||centered prime error||`
+  is machine-checkable in the same module and isolates two explicit sufficient analytic targets.
+- [x] The Li convention agrees with the existing exact-activity prime-density route (`ExactActivityPrimeIntervals`, `ConcreteLiCoreExtensionWeight`).
+- [ ] No theorem in this layer bounds either centered target. In particular, no PNT-error, Bombieri--Vinogradov, large-sieve, or RH-scale estimate is inferred from exact centering.
+- [ ] The next H-advancing analytic step is to bound the two centered terms, preferably after quotient-fibre reindexing turns the prime error into signed prime-count-minus-Li discrepancies on reciprocal intervals.
