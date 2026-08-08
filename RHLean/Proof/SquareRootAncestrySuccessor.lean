@@ -113,6 +113,7 @@ theorem activeSmoothSource_sum_eq_smoothIntegerMass
       simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)] using hclock
     have hprodgt : 1 < sourceProduct s :=
       one_lt_sourceProduct_of_admissible hadm
+    have hprod2 : 2 ≤ sourceProduct s := by omega
     have hsq : Squarefree (sourceProduct s) :=
       sourceProduct_squarefree_of_admissible hadm
     have horient :
@@ -122,12 +123,14 @@ theorem activeSmoothSource_sum_eq_smoothIntegerMass
         ← sourceCore_eq_canonicalCofactor s hadm]
       exact hsdata.1.2
     apply Finset.mem_filter.mpr
-    refine ⟨?_, hprodgt.le, hsq, horient⟩
+    refine ⟨?_, hprod2, hsq, horient⟩
     unfold cumulativeSquarePrefixSet
     rw [Nat.sub_add_cancel (by omega : 1 ≤ R)]
-    have hsqpos : 0 < R ^ 2 := by positivity
-    unfold squareRootEndpoint at hprodle
-    exact Finset.mem_range.mpr (by omega)
+    have hXlt : squareRootEndpoint R < R ^ 2 := by
+      unfold squareRootEndpoint
+      have hsqpos : 0 < R ^ 2 := by positivity
+      omega
+    exact Finset.mem_range.mpr (lt_of_le_of_lt hprodle hXlt)
   · intro s₁ hs₁ s₂ hs₂ heq
     have h₁ : SmoothOriented s₁ ∧ sourceClock B s₁ ≤ R - 1 := by
       simpa [activeSmoothSourceSet] using hs₁
@@ -241,8 +244,9 @@ theorem squareRootBornSmoothMassInt_eq_one_add_smoothMassInt
     rw [Nat.sub_add_cancel (by omega : 1 ≤ R)]
     simp
     nlinarith
+  have hR1 : 1 ≤ R := by omega
   have hborn1 : bornTerm 1 = 1 := by
-    simp [bornTerm, canonicalLargestPrimeFactor, canonicalCofactor]
+    simp [bornTerm, canonicalLargestPrimeFactor, canonicalCofactor, hR1]
   have hsmooth1 : smoothTerm 1 = 0 := by
     simp [smoothTerm]
   have hterms : ∀ m ∈ S.erase 1, bornTerm m = smoothTerm m := by
@@ -276,7 +280,7 @@ theorem squareRootBornSmoothMassInt_eq_one_add_smoothMassInt
       (∑ m ∈ S.erase 1, smoothTerm m) = ∑ m ∈ S, smoothTerm m := by
     have h := Finset.add_sum_erase S smoothTerm h1mem
     rw [hsmooth1, zero_add] at h
-    exact h.symm
+    exact h
   unfold squareRootBornSmoothMassInt squareRootAncestrySmoothMassInt
     squareRootAncestrySmoothIntegerSet
   change (∑ m ∈ S, bornTerm m) =
@@ -300,9 +304,9 @@ theorem sourceSuccessorPrefix_cast_eq_one_sub_bornSmooth
     activeSmoothSource_sum_eq_smoothIntegerMass hR hB]
   have hborn := squareRootBornSmoothMassInt_eq_one_add_smoothMassInt R hR
   have hcast := squareRootBornSmoothMassInt_cast R
-  push_cast at hborn
   rw [← hcast, hborn]
-  ring
+  push_cast
+  ring_nf
 
 /-- The ancestry root is literally the positive-orientation smooth mass minus
 the square-root transport mass.  This follows by comparing the exact renewals,
@@ -336,7 +340,7 @@ theorem sourceRootPrefix_cast_eq_positiveSmooth_sub_transport
   rw [hmatched] at hsquare
   rw [hrenew', hsucc] at hsource
   rw [hsquare] at hsource
-  linarith
+  linear_combination hsource
 
 /-- Final term-by-term identification of the two exact decompositions. -/
 theorem squareRootAncestryRenewal_terms
