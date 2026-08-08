@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 import RHLean.Arithmetic.PrimesUpToFrontier
+import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Analysis.DyadicTransportCanonicalForm
 
 /-!
@@ -80,32 +81,43 @@ theorem primesUpTo_sqrtCoverage
   intro p hp hple
   exact mem_primesUpTo.mpr ⟨hp, hple.trans hsqrt⟩
 
-/-- Pointwise meaning of the all-plus process after square-root coverage: smooth
-squarefree sources already have their final Mobius sign, while a squarefree
-source with one unresolved large prime has the opposite sign.  Nonsquarefree
-sources are zero on both sides. -/
-theorem allPlusPrimeCombSite_eq_moebius_or_neg
+/-- A smooth squarefree source has already acquired its final Mobius sign in the
+all-plus process. -/
+theorem allPlusPrimeCombSite_eq_moebius_of_smooth
+    (S : Finset ℕ) {n : ℕ}
+    (hprime : ∀ p ∈ S, Nat.Prime p)
+    (hnpos : 0 < n)
+    (hsmooth : IsPrimeWheelSmooth S n) :
+    allPlusPrimeCombSite S n = μ n := by
+  have hseed := seededPrimeComb_eq_neg_moebius_of_smooth S hprime hsmooth
+  simp [allPlusPrimeCombSite, Nat.ne_of_gt hnpos, hseed]
+
+/-- Under square-root coverage, an unresolved squarefree source has exactly one
+unprocessed prime factor, so its all-plus sign is the opposite of its final
+Mobius sign. -/
+theorem allPlusPrimeCombSite_eq_neg_moebius_of_not_smooth
     (S : Finset ℕ) {upper n : ℕ}
     (hprime : ∀ p ∈ S, Nat.Prime p)
     (hcover : PrimeWheelSqrtCoverage S upper)
-    (hnpos : 0 < n) (hnupper : n ≤ upper) :
-    allPlusPrimeCombSite S n =
-      if IsPrimeWheelSmooth S n then μ n else -μ n := by
-  classical
-  by_cases hsq : Squarefree n
-  · by_cases hsmooth : IsPrimeWheelSmooth S n
-    · have hseed := seededPrimeComb_eq_neg_moebius_of_smooth S hprime hsmooth
-      simp [allPlusPrimeCombSite, Nat.ne_of_gt hnpos, hsmooth, hseed]
-    · have hseed := seededPrimeComb_eq_moebius_of_not_smooth
-        S hprime hcover hsq hnupper hsmooth
-      simp [allPlusPrimeCombSite, Nat.ne_of_gt hnpos, hsmooth, hseed]
-  · have hseed := seededPrimeComb_eq_zero_of_not_squarefree
-      S hcover hnpos hnupper hsq
-    have hmu := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-    have hsmooth : ¬ IsPrimeWheelSmooth S n := by
-      intro h
-      exact hsq h.1
-    simp [allPlusPrimeCombSite, Nat.ne_of_gt hnpos, hsmooth, hseed, hmu]
+    (hsq : Squarefree n) (hnupper : n ≤ upper)
+    (hnonsmooth : ¬ IsPrimeWheelSmooth S n) :
+    allPlusPrimeCombSite S n = -μ n := by
+  have hnpos : 0 < n := Nat.pos_of_ne_zero hsq.ne_zero
+  have hseed := seededPrimeComb_eq_moebius_of_not_smooth
+    S hprime hcover hsq hnupper hnonsmooth
+  simp [allPlusPrimeCombSite, Nat.ne_of_gt hnpos, hseed]
+
+/-- Under square-root coverage, a nonsquarefree source is killed in the all-plus
+process, exactly as its Mobius weight vanishes. -/
+theorem allPlusPrimeCombSite_eq_zero_of_not_squarefree
+    (S : Finset ℕ) {upper n : ℕ}
+    (hcover : PrimeWheelSqrtCoverage S upper)
+    (hnpos : 0 < n) (hnupper : n ≤ upper)
+    (hnsq : ¬ Squarefree n) :
+    allPlusPrimeCombSite S n = 0 := by
+  have hseed := seededPrimeComb_eq_zero_of_not_squarefree
+    S hcover hnpos hnupper hnsq
+  simp [allPlusPrimeCombSite, Nat.ne_of_gt hnpos, hseed]
 
 private theorem primeFactor_le_canonicalLargestPrimeFactor
     {n p : ℕ} (hn : 1 < n) (hp : p ∈ n.primeFactors) :
@@ -154,29 +166,30 @@ theorem allPlusPrimeCombSite_sub_moebius_eq_high
   have hprime : ∀ p ∈ primesUpTo y, Nat.Prime p := by
     intro p hp
     exact prime_of_mem_primesUpTo hp
-  have hsite := allPlusPrimeCombSite_eq_moebius_or_neg
-    (primesUpTo y) hprime hcover hnpos hnx
   by_cases hsq : Squarefree n
   · have hsmoothIff :=
       isPrimeWheelSmooth_primesUpTo_iff_largestPrime_le hy hnpos hsq
     by_cases hq : canonicalLargestPrimeFactor n ≤ y
     · have hsmooth : IsPrimeWheelSmooth (primesUpTo y) n := hsmoothIff.mpr hq
       have hnotHigh : ¬ y < canonicalLargestPrimeFactor n := Nat.not_lt.mpr hq
+      have hsite := allPlusPrimeCombSite_eq_moebius_of_smooth
+        (primesUpTo y) hprime hnpos hsmooth
       rw [hsite]
-      simp [hsmooth, hnotHigh, canonicalMoebiusWeight]
+      simp [hnotHigh, canonicalMoebiusWeight]
     · have hhigh : y < canonicalLargestPrimeFactor n := Nat.lt_of_not_ge hq
       have hsmooth : ¬ IsPrimeWheelSmooth (primesUpTo y) n := by
         intro hs
         exact hq (hsmoothIff.mp hs)
+      have hsite := allPlusPrimeCombSite_eq_neg_moebius_of_not_smooth
+        (primesUpTo y) hprime hcover hsq hnx hsmooth
       rw [hsite]
-      simp [hsmooth, hhigh, canonicalMoebiusWeight]
+      simp [hhigh, canonicalMoebiusWeight]
       ring
   · have hmu := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-    have hsmooth : ¬ IsPrimeWheelSmooth (primesUpTo y) n := by
-      intro hs
-      exact hsq hs.1
+    have hsite := allPlusPrimeCombSite_eq_zero_of_not_squarefree
+      (primesUpTo y) hcover hnpos hnx hsq
     rw [hsite]
-    simp [hsmooth, hmu, canonicalMoebiusWeight]
+    simp [hmu, canonicalMoebiusWeight]
 
 /-- Summing the pointwise discrepancy isolates exactly the unresolved canonical
 largest-prime source mass. -/
@@ -226,7 +239,8 @@ private theorem cofactor_lt_largePrime_of_sqrt_lt
       q ^ 2 = q * q := by ring
       _ ≤ c * q := Nat.mul_le_mul_right q hqc
       _ ≤ x := hmul
-  have hqSqrt : q ≤ Nat.sqrt x := Nat.le_sqrt.mpr hqq
+  have hqSqrt : q ≤ Nat.sqrt x :=
+    Nat.le_sqrt.mpr (by simpa [pow_two] using hqq)
   omega
 
 private theorem primeSieveHighSource_to_pair_mem
@@ -271,13 +285,14 @@ private theorem primeSieveHighSource_to_pair_mem
   · exact ⟨hqPrime, by simpa [hprod] using hmx⟩
 
 private theorem primeSieveHighSource_pair_injective
-    {y x m n : ℕ}
+    {y x m n : ℕ} (hroot : Nat.sqrt x < y)
     (hm : m ∈ primeSieveHighSourceSet y x)
     (hn : n ∈ primeSieveHighSourceSet y x)
     (hpair :
       (canonicalCofactor m, canonicalLargestPrimeFactor m) =
         (canonicalCofactor n, canonicalLargestPrimeFactor n)) :
     m = n := by
+  have hy : 1 ≤ y := by omega
   have hmBase := (Finset.mem_filter.mp hm).1
   have hnBase := (Finset.mem_filter.mp hn).1
   have hm1 := (Finset.mem_Icc.mp hmBase).1
@@ -289,15 +304,19 @@ private theorem primeSieveHighSource_pair_injective
     have hmeq : m = 1 := by omega
     subst m
     simp [canonicalLargestPrimeFactor] at hmHigh
+    omega
   have hngt : 1 < n := by
     by_contra hnot
     have hneq : n = 1 := by omega
     subst n
     simp [canonicalLargestPrimeFactor] at hnHigh
+    omega
   have hmprod := canonicalCofactor_mul_largestPrimeFactor hmgt
   have hnprod := canonicalCofactor_mul_largestPrimeFactor hngt
-  have hc := congrArg Prod.fst hpair
-  have hq := congrArg Prod.snd hpair
+  have hc : canonicalCofactor m = canonicalCofactor n :=
+    congrArg Prod.fst hpair
+  have hq : canonicalLargestPrimeFactor m = canonicalLargestPrimeFactor n :=
+    congrArg Prod.snd hpair
   calc
     m = canonicalCofactor m * canonicalLargestPrimeFactor m := hmprod.symm
     _ = canonicalCofactor n * canonicalLargestPrimeFactor n := by rw [hc, hq]
@@ -311,8 +330,8 @@ private theorem primeSievePair_surjective
   classical
   rcases Finset.mem_filter.mp hcq with ⟨hbase, hdata⟩
   rcases Finset.mem_product.mp hbase with ⟨hcMem, hqMem⟩
-  rcases Finset.mem_Icc.mp hcMem with ⟨hc1, hcx⟩
-  rcases Finset.mem_Ioc.mp hqMem with ⟨hyq, hqx⟩
+  rcases Finset.mem_Icc.mp hcMem with ⟨hc1, _hcx⟩
+  rcases Finset.mem_Ioc.mp hqMem with ⟨hyq, _hqx⟩
   rcases hdata with ⟨hqPrime, hmul⟩
   have hcPos : 0 < cq.1 := by omega
   have hcqLt : cq.1 < cq.2 :=
@@ -323,8 +342,8 @@ private theorem primeSievePair_surjective
   have hcofactor : canonicalCofactor (cq.1 * cq.2) = cq.1 :=
     canonicalCofactor_mul_prime_eq hcPos hcqLt hqPrime
   have hm1 : 1 ≤ cq.1 * cq.2 := by
-    have hq1 : 1 ≤ cq.2 := hqPrime.one_le
-    nlinarith
+    exact Nat.one_le_iff_ne_zero.mpr
+      (Nat.mul_ne_zero (Nat.ne_of_gt hcPos) hqPrime.ne_zero)
   have hmSource : cq.1 * cq.2 ∈ primeSieveHighSourceSet y x := by
     apply Finset.mem_filter.mpr
     exact ⟨Finset.mem_Icc.mpr ⟨hm1, hmul⟩, by simpa [hlargest] using hyq⟩
@@ -344,11 +363,21 @@ theorem sum_primeSieveHighSourceSet_eq_pairProducts
   refine Finset.sum_bij
     (fun m _hm => (canonicalCofactor m, canonicalLargestPrimeFactor m))
     (fun m hm => primeSieveHighSource_to_pair_mem hroot hm)
-    (fun m hm n hn hmn => primeSieveHighSource_pair_injective hm hn hmn)
+    (fun m hm n hn hmn => primeSieveHighSource_pair_injective hroot hm hn hmn)
     (fun cq hcq => by simpa using primeSievePair_surjective hroot cq hcq)
     ?_
   intro m hm
-  rfl
+  have hmBase := (Finset.mem_filter.mp hm).1
+  have hm1 := (Finset.mem_Icc.mp hmBase).1
+  have hmHigh := (Finset.mem_filter.mp hm).2
+  have hy : 1 ≤ y := by omega
+  have hmgt : 1 < m := by
+    by_contra hnot
+    have hmeq : m = 1 := by omega
+    subst m
+    simp [canonicalLargestPrimeFactor] at hmHigh
+    omega
+  rw [canonicalCofactor_mul_largestPrimeFactor hmgt]
 
 /-- On every unresolved pair the large prime is fresh relative to the lower
 cofactor, so its final action reverses the source sign. -/
@@ -408,10 +437,10 @@ theorem sum_primeSieveTransportPairSet_eq_neg_cofactorMass
           if q.Prime ∧ c * q ≤ x then canonicalMoebiusWeight c else 0 := by
         rw [← Finset.sum_neg_distrib]
         apply Finset.sum_congr rfl
-        intro c hc
+        intro c _hc
         rw [← Finset.sum_neg_distrib]
         apply Finset.sum_congr rfl
-        intro q hq
+        intro q _hq
         by_cases h : q.Prime ∧ c * q ≤ x <;> simp [h]
 
 /-- The cofactor-first batch mass is exactly the lower-scale Mertens transform
@@ -423,7 +452,7 @@ theorem primeSieveTransportCofactorMass_eq_mertensPrimeTail
   unfold primeSieveTransportCofactorMass primeSieveMertensPrimeTail
   rw [Finset.sum_comm]
   apply Finset.sum_congr rfl
-  intro q hq
+  intro q _hq
   by_cases hprime : q.Prime
   · have hqPos : 0 < q := hprime.pos
     simp only [hprime, true_and, if_true]
@@ -433,7 +462,7 @@ theorem primeSieveTransportCofactorMass_eq_mertensPrimeTail
       ext c
       simp only [Finset.mem_filter, Finset.mem_Icc]
       constructor
-      · rintro ⟨⟨hc1, hcx⟩, hmul⟩
+      · rintro ⟨⟨hc1, _hcx⟩, hmul⟩
         exact ⟨hc1, (Nat.le_div_iff_mul_le hqPos).2 hmul⟩
       · rintro ⟨hc1, hcdiv⟩
         exact ⟨⟨hc1, hcdiv.trans (Nat.div_le_self x q)⟩,
