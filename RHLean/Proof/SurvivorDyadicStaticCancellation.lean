@@ -37,15 +37,16 @@ noncomputable section
 
 namespace RHLean.Proof
 
-/-- One signed cofactor contribution in a fixed upper-prime survivor fibre. -/
-def survivorFixedPrimeCofactorTerm
+/-- Complex-valued activity indicator for one survivor source. -/
+def survivorFixedPrimeActivityIndicator
     (Λ : ℝ) (t q c : ℕ) : ℂ := by
   classical
-  exact
-    if IsSurvivorZeroModePair Λ t c q then
-      -canonicalMoebiusWeight c
-    else
-      0
+  exact if IsSurvivorZeroModePair Λ t c q then 1 else 0
+
+/-- One signed cofactor contribution in a fixed upper-prime survivor fibre. -/
+def survivorFixedPrimeCofactorTerm
+    (Λ : ℝ) (t q c : ℕ) : ℂ :=
+  -canonicalMoebiusWeight c * survivorFixedPrimeActivityIndicator Λ t q c
 
 /-- Complete signed survivor mass in one fixed upper-prime fibre. -/
 def survivorFixedPrimeCofactorMass
@@ -63,31 +64,42 @@ def survivorDyadicPairContribution
 theorem survivorFixedPrimeCofactorTerm_two_mul_of_odd
     (Λ : ℝ) (t q d : ℕ) (hd : Odd d) :
     survivorFixedPrimeCofactorTerm Λ t q (2 * d) =
-      if IsSurvivorZeroModePair Λ t (2 * d) q then
-        canonicalMoebiusWeight d
-      else
-        0 := by
-  classical
+      canonicalMoebiusWeight d *
+        survivorFixedPrimeActivityIndicator Λ t q (2 * d) := by
   unfold survivorFixedPrimeCofactorTerm
   rw [canonicalMoebiusWeight_two_mul d, if_pos hd]
-  by_cases hactive : IsSurvivorZeroModePair Λ t (2 * d) q <;>
-    simp [hactive]
+  ring
 
-/-- The parent/child signed contribution is the exact difference of the two
-activity indicators.  This keeps the cancellation visible before any norm. -/
+/-- The parent/child signed contribution is the exact activity-indicator
+difference multiplied by the parent Möbius weight.  This keeps the cancellation
+visible before any norm. -/
 theorem survivorDyadicPairContribution_eq_activityDifference
     (Λ : ℝ) (t q d : ℕ) (hd : Odd d) :
     survivorDyadicPairContribution Λ t q d =
-      (if IsSurvivorZeroModePair Λ t (2 * d) q then
-          canonicalMoebiusWeight d else 0) -
-        (if IsSurvivorZeroModePair Λ t d q then
-          canonicalMoebiusWeight d else 0) := by
-  classical
+      canonicalMoebiusWeight d *
+        (survivorFixedPrimeActivityIndicator Λ t q (2 * d) -
+          survivorFixedPrimeActivityIndicator Λ t q d) := by
   unfold survivorDyadicPairContribution survivorFixedPrimeCofactorTerm
   rw [canonicalMoebiusWeight_two_mul d, if_pos hd]
-  by_cases hp : IsSurvivorZeroModePair Λ t d q <;>
-    by_cases hc : IsSurvivorZeroModePair Λ t (2 * d) q <;>
-      simp [hp, hc]
+  ring
+
+/-- Equal survivor activity gives equal complex activity indicators. -/
+theorem survivorFixedPrimeActivityIndicator_eq_of_activity_iff
+    (Λ : ℝ) (t q c c' : ℕ)
+    (hactivity :
+      IsSurvivorZeroModePair Λ t c q ↔
+        IsSurvivorZeroModePair Λ t c' q) :
+    survivorFixedPrimeActivityIndicator Λ t q c =
+      survivorFixedPrimeActivityIndicator Λ t q c' := by
+  classical
+  unfold survivorFixedPrimeActivityIndicator
+  by_cases hc : IsSurvivorZeroModePair Λ t c q
+  · have hc' : IsSurvivorZeroModePair Λ t c' q := hactivity.mp hc
+    simp [hc, hc']
+  · have hc' : ¬ IsSurvivorZeroModePair Λ t c' q := by
+      intro h
+      exact hc (hactivity.mpr h)
+    simp [hc, hc']
 
 /-- If an odd parent and its doubled child have the same survivor activity,
 their signed contribution vanishes exactly. -/
@@ -97,17 +109,10 @@ theorem survivorDyadicPairContribution_eq_zero_of_activity_iff
       IsSurvivorZeroModePair Λ t d q ↔
         IsSurvivorZeroModePair Λ t (2 * d) q) :
     survivorDyadicPairContribution Λ t q d = 0 := by
-  classical
-  unfold survivorDyadicPairContribution survivorFixedPrimeCofactorTerm
-  rw [canonicalMoebiusWeight_two_mul d, if_pos hd]
-  by_cases hparent : IsSurvivorZeroModePair Λ t d q
-  · have hchild : IsSurvivorZeroModePair Λ t (2 * d) q :=
-      hactivity.mp hparent
-    simp [hparent, hchild]
-  · have hchild : ¬ IsSurvivorZeroModePair Λ t (2 * d) q := by
-      intro h
-      exact hparent (hactivity.mpr h)
-    simp [hparent, hchild]
+  rw [survivorDyadicPairContribution_eq_activityDifference Λ t q d hd]
+  rw [survivorFixedPrimeActivityIndicator_eq_of_activity_iff
+    Λ t q d (2 * d) hactivity]
+  ring
 
 /-- A nonzero odd parent/child contribution certifies an actual activity
 mismatch.  Thus the paired sum is supported on the defect set before norms. -/
@@ -125,11 +130,10 @@ theorem survivorDyadic_activity_ne_of_pairContribution_ne_zero
 theorem survivorFixedPrimeCofactorTerm_two_mul_of_even
     (Λ : ℝ) (t q d : ℕ) (hd : Even d) :
     survivorFixedPrimeCofactorTerm Λ t q (2 * d) = 0 := by
-  classical
   unfold survivorFixedPrimeCofactorTerm
   have hnotOdd : ¬ Odd d := Nat.not_odd_iff_even.mpr hd
   rw [canonicalMoebiusWeight_two_mul d, if_neg hnotOdd]
-  simp
+  ring
 
 private theorem survivor_sum_Icc_eq_odd_add_even
     (B : ℕ) (f : ℕ → ℂ) :
@@ -245,7 +249,7 @@ theorem survivorFixedPrimeCofactorMass_eq_dyadicPairs_add_boundary
   rw [survivor_sum_double_eq_odd_half Λ t q B]
   rw [hoddSplit]
   unfold survivorDyadicPairContribution
-  rw [← Finset.sum_add_distrib]
+  rw [Finset.sum_add_distrib]
   ring
 
 end RHLean.Proof
