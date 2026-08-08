@@ -20,6 +20,8 @@ No zero-free conclusion, functional-equation reflection, or RH theorem is
 proved here.
 -/
 
+open scoped Topology
+
 noncomputable section
 
 namespace RHLean.Analysis
@@ -87,7 +89,8 @@ private theorem mertensZetaProduct_eq_one_on_upper
       exact hz.1
     · intro z hz hzone
       subst z
-      norm_num at hz
+      have him := hz.2
+      norm_num at him
   have hconst :
       AnalyticOnNhd ℂ (fun _ : ℂ => (1 : ℂ)) criticalUpperHalfPlane :=
     analyticOnNhd_const
@@ -111,7 +114,8 @@ private theorem mertensZetaProduct_eq_one_on_lower
       exact hz.1
     · intro z hz hzone
       subst z
-      norm_num at hz
+      have him := hz.2
+      norm_num at him
   have hconst :
       AnalyticOnNhd ℂ (fun _ : ℂ => (1 : ℂ)) criticalLowerHalfPlane :=
     analyticOnNhd_const
@@ -135,7 +139,8 @@ private theorem mertensZetaProduct_eq_one_on_leftStrip
       exact hz.1
     · intro z hz hzone
       subst z
-      norm_num at hz
+      have hre := hz.2
+      norm_num at hre
   have hconst :
       AnalyticOnNhd ℂ (fun _ : ℂ => (1 : ℂ)) criticalLeftStrip :=
     analyticOnNhd_const
@@ -176,8 +181,10 @@ theorem riemannZeta_mul_mertensMellinContinuation_eq_one_of_half_lt_re
       intro him
       apply hs1
       apply Complex.ext
-      · simpa [hre]
-      · simpa [him]
+      · change s.re = 1
+        exact hre
+      · change s.im = 0
+        exact him
     rcases lt_or_gt_of_ne himne with himlt | himgt
     · have hslower : s ∈ criticalLowerHalfPlane := ⟨hs, himlt⟩
       simpa [mertensZetaProduct] using
