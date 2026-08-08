@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Proof.PrimeSievePostSqrtGap
 import RHLean.Analysis.SquareWheelQuantitativeBridge
 import RHLean.Analysis.SquareWheelNesting
+import RHLean.Proof.ConcreteLiCoreExtensionWeight
 
 /-!
 # PNT centering of the prime-sieve tail and the square-wheel response
@@ -14,12 +15,10 @@ M_y^+(x) - M(x)
   = 2 * sum_{y < q <= x, q prime} M(floor(x/q)).
 ```
 
-This module separates the prime indicator into the first-order PNT density
-`1 / log q` and its exact discrepancy.  The split is purely algebraic:
-
-```text
-1_Prime(q) = 1 / log q + (1_Prime(q) - 1 / log q).
-```
+This module separates the prime indicator into a deterministic logarithmic-
+integral increment and its exact discrepancy.  The density convention matches
+the repository's existing exact-activity prime-density route: the model mass at
+integer `q` is `Li(q) - Li(q-1)`.
 
 No prime-number-theorem error estimate is assumed or proved.  The purpose is to
 make the deterministic PNT bulk and the remaining prime-distribution error
@@ -50,30 +49,30 @@ namespace RHLean.Analysis
 open RHLean.Arithmetic
 open RHLean.Proof
 
-/-- First-order local density supplied by the prime number theorem.  This is a
-model weight only; no estimate comparing it with the prime indicator is built
-into the definition. -/
+/-- Deterministic logarithmic-integral mass assigned to the integer site `q`.
+This is the singleton version of the existing exact-activity Li model. -/
 def primeSievePNTDensity (q : ℕ) : ℂ :=
-  (((Real.log (q : ℝ))⁻¹ : ℝ) : ℂ)
+  ((logarithmicIntegralFromTwo (q : ℝ) -
+      logarithmicIntegralFromTwo ((q - 1 : ℕ) : ℝ) : ℝ) : ℂ)
 
 /-- Exact complex-valued prime indicator. -/
 def primeSievePrimeIndicator (q : ℕ) : ℂ :=
   if q.Prime then 1 else 0
 
-/-- The deterministic first-order PNT bulk in the prime-first transport tail. -/
+/-- The deterministic Li-density bulk in the prime-first transport tail. -/
 def primeSievePNTBulk (y x : ℕ) : ℂ :=
   ∑ q ∈ Finset.Ioc y x,
     primeSievePNTDensity q * mertensSummatory (x / q)
 
-/-- The exact error left after subtracting the first-order PNT density from the
-prime indicator.  This is the object on which genuine prime-distribution input
-would have to act. -/
+/-- The exact error left after subtracting the Li density from the prime
+indicator.  This is the object on which genuine prime-distribution input would
+have to act. -/
 def primeSievePNTError (y x : ℕ) : ℂ :=
   ∑ q ∈ Finset.Ioc y x,
     (primeSievePrimeIndicator q - primeSievePNTDensity q) *
       mertensSummatory (x / q)
 
-/-- Exact PNT-density decomposition of the prime-sieve Mertens tail. -/
+/-- Exact Li-density decomposition of the prime-sieve Mertens tail. -/
 theorem primeSieveMertensPrimeTail_eq_pntBulk_add_error
     (y x : ℕ) :
     primeSieveMertensPrimeTail y x =
@@ -86,8 +85,8 @@ theorem primeSieveMertensPrimeTail_eq_pntBulk_add_error
   intro q hq
   by_cases hp : q.Prime
   · simp [hp]
-  · simp [hp]
     ring
+  · simp [hp]
 
 /-- The all-plus sieve state after subtracting twice the deterministic PNT bulk.
 The factor two is the exact sign change between an unresolved source and its
@@ -96,7 +95,7 @@ def primeSievePNTCorrectedAllPlusMass (y x : ℕ) : ℂ :=
   allPlusPrimeCombPrefixMass y x - 2 * primeSievePNTBulk y x
 
 /-- Once the prime cutoff is strictly above `sqrt x`, Mertens is the PNT-corrected
-all-plus state minus twice the centered prime-distribution error. -/
+all-plus state minus twice the prime-distribution error. -/
 theorem mertensSummatory_eq_pntCorrectedAllPlus_sub_two_error
     (y x : ℕ) (hroot : Nat.sqrt x < y) :
     mertensSummatory x =
@@ -168,20 +167,21 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_mertensCenter
     RHLean.Proof.primorialWheel_residual_cast_eq_mertens_sub_le
       k hblock le_rfl] at hsample
   unfold primorialSquareZeroModeCenter
-  linear_combination hsample
+  rw [eq_sub_iff_add_eq]
+  exact hsample.symm
 
 /-- Zero-mode centered all-plus prime-sieve response at the block-safe cutoff. -/
 def primorialAllPlusPrimeSieveCenteredResponse (k n : ℕ) : ℂ :=
   primorialSquareZeroModeCenter k n
     (fun x => allPlusPrimeCombPrefixMass (primorialPNTPrimeSieveCutoff k) x)
 
-/-- The deterministic first-order PNT bulk after the *same* square-wheel
-zero-mode centering used in `H_{k,n}`. -/
+/-- The deterministic PNT bulk after the *same* square-wheel zero-mode centering
+used in `H_{k,n}`. -/
 def primorialPNTBulkCenteredResponse (k n : ℕ) : ℂ :=
   primorialSquareZeroModeCenter k n
     (fun x => primeSievePNTBulk (primorialPNTPrimeSieveCutoff k) x)
 
-/-- The prime-indicator-minus-PNT-density error after the same square-wheel
+/-- The prime-indicator-minus-Li-density error after the same square-wheel
 zero-mode centering. -/
 def primorialPNTErrorCenteredResponse (k n : ℕ) : ℂ :=
   primorialSquareZeroModeCenter k n
@@ -262,5 +262,22 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_allPlus_sub_pntBulk_sub_er
   rw [primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_error
     k n hlower hupper]
   rw [primorialPNTCorrectedCombCenteredResponse_eq_allPlus_sub_two_bulk]
+
+/-- Exact norm transfer from the PNT-centered decomposition to the canonical
+nonzero response.  Any bounds for the corrected centered comb and centered
+prime error combine without losing the signed decomposition. -/
+theorem norm_primorialMinimalSquareWheelNonzeroResponse_le_pntCentered
+    (k n : ℕ)
+    (hlower : primorialBlockLower k < squarePrefixEndpoint n)
+    (hupper : squarePrefixEndpoint n ≤ primorialBlockUpper k) :
+    ‖squareWheelNonzeroSampleResponse (primorialMinimalWheelSystem k) n‖ ≤
+      ‖primorialPNTCorrectedCombCenteredResponse k n‖ +
+        2 * ‖primorialPNTErrorCenteredResponse k n‖ := by
+  rw [primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_error
+    k n hlower hupper]
+  simpa [norm_mul] using
+    (norm_sub_le
+      (primorialPNTCorrectedCombCenteredResponse k n)
+      (2 * primorialPNTErrorCenteredResponse k n))
 
 end RHLean.Analysis
