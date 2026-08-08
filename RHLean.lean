@@ -18,6 +18,7 @@ import RHLean.Analysis.LogWeightedPrimeExtensionEndpoint
 import RHLean.Analysis.LogWeightedPrimeExtensionFiber
 import RHLean.Analysis.MathlibMertensHook
 import RHLean.Analysis.MertensEnergyCriterion
+import RHLean.Analysis.MertensEnergyRHForward
 import RHLean.Analysis.MertensMellinContinuation
 import RHLean.Analysis.MertensMellinLSeriesBridge
 import RHLean.Analysis.MertensPowerGrowth
