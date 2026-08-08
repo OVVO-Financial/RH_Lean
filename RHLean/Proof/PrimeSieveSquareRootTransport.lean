@@ -1,32 +1,32 @@
 import Mathlib
-import RHLean.Arithmetic.PrimeWheelMobiusRecovery
-import RHLean.Arithmetic.PrimesUpToFrontier
+import RHLean.Proof.PrimeSievePostSqrtGap
 import RHLean.Analysis.SquareRootTransportRealization
 
 /-!
 # Elementary prime-sieve realization of square-root transport
 
-This module reconnects the square-root smooth/transport decomposition to the
-prime-by-prime sign-flip mechanism from which the Mobius parity originates.
+The generic post-square-root sieve theorem in `PrimeSievePostSqrtGap` states
+that, after all primes through `y > sqrt x` have acted in the all-plus comb, the
+remaining discrepancy from `M(x)` is exactly twice the lower-scale Mertens tail
+carried by primes above `y`.
 
-The existing prime-wheel field `seededPrimeComb S n` starts from the provisional
-seed `-1`.  Negating it gives the all-plus process: start every positive site at
-`+1`, then for each processed prime flip first-power multiples and kill square
-multiples.  Once the processed prime set covers the square root of the ambient
-cutoff, every unresolved squarefree source has exactly one unprocessed prime
-factor.  Its current all-plus sign is therefore the negative of its final Mobius
-sign.
+This module specializes that elementary process to the complete square endpoint
 
-At the complete square endpoint `R^2 - 1`, this elementary unresolved mass is
-exactly the repository's original square-root transport term.  Thus the two
-states are
+```text
+x = R^2 - 1,   y = R,
+```
+
+and identifies the resulting pre-large-prime state with the original
+square-block smooth/transport variables:
 
 ```text
 before the remaining large-prime flips:  A_R + T_R
 after all prime flips:                  A_R - T_R = M(R^2-1).
 ```
 
-No analytic estimate is used or claimed.
+Thus the transport term is literally half the gap between those two finite
+prime-sieve states, while the smooth term is half their sum.  No analytic
+estimate is used or claimed.
 -/
 
 noncomputable section
@@ -37,87 +37,11 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 
-/-- All-plus prime-comb state.  The special value at zero is set to zero so
-prefix sums agree literally with the usual Mertens convention `mu(0)=0`. -/
-def allPlusPrimeCombSite (S : Finset ℕ) (n : ℕ) : ℤ :=
-  if n = 0 then 0 else -seededPrimeComb S n
-
 /-- Sum of the all-plus prime-comb state over a complete square prefix after all
 primes at most `R` have acted. -/
 def allPlusSquareRootPrimeCombMass (R : ℕ) : ℂ :=
   ∑ m ∈ cumulativeSquarePrefixSet (R - 1),
     (((allPlusPrimeCombSite (primesUpTo R) m : ℤ) : ℂ))
-
-/-- `primesUpTo y` covers every prime coordinate through `sqrt upper` whenever
-that square-root cutoff is at most `y`. -/
-theorem primesUpTo_sqrtCoverage
-    {y upper : ℕ} (hsqrt : Nat.sqrt upper ≤ y) :
-    PrimeWheelSqrtCoverage (primesUpTo y) upper := by
-  intro p hp hple
-  exact mem_primesUpTo.mpr ⟨hp, hple.trans hsqrt⟩
-
-/-- Pointwise meaning of the all-plus process after square-root coverage: smooth
-squarefree sources already have their final Mobius sign, while a squarefree
-source with one unresolved large prime has the opposite sign.  Nonsquarefree
-sources are zero on both sides. -/
-theorem allPlusPrimeCombSite_eq_moebius_or_neg
-    (S : Finset ℕ) {upper n : ℕ}
-    (hprime : ∀ p ∈ S, Nat.Prime p)
-    (hcover : PrimeWheelSqrtCoverage S upper)
-    (hnpos : 0 < n) (hnupper : n ≤ upper) :
-    allPlusPrimeCombSite S n =
-      if IsPrimeWheelSmooth S n then μ n else -μ n := by
-  classical
-  by_cases hsq : Squarefree n
-  · by_cases hsmooth : IsPrimeWheelSmooth S n
-    · have hseed := seededPrimeComb_eq_neg_moebius_of_smooth S hprime hsmooth
-      simp [allPlusPrimeCombSite, Nat.ne_of_gt hnpos, hsmooth, hseed]
-    · have hseed := seededPrimeComb_eq_moebius_of_not_smooth
-        S hprime hcover hsq hnupper hsmooth
-      simp [allPlusPrimeCombSite, Nat.ne_of_gt hnpos, hsmooth, hseed]
-  · have hseed := seededPrimeComb_eq_zero_of_not_squarefree
-      S hcover hnpos hnupper hsq
-    have hmu := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-    have hsmooth : ¬ IsPrimeWheelSmooth S n := by
-      intro h
-      exact hsq h.1
-    simp [allPlusPrimeCombSite, Nat.ne_of_gt hnpos, hsmooth, hseed, hmu]
-
-private theorem primeFactor_le_canonicalLargestPrimeFactor
-    {n p : ℕ} (hn : 1 < n) (hp : p ∈ n.primeFactors) :
-    p ≤ canonicalLargestPrimeFactor n := by
-  unfold canonicalLargestPrimeFactor
-  rw [dif_pos hn]
-  exact Finset.le_max' n.primeFactors p hp
-
-private theorem canonicalLargestPrimeFactor_mem_primeFactors
-    {n : ℕ} (hn : 1 < n) :
-    canonicalLargestPrimeFactor n ∈ n.primeFactors := by
-  unfold canonicalLargestPrimeFactor
-  rw [dif_pos hn]
-  exact Finset.max'_mem n.primeFactors (Nat.nonempty_primeFactors.mpr hn)
-
-/-- For a positive squarefree source and a nontrivial cutoff, smoothness with
-respect to every prime at most `R` is exactly the condition that its canonical
-largest prime factor is at most `R`. -/
-theorem isPrimeWheelSmooth_primesUpTo_iff_largestPrime_le
-    {R n : ℕ} (hR : 1 ≤ R) (hnpos : 0 < n) (hsq : Squarefree n) :
-    IsPrimeWheelSmooth (primesUpTo R) n ↔
-      canonicalLargestPrimeFactor n ≤ R := by
-  by_cases hn1 : n = 1
-  · subst n
-    simp [IsPrimeWheelSmooth, canonicalLargestPrimeFactor, hR]
-  · have hn : 1 < n := by omega
-    constructor
-    · intro hsmooth
-      have hqmem := canonicalLargestPrimeFactor_mem_primeFactors hn
-      exact (mem_primesUpTo.mp (hsmooth.2 _ hqmem)).2
-    · intro hq
-      refine ⟨hsq, ?_⟩
-      intro p hp
-      have hpPrime := (Nat.mem_primeFactors.mp hp).1
-      have hpq := primeFactor_le_canonicalLargestPrimeFactor hn hp
-      exact mem_primesUpTo.mpr ⟨hpPrime, hpq.trans hq⟩
 
 private theorem squareRootEndpoint_sqrt_lt
     {R : ℕ} (hR : 1 ≤ R) :
@@ -203,9 +127,9 @@ theorem allPlusSquareRootPrimeCombMass_add_mertens_eq_two_smooth
   rw [squarePrefixMertens_eq_squareRootSmooth_sub_transport]
   ring
 
-/-- Prime-first form of the same gap.  The transport is literally the batch sum
-of lower-scale Mertens values carried by the as-yet unprocessed primes `q > R`.
--/
+/-- Prime-first form of the same square-endpoint gap.  The transport is
+literally the batch sum of lower-scale Mertens values carried by the as-yet
+unprocessed primes `q > R`. -/
 theorem allPlusSquareRootPrimeCombMass_sub_mertens_eq_mertensPrimeTail
     (R : ℕ) (hR : 2 ≤ R) :
     allPlusSquareRootPrimeCombMass R -
@@ -220,5 +144,17 @@ theorem allPlusSquareRootPrimeCombMass_sub_mertens_eq_mertensPrimeTail
   rw [squareRootTransportMass_pred_eq_cofactorFirst R (by omega)]
   rw [squareRootTransportCofactorFirst_eq_primeFirst]
   rw [squareRootTransportPrimeFirst_eq_mertensTransform R (by omega)]
+
+/-- The square-endpoint prime tail is the specialization of the generic
+post-square-root transport batch. -/
+theorem primeSieveMertensPrimeTail_squareRootEndpoint
+    (R : ℕ) :
+    primeSieveMertensPrimeTail R (squareRootEndpoint R) =
+      ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+        if q.Prime then
+          RHLean.Analysis.mertensSummatory (squareRootEndpoint R / q)
+        else
+          0 := by
+  rfl
 
 end RHLean.Proof
