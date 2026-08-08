@@ -21,6 +21,7 @@ namespace RHLean.Proof
 namespace TerminalMertensForward
 
 open RHLean.Analysis
+open CanonicalGapAncestryQuadraticClosure
 open TerminalMertensReduction
 
 /-- The previously external forward Mertens criterion is now constructed from
