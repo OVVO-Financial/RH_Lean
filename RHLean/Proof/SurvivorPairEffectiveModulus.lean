@@ -178,8 +178,14 @@ theorem mem_survivorResidueCollisionPairSet_iff_heightGap
           s ∣ survivorPairHeightGap c q c' q' := by
   classical
   simp only [survivorResidueCollisionPairSet, Finset.mem_filter]
-  rw [survivorHeightResidue_eq_iff_dvd_pairHeightGap]
-  tauto
+  constructor
+  · rintro ⟨hprod, hres⟩
+    have hp := Finset.mem_product.mp hprod
+    exact ⟨hp.1, hp.2,
+      (survivorHeightResidue_eq_iff_dvd_pairHeightGap s c q c' q').mp hres⟩
+  · rintro ⟨hq, hq', hgap⟩
+    exact ⟨Finset.mem_product.mpr ⟨hq, hq'⟩,
+      (survivorHeightResidue_eq_iff_dvd_pairHeightGap s c q c' q').mpr hgap⟩
 
 /-- Low effective conductor is exactly collision modulo the rough Farey
 denominator.  This is the direct resonance-to-collision bridge needed by the
