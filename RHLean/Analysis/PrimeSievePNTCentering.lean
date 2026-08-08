@@ -86,7 +86,6 @@ theorem primeSieveMertensPrimeTail_eq_pntBulk_add_error
   intro q hq
   by_cases hp : q.Prime
   · simp [hp]
-    ring
   · simp [hp]
     ring
 
@@ -159,7 +158,9 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_mertensCenter
       (primorialMinimalWheelSystem k).residual (primorialBlockUpper k) =
         (primorialWheelSystem k).residual (primorialBlockUpper k) :=
     primorialMinimalWheel_residual_eq_primorialWheel_residual k le_rfl
-  rw [hminSample, hminUpper] at hsample
+  have hupperSys :
+      (primorialMinimalWheelSystem k).upper = primorialBlockUpper k := rfl
+  rw [hupperSys, hminSample, hminUpper] at hsample
   have hblock : primorialBlockLower k ≤ primorialBlockUpper k :=
     (primorialEndpoint_strictMono (Nat.lt_succ_self k)).le
   rw [RHLean.Proof.primorialWheel_residual_cast_eq_mertens_sub_le
@@ -239,12 +240,12 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_error
   have huM :=
     mertensSummatory_eq_pntCorrectedAllPlus_sub_two_error
       y (primorialBlockUpper k) huroot
-  unfold primorialSquareZeroModeCenter
-    primorialPNTCorrectedCombCenteredResponse
+  unfold primorialPNTCorrectedCombCenteredResponse
     primorialPNTErrorCenteredResponse
+    primorialSquareZeroModeCenter
   dsimp [y] at hxM hlM huM ⊢
   rw [hxM, hlM, huM]
-  ring
+  ring_nf
 
 /-- Fully expanded three-term form: `H_{k,n}` is the centered all-plus comb,
 minus the deterministic PNT bulk, minus the residual prime-distribution error.
@@ -261,6 +262,5 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_allPlus_sub_pntBulk_sub_er
   rw [primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_error
     k n hlower hupper]
   rw [primorialPNTCorrectedCombCenteredResponse_eq_allPlus_sub_two_bulk]
-  ring
 
 end RHLean.Analysis
