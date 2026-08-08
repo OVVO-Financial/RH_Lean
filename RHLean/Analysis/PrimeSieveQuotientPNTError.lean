@@ -152,7 +152,7 @@ theorem sum_mertens_div_eq_quotientFibers
           a q * mertensSummatory d := by
       apply Finset.sum_congr rfl
       intro d hd
-      simp [primeSieveQuotientFiber]
+      rw [primeSieveQuotientFiber, Finset.sum_filter]
     _ = ∑ d ∈ primeSieveQuotientSupport y x,
         (∑ q ∈ primeSieveQuotientFiber y x d, a q) *
           mertensSummatory d := by
@@ -192,7 +192,6 @@ theorem sum_primeSievePNTDensity_Ioc
       · rw [Finset.sum_Ioc_succ_top h]
         rw [ih h]
         simp [primeSievePNTDensity]
-        ring
       · have ha : a = b + 1 := by omega
         subst a
         simp [primeSievePNTDensity]
@@ -214,8 +213,9 @@ theorem sum_primeSievePNTDensity_reciprocalInterval
       primeSieveReciprocalLiMass y x d := by
   by_cases h : primeSieveReciprocalLower y x d ≤
       primeSieveReciprocalUpper x d
-  · rw [sum_primeSievePNTDensity_Ioc h]
-    simp [primeSieveReciprocalInterval, primeSieveReciprocalLiMass, h]
+  · unfold primeSieveReciprocalInterval
+    rw [sum_primeSievePNTDensity_Ioc h]
+    simp [primeSieveReciprocalLiMass, h]
   · have hle : primeSieveReciprocalUpper x d ≤
         primeSieveReciprocalLower y x d := by omega
     rw [primeSieveReciprocalInterval, Finset.Ioc_eq_empty_of_le hle]
@@ -351,9 +351,7 @@ theorem primorialPNTErrorCenteredResponse_eq_reciprocal
   unfold primorialPNTErrorCenteredResponse
     primorialReciprocalPNTErrorCenteredResponse
     primorialSquareZeroModeCenter
-  rw [primeSievePNTError_eq_reciprocalPNTError,
-    primeSievePNTError_eq_reciprocalPNTError,
-    primeSievePNTError_eq_reciprocalPNTError]
+  simp only [primeSievePNTError_eq_reciprocalPNTError]
 
 /-- **Reciprocal-interval form of `H_{k,n}`.**  The remaining prime-distribution
 term is exactly the centered weighted family of classical prime-count-minus-Li
