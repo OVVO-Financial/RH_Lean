@@ -23,7 +23,7 @@ namespace RHLean.Analysis
 /-- Divisors of `D` that are multiples of `d` are exactly `d` times the
 divisors of `D / d`. -/
 private theorem upperDivisors_eq_image
-    {d D : ℕ} (hd : d ∣ D) (hdpos : 0 < d) (hD : D ≠ 0) :
+    {d D : ℕ} (hd : d ∣ D) (hD : D ≠ 0) :
     D.divisors.filter (fun q => d ∣ q) =
       (D / d).divisors.image (fun r => d * r) := by
   classical
@@ -50,7 +50,7 @@ theorem sum_moebius_upper_divisors_eq_one_or_zero
       if d = D then 1 else 0 := by
   classical
   rw [← Finset.sum_filter]
-  rw [upperDivisors_eq_image hd hdpos hD]
+  rw [upperDivisors_eq_image hd hD]
   have hinj :
       Set.InjOn (fun r : ℕ => d * r) ((D / d).divisors : Set ℕ) := by
     intro a ha b hb hab
@@ -60,7 +60,8 @@ theorem sum_moebius_upper_divisors_eq_one_or_zero
   rw [sum_moebius_divisors_eq_one_or_zero]
   by_cases hEq : d = D
   · subst D
-    simp [hdpos.ne']
+    rw [Nat.div_self hdpos]
+    simp
   · have hquot : D / d ≠ 1 := by
       intro h
       have hprod : d * (D / d) = D := Nat.mul_div_cancel' hd
@@ -90,7 +91,7 @@ theorem sum_complex_moebius_upper_divisors_ambient_eq_one_or_zero
         if d = D then 1 else 0 := by
   classical
   by_cases hdD : d ∣ D
-  · have hD : D ≠ 0 := Nat.ne_zero_of_dvd_ne_zero hN hDN
+  · have hD : D ≠ 0 := ne_zero_of_dvd_ne_zero hN hDN
     calc
       (∑ q ∈ N.divisors,
         if d ∣ q then
