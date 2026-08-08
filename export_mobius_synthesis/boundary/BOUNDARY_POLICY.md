@@ -62,6 +62,11 @@ own edited copy of `scripts/check_boundary_advance.py` decide the current PR.
 The Lean build runs with no GitHub token exported to the build step. The boundary
 contract itself is also rejected if modified in the same research PR.
 
+After the witness type-checks, the workflow runs `#print axioms` on the witness
+and rejects any dependency outside Lean's standard logical axioms `propext`,
+`Classical.choice`, and `Quot.sound`. In particular, a contributor cannot make a
+fresh axiom whose type is the desired bound and use that as a boundary advance.
+
 ## Repository settings
 
 For the standalone `mobius-synthesis` repository, protect the default branch and
