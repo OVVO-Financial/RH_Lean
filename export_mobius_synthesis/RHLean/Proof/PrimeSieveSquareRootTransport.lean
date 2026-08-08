@@ -69,7 +69,8 @@ theorem allPlusSquareRootPrimeCombMass_eq_smooth_add_transport
     intro p hp
     exact prime_of_mem_primesUpTo hp
   unfold allPlusSquareRootPrimeCombMass squareRootSmoothMass squareRootTransportMass
-  rw [hpred, ← Finset.sum_add_distrib]
+  rw [hpred]
+  rw [← Finset.sum_neg_distrib, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro m hm
   by_cases hm0 : m = 0
@@ -81,27 +82,28 @@ theorem allPlusSquareRootPrimeCombMass_eq_smooth_add_transport
     have hmUpper : m ≤ squareRootEndpoint R := by
       unfold squareRootEndpoint
       omega
-    have hsite := allPlusPrimeCombSite_eq_moebius_or_neg
-      (primesUpTo R) hprime hcover hmpos hmUpper
     by_cases hsq : Squarefree m
     · have hsmoothIff :=
         isPrimeWheelSmooth_primesUpTo_iff_largestPrime_le hR1 hmpos hsq
       by_cases hq : canonicalLargestPrimeFactor m ≤ R
       · have hsmooth : IsPrimeWheelSmooth (primesUpTo R) m := hsmoothIff.mpr hq
+        have hsite := allPlusPrimeCombSite_eq_moebius_of_smooth
+          (primesUpTo R) hprime hmpos hsmooth
         rw [hsite]
-        simp [hsmooth, hq, canonicalMoebiusWeight]
+        simp [hq, canonicalMoebiusWeight]
       · have hsmooth : ¬ IsPrimeWheelSmooth (primesUpTo R) m := by
           intro hs
           exact hq (hsmoothIff.mp hs)
         have hqgt : R < canonicalLargestPrimeFactor m := Nat.lt_of_not_ge hq
+        have hsite := allPlusPrimeCombSite_eq_neg_moebius_of_not_smooth
+          (primesUpTo R) hprime hcover hsq hmUpper hsmooth
         rw [hsite]
-        simp [hsmooth, hq, hqgt, canonicalMoebiusWeight]
+        simp [hq, hqgt, canonicalMoebiusWeight]
     · have hmu := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-      have hsmooth : ¬ IsPrimeWheelSmooth (primesUpTo R) m := by
-        intro hs
-        exact hsq hs.1
+      have hsite := allPlusPrimeCombSite_eq_zero_of_not_squarefree
+        (primesUpTo R) hcover hmpos hmUpper hsq
       rw [hsite]
-      simp [hsmooth, hmu, canonicalMoebiusWeight]
+      simp [hmu, canonicalMoebiusWeight]
 
 /-- Exact elementary gap identity at a complete square endpoint: the difference
 between the state before and after the remaining large-prime flips is twice the
