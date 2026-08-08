@@ -23,6 +23,7 @@ import RHLean.Analysis.MertensMellinLSeriesBridge
 import RHLean.Analysis.MertensPowerGrowth
 import RHLean.Analysis.MertensStepFunction
 import RHLean.Analysis.MertensStepGrowth
+import RHLean.Analysis.MertensZetaIdentityContinuation
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
