@@ -204,6 +204,8 @@ import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.OrthogonalResidual
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
 import RHLean.Proof.PrimeCombWheelBoundary
+import RHLean.Proof.PrimeSievePostSqrtGap
+import RHLean.Proof.PrimeSieveSquareRootTransport
 import RHLean.Proof.RealSquareBlockIncrements
 import RHLean.Proof.ReducedSquareClassMod40
 import RHLean.Proof.ResonantCofactorCancellation

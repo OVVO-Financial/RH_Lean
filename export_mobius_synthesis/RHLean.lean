@@ -204,6 +204,8 @@ import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.OrthogonalResidual
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
 import RHLean.Proof.PrimeCombWheelBoundary
+import RHLean.Proof.PrimeSievePostSqrtGap
+import RHLean.Proof.PrimeSieveSquareRootTransport
 import RHLean.Proof.RealSquareBlockIncrements
 import RHLean.Proof.ReducedSquareClassMod40
 import RHLean.Proof.ResonantCofactorCancellation
@@ -222,6 +224,15 @@ import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Proof.SquareRootAncestryRoot
 import RHLean.Proof.SquareRootAncestrySuccessor
+import RHLean.Proof.SurvivorDyadicStaticCancellation
+import RHLean.Proof.SurvivorLargePrimeRootBoundary
+import RHLean.Proof.SurvivorPairEffectiveModulus
+import RHLean.Proof.SurvivorPrimeFaceFrontier
+import RHLean.Proof.SurvivorPrimeFaceRealization
+import RHLean.Proof.SurvivorResidueCollisionReindex
+import RHLean.Proof.SurvivorResidueCovariance
+import RHLean.Proof.SurvivorResidueCovarianceCriterion
+import RHLean.Proof.SurvivorResiduePrimeToggle
 import RHLean.Proof.SurvivorZeroMode
 import RHLean.Proof.SymmetricPrimeExtension
 import RHLean.Proof.TerminalAxiomAudit
