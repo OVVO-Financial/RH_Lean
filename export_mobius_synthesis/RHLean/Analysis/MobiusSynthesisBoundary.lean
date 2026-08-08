@@ -2,16 +2,19 @@ import Mathlib
 import RHLean.Analysis.SquareWheelQuantitativeBridge
 
 /-!
-# Möbius synthesis boundary contract
+# Möbius synthesis quantitative boundary contract
 
-This module gives the synthesis endpoint a single canonical quantitative
-interface.  Pull requests are not credited for introducing another exact
-representation of the nonzero response.  They advance the analytic frontier
-only by proving a stronger instance of the pointwise power-bound predicate
-below, or by proving the full RH-scale predicate.
+This module defines the strict quantitative lane of the synthesis PR gate. A
+pull request that claims analytic improvement of the remaining nonzero response
+must prove a stronger instance of the pointwise power-bound predicate below, or
+prove the full RH-scale predicate.
 
-The underlying response is the already isolated nonzero square-wheel response
-`H_{k,n}` represented by `squareWheelNonzeroSampleResponse`.
+This is no longer the only accepted research lane. Exact theorems may also be
+accepted by the separate cross-track synthesis policy when they genuinely invoke
+both square-block and prime-wheel machinery in synthesis form.
+
+The quantitative object remains the already isolated nonzero square-wheel
+response `H_{k,n}` represented by `squareWheelNonzeroSampleResponse`.
 -/
 
 noncomputable section

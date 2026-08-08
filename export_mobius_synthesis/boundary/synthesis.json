@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "revision": 0,
+  "last_witness": null,
+  "description": "Monotone ledger for exact cross-track synthesis theorems. Increment once for each accepted theorem that directly invokes pre-existing square-block and prime-wheel anchors."
+}

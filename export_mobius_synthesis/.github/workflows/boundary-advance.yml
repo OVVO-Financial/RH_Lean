@@ -34,7 +34,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Evaluate strict frontier transition
+      - name: Evaluate research certificate
         id: policy
         run: |
           python /tmp/check_boundary_advance.py \
@@ -42,7 +42,8 @@ jobs:
             --base-sha "${{ github.event.pull_request.base.sha }}" \
             --head-sha "${{ github.event.pull_request.head.sha }}" \
             --github-output "$GITHUB_OUTPUT" \
-            --lean-check-file /tmp/mobius_boundary_witness.lean
+            --lean-check-file /tmp/mobius_boundary_witness.lean \
+            --audit-spec-file /tmp/mobius_boundary_audit.json
 
       - name: Set up Lean and Mathlib
         if: steps.policy.outputs.needs_lean == 'true'
@@ -61,7 +62,7 @@ jobs:
           GH_TOKEN: ""
         run: lake build RHLean --wfail
 
-      - name: Type-check canonical boundary witness
+      - name: Type-check research witness
         if: steps.policy.outputs.needs_lean == 'true'
         env:
           GITHUB_TOKEN: ""
@@ -70,8 +71,9 @@ jobs:
           set -o pipefail
           lake env lean /tmp/mobius_boundary_witness.lean 2>&1 | tee /tmp/mobius_boundary_witness.log
 
-      - name: Reject nonstandard axiom dependencies
+      - name: Audit synthesis coupling and axioms
         if: steps.policy.outputs.needs_lean == 'true'
         run: |
           python /tmp/check_boundary_advance.py \
-            --audit-axioms-log /tmp/mobius_boundary_witness.log
+            --audit-witness-log /tmp/mobius_boundary_witness.log \
+            --audit-spec-file /tmp/mobius_boundary_audit.json
