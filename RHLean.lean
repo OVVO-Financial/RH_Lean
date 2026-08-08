@@ -225,6 +225,7 @@ import RHLean.Proof.SquareRootAncestrySuccessor
 import RHLean.Proof.SurvivorDyadicStaticCancellation
 import RHLean.Proof.SurvivorPairEffectiveModulus
 import RHLean.Proof.SurvivorPrimeFaceFrontier
+import RHLean.Proof.SurvivorPrimeFaceRealization
 import RHLean.Proof.SurvivorResidueCollisionReindex
 import RHLean.Proof.SurvivorResidueCovariance
 import RHLean.Proof.SurvivorResidueCovarianceCriterion
