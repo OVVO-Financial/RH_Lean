@@ -45,8 +45,6 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 
-local attribute [instance] Classical.propDecidable
-
 /-- Prime coordinates available to a canonical cofactor below distinguished
 prime `q`. -/
 def survivorPrimeFaceAmbient (q : ℕ) : Finset ℕ :=
@@ -78,6 +76,13 @@ def survivorPrimeFaceHigh
   survivorPrimeFaceProductPrefix n q u ∧
     2 * Λ * (n : ℝ) <
       |(q : ℝ) ^ 2 - (primeFaceProduct u : ℝ) ^ 2|
+
+/-- Integer-valued proposition indicator.  Keeping the classical decision
+inside this noncomputable definition avoids placing a `Decidable` obligation in
+public theorem signatures. -/
+noncomputable def survivorPrimeFaceIndicator (P : Prop) : ℤ := by
+  classical
+  exact if P then 1 else 0
 
 private theorem survivorPrimeFaceProduct_mono
     {q : ℕ} {u v : Finset ℕ}
@@ -133,11 +138,12 @@ theorem survivorPrimeFaceBelowSmoothPrefix_downward
 three monotone predicates. -/
 theorem survivorPrimeFaceHigh_indicator_decomposition
     (Λ : ℝ) (n q : ℕ) (u : Finset ℕ) (hΛ : 0 ≤ Λ) :
-    (if survivorPrimeFaceHigh Λ n q u then (1 : ℤ) else 0) =
-      (if survivorPrimeFaceTransportPrefix Λ n q u then 1 else 0) +
-        (if survivorPrimeFaceProductPrefix n q u then 1 else 0) -
-          (if survivorPrimeFaceBelowSmoothPrefix Λ n q u then 1 else 0) := by
+    survivorPrimeFaceIndicator (survivorPrimeFaceHigh Λ n q u) =
+      survivorPrimeFaceIndicator (survivorPrimeFaceTransportPrefix Λ n q u) +
+        survivorPrimeFaceIndicator (survivorPrimeFaceProductPrefix n q u) -
+          survivorPrimeFaceIndicator (survivorPrimeFaceBelowSmoothPrefix Λ n q u) := by
   classical
+  unfold survivorPrimeFaceIndicator
   let H : ℝ := 2 * Λ * (n : ℝ)
   let c : ℝ := (primeFaceProduct u : ℝ)
   have hH : 0 ≤ H := by
@@ -159,8 +165,7 @@ theorem survivorPrimeFaceHigh_indicator_decomposition
         nlinarith
       rw [if_pos ha, if_pos htransport, if_pos hp, if_pos hbelow]
       norm_num
-    · have hqside : (q : ℝ) ^ 2 - c ^ 2 ≤ H := le_of_not_gt ht
-      by_cases hs : H < c ^ 2 - (q : ℝ) ^ 2
+    · by_cases hs : H < c ^ 2 - (q : ℝ) ^ 2
       · have hx : (q : ℝ) ^ 2 - c ^ 2 ≤ 0 := by linarith
         have ha : survivorPrimeFaceHigh Λ n q u := by
           refine ⟨hp, ?_⟩
@@ -178,6 +183,7 @@ theorem survivorPrimeFaceHigh_indicator_decomposition
         rw [if_pos ha, if_neg htransport, if_pos hp, if_neg hbelow]
         norm_num
       · have hsle : c ^ 2 - (q : ℝ) ^ 2 ≤ H := le_of_not_gt hs
+        have hqside : (q : ℝ) ^ 2 - c ^ 2 ≤ H := le_of_not_gt ht
         have habs : |(q : ℝ) ^ 2 - c ^ 2| ≤ H := by
           apply abs_le.mpr
           constructor <;> linarith
@@ -225,8 +231,9 @@ theorem survivorPrimeFaceHigh_alternatingMass_decomposition
       apply Finset.sum_congr rfl
       intro u _hu
       have hind := survivorPrimeFaceHigh_indicator_decomposition Λ n q u hΛ
+      unfold survivorPrimeFaceIndicator at hind
       have hscaled := congrArg (fun z : ℤ => z * booleanCubeSign u) hind
-      simpa [sub_mul, add_mul] using hscaled
+      simpa [add_mul, sub_mul] using hscaled
     _ =
       (∑ u ∈ (survivorPrimeFaceAmbient q).powerset,
         if survivorPrimeFaceTransportPrefix Λ n q u then booleanCubeSign u else 0) +
