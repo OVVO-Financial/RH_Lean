@@ -11,9 +11,7 @@ This repository groups integers between consecutive squares and studies how cano
 ## Why square blocks?
 
 - **Square blocks**: partitioning the integers into intervals between consecutive squares. This exposes a natural **lifetime flow**: arithmetic contributions are born, persist across a controlled range of blocks, and eventually disappear. The resulting decomposition shows that the Mertens path is essentially determined by its values at square endpoints, with only the elementary within-block interpolation cost remaining.
-- **Exact square-root cutoff**: at
-  $ X_n=(n+1)^2-1,$
-  a squarefree integer cannot contain two prime factors larger than `n+1`. This gives an exact one-large-prime decomposition rather than an approximation.
+- **Exact square-root cutoff**: at $X_n=(n+1)^2-1$, a squarefree integer cannot contain two prime factors larger than $n+1$. This gives an exact one-large-prime decomposition rather than an approximation.
 - **Canonical factor geometry**: every nontrivial squarefree source has a unique largest-prime factorization
   $$
   m=cq,\qquad q=P^+(m),
@@ -46,7 +44,7 @@ $$
 Y_m=\frac{q_m^2-c_m^2}{2}.
 $$
 
-For fixed `Λ > 0`, low height has uniformly bounded occupancy in each square block. Consequently the cumulative low sector is controlled without using Möbius cancellation. The unresolved cancellation can therefore be isolated in the high sector.
+For fixed $\Lambda>0$, low height has uniformly bounded occupancy in each square block. Consequently the cumulative low sector is controlled without using Möbius cancellation. The unresolved cancellation can therefore be isolated in the high sector.
 
 Following high sources through their lifetimes gives
 
@@ -54,7 +52,7 @@ $$
 \boxed{S_t^{\mathrm{high}}(\Lambda)=Z_\Lambda(t)+D_\Lambda(t),}
 $$
 
-where the accumulated death mass `D_Λ` already satisfies the required local-energy scale. The remaining active survivor is the explicit signed cofactor operator
+where the accumulated death mass $D_\Lambda$ already satisfies the required local-energy scale. The remaining active survivor is the explicit signed cofactor operator
 
 $$
 \boxed{
@@ -73,15 +71,15 @@ The remaining survivor power-saving estimate is stated explicitly as an **open t
 
 Two endpoint support facts are kept separate:
 
-1. because every canonical prime satisfies `q ≥ 2`, every canonical cofactor below `x` satisfies
+1. because every canonical prime satisfies $q\ge 2$, every canonical cofactor below $x$ satisfies
    $$
    c\le \lfloor x/2\rfloor;
    $$
-2. if `m ≤ x` is composite, then
+2. if $m\le x$ is composite, then
    $$
    P^+(m)\le \lfloor x/2\rfloor.
    $$
-   Equivalently, if `P^+(m) > floor(x/2)`, then `c=1` and `m` itself is prime.
+   Equivalently, if $P^+(m)>\lfloor x/2\rfloor$, then $c=1$ and $m$ itself is prime.
 
 ## Machine-checked source
 
