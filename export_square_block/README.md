@@ -12,9 +12,7 @@ This repository groups integers between consecutive squares and studies how cano
 
 - **Square blocks**: partitioning the integers into intervals between consecutive squares. This exposes a natural **lifetime flow**: arithmetic contributions are born, persist across a controlled range of blocks, and eventually disappear. The resulting decomposition shows that the Mertens path is essentially determined by its values at square endpoints, with only the elementary within-block interpolation cost remaining.
 - **Exact square-root cutoff**: at
-  $$
-  X_n=(n+1)^2-1,
-  $$
+  $ X_n=(n+1)^2-1,$
   a squarefree integer cannot contain two prime factors larger than `n+1`. This gives an exact one-large-prime decomposition rather than an approximation.
 - **Canonical factor geometry**: every nontrivial squarefree source has a unique largest-prime factorization
   $$
