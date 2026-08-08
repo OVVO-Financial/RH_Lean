@@ -82,6 +82,7 @@ import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootTransportRealization
 import RHLean.Analysis.SquareWheelNesting
 import RHLean.Analysis.SquareWheelQuadraticSampling
+import RHLean.Analysis.SquareWheelQuantitativeBridge
 import RHLean.Analysis.SquareWheelZeroModeElimination
 import RHLean.Analysis.TwoABPrimeDilation
 import RHLean.Analysis.TwoABScaleTransfer
