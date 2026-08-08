@@ -90,15 +90,8 @@ theorem survivorPairEffectiveModulus_dvd_24_iff_roughDenominator_dvd
         (m := 2 * r) (n := a * Δ) (d := 24) h2r)
   have htwo :
       2 * r ∣ 24 * (a * Δ) ↔ r ∣ 12 * (a * Δ) := by
-    constructor
-    · intro h
-      have h' : 2 * r ∣ 2 * (12 * (a * Δ)) := by
-        simpa [Nat.mul_assoc] using h
-      exact (Nat.mul_dvd_mul_iff_left (by norm_num : 0 < 2)).mp h'
-    · intro h
-      have h' : 2 * r ∣ 2 * (12 * (a * Δ)) :=
-        (Nat.mul_dvd_mul_iff_left (by norm_num : 0 < 2)).mpr h
-      simpa [Nat.mul_assoc] using h'
+    rw [show 24 * (a * Δ) = 2 * (12 * (a * Δ)) by ring]
+    exact Nat.mul_dvd_mul_iff_left (by norm_num : 0 < 2)
   have hcancelA :
       r ∣ 12 * (a * Δ) ↔ r ∣ 12 * Δ := by
     constructor
