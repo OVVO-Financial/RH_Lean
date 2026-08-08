@@ -135,6 +135,7 @@ theorem survivorPrimeFaceHigh_indicator_decomposition
       (if survivorPrimeFaceTransportPrefix Λ n q u then 1 else 0) +
         (if survivorPrimeFaceProductPrefix n q u then 1 else 0) -
           (if survivorPrimeFaceBelowSmoothPrefix Λ n q u then 1 else 0) := by
+  classical
   let H : ℝ := 2 * Λ * (n : ℝ)
   let c : ℝ := (primeFaceProduct u : ℝ)
   have hH : 0 ≤ H := by
@@ -154,7 +155,8 @@ theorem survivorPrimeFaceHigh_indicator_decomposition
         refine ⟨hp, ?_⟩
         dsimp [H, c] at ht hH ⊢
         nlinarith
-      simp [ha, htransport, hp, hbelow]
+      rw [if_pos ha, if_pos htransport, if_pos hp, if_pos hbelow]
+      norm_num
     · have hqside : (q : ℝ) ^ 2 - c ^ 2 ≤ H := le_of_not_gt ht
       by_cases hs : H < c ^ 2 - (q : ℝ) ^ 2
       · have hx : (q : ℝ) ^ 2 - c ^ 2 ≤ 0 := by linarith
@@ -171,26 +173,31 @@ theorem survivorPrimeFaceHigh_indicator_decomposition
           have hb := h.2
           dsimp [H, c] at hs hb
           linarith
-        simp [ha, htransport, hp, hbelow]
+        rw [if_pos ha, if_neg htransport, if_pos hp, if_neg hbelow]
+        norm_num
       · have hsle : c ^ 2 - (q : ℝ) ^ 2 ≤ H := le_of_not_gt hs
         have habs : |(q : ℝ) ^ 2 - c ^ 2| ≤ H := by
           apply abs_le.mpr
           constructor <;> linarith
+        have habsOriginal :
+            |(q : ℝ) ^ 2 - (primeFaceProduct u : ℝ) ^ 2| ≤
+              2 * Λ * (n : ℝ) := by
+          simpa [H, c] using habs
         have ha : ¬ survivorPrimeFaceHigh Λ n q u := by
           intro h
-          have hh := h.2
-          dsimp [H, c] at hh
-          exact (not_lt_of_ge habs) hh
+          exact (not_lt_of_ge habsOriginal) h.2
         have htransport : ¬ survivorPrimeFaceTransportPrefix Λ n q u := by
           intro h
           exact ht (by simpa [H, c] using h.2)
         have hbelow : survivorPrimeFaceBelowSmoothPrefix Λ n q u := by
           exact ⟨hp, by simpa [H, c] using hsle⟩
-        simp [ha, htransport, hp, hbelow]
+        rw [if_neg ha, if_neg htransport, if_pos hp, if_pos hbelow]
+        norm_num
   · have ha : ¬ survivorPrimeFaceHigh Λ n q u := fun h => hp h.1
     have ht : ¬ survivorPrimeFaceTransportPrefix Λ n q u := fun h => hp h.1
     have hb : ¬ survivorPrimeFaceBelowSmoothPrefix Λ n q u := fun h => hp h.1
-    simp [ha, ht, hp, hb]
+    rw [if_neg ha, if_neg ht, if_neg hp, if_neg hb]
+    norm_num
 
 /-- The alternating mass of the full high selector is exactly the signed
 combination of three downward-closed cube masses. -/
