@@ -119,7 +119,7 @@ theorem norm_sq_survivorZeroMode_le_modulus_mul_diagonal_add_crossCovariance
   rw [← survivorResidueEnergy_eq_diagonal_add_crossCovariance]
   exact norm_sq_survivorZeroMode_le_modulus_mul_residueEnergy Λ t s
 
-/-- Unsheduled signed covariance budget at one positive modulus. -/
+/-- Unscheduled signed covariance budget at one positive modulus. -/
 def survivorResidueCovarianceBudgetAt
     (Λ : ℝ) (t s : ℕ) [NeZero s] : ℝ :=
   (s : ℝ) *
