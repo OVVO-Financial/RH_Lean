@@ -57,6 +57,7 @@ import RHLean.Analysis.QuadraticPhasePeriod
 import RHLean.Analysis.QuadraticPhaseShiftSign
 import RHLean.Analysis.QuadraticShiftDichotomy
 import RHLean.Analysis.RamanujanDivisorBoundary
+import RHLean.Analysis.RamanujanDivisorBoundaryBulk
 import RHLean.Analysis.ReducedQuadraticGauss
 import RHLean.Analysis.SmallModulusResonance
 import RHLean.Analysis.SquareBlockDeathProcess
