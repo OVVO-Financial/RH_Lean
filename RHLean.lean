@@ -47,6 +47,7 @@ import RHLean.Analysis.PrimeWheelRHBridge
 import RHLean.Analysis.PrimeWheelRamanujanBoundaryBulkReduction
 import RHLean.Analysis.PrimeWheelRamanujanBoundaryReduction
 import RHLean.Analysis.PrimeWheelRamanujanIdentification
+import RHLean.Analysis.PrimeWheelRawBoundaryExpansionCollapse
 import RHLean.Analysis.PrimeWheelRawBoundaryMobiusPairing
 import RHLean.Analysis.PrimeWheelRawConductorCoefficient
 import RHLean.Analysis.PrimeWheelRawConductorMobiusReindex
