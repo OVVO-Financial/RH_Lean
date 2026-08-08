@@ -104,7 +104,9 @@ theorem sourceRootPrefix_eq_activeRoot_sum (B x : ℕ) :
         | some p =>
             simp [boundedSourceFlow, ParentFlow.rootField, hclock, hadm, htrans,
               hparent]
-    · simp [boundedSourceFlow, ParentFlow.rootField, sourceWeight, hclock, hadm]
+    · cases hparent : sourceParent s <;>
+        simp [boundedSourceFlow, ParentFlow.rootField, sourceWeight, hclock,
+          hadm, hparent]
   · simp [hclock]
 
 /-- Canonical cofactor/prime pairs for all active ancestry roots at square-root
@@ -138,11 +140,11 @@ def squareRootAncestryRootPrimeMass (R : ℕ) : ℤ :=
 
 /-- A retained root pair has exactly the native canonical coordinates. -/
 private theorem rootPair_canonicalData
-    {R c q : ℕ} (hR : 1 ≤ R)
+    {R c q : ℕ}
     (h : (c, q) ∈ squareRootAncestryRootPairSet R) :
     CanonicalSourceData q c := by
   rcases Finset.mem_filter.mp h with ⟨hbase, hdata⟩
-  rcases Finset.mem_product.mp hbase with ⟨hcMem, hqMem⟩
+  rcases Finset.mem_product.mp hbase with ⟨hcMem, _hqMem⟩
   rcases Finset.mem_Ico.mp hcMem with ⟨hc1, _hcR⟩
   rcases hdata with ⟨hqPrime, hsq, hcq, _hprod⟩
   have hcpos : 0 < c := Nat.zero_lt_of_lt hc1
@@ -167,7 +169,7 @@ theorem sourceRootPrefix_eq_pairMass
     have hsdata :
         SourceAdmissible s ∧ sourceClock B s ≤ R - 1 ∧ TransportOriented s := by
       simpa [activeRootSourceSet] using hs
-    rcases hsdata.1 with ⟨hqPrime, hc1, hsq, hcop, hdom⟩
+    rcases hsdata.1 with ⟨hqPrime, hc1, hsq, _hcop, hdom⟩
     have hprod : sourceProduct s ≤ squareRootEndpoint R := by
       have hclock :=
         (CanonicalGapAncestryEnergyBridge.sourceClock_le_iff_sourceProduct_le_endpoint
@@ -192,9 +194,8 @@ theorem sourceRootPrefix_eq_pairMass
         omega
       have hmul : sourceCore s * sourcePrime s ≤ squareRootEndpoint R := by
         simpa [sourceProduct, Nat.mul_comm] using hprod
-      omega
+      exact (not_le_of_gt (lt_of_lt_of_le hXlt hRR)) hmul
     have hqX : sourcePrime s ≤ squareRootEndpoint R := by
-      have hcpos : 0 < sourceCore s := by omega
       have hqleprod : sourcePrime s ≤ sourceCore s * sourcePrime s := by
         simpa using Nat.mul_le_mul_right (sourcePrime s) hc1
       exact hqleprod.trans (by simpa [sourceProduct, Nat.mul_comm] using hprod)
@@ -211,10 +212,9 @@ theorem sourceRootPrefix_eq_pairMass
       exact congrArg Prod.fst heq
   · intro cq hcq
     rcases cq with ⟨c, q⟩
-    have hdata := rootPair_canonicalData (R := R) (by omega) hcq
+    have hdata := rootPair_canonicalData hcq
     rcases Finset.mem_filter.mp hcq with ⟨hbase, hpair⟩
     rcases Finset.mem_product.mp hbase with ⟨hcMem, hqMem⟩
-    have hcR := (Finset.mem_Ico.mp hcMem).2
     have hqX := (Finset.mem_Icc.mp hqMem).2
     have hprod := hpair.2.2.2
     have hcB : c ≤ B := by
@@ -244,8 +244,8 @@ theorem sourceRootPrefix_eq_pairMass
     have hsdata :
         SourceAdmissible s ∧ sourceClock B s ≤ R - 1 ∧ TransportOriented s := by
       simpa [activeRootSourceSet] using hs
-    rw [sourceWeight_of_admissible s hsdata.1]
-    rfl
+    simpa [sourceProduct, Nat.mul_comm] using
+      (sourceWeight_of_admissible s hsdata.1)
 
 /-- Removing the distinguished prime flips every squarefree cofactor weight;
 non-squarefree cofactors contribute zero on both sides. -/
@@ -320,7 +320,7 @@ theorem squareRootAncestryRootCofactorMass_eq_primeMass
   apply Finset.sum_congr rfl
   intro q hqmem
   by_cases hprime : q.Prime
-  · simp only [hprime, if_true]
+  · simp only [hprime, true_and, if_true]
     let K := min (q - 1) (squareRootEndpoint R / q)
     have hqpos : 0 < q := hprime.pos
     have hKlt : K < R := by
@@ -381,6 +381,7 @@ theorem squareRootAncestryRootPrime_cutoff_lt
     {R q : ℕ} (hR : 2 ≤ R)
     (hq : q ∈ Finset.Icc 2 (squareRootEndpoint R)) :
     min (q - 1) (squareRootEndpoint R / q) < R := by
+  have hqge : 2 ≤ q := (Finset.mem_Icc.mp hq).1
   have hqpos : 0 < q := by omega
   by_cases hqR : q ≤ R
   · exact lt_of_le_of_lt (min_le_left _ _) (by omega)
