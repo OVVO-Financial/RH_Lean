@@ -795,3 +795,39 @@ The live root import manifest on this branch now contains **247 Lean modules**; 
 - [x] The Li convention agrees with the existing exact-activity prime-density route (`ExactActivityPrimeIntervals`, `ConcreteLiCoreExtensionWeight`).
 - [ ] No theorem in this layer bounds either centered target. In particular, no PNT-error, Bombieri--Vinogradov, large-sieve, or RH-scale estimate is inferred from exact centering.
 - [ ] The next H-advancing analytic step is to bound the two centered terms, preferably after quotient-fibre reindexing turns the prime error into signed prime-count-minus-Li discrepancies on reciprocal intervals.
+
+### PR #279 — quotient-fibre prime discrepancy layer
+
+The live root import manifest on this branch now contains **248 Lean modules**. PR #279 adds the exact finite bridge requested after the PNT centering layer.
+
+- [x] `RHLean.Analysis.PrimeSieveQuotientPNTError` defines the finite quotient support for `d=floor(x/q)` and proves every positive fibre is exactly
+
+  ```text
+  max(y, floor(x/(d+1))) < q <= floor(x/d).
+  ```
+
+- [x] A generic finite identity reindexes every sum `sum_{y<q<=x} a(q) M(floor(x/q))` by those quotient fibres before any prime-specific specialization.
+- [x] The canonical singleton Li weights telescope on each reciprocal interval, so the deterministic fibre mass is the exact endpoint difference `Li(b)-Li(a)`.
+- [x] The actual prime-indicator fibre is identified with the finite prime count on the same interval, and the residual fibre is exactly `prime count - Li mass`.
+- [x] Consequently
+
+  ```text
+  primeSievePNTError(y,x)
+    = sum_d primeSieveReciprocalPrimeDiscrepancy(y,x,d) * M(d),
+  ```
+
+  while the deterministic PNT bulk and exact prime tail have parallel quotient reindexings.
+- [x] The deterministic Li bulk cancels exactly between the PNT-corrected all-plus state and the reindexed PNT error; this cancellation is finite algebra, not an asymptotic estimate.
+- [x] The reciprocal PNT error is pushed through the actual square-wheel center, giving
+
+  ```text
+  H_{k,n}
+    = centered PNT-corrected comb
+      - 2 * centered weighted reciprocal-interval prime discrepancy.
+  ```
+
+- [x] The corresponding norm transfer is compiled, parent and synthesis theorem files are byte-identical, and the synthesis manifest/provenance are synchronized to 248 modules.
+- [x] Exploratory CI run `31284430868` passed the paper/Analysis audit, assumption audit, generated-root check, and full `lake build RHLean --wfail` on head `25ec0d56db835a9a2e30941c0806b3562611b7b4` before the closeout documents were added.
+- [ ] No prime-number-theorem error estimate is proved here. In particular, the reciprocal intervals become very short near the square-root edge, so a future analytic theorem must match this exact weighted/centered family rather than cite a generic long-interval PNT by analogy.
+- [ ] The centered PNT-corrected comb remains a separate analytic target. The quotient reindexing isolates the prime-distribution component but does not by itself close the `H_{k,n}` power bound.
+- [ ] Next analytic dependency: estimate the centered Mertens-weighted reciprocal prime discrepancies, potentially by an averaged short-interval or dispersion theorem matched exactly to these endpoints, while separately controlling the complementary centered comb.

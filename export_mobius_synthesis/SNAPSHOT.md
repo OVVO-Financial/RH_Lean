@@ -1,19 +1,19 @@
 # Source snapshot provenance
 
-This synthesis export is synchronized to the `OVVO-Financial/RH_Lean` parent Lean source state at commit:
+This synthesis export is synchronized to the `OVVO-Financial/RH_Lean` parent Lean source state containing the final parent copy of the reciprocal-quotient PNT module at commit:
 
 ```text
-9c31d5d25e84c1734cef8b26303a1fbf33340823
+5ebdcbcbf2f7755948da7d29520293b06dadbfdb
 ```
 
-That parent-source commit contains the final parent copy of `RHLean.Analysis.PrimeSievePNTCentering`. The subsequent synthesis-export commits mirror the same Lean blob and update export-specific documentation only.
+That parent-source state contains `RHLean.Analysis.PrimeSievePNTCentering`, the parent root import of `RHLean.Analysis.PrimeSieveQuotientPNTError`, and the final parent theorem file. The subsequent synthesis-export commit mirrors the same quotient-module Lean blob and updates export-specific documentation only.
 
 ## Copy policy
 
 - `RHLean.lean` is copied from the parent root import manifest without modification.
-- Every one of the **247 Lean modules** imported by that manifest is mirrored into `RHLean/` using the source file's existing Git blob SHA.
-- The original synthesis snapshot contained 214 imported modules. The current synchronized manifest therefore contains **33 additional modules** relative to that original snapshot.
-- The previous synchronization had reached 246 modules. This synchronization adds the single new synthesis seam module `RHLean.Analysis.PrimeSievePNTCentering`.
+- Every one of the **248 Lean modules** imported by that manifest is mirrored into `RHLean/` using the source file's existing Git blob SHA.
+- The original synthesis snapshot contained 214 imported modules. The current synchronized manifest therefore contains **34 additional modules** relative to that original snapshot.
+- The previous synchronization had reached 247 modules. This synchronization adds the single new synthesis seam module `RHLean.Analysis.PrimeSieveQuotientPNTError`.
 - `README.md`, `MODULES.md`, this provenance note, and other synthesis-facing explanatory files are export-specific documentation.
 
 ## Elementary and PNT-centering seams
@@ -34,33 +34,52 @@ M_y^+(x) - M(x)
 
 under `sqrt x < y`. The second specializes to `x = R^2 - 1`, `y = R` and identifies the pre-large-prime state with the original square-block `smooth + transport`, so its difference from the completed Mertens state is exactly twice the existing square-root transport term.
 
-This synchronization adds the parent module
+The existing PNT-centering module
 
 ```text
 RHLean.Analysis.PrimeSievePNTCentering
 ```
 
-using the same Git blob in the parent and synthesis trees. It decomposes the explicit prime tail by the singleton logarithmic-integral density
+uses the repository's singleton logarithmic-integral density
 
 ```text
-density(q) = Li(q) - Li(q-1),
+density(q) = Li(q) - Li(q-1)
 ```
 
-matching the repository's existing exact-activity prime-density convention, and defines the exact prime-indicator-minus-density error. It then applies the repository's actual square-wheel zero-mode centering to obtain
+and proves
 
 ```text
-H_{k,n} = centered PNT-corrected comb - 2 * centered prime error,
+H_{k,n} = centered PNT-corrected comb - 2 * centered prime error.
 ```
 
-as well as the fully expanded all-plus, PNT-bulk, and prime-error identity and the corresponding norm-transfer inequality.
+This synchronization adds
 
-These are exact finite realization and centering theorems. They assert no PNT error estimate, Bombieri–Vinogradov estimate, large-sieve estimate, RH-scale power saving, or new axiom.
+```text
+RHLean.Analysis.PrimeSieveQuotientPNTError
+```
+
+with the same Git blob in the parent and synthesis trees. It proves that for positive `d=floor(x/q)` the literal quotient fibre is the reciprocal interval
+
+```text
+max(y, floor(x/(d+1))) < q <= floor(x/d),
+```
+
+that the singleton Li masses telescope across this interval, and that the exact PNT error is
+
+```text
+sum_d M(d) *
+  (prime count on reciprocal interval - Li mass of reciprocal interval).
+```
+
+It also reindexes the deterministic PNT bulk and exact prime tail, proves the deterministic Li contribution cancels algebraically in the corrected all-plus identity, and pushes the reciprocal-interval error through the same square-wheel zero-mode centering used by `H_{k,n}`.
+
+These are exact finite realization, centering, and reindexing theorems. They assert no PNT error estimate, Bombieri–Vinogradov estimate, large-sieve estimate, RH-scale power saving, or new axiom. The centered PNT-corrected comb remains a separate analytic target from the newly explicit prime-distribution error.
 
 ## Synchronization invariant
 
 The export is intended to be build-complete as a standalone Lean snapshot. Therefore:
 
-1. `export_mobius_synthesis/RHLean.lean` must match the parent root `RHLean.lean`.
+1. `export_mobius_synthesis/RHLean.lean` must match the parent `RHLean.lean`.
 2. Every internal module imported by that manifest must exist at the corresponding path below `export_mobius_synthesis/RHLean/`.
 3. Mirrored Lean files should reuse the exact parent Git blobs rather than edited copies.
 4. When the root manifest gains imports, the new modules and the updated manifest should be synchronized together.
