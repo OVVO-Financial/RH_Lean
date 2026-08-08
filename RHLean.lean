@@ -223,6 +223,7 @@ import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Proof.SquareRootAncestryRoot
 import RHLean.Proof.SquareRootAncestrySuccessor
 import RHLean.Proof.SurvivorDyadicStaticCancellation
+import RHLean.Proof.SurvivorLargePrimeRootBoundary
 import RHLean.Proof.SurvivorPairEffectiveModulus
 import RHLean.Proof.SurvivorPrimeFaceFrontier
 import RHLean.Proof.SurvivorResidueCollisionReindex
