@@ -145,8 +145,16 @@ theorem sourceHighToHighSuccessorField_zero_eq_successor (B : ℕ) :
     sourceHighRootField_zero_eq_rootField,
     sourceLowToHighSuccessorField_zero_eq_zero, sub_zero] at hproj
   have hnative := weight_eq_root_sub_successor (boundedSourceFlow B)
-  apply sub_left_inj.mp
-  exact hproj.symm.trans hnative
+  have heq :
+      (boundedSourceFlow B).rootField -
+          sourceHighToHighSuccessorField 0 B =
+        (boundedSourceFlow B).rootField -
+          (boundedSourceFlow B).successorOperator (boundedSourceFlow B).weight :=
+    hproj.symm.trans hnative
+  funext s
+  have hs := congrFun heq s
+  simp only [Pi.sub_apply] at hs
+  linarith
 
 /-- Clock-pushed high prefix at zero cutoff is the complete source prefix. -/
 theorem sourceHighPrefix_zero_eq_sourcePrefix (B x : ℕ) :
@@ -226,8 +234,13 @@ theorem zeroCutoffRenewalGramValue_eq_energy_sub
       windowPathEnergy H (fun r =>
         zeroCutoffRootWindowPath B N r -
           zeroCutoffSuccessorWindowPath B N r) := by
-  unfold zeroCutoffRenewalGramValue
-  rw [windowPathEnergy_sub]
+  unfold zeroCutoffRenewalGramValue windowPathEnergy windowPathCrossEnergy
+  rw [Finset.mul_sum]
+  rw [← Finset.sum_add_distrib]
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  ring
 
 /-- The analytic statement remaining after all zero-cutoff exact
 simplifications.  It retains the complete root/successor cancellation. -/
