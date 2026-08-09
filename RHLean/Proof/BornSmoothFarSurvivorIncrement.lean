@@ -226,7 +226,7 @@ theorem norm_matchedIncrement_sub_bornBlock_add_farDiff_le
         ring
     _ = ‖squareRootNearPrimeTransport (R + 1) -
         squareRootNearPrimeTransport R‖ := by
-      simpa only [norm_neg]
+      simp only [norm_neg]
     _ ≤ 14 * (R : ℝ) + 7 :=
       norm_squareRootNearPrimeTransport_succ_sub_le R hR
 
