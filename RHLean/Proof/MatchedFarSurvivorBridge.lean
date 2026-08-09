@@ -183,9 +183,16 @@ theorem norm_matched_sub_bornSmooth_add_farSurvivor_le
         (squareRootBornSmoothMass R +
           survivorSixteenFarUpperPrimeMass (R - 1))‖ ≤
       7 * (R : ℝ) := by
-  rw [squareRootMatchedBornSmoothTransport_eq_bornSmooth_add_farSurvivor_sub_near
-    R hR]
-  have hnear := norm_squareRootNearPrimeTransport_le R hR
-  simpa only [sub_eq_add_neg, add_assoc, add_left_neg, zero_add, norm_neg] using hnear
+  calc
+    ‖squareRootMatchedBornSmoothTransport R -
+        (squareRootBornSmoothMass R +
+          survivorSixteenFarUpperPrimeMass (R - 1))‖ =
+      ‖-squareRootNearPrimeTransport R‖ := by
+        rw [squareRootMatchedBornSmoothTransport_eq_bornSmooth_add_farSurvivor_sub_near
+          R hR]
+        congr 1
+        ring
+    _ = ‖squareRootNearPrimeTransport R‖ := by simp
+    _ ≤ 7 * (R : ℝ) := norm_squareRootNearPrimeTransport_le R hR
 
 end RHLean.Proof
