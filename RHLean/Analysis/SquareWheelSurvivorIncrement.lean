@@ -1,5 +1,8 @@
 import Mathlib
+import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Analysis.SquareWheelCenteredIncrement
+import RHLean.Proof.DeathProcessArithmetic
+import RHLean.Proof.DeathShellSubpolynomial
 import RHLean.Proof.LifetimeEndpointDecomposition
 import RHLean.Proof.SurvivorZeroMode
 
@@ -38,8 +41,9 @@ Delta H
 This is a strict localization of the analytic obstruction.  The low-height
 increment has the repository's unconditional uniform occupancy control, and the
 death process is handled by the existing subpolynomial death-shell theorem.
-The only remaining signed local object is the survivor increment together with
-the rank-one wheel-end drift.
+The final section inserts those two proved estimates and leaves the survivor
+increment together with the rank-one wheel-end drift as the sole unresolved
+local term.
 
 No estimate for that survivor-centered term is assumed or proved here, and no
 triangle inequality is applied to it.
@@ -205,5 +209,52 @@ theorem norm_nonzeroResponseIncrement_sub_survivorCentered_le_control_add_death
   exact (norm_nonzeroResponseIncrement_sub_survivorCentered_le_low_add_death
     k n hn hleftLower hleftUpper hrightUpper).trans
       (add_le_add_right (control.norm_increment_le n) _)
+
+/-- The predecessor death-mass difference is exactly the existing one-step
+death increment. -/
+theorem lifetimeDeathMass_sub_pred_eq_deathIncrement
+    (Λ : ℝ) (n : ℕ) (hn : 1 ≤ n) :
+    lifetimeDeathMass Λ n - lifetimeDeathMass Λ (n - 1) =
+      lifetimeDeathIncrement Λ (n - 1) := by
+  unfold lifetimeDeathIncrement
+  rw [Nat.sub_add_cancel hn]
+
+/-- **Unconditional localization to the survivor-centered term.**  At
+`Lambda = 16`, all non-survivor pieces of one centered `H` increment are bounded
+by an absolute constant `17` plus a subpolynomial death-shell error.  Thus the
+survivor change minus the rank-one wheel-end drift is the sole unresolved local
+term. -/
+theorem norm_nonzeroResponseIncrement_sub_survivorCentered_subpolynomial
+    (ε : ℝ) (hε : 0 < ε) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ k n : ℕ, 1 ≤ n →
+        primorialBlockLower k < squarePrefixEndpoint (n - 1) →
+        squarePrefixEndpoint (n - 1) ≤ primorialBlockUpper k →
+        squarePrefixEndpoint n ≤ primorialBlockUpper k →
+        ‖(squareWheelNonzeroSampleResponse (primorialMinimalWheelSystem k) n -
+            squareWheelNonzeroSampleResponse
+              (primorialMinimalWheelSystem k) (n - 1)) -
+            primorialMinimalSquareWheelSurvivorCenteredIncrement k n‖ ≤
+          17 + C * Real.rpow (n : ℝ) ε := by
+  rcases norm_lifetimeDeathIncrement_subpolynomial
+      (Λ := (16 : ℝ)) (ε := ε) (by norm_num) hε with
+    ⟨C, hC, hdeath⟩
+  refine ⟨C, hC, ?_⟩
+  intro k n hn hleftLower hleftUpper hrightUpper
+  have hbase :=
+    norm_nonzeroResponseIncrement_sub_survivorCentered_le_low_add_death
+      k n hn hleftLower hleftUpper hrightUpper
+  have hlow : ‖canonicalLowIncrement 16 n‖ ≤ (17 : ℝ) := by
+    have h := norm_canonicalLowIncrement_le_floor_add_one (16 : ℝ) n
+    norm_num at h ⊢
+    exact h
+  have hdeathAt := hdeath (n - 1)
+  have hdeathBound :
+      ‖lifetimeDeathMass 16 n - lifetimeDeathMass 16 (n - 1)‖ ≤
+        C * Real.rpow (n : ℝ) ε := by
+    rw [lifetimeDeathMass_sub_pred_eq_deathIncrement 16 n hn]
+    have hpred : n - 1 + 1 = n := Nat.sub_add_cancel hn
+    simpa [hpred] using hdeathAt
+  exact hbase.trans (add_le_add hlow hdeathBound)
 
 end RHLean.Proof
