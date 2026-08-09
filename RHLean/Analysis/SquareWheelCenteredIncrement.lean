@@ -1,7 +1,9 @@
 import Mathlib
 import RHLean.Arithmetic.PrimorialWheelMinimalTorus
+import RHLean.Analysis.SquareRootTransportRealization
 import RHLean.Analysis.SquareWheelNesting
 import RHLean.Analysis.SquareWheelZeroModeElimination
+import RHLean.Proof.BornSmoothFarSurvivorIncrement
 
 /-!
 # Centered increment of the square-wheel nonzero response
@@ -31,9 +33,24 @@ H_{k,n} - H_{k,n-1}
   = Delta_n - ((2n+1)/Q_k) * R_k(U_k).
 ```
 
-The endpoint term is genuinely rank one: every square increment in the block
-is multiplied by a deterministic scalar and the same single endpoint residual.
-No estimate, norm, or cancellation claim is introduced here.
+The final section splices in the matched far-survivor increment architecture.
+For `n >= 56`, the same `H` increment is written as
+
+```text
+positiveSmoothDiff
+  + bornSmoothBlock
+  + farSurvivorDiff
+  - nearTransportDiff
+  - endpointDrift.
+```
+
+The near-transport difference has the local bound `14n+7`.  This is a local
+single-increment statement only; summing those absolute bounds across a long
+square run would discard the signed cancellation that the proof route must
+preserve.
+
+No bound on `H`, the endpoint residual, or the remaining signed structural core
+is asserted here.
 -/
 
 noncomputable section
@@ -190,5 +207,128 @@ theorem primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_increment_sub_dri
     primorialMinimalSquareWheelEndpointDrift] using
       primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_centeredIncrement
         k n hn hleftLower hleftUpper hrightUpper
+
+/-! ## Structural splice into the centered increment -/
+
+/-- The square-block increment is the sum of the positive-smooth derivative and
+the derivative of the matched born-smooth/transport object. -/
+theorem canonicalTotalIncrement_eq_positiveSmoothDiff_add_matchedDiff
+    (n : ℕ) (hn : 1 ≤ n) :
+    canonicalTotalIncrement n =
+      (squareRootPositiveSmoothMass (n + 1) -
+        squareRootPositiveSmoothMass n) +
+      (squareRootMatchedBornSmoothTransport (n + 1) -
+        squareRootMatchedBornSmoothTransport n) := by
+  have hdelta := canonicalTotalIncrement_eq_squarePrefix_sub n hn
+  have hright :
+      squarePrefixMertens n =
+        squareRootPositiveSmoothMass (n + 1) +
+          squareRootMatchedBornSmoothTransport (n + 1) := by
+    have h := squarePrefixMertens_eq_positiveSmooth_add_matched
+      (n + 1) (by omega)
+    have hpred : n + 1 - 1 = n := by omega
+    rw [hpred] at h
+    exact h
+  have hleft := squarePrefixMertens_eq_positiveSmooth_add_matched n hn
+  rw [hright, hleft] at hdelta
+  calc
+    canonicalTotalIncrement n =
+        (squareRootPositiveSmoothMass (n + 1) +
+          squareRootMatchedBornSmoothTransport (n + 1)) -
+        (squareRootPositiveSmoothMass n +
+          squareRootMatchedBornSmoothTransport n) := hdelta
+    _ =
+      (squareRootPositiveSmoothMass (n + 1) -
+        squareRootPositiveSmoothMass n) +
+      (squareRootMatchedBornSmoothTransport (n + 1) -
+        squareRootMatchedBornSmoothTransport n) := by ring
+
+/-- The structural core left after removing the bounded near-prime transport
+change.  It retains the positive-smooth derivative, the newly born-smooth block,
+the far-survivor derivative, and the rank-one wheel-end drift with their exact
+signs. -/
+def primorialMinimalSquareWheelStructuralIncrement (k n : ℕ) : ℂ :=
+  (squareRootPositiveSmoothMass (n + 1) -
+      squareRootPositiveSmoothMass n) +
+    squareRootBornSmoothBlockMass n +
+    (survivorSixteenFarUpperPrimeMass n -
+      survivorSixteenFarUpperPrimeMass (n - 1)) -
+    primorialMinimalSquareWheelEndpointDrift k n
+
+/-- **Square structure spliced directly into `Delta H`.**  For `n >= 56`, the
+centered nonzero-response increment is the structural signed core minus the
+change of the seven-coordinate near-prime transport strip. -/
+theorem primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_structural_sub_nearDiff
+    (k n : ℕ) (hn : 56 ≤ n)
+    (hleftLower :
+      primorialBlockLower k < squarePrefixEndpoint (n - 1))
+    (hleftUpper :
+      squarePrefixEndpoint (n - 1) ≤ primorialBlockUpper k)
+    (hrightUpper :
+      squarePrefixEndpoint n ≤ primorialBlockUpper k) :
+    squareWheelNonzeroSampleResponse (primorialMinimalWheelSystem k) n -
+        squareWheelNonzeroSampleResponse
+          (primorialMinimalWheelSystem k) (n - 1) =
+      primorialMinimalSquareWheelStructuralIncrement k n -
+        (squareRootNearPrimeTransport (n + 1) -
+          squareRootNearPrimeTransport n) := by
+  have hn1 : 1 ≤ n := by omega
+  calc
+    squareWheelNonzeroSampleResponse (primorialMinimalWheelSystem k) n -
+        squareWheelNonzeroSampleResponse
+          (primorialMinimalWheelSystem k) (n - 1) =
+      primorialMinimalSquareWheelCenteredIncrement k n :=
+        primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_centeredIncrement
+          k n hn1 hleftLower hleftUpper hrightUpper
+    _ = canonicalTotalIncrement n -
+        primorialMinimalSquareWheelEndpointDrift k n := rfl
+    _ =
+      ((squareRootPositiveSmoothMass (n + 1) -
+          squareRootPositiveSmoothMass n) +
+        (squareRootMatchedBornSmoothTransport (n + 1) -
+          squareRootMatchedBornSmoothTransport n)) -
+        primorialMinimalSquareWheelEndpointDrift k n := by
+          rw [canonicalTotalIncrement_eq_positiveSmoothDiff_add_matchedDiff n hn1]
+    _ = primorialMinimalSquareWheelStructuralIncrement k n -
+        (squareRootNearPrimeTransport (n + 1) -
+          squareRootNearPrimeTransport n) := by
+          rw [squareRootMatchedBornSmoothTransport_succ_sub_eq_block_add_farDiff_sub_nearDiff
+            n hn]
+          unfold primorialMinimalSquareWheelStructuralIncrement
+          ring
+
+/-- Local quantitative form of the structural splice.  The difference between
+the actual `H` increment and the signed structural core is at most `14n+7`.
+This theorem is not intended to be summed by absolute values over a long square
+run. -/
+theorem norm_nonzeroResponseIncrement_sub_structural_le_nearStrip
+    (k n : ℕ) (hn : 56 ≤ n)
+    (hleftLower :
+      primorialBlockLower k < squarePrefixEndpoint (n - 1))
+    (hleftUpper :
+      squarePrefixEndpoint (n - 1) ≤ primorialBlockUpper k)
+    (hrightUpper :
+      squarePrefixEndpoint n ≤ primorialBlockUpper k) :
+    ‖(squareWheelNonzeroSampleResponse (primorialMinimalWheelSystem k) n -
+        squareWheelNonzeroSampleResponse
+          (primorialMinimalWheelSystem k) (n - 1)) -
+        primorialMinimalSquareWheelStructuralIncrement k n‖ ≤
+      14 * (n : ℝ) + 7 := by
+  rw [primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_structural_sub_nearDiff
+    k n hn hleftLower hleftUpper hrightUpper]
+  have hnear := norm_squareRootNearPrimeTransport_succ_sub_le n hn
+  calc
+    ‖(primorialMinimalSquareWheelStructuralIncrement k n -
+          (squareRootNearPrimeTransport (n + 1) -
+            squareRootNearPrimeTransport n)) -
+        primorialMinimalSquareWheelStructuralIncrement k n‖ =
+      ‖-(squareRootNearPrimeTransport (n + 1) -
+          squareRootNearPrimeTransport n)‖ := by
+            congr 1
+            ring
+    _ = ‖squareRootNearPrimeTransport (n + 1) -
+        squareRootNearPrimeTransport n‖ := by
+          simp only [norm_neg]
+    _ ≤ 14 * (n : ℝ) + 7 := hnear
 
 end RHLean.Proof
