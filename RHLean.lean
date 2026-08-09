@@ -82,9 +82,11 @@ import RHLean.Analysis.SquarePrefixHeightPartition
 import RHLean.Analysis.SquarePrefixMertensBridge
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootTransportRealization
+import RHLean.Analysis.SquareWheelCenteredIncrement
 import RHLean.Analysis.SquareWheelNesting
 import RHLean.Analysis.SquareWheelQuadraticSampling
 import RHLean.Analysis.SquareWheelQuantitativeBridge
+import RHLean.Analysis.SquareWheelSurvivorIncrement
 import RHLean.Analysis.SquareWheelZeroModeElimination
 import RHLean.Analysis.TwoABPrimeDilation
 import RHLean.Analysis.TwoABScaleTransfer
