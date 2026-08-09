@@ -2,7 +2,7 @@
 
 Before publishing or cutting a release:
 
-- [ ] Copy the contents of `export/public-repo/` to the new repository root.
+- [ ] Copy the contents of `export_prime_wheel/` to the new repository root.
 - [ ] Choose and add an explicit software/content license.
 - [ ] Confirm the paper title, author line, version date, DOI/SSRN link, and preferred citation.
 - [ ] Compile `paper/seeded_prime_comb_harmonic_reduction.tex` and optionally commit the resulting PDF.

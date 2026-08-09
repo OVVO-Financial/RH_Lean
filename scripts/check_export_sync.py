@@ -37,7 +37,7 @@ EXPORTS = [
     ('export_mobius_synthesis', 'export_mobius_synthesis', True,
      {'RHLean.Analysis.MobiusSynthesisBoundary'}),
     ('export_square_block', 'export_square_block/lean', True, set()),
-    ('export/public-repo', 'export/public-repo/formalization', False, set()),
+    ('export_prime_wheel', 'export_prime_wheel/formalization', False, set()),
 ]
 
 
