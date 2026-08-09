@@ -82,9 +82,11 @@ import RHLean.Analysis.SquarePrefixHeightPartition
 import RHLean.Analysis.SquarePrefixMertensBridge
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootTransportRealization
+import RHLean.Analysis.SquareWheelCenteredIncrement
 import RHLean.Analysis.SquareWheelNesting
 import RHLean.Analysis.SquareWheelQuadraticSampling
 import RHLean.Analysis.SquareWheelQuantitativeBridge
+import RHLean.Analysis.SquareWheelSurvivorIncrement
 import RHLean.Analysis.SquareWheelZeroModeElimination
 import RHLean.Analysis.TwoABPrimeDilation
 import RHLean.Analysis.TwoABScaleTransfer
@@ -141,6 +143,7 @@ import RHLean.Proof.ActualStartSignedFrame
 import RHLean.Proof.BalancedCanonicalGap
 import RHLean.Proof.BirthMovingAbsorption
 import RHLean.Proof.BlockLyapunovClosure
+import RHLean.Proof.BornSmoothFarSurvivorIncrement
 import RHLean.Proof.CanonicalExtremeHeight
 import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.CanonicalGapAncestryEnergyBridge
@@ -197,6 +200,7 @@ import RHLean.Proof.LifetimeGramArchitectureBridge
 import RHLean.Proof.LifetimeLocalEnergyCriterion
 import RHLean.Proof.LifetimeOverlapKernel
 import RHLean.Proof.LowOmegaHighOrientation
+import RHLean.Proof.MatchedFarSurvivorBridge
 import RHLean.Proof.MutablePNTClosure
 import RHLean.Proof.MutableSupportBound
 import RHLean.Proof.NearOrthogonality
@@ -227,6 +231,7 @@ import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Proof.SquareRootAncestryRoot
 import RHLean.Proof.SquareRootAncestrySuccessor
 import RHLean.Proof.SurvivorDyadicStaticCancellation
+import RHLean.Proof.SurvivorFarUpperRigidity
 import RHLean.Proof.SurvivorLargePrimeRootBoundary
 import RHLean.Proof.SurvivorPairEffectiveModulus
 import RHLean.Proof.SurvivorPrimeFaceFrontier
