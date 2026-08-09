@@ -234,10 +234,10 @@ theorem norm_nonzeroResponseRun_sub_survivorRunCentered_globalBound
   norm_num [canonicalLowIncrementControl] at hlowAraw hlowBraw
   have hlowA :
       ‖canonicalLowPrefix 16 a‖ ≤ ((a + 1 : ℕ) : ℝ) * 17 := by
-    exact hlowAraw
+    simpa only [Nat.cast_add, Nat.cast_one] using hlowAraw
   have hlowB :
       ‖canonicalLowPrefix 16 b‖ ≤ ((b + 1 : ℕ) : ℝ) * 17 := by
-    exact hlowBraw
+    simpa only [Nat.cast_add, Nat.cast_one] using hlowBraw
   have hlowDiff :
       ‖canonicalLowPrefix 16 b - canonicalLowPrefix 16 a‖ ≤
         ((b + 1 : ℕ) : ℝ) * 17 + ((a + 1 : ℕ) : ℝ) * 17 := by
