@@ -7,7 +7,7 @@ Companion standalone repositories:
 - Square blocks: https://github.com/OVVO-Financial/square-block-mobius
 - Prime wheels: https://github.com/OVVO-Financial/prime-wheel-mobius
 
-The mathematical synchronization described here is current through **RH_Lean PR #279**. The export root manifest contains **248 Lean modules**, and every imported `RHLean.*` module is mirrored below `export_mobius_synthesis/RHLean/` using the same Git blob as the parent development. See `SNAPSHOT.md` for provenance and `MODULES.md` for the synchronization inventory.
+The mathematical synchronization described here is pinned to the parent `RH_Lean` source snapshot identified in `SNAPSHOT.md`. The export root manifest contains **248 Lean modules**, and every imported `RHLean.*` module is mirrored below `export_mobius_synthesis/RHLean/` using the same Git blob as the parent development. See `SNAPSHOT.md` for provenance and `MODULES.md` for the synchronization inventory.
 
 ## Two coordinate systems, one residual
 
@@ -96,7 +96,7 @@ H_{k,n}
     - 2\,\text{centered prime error}.
 ```
 
-PR #279 adds `RHLean.Analysis.PrimeSieveQuotientPNTError`. It reindexes the prime error by
+The synchronized module `RHLean.Analysis.PrimeSieveQuotientPNTError` reindexes the prime error by
 
 ```text
 d = floor(x/q).
@@ -139,7 +139,7 @@ uniformly over synchronized complete-square samples.
 
 That estimate is **not proved**.
 
-The exact work through PR #279 makes the present analytic boundary more explicit rather than closing it. One current representation separates the problem into two centered components:
+The synchronized exact work makes the present analytic boundary more explicit rather than closing it. One current representation separates the problem into two centered components:
 
 1. control of the centered PNT-corrected comb;
 2. control of the centered Mertens-weighted reciprocal-interval prime-count discrepancies, including the short reciprocal intervals near the square-root edge.
@@ -159,7 +159,7 @@ The `boundary-advance` policy therefore has two research lanes:
 
 One-sided square-block work, one-sided prime-wheel work, imports that do not actually couple the tracks, and purely cosmetic alternate representations do not qualify as synthesis progress by themselves. See `boundary/BOUNDARY_POLICY.md` for the machine-enforced policy.
 
-## Machine-checked status through PR #279
+## Machine-checked status at the synchronized baseline
 
 The checked source currently includes, among other results:
 
@@ -250,7 +250,7 @@ cd export_mobius_synthesis
 lake build RHLean --wfail
 ```
 
-The stronger synchronization invariant is that `export_mobius_synthesis/RHLean.lean` is the same Git blob as the parent `RHLean.lean`, and each mirrored Lean module reuses its parent blob. PR #279's new `PrimeSieveQuotientPNTError.lean` satisfies that invariant.
+The stronger synchronization invariant is that `export_mobius_synthesis/RHLean.lean` is the same Git blob as the parent `RHLean.lean`, and each mirrored Lean module reuses its parent blob. The synchronized `PrimeSieveQuotientPNTError.lean` module satisfies that invariant.
 
 ## Status convention
 
@@ -259,4 +259,4 @@ The stronger synchronization invariant is that `export_mobius_synthesis/RHLean.l
 - **Open analytic target** means an estimate is still unresolved and must not be described as established.
 - Numerical experiments and finite-range checks are diagnostic evidence only.
 
-As of the PR #279 mathematical synchronization, the square-wheel bridge, elementary prime-sieve seam, PNT centering, reciprocal quotient reindexing, and transfer infrastructure are machine checked. The RH-scale bound on the canonical nonzero response remains open.
+At the synchronized mathematical baseline, the square-wheel bridge, elementary prime-sieve seam, PNT centering, reciprocal quotient reindexing, and transfer infrastructure are machine checked. The RH-scale bound on the canonical nonzero response remains open.
