@@ -197,6 +197,7 @@ import RHLean.Proof.LifetimeGramArchitectureBridge
 import RHLean.Proof.LifetimeLocalEnergyCriterion
 import RHLean.Proof.LifetimeOverlapKernel
 import RHLean.Proof.LowOmegaHighOrientation
+import RHLean.Proof.MatchedFarSurvivorBridge
 import RHLean.Proof.MutablePNTClosure
 import RHLean.Proof.MutableSupportBound
 import RHLean.Proof.NearOrthogonality
