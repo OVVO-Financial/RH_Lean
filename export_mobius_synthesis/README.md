@@ -2,14 +2,12 @@
 
 **Möbius Synthesis** joins the square-block and prime-wheel Möbius-cancellation developments into one machine-checked bridge. It is not a third independent route to the Riemann Hypothesis. Its role is to identify where the two coordinate systems describe the same arithmetic residual, expose the exact algebra already available from both tracks, and isolate the analytic estimates that remain open.
 
-The canonical wording for the active proof route is frozen in `CURRENT_PROOF_ROUTE.md`. In particular, the PNT-centered decomposition is a diagnostic coordinate system; the live analytic target is signed cancellation in the combined reciprocal-interval representation of the canonical nonzero response, not separate RH-scale bounds for its two displayed pieces.
-
 Companion standalone repositories:
 
 - Square blocks: https://github.com/OVVO-Financial/square-block-mobius
 - Prime wheels: https://github.com/OVVO-Financial/prime-wheel-mobius
 
-The mathematical synchronization described here is pinned to the parent `RH_Lean` source snapshot identified in `SNAPSHOT.md`. The export root manifest contains **248 Lean modules**, and every imported `RHLean.*` module is mirrored below `export_mobius_synthesis/RHLean/` using the same Git blob as the parent development. See `SNAPSHOT.md` for provenance and `MODULES.md` for the synchronization inventory.
+The root manifest `RHLean.lean` imports **248 Lean modules**, every one of which resolves to a file under `RHLean/`. See `MODULES.md` for the module inventory and `SEAMS.md` for the elementary prime-sieve and PNT-centering seams.
 
 ## Two coordinate systems, one residual
 
@@ -63,7 +61,7 @@ and therefore every complete square sample in the block has
 0 <= \rho_{k,n} < 1/6.
 ```
 
-Thus the zero-frequency feedback is uniformly contractive and the incomplete terminal square is already at square-root scale. This self-coupling is not the RH obstruction.
+Thus the zero-frequency feedback is uniformly contractive and the incomplete terminal square is already at square-root scale.
 
 The same module defines `primorialExpansionReindexedNumerator` and proves the exact bridge from the square-side nonzero response to the fully collapsed wheel numerator after zero-mode subtraction.
 
@@ -129,8 +127,6 @@ H_{k,n}
 
 In Lean this is `primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError`, with the corresponding norm transfer in `norm_primorialMinimalSquareWheelNonzeroResponse_le_reciprocalPNT`.
 
-The norm transfer is a valid exact inequality, but it is **not** the intended analytic strategy. Using it to impose independent RH-scale bounds on the two displayed terms and then applying triangle inequality can destroy the signed cancellation present in their difference.
-
 ## Current analytic boundary
 
 The terminal quantitative criterion remains
@@ -139,33 +135,16 @@ The terminal quantitative criterion remains
 |H_{k,n}| \ll_{\varepsilon} (X_n+1)^{1/2+\varepsilon}
 ```
 
-uniformly over synchronized complete-square samples. This is exactly the repository predicate `NonzeroResponseRHScale`.
+uniformly over synchronized complete-square samples.
 
 That estimate is **not proved**.
 
-The PNT-centered reciprocal-interval representation should be treated as a diagnostic coordinate system for this same object, not as two independent proof obligations. Writing
+The synchronized exact work makes the present analytic boundary more explicit rather than closing it. One current representation separates the problem into two centered components:
 
-```math
-H_{k,n}
-  = C_{k,n}^{\rm PNT} - 2E_{k,n}^{\rm rec},
-```
+1. control of the centered PNT-corrected comb;
+2. control of the centered Mertens-weighted reciprocal-interval prime-count discrepancies, including the short reciprocal intervals near the square-root edge.
 
-the live analytic theorem is the signed combined estimate
-
-```math
-\left|C_{k,n}^{\rm PNT} - 2E_{k,n}^{\rm rec}\right|
-  \ll_\varepsilon X_n^{1/2+\varepsilon}.
-```
-
-The active strategy is therefore:
-
-> **Prove signed cancellation in the combined reciprocal-interval representation of `H_{k,n}`, exploiting the many-`d`, short-interval structure without taking absolute values termwise.**
-
-Finite diagnostics indicate that bounding `C^{PNT}` and `E^{rec}` separately loses substantial favorable cancellation. The naive strong-induction move of inserting an RH-scale pointwise bound for each lower-scale `M(d)` and taking absolute values produces an operator too large to close, so scale reduction alone is insufficient. The reciprocal-`d` family is also not directly a Bombieri-Vinogradov family: it consists of many ordinary reciprocal short intervals rather than residue classes modulo varying moduli.
-
-Accordingly, a plausible next theorem must preserve the signs in the reciprocal-interval family, for example through a signed short-interval or dispersion estimate adapted to this geometry, or through another exact transformation that retains the cancellation. The theorem must explain why the **combined signed operator** saves roughly a square root; controlling the two pieces separately is not the canonical target.
-
-No pointwise or averaged PNT-error theorem, short-interval prime theorem, Bombieri-Vinogradov estimate, large-sieve estimate, power saving, or unconditional proof of RH is claimed by the exact reductions already present.
+No pointwise or averaged PNT-error theorem, short-interval prime theorem, Bombieri-Vinogradov estimate, large-sieve estimate, power saving, or unconditional proof of RH is claimed by these exact reductions.
 
 If the required RH-scale bound for `H_{k,n}` is established, the existing zero-mode elimination, square interpolation, Mertens transfer, Mellin continuation, zeta identity continuation, and terminal RH bridge carry it through the remaining formal chain.
 
@@ -238,41 +217,33 @@ RHLean.Proof.RiemannHypothesisBridge
 RHLean.Proof.TerminalAxiomAudit
 ```
 
-`MODULES.md` gives the fuller track-level inventory and records the **34-module increase** from the original 214-module synthesis snapshot to the current 248-module manifest.
+`MODULES.md` gives the fuller track-level inventory and records the **34-module increase** from the original 214-module inventory to the current 248-module manifest.
 
 ## Repository layout
 
-Inside `RH_Lean`, the synthesis staging export contains:
+This repository contains:
 
-- `export_mobius_synthesis/README.md` — synthesis overview and current status;
-- `export_mobius_synthesis/CURRENT_PROOF_ROUTE.md` — canonical wording for the active proof route and single live analytic target;
-- `export_mobius_synthesis/MODULES.md` — source map and synchronization inventory;
-- `export_mobius_synthesis/SNAPSHOT.md` — source provenance and copy policy;
-- `export_mobius_synthesis/RHLean.lean` — authoritative import manifest;
-- `export_mobius_synthesis/RHLean/` — mirrored Lean source tree;
-- `export_mobius_synthesis/lakefile.lean`, `lean-toolchain`, and `lake-manifest.json` — pinned project metadata;
-- `export_mobius_synthesis/boundary/` — quantitative and cross-track research ledgers and policy;
-- `export_mobius_synthesis/.github/` — standalone-repository PR policy and workflow material;
-- `export_mobius_synthesis/scripts/check_boundary_advance.py` — trusted boundary checker.
+- `README.md` — synthesis overview and current status;
+- `MODULES.md` — Lean source map and module inventory;
+- `SEAMS.md` — elementary prime-sieve and PNT-centering seams;
+- `RHLean.lean` — authoritative import manifest;
+- `RHLean/` — Lean source tree;
+- `lakefile.lean`, `lean-toolchain`, and `lake-manifest.json` — pinned project metadata;
+- `boundary/` — quantitative and cross-track research ledgers and policy;
+- `.github/` — PR policy and workflow material;
+- `scripts/check_boundary_advance.py` — trusted boundary checker.
 
-The staging export currently has no `paper/` directory. Nothing here is re-exported back into either companion repository.
+There is currently no `paper/` directory. Nothing here is re-exported back into either companion repository.
 
 ## Verification
 
-From the parent repository root:
+From the repository root:
 
 ```bash
 lake build RHLean --wfail
 ```
 
-From the export directory:
-
-```bash
-cd export_mobius_synthesis
-lake build RHLean --wfail
-```
-
-The stronger synchronization invariant is that `export_mobius_synthesis/RHLean.lean` is the same Git blob as the parent `RHLean.lean`, and each mirrored Lean module reuses its parent blob. The synchronized `PrimeSieveQuotientPNTError.lean` module satisfies that invariant.
+The `Baseline coupling audit` workflow runs the same build in CI, then prints the synthesis theorem together with its axiom dependencies. It fails if that theorem rests on `sorryAx`, if no axiom report is produced, or if the statement loses either its square-block or its prime-wheel anchor.
 
 ## Status convention
 

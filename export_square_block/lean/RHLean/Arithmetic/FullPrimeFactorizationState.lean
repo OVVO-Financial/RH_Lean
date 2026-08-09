@@ -4,7 +4,7 @@ import Mathlib
 # Full prime-factorization semantics for Möbius parity
 
 This module is the semantic guardrail for every parent/cofactor construction in
-`RH_Lean`.
+this development.
 
 A product display `n = c * q` is a transport edge between two distinct natural
 numbers.  It is **not** a two-prime factorization unless both `c` and `q` are

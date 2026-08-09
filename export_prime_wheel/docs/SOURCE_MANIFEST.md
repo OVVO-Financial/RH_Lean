@@ -1,12 +1,9 @@
-# Source provenance
+# Source manifest
 
-This export was assembled from `OVVO-Financial/RH_Lean`. The exact arithmetic and Fourier theorem files below retain their checked provenance from merged commit:
-
-`f6110ca00b27a0a329a0f74db8b7747ad4bae234`
-
-The paper and numerical-path update was prepared from sandbox commit:
-
-`0376191574fa46ae9eea3c0e6a9f9372ad23576f`
+This note records the role of each Lean module published here. The arithmetic
+and Fourier theorem files listed below carry the statements the manuscript
+depends on; the bridge modules named further down isolate the published
+theorem boundary.
 
 ## Exact merged source modules
 
@@ -39,7 +36,7 @@ The paper and numerical-path update was prepared from sandbox commit:
 
 ## Public bridge foundations
 
-The public export uses role-specific module names rather than reusing sandbox-coupled internal paths whose names describe different theorem layers:
+The public modules use role-specific names rather than internal paths whose names describe different theorem layers:
 
 - `RHLean/Analysis/MertensEnergyCriterion.lean` defines the Mertens summatory function and squared growth criterion required by the exact reduction.
 - `RHLean/Analysis/PrimeWheelRHBridge.lean` names Mathlib's `RiemannHypothesis` proposition and keeps the classical Mertens/RH theorem as an explicit argument.

@@ -32,7 +32,7 @@ ALLOWED_KINDS = {"exact_reduction", "power_bound", "rh_scale"}
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 
 # Structural synthesis witnesses must invoke established declarations from both
-# initiatives.  These families intentionally describe the upstream tracks, not
+# initiatives.  These families intentionally describe the two source tracks, not
 # the already-joined SquareWheel names, so a witness must expose both sides.
 SQUARE_ANCHOR_FAMILIES = (
     "squareprefix",
@@ -239,7 +239,7 @@ def parse_anchor_list(value: Any, which: str, families: tuple[str, ...]) -> list
         lowered = item.lower()
         if not any(family in lowered for family in families):
             raise GateError(
-                f"{which} anchor {item} is not recognizable as an upstream track declaration"
+                f"{which} anchor {item} is not recognizable as a source track declaration"
             )
         anchors.append(item)
     if len(set(anchors)) != len(anchors):
