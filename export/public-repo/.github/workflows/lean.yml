@@ -52,7 +52,7 @@ jobs:
             echo 'Public reduction depends on sorryAx: the proof is unfinished.' >&2
             exit 1
           fi
-          if ! grep -q 'depends on axioms' /tmp/baseline_check.log; then
+          if ! grep -qE 'depends on axioms|does not depend on any axioms' /tmp/baseline_check.log; then
             echo 'No axiom report produced; the reduction did not elaborate.' >&2
             exit 1
           fi
