@@ -187,12 +187,19 @@ theorem norm_nonzeroResponseRun_sub_survivorRunCentered_le_lowDiff_add_deathDiff
         primorialMinimalSquareWheelSurvivorRunCentered k a b‖ ≤
       ‖canonicalLowPrefix 16 b - canonicalLowPrefix 16 a‖ +
         ‖lifetimeDeathMass 16 b - lifetimeDeathMass 16 a‖ := by
-  rw [primorialMinimalSquareWheelNonzeroResponse_sub_eq_survivorRunCentered_add_lowDiff_add_deathDiff
-    k a b haLower haUpper hbLower hbUpper]
-  have hnorm := norm_add_le
-    (canonicalLowPrefix 16 b - canonicalLowPrefix 16 a)
-    (lifetimeDeathMass 16 b - lifetimeDeathMass 16 a)
-  simpa only [add_sub_cancel_left] using hnorm
+  calc
+    ‖(squareWheelNonzeroSampleResponse (primorialMinimalWheelSystem k) b -
+        squareWheelNonzeroSampleResponse (primorialMinimalWheelSystem k) a) -
+        primorialMinimalSquareWheelSurvivorRunCentered k a b‖ =
+      ‖(canonicalLowPrefix 16 b - canonicalLowPrefix 16 a) +
+        (lifetimeDeathMass 16 b - lifetimeDeathMass 16 a)‖ := by
+          rw [primorialMinimalSquareWheelNonzeroResponse_sub_eq_survivorRunCentered_add_lowDiff_add_deathDiff
+            k a b haLower haUpper hbLower hbUpper]
+          congr 1
+          ring
+    _ ≤ ‖canonicalLowPrefix 16 b - canonicalLowPrefix 16 a‖ +
+        ‖lifetimeDeathMass 16 b - lifetimeDeathMass 16 a‖ :=
+      norm_add_le _ _
 
 /-- **Unconditional run-level remainder bound.**  For every positive `epsilon`,
 the whole difference between `H_b-H_a` and the signed survivor-centered run
@@ -224,12 +231,13 @@ theorem norm_nonzeroResponseRun_sub_survivorRunCentered_globalBound
     norm_canonicalLowPrefix_le (canonicalLowIncrementControl (16 : ℝ)) a
   have hlowBraw :=
     norm_canonicalLowPrefix_le (canonicalLowIncrementControl (16 : ℝ)) b
+  norm_num [canonicalLowIncrementControl] at hlowAraw hlowBraw
   have hlowA :
       ‖canonicalLowPrefix 16 a‖ ≤ ((a + 1 : ℕ) : ℝ) * 17 := by
-    simpa [canonicalLowIncrementControl] using hlowAraw
+    exact hlowAraw
   have hlowB :
       ‖canonicalLowPrefix 16 b‖ ≤ ((b + 1 : ℕ) : ℝ) * 17 := by
-    simpa [canonicalLowIncrementControl] using hlowBraw
+    exact hlowBraw
   have hlowDiff :
       ‖canonicalLowPrefix 16 b - canonicalLowPrefix 16 a‖ ≤
         ((b + 1 : ℕ) : ℝ) * 17 + ((a + 1 : ℕ) : ℝ) * 17 := by
