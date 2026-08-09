@@ -23,7 +23,8 @@ import sys
 IMPORT_RE = re.compile(r'^\s*import\s+([A-Za-z0-9_.]+)', re.M)
 ROOT_MODULE = 'RHLean'
 
-# (label, package directory, match development tree, repo-local modules)
+# (label, package directory, match development tree, repo-local modules,
+#  mirror the development root manifest)
 #
 # The prime-wheel export deliberately renames its public modules, so its file
 # contents are not expected to match the development tree; only its closure is
@@ -35,9 +36,9 @@ ROOT_MODULE = 'RHLean'
 # scripts/check_boundary_advance.py.
 EXPORTS = [
     ('export_mobius_synthesis', 'export_mobius_synthesis', True,
-     {'RHLean.Analysis.MobiusSynthesisBoundary'}),
-    ('export_square_block', 'export_square_block/lean', True, set()),
-    ('export_prime_wheel', 'export_prime_wheel/formalization', False, set()),
+     {'RHLean.Analysis.MobiusSynthesisBoundary'}, True),
+    ('export_square_block', 'export_square_block/lean', True, set(), False),
+    ('export_prime_wheel', 'export_prime_wheel/formalization', False, set(), False),
 ]
 
 
@@ -111,19 +112,36 @@ def check_against_development(label: str, package_dir: str,
     return problems
 
 
+def check_mirrors_root(label: str, package_dir: str) -> list[str]:
+    """A mirroring export must carry the development root manifest verbatim.
+
+    The closure check walks the export's own RHLean.lean, so an export whose
+    root is simply out of date still closes cleanly against its own stale
+    manifest. Only comparing against the development root catches that.
+    """
+    exported = os.path.join(package_dir, ROOT_MODULE + '.lean')
+    upstream = ROOT_MODULE + '.lean'
+    with open(exported, 'rb') as a, open(upstream, 'rb') as b:
+        if a.read() != b.read():
+            return [f'{label}: {ROOT_MODULE}.lean differs from the development root manifest']
+    return []
+
+
 def main() -> int:
     if not os.path.isdir(ROOT_MODULE):
         print(f'run from the repository root: no {ROOT_MODULE}/ here', file=sys.stderr)
         return 2
 
     problems = []
-    for label, package_dir, match_development, local_modules in EXPORTS:
+    for label, package_dir, match_development, local_modules, mirror_root in EXPORTS:
         if not os.path.isdir(package_dir):
             problems.append(f'{label}: {package_dir} is missing')
             continue
         problems.extend(check_closure(label, package_dir, local_modules))
         if match_development:
             problems.extend(check_against_development(label, package_dir, local_modules))
+        if mirror_root:
+            problems.extend(check_mirrors_root(label, package_dir))
 
     if problems:
         for problem in problems:
