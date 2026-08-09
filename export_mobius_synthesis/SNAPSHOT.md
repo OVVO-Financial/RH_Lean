@@ -1,6 +1,6 @@
 # Source snapshot provenance
 
-This synthesis export is synchronized to the `OVVO-Financial/RH_Lean` mathematical source state through **PR #279**, merged as:
+This synthesis export is synchronized to the `OVVO-Financial/RH_Lean` mathematical source snapshot identified by parent commit:
 
 ```text
 38d89861ee24a24cbb4f8bccd51e5791b645d9be
@@ -12,16 +12,16 @@ The final parent Lean-source anchor used by that synchronization is:
 5ebdcbcbf2f7755948da7d29520293b06dadbfdb
 ```
 
-That parent-source state contains `RHLean.Analysis.PrimeSievePNTCentering`, the parent root import of `RHLean.Analysis.PrimeSieveQuotientPNTError`, and the final parent theorem file. The PR #279 export closeout mirrors the same quotient-module Lean blob and updates export-specific documentation only.
+That parent-source state contains `RHLean.Analysis.PrimeSievePNTCentering`, the parent root import of `RHLean.Analysis.PrimeSieveQuotientPNTError`, and the final parent theorem file. The export closeout mirrors the same quotient-module Lean blob and updates export-specific documentation only.
 
-The later PR #280 changes repository boundary policy but does not advance the mathematical synchronization beyond the PR #279 source state described here.
+Subsequent parent-side repository-governance work does not advance the mathematical synchronization beyond the source snapshot described here.
 
 ## Copy policy
 
 - `RHLean.lean` is copied from the parent root import manifest without modification.
 - Every one of the **248 Lean modules** imported by that manifest is mirrored into `RHLean/` using the source file's existing Git blob SHA.
 - The original synthesis snapshot contained 214 imported modules. The current synchronized manifest therefore contains **34 additional modules** relative to that original snapshot.
-- The previous synchronization had reached 247 modules. PR #279 adds the single new synthesis seam module `RHLean.Analysis.PrimeSieveQuotientPNTError`.
+- The previous synchronization had reached 247 modules. The current snapshot adds the single new synthesis seam module `RHLean.Analysis.PrimeSieveQuotientPNTError`.
 - `README.md`, `MODULES.md`, this provenance note, the boundary policy, and other synthesis-facing explanatory files are export-specific documentation.
 
 ## Elementary and PNT-centering seams
@@ -60,7 +60,7 @@ and proves
 H_{k,n} = centered PNT-corrected comb - 2 * centered prime error.
 ```
 
-PR #279 adds
+The synchronized source snapshot includes
 
 ```text
 RHLean.Analysis.PrimeSieveQuotientPNTError
