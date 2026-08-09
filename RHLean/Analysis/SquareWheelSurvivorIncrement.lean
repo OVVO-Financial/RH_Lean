@@ -182,12 +182,20 @@ theorem norm_nonzeroResponseIncrement_sub_survivorCentered_le_low_add_death
         primorialMinimalSquareWheelSurvivorCenteredIncrement k n‖ ≤
       ‖canonicalLowIncrement 16 n‖ +
         ‖lifetimeDeathMass 16 n - lifetimeDeathMass 16 (n - 1)‖ := by
-  rw [primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_survivorCentered_add_low_add_death
-    k n hn hleftLower hleftUpper hrightUpper]
-  have hnorm := norm_add_le
-    (canonicalLowIncrement 16 n)
-    (lifetimeDeathMass 16 n - lifetimeDeathMass 16 (n - 1))
-  simpa only [add_sub_cancel_left] using hnorm
+  calc
+    ‖(squareWheelNonzeroSampleResponse (primorialMinimalWheelSystem k) n -
+        squareWheelNonzeroSampleResponse
+          (primorialMinimalWheelSystem k) (n - 1)) -
+        primorialMinimalSquareWheelSurvivorCenteredIncrement k n‖ =
+      ‖canonicalLowIncrement 16 n +
+        (lifetimeDeathMass 16 n - lifetimeDeathMass 16 (n - 1))‖ := by
+          rw [primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_survivorCentered_add_low_add_death
+            k n hn hleftLower hleftUpper hrightUpper]
+          congr 1
+          ring
+    _ ≤ ‖canonicalLowIncrement 16 n‖ +
+        ‖lifetimeDeathMass 16 n - lifetimeDeathMass 16 (n - 1)‖ :=
+      norm_add_le _ _
 
 /-- Any existing uniform low-height increment control can be inserted directly
 without touching the survivor-centered sign structure. -/
