@@ -1,20 +1,28 @@
 # Source snapshot provenance
 
-This synthesis export is synchronized to the `OVVO-Financial/RH_Lean` parent Lean source state containing the final parent copy of the reciprocal-quotient PNT module at commit:
+This synthesis export is synchronized to the `OVVO-Financial/RH_Lean` mathematical source snapshot identified by parent commit:
+
+```text
+38d89861ee24a24cbb4f8bccd51e5791b645d9be
+```
+
+The final parent Lean-source anchor used by that synchronization is:
 
 ```text
 5ebdcbcbf2f7755948da7d29520293b06dadbfdb
 ```
 
-That parent-source state contains `RHLean.Analysis.PrimeSievePNTCentering`, the parent root import of `RHLean.Analysis.PrimeSieveQuotientPNTError`, and the final parent theorem file. The subsequent synthesis-export commit mirrors the same quotient-module Lean blob and updates export-specific documentation only.
+That parent-source state contains `RHLean.Analysis.PrimeSievePNTCentering`, the parent root import of `RHLean.Analysis.PrimeSieveQuotientPNTError`, and the final parent theorem file. The export closeout mirrors the same quotient-module Lean blob and updates export-specific documentation only.
+
+Subsequent parent-side repository-governance work does not advance the mathematical synchronization beyond the source snapshot described here.
 
 ## Copy policy
 
 - `RHLean.lean` is copied from the parent root import manifest without modification.
 - Every one of the **248 Lean modules** imported by that manifest is mirrored into `RHLean/` using the source file's existing Git blob SHA.
 - The original synthesis snapshot contained 214 imported modules. The current synchronized manifest therefore contains **34 additional modules** relative to that original snapshot.
-- The previous synchronization had reached 247 modules. This synchronization adds the single new synthesis seam module `RHLean.Analysis.PrimeSieveQuotientPNTError`.
-- `README.md`, `MODULES.md`, this provenance note, and other synthesis-facing explanatory files are export-specific documentation.
+- The previous synchronization had reached 247 modules. The current snapshot adds the single new synthesis seam module `RHLean.Analysis.PrimeSieveQuotientPNTError`.
+- `README.md`, `MODULES.md`, this provenance note, the boundary policy, and other synthesis-facing explanatory files are export-specific documentation.
 
 ## Elementary and PNT-centering seams
 
@@ -52,7 +60,7 @@ and proves
 H_{k,n} = centered PNT-corrected comb - 2 * centered prime error.
 ```
 
-This synchronization adds
+The synchronized source snapshot includes
 
 ```text
 RHLean.Analysis.PrimeSieveQuotientPNTError
@@ -73,7 +81,7 @@ sum_d M(d) *
 
 It also reindexes the deterministic PNT bulk and exact prime tail, proves the deterministic Li contribution cancels algebraically in the corrected all-plus identity, and pushes the reciprocal-interval error through the same square-wheel zero-mode centering used by `H_{k,n}`.
 
-These are exact finite realization, centering, and reindexing theorems. They assert no PNT error estimate, Bombieri–Vinogradov estimate, large-sieve estimate, RH-scale power saving, or new axiom. The centered PNT-corrected comb remains a separate analytic target from the newly explicit prime-distribution error.
+These are exact finite realization, centering, and reindexing theorems. They assert no PNT error estimate, Bombieri-Vinogradov estimate, large-sieve estimate, RH-scale power saving, or new axiom. The centered PNT-corrected comb remains a separate analytic target from the explicit reciprocal-interval prime-distribution error.
 
 ## Synchronization invariant
 
@@ -84,4 +92,4 @@ The export is intended to be build-complete as a standalone Lean snapshot. There
 3. Mirrored Lean files should reuse the exact parent Git blobs rather than edited copies.
 4. When the root manifest gains imports, the new modules and the updated manifest should be synchronized together.
 
-Because the Lean files reuse the exact parent blobs, the synthesis export does not introduce alternate theorem statements or edited proofs. It is a publication snapshot of the audited formal source tree, with export-specific documentation layered around it.
+Because the Lean files reuse the exact parent blobs, the synthesis export does not introduce alternate theorem statements or edited proofs. It is a publication snapshot of the audited formal source tree, with export-specific documentation and repository policy layered around it.

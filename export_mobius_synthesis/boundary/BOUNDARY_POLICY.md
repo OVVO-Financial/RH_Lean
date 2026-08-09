@@ -4,6 +4,8 @@ The required PR check is `boundary-advance`.
 
 The gate is intentionally a **scope gate**, not a mathematical novelty oracle. It should prevent the synthesis repository from becoming a dumping ground for one-sided square-block work, one-sided prime-wheel work, or notation-only churn. It should not require every useful synthesis PR to immediately improve the final bound on the nonzero response.
 
+The standalone repository begins from the synchronized mathematical baseline recorded in `boundary/synthesis.json`. That baseline includes the representative reciprocal-interval square-wheel theorem and starts at `revision = 0`; it is publication provenance, not prior standalone PR history.
+
 A Lean-source research PR therefore has two accepted lanes.
 
 ## Lane A: quantitative frontier advance
@@ -24,7 +26,7 @@ The candidate manifest names a Lean module and theorem. The workflow creates an 
 
 A PR may instead add an exact theorem that advances the **synthesis architecture** without yet improving the exponent on `H_{k,n}`.
 
-`boundary/synthesis.json` is a monotone ledger for this lane. The candidate must increment `revision` by exactly one and record a `last_witness` containing:
+`boundary/synthesis.json` is a monotone standalone ledger for this lane. The publication baseline is descriptive and does not consume a repository PR revision. A candidate must increment `revision` by exactly one and record a `last_witness` containing:
 
 - the changed Lean module;
 - the new witness theorem;
@@ -51,7 +53,7 @@ In particular, the following do not qualify by themselves:
 - newly invented anchor declarations used to self-certify the same PR;
 - a quantitative frontier edit that does not strictly strengthen the certified bound.
 
-A cross-track theorem can be exact and can leave the `H_{k,n}` exponent unchanged. That is the deliberate relaxation from the original policy.
+A cross-track theorem can be exact and can leave the `H_{k,n}` exponent unchanged.
 
 ## Maintenance changes
 
