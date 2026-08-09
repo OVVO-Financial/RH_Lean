@@ -41,8 +41,25 @@ jobs:
           test: false
           lint: false
 
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: lean/.lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.lean', 'lean/lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.lean', 'lean/lake-manifest.json') }}-
+
       - name: Build the square-block library
         run: lake build RHLean --wfail
+
+      # Saved even on failure: a partial build lets the next run resume
+      # instead of recompiling the whole library from scratch.
+      - name: Save RHLean build cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: lean/.lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean/lean-toolchain', 'lean/lakefile.lean', 'lean/lake-manifest.json') }}-${{ github.sha }}
 
       - name: Print the paper-facing survivor endpoint and its axioms
         run: |

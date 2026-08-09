@@ -55,6 +55,18 @@ jobs:
           test: false
           lint: false
 
+      # Restore only, never save. This job runs under pull_request_target with
+      # the candidate head checked out, so writing a cache here would let an
+      # untrusted branch poison the entry that trusted runs restore from.
+      - name: Restore RHLean build cache
+        if: steps.policy.outputs.needs_lean == 'true'
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+
       - name: Build candidate Lean source
         if: steps.policy.outputs.needs_lean == 'true'
         env:

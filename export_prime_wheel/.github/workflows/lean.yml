@@ -30,8 +30,25 @@ jobs:
           test: false
           lint: false
 
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: formalization/.lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('formalization/lean-toolchain', 'formalization/lakefile.lean', 'formalization/lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('formalization/lean-toolchain', 'formalization/lakefile.lean', 'formalization/lake-manifest.json') }}-
+
       - name: Build public formalization
         run: lake build RHLean --wfail
+
+      # Saved even on failure: a partial build lets the next run resume
+      # instead of recompiling the whole library from scratch.
+      - name: Save RHLean build cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: formalization/.lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('formalization/lean-toolchain', 'formalization/lakefile.lean', 'formalization/lake-manifest.json') }}-${{ github.sha }}
 
       - name: Print the public reduction and its axioms
         run: |
