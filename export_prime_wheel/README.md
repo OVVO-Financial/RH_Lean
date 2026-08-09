@@ -360,3 +360,11 @@ python3 numerics/prime_comb_viz.py --limit 210 --output-dir numerics
 ```
 
 See [`numerics/README.md`](numerics/README.md) for exact commands, status boundaries, generated artifacts, and hash manifests.
+
+## License
+
+Lean and Python source in this repository is licensed under the Apache License,
+Version 2.0; see [LICENSE](LICENSE).
+
+The manuscript under `paper/` is licensed under the Creative Commons Attribution
+4.0 International License (CC BY 4.0); see [paper/LICENSE](paper/LICENSE).

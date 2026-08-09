@@ -253,3 +253,7 @@ The `Baseline coupling audit` workflow runs the same build in CI, then prints th
 - Numerical experiments and finite-range checks are diagnostic evidence only.
 
 At the synchronized mathematical baseline, the square-wheel bridge, elementary prime-sieve seam, PNT centering, reciprocal quotient reindexing, and transfer infrastructure are machine checked. The RH-scale bound on the canonical nonzero response remains open.
+
+## License
+
+Licensed under the Apache License, Version 2.0; see [LICENSE](LICENSE).

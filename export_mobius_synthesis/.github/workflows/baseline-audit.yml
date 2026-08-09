@@ -30,6 +30,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Audit unfinished proofs and project-local axioms
+        run: bash scripts/audit_assumptions.sh
+
       - uses: leanprover/lean-action@v1
         with:
           use-github-cache: false
