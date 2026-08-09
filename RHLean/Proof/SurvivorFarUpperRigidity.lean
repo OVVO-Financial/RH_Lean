@@ -140,9 +140,15 @@ theorem survivorFixedPrimeCofactorMass_sixteen_eq_neg_primeDilatedLowCofactorMas
   intro c hc
   rw [survivorFixedPrimeCofactorTerm_sixteen_eq_productTerm_of_far_largePrime
     t c q ht hqFar hqPrime hc]
-  by_cases hprod : c * q ≤ squareRootEndpoint (t + 1)
-  · simp [hprod, squareRootEndpoint, RHLean.Analysis.squarePrefixEndpoint]
-  · simp [hprod, squareRootEndpoint, RHLean.Analysis.squarePrefixEndpoint]
+  change
+    (if c * q ≤ RHLean.Analysis.squarePrefixEndpoint t then
+        -canonicalMoebiusWeight c
+      else 0) =
+      -(if c * q ≤ RHLean.Analysis.squarePrefixEndpoint t then
+          canonicalMoebiusWeight c
+        else 0)
+  by_cases hprod : c * q ≤ RHLean.Analysis.squarePrefixEndpoint t <;>
+    simp [hprod]
 
 /-- The same rigidity statement in its canonical lower-scale Mertens form. -/
 theorem survivorFixedPrimeCofactorMass_sixteen_eq_neg_mertensSummatory
