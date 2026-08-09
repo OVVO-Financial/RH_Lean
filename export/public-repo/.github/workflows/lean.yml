@@ -32,3 +32,28 @@ jobs:
 
       - name: Build public formalization
         run: lake build RHLean --wfail
+
+      - name: Print the public reduction and its axioms
+        run: |
+          set -o pipefail
+          cat > /tmp/baseline_check.lean <<'EOF'
+          import RHLean.Analysis.PublicPrimeWheelReduction
+
+          set_option pp.fullNames true in
+          #print RHLean.Analysis.primorialWheel_dirichletNonconcentration_iff_mertensEnergy
+
+          #print axioms RHLean.Analysis.primorialWheel_dirichletNonconcentration_iff_mertensEnergy
+          EOF
+          lake env lean /tmp/baseline_check.lean | tee /tmp/baseline_check.log
+
+      - name: Assert the public reduction rests only on the standard Lean axioms
+        run: |
+          if grep -q 'sorryAx' /tmp/baseline_check.log; then
+            echo 'Public reduction depends on sorryAx: the proof is unfinished.' >&2
+            exit 1
+          fi
+          if ! grep -q 'depends on axioms' /tmp/baseline_check.log; then
+            echo 'No axiom report produced; the reduction did not elaborate.' >&2
+            exit 1
+          fi
+          echo 'Axiom audit passed.'
