@@ -2,9 +2,9 @@
 
 This manifest lists the Lean sources published under `lean/` in **Square-Block Möbius**.
 
-The **paper-facing inventory** below is selected by mathematical paper scope: these are the modules that state the results of the standalone square-block manuscript. Alongside them the snapshot now also ships the **transitive import closure** of that inventory, so the library builds and is machine-checked here rather than only in the upstream development. The closure modules are listed under [Supporting closure modules](#supporting-closure-modules); they carry no paper-facing statements and are present so that `lake build RHLean --wfail` succeeds in this repository.
+The **paper-facing inventory** below is selected by mathematical paper scope: these are the modules that state the results of the standalone square-block manuscript. Alongside them this repository also ships the **transitive import closure** of that inventory, so the library builds and is machine-checked here. The closure modules are listed under [Supporting closure modules](#supporting-closure-modules); they carry no paper-facing statements and are present so that `lake build RHLean --wfail` succeeds in this repository.
 
-Every module is byte-identical to the corresponding file in the upstream development. The `Baseline coupling audit` workflow builds the library, prints the paper-facing survivor endpoint together with its axiom dependencies, and fails if that endpoint rests on `sorryAx`.
+The `Baseline coupling audit` workflow builds the library, prints the paper-facing survivor endpoint together with its axiom dependencies, and fails if that endpoint rests on `sorryAx`.
 
 ## Square-prefix criterion and canonical decomposition
 
@@ -63,7 +63,7 @@ The paper-facing inventory intentionally covers only the mathematics represented
 
 ## Supporting closure modules
 
-These modules are imported, directly or transitively, by the paper-facing inventory above. They are reproduced verbatim from the upstream development so that this repository builds on its own; the manuscript makes no claim about them beyond their use as dependencies.
+These modules are imported, directly or transitively, by the paper-facing inventory above. They are present so that this repository builds on its own; the manuscript makes no claim about them beyond their use as dependencies.
 
 ### `RHLean/Analysis`
 

@@ -73,4 +73,4 @@ After the witness type-checks, the workflow runs `#print axioms` and rejects dep
 
 For the standalone `mobius-synthesis` repository, protect the default branch and make the status check named `boundary-advance` required. Also enable Code Owner review for the gate infrastructure listed in `.github/CODEOWNERS`.
 
-Inside the parent `RH_Lean` repository this workflow is intentionally stored under `export_mobius_synthesis/.github/workflows/`. GitHub does not execute nested workflow directories there. It becomes an active root workflow when this export is published as the standalone synthesis repository.
+This workflow runs from `.github/workflows/` in this repository.

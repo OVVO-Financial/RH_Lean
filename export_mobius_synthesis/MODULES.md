@@ -1,6 +1,6 @@
 # Möbius Synthesis — Lean source map
 
-This export intentionally contains the full import-audited `RHLean` source snapshot rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The synchronized manifest currently imports **248 Lean modules**, and every imported `RHLean.*` module is mirrored under the corresponding path in `RHLean/` using the same Git blob as the parent development.
+This repository intentionally contains the full import-audited `RHLean` library rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The manifest currently imports **248 Lean modules**, and every imported `RHLean.*` module resolves to the corresponding path under `RHLean/`.
 
 ## Elementary prime-sieve seam
 
@@ -135,7 +135,7 @@ The prime-sieve modules give the elementary seam: fresh-prime parity produces th
 
 ## Mertens and zeta bridge
 
-The current parent development also contains the forward analytic chain needed around the terminal Mertens and zeta statements:
+The library also contains the forward analytic chain needed around the terminal Mertens and zeta statements:
 
 - `RHLean.Analysis.DivisorUpperMobius`
 - `RHLean.Analysis.MertensStepFunction`
@@ -151,9 +151,9 @@ The current parent development also contains the forward analytic chain needed a
 - `RHLean.Proof.RiemannHypothesisBridge`
 - `RHLean.Proof.TerminalAxiomAudit`
 
-## Modules added since the original 214-module synthesis snapshot
+## Modules added since the original 214-module inventory
 
-The current synchronized parent manifest contains **34** modules beyond the original 214-module synthesis snapshot. The previous synchronization reached 247 modules; this change adds the one new reciprocal-quotient PNT-error module while retaining the PNT-centering, elementary prime-sieve bridge, and earlier survivor synchronizations.
+The current manifest contains **34** modules beyond the original 214-module inventory. The previous revision reached 247 modules; this change adds the one new reciprocal-quotient PNT-error module while retaining the PNT-centering, elementary prime-sieve bridge, and earlier survivor additions.
 
 Previously synchronized 21-module delta:
 
@@ -204,8 +204,8 @@ RHLean.Analysis.PrimeSievePNTCentering
 RHLean.Analysis.PrimeSieveQuotientPNTError
 ```
 
-## Scope and synchronization policy
+## Scope policy
 
-For synthesis, dependency completeness is more important than keeping the publication tree small. Modules that look auxiliary, experimental, geometric, or intermediate are therefore retained whenever they are part of the current audited root import manifest.
+For synthesis, dependency completeness is more important than keeping the tree small. Modules that look auxiliary, experimental, geometric, or intermediate are therefore retained whenever they are part of the audited root import manifest.
 
-The synchronization invariant is simple: `export_mobius_synthesis/RHLean.lean` must match the parent `RHLean.lean`, and every internal import in that manifest must resolve to a corresponding file under `export_mobius_synthesis/RHLean/`. When the parent adds an imported module, the export should copy the parent blob and update the manifest in the same synchronization commit. This avoids a publication export whose formal statements silently depend on files left behind in `RH_Lean`.
+The invariant is simple: every internal import in `RHLean.lean` must resolve to a corresponding file under `RHLean/`. When the manifest gains an imported module, the module and the manifest change together, so the formal statements never silently depend on a file that is not present here.

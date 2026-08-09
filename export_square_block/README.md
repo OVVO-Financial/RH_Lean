@@ -132,3 +132,10 @@ The central unresolved problem is therefore precise: prove the required power-sa
 
 $$Z_\Lambda(t)=-\sum_c \mu(c)\,\mathcal K_{\Lambda,t}(c).$$
 
+## License
+
+Lean and Python source in this repository is licensed under the Apache License,
+Version 2.0; see [LICENSE](LICENSE).
+
+The manuscript under `paper/` is licensed under the Creative Commons Attribution
+4.0 International License (CC BY 4.0); see [paper/LICENSE](paper/LICENSE).

@@ -10,3 +10,4 @@ version: 1.0.0
 date-released: 2026-07-30
 repository-code: "https://github.com/OVVO-Financial/prime-wheel-mobius"
 url: "https://github.com/OVVO-Financial/prime-wheel-mobius"
+license: Apache-2.0
