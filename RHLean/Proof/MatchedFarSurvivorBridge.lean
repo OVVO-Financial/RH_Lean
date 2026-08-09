@@ -68,7 +68,7 @@ theorem squareRootTransportPrimeFirst_eq_near_add_far
   have hRpos : 0 < R := by omega
   rw [squareRootTransportPrimeFirst_eq_mertensTransform R hRpos]
   unfold squareRootNearPrimeTransport squareRootFarPrimeTransport
-  have hsqpos : 1 ≤ R ^ 2 := by positivity
+  have hsqpos : 1 ≤ R ^ 2 := by nlinarith
   have hend : squareRootEndpoint R + 1 = R ^ 2 := by
     unfold squareRootEndpoint
     exact Nat.sub_add_cancel hsqpos
