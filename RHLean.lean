@@ -83,6 +83,7 @@ import RHLean.Analysis.SquarePrefixMertensBridge
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootTransportRealization
 import RHLean.Analysis.SquareWheelCenteredIncrement
+import RHLean.Analysis.SquareWheelEndpointCofactorFibres
 import RHLean.Analysis.SquareWheelNesting
 import RHLean.Analysis.SquareWheelQuadraticSampling
 import RHLean.Analysis.SquareWheelQuantitativeBridge
