@@ -152,6 +152,9 @@ theorem primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_centeredIncrement
   have hsampleLeft :=
     primeWheelResidual_squareEndpoint_eq_nonzero_add_zero
       (primorialMinimalWheelSystem k) (n - 1) hleftLower hleftUpper
+  have hupper :
+      (primorialMinimalWheelSystem k).upper = primorialBlockUpper k := rfl
+  rw [hupper] at hsampleRight hsampleLeft
   have hratio :=
     squareWheelSampleRatio_sub_pred_eq_gap
       (primorialMinimalWheelSystem k) n hn hleftLower.le
