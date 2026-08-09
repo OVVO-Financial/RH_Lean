@@ -1,6 +1,6 @@
 import Mathlib
 import RHLean.Analysis.SquareBlockDeathProcess
-import RHLean.Proof.SurvivorZeroMode
+import RHLean.Proof.SurvivorResidueCovariance
 
 /-!
 # Paper-facing square-block survivor bridge

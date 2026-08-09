@@ -1,9 +1,22 @@
 name: Public export verification
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'export_prime_wheel/**'
+      - 'export_mobius_synthesis/**'
+      - 'export_square_block/**'
+      - '**.lean'
+      - 'scripts/check_export_sync.py'
+      - '.github/workflows/export.yml'
   pull_request:
     paths:
-      - 'export/**'
+      - 'export_prime_wheel/**'
+      - 'export_mobius_synthesis/**'
+      - 'export_square_block/**'
+      - '**.lean'
+      - 'scripts/check_export_sync.py'
       - '.github/workflows/export.yml'
   workflow_dispatch:
 
@@ -17,28 +30,35 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Verify every export closes and matches the development tree
+        run: python3 scripts/check_export_sync.py
+
+      - name: Audit the square-block export for unfinished proofs and axioms
+        working-directory: export_square_block/lean
+        run: bash scripts/audit_assumptions.sh
+
       - name: Verify paper and numerical provenance
-        working-directory: export/public-repo
+        working-directory: export_prime_wheel
         run: |
-          echo '8f02277dd763774f1c4859c64c52157aa7a4323ffb4fc861b192ad3ab2617a72  paper/seeded_prime_comb_harmonic_reduction.tex' | sha256sum --check -
+          echo 'dccf5c23465d93b9d8fb6ba08b3fa36893cd2c8ef81b53f1f2e43de1709d2e55  paper/seeded_prime_comb_harmonic_reduction.tex' | sha256sum --check -
           test "$(git hash-object numerics/primorial_block_validation.py)" = '98ad192eb59c1ad9cf31ab8cdbfc43cf0f8497ed'
           grep -F 'https://github.com/OVVO-Financial/prime-wheel-mobius/blob/main/numerics/primorial_block_validation.py' paper/seeded_prime_comb_harmonic_reduction.tex
           test ! -e numerics/squared_space_reproducibility_v3.py
           test ! -e paper/Squared_Complex_Framework_Elementary_Pointwise_Bridge.tex
 
       - name: Audit unfinished proofs and project-local axioms
-        working-directory: export/public-repo/formalization
+        working-directory: export_prime_wheel/formalization
         run: bash scripts/audit_assumptions.sh
 
       - name: Check exported numerical scripts
-        working-directory: export/public-repo/formalization
+        working-directory: export_prime_wheel/formalization
         run: |
           python -m py_compile \
             ../numerics/primorial_block_validation.py \
             ../numerics/analytic_kill_gates.py
 
       - name: Record local Lean build policy
-        working-directory: export/public-repo/formalization
+        working-directory: export_prime_wheel/formalization
         run: |
           echo 'Lean compilation is intentionally local-only.'
           echo 'Authoritative local command: lake build RHLean --wfail'

@@ -1,6 +1,10 @@
 # Square-Block Möbius — Lean module manifest
 
-This manifest lists the curated Lean source snapshots published under `lean/` in **Square-Block Möbius**. The inventory is selected by **mathematical paper scope**, not by transitive import closure. The modules were verified in the full Lean development before publication export; supporting implementation modules outside the square-block paper remain outside this standalone snapshot.
+This manifest lists the Lean sources published under `lean/` in **Square-Block Möbius**.
+
+The **paper-facing inventory** below is selected by mathematical paper scope: these are the modules that state the results of the standalone square-block manuscript. Alongside them the snapshot now also ships the **transitive import closure** of that inventory, so the library builds and is machine-checked here rather than only in the upstream development. The closure modules are listed under [Supporting closure modules](#supporting-closure-modules); they carry no paper-facing statements and are present so that `lake build RHLean --wfail` succeeds in this repository.
+
+Every module is byte-identical to the corresponding file in the upstream development. The `Baseline coupling audit` workflow builds the library, prints the paper-facing survivor endpoint together with its axiom dependencies, and fails if that endpoint rests on `sorryAx`.
 
 ## Square-prefix criterion and canonical decomposition
 
@@ -54,4 +58,60 @@ This manifest lists the curated Lean source snapshots published under `lean/` in
 
 ## Scope boundary
 
-This export intentionally contains only the mathematics represented in the standalone square-block manuscript. Modules belonging to other block architectures, or to a future synthesis between architectures, are outside scope and are not copied here.
+The paper-facing inventory intentionally covers only the mathematics represented in the standalone square-block manuscript. Modules belonging to other block architectures, or to a synthesis between architectures, are outside its scope and are not claimed here. The supporting closure modules listed below are shipped solely to make that inventory buildable, and are not part of the manuscript's claims.
+
+
+## Supporting closure modules
+
+These modules are imported, directly or transitively, by the paper-facing inventory above. They are reproduced verbatim from the upstream development so that this repository builds on its own; the manuscript makes no claim about them beyond their use as dependencies.
+
+### `RHLean/Analysis`
+
+- `RHLean/Analysis/FiniteTorusFourierPairing.lean`
+- `RHLean/Analysis/QuadraticExponentCongruence.lean`
+- `RHLean/Analysis/QuadraticPhasePeriod.lean`
+
+### `RHLean/Arithmetic`
+
+- `RHLean/Arithmetic/FullPrimeFactorizationState.lean`
+
+### `RHLean/Kernel`
+
+- `RHLean/Kernel/FixedPackets.lean`
+
+### `RHLean/Proof`
+
+- `RHLean/Proof/ActualForcingEstimates.lean`
+- `RHLean/Proof/ActualResidualDecomposition.lean`
+- `RHLean/Proof/ActualStartLocalSignedFrame.lean`
+- `RHLean/Proof/ActualStartSignedFrame.lean`
+- `RHLean/Proof/BalancedCanonicalGap.lean`
+- `RHLean/Proof/BirthMovingAbsorption.lean`
+- `RHLean/Proof/BlockLyapunovClosure.lean`
+- `RHLean/Proof/CanonicalGapAncestryBridge.lean`
+- `RHLean/Proof/CanonicalGapAncestryFlow.lean`
+- `RHLean/Proof/CanonicalGapPrefixGram.lean`
+- `RHLean/Proof/CanonicalSignedParent.lean`
+- `RHLean/Proof/ConcreteSquarePrefixCofactorRealization.lean`
+- `RHLean/Proof/CumulativeHeightFlow.lean`
+- `RHLean/Proof/DeathProcessArithmetic.lean`
+- `RHLean/Proof/DeathShellCardinalityAndCentering.lean`
+- `RHLean/Proof/DeathShellCofactorParity.lean`
+- `RHLean/Proof/FullFactorizationBridge.lean`
+- `RHLean/Proof/GeometricRHReduction.lean`
+- `RHLean/Proof/HeightShellGram.lean`
+- `RHLean/Proof/HeightShellReconstruction.lean`
+- `RHLean/Proof/JointGramControl.lean`
+- `RHLean/Proof/LifetimeOverlapKernel.lean`
+- `RHLean/Proof/NormalizedCofactorExpansion.lean`
+- `RHLean/Proof/ResonantLeakage.lean`
+- `RHLean/Proof/ResonantProjection.lean`
+- `RHLean/Proof/RiemannHypothesisBridge.lean`
+- `RHLean/Proof/SignedCanonicalHeight.lean`
+- `RHLean/Proof/SurvivorResidueCovariance.lean`
+- `RHLean/Proof/SurvivorZeroMode.lean`
+- `RHLean/Proof/UniformResidualBound.lean`
+
+### `RHLean/Verification`
+
+- `RHLean/Verification/FiniteRangeCertificates.lean`
