@@ -1,0 +1,80 @@
+name: Baseline coupling audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'lean/**'
+      - '.github/workflows/baseline-audit.yml'
+  pull_request:
+    paths:
+      - 'lean/**'
+      - '.github/workflows/baseline-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: square-block-baseline-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  baseline-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: lean
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Audit unfinished proofs and project-local axioms
+        run: bash scripts/audit_assumptions.sh
+
+      - uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: lean
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Build the square-block library
+        run: lake build RHLean --wfail
+
+      - name: Print the paper-facing survivor endpoint and its axioms
+        run: |
+          set -o pipefail
+          cat > /tmp/baseline_check.lean <<'EOF'
+          import RHLean.Analysis.SquareBlockSurvivorBridge
+
+          set_option pp.fullNames true in
+          #print RHLean.Analysis.squareBlockSurvivorPowerSaving_implies_riemannHypothesis
+
+          #print axioms RHLean.Analysis.squareBlockSurvivorPowerSaving_implies_riemannHypothesis
+          EOF
+          lake env lean /tmp/baseline_check.lean | tee /tmp/baseline_check.log
+
+      - name: Assert the endpoint rests only on the standard Lean axioms
+        run: |
+          if grep -q 'sorryAx' /tmp/baseline_check.log; then
+            echo 'Endpoint depends on sorryAx: the proof is unfinished.' >&2
+            exit 1
+          fi
+          if ! grep -q 'depends on axioms' /tmp/baseline_check.log; then
+            echo 'No axiom report produced; the endpoint did not elaborate.' >&2
+            exit 1
+          fi
+          echo 'Axiom audit passed.'
+
+      - name: Assert the endpoint carries the square-block anchors
+        run: |
+          echo 'square anchors found:'
+          grep -oiE 'squareprefix|squareblock|survivor|lifetime|deathshell|ancestry' \
+            /tmp/baseline_check.log | sort -u | tee /tmp/square_anchors.txt
+          if [ ! -s /tmp/square_anchors.txt ]; then
+            echo 'Endpoint statement carries no square-block anchor.' >&2
+            exit 1
+          fi

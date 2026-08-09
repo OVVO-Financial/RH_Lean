@@ -1,0 +1,31 @@
+name: Baseline coupling audit
+on:
+  workflow_dispatch:
+
+jobs:
+  baseline-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - run: lake build RHLean --wfail
+      - run: |
+          cat > /tmp/baseline_check.lean <<'EOF'
+          import RHLean.Analysis.PrimeSieveQuotientPNTError
+
+          set_option pp.fullNames true in
+          #print RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError
+
+          #print axioms RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError
+          EOF
+          lake env lean /tmp/baseline_check.lean | tee /tmp/baseline_check.log
+      - run: |
+          echo "square anchors found:"; grep -oiE "squareprefix|squareblock|survivor|lifetime|deathshell|ancestry" /tmp/baseline_check.log || true
+          echo "wheel anchors found:"; grep -oiE "primorial|primewheel|ramanujan|conductor|coconductor" /tmp/baseline_check.log || true
