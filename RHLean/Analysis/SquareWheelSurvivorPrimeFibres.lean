@@ -46,6 +46,20 @@ open CanonicalGapAncestryBridge
 open RHLean.Arithmetic
 open RHLean.Analysis
 
+/-- Public local copy of the source sign law needed by the prime-fibre
+reindexing.  The corresponding theorem in `SurvivorZeroMode` is intentionally
+private to that module. -/
+private theorem canonicalMoebiusWeight_mul_eq_neg_of_sourceData_fibre
+    {c q : ℕ} (hdata : CanonicalSourceData q c) :
+    canonicalMoebiusWeight (c * q) = -canonicalMoebiusWeight c := by
+  rcases hdata with ⟨hq, _hc1, _hsq, hcop, _hdom⟩
+  have hmu :=
+    ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop.symm
+  unfold canonicalMoebiusWeight
+  rw [hmu, ArithmeticFunction.moebius_apply_prime hq]
+  push_cast
+  ring
+
 /-- The full survivor zero mode is the exact sum of the actual fixed-prime
 cofactor fibres. -/
 theorem survivorZeroMode_eq_sum_fixedPrimeCofactorMass
@@ -96,7 +110,7 @@ theorem survivorZeroMode_eq_sum_fixedPrimeCofactorMass
             survivorFixedPrimeActivityIndicator
           by_cases hpair : IsSurvivorZeroModePair Λ t c q
           · have hweight :=
-              canonicalMoebiusWeight_mul_eq_neg_of_sourceData hpair.1
+              canonicalMoebiusWeight_mul_eq_neg_of_sourceData_fibre hpair.1
             simp [hpair, hweight]
           · simp [hpair]
 
@@ -187,7 +201,7 @@ theorem primorialMinimalWheel_endpointResidual_eq_sum_primeFibers
             rw [Finset.sum_eq_single (canonicalLargestPrimeFactor m)]
             · simp
             · intro q hq hne
-              simp [hne]
+              simp [hne.symm]
             · intro hnot
               exact (hnot hqmem).elim
     _ =
@@ -229,6 +243,5 @@ theorem primorialMinimalSquareWheelSurvivorRunCentered_eq_sum_primeFibers
   rw [ha, hb, hend]
   rw [Finset.sum_sub_distrib, Finset.sum_sub_distrib]
   rw [← Finset.mul_sum]
-  ring
 
 end RHLean.Proof
