@@ -28,6 +28,10 @@ jobs:
           test "$(git hash-object numerics/primorial_block_validation.py)" = '98ad192eb59c1ad9cf31ab8cdbfc43cf0f8497ed'
           grep -F 'https://github.com/OVVO-Financial/prime-wheel-mobius/blob/main/numerics/primorial_block_validation.py' paper/seeded_prime_comb_harmonic_reduction.tex
           test ! -e numerics/squared_space_reproducibility_v3.py
+          # The square-block manuscript stays out of the public export. Both the
+          # current filename and the superseded one are guarded, so neither the
+          # live paper nor a resurrected stale copy can leak into the package.
+          test ! -e paper/A_SquaredComplex_Framework_for_SquarePrefix_Mobius_Sums.tex
           test ! -e paper/Squared_Complex_Framework_Elementary_Pointwise_Bridge.tex
 
       - name: Audit unfinished proofs and project-local axioms
