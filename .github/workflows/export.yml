@@ -80,4 +80,4 @@ jobs:
           echo 'GitHub Desktop opens terminals at the repository root, but export_mobius_synthesis is a separate Lake project.'
           echo 'For any mobius-synthesis development or export change, use:'
           echo '  bash scripts/verify_mobius_synthesis_local.sh'
-          echo 'That command checks export sync, removes project .lake/build products, and fresh-builds both Lake projects.'
+          echo 'That command checks export sync, removes project .lake/build products, restores each project'"'"'s Mathlib cache, and fresh-builds both Lake projects.'

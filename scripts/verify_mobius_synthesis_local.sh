@@ -11,8 +11,11 @@ set -euo pipefail
 #   2. fetch the current branch and require local HEAD = origin/<branch>;
 #   3. verify development/export source synchronization;
 #   4. remove only project build products, preserving downloaded package caches;
-#   5. build the development library from scratch;
-#   6. build the standalone mobius-synthesis export from scratch.
+#   5. restore each project's Mathlib build cache, because the two Lake projects
+#      keep separate .lake/packages trees and a missing cache silently turns a
+#      fresh build into a multi-hour Mathlib compile;
+#   6. build the development library from scratch;
+#   7. build the standalone mobius-synthesis export from scratch.
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 export_root="$repo_root/export_mobius_synthesis"
@@ -52,6 +55,14 @@ rm -rf "$repo_root/.lake/build" "$export_root/.lake/build"
 echo '==> Auditing development sources'
 bash scripts/audit_assumptions.sh
 
+echo '==> Restoring the development Mathlib build cache'
+if ! lake exe cache get; then
+  echo 'ERROR: could not restore the Mathlib build cache for the development project.' >&2
+  echo 'Continuing would compile Mathlib from source, which takes hours.' >&2
+  echo 'Restore connectivity to the Mathlib cache and rerun this verifier.' >&2
+  exit 1
+fi
+
 echo '==> Fresh-building development RHLean'
 lake build RHLean --wfail
 
@@ -59,6 +70,19 @@ echo '==> Auditing standalone mobius-synthesis export sources'
 (
   cd "$export_root"
   bash scripts/audit_assumptions.sh
+)
+
+echo '==> Restoring the standalone mobius-synthesis Mathlib build cache'
+(
+  cd "$export_root"
+  if ! lake exe cache get; then
+    echo 'ERROR: could not restore the Mathlib build cache for export_mobius_synthesis.' >&2
+    echo 'This export is a separate Lake project with its own .lake/packages tree,' >&2
+    echo 'so it never reuses the development project cache. Continuing would compile' >&2
+    echo 'Mathlib from source, which takes hours.' >&2
+    echo 'Restore connectivity to the Mathlib cache and rerun this verifier.' >&2
+    exit 1
+  fi
 )
 
 echo '==> Fresh-building standalone mobius-synthesis RHLean'
