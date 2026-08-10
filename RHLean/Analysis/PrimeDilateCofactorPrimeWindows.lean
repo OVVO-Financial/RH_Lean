@@ -116,7 +116,7 @@ theorem mem_primeDilateCofactorWindow_iff_prefixBoundary
 /-- Every explicit cofactor window is contained in the original unresolved
 prime-coordinate interval. -/
 theorem primeDilateCofactorWindow_subset_Ioc
-    (p y x c : ℕ) (hc : 0 < c) :
+    (p y x c : ℕ) (_hc : 0 < c) :
     primeDilateCofactorWindow p y x c ⊆ Finset.Ioc y x := by
   intro q hq
   rcases mem_primeDilateCofactorWindow.mp hq with ⟨hlower, hupper⟩
@@ -333,6 +333,7 @@ theorem primeSieveMertensPrimeTail_eq_primeDilateCofactorPrimeCountTransform
       unfold primeDilateCofactorWindowTransform
         primeDilateCofactorPrimeCountTransform
         primeDilateCofactorWindowPrimeCount
+      rfl
 
 /-- The existing deterministic PNT bulk is the same cofactor-window transform
 with telescoped Li endpoint masses. -/
@@ -425,11 +426,12 @@ theorem primeDilatePrefixReciprocalShell_eq_squareSupport_filter_window
         Nat.mul_lt_mul_of_pos_left hRq hR
       have hXlt : squareRootEndpoint R < R * R := by
         unfold squareRootEndpoint
+        rw [pow_two]
         have hsq : 0 < R * R := Nat.mul_pos hR hR
         omega
-      have : R * R ≤ squareRootEndpoint R :=
+      have hbad : R * R ≤ squareRootEndpoint R :=
         (hmul2.trans_le (hmul1.trans hboundary.1)).le
-      omega
+      exact (Nat.not_lt_of_ge hbad) hXlt
     have hwindow :=
       (mem_primeDilateCofactorWindow_iff_prefixBoundary hp hcpos).2
         ⟨hq, hboundary⟩
@@ -521,18 +523,26 @@ theorem squareRootTransportPrimeFirst_eq_squarePrimeDilateCofactorPrimeCountTran
     squareRootTransportPrimeFirst R =
       squarePrimeDilateCofactorPrimeCountTransform p R := by
   rw [squareRootTransportPrimeFirst_eq_mertensTransform R hR]
-  rw [sum_weight_mul_mertens_square_eq_squarePrimeDilateCofactorWindowTransform
-    p R hp hR primeSievePrimeIndicator]
-  unfold squarePrimeDilateCofactorWindowTransform
-    squarePrimeDilateCofactorPrimeCountTransform
-    primeDilateCofactorWindowPrimeCount
-  apply Finset.sum_congr rfl
-  intro c hc
-  congr 1
-  apply Finset.sum_congr rfl
-  intro q hq
-  unfold primeSievePrimeIndicator
-  by_cases hprime : q.Prime <;> simp [hprime]
+  calc
+    (∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+        if q.Prime then
+          RHLean.Analysis.mertensSummatory (squareRootEndpoint R / q)
+        else 0) =
+      ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+        primeSievePrimeIndicator q *
+          RHLean.Analysis.mertensSummatory (squareRootEndpoint R / q) := by
+            apply Finset.sum_congr rfl
+            intro q hq
+            unfold primeSievePrimeIndicator
+            by_cases hprime : q.Prime <;> simp [hprime]
+    _ = squarePrimeDilateCofactorWindowTransform p R primeSievePrimeIndicator :=
+      sum_weight_mul_mertens_square_eq_squarePrimeDilateCofactorWindowTransform
+        p R hp hR primeSievePrimeIndicator
+    _ = squarePrimeDilateCofactorPrimeCountTransform p R := by
+      unfold squarePrimeDilateCofactorWindowTransform
+        squarePrimeDilateCofactorPrimeCountTransform
+        primeDilateCofactorWindowPrimeCount
+      rfl
 
 /-- At the square endpoint, the deterministic PNT bulk is the `c < R` sum of
 Li endpoint differences on the same reciprocal windows. -/
