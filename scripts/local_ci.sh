@@ -11,10 +11,10 @@ set -euo pipefail
 #     Mathlib from source instead of downloading it;
 #   * the source audits, which reject unfinished proofs, project-local axioms
 #     and paper/Analysis boundary violations that compile perfectly well;
-#   * the export sync audit, which catches a module that exists in an export
-#     but not in the development tree. A root build never compiles that
-#     module, so the development project stays green while the published
-#     repository fails on the source only it carries;
+#   * the export closure audit, which catches an export whose root manifest
+#     imports a module the export does not ship. A root build here never
+#     compiles the export, so this project stays green while the published
+#     repository dies on a missing file;
 #   * the root import manifest check, which catches a new module that is on
 #     disk but missing from RHLean.lean, and so is never compiled at all.
 #
@@ -61,7 +61,7 @@ bash scripts/check_paper_analysis_boundary.sh
 step 'Auditing unfinished proofs and axioms'
 bash scripts/audit_assumptions.sh
 
-step 'Verifying every export closes and matches the development tree'
+step 'Verifying every export closes as a buildable Lake project'
 "$python_bin" scripts/check_export_sync.py
 
 step 'Restoring the Mathlib build cache'

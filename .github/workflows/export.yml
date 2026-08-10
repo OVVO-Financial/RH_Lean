@@ -34,7 +34,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Verify every export closes and matches the development tree
+      - name: Verify every export closes as a buildable Lake project
         run: python3 scripts/check_export_sync.py
 
       - name: Audit the square-block export for unfinished proofs and axioms
