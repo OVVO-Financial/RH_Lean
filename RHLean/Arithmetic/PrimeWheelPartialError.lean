@@ -28,29 +28,37 @@ def primeWheelUnresolvedPart (y n : ℕ) : ℕ :=
 def partialPrimeWheelSite (y upper n : ℕ) : ℤ :=
   correctedPrimeWheelSite (primesUpTo y) upper n
 
-lemma primeWheelResolvedFactorization_le (y n : ℕ) :
-    primeWheelResolvedFactorization y n ≤ n.factorization := by
-  intro p
-  simp [primeWheelResolvedFactorization]
+lemma primeWheelResolvedFactorization_support_prime (y n : ℕ) :
+    ∀ p ∈ (primeWheelResolvedFactorization y n).support, Nat.Prime p := by
+  intro p hp
+  have hpN : p ∈ n.factorization.support := by
+    rw [primeWheelResolvedFactorization, Finsupp.support_filter] at hp
+    exact (Finset.mem_filter.mp hp).1
+  rw [Nat.support_factorization] at hpN
+  exact Nat.prime_of_mem_primeFactors hpN
 
-lemma primeWheelUnresolvedFactorization_le (y n : ℕ) :
-    primeWheelUnresolvedFactorization y n ≤ n.factorization := by
-  intro p
-  simp [primeWheelUnresolvedFactorization]
+lemma primeWheelUnresolvedFactorization_support_prime (y n : ℕ) :
+    ∀ p ∈ (primeWheelUnresolvedFactorization y n).support, Nat.Prime p := by
+  intro p hp
+  have hpN : p ∈ n.factorization.support := by
+    rw [primeWheelUnresolvedFactorization, Finsupp.support_filter] at hp
+    exact (Finset.mem_filter.mp hp).1
+  rw [Nat.support_factorization] at hpN
+  exact Nat.prime_of_mem_primeFactors hpN
 
 @[simp] theorem primeWheelResolvedPart_factorization (y n : ℕ) :
     (primeWheelResolvedPart y n).factorization =
       primeWheelResolvedFactorization y n := by
   unfold primeWheelResolvedPart
-  exact Nat.factorization_prod_pow_eq_self_of_le_factorization
-    (primeWheelResolvedFactorization_le y n)
+  exact Nat.prod_pow_factorization_eq_self
+    (primeWheelResolvedFactorization_support_prime y n)
 
 @[simp] theorem primeWheelUnresolvedPart_factorization (y n : ℕ) :
     (primeWheelUnresolvedPart y n).factorization =
       primeWheelUnresolvedFactorization y n := by
   unfold primeWheelUnresolvedPart
-  exact Nat.factorization_prod_pow_eq_self_of_le_factorization
-    (primeWheelUnresolvedFactorization_le y n)
+  exact Nat.prod_pow_factorization_eq_self
+    (primeWheelUnresolvedFactorization_support_prime y n)
 
 lemma primeWheelResolvedPart_ne_zero (y n : ℕ) :
     primeWheelResolvedPart y n ≠ 0 := by
@@ -58,11 +66,7 @@ lemma primeWheelResolvedPart_ne_zero (y n : ℕ) :
   rw [Finsupp.prod_ne_zero_iff]
   intro p hp
   apply pow_ne_zero
-  have hpN : p ∈ n.factorization.support := by
-    have hp' := hp
-    rw [primeWheelResolvedFactorization, Finsupp.support_filter] at hp'
-    exact (Finset.mem_filter.mp hp').1
-  exact (Nat.prime_of_mem_factorization hpN).ne_zero
+  exact (primeWheelResolvedFactorization_support_prime y n p hp).ne_zero
 
 lemma primeWheelUnresolvedPart_ne_zero (y n : ℕ) :
     primeWheelUnresolvedPart y n ≠ 0 := by
@@ -70,11 +74,7 @@ lemma primeWheelUnresolvedPart_ne_zero (y n : ℕ) :
   rw [Finsupp.prod_ne_zero_iff]
   intro p hp
   apply pow_ne_zero
-  have hpN : p ∈ n.factorization.support := by
-    have hp' := hp
-    rw [primeWheelUnresolvedFactorization, Finsupp.support_filter] at hp'
-    exact (Finset.mem_filter.mp hp').1
-  exact (Nat.prime_of_mem_factorization hpN).ne_zero
+  exact (primeWheelUnresolvedFactorization_support_prime y n p hp).ne_zero
 
 /-- The resolved and unresolved factors multiply back to `n`. -/
 theorem primeWheelResolvedPart_mul_unresolvedPart
@@ -90,25 +90,32 @@ theorem primeWheelResolvedPart_mul_unresolvedPart
       n.factorization.prod (fun p e => p ^ e) := by
         exact Finsupp.prod_filter_mul_prod_filter_not
           (fun p : ℕ => p ≤ y) n.factorization (fun p e => p ^ e)
-    _ = n := Nat.prod_factorization_pow_eq_self hn
+    _ = n := Nat.factorization_prod_pow_eq_self hn
 
 lemma primeWheelResolvedPart_primeFactor_le
     {y n p : ℕ} (hp : p ∈ (primeWheelResolvedPart y n).primeFactors) :
     p ≤ y := by
-  have hp' : p ∈ (primeWheelResolvedPart y n).factorization.support := by
-    simpa [Nat.support_factorization] using hp
-  rw [primeWheelResolvedPart_factorization,
-    primeWheelResolvedFactorization, Finsupp.support_filter] at hp'
-  exact (Finset.mem_filter.mp hp').2
+  have hpSupport : p ∈ (primeWheelResolvedFactorization y n).support := by
+    rw [← primeWheelResolvedPart_factorization, Nat.support_factorization]
+    exact hp
+  have hpNe : primeWheelResolvedFactorization y n p ≠ 0 :=
+    Finsupp.mem_support_iff.mp hpSupport
+  rw [primeWheelResolvedFactorization, Finsupp.filter_apply] at hpNe
+  by_contra hpLe
+  simp [hpLe] at hpNe
 
 lemma primeWheelUnresolvedPart_primeFactor_gt
     {y n p : ℕ} (hp : p ∈ (primeWheelUnresolvedPart y n).primeFactors) :
     y < p := by
-  have hp' : p ∈ (primeWheelUnresolvedPart y n).factorization.support := by
-    simpa [Nat.support_factorization] using hp
-  rw [primeWheelUnresolvedPart_factorization,
-    primeWheelUnresolvedFactorization, Finsupp.support_filter] at hp'
-  exact Nat.lt_of_not_ge (Finset.mem_filter.mp hp').2
+  have hpSupport : p ∈ (primeWheelUnresolvedFactorization y n).support := by
+    rw [← primeWheelUnresolvedPart_factorization, Nat.support_factorization]
+    exact hp
+  have hpNe : primeWheelUnresolvedFactorization y n p ≠ 0 :=
+    Finsupp.mem_support_iff.mp hpSupport
+  rw [primeWheelUnresolvedFactorization, Finsupp.filter_apply] at hpNe
+  by_contra hpGt
+  have hpLe : p ≤ y := Nat.le_of_not_gt hpGt
+  simp [hpLe] at hpNe
 
 /-- The canonical cutoff factors are coprime because their prime supports are disjoint. -/
 theorem primeWheelResolvedPart_coprime_unresolvedPart (y n : ℕ) :
@@ -180,15 +187,21 @@ theorem seededPrimeComb_primesUpTo_eq_neg_moebius_resolvedPart
       (fun p hp => prime_of_mem_primesUpTo hp)
       ((primeWheelResolvedPart_isSmooth y n).2 hsq)
   · have hmu := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-    have hraw0 : seededPrimeComb (primesUpTo y) (primeWheelResolvedPart y n) = 0 := by
-      rw [seededPrimeComb_eq_zero_of_not_squarefree]
-      · rfl
-      · intro p hpPrime hpLe
-        exact mem_primesUpTo_of_prime_le hpPrime hpLe
-      · exact Nat.pos_of_ne_zero (primeWheelResolvedPart_ne_zero y n)
-      · exact Nat.le_refl _
-      · exact hsq
-    simp [hraw0, hmu]
+    rw [Nat.squarefree_iff_prime_squarefree] at hsq
+    push_neg at hsq
+    rcases hsq with ⟨p, hpPrime, hpSq⟩
+    have hpDvd : p ∣ primeWheelResolvedPart y n :=
+      dvd_trans (dvd_mul_right p p) hpSq
+    have hpPF : p ∈ (primeWheelResolvedPart y n).primeFactors :=
+      Nat.mem_primeFactors.mpr
+        ⟨hpPrime, hpDvd, primeWheelResolvedPart_ne_zero y n⟩
+    have hpLe : p ≤ y := primeWheelResolvedPart_primeFactor_le hpPF
+    have hpS : p ∈ primesUpTo y := mem_primesUpTo.mpr ⟨hpPrime, hpLe⟩
+    have hlocal : localPrimeComb p (primeWheelResolvedPart y n) = 0 := by
+      simp [localPrimeComb, pow_two, hpSq]
+    unfold seededPrimeComb
+    rw [Finset.prod_eq_zero hpS hlocal]
+    simp [hmu]
 
 lemma unresolvedPart_eq_one_iff_all_primeFactors_le
     (y : ℕ) {n : ℕ} (hn : n ≠ 0) :
@@ -196,33 +209,36 @@ lemma unresolvedPart_eq_one_iff_all_primeFactors_le
       ∀ p ∈ n.primeFactors, p ≤ y := by
   constructor
   · intro hb p hp
-    by_contra hpy
-    have hpPrime : Nat.Prime p := Nat.prime_of_mem_primeFactors hp
-    have hpDvd : p ∣ n := Nat.dvd_of_mem_primeFactors hp
-    have hpos : 0 < n.factorization p := hpPrime.factorization_pos_of_dvd hn hpDvd
-    have hfac : (primeWheelUnresolvedPart y n).factorization p = n.factorization p := by
+    have hpNe : n.factorization p ≠ 0 := by
+      rw [← Finsupp.mem_support_iff, Nat.support_factorization]
+      exact hp
+    by_contra hpLe
+    have hfac :
+        (primeWheelUnresolvedPart y n).factorization p = n.factorization p := by
       rw [primeWheelUnresolvedPart_factorization, primeWheelUnresolvedFactorization,
-        Finsupp.filter_apply, if_pos hpy]
-    rw [hb] at hfac
+        Finsupp.filter_apply, if_pos hpLe]
+    rw [hb, Nat.factorization_one] at hfac
     simp at hfac
-    omega
+    exact hpNe hfac.symm
   · intro hall
-    apply Nat.eq_one_of_dvd_one
-    rw [← Nat.factorization_le_iff_dvd
-      (primeWheelUnresolvedPart_ne_zero y n) one_ne_zero]
-    intro p
-    rw [primeWheelUnresolvedPart_factorization, primeWheelUnresolvedFactorization,
-      Finsupp.filter_apply]
-    by_cases hpy : p ≤ y
-    · simp [hpy]
-    · have hzero : n.factorization p = 0 := by
-        by_contra hp0
-        have hpSupport : p ∈ n.factorization.support := Finsupp.mem_support_iff.mpr hp0
-        have hpPrime : Nat.Prime p := Nat.prime_of_mem_factorization hpSupport
-        have hpDvd : p ∣ n := Nat.dvd_of_factorization_pos hp0
-        have hpPF : p ∈ n.primeFactors := Nat.mem_primeFactors.mpr ⟨hpPrime, hpDvd, hn⟩
-        exact hpy (hall p hpPF)
-      simp [hpy, hzero]
+    have hfzero : primeWheelUnresolvedFactorization y n = 0 := by
+      ext p
+      rw [primeWheelUnresolvedFactorization, Finsupp.filter_apply]
+      by_cases hpLe : p ≤ y
+      · simp [hpLe]
+      · have hpNot : p ∉ n.primeFactors := by
+          intro hp
+          exact hpLe (hall p hp)
+        have hpFac : n.factorization p = 0 := by
+          rw [← Finsupp.notMem_support_iff, Nat.support_factorization]
+          exact hpNot
+        simp [hpLe, hpFac]
+    have hbFac : (primeWheelUnresolvedPart y n).factorization = 0 := by
+      rw [primeWheelUnresolvedPart_factorization, hfzero]
+    rcases (Nat.factorization_eq_zero_iff' (primeWheelUnresolvedPart y n)).mp hbFac with
+      hb0 | hb1
+    · exact False.elim ((primeWheelUnresolvedPart_ne_zero y n) hb0)
+    · exact hb1
 
 lemma not_smooth_of_unresolvedPart_ne_one
     (y : ℕ) {n : ℕ} (hn : n ≠ 0)
@@ -237,7 +253,7 @@ lemma not_smooth_of_unresolvedPart_ne_one
 
 Writing `n = a_y(n) b_y(n)` with `a_y` carrying all prime powers at most `y`
 and `b_y` all prime powers above `y`, the partial corrected field is already
-exact when `b_y = 1`.  Otherwise the smooth correction is absent, the raw field
+exact when `b_y = 1`. Otherwise the smooth correction is absent, the raw field
 is `-μ(a_y)`, and the error is `μ(a_y) (1 + μ(b_y))`. -/
 theorem partialPrimeWheel_error_eq
     (y upper : ℕ) {n : ℕ}
@@ -247,20 +263,21 @@ theorem partialPrimeWheel_error_eq
       else μ (primeWheelResolvedPart y n) *
         (1 + μ (primeWheelUnresolvedPart y n)) := by
   have hn : n ≠ 0 := Nat.ne_of_gt hnpos
-  let a := primeWheelResolvedPart y n
-  let b := primeWheelUnresolvedPart y n
-  have hab : a * b = n := by
-    simpa [a, b] using primeWheelResolvedPart_mul_unresolvedPart y hn
-  have hcop : a.Coprime b := by
-    simpa [a, b] using primeWheelResolvedPart_coprime_unresolvedPart y n
-  have hmu : μ n = μ a * μ b := by
+  have hab := primeWheelResolvedPart_mul_unresolvedPart y hn
+  have hcop := primeWheelResolvedPart_coprime_unresolvedPart y n
+  have hmu :
+      μ n = μ (primeWheelResolvedPart y n) * μ (primeWheelUnresolvedPart y n) := by
     calc
-      μ n = μ (a * b) := by rw [hab]
-      _ = μ a * μ b :=
+      μ n = μ (primeWheelResolvedPart y n * primeWheelUnresolvedPart y n) := by
+        rw [hab]
+      _ = μ (primeWheelResolvedPart y n) * μ (primeWheelUnresolvedPart y n) :=
         ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop
-  by_cases hb : b = 1
-  · have hnSmooth : ∀ p ∈ n.primeFactors, p ≤ y := by
-      exact (unresolvedPart_eq_one_iff_all_primeFactors_le y hn).1 (by simpa [b] using hb)
+  have hraw := seededPrimeComb_primesUpTo_eq_neg_moebius_resolvedPart y hn
+  by_cases hb : primeWheelUnresolvedPart y n = 1
+  · have ha : primeWheelResolvedPart y n = n := by
+      simpa [hb] using hab
+    have hnSmooth : ∀ p ∈ n.primeFactors, p ≤ y :=
+      (unresolvedPart_eq_one_iff_all_primeFactors_le y hn).1 hb
     have hcorrect : partialPrimeWheelSite y upper n = μ n := by
       unfold partialPrimeWheelSite
       by_cases hsq : Squarefree n
@@ -268,28 +285,25 @@ theorem partialPrimeWheel_error_eq
           refine ⟨hsq, ?_⟩
           intro p hp
           exact mem_primesUpTo.mpr ⟨Nat.prime_of_mem_primeFactors hp, hnSmooth p hp⟩
-        have hraw := seededPrimeComb_eq_neg_moebius_of_smooth
-          (primesUpTo y) (fun p hp => prime_of_mem_primesUpTo hp) hsmooth
+        have hrawN : seededPrimeComb (primesUpTo y) n = -μ n := by
+          simpa [ha] using hraw
         simp [correctedPrimeWheelSite, primeWheelSmoothCoreSite,
-          hnupper, hsmooth, hraw]
+          hnupper, hsmooth, hrawN]
         ring
-      · have hmu0 := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-        have hraw0 : seededPrimeComb (primesUpTo y) n = 0 := by
-          rw [seededPrimeComb_eq_zero_of_not_squarefree]
-          · rfl
-          · intro p hpPrime hpLe
-            exact mem_primesUpTo_of_prime_le hpPrime hpLe
-          · exact hnpos
-          · exact hnupper
-          · exact hsq
-        simp [correctedPrimeWheelSite, primeWheelSmoothCoreSite, hraw0, hmu0]
-    simp [hb, b, hcorrect]
+      · have hnonsmooth : ¬ IsPrimeWheelSmooth (primesUpTo y) n :=
+          fun h => hsq h.1
+        have hmu0 := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
+        have hrawN : seededPrimeComb (primesUpTo y) n = 0 := by
+          simpa [ha, hmu0] using hraw
+        simp [correctedPrimeWheelSite, primeWheelSmoothCoreSite,
+          hnupper, hnonsmooth, hrawN, hmu0]
+    simp [hb, hcorrect]
   · have hnonsmooth : ¬ IsPrimeWheelSmooth (primesUpTo y) n :=
-      not_smooth_of_unresolvedPart_ne_one y hn (by simpa [b] using hb)
-    have hraw := seededPrimeComb_primesUpTo_eq_neg_moebius_resolvedPart y hn
-    have hpartial : partialPrimeWheelSite y upper n = -μ a := by
+      not_smooth_of_unresolvedPart_ne_one y hn hb
+    have hpartial :
+        partialPrimeWheelSite y upper n = -μ (primeWheelResolvedPart y n) := by
       unfold partialPrimeWheelSite correctedPrimeWheelSite primeWheelSmoothCoreSite
-      simp [hnupper, hnonsmooth, a, hraw]
+      simp [hnupper, hnonsmooth, hraw]
     rw [hmu, hpartial]
     simp [hb]
     ring
