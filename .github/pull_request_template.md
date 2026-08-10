@@ -1,5 +1,6 @@
 ## Lean validation
 
-- [ ] {local} Skip the hosted Lean build for this PR. I will validate locally with `lake build RHLean --wfail`.
+Hosted Lean compilation always runs for Lean-related pull requests; local validation is supplemental and never disables CI.
 
-<!-- Leave {local} unchecked for the default: Lean source audits plus the full hosted Lean build on Lean-related PRs. -->
+- [ ] I ran `lake build RHLean --wfail` for ordinary development-tree Lean changes.
+- [ ] For `mobius-synthesis` development or export changes, I ran `bash scripts/verify_mobius_synthesis_local.sh` after pulling the latest remote branch head.
