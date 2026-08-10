@@ -30,6 +30,7 @@ import RHLean.Analysis.MobiusSynthesisBoundaryBridge
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
+import RHLean.Analysis.PrimeDilateTransportCompression
 import RHLean.Analysis.PrimeSieveAbelIdentity
 import RHLean.Analysis.PrimeSieveBackwardAffineExcursion
 import RHLean.Analysis.PrimeSieveCollapseIdentity
