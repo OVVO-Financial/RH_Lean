@@ -15,18 +15,16 @@ indices. Their common transport suffix therefore cancels identically. The only
 surviving packet is the boundary between the parent entry `sqrt(cq)` and the
 child entry `sqrt(pcq)`.
 
-At a square endpoint `X = R^2 - 1`, writing
+For an arbitrary integer prefix `x`, writing
 
-`B = floor(X / q)`,
+`B = floor(x / q)`,
 
-the same boundary is exactly the reciprocal shell
+the source-level parent/child boundary is exactly the reciprocal shell
 
 `B / p < c <= B`.
 
-Equivalently, up to the integer floor already built into `B`, this is the
-`1/p` shell
-
-`X / (p*q) < c <= X / q`.
+At a square endpoint `X = R^2 - 1`, this specializes to the square-root geometry
+already used by the canonical transport architecture.
 
 All statements below are exact finite identities. No cancellation estimate or
 RH implication is asserted.
@@ -170,6 +168,74 @@ theorem finiteTransportPacket_add_primeDilateChild
   exact finiteTransportContribution_add_primeDilateChild
     N p c q t hp hq hpq hpc
 
+/-! ## Exact `1/p` reciprocal boundary at an arbitrary prefix -/
+
+/-- Reciprocal cofactor cutoff in the prime-first `q`-fiber at an arbitrary
+integer prefix `x`. -/
+def primeDilatePrefixCutoff (x q : ℕ) : ℕ :=
+  x / q
+
+/-- Source-level boundary saying `(c,q)` lies in the prefix through `x` while
+its `p`-dilated child `(p*c,q)` lies beyond that prefix. -/
+def IsPrimeDilatePrefixBoundary (p x q c : ℕ) : Prop :=
+  c * q ≤ x ∧ x < primeDilateChildCofactor p c * q
+
+/-- For every integer prefix `x`, the parent-inside/child-outside condition is
+exactly the reciprocal `1/p` shell. If `B = floor(x/q)`, then
+
+`c*q <= x < (p*c)*q  <->  B/p < c <= B`.
+-/
+theorem primeDilatePrefixBoundary_iff_reciprocalShell
+    (p x q c : ℕ) (hp : p.Prime) (hq : 0 < q) :
+    IsPrimeDilatePrefixBoundary p x q c ↔
+      c ≤ primeDilatePrefixCutoff x q ∧
+        primeDilatePrefixCutoff x q / p < c := by
+  unfold IsPrimeDilatePrefixBoundary primeDilatePrefixCutoff
+  constructor
+  · rintro ⟨hparent, hchild⟩
+    have hcB : c ≤ x / q :=
+      (Nat.le_div_iff_mul_le hq).2 hparent
+    have hBltpc : x / q < p * c := by
+      apply (Nat.div_lt_iff_lt_mul hq).2
+      simpa [primeDilateChildCofactor, Nat.mul_assoc] using hchild
+    have hshell : (x / q) / p < c := by
+      apply (Nat.div_lt_iff_lt_mul hp.pos).2
+      simpa [Nat.mul_comm] using hBltpc
+    exact ⟨hcB, hshell⟩
+  · rintro ⟨hcB, hshell⟩
+    have hparent : c * q ≤ x :=
+      (Nat.le_div_iff_mul_le hq).1 hcB
+    have hBltcp : x / q < c * p :=
+      (Nat.div_lt_iff_lt_mul hp.pos).1 hshell
+    have hBltpc : x / q < p * c := by
+      simpa [Nat.mul_comm] using hBltcp
+    have hchild : x < (p * c) * q :=
+      (Nat.div_lt_iff_lt_mul hq).1 hBltpc
+    exact ⟨hparent, by simpa [primeDilateChildCofactor] using hchild⟩
+
+/-- The literal finite `1/p` shell in the `q`-fiber of an arbitrary prefix. -/
+def primeDilatePrefixReciprocalShell (p x q : ℕ) : Finset ℕ :=
+  (Finset.Icc 1 (primeDilatePrefixCutoff x q)).filter fun c =>
+    ¬ p ∣ c ∧ primeDilatePrefixCutoff x q / p < c
+
+@[simp] theorem mem_primeDilatePrefixReciprocalShell
+    {p x q c : ℕ} :
+    c ∈ primeDilatePrefixReciprocalShell p x q ↔
+      1 ≤ c ∧ c ≤ primeDilatePrefixCutoff x q ∧
+        ¬ p ∣ c ∧ primeDilatePrefixCutoff x q / p < c := by
+  simp [primeDilatePrefixReciprocalShell, and_assoc]
+
+/-- With the new-prime condition `p ∤ c`, membership in the arbitrary-prefix
+reciprocal shell is exactly the source-level condition that the parent is
+present while its `p`-dilated child has not yet entered. -/
+theorem mem_primeDilatePrefixReciprocalShell_iff_prefixBoundary
+    (p x q c : ℕ) (hp : p.Prime) (hq : 0 < q) :
+    c ∈ primeDilatePrefixReciprocalShell p x q ↔
+      1 ≤ c ∧ ¬ p ∣ c ∧ IsPrimeDilatePrefixBoundary p x q c := by
+  rw [mem_primeDilatePrefixReciprocalShell,
+    primeDilatePrefixBoundary_iff_reciprocalShell p x q c hp hq]
+  aesop
+
 /-! ## Exact `1/p` reciprocal boundary at a square endpoint -/
 
 /-- Reciprocal cofactor cutoff in the prime-first `q`-fiber at `X = R^2 - 1`. -/
@@ -237,5 +303,21 @@ theorem mem_primeDilateReciprocalShell_iff_squareBoundary
   rw [mem_primeDilateReciprocalShell,
     primeDilateSquareBoundary_iff_reciprocalShell p R q c hp hq]
   aesop
+
+/-- The square-endpoint boundary is literally the arbitrary-prefix boundary
+specialized to `x = R^2 - 1`. -/
+theorem primeDilateSquareBoundary_iff_prefixBoundary
+    (p R q c : ℕ) :
+    IsPrimeDilateSquareBoundary p R q c ↔
+      IsPrimeDilatePrefixBoundary p (squareRootEndpoint R) q c := by
+  rfl
+
+/-- The square-endpoint reciprocal shell is the arbitrary-prefix shell at the
+same endpoint. -/
+theorem primeDilateReciprocalShell_eq_prefixShell
+    (p R q : ℕ) :
+    primeDilateReciprocalShell p R q =
+      primeDilatePrefixReciprocalShell p (squareRootEndpoint R) q := by
+  rfl
 
 end RHLean.Proof
