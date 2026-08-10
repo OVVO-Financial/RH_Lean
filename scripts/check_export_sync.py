@@ -1,14 +1,32 @@
 #!/usr/bin/env python3
-"""Verify the published export trees against the development tree.
+"""Verify that every published export tree is a buildable Lake project.
 
-Two failure modes have actually bitten this repository, and this script exists
-to catch both before an export is published:
+Two structural failure modes are checked, and both are about the export alone:
 
-  * an export copies ``RHLean.lean`` verbatim but omits modules it imports, so
+  * an export copies ``RHLean.lean`` verbatim but omits a module it imports, so
     ``lake build RHLean --wfail`` dies on a missing file rather than on any
     mathematics;
-  * an export carries a module snapshot older than the development tree, so the
-    published statement is not the one that was verified upstream.
+  * an export ships a module unreachable from its own root, which is dead
+    weight in a published repository.
+
+What this deliberately no longer checks is whether an export *matches* this
+development tree. Each published repository is a standalone Lake project: it
+compiles its own subset with ``--wfail``, runs its own assumption audit, and
+prints the axioms of its own endpoint. That is verification in situ, and it is
+strictly stronger than agreeing with a snapshot kept here, because a published
+statement is then proved where it is published rather than certified by
+resemblance to somewhere else.
+
+Requiring byte-identity on top of that made this repository the source of truth
+for repositories that do not need one. An ordinary contribution landing in a
+published repository turned this repository red for a divergence that was not an
+error, which is a gate punishing the workflow it was meant to protect.
+
+One consequence to keep in mind. Nothing here now pins an ``export_*`` directory
+to the repository it publishes to, so a stale export can drift from its
+published repository unnoticed, and copying a stale export outward would regress
+it. On any disagreement the published repository is the source of truth, not
+these trees.
 
 Run from the repository root::
 
@@ -26,21 +44,24 @@ ROOT_MODULE = 'RHLean'
 # (label, package directory, match development tree, repo-local modules,
 #  mirror the development root manifest)
 #
-# The prime-wheel export deliberately renames its public modules, so its file
-# contents are not expected to match the development tree; only its closure is
-# checked.
+# Every export is closure-checked only. The prime-wheel export was always in
+# this mode, because it renames its public modules; the other two joined it when
+# the published repositories became standalone. The match-development and
+# mirror-root flags are kept in the table rather than deleted, so a single
+# export can be re-pinned to this tree later without restructuring anything.
 #
-# Repo-local modules live in the published repository but not upstream, and are
-# reached by that repository's own tooling rather than by the root module. The
-# set is empty: MobiusSynthesisBoundary used to sit here as the synthesis PR
-# gate contract driven by scripts/check_boundary_advance.py, but the synthesis
-# boundary bridge imports it, so it now has a development-tree counterpart and
-# is reachable from the root module. Whitelisting it would exempt the gate
-# contract itself from the byte-identity check, which is the one file where a
-# silent development/export drift would be least acceptable.
+# Repo-local modules are shipped in a published repository and reached by that
+# repository's own tooling rather than by its root module, so they are exempt
+# from the unreachable-module check. MobiusSynthesisBoundary is listed because
+# it is the synthesis PR gate contract driven by mobius-synthesis's
+# scripts/check_boundary_advance.py, and whether its root manifest imports it is
+# now that repository's decision rather than this one's: it is imported there
+# today, and the entry costs nothing while that holds but prevents a false
+# failure if the export tracks a state where it is not.
 EXPORTS = [
-    ('export_mobius_synthesis', 'export_mobius_synthesis', True, set(), True),
-    ('export_square_block', 'export_square_block/lean', True, set(), False),
+    ('export_mobius_synthesis', 'export_mobius_synthesis', False,
+     {'RHLean.Analysis.MobiusSynthesisBoundary'}, False),
+    ('export_square_block', 'export_square_block/lean', False, set(), False),
     ('export_prime_wheel', 'export_prime_wheel/formalization', False, set(), False),
 ]
 

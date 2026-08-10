@@ -20,12 +20,12 @@ set -euo pipefail
 # It therefore pins the exact source surface before compiling anything:
 #   1. require a clean tracked working tree;
 #   2. fetch the current branch and require local HEAD = origin/<branch>;
-#   3. verify development/export source synchronization;
+#   3. verify every export still closes as a buildable Lake project;
 #   4. delete every project's build products, preserving package caches;
 #   5. run each project's own CI mirror, which restores that project's Mathlib
 #      cache, audits its sources, rebuilds it from scratch and runs its axiom
 #      gate;
-#   6. recheck synchronization once everything has compiled.
+#   6. recheck export closure once everything has compiled.
 #
 # Expect this to take a while: step 4 means every project recompiles its whole
 # library. That is the point.
@@ -73,7 +73,7 @@ remote: $remote_sha
 Pull the latest branch in GitHub Desktop, then rerun this verifier."
 fi
 
-step 'Verifying export synchronization'
+step 'Verifying export closure'
 "$python_bin" scripts/check_export_sync.py
 
 step 'Removing build products to prevent stale .olean reuse'
@@ -94,7 +94,7 @@ for entry in "${packages[@]}"; do
   )
 done
 
-step 'Rechecking export synchronization after every build'
+step 'Rechecking export closure after every build'
 cd "$repo_root"
 "$python_bin" scripts/check_export_sync.py
 
