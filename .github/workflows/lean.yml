@@ -1,23 +1,31 @@
-name: Lean verification
+name: Lean source audits
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '**.lean'                        # warm the trusted main-branch Lean cache
+      - 'lean-toolchain'                 # Lean version bumps invalidate compiled artifacts
+      - 'lake-manifest.json'             # dependency/Mathlib bumps invalidate compiled artifacts
+      - '.github/workflows/lean.yml'     # changes to this audit workflow
   pull_request:
+    types: [opened, synchronize, reopened, edited]
     paths:
       - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
       - 'lean-toolchain'                 # Lean version bumps
       - 'lake-manifest.json'             # dependency/Mathlib bumps
-      - '.github/workflows/lean.yml'     # changes to the CI itself
-  workflow_dispatch:                     # manual "Run workflow" button
+      - '.github/workflows/lean.yml'     # changes to this audit workflow
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: lean-${{ github.workflow }}-${{ github.ref }}
+  group: lean-audit-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  audit:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -29,28 +37,82 @@ jobs:
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
 
-      - name: Set up Lean
+  build:
+    name: Hosted Lean build
+    needs: audit
+    if: >-
+      ${{
+        github.event_name != 'pull_request' ||
+        !contains(github.event.pull_request.body || '', '- [x] {local}')
+      }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Lean and Mathlib
         uses: leanprover/lean-action@v1
         with:
+          use-github-cache: false
           use-mathlib-cache: true
           build: false
           test: false
           lint: false
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+
+      - name: Generate Lean root import manifest
+        id: importaudit
+        continue-on-error: true
+        run: |
+          set +e
+          lake exe mk_all
+          mk_status=$?
+          set -e
+          git diff -- RHLean.lean
+          if ! git diff --quiet -- RHLean.lean; then
+            exit 1
+          fi
+          exit "$mk_status"
+
+      - name: Upload generated Lean root manifest
+        if: steps.importaudit.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-rhlean-root
+          path: RHLean.lean
+
+      - name: Fail if Lean import manifest is stale
+        if: steps.importaudit.outcome == 'failure'
+        run: exit 1
 
       - name: Build Lean project
         id: directbuild
         continue-on-error: true
         run: lake build RHLean --wfail > lean-build.log 2>&1
 
-      - name: Upload Lean build log
+      - name: Save RHLean build cache
         if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+
+      - name: Upload Lean build log
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: lean-build-log
           path: lean-build.log
 
       - name: Print Lean build log
-        if: always()
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
         run: cat lean-build.log
 
       - name: Fail if Lean build failed

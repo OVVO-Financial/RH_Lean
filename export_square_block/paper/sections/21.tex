@@ -1,0 +1,60 @@
+\section{The pointwise and local RH criteria}
+\label{sec:local-criterion}
+%======================================================================
+
+The pointwise square-prefix estimate is the minimal RH-equivalent statement.  The translated-window estimate is equivalent because it includes $H=1$ and because pointwise bounds sum over windows with $H\le N$.
+
+Define
+\begin{equation}
+ V_{\mathrm{loc}}(N,H)
+ :=\sum_{n=N}^{N+H-1}|S_n|^2.
+ \label{eq:Vloc}
+\end{equation}
+
+\begin{theorem}[Elementary pointwise square-prefix criterion]
+\label{thm:pointwise-square-prefix-RH}
+The Riemann Hypothesis is equivalent to the statement that, for every $\eps>0$,
+\begin{equation}
+ \boxed{|S_N|^2\ll_\eps N^{2+\eps}.}
+ \label{eq:pointwise-square-prefix-RH}
+\end{equation}
+Equivalently,
+\begin{equation}
+ |A_N-T_N|\ll_\eps N^{1+\eps}.
+ \label{eq:pointwise-AT-RH-again}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Under RH, $M(x)\ll_\delta x^{1/2+\delta}$ for every $\delta>0$, and $X_N\asymp N^2$.  Conversely, if $N^2\le x<(N+1)^2$, then
+\[
+ |M(x)-M(N^2-1)|\le2N+1
+\]
+because $|\mu(m)|\le1$.  Thus the square-endpoint estimate interpolates to $M(x)\ll_\eps x^{1/2+\eps}$, the classical Mertens criterion.  The $A-T$ formulation follows from \cref{thm:intro-decomposition}.
+\end{proof}
+
+\begin{theorem}[Uniform local square-prefix criterion]
+\label{thm:local-RH}
+The Riemann Hypothesis is equivalent to the statement that, for every $\eps>0$,
+\begin{equation}
+ V_{\mathrm{loc}}(N,H)
+ \ll_\eps HN^{2+\eps}
+ \qquad(1\le H\le N).
+ \label{eq:local-RH}
+\end{equation}
+Moreover, \cref{eq:local-RH} is equivalent directly to the pointwise estimate \cref{eq:pointwise-square-prefix-RH}.
+\end{theorem}
+
+\begin{proof}
+The local estimate implies the pointwise estimate by setting $H=1$.  Conversely, if $N\le n<N+H$ and $H\le N$, then $n<2N$.  Applying \cref{eq:pointwise-square-prefix-RH} to each term and summing yields
+\[
+ V_{\mathrm{loc}}(N,H)
+ \ll_\eps H(2N)^{2+\eps}
+ \ll_\eps HN^{2+\eps}.
+\]
+Now use \cref{thm:pointwise-square-prefix-RH}.
+\end{proof}
+
+By \cref{thm:canonical-PHS-iff-RH,prop:PHS-HS-equivalence}, the pointwise high-sector inequality \cref{eq:canonical-PHS} is the minimal native arithmetic form of the same criterion.  Global cubic energy remains a natural diagnostic, but it is not needed in the logical equivalence.
+
+%======================================================================

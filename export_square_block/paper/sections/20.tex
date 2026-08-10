@@ -1,0 +1,49 @@
+\section{Why the cubic scale is natural}
+\label{sec:exponent-accounting}
+%======================================================================
+
+Before asking for a proof, we check that every scale is dimensionally consistent.  This section explains why $N^3$, rather than the coherent $N^5$ ceiling, is the natural target.
+
+The block increment
+\begin{equation}
+ d_n=S_n-S_{n-1}
+ \label{eq:d-n}
+\end{equation}
+satisfies the trivial bound $|d_n|\le2n+1$.  Expanding the cumulative energy gives
+\begin{equation}
+ \sum_{n\le N}|S_n|^2
+ =
+ \sum_{j,k\le N}
+ \bigl(N-\max\{j,k\}+1\bigr)d_jd_k.
+ \label{eq:triangular-energy}
+\end{equation}
+The fully coherent ceiling is
+\begin{equation}
+ N^5
+ =
+ \underbrace{N}_{\text{prefix multiplicity}}
+ \times
+ \underbrace{N^2}_{\text{block pairs}}
+ \times
+ \underbrace{N^2}_{\text{raw pair amplitude}}.
+ \label{eq:N5-accounting}
+\end{equation}
+
+The squared map provides the exact missing scale:
+\begin{equation}
+ J(c,q)=c^2+q^2\ge2cq\asymp n^2.
+ \label{eq:two-power-J}
+\end{equation}
+Thus a unit area of factor combinations is diluted by $n^{-2}$ in the squared plane.  Equivalently, each coordinate direction is stretched by order $n$.  If the localized kernel respects this conformal dilution, then the effective pair amplitude becomes order one:
+\begin{equation}
+ N^3
+ =
+ \underbrace{N}_{\text{prefix multiplicity}}
+ \times
+ \underbrace{N^2}_{\text{block pairs}}
+ \times
+ \underbrace{1}_{\text{squared-space interaction}}.
+ \label{eq:N3-accounting}
+\end{equation}
+
+The low-height theorem proves this reduction directly in the region $|Y|\lesssim n$.  The pointwise high-height conjecture asks for the corresponding signed cancellation in the remaining region.

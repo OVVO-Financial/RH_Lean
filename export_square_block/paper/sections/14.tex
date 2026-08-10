@@ -1,0 +1,163 @@
+\section{Low-height clustering in square blocks}
+\label{sec:clustering}
+%======================================================================
+
+Low height is the part of the problem that geometry alone can control.  Here bounded factor gap becomes bounded occupancy, which yields a genuine theorem before any high-sector cancellation is assumed.
+
+The $n$th square block becomes the vertical strip
+\begin{equation}
+ \mathscr B_n
+ :=\{w_m:n^2\le\Repart w_m<(n+1)^2\}.
+ \label{eq:complex-block}
+\end{equation}
+For a canonical pair $(c,q)$, define the absolute factor gap
+\begin{equation}
+ d:=|q-c|.
+ \label{eq:absolute-gap}
+\end{equation}
+Then
+\begin{equation}
+ |Y|
+ =\frac{|q^2-c^2|}{2}
+ =\frac{d(q+c)}{2}.
+ \label{eq:Y-absolute-gap}
+\end{equation}
+For a squarefree source $m>1$, one has $d\ge1$: equality $d=0$ would force $m=c^2$.
+
+\begin{lemma}[At most one product per positive absolute gap]
+\label{lem:one-product-gap}
+Fix $n\ge1$ and an integer $d\ge1$.  There is at most one unordered positive factor pair $\{c,q\}$ with $|q-c|=d$ and
+\begin{equation}
+ n^2\le cq<(n+1)^2.
+ \label{eq:gap-block-condition}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Write the smaller factor as $r$ and the larger as $r+d$.  The product is $f_d(r)=r(r+d)$.  If $f_d(r)\in B_n$, then
+\[
+ 2r+d\ge2\sqrt{r(r+d)}\ge2n.
+\]
+Hence
+\[
+ f_d(r+1)-f_d(r)=2r+d+1\ge2n+1,
+\]
+which exceeds the integer diameter $2n$ of the block.  Thus two distinct values of $r$ cannot both occur.
+\end{proof}
+
+\begin{theorem}[Sharpened absolute low-height clustering]
+\label{thm:absolute-clustering}
+For every $H\ge0$,
+\begin{equation}
+ \boxed{
+ \#\{w_m\in\mathscr B_n:|Y_m|\le H\}
+ \le
+ \left\lfloor\frac{H}{n}\right\rfloor.
+ }
+ \label{eq:absolute-clustering}
+\end{equation}
+Moreover,
+\begin{equation}
+ \boxed{
+ \#\{w_m\in\mathscr B_n:|Y_m|\le n\}=0.
+ }
+ \label{eq:no-height-n-points}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+If $cq\in B_n$, then
+\[
+ c+q\ge2\sqrt{cq}\ge2n.
+\]
+Therefore
+\[
+ |Y|=\frac{d(c+q)}2\ge dn.
+\]
+The condition $|Y|\le H$ implies $d\le\lfloor H/n\rfloor$.  Since $d\ge1$, there are at most $\lfloor H/n\rfloor$ possible gaps, and \cref{lem:one-product-gap} gives at most one point for each gap.
+
+If $|Y|\le n$, the inequalities force $d=1$ and $c+q=2n$.  But $|q-c|=1$ makes $c+q$ odd, whereas $2n$ is even.  Hence equality is impossible and the set is empty.
+\end{proof}
+
+\subsection{Parity-refined bounds}
+
+The factor gap has a prescribed parity:
+\begin{itemize}[leftmargin=1.7em]
+\item if $m$ is odd, then $c$ and $q$ are odd, so $d$ is even;
+\item if $m$ is even and squarefree, then the canonical factors have opposite parity, so $d$ is odd.
+\end{itemize}
+Let
+\begin{equation}
+ D:=\left\lfloor\frac{H}{n}\right\rfloor.
+ \label{eq:D-height}
+\end{equation}
+The permitted positive gaps are therefore
+\[
+ 2,4,\ldots,2\left\lfloor\frac D2\right\rfloor
+\]
+for odd sources and
+\[
+ 1,3,\ldots,2\left\lceil\frac D2\right\rceil-1
+\]
+for even sources.  Consequently,
+\begin{align}
+ \#\{w_m\in\mathscr B_n:m\text{ odd},\ |Y_m|\le H\}
+ &\le
+ \left\lfloor\frac{H}{2n}\right\rfloor,
+ \label{eq:odd-parity-clustering}\\
+ \#\{w_m\in\mathscr B_n:m\text{ even},\ |Y_m|\le H\}
+ &\le
+ \left\lceil\frac{1}{2}
+ \left\lfloor\frac{H}{n}\right\rfloor\right\rceil.
+ \label{eq:even-parity-clustering}
+\end{align}
+At the endpoint $H=n$, both populations are empty by \cref{eq:no-height-n-points}.
+
+At height $H=\Lambda n$, the scale-free bounds become
+\begin{align}
+ \#\{w_m\in\mathscr B_n:|Y_m|\le\Lambda n\}
+ &\le\lfloor\Lambda\rfloor,
+ \label{eq:constant-occupancy}\\
+ \#\{m\text{ odd}:|Y_m|\le\Lambda n\}
+ &\le\left\lfloor\frac{\Lambda}{2}\right\rfloor.
+ \label{eq:constant-odd-occupancy}
+\end{align}
+
+\subsection{A sharper low-height space--time budget}
+
+For negative-height points, the transport lifetime is zero.  For positive-height points in $\mathscr B_n$, one has $q\ge\sqrt m\ge n$, so \cref{eq:L-Y} gives
+\begin{equation}
+ L(m)\le\frac{2H}{n}
+ \qquad(0<Y_m\le H).
+ \label{eq:L-H-n}
+\end{equation}
+Therefore
+\begin{equation}
+ \boxed{
+ \sum_{\substack{w_m\in\mathscr B_n\\|Y_m|\le H}}
+ (1+L(m))
+ \le
+ \left\lfloor\frac{H}{n}\right\rfloor
+ \left(1+\frac{2H}{n}\right).
+ }
+ \label{eq:space-time-budget}
+\end{equation}
+The parity-refined versions are
+\begin{align}
+ \sum_{\substack{w_m\in\mathscr B_n\\m\text{ odd},\ |Y_m|\le H}}
+ (1+L(m))
+ &\le
+ \left\lfloor\frac{H}{2n}\right\rfloor
+ \left(1+\frac{2H}{n}\right),
+ \label{eq:odd-space-time-budget}\\
+ \sum_{\substack{w_m\in\mathscr B_n\\m\text{ even},\ |Y_m|\le H}}
+ (1+L(m))
+ &\le
+ \left\lceil\frac{1}{2}
+ \left\lfloor\frac{H}{n}\right\rfloor\right\rceil
+ \left(1+\frac{2H}{n}\right).
+ \label{eq:even-space-time-budget}
+\end{align}
+At $H=\Lambda n$, all three right sides are bounded independently of $n$.
+
+%======================================================================

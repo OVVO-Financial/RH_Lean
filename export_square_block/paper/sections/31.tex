@@ -1,0 +1,42 @@
+\section{Machine-checked formalization}
+\label{sec:lean}
+%======================================================================
+
+Formalization is used here as a mathematical audit: every cutoff, endpoint convention, canonical factor, sign, support condition, and unresolved analytic premise is explicit.  The canonical publication repository, \emph{Square-Block M\"obius}, is
+\[
+ \texttt{https://github.com/OVVO-Financial/square-block-mobius}.
+\]
+The formal development is pinned to mathlib \texttt{v4.24.0}.  The Lean sources published with this paper are a curated publication snapshot of modules verified in the full development; the authoritative verification command for that source is
+\[
+ \texttt{lake build RHLean -{}-wfail}.
+\]
+
+The standalone repository places the publication source at
+\[
+ \texttt{paper/},
+\]
+the curated Lean source at
+\[
+ \texttt{lean/RHLean/},
+\]
+and the module inventory in \texttt{MODULES.md}.  It contains only the square-block manuscript and the Lean source snapshots needed to support its arithmetic, geometry, canonical low/high decomposition, lifetime death estimate, and square-prefix RH bridge.  Modules belonging to other block architectures or to a later synthesis are deliberately excluded from this standalone repository.
+
+\subsection{Paper-facing square-prefix spine}
+
+The exported formal spine contains:
+\begin{itemize}
+\item \texttt{SquarePrefixMertensBridge.lean}: the exact endpoint $X_n=(n+1)^2-1$, square-prefix Mertens sequence, and interpolation machinery;
+\item \texttt{ConcreteSquarePrefixGeometry.lean}: the low/high geometric partition and equivalence of pointwise, local, and Mertens-energy criteria;
+\item \texttt{CanonicalHighSectorCore.lean}: canonical largest-prime factor, cofactor, signed height, square blocks, and exact low/high recombination;
+\item \texttt{CanonicalLowOccupancy.lean}: unconditional low-height occupancy and the realized low-increment control;
+\item \texttt{CanonicalHighSectorBridge.lean}: the native high-sector criterion and conditional composition with the classical Mertens--RH theorem;
+\item \texttt{CanonicalExtremePrimeSupport.lean}: the endpoint theorem $x<2P^+(m)\Rightarrow c_m=1$ and the composite bound $P^+(m)\le\lfloor x/2\rfloor$;
+\item \texttt{DeathShellDivisorFibers.lean} and \texttt{DeathShellSubpolynomial.lean}: the bounded-width height window, divisor majorant, subpolynomial increments, and RH-scale death-process local bound;
+\item \texttt{SquareBlockSurvivorBridge.lean}: a paper-facing wrapper for the exact active-survivor cofactor operator and the death-removal equivalence.
+\end{itemize}
+
+The repository also contains the intrinsic squared-complex geometry and exact scale-transfer source used in the body of the paper: Fermat coordinates, complex-square recovery, cofactor parabolas, the $2ab$ displacement identities, conformality, prime-first transport transfer, reciprocal prime dilation, and the dyadic transport identities.  No theorem from another block architecture is required for any statement in this manuscript.
+
+\subsection{Assumption boundary}
+
+The exact arithmetic identities, geometry, low-height occupancy, extreme-prime support, and death-process divisor-window bound are machine-checked finite theorems.  The remaining survivor power saving \cref{conj:survivor-power-saving}, equivalently the native high-sector estimate, is an explicit ordinary proposition and is not assumed as an axiom.  The classical Mertens criterion equivalent to RH is supplied as an ordinary theorem argument at the final bridge.  No \texttt{sorry}, \texttt{admit}, newly introduced axiom, or hidden unconditional RH theorem is part of the paper-facing spine.

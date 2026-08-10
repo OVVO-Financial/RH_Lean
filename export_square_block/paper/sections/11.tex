@@ -1,0 +1,90 @@
+\section{Why $2ab$ measures both height and lifetime}
+\label{sec:lifetime-law}
+%======================================================================
+
+The same imaginary coordinate that measures factor imbalance also measures how long a source remains in transport.  This is the key space--time link in the construction.
+
+Define the signed continuous delay
+\begin{equation}
+ \tau(c,q):=q-\sqrt{cq}.
+ \label{eq:tau}
+\end{equation}
+It is positive exactly for transport-capable points, zero at $c=q$, and negative for points that enter already smooth.
+
+Put
+\begin{equation}
+ r:=\frac cq.
+ \label{eq:r-ratio}
+\end{equation}
+Then
+\begin{equation}
+ Y=\frac{q^2}{2}(1-r^2)
+ \label{eq:Y-r}
+\end{equation}
+and
+\begin{equation}
+ \tau=q(1-\sqrt r).
+ \label{eq:tau-r}
+\end{equation}
+Since
+\begin{equation}
+ 1-r^2=(1-\sqrt r)(1+\sqrt r)(1+r),
+ \label{eq:factor-r}
+\end{equation}
+we obtain an exact identity.
+
+\begin{theorem}[Exact height--lifetime identity]
+\label{thm:exact-height-lifetime}
+For every positive pair $(c,q)$,
+\begin{equation}
+ \boxed{
+ Y
+ =
+ \frac{q\tau}{2}
+ \left(1+\sqrt{\frac cq}\right)
+ \left(1+\frac cq\right).
+ }
+ \label{eq:Y-tau-exact}
+\end{equation}
+Equivalently,
+\begin{equation}
+ \boxed{
+ \tau
+ =
+ \frac{2Y}
+ {q\left(1+\sqrt{c/q}\right)\left(1+c/q\right)}.
+ }
+ \label{eq:tau-Y-exact}
+\end{equation}
+\end{theorem}
+
+The sign of $Y$ is therefore exactly the sign of the continuous delay.  On the transport side $0<c/q<1$, the denominator in \cref{eq:tau-Y-exact} lies between $q$ and $4q$, giving
+\begin{equation}
+ \frac{Y}{2q}
+ \le\tau
+ \le\frac{2Y}{q}.
+ \label{eq:tau-bounds}
+\end{equation}
+Since
+\begin{equation}
+ L(m)=q-1-\lfloor\sqrt m\rfloor
+ \le q-\sqrt m=\tau(c,q)
+ \label{eq:L-tau}
+\end{equation}
+for transport points,
+\begin{equation}
+ \boxed{L(m)\le\frac{2Y_m}{q_m}.}
+ \label{eq:L-Y}
+\end{equation}
+
+In squared-space coordinates, $q=\sqrt{|w|+\Impart w}$, so
+\begin{equation}
+ L(w)
+ \le
+ \frac{2(\Impart w)_+}
+ {\sqrt{|w|+\Impart w}}.
+ \label{eq:L-w}
+\end{equation}
+A point close to the real axis cannot remain in transport for many prefix steps.
+
+%======================================================================

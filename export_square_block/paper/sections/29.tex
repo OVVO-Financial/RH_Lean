@@ -1,0 +1,45 @@
+\subsection{Low-height clustering and lifetime}
+
+For fixed $\Lambda$, define
+\begin{align}
+ C_n(\Lambda)
+ &:={\#}\{w_m\in\mathscr B_n:|Y_m|\le\Lambda n\},
+ \label{eq:C-lambda}\\
+ I_n(\Lambda)
+ &:={\sum}_{\substack{w_m\in\mathscr B_n\\|Y_m|\le\Lambda n}}
+ (1+L(m)).
+ \label{eq:I-lambda}
+\end{align}
+The sharpened exact bounds are
+\begin{align}
+ C_n(\Lambda)&\le\lfloor\Lambda\rfloor,
+ \label{eq:C-pass}\\
+ I_n(\Lambda)&\le\lfloor\Lambda\rfloor(1+2\Lambda),
+ \label{eq:I-pass}
+\end{align}
+with $C_n(1)=I_n(1)=0$.  The odd and even source counts are bounded by $\lfloor\Lambda/2\rfloor$ and $\lceil\lfloor\Lambda\rfloor/2\rceil$, respectively.
+
+\begin{table}[htbp]
+\centering
+\caption{Observed low-height maxima over $128\le n\le4096$, with the sharpened general and parity bounds.}
+\label{tab:low-height-numerical}
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{rcccccccc}
+\toprule
+$\Lambda$ &
+count bound & total max &
+odd bound & odd max &
+even bound & even max &
+incidence bound & incidence max\\
+\midrule
+1  & 0  & 0 & 0 & 0 & 0 & 0 & 0   & 0\\
+2  & 2  & 1 & 1 & 0 & 1 & 1 & 10  & 1\\
+4  & 4  & 2 & 2 & 1 & 2 & 1 & 36  & 4\\
+8  & 8  & 4 & 4 & 2 & 4 & 2 & 136 & 10\\
+16 & 16 & 6 & 8 & 3 & 8 & 3 & 528 & 26\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The zero at $\Lambda=1$ is now explained exactly by \cref{eq:no-height-n-points}; it is not merely an empirical absence. The observed total and parity occupancies remain substantially below the sharpened deterministic envelopes.

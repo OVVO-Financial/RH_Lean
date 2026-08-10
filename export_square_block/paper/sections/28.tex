@@ -1,0 +1,134 @@
+\subsection{Independent extension through $N=2^{14}$}
+\label{subsec:numerics-16384}
+
+A separate memory-limited computation extended the exact checks and structural diagnostics to
+\begin{equation}
+ N=2^{14}=16384,
+ \qquad
+ X_N=(16385)^2-1\approx2.68\times10^8.
+ \label{eq:extended-range-16384}
+\end{equation}
+The larger targets $N=2^{16}$ and $2^{17}$ would require sieving past approximately $4.3\times10^9$ and $1.7\times10^{10}$, respectively, and were not attempted in the available memory.  No values at those scales are claimed.
+
+The independently constructed smooth, transport, and residual values agree exactly at every tested checkpoint.  At the terminal checkpoint,
+\begin{equation}
+ \boxed{
+ A_{16384}=-851896,
+ \qquad
+ T_{16384}=-850299,
+ \qquad
+ S_{16384}=-1597=A_{16384}-T_{16384}.
+ }
+ \label{eq:extended-terminal-identity}
+\end{equation}
+
+For a cofactor block $C<c\le2C$ with $C\asymp N^\sigma$, define the theorem-predicted rank-one residual
+\begin{equation}
+ E_C^{\mathrm{th}}
+ :=B_C-\lambda_\sigma a_C P,
+ \qquad
+ \lambda_\sigma=\frac{2}{2-\sigma}.
+ \label{eq:theorem-predicted-residual}
+\end{equation}
+This is distinct from the orthogonal least-squares residual $B_C-\widehat\beta_CP$.  The following table reports the former.
+
+\begin{table}[htbp]
+\centering
+\caption{Theorem-predicted rank-one residuals at $N=16384$.  Residual energy is four to five orders of magnitude below the raw block energy throughout the tested range.}
+\label{tab:extended-rank-one-residuals}
+\scriptsize
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lrrrr}
+\toprule
+cofactor block & $a_C$ & $\|B_C\|^2/N^3$ & $\|E_C^{\mathrm{th}}\|^2/N^3$ & residual/raw\\
+\midrule
+$(1,2]$     & $-0.50000$ & 45202.3 & 0.5166 & $1.1\times10^{-5}$\\
+$(2,4]$     & $-0.33333$ & 21074.3 & 2.4454 & $1.2\times10^{-4}$\\
+$(4,8]$     & $-0.17619$ &  6344.8 & 1.0401 & $1.6\times10^{-4}$\\
+$(8,16]$    & $+0.07026$ &  1133.5 & 0.0481 & $4.2\times10^{-5}$\\
+$(16,32]$   & $-0.12347$ &  3752.6 & 0.1394 & $3.7\times10^{-5}$\\
+$(32,64]$   & $+0.07872$ &  1626.2 & 0.4517 & $2.8\times10^{-4}$\\
+$(64,128]$  & $-0.01655$ &    77.4 & 0.0547 & $7.1\times10^{-4}$\\
+$(128,256]$ & $+0.00512$ &     8.9 & 0.0052 & $5.8\times10^{-4}$\\
+$(256,512]$ & $-0.00911$ &    29.4 & 0.0058 & $2.0\times10^{-4}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The height-shell decomposition is more decisive.  With shells defined by the ratio $|Y_m|/j$, where $j$ is the entry block, the diagonal shell energies are:
+
+\begin{table}[htbp]
+\centering
+\caption{Height-shell diagonal energies at $N=16384$.  The recombined energy is not the sum of these rows; it includes their large signed cross terms.}
+\label{tab:extended-height-shells}
+\small
+\begin{tabular}{lr}
+\toprule
+shell for $|Y_m|/j$ & $\sum_n|S_n^{[\ell]}|^2/N^3$\\
+\midrule
+$[0,5)$       & 0.00057\\
+$[5,20)$      & 0.0147\\
+$[20,80)$     & 0.259\\
+$[80,320)$    & 3.81\\
+$[320,1280)$  & 44.7\\
+$[1280,\infty)$ & 86.3\\
+\midrule
+signed recombination & 0.0104\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Using the rounded diagonal values in \cref{tab:extended-height-shells},
+\begin{equation}
+ \sum_\ell G_{\ell\ell}(N)/N^3\approx135.084,
+ \qquad
+ 2\Repart\sum_{\ell<m}G_{\ell m}(N)/N^3\approx-135.074.
+ \label{eq:extended-cross-shell-cancellation}
+\end{equation}
+Thus the high sector is not small by shell.  Its observed smallness is produced by nearly complete cancellation of large off-diagonal shell interactions.  Any proof that takes absolute values or sums separate shell norms before recombination destroys the principal mechanism visible in the data.
+
+\subsubsection{Exact and secondary reduced-square modes}
+
+The exact congruence $q^2\equiv1\pmod{24}$ was verified on all $4459$ primes in the tested prime sample.  Modulo $40$, the same sample occupied exactly the two classes
+\begin{equation}
+ q^2\equiv1\text{ or }9\pmod{40},
+ \label{eq:prime-square-mod40}
+\end{equation}
+with counts $2224$ and $2235$.  This is forced for primes $q>5$ by $q^2\equiv1\pmod8$ and $q^2\equiv1$ or $4\pmod5$.
+
+\begin{proposition}[Two reduced-square classes modulo $40$]
+\label{prop:prime-square-mod40}
+For every prime $q>5$,
+\begin{equation}
+ \boxed{q^2\equiv1\text{ or }9\pmod{40}.}
+ \label{eq:prime-square-mod40-boxed}
+\end{equation}
+\end{proposition}
+
+Accordingly, a conductor dividing $40$ produces a two-mode prime phase rather than a featureless minor-arc sum.  In the tested sample,
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+frequency & observed prime-sum magnitude\\
+\midrule
+$1/20$ & $3607$\\
+$3/20$ & $1378$\\
+$1/40$ & approximately $8$--$14$\\
+$9/40$ & approximately $8$--$14$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The same two exact phase modes can therefore interfere constructively or destructively.  Here ``resonant'' means low-rank exact phase support, not necessarily large amplitude.
+
+Cumulative M\"obius-weighted cofactor phase magnitudes through the six blocks ending at $c=64$ were
+\begin{equation}
+\begin{array}{c|rrrrrr}
+\theta & (1,2]&(2,4]&(4,8]&(8,16]&(16,32]&(32,64]\\
+\hline
+1/12 & 1.0&1.6&3.4&4.4&8.0&13.9\\
+1/20 & 1.0&1.8&2.5&5.2&7.3&10.7\\
+1/40 & 1.0&2.0&1.8&2.2&0.38&2.8
+\end{array}
+\label{eq:extended-cofactor-phase-cascade}
+\end{equation}
+The $1/40$ row contains a substantial cancellation event at the block $16<c\le32$, emphasizing again that the resonant main term is a signed cofactor cascade rather than a monotone positive contribution.

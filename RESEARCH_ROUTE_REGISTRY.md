@@ -496,6 +496,288 @@ kernel estimate is merely the same coherent obstruction expressed in squared
 complex/cofactor-parabola coordinates. If so, it is a reparameterization rather
 than a new route.
 
+### 5. Anchor coverage of the frozen-prefix slack invariant
+
+**Status: EXACT LAYER FORMALIZED. THE ESTIMATE IT REDUCES TO IS OPEN.**
+
+The forward and backward slack identities for `S_K(x) = K^2 Q(x) - M(x)^2` are
+the *same* statement about an anchor value `c` and an interior value `y = M(x)`:
+`c` covers `y` when `c(y-c) <= 0`, and the cross-term-free obligation is then
+`c^2 + (y-c)^2 <= K^2 Q(x)`. Formalized in
+[`RHLean/Proof/TwoAnchorSlackCoverage.lean`](RHLean/Proof/TwoAnchorSlackCoverage.lean),
+with the exact recomputations in
+[`scripts/TwoAnchorSlackCoverage/`](scripts/TwoAnchorSlackCoverage/) and the
+discussion in
+[`research/TWO_ANCHOR_SLACK_COVERAGE.md`](research/TWO_ANCHOR_SLACK_COVERAGE.md).
+
+Settled by this route:
+
+- opposite-sign frozen endpoints cover every interior value, and same-sign
+  endpoints leave exactly the excursions beyond both anchors;
+- no single anchor is universal, so neither left- nor right-orientation alone can
+  be the pointwise mechanism;
+- the price of discarding a favourable cross term is exactly that cross term,
+  `-2c(y-c)`, so coverage is free but the constant is not;
+- consecutive primorial endpoints are **not** always opposite in sign: four of
+  the nine consecutive pairs through `29#` are same-sign, including
+  `(19#, 23#]`, which has `7933289` uncovered prefixes. An anchor-bracketing
+  property for consecutive primorial endpoints is false as stated.
+
+### 6. Stage energy recurrence `E_q <= A E_{q^-} + C x`
+
+**Status: ALGEBRAIC LAYER FORMALIZED. THE `(A, C)` INEQUALITY IS THE OPEN THEOREM.**
+
+The iterated consequence of a one-stage affine energy recurrence is exact algebra
+and is proved in
+[`RHLean/Proof/AbstractEnergyRecurrence.lean`](RHLean/Proof/AbstractEnergyRecurrence.lean):
+from `E_{j₀} <= B x` and `E_{j+1} <= A_j E_j + C_j x`,
+
+```text
+E_n <= (prod_r A_r) B x + x sum_s C_s prod_{r>s} A_r,
+|Λ_n V_n|^2 <= D_n x [ B prod_r A_r + sum_s C_s prod_{r>s} A_r ].
+```
+
+Measured so far: `B_{<=7}^emp = 29.850695` on every prefix of `(30030, 510510]`,
+with mature-prefix inflations `A_11 = 1.179208`, `A_13 = 1.125960`,
+`A_17 = 1.289167`, and a largest post-`7` inflation `A_11 = 3.624432` at the `29#`
+bottleneck declining to `1.265988` at `29`. The honest status is
+`A_q^emp < 3.7` on the tested stages. See
+[`research/STAGE_ENERGY_RECURRENCE.md`](research/STAGE_ENERGY_RECURRENCE.md).
+
+### Do not repeat this route by
+
+- reading the iterated estimate as progress toward `M(x)`: it is an implication
+  from constants nobody has proved exist;
+- folding the asymptotic specialization `D_n = 3^n` and
+  `n = O(log x / log log x)` into the algebraic lemma — that converts a lemma
+  into a conditional theorem;
+- quoting `A_q^emp < 3.7` as a bound: it is a finite measurement on tested
+  stages, and the unrestricted-prefix column of the same table is where the
+  boundary regime shows;
+- guessing the `C/S/W` operators in order to recompute the energy — two published
+  prime-`3` triples do not determine them.
+
+### 7. Signed canonical height, balanced factor pairs
+
+**Status: THE FINITE LAYER IS FORMALIZED. FINITE DIAGNOSTICS REJECT
+PIECEWISE ESTIMATION OF THE TWO SECTORS — raw, window-mean-subtracted, and
+explicit-main-term-subtracted — on the measured ranges. The separate diagonal
+ratios rise rather than stabilize at the tested scales. This is a route-closing
+diagnostic, not an asymptotic theorem.**
+
+The corrected clock, the low-imbalance counting theorem and the low-band energy are
+exact and formalized in
+[`RHLean/Proof/SignedCanonicalHeight.lean`](RHLean/Proof/SignedCanonicalHeight.lean);
+the balanced regime `0 < d < u` is exact and formalized in
+[`RHLean/Proof/BalancedCanonicalGap.lean`](RHLean/Proof/BalancedCanonicalGap.lean).
+Both are re-verified by direct enumeration in
+`scripts/TwoAnchorSlackCoverage/signed_height_check.py` and
+`scripts/TwoAnchorSlackCoverage/balanced_gap_check.py`.
+
+What the balanced layer buys: the largest-prime condition collapses to primality of
+one endpoint, the doubled height is pinned to `dn` within constants `2` and `3`
+(measured range `[2.0014, 2.6667]`), and the canonical coefficient becomes the
+symmetric `beta = mu(u) mu(u+d) 1_{u or u+d prime}`.
+
+The exact prefix-energy ledger `E(bal + ext) = E(bal) + 2 Cross + E(ext)`, with the
+Gram kernel `H - max(i,j)`, is formalized in
+[`RHLean/Proof/CanonicalGapPrefixGram.lean`](RHLean/Proof/CanonicalGapPrefixGram.lean).
+
+What none of this buys, measured in
+`scripts/TwoAnchorSlackCoverage/balanced_split_frontier.py` over blocks `n <= 1900`.
+The diagnostic is `|prefix|/N`, since the target's prefix form is
+`<< N^{1+eps}`. Stability is treated as finite compatibility with the target; upward
+drift triggers the route's stop criterion. The balanced and extreme halves each drift to
+`13.2 N` and are still climbing, against the true total's `0.43 N`, and each is
+roughly `500x` its own sum at `N = 1900`. Inside `beta`, the failure is carried by
+exactly one term: the overlap count `C` reaches `12.9 N`, while `A`, `B` and `A + B`
+have observed maxima `0.309`, `0.245` and `0.394` — the same measured scale as the truth.
+
+`scripts/TwoAnchorSlackCoverage/prefix_gram_cross.py` says the same thing in the
+energy norm the target actually uses. The measured prefix correlation
+`rho = Cross / sqrt(E(bal) E(ext))` approaches `-1` on the tested windows
+(`-0.989, -0.992, -0.998, -0.999` at `(N,H) = (400,100), (700,175),
+(1000,250), (1400,350)`). Against the budget `H N^2`, the observed
+`E(total)/HN^2` values stay at the `10^-2` scale while `E(bal)/HN^2` runs
+`1.51, 2.09, 4.69, 9.44`. Thus the total is compatible with the target on this
+range, whereas separate-half estimates are strongly disfavored there.
+
+**But the excess is a main term, not unstructured growth.**
+`scripts/TwoAnchorSlackCoverage/balanced_main_term_repair.py` identifies it in closed
+form: the three primality cases contribute `+N_pp, -N_pp, -N_pp`, so the balanced
+half's main term is `-N_pp`, exactly the overlap term `C`, and `N_pp` can be replaced
+by a prime-density prediction `Cpred` carrying no Möbius input. In the prefix norm at
+`n <= 1900` this looks like a repair: the balanced half moves from `13.2 N` to
+`0.44 N` (`0.39 N` with the exact count), matching the truth's `0.43 N`.
+
+**It is not a repair.** In the energy norm at larger `N`, which is the diagnostic the
+target uses, the subtracted-half ratio rises again on larger tested windows — see the do-not-repeat list below and
+[`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4. The
+main term is real and removing it helps by a factor of `60` against mean subtraction,
+but it does not produce evidence for a bounded separate-diagonal estimate on the tested scales. See
+[`research/SIGNED_CANONICAL_HEIGHT.md`](research/SIGNED_CANONICAL_HEIGHT.md) §4.
+
+### Do not repeat this route by
+
+- bounding the **raw** balanced and extreme parts separately and adding them: over the
+  tested range their normalized prefixes grow roughly like an additional `n^{0.6}`
+  factor, so this decomposition fails its declared numerical stop criterion;
+- conversely, treating the short prefix table as validating the subtracted split:
+  it is compatible only in that prefix diagnostic, while the larger energy windows
+  trigger the stop criterion;
+- treating `Λ` as an unused degree of freedom, or expecting the low/high split to
+  reduce the terminal statement. `Λ = 0` is the canonical terminal formulation, not
+  one endpoint in a search over cutoffs.
+  given `ClassicalMertensRHCriterion`,
+  `ProjectedRenewalQuadraticBoundedStatement Λ ↔ RH` holds for **every** `Λ ≥ 0`, so
+  every instance is exactly RH and none is easier. Measured
+  (`scripts/TwoAnchorSlackCoverage/terminal_lambda_dependence.c`), increasing `Λ`
+  produces no sustained improvement: `Λ = 0,1,2` are essentially flat with small
+  nonmonotone variation, while `Λ = 5,10,25` are materially worse. For
+  `N = H = 1000`, `Q/(HN²)` runs `0.061, 0.061, 0.061, 0.083, 0.145, 0.925`
+  at `Λ = 0,1,2,5,10,25`. The reason is structural:
+  `S^high = S_total − S^low` and `|S^low_n| = O(Λn)` by the counting theorem, so
+  removing the low band can inject a coherent drift the total does not have. The counting theorem
+  establishes the low band is not where the problem lives; it buys nothing beyond
+  that, and `Λ = 0` is the cleanest form of what remains;
+- fitting a log-log exponent to any of these prefix series except `C`: they change
+  sign repeatedly, `log |prefix|` plunges at each crossing, and least squares then
+  reports growth that is not there. An earlier pass recorded `1.338` for `B` and
+  `1.406` for `A + B` this way; both are artifacts. Use `|prefix|/N`;
+- treating `highBandBlockIncrement_eq_balanced_add_extreme`,
+  `beta_symmetric_identity` or `prefixEnergy_add` as reductions: they are exact
+  rewritings that say what the object is, and they license no piecewise estimate;
+- subtracting a coherent mode and expecting the sectors to become separately
+  estimable. Measured at `H = N` for `N = 1000, 5000, 10000, 20000, 40000` by
+  `scripts/TwoAnchorSlackCoverage/main_term_vs_bridge.c` (which reproduces the
+  prefix-Gram scan's raw and bridge columns to every reported digit), `Q_BB/(HN^2)` is
+
+  ```text
+  raw           104.75   1232.00   3552.50   11071.62   33339.64     ~ N^1.56
+  window mean     0.65     11.14     27.50     105.21     266.31     ~ N^1.64
+  minus Cpred     0.071     0.253     0.973      1.009      4.434     ~ N^1.08
+  ```
+
+  All three normalized sequences rise over the tested range. The explicit main term is
+  much the best of them — `60x` below the bridge at `N = 40000` — but the data do
+  not support a bounded separate-diagonal estimate;
+- reading the `0.973 -> 1.009` step from `N = 10000` to `20000` as convergence: the
+  next point is `4.434`. The step ratios are `3.55, 3.85, 1.04, 4.39`, and an earlier
+  pass of this registry recorded that single small ratio as a flattening. It was noise
+  in a rising sequence;
+- dropping the ledger's cross term or bounding it by Cauchy–Schwarz: `Cross` is the
+  dominant term, two to three orders of magnitude above `E(total)`, and
+  `|Cross| <= sqrt(E(bal) E(ext))` is near-equality here, so applying it yields
+  `E(total) <= (sqrt(E(bal)) + sqrt(E(ext)))^2`, built from two quantities that are
+  each already over budget;
+- carrying the endpoint-prime characterization outside `0 < d < u`: it genuinely
+  fails there, first coprime witness `u = 2`, `v = 9`, `d = 7`;
+- quoting the counting theorem `#{Z <= H} <= 1 + floor(H/n)` as controlling the high
+  band — it is a low-imbalance statement and says nothing above the threshold.
+
+### 8. Dyadic prime-packet positive square function
+
+**Status: THE POSITIVE DIAGONAL STRATEGY IS CLOSED. The exact packet coordinates
+are retained.**
+
+Packet coordinates as in `CanonicalGapAncestryPrimePacketScales`: for a source `m`
+with `q = P⁺(m)` and core `c = m/q`, put `k = Nat.log 2 q` and
+`j = Nat.log 2 P⁺(c)`, giving triangular support `j ≤ k`. Every squarefree `m` lands
+in exactly one packet, so the packet prefixes sum to the full square-block Möbius
+prefix — the terminal quantity at `Λ = 0`.
+
+A positive square-function strategy needs `sum_α ‖Z_α‖² <<_eps H N^{2+eps}`. With only
+`O((log B)²)` packets, Cauchy–Schwarz then closes the target after an epsilon
+adjustment, so **the diagonal bound alone carries the entire burden and any pairwise
+almost-orthogonality condition is analytically redundant.**
+
+Note what kind of failure this is. The diagonal premise does imply the target —
+`diagonal ⟹ P ⟹ MertensEnergyBounded` — so it is not insufficient. It is
+**structurally overstrong**: it prohibits the cancellation that produces the target.
+Exact recombination did not fail; the proposed positive estimate is the wrong shape.
+Measured by
+`scripts/TwoAnchorSlackCoverage/packet_kappa.c` on global prefixes at `H = N`:
+
+| `N` | `κ_raw` | `κ_q` | `D_raw/(HN²)` | `D_q/(HN²)` | `‖ΣZ‖²/(HN²)` | `max‖Z_{j,k}‖_∞/n` | `max‖Σ Z‖_∞/n` | live |
+|---|---|---|---|---|---|---|---|---|
+| 500 | 70,430 | 31,901 | 4,971 | 2,252 | 0.0706 | 35.1 | 0.426 | 109 |
+| 1000 | 265,454 | 119,429 | 16,177 | 7,278 | 0.0609 | 63.8 | 0.396 | 131 |
+| 2000 | 760,146 | 340,441 | 53,637 | 24,022 | 0.0706 | 116.8 | 0.408 | 155 |
+
+Here `κ = D/E` with `D = sum_α ‖Z_α‖²` and `E = ‖sum_α Z_α‖²`; `Y_k = sum_j Z_{j,k}`
+gives the `q`-fibre grouping. By the exact identity
+`2 sum_{α<β} <Z_α,Z_β> / D = 1/κ − 1`, a large `κ` forces the aggregate cross term to
+`−D/2`; the measured value is `−1.0000` to four decimals in every row.
+
+Four findings.
+
+1. **The diagonal is far over budget, and the excess grows with `N`.** `D_raw/(HN²)`
+   runs `4,971 → 16,177 → 53,637` as `N` runs `500 → 1000 → 2000`, roughly tripling
+   per doubling. Shrinking `ε` absorbs logarithms; this is not a logarithm on the
+   tested range. (Three points fix no exponent — the values are the record.)
+2. **Grouping by distinguished-prime scale does not help.** `κ_q` grows at the same
+   rate as `κ_raw`, with a constant ratio ≈ 2.2. Even the coarsest prime-scale
+   grouping destroys the cancellation.
+3. **No stable grouping was found among the tested natural groupings.** Both the
+   balanced–extreme split of route 7 (`κ = 67…249`, rising) and the
+   distinguished-prime fibre grouping here exhibit growing diagonal inflation. This
+   is not a claim that every conceivable grouping is unstable — a specially designed
+   signed grouping could preserve the relevant cross term, and finding one is the only
+   remaining use of this coordinate layer. Any such grouping must keep the `j = 0`
+   prime cells attached to something that cancels them.
+4. **The extremal packet is a pure prime count.** The maximum normalized packet
+   prefix increases from `35.1` to `116.8` as `N` increases from `500` to `2000`,
+   while the normalized total remains between `0.396` and `0.426`. The script emits
+   argmax coordinates, so this is identity of maximizers and not merely equality of
+   maxima: packet argmax `(j,k,n)` is `(0,19,999)`, `(0,21,1999)`, `(0,23,3999)`, the
+   fibre argmax is the same `(k,n)` in each case, and the single-cell share is
+   `1.0000` with the next-largest contribution exactly `0`. The extremal `q`-fibre
+   therefore *is* one `(j,k)` cell, not merely dominated by one.
+
+   That cell is identifiable. `j = 0` means `P⁺(c) = 1`, so `c = 1` and `m` is prime;
+   `k` is the top dyadic band below `n²`. Its prefix is minus the count of primes in
+   that band — checked at `n = 999`, where `|Z| = 35108 = π(10⁶) − π(2¹⁹)` exactly.
+   So the natural packet coordinates isolate a monotone prime-counting function with
+   no cancellation available, which is the same obstruction route 7 found in the
+   prime-pair overlap term `C`, here in its bare form.
+
+### Do not repeat this route by
+
+- proposing a packet dispersion or almost-orthogonality statement before the diagonal
+  is measured: the pairwise-decay condition is redundant given the diagonal bound, and
+  the diagonal bound is false on the tested range;
+- reading exact packet recombination or model independence as analytic progress. The
+  `PartialBaseline` section is generic over an arbitrary `AddCommGroup` with arbitrary
+  `root`, `actual`, `model`; its proofs are `by_cases … <;> simp` and `abel`. It holds
+  verbatim with `actual := 0`, so it certifies bookkeeping consistency and cannot rank
+  packet systems;
+- taking algebraic annihilation `Q_α m = 0` as evidence about the arithmetic. That can
+  be manufactured for almost any chosen `m`. Fidelity of `m` to the true main profile
+  is a separate estimate, and route 7's `Cpred` is the warning: explicit, Möbius-free
+  and non-circular, and its modelling error still grew like `N^{1.08}`;
+- substituting realized trajectory amplification for an operator norm when measuring
+  stage inflation — the theorem needs `‖T_t|_{coh⊥}‖_{2→2}`, and measuring along
+  observed data gives only a lower bound.
+
+### Retained
+
+The packet coordinates, the triangular support, the exact recombination and the
+model-independence guardrail are correct and are kept as an exact coordinate layer.
+What is closed is the use of a positive packet square function as the estimation
+mechanism.
+
+### Do not repeat the anchor route by
+
+- asserting that anchor selection bounds anything: it converts a signed
+  obligation into a magnitude obligation and leaves the shell estimate untouched;
+- quoting an all-frozen-anchor constant as progress — `M(2#) = 0` is a frozen
+  anchor, a zero anchor is lossless, and the resulting excursion is the whole
+  Mertens value, i.e. the original problem;
+- assuming completed endpoints bracket the interior excursions of their own
+  block;
+- treating an unfavourable cross term as a refutation of backward filling: it is
+  a demand on the endpoint reserve.
+
 ## Acceptance rule for future routes
 
 A proposed route must state:

@@ -1,0 +1,50 @@
+\subsection{The prime curve does not satisfy the cubic bound}
+
+Let
+\[
+ S_n^{(1)}=-\pi(X_n)
+\]
+be the contribution of the curve $c=1$, and put
+\[
+ S_n^{(\ge2)}=S_n-S_n^{(1)}.
+\]
+Then
+\begin{equation}
+ \|S\|^2
+ =
+ \|S^{(1)}\|^2
+ +
+ \|S^{(\ge2)}\|^2
+ +
+ 2\langle S^{(1)},S^{(\ge2)}\rangle.
+ \label{eq:prime-rest-energy}
+\end{equation}
+
+\begin{table}[htbp]
+\centering
+\caption{Prime-curve versus remaining-curve energy decomposition.}
+\label{tab:prime-curve-decomposition}
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{rcccccc}
+\toprule
+$N$ &
+$V/N^3$ &
+$V_{c=1}/N^3$ &
+$V_{c\ge2}/N^3$ &
+$2\langle c=1,c\ge2\rangle/N^3$ &
+$V/V_{c=1}$ &
+correlation\\
+\midrule
+128  & 0.008842 & 51.225450 & 50.965559 & $-102.182168$ & $1.7260\!\times10^{-4}$ & $-0.999916714$\\
+256  & 0.011671 & 146.590116 & 146.035583 & $-292.614028$ & $7.9618\!\times10^{-5}$ & $-0.999961911$\\
+512  & 0.007442 & 441.694929 & 441.211486 & $-882.898974$ & $1.6848\!\times10^{-5}$ & $-0.999991721$\\
+1024 & 0.009853 & 1382.291036 & 1381.948964 & $-2764.230146$ & $7.1282\!\times10^{-6}$ & $-0.999996443$\\
+2048 & 0.008497 & 4450.731250 & 4450.668331 & $-8901.391084$ & $1.9091\!\times10^{-6}$ & $-0.999999045$\\
+4096 & 0.009974 & 14652.537064 & 14655.994904 & $-29308.521994$ & $6.8072\!\times10^{-7}$ & $-0.999999667$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At $N=4096$, the prime curve has energy more than $1.46\times10^4N^3$, while the total residual is approximately $9.97\times10^{-3}N^3$.  The squared norm of the total is only $6.81\times10^{-7}$ of the prime-curve squared norm.  This is direct numerical evidence that the central phenomenon is cancellation \emph{between} cofactor curves, not cubic behavior of the prime curve in isolation.
+

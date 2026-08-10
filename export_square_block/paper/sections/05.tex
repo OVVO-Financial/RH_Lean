@@ -1,0 +1,118 @@
+\section{The canonical M\"obius geometry}
+\label{sec:canonical-cloud}
+%======================================================================
+
+The M\"obius decomposition needs one reproducible point per squarefree source.  Choosing the largest prime factor supplies that point and gives a signed height that can be followed across cutoffs.
+
+The smooth--transport decomposition does not use every point on each factor fibre.  It selects one canonical point per squarefree source.
+
+For squarefree $m>1$, define
+\begin{equation}
+ q_m:=\Pplus(m),
+ \qquad
+ c_m:=\frac{m}{q_m}.
+ \label{eq:canonical-cq}
+\end{equation}
+Unlike the ordered factor pair in \cref{sec:full-fibre}, the canonical pair is not reordered.  The cofactor $c_m$ may exceed $q_m$.  For example,
+\[
+ m=30,
+ \qquad
+ q_m=5,
+ \qquad
+ c_m=6.
+\]
+Therefore define the signed Fermat coordinate
+\begin{equation}
+ a_m:=\frac{c_m+q_m}{2},
+ \qquad
+ b_m:=\frac{q_m-c_m}{2}\in\frac12\Z,
+ \label{eq:signed-Fermat}
+\end{equation}
+and the canonical squared point
+\begin{equation}
+ w_m:=(a_m+ib_m)^2
+ =m+iY_m,
+ \label{eq:canonical-w}
+\end{equation}
+where
+\begin{equation}
+ \boxed{Y_m=2a_mb_m=\frac{q_m^2-c_m^2}{2}.}
+ \label{eq:signed-Y}
+\end{equation}
+The sign of $Y_m$ records the order of the canonical factors:
+\begin{equation}
+ Y_m>0\iff c_m<q_m,
+ \qquad
+ Y_m<0\iff c_m>q_m.
+ \label{eq:Y-sign}
+\end{equation}
+
+\subsection{Parameterization by cofactors and primes}
+
+Every squarefree $m>1$ has a unique representation
+\begin{equation}
+ m=cq,
+ \label{eq:cq-general}
+\end{equation}
+where
+\begin{equation}
+ \mu(c)\ne0,
+ \qquad
+ q\text{ is prime},
+ \qquad
+ q>\Pplus(c).
+ \label{eq:canonical-admissibility}
+\end{equation}
+Conversely, every pair satisfying \cref{eq:canonical-admissibility} produces a squarefree integer $m=cq$ with largest prime factor $q$.  Moreover,
+\begin{equation}
+ \mu(cq)=-\mu(c).
+ \label{eq:canonical-sign}
+\end{equation}
+
+Define the canonical index set
+\begin{equation}
+ \mathscr C
+ :=
+ \left\{
+ (c,q):
+ \mu(c)\ne0,
+ \ q\text{ is prime},
+ \ q>\Pplus(c)
+ \right\}.
+ \label{eq:canonical-index}
+\end{equation}
+The squared point cloud is
+\begin{equation}
+ \mathscr W
+ :=
+ \left\{
+ cq+i\frac{q^2-c^2}{2}:(c,q)\in\mathscr C
+ \right\}.
+ \label{eq:canonical-cloud}
+\end{equation}
+The signed point measure is
+\begin{equation}
+ \nu
+ :=
+ \delta_1
+ -
+ \sum_{(c,q)\in\mathscr C}
+ \mu(c)\,
+ \delta_{\,cq+i(q^2-c^2)/2}.
+ \label{eq:signed-measure}
+\end{equation}
+The atom at $1$ records $\mu(1)=1$.
+
+\begin{example}[A point below the real axis]
+For $m=30$, the canonical pair is $(c,q)=(6,5)$, so
+\[
+ a=\frac{11}{2},
+ \qquad
+ b=-\frac12,
+ \qquad
+ w_{30}=30-\frac{11}{2}i.
+\]
+This point enters a square prefix only after the cutoff already exceeds $q=5$, so it is smooth immediately and never occupies the transport channel.
+\end{example}
+
+%======================================================================

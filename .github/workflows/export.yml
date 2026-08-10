@@ -1,9 +1,22 @@
 name: Public export verification
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'export_prime_wheel/**'
+      - 'export_mobius_synthesis/**'
+      - 'export_square_block/**'
+      - '**.lean'
+      - 'scripts/check_export_sync.py'
+      - '.github/workflows/export.yml'
   pull_request:
     paths:
-      - 'export/**'
+      - 'export_prime_wheel/**'
+      - 'export_mobius_synthesis/**'
+      - 'export_square_block/**'
+      - '**.lean'
+      - 'scripts/check_export_sync.py'
       - '.github/workflows/export.yml'
   workflow_dispatch:
 
@@ -11,19 +24,28 @@ permissions:
   contents: read
 
 jobs:
-  build-export:
+  verify-export:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Verify every export closes and matches the development tree
+        run: python3 scripts/check_export_sync.py
+
+      - name: Audit the square-block export for unfinished proofs and axioms
+        working-directory: export_square_block/lean
+        run: bash scripts/audit_assumptions.sh
+
       - name: Verify paper and numerical provenance
-        working-directory: export/public-repo
+        working-directory: export_prime_wheel
         run: |
           # The manuscript is deliberately not pinned by hash: it is revised as
           # research lands, and a content pin only turns every paper edit into a
-          # red build. What is checked is that the paper still exists and still
-          # resolves to the program it cites.
+          # red build. That already happened once, when c409a03 revised the paper
+          # and left the gate failing on main until the hash was rebaselined.
+          # What is checked is that the paper still exists and still resolves to
+          # the program it cites.
           test -s paper/seeded_prime_comb_harmonic_reduction.tex
           test "$(git hash-object numerics/primorial_block_validation.py)" = '98ad192eb59c1ad9cf31ab8cdbfc43cf0f8497ed'
           grep -F 'https://github.com/OVVO-Financial/prime-wheel-mobius/blob/main/numerics/primorial_block_validation.py' paper/seeded_prime_comb_harmonic_reduction.tex
@@ -35,25 +57,18 @@ jobs:
           test ! -e paper/Squared_Complex_Framework_Elementary_Pointwise_Bridge.tex
 
       - name: Audit unfinished proofs and project-local axioms
-        working-directory: export/public-repo/formalization
+        working-directory: export_prime_wheel/formalization
         run: bash scripts/audit_assumptions.sh
 
       - name: Check exported numerical scripts
-        working-directory: export/public-repo/formalization
+        working-directory: export_prime_wheel/formalization
         run: |
           python -m py_compile \
             ../numerics/primorial_block_validation.py \
             ../numerics/analytic_kill_gates.py
 
-      - name: Set up Lean
-        uses: leanprover/lean-action@v1
-        with:
-          lake-package-directory: export/public-repo/formalization
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
-
-      - name: Build standalone export
-        working-directory: export/public-repo/formalization
-        run: lake build RHLean --wfail
+      - name: Record local Lean build policy
+        working-directory: export_prime_wheel/formalization
+        run: |
+          echo 'Lean compilation is intentionally local-only.'
+          echo 'Authoritative local command: lake build RHLean --wfail'

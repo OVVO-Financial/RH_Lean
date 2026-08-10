@@ -1,0 +1,87 @@
+\section{Entry, transition, and telescoping}
+\label{sec:telescoping}
+%======================================================================
+
+A source contributes at different times for different reasons.  Separating entry from transition shows which changes are genuine new data and which are internal transfers that cancel.
+
+For a canonical source $m=cq$, define its first square-prefix index
+\begin{equation}
+ e(m):=\lfloor\sqrt m\rfloor.
+ \label{eq:entry-index}
+\end{equation}
+This is the least $n$ such that $m<R_n^2$.  Define the smoothness-transition index
+\begin{equation}
+ h(m):=q-1.
+ \label{eq:transition-index}
+\end{equation}
+This is the least $n$ such that $q\le R_n$.
+
+The transport lifetime is
+\begin{equation}
+ L(m):=(h(m)-e(m))_+.
+ \label{eq:lifetime}
+\end{equation}
+There are two cases:
+
+\begin{enumerate}[leftmargin=1.7em,itemsep=0.3em]
+\item If $q>\sqrt m$, equivalently $q>c$ and $Y>0$, then the point enters above the moving parabola and occupies transport for the discrete interval
+\[
+ e(m)\le n<h(m).
+\]
+\item If $q\le\sqrt m$, equivalently $q\le c$ and $Y\le0$, then $h(m)\le e(m)$ and the point enters already smooth.  Its transport interval is empty.
+\end{enumerate}
+
+Define the pointwise indicators
+\begin{align}
+ p_n(m)&:=\1_{\{e(m)\le n\}},
+ \label{eq:p-indicator}\\
+ u_n(m)&:=\1_{\{e(m)\le n<h(m)\}},
+ \label{eq:u-indicator}\\
+ a_n(m)&:=\1_{\{e(m)\le n,\ h(m)\le n\}}.
+ \label{eq:a-indicator}
+\end{align}
+Then
+\begin{equation}
+ \boxed{p_n(m)=u_n(m)+a_n(m).}
+ \label{eq:temporal-partition}
+\end{equation}
+
+\subsection{Why the crossing cancels}
+
+Let $E_n^A$ be the signed mass entering the new vertical strip already below the moving parabola, let $E_n^U$ be the signed mass entering above it, and let $C_n$ be the signed mass crossed by the moving parabola between $R_{n-1}$ and $R_n$.  Then
+\begin{align}
+ \mathcal A(R_n)-\mathcal A(R_{n-1})
+ &=E_n^A+C_n,
+ \label{eq:Delta-A}\\
+ \mathcal U(R_n)-\mathcal U(R_{n-1})
+ &=E_n^U-C_n.
+ \label{eq:Delta-U}
+\end{align}
+Therefore
+\begin{equation}
+ \boxed{
+ S_n-S_{n-1}
+ =E_n^A+E_n^U
+ =\sum_{m\in B_n}\mu(m).
+ }
+ \label{eq:Delta-S}
+\end{equation}
+The entire crossing mass cancels.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=Latex,node distance=15mm]
+  \node[draw,rounded corners,fill=gray!8,minimum width=30mm,minimum height=12mm,align=center] (out) {outside prefix\\$R<\sqrt{cq}$};
+  \node[draw,rounded corners,fill=red!7,minimum width=32mm,minimum height=12mm,align=center,right=of out] (trans) {transport\\$\sqrt{cq}<R<q$};
+  \node[draw,rounded corners,fill=green!8,minimum width=30mm,minimum height=12mm,align=center,right=of trans] (smooth) {smooth\\$q\le R$};
+  \draw[->,very thick,navy] (out) -- node[above,align=center] {vertical entry\\$R=\sqrt{cq}$} (trans);
+  \draw[->,very thick,teal] (trans) -- node[above,align=center] {parabolic crossing\\$R=q$} (smooth);
+  \draw[decorate,decoration={brace,amplitude=6pt,mirror},thick] ($(trans.south west)+(0,-6mm)$) -- ($(trans.south east)+(0,-6mm)$) node[midway,below=7mm] {$\tau(c,q)=q-\sqrt{cq}$};
+\end{tikzpicture}
+\caption{The exact state path of a positive-height canonical point.  The second transition only reallocates signed mass between $-T$ and $A$, so it cancels from the residual increment.}
+\label{fig:state-path}
+\end{figure}
+
+This is the telescopic nature of the squared coordinate: the point's imaginary height determines when the moving parabola reaches it, while the crossing itself contributes zero to the increment of the total prefix mass.
+
+%======================================================================

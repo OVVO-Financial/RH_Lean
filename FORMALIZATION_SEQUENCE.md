@@ -403,7 +403,7 @@ PR #96 adds exact dyadic transport compression. For an odd parent `(c,q)` and do
 T_R = sum over q prime, R<q<=X,
         sum over c odd, X<2cq<=2X of mu(c),
 -T_R = sum over the same canonical sources of mu(cq),
-M(B) = sum over m odd, B<2m<=2B of mu(m).
+M(B) = sum over m odd, B<2m<=2B} mu(m).
 ```
 
 The high transport source sum is only the `P+(m)>R` part of the complete odd annulus. The complementary `P+(m)<=R` smooth population is not a negligible boundary, and a transport-only energy estimate is not silently identified with the protected full residual criterion.
@@ -724,3 +724,110 @@ This append-only reconciliation records the repository state after the two merge
 - **Dependency placement:** the Euler–CRT recursion belongs after the finite arithmetic/Boolean-cube identities and before any proposed extension-compatible spectral, Gram, or no-overshoot estimate. It is an exact algebraic input, not the missing analytic estimate.
 - **Open boundary:** no spectral gap, extension-compatible positive Gram form, completed-wheel bound, or interior no-overshoot theorem follows from PR #173. Those remain open analytic premises and must not be recorded as compiled consequences.
 - **Current research target:** the self-similar Hamming-level diagonal flip-energy ansatz for the exact `30 -> 210` extension has been eliminated by an exact finite separating certificate. The next admissible search is a mask-specific diagonal or genuinely off-diagonal positive form on the exact 14-dimensional compatibility quotient, with exact rational feasibility or an exact rational dual certificate, followed by a `210 -> 2310` extension-closure test.
+
+## Append-only: survivor residue covariance route
+
+### PR #265 — exact residue-fibre covariance
+
+- [x] `RHLean/Proof/SurvivorResidueCovariance.lean` formalizes the active survivor height residues `q^2-c^2 mod s`, signed residue masses, total residue energy `V`, same-cofactor diagonal `D`, and cross-cofactor covariance `C`.
+- [x] The exact identity `V = D + C` is machine checked with `C` also identified as the explicit `c ≠ c'` Gram ledger.
+- [x] Finite-torus Parseval representations are proved for `V`, `D`, and `C` without introducing an analytic cancellation estimate.
+- [x] No independence, sign, or small-exceptional-set assertion is made.
+
+### PR #266 — covariance-budget criterion
+
+- [x] `RHLean/Proof/SurvivorResidueCovarianceCriterion.lean` is added and imported from `RHLean.lean`.
+- [x] Finite Cauchy--Schwarz proves `|survivorZeroMode Λ t|^2 ≤ s * V_{t,s} = s * (D_{t,s}+C_{t,s})` for every positive residue modulus.
+- [x] A prescribed positive modulus schedule and translated-window covariance-budget statement are isolated explicitly.
+- [x] The covariance-budget statement implies `SurvivorZeroModePowerSavingStatement`, the protected square-prefix uniform-local criterion, and the existing conditional RH bridge.
+- [x] Exploratory CI run `31271219185` passed the paper/Analysis boundary audit, assumption audit, generated-root check, and `lake build RHLean --wfail` on head `15bf8d20280021c3a11dceb16b363e7cdd155585` before this closeout commit.
+- [ ] No covariance-defect estimate is proved by PR #266; that is the remaining analytic content.
+
+### PR #268 — exact source-pair collision reindex
+
+- [x] `RHLean/Proof/SurvivorResidueCollisionReindex.lean` added and imported from `RHLean.lean`.
+- [x] The active collision pair set is the filtered product of the two survivor prime fibres with equal signed doubled-height residue.
+- [x] The indicator-sum collision count is proved equal to the cardinality of that actual pair set.
+- [x] The identity `sum_u K(c,u) K(c',u) = collisionCount(c,c')` is machine checked.
+- [x] Each cofactor Gram block is exactly `mu(c) * mu(c') * collisionCount(c,c')`.
+- [x] The full cross-cofactor covariance is exactly the Möbius-signed collision ledger over unequal cofactors.
+- [x] Exploratory CI run `31271891332` passed the paper/Analysis boundary audit, assumption audit, generated-root check, and `lake build RHLean --wfail` on head `2c35516ef0d01dfebfe5b68f88b56b8d07e09344` before this closeout commit.
+- [ ] No collision-density, sign, or power-saving estimate is asserted.
+
+### Current next dependency
+
+- [x] Reindex `C_{t,s}` exactly as a Möbius-signed count of active source-pair collisions with equal `q^2-c^2 mod s` — PR #268.
+- [ ] Formalize the pair-effective-modulus/rough-denominator resonance criterion on the exact collision ledger.
+- [ ] Only after that exact bridge is compiled, attack the signed congruence-fibre covariance estimate; do not replace it by an unsigned exceptional-set bound.
+
+## Append-only: elementary prime-sieve transport and PNT centering
+
+The live root import manifest on this branch now contains **247 Lean modules**; the earlier 145-module inventory header above is historical and is superseded by the generated `RHLean.lean` manifest.
+
+### PR #277 — elementary prime-sieve transport bridge
+
+- [x] The existing prime-comb semantics are reoriented to an all-plus running state without introducing a second Möbius process.
+- [x] For `sqrt x < y`, the exact finite identity
+  `M_y^+(x) - M(x) = 2 * sum_{y < q <= x, q prime} M(floor(x/q))`
+  is proved by unique unresolved large-prime factorization and one final Möbius sign flip.
+- [x] At `x=R^2-1`, `y=R`, the running state is proved exactly `A_R+T_R`, while the completed state is `A_R-T_R`; hence `before-M=2T_R` and `before+M=2A_R`.
+- [x] This is the elementary synthesis seam connecting prime-wheel reconstruction to the original square-block smooth/transport architecture.
+
+### PR #278 — Li-density centering pushed through the canonical nonzero response
+
+- [x] `RHLean.Analysis.PrimeSievePNTCentering` splits the explicit prime tail using the repository's canonical logarithmic-integral singleton mass `Li(q)-Li(q-1)`.
+- [x] The exact decomposition is `prime tail = deterministic PNT bulk + prime-indicator-minus-Li-density error`.
+- [x] The corresponding corrected all-plus state satisfies `M = corrected all-plus - 2 * prime error` whenever the prime cutoff is strictly above the square root.
+- [x] The square-wheel centering operator is formalized with the actual coefficient `(X_n-L_k)/Q_k`; it is not replaced by arithmetic-block interpolation.
+- [x] `squareWheelNonzeroSampleResponse`, the canonical `H_{k,n}` boundary object, is proved exactly equal to the same centering applied to `M`.
+- [x] Therefore
+
+  ```text
+  H_{k,n} = centered PNT-corrected comb - 2 * centered prime error
+          = centered all-plus comb
+            - 2 * centered PNT bulk
+            - 2 * centered prime error.
+  ```
+
+- [x] The norm transfer
+  `||H|| <= ||centered PNT-corrected comb|| + 2 ||centered prime error||`
+  is machine-checkable in the same module and isolates two explicit sufficient analytic targets.
+- [x] The Li convention agrees with the existing exact-activity prime-density route (`ExactActivityPrimeIntervals`, `ConcreteLiCoreExtensionWeight`).
+- [ ] No theorem in this layer bounds either centered target. In particular, no PNT-error, Bombieri--Vinogradov, large-sieve, or RH-scale estimate is inferred from exact centering.
+- [ ] The next H-advancing analytic step is to bound the two centered terms, preferably after quotient-fibre reindexing turns the prime error into signed prime-count-minus-Li discrepancies on reciprocal intervals.
+
+### PR #279 — quotient-fibre prime discrepancy layer
+
+The live root import manifest on this branch now contains **248 Lean modules**. PR #279 adds the exact finite bridge requested after the PNT centering layer.
+
+- [x] `RHLean.Analysis.PrimeSieveQuotientPNTError` defines the finite quotient support for `d=floor(x/q)` and proves every positive fibre is exactly
+
+  ```text
+  max(y, floor(x/(d+1))) < q <= floor(x/d).
+  ```
+
+- [x] A generic finite identity reindexes every sum `sum_{y<q<=x} a(q) M(floor(x/q))` by those quotient fibres before any prime-specific specialization.
+- [x] The canonical singleton Li weights telescope on each reciprocal interval, so the deterministic fibre mass is the exact endpoint difference `Li(b)-Li(a)`.
+- [x] The actual prime-indicator fibre is identified with the finite prime count on the same interval, and the residual fibre is exactly `prime count - Li mass`.
+- [x] Consequently
+
+  ```text
+  primeSievePNTError(y,x)
+    = sum_d primeSieveReciprocalPrimeDiscrepancy(y,x,d) * M(d),
+  ```
+
+  while the deterministic PNT bulk and exact prime tail have parallel quotient reindexings.
+- [x] The deterministic Li bulk cancels exactly between the PNT-corrected all-plus state and the reindexed PNT error; this cancellation is finite algebra, not an asymptotic estimate.
+- [x] The reciprocal PNT error is pushed through the actual square-wheel center, giving
+
+  ```text
+  H_{k,n}
+    = centered PNT-corrected comb
+      - 2 * centered weighted reciprocal-interval prime discrepancy.
+  ```
+
+- [x] The corresponding norm transfer is compiled, parent and synthesis theorem files are byte-identical, and the synthesis manifest/provenance are synchronized to 248 modules.
+- [x] Exploratory CI run `31284430868` passed the paper/Analysis audit, assumption audit, generated-root check, and full `lake build RHLean --wfail` on head `25ec0d56db835a9a2e30941c0806b3562611b7b4` before the closeout documents were added.
+- [ ] No prime-number-theorem error estimate is proved here. In particular, the reciprocal intervals become very short near the square-root edge, so a future analytic theorem must match this exact weighted/centered family rather than cite a generic long-interval PNT by analogy.
+- [ ] The centered PNT-corrected comb remains a separate analytic target. The quotient reindexing isolates the prime-distribution component but does not by itself close the `H_{k,n}` power bound.
+- [ ] Next analytic dependency: estimate the centered Mertens-weighted reciprocal prime discrepancies, potentially by an averaged short-interval or dispersion theorem matched exactly to these endpoints, while separately controlling the complementary centered comb.

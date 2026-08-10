@@ -1,0 +1,143 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.08in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{mathrsfs}
+\usepackage{booktabs,array,longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing}
+
+\definecolor{navy}{RGB}{25,48,85}
+\definecolor{teal}{RGB}{26,111,112}
+\definecolor{rust}{RGB}{151,67,42}
+\definecolor{lightgray}{RGB}{245,247,249}
+\definecolor{midgray}{RGB}{90,98,108}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=navy,
+  citecolor=teal,
+  urlcolor=rust,
+  pdftitle={A Squared-Complex Framework for Square-Prefix Mobius Sums},
+  pdfauthor={Fred Viole, OVVO Labs}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Squared-complex square-prefix M\"obius sums}
+\fancyhead[R]{\small Fred Viole}
+\fancyfoot[C]{\small \thepage\ of \pageref{LastPage}}
+\setlength{\headheight}{14pt}
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+\setlist[itemize]{leftmargin=1.5em,itemsep=0.25em,topsep=0.35em}
+\setlist[enumerate]{leftmargin=1.7em,itemsep=0.3em,topsep=0.35em}
+\allowdisplaybreaks
+\raggedbottom
+\emergencystretch=2em
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Open theorem}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{caution}[theorem]{Caution}
+
+\crefname{conjecture}{open theorem}{open theorems}
+\Crefname{conjecture}{Open theorem}{Open theorems}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Pplus}{P^{+}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Repart}{\operatorname{Re}}
+\newcommand{\Impart}{\operatorname{Im}}
+\newcommand{\card}{\operatorname{card}}
+
+\newcommand{\statusbox}[2]{%
+\begin{center}
+\fcolorbox{#1}{lightgray}{\parbox{0.91\textwidth}{\small\textbf{#2}}}
+\end{center}}
+
+\newcommand{\leanxref}[3]{%
+  \par\smallskip
+  {\small\noindent\textcolor{teal}{\textbf{#1:}}\par
+  \noindent\href{#3}{\nolinkurl{#2}}\par}
+  \smallskip
+}
+
+\title{\vspace{-1.5em}\textbf{A Squared-Complex Framework for Square-Prefix M\"obius Sums}\\[0.45em]
+\large Exact arithmetic, canonical cofactor geometry, lifetime refinement, and the elementary RH bridge}
+\author{Fred Viole\\OVVO Labs}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This paper develops an exact geometric framework for square-prefix values of the Mertens function.  At the complete cutoff
+\[
+ X_n=(n+1)^2-1,
+\]
+a squarefree integer cannot contain two prime factors larger than $n+1$.  This gives the exact smooth--transport decomposition
+\[
+ S_n=M(X_n)=A_n-T_n.
+\]
+Each squarefree source $m>1$ has a unique canonical factorization
+\[
+ q_m=\Pplus(m),\qquad c_m=\frac{m}{q_m},
+\]
+and the squared-complex point
+\[
+ \left(\frac{c_m+q_m}{2}+i\frac{q_m-c_m}{2}\right)^2
+ =m+i\frac{q_m^2-c_m^2}{2}
+\]
+records the source integer and its canonical factor imbalance simultaneously.  Fixed cofactors trace explicit parabolas, the square-prefix cutoff is vertical, and the square-root smoothness cutoff is a moving parabola whose intersection with the $c$-curve occurs exactly at $q=R$.
+
+The largest-prime parametrization has a sharp endpoint support law that is useful throughout the paper.  If $m\le x$ and $\Pplus(m)>\lfloor x/2\rfloor$, then the canonical cofactor is $c_m=1$ and $m$ itself is prime.  Equivalently, every composite $m\le x$ satisfies
+\[
+ \Pplus(m)\le\lfloor x/2\rfloor.
+\]
+Thus the $c=1$ prime fibre is the entire extreme-largest-prime population, while every genuine product fibre has $c\ge2$ and largest prime at most $\lfloor x/2\rfloor$.
+
+For a fixed height threshold $\Lambda>0$, low canonical height has uniformly bounded occupancy in each square block, giving the unconditional bound $|S_N^{\mathrm{low}}(\Lambda)|\ll_\Lambda N$.  A lifetime refinement splits the high population into currently active survivors and completed deaths.  The death increments are supported on a bounded-width integer window in the doubled height $|q^2-c^2|$; divisor bounds imply subpolynomial death increments and an RH-scale local-energy bound for the accumulated death mass.  Consequently the unresolved square-block cancellation may be placed entirely on the active survivor operator
+\[
+ Z_\Lambda(t)=-\sum_c\mu(c)\,\mathcal K_{\Lambda,t}(c),
+\]
+where $\mathcal K_{\Lambda,t}(c)$ counts canonical primes $q$ with $cq\le (t+1)^2-1$ and $2\Lambda t<|q^2-c^2|$.
+
+The paper proves the exact arithmetic and geometric reductions, the low-height bound, and the death-process divisor-window estimate.  The remaining power-saving estimate for the signed survivor, equivalently the native high-sector square-prefix estimate, is stated explicitly as an open theorem.  The accompanying Lean development machine-checks the exact finite identities and elementary estimates.  No project axiom and no unconditional proof of the Riemann Hypothesis is claimed.
+\end{abstract}
+
+\statusbox{navy}{Status convention.  Results labelled theorem, proposition, lemma, or corollary are proved from the stated definitions or standard cited results.  Numerical values are finite computations.  Statements labelled ``Open theorem'' are the remaining analytic obligations and are not asserted as established.}
+\newpage
+\tableofcontents
+\newpage
+%======================================================================

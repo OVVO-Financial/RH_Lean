@@ -1,0 +1,43 @@
+\subsection{Uniform local ratios}
+
+For a dyadic base $N$, define
+\begin{equation}
+ \mathfrak R(N)
+ :=
+ \max_{\substack{
+ N\le M\le2N-H\\
+ H\in\{1,2,4,\ldots,N\}
+ }}
+ \frac{\sum_{n=M}^{M+H-1}|S_n|^2}{HM^2}.
+ \label{eq:worst-local-ratio}
+\end{equation}
+
+\begin{table}[htbp]
+\centering
+\caption{Worst local ratios from the exact range $n\le4096$.}
+\label{tab:local-ratios}
+\small
+\begin{tabular}{rcccc}
+\toprule
+base $N$ &
+$\mathfrak R(N)$ &
+$\mathfrak R(N)/N^{0.10}$ &
+maximizing start &
+maximizing $H$\\
+\midrule
+128  & 0.176193 & 0.108459 & 243  & 1\\
+256  & 0.145830 & 0.083757 & 309  & 1\\
+512  & 0.183003 & 0.098069 & 547  & 1\\
+1024 & 0.157837 & 0.078918 & 1032 & 1\\
+2048 & 0.166479 & 0.077665 & 2544 & 1\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The fitted log--log slope of $\mathfrak R(N)$ over these five dyadic scales is
+\begin{equation}
+ \widehat\theta=-0.00494746.
+ \label{eq:local-slope}
+\end{equation}
+This range passes the preliminary scale-stability test $\widehat\theta\le0.10$, but it is not long enough to determine the asymptotic law.
+

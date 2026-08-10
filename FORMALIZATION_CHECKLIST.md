@@ -474,3 +474,79 @@ has to be guessed against mathlib `v4.24.0`.
 - [x] Attack the reframed obligation A (telescope cancellation) — done; the formulation is not viable.
 - [ ] Owner decision on whether the Euler–CRT roughness branch is closed as an RH route.
 - [ ] If continued: any successor route must be assessed against the existing closed dyadic Li-residual entry, which already forbids repeating centered Vaughan/Type-I/II bounds that leave the coherent mode untouched.
+
+## Append-only: survivor residue covariance route
+
+### PR #266 — survivor covariance criterion
+
+- [x] Preceding dependency PR #265 confirmed merged and green.
+- [x] `RHLean/Proof/SurvivorResidueCovarianceCriterion.lean` added and imported by `RHLean.lean`.
+- [x] Exact survivor recovery from the residue masses is proved.
+- [x] Finite Cauchy--Schwarz proves `|S_t|^2 ≤ s V_{t,s} = s(D_{t,s}+C_{t,s})` with the signed cross term retained.
+- [x] A prescribed positive modulus schedule and translated-window covariance-budget power-saving proposition are isolated as the only new analytic premise.
+- [x] That premise is proved sufficient for `SurvivorZeroModePowerSavingStatement`, the protected square-prefix local criterion, and the existing conditional RH bridge.
+- [x] No covariance-defect estimate, favorable modulus schedule, independence assertion, or unsigned exceptional-set estimate is claimed.
+- [x] Final merge-gating CI run `31271557551` passed the paper/Analysis boundary check, assumption audit, generated-root check, and `lake build RHLean --wfail` on frozen head `9ee3bc5d4b596bb3e5347c4ac93d2bc5543c5c34` (after rerunning an infrastructure-cancelled hosted job without changing the branch).
+- [x] PR #266 merged at `ec4003b958df07a537445603391e2c94e6d06831`.
+- [ ] Remaining analytic obligation: prove a signed covariance-defect bound strong enough for the scheduled local budget.
+
+### PR #268 — source-pair collision ledger
+
+- [x] Preceding dependency PR #266 confirmed merged and green at `ec4003b958df07a537445603391e2c94e6d06831`.
+- [x] Branch `agent/survivor-collision-reindex` created from that current `main` merge commit.
+- [x] `RHLean/Proof/SurvivorResidueCollisionReindex.lean` added and imported by `RHLean.lean`.
+- [x] Active prime-pair collisions are defined by equality of signed doubled-height residue modulo `s`.
+- [x] The indicator-sum collision count is proved equal to the cardinality of the actual filtered prime-pair set.
+- [x] The exact identity `sum_u K(c,u) K(c',u) = collisionCount(c,c')` is compiled.
+- [x] Each cofactor Gram block is proved exactly `μ(c) μ(c') * collisionCount(c,c')`.
+- [x] The complete cross-cofactor covariance is proved equal to the explicit Möbius-signed collision ledger over unequal cofactors.
+- [x] No collision-density, covariance-sign, covariance-defect, primitive/nonprimitive asymptotic, or power-saving estimate is claimed.
+- [x] Exploratory CI run `31271891332` on head `2c35516ef0d01dfebfe5b68f88b56b8d07e09344` passed the paper/Analysis boundary check, assumption audit, generated-root check, and `lake build RHLean --wfail` with no warnings before this closeout commit.
+- [x] A branch-history integration regression removed the already-merged PR #266 criterion file and its root import; PR #268 restores the exact file blob from merge commit `ec4003b958df07a537445603391e2c94e6d06831` and restores the root import before the final merge gate, without changing the #266 theorem content.
+- [x] The final merge-gating run must include this checklist and `FORMALIZATION_SEQUENCE.md` closeout record on the same branch.
+- [ ] Remaining exact dependency: formalize the pair-effective-modulus/rough-denominator resonance criterion on the collision height difference.
+- [ ] Remaining analytic obligation: prove signed cancellation in the collision ledger strong enough for the scheduled covariance budget; do not replace it by an unsigned exceptional-set bound.
+
+## Append-only: elementary prime-sieve transport and PNT centering
+
+### PR #277 — elementary prime-sieve transport bridge
+
+- [x] `RHLean/Proof/PrimeSievePostSqrtGap.lean` proves the arbitrary post-square-root all-plus sieve identity
+  `M_y^+(x) - M(x) = 2 * sum_{y < q <= x, q prime} M(floor(x/q))`.
+- [x] Every unresolved source is reindexed by its unique canonical cofactor/large-prime pair and the cofactor batch is identified with the lower-scale Mertens prime tail.
+- [x] `RHLean/Proof/PrimeSieveSquareRootTransport.lean` specializes to `x=R^2-1`, `y=R` and proves `before = smooth + transport`, `before - M = 2 * transport`, and `before + M = 2 * smooth`.
+- [x] Parent and `export_mobius_synthesis` theorem files are byte-identical.
+- [x] PR #277 merged from frozen green head `e072a6b0eefc9f0801c74b34dfb1481661545efd` after run `31281054795` passed the boundary audit, assumption audit, generated-root check, and `lake build RHLean --wfail`.
+- [ ] These exact identities do not bound the transport term or the synthesis nonzero response.
+
+### PR #278 — Li-density PNT centering through `H_{k,n}`
+
+- [x] `RHLean/Analysis/PrimeSievePNTCentering.lean` uses the repository's existing logarithmic-integral convention, with singleton deterministic mass `Li(q)-Li(q-1)`.
+- [x] The prime tail is split exactly into deterministic PNT bulk plus the signed prime-indicator-minus-Li-density error.
+- [x] The PNT-corrected all-plus state satisfies `M = corrected all-plus - 2 * prime error` above the square-root cutoff.
+- [x] `primorialSquareZeroModeCenter` uses the actual wheel coefficient `(X_n-L_k)/Q_k`, not arithmetic-block interpolation.
+- [x] The canonical nonzero response is proved exactly
+  `H_{k,n} = centered PNT-corrected comb - 2 * centered prime error`,
+  equivalently `centered all-plus - 2 * centered PNT bulk - 2 * centered prime error`.
+- [x] The norm transfer `||H|| <= ||centered PNT-corrected comb|| + 2 ||centered prime error||` is formalized.
+- [x] The new module is mirrored byte-for-byte into `export_mobius_synthesis`; both roots import it and the synthesis manifest records 247 modules.
+- [x] The density convention is aligned with `ExactActivityPrimeIntervals` and `ConcreteLiCoreExtensionWeight` rather than introducing a competing midpoint or pointwise-density model.
+- [ ] No PNT error estimate, Bombieri--Vinogradov estimate, large-sieve estimate, or RH-scale power saving is claimed by this exact layer.
+- [ ] Remaining analytic targets: control the centered PNT-corrected comb and the centered prime-distribution error at a strength sufficient for the existing `H_{k,n}` power-bound interface.
+- [ ] Final merge-gating CI must run after this checklist and `FORMALIZATION_SEQUENCE.md` closeout are both present on the frozen head.
+
+### PR #279 — reciprocal quotient reindexing of the PNT error
+
+- [x] `RHLean/Analysis/PrimeSieveQuotientPNTError.lean` defines the exact positive quotient support `1 <= d <= floor(x/(y+1))` and the literal fibre `floor(x/q)=d` inside `y<q<=x`.
+- [x] Every positive quotient fibre is proved equal to the reciprocal interval `max(y,floor(x/(d+1))) < q <= floor(x/d)`.
+- [x] A generic finite Mertens-weighted quotient reindexing is machine checked before any prime-density specialization.
+- [x] The canonical singleton Li masses `Li(q)-Li(q-1)` are proved to telescope on every integer interval and hence on every reciprocal quotient interval.
+- [x] The reciprocal prime-count discrepancy is defined exactly as actual prime count minus the telescoped Li endpoint mass.
+- [x] `primeSievePNTBulk`, `primeSieveMertensPrimeTail`, and `primeSievePNTError` are each reindexed exactly by quotient fibres; in particular `primeSievePNTError = sum_d discrepancy(d) * M(d)`.
+- [x] The deterministic Li main term is proved to cancel algebraically between the PNT-corrected all-plus state and the reciprocal PNT error, leaving the exact prime-tail form.
+- [x] The reciprocal-interval PNT error is pushed through `primorialSquareZeroModeCenter`, yielding `H_{k,n} = centered PNT-corrected comb - 2 * centered reciprocal prime-count discrepancy` and the corresponding norm transfer.
+- [x] Parent and `export_mobius_synthesis` theorem files are byte-identical; both roots import the module and the synthesis manifest is synchronized to 248 modules.
+- [x] Exploratory CI run `31284430868` on head `25ec0d56db835a9a2e30941c0806b3562611b7b4` passed the paper/Analysis audit, assumption audit, generated-root check, and `lake build RHLean --wfail` before this closeout commit.
+- [ ] No pointwise or averaged PNT error estimate, short-interval theorem, Bombieri--Vinogradov estimate, large-sieve estimate, or RH-scale power saving is claimed.
+- [ ] Remaining analytic targets are separate: control the centered PNT-corrected comb and control the centered Mertens-weighted reciprocal-interval prime discrepancies strongly enough for the existing `H_{k,n}` power-bound interface.
+- [ ] The final merge-gating CI must run on one frozen head after this checklist, `FORMALIZATION_SEQUENCE.md`, and synthesis provenance updates are all present.
