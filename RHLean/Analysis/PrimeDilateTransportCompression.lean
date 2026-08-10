@@ -110,7 +110,7 @@ theorem finiteTransportActive_parent_of_primeDilateChild
 /-- The explicit residual interval is exactly the active part of the parent not
 shared by the `p`-dilated child. -/
 theorem primeDilateBoundaryActive_iff_parent_and_not_child
-    (N p c q t : ℕ) (hp : p.Prime) :
+    (N p c q t : ℕ) :
     IsPrimeDilateBoundaryActive N p c q t ↔
       IsFiniteTransportActive N c q t ∧
         ¬IsFiniteTransportActive N (primeDilateChildCofactor p c) q t := by
@@ -143,14 +143,14 @@ theorem finiteTransportContribution_add_primeDilateChild
         IsFiniteTransportActive N (primeDilateChildCofactor p c) q t <;>
       simp [finiteTransportContribution, primeDilateBoundaryContribution,
         hparent, hchild, hweight,
-        primeDilateBoundaryActive_iff_parent_and_not_child N p c q t hp]
+        primeDilateBoundaryActive_iff_parent_and_not_child N p c q t]
   · have hchild :
         ¬IsFiniteTransportActive N (primeDilateChildCofactor p c) q t := by
       intro h
       exact hparent (finiteTransportActive_parent_of_primeDilateChild hp h)
     simp [finiteTransportContribution, primeDilateBoundaryContribution,
       hparent, hchild,
-      primeDilateBoundaryActive_iff_parent_and_not_child N p c q t hp]
+      primeDilateBoundaryActive_iff_parent_and_not_child N p c q t]
 
 /-- Finite residual packet left after exact prime-dilate cancellation. -/
 def primeDilateBoundaryPacket (N p c q : ℕ) : ℂ :=
