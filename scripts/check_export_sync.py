@@ -31,12 +31,15 @@ ROOT_MODULE = 'RHLean'
 # checked.
 #
 # Repo-local modules live in the published repository but not upstream, and are
-# reached by that repository's own tooling rather than by the root module.
-# MobiusSynthesisBoundary is the synthesis PR gate contract driven by
-# scripts/check_boundary_advance.py.
+# reached by that repository's own tooling rather than by the root module. The
+# set is empty: MobiusSynthesisBoundary used to sit here as the synthesis PR
+# gate contract driven by scripts/check_boundary_advance.py, but the synthesis
+# boundary bridge imports it, so it now has a development-tree counterpart and
+# is reachable from the root module. Whitelisting it would exempt the gate
+# contract itself from the byte-identity check, which is the one file where a
+# silent development/export drift would be least acceptable.
 EXPORTS = [
-    ('export_mobius_synthesis', 'export_mobius_synthesis', True,
-     {'RHLean.Analysis.MobiusSynthesisBoundary'}, True),
+    ('export_mobius_synthesis', 'export_mobius_synthesis', True, set(), True),
     ('export_square_block', 'export_square_block/lean', True, set(), False),
     ('export_prime_wheel', 'export_prime_wheel/formalization', False, set(), False),
 ]
