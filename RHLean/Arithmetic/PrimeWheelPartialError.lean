@@ -204,7 +204,7 @@ theorem seededPrimeComb_primesUpTo_eq_neg_moebius_resolvedPart
     simp [hmu]
 
 lemma unresolvedPart_eq_one_iff_all_primeFactors_le
-    (y : ℕ) {n : ℕ} (hn : n ≠ 0) :
+    (y : ℕ) {n : ℕ} :
     primeWheelUnresolvedPart y n = 1 ↔
       ∀ p ∈ n.primeFactors, p ≤ y := by
   constructor
@@ -246,7 +246,7 @@ lemma not_smooth_of_unresolvedPart_ne_one
     ¬ IsPrimeWheelSmooth (primesUpTo y) n := by
   intro hsmooth
   apply hb
-  exact (unresolvedPart_eq_one_iff_all_primeFactors_le y hn).2 fun p hp =>
+  exact (unresolvedPart_eq_one_iff_all_primeFactors_le y).2 fun p hp =>
     (mem_primesUpTo.mp (hsmooth.2 p hp)).2
 
 /-- Exact pointwise error formula for a partial prime wheel.
@@ -277,7 +277,7 @@ theorem partialPrimeWheel_error_eq
   · have ha : primeWheelResolvedPart y n = n := by
       simpa [hb] using hab
     have hnSmooth : ∀ p ∈ n.primeFactors, p ≤ y :=
-      (unresolvedPart_eq_one_iff_all_primeFactors_le y hn).1 hb
+      (unresolvedPart_eq_one_iff_all_primeFactors_le y).1 hb
     have hcorrect : partialPrimeWheelSite y upper n = μ n := by
       unfold partialPrimeWheelSite
       by_cases hsq : Squarefree n
