@@ -88,8 +88,9 @@ theorem primeSieveMertensPrimeTail_eq_primeDilateShellTail
   apply Finset.sum_congr rfl
   intro q hq
   by_cases hprime : q.Prime
-  · simp [hprime, ← primeDilatePrefixCutoff,
-      mertensSummatory_primeDilatePrefixCutoff_eq_shellMass p x q hp]
+  · simp only [hprime, if_true]
+    simpa only [primeDilatePrefixCutoff] using
+      (mertensSummatory_primeDilatePrefixCutoff_eq_shellMass p x q hp)
   · simp [hprime]
 
 /-- **Arbitrary-prefix shell gap identity.**  For every `x`, once the sieve
