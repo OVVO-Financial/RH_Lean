@@ -40,11 +40,6 @@ jobs:
   build:
     name: Hosted Lean build
     needs: audit
-    if: >-
-      ${{
-        github.event_name != 'pull_request' ||
-        !contains(github.event.pull_request.body || '', '- [x] {local}')
-      }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
