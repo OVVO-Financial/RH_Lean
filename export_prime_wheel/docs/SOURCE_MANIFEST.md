@@ -46,7 +46,7 @@ The public modules use role-specific names rather than internal paths whose name
 ## Paper provenance
 
 - Current manuscript: `paper/seeded_prime_comb_harmonic_reduction.tex`.
-- Manuscript SHA-256 at export assembly: `dccf5c23465d93b9d8fb6ba08b3fa36893cd2c8ef81b53f1f2e43de1709d2e55`.
+- The manuscript is **not** pinned by content hash. It is revised as research lands, so a recorded hash goes stale on the next edit and turns an ordinary paper revision into a failing build. Manuscript identity is carried by the Git history of the file itself.
 - Public repository: `https://github.com/OVVO-Financial/prime-wheel-mobius`.
 - Section 7 links directly to `numerics/primorial_block_validation.py`.
 
