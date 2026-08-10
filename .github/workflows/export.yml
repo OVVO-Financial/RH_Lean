@@ -9,6 +9,8 @@ on:
       - 'export_square_block/**'
       - '**.lean'
       - 'scripts/check_export_sync.py'
+      - 'scripts/verify_exports_local.sh'
+      - 'scripts/local_ci.sh'
       - '.github/workflows/export.yml'
   pull_request:
     paths:
@@ -17,6 +19,8 @@ on:
       - 'export_square_block/**'
       - '**.lean'
       - 'scripts/check_export_sync.py'
+      - 'scripts/verify_exports_local.sh'
+      - 'scripts/local_ci.sh'
       - '.github/workflows/export.yml'
   workflow_dispatch:
 
@@ -68,7 +72,19 @@ jobs:
             ../numerics/analytic_kill_gates.py
 
       - name: Record local Lean build policy
-        working-directory: export_prime_wheel/formalization
         run: |
-          echo 'Lean compilation is intentionally local-only.'
-          echo 'Authoritative local command: lake build RHLean --wfail'
+          echo 'Lean compilation for the exports is intentionally local-only.'
+          echo 'Every Lake project carries scripts/local_ci.sh, which mirrors that project'"'"'s hosted job:'
+          echo '  audit sources, restore the Mathlib cache, lake build RHLean --wfail, run the axiom gate.'
+          echo 'Per-project command, run from the package directory:'
+          echo '  bash scripts/local_ci.sh'
+          echo 'Package directories: . export_mobius_synthesis export_prime_wheel/formalization export_square_block/lean'
+
+      - name: Record cross-project local verification policy
+        run: |
+          echo 'GitHub Desktop opens terminals at the repository root, but each export is a separate Lake project.'
+          echo 'A root build never compiles export-only source, so before merging a change that crosses the'
+          echo 'development tree and an export, use:'
+          echo '  bash scripts/verify_exports_local.sh'
+          echo 'That command pins the source surface (clean tree, local HEAD = origin head, export sync),'
+          echo 'deletes every project'"'"'s .lake/build, then runs all four project CI mirrors from scratch.'
