@@ -48,13 +48,13 @@ open RHLean.Arithmetic
 /-- Positive-orientation canonical source integers in the complete square prefix. -/
 def squareRootPositiveSmoothSourceSet (R : ℕ) : Finset ℕ :=
   (Finset.Icc 1 (squareRootEndpoint R)).filter fun m =>
-    canonicalLargestPrimeFactor m <= R &&
+    canonicalLargestPrimeFactor m ≤ R ∧
       canonicalCofactor m < canonicalLargestPrimeFactor m
 
 /-- Prime-first canonical coordinates for the same positive-orientation family. -/
 def squareRootPositiveSmoothPairSet (R : ℕ) : Finset (ℕ × ℕ) :=
   ((Finset.Icc 2 R).product (Finset.Ico 1 R)).filter fun qc =>
-    qc.1.Prime && qc.2 < qc.1
+    qc.1.Prime ∧ qc.2 < qc.1
 
 /-- Native source mass on the positive-orientation population. -/
 def squareRootPositiveSmoothSourceMass (R : ℕ) : ℂ :=
