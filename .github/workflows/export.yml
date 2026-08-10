@@ -9,6 +9,7 @@ on:
       - 'export_square_block/**'
       - '**.lean'
       - 'scripts/check_export_sync.py'
+      - 'scripts/verify_mobius_synthesis_local.sh'
       - '.github/workflows/export.yml'
   pull_request:
     paths:
@@ -17,6 +18,7 @@ on:
       - 'export_square_block/**'
       - '**.lean'
       - 'scripts/check_export_sync.py'
+      - 'scripts/verify_mobius_synthesis_local.sh'
       - '.github/workflows/export.yml'
   workflow_dispatch:
 
@@ -72,3 +74,10 @@ jobs:
         run: |
           echo 'Lean compilation is intentionally local-only.'
           echo 'Authoritative local command: lake build RHLean --wfail'
+
+      - name: Record mobius-synthesis local verification policy
+        run: |
+          echo 'GitHub Desktop opens terminals at the repository root, but export_mobius_synthesis is a separate Lake project.'
+          echo 'For any mobius-synthesis development or export change, use:'
+          echo '  bash scripts/verify_mobius_synthesis_local.sh'
+          echo 'That command checks export sync, removes project .lake/build products, and fresh-builds both Lake projects.'
