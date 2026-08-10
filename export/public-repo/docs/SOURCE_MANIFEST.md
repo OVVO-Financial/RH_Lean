@@ -49,7 +49,7 @@ The export replaces two sandbox-coupled bridge modules with minimal public adapt
 ## Paper provenance
 
 - Current manuscript: `paper/seeded_prime_comb_harmonic_reduction.tex`.
-- Manuscript SHA-256 at export assembly: `8f02277dd763774f1c4859c64c52157aa7a4323ffb4fc861b192ad3ab2617a72`.
+- The manuscript is **not** pinned by content hash. It is revised as research lands, so a recorded hash goes stale on the next edit and turns an ordinary paper revision into a failing build. Manuscript identity is carried by the Git history of the file itself.
 - Public repository: `https://github.com/OVVO-Financial/prime-wheel-mobius`.
 - Section 7 links directly to `numerics/primorial_block_validation.py`.
 
