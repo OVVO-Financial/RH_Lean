@@ -23,6 +23,10 @@ the source-level parent/child boundary is exactly the reciprocal shell
 
 `B / p < c <= B`.
 
+The same prime-dilate pairing also compresses every complete cofactor prefix:
+for any prime `p`, the full Möbius mass through `B` is exactly the mass of the
+`p`-free cofactors in the boundary `B / p < c <= B`.
+
 At a square endpoint `X = R^2 - 1`, this specializes to the square-root geometry
 already used by the canonical transport architecture.
 
@@ -235,6 +239,207 @@ theorem mem_primeDilatePrefixReciprocalShell_iff_prefixBoundary
   rw [mem_primeDilatePrefixReciprocalShell,
     primeDilatePrefixBoundary_iff_reciprocalShell p x q c hp hq]
   aesop
+
+/-! ## Exact compression of complete cofactor prefixes by an arbitrary prime -/
+
+/-- Positive cofactors through `B` that are free of the prime `p`. -/
+def primeFreeCofactorPrefix (p B : ℕ) : Finset ℕ :=
+  (Finset.Icc 1 B).filter fun c => ¬ p ∣ c
+
+/-- Positive cofactors through `B` that are divisible by `p`. -/
+def primeDivisibleCofactorPrefix (p B : ℕ) : Finset ℕ :=
+  (Finset.Icc 1 B).filter fun c => p ∣ c
+
+/-- The `p`-free reciprocal boundary `B / p < c <= B`. -/
+def primeCofactorBoundary (p B : ℕ) : Finset ℕ :=
+  primeFreeCofactorPrefix p B \ primeFreeCofactorPrefix p (B / p)
+
+@[simp] theorem mem_primeFreeCofactorPrefix {p B c : ℕ} :
+    c ∈ primeFreeCofactorPrefix p B ↔
+      1 ≤ c ∧ c ≤ B ∧ ¬ p ∣ c := by
+  simp [primeFreeCofactorPrefix, and_assoc]
+
+@[simp] theorem mem_primeDivisibleCofactorPrefix {p B c : ℕ} :
+    c ∈ primeDivisibleCofactorPrefix p B ↔
+      1 ≤ c ∧ c ≤ B ∧ p ∣ c := by
+  simp [primeDivisibleCofactorPrefix, and_assoc]
+
+@[simp] theorem mem_primeCofactorBoundary {p B c : ℕ} :
+    c ∈ primeCofactorBoundary p B ↔
+      1 ≤ c ∧ c ≤ B ∧ ¬ p ∣ c ∧ B / p < c := by
+  constructor
+  · intro h
+    rcases Finset.mem_sdiff.mp h with ⟨hbig, hsmall⟩
+    rcases mem_primeFreeCofactorPrefix.mp hbig with ⟨hc1, hcB, hfree⟩
+    have hboundary : B / p < c := by
+      by_contra hnot
+      apply hsmall
+      exact mem_primeFreeCofactorPrefix.mpr
+        ⟨hc1, Nat.le_of_not_gt hnot, hfree⟩
+    exact ⟨hc1, hcB, hfree, hboundary⟩
+  · rintro ⟨hc1, hcB, hfree, hboundary⟩
+    apply Finset.mem_sdiff.mpr
+    refine ⟨mem_primeFreeCofactorPrefix.mpr ⟨hc1, hcB, hfree⟩, ?_⟩
+    intro hsmall
+    exact (not_lt_of_ge (mem_primeFreeCofactorPrefix.mp hsmall).2.1) hboundary
+
+/-- Multiplication by `p` flips a `p`-free Möbius weight and kills a weight that
+already contains `p`. -/
+theorem canonicalMoebiusWeight_prime_mul
+    (p c : ℕ) (hp : p.Prime) :
+    canonicalMoebiusWeight (p * c) =
+      if p ∣ c then 0 else -canonicalMoebiusWeight c := by
+  by_cases hpc : p ∣ c
+  · rw [if_pos hpc]
+    have hzero : μ (p * c) = 0 := by
+      apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
+      intro hsq
+      have hnot := (Nat.squarefree_iff_prime_squarefree.mp hsq) p hp
+      apply hnot
+      rcases hpc with ⟨k, hk⟩
+      refine ⟨k, ?_⟩
+      rw [hk]
+      ring
+    simp [canonicalMoebiusWeight, hzero]
+  · rw [if_neg hpc]
+    simpa [primeDilateChildCofactor] using
+      (canonicalMoebiusWeight_primeDilateChild
+        (p := p) (c := c) (q := 1) hp (by simpa using hpc))
+
+/-- Multiplication by `p` bijects the positive prefix through `B / p` with the
+`p`-divisible cofactors through `B`. -/
+theorem sum_prime_mul_eq_sum_primeDivisibleCofactorPrefix
+    (p B : ℕ) (hp : p.Prime) :
+    (∑ d ∈ Finset.Icc 1 (B / p), canonicalMoebiusWeight (p * d)) =
+      ∑ c ∈ primeDivisibleCofactorPrefix p B, canonicalMoebiusWeight c := by
+  classical
+  refine Finset.sum_bij (fun d _ => p * d) ?_ ?_ ?_ ?_
+  · intro d hd
+    rcases Finset.mem_Icc.mp hd with ⟨hd1, hdB⟩
+    have hpdB : p * d ≤ B := by
+      have hmul := (Nat.le_div_iff_mul_le hp.pos).1 hdB
+      simpa [Nat.mul_comm] using hmul
+    exact mem_primeDivisibleCofactorPrefix.mpr
+      ⟨by nlinarith [hp.two_le], hpdB, dvd_mul_right p d⟩
+  · intro d1 hd1 d2 hd2 h
+    exact Nat.eq_of_mul_eq_mul_left hp.pos h
+  · intro c hc
+    rcases mem_primeDivisibleCofactorPrefix.mp hc with ⟨hc1, hcB, hpc⟩
+    have hprod : p * (c / p) = c := Nat.mul_div_cancel' hpc
+    refine ⟨c / p, ?_, hprod⟩
+    apply Finset.mem_Icc.mpr
+    constructor
+    · have hquotPos : 0 < c / p := by
+        by_contra hnot
+        have hzero : c / p = 0 := Nat.eq_zero_of_not_pos hnot
+        rw [hzero, mul_zero] at hprod
+        omega
+      exact hquotPos
+    · apply (Nat.le_div_iff_mul_le hp.pos).2
+      have hmul : (c / p) * p = c := by
+        simpa [Nat.mul_comm] using hprod
+      rw [hmul]
+      exact hcB
+  · intro d hd
+    rfl
+
+/-- The `p`-divisible cofactor mass is the negative `p`-free mass at scale
+`B / p`; terms divisible by `p^2` vanish automatically. -/
+theorem sum_primeDivisibleCofactorPrefix_eq_neg_primeFree_div
+    (p B : ℕ) (hp : p.Prime) :
+    (∑ c ∈ primeDivisibleCofactorPrefix p B, canonicalMoebiusWeight c) =
+      -∑ d ∈ primeFreeCofactorPrefix p (B / p), canonicalMoebiusWeight d := by
+  rw [← sum_prime_mul_eq_sum_primeDivisibleCofactorPrefix p B hp]
+  calc
+    (∑ d ∈ Finset.Icc 1 (B / p), canonicalMoebiusWeight (p * d)) =
+        ∑ d ∈ Finset.Icc 1 (B / p),
+          if p ∣ d then 0 else -canonicalMoebiusWeight d := by
+      apply Finset.sum_congr rfl
+      intro d hd
+      exact canonicalMoebiusWeight_prime_mul p d hp
+    _ = ∑ d ∈ Finset.Icc 1 (B / p),
+        if ¬ p ∣ d then -canonicalMoebiusWeight d else 0 := by
+      apply Finset.sum_congr rfl
+      intro d hd
+      by_cases hpd : p ∣ d <;> simp [hpd]
+    _ = ∑ d ∈ primeFreeCofactorPrefix p (B / p),
+        -canonicalMoebiusWeight d := by
+      unfold primeFreeCofactorPrefix
+      rw [Finset.sum_filter]
+    _ = -∑ d ∈ primeFreeCofactorPrefix p (B / p),
+        canonicalMoebiusWeight d := by
+      simp
+
+/-- Every positive prefix splits exactly into its `p`-free and `p`-divisible
+cofactors. -/
+theorem sum_Icc_eq_primeFree_add_primeDivisible (p B : ℕ) :
+    (∑ c ∈ Finset.Icc 1 B, canonicalMoebiusWeight c) =
+      (∑ c ∈ primeFreeCofactorPrefix p B, canonicalMoebiusWeight c) +
+        ∑ c ∈ primeDivisibleCofactorPrefix p B, canonicalMoebiusWeight c := by
+  calc
+    (∑ c ∈ Finset.Icc 1 B, canonicalMoebiusWeight c) =
+        ∑ c ∈ Finset.Icc 1 B,
+          ((if ¬ p ∣ c then canonicalMoebiusWeight c else 0) +
+            (if p ∣ c then canonicalMoebiusWeight c else 0)) := by
+      apply Finset.sum_congr rfl
+      intro c hc
+      by_cases hpc : p ∣ c <;> simp [hpc]
+    _ =
+        (∑ c ∈ primeFreeCofactorPrefix p B, canonicalMoebiusWeight c) +
+          ∑ c ∈ primeDivisibleCofactorPrefix p B, canonicalMoebiusWeight c := by
+      rw [Finset.sum_add_distrib]
+      unfold primeFreeCofactorPrefix primeDivisibleCofactorPrefix
+      rw [Finset.sum_filter, Finset.sum_filter]
+
+/-- The `p`-free prefix at scale `B / p` is contained in the full `p`-free
+prefix. -/
+theorem primeFreeCofactorPrefix_div_subset (p B : ℕ) :
+    primeFreeCofactorPrefix p (B / p) ⊆ primeFreeCofactorPrefix p B := by
+  intro c hc
+  rcases mem_primeFreeCofactorPrefix.mp hc with ⟨hc1, hcB, hfree⟩
+  exact mem_primeFreeCofactorPrefix.mpr
+    ⟨hc1, hcB.trans (Nat.div_le_self B p), hfree⟩
+
+/-- Möbius mass of the exact `p`-free reciprocal boundary. -/
+def primeCofactorBoundaryMass (p B : ℕ) : ℂ :=
+  ∑ c ∈ primeCofactorBoundary p B, canonicalMoebiusWeight c
+
+/-- Exact arbitrary-prime compression of every complete lower-cofactor prefix:
+
+`M(B) = sum_{B/p < c <= B, p ∤ c} mu(c)`.
+-/
+theorem cofactorMobiusPrefixMass_eq_primeCofactorBoundaryMass
+    (p B : ℕ) (hp : p.Prime) :
+    cofactorMobiusPrefixMass B = primeCofactorBoundaryMass p B := by
+  unfold cofactorMobiusPrefixMass primeCofactorBoundaryMass
+  rw [sum_Icc_eq_primeFree_add_primeDivisible,
+    sum_primeDivisibleCofactorPrefix_eq_neg_primeFree_div p B hp]
+  have hsubset := primeFreeCofactorPrefix_div_subset p B
+  have hpartition :
+      (∑ c ∈ primeFreeCofactorPrefix p B \
+          primeFreeCofactorPrefix p (B / p), canonicalMoebiusWeight c) +
+        ∑ c ∈ primeFreeCofactorPrefix p (B / p), canonicalMoebiusWeight c =
+          ∑ c ∈ primeFreeCofactorPrefix p B, canonicalMoebiusWeight c := by
+    exact Finset.sum_sdiff hsubset
+  unfold primeCofactorBoundary
+  calc
+    (∑ c ∈ primeFreeCofactorPrefix p B, canonicalMoebiusWeight c) +
+          -∑ c ∈ primeFreeCofactorPrefix p (B / p), canonicalMoebiusWeight c =
+        (∑ c ∈ primeFreeCofactorPrefix p B, canonicalMoebiusWeight c) -
+          ∑ c ∈ primeFreeCofactorPrefix p (B / p), canonicalMoebiusWeight c := by
+      ring
+    _ = ∑ c ∈ primeFreeCofactorPrefix p B \
+          primeFreeCofactorPrefix p (B / p), canonicalMoebiusWeight c := by
+      exact (eq_sub_of_add_eq hpartition).symm
+
+/-- The complete-prefix arithmetic boundary is exactly #303's arbitrary-prefix
+geometric reciprocal shell in every `q`-fiber. -/
+theorem primeCofactorBoundary_eq_primeDilatePrefixReciprocalShell
+    (p x q : ℕ) :
+    primeCofactorBoundary p (primeDilatePrefixCutoff x q) =
+      primeDilatePrefixReciprocalShell p x q := by
+  ext c
+  simp [primeDilatePrefixCutoff]
 
 /-! ## Exact `1/p` reciprocal boundary at a square endpoint -/
 
