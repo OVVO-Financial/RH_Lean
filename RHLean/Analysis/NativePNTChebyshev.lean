@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.NativePNTMertens
+import RHLean.Analysis.LogWeightedPrimeExtensionEndpoint
 
 /-!
 # Architecture-native Chebyshev layer
