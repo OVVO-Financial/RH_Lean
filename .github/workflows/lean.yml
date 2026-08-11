@@ -4,17 +4,17 @@ on:
   push:
     branches: [main]
     paths:
-      - '**.lean'
-      - 'lean-toolchain'
-      - 'lake-manifest.json'
-      - '.github/workflows/lean.yml'
+      - '**.lean'                        # warm the trusted main-branch Lean cache
+      - 'lean-toolchain'                 # Lean version bumps invalidate compiled artifacts
+      - 'lake-manifest.json'             # dependency/Mathlib bumps invalidate compiled artifacts
+      - '.github/workflows/lean.yml'     # changes to this audit workflow
   pull_request:
     types: [opened, synchronize, reopened, edited]
     paths:
-      - '**.lean'
-      - 'lean-toolchain'
-      - 'lake-manifest.json'
-      - '.github/workflows/lean.yml'
+      - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
+      - 'lean-toolchain'                 # Lean version bumps
+      - 'lake-manifest.json'             # dependency/Mathlib bumps
+      - '.github/workflows/lean.yml'     # changes to this audit workflow
   workflow_dispatch:
 
 permissions:
@@ -30,8 +30,10 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
       - name: Check paper / Analysis boundary
         run: bash scripts/check_paper_analysis_boundary.sh
+
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
 
@@ -42,17 +44,7 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-      - name: Upload branch source snapshot
-        uses: actions/upload-artifact@v4
-        with:
-          name: rhlean-source-snapshot
-          path: |
-            RHLean
-            RHLean.lean
-            lakefile.lean
-            lake-manifest.json
-            lean-toolchain
-            scripts
+
       - name: Set up Lean and Mathlib
         uses: leanprover/lean-action@v1
         with:
@@ -61,6 +53,7 @@ jobs:
           build: false
           test: false
           lint: false
+
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
@@ -68,36 +61,7 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-      - name: Pack temporary local Lean environment
-        run: |
-          tar --zstd -cf lean-dev-env.tar.zst \
-            -C "$HOME" .elan/toolchains/leanprover--lean4---v4.24.0 \
-            -C "$GITHUB_WORKSPACE" .lake/packages .lake/build
-          split -b 400M lean-dev-env.tar.zst lean-dev-env.part-
-      - name: Upload environment part aa
-        uses: actions/upload-artifact@v4
-        with: {name: lean-dev-env-aa, path: lean-dev-env.part-aa, compression-level: 0}
-      - name: Upload environment part ab
-        uses: actions/upload-artifact@v4
-        with: {name: lean-dev-env-ab, path: lean-dev-env.part-ab, compression-level: 0}
-      - name: Upload environment part ac
-        uses: actions/upload-artifact@v4
-        with: {name: lean-dev-env-ac, path: lean-dev-env.part-ac, compression-level: 0}
-      - name: Upload environment part ad
-        uses: actions/upload-artifact@v4
-        with: {name: lean-dev-env-ad, path: lean-dev-env.part-ad, compression-level: 0}
-      - name: Upload environment part ae
-        uses: actions/upload-artifact@v4
-        with: {name: lean-dev-env-ae, path: lean-dev-env.part-ae, compression-level: 0}
-      - name: Upload environment part af
-        uses: actions/upload-artifact@v4
-        with: {name: lean-dev-env-af, path: lean-dev-env.part-af, compression-level: 0}
-      - name: Upload environment part ag
-        uses: actions/upload-artifact@v4
-        with: {name: lean-dev-env-ag, path: lean-dev-env.part-ag, compression-level: 0}
-      - name: Upload environment part ah
-        uses: actions/upload-artifact@v4
-        with: {name: lean-dev-env-ah, path: lean-dev-env.part-ah, compression-level: 0, if-no-files-found: ignore}
+
       - name: Generate Lean root import manifest
         id: importaudit
         continue-on-error: true
@@ -111,34 +75,41 @@ jobs:
             exit 1
           fi
           exit "$mk_status"
+
       - name: Upload generated Lean root manifest
         if: steps.importaudit.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: generated-rhlean-root
           path: RHLean.lean
+
       - name: Fail if Lean import manifest is stale
         if: steps.importaudit.outcome == 'failure'
         run: exit 1
+
       - name: Build Lean project
         id: directbuild
         continue-on-error: true
         run: lake build RHLean --wfail > lean-build.log 2>&1
+
       - name: Save RHLean build cache
         if: always()
         uses: actions/cache/save@v5
         with:
           path: .lake/build
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+
       - name: Upload Lean build log
         if: ${{ always() && hashFiles('lean-build.log') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: lean-build-log
           path: lean-build.log
+
       - name: Print Lean build log
         if: ${{ always() && hashFiles('lean-build.log') != '' }}
         run: cat lean-build.log
+
       - name: Fail if Lean build failed
         if: steps.directbuild.outcome == 'failure'
         run: exit 1
