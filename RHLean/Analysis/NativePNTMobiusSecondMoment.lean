@@ -69,7 +69,7 @@ theorem nativeLambdaRecip_eq_mobius_logRecip
           ∑ d ∈ n.divisors,
             ((ArithmeticFunction.moebius d : ℝ) /
               (d : ℝ)) *
-              (Real.log (n / d : ℝ) / (n / d : ℝ)) := by
+              (Real.log ((n / d : ℕ) : ℝ) / ((n / d : ℕ) : ℝ)) := by
       apply Finset.sum_congr rfl
       intro n hn
       have hnpos : 0 < n := (Finset.mem_Icc.mp hn).1
@@ -83,21 +83,22 @@ theorem nativeLambdaRecip_eq_mobius_logRecip
       have hdpos : 0 < d := Nat.pos_of_dvd_of_pos hdvd hnpos
       have hqpos : 0 < n / d := Nat.div_pos (Nat.le_of_dvd hnpos hdvd) hdpos
       change
-        ((ArithmeticFunction.moebius d : ℝ) * Real.log (n / d : ℝ)) /
+        ((ArithmeticFunction.moebius d : ℝ) * Real.log ((n / d : ℕ) : ℝ)) /
             (n : ℝ) =
           ((ArithmeticFunction.moebius d : ℝ) / (d : ℝ)) *
-            (Real.log (n / d : ℝ) / (n / d : ℝ))
+            (Real.log ((n / d : ℕ) : ℝ) / ((n / d : ℕ) : ℝ))
       have hmul : d * (n / d) = n := Nat.mul_div_cancel' hdvd
       push_cast at hmul
-      field_simp [show (d : ℝ) ≠ 0 by positivity,
-        show (n / d : ℝ) ≠ 0 by positivity,
-        show (n : ℝ) ≠ 0 by positivity]
+      have hdR0 : (d : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hdpos)
+      have hqR0 : (((n / d : ℕ) : ℝ)) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hqpos)
+      have hnR0 : (n : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hnpos)
+      field_simp [hdR0, hqR0, hnR0]
       nlinarith
     _ = ∑ d ∈ Finset.Icc 1 N,
           ∑ n ∈ (Finset.Icc 1 N).filter (fun x => d ∣ x),
             ((ArithmeticFunction.moebius d : ℝ) /
               (d : ℝ)) *
-              (Real.log (n / d : ℝ) / (n / d : ℝ)) :=
+              (Real.log ((n / d : ℕ) : ℝ) / ((n / d : ℕ) : ℝ)) :=
       Finset.sum_comm' hmem
     _ = ∑ d ∈ Finset.Icc 1 N,
           (ArithmeticFunction.moebius d : ℝ) / (d : ℝ) *
@@ -119,9 +120,12 @@ theorem nativeLambdaRecip_eq_mobius_logRecip
               (Nat.le_of_dvd (by omega) hdvd),
             Nat.div_le_div_right hnN⟩
         · rintro ⟨m, ⟨hm1, hmN⟩, rfl⟩
+          have hmpos : 0 < m := by omega
+          have hmulpos : 0 < d * m := Nat.mul_pos hdpos hmpos
           have hmulN' : m * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 hmN
           have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using hmulN'
-          exact ⟨⟨by positivity, hmulN⟩, dvd_mul_right d m⟩
+          exact ⟨⟨Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hmulpos), hmulN⟩,
+            dvd_mul_right d m⟩
       rw [hmap, Finset.sum_image]
       · apply Finset.sum_congr rfl
         intro m hm
@@ -244,7 +248,7 @@ theorem nativeLogRecipDefect_lower_three
         Real.log (q : ℝ) / (q : ℝ) - Real.log (3 : ℝ) / 3 ≤
       nativeLogRecipDefect q := by
   induction q, hq using Nat.le_induction with
-  | base => ring_nf; exact le_rfl
+  | base => ring_nf
   | succ q hq ih =>
       have hstep := nativeLogRecipDefect_succ_sub_ge q hq
       linarith
@@ -332,7 +336,7 @@ private theorem nativeTelescopeDiffIco
 /-- Abel bound for a monotone weight and uniformly bounded positive-prefix
 partial sums. -/
 theorem nativeAbelBoundMonotone
-    (a b : ℕ → ℝ) (M : ℕ) (hM : 1 ≤ M) (B : ℝ) (hB : 0 ≤ B)
+    (a b : ℕ → ℝ) (M : ℕ) (hM : 1 ≤ M) (B : ℝ) (_hB : 0 ≤ B)
     (hprefix : ∀ n, 1 ≤ n → n ≤ M →
       |∑ k ∈ Finset.Icc 1 n, a k| ≤ 1)
     (hmono : ∀ n ∈ Finset.Ico 1 M, b n ≤ b (n + 1))
@@ -423,7 +427,7 @@ theorem nativeMobiusLogRecipDefectMass_abs_le
   let b : ℕ → ℝ := fun d => nativeLogRecipDefect (N / d)
   have hprefix : ∀ n, 1 ≤ n → n ≤ M →
       |∑ k ∈ Finset.Icc 1 n, a k| ≤ 1 := by
-    intro n hn1 hnM
+    intro n _hn1 _hnM
     simpa [a, nativeMertensRecip] using nativeMertensRecip_abs_le_one n
   have hmono : ∀ d ∈ Finset.Ico 1 M, b d ≤ b (d + 1) := by
     intro d hd
@@ -482,7 +486,8 @@ theorem nativeMobiusLogRecipDefectMass_abs_le
             simpa [Nat.mul_comm] using this
           exact_mod_cast hNat
         have hrecip : 1 / (d : ℝ) ≤ 3 / (N : ℝ) := by
-          have hNpos : (0 : ℝ) < (N : ℝ) := by positivity
+          have hNNatPos : 0 < N := by omega
+          have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast hNNatPos
           rw [div_le_div_iff₀ hdpos hNpos]
           nlinarith
         rw [abs_mul]
