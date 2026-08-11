@@ -345,7 +345,7 @@ theorem nativeAbelBoundMonotone
           (∑ k ∈ Finset.Icc 1 n, a k) * (b n - b (n + 1))| ≤
       |(∑ n ∈ Finset.Icc 1 M, a n) * b M| +
         |∑ n ∈ Finset.Ico 1 M,
-          (∑ k ∈ Finset.Icc 1 n, a k) * (b n - b (n + 1))| := abs_add _ _
+          (∑ k ∈ Finset.Icc 1 n, a k) * (b n - b (n + 1))| := abs_add_le _ _
     _ ≤ B + ∑ n ∈ Finset.Ico 1 M, (b (n + 1) - b n) := by
       apply add_le_add
       · rw [abs_mul]
@@ -377,7 +377,7 @@ theorem nativeAbelBoundMonotone
 def nativeMobiusLogMomentTwo (N : ℕ) : ℝ :=
   ∑ d ∈ Finset.Icc 1 N,
     (ArithmeticFunction.moebius d : ℝ) / (d : ℝ) *
-      (Real.log (N / d : ℝ)) ^ 2
+      (Real.log ((N / d : ℕ) : ℝ)) ^ 2
 
 /-- Möbius-weighted reciprocal-log defect. -/
 def nativeMobiusLogRecipDefectMass (N : ℕ) : ℝ :=
@@ -520,7 +520,7 @@ theorem nativeMobiusLogRecipDefectMass_abs_le
       ext d
       simp only [Finset.mem_filter, Finset.mem_Icc, not_le]
   rw [hsplit]
-  exact (abs_add _ _).trans (by linarith)
+  exact (abs_add_le _ _).trans (by linarith)
 
 /-- **Second logarithmic Möbius moment.**
 
