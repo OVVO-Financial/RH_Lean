@@ -73,8 +73,17 @@ jobs:
           test: false
           lint: false
 
+      # The goal is to populate the dependency cache even when the Lean build
+      # fails, since that is exactly when a proof PR iterates.  A bare always()
+      # is too broad: a cancelled restore never sets cache-hit, an unset output
+      # compares unequal to 'true', and the step then tars a tree that unzstd
+      # is still writing into.  Require the restore to have genuinely completed
+      # and genuinely missed.
       - name: Save Mathlib and dependency builds
-        if: always() && steps.lakepackages.outputs.cache-hit != 'true'
+        if: >-
+          !cancelled()
+          && steps.lakepackages.outcome == 'success'
+          && steps.lakepackages.outputs.cache-hit != 'true'
         uses: actions/cache/save@v5
         with:
           path: .lake/packages
@@ -122,8 +131,11 @@ jobs:
         continue-on-error: true
         run: lake build RHLean --wfail > lean-build.log 2>&1
 
+      # Saved on a red build on purpose, so the next compiler iteration resumes
+      # instead of recompiling; but not on a cancelled one, where .lake/build
+      # may not exist yet and the save only emits a path-validation warning.
       - name: Save RHLean build cache
-        if: always()
+        if: ${{ !cancelled() }}
         uses: actions/cache/save@v5
         with:
           path: .lake/build

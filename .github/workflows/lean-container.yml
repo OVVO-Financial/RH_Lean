@@ -98,7 +98,7 @@ jobs:
         run: lake build RHLean --wfail > lean-build.log 2>&1
 
       - name: Save RHLean build cache
-        if: always()
+        if: ${{ !cancelled() }}
         uses: actions/cache/save@v5
         with:
           path: .lake/build
