@@ -28,6 +28,7 @@ import RHLean.Analysis.MertensZetaIdentityContinuation
 import RHLean.Analysis.MobiusSynthesisBoundary
 import RHLean.Analysis.MobiusSynthesisBoundaryBridge
 import RHLean.Analysis.NativePNTChebyshev
+import RHLean.Analysis.NativePNTErdosContraction
 import RHLean.Analysis.NativePNTMertens
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
