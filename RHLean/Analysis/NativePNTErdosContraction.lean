@@ -1008,7 +1008,8 @@ private theorem nativeLambdaTwoSummatory_upper_all (N : ℕ) :
         nativeLambdaTwoSummatory 3 ≤
             2 * (3 : ℝ) * Real.log 3 +
               (2 * (Real.log 4 + 2) + 172) * (3 : ℝ) := by
-          linarith [h3.2]
+          have h := (sub_le_iff_le_add.mp h3.2)
+          simpa [add_comm] using h
         _ ≤ 12 + 546 := add_le_add hlogpart hC3
         _ ≤ 600 := by norm_num
     have hlogN0 : 0 ≤ Real.log (N : ℝ) := by
