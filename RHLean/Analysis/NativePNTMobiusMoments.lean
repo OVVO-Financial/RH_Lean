@@ -85,10 +85,10 @@ theorem nativeMobiusRecipHarmonic_eq_one
       · apply Finset.sum_congr rfl
         intro m hm
         have hmpos : 0 < m := (Finset.mem_Icc.mp hm).1
-        have hdmpos : (0 : ℝ) < (d : ℝ) * (m : ℝ) := by positivity
+        have hdR0 : (d : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hdpos)
+        have hmR0 : (m : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hmpos)
         push_cast
-        field_simp [show (d : ℝ) ≠ 0 by positivity,
-          show (m : ℝ) ≠ 0 by positivity]
+        field_simp [hdR0, hmR0]
         ring
       · intro a _ha b _hb hab
         exact Nat.eq_of_mul_eq_mul_left hdpos hab
@@ -122,7 +122,7 @@ theorem nativeMobiusRecipHarmonic_eq_one
 def nativeMobiusLogMomentOne (N : ℕ) : ℝ :=
   ∑ d ∈ Finset.Icc 1 N,
     (ArithmeticFunction.moebius d : ℝ) / (d : ℝ) *
-      Real.log (N / d : ℝ)
+      Real.log ((N / d : ℕ) : ℝ)
 
 /-- Euler--Mascheroni remainder at an integer endpoint. -/
 def nativeHarmonicLogError (q : ℕ) : ℝ :=
@@ -159,14 +159,17 @@ theorem nativeHarmonicLogError_bounds
   simp only [Real.eulerMascheroniSeq', hq0, if_false] at hupperGamma
   simp only [Real.eulerMascheroniSeq] at hlowerGamma
   have hinc := nativeLogSucc_sub_log_le_inv q hq
+  have hinc' :
+      Real.log ((q : ℝ) + 1) - Real.log (q : ℝ) ≤ 1 / (q : ℝ) := by
+    simpa [Nat.cast_add, Nat.cast_one] using hinc
   unfold nativeHarmonicLogError
   constructor
   · linarith
   · have hstrict :
         (harmonic q : ℝ) - Real.log q - Real.eulerMascheroniConstant <
-          Real.log ((q + 1 : ℕ) : ℝ) - Real.log (q : ℝ) := by
+          Real.log ((q : ℝ) + 1) - Real.log (q : ℝ) := by
       linarith
-    exact hstrict.le.trans hinc
+    exact hstrict.le.trans hinc'
 
 /-- Weighted Euler--Mascheroni remainder in the reciprocal Möbius identity. -/
 def nativeMobiusHarmonicErrorMass (N : ℕ) : ℝ :=
@@ -176,30 +179,34 @@ def nativeMobiusHarmonicErrorMass (N : ℕ) : ℝ :=
 
 private theorem nativeReciprocalDivisorProduct_le_two_over
     (N d : ℕ) (hN : 1 ≤ N) (hd : d ∈ Finset.Icc 1 N) :
-    (1 / (d : ℝ)) * (1 / (N / d : ℝ)) ≤ 2 / (N : ℝ) := by
-  have hd1 : 1 ≤ d := (Finset.mem_Icc.mp hd).1
+    (1 / (d : ℝ)) * (1 / ((N / d : ℕ) : ℝ)) ≤ 2 / (N : ℝ) := by
   have hdN : d ≤ N := (Finset.mem_Icc.mp hd).2
   have hdpos : 0 < d := by omega
   have hq1 : 1 ≤ N / d := (Nat.one_le_div_iff hdpos).2 hdN
-  have hmod : N % d < d := Nat.mod_lt N hdpos
+  have hrem : N % d < d := Nat.mod_lt N hdpos
+  have hdle : d ≤ d * (N / d) := by
+    simpa using Nat.mul_le_mul_left d hq1
+  have hremle : N % d ≤ d * (N / d) :=
+    (Nat.le_of_lt hrem).trans hdle
   have hdecomp := Nat.mod_add_div N d
-  have hlt : N < d * (N / d + 1) := by
-    omega
-  have hqdouble : N / d + 1 ≤ 2 * (N / d) := by omega
-  have hmul : d * (N / d + 1) ≤ d * (2 * (N / d)) :=
-    Nat.mul_le_mul_left d hqdouble
   have hNat : N ≤ 2 * (d * (N / d)) := by
     calc
-      N ≤ d * (N / d + 1) := hlt.le
-      _ ≤ d * (2 * (N / d)) := hmul
+      N = N % d + d * (N / d) := hdecomp.symm
+      _ ≤ d * (N / d) + d * (N / d) := Nat.add_le_add_right hremle _
       _ = 2 * (d * (N / d)) := by omega
-  have hReal : (N : ℝ) ≤ 2 * ((d : ℝ) * (N / d : ℝ)) := by
+  have hReal : (N : ℝ) ≤ 2 * ((d : ℝ) * ((N / d : ℕ) : ℝ)) := by
     exact_mod_cast hNat
   have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast (by omega : 0 < N)
   have hdR : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hdpos
-  have hqR : (0 : ℝ) < (N / d : ℝ) := by exact_mod_cast (by omega : 0 < N / d)
-  rw [← one_div_mul_one_div_rev, div_le_div_iff₀ (mul_pos hdR hqR) hNpos]
-  simpa [mul_assoc, mul_comm, mul_left_comm] using hReal
+  have hqR : (0 : ℝ) < ((N / d : ℕ) : ℝ) := by
+    exact_mod_cast (by omega : 0 < N / d)
+  calc
+    (1 / (d : ℝ)) * (1 / ((N / d : ℕ) : ℝ)) =
+        1 / ((d : ℝ) * ((N / d : ℕ) : ℝ)) := by
+      field_simp [ne_of_gt hdR, ne_of_gt hqR]
+    _ ≤ 2 / (N : ℝ) := by
+      rw [div_le_div_iff₀ (mul_pos hdR hqR) hNpos]
+      nlinarith [hReal]
 
 /-- The accumulated harmonic remainder remains uniformly bounded despite the
 hyperbolic reciprocal fibres. -/
@@ -218,7 +225,6 @@ theorem nativeMobiusHarmonicErrorMass_abs_le_two
     _ ≤ ∑ _d ∈ Finset.Icc 1 N, 2 / (N : ℝ) := by
       apply Finset.sum_le_sum
       intro d hd
-      have hd1 : 1 ≤ d := (Finset.mem_Icc.mp hd).1
       have hdN : d ≤ N := (Finset.mem_Icc.mp hd).2
       have hdpos : (0 : ℝ) < (d : ℝ) := by exact_mod_cast (by omega : 0 < d)
       have hq1 : 1 ≤ N / d :=
@@ -234,12 +240,12 @@ theorem nativeMobiusHarmonicErrorMass_abs_le_two
       have hterm :
           |(ArithmeticFunction.moebius d : ℝ) / (d : ℝ) *
               nativeHarmonicLogError (N / d)| ≤
-            (1 / (d : ℝ)) * (1 / (N / d : ℝ)) := by
+            (1 / (d : ℝ)) * (1 / ((N / d : ℕ) : ℝ)) := by
         rw [abs_mul, abs_div, abs_of_nonneg herr.1,
           abs_of_pos hdpos]
         have hdiv : |(ArithmeticFunction.moebius d : ℝ)| / (d : ℝ) ≤
             1 / (d : ℝ) := div_le_div_of_nonneg_right hmu0 hdpos.le
-        exact mul_le_mul hdiv herr.2 (by positivity) (by positivity)
+        exact mul_le_mul hdiv herr.2 herr.1 (by positivity)
       exact hterm.trans (nativeReciprocalDivisorProduct_le_two_over N d hN hd)
     _ = ((Finset.Icc 1 N).card : ℝ) * (2 / (N : ℝ)) := by
       rw [Finset.sum_const, nsmul_eq_mul]
@@ -265,14 +271,15 @@ theorem nativeMobiusLogMomentOne_eq
           (harmonic (N / d) : ℝ)) =
       (∑ d ∈ Finset.Icc 1 N,
         (ArithmeticFunction.moebius d : ℝ) / (d : ℝ) *
-          Real.log (N / d : ℝ)) +
+          Real.log ((N / d : ℕ) : ℝ)) +
       Real.eulerMascheroniConstant *
         (∑ d ∈ Finset.Icc 1 N,
           (ArithmeticFunction.moebius d : ℝ) / (d : ℝ)) +
       (∑ d ∈ Finset.Icc 1 N,
         (ArithmeticFunction.moebius d : ℝ) / (d : ℝ) *
-          ((harmonic (N / d) : ℝ) - Real.log (N / d : ℝ) -
+          ((harmonic (N / d) : ℝ) - Real.log ((N / d : ℕ) : ℝ) -
             Real.eulerMascheroniConstant)) := by
+    rw [Finset.mul_sum]
     rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
     apply Finset.sum_congr rfl
     intro d _hd
