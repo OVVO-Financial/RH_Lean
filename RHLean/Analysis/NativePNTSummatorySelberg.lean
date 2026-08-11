@@ -344,7 +344,7 @@ theorem nativeSelbergPair_sub_lambdaTwoSummatory_abs_le (N : ℕ) :
 /-! ## Explicit main term -/
 
 private theorem nativeFloorQuotient_cast_eq_sub_fract
-    (N d : ℕ) (hd : 1 ≤ d) :
+    (N d : ℕ) (_hd : 1 ≤ d) :
     ((N / d : ℕ) : ℝ) =
       (N : ℝ) / (d : ℝ) - Int.fract ((N : ℝ) / (d : ℝ)) := by
   have hfloorcast :
@@ -415,8 +415,13 @@ private theorem nativeReciprocalSqrtMass_le :
         have hident :
             (Real.sqrt ((N + 1 : ℕ) : ℝ) - Real.sqrt (N : ℝ)) *
                 (Real.sqrt ((N + 1 : ℕ) : ℝ) + Real.sqrt (N : ℝ)) = 1 := by
-          push_cast at hsSSq
-          nlinarith [hsNSq, hsSSq]
+          calc
+            (Real.sqrt ((N + 1 : ℕ) : ℝ) - Real.sqrt (N : ℝ)) *
+                (Real.sqrt ((N + 1 : ℕ) : ℝ) + Real.sqrt (N : ℝ)) =
+                (Real.sqrt ((N + 1 : ℕ) : ℝ)) ^ 2 -
+                  (Real.sqrt (N : ℝ)) ^ 2 := by ring
+            _ = ((N + 1 : ℕ) : ℝ) - (N : ℝ) := by rw [hsSSq, hsNSq]
+            _ = 1 := by push_cast; ring
         have hsumle :
             Real.sqrt ((N + 1 : ℕ) : ℝ) + Real.sqrt (N : ℝ) ≤
               2 * Real.sqrt ((N + 1 : ℕ) : ℝ) := by
@@ -472,7 +477,7 @@ private theorem nativeFloorLogSquareMass_le (N : ℕ) :
       have hsqrtDiv :
           Real.sqrt ((N : ℝ) / (d : ℝ)) =
             Real.sqrt (N : ℝ) / Real.sqrt (d : ℝ) := by
-        simpa using Real.sqrt_div (show 0 ≤ (N : ℝ) by positivity) (d : ℝ)
+        exact Real.sqrt_div (show 0 ≤ (N : ℝ) by positivity) (d : ℝ)
       calc
         (Real.log ((N / d : ℕ) : ℝ)) ^ 2 ≤
             16 * Real.sqrt ((N / d : ℕ) : ℝ) := hlog
@@ -493,9 +498,11 @@ private theorem nativeFloorLogSquareMass_le (N : ℕ) :
       _ ≤ (16 * Real.sqrt (N : ℝ)) * (2 * Real.sqrt (N : ℝ)) :=
         mul_le_mul_of_nonneg_left (nativeReciprocalSqrtMass_le N) (by positivity)
       _ = 32 * (N : ℝ) := by
-        rw [show Real.sqrt (N : ℝ) * Real.sqrt (N : ℝ) = (N : ℝ) from
-          Real.mul_self_sqrt (by positivity)]
-        ring
+        calc
+          (16 * Real.sqrt (N : ℝ)) * (2 * Real.sqrt (N : ℝ)) =
+              32 * (Real.sqrt (N : ℝ) * Real.sqrt (N : ℝ)) := by ring
+          _ = 32 * (N : ℝ) := by
+            rw [Real.mul_self_sqrt (show 0 ≤ (N : ℝ) by positivity)]
 
 private theorem nativeFloorLogMass_le (N : ℕ) :
     (∑ d ∈ Finset.Icc 1 N, Real.log ((N / d : ℕ) : ℝ)) ≤ 33 * (N : ℝ) := by
@@ -573,11 +580,14 @@ private theorem nativeMobiusFloorLogSquareCorrection_abs_le (N : ℕ) :
       have hmf :
           |(ArithmeticFunction.moebius d : ℝ)| *
               Int.fract ((N : ℝ) / (d : ℝ)) ≤ 1 := by
-        have := mul_le_mul hmu hfr1 hfr0 (abs_nonneg (ArithmeticFunction.moebius d : ℝ))
-        norm_num at this ⊢
-        exact this
-      rw [abs_mul, abs_mul, abs_of_nonneg hfr0, abs_of_nonneg (sq_nonneg _)]
-      simpa using mul_le_mul_of_nonneg_right hmf
+        calc
+          |(ArithmeticFunction.moebius d : ℝ)| *
+              Int.fract ((N : ℝ) / (d : ℝ)) ≤
+              1 * Int.fract ((N : ℝ) / (d : ℝ)) :=
+            mul_le_mul_of_nonneg_right hmu hfr0
+          _ ≤ 1 := by simpa using hfr1
+      simp only [abs_mul, abs_of_nonneg hfr0, abs_of_nonneg (sq_nonneg _)]
+      exact mul_le_mul_of_nonneg_right hmf
         (sq_nonneg (Real.log ((N / d : ℕ) : ℝ)))
     _ ≤ 32 * (N : ℝ) := nativeFloorLogSquareMass_le N
 
@@ -610,11 +620,14 @@ private theorem nativeMobiusFloorLogCorrection_abs_le (N : ℕ) :
       have hmf :
           |(ArithmeticFunction.moebius d : ℝ)| *
               Int.fract ((N : ℝ) / (d : ℝ)) ≤ 1 := by
-        have := mul_le_mul hmu hfr1 hfr0 (abs_nonneg (ArithmeticFunction.moebius d : ℝ))
-        norm_num at this ⊢
-        exact this
-      rw [abs_mul, abs_mul, abs_of_nonneg hfr0, abs_of_nonneg hlog0]
-      simpa using mul_le_mul_of_nonneg_right hmf hlog0
+        calc
+          |(ArithmeticFunction.moebius d : ℝ)| *
+              Int.fract ((N : ℝ) / (d : ℝ)) ≤
+              1 * Int.fract ((N : ℝ) / (d : ℝ)) :=
+            mul_le_mul_of_nonneg_right hmu hfr0
+          _ ≤ 1 := by simpa using hfr1
+      simp only [abs_mul, abs_of_nonneg hfr0, abs_of_nonneg hlog0]
+      exact mul_le_mul_of_nonneg_right hmf hlog0
     _ ≤ 33 * (N : ℝ) := nativeFloorLogMass_le N
 
 private def nativeMobiusFloorLogSquareMass (N : ℕ) : ℝ :=
@@ -686,8 +699,8 @@ private theorem nativeMobiusLogSquareMainMass_eq_floorMasses (N : ℕ) :
   calc
     (∑ d ∈ Finset.Icc 1 N,
         (ArithmeticFunction.moebius d : ℝ) *
-          ((N / d : ℕ) * (Real.log (N / d)) ^ 2 -
-            2 * (N / d : ℕ) * Real.log (N / d) + 2 * (N / d : ℕ))) =
+          ((N / d : ℕ) * (Real.log ((N / d : ℕ) : ℝ)) ^ 2 -
+            2 * (N / d : ℕ) * Real.log ((N / d : ℕ) : ℝ) + 2 * (N / d : ℕ))) =
         ∑ d ∈ Finset.Icc 1 N,
           ((ArithmeticFunction.moebius d : ℝ) * ((N / d : ℕ) : ℝ) *
               (Real.log ((N / d : ℕ) : ℝ)) ^ 2 -
@@ -739,7 +752,9 @@ private theorem nativeLambdaTwoLogSquareRemainderMass_abs_le
         have herr := nativeLogSquareMass_sub_main_abs_le (N / d) hq1
         have hmu := nativeAbsMobiusReal_le_one d
         rw [abs_mul]
-        exact mul_le_mul hmu herr (abs_nonneg _) (by positivity)
+        simpa using
+          (mul_le_mul hmu herr (abs_nonneg _)
+            (show (0 : ℝ) ≤ 1 by norm_num))
       _ = (∑ d ∈ Finset.Icc 1 N,
             (Real.log ((N / d : ℕ) : ℝ)) ^ 2) +
           2 * ((Finset.Icc 1 N).card : ℝ) := by
@@ -761,7 +776,7 @@ private theorem nativeLambdaTwoSummatory_eq_main_add_remainder (N : ℕ) :
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro d _hd
-  ring
+  simpa [mul_comm]
 
 private theorem nativeMobiusLogSquareMainMass_eq
     (N : ℕ) (hN : 1 ≤ N) :
@@ -856,8 +871,7 @@ private theorem nativeMobiusLogSquareMainMass_sub_main_abs_le
             |nativeMobiusFloorLogSquareCorrection N| +
             |2 * nativeMobiusFloorLogCorrection N| + 2 := by
         rw [abs_neg]
-        norm_num
-        ring
+        norm_num <;> ring
   calc
     |(N : ℝ) * (nativeMobiusLogMomentTwo N - 2 * Real.log N) +
         (-2 * (N : ℝ) * nativeMobiusLogMomentOne N) +
