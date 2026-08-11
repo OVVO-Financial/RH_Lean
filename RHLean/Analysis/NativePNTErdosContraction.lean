@@ -15,9 +15,10 @@ not an exact recurrence.
 This module proves, independently of all number theory, that any nonnegative
 envelope satisfying that inequality tends to zero.  The nonnegativity
 hypothesis is intentionally explicit: together with the cubic improvement it
-encodes the localization needed to keep the next envelope in the admissible
-range.  Establishing that localization belongs to the prime-specific
-application, not to this generic limit argument.
+forces `C * alpha_n^2 <= 1` whenever `alpha_n > 0`, so it encodes the
+localization needed to keep the next envelope in the admissible range.
+Establishing that localization belongs to the prime-specific application, not
+to this generic limit argument.
 -/
 
 noncomputable section
