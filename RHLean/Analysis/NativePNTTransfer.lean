@@ -1,18 +1,17 @@
 import Mathlib
-import RHLean.Analysis.NativePNTChebyshev
+import RHLean.Analysis.NativePNTErdosContraction
 
 /-!
-# Elementary `psi`/`theta` transfer
+# Elementary `psi`/`theta`/`pi` transfer
 
 The Selberg--Erdos endgame runs on the prime-power mass `psi`.  The prime
 number theorem is a statement about the prime mass `theta`, and then about the
 prime counting function.  This module supplies the elementary bridge, using
 only the square-root confinement of repeated prime powers already proved in
-`RHLean.Analysis.NativePNTChebyshev`.
+`RHLean.Analysis.NativePNTChebyshev` and the finite Abel identity relating
+Chebyshev's `theta` to the prime counting function.
 
-Nothing here assumes or produces an asymptotic for either function.  The
-content is exactly that their difference is `o(N)`, so one normalized limit
-exists precisely when the other does.
+No theorem asserting PNT is imported or used here.
 -/
 
 noncomputable section
@@ -119,5 +118,59 @@ theorem nativeTheta_div_atTop_one_iff :
     have hdiff := h.sub nativePsi_sub_theta_div_atTop
     rw [sub_zero] at hdiff
     simpa only [hback] using hdiff
+
+/-- The native finite prime mass agrees exactly with Mathlib's Chebyshev
+`theta` at natural endpoints. -/
+theorem nativeTheta_eq_chebyshevTheta (N : ℕ) :
+    nativeTheta N = Chebyshev.theta N := by
+  rw [Chebyshev.theta_eq_sum_primesLE_log, Nat.primesLE_eq_filter_Icc_one]
+  rfl
+
+/-- **Native theta PNT:** `theta(N) / N -> 1`. -/
+theorem nativeTheta_div_atTop_one :
+    Tendsto (fun N : ℕ => nativeTheta N / (N : ℝ)) atTop (𝓝 1) :=
+  nativeTheta_div_atTop_one_iff.2 nativePsi_div_atTop_one
+
+/-- Chebyshev's standard finite `theta` therefore has the same normalized
+limit along the natural endpoints. -/
+theorem chebyshevTheta_nat_div_atTop_one :
+    Tendsto (fun N : ℕ => Chebyshev.theta N / (N : ℝ)) atTop (𝓝 1) := by
+  simpa [nativeTheta_eq_chebyshevTheta] using nativeTheta_div_atTop_one
+
+/-- **Prime Number Theorem.**  The finite Abel identity
+
+`pi(x) = theta(x)/log x + integral_2^x theta(t)/(t log^2 t) dt`
+
+has a remainder which is `o(x/log x)` by the elementary Chebyshev upper bound.
+Combining that identity with the native `theta(N)/N -> 1` theorem gives
+`pi(N) log N / N -> 1`. -/
+theorem nativePrimeNumberTheorem :
+    Tendsto
+      (fun N : ℕ =>
+        (Nat.primeCounting N : ℝ) * Real.log (N : ℝ) / (N : ℝ))
+      atTop (𝓝 1) := by
+  have hremReal :=
+    Chebyshev.integral_theta_div_log_sq_isLittleO.tendsto_div_nhds_zero
+  have hrem := hremReal.comp tendsto_natCast_atTop_atTop
+  have hsum := chebyshevTheta_nat_div_atTop_one.add hrem
+  rw [add_zero] at hsum
+  refine hsum.congr' ?_
+  filter_upwards [eventually_ge_atTop 2] with N hN
+  have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast (show 0 < N by omega)
+  have hNne : (N : ℝ) ≠ 0 := ne_of_gt hNpos
+  have hlogpos : 0 < Real.log (N : ℝ) :=
+    Real.log_pos (by exact_mod_cast (show 1 < N by omega))
+  have hlogne : Real.log (N : ℝ) ≠ 0 := ne_of_gt hlogpos
+  have hpc :
+      (Nat.primeCounting N : ℝ) =
+        Chebyshev.theta N / Real.log (N : ℝ) +
+          ∫ t in 2..(N : ℝ),
+            Chebyshev.theta t / (t * Real.log t ^ 2) := by
+    simpa using
+      (Chebyshev.primeCounting_eq_theta_div_log_add_integral
+        (x := (N : ℝ)) (by exact_mod_cast hN))
+  rw [hpc]
+  field_simp [hNne, hlogne]
+  ring
 
 end RHLean.Analysis
