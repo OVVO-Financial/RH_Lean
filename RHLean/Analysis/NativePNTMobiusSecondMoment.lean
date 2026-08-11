@@ -303,7 +303,7 @@ theorem nativeLogRecipDefect_abs_le_four
     calc
       nativeLogRecipMass 3 =
           nativeLogRecipMass 2 + Real.log (3 : ℝ) / 3 := by
-            simpa using nativeLogRecipMass_succ 2
+            convert nativeLogRecipMass_succ 2 using 1 <;> norm_num
       _ = (nativeLogRecipMass 1 + Real.log (2 : ℝ) / 2) +
             Real.log (3 : ℝ) / 3 := by
             rw [nativeLogRecipMass_succ 1]
