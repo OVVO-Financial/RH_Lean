@@ -574,7 +574,6 @@ theorem nativePNTError_abs_log_le_weighted_crude (N : ℕ) :
         1000 * (N : ℝ) := by
   by_cases hN3 : 3 ≤ N
   · have h := nativePNTError_abs_log_le_weighted N hN3
-    have hNR0 : 0 ≤ (N : ℝ) := by positivity
     calc
       |nativePNTError N| * Real.log N ≤
           (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) +
@@ -582,7 +581,7 @@ theorem nativePNTError_abs_log_le_weighted_crude (N : ℕ) :
       _ ≤ (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) +
             1000 * (N : ℝ) := by
         gcongr
-        exact mul_le_mul_of_nonneg_right nativePNTFirstErrorConstant_le_thousand hNR0
+        exact nativePNTFirstErrorConstant_le_thousand
   · have hNle : N ≤ 2 := by omega
     rcases Nat.eq_zero_or_pos N with rfl | hNpos
     · simp [nativePNTError, nativePsi]
@@ -629,18 +628,19 @@ theorem nativePNTError_abs_log_le_weighted_crude (N : ℕ) :
 its floor quotient, up to one harmless unit. -/
 private theorem nativeLog_le_log_divisor_add_floor_add_one
     (N d : ℕ) (hd : d ∈ Finset.Icc 1 N) :
-    Real.log N ≤ Real.log d + Real.log (N / d) + 1 := by
+    Real.log (N : ℝ) ≤
+      Real.log (d : ℝ) + Real.log ((N / d : ℕ) : ℝ) + 1 := by
   have hdI := Finset.mem_Icc.mp hd
   have hdpos : 0 < d := by omega
   have hNpos : 0 < N := lt_of_lt_of_le hdpos hdI.2
   have hq1 : 1 ≤ N / d :=
     (Nat.one_le_div_iff hdpos).2 hdI.2
-  have hdivmod : N / d * d + N % d = N := Nat.div_add_mod N d
+  have hdivmod : d * (N / d) + N % d = N := Nat.div_add_mod N d
   have hrem : N % d < d := Nat.mod_lt N hdpos
   have hlt : N < d * (N / d + 1) := by
     calc
-      N = N / d * d + N % d := hdivmod.symm
-      _ < N / d * d + d := Nat.add_lt_add_left hrem _
+      N = d * (N / d) + N % d := hdivmod.symm
+      _ < d * (N / d) + d := Nat.add_lt_add_left hrem _
       _ = d * (N / d + 1) := by ring
   have hlogprod :
       Real.log (N : ℝ) ≤ Real.log ((d * (N / d + 1) : ℕ) : ℝ) := by
@@ -648,12 +648,11 @@ private theorem nativeLog_le_log_divisor_add_floor_add_one
     · exact_mod_cast hNpos
     · exact_mod_cast (Nat.le_of_lt hlt)
   have hdR0 : (d : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hdpos)
-  have hqsuccR0 : (((N / d + 1 : ℕ) : ℝ)) ≠ 0 := by positivity
   have hprodlog :
       Real.log ((d * (N / d + 1) : ℕ) : ℝ) =
         Real.log (d : ℝ) + Real.log ((N / d + 1 : ℕ) : ℝ) := by
-    push_cast
-    rw [Real.log_mul hdR0 hqsuccR0]
+    rw [Nat.cast_mul, Nat.cast_add, Nat.cast_one]
+    rw [Real.log_mul hdR0 (by positivity)]
   rw [hprodlog] at hlogprod
   have hinc := nativeLog_succ_sub_log_le_inv (N / d) hq1
   have hqposR : (0 : ℝ) < ((N / d : ℕ) : ℝ) := by
@@ -826,20 +825,20 @@ private theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo
       have hlogsplit := nativeLog_le_log_divisor_add_floor_add_one N d hd
       have hfirst := nativePNTError_abs_log_le_weighted_crude (N / d)
       have hfirstMul :
-          Λ d * (|nativePNTError (N / d)| * Real.log (N / d)) ≤
+          Λ d * (|nativePNTError (N / d)| * Real.log ((N / d : ℕ) : ℝ)) ≤
             Λ d *
               ((∑ m ∈ Finset.Icc 1 (N / d),
                 Λ m * |nativePNTError ((N / d) / m)|) +
                 1000 * ((N / d : ℕ) : ℝ)) :=
         mul_le_mul_of_nonneg_left hfirst ArithmeticFunction.vonMangoldt_nonneg
       have hfirstMul' :
-          Λ d * |nativePNTError (N / d)| * Real.log (N / d) ≤
+          Λ d * |nativePNTError (N / d)| * Real.log ((N / d : ℕ) : ℝ) ≤
             (∑ m ∈ Finset.Icc 1 (N / d),
               Λ d * Λ m * |nativePNTError (N / (d * m))|) +
               1000 * (Λ d * ((N / d : ℕ) : ℝ)) := by
         calc
-          Λ d * |nativePNTError (N / d)| * Real.log (N / d) =
-              Λ d * (|nativePNTError (N / d)| * Real.log (N / d)) := by ring
+          Λ d * |nativePNTError (N / d)| * Real.log ((N / d : ℕ) : ℝ) =
+              Λ d * (|nativePNTError (N / d)| * Real.log ((N / d : ℕ) : ℝ)) := by ring
           _ ≤ Λ d *
               ((∑ m ∈ Finset.Icc 1 (N / d),
                 Λ m * |nativePNTError ((N / d) / m)|) +
@@ -867,20 +866,20 @@ private theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo
       have hlogs :
           Λ d * |nativePNTError (N / d)| * Real.log N ≤
             Λ d * Real.log (d : ℝ) * |nativePNTError (N / d)| +
-              Λ d * |nativePNTError (N / d)| * Real.log (N / d) +
+              Λ d * |nativePNTError (N / d)| * Real.log ((N / d : ℕ) : ℝ) +
               Λ d * |nativePNTError (N / d)| := by
         calc
           Λ d * |nativePNTError (N / d)| * Real.log N ≤
               (Λ d * |nativePNTError (N / d)|) *
-                (Real.log (d : ℝ) + Real.log (N / d) + 1) :=
+                (Real.log (d : ℝ) + Real.log ((N / d : ℕ) : ℝ) + 1) :=
             mul_le_mul_of_nonneg_left hlogsplit hcoef0
           _ = Λ d * Real.log (d : ℝ) * |nativePNTError (N / d)| +
-              Λ d * |nativePNTError (N / d)| * Real.log (N / d) +
+              Λ d * |nativePNTError (N / d)| * Real.log ((N / d : ℕ) : ℝ) +
               Λ d * |nativePNTError (N / d)| := by ring
       calc
         Λ d * |nativePNTError (N / d)| * Real.log N ≤
             Λ d * Real.log (d : ℝ) * |nativePNTError (N / d)| +
-              Λ d * |nativePNTError (N / d)| * Real.log (N / d) +
+              Λ d * |nativePNTError (N / d)| * Real.log ((N / d : ℕ) : ℝ) +
               Λ d * |nativePNTError (N / d)| := hlogs
         _ ≤ Λ d * Real.log (d : ℝ) * |nativePNTError (N / d)| +
               ((∑ m ∈ Finset.Icc 1 (N / d),
@@ -912,14 +911,20 @@ private theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo
         rw [← Finset.mul_sum]
       _ ≤ nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N +
           (1000 + (Real.log 4 + 3)) * ((N : ℝ) * Real.log N) := by
-        gcongr
-        · exact add_nonneg (by norm_num) hC0
-        · exact nativeLambdaFloorMass_le_Nlog N hN
+        have hcoef : 0 ≤ 1000 + (Real.log 4 + 3) :=
+          add_nonneg (by norm_num) hC0
+        exact add_le_add_left
+          (mul_le_mul_of_nonneg_left (nativeLambdaFloorMass_le_Nlog N hN) hcoef)
+          (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
       _ ≤ nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N +
           1006 * ((N : ℝ) * Real.log N) := by
-        gcongr
-        have : 1000 + (Real.log 4 + 3) ≤ (1006 : ℝ) := by linarith
-        exact mul_le_mul_of_nonneg_right this (mul_nonneg (by positivity) hlog0)
+        have hcoef : 1000 + (Real.log 4 + 3) ≤ (1006 : ℝ) := by
+          linarith [hC6]
+        have hNlog0 : 0 ≤ (N : ℝ) * Real.log N :=
+          mul_nonneg (by positivity) hlog0
+        exact add_le_add_left
+          (mul_le_mul_of_nonneg_right hcoef hNlog0)
+          (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
       _ = nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N +
           1006 * (N : ℝ) * Real.log N := by ring
   rw [nativeLambdaTwoErrorMass_eq_log_add_convolution]
@@ -929,9 +934,17 @@ private theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo
           1006 * (N : ℝ) * Real.log N := hsplit
     _ ≤ nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N +
           2000 * (N : ℝ) * Real.log N := by
-      gcongr
-      exact mul_le_mul_of_nonneg_right (by norm_num : (1006 : ℝ) ≤ 2000)
-        (mul_nonneg (by positivity) hlog0)
+      have hNlog0 : 0 ≤ (N : ℝ) * Real.log N :=
+        mul_nonneg (by positivity) hlog0
+      have hcoef : 1006 * (N : ℝ) * Real.log N ≤
+          2000 * (N : ℝ) * Real.log N := by
+        calc
+          1006 * (N : ℝ) * Real.log N = 1006 * ((N : ℝ) * Real.log N) := by ring
+          _ ≤ 2000 * ((N : ℝ) * Real.log N) :=
+            mul_le_mul_of_nonneg_right (by norm_num) hNlog0
+          _ = 2000 * (N : ℝ) * Real.log N := by ring
+      exact add_le_add_left hcoef
+        (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
 
 /-- **Squared absolute Selberg recurrence in the native architecture.**
 
