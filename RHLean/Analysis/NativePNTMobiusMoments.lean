@@ -65,7 +65,8 @@ theorem nativeMobiusRecipHarmonic_eq_one
       apply Finset.sum_congr rfl
       intro d hd
       rw [nativeHarmonicReal_eq_sum_Icc, Finset.mul_sum]
-      have hdpos : 0 < d := (Finset.mem_Icc.mp hd).1
+      have hd1 : 1 ≤ d := (Finset.mem_Icc.mp hd).1
+      have hdpos : 0 < d := Nat.pos_of_ne_zero (Nat.one_le_iff_ne_zero.mp hd1)
       have hmap :
           (Finset.Icc 1 N).filter (fun x => d ∣ x) =
             (Finset.Icc 1 (N / d)).image (fun m => d * m) := by
@@ -103,7 +104,7 @@ theorem nativeMobiusRecipHarmonic_eq_one
       apply Finset.sum_congr rfl
       intro n hn
       have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
-      have hnNatPos : 0 < n := by omega
+      have hnNatPos : 0 < n := Nat.pos_of_ne_zero (Nat.one_le_iff_ne_zero.mp hn1)
       have hnpos : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hnNatPos
       calc
         (∑ d ∈ n.divisors,
@@ -134,7 +135,7 @@ def nativeHarmonicLogError (q : ℕ) : ℝ :=
 private theorem nativeLogSucc_sub_log_le_inv
     (q : ℕ) (hq : 1 ≤ q) :
     Real.log ((q + 1 : ℕ) : ℝ) - Real.log (q : ℝ) ≤ 1 / (q : ℝ) := by
-  have hqNatPos : 0 < q := by omega
+  have hqNatPos : 0 < q := Nat.pos_of_ne_zero (Nat.one_le_iff_ne_zero.mp hq)
   have hqpos : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hqNatPos
   have hsuccpos : (0 : ℝ) < ((q + 1 : ℕ) : ℝ) := by positivity
   have hratio :
@@ -159,7 +160,7 @@ theorem nativeHarmonicLogError_bounds
       nativeHarmonicLogError q ≤ 1 / (q : ℝ) := by
   have hupperGamma := Real.eulerMascheroniConstant_lt_eulerMascheroniSeq' q
   have hlowerGamma := Real.eulerMascheroniSeq_lt_eulerMascheroniConstant q
-  have hq0 : q ≠ 0 := by omega
+  have hq0 : q ≠ 0 := Nat.one_le_iff_ne_zero.mp hq
   simp only [Real.eulerMascheroniSeq', hq0, if_false] at hupperGamma
   simp only [Real.eulerMascheroniSeq] at hlowerGamma
   have hinc := nativeLogSucc_sub_log_le_inv q hq
@@ -185,7 +186,8 @@ private theorem nativeReciprocalDivisorProduct_le_two_over
     (N d : ℕ) (hN : 1 ≤ N) (hd : d ∈ Finset.Icc 1 N) :
     (1 / (d : ℝ)) * (1 / ((N / d : ℕ) : ℝ)) ≤ 2 / (N : ℝ) := by
   have hdN : d ≤ N := (Finset.mem_Icc.mp hd).2
-  have hdpos : 0 < d := by omega
+  have hd1 : 1 ≤ d := (Finset.mem_Icc.mp hd).1
+  have hdpos : 0 < d := Nat.pos_of_ne_zero (Nat.one_le_iff_ne_zero.mp hd1)
   have hq1 : 1 ≤ N / d := (Nat.one_le_div_iff hdpos).2 hdN
   have hrem : N % d < d := Nat.mod_lt N hdpos
   have hdle : d ≤ d * (N / d) := by
@@ -200,10 +202,10 @@ private theorem nativeReciprocalDivisorProduct_le_two_over
       _ = 2 * (d * (N / d)) := by omega
   have hReal : (N : ℝ) ≤ 2 * ((d : ℝ) * ((N / d : ℕ) : ℝ)) := by
     exact_mod_cast hNat
-  have hNNatPos : 0 < N := by omega
+  have hNNatPos : 0 < N := Nat.pos_of_ne_zero (Nat.one_le_iff_ne_zero.mp hN)
   have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast hNNatPos
   have hdR : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hdpos
-  have hqNatPos : 0 < N / d := by omega
+  have hqNatPos : 0 < N / d := Nat.pos_of_ne_zero (Nat.one_le_iff_ne_zero.mp hq1)
   have hqR : (0 : ℝ) < ((N / d : ℕ) : ℝ) := by exact_mod_cast hqNatPos
   calc
     (1 / (d : ℝ)) * (1 / ((N / d : ℕ) : ℝ)) =
@@ -231,7 +233,8 @@ theorem nativeMobiusHarmonicErrorMass_abs_le_two
       apply Finset.sum_le_sum
       intro d hd
       have hdN : d ≤ N := (Finset.mem_Icc.mp hd).2
-      have hdNatPos : 0 < d := by omega
+      have hd1 : 1 ≤ d := (Finset.mem_Icc.mp hd).1
+      have hdNatPos : 0 < d := Nat.pos_of_ne_zero (Nat.one_le_iff_ne_zero.mp hd1)
       have hdpos : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hdNatPos
       have hq1 : 1 ≤ N / d := (Nat.one_le_div_iff hdNatPos).2 hdN
       have herr := nativeHarmonicLogError_bounds (N / d) hq1
@@ -258,7 +261,7 @@ theorem nativeMobiusHarmonicErrorMass_abs_le_two
       rw [Nat.card_Icc]
       have hcard : N + 1 - 1 = N := by omega
       rw [hcard]
-      have hNNatPos : 0 < N := by omega
+      have hNNatPos : 0 < N := Nat.pos_of_ne_zero (Nat.one_le_iff_ne_zero.mp hN)
       have hN0 : (N : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hNNatPos)
       field_simp
 
