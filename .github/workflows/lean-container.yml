@@ -1,0 +1,113 @@
+name: Lean build (prebuilt container)
+
+# Runs the hosted Lean build inside the prebuilt dependency image published by
+# .github/workflows/mathlib-image.yml, where Mathlib is already on disk.
+#
+# This deliberately does NOT trigger on pull_request yet.  Until the image has
+# been published at least once, a container job would fail to start, and the
+# point of this workflow is to be measured against the cache-based `build` job
+# in lean.yml before replacing it.  To adopt it, add the same pull_request
+# trigger lean.yml uses and delete that job.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.lean'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+      - '.github/workflows/lean-container.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+
+concurrency:
+  group: lean-container-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Hosted Lean build (container)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: ghcr.io/ovvo-financial/rh-lean-mathlib:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # The workspace is owned by the runner UID rather than the container
+      # user, so git refuses to operate on it until it is marked safe.  The
+      # import-manifest audit below runs `git diff`.
+      - name: Trust the workspace
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      # The checkout replaces the workspace, so the image's dependency tree is
+      # linked into place rather than found there.  A symlink avoids copying
+      # several gigabytes; lake writes dependency build output through it into
+      # the container's writable layer.
+      - name: Link the prebuilt Mathlib tree into the workspace
+        run: |
+          set -euo pipefail
+          test -d /opt/lean-deps/.lake/packages
+          mkdir -p .lake
+          ln -sfn /opt/lean-deps/.lake/packages .lake/packages
+          lake --version
+
+      - name: Audit unfinished proofs and axioms
+        run: bash scripts/audit_assumptions.sh
+
+      # Distinct key prefix from the runner-based job: the two environments are
+      # kept separate while both exist, so a bad entry in one cannot poison the
+      # other.  Fallbacks allow partial hits when only a few files changed.
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
+          restore-keys: |
+            rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Generate Lean root import manifest
+        id: importaudit
+        continue-on-error: true
+        run: |
+          set +e
+          lake exe mk_all
+          mk_status=$?
+          set -e
+          git diff -- RHLean.lean
+          if ! git diff --quiet -- RHLean.lean; then
+            exit 1
+          fi
+          exit "$mk_status"
+
+      - name: Fail if Lean import manifest is stale
+        if: steps.importaudit.outcome == 'failure'
+        run: exit 1
+
+      - name: Build Lean project
+        id: directbuild
+        continue-on-error: true
+        run: lake build RHLean --wfail > lean-build.log 2>&1
+
+      - name: Save RHLean build cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
+
+      - name: Print Lean build log
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
+        run: cat lean-build.log
+
+      - name: Fail if Lean build failed
+        if: steps.directbuild.outcome == 'failure'
+        run: exit 1
