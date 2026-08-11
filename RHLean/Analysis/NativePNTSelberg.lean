@@ -136,6 +136,7 @@ theorem nativeLogFactorial_lower :
           rw [Real.log_div (ne_of_gt hsuccR) (ne_of_gt hnR)]
         have hratioSub :
             (((n + 1 : ℕ) : ℝ) / (n : ℝ)) - 1 = 1 / (n : ℝ) := by
+          push_cast
           field_simp [ne_of_gt hnR]
           ring
         rw [hlogDiv, hratioSub] at hlogRatio
@@ -143,6 +144,10 @@ theorem nativeLogFactorial_lower :
         have hcancel : (n : ℝ) * (1 / (n : ℝ)) = 1 := by
           field_simp [ne_of_gt hnR]
         rw [hcancel] at hmul
+        have hstep :
+            (n : ℝ) * Real.log ((n + 1 : ℕ) : ℝ) - (n : ℝ) ≤
+              (n : ℝ) * Real.log (n : ℝ) - (n : ℝ) + 1 := by
+          nlinarith [hmul]
         have hfac :
             Real.log ((Nat.factorial (n + 1) : ℕ) : ℝ) =
               Real.log ((n + 1 : ℕ) : ℝ) +
@@ -150,8 +155,20 @@ theorem nativeLogFactorial_lower :
           rw [Nat.factorial_succ, Nat.cast_mul,
             Real.log_mul (by positivity)
               (by exact_mod_cast (Nat.factorial_ne_zero n))]
-        rw [hfac]
-        nlinarith
+        calc
+          ((n + 1 : ℕ) : ℝ) * Real.log ((n + 1 : ℕ) : ℝ) -
+                ((n + 1 : ℕ) : ℝ) + 1 =
+              Real.log ((n + 1 : ℕ) : ℝ) +
+                ((n : ℝ) * Real.log ((n + 1 : ℕ) : ℝ) - (n : ℝ)) := by
+            push_cast
+            ring
+          _ ≤ Real.log ((n + 1 : ℕ) : ℝ) +
+                ((n : ℝ) * Real.log (n : ℝ) - (n : ℝ) + 1) :=
+            add_le_add_left hstep _
+          _ ≤ Real.log ((n + 1 : ℕ) : ℝ) +
+                Real.log ((Nat.factorial n : ℕ) : ℝ) :=
+            add_le_add_left ih' _
+          _ = Real.log ((Nat.factorial (n + 1) : ℕ) : ℝ) := hfac.symm
 
 /-- Mertens' first theorem in bounded-error form, proved only from the finite
 floor identity and the architecture-native Chebyshev estimate. -/
