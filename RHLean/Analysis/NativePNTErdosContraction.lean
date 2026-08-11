@@ -2052,9 +2052,9 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass
         _ = (alpha - delta) * (N : ℝ) * L ^ 2 := by ring
     have hLsq : 0 < L ^ 2 := sq_pos_of_pos hLpos
     have hsq' :
-        L ^ 2 * |nativePNTError N| ≤
-          L ^ 2 * ((alpha - delta) * (N : ℝ)) := by
-      simpa [mul_comm, mul_left_comm, mul_assoc] using hsq
+        |nativePNTError N| * L ^ 2 ≤
+          ((alpha - delta) * (N : ℝ)) * L ^ 2 := by
+      simpa [mul_assoc] using hsq
     exact (mul_le_mul_iff_left₀ hLsq).mp hsq'
   rcases (eventually_atTop.1 hlarge) with ⟨M, hM⟩
   refine ⟨D + delta * (M : ℝ), ?_, ?_⟩
