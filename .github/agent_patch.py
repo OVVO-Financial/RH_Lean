@@ -2,8 +2,208 @@ from pathlib import Path
 
 p = Path('RHLean/Analysis/NativePNTErdosContraction.lean')
 s = p.read_text()
-assert 'nativePNTHasAffineEnvelope' in s
-assert 'nativePNTHasAffineEnvelope_six' in s
-assert 'nativePNTAffineEnvelope_on_fiber' in s
-assert 'nativePNTError_abs_log_sq_le_affine_compensated' in s
+assert 'nativePNTHasAffineEnvelope_improve_of_goodMass' not in s
+marker = '\nend RHLean.Analysis\n'
+assert s.count(marker) == 1
+block = r'''
+
+/-- **Strict affine-envelope improvement from positive good-fibre density.**
+For a fixed `beta < alpha`, any positive quadratic-in-`log N` lower density of
+good reciprocal `Lambda_2` fibres subtracts a fixed amount from the admissible
+linear slope.  No uniform cubic constant is required: the lower-order terms in
+the compensated squared recurrence are absorbed once `log N` is large, and
+the finite prefix is absorbed into the additive constant. -/
+theorem nativePNTHasAffineEnvelope_improve_of_goodMass
+    (alpha beta c : ℝ)
+    (halpha : 0 < alpha) (hbeta : 0 ≤ beta) (hba : beta < alpha)
+    (hc : 0 < c) (hc1 : c ≤ 1)
+    (hgood : ∀ᶠ N : ℕ in atTop,
+      c * (Real.log (N : ℝ)) ^ 2 ≤
+        nativeLambdaTwoGoodRecipMass N beta)
+    (henv : nativePNTHasAffineEnvelope alpha) :
+    nativePNTHasAffineEnvelope
+      (alpha - (alpha - beta) * c / 4) := by
+  rcases henv with ⟨D, hD, henv⟩
+  let delta : ℝ := (alpha - beta) * c / 4
+  have habpos : 0 < alpha - beta := sub_pos.mpr hba
+  have hdelta : 0 < delta := by
+    dsimp [delta]
+    positivity
+  have hable : alpha - beta ≤ alpha := by linarith
+  have hmul : (alpha - beta) * c ≤ alpha := by
+    have := mul_le_mul hable hc1 hc.le halpha.le
+    simpa using this
+  have hdeltale : delta ≤ alpha / 4 := by
+    dsimp [delta]
+    nlinarith
+  have hnewnonneg : 0 ≤ alpha - delta := by
+    nlinarith
+  let C0 : ℝ := 3000 * alpha + 784 * D + 3000
+  have hC0 : 0 ≤ C0 := by
+    dsimp [C0]
+    positivity
+  have hlogTop :
+      Tendsto (fun N : ℕ => Real.log (N : ℝ)) atTop atTop :=
+    Real.tendsto_log_atTop.comp tendsto_natCast_atTop_atTop
+  have hlog1 : ∀ᶠ N : ℕ in atTop, (1 : ℝ) ≤ Real.log (N : ℝ) :=
+    hlogTop.eventually_ge_atTop 1
+  have hlogC : ∀ᶠ N : ℕ in atTop,
+      C0 / (3 * delta) ≤ Real.log (N : ℝ) :=
+    hlogTop.eventually_ge_atTop (C0 / (3 * delta))
+  have hlarge : ∀ᶠ N : ℕ in atTop,
+      |nativePNTError N| ≤ (alpha - delta) * (N : ℝ) := by
+    filter_upwards [eventually_ge_atTop 3, hgood, hlog1, hlogC]
+      with N hN hgoodN hL1 hLC
+    have hN1 : 1 ≤ N := by omega
+    have hNR0 : 0 ≤ (N : ℝ) := by positivity
+    have hN1R : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN1
+    let L : ℝ := Real.log (N : ℝ)
+    have hL1' : (1 : ℝ) ≤ L := by simpa [L] using hL1
+    have hL0 : 0 ≤ L := le_trans (by norm_num) hL1'
+    have hLpos : 0 < L := lt_of_lt_of_le (by norm_num) hL1'
+    have hden : 0 < 3 * delta := by positivity
+    have hCLe0 : C0 ≤ L * (3 * delta) := by
+      apply (div_le_iff₀ hden).mp
+      simpa [L] using hLC
+    have hCLe : C0 ≤ 3 * delta * L := by
+      simpa [mul_comm, mul_left_comm, mul_assoc] using hCLe0
+    have hB0 : 0 ≤ 2000 * alpha + 782 * D := by positivity
+    have hBLe :
+        2000 * alpha + 782 * D ≤
+          (2000 * alpha + 782 * D) * L := by
+      have h := mul_le_mul_of_nonneg_left hL1' hB0
+      simpa using h
+    have hleft :
+        alpha * (1000 * L + 2000) +
+            D * (2 * L + 782) + 3000 * L ≤ C0 * L := by
+      dsimp [C0]
+      nlinarith [hBLe]
+    have hCLmul : C0 * L ≤ (3 * delta * L) * L :=
+      mul_le_mul_of_nonneg_right hCLe hL0
+    have hinner :
+        alpha * (1000 * L + 2000) +
+            D * (2 * L + 782) + 3000 * L ≤
+          3 * delta * L ^ 2 := by
+      calc
+        alpha * (1000 * L + 2000) +
+              D * (2 * L + 782) + 3000 * L ≤ C0 * L := hleft
+        _ ≤ (3 * delta * L) * L := hCLmul
+        _ = 3 * delta * L ^ 2 := by ring
+    have hD600 : D * 600 ≤ D * 600 * (N : ℝ) := by
+      have h600D : 0 ≤ D * 600 := by positivity
+      have h := mul_le_mul_of_nonneg_left hN1R h600D
+      simpa [mul_assoc] using h
+    have hinnerN := mul_le_mul_of_nonneg_left hinner hNR0
+    have hoverhead :
+        alpha * (N : ℝ) * (1000 * L + 2000) +
+            D * (2 * (N : ℝ) * L + 182 * (N : ℝ) + 600) +
+            3000 * (N : ℝ) * L ≤
+          3 * delta * (N : ℝ) * L ^ 2 := by
+      have hreshape :
+          alpha * (N : ℝ) * (1000 * L + 2000) +
+              D * (2 * (N : ℝ) * L + 182 * (N : ℝ) + 600) +
+              3000 * (N : ℝ) * L ≤
+            (N : ℝ) *
+              (alpha * (1000 * L + 2000) +
+                D * (2 * L + 782) + 3000 * L) := by
+        nlinarith [hD600]
+      calc
+        alpha * (N : ℝ) * (1000 * L + 2000) +
+              D * (2 * (N : ℝ) * L + 182 * (N : ℝ) + 600) +
+              3000 * (N : ℝ) * L ≤
+            (N : ℝ) *
+              (alpha * (1000 * L + 2000) +
+                D * (2 * L + 782) + 3000 * L) := hreshape
+        _ ≤ (N : ℝ) * (3 * delta * L ^ 2) := hinnerN
+        _ = 3 * delta * (N : ℝ) * L ^ 2 := by ring
+    have hcoef0 : 0 ≤ (alpha - beta) * (N : ℝ) :=
+      mul_nonneg habpos.le hNR0
+    have hgoodN' : c * L ^ 2 ≤ nativeLambdaTwoGoodRecipMass N beta := by
+      simpa [L] using hgoodN
+    have hgoodMul := mul_le_mul_of_nonneg_left hgoodN' hcoef0
+    have hdeficit :
+        -(alpha - beta) * (N : ℝ) * nativeLambdaTwoGoodRecipMass N beta ≤
+          -4 * delta * (N : ℝ) * L ^ 2 := by
+      calc
+        -(alpha - beta) * (N : ℝ) * nativeLambdaTwoGoodRecipMass N beta =
+            -((alpha - beta) * (N : ℝ) *
+              nativeLambdaTwoGoodRecipMass N beta) := by ring
+        _ ≤ -((alpha - beta) * (N : ℝ) * (c * L ^ 2)) :=
+          neg_le_neg hgoodMul
+        _ = -4 * delta * (N : ℝ) * L ^ 2 := by
+          dsimp [delta]
+          ring
+    have htail :
+        (alpha * (N : ℝ) * (1000 * L + 2000) +
+            D * (2 * (N : ℝ) * L + 182 * (N : ℝ) + 600) +
+            3000 * (N : ℝ) * L) +
+          (-(alpha - beta) * (N : ℝ) *
+            nativeLambdaTwoGoodRecipMass N beta) ≤
+          -delta * (N : ℝ) * L ^ 2 := by
+      nlinarith [hoverhead, hdeficit]
+    have hrec := nativePNTError_abs_log_sq_le_affine_compensated
+      N hN alpha beta D halpha.le hbeta hba.le hD henv
+    have hrearrange :
+        alpha * (N : ℝ) *
+              (L ^ 2 + 1000 * L + 2000) -
+            (alpha - beta) * (N : ℝ) *
+              nativeLambdaTwoGoodRecipMass N beta +
+            D * (2 * (N : ℝ) * L + 182 * (N : ℝ) + 600) +
+            3000 * (N : ℝ) * L =
+          alpha * (N : ℝ) * L ^ 2 +
+            ((alpha * (N : ℝ) * (1000 * L + 2000) +
+                D * (2 * (N : ℝ) * L + 182 * (N : ℝ) + 600) +
+                3000 * (N : ℝ) * L) +
+              (-(alpha - beta) * (N : ℝ) *
+                nativeLambdaTwoGoodRecipMass N beta)) := by
+      ring
+    have hsq :
+        |nativePNTError N| * L ^ 2 ≤
+          (alpha - delta) * (N : ℝ) * L ^ 2 := by
+      have hrec' :
+          |nativePNTError N| * L ^ 2 ≤
+            alpha * (N : ℝ) * L ^ 2 +
+              ((alpha * (N : ℝ) * (1000 * L + 2000) +
+                  D * (2 * (N : ℝ) * L + 182 * (N : ℝ) + 600) +
+                  3000 * (N : ℝ) * L) +
+                (-(alpha - beta) * (N : ℝ) *
+                  nativeLambdaTwoGoodRecipMass N beta)) := by
+        simpa [L, hrearrange] using hrec
+      calc
+        |nativePNTError N| * L ^ 2 ≤
+            alpha * (N : ℝ) * L ^ 2 +
+              ((alpha * (N : ℝ) * (1000 * L + 2000) +
+                  D * (2 * (N : ℝ) * L + 182 * (N : ℝ) + 600) +
+                  3000 * (N : ℝ) * L) +
+                (-(alpha - beta) * (N : ℝ) *
+                  nativeLambdaTwoGoodRecipMass N beta)) := hrec'
+        _ ≤ alpha * (N : ℝ) * L ^ 2 - delta * (N : ℝ) * L ^ 2 :=
+          add_le_add_left htail _
+        _ = (alpha - delta) * (N : ℝ) * L ^ 2 := by ring
+    have hLsq : 0 < L ^ 2 := sq_pos_of_pos hLpos
+    have hcancel := (mul_le_mul_right hLsq).mp
+      (show |nativePNTError N| * L ^ 2 ≤
+        ((alpha - delta) * (N : ℝ)) * L ^ 2 by
+          simpa [mul_assoc] using hsq)
+    exact hcancel
+  rcases (eventually_atTop.1 hlarge) with ⟨M, hM⟩
+  refine ⟨D + delta * (M : ℝ), ?_, ?_⟩
+  · positivity
+  · intro N
+    by_cases hMN : M ≤ N
+    · exact (hM N hMN).trans
+        (le_add_of_nonneg_right (by positivity))
+    · have hNM : N ≤ M := Nat.le_of_lt (lt_of_not_ge hMN)
+      have hNMR : (N : ℝ) ≤ (M : ℝ) := by exact_mod_cast hNM
+      have hdeltaNM := mul_le_mul_of_nonneg_left hNMR hdelta.le
+      have hold := henv N
+      have htarget :
+          alpha * (N : ℝ) + D ≤
+            (alpha - delta) * (N : ℝ) +
+              (D + delta * (M : ℝ)) := by
+        nlinarith
+      exact hold.trans htarget
+  simpa [delta]
+'''
+s = s.replace(marker, block + marker)
 p.write_text(s)
