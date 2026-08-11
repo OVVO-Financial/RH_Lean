@@ -586,9 +586,10 @@ private theorem nativeMobiusFloorLogSquareCorrection_abs_le (N : ℕ) :
               1 * Int.fract ((N : ℝ) / (d : ℝ)) :=
             mul_le_mul_of_nonneg_right hmu hfr0
           _ ≤ 1 := by simpa using hfr1
-      simp only [abs_mul, abs_of_nonneg hfr0, abs_of_nonneg (sq_nonneg _)]
-      exact mul_le_mul_of_nonneg_right hmf
-        (sq_nonneg (Real.log ((N / d : ℕ) : ℝ)))
+      have hlog2 : 0 ≤ (Real.log ((N / d : ℕ) : ℝ)) ^ 2 :=
+        sq_nonneg (Real.log ((N / d : ℕ) : ℝ))
+      rw [abs_mul, abs_mul, abs_of_nonneg hfr0, abs_of_nonneg hlog2]
+      simpa using mul_le_mul_of_nonneg_right hmf hlog2
     _ ≤ 32 * (N : ℝ) := nativeFloorLogSquareMass_le N
 
 private theorem nativeMobiusFloorLogCorrection_abs_le (N : ℕ) :
@@ -626,8 +627,8 @@ private theorem nativeMobiusFloorLogCorrection_abs_le (N : ℕ) :
               1 * Int.fract ((N : ℝ) / (d : ℝ)) :=
             mul_le_mul_of_nonneg_right hmu hfr0
           _ ≤ 1 := by simpa using hfr1
-      simp only [abs_mul, abs_of_nonneg hfr0, abs_of_nonneg hlog0]
-      exact mul_le_mul_of_nonneg_right hmf hlog0
+      rw [abs_mul, abs_mul, abs_of_nonneg hfr0, abs_of_nonneg hlog0]
+      simpa using mul_le_mul_of_nonneg_right hmf hlog0
     _ ≤ 33 * (N : ℝ) := nativeFloorLogMass_le N
 
 private def nativeMobiusFloorLogSquareMass (N : ℕ) : ℝ :=
@@ -709,7 +710,6 @@ private theorem nativeMobiusLogSquareMainMass_eq_floorMasses (N : ℕ) :
             2 * ((ArithmeticFunction.moebius d : ℝ) * ((N / d : ℕ) : ℝ))) := by
       apply Finset.sum_congr rfl
       intro d _hd
-      push_cast
       ring
     _ =
         (∑ d ∈ Finset.Icc 1 N,
@@ -776,7 +776,7 @@ private theorem nativeLambdaTwoSummatory_eq_main_add_remainder (N : ℕ) :
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro d _hd
-  simpa [mul_comm]
+  ring
 
 private theorem nativeMobiusLogSquareMainMass_eq
     (N : ℕ) (hN : 1 ≤ N) :
@@ -871,7 +871,7 @@ private theorem nativeMobiusLogSquareMainMass_sub_main_abs_le
             |nativeMobiusFloorLogSquareCorrection N| +
             |2 * nativeMobiusFloorLogCorrection N| + 2 := by
         rw [abs_neg]
-        norm_num <;> ring
+        norm_num
   calc
     |(N : ℝ) * (nativeMobiusLogMomentTwo N - 2 * Real.log N) +
         (-2 * (N : ℝ) * nativeMobiusLogMomentOne N) +
