@@ -25,29 +25,8 @@ jobs:
           from pathlib import Path
           path = Path('RHLean/Analysis/NativePNTMobiusSecondMoment.lean')
           text = path.read_text()
-          old = """  have hmass3 :
-      nativeLogRecipMass 3 =
-        Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by
-    calc
-      nativeLogRecipMass 3 =
-          nativeLogRecipMass 2 + Real.log (3 : ℝ) / 3 := by
-            convert nativeLogRecipMass_succ 2 using 1 <;> norm_num
-      _ = (nativeLogRecipMass 1 + Real.log (2 : ℝ) / 2) +
-            Real.log (3 : ℝ) / 3 := by
-            rw [nativeLogRecipMass_succ 1]
-      _ = Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by
-            rw [hmass1]
-            norm_num
-"""
-          new = """  have hmass2 : nativeLogRecipMass 2 = Real.log (2 : ℝ) / 2 := by
-    rw [nativeLogRecipMass_succ 1, hmass1]
-    norm_num
-  have hmass3 :
-      nativeLogRecipMass 3 =
-        Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by
-    rw [nativeLogRecipMass_succ 2, hmass2]
-    norm_num
-"""
+          old = "  have hmass3 :\n      nativeLogRecipMass 3 =\n        Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by\n    calc\n      nativeLogRecipMass 3 =\n          nativeLogRecipMass 2 + Real.log (3 : ℝ) / 3 := by\n            convert nativeLogRecipMass_succ 2 using 1 <;> norm_num\n      _ = (nativeLogRecipMass 1 + Real.log (2 : ℝ) / 2) +\n            Real.log (3 : ℝ) / 3 := by\n            rw [nativeLogRecipMass_succ 1]\n      _ = Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by\n            rw [hmass1]\n            norm_num\n"
+          new = "  have hmass2 : nativeLogRecipMass 2 = Real.log (2 : ℝ) / 2 := by\n    rw [nativeLogRecipMass_succ 1, hmass1]\n    norm_num\n  have hmass3 :\n      nativeLogRecipMass 3 =\n        Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by\n    rw [nativeLogRecipMass_succ 2, hmass2]\n    norm_num\n"
           assert old in text, 'target block not found'
           path.write_text(text.replace(old, new, 1))
           PY
