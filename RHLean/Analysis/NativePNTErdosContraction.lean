@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.NativePNTSelberg
+import RHLean.Analysis.NativePNTErrorMass
 
 /-!
 # The generic Erdos cubic contraction
@@ -19,6 +19,14 @@ forces `C * alpha_n^2 <= 1` whenever `alpha_n > 0`, so it encodes the
 localization needed to keep the next envelope in the admissible range.
 Establishing that localization belongs to the prime-specific application, not
 to this generic limit argument.
+
+The final section starts that prime-specific application.  The key elementary
+regularity fact is much sharper than a generic Lipschitz estimate: since
+`nativePsi` is monotone, a positive error spike can fall forward with slope at
+most one, while a negative error spike can rise backward with slope at most
+one.  Thus a spike of height `H` forces a one-sided interval of length `H / 2`
+on which the absolute error stays at least `H / 2`.  These are the native
+``good interval'' persistence lemmas used by the Erdos compensation step.
 -/
 
 noncomputable section
@@ -84,5 +92,67 @@ theorem tendsto_zero_of_cubic_recurrence
   have hL : L = 0 := by
     exact pow_eq_zero hcube
   simpa [hL] using hconv
+
+/-! ## Prime-specific one-sided excursions -/
+
+/-- The finite Chebyshev mass is monotone.  This is purely coefficientwise:
+every von Mangoldt weight is nonnegative. -/
+theorem nativePsi_monotone : Monotone nativePsi := by
+  intro a b hab
+  unfold nativePsi
+  refine Finset.sum_le_sum_of_subset_of_nonneg ?_ ?_
+  · intro n hn
+    rcases Finset.mem_Icc.mp hn with ⟨hn1, hna⟩
+    exact Finset.mem_Icc.mpr ⟨hn1, hna.trans hab⟩
+  · intro n _hn _hna
+    exact ArithmeticFunction.vonMangoldt_nonneg
+
+/-- A positive error spike can decay forward only with slope one: increasing
+`psi` cannot make `R = psi - id` fall faster than the linear term. -/
+theorem nativePNTError_forward_lower (N h : ℕ) :
+    nativePNTError N - (h : ℝ) ≤ nativePNTError (N + h) := by
+  have hpsi : nativePsi N ≤ nativePsi (N + h) :=
+    nativePsi_monotone (by omega)
+  unfold nativePNTError
+  rw [Nat.cast_add]
+  linarith
+
+/-- Dually, a negative error spike can rise backward only with slope one. -/
+theorem nativePNTError_backward_upper (N h : ℕ) (hh : h ≤ N) :
+    nativePNTError (N - h) ≤ nativePNTError N + (h : ℝ) := by
+  have hpsi : nativePsi (N - h) ≤ nativePsi N :=
+    nativePsi_monotone (Nat.sub_le N h)
+  unfold nativePNTError
+  rw [Nat.cast_sub hh]
+  linarith
+
+/-- **Positive good interval.**  If `R(N) >= H >= 0`, then throughout every
+forward displacement `h <= H/2` the absolute error remains at least `H/2`. -/
+theorem nativePNTError_positive_excursion
+    (N h : ℕ) (H : ℝ) (hH0 : 0 ≤ H)
+    (hpin : H ≤ nativePNTError N) (hh : (h : ℝ) ≤ H / 2) :
+    H / 2 ≤ |nativePNTError (N + h)| := by
+  have hstep := nativePNTError_forward_lower N h
+  have hhalf : H / 2 ≤ nativePNTError (N + h) := by
+    linarith
+  have hnonneg : 0 ≤ nativePNTError (N + h) := by
+    linarith
+  rw [abs_of_nonneg hnonneg]
+  exact hhalf
+
+/-- **Negative good interval.**  If `R(N) <= -H` with `H >= 0`, then throughout
+every backward displacement `h <= min N (H/2)` the absolute error remains at
+least `H/2`. -/
+theorem nativePNTError_negative_excursion
+    (N h : ℕ) (H : ℝ) (hH0 : 0 ≤ H) (hhN : h ≤ N)
+    (hpin : nativePNTError N ≤ -H) (hh : (h : ℝ) ≤ H / 2) :
+    H / 2 ≤ |nativePNTError (N - h)| := by
+  have hstep := nativePNTError_backward_upper N h hhN
+  have hhalf : nativePNTError (N - h) ≤ -(H / 2) := by
+    linarith
+  have hnonpos : nativePNTError (N - h) ≤ 0 := by
+    linarith
+  rw [abs_of_nonpos hnonpos]
+  linarith
 
 end RHLean.Analysis
