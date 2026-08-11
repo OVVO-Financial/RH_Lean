@@ -241,7 +241,7 @@ lemma unresolvedPart_eq_one_iff_all_primeFactors_le
     · exact hb1
 
 lemma not_smooth_of_unresolvedPart_ne_one
-    (y : ℕ) {n : ℕ} (hn : n ≠ 0)
+    (y : ℕ) {n : ℕ}
     (hb : primeWheelUnresolvedPart y n ≠ 1) :
     ¬ IsPrimeWheelSmooth (primesUpTo y) n := by
   intro hsmooth
@@ -299,7 +299,7 @@ theorem partialPrimeWheel_error_eq
           hnupper, hnonsmooth, hrawN, hmu0]
     simp [hb, hcorrect]
   · have hnonsmooth : ¬ IsPrimeWheelSmooth (primesUpTo y) n :=
-      not_smooth_of_unresolvedPart_ne_one y hn hb
+      not_smooth_of_unresolvedPart_ne_one y hb
     have hpartial :
         partialPrimeWheelSite y upper n = -μ (primeWheelResolvedPart y n) := by
       unfold partialPrimeWheelSite correctedPrimeWheelSite primeWheelSmoothCoreSite
