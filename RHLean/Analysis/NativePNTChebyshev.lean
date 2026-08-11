@@ -83,10 +83,11 @@ theorem nativePsi_eq_sum_mul_log_prime (N : ℕ) :
       refine (Finset.sum_subset (fun q hq => ?_) (fun x hx => ?_)).symm
       · simp only [Finset.mem_biUnion, Finset.mem_filter, Finset.mem_Icc,
           Finset.mem_image] at hq ⊢
-        obtain ⟨p, ⟨⟨_hp1, _hpN⟩, hpPrime⟩, k, ⟨_hk1, hklog⟩, rfl⟩ := hq
+        obtain ⟨p, ⟨⟨_hp1, hpN⟩, hpPrime⟩, k, ⟨_hk1, hklog⟩, rfl⟩ := hq
         have hpowPos : 0 < p ^ k := pow_pos hpPrime.pos k
+        have hN0 : N ≠ 0 := by omega
         exact ⟨Nat.succ_le_iff.mpr hpowPos,
-          Nat.pow_le_of_le_log hpPrime.one_lt hklog⟩
+          Nat.pow_le_of_le_log hN0 hklog⟩
       · simp only [Finset.mem_biUnion, Finset.mem_filter, Finset.mem_Icc,
           Finset.mem_image, not_exists, not_and, and_imp,
           ArithmeticFunction.vonMangoldt_eq_zero_iff, isPrimePow_nat_iff]
@@ -103,6 +104,9 @@ theorem nativePsi_eq_sum_mul_log_prime (N : ℕ) :
         ∑ q ∈ Finset.image (fun k => p ^ k) (Finset.Icc 1 (p.log N)), Λ q := by
       rw [Finset.sum_biUnion]
       intro p hp q hq hpq
+      change Disjoint
+        (Finset.image (fun k => p ^ k) (Finset.Icc 1 (p.log N)))
+        (Finset.image (fun k => q ^ k) (Finset.Icc 1 (q.log N)))
       rw [Finset.disjoint_left]
       intro z hzp hzq
       simp only [Finset.mem_image, Finset.mem_Icc] at hzp hzq
@@ -264,7 +268,7 @@ theorem nativeSqrt_mul_log_le_two_mul
   have hsqrtSq : ((Nat.sqrt N : ℕ) : ℝ) ^ 2 ≤ (N : ℝ) := by
     exact_mod_cast hsqrtNat
   have hsqrtRealSq : (Real.sqrt (N : ℝ)) ^ 2 = (N : ℝ) := by
-    rw [sq_sqrt]
+    rw [Real.sq_sqrt]
     positivity
   have hsqrtCast : (Nat.sqrt N : ℝ) ≤ Real.sqrt (N : ℝ) := by
     have hleft : 0 ≤ (Nat.sqrt N : ℝ) := by positivity
