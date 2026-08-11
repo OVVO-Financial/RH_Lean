@@ -27,6 +27,16 @@ import RHLean.Analysis.MertensStepGrowth
 import RHLean.Analysis.MertensZetaIdentityContinuation
 import RHLean.Analysis.MobiusSynthesisBoundary
 import RHLean.Analysis.MobiusSynthesisBoundaryBridge
+import RHLean.Analysis.NativePNTChebyshev
+import RHLean.Analysis.NativePNTErdosContraction
+import RHLean.Analysis.NativePNTErrorMass
+import RHLean.Analysis.NativePNTLogSums
+import RHLean.Analysis.NativePNTMertens
+import RHLean.Analysis.NativePNTMobiusMoments
+import RHLean.Analysis.NativePNTMobiusSecondMoment
+import RHLean.Analysis.NativePNTSelberg
+import RHLean.Analysis.NativePNTSummatorySelberg
+import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge

@@ -45,6 +45,19 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      # Mathlib's oleans live in .lake/packages, which nothing cached: every
+      # run re-downloaded all of Mathlib via `lake exe cache get`, which was
+      # ~7.5 of the ~8.5 minute build.  The key changes only on a toolchain or
+      # dependency bump, so this restores on every ordinary run and pays the
+      # multi-gigabyte upload only when Mathlib actually moves.  Dependency
+      # build artifacts live under .lake/packages/<dep>/.lake/build too, so
+      # this also stops `lake exe mk_all` rebuilding importGraph each time.
+      - name: Cache Mathlib and dependency builds
+        uses: actions/cache@v4
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
       - name: Set up Lean and Mathlib
         uses: leanprover/lean-action@v1
         with:
