@@ -297,19 +297,14 @@ theorem nativeLogRecipDefect_abs_le_four
     exact_mod_cast (show 0 < q by omega)
   have hmass1 : nativeLogRecipMass 1 = 0 := by
     simp [nativeLogRecipMass]
+  have hmass2 : nativeLogRecipMass 2 = Real.log (2 : ℝ) / 2 := by
+    rw [nativeLogRecipMass_succ 1, hmass1]
+    norm_num
   have hmass3 :
       nativeLogRecipMass 3 =
         Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by
-    calc
-      nativeLogRecipMass 3 =
-          nativeLogRecipMass 2 + Real.log (3 : ℝ) / 3 := by
-            convert nativeLogRecipMass_succ 2 using 1 <;> norm_num
-      _ = (nativeLogRecipMass 1 + Real.log (2 : ℝ) / 2) +
-            Real.log (3 : ℝ) / 3 := by
-            rw [nativeLogRecipMass_succ 1]
-      _ = Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by
-            rw [hmass1]
-            norm_num
+    rw [nativeLogRecipMass_succ 2, hmass2]
+    norm_num
   have hlog3sq : (Real.log (3 : ℝ)) ^ 2 ≤ 4 := by
     have hprod :
         0 ≤ Real.log (3 : ℝ) * (2 - Real.log (3 : ℝ)) :=
