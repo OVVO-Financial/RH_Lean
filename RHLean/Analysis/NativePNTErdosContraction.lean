@@ -2046,15 +2046,15 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass
                   3000 * (N : ℝ) * L) +
                 (-(alpha - beta) * (N : ℝ) *
                   nativeLambdaTwoGoodRecipMass N beta)) := hrec'
-        _ ≤ alpha * (N : ℝ) * L ^ 2 - delta * (N : ℝ) * L ^ 2 :=
-          add_le_add_left htail _
+        _ ≤ alpha * (N : ℝ) * L ^ 2 - delta * (N : ℝ) * L ^ 2 := by
+          simpa [sub_eq_add_neg] using
+            (add_le_add_left htail (alpha * (N : ℝ) * L ^ 2))
         _ = (alpha - delta) * (N : ℝ) * L ^ 2 := by ring
     have hLsq : 0 < L ^ 2 := sq_pos_of_pos hLpos
-    have hcancel := (mul_le_mul_right hLsq).mp
+    exact (mul_le_mul_iff_right₀ hLsq).mp
       (show |nativePNTError N| * L ^ 2 ≤
         ((alpha - delta) * (N : ℝ)) * L ^ 2 by
           simpa [mul_assoc] using hsq)
-    exact hcancel
   rcases (eventually_atTop.1 hlarge) with ⟨M, hM⟩
   refine ⟨D + delta * (M : ℝ), ?_, ?_⟩
   · positivity
@@ -2072,6 +2072,5 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass
               (D + delta * (M : ℝ)) := by
         nlinarith
       exact hold.trans htarget
-  simpa [delta]
 
 end RHLean.Analysis
