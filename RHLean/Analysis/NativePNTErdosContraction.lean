@@ -498,10 +498,11 @@ private theorem nativePNTRecipSuccInterval_log_lower
     Real.log ((B + 2 : ℕ) : ℝ) - Real.log (A : ℝ) - 1 ≤
       ∑ n ∈ Finset.Icc A B, 1 / (((n + 1 : ℕ) : ℝ)) := by
   rw [nativePNTRecipSuccInterval_eq_harmonic_sub A B hAB]
-  have hlo := log_add_one_le_harmonic (B + 1)
-  have hup := harmonic_le_one_add_log A
-  push_cast at hlo hup ⊢
-  norm_num at hlo
+  have hlo : Real.log ((B + 2 : ℕ) : ℝ) ≤ (harmonic (B + 1) : ℝ) := by
+    simpa [show B + 2 = (B + 1) + 1 by omega] using
+      (log_add_one_le_harmonic (B + 1))
+  have hup : (harmonic A : ℝ) ≤ 1 + Real.log (A : ℝ) := by
+    simpa using (harmonic_le_one_add_log A)
   linarith
 
 /-- On the dyadic span `[A, A*2^K]`, the reciprocal interval mass is at least
@@ -996,9 +997,14 @@ private theorem nativeLambdaTwoSummatory_upper_all (N : ℕ) :
     rw [abs_le] at h3
     have hlog3 := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 3 by norm_num)
     have hC := nativeSelbergLinearConstant_le_182
+    norm_num at hlog3
+    have hC3 :
+        (2 * (Real.log 4 + 2) + 172) * (3 : ℝ) ≤ 546 := by
+      nlinarith
+    have hlogpart : 2 * (3 : ℝ) * Real.log 3 ≤ 12 := by
+      nlinarith
     have hrho3 : nativeLambdaTwoSummatory 3 ≤ 600 := by
-      norm_num at hlog3
-      nlinarith [h3.2]
+      nlinarith [h3.2, hC3, hlogpart]
     have hlogN0 : 0 ≤ Real.log (N : ℝ) := by
       rcases Nat.eq_zero_or_pos N with rfl | hNpos
       · simp
@@ -1013,6 +1019,7 @@ private theorem nativeRecipDiff_eq
   have hn0 : (n : ℝ) ≠ 0 := by exact_mod_cast (show n ≠ 0 by omega)
   have hs0 : (((n + 1 : ℕ) : ℝ)) ≠ 0 := by positivity
   field_simp [hn0, hs0]
+  push_cast
   ring
 
 private theorem nativeRecipDiffSum_eq
@@ -1063,7 +1070,6 @@ private theorem nativeLambdaTwoAbelPoint_upper
         182 / (((n + 1 : ℕ) : ℝ)) +
         600 * (1 / ((n : ℝ) * (((n + 1 : ℕ) : ℝ)))) := by
       field_simp [ne_of_gt hnpos, ne_of_gt hspos]
-      ring
     _ ≤ 2 * Real.log (n : ℝ) / (n : ℝ) + 182 / (n : ℝ) +
         600 * (1 / ((n : ℝ) * (((n + 1 : ℕ) : ℝ)))) := by
       linarith
@@ -1087,7 +1093,7 @@ private theorem nativeRecipIco_le_harmonic
     (∑ n ∈ Finset.Ico 1 N, 1 / (n : ℝ)) ≤ (harmonic N : ℝ) := by
   have hharm :
       (harmonic N : ℝ) = ∑ n ∈ Finset.Icc 1 N, 1 / (n : ℝ) := by
-    simp_rw [harmonic_eq_sum_Icc, Rat.cast_sum, Rat.cast_inv, Rat.cast_natCast]
+    simp_rw [harmonic_eq_sum_Icc, Rat.cast_sum, Rat.cast_inv, Rat.cast_natCast, one_div]
   rw [hharm]
   have hset : Finset.Icc 1 N = Finset.Ico 1 (N + 1) := by
     ext n
@@ -1142,7 +1148,28 @@ theorem nativeLambdaTwoRecipMass_upper
         (∑ n ∈ Finset.Ico 1 N,
           (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ)))) ≤ 1 := by
       rw [hkernelEq]
-      positivity
+      have hrecip0 : 0 ≤ 1 / (N : ℝ) := by positivity
+      linarith
+    have hlogScale :
+        (∑ n ∈ Finset.Ico 1 N, 2 * Real.log (n : ℝ) / (n : ℝ)) =
+          2 * (∑ n ∈ Finset.Ico 1 N, Real.log (n : ℝ) / (n : ℝ)) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro n _hn
+      ring
+    have hrecipScale :
+        (∑ n ∈ Finset.Ico 1 N, 182 / (n : ℝ)) =
+          182 * (∑ n ∈ Finset.Ico 1 N, 1 / (n : ℝ)) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro n _hn
+      ring
+    have hkernelScale :
+        (∑ n ∈ Finset.Ico 1 N,
+          600 * (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ)))) =
+          600 * (∑ n ∈ Finset.Ico 1 N,
+            (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ)))) := by
+      rw [Finset.mul_sum]
     calc
       (∑ n ∈ Finset.Ico 1 N,
         nativeLambdaTwoSummatory n *
@@ -1156,7 +1183,7 @@ theorem nativeLambdaTwoRecipMass_upper
           600 * (∑ n ∈ Finset.Ico 1 N,
             (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ)))) := by
         rw [Finset.sum_add_distrib, Finset.sum_add_distrib,
-          ← Finset.mul_sum, ← Finset.mul_sum, ← Finset.mul_sum]
+          hlogScale, hrecipScale, hkernelScale]
       _ ≤ 2 * nativeLogRecipMass N + 182 * (harmonic N : ℝ) + 600 * 1 := by
         gcongr
       _ = 2 * nativeLogRecipMass N + 182 * (harmonic N : ℝ) + 600 := by ring
@@ -1343,13 +1370,17 @@ theorem nativeLambdaTwoErrorMass_compensation
     calc
       (∑ n ∈ G, nativeLambdaTwo n *
         (beta * ((N : ℝ) / (n : ℝ)) + D)) =
-          beta * (∑ n ∈ G,
-            nativeLambdaTwo n * ((N : ℝ) / (n : ℝ))) +
-          D * (∑ n ∈ G, nativeLambdaTwo n) := by
-        rw [← Finset.mul_sum, ← Finset.mul_sum, ← Finset.sum_add_distrib]
+          (∑ n ∈ G,
+            beta * (nativeLambdaTwo n * ((N : ℝ) / (n : ℝ)))) +
+          ∑ n ∈ G, D * nativeLambdaTwo n := by
+        rw [← Finset.sum_add_distrib]
         apply Finset.sum_congr rfl
         intro n _hn
         ring
+      _ = beta * (∑ n ∈ G,
+            nativeLambdaTwo n * ((N : ℝ) / (n : ℝ))) +
+          D * (∑ n ∈ G, nativeLambdaTwo n) := by
+        rw [Finset.mul_sum, Finset.mul_sum]
       _ = _ := by rw [hGrec, hGmass]
   have hBexpand :
       (∑ n ∈ B, nativeLambdaTwo n *
@@ -1365,17 +1396,37 @@ theorem nativeLambdaTwoErrorMass_compensation
     calc
       (∑ n ∈ B, nativeLambdaTwo n *
         (alpha * ((N : ℝ) / (n : ℝ)) + D)) =
-          alpha * (∑ n ∈ B,
-            nativeLambdaTwo n * ((N : ℝ) / (n : ℝ))) +
-          D * (∑ n ∈ B, nativeLambdaTwo n) := by
-        rw [← Finset.mul_sum, ← Finset.mul_sum, ← Finset.sum_add_distrib]
+          (∑ n ∈ B,
+            alpha * (nativeLambdaTwo n * ((N : ℝ) / (n : ℝ)))) +
+          ∑ n ∈ B, D * nativeLambdaTwo n := by
+        rw [← Finset.sum_add_distrib]
         apply Finset.sum_congr rfl
         intro n _hn
         ring
+      _ = alpha * (∑ n ∈ B,
+            nativeLambdaTwo n * ((N : ℝ) / (n : ℝ))) +
+          D * (∑ n ∈ B, nativeLambdaTwo n) := by
+        rw [Finset.mul_sum, Finset.mul_sum]
       _ = _ := by rw [hBrec, hBmass]
   rw [hGexpand, hBexpand] at hbound
   have hrecSplit := nativeLambdaTwoRecipSplit N beta
   have hmassSplit := nativeLambdaTwoMassSplit N beta
-  nlinarith
+  calc
+    nativeLambdaTwoErrorMass N ≤
+        beta * ((N : ℝ) * nativeLambdaTwoGoodRecipMass N beta) +
+          D * (∑ n ∈ nativePNTGoodFiberSet N beta, nativeLambdaTwo n) +
+          (alpha * ((N : ℝ) *
+            (∑ n ∈ (Finset.Icc 1 N).filter
+              (fun n => ¬ |nativePNTError (N / n)| ≤
+                beta * ((N : ℝ) / (n : ℝ))),
+              nativeLambdaTwo n / (n : ℝ))) +
+            D * (∑ n ∈ (Finset.Icc 1 N).filter
+              (fun n => ¬ |nativePNTError (N / n)| ≤
+                beta * ((N : ℝ) / (n : ℝ))), nativeLambdaTwo n)) := hbound
+    _ = alpha * (N : ℝ) * nativeLambdaTwoRecipMass N -
+        (alpha - beta) * (N : ℝ) * nativeLambdaTwoGoodRecipMass N beta +
+        D * nativeLambdaTwoSummatory N := by
+      rw [← hrecSplit, ← hmassSplit]
+      ring
 
 end RHLean.Analysis
