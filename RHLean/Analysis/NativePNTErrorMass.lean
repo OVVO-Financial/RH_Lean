@@ -474,8 +474,8 @@ theorem nativeLambdaLogRecip_sub_half_logSq_abs_le
         nativeLambdaRecip N * Real.log N =
           (Real.log N) ^ 2 +
             (nativeLambdaRecip N - Real.log N) * Real.log N := by ring
-    rw [hend, hmain]
-    ring
+    rw [hend]
+    linarith [hmain]
   have hhalf :
       |(1 / 2 : ℝ) * (∑ n ∈ Finset.Ico 1 N, (delta n) ^ 2)| ≤
         (1 / 2 : ℝ) * Real.log N := by
