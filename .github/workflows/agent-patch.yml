@@ -6,7 +6,7 @@ on:
     paths:
       - '.github/workflows/agent-patch.yml'
       - '.github/agent_patch.py'
-      - 'RHLean/Analysis/NativePNTErrorMass.lean'
+      - 'RHLean/Analysis/NativePNTErdosContraction.lean'
 
 permissions:
   contents: write
@@ -26,6 +26,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add RHLean/Analysis/NativePNTErrorMass.lean
-          git commit -m 'Close absolute Selberg error recurrence'
+          git add RHLean/Analysis/NativePNTErdosContraction.lean
+          git commit -m 'Add Erdos small-point interval theorem'
           git push origin HEAD:agent/native-pnt-proof-continuation
