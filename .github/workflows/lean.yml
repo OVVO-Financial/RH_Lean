@@ -45,15 +45,14 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # Mathlib's oleans live in .lake/packages, which nothing cached: every
-      # run re-downloaded all of Mathlib via `lake exe cache get`, which was
-      # ~7.5 of the ~8.5 minute build.  The key changes only on a toolchain or
-      # dependency bump, so this restores on every ordinary run and pays the
-      # multi-gigabyte upload only when Mathlib actually moves.  Dependency
-      # build artifacts live under .lake/packages/<dep>/.lake/build too, so
-      # this also stops `lake exe mk_all` rebuilding importGraph each time.
-      - name: Cache Mathlib and dependency builds
-        uses: actions/cache@v4
+      # Mathlib's oleans live in .lake/packages. Restore that directory before
+      # lean-action runs, then save it immediately after setup rather than in a
+      # post-job hook.  The explicit save is crucial while a proof PR is red:
+      # later Lean failures must not prevent the expensive dependency cache
+      # from being populated for the next compiler iteration.
+      - name: Restore Mathlib and dependency builds
+        id: lakepackages
+        uses: actions/cache/restore@v5
         with:
           path: .lake/packages
           key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
@@ -66,6 +65,13 @@ jobs:
           build: false
           test: false
           lint: false
+
+      - name: Save Mathlib and dependency builds
+        if: steps.lakepackages.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
