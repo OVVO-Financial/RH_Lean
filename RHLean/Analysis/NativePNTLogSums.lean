@@ -153,8 +153,9 @@ theorem nativeLogSquarePrimitive_hasDerivAt
   convert h using 1
   · funext y
     simp [nativeLogSquarePrimitive, pow_two]
-  · field_simp [hx]
-    ring_nf
+  · simp [id, pow_two]
+    field_simp [hx]
+    ring
 
 /-- Exact integral of `log^2` on `[1,N]`. -/
 theorem nativeIntegral_logSquare (N : ℕ) (hN : 1 ≤ N) :
@@ -274,14 +275,15 @@ theorem nativeLogSquareMass_bounds (N : ℕ) (hN : 1 ≤ N) :
       nativeLogSquareMain N - 2 =
           ∫ x in (1 : ℝ)..(N : ℝ), (Real.log x) ^ 2 := hI.symm
       _ ≤ ∑ n ∈ Finset.Ico 1 N,
-          (Real.log ((n + 1 : ℕ) : ℝ)) ^ 2 := hlowerInt
+          (Real.log ((n + 1 : ℕ) : ℝ)) ^ 2 := by simpa using hlowerInt
       _ = nativeLogSquareMass N := hshift
   · calc
       nativeLogSquareMass N =
           (∑ n ∈ Finset.Ico 1 N, (Real.log (n : ℝ)) ^ 2) +
             (Real.log (N : ℝ)) ^ 2 := htop
       _ ≤ (∫ x in (1 : ℝ)..(N : ℝ), (Real.log x) ^ 2) +
-            (Real.log (N : ℝ)) ^ 2 := add_le_add_right hupperInt _
+            (Real.log (N : ℝ)) ^ 2 := by
+          simpa using (add_le_add_right hupperInt ((Real.log (N : ℝ)) ^ 2))
       _ = nativeLogSquareMain N - 2 + (Real.log (N : ℝ)) ^ 2 := by rw [hI]
 
 /-- **Quadratic logarithmic summatory estimate.**
