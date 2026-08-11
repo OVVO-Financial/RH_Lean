@@ -1004,7 +1004,13 @@ private theorem nativeLambdaTwoSummatory_upper_all (N : ℕ) :
     have hlogpart : 2 * (3 : ℝ) * Real.log 3 ≤ 12 := by
       nlinarith
     have hrho3 : nativeLambdaTwoSummatory 3 ≤ 600 := by
-      nlinarith [h3.2, hC3, hlogpart]
+      calc
+        nativeLambdaTwoSummatory 3 ≤
+            2 * (3 : ℝ) * Real.log 3 +
+              (2 * (Real.log 4 + 2) + 172) * (3 : ℝ) := by
+          linarith [h3.2]
+        _ ≤ 12 + 546 := add_le_add hlogpart hC3
+        _ ≤ 600 := by norm_num
     have hlogN0 : 0 ≤ Real.log (N : ℝ) := by
       rcases Nat.eq_zero_or_pos N with rfl | hNpos
       · simp
@@ -1278,7 +1284,7 @@ worst-case bound:
 This is the exact algebraic deficit used by the Erdos cubic improvement. -/
 theorem nativeLambdaTwoErrorMass_compensation
     (N : ℕ) (alpha beta D : ℝ)
-    (halpha : 0 ≤ alpha) (hbeta : 0 ≤ beta) (hba : beta ≤ alpha)
+    (_halpha : 0 ≤ alpha) (_hbeta : 0 ≤ beta) (_hba : beta ≤ alpha)
     (hD : 0 ≤ D)
     (hall : ∀ n ∈ Finset.Icc 1 N,
       |nativePNTError (N / n)| ≤ alpha * ((N : ℝ) / (n : ℝ)) + D) :
@@ -1444,7 +1450,8 @@ theorem nativePNT_quotient_mem_of_reciprocal_interval
     (hn : n ∈ Finset.Icc (N / (t + H + 1) + 1) (N / t)) :
     t ≤ N / n ∧ N / n ≤ t + H := by
   have hnI := Finset.mem_Icc.mp hn
-  have hnpos : 0 < n := by omega
+  have hnpos : 0 < n :=
+    lt_of_lt_of_le (Nat.zero_lt_succ (N / (t + H + 1))) hnI.1
   have hdenpos : 0 < t + H + 1 := by omega
   have hlower : N / (t + H + 1) < n := by omega
   have hNlt : N < n * (t + H + 1) :=
@@ -1458,7 +1465,7 @@ theorem nativePNT_quotient_mem_of_reciprocal_interval
     simpa [Nat.mul_comm] using h
   have hquotLower : t ≤ N / n :=
     (Nat.le_div_iff_mul_le hnpos).2 htn
-  exact ⟨hquotLower, by omega⟩
+  exact ⟨hquotLower, Nat.lt_succ_iff.mp hquotUpper⟩
 
 /-- A good forward interval in the quotient variable becomes a whole reciprocal
 block of good fibres for the second-Selberg compensation sum. -/
@@ -1475,11 +1482,13 @@ theorem nativePNT_reciprocal_interval_subset_good
     Finset.mem_Icc.mpr hq
   have herr := hgood (N / n) hqmem
   have hnI := Finset.mem_Icc.mp hn
-  have hn1 : 1 ≤ n := by omega
+  have hnpos : 0 < n :=
+    lt_of_lt_of_le (Nat.zero_lt_succ (N / (t + H + 1))) hnI.1
+  have hn1 : 1 ≤ n := Nat.succ_le_iff.mpr hnpos
   have hnN : n ≤ N :=
     hnI.2.trans (Nat.div_le_self N t)
   have hnposR : (0 : ℝ) < (n : ℝ) := by
-    exact_mod_cast (show 0 < n by omega)
+    exact_mod_cast hnpos
   have hfloor : ((N / n : ℕ) : ℝ) ≤ (N : ℝ) / (n : ℝ) := by
     rw [le_div_iff₀ hnposR]
     exact_mod_cast Nat.div_mul_le_self N n
