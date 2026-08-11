@@ -16,8 +16,7 @@ imported or used.
 
 noncomputable section
 
-open scoped ArithmeticFunction ArithmeticFunction.Moebius
-  ArithmeticFunction.vonMangoldt BigOperators
+open scoped ArithmeticFunction.Moebius ArithmeticFunction.vonMangoldt BigOperators
 
 namespace RHLean.Analysis
 
@@ -77,8 +76,8 @@ theorem nativeLogMass_eq_divisorVonMangoldtMass (x : ℕ) :
     nativeLogMass x = nativeDivisorVonMangoldtMass x := by
   unfold nativeLogMass nativeDivisorVonMangoldtMass
   apply Finset.sum_congr rfl
-  intro n hn
-  rw [ArithmeticFunction.vonMangoldt_sum]
+  intro n _hn
+  exact ArithmeticFunction.vonMangoldt_sum
 
 /-! ## The logarithmic derivation on Dirichlet convolution -/
 
@@ -132,7 +131,8 @@ def arithmeticLogSquare : ArithmeticFunction ℝ :=
 theorem arithmeticLogWeight_log :
     arithmeticLogWeight ArithmeticFunction.log = arithmeticLogSquare := by
   ext n
-  simp [arithmeticLogWeight, arithmeticLogSquare, ArithmeticFunction.log_apply]
+  change Real.log n * Real.log n = (Real.log n) ^ 2
+  ring
 
 /-- The logarithmic derivative of the zeta arithmetic function is the
 arithmetic logarithm itself. -/
