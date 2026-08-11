@@ -4,17 +4,17 @@ on:
   push:
     branches: [main]
     paths:
-      - '**.lean'                        # warm the trusted main-branch Lean cache
-      - 'lean-toolchain'                 # Lean version bumps invalidate compiled artifacts
-      - 'lake-manifest.json'             # dependency/Mathlib bumps invalidate compiled artifacts
-      - '.github/workflows/lean.yml'     # changes to this audit workflow
+      - '**.lean'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+      - '.github/workflows/lean.yml'
   pull_request:
     types: [opened, synchronize, reopened, edited]
     paths:
-      - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
-      - 'lean-toolchain'                 # Lean version bumps
-      - 'lake-manifest.json'             # dependency/Mathlib bumps
-      - '.github/workflows/lean.yml'     # changes to this audit workflow
+      - '**.lean'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+      - '.github/workflows/lean.yml'
   workflow_dispatch:
 
 permissions:
@@ -73,6 +73,19 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+
+      - name: Pack temporary local Lean environment
+        run: |
+          tar --zstd -cf lean-dev-env.tar.zst \
+            -C "$HOME" .elan/toolchains/leanprover--lean4---v4.24.0 \
+            -C "$GITHUB_WORKSPACE" .lake/packages .lake/build
+
+      - name: Upload temporary local Lean environment
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-dev-env
+          path: lean-dev-env.tar.zst
+          compression-level: 0
 
       - name: Generate Lean root import manifest
         id: importaudit
