@@ -34,6 +34,7 @@ import RHLean.Analysis.NativePNTLogSums
 import RHLean.Analysis.NativePNTMertens
 import RHLean.Analysis.NativePNTSelberg
 import RHLean.Analysis.NativePNTSummatorySelberg
+import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
