@@ -501,8 +501,7 @@ private theorem nativePNTRecipSuccInterval_log_lower
   have hlo := log_add_one_le_harmonic (B + 1)
   have hup := harmonic_le_one_add_log A
   push_cast at hlo hup ⊢
-  have hlo' : Real.log ((B : ℝ) + 2) ≤ (harmonic (B + 1) : ℝ) := by
-    simpa [Nat.cast_add, Nat.cast_one, add_assoc] using hlo
+  norm_num at hlo
   linarith
 
 /-- On the dyadic span `[A, A*2^K]`, the reciprocal interval mass is at least
@@ -774,7 +773,7 @@ theorem nativePNTError_good_forward_interval
   · have hlow : -ε * ((A + h : ℕ) : ℝ) ≤ nativePNTError (A + h) := by
       push_cast
       nlinarith [hlowerStep, hsmall'.1]
-    exact hlow
+    simpa only [neg_mul] using hlow
   · rw [hupperRel]
     push_cast
     nlinarith [hsmall'.2, hpsi]
