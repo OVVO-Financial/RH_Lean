@@ -47,7 +47,7 @@ jobs:
 
       # Mathlib's oleans live in .lake/packages. Restore that directory before
       # lean-action runs, then save it immediately after setup rather than in a
-      # post-job hook.  The explicit save is crucial while a proof PR is red:
+      # post-job hook. The explicit save is crucial while a proof PR is red:
       # later Lean failures must not prevent the expensive dependency cache
       # from being populated for the next compiler iteration.
       - name: Restore Mathlib and dependency builds
@@ -56,6 +56,8 @@ jobs:
         with:
           path: .lake/packages
           key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+          restore-keys: |
+            lake-packages-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Set up Lean and Mathlib
         uses: leanprover/lean-action@v1
@@ -73,13 +75,17 @@ jobs:
           path: .lake/packages
           key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
+      # Content-addressed project build cache.
+      # Primary key includes a hash of all Lean sources so identical trees share oleans.
+      # Fallback keys still allow partial hits when only a few files changed.
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Generate Lean root import manifest
         id: importaudit
@@ -116,7 +122,7 @@ jobs:
         uses: actions/cache/save@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
 
       - name: Upload Lean build log
         if: ${{ always() && hashFiles('lean-build.log') != '' }}
