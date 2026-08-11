@@ -75,7 +75,7 @@ This is the prime-power analogue of the cofactor-first/prime-first reindexings
 used throughout the repository. -/
 theorem nativePsi_eq_sum_mul_log_prime (N : ℕ) :
     nativePsi N = ∑ p ∈ nativePrimeSet N, p.log N * Real.log p := by
-  unfold nativePsi nativePrimeSet
+  unfold nativePsi
   calc
     (∑ m ∈ Finset.Icc 1 N, Λ m) =
         ∑ m ∈ ((Finset.Icc 1 N).filter Nat.Prime).biUnion
@@ -83,24 +83,38 @@ theorem nativePsi_eq_sum_mul_log_prime (N : ℕ) :
       refine (Finset.sum_subset (fun q hq => ?_) (fun x hx => ?_)).symm
       · simp only [Finset.mem_biUnion, Finset.mem_filter, Finset.mem_Icc,
           Finset.mem_image] at hq ⊢
-        obtain ⟨p, _, k, ⟨_, hk⟩, rfl⟩ := hq
-        exact ⟨by grind, Nat.pow_le_of_le_log (by grind) hk⟩
+        obtain ⟨p, ⟨⟨hp1, _hpN⟩, hpPrime⟩, k, ⟨hk1, hklog⟩, rfl⟩ := hq
+        have hpowPos : 0 < p ^ k := pow_pos hpPrime.pos k
+        exact ⟨Nat.succ_le_iff.mpr hpowPos,
+          Nat.pow_le_of_le_log hpPrime.one_lt hklog⟩
       · simp only [Finset.mem_biUnion, Finset.mem_filter, Finset.mem_Icc,
           Finset.mem_image, not_exists, not_and, and_imp,
           ArithmeticFunction.vonMangoldt_eq_zero_iff, isPrimePow_nat_iff]
         contrapose!
         rintro ⟨p, k, hp, hk, rfl⟩
         simp only [Finset.mem_Icc] at hx
+        have hpowPos : 0 < p ^ k := pow_pos hp.pos k
         have hpn : p ≤ N :=
-          (Nat.le_of_dvd (by grind) (Nat.dvd_pow_self p hk.ne')).trans hx.2
+          (Nat.le_of_dvd hpowPos (dvd_pow_self p hk.ne')).trans hx.2
         exact ⟨p, ⟨hp.one_le, hpn, hp,
-          ⟨k, ⟨by grind, Nat.le_log_of_pow_le hp.one_lt hx.2, rfl⟩⟩⟩⟩
-    _ = ∑ p ∈ nativePrimeSet N,
+          ⟨k, ⟨Nat.succ_le_iff.mpr hk,
+            Nat.le_log_of_pow_le hp.one_lt hx.2, rfl⟩⟩⟩⟩
+    _ = ∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime,
         ∑ q ∈ Finset.image (fun k => p ^ k) (Finset.Icc 1 (p.log N)), Λ q := by
-      rw [Finset.sum_biUnion <| by
-        rw [Finset.pairwiseDisjoint_iff]
-        grind [Nat.Prime.pow_inj']]
-    _ = ∑ p ∈ nativePrimeSet N,
+      rw [Finset.sum_biUnion]
+      intro p hp q hq hpq
+      rw [Finset.disjoint_left]
+      intro z hzp hzq
+      simp only [Finset.mem_image, Finset.mem_Icc] at hzp hzq
+      obtain ⟨a, ha, hpa⟩ := hzp
+      obtain ⟨b, hb, hqb⟩ := hzq
+      have hpPrime : p.Prime := (Finset.mem_filter.mp hp).2
+      have hqPrime : q.Prime := (Finset.mem_filter.mp hq).2
+      have hpow : p ^ a = q ^ b := hpa.trans hqb.symm
+      have hmin := congrArg Nat.minFac hpow
+      rw [hpPrime.pow_minFac (by omega), hqPrime.pow_minFac (by omega)] at hmin
+      exact hpq hmin
+    _ = ∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime,
         ∑ k ∈ Finset.Icc 1 (p.log N), Λ (p ^ k) := by
       apply Finset.sum_congr rfl
       intro p hp
@@ -108,16 +122,19 @@ theorem nativePsi_eq_sum_mul_log_prime (N : ℕ) :
       intro a _ha b _hb hab
       have hpPrime : p.Prime := (Finset.mem_filter.mp hp).2
       exact Nat.pow_right_injective hpPrime.two_le hab
-    _ = ∑ p ∈ nativePrimeSet N,
+    _ = ∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime,
         ∑ _k ∈ Finset.Icc 1 (p.log N), Real.log p := by
       apply Finset.sum_congr rfl
       intro p hp
       apply Finset.sum_congr rfl
       intro k hk
       have hpPrime : p.Prime := (Finset.mem_filter.mp hp).2
-      rw [ArithmeticFunction.vonMangoldt_apply_pow (by grind),
+      have hkpos : 0 < k := by
+        exact Nat.zero_lt_of_lt (Finset.mem_Icc.mp hk).1
+      rw [ArithmeticFunction.vonMangoldt_apply_pow (Nat.ne_of_gt hkpos),
         ArithmeticFunction.vonMangoldt_apply_prime hpPrime]
     _ = ∑ p ∈ nativePrimeSet N, p.log N * Real.log p := by
+      unfold nativePrimeSet
       apply Finset.sum_congr rfl
       intro p _hp
       simp
