@@ -2,345 +2,145 @@ from pathlib import Path
 
 p = Path('RHLean/Analysis/NativePNTErdosContraction.lean')
 s = p.read_text()
-assert 'nativePNT_exists_small_error_dyadic' not in s
+assert 'nativePNTError_good_forward_interval' not in s
 marker = '\nend RHLean.Analysis\n'
 assert marker in s
 block = r'''
 
-/-! ## Erdos PNT1: a small point in a long multiplicative interval -/
+/-! ## Erdos PNT2: thicken a small point into a good interval -/
 
-/-- Exact one-step identity for the Chebyshev error. -/
-theorem nativePNTError_succ_eq (n : ℕ) :
-    nativePNTError (n + 1) - nativePNTError n = Λ (n + 1) - 1 := by
-  unfold nativePNTError
-  rw [nativePsi_succ]
-  push_cast
-  ring
-
-/-- Pointwise elementary bound `Lambda(n) <= log n` for positive integers. -/
-theorem nativeVonMangoldt_le_log (n : ℕ) (hn : 1 ≤ n) :
-    Λ n ≤ Real.log (n : ℝ) := by
-  have hn0 : n ≠ 0 := by omega
-  have hnmem : n ∈ n.divisors := Nat.mem_divisors.mpr ⟨dvd_rfl, hn0⟩
-  calc
-    Λ n ≤ ∑ d ∈ n.divisors, Λ d :=
-      Finset.single_le_sum
-        (fun d _hd => ArithmeticFunction.vonMangoldt_nonneg) hnmem
-    _ = Real.log (n : ℝ) := ArithmeticFunction.vonMangoldt_sum
-
-/-- A positive excursion cannot jump across zero in one step once its two
-endpoint margins exceed the unit downward slope. -/
-private theorem nativePNT_no_positive_to_negative
-    (n : ℕ) (ε : ℝ)
-    (hsize : 1 < ε * (2 * (n : ℝ) + 1))
-    (hpos : ε * (n : ℝ) ≤ nativePNTError n)
-    (hneg : nativePNTError (n + 1) ≤ -ε * ((n + 1 : ℕ) : ℝ)) : False := by
-  have hstep := nativePNTError_succ_eq n
-  have hLambda0 : 0 ≤ Λ (n + 1) := ArithmeticFunction.vonMangoldt_nonneg
-  have hlower : -1 ≤ nativePNTError (n + 1) - nativePNTError n := by
+/-- A convenient explicit local Chebyshev increment estimate extracted from
+the summatory Selberg formula.  The constants are deliberately coarse. -/
+theorem nativePsi_interval_mul_log_le_gap_tail
+    (a b : ℕ) (ha : 3 ≤ a) (hab : a ≤ b) (hb2 : b ≤ 2 * a) :
+    (nativePsi b - nativePsi a) * Real.log (a : ℝ) ≤
+      2 * ((b : ℝ) - (a : ℝ)) * Real.log (a : ℝ) + 550 * (a : ℝ) := by
+  have hlocal := nativePsi_interval_mul_log_le_explicit a b ha hab
+  have haR0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast (show 0 < a by omega)
+  have hbR0 : (0 : ℝ) < (b : ℝ) := by exact_mod_cast (show 0 < b by omega)
+  have hb2R : (b : ℝ) ≤ 2 * (a : ℝ) := by exact_mod_cast hb2
+  have hlog2 : Real.log (2 : ℝ) ≤ 1 := by
+    have h := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)
+    norm_num at h ⊢
+    exact h
+  have hlogb : Real.log (b : ℝ) ≤ Real.log (a : ℝ) + 1 := by
+    calc
+      Real.log (b : ℝ) ≤ Real.log (2 * (a : ℝ)) := by
+        apply Real.log_le_log
+        · exact hbR0
+        · exact hb2R
+      _ = Real.log 2 + Real.log (a : ℝ) := by
+        rw [Real.log_mul (by norm_num) (ne_of_gt haR0)]
+      _ ≤ Real.log (a : ℝ) + 1 := by linarith
+  have hmain1 :
+      2 * (b : ℝ) * Real.log (b : ℝ) ≤
+        2 * (b : ℝ) * (Real.log (a : ℝ) + 1) :=
+    mul_le_mul_of_nonneg_left hlogb (by positivity)
+  have hmain :
+      2 * (b : ℝ) * Real.log (b : ℝ) -
+          2 * (a : ℝ) * Real.log (a : ℝ) ≤
+        2 * ((b : ℝ) - (a : ℝ)) * Real.log (a : ℝ) + 4 * (a : ℝ) := by
+    nlinarith
+  have hlog4 : Real.log (4 : ℝ) ≤ 3 := by
+    have h := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)
+    norm_num at h ⊢
+    exact h
+  have hC : 2 * (Real.log 4 + 2) + 172 ≤ (182 : ℝ) := by
     linarith
-  push_cast at hneg
-  nlinarith
-
-/-- A negative excursion cannot jump across zero in one step once the local
-von Mangoldt jump is small compared with the two endpoint margins. -/
-private theorem nativePNT_no_negative_to_positive
-    (n : ℕ) (ε : ℝ)
-    (hn : 1 ≤ n)
-    (hsize : Real.log ((n + 1 : ℕ) : ℝ) - 1 < ε * (2 * (n : ℝ) + 1))
-    (hneg : nativePNTError n ≤ -ε * (n : ℝ))
-    (hpos : ε * ((n + 1 : ℕ) : ℝ) ≤ nativePNTError (n + 1)) : False := by
-  have hstep := nativePNTError_succ_eq n
-  have hLambda := nativeVonMangoldt_le_log (n + 1) (by omega)
-  have hupper :
-      nativePNTError (n + 1) - nativePNTError n ≤
-        Real.log ((n + 1 : ℕ) : ℝ) - 1 := by
+  have hab3 : (a : ℝ) + (b : ℝ) ≤ 3 * (a : ℝ) := by
     linarith
-  push_cast at hpos
-  nlinarith
-
-/-- If the normalized error stays outside an `ε`-tube and adjacent sign
-changes are quantitatively impossible, then the error has one sign throughout
-the integer interval. -/
-theorem nativePNTError_sign_constant_of_away
-    (A B : ℕ) (ε : ℝ)
-    (hA : 1 ≤ A) (hAB : A ≤ B) (hε : 0 < ε)
-    (hdown : ∀ n, A ≤ n → n < B →
-      1 < ε * (2 * (n : ℝ) + 1))
-    (hup : ∀ n, A ≤ n → n < B →
-      Real.log ((n + 1 : ℕ) : ℝ) - 1 < ε * (2 * (n : ℝ) + 1))
-    (haway : ∀ n ∈ Finset.Icc A B,
-      ε * (n : ℝ) ≤ |nativePNTError n|) :
-    (∀ n ∈ Finset.Icc A B, 0 ≤ nativePNTError n) ∨
-      (∀ n ∈ Finset.Icc A B, nativePNTError n ≤ 0) := by
-  by_cases hsign : 0 ≤ nativePNTError A
-  · left
-    intro n hn
-    rcases Finset.mem_Icc.mp hn with ⟨hAn, hnB⟩
-    have hprop : ∀ m, A ≤ m → m ≤ B → 0 ≤ nativePNTError m := by
-      intro m hAm
-      induction m, hAm using Nat.le_induction with
-      | base =>
-          intro _hAB
-          exact hsign
-      | succ m hAm ih =>
-          intro hmB
-          have hmBlt : m < B := by omega
-          have him : 0 ≤ nativePNTError m := ih (by omega)
-          have hmMem : m ∈ Finset.Icc A B := Finset.mem_Icc.mpr ⟨hAm, by omega⟩
-          have hsMem : m + 1 ∈ Finset.Icc A B :=
-            Finset.mem_Icc.mpr ⟨by omega, hmB⟩
-          have hmAway := haway m hmMem
-          have hsAway := haway (m + 1) hsMem
-          have hmLower : ε * (m : ℝ) ≤ nativePNTError m := by
-            rw [abs_of_nonneg him] at hmAway
-            exact hmAway
-          by_contra hnext
-          have hnextNeg : nativePNTError (m + 1) < 0 := lt_of_not_ge hnext
-          have hsUpper :
-              nativePNTError (m + 1) ≤ -ε * (((m + 1 : ℕ) : ℝ)) := by
-            rw [abs_of_nonpos hnextNeg.le] at hsAway
-            linarith
-          exact nativePNT_no_positive_to_negative m ε
-            (hdown m hAm hmBlt) hmLower hsUpper
-    exact hprop n hAn hnB
-  · right
-    have hsign' : nativePNTError A ≤ 0 := le_of_not_ge hsign
-    intro n hn
-    rcases Finset.mem_Icc.mp hn with ⟨hAn, hnB⟩
-    have hprop : ∀ m, A ≤ m → m ≤ B → nativePNTError m ≤ 0 := by
-      intro m hAm
-      induction m, hAm using Nat.le_induction with
-      | base =>
-          intro _hAB
-          exact hsign'
-      | succ m hAm ih =>
-          intro hmB
-          have hmBlt : m < B := by omega
-          have him : nativePNTError m ≤ 0 := ih (by omega)
-          have hmMem : m ∈ Finset.Icc A B := Finset.mem_Icc.mpr ⟨hAm, by omega⟩
-          have hsMem : m + 1 ∈ Finset.Icc A B :=
-            Finset.mem_Icc.mpr ⟨by omega, hmB⟩
-          have hmAway := haway m hmMem
-          have hsAway := haway (m + 1) hsMem
-          have hmUpper : nativePNTError m ≤ -ε * (m : ℝ) := by
-            rw [abs_of_nonpos him] at hmAway
-            linarith
-          by_contra hnext
-          have hnextPos : 0 < nativePNTError (m + 1) := lt_of_not_ge hnext
-          have hsLower :
-              ε * (((m + 1 : ℕ) : ℝ)) ≤ nativePNTError (m + 1) := by
-            rw [abs_of_nonneg hnextPos.le] at hsAway
-            exact hsAway
-          exact nativePNT_no_negative_to_positive m ε (by omega)
-            (hup m hAm hmBlt) hmUpper hsLower
-    exact hprop n hAn hnB
-
-/-- Reciprocal signed error mass on an arbitrary positive integer interval. -/
-def nativePNTWeightedErrorIntervalMass (A B : ℕ) : ℝ :=
-  ∑ n ∈ Finset.Icc A B,
-    nativePNTError n / ((n : ℝ) * (n + 1 : ℝ))
-
-private theorem nativePNTWeightedErrorIntervalMass_eq_prefix_sub
-    (A B : ℕ) (hA : 1 ≤ A) (hAB : A ≤ B) :
-    nativePNTWeightedErrorIntervalMass A B =
-      nativePNTWeightedErrorMass B - nativePNTWeightedErrorMass (A - 1) := by
-  let f : ℕ → ℝ := fun n =>
-    nativePNTError n / ((n : ℝ) * (n + 1 : ℝ))
-  have hsets :
-      Finset.Icc 1 B = Finset.Icc 1 (A - 1) ∪ Finset.Icc A B := by
-    ext n
-    simp only [Finset.mem_Icc, Finset.mem_union]
-    omega
-  have hdis : Disjoint (Finset.Icc 1 (A - 1)) (Finset.Icc A B) := by
-    refine Finset.disjoint_left.mpr ?_
-    intro n hn1 hn2
-    rw [Finset.mem_Icc] at hn1 hn2
-    omega
-  unfold nativePNTWeightedErrorIntervalMass nativePNTWeightedErrorMass
-  change (∑ n ∈ Finset.Icc A B, f n) =
-    (∑ n ∈ Finset.Icc 1 B, f n) - (∑ n ∈ Finset.Icc 1 (A - 1), f n)
-  rw [hsets, Finset.sum_union hdis]
-  ring
-
-private theorem nativePNTWeightedErrorIntervalMass_abs_le
-    (A B : ℕ) (hA : 1 ≤ A) (hAB : A ≤ B) :
-    |nativePNTWeightedErrorIntervalMass A B| ≤
-      2 * (2 * (Real.log 4 + 2) + Real.log 2 + 3) := by
-  rw [nativePNTWeightedErrorIntervalMass_eq_prefix_sub A B hA hAB]
-  calc
-    |nativePNTWeightedErrorMass B - nativePNTWeightedErrorMass (A - 1)| ≤
-        |nativePNTWeightedErrorMass B| +
-          |nativePNTWeightedErrorMass (A - 1)| := abs_sub _ _
-    _ ≤ (2 * (Real.log 4 + 2) + Real.log 2 + 3) +
-          (2 * (Real.log 4 + 2) + Real.log 2 + 3) :=
-      add_le_add (nativePNTWeightedErrorMass_abs_le B)
-        (nativePNTWeightedErrorMass_abs_le (A - 1))
-    _ = 2 * (2 * (Real.log 4 + 2) + Real.log 2 + 3) := by ring
-
-/-- Exact reciprocal sum on an integer interval. -/
-private theorem nativePNTRecipSuccInterval_eq_harmonic_sub
-    (A : ℕ) : ∀ B : ℕ, A ≤ B →
-    (∑ n ∈ Finset.Icc A B, 1 / (((n + 1 : ℕ) : ℝ))) =
-      (harmonic (B + 1) : ℝ) - (harmonic A : ℝ) := by
-  intro B hAB
-  induction B, hAB using Nat.le_induction with
-  | base =>
-      rw [Finset.Icc_self, Finset.sum_singleton, harmonic_succ]
-      push_cast
-      simp [div_eq_mul_inv]
-  | succ B hAB ih =>
-      rw [Finset.sum_Icc_succ_top (by omega : A ≤ B + 1), ih, harmonic_succ]
-      push_cast
-      ring
-
-/-- The reciprocal interval has the elementary logarithmic lower bound. -/
-private theorem nativePNTRecipSuccInterval_log_lower
-    (A B : ℕ) (hA : 1 ≤ A) (hAB : A ≤ B) :
-    Real.log ((B + 2 : ℕ) : ℝ) - Real.log (A : ℝ) - 1 ≤
-      ∑ n ∈ Finset.Icc A B, 1 / (((n + 1 : ℕ) : ℝ)) := by
-  rw [nativePNTRecipSuccInterval_eq_harmonic_sub A B hAB]
-  have hlo := log_add_one_le_harmonic (B + 1)
-  have hup := harmonic_le_one_add_log A
-  push_cast at hlo hup ⊢
+  have htail :
+      (2 * (Real.log 4 + 2) + 172) * ((a : ℝ) + (b : ℝ)) ≤
+        546 * (a : ℝ) := by
+    calc
+      (2 * (Real.log 4 + 2) + 172) * ((a : ℝ) + (b : ℝ)) ≤
+          182 * ((a : ℝ) + (b : ℝ)) :=
+        mul_le_mul_of_nonneg_right hC (by positivity)
+      _ ≤ 182 * (3 * (a : ℝ)) :=
+        mul_le_mul_of_nonneg_left hab3 (by norm_num)
+      _ = 546 * (a : ℝ) := by ring
   linarith
 
-/-- On the dyadic span `[A, A*2^K]`, the reciprocal interval mass is at least
-`K log 2 - 1`. -/
-private theorem nativePNTRecipSuccDyadic_lower
-    (A K : ℕ) (hA : 1 ≤ A) :
-    (K : ℝ) * Real.log 2 - 1 ≤
-      ∑ n ∈ Finset.Icc A (A * 2 ^ K),
-        1 / (((n + 1 : ℕ) : ℝ)) := by
-  have hpow1 : 1 ≤ 2 ^ K := one_le_pow₀ (by norm_num : 0 ≤ (2 : ℕ))
-  have hAB : A ≤ A * 2 ^ K := by
-    calc A = A * 1 := by omega
-      _ ≤ A * 2 ^ K := Nat.mul_le_mul_left A hpow1
-  have hlog := nativePNTRecipSuccInterval_log_lower A (A * 2 ^ K) hA hAB
+/-- Divided form of the local increment estimate. -/
+theorem nativePsi_interval_le_gap_tail
+    (a b : ℕ) (ha : 3 ≤ a) (hab : a ≤ b) (hb2 : b ≤ 2 * a)
+    (hlog : 1 ≤ Real.log (a : ℝ)) :
+    nativePsi b - nativePsi a ≤
+      2 * ((b : ℝ) - (a : ℝ)) + 550 * (a : ℝ) / Real.log (a : ℝ) := by
+  have hprod := nativePsi_interval_mul_log_le_gap_tail a b ha hab hb2
+  have hlogpos : 0 < Real.log (a : ℝ) := lt_of_lt_of_le zero_lt_one hlog
+  have heq :
+      2 * ((b : ℝ) - (a : ℝ)) + 550 * (a : ℝ) / Real.log (a : ℝ) =
+        (2 * ((b : ℝ) - (a : ℝ)) * Real.log (a : ℝ) + 550 * (a : ℝ)) /
+          Real.log (a : ℝ) := by
+    field_simp [ne_of_gt hlogpos]
+    ring
+  rw [heq, le_div_iff₀ hlogpos]
+  exact hprod
+
+/-- **Erdos PNT2 in forward-interval form.**  If one endpoint has normalized
+error at most `ε/4`, and the endpoint is large enough that the Selberg linear
+remainder is at most `ε/4`, then every forward displacement of relative size
+at most `ε/8` has normalized error at most `ε`. -/
+theorem nativePNTError_good_forward_interval
+    (A h : ℕ) (ε : ℝ)
+    (hA : 3 ≤ A) (hε : 0 < ε) (hε1 : ε ≤ 1)
+    (hlog : 1 ≤ Real.log (A : ℝ))
+    (htail : 2200 ≤ ε * Real.log (A : ℝ))
+    (hsmall : |nativePNTError A| ≤ ε * (A : ℝ) / 4)
+    (hh : (h : ℝ) ≤ ε * (A : ℝ) / 8) :
+    |nativePNTError (A + h)| ≤ ε * ((A + h : ℕ) : ℝ) := by
   have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast (show 0 < A by omega)
-  have hpowpos : (0 : ℝ) < ((2 ^ K : ℕ) : ℝ) := by positivity
-  have hBpos : (0 : ℝ) < ((A * 2 ^ K : ℕ) : ℝ) := by positivity
-  have hmono :
-      Real.log ((A * 2 ^ K : ℕ) : ℝ) ≤
-        Real.log ((A * 2 ^ K + 2 : ℕ) : ℝ) := by
-    apply Real.log_le_log
-    · exact hBpos
-    · exact_mod_cast (show A * 2 ^ K ≤ A * 2 ^ K + 2 by omega)
-  have hprod :
-      Real.log ((A * 2 ^ K : ℕ) : ℝ) =
-        Real.log (A : ℝ) + (K : ℝ) * Real.log 2 := by
-    rw [Nat.cast_mul, Nat.cast_pow]
-    rw [Real.log_mul (ne_of_gt hApos) (ne_of_gt hpowpos), Real.log_pow]
-  rw [hprod] at hmono
-  linarith
-
-private theorem nativePNTWeightedErrorIntervalMass_lower_of_nonneg
-    (A B : ℕ) (ε : ℝ) (hA : 1 ≤ A) (hAB : A ≤ B)
-    (hsign : ∀ n ∈ Finset.Icc A B, 0 ≤ nativePNTError n)
-    (haway : ∀ n ∈ Finset.Icc A B,
-      ε * (n : ℝ) ≤ |nativePNTError n|) :
-    ε * (∑ n ∈ Finset.Icc A B, 1 / (((n + 1 : ℕ) : ℝ))) ≤
-      nativePNTWeightedErrorIntervalMass A B := by
-  unfold nativePNTWeightedErrorIntervalMass
-  rw [Finset.mul_sum]
-  apply Finset.sum_le_sum
-  intro n hn
-  have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1.trans' hA
-  have hnpos : (0 : ℝ) < (n : ℝ) := by exact_mod_cast (show 0 < n by omega)
-  have hspos : (0 : ℝ) < (((n + 1 : ℕ) : ℝ)) := by positivity
-  have herr := haway n hn
-  rw [abs_of_nonneg (hsign n hn)] at herr
-  calc
-    ε * (1 / (((n + 1 : ℕ) : ℝ))) =
-        (ε * (n : ℝ)) / ((n : ℝ) * (((n + 1 : ℕ) : ℝ))) := by
-      field_simp [ne_of_gt hnpos, ne_of_gt hspos]
-      ring
-    _ ≤ nativePNTError n / ((n : ℝ) * (((n + 1 : ℕ) : ℝ))) :=
-      div_le_div_of_nonneg_right herr (mul_nonneg hnpos.le hspos.le)
-
-private theorem nativePNTWeightedErrorIntervalMass_neg_lower_of_nonpos
-    (A B : ℕ) (ε : ℝ) (hA : 1 ≤ A) (hAB : A ≤ B)
-    (hsign : ∀ n ∈ Finset.Icc A B, nativePNTError n ≤ 0)
-    (haway : ∀ n ∈ Finset.Icc A B,
-      ε * (n : ℝ) ≤ |nativePNTError n|) :
-    ε * (∑ n ∈ Finset.Icc A B, 1 / (((n + 1 : ℕ) : ℝ))) ≤
-      -nativePNTWeightedErrorIntervalMass A B := by
-  unfold nativePNTWeightedErrorIntervalMass
-  rw [Finset.mul_sum, ← Finset.sum_neg_distrib]
-  apply Finset.sum_le_sum
-  intro n hn
-  have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1.trans' hA
-  have hnpos : (0 : ℝ) < (n : ℝ) := by exact_mod_cast (show 0 < n by omega)
-  have hspos : (0 : ℝ) < (((n + 1 : ℕ) : ℝ)) := by positivity
-  have herr := haway n hn
-  rw [abs_of_nonpos (hsign n hn)] at herr
-  calc
-    ε * (1 / (((n + 1 : ℕ) : ℝ))) =
-        (ε * (n : ℝ)) / ((n : ℝ) * (((n + 1 : ℕ) : ℝ))) := by
-      field_simp [ne_of_gt hnpos, ne_of_gt hspos]
-      ring
-    _ ≤ (-nativePNTError n) / ((n : ℝ) * (((n + 1 : ℕ) : ℝ))) :=
-      div_le_div_of_nonneg_right herr (mul_nonneg hnpos.le hspos.le)
-    _ = -(nativePNTError n / ((n : ℝ) * (((n + 1 : ℕ) : ℝ)))) := by ring
-
-/-- **Erdos PNT1 in dyadic form.**  A sufficiently long dyadic span cannot
-stay uniformly outside an `ε`-tube once adjacent sign changes are excluded.
-The contradiction is exactly the bounded signed reciprocal error mass. -/
-theorem nativePNT_exists_small_error_dyadic
-    (A K : ℕ) (ε : ℝ)
-    (hA : 1 ≤ A) (hε : 0 < ε)
-    (hdown : ∀ n, A ≤ n → n < A * 2 ^ K →
-      1 < ε * (2 * (n : ℝ) + 1))
-    (hup : ∀ n, A ≤ n → n < A * 2 ^ K →
-      Real.log ((n + 1 : ℕ) : ℝ) - 1 < ε * (2 * (n : ℝ) + 1))
-    (hdepth :
-      2 * (2 * (Real.log 4 + 2) + Real.log 2 + 3) <
-        ε * ((K : ℝ) * Real.log 2 - 1)) :
-    ∃ n ∈ Finset.Icc A (A * 2 ^ K),
-      |nativePNTError n| < ε * (n : ℝ) := by
-  have hpow1 : 1 ≤ 2 ^ K := one_le_pow₀ (by norm_num : 0 ≤ (2 : ℕ))
-  have hAB : A ≤ A * 2 ^ K := by
-    calc A = A * 1 := by omega
-      _ ≤ A * 2 ^ K := Nat.mul_le_mul_left A hpow1
-  by_contra hno
-  push_neg at hno
-  have haway : ∀ n ∈ Finset.Icc A (A * 2 ^ K),
-      ε * (n : ℝ) ≤ |nativePNTError n| := by
-    intro n hn
-    exact le_of_not_gt (hno n hn)
-  have hsign := nativePNTError_sign_constant_of_away
-    A (A * 2 ^ K) ε hA hAB hε hdown hup haway
-  have hrecip := nativePNTRecipSuccDyadic_lower A K hA
-  have hupper := nativePNTWeightedErrorIntervalMass_abs_le
-    A (A * 2 ^ K) hA hAB
-  have hscale :
-      ε * ((K : ℝ) * Real.log 2 - 1) ≤
-        ε * (∑ n ∈ Finset.Icc A (A * 2 ^ K),
-          1 / (((n + 1 : ℕ) : ℝ))) :=
-    mul_le_mul_of_nonneg_left hrecip hε.le
-  rcases hsign with hpos | hneg
-  · have hlower := nativePNTWeightedErrorIntervalMass_lower_of_nonneg
-      A (A * 2 ^ K) ε hA hAB hpos haway
-    have hmass0 : 0 ≤ nativePNTWeightedErrorIntervalMass A (A * 2 ^ K) := by
-      unfold nativePNTWeightedErrorIntervalMass
-      apply Finset.sum_nonneg
-      intro n hn
-      have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1.trans' hA
-      exact div_nonneg (hpos n hn)
-        (mul_nonneg (by exact_mod_cast hn1) (by positivity))
-    rw [abs_of_nonneg hmass0] at hupper
-    linarith
-  · have hlower := nativePNTWeightedErrorIntervalMass_neg_lower_of_nonpos
-      A (A * 2 ^ K) ε hA hAB hneg haway
-    have hmass0 : nativePNTWeightedErrorIntervalMass A (A * 2 ^ K) ≤ 0 := by
-      unfold nativePNTWeightedErrorIntervalMass
-      apply Finset.sum_nonpos
-      intro n hn
-      have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1.trans' hA
-      exact div_nonpos_of_nonpos_of_nonneg (hneg n hn)
-        (mul_nonneg (by exact_mod_cast hn1) (by positivity))
-    rw [abs_of_nonpos hmass0] at hupper
-    linarith
+  have hlogpos : 0 < Real.log (A : ℝ) := lt_of_lt_of_le zero_lt_one hlog
+  have hε0 : 0 ≤ ε := hε.le
+  have hh0 : (0 : ℝ) ≤ (h : ℝ) := by positivity
+  have hhAreal : (h : ℝ) ≤ (A : ℝ) := by
+    calc
+      (h : ℝ) ≤ ε * (A : ℝ) / 8 := hh
+      _ ≤ (A : ℝ) / 8 := by
+        exact div_le_div_of_nonneg_right
+          (mul_le_mul_of_nonneg_right hε1 (by positivity)) (by norm_num)
+      _ ≤ (A : ℝ) := by nlinarith
+  have hhA : h ≤ A := by exact_mod_cast hhAreal
+  have hAB : A ≤ A + h := by omega
+  have hB2 : A + h ≤ 2 * A := by omega
+  have hinc := nativePsi_interval_le_gap_tail A (A + h) hA hAB hB2 hlog
+  have htailTerm :
+      550 * (A : ℝ) / Real.log (A : ℝ) ≤ ε * (A : ℝ) / 4 := by
+    rw [div_le_iff₀ hlogpos]
+    have hmul := mul_le_mul_of_nonneg_right htail (show 0 ≤ (A : ℝ) / 4 by positivity)
+    nlinarith
+  have hgap :
+      2 * (((A + h : ℕ) : ℝ) - (A : ℝ)) ≤ ε * (A : ℝ) / 4 := by
+    push_cast
+    nlinarith
+  have hpsi :
+      nativePsi (A + h) - nativePsi A ≤ ε * (A : ℝ) / 2 := by
+    calc
+      nativePsi (A + h) - nativePsi A ≤
+          2 * (((A + h : ℕ) : ℝ) - (A : ℝ)) +
+            550 * (A : ℝ) / Real.log (A : ℝ) := hinc
+      _ ≤ ε * (A : ℝ) / 4 + ε * (A : ℝ) / 4 :=
+        add_le_add hgap htailTerm
+      _ = ε * (A : ℝ) / 2 := by ring
+  have hsmall' := hsmall
+  rw [abs_le] at hsmall'
+  have hlowerStep := nativePNTError_forward_lower A h
+  have hupperRel :
+      nativePNTError (A + h) =
+        nativePNTError A + (nativePsi (A + h) - nativePsi A) - (h : ℝ) := by
+    unfold nativePNTError
+    push_cast
+    ring
+  rw [abs_le]
+  constructor
+  · have : -ε * ((A + h : ℕ) : ℝ) ≤ nativePNTError (A + h) := by
+      push_cast
+      nlinarith [hlowerStep, hsmall'.1]
+    exact this
+  · rw [hupperRel]
+    push_cast
+    nlinarith [hsmall'.2, hpsi]
 '''
 s = s.replace(marker, block + marker, 1)
 p.write_text(s)
