@@ -126,6 +126,8 @@ import RHLean.Arithmetic.PrimeThreeActivation
 import RHLean.Arithmetic.PrimeWheelFiniteSystem
 import RHLean.Arithmetic.PrimeWheelMobiusDensity
 import RHLean.Arithmetic.PrimeWheelMobiusRecovery
+import RHLean.Arithmetic.PrimeWheelPartialError
+import RHLean.Arithmetic.PrimeWheelPartialErrorThreshold
 import RHLean.Arithmetic.PrimesUpToFrontier
 import RHLean.Arithmetic.PrimorialWheelCancellation
 import RHLean.Arithmetic.PrimorialWheelMinimalTorus
