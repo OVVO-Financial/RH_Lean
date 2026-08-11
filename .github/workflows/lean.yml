@@ -16,6 +16,9 @@ on:
       - 'lake-manifest.json'             # dependency/Mathlib bumps
       - '.github/workflows/lean.yml'     # changes to this audit workflow
   workflow_dispatch:
+  # Optional periodic warm-up (uncomment if you want a daily cache refresh)
+  # schedule:
+  #   - cron: '0 6 * * *'   # 06:00 UTC daily
 
 permissions:
   contents: read
@@ -45,18 +48,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # Mathlib's oleans live in .lake/packages, which nothing cached: every
-      # run re-downloaded all of Mathlib via `lake exe cache get`, which was
-      # ~7.5 of the ~8.5 minute build.  The key changes only on a toolchain or
-      # dependency bump, so this restores on every ordinary run and pays the
-      # multi-gigabyte upload only when Mathlib actually moves.  Dependency
-      # build artifacts live under .lake/packages/<dep>/.lake/build too, so
-      # this also stops `lake exe mk_all` rebuilding importGraph each time.
+      # Mathlib oleans live in .lake/packages.
+      # Key changes only on toolchain or dependency bumps → restored on almost every run.
       - name: Cache Mathlib and dependency builds
         uses: actions/cache@v4
         with:
           path: .lake/packages
           key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+          restore-keys: |
+            lake-packages-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Set up Lean and Mathlib
         uses: leanprover/lean-action@v1
@@ -67,13 +67,17 @@ jobs:
           test: false
           lint: false
 
+      # Content-addressed project build cache.
+      # Primary key includes a hash of all Lean sources so identical trees share oleans.
+      # Fallback keys still allow partial hits when only a few files changed.
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Generate Lean root import manifest
         id: importaudit
@@ -110,7 +114,7 @@ jobs:
         uses: actions/cache/save@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
 
       - name: Upload Lean build log
         if: ${{ always() && hashFiles('lean-build.log') != '' }}
