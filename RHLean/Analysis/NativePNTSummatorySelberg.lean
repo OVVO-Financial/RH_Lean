@@ -776,7 +776,7 @@ private theorem nativeLambdaTwoSummatory_eq_main_add_remainder (N : ℕ) :
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro d _hd
-  ring
+  ring_nf
 
 private theorem nativeMobiusLogSquareMainMass_eq
     (N : ℕ) (hN : 1 ≤ N) :
