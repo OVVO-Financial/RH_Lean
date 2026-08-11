@@ -487,14 +487,14 @@ private theorem nativePNTRecipSuccInterval_eq_harmonic_sub
       push_cast
       simp [div_eq_mul_inv]
   | succ B hAB ih =>
-      rw [Finset.sum_Icc_succ_top (by omega : A ≤ B + 1), ih,
-        harmonic_succ, harmonic_succ]
+      rw [Finset.sum_Icc_succ_top (by omega : A ≤ B + 1), ih]
+      rw [show B + 2 = (B + 1) + 1 by omega, harmonic_succ (B + 1)]
       push_cast
       ring
 
 /-- The reciprocal interval has the elementary logarithmic lower bound. -/
 private theorem nativePNTRecipSuccInterval_log_lower
-    (A B : ℕ) (hA : 1 ≤ A) (hAB : A ≤ B) :
+    (A B : ℕ) (_hA : 1 ≤ A) (hAB : A ≤ B) :
     Real.log ((B + 2 : ℕ) : ℝ) - Real.log (A : ℝ) - 1 ≤
       ∑ n ∈ Finset.Icc A B, 1 / (((n + 1 : ℕ) : ℝ)) := by
   rw [nativePNTRecipSuccInterval_eq_harmonic_sub A B hAB]
@@ -502,7 +502,7 @@ private theorem nativePNTRecipSuccInterval_log_lower
   have hup := harmonic_le_one_add_log A
   push_cast at hlo hup ⊢
   have hlo' : Real.log ((B : ℝ) + 2) ≤ (harmonic (B + 1) : ℝ) := by
-    convert hlo using 1 <;> ring
+    simpa [Nat.cast_add, Nat.cast_one, add_assoc] using hlo
   linarith
 
 /-- On the dyadic span `[A, A*2^K]`, the reciprocal interval mass is at least
@@ -531,11 +531,12 @@ private theorem nativePNTRecipSuccDyadic_lower
         Real.log (A : ℝ) + (K : ℝ) * Real.log 2 := by
     rw [Nat.cast_mul, Nat.cast_pow]
     rw [Real.log_mul (ne_of_gt hApos) (by positivity), Real.log_pow]
+    norm_num
   rw [hprod] at hmono
   linarith
 
 private theorem nativePNTWeightedErrorIntervalMass_lower_of_nonneg
-    (A B : ℕ) (ε : ℝ) (hA : 1 ≤ A) (hAB : A ≤ B)
+    (A B : ℕ) (ε : ℝ) (hA : 1 ≤ A) (_hAB : A ≤ B)
     (hsign : ∀ n ∈ Finset.Icc A B, 0 ≤ nativePNTError n)
     (haway : ∀ n ∈ Finset.Icc A B,
       ε * (n : ℝ) ≤ |nativePNTError n|) :
@@ -559,7 +560,7 @@ private theorem nativePNTWeightedErrorIntervalMass_lower_of_nonneg
       div_le_div_of_nonneg_right herr (mul_nonneg hnpos.le hspos.le)
 
 private theorem nativePNTWeightedErrorIntervalMass_neg_lower_of_nonpos
-    (A B : ℕ) (ε : ℝ) (hA : 1 ≤ A) (hAB : A ≤ B)
+    (A B : ℕ) (ε : ℝ) (hA : 1 ≤ A) (_hAB : A ≤ B)
     (hsign : ∀ n ∈ Finset.Icc A B, nativePNTError n ≤ 0)
     (haway : ∀ n ∈ Finset.Icc A B,
       ε * (n : ℝ) ≤ |nativePNTError n|) :
@@ -773,7 +774,7 @@ theorem nativePNTError_good_forward_interval
   · have hlow : -ε * ((A + h : ℕ) : ℝ) ≤ nativePNTError (A + h) := by
       push_cast
       nlinarith [hlowerStep, hsmall'.1]
-    convert hlow using 1 <;> ring
+    exact hlow
   · rw [hupperRel]
     push_cast
     nlinarith [hsmall'.2, hpsi]
