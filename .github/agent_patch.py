@@ -2,145 +2,108 @@ from pathlib import Path
 
 p = Path('RHLean/Analysis/NativePNTErdosContraction.lean')
 s = p.read_text()
-assert 'nativePNTError_good_forward_interval' not in s
+assert 'nativeLambdaTwoRecipMass' not in s
 marker = '\nend RHLean.Analysis\n'
 assert marker in s
 block = r'''
 
-/-! ## Erdos PNT2: thicken a small point into a good interval -/
+/-! ## Erdos PNT3: reciprocal mass of the second Selberg kernel -/
 
-/-- A convenient explicit local Chebyshev increment estimate extracted from
-the summatory Selberg formula.  The constants are deliberately coarse. -/
-theorem nativePsi_interval_mul_log_le_gap_tail
-    (a b : ℕ) (ha : 3 ≤ a) (hab : a ≤ b) (hb2 : b ≤ 2 * a) :
-    (nativePsi b - nativePsi a) * Real.log (a : ℝ) ≤
-      2 * ((b : ℝ) - (a : ℝ)) * Real.log (a : ℝ) + 550 * (a : ℝ) := by
-  have hlocal := nativePsi_interval_mul_log_le_explicit a b ha hab
-  have haR0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast (show 0 < a by omega)
-  have hbR0 : (0 : ℝ) < (b : ℝ) := by exact_mod_cast (show 0 < b by omega)
-  have hb2R : (b : ℝ) ≤ 2 * (a : ℝ) := by exact_mod_cast hb2
-  have hlog2 : Real.log (2 : ℝ) ≤ 1 := by
-    have h := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)
-    norm_num at h ⊢
-    exact h
-  have hlogb : Real.log (b : ℝ) ≤ Real.log (a : ℝ) + 1 := by
-    calc
-      Real.log (b : ℝ) ≤ Real.log (2 * (a : ℝ)) := by
-        apply Real.log_le_log
-        · exact hbR0
-        · exact hb2R
-      _ = Real.log 2 + Real.log (a : ℝ) := by
-        rw [Real.log_mul (by norm_num) (ne_of_gt haR0)]
-      _ ≤ Real.log (a : ℝ) + 1 := by linarith
-  have hmain1 :
-      2 * (b : ℝ) * Real.log (b : ℝ) ≤
-        2 * (b : ℝ) * (Real.log (a : ℝ) + 1) :=
-    mul_le_mul_of_nonneg_left hlogb (by positivity)
-  have hmain :
-      2 * (b : ℝ) * Real.log (b : ℝ) -
-          2 * (a : ℝ) * Real.log (a : ℝ) ≤
-        2 * ((b : ℝ) - (a : ℝ)) * Real.log (a : ℝ) + 4 * (a : ℝ) := by
-    nlinarith
-  have hlog4 : Real.log (4 : ℝ) ≤ 3 := by
-    have h := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)
-    norm_num at h ⊢
-    exact h
-  have hC : 2 * (Real.log 4 + 2) + 172 ≤ (182 : ℝ) := by
-    linarith
-  have hab3 : (a : ℝ) + (b : ℝ) ≤ 3 * (a : ℝ) := by
-    linarith
-  have htail :
-      (2 * (Real.log 4 + 2) + 172) * ((a : ℝ) + (b : ℝ)) ≤
-        546 * (a : ℝ) := by
-    calc
-      (2 * (Real.log 4 + 2) + 172) * ((a : ℝ) + (b : ℝ)) ≤
-          182 * ((a : ℝ) + (b : ℝ)) :=
-        mul_le_mul_of_nonneg_right hC (by positivity)
-      _ ≤ 182 * (3 * (a : ℝ)) :=
-        mul_le_mul_of_nonneg_left hab3 (by norm_num)
-      _ = 546 * (a : ℝ) := by ring
-  linarith
+/-- Reciprocal mass of the nonnegative second von Mangoldt kernel. -/
+def nativeLambdaTwoRecipMass (N : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 N, nativeLambdaTwo n / (n : ℝ)
 
-/-- Divided form of the local increment estimate. -/
-theorem nativePsi_interval_le_gap_tail
-    (a b : ℕ) (ha : 3 ≤ a) (hab : a ≤ b) (hb2 : b ≤ 2 * a)
-    (hlog : 1 ≤ Real.log (a : ℝ)) :
-    nativePsi b - nativePsi a ≤
-      2 * ((b : ℝ) - (a : ℝ)) + 550 * (a : ℝ) / Real.log (a : ℝ) := by
-  have hprod := nativePsi_interval_mul_log_le_gap_tail a b ha hab hb2
-  have hlogpos : 0 < Real.log (a : ℝ) := lt_of_lt_of_le zero_lt_one hlog
-  have heq :
-      2 * ((b : ℝ) - (a : ℝ)) + 550 * (a : ℝ) / Real.log (a : ℝ) =
-        (2 * ((b : ℝ) - (a : ℝ)) * Real.log (a : ℝ) + 550 * (a : ℝ)) /
-          Real.log (a : ℝ) := by
-    field_simp [ne_of_gt hlogpos]
-    ring
-  rw [heq, le_div_iff₀ hlogpos]
-  exact hprod
+/-- Reciprocal `Lambda_2` mass on the interval `(A,B]`. -/
+def nativeLambdaTwoRecipIntervalMass (A B : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc (A + 1) B, nativeLambdaTwo n / (n : ℝ)
 
-/-- **Erdos PNT2 in forward-interval form.**  If one endpoint has normalized
-error at most `ε/4`, and the endpoint is large enough that the Selberg linear
-remainder is at most `ε/4`, then every forward displacement of relative size
-at most `ε/8` has normalized error at most `ε`. -/
-theorem nativePNTError_good_forward_interval
-    (A h : ℕ) (ε : ℝ)
-    (hA : 3 ≤ A) (hε : 0 < ε) (hε1 : ε ≤ 1)
-    (hlog : 1 ≤ Real.log (A : ℝ))
-    (htail : 2200 ≤ ε * Real.log (A : ℝ))
-    (hsmall : |nativePNTError A| ≤ ε * (A : ℝ) / 4)
-    (hh : (h : ℝ) ≤ ε * (A : ℝ) / 8) :
-    |nativePNTError (A + h)| ≤ ε * ((A + h : ℕ) : ℝ) := by
-  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast (show 0 < A by omega)
-  have hlogpos : 0 < Real.log (A : ℝ) := lt_of_lt_of_le zero_lt_one hlog
-  have hε0 : 0 ≤ ε := hε.le
-  have hh0 : (0 : ℝ) ≤ (h : ℝ) := by positivity
-  have hhAreal : (h : ℝ) ≤ (A : ℝ) := by
-    calc
-      (h : ℝ) ≤ ε * (A : ℝ) / 8 := hh
-      _ ≤ (A : ℝ) / 8 := by
-        exact div_le_div_of_nonneg_right
-          (mul_le_mul_of_nonneg_right hε1 (by positivity)) (by norm_num)
-      _ ≤ (A : ℝ) := by nlinarith
-  have hhA : h ≤ A := by exact_mod_cast hhAreal
-  have hAB : A ≤ A + h := by omega
-  have hB2 : A + h ≤ 2 * A := by omega
-  have hinc := nativePsi_interval_le_gap_tail A (A + h) hA hAB hB2 hlog
-  have htailTerm :
-      550 * (A : ℝ) / Real.log (A : ℝ) ≤ ε * (A : ℝ) / 4 := by
-    rw [div_le_iff₀ hlogpos]
-    have hmul := mul_le_mul_of_nonneg_right htail (show 0 ≤ (A : ℝ) / 4 by positivity)
-    nlinarith
-  have hgap :
-      2 * (((A + h : ℕ) : ℝ) - (A : ℝ)) ≤ ε * (A : ℝ) / 4 := by
-    push_cast
-    nlinarith
-  have hpsi :
-      nativePsi (A + h) - nativePsi A ≤ ε * (A : ℝ) / 2 := by
-    calc
-      nativePsi (A + h) - nativePsi A ≤
-          2 * (((A + h : ℕ) : ℝ) - (A : ℝ)) +
-            550 * (A : ℝ) / Real.log (A : ℝ) := hinc
-      _ ≤ ε * (A : ℝ) / 4 + ε * (A : ℝ) / 4 :=
-        add_le_add hgap htailTerm
-      _ = ε * (A : ℝ) / 2 := by ring
-  have hsmall' := hsmall
-  rw [abs_le] at hsmall'
-  have hlowerStep := nativePNTError_forward_lower A h
-  have hupperRel :
-      nativePNTError (A + h) =
-        nativePNTError A + (nativePsi (A + h) - nativePsi A) - (h : ℝ) := by
-    unfold nativePNTError
-    push_cast
-    ring
-  rw [abs_le]
-  constructor
-  · have : -ε * ((A + h : ℕ) : ℝ) ≤ nativePNTError (A + h) := by
-      push_cast
-      nlinarith [hlowerStep, hsmall'.1]
-    exact this
-  · rw [hupperRel]
-    push_cast
-    nlinarith [hsmall'.2, hpsi]
+/-- Exact Abel summation formula for the reciprocal `Lambda_2` mass. -/
+theorem nativeLambdaTwoRecipMass_abel (N : ℕ) :
+    nativeLambdaTwoRecipMass N =
+      nativeLambdaTwoSummatory N / (N : ℝ) +
+        ∑ n ∈ Finset.Ico 1 N,
+          nativeLambdaTwoSummatory n *
+            (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ))) := by
+  have h := nativeAbelIccOne nativeLambdaTwo
+    (fun n : ℕ => 1 / (n : ℝ)) N
+  unfold nativeLambdaTwoRecipMass nativeLambdaTwoSummatory
+  simpa [div_eq_mul_inv] using h
+
+/-- The reciprocal second-kernel mass is nonnegative. -/
+theorem nativeLambdaTwoRecipMass_nonneg (N : ℕ) :
+    0 ≤ nativeLambdaTwoRecipMass N := by
+  unfold nativeLambdaTwoRecipMass
+  apply Finset.sum_nonneg
+  intro n hn
+  have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
+  exact div_nonneg (nativeLambdaTwo_nonneg n hn1) (by positivity)
+
+/-- The difference of two summatory `Lambda_2` values is exactly the kernel
+mass on the intervening integer interval. -/
+theorem nativeLambdaTwoSummatory_sub_eq_interval
+    (A B : ℕ) (hAB : A ≤ B) :
+    nativeLambdaTwoSummatory B - nativeLambdaTwoSummatory A =
+      ∑ n ∈ Finset.Icc (A + 1) B, nativeLambdaTwo n := by
+  have hsub : Finset.Icc 1 A ⊆ Finset.Icc 1 B := by
+    intro n hn
+    rcases Finset.mem_Icc.mp hn with ⟨hn1, hnA⟩
+    exact Finset.mem_Icc.mpr ⟨hn1, hnA.trans hAB⟩
+  have hset :
+      Finset.Icc 1 B \ Finset.Icc 1 A = Finset.Icc (A + 1) B := by
+    ext n
+    simp only [Finset.mem_sdiff, Finset.mem_Icc]
+    omega
+  unfold nativeLambdaTwoSummatory
+  rw [← Finset.sum_sdiff hsub, hset]
+  ring
+
+/-- Positivity converts summatory `Lambda_2` mass into reciprocal mass: on
+`(A,B]`, every reciprocal is at least `1/B`. -/
+theorem nativeLambdaTwoRecipIntervalMass_lower
+    (A B : ℕ) (hA : 1 ≤ A) (hAB : A ≤ B) :
+    (nativeLambdaTwoSummatory B - nativeLambdaTwoSummatory A) / (B : ℝ) ≤
+      nativeLambdaTwoRecipIntervalMass A B := by
+  have hBpos : (0 : ℝ) < (B : ℝ) := by
+    exact_mod_cast (show 0 < B by omega)
+  rw [nativeLambdaTwoSummatory_sub_eq_interval A B hAB]
+  unfold nativeLambdaTwoRecipIntervalMass
+  rw [← Finset.sum_div]
+  apply Finset.sum_le_sum
+  intro n hn
+  have hnI := Finset.mem_Icc.mp hn
+  have hnpos : (0 : ℝ) < (n : ℝ) := by
+    exact_mod_cast (show 0 < n by omega)
+  have hnB : (n : ℝ) ≤ (B : ℝ) := by exact_mod_cast hnI.2
+  have hLambda : 0 ≤ nativeLambdaTwo n :=
+    nativeLambdaTwo_nonneg n (by omega)
+  rw [div_le_div_iff₀ hBpos hnpos]
+  exact mul_le_mul_of_nonneg_left hnB hLambda
+
+/-- Explicit lower main term for `Lambda_2` mass on `(A,B]`. -/
+theorem nativeLambdaTwoSummatory_interval_main_lower
+    (A B : ℕ) (hA : 3 ≤ A) (hAB : A ≤ B) :
+    2 * (B : ℝ) * Real.log (B : ℝ) -
+        2 * (A : ℝ) * Real.log (A : ℝ) -
+        (2 * (Real.log 4 + 2) + 172) * ((A : ℝ) + (B : ℝ)) ≤
+      nativeLambdaTwoSummatory B - nativeLambdaTwoSummatory A := by
+  have hASel := nativeLambdaTwoSummatory_sub_two_mul_log_abs_le A hA
+  have hBSel := nativeLambdaTwoSummatory_sub_two_mul_log_abs_le B (hA.trans hAB)
+  rw [abs_le] at hASel hBSel
+  nlinarith [hASel.2, hBSel.1]
+
+/-- The Selberg main term therefore gives an explicit reciprocal `Lambda_2`
+mass on every positive block.  This is the coefficient lower bound used by
+the cubic deficit. -/
+theorem nativeLambdaTwoRecipIntervalMass_main_lower
+    (A B : ℕ) (hA : 3 ≤ A) (hAB : A ≤ B) :
+    (2 * (B : ℝ) * Real.log (B : ℝ) -
+        2 * (A : ℝ) * Real.log (A : ℝ) -
+        (2 * (Real.log 4 + 2) + 172) * ((A : ℝ) + (B : ℝ))) / (B : ℝ) ≤
+      nativeLambdaTwoRecipIntervalMass A B := by
+  have hB0 : 0 ≤ (B : ℝ) := by positivity
+  have hmain := nativeLambdaTwoSummatory_interval_main_lower A B hA hAB
+  have hdiv := div_le_div_of_nonneg_right hmain hB0
+  exact hdiv.trans (nativeLambdaTwoRecipIntervalMass_lower A B (by omega) hAB)
 '''
 s = s.replace(marker, block + marker, 1)
 p.write_text(s)
