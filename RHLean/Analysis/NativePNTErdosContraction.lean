@@ -32,7 +32,7 @@ on which the absolute error stays at least `H / 2`.  These are the native
 noncomputable section
 
 open Filter Set
-open scoped Topology
+open scoped ArithmeticFunction.vonMangoldt BigOperators Topology
 
 namespace RHLean.Analysis
 
@@ -92,6 +92,51 @@ theorem tendsto_zero_of_cubic_recurrence
   have hL : L = 0 := by
     exact pow_eq_zero hcube
   simpa [hL] using hconv
+
+/-! ## Signed Selberg recurrence and linear control -/
+
+/-- The summatory Selberg estimate also retains its signed form.  This is the
+version that can be iterated once more: the endpoint error plus its
+von-Mangoldt transform is `O(N)`, with the same explicit constant as the first
+absolute recurrence. -/
+theorem nativePNTError_signed_log_sum_abs_le
+    (N : ℕ) (hN : 3 ≤ N) :
+    |nativePNTError N * Real.log N +
+      ∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)| ≤
+      (3 * (Real.log 4 + 2) + 173) * (N : ℝ) := by
+  have hsel := nativeSelbergPair_sub_two_mul_log_abs_le N hN
+  have hfac := nativeLogFactorial_sub_Nlog_abs_le N (by omega)
+  have hdecomp := nativePNTError_selberg_decomposition N
+  have heq :
+      nativePNTError N * Real.log N +
+          (∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) =
+        (nativeSelbergPair N - 2 * (N : ℝ) * Real.log N) -
+          (Real.log ((Nat.factorial N : ℕ) : ℝ) -
+            (N : ℝ) * Real.log N) := by
+    linarith [hdecomp]
+  rw [heq]
+  calc
+    |(nativeSelbergPair N - 2 * (N : ℝ) * Real.log N) -
+        (Real.log ((Nat.factorial N : ℕ) : ℝ) -
+          (N : ℝ) * Real.log N)| ≤
+        |nativeSelbergPair N - 2 * (N : ℝ) * Real.log N| +
+          |Real.log ((Nat.factorial N : ℕ) : ℝ) -
+            (N : ℝ) * Real.log N| := abs_sub _ _
+    _ ≤ (3 * (Real.log 4 + 2) + 172) * (N : ℝ) + (N : ℝ) :=
+      add_le_add hsel hfac
+    _ = (3 * (Real.log 4 + 2) + 173) * (N : ℝ) := by ring
+
+/-- A global linear bound for the native PNT error.  It uses only the
+architecture-native Chebyshev upper bound and nonnegativity of `psi`. -/
+theorem nativePNTError_abs_le_const_mul (N : ℕ) :
+    |nativePNTError N| ≤ (Real.log 4 + 3) * (N : ℝ) := by
+  have hpsi0 := nativePsi_nonneg N
+  have hpsi := nativePsi_le_const_mul N
+  have hN0 : (0 : ℝ) ≤ (N : ℝ) := by positivity
+  have hlog4 : 0 ≤ Real.log 4 := Real.log_nonneg (by norm_num)
+  unfold nativePNTError
+  rw [abs_le]
+  constructor <;> nlinarith
 
 /-! ## Prime-specific one-sided excursions -/
 
