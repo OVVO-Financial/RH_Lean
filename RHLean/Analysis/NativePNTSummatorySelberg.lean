@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.NativePNTSelberg
+import RHLean.Analysis.NativePNTLogSums
 
 /-!
 # Summatory Selberg interface
@@ -18,7 +18,7 @@ No asymptotic prime-distribution theorem is used here.
 noncomputable section
 
 open Finset Nat
-open scoped ArithmeticFunction.vonMangoldt BigOperators
+open scoped ArithmeticFunction.Moebius ArithmeticFunction.vonMangoldt BigOperators
 
 namespace RHLean.Analysis
 
@@ -87,7 +87,6 @@ theorem nativeLambdaConvolutionMass_eq_reciprocalPsi (N : ℕ) :
       intro d hd
       rw [Finset.mul_sum]
       have hdpos : 0 < d := (Finset.mem_Icc.mp hd).1
-      have hdne : d ≠ 0 := Nat.ne_of_gt hdpos
       have hmap :
           (Finset.Icc 1 N).filter (fun x => d ∣ x) =
             (Finset.Icc 1 (N / d)).image (fun m => d * m) := by
@@ -115,6 +114,89 @@ theorem nativeLambdaConvolutionMass_eq_reciprocalPsi (N : ℕ) :
       · intro a _ha b _hb hab
         exact Nat.eq_of_mul_eq_mul_left hdpos hab
     _ = ∑ d ∈ Finset.Icc 1 N, Λ d * nativePsi (N / d) := by rfl
+
+/-- Exact Möbius-first reciprocal-fibre form of the summatory second von
+Mangoldt mass:
+
+`sum_{n <= N} Lambda_2(n)
+  = sum_{d <= N} mu(d) * sum_{m <= N/d} log^2(m)`.
+
+This is the precise finite identity to which the sharp quadratic logarithmic
+sum estimate is applied. -/
+theorem nativeLambdaTwoSummatory_eq_moebius_logSquare (N : ℕ) :
+    nativeLambdaTwoSummatory N =
+      ∑ d ∈ Finset.Icc 1 N,
+        (μ : ArithmeticFunction ℝ) d * nativeLogSquareMass (N / d) := by
+  unfold nativeLambdaTwoSummatory nativeLambdaTwo nativeLogSquareMass
+  have hmem : ∀ (n d : ℕ),
+      n ∈ Finset.Icc 1 N ∧ d ∈ n.divisors ↔
+        n ∈ (Finset.Icc 1 N).filter (fun x => d ∣ x) ∧ d ∈ Finset.Icc 1 N := by
+    intro n d
+    simp only [Finset.mem_filter, Finset.mem_Icc, Nat.mem_divisors]
+    constructor
+    · rintro ⟨⟨hn1, hnN⟩, hdvd, hn0⟩
+      have hd0 : d ≠ 0 := by
+        rintro rfl
+        exact hn0 (Nat.eq_zero_of_zero_dvd hdvd)
+      exact ⟨⟨⟨hn1, hnN⟩, hdvd⟩,
+        Nat.one_le_iff_ne_zero.mpr hd0,
+        (Nat.le_of_dvd (by omega) hdvd).trans hnN⟩
+    · rintro ⟨⟨⟨hn1, hnN⟩, hdvd⟩, _hd1, _hdN⟩
+      exact ⟨⟨hn1, hnN⟩, hdvd, Nat.ne_of_gt (by omega : 0 < n)⟩
+  calc
+    (∑ n ∈ Finset.Icc 1 N,
+        ((μ : ArithmeticFunction ℝ) * arithmeticLogSquare) n) =
+        ∑ n ∈ Finset.Icc 1 N,
+          ∑ d ∈ n.divisors,
+            (μ : ArithmeticFunction ℝ) d *
+              arithmeticLogSquare (n / d) := by
+      apply Finset.sum_congr rfl
+      intro n _hn
+      rw [ArithmeticFunction.mul_apply,
+        Nat.sum_divisorsAntidiagonal
+          (fun a b => (μ : ArithmeticFunction ℝ) a * arithmeticLogSquare b)]
+    _ = ∑ d ∈ Finset.Icc 1 N,
+          ∑ n ∈ (Finset.Icc 1 N).filter (fun x => d ∣ x),
+            (μ : ArithmeticFunction ℝ) d *
+              arithmeticLogSquare (n / d) :=
+      Finset.sum_comm' hmem
+    _ = ∑ d ∈ Finset.Icc 1 N,
+          (μ : ArithmeticFunction ℝ) d *
+            ∑ m ∈ Finset.Icc 1 (N / d), (Real.log (m : ℝ)) ^ 2 := by
+      apply Finset.sum_congr rfl
+      intro d hd
+      rw [Finset.mul_sum]
+      have hdpos : 0 < d := (Finset.mem_Icc.mp hd).1
+      have hmap :
+          (Finset.Icc 1 N).filter (fun x => d ∣ x) =
+            (Finset.Icc 1 (N / d)).image (fun m => d * m) := by
+        ext n
+        simp only [Finset.mem_filter, Finset.mem_Icc, Finset.mem_image]
+        constructor
+        · rintro ⟨⟨hn1, hnN⟩, hdvd⟩
+          refine ⟨n / d, ?_, Nat.mul_div_cancel' hdvd⟩
+          have hq1 : 1 ≤ n / d := by
+            exact (Nat.one_le_div_iff hdpos).2 (Nat.le_of_dvd (by omega) hdvd)
+          have hqN : n / d ≤ N / d := Nat.div_le_div_right hnN
+          exact ⟨hq1, hqN⟩
+        · rintro ⟨m, ⟨hm1, hmN⟩, rfl⟩
+          have hmulN' : m * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 hmN
+          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using hmulN'
+          have hmpos : 0 < m := by omega
+          have hmulpos : 0 < d * m := Nat.mul_pos hdpos hmpos
+          exact ⟨⟨Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hmulpos), hmulN⟩,
+            dvd_mul_right d m⟩
+      rw [hmap, Finset.sum_image]
+      · apply Finset.sum_congr rfl
+        intro m _hm
+        have hdiv : d * m / d = m := Nat.mul_div_cancel_left m hdpos
+        rw [hdiv]
+        rfl
+      · intro a _ha b _hb hab
+        exact Nat.eq_of_mul_eq_mul_left hdpos hab
+    _ = ∑ d ∈ Finset.Icc 1 N,
+        (μ : ArithmeticFunction ℝ) d *
+          nativeLogSquareMass (N / d) := by rfl
 
 /-- One-step increment of `nativePsi`, placed here so the summatory Selberg
 modules do not depend on the later error-mass module. -/
