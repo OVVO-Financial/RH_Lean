@@ -30,6 +30,7 @@ import RHLean.Analysis.MobiusSynthesisBoundaryBridge
 import RHLean.Analysis.NativePNTChebyshev
 import RHLean.Analysis.NativePNTErdosContraction
 import RHLean.Analysis.NativePNTMertens
+import RHLean.Analysis.NativePNTSelberg
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
