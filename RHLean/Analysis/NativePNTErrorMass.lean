@@ -1,6 +1,7 @@
 import Mathlib
 import Mathlib.NumberTheory.Harmonic.Bounds
 import RHLean.Analysis.NativePNTSelberg
+import RHLean.Analysis.NativePNTSummatorySelberg
 
 /-!
 # Bounded reciprocal mass of the Chebyshev error
@@ -12,7 +13,8 @@ mass
 
 to stay uniformly bounded.  This module proves that fact from the already
 formalized Mertens-first-theorem estimate by an exact finite Abel identity.
-No prime-distribution asymptotic is used.
+It also derives the first absolute Selberg error recurrence from the summatory
+Selberg theorem.  No prime-distribution asymptotic is used.
 -/
 
 noncomputable section
@@ -172,5 +174,121 @@ theorem nativePNTWeightedErrorMass_abs_le
     rw [abs_le] at hLambda ⊢
     constructor <;> linarith [hLambda.1, hLambda.2, hfrac0, hfrac,
       hharm.1, hharm.2]
+
+/-! ## Absolute Selberg error recurrence -/
+
+/-- The summatory Selberg pair, after subtracting its main term, splits exactly
+into the endpoint Chebyshev error, the reciprocal von Mangoldt weighted error,
+and the elementary log-factorial floor term. -/
+theorem nativePNTError_selberg_decomposition (N : ℕ) :
+    nativeSelbergPair N - 2 * (N : ℝ) * Real.log N =
+      nativePNTError N * Real.log N +
+        (∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) +
+        (Real.log ((Nat.factorial N : ℕ) : ℝ) -
+          (N : ℝ) * Real.log N) := by
+  have hsplit :
+      (∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) =
+        (∑ d ∈ Finset.Icc 1 N, Λ d * nativePsi (N / d)) -
+          ∑ d ∈ Finset.Icc 1 N, Λ d * ((N / d : ℕ) : ℝ) := by
+    unfold nativePNTError
+    rw [← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro d _hd
+    ring
+  unfold nativeSelbergPair
+  rw [hsplit, nativeVonMangoldtSummatory]
+  unfold nativePNTError
+  ring
+
+/-- The log-factorial floor term is at most linear in absolute value. -/
+theorem nativeLogFactorial_sub_main_abs_le
+    (N : ℕ) (hN : 1 ≤ N) :
+    |Real.log ((Nat.factorial N : ℕ) : ℝ) -
+      (N : ℝ) * Real.log N| ≤ (N : ℝ) := by
+  have hlo := nativeLogFactorial_lower N hN
+  have hup := nativeLogFactorial_upper N hN
+  rw [abs_le]
+  constructor <;> linarith
+
+private theorem nativeLambdaErrorSum_abs_le (N : ℕ) :
+    |∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)| ≤
+      ∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)| := by
+  calc
+    |∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)| ≤
+        ∑ d ∈ Finset.Icc 1 N, |Λ d * nativePNTError (N / d)| :=
+      Finset.abs_sum_le_sum_abs _ _
+    _ = ∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)| := by
+      apply Finset.sum_congr rfl
+      intro d _hd
+      rw [abs_mul, abs_of_nonneg ArithmeticFunction.vonMangoldt_nonneg]
+
+/-- **Absolute Selberg recurrence at natural endpoints.**
+
+This is the first genuinely absolute bridge needed by the Erdos contraction:
+
+`|R(N)| log N <= sum_{d<=N} Lambda(d) |R(floor(N/d))| + O(N)`.
+
+The linear constant is explicit and comes only from the summatory Selberg
+bound and the elementary log-factorial floor term. -/
+theorem nativePNTError_abs_log_le_weighted
+    (N : ℕ) (hN : 3 ≤ N) :
+    |nativePNTError N| * Real.log N ≤
+      (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) +
+        (3 * (Real.log 4 + 2) + 173) * (N : ℝ) := by
+  have hsel := nativeSelbergPair_sub_two_mul_log_abs_le N hN
+  have hfac := nativeLogFactorial_sub_main_abs_le N (by omega)
+  have hsum := nativeLambdaErrorSum_abs_le N
+  have hdecomp := nativePNTError_selberg_decomposition N
+  have hlog0 : 0 ≤ Real.log (N : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast (show 1 ≤ N by omega))
+  have hAeq :
+      nativePNTError N * Real.log N =
+        (nativeSelbergPair N - 2 * (N : ℝ) * Real.log N) -
+          (∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) -
+          (Real.log ((Nat.factorial N : ℕ) : ℝ) -
+            (N : ℝ) * Real.log N) := by
+    linarith [hdecomp]
+  have htri :
+      |nativePNTError N * Real.log N| ≤
+        |nativeSelbergPair N - 2 * (N : ℝ) * Real.log N| +
+          |∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)| +
+          |Real.log ((Nat.factorial N : ℕ) : ℝ) -
+            (N : ℝ) * Real.log N| := by
+    rw [hAeq]
+    calc
+      |(nativeSelbergPair N - 2 * (N : ℝ) * Real.log N) -
+          (∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) -
+          (Real.log ((Nat.factorial N : ℕ) : ℝ) -
+            (N : ℝ) * Real.log N)| ≤
+        |(nativeSelbergPair N - 2 * (N : ℝ) * Real.log N) -
+          (∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d))| +
+          |Real.log ((Nat.factorial N : ℕ) : ℝ) -
+            (N : ℝ) * Real.log N| := abs_sub _ _
+      _ ≤
+        (|nativeSelbergPair N - 2 * (N : ℝ) * Real.log N| +
+          |∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)|) +
+          |Real.log ((Nat.factorial N : ℕ) : ℝ) -
+            (N : ℝ) * Real.log N| := by
+        gcongr
+        exact abs_sub _ _
+  have hmain :
+      |nativePNTError N * Real.log N| ≤
+        (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) +
+          (3 * (Real.log 4 + 2) + 173) * (N : ℝ) := by
+    calc
+      |nativePNTError N * Real.log N| ≤
+        |nativeSelbergPair N - 2 * (N : ℝ) * Real.log N| +
+          |∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)| +
+          |Real.log ((Nat.factorial N : ℕ) : ℝ) -
+            (N : ℝ) * Real.log N| := htri
+      _ ≤
+        (3 * (Real.log 4 + 2) + 172) * (N : ℝ) +
+          (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) +
+          (N : ℝ) := by
+        gcongr
+      _ =
+        (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) +
+          (3 * (Real.log 4 + 2) + 173) * (N : ℝ) := by ring
+  simpa [abs_mul, abs_of_nonneg hlog0] using hmain
 
 end RHLean.Analysis
