@@ -1,0 +1,51 @@
+# Prebuilt Lean toolchain and Mathlib dependency image for RH_Lean CI.
+#
+# The hosted Lean job spends almost all of its wall clock in dependency setup
+# rather than in compilation: on a cold cache `lake` clones the whole of
+# mathlib4 and then `lake exe cache get` downloads several gigabytes of oleans,
+# which measured at 7m34s against roughly one minute of `lake build RHLean`.
+#
+# Baking `.lake/packages` into an image removes both.  A container job pulls a
+# compressed, layer-cached image and Mathlib is simply already on disk, with no
+# Actions cache scoping rules, no eviction, and no cold-start cliff.
+#
+# Only the three files that pin the toolchain and the dependency set are copied
+# in, so ordinary Lean edits never invalidate the image.  Rebuild it when
+# `lean-toolchain`, `lake-manifest.json`, or `lakefile.lean` changes.
+
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      ca-certificates \
+      curl \
+      git \
+      xz-utils \
+      zstd \
+ && rm -rf /var/lib/apt/lists/*
+
+# Install elan system-wide so any user in the container can reach lake.
+ENV ELAN_HOME=/usr/local/elan
+ENV PATH=/usr/local/elan/bin:$PATH
+
+WORKDIR /opt/lean-deps
+
+COPY lean-toolchain lakefile.lean lake-manifest.json ./
+
+RUN curl -fsSL \
+      https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+      -o /tmp/elan-init.sh \
+ && sh /tmp/elan-init.sh -y --default-toolchain "$(cat lean-toolchain)" \
+ && rm /tmp/elan-init.sh \
+ && lean --version
+
+# Resolve the dependency graph and download Mathlib's oleans.  This layer is
+# the entire point of the image.
+RUN lake exe cache get
+
+# CI checks out the repository over the workspace, so the job symlinks this
+# directory into place rather than finding it there already.  Lake writes
+# dependency build artifacts underneath it, so it must stay writable.
+RUN chmod -R a+rwX /opt/lean-deps /usr/local/elan

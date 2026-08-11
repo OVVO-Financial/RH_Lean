@@ -56,8 +56,13 @@ jobs:
         with:
           path: .lake/packages
           key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-          restore-keys: |
-            lake-packages-${{ runner.os }}-${{ runner.arch }}-
+          # Deliberately no restore-keys.  A prefix fallback would restore
+          # Mathlib at the previous manifest revision; lake then re-resolves to
+          # the correct one, but the superseded oleans stay in the tree and get
+          # written back under the new exact key, inflating it permanently.  All
+          # that buys is skipping one clone on a Mathlib bump, which is rare.
+          # The project build cache below is the opposite case: partial hits
+          # there are genuinely useful, so it keeps its fallbacks.
 
       - name: Set up Lean and Mathlib
         uses: leanprover/lean-action@v1
@@ -69,7 +74,7 @@ jobs:
           lint: false
 
       - name: Save Mathlib and dependency builds
-        if: steps.lakepackages.outputs.cache-hit != 'true'
+        if: always() && steps.lakepackages.outputs.cache-hit != 'true'
         uses: actions/cache/save@v5
         with:
           path: .lake/packages
