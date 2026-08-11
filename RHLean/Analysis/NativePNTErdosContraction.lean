@@ -2102,8 +2102,8 @@ theorem nativePNT_reciprocal_radius_gap
   have hmod := Nat.mod_lt N htpos
   have hNupperNat : N < (N / t + 1) * t := by
     calc
-      N = N / t * t + N % t := (Nat.div_add_mod N t).symm
-      _ < N / t * t + t := Nat.add_lt_add_left hmod _
+      N = t * (N / t) + N % t := (Nat.div_add_mod N t).symm
+      _ < t * (N / t) + t := Nat.add_lt_add_left hmod _
       _ = (N / t + 1) * t := by ring
   have hNupper : (N : ℝ) < (B + 1) * (t : ℝ) := by
     dsimp [B]
