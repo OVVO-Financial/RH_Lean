@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.NativePNTSelberg
 
 /-!
 # The generic Erdos cubic contraction
