@@ -43,11 +43,9 @@ theorem tendsto_zero_of_cubic_recurrence
     dsimp [L]
     exact tendsto_atTop_ciInf hanti hbdd
   have hshiftIndex : Tendsto (fun n : ℕ => n + 1) atTop atTop := by
-    refine tendsto_atTop.2 ?_
+    refine Filter.tendsto_atTop.2 ?_
     intro b
-    refine ⟨b, ?_⟩
-    intro n hn
-    omega
+    exact Filter.eventually_atTop.2 ⟨b, fun n hn => by omega⟩
   have hshift : Tendsto (fun n : ℕ => a (n + 1)) atTop (𝓝 L) :=
     hconv.comp hshiftIndex
   have hpoly :
