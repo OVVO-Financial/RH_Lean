@@ -109,8 +109,8 @@ theorem nativeHarmonic_succ_sub_log_bounds
         · exact_mod_cast hN
         · exact_mod_cast (show N ≤ N + 2 by omega)
       _ ≤ (harmonic (N + 1) : ℝ) := by
-        convert (log_add_one_le_harmonic (N + 1)) using 1 <;>
-          norm_num [Nat.cast_add, Nat.cast_one]
+        simpa only [Nat.cast_add, Nat.cast_one, Nat.cast_ofNat, add_assoc] using
+          (log_add_one_le_harmonic (N + 1))
   have hupper0 :
       (harmonic (N + 1) : ℝ) ≤ 1 + Real.log (N + 1 : ℝ) := by
     simpa using harmonic_le_one_add_log (N + 1)
@@ -170,7 +170,6 @@ theorem nativePNTWeightedErrorMass_abs_le
           nlinarith
     have hharm := nativeHarmonic_succ_sub_log_bounds N hN
     rw [heq]
-    push_cast
     rw [abs_le] at hLambda ⊢
     constructor <;> linarith [hLambda.1, hLambda.2, hfrac0, hfrac,
       hharm.1, hharm.2]
