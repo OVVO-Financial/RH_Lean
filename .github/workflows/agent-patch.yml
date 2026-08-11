@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   patch:
-    if: github.actor != 'github-actions[bot]'
+    if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,28 +24,15 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
-
           path = Path('RHLean/Analysis/NativePNTMobiusSecondMoment.lean')
           text = path.read_text()
-
-          old1 = '''      _ = Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by
-            rw [hmass1]
-            ring
-'''
-          new1 = '''      _ = Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by
-            rw [hmass1]
-            norm_num
-'''
-
-          old2 = '''            exact mul_le_of_le_one_left hdiff (abs_nonneg _) hp
-'''
-          new2 = '''            exact mul_le_of_le_one_left hdiff hp
-'''
-
+          old1 = "      _ = Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by\n            rw [hmass1]\n            ring\n"
+          new1 = "      _ = Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by\n            rw [hmass1]\n            norm_num\n"
+          old2 = "            exact mul_le_of_le_one_left hdiff (abs_nonneg _) hp\n"
+          new2 = "            exact mul_le_of_le_one_left hdiff hp\n"
           assert old1 in text, 'first target not found'
           assert old2 in text, 'second target not found'
-          text = text.replace(old1, new1, 1).replace(old2, new2, 1)
-          path.write_text(text)
+          path.write_text(text.replace(old1, new1, 1).replace(old2, new2, 1))
           PY
 
       - name: Commit patch
