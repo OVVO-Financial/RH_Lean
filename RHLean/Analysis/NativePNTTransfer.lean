@@ -41,7 +41,7 @@ theorem nativeTheta_le_psi (N : ℕ) : nativeTheta N ≤ nativePsi N := by
 /-- `log x / sqrt x -> 0`, the only limit input needed by the transfer. -/
 theorem nativeLog_div_sqrt_atTop :
     Tendsto (fun x : ℝ => Real.log x / Real.sqrt x) atTop (𝓝 0) := by
-  have h := Real.isLittleO_log_rpow_atTop (r := (1 / 2 : ℝ)) (by norm_num)
+  have h := isLittleO_log_rpow_atTop (r := (1 / 2 : ℝ)) (by norm_num)
   have htend := h.tendsto_div_nhds_zero
   simpa only [← Real.sqrt_eq_rpow] using htend
 
@@ -84,7 +84,7 @@ theorem nativePsi_sub_theta_div_atTop :
       mul_le_mul_of_nonneg_right hsqrtNat hlogN
     have h3 : nativePsi N - nativeTheta N ≤
         Real.sqrt (N : ℝ) * Real.log (N : ℝ) := h1.trans h2
-    rw [div_le_div_iff hNpos hsqrtpos]
+    rw [div_le_div_iff₀ hNpos hsqrtpos]
     calc (nativePsi N - nativeTheta N) * Real.sqrt (N : ℝ)
         ≤ (Real.sqrt (N : ℝ) * Real.log (N : ℝ)) * Real.sqrt (N : ℝ) :=
           mul_le_mul_of_nonneg_right h3 hsqrtpos.le
@@ -100,7 +100,7 @@ theorem nativeTheta_div_atTop_one_iff :
       nativeTheta N / (N : ℝ) + (nativePsi N - nativeTheta N) / (N : ℝ) =
         nativePsi N / (N : ℝ) := by
     intro N
-    rw [div_add_div_same]
+    rw [← add_div]
     congr 1
     ring
   have hback : ∀ N : ℕ,
