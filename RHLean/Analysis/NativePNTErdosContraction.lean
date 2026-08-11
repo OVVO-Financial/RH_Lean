@@ -161,7 +161,7 @@ theorem nativeLambdaTwo_nonneg (n : ℕ) (hn : 1 ≤ n) :
 
 /-- The differentiated von Mangoldt term is one nonnegative summand of
 `Lambda_2`. -/
-theorem nativeLambda_mul_log_le_lambdaTwo (n : ℕ) (hn : 1 ≤ n) :
+theorem nativeLambda_mul_log_le_lambdaTwo (n : ℕ) (_hn : 1 ≤ n) :
     Λ n * Real.log (n : ℝ) ≤ nativeLambdaTwo n := by
   rw [nativeLambdaTwo_eq_logWeight_vonMangoldt_add_convolution]
   simp only [ArithmeticFunction.add_apply, arithmeticLogWeight_apply]
@@ -361,7 +361,7 @@ changes are quantitatively impossible, then the error has one sign throughout
 the integer interval. -/
 theorem nativePNTError_sign_constant_of_away
     (A B : ℕ) (ε : ℝ)
-    (hA : 1 ≤ A) (hAB : A ≤ B) (hε : 0 < ε)
+    (hA : 1 ≤ A) (_hAB : A ≤ B) (_hε : 0 < ε)
     (hdown : ∀ n, A ≤ n → n < B →
       1 < ε * (2 * (n : ℝ) + 1))
     (hup : ∀ n, A ≤ n → n < B →
