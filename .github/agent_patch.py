@@ -2,108 +2,163 @@ from pathlib import Path
 
 p = Path('RHLean/Analysis/NativePNTErdosContraction.lean')
 s = p.read_text()
-assert 'nativeLambdaTwoRecipMass' not in s
-marker = '\nend RHLean.Analysis\n'
-assert marker in s
-block = r'''
 
-/-! ## Erdos PNT3: reciprocal mass of the second Selberg kernel -/
+old = '''  calc
+    Λ n ≤ ∑ d ∈ n.divisors, Λ d :=
+      Finset.single_le_sum
+        (fun d _hd => ArithmeticFunction.vonMangoldt_nonneg) hnmem
+    _ = Real.log (n : ℝ) := ArithmeticFunction.vonMangoldt_sum
+'''
+new = '''  calc
+    Λ n ≤ ∑ d ∈ n.divisors, Λ d := by
+      exact Finset.single_le_sum
+        (s := n.divisors) (f := fun d => Λ d)
+        (fun d _hd => ArithmeticFunction.vonMangoldt_nonneg) hnmem
+    _ = Real.log (n : ℝ) := ArithmeticFunction.vonMangoldt_sum
+'''
+assert old in s, 'von Mangoldt single term block not found'
+s = s.replace(old, new, 1)
 
-/-- Reciprocal mass of the nonnegative second von Mangoldt kernel. -/
-def nativeLambdaTwoRecipMass (N : ℕ) : ℝ :=
-  ∑ n ∈ Finset.Icc 1 N, nativeLambdaTwo n / (n : ℝ)
+old = '''  | succ B hAB ih =>
+      rw [Finset.sum_Icc_succ_top (by omega : A ≤ B + 1), ih, harmonic_succ]
+      push_cast
+      ring
+'''
+new = '''  | succ B hAB ih =>
+      rw [Finset.sum_Icc_succ_top (by omega : A ≤ B + 1), ih, harmonic_succ]
+      push_cast
+      ring_nf
+'''
+assert old in s, 'harmonic succ block not found'
+s = s.replace(old, new, 1)
 
-/-- Reciprocal `Lambda_2` mass on the interval `(A,B]`. -/
-def nativeLambdaTwoRecipIntervalMass (A B : ℕ) : ℝ :=
-  ∑ n ∈ Finset.Icc (A + 1) B, nativeLambdaTwo n / (n : ℝ)
+old = '''  have hlo := log_add_one_le_harmonic (B + 1)
+  have hup := harmonic_le_one_add_log A
+  push_cast at hlo hup ⊢
+  linarith
+'''
+new = '''  have hlo := log_add_one_le_harmonic (B + 1)
+  have hup := harmonic_le_one_add_log A
+  push_cast at hlo hup ⊢
+  have hcast : ((B + 2 : ℕ) : ℝ) = (B : ℝ) + 1 + 1 := by
+    push_cast
+    ring
+  rw [hcast]
+  linarith
+'''
+assert old in s, 'reciprocal log lower block not found'
+s = s.replace(old, new, 1)
 
-/-- Exact Abel summation formula for the reciprocal `Lambda_2` mass. -/
-theorem nativeLambdaTwoRecipMass_abel (N : ℕ) :
-    nativeLambdaTwoRecipMass N =
-      nativeLambdaTwoSummatory N / (N : ℝ) +
-        ∑ n ∈ Finset.Ico 1 N,
-          nativeLambdaTwoSummatory n *
-            (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ))) := by
-  have h := nativeAbelIccOne nativeLambdaTwo
-    (fun n : ℕ => 1 / (n : ℝ)) N
-  unfold nativeLambdaTwoRecipMass nativeLambdaTwoSummatory
-  simpa [div_eq_mul_inv] using h
+s = s.replace(
+    'one_le_pow₀ (by norm_num : 0 ≤ (2 : ℕ))',
+    'one_le_pow₀ (by norm_num : (1 : ℕ) ≤ 2)')
 
-/-- The reciprocal second-kernel mass is nonnegative. -/
-theorem nativeLambdaTwoRecipMass_nonneg (N : ℕ) :
-    0 ≤ nativeLambdaTwoRecipMass N := by
-  unfold nativeLambdaTwoRecipMass
-  apply Finset.sum_nonneg
-  intro n hn
-  have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
-  exact div_nonneg (nativeLambdaTwo_nonneg n hn1) (by positivity)
+old = '''  have hspos : (0 : ℝ) < (((n + 1 : ℕ) : ℝ)) := by positivity
+  have herr := haway n hn
+  rw [abs_of_nonneg (hsign n hn)] at herr
+  calc
+    ε * (1 / (((n + 1 : ℕ) : ℝ))) =
+        (ε * (n : ℝ)) / ((n : ℝ) * (((n + 1 : ℕ) : ℝ))) := by
+      field_simp [ne_of_gt hnpos, ne_of_gt hspos]
+      ring
+    _ ≤ nativePNTError n / ((n : ℝ) * (((n + 1 : ℕ) : ℝ))) :=
+      div_le_div_of_nonneg_right herr (mul_nonneg hnpos.le hspos.le)
+'''
+new = '''  have hspos : (0 : ℝ) < (((n + 1 : ℕ) : ℝ)) := by positivity
+  have herr := haway n hn
+  rw [abs_of_nonneg (hsign n hn)] at herr
+  push_cast at hspos ⊢
+  calc
+    ε * (1 / ((n : ℝ) + 1)) =
+        (ε * (n : ℝ)) / ((n : ℝ) * ((n : ℝ) + 1)) := by
+      field_simp [ne_of_gt hnpos]
+    _ ≤ nativePNTError n / ((n : ℝ) * ((n : ℝ) + 1)) :=
+      div_le_div_of_nonneg_right herr (mul_nonneg hnpos.le hspos.le)
+'''
+assert old in s, 'positive weighted interval block not found'
+s = s.replace(old, new, 1)
 
-/-- The difference of two summatory `Lambda_2` values is exactly the kernel
-mass on the intervening integer interval. -/
-theorem nativeLambdaTwoSummatory_sub_eq_interval
-    (A B : ℕ) (hAB : A ≤ B) :
-    nativeLambdaTwoSummatory B - nativeLambdaTwoSummatory A =
-      ∑ n ∈ Finset.Icc (A + 1) B, nativeLambdaTwo n := by
-  have hsub : Finset.Icc 1 A ⊆ Finset.Icc 1 B := by
-    intro n hn
-    rcases Finset.mem_Icc.mp hn with ⟨hn1, hnA⟩
-    exact Finset.mem_Icc.mpr ⟨hn1, hnA.trans hAB⟩
-  have hset :
-      Finset.Icc 1 B \ Finset.Icc 1 A = Finset.Icc (A + 1) B := by
-    ext n
-    simp only [Finset.mem_sdiff, Finset.mem_Icc]
-    omega
-  unfold nativeLambdaTwoSummatory
-  rw [← Finset.sum_sdiff hsub, hset]
-  ring
+old = '''  have hspos : (0 : ℝ) < (((n + 1 : ℕ) : ℝ)) := by positivity
+  have herr := haway n hn
+  rw [abs_of_nonpos (hsign n hn)] at herr
+  calc
+    ε * (1 / (((n + 1 : ℕ) : ℝ))) =
+        (ε * (n : ℝ)) / ((n : ℝ) * (((n + 1 : ℕ) : ℝ))) := by
+      field_simp [ne_of_gt hnpos, ne_of_gt hspos]
+      ring
+    _ ≤ (-nativePNTError n) / ((n : ℝ) * (((n + 1 : ℕ) : ℝ))) :=
+      div_le_div_of_nonneg_right herr (mul_nonneg hnpos.le hspos.le)
+    _ = -(nativePNTError n / ((n : ℝ) * (((n + 1 : ℕ) : ℝ)))) := by ring
+'''
+new = '''  have hspos : (0 : ℝ) < (((n + 1 : ℕ) : ℝ)) := by positivity
+  have herr := haway n hn
+  rw [abs_of_nonpos (hsign n hn)] at herr
+  push_cast at hspos ⊢
+  calc
+    ε * (1 / ((n : ℝ) + 1)) =
+        (ε * (n : ℝ)) / ((n : ℝ) * ((n : ℝ) + 1)) := by
+      field_simp [ne_of_gt hnpos]
+    _ ≤ (-nativePNTError n) / ((n : ℝ) * ((n : ℝ) + 1)) :=
+      div_le_div_of_nonneg_right herr (mul_nonneg hnpos.le hspos.le)
+    _ = -(nativePNTError n / ((n : ℝ) * ((n : ℝ) + 1))) := by ring
+'''
+assert old in s, 'negative weighted interval block not found'
+s = s.replace(old, new, 1)
 
-/-- Positivity converts summatory `Lambda_2` mass into reciprocal mass: on
-`(A,B]`, every reciprocal is at least `1/B`. -/
-theorem nativeLambdaTwoRecipIntervalMass_lower
-    (A B : ℕ) (hA : 1 ≤ A) (hAB : A ≤ B) :
-    (nativeLambdaTwoSummatory B - nativeLambdaTwoSummatory A) / (B : ℝ) ≤
-      nativeLambdaTwoRecipIntervalMass A B := by
-  have hBpos : (0 : ℝ) < (B : ℝ) := by
-    exact_mod_cast (show 0 < B by omega)
-  rw [nativeLambdaTwoSummatory_sub_eq_interval A B hAB]
+old = '''  have heq :
+      2 * ((b : ℝ) - (a : ℝ)) + 550 * (a : ℝ) / Real.log (a : ℝ) =
+        (2 * ((b : ℝ) - (a : ℝ)) * Real.log (a : ℝ) + 550 * (a : ℝ)) /
+          Real.log (a : ℝ) := by
+    field_simp [ne_of_gt hlogpos]
+    ring
+'''
+new = '''  have heq :
+      2 * ((b : ℝ) - (a : ℝ)) + 550 * (a : ℝ) / Real.log (a : ℝ) =
+        (2 * ((b : ℝ) - (a : ℝ)) * Real.log (a : ℝ) + 550 * (a : ℝ)) /
+          Real.log (a : ℝ) := by
+    field_simp [ne_of_gt hlogpos]
+'''
+assert old in s, 'gap tail division identity block not found'
+s = s.replace(old, new, 1)
+
+old = '''      _ ≤ (A : ℝ) / 8 := by
+        exact div_le_div_of_nonneg_right
+          (mul_le_mul_of_nonneg_right hε1 (by positivity)) (by norm_num)
+      _ ≤ (A : ℝ) := by nlinarith
+'''
+new = '''      _ ≤ (A : ℝ) / 8 := by
+        have hmulA : ε * (A : ℝ) ≤ 1 * (A : ℝ) :=
+          mul_le_mul_of_nonneg_right hε1 (by positivity)
+        nlinarith
+      _ ≤ (A : ℝ) := by nlinarith
+'''
+assert old in s, 'epsilon A comparison block not found'
+s = s.replace(old, new, 1)
+
+old = '''  · have : -ε * ((A + h : ℕ) : ℝ) ≤ nativePNTError (A + h) := by
+      push_cast
+      nlinarith [hlowerStep, hsmall'.1]
+    exact this
+'''
+new = '''  · have hlow : -ε * ((A + h : ℕ) : ℝ) ≤ nativePNTError (A + h) := by
+      push_cast
+      nlinarith [hlowerStep, hsmall'.1]
+    convert hlow using 1 <;> ring
+'''
+assert old in s, 'good interval lower abs block not found'
+s = s.replace(old, new, 1)
+
+old = '''  rw [nativeLambdaTwoSummatory_sub_eq_interval A B hAB]
   unfold nativeLambdaTwoRecipIntervalMass
   rw [← Finset.sum_div]
   apply Finset.sum_le_sum
-  intro n hn
-  have hnI := Finset.mem_Icc.mp hn
-  have hnpos : (0 : ℝ) < (n : ℝ) := by
-    exact_mod_cast (show 0 < n by omega)
-  have hnB : (n : ℝ) ≤ (B : ℝ) := by exact_mod_cast hnI.2
-  have hLambda : 0 ≤ nativeLambdaTwo n :=
-    nativeLambdaTwo_nonneg n (by omega)
-  rw [div_le_div_iff₀ hBpos hnpos]
-  exact mul_le_mul_of_nonneg_left hnB hLambda
-
-/-- Explicit lower main term for `Lambda_2` mass on `(A,B]`. -/
-theorem nativeLambdaTwoSummatory_interval_main_lower
-    (A B : ℕ) (hA : 3 ≤ A) (hAB : A ≤ B) :
-    2 * (B : ℝ) * Real.log (B : ℝ) -
-        2 * (A : ℝ) * Real.log (A : ℝ) -
-        (2 * (Real.log 4 + 2) + 172) * ((A : ℝ) + (B : ℝ)) ≤
-      nativeLambdaTwoSummatory B - nativeLambdaTwoSummatory A := by
-  have hASel := nativeLambdaTwoSummatory_sub_two_mul_log_abs_le A hA
-  have hBSel := nativeLambdaTwoSummatory_sub_two_mul_log_abs_le B (hA.trans hAB)
-  rw [abs_le] at hASel hBSel
-  nlinarith [hASel.2, hBSel.1]
-
-/-- The Selberg main term therefore gives an explicit reciprocal `Lambda_2`
-mass on every positive block.  This is the coefficient lower bound used by
-the cubic deficit. -/
-theorem nativeLambdaTwoRecipIntervalMass_main_lower
-    (A B : ℕ) (hA : 3 ≤ A) (hAB : A ≤ B) :
-    (2 * (B : ℝ) * Real.log (B : ℝ) -
-        2 * (A : ℝ) * Real.log (A : ℝ) -
-        (2 * (Real.log 4 + 2) + 172) * ((A : ℝ) + (B : ℝ))) / (B : ℝ) ≤
-      nativeLambdaTwoRecipIntervalMass A B := by
-  have hB0 : 0 ≤ (B : ℝ) := by positivity
-  have hmain := nativeLambdaTwoSummatory_interval_main_lower A B hA hAB
-  have hdiv := div_le_div_of_nonneg_right hmain hB0
-  exact hdiv.trans (nativeLambdaTwoRecipIntervalMass_lower A B (by omega) hAB)
 '''
-s = s.replace(marker, block + marker, 1)
+new = '''  rw [nativeLambdaTwoSummatory_sub_eq_interval A B hAB]
+  unfold nativeLambdaTwoRecipIntervalMass
+  rw [Finset.sum_div]
+  apply Finset.sum_le_sum
+'''
+assert old in s, 'Lambda2 reciprocal interval sum-div block not found'
+s = s.replace(old, new, 1)
+
 p.write_text(s)
