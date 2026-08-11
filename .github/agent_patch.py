@@ -2,168 +2,134 @@ from pathlib import Path
 
 p = Path('RHLean/Analysis/NativePNTErdosContraction.lean')
 s = p.read_text()
-assert 'nativeLambdaTwoErrorMass_compensation' not in s
-marker = '\nend RHLean.Analysis\n'
-assert marker in s
-block = r'''
 
-/-! ## Good-fibre compensation -/
 
-/-- Fibres on which the normalized Chebyshev error is at most `beta`. -/
-def nativePNTGoodFiberSet (N : ℕ) (beta : ℝ) : Finset ℕ :=
-  (Finset.Icc 1 N).filter (fun n =>
-    |nativePNTError (N / n)| ≤ beta * ((N : ℝ) / (n : ℝ)))
+def repl(old: str, new: str) -> None:
+    global s
+    count = s.count(old)
+    assert count == 1, (count, old[:120])
+    s = s.replace(old, new, 1)
 
-/-- Reciprocal second-kernel mass carried by the good fibres. -/
-def nativeLambdaTwoGoodRecipMass (N : ℕ) (beta : ℝ) : ℝ :=
-  ∑ n ∈ nativePNTGoodFiberSet N beta, nativeLambdaTwo n / (n : ℝ)
 
-/-- The good reciprocal mass is nonnegative. -/
-theorem nativeLambdaTwoGoodRecipMass_nonneg (N : ℕ) (beta : ℝ) :
-    0 ≤ nativeLambdaTwoGoodRecipMass N beta := by
-  unfold nativeLambdaTwoGoodRecipMass nativePNTGoodFiberSet
-  apply Finset.sum_nonneg
-  intro n hn
-  have hnI := (Finset.mem_filter.mp hn).1
-  have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hnI).1
-  exact div_nonneg (nativeLambdaTwo_nonneg n hn1) (by positivity)
+repl(
+'''  have hlo := log_add_one_le_harmonic (B + 1)
+  have hup := harmonic_le_one_add_log A
+  push_cast at hlo hup ⊢
+  norm_num at hlo
+  linarith
+''',
+'''  have hlo : Real.log ((B + 2 : ℕ) : ℝ) ≤ (harmonic (B + 1) : ℝ) := by
+    simpa [show B + 2 = (B + 1) + 1 by omega] using
+      (log_add_one_le_harmonic (B + 1))
+  have hup : (harmonic A : ℝ) ≤ 1 + Real.log (A : ℝ) := by
+    simpa using (harmonic_le_one_add_log A)
+  linarith
+''')
 
-/-- The good set is contained in the positive endpoint range. -/
-theorem nativePNTGoodFiberSet_subset (N : ℕ) (beta : ℝ) :
-    nativePNTGoodFiberSet N beta ⊆ Finset.Icc 1 N := by
-  intro n hn
-  exact (Finset.mem_filter.mp hn).1
+repl(
+'''    have hlog3 := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 3 by norm_num)
+    have hC := nativeSelbergLinearConstant_le_182
+    have hrho3 : nativeLambdaTwoSummatory 3 ≤ 600 := by
+      norm_num at hlog3
+      nlinarith [h3.2]
+''',
+'''    have hlog3 := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 3 by norm_num)
+    have hC := nativeSelbergLinearConstant_le_182
+    norm_num at hlog3
+    have hC3 :
+        (2 * (Real.log 4 + 2) + 172) * (3 : ℝ) ≤ 546 := by
+      nlinarith
+    have hlogpart : 2 * (3 : ℝ) * Real.log 3 ≤ 12 := by
+      nlinarith
+    have hrho3 : nativeLambdaTwoSummatory 3 ≤ 600 := by
+      nlinarith [h3.2, hC3, hlogpart]
+''')
 
-private theorem nativeLambdaTwoRecipSplit
-    (N : ℕ) (beta : ℝ) :
-    nativeLambdaTwoGoodRecipMass N beta +
-      (∑ n ∈ (Finset.Icc 1 N).filter
-        (fun n => ¬ |nativePNTError (N / n)| ≤
-          beta * ((N : ℝ) / (n : ℝ))),
-        nativeLambdaTwo n / (n : ℝ)) =
-      nativeLambdaTwoRecipMass N := by
-  unfold nativeLambdaTwoGoodRecipMass nativePNTGoodFiberSet
-    nativeLambdaTwoRecipMass
-  exact Finset.sum_filter_add_sum_filter_not
-    (s := Finset.Icc 1 N)
-    (p := fun n => |nativePNTError (N / n)| ≤
-      beta * ((N : ℝ) / (n : ℝ)))
-    (f := fun n => nativeLambdaTwo n / (n : ℝ))
+repl(
+'''  field_simp [hn0, hs0]
+  ring
 
-private theorem nativeLambdaTwoMassSplit
-    (N : ℕ) (beta : ℝ) :
-    (∑ n ∈ nativePNTGoodFiberSet N beta, nativeLambdaTwo n) +
-      (∑ n ∈ (Finset.Icc 1 N).filter
-        (fun n => ¬ |nativePNTError (N / n)| ≤
-          beta * ((N : ℝ) / (n : ℝ))),
-        nativeLambdaTwo n) = nativeLambdaTwoSummatory N := by
-  unfold nativePNTGoodFiberSet nativeLambdaTwoSummatory
-  exact Finset.sum_filter_add_sum_filter_not
-    (s := Finset.Icc 1 N)
-    (p := fun n => |nativePNTError (N / n)| ≤
-      beta * ((N : ℝ) / (n : ℝ)))
-    (f := fun n => nativeLambdaTwo n)
+private theorem nativeRecipDiffSum_eq
+''',
+'''  field_simp [hn0, hs0]
+  push_cast
+  ring
 
-/-- **Good-fibre compensation identity.**  If every reciprocal fibre obeys an
-`alpha` envelope up to an additive constant `D`, then fibres already inside a
-smaller `beta` envelope subtract their reciprocal `LambdaTwo` mass from the
-worst-case bound:
+private theorem nativeRecipDiffSum_eq
+''')
 
-`errorMass <= alpha*N*S2 - (alpha-beta)*N*goodMass + D*rho`.
+repl(
+'''        600 * (1 / ((n : ℝ) * (((n + 1 : ℕ) : ℝ)))) := by
+      field_simp [ne_of_gt hnpos, ne_of_gt hspos]
+      ring
+    _ ≤ 2 * Real.log (n : ℝ) / (n : ℝ) + 182 / (n : ℝ) +
+''',
+'''        600 * (1 / ((n : ℝ) * (((n + 1 : ℕ) : ℝ)))) := by
+      field_simp [ne_of_gt hnpos, ne_of_gt hspos]
+    _ ≤ 2 * Real.log (n : ℝ) / (n : ℝ) + 182 / (n : ℝ) +
+''')
 
-This is the exact algebraic deficit used by the Erdos cubic improvement. -/
-theorem nativeLambdaTwoErrorMass_compensation
-    (N : ℕ) (alpha beta D : ℝ)
-    (halpha : 0 ≤ alpha) (hbeta : 0 ≤ beta) (hba : beta ≤ alpha)
-    (hD : 0 ≤ D)
-    (hall : ∀ n ∈ Finset.Icc 1 N,
-      |nativePNTError (N / n)| ≤ alpha * ((N : ℝ) / (n : ℝ)) + D) :
-    nativeLambdaTwoErrorMass N ≤
-      alpha * (N : ℝ) * nativeLambdaTwoRecipMass N -
-        (alpha - beta) * (N : ℝ) * nativeLambdaTwoGoodRecipMass N beta +
-        D * nativeLambdaTwoSummatory N := by
-  let p : ℕ → Prop := fun n =>
-    |nativePNTError (N / n)| ≤ beta * ((N : ℝ) / (n : ℝ))
-  let G := (Finset.Icc 1 N).filter p
-  let B := (Finset.Icc 1 N).filter (fun n => ¬ p n)
-  have hsplit :
-      nativeLambdaTwoErrorMass N =
-        (∑ n ∈ G, nativeLambdaTwo n * |nativePNTError (N / n)|) +
-          ∑ n ∈ B, nativeLambdaTwo n * |nativePNTError (N / n)| := by
-    unfold nativeLambdaTwoErrorMass
-    dsimp [G, B]
-    rw [Finset.sum_filter_add_sum_filter_not]
-  have hgood :
-      (∑ n ∈ G, nativeLambdaTwo n * |nativePNTError (N / n)|) ≤
-        ∑ n ∈ G, nativeLambdaTwo n *
-          (beta * ((N : ℝ) / (n : ℝ)) + D) := by
-    apply Finset.sum_le_sum
-    intro n hn
-    have hnF := Finset.mem_filter.mp hn
-    have hnI := hnF.1
-    have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hnI).1
-    have hp : |nativePNTError (N / n)| ≤
-        beta * ((N : ℝ) / (n : ℝ)) := hnF.2
-    have hpD : |nativePNTError (N / n)| ≤
-        beta * ((N : ℝ) / (n : ℝ)) + D :=
-      hp.trans (le_add_of_nonneg_right hD)
-    exact mul_le_mul_of_nonneg_left hpD (nativeLambdaTwo_nonneg n hn1)
-  have hbad :
-      (∑ n ∈ B, nativeLambdaTwo n * |nativePNTError (N / n)|) ≤
-        ∑ n ∈ B, nativeLambdaTwo n *
-          (alpha * ((N : ℝ) / (n : ℝ)) + D) := by
-    apply Finset.sum_le_sum
-    intro n hn
-    have hnF := Finset.mem_filter.mp hn
-    have hnI := hnF.1
-    have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hnI).1
-    exact mul_le_mul_of_nonneg_left (hall n hnI)
-      (nativeLambdaTwo_nonneg n hn1)
-  have hbound :
-      nativeLambdaTwoErrorMass N ≤
-        (∑ n ∈ G, nativeLambdaTwo n *
-          (beta * ((N : ℝ) / (n : ℝ)) + D)) +
-        ∑ n ∈ B, nativeLambdaTwo n *
-          (alpha * ((N : ℝ) / (n : ℝ)) + D) := by
-    rw [hsplit]
-    exact add_le_add hgood hbad
-  have hGrec :
-      (∑ n ∈ G, nativeLambdaTwo n * ((N : ℝ) / (n : ℝ))) =
-        (N : ℝ) * nativeLambdaTwoGoodRecipMass N beta := by
-    dsimp [G, p]
-    unfold nativeLambdaTwoGoodRecipMass nativePNTGoodFiberSet
-    rw [Finset.mul_sum]
-    apply Finset.sum_congr rfl
-    intro n _hn
-    ring
-  have hBrec :
-      (∑ n ∈ B, nativeLambdaTwo n * ((N : ℝ) / (n : ℝ))) =
-        (N : ℝ) *
-          (∑ n ∈ (Finset.Icc 1 N).filter
-            (fun n => ¬ |nativePNTError (N / n)| ≤
-              beta * ((N : ℝ) / (n : ℝ))),
-            nativeLambdaTwo n / (n : ℝ)) := by
-    dsimp [B, p]
-    rw [Finset.mul_sum]
-    apply Finset.sum_congr rfl
-    intro n _hn
-    ring
-  have hGmass :
-      (∑ n ∈ G, nativeLambdaTwo n) =
-        ∑ n ∈ nativePNTGoodFiberSet N beta, nativeLambdaTwo n := by
-    rfl
-  have hBmass :
-      (∑ n ∈ B, nativeLambdaTwo n) =
-        ∑ n ∈ (Finset.Icc 1 N).filter
-          (fun n => ¬ |nativePNTError (N / n)| ≤
-            beta * ((N : ℝ) / (n : ℝ))), nativeLambdaTwo n := by
-    rfl
-  have hGexpand :
-      (∑ n ∈ G, nativeLambdaTwo n *
-        (beta * ((N : ℝ) / (n : ℝ)) + D)) =
-        beta * ((N : ℝ) * nativeLambdaTwoGoodRecipMass N beta) +
-          D * (∑ n ∈ nativePNTGoodFiberSet N beta, nativeLambdaTwo n) := by
+repl(
+'''    simp_rw [harmonic_eq_sum_Icc, Rat.cast_sum, Rat.cast_inv, Rat.cast_natCast]
+''',
+'''    simp_rw [harmonic_eq_sum_Icc, Rat.cast_sum, Rat.cast_inv, Rat.cast_natCast, one_div]
+''')
+
+repl(
+'''    have hkernelLe :
+        (∑ n ∈ Finset.Ico 1 N,
+          (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ)))) ≤ 1 := by
+      rw [hkernelEq]
+      positivity
     calc
+''',
+'''    have hkernelLe :
+        (∑ n ∈ Finset.Ico 1 N,
+          (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ)))) ≤ 1 := by
+      rw [hkernelEq]
+      have hrecip0 : 0 ≤ 1 / (N : ℝ) := by positivity
+      linarith
+    have hlogScale :
+        (∑ n ∈ Finset.Ico 1 N, 2 * Real.log (n : ℝ) / (n : ℝ)) =
+          2 * (∑ n ∈ Finset.Ico 1 N, Real.log (n : ℝ) / (n : ℝ)) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro n _hn
+      ring
+    have hrecipScale :
+        (∑ n ∈ Finset.Ico 1 N, 182 / (n : ℝ)) =
+          182 * (∑ n ∈ Finset.Ico 1 N, 1 / (n : ℝ)) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro n _hn
+      ring
+    have hkernelScale :
+        (∑ n ∈ Finset.Ico 1 N,
+          600 * (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ)))) =
+          600 * (∑ n ∈ Finset.Ico 1 N,
+            (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ)))) := by
+      rw [Finset.mul_sum]
+    calc
+''')
+
+repl(
+'''      _ = 2 * (∑ n ∈ Finset.Ico 1 N, Real.log (n : ℝ) / (n : ℝ)) +
+          182 * (∑ n ∈ Finset.Ico 1 N, 1 / (n : ℝ)) +
+          600 * (∑ n ∈ Finset.Ico 1 N,
+            (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ)))) := by
+        rw [Finset.sum_add_distrib, Finset.sum_add_distrib,
+          ← Finset.mul_sum, ← Finset.mul_sum, ← Finset.mul_sum]
+''',
+'''      _ = 2 * (∑ n ∈ Finset.Ico 1 N, Real.log (n : ℝ) / (n : ℝ)) +
+          182 * (∑ n ∈ Finset.Ico 1 N, 1 / (n : ℝ)) +
+          600 * (∑ n ∈ Finset.Ico 1 N,
+            (1 / (n : ℝ) - 1 / (((n + 1 : ℕ) : ℝ)))) := by
+        rw [Finset.sum_add_distrib, Finset.sum_add_distrib,
+          hlogScale, hrecipScale, hkernelScale]
+''')
+
+repl(
+'''    calc
       (∑ n ∈ G, nativeLambdaTwo n *
         (beta * ((N : ℝ) / (n : ℝ)) + D)) =
           beta * (∑ n ∈ G,
@@ -174,18 +140,26 @@ theorem nativeLambdaTwoErrorMass_compensation
         intro n _hn
         ring
       _ = _ := by rw [hGrec, hGmass]
-  have hBexpand :
-      (∑ n ∈ B, nativeLambdaTwo n *
-        (alpha * ((N : ℝ) / (n : ℝ)) + D)) =
-        alpha * ((N : ℝ) *
-          (∑ n ∈ (Finset.Icc 1 N).filter
-            (fun n => ¬ |nativePNTError (N / n)| ≤
-              beta * ((N : ℝ) / (n : ℝ))),
-            nativeLambdaTwo n / (n : ℝ))) +
-          D * (∑ n ∈ (Finset.Icc 1 N).filter
-            (fun n => ¬ |nativePNTError (N / n)| ≤
-              beta * ((N : ℝ) / (n : ℝ))), nativeLambdaTwo n) := by
-    calc
+''',
+'''    calc
+      (∑ n ∈ G, nativeLambdaTwo n *
+        (beta * ((N : ℝ) / (n : ℝ)) + D)) =
+          (∑ n ∈ G,
+            beta * (nativeLambdaTwo n * ((N : ℝ) / (n : ℝ)))) +
+          ∑ n ∈ G, D * nativeLambdaTwo n := by
+        rw [← Finset.sum_add_distrib]
+        apply Finset.sum_congr rfl
+        intro n _hn
+        ring
+      _ = beta * (∑ n ∈ G,
+            nativeLambdaTwo n * ((N : ℝ) / (n : ℝ))) +
+          D * (∑ n ∈ G, nativeLambdaTwo n) := by
+        rw [Finset.mul_sum, Finset.mul_sum]
+      _ = _ := by rw [hGrec, hGmass]
+''')
+
+repl(
+'''    calc
       (∑ n ∈ B, nativeLambdaTwo n *
         (alpha * ((N : ℝ) / (n : ℝ)) + D)) =
           alpha * (∑ n ∈ B,
@@ -196,10 +170,50 @@ theorem nativeLambdaTwoErrorMass_compensation
         intro n _hn
         ring
       _ = _ := by rw [hBrec, hBmass]
-  rw [hGexpand, hBexpand] at hbound
+''',
+'''    calc
+      (∑ n ∈ B, nativeLambdaTwo n *
+        (alpha * ((N : ℝ) / (n : ℝ)) + D)) =
+          (∑ n ∈ B,
+            alpha * (nativeLambdaTwo n * ((N : ℝ) / (n : ℝ)))) +
+          ∑ n ∈ B, D * nativeLambdaTwo n := by
+        rw [← Finset.sum_add_distrib]
+        apply Finset.sum_congr rfl
+        intro n _hn
+        ring
+      _ = alpha * (∑ n ∈ B,
+            nativeLambdaTwo n * ((N : ℝ) / (n : ℝ))) +
+          D * (∑ n ∈ B, nativeLambdaTwo n) := by
+        rw [Finset.mul_sum, Finset.mul_sum]
+      _ = _ := by rw [hBrec, hBmass]
+''')
+
+repl(
+'''  rw [hGexpand, hBexpand] at hbound
   have hrecSplit := nativeLambdaTwoRecipSplit N beta
   have hmassSplit := nativeLambdaTwoMassSplit N beta
   nlinarith
-'''
-s = s.replace(marker, block + marker, 1)
+''',
+'''  rw [hGexpand, hBexpand] at hbound
+  have hrecSplit := nativeLambdaTwoRecipSplit N beta
+  have hmassSplit := nativeLambdaTwoMassSplit N beta
+  calc
+    nativeLambdaTwoErrorMass N ≤
+        beta * ((N : ℝ) * nativeLambdaTwoGoodRecipMass N beta) +
+          D * (∑ n ∈ nativePNTGoodFiberSet N beta, nativeLambdaTwo n) +
+          (alpha * ((N : ℝ) *
+            (∑ n ∈ (Finset.Icc 1 N).filter
+              (fun n => ¬ |nativePNTError (N / n)| ≤
+                beta * ((N : ℝ) / (n : ℝ))),
+              nativeLambdaTwo n / (n : ℝ))) +
+            D * (∑ n ∈ (Finset.Icc 1 N).filter
+              (fun n => ¬ |nativePNTError (N / n)| ≤
+                beta * ((N : ℝ) / (n : ℝ))), nativeLambdaTwo n)) := hbound
+    _ = alpha * (N : ℝ) * nativeLambdaTwoRecipMass N -
+        (alpha - beta) * (N : ℝ) * nativeLambdaTwoGoodRecipMass N beta +
+        D * nativeLambdaTwoSummatory N := by
+      rw [← hrecSplit, ← hmassSplit]
+      ring
+''')
+
 p.write_text(s)
