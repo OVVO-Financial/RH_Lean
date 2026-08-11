@@ -30,6 +30,7 @@ import RHLean.Analysis.MobiusSynthesisBoundaryBridge
 import RHLean.Analysis.NativePNTChebyshev
 import RHLean.Analysis.NativePNTErdosContraction
 import RHLean.Analysis.NativePNTErrorMass
+import RHLean.Analysis.NativePNTLogSums
 import RHLean.Analysis.NativePNTMertens
 import RHLean.Analysis.NativePNTSelberg
 import RHLean.Analysis.NativePNTSummatorySelberg
