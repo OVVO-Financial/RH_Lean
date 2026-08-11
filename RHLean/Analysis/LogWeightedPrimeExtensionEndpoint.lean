@@ -7,11 +7,16 @@ import RHLean.Analysis.LogWeightedPrimeExtensionFiber
 This module packages the local squarefree child-fiber theorem into an exact
 finite block identity.  It deliberately separates the endpoint-fiber theorem
 from the remaining rectangular product-fiber reindexing.
+
+The final section begins the architecture-native prime-number-theorem route.
+Its first object is the finite Chebyshev `psi` mass, defined directly from the
+von Mangoldt function already available at the repository's pinned Mathlib
+revision.  No theorem asserting PNT is imported or used.
 -/
 
 noncomputable section
 
-open scoped ArithmeticFunction.Moebius BigOperators
+open scoped ArithmeticFunction.Moebius ArithmeticFunction.vonMangoldt BigOperators
 
 namespace RHLean.Analysis
 
@@ -48,5 +53,30 @@ theorem logWeightedEndpointFiberMass_eq_neg_logWeightedBlock (N : ℕ) :
   intro n hn
   rw [logWeightedEndpointFiber_eq]
   ring
+
+/-! ## Native PNT: finite von Mangoldt layer -/
+
+/-- Finite Chebyshev `psi` mass through the integer endpoint `x`, defined
+without any asymptotic theorem. -/
+def nativePsi (x : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 x, Λ n
+
+/-- Finite logarithmic mass through `x`. -/
+def nativeLogMass (x : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 x, Real.log n
+
+/-- Divisor-first form of the same logarithmic mass.  This is the first exact
+multiplicative reindexing in the native Selberg route: every `log n` is the sum
+of von Mangoldt weights over the divisor fibre of `n`. -/
+def nativeDivisorVonMangoldtMass (x : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 x, ∑ d ∈ n.divisors, Λ d
+
+/-- Exact finite divisor identity underlying the architecture-native PNT route. -/
+theorem nativeLogMass_eq_divisorVonMangoldtMass (x : ℕ) :
+    nativeLogMass x = nativeDivisorVonMangoldtMass x := by
+  unfold nativeLogMass nativeDivisorVonMangoldtMass
+  apply Finset.sum_congr rfl
+  intro n hn
+  rw [ArithmeticFunction.vonMangoldt_sum]
 
 end RHLean.Analysis
