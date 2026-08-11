@@ -122,7 +122,7 @@ theorem nativeLogMass_sub_stirlingMain_abs_le (N : ℕ) (hN : 1 ≤ N) :
   calc
     |(nativeLogMass N - ((N : ℝ) * Real.log N - (N : ℝ) + 1)) + 1| ≤
         |nativeLogMass N - ((N : ℝ) * Real.log N - (N : ℝ) + 1)| + |(1 : ℝ)| :=
-      abs_add _ _
+      abs_add_le _ _
     _ ≤ Real.log N + 1 := by norm_num; linarith
 
 /-! ## Quadratic logarithmic mass -/
@@ -153,9 +153,8 @@ theorem nativeLogSquarePrimitive_hasDerivAt
   convert h using 1
   · funext y
     simp [nativeLogSquarePrimitive, pow_two]
-    ring
   · field_simp [hx]
-    ring
+    ring_nf
 
 /-- Exact integral of `log^2` on `[1,N]`. -/
 theorem nativeIntegral_logSquare (N : ℕ) (hN : 1 ≤ N) :
@@ -184,7 +183,7 @@ theorem nativeIntegral_logSquare (N : ℕ) (hN : 1 ≤ N) :
   ring
 
 /-- `log^2` is monotone on every interval contained in `[1,+∞)`. -/
-theorem nativeLogSquare_monotoneOn (N : ℕ) (hN : 1 ≤ N) :
+theorem nativeLogSquare_monotoneOn (N : ℕ) (_hN : 1 ≤ N) :
     MonotoneOn (fun x : ℝ => (Real.log x) ^ 2)
       (Set.Icc (1 : ℝ) (N : ℝ)) := by
   intro x hx y hy hxy
@@ -226,7 +225,7 @@ private theorem nativeLogSquare_shift_sum_eq (N : ℕ) (hN : 1 ≤ N) :
       symm
       rw [Finset.sum_image]
       intro a _ha b _hb hab
-      omega
+      exact Nat.add_right_cancel hab
     _ = ∑ m ∈ Finset.Icc 2 N, (Real.log (m : ℝ)) ^ 2 := by
       rw [himage]
     _ = ∑ m ∈ Finset.Icc 1 N, (Real.log (m : ℝ)) ^ 2 := by
@@ -259,10 +258,14 @@ theorem nativeLogSquareMass_bounds (N : ℕ) (hN : 1 ≤ N) :
       nativeLogSquareMass N ≤
         nativeLogSquareMain N - 2 + (Real.log (N : ℝ)) ^ 2 := by
   have hmono := nativeLogSquare_monotoneOn N hN
+  have hmono' :
+      MonotoneOn (fun x : ℝ => (Real.log x) ^ 2)
+        (Set.Icc ((1 : ℕ) : ℝ) (N : ℝ)) := by
+    simpa using hmono
   have hlowerInt := MonotoneOn.integral_le_sum_Ico
-    (f := fun x : ℝ => (Real.log x) ^ 2) hN hmono
+    (f := fun x : ℝ => (Real.log x) ^ 2) hN hmono'
   have hupperInt := MonotoneOn.sum_le_integral_Ico
-    (f := fun x : ℝ => (Real.log x) ^ 2) hN hmono
+    (f := fun x : ℝ => (Real.log x) ^ 2) hN hmono'
   have hI := nativeIntegral_logSquare N hN
   have hshift := nativeLogSquare_shift_sum_eq N hN
   have htop := nativeLogSquareMass_eq_Ico_add_top N hN
