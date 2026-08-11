@@ -309,7 +309,7 @@ theorem nativeLogRecipDefect_abs_le_four
             rw [nativeLogRecipMass_succ 1]
       _ = Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by
             rw [hmass1]
-            ring
+            norm_num
   have hlog3sq : (Real.log (3 : ℝ)) ^ 2 ≤ 4 := by
     have hprod :
         0 ≤ Real.log (3 : ℝ) * (2 - Real.log (3 : ℝ)) :=
@@ -416,7 +416,7 @@ theorem nativeAbelBoundMonotone
             have hdiff : 0 ≤ b (n + 1) - b n := sub_nonneg.mpr hm
             have hneg : -(b n - b (n + 1)) = b (n + 1) - b n := by ring
             rw [hneg]
-            exact mul_le_of_le_one_left hdiff (abs_nonneg _) hp
+            exact mul_le_of_le_one_left hdiff hp
     _ = B + (b M - b 1) := by rw [nativeTelescopeDiffIco b M hM]
     _ ≤ 3 * B := by
       have hbM := hbound M (Finset.mem_Icc.mpr ⟨hM, le_rfl⟩)
