@@ -77,7 +77,7 @@ theorem nativeLogMass_eq_divisorVonMangoldtMass (x : ℕ) :
   unfold nativeLogMass nativeDivisorVonMangoldtMass
   apply Finset.sum_congr rfl
   intro n _hn
-  exact ArithmeticFunction.vonMangoldt_sum
+  exact ArithmeticFunction.vonMangoldt_sum.symm
 
 /-! ## The logarithmic derivation on Dirichlet convolution -/
 
