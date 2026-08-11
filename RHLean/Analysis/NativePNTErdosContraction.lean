@@ -138,6 +138,108 @@ theorem nativePNTError_abs_le_const_mul (N : ℕ) :
   rw [abs_le]
   constructor <;> nlinarith
 
+/-! ## Positivity and local mass of the Selberg kernel -/
+
+/-- The Dirichlet self-convolution of von Mangoldt is pointwise nonnegative. -/
+theorem nativeLambdaConvolution_nonneg (n : ℕ) :
+    0 ≤ (Λ * Λ) n := by
+  rw [ArithmeticFunction.mul_apply]
+  apply Finset.sum_nonneg
+  intro ab _hab
+  exact mul_nonneg ArithmeticFunction.vonMangoldt_nonneg
+    ArithmeticFunction.vonMangoldt_nonneg
+
+/-- The second von Mangoldt kernel is nonnegative at every positive integer. -/
+theorem nativeLambdaTwo_nonneg (n : ℕ) (hn : 1 ≤ n) :
+    0 ≤ nativeLambdaTwo n := by
+  rw [nativeLambdaTwo_eq_logWeight_vonMangoldt_add_convolution]
+  simp only [ArithmeticFunction.add_apply, arithmeticLogWeight_apply]
+  exact add_nonneg
+    (mul_nonneg ArithmeticFunction.vonMangoldt_nonneg
+      (Real.log_nonneg (by exact_mod_cast hn)))
+    (nativeLambdaConvolution_nonneg n)
+
+/-- The differentiated von Mangoldt term is one nonnegative summand of
+`Lambda_2`. -/
+theorem nativeLambda_mul_log_le_lambdaTwo (n : ℕ) (hn : 1 ≤ n) :
+    Λ n * Real.log (n : ℝ) ≤ nativeLambdaTwo n := by
+  rw [nativeLambdaTwo_eq_logWeight_vonMangoldt_add_convolution]
+  simp only [ArithmeticFunction.add_apply, arithmeticLogWeight_apply]
+  exact le_add_of_nonneg_right (nativeLambdaConvolution_nonneg n)
+
+/-- The summatory second von Mangoldt mass is monotone. -/
+theorem nativeLambdaTwoSummatory_monotone : Monotone nativeLambdaTwoSummatory := by
+  intro a b hab
+  unfold nativeLambdaTwoSummatory
+  refine Finset.sum_le_sum_of_subset_of_nonneg ?_ ?_
+  · intro n hn
+    rcases Finset.mem_Icc.mp hn with ⟨hn1, hna⟩
+    exact Finset.mem_Icc.mpr ⟨hn1, hna.trans hab⟩
+  · intro n hn _hna
+    exact nativeLambdaTwo_nonneg n (Finset.mem_Icc.mp hn).1
+
+/-- On an integer interval, the `psi` increment times the left-end logarithm
+is dominated by the corresponding `Lambda_2` mass.  This is the local
+regularity input for the Erdos good-interval argument. -/
+theorem nativePsi_interval_mul_log_le_lambdaTwo_interval
+    (a b : ℕ) (ha : 1 ≤ a) (hab : a ≤ b) :
+    (nativePsi b - nativePsi a) * Real.log (a : ℝ) ≤
+      nativeLambdaTwoSummatory b - nativeLambdaTwoSummatory a := by
+  have hsub : Finset.Icc 1 a ⊆ Finset.Icc 1 b := by
+    intro n hn
+    rcases Finset.mem_Icc.mp hn with ⟨hn1, hna⟩
+    exact Finset.mem_Icc.mpr ⟨hn1, hna.trans hab⟩
+  calc
+    (nativePsi b - nativePsi a) * Real.log (a : ℝ) =
+        (∑ n ∈ Finset.Icc 1 b \ Finset.Icc 1 a, Λ n) *
+          Real.log (a : ℝ) := by
+      unfold nativePsi
+      rw [← Finset.sum_sdiff hsub]
+      ring
+    _ = ∑ n ∈ Finset.Icc 1 b \ Finset.Icc 1 a,
+          Λ n * Real.log (a : ℝ) := by
+      rw [Finset.sum_mul]
+    _ ≤ ∑ n ∈ Finset.Icc 1 b \ Finset.Icc 1 a,
+          nativeLambdaTwo n := by
+      apply Finset.sum_le_sum
+      intro n hn
+      have hnDiff := Finset.mem_sdiff.mp hn
+      have hnI := Finset.mem_Icc.mp hnDiff.1
+      have hna : a < n := by
+        by_contra hnot
+        have hna' : n ≤ a := Nat.le_of_not_gt hnot
+        exact hnDiff.2 (Finset.mem_Icc.mpr ⟨hnI.1, hna'⟩)
+      have hlog : Real.log (a : ℝ) ≤ Real.log (n : ℝ) := by
+        apply Real.log_le_log
+        · exact_mod_cast (show 0 < a by omega)
+        · exact_mod_cast (Nat.le_of_lt hna)
+      exact (mul_le_mul_of_nonneg_left hlog ArithmeticFunction.vonMangoldt_nonneg).trans
+        (nativeLambda_mul_log_le_lambdaTwo n hnI.1)
+    _ = nativeLambdaTwoSummatory b - nativeLambdaTwoSummatory a := by
+      unfold nativeLambdaTwoSummatory
+      rw [← Finset.sum_sdiff hsub]
+      ring
+
+/-- Combining the local `Lambda_2` domination with the summatory Selberg
+formula gives an explicit local upper bound for Chebyshev increments. -/
+theorem nativePsi_interval_mul_log_le_explicit
+    (a b : ℕ) (ha : 3 ≤ a) (hab : a ≤ b) :
+    (nativePsi b - nativePsi a) * Real.log (a : ℝ) ≤
+      2 * (b : ℝ) * Real.log (b : ℝ) -
+        2 * (a : ℝ) * Real.log (a : ℝ) +
+        (2 * (Real.log 4 + 2) + 172) * ((a : ℝ) + (b : ℝ)) := by
+  have hlocal := nativePsi_interval_mul_log_le_lambdaTwo_interval a b (by omega) hab
+  have haSel := nativeLambdaTwoSummatory_sub_two_mul_log_abs_le a ha
+  have hbSel := nativeLambdaTwoSummatory_sub_two_mul_log_abs_le b (ha.trans hab)
+  rw [abs_le] at haSel hbSel
+  calc
+    (nativePsi b - nativePsi a) * Real.log (a : ℝ) ≤
+        nativeLambdaTwoSummatory b - nativeLambdaTwoSummatory a := hlocal
+    _ ≤ 2 * (b : ℝ) * Real.log (b : ℝ) -
+          2 * (a : ℝ) * Real.log (a : ℝ) +
+          (2 * (Real.log 4 + 2) + 172) * ((a : ℝ) + (b : ℝ)) := by
+      nlinarith [haSel.1, hbSel.2]
+
 /-! ## Prime-specific one-sided excursions -/
 
 /-- The finite Chebyshev mass is monotone.  This is purely coefficientwise:
