@@ -487,9 +487,10 @@ private theorem nativePNTRecipSuccInterval_eq_harmonic_sub
       push_cast
       simp [div_eq_mul_inv]
   | succ B hAB ih =>
-      rw [Finset.sum_Icc_succ_top (by omega : A ≤ B + 1), ih, harmonic_succ]
+      rw [Finset.sum_Icc_succ_top (by omega : A ≤ B + 1), ih,
+        harmonic_succ, harmonic_succ]
       push_cast
-      ring_nf
+      ring
 
 /-- The reciprocal interval has the elementary logarithmic lower bound. -/
 private theorem nativePNTRecipSuccInterval_log_lower
@@ -500,10 +501,8 @@ private theorem nativePNTRecipSuccInterval_log_lower
   have hlo := log_add_one_le_harmonic (B + 1)
   have hup := harmonic_le_one_add_log A
   push_cast at hlo hup ⊢
-  have hcast : ((B + 2 : ℕ) : ℝ) = (B : ℝ) + 1 + 1 := by
-    push_cast
-    ring
-  rw [hcast]
+  have hlo' : Real.log ((B : ℝ) + 2) ≤ (harmonic (B + 1) : ℝ) := by
+    convert hlo using 1 <;> ring
   linarith
 
 /-- On the dyadic span `[A, A*2^K]`, the reciprocal interval mass is at least
@@ -531,7 +530,7 @@ private theorem nativePNTRecipSuccDyadic_lower
       Real.log ((A * 2 ^ K : ℕ) : ℝ) =
         Real.log (A : ℝ) + (K : ℝ) * Real.log 2 := by
     rw [Nat.cast_mul, Nat.cast_pow]
-    rw [Real.log_mul (ne_of_gt hApos) (ne_of_gt hpowpos), Real.log_pow]
+    rw [Real.log_mul (ne_of_gt hApos) (by positivity), Real.log_pow]
   rw [hprod] at hmono
   linarith
 
@@ -608,7 +607,7 @@ theorem nativePNT_exists_small_error_dyadic
   have haway : ∀ n ∈ Finset.Icc A (A * 2 ^ K),
       ε * (n : ℝ) ≤ |nativePNTError n| := by
     intro n hn
-    exact le_of_not_gt (hno n hn)
+    exact hno n hn
   have hsign := nativePNTError_sign_constant_of_away
     A (A * 2 ^ K) ε hA hAB hε hdown hup haway
   have hrecip := nativePNTRecipSuccDyadic_lower A K hA
@@ -628,7 +627,7 @@ theorem nativePNT_exists_small_error_dyadic
       intro n hn
       have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1.trans' hA
       exact div_nonneg (hpos n hn)
-        (mul_nonneg (by exact_mod_cast hn1) (by positivity))
+        (mul_nonneg (by positivity) (by positivity))
     rw [abs_of_nonneg hmass0] at hupper
     linarith
   · have hlower := nativePNTWeightedErrorIntervalMass_neg_lower_of_nonpos
@@ -639,7 +638,7 @@ theorem nativePNT_exists_small_error_dyadic
       intro n hn
       have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1.trans' hA
       exact div_nonpos_of_nonpos_of_nonneg (hneg n hn)
-        (mul_nonneg (by exact_mod_cast hn1) (by positivity))
+        (mul_nonneg (by positivity) (by positivity))
     rw [abs_of_nonpos hmass0] at hupper
     linarith
 
