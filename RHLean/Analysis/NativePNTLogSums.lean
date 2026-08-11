@@ -49,6 +49,7 @@ theorem nativeOne_le_succ_mul_log_succ_sub_log
   have hcancel :
       ((n : ℝ) + 1) * ((n : ℝ) / ((n : ℝ) + 1) - 1) = -1 := by
     field_simp
+    ring
   have hmul := mul_le_mul_of_nonneg_left h hsuccpos.le
   rw [hcancel] at hmul
   linarith

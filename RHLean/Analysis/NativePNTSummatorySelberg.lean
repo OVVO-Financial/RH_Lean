@@ -75,7 +75,8 @@ theorem nativeLambdaConvolutionMass_eq_reciprocalPsi (N : ℕ) :
         ∑ n ∈ Finset.Icc 1 N, ∑ d ∈ n.divisors, Λ d * Λ (n / d) := by
       apply Finset.sum_congr rfl
       intro n _hn
-      rw [ArithmeticFunction.mul_apply, Nat.sum_divisorsAntidiagonal]
+      rw [ArithmeticFunction.mul_apply,
+        Nat.sum_divisorsAntidiagonal (fun a b => Λ a * Λ b)]
     _ = ∑ d ∈ Finset.Icc 1 N,
           ∑ n ∈ (Finset.Icc 1 N).filter (fun x => d ∣ x),
             Λ d * Λ (n / d) :=
@@ -109,8 +110,7 @@ theorem nativeLambdaConvolutionMass_eq_reciprocalPsi (N : ℕ) :
       rw [hmap, Finset.sum_image]
       · apply Finset.sum_congr rfl
         intro m _hm
-        have hdiv : d * m / d = m := by
-          simpa [Nat.mul_comm] using (Nat.mul_div_left m d)
+        have hdiv : d * m / d = m := Nat.mul_div_cancel_left m hdpos
         rw [hdiv]
       · intro a _ha b _hb hab
         exact Nat.eq_of_mul_eq_mul_left hdpos hab
@@ -140,11 +140,10 @@ theorem nativeLambdaLogMass_abel (N : ℕ) :
       · have hN1 : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr hN0
         unfold nativeLambdaLogMass at ih ⊢
         rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ N + 1)]
-        fold nativeLambdaLogMass
         rw [ih, nativePsi_succ_eq]
         rw [Finset.sum_Ico_succ_top hN1]
         push_cast
-        ring_nf
+        ring
 
 /-- Elementary logarithmic increment bound used in the Abel correction. -/
 theorem nativeLog_succ_sub_log_le_inv
