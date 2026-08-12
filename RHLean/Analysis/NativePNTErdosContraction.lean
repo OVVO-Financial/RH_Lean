@@ -2385,6 +2385,59 @@ theorem nativePNT_exists_good_power_shell_selector
     exact (hspec j).2.2 q hq
 
 
+private lemma nativePNT_shell_step_lt (E K i : ℕ) :
+    E + i * (K + 2) + K + 1 < E + (i + 1) * (K + 2) := by
+  omega
+
+private lemma nativePNT_four_mul_sum_le
+    {a b q : ℕ} (ha : 8 * a ≤ q) (hb : 8 * b ≤ q) :
+    4 * (a + b) ≤ q := by
+  omega
+
+private lemma nativePNT_quarter_cast_lower (q : ℕ) (hq : 8 ≤ q) :
+    (q : ℝ) / 8 ≤ ((q / 4 : ℕ) : ℝ) := by
+  have hdec4 : 4 * (q / 4) + q % 4 = q := Nat.div_add_mod q 4
+  have hmod4 : q % 4 < 4 := Nat.mod_lt q (by norm_num)
+  have hnat : q ≤ 8 * (q / 4) := by
+    omega
+  have hcast : (q : ℝ) ≤ 8 * ((q / 4 : ℕ) : ℝ) := by
+    exact_mod_cast hnat
+  nlinarith
+
+private lemma nativePNT_quadratic_product_lower
+    (eps logTwo L q J q4 : ℝ)
+    (heps : 0 ≤ eps) (hlogTwo : 0 ≤ logTwo)
+    (hL : 0 < L) (hq : 0 ≤ q) (hJnonneg : 0 ≤ J)
+    (hJ : q / (16 * L) ≤ J) (hq4 : q / 8 ≤ q4) :
+    eps * logTwo / (4096 * L) * q ^ 2 ≤
+      J * ((eps / 32) * (q4 * logTwo)) := by
+  have heps32 : 0 ≤ eps / 32 := div_nonneg heps (by norm_num)
+  have hq8 : 0 ≤ q / 8 := div_nonneg hq (by norm_num)
+  have hterm0 : 0 ≤ (eps / 32) * ((q / 8) * logTwo) :=
+    mul_nonneg heps32 (mul_nonneg hq8 hlogTwo)
+  have hterm :
+      (eps / 32) * ((q / 8) * logTwo) ≤
+        (eps / 32) * (q4 * logTwo) := by
+    have hmul : (q / 8) * logTwo ≤ q4 * logTwo :=
+      mul_le_mul_of_nonneg_right hq4 hlogTwo
+    exact mul_le_mul_of_nonneg_left hmul heps32
+  have hleft :
+      (q / (16 * L)) * ((eps / 32) * ((q / 8) * logTwo)) ≤
+        J * ((eps / 32) * ((q / 8) * logTwo)) :=
+    mul_le_mul_of_nonneg_right hJ hterm0
+  have hright :
+      J * ((eps / 32) * ((q / 8) * logTwo)) ≤
+        J * ((eps / 32) * (q4 * logTwo)) :=
+    mul_le_mul_of_nonneg_left hterm hJnonneg
+  have hprod := hleft.trans hright
+  have halg :
+      eps * logTwo / (4096 * L) * q ^ 2 =
+        (q / (16 * L)) * ((eps / 32) * ((q / 8) * logTwo)) := by
+    field_simp [ne_of_gt hL]
+    <;> ring
+  rw [halg]
+  exact hprod
+
 /-- **Quadratic logarithmic density of good reciprocal fibres.**  For every
 fixed `0 < eps <= 1`, the PNT2 good intervals supplied on separated dyadic
 shells contribute a positive fixed multiple of `log^2 N` to the reciprocal
@@ -2413,11 +2466,11 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
     exists_nat_gt (64 * C / (eps * Real.log 2))
   have hM_log : 64 * C / (eps * Real.log 2) < (M_log : ℝ) := by
     exact_mod_cast hM_lognat
-  let c : ℝ := eps * Real.log 2 / (8192 * (L : ℝ))
+  let c : ℝ := eps * Real.log 2 / (16384 * (L : ℝ))
   have hc : 0 < c := by
     dsimp [c]
     positivity
-  have hden1 : (1 : ℝ) ≤ 8192 * (L : ℝ) := by
+  have hden1 : (1 : ℝ) ≤ 16384 * (L : ℝ) := by
     have hL1 : (1 : ℝ) ≤ (L : ℝ) := by exact_mod_cast (Nat.one_le_iff_ne_zero.2 hLpos.ne')
     nlinarith
   have hnum1 : eps * Real.log 2 ≤ 1 := by
@@ -2427,7 +2480,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
     simpa using h
   have hc1 : c ≤ 1 := by
     dsimp [c]
-    have hdenpos : (0 : ℝ) < 8192 * (L : ℝ) := lt_of_lt_of_le (by norm_num) hden1
+    have hdenpos : (0 : ℝ) < 16384 * (L : ℝ) := lt_of_lt_of_le (by norm_num) hden1
     rw [div_le_one hdenpos]
     exact hnum1.trans hden1
   refine ⟨c, hc, hc1, ?_⟩
@@ -2495,8 +2548,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
       have hji : i + 1 ≤ j := by omega
       have hmul : (i + 1) * L ≤ j * L := Nat.mul_le_mul_right L hji
       have hstep : E + i * L + K + 1 < E + (i + 1) * L := by
-        dsimp [L]
-        omega
+        simpa [L] using nativePNT_shell_step_lt E K i
       exact hstep.trans_le (Nat.add_le_add_left hmul E)
     have hp : 2 ^ (E + i * L + K + 1) < 2 ^ (E + j * L) :=
       Nat.pow_lt_pow_right Nat.one_lt_two hexp
@@ -2524,9 +2576,11 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
             Nat.mul_le_mul_left 8 (Nat.mul_le_mul_right L (Nat.le_succ j))
           _ = (j + 1) * (8 * L) := by ring
           _ ≤ q := hjstep
-      have hsum : 4 * (E + K + 2 + j * L) ≤ q := by
-        omega
-      simpa [Nat.add_assoc, Nat.add_left_comm, Nat.add_comm] using hsum
+      have hsum0 : 4 * ((E + K + 2) + j * L) ≤ q :=
+        nativePNT_four_mul_sum_le hEpart hjpart
+      have hsum : (E + j * L + K + 2) * 4 ≤ q := by
+        convert hsum0 using 1 <;> ring
+      exact hsum
     have hrad := nativePNTGoodForwardRadius_le_self (t j) eps heps.le heps1
     have htj1 : 1 ≤ t j := htOne j hjJ
     have hud : t j + nativePNTGoodForwardRadius (t j) eps + 1 ≤ 4 * t j := by
@@ -2569,11 +2623,13 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
     intro j hjJ
     have hd := hLocalQuot j hjJ
     have hden : t j ≤ t j + nativePNTGoodForwardRadius (t j) eps + 1 := by omega
-    exact hd.trans (Nat.div_le_div_left hden (by omega))
+    have htj0 : t j ≠ 0 := Nat.one_le_iff_ne_zero.mp (htOne j hjJ)
+    have htjpos : 0 < t j := Nat.pos_of_ne_zero htj0
+    exact hd.trans (Nat.div_le_div_left hden htjpos)
   have hA : ∀ j < J,
       3 ≤ N / (t j + nativePNTGoodForwardRadius (t j) eps + 1) := by
     intro j hj
-    exact hMfour.trans (hLocalQuot j hj)
+    exact (show 3 ≤ 4 by norm_num).trans (hMfour.trans (hLocalQuot j hj))
   have hMBpow : M_B ≤ M := by
     have hself : M_B ≤ 2 ^ M_B := (Nat.lt_pow_self Nat.one_lt_two).le
     have hp : 2 ^ M_B ≤ 2 ^ (q / 4) :=
@@ -2652,7 +2708,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
   have hJtwo : 2 ≤ J := by
     dsimp [J]
     apply (Nat.le_div_iff_mul_le hdpos).2
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hqJL
+    convert hqJL using 1 <;> ring
   have hJone : 1 ≤ J := by omega
   have hdJ : 8 * L ≤ (8 * L) * J := by
     simpa using Nat.mul_le_mul_left (8 * L) hJone
@@ -2665,34 +2721,27 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
       _ = 16 * L * J := by ring
   have hJlower : (q : ℝ) ≤ 16 * (L : ℝ) * (J : ℝ) := by
     exact_mod_cast hJlowerNat
-  have hqdiv4 : (q : ℝ) / 8 ≤ ((q / 4 : ℕ) : ℝ) := by
-    have hdec4 : 4 * (q / 4) + q % 4 = q := Nat.div_add_mod q 4
-    have hmod4 : q % 4 < 4 := Nat.mod_lt q (by norm_num)
-    have hnat : q ≤ 8 * (q / 4) := by
-      omega
-    have hcast : (q : ℝ) ≤ 8 * ((q / 4 : ℕ) : ℝ) := by
-      exact_mod_cast hnat
-    nlinarith
+  have hqdiv4 : (q : ℝ) / 8 ≤ ((q / 4 : ℕ) : ℝ) :=
+    nativePNT_quarter_cast_lower q hq8
   have hmassQ :
       eps * Real.log 2 / (4096 * (L : ℝ)) * (q : ℝ) ^ 2 ≤
         nativeLambdaTwoGoodRecipMass N eps := by
     have hJreal : (q : ℝ) / (16 * (L : ℝ)) ≤ (J : ℝ) := by
-      have hLr : 0 < (L : ℝ) := by exact_mod_cast hLpos
-      rw [div_le_iff₀ (by positivity : (0 : ℝ) < 16 * (L : ℝ))]
-      nlinarith [hJlower]
-    have htermQ :
-        (eps / 32) * (((q : ℝ) / 8) * Real.log 2) ≤
-          (eps / 32) * (((q / 4 : ℕ) : ℝ) * Real.log 2) := by
-      have hmul := mul_le_mul_of_nonneg_right hqdiv4 hlog2pos.le
-      exact mul_le_mul_of_nonneg_left hmul (by positivity)
-    have hprod := mul_le_mul hJreal htermQ
-      (by positivity)
-      (by positivity)
+      have hden : (0 : ℝ) < 16 * (L : ℝ) := by positivity
+      apply (div_le_iff₀ hden).2
+      simpa [mul_assoc, mul_left_comm, mul_comm] using hJlower
+    have hprod :
+        eps * Real.log 2 / (4096 * (L : ℝ)) * (q : ℝ) ^ 2 ≤
+          ((J : ℕ) : ℝ) *
+            ((eps / 32) * (((q / 4 : ℕ) : ℝ) * Real.log 2)) := by
+      exact nativePNT_quadratic_product_lower
+        eps (Real.log 2) (L : ℝ) (q : ℝ) (J : ℝ) ((q / 4 : ℕ) : ℝ)
+        heps.le hlog2pos.le (by exact_mod_cast hLpos) (by positivity)
+        (by positivity) hJreal hqdiv4
     calc
       eps * Real.log 2 / (4096 * (L : ℝ)) * (q : ℝ) ^ 2 ≤
           ((J : ℕ) : ℝ) *
-            ((eps / 32) * (((q / 4 : ℕ) : ℝ) * Real.log 2)) := by
-        convert hprod using 1 <;> field_simp [show (L : ℝ) ≠ 0 by exact_mod_cast hLpos.ne'] <;> ring
+            ((eps / 32) * (((q / 4 : ℕ) : ℝ) * Real.log 2)) := hprod
       _ ≤ ∑ j ∈ Finset.range J,
           (eps / 32) * Real.log ((N / t j : ℕ) : ℝ) := hsumTerm
       _ ≤ nativeLambdaTwoGoodRecipMass N eps := hpacked
@@ -2718,7 +2767,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
   have hcSq : c * (Real.log (N : ℝ)) ^ 2 ≤
       eps * Real.log 2 / (4096 * (L : ℝ)) * (q : ℝ) ^ 2 := by
     dsimp [c]
-    have hcoef : 0 ≤ eps * Real.log 2 / (8192 * (L : ℝ)) := hc.le
+    have hcoef : 0 ≤ eps * Real.log 2 / (16384 * (L : ℝ)) := hc.le
     have h := mul_le_mul_of_nonneg_left hsq hcoef
     nlinarith
   exact hcSq.trans hmassQ
