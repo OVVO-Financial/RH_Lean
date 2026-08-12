@@ -77,7 +77,7 @@ theorem nativeMobiusLogFiber_pair_adjoin_prime
   push_cast
   have hp0 : (p : ℝ) ≠ 0 := by exact_mod_cast hp.ne_zero
   have hk0 : (k : ℝ) ≠ 0 := by exact_mod_cast (show k ≠ 0 by omega)
-  rw [Nat.cast_mul, Real.log_mul hp0 hk0]
+  rw [Real.log_mul hp0 hk0]
   ring
 
 /-! ## Reciprocal-fibre Fubini reindexing -/
@@ -306,7 +306,8 @@ theorem nativePNTSquarePrefix_sum_eq_sum_blocks
       have hmono : squarePrefixEndpoint n ≤ squarePrefixEndpoint (n + 1) := by
         have h1 := squarePrefixEndpoint_add_one n
         have h2 := squarePrefixEndpoint_add_one (n + 1)
-        have hpow : (n + 1) ^ 2 ≤ (n + 2) ^ 2 := by nlinarith
+        have hpow : (n + 1) ^ 2 ≤ (n + 2) ^ 2 := by
+          exact Nat.pow_le_pow_left (by omega) 2
         omega
       have hset :
           Finset.Icc 1 (squarePrefixEndpoint (n + 1)) =
