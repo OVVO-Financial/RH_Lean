@@ -1,6 +1,6 @@
 # Möbius Synthesis — Lean source map
 
-This repository intentionally contains the full import-audited `RHLean` library rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The manifest currently imports **248 Lean modules**, and every imported `RHLean.*` module resolves to the corresponding path under `RHLean/`.
+This repository intentionally contains the full import-audited `RHLean` library rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The manifest currently imports **283 Lean modules**, and every imported `RHLean.*` module resolves to the corresponding path under `RHLean/`.
 
 ## Elementary prime-sieve seam
 
@@ -151,9 +151,67 @@ The library also contains the forward analytic chain needed around the terminal 
 - `RHLean.Proof.RiemannHypothesisBridge`
 - `RHLean.Proof.TerminalAxiomAudit`
 
+## Native Selberg--Erdős prime number theorem
+
+The manifest carries the complete elementary architecture whose endpoint is the
+ordinary prime-counting prime number theorem
+
+```text
+RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem
+  : Tendsto (fun N => (Nat.primeCounting N : ℝ) * Real.log N / N) atTop (𝓝 1)
+```
+
+The statement is unconditional: it carries no hypotheses, uses Mathlib's
+`Nat.primeCounting`, and its dependency closure contains no `sorry`, no
+project-local `axiom`, and no `native_decide`. No zero-free region, Perron
+formula, Tauberian theorem, or spectral input is used, and every error term in
+the chain carries an explicit numeric constant rather than an existential one.
+
+Shared elementary layer:
+
+```text
+RHLean.Analysis.NativePNTLogSums
+RHLean.Analysis.NativePNTChebyshev
+RHLean.Analysis.NativePNTMertens
+RHLean.Analysis.NativePNTSelberg
+RHLean.Analysis.NativePNTMobiusMoments
+RHLean.Analysis.NativePNTMobiusSecondMoment
+RHLean.Analysis.NativePNTSummatorySelberg
+RHLean.Analysis.NativePNTErrorMass
+RHLean.Analysis.NativePNTErdosContraction
+RHLean.Analysis.NativePNTTransfer
+```
+
+Square-prefix reciprocal-fibre route and its endpoint:
+
+```text
+RHLean.Analysis.NativePNTSquarePrefixMobiusError
+RHLean.Analysis.NativePNTSquarePrefixGoodMass
+RHLean.Analysis.NativePNTSquarePrefixGoodMassRate
+RHLean.Analysis.NativePNTSquarePrefixCompensated
+RHLean.Analysis.NativePNTSquarePrefixCubic
+RHLean.Analysis.NativePNTSquarePrefixContraction
+RHLean.Analysis.NativePNTSquarePrefixPNT
+RHLean.Analysis.NativePNTSquarePrefixTransfer
+```
+
+Möbius endpoint and quantitative target statements:
+
+```text
+RHLean.Analysis.NativePNTAxer
+RHLean.Analysis.NativePNTQuantitativeStatements
+```
+
+`NativePNTAxer` carries the Möbius-side endpoint `nativeMertensSummatory`, and
+`NativePNTQuantitativeStatements` states the RH-scale targets
+(`MertensRHScaleStatement`, `NativePNTChebyshevRHScaleStatement`,
+`MertensPowerBound r`) that the proved asymptotic does **not** establish. They
+are included because the distance between the two is the quantity this
+repository exists to close; see `CURRENT_PROOF_ROUTE.md`.
+
 ## Modules added since the original 214-module inventory
 
-The current manifest contains **34** modules beyond the original 214-module inventory. The previous revision reached 247 modules; this change adds the one new reciprocal-quotient PNT-error module while retaining the PNT-centering, elementary prime-sieve bridge, and earlier survivor additions.
+The current manifest contains **69** modules beyond the original 214-module inventory. The previous revision reached 263 modules; this change adds the twenty-module native Selberg--Erdős prime number theorem architecture listed above, while retaining the reciprocal-quotient PNT-error, PNT-centering, elementary prime-sieve bridge, and earlier survivor additions.
 
 Previously synchronized 21-module delta:
 
