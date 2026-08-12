@@ -2387,7 +2387,9 @@ theorem nativePNT_exists_good_power_shell_selector
 
 private lemma nativePNT_shell_step_lt (E K i : ℕ) :
     E + i * (K + 2) + K + 1 < E + (i + 1) * (K + 2) := by
-  omega
+  calc
+    E + i * (K + 2) + K + 1 < E + i * (K + 2) + K + 2 := by omega
+    _ = E + (i + 1) * (K + 2) := by ring
 
 private lemma nativePNT_four_mul_sum_le
     {a b q : ℕ} (ha : 8 * a ≤ q) (hb : 8 * b ≤ q) :
@@ -2434,9 +2436,37 @@ private lemma nativePNT_quadratic_product_lower
       eps * logTwo / (4096 * L) * q ^ 2 =
         (q / (16 * L)) * ((eps / 32) * ((q / 8) * logTwo)) := by
     field_simp [ne_of_gt hL]
-    <;> ring
+    ring
   rw [halg]
   exact hprod
+
+private lemma nativePNT_log_upper_from_binary
+    {N q : ℕ} (hN : 1 ≤ N) (hq : 1 ≤ q)
+    (hNpow : N < 2 ^ (q + 1))
+    (hlog2le : Real.log (2 : ℝ) ≤ 1) :
+    Real.log (N : ℝ) ≤ 2 * (q : ℝ) := by
+  have hNpos : (0 : ℝ) < (N : ℝ) := by
+    exact_mod_cast (show 0 < N by omega)
+  have hcast : (N : ℝ) ≤ ((2 ^ (q + 1) : ℕ) : ℝ) := by
+    exact_mod_cast hNpow.le
+  have hlogle := Real.log_le_log hNpos hcast
+  have hlogpow : Real.log ((2 ^ (q + 1) : ℕ) : ℝ) =
+      ((q + 1 : ℕ) : ℝ) * Real.log 2 := by
+    rw [Nat.cast_pow, Real.log_pow]
+    norm_num
+  rw [hlogpow] at hlogle
+  have hqreal : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hmul :
+      ((q + 1 : ℕ) : ℝ) * Real.log 2 ≤ ((q + 1 : ℕ) : ℝ) * 1 :=
+    mul_le_mul_of_nonneg_left hlog2le (by positivity)
+  have hqsum : ((q + 1 : ℕ) : ℝ) ≤ 2 * (q : ℝ) := by
+    push_cast
+    linarith
+  calc
+    Real.log (N : ℝ) ≤ ((q + 1 : ℕ) : ℝ) * Real.log 2 := hlogle
+    _ ≤ ((q + 1 : ℕ) : ℝ) * 1 := hmul
+    _ = ((q + 1 : ℕ) : ℝ) := by ring
+    _ ≤ 2 * (q : ℝ) := hqsum
 
 /-- **Quadratic logarithmic density of good reciprocal fibres.**  For every
 fixed `0 < eps <= 1`, the PNT2 good intervals supplied on separated dyadic
@@ -2750,26 +2780,21 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
     simpa [Nat.succ_eq_add_one] using Nat.lt_pow_succ_log_self Nat.one_lt_two N
   have hlogNnonneg : 0 ≤ Real.log (N : ℝ) :=
     Real.log_nonneg (by exact_mod_cast hN1)
-  have hlogNupper : Real.log (N : ℝ) ≤ 2 * (q : ℝ) := by
-    have hpowpos : (0 : ℝ) < ((2 ^ (q + 1) : ℕ) : ℝ) := by positivity
-    have hcast : (N : ℝ) ≤ ((2 ^ (q + 1) : ℕ) : ℝ) := by exact_mod_cast hNpow.le
-    have hlogle := Real.log_le_log (by exact_mod_cast (show 0 < N by omega)) hcast
-    have hlogpow : Real.log ((2 ^ (q + 1) : ℕ) : ℝ) =
-        ((q + 1 : ℕ) : ℝ) * Real.log 2 := by
-      rw [Nat.cast_pow, Real.log_pow]
-    rw [hlogpow] at hlogle
-    have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast (show 1 ≤ q by omega)
-    have hmul := mul_le_mul_of_nonneg_left hlog2le (by positivity : (0 : ℝ) ≤ ((q + 1 : ℕ) : ℝ))
-    push_cast at hmul
-    nlinarith
+  have hq1nat : 1 ≤ q := by omega
+  have hlogNupper : Real.log (N : ℝ) ≤ 2 * (q : ℝ) :=
+    nativePNT_log_upper_from_binary hN1 hq1nat hNpow hlog2le
   have hsq : (Real.log (N : ℝ)) ^ 2 ≤ 4 * (q : ℝ) ^ 2 := by
-    nlinarith [sq_nonneg (Real.log (N : ℝ) - 2 * (q : ℝ))]
+    nlinarith only [hlogNnonneg, hlogNupper,
+      sq_nonneg (Real.log (N : ℝ) - 2 * (q : ℝ))]
   have hcSq : c * (Real.log (N : ℝ)) ^ 2 ≤
       eps * Real.log 2 / (4096 * (L : ℝ)) * (q : ℝ) ^ 2 := by
     dsimp [c]
     have hcoef : 0 ≤ eps * Real.log 2 / (16384 * (L : ℝ)) := hc.le
-    have h := mul_le_mul_of_nonneg_left hsq hcoef
-    nlinarith
+    calc
+      eps * Real.log 2 / (16384 * (L : ℝ)) * (Real.log (N : ℝ)) ^ 2 ≤
+          eps * Real.log 2 / (16384 * (L : ℝ)) * (4 * (q : ℝ) ^ 2) :=
+        mul_le_mul_of_nonneg_left hsq hcoef
+      _ = eps * Real.log 2 / (4096 * (L : ℝ)) * (q : ℝ) ^ 2 := by ring
   exact hcSq.trans hmassQ
 
 
