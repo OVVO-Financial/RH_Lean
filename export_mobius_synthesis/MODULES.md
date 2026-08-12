@@ -1,6 +1,6 @@
 # Möbius Synthesis — Lean source map
 
-This repository intentionally contains the full import-audited `RHLean` library rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The manifest currently imports **284 Lean modules**, and every imported `RHLean.*` module resolves to the corresponding path under `RHLean/`.
+This repository intentionally contains the full import-audited `RHLean` library rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The manifest currently imports **285 Lean modules**, and every imported `RHLean.*` module resolves to the corresponding path under `RHLean/`.
 
 ## Elementary prime-sieve seam
 
@@ -241,9 +241,48 @@ from the arithmetic side, importing `NativePNTMertens` and
 reciprocal Mertens bound cannot be uniformly replaced by any constant below `1`
 across every positive prefix, since the `N = 1` value is exactly `1`.
 
+## Truncated primorial wheel boundary
+
+`RHLean.Arithmetic.PrimorialTruncatedWheelBoundary` builds the finite boundary
+object that the factorization above suggests: the signed reciprocal Boolean-cube
+profile, truncated at a cutoff `X`.
+
+```text
+primorialTruncatedSignedReciprocalCube P X
+  = sum over faces t of P.powerset, counting only faces with
+    primeFaceProduct t <= X, of booleanCubeSign t / primeFaceProduct t
+```
+
+The cutoff is an `if` over the complete powerset rather than a restricted index
+set, which is what makes the fresh-prime update fall directly out of the
+powerset insertion split:
+
+```text
+primorialTruncatedSignedReciprocalCube_insert   -- p prime, p not in P
+  : T (insert p P) X = T P X - (1/p) * T P (X / p)
+
+primorialTruncatedSignedReciprocalCube_eq_complete
+  : once X reaches the full wheel product, T P X is the complete signed profile
+
+primorialTruncatedSignedReciprocalCube_eq_factor
+  : and therefore equals prod_{p in P} (1 - 1/p)
+
+primorialTruncatedSignedReciprocalCube_empty   -- 1 <= X
+  : T empty X = 1        -- the unique face has product 1
+```
+
+The only arithmetic update is Möbius sign reversal on a fresh prime coordinate,
+so this is again an exact reduction: no PNT input, no Mertens product theorem,
+no infinite Euler product, no prime-distribution estimate.
+
+`primorialTruncatedSignedReciprocalCube_complete_boundary` is presentational
+rather than substantive — it splits the profile as complete factor plus
+remainder and is proved by `ring`. It names the boundary term; it does not bound
+it.
+
 ## Modules added since the original 214-module inventory
 
-The current manifest contains **70** modules beyond the original 214-module inventory. The previous revision reached 283 modules; this change adds the finite primorial reciprocal Möbius factorization module described above, while retaining the native prime number theorem architecture, reciprocal-quotient PNT-error, PNT-centering, elementary prime-sieve bridge, and earlier survivor additions.
+The current manifest contains **71** modules beyond the original 214-module inventory. The previous revision reached 284 modules; this change adds the truncated primorial wheel boundary module described above, while retaining the primorial reciprocal Möbius factorization, the native prime number theorem architecture, reciprocal-quotient PNT-error, PNT-centering, elementary prime-sieve bridge, and earlier survivor additions.
 
 Previously synchronized 21-module delta:
 
