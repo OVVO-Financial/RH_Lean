@@ -208,10 +208,9 @@ theorem primeSieveDyadicBlockAbelPotential_top_eq_zero
       (∑ t ∈ Finset.Icc 1 (x / (y + 1)),
         primeSieveDyadicBlockWaveletMask y x j t) = 0 := by
     simpa [primeSieveQuotientSupport] using hzero
-  have htopNat : x / (y + 1) + 1 - 1 = x / (y + 1) := by
-    omega
   unfold primeSieveDyadicBlockAbelPotential
-  rw [htopNat, hsum]
+  simp only [Nat.add_sub_cancel]
+  rw [hsum]
   simp
 
 /-- Mertens-weighted contribution of one mean-zero dyadic block. -/
