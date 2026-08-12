@@ -403,11 +403,10 @@ private lemma nativePNTSquarePrefix_depth_constant_le_24 :
   rw [hlog4eq]
   nlinarith
 
-/-- Calibrated positive number of square-prefix index-clock extensions. -/
+/-- Calibrated number of square-prefix index-clock extensions. -/
 theorem nativePNT_exists_squarePrefix_depth_quantitative
     (eps : ℝ) (heps : 0 < eps) (_heps1 : eps ≤ 1) :
     ∃ K : ℕ,
-      1 ≤ K ∧
       2 * (2 * (Real.log 4 + 2) + Real.log 2 + 3) <
           (eps / 4) * (2 * (K : ℝ) * Real.log 2 - 1) ∧
       (((K + 2 : ℕ) : ℝ) ≤ 100 / eps) := by
@@ -425,9 +424,6 @@ theorem nativePNT_exists_squarePrefix_depth_quantitative
     dsimp [K]
     push_cast
     linarith
-  have hK1 : 1 ≤ K := by
-    dsimp [K]
-    omega
   have hloglow := nativePNTSquarePrefix_log_two_ge_half
   have hKlog : 96 / eps < 2 * (K : ℝ) * Real.log 2 - 1 := by
     have hmul := mul_le_mul_of_nonneg_left hloglow
@@ -452,7 +448,7 @@ theorem nativePNT_exists_squarePrefix_depth_quantitative
   have hK2 : (((K + 2 : ℕ) : ℝ) ≤ 100 / eps) := by
     push_cast
     nlinarith [hKupper, htail]
-  exact ⟨K, hK1, hdepth, hK2⟩
+  exact ⟨K, hdepth, hK2⟩
 
 private theorem nativePNTSquarePrefixSearchUpper_log_le
     (A K : ℕ) (hA : 1 ≤ A) (hK : 1 ≤ K) :
@@ -481,11 +477,11 @@ private theorem nativePNTSquarePrefixSearchUpper_log_le
   rw [heq] at hmono
   exact hmono
 
-/-- For fixed positive square-prefix depth, all PNT1/PNT2 endpoint hypotheses
-hold on every sufficiently large square-prefix starting index. -/
+/-- For fixed square-prefix depth, all PNT1/PNT2 endpoint hypotheses hold on
+all sufficiently large square-prefix starting indices. -/
 set_option maxHeartbeats 800000 in
 theorem nativePNT_exists_good_radius_squarePrefix_eventually
-    (K : ℕ) (eps : ℝ) (hK : 1 ≤ K)
+    (K : ℕ) (eps : ℝ)
     (heps : 0 < eps) (heps1 : eps ≤ 1)
     (hdepth :
       2 * (2 * (Real.log 4 + 2) + Real.log 2 + 3) <
@@ -496,6 +492,17 @@ theorem nativePNT_exists_good_radius_squarePrefix_eventually
         |nativePNTError t| ≤ eps * (t : ℝ) / 4 ∧
           ∀ q ∈ Finset.Icc t (t + nativePNTGoodForwardRadius t eps),
             |nativePNTError q| ≤ eps * (q : ℝ) := by
+  have hconst0 :
+      0 ≤ 2 * (2 * (Real.log 4 + 2) + Real.log 2 + 3) := by
+    have h4 : 0 ≤ Real.log (4 : ℝ) := Real.log_nonneg (by norm_num)
+    have h2 : 0 ≤ Real.log (2 : ℝ) := Real.log_nonneg (by norm_num)
+    nlinarith
+  have hK : 1 ≤ K := by
+    by_contra hnot
+    have hK0 : K = 0 := by omega
+    subst K
+    norm_num at hdepth
+    nlinarith [hconst0]
   have hlogTop :
       Tendsto (fun A : ℕ => Real.log (A : ℝ)) atTop atTop :=
     Real.tendsto_log_atTop.comp tendsto_natCast_atTop_atTop
