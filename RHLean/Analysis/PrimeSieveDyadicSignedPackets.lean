@@ -169,7 +169,7 @@ theorem primeSieveDyadicRootPacketResidual_eq_chordResidual
     exact_mod_cast (Nat.ne_of_gt hwidthNat)
   unfold primeSieveSignedSiblingPacketResidual
   rw [primeSieveDyadicRootPacket_eq_width_mul_chordResidual hj hdB]
-  simp [hwidth, mul_assoc]
+  simp [hwidth]
 
 /-- Energy of the width-normalized root sibling packets over all occupied #322
 dyadic reciprocal blocks. -/
