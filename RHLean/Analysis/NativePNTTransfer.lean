@@ -228,9 +228,17 @@ private theorem nativePrimeCounting_mul_log_sqrt_le
           _ = ⌊Real.sqrt (N : ℝ)⌋₊ := by simp
       have hcardReal :
           (((nativePrimeSet N).filter
-            (fun p => (p : ℝ) ≤ Real.sqrt (N : ℝ))).card : ℕ) ≤
+            (fun p : ℕ => (p : ℝ) ≤ Real.sqrt (N : ℝ))).card : ℝ) ≤
             Real.sqrt (N : ℝ) := by
-        exact_mod_cast hcardNat.trans (Nat.floor_le (Real.sqrt_nonneg _))
+        have hcardFloorReal :
+            (((nativePrimeSet N).filter
+              (fun p : ℕ => (p : ℝ) ≤ Real.sqrt (N : ℝ))).card : ℝ) ≤
+              (⌊Real.sqrt (N : ℝ)⌋₊ : ℝ) := by
+          exact_mod_cast hcardNat
+        have hfloorReal :
+            (⌊Real.sqrt (N : ℝ)⌋₊ : ℝ) ≤ Real.sqrt (N : ℝ) :=
+          Nat.floor_le (Real.sqrt_nonneg _)
+        exact hcardFloorReal.trans hfloorReal
       exact mul_le_mul_of_nonneg_right hcardReal hlogSqrt
 
 /-- A fixed weak Chebyshev estimate, sufficient for the cutoff argument below. -/
