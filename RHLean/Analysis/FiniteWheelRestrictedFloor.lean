@@ -52,9 +52,19 @@ theorem finiteWheelRoughMoebius_mul_zeta_apply
           rw [Nat.primeFactors_pow p hk0]
           simpa [hp] using hpP
         rw [if_neg hpow0, if_neg hnSmooth]
-        simp only [finiteWheelRoughMoebius_apply, Nat.coprime_pow_left_iff,
-          ArithmeticFunction.moebius_apply_prime_pow hp]
-        rw [if_pos hpcop, if_pos hk]
+        have hpowcop : ∀ j : ℕ, Nat.Coprime (p ^ j) (primorialWheelProduct P) :=
+          fun j => hpcop.pow_left j
+        simp_rw [finiteWheelRoughMoebius_apply, if_pos (hpowcop _)]
+        have hsum :
+            (∑ x ∈ Finset.range k, ArithmeticFunction.moebius (p ^ (x + 1))) = (-1 : ℤ) := by
+          rw [Finset.sum_eq_single 0]
+          · simpa using ArithmeticFunction.moebius_apply_prime hp
+          · intro b hb hb0
+            have hb1 : b + 1 ≠ 0 := by omega
+            rw [ArithmeticFunction.moebius_apply_prime_pow hp hb1]
+            simp [hb0]
+          · simpa using hk
+        rw [hsum]
         norm_num
   | coprime a b ha hb hab haInd hbInd =>
       have ha0 : a ≠ 0 := by omega
