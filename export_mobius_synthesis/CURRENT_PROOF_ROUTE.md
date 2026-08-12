@@ -257,6 +257,36 @@ The positive-smooth collapse is a **diagnostic side coordinate**, not a replacem
 
 The **single live proof problem** remains the signed-cancellation arrow.
 
+## 9. Where the native prime number theorem sits on this route
+
+The repository proves the ordinary prime-counting prime number theorem outright, unconditionally and elementarily, at `RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem`. It is important to be exact about which arrow that discharges, because it is not the open one.
+
+Read against the compressed route above, the prime number theorem is the `o(x)` line, not the `O(x^(1/2+epsilon))` line:
+
+```text
+PNT   <=>  M(x) = o(x)                    proved here, unconditionally
+RH    <=>  M(x) = O(x^(1/2+epsilon))      the open target
+```
+
+So the native chain does not shorten the signed-cancellation arrow. Its value on this route is threefold, and each is a use the architecture actually has:
+
+1. **It removes an external dependency.** Every PNT-strength fact the route consumes is now proved inside the repository from the same reciprocal-fibre Möbius architecture, rather than imported. The repository's standing rule that no analytic estimate may be represented by an axiom, opaque constant, or weakened theorem now holds for the prime number theorem itself.
+
+2. **It calibrates the deficit, effectively.** The contraction is not merely convergent; it is quantitative, and every constant is named. `nativeLambdaTwoGoodRecipMass_eventually_quadratic_squarePrefix_with_rate` bounds the good-fibre density constant below by `eps^2 / 6600000`, and that quadratic dependence is exactly what turns the affine-slope improvement into a cubic recurrence rather than a bare geometric one:
+
+   ```text
+   nativePNTSquarePrefixCubicConstant       = 1 / 1140480000
+   nativePNTSquarePrefixCubicSlope 0        = 6
+   nativePNTSquarePrefixCubicSlope (n+1)    = slope n - C * (slope n)^3
+   nativePNTSquarePrefixCubicSlope_rate     : C * n * (slope n)^3 <= 6
+   ```
+
+   The rate theorem gives `slope n <= (6 / (C * n))^(1/3)`, the classical cubic decay, and `nativePNTSquarePrefixHasAffineEnvelope_of_cubic_budget` converts a target slope `eta` into a concrete iteration budget. A qualitative `o(x)` cannot localize a deficit; this form can, because "how far short of `1/2 + epsilon`" becomes arithmetic on named constants rather than a judgement call.
+
+3. **It fixes the statement layer.** `RHLean.Analysis.NativePNTQuantitativeStatements` states `MertensRHScaleStatement`, `NativePNTChebyshevRHScaleStatement`, and `MertensPowerBound r` as separate propositions. Before these existed, the repository's target statements were pitched at the `o(x)` scale, which the prime number theorem discharges outright. Keeping the RH-scale statements distinct is what prevents a proved baseline from reading as progress against the frontier.
+
+The frontier ledger in `boundary/frontier.json` is therefore deliberately unchanged by the native prime number theorem: its target is the uniform nonzero-response bound at exponent `1/2 + epsilon`, and that remains uncertified.
+
 The active analytic strategy is:
 
 > **Prove signed cancellation in the combined reciprocal-interval representation of `H_{k,n}`, exploiting the many-`d`, short-interval structure without taking absolute values termwise.**
