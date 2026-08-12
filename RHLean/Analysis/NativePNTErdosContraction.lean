@@ -2239,7 +2239,8 @@ theorem nativePNT_exists_dyadic_depth_quantitative
   have hloglow := nativePNT_log_two_ge_half
   have hKhalf : 96 / eps + 1 < (K : ℝ) / 2 := by
     dsimp [x] at hxK
-    nlinarith
+    have hhalf := (mul_lt_mul_right (show (0 : ℝ) < 1 / 2 by norm_num)).2 hxK
+    convert hhalf using 1 <;> ring
   have hKlog : 96 / eps < (K : ℝ) * Real.log 2 - 1 := by
     have hmul := mul_le_mul_of_nonneg_left hloglow
       (show (0 : ℝ) ≤ (K : ℝ) by positivity)
