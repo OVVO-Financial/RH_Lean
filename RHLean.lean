@@ -11,6 +11,8 @@ import RHLean.Analysis.DynamicVioleBaseline
 import RHLean.Analysis.EulerCRTRoughnessRecursion
 import RHLean.Analysis.ExactActivityPrimeIntervals
 import RHLean.Analysis.FiniteTorusFourierPairing
+import RHLean.Analysis.FiniteWheelReciprocalMertensImprovement
+import RHLean.Analysis.FiniteWheelRestrictedFloor
 import RHLean.Analysis.FreshPrimeOscillationTransfer
 import RHLean.Analysis.GrowingParentPhaseUniformity
 import RHLean.Analysis.LogWeightedPrimeExtension
