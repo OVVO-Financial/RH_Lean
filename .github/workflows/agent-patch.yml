@@ -9,6 +9,7 @@ on:
       - 'RHLean.lean'
       - 'RHLean/Analysis/NativePNTErdosContraction.lean'
       - 'RHLean/Analysis/NativePNTAxer.lean'
+      - 'RHLean/Analysis/NativePNTTransfer.lean'
       - 'RHLean/Analysis/NativePNTQuantitativeStatements.lean'
 
 permissions:
@@ -29,7 +30,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add RHLean.lean RHLean/Analysis/NativePNTErdosContraction.lean RHLean/Analysis/NativePNTAxer.lean
+          git add RHLean.lean RHLean/Analysis/NativePNTErdosContraction.lean RHLean/Analysis/NativePNTAxer.lean RHLean/Analysis/NativePNTTransfer.lean
           if [ -f RHLean/Analysis/NativePNTQuantitativeStatements.lean ]; then
             git add RHLean/Analysis/NativePNTQuantitativeStatements.lean
           fi
