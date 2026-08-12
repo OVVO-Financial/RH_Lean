@@ -60,6 +60,28 @@ new = '''      have hcardNat :
 '''
 s = replace_once(s, old, new, 'prime-set square-root cardinality')
 
+old = '''      have hcardReal :
+          (((nativePrimeSet N).filter
+            (fun p => (p : ℝ) ≤ Real.sqrt (N : ℝ))).card : ℕ) ≤
+            Real.sqrt (N : ℝ) := by
+        exact_mod_cast hcardNat.trans (Nat.floor_le (Real.sqrt_nonneg _))
+'''
+new = '''      have hcardReal :
+          (((nativePrimeSet N).filter
+            (fun p : ℕ => (p : ℝ) ≤ Real.sqrt (N : ℝ))).card : ℝ) ≤
+            Real.sqrt (N : ℝ) := by
+        have hcardFloorReal :
+            (((nativePrimeSet N).filter
+              (fun p : ℕ => (p : ℝ) ≤ Real.sqrt (N : ℝ))).card : ℝ) ≤
+              (⌊Real.sqrt (N : ℝ)⌋₊ : ℝ) := by
+          exact_mod_cast hcardNat
+        have hfloorReal :
+            (⌊Real.sqrt (N : ℝ)⌋₊ : ℝ) ≤ Real.sqrt (N : ℝ) :=
+          Nat.floor_le (Real.sqrt_nonneg _)
+        exact hcardFloorReal.trans hfloorReal
+'''
+s = replace_once(s, old, new, 'prime-set cardinality real cast')
+
 old = '''  have hNpos : (0 : ℝ) < (N : ℝ) := by
     have : 0 < N := lt_trans (by omega : 0 < K * M) hNlt
     exact_mod_cast this
