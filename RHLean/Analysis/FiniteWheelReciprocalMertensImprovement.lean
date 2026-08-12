@@ -1,12 +1,13 @@
 import Mathlib
 import RHLean.Analysis.NativePNTMertens
 import RHLean.Arithmetic.PrimorialReciprocalMobiusFactorization
+import RHLean.Arithmetic.PrimorialTruncatedWheelBoundary
 
 /-!
 # Finite-wheel reciprocal Mertens improvement
 
 This module packages the elementary finite-wheel mechanism behind a structural
-improvement of the reciprocal Mobius bound.  It deliberately stays on the
+improvement of the reciprocal Mobius bound. It deliberately stays on the
 finite combinatorial side of the repository: finite prime sets, divisor
 reindexing, finite inclusion-exclusion, and fixed-prime smooth counting only.
 
@@ -17,6 +18,7 @@ region, Tauberian theorem, or prime-distribution asymptotic is used.
 noncomputable section
 
 open Finset
+open Filter
 open scoped ArithmeticFunction.Moebius BigOperators Topology
 
 namespace RHLean.Analysis
@@ -103,7 +105,9 @@ theorem finiteWheelRoughMertensRecip_abs_le
         (∑ m ∈ finiteWheelCoprimeSet P X,
           (ArithmeticFunction.moebius m : ℝ) * ((X / m : ℕ) : ℝ)) =
           (finiteWheelSmoothCount P X : ℝ) := by
-      exact_mod_cast hfloorX
+      have hcast0 := congrArg (fun z : ℤ => (z : ℝ)) hfloorX
+      push_cast at hcast0
+      exact hcast0
     calc
       ∑ m ∈ finiteWheelCoprimeSet P X,
           (X : ℝ) * ((ArithmeticFunction.moebius m : ℝ) / (m : ℝ)) =
@@ -112,10 +116,13 @@ theorem finiteWheelRoughMertensRecip_abs_le
             (ArithmeticFunction.moebius m : ℝ) *
               Int.fract ((X : ℝ) / (m : ℝ))) := by
         apply Finset.sum_congr rfl
-        intro m hm
+        intro m _hm
         have hfloorcast :
             (⌊(X : ℝ) / (m : ℝ)⌋ : ℝ) = ((X / m : ℕ) : ℝ) := by
-          rw [Int.floor_div_natCast, Int.floor_natCast, Int.natCast_div]
+          have hz :
+              ⌊(X : ℝ) / (m : ℝ)⌋ = ((X / m : ℕ) : ℤ) := by
+            rw [Int.floor_div_natCast, Int.floor_natCast, Int.natCast_div]
+          rw [hz]
           norm_cast
         rw [← Int.self_sub_floor, hfloorcast]
         field_simp
@@ -144,7 +151,7 @@ theorem finiteWheelRoughMertensRecip_abs_le
           rw [abs_of_nonneg (Int.fract_nonneg _)]
           exact le_of_lt (Int.fract_lt_one _)
         rw [abs_mul]
-        nlinarith
+        exact mul_le_mul hmu hfr (abs_nonneg _) (by norm_num)
       _ = (finiteWheelCoprimeCount P X : ℝ) := by
         simp [finiteWheelCoprimeCount, finiteWheelCoprimeSet]
   have hmul :
@@ -157,15 +164,16 @@ theorem finiteWheelRoughMertensRecip_abs_le
           ∑ m ∈ finiteWheelCoprimeSet P X,
             (ArithmeticFunction.moebius m : ℝ) *
               Int.fract ((X : ℝ) / (m : ℝ))| ≤
-        (finiteWheelSmoothCount P X : ℝ) +
+        |(finiteWheelSmoothCount P X : ℝ)| +
+          |∑ m ∈ finiteWheelCoprimeSet P X,
+            (ArithmeticFunction.moebius m : ℝ) *
+              Int.fract ((X : ℝ) / (m : ℝ))| := abs_add_le _ _
+      _ = (finiteWheelSmoothCount P X : ℝ) +
           |∑ m ∈ finiteWheelCoprimeSet P X,
             (ArithmeticFunction.moebius m : ℝ) *
               Int.fract ((X : ℝ) / (m : ℝ))| := by
-        have hs : 0 ≤ (finiteWheelSmoothCount P X : ℝ) := by positivity
-        simpa [abs_of_nonneg hs] using abs_add (finiteWheelSmoothCount P X : ℝ)
-          (∑ m ∈ finiteWheelCoprimeSet P X,
-            (ArithmeticFunction.moebius m : ℝ) *
-              Int.fract ((X : ℝ) / (m : ℝ)))
+        rw [abs_of_nonneg]
+        positivity
       _ ≤ _ := add_le_add_left hfract _
   rw [abs_mul, abs_of_pos (by positivity : (0 : ℝ) < X)] at hmul
   exact (le_div_iff₀' (by positivity : (0 : ℝ) < X)).2 hmul
