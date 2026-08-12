@@ -80,13 +80,19 @@ theorem primorialSignedReciprocalCube_insert
     have hpt : p ∉ t :=
       Finset.notMem_of_mem_powerset_of_notMem ht hp
     have hpR0 : (p : ℝ) ≠ 0 := by exact_mod_cast hpPrime.ne_zero
-    simp only [booleanCubeSign, Finset.card_insert_of_notMem, hpt,
-      pow_succ, Int.cast_mul, Int.cast_neg, Int.cast_one,
-      primeFaceProduct]
+    have hsign :
+        ((booleanCubeSign (insert p t) : ℤ) : ℝ) =
+          -((booleanCubeSign t : ℤ) : ℝ) := by
+      unfold booleanCubeSign
+      rw [Finset.card_insert_of_notMem hpt, pow_succ]
+      push_cast
+      ring
+    rw [hsign]
+    simp only [primeFaceProduct]
     rw [Finset.prod_insert hpt]
     push_cast
     field_simp [hpR0]
-    ring
+    ring_nf
   rw [hsecond]
   ring
 
@@ -130,7 +136,7 @@ theorem primorialUnsignedReciprocalCube_insert
     rw [Finset.prod_insert hpt]
     push_cast
     field_simp [hpR0]
-    ring
+    ring_nf
   rw [hsecond]
   ring
 
@@ -180,7 +186,6 @@ theorem primorial_signed_to_support_ratio
   have hpR : (0 : ℝ) < (p : ℝ) := by exact_mod_cast (hprime p hp).pos
   have hp1 : (p : ℝ) + 1 ≠ 0 := by positivity
   field_simp [hp1, ne_of_gt hpR]
-  ring
 
 /-- The first `k` indexed wheel primes are all prime. -/
 theorem wheelPrime_range_prime (k : ℕ) :
