@@ -61,6 +61,7 @@ import RHLean.Analysis.PrimeSieveCollapseIdentity
 import RHLean.Analysis.PrimeSieveDyadicAnalyticBridge
 import RHLean.Analysis.PrimeSieveDyadicChordEnergy
 import RHLean.Analysis.PrimeSieveDyadicCoherentAbel
+import RHLean.Analysis.PrimeSieveDyadicPacketShallowDeep
 import RHLean.Analysis.PrimeSieveDyadicSignedPackets
 import RHLean.Analysis.PrimeSieveLipschitzExcursion
 import RHLean.Analysis.PrimeSievePNTCentering
