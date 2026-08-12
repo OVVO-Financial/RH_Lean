@@ -68,7 +68,7 @@ theorem nativeMobiusLogDivisorFiber_eq_vonMangoldt (d : ℕ) :
 all other native Möbius fibres.  The complementary quotient changes from
 `p*k` to `k`, leaving exactly one `log p` contribution. -/
 theorem nativeMobiusLogFiber_pair_adjoin_prime
-    (m p k : ℕ) (hm : 1 ≤ m) (hk : 1 ≤ k)
+    (m p k : ℕ) (hk : 1 ≤ k)
     (hp : p.Prime) (hcop : Nat.Coprime m p) :
     ((μ m : ℤ) : ℝ) * Real.log ((p * k : ℕ) : ℝ) +
         ((μ (m * p) : ℤ) : ℝ) * Real.log (k : ℝ) =
@@ -306,7 +306,7 @@ theorem nativePNTSquarePrefix_sum_eq_sum_blocks
       have hmono : squarePrefixEndpoint n ≤ squarePrefixEndpoint (n + 1) := by
         have h1 := squarePrefixEndpoint_add_one n
         have h2 := squarePrefixEndpoint_add_one (n + 1)
-        have hpow : (n + 1) ^ 2 ≤ (n + 2) ^ 2 := by
+        have hpow : (n + 1) ^ 2 ≤ (n + 1 + 1) ^ 2 := by
           exact Nat.pow_le_pow_left (by omega) 2
         omega
       have hset :
