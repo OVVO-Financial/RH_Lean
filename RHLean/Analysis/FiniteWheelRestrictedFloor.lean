@@ -63,8 +63,8 @@ theorem finiteWheelRoughMoebius_mul_zeta_apply
             have hb1 : b + 1 ≠ 0 := by omega
             rw [ArithmeticFunction.moebius_apply_prime_pow hp hb1]
             simp [hb0]
-          · intro hkzero
-            omega
+          · intro hzero
+            exact False.elim (hzero (Finset.mem_range.mpr hk))
         rw [hsum]
         norm_num
   | coprime a b ha hb hab haInd hbInd =>
