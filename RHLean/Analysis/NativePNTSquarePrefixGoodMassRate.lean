@@ -98,10 +98,9 @@ theorem nativePNT_exists_good_squarePrefix_power_shell_selector
     dsimp [W, S, L]
     omega
   have hSupper : (S : ℝ) ≤ 200 / eps := by
-    have htwo := mul_le_mul_of_nonneg_left hKupper (show (0 : ℝ) ≤ 2 by norm_num)
     dsimp [S, L]
     push_cast
-    convert htwo using 1 <;> ring
+    exact hKupper
   have hbaseOne : ∀ j : ℕ, base j + 1 = 2 ^ (E0 + j * L) := by
     intro j
     dsimp [base]
