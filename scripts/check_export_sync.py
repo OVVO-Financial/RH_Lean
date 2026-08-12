@@ -1,32 +1,25 @@
 #!/usr/bin/env python3
 """Verify that every published export tree is a buildable Lake project.
 
-Two structural failure modes are checked, and both are about the export alone:
+Two structural failure modes are checked for every export:
 
-  * an export copies ``RHLean.lean`` verbatim but omits a module it imports, so
+  * an export copies ``RHLean.lean`` but omits a module it imports, so
     ``lake build RHLean --wfail`` dies on a missing file rather than on any
     mathematics;
   * an export ships a module unreachable from its own root, which is dead
     weight in a published repository.
 
-What this deliberately no longer checks is whether an export *matches* this
-development tree. Each published repository is a standalone Lake project: it
-compiles its own subset with ``--wfail``, runs its own assumption audit, and
-prints the axioms of its own endpoint. That is verification in situ, and it is
-strictly stronger than agreeing with a snapshot kept here, because a published
-statement is then proved where it is published rather than certified by
-resemblance to somewhere else.
+``export_mobius_synthesis`` has one additional invariant: every exported
+``RHLean.*`` module must be byte-identical to the development tree.  That export
+is the handoff directory used to promote the verified native-PNT and Möbius
+synthesis layers into the standalone ``mobius-synthesis`` repository.  A stale
+pre-existing dependency is therefore just as dangerous as an omitted file: the
+export can be structurally closed while still failing after it is copied out.
 
-Requiring byte-identity on top of that made this repository the source of truth
-for repositories that do not need one. An ordinary contribution landing in a
-published repository turned this repository red for a divergence that was not an
-error, which is a gate punishing the workflow it was meant to protect.
-
-One consequence to keep in mind. Nothing here now pins an ``export_*`` directory
-to the repository it publishes to, so a stale export can drift from its
-published repository unnoticed, and copying a stale export outward would regress
-it. On any disagreement the published repository is the source of truth, not
-these trees.
+The other published repositories remain standalone Lake projects.  They compile
+their own subsets with ``--wfail``, run their own assumption audits, and may
+diverge intentionally from this development tree.  Their export directories are
+therefore closure-checked without requiring byte identity.
 
 Run from the repository root::
 
@@ -44,11 +37,12 @@ ROOT_MODULE = 'RHLean'
 # (label, package directory, match development tree, repo-local modules,
 #  mirror the development root manifest)
 #
-# Every export is closure-checked only. The prime-wheel export was always in
-# this mode, because it renames its public modules; the other two joined it when
-# the published repositories became standalone. The match-development and
-# mirror-root flags are kept in the table rather than deleted, so a single
-# export can be re-pinned to this tree later without restructuring anything.
+# The mobius-synthesis export is intentionally pinned at the module-content
+# level because it is used as a manual promotion source.  Its root manifest is
+# still allowed to be a curated subset, so mirror_root remains False.
+#
+# The prime-wheel and square-block exports remain closure-only because their
+# published repositories are standalone and may diverge intentionally.
 #
 # Repo-local modules are shipped in a published repository and reached by that
 # repository's own tooling rather than by its root module, so they are exempt
@@ -59,7 +53,7 @@ ROOT_MODULE = 'RHLean'
 # today, and the entry costs nothing while that holds but prevents a false
 # failure if the export tracks a state where it is not.
 EXPORTS = [
-    ('export_mobius_synthesis', 'export_mobius_synthesis', False,
+    ('export_mobius_synthesis', 'export_mobius_synthesis', True,
      {'RHLean.Analysis.MobiusSynthesisBoundary'}, False),
     ('export_square_block', 'export_square_block/lean', False, set(), False),
     ('export_prime_wheel', 'export_prime_wheel/formalization', False, set(), False),
