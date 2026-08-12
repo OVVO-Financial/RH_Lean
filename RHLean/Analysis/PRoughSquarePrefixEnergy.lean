@@ -77,20 +77,22 @@ private theorem pRough_div_scale
     Nat.mul_le_mul_right (x / p) hp2
   have hquot : 2 * (x / p) ≤ x := htwo.trans hmuldiv
   have hnat : 3 * (x / p + 1) ≤ 2 * (x + 1) := by omega
+  have hnatR :
+      (3 : ℝ) * (((x / p + 1 : ℕ) : ℝ)) ≤
+        2 * (((x + 1 : ℕ) : ℝ)) := by
+    exact_mod_cast hnat
   have hbase :
       (((x / p + 1 : ℕ) : ℝ)) ≤
         ((2 : ℝ) / 3) * (((x + 1 : ℕ) : ℝ)) := by
-    exact_mod_cast hnat
+    linarith
   have hpow := Real.rpow_le_rpow
     (by positivity : 0 ≤ (((x / p + 1 : ℕ) : ℝ))) hbase hr.le
   calc
     Real.rpow (((x / p + 1 : ℕ) : ℝ)) r ≤
         Real.rpow (((2 : ℝ) / 3) * (((x + 1 : ℕ) : ℝ))) r := hpow
     _ = Real.rpow ((2 : ℝ) / 3) r *
-        Real.rpow (((x + 1 : ℕ) : ℝ)) r := by
-      rw [Real.mul_rpow]
-      · norm_num
-      · positivity
+        Real.rpow (((x + 1 : ℕ) : ℝ)) r :=
+      Real.mul_rpow (by norm_num) (by positivity)
 
 /-- A fixed prime roughing preserves every Mertens power exponent `r > 1/2`.
 The loss is only a constant depending on `r`; the proof is the exact
@@ -171,7 +173,10 @@ theorem pRoughSquarePrefixEnergyBounded_of_squarePrefixEnergyBounded
   rcases pRoughPowerGrowth_of_energy hM p hp hr with ⟨D, hD, hbound⟩
   refine ⟨D ^ 2, sq_nonneg D, ?_⟩
   intro n
-  have hsample := hbound (squarePrefixEndpoint n)
+  have hsample :
+      ‖pRoughSquarePrefixMertens p n‖ ≤
+        D * Real.rpow ((squarePrefixEndpoint n + 1 : ℕ) : ℝ) r := by
+    simpa [pRoughSquarePrefixMertens] using hbound (squarePrefixEndpoint n)
   have hsample0 : 0 ≤ ‖pRoughSquarePrefixMertens p n‖ := norm_nonneg _
   have hright0 :
       0 ≤ D * Real.rpow ((squarePrefixEndpoint n + 1 : ℕ) : ℝ) r :=
@@ -179,7 +184,6 @@ theorem pRoughSquarePrefixEnergyBounded_of_squarePrefixEnergyBounded
   have hsquare :
       ‖pRoughSquarePrefixMertens p n‖ ^ 2 ≤
         (D * Real.rpow ((squarePrefixEndpoint n + 1 : ℕ) : ℝ) r) ^ 2 := by
-    change ‖pRoughMertensSummatory p (squarePrefixEndpoint n)‖ ^ 2 ≤ _
     nlinarith
   have hendpoint :
       ((squarePrefixEndpoint n + 1 : ℕ) : ℝ) = ((n + 1 : ℕ) : ℝ) ^ 2 := by
@@ -191,13 +195,24 @@ theorem pRoughSquarePrefixEnergyBounded_of_squarePrefixEnergyBounded
     rw [hendpoint]
     have htwo : Real.rpow ((n + 1 : ℕ) : ℝ) (2 : ℝ) =
         (((n + 1 : ℕ) : ℝ) ^ (2 : ℕ)) := Real.rpow_natCast _ 2
-    rw [← htwo, Real.rpow_mul hbase.le]
+    calc
+      Real.rpow (((n + 1 : ℕ) : ℝ) ^ (2 : ℕ)) r =
+          Real.rpow (Real.rpow ((n + 1 : ℕ) : ℝ) (2 : ℝ)) r :=
+        congrArg (fun t : ℝ => Real.rpow t r) htwo.symm
+      _ = Real.rpow ((n + 1 : ℕ) : ℝ) ((2 : ℝ) * r) :=
+        (Real.rpow_mul hbase.le (2 : ℝ) r).symm
   have hpowSquare :
       (Real.rpow ((n + 1 : ℕ) : ℝ) (2 * r)) ^ 2 =
         Real.rpow ((n + 1 : ℕ) : ℝ) (4 * r) := by
-    rw [pow_two, ← Real.rpow_add hbase]
-    congr 1
-    ring
+    rw [pow_two]
+    calc
+      Real.rpow ((n + 1 : ℕ) : ℝ) (2 * r) *
+          Real.rpow ((n + 1 : ℕ) : ℝ) (2 * r) =
+          Real.rpow ((n + 1 : ℕ) : ℝ) ((2 * r) + (2 * r)) :=
+        (Real.rpow_add hbase (2 * r) (2 * r)).symm
+      _ = Real.rpow ((n + 1 : ℕ) : ℝ) (4 * r) := by
+        congr 1
+        ring
   have hrexp : 4 * r = 2 + ε := by
     dsimp [r]
     ring
