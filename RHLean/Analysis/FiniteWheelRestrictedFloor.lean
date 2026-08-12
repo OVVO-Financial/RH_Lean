@@ -5,7 +5,7 @@ import RHLean.Analysis.FiniteWheelReciprocalMertensImprovement
 # Restricted finite-wheel Möbius floor identity
 
 This module proves the exact finite convolution behind the rough reciprocal
-Möbius sum.  A divisor survives precisely when it avoids every wheel prime;
+Möbius sum. A divisor survives precisely when it avoids every wheel prime;
 the remaining divisor sum is the indicator that the ambient integer is smooth
 with respect to the fixed finite prime set.
 -/
@@ -31,25 +31,37 @@ theorem finiteWheelRoughMoebius_mul_zeta_apply
   | prime_pow p k hp hk =>
       rw [ArithmeticFunction.coe_mul_zeta_apply,
         Nat.sum_divisors_prime_pow hp, Finset.sum_range_succ']
+      have hk0 : k ≠ 0 := Nat.ne_of_gt hk
+      have hpow0 : p ^ k ≠ 0 := pow_ne_zero k hp.ne_zero
       by_cases hpP : p ∈ P
       · have hpdvd : p ∣ primorialWheelProduct P :=
           (prime_dvd_primorialWheelProduct_iff hp hprime).2 hpP
         have hncp : ¬ Nat.Coprime p (primorialWheelProduct P) := by
-          exact fun h => hp.not_dvd_one (h.gcd_eq_one ▸ Nat.gcd_dvd_left p (primorialWheelProduct P) |>.trans hpdvd)
-        simp [finiteWheelRoughMoebius, Nat.coprime_pow_left_iff, hp, hk,
-          hpP, hpdvd, hncp, ArithmeticFunction.moebius_apply_prime_pow]
+          intro hcop
+          exact (hp.coprime_iff_not_dvd.mp hcop) hpdvd
+        have hsmooth : (p ^ k).primeFactors ⊆ P := by
+          rw [Nat.primeFactors_pow p hk0]
+          simpa [hp] using hpP
+        rw [if_neg hpow0, if_pos hsmooth]
+        simp [finiteWheelRoughMoebius, Nat.coprime_pow_left_iff, hncp]
       · have hpndvd : ¬ p ∣ primorialWheelProduct P := by
           exact fun h => hpP ((prime_dvd_primorialWheelProduct_iff hp hprime).1 h)
         have hpcop : Nat.Coprime p (primorialWheelProduct P) :=
           hp.coprime_iff_not_dvd.mpr hpndvd
-        simp [finiteWheelRoughMoebius, Nat.coprime_pow_left_iff, hp, hk,
-          hpP, hpcop, ArithmeticFunction.moebius_apply_prime_pow]
+        have hnSmooth : ¬ (p ^ k).primeFactors ⊆ P := by
+          rw [Nat.primeFactors_pow p hk0]
+          simpa [hp] using hpP
+        rw [if_neg hpow0, if_neg hnSmooth]
+        simp [finiteWheelRoughMoebius, Nat.coprime_pow_left_iff, hpcop,
+          ArithmeticFunction.moebius_apply_prime_pow hp]
   | coprime a b ha hb hab haInd hbInd =>
       have ha0 : a ≠ 0 := by omega
       have hb0 : b ≠ 0 := by omega
-      rw [(finiteWheelRoughMoebius_isMultiplicative P).mul
-          ArithmeticFunction.isMultiplicative_zeta.intCast |>.map_mul_of_coprime hab,
-        haInd, hbInd]
+      have hmul : ArithmeticFunction.IsMultiplicative
+          ((finiteWheelRoughMoebius P) * (ζ : ArithmeticFunction ℤ)) :=
+        (finiteWheelRoughMoebius_isMultiplicative P).mul
+          ArithmeticFunction.isMultiplicative_zeta.natCast
+      rw [hmul.map_mul_of_coprime hab, haInd, hbInd]
       rw [Nat.primeFactors_mul ha0 hb0]
       simp only [Finset.union_subset_iff]
       by_cases haS : a.primeFactors ⊆ P <;>
@@ -100,31 +112,31 @@ theorem finiteWheelRestrictedFloorIdentity
     _ = ∑ k ∈ Finset.Icc 1 X,
         ∑ d ∈ k.divisors, finiteWheelRoughMoebius P d := by
       refine Finset.sum_congr rfl (fun k hk => ?_)
-      simp only [Finset.mem_Icc] at hk
+      have hkIcc := Finset.mem_Icc.mp hk
+      have hkpos : 0 < k := lt_of_lt_of_le Nat.zero_lt_one hkIcc.1
       rw [← Finset.sum_filter]
       congr 1
       ext d
       simp only [Finset.mem_filter, Finset.mem_Icc, Nat.mem_divisors]
       constructor
-      · rintro ⟨⟨_, _⟩, hdvd⟩
-        exact ⟨hdvd, by omega⟩
-      · rintro ⟨hdvd, _⟩
-        have hkpos : 0 < k := by omega
+      · rintro ⟨⟨hd1, hdX⟩, hdvd⟩
+        exact ⟨hdvd, Nat.ne_of_gt hkpos⟩
+      · rintro ⟨hdvd, _hk0⟩
         have hd_le : d ≤ k := Nat.le_of_dvd hkpos hdvd
         have hd_pos : 0 < d := Nat.pos_of_dvd_of_pos hdvd hkpos
-        exact ⟨⟨hd_pos, by omega⟩, hdvd⟩
+        exact ⟨⟨hd_pos, hd_le.trans hkIcc.2⟩, hdvd⟩
     _ = ∑ k ∈ Finset.Icc 1 X,
         (if k.primeFactors ⊆ P then (1 : ℤ) else 0) := by
       refine Finset.sum_congr rfl (fun k hk => ?_)
-      have hk0 : k ≠ 0 := by omega
+      have hkIcc := Finset.mem_Icc.mp hk
+      have hkpos : 0 < k := lt_of_lt_of_le Nat.zero_lt_one hkIcc.1
+      have hk0 : k ≠ 0 := Nat.ne_of_gt hkpos
       rw [← ArithmeticFunction.coe_mul_zeta_apply,
         finiteWheelRoughMoebius_mul_zeta_apply P hprime k]
-      simp [hk0]
+      rw [if_neg hk0]
     _ = (finiteWheelSmoothCount P X : ℤ) := by
       unfold finiteWheelSmoothCount finiteWheelSmoothSet
-      rw [Finset.card_filter]
-      simp only [Int.ofNat_eq_coe, Nat.cast_id]
-      rw [Finset.sum_boole]
+      simp
 
 /-- The restricted floor certificate exists for every genuine finite prime
 wheel. -/
