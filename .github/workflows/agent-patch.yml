@@ -6,7 +6,10 @@ on:
     paths:
       - '.github/workflows/agent-patch.yml'
       - '.github/agent_patch.py'
+      - 'RHLean.lean'
       - 'RHLean/Analysis/NativePNTErdosContraction.lean'
+      - 'RHLean/Analysis/NativePNTAxer.lean'
+      - 'RHLean/Analysis/NativePNTQuantitativeStatements.lean'
 
 permissions:
   contents: write
@@ -26,8 +29,11 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          if ! git diff --quiet -- RHLean/Analysis/NativePNTErdosContraction.lean; then
-            git add RHLean/Analysis/NativePNTErdosContraction.lean
-            git commit -m 'Add native PNT quotient-fibre bridge'
+          git add RHLean.lean RHLean/Analysis/NativePNTErdosContraction.lean RHLean/Analysis/NativePNTAxer.lean
+          if [ -f RHLean/Analysis/NativePNTQuantitativeStatements.lean ]; then
+            git add RHLean/Analysis/NativePNTQuantitativeStatements.lean
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update native PNT proof layer'
             git push origin HEAD:agent/native-pnt-proof-continuation
           fi
