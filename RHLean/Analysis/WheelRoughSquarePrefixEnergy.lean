@@ -121,7 +121,7 @@ private theorem wheelRoughFiniteLoss_nonneg
     (P : Finset ℕ) {r : ℝ} (hr : 0 < r) :
     0 ≤ wheelRoughFiniteLoss P r := by
   unfold wheelRoughFiniteLoss
-  positivity
+  exact pow_nonneg (wheelRoughPrimeLoss_nonneg hr) P.card
 
 /-- One fresh prime preserves a rough power bound, with the explicit geometric
 loss `(1 - (2/3)^r)^(-1)`.  This is the reusable induction step missing from the
@@ -137,7 +137,7 @@ theorem wheelRoughPowerGrowth_prime_extension
         (K * wheelRoughPrimeLoss r) *
           Real.rpow ((x + 1 : ℕ) : ℝ) r := by
   let q : ℝ := Real.rpow ((2 : ℝ) / 3) r
-  let D : ℝ := K * wheelRoughPrimeLoss r
+  let D : ℝ := K / (1 - q)
   have hq0 : 0 ≤ q := by
     dsimp [q]
     exact Real.rpow_nonneg (by norm_num) r
@@ -145,12 +145,9 @@ theorem wheelRoughPowerGrowth_prime_extension
     dsimp [q]
     exact Real.rpow_lt_one (by norm_num) (by norm_num) hr
   have hden : 0 < 1 - q := sub_pos.mpr hq1
-  have hL0 : 0 ≤ wheelRoughPrimeLoss r := wheelRoughPrimeLoss_nonneg hr
-  have hD0 : 0 ≤ D := by
-    dsimp [D]
-    exact mul_nonneg hK hL0
+  have hD0 : 0 ≤ D := div_nonneg hK hden.le
   have hDrel : K + q * D = D := by
-    dsimp [D, wheelRoughPrimeLoss, q]
+    dsimp [D]
     field_simp
     ring
   have hKleD : K ≤ D := by
@@ -190,7 +187,9 @@ theorem wheelRoughPowerGrowth_prime_extension
           _ = (K + q * D) * Real.rpow ((x + 1 : ℕ) : ℝ) r := by ring
           _ = D * Real.rpow ((x + 1 : ℕ) : ℝ) r := by rw [hDrel]
           _ = (K * wheelRoughPrimeLoss r) *
-                Real.rpow ((x + 1 : ℕ) : ℝ) r := rfl
+                Real.rpow ((x + 1 : ℕ) : ℝ) r := by
+            dsimp [D, wheelRoughPrimeLoss, q]
+            rw [div_eq_mul_inv]
 
 private theorem prime_dvd_primorialWheelProduct_iff_local
     {P : Finset ℕ} {p : ℕ} (hp : p.Prime)
@@ -267,7 +266,7 @@ theorem wheelRoughPowerGrowth_of_mertensPowerBound
       have hstep := wheelRoughPowerGrowth_prime_extension hp hsq hr hKbase hP
       intro x
       have hx := hstep x
-      have hcard : (insert p P).card = P.card + 1 := Finset.card_insert_of_not_mem hpP
+      have hcard : (insert p P).card = P.card + 1 := Finset.card_insert_of_notMem hpP
       have hloss :
           wheelRoughFiniteLoss (insert p P) r =
             wheelRoughFiniteLoss P r * wheelRoughPrimeLoss r := by
