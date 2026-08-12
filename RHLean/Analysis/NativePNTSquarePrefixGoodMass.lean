@@ -4,26 +4,20 @@ import RHLean.Analysis.NativePNTSquarePrefixMobiusError
 /-!
 # Square-prefix good-fibre supply for the native PNT contraction
 
-This file removes the ordinary dyadic search geometry from the good-fibre
-supply.  Search intervals are unions of complete square-prefix blocks
+Search intervals are unions of complete square-prefix blocks
 
 `(X_A, X_B]`,  where `X_n = (n+1)^2 - 1`.
 
-The binary coordinate appears only in the *index clock*: multiplying `A+1` by
-`2^K` means applying the prime-`2` wheel coordinate `K` times before taking the
-square endpoint.  Thus
+The binary coordinate appears only in the index clock.  For positive depth
+`K`, multiplying `A+1` by `2^K` before taking the square endpoint gives
 
-`X_A + 1 = (A+1)^2`
+`X_A + 1 = (A+1)^2`,
 
-and
+`X_B + 1 = ((A+1) 2^K)^2`.
 
-`X_B + 1 = ((A+1) 2^K)^2`,
-
-so the reciprocal search depth is `2 K log 2` rather than the ordinary dyadic
-`K log 2`.  No new analytic estimate is introduced.  The signed reciprocal
-error mass is the already-native finite mass, while the arithmetic refinement
-step is the fresh-prime Möbius cancellation formalized in
-`NativePNTSquarePrefixContraction`.
+Thus the reciprocal search depth is `2 K log 2`.  No new analytic estimate is
+introduced; the proof uses the already-native finite reciprocal error mass and
+the same local PNT2 persistence theorem as the green head.
 -/
 
 noncomputable section
@@ -39,7 +33,7 @@ namespace RHLean.Analysis
 def nativePNTSquarePrefixSearchLower (A : ℕ) : ℕ :=
   squarePrefixEndpoint A + 1
 
-/-- Last square-prefix index after `K` prime-`2` index extensions. -/
+/-- Last square-prefix index after `K` prime-`2` index-clock extensions. -/
 def nativePNTSquarePrefixScaleIndex (A K : ℕ) : ℕ :=
   (A + 1) * 2 ^ K - 1
 
@@ -62,25 +56,30 @@ theorem nativePNTSquarePrefixSearchUpper_add_one
   have hsub : ((A + 1) * 2 ^ K - 1) + 1 = (A + 1) * 2 ^ K := by omega
   rw [hsub]
 
-/-- The square-prefix search interval is nonempty. -/
+/-- Positive index depth makes the complete-square search interval nonempty. -/
 theorem nativePNTSquarePrefixSearchLower_le_upper
-    (A K : ℕ) :
+    (A K : ℕ) (hK : 1 ≤ K) :
     nativePNTSquarePrefixSearchLower A ≤
       nativePNTSquarePrefixSearchUpper A K := by
   rw [nativePNTSquarePrefixSearchLower_eq]
   have hu := nativePNTSquarePrefixSearchUpper_add_one A K
-  have hpow : (A + 1) ^ 2 ≤ ((A + 1) * 2 ^ K) ^ 2 := by
-    have hbase : A + 1 ≤ (A + 1) * 2 ^ K := by
-      have hp : 1 ≤ 2 ^ K := one_le_pow₀ (by norm_num : (1 : ℕ) ≤ 2)
-      simpa using Nat.mul_le_mul_left (A + 1) hp
-    exact Nat.pow_le_pow_left hbase 2
+  have hp2 : 2 ≤ 2 ^ K := by
+    have hp : 2 ^ 1 ≤ 2 ^ K :=
+      (Nat.pow_le_pow_iff_right Nat.one_lt_two).2 hK
+    simpa using hp
+  have hbase : A + 1 < (A + 1) * 2 ^ K := by
+    calc
+      A + 1 = (A + 1) * 1 := by omega
+      _ < (A + 1) * 2 ^ K :=
+        Nat.mul_lt_mul_of_pos_left (by omega) (by omega)
+  have hpow : (A + 1) ^ 2 < ((A + 1) * 2 ^ K) ^ 2 :=
+    Nat.pow_lt_pow_left hbase (by norm_num)
+  rw [← hu] at hpow
   omega
 
 /-! ## Finite signed reciprocal mass on a square-prefix span -/
 
-/-- Signed reciprocal error mass on an arbitrary positive integer interval.
-Kept local to this module so the square-prefix proof does not depend on the
-private dyadic helpers in `NativePNTErdosContraction`. -/
+/-- Signed reciprocal error mass on an arbitrary positive integer interval. -/
 def nativePNTSquarePrefixWeightedErrorIntervalMass (A B : ℕ) : ℝ :=
   ∑ n ∈ Finset.Icc A B,
     nativePNTError n / ((n : ℝ) * (n + 1 : ℝ))
@@ -150,10 +149,10 @@ private theorem nativePNTSquarePrefixRecipSuccInterval_log_lower
     simpa using (harmonic_le_one_add_log A)
   linarith
 
-/-- The complete-square span has twice the logarithmic reciprocal depth of the
-corresponding index-clock extension. -/
+/-- A complete-square span has twice the reciprocal logarithmic depth of its
+index-clock extension. -/
 theorem nativePNTSquarePrefixRecipSuccSearch_lower
-    (A K : ℕ) :
+    (A K : ℕ) (hK : 1 ≤ K) :
     2 * (K : ℝ) * Real.log 2 - 1 ≤
       ∑ n ∈ Finset.Icc (nativePNTSquarePrefixSearchLower A)
         (nativePNTSquarePrefixSearchUpper A K),
@@ -164,19 +163,21 @@ theorem nativePNTSquarePrefixRecipSuccSearch_lower
     dsimp [L]
     rw [nativePNTSquarePrefixSearchLower_eq]
     positivity
-  have hLU : L ≤ U := by
-    exact nativePNTSquarePrefixSearchLower_le_upper A K
+  have hLU : L ≤ U := nativePNTSquarePrefixSearchLower_le_upper A K hK
   have hbase := nativePNTSquarePrefixRecipSuccInterval_log_lower L U hL1 hLU
-  have hApos : (0 : ℝ) < (A + 1 : ℕ) := by positivity
-  have hpowpos : (0 : ℝ) < ((2 ^ K : ℕ) : ℝ) := by positivity
+  have hApos : (0 : ℝ) < ((A + 1 : ℕ) : ℝ) := by
+    exact_mod_cast Nat.succ_pos A
+  have hpowpos : (0 : ℝ) < ((2 ^ K : ℕ) : ℝ) := by
+    exact_mod_cast (pow_pos (by norm_num : 0 < (2 : ℕ)) K)
   have hLcast : (L : ℝ) = ((A + 1 : ℕ) : ℝ) ^ 2 := by
     dsimp [L]
     rw [nativePNTSquarePrefixSearchLower_eq]
-    push_cast
+    norm_cast
   have hUone : U + 1 = ((A + 1) * 2 ^ K) ^ 2 := by
     dsimp [U]
     exact nativePNTSquarePrefixSearchUpper_add_one A K
-  have hUonepos : (0 : ℝ) < ((U + 1 : ℕ) : ℝ) := by positivity
+  have hUonepos : (0 : ℝ) < ((U + 1 : ℕ) : ℝ) := by
+    exact_mod_cast Nat.succ_pos U
   have hUtwo : U + 1 ≤ U + 2 := by omega
   have hlogmono :
       Real.log ((U + 1 : ℕ) : ℝ) ≤ Real.log ((U + 2 : ℕ) : ℝ) := by
@@ -191,15 +192,19 @@ theorem nativePNTSquarePrefixRecipSuccSearch_lower
         2 * Real.log ((A + 1 : ℕ) : ℝ) +
           2 * (K : ℝ) * Real.log 2 := by
     rw [hUone, Nat.cast_pow, Real.log_pow]
-    rw [Nat.cast_mul, Nat.cast_pow]
-    rw [Real.log_mul (ne_of_gt hApos) (ne_of_gt hpowpos), Real.log_pow]
+    norm_num
+    rw [Nat.cast_mul]
+    rw [Real.log_mul (ne_of_gt hApos) (ne_of_gt hpowpos)]
+    rw [Nat.cast_pow, Real.log_pow]
     norm_num
     ring
   rw [hlogUone] at hlogmono
-  rw [hLcast] at hbase
-  rw [Real.log_pow] at hbase
-  norm_num at hbase
-  linarith
+  have hdepthLog :
+      2 * (K : ℝ) * Real.log 2 - 1 ≤
+        Real.log ((U + 2 : ℕ) : ℝ) - Real.log (L : ℝ) - 1 := by
+    rw [hlogL]
+    linarith
+  exact hdepthLog.trans hbase
 
 private theorem nativePNTSquarePrefixWeightedErrorIntervalMass_lower_of_nonneg
     (A B : ℕ) (ε : ℝ) (hA : 1 ≤ A)
@@ -254,7 +259,7 @@ private theorem nativePNTSquarePrefixWeightedErrorIntervalMass_neg_lower_of_nonp
 
 /-- **Erdos PNT1 on a genuine square-prefix search span.** -/
 theorem nativePNT_exists_small_error_squarePrefix
-    (A K : ℕ) (ε : ℝ)
+    (A K : ℕ) (ε : ℝ) (hK : 1 ≤ K)
     (hε : 0 < ε)
     (hdownA :
       1 < ε * (2 * (nativePNTSquarePrefixSearchLower A : ℝ) + 1))
@@ -273,7 +278,7 @@ theorem nativePNT_exists_small_error_squarePrefix
     dsimp [L]
     rw [nativePNTSquarePrefixSearchLower_eq]
     positivity
-  have hLU : L ≤ U := nativePNTSquarePrefixSearchLower_le_upper A K
+  have hLU : L ≤ U := nativePNTSquarePrefixSearchLower_le_upper A K hK
   by_contra hno
   push_neg at hno
   have haway : ∀ n ∈ Finset.Icc L U,
@@ -300,7 +305,7 @@ theorem nativePNT_exists_small_error_squarePrefix
     nlinarith [hupA]
   have hsign := nativePNTError_sign_constant_of_away
     L U ε hL1 hLU hε hdown hup haway
-  have hrecip := nativePNTSquarePrefixRecipSuccSearch_lower A K
+  have hrecip := nativePNTSquarePrefixRecipSuccSearch_lower A K hK
   have hupper := nativePNTSquarePrefixWeightedErrorIntervalMass_abs_le L U hL1 hLU
   have hscale :
       ε * (2 * (K : ℝ) * Real.log 2 - 1) ≤
@@ -331,7 +336,7 @@ theorem nativePNT_exists_small_error_squarePrefix
 /-- PNT1 plus the already-native PNT2 persistence theorem on a complete-square
 search span. -/
 theorem nativePNT_exists_good_radius_squarePrefix
-    (A K : ℕ) (eps : ℝ)
+    (A K : ℕ) (eps : ℝ) (hA : 1 ≤ A) (hK : 1 ≤ K)
     (heps : 0 < eps) (heps1 : eps ≤ 1)
     (hlogA : 1 ≤ Real.log (nativePNTSquarePrefixSearchLower A : ℝ))
     (htailA :
@@ -353,12 +358,15 @@ theorem nativePNT_exists_good_radius_squarePrefix
           |nativePNTError q| ≤ eps * (q : ℝ) := by
   have hδ : 0 < eps / 4 := by positivity
   rcases nativePNT_exists_small_error_squarePrefix
-      A K (eps / 4) hδ hdownA hupA hdepth with ⟨t, ht, hsmall⟩
+      A K (eps / 4) hK hδ hdownA hupA hdepth with ⟨t, ht, hsmall⟩
   have htA : nativePNTSquarePrefixSearchLower A ≤ t :=
     (Finset.mem_Icc.mp ht).1
   have hL3 : 3 ≤ nativePNTSquarePrefixSearchLower A := by
     rw [nativePNTSquarePrefixSearchLower_eq]
-    nlinarith [Nat.zero_le A]
+    calc
+      3 ≤ 4 := by norm_num
+      _ = 2 ^ 2 := by norm_num
+      _ ≤ (A + 1) ^ 2 := Nat.pow_le_pow_left (by omega) 2
   have ht3 : 3 ≤ t := hL3.trans htA
   have hLpos : (0 : ℝ) < (nativePNTSquarePrefixSearchLower A : ℝ) := by
     exact_mod_cast (show 0 < nativePNTSquarePrefixSearchLower A by
@@ -382,7 +390,7 @@ theorem nativePNT_exists_good_radius_squarePrefix
 
 /-! ## Explicit depth and eventual square-prefix selector -/
 
-private lemma nativePNTSquarePrefix_log_two_ge_half :
+theorem nativePNTSquarePrefix_log_two_ge_half :
     (1 / 2 : ℝ) ≤ Real.log (2 : ℝ) := by
   have h := Real.one_sub_inv_le_log_of_pos (show (0 : ℝ) < 2 by norm_num)
   norm_num at h ⊢
@@ -402,11 +410,11 @@ private lemma nativePNTSquarePrefix_depth_constant_le_24 :
   rw [hlog4eq]
   nlinarith
 
-/-- Calibrated number of prime-`2` index extensions.  Because square endpoints
-double the logarithmic span, `K` is roughly half the old ordinary-dyadic depth. -/
+/-- Calibrated positive number of square-prefix index-clock extensions. -/
 theorem nativePNT_exists_squarePrefix_depth_quantitative
-    (eps : ℝ) (heps : 0 < eps) (heps1 : eps ≤ 1) :
+    (eps : ℝ) (heps : 0 < eps) (_heps1 : eps ≤ 1) :
     ∃ K : ℕ,
+      1 ≤ K ∧
       2 * (2 * (Real.log 4 + 2) + Real.log 2 + 3) <
           (eps / 4) * (2 * (K : ℝ) * Real.log 2 - 1) ∧
       (((K + 2 : ℕ) : ℝ) ≤ 100 / eps) := by
@@ -424,6 +432,9 @@ theorem nativePNT_exists_squarePrefix_depth_quantitative
     dsimp [K]
     push_cast
     linarith
+  have hK1 : 1 ≤ K := by
+    dsimp [K]
+    omega
   have hloglow := nativePNTSquarePrefix_log_two_ge_half
   have hKlog : 96 / eps < 2 * (K : ℝ) * Real.log 2 - 1 := by
     have hmul := mul_le_mul_of_nonneg_left hloglow
@@ -448,17 +459,17 @@ theorem nativePNT_exists_squarePrefix_depth_quantitative
   have hK2 : (((K + 2 : ℕ) : ℝ) ≤ 100 / eps) := by
     push_cast
     nlinarith [hKupper, htail]
-  exact ⟨K, hdepth, hK2⟩
+  exact ⟨K, hK1, hdepth, hK2⟩
 
 private theorem nativePNTSquarePrefixSearchUpper_log_le
-    (A K : ℕ) (hA : 1 ≤ A) :
+    (A K : ℕ) (hA : 1 ≤ A) (hK : 1 ≤ K) :
     Real.log (nativePNTSquarePrefixSearchUpper A K : ℝ) ≤
       2 * Real.log ((A + 1 : ℕ) : ℝ) + 2 * (K : ℝ) * Real.log 2 := by
   let U := nativePNTSquarePrefixSearchUpper A K
   have hUone := nativePNTSquarePrefixSearchUpper_add_one A K
   have hUpos : 0 < U := by
     dsimp [U]
-    have hL := nativePNTSquarePrefixSearchLower_le_upper A K
+    have hL := nativePNTSquarePrefixSearchLower_le_upper A K hK
     have hLpos : 0 < nativePNTSquarePrefixSearchLower A := by
       rw [nativePNTSquarePrefixSearchLower_eq]
       positivity
@@ -467,23 +478,27 @@ private theorem nativePNTSquarePrefixSearchUpper_log_le
     apply Real.log_le_log
     · exact_mod_cast hUpos
     · exact_mod_cast (show U ≤ U + 1 by omega)
-  have hApos : (0 : ℝ) < ((A + 1 : ℕ) : ℝ) := by positivity
-  have hp0 : (0 : ℝ) < ((2 ^ K : ℕ) : ℝ) := by positivity
+  have hApos : (0 : ℝ) < ((A + 1 : ℕ) : ℝ) := by
+    exact_mod_cast Nat.succ_pos A
+  have hp0 : (0 : ℝ) < ((2 ^ K : ℕ) : ℝ) := by
+    exact_mod_cast (pow_pos (by norm_num : 0 < (2 : ℕ)) K)
   have heq :
       Real.log ((U + 1 : ℕ) : ℝ) =
         2 * Real.log ((A + 1 : ℕ) : ℝ) + 2 * (K : ℝ) * Real.log 2 := by
     rw [hUone, Nat.cast_pow, Real.log_pow]
-    rw [Nat.cast_mul, Nat.cast_pow]
-    rw [Real.log_mul (ne_of_gt hApos) (ne_of_gt hp0), Real.log_pow]
+    norm_num
+    rw [Nat.cast_mul]
+    rw [Real.log_mul (ne_of_gt hApos) (ne_of_gt hp0)]
+    rw [Nat.cast_pow, Real.log_pow]
     norm_num
     ring
   rw [heq] at hmono
   exact hmono
 
-/-- For fixed square-prefix depth, all PNT1/PNT2 endpoint hypotheses hold on
-all sufficiently large square-prefix starting indices. -/
+/-- For fixed positive square-prefix depth, all PNT1/PNT2 endpoint hypotheses
+hold on every sufficiently large square-prefix starting index. -/
 theorem nativePNT_exists_good_radius_squarePrefix_eventually
-    (K : ℕ) (eps : ℝ)
+    (K : ℕ) (eps : ℝ) (hK : 1 ≤ K)
     (heps : 0 < eps) (heps1 : eps ≤ 1)
     (hdepth :
       2 * (2 * (Real.log 4 + 2) + Real.log 2 + 3) <
@@ -507,8 +522,10 @@ theorem nativePNT_exists_good_radius_squarePrefix_eventually
       with A hAT hlogA0 htail0
   have hA1 : 1 ≤ A := (le_max_left 1 T).trans hAT
   have hTA : T ≤ A := (le_max_right 1 T).trans hAT
-  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast (show 0 < A by omega)
-  have hA1pos : (0 : ℝ) < ((A + 1 : ℕ) : ℝ) := by positivity
+  have hApos : (0 : ℝ) < (A : ℝ) := by
+    exact_mod_cast (show 0 < A by omega)
+  have hA1pos : (0 : ℝ) < ((A + 1 : ℕ) : ℝ) := by
+    exact_mod_cast Nat.succ_pos A
   have hL : nativePNTSquarePrefixSearchLower A = (A + 1) ^ 2 :=
     nativePNTSquarePrefixSearchLower_eq A
   have hlogA1mono : Real.log (A : ℝ) ≤ Real.log ((A + 1 : ℕ) : ℝ) := by
@@ -536,23 +553,22 @@ theorem nativePNT_exists_good_radius_squarePrefix_eventually
     norm_num at h ⊢
     exact h
   have hlogA1self : Real.log ((A + 1 : ℕ) : ℝ) ≤ ((A + 1 : ℕ) : ℝ) :=
-    Real.log_le_self (by positivity)
+    Real.log_le_self hA1pos.le
   have hTreal : 16 * ((K : ℝ) + 2) / eps < (T : ℝ) := by
     exact_mod_cast hTnat
   have hAre : (T : ℝ) ≤ (A : ℝ) := by exact_mod_cast hTA
   have hlarge : 16 * ((K : ℝ) + 2) < eps * (A : ℝ) := by
     have htmp := lt_of_lt_of_le hTreal hAre
-    exact (div_lt_iff₀ heps).mp htmp
-  have hupperLog := nativePNTSquarePrefixSearchUpper_log_le A K hA1
+    have hmul := (div_lt_iff₀ heps).mp htmp
+    simpa [mul_comm] using hmul
+  have hupperLog := nativePNTSquarePrefixSearchUpper_log_le A K hA1 hK
   have hLcast :
       (nativePNTSquarePrefixSearchLower A : ℝ) = ((A + 1 : ℕ) : ℝ) ^ 2 := by
     rw [hL]
-    push_cast
+    norm_cast
   have hdown :
       1 < (eps / 4) *
         (2 * (nativePNTSquarePrefixSearchLower A : ℝ) + 1) := by
-    have hlogNonneg : 0 ≤ Real.log (nativePNTSquarePrefixSearchLower A : ℝ) :=
-      le_trans (by norm_num) hlogStart
     have hLself :
         Real.log (nativePNTSquarePrefixSearchLower A : ℝ) ≤
           (nativePNTSquarePrefixSearchLower A : ℝ) :=
@@ -564,22 +580,28 @@ theorem nativePNT_exists_good_radius_squarePrefix_eventually
       Real.log (nativePNTSquarePrefixSearchUpper A K : ℝ) - 1 <
         (eps / 4) *
           (2 * (nativePNTSquarePrefixSearchLower A : ℝ) + 1) := by
-    have hA1lower : (1 : ℝ) ≤ ((A + 1 : ℕ) : ℝ) := by positivity
+    have hA1lower : (1 : ℝ) ≤ ((A + 1 : ℕ) : ℝ) := by
+      exact_mod_cast (show 1 ≤ A + 1 by omega)
     have hlin :
         2 * Real.log ((A + 1 : ℕ) : ℝ) +
             2 * (K : ℝ) * Real.log 2 ≤
           2 * ((A + 1 : ℕ) : ℝ) + 2 * (K : ℝ) := by
       nlinarith [hlogA1self, hlog2le]
+    have hbaseLarge : 24 < eps * (A : ℝ) := by
+      have hKreal : (1 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+      nlinarith [hlarge]
+    have hmulA : 24 * (A : ℝ) < (eps * (A : ℝ)) * (A : ℝ) :=
+      mul_lt_mul_of_pos_right hbaseLarge hApos
     have hscale :
         2 * ((A + 1 : ℕ) : ℝ) + 2 * (K : ℝ) <
           (eps / 2) * (((A + 1 : ℕ) : ℝ) ^ 2) := by
-      have hAcast : (A : ℝ) ≤ ((A + 1 : ℕ) : ℝ) := by
-        exact_mod_cast (show A ≤ A + 1 by omega)
+      have hAcast : (A : ℝ) + 1 = ((A + 1 : ℕ) : ℝ) := by norm_num
       have hKnonneg : 0 ≤ (K : ℝ) := by positivity
-      nlinarith [hlarge, hA1lower, hAcast]
+      have hAnonneg : 0 ≤ (A : ℝ) := by positivity
+      nlinarith [hmulA, hlarge, heps1]
     rw [hLcast]
     nlinarith [hupperLog, hlin, hscale]
   exact nativePNT_exists_good_radius_squarePrefix
-    A K eps heps heps1 hlogStart htailStart hdown hup hdepth
+    A K eps hA1 hK heps heps1 hlogStart htailStart hdown hup hdepth
 
 end RHLean.Analysis
