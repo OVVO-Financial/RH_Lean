@@ -13,6 +13,7 @@ on:
       - 'RHLean/Analysis/NativePNTQuantitativeStatements.lean'
 
 permissions:
+  actions: write
   contents: write
 
 jobs:
@@ -38,3 +39,7 @@ jobs:
             git commit -m 'Update native PNT proof layer'
             git push origin HEAD:agent/native-pnt-proof-continuation
           fi
+      - name: Dispatch hosted Lean build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run lean.yml --ref agent/native-pnt-proof-continuation
