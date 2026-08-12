@@ -68,7 +68,7 @@ theorem primeFaceProduct_dvd_primorialWheelProduct
     primeFaceProduct t ∣ primorialWheelProduct P := by
   classical
   unfold primeFaceProduct primorialWheelProduct
-  exact Finset.prod_dvd_prod_of_subset ht
+  exact Finset.prod_dvd_prod_of_subset (f := fun x : ℕ => x) ht
 
 /-- Every face product is at most the full wheel product when all wheel entries
 are positive. -/
