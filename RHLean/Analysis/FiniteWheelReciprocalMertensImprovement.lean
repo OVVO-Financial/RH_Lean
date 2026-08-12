@@ -101,14 +101,13 @@ theorem finiteWheelRoughMoebius_isMultiplicative (P : Finset ℕ) :
   constructor
   · simp [finiteWheelRoughMoebius]
   · intro a b hab
-    rw [finiteWheelRoughMoebius_apply, finiteWheelRoughMoebius_apply,
-      finiteWheelRoughMoebius_apply, Nat.coprime_mul_iff_left]
+    simp only [finiteWheelRoughMoebius_apply]
     by_cases ha : Nat.Coprime a (primorialWheelProduct P)
     · by_cases hb : Nat.Coprime b (primorialWheelProduct P)
-      · simp [ha, hb,
+      · simp [Nat.coprime_mul_iff_left, ha, hb,
           ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hab]
-      · simp [ha, hb]
-    · simp [ha]
+      · simp [Nat.coprime_mul_iff_left, ha, hb]
+    · simp [Nat.coprime_mul_iff_left, ha]
 
 /-- Certificate for the exact restricted Mobius floor identity. -/
 structure FiniteWheelRestrictedFloorCertificate (P : Finset ℕ) : Prop where
@@ -198,7 +197,8 @@ theorem finiteWheelRoughMertensRecip_abs_le
           rw [abs_of_nonneg (Int.fract_nonneg _)]
           exact le_of_lt (Int.fract_lt_one _)
         rw [abs_mul]
-        exact mul_le_mul hmu hfr (abs_nonneg _) (by norm_num)
+        simpa using
+          (mul_le_mul hmu hfr (abs_nonneg _) (by norm_num : (0 : ℝ) ≤ 1))
       _ = (finiteWheelCoprimeCount P X : ℝ) := by
         simp [finiteWheelCoprimeCount, finiteWheelCoprimeSet]
   have hmul :
