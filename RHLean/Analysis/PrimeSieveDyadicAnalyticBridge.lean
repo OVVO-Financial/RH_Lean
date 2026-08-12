@@ -163,8 +163,14 @@ theorem dyadicWaveletBlockRHScale_of_energy_dispersion
       _ ≤ (CD * Real.rpow ((x : ℝ) + 1) ε) *
             (CE * Real.rpow ((x : ℝ) + 1) (1 + ε)) :=
         mul_le_mul_of_nonneg_left henergy hfac0
-      _ = (CD * CE) * Real.rpow ((x : ℝ) + 1) (1 + 2 * ε) := by
+      _ = (CD * CE) *
+            (Real.rpow ((x : ℝ) + 1) ε *
+              Real.rpow ((x : ℝ) + 1) (1 + ε)) := by ring
+      _ = (CD * CE) *
+            Real.rpow ((x : ℝ) + 1) (ε + (1 + ε)) := by
         rw [← Real.rpow_add hbase]
+      _ = (CD * CE) * Real.rpow ((x : ℝ) + 1) (1 + 2 * ε) := by
+        congr 1
         ring
   have hQ2 : Q * Q = CD * CE := by
     rw [hQdef]
@@ -173,9 +179,15 @@ theorem dyadicWaveletBlockRHScale_of_energy_dispersion
       Real.rpow ((x : ℝ) + 1) (1 + 2 * ε) =
         Real.rpow ((x : ℝ) + 1) ((1 : ℝ) / 2 + ε) *
           Real.rpow ((x : ℝ) + 1) ((1 : ℝ) / 2 + ε) := by
-    rw [← Real.rpow_add hbase]
-    congr 1
-    ring
+    calc
+      Real.rpow ((x : ℝ) + 1) (1 + 2 * ε) =
+          Real.rpow ((x : ℝ) + 1)
+            (((1 : ℝ) / 2 + ε) + ((1 : ℝ) / 2 + ε)) := by
+        congr 1
+        ring
+      _ = Real.rpow ((x : ℝ) + 1) ((1 : ℝ) / 2 + ε) *
+          Real.rpow ((x : ℝ) + 1) ((1 : ℝ) / 2 + ε) := by
+        rw [Real.rpow_add hbase]
   have hsq' :
       ‖primeSieveDyadicWaveletPNTError
           (primorialPNTPrimeSieveCutoff k) x‖ ^ 2 ≤
@@ -448,7 +460,8 @@ theorem dyadicWaveletCenteredRHScale_of_blockRHScale
           Real.rpow_nonneg (by positivity) _
         nlinarith
   have hbase1 : (1 : ℝ) ≤ (squarePrefixEndpoint n : ℝ) + 1 := by
-    positivity
+    have h0 : (0 : ℝ) ≤ (squarePrefixEndpoint n : ℝ) := Nat.cast_nonneg _
+    linarith
   have hraise :
       Real.rpow ((squarePrefixEndpoint n : ℝ) + 1) σ ≤
         Real.rpow ((squarePrefixEndpoint n : ℝ) + 1) ((1 : ℝ) / 2 + ε) := by
