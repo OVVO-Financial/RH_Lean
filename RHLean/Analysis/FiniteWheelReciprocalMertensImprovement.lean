@@ -113,9 +113,6 @@ theorem finiteWheelRoughMertensRecip_abs_le
               Int.fract ((X : ℝ) / (m : ℝ))) := by
         apply Finset.sum_congr rfl
         intro m hm
-        have hmpos : 0 < m := by
-          have hmIcc := (Finset.mem_filter.mp hm).1
-          omega
         have hfloorcast :
             (⌊(X : ℝ) / (m : ℝ)⌋ : ℝ) = ((X / m : ℕ) : ℝ) := by
           rw [Int.floor_div_natCast, Int.floor_natCast, Int.natCast_div]
@@ -180,37 +177,5 @@ structure FiniteWheelRecombinationCertificate (P : Finset ℕ) : Prop where
       ∑ t ∈ P.powerset,
         ((booleanCubeSign t : ℤ) : ℝ) / (primeFaceProduct t : ℝ) *
           finiteWheelRoughMertensRecip P (N / primeFaceProduct t)
-
-/-- Elementary finite-wheel eventual bound formulation. -/
-theorem nativeMertensRecip_eventually_le_finiteWheelFactor
-    (P : Finset ℕ)
-    (hprime : ∀ p ∈ P, p.Prime)
-    (hfloor : FiniteWheelRestrictedFloorCertificate P)
-    (hcop : FiniteWheelCoprimeCertificate P)
-    (hsmooth : FiniteWheelSmoothDensityCertificate P)
-    (hrecombine : FiniteWheelRecombinationCertificate P) :
-    ∀ ε : ℝ, 0 < ε →
-      ∀ᶠ N : ℕ in atTop,
-        |nativeMertensRecip N| ≤ finiteWheelSquarefreeSupportFactor P + ε := by
-  intro ε hε
-  sorry
-
-/-- Four-prime elementary corollary. -/
-theorem nativeMertensRecip_eventually_le_2357
-    (hfloor : FiniteWheelRestrictedFloorCertificate {2, 3, 5, 7})
-    (hcop : FiniteWheelCoprimeCertificate {2, 3, 5, 7})
-    (hsmooth : FiniteWheelSmoothDensityCertificate {2, 3, 5, 7})
-    (hrecombine : FiniteWheelRecombinationCertificate {2, 3, 5, 7}) :
-    ∀ ε : ℝ, 0 < ε →
-      ∀ᶠ N : ℕ in atTop,
-        |nativeMertensRecip N| ≤ (768 : ℝ) / 1225 + ε := by
-  intro ε hε
-  have hprime : ∀ p ∈ ({2, 3, 5, 7} : Finset ℕ), p.Prime := by
-    intro p hp
-    simp only [Finset.mem_insert, Finset.mem_singleton] at hp
-    rcases hp with rfl | rfl | rfl | rfl <;> norm_num
-  simpa [finiteWheelSquarefreeSupportFactor_2357] using
-    nativeMertensRecip_eventually_le_finiteWheelFactor
-      {2, 3, 5, 7} hprime hfloor hcop hsmooth hrecombine ε hε
 
 end RHLean.Analysis
