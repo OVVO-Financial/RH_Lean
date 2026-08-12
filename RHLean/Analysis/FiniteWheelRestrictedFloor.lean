@@ -52,8 +52,10 @@ theorem finiteWheelRoughMoebius_mul_zeta_apply
           rw [Nat.primeFactors_pow p hk0]
           simpa [hp] using hpP
         rw [if_neg hpow0, if_neg hnSmooth]
-        simp [finiteWheelRoughMoebius, Nat.coprime_pow_left_iff, hpcop,
+        simp only [finiteWheelRoughMoebius_apply, Nat.coprime_pow_left_iff,
           ArithmeticFunction.moebius_apply_prime_pow hp]
+        rw [if_pos hpcop, if_pos hk]
+        norm_num
   | coprime a b ha hb hab haInd hbInd =>
       have ha0 : a ≠ 0 := by omega
       have hb0 : b ≠ 0 := by omega
@@ -71,7 +73,7 @@ theorem finiteWheelRoughMoebius_mul_zeta_apply
 to the wheel leaves exactly the number of wheel-smooth integers. -/
 theorem finiteWheelRestrictedFloorIdentity
     (P : Finset ℕ) (hprime : ∀ p ∈ P, p.Prime)
-    (X : ℕ) (hX : 1 ≤ X) :
+    (X : ℕ) (_hX : 1 ≤ X) :
     ∑ m ∈ finiteWheelCoprimeSet P X,
         (ArithmeticFunction.moebius m : ℤ) * ((X / m : ℕ) : ℤ) =
       (finiteWheelSmoothCount P X : ℤ) := by
@@ -98,8 +100,8 @@ theorem finiteWheelRestrictedFloorIdentity
     apply Finset.sum_congr rfl
     intro d _hd
     by_cases hcop : Nat.Coprime d (primorialWheelProduct P)
-    · simp [hcop, finiteWheelRoughMoebius]
-    · simp [hcop, finiteWheelRoughMoebius]
+    · simp [finiteWheelRoughMoebius]
+    · simp [finiteWheelRoughMoebius]
   rw [hleft]
   calc
     ∑ d ∈ Finset.Icc 1 X,
