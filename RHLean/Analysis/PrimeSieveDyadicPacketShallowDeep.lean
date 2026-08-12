@@ -4,38 +4,11 @@ import RHLean.Analysis.PrimeSieveDyadicSignedPackets
 /-!
 # Recursive midpoint packets and the shallow/deep analytic split
 
-PR #323 exposed the signed sibling packet
-
-`B(a,m,b) = (b-m)(D(m)-D(a)) - (m-a)(D(b)-D(m))`
-
-for the clipped prime discrepancy `D = pi - Li`, but deliberately stopped before
-building the recursive midpoint tree. This module performs that deterministic
-step.
-
-For an interval `[a,b]`, repeatedly split at
-
-`m = a + floor ((b-a)/2)`.
-
-The width-normalized sibling packet is the discrete Faber--Schauder coefficient
-at that node. The generic frame theorem below proves that the chord energy on an
-interval of width at most `2^depth` is bounded by `2 * depth` times the complete
-midpoint-packet energy through that depth. The factor `depth` is the expected
-Cauchy loss along one nested path; no arithmetic estimate enters the proof.
-
-For the reciprocal prime-discrepancy blocks, the native dyadic label `j` is a
-sufficient recursion depth because every occupied `j`-block has width at most
-`2^j`. A cutoff `J` then gives the exact partition
-
-`packetEnergy = shallowEnergy(J) + deepEnergy(J)`.
-
-Two analytic predicates are named at the end:
-
-* `DyadicPacketShallowEnergyBlockBoundedStatement`;
-* `DyadicPacketDeepTailBlockBoundedStatement`.
-
-They are intentionally not proved here. Together with the deterministic frame
-and the existing #321 coherent/Mobius hypotheses, they reduce RH to the targeted
-question of controlling the shallow signed modes and the recursively deep tail.
+This module builds the deterministic recursive midpoint tree on top of the signed
+sibling coordinate from #323.  It proves the discrete Faber--Schauder frame
+inequality, specializes it to the reciprocal `pi-Li` chord field, and isolates a
+shallow/deep energy split.  The analytic shallow and deep estimates are only
+named; no new prime-distribution estimate is asserted here.
 -/
 
 noncomputable section
@@ -48,29 +21,23 @@ namespace RHLean.Analysis
 open RHLean.Arithmetic
 open RHLean.Proof
 
-/-! ## Generic discrete midpoint frame -/
+/-! ## Generic midpoint frame -/
 
-/-- Integer midpoint used by the recursive packet tree. -/
 def dyadicPacketMidpoint (a b : ℕ) : ℕ :=
   a + (b - a) / 2
 
-/-- Generic signed sibling packet for a complex-valued discrete function. -/
 private def genericSignedSiblingPacket
     (f : ℕ → ℂ) (a m b : ℕ) : ℂ :=
   (((b - m : ℕ) : ℂ) * (f m - f a)) -
     (((m - a : ℕ) : ℂ) * (f b - f m))
 
-/-- Width-normalized generic sibling packet. -/
 private def genericSignedSiblingResidual
     (f : ℕ → ℂ) (a m b : ℕ) : ℂ :=
   (((b - a : ℕ) : ℂ)⁻¹) * genericSignedSiblingPacket f a m b
 
-/-- Chord energy on the half-open integer interval `[a,b)`. -/
 private def genericChordEnergy (f : ℕ → ℂ) (a b : ℕ) : ℝ :=
   ∑ d ∈ Finset.Ico a b, ‖genericSignedSiblingResidual f a d b‖ ^ 2
 
-/-- Complete recursive midpoint-packet energy through a prescribed number of
-levels. Nodes of width at most one do not split. -/
 private def genericMidpointPacketTreeEnergy
     (f : ℕ → ℂ) : ℕ → ℕ → ℕ → ℝ
   | 0, _, _ => 0
@@ -85,8 +52,7 @@ private def genericMidpointPacketTreeEnergy
 
 private theorem dyadicPacketMidpoint_facts
     {a b : ℕ} (h : a + 1 < b) :
-    a < dyadicPacketMidpoint a b ∧
-      dyadicPacketMidpoint a b < b := by
+    a < dyadicPacketMidpoint a b ∧ dyadicPacketMidpoint a b < b := by
   unfold dyadicPacketMidpoint
   omega
 
@@ -142,7 +108,6 @@ private theorem sum_Ico_split
     omega
   rw [← hunion, Finset.sum_union hdis]
 
-/-- The normalized sibling packet is the usual affine chord residual. -/
 private theorem genericResidual_eq_affine_left
     {f : ℕ → ℂ} {a d b : ℕ}
     (had : a ≤ d) (hdb : d ≤ b) (hab : a < b) :
@@ -162,7 +127,6 @@ private theorem genericResidual_eq_affine_left
   rw [hwidth]
   ring
 
-/-- Symmetric affine form based at the right endpoint. -/
 private theorem genericResidual_eq_affine_right
     {f : ℕ → ℂ} {a d b : ℕ}
     (had : a ≤ d) (hdb : d ≤ b) (hab : a < b) :
@@ -249,7 +213,9 @@ private theorem left_tent_energy_le
         have hc0 : 0 ≤ ‖c‖ := norm_nonneg _
         rw [norm_mul]
         change (r * ‖c‖) ^ 2 ≤ ‖c‖ ^ 2
-        nlinarith
+        have hmul : r * ‖c‖ ≤ ‖c‖ := by
+          simpa using mul_le_mul_of_nonneg_right hr1 hc0
+        exact (sq_le_sq₀ (mul_nonneg hr0 hc0) hc0).2 hmul
     _ = ((m - a : ℕ) : ℝ) * ‖c‖ ^ 2 := by
       simp [Nat.card_Ico, nsmul_eq_mul]
 
@@ -274,7 +240,9 @@ private theorem right_tent_energy_le
         have hc0 : 0 ≤ ‖c‖ := norm_nonneg _
         rw [norm_mul]
         change (r * ‖c‖) ^ 2 ≤ ‖c‖ ^ 2
-        nlinarith
+        have hmul : r * ‖c‖ ≤ ‖c‖ := by
+          simpa using mul_le_mul_of_nonneg_right hr1 hc0
+        exact (sq_le_sq₀ (mul_nonneg hr0 hc0) hc0).2 hmul
     _ = ((b - m : ℕ) : ℝ) * ‖c‖ ^ 2 := by
       simp [Nat.card_Ico, nsmul_eq_mul]
 
@@ -348,10 +316,11 @@ private theorem genericChordEnergy_split_weighted
           (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
             ((m - a : ℕ) : ℝ) * ‖c‖ ^ 2 := by
             have ht := left_tent_energy_le c ham
-            have hcoef :
-                0 ≤ (q : ℝ) * ((q + 1 : ℕ) : ℝ) := by positivity
+            have hcoef : 0 ≤ (q : ℝ) * ((q + 1 : ℕ) : ℝ) := by positivity
             have hs := mul_le_mul_of_nonneg_left ht hcoef
-            exact add_le_add_left hs _
+            convert add_le_add_left hs
+              (((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico a m,
+                ‖genericSignedSiblingResidual f a d m‖ ^ 2)) using 1 <;> ring
   have hright :
       (q : ℝ) * (∑ d ∈ Finset.Ico m b,
           ‖genericSignedSiblingResidual f a d b‖ ^ 2) ≤
@@ -386,10 +355,11 @@ private theorem genericChordEnergy_split_weighted
           (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
             ((b - m : ℕ) : ℝ) * ‖c‖ ^ 2 := by
             have ht := right_tent_energy_le c hmb
-            have hcoef :
-                0 ≤ (q : ℝ) * ((q + 1 : ℕ) : ℝ) := by positivity
+            have hcoef : 0 ≤ (q : ℝ) * ((q + 1 : ℕ) : ℝ) := by positivity
             have hs := mul_le_mul_of_nonneg_left ht hcoef
-            exact add_le_add_left hs _
+            convert add_le_add_left hs
+              (((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico m b,
+                ‖genericSignedSiblingResidual f m d b‖ ^ 2)) using 1 <;> ring
   have hwidth :
       ((m - a : ℕ) : ℝ) + ((b - m : ℕ) : ℝ) = ((b - a : ℕ) : ℝ) := by
     have hn : b - a = (m - a) + (b - m) := by omega
@@ -459,9 +429,6 @@ private theorem genericMidpointPacketTreeEnergy_mono
   | succ s hrs ih =>
       exact ih.trans (genericMidpointPacketTreeEnergy_mono_succ f s a b)
 
-/-- **Deterministic discrete Faber--Schauder frame.** If the interval width fits
-inside `2^depth`, its chord energy is controlled by twice the recursion depth
-times the complete midpoint-packet energy. -/
 private theorem genericChordEnergy_le_midpointPacketTreeEnergy
     (f : ℕ → ℂ) :
     ∀ (depth a b : ℕ), a ≤ b → b - a ≤ 2 ^ depth →
@@ -510,7 +477,7 @@ private theorem genericChordEnergy_le_midpointPacketTreeEnergy
               exact hw
             _ = (2 * 1 : ℕ) * genericMidpointPacketTreeEnergy f 1 a b := by
               rw [htree1]
-              norm_num
+              ring
         · have hdpos : 1 ≤ depth := by omega
           have hw := genericChordEnergy_split_weighted
             f depth hdpos (a := a) (m := m) (b := b) hm.1 hm.2
@@ -539,6 +506,7 @@ private theorem genericChordEnergy_le_midpointPacketTreeEnergy
               (genericMidpointPacketTreeEnergy_nonneg f depth a m)
               (genericMidpointPacketTreeEnergy_nonneg f depth m b)
           have hroot0 : 0 ≤ root := by dsimp [root]; positivity
+          push_cast at hw hchild
           have hqpos : (0 : ℝ) < depth := by exact_mod_cast (by omega : 0 < depth)
           have hscale0 : (0 : ℝ) ≤ depth + 1 := by positivity
           have hchildScaled := mul_le_mul_of_nonneg_left hchild hscale0
@@ -548,22 +516,30 @@ private theorem genericChordEnergy_le_midpointPacketTreeEnergy
                   (2 * ((depth : ℝ) + 1) * (root + kids)) := by
             calc
               (depth : ℝ) * genericChordEnergy f a b ≤
-                  (((depth + 1 : ℕ) : ℝ) *
+                  (((depth : ℝ) + 1) *
                       (genericChordEnergy f a m + genericChordEnergy f m b) +
-                    (depth : ℝ) * (((depth + 1 : ℕ) : ℝ) * root)) := by
+                    (depth : ℝ) * (((depth : ℝ) + 1) * root)) := by
                 simpa [root, mul_assoc] using hw
-              _ ≤ (((depth + 1 : ℕ) : ℝ) *
-                      (((2 * depth : ℕ) : ℝ) * kids) +
-                    (depth : ℝ) * (((depth + 1 : ℕ) : ℝ) * root)) := by
+              _ ≤ (((depth : ℝ) + 1) * (2 * (depth : ℝ) * kids) +
+                    (depth : ℝ) * (((depth : ℝ) + 1) * root)) := by
                 exact add_le_add_right hchildScaled _
               _ ≤ (depth : ℝ) *
                     (2 * ((depth : ℝ) + 1) * (root + kids)) := by
-                push_cast
-                nlinarith
+                have hextra :
+                    0 ≤ (depth : ℝ) * ((depth : ℝ) + 1) * root := by
+                  positivity
+                have heq :
+                    (depth : ℝ) *
+                        (2 * ((depth : ℝ) + 1) * (root + kids)) =
+                      (((depth : ℝ) + 1) * (2 * (depth : ℝ) * kids) +
+                        (depth : ℝ) * (((depth : ℝ) + 1) * root)) +
+                        (depth : ℝ) * ((depth : ℝ) + 1) * root := by ring
+                rw [heq]
+                exact le_add_of_nonneg_right hextra
           have hcancel :
               genericChordEnergy f a b ≤
                 2 * ((depth : ℝ) + 1) * (root + kids) :=
-            (mul_le_mul_left hqpos).mp hmul
+            (mul_le_mul_iff_right₀ hqpos).mp hmul
           rw [htree]
           dsimp [root, kids] at hcancel ⊢
           push_cast
@@ -573,7 +549,7 @@ private theorem genericChordEnergy_le_midpointPacketTreeEnergy
         exact mul_nonneg (by positivity)
           (genericMidpointPacketTreeEnergy_nonneg f (depth + 1) a b)
 
-/-! ## Specialization to the signed prime-discrepancy packets -/
+/-! ## Prime-discrepancy specialization -/
 
 private def primeSieveClippedDiscrepancyFunction (y x : ℕ) : ℕ → ℂ :=
   fun d => primeSieveDyadicClippedDiscrepancy y x d
@@ -584,7 +560,6 @@ private theorem genericResidual_eq_primeSieveResidual
       primeSieveSignedSiblingPacketResidual y x a m b := by
   rfl
 
-/-- Recursive midpoint-packet energy of one occupied #322 dyadic block. -/
 def primeSieveDyadicPacketTreeBlockEnergy
     (y x j depth : ℕ) : ℝ :=
   genericMidpointPacketTreeEnergy
@@ -592,23 +567,18 @@ def primeSieveDyadicPacketTreeBlockEnergy
     (primeSieveDyadicBlockLeft j)
     (primeSieveDyadicBlockRight y x j + 1)
 
-/-- Full packet-tree energy: each occupied `j`-block is refined through depth
-`j`, enough to reduce its width to unit intervals. -/
 def primeSieveDyadicPacketTreeEnergy (y x : ℕ) : ℝ :=
   ∑ j ∈ primeSieveDyadicBlockIndices y x,
     primeSieveDyadicPacketTreeBlockEnergy y x j j
 
-/-- Shallow packet energy through the first `J` levels of each dyadic block. -/
 def primeSieveDyadicPacketShallowEnergy (y x J : ℕ) : ℝ :=
   ∑ j ∈ primeSieveDyadicBlockIndices y x,
     primeSieveDyadicPacketTreeBlockEnergy y x j (min J j)
 
-/-- Deep packet tail beyond level `J`. -/
 def primeSieveDyadicPacketDeepEnergy (y x J : ℕ) : ℝ :=
   primeSieveDyadicPacketTreeEnergy y x -
     primeSieveDyadicPacketShallowEnergy y x J
 
-/-- Exact shallow/deep partition of the recursive packet energy. -/
 theorem primeSieveDyadicPacket_shallow_add_deep
     (y x J : ℕ) :
     primeSieveDyadicPacketShallowEnergy y x J +
@@ -617,7 +587,6 @@ theorem primeSieveDyadicPacket_shallow_add_deep
   unfold primeSieveDyadicPacketDeepEnergy
   ring
 
-/-- Shallow energy is bounded by the full recursive packet energy. -/
 theorem primeSieveDyadicPacketShallowEnergy_le_treeEnergy
     (y x J : ℕ) :
     primeSieveDyadicPacketShallowEnergy y x J ≤
@@ -628,7 +597,6 @@ theorem primeSieveDyadicPacketShallowEnergy_le_treeEnergy
   exact genericMidpointPacketTreeEnergy_mono
     (primeSieveClippedDiscrepancyFunction y x) (min_le_right J j)
 
-/-- The deep tail is nonnegative. -/
 theorem primeSieveDyadicPacketDeepEnergy_nonneg
     (y x J : ℕ) :
     0 ≤ primeSieveDyadicPacketDeepEnergy y x J := by
@@ -668,7 +636,6 @@ private theorem genericChordEnergy_eq_blockChordEnergy
   rw [genericResidual_eq_primeSieveResidual]
   rw [primeSieveDyadicRootPacketResidual_eq_chordResidual hj hd]
 
-/-- Per-block deterministic frame inequality. -/
 theorem primeSieveDyadicBlockChordEnergy_le_packetTree
     {y x j : ℕ} (hj : j ∈ primeSieveDyadicBlockIndices y x) :
     (∑ d ∈ primeSieveDyadicBlock y x j,
@@ -685,7 +652,6 @@ theorem primeSieveDyadicBlockChordEnergy_le_packetTree
       omega)
     (primeSieveDyadicBlock_width_le_two_pow y x j)
 
-/-- Weighted global frame inequality. -/
 theorem primeSieveDyadicChordEnergy_le_weightedPacketTree
     (y x : ℕ) :
     primeSieveDyadicChordEnergy y x ≤
@@ -698,7 +664,6 @@ theorem primeSieveDyadicChordEnergy_le_weightedPacketTree
 
 /-! ## Analytic frontier -/
 
-/-- Critical block-uniform shallow packet target. -/
 def DyadicPacketShallowEnergyBlockBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ C : ℝ, 0 ≤ C ∧
@@ -710,7 +675,6 @@ def DyadicPacketShallowEnergyBlockBoundedStatement : Prop :=
             (primorialPNTPrimeSieveCutoff k) x J ≤
           C * Real.rpow ((x : ℝ) + 1) (1 + ε)
 
-/-- Critical block-uniform deep-tail target. -/
 def DyadicPacketDeepTailBlockBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ C : ℝ, 0 ≤ C ∧
@@ -722,8 +686,6 @@ def DyadicPacketDeepTailBlockBoundedStatement : Prop :=
             (primorialPNTPrimeSieveCutoff k) x J ≤
           C * Real.rpow ((x : ℝ) + 1) (1 + ε)
 
-/-- Combined shallow and deep estimates control the unweighted recursive packet
-energy at critical scale. -/
 theorem dyadicPacketTreeEnergyBlockBounded_of_shallow_deep
     (hS : DyadicPacketShallowEnergyBlockBoundedStatement)
     (hT : DyadicPacketDeepTailBlockBoundedStatement) :
@@ -748,8 +710,7 @@ theorem dyadicPacketTreeEnergyBlockBounded_of_shallow_deep
   have hp := Real.rpow_nonneg (by positivity : (0 : ℝ) ≤ (x : ℝ) + 1) (1 + ε)
   nlinarith
 
-/-- Temporary deterministic conversion interface. It will be discharged inside
-this PR after the recursive frame itself is kernel-checked. -/
+/-- Temporary depth-loss absorption interface, to be discharged in this PR. -/
 def DyadicPacketTreeToRootCriticalTransfer : Prop :=
   (∀ ε : ℝ, 0 < ε →
       ∃ C : ℝ, 0 ≤ C ∧
@@ -762,7 +723,6 @@ def DyadicPacketTreeToRootCriticalTransfer : Prop :=
             C * Real.rpow ((x : ℝ) + 1) (1 + ε)) →
     DyadicSignedRootPacketEnergyBlockBoundedStatement
 
-/-- Terminal shallow/deep reduction. -/
 theorem riemannHypothesis_of_dyadicPacketShallowDeepAnalyticPackage
     (hC : DyadicCoherentChannelRHScale)
     (hS : DyadicPacketShallowEnergyBlockBoundedStatement)
