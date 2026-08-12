@@ -87,13 +87,18 @@ theorem nativeLambdaRecip_eq_mobius_logRecip
             (n : ℝ) =
           ((ArithmeticFunction.moebius d : ℝ) / (d : ℝ)) *
             (Real.log ((n / d : ℕ) : ℝ) / ((n / d : ℕ) : ℝ))
-      have hmul : d * (n / d) = n := Nat.mul_div_cancel' hdvd
-      push_cast at hmul
+      have hmulNat : d * (n / d) = n := Nat.mul_div_cancel' hdvd
+      have hmul : (d : ℝ) * ((n / d : ℕ) : ℝ) = (n : ℝ) := by
+        exact_mod_cast hmulNat
       have hdR0 : (d : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hdpos)
       have hqR0 : (((n / d : ℕ) : ℝ)) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hqpos)
       have hnR0 : (n : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hnpos)
       field_simp [hdR0, hqR0, hnR0]
-      nlinarith
+      have hscaled := congrArg
+        (fun z : ℝ =>
+          (ArithmeticFunction.moebius d : ℝ) *
+            Real.log ((n / d : ℕ) : ℝ) * z) hmul
+      simpa [mul_assoc] using hscaled
     _ = ∑ d ∈ Finset.Icc 1 N,
           ∑ n ∈ (Finset.Icc 1 N).filter (fun x => d ∣ x),
             ((ArithmeticFunction.moebius d : ℝ) /
@@ -128,8 +133,7 @@ theorem nativeLambdaRecip_eq_mobius_logRecip
             dvd_mul_right d m⟩
       rw [hmap, Finset.sum_image]
       · apply Finset.sum_congr rfl
-        intro m hm
-        have hmpos : 0 < m := (Finset.mem_Icc.mp hm).1
+        intro m _hm
         have hdiv : d * m / d = m := Nat.mul_div_cancel_left m hdpos
         rw [hdiv]
       · intro a _ha b _hb hab
@@ -150,7 +154,7 @@ theorem nativeLogRecipPrimitive_hasDerivAt
   have h := (hlog.mul hlog).const_mul (1 / 2 : ℝ)
   convert h using 1
   · funext y
-    simp [nativeLogRecipPrimitive]
+    simp [nativeLogRecipPrimitive, pow_two]
   · field_simp [hx]
     ring
 
@@ -208,8 +212,9 @@ theorem nativeLogRecipDefect_succ_le
         ∫ x in (q : ℝ)..((q + 1 : ℕ) : ℝ), Real.log x / x := by
     simpa using hsum
   rw [nativeIntegral_log_div_unit q (by omega : 1 ≤ q)] at hpoint
+  unfold nativeLogRecipDefect
   rw [nativeLogRecipMass_succ]
-  unfold nativeLogRecipDefect nativeLogRecipPrimitive
+  unfold nativeLogRecipPrimitive at hpoint
   nlinarith
 
 /-- Matching lower control on one defect increment. -/
@@ -228,8 +233,9 @@ theorem nativeLogRecipDefect_succ_sub_ge
         Real.log (q : ℝ) / (q : ℝ) := by
     simpa using hsum
   rw [nativeIntegral_log_div_unit q (by omega : 1 ≤ q)] at hpoint
+  unfold nativeLogRecipDefect
   rw [nativeLogRecipMass_succ]
-  unfold nativeLogRecipDefect nativeLogRecipPrimitive
+  unfold nativeLogRecipPrimitive at hpoint
   nlinarith
 
 /-- Antitonicity of the defect on integer endpoints at least `3`. -/
@@ -248,7 +254,9 @@ theorem nativeLogRecipDefect_lower_three
         Real.log (q : ℝ) / (q : ℝ) - Real.log (3 : ℝ) / 3 ≤
       nativeLogRecipDefect q := by
   induction q, hq using Nat.le_induction with
-  | base => ring_nf
+  | base =>
+      ring_nf
+      exact le_rfl
   | succ q hq ih =>
       have hstep := nativeLogRecipDefect_succ_sub_ge q hq
       linarith
@@ -274,33 +282,63 @@ constants are irrelevant; bounded variation is the point. -/
 theorem nativeLogRecipDefect_abs_le_four
     (q : ℕ) (hq : 3 ≤ q) :
     |nativeLogRecipDefect q| ≤ 4 := by
-  have hanti := nativeLogRecipDefect_antitone_three hq (show 3 ≤ q from hq)
+  have hanti := nativeLogRecipDefect_antitone_three
+    (a := 3) (b := q) (by norm_num) hq
   have hlower := nativeLogRecipDefect_lower_three q hq
   have hlog2 := nativeLog_two_bounds
   have hlog3 := nativeLog_three_bounds
-  have hqlog : 0 ≤ Real.log (q : ℝ) := Real.log_nonneg (by exact_mod_cast (show 1 ≤ q by omega))
-  have hqpos : (0 : ℝ) < (q : ℝ) := by positivity
+  have hlog2lo := hlog2.1
+  have hlog2hi := hlog2.2
+  have hlog3lo := hlog3.1
+  have hlog3hi := hlog3.2
+  have hqlog : 0 ≤ Real.log (q : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast (show 1 ≤ q by omega))
+  have hqpos : (0 : ℝ) < (q : ℝ) := by
+    exact_mod_cast (show 0 < q by omega)
+  have hmass1 : nativeLogRecipMass 1 = 0 := by
+    simp [nativeLogRecipMass]
+  have hmass2 : nativeLogRecipMass 2 = Real.log (2 : ℝ) / 2 := by
+    rw [nativeLogRecipMass_succ 1, hmass1]
+    norm_num
+  have hmass3 :
+      nativeLogRecipMass 3 =
+        Real.log (2 : ℝ) / 2 + Real.log (3 : ℝ) / 3 := by
+    rw [nativeLogRecipMass_succ 2, hmass2]
+    norm_num
+  have hlog3sq : (Real.log (3 : ℝ)) ^ 2 ≤ 4 := by
+    have hprod :
+        0 ≤ Real.log (3 : ℝ) * (2 - Real.log (3 : ℝ)) :=
+      mul_nonneg hlog3lo (sub_nonneg.mpr hlog3hi)
+    nlinarith
   have hD3upper : nativeLogRecipDefect 3 ≤ 2 := by
-    norm_num [nativeLogRecipDefect, nativeLogRecipMass]
+    unfold nativeLogRecipDefect
+    rw [hmass3]
     nlinarith [sq_nonneg (Real.log (3 : ℝ))]
   have hD3lower : -2 ≤ nativeLogRecipDefect 3 := by
-    norm_num [nativeLogRecipDefect, nativeLogRecipMass]
-    nlinarith [sq_nonneg (Real.log (2 : ℝ)), sq_nonneg (Real.log (3 : ℝ))]
-  have hf3 : Real.log (3 : ℝ) / 3 ≤ 1 := by nlinarith
+    unfold nativeLogRecipDefect
+    rw [hmass3]
+    nlinarith
+  have hf3 : Real.log (3 : ℝ) / 3 ≤ 1 := by
+    nlinarith
   have hqterm : 0 ≤ Real.log (q : ℝ) / (q : ℝ) := div_nonneg hqlog hqpos.le
   rw [abs_le]
   constructor
   · nlinarith
-  · exact hanti.trans hD3upper
+  · exact (hanti.trans hD3upper).trans (by norm_num)
 
 /-- For quotient `1` or `2` the defect is also uniformly tiny. -/
 theorem nativeLogRecipDefect_abs_le_one_of_le_two
     (q : ℕ) (hq1 : 1 ≤ q) (hq2 : q ≤ 2) :
     |nativeLogRecipDefect q| ≤ 1 := by
-  interval_cases q <;>
-    norm_num [nativeLogRecipDefect, nativeLogRecipMass] at *
-  have hlog2 := nativeLog_two_bounds
-  nlinarith [sq_nonneg (Real.log (2 : ℝ))]
+  have hcases : q = 1 ∨ q = 2 := by omega
+  rcases hcases with rfl | rfl
+  · norm_num [nativeLogRecipDefect, nativeLogRecipMass]
+  · have hlog2 := nativeLog_two_bounds
+    unfold nativeLogRecipDefect
+    rw [nativeLogRecipMass_succ 1]
+    simp [nativeLogRecipMass]
+    rw [abs_le]
+    constructor <;> nlinarith [sq_nonneg (Real.log (2 : ℝ))]
 
 /-! ## A finite Abel bound -/
 
@@ -320,7 +358,8 @@ theorem nativeAbelIccOne
         simp
       · have hM1 : 1 ≤ M := Nat.one_le_iff_ne_zero.mpr hM0
         rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ M + 1), ih,
-          Finset.sum_Icc_succ_top hM1, Finset.sum_Ico_succ_top hM1]
+          Finset.sum_Icc_succ_top (by omega : 1 ≤ M + 1),
+          Finset.sum_Ico_succ_top hM1]
         ring
 
 private theorem nativeTelescopeDiffIco
@@ -351,7 +390,7 @@ theorem nativeAbelBoundMonotone
         |∑ n ∈ Finset.Ico 1 M,
           (∑ k ∈ Finset.Icc 1 n, a k) * (b n - b (n + 1))| := abs_add_le _ _
     _ ≤ B + ∑ n ∈ Finset.Ico 1 M, (b (n + 1) - b n) := by
-      apply add_le_add
+      apply _root_.add_le_add
       · rw [abs_mul]
         have hp := hprefix M hM le_rfl
         have hb := hbound M (Finset.mem_Icc.mpr ⟨hM, le_rfl⟩)
@@ -368,8 +407,11 @@ theorem nativeAbelBoundMonotone
             have hnI := Finset.mem_Ico.mp hn
             have hp := hprefix n hnI.1 (Nat.le_of_lt hnI.2)
             have hm := hmono n hn
-            rw [abs_mul, abs_of_nonpos (sub_nonpos.mpr hm), abs_neg, abs_sub_comm]
-            exact mul_le_of_le_one_left (sub_nonneg.mpr hm) (abs_nonneg _) hp
+            rw [abs_mul, abs_of_nonpos (sub_nonpos.mpr hm)]
+            have hdiff : 0 ≤ b (n + 1) - b n := sub_nonneg.mpr hm
+            have hneg : -(b n - b (n + 1)) = b (n + 1) - b n := by ring
+            rw [hneg]
+            exact mul_le_of_le_one_left hdiff hp
     _ = B + (b M - b 1) := by rw [nativeTelescopeDiffIco b M hM]
     _ ≤ 3 * B := by
       have hbM := hbound M (Finset.mem_Icc.mpr ⟨hM, le_rfl⟩)
@@ -398,7 +440,7 @@ theorem nativeLambdaRecip_eq_half_momentTwo_add_defect
         nativeMobiusLogRecipDefectMass N := by
   rw [nativeLambdaRecip_eq_mobius_logRecip]
   unfold nativeMobiusLogMomentTwo nativeMobiusLogRecipDefectMass
-  rw [← Finset.sum_add_distrib]
+  rw [Finset.mul_sum, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro d _hd
   unfold nativeLogRecipDefect
@@ -439,7 +481,13 @@ theorem nativeMobiusLogRecipDefectMass_abs_le
         have hMmul : 3 * M ≤ N := Nat.mul_div_le N 3
         have hmul : 3 * (d + 1) ≤ 3 * M := Nat.mul_le_mul_left 3 hsuccM
         omega
-    have hquot : N / (d + 1) ≤ N / d := Nat.div_le_div_left N (by omega) (by omega)
+    have hqmul : (N / (d + 1)) * d ≤ N := by
+      calc
+        (N / (d + 1)) * d ≤ (N / (d + 1)) * (d + 1) :=
+          Nat.mul_le_mul_left (N / (d + 1)) (by omega)
+        _ ≤ N := Nat.div_mul_le_self N (d + 1)
+    have hquot : N / (d + 1) ≤ N / d :=
+      (Nat.le_div_iff_mul_le hdpos).2 hqmul
     exact nativeLogRecipDefect_antitone_three hqSucc hquot
   have hbound : ∀ d ∈ Finset.Icc 1 M, |b d| ≤ 4 := by
     intro d hd
@@ -509,21 +557,25 @@ theorem nativeMobiusLogRecipDefectMass_abs_le
       nativeMobiusLogRecipDefectMass N =
         (∑ d ∈ Finset.Icc 1 M, a d * b d) +
           ∑ d ∈ (Finset.Icc 1 N).filter (fun d => M < d), a d * b d := by
-    unfold nativeMobiusLogRecipDefectMass
-    change (∑ d ∈ Finset.Icc 1 N, a d * b d) = _
-    rw [← Finset.sum_filter_add_sum_filter_not
-      (s := Finset.Icc 1 N) (p := fun d => d ≤ M) (f := fun d => a d * b d)]
-    congr 1
-    · ext d
+    have hlow :
+        (Finset.Icc 1 N).filter (fun d => d ≤ M) = Finset.Icc 1 M := by
+      ext d
       simp only [Finset.mem_filter, Finset.mem_Icc]
       constructor
-      · rintro ⟨⟨hd1, hdN⟩, hdM⟩
+      · rintro ⟨⟨hd1, _hdN⟩, hdM⟩
         exact ⟨hd1, hdM⟩
       · rintro ⟨hd1, hdM⟩
         exact ⟨⟨hd1, hdM.trans (Nat.div_le_self N 3)⟩, hdM⟩
-    · congr 1
+    have hhigh :
+        (Finset.Icc 1 N).filter (fun d => ¬ d ≤ M) =
+          (Finset.Icc 1 N).filter (fun d => M < d) := by
       ext d
-      simp only [Finset.mem_filter, Finset.mem_Icc, not_le]
+      simp [not_le]
+    unfold nativeMobiusLogRecipDefectMass
+    change (∑ d ∈ Finset.Icc 1 N, a d * b d) = _
+    rw [← Finset.sum_filter_add_sum_filter_not
+      (s := Finset.Icc 1 N) (p := fun d => d ≤ M) (f := fun d => a d * b d),
+      hlow, hhigh]
   rw [hsplit]
   exact (abs_add_le _ _).trans (by linarith)
 
