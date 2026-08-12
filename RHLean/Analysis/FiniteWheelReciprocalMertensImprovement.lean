@@ -101,13 +101,10 @@ theorem finiteWheelRoughMoebius_isMultiplicative (P : Finset ℕ) :
   constructor
   · simp [finiteWheelRoughMoebius]
   · intro a b hab
-    simp only [finiteWheelRoughMoebius_apply]
-    by_cases ha : Nat.Coprime a (primorialWheelProduct P)
-    · by_cases hb : Nat.Coprime b (primorialWheelProduct P)
-      · simp [Nat.coprime_mul_iff_left, ha, hb,
-          ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hab]
-      · simp [Nat.coprime_mul_iff_left, ha, hb]
-    · simp [Nat.coprime_mul_iff_left, ha]
+    simp only [finiteWheelRoughMoebius_apply,
+      ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hab,
+      Nat.coprime_mul_iff_left]
+    split_ifs <;> simp_all
 
 /-- Certificate for the exact restricted Mobius floor identity. -/
 structure FiniteWheelRestrictedFloorCertificate (P : Finset ℕ) : Prop where
