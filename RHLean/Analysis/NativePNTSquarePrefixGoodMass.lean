@@ -519,7 +519,7 @@ private theorem nativePNTSquarePrefix_depth_pos
   simp at hdepth
   nlinarith
 
-/-- For fixed square-prefix depth, all PNT1/PNT2 endpoint hypotheses hold on
+/- For fixed square-prefix depth, all PNT1/PNT2 endpoint hypotheses hold on
 all sufficiently large square-prefix starting indices. -/
 set_option maxHeartbeats 800000 in
 theorem nativePNT_exists_good_radius_squarePrefix_eventually
@@ -620,7 +620,8 @@ theorem nativePNT_exists_good_radius_squarePrefix_eventually
           (2 * Real.log ((A + 1 : ℕ) : ℝ) +
             2 * (K : ℝ) * Real.log 2) - 1 := sub_le_sub_right hupperLog 1
       _ ≤ 2 * ((A + 1 : ℕ) : ℝ) + 2 * (K : ℝ) := by linarith
-      _ < (eps / 2) * (((A + 1 : ℕ) : ℝ) ^ 2) := hscale
+      _ < (eps / 2) * (((A + 1 : ℕ) : ℝ) ^ 2) := by
+        simpa [Nat.cast_add, Nat.cast_one] using hscale
       _ ≤ (eps / 4) *
           (2 * (nativePNTSquarePrefixSearchLower A : ℝ) + 1) := by
         rw [hLcast]
