@@ -19,7 +19,7 @@ noncomputable section
 
 open Finset
 open Filter
-open scoped ArithmeticFunction.Moebius BigOperators Topology
+open scoped ArithmeticFunction.Moebius ArithmeticFunction.zeta BigOperators Topology
 
 namespace RHLean.Analysis
 
@@ -62,6 +62,53 @@ theorem finiteWheel_signed_mul_support_eq_factor (P : Finset ℕ) :
     primorialSignedContractionFactor P * primorialSquarefreeSupportFactor P =
       finiteWheelSquarefreeSupportFactor P := by
   exact primorial_signed_mul_support_eq_squarefreeEuler P
+
+/-- A prime divides the squarefree wheel product exactly when it is one of the
+wheel coordinates. -/
+theorem prime_dvd_primorialWheelProduct_iff
+    {P : Finset ℕ} {p : ℕ} (hp : p.Prime)
+    (hprime : ∀ q ∈ P, q.Prime) :
+    p ∣ primorialWheelProduct P ↔ p ∈ P := by
+  classical
+  unfold primorialWheelProduct
+  constructor
+  · intro h
+    rcases (Prime.dvd_finset_prod_iff hp.prime id).mp h with ⟨q, hq, hpq⟩
+    rcases (hprime q hq).eq_one_or_self_of_dvd p hpq with hpOne | hpEq
+    · exact (hp.ne_one hpOne).elim
+    · simpa [hpEq] using hq
+  · intro hpP
+    exact Finset.dvd_prod_of_mem id hpP
+
+/-- Möbius restricted to cofactors avoiding every wheel prime. -/
+def finiteWheelRoughMoebius (P : Finset ℕ) : ArithmeticFunction ℤ where
+  toFun n :=
+    if Nat.Coprime n (primorialWheelProduct P) then
+      ArithmeticFunction.moebius n
+    else 0
+  map_zero' := by simp
+
+@[simp] theorem finiteWheelRoughMoebius_apply (P : Finset ℕ) (n : ℕ) :
+    finiteWheelRoughMoebius P n =
+      if Nat.Coprime n (primorialWheelProduct P) then
+        ArithmeticFunction.moebius n
+      else 0 := rfl
+
+/-- Restricting Möbius by a fixed coprimality condition preserves
+multiplicativity. -/
+theorem finiteWheelRoughMoebius_isMultiplicative (P : Finset ℕ) :
+    ArithmeticFunction.IsMultiplicative (finiteWheelRoughMoebius P) := by
+  constructor
+  · simp [finiteWheelRoughMoebius]
+  · intro a b hab
+    rw [finiteWheelRoughMoebius_apply, finiteWheelRoughMoebius_apply,
+      finiteWheelRoughMoebius_apply, Nat.coprime_mul_iff_left]
+    by_cases ha : Nat.Coprime a (primorialWheelProduct P)
+    · by_cases hb : Nat.Coprime b (primorialWheelProduct P)
+      · simp [ha, hb,
+          ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hab]
+      · simp [ha, hb]
+    · simp [ha]
 
 /-- Certificate for the exact restricted Mobius floor identity. -/
 structure FiniteWheelRestrictedFloorCertificate (P : Finset ℕ) : Prop where
