@@ -9,7 +9,7 @@ PR #323 exposed the signed sibling packet
 `B(a,m,b) = (b-m)(D(m)-D(a)) - (m-a)(D(b)-D(m))`
 
 for the clipped prime discrepancy `D = pi - Li`, but deliberately stopped before
-building the recursive midpoint tree.  This module performs that deterministic
+building the recursive midpoint tree. This module performs that deterministic
 step.
 
 For an interval `[a,b]`, repeatedly split at
@@ -17,14 +17,14 @@ For an interval `[a,b]`, repeatedly split at
 `m = a + floor ((b-a)/2)`.
 
 The width-normalized sibling packet is the discrete Faber--Schauder coefficient
-at that node.  The generic frame theorem below proves that the chord energy on an
+at that node. The generic frame theorem below proves that the chord energy on an
 interval of width at most `2^depth` is bounded by `2 * depth` times the complete
-midpoint-packet energy through that depth.  The factor `depth` is the expected
+midpoint-packet energy through that depth. The factor `depth` is the expected
 Cauchy loss along one nested path; no arithmetic estimate enters the proof.
 
 For the reciprocal prime-discrepancy blocks, the native dyadic label `j` is a
 sufficient recursion depth because every occupied `j`-block has width at most
-`2^j`.  A cutoff `J` then gives the exact partition
+`2^j`. A cutoff `J` then gives the exact partition
 
 `packetEnergy = shallowEnergy(J) + deepEnergy(J)`.
 
@@ -33,7 +33,7 @@ Two analytic predicates are named at the end:
 * `DyadicPacketShallowEnergyBlockBoundedStatement`;
 * `DyadicPacketDeepTailBlockBoundedStatement`.
 
-They are intentionally not proved here.  Together with the deterministic frame
+They are intentionally not proved here. Together with the deterministic frame
 and the existing #321 coherent/Mobius hypotheses, they reduce RH to the targeted
 question of controlling the shallow signed modes and the recursively deep tail.
 -/
@@ -65,13 +65,12 @@ private def genericSignedSiblingResidual
     (f : ℕ → ℂ) (a m b : ℕ) : ℂ :=
   (((b - a : ℕ) : ℂ)⁻¹) * genericSignedSiblingPacket f a m b
 
-/-- Chord energy on the half-open integer interval `[a,b)`.  The left endpoint
-contributes zero; using `Ico` makes midpoint splitting exact. -/
+/-- Chord energy on the half-open integer interval `[a,b)`. -/
 private def genericChordEnergy (f : ℕ → ℂ) (a b : ℕ) : ℝ :=
   ∑ d ∈ Finset.Ico a b, ‖genericSignedSiblingResidual f a d b‖ ^ 2
 
 /-- Complete recursive midpoint-packet energy through a prescribed number of
-levels.  Nodes of width at most one do not split. -/
+levels. Nodes of width at most one do not split. -/
 private def genericMidpointPacketTreeEnergy
     (f : ℕ → ℂ) : ℕ → ℕ → ℕ → ℝ
   | 0, _, _ => 0
@@ -143,6 +142,46 @@ private theorem sum_Ico_split
     omega
   rw [← hunion, Finset.sum_union hdis]
 
+/-- The normalized sibling packet is the usual affine chord residual. -/
+private theorem genericResidual_eq_affine_left
+    {f : ℕ → ℂ} {a d b : ℕ}
+    (had : a ≤ d) (hdb : d ≤ b) (hab : a < b) :
+    genericSignedSiblingResidual f a d b =
+      f d - f a -
+        ((((d - a : ℕ) : ℂ) * (((b - a : ℕ) : ℂ)⁻¹)) *
+          (f b - f a)) := by
+  have hab0 : ((((b - a : ℕ) : ℂ))) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt (by omega : 0 < b - a))
+  have hwidthNat : b - a = (b - d) + (d - a) := by omega
+  have hwidth :
+      (((b - a : ℕ) : ℂ)) =
+        ((b - d : ℕ) : ℂ) + ((d - a : ℕ) : ℂ) := by
+    exact_mod_cast hwidthNat
+  unfold genericSignedSiblingResidual genericSignedSiblingPacket
+  field_simp [hab0]
+  rw [hwidth]
+  ring
+
+/-- Symmetric affine form based at the right endpoint. -/
+private theorem genericResidual_eq_affine_right
+    {f : ℕ → ℂ} {a d b : ℕ}
+    (had : a ≤ d) (hdb : d ≤ b) (hab : a < b) :
+    genericSignedSiblingResidual f a d b =
+      f d - f b -
+        ((((b - d : ℕ) : ℂ) * (((b - a : ℕ) : ℂ)⁻¹)) *
+          (f a - f b)) := by
+  have hab0 : ((((b - a : ℕ) : ℂ))) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt (by omega : 0 < b - a))
+  have hwidthNat : b - a = (b - d) + (d - a) := by omega
+  have hwidth :
+      (((b - a : ℕ) : ℂ)) =
+        ((b - d : ℕ) : ℂ) + ((d - a : ℕ) : ℂ) := by
+    exact_mod_cast hwidthNat
+  unfold genericSignedSiblingResidual genericSignedSiblingPacket
+  field_simp [hab0]
+  rw [hwidth]
+  ring
+
 private theorem genericResidual_left_decomposition
     {f : ℕ → ℂ} {a d m b : ℕ}
     (had : a ≤ d) (hdm : d ≤ m) (hmb : m < b) (ham : a < m) :
@@ -150,12 +189,15 @@ private theorem genericResidual_left_decomposition
       genericSignedSiblingResidual f a d m +
         ((((d - a : ℕ) : ℂ) * (((m - a : ℕ) : ℂ)⁻¹)) *
           genericSignedSiblingResidual f a m b) := by
+  have hdb : d ≤ b := hdm.trans hmb.le
+  have hab : a < b := ham.trans hmb
   have ham0 : ((((m - a : ℕ) : ℂ))) ≠ 0 := by
     exact_mod_cast (Nat.ne_of_gt (by omega : 0 < m - a))
   have hab0 : ((((b - a : ℕ) : ℂ))) ≠ 0 := by
     exact_mod_cast (Nat.ne_of_gt (by omega : 0 < b - a))
-  unfold genericSignedSiblingResidual genericSignedSiblingPacket
-  push_cast
+  rw [genericResidual_eq_affine_left had hdb hab,
+    genericResidual_eq_affine_left had hdm ham,
+    genericResidual_eq_affine_left ham.le hmb.le hab]
   field_simp [ham0, hab0]
   ring
 
@@ -166,12 +208,15 @@ private theorem genericResidual_right_decomposition
       genericSignedSiblingResidual f m d b +
         ((((b - d : ℕ) : ℂ) * (((b - m : ℕ) : ℂ)⁻¹)) *
           genericSignedSiblingResidual f a m b) := by
+  have had : a ≤ d := ham.le.trans hmd
+  have hab : a < b := ham.trans hmb
   have hmb0 : ((((b - m : ℕ) : ℂ))) ≠ 0 := by
     exact_mod_cast (Nat.ne_of_gt (by omega : 0 < b - m))
   have hab0 : ((((b - a : ℕ) : ℂ))) ≠ 0 := by
     exact_mod_cast (Nat.ne_of_gt (by omega : 0 < b - a))
-  unfold genericSignedSiblingResidual genericSignedSiblingPacket
-  push_cast
+  rw [genericResidual_eq_affine_right had hdb hab,
+    genericResidual_eq_affine_right hmd hdb hmb,
+    genericResidual_eq_affine_right ham.le hmb.le hab]
   field_simp [hmb0, hab0]
   ring
 
@@ -195,11 +240,15 @@ private theorem left_tent_energy_le
         apply Finset.sum_le_sum
         intro d hd
         have hdI := Finset.mem_Ico.mp hd
-        have hratio := natCast_ratio_norm_le_one
-          (p := d - a) (q := m - a) (by omega) (by omega)
-        rw [norm_mul]
-        have hr0 : 0 ≤ ‖((d - a : ℂ) * ((m - a : ℂ)⁻¹))‖ := norm_nonneg _
+        let r : ℝ :=
+          ‖(((d - a : ℕ) : ℂ) * (((m - a : ℕ) : ℂ)⁻¹))‖
+        have hr0 : 0 ≤ r := norm_nonneg _
+        have hr1 : r ≤ 1 := by
+          dsimp [r]
+          exact natCast_ratio_norm_le_one (by omega) (by omega)
         have hc0 : 0 ≤ ‖c‖ := norm_nonneg _
+        rw [norm_mul]
+        change (r * ‖c‖) ^ 2 ≤ ‖c‖ ^ 2
         nlinarith
     _ = ((m - a : ℕ) : ℝ) * ‖c‖ ^ 2 := by
       simp [Nat.card_Ico, nsmul_eq_mul]
@@ -216,22 +265,18 @@ private theorem right_tent_energy_le
         apply Finset.sum_le_sum
         intro d hd
         have hdI := Finset.mem_Ico.mp hd
-        have hratio := natCast_ratio_norm_le_one
-          (p := b - d) (q := b - m) (by omega) (by omega)
-        rw [norm_mul]
-        have hr0 : 0 ≤ ‖((b - d : ℂ) * ((b - m : ℂ)⁻¹))‖ := norm_nonneg _
+        let r : ℝ :=
+          ‖(((b - d : ℕ) : ℂ) * (((b - m : ℕ) : ℂ)⁻¹))‖
+        have hr0 : 0 ≤ r := norm_nonneg _
+        have hr1 : r ≤ 1 := by
+          dsimp [r]
+          exact natCast_ratio_norm_le_one (by omega) (by omega)
         have hc0 : 0 ≤ ‖c‖ := norm_nonneg _
+        rw [norm_mul]
+        change (r * ‖c‖) ^ 2 ≤ ‖c‖ ^ 2
         nlinarith
     _ = ((b - m : ℕ) : ℝ) * ‖c‖ ^ 2 := by
       simp [Nat.card_Ico, nsmul_eq_mul]
-
-private theorem norm_add_sq_le_two (u v : ℂ) :
-    ‖u + v‖ ^ 2 ≤ 2 * ‖u‖ ^ 2 + 2 * ‖v‖ ^ 2 := by
-  have htri := norm_add_le u v
-  have hu : 0 ≤ ‖u‖ := norm_nonneg _
-  have hv : 0 ≤ ‖v‖ := norm_nonneg _
-  have huv : 0 ≤ ‖u + v‖ := norm_nonneg _
-  nlinarith [sq_nonneg (‖u‖ - ‖v‖)]
 
 private theorem weighted_norm_add_sq
     (q : ℕ) (hq : 1 ≤ q) (u v : ℂ) :
@@ -242,83 +287,18 @@ private theorem weighted_norm_add_sq
   have hu : 0 ≤ ‖u‖ := norm_nonneg _
   have hv : 0 ≤ ‖v‖ := norm_nonneg _
   have huv : 0 ≤ ‖u + v‖ := norm_nonneg _
-  have hqR : (1 : ℝ) ≤ q := by exact_mod_cast hq
-  push_cast
-  nlinarith [sq_nonneg (‖u‖ - (q : ℝ) * ‖v‖)]
-
-private theorem genericChordEnergy_split_crude
-    (f : ℕ → ℂ) {a m b : ℕ} (ham : a < m) (hmb : m < b) :
-    genericChordEnergy f a b ≤
-      2 * (genericChordEnergy f a m + genericChordEnergy f m b) +
-        2 * ((b - a : ℕ) : ℝ) *
-          ‖genericSignedSiblingResidual f a m b‖ ^ 2 := by
-  let c := genericSignedSiblingResidual f a m b
-  have hsplit := sum_Ico_split
-    (g := fun d => ‖genericSignedSiblingResidual f a d b‖ ^ 2)
-    ham.le hmb.le
-  unfold genericChordEnergy
-  rw [hsplit]
-  have hleft :
-      (∑ d ∈ Finset.Ico a m,
-          ‖genericSignedSiblingResidual f a d b‖ ^ 2) ≤
-        2 * (∑ d ∈ Finset.Ico a m,
-          ‖genericSignedSiblingResidual f a d m‖ ^ 2) +
-        2 * ((m - a : ℕ) : ℝ) * ‖c‖ ^ 2 := by
-    calc
-      (∑ d ∈ Finset.Ico a m,
-          ‖genericSignedSiblingResidual f a d b‖ ^ 2) ≤
-        ∑ d ∈ Finset.Ico a m,
-          (2 * ‖genericSignedSiblingResidual f a d m‖ ^ 2 +
-            2 * ‖((((d - a : ℕ) : ℂ) * (((m - a : ℕ) : ℂ)⁻¹)) * c)‖ ^ 2) := by
-              apply Finset.sum_le_sum
-              intro d hd
-              have hdI := Finset.mem_Ico.mp hd
-              rw [genericResidual_left_decomposition hdI.1.le hdI.2.le hmb ham]
-              exact norm_add_sq_le_two _ _
-      _ = 2 * (∑ d ∈ Finset.Ico a m,
-          ‖genericSignedSiblingResidual f a d m‖ ^ 2) +
-          2 * (∑ d ∈ Finset.Ico a m,
-            ‖((((d - a : ℕ) : ℂ) * (((m - a : ℕ) : ℂ)⁻¹)) * c)‖ ^ 2) := by
-              rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
-      _ ≤ 2 * (∑ d ∈ Finset.Ico a m,
-          ‖genericSignedSiblingResidual f a d m‖ ^ 2) +
-          2 * ((m - a : ℕ) : ℝ) * ‖c‖ ^ 2 := by
-              gcongr
-              exact left_tent_energy_le c ham
-  have hright :
-      (∑ d ∈ Finset.Ico m b,
-          ‖genericSignedSiblingResidual f a d b‖ ^ 2) ≤
-        2 * (∑ d ∈ Finset.Ico m b,
-          ‖genericSignedSiblingResidual f m d b‖ ^ 2) +
-        2 * ((b - m : ℕ) : ℝ) * ‖c‖ ^ 2 := by
-    calc
-      (∑ d ∈ Finset.Ico m b,
-          ‖genericSignedSiblingResidual f a d b‖ ^ 2) ≤
-        ∑ d ∈ Finset.Ico m b,
-          (2 * ‖genericSignedSiblingResidual f m d b‖ ^ 2 +
-            2 * ‖((((b - d : ℕ) : ℂ) * (((b - m : ℕ) : ℂ)⁻¹)) * c)‖ ^ 2) := by
-              apply Finset.sum_le_sum
-              intro d hd
-              have hdI := Finset.mem_Ico.mp hd
-              rw [genericResidual_right_decomposition ham hdI.1.le hdI.2.le hmb]
-              exact norm_add_sq_le_two _ _
-      _ = 2 * (∑ d ∈ Finset.Ico m b,
-          ‖genericSignedSiblingResidual f m d b‖ ^ 2) +
-          2 * (∑ d ∈ Finset.Ico m b,
-            ‖((((b - d : ℕ) : ℂ) * (((b - m : ℕ) : ℂ)⁻¹)) * c)‖ ^ 2) := by
-              rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
-      _ ≤ 2 * (∑ d ∈ Finset.Ico m b,
-          ‖genericSignedSiblingResidual f m d b‖ ^ 2) +
-          2 * ((b - m : ℕ) : ℝ) * ‖c‖ ^ 2 := by
-              gcongr
-              exact right_tent_energy_le c hmb
-  have hwidth :
-      ((m - a : ℕ) : ℝ) + ((b - m : ℕ) : ℝ) = ((b - a : ℕ) : ℝ) := by
+  have hsum0 : 0 ≤ ‖u‖ + ‖v‖ := add_nonneg hu hv
+  have hsq : ‖u + v‖ ^ 2 ≤ (‖u‖ + ‖v‖) ^ 2 := by
+    nlinarith
+  have hq0 : (0 : ℝ) ≤ q := by positivity
+  have hscaled := mul_le_mul_of_nonneg_left hsq hq0
+  have hyoung :
+      (q : ℝ) * (‖u‖ + ‖v‖) ^ 2 ≤
+        ((q + 1 : ℕ) : ℝ) * ‖u‖ ^ 2 +
+          (q : ℝ) * ((q + 1 : ℕ) : ℝ) * ‖v‖ ^ 2 := by
     push_cast
-    have : b - a = (m - a) + (b - m) := by omega
-    exact_mod_cast this.symm
-  dsimp [c] at hleft hright ⊢
-  linarith
+    nlinarith [sq_nonneg (‖u‖ - (q : ℝ) * ‖v‖)]
+  exact hscaled.trans hyoung
 
 private theorem genericChordEnergy_split_weighted
     (f : ℕ → ℂ) (q : ℕ) (hq : 1 ≤ q)
@@ -341,35 +321,37 @@ private theorem genericChordEnergy_split_weighted
           ‖genericSignedSiblingResidual f a d m‖ ^ 2) +
         (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
           ((m - a : ℕ) : ℝ) * ‖c‖ ^ 2 := by
-    rw [Finset.mul_sum]
     calc
-      (∑ d ∈ Finset.Ico a m,
-          (q : ℝ) * ‖genericSignedSiblingResidual f a d b‖ ^ 2) ≤
+      (q : ℝ) * (∑ d ∈ Finset.Ico a m,
+          ‖genericSignedSiblingResidual f a d b‖ ^ 2) =
         ∑ d ∈ Finset.Ico a m,
+          (q : ℝ) * ‖genericSignedSiblingResidual f a d b‖ ^ 2 := by
+            rw [Finset.mul_sum]
+      _ ≤ ∑ d ∈ Finset.Ico a m,
           (((q + 1 : ℕ) : ℝ) *
               ‖genericSignedSiblingResidual f a d m‖ ^ 2 +
             (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
               ‖((((d - a : ℕ) : ℂ) * (((m - a : ℕ) : ℂ)⁻¹)) * c)‖ ^ 2) := by
-                apply Finset.sum_le_sum
-                intro d hd
-                have hdI := Finset.mem_Ico.mp hd
-                rw [genericResidual_left_decomposition hdI.1.le hdI.2.le hmb ham]
-                exact weighted_norm_add_sq q hq _ _
+            apply Finset.sum_le_sum
+            intro d hd
+            have hdI := Finset.mem_Ico.mp hd
+            rw [genericResidual_left_decomposition hdI.1 hdI.2.le hmb ham]
+            exact weighted_norm_add_sq q hq _ _
       _ = ((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico a m,
             ‖genericSignedSiblingResidual f a d m‖ ^ 2) +
           (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
             (∑ d ∈ Finset.Ico a m,
               ‖((((d - a : ℕ) : ℂ) * (((m - a : ℕ) : ℂ)⁻¹)) * c)‖ ^ 2) := by
-                rw [Finset.sum_add_distrib, ← Finset.mul_sum]
-                congr 1
-                rw [← Finset.mul_sum, ← Finset.mul_sum]
-                ring
+            rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
       _ ≤ ((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico a m,
             ‖genericSignedSiblingResidual f a d m‖ ^ 2) +
           (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
             ((m - a : ℕ) : ℝ) * ‖c‖ ^ 2 := by
-                gcongr
-                exact left_tent_energy_le c ham
+            have ht := left_tent_energy_le c ham
+            have hcoef :
+                0 ≤ (q : ℝ) * ((q + 1 : ℕ) : ℝ) := by positivity
+            have hs := mul_le_mul_of_nonneg_left ht hcoef
+            exact add_le_add_left hs _
   have hright :
       (q : ℝ) * (∑ d ∈ Finset.Ico m b,
           ‖genericSignedSiblingResidual f a d b‖ ^ 2) ≤
@@ -377,42 +359,65 @@ private theorem genericChordEnergy_split_weighted
           ‖genericSignedSiblingResidual f m d b‖ ^ 2) +
         (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
           ((b - m : ℕ) : ℝ) * ‖c‖ ^ 2 := by
-    rw [Finset.mul_sum]
     calc
-      (∑ d ∈ Finset.Ico m b,
-          (q : ℝ) * ‖genericSignedSiblingResidual f a d b‖ ^ 2) ≤
+      (q : ℝ) * (∑ d ∈ Finset.Ico m b,
+          ‖genericSignedSiblingResidual f a d b‖ ^ 2) =
         ∑ d ∈ Finset.Ico m b,
+          (q : ℝ) * ‖genericSignedSiblingResidual f a d b‖ ^ 2 := by
+            rw [Finset.mul_sum]
+      _ ≤ ∑ d ∈ Finset.Ico m b,
           (((q + 1 : ℕ) : ℝ) *
               ‖genericSignedSiblingResidual f m d b‖ ^ 2 +
             (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
               ‖((((b - d : ℕ) : ℂ) * (((b - m : ℕ) : ℂ)⁻¹)) * c)‖ ^ 2) := by
-                apply Finset.sum_le_sum
-                intro d hd
-                have hdI := Finset.mem_Ico.mp hd
-                rw [genericResidual_right_decomposition ham hdI.1.le hdI.2.le hmb]
-                exact weighted_norm_add_sq q hq _ _
+            apply Finset.sum_le_sum
+            intro d hd
+            have hdI := Finset.mem_Ico.mp hd
+            rw [genericResidual_right_decomposition ham hdI.1 hdI.2.le hmb]
+            exact weighted_norm_add_sq q hq _ _
       _ = ((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico m b,
             ‖genericSignedSiblingResidual f m d b‖ ^ 2) +
           (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
             (∑ d ∈ Finset.Ico m b,
               ‖((((b - d : ℕ) : ℂ) * (((b - m : ℕ) : ℂ)⁻¹)) * c)‖ ^ 2) := by
-                rw [Finset.sum_add_distrib, ← Finset.mul_sum]
-                congr 1
-                rw [← Finset.mul_sum, ← Finset.mul_sum]
-                ring
+            rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
       _ ≤ ((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico m b,
             ‖genericSignedSiblingResidual f m d b‖ ^ 2) +
           (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
             ((b - m : ℕ) : ℝ) * ‖c‖ ^ 2 := by
-                gcongr
-                exact right_tent_energy_le c hmb
+            have ht := right_tent_energy_le c hmb
+            have hcoef :
+                0 ≤ (q : ℝ) * ((q + 1 : ℕ) : ℝ) := by positivity
+            have hs := mul_le_mul_of_nonneg_left ht hcoef
+            exact add_le_add_left hs _
   have hwidth :
       ((m - a : ℕ) : ℝ) + ((b - m : ℕ) : ℝ) = ((b - a : ℕ) : ℝ) := by
-    push_cast
-    have : b - a = (m - a) + (b - m) := by omega
-    exact_mod_cast this.symm
-  dsimp [c] at hleft hright ⊢
-  linarith
+    have hn : b - a = (m - a) + (b - m) := by omega
+    exact_mod_cast hn.symm
+  have hsum := add_le_add hleft hright
+  dsimp [c] at hsum ⊢
+  calc
+    (q : ℝ) * (∑ d ∈ Finset.Ico a m,
+          ‖genericSignedSiblingResidual f a d b‖ ^ 2) +
+        (q : ℝ) * (∑ d ∈ Finset.Ico m b,
+          ‖genericSignedSiblingResidual f a d b‖ ^ 2) ≤
+      (((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico a m,
+          ‖genericSignedSiblingResidual f a d m‖ ^ 2) +
+        (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
+          ((m - a : ℕ) : ℝ) * ‖genericSignedSiblingResidual f a m b‖ ^ 2) +
+      (((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico m b,
+          ‖genericSignedSiblingResidual f m d b‖ ^ 2) +
+        (q : ℝ) * ((q + 1 : ℕ) : ℝ) *
+          ((b - m : ℕ) : ℝ) * ‖genericSignedSiblingResidual f a m b‖ ^ 2) := hsum
+    _ = ((q + 1 : ℕ) : ℝ) *
+          ((∑ d ∈ Finset.Ico a m,
+              ‖genericSignedSiblingResidual f a d m‖ ^ 2) +
+            ∑ d ∈ Finset.Ico m b,
+              ‖genericSignedSiblingResidual f m d b‖ ^ 2) +
+        (q : ℝ) * ((q + 1 : ℕ) : ℝ) * ((b - a : ℕ) : ℝ) *
+          ‖genericSignedSiblingResidual f a m b‖ ^ 2 := by
+            rw [← hwidth]
+            ring
 
 private theorem genericMidpointPacketTreeEnergy_nonneg
     (f : ℕ → ℂ) (depth a b : ℕ) :
@@ -421,9 +426,14 @@ private theorem genericMidpointPacketTreeEnergy_nonneg
   | zero => simp [genericMidpointPacketTreeEnergy]
   | succ depth ih =>
       simp only [genericMidpointPacketTreeEnergy]
-      split
-      · positivity
-      · simp
+      by_cases h : a + 1 < b
+      · simp [h]
+        have hroot :
+            0 ≤ ((b - a : ℕ) : ℝ) *
+              ‖genericSignedSiblingResidual f a (dyadicPacketMidpoint a b) b‖ ^ 2 := by
+          positivity
+        exact add_nonneg (add_nonneg hroot (ih _ _)) (ih _ _)
+      · simp [h]
 
 private theorem genericMidpointPacketTreeEnergy_mono_succ
     (f : ℕ → ℂ) (depth a b : ℕ) :
@@ -437,9 +447,7 @@ private theorem genericMidpointPacketTreeEnergy_mono_succ
       simp only [genericMidpointPacketTreeEnergy]
       by_cases hsplit : a + 1 < b
       · simp [hsplit]
-        gcongr
-        · exact ih _ _
-        · exact ih _ _
+        exact add_le_add (add_le_add_left (ih _ _) _) (ih _ _)
       · simp [hsplit]
 
 private theorem genericMidpointPacketTreeEnergy_mono
@@ -451,7 +459,7 @@ private theorem genericMidpointPacketTreeEnergy_mono
   | succ s hrs ih =>
       exact ih.trans (genericMidpointPacketTreeEnergy_mono_succ f s a b)
 
-/-- **Deterministic discrete Faber--Schauder frame.**  If the interval width fits
+/-- **Deterministic discrete Faber--Schauder frame.** If the interval width fits
 inside `2^depth`, its chord energy is controlled by twice the recursion depth
 times the complete midpoint-packet energy. -/
 private theorem genericChordEnergy_le_midpointPacketTreeEnergy
@@ -483,38 +491,82 @@ private theorem genericChordEnergy_le_midpointPacketTreeEnergy
           simp [genericMidpointPacketTreeEnergy, hsplit, m]
         by_cases hdepth : depth = 0
         · subst depth
-          have hleft0 : genericChordEnergy f a m = 0 := by
-            have := hleftIH
-            simp at this
-            exact le_antisymm this (by
-              unfold genericChordEnergy
-              positivity)
-          have hright0 : genericChordEnergy f m b = 0 := by
-            have := hrightIH
-            simp at this
-            exact le_antisymm this (by
-              unfold genericChordEnergy
-              positivity)
-          have hcrude := genericChordEnergy_split_crude f hm.1 hm.2
-          rw [hleft0, hright0, htree]
-          norm_num at hcrude ⊢
-          linarith [genericMidpointPacketTreeEnergy_nonneg f 0 a m,
-            genericMidpointPacketTreeEnergy_nonneg f 0 m b]
+          have hleft0 : genericChordEnergy f a m = 0 :=
+            genericChordEnergy_eq_zero_of_width_le_one f hchildren.1
+          have hright0 : genericChordEnergy f m b = 0 :=
+            genericChordEnergy_eq_zero_of_width_le_one f hchildren.2
+          have hw := genericChordEnergy_split_weighted
+            f 1 (by norm_num) (a := a) (m := m) (b := b) hm.1 hm.2
+          have htree1 :
+              genericMidpointPacketTreeEnergy f 1 a b =
+                ((b - a : ℕ) : ℝ) *
+                  ‖genericSignedSiblingResidual f a m b‖ ^ 2 := by
+            simpa [genericMidpointPacketTreeEnergy] using htree
+          calc
+            genericChordEnergy f a b ≤
+                2 * ((b - a : ℕ) : ℝ) *
+                  ‖genericSignedSiblingResidual f a m b‖ ^ 2 := by
+              norm_num [hleft0, hright0] at hw ⊢
+              exact hw
+            _ = (2 * 1 : ℕ) * genericMidpointPacketTreeEnergy f 1 a b := by
+              rw [htree1]
+              norm_num
         · have hdpos : 1 ≤ depth := by omega
-          have hweighted := genericChordEnergy_split_weighted
-            f depth hdpos hm.1 hm.2
-          have hdepthR : (0 : ℝ) < depth := by exact_mod_cast (by omega : 0 < depth)
+          have hw := genericChordEnergy_split_weighted
+            f depth hdpos (a := a) (m := m) (b := b) hm.1 hm.2
           have hchild :
               genericChordEnergy f a m + genericChordEnergy f m b ≤
-                (2 * depth : ℕ) *
+                ((2 * depth : ℕ) : ℝ) *
                   (genericMidpointPacketTreeEnergy f depth a m +
                     genericMidpointPacketTreeEnergy f depth m b) := by
-            push_cast at hleftIH hrightIH ⊢
-            linarith
-          have hfactor0 : (0 : ℝ) ≤ depth + 1 := by positivity
-          have hscaled := mul_le_mul_of_nonneg_left hchild hfactor0
-          push_cast at hweighted hscaled ⊢
+            calc
+              genericChordEnergy f a m + genericChordEnergy f m b ≤
+                  ((2 * depth : ℕ) : ℝ) *
+                      genericMidpointPacketTreeEnergy f depth a m +
+                    ((2 * depth : ℕ) : ℝ) *
+                      genericMidpointPacketTreeEnergy f depth m b :=
+                add_le_add hleftIH hrightIH
+              _ = ((2 * depth : ℕ) : ℝ) *
+                    (genericMidpointPacketTreeEnergy f depth a m +
+                      genericMidpointPacketTreeEnergy f depth m b) := by ring
+          let kids := genericMidpointPacketTreeEnergy f depth a m +
+            genericMidpointPacketTreeEnergy f depth m b
+          let root := ((b - a : ℕ) : ℝ) *
+            ‖genericSignedSiblingResidual f a m b‖ ^ 2
+          have hkids0 : 0 ≤ kids := by
+            dsimp [kids]
+            exact add_nonneg
+              (genericMidpointPacketTreeEnergy_nonneg f depth a m)
+              (genericMidpointPacketTreeEnergy_nonneg f depth m b)
+          have hroot0 : 0 ≤ root := by dsimp [root]; positivity
+          have hqpos : (0 : ℝ) < depth := by exact_mod_cast (by omega : 0 < depth)
+          have hscale0 : (0 : ℝ) ≤ depth + 1 := by positivity
+          have hchildScaled := mul_le_mul_of_nonneg_left hchild hscale0
+          have hmul :
+              (depth : ℝ) * genericChordEnergy f a b ≤
+                (depth : ℝ) *
+                  (2 * ((depth : ℝ) + 1) * (root + kids)) := by
+            calc
+              (depth : ℝ) * genericChordEnergy f a b ≤
+                  (((depth + 1 : ℕ) : ℝ) *
+                      (genericChordEnergy f a m + genericChordEnergy f m b) +
+                    (depth : ℝ) * (((depth + 1 : ℕ) : ℝ) * root)) := by
+                simpa [root, mul_assoc] using hw
+              _ ≤ (((depth + 1 : ℕ) : ℝ) *
+                      (((2 * depth : ℕ) : ℝ) * kids) +
+                    (depth : ℝ) * (((depth + 1 : ℕ) : ℝ) * root)) := by
+                exact add_le_add_right hchildScaled _
+              _ ≤ (depth : ℝ) *
+                    (2 * ((depth : ℝ) + 1) * (root + kids)) := by
+                push_cast
+                nlinarith
+          have hcancel :
+              genericChordEnergy f a b ≤
+                2 * ((depth : ℝ) + 1) * (root + kids) :=
+            (mul_le_mul_left hqpos).mp hmul
           rw [htree]
+          dsimp [root, kids] at hcancel ⊢
+          push_cast
           nlinarith
       · have hw : b - a ≤ 1 := by omega
         rw [genericChordEnergy_eq_zero_of_width_le_one f hw]
@@ -551,8 +603,7 @@ def primeSieveDyadicPacketShallowEnergy (y x J : ℕ) : ℝ :=
   ∑ j ∈ primeSieveDyadicBlockIndices y x,
     primeSieveDyadicPacketTreeBlockEnergy y x j (min J j)
 
-/-- Deep packet tail beyond level `J`.  Monotonicity below shows this difference
-is nonnegative, so it is an honest tail energy rather than a formal subtraction. -/
+/-- Deep packet tail beyond level `J`. -/
 def primeSieveDyadicPacketDeepEnergy (y x J : ℕ) : ℝ :=
   primeSieveDyadicPacketTreeEnergy y x -
     primeSieveDyadicPacketShallowEnergy y x J
@@ -634,8 +685,7 @@ theorem primeSieveDyadicBlockChordEnergy_le_packetTree
       omega)
     (primeSieveDyadicBlock_width_le_two_pow y x j)
 
-/-- Weighted global frame inequality.  The only loss between #322 chord energy
-and the recursive packet energy is the logarithmic dyadic depth. -/
+/-- Weighted global frame inequality. -/
 theorem primeSieveDyadicChordEnergy_le_weightedPacketTree
     (y x : ℕ) :
     primeSieveDyadicChordEnergy y x ≤
@@ -648,9 +698,7 @@ theorem primeSieveDyadicChordEnergy_le_weightedPacketTree
 
 /-! ## Analytic frontier -/
 
-/-- Critical block-uniform shallow packet target.  The cutoff is quantified
-uniformly so later finite-wheel/rough transport can choose the useful low-depth
-window without changing the downstream statement. -/
+/-- Critical block-uniform shallow packet target. -/
 def DyadicPacketShallowEnergyBlockBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ C : ℝ, 0 ≤ C ∧
@@ -662,8 +710,7 @@ def DyadicPacketShallowEnergyBlockBoundedStatement : Prop :=
             (primorialPNTPrimeSieveCutoff k) x J ≤
           C * Real.rpow ((x : ℝ) + 1) (1 + ε)
 
-/-- Critical block-uniform deep-tail target.  This is the genuinely recursive
-analytic premise suggested by the finite packet diagnostics. -/
+/-- Critical block-uniform deep-tail target. -/
 def DyadicPacketDeepTailBlockBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ C : ℝ, 0 ≤ C ∧
@@ -682,7 +729,7 @@ theorem dyadicPacketTreeEnergyBlockBounded_of_shallow_deep
     (hT : DyadicPacketDeepTailBlockBoundedStatement) :
     ∀ ε : ℝ, 0 < ε →
       ∃ C : ℝ, 0 ≤ C ∧
-        ∀ (J k x : ℕ),
+        ∀ (k x : ℕ),
           2 ≤ k →
           primorialBlockLower k ≤ x →
           x ≤ primorialBlockUpper k →
@@ -693,16 +740,16 @@ theorem dyadicPacketTreeEnergyBlockBounded_of_shallow_deep
   obtain ⟨CS, hCS, hSb⟩ := hS ε hε
   obtain ⟨CT, hCT, hTb⟩ := hT ε hε
   refine ⟨CS + CT, add_nonneg hCS hCT, ?_⟩
-  intro J k x hk hlow hup
-  have hs := hSb J k x hk hlow hup
-  have ht := hTb J k x hk hlow hup
+  intro k x hk hlow hup
+  have hs := hSb 0 k x hk hlow hup
+  have ht := hTb 0 k x hk hlow hup
   rw [← primeSieveDyadicPacket_shallow_add_deep
-    (primorialPNTPrimeSieveCutoff k) x J]
-  nlinarith [Real.rpow_nonneg (by positivity : (0 : ℝ) ≤ (x : ℝ) + 1) (1 + ε)]
+    (primorialPNTPrimeSieveCutoff k) x 0]
+  have hp := Real.rpow_nonneg (by positivity : (0 : ℝ) ≤ (x : ℝ) + 1) (1 + ε)
+  nlinarith
 
-/-- The remaining deterministic conversion needed by the terminal theorem: a
-critical unweighted packet-tree estimate implies the #323 root-packet estimate.
-The logarithmic depth loss is absorbed into the arbitrary epsilon allowance. -/
+/-- Temporary deterministic conversion interface. It will be discharged inside
+this PR after the recursive frame itself is kernel-checked. -/
 def DyadicPacketTreeToRootCriticalTransfer : Prop :=
   (∀ ε : ℝ, 0 < ε →
       ∃ C : ℝ, 0 ≤ C ∧
@@ -715,9 +762,7 @@ def DyadicPacketTreeToRootCriticalTransfer : Prop :=
             C * Real.rpow ((x : ℝ) + 1) (1 + ε)) →
     DyadicSignedRootPacketEnergyBlockBoundedStatement
 
-/-- Terminal shallow/deep reduction.  The only open estimates named by this
-module are the shallow and deep packet bounds; `hFrame` is the deterministic
-logarithmic-depth absorption interface isolated above. -/
+/-- Terminal shallow/deep reduction. -/
 theorem riemannHypothesis_of_dyadicPacketShallowDeepAnalyticPackage
     (hC : DyadicCoherentChannelRHScale)
     (hS : DyadicPacketShallowEnergyBlockBoundedStatement)
@@ -727,12 +772,7 @@ theorem riemannHypothesis_of_dyadicPacketShallowDeepAnalyticPackage
     RiemannHypothesisStatement := by
   apply riemannHypothesis_of_dyadicSignedPacketAnalyticPackage hC
   · apply hFrame
-    intro ε hε
-    obtain ⟨C, hC0, hCb⟩ :=
-      dyadicPacketTreeEnergyBlockBounded_of_shallow_deep hS hT ε hε
-    refine ⟨C, hC0, ?_⟩
-    intro k x hk hlow hup
-    exact hCb 0 k x hk hlow hup
+    exact dyadicPacketTreeEnergyBlockBounded_of_shallow_deep hS hT
   · exact hD
 
 end RHLean.Analysis
