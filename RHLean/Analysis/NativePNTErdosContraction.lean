@@ -2609,7 +2609,11 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
       have hsum0 : 4 * ((E + K + 2) + j * L) ≤ q :=
         nativePNT_four_mul_sum_le hEpart hjpart
       have hsum : (E + j * L + K + 2) * 4 ≤ q := by
-        convert hsum0 using 1 <;> ring
+        have hnorm :
+            (E + j * L + K + 2) * 4 = 4 * ((E + K + 2) + j * L) := by
+          ring
+        rw [hnorm]
+        exact hsum0
       exact hsum
     have hrad := nativePNTGoodForwardRadius_le_self (t j) eps heps.le heps1
     have htj1 : 1 ≤ t j := htOne j hjJ
@@ -2738,7 +2742,9 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic
   have hJtwo : 2 ≤ J := by
     dsimp [J]
     apply (Nat.le_div_iff_mul_le hdpos).2
-    convert hqJL using 1 <;> ring
+    have hnorm : 2 * (8 * L) = 16 * L := by ring
+    rw [hnorm]
+    exact hqJL
   have hJone : 1 ≤ J := by omega
   have hdJ : 8 * L ≤ (8 * L) * J := by
     simpa using Nat.mul_le_mul_left (8 * L) hJone
@@ -2922,6 +2928,7 @@ theorem nativePNTError_div_atTop_zero :
   refine nativePNTError_abs_div_atTop_zero.congr' ?_
   filter_upwards [eventually_ge_atTop 1] with N hN
   have hN0 : 0 ≤ (N : ℝ) := by positivity
+  change |nativePNTError N| / (N : ℝ) = |nativePNTError N / (N : ℝ)|
   rw [abs_div, abs_of_nonneg hN0]
 
 /-- **Native Chebyshev PNT:** `psi(N) / N -> 1`. -/
