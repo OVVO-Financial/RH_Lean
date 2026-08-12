@@ -192,7 +192,6 @@ theorem nativePNTSquarePrefixRecipSuccSearch_lower
     have hAreal : (0 : ℝ) < (A : ℝ) + 1 := by positivity
     have hpowreal : (0 : ℝ) < (2 : ℝ) ^ K := by positivity
     rw [Real.log_mul (ne_of_gt hAreal) (ne_of_gt hpowreal), Real.log_pow]
-    norm_num
     ring
   rw [hlogUone] at hlogmono
   have hdepthLog :
@@ -478,7 +477,6 @@ private theorem nativePNTSquarePrefixSearchUpper_log_le
     have hAreal : (0 : ℝ) < (A : ℝ) + 1 := by positivity
     have hpowreal : (0 : ℝ) < (2 : ℝ) ^ K := by positivity
     rw [Real.log_mul (ne_of_gt hAreal) (ne_of_gt hpowreal), Real.log_pow]
-    norm_num
     ring
   rw [heq] at hmono
   exact hmono
@@ -523,6 +521,7 @@ private theorem nativePNTSquarePrefix_depth_pos
 
 /-- For fixed square-prefix depth, all PNT1/PNT2 endpoint hypotheses hold on
 all sufficiently large square-prefix starting indices. -/
+set_option maxHeartbeats 800000 in
 theorem nativePNT_exists_good_radius_squarePrefix_eventually
     (K : ℕ) (eps : ℝ)
     (heps : 0 < eps) (heps1 : eps ≤ 1)
