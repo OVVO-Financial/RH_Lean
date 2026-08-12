@@ -405,13 +405,14 @@ private lemma nativePNTSquarePrefix_depth_constant_le_24 :
   rw [hlog4eq]
   nlinarith
 
-/-- Calibrated number of square-prefix index-clock extensions. -/
+/-- Calibrated number of square-prefix index-clock extensions, returned in the
+exact doubled exponent-clock form consumed by the shell selector. -/
 theorem nativePNT_exists_squarePrefix_depth_quantitative
     (eps : ℝ) (heps : 0 < eps) (_heps1 : eps ≤ 1) :
     ∃ K : ℕ,
       2 * (2 * (Real.log 4 + 2) + Real.log 2 + 3) <
           (eps / 4) * (2 * (K : ℝ) * Real.log 2 - 1) ∧
-      (((K + 2 : ℕ) : ℝ) ≤ 100 / eps) := by
+      2 * ((K : ℝ) + 2) ≤ 200 / eps := by
   let x : ℝ := 96 / eps + 1
   let K : ℕ := ⌊x⌋₊ + 1
   have hx0 : 0 ≤ x := by
@@ -447,9 +448,13 @@ theorem nativePNT_exists_squarePrefix_depth_quantitative
     rw [le_div_iff₀ heps]
     field_simp [ne_of_gt heps]
     nlinarith
-  have hK2 : (((K + 2 : ℕ) : ℝ) ≤ 100 / eps) := by
-    push_cast
+  have hK2base : (K : ℝ) + 2 ≤ 100 / eps := by
     nlinarith [hKupper, htail]
+  have hK2 : 2 * ((K : ℝ) + 2) ≤ 200 / eps := by
+    calc
+      2 * ((K : ℝ) + 2) ≤ 2 * (100 / eps) :=
+        mul_le_mul_of_nonneg_left hK2base (by norm_num)
+      _ = 200 / eps := by ring
   exact ⟨K, hdepth, hK2⟩
 
 private theorem nativePNTSquarePrefixSearchUpper_log_le
