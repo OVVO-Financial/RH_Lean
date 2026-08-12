@@ -1,22 +1,22 @@
 import Mathlib
-import RHLean.Analysis.NativePNTSquarePrefixGoodMassRate
+import RHLean.Analysis.NativePNTSquarePrefixCubic
 
 /-!
 # Full square-prefix Möbius rederivation of the Chebyshev PNT
 
-This file closes the square-prefix contraction independently of the old dyadic
-cubic sequence.  The input is the square-prefix good-mass rate and its own
-cubic affine-envelope step from `NativePNTSquarePrefixGoodMassRate`.
+This file closes the square-prefix contraction through the fully rederived
+cubic sequence.  Its dependency path is:
 
-The route is:
+* exact fresh-prime Möbius cancellation;
+* exact `mu * log = Lambda` reciprocal-fibre reindexing;
+* rederived one-log and squared Selberg recurrences;
+* complete-square PNT1/PNT2 good-fibre supply;
+* square-prefix quadratic good-mass density;
+* rederived compensated affine contraction;
+* explicit cubic iteration budget.
 
-1. explicit finite iteration budget for the square-prefix cubic constant;
-2. arbitrarily small affine Chebyshev-error envelopes from that budget;
-3. `|R(N)| / N -> 0` and then the signed normalized error limit;
-4. `psi(N) / N -> 1`.
-
-No theorem in this file calls the old dyadic good-shell selector, the old
-dyadic quadratic good-mass theorem, or the old calibrated cubic slope.
+The final normalized Chebyshev limit therefore does not route through the
+previous dyadic selector or previous compensated squared recurrence.
 -/
 
 noncomputable section
@@ -26,38 +26,38 @@ open scoped Topology
 
 namespace RHLean.Analysis
 
-/-- Explicit number of square-prefix cubic contractions sufficient for target
-slope `eta`. -/
+/-- Explicit number of fully rederived square-prefix cubic contractions
+sufficient for target slope `eta`. -/
 def nativePNTSquarePrefixFullIterationBudget (eta : ℝ) : ℕ :=
-  ⌊6 / (nativePNTSquarePrefixCubicConstant * eta ^ 3)⌋₊ + 1
+  ⌊6 / (nativePNTSquarePrefixRederivedCubicConstant * eta ^ 3)⌋₊ + 1
 
 /-- The explicit square-prefix iteration budget satisfies the finite cubic
 criterion. -/
 theorem nativePNTSquarePrefixFullIterationBudget_spec
     (eta : ℝ) (heta : 0 < eta) :
-    6 < nativePNTSquarePrefixCubicConstant *
+    6 < nativePNTSquarePrefixRederivedCubicConstant *
         (nativePNTSquarePrefixFullIterationBudget eta : ℝ) * eta ^ 3 := by
-  have hC : 0 < nativePNTSquarePrefixCubicConstant := by
-    norm_num [nativePNTSquarePrefixCubicConstant]
-  have hcoef : 0 < nativePNTSquarePrefixCubicConstant * eta ^ 3 :=
+  have hC : 0 < nativePNTSquarePrefixRederivedCubicConstant := by
+    norm_num [nativePNTSquarePrefixRederivedCubicConstant]
+  have hcoef : 0 < nativePNTSquarePrefixRederivedCubicConstant * eta ^ 3 :=
     mul_pos hC (pow_pos heta 3)
   have hfloor :
-      6 / (nativePNTSquarePrefixCubicConstant * eta ^ 3) <
+      6 / (nativePNTSquarePrefixRederivedCubicConstant * eta ^ 3) <
         (nativePNTSquarePrefixFullIterationBudget eta : ℝ) := by
     unfold nativePNTSquarePrefixFullIterationBudget
     push_cast
     simpa using
       (Nat.lt_floor_add_one
-        (6 / (nativePNTSquarePrefixCubicConstant * eta ^ 3)))
+        (6 / (nativePNTSquarePrefixRederivedCubicConstant * eta ^ 3)))
   have hmul := (div_lt_iff₀ hcoef).mp hfloor
   simpa [mul_assoc, mul_left_comm, mul_comm] using hmul
 
-/-- Every positive target slope is attained by a square-prefix-derived affine
-envelope, with an explicit finite iteration count. -/
+/-- Every positive target slope is attained by the fully rederived
+square-prefix affine contraction, with an explicit finite iteration count. -/
 theorem nativePNTSquarePrefixHasAffineEnvelope_arbitrarily_small
     (eta : ℝ) (heta : 0 < eta) :
     nativePNTHasAffineEnvelope eta := by
-  exact nativePNTSquarePrefixHasAffineEnvelope_of_cubic_budget
+  exact nativePNTSquarePrefixRederivedHasAffineEnvelope_of_cubic_budget
     eta heta (nativePNTSquarePrefixFullIterationBudget eta)
       (nativePNTSquarePrefixFullIterationBudget_spec eta heta)
 
@@ -109,9 +109,8 @@ theorem nativePNTSquarePrefixPNTError_div_atTop_zero :
   change |nativePNTError N| / (N : ℝ) = |nativePNTError N / (N : ℝ)|
   rw [abs_div, abs_of_nonneg hN0]
 
-/-- **Square-prefix Möbius Chebyshev PNT:** `psi(N) / N -> 1`, obtained from
-the new square-prefix good-mass density and cubic sequence rather than the old
-dyadic selector. -/
+/-- **Fully rederived square-prefix Möbius Chebyshev PNT:**
+`psi(N) / N -> 1`. -/
 theorem nativePNTSquarePrefixPsi_div_atTop_one :
     Tendsto (fun N : ℕ => nativePsi N / (N : ℝ)) atTop (𝓝 1) := by
   have hsum : Tendsto
