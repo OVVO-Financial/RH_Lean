@@ -198,7 +198,11 @@ theorem nativeMobiusLogSum_eq_neg_reciprocalPsi (N : ℕ) :
       rw [arithmeticLogWeight_moebius]
     _ = -∑ n ∈ Finset.Icc 1 N,
         ((μ : ArithmeticFunction ℝ) * Λ) n := by
-      simp
+      change (∑ n ∈ Finset.Icc 1 N,
+        -(((μ : ArithmeticFunction ℝ) * Λ) n)) =
+        -(∑ n ∈ Finset.Icc 1 N,
+          ((μ : ArithmeticFunction ℝ) * Λ) n)
+      rw [Finset.sum_neg_distrib]
     _ = -∑ d ∈ Finset.Icc 1 N,
         (μ : ArithmeticFunction ℝ) d * nativePsi (N / d) := by
       rw [nativeMobiusLambdaSummatory_eq_reciprocalPsi]
