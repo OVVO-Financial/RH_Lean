@@ -44,6 +44,7 @@ import RHLean.Analysis.NativePNTSquarePrefixGoodMass
 import RHLean.Analysis.NativePNTSquarePrefixGoodMassRate
 import RHLean.Analysis.NativePNTSquarePrefixMobiusError
 import RHLean.Analysis.NativePNTSquarePrefixPNT
+import RHLean.Analysis.NativePNTSquarePrefixTransfer
 import RHLean.Analysis.NativePNTSummatorySelberg
 import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.OptimalLogBase
