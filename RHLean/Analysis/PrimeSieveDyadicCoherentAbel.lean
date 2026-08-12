@@ -191,6 +191,8 @@ theorem primeSieveDyadicBlockAbelPotential_forwardDifference
           primeSieveDyadicBlockWaveletMask y x j d := by
     rw [← hpred]
     rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ d - 1 + 1)]
+    have hback : d - 1 + 1 - 1 = d - 1 := by omega
+    rw [hback]
   unfold primeSieveDyadicBlockAbelPotential
   rw [show d + 1 - 1 = d by omega, hsum]
   ring
@@ -206,8 +208,10 @@ theorem primeSieveDyadicBlockAbelPotential_top_eq_zero
       (∑ t ∈ Finset.Icc 1 (x / (y + 1)),
         primeSieveDyadicBlockWaveletMask y x j t) = 0 := by
     simpa [primeSieveQuotientSupport] using hzero
+  have htopNat : x / (y + 1) + 1 - 1 = x / (y + 1) := by
+    omega
   unfold primeSieveDyadicBlockAbelPotential
-  rw [show x / (y + 1) + 1 - 1 = x / (y + 1) by omega, hsum]
+  rw [htopNat, hsum]
   simp
 
 /-- Mertens-weighted contribution of one mean-zero dyadic block. -/
@@ -339,6 +343,7 @@ theorem primorialPNTErrorCenteredResponse_eq_dyadicCoherent_add_wavelet
     primorialDyadicCoherentPNTErrorCenteredResponse
     primorialDyadicWaveletPNTErrorCenteredResponse
     primorialSquareZeroModeCenter
+  dsimp
   rw [primeSievePNTError_eq_dyadicCoherent_add_wavelet
         (primorialPNTPrimeSieveCutoff k) (squarePrefixEndpoint n),
       primeSievePNTError_eq_dyadicCoherent_add_wavelet
