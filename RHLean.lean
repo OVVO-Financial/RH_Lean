@@ -37,6 +37,13 @@ import RHLean.Analysis.NativePNTMobiusMoments
 import RHLean.Analysis.NativePNTMobiusSecondMoment
 import RHLean.Analysis.NativePNTQuantitativeStatements
 import RHLean.Analysis.NativePNTSelberg
+import RHLean.Analysis.NativePNTSquarePrefixCompensated
+import RHLean.Analysis.NativePNTSquarePrefixContraction
+import RHLean.Analysis.NativePNTSquarePrefixCubic
+import RHLean.Analysis.NativePNTSquarePrefixGoodMass
+import RHLean.Analysis.NativePNTSquarePrefixGoodMassRate
+import RHLean.Analysis.NativePNTSquarePrefixMobiusError
+import RHLean.Analysis.NativePNTSquarePrefixPNT
 import RHLean.Analysis.NativePNTSummatorySelberg
 import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.OptimalLogBase
