@@ -176,9 +176,11 @@ The checked source currently includes, among other results:
 11. exact reciprocal quotient-fibre reindexing of the PNT error;
 12. the reciprocal-interval representation and norm transfer for `H_{k,n}`;
 13. Mertens, Mellin, zeta-continuation, and terminal RH transfer infrastructure;
-14. the native Selberg--Erdős prime number theorem, unconditionally, through to `pi(N) log N / N -> 1`.
+14. the native Selberg--Erdős prime number theorem, unconditionally, through to `pi(N) log N / N -> 1`;
+15. the finite primorial reciprocal Möbius factorization separating signed contraction from squarefree support;
+16. the truncated primorial wheel boundary profile and its exact fresh-prime recurrence.
 
-Items 1 through 13 are exact structural, centering, reindexing, and transfer theorems. They do not by themselves provide the unresolved analytic cancellation estimate. Item 14 is an asymptotic theorem rather than an exact identity, and its scope is stated precisely in the next section.
+Items 1 through 13, 15, and 16 are exact structural, centering, reindexing, and transfer theorems. They do not by themselves provide the unresolved analytic cancellation estimate. Item 14 is the one asymptotic theorem rather than an exact identity, and its scope is stated precisely in the next section.
 
 ## Native Selberg--Erdős prime number theorem
 

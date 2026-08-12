@@ -1,6 +1,6 @@
 # Möbius Synthesis — Lean source map
 
-This repository intentionally contains the full import-audited `RHLean` library rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The manifest currently imports **283 Lean modules**, and every imported `RHLean.*` module resolves to the corresponding path under `RHLean/`.
+This repository intentionally contains the full import-audited `RHLean` library rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The manifest currently imports **285 Lean modules**, and every imported `RHLean.*` module resolves to the corresponding path under `RHLean/`.
 
 ## Elementary prime-sieve seam
 
@@ -209,9 +209,80 @@ RHLean.Analysis.NativePNTQuantitativeStatements
 are included because the distance between the two is the quantity this
 repository exists to close; see `CURRENT_PROOF_ROUTE.md`.
 
+## Finite primorial reciprocal Möbius factorization
+
+`RHLean.Arithmetic.PrimorialReciprocalMobiusFactorization` iterates the
+architecture's fresh-prime Möbius cancellation inside an explicit finite
+primorial Boolean wheel, and separates signed contraction from squarefree-support
+population:
+
+```text
+-- signed and unsigned reciprocal mass over the powerset of P, on prime P
+primorialSignedReciprocalCube_eq_factor
+  : primorialSignedReciprocalCube P   = prod_{p in P} (1 - 1/p)
+primorialUnsignedReciprocalCube_eq_factor
+  : primorialUnsignedReciprocalCube P = prod_{p in P} (1 + 1/p)
+
+-- exact factorization and the signed-to-support ratio
+primorial_signed_mul_support_eq_squarefreeEuler
+  : signed * support = prod_{p in P} (1 - 1/p^2)
+primorial_signed_to_support_ratio
+  : signed = support * prod_{p in P} (p-1)/(p+1)
+```
+
+Every identity is finite: the only cancellation input is Möbius sign reversal on
+fresh prime coordinates plus finite powerset algebra. No infinite Euler product,
+no `6/pi^2`, no Mertens product theorem, and no PNT input is used, so the module
+is an exact reduction in the sense of the status convention.
+
+It is the first module to consume the native prime number theorem architecture
+from the arithmetic side, importing `NativePNTMertens` and
+`NativePNTSquarePrefixContraction`. The module also records that the existing
+reciprocal Mertens bound cannot be uniformly replaced by any constant below `1`
+across every positive prefix, since the `N = 1` value is exactly `1`.
+
+## Truncated primorial wheel boundary
+
+`RHLean.Arithmetic.PrimorialTruncatedWheelBoundary` builds the finite boundary
+object that the factorization above suggests: the signed reciprocal Boolean-cube
+profile, truncated at a cutoff `X`.
+
+```text
+primorialTruncatedSignedReciprocalCube P X
+  = sum over faces t of P.powerset, counting only faces with
+    primeFaceProduct t <= X, of booleanCubeSign t / primeFaceProduct t
+```
+
+The cutoff is an `if` over the complete powerset rather than a restricted index
+set, which is what makes the fresh-prime update fall directly out of the
+powerset insertion split:
+
+```text
+primorialTruncatedSignedReciprocalCube_insert   -- p prime, p not in P
+  : T (insert p P) X = T P X - (1/p) * T P (X / p)
+
+primorialTruncatedSignedReciprocalCube_eq_complete
+  : once X reaches the full wheel product, T P X is the complete signed profile
+
+primorialTruncatedSignedReciprocalCube_eq_factor
+  : and therefore equals prod_{p in P} (1 - 1/p)
+
+primorialTruncatedSignedReciprocalCube_empty   -- 1 <= X
+  : T empty X = 1        -- the unique face has product 1
+```
+
+The only arithmetic update is Möbius sign reversal on a fresh prime coordinate,
+so this is again an exact reduction: no PNT input, no Mertens product theorem,
+no infinite Euler product, no prime-distribution estimate.
+
+`primorialTruncatedSignedReciprocalCube_complete_boundary` is presentational
+rather than substantive — it splits the profile as complete factor plus
+remainder and is proved by `ring`. It names the boundary term; it does not bound
+it.
+
 ## Modules added since the original 214-module inventory
 
-The current manifest contains **69** modules beyond the original 214-module inventory. The previous revision reached 263 modules; this change adds the twenty-module native Selberg--Erdős prime number theorem architecture listed above, while retaining the reciprocal-quotient PNT-error, PNT-centering, elementary prime-sieve bridge, and earlier survivor additions.
+The current manifest contains **71** modules beyond the original 214-module inventory. The previous revision reached 284 modules; this change adds the truncated primorial wheel boundary module described above, while retaining the primorial reciprocal Möbius factorization, the native prime number theorem architecture, reciprocal-quotient PNT-error, PNT-centering, elementary prime-sieve bridge, and earlier survivor additions.
 
 Previously synchronized 21-module delta:
 

@@ -145,6 +145,8 @@ import RHLean.Arithmetic.PrimeWheelFiniteSystem
 import RHLean.Arithmetic.PrimeWheelMobiusDensity
 import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 import RHLean.Arithmetic.PrimesUpToFrontier
+import RHLean.Arithmetic.PrimorialReciprocalMobiusFactorization
+import RHLean.Arithmetic.PrimorialTruncatedWheelBoundary
 import RHLean.Arithmetic.PrimorialWheelCancellation
 import RHLean.Arithmetic.PrimorialWheelMinimalTorus
 import RHLean.Arithmetic.PrimorialWheelPrefixIdentity
