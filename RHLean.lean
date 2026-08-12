@@ -58,6 +58,7 @@ import RHLean.Analysis.PrimeDilateTransportCompression
 import RHLean.Analysis.PrimeSieveAbelIdentity
 import RHLean.Analysis.PrimeSieveBackwardAffineExcursion
 import RHLean.Analysis.PrimeSieveCollapseIdentity
+import RHLean.Analysis.PrimeSieveDyadicCoherentAbel
 import RHLean.Analysis.PrimeSieveLipschitzExcursion
 import RHLean.Analysis.PrimeSievePNTCentering
 import RHLean.Analysis.PrimeSieveQuotientPNTError
