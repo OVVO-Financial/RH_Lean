@@ -210,15 +210,22 @@ private theorem nativePrimeCounting_mul_log_sqrt_le
           exact this)
       have hcardNat :
           ((nativePrimeSet N).filter
-            (fun p => (p : ℝ) ≤ Real.sqrt (N : ℝ))).card ≤
+            (fun p : ℕ => (p : ℝ) ≤ Real.sqrt (N : ℝ))).card ≤
             ⌊Real.sqrt (N : ℝ)⌋₊ := by
-        rw [show ⌊Real.sqrt (N : ℝ)⌋₊ =
-          #(Finset.Icc 1 ⌊Real.sqrt (N : ℝ)⌋₊) by simp]
-        apply Finset.card_le_card
-        intro p hp
-        rcases Finset.mem_filter.mp hp with ⟨hpSet, hpSqrt⟩
-        have hpPrime : p.Prime := (Finset.mem_filter.mp hpSet).2
-        exact Finset.mem_Icc.mpr ⟨hpPrime.one_le, Nat.le_floor hpSqrt⟩
+        have hsubset :
+            (nativePrimeSet N).filter
+                (fun p : ℕ => (p : ℝ) ≤ Real.sqrt (N : ℝ)) ⊆
+              Finset.Icc 1 ⌊Real.sqrt (N : ℝ)⌋₊ := by
+          intro p hp
+          rcases Finset.mem_filter.mp hp with ⟨hpSet, hpSqrt⟩
+          have hpPrime : p.Prime := (Finset.mem_filter.mp hpSet).2
+          exact Finset.mem_Icc.mpr ⟨hpPrime.one_le, Nat.le_floor hpSqrt⟩
+        calc
+          ((nativePrimeSet N).filter
+              (fun p : ℕ => (p : ℝ) ≤ Real.sqrt (N : ℝ))).card ≤
+              (Finset.Icc 1 ⌊Real.sqrt (N : ℝ)⌋₊).card :=
+            Finset.card_le_card hsubset
+          _ = ⌊Real.sqrt (N : ℝ)⌋₊ := by simp
       have hcardReal :
           (((nativePrimeSet N).filter
             (fun p => (p : ℝ) ≤ Real.sqrt (N : ℝ))).card : ℕ) ≤
@@ -299,9 +306,13 @@ private theorem nativeLog_le_two_log_natDiv
       _ = K * (M + 1) := by ring
       _ ≤ K * (2 * M) := Nat.mul_le_mul_left K (by omega)
       _ = (2 * K) * M := by ring
+  have hKMle : K * M ≤ N := by
+    dsimp [M]
+    simpa [Nat.mul_comm] using Nat.div_mul_le_self N K
   have hNpos : (0 : ℝ) < (N : ℝ) := by
-    have : 0 < N := lt_trans (by omega : 0 < K * M) hNlt
-    exact_mod_cast this
+    have hKMpos : 0 < K * M := Nat.mul_pos hKpos hMpos
+    have hNposNat : 0 < N := lt_of_lt_of_le hKMpos hKMle
+    exact_mod_cast hNposNat
   have hcast :
       (N : ℝ) < (((2 * K : ℕ) : ℝ) * (M : ℝ)) := by
     exact_mod_cast hNlt
@@ -415,7 +426,7 @@ theorem nativePrimeNumberTheorem :
     have hnorm :
         nativeTheta N / (N : ℝ) ≤
           ((Nat.primeCounting N : ℝ) * Real.log (N : ℝ)) / (N : ℝ) :=
-      (div_le_div_iff₀ hNpos).2 hthetaPi
+      div_le_div_of_nonneg_right hthetaPi hNpos.le
     exact hlow.trans_le hnorm
   · intro b hb
     let gap : ℝ := b - 1
