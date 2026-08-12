@@ -92,6 +92,7 @@ theorem mertensSummatory_eq_complex_nativeMertensSummatory (N : ℕ) :
   | succ N ih =>
       rw [mertensSummatory_succ, nativeMertensSummatory_succ, ih]
       push_cast
+      rfl
 
 /-- Consequently the standard complex norm and native real absolute value agree. -/
 theorem norm_mertensSummatory_eq_abs_nativeMertensSummatory (N : ℕ) :
@@ -156,8 +157,8 @@ theorem mertensRHScale_of_energy
         K * Real.rpow (2 * (N : ℝ)) r :=
     mul_le_mul_of_nonneg_left hrpow hK
   have hfactor :
-      Real.rpow (2 * (N : ℝ)) r =
-        Real.rpow 2 r * Real.rpow (N : ℝ) r := by
+      (2 * (N : ℝ)) ^ r =
+        2 ^ r * (N : ℝ) ^ r := by
     exact Real.mul_rpow (by positivity) (by positivity)
   calc
     ‖mertensSummatory N‖ ≤
