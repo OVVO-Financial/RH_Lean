@@ -168,10 +168,11 @@ theorem dyadicWaveletBlockRHScale_of_energy_dispersion
               Real.rpow ((x : ℝ) + 1) (1 + ε)) := by ring
       _ = (CD * CE) *
             Real.rpow ((x : ℝ) + 1) (ε + (1 + ε)) := by
-        rw [← Real.rpow_add hbase]
+        exact congrArg (fun z : ℝ => (CD * CE) * z)
+          (Real.rpow_add hbase ε (1 + ε)).symm
       _ = (CD * CE) * Real.rpow ((x : ℝ) + 1) (1 + 2 * ε) := by
-        congr 1
-        ring
+        have hexp : ε + (1 + ε) = 1 + 2 * ε := by ring
+        rw [hexp]
   have hQ2 : Q * Q = CD * CE := by
     rw [hQdef]
     exact Real.mul_self_sqrt (mul_nonneg hCD hCE)
@@ -183,11 +184,12 @@ theorem dyadicWaveletBlockRHScale_of_energy_dispersion
       Real.rpow ((x : ℝ) + 1) (1 + 2 * ε) =
           Real.rpow ((x : ℝ) + 1)
             (((1 : ℝ) / 2 + ε) + ((1 : ℝ) / 2 + ε)) := by
-        congr 1
-        ring
+        have hexp : 1 + 2 * ε =
+            ((1 : ℝ) / 2 + ε) + ((1 : ℝ) / 2 + ε) := by ring
+        rw [hexp]
       _ = Real.rpow ((x : ℝ) + 1) ((1 : ℝ) / 2 + ε) *
-          Real.rpow ((x : ℝ) + 1) ((1 : ℝ) / 2 + ε) := by
-        rw [Real.rpow_add hbase]
+          Real.rpow ((x : ℝ) + 1) ((1 : ℝ) / 2 + ε) :=
+        Real.rpow_add hbase ((1 : ℝ) / 2 + ε) ((1 : ℝ) / 2 + ε)
   have hsq' :
       ‖primeSieveDyadicWaveletPNTError
           (primorialPNTPrimeSieveCutoff k) x‖ ^ 2 ≤
