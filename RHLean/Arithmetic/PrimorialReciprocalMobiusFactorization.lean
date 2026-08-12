@@ -93,7 +93,6 @@ theorem primorialSignedReciprocalCube_insert
     push_cast
     simp only [id_eq]
     field_simp [hpR0]
-    ring
   rw [hsecond]
   ring
 
@@ -138,7 +137,6 @@ theorem primorialUnsignedReciprocalCube_insert
     push_cast
     simp only [id_eq]
     field_simp [hpR0]
-    ring
   rw [hsecond]
   ring
 
