@@ -1,0 +1,29 @@
+name: Square-prefix rate patch
+
+on:
+  push:
+    branches: [agent/native-square-prefix-mobius-contraction]
+    paths:
+      - '.github/square_prefix_rate_patch.py'
+      - '.github/workflows/square-prefix-rate-patch.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/native-square-prefix-mobius-contraction
+      - name: Patch GoodMassRate
+        run: python3 .github/square_prefix_rate_patch.py
+      - name: Commit patch and self-clean
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add RHLean/Analysis/NativePNTSquarePrefixGoodMassRate.lean
+          git rm .github/square_prefix_rate_patch.py .github/workflows/square-prefix-rate-patch.yml
+          git commit -m 'Stabilize square-prefix good-mass rate elaboration'
+          git push origin HEAD:agent/native-square-prefix-mobius-contraction
