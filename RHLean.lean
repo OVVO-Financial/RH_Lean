@@ -39,6 +39,7 @@ import RHLean.Analysis.NativePNTQuantitativeStatements
 import RHLean.Analysis.NativePNTSelberg
 import RHLean.Analysis.NativePNTSquarePrefixCompensated
 import RHLean.Analysis.NativePNTSquarePrefixContraction
+import RHLean.Analysis.NativePNTSquarePrefixCubic
 import RHLean.Analysis.NativePNTSquarePrefixGoodMass
 import RHLean.Analysis.NativePNTSquarePrefixGoodMassRate
 import RHLean.Analysis.NativePNTSquarePrefixMobiusError
