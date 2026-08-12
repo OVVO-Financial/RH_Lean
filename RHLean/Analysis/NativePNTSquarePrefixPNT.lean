@@ -15,7 +15,7 @@ cubic sequence.  Its dependency path is:
 * rederived compensated affine contraction;
 * explicit cubic iteration budget.
 
-The final normalized Chebyshev limit therefore does not route through the
+Thus the final normalized Chebyshev limit does not route through the
 previous dyadic selector or previous compensated squared recurrence.
 -/
 
