@@ -91,12 +91,8 @@ theorem primorialSignedReciprocalCube_insert
     simp only [primeFaceProduct]
     rw [Finset.prod_insert hpt]
     push_cast
+    simp only [id_eq]
     field_simp [hpR0]
-    change
-      -(((booleanCubeSign t : ℤ) : ℝ) * (p : ℝ) *
-          (∏ i ∈ t, (i : ℝ))⁻¹) =
-        -(((booleanCubeSign t : ℤ) : ℝ) *
-          (∏ i ∈ t, (i : ℝ))⁻¹ * (p : ℝ))
     ring
   rw [hsecond]
   ring
@@ -140,10 +136,8 @@ theorem primorialUnsignedReciprocalCube_insert
     simp only [primeFaceProduct]
     rw [Finset.prod_insert hpt]
     push_cast
+    simp only [id_eq]
     field_simp [hpR0]
-    change
-      (p : ℝ) * (∏ i ∈ t, (i : ℝ))⁻¹ =
-        (∏ i ∈ t, (i : ℝ))⁻¹ * (p : ℝ)
     ring
   rw [hsecond]
   ring
