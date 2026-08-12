@@ -84,8 +84,9 @@ theorem primeSieveDyadicBlock_eq_explicitIcc (y x j : ℕ) :
     have hdK : d ≤ x / (y + 1) := hright.trans (min_le_left _ _)
     have hdPow : d ≤ 2 ^ (j + 1) - 1 :=
       hright.trans (min_le_right _ _)
-    have hpowPos : 0 < 2 ^ j := by positivity
-    have hd1 : 1 ≤ d := by omega
+    have hpowOne : 1 ≤ 2 ^ j := by
+      simpa using (Nat.one_le_pow' j 1)
+    have hd1 : 1 ≤ d := hpowOne.trans hleft
     have hdlt : d < 2 ^ (j + 1) := by
       have hp : 0 < 2 ^ (j + 1) := by positivity
       omega
@@ -203,8 +204,7 @@ theorem sum_primeSieveReciprocalPrimeDiscrepancy_dyadicBlock_eq
   have hrightK : primeSieveDyadicBlockRight y x j ≤ x / (y + 1) :=
     min_le_left _ _
   have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-    unfold primeSieveDyadicBlockLeft
-    positivity
+    simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
   rw [primeSieveDyadicBlock_eq_explicitIcc]
   have hset :
       Finset.Icc (primeSieveDyadicBlockLeft j)
@@ -251,8 +251,7 @@ theorem sum_primeSieveDyadicWavelet_Ico_left_eq
   rw [primeSieveDyadicBlock_eq_explicitIcc] at hdE
   rcases Finset.mem_Icc.mp hdE with ⟨hleftd, hdright⟩
   have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-    unfold primeSieveDyadicBlockLeft
-    positivity
+    simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
   have hdK : d ≤ x / (y + 1) := by
     exact (mem_primeSieveDyadicBlock.mp hdB).1 |> Finset.mem_Icc.mp |>.2
   have hrewrite :
@@ -297,6 +296,8 @@ theorem primeSieveDyadicBlockAbelPotential_eq_chordResidual
   have hdE := hdB
   rw [primeSieveDyadicBlock_eq_explicitIcc] at hdE
   rcases Finset.mem_Icc.mp hdE with ⟨hleftd, hdright⟩
+  have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
+    simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
   have hfilter :
       (Finset.Icc 1 (d - 1)).filter
           (fun t => t ∈ primeSieveDyadicBlock y x j) =
@@ -309,7 +310,7 @@ theorem primeSieveDyadicBlockAbelPotential_eq_chordResidual
     · rintro ⟨⟨ht1, htd⟩, ⟨hleftt, htright⟩⟩
       exact ⟨hleftt, by omega⟩
     · rintro ⟨hleftt, htd⟩
-      exact ⟨⟨by omega, by omega⟩, ⟨hleftt, by omega⟩⟩
+      exact ⟨⟨hleft1.trans hleftt, by omega⟩, ⟨hleftt, by omega⟩⟩
   have hmask :
       (∑ t ∈ Finset.Icc 1 (d - 1),
         primeSieveDyadicBlockWaveletMask y x j t) =
@@ -331,7 +332,6 @@ theorem primeSieveDyadicChordResidual_right_succ_eq_zero
   have hcard := card_primeSieveDyadicBlock hj
   unfold primeSieveDyadicChordResidual
   rw [hcard] at hsec
-  push_cast at hsec
   linear_combination hsec
 
 /-- On the quotient support the block Abel potential is zero away from its own
@@ -358,7 +358,7 @@ theorem primeSieveDyadicBlockAbelPotential_eq_zero_of_not_mem
       ext t
       rw [Finset.mem_filter]
       rw [hblock]
-      simp only [Finset.mem_Icc, Finset.not_mem_empty, iff_false]
+      simp only [Finset.mem_Icc, Finset.notMem_empty, iff_false]
       omega
     unfold primeSieveDyadicBlockAbelPotential
       primeSieveDyadicBlockWaveletMask
