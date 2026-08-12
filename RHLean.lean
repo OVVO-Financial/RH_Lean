@@ -125,6 +125,7 @@ import RHLean.Analysis.SquareWheelSurvivorRun
 import RHLean.Analysis.SquareWheelZeroModeElimination
 import RHLean.Analysis.TwoABPrimeDilation
 import RHLean.Analysis.TwoABScaleTransfer
+import RHLean.Analysis.WheelRoughSquarePrefixEnergy
 import RHLean.Arithmetic.AdmissibleFaceSquarefreeImage
 import RHLean.Arithmetic.BooleanCubeCancellation
 import RHLean.Arithmetic.CanonicalEndpointCore
