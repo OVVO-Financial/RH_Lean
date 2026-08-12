@@ -82,7 +82,7 @@ repls = [
  '''    have hden : t j ≤ t j + nativePNTGoodForwardRadius (t j) eps + 1 := by omega\n    have htj0 : t j ≠ 0 := Nat.one_le_iff_ne_zero.mp (htOne j hjJ)\n    have htjpos : 0 < t j := Nat.pos_of_ne_zero htj0\n    exact hd.trans (Nat.div_le_div_left hden htjpos)\n'''),
 ('''    exact hMfour.trans (hLocalQuot j hj)\n''',
  '''    exact (show 3 ≤ 4 by norm_num).trans (hMfour.trans (hLocalQuot j hj))\n'''),
-('''  have hJtwo : 2 ≤ J := by\n    dsimp [J]\n    apply (Nat.le_div_iff_mul_le hdpos).2\n    simpa using hqJL\n''',
+('''  have hJtwo : 2 ≤ J := by\n    dsimp [J]\n    apply (Nat.le_div_iff_mul_le hdpos).2\n    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hqJL\n''',
  '''  have hJtwo : 2 ≤ J := by\n    dsimp [J]\n    apply (Nat.le_div_iff_mul_le hdpos).2\n    convert hqJL using 1 <;> ring\n'''),
 ('''  have hqdiv4 : (q : ℝ) / 8 ≤ ((q / 4 : ℕ) : ℝ) := by\n    have hdec4 : 4 * (q / 4) + q % 4 = q := Nat.div_add_mod q 4\n    have hmod4 : q % 4 < 4 := Nat.mod_lt q (by norm_num)\n    have hnat : q ≤ 8 * (q / 4) := by\n      omega\n    have hcast : (q : ℝ) ≤ 8 * ((q / 4 : ℕ) : ℝ) := by\n      exact_mod_cast hnat\n    nlinarith\n''',
  '''  have hqdiv4 : (q : ℝ) / 8 ≤ ((q / 4 : ℕ) : ℝ) :=\n    nativePNT_quarter_cast_lower q hq8\n'''),
