@@ -75,7 +75,12 @@ theorem arithmeticLogWeight_moebius :
         rw [ArithmeticFunction.coe_moebius_mul_coe_zeta]
       _ = 0 := by
         ext n
-        simp [arithmeticLogWeight]
+        cases n with
+        | zero => simp [arithmeticLogWeight]
+        | succ n =>
+            cases n with
+            | zero => simp [arithmeticLogWeight]
+            | succ n => simp [arithmeticLogWeight]
   have hDz :
       arithmeticLogWeight (μ : ArithmeticFunction ℝ) * zetaR =
         -((μ : ArithmeticFunction ℝ) * ArithmeticFunction.log) :=
@@ -95,10 +100,12 @@ theorem arithmeticLogWeight_moebius :
           (μ : ArithmeticFunction ℝ) := by
         dsimp [zetaR]
         rw [ArithmeticFunction.zeta_mul_vonMangoldt]
+    _ = -(((μ : ArithmeticFunction ℝ) * zetaR) *
+          ((μ : ArithmeticFunction ℝ) * Λ)) := by ring
     _ = -((μ : ArithmeticFunction ℝ) * Λ) := by
         dsimp [zetaR]
-        rw [ArithmeticFunction.coe_zeta_mul_coe_moebius]
-        ring
+        rw [ArithmeticFunction.coe_moebius_mul_coe_zeta]
+        simp
 
 /-- Summatory Möbius-von-Mangoldt convolution reindexed by reciprocal fibres. -/
 theorem nativeMobiusLambdaSummatory_eq_reciprocalPsi (N : ℕ) :
@@ -191,8 +198,7 @@ theorem nativeMobiusLogSum_eq_neg_reciprocalPsi (N : ℕ) :
       rw [arithmeticLogWeight_moebius]
     _ = -∑ n ∈ Finset.Icc 1 N,
         ((μ : ArithmeticFunction ℝ) * Λ) n := by
-      rw [Finset.sum_neg_distrib]
-      rfl
+      simp
     _ = -∑ d ∈ Finset.Icc 1 N,
         (μ : ArithmeticFunction ℝ) d * nativePsi (N / d) := by
       rw [nativeMobiusLambdaSummatory_eq_reciprocalPsi]
@@ -312,7 +318,6 @@ theorem nativePNTAxerErrorMass_le_of_affineEnvelope
       rw [hfirst, Finset.sum_const, nsmul_eq_mul, Nat.card_Icc]
       have hcard : N + 1 - 1 = N := by omega
       rw [hcard]
-      push_cast
       ring
     _ ≤ alpha * (N : ℝ) * (1 + Real.log (N : ℝ)) + D * (N : ℝ) := by
       by_cases hN0 : N = 0
@@ -344,7 +349,7 @@ theorem nativeMobiusLogSum_abs_le_of_affineEnvelope
         (μ : ArithmeticFunction ℝ) d * nativePNTError (N / d)| ≤
         1 + |∑ d ∈ Finset.Icc 1 N,
           (μ : ArithmeticFunction ℝ) d * nativePNTError (N / d)| := by
-      have h := abs_add (-1 : ℝ)
+      have h := abs_add_le (-1 : ℝ)
         (-(∑ d ∈ Finset.Icc 1 N,
           (μ : ArithmeticFunction ℝ) d * nativePNTError (N / d)))
       simpa [abs_neg] using h
@@ -401,9 +406,11 @@ theorem nativeMertensLogTail_abs_le
         intro n hn
         have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
         have hnN : n ≤ N := (Finset.mem_Icc.mp hn).2
+        have hnpos : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn1
+        have hnNreal : (n : ℝ) ≤ (N : ℝ) := by exact_mod_cast hnN
         have hratio : (1 : ℝ) ≤ (N : ℝ) / (n : ℝ) := by
-          rw [le_div_iff₀ (by exact_mod_cast hn1 : (0 : ℝ) < (n : ℝ))]
-          exact_mod_cast hnN
+          rw [le_div_iff₀ hnpos]
+          simpa using hnNreal
         have hlog : 0 ≤ Real.log ((N : ℝ) / (n : ℝ)) :=
           Real.log_nonneg hratio
         rw [abs_mul, abs_of_nonneg hlog]
@@ -438,7 +445,6 @@ theorem nativeMertensLogTail_abs_le
           Nat.card_Icc]
         have hcard : N + 1 - 1 = N := by omega
         rw [hcard]
-        push_cast
       _ = (N : ℝ) * Real.log (N : ℝ) -
           Real.log ((Nat.factorial N : ℕ) : ℝ) := by rw [hsumLog]
   have hlower := nativeLogFactorial_lower N hN
@@ -483,7 +489,7 @@ theorem nativeMertens_abs_mul_log_le_of_affineEnvelope
         |nativeMobiusLogSum N| +
           |∑ n ∈ Finset.Icc 1 N,
             ((ArithmeticFunction.moebius n : ℤ) : ℝ) *
-              Real.log ((N : ℝ) / (n : ℝ))| := abs_add _ _
+              Real.log ((N : ℝ) / (n : ℝ))| := abs_add_le _ _
     _ ≤ (1 + alpha * (N : ℝ) * (1 + Real.log (N : ℝ)) +
           D * (N : ℝ)) + (N : ℝ) :=
       add_le_add (hlogsum N (by omega)) htail
@@ -500,10 +506,9 @@ theorem nativeMertens_div_atTop_zero :
   rw [tendsto_zero_iff_abs_tendsto_zero]
   refine tendsto_order.2 ⟨?_, ?_⟩
   · intro a ha
-    filter_upwards [eventually_ge_atTop 1] with N hN
-    have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast hN
-    have hnonneg : 0 ≤ |nativeMertensSummatory N / (N : ℝ)| := abs_nonneg _
-    linarith
+    filter_upwards [] with N
+    change a < |nativeMertensSummatory N / (N : ℝ)|
+    exact ha.trans_le (abs_nonneg _)
   · intro b hb
     let alpha : ℝ := b / 2
     have halpha : 0 < alpha := by
@@ -531,16 +536,16 @@ theorem nativeMertens_div_atTop_zero :
       nlinarith
     have hnorm :
         |nativeMertensSummatory N| / (N : ℝ) < b := by
-      have hdiv := (div_le_iff₀ hlogpos).2 hraw
       have hNne : (N : ℝ) ≠ 0 := ne_of_gt hNpos
       have hlogne : Real.log (N : ℝ) ≠ 0 := ne_of_gt hlogpos
       have htarget :
           |nativeMertensSummatory N| / (N : ℝ) ≤
             alpha + (alpha + D + 2) / Real.log (N : ℝ) := by
-        field_simp [hNne, hlogne] at hdiv ⊢
-        nlinarith
+        field_simp [hNne, hlogne]
+        nlinarith [hraw]
       dsimp [alpha] at htarget
       linarith
+    change |nativeMertensSummatory N / (N : ℝ)| < b
     rw [abs_div, abs_of_pos hNpos]
     exact hnorm
 
