@@ -2,10 +2,18 @@ from pathlib import Path
 
 p = Path('RHLean/Analysis/NativePNTAxer.lean')
 s = p.read_text()
-assert 'theorem arithmeticLogWeight_moebius' in s
-assert 'theorem nativeMobiusLogSum_eq_neg_one_sub_error' in s
-assert 'theorem nativePNTAxerErrorMass_le_of_affineEnvelope' in s
-assert 'theorem nativeMertens_abs_mul_log_le_of_affineEnvelope' in s
-assert 'theorem nativeMertens_div_atTop_zero' in s
-assert 'abs_add_le' in s
+old = '''    _ = -∑ n ∈ Finset.Icc 1 N,
+        ((μ : ArithmeticFunction ℝ) * Λ) n := by
+      simp
+'''
+new = '''    _ = -∑ n ∈ Finset.Icc 1 N,
+        ((μ : ArithmeticFunction ℝ) * Λ) n := by
+      change (∑ n ∈ Finset.Icc 1 N,
+        -(((μ : ArithmeticFunction ℝ) * Λ) n)) =
+        -(∑ n ∈ Finset.Icc 1 N,
+          ((μ : ArithmeticFunction ℝ) * Λ) n)
+      rw [Finset.sum_neg_distrib]
+'''
+assert old in s
+s = s.replace(old, new, 1)
 p.write_text(s)
