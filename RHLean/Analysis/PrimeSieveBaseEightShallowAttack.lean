@@ -15,9 +15,11 @@ identity writes the packet as the weighted reciprocal-discrepancy contrast
 
 The recursive square function below uses exactly those contrasts.  The first
 result of the attack is an exact identification with the existing recursive
-packet tree, hence with the base-eight successor-shallow energy.  The final
-block-uniform square-function statement is therefore not a new assumption: it
-is precisely the remaining shallow analytic frontier in arithmetic coordinates.
+packet tree, hence with the base-eight successor-shallow energy.  The shallow
+energy is then flattened into the finite sum of its exact packet levels.  The
+final block-uniform square-function statement is therefore not a new
+assumption: it is precisely the remaining shallow analytic frontier in
+arithmetic coordinates.
 -/
 
 noncomputable section
@@ -131,6 +133,39 @@ theorem primeSieveReciprocalLowFrequencySquareFunction_eq_shallowEnergy
     y x (min J j) (primeSieveDyadicBlockLeft j)
       (primeSieveDyadicBlockRight y x j + 1) hleft1 hright).symm
 
+/-- The shallow tree is the finite sum of the exact packet levels below the
+cutoff.  This removes the recursive wrapper from the remaining analytic target. -/
+theorem primeSieveDyadicPacketShallowEnergy_eq_sum_levelEnergy
+    (y x J : ℕ) :
+    primeSieveDyadicPacketShallowEnergy y x J =
+      ∑ r ∈ Finset.range J, primeSieveDyadicPacketLevelEnergy y x r := by
+  induction J with
+  | zero =>
+      unfold primeSieveDyadicPacketShallowEnergy
+        primeSieveDyadicPacketTreeBlockEnergy
+      simp
+  | succ J ih =>
+      rw [show Nat.succ J = J + 1 by omega,
+        primeSieveDyadicPacketShallowEnergy_succ_eq, ih,
+        Finset.sum_range_succ]
+
+/-- Fully expanded finite-level form: each shallow level is the exact signed
+midpoint energy on every occupied block still alive at that level. -/
+theorem primeSieveDyadicPacketShallowEnergy_eq_sum_intervalLevelEnergy
+    (y x J : ℕ) :
+    primeSieveDyadicPacketShallowEnergy y x J =
+      ∑ r ∈ Finset.range J,
+        ∑ j ∈ primeSieveDyadicBlockIndices y x,
+          if r < j then
+            primeSieveDyadicPacketIntervalLevelEnergy y x r
+              (primeSieveDyadicBlockLeft j)
+              (primeSieveDyadicBlockRight y x j + 1)
+          else 0 := by
+  rw [primeSieveDyadicPacketShallowEnergy_eq_sum_levelEnergy]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  exact primeSieveDyadicPacketLevelEnergy_eq_sum_intervalLevelEnergy y x r
+
 /-- Base-eight successor shallow square function selected by #330. -/
 def primeSieveBaseEightShallowSquareFunction (k x : ℕ) : ℝ :=
   primeSieveReciprocalLowFrequencySquareFunction
@@ -149,6 +184,17 @@ theorem primeSieveBaseEightShallowSquareFunction_eq_shallowEnergy
     primeSieveReciprocalLowFrequencySquareFunction_eq_shallowEnergy
       (primorialPNTPrimeSieveCutoff k) x
       (dyadicPacketBaseEightCutoff k x + 1)
+
+/-- At the base-eight successor cutoff, the remaining square function is the
+finite sum of levels `0 <= r <= log_8(x+1)`. -/
+theorem primeSieveBaseEightShallowSquareFunction_eq_sum_levelEnergy
+    (k x : ℕ) :
+    primeSieveBaseEightShallowSquareFunction k x =
+      ∑ r ∈ Finset.range (dyadicPacketBaseEightCutoff k x + 1),
+        primeSieveDyadicPacketLevelEnergy
+          (primorialPNTPrimeSieveCutoff k) x r := by
+  rw [primeSieveBaseEightShallowSquareFunction_eq_shallowEnergy,
+    primeSieveDyadicPacketShallowEnergy_eq_sum_levelEnergy]
 
 /-- The exact low-frequency arithmetic statement exposed by #331.  It asks for
 a critical block-uniform bound on the reciprocal-discrepancy Haar square
