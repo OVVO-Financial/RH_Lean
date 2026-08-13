@@ -59,7 +59,8 @@ theorem mem_primeSieveExactActivityReciprocalPrimeBand_iff
       q.Prime ∧ t + 2 ≤ q ∧
         (t + 1) ^ 2 ≤ 2 * (c * q) ∧
           c * q < (t + 1) ^ 2 := by
-  have h2c : 0 < 2 * c := by omega
+  have h2c : 0 < 2 * c := by positivity
+  have hsquare : 0 < (t + 1) ^ 2 := by positivity
   have hpredlt : (t + 1) ^ 2 - 1 < (t + 1) ^ 2 := by omega
   simp only [primeSieveExactActivityReciprocalPrimeBand,
     Finset.mem_filter, Finset.mem_Ioc]
@@ -176,7 +177,8 @@ theorem primeSieveDyadicPacketIntervalTreeEnergy_eq_reciprocalLowFrequencyInterv
       by_cases hsplit : a + 1 < b
       · let m := dyadicPacketMidpoint a b
         have hm : a < m ∧ m < b := by
-          simpa [m] using dyadicPacketMidpoint_facts hsplit
+          dsimp [m, dyadicPacketMidpoint]
+          omega
         have hm1 : 1 ≤ m := ha.trans hm.1.le
         have hmB : m ≤ x / (y + 1) + 1 := hm.2.le.trans hb
         have hres :
@@ -208,11 +210,14 @@ theorem primeSieveReciprocalLowFrequencySquareFunction_eq_shallowEnergy
   apply Finset.sum_congr rfl
   intro j hj
   have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-    simp [primeSieveDyadicBlockLeft]
+    unfold primeSieveDyadicBlockLeft
+    have hpow : 0 < 2 ^ j := by positivity
+    omega
   have hright :
       primeSieveDyadicBlockRight y x j + 1 ≤ x / (y + 1) + 1 := by
-    have h := min_le_left (x / (y + 1)) (2 ^ (j + 1) - 1)
-    simpa [primeSieveDyadicBlockRight] using Nat.add_le_add_right h 1
+    unfold primeSieveDyadicBlockRight
+    exact Nat.add_le_add_right
+      (min_le_left (x / (y + 1)) (2 ^ (j + 1) - 1)) 1
   exact (primeSieveDyadicPacketIntervalTreeEnergy_eq_reciprocalLowFrequencyIntervalEnergy
     y x (min J j) (primeSieveDyadicBlockLeft j)
       (primeSieveDyadicBlockRight y x j + 1) hleft1 hright).symm
