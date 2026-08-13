@@ -822,7 +822,7 @@ theorem primeSieveDyadicPacketBlockDeepEnergy_scaled_le
           have h2 : 2 ^ J ≤ 2 ^ j :=
             (Nat.pow_le_pow_iff_right (by norm_num : 1 < (2 : ℕ))).2 hJj
           have h4 : 4 ^ J ≤ 4 ^ level :=
-            (Nat.pow_le_pow_iff_right (by norm_num : 1 < (4 : ℕ))).2 hLI.1.le
+            (Nat.pow_le_pow_iff_right (by norm_num : 1 < (4 : ℕ))).2 hLI.1
           have hcoefNat : 8 ^ J ≤ 2 ^ j * 4 ^ level := by
             calc
               8 ^ J = (2 * 4) ^ J := by norm_num
@@ -901,7 +901,9 @@ private theorem pntGoodMassAttack_sum_dyadicIndices_le_log_sq
       apply Finset.sum_le_sum
       intro j hj
       exact hpoint j hj
-    _ = (S.card : ℝ) * (((M + 1 : ℕ) : ℝ)) := by simp
+    _ = (S.card : ℝ) * (((M + 1 : ℕ) : ℝ)) := by
+      simp
+      ring
     _ ≤ (((M + 1 : ℕ) : ℝ)) * (((M + 1 : ℕ) : ℝ)) :=
       mul_le_mul_of_nonneg_right hcard (by positivity)
     _ = (((M + 1 : ℕ) : ℝ)) ^ 2 := by ring
