@@ -30,7 +30,6 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Analysis
 
 open RHLean.Arithmetic
-open RHLean.Proof
 
 /-- Complex Möbius mass of the first-failure Boolean-cube frontier at one fresh
 prime coordinate. -/
@@ -58,11 +57,11 @@ private theorem norm_finset_sum_sq_le_card_mul_sum_norm_sq
     ‖∑ i ∈ s, f i‖ ^ 2 ≤
       (s.card : ℝ) * ∑ i ∈ s, ‖f i‖ ^ 2 := by
   have hnorm := norm_sum_le s f
-  have hnorm0 : 0 ≤ ‖∑ i ∈ s, f i‖ := norm_nonneg _
-  have hsum0 : 0 ≤ ∑ i ∈ s, ‖f i‖ := by positivity
+  have hsum0 : 0 ≤ ∑ i ∈ s, ‖f i‖ :=
+    Finset.sum_nonneg fun _i _hi => norm_nonneg _
   have hsq :
-      ‖∑ i ∈ s, f i‖ ^ 2 ≤ (∑ i ∈ s, ‖f i‖) ^ 2 := by
-    nlinarith
+      ‖∑ i ∈ s, f i‖ ^ 2 ≤ (∑ i ∈ s, ‖f i‖) ^ 2 :=
+    (sq_le_sq₀ (norm_nonneg _) hsum0).2 hnorm
   have hcauchy :=
     Finset.sum_mul_sq_le_sq_mul_sq s
       (fun _i => (1 : ℝ)) (fun i => ‖f i‖)
@@ -110,9 +109,6 @@ theorem mertensEnergyBounded_of_primeAveragedFrontierEnergy
     have hQ0 : 0 ≤ Q := by
       dsimp [Q]
       exact Real.rpow_nonneg (by positivity) _
-    have hE0 : 0 ≤ E := by
-      dsimp [E, primeAveragedFrontierEnergy]
-      positivity
     have hfamily :=
       norm_finset_sum_sq_le_card_mul_sum_norm_sq S
         (fun ell => primeProductFrontierMobiusMass X ell)
@@ -130,7 +126,7 @@ theorem mertensEnergyBounded_of_primeAveragedFrontierEnergy
       ring
     rw [hleft] at hcauchy
     have hcancel1 : P * ‖mertensSummatory X‖ ^ 2 ≤ E :=
-      (mul_le_mul_iff_left₀ hP).mp hcauchy
+      (mul_le_mul_iff_right₀ hP).mp hcauchy
     have henergy0 := hCb X hX
     have henergy : E ≤ C * P * Q := by
       simpa [S, P, E, Q] using henergy0
@@ -141,14 +137,14 @@ theorem mertensEnergyBounded_of_primeAveragedFrontierEnergy
         _ ≤ C * P * Q := henergy
         _ = P * (C * Q) := by ring
     have hmain : ‖mertensSummatory X‖ ^ 2 ≤ C * Q :=
-      (mul_le_mul_iff_left₀ hP).mp hcombined
+      (mul_le_mul_iff_right₀ hP).mp hcombined
     have hCD : C ≤ D := by dsimp [D]; linarith
     have hraise : C * Q ≤ D * Q :=
       mul_le_mul_of_nonneg_right hCD hQ0
     simpa [D, Q] using hmain.trans hraise
   · have hsmall : X = 0 ∨ X = 1 := by omega
     rcases hsmall with rfl | rfl
-    · simp [mertensSummatory]
+    · simpa [mertensSummatory] using hD0
     · have hpow :
           (1 : ℝ) ≤ Real.rpow (2 : ℝ) (1 + ε) :=
         Real.one_le_rpow (by norm_num) (by linarith)
@@ -157,9 +153,9 @@ theorem mertensEnergyBounded_of_primeAveragedFrontierEnergy
           (1 : ℝ) ≤ D * Real.rpow (2 : ℝ) (1 + ε) := by
         calc
           (1 : ℝ) ≤ D := hD1
-          _ ≤ D * Real.rpow (2 : ℝ) (1 + ε) :=
-            mul_le_mul_of_nonneg_left hpow hD0
-      simpa [mertensSummatory] using hone
+          _ ≤ D * Real.rpow (2 : ℝ) (1 + ε) := by
+            simpa using mul_le_mul_of_nonneg_left hpow hD0
+      simpa [mertensSummatory, Finset.sum_range_succ] using hone
 
 /-- Independent RH strand: a critical mean-square estimate for the complete
 family of multi-prime Boolean-cube first-failure frontiers implies the Riemann
