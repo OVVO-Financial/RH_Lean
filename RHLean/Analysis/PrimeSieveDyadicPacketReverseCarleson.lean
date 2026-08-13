@@ -9,13 +9,13 @@ reverse-Carleson estimate
 
 `D_J <= C_epsilon * (x+1)^epsilon * L_J`.
 
-This module does not introduce another residual coordinate.  It localizes the
+This module does not introduce another residual coordinate. It localizes the
 existing #327 energies block by block and identifies exactly which blocks need
 new prime-number information.
 
 For one occupied dyadic reciprocal block of depth `j`, define its contribution
 to the released level `J` and to the remaining deep tail by the same differences
-of #324 packet-tree energies already used in #326 and #327.  Then:
+of #324 packet-tree energies already used in #326 and #327. Then:
 
 * the global `L_J` and `D_J` are exactly the sums of the block contributions;
 * a live block with `j = J+1` is terminal, so its entire deep tail is exactly its
@@ -24,20 +24,28 @@ of #324 packet-tree energies already used in #326 and #327.  Then:
 * therefore only genuinely nonterminal blocks `J+1 < j` require arithmetic
   input.
 
-The new named arithmetic premise is consequently a block-local signed sibling
-persistence estimate on those nonterminal blocks.  It is strictly more local
-than the global reverse-Carleson statement: there is no cancellation between
-unrelated dyadic reciprocal blocks left to exploit or to lose.
+The genuinely new premise is reduced one step further than blockwise reverse
+Carleson. On a nonterminal block it asks that the descendant energy *after* the
+current sibling level has been released is controlled by that current signed
+sibling energy:
+
+`D_(J+1)^(j) <= C_epsilon * (x+1)^epsilon * L_J^(j)`.
+
+The exact identity `D_J^(j) = L_J^(j) + D_(J+1)^(j)` then recovers the full block
+tail. Thus the open statement isolates the combinatorial persistence mechanism:
+large energy in the two descendant child forests must already leave a detectable
+signed sibling packet on their parent frontier.
 
 The module also exposes the exact prime-minus-Li content of every sibling packet:
 the normalized packet is the signed contrast of the two child sums of the
 existing reciprocal prime discrepancies, and each discrepancy is itself the
 finite prime-indicator-minus-Li-density mass on its quotient interval.
 
-No instance of the nonterminal persistence premise is proved here.  The terminal
-fragment is unconditional.  Thus the remaining open statement is precisely new
-prime-number information about persistence of signed discrepancy energy under a
-midpoint refinement, rather than another algebraic reparameterization.
+No instance of the nonterminal descendant-persistence premise is proved here.
+The dead and terminal fragments are unconditional. Thus the remaining open
+statement is precisely new prime-number information about persistence of signed
+discrepancy energy under midpoint refinement, rather than another algebraic
+reparameterization.
 -/
 
 noncomputable section
@@ -168,9 +176,9 @@ theorem primeSieveDyadicPacketBlockLevelEnergy_eq_zero_of_depth_le
   rw [min_eq_right h, min_eq_right h']
   ring
 
-/-- **Unconditional terminal fragment.**  If exactly one refinement level is
+/-- **Unconditional terminal fragment.** If exactly one refinement level is
 left in a block, then the complete remaining deep tail is precisely the level
-that is released now.  Reverse Carleson therefore holds with constant one on
+that is released now. Reverse Carleson therefore holds with constant one on
 such a block. -/
 theorem primeSieveDyadicPacketBlockDeepEnergy_eq_levelEnergy_of_depth_eq_succ
     (y x J : ℕ) :
@@ -199,19 +207,20 @@ theorem primeSieveDyadicPacketBlockLevelEnergy_eq_intervalLevelEnergy
 
 /-! ## The genuinely arithmetic nonterminal premise -/
 
-/-- **Nonterminal signed sibling persistence.**  Only blocks with at least two
-unresolved recursive levels are quantified here.  The terminal live blocks are
-already controlled unconditionally by the exact theorem above.
+/-- **Nonterminal signed sibling-descendant persistence.** Only blocks with at
+least two unresolved recursive levels are quantified here. After level `J` is
+released, all energy in its descendant child forests must be controlled by the
+signed sibling energy that was just exposed on level `J`.
 
-This is the first genuinely new prime-number input in the reduction.  Through
+This is strictly one exact step below blockwise reverse Carleson because the
+current level itself is absent from the left side. Through
 `primeSieveDyadicPacketBlockLevelEnergy_eq_intervalLevelEnergy` and
-`primeSieveSignedSiblingPacketResidual_eq_signed_reciprocalPrimeMass`, its right
-side is the actual signed prime-minus-Li sibling energy released by the first
-unresolved midpoint refinement. -/
-def DyadicPacketNonterminalBlockSiblingPersistenceStatement
+`primeSieveSignedSiblingPacketResidual_eq_signed_reciprocalPrimeMass`, the right
+side is the actual signed prime-minus-Li sibling energy. -/
+def DyadicPacketNonterminalSiblingDescendantPersistenceStatement
     (cutoff : DyadicPacketCutoff) : Prop :=
   ∀ ε : ℝ, 0 < ε →
-    ∃ C : ℝ, 1 ≤ C ∧
+    ∃ C : ℝ, 0 ≤ C ∧
       ∀ (k x j : ℕ),
         2 ≤ k →
         primorialBlockLower k ≤ x →
@@ -220,21 +229,21 @@ def DyadicPacketNonterminalBlockSiblingPersistenceStatement
           (primorialPNTPrimeSieveCutoff k) x →
         cutoff k x + 1 < j →
         primeSieveDyadicPacketBlockDeepEnergy
-            (primorialPNTPrimeSieveCutoff k) x j (cutoff k x) ≤
+            (primorialPNTPrimeSieveCutoff k) x j (cutoff k x + 1) ≤
           C * Real.rpow ((x : ℝ) + 1) ε *
             primeSieveDyadicPacketBlockLevelEnergy
               (primorialPNTPrimeSieveCutoff k) x j (cutoff k x)
 
-/-- The nonterminal block statement, plus the unconditional terminal fragment,
-proves the full global reverse-Carleson estimate.  No cross-block cancellation is
-used. -/
-theorem dyadicPacketReverseCarlesonBlockBounded_of_nonterminalBlockPersistence
+/-- The descendant-persistence premise, plus the unconditional dead and terminal
+fragments, proves the full global reverse-Carleson estimate. No cross-block
+cancellation is used. -/
+theorem dyadicPacketReverseCarlesonBlockBounded_of_siblingDescendantPersistence
     (cutoff : DyadicPacketCutoff)
-    (hB : DyadicPacketNonterminalBlockSiblingPersistenceStatement cutoff) :
+    (hB : DyadicPacketNonterminalSiblingDescendantPersistenceStatement cutoff) :
     DyadicPacketReverseCarlesonBlockBoundedStatement cutoff := by
   intro ε hε
   obtain ⟨C, hC, hCb⟩ := hB ε hε
-  refine ⟨C, hC.trans' (by norm_num), ?_⟩
+  refine ⟨C + 1, add_nonneg hC (by norm_num), ?_⟩
   intro k x hk hlow hup
   let y := primorialPNTPrimeSieveCutoff k
   let J := cutoff k x
@@ -247,16 +256,16 @@ theorem dyadicPacketReverseCarlesonBlockBounded_of_nonterminalBlockPersistence
     have hbase : (1 : ℝ) ≤ (x : ℝ) + 1 := by positivity
     have h := Real.rpow_le_rpow (by norm_num : (0 : ℝ) ≤ 1) hbase hε.le
     simpa using h
-  have hCP1 : 1 ≤ C * P := by
+  have hcoef : 1 ≤ (C + 1) * P := by
     calc
-      (1 : ℝ) ≤ C := hC
-      _ = C * 1 := by ring
-      _ ≤ C * P :=
+      (1 : ℝ) ≤ C + 1 := by linarith
+      _ = (C + 1) * 1 := by ring
+      _ ≤ (C + 1) * P :=
         mul_le_mul_of_nonneg_left hP1 (by linarith)
   have hblock :
       ∀ j ∈ primeSieveDyadicBlockIndices y x,
         primeSieveDyadicPacketBlockDeepEnergy y x j J ≤
-          C * P * primeSieveDyadicPacketBlockLevelEnergy y x j J := by
+          (C + 1) * P * primeSieveDyadicPacketBlockLevelEnergy y x j J := by
     intro j hj
     by_cases hdead : j ≤ J
     · rw [primeSieveDyadicPacketBlockDeepEnergy_eq_zero_of_depth_le hdead]
@@ -271,41 +280,64 @@ theorem dyadicPacketReverseCarlesonBlockBounded_of_nonterminalBlockPersistence
         calc
           primeSieveDyadicPacketBlockLevelEnergy y x (J + 1) J =
               1 * primeSieveDyadicPacketBlockLevelEnergy y x (J + 1) J := by ring
-          _ ≤ (C * P) *
+          _ ≤ ((C + 1) * P) *
               primeSieveDyadicPacketBlockLevelEnergy y x (J + 1) J :=
-            mul_le_mul_of_nonneg_right hCP1 hL
+            mul_le_mul_of_nonneg_right hcoef hL
       · have hnonterminal : J + 1 < j := by omega
-        simpa [y, J, P] using
-          hCb k x j hk hlow hup hj hnonterminal
+        have hdesc :
+            primeSieveDyadicPacketBlockDeepEnergy y x j (J + 1) ≤
+              C * P * primeSieveDyadicPacketBlockLevelEnergy y x j J := by
+          simpa [y, J, P] using
+            hCb k x j hk hlow hup hj hnonterminal
+        have hL := primeSieveDyadicPacketBlockLevelEnergy_nonneg y x j J
+        have hLP :
+            primeSieveDyadicPacketBlockLevelEnergy y x j J ≤
+              P * primeSieveDyadicPacketBlockLevelEnergy y x j J := by
+          calc
+            primeSieveDyadicPacketBlockLevelEnergy y x j J =
+                1 * primeSieveDyadicPacketBlockLevelEnergy y x j J := by ring
+            _ ≤ P * primeSieveDyadicPacketBlockLevelEnergy y x j J :=
+              mul_le_mul_of_nonneg_right hP1 hL
+        rw [primeSieveDyadicPacketBlockDeepEnergy_eq_level_add_succ]
+        calc
+          primeSieveDyadicPacketBlockLevelEnergy y x j J +
+              primeSieveDyadicPacketBlockDeepEnergy y x j (J + 1) ≤
+            P * primeSieveDyadicPacketBlockLevelEnergy y x j J +
+              C * P * primeSieveDyadicPacketBlockLevelEnergy y x j J :=
+            add_le_add hLP hdesc
+          _ = (C + 1) * P *
+              primeSieveDyadicPacketBlockLevelEnergy y x j J := by ring
   calc
     primeSieveDyadicPacketDeepEnergy y x J =
         ∑ j ∈ primeSieveDyadicBlockIndices y x,
           primeSieveDyadicPacketBlockDeepEnergy y x j J :=
       primeSieveDyadicPacketDeepEnergy_eq_sum_blockDeepEnergy y x J
     _ ≤ ∑ j ∈ primeSieveDyadicBlockIndices y x,
-        C * P * primeSieveDyadicPacketBlockLevelEnergy y x j J := by
+        (C + 1) * P * primeSieveDyadicPacketBlockLevelEnergy y x j J := by
       exact Finset.sum_le_sum hblock
-    _ = C * P *
+    _ = (C + 1) * P *
         (∑ j ∈ primeSieveDyadicBlockIndices y x,
           primeSieveDyadicPacketBlockLevelEnergy y x j J) := by
       rw [Finset.mul_sum]
-    _ = C * P * primeSieveDyadicPacketLevelEnergy y x J := by
+    _ = (C + 1) * P * primeSieveDyadicPacketLevelEnergy y x J := by
       rw [← primeSieveDyadicPacketLevelEnergy_eq_sum_blockLevelEnergy]
 
 /-- Terminal RH reduction with the global reverse-Carleson hypothesis replaced
-by the genuinely local nonterminal signed sibling persistence statement. -/
-theorem riemannHypothesis_of_dyadicPacketNonterminalBlockPersistenceAnalyticPackage
+by the genuinely local nonterminal signed sibling-descendant persistence
+statement. -/
+theorem riemannHypothesis_of_dyadicPacketSiblingDescendantPersistenceAnalyticPackage
     (cutoff : DyadicPacketCutoff)
     (hC : DyadicCoherentChannelRHScale)
     (hS : DyadicPacketShallowEnergyBlockBoundedStatement
       (dyadicPacketSuccCutoff cutoff))
-    (hB : DyadicPacketNonterminalBlockSiblingPersistenceStatement cutoff)
+    (hB : DyadicPacketNonterminalSiblingDescendantPersistenceStatement cutoff)
     (hD : DyadicMobiusDispersionBlockBoundedStatement) :
     RiemannHypothesisStatement := by
   apply riemannHypothesis_of_dyadicPacketReverseCarlesonAnalyticPackage
     cutoff hC hS
-  · exact dyadicPacketReverseCarlesonBlockBounded_of_nonterminalBlockPersistence
-      cutoff hB
+  · exact
+      dyadicPacketReverseCarlesonBlockBounded_of_siblingDescendantPersistence
+        cutoff hB
   · exact hD
 
 end RHLean.Analysis
