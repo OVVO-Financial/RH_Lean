@@ -26,10 +26,11 @@ theorem nativePNTSquarePrefixSmallQuotientFiberSet_eq_Icc
       simpa [Nat.mul_comm] using hNlt
     exact ⟨by omega, hnN⟩
   · rintro ⟨hNM, hnN⟩
-    have hn1 : 1 ≤ n := by omega
+    have hn1 : 1 ≤ n :=
+      (Nat.succ_le_succ (Nat.zero_le (N / M))).trans hNM
     have hnpos : 0 < n := by omega
     have hMpos : 0 < M := by omega
-    have hNMlt : N / M < n := by omega
+    have hNMlt : N / M < n := Nat.lt_of_succ_le hNM
     have hNlt : N < n * M :=
       (Nat.div_lt_iff_lt_mul hMpos).1 hNMlt
     have hquot : N / n < M := by
