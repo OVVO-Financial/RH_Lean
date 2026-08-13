@@ -99,7 +99,9 @@ theorem dyadicPacketDeepTailBlockBounded_of_additiveDescendantPersistence
     exact Real.rpow_nonneg hBpos.le _
   have hP1 : 1 ≤ P := by
     dsimp [P, B]
-    have hbase : (1 : ℝ) ≤ (x : ℝ) + 1 := by positivity
+    have hbase : (1 : ℝ) ≤ (x : ℝ) + 1 := by
+      have hx : (0 : ℝ) ≤ (x : ℝ) := by positivity
+      linarith
     have h := Real.rpow_le_rpow (by norm_num : (0 : ℝ) ≤ 1) hbase hhalf.le
     simpa using h
   have hT0 : 0 ≤ T := by
@@ -112,7 +114,7 @@ theorem dyadicPacketDeepTailBlockBounded_of_additiveDescendantPersistence
     ring
   have hPB : P * B = T := by
     calc
-      P * B = P * Real.rpow B 1 := by rw [Real.rpow_one]
+      P * B = P * Real.rpow B 1 := by simp
       _ = Real.rpow B ((ε / 2) + 1) :=
         (Real.rpow_add hBpos (ε / 2) 1).symm
       _ = T := by
@@ -250,7 +252,7 @@ theorem dyadicPacketAdditiveDescendantPersistence_of_pntGoodMassCharge
     dsimp [Q]
     exact pow_pos hlogpos 2
   have hcancel : (1 / 6600000 : ℝ) * D ≤ C * P * A := by
-    apply (mul_le_mul_left hQpos).mp
+    apply (mul_le_mul_iff_left₀ hQpos).mp
     calc
       Q * ((1 / 6600000 : ℝ) * D) =
           (1 / 6600000 : ℝ) * Q * D := by ring
