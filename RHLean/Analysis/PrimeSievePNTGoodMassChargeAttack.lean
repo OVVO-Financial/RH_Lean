@@ -711,7 +711,7 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
     dsimp [δ]
     positivity
   have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-    simp [primeSieveDyadicBlockLeft]
+    simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
   have hrightTop :
       primeSieveDyadicBlockRight y x j + 1 ≤ x / (y + 1) + 1 := by
     unfold primeSieveDyadicBlockRight
