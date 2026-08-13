@@ -509,4 +509,159 @@ theorem primeSieveSignedSiblingPacketResidual_norm_le_of_fibreBound
     subst m
     simp [primeSieveSignedSiblingPacketResidual, primeSieveSignedSiblingPacket]
 
+/-! ## Geometric decay through midpoint refinement -/
+
+private theorem pntGoodMassAttack_midpoint_facts
+    {a b : ℕ} (h : a + 1 < b) :
+    a < dyadicPacketMidpoint a b ∧ dyadicPacketMidpoint a b < b := by
+  unfold dyadicPacketMidpoint
+  omega
+
+private theorem pntGoodMassAttack_midpoint_child_widths
+    {a b depth : ℕ}
+    (hsplit : a + 1 < b)
+    (hwidth : b - a ≤ 2 ^ (depth + 1)) :
+    dyadicPacketMidpoint a b - a ≤ 2 ^ depth ∧
+      b - dyadicPacketMidpoint a b ≤ 2 ^ depth := by
+  have hp : 2 ^ (depth + 1) = 2 * 2 ^ depth := by
+    rw [pow_succ]
+    ring
+  rw [hp] at hwidth
+  unfold dyadicPacketMidpoint
+  omega
+
+/-- If every reciprocal prime-minus-Li fibre on an interval has norm at most
+`delta`, the packet energy on recursive level `level` decays geometrically.
+The rescaled quantity `4^level * levelEnergy` is bounded by the cube of the
+ambient dyadic width. -/
+theorem primeSieveDyadicPacketIntervalLevelEnergy_scaled_le_of_fibreBound
+    (y x : ℕ) (δ : ℝ) (hδ : 0 ≤ δ) :
+    ∀ (level j a b : ℕ),
+      level ≤ j →
+      1 ≤ a →
+      b ≤ x / (y + 1) + 1 →
+      b - a ≤ 2 ^ j →
+      (∀ d ∈ Finset.Ico a b,
+        ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤ δ) →
+      (((4 ^ level : ℕ) : ℝ)) *
+          primeSieveDyadicPacketIntervalLevelEnergy y x level a b ≤
+        4 * δ ^ 2 * (((2 ^ j : ℕ) : ℝ) ^ 3) := by
+  intro level
+  induction level with
+  | zero =>
+      intro j a b _hlevel ha hb hwidth hfib
+      by_cases hsplit : a + 1 < b
+      · let m := dyadicPacketMidpoint a b
+        have hm := pntGoodMassAttack_midpoint_facts hsplit
+        have hres :=
+          primeSieveSignedSiblingPacketResidual_norm_le_of_fibreBound
+            hδ ha hm.1.le hm.2.le hb hfib
+        let W : ℝ := ((b - a : ℕ) : ℝ)
+        let P : ℝ := ((2 ^ j : ℕ) : ℝ)
+        have hW0 : 0 ≤ W := by dsimp [W]; positivity
+        have hWP : W ≤ P := by
+          dsimp [W, P]
+          exact_mod_cast hwidth
+        have hres' :
+            ‖primeSieveSignedSiblingPacketResidual y x a m b‖ ≤
+              2 * W * δ := by
+          simpa [m, W] using hres
+        have hsq :
+            ‖primeSieveSignedSiblingPacketResidual y x a m b‖ ^ 2 ≤
+              (2 * W * δ) ^ 2 :=
+          pow_le_pow_left₀ (norm_nonneg _) hres' 2
+        have hcube : W ^ 3 ≤ P ^ 3 :=
+          pow_le_pow_left₀ hW0 hWP 3
+        calc
+          (((4 ^ 0 : ℕ) : ℝ)) *
+              primeSieveDyadicPacketIntervalLevelEnergy y x 0 a b =
+            W * ‖primeSieveSignedSiblingPacketResidual y x a m b‖ ^ 2 := by
+              simp [primeSieveDyadicPacketIntervalLevelEnergy, hsplit, m, W]
+          _ ≤ W * (2 * W * δ) ^ 2 :=
+            mul_le_mul_of_nonneg_left hsq hW0
+          _ = (4 * δ ^ 2) * W ^ 3 := by ring
+          _ ≤ (4 * δ ^ 2) * P ^ 3 :=
+            mul_le_mul_of_nonneg_left hcube (by positivity)
+          _ = 4 * δ ^ 2 * (((2 ^ j : ℕ) : ℝ) ^ 3) := by rfl
+      · have hRhs :
+            0 ≤ 4 * δ ^ 2 * (((2 ^ j : ℕ) : ℝ) ^ 3) := by positivity
+        simpa [primeSieveDyadicPacketIntervalLevelEnergy, hsplit] using hRhs
+  | succ level ih =>
+      intro j a b hlevel ha hb hwidth hfib
+      cases j with
+      | zero => omega
+      | succ j =>
+          by_cases hsplit : a + 1 < b
+          · let m := dyadicPacketMidpoint a b
+            have hm := pntGoodMassAttack_midpoint_facts hsplit
+            have hchildren :=
+              pntGoodMassAttack_midpoint_child_widths hsplit hwidth
+            have hmTop : m ≤ x / (y + 1) + 1 := hm.2.le.trans hb
+            have hmOne : 1 ≤ m := ha.trans hm.1.le
+            have hfibLeft : ∀ d ∈ Finset.Ico a m,
+                ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤ δ := by
+              intro d hd
+              apply hfib d
+              rw [Finset.mem_Ico] at hd ⊢
+              omega
+            have hfibRight : ∀ d ∈ Finset.Ico m b,
+                ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤ δ := by
+              intro d hd
+              apply hfib d
+              rw [Finset.mem_Ico] at hd ⊢
+              omega
+            have hleft :=
+              ih j a m (by omega) ha hmTop hchildren.1 hfibLeft
+            have hright :=
+              ih j m b (by omega) hmOne hb hchildren.2 hfibRight
+            let EL : ℝ :=
+              primeSieveDyadicPacketIntervalLevelEnergy y x level a m
+            let ER : ℝ :=
+              primeSieveDyadicPacketIntervalLevelEnergy y x level m b
+            let P : ℝ := ((2 ^ j : ℕ) : ℝ)
+            let F : ℝ := ((4 ^ level : ℕ) : ℝ)
+            have hleft' : F * EL ≤ 4 * δ ^ 2 * P ^ 3 := by
+              simpa [F, EL, P] using hleft
+            have hright' : F * ER ≤ 4 * δ ^ 2 * P ^ 3 := by
+              simpa [F, ER, P] using hright
+            have hsum :
+                F * (EL + ER) ≤ 8 * δ ^ 2 * P ^ 3 := by
+              calc
+                F * (EL + ER) = F * EL + F * ER := by ring
+                _ ≤ (4 * δ ^ 2 * P ^ 3) +
+                    (4 * δ ^ 2 * P ^ 3) := add_le_add hleft' hright'
+                _ = 8 * δ ^ 2 * P ^ 3 := by ring
+            have hscaled :
+                4 * (F * (EL + ER)) ≤ 4 * (8 * δ ^ 2 * P ^ 3) :=
+              mul_le_mul_of_nonneg_left hsum (by norm_num)
+            have hfour :
+                (((4 ^ (level + 1) : ℕ) : ℝ)) = 4 * F := by
+              dsimp [F]
+              rw [pow_succ]
+              push_cast
+              ring
+            have htwo :
+                (((2 ^ (j + 1) : ℕ) : ℝ)) = 2 * P := by
+              dsimp [P]
+              rw [pow_succ]
+              push_cast
+              ring
+            calc
+              (((4 ^ (level + 1) : ℕ) : ℝ)) *
+                  primeSieveDyadicPacketIntervalLevelEnergy
+                    y x (level + 1) a b =
+                4 * (F * (EL + ER)) := by
+                  rw [hfour]
+                  simp [primeSieveDyadicPacketIntervalLevelEnergy,
+                    hsplit, m, EL, ER]
+                  ring
+              _ ≤ 4 * (8 * δ ^ 2 * P ^ 3) := hscaled
+              _ = 4 * δ ^ 2 * (((2 ^ (j + 1) : ℕ) : ℝ) ^ 3) := by
+                rw [htwo]
+                ring
+          · have hRhs :
+                0 ≤ 4 * δ ^ 2 * (((2 ^ (j + 1) : ℕ) : ℝ) ^ 3) := by
+              positivity
+            simpa [primeSieveDyadicPacketIntervalLevelEnergy, hsplit] using hRhs
+
 end RHLean.Analysis
