@@ -83,7 +83,7 @@ theorem nativePNTError_tail_pointwise_improve_evolving
     apply Real.log_pos
     exact_mod_cast (show 1 < N by omega)
   have hLsq : 0 < L ^ 2 := sq_pos_of_pos hL
-  have hcancel := (mul_le_mul_iff_left_0 hLsq).mp
+  have hcancel := (mul_le_mul_iff_right₀ hLsq).mp
     (show |nativePNTError N| * L ^ 2 <=
       ((alpha - delta) * (N : Real)) * L ^ 2 by
         simpa [mul_assoc] using hbound)
