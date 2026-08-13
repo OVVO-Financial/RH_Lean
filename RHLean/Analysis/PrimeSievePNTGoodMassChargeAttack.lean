@@ -782,4 +782,170 @@ theorem primeSieveDyadicPacketBlockDeepEnergy_eq_sum_levelEnergy
     y x (primeSieveDyadicBlockLeft j)
       (primeSieveDyadicBlockRight y x j + 1) J j hJ
 
+-- ATTACK_PATCH: block-deep-global-scale
+
+/-- After rescaling by `8^J`, the unresolved tail of one dyadic block costs at
+most its dyadic depth times the universal hyperbolic fibre constant. -/
+theorem primeSieveDyadicPacketBlockDeepEnergy_scaled_le
+    {k x j J : ℕ}
+    (hk : 2 ≤ k)
+    (hup : x ≤ primorialBlockUpper k) :
+    (((8 ^ J : ℕ) : ℝ)) *
+        primeSieveDyadicPacketBlockDeepEnergy
+          (primorialPNTPrimeSieveCutoff k) x j J ≤
+      (j : ℝ) *
+        (16 * (1 + 1 / Real.log 2) ^ 2 * (x : ℝ) ^ 2) := by
+  let y := primorialPNTPrimeSieveCutoff k
+  let c : ℝ := 1 + 1 / Real.log 2
+  let C : ℝ := 16 * c ^ 2 * (x : ℝ) ^ 2
+  have hC0 : 0 ≤ C := by
+    dsimp [C, c]
+    have hlog2 : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
+    positivity
+  by_cases hdead : j ≤ J
+  · rw [primeSieveDyadicPacketBlockDeepEnergy_eq_zero_of_depth_le hdead]
+    have : 0 ≤ (j : ℝ) * C := mul_nonneg (by positivity) hC0
+    simpa [C, c] using this
+  · have hJj : J ≤ j := (Nat.lt_of_not_ge hdead).le
+    rw [primeSieveDyadicPacketBlockDeepEnergy_eq_sum_levelEnergy hJj,
+      Finset.mul_sum]
+    calc
+      (∑ level ∈ Finset.Ico J j,
+          (((8 ^ J : ℕ) : ℝ)) *
+            primeSieveDyadicPacketIntervalLevelEnergy y x level
+              (primeSieveDyadicBlockLeft j)
+              (primeSieveDyadicBlockRight y x j + 1)) ≤
+        ∑ _level ∈ Finset.Ico J j, C := by
+          apply Finset.sum_le_sum
+          intro level hlevel
+          have hLI := Finset.mem_Ico.mp hlevel
+          have h2 : 2 ^ J ≤ 2 ^ j :=
+            (Nat.pow_le_pow_iff_right (by norm_num : 1 < (2 : ℕ))).2 hJj
+          have h4 : 4 ^ J ≤ 4 ^ level :=
+            (Nat.pow_le_pow_iff_right (by norm_num : 1 < (4 : ℕ))).2 hLI.1.le
+          have hcoefNat : 8 ^ J ≤ 2 ^ j * 4 ^ level := by
+            calc
+              8 ^ J = (2 * 4) ^ J := by norm_num
+              _ = 2 ^ J * 4 ^ J := by rw [mul_pow]
+              _ ≤ 2 ^ j * 4 ^ level := Nat.mul_le_mul h2 h4
+          have hcoef :
+              (((8 ^ J : ℕ) : ℝ)) ≤
+                (((2 ^ j : ℕ) : ℝ)) * (((4 ^ level : ℕ) : ℝ)) := by
+            exact_mod_cast hcoefNat
+          have hE0 := primeSieveDyadicPacketIntervalLevelEnergy_nonneg
+            y x level (primeSieveDyadicBlockLeft j)
+              (primeSieveDyadicBlockRight y x j + 1)
+          have hscale := mul_le_mul_of_nonneg_right hcoef hE0
+          have hlevelBound :=
+            primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
+              (k := k) (x := x) (j := j) (level := level)
+              hk hup hLI.2.le
+          exact hscale.trans (by simpa [y, C, c] using hlevelBound)
+      _ = (((j - J : ℕ) : ℝ)) * C := by
+        simp [Nat.card_Ico, nsmul_eq_mul]
+      _ ≤ (j : ℝ) * C := by
+        have hsub : j - J ≤ j := Nat.sub_le j J
+        have hsubR : (((j - J : ℕ) : ℝ)) ≤ (j : ℝ) := by
+          exact_mod_cast hsub
+        exact mul_le_mul_of_nonneg_right hsubR hC0
+      _ = (j : ℝ) *
+          (16 * (1 + 1 / Real.log 2) ^ 2 * (x : ℝ) ^ 2) := by
+        rfl
+
+/-- Every occupied dyadic label is at most the binary logarithmic depth of the
+ambient reciprocal support. -/
+private theorem pntGoodMassAttack_dyadicIndex_le_log_succ
+    {y x j : ℕ}
+    (hj : j ∈ primeSieveDyadicBlockIndices y x) :
+    j ≤ Nat.log 2 (x + 1) := by
+  classical
+  rcases Finset.mem_image.mp hj with ⟨d, hd, hidx⟩
+  have hdI := Finset.mem_Icc.mp hd
+  have hdx : d ≤ x + 1 := by
+    calc
+      d ≤ x / (y + 1) := hdI.2
+      _ ≤ x := Nat.div_le_self _ _
+      _ ≤ x + 1 := by omega
+  rw [← hidx]
+  simpa [primeSieveDyadicIndex, Nat.log2_eq_log_two] using
+    (Nat.log_mono_right hdx)
+
+/-- The total number and total depth of occupied reciprocal dyadic labels are
+both logarithmic.  A deliberately coarse square is convenient for the final
+subpolynomial absorption. -/
+private theorem pntGoodMassAttack_sum_dyadicIndices_le_log_sq
+    (y x : ℕ) :
+    (∑ j ∈ primeSieveDyadicBlockIndices y x, (j : ℝ)) ≤
+      (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ)) ^ 2 := by
+  classical
+  let M : ℕ := Nat.log 2 (x + 1)
+  let S : Finset ℕ := primeSieveDyadicBlockIndices y x
+  have hpoint : ∀ j ∈ S, (j : ℝ) ≤ (((M + 1 : ℕ) : ℝ)) := by
+    intro j hj
+    have hjM : j ≤ M := by
+      simpa [S, M] using pntGoodMassAttack_dyadicIndex_le_log_succ hj
+    exact_mod_cast (hjM.trans (Nat.le_succ M))
+  have hsubset : S ⊆ Finset.range (M + 1) := by
+    intro j hj
+    have hjM : j ≤ M := by
+      simpa [S, M] using pntGoodMassAttack_dyadicIndex_le_log_succ hj
+    exact Finset.mem_range.mpr (Nat.lt_succ_of_le hjM)
+  have hcardNat : S.card ≤ M + 1 := by
+    simpa using Finset.card_le_card hsubset
+  have hcard : (S.card : ℝ) ≤ (((M + 1 : ℕ) : ℝ)) := by
+    exact_mod_cast hcardNat
+  change (∑ j ∈ S, (j : ℝ)) ≤ (((M + 1 : ℕ) : ℝ)) ^ 2
+  calc
+    (∑ j ∈ S, (j : ℝ)) ≤
+        ∑ _j ∈ S, (((M + 1 : ℕ) : ℝ)) := by
+      apply Finset.sum_le_sum
+      intro j hj
+      exact hpoint j hj
+    _ = (S.card : ℝ) * (((M + 1 : ℕ) : ℝ)) := by simp
+    _ ≤ (((M + 1 : ℕ) : ℝ)) * (((M + 1 : ℕ) : ℝ)) :=
+      mul_le_mul_of_nonneg_right hcard (by positivity)
+    _ = (((M + 1 : ℕ) : ℝ)) ^ 2 := by ring
+
+/-- Global hyperbolic scaling of the packet deep tail.  The only remaining loss
+is the square of the binary dyadic depth. -/
+theorem primeSieveDyadicPacketDeepEnergy_scaled_le
+    {k x J : ℕ}
+    (hk : 2 ≤ k)
+    (hup : x ≤ primorialBlockUpper k) :
+    (((8 ^ J : ℕ) : ℝ)) *
+        primeSieveDyadicPacketDeepEnergy
+          (primorialPNTPrimeSieveCutoff k) x J ≤
+      16 * (1 + 1 / Real.log 2) ^ 2 *
+        (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ)) ^ 2 *
+        (x : ℝ) ^ 2 := by
+  let y := primorialPNTPrimeSieveCutoff k
+  let c : ℝ := 1 + 1 / Real.log 2
+  let C : ℝ := 16 * c ^ 2 * (x : ℝ) ^ 2
+  have hC0 : 0 ≤ C := by
+    dsimp [C, c]
+    have hlog2 : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
+    positivity
+  rw [primeSieveDyadicPacketDeepEnergy_eq_sum_blockDeepEnergy,
+    Finset.mul_sum]
+  calc
+    (∑ j ∈ primeSieveDyadicBlockIndices y x,
+        (((8 ^ J : ℕ) : ℝ)) *
+          primeSieveDyadicPacketBlockDeepEnergy y x j J) ≤
+      ∑ j ∈ primeSieveDyadicBlockIndices y x, (j : ℝ) * C := by
+        apply Finset.sum_le_sum
+        intro j _hj
+        have hb := primeSieveDyadicPacketBlockDeepEnergy_scaled_le
+          (k := k) (x := x) (j := j) (J := J) hk hup
+        simpa [y, C, c] using hb
+    _ = (∑ j ∈ primeSieveDyadicBlockIndices y x, (j : ℝ)) * C := by
+      rw [Finset.sum_mul]
+    _ ≤ (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ)) ^ 2 * C :=
+      mul_le_mul_of_nonneg_right
+        (pntGoodMassAttack_sum_dyadicIndices_le_log_sq y x) hC0
+    _ = 16 * (1 + 1 / Real.log 2) ^ 2 *
+        (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ)) ^ 2 *
+        (x : ℝ) ^ 2 := by
+      dsimp [C, c]
+      ring
+
 end RHLean.Analysis
