@@ -1,4 +1,4 @@
--- ATTACK_REPLACE_TAIL: dyadic-level-specialization-fix
+-- ATTACK_REPLACE_TAIL: dyadic-level-specialization-warning-fix
 -- REPLACE_FROM: -- ATTACK_PATCH: dyadic-level-specialization
 -- ATTACK_PATCH: dyadic-level-specialization
 
@@ -14,14 +14,12 @@ private theorem pntGoodMassAttack_dyadicBlock_width_le_two_pow
   rw [pow_succ] at hright ⊢
   omega
 
-/-- On one occupied reciprocal dyadic block, the fibre estimate and midpoint
-geometry combine to an exact scale-invariant level-energy bound. -/
+/-- On one reciprocal dyadic block, the fibre estimate and midpoint geometry
+combine to an exact scale-invariant level-energy bound. -/
 theorem primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
     {k x j level : ℕ}
     (hk : 2 ≤ k)
     (hup : x ≤ primorialBlockUpper k)
-    (hj : j ∈ primeSieveDyadicBlockIndices
-      (primorialPNTPrimeSieveCutoff k) x)
     (hlevel : level ≤ j) :
     (((2 ^ j : ℕ) : ℝ)) * (((4 ^ level : ℕ) : ℝ)) *
         primeSieveDyadicPacketIntervalLevelEnergy
@@ -86,7 +84,7 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
     _ ≤ P * (4 * δ ^ 2 * P ^ 3) := hscaled
     _ = 16 * c ^ 2 * (x : ℝ) ^ 2 := by
       dsimp [δ]
-      field_simp [ne_of_gt hPpos] <;> ring
+      field_simp [ne_of_gt hPpos]; ring
 
 /-- Finite telescoping of exact packet levels reconstructs every interval-tree
 energy difference. -/
