@@ -150,7 +150,7 @@ theorem primeSieveDyadicPacketIntervalDeepRelativeEnvelope_eq_max_level_succ
             simp only [hsplit, if_true]
             let m := dyadicPacketMidpoint a b
             rw [ih depth a m, ih depth m b]
-            simp only [max_assoc, max_left_comm, max_comm]
+            simp only [m, max_assoc, max_left_comm, max_comm]
           · simp [primeSieveDyadicPacketIntervalDeepRelativeEnvelope_succ,
               primeSieveDyadicPacketIntervalLevelRelativeEnvelope_succ_succ,
               hsplit]
