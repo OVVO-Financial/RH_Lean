@@ -145,7 +145,7 @@ theorem nativePNTError_tail_pointwise_strict_improve_evolving
     (hgain :
       delta * (N : Real) * (Real.log (N : Real)) ^ 2 <=
         nativePNTEvolvingTailNetGain R N M alpha beta) :
-    alpha - delta < alpha /\
+    alpha - delta < alpha ∧
       |nativePNTError N| <= (alpha - delta) * (N : Real) := by
   constructor
   · linarith
