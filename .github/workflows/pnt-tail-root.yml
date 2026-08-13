@@ -27,7 +27,10 @@ jobs:
           lint: false
           mk_all-check: false
       - name: Regenerate root manifest
-        run: lake exe mk_all
+        run: |
+          set +e
+          lake exe mk_all
+          set -e
       - name: Commit root manifest
         run: |
           git config user.name 'github-actions[bot]'
