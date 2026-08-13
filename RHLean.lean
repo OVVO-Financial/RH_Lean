@@ -60,6 +60,7 @@ import RHLean.Analysis.NativePNTOptimalInterceptGrowth
 import RHLean.Analysis.NativePNTOptimalInterceptStep
 import RHLean.Analysis.NativePNTQuadraticBudget
 import RHLean.Analysis.NativePNTQuantitativeStatements
+import RHLean.Analysis.NativePNTReciprocalInterceptPowerBound
 import RHLean.Analysis.NativePNTReciprocalSquareCore
 import RHLean.Analysis.NativePNTRemainderProfileCompose
 import RHLean.Analysis.NativePNTRemainderProfileCore
@@ -89,6 +90,8 @@ import RHLean.Analysis.NativePNTSquarePrefixTailReciprocalBound
 import RHLean.Analysis.NativePNTSquarePrefixTailStep
 import RHLean.Analysis.NativePNTSquarePrefixTransfer
 import RHLean.Analysis.NativePNTSummatorySelberg
+import RHLean.Analysis.NativePNTTailAffineEnvelope
+import RHLean.Analysis.NativePNTTailOptimalIntercept
 import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
