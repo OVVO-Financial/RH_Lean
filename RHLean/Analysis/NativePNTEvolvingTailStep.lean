@@ -99,7 +99,7 @@ theorem nativePNTError_tail_pointwise_le_evolvingSlopeUpdate
     apply Real.log_pos
     exact_mod_cast (show 1 < N by omega)
   have hden :
-      (N : Real) * (Real.log (N : Real)) ^ 2 != 0 :=
+      (N : Real) * (Real.log (N : Real)) ^ 2 ≠ 0 :=
     ne_of_gt (mul_pos hNR (sq_pos_of_pos hlog))
   unfold nativePNTEvolvingTailSlopeGain
   calc
