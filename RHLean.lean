@@ -117,6 +117,7 @@ import RHLean.Analysis.PrimeSievePNTGoodMassChargeAttack
 import RHLean.Analysis.PrimeSievePNTResidualEnvelope
 import RHLean.Analysis.PrimeSieveQuotientPNTError
 import RHLean.Analysis.PrimeSieveReciprocalChildVariance
+import RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGain
 import RHLean.Analysis.PrimeWheelArithmeticSpectrum
 import RHLean.Analysis.PrimeWheelCoconductorGram
 import RHLean.Analysis.PrimeWheelCoconductorLowGram
