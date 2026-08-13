@@ -6,31 +6,40 @@ noncomputable section
 
 namespace RHLean.Analysis
 
+/-- A genuine PNT tail beginning at physical cutoff `M`. -/
 def PrimeSieveStateDependentSelbergTailAbove
     (M : Nat) (alpha : Real) : Prop :=
   2 <= M ∧ 0 < alpha ∧
     forall q : Nat, M <= q ->
       |nativePNTError q| <= alpha * (q : Real)
 
-def PrimeSieveStateDependentSelbergCubicGainAbove
-    (M : Nat) (alpha c : Real) : Prop :=
-  forall N : Nat, M <= N ->
-    ∃ beta : Real,
-      0 <= beta ∧ beta < alpha ∧
-        PrimeSieveStateDependentSelbergStateHasPowerGain
-          c 3 N M alpha beta
+/-- One cubic contraction is available from the old cutoff `M` once the
+physical scale has advanced to `L`.  The gain still uses the old tail cutoff,
+so no information is discarded when the new onset is chosen. -/
+def PrimeSieveStateDependentSelbergCubicGainFromTo
+    (M L : Nat) (alpha c : Real) : Prop :=
+  M <= L ∧
+    forall N : Nat, L <= N ->
+      ∃ beta : Real,
+        0 <= beta ∧ beta < alpha ∧
+          PrimeSieveStateDependentSelbergStateHasPowerGain
+            c 3 N M alpha beta
 
-theorem primeSieveStateDependentSelberg_cubicGainAbove_step
-    (M : Nat) (alpha c : Real)
+/-- A cubic gain valid beyond `L` upgrades an old `M`-tail to the contracted
+slope on the new `L`-tail. -/
+theorem primeSieveStateDependentSelberg_cubicGainFromTo_step
+    (M L : Nat) (alpha c : Real)
     (htail : PrimeSieveStateDependentSelbergTailAbove M alpha)
-    (hgain : PrimeSieveStateDependentSelbergCubicGainAbove M alpha c)
+    (hgain : PrimeSieveStateDependentSelbergCubicGainFromTo M L alpha c)
     (hnext : 0 < alpha - c * alpha ^ 3) :
     PrimeSieveStateDependentSelbergTailAbove
-      M (alpha - c * alpha ^ 3) := by
+      L (alpha - c * alpha ^ 3) := by
   rcases htail with ⟨hM2, halpha, htail⟩
-  refine ⟨hM2, hnext, ?_⟩
-  intro N hMN
-  rcases hgain N hMN with ⟨beta, hbeta0, hbeta, hpower⟩
+  rcases hgain with ⟨hML, hgain⟩
+  refine ⟨hM2.trans hML, hnext, ?_⟩
+  intro N hLN
+  rcases hgain N hLN with ⟨beta, hbeta0, hbeta, hpower⟩
+  have hMN : M <= N := hML.trans hLN
   have hN2 : 2 <= N := hM2.trans hMN
   have hM1 : 1 <= M := by omega
   have hadm : PrimeSieveStateDependentSelbergAdmissible N M alpha beta :=
@@ -38,21 +47,27 @@ theorem primeSieveStateDependentSelberg_cubicGainAbove_step
   exact primeSieveStateDependentSelberg_error_le_power_contraction
     N M alpha beta c 3 hadm hpower
 
-def PrimeSieveStateDependentSelbergFiniteCubicGainChain
-    (M : Nat) (c : Real) (a : Nat -> Real) : Nat -> Prop
+/-- The first `n` cubic contractions, with an explicit physical cutoff at every
+stage. -/
+def PrimeSieveStateDependentSelbergFiniteCubicScaleChain
+    (M : Nat -> Nat) (c : Real) (a : Nat -> Real) : Nat -> Prop
   | 0 => True
   | n + 1 =>
-      PrimeSieveStateDependentSelbergFiniteCubicGainChain M c a n ∧
-        PrimeSieveStateDependentSelbergCubicGainAbove M (a n) c
+      PrimeSieveStateDependentSelbergFiniteCubicScaleChain M c a n ∧
+        PrimeSieveStateDependentSelbergCubicGainFromTo
+          (M n) (M (n + 1)) (a n) c
 
-theorem primeSieveStateDependentSelberg_finite_cubic_chain_persists
-    (M : Nat) (c : Real) (a : Nat -> Real)
+/-- **Effective persistence.**  A finite moving-cutoff gain chain produces a
+true PNT tail at every target depth, with exactly the cutoff recorded by the
+chain. -/
+theorem primeSieveStateDependentSelberg_finite_cubic_scale_chain_persists
+    (M : Nat -> Nat) (c : Real) (a : Nat -> Real)
     (hpos : forall n : Nat, 0 < a n)
     (hrec : forall n : Nat, a (n + 1) = a n - c * (a n) ^ 3)
-    (htail0 : PrimeSieveStateDependentSelbergTailAbove M (a 0))
+    (htail0 : PrimeSieveStateDependentSelbergTailAbove (M 0) (a 0))
     (n : Nat)
-    (hgain : PrimeSieveStateDependentSelbergFiniteCubicGainChain M c a n) :
-    PrimeSieveStateDependentSelbergTailAbove M (a n) := by
+    (hgain : PrimeSieveStateDependentSelbergFiniteCubicScaleChain M c a n) :
+    PrimeSieveStateDependentSelbergTailAbove (M n) (a n) := by
   revert hgain
   induction n with
   | zero =>
@@ -61,27 +76,30 @@ theorem primeSieveStateDependentSelberg_finite_cubic_chain_persists
   | succ n ih =>
       intro hgain
       change
-        PrimeSieveStateDependentSelbergFiniteCubicGainChain M c a n ∧
-          PrimeSieveStateDependentSelbergCubicGainAbove M (a n) c at hgain
+        PrimeSieveStateDependentSelbergFiniteCubicScaleChain M c a n ∧
+          PrimeSieveStateDependentSelbergCubicGainFromTo
+            (M n) (M (n + 1)) (a n) c at hgain
       rcases hgain with ⟨hprev, hstepGain⟩
       have htailn := ih hprev
       have hnext : 0 < a n - c * (a n) ^ 3 := by
         simpa [hrec n] using hpos (n + 1)
-      have hstep := primeSieveStateDependentSelberg_cubicGainAbove_step
-        M (a n) c htailn hstepGain hnext
+      have hstep := primeSieveStateDependentSelberg_cubicGainFromTo_step
+        (M n) (M (n + 1)) (a n) c htailn hstepGain hnext
       rw [hrec n]
       exact hstep
 
-theorem primeSieveStateDependentSelberg_tail_le_eta_of_cubic_budget
-    (M : Nat) (c eta : Real) (a : Nat -> Real)
+/-- The scalar reciprocal-square budget and the moving-cutoff persistence chain
+combine without any affine globalization. -/
+theorem primeSieveStateDependentSelberg_tail_le_eta_of_cubic_scale_budget
+    (M : Nat -> Nat) (c eta : Real) (a : Nat -> Real)
     (hc : 0 <= c) (heta : 0 < eta)
     (hpos : forall n : Nat, 0 < a n)
     (hrec : forall n : Nat, a (n + 1) = a n - c * (a n) ^ 3)
-    (htail0 : PrimeSieveStateDependentSelbergTailAbove M (a 0))
+    (htail0 : PrimeSieveStateDependentSelbergTailAbove (M 0) (a 0))
     (n : Nat)
-    (hgain : PrimeSieveStateDependentSelbergFiniteCubicGainChain M c a n)
+    (hgain : PrimeSieveStateDependentSelbergFiniteCubicScaleChain M c a n)
     (hbudget : 1 < 2 * c * (n : Real) * eta ^ 2) :
-    forall N : Nat, M <= N ->
+    forall N : Nat, M n <= N ->
       |nativePNTError N| <= eta * (N : Real) := by
   have hrec_le : forall j : Nat,
       a (j + 1) <= a j - c * (a j) ^ 3 := by
@@ -91,7 +109,7 @@ theorem primeSieveStateDependentSelberg_tail_le_eta_of_cubic_budget
     cubic_contraction_inequality_le_eta_of_budget
       a c eta hc heta hpos hrec_le n hbudget
   have htailn :=
-    primeSieveStateDependentSelberg_finite_cubic_chain_persists
+    primeSieveStateDependentSelberg_finite_cubic_scale_chain_persists
       M c a hpos hrec htail0 n hgain
   intro N hMN
   have hbound := htailn.2.2 N hMN
@@ -106,17 +124,19 @@ def NativePNTQuadraticTailScaleLaw (K : Real) : Prop :=
       (forall N : Nat, M <= N ->
         |nativePNTError N| <= eta * (N : Real))
 
-/-- Finite cubic surplus package with physical scale matched to eta^(-2). -/
+/-- The exact arithmetic target for the generalized cubic engine: for each
+small `eta`, exhibit a finite moving-cutoff contraction chain whose terminal
+physical scale is `O(eta^(-2))`. -/
 def PrimeSieveStateDependentSelbergQuadraticScaleCubicLaw
     (K c : Real) : Prop :=
   0 < K ∧ 0 <= c ∧
     forall eta : Real, 0 < eta -> eta <= 1 ->
-      ∃ M : Nat, ∃ a : Nat -> Real, ∃ n : Nat,
-        (M : Real) * eta ^ 2 <= K ∧
+      ∃ M : Nat -> Nat, ∃ a : Nat -> Real, ∃ n : Nat,
+        ((M n : Nat) : Real) * eta ^ 2 <= K ∧
         (forall j : Nat, 0 < a j) ∧
         (forall j : Nat, a (j + 1) = a j - c * (a j) ^ 3) ∧
-        PrimeSieveStateDependentSelbergTailAbove M (a 0) ∧
-        PrimeSieveStateDependentSelbergFiniteCubicGainChain M c a n ∧
+        PrimeSieveStateDependentSelbergTailAbove (M 0) (a 0) ∧
+        PrimeSieveStateDependentSelbergFiniteCubicScaleChain M c a n ∧
         1 < 2 * c * (n : Real) * eta ^ 2
 
 theorem nativePNTQuadraticTailScaleLaw_of_stateDependentCubicGain
@@ -128,12 +148,12 @@ theorem nativePNTQuadraticTailScaleLaw_of_stateDependentCubicGain
   intro eta heta heta1
   rcases hlaw eta heta heta1 with
     ⟨M, a, n, hscale, hpos, hrec, htail0, hgain, hbudget⟩
-  refine ⟨M, hscale, ?_⟩
-  exact primeSieveStateDependentSelberg_tail_le_eta_of_cubic_budget
+  refine ⟨M n, hscale, ?_⟩
+  exact primeSieveStateDependentSelberg_tail_le_eta_of_cubic_scale_budget
     M c eta a hc heta hpos hrec htail0 n hgain hbudget
 
-/-- Quadratic physical cutoff growth changes the PNT bound to square-root
-scale for all N beyond the fixed scale parameter K. -/
+/-- **Bound-changing theorem.**  Quadratic terminal cutoff growth in the small
+target slope implies square-root Chebyshev error beyond the fixed scale `K`. -/
 theorem nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
     (K : Real) (hlaw : NativePNTQuadraticTailScaleLaw K)
     (N : Nat) (hN : 1 <= N) (hKN : K <= (N : Real)) :
