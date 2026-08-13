@@ -27,6 +27,7 @@ theorem nativePNTError_tail_pointwise_improve
           (Real.log (N : ℝ)) ^ 2) :
     |nativePNTError N| ≤
       (alpha - ((alpha - beta) * c) / 4) * (N : ℝ) := by
+  have _halpha6 := halpha6
   let L : ℝ := Real.log (N : ℝ)
   let delta : ℝ := ((alpha - beta) * c) / 4
   let S : ℝ := nativeLambdaTwoSmallQuotientRecipMass N M
