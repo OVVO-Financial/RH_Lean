@@ -48,7 +48,7 @@ theorem nativePNTMobiusReciprocalSignedErrorMass_eq_wheel_add_residual
   apply Finset.sum_congr rfl
   intro m _hm
   push_cast
-  ring
+  simpa [mul_comm]
 
 /-- Exact signed non-recursive Selberg remainder.  Unlike the absolute profile,
 this object has not paid a triangle inequality on the Mobius reciprocal mass. -/
@@ -114,7 +114,7 @@ theorem partialPrimeWheelSite_eq_moebius_of_endpoint_le_cutoff
   have hall : ∀ p ∈ m.primeFactors, p ≤ y := by
     intro p hp
     have hpData := Nat.mem_primeFactors.mp hp
-    have hpdvd : p ∣ m := hpData.2
+    have hpdvd : p ∣ m := hpData.2.1
     have hpm : p ≤ m := Nat.le_of_dvd (by omega) hpdvd
     exact hpm.trans (hmI.2.trans hNy)
   have hunres : RHLean.Arithmetic.primeWheelUnresolvedPart y m = 1 :=
