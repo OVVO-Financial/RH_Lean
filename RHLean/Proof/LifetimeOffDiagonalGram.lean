@@ -88,7 +88,7 @@ theorem card_birthCanonicalHighAtomSet_le_square
   calc
     (∑ j ∈ Finset.range (T + 1),
         ((canonicalSquareBlock j).filter
-          (fun m => canonicalIsHighAt Λ j m)).card) ≤
+          (fun m => IsCanonicalHighHeight Λ j m)).card) ≤
       ∑ j ∈ Finset.range (T + 1), (canonicalSquareBlock j).card := by
         apply Finset.sum_le_sum
         intro j _hj
@@ -111,7 +111,7 @@ private theorem norm_lifetimeOverlapKernel_self_le
   rw [lifetimeOverlapKernel_self]
   calc
     ‖∑ h ∈ Finset.range H,
-        if IsLifetimeActive Λ p (N + h) then 1 else 0‖ ≤
+        if IsLifetimeActive Λ p (N + h) then (1 : ℂ) else 0‖ ≤
       ∑ h ∈ Finset.range H,
         ‖if IsLifetimeActive Λ p (N + h) then (1 : ℂ) else 0‖ := by
           exact norm_sum_le _ _
@@ -135,7 +135,7 @@ private theorem norm_canonical_diagonal_term_le
         lifetimeOverlapKernel Λ N H p p‖ =
       (‖canonicalHighAtomWeight p‖ * ‖canonicalHighAtomWeight p‖) *
         ‖lifetimeOverlapKernel Λ N H p p‖ := by
-          simp [norm_mul]
+          simp
     _ ≤ 1 * ‖lifetimeOverlapKernel Λ N H p p‖ :=
       mul_le_mul_of_nonneg_right hw2 (norm_nonneg _)
     _ ≤ (H : ℝ) := by simpa using hk
