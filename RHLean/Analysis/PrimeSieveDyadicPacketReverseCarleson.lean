@@ -253,7 +253,8 @@ theorem dyadicPacketReverseCarlesonBlockBounded_of_siblingDescendantPersistence
     exact Real.rpow_nonneg (by positivity) _
   have hP1 : 1 ≤ P := by
     dsimp [P]
-    have hbase : (1 : ℝ) ≤ (x : ℝ) + 1 := by positivity
+    have hx0 : (0 : ℝ) ≤ (x : ℝ) := by positivity
+    have hbase : (1 : ℝ) ≤ (x : ℝ) + 1 := by linarith
     have h := Real.rpow_le_rpow (by norm_num : (0 : ℝ) ≤ 1) hbase hε.le
     simpa using h
   have hcoef : 1 ≤ (C + 1) * P := by
