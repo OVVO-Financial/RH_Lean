@@ -53,6 +53,7 @@ theorem nativeLambdaTwoRecipIntervalMass_abel
           ∑ n ∈ Finset.Ico 1 A, f n =
         ∑ n ∈ Finset.Ico A B, f n := by
     rw [← Finset.sum_sdiff hsub, hset]
+    ring
   change
     nativeLambdaTwoSummatory B / (B : ℝ) +
           ∑ n ∈ Finset.Ico 1 B, f n -

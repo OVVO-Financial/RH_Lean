@@ -33,7 +33,7 @@ theorem nativeLambdaTwoGoodTailRecipMass_add_bad_eq
   unfold nativeLambdaTwoGoodTailRecipMass nativeLambdaTwoBadTailRecipMass
     nativeLambdaTwoTailRecipMass nativePNTSquarePrefixGoodTailFiberSet
     nativePNTSquarePrefixBadTailFiberSet
-  exact Finset.sum_filter_add_sum_filter_not
+  apply Finset.sum_filter_add_sum_filter_not
 
 /-- Once the quotient is beyond `M`, every non-good fibre pays only the
 previously established pure slope `alpha`; no additive intercept is needed. -/

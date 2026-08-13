@@ -9,7 +9,7 @@ namespace RHLean.Analysis
 finite quotient prefix now costs only its reciprocal `Lambda_2` mass. -/
 theorem nativeLambdaTwoErrorMass_tail_compensation
     (N M : ℕ) (alpha beta : ℝ)
-    (halpha : 0 ≤ alpha) (hbeta : 0 ≤ beta) (_hba : beta ≤ alpha)
+    (halpha : 0 ≤ alpha) (_hbeta : 0 ≤ beta) (_hba : beta ≤ alpha)
     (htail : ∀ q : ℕ, M ≤ q →
       |nativePNTError q| ≤ alpha * (q : ℝ)) :
     nativeLambdaTwoErrorMass N ≤
