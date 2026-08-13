@@ -58,6 +58,7 @@ import RHLean.Analysis.PrimeDilateTransportCompression
 import RHLean.Analysis.PrimeSieveAbelIdentity
 import RHLean.Analysis.PrimeSieveBackwardAffineExcursion
 import RHLean.Analysis.PrimeSieveBaseEightShallowAttack
+import RHLean.Analysis.PrimeSieveClassicalDyadicVariation
 import RHLean.Analysis.PrimeSieveCollapseIdentity
 import RHLean.Analysis.PrimeSieveDyadicAnalyticBridge
 import RHLean.Analysis.PrimeSieveDyadicChordEnergy
