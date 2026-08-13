@@ -252,6 +252,7 @@ import RHLean.Proof.InternalBlockLifetimeGram
 import RHLean.Proof.JointGramControl
 import RHLean.Proof.LifetimeActiveSet
 import RHLean.Proof.LifetimeEndpointDecomposition
+import RHLean.Proof.LifetimeEndpointDiscrepancyAttack
 import RHLean.Proof.LifetimeGramArchitectureBridge
 import RHLean.Proof.LifetimeLocalEnergyCriterion
 import RHLean.Proof.LifetimeOverlapKernel
