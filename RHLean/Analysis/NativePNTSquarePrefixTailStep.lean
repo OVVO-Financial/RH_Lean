@@ -8,6 +8,7 @@ namespace RHLean.Analysis
 /-- **Finite no-intercept PNT contraction.**  A previously established pure
 tail slope `alpha` contracts at the actual endpoint `N`.  The only finite-scale
 cost is the small-quotient reciprocal mass `S`; no affine intercept appears.
+This is the recurrence intended for quantitative tail iteration.
 -/
 theorem nativePNTError_tail_pointwise_improve
     (N M : ℕ) (alpha beta c : ℝ)
