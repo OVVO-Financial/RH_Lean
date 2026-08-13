@@ -113,7 +113,8 @@ theorem partialPrimeWheelSite_eq_moebius_of_endpoint_le_cutoff
   have hmpos : 0 < m := by omega
   have hall : ∀ p ∈ m.primeFactors, p ≤ y := by
     intro p hp
-    rcases Nat.mem_primeFactors.mp hp with ⟨_hpPrime, hpdvd, _hm0⟩
+    have hpData := Nat.mem_primeFactors.mp hp
+    have hpdvd : p ∣ m := hpData.2
     have hpm : p ≤ m := Nat.le_of_dvd (by omega) hpdvd
     exact hpm.trans (hmI.2.trans hNy)
   have hunres : RHLean.Arithmetic.primeWheelUnresolvedPart y m = 1 :=
