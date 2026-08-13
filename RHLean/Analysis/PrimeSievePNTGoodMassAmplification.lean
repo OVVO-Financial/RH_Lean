@@ -251,13 +251,15 @@ theorem dyadicPacketAdditiveDescendantPersistence_of_pntGoodMassCharge
   have hQpos : 0 < Q := by
     dsimp [Q]
     exact pow_pos hlogpos 2
-  have hcancel : (1 / 6600000 : ℝ) * D ≤ C * P * A := by
-    apply (mul_le_mul_iff_left₀ hQpos).mp
+  have hscaled :
+      ((1 / 6600000 : ℝ) * D) * Q ≤ (C * P * A) * Q := by
     calc
-      Q * ((1 / 6600000 : ℝ) * D) =
+      ((1 / 6600000 : ℝ) * D) * Q =
           (1 / 6600000 : ℝ) * Q * D := by ring
       _ ≤ C * Q * P * A := hcombined
-      _ = Q * (C * P * A) := by ring
+      _ = (C * P * A) * Q := by ring
+  have hcancel : (1 / 6600000 : ℝ) * D ≤ C * P * A :=
+    (mul_le_mul_iff_right₀ hQpos).mp hscaled
   have hfinal : D ≤ (6600000 * C) * P * A := by
     calc
       D = 6600000 * ((1 / 6600000 : ℝ) * D) := by ring
