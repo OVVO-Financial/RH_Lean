@@ -28,7 +28,8 @@ interval for cofactor `c` is precisely the prime set in the reciprocal band
 Thus exact activity really does land on a dyadic reciprocal band.  What it does
 not by itself supply is the critical signed prime-minus-Li square-function
 estimate across all low packet levels.  The final block-uniform square-function
-statement below isolates that remaining analytic frontier.
+statement below isolates that remaining analytic frontier, while the root-level
+corollary isolates the first necessary low-frequency obstruction.
 -/
 
 noncomputable section
@@ -248,6 +249,16 @@ theorem primeSieveDyadicPacketShallowEnergy_eq_sum_intervalLevelEnergy
   intro r _hr
   exact primeSieveDyadicPacketLevelEnergy_eq_sum_intervalLevelEnergy y x r
 
+/-- Shallow packet energy is monotone across arbitrary cutoff depths. -/
+theorem primeSieveDyadicPacketShallowEnergy_mono
+    (y x : ℕ) {r s : ℕ} (hrs : r ≤ s) :
+    primeSieveDyadicPacketShallowEnergy y x r ≤
+      primeSieveDyadicPacketShallowEnergy y x s := by
+  induction s, hrs using Nat.le_induction with
+  | base => exact le_rfl
+  | succ s hrs ih =>
+      exact ih.trans (primeSieveDyadicPacketShallowEnergy_le_succ y x s)
+
 /-- Base-eight successor shallow square function selected by #330. -/
 def primeSieveBaseEightShallowSquareFunction (k x : ℕ) : ℝ :=
   primeSieveReciprocalLowFrequencySquareFunction
@@ -278,6 +289,35 @@ theorem primeSieveBaseEightShallowSquareFunction_eq_sum_levelEnergy
   rw [primeSieveBaseEightShallowSquareFunction_eq_shallowEnergy,
     primeSieveDyadicPacketShallowEnergy_eq_sum_levelEnergy]
 
+/-- The first low-frequency layer of the reciprocal square function.  This is
+the root sibling energy on every occupied dyadic reciprocal block. -/
+def primeSieveReciprocalRootSiblingSquareFunction (y x : ℕ) : ℝ :=
+  primeSieveReciprocalLowFrequencySquareFunction y x 1
+
+/-- The root sibling square function is exactly packet level zero. -/
+theorem primeSieveReciprocalRootSiblingSquareFunction_eq_levelEnergy_zero
+    (y x : ℕ) :
+    primeSieveReciprocalRootSiblingSquareFunction y x =
+      primeSieveDyadicPacketLevelEnergy y x 0 := by
+  unfold primeSieveReciprocalRootSiblingSquareFunction
+  rw [primeSieveReciprocalLowFrequencySquareFunction_eq_shallowEnergy,
+    primeSieveDyadicPacketShallowEnergy_eq_sum_levelEnergy]
+  simp
+
+/-- Necessary root-level analytic estimate.  Any proof of the complete
+base-eight shallow square-function bound must already control this first
+low-frequency sibling layer at critical scale. -/
+def DyadicPrimeReciprocalRootSiblingBlockBoundedStatement : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ (k x : ℕ),
+        2 ≤ k →
+        primorialBlockLower k ≤ x →
+        x ≤ primorialBlockUpper k →
+        primeSieveReciprocalRootSiblingSquareFunction
+            (primorialPNTPrimeSieveCutoff k) x ≤
+          C * Real.rpow ((x : ℝ) + 1) (1 + ε)
+
 /-- The exact low-frequency arithmetic statement exposed by #331.  It asks for
 a critical block-uniform bound on the reciprocal-discrepancy Haar square
 function at the base-eight successor cutoff. -/
@@ -290,6 +330,40 @@ def DyadicPrimeReciprocalLowFrequencySquareFunctionBlockBoundedStatement : Prop 
         x ≤ primorialBlockUpper k →
         primeSieveBaseEightShallowSquareFunction k x ≤
           C * Real.rpow ((x : ℝ) + 1) (1 + ε)
+
+/-- The complete base-eight low-frequency estimate necessarily contains the
+root sibling estimate.  Thus level zero is already a concrete analytic
+obstruction if a direct all-level proof is unavailable. -/
+theorem dyadicPrimeReciprocalLowFrequencySquareFunctionBlockBounded_implies_rootSibling
+    (h : DyadicPrimeReciprocalLowFrequencySquareFunctionBlockBoundedStatement) :
+    DyadicPrimeReciprocalRootSiblingBlockBoundedStatement := by
+  intro ε hε
+  obtain ⟨C, hC, hCb⟩ := h ε hε
+  refine ⟨C, hC, ?_⟩
+  intro k x hk hlow hup
+  let y := primorialPNTPrimeSieveCutoff k
+  let J := dyadicPacketBaseEightCutoff k x
+  have hroot :
+      primeSieveReciprocalRootSiblingSquareFunction y x ≤
+        primeSieveDyadicPacketShallowEnergy y x 1 := by
+    rw [primeSieveReciprocalRootSiblingSquareFunction_eq_levelEnergy_zero]
+    simpa using primeSieveDyadicPacketLevelEnergy_le_shallow_succ y x 0
+  have hmono :
+      primeSieveDyadicPacketShallowEnergy y x 1 ≤
+        primeSieveDyadicPacketShallowEnergy y x (J + 1) :=
+    primeSieveDyadicPacketShallowEnergy_mono y x (by omega)
+  have hfull := hCb k x hk hlow hup
+  change primeSieveReciprocalRootSiblingSquareFunction y x ≤
+    C * Real.rpow ((x : ℝ) + 1) (1 + ε)
+  calc
+    primeSieveReciprocalRootSiblingSquareFunction y x ≤
+        primeSieveDyadicPacketShallowEnergy y x 1 := hroot
+    _ ≤ primeSieveDyadicPacketShallowEnergy y x (J + 1) := hmono
+    _ = primeSieveBaseEightShallowSquareFunction k x := by
+      symm
+      simpa [y, J] using
+        primeSieveBaseEightShallowSquareFunction_eq_shallowEnergy k x
+    _ ≤ C * Real.rpow ((x : ℝ) + 1) (1 + ε) := hfull
 
 /-- The new arithmetic square-function statement is exactly equivalent to the
 remaining successor-shallow packet hypothesis in the #330 terminal package. -/
