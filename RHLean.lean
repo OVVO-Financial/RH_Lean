@@ -34,6 +34,10 @@ import RHLean.Analysis.NativePNTBoundContraction
 import RHLean.Analysis.NativePNTChebyshev
 import RHLean.Analysis.NativePNTErdosContraction
 import RHLean.Analysis.NativePNTErrorMass
+import RHLean.Analysis.NativePNTEvolvingRemainder
+import RHLean.Analysis.NativePNTEvolvingTailCompensation
+import RHLean.Analysis.NativePNTEvolvingTailState
+import RHLean.Analysis.NativePNTEvolvingTailStep
 import RHLean.Analysis.NativePNTInterceptAbsorption
 import RHLean.Analysis.NativePNTInterceptExplicitStep
 import RHLean.Analysis.NativePNTInterceptGrowth
@@ -56,7 +60,10 @@ import RHLean.Analysis.NativePNTOptimalInterceptStep
 import RHLean.Analysis.NativePNTQuadraticBudget
 import RHLean.Analysis.NativePNTQuantitativeStatements
 import RHLean.Analysis.NativePNTReciprocalSquareCore
+import RHLean.Analysis.NativePNTRemainderProfileCompose
+import RHLean.Analysis.NativePNTRemainderProfileCore
 import RHLean.Analysis.NativePNTSelberg
+import RHLean.Analysis.NativePNTSignedWheelRemainder
 import RHLean.Analysis.NativePNTSquarePrefixCompensated
 import RHLean.Analysis.NativePNTSquarePrefixContraction
 import RHLean.Analysis.NativePNTSquarePrefixCubic
