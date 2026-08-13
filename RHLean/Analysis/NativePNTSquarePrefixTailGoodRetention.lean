@@ -25,7 +25,7 @@ theorem nativeLambdaTwoGoodRecipMass_le_goodTail_add_small
   have hsplit :
       (∑ n ∈ GT, w n) + (∑ n ∈ GS, w n) = ∑ n ∈ G, w n := by
     dsimp [GT, GS]
-    exact Finset.sum_filter_add_sum_filter_not
+    apply Finset.sum_filter_add_sum_filter_not
   have hGT :
       (∑ n ∈ GT, w n) = nativeLambdaTwoGoodTailRecipMass N M beta := by
     unfold nativeLambdaTwoGoodTailRecipMass
@@ -33,7 +33,13 @@ theorem nativeLambdaTwoGoodRecipMass_le_goodTail_add_small
     dsimp [GT, G, good, tail, w]
     apply Finset.sum_congr
     · ext n
-      simp [and_left_comm, and_comm]
+      simp only [nativePNTSquarePrefixTailFiberSet, Finset.mem_filter,
+        Finset.mem_Icc]
+      constructor
+      · rintro ⟨⟨⟨hn1, hnN⟩, hgood⟩, htail⟩
+        exact ⟨⟨⟨hn1, hnN⟩, htail⟩, hgood⟩
+      · rintro ⟨⟨⟨hn1, hnN⟩, htail⟩, hgood⟩
+        exact ⟨⟨⟨hn1, hnN⟩, hgood⟩, htail⟩
     · intro n _
       rfl
   have hGSsub : GS ⊆ nativePNTSquarePrefixSmallQuotientFiberSet N M := by
