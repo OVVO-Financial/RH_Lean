@@ -23,7 +23,7 @@ theorem nativeLambdaTwoTailErrorMass_eq_good_add_bad
     nativeLambdaTwoBadTailErrorMass nativePNTSquarePrefixGoodTailFiberSet
     nativePNTSquarePrefixBadTailFiberSet
   symm
-  exact Finset.sum_filter_add_sum_filter_not
+  apply Finset.sum_filter_add_sum_filter_not
 
 /-- The complete second-Selberg error mass is tail plus finite quotient prefix. -/
 theorem nativeLambdaTwoErrorMass_eq_tail_add_small
