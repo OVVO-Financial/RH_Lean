@@ -267,6 +267,64 @@ theorem dyadicPacketDeepEnvelopeFrontierAttainment_of_cubicContraction
       hJ hstrict,
     hstrict⟩
 
+/-! ## The cumulative energy state has an exact one-step decrement -/
+
+/-- Packet energy added exactly at cutoff level `J`, summed over all occupied
+#324 dyadic blocks.  Equivalently, this is the amount removed from the deep
+energy when the cutoff advances from `J` to `J+1`. -/
+def primeSieveDyadicPacketLevelEnergy (y x J : ℕ) : ℝ :=
+  ∑ j ∈ primeSieveDyadicBlockIndices y x,
+    (primeSieveDyadicPacketTreeBlockEnergy y x j (min (J + 1) j) -
+      primeSieveDyadicPacketTreeBlockEnergy y x j (min J j))
+
+/-- One packet level carries nonnegative energy. -/
+theorem primeSieveDyadicPacketLevelEnergy_nonneg
+    (y x J : ℕ) :
+    0 ≤ primeSieveDyadicPacketLevelEnergy y x J := by
+  unfold primeSieveDyadicPacketLevelEnergy
+  apply Finset.sum_nonneg
+  intro j _hj
+  apply sub_nonneg.mpr
+  unfold primeSieveDyadicPacketTreeBlockEnergy
+  exact primeSieveDyadicPacketIntervalTreeEnergy_mono y x (by omega)
+
+/-- **Exact energy decrement.**  Unlike the max envelope, the cumulative deep
+energy cannot hide a deeper maximizer: deleting level `J` subtracts precisely
+that level's packet energy. -/
+theorem primeSieveDyadicPacketDeepEnergy_eq_level_add_succ
+    (y x J : ℕ) :
+    primeSieveDyadicPacketDeepEnergy y x J =
+      primeSieveDyadicPacketLevelEnergy y x J +
+        primeSieveDyadicPacketDeepEnergy y x (J + 1) := by
+  unfold primeSieveDyadicPacketDeepEnergy primeSieveDyadicPacketLevelEnergy
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro j _hj
+  ring
+
+/-- Hence cumulative deep packet energy is monotone in the cutoff. -/
+theorem primeSieveDyadicPacketDeepEnergy_succ_le
+    (y x J : ℕ) :
+    primeSieveDyadicPacketDeepEnergy y x (J + 1) ≤
+      primeSieveDyadicPacketDeepEnergy y x J := by
+  have hlevel := primeSieveDyadicPacketLevelEnergy_nonneg y x J
+  have hdecomp := primeSieveDyadicPacketDeepEnergy_eq_level_add_succ y x J
+  linarith
+
+/-- A cubic lower bound for the deleted level is exactly the missing input for a
+cubic one-step inequality on the cumulative energy state.  This theorem is
+purely deterministic and does not assert such a lower bound. -/
+theorem primeSieveDyadicPacketDeepEnergy_cubic_step_of_level_lower_bound
+    {c : ℝ} {y x J : ℕ}
+    (hlevel :
+      c * (primeSieveDyadicPacketDeepEnergy y x J) ^ 3 ≤
+        primeSieveDyadicPacketLevelEnergy y x J) :
+    primeSieveDyadicPacketDeepEnergy y x (J + 1) ≤
+      primeSieveDyadicPacketDeepEnergy y x J -
+        c * (primeSieveDyadicPacketDeepEnergy y x J) ^ 3 := by
+  have hdecomp := primeSieveDyadicPacketDeepEnergy_eq_level_add_succ y x J
+  linarith
+
 /-- Arbitrarily small max-tail states may still have a positive plateau.  This
 simple scalar model isolates why qualitative smallness plus a max recursion is
 insufficient to force a cubic decrement. -/
