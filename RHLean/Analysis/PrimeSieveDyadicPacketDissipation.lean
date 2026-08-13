@@ -43,6 +43,9 @@ open scoped BigOperators
 
 namespace RHLean.Analysis
 
+open RHLean.Arithmetic
+open RHLean.Proof
+
 /-! ## Exact signed energy on one midpoint-tree level -/
 
 /-- Packet energy carried by exactly one recursive midpoint level on an
@@ -346,8 +349,8 @@ theorem dyadicPacketDeepTailBlockBounded_of_reverseCarleson
       exact congrArg (fun z : ℝ => (CR * CS) * z)
         (Real.rpow_add hbase (ε / 2) (1 + ε / 2)).symm
     _ = (CR * CS) * Real.rpow ((x : ℝ) + 1) (1 + ε) := by
-      congr 1
-      ring
+      have hexp : (ε / 2) + (1 + ε / 2) = 1 + ε := by ring
+      rw [hexp]
 
 /-- Strong level-fraction dissipation plus a critical successor-shallow bound
 controls the complete recursive packet tree. -/
