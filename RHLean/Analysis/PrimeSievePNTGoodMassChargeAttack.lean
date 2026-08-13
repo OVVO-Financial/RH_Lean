@@ -289,4 +289,94 @@ theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_floorScale
         ((x : ℝ) / ((d : ℝ) * ((d + 1 : ℕ) : ℝ)) + 1) :=
       mul_le_mul_of_nonneg_left hgap hcoef
 
+/-- On a live dyadic reciprocal block, the post-square-root support absorbs the
+floor defect in the preceding theorem.  Every fibre on the `j`-th block is
+therefore genuinely of hyperbolic size `O(x / 4^j)`. -/
+theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_dyadicScale
+    {k x j d : ℕ}
+    (hk : 2 ≤ k)
+    (hup : x ≤ primorialBlockUpper k)
+    (hdB : d ∈ primeSieveDyadicBlock
+      (primorialPNTPrimeSieveCutoff k) x j) :
+    ‖primeSieveReciprocalPrimeDiscrepancy
+        (primorialPNTPrimeSieveCutoff k) x d‖ ≤
+      (2 * (1 + 1 / Real.log 2)) *
+        ((x : ℝ) / (((2 ^ j : ℕ) : ℝ) ^ 2)) := by
+  let y := primorialPNTPrimeSieveCutoff k
+  let P : ℝ := ((2 ^ j : ℕ) : ℝ)
+  let D : ℝ := (d : ℝ) * ((d + 1 : ℕ) : ℝ)
+  have hy5 : 5 ≤ primorialWheelCutoff k := five_le_primorialWheelCutoff hk
+  have hy2 : 2 ≤ y := by
+    dsimp [y, primorialPNTPrimeSieveCutoff]
+    omega
+  have hdSupport : d ∈ primeSieveQuotientSupport y x := by
+    simpa [y] using (mem_primeSieveDyadicBlock.mp hdB).1
+  have hdI := Finset.mem_Icc.mp hdSupport
+  have hd1 : 1 ≤ d := hdI.1
+  have hprod : d * (y + 1) ≤ x :=
+    (Nat.le_div_iff_mul_le (Nat.succ_pos y)).1 hdI.2
+  have hroot : Nat.sqrt x < y := by
+    simpa [y] using
+      sqrt_lt_primorialPNTPrimeSieveCutoff_of_le_upper (k := k) hup
+  have hxsq : x < y ^ 2 := by
+    have hs := Nat.lt_succ_sqrt' x
+    have hsy : Nat.sqrt x + 1 ≤ y := by omega
+    nlinarith
+  have hdy : d ≤ y := by
+    by_contra hnot
+    have hyd : y < d := Nat.lt_of_not_ge hnot
+    have hypos : 0 < y := by omega
+    nlinarith [hprod]
+  have hdenxNat : d * (d + 1) ≤ x := by
+    have hsucc : d + 1 ≤ y + 1 := Nat.add_le_add_right hdy 1
+    exact (Nat.mul_le_mul_left d hsucc).trans hprod
+  have hdE := hdB
+  rw [primeSieveDyadicBlock_eq_explicitIcc] at hdE
+  have hpowd : 2 ^ j ≤ d := by
+    have hleft := (Finset.mem_Icc.mp hdE).1
+    simpa [primeSieveDyadicBlockLeft] using hleft
+  have hPpos : 0 < P := by dsimp [P]; positivity
+  have hDpos : 0 < D := by dsimp [D]; positivity
+  have hx0 : 0 ≤ (x : ℝ) := by positivity
+  have hdenx : D ≤ (x : ℝ) := by
+    dsimp [D]
+    exact_mod_cast hdenxNat
+  have hone : (1 : ℝ) ≤ (x : ℝ) / D := by
+    rw [le_div_iff₀ hDpos]
+    simpa using hdenx
+  have hpowdR : P ≤ (d : ℝ) := by
+    dsimp [P]
+    exact_mod_cast hpowd
+  have hsq : P ^ 2 ≤ (d : ℝ) ^ 2 :=
+    pow_le_pow_left₀ hPpos.le hpowdR 2
+  have hdSucc : (d : ℝ) ≤ ((d + 1 : ℕ) : ℝ) := by
+    exact_mod_cast (Nat.le_succ d)
+  have hdsq : (d : ℝ) ^ 2 ≤ D := by
+    dsimp [D]
+    have hmul := mul_le_mul_of_nonneg_left hdSucc (by positivity : (0 : ℝ) ≤ d)
+    simpa [pow_two] using hmul
+  have hdenLower : P ^ 2 ≤ D := hsq.trans hdsq
+  have hP2pos : 0 < P ^ 2 := pow_pos hPpos 2
+  have hdiv : (x : ℝ) / D ≤ (x : ℝ) / (P ^ 2) := by
+    rw [div_le_div_iff₀ hDpos hP2pos]
+    exact mul_le_mul_of_nonneg_left hdenLower hx0
+  have hsum : (x : ℝ) / D + 1 ≤ 2 * ((x : ℝ) / (P ^ 2)) := by
+    nlinarith [hone, hdiv]
+  have hcoef : 0 ≤ 1 + 1 / Real.log 2 := by
+    have hlog2pos : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
+    positivity
+  have hfib :=
+    primeSieveReciprocalPrimeDiscrepancy_norm_le_floorScale hy2 hdSupport
+  calc
+    ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤
+        (1 + 1 / Real.log 2) * ((x : ℝ) / D + 1) := by
+      simpa [D] using hfib
+    _ ≤ (1 + 1 / Real.log 2) *
+        (2 * ((x : ℝ) / (P ^ 2))) :=
+      mul_le_mul_of_nonneg_left hsum hcoef
+    _ = (2 * (1 + 1 / Real.log 2)) *
+        ((x : ℝ) / (P ^ 2)) := by ring
+    _ = (2 * (1 + 1 / Real.log 2)) *
+        ((x : ℝ) / (((2 ^ j : ℕ) : ℝ) ^ 2)) := by rfl
+
 end RHLean.Analysis
