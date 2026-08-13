@@ -36,6 +36,7 @@ theorem birthCanonicalHighAtomSet_filter_lifetimeActive_eq
         (fun p => IsLifetimeActive Λ p t) =
       lifetimeActiveAtomSet Λ t := by
   classical
+  unfold lifetimeActiveAtomSet
   ext p
   simp only [Finset.mem_filter]
   constructor
@@ -83,6 +84,10 @@ theorem lifetimeActive_localSequenceEnergy_cast_eq_canonicalLifetimeWindowEnergy
   intro h hh
   have hhLt : h < H := Finset.mem_range.mp hh
   have ht : N + h ≤ N + H := by omega
+  change
+    (((‖lifetimeActiveAtomMass Λ (N + h)‖ ^ 2 : ℝ) : ℂ)) =
+      conj (canonicalLifetimeAmplitude Λ (N + H) (N + h)) *
+        canonicalLifetimeAmplitude Λ (N + H) (N + h)
   rw [canonicalLifetimeAmplitude_eq_activeMass_of_le ht]
   let A : ℂ := lifetimeActiveAtomMass Λ (N + h)
   change (((‖A‖ ^ 2 : ℝ) : ℂ)) = conj A * A
