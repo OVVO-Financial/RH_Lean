@@ -419,4 +419,169 @@ theorem riemannHypothesis_of_baseEightReciprocalChildIntervalVariancePackage
   · exact dyadicPrimeReciprocalChildIntervalVarianceBlockBounded_implies_lowFrequency hV
   · exact hD
 
+/-! ## Reconstruct the full packet tree and the older chord/Abel strands -/
+
+/-- The squared binary logarithmic depth is subpolynomial.  This is the same
+finite divisor-count mechanism used in the base-eight deep-tail attack, exposed
+locally here so the resulting deep-tail statement can be public. -/
+private theorem reciprocalChildVariance_log_succ_sq_le_subpolynomial
+    {ε : ℝ} (hε : 0 < ε) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ x : ℕ,
+        (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ)) ^ 2 ≤
+          C * Real.rpow ((x : ℝ) + 1) ε := by
+  have hhalf : 0 < ε / 2 := by linarith
+  obtain ⟨C, hC, hlin⟩ :=
+    RHLean.Proof.card_divisors_le_subpolynomial hhalf
+  refine ⟨C ^ 2, sq_nonneg C, ?_⟩
+  intro x
+  let M : ℕ := Nat.log 2 (x + 1)
+  have hpowOne : 1 ≤ 2 ^ M := by
+    simpa using (Nat.one_le_pow' M 1)
+  have hdiv := hlin (2 ^ M) hpowOne
+  have hcard : (2 ^ M).divisors.card = M + 1 := by
+    have h := congrArg Finset.card (Nat.divisors_prime_pow Nat.prime_two M)
+    simpa using h
+  rw [hcard] at hdiv
+  have hpowNat : 2 ^ M ≤ x + 1 := by
+    dsimp [M]
+    exact Nat.pow_log_le_self 2 (by omega)
+  have hpowCast : (((2 ^ M : ℕ) : ℝ)) ≤ (x : ℝ) + 1 := by
+    exact_mod_cast hpowNat
+  have hrpow :
+      Real.rpow (((2 ^ M : ℕ) : ℝ)) (ε / 2) ≤
+        Real.rpow ((x : ℝ) + 1) (ε / 2) :=
+    Real.rpow_le_rpow (by positivity) hpowCast hhalf.le
+  have hcPow := mul_le_mul_of_nonneg_left hrpow hC
+  have hlinear :
+      (((M + 1 : ℕ) : ℝ)) ≤
+        C * Real.rpow ((x : ℝ) + 1) (ε / 2) :=
+    hdiv.trans hcPow
+  let L : ℝ := (((M + 1 : ℕ) : ℝ))
+  let B : ℝ := (x : ℝ) + 1
+  let P : ℝ := Real.rpow B (ε / 2)
+  have hL0 : 0 ≤ L := by dsimp [L]; positivity
+  have hlinear' : L ≤ C * P := by
+    simpa [L, B, P] using hlinear
+  have hsquare : L ^ 2 ≤ (C * P) ^ 2 :=
+    pow_le_pow_left₀ hL0 hlinear' 2
+  have hBpos : 0 < B := by dsimp [B]; positivity
+  have hP2 : P ^ 2 = Real.rpow B ε := by
+    dsimp [P]
+    rw [pow_two, ← Real.rpow_add hBpos]
+    congr 1
+    ring
+  change L ^ 2 ≤ C ^ 2 * Real.rpow B ε
+  calc
+    L ^ 2 ≤ (C * P) ^ 2 := hsquare
+    _ = C ^ 2 * P ^ 2 := by ring
+    _ = C ^ 2 * Real.rpow B ε := by rw [hP2]
+
+/-- The successor of the base-eight cutoff has an unconditional critical deep
+tail estimate.  This is the direct public shallow/deep statement latent in the
+#330 hyperbolic bound. -/
+theorem dyadicPacketSuccBaseEightCutoff_deepTailBlockBounded :
+    DyadicPacketDeepTailBlockBoundedStatement
+      (dyadicPacketSuccCutoff dyadicPacketBaseEightCutoff) := by
+  intro ε hε
+  obtain ⟨C, hC, hlog⟩ :=
+    reciprocalChildVariance_log_succ_sq_le_subpolynomial hε
+  let K : ℝ := 16 * (1 + 1 / Real.log 2) ^ 2
+  have hK0 : 0 ≤ K := by
+    dsimp [K]
+    have hlog2 : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
+    positivity
+  refine ⟨K * C, mul_nonneg hK0 hC, ?_⟩
+  intro k x hk _hlow hup
+  let B : ℝ := (x : ℝ) + 1
+  let L : ℝ := (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ))
+  let D : ℝ := primeSieveDyadicPacketDeepEnergy
+    (primorialPNTPrimeSieveCutoff k) x
+    (dyadicPacketBaseEightCutoff k x + 1)
+  have hdeep := primeSieveDyadicPacketDeepEnergy_baseEight_succ_le
+    (k := k) (x := x) hk hup
+  have hlogx : L ^ 2 ≤ C * Real.rpow B ε := by
+    simpa [L, B] using hlog x
+  have hB0 : 0 ≤ B := by dsimp [B]; positivity
+  have hscaled : K * L ^ 2 * B ≤ K * (C * Real.rpow B ε) * B := by
+    exact mul_le_mul_of_nonneg_right
+      (mul_le_mul_of_nonneg_left hlogx hK0) hB0
+  have hBpos : 0 < B := by dsimp [B]; positivity
+  have hrpow : Real.rpow B (1 + ε) = B * Real.rpow B ε := by
+    calc
+      Real.rpow B (1 + ε) = Real.rpow B 1 * Real.rpow B ε :=
+        Real.rpow_add hBpos 1 ε
+      _ = B * Real.rpow B ε := by rw [Real.rpow_one]
+  change D ≤ (K * C) * Real.rpow B (1 + ε)
+  calc
+    D ≤ K * L ^ 2 * B := by
+      simpa [D, K, L, B] using hdeep
+    _ ≤ K * (C * Real.rpow B ε) * B := hscaled
+    _ = (K * C) * (B * Real.rpow B ε) := by ring
+    _ = (K * C) * Real.rpow B (1 + ε) := by rw [hrpow]
+
+/-- The child-interval variance premise therefore supplies the successor-shallow
+half of a complete shallow/deep package. -/
+theorem dyadicPacketSuccBaseEightCutoff_shallowBlockBounded_of_childIntervalVariance
+    (hV : DyadicPrimeReciprocalLowFrequencyChildIntervalVarianceBlockBoundedStatement) :
+    DyadicPacketShallowEnergyBlockBoundedStatement
+      (dyadicPacketSuccCutoff dyadicPacketBaseEightCutoff) :=
+  dyadicPrimeReciprocalLowFrequencySquareFunctionBlockBounded_iff_baseEightShallow.mp
+    (dyadicPrimeReciprocalChildIntervalVarianceBlockBounded_implies_lowFrequency hV)
+
+/-- Combining the variance-controlled shallow half with the unconditional deep
+half controls the entire recursive packet tree. -/
+theorem dyadicPacketTreeEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance
+    (hV : DyadicPrimeReciprocalLowFrequencyChildIntervalVarianceBlockBoundedStatement) :
+    ∀ ε : ℝ, 0 < ε →
+      ∃ C : ℝ, 0 ≤ C ∧
+        ∀ (k x : ℕ),
+          2 ≤ k →
+          primorialBlockLower k ≤ x →
+          x ≤ primorialBlockUpper k →
+          primeSieveDyadicPacketTreeEnergy
+              (primorialPNTPrimeSieveCutoff k) x ≤
+            C * Real.rpow ((x : ℝ) + 1) (1 + ε) :=
+  dyadicPacketTreeEnergyBlockBounded_of_shallow_deep
+    (dyadicPacketSuccCutoff dyadicPacketBaseEightCutoff)
+    (dyadicPacketSuccBaseEightCutoff_shallowBlockBounded_of_childIntervalVariance hV)
+    dyadicPacketSuccBaseEightCutoff_deepTailBlockBounded
+
+/-- The same local prime-variance premise controls the signed root-packet energy
+through the deterministic packet-frame inequality. -/
+theorem dyadicSignedRootPacketEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance
+    (hV : DyadicPrimeReciprocalLowFrequencyChildIntervalVarianceBlockBoundedStatement) :
+    DyadicSignedRootPacketEnergyBlockBoundedStatement :=
+  dyadicSignedRootPacketEnergyBlockBounded_of_packetTree
+    (dyadicPacketTreeEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance hV)
+
+/-- Hence the variance premise also implies the older classical `pi-Li`
+dyadic chord-energy hypothesis. -/
+theorem dyadicPrimeDiscrepancyChordEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance
+    (hV : DyadicPrimeReciprocalLowFrequencyChildIntervalVarianceBlockBoundedStatement) :
+    DyadicPrimeDiscrepancyChordEnergyBlockBoundedStatement :=
+  dyadicSignedRootPacketEnergyBlockBounded_iff_chordEnergyBlockBounded.mp
+    (dyadicSignedRootPacketEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance hV)
+
+/-- Equivalently, the variance premise discharges the #321 Abel-potential energy
+input outright; only coherent-channel and Mobius-dispersion control remain. -/
+theorem dyadicAbelPotentialEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance
+    (hV : DyadicPrimeReciprocalLowFrequencyChildIntervalVarianceBlockBoundedStatement) :
+    DyadicAbelPotentialEnergyBlockBoundedStatement :=
+  dyadicAbelPotentialEnergyBlockBounded_iff_chordEnergyBlockBounded.mpr
+    (dyadicPrimeDiscrepancyChordEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance hV)
+
+/-- Independent RH entrance through the older chord/Abel architecture.  The
+same sign-blind local prime-variance premise now feeds both the #330 base-eight
+packet route and the #321 chord-energy route. -/
+theorem riemannHypothesis_of_baseEightReciprocalChildIntervalVarianceChordPackage
+    (hC : DyadicCoherentChannelRHScale)
+    (hV : DyadicPrimeReciprocalLowFrequencyChildIntervalVarianceBlockBoundedStatement)
+    (hD : DyadicMobiusDispersionBlockBoundedStatement) :
+    RiemannHypothesisStatement := by
+  apply riemannHypothesis_of_dyadicChordAnalyticPackage hC
+  · exact
+      dyadicPrimeDiscrepancyChordEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance hV
+  · exact hD
+
 end RHLean.Analysis
