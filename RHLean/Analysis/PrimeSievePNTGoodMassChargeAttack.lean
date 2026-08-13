@@ -379,4 +379,135 @@ theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_dyadicScale
     _ = (2 * (1 + 1 / Real.log 2)) *
         ((x : ℝ) / (((2 ^ j : ℕ) : ℝ) ^ 2)) := by rfl
 
+/-- A uniform bound on the reciprocal prime-minus-Li fibres of an interval
+controls the width-normalized signed sibling packet on that interval.  No
+cancellation is used: each child sum costs its cardinality and the opposite
+child-length weights cancel one power of the parent width after normalization. -/
+theorem primeSieveSignedSiblingPacketResidual_norm_le_of_fibreBound
+    {y x a m b : ℕ} {δ : ℝ}
+    (hδ : 0 ≤ δ)
+    (ha : 1 ≤ a) (ham : a ≤ m) (hmb : m ≤ b)
+    (hb : b ≤ x / (y + 1) + 1)
+    (hfib : ∀ d ∈ Finset.Ico a b,
+      ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤ δ) :
+    ‖primeSieveSignedSiblingPacketResidual y x a m b‖ ≤
+      2 * ((b - a : ℕ) : ℝ) * δ := by
+  have habLe : a ≤ b := ham.trans hmb
+  by_cases hab : a < b
+  · have hleft :
+        ‖∑ d ∈ Finset.Ico a m,
+            primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤
+          ((m - a : ℕ) : ℝ) * δ := by
+      calc
+        ‖∑ d ∈ Finset.Ico a m,
+            primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤
+          ∑ d ∈ Finset.Ico a m,
+            ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ := by
+              simpa using
+                (norm_sum_le (Finset.Ico a m)
+                  (fun d => primeSieveReciprocalPrimeDiscrepancy y x d))
+        _ ≤ ∑ _d ∈ Finset.Ico a m, δ := by
+          apply Finset.sum_le_sum
+          intro d hd
+          apply hfib d
+          rw [Finset.mem_Ico] at hd ⊢
+          omega
+        _ = ((m - a : ℕ) : ℝ) * δ := by
+          simp [Nat.card_Ico, nsmul_eq_mul]
+    have hright :
+        ‖∑ d ∈ Finset.Ico m b,
+            primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤
+          ((b - m : ℕ) : ℝ) * δ := by
+      calc
+        ‖∑ d ∈ Finset.Ico m b,
+            primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤
+          ∑ d ∈ Finset.Ico m b,
+            ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ := by
+              simpa using
+                (norm_sum_le (Finset.Ico m b)
+                  (fun d => primeSieveReciprocalPrimeDiscrepancy y x d))
+        _ ≤ ∑ _d ∈ Finset.Ico m b, δ := by
+          apply Finset.sum_le_sum
+          intro d hd
+          apply hfib d
+          rw [Finset.mem_Ico] at hd ⊢
+          omega
+        _ = ((b - m : ℕ) : ℝ) * δ := by
+          simp [Nat.card_Ico, nsmul_eq_mul]
+    have hpacket :
+        ‖primeSieveSignedSiblingPacket y x a m b‖ ≤
+          2 * ((m - a : ℕ) : ℝ) * ((b - m : ℕ) : ℝ) * δ := by
+      rw [primeSieveSignedSiblingPacket_eq_weighted_intervalDiscrepancies
+        ha ham hmb hb]
+      calc
+        ‖(((m - a : ℕ) : ℂ) *
+              (∑ d ∈ Finset.Ico m b,
+                primeSieveReciprocalPrimeDiscrepancy y x d)) -
+            (((b - m : ℕ) : ℂ) *
+              (∑ d ∈ Finset.Ico a m,
+                primeSieveReciprocalPrimeDiscrepancy y x d))‖ ≤
+          ‖((m - a : ℕ) : ℂ) *
+              (∑ d ∈ Finset.Ico m b,
+                primeSieveReciprocalPrimeDiscrepancy y x d)‖ +
+            ‖((b - m : ℕ) : ℂ) *
+              (∑ d ∈ Finset.Ico a m,
+                primeSieveReciprocalPrimeDiscrepancy y x d)‖ := norm_sub_le _ _
+        _ = ((m - a : ℕ) : ℝ) *
+              ‖∑ d ∈ Finset.Ico m b,
+                primeSieveReciprocalPrimeDiscrepancy y x d‖ +
+            ((b - m : ℕ) : ℝ) *
+              ‖∑ d ∈ Finset.Ico a m,
+                primeSieveReciprocalPrimeDiscrepancy y x d‖ := by
+          simp [norm_mul]
+        _ ≤ ((m - a : ℕ) : ℝ) * (((b - m : ℕ) : ℝ) * δ) +
+            ((b - m : ℕ) : ℝ) * (((m - a : ℕ) : ℝ) * δ) :=
+          add_le_add
+            (mul_le_mul_of_nonneg_left hright (by positivity))
+            (mul_le_mul_of_nonneg_left hleft (by positivity))
+        _ = 2 * ((m - a : ℕ) : ℝ) * ((b - m : ℕ) : ℝ) * δ := by ring
+    let W : ℝ := ((b - a : ℕ) : ℝ)
+    let L : ℝ := ((m - a : ℕ) : ℝ)
+    let R : ℝ := ((b - m : ℕ) : ℝ)
+    have hWpos : 0 < W := by
+      dsimp [W]
+      exact_mod_cast (show 0 < b - a by omega)
+    have hLW : L ≤ W := by
+      dsimp [L, W]
+      exact_mod_cast (show m - a ≤ b - a by omega)
+    have hRW : R ≤ W := by
+      dsimp [R, W]
+      exact_mod_cast (show b - m ≤ b - a by omega)
+    have hLR : L * R ≤ W ^ 2 := by
+      calc
+        L * R ≤ W * R := mul_le_mul_of_nonneg_right hLW (by positivity)
+        _ ≤ W * W := mul_le_mul_of_nonneg_left hRW hWpos.le
+        _ = W ^ 2 := by ring
+    have hpacketWide :
+        ‖primeSieveSignedSiblingPacket y x a m b‖ ≤
+          2 * W ^ 2 * δ := by
+      calc
+        ‖primeSieveSignedSiblingPacket y x a m b‖ ≤
+            2 * L * R * δ := by simpa [L, R] using hpacket
+        _ = (2 * δ) * (L * R) := by ring
+        _ ≤ (2 * δ) * (W ^ 2) :=
+          mul_le_mul_of_nonneg_left hLR (mul_nonneg (by norm_num) hδ)
+        _ = 2 * W ^ 2 * δ := by ring
+    unfold primeSieveSignedSiblingPacketResidual
+    rw [norm_mul, norm_inv, Complex.norm_natCast]
+    have hscaled :=
+      mul_le_mul_of_nonneg_left hpacketWide (inv_nonneg.mpr hWpos.le)
+    calc
+      W⁻¹ * ‖primeSieveSignedSiblingPacket y x a m b‖ ≤
+          W⁻¹ * (2 * W ^ 2 * δ) := by
+        simpa [W] using hscaled
+      _ = 2 * W * δ := by
+        field_simp [ne_of_gt hWpos]
+        ring
+      _ = 2 * ((b - a : ℕ) : ℝ) * δ := by rfl
+  · have hba : b = a := by omega
+    subst b
+    have hma : m = a := by omega
+    subst m
+    simp [primeSieveSignedSiblingPacketResidual, primeSieveSignedSiblingPacket]
+
 end RHLean.Analysis
