@@ -247,7 +247,16 @@ theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_floorScale
       ‖primeSieveReciprocalLiMass y x d‖ ≤
         ((primeSieveReciprocalUpper x d : ℝ) -
           (primeSieveReciprocalLower y x d : ℝ)) / Real.log 2 := by
-    simpa [primeSieveReciprocalLiMass, hle] using hli0
+    rw [primeSieveReciprocalLiMass, if_pos hle]
+    have hnorm :
+        ‖(((logarithmicIntegralFromTwo (primeSieveReciprocalUpper x d : ℝ) -
+            logarithmicIntegralFromTwo (primeSieveReciprocalLower y x d : ℝ) : ℝ)) : ℂ)‖ =
+          |logarithmicIntegralFromTwo (primeSieveReciprocalUpper x d : ℝ) -
+            logarithmicIntegralFromTwo (primeSieveReciprocalLower y x d : ℝ)| := by
+      rw [Complex.norm_real, Real.norm_eq_abs]
+    rw [hnorm]
+    norm_num at hli0
+    exact hli0
   have hwidth :
       (primeSieveReciprocalUpper x d : ℝ) -
           (primeSieveReciprocalLower y x d : ℝ) ≤
@@ -255,8 +264,9 @@ theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_floorScale
     unfold primeSieveReciprocalUpper primeSieveReciprocalLower
     exact sub_le_sub_left
       (by exact_mod_cast (le_max_right y (x / (d + 1)))) _
-  have hlog2pos : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
-  have hcoef : 0 ≤ 1 + 1 / Real.log 2 := by positivity
+  have hcoef : 0 ≤ 1 + 1 / Real.log 2 := by
+    have hlog2pos : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
+    positivity
   have hgap := natCast_div_sub_div_succ_le x d hd1
   unfold primeSieveReciprocalPrimeDiscrepancy
   calc
