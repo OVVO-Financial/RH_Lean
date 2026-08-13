@@ -458,7 +458,7 @@ theorem primeSieveSignedSiblingPacketResidual_norm_le_of_fibreBound
             ((b - m : ℕ) : ℝ) *
               ‖∑ d ∈ Finset.Ico a m,
                 primeSieveReciprocalPrimeDiscrepancy y x d‖ := by
-          simp [norm_mul]
+          simp
         _ ≤ ((m - a : ℕ) : ℝ) * (((b - m : ℕ) : ℝ) * δ) +
             ((b - m : ℕ) : ℝ) * (((m - a : ℕ) : ℝ) * δ) :=
           add_le_add
@@ -502,7 +502,6 @@ theorem primeSieveSignedSiblingPacketResidual_norm_le_of_fibreBound
         simpa [W] using hscaled
       _ = 2 * W * δ := by
         field_simp [ne_of_gt hWpos]
-        ring
       _ = 2 * ((b - a : ℕ) : ℝ) * δ := by rfl
   · have hba : b = a := by omega
     subst b
