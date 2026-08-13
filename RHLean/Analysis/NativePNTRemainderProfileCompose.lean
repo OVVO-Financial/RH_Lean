@@ -59,7 +59,7 @@ constant and no frozen Selberg constant is used: every finite loss remains an
 explicit current-scale mass. -/
 theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo_add_profile
     (R : ℕ → ℝ) (hR : NativePNTOneLogRemainderProfile R)
-    (N : ℕ) (hN : 1 ≤ N) :
+    (N : ℕ) :
     nativeLambdaErrorMass N * Real.log (N : ℝ) ≤
       nativeLambdaTwoErrorMass N + nativeLambdaErrorMass N +
         nativeLambdaRemainderMass R N := by
@@ -188,7 +188,7 @@ theorem nativePNTError_abs_log_sq_le_lambdaTwo_profile
   have hfirst := hR N hN
   have hmul := mul_le_mul_of_nonneg_right hfirst hlog0
   have hinner := nativeLambdaErrorMass_mul_log_le_lambdaTwo_add_profile
-    R hR N hN
+    R hR N
   calc
     |nativePNTError N| * (Real.log (N : ℝ)) ^ 2 =
         (|nativePNTError N| * Real.log (N : ℝ)) * Real.log (N : ℝ) := by ring
