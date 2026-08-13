@@ -30,6 +30,7 @@ import RHLean.Analysis.MertensZetaIdentityContinuation
 import RHLean.Analysis.MobiusSynthesisBoundary
 import RHLean.Analysis.MobiusSynthesisBoundaryBridge
 import RHLean.Analysis.NativePNTAxer
+import RHLean.Analysis.NativePNTBoundContraction
 import RHLean.Analysis.NativePNTChebyshev
 import RHLean.Analysis.NativePNTErdosContraction
 import RHLean.Analysis.NativePNTErrorMass
