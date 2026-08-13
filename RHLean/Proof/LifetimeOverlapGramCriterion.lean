@@ -84,16 +84,15 @@ theorem lifetimeActive_localSequenceEnergy_cast_eq_canonicalLifetimeWindowEnergy
   intro h hh
   have hhLt : h < H := Finset.mem_range.mp hh
   have ht : N + h ≤ N + H := by omega
-  change
-    (((‖lifetimeActiveAtomMass Λ (N + h)‖ ^ 2 : ℝ) : ℂ)) =
-      conj (canonicalLifetimeAmplitude Λ (N + H) (N + h)) *
-        canonicalLifetimeAmplitude Λ (N + H) (N + h)
-  rw [canonicalLifetimeAmplitude_eq_activeMass_of_le ht]
+  have hamp := canonicalLifetimeAmplitude_eq_activeMass_of_le
+    (Λ := Λ) (t := N + h) (T := N + H) ht
+  unfold canonicalLifetimeAmplitude at hamp
+  rw [hamp]
   let A : ℂ := lifetimeActiveAtomMass Λ (N + h)
-  change (((‖A‖ ^ 2 : ℝ) : ℂ)) = conj A * A
+  change (‖A‖ : ℂ) ^ 2 = conj A * A
   calc
-    (((‖A‖ ^ 2 : ℝ) : ℂ)) = (Complex.normSq A : ℂ) := by
-      rw [Complex.normSq_eq_norm_sq]
+    (‖A‖ : ℂ) ^ 2 = (((‖A‖ ^ 2 : ℝ) : ℂ)) := by norm_num
+    _ = (Complex.normSq A : ℂ) := by rw [Complex.normSq_eq_norm_sq]
     _ = conj A * A := Complex.normSq_eq_conj_mul_self
 
 /-- Exact pair-correlation form of the complete translated survivor energy. -/
