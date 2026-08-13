@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.ExactActivityPrimeIntervals
 import RHLean.Analysis.PrimeSievePNTGoodMassChargeAttack
 
 /-!
@@ -16,10 +17,18 @@ identity writes the packet as the weighted reciprocal-discrepancy contrast
 The recursive square function below uses exactly those contrasts.  The first
 result of the attack is an exact identification with the existing recursive
 packet tree, hence with the base-eight successor-shallow energy.  The shallow
-energy is then flattened into the finite sum of its exact packet levels.  The
-final block-uniform square-function statement is therefore not a new
-assumption: it is precisely the remaining shallow analytic frontier in
-arithmetic coordinates.
+energy is then flattened into the finite sum of its exact packet levels.
+
+The module also connects the older exact-activity coordinate directly to the
+reciprocal coordinate.  At square stage `X = (t+1)^2`, the exact active-prime
+interval for cofactor `c` is precisely the prime set in the reciprocal band
+
+`max (t+1) ((X-1)/(2c)) < q <= (X-1)/c`.
+
+Thus exact activity really does land on a dyadic reciprocal band.  What it does
+not by itself supply is the critical signed prime-minus-Li square-function
+estimate across all low packet levels.  The final block-uniform square-function
+statement below isolates that remaining analytic frontier.
 -/
 
 noncomputable section
@@ -30,6 +39,82 @@ namespace RHLean.Analysis
 
 open RHLean.Arithmetic
 open RHLean.Proof
+
+/-! ## Exact-activity bridge to the reciprocal coordinate -/
+
+/-- Prime set in the reciprocal band corresponding to one exact-activity
+cofactor at square stage `t`.  The ambient reciprocal point is
+`x = (t+1)^2 - 1` and the post-square-root cutoff is `y = t+1`. -/
+def primeSieveExactActivityReciprocalPrimeBand (t c : ℕ) : Finset ℕ :=
+  (Finset.Ioc
+      (max (t + 1) (((t + 1) ^ 2 - 1) / (2 * c)))
+      (((t + 1) ^ 2 - 1) / c)).filter Nat.Prime
+
+/-- Membership in the reciprocal band is exactly the product form of the
+exact-activity inequalities. -/
+theorem mem_primeSieveExactActivityReciprocalPrimeBand_iff
+    {t c q : ℕ} (hc : 0 < c) :
+    q ∈ primeSieveExactActivityReciprocalPrimeBand t c ↔
+      q.Prime ∧ t + 2 ≤ q ∧
+        (t + 1) ^ 2 ≤ 2 * (c * q) ∧
+          c * q < (t + 1) ^ 2 := by
+  have h2c : 0 < 2 * c := by omega
+  have hX1 : 1 ≤ (t + 1) ^ 2 := by positivity
+  have hpredlt : (t + 1) ^ 2 - 1 < (t + 1) ^ 2 := by omega
+  simp only [primeSieveExactActivityReciprocalPrimeBand,
+    Finset.mem_filter, Finset.mem_Ioc]
+  constructor
+  · rintro ⟨⟨hmax, hup⟩, hprime⟩
+    have hparts := (max_lt_iff.mp hmax)
+    have htq : t + 2 ≤ q := by omega
+    have hmul0 :
+        (t + 1) ^ 2 - 1 < q * (2 * c) :=
+      (Nat.div_lt_iff_lt_mul h2c).1 hparts.2
+    have hmul :
+        (t + 1) ^ 2 - 1 < 2 * (c * q) := by
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hmul0
+    have hmiddle : (t + 1) ^ 2 ≤ 2 * (c * q) := by omega
+    have hupmul : q * c ≤ (t + 1) ^ 2 - 1 :=
+      (Nat.le_div_iff_mul_le hc).1 hup
+    have hprodle : c * q ≤ (t + 1) ^ 2 - 1 := by
+      simpa [Nat.mul_comm] using hupmul
+    have hprod : c * q < (t + 1) ^ 2 := hprodle.trans_lt hpredlt
+    exact ⟨hprime, htq, hmiddle, hprod⟩
+  · rintro ⟨hprime, htq, hmiddle, hprod⟩
+    refine ⟨?_, hprime⟩
+    constructor
+    · apply (max_lt_iff).2
+      refine ⟨by omega, ?_⟩
+      apply (Nat.div_lt_iff_lt_mul h2c).2
+      have hpred : (t + 1) ^ 2 - 1 < 2 * (c * q) :=
+        hpredlt.trans_le hmiddle
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hpred
+    · apply (Nat.le_div_iff_mul_le hc).2
+      have hle : c * q ≤ (t + 1) ^ 2 - 1 := Nat.le_pred_of_lt hprod
+      simpa [Nat.mul_comm] using hle
+
+/-- The exact active-prime interval is literally the reciprocal prime band at
+the associated square stage. -/
+theorem exactActivityPrimeInterval_eq_reciprocalPrimeBand
+    (t c : ℕ) (hc : 0 < c) :
+    exactActivityPrimeInterval t c =
+      primeSieveExactActivityReciprocalPrimeBand t c := by
+  ext q
+  rw [mem_exactActivityPrimeInterval,
+    exactActivityPrimeBounds_iff_product_bounds hc]
+  exact (mem_primeSieveExactActivityReciprocalPrimeBand_iff hc).symm
+
+/-- Consequently the exact compressed source mass is the cardinality of that
+reciprocal prime band times the already-existing signed cofactor weight. -/
+theorem exactActivityPrimeSourceMass_eq_reciprocalPrimeBand_card_nsmul
+    {N c t : ℕ} (hc : 0 < c) (hct : c ≤ t) (htN : t ≤ N) :
+    exactActivityPrimeSourceMass N c t =
+      (primeSieveExactActivityReciprocalPrimeBand t c).card •
+        (-canonicalMoebiusWeight c) := by
+  rw [exactActivityPrimeSourceMass_eq_card_nsmul hc hct htN,
+    exactActivityPrimeInterval_eq_reciprocalPrimeBand t c hc]
+
+/-! ## Signed reciprocal sibling square function -/
 
 /-- Weighted left-versus-right reciprocal discrepancy on one midpoint node.
 This is the arithmetic numerator of the signed sibling residual and keeps
