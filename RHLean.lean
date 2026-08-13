@@ -52,6 +52,7 @@ import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PRoughSquarePrefixEnergy
+import RHLean.Analysis.PrimeAveragedCubeEnergy
 import RHLean.Analysis.PrimeBoundaryDefectBridge
 import RHLean.Analysis.PrimeDilateCofactorPrimeWindows
 import RHLean.Analysis.PrimeDilateTransportCompression
