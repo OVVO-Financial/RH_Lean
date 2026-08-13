@@ -111,7 +111,6 @@ theorem dyadicPacketPNTGoodMassCharge_of_additiveDescendantPersistence
   intro ε hε B
   obtain ⟨CA, hCA, hAb⟩ := hA ε hε
   let K : ℝ := 1 + 1000 / Real.log 2 + 2000 / (Real.log 2) ^ 2
-  have hlog2pos : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
   have hK0 : 0 ≤ K := by
     dsimp [K]
     positivity
@@ -154,5 +153,130 @@ theorem dyadicPacketPNTGoodMassCharge_iff_additiveDescendantPersistence
   constructor
   · exact dyadicPacketAdditiveDescendantPersistence_of_pntGoodMassCharge cutoff
   · exact dyadicPacketPNTGoodMassCharge_of_additiveDescendantPersistence cutoff
+
+/-! ## Reciprocal-coordinate geometry -/
+
+/-- Consecutive reciprocal floors differ by their continuous hyperbolic gap,
+up to the single unit lost by taking the second floor. -/
+theorem natCast_div_sub_div_succ_le
+    (x d : ℕ) (hd : 1 ≤ d) :
+    ((x / d : ℕ) : ℝ) - ((x / (d + 1) : ℕ) : ℝ) ≤
+      (x : ℝ) / ((d : ℝ) * ((d + 1 : ℕ) : ℝ)) + 1 := by
+  have hdpos : (0 : ℝ) < (d : ℝ) := by exact_mod_cast (show 0 < d by omega)
+  have hspos : (0 : ℝ) < ((d + 1 : ℕ) : ℝ) := by positivity
+  have hcast : ((x / d : ℕ) : ℝ) ≤ (x : ℝ) / (d : ℝ) := Nat.cast_div_le
+  have hfloorcast :
+      (⌊(x : ℝ) / ((d + 1 : ℕ) : ℝ)⌋ : ℝ) =
+        ((x / (d + 1) : ℕ) : ℝ) := by
+    have hz :
+        ⌊(x : ℝ) / ((d + 1 : ℕ) : ℝ)⌋ =
+          ((x / (d + 1) : ℕ) : ℤ) := by
+      rw [Int.floor_div_natCast, Int.floor_natCast, Int.natCast_div]
+    rw [hz]
+    norm_cast
+  have hfract :
+      Int.fract ((x : ℝ) / ((d + 1 : ℕ) : ℝ)) =
+        (x : ℝ) / ((d + 1 : ℕ) : ℝ) -
+          ((x / (d + 1) : ℕ) : ℝ) := by
+    rw [← Int.self_sub_floor, hfloorcast]
+  have hfractLt := Int.fract_lt_one ((x : ℝ) / ((d + 1 : ℕ) : ℝ))
+  rw [hfract] at hfractLt
+  have hreal :
+      (x : ℝ) / (d : ℝ) - (x : ℝ) / ((d + 1 : ℕ) : ℝ) =
+        (x : ℝ) / ((d : ℝ) * ((d + 1 : ℕ) : ℝ)) := by
+    field_simp [ne_of_gt hdpos, ne_of_gt hspos]
+    push_cast
+    ring
+  rw [← hreal]
+  linarith
+
+/-- A reciprocal prime-minus-Li fibre is controlled by the hyperbolic width of
+its quotient interval.  This is completely elementary: prime count is bounded
+by interval cardinality and Li drifts by at most interval length divided by
+`log 2`. -/
+theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_floorScale
+    {y x d : ℕ} (hy : 2 ≤ y)
+    (hd : d ∈ primeSieveQuotientSupport y x) :
+    ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤
+      (1 + 1 / Real.log 2) *
+        ((x : ℝ) / ((d : ℝ) * ((d + 1 : ℕ) : ℝ)) + 1) := by
+  have hdI := Finset.mem_Icc.mp hd
+  have hd1 : 1 ≤ d := hdI.1
+  have hydiv : y < x / d := lt_div_of_mem_primeSieveQuotientSupport hd
+  have hmono : x / (d + 1) ≤ x / d :=
+    Nat.div_le_div_left (by omega) (by omega)
+  have hle :
+      primeSieveReciprocalLower y x d ≤ primeSieveReciprocalUpper x d := by
+    unfold primeSieveReciprocalLower primeSieveReciprocalUpper
+    exact max_le hydiv.le hmono
+  have hlower2 : 2 ≤ primeSieveReciprocalLower y x d := by
+    exact hy.trans (le_max_left y (x / (d + 1)))
+  have hcount :
+      ‖primeSieveReciprocalPrimeCount y x d‖ ≤
+        (primeSieveReciprocalUpper x d : ℝ) -
+          (primeSieveReciprocalLower y x d : ℝ) := by
+    rw [primeSieveReciprocalPrimeCount_eq_card]
+    have hcard :
+        ((primeSieveReciprocalInterval y x d).filter Nat.Prime).card ≤
+          (primeSieveReciprocalInterval y x d).card :=
+      Finset.card_filter_le _ _
+    have hcardI :
+        (primeSieveReciprocalInterval y x d).card =
+          primeSieveReciprocalUpper x d -
+            primeSieveReciprocalLower y x d := by
+      simp [primeSieveReciprocalInterval, Nat.card_Ioc]
+    rw [Complex.norm_natCast]
+    calc
+      (((primeSieveReciprocalInterval y x d).filter Nat.Prime).card : ℝ) ≤
+          ((primeSieveReciprocalInterval y x d).card : ℝ) := by
+        exact_mod_cast hcard
+      _ = ((primeSieveReciprocalUpper x d -
+          primeSieveReciprocalLower y x d : ℕ) : ℝ) := by rw [hcardI]
+      _ = (primeSieveReciprocalUpper x d : ℝ) -
+          (primeSieveReciprocalLower y x d : ℝ) := by
+        rw [Nat.cast_sub hle]
+  have hli0 :=
+    abs_logarithmicIntegralFromTwo_sub_le_log_succ
+      (y := 1)
+      (a := (primeSieveReciprocalLower y x d : ℝ))
+      (b := (primeSieveReciprocalUpper x d : ℝ))
+      (by norm_num)
+      (by exact_mod_cast hlower2)
+      (by exact_mod_cast hle)
+  have hli :
+      ‖primeSieveReciprocalLiMass y x d‖ ≤
+        ((primeSieveReciprocalUpper x d : ℝ) -
+          (primeSieveReciprocalLower y x d : ℝ)) / Real.log 2 := by
+    simpa [primeSieveReciprocalLiMass, hle] using hli0
+  have hwidth :
+      (primeSieveReciprocalUpper x d : ℝ) -
+          (primeSieveReciprocalLower y x d : ℝ) ≤
+        ((x / d : ℕ) : ℝ) - ((x / (d + 1) : ℕ) : ℝ) := by
+    unfold primeSieveReciprocalUpper primeSieveReciprocalLower
+    exact sub_le_sub_left
+      (by exact_mod_cast (le_max_right y (x / (d + 1)))) _
+  have hlog2pos : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
+  have hcoef : 0 ≤ 1 + 1 / Real.log 2 := by positivity
+  have hgap := natCast_div_sub_div_succ_le x d hd1
+  unfold primeSieveReciprocalPrimeDiscrepancy
+  calc
+    ‖primeSieveReciprocalPrimeCount y x d -
+        primeSieveReciprocalLiMass y x d‖ ≤
+      ‖primeSieveReciprocalPrimeCount y x d‖ +
+        ‖primeSieveReciprocalLiMass y x d‖ := norm_sub_le _ _
+    _ ≤ ((primeSieveReciprocalUpper x d : ℝ) -
+          (primeSieveReciprocalLower y x d : ℝ)) +
+        ((primeSieveReciprocalUpper x d : ℝ) -
+          (primeSieveReciprocalLower y x d : ℝ)) / Real.log 2 :=
+      add_le_add hcount hli
+    _ = (1 + 1 / Real.log 2) *
+        ((primeSieveReciprocalUpper x d : ℝ) -
+          (primeSieveReciprocalLower y x d : ℝ)) := by ring
+    _ ≤ (1 + 1 / Real.log 2) *
+        (((x / d : ℕ) : ℝ) - ((x / (d + 1) : ℕ) : ℝ)) :=
+      mul_le_mul_of_nonneg_left hwidth hcoef
+    _ ≤ (1 + 1 / Real.log 2) *
+        ((x : ℝ) / ((d : ℝ) * ((d + 1 : ℕ) : ℝ)) + 1) :=
+      mul_le_mul_of_nonneg_left hgap hcoef
 
 end RHLean.Analysis
