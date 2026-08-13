@@ -3,24 +3,22 @@ import RHLean.Arithmetic.PrimeAveragedFrontierIdentity
 import RHLean.Analysis.MertensEnergyRHForward
 
 /-!
-# Prime-averaged Boolean-cube frontier energy implies RH
+# Prime-averaged Boolean-cube frontier energy diagnostic
 
-The arithmetic cube layer already proves an exact identity for every `X`:
+The arithmetic cube layer proves something stronger than a merely averaged
+identity: for every prime coordinate `ell <= X`, the signed first-failure
+frontier mass is exactly the same ordinary Mobius prefix `M(X)`.
 
-`pi(X) * M(X) = sum_{ell <= X, ell prime} F_ell(X)`,
+Consequently the naive prime-averaged frontier energy is not an independent
+source of cancellation.  It is exactly
 
-where `F_ell(X)` is the signed Möbius mass on the first-failure boundary for the
-fresh prime coordinate `ell`.
+`pi(X) * ||M(X)||^2`.
 
-This module turns that simultaneous multi-prime identity into a quantitative RH
-strand.  A mean-square estimate for the whole family of prime-coordinate
-frontiers controls `M(X)` directly by finite Cauchy--Schwarz.  The prime-count
-factor cancels on both sides; no lower asymptotic for `pi(X)` is needed, only the
-fact that the prime set is nonempty for `X >= 2`.
-
-This is deliberately distinct from the closed single-prime dyadic Li route.  It
-uses the complete family of fresh-prime Boolean-cube frontiers simultaneously.
-No frontier-energy estimate is asserted unconditionally here.
+This module records that equivalence explicitly.  It is a useful falsification:
+a mean-square theorem for the *total signed mass* of the prime-coordinate
+frontiers is just a repackaging of Mertens energy and cannot by itself be the
+surviving multi-prime cube mechanism.  A genuinely new cube route must retain
+richer internal frontier coordinates before summing each frontier to one scalar.
 -/
 
 noncomputable section
@@ -31,51 +29,45 @@ namespace RHLean.Analysis
 
 open RHLean.Arithmetic
 
-/-- Complex Möbius mass of the first-failure Boolean-cube frontier at one fresh
+/-- Complex Mobius mass of the first-failure Boolean-cube frontier at one fresh
 prime coordinate. -/
 def primeProductFrontierMobiusMass (X ell : ℕ) : ℂ :=
   ∑ t ∈ primeProductFirstFailureBoundary (primesUpTo X) X ell,
     (((μ (primeFaceProduct t) : ℤ) : ℂ))
 
+/-- Every represented prime coordinate carries exactly the ordinary Mertens
+prefix.  Thus the total frontier mass has no variation in the prime coordinate. -/
+theorem primeProductFrontierMobiusMass_eq_mertensSummatory
+    {X ell : ℕ} (hell : ell ∈ primesUpTo X) :
+    primeProductFrontierMobiusMass X ell = mertensSummatory X := by
+  have h := moebiusPrefix_eq_primeFrontier
+    (prime_of_mem_primesUpTo hell) (mem_primesUpTo.mp hell).2
+  have hc := congrArg (fun z : ℤ => (z : ℂ)) h
+  push_cast at hc
+  simpa [primeProductFrontierMobiusMass, mertensSummatory] using hc.symm
+
 /-- Total mean-square mass over all fresh-prime frontier coordinates. -/
 def primeAveragedFrontierEnergy (X : ℕ) : ℝ :=
   ∑ ell ∈ primesUpTo X, ‖primeProductFrontierMobiusMass X ell‖ ^ 2
 
-/-- The prime-averaged frontier identity in the repository's standard complex
-Mertens coordinate. -/
-theorem card_mul_mertensSummatory_eq_sum_primeProductFrontierMobiusMass
+/-- Exact collapse of the naive prime-averaged frontier energy. -/
+theorem primeAveragedFrontierEnergy_eq_card_mul_mertensEnergy
     (X : ℕ) :
-    (((primesUpTo X).card : ℂ)) * mertensSummatory X =
-      ∑ ell ∈ primesUpTo X, primeProductFrontierMobiusMass X ell := by
-  have h := card_nsmul_moebiusPrefix_eq_sum_primeFrontiers X
-  have hc := congrArg (fun z : ℤ => (z : ℂ)) h
-  push_cast at hc
-  simpa [primeProductFrontierMobiusMass, mertensSummatory, nsmul_eq_mul] using hc
-
-private theorem norm_finset_sum_sq_le_card_mul_sum_norm_sq
-    {ι : Type*} [DecidableEq ι] (s : Finset ι) (f : ι → ℂ) :
-    ‖∑ i ∈ s, f i‖ ^ 2 ≤
-      (s.card : ℝ) * ∑ i ∈ s, ‖f i‖ ^ 2 := by
-  have hnorm := norm_sum_le s f
-  have hsum0 : 0 ≤ ∑ i ∈ s, ‖f i‖ :=
-    Finset.sum_nonneg fun _i _hi => norm_nonneg _
-  have hsq :
-      ‖∑ i ∈ s, f i‖ ^ 2 ≤ (∑ i ∈ s, ‖f i‖) ^ 2 :=
-    (sq_le_sq₀ (norm_nonneg _) hsum0).2 hnorm
-  have hcauchy :=
-    Finset.sum_mul_sq_le_sq_mul_sq s
-      (fun _i => (1 : ℝ)) (fun i => ‖f i‖)
+    primeAveragedFrontierEnergy X =
+      ((primesUpTo X).card : ℝ) * ‖mertensSummatory X‖ ^ 2 := by
+  unfold primeAveragedFrontierEnergy
   calc
-    ‖∑ i ∈ s, f i‖ ^ 2 ≤ (∑ i ∈ s, ‖f i‖) ^ 2 := hsq
-    _ ≤ (∑ i ∈ s, (1 : ℝ) ^ 2) *
-        (∑ i ∈ s, ‖f i‖ ^ 2) := by
-      simpa using hcauchy
-    _ = (s.card : ℝ) * ∑ i ∈ s, ‖f i‖ ^ 2 := by simp
+    (∑ ell ∈ primesUpTo X, ‖primeProductFrontierMobiusMass X ell‖ ^ 2) =
+        ∑ _ell ∈ primesUpTo X, ‖mertensSummatory X‖ ^ 2 := by
+      apply Finset.sum_congr rfl
+      intro ell hell
+      rw [primeProductFrontierMobiusMass_eq_mertensSummatory hell]
+    _ = ((primesUpTo X).card : ℝ) * ‖mertensSummatory X‖ ^ 2 := by
+      simp
 
-/-- Critical mean-square target for the complete family of prime-coordinate
-first-failure frontiers.  The normalization by the number of prime coordinates
-is exactly what finite Cauchy--Schwarz requires to recover critical Mertens
-energy. -/
+/-- Naive critical mean-square target for the complete family of scalar frontier
+masses.  The theorem below shows that this target is equivalent, modulo the two
+small endpoints, to the protected Mertens-energy statement. -/
 def PrimeAveragedFrontierEnergyBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ C : ℝ, 0 ≤ C ∧
@@ -84,9 +76,9 @@ def PrimeAveragedFrontierEnergyBoundedStatement : Prop :=
           C * ((primesUpTo X).card : ℝ) *
             Real.rpow ((X + 1 : ℕ) : ℝ) (1 + ε)
 
-/-- The simultaneous multi-prime frontier-energy estimate implies the protected
-Mertens-energy criterion.  The prime-count factor cancels algebraically, so no
-quantitative prime-number theorem is consumed by this reduction. -/
+/-- The naive prime-averaged frontier-energy target implies Mertens energy only
+because each frontier scalar is already exactly `M(X)`.  No new cancellation is
+created by averaging the prime coordinate. -/
 theorem mertensEnergyBounded_of_primeAveragedFrontierEnergy
     (hF : PrimeAveragedFrontierEnergyBoundedStatement) :
     MertensEnergyBoundedStatement := by
@@ -97,47 +89,23 @@ theorem mertensEnergyBounded_of_primeAveragedFrontierEnergy
   refine ⟨D, hD0, ?_⟩
   intro X
   by_cases hX : 2 ≤ X
-  · let S : Finset ℕ := primesUpTo X
-    let P : ℝ := (S.card : ℝ)
-    let E : ℝ := primeAveragedFrontierEnergy X
+  · let P : ℝ := ((primesUpTo X).card : ℝ)
     let Q : ℝ := Real.rpow ((X + 1 : ℕ) : ℝ) (1 + ε)
-    have h2mem : 2 ∈ S := by
-      dsimp [S]
-      exact mem_primesUpTo.mpr ⟨Nat.prime_two, hX⟩
-    have hScard : 0 < S.card := Finset.card_pos.mpr ⟨2, h2mem⟩
-    have hP : 0 < P := by dsimp [P]; exact_mod_cast hScard
+    have h2mem : 2 ∈ primesUpTo X :=
+      mem_primesUpTo.mpr ⟨Nat.prime_two, hX⟩
+    have hcard : 0 < (primesUpTo X).card :=
+      Finset.card_pos.mpr ⟨2, h2mem⟩
+    have hP : 0 < P := by dsimp [P]; exact_mod_cast hcard
     have hQ0 : 0 ≤ Q := by
       dsimp [Q]
       exact Real.rpow_nonneg (by positivity) _
-    have hfamily :=
-      norm_finset_sum_sq_le_card_mul_sum_norm_sq S
-        (fun ell => primeProductFrontierMobiusMass X ell)
-    have hid :=
-      card_mul_mertensSummatory_eq_sum_primeProductFrontierMobiusMass X
-    have hcauchy :
-        ‖((S.card : ℂ)) * mertensSummatory X‖ ^ 2 ≤ P * E := by
-      rw [hid]
-      simpa [S, P, E, primeAveragedFrontierEnergy] using hfamily
-    have hleft :
-        ‖((S.card : ℂ)) * mertensSummatory X‖ ^ 2 =
-          P * (P * ‖mertensSummatory X‖ ^ 2) := by
-      rw [norm_mul, Complex.norm_natCast]
-      dsimp [P]
-      ring
-    rw [hleft] at hcauchy
-    have hcancel1 : P * ‖mertensSummatory X‖ ^ 2 ≤ E :=
-      (mul_le_mul_iff_right₀ hP).mp hcauchy
-    have henergy0 := hCb X hX
-    have henergy : E ≤ C * P * Q := by
-      simpa [S, P, E, Q] using henergy0
-    have hcombined :
+    have hraw := hCb X hX
+    rw [primeAveragedFrontierEnergy_eq_card_mul_mertensEnergy] at hraw
+    have hscaled :
         P * ‖mertensSummatory X‖ ^ 2 ≤ P * (C * Q) := by
-      calc
-        P * ‖mertensSummatory X‖ ^ 2 ≤ E := hcancel1
-        _ ≤ C * P * Q := henergy
-        _ = P * (C * Q) := by ring
+      simpa [P, Q, mul_assoc, mul_left_comm, mul_comm] using hraw
     have hmain : ‖mertensSummatory X‖ ^ 2 ≤ C * Q :=
-      (mul_le_mul_iff_right₀ hP).mp hcombined
+      (mul_le_mul_iff_right₀ hP).mp hscaled
     have hCD : C ≤ D := by dsimp [D]; linarith
     have hraise : C * Q ≤ D * Q :=
       mul_le_mul_of_nonneg_right hCD hQ0
@@ -157,9 +125,37 @@ theorem mertensEnergyBounded_of_primeAveragedFrontierEnergy
             simpa using mul_le_mul_of_nonneg_left hpow hD0
       simpa [mertensSummatory, Finset.sum_range_succ] using hone
 
-/-- Independent RH strand: a critical mean-square estimate for the complete
-family of multi-prime Boolean-cube first-failure frontiers implies the Riemann
-hypothesis through the already-kernel-checked Mertens-energy continuation. -/
+/-- Conversely, Mertens energy immediately bounds the scalar frontier energy by
+the exact collapse theorem. -/
+theorem primeAveragedFrontierEnergyBounded_of_mertensEnergy
+    (hM : MertensEnergyBoundedStatement) :
+    PrimeAveragedFrontierEnergyBoundedStatement := by
+  intro ε hε
+  obtain ⟨C, hC, hCb⟩ := hM ε hε
+  refine ⟨C, hC, ?_⟩
+  intro X _hX
+  have h := hCb X
+  rw [primeAveragedFrontierEnergy_eq_card_mul_mertensEnergy]
+  have hcard0 : (0 : ℝ) ≤ ((primesUpTo X).card : ℝ) := by positivity
+  calc
+    ((primesUpTo X).card : ℝ) * ‖mertensSummatory X‖ ^ 2 ≤
+        ((primesUpTo X).card : ℝ) *
+          (C * Real.rpow ((X + 1 : ℕ) : ℝ) (1 + ε)) :=
+      mul_le_mul_of_nonneg_left h hcard0
+    _ = C * ((primesUpTo X).card : ℝ) *
+        Real.rpow ((X + 1 : ℕ) : ℝ) (1 + ε) := by ring
+
+/-- Exact analytic diagnosis: the scalar prime-averaged frontier target is
+nothing more than the existing Mertens-energy target. -/
+theorem primeAveragedFrontierEnergyBounded_iff_mertensEnergyBounded :
+    PrimeAveragedFrontierEnergyBoundedStatement ↔ MertensEnergyBoundedStatement := by
+  constructor
+  · exact mertensEnergyBounded_of_primeAveragedFrontierEnergy
+  · exact primeAveragedFrontierEnergyBounded_of_mertensEnergy
+
+/-- Accordingly this scalar frontier target still implies RH, but only through
+its exact equivalence with Mertens energy.  This theorem is a diagnostic, not a
+claim of a new independent analytic route. -/
 theorem riemannHypothesis_of_primeAveragedFrontierEnergy
     (hF : PrimeAveragedFrontierEnergyBoundedStatement) :
     RiemannHypothesisStatement := by
