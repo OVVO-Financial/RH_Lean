@@ -48,7 +48,7 @@ theorem nativePNTMobiusReciprocalSignedErrorMass_eq_wheel_add_residual
   apply Finset.sum_congr rfl
   intro m _hm
   push_cast
-  simpa [mul_comm]
+  ring_nf
 
 /-- Exact signed non-recursive Selberg remainder.  Unlike the absolute profile,
 this object has not paid a triangle inequality on the Mobius reciprocal mass. -/
