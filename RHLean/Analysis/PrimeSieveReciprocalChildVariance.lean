@@ -84,7 +84,7 @@ private theorem normalizedWeightedSibling_norm_le
       exact mul_le_mul_of_nonneg_left (norm_sub_le _ _) (by positivity)
     _ = ((w : ℝ)⁻¹) *
         ((l : ℝ) * ‖u‖ + (r : ℝ) * ‖v‖) := by
-      simp [norm_mul, Complex.norm_natCast]
+      simp
     _ ≤ ((w : ℝ)⁻¹) *
         ((w : ℝ) * (‖u‖ + ‖v‖)) :=
       mul_le_mul_of_nonneg_left hsum (by positivity)
@@ -227,10 +227,11 @@ theorem primeSieveDyadicPacketIntervalTreeEnergy_le_two_childIntervalVariance
           omega
         have hm1 : 1 ≤ m := ha.trans hm.1.le
         have hmB : m ≤ x / (y + 1) + 1 := hm.2.le.trans hb
+        have hab : a < b := hm.1.trans hm.2
         have hnode :=
           primeSieveSignedSiblingNodeEnergy_le_two_childIntervalVariance
             (y := y) (x := x) (a := a) (m := m) (b := b)
-            ha hm.1.le hm.2.le hm.1.trans hm.2 hb
+            ha hm.1.le hm.2.le hab hb
         have hleft := ih a m ha hmB
         have hright := ih m b hm1 hb
         simp only [primeSieveReciprocalLowFrequencyChildIntervalVariance,
@@ -284,8 +285,7 @@ theorem primeSieveReciprocalLowFrequencySquareFunction_le_two_childIntervalVaria
       apply Finset.sum_le_sum
       intro j hj
       have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-        unfold primeSieveDyadicBlockLeft
-        positivity
+        simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
       have hright :
           primeSieveDyadicBlockRight y x j + 1 ≤ x / (y + 1) + 1 := by
         unfold primeSieveDyadicBlockRight
