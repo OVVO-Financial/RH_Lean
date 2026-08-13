@@ -355,6 +355,6 @@ theorem survivorPrimeFaceParityHigh_alternatingMass_eq_threeFrontiers_at_three
     Λ t q 2 3 r hΛ
   · unfold survivorPrimeFaceAmbient
     exact mem_primesUpTo.mpr ⟨by norm_num, by omega⟩
-  · norm_num
+  · native_decide
 
 end RHLean.Proof
