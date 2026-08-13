@@ -58,7 +58,6 @@ import RHLean.Analysis.PrimeDilateTransportCompression
 import RHLean.Analysis.PrimeSieveAbelIdentity
 import RHLean.Analysis.PrimeSieveBackwardAffineExcursion
 import RHLean.Analysis.PrimeSieveBaseEightShallowAttack
-import RHLean.Analysis.PrimeSieveReciprocalChildVariance
 import RHLean.Analysis.PrimeSieveCollapseIdentity
 import RHLean.Analysis.PrimeSieveDyadicAnalyticBridge
 import RHLean.Analysis.PrimeSieveDyadicChordEnergy
@@ -74,6 +73,7 @@ import RHLean.Analysis.PrimeSievePNTGoodMassAmplification
 import RHLean.Analysis.PrimeSievePNTGoodMassChargeAttack
 import RHLean.Analysis.PrimeSievePNTResidualEnvelope
 import RHLean.Analysis.PrimeSieveQuotientPNTError
+import RHLean.Analysis.PrimeSieveReciprocalChildVariance
 import RHLean.Analysis.PrimeWheelArithmeticSpectrum
 import RHLean.Analysis.PrimeWheelCoconductorGram
 import RHLean.Analysis.PrimeWheelCoconductorLowGram
