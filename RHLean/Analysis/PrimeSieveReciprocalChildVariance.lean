@@ -235,7 +235,7 @@ theorem primeSieveDyadicPacketIntervalTreeEnergy_le_two_childIntervalVariance
         have hleft := ih a m ha hmB
         have hright := ih m b hm1 hb
         simp only [primeSieveReciprocalLowFrequencyChildIntervalVariance,
-          hsplit, if_true, m]
+          hsplit, if_true]
         calc
           ((b - a : ℕ) : ℝ) *
                 ‖primeSieveSignedSiblingPacketResidual y x a m b‖ ^ 2 +
@@ -511,7 +511,8 @@ theorem dyadicPacketSuccBaseEightCutoff_deepTailBlockBounded :
     calc
       Real.rpow B (1 + ε) = Real.rpow B 1 * Real.rpow B ε :=
         Real.rpow_add hBpos 1 ε
-      _ = B * Real.rpow B ε := by rw [Real.rpow_one]
+      _ = B * Real.rpow B ε := by
+        exact congrArg (fun z : ℝ => z * Real.rpow B ε) (Real.rpow_one B)
   change D ≤ (K * C) * Real.rpow B (1 + ε)
   calc
     D ≤ K * L ^ 2 * B := by
