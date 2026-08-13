@@ -187,8 +187,10 @@ theorem nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
         rw [mul_assoc, hetaN]
         ring
       _ <= K * (N : Real) := hmul
+  have hKM' : (M : Real) * K <= (N : Real) * K := by
+    simpa [mul_comm] using hKM
   have hMNreal : (M : Real) <= (N : Real) :=
-    (mul_le_mul_iff_left₀ hK).mp hKM
+    (mul_le_mul_iff_left₀ hK).mp hKM'
   have hMN : M <= N := by exact_mod_cast hMNreal
   have hbound := htail N hMN
   have hscaled_nonneg : 0 <= eta * (N : Real) :=
