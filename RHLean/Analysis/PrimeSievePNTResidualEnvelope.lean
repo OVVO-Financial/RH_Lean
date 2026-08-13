@@ -92,7 +92,10 @@ theorem nativePrimeCounting_div_succ_atTop_zero :
       have hmul :
           (Nat.primeCounting N : ℝ) * Real.log (N : ℝ) <
             (b * (N : ℝ)) * Real.log (N : ℝ) := hpi.trans_lt h8N
-      exact (mul_lt_mul_right hlogpos).mp hmul
+      by_contra hnot
+      have hge : b * (N : ℝ) ≤ (Nat.primeCounting N : ℝ) := le_of_not_gt hnot
+      have hge' := mul_le_mul_of_nonneg_right hge hlogpos.le
+      exact (not_lt_of_ge hge') hmul
     rw [div_lt_iff₀ (by positivity : (0 : ℝ) < (N : ℝ) + 1)]
     have hbN : b * (N : ℝ) < b * ((N : ℝ) + 1) := by
       nlinarith
@@ -143,12 +146,14 @@ theorem logarithmicIntegralFromTwo_abs_div_succ_atTop_zero :
             logarithmicIntegralFromTwo (A : ℝ)| ≤
             ((N : ℝ) - (A : ℝ)) / Real.log (A : ℝ) := hdiff
         _ ≤ (N : ℝ) / Real.log (A : ℝ) := by
-          rw [div_le_div_iff₀ hlogApos]
-          linarith
+          have hnum : (N : ℝ) - (A : ℝ) ≤ (N : ℝ) := by
+            have hA0R : (0 : ℝ) ≤ (A : ℝ) := by positivity
+            linarith
+          exact div_le_div_of_nonneg_right hnum hlogApos.le
     have hLi :
         |logarithmicIntegralFromTwo (N : ℝ)| ≤
           C + (N : ℝ) / Real.log (A : ℝ) := by
-      have htri := abs_add
+      have htri := abs_add_le
         (logarithmicIntegralFromTwo (N : ℝ) -
           logarithmicIntegralFromTwo (A : ℝ))
         (logarithmicIntegralFromTwo (A : ℝ))
@@ -159,16 +164,19 @@ theorem logarithmicIntegralFromTwo_abs_div_succ_atTop_zero :
           logarithmicIntegralFromTwo (N : ℝ) := by ring
       rw [heq] at htri
       dsimp [C]
-      linarith
+      linarith [hdiff']
     have hMreal : (M : ℝ) ≤ (N : ℝ) := by exact_mod_cast hMN
     have hCsmall : C < (b / 2) * ((N : ℝ) + 1) := by
-      have hraw : 2 * C < b * (M : ℝ) := (div_lt_iff₀ hb).mp hM
+      have hraw0 := (div_lt_iff₀ hb).mp hM
+      have hraw : 2 * C < b * (M : ℝ) := by
+        simpa [mul_comm] using hraw0
       have hrawN : 2 * C < b * (N : ℝ) :=
         hraw.trans_le (mul_le_mul_of_nonneg_left hMreal hb.le)
       nlinarith
     have hfactor : 1 < (b / 2) * Real.log (A : ℝ) := by
-      have hraw : (2 : ℝ) < b * Real.log (A : ℝ) :=
-        (div_lt_iff₀ hb).mp hlogA
+      have hraw0 := (div_lt_iff₀ hb).mp hlogA
+      have hraw : (2 : ℝ) < b * Real.log (A : ℝ) := by
+        simpa [mul_comm] using hraw0
       nlinarith
     have hvar :
         (N : ℝ) / Real.log (A : ℝ) < (b / 2) * (N : ℝ) := by
@@ -247,8 +255,9 @@ theorem primeSieveDyadicClippedDiscrepancy_norm_le_globalScale
     · omega
     · exact (Nat.div_le_self x d).trans (by omega)
   have h := hEnv t hYt
+  have htSucc : t + 1 ≤ x + y + 1 := Nat.add_le_add_right ht 1
   have htR : (t : ℝ) + 1 ≤ ((x + y : ℕ) : ℝ) + 1 := by
-    exact_mod_cast ht
+    exact_mod_cast htSucc
   unfold primeSieveDyadicClippedDiscrepancy
   dsimp [t] at h ⊢
   exact h.trans (mul_le_mul_of_nonneg_left htR hη)
@@ -363,7 +372,8 @@ theorem primeSieveSignedSiblingPacketResidual_norm_le_four
     have hma : m = a := by omega
     subst b
     subst m
-    simp [primeSieveSignedSiblingPacketResidual, primeSieveSignedSiblingPacket]
+    simpa [primeSieveSignedSiblingPacketResidual, primeSieveSignedSiblingPacket]
+      using hH
 
 /-- Dimensionless root residual of one midpoint node.  The global scale is
 chosen deliberately: it is uniform over every descendant and therefore makes a
@@ -480,7 +490,7 @@ def primeSieveDyadicPacketIntervalDeepRelativeEnvelope
 @[simp] theorem primeSieveDyadicPacketIntervalDeepRelativeEnvelope_depth_zero
     (y x cutoff a b : ℕ) :
     primeSieveDyadicPacketIntervalDeepRelativeEnvelope y x cutoff 0 a b = 0 := by
-  rfl
+  cases cutoff <;> rfl
 
 @[simp] theorem primeSieveDyadicPacketIntervalDeepRelativeEnvelope_cutoff_zero
     (y x depth a b : ℕ) :
@@ -558,7 +568,7 @@ theorem primeSieveDyadicPacketBlockDeepRelativeEnvelope_arbitrarily_small
   intro y x j J hy
   unfold primeSieveDyadicPacketBlockDeepRelativeEnvelope
   have h := primeSieveDyadicPacketIntervalDeepRelativeEnvelope_le_four
-    hquarter.le hEnv hy (min J j) j
+    (x := x) hquarter.le hEnv hy (min J j) j
       (primeSieveDyadicBlockLeft j)
       (primeSieveDyadicBlockRight y x j + 1)
   nlinarith
