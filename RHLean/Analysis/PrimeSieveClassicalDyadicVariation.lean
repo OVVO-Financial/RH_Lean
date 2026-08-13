@@ -346,11 +346,11 @@ private theorem norm_finset_sum_sq_le_card_mul_sum_norm_sq
     ‖∑ i ∈ s, f i‖ ^ 2 ≤
       (s.card : ℝ) * ∑ i ∈ s, ‖f i‖ ^ 2 := by
   have hnorm := norm_sum_le s f
-  have hnorm0 : 0 ≤ ‖∑ i ∈ s, f i‖ := norm_nonneg _
-  have hsum0 : 0 ≤ ∑ i ∈ s, ‖f i‖ := by positivity
+  have hsum0 : 0 ≤ ∑ i ∈ s, ‖f i‖ :=
+    Finset.sum_nonneg fun _i _hi => norm_nonneg _
   have hsq :
-      ‖∑ i ∈ s, f i‖ ^ 2 ≤ (∑ i ∈ s, ‖f i‖) ^ 2 := by
-    nlinarith
+      ‖∑ i ∈ s, f i‖ ^ 2 ≤ (∑ i ∈ s, ‖f i‖) ^ 2 :=
+    (sq_le_sq₀ (norm_nonneg _) hsum0).2 hnorm
   have hcauchy :=
     Finset.sum_mul_sq_le_sq_mul_sq s
       (fun _i => (1 : ℝ)) (fun i => ‖f i‖)
@@ -408,7 +408,6 @@ theorem dyadicMobiusDispersionBlockBounded_of_blockwise
       _ = CB * P * E := by
             dsimp [E]
             rw [primeSieveDyadicAbelPotentialEnergy_eq_sum_blockAbelPotentialEnergy]
-            rfl
   have hcauchy :
       ‖primeSieveDyadicWaveletPNTError y x‖ ^ 2 ≤
         (S.card : ℝ) *
