@@ -950,4 +950,201 @@ theorem primeSieveDyadicPacketDeepEnergy_scaled_le
       dsimp [C, c]
       ring
 
+-- ATTACK_PATCH: base-eight-persistence-closure
+
+/-- The divisor-count subpolynomial bound controls the binary logarithmic depth
+of an arbitrary positive ambient scale. -/
+private theorem pntGoodMassAttack_log_succ_le_subpolynomial
+    {ε : ℝ} (hε : 0 < ε) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ x : ℕ,
+        (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ)) ≤
+          C * Real.rpow ((x : ℝ) + 1) ε := by
+  obtain ⟨C, hC, hCb⟩ :=
+    RHLean.Proof.card_divisors_le_subpolynomial hε
+  refine ⟨C, hC, ?_⟩
+  intro x
+  let M : ℕ := Nat.log 2 (x + 1)
+  have hpowOne : 1 ≤ 2 ^ M := by
+    simpa using (Nat.one_le_pow' M 1)
+  have hdiv := hCb (2 ^ M) hpowOne
+  have hcard : (2 ^ M).divisors.card = M + 1 := by
+    have h := congrArg Finset.card (Nat.divisors_prime_pow Nat.prime_two M)
+    simpa using h
+  rw [hcard] at hdiv
+  have hpowNat : 2 ^ M ≤ x + 1 := by
+    dsimp [M]
+    exact Nat.pow_log_le_self 2 (by omega)
+  have hpowCast : (((2 ^ M : ℕ) : ℝ)) ≤ (x : ℝ) + 1 := by
+    exact_mod_cast hpowNat
+  have hrpow :
+      Real.rpow (((2 ^ M : ℕ) : ℝ)) ε ≤
+        Real.rpow ((x : ℝ) + 1) ε :=
+    Real.rpow_le_rpow (by positivity) hpowCast hε.le
+  have hcPow := mul_le_mul_of_nonneg_left hrpow hC
+  simpa [M] using hdiv.trans hcPow
+
+/-- The square of the binary logarithmic depth is still subpolynomial. -/
+private theorem pntGoodMassAttack_log_succ_sq_le_subpolynomial
+    {ε : ℝ} (hε : 0 < ε) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ x : ℕ,
+        (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ)) ^ 2 ≤
+          C * Real.rpow ((x : ℝ) + 1) ε := by
+  have hhalf : 0 < ε / 2 := by linarith
+  obtain ⟨C, hC, hlin⟩ :=
+    pntGoodMassAttack_log_succ_le_subpolynomial hhalf
+  refine ⟨C ^ 2, sq_nonneg C, ?_⟩
+  intro x
+  let L : ℝ := (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ))
+  let B : ℝ := (x : ℝ) + 1
+  let P : ℝ := Real.rpow B (ε / 2)
+  have hL0 : 0 ≤ L := by dsimp [L]; positivity
+  have hlinear : L ≤ C * P := by
+    simpa [L, B, P] using hlin x
+  have hsquare : L ^ 2 ≤ (C * P) ^ 2 :=
+    pow_le_pow_left₀ hL0 hlinear 2
+  have hBpos : 0 < B := by dsimp [B]; positivity
+  have hP2 : P ^ 2 = Real.rpow B ε := by
+    dsimp [P]
+    rw [pow_two, ← Real.rpow_add hBpos]
+    congr 1
+    ring
+  change L ^ 2 ≤ C ^ 2 * Real.rpow B ε
+  calc
+    L ^ 2 ≤ (C * P) ^ 2 := hsquare
+    _ = C ^ 2 * P ^ 2 := by ring
+    _ = C ^ 2 * Real.rpow B ε := by rw [hP2]
+
+/-- The deterministic cutoff selected by the hyperbolic packet geometry. -/
+def dyadicPacketBaseEightCutoff : DyadicPacketCutoff :=
+  fun _k x => Nat.log 8 (x + 1)
+
+/-- At one level beyond the base-eight cutoff, the hyperbolic scaling removes
+one full ambient power of `x`; only the binary logarithmic depth loss remains. -/
+theorem primeSieveDyadicPacketDeepEnergy_baseEight_succ_le
+    {k x : ℕ}
+    (hk : 2 ≤ k)
+    (hup : x ≤ primorialBlockUpper k) :
+    primeSieveDyadicPacketDeepEnergy
+        (primorialPNTPrimeSieveCutoff k) x
+        (dyadicPacketBaseEightCutoff k x + 1) ≤
+      16 * (1 + 1 / Real.log 2) ^ 2 *
+        (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ)) ^ 2 *
+        ((x : ℝ) + 1) := by
+  let J : ℕ := Nat.log 8 (x + 1)
+  let B : ℝ := (x : ℝ) + 1
+  let L : ℝ := (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ))
+  let K : ℝ := 16 * (1 + 1 / Real.log 2) ^ 2
+  let D : ℝ := primeSieveDyadicPacketDeepEnergy
+    (primorialPNTPrimeSieveCutoff k) x (J + 1)
+  have hBpos : 0 < B := by dsimp [B]; positivity
+  have hD0 : 0 ≤ D := by
+    dsimp [D]
+    exact primeSieveDyadicPacketDeepEnergy_nonneg
+      (primorialPNTPrimeSieveCutoff k) x (J + 1)
+  have hK0 : 0 ≤ K := by
+    dsimp [K]
+    have hlog2 : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
+    positivity
+  have hA0 : 0 ≤ K * L ^ 2 := mul_nonneg hK0 (sq_nonneg L)
+  have hpowNat : x + 1 ≤ 8 ^ (J + 1) := by
+    have hlt := Nat.lt_pow_succ_log_self (by norm_num : 1 < (8 : ℕ)) (x + 1)
+    simpa [J, Nat.succ_eq_add_one] using hlt.le
+  have hpow : B ≤ (((8 ^ (J + 1) : ℕ) : ℝ)) := by
+    dsimp [B]
+    exact_mod_cast hpowNat
+  have hleft :
+      B * D ≤ (((8 ^ (J + 1) : ℕ) : ℝ)) * D :=
+    mul_le_mul_of_nonneg_right hpow hD0
+  have hscaled := primeSieveDyadicPacketDeepEnergy_scaled_le
+    (k := k) (x := x) (J := J + 1) hk hup
+  have hxB : (x : ℝ) ≤ B := by dsimp [B]; norm_num
+  have hx2 : (x : ℝ) ^ 2 ≤ B ^ 2 :=
+    pow_le_pow_left₀ (by positivity) hxB 2
+  have hright :
+      K * L ^ 2 * (x : ℝ) ^ 2 ≤ K * L ^ 2 * B ^ 2 :=
+    mul_le_mul_of_nonneg_left hx2 hA0
+  have hBD : B * D ≤ B * ((K * L ^ 2) * B) := by
+    calc
+      B * D ≤ (((8 ^ (J + 1) : ℕ) : ℝ)) * D := hleft
+      _ ≤ K * L ^ 2 * (x : ℝ) ^ 2 := by
+        simpa [K, L, D] using hscaled
+      _ ≤ K * L ^ 2 * B ^ 2 := hright
+      _ = B * ((K * L ^ 2) * B) := by ring
+  have hcancel : D ≤ (K * L ^ 2) * B :=
+    (mul_le_mul_iff_right₀ hBpos).mp hBD
+  simpa [dyadicPacketBaseEightCutoff, J, B, L, K, D, mul_assoc] using hcancel
+
+/-- The base-eight cutoff has unconditional additive descendant persistence.
+No PNT good-mass charge is assumed: the result is forced directly by the
+reciprocal-fibre geometry and the midpoint packet tree. -/
+theorem dyadicPacketBaseEightCutoff_additiveDescendantPersistence :
+    DyadicPacketAdditiveDescendantPersistenceStatement
+      dyadicPacketBaseEightCutoff := by
+  intro ε hε
+  obtain ⟨C, hC, hlog⟩ :=
+    pntGoodMassAttack_log_succ_sq_le_subpolynomial hε
+  let K : ℝ := 16 * (1 + 1 / Real.log 2) ^ 2
+  have hK0 : 0 ≤ K := by
+    dsimp [K]
+    have hlog2 : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
+    positivity
+  refine ⟨K * C, mul_nonneg hK0 hC, ?_⟩
+  intro k x hk _hlow hup
+  let y := primorialPNTPrimeSieveCutoff k
+  let J := dyadicPacketBaseEightCutoff k x
+  let B : ℝ := (x : ℝ) + 1
+  let P : ℝ := Real.rpow B ε
+  let L : ℝ := (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ))
+  let E : ℝ := primeSieveDyadicPacketLevelEnergy y x J
+  let D : ℝ := primeSieveDyadicPacketDeepEnergy y x (J + 1)
+  have hdeep := primeSieveDyadicPacketDeepEnergy_baseEight_succ_le
+    (k := k) (x := x) hk hup
+  have hlogx : L ^ 2 ≤ C * P := by
+    simpa [L, B, P] using hlog x
+  have hB0 : 0 ≤ B := by dsimp [B]; positivity
+  have hP0 : 0 ≤ P := by
+    dsimp [P]
+    exact Real.rpow_nonneg (by positivity) _
+  have hE0 : 0 ≤ E := by
+    dsimp [E]
+    exact primeSieveDyadicPacketLevelEnergy_nonneg y x J
+  have hparent : B ≤ E + B := by linarith
+  have hcoeff0 : 0 ≤ (K * C) * P :=
+    mul_nonneg (mul_nonneg hK0 hC) hP0
+  have hlogScaled : K * L ^ 2 ≤ K * (C * P) :=
+    mul_le_mul_of_nonneg_left hlogx hK0
+  have hlogScaledB : K * L ^ 2 * B ≤ K * (C * P) * B :=
+    mul_le_mul_of_nonneg_right hlogScaled hB0
+  change D ≤ (K * C) * P * (E + B)
+  calc
+    D ≤ K * L ^ 2 * B := by
+      simpa [y, J, B, L, D, K] using hdeep
+    _ ≤ K * (C * P) * B := hlogScaledB
+    _ = (K * C) * P * B := by ring
+    _ ≤ (K * C) * P * (E + B) :=
+      mul_le_mul_of_nonneg_left hparent hcoeff0
+
+/-- Consequently the factorized #329 PNT good-mass charge holds
+unconditionally at the base-eight cutoff. -/
+theorem dyadicPacketBaseEightCutoff_pntGoodMassCharge :
+    DyadicPacketPNTGoodMassChargeStatement dyadicPacketBaseEightCutoff :=
+  dyadicPacketPNTGoodMassCharge_of_additiveDescendantPersistence
+    dyadicPacketBaseEightCutoff
+    dyadicPacketBaseEightCutoff_additiveDescendantPersistence
+
+/-- The #329 good-mass hypothesis can therefore be deleted from the terminal
+amplification package at the base-eight cutoff.  Only the coherent channel,
+successor-shallow packet bound, and Mobius dispersion remain as inputs. -/
+theorem riemannHypothesis_of_baseEightPacketAnalyticPackage
+    (hC : DyadicCoherentChannelRHScale)
+    (hS : DyadicPacketShallowEnergyBlockBoundedStatement
+      (dyadicPacketSuccCutoff dyadicPacketBaseEightCutoff))
+    (hD : DyadicMobiusDispersionBlockBoundedStatement) :
+    RiemannHypothesisStatement :=
+  riemannHypothesis_of_dyadicPacketPNTGoodMassChargeAnalyticPackage
+    dyadicPacketBaseEightCutoff hC hS
+    dyadicPacketBaseEightCutoff_pntGoodMassCharge hD
+
 end RHLean.Analysis
