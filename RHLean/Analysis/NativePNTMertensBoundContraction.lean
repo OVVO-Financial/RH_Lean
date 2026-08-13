@@ -40,7 +40,7 @@ theorem nativeMertens_abs_div_le_of_affineEnvelope
           (D + 2) * (N : ℝ) := hbound N hN
     _ = Real.log (N : ℝ) *
           ((alpha + (alpha + D + 2) / Real.log (N : ℝ)) * (N : ℝ)) := by
-      field_simp [ne_of_gt hlogpos] <;> ring
+      field_simp [ne_of_gt hlogpos]; ring
 
 /-- Every original-path cubic iterate gives a strictly tighter finite normalized
 Mertens coefficient. -/
