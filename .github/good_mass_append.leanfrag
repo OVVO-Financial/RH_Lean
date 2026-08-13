@@ -1,0 +1,119 @@
+-- ATTACK_PATCH: dyadic-level-specialization
+
+private theorem pntGoodMassAttack_dyadicBlock_width_le_two_pow
+    (y x j : ℕ) :
+    primeSieveDyadicBlockRight y x j + 1 -
+        primeSieveDyadicBlockLeft j ≤ 2 ^ j := by
+  unfold primeSieveDyadicBlockRight primeSieveDyadicBlockLeft
+  have hright :
+      min (x / (y + 1)) (2 ^ (j + 1) - 1) + 1 ≤ 2 ^ (j + 1) := by
+    have hp : 0 < 2 ^ (j + 1) := by positivity
+    omega
+  rw [pow_succ] at hright ⊢
+  omega
+
+/-- On one occupied reciprocal dyadic block, the fibre estimate and midpoint
+geometry combine to an exact scale-invariant level-energy bound. -/
+theorem primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
+    {k x j level : ℕ}
+    (hk : 2 ≤ k)
+    (hup : x ≤ primorialBlockUpper k)
+    (hj : j ∈ primeSieveDyadicBlockIndices
+      (primorialPNTPrimeSieveCutoff k) x)
+    (hlevel : level ≤ j) :
+    (((2 ^ j : ℕ) : ℝ)) * (((4 ^ level : ℕ) : ℝ)) *
+        primeSieveDyadicPacketIntervalLevelEnergy
+          (primorialPNTPrimeSieveCutoff k) x level
+          (primeSieveDyadicBlockLeft j)
+          (primeSieveDyadicBlockRight
+            (primorialPNTPrimeSieveCutoff k) x j + 1) ≤
+      16 * (1 + 1 / Real.log 2) ^ 2 * (x : ℝ) ^ 2 := by
+  let y := primorialPNTPrimeSieveCutoff k
+  let P : ℝ := ((2 ^ j : ℕ) : ℝ)
+  let c : ℝ := 1 + 1 / Real.log 2
+  let δ : ℝ := 2 * c * ((x : ℝ) / P ^ 2)
+  let F : ℝ := ((4 ^ level : ℕ) : ℝ)
+  let E : ℝ := primeSieveDyadicPacketIntervalLevelEnergy y x level
+    (primeSieveDyadicBlockLeft j)
+    (primeSieveDyadicBlockRight y x j + 1)
+  have hc0 : 0 ≤ c := by
+    dsimp [c]
+    have hlog2 : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
+    positivity
+  have hPpos : 0 < P := by dsimp [P]; positivity
+  have hδ0 : 0 ≤ δ := by
+    dsimp [δ]
+    positivity
+  have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
+    simp [primeSieveDyadicBlockLeft]
+  have hrightTop :
+      primeSieveDyadicBlockRight y x j + 1 ≤ x / (y + 1) + 1 := by
+    unfold primeSieveDyadicBlockRight
+    omega
+  have hwidth := pntGoodMassAttack_dyadicBlock_width_le_two_pow y x j
+  have hset :
+      Finset.Ico (primeSieveDyadicBlockLeft j)
+          (primeSieveDyadicBlockRight y x j + 1) =
+        primeSieveDyadicBlock y x j := by
+    rw [primeSieveDyadicBlock_eq_explicitIcc]
+    ext d
+    simp
+    omega
+  have hfib : ∀ d ∈ Finset.Ico (primeSieveDyadicBlockLeft j)
+      (primeSieveDyadicBlockRight y x j + 1),
+      ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤ δ := by
+    intro d hd
+    have hdB : d ∈ primeSieveDyadicBlock y x j := by
+      rw [← hset]
+      exact hd
+    have h := primeSieveReciprocalPrimeDiscrepancy_norm_le_dyadicScale
+      hk hup (by simpa [y] using hdB)
+    simpa [y, δ, c, P] using h
+  have hgeneric :=
+    primeSieveDyadicPacketIntervalLevelEnergy_scaled_le_of_fibreBound
+      y x δ hδ0 level j
+      (primeSieveDyadicBlockLeft j)
+      (primeSieveDyadicBlockRight y x j + 1)
+      hlevel hleft1 hrightTop hwidth hfib
+  have hgeneric' : F * E ≤ 4 * δ ^ 2 * P ^ 3 := by
+    simpa [F, E, P] using hgeneric
+  have hscaled := mul_le_mul_of_nonneg_left hgeneric' hPpos.le
+  change P * F * E ≤ 16 * c ^ 2 * (x : ℝ) ^ 2
+  calc
+    P * F * E = P * (F * E) := by ring
+    _ ≤ P * (4 * δ ^ 2 * P ^ 3) := hscaled
+    _ = 16 * c ^ 2 * (x : ℝ) ^ 2 := by
+      dsimp [δ]
+      field_simp [ne_of_gt hPpos] <;> ring
+
+/-- Finite telescoping of exact packet levels reconstructs every interval-tree
+energy difference. -/
+theorem primeSieveDyadicPacketIntervalTreeEnergy_sub_eq_sum_levelEnergy
+    (y x a b r s : ℕ) (hrs : r ≤ s) :
+    primeSieveDyadicPacketIntervalTreeEnergy y x s a b -
+        primeSieveDyadicPacketIntervalTreeEnergy y x r a b =
+      ∑ level ∈ Finset.Ico r s,
+        primeSieveDyadicPacketIntervalLevelEnergy y x level a b := by
+  induction s, hrs using Nat.le_induction with
+  | base => simp
+  | succ s hrs ih =>
+      rw [Finset.sum_Ico_succ_top hrs, ← ih]
+      have hstep :=
+        primeSieveDyadicPacketIntervalTreeEnergy_succ_sub_eq_levelEnergy
+          y x s a b
+      linarith
+
+/-- A block deep tail is exactly the sum of its unresolved packet levels. -/
+theorem primeSieveDyadicPacketBlockDeepEnergy_eq_sum_levelEnergy
+    {y x j J : ℕ} (hJ : J ≤ j) :
+    primeSieveDyadicPacketBlockDeepEnergy y x j J =
+      ∑ level ∈ Finset.Ico J j,
+        primeSieveDyadicPacketIntervalLevelEnergy y x level
+          (primeSieveDyadicBlockLeft j)
+          (primeSieveDyadicBlockRight y x j + 1) := by
+  unfold primeSieveDyadicPacketBlockDeepEnergy
+    primeSieveDyadicPacketTreeBlockEnergy
+  rw [min_eq_left hJ]
+  exact primeSieveDyadicPacketIntervalTreeEnergy_sub_eq_sum_levelEnergy
+    y x (primeSieveDyadicBlockLeft j)
+      (primeSieveDyadicBlockRight y x j + 1) J j hJ
