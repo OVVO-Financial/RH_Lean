@@ -32,6 +32,7 @@ import RHLean.Analysis.MobiusSynthesisBoundaryBridge
 import RHLean.Analysis.NativePNTAxer
 import RHLean.Analysis.NativePNTBoundContraction
 import RHLean.Analysis.NativePNTChebyshev
+import RHLean.Analysis.NativePNTCubicContractionInequality
 import RHLean.Analysis.NativePNTErdosContraction
 import RHLean.Analysis.NativePNTErrorMass
 import RHLean.Analysis.NativePNTEvolvingRemainder
@@ -117,6 +118,11 @@ import RHLean.Analysis.PrimeSievePNTGoodMassChargeAttack
 import RHLean.Analysis.PrimeSievePNTResidualEnvelope
 import RHLean.Analysis.PrimeSieveQuotientPNTError
 import RHLean.Analysis.PrimeSieveReciprocalChildVariance
+import RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGain
+import RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGainClosure
+import RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGainCore
+import RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGainCubicBudget
+import RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGainTrajectoryCore
 import RHLean.Analysis.PrimeWheelArithmeticSpectrum
 import RHLean.Analysis.PrimeWheelCoconductorGram
 import RHLean.Analysis.PrimeWheelCoconductorLowGram
