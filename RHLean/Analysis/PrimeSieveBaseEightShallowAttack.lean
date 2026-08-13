@@ -59,7 +59,6 @@ theorem mem_primeSieveExactActivityReciprocalPrimeBand_iff
         (t + 1) ^ 2 ≤ 2 * (c * q) ∧
           c * q < (t + 1) ^ 2 := by
   have h2c : 0 < 2 * c := by omega
-  have hX1 : 1 ≤ (t + 1) ^ 2 := by positivity
   have hpredlt : (t + 1) ^ 2 - 1 < (t + 1) ^ 2 := by omega
   simp only [primeSieveExactActivityReciprocalPrimeBand,
     Finset.mem_filter, Finset.mem_Ioc]
@@ -172,8 +171,7 @@ theorem primeSieveDyadicPacketIntervalTreeEnergy_eq_reciprocalLowFrequencyInterv
       simp [primeSieveReciprocalLowFrequencyIntervalEnergy,
         primeSieveDyadicPacketIntervalTreeEnergy_zero]
   | succ depth ih =>
-      rw [show Nat.succ depth = depth + 1 by omega,
-        primeSieveDyadicPacketIntervalTreeEnergy_succ]
+      rw [primeSieveDyadicPacketIntervalTreeEnergy_succ]
       by_cases hsplit : a + 1 < b
       · let m := dyadicPacketMidpoint a b
         have hm : a < m ∧ m < b := by
@@ -209,7 +207,7 @@ theorem primeSieveReciprocalLowFrequencySquareFunction_eq_shallowEnergy
   apply Finset.sum_congr rfl
   intro j hj
   have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-    simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
+    simp [primeSieveDyadicBlockLeft]
   have hright :
       primeSieveDyadicBlockRight y x j + 1 ≤ x / (y + 1) + 1 := by
     have h := min_le_left (x / (y + 1)) (2 ^ (j + 1) - 1)
@@ -230,8 +228,7 @@ theorem primeSieveDyadicPacketShallowEnergy_eq_sum_levelEnergy
         primeSieveDyadicPacketTreeBlockEnergy
       simp
   | succ J ih =>
-      rw [show Nat.succ J = J + 1 by omega,
-        primeSieveDyadicPacketShallowEnergy_succ_eq, ih,
+      rw [primeSieveDyadicPacketShallowEnergy_succ_eq, ih,
         Finset.sum_range_succ]
 
 /-- Fully expanded finite-level form: each shallow level is the exact signed
