@@ -18,16 +18,12 @@ noncomputable section
 
 namespace RHLean.Analysis
 
-/-- A genuine PNT tail bound beginning at a specified physical cutoff. -/
 def PrimeSieveStateDependentSelbergTailAbove
     (M : Nat) (alpha : Real) : Prop :=
   2 <= M ∧ 0 < alpha ∧
     forall q : Nat, M <= q ->
       |nativePNTError q| <= alpha * (q : Real)
 
-/-- Cubic state-dependent surplus is available at every endpoint above one
-fixed cutoff.  The arithmetic layer may choose `beta` separately at each
-endpoint; the physical cutoff itself does not move. -/
 def PrimeSieveStateDependentSelbergCubicGainAbove
     (M : Nat) (alpha c : Real) : Prop :=
   forall N : Nat, M <= N ->
@@ -36,8 +32,6 @@ def PrimeSieveStateDependentSelbergCubicGainAbove
         PrimeSieveStateDependentSelbergStateHasPowerGain
           c 3 N M alpha beta
 
-/-- One cubic gain available at every endpoint above `M` upgrades the whole
-old tail to the contracted slope at the same cutoff. -/
 theorem primeSieveStateDependentSelberg_cubicGainAbove_step
     (M : Nat) (alpha c : Real)
     (htail : PrimeSieveStateDependentSelbergTailAbove M alpha)
@@ -57,15 +51,11 @@ theorem primeSieveStateDependentSelberg_cubicGainAbove_step
   exact primeSieveStateDependentSelberg_error_le_power_contraction
     N M alpha beta c 3 hadm hpower
 
-/-- A fixed-cutoff arithmetic gain package along a proposed cubic slope chain. -/
 def PrimeSieveStateDependentSelbergCubicGainChainAt
     (M : Nat) (c : Real) (a : Nat -> Real) : Prop :=
   forall n : Nat,
     PrimeSieveStateDependentSelbergCubicGainAbove M (a n) c
 
-/-- **Persistence closure.**  If every cubic step has positive arithmetic
-surplus above one common cutoff, then every slope in the cubic chain is a true
-PNT tail bound above that same cutoff. -/
 theorem primeSieveStateDependentSelberg_cubic_chain_persists
     (M : Nat) (c : Real) (a : Nat -> Real)
     (hpos : forall n : Nat, 0 < a n)
@@ -80,16 +70,12 @@ theorem primeSieveStateDependentSelberg_cubic_chain_persists
   | zero => exact htail0
   | succ n ih =>
       have hnext : 0 < a n - c * (a n) ^ 3 := by
-        rw [<- hrec n]
-        exact hpos (n + 1)
+        simpa [hrec n] using hpos (n + 1)
       have hstep := primeSieveStateDependentSelberg_cubicGainAbove_step
         M (a n) c ih (hgain n) hnext
       rw [hrec n]
       exact hstep
 
-/-- Once the reciprocal-square budget reaches a target slope `eta`, fixed-cutoff
-persistence converts the scalar contraction rate into a genuine quantitative
-PNT tail bound at that same physical cutoff. -/
 theorem primeSieveStateDependentSelberg_tail_le_eta_of_cubic_budget
     (M : Nat) (c eta : Real) (a : Nat -> Real)
     (hc : 0 <= c) (heta : 0 < eta)
