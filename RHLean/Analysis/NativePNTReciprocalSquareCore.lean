@@ -38,7 +38,7 @@ theorem inv_sq_add_two_mul_le_inv_sq_cubic_step
       (1 / a ^ 2 + 2 * C) * (a - C * a ^ 3) ^ 2 =
         (1 + 2 * (C * a ^ 2)) * (1 - C * a ^ 2) ^ 2 := by
     rw [hfactorEq]
-    field_simp [ha0] <;> ring
+    field_simp [ha0]
   rw [heq]
   let x : ℝ := C * a ^ 2
   change (1 + 2 * x) * (1 - x) ^ 2 ≤ 1
