@@ -31,7 +31,7 @@ available tree depth the value is zero. -/
 def primeSieveDyadicPacketIntervalLevelRelativeEnvelope
     (y x : ℕ) : ℕ → ℕ → ℕ → ℕ → ℝ
   | _, 0, _, _ => 0
-  | 0, depth + 1, a, b =>
+  | 0, _depth + 1, a, b =>
       if a + 1 < b then
         let m := dyadicPacketMidpoint a b
         primeSieveDyadicPacketRelativeResidual y x a m b
@@ -133,8 +133,7 @@ theorem primeSieveDyadicPacketIntervalDeepRelativeEnvelope_eq_max_level_succ
               primeSieveDyadicPacketIntervalLevelRelativeEnvelope_zero_succ,
               primeSieveDyadicPacketIntervalDeepRelativeEnvelope_succ]
             simp only [hsplit, if_true]
-            simp [primeSieveDyadicPacketIntervalDeepRelativeEnvelope_cutoff_zero,
-              max_assoc]
+            simp [primeSieveDyadicPacketIntervalDeepRelativeEnvelope_cutoff_zero]
           · simp [primeSieveDyadicPacketIntervalDeepRelativeEnvelope_cutoff_zero,
               primeSieveDyadicPacketIntervalRelativeEnvelope_succ,
               primeSieveDyadicPacketIntervalLevelRelativeEnvelope_zero_succ,
@@ -150,7 +149,6 @@ theorem primeSieveDyadicPacketIntervalDeepRelativeEnvelope_eq_max_level_succ
               primeSieveDyadicPacketIntervalDeepRelativeEnvelope_succ]
             simp only [hsplit, if_true]
             let m := dyadicPacketMidpoint a b
-            dsimp only
             rw [ih depth a m, ih depth m b]
             simp only [max_assoc, max_left_comm, max_comm]
           · simp [primeSieveDyadicPacketIntervalDeepRelativeEnvelope_succ,
@@ -216,7 +214,8 @@ theorem primeSieveDyadicPacketBlockLevelRelativeEnvelope_eq_deep_of_strict
     primeSieveDyadicPacketBlockLevelRelativeEnvelope y x j J =
       primeSieveDyadicPacketBlockDeepRelativeEnvelope y x j J := by
   have hdecomp :=
-    primeSieveDyadicPacketBlockDeepRelativeEnvelope_eq_max_level_succ hJ
+    primeSieveDyadicPacketBlockDeepRelativeEnvelope_eq_max_level_succ
+      (y := y) (x := x) hJ
   have htailLe :
       primeSieveDyadicPacketBlockDeepRelativeEnvelope y x j (J + 1) ≤
         primeSieveDyadicPacketBlockLevelRelativeEnvelope y x j J := by
