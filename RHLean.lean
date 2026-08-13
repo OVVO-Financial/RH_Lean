@@ -51,6 +51,7 @@ import RHLean.Analysis.NativePNTSquarePrefixGoodMass
 import RHLean.Analysis.NativePNTSquarePrefixGoodMassRate
 import RHLean.Analysis.NativePNTSquarePrefixMobiusError
 import RHLean.Analysis.NativePNTSquarePrefixPNT
+import RHLean.Analysis.NativePNTSquarePrefixQuadraticBudget
 import RHLean.Analysis.NativePNTSquarePrefixSmallQuotient
 import RHLean.Analysis.NativePNTSquarePrefixTailBad
 import RHLean.Analysis.NativePNTSquarePrefixTailCompensation
@@ -65,7 +66,6 @@ import RHLean.Analysis.NativePNTSquarePrefixTailLogInterval
 import RHLean.Analysis.NativePNTSquarePrefixTailMass
 import RHLean.Analysis.NativePNTSquarePrefixTailReciprocalBound
 import RHLean.Analysis.NativePNTSquarePrefixTailStep
-import RHLean.Analysis.NativePNTSquarePrefixQuadraticBudget
 import RHLean.Analysis.NativePNTSquarePrefixTransfer
 import RHLean.Analysis.NativePNTSummatorySelberg
 import RHLean.Analysis.NativePNTTransfer
