@@ -255,6 +255,7 @@ import RHLean.Proof.LifetimeEndpointDecomposition
 import RHLean.Proof.LifetimeEndpointDiscrepancyAttack
 import RHLean.Proof.LifetimeGramArchitectureBridge
 import RHLean.Proof.LifetimeLocalEnergyCriterion
+import RHLean.Proof.LifetimeOverlapGramCriterion
 import RHLean.Proof.LifetimeOverlapKernel
 import RHLean.Proof.LowOmegaHighOrientation
 import RHLean.Proof.MatchedFarSurvivorBridge
