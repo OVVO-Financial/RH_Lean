@@ -1,0 +1,52 @@
+name: PNT modulus development check
+
+on:
+  push:
+    branches: [agent/pnt-quantitative-modulus]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pnt-modulus-dev-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Restore Mathlib packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Compile normalized signed recurrence
+        run: lake env lean RHLean/Analysis/NativePNTNormalizedSignedRecurrence.lean
+
+      - name: Regenerate root imports
+        run: lake exe mk_all
+
+      - name: Commit generated root manifest
+        run: |
+          if git diff --quiet -- RHLean.lean; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add RHLean.lean
+          git commit -m "Regenerate Lean root manifest"
+          git push
