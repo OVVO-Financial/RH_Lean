@@ -33,6 +33,8 @@ open scoped ArithmeticFunction.Moebius ArithmeticFunction.vonMangoldt BigOperato
 
 namespace RHLean.Analysis
 
+open RHLean.Proof
+
 /-- Region II from the dyadic square-stage packet decomposition:
 `t/4 < c <= t/2`. -/
 def nativePNTSquareStageTransitionCofactors (t : ℕ) : Finset ℕ :=
@@ -67,8 +69,7 @@ theorem nativePNTSquareStage_sqrt_le_dyadicLower
   have hlt : (t + 1) * t < (t + 1) * (t + 1) :=
     Nat.mul_lt_mul_of_pos_left (Nat.lt_succ_self t) (by omega)
   have hsq : (t + 1) * (t + 1) = squarePrefixEndpoint t + 1 := by
-    rw [← squarePrefixEndpoint_add_one t]
-    ring
+    simpa [pow_two] using (squarePrefixEndpoint_add_one t).symm
   rw [hsq] at hlt
   omega
 
