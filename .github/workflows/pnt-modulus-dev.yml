@@ -34,11 +34,27 @@ jobs:
           test: false
           lint: false
 
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: pnt-modulus-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
       - name: Compile normalized signed recurrence
         run: lake build RHLean.Analysis.NativePNTNormalizedSignedRecurrence
 
       - name: Regenerate root imports
         run: lake exe mk_all
+
+      - name: Save modulus build cache
+        if: ${{ !cancelled() }}
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: pnt-modulus-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
 
       - name: Commit generated root manifest
         run: |
