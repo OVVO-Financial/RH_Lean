@@ -1,4 +1,5 @@
 import Mathlib
+import Mathlib.Data.Finset.NatDivisors
 import RHLean.Analysis.NativePNTSignedSecondSelberg
 import RHLean.Arithmetic.PrimeWheelPartialErrorThreshold
 
@@ -27,14 +28,20 @@ open scoped ArithmeticFunction.Moebius ArithmeticFunction.vonMangoldt BigOperato
 
 namespace RHLean.Analysis
 
+open RHLean.Arithmetic
+
 /-- Exact value of `Lambda_2` on a prime square. -/
 theorem nativeLambdaTwo_prime_sq
     (p : ℕ) (hp : p.Prime) :
     nativeLambdaTwo (p ^ 2) = 3 * (Real.log (p : ℝ)) ^ 2 := by
   rw [← nativeMobiusLogSquareDivisorFiber_eq_lambdaTwo]
   unfold nativeMobiusLogSquareDivisorFiber
-  rw [Nat.divisors_prime_pow hp 2]
-  simp [ArithmeticFunction.moebius_apply_prime hp, Real.log_pow, hp.ne_zero]
+  rw [hp.divisors_sq]
+  have hdiv : p ^ 2 / p = p := by
+    simpa [pow_two] using (Nat.mul_div_cancel_left p hp.pos)
+  simp [hdiv, ArithmeticFunction.moebius_apply_prime_pow hp,
+    ArithmeticFunction.moebius_apply_prime hp, pow_two, hp.ne_zero,
+    hp.ne_one, Nat.cast_mul, Real.log_mul]
   ring
 
 /-- The signed second-Selberg kernel is negative on the one-prime square face. -/
@@ -45,7 +52,8 @@ theorem nativePNTSignedSecondSelbergKernel_prime_sq
   rw [nativePNTSignedSecondSelbergKernel_eq_lambdaTwo_sub_two_log,
     nativeLambdaTwo_prime_sq p hp]
   have hlam : Λ (p ^ 2) = Real.log (p : ℝ) := by
-    simpa using ArithmeticFunction.vonMangoldt_apply_pow hp (by norm_num : (2 : ℕ) ≠ 0)
+    rw [ArithmeticFunction.vonMangoldt_apply_pow (by norm_num : (2 : ℕ) ≠ 0),
+      ArithmeticFunction.vonMangoldt_apply_prime hp]
   rw [hlam, Nat.cast_pow, Real.log_pow]
   norm_num
   ring
@@ -55,15 +63,15 @@ theorem nativeLambdaTwo_mul_distinct_primes
     (p q : ℕ) (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     nativeLambdaTwo (p * q) =
       2 * Real.log (p : ℝ) * Real.log (q : ℝ) := by
-  have hcop : Nat.Coprime p q := by
-    rw [hp.coprime_iff_not_dvd]
-    intro hpqDvd
-    exact hpq ((Nat.prime_dvd_prime_iff_eq hp hq).mp hpqDvd)
+  have hpdiv : p * q / p = q := Nat.mul_div_cancel_left q hp.pos
+  have hqdiv : p * q / q = p := by
+    simpa [Nat.mul_comm] using (Nat.mul_div_cancel_left p hq.pos)
   rw [← nativeMobiusLogSquareDivisorFiber_eq_lambdaTwo]
   unfold nativeMobiusLogSquareDivisorFiber
-  rw [Nat.Coprime.divisors_mul hcop]
-  simp [hp.divisors, hq.divisors, ArithmeticFunction.moebius_apply_prime,
-    hp, hq, Real.log_mul, hp.ne_zero, hq.ne_zero]
+  rw [Nat.divisors_mul p q, hp.divisors, hq.divisors]
+  simp [hpdiv, hqdiv, ArithmeticFunction.moebius_apply_prime hp,
+    ArithmeticFunction.moebius_apply_prime hq, hp.ne_zero, hq.ne_zero,
+    hp.ne_one, hq.ne_one, hpq, Nat.cast_mul, Real.log_mul]
   ring
 
 /-- The signed kernel is the positive mixed face on two distinct primes. -/
@@ -75,23 +83,22 @@ theorem nativePNTSignedSecondSelbergKernel_mul_distinct_primes
     nativeLambdaTwo_mul_distinct_primes p q hp hq hpq]
   have hnotPow : ¬ IsPrimePow (p * q) := by
     intro hpow
-    rcases hpow with ⟨r, hr, k, hk, hEq⟩
-    have hpDvd : p ∣ r ^ k := by
-      rw [← hEq]
+    rcases (isPrimePow_nat_iff (p * q)).1 hpow with ⟨s, k, hs, hk, hEq⟩
+    have hpDvd : p ∣ s ^ k := by
+      rw [hEq]
       exact dvd_mul_right p q
-    have hqDvd : q ∣ r ^ k := by
-      rw [← hEq]
+    have hqDvd : q ∣ s ^ k := by
+      rw [hEq]
       exact dvd_mul_left q p
-    have hpr : p = r := by
-      have hprDvd : p ∣ r := (hp.dvd_pow).mp hpDvd
-      exact (Nat.prime_dvd_prime_iff_eq hp hr).mp hprDvd
-    have hqr : q = r := by
-      have hqrDvd : q ∣ r := (hq.dvd_pow).mp hqDvd
-      exact (Nat.prime_dvd_prime_iff_eq hq hr).mp hqrDvd
+    have hpr : p = s := by
+      have hprDvd : p ∣ s := hp.dvd_of_dvd_pow hpDvd
+      exact (Nat.prime_dvd_prime_iff_eq hp hs).mp hprDvd
+    have hqr : q = s := by
+      have hqrDvd : q ∣ s := hq.dvd_of_dvd_pow hqDvd
+      exact (Nat.prime_dvd_prime_iff_eq hq hs).mp hqrDvd
     exact hpq (hpr.trans hqr.symm)
-  have hlam : Λ (p * q) = 0 := by
-    rw [ArithmeticFunction.vonMangoldt_eq_zero_iff]
-    exact Or.inr hnotPow
+  have hlam : Λ (p * q) = 0 :=
+    ArithmeticFunction.vonMangoldt_eq_zero_iff.mpr hnotPow
   rw [hlam]
   ring
 
