@@ -35,7 +35,7 @@ jobs:
           lint: false
 
       - name: Compile normalized signed recurrence
-        run: lake env lean RHLean/Analysis/NativePNTNormalizedSignedRecurrence.lean
+        run: lake build RHLean.Analysis.NativePNTNormalizedSignedRecurrence
 
       - name: Regenerate root imports
         run: lake exe mk_all
