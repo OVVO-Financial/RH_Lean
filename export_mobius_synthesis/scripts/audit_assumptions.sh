@@ -70,9 +70,9 @@ fi
 
 # Standalone-publication invariant. The repository may describe its own source,
 # theorem history, and CI, but must not carry provenance or navigation back to
-# another project repository. This also checks Lean doc comments: inherited PR
-# numbers and source-repository prose are documentation once this tree stands on
-# its own.
+# another project repository. This also checks Lean doc comments: inherited
+# change numbers and source-repository prose are documentation once this tree
+# stands on its own.
 standalone_patterns=(
   'RH_Lean'
   'square-block-mobius'
@@ -86,7 +86,7 @@ standalone_patterns=(
   'development repository'
   'parent repository'
   'source repository'
-  'PR #[0-9]+'
+  '#[0-9]+'
 )
 
 standalone_failed=0
