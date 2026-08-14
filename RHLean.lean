@@ -67,6 +67,7 @@ import RHLean.Analysis.NativePNTRemainderProfileCompose
 import RHLean.Analysis.NativePNTRemainderProfileCore
 import RHLean.Analysis.NativePNTSelberg
 import RHLean.Analysis.NativePNTSignedLocalSurplus
+import RHLean.Analysis.NativePNTSignedLogSquareDyadicCell
 import RHLean.Analysis.NativePNTSignedLogSquarePrimeCells
 import RHLean.Analysis.NativePNTSignedWheelRemainder
 import RHLean.Analysis.NativePNTSquarePrefixCompensated
