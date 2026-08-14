@@ -190,4 +190,160 @@ theorem nativePNTLambdaTwoOddMobiusKernel_nonneg (d : ℕ) :
           have hlam0 := nativeLambdaTwo_nonneg d (by omega)
           linarith
 
+/-! ## Exact dyadic decomposition of the signed Lambda_2 transform -/
+
+/-- Uniform pointwise form of the parity recurrence on positive indices. -/
+theorem nativeLambdaTwo_eq_oddKernel_sub_evenHalf
+    (d : ℕ) (hd : 1 ≤ d) :
+    nativeLambdaTwo d =
+      nativePNTLambdaTwoOddMobiusKernel d -
+        (if Even d then nativePNTLambdaTwoOddMobiusKernel (d / 2) else 0) := by
+  by_cases heven : Even d
+  · rw [if_pos heven]
+    exact nativeLambdaTwo_eq_oddKernel_sub_half_of_even d (by omega) heven
+  · have hodd : Odd d := Nat.not_even_iff_odd.mp heven
+    rw [if_neg heven, sub_zero]
+    exact (nativePNTLambdaTwoOddMobiusKernel_eq_lambdaTwo_of_odd d hodd).symm
+
+/-- Signed error mass with the positive odd-Mobius coefficient before the even
+correction is paired. -/
+def nativePNTLambdaTwoOddKernelSignedErrorMass (N : ℕ) : ℝ :=
+  ∑ d ∈ Finset.Icc 1 N,
+    nativePNTLambdaTwoOddMobiusKernel d * nativePNTError (N / d)
+
+/-- The even-index correction before reindexing by `n = 2d`. -/
+def nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass (N : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 N,
+    if Even n then
+      nativePNTLambdaTwoOddMobiusKernel (n / 2) * nativePNTError (N / n)
+    else 0
+
+/-- The same correction reindexed by its half-index. -/
+def nativePNTLambdaTwoOddKernelDyadicChildMass (N : ℕ) : ℝ :=
+  ∑ d ∈ Finset.Icc 1 (N / 2),
+    nativePNTLambdaTwoOddMobiusKernel d * nativePNTError (N / (2 * d))
+
+/-- Actual dyadic cross-endpoint cell mass over the complete lower half of the
+positive odd-Mobius kernel. -/
+def nativePNTLambdaTwoOddKernelDyadicCellMass (N : ℕ) : ℝ :=
+  ∑ d ∈ Finset.Icc 1 (N / 2),
+    nativePNTLambdaTwoOddMobiusKernel d *
+      (nativePNTError (N / d) - nativePNTError (N / (2 * d)))
+
+/-- Unpaired top boundary after every even coefficient has been matched to its
+half-index. -/
+def nativePNTLambdaTwoOddKernelTopBoundaryMass (N : ℕ) : ℝ :=
+  ∑ d ∈ Finset.Ioc (N / 2) N,
+    nativePNTLambdaTwoOddMobiusKernel d * nativePNTError (N / d)
+
+/-- Expanding each positive `Lambda_2` coefficient by parity gives the odd
+kernel source mass minus the even-index correction, with all signs retained. -/
+theorem nativeLambdaTwoSignedErrorMass_eq_oddKernel_sub_evenIndex
+    (N : ℕ) :
+    nativeLambdaTwoSignedErrorMass N =
+      nativePNTLambdaTwoOddKernelSignedErrorMass N -
+        nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass N := by
+  unfold nativeLambdaTwoSignedErrorMass
+    nativePNTLambdaTwoOddKernelSignedErrorMass
+    nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro n hn
+  have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
+  rw [nativeLambdaTwo_eq_oddKernel_sub_evenHalf n hn1]
+  by_cases heven : Even n <;> simp [heven] <;> ring
+
+/-- The even-index correction is exactly the dyadic child row after the
+bijection `n = 2d`. -/
+theorem nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass_eq_child
+    (N : ℕ) :
+    nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass N =
+      nativePNTLambdaTwoOddKernelDyadicChildMass N := by
+  classical
+  unfold nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass
+    nativePNTLambdaTwoOddKernelDyadicChildMass
+  conv_lhs => rw [← Finset.sum_filter]
+  symm
+  refine Finset.sum_bij (fun d _ => 2 * d) ?_ ?_ ?_ ?_
+  · intro d hd
+    have hdI := Finset.mem_Icc.mp hd
+    have hdN2 : d * 2 ≤ N :=
+      (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).1 hdI.2
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_Icc.mpr ⟨by omega, by simpa [Nat.mul_comm] using hdN2⟩,
+        even_two_mul d⟩
+  · intro a _ha b _hb hab
+    change 2 * a = 2 * b at hab
+    omega
+  · intro n hn
+    rcases Finset.mem_filter.mp hn with ⟨hnI, hneven⟩
+    have hnI' := Finset.mem_Icc.mp hnI
+    let d : ℕ := n / 2
+    have hrep : 2 * d = n := by
+      dsimp [d]
+      exact Nat.two_mul_div_two_of_even hneven
+    have hd1 : 1 ≤ d := by
+      dsimp [d]
+      omega
+    have hdN : d ≤ N / 2 := by
+      dsimp [d]
+      exact Nat.div_le_div_right hnI'.2
+    exact ⟨d, Finset.mem_Icc.mpr ⟨hd1, hdN⟩, hrep⟩
+  · intro d _hd
+    have hhalf : (2 * d) / 2 = d := by omega
+    simp [hhalf]
+
+/-- The odd-kernel source row splits exactly into the paired lower half and the
+unpaired top boundary. -/
+theorem nativePNTLambdaTwoOddKernelSignedErrorMass_eq_lower_add_boundary
+    (N : ℕ) :
+    nativePNTLambdaTwoOddKernelSignedErrorMass N =
+      (∑ d ∈ Finset.Icc 1 (N / 2),
+        nativePNTLambdaTwoOddMobiusKernel d * nativePNTError (N / d)) +
+        nativePNTLambdaTwoOddKernelTopBoundaryMass N := by
+  unfold nativePNTLambdaTwoOddKernelSignedErrorMass
+    nativePNTLambdaTwoOddKernelTopBoundaryMass
+  have hsets :
+      Finset.Icc 1 N = Finset.Icc 1 (N / 2) ∪ Finset.Ioc (N / 2) N := by
+    ext n
+    simp only [Finset.mem_Icc, Finset.mem_Ioc, Finset.mem_union]
+    omega
+  have hdis : Disjoint (Finset.Icc 1 (N / 2)) (Finset.Ioc (N / 2) N) := by
+    rw [Finset.disjoint_left]
+    intro n hn htop
+    rw [Finset.mem_Icc] at hn
+    rw [Finset.mem_Ioc] at htop
+    omega
+  rw [hsets, Finset.sum_union hdis]
+
+/-- Pairing the complete lower half converts source minus child into the exact
+dyadic cross-endpoint cell mass. -/
+theorem nativePNTLambdaTwoOddKernel_lower_sub_child_eq_cell
+    (N : ℕ) :
+    (∑ d ∈ Finset.Icc 1 (N / 2),
+        nativePNTLambdaTwoOddMobiusKernel d * nativePNTError (N / d)) -
+      nativePNTLambdaTwoOddKernelDyadicChildMass N =
+        nativePNTLambdaTwoOddKernelDyadicCellMass N := by
+  unfold nativePNTLambdaTwoOddKernelDyadicChildMass
+    nativePNTLambdaTwoOddKernelDyadicCellMass
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro d _hd
+  ring
+
+/-- **Exact dyadic decomposition of the actual signed `Lambda_2` error
+transform.**  The positive odd-Mobius cells own the full lower half of the
+transform, with only the explicit top boundary left unpaired.  No absolute
+value and no scalarized good-mass hypothesis appears. -/
+theorem nativeLambdaTwoSignedErrorMass_eq_dyadicCells_add_boundary
+    (N : ℕ) :
+    nativeLambdaTwoSignedErrorMass N =
+      nativePNTLambdaTwoOddKernelDyadicCellMass N +
+        nativePNTLambdaTwoOddKernelTopBoundaryMass N := by
+  rw [nativeLambdaTwoSignedErrorMass_eq_oddKernel_sub_evenIndex,
+    nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass_eq_child,
+    nativePNTLambdaTwoOddKernelSignedErrorMass_eq_lower_add_boundary]
+  have hcell := nativePNTLambdaTwoOddKernel_lower_sub_child_eq_cell N
+  linarith
+
 end RHLean.Analysis
