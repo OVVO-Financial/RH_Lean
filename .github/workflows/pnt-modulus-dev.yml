@@ -19,6 +19,23 @@ jobs:
       - name: Check out branch
         uses: actions/checkout@v4
 
+      - name: Apply current signed-proof fixes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('RHLean/Analysis/NativePNTSignedSecondSelbergReciprocal.lean')
+          s = p.read_text()
+          s = s.replace('(P B : ℝ) (hP : 0 ≤ P) (hB : 0 ≤ B)', '(P B : ℝ) (hP : 0 ≤ P)')
+          s = s.replace('''  have hlog0 : 0 ≤ Real.log (N : ℝ) :=\n    Real.log_nonneg (by exact_mod_cast hN1)\n''', '')
+          s = s.replace('''    (by have h := Real.log_nonneg (by norm_num : (1 : ℝ) ≤ 4); linarith)\n    hlog0 hprefix hmono hbound''', '''    (by have h := Real.log_nonneg (by norm_num : (1 : ℝ) ≤ 4); linarith)\n    hprefix hmono hbound''')
+          s = s.replace('exact (abs_add _ _).trans (add_le_add hdiff hJ)', 'exact (abs_add_le _ _).trans (add_le_add hdiff hJ)')
+          s = s.replace('''      field_simp [hdR0, hqR0, hnR0]\n      exact_mod_cast hmulNat''', '''      have hmulR : (d : ℝ) * ((n / d : ℕ) : ℝ) = (n : ℝ) := by\n        exact_mod_cast hmulNat\n      field_simp [hdR0, hqR0, hnR0]\n      rw [hmulR]''')
+          s = s.replace('''  have hmulLe : d * (N / d) ≤ N := Nat.div_mul_le_self N d''', '''  have hmulLe : d * (N / d) ≤ N := by\n    simpa [Nat.mul_comm] using Nat.div_mul_le_self N d''')
+          s = s.replace('''  have hlt : N < d * (N / d + 1) := by\n    have hdivmod : d * (N / d) + N % d = N := Nat.div_add_mod N d\n    have hrem : N % d < d := Nat.mod_lt N hdpos\n    omega''', '''  have hlt : N < d * (N / d + 1) := by\n    have hdivmod : d * (N / d) + N % d = N := Nat.div_add_mod N d\n    have hrem : N % d < d := Nat.mod_lt N hdpos\n    calc\n      N = d * (N / d) + N % d := hdivmod.symm\n      _ < d * (N / d) + d := Nat.add_lt_add_left hrem _\n      _ = d * (N / d + 1) := by ring''')
+          s = s.replace('''    exact mul_le_mul_of_nonneg_left hinner hw0''', '''    simpa [mul_comm] using mul_le_mul_of_nonneg_left hinner hw0''')
+          p.write_text(s)
+          PY
+
       - name: Restore Mathlib packages
         uses: actions/cache/restore@v5
         with:
@@ -45,11 +62,14 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Compile modulus layers
+        id: compile
+        continue-on-error: true
         run: |
           lake build RHLean.Analysis.NativePNTSignedSecondSelbergReciprocal
           lake build RHLean.Arithmetic.PrimeWheelFiniteDepthSemiprime
 
       - name: Regenerate root imports
+        if: steps.compile.outcome == 'success'
         run: |
           set +e
           lake exe mk_all
@@ -66,13 +86,18 @@ jobs:
           path: .lake/build
           key: pnt-modulus-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
 
-      - name: Commit generated root manifest
+      - name: Commit development fixes and generated manifest
+        if: ${{ !cancelled() }}
         run: |
-          if git diff --quiet -- RHLean.lean; then
+          if git diff --quiet; then
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add RHLean.lean
-          git commit -m "Regenerate Lean root manifest"
+          git add RHLean/Analysis/NativePNTSignedSecondSelbergReciprocal.lean RHLean.lean
+          git commit -m "Refine signed physical-scale proofs"
           git push
+
+      - name: Fail if modulus compile failed
+        if: steps.compile.outcome == 'failure'
+        run: exit 1
