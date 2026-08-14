@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Analysis.NativePNTSignedSecondSelbergWheelFrontier
 import RHLean.Analysis.NativePNTSignedWheelRemainder
+import RHLean.Analysis.NativePNTSquarePrefixMobiusError
 
 /-!
 # Signed second-Selberg charge on the square-root wheel frontier
@@ -19,6 +20,13 @@ Below `N < 2 y^2`, every nonzero partial-wheel error site lies strictly above
 The resulting effective frontier charge is therefore not an auxiliary positive
 mass: it is exactly the quantity subtracted by the true signed second-Selberg
 ledger after the frontier pieces are combined before taking norms.
+
+The same threshold has a stronger coefficientwise consequence.  If a divisor
+`m` through `N` is a partial-wheel error site, then `y^2 < m`.  Thus whenever
+`m ∣ d ≤ N`, one has `d < 2m` and hence `d / m = 1`.  The exceptional divisor
+therefore contributes zero to both logarithmic divisor fibres.  Consequently
+the partial wheel reproduces `Lambda` and `Lambda_2` exactly coefficientwise
+below `2 y^2`, despite its pointwise Möbius errors.
 -/
 
 noncomputable section
@@ -261,5 +269,133 @@ theorem nativePNTError_mul_log_sq_eq_offFrontier_sub_effectiveCharge
   rw [hrem]
   ring_nf at hcharge ⊢
   linarith
+
+/-! ## Exact coefficientwise resolution by the square-root wheel -/
+
+/-- The logarithmic divisor fibre with the partial-wheel coefficient replacing
+Möbius. -/
+def nativePartialPrimeWheelLogDivisorFiber
+    (y N d : ℕ) : ℝ :=
+  ∑ m ∈ d.divisors,
+    ((partialPrimeWheelSite y N m : ℤ) : ℝ) *
+      Real.log ((d / m : ℕ) : ℝ)
+
+/-- The log-square divisor fibre with the partial-wheel coefficient replacing
+Möbius. -/
+def nativePartialPrimeWheelLogSquareDivisorFiber
+    (y N d : ℕ) : ℝ :=
+  ∑ m ∈ d.divisors,
+    ((partialPrimeWheelSite y N m : ℤ) : ℝ) *
+      (Real.log ((d / m : ℕ) : ℝ)) ^ 2
+
+/-- Every nonzero partial-wheel error site below the threshold lies strictly
+above the square of the cutoff. -/
+private theorem partialPrimeWheel_error_site_gt_sq
+    {y N m : ℕ} (hscale : N < 2 * y ^ 2)
+    (hmpos : 0 < m) (hmN : m ≤ N)
+    (herr : μ m - partialPrimeWheelSite y N m ≠ 0) :
+    y ^ 2 < m := by
+  rcases partialPrimeWheel_nonzero_error_factorization_of_two_mul_sq
+      y N hscale hmpos hmN herr with
+    ⟨q, r, _hqPrime, _hrPrime, hyq, hyr, _hresolved, hmqr⟩
+  have hyq1 : y + 1 ≤ q := by omega
+  have hyr1 : y + 1 ≤ r := by omega
+  have hsqStep : (y + 1) ^ 2 ≤ q * r := by
+    simpa [pow_two] using Nat.mul_le_mul hyq1 hyr1
+  have hySqLtSuccSq : y ^ 2 < (y + 1) ^ 2 :=
+    Nat.pow_lt_pow_left (by omega) (by omega)
+  rw [hmqr]
+  exact hySqLtSuccSq.trans_le hsqStep
+
+/-- **The first Selberg coefficient is exactly resolved by the square-root
+partial wheel.**  A possible wheel error can only occur at the self-divisor,
+where its logarithmic cofactor is `log 1 = 0`. -/
+theorem nativePartialPrimeWheelLogDivisorFiber_eq_vonMangoldt
+    (y N d : ℕ) (hscale : N < 2 * y ^ 2)
+    (hdpos : 0 < d) (hdN : d ≤ N) :
+    nativePartialPrimeWheelLogDivisorFiber y N d = Λ d := by
+  rw [← nativeMobiusLogDivisorFiber_eq_vonMangoldt d]
+  unfold nativePartialPrimeWheelLogDivisorFiber nativeMobiusLogDivisorFiber
+  apply Finset.sum_congr rfl
+  intro m hm
+  have hmData := Nat.mem_divisors.mp hm
+  have hmdvd : m ∣ d := hmData.1
+  have hmne : m ≠ 0 := by
+    rintro rfl
+    exact (Nat.ne_of_gt hdpos) (Nat.eq_zero_of_zero_dvd hmdvd)
+  have hmpos : 0 < m := Nat.pos_of_ne_zero hmne
+  have hmD : m ≤ d := Nat.le_of_dvd hdpos hmdvd
+  have hmN : m ≤ N := hmD.trans hdN
+  by_cases herr : μ m - partialPrimeWheelSite y N m = 0
+  · have heq : μ m = partialPrimeWheelSite y N m := sub_eq_zero.mp herr
+    change (((μ m : ℤ) : ℝ) * Real.log ((d / m : ℕ) : ℝ)) =
+      ((partialPrimeWheelSite y N m : ℤ) : ℝ) *
+        Real.log ((d / m : ℕ) : ℝ)
+    rw [heq]
+  · have hySqLtM := partialPrimeWheel_error_site_gt_sq hscale hmpos hmN herr
+    have hdltTwoM : d < 2 * m := by omega
+    have hlo : 1 * m ≤ d := by simpa using hmD
+    have hhi : d < (1 + 1) * m := by simpa using hdltTwoM
+    have hdiv : d / m = 1 := Nat.div_eq_of_lt_le hlo hhi
+    rw [hdiv]
+    simp
+
+/-- **The second Selberg coefficient is exactly resolved by the same
+square-root partial wheel.**  The pointwise wheel error again occurs only at a
+self-divisor and is annihilated by the log-square cofactor. -/
+theorem nativePartialPrimeWheelLogSquareDivisorFiber_eq_lambdaTwo
+    (y N d : ℕ) (hscale : N < 2 * y ^ 2)
+    (hdpos : 0 < d) (hdN : d ≤ N) :
+    nativePartialPrimeWheelLogSquareDivisorFiber y N d = nativeLambdaTwo d := by
+  rw [← nativeMobiusLogSquareDivisorFiber_eq_lambdaTwo d]
+  unfold nativePartialPrimeWheelLogSquareDivisorFiber
+    nativeMobiusLogSquareDivisorFiber
+  apply Finset.sum_congr rfl
+  intro m hm
+  have hmData := Nat.mem_divisors.mp hm
+  have hmdvd : m ∣ d := hmData.1
+  have hmne : m ≠ 0 := by
+    rintro rfl
+    exact (Nat.ne_of_gt hdpos) (Nat.eq_zero_of_zero_dvd hmdvd)
+  have hmpos : 0 < m := Nat.pos_of_ne_zero hmne
+  have hmD : m ≤ d := Nat.le_of_dvd hdpos hmdvd
+  have hmN : m ≤ N := hmD.trans hdN
+  by_cases herr : μ m - partialPrimeWheelSite y N m = 0
+  · have heq : μ m = partialPrimeWheelSite y N m := sub_eq_zero.mp herr
+    change (((μ m : ℤ) : ℝ) * (Real.log ((d / m : ℕ) : ℝ)) ^ 2) =
+      ((partialPrimeWheelSite y N m : ℤ) : ℝ) *
+        (Real.log ((d / m : ℕ) : ℝ)) ^ 2
+    rw [heq]
+  · have hySqLtM := partialPrimeWheel_error_site_gt_sq hscale hmpos hmN herr
+    have hdltTwoM : d < 2 * m := by omega
+    have hlo : 1 * m ≤ d := by simpa using hmD
+    have hhi : d < (1 + 1) * m := by simpa using hdltTwoM
+    have hdiv : d / m = 1 := Nat.div_eq_of_lt_le hlo hhi
+    rw [hdiv]
+    simp
+
+/-- The actual signed second-Selberg coefficient written entirely in the
+square-root partial-wheel coordinate. -/
+def nativePartialPrimeWheelSignedSecondSelbergKernel
+    (y N d : ℕ) : ℝ :=
+  nativePartialPrimeWheelLogSquareDivisorFiber y N d -
+    2 * nativePartialPrimeWheelLogDivisorFiber y N d *
+      Real.log (d : ℝ)
+
+/-- **Coefficientwise square-root-wheel realization of the true signed second
+Selberg kernel.**  No unresolved Möbius coefficient remains below the
+`N < 2 y^2` threshold. -/
+theorem nativePartialPrimeWheelSignedSecondSelbergKernel_eq
+    (y N d : ℕ) (hscale : N < 2 * y ^ 2)
+    (hdpos : 0 < d) (hdN : d ≤ N) :
+    nativePartialPrimeWheelSignedSecondSelbergKernel y N d =
+      nativePNTSignedSecondSelbergKernel d := by
+  unfold nativePartialPrimeWheelSignedSecondSelbergKernel
+  rw [nativePartialPrimeWheelLogSquareDivisorFiber_eq_lambdaTwo
+        y N d hscale hdpos hdN,
+    nativePartialPrimeWheelLogDivisorFiber_eq_vonMangoldt
+        y N d hscale hdpos hdN,
+    nativePNTSignedSecondSelbergKernel_eq_lambdaTwo_sub_two_log]
+  ring
 
 end RHLean.Analysis
