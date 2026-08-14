@@ -208,9 +208,18 @@ theorem nativePNTLambdaFloorLogSignedErrorMass_eq_remainder_sub_convolution
         ∑ m ∈ Finset.Icc 1 (N / d),
           Λ m * nativePNTError (N / (d * m))) := by rw [hpoint]
     _ = Λ d * nativePNTSignedSelbergRemainder (N / d) -
+        Λ d * (∑ m ∈ Finset.Icc 1 (N / d),
+          Λ m * nativePNTError (N / (d * m))) := by ring
+    _ = Λ d * nativePNTSignedSelbergRemainder (N / d) -
+        ∑ m ∈ Finset.Icc 1 (N / d),
+          Λ d * (Λ m * nativePNTError (N / (d * m))) := by
+      rw [Finset.mul_sum]
+    _ = Λ d * nativePNTSignedSelbergRemainder (N / d) -
         ∑ m ∈ Finset.Icc 1 (N / d),
           Λ d * Λ m * nativePNTError (N / (d * m)) := by
-      rw [Finset.mul_sum]
+      congr 1
+      apply Finset.sum_congr rfl
+      intro m _hm
       ring
 
 /-- The actual signed second-Selberg error kernel. -/
