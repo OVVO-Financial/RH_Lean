@@ -4,7 +4,7 @@ This standalone snapshot contains the complete import-audited `RHLean` library f
 
 `RHLean.lean` is the authoritative inventory. It imports **366 Lean modules**, every imported `RHLean.*` declaration resolves under `RHLean/`, and the entire exported `RHLean/` tree is byte-identical to the development tree at the synchronized commit.
 
-The previous synchronized standalone manifest contained 285 imports. The current snapshot therefore adds **81 root-imported modules**. Relative to the original 214-module Möbius Synthesis publication, the current manifest is **152 modules larger**.
+Immediately before this refresh, the checked-in export root contained **281 imports**, despite older export documentation still describing a 285-module synchronization point. This refresh therefore adds **85 root imports relative to the checked-in export** and removes that documentation drift. Relative to the original 214-module Möbius Synthesis publication, the current manifest is **152 modules larger**.
 
 This file groups the source by research function. For the exhaustive file-by-file list, read `RHLean.lean` itself.
 
@@ -32,7 +32,7 @@ RHLean.Proof.SquareRootAncestryRoot
 RHLean.Proof.SquareRootAncestrySuccessor
 ```
 
-The post-285 snapshot also includes the newer lifetime diagnostics
+The current snapshot also includes the newer lifetime diagnostics
 
 ```text
 RHLean.Proof.LifetimeEndpointDiscrepancyAttack
@@ -69,7 +69,7 @@ RHLean.Analysis.FiniteWheelRestrictedFloor
 RHLean.Analysis.FiniteWheelReciprocalMertensImprovement,
 ```
 
-which belong to the finite-wheel quantitative layer added after the previous standalone sync.
+which belong to the finite-wheel quantitative layer added after the earlier standalone publication state.
 
 ## 3. Historical square-wheel synthesis seam
 
