@@ -55,6 +55,18 @@ recurrence. -/
 def nativePNTNormalizedSelbergConstant : ℝ :=
   3 * (Real.log 4 + 2) + 173
 
+/-- Public finite telescope used by the normalized Abel and signed-kernel
+layers. -/
+theorem nativeTelescopeDiffIco
+    (b : ℕ → ℝ) : ∀ M : ℕ, 1 ≤ M →
+    (∑ n ∈ Finset.Ico 1 M, (b (n + 1) - b n)) = b M - b 1 := by
+  intro M hM
+  induction M, hM using Nat.le_induction with
+  | base => simp
+  | succ M hM ih =>
+      rw [Finset.sum_Ico_succ_top hM, ih]
+      ring
+
 /-- On positive endpoints, normalized error is exactly `psi(N) / N - 1`. -/
 theorem nativePNTNormalizedError_eq_psi_div_sub_one
     (N : ℕ) (hN : 1 ≤ N) :
