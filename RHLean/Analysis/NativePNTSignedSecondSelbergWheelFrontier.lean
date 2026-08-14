@@ -80,19 +80,32 @@ theorem nativeLambdaTwo_mul_distinct_primes
       Real.log (((p * q : ℕ) : ℝ)) =
         Real.log (p : ℝ) + Real.log (q : ℝ) := by
     rw [Nat.cast_mul, Real.log_mul hp0 hq0]
+  have hpq_ne_one : p * q ≠ 1 := by
+    intro h
+    exact hp.ne_one (Nat.mul_eq_one.mp h).1
+  have hpq_ne_p : p * q ≠ p := by
+    intro h
+    have h' : p * q = p * 1 := by simpa using h
+    exact hq.ne_one (Nat.mul_left_cancel h')
+  have hpq_ne_q : p * q ≠ q := by
+    intro h
+    have h' : q * p = q * 1 := by simpa [Nat.mul_comm] using h
+    exact hp.ne_one (Nat.mul_left_cancel h')
   have hprod :
       ({1, p} : Finset ℕ) * ({1, q} : Finset ℕ) =
         ({1, q, p, p * q} : Finset ℕ) := by
     ext x
-    simp [Finset.mul_def, mul_comm]
+    simp [Finset.mul_def]
+    aesop
   rw [← nativeMobiusLogSquareDivisorFiber_eq_lambdaTwo]
   unfold nativeMobiusLogSquareDivisorFiber
   rw [Nat.divisors_mul p q, hp.divisors, hq.divisors, hprod]
-  simp [hmupq, hpdiv, hqdiv, hself,
+  simp [Finset.sum_insert, hmupq, hpdiv, hqdiv, hself,
     ArithmeticFunction.moebius_apply_prime hp,
     ArithmeticFunction.moebius_apply_prime hq,
-    hp.ne_one, hq.ne_one, hpq, hpq.symm, hlogmul]
-  ring
+    hp.ne_one, hq.ne_one, hpq, hpq.symm,
+    hpq_ne_one, hpq_ne_p, hpq_ne_q, hlogmul]
+  ring_nf
 
 /-- The signed kernel is the positive mixed face on two distinct primes. -/
 theorem nativePNTSignedSecondSelbergKernel_mul_distinct_primes
