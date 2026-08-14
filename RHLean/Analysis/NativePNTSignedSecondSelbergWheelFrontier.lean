@@ -72,8 +72,8 @@ theorem nativeLambdaTwo_mul_distinct_primes
   have hpdiv : p * q / p = q := Nat.mul_div_cancel_left q hp.pos
   have hqdiv : p * q / q = p := by
     simpa [Nat.mul_comm] using (Nat.mul_div_cancel_left p hq.pos)
-  have hpq0 : p * q ≠ 0 := Nat.ne_of_gt (Nat.mul_pos hp.pos hq.pos)
-  have hself : p * q / (p * q) = 1 := Nat.div_self hpq0
+  have hpqpos : 0 < p * q := Nat.mul_pos hp.pos hq.pos
+  have hself : p * q / (p * q) = 1 := Nat.div_self hpqpos
   have hp0 : ((p : ℕ) : ℝ) ≠ 0 := by exact_mod_cast hp.ne_zero
   have hq0 : ((q : ℕ) : ℝ) ≠ 0 := by exact_mod_cast hq.ne_zero
   have hlogmul :
