@@ -87,6 +87,13 @@ theorem exactActivityPrimeInterval_eq_logSquareDyadicBand
   rw [exactActivityPrimeInterval_eq_reciprocalPrimeBand t c hcpos]
   unfold primeSieveExactActivityReciprocalPrimeBand
   have hlower := nativePNTSquareStage_sqrt_le_dyadicLower t c hc hct
+  change
+    (Finset.Ioc
+      (max (t + 1) (squarePrefixEndpoint t / (2 * c)))
+      (squarePrefixEndpoint t / c)).filter Nat.Prime =
+      (Finset.Ioc
+        (squarePrefixEndpoint t / (2 * c))
+        (squarePrefixEndpoint t / c)).filter Nat.Prime
   rw [max_eq_right hlower]
 
 /-- Transition-block specialization of the exact architecture bridge. -/
@@ -183,8 +190,10 @@ def nativePNTSquareStageTransitionLambdaTwoMass (t : ℕ) : ℝ :=
 theorem nativePNTSquareStageTransitionCofactors_four_mul (s : ℕ) :
     nativePNTSquareStageTransitionCofactors (4 * s) =
       Finset.Icc (s + 1) (2 * s) := by
-  ext c
-  simp [nativePNTSquareStageTransitionCofactors]
+  unfold nativePNTSquareStageTransitionCofactors
+  have hfour : 4 * s / 4 = s := by omega
+  have htwo : 4 * s / 2 = 2 * s := by omega
+  rw [hfour, htwo]
 
 /-- Therefore its coefficient mass is the exact increment of the summatory
 second von Mangoldt kernel across `(s,2s]`. -/
