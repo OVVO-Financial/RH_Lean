@@ -71,6 +71,7 @@ import RHLean.Analysis.NativePNTSignedLogSquareDyadicCell
 import RHLean.Analysis.NativePNTSignedLogSquarePositiveDyadicKernel
 import RHLean.Analysis.NativePNTSignedLogSquarePrimeCells
 import RHLean.Analysis.NativePNTSignedLogSquareSquareStage
+import RHLean.Analysis.NativePNTSignedSecondSelberg
 import RHLean.Analysis.NativePNTSignedWheelRemainder
 import RHLean.Analysis.NativePNTSquarePrefixCompensated
 import RHLean.Analysis.NativePNTSquarePrefixContraction
