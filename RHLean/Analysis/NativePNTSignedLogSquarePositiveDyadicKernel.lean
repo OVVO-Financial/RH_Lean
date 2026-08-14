@@ -119,6 +119,7 @@ theorem nativePNTLambdaTwoEvenMobiusPart_eq_neg_half
   have hdgt : 1 < d := Nat.one_lt_of_ne_zero_of_even hdne hdeven
   have hhalfpos : 0 < d / 2 := by omega
   unfold nativePNTLambdaTwoEvenMobiusPart nativePNTLambdaTwoOddMobiusKernel
+  conv_lhs => rw [← Finset.sum_filter]
   rw [← Finset.sum_neg_distrib]
   symm
   refine Finset.sum_bij (fun r _ => 2 * r) ?_ ?_ ?_ ?_
@@ -149,14 +150,14 @@ theorem nativePNTLambdaTwoEvenMobiusPart_eq_neg_half
         ring
       omega
     refine ⟨r, Nat.mem_divisors.mpr ⟨hrd, Nat.ne_of_gt hhalfpos⟩, hmrep⟩
-  · intro r hr
+  · intro r _hr
     have hmu := nativePNTMobiusReal_two_mul r
     by_cases hodd : Odd r
     · rw [if_pos hodd] at hmu
-      simp [hodd, even_two_mul, hmu, Nat.div_div_eq_div_mul,
+      simp [hodd, hmu, Nat.div_div_eq_div_mul,
         Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc]
     · rw [if_neg hodd] at hmu
-      simp [hodd, even_two_mul, hmu]
+      simp [hodd, hmu]
 
 /-- Positive-even coefficient recurrence. -/
 theorem nativeLambdaTwo_eq_oddKernel_sub_half_of_even
