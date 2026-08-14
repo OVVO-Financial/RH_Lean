@@ -355,12 +355,15 @@ theorem nativePNTLogSquareUnitQuotientFiberMass_lower
     intro k hk
     exact nativePNTLogSquareUnitQuotientFiber_log_sq_lower N q k hq hscale hk
   have hsum :
-      ((nativePNTLogSquareUnitQuotientFiber N q).card : ℝ) * hcoeff ≤
+      ((nativePNTLogSquareUnitQuotientFiber N q).card : ℝ) *
+          ((1 / 4 : ℝ) * (Real.log (N : ℝ)) ^ 2) ≤
         nativePNTLogSquareUnitQuotientFiberMass N q := by
     unfold nativePNTLogSquareUnitQuotientFiberMass
     calc
-      ((nativePNTLogSquareUnitQuotientFiber N q).card : ℝ) * hcoeff =
-          ∑ k ∈ nativePNTLogSquareUnitQuotientFiber N q, hcoeff := by
+      ((nativePNTLogSquareUnitQuotientFiber N q).card : ℝ) *
+          ((1 / 4 : ℝ) * (Real.log (N : ℝ)) ^ 2) =
+          ∑ k ∈ nativePNTLogSquareUnitQuotientFiber N q,
+            ((1 / 4 : ℝ) * (Real.log (N : ℝ)) ^ 2) := by
         simp [Finset.sum_const, nsmul_eq_mul]
       _ ≤ ∑ k ∈ nativePNTLogSquareUnitQuotientFiber N q,
           (Real.log (k : ℝ)) ^ 2 := Finset.sum_le_sum hpoint
