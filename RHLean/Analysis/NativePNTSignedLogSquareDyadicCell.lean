@@ -123,6 +123,8 @@ private theorem abs_pair_surplus_ge_two_common_lower
     2 * L ≤ |x| + |y| - |x - y| := by
   rcases hsign with hpos | hneg
   · rcases hpos with ⟨hx0, hy0⟩
+    have hxL : L ≤ x := by simpa [abs_of_nonneg hx0] using hx
+    have hyL : L ≤ y := by simpa [abs_of_nonneg hy0] using hy
     rw [abs_of_nonneg hx0, abs_of_nonneg hy0]
     by_cases hxy : x ≤ y
     · rw [abs_of_nonpos (sub_nonpos.mpr hxy)]
@@ -131,6 +133,8 @@ private theorem abs_pair_surplus_ge_two_common_lower
       rw [abs_of_nonneg (sub_nonneg.mpr hyx)]
       linarith
   · rcases hneg with ⟨hx0, hy0⟩
+    have hxL : L ≤ -x := by simpa [abs_of_nonpos hx0] using hx
+    have hyL : L ≤ -y := by simpa [abs_of_nonpos hy0] using hy
     rw [abs_of_nonpos hx0, abs_of_nonpos hy0]
     by_cases hxy : x ≤ y
     · rw [abs_of_nonpos (sub_nonpos.mpr hxy)]
@@ -163,7 +167,6 @@ theorem nativePNTLambdaTwoDyadicAbsSurplus_ge_of_bad_sameSign
     2 * beta * ((N / (2 * d) : ℕ) : ℝ) * nativeLambdaTwo d ≤
       nativePNTLambdaTwoDyadicAbsSurplus N d := by
   have hdpos : 0 < d := by omega
-  have h2dpos : 0 < 2 * d := by positivity
   have hqmul : (N / (2 * d)) * d ≤ N := by
     calc
       (N / (2 * d)) * d ≤ (N / (2 * d)) * (2 * d) := by
