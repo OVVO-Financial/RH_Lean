@@ -289,10 +289,15 @@ theorem nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass_eq_child
   refine Finset.sum_bij (fun d _ => 2 * d) ?_ ?_ ?_ ?_
   · intro d hd
     have hdI := Finset.mem_Icc.mp hd
+    have hdpos : 0 < d :=
+      lt_of_lt_of_le (by norm_num : 0 < 1) hdI.1
+    have h2d1 : 1 ≤ 2 * d :=
+      Nat.one_le_iff_ne_zero.mpr
+        (Nat.mul_ne_zero (by norm_num) (Nat.ne_of_gt hdpos))
     have hdN2 : d * 2 ≤ N :=
       (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).1 hdI.2
     exact Finset.mem_filter.mpr
-      ⟨Finset.mem_Icc.mpr ⟨by omega, by simpa [Nat.mul_comm] using hdN2⟩,
+      ⟨Finset.mem_Icc.mpr ⟨h2d1, by simpa [Nat.mul_comm] using hdN2⟩,
         even_two_mul d⟩
   · intro a _ha b _hb hab
     change 2 * a = 2 * b at hab
