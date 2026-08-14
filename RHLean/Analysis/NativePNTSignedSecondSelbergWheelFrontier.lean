@@ -24,7 +24,7 @@ frontier, rather than a positive scalar `Lambda_2` mass.
 
 noncomputable section
 
-open scoped ArithmeticFunction.Moebius ArithmeticFunction.vonMangoldt BigOperators
+open scoped ArithmeticFunction.Moebius ArithmeticFunction.vonMangoldt BigOperators Pointwise
 
 namespace RHLean.Analysis
 
