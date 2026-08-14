@@ -116,8 +116,9 @@ theorem nativePNTLambdaTwoEvenMobiusPart_eq_neg_half
   classical
   have hdne : d ≠ 0 := Nat.ne_of_gt hdpos
   have hdouble : 2 * (d / 2) = d := Nat.two_mul_div_two_of_even hdeven
-  have hdgt : 1 < d := Nat.one_lt_of_ne_zero_of_even hdne hdeven
-  have hhalfpos : 0 < d / 2 := by omega
+  have hhalfpos : 0 < d / 2 := by
+    have hdgt : 1 < d := Nat.one_lt_of_ne_zero_of_even hdne hdeven
+    omega
   unfold nativePNTLambdaTwoEvenMobiusPart nativePNTLambdaTwoOddMobiusKernel
   conv_lhs => rw [← Finset.sum_filter]
   rw [← Finset.sum_neg_distrib]
@@ -154,9 +155,17 @@ theorem nativePNTLambdaTwoEvenMobiusPart_eq_neg_half
     have hmu := nativePNTMobiusReal_two_mul r
     by_cases hodd : Odd r
     · rw [if_pos hodd] at hmu
-      simp [hodd, hmu, Nat.div_div_eq_div_mul, Nat.mul_comm]
+      have hmu' :
+          (μ : ArithmeticFunction ℝ) (r * 2) =
+            -(μ : ArithmeticFunction ℝ) r := by
+        simpa [Nat.mul_comm] using hmu
+      rw [hmu']
+      ring
     · rw [if_neg hodd] at hmu
-      simp [hodd, hmu]
+      have hmu' : (μ : ArithmeticFunction ℝ) (r * 2) = 0 := by
+        simpa [Nat.mul_comm] using hmu
+      rw [hmu']
+      simp [hodd]
 
 /-- Positive-even coefficient recurrence. -/
 theorem nativeLambdaTwo_eq_oddKernel_sub_half_of_even
@@ -191,6 +200,11 @@ theorem nativePNTLambdaTwoOddMobiusKernel_nonneg (d : ℕ) :
           linarith
 
 /-! ## Exact dyadic decomposition of the signed Lambda_2 transform -/
+
+/-- The signed `Lambda_2` error transform itself. -/
+def nativeLambdaTwoSignedErrorMass (N : ℕ) : ℝ :=
+  ∑ d ∈ Finset.Icc 1 N,
+    nativeLambdaTwo d * nativePNTError (N / d)
 
 /-- Uniform pointwise form of the parity recurrence on positive indices. -/
 theorem nativeLambdaTwo_eq_oddKernel_sub_evenHalf
@@ -283,11 +297,17 @@ theorem nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass_eq_child
       dsimp [d]
       exact Nat.two_mul_div_two_of_even hneven
     have hd1 : 1 ≤ d := by
-      dsimp [d]
+      by_contra hzero
+      have hd0 : d = 0 := by omega
+      rw [hd0] at hrep
       omega
+    have h2dN : 2 * d ≤ N := by
+      calc
+        2 * d = n := hrep
+        _ ≤ N := hnI'.2
     have hdN : d ≤ N / 2 := by
-      dsimp [d]
-      exact Nat.div_le_div_right hnI'.2
+      apply (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2
+      simpa [Nat.mul_comm] using h2dN
     exact ⟨d, Finset.mem_Icc.mpr ⟨hd1, hdN⟩, hrep⟩
   · intro d _hd
     have hhalf : (2 * d) / 2 = d := by omega
