@@ -37,10 +37,7 @@ theorem nativeLambdaTwo_prime_sq
   rw [← nativeMobiusLogSquareDivisorFiber_eq_lambdaTwo]
   unfold nativeMobiusLogSquareDivisorFiber
   rw [hp.divisors_sq]
-  have hdiv : p ^ 2 / p = p := by
-    simpa [pow_two] using (Nat.mul_div_cancel_left p hp.pos)
-  simp [hdiv, ArithmeticFunction.moebius_apply_prime_pow hp,
-    ArithmeticFunction.moebius_apply_prime hp, pow_two, hp.ne_zero,
+  simp [ArithmeticFunction.moebius_apply_prime hp, pow_two, hp.ne_zero,
     hp.ne_one, Nat.cast_mul, Real.log_mul]
   ring
 
@@ -63,15 +60,12 @@ theorem nativeLambdaTwo_mul_distinct_primes
     (p q : ℕ) (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     nativeLambdaTwo (p * q) =
       2 * Real.log (p : ℝ) * Real.log (q : ℝ) := by
-  have hpdiv : p * q / p = q := Nat.mul_div_cancel_left q hp.pos
-  have hqdiv : p * q / q = p := by
-    simpa [Nat.mul_comm] using (Nat.mul_div_cancel_left p hq.pos)
   rw [← nativeMobiusLogSquareDivisorFiber_eq_lambdaTwo]
   unfold nativeMobiusLogSquareDivisorFiber
   rw [Nat.divisors_mul p q, hp.divisors, hq.divisors]
-  simp [hpdiv, hqdiv, ArithmeticFunction.moebius_apply_prime hp,
+  simp [Finset.mul_def, ArithmeticFunction.moebius_apply_prime hp,
     ArithmeticFunction.moebius_apply_prime hq, hp.ne_zero, hq.ne_zero,
-    hp.ne_one, hq.ne_one, hpq, Nat.cast_mul, Real.log_mul]
+    hp.ne_one, hq.ne_one, hpq, hpq.symm, Nat.cast_mul, Real.log_mul]
   ring
 
 /-- The signed kernel is the positive mixed face on two distinct primes. -/
