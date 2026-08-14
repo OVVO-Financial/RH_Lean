@@ -34,10 +34,10 @@ def nativeMobiusLogSquareDivisorFiber (d : ℕ) : ℝ :=
 /-- Coefficientwise form of `mu * log^2 = Lambda_2`. -/
 theorem nativeMobiusLogSquareDivisorFiber_eq_lambdaTwo (d : ℕ) :
     nativeMobiusLogSquareDivisorFiber d = nativeLambdaTwo d := by
-  unfold nativeMobiusLogSquareDivisorFiber nativeLambdaTwo arithmeticLogSquare
+  unfold nativeMobiusLogSquareDivisorFiber nativeLambdaTwo
   rw [ArithmeticFunction.mul_apply,
     Nat.sum_divisorsAntidiagonal
-      (fun a b => (μ : ArithmeticFunction ℝ) a * (Real.log (b : ℝ)) ^ 2)]
+      (fun a b => (μ : ArithmeticFunction ℝ) a * arithmeticLogSquare b)]
   rfl
 
 /-- Reciprocal quotient fibre for the log-square Möbius transform. -/
@@ -157,6 +157,7 @@ private theorem nativeMobiusReal_adjoin_prime
   change (((μ (m * p) : ℤ) : ℝ)) = -(((μ m : ℤ) : ℝ))
   rw [nativeMobius_adjoin_prime m p hp hcop]
   push_cast
+  rfl
 
 /-- **Cross-endpoint fresh-prime identity.**  Keeping the inner quotient `k`
 fixed and adjoining a fresh prime to the Möbius cofactor produces a genuine
@@ -190,7 +191,7 @@ theorem nativePNTMobiusLogSquareSignedAtom_same_endpoint
   have hp0 : (p : ℝ) ≠ 0 := by exact_mod_cast hp.ne_zero
   have hk0 : (k : ℝ) ≠ 0 := by
     exact_mod_cast (show k ≠ 0 by omega)
-  rw [Real.log_mul hp0 hk0]
+  rw [Nat.cast_mul, Real.log_mul hp0 hk0]
   ring
 
 /-- Exact drop in absolute mass produced by one cross-endpoint cell. -/
@@ -218,6 +219,8 @@ private theorem abs_pair_surplus_ge_two_lower
     2 * L ≤ |x| + |y| - |x - y| := by
   rcases hsign with hpos | hneg
   · rcases hpos with ⟨hx0, hy0⟩
+    have hxL : L ≤ x := by simpa [abs_of_nonneg hx0] using hx
+    have hyL : L ≤ y := by simpa [abs_of_nonneg hy0] using hy
     rw [abs_of_nonneg hx0, abs_of_nonneg hy0]
     by_cases hxy : x ≤ y
     · rw [abs_of_nonpos (sub_nonpos.mpr hxy)]
@@ -226,6 +229,8 @@ private theorem abs_pair_surplus_ge_two_lower
       rw [abs_of_nonneg (sub_nonneg.mpr hyx)]
       linarith
   · rcases hneg with ⟨hx0, hy0⟩
+    have hxL : L ≤ -x := by simpa [abs_of_nonpos hx0] using hx
+    have hyL : L ≤ -y := by simpa [abs_of_nonpos hy0] using hy
     rw [abs_of_nonpos hx0, abs_of_nonpos hy0]
     by_cases hxy : x ≤ y
     · rw [abs_of_nonpos (sub_nonpos.mpr hxy)]
@@ -307,8 +312,7 @@ theorem nativePNTLogSquareParityCellSet_uses_unique
     c₁ = c₂ := by
   rcases c₁ with ⟨m₁, k₁⟩
   rcases c₂ with ⟨m₂, k₂⟩
-  simp only [nativePNTLogSquareParityCellSet, Finset.mem_filter,
-    Finset.mem_product, Finset.mem_Icc] at hc₁ hc₂
+  simp only [nativePNTLogSquareParityCellSet, Finset.mem_filter] at hc₁ hc₂
   change atom = (m₁, k₁) ∨ atom = (m₁ * 2, k₁) at h₁
   change atom = (m₂, k₂) ∨ atom = (m₂ * 2, k₂) at h₂
   rcases h₁ with h₁ | h₁ <;> rcases h₂ with h₂ | h₂
