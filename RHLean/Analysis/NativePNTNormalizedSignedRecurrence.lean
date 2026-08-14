@@ -98,11 +98,10 @@ theorem nativePNTNormalizedFloorSelbergMass_eq_average
     exact_mod_cast (show N / d ≠ 0 by omega)
   unfold nativePNTNormalizedFloorWeight nativePNTNormalizedError
   field_simp [hNne, hqne]
-  ring
 
-/-- Every normalized floor weight is nonnegative on the active divisor range. -/
+/-- Every normalized floor weight is nonnegative. -/
 theorem nativePNTNormalizedFloorWeight_nonneg
-    (N d : ℕ) (hN : 1 ≤ N) :
+    (N d : ℕ) :
     0 ≤ nativePNTNormalizedFloorWeight N d := by
   have hN0 : 0 ≤ (N : ℝ) := by positivity
   unfold nativePNTNormalizedFloorWeight
@@ -111,7 +110,7 @@ theorem nativePNTNormalizedFloorWeight_nonneg
 
 /-- The total barycentric weight is exactly `log(N!) / N`. -/
 theorem nativePNTNormalizedFloorWeight_sum_eq_logFactorial_div
-    (N : ℕ) (hN : 1 ≤ N) :
+    (N : ℕ) (_hN : 1 ≤ N) :
     (∑ d ∈ Finset.Icc 1 N, nativePNTNormalizedFloorWeight N d) =
       Real.log ((Nat.factorial N : ℕ) : ℝ) / (N : ℝ) := by
   unfold nativePNTNormalizedFloorWeight
@@ -136,7 +135,6 @@ theorem nativePNTNormalizedFloorWeight_sum_sub_main_abs_le
         (Real.log ((Nat.factorial N : ℕ) : ℝ) -
           ((N : ℝ) * Real.log (N : ℝ) - (N : ℝ) + 1)) / (N : ℝ) := by
     field_simp [ne_of_gt hNpos]
-    ring
   rw [hrearrange, abs_div, abs_of_pos hNpos]
   exact (div_le_div_iff_of_pos_right hNpos).2 hfac
 
