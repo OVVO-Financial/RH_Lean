@@ -44,8 +44,8 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Compile normalized modulus layer
-        run: lake build RHLean.Analysis.NativePNTNormalizedReciprocal
+      - name: Compile signed second modulus layer
+        run: lake build RHLean.Analysis.NativePNTSignedSecondSelbergReciprocal
 
       - name: Regenerate root imports
         run: |
