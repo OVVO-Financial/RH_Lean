@@ -14,6 +14,12 @@ term growing like `N` or `N * log N`.  This is the normalization needed for a
 quantitative modulus attack and for later square-stage or wheel-frontier
 smoothing.
 
+The reciprocal term is then rewritten as a nonnegative barycentric transform
+of the smaller normalized errors.  Its total weight is exactly `log(N!) / N`,
+so the sharp factorial estimate identifies the transform mass with
+`log N - 1 + O(log N / N)`.  Thus the signed relation is a scale-free
+near-averaging law rather than an affine recurrence with a growing intercept.
+
 No new analytic premise is introduced here.
 -/
 
@@ -33,6 +39,17 @@ current endpoint `N`. -/
 def nativePNTNormalizedFloorSelbergMass (N : ℕ) : ℝ :=
   (∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) / (N : ℝ)
 
+/-- Nonnegative weight attached to the reciprocal quotient `floor(N/d)` after
+normalization.  The floor factor is retained exactly. -/
+def nativePNTNormalizedFloorWeight (N d : ℕ) : ℝ :=
+  Λ d * ((N / d : ℕ) : ℝ) / (N : ℝ)
+
+/-- The normalized reciprocal transform written directly as a weighted average
+of normalized errors on smaller quotient fibres. -/
+def nativePNTNormalizedFloorAverage (N : ℕ) : ℝ :=
+  ∑ d ∈ Finset.Icc 1 N,
+    nativePNTNormalizedFloorWeight N d * nativePNTNormalizedError (N / d)
+
 /-- Explicit scale-free constant inherited from the signed first Selberg
 recurrence. -/
 def nativePNTNormalizedSelbergConstant : ℝ :=
@@ -48,8 +65,8 @@ theorem nativePNTNormalizedError_eq_psi_div_sub_one
   field_simp [hNne]
 
 /-- The elementary Chebyshev estimate gives a uniform bound for the normalized
-error.  This is used later to control the tiny floor-to-reciprocal correction
-without introducing an affine intercept. -/
+error.  This is used later to control local scale changes without introducing
+an affine intercept. -/
 theorem nativePNTNormalizedError_abs_le_const
     (N : ℕ) (hN : 1 ≤ N) :
     |nativePNTNormalizedError N| ≤ Real.log 4 + 3 := by
@@ -60,6 +77,68 @@ theorem nativePNTNormalizedError_abs_le_const
   rw [abs_div, abs_of_pos hNpos]
   apply (div_le_iff₀ hNpos).2
   simpa [mul_assoc] using h
+
+/-- The exact normalized reciprocal term is the barycentric transform of the
+normalized quotient errors.  No floor approximation is made. -/
+theorem nativePNTNormalizedFloorSelbergMass_eq_average
+    (N : ℕ) (hN : 1 ≤ N) :
+    nativePNTNormalizedFloorSelbergMass N =
+      nativePNTNormalizedFloorAverage N := by
+  have hNne : (N : ℝ) ≠ 0 := by
+    exact_mod_cast (show N ≠ 0 by omega)
+  unfold nativePNTNormalizedFloorSelbergMass
+    nativePNTNormalizedFloorAverage
+  rw [Finset.sum_div]
+  apply Finset.sum_congr rfl
+  intro d hd
+  have hdI := Finset.mem_Icc.mp hd
+  have hdpos : 0 < d := by omega
+  have hq1 : 1 ≤ N / d := (Nat.one_le_div_iff hdpos).2 hdI.2
+  have hqne : (((N / d : ℕ) : ℝ)) ≠ 0 := by
+    exact_mod_cast (show N / d ≠ 0 by omega)
+  unfold nativePNTNormalizedFloorWeight nativePNTNormalizedError
+  field_simp [hNne, hqne]
+  ring
+
+/-- Every normalized floor weight is nonnegative on the active divisor range. -/
+theorem nativePNTNormalizedFloorWeight_nonneg
+    (N d : ℕ) (hN : 1 ≤ N) :
+    0 ≤ nativePNTNormalizedFloorWeight N d := by
+  have hN0 : 0 ≤ (N : ℝ) := by positivity
+  unfold nativePNTNormalizedFloorWeight
+  exact div_nonneg
+    (mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (by positivity)) hN0
+
+/-- The total barycentric weight is exactly `log(N!) / N`. -/
+theorem nativePNTNormalizedFloorWeight_sum_eq_logFactorial_div
+    (N : ℕ) (hN : 1 ≤ N) :
+    (∑ d ∈ Finset.Icc 1 N, nativePNTNormalizedFloorWeight N d) =
+      Real.log ((Nat.factorial N : ℕ) : ℝ) / (N : ℝ) := by
+  unfold nativePNTNormalizedFloorWeight
+  rw [← Finset.sum_div, nativeVonMangoldtSummatory]
+
+/-- The total normalized weight differs from
+`log N - 1 + 1/N` by at most `log N / N`.  This is the sharp finite form of
+the fact that the signed recurrence is a near-averaging law of logarithmic
+mass. -/
+theorem nativePNTNormalizedFloorWeight_sum_sub_main_abs_le
+    (N : ℕ) (hN : 1 ≤ N) :
+    |(∑ d ∈ Finset.Icc 1 N, nativePNTNormalizedFloorWeight N d) -
+        (Real.log (N : ℝ) - 1 + 1 / (N : ℝ))| ≤
+      Real.log (N : ℝ) / (N : ℝ) := by
+  have hNpos : (0 : ℝ) < (N : ℝ) := by
+    exact_mod_cast (show 0 < N by omega)
+  have hfac := nativeLogFactorial_sub_main_abs_le N hN
+  rw [nativePNTNormalizedFloorWeight_sum_eq_logFactorial_div N hN]
+  have hrearrange :
+      Real.log ((Nat.factorial N : ℕ) : ℝ) / (N : ℝ) -
+          (Real.log (N : ℝ) - 1 + 1 / (N : ℝ)) =
+        (Real.log ((Nat.factorial N : ℕ) : ℝ) -
+          ((N : ℝ) * Real.log (N : ℝ) - (N : ℝ) + 1)) / (N : ℝ) := by
+    field_simp [ne_of_gt hNpos]
+    ring
+  rw [hrearrange, abs_div, abs_of_pos hNpos]
+  exact (div_le_div_iff_of_pos_right hNpos).2 hfac
 
 /-- **Scale-free normalized signed Selberg recurrence.**
 
@@ -90,5 +169,15 @@ theorem nativePNTNormalized_signed_first_recurrence_abs_le
   rw [hrearrange, abs_div, abs_of_pos hNpos]
   apply (div_le_iff₀ hNpos).2
   simpa [nativePNTNormalizedSelbergConstant] using hsigned
+
+/-- Barycentric form of the scale-free signed recurrence.  The entire recursive
+term is now a nonnegative weighted average of normalized quotient errors. -/
+theorem nativePNTNormalized_signed_first_recurrence_average_abs_le
+    (N : ℕ) (hN : 3 ≤ N) :
+    |nativePNTNormalizedError N * Real.log (N : ℝ) +
+        nativePNTNormalizedFloorAverage N| ≤
+      nativePNTNormalizedSelbergConstant := by
+  rw [← nativePNTNormalizedFloorSelbergMass_eq_average N (by omega)]
+  exact nativePNTNormalized_signed_first_recurrence_abs_le N hN
 
 end RHLean.Analysis
