@@ -333,4 +333,40 @@ theorem nativePNTLogSquareParityCellSet_uses_unique
     · omega
     · exact hkEq
 
+/-! ## Local good-fibre charge in the same raw coordinate -/
+
+/-- On the `m = 1` source row, a beta-good reciprocal quotient releases its
+full `alpha - beta` log-square envelope deficit before any scalar aggregation. -/
+theorem nativePNTMobiusLogSquareSignedAtom_one_good_deficit
+    (N k : ℕ) (alpha beta : ℝ)
+    (hgood :
+      |nativePNTError (N / k)| ≤
+        beta * ((N / k : ℕ) : ℝ)) :
+    (alpha - beta) * ((N / k : ℕ) : ℝ) *
+        (Real.log (k : ℝ)) ^ 2 ≤
+      alpha * ((N / k : ℕ) : ℝ) *
+          (Real.log (k : ℝ)) ^ 2 -
+        |nativePNTMobiusLogSquareSignedAtom N 1 k| := by
+  have hcoef : 0 ≤ (Real.log (k : ℝ)) ^ 2 := sq_nonneg _
+  have hmul :
+      (Real.log (k : ℝ)) ^ 2 * |nativePNTError (N / k)| ≤
+        (Real.log (k : ℝ)) ^ 2 *
+          (beta * ((N / k : ℕ) : ℝ)) :=
+    mul_le_mul_of_nonneg_left hgood hcoef
+  have hatom :
+      |nativePNTMobiusLogSquareSignedAtom N 1 k| =
+        (Real.log (k : ℝ)) ^ 2 * |nativePNTError (N / k)| := by
+    simp [nativePNTMobiusLogSquareSignedAtom, abs_mul,
+      abs_of_nonneg hcoef]
+  rw [hatom]
+  calc
+    (alpha - beta) * ((N / k : ℕ) : ℝ) *
+        (Real.log (k : ℝ)) ^ 2 =
+      alpha * ((N / k : ℕ) : ℝ) * (Real.log (k : ℝ)) ^ 2 -
+        (Real.log (k : ℝ)) ^ 2 *
+          (beta * ((N / k : ℕ) : ℝ)) := by ring
+    _ ≤ alpha * ((N / k : ℕ) : ℝ) * (Real.log (k : ℝ)) ^ 2 -
+        (Real.log (k : ℝ)) ^ 2 * |nativePNTError (N / k)| := by
+      exact sub_le_sub_left hmul _
+
 end RHLean.Analysis
