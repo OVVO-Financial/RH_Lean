@@ -44,7 +44,13 @@ theorem nativePNTNormalizedError_sub_le_of_factor_two
         (nativePsi B - nativePsi A) / (A : ℝ) := by
     rw [nativePNTNormalizedError_eq_psi_div_sub_one B (by omega),
       nativePNTNormalizedError_eq_psi_div_sub_one A (by omega)]
-    linarith
+    calc
+      (nativePsi B / (B : ℝ) - 1) -
+          (nativePsi A / (A : ℝ) - 1) =
+        nativePsi B / (B : ℝ) - nativePsi A / (A : ℝ) := by ring
+      _ ≤ nativePsi B / (A : ℝ) - nativePsi A / (A : ℝ) :=
+        sub_le_sub_right hratio _
+      _ = (nativePsi B - nativePsi A) / (A : ℝ) := by ring
   have hinc := nativePsi_interval_le_gap_tail A B hA hAB hB2 hlog
   have hincDiv :
       (nativePsi B - nativePsi A) / (A : ℝ) ≤
@@ -58,7 +64,6 @@ theorem nativePNTNormalizedError_sub_le_of_factor_two
       _ = 2 * (((B : ℝ) - (A : ℝ)) / (A : ℝ)) +
           550 / Real.log (A : ℝ) := by
         field_simp [ne_of_gt hApos, ne_of_gt hlogpos]
-        ring
   exact hforward.trans hincDiv
 
 /-- Backward one-sided normalized continuity.  Monotonicity of `psi` and the
@@ -107,7 +112,6 @@ theorem nativePNTNormalizedError_sub_le_reverse_of_factor_two
     _ ≤ 6 * (B : ℝ) * (1 / (A : ℝ) - 1 / (B : ℝ)) := hscale
     _ = 6 * (((B : ℝ) - (A : ℝ)) / (A : ℝ)) := by
       field_simp [ne_of_gt hApos, ne_of_gt hBpos]
-      ring
 
 /-- **Absolute multiplicative continuity.**  On every factor-two interval,
 normalized Chebyshev error has an explicit modulus of continuity with no
@@ -126,11 +130,11 @@ theorem nativePNTNormalizedError_sub_abs_le_of_factor_two
       positivity
     linarith
   · have hfwd := nativePNTNormalizedError_sub_le_of_factor_two A B hA hAB hB2 hlog
-    have hgap0 : 0 ≤ ((B : ℝ) - (A : ℝ)) / (A : ℝ) := by
-      have hApos : (0 : ℝ) < (A : ℝ) := by
-        exact_mod_cast (show 0 < A by omega)
-      have hABR : (A : ℝ) ≤ (B : ℝ) := by exact_mod_cast hAB
-      positivity
+    have hApos : (0 : ℝ) < (A : ℝ) := by
+      exact_mod_cast (show 0 < A by omega)
+    have hABR : (A : ℝ) ≤ (B : ℝ) := by exact_mod_cast hAB
+    have hgap0 : 0 ≤ ((B : ℝ) - (A : ℝ)) / (A : ℝ) :=
+      div_nonneg (sub_nonneg.mpr hABR) hApos.le
     linarith
 
 end RHLean.Analysis
