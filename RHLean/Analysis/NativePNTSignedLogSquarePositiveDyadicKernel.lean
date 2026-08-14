@@ -314,7 +314,8 @@ theorem nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass_eq_child
       exact Nat.div_le_div_right hnI'.2
     exact ⟨d, Finset.mem_Icc.mpr ⟨hd1, hdN⟩, hrep⟩
   · intro d _hd
-    have hhalf : (2 * d) / 2 = d := by omega
+    have hhalf : (2 * d) / 2 = d :=
+      Nat.mul_div_cancel_left d (by norm_num : 0 < 2)
     simp [hhalf]
 
 /-- The odd-kernel source row splits exactly into the paired lower half and the
