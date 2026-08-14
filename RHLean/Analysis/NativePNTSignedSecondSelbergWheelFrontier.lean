@@ -60,12 +60,37 @@ theorem nativeLambdaTwo_mul_distinct_primes
     (p q : ℕ) (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     nativeLambdaTwo (p * q) =
       2 * Real.log (p : ℝ) * Real.log (q : ℝ) := by
+  have hcop : p.Coprime q := by
+    rw [hp.coprime_iff_not_dvd]
+    intro hpdq
+    exact hpq ((Nat.prime_dvd_prime_iff_eq hp hq).mp hpdq)
+  have hmupq : μ (p * q) = 1 := by
+    rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
+      ArithmeticFunction.moebius_apply_prime hp,
+      ArithmeticFunction.moebius_apply_prime hq]
+    norm_num
+  have hpdiv : p * q / p = q := Nat.mul_div_cancel_left q hp.pos
+  have hqdiv : p * q / q = p := by
+    simpa [Nat.mul_comm] using (Nat.mul_div_cancel_left p hq.pos)
+  have hpq0 : p * q ≠ 0 := Nat.ne_of_gt (Nat.mul_pos hp.pos hq.pos)
+  have hself : p * q / (p * q) = 1 := Nat.div_self hpq0
+  have hp0 : ((p : ℕ) : ℝ) ≠ 0 := by exact_mod_cast hp.ne_zero
+  have hq0 : ((q : ℕ) : ℝ) ≠ 0 := by exact_mod_cast hq.ne_zero
+  have hlogmul :
+      Real.log (((p * q : ℕ) : ℝ)) =
+        Real.log (p : ℝ) + Real.log (q : ℝ) := by
+    rw [Nat.cast_mul, Real.log_mul hp0 hq0]
+  have hprod :
+      ({1, p} : Finset ℕ) * {1, q} = {1, q, p, p * q} := by
+    ext x
+    simp [Finset.mul_def, mul_comm]
   rw [← nativeMobiusLogSquareDivisorFiber_eq_lambdaTwo]
   unfold nativeMobiusLogSquareDivisorFiber
-  rw [Nat.divisors_mul p q, hp.divisors, hq.divisors]
-  simp [Finset.mul_def, ArithmeticFunction.moebius_apply_prime hp,
-    ArithmeticFunction.moebius_apply_prime hq, hp.ne_zero, hq.ne_zero,
-    hp.ne_one, hq.ne_one, hpq, hpq.symm, Nat.cast_mul, Real.log_mul]
+  rw [Nat.divisors_mul p q, hp.divisors, hq.divisors, hprod]
+  simp [hmupq, hpdiv, hqdiv, hself,
+    ArithmeticFunction.moebius_apply_prime hp,
+    ArithmeticFunction.moebius_apply_prime hq,
+    hp.ne_one, hq.ne_one, hpq, hpq.symm, hlogmul]
   ring
 
 /-- The signed kernel is the positive mixed face on two distinct primes. -/
