@@ -117,7 +117,7 @@ theorem nativePNTLambdaTwoDyadicAbsSurplus_nonneg
   exact mul_nonneg hkernel (sub_nonneg.mpr htri)
 
 private theorem abs_pair_surplus_ge_two_common_lower
-    (x y L : ℝ) (hL : 0 ≤ L)
+    (x y L : ℝ)
     (hx : L ≤ |x|) (hy : L ≤ |y|)
     (hsign : (0 ≤ x ∧ 0 ≤ y) ∨ (x ≤ 0 ∧ y ≤ 0)) :
     2 * L ≤ |x| + |y| - |x - y| := by
@@ -181,13 +181,11 @@ theorem nativePNTLambdaTwoDyadicAbsSurplus_ge_of_bad_sameSign
       beta * ((N / (2 * d) : ℕ) : ℝ) ≤
         |nativePNTError (N / d)| := by
     exact (mul_le_mul_of_nonneg_left hqleR hbeta).trans hsource
-  have hL0 : 0 ≤ beta * ((N / (2 * d) : ℕ) : ℝ) :=
-    mul_nonneg hbeta (by positivity)
   have hpair := abs_pair_surplus_ge_two_common_lower
     (nativePNTError (N / d))
     (nativePNTError (N / (2 * d)))
     (beta * ((N / (2 * d) : ℕ) : ℝ))
-    hL0 hcommonSource hchild hsign
+    hcommonSource hchild hsign
   have hkernel : 0 ≤ nativeLambdaTwo d := nativeLambdaTwo_nonneg d hd
   have hmul := mul_le_mul_of_nonneg_left hpair hkernel
   unfold nativePNTLambdaTwoDyadicAbsSurplus
