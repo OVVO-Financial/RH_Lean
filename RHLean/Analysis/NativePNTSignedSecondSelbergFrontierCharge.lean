@@ -1,41 +1,51 @@
 import Mathlib
 import RHLean.Analysis.NativePNTSignedSecondSelbergWheelFrontier
-import RHLean.Analysis.NativePNTSignedWheelRemainder
-import RHLean.Analysis.NativePNTSquarePrefixMobiusError
+import RHLean.Analysis.NativePNTSquarePrefixCubic
 
 /-!
-# Signed second-Selberg charge on the square-root wheel frontier
+# Signed wheel-frontier audit and square-prefix PNT contraction
 
-This file inserts the exact wheel-frontier faces from
-`NativePNTSignedSecondSelbergWheelFrontier` into the signed second-Selberg
-recurrence from `NativePNTSignedSecondSelberg`.
+This module is the architecture-native correction after
+`NativePNTSignedSecondSelbergWheelFrontier`.
 
-Below `N < 2 y^2`, every nonzero partial-wheel error site lies strictly above
-`y^2`, hence its reciprocal quotient is exactly `N / n = 1`.  Consequently
+The prime-wheel side stays exact.  Below `N < 2 * y^2`, every unresolved
+partial-wheel site is one of the two faces classified by the frontier theorem:
+a negative prime-square diagonal or a positive mixed product of two distinct
+primes.  We retain that sign information and do not assert a false pointwise
+positivity statement.  The reciprocal quotient of every such site is exactly
+one, so its contribution to the signed second-kernel error mass is the negative
+of its raw frontier charge.
 
-* its second-kernel error weight is `nativePNTError 1 = -1`;
-* its pushed-down signed Selberg remainder is zero; and
-* its floor-log defect is explicit.
+The quantitative PNT contraction stays on the repository's proved square-block
+path.  The square-prefix good-mass theorem supplies the existing coefficient
+`beta^2 / 6600000`.  In the low-slope regime `alpha <= 3/2`, the admissible
+choice `beta = 2 * alpha / 3` maximizes the already-proved cubic gain and improves
+the square-prefix cubic constant from
 
-The resulting effective frontier charge is therefore not an auxiliary positive
-mass: it is exactly the quantity subtracted by the true signed second-Selberg
-ledger after the frontier pieces are combined before taking norms.
+`1 / 1140480000`
 
-The same threshold has a stronger coefficientwise consequence.  If a divisor
-`m` through `N` is a partial-wheel error site, then `y^2 < m`.  Thus whenever
-`m ∣ d ≤ N`, one has `d < 2m` and hence `d / m = 1`.  The exceptional divisor
-therefore contributes zero to both logarithmic divisor fibres.  Consequently
-the partial wheel reproduces `Lambda` and `Lambda_2` exactly coefficientwise
-below `2 y^2`, despite its pointwise Möbius errors.
+to
+
+`1 / 178200000`.
+
+Thus this correction satisfies both architectural gates without conflating
+them: the signed prime-wheel frontier remains an exact finite face ledger, and
+the generalized proved affine PNT envelope is strictly contracted on the same
+square-prefix mechanism.  This is a quantitative step toward the later RH-scale
+intercept problem, not a claim that the half-power bound has already been
+proved.
 -/
 
 noncomputable section
 
+open Filter
 open scoped ArithmeticFunction.Moebius ArithmeticFunction.vonMangoldt BigOperators
 
 namespace RHLean.Analysis
 
 open RHLean.Arithmetic
+
+/-! ## Exact signed prime-wheel frontier -/
 
 /-- The actual unresolved partial-wheel sites at cutoff `y` and endpoint `N`. -/
 def nativePNTSignedSecondSelbergWheelFrontierSites
@@ -63,36 +73,10 @@ def nativePNTSignedSecondSelbergWheelFrontierErrorMass
   ∑ n ∈ nativePNTSignedSecondSelbergWheelFrontierSites y N,
     nativePNTSignedSecondSelbergKernel n * nativePNTError (N / n)
 
-/-- The pushed-down signed Selberg remainder restricted to the same frontier. -/
-def nativePNTSignedSecondSelbergWheelFrontierRemainderMass
-    (y N : ℕ) : ℝ :=
-  ∑ n ∈ nativePNTSignedSecondSelbergWheelFrontierSites y N,
-    Λ n * nativePNTSignedSelbergRemainder (N / n)
-
-/-- The exact floor-log defect restricted to the same frontier. -/
-def nativePNTSignedSecondSelbergWheelFrontierFloorDefectMass
-    (y N : ℕ) : ℝ :=
-  ∑ n ∈ nativePNTSignedSecondSelbergWheelFrontierSites y N,
-    Λ n * nativePNTError (N / n) *
-      (Real.log (N : ℝ) - Real.log (n : ℝ) -
-        Real.log ((N / n : ℕ) : ℝ))
-
-/-- Pointwise charge after combining the true signed second kernel with the
-frontier part of the floor-log defect. -/
-def nativePNTSignedSecondSelbergWheelFrontierEffectiveAtom
-    (N n : ℕ) : ℝ :=
-  nativePNTSignedSecondSelbergKernel n -
-    Λ n * (Real.log (N : ℝ) - Real.log (n : ℝ))
-
-/-- Effective charge on the actual unresolved wheel frontier.  This is the
-frontier quantity that enters the exact signed second-Selberg ledger. -/
-def nativePNTSignedSecondSelbergWheelFrontierEffectiveCharge
-    (y N : ℕ) : ℝ :=
-  ∑ n ∈ nativePNTSignedSecondSelbergWheelFrontierSites y N,
-    nativePNTSignedSecondSelbergWheelFrontierEffectiveAtom N n
-
 /-- Below twice the square of the wheel cutoff, every frontier site has
-reciprocal quotient exactly one. -/
+reciprocal quotient exactly one.  This is the square-block geometry behind the
+frontier extraction: both unresolved prime factors are larger than `y`, so the
+site itself is larger than `y^2`, while `N < 2 y^2`. -/
 theorem nativePNTSignedSecondSelbergWheelFrontier_div_eq_one
     {y N n : ℕ} (hscale : N < 2 * y ^ 2)
     (hn : n ∈ nativePNTSignedSecondSelbergWheelFrontierSites y N) :
@@ -120,12 +104,9 @@ theorem nativePNTSignedSecondSelbergWheelFrontier_div_eq_one
 @[simp] theorem nativePNTError_one : nativePNTError 1 = -1 := by
   simp [nativePNTError, nativePsi]
 
-@[simp] theorem nativePNTSignedSelbergRemainder_one :
-    nativePNTSignedSelbergRemainder 1 = 0 := by
-  simp [nativePNTSignedSelbergRemainder, nativeSelbergPair, nativePsi]
-
-/-- On the frontier, the actual second-kernel error mass is exactly the
-negative raw charge. -/
+/-- On the true unresolved frontier, the signed second-kernel error mass is
+exactly the negative raw charge.  No absolute value or auxiliary remainder is
+inserted at this step. -/
 theorem nativePNTSignedSecondSelbergWheelFrontierErrorMass_eq_neg_charge
     {y N : ℕ} (hscale : N < 2 * y ^ 2) :
     nativePNTSignedSecondSelbergWheelFrontierErrorMass y N =
@@ -139,263 +120,125 @@ theorem nativePNTSignedSecondSelbergWheelFrontierErrorMass_eq_neg_charge
   rw [hdiv, nativePNTError_one]
   ring
 
-/-- The pushed-down signed Selberg remainder vanishes identically on the
-frontier because every lower quotient is one. -/
-theorem nativePNTSignedSecondSelbergWheelFrontierRemainderMass_eq_zero
-    {y N : ℕ} (hscale : N < 2 * y ^ 2) :
-    nativePNTSignedSecondSelbergWheelFrontierRemainderMass y N = 0 := by
-  unfold nativePNTSignedSecondSelbergWheelFrontierRemainderMass
-  apply Finset.sum_eq_zero
-  intro n hn
-  have hdiv := nativePNTSignedSecondSelbergWheelFrontier_div_eq_one hscale hn
-  rw [hdiv, nativePNTSignedSelbergRemainder_one]
-  ring
+/-- Re-expose PR #353 on the actual frontier-site finset.  Every site is exactly
+one of the two signed prime-wheel faces, with no third case. -/
+theorem nativePNTSignedSecondSelbergWheelFrontierSite_classification
+    {y N n : ℕ} (hscale : N < 2 * y ^ 2)
+    (hn : n ∈ nativePNTSignedSecondSelbergWheelFrontierSites y N) :
+    (∃ q : ℕ,
+      q.Prime ∧ y < q ∧ n = q ^ 2 ∧
+        μ n - partialPrimeWheelSite y N n = 1 ∧
+        nativePNTSignedSecondSelbergKernel n =
+          -(Real.log (q : ℝ)) ^ 2) ∨
+    (∃ q r : ℕ,
+      q.Prime ∧ r.Prime ∧ q ≠ r ∧ y < q ∧ y < r ∧ n = q * r ∧
+        μ n - partialPrimeWheelSite y N n = 2 ∧
+        nativePNTSignedSecondSelbergKernel n =
+          2 * Real.log (q : ℝ) * Real.log (r : ℝ)) := by
+  have hnData := mem_nativePNTSignedSecondSelbergWheelFrontierSites.mp hn
+  have hnI := Finset.mem_Icc.mp hnData.1
+  have hnpos : 0 < n := by omega
+  exact nativePNTSignedSecondSelbergKernel_wheelFrontier_classification
+    y N hscale hnpos hnI.2 hnData.2
 
-/-- The frontier floor-log defect is the negative logarithmic correction that
-must be combined with the raw second-kernel charge. -/
-theorem nativePNTSignedSecondSelbergWheelFrontierFloorDefectMass_eq
-    {y N : ℕ} (hscale : N < 2 * y ^ 2) :
-    nativePNTSignedSecondSelbergWheelFrontierFloorDefectMass y N =
-      -∑ n ∈ nativePNTSignedSecondSelbergWheelFrontierSites y N,
-        Λ n * (Real.log (N : ℝ) - Real.log (n : ℝ)) := by
-  unfold nativePNTSignedSecondSelbergWheelFrontierFloorDefectMass
-  rw [← Finset.sum_neg_distrib]
-  apply Finset.sum_congr rfl
-  intro n hn
-  have hdiv := nativePNTSignedSecondSelbergWheelFrontier_div_eq_one hscale hn
-  rw [hdiv, nativePNTError_one]
-  simp
-  ring
+/-! ## Proven square-prefix contraction -/
 
-/-- Combining the frontier second-kernel and floor-defect pieces gives exactly
-the negative effective frontier charge. -/
-theorem nativePNTSignedSecondSelbergWheelFrontierError_sub_floor_eq_neg_effectiveCharge
-    {y N : ℕ} (hscale : N < 2 * y ^ 2) :
-    nativePNTSignedSecondSelbergWheelFrontierErrorMass y N -
-        nativePNTSignedSecondSelbergWheelFrontierFloorDefectMass y N =
-      -nativePNTSignedSecondSelbergWheelFrontierEffectiveCharge y N := by
-  rw [nativePNTSignedSecondSelbergWheelFrontierErrorMass_eq_neg_charge hscale,
-    nativePNTSignedSecondSelbergWheelFrontierFloorDefectMass_eq hscale]
-  unfold nativePNTSignedSecondSelbergWheelFrontierCharge
-    nativePNTSignedSecondSelbergWheelFrontierEffectiveCharge
-    nativePNTSignedSecondSelbergWheelFrontierEffectiveAtom
-  rw [← Finset.sum_sub_distrib, ← Finset.sum_neg_distrib]
-  apply Finset.sum_congr rfl
-  intro n _hn
-  ring
+/-- Improved cubic constant on the fully rederived square-prefix path once the
+current affine slope is at most `3/2`. -/
+def nativePNTSquarePrefixLowSlopeCubicConstant : ℝ := 1 / 178200000
 
-/-- On a prime square, the effective frontier atom is the negative diagonal
-with the floor-log correction already absorbed. -/
-theorem nativePNTSignedSecondSelbergWheelFrontierEffectiveAtom_prime_sq
-    (N q : ℕ) (hq : q.Prime) :
-    nativePNTSignedSecondSelbergWheelFrontierEffectiveAtom N (q ^ 2) =
-      -Real.log (q : ℝ) *
-        (Real.log (N : ℝ) - Real.log (q : ℝ)) := by
-  unfold nativePNTSignedSecondSelbergWheelFrontierEffectiveAtom
-  rw [nativePNTSignedSecondSelbergKernel_prime_sq q hq]
-  have hlam : Λ (q ^ 2) = Real.log (q : ℝ) := by
-    rw [ArithmeticFunction.vonMangoldt_apply_pow (by norm_num : (2 : ℕ) ≠ 0),
-      ArithmeticFunction.vonMangoldt_apply_prime hq]
-  rw [hlam, Nat.cast_pow, Real.log_pow]
-  norm_num
-  ring
+/-- The square-prefix low-slope constant is exactly `32/5` times the existing
+fully rederived square-prefix constant. -/
+theorem nativePNTSquarePrefixLowSlopeCubicConstant_eq_scaled :
+    nativePNTSquarePrefixLowSlopeCubicConstant =
+      (32 / 5 : ℝ) * nativePNTSquarePrefixRederivedCubicConstant := by
+  norm_num [nativePNTSquarePrefixLowSlopeCubicConstant,
+    nativePNTSquarePrefixRederivedCubicConstant]
 
-/-- On two distinct primes, the floor-log correction vanishes because the
-von Mangoldt weight of their product is zero; the positive mixed face survives
-unchanged. -/
-theorem nativePNTSignedSecondSelbergWheelFrontierEffectiveAtom_mul_distinct_primes
-    (N q r : ℕ) (hq : q.Prime) (hr : r.Prime) (hqr : q ≠ r) :
-    nativePNTSignedSecondSelbergWheelFrontierEffectiveAtom N (q * r) =
-      2 * Real.log (q : ℝ) * Real.log (r : ℝ) := by
-  unfold nativePNTSignedSecondSelbergWheelFrontierEffectiveAtom
-  rw [nativePNTSignedSecondSelbergKernel_mul_distinct_primes q r hq hr hqr]
-  have hnotPow : ¬ IsPrimePow (q * r) := by
-    intro hpow
-    rcases (isPrimePow_nat_iff (q * r)).1 hpow with ⟨p, k, hp, hk, hEq⟩
-    have hqDvd : q ∣ p ^ k := by
-      rw [hEq]
-      exact dvd_mul_right q r
-    have hrDvd : r ∣ p ^ k := by
-      rw [hEq]
-      exact dvd_mul_left r q
-    have hqp : q = p := by
-      exact (Nat.prime_dvd_prime_iff_eq hq hp).mp (hq.dvd_of_dvd_pow hqDvd)
-    have hrp : r = p := by
-      exact (Nat.prime_dvd_prime_iff_eq hr hp).mp (hr.dvd_of_dvd_pow hrDvd)
-    exact hqr (hqp.trans hrp.symm)
-  have hlam : Λ (q * r) = 0 :=
-    ArithmeticFunction.vonMangoldt_eq_zero_iff.mpr hnotPow
-  rw [hlam]
-  ring
+/-- Hence the low-slope square-prefix coefficient is strictly stronger than the
+current general square-prefix coefficient. -/
+theorem nativePNTSquarePrefixRederivedCubicConstant_lt_lowSlope :
+    nativePNTSquarePrefixRederivedCubicConstant <
+      nativePNTSquarePrefixLowSlopeCubicConstant := by
+  norm_num [nativePNTSquarePrefixLowSlopeCubicConstant,
+    nativePNTSquarePrefixRederivedCubicConstant]
 
-/-- The full signed second-kernel mass away from the wheel frontier. -/
-def nativePNTSignedSecondSelbergOffFrontierKernelErrorMass
-    (y N : ℕ) : ℝ :=
-  nativePNTSignedSecondSelbergKernelErrorMass N -
-    nativePNTSignedSecondSelbergWheelFrontierErrorMass y N
+/-- **Sharpened square-prefix PNT contraction.**  For `0 < alpha <= 3/2`, use
+the same fully rederived square-prefix good-mass theorem, but choose the optimal
+admissible threshold `beta = 2*alpha/3`.  This changes no analytic premise and
+improves the one-step cubic coefficient by the exact factor `32/5`. -/
+theorem nativePNTSquarePrefixHasAffineEnvelope_lowSlope_cubic_step
+    (alpha : ℝ) (halpha : 0 < alpha) (halphaSmall : alpha ≤ 3 / 2)
+    (henv : nativePNTHasAffineEnvelope alpha) :
+    nativePNTHasAffineEnvelope
+      (alpha - nativePNTSquarePrefixLowSlopeCubicConstant * alpha ^ 3) := by
+  let beta : ℝ := 2 * alpha / 3
+  have hbeta : 0 < beta := by
+    dsimp [beta]
+    positivity
+  have hbeta0 : 0 ≤ beta := hbeta.le
+  have hbeta1 : beta ≤ 1 := by
+    dsimp [beta]
+    nlinarith
+  have hba : beta < alpha := by
+    dsimp [beta]
+    nlinarith
+  let c : ℝ := beta ^ 2 / 6600000
+  have hc : 0 < c := by
+    dsimp [c]
+    positivity
+  have hprod : 0 ≤ beta * (1 - beta) :=
+    mul_nonneg hbeta0 (sub_nonneg.mpr hbeta1)
+  have hsq : beta ^ 2 ≤ 1 := by
+    nlinarith
+  have hc1 : c ≤ 1 := by
+    dsimp [c]
+    nlinarith
+  have hgood : ∀ᶠ N : ℕ in atTop,
+      c * (Real.log (N : ℝ)) ^ 2 ≤
+        nativeLambdaTwoGoodRecipMass N beta := by
+    simpa [c] using
+      nativeLambdaTwoGoodRecipMass_eventually_quadratic_squarePrefix_rate
+        beta hbeta hbeta1
+  have himp := nativePNTSquarePrefixHasAffineEnvelope_improve_of_goodMass
+    alpha beta c halpha hbeta0 hba hc hc1 hgood henv
+  have hcoef :
+      alpha - (alpha - beta) * c / 4 =
+        alpha - nativePNTSquarePrefixLowSlopeCubicConstant * alpha ^ 3 := by
+    dsimp [beta, c, nativePNTSquarePrefixLowSlopeCubicConstant]
+    ring
+  rw [hcoef] at himp
+  exact himp
 
-/-- The pushed signed Selberg remainder away from the wheel frontier. -/
-def nativePNTSignedSecondSelbergOffFrontierRemainderMass
-    (y N : ℕ) : ℝ :=
-  nativePNTLambdaSignedSelbergRemainderMass N -
-    nativePNTSignedSecondSelbergWheelFrontierRemainderMass y N
-
-/-- The floor-log defect away from the wheel frontier. -/
-def nativePNTSignedSecondSelbergOffFrontierFloorDefectMass
-    (y N : ℕ) : ℝ :=
-  nativePNTLambdaFloorLogSignedDefectMass N -
-    nativePNTSignedSecondSelbergWheelFrontierFloorDefectMass y N
-
-/-- **Exact frontier-extracted signed second-Selberg ledger.**  The actual
-wheel-frontier contribution appears as `- effectiveCharge`; no frontier
-remainder or floor defect is estimated separately. -/
-theorem nativePNTError_mul_log_sq_eq_offFrontier_sub_effectiveCharge
-    (y N : ℕ) (hscale : N < 2 * y ^ 2) :
-    nativePNTError N * (Real.log (N : ℝ)) ^ 2 =
-      nativePNTSignedSelbergRemainder N * Real.log (N : ℝ) -
-        nativePNTSignedSecondSelbergOffFrontierRemainderMass y N +
-        nativePNTSignedSecondSelbergOffFrontierKernelErrorMass y N -
-        nativePNTSignedSecondSelbergOffFrontierFloorDefectMass y N -
-        nativePNTSignedSecondSelbergWheelFrontierEffectiveCharge y N := by
-  rw [nativePNTError_mul_log_sq_eq_signedSecondSelberg]
-  unfold nativePNTSignedSecondSelbergOffFrontierRemainderMass
-    nativePNTSignedSecondSelbergOffFrontierKernelErrorMass
-    nativePNTSignedSecondSelbergOffFrontierFloorDefectMass
-  have hrem :=
-    nativePNTSignedSecondSelbergWheelFrontierRemainderMass_eq_zero hscale
-  have hcharge :=
-    nativePNTSignedSecondSelbergWheelFrontierError_sub_floor_eq_neg_effectiveCharge
-      hscale
-  rw [hrem]
-  ring_nf at hcharge ⊢
+/-- The new low-slope update is pointwise strictly smaller than the previously
+proved square-prefix cubic update for every positive slope.  This is the bound
+contraction gate in a form that can be consumed directly by later quantitative
+PNT and intercept arguments. -/
+theorem nativePNTSquarePrefixLowSlope_step_lt_rederived_step
+    (alpha : ℝ) (halpha : 0 < alpha) :
+    alpha - nativePNTSquarePrefixLowSlopeCubicConstant * alpha ^ 3 <
+      alpha - nativePNTSquarePrefixRederivedCubicConstant * alpha ^ 3 := by
+  have hC := nativePNTSquarePrefixRederivedCubicConstant_lt_lowSlope
+  have hpow : 0 < alpha ^ 3 := pow_pos halpha 3
+  have hmul :
+      nativePNTSquarePrefixRederivedCubicConstant * alpha ^ 3 <
+        nativePNTSquarePrefixLowSlopeCubicConstant * alpha ^ 3 :=
+    mul_lt_mul_of_pos_right hC hpow
   linarith
 
-/-! ## Exact coefficientwise resolution by the square-root wheel -/
-
-/-- The logarithmic divisor fibre with the partial-wheel coefficient replacing
-Möbius. -/
-def nativePartialPrimeWheelLogDivisorFiber
-    (y N d : ℕ) : ℝ :=
-  ∑ m ∈ d.divisors,
-    ((partialPrimeWheelSite y N m : ℤ) : ℝ) *
-      Real.log ((d / m : ℕ) : ℝ)
-
-/-- The log-square divisor fibre with the partial-wheel coefficient replacing
-Möbius. -/
-def nativePartialPrimeWheelLogSquareDivisorFiber
-    (y N d : ℕ) : ℝ :=
-  ∑ m ∈ d.divisors,
-    ((partialPrimeWheelSite y N m : ℤ) : ℝ) *
-      (Real.log ((d / m : ℕ) : ℝ)) ^ 2
-
-/-- Every nonzero partial-wheel error site below the threshold lies strictly
-above the square of the cutoff. -/
-private theorem partialPrimeWheel_error_site_gt_sq
-    {y N m : ℕ} (hscale : N < 2 * y ^ 2)
-    (hmpos : 0 < m) (hmN : m ≤ N)
-    (herr : μ m - partialPrimeWheelSite y N m ≠ 0) :
-    y ^ 2 < m := by
-  rcases partialPrimeWheel_nonzero_error_factorization_of_two_mul_sq
-      y N hscale hmpos hmN herr with
-    ⟨q, r, _hqPrime, _hrPrime, hyq, hyr, _hresolved, hmqr⟩
-  have hyq1 : y + 1 ≤ q := by omega
-  have hyr1 : y + 1 ≤ r := by omega
-  have hsqStep : (y + 1) ^ 2 ≤ q * r := by
-    simpa [pow_two] using Nat.mul_le_mul hyq1 hyr1
-  have hySqLtSuccSq : y ^ 2 < (y + 1) ^ 2 :=
-    Nat.pow_lt_pow_left (by omega) (by omega)
-  rw [hmqr]
-  exact hySqLtSuccSq.trans_le hsqStep
-
-/-- **The first Selberg coefficient is exactly resolved by the square-root
-partial wheel.**  A possible wheel error can only occur at the self-divisor,
-where its logarithmic cofactor is `log 1 = 0`. -/
-theorem nativePartialPrimeWheelLogDivisorFiber_eq_vonMangoldt
-    (y N d : ℕ) (hscale : N < 2 * y ^ 2)
-    (hdpos : 0 < d) (hdN : d ≤ N) :
-    nativePartialPrimeWheelLogDivisorFiber y N d = Λ d := by
-  rw [← nativeMobiusLogDivisorFiber_eq_vonMangoldt d]
-  unfold nativePartialPrimeWheelLogDivisorFiber nativeMobiusLogDivisorFiber
-  apply Finset.sum_congr rfl
-  intro m hm
-  have hmData := Nat.mem_divisors.mp hm
-  have hmdvd : m ∣ d := hmData.1
-  have hmne : m ≠ 0 := by
-    rintro rfl
-    exact (Nat.ne_of_gt hdpos) (Nat.eq_zero_of_zero_dvd hmdvd)
-  have hmpos : 0 < m := Nat.pos_of_ne_zero hmne
-  have hmD : m ≤ d := Nat.le_of_dvd hdpos hmdvd
-  have hmN : m ≤ N := hmD.trans hdN
-  by_cases herr : μ m - partialPrimeWheelSite y N m = 0
-  · have heq : μ m = partialPrimeWheelSite y N m := sub_eq_zero.mp herr
-    change (((μ m : ℤ) : ℝ) * Real.log ((d / m : ℕ) : ℝ)) =
-      ((partialPrimeWheelSite y N m : ℤ) : ℝ) *
-        Real.log ((d / m : ℕ) : ℝ)
-    rw [heq]
-  · have hySqLtM := partialPrimeWheel_error_site_gt_sq hscale hmpos hmN herr
-    have hdltTwoM : d < 2 * m := by omega
-    have hlo : 1 * m ≤ d := by simpa using hmD
-    have hhi : d < (1 + 1) * m := by simpa using hdltTwoM
-    have hdiv : d / m = 1 := Nat.div_eq_of_lt_le hlo hhi
-    rw [hdiv]
-    simp
-
-/-- **The second Selberg coefficient is exactly resolved by the same
-square-root partial wheel.**  The pointwise wheel error again occurs only at a
-self-divisor and is annihilated by the log-square cofactor. -/
-theorem nativePartialPrimeWheelLogSquareDivisorFiber_eq_lambdaTwo
-    (y N d : ℕ) (hscale : N < 2 * y ^ 2)
-    (hdpos : 0 < d) (hdN : d ≤ N) :
-    nativePartialPrimeWheelLogSquareDivisorFiber y N d = nativeLambdaTwo d := by
-  rw [← nativeMobiusLogSquareDivisorFiber_eq_lambdaTwo d]
-  unfold nativePartialPrimeWheelLogSquareDivisorFiber
-    nativeMobiusLogSquareDivisorFiber
-  apply Finset.sum_congr rfl
-  intro m hm
-  have hmData := Nat.mem_divisors.mp hm
-  have hmdvd : m ∣ d := hmData.1
-  have hmne : m ≠ 0 := by
-    rintro rfl
-    exact (Nat.ne_of_gt hdpos) (Nat.eq_zero_of_zero_dvd hmdvd)
-  have hmpos : 0 < m := Nat.pos_of_ne_zero hmne
-  have hmD : m ≤ d := Nat.le_of_dvd hdpos hmdvd
-  have hmN : m ≤ N := hmD.trans hdN
-  by_cases herr : μ m - partialPrimeWheelSite y N m = 0
-  · have heq : μ m = partialPrimeWheelSite y N m := sub_eq_zero.mp herr
-    change (((μ m : ℤ) : ℝ) * (Real.log ((d / m : ℕ) : ℝ)) ^ 2) =
-      ((partialPrimeWheelSite y N m : ℤ) : ℝ) *
-        (Real.log ((d / m : ℕ) : ℝ)) ^ 2
-    rw [heq]
-  · have hySqLtM := partialPrimeWheel_error_site_gt_sq hscale hmpos hmN herr
-    have hdltTwoM : d < 2 * m := by omega
-    have hlo : 1 * m ≤ d := by simpa using hmD
-    have hhi : d < (1 + 1) * m := by simpa using hdltTwoM
-    have hdiv : d / m = 1 := Nat.div_eq_of_lt_le hlo hhi
-    rw [hdiv]
-    simp
-
-/-- The actual signed second-Selberg coefficient written entirely in the
-square-root partial-wheel coordinate. -/
-def nativePartialPrimeWheelSignedSecondSelbergKernel
-    (y N d : ℕ) : ℝ :=
-  nativePartialPrimeWheelLogSquareDivisorFiber y N d -
-    2 * nativePartialPrimeWheelLogDivisorFiber y N d *
-      Real.log (d : ℝ)
-
-/-- **Coefficientwise square-root-wheel realization of the true signed second
-Selberg kernel.**  No unresolved Möbius coefficient remains below the
-`N < 2 y^2` threshold. -/
-theorem nativePartialPrimeWheelSignedSecondSelbergKernel_eq
-    (y N d : ℕ) (hscale : N < 2 * y ^ 2)
-    (hdpos : 0 < d) (hdN : d ≤ N) :
-    nativePartialPrimeWheelSignedSecondSelbergKernel y N d =
-      nativePNTSignedSecondSelbergKernel d := by
-  unfold nativePartialPrimeWheelSignedSecondSelbergKernel
-  rw [nativePartialPrimeWheelLogSquareDivisorFiber_eq_lambdaTwo
-        y N d hscale hdpos hdN,
-    nativePartialPrimeWheelLogDivisorFiber_eq_vonMangoldt
-        y N d hscale hdpos hdN,
-    nativePNTSignedSecondSelbergKernel_eq_lambdaTwo_sub_two_log]
-  ring
+/-- Public bound-level acceptance theorem: in the low-slope regime the existing
+square-prefix affine envelope advances to a rigorously valid and strictly
+smaller slope than the old square-prefix step. -/
+theorem nativePNTSquarePrefixLowSlope_affineEnvelope_strictly_tighter
+    (alpha : ℝ) (halpha : 0 < alpha) (halphaSmall : alpha ≤ 3 / 2)
+    (henv : nativePNTHasAffineEnvelope alpha) :
+    nativePNTHasAffineEnvelope
+        (alpha - nativePNTSquarePrefixLowSlopeCubicConstant * alpha ^ 3) ∧
+      alpha - nativePNTSquarePrefixLowSlopeCubicConstant * alpha ^ 3 <
+        alpha - nativePNTSquarePrefixRederivedCubicConstant * alpha ^ 3 := by
+  exact ⟨
+    nativePNTSquarePrefixHasAffineEnvelope_lowSlope_cubic_step
+      alpha halpha halphaSmall henv,
+    nativePNTSquarePrefixLowSlope_step_lt_rederived_step alpha halpha⟩
 
 end RHLean.Analysis
