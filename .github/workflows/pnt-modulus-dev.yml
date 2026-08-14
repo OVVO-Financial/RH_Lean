@@ -45,7 +45,7 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Compile normalized modulus layer
-        run: lake build RHLean.Analysis.NativePNTNormalizedContinuity
+        run: lake build RHLean.Analysis.NativePNTNormalizedReciprocal
 
       - name: Regenerate root imports
         run: |
