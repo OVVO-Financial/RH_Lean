@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.NativePNTErdosContraction
 import RHLean.Analysis.NativePNTSignedLogSquarePrimeCells
 
 /-!
@@ -190,5 +191,80 @@ theorem nativePNTLambdaTwoDyadicAbsSurplus_ge_of_bad_sameSign
   have hmul := mul_le_mul_of_nonneg_left hpair hkernel
   unfold nativePNTLambdaTwoDyadicAbsSurplus
   nlinarith
+
+/-! ## Opposite-sign bad endpoints force a good point -/
+
+/-- If the two endpoints of an interval have opposite signs, and the elementary
+one-step no-crossing inequalities hold throughout the interval, then the
+normalized Chebyshev error must enter the `beta`-tube somewhere between them.
+This is the local alternative to the same-sign cell surplus above. -/
+theorem nativePNTError_exists_beta_good_between_of_oppositeSign
+    (A B : ℕ) (beta : ℝ)
+    (hA : 1 ≤ A) (hAB : A ≤ B) (hbeta : 0 < beta)
+    (hdownA : 1 < beta * (2 * (A : ℝ) + 1))
+    (hupA :
+      Real.log ((B + 1 : ℕ) : ℝ) - 1 <
+        beta * (2 * (A : ℝ) + 1))
+    (hopposite :
+      (nativePNTError A ≤ 0 ∧ 0 ≤ nativePNTError B) ∨
+      (nativePNTError B ≤ 0 ∧ 0 ≤ nativePNTError A)) :
+    ∃ n ∈ Finset.Icc A B,
+      |nativePNTError n| < beta * (n : ℝ) := by
+  by_contra hno
+  have haway : ∀ n ∈ Finset.Icc A B,
+      beta * (n : ℝ) ≤ |nativePNTError n| := by
+    intro n hn
+    by_contra hnot
+    have hlt : |nativePNTError n| < beta * (n : ℝ) := lt_of_not_ge hnot
+    exact hno ⟨n, hn, hlt⟩
+  have hdown : ∀ n, A ≤ n → n < B →
+      1 < beta * (2 * (n : ℝ) + 1) := by
+    intro n hAn _hnB
+    have hAnR : (A : ℝ) ≤ (n : ℝ) := by exact_mod_cast hAn
+    have hbeta0 : 0 ≤ beta := hbeta.le
+    nlinarith [hdownA]
+  have hup : ∀ n, A ≤ n → n < B →
+      Real.log ((n + 1 : ℕ) : ℝ) - 1 <
+        beta * (2 * (n : ℝ) + 1) := by
+    intro n hAn hnB
+    have hlog :
+        Real.log ((n + 1 : ℕ) : ℝ) ≤
+          Real.log ((B + 1 : ℕ) : ℝ) := by
+      apply Real.log_le_log
+      · positivity
+      · exact_mod_cast (show n + 1 ≤ B + 1 by omega)
+    have hAnR : (A : ℝ) ≤ (n : ℝ) := by exact_mod_cast hAn
+    have hbeta0 : 0 ≤ beta := hbeta.le
+    nlinarith [hupA]
+  have hsign := nativePNTError_sign_constant_of_away
+    A B beta hA hAB hbeta hdown hup haway
+  have hAmem : A ∈ Finset.Icc A B := Finset.mem_Icc.mpr ⟨le_rfl, hAB⟩
+  have hBmem : B ∈ Finset.Icc A B := Finset.mem_Icc.mpr ⟨hAB, le_rfl⟩
+  have hAaway := haway A hAmem
+  have hBaway := haway B hBmem
+  have hB1 : 1 ≤ B := hA.trans hAB
+  have hbetaA : 0 < beta * (A : ℝ) := by
+    exact mul_pos hbeta (by exact_mod_cast (show 0 < A by omega))
+  have hbetaB : 0 < beta * (B : ℝ) := by
+    exact mul_pos hbeta (by exact_mod_cast (show 0 < B by omega))
+  rcases hsign with hallpos | hallneg
+  · rcases hopposite with hop | hop
+    · have hzero : nativePNTError A = 0 :=
+        le_antisymm hop.1 (hallpos A hAmem)
+      simp [hzero] at hAaway
+      linarith
+    · have hzero : nativePNTError B = 0 :=
+        le_antisymm hop.1 (hallpos B hBmem)
+      simp [hzero] at hBaway
+      linarith
+  · rcases hopposite with hop | hop
+    · have hzero : nativePNTError B = 0 :=
+        le_antisymm (hallneg B hBmem) hop.2
+      simp [hzero] at hBaway
+      linarith
+    · have hzero : nativePNTError A = 0 :=
+        le_antisymm (hallneg A hAmem) hop.2
+      simp [hzero] at hAaway
+      linarith
 
 end RHLean.Analysis
