@@ -76,10 +76,6 @@ theorem nativeLambdaTwo_mul_distinct_primes
   have hself : p * q / (p * q) = 1 := Nat.div_self hpqpos
   have hp0 : ((p : ℕ) : ℝ) ≠ 0 := by exact_mod_cast hp.ne_zero
   have hq0 : ((q : ℕ) : ℝ) ≠ 0 := by exact_mod_cast hq.ne_zero
-  have hlogmul :
-      Real.log (((p * q : ℕ) : ℝ)) =
-        Real.log (p : ℝ) + Real.log (q : ℝ) := by
-    rw [Nat.cast_mul, Real.log_mul hp0 hq0]
   have hpq_ne_one : p * q ≠ 1 := by
     intro h
     have hpDvdOne : p ∣ 1 := by
@@ -119,8 +115,9 @@ theorem nativeLambdaTwo_mul_distinct_primes
     Finset.sum_insert hpmem]
   simp [hmupq, hpdiv, hqdiv, hself,
     ArithmeticFunction.moebius_apply_prime hp,
-    ArithmeticFunction.moebius_apply_prime hq, hlogmul]
-  ring_nf
+    ArithmeticFunction.moebius_apply_prime hq]
+  rw [Real.log_mul hp0 hq0]
+  ring
 
 /-- The signed kernel is the positive mixed face on two distinct primes. -/
 theorem nativePNTSignedSecondSelbergKernel_mul_distinct_primes
