@@ -46,7 +46,6 @@ theorem nativePNTNormalizedError_eq_psi_div_sub_one
     exact_mod_cast (show N ≠ 0 by omega)
   unfold nativePNTNormalizedError nativePNTError
   field_simp [hNne]
-  ring
 
 /-- The elementary Chebyshev estimate gives a uniform bound for the normalized
 error.  This is used later to control the tiny floor-to-reciprocal correction
