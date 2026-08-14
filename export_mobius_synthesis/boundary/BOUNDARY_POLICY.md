@@ -1,15 +1,15 @@
 # Möbius Synthesis PR boundary policy
 
-The required standalone PR check is `boundary-advance`.
+The required PR check is `boundary-advance`.
 
-The gate is a **scope gate**, not a mathematical novelty oracle. It prevents the synthesis repository from becoming a dumping ground for one-sided square-block work, one-sided prime-wheel work, or notation-only churn, while allowing exact cross-track structure that genuinely advances the shared architecture.
+The gate is a **scope gate**, not a mathematical novelty oracle. It prevents the repository from becoming a dumping ground for one-sided square-block work, one-sided prime-wheel work, or notation-only churn, while allowing exact cross-track structure that genuinely advances the shared architecture.
 
 ## Current research-status note
 
-As of the post-#354 snapshot, the repository has two quantitative descriptions that must be kept distinct.
+The repository has two quantitative descriptions that must be kept distinct.
 
 1. `boundary/frontier.json` certifies the **canonical square-wheel nonzero-response frontier** `H_{k,n}`. Its certified kind remains `exact_reduction`, because no pointwise power exponent below `1` has been proved for that object.
-2. The native PNT layer now has a **proved generalized affine envelope and strict low-slope cubic contraction**, plus conditional square-root conversion theorems from explicit cutoff or intercept laws. The missing theorem there is RH-compatible physical cutoff control.
+2. The native PNT layer has a **proved generalized affine envelope and strict low-slope cubic contraction**, plus conditional square-root conversion theorems from explicit cutoff or intercept laws. The missing theorem there is RH-compatible physical cutoff control.
 
 The second fact is genuine quantitative progress, but it does **not** mutate the first certificate. A PR must never change `boundary/frontier.json` merely because it improves an affine PNT contraction constant or proves another conditional conversion theorem. The canonical `H_{k,n}` certificate advances only when the canonical predicate itself is strengthened.
 
@@ -37,7 +37,7 @@ Improving a generalized PNT slope, an intercept, a local Selberg constant, or a 
 
 A PR may instead add an exact theorem that advances the **synthesis architecture** without yet improving the exponent on `H_{k,n}`.
 
-`boundary/synthesis.json` is the monotone standalone ledger for this lane. A candidate must increment `revision` by exactly one and record a `last_witness` containing:
+`boundary/synthesis.json` is the monotone ledger for this lane. A candidate must increment `revision` by exactly one and record a `last_witness` containing:
 
 - the changed Lean module;
 - the new witness theorem;
@@ -49,19 +49,17 @@ The accepted square-side families include square-prefix, square-block, survivor,
 
 The checker requires every declared anchor to pre-exist on the base branch. After Lean loads the candidate theorem, the workflow prints the theorem declaration and verifies that the declared square and wheel anchors actually occur in it. Merely importing both tracks is insufficient.
 
-This lane intentionally allows exact identities, transfer theorems, shared residual statements, sampling theorems, compatibility results, or other structural results when they genuinely couple the two initiatives.
+This lane intentionally allows exact identities, transfer theorems, shared residual statements, sampling theorems, compatibility results, and other structural results when they genuinely couple the two initiatives.
 
-## How the new PNT-scale route fits the gate
+## How the PNT-scale route fits the gate
 
-The post-#354 generalized-PNT route is documented because it is now central to the research status, but the current gate has not been weakened or redefined around it.
-
-A future theorem that proves the missing physical cutoff law should be classified according to what its **Lean declaration actually establishes**:
+A future theorem proving the missing physical cutoff law should be classified according to what its **Lean declaration actually establishes**:
 
 - if it also proves a stricter canonical `H_{k,n}` bound, use Lane A;
 - if it is a new theorem genuinely coupling established square-block and prime-wheel declarations, use Lane B;
-- if it is one-sided quantitative infrastructure, it belongs first in the development repository unless and until it is packaged into a synthesis-facing theorem.
+- if it is one-sided quantitative infrastructure, it does not qualify until it is packaged into a synthesis-facing theorem.
 
-This preserves the standalone repository's purpose: it highlights verified synthesis-facing research status rather than every isolated experiment.
+This preserves the repository's purpose: verified synthesis-facing research status rather than every isolated experiment.
 
 ## What still fails
 
@@ -80,9 +78,7 @@ The gate rejects a Lean research PR if it satisfies neither lane. In particular,
 
 A PR that does not change `RHLean.lean` or a Lean file below `RHLean/` may leave both research ledgers unchanged. This permits documentation, CI, and repository maintenance without pretending such work is mathematical progress.
 
-Any standalone Lean mathematical source change must carry either a quantitative frontier certificate or a cross-track synthesis certificate.
-
-A development-tree synchronization performed in the parent `RH_Lean` export directory is publication maintenance in that parent repository. When such a snapshot is promoted into the standalone repository, its standalone PR classification must still satisfy the standalone gate rules above.
+Any Lean mathematical source change must carry either a quantitative frontier certificate or a cross-track synthesis certificate.
 
 ## Trust model
 
@@ -94,6 +90,4 @@ After the witness type-checks, the workflow runs `#print axioms` and rejects dep
 
 ## Repository settings
 
-For the standalone `mobius-synthesis` repository, protect the default branch and make the status check named `boundary-advance` required. Enable Code Owner review for the gate infrastructure listed in `.github/CODEOWNERS`.
-
-The workflow runs from `.github/workflows/` in the standalone repository.
+Protect the default branch and make the status check named `boundary-advance` required. Enable Code Owner review for the gate infrastructure listed in `.github/CODEOWNERS`.

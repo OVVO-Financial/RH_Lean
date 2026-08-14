@@ -4,18 +4,19 @@ import RHLean.Analysis.PrimeSieveDyadicPacketDissipation
 /-!
 # Block-local reduction of signed packet reverse Carleson
 
-PR #327 isolates the remaining packet-side arithmetic input as the signed
-reverse-Carleson estimate
+The preceding packet-dissipation layer isolates the remaining packet-side
+arithmetic input as the signed reverse-Carleson estimate
 
 `D_J <= C_epsilon * (x+1)^epsilon * L_J`.
 
 This module does not introduce another residual coordinate. It localizes the
-existing #327 energies block by block and identifies exactly which blocks need
-new prime-number information.
+existing reverse-Carleson energies block by block and identifies exactly which
+blocks need new prime-number information.
 
 For one occupied dyadic reciprocal block of depth `j`, define its contribution
 to the released level `J` and to the remaining deep tail by the same differences
-of #324 packet-tree energies already used in #326 and #327. Then:
+of the packet-tree energies already used by the dissipation and reverse-Carleson
+layers. Then:
 
 * the global `L_J` and `D_J` are exactly the sums of the block contributions;
 * a live block with `j = J+1` is terminal, so its entire deep tail is exactly its
@@ -188,8 +189,8 @@ theorem primeSieveDyadicPacketBlockDeepEnergy_eq_levelEnergy_of_depth_eq_succ
     primeSieveDyadicPacketBlockLevelEnergy
   simp only [min_self, min_eq_left (Nat.le_succ J)]
 
-/-- On a live block, its released contribution is literally the #327 signed
-packet energy on recursive level `J`. -/
+/-- On a live block, its released contribution is literally the signed packet
+energy on recursive level `J`. -/
 theorem primeSieveDyadicPacketBlockLevelEnergy_eq_intervalLevelEnergy
     {y x j J : ℕ} (hJ : J < j) :
     primeSieveDyadicPacketBlockLevelEnergy y x j J =

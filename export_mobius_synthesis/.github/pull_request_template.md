@@ -1,12 +1,12 @@
 ## Research classification
 
-- [ ] Maintenance or documentation only; no standalone Lean mathematical source changed.
+- [ ] Maintenance or documentation only; no Lean mathematical source changed.
 - [ ] Canonical `H_{k,n}` quantitative frontier advance.
 - [ ] Cross-track synthesis advance.
 
 ## Current-status accuracy
 
-The post-#354 baseline contains a proved generalized affine PNT contraction and conditional square-root conversion theorems, while the physical cutoff law and the canonical `H_{k,n}` RH-scale exponent remain open.
+The current baseline contains a proved generalized affine PNT contraction and conditional square-root conversion theorems, while the physical cutoff law and the canonical `H_{k,n}` RH-scale exponent remain open.
 
 - [ ] I have not described the improved affine PNT contraction as an unconditional square-root bound.
 - [ ] I have not described a conditional cutoff or intercept bridge as proving its hypothesis.
@@ -48,4 +48,4 @@ Exact bridge identities, transfer results, shared residual statements, sampling 
 - [ ] The research witness type-checks.
 - [ ] `#print axioms` reports only standard logical axioms.
 - [ ] For the synthesis lane, the witness directly invokes both track anchors.
-- [ ] The post-#354 status theorems still elaborate: the low-slope affine contraction and the conditional square-root scale bridge.
+- [ ] The strict low-slope affine contraction and conditional square-root scale bridge still elaborate.

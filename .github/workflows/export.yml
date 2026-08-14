@@ -37,6 +37,10 @@ jobs:
       - name: Verify every export closes as a buildable Lake project
         run: python3 scripts/check_export_sync.py
 
+      - name: Audit Möbius Synthesis standalone invariants
+        working-directory: export_mobius_synthesis
+        run: bash scripts/audit_assumptions.sh
+
       - name: Audit the square-block export for unfinished proofs and axioms
         working-directory: export_square_block/lean
         run: bash scripts/audit_assumptions.sh
