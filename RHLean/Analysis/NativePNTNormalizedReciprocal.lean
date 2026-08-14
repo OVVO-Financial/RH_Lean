@@ -73,7 +73,10 @@ theorem nativePNTNormalizedRecipWeight_le_floorWeight_add
   have hdivmod : d * (N / d) + N % d = N := Nat.div_add_mod N d
   have hrem : N % d < d := Nat.mod_lt N hdpos
   have hNlt : N < (N / d + 1) * d := by
-    omega
+    calc
+      N = d * (N / d) + N % d := hdivmod.symm
+      _ < d * (N / d) + d := Nat.add_lt_add_left hrem _
+      _ = (N / d + 1) * d := by ring
   have hNltR : (N : ℝ) < (((N / d : ℕ) : ℝ) + 1) * (d : ℝ) := by
     exact_mod_cast hNlt
   have hratio :
@@ -84,7 +87,8 @@ theorem nativePNTNormalizedRecipWeight_le_floorWeight_add
     exact hlt.le
   have hmul := mul_le_mul_of_nonneg_left hratio
     ArithmeticFunction.vonMangoldt_nonneg
-  unfold nativePNTNormalizedRecipWeight nativePNTNormalizedFloorWeight
+  change Λ d / (d : ℝ) ≤
+    Λ d * ((N / d : ℕ) : ℝ) / (N : ℝ) + Λ d / (N : ℝ)
   calc
     Λ d / (d : ℝ) = Λ d * (1 / (d : ℝ)) := by ring
     _ ≤ Λ d * ((((N / d : ℕ) : ℝ) + 1) / (N : ℝ)) := hmul
@@ -196,9 +200,8 @@ theorem nativePNTNormalizedRecipAverage_sub_floorAverage_abs_le
           ∑ d ∈ Finset.Icc 1 N, nativePNTNormalizedFloorWeight N d) *
             (Real.log 4 + 3) := by
       unfold nativePNTNormalizedRecipMass
-      rw [Finset.sum_mul, Finset.sum_sub_distrib]
+      rw [← Finset.sum_mul, Finset.sum_sub_distrib]
     _ ≤ (Real.log 4 + 2) * (Real.log 4 + 3) := by
-      have hdef0 := (nativePNTNormalizedRecipMass_sub_floor_sum_bounds N hN).1
       have hdef := nativePNTNormalizedRecipMass_sub_floor_sum_le_const N hN
       have hC0 : 0 ≤ Real.log 4 + 3 := by
         have hlog4 := Real.log_nonneg (by norm_num : (1 : ℝ) ≤ 4)
@@ -229,6 +232,6 @@ theorem nativePNTNormalized_signed_recip_recurrence_abs_le
         (nativePNTNormalizedRecipAverage N -
           nativePNTNormalizedFloorAverage N) := by ring
   rw [hdecomp]
-  exact (abs_add _ _).trans (add_le_add hfloor hdiff)
+  exact (abs_add_le _ _).trans (add_le_add hfloor hdiff)
 
 end RHLean.Analysis
