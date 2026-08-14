@@ -154,10 +154,17 @@ theorem nativePNTLambdaTwoEvenMobiusPart_eq_neg_half
     have hmu := nativePNTMobiusReal_two_mul r
     by_cases hodd : Odd r
     · rw [if_pos hodd] at hmu
-      simp [hodd, hmu, Nat.div_div_eq_div_mul,
-        Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc]
+      have hmu' :
+          (μ : ArithmeticFunction ℝ) (r * 2) =
+            -(μ : ArithmeticFunction ℝ) r := by
+        simpa [Nat.mul_comm] using hmu
+      rw [hmu']
+      simp [hodd, Nat.div_div_eq_div_mul, Nat.mul_comm]
     · rw [if_neg hodd] at hmu
-      simp [hodd, hmu]
+      have hmu' : (μ : ArithmeticFunction ℝ) (r * 2) = 0 := by
+        simpa [Nat.mul_comm] using hmu
+      rw [hmu']
+      simp [hodd]
 
 /-- Positive-even coefficient recurrence. -/
 theorem nativeLambdaTwo_eq_oddKernel_sub_half_of_even
