@@ -133,10 +133,10 @@ theorem nativePNTMobiusSignedAtom_pair_abs_surplus_eq
   have hk0 : (k : ℝ) ≠ 0 := by
     exact_mod_cast (show k ≠ 0 by omega)
   have hpLog0 : 0 ≤ Real.log (p : ℝ) :=
-    Real.log_nonneg (by exact_mod_cast hp.two_le)
+    Real.log_nonneg (by exact_mod_cast hp.one_le)
   have hkLog0 : 0 ≤ Real.log (k : ℝ) :=
     Real.log_nonneg (by exact_mod_cast hk)
-  rw [Nat.cast_mul, Real.log_mul hp0 hk0]
+  rw [Real.log_mul hp0 hk0]
   simp only [abs_mul, abs_neg, abs_of_nonneg hpLog0,
     abs_of_nonneg hkLog0, abs_of_nonneg (add_nonneg hpLog0 hkLog0)]
   ring
