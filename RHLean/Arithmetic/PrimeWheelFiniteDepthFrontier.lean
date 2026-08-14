@@ -77,8 +77,6 @@ theorem partialPrimeWheel_nonzero_error_resolvedPart_lt_depth
     primeWheelResolvedPart y n < L := by
   have hbgt := partialPrimeWheel_nonzero_error_unresolved_gt_sq
     y upper hnpos hnupper herr
-  have ha0 : primeWheelResolvedPart y n ≠ 0 :=
-    primeWheelResolvedPart_ne_zero y n
   have hab := primeWheelResolvedPart_mul_unresolvedPart y (Nat.ne_of_gt hnpos)
   by_contra hnot
   have hLa : L ≤ primeWheelResolvedPart y n := Nat.le_of_not_gt hnot
@@ -95,7 +93,7 @@ theorem partialPrimeWheel_nonzero_error_resolvedPart_lt_depth
       _ ≤ primeWheelResolvedPart y n * primeWheelUnresolvedPart y n := hright
       _ = n := hab
   have hnlt : n < L * y ^ 2 := hnupper.trans_lt hscale
-  exact (Nat.lt_asymm hgt hnlt) hnlt
+  exact Nat.lt_asymm hgt hnlt
 
 /-- The same finite-depth window bounds every reciprocal quotient on the
 unresolved frontier by `L - 1`. -/
@@ -122,7 +120,7 @@ theorem partialPrimeWheel_nonzero_error_div_lt_depth
   have hySqLtN : y ^ 2 < n := hbgt.trans_le hbLeN
   have hscaleN : upper < L * n :=
     hscale.trans (Nat.mul_lt_mul_of_pos_left hySqLtN hL)
-  apply (Nat.div_lt_iff_lt_mul hL).2
+  apply (Nat.div_lt_iff_lt_mul hnpos).2
   simpa [Nat.mul_comm] using hscaleN
 
 /-- Combined finite-depth frontier certificate. -/
