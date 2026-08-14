@@ -81,7 +81,8 @@ theorem nativeLambdaTwo_mul_distinct_primes
         Real.log (p : ℝ) + Real.log (q : ℝ) := by
     rw [Nat.cast_mul, Real.log_mul hp0 hq0]
   have hprod :
-      ({1, p} : Finset ℕ) * {1, q} = {1, q, p, p * q} := by
+      ({1, p} : Finset ℕ) * ({1, q} : Finset ℕ) =
+        ({1, q, p, p * q} : Finset ℕ) := by
     ext x
     simp [Finset.mul_def, mul_comm]
   rw [← nativeMobiusLogSquareDivisorFiber_eq_lambdaTwo]
