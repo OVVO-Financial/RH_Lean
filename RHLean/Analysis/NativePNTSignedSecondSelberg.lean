@@ -201,8 +201,17 @@ theorem nativePNTLambdaFloorLogSignedErrorMass_eq_remainder_sub_convolution
           ∑ m ∈ Finset.Icc 1 (N / d),
             Λ m * nativePNTError (N / (d * m)) := by
     linarith [hrec]
-  rw [hpoint]
-  ring
+  calc
+    Λ d * nativePNTError (N / d) * Real.log ((N / d : ℕ) : ℝ) =
+        Λ d * (nativePNTError (N / d) * Real.log ((N / d : ℕ) : ℝ)) := by ring
+    _ = Λ d * (nativePNTSignedSelbergRemainder (N / d) -
+        ∑ m ∈ Finset.Icc 1 (N / d),
+          Λ m * nativePNTError (N / (d * m))) := by rw [hpoint]
+    _ = Λ d * nativePNTSignedSelbergRemainder (N / d) -
+        ∑ m ∈ Finset.Icc 1 (N / d),
+          Λ d * Λ m * nativePNTError (N / (d * m)) := by
+      rw [Finset.mul_sum]
+      ring
 
 /-- The actual signed second-Selberg error kernel. -/
 def nativePNTSignedSecondSelbergKernel (n : ℕ) : ℝ :=
@@ -265,7 +274,6 @@ theorem nativePNTSignedSecondSelbergKernelErrorMass_eq_cells_boundary_log
         2 * nativePNTLambdaLogSignedErrorMass N := by
   rw [nativePNTSignedSecondSelbergKernelErrorMass_eq_lambdaTwo_sub_two_log,
     nativeLambdaTwoSignedErrorMass_eq_dyadicCells_add_boundary]
-  ring
 
 /-- **Exact signed second Selberg recurrence.**  No current-scale remainder is
 bounded separately and no `Lambda_2` term is replaced by its absolute mass. -/
