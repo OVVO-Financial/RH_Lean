@@ -259,7 +259,11 @@ theorem nativePNTLambdaConvolutionRecipMass_eq
       have hmulR : (d : ℝ) * ((n / d : ℕ) : ℝ) = (n : ℝ) := by
         exact_mod_cast hmulNat
       field_simp [hdR0, hqR0, hnR0]
-      rw [hmulR]
+      calc
+        Λ d * Λ (n / d) * (d : ℝ) * ((n / d : ℕ) : ℝ) =
+            (Λ d * Λ (n / d)) * ((d : ℝ) * ((n / d : ℕ) : ℝ)) := by ring
+        _ = (Λ d * Λ (n / d)) * (n : ℝ) := by rw [hmulR]
+        _ = Λ d * Λ (n / d) * (n : ℝ) := by ring
     _ = ∑ d ∈ Finset.Icc 1 N,
           ∑ n ∈ (Finset.Icc 1 N).filter (fun x => d ∣ x),
             (Λ d / (d : ℝ)) *
@@ -361,7 +365,7 @@ theorem nativePNT_log_floor_defect_bounds
 `log N * L(N) - D(N)` by only one copy of the reciprocal `Lambda` mass plus
 the Mertens error. -/
 theorem nativePNTLambdaConvolutionRecipMass_sub_model_abs_le
-    (N : ℕ) (hN : 3 ≤ N) :
+    (N : ℕ) (_hN : 3 ≤ N) :
     |nativePNTLambdaConvolutionRecipMass N -
         (Real.log (N : ℝ) * nativeLambdaRecip N -
           nativePNTLambdaLogRecipMass N)| ≤
@@ -466,6 +470,8 @@ theorem nativePNTSignedSecondSelbergKernelRecipMass_abs_le
       6 * (Real.log 4 + 3) * Real.log (N : ℝ) + 8 := by
   let A : ℝ := Real.log 4 + 2
   have hN1 : 1 ≤ N := by omega
+  have hlog0 : 0 ≤ Real.log (N : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast hN1)
   have hL := nativeLambdaRecip_sub_log_abs_le N hN1
   have hLupper : nativeLambdaRecip N ≤ Real.log (N : ℝ) + A := by
     dsimp [A]
