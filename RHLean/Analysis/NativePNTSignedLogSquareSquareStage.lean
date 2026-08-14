@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.NativePNTSignedLogSquareDyadicCell
+import RHLean.Analysis.NativePNTSummatorySelberg
 import RHLean.Analysis.PrimeSieveBaseEightShallowAttack
 
 /-!
@@ -170,5 +171,81 @@ theorem nativePNTSquareStageTransition_exists_good_of_oppositeSign
   exact nativePNTError_exists_beta_good_between_of_oppositeSign
     (squarePrefixEndpoint t / (2 * c))
     (squarePrefixEndpoint t / c) beta hA hAB hbeta hdown hup hopposite
+
+/-! ## Quantitative mass of the genuine Region II packet family -/
+
+/-- Total second-Selberg coefficient carried by the actual transition cofactors. -/
+def nativePNTSquareStageTransitionLambdaTwoMass (t : ℕ) : ℝ :=
+  ∑ c ∈ nativePNTSquareStageTransitionCofactors t, nativeLambdaTwo c
+
+/-- At stages divisible by four, Region II is exactly the dyadic cofactor block
+`(s, 2s]`. -/
+theorem nativePNTSquareStageTransitionCofactors_four_mul (s : ℕ) :
+    nativePNTSquareStageTransitionCofactors (4 * s) =
+      Finset.Icc (s + 1) (2 * s) := by
+  ext c
+  simp [nativePNTSquareStageTransitionCofactors]
+
+/-- Therefore its coefficient mass is the exact increment of the summatory
+second von Mangoldt kernel across `(s,2s]`. -/
+theorem nativePNTSquareStageTransitionLambdaTwoMass_four_mul_eq
+    (s : ℕ) (hs : 1 ≤ s) :
+    nativePNTSquareStageTransitionLambdaTwoMass (4 * s) =
+      nativeLambdaTwoSummatory (2 * s) - nativeLambdaTwoSummatory s := by
+  unfold nativePNTSquareStageTransitionLambdaTwoMass
+  rw [nativePNTSquareStageTransitionCofactors_four_mul]
+  unfold nativeLambdaTwoSummatory
+  have hsets :
+      Finset.Icc 1 (2 * s) =
+        Finset.Icc 1 s ∪ Finset.Icc (s + 1) (2 * s) := by
+    ext n
+    simp only [Finset.mem_Icc, Finset.mem_union]
+    omega
+  have hdis : Disjoint (Finset.Icc 1 s) (Finset.Icc (s + 1) (2 * s)) := by
+    rw [Finset.disjoint_left]
+    intro n hn hs'
+    rw [Finset.mem_Icc] at hn hs'
+    omega
+  rw [hsets, Finset.sum_union hdis]
+  ring
+
+/-- On an explicit large square stage, the genuine Region II packets already
+carry at least `s log s` of `Lambda_2` coefficient mass.  This theorem only
+certifies the available packet resource; the decisive contraction must still
+retain the signs of the cells in the signed second-Selberg recurrence. -/
+theorem nativePNTSquareStageTransitionLambdaTwoMass_ge_mul_log
+    (s : ℕ) (hs : 3 ≤ s)
+    (hlarge :
+      3 * (2 * (Real.log 4 + 2) + 172) ≤
+        Real.log (s : ℝ) + 4 * Real.log 2) :
+    (s : ℝ) * Real.log (s : ℝ) ≤
+      nativePNTSquareStageTransitionLambdaTwoMass (4 * s) := by
+  have hmass := nativePNTSquareStageTransitionLambdaTwoMass_four_mul_eq
+    s (by omega)
+  have hsBound := nativeLambdaTwoSummatory_sub_two_mul_log_abs_le s hs
+  have h2s : 3 ≤ 2 * s := by omega
+  have h2Bound := nativeLambdaTwoSummatory_sub_two_mul_log_abs_le (2 * s) h2s
+  rw [abs_le] at hsBound h2Bound
+  have hsUpper :
+      nativeLambdaTwoSummatory s ≤
+        2 * (s : ℝ) * Real.log (s : ℝ) +
+          (2 * (Real.log 4 + 2) + 172) * (s : ℝ) := by
+    linarith [hsBound.2]
+  have h2Lower :
+      2 * ((2 * s : ℕ) : ℝ) * Real.log ((2 * s : ℕ) : ℝ) -
+          (2 * (Real.log 4 + 2) + 172) * ((2 * s : ℕ) : ℝ) ≤
+        nativeLambdaTwoSummatory (2 * s) := by
+    linarith [h2Bound.1]
+  have hspos : (0 : ℝ) < (s : ℝ) := by exact_mod_cast (show 0 < s by omega)
+  have hlogmul :
+      Real.log ((2 * s : ℕ) : ℝ) = Real.log 2 + Real.log (s : ℝ) := by
+    rw [Nat.cast_mul, Real.log_mul (by norm_num) (ne_of_gt hspos)]
+    norm_num
+  rw [hlogmul] at h2Lower
+  push_cast at h2Lower
+  have hlargeMul :=
+    mul_le_mul_of_nonneg_left hlarge (show (0 : ℝ) ≤ (s : ℝ) by positivity)
+  rw [hmass]
+  nlinarith [h2Lower, hsUpper, hlargeMul]
 
 end RHLean.Analysis
