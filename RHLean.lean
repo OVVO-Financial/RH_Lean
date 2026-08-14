@@ -37,6 +37,7 @@ import RHLean.Analysis.NativePNTErdosContraction
 import RHLean.Analysis.NativePNTErrorMass
 import RHLean.Analysis.NativePNTEvolvingRemainder
 import RHLean.Analysis.NativePNTEvolvingTailCompensation
+import RHLean.Analysis.NativePNTEvolvingTailObstruction
 import RHLean.Analysis.NativePNTEvolvingTailState
 import RHLean.Analysis.NativePNTEvolvingTailStep
 import RHLean.Analysis.NativePNTInterceptAbsorption
@@ -65,6 +66,7 @@ import RHLean.Analysis.NativePNTReciprocalSquareCore
 import RHLean.Analysis.NativePNTRemainderProfileCompose
 import RHLean.Analysis.NativePNTRemainderProfileCore
 import RHLean.Analysis.NativePNTSelberg
+import RHLean.Analysis.NativePNTSignedLocalSurplus
 import RHLean.Analysis.NativePNTSignedWheelRemainder
 import RHLean.Analysis.NativePNTSquarePrefixCompensated
 import RHLean.Analysis.NativePNTSquarePrefixContraction
