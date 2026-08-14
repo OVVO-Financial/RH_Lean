@@ -267,4 +267,36 @@ theorem nativePNTError_exists_beta_good_between_of_oppositeSign
       simp [hzero] at hAaway
       linarith
 
+/-- Every positive quotient below the square-root barrier is attained by a
+reciprocal floor.  For `k = floor(N/q)`, the hypothesis `q^2 ≤ N` gives
+`q ≤ k`, hence the division remainder is strictly smaller than `k`; this
+forces `floor(N/k) = q`. -/
+theorem nativePNT_reciprocal_preimage_of_sq_le
+    (N q : ℕ) (hq : 1 ≤ q) (hsq : q ^ 2 ≤ N) :
+    ∃ k : ℕ, q ≤ k ∧ k ≤ N ∧ N / k = q := by
+  let k : ℕ := N / q
+  have hqpos : 0 < q := by omega
+  have hkLower : q ≤ k := by
+    dsimp [k]
+    apply (Nat.le_div_iff_mul_le hqpos).2
+    simpa [pow_two] using hsq
+  have hkN : k ≤ N := by
+    dsimp [k]
+    exact Nat.div_le_self N q
+  have hrem : N % q < k := by
+    exact (Nat.mod_lt N hqpos).trans_le hkLower
+  have hdecomp : q * k + N % q = N := by
+    dsimp [k]
+    simpa [Nat.mul_comm] using Nat.div_add_mod N q
+  have hlo : q * k ≤ N := by
+    dsimp [k]
+    simpa [Nat.mul_comm] using Nat.div_mul_le_self N q
+  have hhi : N < (q + 1) * k := by
+    rw [← hdecomp]
+    calc
+      q * k + N % q < q * k + k := Nat.add_lt_add_left hrem _
+      _ = (q + 1) * k := by ring
+  have hdiv : N / k = q := Nat.div_eq_of_lt_le hlo hhi
+  exact ⟨k, hkLower, hkN, hdiv⟩
+
 end RHLean.Analysis
