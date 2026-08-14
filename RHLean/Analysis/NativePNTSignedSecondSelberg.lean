@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.NativePNTSignedWheelRemainder
+import RHLean.Analysis.NativePNTSignedLogSquarePositiveDyadicKernel
 import RHLean.Analysis.NativePNTSignedLogSquareSquareStage
 
 /-!
@@ -34,8 +35,8 @@ inside the same identity as
 
 This is the algebraic seam needed by the square-stage signed-cell attack: no
 `O(N)` Selberg remainder is inserted and no termwise absolute value is taken.
-The final theorem specializes the identity to the repository's complete-square
-endpoint `X_t = (t+1)^2 - 1`.
+The final theorems expose the exact dyadic-cell ownership of the `Lambda_2`
+piece and specialize the identity to the repository's complete-square endpoint.
 -/
 
 noncomputable section
@@ -239,6 +240,33 @@ theorem nativePNTSignedSecondSelbergKernelErrorMass_eq
   intro n _hn
   ring
 
+/-- The same signed kernel written in the `Lambda_2` coordinate. -/
+theorem nativePNTSignedSecondSelbergKernelErrorMass_eq_lambdaTwo_sub_two_log
+    (N : ℕ) :
+    nativePNTSignedSecondSelbergKernelErrorMass N =
+      nativeLambdaTwoSignedErrorMass N -
+        2 * nativePNTLambdaLogSignedErrorMass N := by
+  unfold nativePNTSignedSecondSelbergKernelErrorMass
+    nativeLambdaTwoSignedErrorMass nativePNTLambdaLogSignedErrorMass
+  rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  rw [nativePNTSignedSecondSelbergKernel_eq_lambdaTwo_sub_two_log]
+  ring
+
+/-- **Cell ownership inside the true signed kernel.**  The `Lambda_2` portion of
+the exact second-Selberg kernel is the dyadic-cell mass plus its explicit top
+boundary.  The differentiated first-kernel term is retained with its sign. -/
+theorem nativePNTSignedSecondSelbergKernelErrorMass_eq_cells_boundary_log
+    (N : ℕ) :
+    nativePNTSignedSecondSelbergKernelErrorMass N =
+      nativePNTLambdaTwoOddKernelDyadicCellMass N +
+        nativePNTLambdaTwoOddKernelTopBoundaryMass N -
+        2 * nativePNTLambdaLogSignedErrorMass N := by
+  rw [nativePNTSignedSecondSelbergKernelErrorMass_eq_lambdaTwo_sub_two_log,
+    nativeLambdaTwoSignedErrorMass_eq_dyadicCells_add_boundary]
+  ring
+
 /-- **Exact signed second Selberg recurrence.**  No current-scale remainder is
 bounded separately and no `Lambda_2` term is replaced by its absolute mass. -/
 theorem nativePNTError_mul_log_sq_eq_signedSecondSelberg
@@ -272,8 +300,24 @@ theorem nativePNTError_mul_log_sq_eq_signedSecondSelberg
   rw [hkernel]
   linarith [hbase]
 
-/-- Complete-square specialization of the exact signed second recurrence.  This
-is the form to be partitioned by the Region-II exact-activity packets. -/
+/-- The exact recurrence with the dyadic cells exposed and every remaining term
+visible.  This is the acceptance coordinate for the square-stage cubic-gain
+attack: any claimed local surplus must cancel against these exact leftovers,
+not against an auxiliary absolute remainder. -/
+theorem nativePNTError_mul_log_sq_eq_dyadicCells_signedSecondSelberg
+    (N : ℕ) :
+    nativePNTError N * (Real.log (N : ℝ)) ^ 2 =
+      nativePNTSignedSelbergRemainder N * Real.log (N : ℝ) -
+        nativePNTLambdaSignedSelbergRemainderMass N +
+        nativePNTLambdaTwoOddKernelDyadicCellMass N +
+        nativePNTLambdaTwoOddKernelTopBoundaryMass N -
+        2 * nativePNTLambdaLogSignedErrorMass N -
+        nativePNTLambdaFloorLogSignedDefectMass N := by
+  rw [nativePNTError_mul_log_sq_eq_signedSecondSelberg,
+    nativePNTSignedSecondSelbergKernelErrorMass_eq_cells_boundary_log]
+  ring
+
+/-- Complete-square specialization of the exact signed second recurrence. -/
 theorem nativePNTError_squareStage_mul_log_sq_eq_signedSecondSelberg
     (t : ℕ) :
     nativePNTError (squarePrefixEndpoint t) *
@@ -284,5 +328,20 @@ theorem nativePNTError_squareStage_mul_log_sq_eq_signedSecondSelberg
         nativePNTSignedSecondSelbergKernelErrorMass (squarePrefixEndpoint t) -
         nativePNTLambdaFloorLogSignedDefectMass (squarePrefixEndpoint t) := by
   exact nativePNTError_mul_log_sq_eq_signedSecondSelberg (squarePrefixEndpoint t)
+
+/-- Complete-square specialization with the exact dyadic-cell ownership exposed. -/
+theorem nativePNTError_squareStage_mul_log_sq_eq_dyadicCells
+    (t : ℕ) :
+    nativePNTError (squarePrefixEndpoint t) *
+        (Real.log ((squarePrefixEndpoint t : ℕ) : ℝ)) ^ 2 =
+      nativePNTSignedSelbergRemainder (squarePrefixEndpoint t) *
+          Real.log ((squarePrefixEndpoint t : ℕ) : ℝ) -
+        nativePNTLambdaSignedSelbergRemainderMass (squarePrefixEndpoint t) +
+        nativePNTLambdaTwoOddKernelDyadicCellMass (squarePrefixEndpoint t) +
+        nativePNTLambdaTwoOddKernelTopBoundaryMass (squarePrefixEndpoint t) -
+        2 * nativePNTLambdaLogSignedErrorMass (squarePrefixEndpoint t) -
+        nativePNTLambdaFloorLogSignedDefectMass (squarePrefixEndpoint t) := by
+  exact nativePNTError_mul_log_sq_eq_dyadicCells_signedSecondSelberg
+    (squarePrefixEndpoint t)
 
 end RHLean.Analysis
