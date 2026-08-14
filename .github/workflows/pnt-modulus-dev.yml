@@ -47,7 +47,7 @@ jobs:
       - name: Compile modulus layers
         run: |
           lake build RHLean.Analysis.NativePNTSignedSecondSelbergReciprocal
-          lake build RHLean.Arithmetic.PrimeWheelFiniteDepthFrontier
+          lake build RHLean.Arithmetic.PrimeWheelFiniteDepthSemiprime
 
       - name: Regenerate root imports
         run: |
