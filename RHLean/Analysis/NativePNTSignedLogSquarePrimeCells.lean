@@ -213,7 +213,7 @@ theorem nativePNTMobiusLogSquareSignedAtom_cross_abs_surplus_eq
   ring
 
 private theorem abs_pair_surplus_ge_two_lower
-    (x y L : ℝ) (hL : 0 ≤ L)
+    (x y L : ℝ)
     (hx : L ≤ |x|) (hy : L ≤ |y|)
     (hsign : (0 ≤ x ∧ 0 ≤ y) ∨ (x ≤ 0 ∧ y ≤ 0)) :
     2 * L ≤ |x| + |y| - |x - y| := by
@@ -245,7 +245,6 @@ the log-square Möbius coefficient. -/
 theorem nativePNTMobiusLogSquareSignedAtom_cross_abs_surplus_ge_of_sameSign
     (N m p k : ℕ) (L : ℝ)
     (hp : p.Prime) (hcop : Nat.Coprime m p)
-    (hL : 0 ≤ L)
     (hfirst : L ≤ |nativePNTError (N / (m * k))|)
     (hsecond : L ≤ |nativePNTError (N / ((m * p) * k))|)
     (hsign :
@@ -261,7 +260,7 @@ theorem nativePNTMobiusLogSquareSignedAtom_cross_abs_surplus_ge_of_sameSign
           nativePNTMobiusLogSquareSignedAtom N (m * p) k| := by
   have hpair := abs_pair_surplus_ge_two_lower
     (nativePNTError (N / (m * k)))
-    (nativePNTError (N / ((m * p) * k))) L hL hfirst hsecond hsign
+    (nativePNTError (N / ((m * p) * k))) L hfirst hsecond hsign
   have hcoef :
       0 ≤ |(μ : ArithmeticFunction ℝ) m| * (Real.log (k : ℝ)) ^ 2 :=
     mul_nonneg (abs_nonneg _) (sq_nonneg _)
