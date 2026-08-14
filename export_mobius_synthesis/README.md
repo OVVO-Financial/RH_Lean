@@ -1,284 +1,382 @@
 # Möbius Synthesis
 
-**Möbius Synthesis** joins the square-block and prime-wheel Möbius-cancellation developments into one machine-checked bridge. It is not a third independent route to the Riemann Hypothesis. Its role is to identify where the two coordinate systems describe the same arithmetic residual, expose the exact algebra already available from both tracks, and isolate the analytic estimates that remain open.
+**Möbius Synthesis** is the standalone research-status snapshot for the square-block and prime-wheel Möbius program. It joins the two coordinate systems, carries the complete native Selberg--Erdős prime number theorem, and records the strongest currently proved quantitative PNT contraction without overstating the remaining RH-scale step.
+
+This snapshot is synchronized to `RH_Lean` commit `1535b80a8bac8a800d9368814fe2567e79808312`, the merge of PR #354. Its `RHLean/` source tree is byte-identical to the development tree at that commit, and `RHLean.lean` imports **366 Lean modules**. The original publication inventory contained 214 modules, so the current research snapshot is 152 modules larger.
 
 Companion standalone repositories:
 
-- Square blocks: https://github.com/OVVO-Financial/square-block-mobius
-- Prime wheels: https://github.com/OVVO-Financial/prime-wheel-mobius
+- Square blocks: `OVVO-Financial/square-block-mobius`
+- Prime wheels: `OVVO-Financial/prime-wheel-mobius`
 
-The root manifest `RHLean.lean` imports **248 Lean modules**, every one of which resolves to a file under `RHLean/`. See `MODULES.md` for the module inventory and `SEAMS.md` for the elementary prime-sieve and PNT-centering seams.
+`MODULES.md` maps the current source layers. `SEAMS.md` records the exact interfaces between them. `CURRENT_PROOF_ROUTE.md` is the canonical statement of what is proved, what the current bottleneck is, and which routes remain live.
 
-## Two coordinate systems, one residual
+## Current research status
 
-Square blocks expose the lifetime and geometric organization of the Möbius field: complete square-prefix endpoints, canonical factor geometry, transport, survivor and death-shell structure, ancestry, and signed Gram architectures.
+There are now four distinct machine-checked levels, and they must not be conflated.
 
-Prime wheels expose the spectral and residue-class organization of the same field: exact Möbius recovery, finite-torus Fourier decomposition, conductor structure, Ramanujan reduction, divisor-boundary formulas, and Mertens transfer.
+### 1. The ordinary prime number theorem is proved unconditionally
 
-The synthesis identifies exact seams between these descriptions before any unresolved asymptotic estimate is invoked.
+The repository contains a complete elementary Selberg--Erdős proof ending at
 
-Let
-
-- `L_k` and `U_k` be the synchronized primorial-block endpoints;
-- `W_k = primorialMinimalWheelSystem k` be the minimal-torus wheel;
-- `Q_k` be its modulus;
-- `X_n = (n+1)^2 - 1` be a complete square-prefix endpoint;
-- `R_k(x)` be the corrected wheel residual.
-
-At a complete square sample inside the block, the checked square-wheel identity has the form
-
-```math
-R_k(X_n) = H_{k,n} + \rho_{k,n} R_k(U_k),
-\qquad
-\rho_{k,n} = \frac{X_n-L_k}{Q_k}.
+```text
+RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem
+  : Tendsto
+      (fun N => (Nat.primeCounting N : ℝ) * Real.log N / N)
+      atTop (𝓝 1)
 ```
 
-The nonzero response `H_{k,n}` is represented in Lean by `squareWheelNonzeroSampleResponse`.
+The proof is built inside the same reciprocal-fibre Möbius architecture. It does not import a zero-free region, Perron formula, Tauberian theorem, or an external PNT theorem.
 
-## Zero-mode elimination and contraction
+### 2. A generalized affine PNT bound is proved and now contracts strictly
 
-`RHLean.Analysis.SquareWheelZeroModeElimination` removes the self-referential zero mode exactly. At a distinguished terminal complete square sample `n_*`,
+The native quantitative layer works with affine envelopes for the Chebyshev error
 
-```math
-R_k(U_k) = \frac{H_{k,n_*}+T_{k,n_*}}{1-\rho_{k,n_*}},
+```text
+nativePNTError N = nativePsi N - N.
 ```
 
-where the terminal interpolation term satisfies the checked square-root-scale estimate
+At a slope `alpha`, `nativePNTHasAffineEnvelope alpha` means that some nonnegative intercept `D` satisfies
 
 ```math
-|T_{k,n_*}|^2 < 9(U_k+1).
+|\psi(N)-N| \le \alpha N + D
 ```
 
-`RHLean.Analysis.SquareWheelQuantitativeBridge` proves that from synchronized block `k >= 2`,
+for every `N`.
+
+PR #354 proves a strictly stronger low-slope update on the fully rederived square-prefix path. For
 
 ```math
-Q_k > 6U_k,
+0 < \alpha \le \frac32,
 ```
 
-and therefore every complete square sample in the block has
+an affine envelope at slope `alpha` implies one at
 
 ```math
-0 <= \rho_{k,n} < 1/6.
+\alpha_{new}
+  = \alpha - \frac{\alpha^3}{178200000}.
 ```
 
-Thus the zero-frequency feedback is uniformly contractive and the incomplete terminal square is already at square-root scale.
+The theorem is
 
-The same module defines `primorialExpansionReindexedNumerator` and proves the exact bridge from the square-side nonzero response to the fully collapsed wheel numerator after zero-mode subtraction.
+```text
+RHLean.Analysis.nativePNTSquarePrefixHasAffineEnvelope_lowSlope_cubic_step
+```
 
-## Elementary prime-sieve seam
+and
 
-The current synthesis also contains an elementary square-root prime-sieve route into the same square-wheel object.
+```text
+RHLean.Analysis.nativePNTSquarePrefixLowSlope_affineEnvelope_strictly_tighter
+```
 
-`RHLean.Proof.PrimeSievePostSqrtGap` proves, under `sqrt x < y`, the exact finite identity
+also proves that this update is strictly tighter than the previously proved square-prefix update. The cubic coefficient improves from
+
+```text
+1 / 1140480000
+```
+
+to
+
+```text
+1 / 178200000,
+```
+
+an exact factor of `32/5 = 6.4`.
+
+This is a real contraction of an already-proved generalized PNT error bound. It is not merely an exact identity and it is not a claim of an RH-scale power bound.
+
+### 3. The repository already contains the bound-changing square-root bridges
+
+Two conditional conversion theorems isolate the remaining quantitative requirement.
+
+The moving-cutoff route defines `NativePNTQuadraticTailScaleLaw K`: for each small target slope `eta`, a true tail must begin at some cutoff `M` satisfying
+
+```math
+M\eta^2 \le K.
+```
+
+From that law the repository proves
+
+```math
+|\psi(N)-N| \le \sqrt{KN}
+```
+
+for the stated range, via
+
+```text
+RHLean.Analysis.nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
+```
+
+and the state-dependent cubic version
+
+```text
+RHLean.Analysis.nativePNTError_abs_le_sqrt_of_stateDependentCubicGain.
+```
+
+The affine-intercept route defines `NativePNTReciprocalInterceptLaw K`. From
+
+```math
+D(\alpha) \le \frac K\alpha
+```
+
+it proves
+
+```math
+|\psi(N)-N| \le 2\sqrt{KN}
+```
+
+through
+
+```text
+RHLean.Analysis.nativePNTError_abs_le_two_sqrt_of_reciprocalInterceptLaw.
+```
+
+Thus the remaining problem is no longer to invent a square-root conversion theorem. Those conversion theorems are already formalized.
+
+### 4. The missing theorem is RH-compatible physical scale control
+
+What is **not** proved is the required cutoff law itself. In particular, the repository does not yet prove unconditionally that repeated architecture-native contractions reach target slope `eta` with terminal physical cutoff
+
+```math
+M(\eta)=O(\eta^{-2}),
+```
+
+nor the stronger reciprocal cutoff control sufficient for the affine-intercept route.
+
+This is the present quantitative bottleneck.
+
+The older absolute evolving-tail state is formally obstructed: `NativePNTEvolvingTailObstruction` proves that its canonical positive remainder carries an unavoidable `N log N`-scale floor, so that state cannot realize the desired cubic gain at a fixed polynomial physical scale as the slope tends to zero. The current attack therefore keeps the second Selberg recurrence **signed** before taking norms.
+
+## Signed second Selberg architecture
+
+`RHLean.Analysis.NativePNTSignedSecondSelberg` opens the second Selberg layer before absolute values. Its exact recurrence keeps the true signed kernel
+
+```math
+K_2(n)
+ = (\Lambda * \Lambda)(n)-\Lambda(n)\log n
+ = \Lambda_2(n)-2\Lambda(n)\log n
+```
+
+and exposes the complete square-stage ledger
+
+```text
+E(N) log(N)^2
+  = signed Selberg remainder * log(N)
+    - Lambda signed remainder mass
+    + dyadic Lambda_2 cell mass
+    + top boundary mass
+    - 2 * Lambda-log signed error mass
+    - floor-log signed defect mass.
+```
+
+No current-scale positive `O(N)` remainder is inserted and no `Lambda_2` contribution is replaced termwise by its absolute value.
+
+The supporting modules
+
+```text
+NativePNTSignedLogSquarePrimeCells
+NativePNTSignedLogSquarePositiveDyadicKernel
+NativePNTSignedLogSquareDyadicCell
+NativePNTSignedLogSquareSquareStage
+```
+
+put the log-square mass on the repository's square-stage cells and identify the exact dyadic cell ownership used by the signed recurrence.
+
+## Exact prime-wheel frontier at square-root scale
+
+`RHLean.Analysis.NativePNTSignedSecondSelbergWheelFrontier` classifies the actual unresolved partial-wheel sites under
+
+```math
+N < 2y^2.
+```
+
+Every nonzero frontier site is exactly one of two signed faces:
+
+```text
+prime square q^2:
+  K_2(q^2) = -(log q)^2
+
+distinct prime product q r:
+  K_2(qr) = 2 log q log r.
+```
+
+`RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge` then proves that every such site has reciprocal quotient `N / n = 1`, hence
+
+```text
+nativePNTSignedSecondSelbergWheelFrontierErrorMass y N
+  = - nativePNTSignedSecondSelbergWheelFrontierCharge y N.
+```
+
+This is an exact signed frontier statement. No positivity is asserted for the total frontier charge.
+
+The same module contains the strengthened square-prefix contraction described above. That placement is deliberate: the wheel side preserves the exact signed square-root frontier while the quantitative contraction remains on the already-proved square-prefix path.
+
+## Two live quantitative fronts
+
+The standalone synthesis repository now records two related but distinct quantitative fronts.
+
+### A. Canonical square-wheel nonzero response
+
+For synchronized primorial blocks and complete-square samples,
+
+```math
+R_k(X_n)=H_{k,n}+\rho_{k,n}R_k(U_k),
+\qquad 0\le\rho_{k,n}<\frac16.
+```
+
+The zero mode is eliminated exactly, and the canonical direct RH target remains
+
+```math
+|H_{k,n}| \ll_\varepsilon (X_n+1)^{1/2+\varepsilon}.
+```
+
+That estimate is **not proved**. `boundary/frontier.json` therefore correctly remains at `exact_reduction`.
+
+The exact reciprocal-interval coordinate is still available:
+
+```math
+H_{k,n}
+  = C_{k,n}^{PNT}-2E_{k,n}^{rec},
+```
+
+where the second term is a centered Mertens-weighted family of prime-count-minus-Li discrepancies on explicit reciprocal intervals. This remains a valid direct synthesis route, but it is no longer the only quantitative route recorded by the project.
+
+### B. Generalized-PNT contraction with controlled physical scale
+
+The newer route starts from the proved affine PNT envelope, iterates a state-dependent cubic contraction, records the physical cutoff at every step, and asks for an RH-compatible terminal scale. The formal square-root conversion is already present. The live arithmetic task is to prove the scale law from the signed square-block and prime-wheel structure.
+
+In compressed form:
+
+```text
+proved affine PNT envelope
+  -> proved strict cubic slope contraction
+  -> OPEN: architecture-native cutoff law
+  -> proved conditional sqrt(N) Chebyshev bridge.
+```
+
+The current signed second-Selberg and wheel-frontier modules are aimed at the open middle arrow.
+
+## Historical exact synthesis seam
+
+The earlier exact square-wheel seam remains part of the current architecture.
+
+`RHLean.Proof.PrimeSievePostSqrtGap` proves, under `sqrt x < y`,
 
 ```text
 M_y^+(x) - M(x)
   = 2 * sum_{y < q <= x, q prime} M(floor(x/q)).
 ```
 
-`RHLean.Proof.PrimeSieveSquareRootTransport` specializes this at `x = R^2 - 1`, `y = R` and identifies the pre-large-prime state with the existing square-block smooth and transport variables. This connects fresh-prime parity directly to the square-root transport term already present in the square-block development.
+`RHLean.Proof.PrimeSieveSquareRootTransport` realizes that identity at complete square endpoints in the square-block smooth and transport variables.
 
-No prime-distribution estimate is used in this layer.
-
-## PNT centering and reciprocal quotient intervals
-
-`RHLean.Analysis.PrimeSievePNTCentering` splits the exact prime tail into a deterministic logarithmic-integral density bulk plus the exact prime-indicator discrepancy. Its singleton density is
+`RHLean.Analysis.PrimeSievePNTCentering` and `PrimeSieveQuotientPNTError` then reindex the prime error by
 
 ```text
-density(q) = Li(q) - Li(q-1).
+d = floor(x/q),
 ```
 
-After applying the actual square-wheel zero-mode centering, the canonical nonzero response is written exactly as
-
-```math
-H_{k,n}
-  = \text{centered PNT-corrected comb}
-    - 2\,\text{centered prime error}.
-```
-
-The synchronized module `RHLean.Analysis.PrimeSieveQuotientPNTError` reindexes the prime error by
-
-```text
-d = floor(x/q).
-```
-
-For every positive quotient, the literal fibre is proved equal to the reciprocal interval
+with exact reciprocal interval
 
 ```text
 max(y, floor(x/(d+1))) < q <= floor(x/d).
 ```
 
-The singleton Li masses telescope on each such interval. Consequently the exact PNT error becomes a finite Mertens-weighted family of classical prime-count-minus-Li discrepancies:
+These remain exact finite identities and do not independently supply the missing RH-scale cancellation.
+
+## What is proved versus open
+
+Machine checked now:
+
+- exact square-block and prime-wheel Möbius architectures;
+- exact square-wheel zero-mode elimination and uniform `1/6` feedback contraction;
+- exact reciprocal-interval PNT centering of the canonical nonzero response;
+- unconditional native Selberg--Erdős prime number theorem;
+- generalized affine PNT envelopes and their iteration infrastructure;
+- conditional square-root conversion from quadratic cutoff growth;
+- conditional square-root conversion from reciprocal affine-intercept growth;
+- a formal obstruction to the canonical absolute evolving-tail state;
+- exact signed second-Selberg recurrence on square-stage cells;
+- exact signed prime-square and mixed-prime wheel-frontier classification;
+- exact wheel-frontier error-mass collapse to the negative frontier charge;
+- strict low-slope cubic contraction with coefficient `1 / 178200000`.
+
+Still open:
+
+- the architecture-native cutoff law needed to keep repeated contraction at quadratic reciprocal physical scale;
+- the stronger reciprocal cutoff or intercept law;
+- the canonical `H_{k,n}` bound at exponent `1/2 + epsilon`;
+- an unconditional RH-scale Mertens or Chebyshev power bound;
+- the Riemann Hypothesis.
+
+## Direct current-status modules
+
+The most important modules for the post-#354 status are:
 
 ```text
-sum_d M(d) *
-  (prime count on reciprocal interval - Li mass on reciprocal interval).
+RHLean.Analysis.NativePNTCubicContractionInequality
+RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
+RHLean.Analysis.NativePNTTailAffineEnvelope
+RHLean.Analysis.NativePNTTailOptimalIntercept
+RHLean.Analysis.NativePNTReciprocalInterceptPowerBound
+RHLean.Analysis.NativePNTEvolvingTailObstruction
+RHLean.Analysis.NativePNTSignedLocalSurplus
+RHLean.Analysis.NativePNTSignedLogSquarePrimeCells
+RHLean.Analysis.NativePNTSignedLogSquarePositiveDyadicKernel
+RHLean.Analysis.NativePNTSignedLogSquareDyadicCell
+RHLean.Analysis.NativePNTSignedLogSquareSquareStage
+RHLean.Analysis.NativePNTSignedSecondSelberg
+RHLean.Analysis.NativePNTSignedWheelRemainder
+RHLean.Analysis.NativePNTSignedSecondSelbergWheelFrontier
+RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
 ```
 
-The same module reindexes the deterministic PNT bulk and the exact prime tail, proves the deterministic Li contribution cancels algebraically in the corrected all-plus identity, and pushes the reciprocal-interval error through the square-wheel center.
-
-The resulting checked synthesis identity is
-
-```math
-H_{k,n}
-  = \text{centered PNT-corrected comb}
-    - 2\,\text{centered Mertens-weighted reciprocal prime discrepancy}.
-```
-
-In Lean this is `primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError`, with the corresponding norm transfer in `norm_primorialMinimalSquareWheelNonzeroResponse_le_reciprocalPNT`.
-
-## Current analytic boundary
-
-The terminal quantitative criterion remains
-
-```math
-|H_{k,n}| \ll_{\varepsilon} (X_n+1)^{1/2+\varepsilon}
-```
-
-uniformly over synchronized complete-square samples.
-
-That estimate is **not proved**.
-
-The synchronized exact work makes the present analytic boundary more explicit rather than closing it. One current representation separates the problem into two centered components:
-
-1. control of the centered PNT-corrected comb;
-2. control of the centered Mertens-weighted reciprocal-interval prime-count discrepancies, including the short reciprocal intervals near the square-root edge.
-
-No pointwise or averaged PNT-error theorem, short-interval prime theorem, Bombieri-Vinogradov estimate, large-sieve estimate, power saving, or unconditional proof of RH is claimed by these exact reductions.
-
-If the required RH-scale bound for `H_{k,n}` is established, the existing zero-mode elimination, square interpolation, Mertens transfer, Mellin continuation, zeta identity continuation, and terminal RH bridge carry it through the remaining formal chain.
-
-## What counts as synthesis progress
-
-The repository should continue to use both initiatives in synthesis form. A useful exact theorem need not immediately improve the exponent on `H_{k,n}` if it genuinely creates a new square-block and prime-wheel bridge.
-
-The `boundary-advance` policy therefore has two research lanes:
-
-- **Quantitative frontier:** a theorem strictly improves the certified bound on the canonical nonzero response or proves the RH-scale predicate.
-- **Cross-track synthesis:** a new exact theorem directly invokes established square-block and prime-wheel declarations and advances the shared bridge, transfer, sampling, compatibility, or residual architecture.
-
-One-sided square-block work, one-sided prime-wheel work, imports that do not actually couple the tracks, and purely cosmetic alternate representations do not qualify as synthesis progress by themselves. See `boundary/BOUNDARY_POLICY.md` for the machine-enforced policy.
-
-## Machine-checked status at the synchronized baseline
-
-The checked source currently includes, among other results:
-
-1. minimal-torus Möbius recovery on synchronized primorial blocks;
-2. equality of the minimal and historical wheel residuals on the arithmetic range;
-3. exact square sampling of the wheel residual;
-4. exact zero-mode splitting and elimination;
-5. square-root-scale terminal interpolation;
-6. factor-six modulus separation and uniform `1/6` contraction;
-7. exact expansion-reindexed numerator identification of the nonzero response;
-8. Ramanujan and divisor-boundary reductions on the prime-wheel side;
-9. elementary post-square-root prime-sieve and square-root transport identities;
-10. exact PNT centering of the prime tail;
-11. exact reciprocal quotient-fibre reindexing of the PNT error;
-12. the reciprocal-interval representation and norm transfer for `H_{k,n}`;
-13. Mertens, Mellin, zeta-continuation, and terminal RH transfer infrastructure;
-14. the native Selberg--Erdős prime number theorem, unconditionally, through to `pi(N) log N / N -> 1`;
-15. the finite primorial reciprocal Möbius factorization separating signed contraction from squarefree support;
-16. the truncated primorial wheel boundary profile and its exact fresh-prime recurrence.
-
-Items 1 through 13, 15, and 16 are exact structural, centering, reindexing, and transfer theorems. They do not by themselves provide the unresolved analytic cancellation estimate. Item 14 is the one asymptotic theorem rather than an exact identity, and its scope is stated precisely in the next section.
-
-## Native Selberg--Erdős prime number theorem
-
-The repository carries a complete elementary proof of the ordinary prime-counting prime number theorem, ending at
-
-```text
-RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem
-  : Tendsto (fun N => (Nat.primeCounting N : ℝ) * Real.log N / N) atTop (𝓝 1)
-```
-
-The chain runs: fresh-prime Möbius cancellation, reciprocal-fibre reindexing, sharp log-factorial and log-square summatory estimates, summatory Selberg symmetry, absolute and squared Chebyshev-error recurrences, good-interval selection, reciprocal `Lambda_2` good-fibre packing, a positive `c log^2 N` good-mass density, cubic affine-slope contraction, `R(N)/N -> 0`, `psi(N)/N -> 1`, the elementary `psi - theta = o(N)` bridge, and a finite multiplicative cutoff to `pi`.
-
-What this is, precisely:
-
-- **unconditional** — the endpoint theorem takes no hypotheses;
-- **elementary** — no zero-free region, Perron formula, Tauberian theorem, or spectral input;
-- **explicit** — every error term in the chain carries a numeric constant rather than an existential one;
-- **axiom clean** — the dependency closure contains no `sorry`, no project-local `axiom`, and no `native_decide`, and `scripts/local_ci.sh` gates the endpoint on `#print axioms`.
-
-What it is **not**: progress against this repository's frontier target. The prime number theorem is equivalent to `M(x) = o(x)`, whereas the open target in `boundary/frontier.json` is a uniform bound at exponent `1/2 + epsilon`. The proved asymptotic is therefore the baseline against which the nonzero-response contraction is measured, not a reduction of it. `RHLean.Analysis.NativePNTQuantitativeStatements` states the RH-scale targets separately so that the two are never conflated.
-
-## Direct synthesis modules
-
-The modules most directly relevant to the current synthesis seam include:
+The historical synthesis-facing modules remain important as well:
 
 ```text
 RHLean.Proof.PrimeSievePostSqrtGap
 RHLean.Proof.PrimeSieveSquareRootTransport
 RHLean.Analysis.PrimeSievePNTCentering
 RHLean.Analysis.PrimeSieveQuotientPNTError
-RHLean.Arithmetic.PrimorialWheelMinimalTorus
-RHLean.Arithmetic.PrimeProductLowerBound
-RHLean.Analysis.SquareWheelNesting
-RHLean.Analysis.SquareWheelQuadraticSampling
 RHLean.Analysis.SquareWheelZeroModeElimination
 RHLean.Analysis.SquareWheelQuantitativeBridge
-RHLean.Analysis.PrimeWheelPeriodicRawBridge
-RHLean.Analysis.PrimeWheelRawConductorMobiusReindex
-RHLean.Analysis.PrimeWheelRawBoundaryMobiusPairing
-RHLean.Analysis.PrimeWheelRawBoundaryExpansionCollapse
-RHLean.Analysis.PrimeWheelFullConductorUniformPacket
-RHLean.Analysis.PrimeWheelFullConductorMobiusReindexedResidual
-RHLean.Analysis.PrimeWheelSmoothConductorMobiusReindex
-RHLean.Analysis.PrimeWheelRamanujanIdentification
-RHLean.Analysis.PrimeWheelRamanujanBoundaryReduction
-RHLean.Analysis.PrimeWheelRamanujanBoundaryBulkReduction
-RHLean.Analysis.RamanujanDivisorBoundary
-RHLean.Analysis.RamanujanDivisorBoundaryBulk
 RHLean.Analysis.PrimorialWheelMertensTransfer
-RHLean.Analysis.MertensEnergyRHForward
-RHLean.Analysis.MertensMellinLSeriesBridge
 RHLean.Analysis.MertensMellinContinuation
 RHLean.Analysis.MertensZetaIdentityContinuation
-RHLean.Proof.TerminalMertensForward
-RHLean.Proof.TerminalMertensReduction
 RHLean.Proof.RiemannHypothesisBridge
-RHLean.Proof.TerminalAxiomAudit
 ```
-
-`MODULES.md` gives the fuller track-level inventory and records the **34-module increase** from the original 214-module inventory to the current 248-module manifest.
 
 ## Repository layout
 
-This repository contains:
-
-- `README.md` — synthesis overview and current status;
-- `MODULES.md` — Lean source map and module inventory;
-- `SEAMS.md` — elementary prime-sieve and PNT-centering seams;
-- `RHLean.lean` — authoritative import manifest;
-- `RHLean/` — Lean source tree;
-- `lakefile.lean`, `lean-toolchain`, and `lake-manifest.json` — pinned project metadata;
-- `boundary/` — quantitative and cross-track research ledgers and policy;
-- `.github/` — PR policy and workflow material;
-- `scripts/check_boundary_advance.py` — trusted boundary checker.
-
-There is currently no `paper/` directory. Nothing here is re-exported back into either companion repository.
+- `README.md` — current research status;
+- `CURRENT_PROOF_ROUTE.md` — canonical live proof route and bottleneck;
+- `MODULES.md` — source-layer map and synchronized module counts;
+- `SEAMS.md` — exact interfaces between square-block, wheel, PNT, and scale layers;
+- `RHLean.lean` — authoritative 366-module import manifest;
+- `RHLean/` — byte-identical synchronized Lean source tree;
+- `boundary/` — canonical direct-H frontier, cross-track synthesis ledger, and closed-lane record;
+- `.github/` and `scripts/` — standalone CI, assumption audit, and research-scope gate;
+- `lakefile.lean`, `lean-toolchain`, and `lake-manifest.json` — pinned standalone Lean project metadata.
 
 ## Verification
 
-From the repository root:
+From the standalone repository root:
 
 ```bash
-lake build RHLean --wfail
+bash scripts/local_ci.sh
 ```
 
-The `Baseline coupling audit` workflow runs the same build in CI, then prints the synthesis theorem together with its axiom dependencies. It fails if that theorem rests on `sorryAx`, if no axiom report is produced, or if the statement loses either its square-block or its prime-wheel anchor.
+The local and hosted baseline audit build `RHLean` with warnings fatal, audit unfinished proofs and project-local axioms, and print axiom dependencies for the headline synthesis theorem and the native PNT endpoint. The post-#354 status audit also checks the strengthened low-slope affine contraction and the conditional square-root scale bridge.
 
-`scripts/local_ci.sh` mirrors that job and additionally prints `nativePNTSquarePrefixPrimeNumberTheorem` with its axiom report, failing on `sorryAx` or on a missing report. The prime-counting endpoint is gated separately from the headline synthesis theorem because it is an unconditional asymptotic statement rather than an exact identity, so the square-block and prime-wheel anchor checks do not apply to it.
+The source snapshot represented here was already merged into development `main`. A fresh standalone build remains the definitive check that the exported project metadata and synchronized source elaborate together.
 
 ## Status convention
 
-- **Machine checked** means the statement is represented by a checked theorem or definition in the synchronized Lean source.
-- **Exact reduction** means finite algebra, reindexing, centering, or transfer with no asymptotic estimate smuggled in.
-- **Open analytic target** means an estimate is still unresolved and must not be described as established.
-- Numerical experiments and finite-range checks are diagnostic evidence only.
-
-At the synchronized mathematical baseline, the square-wheel bridge, elementary prime-sieve seam, PNT centering, reciprocal quotient reindexing, transfer infrastructure, and the native Selberg--Erdős prime number theorem are machine checked. The RH-scale bound on the canonical nonzero response remains open, and the prime number theorem does not narrow it: `M(x) = o(x)` is equivalent to the prime number theorem, while the open target is `O(x^(1/2 + epsilon))`.
+- **Machine checked** means the statement is represented by a Lean theorem or definition in this snapshot.
+- **Exact reduction** means finite algebra, reindexing, centering, or transfer with no unproved asymptotic estimate hidden inside it.
+- **Conditional bound-changing theorem** means Lean proves the implication from an explicit scale or intercept law; it does not mean that law has been established.
+- **Open analytic target** means the required estimate or scale law is still unresolved.
+- Numerical experiments are diagnostic evidence only.
 
 ## License
 
-Licensed under the Apache License, Version 2.0; see [LICENSE](LICENSE).
+Licensed under the Apache License, Version 2.0; see `LICENSE`.
