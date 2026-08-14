@@ -85,8 +85,11 @@ theorem nativePNTNormalizedRecipWeight_le_floorWeight_add
       rw [div_lt_div_iff₀ hdRpos hNpos]
       simpa [mul_comm] using hNltR
     exact hlt.le
-  have hmul := mul_le_mul_of_nonneg_left hratio
-    ArithmeticFunction.vonMangoldt_nonneg
+  have hLambda0 : 0 ≤ Λ d := ArithmeticFunction.vonMangoldt_nonneg
+  have hmul :
+      Λ d * (1 / (d : ℝ)) ≤
+        Λ d * ((((N / d : ℕ) : ℝ) + 1) / (N : ℝ)) :=
+    mul_le_mul_of_nonneg_left hratio hLambda0
   change Λ d / (d : ℝ) ≤
     Λ d * ((N / d : ℕ) : ℝ) / (N : ℝ) + Λ d / (N : ℝ)
   calc
