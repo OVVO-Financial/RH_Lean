@@ -153,19 +153,23 @@ theorem nativePNTLambdaTwoEvenMobiusPart_eq_neg_half
     refine ⟨r, Nat.mem_divisors.mpr ⟨hrd, Nat.ne_of_gt hhalfpos⟩, hmrep⟩
   · intro r _hr
     have hmu := nativePNTMobiusReal_two_mul r
+    change
+      -(if Odd r then
+          (μ : ArithmeticFunction ℝ) r *
+            (Real.log (((d / 2) / r : ℕ) : ℝ)) ^ 2
+        else 0) =
+        (μ : ArithmeticFunction ℝ) (2 * r) *
+          (Real.log ((d / (2 * r) : ℕ) : ℝ)) ^ 2
     by_cases hodd : Odd r
-    · rw [if_pos hodd] at hmu
-      have hmu' :
-          (μ : ArithmeticFunction ℝ) (r * 2) =
-            -(μ : ArithmeticFunction ℝ) r := by
-        simpa [Nat.mul_comm] using hmu
-      rw [hmu']
+    · rw [if_pos hodd]
+      rw [if_pos hodd] at hmu
+      rw [hmu]
+      rw [Nat.div_div_eq_div_mul]
       ring
-    · rw [if_neg hodd] at hmu
-      have hmu' : (μ : ArithmeticFunction ℝ) (r * 2) = 0 := by
-        simpa [Nat.mul_comm] using hmu
-      rw [hmu']
-      simp [hodd]
+    · rw [if_neg hodd]
+      rw [if_neg hodd] at hmu
+      rw [hmu]
+      simp
 
 /-- Positive-even coefficient recurrence. -/
 theorem nativeLambdaTwo_eq_oddKernel_sub_half_of_even
@@ -265,7 +269,11 @@ theorem nativeLambdaTwoSignedErrorMass_eq_oddKernel_sub_evenIndex
   intro n hn
   have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
   rw [nativeLambdaTwo_eq_oddKernel_sub_evenHalf n hn1]
-  by_cases heven : Even n <;> simp [heven] <;> ring
+  by_cases heven : Even n
+  · simp only [if_pos heven]
+    ring
+  · simp only [if_neg heven]
+    ring
 
 /-- The even-index correction is exactly the dyadic child row after the
 bijection `n = 2d`. -/
@@ -301,13 +309,9 @@ theorem nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass_eq_child
       have hd0 : d = 0 := by omega
       rw [hd0] at hrep
       omega
-    have h2dN : 2 * d ≤ N := by
-      calc
-        2 * d = n := hrep
-        _ ≤ N := hnI'.2
     have hdN : d ≤ N / 2 := by
-      apply (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2
-      simpa [Nat.mul_comm] using h2dN
+      dsimp [d]
+      exact Nat.div_le_div_right hnI'.2
     exact ⟨d, Finset.mem_Icc.mpr ⟨hd1, hdN⟩, hrep⟩
   · intro d _hd
     have hhalf : (2 * d) / 2 = d := by omega
