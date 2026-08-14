@@ -59,7 +59,7 @@ jobs:
           path: .lake/build
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
 
-      - name: Print the historical synthesis theorem and its axioms
+      - name: Print the synthesis theorem and its axioms
         run: |
           set -o pipefail
           cat > /tmp/baseline_check.lean <<'EOF'
@@ -72,7 +72,7 @@ jobs:
           EOF
           lake env lean /tmp/baseline_check.lean | tee /tmp/baseline_check.log
 
-      - name: Assert the historical synthesis theorem is axiom-clean
+      - name: Assert the synthesis theorem is axiom-clean
         run: |
           if grep -q 'sorryAx' /tmp/baseline_check.log; then
             echo 'Synthesis theorem depends on sorryAx: the proof is unfinished.' >&2
@@ -82,9 +82,9 @@ jobs:
             echo 'No axiom report produced; the synthesis theorem did not elaborate.' >&2
             exit 1
           fi
-          echo 'Historical synthesis axiom audit passed.'
+          echo 'Synthesis axiom audit passed.'
 
-      - name: Assert the historical theorem couples square-block and prime-wheel machinery
+      - name: Assert the theorem couples square-block and prime-wheel machinery
         run: |
           echo 'square anchors found:'
           grep -oiE 'squareprefix|squareblock|survivor|lifetime|deathshell|ancestry' \
@@ -123,10 +123,10 @@ jobs:
             exit 1
           fi
 
-      - name: Audit the post-354 quantitative status theorems
+      - name: Audit the quantitative status theorems
         run: |
           set -o pipefail
-          cat > /tmp/post354_check.lean <<'EOF'
+          cat > /tmp/quantitative_status_check.lean <<'EOF'
           import RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
           import RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
 
@@ -138,14 +138,14 @@ jobs:
           #print RHLean.Analysis.nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
           #print axioms RHLean.Analysis.nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
           EOF
-          lake env lean /tmp/post354_check.lean | tee /tmp/post354_check.log
-          if grep -q 'sorryAx' /tmp/post354_check.log; then
-            echo 'A post-354 status theorem depends on sorryAx.' >&2
+          lake env lean /tmp/quantitative_status_check.lean | tee /tmp/quantitative_status_check.log
+          if grep -q 'sorryAx' /tmp/quantitative_status_check.log; then
+            echo 'A quantitative status theorem depends on sorryAx.' >&2
             exit 1
           fi
-          reports=$(grep -Ec 'depends on axioms|does not depend on any axioms' /tmp/post354_check.log || true)
+          reports=$(grep -Ec 'depends on axioms|does not depend on any axioms' /tmp/quantitative_status_check.log || true)
           if [ "$reports" -lt 2 ]; then
-            echo 'Expected axiom reports for both post-354 status theorems.' >&2
+            echo 'Expected axiom reports for both quantitative status theorems.' >&2
             exit 1
           fi
-          echo 'Post-354 contraction and scale-bridge audit passed.'
+          echo 'Contraction and scale-bridge audit passed.'

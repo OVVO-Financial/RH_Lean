@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Local mirror of the hosted "Baseline coupling audit" job for this project.
-# It builds the complete standalone snapshot, audits unfinished proofs and local
-# axioms, checks the historical cross-track synthesis theorem, checks the native
-# PNT endpoint, and checks the two post-#354 quantitative status theorems:
+# Local mirror of the hosted "Baseline coupling audit" job.
+# It builds the complete repository, audits unfinished proofs and local axioms,
+# checks the cross-track synthesis theorem, checks the native PNT endpoint, and
+# checks the two quantitative status theorems:
 #
 #   * strict low-slope affine-envelope contraction;
 #   * quadratic-tail-scale-law -> sqrt(N) Chebyshev bridge.
@@ -39,7 +39,7 @@ step() { printf '\n==> %s\n' "$1"; }
 fail() { printf 'ERROR: %s\n' "$1" >&2; exit 1; }
 
 command -v lake >/dev/null 2>&1 || fail 'lake is not on PATH.
-Install elan and reopen the terminal before running standalone validation.'
+Install elan and reopen the terminal before running validation.'
 
 tmp_dir="$(mktemp -d)"
 trap 'rm -rf "$tmp_dir"' EXIT
@@ -84,11 +84,11 @@ pnt_log="$tmp_dir/pnt.log"
 contraction_log="$tmp_dir/contraction.log"
 scale_bridge_log="$tmp_dir/scale_bridge.log"
 
-step 'Auditing the historical cross-track synthesis theorem'
+step 'Auditing the cross-track synthesis theorem'
 print_and_audit_axioms "$synthesis_import" "$synthesis_decl" "$synthesis_log"
 
 if [[ ${#anchor_checks[@]} -gt 0 ]]; then
-  step 'Asserting the historical theorem still carries both architectural anchors'
+  step 'Asserting the synthesis theorem still carries both architectural anchors'
   for check in "${anchor_checks[@]}"; do
     label="${check%%=*}"
     pattern="${check#*=}"
@@ -103,10 +103,10 @@ fi
 step 'Auditing the unconditional native prime-number-theorem endpoint'
 print_and_audit_axioms "$pnt_import" "$pnt_decl" "$pnt_log"
 
-step 'Auditing the post-#354 strict affine-envelope contraction'
+step 'Auditing the strict affine-envelope contraction'
 print_and_audit_axioms "$contraction_import" "$contraction_decl" "$contraction_log"
 
 step 'Auditing the conditional quadratic-scale square-root bridge'
 print_and_audit_axioms "$scale_bridge_import" "$scale_bridge_decl" "$scale_bridge_log"
 
-printf '\nLocal CI mirror passed. The 366-module snapshot and all four status declarations elaborated cleanly.\n'
+printf '\nLocal CI mirror passed. The 366-module repository and all four status declarations elaborated cleanly.\n'

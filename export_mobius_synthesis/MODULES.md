@@ -1,16 +1,14 @@
 # Möbius Synthesis — Lean source map
 
-This standalone snapshot contains the complete import-audited `RHLean` library from development commit `1535b80a8bac8a800d9368814fe2567e79808312`, the merge of PR #354.
+This repository contains the complete import-audited `RHLean` library used by the current Möbius Synthesis research snapshot.
 
-`RHLean.lean` is the authoritative inventory. It imports **366 Lean modules**, every imported `RHLean.*` declaration resolves under `RHLean/`, and the entire exported `RHLean/` tree is byte-identical to the development tree at the synchronized commit.
-
-Immediately before this refresh, the checked-in export root contained **281 imports**, despite older export documentation still describing a 285-module synchronization point. This refresh therefore adds **85 root imports relative to the checked-in export** and removes that documentation drift. Relative to the original 214-module Möbius Synthesis publication, the current manifest is **152 modules larger**.
+`RHLean.lean` is the authoritative inventory. It imports **366 Lean modules**, and every imported `RHLean.*` module resolves under `RHLean/`.
 
 This file groups the source by research function. For the exhaustive file-by-file list, read `RHLean.lean` itself.
 
 ## 1. Square-block architecture
 
-The square-block layer contains the complete-square, cofactor, lifetime, death-shell, survivor, ancestry, and signed Gram geometry. Representative modules include:
+The square-block layer contains complete-square, cofactor, lifetime, death-shell, survivor, ancestry, and signed Gram geometry. Representative modules include:
 
 ```text
 RHLean.Analysis.ConcreteSquarePrefixGeometry
@@ -23,6 +21,8 @@ RHLean.Analysis.SquareRootPositiveSmoothCollapse
 RHLean.Analysis.SquareRootTransportRealization
 RHLean.Proof.LifetimeActiveSet
 RHLean.Proof.LifetimeEndpointDecomposition
+RHLean.Proof.LifetimeEndpointDiscrepancyAttack
+RHLean.Proof.LifetimeOverlapGramCriterion
 RHLean.Proof.DeathProcessArithmetic
 RHLean.Proof.DeathProcessShellIdentity
 RHLean.Proof.SurvivorFarUpperRigidity
@@ -32,16 +32,9 @@ RHLean.Proof.SquareRootAncestryRoot
 RHLean.Proof.SquareRootAncestrySuccessor
 ```
 
-The current snapshot also includes the newer lifetime diagnostics
-
-```text
-RHLean.Proof.LifetimeEndpointDiscrepancyAttack
-RHLean.Proof.LifetimeOverlapGramCriterion.
-```
-
 ## 2. Prime-wheel architecture
 
-The prime-wheel layer contains finite Möbius recovery, partial-wheel error support, torus and conductor decompositions, Ramanujan reductions, and exact boundary identities. Representative modules include:
+The prime-wheel layer contains finite Möbius recovery, partial-wheel error support, torus and conductor decompositions, Ramanujan reductions, finite-wheel quantitative statements, and exact boundary identities. Representative modules include:
 
 ```text
 RHLean.Arithmetic.PrimeWheelFiniteSystem
@@ -50,6 +43,8 @@ RHLean.Arithmetic.PrimeWheelPartialError
 RHLean.Arithmetic.PrimeWheelPartialErrorThreshold
 RHLean.Arithmetic.PrimorialReciprocalMobiusFactorization
 RHLean.Arithmetic.PrimorialTruncatedWheelBoundary
+RHLean.Analysis.FiniteWheelRestrictedFloor
+RHLean.Analysis.FiniteWheelReciprocalMertensImprovement
 RHLean.Analysis.PrimeWheelFourierReduction
 RHLean.Analysis.PrimeWheelConductorGram
 RHLean.Analysis.PrimeWheelPeriodicRawBridge
@@ -62,18 +57,9 @@ RHLean.Analysis.PrimeWheelRamanujanBoundaryBulkReduction
 RHLean.Analysis.RamanujanDivisorBoundaryBulk
 ```
 
-The current snapshot also contains
+## 3. Square-wheel synthesis seam
 
-```text
-RHLean.Analysis.FiniteWheelRestrictedFloor
-RHLean.Analysis.FiniteWheelReciprocalMertensImprovement,
-```
-
-which belong to the finite-wheel quantitative layer added after the earlier standalone publication state.
-
-## 3. Historical square-wheel synthesis seam
-
-The canonical cross-track seam remains:
+The canonical cross-track seam includes:
 
 ```text
 RHLean.Proof.PrimeSievePostSqrtGap
@@ -93,7 +79,7 @@ The direct quantitative endpoint remains the open `NonzeroResponseRHScale` predi
 
 ## 4. Native Selberg--Erdős prime number theorem
 
-The ordinary prime number theorem is proved by the native reciprocal-fibre route. The main layers are:
+The ordinary prime number theorem is proved by the native reciprocal-fibre route. Main layers include:
 
 ```text
 RHLean.Analysis.NativePNTLogSums
@@ -124,9 +110,9 @@ The endpoint is
 RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem.
 ```
 
-## 5. Generalized PNT bound and affine-envelope layer
+## 5. Generalized PNT affine-envelope layer
 
-The post-PNT quantitative layer makes the proved error envelope explicit and separates slope contraction from intercept growth:
+The quantitative layer separates slope contraction from intercept growth:
 
 ```text
 RHLean.Analysis.NativePNTBoundContraction
@@ -152,17 +138,17 @@ RHLean.Analysis.NativePNTTailOptimalIntercept
 RHLean.Analysis.NativePNTReciprocalInterceptPowerBound
 ```
 
-The key bound-changing theorem in this layer is
+The key bound-changing theorem
 
 ```text
 nativePNTError_abs_le_two_sqrt_of_reciprocalInterceptLaw
 ```
 
-which turns `D(alpha) <= K / alpha` into a `2 * sqrt(K*N)` Chebyshev error bound.
+turns `D(alpha) <= K / alpha` into a `2 * sqrt(K*N)` Chebyshev error bound.
 
 ## 6. Moving-cutoff and state-dependent contraction layer
 
-The repository records the physical onset of a contracted tail explicitly rather than hiding it inside an eventuality argument:
+The physical onset of a contracted tail is recorded explicitly in:
 
 ```text
 RHLean.Analysis.NativePNTEvolvingRemainder
@@ -211,23 +197,17 @@ These are conditional square-root conversion theorems. The required quadratic ph
 
 ## 7. Formal obstruction to the sign-blind moving-tail state
 
-```text
-RHLean.Analysis.NativePNTEvolvingTailObstruction
-```
-
-proves that the canonical absolute first remainder contains a linear factorial floor and the absolute second remainder contains an `N log N`-scale floor. Its final theorem
+`RHLean.Analysis.NativePNTEvolvingTailObstruction` proves that the canonical absolute first remainder contains a linear factorial floor and the absolute second remainder contains an `N log N`-scale floor. Its theorem
 
 ```text
 nativePNTEvolvingTailCost_ge_canonical_obstruction
 ```
 
-applies to the whole evolving cost. This formally rules out using that specific sign-blind state to obtain the desired cubic gain at a fixed polynomial physical scale as the slope tends to zero.
-
-The retained lesson is structural: later attacks must preserve additional signs.
+applies to the whole evolving cost and rules out that specific sign-blind state as a mechanism for the required cubic gain at fixed polynomial physical scale as the slope tends to zero.
 
 ## 8. Dyadic and reciprocal signed-packet investigations
 
-The full current snapshot includes the many-`d` and dyadic packet layers developed while testing possible scale mechanisms:
+The many-fibre and dyadic packet layers include:
 
 ```text
 RHLean.Analysis.PrimeSieveBaseEightShallowAttack
@@ -250,18 +230,18 @@ RHLean.Analysis.PrimeAveragedCubeEnergy
 RHLean.Analysis.WheelRoughSquarePrefixEnergy
 ```
 
-These modules are retained because they record exact decompositions, tested mechanisms, and obstructions that inform the current signed second-Selberg attack. Their presence does not mean every route represented by them remains a live closure mechanism. `boundary/dead_lanes.json` records the standalone no-go conclusions.
+These modules retain exact decompositions, tested mechanisms, and structural obstructions. `boundary/dead_lanes.json` records the no-go conclusions.
 
 ## 9. Signed local surplus and second Selberg layer
 
-The current arithmetic attack begins by keeping local cancellation signed:
+The signed attack begins with
 
 ```text
 RHLean.Analysis.NativePNTSignedLocalSurplus
 RHLean.Analysis.NativePNTSignedWheelRemainder
 ```
 
-The log-square cell layer is:
+followed by the log-square cell layer
 
 ```text
 RHLean.Analysis.NativePNTSignedLogSquarePrimeCells
@@ -270,7 +250,7 @@ RHLean.Analysis.NativePNTSignedLogSquareDyadicCell
 RHLean.Analysis.NativePNTSignedLogSquareSquareStage
 ```
 
-The exact second-Selberg layer is:
+and the exact second-Selberg layer
 
 ```text
 RHLean.Analysis.NativePNTSignedSecondSelberg
@@ -280,9 +260,7 @@ RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
 
 `NativePNTSignedSecondSelberg` proves the signed recurrence before a current-scale absolute remainder is inserted. `NativePNTSignedSecondSelbergWheelFrontier` classifies the unresolved partial-wheel support into signed prime-square and distinct-prime-pair faces. `NativePNTSignedSecondSelbergFrontierCharge` proves the square-root quotient collapse and contains the strengthened low-slope affine-envelope contraction.
 
-## 10. Current quantitative headline after PR #354
-
-The strengthened constant is
+## 10. Current quantitative headline
 
 ```text
 nativePNTSquarePrefixLowSlopeCubicConstant = 1 / 178200000.
@@ -300,19 +278,11 @@ advances any proved affine envelope at slope `alpha` to one at
 alpha - alpha^3 / 178200000.
 ```
 
-The theorem
-
-```text
-nativePNTSquarePrefixLowSlope_affineEnvelope_strictly_tighter
-```
-
-also certifies that this update is strictly stronger than the previous square-prefix cubic step.
+`nativePNTSquarePrefixLowSlope_affineEnvelope_strictly_tighter` also certifies that this update is strictly stronger than the previous square-prefix cubic step.
 
 This is the current proved generalized-PNT contraction. It does **not** prove the required physical cutoff law and therefore does not by itself yield an unconditional square-root error bound.
 
 ## 11. Mertens and zeta transfer layer
-
-The forward analytic bridge remains available:
 
 ```text
 RHLean.Analysis.DivisorUpperMobius
@@ -329,11 +299,9 @@ RHLean.Proof.RiemannHypothesisBridge
 RHLean.Proof.TerminalAxiomAudit
 ```
 
-These modules do not supply the missing RH-scale Mertens or Chebyshev estimate. They formalize what happens after an appropriate bound is available.
+These modules formalize the forward analytic transfer once an appropriate RH-scale estimate is available.
 
 ## 12. Status summary
-
-The 366-module snapshot contains:
 
 ```text
 ordinary PNT                                PROVED

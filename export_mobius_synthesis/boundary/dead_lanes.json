@@ -16,7 +16,7 @@
       "obstruction": "Only the signed sum telescopes. Replacing the signed consecutive sum by a sum of absolute block increments discards exactly the cancellation being sought and loses the scale required by the terminal target.",
       "evidence": {
         "lean": "RHLean/Analysis/SquareWheelNesting.lean",
-        "numeric": "exploratory mu-sieved block probes recorded before the standalone baseline"
+        "numeric": "exploratory mu-sieved block probes"
       },
       "what_would_reopen": "A theorem controlling the signed consecutive sum from independent arithmetic correlation information rather than through per-block absolute values."
     },
@@ -46,7 +46,7 @@
           "RHLean/Proof/SurvivorResidueCollisionReindex.lean",
           "RHLean/Proof/SurvivorFarUpperRigidity.lean"
         ],
-        "numeric": "exploratory residue probes recorded before the standalone baseline"
+        "numeric": "exploratory residue probes"
       },
       "what_would_reopen": "A genuinely signed theorem acting across distinct prime fibres q, or pairing the survivor against another signed frontier before any norm is taken."
     },
@@ -58,13 +58,13 @@
       "claim": "Exact within-pair K and J cancellation, followed by random-like true-Mobius cancellation across cofactors and cleanup by the complementary main term and odd tail, yields the protected square-root bound.",
       "obstruction": "The exact within-pair cancellation is strong, but the aggregate system develops a slow coherent mode. The true Mobius signs can reinforce that mode, and full recombination with the complementary main term and odd tail does not provide a universal exact cancellation identity. The route is therefore closed as a standalone RH mechanism, while its exact dyadic identities remain available as local coordinates.",
       "evidence": {
-        "development_record": "RH_Lean PR #105 and research/DYADIC_LI_ROUTE_FALSIFICATION.md",
         "lean": [
           "RHLean/Analysis/PrimeSieveDyadicAnalyticBridge.lean",
           "RHLean/Analysis/PrimeSieveDyadicCoherentAbel.lean",
           "RHLean/Analysis/PrimeSieveDyadicSignedPackets.lean",
           "RHLean/Analysis/PrimeSieveDyadicPacketDissipation.lean"
-        ]
+        ],
+        "numeric": "finite coherent-mode diagnostics"
       },
       "what_would_reopen": "A genuinely new arithmetic mechanism that controls the coherent mode itself, especially a many-d or multi-prime signed theorem. Merely enlarging the finite range, reweighting the same single-prime pair, or taking another sign-blind norm does not reopen it."
     },
@@ -87,6 +87,6 @@
     }
   ],
   "not_closed": {
-    "note": "Several mechanisms remain intentionally distinct from the closed lanes. The direct centered square-wheel object H_{k,n} is still open. Signed cancellation across many reciprocal fibres or distinct prime-wheel faces is still open. The positive-orientation identity positiveSmooth(R) = -sum_{q<=R, q prime} M(q-1) is exact, but its observed large-scale envelope is diagnostic only and no asymptotic lower bound has been proved. Most importantly, the generalized affine PNT contraction is not closed: PR #354 strictly improves the proved low-slope cubic step to alpha - alpha^3/178200000. What remains open is the physical cutoff law needed to realize repeated contraction at RH-compatible scale. The formal obstruction above applies to the canonical absolute evolving-tail state, not to every possible signed contraction architecture."
+    "note": "Several mechanisms remain intentionally distinct from the closed lanes. The direct centered square-wheel object H_{k,n} is still open. Signed cancellation across many reciprocal fibres or distinct prime-wheel faces is still open. The positive-orientation identity positiveSmooth(R) = -sum_{q<=R, q prime} M(q-1) is exact, but its observed large-scale envelope is diagnostic only and no asymptotic lower bound has been proved. The generalized affine PNT contraction is also live: the proved low-slope cubic step is alpha - alpha^3/178200000. What remains open is the physical cutoff law needed to realize repeated contraction at RH-compatible scale. The formal obstruction above applies to the canonical absolute evolving-tail state, not to every possible signed contraction architecture."
   }
 }

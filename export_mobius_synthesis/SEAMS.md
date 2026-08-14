@@ -1,21 +1,19 @@
 # Möbius Synthesis seams
 
-This note records the exact interfaces that currently join the square-block, prime-wheel, native PNT, and physical-scale layers. It is synchronized to development commit `1535b80a8bac8a800d9368814fe2567e79808312`, the merge of PR #354.
+This note records the exact interfaces joining the square-block, prime-wheel, native PNT, and physical-scale layers.
 
-The important post-#354 distinction is that the project now has both:
+The project has two quantitative descriptions that must remain distinct:
 
-- a historical direct square-wheel target `H_{k,n}` whose RH-scale exponent remains open; and
+- a direct square-wheel target `H_{k,n}` whose RH-scale exponent remains open; and
 - a proved generalized affine PNT contraction whose missing input is an RH-compatible physical cutoff law.
 
 These are related quantitative fronts, not competing definitions of the same theorem.
 
 ## 1. Elementary prime-sieve to square-root transport seam
 
-The elementary bridge is carried by
-
 ```text
 RHLean.Proof.PrimeSievePostSqrtGap
-RHLean.Proof.PrimeSieveSquareRootTransport.
+RHLean.Proof.PrimeSieveSquareRootTransport
 ```
 
 Under `sqrt x < y`, the first proves
@@ -25,7 +23,7 @@ M_y^+(x) - M(x)
   = 2 * sum_{y < q <= x, q prime} M(floor(x/q)).
 ```
 
-The second specializes to `x = R^2 - 1`, `y = R`, and identifies the pre-large-prime state with the square-block smooth and transport variables. This is exact finite algebra; no prime-distribution estimate is consumed.
+The second specializes to `x = R^2 - 1`, `y = R`, and identifies the pre-large-prime state with square-block smooth and transport variables. This is exact finite algebra.
 
 ## 2. PNT centering to reciprocal intervals
 
@@ -54,13 +52,13 @@ max(y, floor(x/(d+1))) < q <= floor(x/d).
 
 The Li masses telescope on that interval, so the exact prime error becomes a finite Mertens-weighted family of prime-count-minus-Li discrepancies.
 
-After the actual square-wheel zero-mode centering, the canonical nonzero response is
+After square-wheel zero-mode centering,
 
 ```math
 H_{k,n}=C_{k,n}^{PNT}-2E_{k,n}^{rec}.
 ```
 
-The identity is exact. It does not prove separate bounds on either term and does not justify destroying their relative sign with a triangle inequality.
+The identity is exact. It does not justify bounding the two terms independently and discarding their relative sign.
 
 ## 3. Square-wheel zero-mode seam
 
@@ -70,7 +68,7 @@ RHLean.Analysis.SquareWheelZeroModeElimination
 RHLean.Analysis.SquareWheelQuantitativeBridge
 ```
 
-prove the complete-square identity
+prove
 
 ```math
 R_k(X_n)=H_{k,n}+\rho_{k,n}R_k(U_k)
@@ -82,19 +80,17 @@ and, on synchronized blocks,
 0\le\rho_{k,n}<\frac16.
 ```
 
-Thus the self-referential zero mode is already uniformly contractive. The unresolved direct quantitative target is the size of `H_{k,n}`, not the zero-mode denominator.
+Thus the zero mode is already uniformly contractive. The unresolved direct quantitative target is the size of `H_{k,n}`.
 
 ## 4. Native PNT to Möbius endpoint seam
 
-The native square-prefix Selberg--Erdős chain proves the ordinary prime number theorem unconditionally:
+The square-prefix Selberg--Erdős chain proves the ordinary prime number theorem unconditionally:
 
 ```text
 RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem.
 ```
 
-`RHLean.Analysis.NativePNTAxer` connects the same arithmetic architecture to the Mertens summatory function. This seam historically established the `o(x)` scale, not the RH power scale.
-
-The post-#354 update is that the native PNT layer now also carries a **quantitative affine-envelope state**, so the seam is no longer purely qualitative.
+`RHLean.Analysis.NativePNTAxer` connects the same arithmetic architecture to the Mertens summatory function. The native PNT layer also carries a quantitative affine-envelope state, so this seam is not purely qualitative.
 
 ## 5. Affine PNT envelope seam
 
@@ -111,9 +107,7 @@ globalizes to an affine envelope with finite-prefix intercept
 D=(\log 4+3)M.
 ```
 
-`RHLean.Analysis.NativePNTOptimalInterceptCore` and `NativePNTTailOptimalIntercept` then connect this explicit envelope to the least admissible intercept.
-
-This is the seam between physical cutoff control and global affine PNT control.
+`RHLean.Analysis.NativePNTOptimalInterceptCore` and `NativePNTTailOptimalIntercept` connect this explicit envelope to the least admissible intercept.
 
 ## 6. Reciprocal intercept to square-root error seam
 
@@ -124,7 +118,7 @@ NativePNTReciprocalInterceptLaw K
 NativePNTReciprocalTailCutoffLaw K.
 ```
 
-The first requires an affine envelope of slope `alpha` with intercept `K / alpha`. From it the theorem
+From an affine envelope with intercept `K / alpha`,
 
 ```text
 nativePNTError_abs_le_two_sqrt_of_reciprocalInterceptLaw
@@ -136,21 +130,19 @@ proves
 |\psi(N)-N|\le2\sqrt{KN}.
 ```
 
-The second gives a sufficient physical-cutoff formulation and is converted to the same reciprocal intercept law.
-
-This seam is fully formalized. The reciprocal law itself remains open.
+The reciprocal law itself remains open.
 
 ## 7. State-dependent cubic contraction to quadratic cutoff seam
 
 `RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence` records the physical cutoff at every contraction step.
 
-Its target law is
+Its target law
 
 ```text
-NativePNTQuadraticTailScaleLaw K,
+NativePNTQuadraticTailScaleLaw K
 ```
 
-which requires, for every small target slope `eta`, a cutoff `M` satisfying
+requires, for every small target slope `eta`, a cutoff `M` satisfying
 
 ```math
 M\eta^2\le K
@@ -158,19 +150,17 @@ M\eta^2\le K
 
 and a genuine tail estimate of slope `eta` beyond `M`.
 
-The theorem
+Then
 
 ```text
 nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
 ```
 
-then proves
+proves
 
 ```math
-|\psi(N)-N|\le\sqrt{KN}
+|\psi(N)-N|\le\sqrt{KN}.
 ```
-
-for the stated range.
 
 The wrapper
 
@@ -178,36 +168,26 @@ The wrapper
 nativePNTError_abs_le_sqrt_of_stateDependentCubicGain
 ```
 
-shows that an explicit cubic scale chain with the same terminal scale property is enough.
+shows that an explicit cubic scale chain with the same terminal-scale property is sufficient.
 
-This is the current **bound-changing seam**: the target power changes as soon as the physical cutoff law is supplied.
-
-## 8. Formal obstruction seam: why the state must remain signed
+## 8. Formal obstruction seam
 
 `RHLean.Analysis.NativePNTEvolvingTailObstruction` applies to the canonical absolute evolving-tail state.
 
-It proves:
+It proves that the first absolute remainder contains a linear factorial floor, the second contains an `N log N`-scale floor, and the full evolving cost retains that floor up to the explicitly bounded negative tail compensation.
 
-- the first absolute remainder contains a linear factorial floor;
-- the second absolute remainder contains an `N log N`-scale floor;
-- the full evolving cost retains that floor up to the explicitly bounded negative tail compensation.
-
-At fixed polynomial physical scale in the reciprocal slope, this is incompatible with the desired cubic gain as the slope tends to zero.
-
-This theorem is the formal seam between the failed sign-blind state and the signed second-Selberg replacement. The conclusion is not that cubic contraction is impossible; the repository already proves cubic contraction. The conclusion is that this particular absolute remainder state cannot deliver the required scale law.
+At fixed polynomial physical scale in the reciprocal slope, this is incompatible with the desired cubic gain as the slope tends to zero. The conclusion is not that cubic contraction is impossible; the repository already proves cubic contraction. The conclusion is that this particular sign-blind state cannot deliver the required scale law.
 
 ## 9. Log-square cells to signed second Selberg seam
-
-The square-stage log-square modules are
 
 ```text
 RHLean.Analysis.NativePNTSignedLogSquarePrimeCells
 RHLean.Analysis.NativePNTSignedLogSquarePositiveDyadicKernel
 RHLean.Analysis.NativePNTSignedLogSquareDyadicCell
-RHLean.Analysis.NativePNTSignedLogSquareSquareStage.
+RHLean.Analysis.NativePNTSignedLogSquareSquareStage
 ```
 
-They reindex `Lambda_2 = mu * log^2` into finite Möbius log-square fibres, expose fresh-prime endpoint atoms, and place the surviving odd-kernel mass on exact complete-square activity bands.
+reindex `Lambda_2 = mu * log^2` into finite Möbius log-square fibres, expose fresh-prime endpoint atoms, and place the surviving odd-kernel mass on exact complete-square activity bands.
 
 `RHLean.Analysis.NativePNTSignedSecondSelberg` then proves
 
@@ -229,11 +209,11 @@ E(N) log(N)^2
     - floor-log signed defect mass.
 ```
 
-This seam is designed to preserve cancellation until the last possible stage.
+This seam preserves cancellation until the last possible stage.
 
 ## 10. Partial prime wheel to signed second-kernel frontier seam
 
-`RHLean.Arithmetic.PrimeWheelPartialErrorThreshold` already localizes the actual unresolved partial-wheel error below twice the square of the wheel cutoff.
+`RHLean.Arithmetic.PrimeWheelPartialErrorThreshold` localizes the unresolved partial-wheel error below twice the square of the wheel cutoff.
 
 `RHLean.Analysis.NativePNTSignedSecondSelbergWheelFrontier` evaluates the signed second-Selberg kernel on that support. Under
 
@@ -255,7 +235,7 @@ No third face occurs.
 
 ## 11. Frontier charge to PNT error seam
 
-`RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge` defines the actual unresolved frontier finset and its signed raw charge.
+`RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge` defines the unresolved frontier finset and its signed raw charge.
 
 The same square-root geometry proves, for every frontier site,
 
@@ -263,13 +243,13 @@ The same square-root geometry proves, for every frontier site,
 N / n = 1.
 ```
 
-Since `nativePNTError 1 = -1`, the theorem
+Since `nativePNTError 1 = -1`,
 
 ```text
 nativePNTSignedSecondSelbergWheelFrontierErrorMass_eq_neg_charge
 ```
 
-gives the exact identity
+gives
 
 ```text
 frontier error mass = - frontier charge.
@@ -279,7 +259,7 @@ No termwise absolute value and no auxiliary remainder enters this seam.
 
 ## 12. Good-mass density to strengthened affine contraction seam
 
-The same post-#354 module returns to the fully rederived square-prefix good-mass theorem. The existing density coefficient is
+The fully rederived square-prefix good-mass theorem supplies the density coefficient
 
 ```text
 beta^2 / 6600000.
@@ -311,9 +291,7 @@ proves
 
 `nativePNTSquarePrefixLowSlope_affineEnvelope_strictly_tighter` certifies that this is strictly stronger than the previous square-prefix step.
 
-This seam is quantitative, not merely structural.
-
-## 13. What is still missing between the seams
+## 13. What is still missing
 
 The following implications are formalized:
 
@@ -332,9 +310,7 @@ signed square-block and wheel-frontier arithmetic
   -> RH-compatible physical cutoff law.
 ```
 
-That is the present central research problem.
-
-The historical direct route remains
+The direct route remains
 
 ```text
 signed square-wheel H_{k,n}
@@ -346,6 +322,4 @@ with the first quantitative arrow still open.
 
 ## 14. Build completeness
 
-`RHLean.lean` imports 366 modules and is the authoritative exhaustive manifest. The exported `RHLean/` tree is synchronized byte-for-byte to development commit `1535b80a8bac8a800d9368814fe2567e79808312`.
-
-The standalone baseline audit builds the full manifest and checks the axiom dependencies of the historical synthesis theorem, the native PNT endpoint, the strengthened post-#354 affine contraction, and the conditional square-root scale bridge.
+`RHLean.lean` imports 366 modules and is the authoritative exhaustive manifest. The baseline audit builds the full manifest and checks the axiom dependencies of the synthesis theorem, the native PNT endpoint, the strengthened affine contraction, and the conditional square-root scale bridge.
