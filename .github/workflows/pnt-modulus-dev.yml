@@ -26,13 +26,13 @@ jobs:
           p = Path('RHLean/Analysis/NativePNTSignedSecondSelbergReciprocal.lean')
           s = p.read_text()
           s = s.replace('(P B : ℝ) (hP : 0 ≤ P) (hB : 0 ≤ B)', '(P B : ℝ) (hP : 0 ≤ P)')
-          s = s.replace('''  have hlog0 : 0 ≤ Real.log (N : ℝ) :=\n    Real.log_nonneg (by exact_mod_cast hN1)\n''', '')
           s = s.replace('''    (by have h := Real.log_nonneg (by norm_num : (1 : ℝ) ≤ 4); linarith)\n    hlog0 hprefix hmono hbound''', '''    (by have h := Real.log_nonneg (by norm_num : (1 : ℝ) ≤ 4); linarith)\n    hprefix hmono hbound''')
           s = s.replace('exact (abs_add _ _).trans (add_le_add hdiff hJ)', 'exact (abs_add_le _ _).trans (add_le_add hdiff hJ)')
-          s = s.replace('''      field_simp [hdR0, hqR0, hnR0]\n      exact_mod_cast hmulNat''', '''      have hmulR : (d : ℝ) * ((n / d : ℕ) : ℝ) = (n : ℝ) := by\n        exact_mod_cast hmulNat\n      field_simp [hdR0, hqR0, hnR0]\n      rw [hmulR]''')
-          s = s.replace('''  have hmulLe : d * (N / d) ≤ N := Nat.div_mul_le_self N d''', '''  have hmulLe : d * (N / d) ≤ N := by\n    simpa [Nat.mul_comm] using Nat.div_mul_le_self N d''')
-          s = s.replace('''  have hlt : N < d * (N / d + 1) := by\n    have hdivmod : d * (N / d) + N % d = N := Nat.div_add_mod N d\n    have hrem : N % d < d := Nat.mod_lt N hdpos\n    omega''', '''  have hlt : N < d * (N / d + 1) := by\n    have hdivmod : d * (N / d) + N % d = N := Nat.div_add_mod N d\n    have hrem : N % d < d := Nat.mod_lt N hdpos\n    calc\n      N = d * (N / d) + N % d := hdivmod.symm\n      _ < d * (N / d) + d := Nat.add_lt_add_left hrem _\n      _ = d * (N / d + 1) := by ring''')
-          s = s.replace('''    exact mul_le_mul_of_nonneg_left hinner hw0''', '''    simpa [mul_comm] using mul_le_mul_of_nonneg_left hinner hw0''')
+          s = s.replace('''      field_simp [hdR0, hqR0, hnR0]\n      rw [hmulR]''', '''      field_simp [hdR0, hqR0, hnR0]\n      calc\n        Λ d * Λ (n / d) * (d : ℝ) * ((n / d : ℕ) : ℝ) =\n            (Λ d * Λ (n / d)) * ((d : ℝ) * ((n / d : ℕ) : ℝ)) := by ring\n        _ = (Λ d * Λ (n / d)) * (n : ℝ) := by rw [hmulR]\n        _ = Λ d * Λ (n / d) * (n : ℝ) := by ring''')
+          s = s.replace('''theorem nativePNTLambdaConvolutionRecipMass_sub_model_abs_le\n    (N : ℕ) (hN : 3 ≤ N) :''', '''theorem nativePNTLambdaConvolutionRecipMass_sub_model_abs_le\n    (N : ℕ) (_hN : 3 ≤ N) :''')
+          needle = '''  have hN1 : 1 ≤ N := by omega\n  have hL := nativeLambdaRecip_sub_log_abs_le N hN1'''
+          repl = '''  have hN1 : 1 ≤ N := by omega\n  have hlog0 : 0 ≤ Real.log (N : ℝ) :=\n    Real.log_nonneg (by exact_mod_cast hN1)\n  have hL := nativeLambdaRecip_sub_log_abs_le N hN1'''
+          s = s.replace(needle, repl)
           p.write_text(s)
           PY
 
