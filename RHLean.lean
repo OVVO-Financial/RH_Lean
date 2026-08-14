@@ -56,6 +56,7 @@ import RHLean.Analysis.NativePNTMertens
 import RHLean.Analysis.NativePNTMertensBoundContraction
 import RHLean.Analysis.NativePNTMobiusMoments
 import RHLean.Analysis.NativePNTMobiusSecondMoment
+import RHLean.Analysis.NativePNTNormalizedSignedRecurrence
 import RHLean.Analysis.NativePNTOptimalInterceptCore
 import RHLean.Analysis.NativePNTOptimalInterceptGrowth
 import RHLean.Analysis.NativePNTOptimalInterceptStep
