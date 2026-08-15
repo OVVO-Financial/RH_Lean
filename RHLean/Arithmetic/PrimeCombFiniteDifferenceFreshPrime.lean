@@ -35,8 +35,6 @@ theorem divisors_primorial_insert
       (primorial S).divisors ∪
         (primorial S).divisors.image (fun d => p * d) := by
   classical
-  have hcop : Nat.Coprime p (primorial S) :=
-    prime_coprime_primorial S p hp hpS hprime
   rw [primorial_insert S p hpS, Nat.divisors_mul, hp.divisors]
   ext n
   constructor
@@ -118,7 +116,7 @@ theorem finiteDifferenceOperator_insert
     rw [hmu]
     simp [shift, Nat.div_div_eq_div_mul, Nat.mul_comm]
   rw [himage]
-  ring
+  rfl
 
 /-- Singleton specialization: the canonical divisor operator is exactly one
 multiplicative finite difference. -/
