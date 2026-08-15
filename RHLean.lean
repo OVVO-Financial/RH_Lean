@@ -143,6 +143,7 @@ import RHLean.Analysis.PrimeSieveDyadicPacketReverseCarleson
 import RHLean.Analysis.PrimeSieveDyadicPacketShallowDeep
 import RHLean.Analysis.PrimeSieveDyadicSignedPackets
 import RHLean.Analysis.PrimeSieveFiniteDifferenceModulus
+import RHLean.Analysis.PrimeSieveFiniteDifferencePin
 import RHLean.Analysis.PrimeSieveLipschitzExcursion
 import RHLean.Analysis.PrimeSievePNTCentering
 import RHLean.Analysis.PrimeSievePNTGoodMassAmplification
