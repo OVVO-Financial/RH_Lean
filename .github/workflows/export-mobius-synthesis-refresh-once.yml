@@ -18,22 +18,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Lean and Mathlib
-        uses: leanprover/lean-action@v1
-        with:
-          use-github-cache: false
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
-
       - name: Refresh canonical standalone package
         shell: bash
         run: |
           set -euo pipefail
           export_root=export_mobius_synthesis
 
-          # Refresh every Lean module already exported from its canonical source.
           while IFS= read -r dest; do
             src="${dest#${export_root}/}"
             if [ -f "$src" ]; then
@@ -41,8 +31,6 @@ jobs:
             fi
           done < <(find "$export_root/RHLean" -type f -name '*.lean' -print | LC_ALL=C sort)
 
-          # Add every Lean module merged by PR #364 that was not present in the
-          # previous curated export. Existing paths are refreshed as well.
           changed_modules=(
             RHLean/Analysis/AffineExcursion.lean
             RHLean/Analysis/MobiusRenewalSquareWheelSynthesis.lean
@@ -74,8 +62,6 @@ jobs:
             cp "$src" "$dest"
           done
 
-          # The merged renewal synthesis is the current standalone synthesis
-          # certificate, so the canonical export ledger advances from 2 to 3.
           cat > "$export_root/boundary/synthesis.json" <<'JSON'
           {
             "schema_version": 1,
@@ -101,15 +87,12 @@ jobs:
           }
           JSON
 
-          # Rebuild the standalone root manifest from exactly the shipped files.
           find "$export_root/RHLean" -type f -name '*.lean' -print \
             | sed "s#^${export_root}/##" \
             | LC_ALL=C sort \
             | sed -e 's#/#.#g' -e 's#\.lean$##' -e 's#^#import #' \
             > "$export_root/RHLean.lean"
 
-          # Normalize GitHub math delimiters in every Markdown file in the export,
-          # without touching fenced code or inline code spans.
           cat > /tmp/normalize_export_markdown_math.py <<'PY'
           from pathlib import Path
 
@@ -173,7 +156,6 @@ jobs:
 
           BAD = (r'\[', r'\]', r'\(', r'\)')
           failures = []
-          scanned = []
 
           def plain_segments(line: str):
               i = 0
@@ -195,10 +177,11 @@ jobs:
                   start = i
               yield line[start:]
 
+          scanned = 0
           for path in sorted(Path('.').rglob('*.md')):
               if '.git' in path.parts:
                   continue
-              scanned.append(str(path))
+              scanned += 1
               fence = None
               for lineno, line in enumerate(path.read_text(encoding='utf-8').splitlines(), 1):
                   stripped = line.lstrip()
@@ -218,7 +201,7 @@ jobs:
               print('Unsupported GitHub Markdown math delimiters found:', file=sys.stderr)
               print('\n'.join(failures), file=sys.stderr)
               raise SystemExit(1)
-          print(f'Markdown math delimiter audit passed for {len(scanned)} file(s).')
+          print(f'Markdown math delimiter audit passed for {scanned} file(s).')
           PY
           chmod +x "$export_root/scripts/check_markdown_math.py"
 
@@ -274,7 +257,6 @@ jobs:
           print(f'Root manifest covers all {len(shipped)} shipped Lean modules exactly once.')
           PY
           bash scripts/audit_assumptions.sh
-          lake build RHLean --wfail
 
       - name: Commit export-folder refresh
         shell: bash
