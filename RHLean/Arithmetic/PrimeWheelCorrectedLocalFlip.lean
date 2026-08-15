@@ -71,7 +71,11 @@ theorem seededPrimeComb_eq_neg_of_single_exponentFlip
         ∏ q ∈ S, localPrimeComb q n := by
     simpa using hnprod
   unfold seededPrimeComb
-  rw [← hmprod', ← hnprod', hpflip, hrest]
+  rw [← hmprod, ← hnprod]
+  change
+    -(localPrimeComb p m * ∏ q ∈ S.erase p, localPrimeComb q m) =
+      - -(localPrimeComb p n * ∏ q ∈ S.erase p, localPrimeComb q n)
+  rw [hpflip, hrest]
   ring
 
 /-- Under the same local flip, the smooth-core contribution changes sign as
