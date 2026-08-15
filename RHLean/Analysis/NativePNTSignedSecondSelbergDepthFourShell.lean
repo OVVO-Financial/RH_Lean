@@ -38,8 +38,10 @@ theorem nativePNTSignedK2RecipInterval_four_eq_prefix_sub
     ext n
     simp only [Finset.mem_sdiff, Finset.mem_Icc, Finset.mem_Ioc]
     omega
-  symm
-  rw [← Finset.sum_sdiff hsub, hset]
+  have hs := Finset.sum_sdiff hsub
+    (f := fun n => nativePNTSignedSecondSelbergKernel n / (n : ℝ))
+  rw [hset] at hs
+  linarith
 
 /-- Harmonic shell attached to one Möbius divisor at factor four. -/
 def nativePNTDepthFourHarmonicShell (N d : ℕ) : ℝ :=
@@ -55,19 +57,29 @@ theorem nativePNTDepthFour_lower_harmonic_sum_extend
       ∑ d ∈ Finset.Icc 1 N,
         nativeMobiusLogSquareRecipWeight d *
           (harmonic ((N / 4) / d) : ℝ) := by
-  refine Finset.sum_subset ?_ ?_
-  · intro d hd
+  have hsub : Finset.Icc 1 (N / 4) ⊆ Finset.Icc 1 N := by
+    intro d hd
     rcases Finset.mem_Icc.mp hd with ⟨hd1, hd4⟩
     exact Finset.mem_Icc.mpr ⟨hd1, hd4.trans (Nat.div_le_self N 4)⟩
-  · intro d hd
-    have hdN := Finset.mem_Icc.mp hd.1
-    have hdNot := hd.2
-    have hgt : N / 4 < d := by
-      by_contra hnot
-      have hdle : d ≤ N / 4 := Nat.le_of_not_gt hnot
-      exact hdNot (Finset.mem_Icc.mpr ⟨hdN.1, hdle⟩)
+  have hset :
+      Finset.Icc 1 N \ Finset.Icc 1 (N / 4) = Finset.Ioc (N / 4) N := by
+    ext d
+    simp only [Finset.mem_sdiff, Finset.mem_Icc, Finset.mem_Ioc]
+    omega
+  have hzero :
+      (∑ d ∈ Finset.Ioc (N / 4) N,
+        nativeMobiusLogSquareRecipWeight d *
+          (harmonic ((N / 4) / d) : ℝ)) = 0 := by
+    apply Finset.sum_eq_zero
+    intro d hd
+    have hgt : N / 4 < d := (Finset.mem_Ioc.mp hd).1
     have hdiv : (N / 4) / d = 0 := Nat.div_eq_of_lt hgt
     simp [hdiv]
+  have hs := Finset.sum_sdiff hsub
+    (f := fun d => nativeMobiusLogSquareRecipWeight d *
+      (harmonic ((N / 4) / d) : ℝ))
+  rw [hset, hzero, zero_add] at hs
+  exact hs.symm
 
 /-- **Exact factor-four Fubini shell.** -/
 theorem nativePNTSignedK2RecipInterval_four_eq_mobius_harmonic_shell
