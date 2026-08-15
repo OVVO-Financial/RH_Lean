@@ -56,6 +56,7 @@ jobs:
             lake build RHLean.Arithmetic.PrimeSquareCollisionPrefix --wfail
             lake build RHLean.Arithmetic.PrimeSquareCollisionInvolution --wfail
             lake build RHLean.Arithmetic.PrimeSquareCollisionPairingFrontier --wfail
+            lake build RHLean.Arithmetic.PrimeWheelCorrectedLocalFlip --wfail
           } 2>&1 | tee dev-build.log
 
       - name: Upload targeted Lean build log
