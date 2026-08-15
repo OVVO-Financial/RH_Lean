@@ -1,0 +1,67 @@
+name: Canonical divisor-difference and frontier development check
+
+on:
+  push:
+    branches: [agent/three-slot-walsh-transition]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: three-slot-walsh-dev-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Restore Mathlib packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Compile divisor-difference recovery, three-slot recovery, Mertens criterion, and collision frontier layers
+        run: |
+          set -o pipefail
+          {
+            lake build RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime --wfail
+            lake build RHLean.Arithmetic.PrimeCombFiniteDifferenceRecovery --wfail
+            lake build RHLean.Arithmetic.PrimeWheelThreeSlotRecovery --wfail
+            lake build RHLean.Analysis.PrimeWheelRecoveredMertensCriterion --wfail
+            lake build RHLean.Arithmetic.PrimeSquareCollisionKernel --wfail
+            lake build RHLean.Arithmetic.PrimeSquareCollisionCRT --wfail
+            lake build RHLean.Arithmetic.PrimeSquareCollisionPrefix --wfail
+            lake build RHLean.Arithmetic.PrimeSquareCollisionInvolution --wfail
+            lake build RHLean.Arithmetic.PrimeSquareCollisionPairingFrontier --wfail
+            lake build RHLean.Arithmetic.PrimeWheelCorrectedLocalFlip --wfail
+          } 2>&1 | tee dev-build.log
+
+      - name: Upload targeted Lean build log
+        if: ${{ always() && hashFiles('dev-build.log') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: divisor-frontier-dev-build-log
+          path: dev-build.log
