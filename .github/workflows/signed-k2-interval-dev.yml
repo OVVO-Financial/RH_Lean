@@ -47,3 +47,4 @@ jobs:
         run: |
           lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourInterval --wfail
           lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourFubini --wfail
+          lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourShell --wfail
