@@ -183,6 +183,7 @@ import RHLean.Analysis.PrimeWheelRawConductorWeight
 import RHLean.Analysis.PrimeWheelRawPeriod
 import RHLean.Analysis.PrimeWheelRawShellConstancy
 import RHLean.Analysis.PrimeWheelRawUnitOrbit
+import RHLean.Analysis.PrimeWheelRecoveredMertensCriterion
 import RHLean.Analysis.PrimeWheelSmoothConductorMobiusReindex
 import RHLean.Analysis.PrimeWheelTorusRealization
 import RHLean.Analysis.PrimorialWheelExplicitCriterion
