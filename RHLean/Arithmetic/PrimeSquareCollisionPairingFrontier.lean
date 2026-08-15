@@ -12,20 +12,21 @@ namespace RHLean.Arithmetic
 # Sign-reversing pairing on a physical collision frontier
 
 This file keeps complete-period cancellation separate from the actual physical
-prefix.  For an arbitrary finite set `F` of the nine exponent-state labels, we
-split `F` into three exact pieces:
+prefix.  For an arbitrary finite set `F` of the nine CRT collision slot-pair
+labels, we split `F` into three exact pieces:
 
-* pairable states whose involution mate also lies in `F` and is distinct;
-* fixed states;
+* pairable labels whose involution mate also lies in `F` and is distinct;
+* fixed labels;
 * a pairing defect whose mate lies outside `F`.
 
-`Finset.sum_involution` cancels the pairable piece.  Therefore every signed
-frontier sum is exactly the fixed-point contribution plus the mate-crosses-cutoff
-defect.  When the physical prefix is invariant under the exponent-state flip,
-the defect is empty and only the tiny fixed set remains.
+`Finset.sum_involution` cancels the pairable piece only after the physical
+weight has separately been proved sign-reversing for the chosen slot matching.
+Therefore every such signed frontier sum is exactly the fixed-point contribution
+plus the mate-crosses-cutoff defect.  When the physical prefix is invariant
+under the slot matching, the defect is empty and only the tiny fixed set remains.
 -/
 
-/-- States whose distinct involution mate is also present in the same finite
+/-- Labels whose distinct involution mate is also present in the same finite
 frontier. -/
 def collisionInvolutionPairablePart
     (F : Finset TwoPrimeCollisionState) : Finset TwoPrimeCollisionState :=
@@ -33,18 +34,18 @@ def collisionInvolutionPairablePart
     collisionExponentStateInvolution s ∈ F ∧
       collisionExponentStateInvolution s ≠ s)
 
-/-- Fixed states retained by a finite frontier. -/
+/-- Fixed labels retained by a finite frontier. -/
 def collisionInvolutionFixedPart
     (F : Finset TwoPrimeCollisionState) : Finset TwoPrimeCollisionState :=
   F.filter (fun s => collisionExponentStateInvolution s = s)
 
-/-- Exact pairing defect: states lying in `F` whose involution mate has crossed
+/-- Exact pairing defect: labels lying in `F` whose involution mate has crossed
 outside `F`. -/
 def collisionInvolutionDefectPart
     (F : Finset TwoPrimeCollisionState) : Finset TwoPrimeCollisionState :=
   F.filter (fun s => collisionExponentStateInvolution s ∉ F)
 
-/-- The involution preserves the pairable part by construction. -/
+/-- The slot-label involution preserves the pairable part by construction. -/
 theorem collisionExponentStateInvolution_mem_pairable
     (F : Finset TwoPrimeCollisionState)
     {s : TwoPrimeCollisionState}
@@ -62,7 +63,8 @@ theorem collisionExponentStateInvolution_mem_pairable
       simpa using hfix
     exact hdata.2.2 heq.symm
 
-/-- Every sign-reversing weight cancels exactly on the pairable part. -/
+/-- Every separately proved sign-reversing physical weight cancels exactly on
+the pairable part. -/
 theorem sum_collisionInvolutionPairablePart_eq_zero
     {A : Type*} [AddCommGroup A]
     (F : Finset TwoPrimeCollisionState)
@@ -83,7 +85,7 @@ theorem sum_collisionInvolutionPairablePart_eq_zero
     (fun _s hs => collisionExponentStateInvolution_mem_pairable F hs)
     (fun s _hs => collisionExponentStateInvolution_involutive s)
 
-/-- The three pieces give an exact partition of every finite state frontier. -/
+/-- The three pieces give an exact partition of every finite label frontier. -/
 theorem collisionInvolution_frontier_partition
     (F : Finset TwoPrimeCollisionState) :
     collisionInvolutionPairablePart F ∪
@@ -106,7 +108,7 @@ theorem collisionInvolution_frontier_partition
           (Finset.mem_filter.mpr ⟨hs, hmate, hfix⟩))
     · exact Or.inr (Finset.mem_filter.mpr ⟨hs, hmate⟩)
 
-/-- Pairable and fixed states are disjoint. -/
+/-- Pairable and fixed labels are disjoint. -/
 theorem collisionInvolution_pairable_disjoint_fixed
     (F : Finset TwoPrimeCollisionState) :
     Disjoint (collisionInvolutionPairablePart F)
@@ -116,7 +118,7 @@ theorem collisionInvolution_pairable_disjoint_fixed
   intro s hp hf
   exact (Finset.mem_filter.mp hp).2.2 (Finset.mem_filter.mp hf).2
 
-/-- The union of pairable and fixed states is disjoint from the pairing defect. -/
+/-- The union of pairable and fixed labels is disjoint from the pairing defect. -/
 theorem collisionInvolution_pairable_fixed_disjoint_defect
     (F : Finset TwoPrimeCollisionState) :
     Disjoint
@@ -177,7 +179,7 @@ theorem sum_collisionFrontier_eq_fixed_add_defect
       rw [sum_collisionInvolutionPairablePart_eq_zero F w hpair]
       simp
 
-/-- If a finite frontier is invariant under the exponent-state involution, its
+/-- If a finite frontier is invariant under the slot-label involution, its
 pairing defect is empty. -/
 theorem collisionInvolutionDefectPart_eq_empty_of_invariant
     (F : Finset TwoPrimeCollisionState)
@@ -206,7 +208,7 @@ theorem sum_collisionFrontier_eq_fixed_of_invariant
     collisionInvolutionDefectPart_eq_empty_of_invariant F hinv]
   simp
 
-/-- The state-labelled physical incomplete-period frontier.  It is the preimage
+/-- The slot-labelled physical incomplete-period frontier.  It is the preimage
 of the usual residue cutoff under the CRT realization of the nine labels. -/
 def collisionExponentStatePrefixFrontier
     (p q K : ℕ) (hcop : Nat.Coprime (p ^ 2) (q ^ 2)) :
@@ -215,7 +217,7 @@ def collisionExponentStatePrefixFrontier
     (collisionExponentStateResidue p q hcop s).val <
       K % ((p ^ 2) * (q ^ 2)))
 
-/-- Every state admitted by the state-labelled physical frontier realizes a
+/-- Every label admitted by the slot-labelled physical frontier realizes a
 residue in the existing exact `residuePrefixFrontier`. -/
 theorem collisionExponentStatePrefixFrontier_residue_mem
     (p q K : ℕ) (hcop : Nat.Coprime (p ^ 2) (q ^ 2))
@@ -230,7 +232,9 @@ theorem collisionExponentStatePrefixFrontier_residue_mem
   refine ⟨collisionExponentStateResidue_mem p q hcop s, ?_⟩
   exact (Finset.mem_filter.mp hs).2
 
-/-- Physical-prefix specialization of the exact pairing reduction. -/
+/-- Physical-prefix specialization of the exact pairing reduction.  Its only
+arithmetic premise is the explicit sign-reversal theorem `hpair` for the weight
+being summed. -/
 theorem sum_collisionExponentStatePrefixFrontier_eq_fixed_add_defect
     {A : Type*} [AddCommGroup A]
     (p q K : ℕ) (hcop : Nat.Coprime (p ^ 2) (q ^ 2))
