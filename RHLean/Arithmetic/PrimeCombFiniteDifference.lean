@@ -1,11 +1,83 @@
 import Mathlib
+import Mathlib.Data.Finset.NatDivisors
 import RHLean.Arithmetic.PrimeWheelFiniteSystem
 
-open scoped BigOperators
+open scoped ArithmeticFunction.Moebius BigOperators
 
 noncomputable section
 
 namespace RHLean.Arithmetic
+
+/-! ## Canonical finite Möbius difference operator -/
+
+/-- Product of a finite set of prime coordinates.  The definition itself does
+not require primality; prime-set hypotheses enter only in the structural
+lemmas below. -/
+def primorial (S : Finset ℕ) : ℕ :=
+  ∏ p in S, p
+
+/-- Floor shift by a positive arithmetic dilation.  It is intentionally defined
+for every natural `d`; the finite-difference operator only evaluates it on
+positive divisors of a positive prime-set product. -/
+def shift {R : Type*} (d : ℕ) (f : ℕ → R) : ℕ → R :=
+  fun x => f (x / d)
+
+/-- Canonical finite Möbius difference operator attached to a finite prime set.
+For a genuine prime set `S`, every divisor of `primorial S` is squarefree, so
+this is exactly the Boolean alternating sum over all selected prime faces, but
+without choosing an order on `S`. -/
+def finiteDifferenceOperator
+    {R : Type*} [CommRing R]
+    (S : Finset ℕ) (f : ℕ → R) : ℕ → R :=
+  fun x =>
+    ∑ d in (primorial S).divisors,
+      (((μ d : ℤ) : R)) * shift d f x
+
+@[simp] theorem primorial_empty : primorial ∅ = 1 := by
+  simp [primorial]
+
+@[simp] theorem primorial_insert
+    (S : Finset ℕ) (p : ℕ) (hpS : p ∉ S) :
+    primorial (insert p S) = p * primorial S := by
+  simp [primorial, hpS]
+
+@[simp] theorem shift_one
+    {R : Type*} (f : ℕ → R) :
+    shift 1 f = f := by
+  funext x
+  simp [shift]
+
+/-- Floor shifts compose by multiplying their dilation parameters. -/
+theorem shift_comp
+    {R : Type*} (d e : ℕ) (f : ℕ → R) :
+    shift d (shift e f) = shift (d * e) f := by
+  funext x
+  simp [shift, Nat.div_div_eq_div_mul]
+
+/-- Floor shifts commute, an exact form of order-independence for the prime
+coordinates. -/
+theorem shift_comm
+    {R : Type*} (d e : ℕ) (f : ℕ → R) :
+    shift d (shift e f) = shift e (shift d f) := by
+  rw [shift_comp, shift_comp, Nat.mul_comm]
+
+@[simp] theorem finiteDifferenceOperator_empty
+    {R : Type*} [CommRing R] (f : ℕ → R) :
+    finiteDifferenceOperator ∅ f = f := by
+  funext x
+  simp [finiteDifferenceOperator, primorial, shift]
+
+/-- Pointwise form, useful when the operator is embedded inside a larger signed
+identity. -/
+theorem finiteDifferenceOperator_apply
+    {R : Type*} [CommRing R]
+    (S : Finset ℕ) (f : ℕ → R) (x : ℕ) :
+    finiteDifferenceOperator S f x =
+      ∑ d in (primorial S).divisors,
+        (((μ d : ℤ) : R)) * f (x / d) := by
+  rfl
+
+/-! ## One-prime coordinate and raw-comb prefix identities -/
 
 /-- Prefix sum over the natural interval `0, ..., x`. -/
 def natPrefix (f : ℕ → ℤ) (x : ℕ) : ℤ :=
@@ -16,7 +88,8 @@ is convenient for exact reindexing through `Finset.range`. -/
 def positivePrefix (f : ℕ → ℤ) (x : ℕ) : ℤ :=
   natPrefix f x - f 0
 
-/-- Multiplicative finite difference at the prime scale `p`. -/
+/-- One multiplicative finite-difference coordinate.  This is a derived local
+view of `finiteDifferenceOperator`, not the canonical multi-prime definition. -/
 def primeMultDiff (p : ℕ) (F : ℕ → ℤ) (x : ℕ) : ℤ :=
   F x - F (x / p)
 
