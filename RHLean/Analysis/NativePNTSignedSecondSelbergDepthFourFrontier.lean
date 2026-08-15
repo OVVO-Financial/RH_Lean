@@ -40,7 +40,8 @@ theorem partialPrimeWheel_nonzero_error_depth_four_classification
   have ha0 : 0 < a := by
     by_contra ha
     have haz : a = 0 := Nat.eq_zero_of_not_pos ha
-    simp [haz] at hdFactor
+    have hd0 : d = 0 := by simpa [haz] using hdFactor
+    exact (Nat.ne_of_gt hdpos) hd0
   have haCases : a = 1 ∨ a = 2 ∨ a = 3 := by omega
   have hquot1 : 1 ≤ N / d :=
     (Nat.one_le_div_iff hdpos).2 hdI.2
@@ -54,37 +55,40 @@ theorem partialPrimeWheel_depth_four_frontier_prime_lt_four_mul
     (y N d a q r : ℕ)
     (hy : 1 ≤ y)
     (hscale : N < 4 * y ^ 2)
+    (hdN : d ≤ N)
     (hdpos : 0 < d)
     (ha : 1 ≤ a)
     (hyq : y < q) (hyr : y < r)
     (hd : d = a * q * r) :
     q < 4 * y ∧ r < 4 * y := by
   have hypos : 0 < y := by omega
-  have hqpos : 0 < q := hyq.trans' hypos
-  have hrpos : 0 < r := hyr.trans' hypos
-  have hdlt : d < 4 * y ^ 2 := by simpa [hd] using hscale
+  have h4ypos : 0 < 4 * y := Nat.mul_pos (by omega) hypos
+  have hdlt : d < 4 * y ^ 2 := hdN.trans_lt hscale
   have hqrlt : q * r < 4 * y ^ 2 := by
     have hle : q * r ≤ a * q * r := by
       calc
         q * r = 1 * (q * r) := by simp
         _ ≤ a * (q * r) := Nat.mul_le_mul_right (q * r) ha
         _ = a * q * r := by ring_nf
-    exact hle.trans_lt (by simpa [hd] using hscale)
+    have hadlt : a * q * r < 4 * y ^ 2 := by
+      simpa [hd] using hdlt
+    exact hle.trans_lt hadlt
   constructor
   · by_contra hnot
     have h4yq : 4 * y ≤ q := Nat.le_of_not_gt hnot
-    have hmul : (4 * y) * r ≤ q * r := Nat.mul_le_mul_right r h4yq
-    have hyler : y + 1 ≤ r := by omega
-    have hbig : 4 * y ^ 2 < (4 * y) * r := by
-      have h := Nat.mul_lt_mul_of_pos_left hyr (Nat.mul_pos (by omega) hypos)
-      simpa [pow_two, Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
-    exact (hbig.trans_le hmul).not_lt hqrlt
+    have hbig : 4 * y ^ 2 < q * r := by
+      calc
+        4 * y ^ 2 = (4 * y) * y := by ring_nf
+        _ < (4 * y) * r := Nat.mul_lt_mul_of_pos_left hyr h4ypos
+        _ ≤ q * r := Nat.mul_le_mul_right r h4yq
+    exact Nat.lt_asymm hbig hqrlt
   · by_contra hnot
     have h4yr : 4 * y ≤ r := Nat.le_of_not_gt hnot
-    have hmul : q * (4 * y) ≤ q * r := Nat.mul_le_mul_left q h4yr
-    have hbig : 4 * y ^ 2 < q * (4 * y) := by
-      have h := Nat.mul_lt_mul_of_pos_right hyq (Nat.mul_pos (by omega) hypos)
-      simpa [pow_two, Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
-    exact (hbig.trans_le hmul).not_lt hqrlt
+    have hbig : 4 * y ^ 2 < q * r := by
+      calc
+        4 * y ^ 2 = y * (4 * y) := by ring_nf
+        _ < q * (4 * y) := Nat.mul_lt_mul_of_pos_right hyq h4ypos
+        _ ≤ q * r := Nat.mul_le_mul_left q h4yr
+    exact Nat.lt_asymm hbig hqrlt
 
 end RHLean.Analysis
