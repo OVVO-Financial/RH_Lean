@@ -1,4 +1,4 @@
-name: Three-slot Walsh transition development check
+name: Canonical divisor-difference and frontier development check
 
 on:
   push:
@@ -43,9 +43,10 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Compile finite-difference and collision layers
+      - name: Compile divisor-difference recovery and collision frontier layers
         run: |
           lake build RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime --wfail
+          lake build RHLean.Arithmetic.PrimeCombFiniteDifferenceRecovery --wfail
           lake build RHLean.Arithmetic.PrimeSquareCollisionKernel --wfail
           lake build RHLean.Arithmetic.PrimeSquareCollisionCRT --wfail
           lake build RHLean.Arithmetic.PrimeSquareCollisionPrefix --wfail
