@@ -146,6 +146,5 @@ theorem collisionCRTResidues_card
   rw [Finset.card_image_of_injective _ (ZMod.chineseRemainder hcop).symm.injective]
   rw [Finset.card_product, currentCollisionRoots_card p hp hpgt,
     nextCollisionRoots_card q hq hqgt]
-  norm_num
 
 end RHLean.Arithmetic
