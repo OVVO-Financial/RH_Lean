@@ -89,10 +89,10 @@ theorem finiteDifferenceOperator_sub
   classical
   funext x
   unfold finiteDifferenceOperator
+  simp only [Pi.sub_apply, shift]
   rw [← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro d hd
-  simp only [Pi.sub_apply, shift]
   ring
 
 end RHLean.Arithmetic
