@@ -246,6 +246,7 @@ import RHLean.Arithmetic.PrimeSquareCollisionPrefix
 import RHLean.Arithmetic.PrimeSquareMod24
 import RHLean.Arithmetic.PrimeSquareMod40
 import RHLean.Arithmetic.PrimeThreeActivation
+import RHLean.Arithmetic.PrimeWheelCorrectedLocalFlip
 import RHLean.Arithmetic.PrimeWheelFiniteDepthFrontier
 import RHLean.Arithmetic.PrimeWheelFiniteDepthSemiprime
 import RHLean.Arithmetic.PrimeWheelFiniteSystem
