@@ -132,7 +132,6 @@ def localPrimeCombPairWeight (s : TwoPrimeCollisionState) : ℤ :=
     localPrimeCombPairWeight (collisionExponentStateInvolution s) =
       -localPrimeCombPairWeight s := by
   simp [localPrimeCombPairWeight, collisionExponentStateInvolution]
-  ring
 
 /-- Every fixed state has zero local weight because it contains a square kill. -/
 theorem localPrimeCombPairWeight_eq_zero_of_fixed
@@ -186,15 +185,16 @@ theorem collisionExponentStateResidue_mem
     (s : TwoPrimeCollisionState) :
     collisionExponentStateResidue p q hcop s ∈
       collisionCRTResidues p q hcop := by
+  rcases s with ⟨a, b⟩
   unfold collisionExponentStateResidue collisionCRTResidues
   apply Finset.mem_image.mpr
-  refine ⟨(collisionRoot (p ^ 2) (currentCollisionStateOffset s.1),
-    collisionRoot (q ^ 2) (nextCollisionStateOffset s.2)), ?_, rfl⟩
+  refine ⟨(collisionRoot (p ^ 2) (currentCollisionStateOffset a),
+    collisionRoot (q ^ 2) (nextCollisionStateOffset b)), ?_, rfl⟩
   apply Finset.mem_product.mpr
   constructor
-  · fin_cases s.1 <;>
+  · fin_cases a <;>
       simp [currentCollisionStateOffset, currentCollisionRoots]
-  · fin_cases s.2 <;>
+  · fin_cases b <;>
       simp [nextCollisionStateOffset, nextCollisionRoots]
 
 /-- The nine symbolic states realized as a finite residue set. -/
