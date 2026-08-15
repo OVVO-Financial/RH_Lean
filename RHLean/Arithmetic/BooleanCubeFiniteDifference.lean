@@ -85,7 +85,7 @@ theorem truncatedCubeAlternatingSum_eq_pivotDifference
   unfold booleanPivotDifference booleanPredicateIndicator
   rw [hsign]
   by_cases h0 : P u <;> by_cases h1 : P (insert a u) <;>
-    simp [h0, h1] <;> ring
+    simp [h0, h1]
 
 /-- **Two-coordinate exact finite difference.** Two independent sign toggles
 reduce the arbitrary Boolean-supported alternating mass to the four-point
