@@ -93,7 +93,9 @@ theorem residueConditionedFirstFailureBoundaryAlternatingSum_eq_secondToggleCorn
   rw [residueConditionedFirstFailureBoundaryAlternatingSum_eq_masked]
   rw [maskedFirstFailureBoundaryAlternatingSum_eq_secondToggleCorners
     ha hb hab hdown]
-  · rfl
+  · unfold residueConditionedSecondToggleSingleFailureCornerSum
+      residueConditionedSecondToggleDoubleFailureCornerSum
+    rfl
   · intro u hu
     have hbu : b ∉ u := by
       have husub := Finset.mem_powerset.mp hu
