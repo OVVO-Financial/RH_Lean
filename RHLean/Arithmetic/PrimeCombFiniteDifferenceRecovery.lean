@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Arithmetic.MoebiusPrefixFrontierIdentity
 import RHLean.Arithmetic.PrimeCombFiniteDifference
 import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 
@@ -122,5 +123,50 @@ theorem finiteDifferenceOperator_primeWheelRecovery
             2 * primeWheelSmoothPositivePrefix S upper y) x =
       shift d moebiusPositivePrefix x by
         simpa [shift] using hprefix]
+
+/-- The positive-prefix convention agrees with the repository's standard
+Möbius prefix because the zero Möbius value contributes nothing. -/
+theorem moebiusPositivePrefix_eq_moebiusPrefix (X : ℕ) :
+    moebiusPositivePrefix X =
+      ∑ n ∈ Finset.range (X + 1), μ n := by
+  classical
+  have hrange :
+      Finset.range (X + 1) = insert 0 (Finset.Icc 1 X) := by
+    ext n
+    simp
+    omega
+  unfold moebiusPositivePrefix positivePrefix
+  rw [hrange]
+  simp
+
+/-- Contraction-facing exact frontier identity.  Once the wheel covers every
+prime through the square-root cutoff, the signed raw-minus-twice-smooth mass is
+not merely equal to Möbius pointwise: its whole physical prefix is exactly the
+existing first-failure Möbius frontier at every prime coordinate `ell ≤ X`.
+Thus a quantitative bound on this signed frontier contracts the established
+Mertens route directly, without asking for separate bounds on raw and smooth
+mass and without invoking complete CRT periods. -/
+theorem primeWheelRaw_sub_two_smooth_eq_primeFrontier
+    (S : Finset ℕ) (upper X ell : ℕ)
+    (hprime : ∀ p ∈ S, Nat.Prime p)
+    (hcover : PrimeWheelSqrtCoverage S upper)
+    (hX : X ≤ upper)
+    (hellPrime : Nat.Prime ell)
+    (hellX : ell ≤ X) :
+    primeWheelRawPositivePrefix S X -
+        2 * primeWheelSmoothPositivePrefix S upper X =
+      ∑ t ∈ primeProductFirstFailureBoundary (primesUpTo X) X ell,
+        μ (primeFaceProduct t) := by
+  calc
+    primeWheelRawPositivePrefix S X -
+        2 * primeWheelSmoothPositivePrefix S upper X =
+      moebiusPositivePrefix X :=
+        primeWheelRaw_sub_two_smooth_eq_moebiusPositivePrefix
+          S upper X hprime hcover hX
+    _ = ∑ n ∈ Finset.range (X + 1), μ n :=
+      moebiusPositivePrefix_eq_moebiusPrefix X
+    _ = ∑ t ∈ primeProductFirstFailureBoundary (primesUpTo X) X ell,
+          μ (primeFaceProduct t) :=
+      moebiusPrefix_eq_primeFrontier hellPrime hellX
 
 end RHLean.Arithmetic
