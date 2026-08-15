@@ -41,7 +41,8 @@ def nativeMobiusLogSquareWeight : ArithmeticFunction ℝ :=
 private theorem arithmeticLogWeight_neg_local (f : ArithmeticFunction ℝ) :
     arithmeticLogWeight (-f) = -arithmeticLogWeight f := by
   ext n
-  simp [arithmeticLogWeight_apply]
+  change (-f n) * Real.log (n : ℝ) = -(f n * Real.log (n : ℝ))
+  ring
 
 /-- The second logarithmic derivative of Möbius, after multiplying by zeta,
 is exactly the true signed second-Selberg kernel as an arithmetic function. -/
@@ -112,7 +113,8 @@ theorem nativePNTSignedSecondSelbergKernel_eq_mobiusLogSquareDivisorSum
   have hrhs :
       (Λ * Λ - arithmeticLogWeight Λ) n =
         nativePNTSignedSecondSelbergKernel n := by
-    simp only [ArithmeticFunction.sub_apply, arithmeticLogWeight_apply]
+    change (Λ * Λ) n - Λ n * Real.log (n : ℝ) =
+      nativePNTSignedSecondSelbergKernel n
     rfl
   rw [hrhs] at hfun
   exact hfun.symm
