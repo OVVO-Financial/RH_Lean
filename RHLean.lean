@@ -228,11 +228,16 @@ import RHLean.Arithmetic.LeastPrimeDepthHierarchy
 import RHLean.Arithmetic.MoebiusDoubling
 import RHLean.Arithmetic.MoebiusPrefixFrontierIdentity
 import RHLean.Arithmetic.PrimeAveragedFrontierIdentity
+import RHLean.Arithmetic.PrimeCombFiniteDifference
+import RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime
 import RHLean.Arithmetic.PrimeFaceMoebius
 import RHLean.Arithmetic.PrimeFaceProductUniqueness
 import RHLean.Arithmetic.PrimeProductCubeFrontier
 import RHLean.Arithmetic.PrimeProductFrontierExhaustion
 import RHLean.Arithmetic.PrimeProductLowerBound
+import RHLean.Arithmetic.PrimeSquareCollisionCRT
+import RHLean.Arithmetic.PrimeSquareCollisionKernel
+import RHLean.Arithmetic.PrimeSquareCollisionPrefix
 import RHLean.Arithmetic.PrimeSquareMod24
 import RHLean.Arithmetic.PrimeSquareMod40
 import RHLean.Arithmetic.PrimeThreeActivation
