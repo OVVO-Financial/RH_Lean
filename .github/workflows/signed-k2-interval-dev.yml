@@ -43,5 +43,7 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Compile signed K2 interval module
-        run: lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourInterval --wfail
+      - name: Compile signed K2 interval layers
+        run: |
+          lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourInterval --wfail
+          lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourFubini --wfail
