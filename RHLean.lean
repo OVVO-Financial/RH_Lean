@@ -343,6 +343,7 @@ import RHLean.Proof.DyadicCompressedPacketGram
 import RHLean.Proof.EndpointCubeAnalyticClosure
 import RHLean.Proof.EndpointProjectionBridge
 import RHLean.Proof.ExactPrefixPopulationIdentity
+import RHLean.Proof.FarSurvivorRenewal_is_LowerMertens
 import RHLean.Proof.FareyModesAndTransportWindows
 import RHLean.Proof.FinitePartialMoments
 import RHLean.Proof.FullFactorizationBridge
