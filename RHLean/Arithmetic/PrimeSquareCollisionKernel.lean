@@ -67,4 +67,56 @@ theorem primeSquareHitsThreeSlotCell_not_next
   exact samePrimeSquareCollision_nextFourCell_impossible
     p k i j hp hi hj hcur hnext
 
+/-- **A square collision isolates its active slot.**  If an odd prime square
+hits one of the three active values in a four-cell, then the prime itself cannot
+divide either of the other two active values.  Thus the local exponent pattern
+for that prime has one square-kill coordinate and two genuine misses; there is
+no hidden first-power hit elsewhere in the same three-slot cell. -/
+theorem prime_not_dvd_other_threeSlotValue_of_square_hit
+    (p k i j : ℕ)
+    (hp : 2 < p)
+    (hi : i < 3) (hj : j < 3)
+    (hij : i ≠ j)
+    (hsq : p ^ 2 ∣ threeSlotValue k i) :
+    ¬ p ∣ threeSlotValue k j := by
+  have hpcur : p ∣ threeSlotValue k i := by
+    exact dvd_trans (dvd_pow_self p (by norm_num)) hsq
+  intro hpj
+  rcases lt_or_gt_of_ne hij with hijlt | hjilt
+  · have hdiff : p ∣ threeSlotValue k j - threeSlotValue k i :=
+      Nat.dvd_sub hpj hpcur
+    have hgap :
+        threeSlotValue k j - threeSlotValue k i = j - i := by
+      unfold threeSlotValue
+      omega
+    rw [hgap] at hdiff
+    have hpos : 0 < j - i := by omega
+    have hple : p ≤ j - i := Nat.le_of_dvd hpos hdiff
+    omega
+  · have hdiff : p ∣ threeSlotValue k i - threeSlotValue k j :=
+      Nat.dvd_sub hpcur hpj
+    have hgap :
+        threeSlotValue k i - threeSlotValue k j = i - j := by
+      unfold threeSlotValue
+      omega
+    rw [hgap] at hdiff
+    have hpos : 0 < i - j := by omega
+    have hple : p ≤ i - j := Nat.le_of_dvd hpos hdiff
+    omega
+
+/-- In particular, an odd-prime square collision can occur in at most one
+active slot of a given four-cell. -/
+theorem primeSquareCollision_slot_unique
+    (p k i j : ℕ)
+    (hp : 2 < p)
+    (hi : i < 3) (hj : j < 3)
+    (hiSq : p ^ 2 ∣ threeSlotValue k i)
+    (hjSq : p ^ 2 ∣ threeSlotValue k j) :
+    i = j := by
+  by_contra hij
+  have hnot := prime_not_dvd_other_threeSlotValue_of_square_hit
+    p k i j hp hi hj hij hiSq
+  apply hnot
+  exact dvd_trans (dvd_pow_self p (by norm_num)) hjSq
+
 end RHLean.Arithmetic
