@@ -43,5 +43,5 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Compile finite-difference arithmetic layer
-        run: lake build RHLean.Arithmetic.PrimeCombFiniteDifference --wfail
+      - name: Compile fresh-prime finite-difference layer
+        run: lake build RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime --wfail
