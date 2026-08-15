@@ -43,12 +43,13 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Compile divisor-difference recovery, Mertens criterion, and collision frontier layers
+      - name: Compile divisor-difference recovery, three-slot recovery, Mertens criterion, and collision frontier layers
         run: |
           set -o pipefail
           {
             lake build RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime --wfail
             lake build RHLean.Arithmetic.PrimeCombFiniteDifferenceRecovery --wfail
+            lake build RHLean.Arithmetic.PrimeWheelThreeSlotRecovery --wfail
             lake build RHLean.Analysis.PrimeWheelRecoveredMertensCriterion --wfail
             lake build RHLean.Arithmetic.PrimeSquareCollisionKernel --wfail
             lake build RHLean.Arithmetic.PrimeSquareCollisionCRT --wfail
