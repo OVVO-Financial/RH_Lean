@@ -238,7 +238,9 @@ import RHLean.Arithmetic.PrimeProductCubeFrontier
 import RHLean.Arithmetic.PrimeProductFrontierExhaustion
 import RHLean.Arithmetic.PrimeProductLowerBound
 import RHLean.Arithmetic.PrimeSquareCollisionCRT
+import RHLean.Arithmetic.PrimeSquareCollisionInvolution
 import RHLean.Arithmetic.PrimeSquareCollisionKernel
+import RHLean.Arithmetic.PrimeSquareCollisionPairingFrontier
 import RHLean.Arithmetic.PrimeSquareCollisionPrefix
 import RHLean.Arithmetic.PrimeSquareMod24
 import RHLean.Arithmetic.PrimeSquareMod40
