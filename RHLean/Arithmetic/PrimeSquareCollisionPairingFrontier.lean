@@ -185,7 +185,7 @@ theorem collisionInvolutionDefectPart_eq_empty_of_invariant
       s ∈ F ↔ collisionExponentStateInvolution s ∈ F) :
     collisionInvolutionDefectPart F = ∅ := by
   classical
-  apply Finset.eq_empty_iff_forall_not_mem.mpr
+  apply Finset.eq_empty_iff_forall_notMem.mpr
   intro s hs
   have hdata := Finset.mem_filter.mp hs
   exact hdata.2 ((hinv s).mp hdata.1)
