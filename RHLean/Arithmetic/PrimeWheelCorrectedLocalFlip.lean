@@ -220,8 +220,8 @@ theorem seededPrimeComb_eq_zero_of_square_hit
   have hprod :=
     Finset.mul_prod_erase S (fun q => localPrimeComb q n) hpS
   unfold seededPrimeComb
-  rw [← hprod, hlocal]
-  simp
+  rw [← hprod]
+  simp [hlocal]
 
 /-- The smooth-core contribution also vanishes at a selected-prime square hit,
 because its only possible nonzero value is the already-killed seeded comb. -/
