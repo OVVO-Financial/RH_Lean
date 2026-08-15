@@ -127,21 +127,26 @@ theorem maskedFirstFailureBoundaryAlternatingSum_eq_secondToggleCorners
         · by_cases ha1 : admissible (insert a u)
           · by_cases hb1 : admissible (insert b u)
             · by_cases hab1 : admissible (insert a (insert b u))
-              · simp [h0, ha1, hb1, hab1, hmasku]
-              · simp [h0, ha1, hb1, hab1, hmasku]
+              · by_cases hm : mask u <;>
+                  simp [h0, ha1, hb1, hab1, hmasku, hm]
+              · by_cases hm : mask u <;>
+                  simp [h0, ha1, hb1, hab1, hmasku, hm]
             · have hab1 : ¬ admissible (insert a (insert b u)) := by
                 intro h
                 exact hb1 (h_ab_to_b h)
-              simp [h0, ha1, hb1, hab1, hmasku]
+              by_cases hm : mask u <;>
+                simp [h0, ha1, hb1, hab1, hmasku, hm]
           · by_cases hb1 : admissible (insert b u)
             · have hab1 : ¬ admissible (insert a (insert b u)) := by
                 intro h
                 exact ha1 (h_ab_to_a h)
-              simp [h0, ha1, hb1, hab1, hmasku]
+              by_cases hm : mask u <;>
+                simp [h0, ha1, hb1, hab1, hmasku, hm]
             · have hab1 : ¬ admissible (insert a (insert b u)) := by
                 intro h
                 exact hb1 (h_ab_to_b h)
-              simp [h0, ha1, hb1, hab1, hmasku]
+              by_cases hm : mask u <;>
+                simp [h0, ha1, hb1, hab1, hmasku, hm]
         · have ha1 : ¬ admissible (insert a u) := by
             intro h
             exact h0 (h_a_to_base h)
@@ -151,7 +156,8 @@ theorem maskedFirstFailureBoundaryAlternatingSum_eq_secondToggleCorners
           have hab1 : ¬ admissible (insert a (insert b u)) := by
             intro h
             exact hb1 (h_ab_to_b h)
-          simp [h0, ha1, hb1, hab1, hmasku]
+          by_cases hm : mask u <;>
+            simp [h0, ha1, hb1, hab1, hmasku, hm]
     _ =
       (∑ u ∈ ((s.erase a).erase b).powerset,
         if admissible u ∧
