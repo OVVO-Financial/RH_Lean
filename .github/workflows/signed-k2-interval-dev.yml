@@ -1,0 +1,47 @@
+name: Signed K2 interval development check
+
+on:
+  push:
+    branches: [agent/signed-k2-depth4-interval]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: signed-k2-interval-dev-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Restore Mathlib packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Compile signed K2 interval module
+        run: lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourInterval --wfail
