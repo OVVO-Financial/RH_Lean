@@ -36,13 +36,13 @@ def nativeMobiusLogSquareWeight : ArithmeticFunction ℝ :=
     nativeMobiusLogSquareWeight n =
       (μ : ArithmeticFunction ℝ) n * (Real.log (n : ℝ)) ^ 2 := by
   simp [nativeMobiusLogSquareWeight, arithmeticLogWeight_apply]
-  ring
+  ring_nf
 
 private theorem arithmeticLogWeight_neg_local (f : ArithmeticFunction ℝ) :
     arithmeticLogWeight (-f) = -arithmeticLogWeight f := by
   ext n
   change (-f n) * Real.log (n : ℝ) = -(f n * Real.log (n : ℝ))
-  ring
+  ring_nf
 
 /-- The second logarithmic derivative of Möbius, after multiplying by zeta,
 is exactly the true signed second-Selberg kernel as an arithmetic function. -/
@@ -58,13 +58,13 @@ theorem nativeMobiusLogSquareWeight_mul_zeta_eq_signedKernel :
       arithmeticLogWeight_neg_local,
       arithmeticLogWeight_mul,
       arithmeticLogWeight_moebius]
-    ring
+    ring_nf
   rw [hD2]
   calc
     (μ : ArithmeticFunction ℝ) *
           (Λ * Λ - arithmeticLogWeight Λ) * zetaR =
         ((μ : ArithmeticFunction ℝ) * zetaR) *
-          (Λ * Λ - arithmeticLogWeight Λ) := by ring
+          (Λ * Λ - arithmeticLogWeight Λ) := by ring_nf
     _ = Λ * Λ - arithmeticLogWeight Λ := by
       dsimp [zetaR]
       rw [ArithmeticFunction.coe_moebius_mul_coe_zeta]
@@ -108,7 +108,7 @@ theorem nativePNTSignedSecondSelbergKernel_eq_mobiusLogSquareDivisorSum
             (n / d)) = _
     rw [ArithmeticFunction.natCoe_apply,
       ArithmeticFunction.zeta_apply_ne hq0]
-    ring
+    ring_nf
   rw [hlhs] at hfun
   have hrhs :
       (Λ * Λ - arithmeticLogWeight Λ) n =
