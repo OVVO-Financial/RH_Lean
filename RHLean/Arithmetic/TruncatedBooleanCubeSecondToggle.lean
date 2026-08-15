@@ -62,11 +62,11 @@ theorem firstFailureBoundaryAlternatingSum_eq_secondToggleCorners
   rw [← Finset.sum_add_distrib]
   calc
     (∑ u ∈ ((s.erase a).erase b).powerset,
-        (if admissible u ∧ ¬ admissible (insert a u) then
-          booleanCubeSign u else 0) +
-        (if admissible (insert b u) ∧
-            ¬ admissible (insert a (insert b u)) then
-          booleanCubeSign (insert b u) else 0)) =
+        ((if admissible u ∧ ¬ admissible (insert a u) then
+            booleanCubeSign u else 0) +
+          (if admissible (insert b u) ∧
+              ¬ admissible (insert a (insert b u)) then
+            booleanCubeSign (insert b u) else 0))) =
       ∑ u ∈ ((s.erase a).erase b).powerset,
         ((if admissible u ∧
               ¬ admissible (insert a u) ∧
