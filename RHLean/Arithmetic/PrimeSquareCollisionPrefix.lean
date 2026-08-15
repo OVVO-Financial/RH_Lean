@@ -58,7 +58,7 @@ theorem residuePrefixFrontier_card_le
 theorem collisionModulus_pos
     (p q : ℕ) (hp : Nat.Prime p) (hq : Nat.Prime q) :
     0 < (p ^ 2) * (q ^ 2) := by
-  positivity
+  exact Nat.mul_pos (pow_pos hp.pos 2) (pow_pos hq.pos 2)
 
 /-- Specialization to the nine complete-period collision residues.  The
 physical prefix is exactly nine full-period copies plus a frontier containing
