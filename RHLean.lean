@@ -219,6 +219,9 @@ import RHLean.Analysis.SquareWheelSurvivorIncrement
 import RHLean.Analysis.SquareWheelSurvivorPrimeFibres
 import RHLean.Analysis.SquareWheelSurvivorRun
 import RHLean.Analysis.SquareWheelZeroModeElimination
+import RHLean.Analysis.ThreeSlotDegreeOneCriterion
+import RHLean.Analysis.ThreeSlotDegreeOneSynthesis
+import RHLean.Analysis.ThreeSlotMertensDegreeOneProjection
 import RHLean.Analysis.TwoABPrimeDilation
 import RHLean.Analysis.TwoABScaleTransfer
 import RHLean.Analysis.WheelRoughSquarePrefixEnergy
