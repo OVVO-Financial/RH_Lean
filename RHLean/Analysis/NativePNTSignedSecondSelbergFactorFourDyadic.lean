@@ -259,12 +259,10 @@ private theorem factorFour_oddEven_sum_eq_parent_right
         hmodd⟩
     · exact even_two_mul mk.2
   · intro a _ha b _hb hab
-    change (a.1, 2 * a.2) = (b.1, 2 * b.2) at hab
+    injection hab with hfst hsnd
     apply Prod.ext
-    · exact congrArg (fun z : ℕ × ℕ => z.1) hab
-    · have h := congrArg (fun z : ℕ × ℕ => z.2) hab
-      simp only at h
-      omega
+    · exact hfst
+    · omega
   · intro dk hdk
     rcases Finset.mem_filter.mp hdk with ⟨hoddSet, hkeven⟩
     rcases Finset.mem_filter.mp hoddSet with ⟨hpair, hdodd⟩
@@ -313,12 +311,10 @@ private theorem factorFour_even_sum_eq_parentAll_left
       ⟨Finset.mem_Icc.mpr ⟨by omega, h2mN⟩, hkI, hlow, hup⟩,
       even_two_mul mk.1⟩
   · intro a _ha b _hb hab
-    change (2 * a.1, a.2) = (2 * b.1, b.2) at hab
+    injection hab with hfst hsnd
     apply Prod.ext
-    · have h := congrArg (fun z : ℕ × ℕ => z.1) hab
-      simp only at h
-      omega
-    · exact congrArg (fun z : ℕ × ℕ => z.2) hab
+    · omega
+    · exact hsnd
   · intro dk hdk
     rcases Finset.mem_filter.mp hdk with ⟨hpair, hdeven⟩
     rcases mem_nativePNTSignedK2FactorFourPairSet.mp hpair with
