@@ -83,20 +83,31 @@ theorem nativePNTSignedK2RecipDoubleShell_eq_pairMass
     (f := fun dk : ℕ × ℕ =>
       if N / 4 < dk.1 * dk.2 ∧ dk.1 * dk.2 ≤ N then
         nativePNTSignedK2RecipFubiniAtom dk.1 dk.2 else 0)
-  rw [hprod]
-  apply Finset.sum_congr rfl
-  intro d hd
-  have hset := nativePNTSignedK2FactorFour_inner_set N d hd
   calc
-    (∑ k ∈ Finset.Ioc ((N / 4) / d) (N / d),
-        nativePNTSignedK2RecipFubiniAtom d k) =
-      ∑ k ∈ (Finset.Icc 1 N).filter (fun k =>
-          N / 4 < d * k ∧ d * k ≤ N),
-        nativePNTSignedK2RecipFubiniAtom d k := by rw [← hset]
-    _ = ∑ k ∈ Finset.Icc 1 N,
-        if N / 4 < d * k ∧ d * k ≤ N then
-          nativePNTSignedK2RecipFubiniAtom d k else 0 := by
-      rw [Finset.sum_filter]
+    (∑ d ∈ Finset.Icc 1 N,
+        ∑ k ∈ Finset.Ioc ((N / 4) / d) (N / d),
+          nativePNTSignedK2RecipFubiniAtom d k) =
+      ∑ d ∈ Finset.Icc 1 N,
+        ∑ k ∈ Finset.Icc 1 N,
+          if N / 4 < d * k ∧ d * k ≤ N then
+            nativePNTSignedK2RecipFubiniAtom d k else 0 := by
+      apply Finset.sum_congr rfl
+      intro d hd
+      have hset := nativePNTSignedK2FactorFour_inner_set N d hd
+      calc
+        (∑ k ∈ Finset.Ioc ((N / 4) / d) (N / d),
+            nativePNTSignedK2RecipFubiniAtom d k) =
+          ∑ k ∈ (Finset.Icc 1 N).filter (fun k =>
+              N / 4 < d * k ∧ d * k ≤ N),
+            nativePNTSignedK2RecipFubiniAtom d k := by rw [← hset]
+        _ = ∑ k ∈ Finset.Icc 1 N,
+            if N / 4 < d * k ∧ d * k ≤ N then
+              nativePNTSignedK2RecipFubiniAtom d k else 0 := by
+          rw [Finset.sum_filter]
+    _ = ∑ a ∈ (Finset.Icc 1 N).product (Finset.Icc 1 N),
+        if N / 4 < a.1 * a.2 ∧ a.1 * a.2 ≤ N then
+          nativePNTSignedK2RecipFubiniAtom a.1 a.2 else 0 := by
+      simpa using hprod.symm
 
 /-- Odd-divisor part of the physical pair set. -/
 def nativePNTSignedK2FactorFourOddPairSet (N : ℕ) : Finset (ℕ × ℕ) := by
@@ -231,6 +242,7 @@ private theorem factorFour_oddEven_sum_eq_parent_right
     rcases mem_nativePNTSignedK2FactorFourPrimeTwoParentSet.mp hmk with
       ⟨hmI, hkI, hlow, hup, hmodd⟩
     have hm1 := (Finset.mem_Icc.mp hmI).1
+    have hk1 := (Finset.mem_Icc.mp hkI).1
     have h2kN : 2 * mk.2 ≤ N := by
       calc
         2 * mk.2 = 1 * (2 * mk.2) := by simp
@@ -249,8 +261,8 @@ private theorem factorFour_oddEven_sum_eq_parent_right
   · intro a _ha b _hb hab
     change (a.1, 2 * a.2) = (b.1, 2 * b.2) at hab
     apply Prod.ext
-    · exact congrArg Prod.fst hab
-    · have h := congrArg Prod.snd hab
+    · exact congrArg (fun z : ℕ × ℕ => z.1) hab
+    · have h := congrArg (fun z : ℕ × ℕ => z.2) hab
       simp only at h
       omega
   · intro dk hdk
@@ -288,11 +300,13 @@ private theorem factorFour_even_sum_eq_parentAll_left
   · intro mk hmk
     rcases mem_nativePNTSignedK2FactorFourPrimeTwoParentAllSet.mp hmk with
       ⟨hmI, hkI, hlow, hup⟩
+    have hm1 := (Finset.mem_Icc.mp hmI).1
+    have hk1 := (Finset.mem_Icc.mp hkI).1
     have h2mN : 2 * mk.1 ≤ N := by
       calc
         2 * mk.1 = (2 * mk.1) * 1 := by simp
         _ ≤ (2 * mk.1) * mk.2 :=
-          Nat.mul_le_mul_left (2 * mk.1) (Finset.mem_Icc.mp hkI).1
+          Nat.mul_le_mul_left (2 * mk.1) hk1
         _ ≤ N := hup
     apply Finset.mem_filter.mpr
     exact ⟨mem_nativePNTSignedK2FactorFourPairSet.mpr
@@ -301,10 +315,10 @@ private theorem factorFour_even_sum_eq_parentAll_left
   · intro a _ha b _hb hab
     change (2 * a.1, a.2) = (2 * b.1, b.2) at hab
     apply Prod.ext
-    · have h := congrArg Prod.fst hab
+    · have h := congrArg (fun z : ℕ × ℕ => z.1) hab
       simp only at h
       omega
-    · exact congrArg Prod.snd hab
+    · exact congrArg (fun z : ℕ × ℕ => z.2) hab
   · intro dk hdk
     rcases Finset.mem_filter.mp hdk with ⟨hpair, hdeven⟩
     rcases mem_nativePNTSignedK2FactorFourPairSet.mp hpair with
@@ -415,7 +429,7 @@ theorem nativePNTSignedK2FactorFourPairMass_eq_oddOdd_add_primeTwo
       have hk1 := (Finset.mem_Icc.mp hkI).1
       have hpair := nativePNTSignedK2RecipFubiniAtom_two_sameProduct
         mk.1 mk.2 hmodd hk1
-      simpa [add_comm] using hpair
+      simpa [Nat.mul_comm, add_comm] using hpair
 
 /-- The original factor-four interval inherits the exact prime-two fold. -/
 theorem nativePNTSignedK2RecipInterval_four_eq_oddOdd_add_primeTwo
