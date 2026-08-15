@@ -18,7 +18,7 @@ namespace RHLean.Analysis
 
 /-- Reciprocal Möbius log-square weight. -/
 def nativeMobiusLogSquareRecipWeight (d : ℕ) : ℝ :=
-  (ArithmeticFunction.moebius d : ℝ) * (Real.log (d : ℝ)) ^ 2 / (d : ℝ)
+  (μ : ArithmeticFunction ℝ) d * (Real.log (d : ℝ)) ^ 2 / (d : ℝ)
 
 /-- Signed `K2/n` mass on the multiplicative interval `(N/M, N]`. -/
 def nativePNTSignedK2RecipInterval (N M : ℕ) : ℝ :=
@@ -53,7 +53,7 @@ theorem nativePNTSignedSecondSelbergKernelRecipMass_eq_mobius_harmonic
         nativePNTSignedSecondSelbergKernel n / (n : ℝ)) =
       ∑ n ∈ Finset.Icc 1 N,
         ∑ d ∈ n.divisors,
-          ((ArithmeticFunction.moebius d : ℝ) *
+          ((μ : ArithmeticFunction ℝ) d *
               (Real.log (d : ℝ)) ^ 2) / (n : ℝ) := by
         apply Finset.sum_congr rfl
         intro n hn
@@ -62,7 +62,7 @@ theorem nativePNTSignedSecondSelbergKernelRecipMass_eq_mobius_harmonic
           Finset.sum_div]
     _ = ∑ d ∈ Finset.Icc 1 N,
         ∑ n ∈ (Finset.Icc 1 N).filter (fun x => d ∣ x),
-          ((ArithmeticFunction.moebius d : ℝ) *
+          ((μ : ArithmeticFunction ℝ) d *
               (Real.log (d : ℝ)) ^ 2) / (n : ℝ) := Finset.sum_comm' hmem
     _ = ∑ d ∈ Finset.Icc 1 N,
         nativeMobiusLogSquareRecipWeight d *
@@ -95,6 +95,7 @@ theorem nativePNTSignedSecondSelbergKernelRecipMass_eq_mobius_harmonic
         have hmpos : 0 < m := (Finset.mem_Icc.mp hm).1
         have hdR0 : (d : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hdpos)
         have hmR0 : (m : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hmpos)
+        rw [Nat.cast_mul]
         field_simp [hdR0, hmR0]
         ring
       · intro a _ha b _hb hab
