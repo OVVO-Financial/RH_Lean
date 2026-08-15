@@ -71,7 +71,7 @@ theorem truncatedCubeAlternatingSum_eq_pivotDifference
   have hdecomp : s = insert a (s.erase a) :=
     (Finset.insert_erase ha).symm
   unfold truncatedCubeAlternatingSum
-  rw [hdecomp]
+  conv_lhs => rw [hdecomp]
   rw [Finset.sum_powerset_insert (Finset.notMem_erase a s)]
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
@@ -103,7 +103,7 @@ theorem truncatedCubeAlternatingSum_eq_twoPivotDifference
     exact Finset.mem_erase.mpr ⟨Ne.symm hab, hb⟩
   have hdecomp : s.erase a = insert b ((s.erase a).erase b) :=
     (Finset.insert_erase hba).symm
-  rw [hdecomp]
+  conv_lhs => rw [hdecomp]
   rw [Finset.sum_powerset_insert (Finset.notMem_erase b (s.erase a))]
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
@@ -140,7 +140,7 @@ theorem truncatedCubeAlternatingSum_eq_threePivotDifference
       (s.erase a).erase b =
         insert c (((s.erase a).erase b).erase c) :=
     (Finset.insert_erase hcT).symm
-  rw [hdecomp]
+  conv_lhs => rw [hdecomp]
   rw [Finset.sum_powerset_insert
     (Finset.notMem_erase c ((s.erase a).erase b))]
   rw [← Finset.sum_add_distrib]
@@ -156,18 +156,15 @@ theorem truncatedCubeAlternatingSum_eq_threePivotDifference
   unfold booleanThreePivotDifference
   ring
 
-/-- The two-pivot difference is symmetric in the selected coordinates on faces
-that omit both pivots. -/
+/-- The two-pivot difference is symmetric in the selected coordinates. -/
 theorem booleanTwoPivotDifference_comm
     {α : Type*} [DecidableEq α]
-    (a b : α) (P : Finset α → Prop) (u : Finset α)
-    (hau : a ∉ u) (hbu : b ∉ u) :
+    (a b : α) (P : Finset α → Prop) (u : Finset α) :
     booleanTwoPivotDifference a b P u =
       booleanTwoPivotDifference b a P u := by
   unfold booleanTwoPivotDifference
   have hins : insert a (insert b u) = insert b (insert a u) := by
-    ext x
-    simp [or_left_comm, or_assoc]
+    exact Finset.insert_comm a b u
   rw [hins]
   ring
 
