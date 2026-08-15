@@ -62,8 +62,16 @@ theorem seededPrimeComb_eq_neg_of_single_exponentFlip
     Finset.mul_prod_erase S (fun q => localPrimeComb q m) hpS
   have hnprod :=
     Finset.mul_prod_erase S (fun q => localPrimeComb q n) hpS
+  have hmprod' :
+      localPrimeComb p m * (∏ q ∈ S.erase p, localPrimeComb q m) =
+        ∏ q ∈ S, localPrimeComb q m := by
+    simpa using hmprod
+  have hnprod' :
+      localPrimeComb p n * (∏ q ∈ S.erase p, localPrimeComb q n) =
+        ∏ q ∈ S, localPrimeComb q n := by
+    simpa using hnprod
   unfold seededPrimeComb
-  rw [← hmprod, ← hnprod, hpflip, hrest]
+  rw [← hmprod', ← hnprod', hpflip, hrest]
   ring
 
 /-- Under the same local flip, the smooth-core contribution changes sign as
