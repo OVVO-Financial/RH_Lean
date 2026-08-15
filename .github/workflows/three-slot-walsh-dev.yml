@@ -48,3 +48,4 @@ jobs:
           lake build RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime --wfail
           lake build RHLean.Arithmetic.PrimeSquareCollisionKernel --wfail
           lake build RHLean.Arithmetic.PrimeSquareCollisionCRT --wfail
+          lake build RHLean.Arithmetic.PrimeSquareCollisionPrefix --wfail
