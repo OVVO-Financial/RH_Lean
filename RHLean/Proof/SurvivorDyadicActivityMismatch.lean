@@ -25,6 +25,11 @@ truth value:
 * the product cutoff `c*q <= X_t`;
 * the high-height cutoff `2*Lambda*t < |q^2-c^2|`.
 
+The only upper-prime fibre not covered by this dyadic source invariance is
+`q = 2`.  Canonical source data then forces the cofactor to be exactly `1`, so
+the global exceptional sector is a single canonical source rather than an
+uncontrolled residue family.
+
 This is an exact support classification, not an estimate.
 -/
 
@@ -61,6 +66,28 @@ theorem canonicalSourceData_two_mul_iff_of_odd
         (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp hp2
       omega
     · exact hdom p hp hpd
+
+/-- The exceptional distinguished-prime fibre `q = 2` has only the unit
+cofactor.  No nontrivial canonical cofactor can have every prime divisor below
+`2`. -/
+theorem canonicalSourceData_two_iff_one (c : ℕ) :
+    CanonicalSourceData 2 c ↔ c = 1 := by
+  constructor
+  · rintro ⟨_hprime, hc1, _hsq, _hcop, hdom⟩
+    by_contra hcne
+    obtain ⟨p, hp, hpd⟩ := Nat.exists_prime_and_dvd hcne
+    have hplt : p < 2 := hdom p hp hpd
+    exact (not_lt_of_ge hp.two_le) hplt
+  · rintro rfl
+    simp [CanonicalSourceData]
+
+/-- Consequently any actual survivor source with distinguished prime `2` has
+cofactor exactly `1`. -/
+theorem cofactor_eq_one_of_survivorPair_prime_two
+    {Λ : ℝ} {t c : ℕ}
+    (hpair : IsSurvivorZeroModePair Λ t c 2) :
+    c = 1 :=
+  (canonicalSourceData_two_iff_one c).mp hpair.1
 
 /-- The geometric part of the survivor predicate for a cofactor `c`. -/
 def SurvivorDyadicGeometry (Λ : ℝ) (t q c : ℕ) : Prop :=
