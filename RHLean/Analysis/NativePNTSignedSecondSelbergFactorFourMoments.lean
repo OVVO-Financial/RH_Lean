@@ -62,8 +62,7 @@ theorem sum_moebius_log_divisors_eq_neg_vonMangoldt
       (fun a b =>
         arithmeticLogWeight (μ : ArithmeticFunction ℝ) a *
           (((ArithmeticFunction.zeta : ArithmeticFunction ℕ) : ArithmeticFunction ℝ) b))] at h
-  simp only [arithmeticLogWeight_apply, ArithmeticFunction.coe_apply,
-    ArithmeticFunction.zeta_apply, ArithmeticFunction.neg_apply] at h
+  simp [arithmeticLogWeight_apply] at h
   calc
     (∑ x ∈ n.divisors,
         (μ : ArithmeticFunction ℝ) x * Real.log (x : ℝ)) =
