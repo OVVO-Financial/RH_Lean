@@ -21,7 +21,7 @@ joint signed quantity `raw - 2 * smooth`, not separate absolute estimates.
 keeps the zero site out of the square-root recovery statement while still giving
 an empty prefix at `x = 0`. -/
 def positivePrefix (f : ℕ → ℤ) (x : ℕ) : ℤ :=
-  ∑ n in Finset.Icc 1 x, f n
+  ∑ n ∈ Finset.Icc 1 x, f n
 
 /-- Raw seeded prime-wheel mass through `x`. -/
 def primeWheelRawPositivePrefix (S : Finset ℕ) (x : ℕ) : ℤ :=
