@@ -96,7 +96,7 @@ theorem nativePNTSignedK2RecipInterval_four_eq_mobius_harmonic_shell
   rw [← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro d _hd
-  ring
+  ring_nf
 
 /-- At depth four, a nonzero wheel-error divisor is absent from the lower
 endpoint and has upper reciprocal quotient in `{1,2,3}`. -/
