@@ -79,7 +79,7 @@ theorem nativePNTDepthFour_lower_harmonic_sum_extend
     (f := fun d => nativeMobiusLogSquareRecipWeight d *
       (harmonic ((N / 4) / d) : ℝ))
   rw [hset, hzero, zero_add] at hs
-  exact hs.symm
+  exact hs
 
 /-- **Exact factor-four Fubini shell.** -/
 theorem nativePNTSignedK2RecipInterval_four_eq_mobius_harmonic_shell
