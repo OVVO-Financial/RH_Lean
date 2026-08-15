@@ -8,7 +8,7 @@ import RHLean.Analysis.NativePNTSignedSecondSelbergFactorFourDyadic
 # Low-degree reciprocal Mobius moments for the factor-four K2 fold
 
 After the exact prime-two fold, the correction channel contains only degree-zero
-and degree-one logarithmic Mobius weights.  This file identifies the degree-one
+and degree-one logarithmic Mobius weights. This file identifies the degree-one
 harmonic prefix exactly with the negative reciprocal von-Mangoldt prefix.
 
 No PNT input is used in this identity.
@@ -62,7 +62,26 @@ theorem sum_moebius_log_divisors_eq_neg_vonMangoldt
       (fun a b =>
         arithmeticLogWeight (μ : ArithmeticFunction ℝ) a *
           (((ArithmeticFunction.zeta : ArithmeticFunction ℕ) : ArithmeticFunction ℝ) b))] at h
-  simpa [arithmeticLogWeight_apply, hn0] using h
+  simp only [arithmeticLogWeight_apply, ArithmeticFunction.coe_apply,
+    ArithmeticFunction.zeta_apply, ArithmeticFunction.neg_apply] at h
+  calc
+    (∑ x ∈ n.divisors,
+        (μ : ArithmeticFunction ℝ) x * Real.log (x : ℝ)) =
+      ∑ x ∈ n.divisors,
+        if x = 0 ∨ n < x then 0
+        else (μ : ArithmeticFunction ℝ) x * Real.log (x : ℝ) := by
+      apply Finset.sum_congr rfl
+      intro x hx
+      have hxmem := Nat.mem_divisors.mp hx
+      have hxdiv : x ∣ n := hxmem.1
+      have hx0 : x ≠ 0 := by
+        intro hxz
+        subst x
+        have hnz : n = 0 := Nat.eq_zero_of_zero_dvd hxdiv
+        exact hn0 hnz
+      have hxle : x ≤ n := Nat.le_of_dvd (by omega) hxdiv
+      simp [hx0, not_lt_of_ge hxle]
+    _ = -Λ n := by simpa using h
 
 /-- **First logarithmic reciprocal Mobius harmonic identity.**
 
@@ -98,8 +117,9 @@ theorem nativeMobiusLogRecipHarmonic_eq_neg_lambdaRecip
       apply Finset.sum_congr rfl
       intro d hd
       rw [nativeHarmonicReal_eq_sum_Icc, Finset.mul_sum]
-      have hd1 : 1 ≤ d := (Finset.mem_Icc.mp hd).1
-      have hdpos : 0 < d := by omega
+      have hdpos : 0 < d := by
+        have hd1 := (Finset.mem_Icc.mp hd).1
+        omega
       have hmap :
           (Finset.Icc 1 N).filter (fun x => d ∣ x) =
             (Finset.Icc 1 (N / d)).image (fun m => d * m) := by
