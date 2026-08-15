@@ -142,6 +142,7 @@ import RHLean.Analysis.PrimeSieveDyadicPacketEnvelopeStep
 import RHLean.Analysis.PrimeSieveDyadicPacketReverseCarleson
 import RHLean.Analysis.PrimeSieveDyadicPacketShallowDeep
 import RHLean.Analysis.PrimeSieveDyadicSignedPackets
+import RHLean.Analysis.PrimeSieveFiniteDifferenceModulus
 import RHLean.Analysis.PrimeSieveLipschitzExcursion
 import RHLean.Analysis.PrimeSievePNTCentering
 import RHLean.Analysis.PrimeSievePNTGoodMassAmplification
@@ -231,6 +232,7 @@ import RHLean.Arithmetic.FourPrimeWheelCancellation
 import RHLean.Arithmetic.FourSlotCell
 import RHLean.Arithmetic.FullPrimeFactorizationState
 import RHLean.Arithmetic.LeastPrimeDepthHierarchy
+import RHLean.Arithmetic.MobiusFiniteDifferenceIdentification
 import RHLean.Arithmetic.MobiusFourCellEndpointTransfer
 import RHLean.Arithmetic.MoebiusDoubling
 import RHLean.Arithmetic.MoebiusPrefixFrontierIdentity
