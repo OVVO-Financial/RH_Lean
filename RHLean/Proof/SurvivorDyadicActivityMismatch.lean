@@ -134,6 +134,48 @@ theorem survivorDyadic_activity_mismatch_iff_geometry_crossing
   rw [survivorDyadic_activity_iff_geometry_iff hd hqgt hdata]
   tauto
 
+/-- The doubled child's product condition always implies the parent's product
+condition. -/
+theorem survivorDyadic_child_product_implies_parent
+    {t q d : ℕ}
+    (hchild : (2 * d) * q ≤ RHLean.Analysis.squarePrefixEndpoint t) :
+    d * q ≤ RHLean.Analysis.squarePrefixEndpoint t := by
+  have hdle : d ≤ 2 * d := by omega
+  exact (Nat.mul_le_mul_right q hdle).trans hchild
+
+/-- **Three geometric shells.**  Because the child product cutoff is stronger,
+all dyadic activity mismatch is carried by exactly three types of boundary:
+
+1. the parent is active but doubling crosses the product cutoff;
+2. both products fit, the parent is high, but doubling crosses into the height band;
+3. the child is active, while the parent lies inside the height band.
+
+No fourth shell is possible: child product admissibility already forces parent
+product admissibility. -/
+theorem survivorDyadic_activity_mismatch_iff_three_geometric_shells
+    {Λ : ℝ} {t q d : ℕ}
+    (hd : Odd d) (hqgt : 2 < q)
+    (hdata : CanonicalSourceData q d) :
+    ¬ (IsSurvivorZeroModePair Λ t d q ↔
+      IsSurvivorZeroModePair Λ t (2 * d) q) ↔
+      ((SurvivorDyadicGeometry Λ t q d ∧
+          ¬ ((2 * d) * q ≤ RHLean.Analysis.squarePrefixEndpoint t)) ∨
+        (SurvivorDyadicGeometry Λ t q d ∧
+          (2 * d) * q ≤ RHLean.Analysis.squarePrefixEndpoint t ∧
+          ¬ (2 * Λ * (t : ℝ) <
+            |(q : ℝ) ^ 2 - ((2 * d : ℕ) : ℝ) ^ 2|)) ∨
+        (SurvivorDyadicGeometry Λ t q (2 * d) ∧
+          ¬ (2 * Λ * (t : ℝ) <
+            |(q : ℝ) ^ 2 - (d : ℝ) ^ 2|))) := by
+  rw [survivorDyadic_activity_mismatch_iff_geometry_crossing
+    hd hqgt hdata]
+  have hprod :
+      (2 * d) * q ≤ RHLean.Analysis.squarePrefixEndpoint t →
+        d * q ≤ RHLean.Analysis.squarePrefixEndpoint t :=
+    survivorDyadic_child_product_implies_parent
+  unfold SurvivorDyadicGeometry
+  tauto
+
 /-- Hence every nonzero odd dyadic pair contribution is supported on one of the
 two explicit geometric crossing shells. -/
 theorem survivorDyadic_geometry_crossing_of_pairContribution_ne_zero
@@ -148,6 +190,27 @@ theorem survivorDyadic_geometry_crossing_of_pairContribution_ne_zero
   have hmismatch :=
     survivorDyadic_activity_ne_of_pairContribution_ne_zero Λ t q d hd hne
   exact (survivorDyadic_activity_mismatch_iff_geometry_crossing
+    hd hqgt hdata).1 hmismatch
+
+/-- Nonzero dyadic pair mass therefore lies in one of the three explicit
+geometric shells above. -/
+theorem survivorDyadic_three_geometric_shells_of_pairContribution_ne_zero
+    {Λ : ℝ} {t q d : ℕ}
+    (hd : Odd d) (hqgt : 2 < q)
+    (hdata : CanonicalSourceData q d)
+    (hne : survivorDyadicPairContribution Λ t q d ≠ 0) :
+    (SurvivorDyadicGeometry Λ t q d ∧
+        ¬ ((2 * d) * q ≤ RHLean.Analysis.squarePrefixEndpoint t)) ∨
+      (SurvivorDyadicGeometry Λ t q d ∧
+        (2 * d) * q ≤ RHLean.Analysis.squarePrefixEndpoint t ∧
+        ¬ (2 * Λ * (t : ℝ) <
+          |(q : ℝ) ^ 2 - ((2 * d : ℕ) : ℝ) ^ 2|)) ∨
+      (SurvivorDyadicGeometry Λ t q (2 * d) ∧
+        ¬ (2 * Λ * (t : ℝ) <
+          |(q : ℝ) ^ 2 - (d : ℝ) ^ 2|)) := by
+  have hmismatch :=
+    survivorDyadic_activity_ne_of_pairContribution_ne_zero Λ t q d hd hne
+  exact (survivorDyadic_activity_mismatch_iff_three_geometric_shells
     hd hqgt hdata).1 hmismatch
 
 end RHLean.Proof
