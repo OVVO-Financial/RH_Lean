@@ -7,6 +7,8 @@ noncomputable section
 
 namespace RHLean.Arithmetic
 
+attribute [local instance] Classical.propDecidable
+
 /-!
 # Second-coordinate cancellation on a first-failure frontier
 
@@ -55,7 +57,7 @@ theorem firstFailureBoundaryAlternatingSum_eq_secondToggleCorners
     exact (Finset.insert_erase hba).symm
   unfold firstFailureBoundaryAlternatingSum firstFailureBoundary
   rw [← Finset.sum_filter]
-  rw [hdecomp]
+  conv_lhs => rw [hdecomp]
   rw [Finset.sum_powerset_insert (Finset.notMem_erase b (s.erase a))]
   rw [← Finset.sum_add_distrib]
   calc
