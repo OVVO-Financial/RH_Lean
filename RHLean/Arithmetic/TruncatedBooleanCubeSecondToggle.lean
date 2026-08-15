@@ -56,7 +56,7 @@ theorem firstFailureBoundaryAlternatingSum_eq_secondToggleCorners
   have hdecomp : s.erase a = insert b ((s.erase a).erase b) := by
     exact (Finset.insert_erase hba).symm
   unfold firstFailureBoundaryAlternatingSum firstFailureBoundary
-  rw [← Finset.sum_filter]
+  conv_lhs => rw [Finset.sum_filter]
   conv_lhs => rw [hdecomp]
   rw [Finset.sum_powerset_insert (Finset.notMem_erase b (s.erase a))]
   rw [← Finset.sum_add_distrib]
