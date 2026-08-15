@@ -100,6 +100,29 @@ theorem primeWheelThreeSlotRecoveredPrefix_eq_fourSlotCellSum
       rw [fourSlotCellSum, moebius_four_mul_add_four]
       ring
 
+/-- The ordinary positive Möbius prefix at a complete four-cell endpoint is
+exactly the sum of the complete four-slot cells. -/
+theorem moebiusPositivePrefix_four_mul_eq_fourSlotCellSum (K : ℕ) :
+    moebiusPositivePrefix (4 * K) =
+      ∑ k ∈ Finset.range K, fourSlotCellSum k := by
+  induction K with
+  | zero =>
+      simp [moebiusPositivePrefix, positivePrefix]
+  | succ K ih =>
+      have ih' :
+          (∑ n ∈ Finset.Icc 1 (4 * K), μ n) =
+            ∑ k ∈ Finset.range K, fourSlotCellSum k := by
+        simpa [moebiusPositivePrefix, positivePrefix] using ih
+      unfold moebiusPositivePrefix positivePrefix
+      rw [show 4 * (K + 1) = 4 * K + 4 by omega]
+      rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ 4 * K + 4)]
+      rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ 4 * K + 3)]
+      rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ 4 * K + 2)]
+      rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ 4 * K + 1)]
+      rw [ih', Finset.sum_range_succ]
+      unfold fourSlotCellSum
+      ring
+
 /-- Canonical minimal square-root wheel for a complete `K`-cell prefix. -/
 def sqrtWheelThreeSlotRecoveredPrefix (K : ℕ) : ℤ :=
   primeWheelThreeSlotRecoveredPrefix
@@ -117,5 +140,14 @@ theorem sqrtWheelThreeSlotRecoveredPrefix_eq_fourSlotCellSum (K : ℕ) :
   · intro p hp hple
     exact mem_primesUpTo.mpr ⟨hp, hple⟩
   · exact le_rfl
+
+/-- At every complete four-cell endpoint the canonical square-root three-slot
+quantity is exactly the ordinary Möbius prefix.  This is the direct formal
+`sum_j (R_j - 2 H_j) = M(4K)` bridge. -/
+theorem sqrtWheelThreeSlotRecoveredPrefix_eq_moebiusPositivePrefix (K : ℕ) :
+    sqrtWheelThreeSlotRecoveredPrefix K =
+      moebiusPositivePrefix (4 * K) := by
+  rw [sqrtWheelThreeSlotRecoveredPrefix_eq_fourSlotCellSum,
+    moebiusPositivePrefix_four_mul_eq_fourSlotCellSum]
 
 end RHLean.Arithmetic
