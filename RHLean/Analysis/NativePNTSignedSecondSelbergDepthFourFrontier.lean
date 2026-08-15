@@ -68,7 +68,7 @@ theorem partialPrimeWheel_depth_four_frontier_prime_lt_four_mul
       calc
         q * r = 1 * (q * r) := by simp
         _ ≤ a * (q * r) := Nat.mul_le_mul_right (q * r) ha
-        _ = a * q * r := by ring
+        _ = a * q * r := by ring_nf
     exact hle.trans_lt (by simpa [hd] using hscale)
   constructor
   · by_contra hnot
