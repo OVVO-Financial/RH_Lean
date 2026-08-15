@@ -53,6 +53,10 @@ theorem sum_moebius_log_divisors_eq_neg_vonMangoldt
   have h := congrArg
     (fun f : ArithmeticFunction ℝ => f n)
     arithmeticLogWeight_moebius_mul_zeta_eq_neg_vonMangoldt
+  change
+    (arithmeticLogWeight (μ : ArithmeticFunction ℝ) *
+      ((ArithmeticFunction.zeta : ArithmeticFunction ℕ) : ArithmeticFunction ℝ)) n =
+        (-(Λ : ArithmeticFunction ℝ)) n at h
   rw [ArithmeticFunction.mul_apply,
     Nat.sum_divisorsAntidiagonal
       (fun a b =>
@@ -122,7 +126,6 @@ theorem nativeMobiusLogRecipHarmonic_eq_neg_lambdaRecip
         have hmR0 : (m : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hmpos)
         push_cast
         field_simp [hdR0, hmR0]
-        ring
       · intro a _ha b _hb hab
         exact Nat.eq_of_mul_eq_mul_left hdpos hab
     _ = ∑ n ∈ Finset.Icc 1 N,
