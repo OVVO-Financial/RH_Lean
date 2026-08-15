@@ -3,6 +3,8 @@ import RHLean.Arithmetic.PrimeSquareCollisionKernel
 
 noncomputable section
 
+open scoped Pointwise
+
 namespace RHLean.Arithmetic
 
 /-!
@@ -28,12 +30,12 @@ theorem four_mul_collisionRoot
     (m r : ℕ) (h4 : Nat.Coprime 4 m) :
     (4 : ZMod m) * collisionRoot m r = -(r : ZMod m) := by
   unfold collisionRoot
+  have hunit : (4 : ZMod m) * (4 : ZMod m)⁻¹ = 1 := by
+    exact ZMod.coe_mul_inv_eq_one 4 h4
   calc
     (4 : ZMod m) * (-(r : ZMod m) * (4 : ZMod m)⁻¹) =
         -(r : ZMod m) * ((4 : ZMod m) * (4 : ZMod m)⁻¹) := by ring
-    _ = -(r : ZMod m) := by
-      rw [ZMod.coe_mul_inv_eq_one 4 h4]
-      simp
+    _ = -(r : ZMod m) := by rw [hunit, mul_one]
 
 /-- Distinct small offsets give distinct collision roots. -/
 theorem collisionRoot_injective_of_lt
@@ -81,18 +83,19 @@ theorem currentCollisionRoots_card
     (currentCollisionRoots p).card = 3 := by
   have h4 := four_coprime_primeSquare p hp hpgt
   have hm : 9 ≤ p ^ 2 := by nlinarith
-  rw [currentCollisionRoots, Finset.card_triple_eq_three_iff]
-  constructor
-  · intro h
-    have := collisionRoot_injective_of_lt (p ^ 2) 1 2 h4 (by omega) (by omega) h
+  have h12 : collisionRoot (p ^ 2) 1 ≠ collisionRoot (p ^ 2) 2 := by
+    intro h
+    have heq := collisionRoot_injective_of_lt (p ^ 2) 1 2 h4 (by omega) (by omega) h
     omega
-  constructor
-  · intro h
-    have := collisionRoot_injective_of_lt (p ^ 2) 1 3 h4 (by omega) (by omega) h
+  have h13 : collisionRoot (p ^ 2) 1 ≠ collisionRoot (p ^ 2) 3 := by
+    intro h
+    have heq := collisionRoot_injective_of_lt (p ^ 2) 1 3 h4 (by omega) (by omega) h
     omega
-  · intro h
-    have := collisionRoot_injective_of_lt (p ^ 2) 2 3 h4 (by omega) (by omega) h
+  have h23 : collisionRoot (p ^ 2) 2 ≠ collisionRoot (p ^ 2) 3 := by
+    intro h
+    have heq := collisionRoot_injective_of_lt (p ^ 2) 2 3 h4 (by omega) (by omega) h
     omega
+  simp [currentCollisionRoots, h12, h13, h23]
 
 /-- There are exactly three next-cell collision residues for an odd prime. -/
 theorem nextCollisionRoots_card
@@ -100,18 +103,19 @@ theorem nextCollisionRoots_card
     (nextCollisionRoots q).card = 3 := by
   have h4 := four_coprime_primeSquare q hq hqgt
   have hm : 9 ≤ q ^ 2 := by nlinarith
-  rw [nextCollisionRoots, Finset.card_triple_eq_three_iff]
-  constructor
-  · intro h
-    have := collisionRoot_injective_of_lt (q ^ 2) 5 6 h4 (by omega) (by omega) h
+  have h56 : collisionRoot (q ^ 2) 5 ≠ collisionRoot (q ^ 2) 6 := by
+    intro h
+    have heq := collisionRoot_injective_of_lt (q ^ 2) 5 6 h4 (by omega) (by omega) h
     omega
-  constructor
-  · intro h
-    have := collisionRoot_injective_of_lt (q ^ 2) 5 7 h4 (by omega) (by omega) h
+  have h57 : collisionRoot (q ^ 2) 5 ≠ collisionRoot (q ^ 2) 7 := by
+    intro h
+    have heq := collisionRoot_injective_of_lt (q ^ 2) 5 7 h4 (by omega) (by omega) h
     omega
-  · intro h
-    have := collisionRoot_injective_of_lt (q ^ 2) 6 7 h4 (by omega) (by omega) h
+  have h67 : collisionRoot (q ^ 2) 6 ≠ collisionRoot (q ^ 2) 7 := by
+    intro h
+    have heq := collisionRoot_injective_of_lt (q ^ 2) 6 7 h4 (by omega) (by omega) h
     omega
+  simp [nextCollisionRoots, h56, h57, h67]
 
 /-- Distinct prime squares are coprime. -/
 theorem primeSquare_coprime_primeSquare
@@ -124,7 +128,7 @@ roots paired by CRT with three next `q^2` roots. -/
 def collisionCRTResidues
     (p q : ℕ) (hcop : Nat.Coprime (p ^ 2) (q ^ 2)) :
     Finset (ZMod ((p ^ 2) * (q ^ 2))) :=
-  ((currentCollisionRoots p).product (nextCollisionRoots q)).image
+  ((currentCollisionRoots p) ×ˢ (nextCollisionRoots q)).image
     (ZMod.chineseRemainder hcop).symm
 
 /-- **Exact complete-period off-diagonal count.**  For distinct odd primes
