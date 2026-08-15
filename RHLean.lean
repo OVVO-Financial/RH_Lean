@@ -250,6 +250,7 @@ import RHLean.Arithmetic.PrimeWheelMobiusDensity
 import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 import RHLean.Arithmetic.PrimeWheelPartialError
 import RHLean.Arithmetic.PrimeWheelPartialErrorThreshold
+import RHLean.Arithmetic.PrimeWheelThreeSlotRecovery
 import RHLean.Arithmetic.PrimesUpToFrontier
 import RHLean.Arithmetic.PrimorialReciprocalMobiusFactorization
 import RHLean.Arithmetic.PrimorialTruncatedWheelBoundary
