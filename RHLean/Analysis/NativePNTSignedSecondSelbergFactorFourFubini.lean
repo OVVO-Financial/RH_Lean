@@ -68,7 +68,8 @@ theorem nativePNTSignedK2RecipInterval_four_eq_doubleShell
   apply Finset.sum_congr rfl
   intro k hk
   have hkI := Finset.mem_Ioc.mp hk
-  have hkpos : 0 < k := by omega
+  have hkpos : 0 < k :=
+    Nat.lt_of_le_of_lt (Nat.zero_le ((N / 4) / d)) hkI.1
   have hdR0 : (d : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hdpos)
   have hkR0 : (k : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hkpos)
   unfold nativePNTSignedK2RecipFubiniAtom
