@@ -29,8 +29,7 @@ divisors and their `p`-multiples.  This is the unordered divisor decomposition
 underlying the exact finite-difference recurrence. -/
 theorem divisors_primorial_insert
     (S : Finset ℕ) (p : ℕ)
-    (hp : Nat.Prime p) (hpS : p ∉ S)
-    (hprime : ∀ q ∈ S, Nat.Prime q) :
+    (hp : Nat.Prime p) (hpS : p ∉ S) :
     (primorial (insert p S)).divisors =
       (primorial S).divisors ∪
         (primorial S).divisors.image (fun d => p * d) := by
@@ -93,7 +92,7 @@ theorem finiteDifferenceOperator_insert
   have hdisj :=
     disjoint_divisors_primorial_mul_image S p hp hpS hprime
   unfold finiteDifferenceOperator
-  rw [divisors_primorial_insert S p hp hpS hprime]
+  rw [divisors_primorial_insert S p hp hpS]
   rw [Finset.sum_union hdisj]
   have hinj : Set.InjOn (fun d : ℕ => p * d) (primorial S).divisors := by
     intro a ha b hb hab
@@ -116,7 +115,7 @@ theorem finiteDifferenceOperator_insert
     rw [hmu]
     simp [shift, Nat.div_div_eq_div_mul, Nat.mul_comm]
   rw [himage]
-  rfl
+  simp only [Pi.sub_apply, sub_eq_add_neg]
 
 /-- Singleton specialization: the canonical divisor operator is exactly one
 multiplicative finite difference. -/
