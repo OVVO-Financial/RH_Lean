@@ -228,6 +228,7 @@ import RHLean.Analysis.TwoABScaleTransfer
 import RHLean.Analysis.WheelRoughSquarePrefixEnergy
 import RHLean.Arithmetic.AdmissibleFaceSquarefreeImage
 import RHLean.Arithmetic.BooleanCubeCancellation
+import RHLean.Arithmetic.BooleanCubeFiniteDifference
 import RHLean.Arithmetic.CanonicalEndpointCore
 import RHLean.Arithmetic.ConditionedPrimeFrontierStep
 import RHLean.Arithmetic.DyadicFrozenPrefix
@@ -279,6 +280,8 @@ import RHLean.Arithmetic.SquareBlockParityPopulation
 import RHLean.Arithmetic.SquareBlockPrefixCombSweep
 import RHLean.Arithmetic.SquarefreePrimeFaceSurjectivity
 import RHLean.Arithmetic.TruncatedBooleanCube
+import RHLean.Arithmetic.TruncatedBooleanCubeMaskedSecondToggle
+import RHLean.Arithmetic.TruncatedBooleanCubeSecondToggle
 import RHLean.Arithmetic.TruncatedCubeMertensPrefix
 import RHLean.CellMask.PrimeThreeMeanEnergy
 import RHLean.Geometry.CofactorParabolas
@@ -386,16 +389,19 @@ import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Proof.SquareRootAncestryRoot
 import RHLean.Proof.SquareRootAncestrySuccessor
+import RHLean.Proof.SurvivorDyadicActivityMismatch
 import RHLean.Proof.SurvivorDyadicStaticCancellation
 import RHLean.Proof.SurvivorFarUpperRigidity
 import RHLean.Proof.SurvivorLargePrimeRootBoundary
 import RHLean.Proof.SurvivorPairEffectiveModulus
+import RHLean.Proof.SurvivorPrimeFaceFiniteDifference
 import RHLean.Proof.SurvivorPrimeFaceFrontier
 import RHLean.Proof.SurvivorPrimeFaceRealization
 import RHLean.Proof.SurvivorResidueCollisionReindex
 import RHLean.Proof.SurvivorResidueCovariance
 import RHLean.Proof.SurvivorResidueCovarianceCriterion
 import RHLean.Proof.SurvivorResiduePrimeToggle
+import RHLean.Proof.SurvivorResidueSecondToggle
 import RHLean.Proof.SurvivorZeroMode
 import RHLean.Proof.SymmetricPrimeExtension
 import RHLean.Proof.TerminalAxiomAudit
