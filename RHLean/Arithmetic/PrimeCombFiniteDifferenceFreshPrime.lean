@@ -41,7 +41,7 @@ theorem finiteDifferenceOperator_insert
     prime_coprime_primorial S p hp hpS hprime
   unfold finiteDifferenceOperator
   rw [primorial_insert S p hpS]
-  rw [hcop.divisors_mul]
+  rw [Nat.Coprime.divisors_mul hcop]
   simp only [Finset.sum_map]
   rw [Finset.sum_attach]
   rw [Finset.sum_product]
