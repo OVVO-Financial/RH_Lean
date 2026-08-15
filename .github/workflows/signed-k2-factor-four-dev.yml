@@ -43,8 +43,8 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Compile factor-four signed K2 Fubini layer
-        run: lake build RHLean.Analysis.NativePNTSignedSecondSelbergFactorFourFubini --wfail
+      - name: Compile exact prime-two factor-four fold
+        run: lake build RHLean.Analysis.NativePNTSignedSecondSelbergFactorFourDyadic --wfail
 
       - name: Save RHLean build cache
         if: always()
