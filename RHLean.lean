@@ -50,6 +50,7 @@ import RHLean.Analysis.NativePNTInterceptPropagation
 import RHLean.Analysis.NativePNTInterceptRecurrence
 import RHLean.Analysis.NativePNTInterceptStep
 import RHLean.Analysis.NativePNTInterceptTail
+import RHLean.Analysis.NativePNTLambdaRecipInterval
 import RHLean.Analysis.NativePNTLogSums
 import RHLean.Analysis.NativePNTLowSlopeContraction
 import RHLean.Analysis.NativePNTMertens
@@ -75,6 +76,11 @@ import RHLean.Analysis.NativePNTSignedLogSquarePositiveDyadicKernel
 import RHLean.Analysis.NativePNTSignedLogSquarePrimeCells
 import RHLean.Analysis.NativePNTSignedLogSquareSquareStage
 import RHLean.Analysis.NativePNTSignedSecondSelberg
+import RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourFrontier
+import RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourFubini
+import RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourInterval
+import RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourShell
+import RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourWheelSplit
 import RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
 import RHLean.Analysis.NativePNTSignedSecondSelbergReciprocal
 import RHLean.Analysis.NativePNTSignedSecondSelbergWheelFrontier
