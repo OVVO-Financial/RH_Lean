@@ -60,7 +60,7 @@ theorem nativeMobiusLogSquareRecipWeight_eq_depthFourWheel_split
   unfold nativeMobiusLogSquareRecipWeight
     nativePNTDepthFourResolvedWheelWeight
     nativePNTDepthFourFrontierWheelWeight
-  ring
+  ring_nf
 
 /-- **Exact depth-four wheel split.**  The signed K2 reciprocal interval is the
 sum of its resolved partial-wheel shell and its exact unresolved frontier. -/
@@ -76,7 +76,7 @@ theorem nativePNTSignedK2RecipInterval_four_eq_resolved_add_frontier
   apply Finset.sum_congr rfl
   intro d _hd
   rw [nativeMobiusLogSquareRecipWeight_eq_depthFourWheel_split]
-  ring
+  ring_nf
 
 /-- Above the lower factor-four endpoint, the lower harmonic endpoint is zero. -/
 theorem nativePNTDepthFourHarmonicShell_eq_harmonic_of_quarter_lt
