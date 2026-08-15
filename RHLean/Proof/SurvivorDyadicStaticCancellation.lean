@@ -258,18 +258,16 @@ theorem survivorFixedPrimeCofactorMass_eq_dyadicPairs_add_boundary
 private theorem zmod_two_natCast_eq_one_of_odd
     (n : ℕ) (hn : Odd n) :
     (n : ZMod 2) = 1 := by
+  apply (ZMod.natCast_eq_natCast_iff' n 1 2).2
   rcases hn with ⟨k, hk⟩
-  rw [hk]
-  push_cast
-  norm_num
+  omega
 
 private theorem zmod_two_natCast_eq_zero_of_even
     (n : ℕ) (hn : Even n) :
     (n : ZMod 2) = 0 := by
+  apply (ZMod.natCast_eq_natCast_iff' n 0 2).2
   rcases hn with ⟨k, hk⟩
-  rw [hk]
-  push_cast
-  norm_num
+  omega
 
 /-- Odd upper prime and odd cofactor give height residue `0` modulo `2`. -/
 theorem survivorHeightResidue_two_eq_zero_of_odd
