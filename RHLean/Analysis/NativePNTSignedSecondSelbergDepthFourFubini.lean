@@ -97,7 +97,6 @@ theorem nativePNTSignedSecondSelbergKernelRecipMass_eq_mobius_harmonic
         have hmR0 : (m : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hmpos)
         rw [Nat.cast_mul]
         field_simp [hdR0, hmR0]
-        ring
       · intro a _ha b _hb hab
         exact Nat.eq_of_mul_eq_mul_left hdpos hab
     _ = ∑ d ∈ Finset.Icc 1 N,
