@@ -56,7 +56,6 @@ theorem partialPrimeWheel_depth_four_frontier_prime_lt_four_mul
     (hy : 1 ≤ y)
     (hscale : N < 4 * y ^ 2)
     (hdN : d ≤ N)
-    (hdpos : 0 < d)
     (ha : 1 ≤ a)
     (hyq : y < q) (hyr : y < r)
     (hd : d = a * q * r) :
