@@ -63,7 +63,8 @@ theorem nativeLambdaRecipInterval_le_factor_four
   have hlog4A : Real.log ((4 * A : ℕ) : ℝ) = Real.log 4 + Real.log (A : ℝ) := by
     push_cast
     rw [Real.log_mul (by norm_num : (4 : ℝ) ≠ 0) (ne_of_gt hApos)]
-  rw [nativeLambdaRecipInterval_eq_sub A B hAB, hlog4A] at hlogB4A ⊢
+  rw [hlog4A] at hlogB4A
+  rw [nativeLambdaRecipInterval_eq_sub A B hAB]
   linarith
 
 end RHLean.Analysis
