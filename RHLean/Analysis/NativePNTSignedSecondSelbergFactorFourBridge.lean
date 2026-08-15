@@ -46,7 +46,6 @@ theorem nativePNTSignedK2Summatory_eq_lambdaTwo_sub_two_log
   apply Finset.sum_congr rfl
   intro n _hn
   rw [nativePNTSignedSecondSelbergKernel_eq_lambdaTwo_sub_two_log]
-  ring_nf
 
 /-- Explicit linear remainder in the identity
 `sum K2 = -2 * E(N) * log N + O(N)`.
