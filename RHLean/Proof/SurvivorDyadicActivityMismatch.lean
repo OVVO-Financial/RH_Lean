@@ -79,7 +79,11 @@ theorem canonicalSourceData_two_iff_one (c : ℕ) :
     have hplt : p < 2 := hdom p hp hpd
     exact (not_lt_of_ge hp.two_le) hplt
   · rintro rfl
-    simp [CanonicalSourceData]
+    refine ⟨Nat.prime_two, by norm_num, by simp, by simp, ?_⟩
+    intro p hp hpd
+    have hp1 : p = 1 := Nat.dvd_one.mp hpd
+    subst p
+    norm_num at hp
 
 /-- Consequently any actual survivor source with distinguished prime `2` has
 cofactor exactly `1`. -/
