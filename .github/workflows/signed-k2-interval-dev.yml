@@ -50,3 +50,4 @@ jobs:
           lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourFubini --wfail
           lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourShell --wfail
           lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourWheelSplit --wfail
+          lake build RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourFrontier --wfail
