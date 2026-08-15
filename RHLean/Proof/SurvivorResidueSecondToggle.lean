@@ -97,7 +97,22 @@ theorem residueConditionedFirstFailureBoundaryAlternatingSum_eq_secondToggleCorn
     ha hb hab hdown]
   · unfold residueConditionedSecondToggleSingleFailureCornerSum
       residueConditionedSecondToggleDoubleFailureCornerSum
-    rfl
+    apply congrArg₂ (fun x y : ℤ => x - y)
+    · apply Finset.sum_congr rfl
+      intro u hu
+      by_cases h : admissible u ∧
+          ¬ admissible (insert a u) ∧
+          ¬ admissible (insert b u) ∧
+          survivorHeightResidue modulus (primeFaceProduct u) q = r <;>
+        simp [h]
+    · apply Finset.sum_congr rfl
+      intro u hu
+      by_cases h : admissible u ∧
+          admissible (insert a u) ∧
+          admissible (insert b u) ∧
+          ¬ admissible (insert a (insert b u)) ∧
+          survivorHeightResidue modulus (primeFaceProduct u) q = r <;>
+        simp [h]
   · intro u hu
     have hbu : b ∉ u := by
       have husub := Finset.mem_powerset.mp hu
