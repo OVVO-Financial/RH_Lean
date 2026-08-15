@@ -230,6 +230,7 @@ import RHLean.Arithmetic.MoebiusPrefixFrontierIdentity
 import RHLean.Arithmetic.PrimeAveragedFrontierIdentity
 import RHLean.Arithmetic.PrimeCombFiniteDifference
 import RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime
+import RHLean.Arithmetic.PrimeCombFiniteDifferenceRecovery
 import RHLean.Arithmetic.PrimeFaceMoebius
 import RHLean.Arithmetic.PrimeFaceProductUniqueness
 import RHLean.Arithmetic.PrimeProductCubeFrontier
