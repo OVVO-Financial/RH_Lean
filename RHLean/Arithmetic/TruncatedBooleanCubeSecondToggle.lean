@@ -118,11 +118,35 @@ theorem firstFailureBoundaryAlternatingSum_eq_secondToggleCorners
             · exact Or.inr (Or.inr hx)
           · exact h
         rw [hsign]
-        by_cases h0 : admissible u <;>
-          by_cases ha1 : admissible (insert a u) <;>
-          by_cases hb1 : admissible (insert b u) <;>
-          by_cases hab1 : admissible (insert a (insert b u)) <;>
-          simp_all
+        by_cases h0 : admissible u
+        · by_cases ha1 : admissible (insert a u)
+          · by_cases hb1 : admissible (insert b u)
+            · by_cases hab1 : admissible (insert a (insert b u))
+              · simp [h0, ha1, hb1, hab1]
+              · simp [h0, ha1, hb1, hab1]
+            · have hab1 : ¬ admissible (insert a (insert b u)) := by
+                intro h
+                exact hb1 (h_ab_to_b h)
+              simp [h0, ha1, hb1, hab1]
+          · by_cases hb1 : admissible (insert b u)
+            · have hab1 : ¬ admissible (insert a (insert b u)) := by
+                intro h
+                exact ha1 (h_ab_to_a h)
+              simp [h0, ha1, hb1, hab1]
+            · have hab1 : ¬ admissible (insert a (insert b u)) := by
+                intro h
+                exact hb1 (h_ab_to_b h)
+              simp [h0, ha1, hb1, hab1]
+        · have ha1 : ¬ admissible (insert a u) := by
+            intro h
+            exact h0 (h_a_to_base h)
+          have hb1 : ¬ admissible (insert b u) := by
+            intro h
+            exact h0 (h_b_to_base h)
+          have hab1 : ¬ admissible (insert a (insert b u)) := by
+            intro h
+            exact hb1 (h_ab_to_b h)
+          simp [h0, ha1, hb1, hab1]
     _ =
       (∑ u ∈ ((s.erase a).erase b).powerset,
         if admissible u ∧
