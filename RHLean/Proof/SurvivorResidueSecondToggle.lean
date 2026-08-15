@@ -10,6 +10,8 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 
+attribute [local instance] Classical.propDecidable
+
 /-!
 # Second prime toggle inside survivor residue fibres
 
