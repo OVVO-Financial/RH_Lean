@@ -90,10 +90,14 @@ private theorem rpow_two_add_two_mul_eq_sq_mul_rpow_sq
   have hsplit :
       Real.rpow r (2 + 2 * ε) = Real.rpow r (2 : ℝ) * Real.rpow r (2 * ε) :=
     Real.rpow_add (x := r) hr 2 (2 * ε)
+  -- `Real.rpow_add` is stated with `^` notation, whose head symbol is
+  -- `HPow.hPow` rather than `Real.rpow`; `rw` matches on that head, so the
+  -- lemma is applied as a term (which is checked up to unfolding the `Pow`
+  -- instance) instead of being rewritten in.
   have hdouble :
       Real.rpow r (2 * ε) = Real.rpow r ε * Real.rpow r ε := by
-    have hadd := Real.rpow_add (x := r) hr ε ε
-    rw [show (2 : ℝ) * ε = ε + ε by ring, hadd]
+    rw [show (2 : ℝ) * ε = ε + ε by ring]
+    exact Real.rpow_add (x := r) hr ε ε
   rw [hsplit, htwo, hdouble]
   ring
 
@@ -203,7 +207,10 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
                     Real.rpow ((y + 1 : ℕ) : ℝ) ε :=
                 Real.rpow_add (x := ((y + 1 : ℕ) : ℝ)) (by positivity) 1 ε
               _ = ((y + 1 : ℕ) : ℝ) * Real.rpow ((y + 1 : ℕ) : ℝ) ε := by
-                rw [Real.rpow_one]
+                have hrpowOne :
+                    Real.rpow ((y + 1 : ℕ) : ℝ) 1 = ((y + 1 : ℕ) : ℝ) :=
+                  Real.rpow_one _
+                rw [hrpowOne]
           rw [hfactor] at hiy
           dsimp [K]
           have hcy : 0 ≤ C * ((y + 1 : ℕ) : ℝ) := mul_nonneg hC (by positivity)
