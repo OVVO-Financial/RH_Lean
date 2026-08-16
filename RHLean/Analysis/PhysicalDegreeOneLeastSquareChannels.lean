@@ -143,7 +143,10 @@ coordinate. -/
 theorem mem_physicalThreeSlotNonzeroStates_iff
     (i : Fin 27) :
     i ∈ physicalThreeSlotNonzeroStates ↔ IsThreeSlotNonzeroState i := by
-  fin_cases i <;> native_decide
+  classical
+  fin_cases i <;>
+    norm_num [physicalThreeSlotNonzeroStates, IsThreeSlotNonzeroState,
+      chiA, chiB, chiC]
 
 private theorem physicalNonzeroEdge_iff_activeSquarefree
     (k : ℕ) :
@@ -260,6 +263,7 @@ private theorem threeSlotTransitionMomentOn_eq_nonzeroDestinationSum
           (threeSlotTransitionCountOn F s t : ℤ) * χ t := by
             simp [threeSlotTransitionMomentOn,
               physicalThreeSlotNonzeroStates]
+            ring
     _ = ∑ t ∈ physicalThreeSlotNonzeroStates,
           ∑ k ∈ E with threeSlotState (k + 1) = t, χ t := by
             apply Finset.sum_congr rfl
@@ -316,6 +320,7 @@ theorem physicalDegreeOneT_eq_nonzeroEdgeSum (K : ℕ) :
             (Finset.range K) s threeSlotDegreeOneValue := by
               simp [physicalDegreeOneT, threeSlotTransitionDegreeOneMass,
                 physicalThreeSlotNonzeroStates]
+              ring
     _ = ∑ s ∈ physicalThreeSlotNonzeroStates,
           ∑ k ∈ E with threeSlotState k = s, physicalDefectEdgeValue k := by
             apply Finset.sum_congr rfl
@@ -402,9 +407,7 @@ theorem physicalTransitionD_eq_sum_leastSquareChannels (K : ℕ) :
     apply Finset.sum_congr
     · ext k
       simp only [E, q, Finset.mem_filter, Finset.mem_range]
-      cases hleast : physicalLeastOddSquarePrime k with
-      | none => simp [hleast]
-      | some r => simp [hleast]
+      cases hleast : physicalLeastOddSquarePrime k <;> simp
     · intro k hk
       rfl
   rw [physicalTransitionD_eq_leastSquareSupportedSum]
@@ -533,32 +536,24 @@ theorem physicalD9_nine_step_recurrence (L : ℕ) :
       Finset.sum_range_succ]
     rw [show 9 * L + 1 = (9 * L) + 1 by omega,
       Finset.sum_range_succ]
-    ring
-  rw [hblock]
   have hf0 : f (9 * L) = 0 := by
-    simp [f, physicalNineChannelResidues, Nat.add_mod, Nat.mul_mod]
+    simp [f, physicalNineChannelResidues]
   have hf1 : f (9 * L + 1) = fourSlotCellSum (9 * L + 2) := by
-    simp [f, physicalNineChannelResidues, Nat.add_mod, Nat.mul_mod]
+    simp [f, physicalNineChannelResidues, Nat.add_mod]
   have hf2 : f (9 * L + 2) = fourSlotCellSum (9 * L + 3) := by
-    simp [f, physicalNineChannelResidues, Nat.add_mod, Nat.mul_mod]
+    simp [f, physicalNineChannelResidues, Nat.add_mod]
   have hf3 : f (9 * L + 3) = fourSlotCellSum (9 * L + 4) := by
-    simp [f, physicalNineChannelResidues, Nat.add_mod, Nat.mul_mod]
+    simp [f, physicalNineChannelResidues, Nat.add_mod]
   have hf4 : f (9 * L + 4) = fourSlotCellSum (9 * L + 5) := by
-    simp [f, physicalNineChannelResidues, Nat.add_mod, Nat.mul_mod]
+    simp [f, physicalNineChannelResidues, Nat.add_mod]
   have hf5 : f (9 * L + 5) = fourSlotCellSum (9 * L + 6) := by
-    simp [f, physicalNineChannelResidues, Nat.add_mod, Nat.mul_mod]
+    simp [f, physicalNineChannelResidues, Nat.add_mod]
   have hf6 : f (9 * L + 6) = fourSlotCellSum (9 * L + 7) := by
-    simp [f, physicalNineChannelResidues, Nat.add_mod, Nat.mul_mod]
+    simp [f, physicalNineChannelResidues, Nat.add_mod]
   have hf7 : f (9 * L + 7) = 0 := by
-    simp [f, physicalNineChannelResidues, Nat.add_mod, Nat.mul_mod]
+    simp [f, physicalNineChannelResidues, Nat.add_mod]
   have hf8 : f (9 * L + 8) = 0 := by
-    simp [f, physicalNineChannelResidues, Nat.add_mod, Nat.mul_mod]
-  rw [hf0, hf1, hf2, hf3, hf4, hf5, hf6, hf7, hf8]
-  ring_nf
-  rw [show 36 * L + 32 = 4 * (9 * L + 8) by ring,
-    show 36 * L + 8 = 4 * (9 * L + 2) by ring]
-  rw [moebiusPositivePrefix_four_mul_eq_fourSlotCellSum,
-    moebiusPositivePrefix_four_mul_eq_fourSlotCellSum]
+    simp [f, physicalNineChannelResidues, Nat.add_mod]
   have hprefix :
       (∑ k ∈ Finset.range (9 * L + 8), fourSlotCellSum k) =
         (∑ k ∈ Finset.range (9 * L + 2), fourSlotCellSum k) +
@@ -580,8 +575,29 @@ theorem physicalD9_nine_step_recurrence (L : ℕ) :
       Finset.sum_range_succ]
     rw [show 9 * L + 3 = (9 * L + 2) + 1 by omega,
       Finset.sum_range_succ]
-    ring
-  rw [hprefix]
-  ring
+  calc
+    (∑ k ∈ Finset.range (9 * (L + 1)), f k) -
+          ∑ k ∈ Finset.range (9 * L), f k =
+        f (9 * L) + f (9 * L + 1) + f (9 * L + 2) +
+          f (9 * L + 3) + f (9 * L + 4) + f (9 * L + 5) +
+          f (9 * L + 6) + f (9 * L + 7) + f (9 * L + 8) := by
+            rw [hblock]
+            abel
+    _ = fourSlotCellSum (9 * L + 2) +
+          fourSlotCellSum (9 * L + 3) +
+          fourSlotCellSum (9 * L + 4) +
+          fourSlotCellSum (9 * L + 5) +
+          fourSlotCellSum (9 * L + 6) +
+          fourSlotCellSum (9 * L + 7) := by
+            rw [hf0, hf1, hf2, hf3, hf4, hf5, hf6, hf7, hf8]
+            abel
+    _ = moebiusPositivePrefix (36 * L + 32) -
+          moebiusPositivePrefix (36 * L + 8) := by
+            rw [show 36 * L + 32 = 4 * (9 * L + 8) by ring,
+              show 36 * L + 8 = 4 * (9 * L + 2) by ring]
+            rw [moebiusPositivePrefix_four_mul_eq_fourSlotCellSum,
+              moebiusPositivePrefix_four_mul_eq_fourSlotCellSum]
+            rw [hprefix]
+            abel
 
 end RHLean.Analysis
