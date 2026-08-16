@@ -885,3 +885,43 @@ still a Moebius sum. `typeIICore` is the closest thing to an escape found here
 -- it is flat, it is genuinely bilinear, and it is the unique piece carrying no
 `rho` factor -- but it holds 1.4% of the mass, precisely because stripping every
 `rho` strips almost everything.
+
+## There is no Type-II problem in this architecture
+
+One more measurement closes the circle. The balanced region is not small:
+
+| R | balanced pairs | block length | ratio |
+|---|---|---|---|
+| 256 | 175 | 513 | 0.3411 |
+| 1,024 | 712 | 2,049 | 0.3475 |
+| 4,096 | 2,841 | 8,193 | 0.3468 |
+| 16,384 | 11,324 | 32,769 | 0.3456 |
+
+The ratio is constant at `(ln 2)/2 = 0.34657`, which is exactly what the
+geometry predicts: the pair count is
+`sum_{u in (R/sqrt 2, R)} (2R+1)/u ~ 2R ln(sqrt 2) = R ln 2` against a block
+length of `2R + 1`.
+
+So the balanced region carries about 35% of the factorization pairs, and yet the
+doubly-centered Type-II core carries **1.4% of the energy, decreasing at
+`N^-0.304`**. That is not a size artifact -- it is genuine cancellation created
+by centering both variables.
+
+The conclusion is worth stating plainly, because it inverts the usual picture:
+
+```text
+In this architecture the Type-II content of the square-block residual is
+asymptotically negligible.  All of the difficulty is Type-I / coherent.
+```
+
+Classical analytic number theory has the opposite shape -- Type-I sums are the
+tractable ones and Type-II is where the work is. Here the balanced bilinear
+sector, once centered, nearly vanishes, and everything that resists sits in the
+pieces carrying a smooth density factor. That explains why the bilinear opening
+felt like progress and then delivered nothing: it correctly identified a real
+Type-II object, and that object is simply not where the mass is.
+
+It also means the remaining target is not a bilinear estimate at all. It is
+`muRho` and its relatives -- and those, by the measurement above, do not satisfy
+the budget individually and can only be handled together with the extreme
+sector, which returns to the hyperbola identity where the cancellation lives.
