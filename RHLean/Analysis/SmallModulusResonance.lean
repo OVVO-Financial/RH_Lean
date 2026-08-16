@@ -267,4 +267,119 @@ theorem physicalPrimeThreeLocalRawSlotMode_sum_eq_zero
           physicalPrimeThreeSlotPhase 3 r) * (-5 : ℂ) := by ring
     _ = 0 := by rw [hphase]; ring
 
+/-- Canonical least-representative equivalence for the local `3^2` torus. -/
+private def physicalFinNineEquivZMod : Fin 9 ≃ ZMod 9 where
+  toFun i := (i.val : ZMod 9)
+  invFun z := ⟨z.val, ZMod.val_lt z⟩
+  left_inv i := by
+    apply Fin.ext
+    exact ZMod.val_natCast_of_lt i.isLt
+  right_inv z := ZMod.natCast_zmod_val z
+
+private theorem physicalPrimeThreeLocalRawMode_eq_zmodSum
+    (r : ZMod 9) :
+    physicalPrimeThreeLocalRawMode r =
+      ∑ z : ZMod 9,
+        (((localPrimeComb 3 z.val : ℤ) : ℂ)) *
+          ZMod.stdAddChar
+            (-(z * physicalPrimeThreeTransportedFrequency r)) := by
+  let F : ZMod 9 → ℂ := fun z =>
+    (((localPrimeComb 3 z.val : ℤ) : ℂ)) *
+      ZMod.stdAddChar
+        (-(z * physicalPrimeThreeTransportedFrequency r))
+  have hsum := physicalFinNineEquivZMod.sum_comp F
+  simpa [physicalPrimeThreeLocalRawMode, localPrimeCombNaturalSpectrum,
+    F, physicalFinNineEquivZMod, ZMod.val_natCast_of_lt] using hsum
+
+/-- The physical affine map `k ↦ 4k+j` on `ZMod 9`.  Its inverse is
+`z ↦ 7(z-j)`. -/
+private def physicalPrimeThreeAffineEquiv (j : ZMod 9) : ZMod 9 ≃ ZMod 9 where
+  toFun k := 4 * k + j
+  invFun z := 7 * (z - j)
+  left_inv k := by
+    have h28 : (28 : ZMod 9) = 1 := by native_decide
+    dsimp
+    calc
+      7 * (4 * k + j - j) = 28 * k := by ring
+      _ = k := by rw [h28]; ring
+  right_inv z := by
+    have h28 : (28 : ZMod 9) = 1 := by native_decide
+    dsimp
+    calc
+      4 * (7 * (z - j)) + j = 28 * (z - j) + j := by ring
+      _ = z := by rw [h28]; ring
+
+/-- Actual unnormalized local DFT of the shifted square-sensitive prime-`3`
+comb `k ↦ u₃(4k+j)`. -/
+def physicalPrimeThreeLocalRawSlotSpectrum
+    (j : ℕ) (r : ZMod 9) : ℂ :=
+  ∑ k : ZMod 9,
+    (((localPrimeComb 3
+      (((4 : ZMod 9) * k + (j : ZMod 9)).val) : ℤ) : ℂ)) *
+      ZMod.stdAddChar (-(k * r))
+
+/-- Exact affine-frequency transport for the physical slot DFT. -/
+theorem physicalPrimeThreeLocalRawSlotSpectrum_eq_mode
+    (j : ℕ) (r : ZMod 9) :
+    physicalPrimeThreeLocalRawSlotSpectrum j r =
+      physicalPrimeThreeSlotPhase j r *
+        physicalPrimeThreeLocalRawMode r := by
+  rw [physicalPrimeThreeLocalRawMode_eq_zmodSum]
+  let jz : ZMod 9 := (j : ZMod 9)
+  let e : ZMod 9 ≃ ZMod 9 := physicalPrimeThreeAffineEquiv jz
+  let G : ZMod 9 → ℂ := fun z =>
+    (((localPrimeComb 3 z.val : ℤ) : ℂ)) *
+      ZMod.stdAddChar (-(e.symm z * r))
+  calc
+    physicalPrimeThreeLocalRawSlotSpectrum j r =
+        ∑ k : ZMod 9, G (e k) := by
+      unfold physicalPrimeThreeLocalRawSlotSpectrum
+      apply Fintype.sum_congr
+      intro k
+      simp [G, e, jz, physicalPrimeThreeAffineEquiv]
+    _ = ∑ z : ZMod 9, G z := e.sum_comp G
+    _ = ∑ z : ZMod 9,
+        (((localPrimeComb 3 z.val : ℤ) : ℂ)) *
+          (physicalPrimeThreeSlotPhase j r *
+            ZMod.stdAddChar
+              (-(z * physicalPrimeThreeTransportedFrequency r))) := by
+      apply Fintype.sum_congr
+      intro z
+      dsimp [G]
+      have hchar :
+          ZMod.stdAddChar (-(e.symm z * r)) =
+            physicalPrimeThreeSlotPhase j r *
+              ZMod.stdAddChar
+                (-(z * physicalPrimeThreeTransportedFrequency r)) := by
+        unfold physicalPrimeThreeSlotPhase
+        rw [← AddChar.map_add_eq_mul]
+        congr 1
+        dsimp [e, jz, physicalPrimeThreeAffineEquiv,
+          physicalPrimeThreeTransportedFrequency,
+          physicalPrimeThreeInverseStep]
+        ring
+      rw [hchar]
+    _ = physicalPrimeThreeSlotPhase j r *
+        ∑ z : ZMod 9,
+          (((localPrimeComb 3 z.val : ℤ) : ℂ)) *
+            ZMod.stdAddChar
+              (-(z * physicalPrimeThreeTransportedFrequency r)) := by
+      rw [Finset.mul_sum]
+      apply Fintype.sum_congr
+      intro z
+      ring
+
+/-- **Actual local DFT cancellation.**  At a nonzero conductor-`3` frequency,
+the three shifted physical prime-`3` combs cancel exactly in Fourier space. -/
+theorem physicalPrimeThreeLocalRawSlotSpectrum_sum_eq_zero
+    (r : ZMod 9) (hr0 : r ≠ 0) (hr3 : 3 ∣ r.val) :
+    physicalPrimeThreeLocalRawSlotSpectrum 1 r +
+        physicalPrimeThreeLocalRawSlotSpectrum 2 r +
+        physicalPrimeThreeLocalRawSlotSpectrum 3 r = 0 := by
+  rw [physicalPrimeThreeLocalRawSlotSpectrum_eq_mode,
+    physicalPrimeThreeLocalRawSlotSpectrum_eq_mode,
+    physicalPrimeThreeLocalRawSlotSpectrum_eq_mode]
+  simpa [physicalPrimeThreeLocalRawSlotMode] using
+    physicalPrimeThreeLocalRawSlotMode_sum_eq_zero r hr0 hr3
+
 end RHLean.Analysis
