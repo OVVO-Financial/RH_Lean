@@ -27,9 +27,17 @@ on:
 permissions:
   contents: read
 
+# This workflow fires on '**.lean', so it followed every Lean commit -- 839
+# runs so far -- and without a concurrency group a burst of pushes left a
+# queue of runs all verifying superseded trees.
+concurrency:
+  group: export-verify-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify-export:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
