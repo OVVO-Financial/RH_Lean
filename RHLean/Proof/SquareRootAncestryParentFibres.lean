@@ -52,7 +52,7 @@ theorem sourceSuccessorPrefix_eq_parentFiberMass (B x : ℕ) :
         simp [boundedSourceFlow, ParentFlow.successorOperator, hclock, hparent]
     | some p =>
         simp [boundedSourceFlow, ParentFlow.successorOperator, hclock, hparent]
-  · simp [boundedSourceFlow, ParentFlow.successorOperator, hclock]
+  · simp [hclock]
 
 /-- One parent fibre as a signed integer mass. -/
 def sourceSuccessorParentFiber (B x : ℕ) (p : SourceIndex B) : ℤ :=
