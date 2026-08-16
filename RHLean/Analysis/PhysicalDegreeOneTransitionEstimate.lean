@@ -284,7 +284,9 @@ theorem physicalDegreeOneMixingConjecture_of_transitionEstimate
         simpa [physicalTransitionD] using physicalTransitionD_zero
       rw [hT0, hD0]
       simp only [Int.cast_zero, abs_zero, zero_add]
-      positivity
+      exact mul_nonneg
+        (mul_nonneg hC.le (Real.rpow_nonneg (by norm_num) a))
+        (Real.rpow_nonneg (by norm_num) ((1 : ℝ) / 2 + ε))
   | succ K =>
       have hmodes :
           |((physicalTransitionTa (K + 1) : ℤ) : ℝ)| +
@@ -305,8 +307,7 @@ theorem physicalDegreeOneMixingConjecture_of_transitionEstimate
       have hbasele :
           ((((K + 1) + 1 : ℕ) : ℝ)) ≤
             2 * (((K + 1 : ℕ) : ℝ)) := by
-        push_cast
-        linarith
+        exact_mod_cast (show (K + 1) + 1 ≤ 2 * (K + 1) by omega)
       have hscale :
           Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a ≤
             Real.rpow 2 a * Real.rpow ((K + 1 : ℕ) : ℝ) a := by
