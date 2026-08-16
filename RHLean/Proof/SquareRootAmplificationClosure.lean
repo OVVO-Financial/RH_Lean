@@ -38,12 +38,15 @@ numerator used by the endpoint amplification theorem. -/
 theorem shiftedMertensEnergy_eq_intSquare (x : ℕ) :
     shiftedMertensEnergy x =
       (((mertensSummatoryInt x - 1 : ℤ) : ℝ) ^ 2) := by
-  have hcast := mertensSummatoryInt_cast x
   unfold shiftedMertensEnergy
-  rw [← hcast]
-  push_cast
-  rw [Complex.norm_real]
-  exact sq_abs (((mertensSummatoryInt x : ℤ) : ℝ) - 1)
+  rw [← mertensSummatoryInt_cast x]
+  have hcast :
+      (((mertensSummatoryInt x : ℤ) : ℂ) - 1) =
+        (((mertensSummatoryInt x - 1 : ℤ) : ℂ)) := by
+    push_cast
+    ring
+  rw [hcast, Complex.norm_intCast]
+  exact sq_abs (((mertensSummatoryInt x - 1 : ℤ) : ℝ))
 
 /-- Crude shifted bound used only on the finite base range. -/
 theorem norm_shiftedMertens_le_succ (x : ℕ) :
@@ -84,18 +87,15 @@ private theorem rpow_two_add_two_mul_eq_sq_mul_rpow_sq
       r ^ 2 * (Real.rpow r ε) ^ 2 := by
   calc
     Real.rpow r (2 + 2 * ε) =
-        Real.rpow r 2 * Real.rpow r (2 * ε) := by
-      rw [← Real.rpow_add hr]
-      congr 1
-      ring
-    _ = r ^ 2 * Real.rpow r (ε * 2) := by
+        Real.rpow r (2 + (2 * ε)) := by congr 1 <;> ring
+    _ = Real.rpow r 2 * Real.rpow r (2 * ε) :=
+      Real.rpow_add (x := r) hr 2 (2 * ε)
+    _ = r ^ 2 * Real.rpow r (ε + ε) := by
       rw [Real.rpow_natCast]
-      congr 2
-      ring
-    _ = r ^ 2 * Real.rpow (Real.rpow r ε) 2 := by
-      rw [Real.rpow_mul (le_of_lt hr)]
-    _ = r ^ 2 * (Real.rpow r ε) ^ 2 := by
-      rw [Real.rpow_natCast]
+      congr 2 <;> ring
+    _ = r ^ 2 * (Real.rpow r ε * Real.rpow r ε) := by
+      rw [Real.rpow_add (x := r) hr ε ε]
+    _ = r ^ 2 * (Real.rpow r ε) ^ 2 := by ring
 
 /-- A fixed absolute endpoint amplification constant gives the full shifted
 Mertens critical-energy bound, with an arbitrarily small exponent loss. -/
@@ -111,7 +111,7 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
   have htend :
       Filter.Tendsto (fun R : ℕ => Real.rpow (R : ℝ) ε)
         Filter.atTop Filter.atTop :=
-    (Real.tendsto_rpow_atTop hε).comp tendsto_natCast_atTop_atTop
+    (tendsto_rpow_atTop hε).comp tendsto_natCast_atTop_atTop
   have hevent : ∀ᶠ R : ℕ in Filter.atTop,
       4 * A ≤ Real.rpow (R : ℝ) ε :=
     (tendsto_atTop.1 htend) (4 * A)
@@ -133,16 +133,20 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
   | _ x ih =>
       by_cases hxbase : x < R0 ^ 2
       · have hnorm := norm_shiftedMertens_le_succ x
+        have hx1Nat : x + 1 ≤ R0 ^ 2 + 1 :=
+          Nat.succ_le_succ hxbase.le
         have hx1 : (x + 1 : ℝ) ≤ ((R0 ^ 2 + 1 : ℕ) : ℝ) := by
-          exact_mod_cast (Nat.succ_le_succ hxbase.le)
+          exact_mod_cast hx1Nat
         have hsq : shiftedMertensEnergy x ≤ (x + 1 : ℝ) ^ 2 := by
           unfold shiftedMertensEnergy
           have hnonneg : 0 ≤ ‖RHLean.Analysis.mertensSummatory x - 1‖ := norm_nonneg _
           have hxnonneg : 0 ≤ (x + 1 : ℝ) := by positivity
-          nlinarith
+          nlinarith [sq_nonneg (‖RHLean.Analysis.mertensSummatory x - 1‖ -
+            (x + 1 : ℝ))]
+        have hxC : (x + 1 : ℝ) ≤ C := hx1.trans hCR0
+        have hxpos : 0 ≤ (x + 1 : ℝ) := by positivity
         have hlin : (x + 1 : ℝ) ^ 2 ≤ C * (x + 1 : ℝ) := by
-          have hxC : (x + 1 : ℝ) ≤ C := hx1.trans hCR0
-          have hxpos : 0 ≤ (x + 1 : ℝ) := by positivity
+          have hmul := mul_nonneg hxpos (sub_nonneg.mpr hxC)
           nlinarith
         have hbasePow :
             (x + 1 : ℝ) ≤ Real.rpow (x + 1 : ℝ) (1 + ε) := by
@@ -163,7 +167,13 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
           have hsquares : (R + 1) ^ 2 ≤ R0 ^ 2 :=
             Nat.pow_le_pow_left (by omega) 2
           exact (Nat.not_lt_of_ge hxlarge) (hxlt.trans_le hsquares)
-        have hR2 : 2 ≤ R := le_trans (le_max_left 2 N) hR0
+        have h2R0 : 2 ≤ R0 := by
+          dsimp [R0]
+          omega
+        have hNR0 : N ≤ R0 := by
+          dsimp [R0]
+          omega
+        have hR2 : 2 ≤ R := h2R0.trans hR0
         have hRpos : 0 < (R : ℝ) := by exact_mod_cast (show 0 < R by omega)
         have hRnonneg : 0 ≤ (R : ℝ) := le_of_lt hRpos
         have hRsq : R ^ 2 ≤ x := by
@@ -172,7 +182,7 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
         have hxltNext : x < (R + 1) ^ 2 := by
           dsimp [R]
           exact Nat.lt_succ_sqrt' x
-        have hNleR : N ≤ R := le_trans (le_max_right 2 N) hR0
+        have hNleR : N ≤ R := hNR0.trans hR0
         have honset : 4 * A ≤ Real.rpow (R : ℝ) ε := hN R hNleR
         let K : ℝ := C * Real.rpow (R : ℝ) ε
         have hKnonneg : 0 ≤ K := by
@@ -181,21 +191,19 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
         have hEnvelope : LowerMertensCriticalEnvelope R K := by
           refine ⟨hKnonneg, ?_⟩
           intro y hyR
-          have hyx : y < x := by
-            have hyR' : y < R := hyR
-            have hRx : R ≤ x := by
-              have hRle : R ≤ R ^ 2 := by nlinarith [show 2 ≤ R by omega]
-              exact hRle.trans hRsq
-            exact hyR'.trans_le hRx
+          have hRleSq : R ≤ R ^ 2 := by
+            calc
+              R = R * 1 := by ring
+              _ ≤ R * R := Nat.mul_le_mul_left R (by omega)
+              _ = R ^ 2 := by ring
+          have hRx : R ≤ x := hRleSq.trans hRsq
+          have hyx : y < x := hyR.trans_le hRx
           have hiy := ih y hyx
           rw [shiftedMertensEnergy_eq_intSquare] at hiy
           have hy1R : y + 1 ≤ R := by omega
           have hpowMono :
-              Real.rpow (y + 1 : ℝ) ε ≤ Real.rpow (R : ℝ) ε := by
-            apply Real.rpow_le_rpow
-            · positivity
-            · exact_mod_cast hy1R
-            · linarith
+              Real.rpow (y + 1 : ℝ) ε ≤ Real.rpow (R : ℝ) ε :=
+            Real.rpow_le_rpow (by positivity) (by exact_mod_cast hy1R) (by linarith)
           have hfactor :
               Real.rpow (y + 1 : ℝ) (1 + ε) =
                 (y + 1 : ℝ) * Real.rpow (y + 1 : ℝ) ε := by
@@ -203,7 +211,7 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
               Real.rpow (y + 1 : ℝ) (1 + ε) =
                   Real.rpow (y + 1 : ℝ) 1 *
                     Real.rpow (y + 1 : ℝ) ε :=
-                Real.rpow_add (by positivity) 1 ε
+                Real.rpow_add (x := (y + 1 : ℝ)) (by positivity) 1 ε
               _ = (y + 1 : ℝ) * Real.rpow (y + 1 : ℝ) ε := by
                 rw [Real.rpow_one]
           rw [hfactor] at hiy
@@ -218,14 +226,9 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
             _ = (C * Real.rpow (R : ℝ) ε) * (y + 1 : ℝ) := by ring
         have hendpointInt := hamp R K hR2 hEnvelope
         let e : ℕ := squareRootEndpoint R
-        have heDef : e = R ^ 2 - 1 := rfl
         have heLe : e ≤ x := by
           dsimp [e, squareRootEndpoint]
           exact (Nat.sub_le _ _).trans hRsq
-        have heLt : e < x := by
-          have hRposNat : 0 < R := by omega
-          dsimp [e, squareRootEndpoint]
-          omega
         have hendpoint :
             shiftedMertensEnergy e ≤ A * (R : ℝ) ^ 2 * K := by
           rw [shiftedMertensEnergy_eq_intSquare]
@@ -239,23 +242,23 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
           exact_mod_cast (hRsq.trans (Nat.le_succ x))
         have htargetPow :
             Real.rpow ((R : ℝ) ^ 2) (1 + ε) ≤
-              Real.rpow (x + 1 : ℝ) (1 + ε) := by
-          apply Real.rpow_le_rpow
-          · positivity
-          · exact htargetBase
-          · linarith
+              Real.rpow (x + 1 : ℝ) (1 + ε) :=
+          Real.rpow_le_rpow (by positivity) htargetBase (by linarith)
         have hendpointTarget :
             2 * shiftedMertensEnergy e ≤
               (C / 2) * Real.rpow (x + 1 : ℝ) (1 + ε) := by
+          have hhalf : 2 * A ≤ Real.rpow (R : ℝ) ε / 2 := by linarith
+          let T : ℝ := C * (R : ℝ) ^ 2 * Real.rpow (R : ℝ) ε
+          have hT : 0 ≤ T := by
+            dsimp [T]
+            positivity
+          have hmul := mul_le_mul_of_nonneg_right hhalf hT
           have hscale :
               2 * (A * (R : ℝ) ^ 2 * K) ≤
                 (C / 2) *
                   ((R : ℝ) ^ 2 * (Real.rpow (R : ℝ) ε) ^ 2) := by
-            dsimp [K]
-            have hrp0 : 0 ≤ Real.rpow (R : ℝ) ε := Real.rpow_nonneg hRnonneg ε
-            have hrsq0 : 0 ≤ (R : ℝ) ^ 2 := sq_nonneg _
-            nlinarith [mul_nonneg hC hrsq0,
-              mul_nonneg (mul_nonneg hC hrsq0) hrp0]
+            dsimp [K, T] at hmul ⊢
+            convert hmul using 1 <;> ring
           calc
             2 * shiftedMertensEnergy e ≤ 2 * (A * (R : ℝ) ^ 2 * K) := by
               linarith
@@ -281,7 +284,8 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
           have hn : 0 ≤ ‖RHLean.Analysis.mertensSummatory x -
               RHLean.Analysis.mertensSummatory e‖ := norm_nonneg _
           have hR0real : 0 ≤ (R : ℝ) := by positivity
-          nlinarith
+          nlinarith [sq_nonneg (‖RHLean.Analysis.mertensSummatory x -
+            RHLean.Analysis.mertensSummatory e‖ - 3 * (R : ℝ))]
         have hbasePow :
             (x + 1 : ℝ) ≤ Real.rpow (x + 1 : ℝ) (1 + ε) := by
           have hbase : (1 : ℝ) ≤ (x + 1 : ℝ) := by positivity
@@ -293,8 +297,13 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
                 RHLean.Analysis.mertensSummatory e‖ ^ 2 ≤
               (C / 2) * Real.rpow (x + 1 : ℝ) (1 + ε) := by
           have hRtoX : (R : ℝ) ^ 2 ≤ (x + 1 : ℝ) := htargetBase
+          have hC2 : 18 ≤ C / 2 := by linarith
           have h18 : 18 * (R : ℝ) ^ 2 ≤ (C / 2) * (x + 1 : ℝ) := by
-            nlinarith
+            calc
+              18 * (R : ℝ) ^ 2 ≤ 18 * (x + 1 : ℝ) :=
+                mul_le_mul_of_nonneg_left hRtoX (by norm_num)
+              _ ≤ (C / 2) * (x + 1 : ℝ) :=
+                mul_le_mul_of_nonneg_right hC2 (by positivity)
           calc
             2 * ‖RHLean.Analysis.mertensSummatory x -
                 RHLean.Analysis.mertensSummatory e‖ ^ 2 ≤
@@ -339,13 +348,13 @@ theorem mertensEnergyBounded_of_squareRootEndpointAmplification
       1 ≤ Real.rpow (x + 1 : ℝ) (1 + ε) := by
     have hbase : (1 : ℝ) ≤ (x + 1 : ℝ) := by positivity
     have hexp : 0 ≤ 1 + ε := by linarith
-    simpa using Real.one_le_rpow hbase hexp
+    exact Real.one_le_rpow hbase hexp
   calc
     ‖RHLean.Analysis.mertensSummatory x‖ ^ 2 ≤
         2 * shiftedMertensEnergy x + 2 := by
       simpa [shiftedMertensEnergy] using hsq
     _ ≤ 2 * (C * Real.rpow (x + 1 : ℝ) (1 + ε)) + 2 := by
-      nlinarith [hshift x]
+      linarith [hshift x]
     _ ≤ (2 * C + 2) * Real.rpow (x + 1 : ℝ) (1 + ε) := by
       nlinarith
 
