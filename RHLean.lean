@@ -391,6 +391,7 @@ import RHLean.Proof.SquareBlockIncrementEnergy
 import RHLean.Proof.SquareBlockPartialMomentBalance
 import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockTransportBaseline
+import RHLean.Proof.SquareRootAmplificationClosure
 import RHLean.Proof.SquareRootAncestryExtensionWindows
 import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootAncestryRoot
