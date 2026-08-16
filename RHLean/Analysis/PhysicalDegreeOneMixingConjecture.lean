@@ -43,12 +43,6 @@ def physicalDegreeOneT (K : ℕ) : ℤ :=
 def physicalDegreeOneD (K : ℕ) : ℤ :=
   threeSlotTransitionDegreeOneDefect K
 
-/-- The initial physical degree-one cell has value `-1`. -/
-@[simp] theorem physicalDegreeOne_initial :
-    threeSlotDegreeOneValue (threeSlotState 0) = -1 := by
-  rw [threeSlotDegreeOneValue_threeSlotState]
-  norm_num
-
 /-- Exact integer pushforward:
 `M(4(K+1)) = g(X_0) + T(K) + D(K)`. -/
 theorem moebiusPositivePrefix_four_mul_succ_eq_physicalDegreeOne
@@ -78,11 +72,11 @@ appears in the theorem. -/
 theorem physicalDegreeOneT_eq_centeredTransitionDiscrepancy
     (K : ℕ) :
     ((physicalDegreeOneT K : ℤ) : ℝ) =
-      ∑ u in physicalThreeSlotNonzeroStates,
-        ∑ v in physicalThreeSlotNonzeroStates,
+      physicalThreeSlotNonzeroStates.sum (fun u =>
+        physicalThreeSlotNonzeroStates.sum (fun v =>
           (((physicalTransitionN K u v : ℕ) : ℝ) -
               ((physicalTransitionR K u : ℤ) : ℝ) / 8) *
-            ((threeSlotDegreeOneValue v : ℤ) : ℝ) := by
+            ((threeSlotDegreeOneValue v : ℤ) : ℝ))) := by
   norm_num [physicalThreeSlotNonzeroStates, physicalDegreeOneT,
     physicalTransitionN, physicalTransitionR, threeSlotTransitionCount,
     threeSlotTransitionDegreeOneMass, threeSlotTransitionMomentOn,
@@ -104,9 +98,14 @@ def PhysicalDegreeOneMixingConjecture : Prop :=
           C * Real.rpow (K : ℝ) ((1 : ℝ) / 2 + ε)
 
 private theorem physical_norm_intCast_complex_sq (z : ℤ) :
+    ‖((z : ℤ) : ℂ)‖ ^ 2 = ((z : ℤ) : ℝ) ^ 2 := by
+  calc
     ‖((z : ℤ) : ℂ)‖ ^ 2 = ((z * z : ℤ) : ℝ) := by
-  rw [Complex.sq_norm]
-  norm_num [Complex.normSq_apply]
+      rw [Complex.sq_norm]
+      norm_num [Complex.normSq_apply]
+    _ = ((z : ℤ) : ℝ) ^ 2 := by
+      push_cast
+      ring
 
 /-- The physical mixing conjecture implies the already kernel-checked
 three-slot degree-one energy criterion. -/
@@ -116,104 +115,123 @@ theorem threeSlotDegreeOneEnergy_of_physicalDegreeOneMixingConjecture
   intro ε hε
   have hεhalf : 0 < ε / 2 := by linarith
   rcases h (ε / 2) hεhalf with ⟨C, hC, hmix⟩
-  refine ⟨(C + 1) ^ 2, sq_nonneg _, ?_⟩
-  intro K
-  cases K with
-  | zero =>
-      norm_num [threeSlotWa, threeSlotWb, threeSlotWc]
-  | succ K =>
-      let a : ℝ := (1 : ℝ) / 2 + ε / 2
-      let R : ℝ := Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a
-      have ha : 0 < a := by
-        dsimp [a]
-        linarith
-      have hbase : 0 < (((K + 1) + 1 : ℕ) : ℝ) := by positivity
-      have hKle : (K : ℝ) ≤ (((K + 1) + 1 : ℕ) : ℝ) := by
-        exact_mod_cast (show K ≤ (K + 1) + 1 by omega)
-      have hscale : Real.rpow (K : ℝ) a ≤ R := by
-        dsimp [R]
-        exact Real.rpow_le_rpow (by positivity) hKle ha.le
-      have hone : (1 : ℝ) ≤ R := by
-        have hbaseone : (1 : ℝ) ≤ (((K + 1) + 1 : ℕ) : ℝ) := by
-          exact_mod_cast (show 1 ≤ (K + 1) + 1 by omega)
-        have hr := Real.rpow_le_rpow zero_le_one hbaseone ha.le
-        simpa [R, Real.one_rpow] using hr
-      have hmixK :
-          |((physicalDegreeOneT K : ℤ) : ℝ)| +
-              |((physicalDegreeOneD K : ℤ) : ℝ)| ≤ C * R := by
-        calc
-          |((physicalDegreeOneT K : ℤ) : ℝ)| +
-                |((physicalDegreeOneD K : ℤ) : ℝ)|
-              ≤ C * Real.rpow (K : ℝ) a := by
-                  simpa [a] using hmix K
-          _ ≤ C * R := mul_le_mul_of_nonneg_left hscale hC.le
-      have hdecomp :
-          threeSlotWa (K + 1) + threeSlotWb (K + 1) + threeSlotWc (K + 1) =
-            -1 + physicalDegreeOneT K + physicalDegreeOneD K := by
-        simpa [physicalDegreeOneT, physicalDegreeOneD] using
-          threeSlotCombinedDegreeOne_succ_eq_transitionMass_add_defect K
-      let w : ℝ :=
-        ((threeSlotWa (K + 1) + threeSlotWb (K + 1) +
-            threeSlotWc (K + 1) : ℤ) : ℝ)
-      have hwabs :
-          |w| ≤ 1 + |((physicalDegreeOneT K : ℤ) : ℝ)| +
-            |((physicalDegreeOneD K : ℤ) : ℝ)| := by
-        dsimp [w]
-        rw [hdecomp]
-        push_cast
-        calc
-          |(-1 : ℝ) + (physicalDegreeOneT K : ℝ) +
-                (physicalDegreeOneD K : ℝ)|
-              ≤ |(-1 : ℝ) + (physicalDegreeOneT K : ℝ)| +
-                  |(physicalDegreeOneD K : ℝ)| := abs_add _ _
-          _ ≤ (|(-1 : ℝ)| + |(physicalDegreeOneT K : ℝ)|) +
-                  |(physicalDegreeOneD K : ℝ)| := by
-                gcongr
-                exact abs_add _ _
-          _ = 1 + |((physicalDegreeOneT K : ℤ) : ℝ)| +
-                  |((physicalDegreeOneD K : ℤ) : ℝ)| := by norm_num
-      have hwlinear : |w| ≤ (C + 1) * R := by
-        calc
-          |w| ≤ 1 + |((physicalDegreeOneT K : ℤ) : ℝ)| +
-              |((physicalDegreeOneD K : ℤ) : ℝ)| := hwabs
-          _ ≤ 1 + C * R := by linarith
-          _ ≤ R + C * R := by linarith
-          _ = (C + 1) * R := by ring
-      have hCR : 0 ≤ (C + 1) * R := by
-        have hC1 : 0 ≤ C + 1 := by linarith
-        have hR : 0 ≤ R := by
+  let G : ℝ :=
+    |((threeSlotDegreeOneValue (threeSlotState 0) : ℤ) : ℝ)|
+  have hG : 0 ≤ G := by
+    dsimp [G]
+    exact abs_nonneg _
+  refine ⟨(C + G) ^ 2, ?_, ?_⟩
+  · positivity
+  · intro K
+    cases K with
+    | zero =>
+        norm_num [threeSlotWa, threeSlotWb, threeSlotWc]
+    | succ K =>
+        let a : ℝ := (1 : ℝ) / 2 + ε / 2
+        let R : ℝ := Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a
+        have ha : 0 < a := by
+          dsimp [a]
+          linarith
+        have hbase : 0 < (((K + 1) + 1 : ℕ) : ℝ) := by positivity
+        have hKle : (K : ℝ) ≤ (((K + 1) + 1 : ℕ) : ℝ) := by
+          exact_mod_cast (show K ≤ (K + 1) + 1 by omega)
+        have hscale : Real.rpow (K : ℝ) a ≤ R := by
           dsimp [R]
-          exact Real.rpow_nonneg hbase.le a
-        positivity
-      have hwabs0 : 0 ≤ |w| := abs_nonneg w
-      have habssq : |w| ^ 2 = w ^ 2 := by
-        simpa using (sq_abs w)
-      have hwsq : w ^ 2 ≤ ((C + 1) * R) ^ 2 := by
-        nlinarith
-      have hRpow : R ^ 2 =
-          Real.rpow (((K + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
-        dsimp [R]
+          exact Real.rpow_le_rpow (by positivity) hKle ha.le
+        have hone : (1 : ℝ) ≤ R := by
+          have hbaseone : (1 : ℝ) ≤ (((K + 1) + 1 : ℕ) : ℝ) := by
+            exact_mod_cast (show 1 ≤ (K + 1) + 1 by omega)
+          have hr := Real.rpow_le_rpow zero_le_one hbaseone ha.le
+          simpa [R, Real.one_rpow] using hr
+        have hmixK :
+            |((physicalDegreeOneT K : ℤ) : ℝ)| +
+                |((physicalDegreeOneD K : ℤ) : ℝ)| ≤ C * R := by
+          calc
+            |((physicalDegreeOneT K : ℤ) : ℝ)| +
+                  |((physicalDegreeOneD K : ℤ) : ℝ)|
+                ≤ C * Real.rpow (K : ℝ) a := by
+                    simpa [a] using hmix K
+            _ ≤ C * R := mul_le_mul_of_nonneg_left hscale hC.le
+        have hdecomp :
+            threeSlotWa (K + 1) + threeSlotWb (K + 1) +
+                threeSlotWc (K + 1) =
+              threeSlotDegreeOneValue (threeSlotState 0) +
+                physicalDegreeOneT K + physicalDegreeOneD K := by
+          simpa [physicalDegreeOneT, physicalDegreeOneD] using
+            threeSlotCombinedDegreeOne_succ_eq_transitionMass_add_defect K
+        let w : ℝ :=
+          ((threeSlotWa (K + 1) + threeSlotWb (K + 1) +
+              threeSlotWc (K + 1) : ℤ) : ℝ)
+        have hwabs :
+            |w| ≤ G + |((physicalDegreeOneT K : ℤ) : ℝ)| +
+              |((physicalDegreeOneD K : ℤ) : ℝ)| := by
+          dsimp [w, G]
+          rw [hdecomp]
+          push_cast
+          have htri :
+              ‖((threeSlotDegreeOneValue (threeSlotState 0) : ℤ) : ℝ) +
+                    (physicalDegreeOneT K : ℝ) +
+                    (physicalDegreeOneD K : ℝ)‖ ≤
+                ‖((threeSlotDegreeOneValue (threeSlotState 0) : ℤ) : ℝ)‖ +
+                  ‖(physicalDegreeOneT K : ℝ)‖ +
+                  ‖(physicalDegreeOneD K : ℝ)‖ := by
+            calc
+              ‖((threeSlotDegreeOneValue (threeSlotState 0) : ℤ) : ℝ) +
+                    (physicalDegreeOneT K : ℝ) +
+                    (physicalDegreeOneD K : ℝ)‖
+                  ≤ ‖((threeSlotDegreeOneValue (threeSlotState 0) : ℤ) : ℝ) +
+                        (physicalDegreeOneT K : ℝ)‖ +
+                      ‖(physicalDegreeOneD K : ℝ)‖ := norm_add_le _ _
+              _ ≤ (‖((threeSlotDegreeOneValue (threeSlotState 0) : ℤ) : ℝ)‖ +
+                        ‖(physicalDegreeOneT K : ℝ)‖) +
+                      ‖(physicalDegreeOneD K : ℝ)‖ := by
+                    gcongr
+                    exact norm_add_le _ _
+          simpa [Real.norm_eq_abs] using htri
+        have hGR : G ≤ G * R := by
+          have := mul_le_mul_of_nonneg_left hone hG
+          simpa using this
+        have hwlinear : |w| ≤ (C + G) * R := by
+          calc
+            |w| ≤ G + |((physicalDegreeOneT K : ℤ) : ℝ)| +
+                |((physicalDegreeOneD K : ℤ) : ℝ)| := hwabs
+            _ ≤ G + C * R := by linarith
+            _ ≤ G * R + C * R := by linarith
+            _ = (C + G) * R := by ring
+        have hCR : 0 ≤ (C + G) * R := by
+          have hCG : 0 ≤ C + G := by linarith
+          have hR : 0 ≤ R := by
+            dsimp [R]
+            exact Real.rpow_nonneg hbase.le a
+          positivity
+        have hwabs0 : 0 ≤ |w| := abs_nonneg w
+        have habssq : |w| ^ 2 = w ^ 2 := by
+          simpa using (sq_abs w)
+        have hwsq : w ^ 2 ≤ ((C + G) * R) ^ 2 := by
+          nlinarith
+        have hRpow : R ^ 2 =
+            Real.rpow (((K + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
+          dsimp [R]
+          calc
+            Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a ^ 2 =
+                Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a *
+                  Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a := by ring
+            _ = Real.rpow (((K + 1) + 1 : ℕ) : ℝ) (a + a) :=
+                  (Real.rpow_add hbase a a).symm
+            _ = Real.rpow (((K + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
+                  congr 1
+                  dsimp [a]
+                  ring
+        rw [physical_norm_intCast_complex_sq]
         calc
-          Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a ^ 2 =
-              Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a *
-                Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a := by ring
-          _ = Real.rpow (((K + 1) + 1 : ℕ) : ℝ) (a + a) := by
-                rw [Real.rpow_add hbase]
-          _ = Real.rpow (((K + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
-                congr 1
-                dsimp [a]
-                ring
-      rw [physical_norm_intCast_complex_sq]
-      push_cast
-      calc
-        ((threeSlotWa (K + 1) + threeSlotWb (K + 1) +
-              threeSlotWc (K + 1) : ℤ) : ℝ) ^ 2
-            = w ^ 2 := by rfl
-        _ ≤ ((C + 1) * R) ^ 2 := hwsq
-        _ = (C + 1) ^ 2 *
-              Real.rpow (((K + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
-                rw [hRpow]
-                ring
+          ((threeSlotWa (K + 1) + threeSlotWb (K + 1) +
+                threeSlotWc (K + 1) : ℤ) : ℝ) ^ 2
+              = w ^ 2 := by rfl
+          _ ≤ ((C + G) * R) ^ 2 := hwsq
+          _ = (C + G) ^ 2 * R ^ 2 := by ring
+          _ = (C + G) ^ 2 *
+                Real.rpow (((K + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
+                  rw [hRpow]
 
 /-- **Terminal closure.**  The physical degree-one mixing conjecture alone is
 sufficient for the Riemann Hypothesis through the existing protected
