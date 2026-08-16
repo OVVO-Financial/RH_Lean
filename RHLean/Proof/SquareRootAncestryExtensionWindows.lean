@@ -40,15 +40,17 @@ theorem canonicalSmoothPrimeExtension_childData
   have hap : Nat.Coprime a p := hpmax.coprime.symm
   have hsqAP : Squarefree (a * p) :=
     (Nat.squarefree_mul hap).2 ⟨hsqA, hpmax.prime.squarefree⟩
+  have hqdiv : q ∣ q * a := ⟨a, rfl⟩
   have hqcopP : Nat.Coprime q p := by
     have hpcopQ : Nat.Coprime p q :=
-      hpcopParent.coprime_dvd_right (by
-        exact ⟨1, by simp⟩)
+      hpcopParent.coprime_dvd_right hqdiv
     exact hpcopQ.symm
   have hqcopAP : Nat.Coprime q (a * p) :=
     Nat.Coprime.mul_right hqcopA hqcopP
-  refine ⟨hq, Nat.mul_pos (by omega) hpmax.prime.pos |>.le,
-    hsqAP, hqcopAP, ?_⟩
+  have hap1 : 1 ≤ a * p := by
+    have ha0 : 0 < a := by omega
+    exact Nat.mul_pos ha0 hpmax.prime.pos
+  refine ⟨hq, hap1, hsqAP, hqcopAP, ?_⟩
   intro r hr hrap
   rcases hr.dvd_mul.mp hrap with hra | hrp
   · exact hdomQ r hr hra
