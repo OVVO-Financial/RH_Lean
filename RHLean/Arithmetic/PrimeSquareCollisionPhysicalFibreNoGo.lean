@@ -48,8 +48,8 @@ theorem square_hit_of_localPrimeExponentState_eq_two
     (hstate : localPrimeExponentState p n = 2) :
     p ^ 2 ∣ n := by
   by_contra hsq
-  unfold localPrimeExponentState at hstate
-  simp [hsq] at hstate
+  by_cases hp : p ∣ n <;>
+    simp [localPrimeExponentState, hsq, hp] at hstate
 
 /-- A literal adjacent-cell continuation of the square-hit site itself cannot
 implement `primeCombExponentFlip` for any selected prime `p >= 7`. -/
@@ -66,7 +66,7 @@ theorem adjacent_threeSlot_exponentFlip_impossible_of_square_hit
       p k i j hp hi hj hsq
   rw [localPrimeExponentState_eq_zero_of_not_dvd p _ hnext,
     localPrimeExponentState_eq_two_of_square_hit p _ hsq]
-  simp [primeCombExponentFlip]
+  native_decide
 
 /-- Physical support consisting of the three current active sites and the three
 active sites in the immediately following four-cell. -/
@@ -88,18 +88,18 @@ theorem adjacent_threeSlot_exponentState_ne_one_of_square_hit
     by_cases hij : i = j
     · subst j
       rw [localPrimeExponentState_eq_two_of_square_hit p _ hsq]
-      norm_num
+      native_decide
     · have hmiss : ¬ p ∣ threeSlotValue k j :=
         prime_not_dvd_other_threeSlotValue_of_square_hit
           p k i j (by omega) hi hj hij hsq
       rw [localPrimeExponentState_eq_zero_of_not_dvd p _ hmiss]
-      norm_num
+      native_decide
   · subst n
     have hmiss : ¬ p ∣ threeSlotValue (k + 1) j :=
       prime_not_dvd_next_threeSlotValue_of_square_hit
         p k i j hp hi hj hsq
     rw [localPrimeExponentState_eq_zero_of_not_dvd p _ hmiss]
-    norm_num
+    native_decide
 
 /-- **Adjacent two-cell flip no-go.**  If two sites both lie in the literal
 current/next-cell physical support and nevertheless satisfy the required
@@ -123,12 +123,24 @@ theorem adjacent_threeSlot_exponentFlip_forces_square_hits
     adjacent_threeSlot_exponentState_ne_one_of_square_hit
       p k i m hp hi hsq hm
   have hn2 : localPrimeExponentState p n = 2 := by
-    fin_cases hstate : localPrimeExponentState p n
-    · have hmstate : localPrimeExponentState p m = 1 := by
-        simpa [hstate, primeCombExponentFlip] using hflip
-      exact (hm1 hmstate).elim
-    · exact (hn1 hstate).elim
-    · exact hstate
+    by_contra hn2
+    have hn0 : localPrimeExponentState p n = 0 := by
+      apply Fin.ext
+      have hlt := (localPrimeExponentState p n).isLt
+      have hne1v : (localPrimeExponentState p n).val ≠ 1 := by
+        intro hv
+        apply hn1
+        apply Fin.ext
+        exact hv
+      have hne2v : (localPrimeExponentState p n).val ≠ 2 := by
+        intro hv
+        apply hn2
+        apply Fin.ext
+        exact hv
+      omega
+    have hmstate : localPrimeExponentState p m = 1 := by
+      simpa [hn0, primeCombExponentFlip] using hflip
+    exact hm1 hmstate
   have hm2 : localPrimeExponentState p m = 2 := by
     simpa [hn2, primeCombExponentFlip] using hflip
   exact ⟨
