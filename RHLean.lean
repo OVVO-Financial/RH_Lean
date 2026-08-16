@@ -123,6 +123,7 @@ import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PRoughSquarePrefixEnergy
+import RHLean.Analysis.PhysicalDegreeOneMixingConjecture
 import RHLean.Analysis.PrimeAveragedCubeEnergy
 import RHLean.Analysis.PrimeBoundaryCollisionQuotientNoGo
 import RHLean.Analysis.PrimeBoundaryDefectBridge
