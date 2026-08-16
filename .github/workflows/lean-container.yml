@@ -69,6 +69,14 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    # Inside a container the runner resolved the default shell to `sh -e {0}`,
+    # which is dash, so every step opening with `set -euo pipefail` died on
+    # line one with "Illegal option -o pipefail" -- including the step that
+    # links Mathlib into the workspace, which therefore failed before it ever
+    # checked whether Mathlib was there.  Ask for bash explicitly.
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
