@@ -642,3 +642,100 @@ region of the critical strip needs `1/zeta` controlled. That is a finite,
 well-defined task, and it converts "muRho is hard" into an exact statement of
 *which* input it requires. The expected answer is `sigma > 1/2`, i.e. RH itself;
 if so, that should be recorded as an equivalence rather than pursued as a lemma.
+
+---
+
+# Before the Mellin computation: does muRho satisfy the bound at all?
+
+Diagnostic: `experiments/mu_rho_prefix_scaling.py`.
+
+The proposed registry entry is `muRho RH-scale <-> RH`. A biconditional needs
+its left side to be *true*. It appears not to be.
+
+## The heuristic
+
+On the balanced region the `v`-window attached to a given `u` has length about
+`(2R+1)/u ~ 2` for `u ~ R`, so
+
+```text
+muRho block sum  ~  -(2 / log N) * sum_{u ~ R} mu(u) w(u),   w smooth, O(1)
+```
+
+Each block sum is a Mertens-type sum over `u ~ R` divided by `log N`, of
+expected size `sqrt(N)/log N`. Consecutive blocks overlap heavily in `u`, so
+prefixes accumulate rather than cancel, giving
+`P_j ~ j sqrt(N)/log N` and `E_loc/N^3 ~ N/log^2 N` -- growing.
+
+## The measurement agrees
+
+| N | max\|P_j\| muRho | /N | /(N^1.5/log N) | E/N^3 muRho | max\|P_j\| Delta | E/N^3 Delta |
+|---|---|---|---|---|---|---|
+| 256 | 105.1 | 0.410 | 0.1422 | 0.04573 | 168.0 | 0.05249 |
+| 512 | 215.1 | 0.420 | 0.1158 | 0.06391 | 355.0 | 0.07378 |
+| 1,024 | 697.4 | 0.681 | 0.1475 | 0.07337 | 927.0 | 0.12173 |
+| 2,048 | 1,857.0 | 0.907 | 0.1528 | 0.13388 | 1,628.0 | 0.07797 |
+
+The discriminating comparison is the two normalizations. Against `N`, muRho's
+prefix ratio grows by 2.21x across the range. Against `N^{1.5}/log N` it is flat
+to within 8% (0.142, 0.116, 0.148, 0.153) -- and `N^{0.5}/log N` grows by 2.05x
+over the same range, matching the 2.21x almost exactly.
+
+So `max|P_j|` for muRho tracks `0.14 * N^{1.5} / log N`, not `N^{1+eps}`. The
+control behaves differently: `Delta`'s prefix ratio to `N` stays in
+`0.66 - 0.91` with no trend.
+
+## Consequence
+
+`E_loc(muRho) << H N^{2+eps}` is **false**, not merely hard. muRho satisfies no
+RH-scale bound in isolation; it can only be bounded together with the pieces it
+cancels against (`rhoRho`, `rhoE`, and the extreme sector).
+
+Therefore:
+
+* **Do not register `muRho RH-scale <-> RH`.** The left side is false, so the
+  biconditional would assert `not RH`.
+* **Do not compute the Mellin transform of `G_N` yet.** It would be the
+  transform of an object that has no such bound; the contour argument would be
+  answering a question whose premise fails.
+* The one-way statement that survives is about the **coherent side as a whole**,
+  which does track `Delta` empirically.
+
+## The pattern this makes explicit
+
+This is the same failure mode for the fourth time in this thread, now at the
+finest resolution reached:
+
+```text
+balanced vs extreme     pieces ~2689,  total ~0.076,  corr -0.999986
+C vs G (5-term)         pieces ~0.4,   total ~0.076,  corr -0.969
+C* vs G* (rebalanced)   C* ~1% of total, G* IS the total
+inside G*               muRho ~ N^1.5/log N, rhoRho ~ 318, total flat
+```
+
+Every natural additive decomposition of the square-block residual produces
+pieces that individually violate the RH-scale budget and only satisfy it in
+combination. The Type-II core is the single exception, and it is 1.4% of the
+mass.
+
+That regularity is itself the most stable finding in this investigation, and it
+is worth stating as a target in its own right: **is there any additive
+decomposition of `Delta_R` into two or more pieces, each individually at RH
+scale, that is not trivial?** The evidence here says no for every split tried.
+A no-go theorem on decomposition families would explain the recurrence far
+better than another coordinate change, and unlike the routes above it is a
+statement the architecture could actually prove.
+
+## Two notes on the proposed Lean statement
+
+`1 / riemannZeta s ≠ 0` does say `riemannZeta s ≠ 0` in Mathlib, but only
+through the junk-value convention (`inv_eq_zero`); state it directly. It also
+needs `s ≠ 1` excluded, since `zeta` has its pole there.
+
+More importantly, the repository already carries the equivalence machinery:
+`ClassicalMertensRHCriterion` is a structure holding
+`MertensEnergyBoundedStatement <-> RiemannHypothesisStatement` as an assumed
+input. The idiom for registering any RH-scale equivalence here is to route the
+statement to `MertensEnergyBoundedStatement` and invoke that criterion -- no new
+Mellin or zeta-continuation layer is needed, and no contour shift has to be
+formalized. The Mellin route would only be needed to *prove* the classical
+criterion, which this repository has deliberately never attempted.
