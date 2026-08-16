@@ -78,11 +78,10 @@ private theorem physicalTransitionRow_centered
         (((physicalTransitionN K u v : ℕ) : ℝ) -
             ((physicalTransitionR K u : ℤ) : ℝ) / 8) *
           ((threeSlotDegreeOneValue v : ℤ) : ℝ)) := by
-  norm_num [physicalNonzeroStateSum, physicalTransitionN,
+  (norm_num [physicalNonzeroStateSum, physicalTransitionN,
     physicalTransitionR, threeSlotTransitionCount,
     threeSlotTransitionMomentOn, threeSlotTransitionRowTotalOn,
-    threeSlotDegreeOneValue, chiA, chiB, chiC]
-  <;> ring
+    threeSlotDegreeOneValue, chiA, chiB, chiC]; ring)
 
 /-- The transition mass is exactly the sum of its eight nonzero source rows. -/
 private theorem physicalDegreeOneT_real_eq_rowSum (K : ℕ) :
@@ -92,7 +91,6 @@ private theorem physicalDegreeOneT_real_eq_rowSum (K : ℕ) :
             (Finset.range K) u threeSlotDegreeOneValue : ℤ) : ℝ)) := by
   norm_num [physicalNonzeroStateSum, physicalDegreeOneT,
     threeSlotTransitionDegreeOneMass]
-  <;> ring
 
 /-- **Exact row-centering identity.**  After casting to `ℝ`, the raw degree-one
 transition mass is exactly
@@ -111,6 +109,7 @@ theorem physicalDegreeOneT_eq_centeredTransitionDiscrepancy
             ((threeSlotDegreeOneValue v : ℤ) : ℝ))) := by
   rw [physicalDegreeOneT_real_eq_rowSum]
   unfold physicalNonzeroStateSum
+  simp only
   rw [physicalTransitionRow_centered K 0,
     physicalTransitionRow_centered K 2,
     physicalTransitionRow_centered K 6,
@@ -244,7 +243,7 @@ theorem threeSlotDegreeOneEnergy_of_physicalDegreeOneMixingConjecture
           positivity
         have hwabs0 : 0 ≤ |w| := abs_nonneg w
         have habssq : |w| ^ 2 = w ^ 2 := by
-          simpa using (sq_abs w)
+          exact sq_abs w
         have hwsq : w ^ 2 ≤ ((C + G) * R) ^ 2 := by
           nlinarith
         have hRpow : R ^ 2 =
