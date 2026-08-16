@@ -138,12 +138,19 @@ private theorem no_physicalSquarePrimeAtEdge_iff_squarefree
     rcases hex with ⟨p, hp, a, ha, hsq⟩
     exact (Nat.squarefree_iff_prime_squarefree.mp (h a ha) p hp) hsq
 
+private theorem tritSign_ne_zero_iff_val_ne_one (t : Fin 3) :
+    tritSign t ≠ 0 ↔ t.1 ≠ 1 := by
+  unfold tritSign
+  omega
+
 private theorem encodeThreeTrits_mem_physicalNonzero_iff
     (a b c : Fin 3) :
     encodeThreeTrits a b c ∈ physicalThreeSlotNonzeroStates ↔
       tritSign a ≠ 0 ∧ tritSign b ≠ 0 ∧ tritSign c ≠ 0 := by
-  fin_cases a <;> fin_cases b <;> fin_cases c <;>
-    norm_num [physicalThreeSlotNonzeroStates, encodeThreeTrits, tritSign]
+  simp only [tritSign_ne_zero_iff_val_ne_one]
+  simp only [physicalThreeSlotNonzeroStates, Finset.mem_insert,
+    Finset.mem_singleton, Fin.ext_iff, encodeThreeTrits]
+  omega
 
 private theorem threeSlotState_mem_physicalNonzero_iff
     (k : ℕ) :
