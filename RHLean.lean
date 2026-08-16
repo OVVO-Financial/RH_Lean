@@ -123,6 +123,7 @@ import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PRoughSquarePrefixEnergy
 import RHLean.Analysis.PrimeAveragedCubeEnergy
+import RHLean.Analysis.PrimeBoundaryCollisionQuotientNoGo
 import RHLean.Analysis.PrimeBoundaryDefectBridge
 import RHLean.Analysis.PrimeDilateCofactorPrimeWindows
 import RHLean.Analysis.PrimeDilateTransportCompression
@@ -254,6 +255,7 @@ import RHLean.Arithmetic.PrimeSquareCollisionCRT
 import RHLean.Arithmetic.PrimeSquareCollisionInvolution
 import RHLean.Arithmetic.PrimeSquareCollisionKernel
 import RHLean.Arithmetic.PrimeSquareCollisionPairingFrontier
+import RHLean.Arithmetic.PrimeSquareCollisionPhysicalFibreNoGo
 import RHLean.Arithmetic.PrimeSquareCollisionPrefix
 import RHLean.Arithmetic.PrimeSquareMod24
 import RHLean.Arithmetic.PrimeSquareMod40
