@@ -244,3 +244,143 @@ exists f, ||f|| = 1 and Esc_{X,ell}(f) = 0          (so no delta > 0 coercivity)
 
 The `sigma_max = 1` statement is the one worth having in Lean, because it closes
 the whole family rather than one construction.
+
+---
+
+# Follow-up: the reported degree-one gap, the R-2H ratio, and the bilinear opening
+
+Three further measurements, prompted by follow-up experiments.
+
+## The degree-one Walsh sigma ~ 0.283 is sign algebra, not geometry
+
+Diagnostic: `experiments/walsh_degree_one_average.py`, which reproduces the
+reported value independently (0.28332 against 0.283, and 0.08839 for the (3,5)
+average).
+
+On squarefree support write `chi_p(n) = -1` if `p | n`, else `+1`. Then
+`chi_p(U_p n) = -chi_p(n)` and `chi_q(U_p n) = +chi_q(n)` for `q != p`, so each
+toggle negates exactly its own coordinate on the degree-one span. Averaging `k`
+toggles over the span of the same `k` characters therefore gives
+`((k-2)/k) * I`:
+
+```text
+k = 3, toggles {2,3,5}  ->  1/3 = 0.3333    (reported 0.283)
+k = 2, toggles {3,5}    ->  0               (reported 0.08 - 0.12)
+```
+
+Measured on the *interior* -- the states whose complete toggle cube lies inside
+the window, where the physical projection is inert -- the value is 0.33333 and
+0.00000 to five places. The window moves 0.3333 to 0.2833: a 15% effect.
+
+So the gap is ~85% pure linear algebra, holds on any space, and does not depend
+on `t`. That is why it looked "strikingly stable" across `t = 64 ... 2048`:
+genuine arithmetic quantities do not behave that way. And an average of toggles
+is not a transport -- no identity connects `(U_2+U_3+U_5)/3` back to `M(X)`, so
+contracting it contracts nothing that is needed. The `k = 2` case makes this
+plain: it achieves `sigma = 0`, a perfect gap, and proves nothing at all.
+
+## The R-2H amplitude ratio is a measurement of M(X), not a mechanism
+
+`PrimeWheelThreeSlotRecovery.lean` proves `raw - 2*smooth = mu` pointwise, hence
+`R - 2H = M` exactly. Everything else follows from that identity plus the
+relative sizes:
+
+* `1 - cos(R, 2H) ~ (1/2)|R-2H|^2 / |R|^2`, so `cos = 0.9999894` and the
+  amplitude ratio `rho_R ~ 0.003` are the same measurement reported twice;
+* both are forced by `|M(X)| << |R(X)|`, i.e. by the Prime Number Theorem. They
+  are not evidence at the square-root scale.
+
+Diagnostic: `experiments/three_slot_smooth_core_scale.py`, which reproduces the
+note's `x = 10^7` values (`R - 2H = (459, 468, 110)`, total `1037 = M(10^7)`).
+
+The number that decides the route is the size of the channels themselves:
+
+| X | \|sum H_j\| | sqrt(X) | \|H\|/sqrt(X) |
+|---|---|---|---|
+| 10^4 | 125 | 100 | 1.25 |
+| 10^5 | 919 | 316 | 2.91 |
+| 10^6 | 6,356 | 1,000 | 6.36 |
+| 10^7 | 47,293 | 3,162 | 14.96 |
+
+`|H|/sqrt(X)` grows by a steady factor of ~2.3 per decade, giving a local
+log-log slope of ~0.86 with no sign of levelling. So `M = R - 2H` writes a
+target of size `X^0.5` as the difference of two channels of size `X^0.86`, and
+`rho_R ~ X^{0.5-0.86} ~ 0.003` at `X = 10^7` is exactly that exponent gap --
+which is why the ratio *improves* with `X`. A shrinking `rho_R` is the channels
+growing away from the target, not a contraction.
+
+Getting `M` out of this decomposition needs `R` and `2H` to relative precision
+`X^-0.36`, finer than the channels' own scale; and `|H| <= X^{1/2+eps}` is
+itself a Moebius sum over smooth numbers, no easier than the Mertens bound
+sought.
+
+## The bilinear (c,q) opening: right diagnosis, and the precise obstruction
+
+The Type I / Type II reading is correct and is a real improvement on the
+low/high framing. `TwoABPrimeDilation.lean` and
+`PrimeDilateCofactorPrimeWindows.lean` do supply the exact cofactor-first
+reindexing with the reciprocal window and the PNT-centered discrepancy, as
+described.
+
+Diagnostic: `experiments/cofactor_prime_bilinear_cost.py`, with
+`D(c) = primeCount(W(c)) - singletonLiMass(W(c))` and
+`B = sum_{c<R, p!|c} mu(c) D(c)`:
+
+| R | X | S_signed | S_abs | S_abs/R |
+|---|---|---|---|---|
+| 800 | 639,999 | 19.2 | 870.7 | 1.09 |
+| 1,600 | 2,559,999 | -166.5 | 2,506.6 | 1.57 |
+| 3,200 | 10,239,999 | -587.1 | 5,931.4 | 1.85 |
+| 4,400 | 19,359,999 | 701.5 | 9,797.9 | 2.23 |
+
+**The good news is real:** `S_signed` stays at or below the square-root target
+at every scale, roughly an order of magnitude below `S_abs`. The reindexing does
+not destroy the cancellation -- unlike the toggle routes, this decomposition
+keeps the signed object at the right scale.
+
+**The obstruction is the kernel.** `K(c,q) = 1[q in W(c)]` is nonnegative, and
+for any nonnegative kernel
+
+```text
+sup_{|alpha_c| <= 1, |beta_q| <= 1} |sum_{c,q} alpha_c beta_q K(c,q)| = sum K,
+```
+
+attained at `alpha = beta = 1`. So no bound beating the trivial one holds for
+general bounded coefficients. Concretely, Cauchy-Schwarz over `c` produces the
+off-diagonal correlations `sum_c K(c,q1) K(c,q2) = #{c <= X/max(q1,q2)}`, which
+for `q1, q2 ~ Q` is the same size as the diagonal: **zero Type II saving**.
+Bilinear savings come from an *oscillating* kernel -- `e(alpha mn)`, `chi(mn)`,
+`(mn)^{-it}` -- which is what Vinogradov/Vaughan exploit and what a hyperbola
+indicator does not provide. Centering `beta` makes the coefficient signed but
+leaves the kernel nonnegative, and collapses the `q`-sum to one number per `c`,
+returning a Type I sum.
+
+`S_abs` grows like `R^1.313` in the tested range (`R^1.5 = X^0.75` predicted
+asymptotically under RH), against the `R^1.0` target. So any step taking
+absolute values inside the `c`-sum fails by `X^0.157` already, and by `X^0.25`
+asymptotically.
+
+## Where that leaves the two bilinearizations
+
+The `c x q` factor side has a nonnegative kernel and therefore no Type II
+content on its own. The `r x s` spectral side of `FiniteTorusFourierPairing` is
+the more promising of the two precisely because its kernel *does* oscillate
+(incomplete quadratic Gauss sums `G_I(r-s)`). But that is also where classical
+analytic number theory already operates, and unconditionally it reaches
+`X exp(-c (log X)^{3/5})`, not `X^{1/2+eps}`; the remaining distance is
+zero-density input, not bookkeeping.
+
+**The single cheap experiment that decides the r x s route** is off-diagonal
+decay of the quadratic kernel: measure
+
+```text
+G_I(r - s) / sqrt(G_I(0) G_I(0))
+```
+
+over the physical interval `I` and the wheel modulus `Q`. If it decays like
+`|r-s|^{-1/2}` (square-root Gauss-sum cancellation) across the relevant range,
+a large-sieve saving is available and the route is worth building. If it stays
+`O(1)` off-diagonal -- as the hyperbola kernel does -- the second
+bilinearization is closed for the same reason as the first, and the honest
+conclusion is that the architecture needs analytic input it does not currently
+contain.
