@@ -101,8 +101,14 @@ theorem no_literalSquarePrefixCollisionDefectQuotient_of_ne_zero
 /-- The first nontrivial square prefix is already nonzero. -/
 theorem squarePrefixMertens_one_eq_neg_one :
     squarePrefixMertens 1 = -1 := by
-  norm_num [squarePrefixMertens, squarePrefixEndpoint, mertensSummatory,
-    ArithmeticFunction.moebius_apply_prime]
+  change mertensSummatory 3 = -1
+  rw [mertensSummatory_succ 2, mertensSummatory_succ 1,
+    mertensSummatory_succ 0, mertensSummatory_zero]
+  have hmu2 : μ 2 = -1 :=
+    ArithmeticFunction.moebius_apply_prime Nat.prime_two
+  have hmu3 : μ 3 = -1 :=
+    ArithmeticFunction.moebius_apply_prime (by norm_num)
+  norm_num [hmu2, hmu3]
 
 /-- Concrete no-go witness for the current literal collision-site coordinates. -/
 theorem no_literalSquarePrefixCollisionDefectQuotient_at_one :
