@@ -283,7 +283,7 @@ def threeSlotNonzeroStates : Finset (Fin 27) :=
 
 @[simp] theorem card_threeSlotNonzeroStates :
     threeSlotNonzeroStates.card = 8 := by
-  norm_num [threeSlotNonzeroStates]
+  norm_num [threeSlotNonzeroStates, Finset.card_insert_of_not_mem]
 
 /-- Combined degree-one observable seen by Mertens. -/
 def threeSlotDegreeOneValue (i : Fin 27) : ℤ :=
@@ -337,20 +337,23 @@ def threeSlotNonzeroCharacterMass (χ : Fin 27 → ℤ) : ℤ :=
 
 @[simp] theorem threeSlotNonzeroCharacterMass_chiA :
     threeSlotNonzeroCharacterMass chiA = 0 := by
-  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates, chiA]
+  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates,
+    Finset.sum_insert, chiA]
 
 @[simp] theorem threeSlotNonzeroCharacterMass_chiB :
     threeSlotNonzeroCharacterMass chiB = 0 := by
-  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates, chiB]
+  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates,
+    Finset.sum_insert, chiB]
 
 @[simp] theorem threeSlotNonzeroCharacterMass_chiC :
     threeSlotNonzeroCharacterMass chiC = 0 := by
-  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates, chiC]
+  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates,
+    Finset.sum_insert, chiC]
 
 @[simp] theorem threeSlotNonzeroCharacterMass_degreeOne :
     threeSlotNonzeroCharacterMass threeSlotDegreeOneValue = 0 := by
   norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates,
-    threeSlotDegreeOneValue, chiA, chiB, chiC]
+    Finset.sum_insert, threeSlotDegreeOneValue, chiA, chiB, chiC]
 
 /-- Degree-one transition moment of one source row, tested only against the
 all-nonzero destination sector. -/
