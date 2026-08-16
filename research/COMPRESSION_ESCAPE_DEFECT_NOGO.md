@@ -476,3 +476,100 @@ If both columns flatten, the pair of obligations is the right target and
 `N^0.4`, then `E_loc(C) << H N^{2+eps}` is false as stated and the split needs
 rebalancing before it is formalized -- the algebra would still be correct, but
 the division of labour between `C` and `G` would be wrong.
+
+---
+
+# Follow-up: where the energy actually sits after rebalancing
+
+Diagnostic: `experiments/balanced_piece_energy_allocation.py`, on the
+repository's exact balanced region `0 < d < u` (so `n = u*v` with `u < v < 2u`),
+`rho(q) = Li(q) - Li(q-1)`, `e(q) = 1_P(q) - rho(q)`.
+
+## Independent confirmation of the rebalanced Type-II core
+
+The five-piece split of the canonical coefficient:
+
+```text
+beta = mu_e + e_e + rho_e + mu_rho + rho_rho
+```
+
+Translated-prefix energies, normalized by `H N^2` with `H = N`:
+
+| N | mu_e | e_e | rho_e | mu_rho | rho_rho | TypeII | Delta |
+|---|---|---|---|---|---|---|---|
+| 256 | 0.00514 | 0.00133 | 0.11005 | 0.04573 | 16.76404 | 0.00207 | 0.05249 |
+| 512 | 0.00332 | 0.00096 | 0.06820 | 0.06391 | 42.89564 | 0.00154 | 0.07378 |
+| 1,024 | 0.00245 | 0.00075 | 0.11835 | 0.07337 | 114.80420 | 0.00133 | 0.12173 |
+| 2,048 | 0.00211 | 0.00065 | 0.20031 | 0.13388 | 318.75020 | 0.00108 | 0.07797 |
+
+The `TypeII = mu_e + e_e` column reproduces the reported `C*` to five decimal
+places at every `N` (0.00207, 0.00154, 0.00133, 0.00108). The balanced region
+and the computation agree exactly.
+
+Fitted exponents (4 points, diagnostics only):
+
+```text
+mu_e  N^-0.429   e_e   N^-0.346   TypeII N^-0.304
+rho_e N^+0.339   mu_rho N^+0.485  rho_rho N^+1.417   Delta N^+0.244
+```
+
+So the rebalancing is confirmed: the genuine Type-II core is small, and
+*decreasing*. `rho_e` does carry the growth previously misattributed to it, and
+the semilinear reclassification of `rho(u)e(v)` is correct.
+
+## But that is also the problem
+
+At `N = 2048`, `TypeII / Delta = 0.0138`. The genuine two-oscillatory-variable
+part of the square-block residual carries **1.4% of the energy**.
+
+That is a real finding, and it is worth stating plainly: **bilinearity was never
+where the difficulty lived.** The Type I / Type II taxonomy is correct as
+taxonomy, but it does not localize the hardness -- it isolates a small, flat,
+apparently tractable correction and leaves everything else on the other side.
+
+Inside `G*` the situation is not clean:
+
+* `mu_rho / Delta = 1.72` at `N = 2048`, growing at `N^+0.485` -- a piece
+  *larger than the total*, and growing faster than it.
+* `rho_rho` is a deterministic drift of order `R / (log R)^2` per block, with
+  normalized energy `318` at `N = 2048` and growth `N^+1.417`. It must cancel
+  against the extreme sector to leave `G* ~ Delta ~ 0.08`: an internal
+  cancellation of order 4,000x in energy.
+
+So the `-0.969` cross-term did not disappear when `rho_e` moved sides. It
+relocated *inside* `G*`. The reported `corr(C*, G*) = +0.439` is consistent with
+this and not informative: `C*` is ~1% of `Delta` and `G* ~ Delta`, so their
+correlation measures almost nothing.
+
+## The decisive obstruction
+
+`mu_rho = -mu(u)rho(v) - mu(v)rho(u)`. Since `rho` is smooth and deterministic,
+summing over the balanced region gives
+
+```text
+sum_u mu(u) * g_R(u),     g_R smooth
+```
+
+a **smoothed Moebius sum**. Bounding it at RH scale is the Mertens problem
+itself -- not a classical Type-I estimate accessible to PNT or zero-density
+input. The word "coherent" is doing a lot of work here: `rho_rho` really is
+deterministic, but `mu_rho` is not, and it is the piece that matters.
+
+Therefore `E_loc(G*) << H N^{2+eps}` is not a lemma toward the protected
+square-prefix criterion. Up to a 1.4% Type-II correction, **it is that
+criterion**.
+
+## What is worth formalizing
+
+Not the pair of obligations as a route to RH. But two things here are genuine:
+
+1. The exact five-piece decomposition, and the identity underneath it. That is
+   short, kernel-checkable, and correct.
+2. `E_loc(TypeII) << H N^{2+eps}` looks provable on its own -- the column is
+   flat and decreasing at `N^-0.3`. A theorem that the genuinely bilinear part of
+   the square-block residual is `O(N^{2+eps})` would be a real result about the
+   architecture, and honest about what it does not give.
+
+What should not happen is `G*` being carried forward as though "coherent" meant
+"deterministic". The next split has to separate `mu_rho` from `rho_rho`, and
+`mu_rho` has no evident mechanism.
