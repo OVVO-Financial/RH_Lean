@@ -739,3 +739,94 @@ statement to `MertensEnergyBoundedStatement` and invoke that criterion -- no new
 Mellin or zeta-continuation layer is needed, and no contour shift has to be
 formalized. The Mellin route would only be needed to *prove* the classical
 criterion, which this repository has deliberately never attempted.
+
+---
+
+# The general decomposition no-go is false
+
+Diagnostic: `experiments/decomposition_nogo_refutation.py`.
+
+The proposed theorem -- "no nontrivial finite decomposition of `Delta_R` has
+every piece individually at RH scale" -- should not be formalized. It is false,
+and **the repository already contains the counterexample**.
+
+## Index-set decompositions preserve the scale
+
+Splitting the square block by residue class mod 4 (the `a = 0` class vanishes,
+since `4 | n` kills `mu`):
+
+```text
+Delta_R = Delta^(1) + Delta^(2) + Delta^(3),
+Delta^(a) = sum_{n in [R^2,(R+1)^2), n = a mod 4} mu(n)
+```
+
+Normalized translated-prefix energies `E_loc / N^3`, `H = N`:
+
+| N | Delta | Delta^(1) | Delta^(2) | Delta^(3) |
+|---|---|---|---|---|
+| 256 | 0.05249 | 0.03351 | 0.01492 | 0.03629 |
+| 512 | 0.07378 | 0.04430 | 0.01719 | 0.06165 |
+| 1,024 | 0.12173 | 0.06868 | 0.02220 | 0.03035 |
+| 2,048 | 0.07797 | 0.06487 | 0.02334 | 0.04706 |
+
+```text
+Delta N^+0.244   Delta^(1) N^+0.349   Delta^(2) N^+0.231   Delta^(3) N^+0.010
+```
+
+Three nonzero pieces, none proportional to `Delta`, each at the same order and
+with the same behaviour as `Delta` itself. Each is a Moebius sum over an
+arithmetic progression and inherits square-root cancellation directly.
+
+This is exactly `M(4K) = sum_j (R_j - 2 H_j)` from
+`PrimeWheelThreeSlotRecovery.lean`. Formalizing the no-go would contradict a
+module already in the tree.
+
+## What actually fails, and why it is forced
+
+PNT-centering writes `1_P = rho + e` with `rho > 0`. Any piece retaining an
+uncancelled `rho` factor has block sums of fixed sign, so its prefixes
+accumulate instead of cancelling. For `rhoRho(u,v) = -rho(u) rho(v) < 0`
+pointwise:
+
+| N | blocks | frac < 0 | mean block | max\|prefix\| | /(N^2/log^2 N) |
+|---|---|---|---|---|---|
+| 256 | 256 | 1.0000 | -7.477 | 1,914.2 | 0.8981 |
+| 512 | 512 | 1.0000 | -12.014 | 6,151.1 | 0.9132 |
+| 1,024 | 1,024 | 1.0000 | -19.717 | 20,190.2 | 0.9251 |
+| 2,048 | 2,048 | 1.0000 | -32.932 | 67,445.4 | 0.9348 |
+
+Negative in **100% of blocks at every scale**, with `max|prefix|` tracking
+`0.93 * N^2 / log^2 N` to within 4%. A sign-constant sequence has prefix growing
+linearly in the number of blocks. No estimate can rescue that: `rhoRho` violates
+the budget by construction, not by arithmetic conspiracy. The same mechanism,
+weakened by the oscillating `mu` factor, is what drives `muRho`.
+
+## The correct statement is a dichotomy, not a no-go
+
+Everything in this investigation fits one rule:
+
+* **Index-set decompositions** (residue classes, positional splits, the
+  three-slot decomposition) preserve RH scale in every piece -- but every piece
+  is again a Moebius sum, so nothing has become analytically easier.
+* **Coefficient decompositions** (the `mu`/`rho`/`e` centering) do change the
+  analytic character of the pieces -- but every piece carrying an uncancelled
+  positive `rho` drifts, so the pieces are not individually boundable.
+
+```text
+preserve the scale, or change the analytic character -- not both.
+```
+
+That is the real obstruction, it is supported by every split tried here, and it
+is a design rule with teeth: it predicts in advance which decompositions are
+worth attempting. It also explains the one exception, `typeIICore`: it is the
+unique piece with no `rho` factor at all, which is why it alone is flat -- and
+why it carries only 1.4% of the mass, since removing every `rho` also removes
+almost everything.
+
+## What this does not settle
+
+Whether some decomposition escapes the dichotomy -- pieces individually at RH
+scale *and* of genuinely different analytic character -- remains open. Nothing
+here rules it out; the evidence only says that neither of the two natural
+families achieves it. That is the question worth posing, and it is sharper than
+either the false general no-go or another coordinate change.
