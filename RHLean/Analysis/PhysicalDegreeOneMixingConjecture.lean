@@ -27,6 +27,13 @@ open RHLean.Arithmetic
 def physicalThreeSlotNonzeroStates : Finset (Fin 27) :=
   {0, 2, 6, 8, 18, 20, 24, 26}
 
+/-- Exact finite sum over the canonical nonzero sector
+`A = {0,2,6,8,18,20,24,26}`.  This explicit operator matches the physical
+transition moment definitions and avoids introducing any probabilistic state
+space abstraction. -/
+def physicalNonzeroStateSum (f : Fin 27 → ℝ) : ℝ :=
+  f 0 + f 2 + f 6 + f 8 + f 18 + f 20 + f 24 + f 26
+
 /-- `N_{u,v}(K)`: exact number of the first `K` physical edges from `u` to `v`. -/
 def physicalTransitionN (K : ℕ) (u v : Fin 27) : ℕ :=
   threeSlotTransitionCount K u v
@@ -67,11 +74,11 @@ private theorem physicalTransitionRow_centered
     (K : ℕ) (u : Fin 27) :
     ((threeSlotTransitionMomentOn
         (Finset.range K) u threeSlotDegreeOneValue : ℤ) : ℝ) =
-      physicalThreeSlotNonzeroStates.sum (fun v =>
+      physicalNonzeroStateSum (fun v =>
         (((physicalTransitionN K u v : ℕ) : ℝ) -
             ((physicalTransitionR K u : ℤ) : ℝ) / 8) *
           ((threeSlotDegreeOneValue v : ℤ) : ℝ)) := by
-  norm_num [physicalThreeSlotNonzeroStates, physicalTransitionN,
+  norm_num [physicalNonzeroStateSum, physicalTransitionN,
     physicalTransitionR, threeSlotTransitionCount,
     threeSlotTransitionMomentOn, threeSlotTransitionRowTotalOn,
     threeSlotDegreeOneValue, chiA, chiB, chiC]
@@ -80,32 +87,38 @@ private theorem physicalTransitionRow_centered
 /-- The transition mass is exactly the sum of its eight nonzero source rows. -/
 private theorem physicalDegreeOneT_real_eq_rowSum (K : ℕ) :
     ((physicalDegreeOneT K : ℤ) : ℝ) =
-      physicalThreeSlotNonzeroStates.sum (fun u =>
+      physicalNonzeroStateSum (fun u =>
         ((threeSlotTransitionMomentOn
             (Finset.range K) u threeSlotDegreeOneValue : ℤ) : ℝ)) := by
-  norm_num [physicalThreeSlotNonzeroStates, physicalDegreeOneT,
+  norm_num [physicalNonzeroStateSum, physicalDegreeOneT,
     threeSlotTransitionDegreeOneMass]
   <;> ring
 
 /-- **Exact row-centering identity.**  After casting to `ℝ`, the raw degree-one
-transition mass is exactly the contraction of
-`N_{u,v}(K) - R_u(K)/8` against the destination degree-one character.
+transition mass is exactly
 
-This is the precise finite identity behind the empirical `1/8` transition
-matrix diagnostic.  No transition probability or equidistribution hypothesis
-appears in the theorem. -/
+`sum_{u,v in A} (N_{u,v}(K) - R_u(K)/8) * g(v)`
+
+for the canonical eight-state nonzero sector `A`.  No transition probability
+or equidistribution hypothesis appears in the theorem. -/
 theorem physicalDegreeOneT_eq_centeredTransitionDiscrepancy
     (K : ℕ) :
     ((physicalDegreeOneT K : ℤ) : ℝ) =
-      physicalThreeSlotNonzeroStates.sum (fun u =>
-        physicalThreeSlotNonzeroStates.sum (fun v =>
+      physicalNonzeroStateSum (fun u =>
+        physicalNonzeroStateSum (fun v =>
           (((physicalTransitionN K u v : ℕ) : ℝ) -
               ((physicalTransitionR K u : ℤ) : ℝ) / 8) *
             ((threeSlotDegreeOneValue v : ℤ) : ℝ))) := by
   rw [physicalDegreeOneT_real_eq_rowSum]
-  refine Finset.sum_congr rfl ?_
-  intro u hu
-  exact physicalTransitionRow_centered K u
+  unfold physicalNonzeroStateSum
+  rw [physicalTransitionRow_centered K 0,
+    physicalTransitionRow_centered K 2,
+    physicalTransitionRow_centered K 6,
+    physicalTransitionRow_centered K 8,
+    physicalTransitionRow_centered K 18,
+    physicalTransitionRow_centered K 20,
+    physicalTransitionRow_centered K 24,
+    physicalTransitionRow_centered K 26]
 
 /-- **The single open arithmetic target of the physical transition route.**
 For every positive epsilon, both the conditioned degree-one transition mass and
