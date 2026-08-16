@@ -23,6 +23,7 @@ namespace RHLean.Proof
 
 open CanonicalGapAncestryFlow
 open CanonicalGapAncestryBridge
+open CanonicalGapAncestryEnergyBridge
 
 /-- A generic legal smooth extension of a canonical parent.  Unlike
 `BornSmoothChild`, no extreme-parent or balanced-child hypothesis is imposed. -/
@@ -64,6 +65,7 @@ theorem canonicalLargestPrimeFactor_mul_eq_extensionPrime
     {q a p : ℕ} (h : CanonicalSmoothPrimeExtension q a p) :
     canonicalLargestPrimeFactor (a * p) = p := by
   have hp := h.extension.coreMax.prime
+  have ha1 : 1 ≤ a := h.parentData.2.1
   have hapos : 0 < a := by omega
   have hprodgt : 1 < a * p := by
     nlinarith [hp.two_le]
@@ -178,7 +180,11 @@ theorem activeSmoothSource_yields_legalExtensionPrime
   have hcore :=
     canonicalCofactor_mul_largestPrimeFactor
       (lt_trans hs.1.1.1.one_lt hs.1.2)
-  unfold sourceProduct at hprod ⊢
+  change
+    sourcePrime s *
+        (canonicalCofactor (sourceCore s) *
+          canonicalLargestPrimeFactor (sourceCore s)) ≤
+      squareRootEndpoint R
   rw [hcore]
   exact hprod
 
