@@ -277,14 +277,13 @@ zero. -/
 def IsThreeSlotNonzeroState (i : Fin 27) : Prop :=
   chiA i ≠ 0 ∧ chiB i ≠ 0 ∧ chiC i ≠ 0
 
-/-- The eight all-nonzero states, retained as a subset of the canonical
-`Fin 27` carrier rather than as a second state model. -/
+/-- The eight all-nonzero state codes in the canonical mixed-radix carrier. -/
 def threeSlotNonzeroStates : Finset (Fin 27) :=
-  Finset.univ.filter IsThreeSlotNonzeroState
+  {0, 2, 6, 8, 18, 20, 24, 26}
 
 @[simp] theorem card_threeSlotNonzeroStates :
     threeSlotNonzeroStates.card = 8 := by
-  decide
+  norm_num [threeSlotNonzeroStates]
 
 /-- Combined degree-one observable seen by Mertens. -/
 def threeSlotDegreeOneValue (i : Fin 27) : ℤ :=
@@ -338,19 +337,20 @@ def threeSlotNonzeroCharacterMass (χ : Fin 27 → ℤ) : ℤ :=
 
 @[simp] theorem threeSlotNonzeroCharacterMass_chiA :
     threeSlotNonzeroCharacterMass chiA = 0 := by
-  decide
+  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates, chiA]
 
 @[simp] theorem threeSlotNonzeroCharacterMass_chiB :
     threeSlotNonzeroCharacterMass chiB = 0 := by
-  decide
+  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates, chiB]
 
 @[simp] theorem threeSlotNonzeroCharacterMass_chiC :
     threeSlotNonzeroCharacterMass chiC = 0 := by
-  decide
+  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates, chiC]
 
 @[simp] theorem threeSlotNonzeroCharacterMass_degreeOne :
     threeSlotNonzeroCharacterMass threeSlotDegreeOneValue = 0 := by
-  decide
+  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates,
+    threeSlotDegreeOneValue, chiA, chiB, chiC]
 
 /-- Degree-one transition moment of one source row, tested only against the
 all-nonzero destination sector. -/
@@ -445,7 +445,6 @@ theorem threeSlotCombinedDegreeOne_eq_stateSum (K : ℕ) :
   unfold threeSlotWa threeSlotWb threeSlotWc threeSlotDegreeOneValue
   simp only [chiA_threeSlotState, chiB_threeSlotState,
     chiC_threeSlotState, Finset.sum_add_distrib]
-  ring
 
 /-- Shift the complete cell prefix into the initial cell plus the exact
 current-to-next destination sum. -/
@@ -458,8 +457,25 @@ theorem threeSlotStateSum_succ (K : ℕ) :
   induction K with
   | zero => simp
   | succ K ih =>
-      rw [Finset.sum_range_succ, Finset.sum_range_succ, ih]
-      ring
+      calc
+        (∑ k ∈ Finset.range (K + 1 + 1),
+            threeSlotDegreeOneValue (threeSlotState k)) =
+          (∑ k ∈ Finset.range (K + 1),
+              threeSlotDegreeOneValue (threeSlotState k)) +
+            threeSlotDegreeOneValue (threeSlotState (K + 1)) := by
+              rw [Finset.sum_range_succ]
+        _ =
+          (threeSlotDegreeOneValue (threeSlotState 0) +
+              ∑ k ∈ Finset.range K,
+                threeSlotDegreeOneValue (threeSlotState (k + 1))) +
+            threeSlotDegreeOneValue (threeSlotState (K + 1)) := by
+              rw [ih]
+        _ =
+          threeSlotDegreeOneValue (threeSlotState 0) +
+            ∑ k ∈ Finset.range (K + 1),
+              threeSlotDegreeOneValue (threeSlotState (k + 1)) := by
+                rw [Finset.sum_range_succ]
+                ring
 
 /-- Exact physical pushforward decomposition.  The Mertens-visible degree-one
 prefix is the initial cell plus the conditioned eight-state transition mass plus
