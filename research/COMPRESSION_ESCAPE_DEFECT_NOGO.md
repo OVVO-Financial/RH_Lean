@@ -602,13 +602,18 @@ energy and it is *not* deterministic.
 
 ## Verification status
 
-**The module is not compiled.** A Lean 4.24.0 toolchain was installed in this
-container by hand (elan's own path fails because `api.github.com` returns 403
-through the proxy), but the Mathlib build cache host
-`lakecache.blob.core.windows.net` is unreachable (`curl` returns `000`), and
-compiling Mathlib from source is not feasible here. `lean.yml` runs on
-`pull_request` and pushes to `main`, so a push to a feature branch does not
-verify it either.
+**The module compiles.** Hosted CI built it green on the first attempt
+(PR #372, `Hosted Lean build`, run 31930102088, commit `daccd99`): the Lean
+build step succeeded, the `audit` job -- which rejects unfinished proofs and
+project-local axioms -- passed, and the root import manifest was already in
+sync. So the module is kernel-checked.
+
+It could not be compiled in the authoring container: a Lean 4.24.0 toolchain
+was installed by hand there (elan's own path fails because `api.github.com`
+returns 403 through the proxy), but the Mathlib cache host
+`lakecache.blob.core.windows.net` is unreachable (`curl` returns `000`) and
+compiling Mathlib from source was not feasible. Hosted CI was therefore the
+first elaboration of the file.
 
 What *is* verified is the mathematical content, independently of Lean:
 
