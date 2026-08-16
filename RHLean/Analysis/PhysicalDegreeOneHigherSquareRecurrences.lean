@@ -312,9 +312,10 @@ theorem physicalD25_225_step_recurrence (L : ℕ) :
       apply Finset.sum_congr rfl
       intro r hr
       have hrlt : r < 225 := Finset.mem_range.mp hr
-      have hmod : (225 * L + r) % 225 = r := by
-        simp [Nat.add_mod, Nat.mul_mod, Nat.mod_eq_of_lt hrlt]
-      simp [f, hmod, physicalTwentyFiveChannelResidues, hrlt]
+      have hmod : (225 * L + r) % 225 = r := by omega
+      have h25 : (225 * L + r) % 25 = r % 25 := by omega
+      have h9 : (225 * L + r) % 9 = r % 9 := by omega
+      simp [f, hmod, physicalTwentyFiveChannelResidues, hrlt, h25, h9]
 
 /-- Four-cell form of the exact `5^2` recurrence.  Expanding `fourSlotCellSum`
 gives a fixed signed Möbius mask inside each interval of length `900`. -/
@@ -354,9 +355,11 @@ theorem physicalD49_11025_step_recurrence (L : ℕ) :
       apply Finset.sum_congr rfl
       intro r hr
       have hrlt : r < 11025 := Finset.mem_range.mp hr
-      have hmod : (11025 * L + r) % 11025 = r := by
-        simp [Nat.add_mod, Nat.mul_mod, Nat.mod_eq_of_lt hrlt]
-      simp [f, hmod, physicalFortyNineChannelResidues, hrlt]
+      have hmod : (11025 * L + r) % 11025 = r := by omega
+      have h49 : (11025 * L + r) % 49 = r % 49 := by omega
+      have h25 : (11025 * L + r) % 25 = r % 25 := by omega
+      have h9 : (11025 * L + r) % 9 = r % 9 := by omega
+      simp [f, hmod, physicalFortyNineChannelResidues, hrlt, h49, h25, h9]
 
 /-- Four-cell form of the exact `7^2` recurrence.  Expanding `fourSlotCellSum`
 gives a fixed signed Möbius mask inside each interval of length `44100`. -/
