@@ -126,8 +126,9 @@ theorem squareRootLegalRootReal_eq_primeMass
     (hB : squareRootEndpoint R ≤ B) :
     squareRootLegalRootReal B R =
       ((squareRootAncestryRootPrimeMass R : ℤ) : ℝ) := by
-  have h := sourceRootPrefix_eq_lowerMertensPrimeTransform hR hB
-  exact_mod_cast h
+  have h := congrArg (fun z : ℤ => (z : ℝ))
+    (sourceRootPrefix_eq_lowerMertensPrimeTransform hR hB)
+  simpa [squareRootLegalRootReal] using h
 
 /-- The real successor coordinate is the negative smooth ancestry mass. -/
 theorem squareRootLegalSuccessorReal_eq_neg_smoothMass
@@ -135,8 +136,9 @@ theorem squareRootLegalSuccessorReal_eq_neg_smoothMass
     (hB : squareRootEndpoint R ≤ B) :
     squareRootLegalSuccessorReal B R =
       -((squareRootAncestrySmoothMassInt R : ℤ) : ℝ) := by
-  have h := sourceSuccessorPrefix_eq_neg_smoothMassInt hR hB
-  exact_mod_cast h
+  have h := congrArg (fun z : ℤ => (z : ℝ))
+    (sourceSuccessorPrefix_eq_neg_smoothMassInt hR hB)
+  simpa [squareRootLegalSuccessorReal] using h
 
 /-- Exact prime-root plus smooth-mass form of the residual.  The square is not
 estimated here; this theorem only exposes the two signed populations whose
@@ -157,15 +159,12 @@ only for one absolute amplification constant and quantifies monotonically over
 all lower critical envelopes. -/
 def SquareRootLegalAncestryGramAmplificationStatement : Prop :=
   ∃ A : ℝ, 0 ≤ A ∧
-    ∀ R K B : ℕ × ℝ × ℕ,
-      let r := R.1
-      let k := K.2.1
-      let b := B.2
-      2 ≤ r →
-      LowerMertensCriticalEnvelope r k →
-      squareRootEndpoint r ≤ b →
-      squareRootLegalAncestryGramDefect b r ≤
-        A * (r : ℝ) ^ 2 * k
+    ∀ R : ℕ, ∀ K : ℝ, ∀ B : ℕ,
+      2 ≤ R →
+      LowerMertensCriticalEnvelope R K →
+      squareRootEndpoint R ≤ B →
+      squareRootLegalAncestryGramDefect B R ≤
+        A * (R : ℝ) ^ 2 * K
 
 /-- Real value of the lower-triangular prime-root transform. -/
 def squareRootPrimeRootReal (R : ℕ) : ℝ :=
@@ -204,7 +203,7 @@ theorem squareRootLegalAncestryGramAmplification_iff_primeSmoothAntiAlignment :
     intro R K hR hK
     let B := squareRootEndpoint R
     have hB : squareRootEndpoint R ≤ B := by simp [B]
-    have hgram := hbound (R, K, B) (R, K, B) (R, K, B) hR hK hB
+    have hgram := hbound R K B hR hK hB
     rw [squareRootLegalAncestryGramDefect_eq_prime_add_smooth_sq hR hB] at hgram
     unfold SquareRootPrimeSmoothAntiAlignmentAt
     unfold squareRootPrimeRootReal squareRootSmoothMassReal
@@ -212,11 +211,7 @@ theorem squareRootLegalAncestryGramAmplification_iff_primeSmoothAntiAlignment :
   · rintro ⟨A, hA, hanti⟩
     refine ⟨A, hA, ?_⟩
     intro R K B hR hK hB
-    rcases R with ⟨r, _⟩
-    rcases K with ⟨_, k, _⟩
-    rcases B with ⟨_, _, b⟩
-    dsimp at hR hK hB ⊢
-    have ha := hanti r k hR hK
+    have ha := hanti R K hR hK
     rw [squareRootLegalAncestryGramDefect_eq_prime_add_smooth_sq hR hB]
     unfold SquareRootPrimeSmoothAntiAlignmentAt at ha
     unfold squareRootPrimeRootReal squareRootSmoothMassReal at ha
