@@ -384,3 +384,95 @@ a large-sieve saving is available and the route is worth building. If it stays
 bilinearization is closed for the same reason as the first, and the honest
 conclusion is that the architecture needs analytic input it does not currently
 contain.
+
+---
+
+# Follow-up: the balanced/coherent bilinear centering split
+
+Diagnostic: `experiments/balanced_bilinear_centering_check.py`.
+
+## The identity is exact
+
+```text
+mu(u) mu(v) 1[u prime or v prime]
+  = -mu(u) 1_P(v) - mu(v) 1_P(u) - 1_P(u) 1_P(v)
+```
+
+Verified exhaustively over all 40,000 pairs `u, v <= 200`, zero mismatches. Four
+cases on `(u prime?, v prime?)`; the third term is the inclusion-exclusion
+correction for the both-prime overlap. The centering
+`beta = beta_coh + beta_II` via `1_P = rho + e` then follows by expansion, and
+`beta_II` is genuinely two-free-variable and centered in both.
+
+This is the first object in the programme with real Type-II shape, and unlike
+every toggle route it does not destroy the cancellation.
+
+## But the reported normalized energies are not flat
+
+The obligation is `E_loc <= H N^{2+eps}` with `H = N`, i.e. the tabulated
+`E_loc / N^3` column must be **flat** -- a fitted power growth is a failure of
+the obligation, not a blemish.
+
+| N | C | G | actual | C/actual | G/actual |
+|---|---|---|---|---|---|
+| 256 | 0.102 | 0.195 | 0.052 | 1.96 | 3.75 |
+| 512 | 0.066 | 0.159 | 0.074 | 0.89 | 2.15 |
+| 1,024 | 0.120 | 0.377 | 0.122 | 0.98 | 3.09 |
+| 2,048 | 0.200 | 0.315 | 0.078 | 2.56 | 4.04 |
+| 4,096 | 0.185 | 0.237 | 0.065 | 2.85 | 3.65 |
+| 8,192 | 0.403 | 0.493 | 0.076 | 5.30 | 6.49 |
+
+```text
+C ~ N^+0.432    G ~ N^+0.233    actual ~ N^+0.044
+C/actual ~ N^+0.388             G/actual ~ N^+0.189
+```
+
+The `actual` column is flat, as it must be. Both new pieces grow. Dropping the
+last point still leaves `C ~ N^0.33`.
+
+**The gain is real and large:** the old split needed cancellation of order
+`2689/0.076 ~ 35,000x`; the new one needs `5.3x` at `N = 8192`, about 3.8 orders
+of magnitude better. But the residual requirement is *growing* at `~N^0.39`, so
+the cancellation between `C` and `G` has been reduced in size, not eliminated in
+kind. That is the same disease as the balanced/extreme cross-term, four orders
+of magnitude smaller.
+
+## An independent probe of the Type-II object disagrees
+
+Taking the balanced region as `n = u*v` with both factors within a factor 2 of
+`sqrt(n)` over `n in [R^2, (R+1)^2)`, and forming the translated-prefix energy of
+`C_R = sum_balanced beta_II` with the same `H N^2` normalization:
+
+| N | E_loc(C)/N^3 | E_loc(actual)/N^3 |
+|---|---|---|
+| 128 | 1.8516 | 0.1241 |
+| 256 | 1.3500 | 0.0525 |
+| 512 | 1.5700 | 0.0738 |
+| 1,024 | 1.7417 | 0.1217 |
+
+```text
+C ~ N^-0.005     actual ~ N^+0.041
+```
+
+**Flat.** The absolute level differs (this is a different balanced region, and
+not the repository's), so only the exponent transfers -- but on this reading the
+centered Type-II object does not grow at all over `N = 128 ... 1024`.
+
+## What to do about the disagreement
+
+Two readings of the same object give `N^+0.43` and `N^-0.005`. Possible causes:
+different balanced regions; the growth living in the `G`-matching rather than in
+`C`; or noise (6 non-monotone points on one side, 4 small-`N` points on the
+other). This is not resolvable by argument.
+
+**The decisive test is cheap and should come before any Lean.** Extend the
+reported table to `N = 16384, 32768, 65536` and check whether the `C` and `G`
+columns flatten. Separately, split the growth: recompute `C` alone under the
+repository's exact balanced region, without the `G`-matching, to see which of
+the two pieces carries the `N^0.4`.
+
+If both columns flatten, the pair of obligations is the right target and
+`BalancedPrimeBilinearCentering` is worth formalizing. If `C/N^3` keeps tracking
+`N^0.4`, then `E_loc(C) << H N^{2+eps}` is false as stated and the split needs
+rebalancing before it is formalized -- the algebra would still be correct, but
+the division of labour between `C` and `G` would be wrong.
