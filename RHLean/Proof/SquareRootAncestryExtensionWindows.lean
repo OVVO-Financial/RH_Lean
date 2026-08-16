@@ -158,6 +158,25 @@ def SquareRootLegalExtensionPrime
   CanonicalSmoothPrimeExtension q a p ∧
     q * (a * p) ≤ squareRootEndpoint R
 
+/-- Every legal smooth extension under `R^2-1` is genuinely lower triangular in
+its prime coordinates: the extension prime is below the distinguished prime,
+and the distinguished prime itself is below the square-root induction scale. -/
+theorem squareRootLegalExtensionPrime_lt_distinguished_lt_root
+    {R q a p : ℕ} (hR : 2 ≤ R)
+    (h : SquareRootLegalExtensionPrime R q a p) :
+    p < q ∧ q < R := by
+  refine ⟨h.1.extension.belowDistinguished, ?_⟩
+  by_contra hnot
+  have hRq : R ≤ q := Nat.le_of_not_gt hnot
+  have hRcore : R ≤ a * p := hRq.trans h.1.entersSmooth.le
+  have hsq : R ^ 2 ≤ q * (a * p) := by
+    simpa [pow_two] using Nat.mul_le_mul hRq hRcore
+  have hendlt : squareRootEndpoint R < R ^ 2 := by
+    unfold squareRootEndpoint
+    have hpos : 0 < R ^ 2 := by positivity
+    omega
+  exact (Nat.not_lt_of_ge hsq) (h.2.trans_lt hendlt)
+
 /-- Every active smooth source at the complete-square clock yields an extension
 prime in the explicit square-root window. -/
 theorem activeSmoothSource_yields_legalExtensionPrime
