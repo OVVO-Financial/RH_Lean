@@ -266,24 +266,17 @@ theorem mertensSummatory_four_mul_eq_signedField (K : ℕ) :
 /-! ## Exact physical transition counts on the nonzero sign sector
 
 The empirical `1/8` diagnostic conditions both ends of a cell-to-cell transition
-on the eight states whose three coordinates are all nonzero.  The definitions
-below keep the ambient `Fin 27` state space and merely restrict the tested rows
-and columns.  Counts remain integers throughout; no probability or Markov
-hypothesis is introduced.
+on the eight states whose three coordinates are all nonzero.  In the canonical
+mixed-radix `Fin 27` encoding these are exactly the codes
+`0, 2, 6, 8, 18, 20, 24, 26`.  The definitions below use those eight codes
+literally, so no probability, Markov hypothesis, or auxiliary Boolean state
+space enters the formal object.
 -/
 
 /-- A three-slot state lies in the sign sector when none of its coordinates is
 zero. -/
 def IsThreeSlotNonzeroState (i : Fin 27) : Prop :=
   chiA i ≠ 0 ∧ chiB i ≠ 0 ∧ chiC i ≠ 0
-
-/-- The eight all-nonzero state codes in the canonical mixed-radix carrier. -/
-def threeSlotNonzeroStates : Finset (Fin 27) :=
-  {0, 2, 6, 8, 18, 20, 24, 26}
-
-@[simp] theorem card_threeSlotNonzeroStates :
-    threeSlotNonzeroStates.card = 8 := by
-  norm_num [threeSlotNonzeroStates, Finset.card_insert_of_not_mem]
 
 /-- Combined degree-one observable seen by Mertens. -/
 def threeSlotDegreeOneValue (i : Fin 27) : ℤ :=
@@ -317,12 +310,18 @@ def threeSlotSquareBlockTransitionCount
     (R : ℕ) (s t : Fin 27) : ℕ :=
   threeSlotTransitionCountOn (threeSlotSquareBlockTransitionCells R) s t
 
-/-- Integer row mass after restricting destinations to the all-nonzero sign
-sector. -/
+/-- Integer row mass after restricting destinations to the eight all-nonzero
+state codes. -/
 def threeSlotTransitionRowTotalOn
     (F : Finset ℕ) (s : Fin 27) : ℤ :=
-  ∑ t ∈ threeSlotNonzeroStates,
-    (threeSlotTransitionCountOn F s t : ℤ)
+  (threeSlotTransitionCountOn F s 0 : ℤ) +
+    threeSlotTransitionCountOn F s 2 +
+    threeSlotTransitionCountOn F s 6 +
+    threeSlotTransitionCountOn F s 8 +
+    threeSlotTransitionCountOn F s 18 +
+    threeSlotTransitionCountOn F s 20 +
+    threeSlotTransitionCountOn F s 24 +
+    threeSlotTransitionCountOn F s 26
 
 /-- Integer-centered count corresponding to `8 N(s,t) - N(s,Omega)`.
 This is the denominator-free form of centering a row around `1/8`. -/
@@ -331,36 +330,39 @@ def threeSlotCenteredTransitionCountOn
   8 * (threeSlotTransitionCountOn F s t : ℤ) -
     threeSlotTransitionRowTotalOn F s
 
-/-- Signed mass of a character on the all-nonzero sign sector. -/
+/-- Signed mass of a character on the eight all-nonzero state codes. -/
 def threeSlotNonzeroCharacterMass (χ : Fin 27 → ℤ) : ℤ :=
-  ∑ t ∈ threeSlotNonzeroStates, χ t
+  χ 0 + χ 2 + χ 6 + χ 8 + χ 18 + χ 20 + χ 24 + χ 26
 
 @[simp] theorem threeSlotNonzeroCharacterMass_chiA :
     threeSlotNonzeroCharacterMass chiA = 0 := by
-  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates,
-    Finset.sum_insert, chiA]
+  norm_num [threeSlotNonzeroCharacterMass, chiA]
 
 @[simp] theorem threeSlotNonzeroCharacterMass_chiB :
     threeSlotNonzeroCharacterMass chiB = 0 := by
-  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates,
-    Finset.sum_insert, chiB]
+  norm_num [threeSlotNonzeroCharacterMass, chiB]
 
 @[simp] theorem threeSlotNonzeroCharacterMass_chiC :
     threeSlotNonzeroCharacterMass chiC = 0 := by
-  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates,
-    Finset.sum_insert, chiC]
+  norm_num [threeSlotNonzeroCharacterMass, chiC]
 
 @[simp] theorem threeSlotNonzeroCharacterMass_degreeOne :
     threeSlotNonzeroCharacterMass threeSlotDegreeOneValue = 0 := by
-  norm_num [threeSlotNonzeroCharacterMass, threeSlotNonzeroStates,
-    Finset.sum_insert, threeSlotDegreeOneValue, chiA, chiB, chiC]
+  norm_num [threeSlotNonzeroCharacterMass, threeSlotDegreeOneValue,
+    chiA, chiB, chiC]
 
 /-- Degree-one transition moment of one source row, tested only against the
-all-nonzero destination sector. -/
+eight all-nonzero destination state codes. -/
 def threeSlotTransitionMomentOn
     (F : Finset ℕ) (s : Fin 27) (χ : Fin 27 → ℤ) : ℤ :=
-  ∑ t ∈ threeSlotNonzeroStates,
-    (threeSlotTransitionCountOn F s t : ℤ) * χ t
+  (threeSlotTransitionCountOn F s 0 : ℤ) * χ 0 +
+    threeSlotTransitionCountOn F s 2 * χ 2 +
+    threeSlotTransitionCountOn F s 6 * χ 6 +
+    threeSlotTransitionCountOn F s 8 * χ 8 +
+    threeSlotTransitionCountOn F s 18 * χ 18 +
+    threeSlotTransitionCountOn F s 20 * χ 20 +
+    threeSlotTransitionCountOn F s 24 * χ 24 +
+    threeSlotTransitionCountOn F s 26 * χ 26
 
 /-- Row-centered degree-one transition moment.  Algebraically this is the
 contraction of `8 N(s,t) - N(s,Omega)` against `χ`. -/
@@ -428,9 +430,14 @@ def threeSlotSquareBlockCenteredTransitionMoment
 /-- Total degree-one mass carried by transitions whose source and destination
 both lie in the eight-state sign sector. -/
 def threeSlotTransitionDegreeOneMass (K : ℕ) : ℤ :=
-  ∑ s ∈ threeSlotNonzeroStates,
-    threeSlotTransitionMomentOn
-      (Finset.range K) s threeSlotDegreeOneValue
+  threeSlotTransitionMomentOn (Finset.range K) 0 threeSlotDegreeOneValue +
+    threeSlotTransitionMomentOn (Finset.range K) 2 threeSlotDegreeOneValue +
+    threeSlotTransitionMomentOn (Finset.range K) 6 threeSlotDegreeOneValue +
+    threeSlotTransitionMomentOn (Finset.range K) 8 threeSlotDegreeOneValue +
+    threeSlotTransitionMomentOn (Finset.range K) 18 threeSlotDegreeOneValue +
+    threeSlotTransitionMomentOn (Finset.range K) 20 threeSlotDegreeOneValue +
+    threeSlotTransitionMomentOn (Finset.range K) 24 threeSlotDegreeOneValue +
+    threeSlotTransitionMomentOn (Finset.range K) 26 threeSlotDegreeOneValue
 
 /-- The exact residual left after extracting the all-nonzero transition mass
 from the destination degree-one sum.  This retains every zero-coordinate and
