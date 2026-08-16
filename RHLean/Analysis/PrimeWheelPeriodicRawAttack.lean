@@ -1,4 +1,5 @@
 import RHLean.Arithmetic.PrimeProductLowerBound
+import RHLean.Analysis.PhysicalDegreeOneLeastSquareChannels
 import RHLean.Analysis.PrimeWheelRawPeriod
 import RHLean.Analysis.PrimeWheelPeriodicRawBridge
 import RHLean.Analysis.PrimeWheelLocalSpectrum
@@ -46,14 +47,18 @@ Accordingly, the nonzero response and the `q > 1` packet are auxiliary exact
 coordinates, not standalone RH-scale obligations.  The critical path remains
 the full corrected residual with zero, raw, and smooth cancellation preserved.
 
-The final lemmas below record a decisive small-modulus diagnostic for that
-critical path.  The isolated prime-`3` slot DFT cancels exactly, but restoring
-the physical prime-`2` slot factors `1,-1,1` leaves a coherent nonzero residue.
-Thus the prime-`3` resonance can only disappear in the full signed corrected
-packet, through the smooth correction and/or the remaining conductor channels.
+The final lemmas below record two small-modulus diagnostics for that critical
+path.  The isolated prime-`3` slot DFT cancels exactly, but restoring the
+physical prime-`2` slot factors `1,-1,1` leaves a coherent nonzero residue.  In
+the original Möbius coordinates the same phenomenon is an exact dyadic scale
+descent: one complete `D9` increment splits into twelve odd terms at the current
+scale minus six odd terms at half scale.  Thus the prime-`2` contribution is not
+a positive error term to bound separately; it is a signed renormalization term.
 
 No analytic estimate is claimed here.
 -/
+
+open scoped ArithmeticFunction.Moebius BigOperators
 
 noncomputable section
 
@@ -161,5 +166,74 @@ theorem physicalPrimeTwoWeightedPrimeThreeLocalRawSlotSpectrum_sum_eq
     _ = (10 : ℂ) * physicalPrimeThreeSlotPhase 2 r := by
       rw [hweighted]
       ring
+
+/-- Twelve odd current-scale terms in one complete `D9` increment. -/
+def physicalD9DyadicOuterBlock (L : ℕ) : ℤ :=
+  (μ (4 * (9 * L + 2) + 1) + μ (4 * (9 * L + 2) + 3)) +
+  (μ (4 * (9 * L + 3) + 1) + μ (4 * (9 * L + 3) + 3)) +
+  (μ (4 * (9 * L + 4) + 1) + μ (4 * (9 * L + 4) + 3)) +
+  (μ (4 * (9 * L + 5) + 1) + μ (4 * (9 * L + 5) + 3)) +
+  (μ (4 * (9 * L + 6) + 1) + μ (4 * (9 * L + 6) + 3)) +
+  (μ (4 * (9 * L + 7) + 1) + μ (4 * (9 * L + 7) + 3))
+
+/-- Six odd terms at exactly half the physical scale in one complete `D9`
+increment. -/
+def physicalD9DyadicInnerBlock (L : ℕ) : ℤ :=
+  μ (2 * (9 * L + 2) + 1) +
+  μ (2 * (9 * L + 3) + 1) +
+  μ (2 * (9 * L + 4) + 1) +
+  μ (2 * (9 * L + 5) + 1) +
+  μ (2 * (9 * L + 6) + 1) +
+  μ (2 * (9 * L + 7) + 1)
+
+/-- One complete nine-edge `D9` increment is exactly the six destination
+four-cells. -/
+theorem physicalD9_nine_step_eq_six_fourSlotCells (L : ℕ) :
+    physicalD9 (9 * (L + 1)) - physicalD9 (9 * L) =
+      fourSlotCellSum (9 * L + 2) +
+      fourSlotCellSum (9 * L + 3) +
+      fourSlotCellSum (9 * L + 4) +
+      fourSlotCellSum (9 * L + 5) +
+      fourSlotCellSum (9 * L + 6) +
+      fourSlotCellSum (9 * L + 7) := by
+  rw [physicalD9_nine_step_recurrence]
+  rw [show 36 * L + 32 = 4 * (9 * L + 8) by ring,
+    show 36 * L + 8 = 4 * (9 * L + 2) by ring]
+  rw [moebiusPositivePrefix_four_mul_eq_fourSlotCellSum,
+    moebiusPositivePrefix_four_mul_eq_fourSlotCellSum]
+  have hprefix :
+      (∑ k ∈ Finset.range (9 * L + 8), fourSlotCellSum k) =
+        (∑ k ∈ Finset.range (9 * L + 2), fourSlotCellSum k) +
+          fourSlotCellSum (9 * L + 2) +
+          fourSlotCellSum (9 * L + 3) +
+          fourSlotCellSum (9 * L + 4) +
+          fourSlotCellSum (9 * L + 5) +
+          fourSlotCellSum (9 * L + 6) +
+          fourSlotCellSum (9 * L + 7) := by
+    rw [show 9 * L + 8 = (9 * L + 7) + 1 by omega,
+      Finset.sum_range_succ]
+    rw [show 9 * L + 7 = (9 * L + 6) + 1 by omega,
+      Finset.sum_range_succ]
+    rw [show 9 * L + 6 = (9 * L + 5) + 1 by omega,
+      Finset.sum_range_succ]
+    rw [show 9 * L + 5 = (9 * L + 4) + 1 by omega,
+      Finset.sum_range_succ]
+    rw [show 9 * L + 4 = (9 * L + 3) + 1 by omega,
+      Finset.sum_range_succ]
+    rw [show 9 * L + 3 = (9 * L + 2) + 1 by omega,
+      Finset.sum_range_succ]
+  rw [hprefix]
+  ring
+
+/-- **Dyadic renormalization of the prime-three defect block.**  The current
+scale second-slot terms are not discarded or bounded absolutely; Möbius
+doubling sends them with the opposite sign to an exact half-scale block. -/
+theorem physicalD9_nine_step_dyadic_compression (L : ℕ) :
+    physicalD9 (9 * (L + 1)) - physicalD9 (9 * L) =
+      physicalD9DyadicOuterBlock L - physicalD9DyadicInnerBlock L := by
+  rw [physicalD9_nine_step_eq_six_fourSlotCells]
+  simp only [fourSlotCellSum_eq]
+  unfold physicalD9DyadicOuterBlock physicalD9DyadicInnerBlock
+  ring
 
 end RHLean.Analysis
