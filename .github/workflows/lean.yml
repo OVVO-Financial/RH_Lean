@@ -13,7 +13,11 @@ on:
     # revision, which agents rewrite constantly, and each one queued a fresh
     # ~16 minute Lean build for a change that cannot affect compilation.
     # `synchronize` already covers every new commit.
-    types: [opened, synchronize, reopened, ready_for_review]
+    #
+    # No `ready_for_review` either.  Draft pull requests are built here, which
+    # is what proof iteration depends on, so by the time one is marked ready
+    # `synchronize` has already built that exact commit.
+    types: [opened, synchronize, reopened]
     paths:
       - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
       - 'lean-toolchain'                 # Lean version bumps
