@@ -244,6 +244,7 @@ import RHLean.Arithmetic.MobiusFourCellEndpointTransfer
 import RHLean.Arithmetic.MoebiusDoubling
 import RHLean.Arithmetic.MoebiusPrefixFrontierIdentity
 import RHLean.Arithmetic.PrimeAveragedFrontierIdentity
+import RHLean.Arithmetic.PrimeCombComplementSmoothInversion
 import RHLean.Arithmetic.PrimeCombFiniteDifference
 import RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime
 import RHLean.Arithmetic.PrimeCombFiniteDifferenceRecovery
