@@ -55,6 +55,11 @@ descent: one complete `D9` increment splits into twelve odd terms at the current
 scale minus six odd terms at half scale.  Thus the prime-`2` contribution is not
 a positive error term to bound separately; it is a signed renormalization term.
 
+The last two theorems recombine the three linear transition modes with the
+entire least-square channel sum before applying this dyadic scale descent.  They
+are the exact proof-side bridge to the combined signed target; no channelwise
+absolute value is introduced.
+
 No analytic estimate is claimed here.
 -/
 
@@ -235,5 +240,63 @@ theorem physicalD9_nine_step_dyadic_compression (L : ℕ) :
   simp only [fourSlotCellSum_eq]
   unfold physicalD9DyadicOuterBlock physicalD9DyadicInnerBlock
   ring
+
+/-- **Exact recombination of all Mertens-visible physical channels.**  The
+three degree-one transition modes and the entire disjoint least-square defect
+partition recombine before any norm into the unweighted destination four-cell
+sum.  This is the signed form of the target quantity. -/
+theorem physicalCombinedLinearChannels_eq_destinationFourSlotSum
+    (K : ℕ) :
+    physicalTransitionTa K + physicalTransitionTb K + physicalTransitionTc K +
+        (∑ p ∈ physicalLeastSquarePrimes K,
+          physicalLeastSquareChannel K p) =
+      ∑ k ∈ Finset.range K, fourSlotCellSum (k + 1) := by
+  rw [← physicalTransitionD_eq_sum_leastSquareChannels]
+  rw [← physicalDegreeOneT_eq_linearTransitionMoments]
+  rw [physicalDegreeOneT_eq_leastSquareNoneSum,
+    physicalTransitionD_eq_leastSquareSupportedSum]
+  have hpart := Finset.sum_filter_add_sum_filter_not
+    (Finset.range K)
+    (fun k => physicalLeastOddSquarePrime k = none)
+    physicalDefectEdgeValue
+  calc
+    (∑ k ∈ Finset.range K with physicalLeastOddSquarePrime k = none,
+        physicalDefectEdgeValue k) +
+        (∑ k ∈ Finset.range K with physicalLeastOddSquarePrime k ≠ none,
+          physicalDefectEdgeValue k) =
+      ∑ k ∈ Finset.range K, physicalDefectEdgeValue k := by
+        simpa using hpart
+    _ = ∑ k ∈ Finset.range K, fourSlotCellSum (k + 1) := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      exact physicalDefectEdgeValue_eq_fourSlotCellSum k
+
+/-- **Combined signed dyadic scale descent.**  After all transition and
+least-square channels have been recombined, the prime-`2` cell compression is
+applied once to the whole object.  The result is a current-scale odd sum minus
+a half-scale odd sum; no `D_{p^2}` term is bounded separately. -/
+theorem physicalCombinedLinearChannels_eq_dyadicScaleDescent
+    (K : ℕ) :
+    physicalTransitionTa K + physicalTransitionTb K + physicalTransitionTc K +
+        (∑ p ∈ physicalLeastSquarePrimes K,
+          physicalLeastSquareChannel K p) =
+      (∑ k ∈ Finset.range K,
+        (μ (4 * (k + 1) + 1) + μ (4 * (k + 1) + 3))) -
+      ∑ k ∈ Finset.range K, μ (2 * (k + 1) + 1) := by
+  rw [physicalCombinedLinearChannels_eq_destinationFourSlotSum]
+  calc
+    (∑ k ∈ Finset.range K, fourSlotCellSum (k + 1)) =
+        ∑ k ∈ Finset.range K,
+          ((μ (4 * (k + 1) + 1) + μ (4 * (k + 1) + 3)) -
+            μ (2 * (k + 1) + 1)) := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      rw [fourSlotCellSum_eq]
+      ring
+    _ =
+        (∑ k ∈ Finset.range K,
+          (μ (4 * (k + 1) + 1) + μ (4 * (k + 1) + 3))) -
+        ∑ k ∈ Finset.range K, μ (2 * (k + 1) + 1) := by
+      rw [Finset.sum_sub_distrib]
 
 end RHLean.Analysis
