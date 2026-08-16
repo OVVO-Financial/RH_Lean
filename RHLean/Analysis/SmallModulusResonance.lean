@@ -164,10 +164,8 @@ private theorem stdAddChar_threeCycle_sum_eq_zero
           (ZMod.stdAddChar : AddChar (ZMod 9) ℂ) 2 x]
         rw [AddChar.map_nsmul_eq_pow
           (ZMod.stdAddChar : AddChar (ZMod 9) ℂ) 3 x]
-        rfl
-    _ = 0 := by
-      rw [hz3]
-      linarith
+    _ = z ^ 2 + z + 1 := by rw [hz3]; ring
+    _ = 0 := hsum
 
 private theorem physicalPrimeThreeTransportedFrequency_data
     (r : ZMod 9) (hr0 : r ≠ 0) (hr3 : 3 ∣ r.val) :
@@ -184,16 +182,14 @@ private theorem physicalPrimeThreeTransportedFrequency_data
   rcases hcases with h3 | h6
   · have hr : r = (3 : ZMod 9) := by
       rw [← ZMod.natCast_zmod_val r, h3]
-    subst r
-    constructor <;>
-      norm_num [physicalPrimeThreeTransportedFrequency,
-        physicalPrimeThreeInverseStep, nsmul_eq_mul]
+      norm_num
+    rw [hr]
+    constructor <;> native_decide
   · have hr : r = (6 : ZMod 9) := by
       rw [← ZMod.natCast_zmod_val r, h6]
-    subst r
-    constructor <;>
-      norm_num [physicalPrimeThreeTransportedFrequency,
-        physicalPrimeThreeInverseStep, nsmul_eq_mul]
+      norm_num
+    rw [hr]
+    constructor <;> native_decide
 
 /-- **Exact cancellation of the dangerous prime-`3` slot phases.**  Every
 nonzero conductor-`3` frequency disappears after summing the three physical
@@ -240,14 +236,14 @@ theorem physicalPrimeThreeLocalRawMode_eq_neg_five
     rcases hcases with h3 | h6
     · have hr : r = (3 : ZMod 9) := by
         rw [← ZMod.natCast_zmod_val r, h3]
-      subst r
-      norm_num [physicalPrimeThreeTransportedFrequency,
-        physicalPrimeThreeInverseStep]
+        norm_num
+      rw [hr]
+      native_decide
     · have hr : r = (6 : ZMod 9) := by
         rw [← ZMod.natCast_zmod_val r, h6]
-      subst r
-      norm_num [physicalPrimeThreeTransportedFrequency,
-        physicalPrimeThreeInverseStep]
+        norm_num
+      rw [hr]
+      native_decide
   rw [if_pos hxdiv]
   norm_num
 
