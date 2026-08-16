@@ -830,3 +830,58 @@ scale *and* of genuinely different analytic character -- remains open. Nothing
 here rules it out; the evidence only says that neither of the two natural
 families achieves it. That is the question worth posing, and it is sharper than
 either the false general no-go or another coordinate change.
+
+## The classification, completed
+
+`experiments/decomposition_nogo_refutation.py` section C measures the third
+category on the same normalization. Summing the exact canonical coefficient
+`beta = mu(u) mu(v) [u or v prime]` over the balanced region alone:
+
+| N | E/N^3 balanced | E/N^3 Delta | ratio | max\|prefix\|/N |
+|---|---|---|---|---|
+| 256 | 15.0466 | 0.05249 | 287x | 6.96 |
+| 512 | 39.6738 | 0.07378 | 538x | 11.93 |
+| 1,024 | 106.5253 | 0.12173 | 875x | 18.52 |
+| 2,048 | 308.6023 | 0.07797 | 3,958x | 33.01 |
+
+`max|prefix|` grows like `N^{1.75}`, against the `N^{1+eps}` budget.
+
+So there are three categories, not two, and only one of them preserves the
+scale:
+
+| decomposition acts on | example | scale | analytic character |
+|---|---|---|---|
+| the index set `{n}` | residue classes mod 4; three-slot | **preserved** | unchanged -- every piece is again a Moebius sum |
+| the factorization space | balanced vs extreme | destroyed (3,958x) | changed |
+| the coefficient | `mu`/`rho`/`e` centering | destroyed (drift) | changed |
+
+The middle row is the one the earlier framing missed. Restricting to balanced
+factorizations is *not* a partition of `{n}`: it moves to the index space of
+pairs `u*v = n`, where the identity `sum_{uv=n} beta(u,v) = mu(n)` holds only
+after summing over *both* regions. The cancellation in the factorization
+identity is **between** the balanced and extreme regions, never within either.
+That is why the balanced/extreme correlation was `-0.999986` -- not a
+conspiracy, a structural feature of the hyperbola identity that
+`MobiusRenewalTelescope.lean` already records in its exact form.
+
+Restated as a rule with predictive content:
+
+```text
+An additive decomposition of Delta_R preserves RH scale in every piece
+if and only if it partitions the summation index {n} itself.
+Any move to factorization space, or any split of the coefficient,
+relies on cancellation between the pieces it creates.
+```
+
+Both failure modes then have a one-line cause. Factorization-space splits fail
+because the defining identity is a sum over the whole hyperbola. Coefficient
+splits fail because `rho > 0`, so any piece retaining an uncancelled `rho` has
+sign-constant block sums.
+
+And the corollary is the sharp form of the dilemma: index-set partitions are the
+only scale-preserving family, but they cannot change the analytic character of
+the pieces, because a Moebius sum restricted to an arithmetic progression is
+still a Moebius sum. `typeIICore` is the closest thing to an escape found here
+-- it is flat, it is genuinely bilinear, and it is the unique piece carrying no
+`rho` factor -- but it holds 1.4% of the mass, precisely because stripping every
+`rho` strips almost everything.

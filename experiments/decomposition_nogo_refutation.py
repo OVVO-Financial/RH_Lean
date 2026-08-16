@@ -166,6 +166,58 @@ def main():
             f"{float(np.abs(p).max())/(N**2/math.log(N)**2):>14.4f}"
         )
     print()
+    print("=" * 88)
+    print("C  the third category: splitting the FACTORIZATION space")
+    print("=" * 88)
+    print("    Delta_R is a sum over n in the block.  Rewriting mu(n) through the")
+    print("    factorization identity moves to a different index space (pairs u*v=n),")
+    print("    and restricting to the balanced region is not a partition of {n}.")
+    print("    The exact coefficient beta = mu(u)mu(v)[u or v prime] summed over the")
+    print("    balanced region alone:")
+    print()
+    print(
+        f"{'N':>7} {'E/N^3 balanced':>16} {'E/N^3 Delta':>13} {'ratio':>10} "
+        f"{'max|prefix|/N':>15}"
+    )
+    isP = np.zeros(top + 1, dtype=np.float64)
+    sieve2 = np.ones(top + 1, dtype=bool)
+    sieve2[:2] = False
+    for p in range(2, int(top**0.5) + 1):
+        if sieve2[p]:
+            sieve2[p * p :: p] = False
+    isP[sieve2] = 1.0
+    muf = mu.astype(np.float64)
+    for N in Ns:
+        bal, dl = [], []
+        for R in range(N, 2 * N):
+            lo_n, hi_n = R * R, (R + 1) * (R + 1) - 1
+            u0 = max(2, int(R / math.sqrt(2)) - 2)
+            u = np.arange(u0, R + 2, dtype=np.int64)
+            vlo = np.maximum(u + 1, -((-lo_n) // u))
+            vhi = np.minimum(2 * u - 1, hi_n // u)
+            iu, vv = ranges_expand(vlo, vhi)
+            if vv.size == 0:
+                bal.append(0.0)
+            else:
+                uu = u[iu]
+                ok = (uu * vv >= lo_n) & (uu * vv <= hi_n) & (vv > uu) & (vv < 2 * uu)
+                uu, vv = uu[ok], vv[ok]
+                either = np.maximum(isP[uu], isP[vv])
+                bal.append(float((muf[uu] * muf[vv] * either).sum()))
+            dl.append(float(cumall[hi_n + 1] - cumall[lo_n]))
+        pb, pd = np.cumsum(bal), np.cumsum(dl)
+        eb = float(np.sum(pb * pb)) / N**3
+        ed = float(np.sum(pd * pd)) / N**3
+        print(
+            f"{N:>7,} {eb:>16.4f} {ed:>13.5f} {eb/max(ed,1e-12):>10,.0f}x "
+            f"{float(np.abs(pb).max())/N:>15,.2f}"
+        )
+    print()
+    print("    The balanced region alone is orders of magnitude above Delta, so a")
+    print("    factorization-space split destroys the scale even though it is not a")
+    print("    coefficient split.  The cancellation in the factorization identity is")
+    print("    BETWEEN the balanced and extreme regions, not within either.")
+    print()
     print("    A sign-constant sequence has |prefix| growing linearly in the number")
     print("    of blocks, so no estimate can rescue it: rhoRho violates the budget")
     print("    by construction, not by an unlucky arithmetic conspiracy.  The same")
