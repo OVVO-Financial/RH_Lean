@@ -336,7 +336,12 @@ theorem physicalPrimeThreeLocalRawSlotSpectrum_eq_mode
       unfold physicalPrimeThreeLocalRawSlotSpectrum
       apply Fintype.sum_congr
       intro k
-      simp [G, e, jz, physicalPrimeThreeAffineEquiv]
+      change
+        (((localPrimeComb 3 (e k).val : ℤ) : ℂ)) *
+            ZMod.stdAddChar (-(k * r)) =
+          (((localPrimeComb 3 (e k).val : ℤ) : ℂ)) *
+            ZMod.stdAddChar (-(e.symm (e k) * r))
+      rw [e.symm_apply_apply]
     _ = ∑ z : ZMod 9, G z := e.sum_comp G
     _ = ∑ z : ZMod 9,
         (((localPrimeComb 3 z.val : ℤ) : ℂ)) *
