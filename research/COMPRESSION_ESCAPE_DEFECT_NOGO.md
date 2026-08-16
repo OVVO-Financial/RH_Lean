@@ -573,3 +573,72 @@ Not the pair of obligations as a route to RH. But two things here are genuine:
 What should not happen is `G*` being carried forward as though "coherent" meant
 "deterministic". The next split has to separate `mu_rho` from `rho_rho`, and
 `mu_rho` has no evident mechanism.
+
+---
+
+# Formal layer: BalancedPrimeBilinearCentering
+
+`RHLean/Analysis/BalancedPrimeBilinearCentering.lean` formalizes the exact
+decomposition and states the two analytic obligations. It contains no estimate.
+
+Contents:
+
+* `balancedCanonicalCoeff_eq_primeIndicator_form` -- inclusion-exclusion form,
+  by four cases on primality;
+* `balancedCanonicalCoeff_five_piece` -- the exact five-piece centering against
+  an **arbitrary** density `rho` (no property of the logarithmic integral is
+  used);
+* `balancedCanonicalCoeff_eq_typeII_add_coherent` -- the rebalanced split, with
+  `typeIICore = muE + eE` and everything else in `coherentComplement`;
+* `balancedPairs` -- the repository's balanced region `0 < d < u` in `(u,d)`
+  coordinates, and `blockBalanced_eq_typeII_add_coherent`, the block-level split;
+* `TypeIILocalEnergyBoundedStatement` and `CoherentLocalEnergyBoundedStatement`
+  -- the two obligations as `Prop`s;
+* `localEnergyBounded_blockBalanced_of_both` -- the only implication claimed.
+
+`pieceMuRho` is deliberately kept separate from `pieceRhoRho` in the
+definitions, because the diagnostics show it is the piece that carries the
+energy and it is *not* deterministic.
+
+## Verification status
+
+**The module is not compiled.** A Lean 4.24.0 toolchain was installed in this
+container by hand (elan's own path fails because `api.github.com` returns 403
+through the proxy), but the Mathlib build cache host
+`lakecache.blob.core.windows.net` is unreachable (`curl` returns `000`), and
+compiling Mathlib from source is not feasible here. `lean.yml` runs on
+`pull_request` and pushes to `main`, so a push to a feature branch does not
+verify it either.
+
+What *is* verified is the mathematical content, independently of Lean:
+
+* the inclusion-exclusion identity, exhaustively over all 40,000 pairs
+  `u, v <= 200`;
+* the five-piece centering, as an exact polynomial identity over a complete
+  `3^6 = 729` point rational grid -- degree `<= 2` in each of the six free
+  variables, so grid agreement is a complete proof rather than a sample;
+* `(x+y)^2 <= 2x^2 + 2y^2`, the only inequality used.
+
+Both checks are in `experiments/balanced_bilinear_centering_check.py` (sections
+A and D). So the remaining risk is Lean elaboration and Mathlib API names, not
+mathematics.
+
+## Next: attacking muRho
+
+The obligation on the coherent side reduces to prefix sums of
+
+```text
+sum_{u < v < 2u,  N^2 <= u*v < (N+j+1)^2}  ( -mu(u) rho(v) - mu(v) rho(u) )
+```
+
+being `<< N^{1+eps}`. Since `rho` is smooth and explicit and `v` is confined to
+`v ~ R` on the balanced region, this is `sum_u mu(u) G(u)` with `G` an explicit
+smooth weight of bounded size -- a smoothed Moebius sum over a hyperbolic
+region.
+
+The concrete first step is therefore not a new combinatorial identity but a
+Mellin computation: transform the balanced-region weight `G`, and read off which
+region of the critical strip needs `1/zeta` controlled. That is a finite,
+well-defined task, and it converts "muRho is hard" into an exact statement of
+*which* input it requires. The expected answer is `sigma > 1/2`, i.e. RH itself;
+if so, that should be recorded as an equivalence rather than pursued as a lemma.

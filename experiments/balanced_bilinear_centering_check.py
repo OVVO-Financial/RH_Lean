@@ -209,11 +209,48 @@ def probe_type_two(NMAX):
         print("    the reported table.  The exponent is the transferable quantity.")
 
 
+def check_five_piece():
+    """Exact polynomial verification of the five-piece centering.
+
+    The identity is degree <= 2 in each of the six free variables
+    (mu_u, mu_v, rho_u, rho_v, P_u, P_v), so agreement on a 3-point grid per
+    variable with exact rational arithmetic is a COMPLETE proof, not a sample.
+    This is the mathematical content of
+    `RHLean/Analysis/BalancedPrimeBilinearCentering.lean`.
+    """
+    from fractions import Fraction as Fr
+    from itertools import product
+
+    print()
+    print("=" * 84)
+    print("D  five-piece centering, exact over a complete rational grid")
+    print("=" * 84)
+    pts = [Fr(-1), Fr(0), Fr(3, 2)]
+    bad = 0
+    total = 0
+    for mu_u, mu_v, rho_u, rho_v, P_u, P_v in product(pts, repeat=6):
+        e_u, e_v = P_u - rho_u, P_v - rho_v
+        lhs = -mu_u * P_v - mu_v * P_u - P_u * P_v
+        rhs = (
+            (-mu_u * e_v - mu_v * e_u)            # muE
+            + (-e_u * e_v)                        # eE
+            + (-rho_u * e_v - e_u * rho_v)        # rhoE
+            + (-mu_u * rho_v - mu_v * rho_u)      # muRho
+            + (-rho_u * rho_v)                    # rhoRho
+        )
+        total += 1
+        bad += lhs != rhs
+    print(f"    grid points: {total}    mismatches: {bad}")
+    print(f"    identity holds: {bad == 0}  (complete for degree <= 2 per variable)")
+    return bad == 0
+
+
 def main():
     NMAX = int(sys.argv[1]) if len(sys.argv) > 1 else 5_000_000
     check_identity()
     check_reported_table()
     probe_type_two(NMAX)
+    check_five_piece()
 
 
 if __name__ == "__main__":
