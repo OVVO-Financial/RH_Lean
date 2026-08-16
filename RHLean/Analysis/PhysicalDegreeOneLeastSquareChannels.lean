@@ -138,25 +138,28 @@ private theorem no_physicalSquarePrimeAtEdge_iff_squarefree
     rcases hex with ⟨p, hp, a, ha, hsq⟩
     exact (Nat.squarefree_iff_prime_squarefree.mp (h a ha) p hp) hsq
 
-/-- The explicit eight physical sign states are exactly the states with no zero
-coordinate. -/
-theorem mem_physicalThreeSlotNonzeroStates_iff
-    (i : Fin 27) :
-    i ∈ physicalThreeSlotNonzeroStates ↔ IsThreeSlotNonzeroState i := by
-  classical
-  fin_cases i <;>
-    norm_num [physicalThreeSlotNonzeroStates, IsThreeSlotNonzeroState,
-      chiA, chiB, chiC]
+private theorem encodeThreeTrits_mem_physicalNonzero_iff
+    (a b c : Fin 3) :
+    encodeThreeTrits a b c ∈ physicalThreeSlotNonzeroStates ↔
+      tritSign a ≠ 0 ∧ tritSign b ≠ 0 ∧ tritSign c ≠ 0 := by
+  fin_cases a <;> fin_cases b <;> fin_cases c <;>
+    norm_num [physicalThreeSlotNonzeroStates, encodeThreeTrits, tritSign]
+
+private theorem threeSlotState_mem_physicalNonzero_iff
+    (k : ℕ) :
+    threeSlotState k ∈ physicalThreeSlotNonzeroStates ↔
+      μ (4 * k + 1) ≠ 0 ∧ μ (4 * k + 2) ≠ 0 ∧ μ (4 * k + 3) ≠ 0 := by
+  unfold threeSlotState
+  rw [encodeThreeTrits_mem_physicalNonzero_iff]
+  simp
 
 private theorem physicalNonzeroEdge_iff_activeSquarefree
     (k : ℕ) :
     (threeSlotState k ∈ physicalThreeSlotNonzeroStates ∧
         threeSlotState (k + 1) ∈ physicalThreeSlotNonzeroStates) ↔
       ∀ a ∈ physicalTransitionActiveOffsets, Squarefree (4 * k + a) := by
-  rw [mem_physicalThreeSlotNonzeroStates_iff,
-    mem_physicalThreeSlotNonzeroStates_iff]
-  simp only [IsThreeSlotNonzeroState, chiA_threeSlotState,
-    chiB_threeSlotState, chiC_threeSlotState]
+  rw [threeSlotState_mem_physicalNonzero_iff,
+    threeSlotState_mem_physicalNonzero_iff]
   constructor
   · rintro ⟨⟨h1, h2, h3⟩, ⟨h5, h6, h7⟩⟩
     have hs1 : Squarefree (4 * k + 1) :=
