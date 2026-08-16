@@ -108,16 +108,9 @@ theorem physicalDegreeOneT_eq_centeredTransitionDiscrepancy
               ((physicalTransitionR K u : ℤ) : ℝ) / 8) *
             ((threeSlotDegreeOneValue v : ℤ) : ℝ))) := by
   rw [physicalDegreeOneT_real_eq_rowSum]
-  unfold physicalNonzeroStateSum
-  simp only
-  rw [physicalTransitionRow_centered K 0,
-    physicalTransitionRow_centered K 2,
-    physicalTransitionRow_centered K 6,
-    physicalTransitionRow_centered K 8,
-    physicalTransitionRow_centered K 18,
-    physicalTransitionRow_centered K 20,
-    physicalTransitionRow_centered K 24,
-    physicalTransitionRow_centered K 26]
+  apply congrArg physicalNonzeroStateSum
+  funext u
+  exact physicalTransitionRow_centered K u
 
 /-- **The single open arithmetic target of the physical transition route.**
 For every positive epsilon, both the conditioned degree-one transition mass and
