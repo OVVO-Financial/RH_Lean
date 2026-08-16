@@ -100,28 +100,15 @@ theorem balancedCanonicalCoeff_eq_primeIndicator_form (u v : ℕ) :
       -((μ u : ℤ) : ℝ) * primeIndicatorReal v
         - ((μ v : ℤ) : ℝ) * primeIndicatorReal u
         - primeIndicatorReal u * primeIndicatorReal v := by
-  unfold balancedCanonicalCoeff
+  have hmu : u.Prime → ((μ u : ℤ) : ℝ) = -1 := fun h => by
+    rw [ArithmeticFunction.moebius_apply_prime h]; norm_num
+  have hmv : v.Prime → ((μ v : ℤ) : ℝ) = -1 := fun h => by
+    rw [ArithmeticFunction.moebius_apply_prime h]; norm_num
   by_cases hu : u.Prime <;> by_cases hv : v.Prime
-  · have hmu : ((μ u : ℤ) : ℝ) = -1 := by
-      rw [ArithmeticFunction.moebius_apply_prime hu]; norm_num
-    have hmv : ((μ v : ℤ) : ℝ) = -1 := by
-      rw [ArithmeticFunction.moebius_apply_prime hv]; norm_num
-    rw [if_pos (Or.inl hu), primeIndicatorReal_of_prime hu,
-      primeIndicatorReal_of_prime hv, hmu, hmv]
-    norm_num
-  · have hmu : ((μ u : ℤ) : ℝ) = -1 := by
-      rw [ArithmeticFunction.moebius_apply_prime hu]; norm_num
-    rw [if_pos (Or.inl hu), primeIndicatorReal_of_prime hu,
-      primeIndicatorReal_of_not_prime hv, hmu]
-    ring
-  · have hmv : ((μ v : ℤ) : ℝ) = -1 := by
-      rw [ArithmeticFunction.moebius_apply_prime hv]; norm_num
-    rw [if_pos (Or.inr hv), primeIndicatorReal_of_not_prime hu,
-      primeIndicatorReal_of_prime hv, hmv]
-    ring
-  · rw [if_neg (by tauto), primeIndicatorReal_of_not_prime hu,
-      primeIndicatorReal_of_not_prime hv]
-    ring
+  · norm_num [balancedCanonicalCoeff, primeIndicatorReal, hu, hv, hmu hu, hmv hv]
+  · norm_num [balancedCanonicalCoeff, primeIndicatorReal, hu, hv, hmu hu]
+  · norm_num [balancedCanonicalCoeff, primeIndicatorReal, hu, hv, hmv hv]
+  · norm_num [balancedCanonicalCoeff, primeIndicatorReal, hu, hv]
 
 /-! ## The five centered pieces -/
 
@@ -180,14 +167,11 @@ theorem balancedCanonicalCoeff_eq_typeII_add_coherent (rho : ℕ → ℝ) (u v :
 /-- The repository's balanced region for the square block at `R`: pairs `(u,d)`
 with `0 < d < u` and `R^2 <= u*(u+d) < (R+1)^2`.  Writing `v = u + d` this is
 exactly `u < v < 2*u`. -/
-def balancedPairs (R : ℕ) : Finset (ℕ × ℕ) :=
-  (Finset.range (R + 2) ×ˢ Finset.range (R + 2)).filter
+def balancedPairs (R : ℕ) : Finset (ℕ × ℕ) := by
+  classical
+  exact (Finset.range (R + 2) ×ˢ Finset.range (R + 2)).filter
     (fun p => 0 < p.2 ∧ p.2 < p.1 ∧
       R ^ 2 ≤ p.1 * (p.1 + p.2) ∧ p.1 * (p.1 + p.2) < (R + 1) ^ 2)
-
-theorem mem_balancedPairs {R u d : ℕ} (h : (u, d) ∈ balancedPairs R) :
-    0 < d ∧ d < u ∧ R ^ 2 ≤ u * (u + d) ∧ u * (u + d) < (R + 1) ^ 2 := by
-  simpa [balancedPairs, and_assoc] using (Finset.mem_filter.mp h).2
 
 /-- Balanced block sum of a coefficient, in `(u,d)` coordinates. -/
 def blockSum (f : ℕ → ℕ → ℝ) (R : ℕ) : ℝ :=
