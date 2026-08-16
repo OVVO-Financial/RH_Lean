@@ -62,6 +62,31 @@ theorem mertensSummatory_four_mul_succ_eq_physicalDegreeOne
   simpa [physicalDegreeOneT, physicalDegreeOneD] using
     mertensSummatory_four_mul_succ_eq_transitionMass_add_defect K
 
+/-- One source row of the `1/8` centering identity. -/
+private theorem physicalTransitionRow_centered
+    (K : ℕ) (u : Fin 27) :
+    ((threeSlotTransitionMomentOn
+        (Finset.range K) u threeSlotDegreeOneValue : ℤ) : ℝ) =
+      physicalThreeSlotNonzeroStates.sum (fun v =>
+        (((physicalTransitionN K u v : ℕ) : ℝ) -
+            ((physicalTransitionR K u : ℤ) : ℝ) / 8) *
+          ((threeSlotDegreeOneValue v : ℤ) : ℝ)) := by
+  norm_num [physicalThreeSlotNonzeroStates, physicalTransitionN,
+    physicalTransitionR, threeSlotTransitionCount,
+    threeSlotTransitionMomentOn, threeSlotTransitionRowTotalOn,
+    threeSlotDegreeOneValue, chiA, chiB, chiC]
+  <;> ring
+
+/-- The transition mass is exactly the sum of its eight nonzero source rows. -/
+private theorem physicalDegreeOneT_real_eq_rowSum (K : ℕ) :
+    ((physicalDegreeOneT K : ℤ) : ℝ) =
+      physicalThreeSlotNonzeroStates.sum (fun u =>
+        ((threeSlotTransitionMomentOn
+            (Finset.range K) u threeSlotDegreeOneValue : ℤ) : ℝ)) := by
+  norm_num [physicalThreeSlotNonzeroStates, physicalDegreeOneT,
+    threeSlotTransitionDegreeOneMass]
+  <;> ring
+
 /-- **Exact row-centering identity.**  After casting to `ℝ`, the raw degree-one
 transition mass is exactly the contraction of
 `N_{u,v}(K) - R_u(K)/8` against the destination degree-one character.
@@ -77,11 +102,10 @@ theorem physicalDegreeOneT_eq_centeredTransitionDiscrepancy
           (((physicalTransitionN K u v : ℕ) : ℝ) -
               ((physicalTransitionR K u : ℤ) : ℝ) / 8) *
             ((threeSlotDegreeOneValue v : ℤ) : ℝ))) := by
-  norm_num [physicalThreeSlotNonzeroStates, physicalDegreeOneT,
-    physicalTransitionN, physicalTransitionR, threeSlotTransitionCount,
-    threeSlotTransitionDegreeOneMass, threeSlotTransitionMomentOn,
-    threeSlotTransitionRowTotalOn, threeSlotDegreeOneValue, chiA, chiB, chiC]
-  <;> ring
+  rw [physicalDegreeOneT_real_eq_rowSum]
+  refine Finset.sum_congr rfl ?_
+  intro u hu
+  exact physicalTransitionRow_centered K u
 
 /-- **The single open arithmetic target of the physical transition route.**
 For every positive epsilon, both the conditioned degree-one transition mass and
@@ -125,7 +149,8 @@ theorem threeSlotDegreeOneEnergy_of_physicalDegreeOneMixingConjecture
   · intro K
     cases K with
     | zero =>
-        norm_num [threeSlotWa, threeSlotWb, threeSlotWc]
+        simpa [threeSlotWa, threeSlotWb, threeSlotWc, Real.one_rpow] using
+          (sq_nonneg (C + G))
     | succ K =>
         let a : ℝ := (1 : ℝ) / 2 + ε / 2
         let R : ℝ := Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a
