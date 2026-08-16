@@ -102,6 +102,11 @@ jobs:
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
 
+      # See lean.yml: this replaces a `lake exe mk_all` round trip with the
+      # directory-listing comparison that the check actually rests on.
+      - name: Check Lean root import manifest
+        run: python3 scripts/check_root_manifest.py
+
       # Distinct key prefix from the runner-based job: the two environments are
       # kept separate while both exist, so a bad entry in one cannot poison the
       # other.  The source hash covers this Lake project only -- a bare
@@ -116,24 +121,6 @@ jobs:
           restore-keys: |
             rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-
-
-      - name: Generate Lean root import manifest
-        id: importaudit
-        continue-on-error: true
-        run: |
-          set +e
-          lake exe mk_all
-          mk_status=$?
-          set -e
-          git diff -- RHLean.lean
-          if ! git diff --quiet -- RHLean.lean; then
-            exit 1
-          fi
-          exit "$mk_status"
-
-      - name: Fail if Lean import manifest is stale
-        if: steps.importaudit.outcome == 'failure'
-        run: exit 1
 
       - name: Build Lean project
         id: directbuild

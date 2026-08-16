@@ -21,11 +21,17 @@ FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# python3 is here for the repository's audit scripts, not for the build:
+# ubuntu:24.04 ships no interpreter at all, and scripts/check_root_manifest.py
+# runs inside this image.  bash matters for the same reason -- the runner
+# resolves a container job's default shell to dash otherwise.
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
+      bash \
       ca-certificates \
       curl \
       git \
+      python3-minimal \
       xz-utils \
       zstd \
  && rm -rf /var/lib/apt/lists/*

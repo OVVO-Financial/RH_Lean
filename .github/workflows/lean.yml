@@ -50,6 +50,18 @@ jobs:
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
 
+      # Catches a module that exists on disk but is missing from the root
+      # manifest, and so is never compiled and never has its `sorry`s
+      # reported.  This used to be `lake exe mk_all` inside the build job,
+      # where reaching the check first cost a Lean install, a Mathlib restore
+      # and a mk_all build -- about twenty seconds of every run, ninety
+      # seconds into it.  The property is a directory listing against a list
+      # of imports, so it belongs here, where it costs a second and runs in
+      # parallel with the build.  mk_all is still the generator; see the
+      # script's docstring.
+      - name: Check Lean root import manifest
+        run: python3 scripts/check_root_manifest.py
+
   build:
     name: Hosted Lean build
     runs-on: ubuntu-latest
@@ -124,31 +136,6 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
-
-      - name: Generate Lean root import manifest
-        id: importaudit
-        continue-on-error: true
-        run: |
-          set +e
-          lake exe mk_all
-          mk_status=$?
-          set -e
-          git diff -- RHLean.lean
-          if ! git diff --quiet -- RHLean.lean; then
-            exit 1
-          fi
-          exit "$mk_status"
-
-      - name: Upload generated Lean root manifest
-        if: steps.importaudit.outcome == 'failure'
-        uses: actions/upload-artifact@v4
-        with:
-          name: generated-rhlean-root
-          path: RHLean.lean
-
-      - name: Fail if Lean import manifest is stale
-        if: steps.importaudit.outcome == 'failure'
-        run: exit 1
 
       - name: Build Lean project
         id: directbuild
