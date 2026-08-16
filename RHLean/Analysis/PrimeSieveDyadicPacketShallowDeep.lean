@@ -896,8 +896,8 @@ theorem dyadicSignedRootPacketEnergyBlockBounded_of_packetTree
       exact congrArg (fun z : ℝ => (CD * CT) * z)
         (Real.rpow_add hbase (ε / 2) (1 + ε / 2)).symm
     _ = (CD * CT) * Real.rpow ((x : ℝ) + 1) (1 + ε) := by
-      congr 1
-      ring
+      have hexp : (ε / 2) + (1 + ε / 2) = 1 + ε := by ring
+      rw [hexp]
 
 /-! ## Shared-cutoff analytic frontier -/
 
