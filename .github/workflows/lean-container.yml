@@ -3,20 +3,22 @@ name: Lean build (prebuilt container)
 # Runs the hosted Lean build inside the prebuilt dependency image published by
 # .github/workflows/mathlib-image.yml, where Mathlib is already on disk.
 #
-# This deliberately does NOT trigger on pull_request yet.  Until the image has
-# been published at least once, a container job would fail to start, and the
-# point of this workflow is to be measured against the cache-based `build` job
-# in lean.yml before replacing it.  To adopt it, add the same pull_request
-# trigger lean.yml uses and delete that job.
+# Manual dispatch only, on purpose.
+#
+# The prediction in the original version of this comment -- that a container
+# job would fail to start until the image had been published at least once --
+# is exactly what happened: mathlib-image.yml failed on its single run, no
+# image was ever pushed to GHCR, and this workflow then ran 63 times on main
+# and failed 62 of them, each one a red check that meant nothing.  The push
+# trigger stays off until the image has published from main.
+#
+# To adopt this as the real build, once mathlib-image.yml has run on main:
+# add the pull_request and push triggers lean.yml uses, and delete lean.yml's
+# `build` job.  Beyond removing the dependency restore from every run, that
+# also hands the repository's whole 10 GB Actions cache budget to the project
+# build cache, which is the entry that actually changes every commit.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '**.lean'
-      - 'lean-toolchain'
-      - 'lake-manifest.json'
-      - '.github/workflows/lean-container.yml'
   workflow_dispatch:
 
 permissions:
@@ -28,15 +30,53 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # A job's `container.image` is resolved before any of its steps run, so it
+  # cannot be computed from the checked-out tree inside that job.  This tiny
+  # job checks the tree out first and hands the reference down through
+  # `needs`, which pins the build to the image built from exactly this
+  # lean-toolchain and lake-manifest.json.  Pulling `:latest` instead would
+  # silently run a Mathlib bump against the previous dependency set.
+  image:
+    name: Resolve dependency image
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      ref: ${{ steps.ref.outputs.ref }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Resolve image reference
+        id: ref
+        run: |
+          set -euo pipefail
+          owner="$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')"
+          toolchain="$(tr -d '[:space:]' < lean-toolchain | tr '/:' '--')"
+          deps="$(sha256sum lake-manifest.json | cut -c1-12)"
+          echo "ref=ghcr.io/${owner}/rh-lean-mathlib:${toolchain}-${deps}" >> "$GITHUB_OUTPUT"
+
   build:
     name: Hosted Lean build (container)
+    needs: image
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    permissions:
+      contents: read
+      packages: read
+      actions: write                     # required to trim superseded caches
     container:
-      image: ghcr.io/ovvo-financial/rh-lean-mathlib:latest
+      image: ${{ needs.image.outputs.ref }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    # Inside a container the runner resolved the default shell to `sh -e {0}`,
+    # which is dash, so every step opening with `set -euo pipefail` died on
+    # line one with "Illegal option -o pipefail" -- including the step that
+    # links Mathlib into the workspace, which therefore failed before it ever
+    # checked whether Mathlib was there.  Ask for bash explicitly.
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -62,35 +102,25 @@ jobs:
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
 
+      # See lean.yml: this replaces a `lake exe mk_all` round trip with the
+      # directory-listing comparison that the check actually rests on.
+      - name: Check Lean root import manifest
+        run: python3 scripts/check_root_manifest.py
+
       # Distinct key prefix from the runner-based job: the two environments are
       # kept separate while both exist, so a bad entry in one cannot poison the
-      # other.  Fallbacks allow partial hits when only a few files changed.
+      # other.  The source hash covers this Lake project only -- a bare
+      # '**/*.lean' glob also matched the linked Mathlib tree and the
+      # independent export_* projects.  Fallbacks allow partial hits when only
+      # a few files changed.
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
+          key: rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-
-
-      - name: Generate Lean root import manifest
-        id: importaudit
-        continue-on-error: true
-        run: |
-          set +e
-          lake exe mk_all
-          mk_status=$?
-          set -e
-          git diff -- RHLean.lean
-          if ! git diff --quiet -- RHLean.lean; then
-            exit 1
-          fi
-          exit "$mk_status"
-
-      - name: Fail if Lean import manifest is stale
-        if: steps.importaudit.outcome == 'failure'
-        run: exit 1
 
       - name: Build Lean project
         id: directbuild
@@ -102,7 +132,27 @@ jobs:
         uses: actions/cache/save@v5
         with:
           path: .lake/build
-          key: rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
+          key: rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+
+      # Keep only the newest build entry per ref.  See the same step in
+      # lean.yml: the repository gets 10 GB, and an entry per run under a fresh
+      # content hash evicts the entries the next run wants.
+      - name: Trim superseded build caches for this ref
+        if: ${{ !cancelled() && github.event.pull_request.head.repo.fork != true }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CACHE_REF: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/merge', github.event.number) || github.ref }}
+        run: |
+          set -euo pipefail
+          gh api --paginate \
+            "/repos/${GITHUB_REPOSITORY}/actions/caches?ref=${CACHE_REF}&per_page=100" \
+            --jq '.actions_caches[] | select(.key | startswith("rhlean-container-build-")) | [.created_at, (.id|tostring), .key] | @tsv' \
+            > caches.tsv || : > caches.tsv
+          sort -r caches.tsv | tail -n +2 | while IFS=$'\t' read -r created id key; do
+            echo "deleting superseded cache ${key} (${created})"
+            gh api -X DELETE "/repos/${GITHUB_REPOSITORY}/actions/caches/${id}" || true
+          done
 
       - name: Print Lean build log
         if: ${{ always() && hashFiles('lean-build.log') != '' }}
