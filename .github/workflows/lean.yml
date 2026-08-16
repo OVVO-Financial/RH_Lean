@@ -9,7 +9,11 @@ on:
       - 'lake-manifest.json'             # dependency/Mathlib bumps invalidate compiled artifacts
       - '.github/workflows/lean.yml'     # changes to this audit workflow
   pull_request:
-    types: [opened, synchronize, reopened, edited]
+    # Deliberately no `edited`.  That type fires on every PR title and body
+    # revision, which agents rewrite constantly, and each one queued a fresh
+    # ~16 minute Lean build for a change that cannot affect compilation.
+    # `synchronize` already covers every new commit.
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
       - 'lean-toolchain'                 # Lean version bumps
@@ -25,8 +29,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Runs alongside the build rather than gating it.  The audit finishes in
+  # about ten seconds, so gating only pushed the expensive job back by the
+  # runner hand-off; both jobs still report independently, so a failed audit
+  # still fails the PR.
   audit:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -39,8 +48,13 @@ jobs:
 
   build:
     name: Hosted Lean build
-    needs: audit
     runs-on: ubuntu-latest
+    # A wedged proof search used to hold a runner for the six hour default.
+    # The slowest healthy build on record is under twenty minutes.
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      actions: write                     # required to trim superseded caches
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -90,13 +104,19 @@ jobs:
           key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
       # Content-addressed project build cache.
-      # Primary key includes a hash of all Lean sources so identical trees share oleans.
-      # Fallback keys still allow partial hits when only a few files changed.
+      #
+      # The source hash covers this Lake project only.  A bare '**/*.lean'
+      # glob also matched .lake/packages, which is already on disk by this
+      # point, so every key hashed the whole of Mathlib; and it matched the
+      # export_* trees, which are independent Lake projects whose sources
+      # cannot affect this build, so editing an export needlessly missed the
+      # cache.  Fallback keys still allow partial hits when only a few files
+      # changed.
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
@@ -139,7 +159,33 @@ jobs:
         uses: actions/cache/save@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', '**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+
+      # A repository gets 10 GB of Actions cache.  Mathlib holds several of
+      # them, and every run of this workflow used to add another multi-gigabyte
+      # .lake/build entry under a fresh content hash, so a busy afternoon
+      # evicted the very entries the next run wanted and turned a two minute
+      # incremental build back into a fifteen minute cold one.  Keep only the
+      # newest build entry per ref; the save above has already written it.
+      #
+      # Forked pull requests get a read-only token, so this is best effort.
+      - name: Trim superseded build caches for this ref
+        if: ${{ !cancelled() && github.event.pull_request.head.repo.fork != true }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CACHE_REF: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/merge', github.event.number) || github.ref }}
+        run: |
+          set -euo pipefail
+          gh api --paginate \
+            "/repos/${GITHUB_REPOSITORY}/actions/caches?ref=${CACHE_REF}&per_page=100" \
+            --jq '.actions_caches[] | select(.key | startswith("rhlean-build-")) | [.created_at, (.id|tostring), .key] | @tsv' \
+            > caches.tsv || : > caches.tsv
+          # Newest first, keep row one, delete the rest.
+          sort -r caches.tsv | tail -n +2 | while IFS=$'\t' read -r created id key; do
+            echo "deleting superseded cache ${key} (${created})"
+            gh api -X DELETE "/repos/${GITHUB_REPOSITORY}/actions/caches/${id}" || true
+          done
 
       - name: Upload Lean build log
         if: ${{ always() && hashFiles('lean-build.log') != '' }}

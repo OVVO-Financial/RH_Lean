@@ -3,20 +3,19 @@ name: Lean build (prebuilt container)
 # Runs the hosted Lean build inside the prebuilt dependency image published by
 # .github/workflows/mathlib-image.yml, where Mathlib is already on disk.
 #
-# This deliberately does NOT trigger on pull_request yet.  Until the image has
-# been published at least once, a container job would fail to start, and the
-# point of this workflow is to be measured against the cache-based `build` job
-# in lean.yml before replacing it.  To adopt it, add the same pull_request
-# trigger lean.yml uses and delete that job.
+# Manual dispatch only, on purpose.
+#
+# The prediction in the original version of this comment -- that a container
+# job would fail to start until the image had been published at least once --
+# is exactly what happened: mathlib-image.yml failed on its single run, no
+# image was ever pushed to GHCR, and this workflow then ran 63 times on main
+# and failed 62 of them, each one a red check that meant nothing.  The push
+# trigger is removed until the image genuinely exists.
+#
+# To adopt this as the real build: confirm a published tag, add the
+# pull_request trigger lean.yml uses, and delete lean.yml's `build` job.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '**.lean'
-      - 'lean-toolchain'
-      - 'lake-manifest.json'
-      - '.github/workflows/lean-container.yml'
   workflow_dispatch:
 
 permissions:

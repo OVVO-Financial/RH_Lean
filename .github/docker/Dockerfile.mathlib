@@ -1,13 +1,17 @@
 # Prebuilt Lean toolchain and Mathlib dependency image for RH_Lean CI.
 #
-# The hosted Lean job spends almost all of its wall clock in dependency setup
-# rather than in compilation: on a cold cache `lake` clones the whole of
+# The hosted Lean job spends a large slice of its wall clock in dependency
+# setup rather than in compilation: on a cold cache `lake` clones the whole of
 # mathlib4 and then `lake exe cache get` downloads several gigabytes of oleans,
 # which measured at 7m34s against roughly one minute of `lake build RHLean`.
+# Even on a warm cache it costs about two minutes per run to restore and
+# unpack .lake/packages.
 #
 # Baking `.lake/packages` into an image removes both.  A container job pulls a
 # compressed, layer-cached image and Mathlib is simply already on disk, with no
-# Actions cache scoping rules, no eviction, and no cold-start cliff.
+# Actions cache scoping rules, no eviction, and no cold-start cliff.  It also
+# hands the repository's entire 10 GB Actions cache budget back to the project
+# build cache, which is the entry that actually changes every commit.
 #
 # Only the three files that pin the toolchain and the dependency set are copied
 # in, so ordinary Lean edits never invalidate the image.  Rebuild it when
@@ -34,16 +38,54 @@ WORKDIR /opt/lean-deps
 
 COPY lean-toolchain lakefile.lean lake-manifest.json ./
 
-RUN curl -fsSL \
+RUN set -eux; \
+    curl -fsSL \
       https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
-      -o /tmp/elan-init.sh \
- && sh /tmp/elan-init.sh -y --default-toolchain "$(cat lean-toolchain)" \
- && rm /tmp/elan-init.sh \
- && lean --version
+      -o /tmp/elan-init.sh; \
+    sh /tmp/elan-init.sh -y --default-toolchain "$(cat lean-toolchain)"; \
+    rm /tmp/elan-init.sh; \
+    lean --version; \
+    lake --version
 
-# Resolve the dependency graph and download Mathlib's oleans.  This layer is
-# the entire point of the image.
-RUN lake exe cache get
+# The lakefile declares `lean_lib RHLean`, whose source directory is not copied
+# into the image.  Lake only needs the directory to exist to load a well formed
+# workspace; the project's own sources arrive with the CI checkout.
+RUN mkdir -p RHLean
+
+# Download Mathlib's prebuilt oleans.  This layer is the entire point of the
+# image.
+#
+# `lake exe cache get` is deliberately the first lake command that touches the
+# dependency graph: it resolves the workspace straight from the copied
+# lake-manifest.json, so every revision stays pinned exactly as the repository
+# pins it.  Running `lake update` here instead would re-resolve the graph and
+# rewrite the manifest, and the image would then ship oleans for a dependency
+# set the project never asked for.
+#
+# The download is a few gigabytes off a CDN and does occasionally drop a
+# connection, so it gets a couple of retries.  On the final failure the layer
+# dumps the state that the original one-line version hid, since the run that
+# failed in August left no usable log behind.
+RUN set -eux; \
+    for attempt in 1 2 3; do \
+      if lake exe cache get; then break; fi; \
+      echo "=== lake exe cache get failed (attempt ${attempt}) ==="; \
+      df -h /; \
+      ls -la . || true; \
+      ls -la .lake || true; \
+      ls -la .lake/packages || true; \
+      if [ "${attempt}" = 3 ]; then exit 1; fi; \
+      sleep 15; \
+    done; \
+    du -sh .lake/packages
+
+# Fail the image build here rather than at the first use in CI: an image whose
+# oleans are missing looks healthy on the registry and then recompiles the
+# whole of Mathlib inside every job that pulls it.
+RUN set -eux; \
+    olean_count="$(find .lake/packages/mathlib -name '*.olean' | wc -l)"; \
+    echo "mathlib oleans: ${olean_count}"; \
+    test "${olean_count}" -gt 4000
 
 # CI checks out the repository over the workspace, so the job symlinks this
 # directory into place rather than finding it there already.  Lake writes
