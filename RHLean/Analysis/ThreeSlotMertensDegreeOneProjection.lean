@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Arithmetic.PrimeCombComplementSmoothInversion
 import RHLean.Arithmetic.PrimeWheelThreeSlotRecovery
 import RHLean.Analysis.PrimeWheelRecoveredMertensCriterion
 
@@ -500,6 +501,17 @@ theorem threeSlotCombinedDegreeOne_succ_eq_transitionMass_add_defect
   unfold threeSlotTransitionDegreeOneDefect
   ring
 
+/-- Integer form of the same physical pushforward at a complete four-cell
+endpoint. -/
+theorem moebiusPositivePrefix_four_mul_succ_eq_transitionMass_add_defect
+    (K : ℕ) :
+    moebiusPositivePrefix (4 * (K + 1)) =
+      threeSlotDegreeOneValue (threeSlotState 0) +
+        threeSlotTransitionDegreeOneMass K +
+        threeSlotTransitionDegreeOneDefect K := by
+  rw [moebiusPositivePrefix_four_mul_eq_degreeOne]
+  exact threeSlotCombinedDegreeOne_succ_eq_transitionMass_add_defect K
+
 /-- Analytic form of the exact transition pushforward at the complete four-cell
 endpoint.  No estimate on the transition mass or defect is asserted. -/
 theorem mertensSummatory_four_mul_succ_eq_transitionMass_add_defect
@@ -510,5 +522,49 @@ theorem mertensSummatory_four_mul_succ_eq_transitionMass_add_defect
           threeSlotTransitionDegreeOneDefect K : ℤ)) : ℂ) := by
   rw [mertensSummatory_four_mul_eq_degreeOne,
     threeSlotCombinedDegreeOne_succ_eq_transitionMass_add_defect]
+
+/-! ## Exact prime-coordinate to physical-transition seam
+
+Complement-smooth inversion from the finite prime-coordinate operator is
+invertible bookkeeping.  Specializing its old-coordinate set to the empty set
+recovers the ordinary Möbius prefix from any finite set of prime coordinates.
+Composing that identity with the physical transition pushforward above gives an
+exact equality between the prime-coordinate recovery sum and the Mertens-visible
+eight-state transition mass plus its explicit conditioning defect.  This is a
+scalar pushforward seam only; it asserts no per-row transport matching and no
+cancellation estimate.
+-/
+
+/-- Empty-old-coordinate specialization of complement-smooth inversion. -/
+theorem moebiusPositivePrefix_eq_primeCoordinateComplementSmooth
+    (T : Finset ℕ)
+    (hT : ∀ q ∈ T, Nat.Prime q) (x : ℕ) :
+    moebiusPositivePrefix x =
+      ∑ n ∈ primeSetSmoothIcc T x,
+        finiteDifferenceOperator T moebiusPositivePrefix (x / n) := by
+  have h := finiteDifferenceOperator_eq_sum_complementSmooth
+    (∅ : Finset ℕ) T (by simp) hT (by simp)
+    moebiusPositivePrefix
+    (by simp [moebiusPositivePrefix, positivePrefix]) x
+  simpa using h
+
+/-- **Exact prime-coordinate to physical-transition pushforward seam.**  For
+any finite prime set `T`, the complement-smooth recovery of the degree-one
+Mertens prefix at `4(K+1)` is exactly the physical conditioned transition mass
+plus the explicit defect.  The two eight-state objects are not identified:
+`T` remains a prime-coordinate set, while the physical side remains the
+canonical three-slot sign state. -/
+theorem primeCoordinateComplementSmooth_eq_physicalTransitionPushforward
+    (T : Finset ℕ)
+    (hT : ∀ q ∈ T, Nat.Prime q) (K : ℕ) :
+    (∑ n ∈ primeSetSmoothIcc T (4 * (K + 1)),
+        finiteDifferenceOperator T moebiusPositivePrefix
+          ((4 * (K + 1)) / n)) =
+      threeSlotDegreeOneValue (threeSlotState 0) +
+        threeSlotTransitionDegreeOneMass K +
+        threeSlotTransitionDegreeOneDefect K := by
+  rw [← moebiusPositivePrefix_eq_primeCoordinateComplementSmooth
+    T hT (4 * (K + 1))]
+  exact moebiusPositivePrefix_four_mul_succ_eq_transitionMass_add_defect K
 
 end RHLean.Analysis
