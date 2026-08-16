@@ -62,12 +62,43 @@ def sourceSuccessorParentFiber (B x : ℕ) (p : SourceIndex B) : ℤ :=
     else
       0
 
+/-- Integer count of active legal children selecting a fixed parent. -/
+def sourceActiveChildMultiplicityInt (B x : ℕ) (p : SourceIndex B) : ℤ :=
+  ∑ s : SourceIndex B,
+    if sourceClock B s ≤ x ∧ sourceParent s = some p then 1 else 0
+
+/-- Every parent fibre is exactly its active-child multiplicity times the parent
+Möbius weight. -/
+theorem sourceSuccessorParentFiber_eq_multiplicity_mul_weight
+    (B x : ℕ) (p : SourceIndex B) :
+    sourceSuccessorParentFiber B x p =
+      sourceActiveChildMultiplicityInt B x p * sourceWeight p := by
+  classical
+  unfold sourceSuccessorParentFiber sourceActiveChildMultiplicityInt
+  rw [Finset.sum_mul]
+  apply Finset.sum_congr rfl
+  intro s _hs
+  by_cases hchild : sourceClock B s ≤ x ∧ sourceParent s = some p
+  · simp [hchild]
+  · simp [hchild]
+
 /-- The complete successor is the exact sum of the individual parent fibres. -/
 theorem sourceSuccessorPrefix_eq_sum_parentFibers (B x : ℕ) :
     sourceSuccessorPrefix B x =
       ∑ p : SourceIndex B, sourceSuccessorParentFiber B x p := by
   rw [sourceSuccessorPrefix_eq_parentFiberMass]
   rfl
+
+/-- Weighted-parent form of the complete successor.  The arithmetic coefficient
+of a parent is its actual number of active legal prime-extension children. -/
+theorem sourceSuccessorPrefix_eq_sum_multiplicity_mul_weight (B x : ℕ) :
+    sourceSuccessorPrefix B x =
+      ∑ p : SourceIndex B,
+        sourceActiveChildMultiplicityInt B x p * sourceWeight p := by
+  rw [sourceSuccessorPrefix_eq_sum_parentFibers]
+  apply Finset.sum_congr rfl
+  intro p _hp
+  exact sourceSuccessorParentFiber_eq_multiplicity_mul_weight B x p
 
 /-- Signed root-by-parent-fibre cross ledger at a complete square endpoint.  No
 term is discarded: the three finite coordinates are the active root, the parent
@@ -91,13 +122,13 @@ theorem squareRootRootSuccessorCrossLedger_eq_mul (B R : ℕ) :
   unfold squareRootRootSuccessorCrossLedger sourceSuccessorParentFiber
   rw [Finset.sum_mul]
   apply Finset.sum_congr rfl
-  intro u hu
+  intro u _hu
   rw [Finset.mul_sum]
   apply Finset.sum_congr rfl
-  intro p hp
+  intro p _hp
   rw [Finset.mul_sum]
   apply Finset.sum_congr rfl
-  intro s hs
+  intro s _hs
   by_cases hchild : sourceClock B s ≤ R - 1 ∧ sourceParent s = some p
   · simp [hchild]
   · simp [hchild]
