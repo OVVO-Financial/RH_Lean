@@ -930,3 +930,41 @@ It also means the remaining target is not a bilinear estimate at all. It is
 `muRho` and its relatives -- and those, by the measurement above, do not satisfy
 the budget individually and can only be handled together with the extreme
 sector, which returns to the hyperbola identity where the cancellation lives.
+
+## The scale-preserving family is not free either
+
+One caveat completes the classification, and it tightens it into a trilemma.
+
+Index-set partitions preserve RH scale, but each piece then carries its own
+analytic requirement. For the residue-class split, the piece
+
+```text
+Delta^(a) = sum_{n in block, n = a mod 4} mu(n)
+```
+
+at RH scale is `M(x; 4, a) << x^{1/2+eps}`, which by the same Mellin argument
+that makes `M(x) << x^{1/2+eps}` equivalent to RH is equivalent to GRH for the
+Dirichlet L-functions mod 4 -- that is, RH for `zeta` *and* for `L(s, chi_4)`.
+Strictly stronger than RH.
+
+So the three families fail in three different ways, and none is a reduction:
+
+| family | scale | what each piece costs |
+|---|---|---|
+| index-set partition | preserved | GRH for the relevant modulus -- **stronger** than RH |
+| factorization space | destroyed (3,958x) | cancellation between the regions it created |
+| coefficient split | destroyed (drift) | cancellation against the pieces it created |
+
+There is no direction in which the split is free. That is the sharpest statement
+this investigation supports, and it is consistent with every measurement in this
+note: the square-block residual sits at RH scale as a whole, and every attempt
+to break it into separately-boundable parts either moves the difficulty between
+the parts or raises it above RH.
+
+The one genuine asymmetry found is `typeIICore`: flat, decreasing at `N^-0.304`,
+demonstrably bilinear, and carrying 1.4% of the mass. Proving
+`E_loc(typeIICore) << H N^{2+eps}` would be a real theorem about this
+architecture, and `BalancedPrimeBilinearCentering.lean` now states it precisely
+and compiles. What it would not be is a step toward RH -- the other 98.6% is
+untouched by it, and by the table above there is no split of that remainder that
+costs less than the whole.
