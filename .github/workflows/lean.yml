@@ -12,13 +12,13 @@ permissions:
 
 concurrency:
   group: full-lean-warning-sweep-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     name: Full Lean warning sweep
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 360
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -51,8 +51,11 @@ jobs:
 
       - name: Build all 7779 jobs with warnings fatal
         id: directbuild
+        timeout-minutes: 330
         continue-on-error: true
-        run: lake build RHLean --wfail > lean-build.log 2>&1
+        run: |
+          set -o pipefail
+          lake build RHLean --wfail 2>&1 | tee lean-build.log
 
       - name: Upload complete Lean build log
         if: ${{ always() && hashFiles('lean-build.log') != '' }}
