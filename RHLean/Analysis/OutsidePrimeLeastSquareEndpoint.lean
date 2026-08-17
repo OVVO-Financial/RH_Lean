@@ -63,7 +63,7 @@ theorem outsidePrimeDeletion_leastSquare_exists
   have hne := outsidePrimeDeletion_leastSquare_ne_none hk
   cases h : physicalLeastOddSquarePrime k with
   | none => exact (hne h).elim
-  | some q => exact ⟨q, h⟩
+  | some q => exact ⟨q, rfl⟩
 
 /-- Least square-prime labels that actually occur in one outside-prime deletion
 population. -/
@@ -178,11 +178,13 @@ theorem squareBlockOutsidePrimeDeletionT_eq_complete_add_endpoint
       squareBlockOutsidePrimeLeastCompleteCells P R ⊆
         squareBlockOutsidePrimeDeletionCells P R :=
     Finset.filter_subset _ _
+  unfold outsidePrimeDeletionT
+  change
+    (∑ k ∈ squareBlockOutsidePrimeDeletionCells P R,
+      selectedDegreeOneProjection P k) = _
   unfold squareBlockOutsidePrimeLeastCompleteT
     squareBlockOutsidePrimeLeastEndpointT
     squareBlockOutsidePrimeLeastEndpointCells
-    squareBlockOutsidePrimeDeletionCells
-    outsidePrimeDeletionT
   rw [← Finset.sum_sdiff hsub]
   ring
 
@@ -203,7 +205,12 @@ theorem threeSlotSquareBlockTransitionCells_card_le_linear
     (R : ℕ) :
     (threeSlotSquareBlockTransitionCells R).card ≤ 2 * R + 1 := by
   rw [threeSlotSquareBlockTransitionCells_eq_Ico]
-  simp only [Finset.card_Ico]
+  have hcard :
+      (Finset.Ico (threeSlotSquareBlockLower R)
+        (threeSlotSquareBlockUpper R)).card =
+        threeSlotSquareBlockUpper R - threeSlotSquareBlockLower R := by
+    simp
+  rw [hcard]
   unfold threeSlotSquareBlockLower threeSlotSquareBlockUpper
   have hpoly : (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by ring
   omega
@@ -227,9 +234,16 @@ private theorem selectedPrimeSign_eq_one_or_neg_one
   induction P using Finset.induction_on with
   | empty => simp [selectedPrimeSign]
   | @insert p P hp ih =>
-      rcases ih with h | h <;>
-        by_cases hdiv : p ∣ n <;>
-          simp [selectedPrimeSign, hp, hdiv, h]
+      have hinsert :
+          selectedPrimeSign (insert p P) n =
+            (if p ∣ n then (-1 : ℤ) else 1) * selectedPrimeSign P n := by
+        simp [selectedPrimeSign, hp]
+      rw [hinsert]
+      rcases ih with h | h
+      · rw [h]
+        by_cases hdiv : p ∣ n <;> simp [hdiv]
+      · rw [h]
+        by_cases hdiv : p ∣ n <;> simp [hdiv]
 
 /-- The selected degree-one observable is pointwise bounded by three. -/
 theorem abs_selectedDegreeOneProjection_le_three
@@ -240,7 +254,11 @@ theorem abs_selectedDegreeOneProjection_le_three
     rcases selectedPrimeSign_eq_one_or_neg_one P
       (tActiveForm (1 : Fin 3) k) with h1 | h1 <;>
     rcases selectedPrimeSign_eq_one_or_neg_one P
-      (tActiveForm (2 : Fin 3) k) with h2 | h2 <;>
+      (tActiveForm (2 : Fin 3) k) with h2 | h2
+  all_goals
+    simp only [tActiveForm_zero] at h0
+    simp only [tActiveForm_one] at h1
+    simp only [tActiveForm_two] at h2
     simp [selectedDegreeOneProjection, h0, h1, h2]
 
 private theorem abs_selectedDegreeOneProjection_sum_le_three_mul_card
