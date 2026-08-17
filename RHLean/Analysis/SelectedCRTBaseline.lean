@@ -83,9 +83,9 @@ already-formalized weight-one spectral factor `19/23`. -/
 theorem eleven_degreeOneBaseline_ratio_eq_walsh :
     onePrimeDegreeOneBaselineWeight 11 / onePrimeZeroFreeWeight 11 =
       onePrimeWalshFactor 11 1 := by
-  norm_num [onePrimeDegreeOneBaselineWeight, onePrimeNoFlipWeight,
-    onePrimeSingleFlipWeight, onePrimeZeroFreeWeight]
-  exact onePrimeWalshFactor_eleven_one.symm
+  rw [onePrimeDegreeOneBaselineWeight_eleven,
+    onePrimeWalshFactor_eleven_one]
+  norm_num [onePrimeZeroFreeWeight]
 
 /-- Product of one-prime zero-free masses for a finite selected family. -/
 def finitePrimeZeroFreeMass (P : Finset ℕ) : ℚ :=
