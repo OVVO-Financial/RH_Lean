@@ -79,6 +79,9 @@ private theorem high_rawExpansionDivisor_injective
   apply Fin.ext
   have hfac := congrArg Nat.factorization hce
   have happ := congrArg (fun f : ℕ →₀ ℕ => f p.val) hfac
+  change
+    (primeWheelRawExpansionDivisor S c).factorization p.val =
+      (primeWheelRawExpansionDivisor S e).factorization p.val at happ
   rw [high_rawExpansionDivisor_factorization_apply S hprime c p,
     high_rawExpansionDivisor_factorization_apply S hprime e p] at happ
   exact happ
@@ -88,11 +91,12 @@ private theorem norm_localPrimeCombExpansionWeight_le_primePow
     ‖localPrimeCombExpansionWeight e‖ ≤ (p : ℝ) ^ e.val := by
   fin_cases e
   · norm_num [localPrimeCombExpansionWeight]
-  · have hp2 : (2 : ℝ) ≤ p := by exact_mod_cast hp.two_le
+  · have hp2 : (2 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.two_le
     simpa [localPrimeCombExpansionWeight] using hp2
-  · have hp1 : (1 : ℝ) ≤ p := by exact_mod_cast hp.one_le
-    simp [localPrimeCombExpansionWeight]
-    nlinarith [mul_self_nonneg (p : ℝ), hp1]
+  · have hp1 : (1 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.one_le
+    change (1 : ℝ) ≤ (p : ℝ) ^ 2
+    simpa using
+      (pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 1) hp1 2)
 
 private theorem norm_primeWheelRawExpansionWeight_le_divisor
     (S : Finset ℕ)
@@ -158,13 +162,12 @@ theorem norm_primorialRawUpperMobiusTransform_le_modulus
     have hw0 := norm_primeWheelRawExpansionWeight_le_divisor
       S (fun p hp => prime_of_mem_primesUpTo hp) e0
     have hw : ‖primeWheelRawExpansionWeight S e0‖ ≤ (d : ℝ) := by
-      simpa [he0] using hw0
+      simpa [← he0] using hw0
     have hprod : d * (Q / d) = Q := Nat.mul_div_cancel' hdvd
     calc
       ‖-(primeWheelRawExpansionWeight S e0 *
           (((Q / primeWheelRawExpansionDivisor S e0 : ℕ) : ℂ)))‖ =
           ‖primeWheelRawExpansionWeight S e0‖ * ((Q / d : ℕ) : ℝ) := by
-            rw [norm_neg, norm_mul]
             rw [← he0]
             simp
       _ ≤ (d : ℝ) * ((Q / d : ℕ) : ℝ) := by
@@ -202,9 +205,16 @@ private theorem divisorIntervalBoundary_eq_short_remainder
   have hdcd : d ∣ c * d := by
     refine ⟨c, ?_⟩
     exact Nat.mul_comm c d
-  rw [harg]
-  exact divisorIntervalBoundary_add_multiple
-    d a lower (lower + r) (c * d) hd hdcd hre
+  calc
+    divisorIntervalBoundary d a lower upper =
+        divisorIntervalBoundary d a lower ((lower + r) + c * d) := by
+          rw [harg]
+    _ = divisorIntervalBoundary d a lower (lower + r) :=
+      divisorIntervalBoundary_add_multiple
+        d a lower (lower + r) (c * d) hd hdcd hre
+    _ = divisorIntervalBoundary d a lower
+        (lower + ((upper - lower) % d)) := by
+          rfl
 
 /-- A divisor boundary is uniformly quadratic in its modulus, independently of
 the full prefix length.  Periodicity reduces the endpoint to one incomplete
@@ -222,7 +232,6 @@ theorem abs_divisorIntervalBoundary_le_two_mul_sq
   exact abs_divisorIntervalBoundary_le_two_mul_sq_of_short
     d a lower (lower + r) d le_rfl
     (Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hd))
-    (Nat.le_add_right _ _)
     (by simpa using hrlt)
 
 private def primorialSmallRawBoundaryDivisors
@@ -300,15 +309,16 @@ theorem norm_primorialNormalizedRawSmallBoundary_le
     _ = ((primorialSmallRawBoundaryDivisors k R).card : ℝ) *
         (2 * (R : ℝ) ^ 2) := by
       have hQne : (Q : ℝ) ≠ 0 := ne_of_gt hQpos
-      simp [Finset.sum_const, nsmul_eq_mul]
-      field_simp [hQne]
-      ring
+      simp [Finset.sum_const, nsmul_eq_mul, hQne]
     _ ≤ (R + 1 : ℝ) * (2 * (R : ℝ) ^ 2) := by
-      have hcardNat : (primorialSmallRawBoundaryDivisors k R).card ≤ R + 1 := by
-        apply Finset.card_le_card (t := Finset.range (R + 1))
+      have hsubset :
+          primorialSmallRawBoundaryDivisors k R ⊆ Finset.range (R + 1) := by
         intro d hdset
         have hddata := Finset.mem_filter.mp hdset
         exact Finset.mem_range.mpr (Nat.lt_succ_of_le hddata.2)
+      have hcard0 := Finset.card_le_card hsubset
+      have hcardNat : (primorialSmallRawBoundaryDivisors k R).card ≤ R + 1 := by
+        simpa using hcard0
       have hcard : ((primorialSmallRawBoundaryDivisors k R).card : ℝ) ≤ R + 1 := by
         exact_mod_cast hcardNat
       exact mul_le_mul_of_nonneg_right hcard (by positivity)
@@ -324,7 +334,7 @@ theorem norm_primorialHighConductorReindexError_le_eight
       8 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := by
   have hbase := norm_primorialHighConductorReindexError_le k x R hlower hupper
   have hraw := norm_primorialNormalizedRawSmallBoundary_le k x R hk hlower
-  have hRreal : (1 : ℝ) ≤ R := by exact_mod_cast hR
+  have hRreal : (1 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
   have hpow : (R : ℝ) ^ 2 ≤ (R : ℝ) ^ 3 := by
     calc
       (R : ℝ) ^ 2 = (R : ℝ) ^ 2 * 1 := by ring
@@ -355,9 +365,8 @@ theorem norm_sq_primorialHighConductorReindexError_le_256_mul
       256 * (U : ℝ) := by
   have herr := norm_primorialHighConductorReindexError_le_eight
     k x R hk hR hlower hupper
-  have hRreal : (1 : ℝ) ≤ R := by exact_mod_cast hR
-  have hsucc : (R + 1 : ℝ) ≤ 2 * (R : ℝ) := by
-    norm_num at hRreal ⊢
+  have hRreal : (1 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+  have hsucc : (R : ℝ) + 1 ≤ 2 * (R : ℝ) := by
     linarith
   have hnorm :
       ‖primorialHighConductorReindexError k x R‖ ≤
@@ -369,10 +378,13 @@ theorem norm_sq_primorialHighConductorReindexError_le_256_mul
         exact mul_le_mul_of_nonneg_right
           (mul_le_mul_of_nonneg_left hsucc (by positivity)) (by positivity)
       _ = 16 * (R : ℝ) ^ 4 := by ring
+  have hbound0 : 0 ≤ 16 * (R : ℝ) ^ 4 := by positivity
   have hsq :
       ‖primorialHighConductorReindexError k x R‖ ^ 2 ≤
         (16 * (R : ℝ) ^ 4) ^ 2 := by
-    exact sq_le_sq₀ (norm_nonneg _) hnorm
+    have hprod := mul_nonneg (sub_nonneg.mpr hnorm)
+      (add_nonneg hbound0 (norm_nonneg _))
+    nlinarith
   have hpow : (16 * (R : ℝ) ^ 4) ^ 2 = 256 * (R : ℝ) ^ 8 := by ring
   rw [hpow] at hsq
   have hscaleReal : (R : ℝ) ^ 8 ≤ (U : ℝ) := by exact_mod_cast hscale
