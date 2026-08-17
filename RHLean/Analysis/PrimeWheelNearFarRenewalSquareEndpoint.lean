@@ -256,6 +256,8 @@ theorem primeWheelSquareProperFiberMass_eq_near_add_far
         (Finset.Icc (t + 9) (squarePrefixEndpoint t)) := by
     rw [Finset.disjoint_left]
     intro p hpNear hpFar
+    rcases Finset.mem_Icc.mp hpNear with ⟨_, hpNearUpper⟩
+    rcases Finset.mem_Icc.mp hpFar with ⟨hpFarLower, _⟩
     omega
   unfold primeWheelSquareProperFiberMass
     primeWheelSquareNearProperFiberMass primeWheelSquareFarProperFiberMass
