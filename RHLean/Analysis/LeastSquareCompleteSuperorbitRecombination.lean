@@ -116,12 +116,14 @@ def leastOwnerStageBaseline (P : Finset ℕ) (q : ℕ) : ℝ :=
     leastOwnerStageDegreeOneField P q r
 
 /-- **Exact conditioned affine CRT sampling.**  For a genuine outside owner
-prime `q`, every fixed residue modulo `q^2` samples the entire earlier-prime-
-conditioned selected degree-one stage field exactly once. -/
+prime `q`, every fixed representative modulo `q^2` samples the entire earlier-
+prime-conditioned selected degree-one stage field exactly once.  `Fin (q^2)` is
+used as the total finite residue carrier, avoiding any degenerate `ZMod 0`
+instance before primality is supplied. -/
 theorem leastOwner_singleDeletionResidue_preserves_stageBaseline
     (P : Finset ℕ) (hP : ∀ p ∈ P, p.Prime)
     {q : ℕ} (hq : q.Prime) (hqP : q ∉ P)
-    (a : ZMod (q ^ 2)) :
+    (a : Fin (q ^ 2)) :
     (∑ t : ZMod (outsidePrimeLeastStagePeriod P q),
         leastOwnerStageDegreeOneField P q
           ((a.val : ZMod (outsidePrimeLeastStagePeriod P q)) +
@@ -142,7 +144,7 @@ deviation from its conditioned complete-stage baseline. -/
 theorem leastOwner_singleDeletionResidue_stageDeviationZero
     (P : Finset ℕ) (hP : ∀ p ∈ P, p.Prime)
     {q : ℕ} (hq : q.Prime) (hqP : q ∉ P)
-    (a : ZMod (q ^ 2)) :
+    (a : Fin (q ^ 2)) :
     (∑ t : ZMod (outsidePrimeLeastStagePeriod P q),
         leastOwnerStageDegreeOneField P q
           ((a.val : ZMod (outsidePrimeLeastStagePeriod P q)) +
@@ -155,9 +157,9 @@ theorem leastOwner_singleDeletionResidue_stageDeviationZero
 
 /-- Residues modulo an owner square on which at least one of the six physical
 active forms is square-zero.  Repeated hits are represented only once because
-this is a `Finset` of residues. -/
+this is a `Finset` of residue representatives. -/
 def leastOwnerDeletionResidues (q : ℕ) :
-    Finset (ZMod (q ^ 2)) :=
+    Finset (Fin (q ^ 2)) :=
   Finset.univ.filter fun a =>
     ∃ i : Fin 6, q ^ 2 ∣ tTransitionForm i a.val
 
