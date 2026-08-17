@@ -223,6 +223,8 @@ import RHLean.Analysis.SquareBlockDeathProcess
 import RHLean.Analysis.SquareBlockSurvivorBridge
 import RHLean.Analysis.SquarePrefixHeightPartition
 import RHLean.Analysis.SquarePrefixMertensBridge
+import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
+import RHLean.Analysis.SquareRootCombinedSignedResidual
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootPositiveSmoothCollapse
 import RHLean.Analysis.SquareRootSmoothRenewalInstantiation
