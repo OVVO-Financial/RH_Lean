@@ -292,18 +292,26 @@ theorem outsidePrime_square_coprime_finitePrimeCRTPeriod
     exact hqP hp
   exact Nat.coprime_pow_primes 2 2 hq hpPrime hne
 
-/-- Affine stepping by a unit permutes a residue ring. -/
+/-- Affine stepping by a coprime natural number permutes a residue ring. -/
 private def zmodAffineEquivOfCoprime
     {M step : ℕ} (h : step.Coprime M) (a : ZMod M) :
     ZMod M ≃ ZMod M where
-  toFun t :=
-    a + t * (↑(ZMod.unitOfCoprime step h) : ZMod M)
-  invFun r :=
-    (r - a) * (↑((ZMod.unitOfCoprime step h)⁻¹) : ZMod M)
+  toFun t := a + t * (step : ZMod M)
+  invFun r := (r - a) * (step : ZMod M)⁻¹
   left_inv t := by
-    simp [mul_assoc]
+    calc
+      (a + t * (step : ZMod M) - a) * (step : ZMod M)⁻¹ =
+          t * ((step : ZMod M) * (step : ZMod M)⁻¹) := by ring
+      _ = t := by rw [ZMod.coe_mul_inv_eq_one step h, mul_one]
   right_inv r := by
-    simp [mul_assoc]
+    have hinv : (step : ZMod M)⁻¹ * (step : ZMod M) = 1 := by
+      rw [mul_comm]
+      exact ZMod.coe_mul_inv_eq_one step h
+    calc
+      a + ((r - a) * (step : ZMod M)⁻¹) * (step : ZMod M) =
+          a + (r - a) * ((step : ZMod M)⁻¹ * (step : ZMod M)) := by ring
+      _ = a + (r - a) := by rw [hinv, mul_one]
+      _ = r := by ring
 
 /-- Finite CRT permutation identity: stepping by any number coprime to the
 modulus samples every residue exactly once. -/
@@ -335,7 +343,7 @@ theorem singleOutsidePrimeDeletion_preserves_degreeOneMass
     (∑ t : ZMod (finitePrimeCRTPeriod P),
         selectedZeroFreeDegreeOneField P
           ((a.val : ZMod (finitePrimeCRTPeriod P)) +
-            t * (q ^ 2 : ZMod (finitePrimeCRTPeriod P)))) =
+            t * ((q ^ 2 : ℕ) : ZMod (finitePrimeCRTPeriod P)))) =
       ∑ r : ZMod (finitePrimeCRTPeriod P),
         selectedZeroFreeDegreeOneField P r := by
   have hcop := outsidePrime_square_coprime_finitePrimeCRTPeriod P hP hq hqP
@@ -353,7 +361,7 @@ theorem singleOutsidePrimeDeletion_degreeOneDeviationZero
     (∑ t : ZMod (finitePrimeCRTPeriod P),
         selectedZeroFreeDegreeOneField P
           ((a.val : ZMod (finitePrimeCRTPeriod P)) +
-            t * (q ^ 2 : ZMod (finitePrimeCRTPeriod P)))) -
+            t * ((q ^ 2 : ℕ) : ZMod (finitePrimeCRTPeriod P)))) -
       (∑ r : ZMod (finitePrimeCRTPeriod P),
         selectedZeroFreeDegreeOneField P r) = 0 := by
   rw [singleOutsidePrimeDeletion_preserves_degreeOneMass P hP hq hqP a]
@@ -373,7 +381,7 @@ theorem singleOutsidePrimeDeletion_degreeOneZeroMean
     (∑ t : ZMod (finitePrimeCRTPeriod P),
         selectedZeroFreeDegreeOneField P
           ((a.val : ZMod (finitePrimeCRTPeriod P)) +
-            t * (q ^ 2 : ZMod (finitePrimeCRTPeriod P)))) = 0 := by
+            t * ((q ^ 2 : ℕ) : ZMod (finitePrimeCRTPeriod P)))) = 0 := by
   rw [singleOutsidePrimeDeletion_preserves_degreeOneMass P hP hq hqP a]
   exact hzero
 
