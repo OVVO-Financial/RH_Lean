@@ -357,8 +357,9 @@ open CanonicalGapAncestryBridge
 /-- The nonroot part of the native canonical source field.  For the concrete
 ancestry flow, these are exactly the smooth-oriented sources `q < c`; roots are
 the complementary transport-oriented sources. -/
-noncomputable def smoothSourceField (B : ℕ) : SourceIndex B → ℤ := fun s =>
-  if SmoothOriented s then sourceWeight s else 0
+noncomputable def smoothSourceField (B : ℕ) : SourceIndex B → ℤ := by
+  classical
+  exact fun s => if SmoothOriented s then sourceWeight s else 0
 
 /-- Exact partition of the bounded canonical source field into transport roots
 and smooth-oriented nonroots.  This is an identity of signed fields, before any
@@ -368,11 +369,16 @@ theorem weight_eq_root_add_smooth (B : ℕ) :
       (boundedSourceFlow B).rootField + smoothSourceField B := by
   funext s
   classical
+  change sourceWeight s =
+    (match sourceParent s with
+      | none => sourceWeight s
+      | some _ => 0) +
+      (if SmoothOriented s then sourceWeight s else 0)
   by_cases h : SmoothOriented s
-  · have hp : sourceParent s = some (parentIndex s h) := smoothSource_has_parent s h
-    simp [smoothSourceField, h, boundedSourceFlow, rootField, hp]
-  · have hp : sourceParent s = none := (sourceParent_eq_none_iff s).2 h
-    simp [smoothSourceField, h, boundedSourceFlow, rootField, hp]
+  · rw [if_pos h, smoothSource_has_parent s h]
+    simp
+  · rw [if_neg h, (sourceParent_eq_none_iff s).2 h]
+    simp
 
 /-- The smooth field is exactly the finite alternating ancestry tail generated
 from the transport-oriented root field.  No analytic estimate is used: repeated
@@ -405,7 +411,7 @@ theorem squareRootSmoothAncestryClockMass_eq_finite_root_tail (R : ℕ) :
         (alternatingPrefix (boundedSourceFlow B).successorOperator
             (boundedSourceFlow B).rootField (B + 1) -
           (boundedSourceFlow B).rootField) := by
-  unfold squareRootSmoothAncestryClockMass
+  dsimp [squareRootSmoothAncestryClockMass]
   rw [smoothSourceField_eq_finite_root_tail]
 
 end SquareRootBornSmoothAncestry
