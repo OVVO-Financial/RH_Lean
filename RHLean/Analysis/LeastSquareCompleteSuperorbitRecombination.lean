@@ -41,7 +41,8 @@ theorem outsidePrimeLeastStagePrimes_prime
 theorem outsidePrime_owner_not_mem_earlierPrimes (q : ℕ) :
     q ∉ outsidePrimeEarlierPrimes q := by
   intro hq
-  have hlt : q < q := (Finset.mem_filter.mp hq).1
+  have hmemRange : q ∈ Finset.range q := (Finset.mem_filter.mp hq).1
+  have hlt : q < q := Finset.mem_range.mp hmemRange
   omega
 
 /-- An outside owner prime is absent from the complete least-owner stage set. -/
@@ -127,13 +128,13 @@ theorem leastOwner_singleDeletionResidue_preserves_stageBaseline
             t * ((q ^ 2 : ℕ) :
               ZMod (outsidePrimeLeastStagePeriod P q)))) =
       leastOwnerStageBaseline P q := by
-  have hcop :=
-    outsidePrime_ownerSquare_coprime_leastStagePeriod P hP hq hqP
-  unfold outsidePrimeLeastStagePeriod at hcop ⊢
+  have hcop :
+      (q ^ 2).Coprime (outsidePrimeLeastStagePeriod P q) := by
+    simpa [outsidePrimeLeastStagePeriod] using
+      outsidePrime_ownerSquare_coprime_leastStagePeriod P hP hq hqP
   unfold leastOwnerStageBaseline
   exact zmod_sum_affine_coprime_eq_sum hcop
-    (a.val : ZMod
-      (finitePrimeCRTPeriod (outsidePrimeLeastStagePrimes P q)))
+    (a.val : ZMod (outsidePrimeLeastStagePeriod P q))
     (leastOwnerStageDegreeOneField P q)
 
 /-- Centered form: a fixed least-owner deletion residue has exactly zero
