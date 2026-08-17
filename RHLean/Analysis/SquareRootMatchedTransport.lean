@@ -369,16 +369,11 @@ theorem weight_eq_root_add_smooth (B : ℕ) :
       (boundedSourceFlow B).rootField + smoothSourceField B := by
   funext s
   classical
-  change sourceWeight s =
-    (match sourceParent s with
-      | none => sourceWeight s
-      | some _ => 0) +
-      (if SmoothOriented s then sourceWeight s else 0)
   by_cases h : SmoothOriented s
-  · rw [if_pos h, smoothSource_has_parent s h]
-    simp
-  · rw [if_neg h, (sourceParent_eq_none_iff s).2 h]
-    simp
+  · have hp : sourceParent s = some (parentIndex s h) := smoothSource_has_parent s h
+    simp [smoothSourceField, h, boundedSourceFlow, rootField, hp]
+  · have hp : sourceParent s = none := (sourceParent_eq_none_iff s).2 h
+    simp [smoothSourceField, h, boundedSourceFlow, rootField, hp]
 
 /-- The smooth field is exactly the finite alternating ancestry tail generated
 from the transport-oriented root field.  No analytic estimate is used: repeated
