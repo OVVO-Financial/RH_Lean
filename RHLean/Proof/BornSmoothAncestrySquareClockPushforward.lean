@@ -12,7 +12,6 @@ namespace BornSmoothAncestrySquareClockPushforward
 open CanonicalGapAncestryBridge
 open CanonicalGapAncestryFlow
 open CanonicalGapAncestryFlow.ParentFlow
-open SquareRootBornSmoothAncestry
 
 /-!
 # Born-smooth ancestry at the square clock
@@ -42,8 +41,9 @@ def bornSmoothNonunitSet (R : ℕ) : Finset ℕ :=
 /-- Active smooth ancestry sources at the native square clock, again with zero
 weights removed harmlessly. -/
 def activeSmoothSourceSet (R : ℕ) :
-    Finset (SourceIndex (squareRootEndpoint R)) :=
-  Finset.univ.filter fun s =>
+    Finset (SourceIndex (squareRootEndpoint R)) := by
+  classical
+  exact Finset.univ.filter fun s =>
     SmoothOriented s ∧
       sourceClock (squareRootEndpoint R) s ≤ R - 1 ∧
       sourceWeight s ≠ 0
@@ -55,7 +55,7 @@ private theorem pred_succ_eq_self {R : ℕ} (hR : 1 ≤ R) :
 private theorem bornSmoothNonunit_mem_prefix {R m : ℕ}
     (hm : m ∈ bornSmoothNonunitSet R) :
     m ∈ cumulativeSquarePrefixSet (R - 1) := by
-  exact (Finset.mem_erase.mp (Finset.mem_filter.mp hm).1).1
+  exact (Finset.mem_erase.mp (Finset.mem_filter.mp hm).1).2
 
 private theorem bornSmoothNonunit_gt_one {R m : ℕ}
     (hm : m ∈ bornSmoothNonunitSet R) : 1 < m :=
@@ -83,7 +83,8 @@ private theorem bornSmoothNonunit_squarefree {R m : ℕ}
 private theorem prefix_mem_le_squareRootEndpoint {R m : ℕ}
     (hR : 1 ≤ R) (hm : m ∈ cumulativeSquarePrefixSet (R - 1)) :
     m ≤ squareRootEndpoint R := by
-  have hlt := (mem_cumulativeSquarePrefixSet_iff.mp hm)
+  have hlt : m < ((R - 1) + 1) ^ 2 := by
+    simpa [cumulativeSquarePrefixSet] using hm
   have hpred : R - 1 + 1 = R := pred_succ_eq_self hR
   have hlt' : m < R ^ 2 := by simpa [hpred] using hlt
   unfold squareRootEndpoint
@@ -150,6 +151,7 @@ private theorem bornSmooth_canonicalSource_mem_active {R m : ℕ}
         (bornSmoothNonunit_gt_one hm)
         (bornSmoothNonunit_le_endpoint hR hm) ∈
       activeSmoothSourceSet R := by
+  classical
   simp only [activeSmoothSourceSet, Finset.mem_filter, Finset.mem_univ, true_and]
   exact ⟨bornSmooth_canonicalSource_smooth hR hm,
     bornSmooth_canonicalSource_clock_le hR hm,
@@ -166,7 +168,8 @@ theorem sourcePrime_lt_cutoff_of_smooth_clock
   have hmem : sourceProduct s ∈ cumulativeSquarePrefixSet (R - 1) :=
     (canonicalEntry_le_iff_mem_cumulativeSquarePrefixSet
       (R - 1) (sourceProduct s)).1 hclock
-  have hlt := mem_cumulativeSquarePrefixSet_iff.mp hmem
+  have hlt : sourceProduct s < ((R - 1) + 1) ^ 2 := by
+    simpa [cumulativeSquarePrefixSet] using hmem
   have hpred : R - 1 + 1 = R := pred_succ_eq_self (by omega)
   have hprod_lt : sourceProduct s < R ^ 2 := by
     simpa [hpred] using hlt
@@ -183,7 +186,13 @@ private theorem activeSmoothSource_product_mem_bornSmoothNonunitSet
     {s : SourceIndex (squareRootEndpoint R)}
     (hs : s ∈ activeSmoothSourceSet R) :
     sourceProduct s ∈ bornSmoothNonunitSet R := by
-  rcases Finset.mem_filter.mp hs with ⟨_huniv, hsmooth, hclock, hweight⟩
+  classical
+  have hsdata :
+      SmoothOriented s ∧
+        sourceClock (squareRootEndpoint R) s ≤ R - 1 ∧
+        sourceWeight s ≠ 0 := by
+    simpa [activeSmoothSourceSet] using hs
+  rcases hsdata with ⟨hsmooth, hclock, hweight⟩
   have hprime_lt := sourcePrime_lt_cutoff_of_smooth_clock hR s hsmooth hclock
   have hmem : sourceProduct s ∈ cumulativeSquarePrefixSet (R - 1) :=
     (canonicalEntry_le_iff_mem_cumulativeSquarePrefixSet
@@ -200,7 +209,8 @@ private theorem activeSmoothSource_product_mem_bornSmoothNonunitSet
     rw [sourceWeight_of_admissible s hsmooth.1] at hweight
     exact hweight
   apply Finset.mem_filter.mpr
-  refine ⟨Finset.mem_erase.mpr ⟨hprod_ne_one, hmem⟩, hprod_gt, ?_, ?_, hmu⟩
+  refine ⟨Finset.mem_erase.mpr ⟨hprod_ne_one, hmem⟩,
+    hprod_gt, ?_, ?_, hmu⟩
   · rw [← hlpf]
     exact hprime_lt.le
   · rw [← hlpf, ← hcore]
@@ -209,11 +219,13 @@ private theorem activeSmoothSource_product_mem_bornSmoothNonunitSet
 /-- The native square-clock pushforward is literally the sum over the active
 smooth source population; removing zero source weights changes nothing. -/
 theorem squareRootSmoothAncestryPushforward_eq_active_sum (R : ℕ) :
-    squareRootSmoothAncestryPushforward R =
+    SquareRootBornSmoothAncestry.squareRootSmoothAncestryPushforward R =
       ∑ s ∈ activeSmoothSourceSet R, sourceWeight s := by
   classical
-  simp [squareRootSmoothAncestryPushforward, activeSmoothSourceSet,
-    clockPushforward, smoothSourceField, and_assoc, and_left_comm, and_comm]
+  simp [SquareRootBornSmoothAncestry.squareRootSmoothAncestryPushforward,
+    activeSmoothSourceSet, clockPushforward,
+    SquareRootBornSmoothAncestry.smoothSourceField,
+    and_assoc, and_left_comm, and_comm]
 
 /-- Exact finite reindexing from nonunit born-smooth integers to active
 smooth ancestry sources. -/
@@ -231,41 +243,39 @@ theorem bornSmoothNonunit_sum_eq_activeSource_sum
     ?_ ?_ ?_ ?_
   · intro m hm
     exact bornSmooth_canonicalSource_mem_active hR hm
-  · intro m hm
-    exact canonicalSourceIndex_weight
-      (bornSmoothNonunit_squarefree hm)
-      (bornSmoothNonunit_gt_one hm)
-      (bornSmoothNonunit_le_endpoint hR hm)
   · intro m₁ m₂ hm₁ hm₂ heq
     have hp := congrArg sourceProduct heq
-    simpa [canonicalSourceIndex_product
-      (bornSmoothNonunit_squarefree hm₁)
-      (bornSmoothNonunit_gt_one hm₁)
-      (bornSmoothNonunit_le_endpoint hR hm₁),
-      canonicalSourceIndex_product
-      (bornSmoothNonunit_squarefree hm₂)
-      (bornSmoothNonunit_gt_one hm₂)
-      (bornSmoothNonunit_le_endpoint hR hm₂)] using hp
+    simpa only [canonicalSourceIndex_product] using hp
   · intro s hs
     let m := sourceProduct s
     have hm : m ∈ bornSmoothNonunitSet R :=
       activeSmoothSource_product_mem_bornSmoothNonunitSet hR hs
     refine ⟨m, hm, ?_⟩
-    have hsmooth := (Finset.mem_filter.mp hs).2.1
+    have hsdata :
+        SmoothOriented s ∧
+          sourceClock (squareRootEndpoint R) s ≤ R - 1 ∧
+          sourceWeight s ≠ 0 := by
+      simpa [activeSmoothSourceSet] using hs
     apply sourceProduct_injective_on_admissible
       (canonicalSourceIndex_admissible
         (bornSmoothNonunit_squarefree hm)
         (bornSmoothNonunit_gt_one hm)
         (bornSmoothNonunit_le_endpoint hR hm))
-      hsmooth.1
+      hsdata.1
     rw [canonicalSourceIndex_product]
+    rfl
+  · intro m hm
+    exact (canonicalSourceIndex_weight
+      (bornSmoothNonunit_squarefree hm)
+      (bornSmoothNonunit_gt_one hm)
+      (bornSmoothNonunit_le_endpoint hR hm)).symm
 
 /-- The original born-smooth mass is exactly the Mobius unit plus the complex
 cast of the square-clock smooth-ancestry pushforward. -/
 theorem squareRootBornSmoothMass_eq_one_add_ancestryPushforward
     (R : ℕ) (hR : 2 ≤ R) :
     squareRootBornSmoothMass R =
-      1 + ((squareRootSmoothAncestryPushforward R : ℤ) : ℂ) := by
+      1 + ((SquareRootBornSmoothAncestry.squareRootSmoothAncestryPushforward R : ℤ) : ℂ) := by
   classical
   let P := cumulativeSquarePrefixSet (R - 1)
   let f : ℕ → ℂ := fun m =>
@@ -275,38 +285,54 @@ theorem squareRootBornSmoothMass_eq_one_add_ancestryPushforward
     else 0
   have h1mem : 1 ∈ P := by
     dsimp [P]
-    rw [mem_cumulativeSquarePrefixSet_iff]
+    simp only [cumulativeSquarePrefixSet, Finset.mem_range]
     have hpred : R - 1 + 1 = R := pred_succ_eq_self (by omega)
     rw [hpred]
     nlinarith
+  have hRone : 1 ≤ R := by omega
   have hunit : f 1 = 1 := by
     simp [f, canonicalLargestPrimeFactor, canonicalCofactor,
-      canonicalMoebiusWeight, hR]
+      canonicalMoebiusWeight, hRone]
   have herase :
       (∑ m ∈ P.erase 1, f m) =
         ∑ m ∈ bornSmoothNonunitSet R, ((μ m : ℤ) : ℂ) := by
     rw [bornSmoothNonunitSet, Finset.sum_filter]
-    apply Finset.sum_congr
-    · rfl
-    · intro m hm
-      have hmne : m ≠ 1 := (Finset.mem_erase.mp hm).1
-      by_cases hm0 : m = 0
-      · subst m
-        simp [f, canonicalLargestPrimeFactor, canonicalCofactor]
-      have hmgt : 1 < m := by omega
-      by_cases hborn :
-          canonicalLargestPrimeFactor m ≤ R ∧
-            canonicalLargestPrimeFactor m ≤ canonicalCofactor m
-      · by_cases hmu : μ m = 0
-        · simp [f, hborn, hmgt, hmu, canonicalMoebiusWeight]
-        · simp [f, hborn, hmgt, hmu, canonicalMoebiusWeight]
-      · simp [f, hborn, hmgt]
+    apply Finset.sum_congr rfl
+    intro m hm
+    have hmne : m ≠ 1 := (Finset.mem_erase.mp hm).1
+    by_cases hm0 : m = 0
+    · subst m
+      simp [f, canonicalLargestPrimeFactor, canonicalCofactor]
+    have hmgt : 1 < m := by omega
+    by_cases hborn :
+        canonicalLargestPrimeFactor m ≤ R ∧
+          canonicalLargestPrimeFactor m ≤ canonicalCofactor m
+    · by_cases hmu : μ m = 0
+      · have hfilter :
+            ¬(1 < m ∧ canonicalLargestPrimeFactor m ≤ R ∧
+              canonicalLargestPrimeFactor m ≤ canonicalCofactor m ∧ μ m ≠ 0) := by
+          intro hp
+          exact hp.2.2.2 hmu
+        simp [f, hborn, hfilter, hmu, canonicalMoebiusWeight]
+      · have hfilter :
+            1 < m ∧ canonicalLargestPrimeFactor m ≤ R ∧
+              canonicalLargestPrimeFactor m ≤ canonicalCofactor m ∧ μ m ≠ 0 :=
+          ⟨hmgt, hborn.1, hborn.2, hmu⟩
+        simp [f, hborn, hfilter, hmu, canonicalMoebiusWeight]
+    · have hfilter :
+          ¬(1 < m ∧ canonicalLargestPrimeFactor m ≤ R ∧
+            canonicalLargestPrimeFactor m ≤ canonicalCofactor m ∧ μ m ≠ 0) := by
+        intro hp
+        exact hborn ⟨hp.2.1, hp.2.2.1⟩
+      simp [f, hborn, hfilter]
+  have hsplit0 :
+      (∑ m ∈ P.erase 1, f m) + f 1 = ∑ m ∈ P, f m :=
+    Finset.sum_erase_add P f h1mem
   have hsplit :
       (∑ m ∈ P, f m) =
         1 + ∑ m ∈ bornSmoothNonunitSet R, ((μ m : ℤ) : ℂ) := by
     calc
-      (∑ m ∈ P, f m) = (∑ m ∈ P.erase 1, f m) + f 1 :=
-        (Finset.sum_erase_add _ h1mem).symm
+      (∑ m ∈ P, f m) = (∑ m ∈ P.erase 1, f m) + f 1 := hsplit0.symm
       _ = 1 + ∑ m ∈ bornSmoothNonunitSet R, ((μ m : ℤ) : ℂ) := by
         rw [hunit, herase]
         ring
@@ -317,9 +343,13 @@ theorem squareRootBornSmoothMass_eq_one_add_ancestryPushforward
   have hpush := squareRootSmoothAncestryPushforward_eq_active_sum R
   have hint :
       (∑ m ∈ bornSmoothNonunitSet R, (μ m : ℤ)) =
-        squareRootSmoothAncestryPushforward R := hreindex.trans hpush.symm
-  have hcast := congrArg (fun z : ℤ => (z : ℂ)) hint
-  simpa using hcast
+        SquareRootBornSmoothAncestry.squareRootSmoothAncestryPushforward R :=
+    hreindex.trans hpush.symm
+  have hintC :
+      (∑ m ∈ bornSmoothNonunitSet R, ((μ m : ℤ) : ℂ)) =
+        ((SquareRootBornSmoothAncestry.squareRootSmoothAncestryPushforward R : ℤ) : ℂ) := by
+    exact_mod_cast hint
+  rw [hintC]
 
 /-! ## Lower-scale transport-root coordinates -/
 
@@ -330,8 +360,10 @@ def lowPrimeRootField (R B : ℕ) : SourceIndex B → ℤ := fun s =>
 /-- Signed unit basis for transport roots with fixed lower-scale core `c`.
 The value `-1` is chosen because a transport root `q*c` has Mobius weight
 `-μ(c)`. -/
-def lowRootCoreBasis (R B c : ℕ) : SourceIndex B → ℤ := fun s =>
-  if TransportOriented s ∧ sourcePrime s < R ∧ sourceCore s = c then -1 else 0
+def lowRootCoreBasis (R B c : ℕ) : SourceIndex B → ℤ := by
+  classical
+  exact fun s =>
+    if TransportOriented s ∧ sourcePrime s < R ∧ sourceCore s = c then -1 else 0
 
 private theorem sourcePrime_eq_of_parent {B : ℕ} {s t : SourceIndex B}
     (hparent : sourceParent s = some t) :
@@ -344,26 +376,37 @@ private theorem sourcePrime_eq_of_parent {B : ℕ} {s t : SourceIndex B}
     simp
   · simp [sourceParent, h] at hparent
 
-private theorem rootField_eq_transportIndicator (B : ℕ) (s : SourceIndex B) :
-    (boundedSourceFlow B).rootField s =
-      if TransportOriented s then sourceWeight s else 0 := by
+private theorem rootField_eq_weight_of_transport
+    (B : ℕ) (s : SourceIndex B) (h : TransportOriented s) :
+    (boundedSourceFlow B).rootField s = sourceWeight s := by
+  have hp : sourceParent s = none :=
+    (sourceParent_eq_none_iff_transport s h.1).2 h
+  change (match sourceParent s with
+    | none => sourceWeight s
+    | some _ => 0) = sourceWeight s
+  rw [hp]
+
+private theorem rootField_eq_zero_of_not_transport
+    (B : ℕ) (s : SourceIndex B) (h : ¬ TransportOriented s) :
+    (boundedSourceFlow B).rootField s = 0 := by
   classical
+  change (match sourceParent s with
+    | none => sourceWeight s
+    | some _ => 0) = 0
   by_cases hadm : SourceAdmissible s
-  · have hiff := sourceParent_eq_none_iff_transport s hadm
-    by_cases htrans : TransportOriented s
-    · have hp : sourceParent s = none := hiff.mpr htrans
-      simp [boundedSourceFlow, rootField, hp, htrans]
-    · have hp : sourceParent s ≠ none := by
-        intro hp
-        exact htrans (hiff.mp hp)
-      cases hparent : sourceParent s with
-      | none => exact (hp hparent).elim
-      | some t => simp [boundedSourceFlow, rootField, hparent, htrans]
+  · have hpne : sourceParent s ≠ none := by
+      intro hp
+      exact h ((sourceParent_eq_none_iff_transport s hadm).1 hp)
+    cases hp : sourceParent s with
+    | none => exact (hpne hp).elim
+    | some t => rw [hp]
   · have hw : sourceWeight s = 0 := by
       simp [sourceWeight, hadm]
-    cases hparent : sourceParent s <;>
-      simp [boundedSourceFlow, rootField, hparent, hw, hadm,
-        TransportOriented, SourceAdmissible]
+    have hnotSmooth : ¬ SmoothOriented s := by
+      intro hsmooth
+      exact hadm hsmooth.1
+    have hp : sourceParent s = none := sourceParent_eq_none_iff.mpr hnotSmooth
+    rw [hp, hw]
 
 private theorem transport_sourceWeight_eq_neg_core_moebius
     {B : ℕ} (s : SourceIndex B) (h : TransportOriented s) :
@@ -384,6 +427,9 @@ theorem lowPrimeRootField_eq_core_sum (R B : ℕ) :
         (μ c : ℤ) • lowRootCoreBasis R B c := by
   classical
   funext s
+  change lowPrimeRootField R B s =
+    ∑ c ∈ Finset.Ico 1 R,
+      (μ c : ℤ) * lowRootCoreBasis R B c s
   by_cases hq : sourcePrime s < R
   · by_cases ht : TransportOriented s
     · have hcpos : 1 ≤ sourceCore s := ht.1.2.1
@@ -392,22 +438,31 @@ theorem lowPrimeRootField_eq_core_sum (R B : ℕ) :
         Finset.mem_Ico.mpr ⟨hcpos, hclt⟩
       rw [lowPrimeRootField]
       simp only [hq, if_true]
-      rw [rootField_eq_transportIndicator]
-      simp only [ht, if_true]
-      rw [transport_sourceWeight_eq_neg_core_moebius s ht]
+      rw [rootField_eq_weight_of_transport B s ht,
+        transport_sourceWeight_eq_neg_core_moebius s ht]
       simp [lowRootCoreBasis, ht, hq, hcmem]
-    · simp [lowPrimeRootField, hq, rootField_eq_transportIndicator,
-        ht, lowRootCoreBasis]
-  · simp [lowPrimeRootField, hq, lowRootCoreBasis]
+    · rw [lowPrimeRootField]
+      simp only [hq, if_true]
+      rw [rootField_eq_zero_of_not_transport B s ht]
+      simp [lowRootCoreBasis, ht]
+  · rw [lowPrimeRootField]
+    simp only [hq, if_false]
+    simp [lowRootCoreBasis, hq]
+
+private theorem alternatingPrefix_zero {M : Type*} [AddCommGroup M]
+    (S : M →+ M) (depth : ℕ) :
+    alternatingPrefix S (0 : M) depth = 0 := by
+  induction depth with
+  | zero => rfl
+  | succ n ih => simp [alternatingPrefix, ih]
 
 /-- `U ↦ alternatingPrefix(S,U,depth) - U` as an additive operator. -/
 def ancestryTailOperator {M : Type*} [AddCommGroup M]
     (S : M →+ M) (depth : ℕ) : M →+ M where
   toFun U := alternatingPrefix S U depth - U
   map_zero' := by
-    induction depth with
-    | zero => simp [alternatingPrefix]
-    | succ n ih => simp [alternatingPrefix, ih]
+    rw [alternatingPrefix_zero]
+    simp
   map_add' U V := by
     have hadd :
         alternatingPrefix S (U + V) depth =
@@ -430,8 +485,8 @@ def squareClockRootResponseHom (R B : ℕ) :
 
 /-- Integer response coefficient of the fixed-core transport-root basis. -/
 def squareRootBornSmoothRootResponse (R c : ℕ) : ℤ :=
-  let B := squareRootEndpoint R
-  squareClockRootResponseHom R B (lowRootCoreBasis R B c)
+  squareClockRootResponseHom R (squareRootEndpoint R)
+    (lowRootCoreBasis R (squareRootEndpoint R) c)
 
 /-- Explicit lower-scale coefficient `Xi_R(c)`.  The Mobius unit is absorbed at
 `c = 1`, so the final formula has no external singleton correction. -/
@@ -460,7 +515,7 @@ private theorem alternatingPrefix_root_eq_low_of_prime_lt
           have hqt : sourcePrime t < R := by
             rw [sourcePrime_eq_of_parent hp]
             exact hq
-          simp [boundedSourceFlow, successorOperator, hp, ih t hqt]
+          exact ih t hqt
 
 private theorem alternatingPrefix_low_eq_zero_of_prime_ge
     (R B depth : ℕ) (s : SourceIndex B)
@@ -480,22 +535,23 @@ private theorem alternatingPrefix_low_eq_zero_of_prime_ge
           have hqt : ¬ sourcePrime t < R := by
             rw [sourcePrime_eq_of_parent hp]
             exact hq
-          simp [boundedSourceFlow, successorOperator, hp, ih t hqt]
+          exact ih t hqt
 
 /-- On the visible square prefix the smooth ancestry pushforward is exactly the
 response of the low-prime transport-root field.  Roots with prime coordinate at
 least `R` cannot feed a smooth source before the `R^2` square cutoff. -/
 theorem squareRootSmoothAncestryPushforward_eq_lowRootResponse
     (R : ℕ) (hR : 2 ≤ R) :
-    squareRootSmoothAncestryPushforward R =
+    SquareRootBornSmoothAncestry.squareRootSmoothAncestryPushforward R =
       squareClockRootResponseHom R (squareRootEndpoint R)
         (lowPrimeRootField R (squareRootEndpoint R)) := by
   classical
   let B := squareRootEndpoint R
-  unfold squareRootSmoothAncestryPushforward squareClockRootResponseHom
-    ancestryTailOperator
+  unfold SquareRootBornSmoothAncestry.squareRootSmoothAncestryPushforward
+    squareClockRootResponseHom ancestryTailOperator
   change
-    clockPushforward (sourceClock B) (R - 1) (smoothSourceField B) =
+    clockPushforward (sourceClock B) (R - 1)
+        (SquareRootBornSmoothAncestry.smoothSourceField B) =
       clockPushforward (sourceClock B) (R - 1)
         (alternatingPrefix (boundedSourceFlow B).successorOperator
             (lowPrimeRootField R B) (B + 1) - lowPrimeRootField R B)
@@ -505,7 +561,8 @@ theorem squareRootSmoothAncestryPushforward_eq_lowRootResponse
   by_cases hclock : sourceClock B s ≤ R - 1
   · simp only [hclock, if_true]
     by_cases hq : sourcePrime s < R
-    · have hfull := congrFun (smoothSourceField_eq_alternating_sub_root B) s
+    · have hfull := congrFun
+        (SquareRootBornSmoothAncestry.smoothSourceField_eq_alternating_sub_root B) s
       rw [hfull]
       rw [alternatingPrefix_root_eq_low_of_prime_lt R B (B + 1) s hq]
       simp [lowPrimeRootField, hq]
@@ -514,19 +571,19 @@ theorem squareRootSmoothAncestryPushforward_eq_lowRootResponse
         exact hq (sourcePrime_lt_cutoff_of_smooth_clock hR s hsmooth hclock)
       have hzero := alternatingPrefix_low_eq_zero_of_prime_ge
         R B (B + 1) s hq
-      simp [smoothSourceField, hnotSmooth, hzero, lowPrimeRootField, hq]
+      simp [SquareRootBornSmoothAncestry.smoothSourceField,
+        hnotSmooth, hzero, lowPrimeRootField, hq]
   · simp [hclock]
 
 /-- Exact lower-scale root-coordinate expansion of the ancestry pushforward. -/
 theorem squareRootSmoothAncestryPushforward_eq_rootResponseSum
     (R : ℕ) (hR : 2 ≤ R) :
-    squareRootSmoothAncestryPushforward R =
+    SquareRootBornSmoothAncestry.squareRootSmoothAncestryPushforward R =
       ∑ c ∈ Finset.Ico 1 R,
         (μ c : ℤ) * squareRootBornSmoothRootResponse R c := by
   rw [squareRootSmoothAncestryPushforward_eq_lowRootResponse R hR,
     lowPrimeRootField_eq_core_sum R (squareRootEndpoint R)]
   unfold squareRootBornSmoothRootResponse
-  simp only
   rw [map_sum]
   apply Finset.sum_congr rfl
   intro c hc
@@ -546,12 +603,44 @@ theorem squareRootBornSmoothMass_eq_rootCoordinateSum
         canonicalMoebiusWeight c * ((squareRootBornSmoothXi R c : ℤ) : ℂ) := by
   rw [squareRootBornSmoothMass_eq_one_add_ancestryPushforward R hR,
     squareRootSmoothAncestryPushforward_eq_rootResponseSum R hR]
-  have h1mem : 1 ∈ Finset.Ico 1 R := by
-    exact Finset.mem_Ico.mpr ⟨le_rfl, by omega⟩
+  have h1mem : 1 ∈ Finset.Ico 1 R :=
+    Finset.mem_Ico.mpr ⟨le_rfl, by omega⟩
   unfold squareRootBornSmoothXi canonicalMoebiusWeight
   push_cast
-  rw [Finset.sum_add_distrib]
-  simp [h1mem]
+  have hdelta :
+      (∑ c ∈ Finset.Ico 1 R,
+          ((μ c : ℤ) : ℂ) * (if c = 1 then 1 else 0)) = 1 := by
+    calc
+      (∑ c ∈ Finset.Ico 1 R,
+          ((μ c : ℤ) : ℂ) * (if c = 1 then 1 else 0)) =
+          ∑ c ∈ Finset.Ico 1 R, if c = 1 then (1 : ℂ) else 0 := by
+            apply Finset.sum_congr rfl
+            intro c hc
+            by_cases h : c = 1
+            · subst c
+              simp
+            · simp [h]
+      _ = 1 := by simp [h1mem]
+  calc
+    1 + ∑ c ∈ Finset.Ico 1 R,
+        ((μ c : ℤ) : ℂ) * (squareRootBornSmoothRootResponse R c : ℂ) =
+        (∑ c ∈ Finset.Ico 1 R,
+          ((μ c : ℤ) : ℂ) * (squareRootBornSmoothRootResponse R c : ℂ)) +
+        ∑ c ∈ Finset.Ico 1 R,
+          ((μ c : ℤ) : ℂ) * (if c = 1 then 1 else 0) := by
+            rw [hdelta]
+            ring
+    _ = ∑ c ∈ Finset.Ico 1 R,
+        (((μ c : ℤ) : ℂ) * (squareRootBornSmoothRootResponse R c : ℂ) +
+          ((μ c : ℤ) : ℂ) * (if c = 1 then 1 else 0)) := by
+            rw [Finset.sum_add_distrib]
+    _ = ∑ c ∈ Finset.Ico 1 R,
+        ((μ c : ℤ) : ℂ) *
+          ((squareRootBornSmoothRootResponse R c : ℂ) +
+            if c = 1 then 1 else 0) := by
+            apply Finset.sum_congr rfl
+            intro c hc
+            ring
 
 /-!
 The remaining analytic target is intentionally not restated or split here.
