@@ -234,11 +234,9 @@ theorem rawMultiplicativeSecondDifference_eq_fin3_weighted_sum
       ∑ j : Fin 3,
         localPrimeCombExpansionWeight j *
           f (d * p ^ j.val) := by
-  have hfin : (Finset.univ : Finset (Fin 3)) = {0, 1, 2} := by
-    native_decide
-  rw [hfin]
+  rw [Fin.sum_univ_three]
   norm_num [rawMultiplicativeSecondDifference,
     localPrimeCombExpansionWeight]
-  ring_nf
+  ring
 
 end RHLean.Analysis
