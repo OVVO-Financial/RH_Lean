@@ -94,9 +94,8 @@ private theorem norm_localPrimeCombExpansionWeight_le_primePow
   · have hp2 : (2 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.two_le
     simpa [localPrimeCombExpansionWeight] using hp2
   · have hp1 : (1 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.one_le
-    change (1 : ℝ) ≤ (p : ℝ) ^ 2
-    simpa using
-      (pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 1) hp1 2)
+    norm_num [localPrimeCombExpansionWeight]
+    nlinarith [mul_self_nonneg ((p : ℝ) - 1)]
 
 private theorem norm_primeWheelRawExpansionWeight_le_divisor
     (S : Finset ℕ)
@@ -165,11 +164,10 @@ theorem norm_primorialRawUpperMobiusTransform_le_modulus
       simpa [← he0] using hw0
     have hprod : d * (Q / d) = Q := Nat.mul_div_cancel' hdvd
     calc
-      ‖-(primeWheelRawExpansionWeight S e0 *
-          (((Q / primeWheelRawExpansionDivisor S e0 : ℕ) : ℂ)))‖ =
+      ‖primeWheelRawExpansionWeight S e0‖ *
+          ((Q / primeWheelRawExpansionDivisor S e0 : ℕ) : ℝ) =
           ‖primeWheelRawExpansionWeight S e0‖ * ((Q / d : ℕ) : ℝ) := by
             rw [← he0]
-            simp
       _ ≤ (d : ℝ) * ((Q / d : ℕ) : ℝ) := by
         exact mul_le_mul_of_nonneg_right hw (by positivity)
       _ = (Q : ℝ) := by exact_mod_cast hprod
@@ -309,7 +307,9 @@ theorem norm_primorialNormalizedRawSmallBoundary_le
     _ = ((primorialSmallRawBoundaryDivisors k R).card : ℝ) *
         (2 * (R : ℝ) ^ 2) := by
       have hQne : (Q : ℝ) ≠ 0 := ne_of_gt hQpos
-      simp [Finset.sum_const, nsmul_eq_mul, hQne]
+      rw [Finset.sum_const]
+      simp only [nsmul_eq_mul]
+      field_simp [hQne]
     _ ≤ (R + 1 : ℝ) * (2 * (R : ℝ) ^ 2) := by
       have hsubset :
           primorialSmallRawBoundaryDivisors k R ⊆ Finset.range (R + 1) := by
@@ -379,11 +379,12 @@ theorem norm_sq_primorialHighConductorReindexError_le_256_mul
           (mul_le_mul_of_nonneg_left hsucc (by positivity)) (by positivity)
       _ = 16 * (R : ℝ) ^ 4 := by ring
   have hbound0 : 0 ≤ 16 * (R : ℝ) ^ 4 := by positivity
+  have hnorm0 : 0 ≤ ‖primorialHighConductorReindexError k x R‖ := norm_nonneg _
   have hsq :
       ‖primorialHighConductorReindexError k x R‖ ^ 2 ≤
         (16 * (R : ℝ) ^ 4) ^ 2 := by
     have hprod := mul_nonneg (sub_nonneg.mpr hnorm)
-      (add_nonneg hbound0 (norm_nonneg _))
+      (add_nonneg hbound0 hnorm0)
     nlinarith
   have hpow : (16 * (R : ℝ) ^ 4) ^ 2 = 256 * (R : ℝ) ^ 8 := by ring
   rw [hpow] at hsq
