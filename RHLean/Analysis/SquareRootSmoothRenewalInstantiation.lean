@@ -212,6 +212,13 @@ theorem squarePrefixMertens_eq_smooth_add_centeredRenewal_iff_twoCopyMismatch_eq
     linear_combination hsame
   · intro hzero
     rw [hzero] at hexact
-    simpa using hexact
+    calc
+      squarePrefixMertens t =
+          squareRootSmoothMass t -
+            2 * (primeWheelSquareRenewal t - primeWheelSquarePrimeCountMass t) := by
+        simpa using hexact
+      _ = squareRootSmoothMass t +
+          2 * primeWheelSquarePrimeCountMass t -
+          2 * primeWheelSquareRenewal t := by ring
 
 end RHLean.Proof
