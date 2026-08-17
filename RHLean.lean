@@ -25,6 +25,7 @@ import RHLean.Analysis.FiniteWheelRestrictedFloor
 import RHLean.Analysis.FreshPrimeOscillationTransfer
 import RHLean.Analysis.GrowingParentPhaseUniformity
 import RHLean.Analysis.LargePrimeTTransport
+import RHLean.Analysis.LeastSquareCompleteSuperorbitRecombination
 import RHLean.Analysis.LogWeightedPrimeExtension
 import RHLean.Analysis.LogWeightedPrimeExtensionEndpoint
 import RHLean.Analysis.LogWeightedPrimeExtensionFiber
@@ -221,6 +222,7 @@ import RHLean.Analysis.QuadraticShiftDichotomy
 import RHLean.Analysis.RamanujanDivisorBoundary
 import RHLean.Analysis.RamanujanDivisorBoundaryBulk
 import RHLean.Analysis.ReducedQuadraticGauss
+import RHLean.Analysis.SelectedCRTBaseline
 import RHLean.Analysis.SmallModulusResonance
 import RHLean.Analysis.SquareBlockDeathProcess
 import RHLean.Analysis.SquareBlockSurvivorBridge
