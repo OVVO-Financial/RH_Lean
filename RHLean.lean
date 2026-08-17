@@ -7,6 +7,7 @@ import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.ConcreteSquarePrefixGeometry
 import RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
+import RHLean.Analysis.CorrectedConductorHighSectorCutoffError
 import RHLean.Analysis.CorrectedConductorHighSectorGram
 import RHLean.Analysis.CorrectedConductorSmallSectorBound
 import RHLean.Analysis.DivisorUpperMobius
@@ -66,6 +67,7 @@ import RHLean.Analysis.NativePNTMobiusMoments
 import RHLean.Analysis.NativePNTMobiusSecondMoment
 import RHLean.Analysis.NativePNTNormalizedContinuity
 import RHLean.Analysis.NativePNTNormalizedReciprocal
+import RHLean.Analysis.NativePNTSignedRecurrence
 import RHLean.Analysis.NativePNTNormalizedSignedRecurrence
 import RHLean.Analysis.NativePNTOptimalInterceptCore
 import RHLean.Analysis.NativePNTOptimalInterceptGrowth
