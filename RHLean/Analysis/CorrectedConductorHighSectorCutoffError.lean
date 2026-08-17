@@ -93,9 +93,9 @@ private theorem norm_localPrimeCombExpansionWeight_le_primePow
   · norm_num [localPrimeCombExpansionWeight]
   · have hp2 : (2 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.two_le
     simpa [localPrimeCombExpansionWeight] using hp2
-  · have hp1 : (1 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.one_le
+  · have hpNat : 1 ≤ p := hp.one_le
     norm_num [localPrimeCombExpansionWeight]
-    nlinarith [mul_self_nonneg ((p : ℝ) - 1)]
+    omega
 
 private theorem norm_primeWheelRawExpansionWeight_le_divisor
     (S : Finset ℕ)
