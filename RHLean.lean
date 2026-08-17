@@ -135,6 +135,7 @@ import RHLean.Analysis.PhysicalDegreeOneHigherSquareRecurrences
 import RHLean.Analysis.PhysicalDegreeOneLeastSquareChannels
 import RHLean.Analysis.PhysicalDegreeOneMixingConjecture
 import RHLean.Analysis.PhysicalDegreeOneTransitionEstimate
+import RHLean.Analysis.PhysicalSquareCRTTransfer
 import RHLean.Analysis.PrimeAveragedCubeEnergy
 import RHLean.Analysis.PrimeBoundaryCollisionQuotientNoGo
 import RHLean.Analysis.PrimeBoundaryDefectBridge
