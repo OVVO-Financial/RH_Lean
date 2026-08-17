@@ -91,9 +91,8 @@ private theorem norm_localPrimeCombExpansionWeight_le_primePow
   · have hp2 : (2 : ℝ) ≤ p := by exact_mod_cast hp.two_le
     simpa [localPrimeCombExpansionWeight] using hp2
   · have hp1 : (1 : ℝ) ≤ p := by exact_mod_cast hp.one_le
-    have hp0 : (0 : ℝ) ≤ p := hp1.trans' zero_le_one
     simp [localPrimeCombExpansionWeight]
-    nlinarith [mul_self_nonneg (p : ℝ)]
+    nlinarith [mul_self_nonneg (p : ℝ), hp1]
 
 private theorem norm_primeWheelRawExpansionWeight_le_divisor
     (S : Finset ℕ)
@@ -230,6 +229,14 @@ private def primorialSmallRawBoundaryDivisors
     (k R : ℕ) : Finset ℕ :=
   ((primorialMinimalWheelSystem k).modulus.divisors).filter fun d => d ≤ R
 
+private def highPrimorialRawBoundarySummand
+    (k x d : ℕ) : ℂ :=
+  primeWheelRawUpperMobiusTransform
+      (primorialWheelPrimes k)
+      (primorialMinimalWheelSystem k).modulus d *
+    (((divisorIntervalBoundary d 0
+      (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ))
+
 /-- The normalized reindexed raw boundary supported on `d <= R` is `O(R^3)`.
 This is the only new absolute summation in the high-sector reduction, and it is
 performed after the full conductor Moebius collapse. -/
@@ -245,10 +252,11 @@ theorem norm_primorialNormalizedRawSmallBoundary_le
   have hsmall :
       primorialRawSmallCollapsedBoundaryPairing k x R =
         ∑ d ∈ primorialSmallRawBoundaryDivisors k R,
-          primorialRawBoundarySummand k x d := by
+          highPrimorialRawBoundarySummand k x d := by
     unfold primorialRawSmallCollapsedBoundaryPairing
-      primorialSmallRawBoundaryDivisors
+      primorialSmallRawBoundaryDivisors highPrimorialRawBoundarySummand
     rw [Finset.sum_filter]
+    rfl
   unfold primorialNormalizedRawSmallBoundary
   rw [hsmall, norm_mul]
   have hQinv : ‖((Q : ℂ)⁻¹)‖ = (Q : ℝ)⁻¹ := by simp
@@ -256,10 +264,10 @@ theorem norm_primorialNormalizedRawSmallBoundary_le
   calc
     (Q : ℝ)⁻¹ *
         ‖∑ d ∈ primorialSmallRawBoundaryDivisors k R,
-          primorialRawBoundarySummand k x d‖ ≤
+          highPrimorialRawBoundarySummand k x d‖ ≤
       (Q : ℝ)⁻¹ *
         ∑ d ∈ primorialSmallRawBoundaryDivisors k R,
-          ‖primorialRawBoundarySummand k x d‖ := by
+          ‖highPrimorialRawBoundarySummand k x d‖ := by
             apply mul_le_mul_of_nonneg_left (norm_sum_le _ _) (by positivity)
     _ ≤ (Q : ℝ)⁻¹ *
         ∑ _d ∈ primorialSmallRawBoundaryDivisors k R,
@@ -286,7 +294,7 @@ theorem norm_primorialNormalizedRawSmallBoundary_le
             (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ))‖ ≤
             2 * (R : ℝ) ^ 2 :=
         hB0.trans (mul_le_mul_of_nonneg_left hpow (by positivity))
-      unfold primorialRawBoundarySummand
+      unfold highPrimorialRawBoundarySummand
       rw [norm_mul]
       exact mul_le_mul hT hB (norm_nonneg _) (by positivity)
     _ = ((primorialSmallRawBoundaryDivisors k R).card : ℝ) *
@@ -332,7 +340,8 @@ theorem norm_primorialHighConductorReindexError_le_eight
       exact add_le_add_right hraw _
     _ ≤ 2 * (R + 1 : ℝ) * (R : ℝ) ^ 3 +
           6 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := by
-      gcongr
+      exact add_le_add_right
+        (mul_le_mul_of_nonneg_left hpow (by positivity)) _
     _ = 8 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := by ring
 
 /-- If the cutoff satisfies `R^8 <= U`, the entire cutoff-reindexing error is
@@ -356,15 +365,16 @@ theorem norm_sq_primorialHighConductorReindexError_le_256_mul
     calc
       ‖primorialHighConductorReindexError k x R‖ ≤
           8 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := herr
-      _ ≤ 8 * (2 * (R : ℝ)) * (R : ℝ) ^ 3 := by gcongr
+      _ ≤ 8 * (2 * (R : ℝ)) * (R : ℝ) ^ 3 := by
+        exact mul_le_mul_of_nonneg_right
+          (mul_le_mul_of_nonneg_left hsucc (by positivity)) (by positivity)
       _ = 16 * (R : ℝ) ^ 4 := by ring
-  have hnorm0 : 0 ≤ ‖primorialHighConductorReindexError k x R‖ := norm_nonneg _
-  have hR0 : 0 ≤ (R : ℝ) := by positivity
   have hsq :
       ‖primorialHighConductorReindexError k x R‖ ^ 2 ≤
-        256 * (R : ℝ) ^ 8 := by
-    nlinarith [sq_nonneg (16 * (R : ℝ) ^ 4 -
-      ‖primorialHighConductorReindexError k x R‖)]
+        (16 * (R : ℝ) ^ 4) ^ 2 := by
+    exact sq_le_sq₀ (norm_nonneg _) hnorm
+  have hpow : (16 * (R : ℝ) ^ 4) ^ 2 = 256 * (R : ℝ) ^ 8 := by ring
+  rw [hpow] at hsq
   have hscaleReal : (R : ℝ) ^ 8 ≤ (U : ℝ) := by exact_mod_cast hscale
   exact hsq.trans (mul_le_mul_of_nonneg_left hscaleReal (by positivity))
 
@@ -388,6 +398,14 @@ theorem norm_sq_primorialHighConductorWithZeroSector_le_core_add_512_mul
     simpa using hupperBlock
   have herr := norm_sq_primorialHighConductorReindexError_le_256_mul
     k x R U hk hR hlower hupper hscale
-  exact hgram.trans (add_le_add_left (mul_le_mul_of_nonneg_left herr (by positivity)) _)
+  calc
+    ‖primorialHighConductorWithZeroSector k x R‖ ^ 2 ≤
+        2 * ‖primorialHighCollapsedCore k x R‖ ^ 2 +
+          2 * ‖primorialHighConductorReindexError k x R‖ ^ 2 := hgram
+    _ ≤ 2 * ‖primorialHighCollapsedCore k x R‖ ^ 2 +
+          2 * (256 * (U : ℝ)) := by
+      exact add_le_add_left (mul_le_mul_of_nonneg_left herr (by positivity)) _
+    _ = 2 * ‖primorialHighCollapsedCore k x R‖ ^ 2 +
+          512 * (U : ℝ) := by ring
 
 end RHLean.Analysis
