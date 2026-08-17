@@ -7,6 +7,7 @@ import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Analysis.ComplexQuadraticPhase
 import RHLean.Analysis.ConcreteSquarePrefixGeometry
 import RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
+import RHLean.Analysis.CorrectedConductorHighCoreExpansion
 import RHLean.Analysis.CorrectedConductorHighSectorCutoffError
 import RHLean.Analysis.CorrectedConductorHighSectorGram
 import RHLean.Analysis.CorrectedConductorSmallSectorBound
