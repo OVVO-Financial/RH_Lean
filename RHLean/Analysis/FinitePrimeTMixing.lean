@@ -126,6 +126,26 @@ def tSingletonFlipAt (p : Nat) (i : Fin 6) (k : Nat) : Prop :=
   p ∣ tTransitionForm i k ∧
     ∀ j : Fin 6, j ≠ i → ¬ p ∣ tTransitionForm j k
 
+/-! Each of the three predicates above is a bounded quantifier over `Fin 6`
+composed with `Nat` divisibility, so each is decidable.  Instance synthesis does
+not unfold a plain `def`, though, so without these the `Finset.filter`s below
+cannot find `DecidablePred` and every `native_decide` certificate fails with
+"uses 'sorry' and/or contains errors".  `inferInstanceAs` states the unfolded
+form explicitly and keeps the instance definitionally transparent, so the
+certificates still evaluate. -/
+
+instance tSquareZeroFreeAt_decidable (p k : Nat) : Decidable (tSquareZeroFreeAt p k) :=
+  inferInstanceAs (Decidable (∀ i : Fin 6, ¬ p ^ 2 ∣ tTransitionForm i k))
+
+instance tNoFlipAt_decidable (p k : Nat) : Decidable (tNoFlipAt p k) :=
+  inferInstanceAs (Decidable (∀ i : Fin 6, ¬ p ∣ tTransitionForm i k))
+
+instance tSingletonFlipAt_decidable (p : Nat) (i : Fin 6) (k : Nat) :
+    Decidable (tSingletonFlipAt p i k) :=
+  inferInstanceAs
+    (Decidable (p ∣ tTransitionForm i k ∧
+      ∀ j : Fin 6, j ≠ i → ¬ p ∣ tTransitionForm j k))
+
 /-- Zero-free residues for the first generic prime layer, represented modulo `11^2`. -/
 def elevenZeroFreeResidues : Finset (Fin 121) :=
   Finset.univ.filter fun k => tSquareZeroFreeAt 11 k.1
@@ -277,7 +297,11 @@ theorem onePrimeWalshFactor_eq {p s : Nat} (hp : 11 <= p) :
   have hden : onePrimeZeroFreeWeight p ≠ 0 :=
     ne_of_gt (onePrimeZeroFreeWeight_pos hp)
   unfold onePrimeWalshFactor onePrimeNoFlipProb onePrimeSingleFlipProb
-  unfold onePrimeNoFlipWeight onePrimeSingleFlipWeight onePrimeZeroFreeWeight at hden ⊢
+  -- `hden` mentions only `onePrimeZeroFreeWeight`, and `unfold` fails outright
+  -- at any location where one of its arguments does not occur, so the goal and
+  -- the hypothesis are unfolded separately rather than in one `at hden ⊢`.
+  unfold onePrimeNoFlipWeight onePrimeSingleFlipWeight onePrimeZeroFreeWeight
+  unfold onePrimeZeroFreeWeight at hden
   field_simp [hden]
   ring
 
@@ -304,7 +328,7 @@ theorem onePrimeWalshFactor_lt_one
 
 /-- For weights `1` through `6`, every one-prime Walsh factor lies above `-1`. -/
 theorem neg_one_lt_onePrimeWalshFactor
-    {p s : Nat} (hp : 11 <= p) (hs1 : 1 <= s) (hs6 : s <= 6) :
+    {p s : Nat} (hp : 11 <= p) (_hs1 : 1 <= s) (hs6 : s <= 6) :
     (-1 : ℚ) < onePrimeWalshFactor p s := by
   rw [onePrimeWalshFactor_eq hp]
   have hpq : (11 : ℚ) <= (p : ℚ) := by
@@ -454,7 +478,7 @@ theorem abs_finitePrimeWalshProduct_le_firstGenericTRadius
     abs_finitePrimeWalshProduct_le_one (P.erase 11) hPrest hs1 hs6
   have hhead : |onePrimeWalshFactor 11 s| <= firstGenericTRadius := by
     simpa [firstGenericTRadius] using abs_onePrimeWalshFactor_eleven_le hs1 hs6
-  have h11erase : 11 ∉ P.erase 11 := Finset.not_mem_erase 11 P
+  have h11erase : 11 ∉ P.erase 11 := Finset.notMem_erase 11 P
   have hprod := finitePrimeWalshProduct_insert (s := s) h11erase
   rw [Finset.insert_erase h11] at hprod
   rw [hprod, abs_mul]
@@ -481,7 +505,7 @@ theorem abs_finitePrimeWalshProduct_lt_one
     abs_finitePrimeWalshProduct_le_one (P.erase a) hPrest hs1 hs6
   have hhead : |onePrimeWalshFactor a s| < 1 :=
     abs_onePrimeWalshFactor_lt_one ha11 hs1 hs6
-  have haerase : a ∉ P.erase a := Finset.not_mem_erase a P
+  have haerase : a ∉ P.erase a := Finset.notMem_erase a P
   have hprod := finitePrimeWalshProduct_insert (s := s) haerase
   rw [Finset.insert_erase haP] at hprod
   rw [hprod, abs_mul]
