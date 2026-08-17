@@ -10,15 +10,14 @@ is the single signed collapsed core.  This file changes coordinates once more,
 but still before any norm: its large raw boundary part is collapsed from
 boundary divisors to the genuine ternary prime-comb expansion points.
 
-After the common torus normalization, the factor `Q / D_e` cancels against
-`Q^{-1}`.  Thus each large raw expansion point appears as
+At each individual expansion point the common torus normalization cancels the
+factor `Q / D_e`.  Thus the normalized raw summand is
 
-`- w_e * B_{D_e}(0;L,x) / D_e`,
+`w_e * B_{D_e}(0;L,x) / D_e`,
 
-where the local expansion weights are exactly `[1,-2,1]`.  This is the
-multiplicative second-difference stencil.  The conductor-one bulk and fully
-collapsed smooth correction remain in the same signed core and are not normed
-separately.
+and the local expansion weights are exactly `[1,-2,1]`, the multiplicative
+second-difference stencil.  The conductor-one bulk and fully collapsed smooth
+correction remain in the same signed core and are not normed separately.
 
 No estimate is asserted here; the purpose is to put the already-isolated hard
 Gram into the coordinates in which fresh-prime scale descent can act.
@@ -112,8 +111,7 @@ theorem primorialRawLargeCollapsedBoundaryPairing_eq_expansion
     (fun d => (((divisorIntervalBoundary d 0
       (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ)))
 
-/-- Normalized unshifted divisor-boundary sawtooth.  The next analytic stage
-acts on this bounded endpoint discrepancy rather than on conductor packets. -/
+/-- Normalized unshifted divisor-boundary sawtooth. -/
 def primorialRawBoundarySawtooth
     (k x d : ℕ) : ℂ :=
   ((d : ℂ)⁻¹) *
@@ -129,72 +127,81 @@ private theorem inv_natCast_mul_natDiv_cast_eq_inv_natCast
     subst d
     have : N = 0 := by simpa using hdvd
     exact hNne this
-  have hmul : d * (N / d) = N := Nat.mul_div_cancel' hdvd
+  have hmul : (N / d) * d = N := by
+    simpa [Nat.mul_comm] using Nat.mul_div_cancel' hdvd
   have hNneC : (N : ℂ) ≠ 0 := by exact_mod_cast hNne
   have hdneC : (d : ℂ) ≠ 0 := by exact_mod_cast hdne
   field_simp [hNneC, hdneC]
   exact_mod_cast hmul
 
-/-- Large normalized raw expansion pairing.  The torus modulus has disappeared
-from every summand; only the expansion weight and normalized boundary remain. -/
-def primorialNormalizedRawLargeExpansionPairing
-    (k x R : ℕ) : ℂ :=
-  -∑ e : PrimeWheelRawExpansionPoint (primorialWheelPrimes k),
-    if R < primeWheelRawExpansionDivisor (primorialWheelPrimes k) e then
+/-- One normalized raw expansion summand before the cutoff indicator. -/
+def primorialNormalizedRawExpansionTerm
+    (k x : ℕ)
+    (e : PrimeWheelRawExpansionPoint (primorialWheelPrimes k)) : ℂ :=
+  (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
+    (primeWheelRawExpansionWeight (primorialWheelPrimes k) e *
+      (((((primorialMinimalWheelSystem k).modulus /
+        primeWheelRawExpansionDivisor (primorialWheelPrimes k) e : ℕ) : ℂ))) *
+      (((divisorIntervalBoundary
+        (primeWheelRawExpansionDivisor (primorialWheelPrimes k) e) 0
+        (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ)))
+
+/-- Pointwise cancellation of the ambient torus modulus.  Every normalized raw
+expansion summand is its ternary weight times the normalized boundary sawtooth. -/
+theorem primorialNormalizedRawExpansionTerm_eq_weight_mul_sawtooth
+    (k x : ℕ) (hk : 2 ≤ k)
+    (e : PrimeWheelRawExpansionPoint (primorialWheelPrimes k)) :
+    primorialNormalizedRawExpansionTerm k x e =
       primeWheelRawExpansionWeight (primorialWheelPrimes k) e *
         primorialRawBoundarySawtooth k x
-          (primeWheelRawExpansionDivisor (primorialWheelPrimes k) e)
-    else 0
+          (primeWheelRawExpansionDivisor (primorialWheelPrimes k) e) := by
+  let D := primeWheelRawExpansionDivisor (primorialWheelPrimes k) e
+  have hDvd : D ∣ (primorialMinimalWheelSystem k).modulus :=
+    primorialRawExpansionDivisor_dvd_minimalModulus k hk e
+  have hcancel := inv_natCast_mul_natDiv_cast_eq_inv_natCast
+    (primorialMinimalWheelSystem k).modulus D
+    (primorialMinimalWheelSystem k).modulus_pos hDvd
+  unfold primorialNormalizedRawExpansionTerm primorialRawBoundarySawtooth
+  change
+    (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
+      (primeWheelRawExpansionWeight (primorialWheelPrimes k) e *
+        (((((primorialMinimalWheelSystem k).modulus / D : ℕ) : ℂ))) *
+        (((divisorIntervalBoundary D 0
+          (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ))) =
+      primeWheelRawExpansionWeight (primorialWheelPrimes k) e *
+        ((D : ℂ)⁻¹ *
+          (((divisorIntervalBoundary D 0
+            (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ)))
+  calc
+    _ = primeWheelRawExpansionWeight (primorialWheelPrimes k) e *
+        (((((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
+          (((((primorialMinimalWheelSystem k).modulus / D : ℕ) : ℂ)))) *
+          (((divisorIntervalBoundary D 0
+            (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ))) := by ring
+    _ = primeWheelRawExpansionWeight (primorialWheelPrimes k) e *
+        ((D : ℂ)⁻¹ *
+          (((divisorIntervalBoundary D 0
+            (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ))) := by
+          rw [hcancel]
 
-/-- Exact cancellation of the ambient torus normalization in the large raw
-expansion family. -/
+/-- The large expansion-point pairing with the common torus normalization kept
+outside the complete signed sum. -/
+def primorialNormalizedRawLargeExpansionPairing
+    (k x R : ℕ) : ℂ :=
+  (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
+    primorialRawLargeExpansionBoundaryPairing k x R
+
+/-- Exact coordinate change for the normalized large raw boundary family. -/
 theorem normalized_primorialRawLargeCollapsedBoundaryPairing_eq_expansion
     (k x R : ℕ) (hk : 2 ≤ k) :
     (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
         primorialRawLargeCollapsedBoundaryPairing k x R =
       primorialNormalizedRawLargeExpansionPairing k x R := by
+  unfold primorialNormalizedRawLargeExpansionPairing
   rw [primorialRawLargeCollapsedBoundaryPairing_eq_expansion k x R hk]
-  unfold primorialRawLargeExpansionBoundaryPairing
-    primorialNormalizedRawLargeExpansionPairing
-  rw [mul_neg, Finset.mul_sum]
-  congr 1
-  apply Fintype.sum_congr
-  intro e
-  by_cases hRe : R < primeWheelRawExpansionDivisor (primorialWheelPrimes k) e
-  · simp only [hRe, if_true]
-    let D := primeWheelRawExpansionDivisor (primorialWheelPrimes k) e
-    have hDvd : D ∣ (primorialMinimalWheelSystem k).modulus :=
-      primorialRawExpansionDivisor_dvd_minimalModulus k hk e
-    have hcancel := inv_natCast_mul_natDiv_cast_eq_inv_natCast
-      (primorialMinimalWheelSystem k).modulus D
-      (primorialMinimalWheelSystem k).modulus_pos hDvd
-    unfold primorialRawBoundarySawtooth
-    change
-      (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
-          (primeWheelRawExpansionWeight (primorialWheelPrimes k) e *
-            (((((primorialMinimalWheelSystem k).modulus / D : ℕ) : ℂ))) *
-            (((divisorIntervalBoundary D 0
-              (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ))) =
-        primeWheelRawExpansionWeight (primorialWheelPrimes k) e *
-          ((D : ℂ)⁻¹ *
-            (((divisorIntervalBoundary D 0
-              (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ)))
-    calc
-      _ = primeWheelRawExpansionWeight (primorialWheelPrimes k) e *
-          ((((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
-            (((((primorialMinimalWheelSystem k).modulus / D : ℕ) : ℂ))) *
-            (((divisorIntervalBoundary D 0
-              (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ))) := by ring
-      _ = primeWheelRawExpansionWeight (primorialWheelPrimes k) e *
-          ((D : ℂ)⁻¹ *
-            (((divisorIntervalBoundary D 0
-              (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ))) := by
-            rw [hcancel]
-  · simp [hRe]
 
-/-- The high collapsed core with its large raw part now expressed as a genuine
-expansion-point sum.  The raw bulk and collapsed smooth correction remain signed
-with it. -/
+/-- The high collapsed core with its large raw part in genuine expansion-point
+coordinates.  The raw bulk and collapsed smooth correction remain signed with it. -/
 def primorialHighExpansionCore
     (k x R : ℕ) : ℂ :=
   primorialNormalizedRawLargeExpansionPairing k x R +
@@ -225,13 +232,13 @@ theorem rawMultiplicativeSecondDifference_eq_fin3_weighted_sum
     (p : ℕ) (f : ℕ → ℂ) (d : ℕ) :
     rawMultiplicativeSecondDifference p f d =
       ∑ j : Fin 3,
-        (((localPrimeCombExpansionWeight j : ℤ) : ℂ)) *
+        localPrimeCombExpansionWeight j *
           f (d * p ^ j.val) := by
   have hfin : (Finset.univ : Finset (Fin 3)) = {0, 1, 2} := by
     native_decide
   rw [hfin]
-  simp [rawMultiplicativeSecondDifference,
+  norm_num [rawMultiplicativeSecondDifference,
     localPrimeCombExpansionWeight]
-  ring
+  ring_nf
 
 end RHLean.Analysis
