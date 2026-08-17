@@ -101,8 +101,11 @@ theorem primorialPeriodicRawResidual_eq_sum_explicitAllConductorPackets
 theorem divisorIntervalBoundary_one_eq_zero
     (a lower upper : ℕ) :
     divisorIntervalBoundary 1 a lower upper = 0 := by
+  have hmod : ∀ m : ℕ, Nat.ModEq 1 m a := by
+    intro m
+    simp [Nat.ModEq]
   unfold divisorIntervalBoundary divisorResidueBoundary divisorResidueCount
-  simp [Nat.ModEq]
+  simp [hmod, Finset.card_Ioc]
 
 /-- The conductor-three Möbius divisor packet has only its mod-`3` boundary
 term; the divisor-one term vanishes exactly. -/
@@ -111,7 +114,10 @@ theorem conductorThree_divisorBoundaryPacket_eq
     (∑ d ∈ (3 : ℕ).divisors,
       μ (3 / d) * divisorIntervalBoundary d a lower upper) =
       divisorIntervalBoundary 3 a lower upper := by
-  norm_num [Nat.divisors, divisorIntervalBoundary_one_eq_zero]
+  have hdiv : (3 : ℕ).divisors = ({1, 3} : Finset ℕ) := by
+    native_decide
+  rw [hdiv]
+  norm_num [divisorIntervalBoundary_one_eq_zero]
 
 /-- The smooth conductor-three packet is exactly the signed sum of mod-`3`
 boundary defects over the actual smooth divisor sites. -/
@@ -149,7 +155,6 @@ theorem primorialPeriodicRawJointConductorResponse_three_eq_boundary
   rw [conductorThree_divisorBoundaryPacket_eq]
   rw [primeWheelSmoothBoundaryPacket_three]
   norm_num
-  push_cast
   ring
 
 end RHLean.Analysis
