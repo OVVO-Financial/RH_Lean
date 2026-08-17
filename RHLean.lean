@@ -222,6 +222,7 @@ import RHLean.Analysis.SquarePrefixHeightPartition
 import RHLean.Analysis.SquarePrefixMertensBridge
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootPositiveSmoothCollapse
+import RHLean.Analysis.SquareRootSmoothRenewalInstantiation
 import RHLean.Analysis.SquareRootTransportRealization
 import RHLean.Analysis.SquareWheelCenteredIncrement
 import RHLean.Analysis.SquareWheelEndpointCofactorFibres
