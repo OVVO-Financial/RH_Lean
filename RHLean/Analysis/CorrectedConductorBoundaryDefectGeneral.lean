@@ -138,9 +138,9 @@ theorem primorialCorrectedConductorBoundaryPart_eq_normalizedNumerator
     primorialCorrectedConductorBoundaryPart k x q =
       (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
         primorialCorrectedConductorBoundaryNumerator k x q := by
-  rw [primeWheelSmoothBoundaryPacket_eq_neg_weightedConductorBoundaryDefects]
   unfold primorialCorrectedConductorBoundaryPart
     primorialCorrectedConductorBoundaryNumerator
+  rw [primeWheelSmoothBoundaryPacket_eq_neg_weightedConductorBoundaryDefects]
   push_cast
   ring
 
@@ -290,8 +290,7 @@ theorem divisorIntervalBoundary_add_multiple
       calc
         divisorIntervalBoundary d a lower (upper + d * Nat.succ c) =
             divisorIntervalBoundary d a lower ((upper + d * c) + d) := by
-              congr 1
-              omega
+              simp only [Nat.mul_succ, Nat.add_assoc]
         _ = divisorIntervalBoundary d a lower (upper + d * c) :=
           divisorIntervalBoundary_add_period d a lower (upper + d * c) hd hle
         _ = divisorIntervalBoundary d a lower upper := ih
@@ -304,6 +303,7 @@ theorem conductorBoundaryDefect_add_conductor
     conductorBoundaryDefect q a lower (upper + q) =
       conductorBoundaryDefect q a lower upper := by
   classical
+  have _hqpos : 0 < q := Nat.zero_lt_of_lt hq
   unfold conductorBoundaryDefect
   apply Finset.sum_congr rfl
   intro d hdmem
