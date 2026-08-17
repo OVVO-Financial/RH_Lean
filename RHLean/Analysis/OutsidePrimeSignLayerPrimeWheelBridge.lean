@@ -197,4 +197,66 @@ theorem finitePrimeDegreeOneBaselineWeight_insert_eq_deletion_add_sign
   rw [onePrimeDegreeOneBaselineWeight_eq_zeroFree_add_signCorrection]
   ring
 
+/-! ## Direct recombination with the least-owner mass from PR #404 -/
+
+/-- Ordinary first-power sign correction attached to the conditioned least-owner
+stage baseline.  This is the missing signed layer after the square-deletion
+channel has been removed. -/
+def leastOwnerOrdinarySignCorrectionMass
+    (P : Finset ℕ) (q : ℕ) : ℝ :=
+  (-2 * ((q : ℝ) - 1)) * leastOwnerStageBaseline P q
+
+/-- **Exact #404-to-prime-wheel bookkeeping.**  Start with `q^2` copies of the
+conditioned incoming stage baseline.  Subtract the complete least-owner square
+deletion mass from PR #404, then add the ordinary first-power sign correction.
+The result is one signed coefficient multiplying the same coherent baseline.
+No local root cardinality has been substituted yet. -/
+theorem leastOwnerCompleteDeletion_add_ordinarySign_recombine
+    (P : Finset ℕ) (hP : ∀ p ∈ P, p.Prime)
+    {q : ℕ} (hq : q.Prime) (hqP : q ∉ P) :
+    (q : ℝ) ^ 2 * leastOwnerStageBaseline P q -
+        leastOwnerCompleteChannelMass P q +
+          leastOwnerOrdinarySignCorrectionMass P q =
+      ((q : ℝ) ^ 2 - ((leastOwnerDeletionResidues q).card : ℝ) -
+          2 * ((q : ℝ) - 1)) * leastOwnerStageBaseline P q := by
+  rw [leastOwnerCompleteChannelMass_eq_card_mul_baseline P hP hq hqP]
+  unfold leastOwnerOrdinarySignCorrectionMass
+  ring
+
+/-- Once the generic six square-root residue count is supplied, the preceding
+physical least-owner recombination is exactly the one-prime degree-one baseline
+from the finite CRT Walsh law.  The six-root fact is kept explicit here because
+`FinitePrimeTMixing` currently formalizes the general `p` count algebraically
+and certifies the residue count directly only at the first generic prime `11`. -/
+theorem leastOwnerCompleteDeletion_add_ordinarySign_eq_degreeOneBaseline
+    (P : Finset ℕ) (hP : ∀ p ∈ P, p.Prime)
+    {q : ℕ} (hq : q.Prime) (hqP : q ∉ P)
+    (hsix : (leastOwnerDeletionResidues q).card = 6) :
+    (q : ℝ) ^ 2 * leastOwnerStageBaseline P q -
+        leastOwnerCompleteChannelMass P q +
+          leastOwnerOrdinarySignCorrectionMass P q =
+      ((onePrimeDegreeOneBaselineWeight q : ℚ) : ℝ) *
+        leastOwnerStageBaseline P q := by
+  rw [leastOwnerCompleteDeletion_add_ordinarySign_recombine P hP hq hqP,
+    hsix, onePrimeDegreeOneBaselineWeight_eq_raw_sub_deletion_sub_sign]
+  push_cast
+  ring
+
+/-- Generic Walsh form of the same least-owner identity.  After the six square
+roots and the ordinary sign layer are recombined, the complete channel carries
+exactly the existing weight-one Walsh multiplier; it is not a new error term. -/
+theorem leastOwnerCompleteDeletion_add_ordinarySign_eq_walsh
+    (P : Finset ℕ) (hP : ∀ p ∈ P, p.Prime)
+    {q : ℕ} (hq : q.Prime) (hqP : q ∉ P)
+    (hq11 : 11 ≤ q)
+    (hsix : (leastOwnerDeletionResidues q).card = 6) :
+    (q : ℝ) ^ 2 * leastOwnerStageBaseline P q -
+        leastOwnerCompleteChannelMass P q +
+          leastOwnerOrdinarySignCorrectionMass P q =
+      ((onePrimeZeroFreeWeight q * onePrimeWalshFactor q 1 : ℚ) : ℝ) *
+        leastOwnerStageBaseline P q := by
+  rw [leastOwnerCompleteDeletion_add_ordinarySign_eq_degreeOneBaseline
+    P hP hq hqP hsix]
+  rw [onePrimeDegreeOneBaselineWeight_eq_zeroFree_mul_walsh hq11]
+
 end RHLean.Analysis
