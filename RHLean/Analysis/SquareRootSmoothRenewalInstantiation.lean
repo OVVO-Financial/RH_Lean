@@ -1,36 +1,21 @@
 import Mathlib
-import RHLean.Analysis.MertensEnergyRHForward
 import RHLean.Analysis.PrimeWheelNearFarRenewalSquareEndpoint
 
 /-!
-# Square-root smooth / prime-wheel renewal instantiation
+# Square-root smooth / prime-wheel renewal normalization
 
-This module connects the original exact square-root decomposition
+This module answers one exact structural question at
+`X_t = (t+1)^2 - 1`: how does the original square-root transport compare with
+the doubled proper-multiple prime-wheel comb?
 
-`M(X_t) = squareRootSmoothMass t - squareRootTransportMass t`
+The answer is that the original square-root transport is one copy of the strict
+upper-prime Mertens transform.  It equals the full renewal `R_t` with only the
+possible boundary prime `t+1` removed.  It is not, in general, the doubled
+proper-multiple mass `2 * properFiberMass`.
 
-at `X_t = (t+1)^2-1` to the prime-wheel renewal coordinates of
-`PrimeWheelNearFarRenewalSquareEndpoint`.
-
-The key normalization fact is exact and structural: the original square-root
-transport is one copy of the strict upper-prime Mertens transform.  Consequently
-it is the full renewal `R_t` with only the possible boundary prime `t+1`
-removed.  It is not, in general, the doubled proper-multiple mass
-`2 * properFiberMass`.
-
-We therefore record both:
-
-* the literal canonical square-root identity
-  `M(X_t) = smooth_t - R_t + boundary_t`; and
-* the exact two-copy normalization mismatch needed to feed the existing
-  doubled proper-fibre interface.
-
-Finally, the signed smooth-minus-renewal bound is shown to be equivalent to the
-repository's square-prefix Mertens energy criterion, and hence sufficient for
-Mathlib's formal Riemann hypothesis through the proved Mertens-energy forward
-bridge.
-
-No PNT term, `Li` term, or separate absolute bound on `R_t` is introduced.
+Accordingly this file records only the exact normalization and its obstruction.
+It does not introduce another RH-equivalent energy criterion, does not assert a
+new analytic estimate, and does not bound `R_t` separately.
 -/
 
 noncomputable section
@@ -137,8 +122,8 @@ theorem squareRootTransportMass_eq_renewal_sub_boundary
       rw [hsplit]
       ring
 
-/-- The literal canonical square-root instantiation: smooth background minus
-one full renewal, with only the possible `p=t+1` boundary restored. -/
+/-- The literal square-root identity in renewal coordinates: smooth background
+minus one full renewal, with only the possible `p=t+1` boundary restored. -/
 theorem squarePrefixMertens_eq_smooth_sub_renewal_add_boundary
     (t : ℕ) (ht : 1 ≤ t) :
     squarePrefixMertens t =
@@ -159,8 +144,7 @@ theorem norm_squareRootRenewalBoundary_le_root (t : ℕ) :
   · simp [squareRootRenewalBoundary, hp]
 
 /-- The exact obstruction to identifying the original one-copy square-root
-transport with the doubled proper-multiple prime-wheel mass.  This is an
-explicit signed structural term, not a boundary estimate. -/
+transport with the doubled proper-multiple prime-wheel mass. -/
 def squareRootPrimeWheelTwoCopyMismatch (t : ℕ) : ℂ :=
   primeWheelSquareRenewal t -
     2 * primeWheelSquarePrimeCountMass t +
@@ -176,8 +160,8 @@ theorem two_properFiberMass_sub_transport_eq_twoCopyMismatch
   unfold squareRootPrimeWheelTwoCopyMismatch
   ring
 
-/-- Equivalent form showing that the mismatch contains a full proper-fibre
-component and therefore cannot be treated as merely the `p=t+1` boundary. -/
+/-- Equivalent form showing explicitly that the mismatch contains a full
+proper-fibre component and is not merely the `p=t+1` boundary. -/
 theorem twoCopyMismatch_eq_properFiber_sub_primeCount_add_boundary
     (t : ℕ) :
     squareRootPrimeWheelTwoCopyMismatch t =
@@ -202,83 +186,9 @@ theorem squarePrefixMertens_eq_smooth_sub_twoProperFiber_add_twoCopyMismatch
   unfold squareRootPrimeWheelTwoCopyMismatch
   ring
 
-/-- Algebraic adapter for the existing doubled proper-fibre interface.  This is
-noncircular, but it is deliberately not called the pure pre-T background: its
-correction term itself contains the renewal. -/
-def squareRootPrimeWheelDoubledInterfaceBackground (t : ℕ) : ℂ :=
-  squareRootSmoothMass t + squareRootPrimeWheelTwoCopyMismatch t
-
-/-- Exact dynamic identity required by the #387 doubled interface. -/
-theorem squarePrefixMertens_eq_doubledInterfaceBackground_sub_twoProperFiber
-    (t : ℕ) (ht : 1 ≤ t) :
-    squarePrefixMertens t =
-      squareRootPrimeWheelDoubledInterfaceBackground t -
-        2 * primeWheelSquareProperFiberMass t := by
-  rw [squarePrefixMertens_eq_smooth_sub_twoProperFiber_add_twoCopyMismatch t ht]
-  unfold squareRootPrimeWheelDoubledInterfaceBackground
-  ring
-
-/-- The conditional centered-renewal interface is fully instantiated by the
-explicit algebraic adapter.  This theorem does not identify that adapter with
-the pure square-root smooth background. -/
-theorem squarePrefixMertens_eq_doubledInterfaceBackground_add_centeredRenewal
-    (t : ℕ) (ht : 1 ≤ t) :
-    squarePrefixMertens t =
-      squareRootPrimeWheelDoubledInterfaceBackground t +
-        2 * primeWheelSquarePrimeCountMass t -
-        2 * primeWheelSquareRenewal t := by
-  exact squarePrefixMertens_eq_background_add_centeredRenewal_of_properFiber
-    t (squareRootPrimeWheelDoubledInterfaceBackground t)
-    (squarePrefixMertens_eq_doubledInterfaceBackground_sub_twoProperFiber t ht)
-
-/-- Expanded centered form, keeping the two-copy obstruction visible rather
-than hiding it in the adapter background. -/
-theorem squarePrefixMertens_eq_smooth_add_mismatch_add_centeredRenewal
-    (t : ℕ) (ht : 1 ≤ t) :
-    squarePrefixMertens t =
-      squareRootSmoothMass t + squareRootPrimeWheelTwoCopyMismatch t +
-        2 * primeWheelSquarePrimeCountMass t -
-        2 * primeWheelSquareRenewal t := by
-  simpa [squareRootPrimeWheelDoubledInterfaceBackground] using
-    squarePrefixMertens_eq_doubledInterfaceBackground_add_centeredRenewal t ht
-
-/-- At the survivor threshold, the already-proved near/far decomposition now
-has an explicit doubled-interface background and retains the `16*t` near error. -/
-theorem exists_nearError_squarePrefixMertens_eq_doubledInterfaceBackground_add_farComb
-    (t : ℕ) (ht : 55 ≤ t) :
-    ∃ E : ℂ, ‖E‖ ≤ 16 * (t : ℝ) ∧
-      squarePrefixMertens t =
-        squareRootPrimeWheelDoubledInterfaceBackground t +
-          primeWheelSquareFarCombMass t + E := by
-  exact exists_nearError_squarePrefixMertens_eq_background_add_farComb
-    t ht (squareRootPrimeWheelDoubledInterfaceBackground t)
-    (squarePrefixMertens_eq_doubledInterfaceBackground_sub_twoProperFiber t (by omega))
-
-/-- The same near/far result with the smooth term and normalization mismatch
-shown separately. -/
-theorem exists_nearError_squarePrefixMertens_eq_smooth_add_mismatch_add_farComb
-    (t : ℕ) (ht : 55 ≤ t) :
-    ∃ E : ℂ, ‖E‖ ≤ 16 * (t : ℝ) ∧
-      squarePrefixMertens t =
-        squareRootSmoothMass t + squareRootPrimeWheelTwoCopyMismatch t +
-          primeWheelSquareFarCombMass t + E := by
-  simpa [squareRootPrimeWheelDoubledInterfaceBackground] using
-    exists_nearError_squarePrefixMertens_eq_doubledInterfaceBackground_add_farComb t ht
-
-/-- If a future structural theorem kills the explicit normalization mismatch,
-then the desired bare-smooth two-copy centered formula follows. -/
-theorem squarePrefixMertens_eq_smooth_add_centeredRenewal_of_twoCopyMismatch_eq_zero
-    (t : ℕ) (ht : 1 ≤ t)
-    (hzero : squareRootPrimeWheelTwoCopyMismatch t = 0) :
-    squarePrefixMertens t =
-      squareRootSmoothMass t +
-        2 * primeWheelSquarePrimeCountMass t -
-        2 * primeWheelSquareRenewal t := by
-  have h := squarePrefixMertens_eq_smooth_add_mismatch_add_centeredRenewal t ht
-  simpa [hzero] using h
-
-/-- In fact, the desired bare-smooth two-copy centered identity is equivalent
-to vanishing of the exact normalization mismatch. -/
+/-- The desired bare-smooth doubled centered formula holds exactly when the
+one-copy/two-copy normalization mismatch vanishes.  This is a no-go test, not
+an analytic estimate. -/
 theorem squarePrefixMertens_eq_smooth_add_centeredRenewal_iff_twoCopyMismatch_eq_zero
     (t : ℕ) (ht : 1 ≤ t) :
     (squarePrefixMertens t =
@@ -286,166 +196,29 @@ theorem squarePrefixMertens_eq_smooth_add_centeredRenewal_iff_twoCopyMismatch_eq
         2 * primeWheelSquarePrimeCountMass t -
         2 * primeWheelSquareRenewal t) ↔
       squareRootPrimeWheelTwoCopyMismatch t = 0 := by
-  have hexact := squarePrefixMertens_eq_smooth_add_mismatch_add_centeredRenewal t ht
+  have hexact :=
+    squarePrefixMertens_eq_smooth_sub_twoProperFiber_add_twoCopyMismatch t ht
+  rw [primeWheelSquareProperFiberMass_eq_renewal_sub_primeCount] at hexact
   constructor
   · intro hpure
     have hsame :
-        squareRootSmoothMass t + squareRootPrimeWheelTwoCopyMismatch t +
-            2 * primeWheelSquarePrimeCountMass t -
-            2 * primeWheelSquareRenewal t =
+        squareRootSmoothMass t -
+            2 * (primeWheelSquareRenewal t - primeWheelSquarePrimeCountMass t) +
+            squareRootPrimeWheelTwoCopyMismatch t =
           squareRootSmoothMass t +
             2 * primeWheelSquarePrimeCountMass t -
             2 * primeWheelSquareRenewal t :=
       hexact.symm.trans hpure
     linear_combination hsame
   · intro hzero
-    simpa [hzero] using hexact
-
-/-- The remaining square-root analytic target exposed by the exact bridge:
-signed cancellation between the complete smooth square-kill background and the
-lower-scale Mertens renewal.  The root boundary is already controlled above. -/
-def SquareRootSmoothRenewalCancellationBoundedStatement : Prop :=
-  ∀ ε : ℝ, 0 < ε →
-    ∃ C : ℝ, 0 ≤ C ∧
-      ∀ t : ℕ, 1 ≤ t →
-        ‖squareRootSmoothMass t - primeWheelSquareRenewal t‖ ^ 2 ≤
-          C * Real.rpow ((t + 1 : ℕ) : ℝ) (2 + ε)
-
-private theorem norm_sq_add_le_two_local (x y : ℂ) :
-    ‖x + y‖ ^ 2 ≤ 2 * ‖x‖ ^ 2 + 2 * ‖y‖ ^ 2 := by
-  have hnorm := norm_add_le x y
-  have hx : 0 ≤ ‖x‖ := norm_nonneg x
-  have hy : 0 ≤ ‖y‖ := norm_nonneg y
-  have hxy : 0 ≤ ‖x + y‖ := norm_nonneg (x + y)
-  nlinarith [sq_nonneg (‖x‖ - ‖y‖)]
-
-/-- The explicit boundary remains below the same critical square-prefix power
-used by the signed cancellation statement. -/
-private theorem norm_squareRootRenewalBoundary_sq_le_rpow
-    (t : ℕ) (ε : ℝ) (hε : 0 < ε) :
-    ‖squareRootRenewalBoundary t‖ ^ 2 ≤
-      Real.rpow ((t + 1 : ℕ) : ℝ) (2 + ε) := by
-  have hb := norm_squareRootRenewalBoundary_le_root t
-  have hbSq :
-      ‖squareRootRenewalBoundary t‖ ^ 2 ≤ (t : ℝ) ^ 2 := by
-    have hnorm : 0 ≤ ‖squareRootRenewalBoundary t‖ := norm_nonneg _
-    have ht : 0 ≤ (t : ℝ) := by positivity
-    nlinarith
-  have hnat : t ^ 2 ≤ (t + 1) ^ 2 :=
-    Nat.pow_le_pow_left (Nat.le_succ t) 2
-  have hsq :
-      (t : ℝ) ^ 2 ≤ ((t + 1 : ℕ) : ℝ) ^ 2 := by
-    exact_mod_cast hnat
-  have hbase : (1 : ℝ) ≤ ((t + 1 : ℕ) : ℝ) := by
-    exact_mod_cast (Nat.succ_le_succ (Nat.zero_le t))
-  have hexp : (2 : ℝ) ≤ 2 + ε := by linarith
-  have hrpow :
-      Real.rpow ((t + 1 : ℕ) : ℝ) (2 : ℝ) ≤
-        Real.rpow ((t + 1 : ℕ) : ℝ) (2 + ε) :=
-    Real.rpow_le_rpow_of_exponent_le hbase hexp
-  calc
-    ‖squareRootRenewalBoundary t‖ ^ 2 ≤ (t : ℝ) ^ 2 := hbSq
-    _ ≤ ((t + 1 : ℕ) : ℝ) ^ 2 := hsq
-    _ = Real.rpow ((t + 1 : ℕ) : ℝ) (2 : ℝ) := by
-      symm
-      exact Real.rpow_natCast ((t + 1 : ℕ) : ℝ) 2
-    _ ≤ Real.rpow ((t + 1 : ℕ) : ℝ) (2 + ε) := hrpow
-
-/-- The signed smooth-minus-renewal estimate implies the repository's exact
-square-prefix Mertens energy criterion.  The only loss is a harmless constant
-from adding the root-scale boundary. -/
-theorem squarePrefixEnergyBounded_of_smoothRenewalCancellation
-    (hcancel : SquareRootSmoothRenewalCancellationBoundedStatement) :
-    SquarePrefixEnergyBoundedStatement := by
-  intro ε hε
-  rcases hcancel ε hε with ⟨C, hC, hbound⟩
-  have hC' : 0 ≤ 2 * C + 2 := by nlinarith
-  refine ⟨2 * C + 2, hC', ?_⟩
-  intro t
-  by_cases ht0 : t = 0
-  · subst t
-    simpa [squarePrefixMertens, squarePrefixEndpoint] using hC'
-  · have ht : 1 ≤ t := Nat.pos_of_ne_zero ht0
-    have hD := hbound t ht
-    have hB := norm_squareRootRenewalBoundary_sq_le_rpow t ε hε
-    have hdecomp := squarePrefixMertens_eq_smooth_sub_renewal_add_boundary t ht
+    rw [hzero] at hexact
     calc
-      ‖squarePrefixMertens t‖ ^ 2 =
-          ‖(squareRootSmoothMass t - primeWheelSquareRenewal t) +
-            squareRootRenewalBoundary t‖ ^ 2 := by rw [hdecomp]
-      _ ≤ 2 * ‖squareRootSmoothMass t - primeWheelSquareRenewal t‖ ^ 2 +
-            2 * ‖squareRootRenewalBoundary t‖ ^ 2 :=
-        norm_sq_add_le_two_local _ _
-      _ ≤ 2 * (C * Real.rpow ((t + 1 : ℕ) : ℝ) (2 + ε)) +
-            2 * Real.rpow ((t + 1 : ℕ) : ℝ) (2 + ε) := by
-        exact add_le_add
-          (mul_le_mul_of_nonneg_left hD (by norm_num))
-          (mul_le_mul_of_nonneg_left hB (by norm_num))
-      _ = (2 * C + 2) * Real.rpow ((t + 1 : ℕ) : ℝ) (2 + ε) := by ring
-
-/-- Conversely, square-prefix Mertens energy control bounds the same signed
-smooth-minus-renewal object, because their difference is only the root-scale
-boundary. -/
-theorem smoothRenewalCancellation_of_squarePrefixEnergyBounded
-    (hprefix : SquarePrefixEnergyBoundedStatement) :
-    SquareRootSmoothRenewalCancellationBoundedStatement := by
-  intro ε hε
-  rcases hprefix ε hε with ⟨C, hC, hbound⟩
-  have hC' : 0 ≤ 2 * C + 2 := by nlinarith
-  refine ⟨2 * C + 2, hC', ?_⟩
-  intro t ht
-  have hM := hbound t
-  have hB := norm_squareRootRenewalBoundary_sq_le_rpow t ε hε
-  have hdecomp := squarePrefixMertens_eq_smooth_sub_renewal_add_boundary t ht
-  have hrewrite :
-      squareRootSmoothMass t - primeWheelSquareRenewal t =
-        squarePrefixMertens t - squareRootRenewalBoundary t := by
-    rw [hdecomp]
-    ring
-  calc
-    ‖squareRootSmoothMass t - primeWheelSquareRenewal t‖ ^ 2 =
-        ‖squarePrefixMertens t + (-squareRootRenewalBoundary t)‖ ^ 2 := by
-      rw [hrewrite, sub_eq_add_neg]
-    _ ≤ 2 * ‖squarePrefixMertens t‖ ^ 2 +
-          2 * ‖-squareRootRenewalBoundary t‖ ^ 2 :=
-      norm_sq_add_le_two_local _ _
-    _ = 2 * ‖squarePrefixMertens t‖ ^ 2 +
-          2 * ‖squareRootRenewalBoundary t‖ ^ 2 := by rw [norm_neg]
-    _ ≤ 2 * (C * Real.rpow ((t + 1 : ℕ) : ℝ) (2 + ε)) +
-          2 * Real.rpow ((t + 1 : ℕ) : ℝ) (2 + ε) := by
-      exact add_le_add
-        (mul_le_mul_of_nonneg_left hM (by norm_num))
-        (mul_le_mul_of_nonneg_left hB (by norm_num))
-    _ = (2 * C + 2) * Real.rpow ((t + 1 : ℕ) : ℝ) (2 + ε) := by ring
-
-/-- The proposed signed cancellation is exactly the square-prefix critical
-energy criterion, modulo the already-controlled root boundary. -/
-theorem smoothRenewalCancellation_iff_squarePrefixEnergyBounded :
-    SquareRootSmoothRenewalCancellationBoundedStatement ↔
-      SquarePrefixEnergyBoundedStatement := by
-  exact ⟨squarePrefixEnergyBounded_of_smoothRenewalCancellation,
-    smoothRenewalCancellation_of_squarePrefixEnergyBounded⟩
-
-/-- Via the existing square-sampling bridge, the same signed cancellation is
-also equivalent to the full Mertens energy criterion. -/
-theorem smoothRenewalCancellation_iff_mertensEnergyBounded :
-    SquareRootSmoothRenewalCancellationBoundedStatement ↔
-      MertensEnergyBoundedStatement := by
-  constructor
-  · intro hcancel
-    exact mertensEnergyBounded_of_squarePrefixEnergyBounded
-      (squarePrefixEnergyBounded_of_smoothRenewalCancellation hcancel)
-  · intro hM
-    exact smoothRenewalCancellation_of_squarePrefixEnergyBounded
-      (squarePrefixEnergyBounded_of_mertensEnergyBounded hM)
-
-/-- **Terminal analytic reduction.**  Proving the signed smooth-minus-renewal
-bound is sufficient for Mathlib's formal Riemann hypothesis, using the
-repository's proved Mertens-energy continuation and functional-equation bridge. -/
-theorem riemannHypothesis_of_smoothRenewalCancellation
-    (hcancel : SquareRootSmoothRenewalCancellationBoundedStatement) :
-    RiemannHypothesis := by
-  exact riemannHypothesis_of_mertensEnergy
-    (smoothRenewalCancellation_iff_mertensEnergyBounded.mp hcancel)
+      squarePrefixMertens t =
+          squareRootSmoothMass t -
+            2 * (primeWheelSquareRenewal t - primeWheelSquarePrimeCountMass t) := by
+        simpa using hexact
+      _ = squareRootSmoothMass t +
+          2 * primeWheelSquarePrimeCountMass t -
+          2 * primeWheelSquareRenewal t := by ring
 
 end RHLean.Proof
