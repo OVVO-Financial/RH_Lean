@@ -212,9 +212,21 @@ theorem mem_outsidePrimeDeletionCells_iff
     k ∈ outsidePrimeDeletionCells P O ↔
       k ∈ O ∧ outsidePrimeSelectedZeroFreeAt P k ∧
         ¬ outsidePrimeActualZeroFreeAt k := by
-  classical
-  simp [outsidePrimeDeletionCells, outsidePrimeSelectedRetainedCells,
-    outsidePrimeActualRetainedCells]
+  unfold outsidePrimeDeletionCells
+  constructor
+  · intro hk
+    rcases Finset.mem_sdiff.mp hk with ⟨hkSelectedMem, hkNotActualMem⟩
+    rcases Finset.mem_filter.mp hkSelectedMem with ⟨hkO, hkSelected⟩
+    refine ⟨hkO, hkSelected, ?_⟩
+    intro hkActual
+    apply hkNotActualMem
+    exact Finset.mem_filter.mpr ⟨hkO, hkActual⟩
+  · rintro ⟨hkO, hkSelected, hkNotActual⟩
+    apply Finset.mem_sdiff.mpr
+    constructor
+    · exact Finset.mem_filter.mpr ⟨hkO, hkSelected⟩
+    · intro hkActualMem
+      exact hkNotActual (Finset.mem_filter.mp hkActualMem).2
 
 /-- Selected CRT degree-one mass before outside-prime deletion. -/
 def outsidePrimeSelectedT (P O : Finset ℕ) : ℝ :=
