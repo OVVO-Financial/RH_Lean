@@ -6,34 +6,16 @@ import RHLean.Proof.MatchedFarSurvivorBridge
 /-!
 # Prime-wheel near/far renewal at square-prefix endpoints
 
-At the square-prefix endpoint
+At `X_t = (t + 1)^2 - 1`, split the prime coordinates above `t` into the
+near strip `t+1,...,t+8` and the far sector beginning at `t+9`.
 
-`X_t = (t + 1)^2 - 1`
-
-this module separates prime coordinates above `t` into the eight-position near
-strip `t+1,...,t+8` and the far sector beginning at `t+9`.
-
-The important normalization is the **proper-multiple fibre**
-
-`M(floor (X_t / p)) - 1`.
-
-This is deliberately distinct from the existing survivor fibre, whose sign and
-cofactor-`1` convention give `-M(floor (X_t / p))`.  Summing the prime-comb
-increment `-2` times the proper fibre exposes the exact centered pair
-
+The proper-multiple fibre is `M(floor (X_t / p)) - 1`.  This is deliberately
+distinct from the existing survivor fibre, which includes the cofactor-one atom.
+The doubled prime-comb contribution therefore exposes the exact signed pair
 `2 * primeCount - 2 * renewal`.
 
-The near strip is proved to cost at most `16*t` in norm.  The renewal itself is
-reindexed exactly by positive cofactors `m <= t`, giving the finite form of
-
-`sum_{p>t} M(floor (X_t/p))
-   = sum_{m<=t} mu(m) # {p>t : p <= X_t/m}`.
-
-No `Li` term, PNT estimate, or separate absolute estimate for the renewal is
-used.  The final theorem packages the algebraic interface from any pre-T-prime
-background identity to the centered prime-count/renewal form; the repository
-currently has no canonical noncircular object named `A_t`, so none is invented
-here.
+No PNT or `Li` term is inserted, and no separate absolute estimate for the
+renewal is asserted.
 -/
 
 noncomputable section
@@ -45,8 +27,6 @@ namespace RHLean.Proof
 open RHLean.Arithmetic
 open RHLean.Analysis
 
-/-- The square-root endpoint with `R=t+1` is literally the square-prefix
-endpoint `X_t`. -/
 @[simp] theorem squareRootEndpoint_succ_eq_squarePrefixEndpoint (t : ℕ) :
     squareRootEndpoint (t + 1) = squarePrefixEndpoint t := by
   rfl
@@ -69,8 +49,7 @@ instance instDecidableIsPrimeWheelSquareFarPrime (t p : ℕ) :
   unfold IsPrimeWheelSquareFarPrime
   infer_instance
 
-/-- Every prime coordinate in `(t,X_t]` is either in the eight-position near
-strip or in the far sector. -/
+/-- Every prime coordinate in `(t,X_t]` is either near or far. -/
 theorem primeWheelSquare_near_or_far
     {t p : ℕ} (hp : p.Prime) (htp : t < p)
     (hpX : p ≤ squarePrefixEndpoint t) :
@@ -85,16 +64,15 @@ theorem primeWheelSquare_near_or_far
 theorem primeWheelSquare_near_not_far
     {t p : ℕ} (hnear : IsPrimeWheelSquareNearPrime t p) :
     ¬ IsPrimeWheelSquareFarPrime t p := by
-  intro hfar
+  rcases hnear with ⟨_, _, hnearUpper⟩
+  rintro ⟨_, hfarLower, _⟩
   omega
 
-/-- Proper-multiple Möbius fibre at one prime coordinate.  The subtraction of
-`1` removes the cofactor `m=1` atom. -/
+/-- Proper-multiple Möbius fibre at one prime coordinate. -/
 def primeWheelSquareProperFiber (t p : ℕ) : ℂ :=
   mertensSummatory (squarePrefixEndpoint t / p) - 1
 
-/-- In particular every far fibre has exactly the requested lower-scale Mertens
-normalization. -/
+/-- Every far fibre has the requested lower-scale Mertens normalization. -/
 theorem primeWheelSquare_farFiber_eq_mertens_sub_one
     {t p : ℕ} (_hp : IsPrimeWheelSquareFarPrime t p) :
     primeWheelSquareProperFiber t p =
@@ -118,10 +96,10 @@ theorem squarePrefixEndpoint_div_le_root
   omega
 
 private theorem mertensSummatory_one : mertensSummatory 1 = 1 := by
-  norm_num [mertensSummatory]
+  rw [← cofactorMobiusPrefixMass_eq_mertensSummatory]
+  simp [cofactorMobiusPrefixMass, canonicalMoebiusWeight]
 
-/-- A proper fibre in the near strip contains at most `t` unit Möbius
-coefficients, hence has norm at most `t`. -/
+/-- A proper fibre above the root has norm at most `t`. -/
 theorem norm_primeWheelSquareProperFiber_le_root
     {t p : ℕ} (hpLower : t + 1 ≤ p)
     (hpX : p ≤ squarePrefixEndpoint t) :
@@ -146,12 +124,11 @@ def primeWheelSquareNearProperFiberMass (t : ℕ) : ℂ :=
   ∑ p ∈ Finset.Icc (t + 1) (t + 8),
     if p.Prime then primeWheelSquareProperFiber t p else 0
 
-/-- The actual near T-prime comb contribution. -/
+/-- The near T-prime comb contribution. -/
 def primeWheelSquareNearCombMass (t : ℕ) : ℂ :=
   -2 * primeWheelSquareNearProperFiberMass t
 
-/-- For the range used by the existing far-survivor architecture, all eight
-near positions lie below the square endpoint. -/
+/-- In the survivor range the eight near positions lie below the endpoint. -/
 theorem nearStrip_upper_le_squarePrefixEndpoint
     {t : ℕ} (ht : 55 ≤ t) :
     t + 8 ≤ squarePrefixEndpoint t := by
@@ -160,9 +137,7 @@ theorem nearStrip_upper_le_squarePrefixEndpoint
     nlinarith
   omega
 
-/-- **Explicit root-scale near-strip estimate.**  There are only eight possible
-prime coordinates, every proper fibre has norm at most `t`, and the prime-comb
-coefficient has magnitude `2`. -/
+/-- Explicit root-scale estimate for the eight-position near strip. -/
 theorem norm_primeWheelSquareNearCombMass_le_sixteen_mul
     (t : ℕ) (ht : 55 ≤ t) :
     ‖primeWheelSquareNearCombMass t‖ ≤ 16 * (t : ℝ) := by
@@ -198,14 +173,12 @@ theorem norm_primeWheelSquareNearCombMass_le_sixteen_mul
       mul_le_mul_of_nonneg_left hsum (by norm_num)
     _ = 16 * (t : ℝ) := by ring
 
-/-- Full prime-count mass on prime coordinates in `(t,X_t]`.  This is the
-indicator-sum form of `pi(X_t)-pi(t)`, chosen so the exact finite algebra does
-not depend on a particular prime-counting API. -/
+/-- Indicator-sum form of `pi(X_t)-pi(t)`. -/
 def primeWheelSquarePrimeCountMass (t : ℕ) : ℂ :=
   ∑ p ∈ Finset.Ioc t (squarePrefixEndpoint t),
     if p.Prime then 1 else 0
 
-/-- The lower-scale Mertens renewal on all prime coordinates in `(t,X_t]`. -/
+/-- Lower-scale Mertens renewal on all prime coordinates in `(t,X_t]`. -/
 def primeWheelSquareRenewal (t : ℕ) : ℂ :=
   ∑ p ∈ Finset.Ioc t (squarePrefixEndpoint t),
     if p.Prime then
@@ -217,8 +190,7 @@ def primeWheelSquareProperFiberMass (t : ℕ) : ℂ :=
   ∑ p ∈ Finset.Ioc t (squarePrefixEndpoint t),
     if p.Prime then primeWheelSquareProperFiber t p else 0
 
-/-- Removing the cofactor-`1` atom from every prime fibre is exactly renewal
-minus prime count. -/
+/-- Removing the cofactor-one atom is renewal minus prime count. -/
 theorem primeWheelSquareProperFiberMass_eq_renewal_sub_primeCount
     (t : ℕ) :
     primeWheelSquareProperFiberMass t =
@@ -232,8 +204,7 @@ theorem primeWheelSquareProperFiberMass_eq_renewal_sub_primeCount
   · simp [hprime, primeWheelSquareProperFiber]
   · simp [hprime]
 
-/-- **Exact centered prime-count/renewal pair.**  This is the algebraic content
-of summing `-2 (M(floor(X_t/p))-1)` over all T-primes. -/
+/-- Exact centered prime-count/renewal pair. -/
 theorem two_primeCount_sub_two_renewal_eq_neg_two_properFiberMass
     (t : ℕ) :
     2 * primeWheelSquarePrimeCountMass t -
@@ -264,8 +235,22 @@ theorem primeWheelSquareProperFiberMass_eq_near_add_far
         Finset.Icc (t + 1) (t + 8) ∪
           Finset.Icc (t + 9) (squarePrefixEndpoint t) := by
     ext p
-    simp only [Finset.mem_Ioc, Finset.mem_union, Finset.mem_Icc]
-    omega
+    constructor
+    · intro hp
+      rcases Finset.mem_Ioc.mp hp with ⟨htp, hpX⟩
+      by_cases hnearUpper : p ≤ t + 8
+      · apply Finset.mem_union.mpr
+        left
+        exact Finset.mem_Icc.mpr ⟨by omega, hnearUpper⟩
+      · apply Finset.mem_union.mpr
+        right
+        exact Finset.mem_Icc.mpr ⟨by omega, hpX⟩
+    · intro hp
+      rcases Finset.mem_union.mp hp with hpNear | hpFar
+      · rcases Finset.mem_Icc.mp hpNear with ⟨hpLower, hpUpper⟩
+        exact Finset.mem_Ioc.mpr ⟨by omega, hpUpper.trans hupper⟩
+      · rcases Finset.mem_Icc.mp hpFar with ⟨hpLower, hpUpper⟩
+        exact Finset.mem_Ioc.mpr ⟨by omega, hpUpper⟩
   have hdisjoint :
       Disjoint (Finset.Icc (t + 1) (t + 8))
         (Finset.Icc (t + 9) (squarePrefixEndpoint t)) := by
@@ -276,8 +261,7 @@ theorem primeWheelSquareProperFiberMass_eq_near_add_far
     primeWheelSquareNearProperFiberMass primeWheelSquareFarProperFiberMass
   rw [hset, Finset.sum_union hdisjoint]
 
-/-- Consequently the centered pair is the exact far comb plus an explicit near
-comb. -/
+/-- The centered pair is the exact far comb plus the explicit near comb. -/
 theorem two_primeCount_sub_two_renewal_eq_near_add_farComb
     (t : ℕ) (ht : 55 ≤ t) :
     2 * primeWheelSquarePrimeCountMass t -
@@ -288,7 +272,7 @@ theorem two_primeCount_sub_two_renewal_eq_near_add_farComb
   unfold primeWheelSquareNearCombMass primeWheelSquareFarCombMass
   ring
 
-/-- Root-scale error form of the preceding exact partition. -/
+/-- Root-scale error form of the exact near/far partition. -/
 theorem exists_nearError_centeredPair_eq_farComb_add
     (t : ℕ) (ht : 55 ≤ t) :
     ∃ E : ℂ, ‖E‖ ≤ 16 * (t : ℝ) ∧
@@ -300,14 +284,13 @@ theorem exists_nearError_centeredPair_eq_farComb_add
   rw [two_primeCount_sub_two_renewal_eq_near_add_farComb t ht]
   ring
 
-/-- Prime-count weight above `t` at the reciprocal cutoff `X_t/m`. -/
+/-- Prime-count weight above `t` at reciprocal cutoff `X_t/m`. -/
 def primeWheelSquarePrimeFiberCountMass (t m : ℕ) : ℂ :=
   ∑ p ∈ Finset.Ioc t (squarePrefixEndpoint t / m),
     if p.Prime then 1 else 0
 
 private theorem mertens_eq_bounded_cofactor_sum
-    {t p : ℕ} (hpLower : t < p)
-    (hpX : p ≤ squarePrefixEndpoint t) :
+    {t p : ℕ} (hpLower : t < p) :
     mertensSummatory (squarePrefixEndpoint t / p) =
       ∑ m ∈ Finset.Icc 1 t,
         if m * p ≤ squarePrefixEndpoint t then canonicalMoebiusWeight m else 0 := by
@@ -349,7 +332,7 @@ theorem primeWheelSquareRenewal_eq_pairMass (t : ℕ) :
   by_cases hprime : p.Prime
   · simp only [hprime, if_true]
     have hpData := Finset.mem_Ioc.mp hp
-    exact mertens_eq_bounded_cofactor_sum hpData.1 hpData.2
+    exact mertens_eq_bounded_cofactor_sum hpData.1
   · simp [hprime]
 
 private theorem primeIndicator_mul_condition_sum_eq_fiberCount
@@ -378,8 +361,8 @@ private theorem primeIndicator_mul_condition_sum_eq_fiberCount
       have hpX : p ≤ squarePrefixEndpoint t :=
         hpB.trans (Nat.div_le_self _ _)
       have hmul : m * p ≤ squarePrefixEndpoint t := by
-        have := (Nat.le_div_iff_mul_le hmPos).1 hpB
-        simpa [Nat.mul_comm] using this
+        have h := (Nat.le_div_iff_mul_le hmPos).1 hpB
+        simpa [Nat.mul_comm] using h
       exact ⟨⟨htp, hpX⟩, hprime, hmul⟩
   calc
     (∑ p ∈ Finset.Ioc t (squarePrefixEndpoint t),
@@ -393,11 +376,7 @@ private theorem primeIndicator_mul_condition_sum_eq_fiberCount
           if p.Prime then (1 : ℂ) else 0 := by
             rw [Finset.sum_filter]
 
-/-- **Exact Möbius reindexing of the far-scale renewal.**  This is the finite
-indicator-sum form of
-
-`R_t = sum_{m<=t} mu(m) # {p>t : p <= X_t/m}`.
--/
+/-- Exact Möbius reindexing of the renewal. -/
 theorem primeWheelSquareRenewal_eq_mobius_primeFiberCount
     (t : ℕ) :
     primeWheelSquareRenewal t =
@@ -446,9 +425,7 @@ theorem primeWheelSquareRenewal_eq_mobius_primeFiberCount
           intro m hm
           rw [primeIndicator_mul_condition_sum_eq_fiberCount hm]
 
-/-- The existing square-root transport is the strict-`t+1` part of the same
-renewal geometry.  This records the exact threshold `p >= t+2` used by the
-legacy transport API; the new proper-fibre/T-prime API above starts at `p>t`. -/
+/-- Existing square-root transport is the strict-`t+1` part of this renewal. -/
 theorem squareRootTransportPrimeFirst_succ_eq_strictRenewal
     (t : ℕ) :
     squareRootTransportPrimeFirst (t + 1) =
@@ -457,15 +434,7 @@ theorem squareRootTransportPrimeFirst_succ_eq_strictRenewal
   have htPos : 0 < t + 1 := by omega
   simpa using squareRootTransportPrimeFirst_eq_mertensTransform (t + 1) htPos
 
-/-- Algebraic interface for the final dynamic decomposition.  If `A` is the
-pre-T-prime background and the dynamic construction has established
-`M(X_t) = A - 2 * properFiberMass`, then the exposed prime-count/renewal form is
-exactly
-
-`M(X_t) = A + 2*primeCount - 2*renewal`.
-
-This theorem intentionally does not manufacture a circular definition of the
-background `A`. -/
+/-- Final algebraic interface for any noncircular pre-T background `A`. -/
 theorem squarePrefixMertens_eq_background_add_centeredRenewal_of_properFiber
     (t : ℕ) (A : ℂ)
     (hbackground : squarePrefixMertens t =
@@ -481,8 +450,7 @@ theorem squarePrefixMertens_eq_background_add_centeredRenewal_of_properFiber
     _ = A + 2 * primeWheelSquarePrimeCountMass t -
         2 * primeWheelSquareRenewal t := by ring
 
-/-- The same interface with the near strip removed into an explicit root-scale
-error.  No estimate on the far comb is taken. -/
+/-- The same interface with the near strip isolated as an explicit root-scale error. -/
 theorem exists_nearError_squarePrefixMertens_eq_background_add_farComb
     (t : ℕ) (ht : 55 ≤ t) (A : ℂ)
     (hbackground : squarePrefixMertens t =
