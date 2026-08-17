@@ -318,6 +318,7 @@ import RHLean.Proof.ActualStartSignedFrame
 import RHLean.Proof.BalancedCanonicalGap
 import RHLean.Proof.BirthMovingAbsorption
 import RHLean.Proof.BlockLyapunovClosure
+import RHLean.Proof.BornSmoothAncestrySquareClockPushforward
 import RHLean.Proof.BornSmoothFarSurvivorIncrement
 import RHLean.Proof.CanonicalExtremeHeight
 import RHLean.Proof.CanonicalGapAncestryBridge
