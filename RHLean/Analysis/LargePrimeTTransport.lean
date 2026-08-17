@@ -217,7 +217,7 @@ def tKernelApply (K : TKernel) (f : TSignState -> Rat) : TSignState -> Rat :=
 theorem uniformTKernel_annihilates_tCellObservable :
     tKernelApply uniformTKernel tCellObservable = 0 := by
   funext u
-  native_decide
+  native_decide +revert
 
 /-- Kernel iteration on observables. -/
 def tKernelIterate (K : TKernel) : Nat -> (TSignState -> Rat) -> TSignState -> Rat
