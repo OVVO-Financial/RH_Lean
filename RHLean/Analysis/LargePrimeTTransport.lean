@@ -31,8 +31,7 @@ canonical large-prime transport cell.  It proves the transfer exactly on the ari
 population satisfying the one-large-prime inequalities coordinatewise.
 -/
 
-open scoped ArithmeticFunction.Moebius BigOperators
-open ArithmeticFunction
+open scoped BigOperators
 
 namespace RHLean.Analysis
 
@@ -52,7 +51,8 @@ theorem q_not_dvd_c {R c q : Nat} (h : LargePrimeTransportData R c q) :
     ¬ q ∣ c := by
   intro hqc
   have hq_le_c : q <= c := Nat.le_of_dvd h.c_pos hqc
-  omega
+  have hc_lt_q : c < q := lt_trans h.c_lt_cutoff h.cutoff_lt_q
+  exact (Nat.not_le_of_gt hc_lt_q) hq_le_c
 
 /-- The large prime is coprime to its small cofactor. -/
 theorem coprime {R c q : Nat} (h : LargePrimeTransportData R c q) :
@@ -61,28 +61,30 @@ theorem coprime {R c q : Nat} (h : LargePrimeTransportData R c q) :
 
 /-- Exact Mobius transport law.  No squarefree assumption on the cofactor is needed. -/
 theorem moebius_mul_eq_neg {R c q : Nat} (h : LargePrimeTransportData R c q) :
-    (μ (q * c) : Int) = -(μ c : Int) := by
+    (ArithmeticFunction.moebius (q * c) : Int) =
+      -(ArithmeticFunction.moebius c : Int) := by
   rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime h.coprime]
   rw [ArithmeticFunction.moebius_apply_prime h.q_prime]
   ring
 
 /-- The large prime creates no new Mobius zero and removes no inherited one. -/
 theorem moebius_mul_eq_zero_iff {R c q : Nat} (h : LargePrimeTransportData R c q) :
-    (μ (q * c) : Int) = 0 ↔ (μ c : Int) = 0 := by
+    (ArithmeticFunction.moebius (q * c) : Int) = 0 ↔
+      (ArithmeticFunction.moebius c : Int) = 0 := by
   rw [h.moebius_mul_eq_neg]
   simp
 
 /-- A surviving cofactor stays in the zero-free sector after adjoining the large prime. -/
 theorem moebius_mul_ne_zero {R c q : Nat} (h : LargePrimeTransportData R c q)
-    (hc : (μ c : Int) ≠ 0) :
-    (μ (q * c) : Int) ≠ 0 := by
+    (hc : (ArithmeticFunction.moebius c : Int) ≠ 0) :
+    (ArithmeticFunction.moebius (q * c) : Int) ≠ 0 := by
   intro hz
   exact hc (h.moebius_mul_eq_zero_iff.mp hz)
 
 /-- An inherited zero remains zero after adjoining the large prime. -/
 theorem moebius_mul_eq_zero {R c q : Nat} (h : LargePrimeTransportData R c q)
-    (hc : (μ c : Int) = 0) :
-    (μ (q * c) : Int) = 0 := by
+    (hc : (ArithmeticFunction.moebius c : Int) = 0) :
+    (ArithmeticFunction.moebius (q * c) : Int) = 0 := by
   exact h.moebius_mul_eq_zero_iff.mpr hc
 
 end LargePrimeTransportData
@@ -96,22 +98,23 @@ structure LargePrimeTTransitionData (R : Nat) where
 /-- Every coordinate of a large-prime transition is the sign reversal of its cofactor. -/
 theorem largePrimeTTransition_moebius_flip
     {R : Nat} (D : LargePrimeTTransitionData R) (i : Fin 6) :
-    (μ (D.largePrime i * D.cofactor i) : Int) =
-      -(μ (D.cofactor i) : Int) := by
+    (ArithmeticFunction.moebius (D.largePrime i * D.cofactor i) : Int) =
+      -(ArithmeticFunction.moebius (D.cofactor i) : Int) := by
   exact (D.admissible i).moebius_mul_eq_neg
 
 /-- Zero status is inherited coordinatewise from the six small cofactors. -/
 theorem largePrimeTTransition_zero_iff
     {R : Nat} (D : LargePrimeTTransitionData R) (i : Fin 6) :
-    (μ (D.largePrime i * D.cofactor i) : Int) = 0 ↔
-      (μ (D.cofactor i) : Int) = 0 := by
+    (ArithmeticFunction.moebius (D.largePrime i * D.cofactor i) : Int) = 0 ↔
+      (ArithmeticFunction.moebius (D.cofactor i) : Int) = 0 := by
   exact (D.admissible i).moebius_mul_eq_zero_iff
 
 /-- The six-coordinate transition is zero-free exactly when all six cofactors are zero-free. -/
 theorem largePrimeTTransition_all_ne_zero_iff
     {R : Nat} (D : LargePrimeTTransitionData R) :
-    (∀ i : Fin 6, (μ (D.largePrime i * D.cofactor i) : Int) ≠ 0) ↔
-      (∀ i : Fin 6, (μ (D.cofactor i) : Int) ≠ 0) := by
+    (∀ i : Fin 6,
+      (ArithmeticFunction.moebius (D.largePrime i * D.cofactor i) : Int) ≠ 0) ↔
+      (∀ i : Fin 6, (ArithmeticFunction.moebius (D.cofactor i) : Int) ≠ 0) := by
   constructor
   · intro h i hc
     exact h i ((D.admissible i).moebius_mul_eq_zero_iff.mpr hc)
@@ -233,7 +236,10 @@ theorem uniformTKernel_iterate_tCellObservable_succ (n : Nat) :
   | zero =>
       simpa [tKernelIterate] using uniformTKernel_annihilates_tCellObservable
   | succ n ih =>
-      simp [tKernelIterate, ih]
+      change tKernelApply uniformTKernel
+        (tKernelIterate uniformTKernel (n + 1) tCellObservable) = 0
+      rw [ih]
+      exact tKernelApply_zero uniformTKernel
 
 /-- Stationary lag covariance of the active observable under the uniform kernel. -/
 def uniformTLagCovariance (h : Nat) : Rat :=
@@ -253,7 +259,7 @@ def uniformTLagCovariance (h : Nat) : Rat :=
 /-- Green--Kubo second moment for `K` consecutive stationary `T` increments. -/
 def uniformTGreenKuboSecondMoment (K : Nat) : Rat :=
   (K : Rat) * uniformTLagCovariance 0 +
-    2 * ∑ h in Finset.range K,
+    2 * ∑ h ∈ Finset.range K,
       ((K - (h + 1) : Nat) : Rat) * uniformTLagCovariance (h + 1)
 
 /-- Exact random-walk-scale law for the exactly uniform eight-state kernel. -/
