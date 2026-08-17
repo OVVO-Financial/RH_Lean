@@ -172,6 +172,7 @@ theorem squareRootTransportPrimeFirst_eq_lowerBlock_add_topFibreBlock
     rcases Finset.mem_Ioc.mp hq1 with ⟨_, hqhalf⟩
     rcases Finset.mem_Ioc.mp hq2 with ⟨hhalfq, _⟩
     omega
+  unfold squareRootTopFibreBlock
   rw [squareRootTransportPrimeFirst_eq_reciprocalRoughTransform R (by omega),
     hsplit, Finset.sum_union hdisj]
 
