@@ -389,7 +389,7 @@ private theorem rootField_eq_weight_of_transport
   classical
   have hp : sourceParent s = none :=
     (sourceParent_eq_none_iff_transport s h.1).2 h
-  simpa [boundedSourceFlow, rootField, hp]
+  simp [boundedSourceFlow, rootField, hp]
 
 private theorem rootField_eq_zero_of_not_transport
     (B : ℕ) (s : SourceIndex B) (h : ¬ TransportOriented s) :
@@ -407,7 +407,7 @@ private theorem rootField_eq_zero_of_not_transport
     have hnotSmooth : ¬ SmoothOriented s := by
       intro hsmooth
       exact hadm hsmooth.1
-    have hp : sourceParent s = none := sourceParent_eq_none_iff.mpr hnotSmooth
+    have hp : sourceParent s = none := (sourceParent_eq_none_iff s).2 hnotSmooth
     simp [boundedSourceFlow, rootField, hp, hw]
 
 private theorem transport_sourceWeight_eq_neg_core_moebius
@@ -586,6 +586,7 @@ theorem squareRootSmoothAncestryClockMass_eq_lowRootResponse
     · have hfull := congrFun
         (SquareRootBornSmoothAncestry.smoothSourceField_eq_finite_root_tail B) s
       rw [hfull]
+      simp only [Pi.sub_apply]
       rw [alternatingPrefix_root_eq_low_of_prime_lt R B (B + 1) s hq]
       simp [lowPrimeRootField, hq]
     · have hnotSmooth : ¬ SmoothOriented s := by
