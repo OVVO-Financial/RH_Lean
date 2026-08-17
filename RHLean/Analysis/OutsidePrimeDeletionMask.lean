@@ -256,6 +256,127 @@ theorem outsidePrimeActualT_eq_selectedT_sub_deletionT
   rw [← Finset.sum_sdiff hsub]
   ring
 
+/-! ## Exact single-outside-prime CRT deletion invariance -/
+
+/-- The totalized CRT period is the ordinary product of selected prime squares
+on every generic selected-prime set. -/
+theorem finitePrimeCRTPeriod_eq_primeSquareProduct
+    {P : Finset ℕ} (hP : IsGenericFinitePrimeSet P) :
+    finitePrimeCRTPeriod P = ∏ p ∈ P, p ^ 2 := by
+  unfold finitePrimeCRTPeriod
+  apply max_eq_right
+  have hpos : 0 < ∏ p ∈ P, p ^ 2 := by
+    apply Finset.prod_pos
+    intro p hp
+    exact pow_pos (hP p hp).1.pos 2
+  omega
+
+/-- The selected CRT period is nonzero, so its residue ring is finite. -/
+instance finitePrimeCRTPeriod_neZero (P : Finset ℕ) :
+    NeZero (finitePrimeCRTPeriod P) :=
+  ⟨Nat.ne_of_gt (finitePrimeCRTPeriod_pos P)⟩
+
+/-- A prime outside the selected set has square coprime to the selected CRT
+period. -/
+theorem outsidePrime_square_coprime_finitePrimeCRTPeriod
+    (P : Finset ℕ) (hP : IsGenericFinitePrimeSet P)
+    {q : ℕ} (hq : q.Prime) (hqP : q ∉ P) :
+    (q ^ 2).Coprime (finitePrimeCRTPeriod P) := by
+  rw [finitePrimeCRTPeriod_eq_primeSquareProduct hP]
+  apply Nat.Coprime.prod_right
+  intro p hp
+  have hpPrime : p.Prime := (hP p hp).1
+  have hne : q ≠ p := by
+    intro h
+    subst p
+    exact hqP hp
+  exact Nat.coprime_pow_primes 2 2 hq hpPrime hne
+
+/-- Affine stepping by a unit permutes a residue ring. -/
+private def zmodAffineEquivOfCoprime
+    {M step : ℕ} (h : step.Coprime M) (a : ZMod M) :
+    ZMod M ≃ ZMod M where
+  toFun t :=
+    a + t * (↑(ZMod.unitOfCoprime step h) : ZMod M)
+  invFun r :=
+    (r - a) * (↑((ZMod.unitOfCoprime step h)⁻¹) : ZMod M)
+  left_inv t := by
+    simp [mul_assoc]
+  right_inv r := by
+    simp [mul_assoc]
+
+/-- Finite CRT permutation identity: stepping by any number coprime to the
+modulus samples every residue exactly once. -/
+theorem zmod_sum_affine_coprime_eq_sum
+    {M step : ℕ} [NeZero M]
+    (h : step.Coprime M) (a : ZMod M)
+    (f : ZMod M → ℝ) :
+    (∑ t : ZMod M, f (a + t * (step : ZMod M))) =
+      ∑ r : ZMod M, f r := by
+  have hsum := Equiv.sum_comp (zmodAffineEquivOfCoprime h a) f
+  simpa [zmodAffineEquivOfCoprime] using hsum
+
+/-- Exact selected-zero-free degree-one field on the selected CRT residue ring.
+The selected squarefree condition is part of the field itself, not an
+approximation or a later conditioning step. -/
+def selectedZeroFreeDegreeOneField
+    (P : Finset ℕ) (r : ZMod (finitePrimeCRTPeriod P)) : ℝ :=
+  if outsidePrimeSelectedZeroFreeAt P r.val then
+    selectedDegreeOneProjection P r.val
+  else
+    0
+
+/-- A fixed deletion residue modulo an outside prime square samples the entire
+selected CRT degree-one field exactly once over one selected-period cycle. -/
+theorem singleOutsidePrimeDeletion_preserves_degreeOneMass
+    (P : Finset ℕ) (hP : IsGenericFinitePrimeSet P)
+    {q : ℕ} (hq : q.Prime) (hqP : q ∉ P)
+    (a : ZMod (q ^ 2)) :
+    (∑ t : ZMod (finitePrimeCRTPeriod P),
+        selectedZeroFreeDegreeOneField P
+          ((a.val : ZMod (finitePrimeCRTPeriod P)) +
+            t * (q ^ 2 : ZMod (finitePrimeCRTPeriod P)))) =
+      ∑ r : ZMod (finitePrimeCRTPeriod P),
+        selectedZeroFreeDegreeOneField P r := by
+  have hcop := outsidePrime_square_coprime_finitePrimeCRTPeriod P hP hq hqP
+  exact zmod_sum_affine_coprime_eq_sum hcop
+    (a.val : ZMod (finitePrimeCRTPeriod P))
+    (selectedZeroFreeDegreeOneField P)
+
+/-- The single outside-prime deletion channel has exactly zero deviation from
+its selected-CRT baseline.  This is the deterministic centered form of the
+single-prime deletion-unbiasedness statement. -/
+theorem singleOutsidePrimeDeletion_degreeOneDeviationZero
+    (P : Finset ℕ) (hP : IsGenericFinitePrimeSet P)
+    {q : ℕ} (hq : q.Prime) (hqP : q ∉ P)
+    (a : ZMod (q ^ 2)) :
+    (∑ t : ZMod (finitePrimeCRTPeriod P),
+        selectedZeroFreeDegreeOneField P
+          ((a.val : ZMod (finitePrimeCRTPeriod P)) +
+            t * (q ^ 2 : ZMod (finitePrimeCRTPeriod P)))) -
+      (∑ r : ZMod (finitePrimeCRTPeriod P),
+        selectedZeroFreeDegreeOneField P r) = 0 := by
+  rw [singleOutsidePrimeDeletion_preserves_degreeOneMass P hP hq hqP a]
+  ring
+
+/-- If a selected CRT observable has zero complete-orbit mean, then every fixed
+outside-prime-square deletion residue has zero signed degree-one mass exactly.
+This corollary records the zero-mean form without falsely asserting that the raw
+selected field is centered in general. -/
+theorem singleOutsidePrimeDeletion_degreeOneZeroMean
+    (P : Finset ℕ) (hP : IsGenericFinitePrimeSet P)
+    {q : ℕ} (hq : q.Prime) (hqP : q ∉ P)
+    (a : ZMod (q ^ 2))
+    (hzero :
+      (∑ r : ZMod (finitePrimeCRTPeriod P),
+        selectedZeroFreeDegreeOneField P r) = 0) :
+    (∑ t : ZMod (finitePrimeCRTPeriod P),
+        selectedZeroFreeDegreeOneField P
+          ((a.val : ZMod (finitePrimeCRTPeriod P)) +
+            t * (q ^ 2 : ZMod (finitePrimeCRTPeriod P)))) = 0 := by
+  rw [singleOutsidePrimeDeletion_preserves_degreeOneMass P hP hq hqP a]
+  exact hzero
+
 /-- Open analytic target: deleting cells by all primes outside the selected CRT
 set does not create super-RH-scale degree-one bias on a complete orbit.
 
