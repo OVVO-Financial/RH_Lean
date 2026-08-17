@@ -345,15 +345,24 @@ theorem squareRootMatchedBornSmoothTransport_eq_pntMain_sub_floor_sub_error
   rw [squareRootTransportCofactorFirst_eq_smooth_add_floor_add_error]
   ring
 
-/-- Open joint analytic target for the three exact terms above.  This is a named
-proposition only; no estimate is asserted or assumed by the exact decomposition. -/
+/-- The exact PNT split preserves the signed Gram as one object.  No triangle
+inequality or separate norm is taken on the floor or prime-counting errors. -/
+theorem squareRootMatchedPNTCombinedGram_eq_matchedGram (R : ℕ) :
+    ‖squareRootMatchedBornSmoothPNTMain R -
+        squareRootTransportFloorCorrection R -
+          squareRootTransportPNTError R‖ ^ 2 =
+      ‖squareRootMatchedBornSmoothTransport R‖ ^ 2 := by
+  rw [squareRootMatchedBornSmoothTransport_eq_pntMain_sub_floor_sub_error]
+
+/-- Open joint analytic target for the exact signed combination above.  This is
+a named proposition only; no estimate is asserted or assumed by the exact decomposition. -/
 def SquareRootMatchedPNTJointBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ C : ℝ, 0 ≤ C ∧
       ∀ R : ℕ, 2 ≤ R →
-        (‖squareRootMatchedBornSmoothPNTMain R‖ +
-            ‖squareRootTransportFloorCorrection R‖ +
-              ‖squareRootTransportPNTError R‖) ^ 2 ≤
+        ‖squareRootMatchedBornSmoothPNTMain R -
+            squareRootTransportFloorCorrection R -
+              squareRootTransportPNTError R‖ ^ 2 ≤
           C * Real.rpow (R : ℝ) (2 + ε)
 
 end RHLean.Proof
