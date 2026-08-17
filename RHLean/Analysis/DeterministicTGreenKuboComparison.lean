@@ -64,8 +64,10 @@ theorem tCellObservableInt_sq_le_nine (s : TSignState) :
 /-- Real version of the pointwise diagonal bound. -/
 theorem tCellObservableReal_sq_le_nine (s : TSignState) :
     tCellObservableReal s ^ 2 ≤ 9 := by
-  have h := tCellObservableInt_sq_le_nine s
-  exact_mod_cast h
+  have hInt := tCellObservableInt_sq_le_nine s
+  have hReal : ((tCellObservableInt s : ℝ) ^ 2) ≤ 9 := by
+    exact_mod_cast hInt
+  simpa [tCellObservableReal] using hReal
 
 /-! ## Exact deterministic square expansion -/
 
