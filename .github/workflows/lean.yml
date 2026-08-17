@@ -1,3 +1,4 @@
+# Temporary PR validation trigger; revert after the warning-fatal build.
 name: Full Lean warning sweep
 
 on:
