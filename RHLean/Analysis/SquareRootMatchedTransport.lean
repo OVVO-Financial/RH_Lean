@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Analysis.DyadicTransportCanonicalForm
 import RHLean.Proof.ConcreteLiCoreExtensionWeight
+import RHLean.Proof.CanonicalGapAncestryBridge
 
 /-!
 # Matched born-smooth / transport cancellation
@@ -344,6 +345,71 @@ theorem squareRootMatchedBornSmoothTransport_eq_pntMain_sub_floor_sub_error
   rw [← squareRootTransportCofactorFirst_eq_primeFirst R]
   rw [squareRootTransportCofactorFirst_eq_smooth_add_floor_add_error]
   ring
+
+/-! ## Exact ancestry coordinates for the born-smooth side -/
+
+namespace SquareRootBornSmoothAncestry
+
+open CanonicalGapAncestryFlow
+open CanonicalGapAncestryFlow.ParentFlow
+open CanonicalGapAncestryBridge
+
+/-- The nonroot part of the native canonical source field.  For the concrete
+ancestry flow, these are exactly the smooth-oriented sources `q < c`; roots are
+the complementary transport-oriented sources. -/
+noncomputable def smoothSourceField (B : ℕ) : SourceIndex B → ℤ := by
+  classical
+  exact fun s => if SmoothOriented s then sourceWeight s else 0
+
+/-- Exact partition of the bounded canonical source field into transport roots
+and smooth-oriented nonroots.  This is an identity of signed fields, before any
+clock pushforward or norm. -/
+theorem weight_eq_root_add_smooth (B : ℕ) :
+    (boundedSourceFlow B).weight =
+      (boundedSourceFlow B).rootField + smoothSourceField B := by
+  funext s
+  classical
+  by_cases h : SmoothOriented s
+  · have hp : sourceParent s = some (parentIndex s h) := smoothSource_has_parent s h
+    simp [smoothSourceField, h, boundedSourceFlow, rootField, hp]
+  · have hp : sourceParent s = none := (sourceParent_eq_none_iff s).2 h
+    simp [smoothSourceField, h, boundedSourceFlow, rootField, hp]
+
+/-- The smooth field is exactly the finite alternating ancestry tail generated
+from the transport-oriented root field.  No analytic estimate is used: repeated
+largest-core-prime stripping has already been proved nilpotent in the ancestry
+bridge. -/
+theorem smoothSourceField_eq_finite_root_tail (B : ℕ) :
+    smoothSourceField B =
+      alternatingPrefix (boundedSourceFlow B).successorOperator
+          (boundedSourceFlow B).rootField (B + 1) -
+        (boundedSourceFlow B).rootField := by
+  have hsplit := weight_eq_root_add_smooth B
+  have halt := boundedSource_weight_eq_finite_alternating B
+  rw [← halt]
+  rw [hsplit]
+  abel
+
+/-- Square-prefix clock pushforward of the smooth-oriented ancestry field.  The
+ambient bound is the same exact endpoint `R^2 - 1` used by square-root transport. -/
+noncomputable def squareRootSmoothAncestryClockMass (R : ℕ) : ℤ :=
+  let B := squareRootEndpoint R
+  clockPushforward (sourceClock B) (R - 1) (smoothSourceField B)
+
+/-- Exact lower-scale/root-coordinate form of the smooth ancestry mass.  This is
+the formal mechanism that moves smooth-oriented sources onto the finite
+transport-root ancestry expansion without separating any PNT error terms. -/
+theorem squareRootSmoothAncestryClockMass_eq_finite_root_tail (R : ℕ) :
+    squareRootSmoothAncestryClockMass R =
+      let B := squareRootEndpoint R
+      clockPushforward (sourceClock B) (R - 1)
+        (alternatingPrefix (boundedSourceFlow B).successorOperator
+            (boundedSourceFlow B).rootField (B + 1) -
+          (boundedSourceFlow B).rootField) := by
+  dsimp [squareRootSmoothAncestryClockMass]
+  rw [smoothSourceField_eq_finite_root_tail]
+
+end SquareRootBornSmoothAncestry
 
 /-- The exact PNT split preserves the signed Gram as one object.  No triangle
 inequality or separate norm is taken on the floor or prime-counting errors. -/
