@@ -55,7 +55,7 @@ private theorem abs_divisorResidueCount_le_card
     (I : Finset ℕ) (d a : ℕ) :
     |divisorResidueCount I d a| ≤ (I.card : ℤ) := by
   rw [divisorResidueCount_eq_filterCard]
-  simp only [abs_of_nonneg (Int.ofNat_nonneg _)]
+  simp only [abs_of_nonneg (Int.natCast_nonneg _)]
   exact_mod_cast Finset.card_le_card (Finset.filter_subset _ _)
 
 /-- On an interval shorter than `q`, any divisor boundary with `d <= q` has a
@@ -75,7 +75,10 @@ theorem abs_divisorIntervalBoundary_le_two_mul_sq_of_short
   let r : ℕ := upper - lower
   have hc : |c| ≤ (r : ℤ) := by
     dsimp [c, r]
-    exact abs_divisorResidueCount_le_card (Finset.Ioc lower upper) d a
+    have hc0 := abs_divisorResidueCount_le_card
+      (Finset.Ioc lower upper) d a
+    rw [hcard] at hc0
+    exact hc0
   have hd0 : (0 : ℤ) ≤ d := by positivity
   have hq0 : (0 : ℤ) ≤ q := by positivity
   have hq1 : (1 : ℤ) ≤ q := by exact_mod_cast hq
@@ -83,7 +86,11 @@ theorem abs_divisorIntervalBoundary_le_two_mul_sq_of_short
   have hrq : (r : ℤ) ≤ q := by
     exact_mod_cast Nat.le_of_lt hshort
   have hprod : (d : ℤ) * |c| ≤ (q : ℤ) * (r : ℤ) := by
-    exact mul_le_mul hdr hc (abs_nonneg c) hd0
+    calc
+      (d : ℤ) * |c| ≤ (q : ℤ) * |c| :=
+        mul_le_mul_of_nonneg_right hdr (abs_nonneg c)
+      _ ≤ (q : ℤ) * (r : ℤ) :=
+        mul_le_mul_of_nonneg_left hc hq0
   have hqr : (q : ℤ) * (r : ℤ) ≤ (q : ℤ) ^ 2 := by
     simpa [pow_two] using mul_le_mul_of_nonneg_left hrq hq0
   have hq_sq : (q : ℤ) ≤ (q : ℤ) ^ 2 := by
@@ -94,7 +101,7 @@ theorem abs_divisorIntervalBoundary_le_two_mul_sq_of_short
     |(d : ℤ) * c - (r : ℤ)| ≤ |(d : ℤ) * c| + |(r : ℤ)| :=
       abs_sub _ _
     _ = (d : ℤ) * |c| + (r : ℤ) := by
-      rw [abs_mul, abs_of_nonneg hd0, abs_of_nonneg (Int.ofNat_nonneg r)]
+      rw [abs_mul, abs_of_nonneg hd0, abs_of_nonneg (Int.natCast_nonneg r)]
     _ ≤ (q : ℤ) * (r : ℤ) + (r : ℤ) := by
       exact add_le_add hprod le_rfl
     _ ≤ (q : ℤ) ^ 2 + (q : ℤ) := by
@@ -147,8 +154,15 @@ theorem conductorBoundaryDefect_eq_short_remainder
   have harg : upper = (lower + r) + c * q := by
     rw [hupper, hdivmod]
     omega
-  rw [harg]
-  exact conductorBoundaryDefect_add_mul_conductor hq a lower (lower + r) c hre
+  calc
+    conductorBoundaryDefect q a lower upper =
+        conductorBoundaryDefect q a lower ((lower + r) + c * q) := by
+          rw [harg]
+    _ = conductorBoundaryDefect q a lower (lower + r) :=
+      conductorBoundaryDefect_add_mul_conductor hq a lower (lower + r) c hre
+    _ = conductorBoundaryDefect q a lower
+        (lower + ((upper - lower) % q)) := by
+      rfl
 
 /-- Uniform cubic bound for every nontrivial conductor boundary defect.  This is
 where exact periodicity becomes a quantitative estimate. -/
@@ -176,7 +190,8 @@ theorem abs_conductorBoundaryDefect_le_two_mul_cube
       intro d hdmem
       have hdq : d ≤ q := Nat.divisor_le hdmem
       have hbound := abs_divisorIntervalBoundary_le_two_mul_sq_of_short
-        d a lower (lower + r) q hdq (Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hqpos))
+        d a lower (lower + r) q hdq
+        (Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hqpos))
         (Nat.le_add_right _ _) (by simpa using hrlt)
       rw [abs_mul]
       have hmu := ArithmeticFunction.abs_moebius_le_one (n := q / d)
@@ -188,7 +203,7 @@ theorem abs_conductorBoundaryDefect_le_two_mul_cube
               exact mul_le_mul_of_nonneg_right hmu hb0
         _ ≤ 2 * (q : ℤ) ^ 2 := by simpa using hbound
     _ = ((q.divisors.card : ℕ) : ℤ) * (2 * (q : ℤ) ^ 2) := by
-      simp [Finset.sum_const, nsmul_eq_mul]
+      simp [Finset.sum_const]
     _ ≤ (q : ℤ) * (2 * (q : ℤ) ^ 2) := by
       have hcard : ((q.divisors.card : ℕ) : ℤ) ≤ (q : ℤ) := by
         exact_mod_cast Nat.card_divisors_le_self q
@@ -208,16 +223,18 @@ private theorem norm_primeCombProduct_cast_le_one
   | empty => simp
   | @insert p S hp ih =>
       rw [Finset.prod_insert hp]
-      push_cast
+      push_cast at ih ⊢
       rw [norm_mul]
-      have hp0 : 0 ≤ ‖(((localPrimeComb p n : ℤ) : ℂ))‖ := norm_nonneg _
-      have hS0 : 0 ≤ ‖(((∏ x ∈ S, localPrimeComb x n : ℤ) : ℂ))‖ := norm_nonneg _
+      have hS0 :
+          0 ≤ ‖∏ x ∈ S, (((localPrimeComb x n : ℤ) : ℂ))‖ := norm_nonneg _
       have hp1 := norm_localPrimeComb_cast_le_one p n
-      have hnonneg :
-          0 ≤ (1 - ‖(((localPrimeComb p n : ℤ) : ℂ))‖) *
-            (1 - ‖(((∏ x ∈ S, localPrimeComb x n : ℤ) : ℂ))‖) :=
-        mul_nonneg (sub_nonneg.mpr hp1) (sub_nonneg.mpr ih)
-      nlinarith
+      calc
+        ‖(((localPrimeComb p n : ℤ) : ℂ))‖ *
+            ‖∏ x ∈ S, (((localPrimeComb x n : ℤ) : ℂ))‖ ≤
+          1 * ‖∏ x ∈ S, (((localPrimeComb x n : ℤ) : ℂ))‖ :=
+            mul_le_mul_of_nonneg_right hp1 hS0
+        _ ≤ 1 * 1 := mul_le_mul_of_nonneg_left ih (by norm_num)
+        _ = 1 := by norm_num
 
 private theorem norm_seededPrimeComb_cast_le_one
     (S : Finset ℕ) (n : ℕ) :
@@ -225,7 +242,9 @@ private theorem norm_seededPrimeComb_cast_le_one
   unfold seededPrimeComb
   push_cast
   rw [norm_neg]
-  exact norm_primeCombProduct_cast_le_one S n
+  have h := norm_primeCombProduct_cast_le_one S n
+  push_cast at h
+  exact h
 
 /-- Every raw periodic Fourier coefficient is bounded by the torus modulus. -/
 theorem norm_primorialPeriodicRawSpectrum_le_modulus
@@ -247,7 +266,8 @@ theorem norm_primorialPeriodicRawSpectrum_le_modulus
       apply Finset.sum_le_sum
       intro z hz
       rw [norm_mul]
-      have hchar : ‖ZMod.stdAddChar (-(z * r))‖ = 1 := by simp
+      have hchar : ‖ZMod.stdAddChar (-(z * r))‖ = 1 := by
+        simp [ZMod.stdAddChar_apply]
       rw [hchar, one_mul]
       change
         ‖(((seededPrimeComb (primorialWheelPrimes k) z.val : ℤ) : ℂ))‖ ≤ 1
@@ -276,7 +296,7 @@ theorem norm_primorialRawConductorArithmeticCoefficient_le_modulus
     simpa [Nat.mul_comm] using Nat.mul_div_left m hqpos
   have hmdvd : m ∣ Q := by
     refine ⟨q, ?_⟩
-    simpa [Nat.mul_comm] using hm.symm
+    simpa [Nat.mul_comm] using hm
   have hgcd : Q.gcd (Q / q) = Q / q := by
     apply Nat.gcd_eq_right_iff_dvd.mpr
     rw [hQdivq]
@@ -299,12 +319,15 @@ theorem norm_primorialRawConductorArithmeticCoefficient_le_modulus
 theorem card_primeWheelSmoothDivisorSites_le_modulus
     (W : PrimeWheelFiniteSystem) :
     (primeWheelSmoothDivisorSites W).card ≤ W.modulus := by
-  apply Finset.card_le_card
-  intro a ha
-  have hI : a ∈ Finset.Ioc W.lower W.upper :=
-    (Finset.mem_filter.mp ha).1
-  have halt : a < W.modulus := lt_of_le_of_lt hI.2 W.upper_lt_modulus
-  exact Finset.mem_range.mpr halt
+  calc
+    (primeWheelSmoothDivisorSites W).card ≤ (Finset.range W.modulus).card := by
+      apply Finset.card_le_card
+      intro a ha
+      have hI : a ∈ Finset.Ioc W.lower W.upper :=
+        (Finset.mem_filter.mp ha).1
+      have halt : a < W.modulus := lt_of_le_of_lt hI.2 W.upper_lt_modulus
+      exact Finset.mem_range.mpr halt
+    _ = W.modulus := by simp
 
 private theorem norm_smoothWeightedBoundarySum_le
     (W : PrimeWheelFiniteSystem) (x q : ℕ)
@@ -327,7 +350,8 @@ private theorem norm_smoothWeightedBoundarySum_le
       intro a ha
       rw [norm_mul]
       have hmu : ‖(((μ a : ℤ) : ℂ))‖ ≤ 1 := by
-        simpa using ArithmeticFunction.abs_moebius_le_one (n := a)
+        rw [Complex.norm_intCast]
+        exact_mod_cast ArithmeticFunction.abs_moebius_le_one (n := a)
       have hBint := abs_conductorBoundaryDefect_le_two_mul_cube hq a W.lower x hlower
       have hB :
           ‖(((conductorBoundaryDefect q a W.lower x : ℤ) : ℂ))‖ ≤
@@ -343,7 +367,7 @@ private theorem norm_smoothWeightedBoundarySum_le
         _ ≤ 2 * (q : ℝ) ^ 3 := by simpa using hB
     _ = ((primeWheelSmoothDivisorSites W).card : ℝ) *
         (2 * (q : ℝ) ^ 3) := by
-      simp [Finset.sum_const, nsmul_eq_mul]
+      simp [Finset.sum_const]
     _ ≤ (W.modulus : ℝ) * (2 * (q : ℝ) ^ 3) := by
       have hcard : ((primeWheelSmoothDivisorSites W).card : ℝ) ≤ W.modulus := by
         exact_mod_cast card_primeWheelSmoothDivisorSites_le_modulus W
@@ -427,7 +451,7 @@ theorem norm_primorialPeriodicRawJointConductorResponse_le_six_mul_cube
                     (primorialMinimalWheelSystem k),
                   μ a * conductorBoundaryDefect q a
                     (primorialMinimalWheelSystem k).lower x : ℤ) : ℂ))‖ := by
-              simp [norm_mul]
+              simp
     _ ≤ (((primorialMinimalWheelSystem k).modulus : ℝ))⁻¹ *
         (((primorialMinimalWheelSystem k).modulus : ℝ) *
             (2 * (q : ℝ) ^ 3) +
@@ -482,13 +506,17 @@ theorem norm_primorialSmallNontrivialConductorSector_le
       exact hpacket.trans (mul_le_mul_of_nonneg_left hpow (by positivity))
     _ = ((primorialSmallNontrivialConductors k R).card : ℝ) *
         (6 * (R : ℝ) ^ 3) := by
-      simp [Finset.sum_const, nsmul_eq_mul]
+      simp [Finset.sum_const]
     _ ≤ (R + 1 : ℝ) * (6 * (R : ℝ) ^ 3) := by
       have hcardNat : (primorialSmallNontrivialConductors k R).card ≤ R + 1 := by
-        apply Finset.card_le_card
-        intro q hqset
-        have hmem := Finset.mem_filter.mp hqset
-        exact Finset.mem_range.mpr (Nat.lt_succ_of_le hmem.2.2)
+        calc
+          (primorialSmallNontrivialConductors k R).card ≤
+              (Finset.range (R + 1)).card := by
+            apply Finset.card_le_card
+            intro q hqset
+            have hmem := Finset.mem_filter.mp hqset
+            exact Finset.mem_range.mpr (Nat.lt_succ_of_le hmem.2.2)
+          _ = R + 1 := by simp
       have hcard : ((primorialSmallNontrivialConductors k R).card : ℝ) ≤ R + 1 := by
         exact_mod_cast hcardNat
       exact mul_le_mul_of_nonneg_right hcard (by positivity)
