@@ -28,6 +28,14 @@ noncomputable section
 
 namespace RHLean.Analysis
 
+/-- Explicit decidability for the zero-free three-slot predicate.  As with the
+finite-prime predicates, instance synthesis does not unfold the plain `def`
+through a `Finset.filter` automatically. -/
+instance physicalSquareIsThreeSlotNonzeroState_decidable (i : Fin 27) :
+    Decidable (IsThreeSlotNonzeroState i) :=
+  inferInstanceAs
+    (Decidable (chiA i ≠ 0 ∧ chiB i ≠ 0 ∧ chiC i ≠ 0))
+
 /-- Exact physical zero-free transition population in the square block
 `[R^2,(R+1)^2)`.  Both endpoints of the adjacent transition are required to lie
 in the eight-state sign sector. -/
@@ -107,7 +115,7 @@ theorem physicalTransport_is_crtTransport_add_boundary
       physicalSquareCompleteCRTCells P R ⊆ physicalSquareTTransitionCells R :=
     physicalSquareCompleteCRTCells_subset P R
   unfold physicalT crtT boundaryT physicalSquareCRTBoundaryCells
-  rw [Finset.sum_sdiff hsub]
+  rw [← Finset.sum_sdiff hsub]
   ring
 
 end RHLean.Analysis
