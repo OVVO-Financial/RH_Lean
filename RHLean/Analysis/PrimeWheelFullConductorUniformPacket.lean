@@ -103,9 +103,16 @@ theorem divisorIntervalBoundary_one_eq_zero
     divisorIntervalBoundary 1 a lower upper = 0 := by
   have hmod : ∀ m : ℕ, Nat.ModEq 1 m a := by
     intro m
-    simp [Nat.ModEq]
-  unfold divisorIntervalBoundary divisorResidueBoundary divisorResidueCount
-  simp [hmod, Finset.card_Ioc]
+    change m % 1 = a % 1
+    omega
+  have hcount :
+      divisorResidueCount (Finset.Ioc lower upper) 1 a =
+        ((Finset.Ioc lower upper).card : ℤ) := by
+    unfold divisorResidueCount
+    simp [hmod]
+  unfold divisorIntervalBoundary divisorResidueBoundary
+  rw [hcount]
+  ring
 
 /-- The conductor-three Möbius divisor packet has only its mod-`3` boundary
 term; the divisor-one term vanishes exactly. -/
