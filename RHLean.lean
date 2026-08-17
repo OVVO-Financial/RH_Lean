@@ -186,6 +186,7 @@ import RHLean.Analysis.PrimeWheelFullConductorUniformPacket
 import RHLean.Analysis.PrimeWheelHarmonicCriterion
 import RHLean.Analysis.PrimeWheelJointSpectrum
 import RHLean.Analysis.PrimeWheelLocalSpectrum
+import RHLean.Analysis.PrimeWheelNearFarRenewalSquareEndpoint
 import RHLean.Analysis.PrimeWheelPeriodicRawAttack
 import RHLean.Analysis.PrimeWheelPeriodicRawBridge
 import RHLean.Analysis.PrimeWheelPeriodicRawConductorResponse
