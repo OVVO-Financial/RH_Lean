@@ -133,6 +133,7 @@ import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.OutsidePrimeDeletionMask
 import RHLean.Analysis.OutsidePrimeLeastSquareEndpoint
+import RHLean.Analysis.OutsidePrimeSignLayerPrimeWheelBridge
 import RHLean.Analysis.PRoughSquarePrefixEnergy
 import RHLean.Analysis.PhysicalDegreeOneHigherSquareRecurrences
 import RHLean.Analysis.PhysicalDegreeOneLeastSquareChannels
