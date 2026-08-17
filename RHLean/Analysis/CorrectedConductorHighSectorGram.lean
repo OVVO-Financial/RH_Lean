@@ -88,6 +88,7 @@ theorem sum_divisorConductorResponses_eq_small_add_high
     primorialSmallNontrivialConductors
     primorialHighConductorWithZeroSector
     primorialHighConductorWithZeroConductors
+  rw [Finset.sum_filter, Finset.sum_filter]
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro q hqmem
@@ -210,8 +211,19 @@ theorem primorialHighConductorWithZeroSector_eq_core_add_error
   have hcore := primorialPeriodicRawResidual_eq_highCore_add_smallRaw
     k hlower hupper (R := R)
   unfold primorialHighConductorReindexError
-  rw [hcore] at hcond
-  linarith
+  calc
+    primorialHighConductorWithZeroSector k x R =
+        (primorialSmallNontrivialConductorSector k x R +
+          primorialHighConductorWithZeroSector k x R) -
+            primorialSmallNontrivialConductorSector k x R := by ring
+    _ = ((((primorialWheelSystem k).residual x : ℤ) : ℂ)) -
+          primorialSmallNontrivialConductorSector k x R := by rw [← hcond]
+    _ = (primorialHighCollapsedCore k x R +
+          primorialNormalizedRawSmallBoundary k x R) -
+            primorialSmallNontrivialConductorSector k x R := by rw [hcore]
+    _ = primorialHighCollapsedCore k x R +
+          (primorialNormalizedRawSmallBoundary k x R -
+            primorialSmallNontrivialConductorSector k x R) := by ring
 
 private theorem norm_sq_add_le_two (x y : ℂ) :
     ‖x + y‖ ^ 2 ≤ 2 * ‖x‖ ^ 2 + 2 * ‖y‖ ^ 2 := by
