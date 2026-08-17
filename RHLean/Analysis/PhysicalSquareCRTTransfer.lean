@@ -229,6 +229,7 @@ theorem physicalSquareCRTGeometricBoundary_card_le_two_period
     have hkIco : k ∈ Finset.Ico L U := by
       rw [← hGeom]
       exact hkGeom
+    have hkIcoBounds : L ≤ k ∧ k < U := Finset.mem_Ico.mp hkIco
     by_cases hleft : L + M ≤ k
     · by_cases hright : k + M ≤ U
       · exfalso
@@ -241,21 +242,22 @@ theorem physicalSquareCRTGeometricBoundary_card_le_two_period
         apply Finset.mem_Ico.mpr
         constructor
         · omega
-        · exact hkIco.2
+        · exact hkIcoBounds.2
     · apply Finset.mem_union_left
       apply Finset.mem_Ico.mpr
-      exact ⟨hkIco.1, by omega⟩
+      exact ⟨hkIcoBounds.1, by omega⟩
   calc
     (physicalSquareCRTGeometricBoundaryCells P R).card ≤
         (Finset.Ico L (L + M) ∪ Finset.Ico (U - M) U).card :=
       Finset.card_le_card hsubset
     _ ≤ (Finset.Ico L (L + M)).card + (Finset.Ico (U - M) U).card :=
-      Finset.card_union_le
+      Finset.card_union_le _ _
     _ ≤ M + M := by
-      simp only [Finset.card_Ico]
+      simp
       omega
     _ = 2 * finitePrimeCRTPeriod P := by
       simp [M]
+      omega
 
 /-- The actual incomplete physical `T` population inherits the same two-period
 cardinality bound. -/
@@ -289,7 +291,7 @@ private theorem abs_physicalTCellValue_sum_le_three_mul_card (S : Finset ℕ) :
       calc
         |physicalTCellValue a + ∑ k ∈ S, physicalTCellValue k| ≤
             |physicalTCellValue a| + |∑ k ∈ S, physicalTCellValue k| :=
-          abs_add _ _
+          abs_add_le _ _
         _ ≤ 3 + 3 * (S.card : ℤ) :=
           add_le_add (abs_physicalTCellValue_le_three a) ih
         _ = 3 * ((S.card + 1 : ℕ) : ℤ) := by
@@ -369,7 +371,7 @@ theorem physicalSquareCRTGeometricBoundaryCells_eleven_243_eq_empty :
 stage. -/
 theorem physicalSquareCRTBoundaryCells_eleven_243_eq_empty :
     physicalSquareCRTBoundaryCells ({11} : Finset ℕ) 243 = ∅ := by
-  apply Finset.eq_empty_iff_forall_not_mem.mpr
+  apply Finset.eq_empty_iff_forall_notMem.mpr
   intro k hk
   have hkGeom :=
     physicalSquareCRTBoundaryCells_subset_geometric ({11} : Finset ℕ) 243 hk
