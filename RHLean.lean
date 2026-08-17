@@ -227,6 +227,7 @@ import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
 import RHLean.Analysis.SquareRootCombinedSignedResidual
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootPositiveSmoothCollapse
+import RHLean.Analysis.SquareRootSmoothParityClasses
 import RHLean.Analysis.SquareRootSmoothRenewalInstantiation
 import RHLean.Analysis.SquareRootTransportRealization
 import RHLean.Analysis.SquareWheelCenteredIncrement
