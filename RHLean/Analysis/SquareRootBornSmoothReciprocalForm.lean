@@ -567,6 +567,7 @@ theorem squareRootBornSmoothPairSourceMass_eq_neg_reciprocalTransform
             exact canonicalMoebiusWeight_mul_prime_eq_neg_of_rough
               (by omega) hqPrime hrough
           · rw [if_neg hrough, if_neg hrough, neg_zero]
+        unfold squareRootBornSmoothPrimeFibre
         rw [hstep, roughCofactorMobiusWindowMass_eq_prefix_sub_prefix
           (by omega) hqB]
       · simp [hqPrime]
