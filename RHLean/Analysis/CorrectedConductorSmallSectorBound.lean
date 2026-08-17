@@ -64,7 +64,7 @@ of the location and of the full prefix length. -/
 theorem abs_divisorIntervalBoundary_le_two_mul_sq_of_short
     (d a lower upper q : ℕ)
     (hd : d ≤ q) (hq : 1 ≤ q)
-    (hlower : lower ≤ upper) (hshort : upper - lower < q) :
+    (hshort : upper - lower < q) :
     |divisorIntervalBoundary d a lower upper| ≤
       2 * (q : ℤ) ^ 2 := by
   unfold divisorIntervalBoundary divisorResidueBoundary
@@ -192,7 +192,7 @@ theorem abs_conductorBoundaryDefect_le_two_mul_cube
       have hbound := abs_divisorIntervalBoundary_le_two_mul_sq_of_short
         d a lower (lower + r) q hdq
         (Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hqpos))
-        (Nat.le_add_right _ _) (by simpa using hrlt)
+        (by simpa using hrlt)
       rw [abs_mul]
       have hmu := ArithmeticFunction.abs_moebius_le_one (n := q / d)
       have hb0 : (0 : ℤ) ≤ |divisorIntervalBoundary d a lower (lower + r)| :=
@@ -323,9 +323,9 @@ theorem card_primeWheelSmoothDivisorSites_le_modulus
     (primeWheelSmoothDivisorSites W).card ≤ (Finset.range W.modulus).card := by
       apply Finset.card_le_card
       intro a ha
-      have hI : a ∈ Finset.Ioc W.lower W.upper :=
-        (Finset.mem_filter.mp ha).1
-      have halt : a < W.modulus := lt_of_le_of_lt hI.2 W.upper_lt_modulus
+      have hupper : a ≤ W.upper := by
+        exact (Finset.mem_Ioc.mp (Finset.mem_filter.mp ha).1).2
+      have halt : a < W.modulus := lt_of_le_of_lt hupper W.upper_lt_modulus
       exact Finset.mem_range.mpr halt
     _ = W.modulus := by simp
 
