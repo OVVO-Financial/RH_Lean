@@ -17,6 +17,7 @@ import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Analysis.DynamicVioleBaseline
 import RHLean.Analysis.EulerCRTRoughnessRecursion
 import RHLean.Analysis.ExactActivityPrimeIntervals
+import RHLean.Analysis.FinitePrimeTMixing
 import RHLean.Analysis.FiniteTorusFourierPairing
 import RHLean.Analysis.FiniteWheelReciprocalMertensImprovement
 import RHLean.Analysis.FiniteWheelRestrictedFloor
