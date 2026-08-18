@@ -293,9 +293,12 @@ theorem globalCenteredDistinguishedPrimeEnergyAt_eq_diagonal_add_offDiagonal
 
 private theorem re_star_mul_self_eq_norm_sq (z : ℂ) :
     (star z * z).re = ‖z‖ ^ 2 := by
-  change (conj z * z).re = ‖z‖ ^ 2
-  rw [← Complex.normSq_eq_conj_mul_self, Complex.normSq_eq_norm_sq]
-  simp
+  calc
+    (star z * z).re = Complex.normSq z := by
+      change (conj z * z).re = Complex.normSq z
+      rw [← Complex.normSq_eq_conj_mul_self]
+      simp
+    _ = ‖z‖ ^ 2 := Complex.normSq_eq_norm_sq z
 
 private theorem re_primeActive_sum (f : PrimeActiveLabel → ℂ) :
     (∑ s : PrimeActiveLabel, f s).re =
