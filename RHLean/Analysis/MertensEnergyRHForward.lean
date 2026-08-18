@@ -477,9 +477,13 @@ theorem globalCenteredDistinguishedPrimeEnergyAt_le_square_mul_diagonal
     globalCenteredDistinguishedPrimeEnergyAt R x ≤
       (R : ℝ) ^ 2 * globalCenteredDistinguishedPrimeDiagonalEnergyAt R x := by
   have hbound := globalCenteredDistinguishedPrimeEnergyAt_le_range_mul_diagonal R x
+  have hRsqOne : 1 ≤ R ^ 2 := by
+    have hp := Nat.pow_le_pow_left hR 2
+    norm_num at hp ⊢
+    exact hp
   have hendpoint : squareRootEndpoint R + 1 = R ^ 2 := by
     unfold squareRootEndpoint
-    omega
+    exact Nat.sub_add_cancel hRsqOne
   simpa [hendpoint] using hbound
 
 /-- The same result written directly on the already-formalized exact signed
