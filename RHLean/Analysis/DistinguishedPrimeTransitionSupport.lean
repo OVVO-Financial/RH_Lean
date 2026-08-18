@@ -628,4 +628,184 @@ theorem restrictedPrimeInactiveGramEntry_eq
   rw [action_restrictedPrimeInactiveBasis_none]
   simp only [action_restrictedPrimeInactiveBasis_some]
 
+/-! ## Real-pair representation of the reduced complex channel -/
+
+/-- The paper's real-pair coordinate space for one complex number. -/
+abbrev ComplexRealPair := ℝ × ℝ
+
+/-- Exact real-pair map `phi(a+bi) = (a-b, a+b)`. -/
+def complexRealPair (z : ℂ) : ComplexRealPair :=
+  (z.re - z.im, z.re + z.im)
+
+/-- Explicit inverse of `complexRealPair`. -/
+def complexOfRealPair (p : ComplexRealPair) : ℂ :=
+  ⟨(p.1 + p.2) / 2, (p.2 - p.1) / 2⟩
+
+@[simp] theorem complexOfRealPair_complexRealPair (z : ℂ) :
+    complexOfRealPair (complexRealPair z) = z := by
+  ext <;> simp [complexOfRealPair, complexRealPair] <;> ring
+
+@[simp] theorem complexRealPair_complexOfRealPair (p : ComplexRealPair) :
+    complexRealPair (complexOfRealPair p) = p := by
+  rcases p with ⟨x, y⟩
+  ext <;> simp [complexOfRealPair, complexRealPair] <;> ring
+
+/-- Euclidean square in the paper's real-pair coordinates. -/
+def complexRealPairEnergy (p : ComplexRealPair) : ℝ :=
+  p.1 ^ 2 + p.2 ^ 2
+
+/-- The real-pair map is a scaled isometry: pair energy is twice complex norm
+square. -/
+theorem complexRealPairEnergy_complexRealPair (z : ℂ) :
+    complexRealPairEnergy (complexRealPair z) = 2 * ‖z‖ ^ 2 := by
+  rw [Complex.sq_norm, Complex.normSq_apply]
+  unfold complexRealPairEnergy complexRealPair
+  ring
+
+/-- Complex conjugation is coordinate swap in real-pair coordinates. -/
+@[simp] theorem complexRealPair_conj (z : ℂ) :
+    complexRealPair (Complex.conj z) =
+      ((complexRealPair z).2, (complexRealPair z).1) := by
+  ext <;> simp [complexRealPair] <;> ring
+
+/-- Componentwise pair addition. -/
+def complexRealPairAdd (p q : ComplexRealPair) : ComplexRealPair :=
+  (p.1 + q.1, p.2 + q.2)
+
+/-- Real scalar multiplication in pair coordinates. -/
+def complexRealPairScale (r : ℝ) (p : ComplexRealPair) : ComplexRealPair :=
+  (r * p.1, r * p.2)
+
+/-- Multiplication transported to real-pair coordinates, in the explicit form
+from the real-pair representation. -/
+def complexRealPairMul (p q : ComplexRealPair) : ComplexRealPair :=
+  let realPart := (p.1 * q.2 + p.2 * q.1) / 2
+  let imagPart := (p.2 * q.2 - p.1 * q.1) / 2
+  (realPart - imagPart, realPart + imagPart)
+
+@[simp] theorem complexRealPair_add (z w : ℂ) :
+    complexRealPair (z + w) =
+      complexRealPairAdd (complexRealPair z) (complexRealPair w) := by
+  ext <;> simp [complexRealPair, complexRealPairAdd] <;> ring
+
+@[simp] theorem complexRealPair_real_mul (r : ℝ) (z : ℂ) :
+    complexRealPair ((r : ℂ) * z) =
+      complexRealPairScale r (complexRealPair z) := by
+  ext <;> simp [complexRealPair, complexRealPairScale] <;> ring
+
+@[simp] theorem complexRealPair_mul (z w : ℂ) :
+    complexRealPair (z * w) =
+      complexRealPairMul (complexRealPair z) (complexRealPair w) := by
+  ext <;> simp [complexRealPair, complexRealPairMul] <;> ring
+
+/-- The two-complex-scalar input energy after the rank-one active reduction. -/
+def restrictedPrimeTwoScalarInputEnergy
+    (r : ℝ) (u v : ℂ) : ℝ :=
+  ‖u‖ ^ 2 + r * ‖v‖ ^ 2
+
+/-- The corresponding output energy.  `beta` and `gamma` are the Euclidean
+lengths of the two six-coordinate coefficient families. -/
+def restrictedPrimeTwoScalarOutputEnergy
+    (a : ℂ) (beta gamma r : ℝ) (u v : ℂ) : ℝ :=
+  ‖a * u + (beta : ℂ) * v‖ ^ 2 +
+    r * gamma ^ 2 * ‖u‖ ^ 2
+
+/-- The inactive output coordinate written purely in real-pair arithmetic. -/
+def restrictedPrimeRealPairInactive
+    (aPair : ComplexRealPair) (beta : ℝ)
+    (uPair vPair : ComplexRealPair) : ComplexRealPair :=
+  complexRealPairAdd
+    (complexRealPairMul aPair uPair)
+    (complexRealPairScale beta vPair)
+
+/-- Real-pair input energy.  It is exactly twice the complex input energy under
+`complexRealPair`. -/
+def restrictedPrimeRealPairInputEnergy
+    (r : ℝ) (uPair vPair : ComplexRealPair) : ℝ :=
+  complexRealPairEnergy uPair + r * complexRealPairEnergy vPair
+
+/-- Real-pair output energy for the reduced fixed-prime channel. -/
+def restrictedPrimeRealPairOutputEnergy
+    (aPair : ComplexRealPair) (beta gamma r : ℝ)
+    (uPair vPair : ComplexRealPair) : ℝ :=
+  complexRealPairEnergy
+      (restrictedPrimeRealPairInactive aPair beta uPair vPair) +
+    r * gamma ^ 2 * complexRealPairEnergy uPair
+
+@[simp] theorem restrictedPrimeRealPairInactive_complexRealPair
+    (a u v : ℂ) (beta : ℝ) :
+    restrictedPrimeRealPairInactive
+        (complexRealPair a) beta (complexRealPair u) (complexRealPair v) =
+      complexRealPair (a * u + (beta : ℂ) * v) := by
+  simp [restrictedPrimeRealPairInactive]
+
+/-- Exact scaling relation for the reduced input energy. -/
+theorem restrictedPrimeRealPairInputEnergy_complexRealPair
+    (r : ℝ) (u v : ℂ) :
+    restrictedPrimeRealPairInputEnergy r (complexRealPair u) (complexRealPair v) =
+      2 * restrictedPrimeTwoScalarInputEnergy r u v := by
+  rw [show complexRealPairEnergy (complexRealPair u) = 2 * ‖u‖ ^ 2 by
+        exact complexRealPairEnergy_complexRealPair u,
+      show complexRealPairEnergy (complexRealPair v) = 2 * ‖v‖ ^ 2 by
+        exact complexRealPairEnergy_complexRealPair v]
+  unfold restrictedPrimeRealPairInputEnergy restrictedPrimeTwoScalarInputEnergy
+  ring
+
+/-- Exact scaling relation for the reduced output energy. -/
+theorem restrictedPrimeRealPairOutputEnergy_complexRealPair
+    (a u v : ℂ) (beta gamma r : ℝ) :
+    restrictedPrimeRealPairOutputEnergy
+        (complexRealPair a) beta gamma r (complexRealPair u) (complexRealPair v) =
+      2 * restrictedPrimeTwoScalarOutputEnergy a beta gamma r u v := by
+  rw [restrictedPrimeRealPairInactive_complexRealPair,
+    complexRealPairEnergy_complexRealPair,
+    complexRealPairEnergy_complexRealPair]
+  unfold restrictedPrimeRealPairOutputEnergy restrictedPrimeTwoScalarOutputEnergy
+  ring
+
+/-- Complex form of the reduced two-scalar contraction problem. -/
+def RestrictedPrimeTwoScalarContraction
+    (a : ℂ) (beta gamma r rho : ℝ) : Prop :=
+  ∀ u v : ℂ,
+    restrictedPrimeTwoScalarOutputEnergy a beta gamma r u v ≤
+      rho * restrictedPrimeTwoScalarInputEnergy r u v
+
+/-- Purely real-pair form of the same reduced contraction problem. -/
+def RestrictedPrimeRealPairContraction
+    (a : ℂ) (beta gamma r rho : ℝ) : Prop :=
+  ∀ uPair vPair : ComplexRealPair,
+    restrictedPrimeRealPairOutputEnergy
+        (complexRealPair a) beta gamma r uPair vPair ≤
+      rho * restrictedPrimeRealPairInputEnergy r uPair vPair
+
+/-- **Exact real-pair bridge.**  The reduced complex contraction problem is
+logically equivalent to a four-real-variable quadratic inequality. -/
+theorem restrictedPrimeTwoScalarContraction_iff_realPair
+    (a : ℂ) (beta gamma r rho : ℝ) :
+    RestrictedPrimeTwoScalarContraction a beta gamma r rho ↔
+      RestrictedPrimeRealPairContraction a beta gamma r rho := by
+  constructor
+  · intro h uPair vPair
+    have hc := h (complexOfRealPair uPair) (complexOfRealPair vPair)
+    have hout :
+        restrictedPrimeRealPairOutputEnergy
+            (complexRealPair a) beta gamma r uPair vPair =
+          2 * restrictedPrimeTwoScalarOutputEnergy
+            a beta gamma r (complexOfRealPair uPair) (complexOfRealPair vPair) := by
+      simpa using restrictedPrimeRealPairOutputEnergy_complexRealPair
+        a (complexOfRealPair uPair) (complexOfRealPair vPair) beta gamma r
+    have hin :
+        restrictedPrimeRealPairInputEnergy r uPair vPair =
+          2 * restrictedPrimeTwoScalarInputEnergy
+            r (complexOfRealPair uPair) (complexOfRealPair vPair) := by
+      simpa using restrictedPrimeRealPairInputEnergy_complexRealPair
+        r (complexOfRealPair uPair) (complexOfRealPair vPair)
+    rw [hout, hin]
+    nlinarith
+  · intro h u v
+    have hr := h (complexRealPair u) (complexRealPair v)
+    rw [restrictedPrimeRealPairOutputEnergy_complexRealPair,
+      restrictedPrimeRealPairInputEnergy_complexRealPair] at hr
+    nlinarith
+
 end RHLean.Analysis
