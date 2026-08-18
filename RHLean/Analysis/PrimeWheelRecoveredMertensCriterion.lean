@@ -113,4 +113,98 @@ theorem riemannHypothesis_of_sqrtWheelRecoveredEnergy
   apply riemannHypothesis_of_mertensEnergy
   exact sqrtWheelRecoveredEnergyBounded_iff_mertensEnergyBounded.mp h
 
+/-! ## Terminal square-clock state
+
+At this point the recovered wheel is treated as one indivisible analytic state.
+No subsequent theorem in this section splits its raw, smooth, deletion, sign, or
+endpoint constituents before taking the terminal energy bound.
+-/
+
+/-- The final recombined wheel state at square scale `R`, evaluated at the
+complete endpoint `R^2 - 1`.  All signed prime-wheel corrections remain inside
+this one object. -/
+def recombinedWheelState (R : ℕ) : ℂ :=
+  ((sqrtWheelRecoveredPrefix (R ^ 2 - 1) : ℤ) : ℂ)
+
+/-- Exact identification of the frozen recombined state with Mertens at the
+same complete-square endpoint. -/
+theorem recombinedWheelState_eq_mertensSummatory (R : ℕ) :
+    recombinedWheelState R = mertensSummatory (R ^ 2 - 1) := by
+  unfold recombinedWheelState
+  exact sqrtWheelRecoveredPrefix_cast_eq_mertensSummatory (R ^ 2 - 1)
+
+/-- At positive square scale the frozen recombined state is exactly the
+repository's square-prefix Mertens value. -/
+theorem recombinedWheelState_eq_squarePrefixMertens
+    {R : ℕ} (hR : 1 ≤ R) :
+    recombinedWheelState R = squarePrefixMertens (R - 1) := by
+  rw [recombinedWheelState_eq_mertensSummatory]
+  unfold squarePrefixMertens squarePrefixEndpoint
+  have hpred : R - 1 + 1 = R := by omega
+  rw [hpred]
+
+/-- **Terminal analytic premise.**  Every cancellation mechanism remains inside
+`recombinedWheelState`; no component is bounded separately. -/
+def RecombinedWheelStateEnergyBound : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ C : ℝ, 0 < C ∧
+      ∀ R : ℕ, 2 ≤ R →
+        ‖recombinedWheelState R‖ ^ 2 ≤
+          C * Real.rpow ((R : ℝ) ^ 2) (1 + ε)
+
+private theorem terminal_rpow_square_one_add_half
+    (x ε : ℝ) (hx : 0 ≤ x) :
+    Real.rpow (x ^ 2) (1 + ε / 2) =
+      Real.rpow x (2 + ε) := by
+  have htwo : Real.rpow x (2 : ℝ) = x ^ (2 : ℕ) :=
+    Real.rpow_natCast x 2
+  calc
+    Real.rpow (x ^ 2) (1 + ε / 2) =
+        Real.rpow (Real.rpow x (2 : ℝ)) (1 + ε / 2) :=
+      congrArg (fun t : ℝ => Real.rpow t (1 + ε / 2)) htwo.symm
+    _ = Real.rpow x ((2 : ℝ) * (1 + ε / 2)) :=
+      (Real.rpow_mul hx (2 : ℝ) (1 + ε / 2)).symm
+    _ = Real.rpow x (2 + ε) := by ring_nf
+
+/-- A bound on the single frozen state gives the existing RH-scale square-prefix
+Mertens energy criterion.  The only exponent change is the harmless
+reparameterization `ε ↦ ε / 2`. -/
+theorem squarePrefixEnergyBounded_of_recombinedWheelStateEnergy
+    (h : RecombinedWheelStateEnergyBound) :
+    SquarePrefixEnergyBoundedStatement := by
+  intro ε hε
+  rcases h (ε / 2) (by linarith) with ⟨C, hC, hbound⟩
+  refine ⟨C, le_of_lt hC, ?_⟩
+  intro n
+  by_cases hn : n = 0
+  · subst n
+    simpa [squarePrefixMertens, squarePrefixEndpoint] using (le_of_lt hC)
+  · have hR : 2 ≤ n + 1 := by omega
+    have hs := hbound (n + 1) hR
+    have hstate :
+        recombinedWheelState (n + 1) = squarePrefixMertens n := by
+      simpa using
+        (recombinedWheelState_eq_squarePrefixMertens
+          (R := n + 1) (by omega : 1 ≤ n + 1))
+    rw [hstate] at hs
+    rw [terminal_rpow_square_one_add_half
+      ((n + 1 : ℕ) : ℝ) ε (by positivity)] at hs
+    exact hs
+
+/-- The established square-prefix sampling theorem and Mertens continuation
+route send an RH-scale square-prefix energy bound to the Riemann hypothesis. -/
+theorem riemannHypothesis_of_squarePrefixEnergyBound
+    (h : SquarePrefixEnergyBoundedStatement) :
+    RiemannHypothesis := by
+  apply riemannHypothesis_of_mertensEnergy
+  exact mertensEnergyBounded_of_squarePrefixEnergyBounded h
+
+/-- **Terminal chain.**  The one recombined-state bound implies the RH-scale
+square-prefix Mertens bound and therefore the Riemann hypothesis. -/
+theorem riemannHypothesis_of_recombinedWheelStateEnergy
+    (h : RecombinedWheelStateEnergyBound) :
+    RiemannHypothesis := by
+  exact riemannHypothesis_of_squarePrefixEnergyBound
+    (squarePrefixEnergyBounded_of_recombinedWheelStateEnergy h)
+
 end RHLean.Analysis
