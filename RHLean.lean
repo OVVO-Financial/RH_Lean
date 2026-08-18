@@ -410,6 +410,7 @@ import RHLean.Proof.ResonantCofactorCancellation
 import RHLean.Proof.ResonantLeakage
 import RHLean.Proof.ResonantProjection
 import RHLean.Proof.RiemannHypothesisBridge
+import RHLean.Proof.RootSmoothCrossRegionGram
 import RHLean.Proof.SeededPopulationInduction
 import RHLean.Proof.SignedCanonicalHeight
 import RHLean.Proof.SignedMutableFinalObject
