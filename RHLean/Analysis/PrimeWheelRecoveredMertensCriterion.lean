@@ -236,6 +236,77 @@ theorem physicalCenteredDistinguishedPrimeRestoredKernel_eq_raw
     · simp [physicalCenteredDistinguishedPrimeRestoredKernel]
     · rfl
 
+/-! ## Global restoration over the actual distinguished-prime family -/
+
+/-- Totalize the restored centered fixed-prime kernel by zero off the actual
+square-root distinguished-prime set. -/
+def physicalCenteredDistinguishedPrimeRestoredChannel
+    (R q : ℕ) : SignedPrimeHitState → SignedPrimeHitState → ℂ :=
+  if hq : q ∈ centeredDistinguishedPrimeSet R then
+    let hfilter := Finset.mem_filter.mp hq
+    let hIoc := Finset.mem_Ioc.mp hfilter.1
+    physicalCenteredDistinguishedPrimeRestoredKernel
+      R q hfilter.2 hIoc.1
+  else
+    fun _ _ => 0
+
+/-- Totalize the actual raw physical fixed-prime kernel by zero off the same
+square-root distinguished-prime set. -/
+def physicalDistinguishedPrimeRawChannel
+    (R q : ℕ) : SignedPrimeHitState → SignedPrimeHitState → ℂ :=
+  if hq : q ∈ centeredDistinguishedPrimeSet R then
+    let hfilter := Finset.mem_filter.mp hq
+    let hIoc := Finset.mem_Ioc.mp hfilter.1
+    physicalDistinguishedPrimeRawKernel R q hfilter.2 hIoc.1
+  else
+    fun _ _ => 0
+
+/-- Every totalized restored centered channel is exactly the corresponding
+actual raw physical channel. -/
+theorem physicalCenteredDistinguishedPrimeRestoredChannel_eq_raw
+    (R q : ℕ) :
+    physicalCenteredDistinguishedPrimeRestoredChannel R q =
+      physicalDistinguishedPrimeRawChannel R q := by
+  classical
+  by_cases hq : q ∈ centeredDistinguishedPrimeSet R
+  · simp [physicalCenteredDistinguishedPrimeRestoredChannel,
+      physicalDistinguishedPrimeRawChannel, hq,
+      physicalCenteredDistinguishedPrimeRestoredKernel_eq_raw]
+  · simp [physicalCenteredDistinguishedPrimeRestoredChannel,
+      physicalDistinguishedPrimeRawChannel, hq]
+
+/-- Global restored centered signed kernel, assembled over every actual upper
+prime before any norm or Gram contraction is taken. -/
+def globalPhysicalCenteredDistinguishedPrimeRestoredKernel
+    (R : ℕ) : SignedPrimeHitState → SignedPrimeHitState → ℂ :=
+  fun s t =>
+    ∑ q ∈ centeredDistinguishedPrimeSet R,
+      physicalCenteredDistinguishedPrimeRestoredChannel R q s t
+
+/-- Global actual raw physical signed kernel on the same distinguished-prime
+family. -/
+def globalPhysicalDistinguishedPrimeRawKernel
+    (R : ℕ) : SignedPrimeHitState → SignedPrimeHitState → ℂ :=
+  fun s t =>
+    ∑ q ∈ centeredDistinguishedPrimeSet R,
+      physicalDistinguishedPrimeRawChannel R q s t
+
+/-- **Exact global physical-state reconstruction.** The complete centered
+prime-family together with the explicit centering/support corrections is exactly
+the actual global raw physical signed state, coefficient by coefficient and
+before any norm. -/
+theorem globalPhysicalCenteredDistinguishedPrimeRestoredKernel_eq_raw
+    (R : ℕ) :
+    globalPhysicalCenteredDistinguishedPrimeRestoredKernel R =
+      globalPhysicalDistinguishedPrimeRawKernel R := by
+  classical
+  funext s t
+  unfold globalPhysicalCenteredDistinguishedPrimeRestoredKernel
+    globalPhysicalDistinguishedPrimeRawKernel
+  apply Finset.sum_congr rfl
+  intro q hq
+  rw [physicalCenteredDistinguishedPrimeRestoredChannel_eq_raw]
+
 /-! ## Exact physical mass reconstruction before centering -/
 
 /-- Total signed mass on all adjacent physical six-site transitions for one
