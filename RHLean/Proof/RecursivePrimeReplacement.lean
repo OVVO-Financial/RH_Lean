@@ -30,8 +30,8 @@ replacement coefficient is now part of the complete quotient fibre
 nonlocal arena for cancellation.
 
 No absolute value is applied to an individual residual fibre in this module.
-The quantitative frontier is the weighted row energy after equal reciprocal
-arguments are recombined.
+The final row energy is recorded only as a diagnostic after complete quotient-
+fibre recombination; no quantitative row bound is asserted here.
 -/
 
 noncomputable section
@@ -120,10 +120,10 @@ theorem squareRootEndpoint_div_lt_root_of_root_le
     squareRootEndpoint R / n < R := by
   have hnpos : 0 < n := by omega
   apply (Nat.div_lt_iff_lt_mul hnpos).2
+  have hsqpos : 0 < R ^ 2 := by positivity
+  have hsub : R ^ 2 - 1 < R ^ 2 := Nat.sub_lt hsqpos (by norm_num)
   have hXlt : squareRootEndpoint R < R * R := by
-    unfold squareRootEndpoint
-    have hsqpos : 0 < R ^ 2 := by positivity
-    omega
+    simpa [squareRootEndpoint, pow_two] using hsub
   have hmul : R * R ≤ R * n := Nat.mul_le_mul_left R hn
   exact hXlt.trans_le hmul
 
@@ -164,9 +164,9 @@ theorem mertensEndpoint_eq_pred_sub_recursiveReplacement
         squareRootReplacementKernel R n *
           RHLean.Analysis.mertensSummatory (X / n)) =
       ∑ d ∈ Finset.Icc 1 X, squareRootReplacementSeed R d at htel
+  rw [sum_squareRootReplacementSeed_eq_mertens_pred hR hpredX] at htel
   rw [hset, Finset.sum_union hdisj,
-    sum_replacementKernel_below_root_eq_mertens hR,
-    sum_squareRootReplacementSeed_eq_mertens_pred hR hpredX] at htel
+    sum_replacementKernel_below_root_eq_mertens hR] at htel
   dsimp [X] at htel ⊢
   rw [← htel]
   ring
@@ -306,19 +306,11 @@ theorem mertensEndpoint_eq_recombinedReplacementRow
       unfold squareRootReplacementCoefficient
       ring
 
-/-- Weighted coefficient row energy.  This is evaluated only after the entire
-physical quotient fibre at each lower Mertens argument has been recombined. -/
+/-- Weighted coefficient row energy after complete signed quotient-fibre
+recombination.  It is recorded as a diagnostic for the next involution layer;
+this module deliberately makes no quantitative claim about its size. -/
 def squareRootReplacementRowEnergy (R : ℕ) : ℝ :=
   ∑ y ∈ Finset.range R,
     (((y + 1 : ℕ) : ℝ)) * ‖squareRootReplacementCoefficient R y‖ ^ 2
-
-/-- The genuinely new quantitative target for this recursive replacement.
-An `O(R)` bound is exactly the row scale compatible with a lower critical
-Mertens envelope after weighted Cauchy--Schwarz.  No such estimate is assumed by
-any exact identity above. -/
-def RecursivePrimeReplacementRowEnergyBoundedStatement : Prop :=
-  ∃ A : ℝ, 0 ≤ A ∧
-    ∀ R : ℕ, 2 ≤ R →
-      squareRootReplacementRowEnergy R ≤ A * (R : ℝ)
 
 end RHLean.Proof
