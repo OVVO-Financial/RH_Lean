@@ -36,6 +36,7 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Analysis
 
 open RestrictedPrimeTransitionOperator
+open RHLean.Arithmetic
 open RHLean.Proof
 
 /-- Sum of one kernel row over the six active destination labels. -/
@@ -306,8 +307,8 @@ transition kernel on the canonical square-root `c*q` population.  Empty source
 rows are assigned zero, making the definition total. -/
 def physicalDistinguishedPrimeRawKernel
     (R q : ℕ)
-    (hq : q.Prime)
-    (hRq : R < q) :
+    (_hq : q.Prime)
+    (_hRq : R < q) :
     SignedPrimeHitState → SignedPrimeHitState → ℂ :=
   fun s t =>
     let row := physicalDistinguishedPrimeSourceMass R q s
@@ -353,14 +354,14 @@ theorem physicalDistinguishedPrimeRawKernel_isRestricted
 
 /-- Direct arithmetic inactive-to-inactive coefficient. -/
 def physicalDistinguishedPrimeA
-    (R q : ℕ) (hq : q.Prime) (hRq : R < q) : ℂ :=
+    (R q : ℕ) (_hq : q.Prime) (_hRq : R < q) : ℂ :=
   let row := physicalDistinguishedPrimeSourceMass R q none
   if row = 0 then 0
   else physicalDistinguishedPrimeTransitionMass R q none none / row
 
 /-- Direct arithmetic inactive-to-active coefficient family. -/
 def physicalDistinguishedPrimeB
-    (R q : ℕ) (hq : q.Prime) (hRq : R < q)
+    (R q : ℕ) (_hq : q.Prime) (_hRq : R < q)
     (t : PrimeActiveLabel) : ℂ :=
   let row := physicalDistinguishedPrimeSourceMass R q none
   if row = 0 then 0
@@ -368,7 +369,7 @@ def physicalDistinguishedPrimeB
 
 /-- Direct arithmetic active-to-inactive coefficient family. -/
 def physicalDistinguishedPrimeC
-    (R q : ℕ) (hq : q.Prime) (hRq : R < q)
+    (R q : ℕ) (_hq : q.Prime) (_hRq : R < q)
     (s : PrimeActiveLabel) : ℂ :=
   let row := physicalDistinguishedPrimeSourceMass R q (some s)
   if row = 0 then 0
@@ -438,8 +439,8 @@ theorem sum_physicalDistinguishedPrimeCenteredB_eq_zero
     (R q : ℕ) (hq : q.Prime) (hRq : R < q) :
     (∑ t : PrimeActiveLabel,
       physicalDistinguishedPrimeCenteredB R q hq hRq t) = 0 := by
-  simpa only [physicalCenteredDistinguishedPrimeOperator_inactiveToActive] using
-    (physicalCenteredDistinguishedPrimeOperator R q hq hRq).
-      sum_activeSectorCentered_inactiveToActive_eq_zero
+  unfold physicalDistinguishedPrimeCenteredB physicalDistinguishedPrimeBMean
+  rw [Finset.sum_sub_distrib, sum_primeActiveLabel_const]
+  ring
 
 end RHLean.Analysis
