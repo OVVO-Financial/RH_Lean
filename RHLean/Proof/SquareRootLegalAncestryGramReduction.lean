@@ -246,6 +246,17 @@ theorem squareRootPrimeSmoothState_cast_eq_shiftedSquarePrefixMertens
     ring
   exact hcast
 
+/-- Projecting the complex terminal bridge back to `ℝ` recovers the arithmetic
+root-smooth state.  The real embedding remains the analytic coordinate used by
+the Gram; the complex equality is simply the stronger reconstruction theorem. -/
+theorem squareRootPrimeSmoothState_eq_shiftedSquarePrefixMertens_re
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootPrimeRootReal R + squareRootSmoothMassReal R =
+      (RHLean.Analysis.squarePrefixMertens (R - 1)).re - 1 := by
+  have h := congrArg Complex.re
+    (squareRootPrimeSmoothState_cast_eq_shiftedSquarePrefixMertens R hR)
+  simpa using h
+
 /-- Consequently `D_R + 2 O_R` is literally the shifted square-prefix Mertens
 energy.  This is the exact root-smooth Gram requested by the empirical
 anti-alignment diagnostic. -/
