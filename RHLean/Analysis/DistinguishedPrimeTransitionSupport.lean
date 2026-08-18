@@ -86,14 +86,20 @@ theorem largeDivisor_current_next_threeSlot_impossible
   have hqle : q ≤ 4 + j - i := Nat.le_of_dvd hpos hdiff
   omega
 
+/-- Physical support consisting of the three source sites and the three sites in
+the immediately following destination cell. -/
+def IsAdjacentDistinguishedPrimeSite (k n : ℕ) : Prop :=
+  ∃ j : ℕ, j < 3 ∧
+    (n = threeSlotValue k j ∨ n = threeSlotValue (k + 1) j)
+
 /-- Any two adjacent-cell physical sites divisible by the same `q > 6` are the
 same integer.  Thus one distinguished large-prime fibre has at most one active
 site in the entire six-site source/destination support. -/
 theorem distinguishedPrime_adjacent_site_unique
     (q k n m : ℕ)
     (hq : 6 < q)
-    (hn : IsAdjacentThreeSlotSite k n)
-    (hm : IsAdjacentThreeSlotSite k m)
+    (hn : IsAdjacentDistinguishedPrimeSite k n)
+    (hm : IsAdjacentDistinguishedPrimeSite k m)
     (hqn : q ∣ n)
     (hqm : q ∣ m) :
     n = m := by
