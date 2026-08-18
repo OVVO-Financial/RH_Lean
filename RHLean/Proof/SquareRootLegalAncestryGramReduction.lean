@@ -174,6 +174,112 @@ def squareRootPrimeRootReal (R : ℕ) : ℝ :=
 def squareRootSmoothMassReal (R : ℕ) : ℝ :=
   ((squareRootAncestrySmoothMassInt R : ℤ) : ℝ)
 
+/-! ## Exact prime-root / smooth cross-region Gram -/
+
+/-- The two diagonal energies of the exact root-smooth object.  They are kept
+only as part of the joint Gram; no separate diagonal estimate is proposed. -/
+def squareRootPrimeSmoothDiagonalGram (R : ℕ) : ℝ :=
+  squareRootPrimeRootReal R ^ 2 + squareRootSmoothMassReal R ^ 2
+
+/-- The fully signed root-smooth cross term.  The empirical anti-alignment is
+precisely the statement that this quantity is negative with magnitude close to
+one half of the diagonal Gram. -/
+def squareRootPrimeSmoothOffDiagonalGram (R : ℕ) : ℝ :=
+  squareRootPrimeRootReal R * squareRootSmoothMassReal R
+
+/-- The complete signed cross-region Gram `D_R + 2 O_R`.  No prime fibre,
+pairwise absolute value, or new state coordinate appears in this definition. -/
+def squareRootPrimeSmoothCrossRegionGram (R : ℕ) : ℝ :=
+  squareRootPrimeSmoothDiagonalGram R +
+    2 * squareRootPrimeSmoothOffDiagonalGram R
+
+/-- The joint Gram is exactly the square of the already-existing signed
+prime-root plus complete smooth ancestry state. -/
+theorem squareRootPrimeSmoothCrossRegionGram_eq_residual_sq (R : ℕ) :
+    squareRootPrimeSmoothCrossRegionGram R =
+      (squareRootPrimeRootReal R + squareRootSmoothMassReal R) ^ 2 := by
+  unfold squareRootPrimeSmoothCrossRegionGram
+    squareRootPrimeSmoothDiagonalGram squareRootPrimeSmoothOffDiagonalGram
+  ring
+
+/-- Exact state reconstruction before squaring: the root plus smooth channel is
+`M(R^2-1)-1`.  This removes the ambient ancestry bound `B` entirely from the
+analytic object. -/
+theorem squareRootPrimeSmoothState_eq_mertensInt_sub_one
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootPrimeRootReal R + squareRootSmoothMassReal R =
+      (((mertensSummatoryInt (squareRootEndpoint R) - 1 : ℤ) : ℝ)) := by
+  have hB : squareRootEndpoint R ≤ squareRootEndpoint R := le_rfl
+  have hres :=
+    sourceRootPrefix_sub_sourceSuccessorPrefix_eq_mertensInt_sub_one
+      (B := squareRootEndpoint R) (R := R) hR hB
+  have hreal :
+      squareRootLegalRootReal (squareRootEndpoint R) R -
+          squareRootLegalSuccessorReal (squareRootEndpoint R) R =
+        (((mertensSummatoryInt (squareRootEndpoint R) - 1 : ℤ) : ℝ)) := by
+    change
+      ((sourceRootPrefix (squareRootEndpoint R) (R - 1) : ℤ) : ℝ) -
+          ((sourceSuccessorPrefix (squareRootEndpoint R) (R - 1) : ℤ) : ℝ) =
+        (((mertensSummatoryInt (squareRootEndpoint R) - 1 : ℤ) : ℝ))
+    exact_mod_cast hres
+  rw [squareRootLegalRootReal_eq_primeMass hR hB,
+    squareRootLegalSuccessorReal_eq_neg_smoothMass hR hB] at hreal
+  simpa [squareRootPrimeRootReal, squareRootSmoothMassReal] using hreal
+
+/-- The same state reconstruction written explicitly on the repository's
+square-prefix Mertens state. -/
+theorem squareRootPrimeSmoothState_eq_shiftedSquarePrefixMertens_re
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootPrimeRootReal R + squareRootSmoothMassReal R =
+      (RHLean.Analysis.squarePrefixMertens (R - 1)).re - 1 := by
+  rw [squareRootPrimeSmoothState_eq_mertensInt_sub_one R hR]
+  have hR1 : 1 ≤ R := by omega
+  have hend :
+      RHLean.Analysis.squarePrefixEndpoint (R - 1) = squareRootEndpoint R :=
+    squarePrefixEndpoint_pred_eq_squareRootEndpoint R hR1
+  have hre :
+      ((mertensSummatoryInt (squareRootEndpoint R) : ℤ) : ℝ) =
+        (RHLean.Analysis.mertensSummatory (squareRootEndpoint R)).re := by
+    have h := congrArg Complex.re
+      (mertensSummatoryInt_cast (squareRootEndpoint R))
+    simpa using h
+  unfold RHLean.Analysis.squarePrefixMertens
+  rw [hend, ← hre]
+  push_cast
+
+/-- Consequently `D_R + 2 O_R` is literally the shifted square-prefix Mertens
+energy.  This is the exact root-smooth Gram requested by the empirical
+anti-alignment diagnostic. -/
+theorem squareRootPrimeSmoothCrossRegionGram_eq_shiftedSquarePrefixMertens_norm_sq
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootPrimeSmoothCrossRegionGram R =
+      ‖RHLean.Analysis.squarePrefixMertens (R - 1) - 1‖ ^ 2 := by
+  rw [squareRootPrimeSmoothCrossRegionGram_eq_residual_sq,
+    squareRootPrimeSmoothState_eq_mertensInt_sub_one R hR]
+  have hR1 : 1 ≤ R := by omega
+  have hend :
+      RHLean.Analysis.squarePrefixEndpoint (R - 1) = squareRootEndpoint R :=
+    squarePrefixEndpoint_pred_eq_squareRootEndpoint R hR1
+  unfold RHLean.Analysis.squarePrefixMertens
+  rw [hend, ← mertensSummatoryInt_cast (squareRootEndpoint R)]
+  have hcast :
+      ((mertensSummatoryInt (squareRootEndpoint R) : ℂ) - 1) =
+        ((mertensSummatoryInt (squareRootEndpoint R) - 1 : ℤ) : ℂ) := by
+    push_cast
+    ring
+  rw [hcast, Complex.norm_intCast]
+  exact (sq_abs (((mertensSummatoryInt
+    (squareRootEndpoint R) - 1 : ℤ) : ℝ))).symm
+
+/-- Direct RH-scale endpoint target for the exact signed root-smooth Gram.  This
+is a proposition only: no analytic estimate is asserted here. -/
+def SquareRootPrimeSmoothCrossRegionGramBoundedStatement : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ R : ℕ, 2 ≤ R →
+        squareRootPrimeSmoothCrossRegionGram R ≤
+          C * Real.rpow (R : ℝ) (2 + ε)
+
 /-- The direct cross-term form at one scale.  It says that the anti-alignment
 between the prime-root transform and the complete smooth ancestry mass absorbs
 both diagonal energies up to the permitted lower-envelope budget. -/
