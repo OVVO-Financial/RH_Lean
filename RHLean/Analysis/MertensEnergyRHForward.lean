@@ -294,14 +294,14 @@ theorem globalCenteredDistinguishedPrimeEnergyAt_eq_diagonal_add_offDiagonal
 private theorem re_star_mul_self_eq_norm_sq (z : ℂ) :
     (star z * z).re = ‖z‖ ^ 2 := by
   change (conj z * z).re = ‖z‖ ^ 2
-  rw [← Complex.normSq_eq_conj_mul_self]
-  norm_num [Complex.normSq_eq_norm_sq]
+  rw [← Complex.normSq_eq_conj_mul_self, Complex.normSq_eq_norm_sq]
+  simp
 
 private theorem re_primeActive_sum (f : PrimeActiveLabel → ℂ) :
     (∑ s : PrimeActiveLabel, f s).re =
       ∑ s : PrimeActiveLabel, (f s).re := by
-  simpa using
-    (map_sum (RCLike.re : ℂ →+ ℝ) f (Finset.univ : Finset PrimeActiveLabel))
+  exact map_sum (RCLike.re : ℂ →+ ℝ) f
+    (Finset.univ : Finset PrimeActiveLabel)
 
 private theorem re_add_primeActive_sum (z : ℂ) (f : PrimeActiveLabel → ℂ) :
     (z + ∑ s : PrimeActiveLabel, f s).re =
@@ -322,6 +322,8 @@ private theorem centeredCrossQGram_re_eq_coordinates
 
 private theorem shellReInner_complex_eq (z w : ℂ) :
     shellReInner (𝕜 := ℂ) z w = (star z * w).re := by
+  unfold shellReInner
+  rw [RCLike.inner_apply']
   rfl
 
 /-- Diagonal coordinate energy is exactly the sum of self-Gram entries. -/
@@ -335,7 +337,7 @@ theorem globalCenteredDistinguishedPrimeDiagonalEnergyAt_eq_crossQ
     heightShellDiagonalEnergy centeredDistinguishedPrimeActionCoordinateShell
   simp_rw [centeredCrossQGram_re_eq_coordinates]
   simp_rw [re_star_mul_self_eq_norm_sq]
-  rw [Finset.sum_add_distrib]
+  simp_rw [Finset.sum_add_distrib]
   congr 1
   rw [Finset.sum_comm]
 
@@ -352,29 +354,12 @@ theorem globalCenteredDistinguishedPrimeOffDiagonalGramAt_eq_crossQ
     heightShellOffDiagonalGram centeredDistinguishedPrimeActionCoordinateShell
   simp_rw [shellReInner_complex_eq]
   simp_rw [centeredCrossQGram_re_eq_coordinates]
-  rw [Finset.sum_add_distrib]
+  simp_rw [Finset.sum_add_distrib]
   congr 1
-  calc
-    (∑ s : PrimeActiveLabel,
-        ∑ q' ∈ Finset.range (squareRootEndpoint R + 1),
-          ∑ q ∈ Finset.range q',
-            (star ((physicalCenteredDistinguishedPrimeChannel R q).action x (some s)) *
-              (physicalCenteredDistinguishedPrimeChannel R q').action x (some s)).re) =
-      ∑ q' ∈ Finset.range (squareRootEndpoint R + 1),
-        ∑ s : PrimeActiveLabel,
-          ∑ q ∈ Finset.range q',
-            (star ((physicalCenteredDistinguishedPrimeChannel R q).action x (some s)) *
-              (physicalCenteredDistinguishedPrimeChannel R q').action x (some s)).re := by
-          rw [Finset.sum_comm]
-    _ =
-      ∑ q' ∈ Finset.range (squareRootEndpoint R + 1),
-        ∑ q ∈ Finset.range q',
-          ∑ s : PrimeActiveLabel,
-            (star ((physicalCenteredDistinguishedPrimeChannel R q).action x (some s)) *
-              (physicalCenteredDistinguishedPrimeChannel R q').action x (some s)).re := by
-          apply Finset.sum_congr rfl
-          intro q' _hq'
-          rw [Finset.sum_comm]
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro q' _hq'
+  rw [Finset.sum_comm]
 
 /-- **Exact requested cross-prime expansion.**  Every off-diagonal interaction
 is part of the main signed object. -/
