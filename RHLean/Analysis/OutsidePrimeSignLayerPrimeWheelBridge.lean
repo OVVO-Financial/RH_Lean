@@ -361,9 +361,7 @@ theorem leastOwnerDeletionResidues_card_six
     · intro hz
       rcases Finset.mem_map.mp hz with ⟨k, hk, hkz⟩
       have hcond : ∃ i : Fin 6, p ^ 2 ∣ tTransitionForm i k.val := by
-        have hk' := (Finset.mem_filter.mp
-          (by simpa [leastOwnerDeletionResidues] using hk)).2
-        exact hk'
+        simpa [leastOwnerDeletionResidues] using hk
       have hroot :=
         (transitionSquareDivisor_iff_mem_collisionRoots hp hpgt k).1 hcond
       rw [← hkz]
@@ -381,8 +379,7 @@ theorem leastOwnerDeletionResidues_card_six
         (transitionSquareDivisor_iff_mem_collisionRoots hp hpgt k).2 hkroot
       apply Finset.mem_map.mpr
       refine ⟨k, ?_, ?_⟩
-      · simpa [leastOwnerDeletionResidues] using
-          (Finset.mem_filter.mpr ⟨Finset.mem_univ k, hcond⟩)
+      · simpa [leastOwnerDeletionResidues] using hcond
       · exact hkcast
   calc
     (leastOwnerDeletionResidues p).card =
