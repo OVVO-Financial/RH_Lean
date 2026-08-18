@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.DistinguishedPrimeTransitionSupport
+import RHLean.Analysis.SquareRootTransportRealization
 
 /-!
 # Physical centered distinguished-prime operator
@@ -20,18 +21,22 @@ mode.  A full mass projection can refill the active-to-active block.  The
 active-sector centering below is the normalization compatible with the existing
 physical `N - rowMean` sign-sector architecture.
 
-The module does not yet identify a canonical physical `(R,q)` raw coefficient
-ledger.  Instead it proves the normalization theorem that such a raw restricted
-kernel may use once that extraction is supplied.
+The final section supplies the canonical physical `(R,q)` raw coefficient
+ledger.  A visible active hit is required to lie in the actual square-root
+transport population `c*q <= R^2-1`, with `1 <= c < R`; the raw coefficients are
+finite transition sums on the physical three-slot carrier.  Thus the centered
+coefficients below are attached to the repository's arithmetic transport fibre,
+not to a synthetic coefficient record.
 -/
 
 noncomputable section
 
-open scoped BigOperators
+open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Analysis
 
 open RestrictedPrimeTransitionOperator
+open RHLean.Proof
 
 /-- Sum of one kernel row over the six active destination labels. -/
 def restrictedPrimeActiveDestinationSum
@@ -188,5 +193,253 @@ theorem RestrictedPrimeTransitionOperator.activeSectorCentered_activeInputForm_c
   unfold RestrictedPrimeTransitionOperator.activeInputForm
   simp only [mul_one]
   exact A.sum_activeSectorCentered_inactiveToActive_eq_zero
+
+/-! ## Canonical physical `(R,q)` extraction -/
+
+/-- A site belongs to the canonical square-root transport `q`-fibre exactly when
+it is `c*q` for its reciprocal cofactor `c = n/q`, with `1 <= c < R`, and lies
+below the complete-square endpoint.  The divisibility clause makes the quotient
+representation exact rather than merely a floor approximation. -/
+def PhysicalDistinguishedPrimeTransportHit (R q n : ℕ) : Prop :=
+  q ∣ n ∧ 1 ≤ n / q ∧ n / q < R ∧ n ≤ squareRootEndpoint R
+
+instance physicalDistinguishedPrimeTransportHitDecidable (R q n : ℕ) :
+    Decidable (PhysicalDistinguishedPrimeTransportHit R q n) := by
+  unfold PhysicalDistinguishedPrimeTransportHit
+  infer_instance
+
+/-- The quotient-form hit predicate is literally membership in the repository's
+canonical `squareRootTransportPairSet` when `q` is a transport prime. -/
+theorem physicalDistinguishedPrimeTransportHit_iff_pair
+    {R q n : ℕ} (hq : q.Prime) (hRq : R < q) :
+    PhysicalDistinguishedPrimeTransportHit R q n ↔
+      (n / q, q) ∈ squareRootTransportPairSet R ∧
+        (n / q) * q = n := by
+  constructor
+  · rintro ⟨hdiv, hc1, hcR, hnX⟩
+    have hprod : (n / q) * q = n := Nat.div_mul_cancel hdiv
+    have hqle : q ≤ n := by
+      calc
+        q = 1 * q := by simp
+        _ ≤ (n / q) * q := Nat.mul_le_mul_right q hc1
+        _ = n := hprod
+    have hqX : q ≤ squareRootEndpoint R := hqle.trans hnX
+    refine ⟨?_, hprod⟩
+    unfold squareRootTransportPairSet
+    apply Finset.mem_filter.mpr
+    constructor
+    · exact Finset.mem_product.mpr
+        ⟨Finset.mem_Ico.mpr ⟨hc1, hcR⟩,
+          Finset.mem_Ioc.mpr ⟨hRq, hqX⟩⟩
+    · exact ⟨hq, by simpa [hprod] using hnX⟩
+  · rintro ⟨hpair, hprod⟩
+    unfold squareRootTransportPairSet at hpair
+    rcases Finset.mem_filter.mp hpair with ⟨hbase, hdata⟩
+    rcases Finset.mem_product.mp hbase with ⟨hcMem, _hqMem⟩
+    rcases Finset.mem_Ico.mp hcMem with ⟨hc1, hcR⟩
+    have hdiv : q ∣ n := by
+      refine ⟨n / q, ?_⟩
+      simpa [Nat.mul_comm] using hprod.symm
+    have hnX : n ≤ squareRootEndpoint R := by
+      simpa [hprod] using hdata.2
+    exact ⟨hdiv, hc1, hcR, hnX⟩
+
+/-- Bool encoding of the visible Mobius sign.  `true` is `+1` and `false` is
+`-1`; this is only inspected after nonvanishing has been required. -/
+def physicalDistinguishedPrimeVisibleSignBit (n : ℕ) : Bool :=
+  decide (μ n = 1)
+
+/-- The actual signed fixed-prime state of one physical three-slot cell.  A hit
+is active only if it belongs to the canonical square-root `c*q` transport
+population and its Mobius value is visible. -/
+def physicalDistinguishedPrimeState (R q k : ℕ) : SignedPrimeHitState :=
+  let n0 := threeSlotValue k 0
+  let n1 := threeSlotValue k 1
+  let n2 := threeSlotValue k 2
+  if PhysicalDistinguishedPrimeTransportHit R q n0 ∧ μ n0 ≠ 0 then
+    some ((0 : Fin 3), physicalDistinguishedPrimeVisibleSignBit n0)
+  else if PhysicalDistinguishedPrimeTransportHit R q n1 ∧ μ n1 ≠ 0 then
+    some ((1 : Fin 3), physicalDistinguishedPrimeVisibleSignBit n1)
+  else if PhysicalDistinguishedPrimeTransportHit R q n2 ∧ μ n2 ≠ 0 then
+    some ((2 : Fin 3), physicalDistinguishedPrimeVisibleSignBit n2)
+  else
+    none
+
+/-- Every active physical state records a genuine divisibility hit by `q`. -/
+theorem physicalDistinguishedPrimeState_some_dvd
+    {R q k : ℕ} {a : PrimeActiveLabel}
+    (hstate : physicalDistinguishedPrimeState R q k = some a) :
+    q ∣ threeSlotValue k a.1 := by
+  rcases a with ⟨i, sign⟩
+  fin_cases i <;>
+    unfold physicalDistinguishedPrimeState at hstate <;>
+    dsimp at hstate ⊢ <;>
+    split_ifs at hstate <;>
+    simp_all [PhysicalDistinguishedPrimeTransportHit]
+
+/-- Number of adjacent physical transitions whose destination three-slot cell is
+fully inside the square-root carrier.  This is the same physical carrier used
+by the finite distinguished-prime validation sweep. -/
+def physicalDistinguishedPrimeCarrierLength (R : ℕ) : ℕ :=
+  (squareRootEndpoint R - 3) / 4
+
+/-- Exact finite mass of one signed fixed-prime transition.  Signs are retained
+in the state labels, so the six active channels are never collapsed before the
+operator acts. -/
+def physicalDistinguishedPrimeTransitionMass
+    (R q : ℕ) (s t : SignedPrimeHitState) : ℂ :=
+  ∑ k ∈ Finset.range (physicalDistinguishedPrimeCarrierLength R),
+    if physicalDistinguishedPrimeState R q k = s ∧
+        physicalDistinguishedPrimeState R q (k + 1) = t then
+      1
+    else
+      0
+
+/-- Total finite source-row mass on the physical carrier. -/
+def physicalDistinguishedPrimeSourceMass
+    (R q : ℕ) (s : SignedPrimeHitState) : ℂ :=
+  ∑ t : SignedPrimeHitState,
+    physicalDistinguishedPrimeTransitionMass R q s t
+
+/-- **Raw physical fixed-prime kernel.**  This is the exact row-normalized
+transition kernel on the canonical square-root `c*q` population.  Empty source
+rows are assigned zero, making the definition total. -/
+def physicalDistinguishedPrimeRawKernel
+    (R q : ℕ)
+    (hq : q.Prime)
+    (hRq : R < q) :
+    SignedPrimeHitState → SignedPrimeHitState → ℂ :=
+  fun s t =>
+    let row := physicalDistinguishedPrimeSourceMass R q s
+    if row = 0 then 0
+    else physicalDistinguishedPrimeTransitionMass R q s t / row
+
+/-- Six-site uniqueness annihilates every active-to-active transition mass. -/
+theorem physicalDistinguishedPrimeTransitionMass_some_some_eq_zero
+    (R q : ℕ) (hq6 : 6 < q)
+    (s t : PrimeActiveLabel) :
+    physicalDistinguishedPrimeTransitionMass R q (some s) (some t) = 0 := by
+  classical
+  unfold physicalDistinguishedPrimeTransitionMass
+  apply Finset.sum_eq_zero
+  intro k hk
+  split_ifs with hst
+  · rcases hst with ⟨hs, ht⟩
+    have hqs : q ∣ threeSlotValue k s.1 :=
+      physicalDistinguishedPrimeState_some_dvd hs
+    have hqt : q ∣ threeSlotValue (k + 1) t.1 :=
+      physicalDistinguishedPrimeState_some_dvd ht
+    exact (largeDivisor_current_next_threeSlot_impossible
+      q k s.1 t.1 hq6 s.1.isLt t.1.isLt hqs hqt).elim
+  · rfl
+
+/-- **Physical support theorem.**  From the asymptotic range `R >= 6`, the
+actual `(R,q)` raw kernel has exactly the certified thirteen-entry support.
+The lower cutoff is logically necessary for the existing six-site uniqueness
+lemma: `R < q` alone still permits the exceptional primes `3` and `5`. -/
+theorem physicalDistinguishedPrimeRawKernel_isRestricted
+    (R q : ℕ)
+    (hq : q.Prime)
+    (hRq : R < q)
+    (hR6 : 6 ≤ R) :
+    IsRestrictedPrimeKernel
+      (physicalDistinguishedPrimeRawKernel R q hq hRq) := by
+  intro s t
+  have hq6 : 6 < q := lt_of_le_of_lt hR6 hRq
+  by_cases hrow : physicalDistinguishedPrimeSourceMass R q (some s) = 0
+  · simp [physicalDistinguishedPrimeRawKernel, hrow]
+  · simp [physicalDistinguishedPrimeRawKernel, hrow,
+      physicalDistinguishedPrimeTransitionMass_some_some_eq_zero R q hq6 s t]
+
+/-- Direct arithmetic inactive-to-inactive coefficient. -/
+def physicalDistinguishedPrimeA
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q) : ℂ :=
+  let row := physicalDistinguishedPrimeSourceMass R q none
+  if row = 0 then 0
+  else physicalDistinguishedPrimeTransitionMass R q none none / row
+
+/-- Direct arithmetic inactive-to-active coefficient family. -/
+def physicalDistinguishedPrimeB
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q)
+    (t : PrimeActiveLabel) : ℂ :=
+  let row := physicalDistinguishedPrimeSourceMass R q none
+  if row = 0 then 0
+  else physicalDistinguishedPrimeTransitionMass R q none (some t) / row
+
+/-- Direct arithmetic active-to-inactive coefficient family. -/
+def physicalDistinguishedPrimeC
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q)
+    (s : PrimeActiveLabel) : ℂ :=
+  let row := physicalDistinguishedPrimeSourceMass R q (some s)
+  if row = 0 then 0
+  else physicalDistinguishedPrimeTransitionMass R q (some s) none / row
+
+/-- Arithmetic mean of the six direct inactive-to-active coefficients. -/
+def physicalDistinguishedPrimeBMean
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q) : ℂ :=
+  (∑ t : PrimeActiveLabel, physicalDistinguishedPrimeB R q hq hRq t) / 6
+
+/-- The centered physical inactive-to-active coefficient. -/
+def physicalDistinguishedPrimeCenteredB
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q)
+    (t : PrimeActiveLabel) : ℂ :=
+  physicalDistinguishedPrimeB R q hq hRq t -
+    physicalDistinguishedPrimeBMean R q hq hRq
+
+@[simp] theorem physicalDistinguishedPrimeRawKernel_none_none
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q) :
+    physicalDistinguishedPrimeRawKernel R q hq hRq none none =
+      physicalDistinguishedPrimeA R q hq hRq := rfl
+
+@[simp] theorem physicalDistinguishedPrimeRawKernel_none_some
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q)
+    (t : PrimeActiveLabel) :
+    physicalDistinguishedPrimeRawKernel R q hq hRq none (some t) =
+      physicalDistinguishedPrimeB R q hq hRq t := rfl
+
+@[simp] theorem physicalDistinguishedPrimeRawKernel_some_none
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q)
+    (s : PrimeActiveLabel) :
+    physicalDistinguishedPrimeRawKernel R q hq hRq (some s) none =
+      physicalDistinguishedPrimeC R q hq hRq s := rfl
+
+/-- Package the actual physical raw kernel and apply the support-preserving
+active-sector centering from the preceding section. -/
+def physicalCenteredDistinguishedPrimeOperator
+    (R q : ℕ)
+    (hq : q.Prime)
+    (hRq : R < q) :
+    RestrictedPrimeTransitionOperator :=
+  (RestrictedPrimeTransitionOperator.ofKernel
+    (physicalDistinguishedPrimeRawKernel R q hq hRq)).activeSectorCentered
+
+/-- **Coefficient identification: `a_{R,q}` is unchanged by centering.** -/
+@[simp] theorem physicalCenteredDistinguishedPrimeOperator_inactiveInactive
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q) :
+    (physicalCenteredDistinguishedPrimeOperator R q hq hRq).inactiveInactive =
+      physicalDistinguishedPrimeA R q hq hRq := rfl
+
+/-- **Coefficient identification: `b^c_{R,q,t} = b_{R,q,t} - mean_u b_{R,q,u}`.** -/
+@[simp] theorem physicalCenteredDistinguishedPrimeOperator_inactiveToActive
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q)
+    (t : PrimeActiveLabel) :
+    (physicalCenteredDistinguishedPrimeOperator R q hq hRq).inactiveToActive t =
+      physicalDistinguishedPrimeCenteredB R q hq hRq t := rfl
+
+/-- **Coefficient identification: `c_{R,q,s}` is unchanged by centering.** -/
+@[simp] theorem physicalCenteredDistinguishedPrimeOperator_activeToInactive
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q)
+    (s : PrimeActiveLabel) :
+    (physicalCenteredDistinguishedPrimeOperator R q hq hRq).activeToInactive s =
+      physicalDistinguishedPrimeC R q hq hRq s := rfl
+
+/-- The centered physical coefficient family has zero active-destination mean. -/
+theorem sum_physicalDistinguishedPrimeCenteredB_eq_zero
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q) :
+    (∑ t : PrimeActiveLabel,
+      physicalDistinguishedPrimeCenteredB R q hq hRq t) = 0 := by
+  simpa only [physicalCenteredDistinguishedPrimeOperator_inactiveToActive] using
+    (physicalCenteredDistinguishedPrimeOperator R q hq hRq).
+      sum_activeSectorCentered_inactiveToActive_eq_zero
 
 end RHLean.Analysis
