@@ -92,7 +92,7 @@ theorem centerRestrictedPrimeActiveDestinationSector_isRestricted
 private theorem sum_primeActiveLabel_const (z : ℂ) :
     (∑ _ : PrimeActiveLabel, z) = 6 * z := by
   classical
-  simp [primeActiveLabel_card, nsmul_eq_mul]
+  simp [nsmul_eq_mul]
 
 /-- Active-sector centering removes the active destination constant mode on
 every source row, without any support assumption. -/
@@ -170,7 +170,6 @@ theorem RestrictedPrimeTransitionOperator.activeSectorCentered_coeff_eq
         0 = A.coeff (some s) (some t) -
           restrictedPrimeActiveDestinationMean A.coeff (some s)
       rw [hA s t, restrictedPrimeActiveDestinationMean_some_eq_zero A.coeff hA s]
-      ring
 
 /-- The six centered inactive-to-active coefficients have exactly zero sum. -/
 theorem RestrictedPrimeTransitionOperator.sum_activeSectorCentered_inactiveToActive_eq_zero
@@ -178,9 +177,11 @@ theorem RestrictedPrimeTransitionOperator.sum_activeSectorCentered_inactiveToAct
     (∑ t : PrimeActiveLabel,
       A.activeSectorCentered.inactiveToActive t) = 0 := by
   change
-    restrictedPrimeActiveDestinationSum A.activeSectorCentered.coeff none = 0
-  rw [RestrictedPrimeTransitionOperator.activeSectorCentered_coeff_eq]
-  exact restrictedPrimeActiveDestinationSum_center_eq_zero A.coeff none
+    (∑ t : PrimeActiveLabel,
+      (A.inactiveToActive t - A.activeDestinationMean)) = 0
+  rw [Finset.sum_sub_distrib, sum_primeActiveLabel_const]
+  unfold RestrictedPrimeTransitionOperator.activeDestinationMean
+  ring
 
 /-- Equivalently, the active constant input mode is killed before any norm is
 taken. -/
@@ -190,20 +191,5 @@ theorem RestrictedPrimeTransitionOperator.activeSectorCentered_activeInputForm_c
   unfold RestrictedPrimeTransitionOperator.activeInputForm
   simp only [mul_one]
   exact A.sum_activeSectorCentered_inactiveToActive_eq_zero
-
-/-- The active-sector centering transformation is idempotent. -/
-theorem RestrictedPrimeTransitionOperator.activeSectorCentered_idempotent
-    (A : RestrictedPrimeTransitionOperator) :
-    A.activeSectorCentered.activeSectorCentered = A.activeSectorCentered := by
-  apply RestrictedPrimeTransitionOperator.ext
-  · rfl
-  · funext t
-    have hmean : A.activeSectorCentered.activeDestinationMean = 0 := by
-      unfold RestrictedPrimeTransitionOperator.activeDestinationMean
-      rw [A.sum_activeSectorCentered_inactiveToActive_eq_zero]
-      norm_num
-    simp [RestrictedPrimeTransitionOperator.activeSectorCentered, hmean]
-  · funext s
-    rfl
 
 end RHLean.Analysis
