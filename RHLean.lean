@@ -451,4 +451,5 @@ import RHLean.Proof.TriplingPacketTransport
 import RHLean.Proof.TwoAnchorSlackCoverage
 import RHLean.Proof.UniformResidualBound
 import RHLean.Proof.VanishingTransitionRelevance
+import RHLean.Verification.DistinguishedPrimeCenteringFiniteCertificates
 import RHLean.Verification.FiniteRangeCertificates
