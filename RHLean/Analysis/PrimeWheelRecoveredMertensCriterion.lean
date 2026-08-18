@@ -462,6 +462,252 @@ at `R = 2`, so the exact signal is not lost. -/
   norm_num [physicalDistinguishedPrimeCellLedger,
     physicalDistinguishedPrimeCarrierLength, squareRootEndpoint]
 
+/-! ## Exact physical fibre equals the prime-dilated transport fibre -/
+
+/-- A cofactor divisible by `4` has zero canonical Möbius weight. -/
+private theorem canonicalMoebiusWeight_eq_zero_of_four_dvd
+    {c : ℕ} (h4 : 4 ∣ c) :
+    canonicalMoebiusWeight c = 0 := by
+  have hmu : μ c = 0 := by
+    apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
+    intro hsq
+    have hnot := (Nat.squarefree_iff_prime_squarefree.mp hsq) 2 Nat.prime_two
+    apply hnot
+    simpa using h4
+  simp [canonicalMoebiusWeight, hmu]
+
+/-- For an odd prime, a factor `4` in `c*q` must already occur in the cofactor. -/
+private theorem four_dvd_cofactor_of_four_dvd_mul_prime
+    {c q : ℕ} (hq : q.Prime) (hq2 : 2 < q)
+    (h4 : 4 ∣ c * q) :
+    4 ∣ c := by
+  have hne : 2 ≠ q := by omega
+  have hcop : Nat.Coprime 4 q := by
+    simpa using
+      (Nat.coprime_pow_primes (p := 2) (q := q) 2 1
+        Nat.prime_two hq hne)
+  exact hcop.dvd_of_dvd_mul_right h4
+
+/-- Two active three-slot values can represent the same integer only when they
+come from the same four-cell. -/
+private theorem threeSlotValue_cell_index_unique
+    {k l : ℕ} {i j : Fin 3}
+    (h : threeSlotValue k i = threeSlotValue l j) :
+    k = l := by
+  unfold threeSlotValue at h
+  have hi := i.isLt
+  have hj := j.isLt
+  omega
+
+/-- Every positive non-multiple of `4` below the square endpoint lies in exactly
+one of the physical three-slot cells retained by the carrier. The proof uses the
+fact that a square endpoint minus one has residue `0` or `3` modulo `4`. -/
+private theorem exists_physical_threeSlot_of_le_endpoint_of_not_four_dvd
+    {R n : ℕ}
+    (hR : 2 ≤ R) (hnPos : 0 < n)
+    (hnX : n ≤ squareRootEndpoint R)
+    (h4 : ¬4 ∣ n) :
+    ∃ k ∈ Finset.range (physicalDistinguishedPrimeCarrierLength R + 1),
+      ∃ i : Fin 3, n = threeSlotValue k i := by
+  have hmod0 : n % 4 ≠ 0 := by
+    intro hz
+    exact h4 (Nat.dvd_of_mod_eq_zero hz)
+  have hmodlt : n % 4 < 4 := Nat.mod_lt n (by norm_num)
+  have hklt :
+      n / 4 < physicalDistinguishedPrimeCarrierLength R + 1 := by
+    rcases Nat.even_or_odd' R with ⟨a, hRa | hRa⟩
+    · have ha : 1 ≤ a := by omega
+      let A := a * a
+      have hA : 1 ≤ A := by
+        dsimp [A]
+        nlinarith
+      have hsquare : (2 * a) ^ 2 = 4 * A := by
+        dsimp [A]
+        ring
+      have hcarrier :
+          physicalDistinguishedPrimeCarrierLength R + 1 = A := by
+        rw [hRa]
+        unfold physicalDistinguishedPrimeCarrierLength squareRootEndpoint
+        rw [hsquare]
+        omega
+      have hnlt : n < A * 4 := by
+        rw [hRa] at hnX
+        unfold squareRootEndpoint at hnX
+        rw [hsquare] at hnX
+        omega
+      rw [hcarrier]
+      exact (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 4)).2 hnlt
+    · have ha : 1 ≤ a := by omega
+      let A := a * (a + 1)
+      have hA : 1 ≤ A := by
+        dsimp [A]
+        nlinarith
+      have hsquare : (2 * a + 1) ^ 2 = 4 * A + 1 := by
+        dsimp [A]
+        ring
+      have hcarrier :
+          physicalDistinguishedPrimeCarrierLength R + 1 = A := by
+        rw [hRa]
+        unfold physicalDistinguishedPrimeCarrierLength squareRootEndpoint
+        rw [hsquare]
+        omega
+      have hnlt : n < A * 4 := by
+        rw [hRa] at hnX
+        unfold squareRootEndpoint at hnX
+        rw [hsquare] at hnX
+        have hne : n ≠ 4 * A := by
+          intro heq
+          apply h4
+          exact ⟨A, heq⟩
+        omega
+      rw [hcarrier]
+      exact (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 4)).2 hnlt
+  have hkMem :
+      n / 4 ∈ Finset.range (physicalDistinguishedPrimeCarrierLength R + 1) :=
+    Finset.mem_range.mpr hklt
+  have hdiv := Nat.div_add_mod n 4
+  have hres : n % 4 = 1 ∨ n % 4 = 2 ∨ n % 4 = 3 := by omega
+  rcases hres with h1 | h2 | h3
+  · refine ⟨n / 4, hkMem, (0 : Fin 3), ?_⟩
+    unfold threeSlotValue
+    omega
+  · refine ⟨n / 4, hkMem, (1 : Fin 3), ?_⟩
+    unfold threeSlotValue
+    omega
+  · refine ⟨n / 4, hkMem, (2 : Fin 3), ?_⟩
+    unfold threeSlotValue
+    omega
+
+/-- For one actual distinguished prime and one lower cofactor, summing the cell
+indicator over the physical carrier returns exactly the prime-dilated fibre
+summand. Multiples of `4` are the only omitted sites, and their Möbius weight is
+zero. -/
+private theorem sum_physicalCellFibre_indicator_eq_primeDilated_summand
+    (R q c : ℕ) (hq : q.Prime) (hRq : R < q)
+    (hc : c ∈ Finset.Ico 1 R) :
+    (∑ k ∈ Finset.range (physicalDistinguishedPrimeCarrierLength R + 1),
+      if c * q ≤ squareRootEndpoint R ∧
+          ∃ i : Fin 3, c * q = threeSlotValue k i then
+        canonicalMoebiusWeight c
+      else
+        0) =
+      if c * q ≤ squareRootEndpoint R then canonicalMoebiusWeight c else 0 := by
+  classical
+  by_cases hmul : c * q ≤ squareRootEndpoint R
+  · rw [if_pos hmul]
+    by_cases hweight : canonicalMoebiusWeight c = 0
+    · simp [hmul, hweight]
+    · have hcData := Finset.mem_Ico.mp hc
+      have hR2 : 2 ≤ R := by omega
+      have hq2 : 2 < q := by omega
+      have hfour : ¬4 ∣ c * q := by
+        intro h4prod
+        have h4c : 4 ∣ c :=
+          four_dvd_cofactor_of_four_dvd_mul_prime hq hq2 h4prod
+        exact hweight (canonicalMoebiusWeight_eq_zero_of_four_dvd h4c)
+      have hnPos : 0 < c * q := by
+        exact Nat.mul_pos (by omega) (by omega)
+      rcases exists_physical_threeSlot_of_le_endpoint_of_not_four_dvd
+          hR2 hnPos hmul hfour with ⟨k, hk, i, hi⟩
+      have hexk : ∃ j : Fin 3, c * q = threeSlotValue k j := ⟨i, hi⟩
+      rw [Finset.sum_eq_single k]
+      · simp [hmul, hexk]
+      · intro l hl hlk
+        by_cases hexl : ∃ j : Fin 3, c * q = threeSlotValue l j
+        · rcases hexl with ⟨j, hj⟩
+          have hlk' : l = k :=
+            threeSlotValue_cell_index_unique (hj.symm.trans hi)
+          exact (hlk hlk').elim
+        · simp [hmul, hexl]
+      · exact (fun hk' => (hk' hk).elim)
+  · simp [hmul]
+
+/-- **Missing fixed-fibre equality.** For every actual distinguished prime
+`q > R`, the boundary-complete physical cell ledger is exactly the existing
+prime-dilated low-cofactor mass. -/
+theorem physicalDistinguishedPrimeCellLedger_eq_primeDilatedLowCofactorMass
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q) :
+    physicalDistinguishedPrimeCellLedger R q =
+      primeDilatedLowCofactorMass R q := by
+  classical
+  unfold physicalDistinguishedPrimeCellLedger
+    physicalDistinguishedPrimeCellFibreMass
+    primeDilatedLowCofactorMass
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro c hc
+  exact sum_physicalCellFibre_indicator_eq_primeDilated_summand
+    R q c hq hRq hc
+
+/-- Boundary-complete transition mass is therefore literally the existing
+prime-dilated transport fibre. -/
+theorem physicalDistinguishedPrimeBoundaryCompleteMass_eq_primeDilatedLowCofactorMass
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q) :
+    physicalDistinguishedPrimeBoundaryCompleteMass R q =
+      primeDilatedLowCofactorMass R q := by
+  rw [physicalDistinguishedPrimeBoundaryCompleteMass_eq_cellLedger]
+  exact physicalDistinguishedPrimeCellLedger_eq_primeDilatedLowCofactorMass
+    R q hq hRq
+
+/-- The physical fixed-prime fibre is the boundary-complete signed mass. -/
+def physicalDistinguishedPrimeFibre (R q : ℕ) : ℂ :=
+  physicalDistinguishedPrimeBoundaryCompleteMass R q
+
+/-- One actual physical fibre is exactly one prime-first transport fibre. -/
+theorem physicalDistinguishedPrimeFibre_eq_primeDilatedLowCofactorMass
+    (R q : ℕ) (hq : q.Prime) (hRq : R < q) :
+    physicalDistinguishedPrimeFibre R q =
+      primeDilatedLowCofactorMass R q := by
+  exact physicalDistinguishedPrimeBoundaryCompleteMass_eq_primeDilatedLowCofactorMass
+    R q hq hRq
+
+/-- **Exact fibre sum.** Summing the boundary-complete physical fibres over the
+actual distinguished-prime family is exactly the repository's prime-first
+square-root transport term. -/
+theorem sum_physicalDistinguishedPrimeFibre_eq_squareRootTransportPrimeFirst
+    (R : ℕ) :
+    (∑ q ∈ centeredDistinguishedPrimeSet R,
+      physicalDistinguishedPrimeFibre R q) =
+      squareRootTransportPrimeFirst R := by
+  classical
+  unfold centeredDistinguishedPrimeSet squareRootTransportPrimeFirst
+    physicalDistinguishedPrimeFibre
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro q hqRange
+  by_cases hq : q.Prime
+  · have hRq : R < q := (Finset.mem_Ioc.mp hqRange).1
+    simp [hq,
+      physicalDistinguishedPrimeBoundaryCompleteMass_eq_primeDilatedLowCofactorMass
+        R q hq hRq]
+  · simp [hq]
+
+/-- Global boundary-complete physical transport mass. -/
+def globalPhysicalDistinguishedPrimeFibreMass (R : ℕ) : ℂ :=
+  ∑ q ∈ centeredDistinguishedPrimeSet R,
+    physicalDistinguishedPrimeFibre R q
+
+/-- The global physical fibre mass is exactly the prime-first transport signal. -/
+theorem globalPhysicalDistinguishedPrimeFibreMass_eq_squareRootTransportPrimeFirst
+    (R : ℕ) :
+    globalPhysicalDistinguishedPrimeFibreMass R =
+      squareRootTransportPrimeFirst R := by
+  exact sum_physicalDistinguishedPrimeFibre_eq_squareRootTransportPrimeFirst R
+
+/-- **Completed exact physical reconstruction.** The centered distinguished-prime
+family, after restoring only the explicitly removed deterministic pieces, is the
+actual raw signed physical kernel; simultaneously its boundary-complete scalar
+fibre mass is exactly the existing prime-first square-root transport signal.
+Thus signal reconstruction is complete before any energy or Gram estimate. -/
+theorem globalPhysicalCenteredDistinguishedPrime_exact_reconstruction
+    (R : ℕ) :
+    globalPhysicalCenteredDistinguishedPrimeRestoredKernel R =
+        globalPhysicalDistinguishedPrimeRawKernel R ∧
+      globalPhysicalDistinguishedPrimeFibreMass R =
+        squareRootTransportPrimeFirst R := by
+  exact ⟨globalPhysicalCenteredDistinguishedPrimeRestoredKernel_eq_raw R,
+    globalPhysicalDistinguishedPrimeFibreMass_eq_squareRootTransportPrimeFirst R⟩
+
 /-! ## Exact square-root wheel energy target -/
 
 /-- The exact quantitative target for the canonical square-root wheel. This is
