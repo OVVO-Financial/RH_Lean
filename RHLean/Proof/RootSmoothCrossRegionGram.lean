@@ -112,10 +112,10 @@ theorem squarePrefixEnergyBounded_of_rootSmoothCrossRegionEnergyBound
   intro n
   by_cases hn : n = 0
   · subst n
-    simp [RHLean.Analysis.squarePrefixMertens,
-      RHLean.Analysis.squarePrefixEndpoint]
-  · have hn1 : 1 ≤ n := Nat.one_le_iff_ne_zero.mpr hn
-    have hR : 2 ≤ n + 1 := by omega
+    have hconst : 0 ≤ 2 * C + 2 := by positivity
+    simpa [RHLean.Analysis.squarePrefixMertens,
+      RHLean.Analysis.squarePrefixEndpoint] using hconst
+  · have hR : 2 ≤ n + 1 := by omega
     have hshift := hbound (n + 1) hR
     rw [rootSmoothCrossRegionGram_eq_shiftedSquarePrefixEnergy (n + 1) hR] at hshift
     simp only [Nat.add_sub_cancel] at hshift
