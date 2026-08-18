@@ -7,31 +7,15 @@ import RHLean.Proof.HeightShellGram
 /-!
 # The forward Mertens-energy implication to the Riemann hypothesis
 
-The preceding Mertens layers construct a holomorphic continuation `F` on
-`Re(s) > 1/2` and prove
-
-`riemannZeta s * F s = 1`
-
-there away from the pole `s = 1`.  Hence zeta is zero-free strictly to the
-right of the critical line.
-
-To exclude a nontrivial zero strictly to the left, this file uses the completed
-Riemann zeta function.  Mathlib's exact zero set for `Gammaℝ` says that the
-Archimedean factor vanishes only at nonpositive even integers.  The zero at
-`s = 0` is excluded by `zeta(0) = -1/2`, while the negative even points are
-exactly the trivial-zero locus already excluded by Mathlib's definition of RH.
-Thus a nontrivial zeta zero gives a completed-zeta zero; the completed functional
-equation reflects it to `1-s`, contradicting right-half-plane zero-freeness.
-
-The second half of the file records the centered distinguished-prime global
-Gram route.  It first reconstructs the complete physical prime family exactly,
-then expands the global energy into all diagonal and signed cross-prime terms.
-No absolute value is taken before the `q,q'` sum is assembled.
+The first half closes the protected Mertens-energy-to-RH implication.  The
+second half records the centered distinguished-prime global Gram route: exact
+physical prime-family reconstruction first, then the signed diagonal and all
+cross-prime terms.  No absolute value is taken before the `q,q'` sum is formed.
 -/
 
 noncomputable section
 
-open scoped BigOperators ComplexConjugate
+open scoped BigOperators ComplexConjugate InnerProductSpace
 
 namespace RHLean.Analysis
 
@@ -39,8 +23,8 @@ open Complex
 open RestrictedPrimeTransitionOperator
 open RHLean.Proof
 
-/-- The propagated reciprocal identity immediately rules out zeta zeros
-strictly to the right of the critical line. -/
+/-- The propagated reciprocal identity rules out zeta zeros strictly to the
+right of the critical line. -/
 theorem riemannZeta_ne_zero_of_half_lt_re
     (hM : MertensEnergyBoundedStatement) {s : ℂ}
     (hs : (1 : ℝ) / 2 < s.re) (hs1 : s ≠ 1) :
@@ -52,9 +36,6 @@ theorem riemannZeta_ne_zero_of_half_lt_re
   rw [hz, zero_mul] at hprod
   exact zero_ne_one hprod
 
-/-- At a nontrivial candidate zero, the completed-zeta Archimedean factor is
-nonzero.  Mathlib identifies its zero set exactly with the nonpositive even
-integers. -/
 private theorem GammaR_ne_zero_of_not_trivial
     {s : ℂ} (hs0 : s ≠ 0)
     (htriv : ¬∃ n : ℕ, s = -2 * (n + 1)) :
@@ -71,7 +52,7 @@ private theorem GammaR_ne_zero_of_not_trivial
       simpa [Nat.cast_succ] using hn
 
 /-- The repository's squared Mertens-energy criterion implies Mathlib's formal
-Riemann hypothesis, with no caller-supplied classical Mertens/RH criterion. -/
+Riemann hypothesis. -/
 theorem riemannHypothesis_of_mertensEnergy
     (hM : MertensEnergyBoundedStatement) :
     RiemannHypothesis := by
@@ -115,11 +96,11 @@ theorem riemannHypothesis_of_mertensEnergy
 
 /-! ## Global centered distinguished-prime reconstruction -/
 
-/-- Canonical distinguished transport primes at square-root scale `R`. -/
+/-- Canonical distinguished transport primes `R < q <= R^2 - 1`. -/
 def centeredDistinguishedPrimeSet (R : ℕ) : Finset ℕ :=
   (Finset.Ioc R (squareRootEndpoint R)).filter Nat.Prime
 
-/-- The zero operator in the certified thirteen-coefficient class. -/
+/-- Zero in the certified thirteen-coefficient operator class. -/
 def zeroRestrictedPrimeTransitionOperator : RestrictedPrimeTransitionOperator where
   inactiveInactive := 0
   inactiveToActive := fun _ => 0
@@ -128,14 +109,13 @@ def zeroRestrictedPrimeTransitionOperator : RestrictedPrimeTransitionOperator wh
 @[simp] theorem zeroRestrictedPrimeTransitionOperator_action
     (x : SignedPrimeHitState → ℂ) (s : SignedPrimeHitState) :
     zeroRestrictedPrimeTransitionOperator.action x s = 0 := by
-  rcases s with _ | s
-  · simp [zeroRestrictedPrimeTransitionOperator,
+  rcases s with _ | s <;>
+    simp [zeroRestrictedPrimeTransitionOperator,
       RestrictedPrimeTransitionOperator.action,
       RestrictedPrimeTransitionOperator.activeInputForm]
-  · rfl
 
-/-- Total fixed-`q` centered channel: physical on the canonical transport-prime
-set and exactly zero elsewhere. -/
+/-- Physical centered fixed-prime channel, totalized by zero off the canonical
+transport-prime set. -/
 def physicalCenteredDistinguishedPrimeChannel
     (R q : ℕ) : RestrictedPrimeTransitionOperator :=
   if hq : q ∈ centeredDistinguishedPrimeSet R then
@@ -151,8 +131,7 @@ def physicalCenteredDistinguishedPrimeChannel
       zeroRestrictedPrimeTransitionOperator := by
   simp [physicalCenteredDistinguishedPrimeChannel, hq]
 
-/-- Every canonical transport prime lies in the natural range ending at the
-complete-square endpoint. -/
+/-- Canonical transport primes lie in the complete-square natural range. -/
 theorem centeredDistinguishedPrimeSet_subset_range (R : ℕ) :
     centeredDistinguishedPrimeSet R ⊆
       Finset.range (squareRootEndpoint R + 1) := by
@@ -170,15 +149,14 @@ def restrictedPrimeOperatorSum
   inactiveToActive := fun t => ∑ q ∈ S, (A q).inactiveToActive t
   activeToInactive := fun s => ∑ q ∈ S, (A q).activeToInactive s
 
-/-- The global physical centered operator at scale `R`. -/
+/-- Global physical centered operator at scale `R`. -/
 def globalPhysicalCenteredDistinguishedPrimeOperator
     (R : ℕ) : RestrictedPrimeTransitionOperator :=
   restrictedPrimeOperatorSum (centeredDistinguishedPrimeSet R)
     (physicalCenteredDistinguishedPrimeChannel R)
 
-/-- **Exact global reconstruction.**  This is
-`A_R^c = sum_{R<q<=R^2-1, q prime} A^c_{R,q}` coefficient-for-coefficient,
-before any norm is taken. -/
+/-- **Exact global reconstruction**
+`A_R^c = sum_{R<q<=R^2-1, q prime} A^c_{R,q}` before any norm. -/
 theorem globalPhysicalCenteredDistinguishedPrimeOperator_reconstruction
     (R : ℕ) :
     globalPhysicalCenteredDistinguishedPrimeOperator R =
@@ -209,8 +187,8 @@ def centeredDistinguishedPrimeActionCoordinateShell
     (s : SignedPrimeHitState) (q : ℕ) : ℂ :=
   (physicalCenteredDistinguishedPrimeChannel R q).action x s
 
-/-- One output coordinate after the entire distinguished-prime family has been
-assembled.  The natural range adds no nonphysical contribution. -/
+/-- One output coordinate after the complete distinguished-prime family has
+been assembled. -/
 def globalCenteredDistinguishedPrimeActionCoordinate
     (R : ℕ) (x : SignedPrimeHitState → ℂ)
     (s : SignedPrimeHitState) : ℂ :=
@@ -218,7 +196,7 @@ def globalCenteredDistinguishedPrimeActionCoordinate
     (centeredDistinguishedPrimeActionCoordinateShell R x s)
     (squareRootEndpoint R + 1)
 
-/-- Action-level exact reconstruction over the canonical physical prime set. -/
+/-- Action-level exact reconstruction over the physical prime set. -/
 theorem globalCenteredDistinguishedPrimeActionCoordinate_reconstruction
     (R : ℕ) (x : SignedPrimeHitState → ℂ)
     (s : SignedPrimeHitState) :
@@ -230,26 +208,25 @@ theorem globalCenteredDistinguishedPrimeActionCoordinate_reconstruction
     centeredDistinguishedPrimeActionCoordinateShell
   symm
   apply Finset.sum_subset (centeredDistinguishedPrimeSet_subset_range R)
-  intro q hqRange hqNot
+  intro q _hqRange hqNot
   rw [physicalCenteredDistinguishedPrimeChannel_eq_zero_of_not_mem R q hqNot]
   exact zeroRestrictedPrimeTransitionOperator_action x s
 
-/-- Complete global centered action, assembled before any energy is taken. -/
+/-- Complete global centered action, assembled before any energy. -/
 def globalCenteredDistinguishedPrimeAction
     (R : ℕ) (x : SignedPrimeHitState → ℂ) :
     SignedPrimeHitState → ℂ :=
   fun s => globalCenteredDistinguishedPrimeActionCoordinate R x s
 
-/-- Unit-weight global energy after the complete `q`-sum is assembled. -/
+/-- Unit-weight energy after the complete `q` sum is assembled. -/
 def globalCenteredDistinguishedPrimeEnergyAt
     (R : ℕ) (x : SignedPrimeHitState → ℂ) : ℝ :=
   ‖globalCenteredDistinguishedPrimeAction R x none‖ ^ 2 +
     ∑ s : PrimeActiveLabel,
       ‖globalCenteredDistinguishedPrimeAction R x (some s)‖ ^ 2
 
-/-- The complex cross-prime Gram entry
-`G_R(q,q') = <A^c_{R,q}x, A^c_{R,q'}x>`.  This is signed and no absolute value
-appears in its definition. -/
+/-- Complex signed cross-prime Gram entry
+`G_R(q,q') = <A^c_{R,q}x, A^c_{R,q'}x>`. -/
 def centeredCrossQGram
     (R q q' : ℕ)
     (x : SignedPrimeHitState → ℂ) : ℂ :=
@@ -257,7 +234,7 @@ def centeredCrossQGram
     ((physicalCenteredDistinguishedPrimeChannel R q).action x)
     ((physicalCenteredDistinguishedPrimeChannel R q').action x)
 
-/-- Exact sparse coefficient expansion of one cross-`q` Gram entry. -/
+/-- Exact sparse coefficient expansion of one cross-prime Gram entry. -/
 theorem centeredCrossQGram_eq_sparseAction
     (R q q' : ℕ)
     (x : SignedPrimeHitState → ℂ) :
@@ -275,7 +252,7 @@ theorem centeredCrossQGram_eq_sparseAction
             x none) := by
   rfl
 
-/-- Coordinate-first diagonal part of the exact global Gram. -/
+/-- Diagonal part of the exact global Gram. -/
 def globalCenteredDistinguishedPrimeDiagonalEnergyAt
     (R : ℕ) (x : SignedPrimeHitState → ℂ) : ℝ :=
   heightShellDiagonalEnergy
@@ -286,7 +263,7 @@ def globalCenteredDistinguishedPrimeDiagonalEnergyAt
         (centeredDistinguishedPrimeActionCoordinateShell R x (some s))
         (squareRootEndpoint R + 1)
 
-/-- Coordinate-first signed off-diagonal part. -/
+/-- Signed off-diagonal part of the exact global Gram. -/
 def globalCenteredDistinguishedPrimeOffDiagonalGramAt
     (R : ℕ) (x : SignedPrimeHitState → ℂ) : ℝ :=
   heightShellOffDiagonalGram (𝕜 := ℂ)
@@ -297,7 +274,7 @@ def globalCenteredDistinguishedPrimeOffDiagonalGramAt
         (centeredDistinguishedPrimeActionCoordinateShell R x (some s))
         (squareRootEndpoint R + 1)
 
-/-- Exact global energy identity before rewriting the two pieces as `q,q'`
+/-- Exact global energy identity before rewriting the pieces as cross-prime
 Gram sums. -/
 theorem globalCenteredDistinguishedPrimeEnergyAt_eq_diagonal_add_offDiagonal
     (R : ℕ) (x : SignedPrimeHitState → ℂ) :
@@ -314,19 +291,40 @@ theorem globalCenteredDistinguishedPrimeEnergyAt_eq_diagonal_add_offDiagonal
   rw [Finset.sum_add_distrib, ← Finset.mul_sum]
   ring
 
-/-- Real part of a complex self-product is squared norm. -/
 private theorem re_star_mul_self_eq_norm_sq (z : ℂ) :
     (star z * z).re = ‖z‖ ^ 2 := by
-  have hcast : (((‖z‖ ^ 2 : ℝ) : ℂ)) = star z * z := by
-    calc
-      (((‖z‖ ^ 2 : ℝ) : ℂ)) = (Complex.normSq z : ℂ) := by
-        rw [Complex.normSq_eq_norm_sq]
-      _ = Complex.conj z * z := Complex.normSq_eq_conj_mul_self
-      _ = star z * z := rfl
-  have hre := congrArg Complex.re hcast
-  simpa using hre.symm
+  change (conj z * z).re = ‖z‖ ^ 2
+  rw [← Complex.normSq_eq_conj_mul_self]
+  norm_num [Complex.normSq_eq_norm_sq]
 
-/-- Diagonal coordinate energy is exactly the sum of the self-Gram entries. -/
+private theorem re_primeActive_sum (f : PrimeActiveLabel → ℂ) :
+    (∑ s : PrimeActiveLabel, f s).re =
+      ∑ s : PrimeActiveLabel, (f s).re := by
+  simpa using
+    (map_sum (RCLike.re : ℂ →+ ℝ) f (Finset.univ : Finset PrimeActiveLabel))
+
+private theorem re_add_primeActive_sum (z : ℂ) (f : PrimeActiveLabel → ℂ) :
+    (z + ∑ s : PrimeActiveLabel, f s).re =
+      z.re + ∑ s : PrimeActiveLabel, (f s).re := by
+  change z.re + (∑ s : PrimeActiveLabel, f s).re = _
+  rw [re_primeActive_sum]
+
+private theorem centeredCrossQGram_re_eq_coordinates
+    (R q q' : ℕ) (x : SignedPrimeHitState → ℂ) :
+    (centeredCrossQGram R q q' x).re =
+      (star ((physicalCenteredDistinguishedPrimeChannel R q).action x none) *
+        (physicalCenteredDistinguishedPrimeChannel R q').action x none).re +
+      ∑ s : PrimeActiveLabel,
+        (star ((physicalCenteredDistinguishedPrimeChannel R q).action x (some s)) *
+          (physicalCenteredDistinguishedPrimeChannel R q').action x (some s)).re := by
+  unfold centeredCrossQGram restrictedPrimeStateInner
+  exact re_add_primeActive_sum _ _
+
+private theorem shellReInner_complex_eq (z w : ℂ) :
+    shellReInner (𝕜 := ℂ) z w = (star z * w).re := by
+  rfl
+
+/-- Diagonal coordinate energy is exactly the sum of self-Gram entries. -/
 theorem globalCenteredDistinguishedPrimeDiagonalEnergyAt_eq_crossQ
     (R : ℕ) (x : SignedPrimeHitState → ℂ) :
     globalCenteredDistinguishedPrimeDiagonalEnergyAt R x =
@@ -334,15 +332,14 @@ theorem globalCenteredDistinguishedPrimeDiagonalEnergyAt_eq_crossQ
         (centeredCrossQGram R q q x).re := by
   classical
   unfold globalCenteredDistinguishedPrimeDiagonalEnergyAt
-    heightShellDiagonalEnergy centeredCrossQGram restrictedPrimeStateInner
-    centeredDistinguishedPrimeActionCoordinateShell
-  simp_rw [map_add, map_sum]
+    heightShellDiagonalEnergy centeredDistinguishedPrimeActionCoordinateShell
+  simp_rw [centeredCrossQGram_re_eq_coordinates]
   simp_rw [re_star_mul_self_eq_norm_sq]
   rw [Finset.sum_add_distrib]
   congr 1
   rw [Finset.sum_comm]
 
-/-- The coordinate off-diagonal form is exactly the nested `q < q'` sum of
+/-- The off-diagonal coordinate form is exactly the nested `q < q'` sum of
 real cross-prime Gram entries. -/
 theorem globalCenteredDistinguishedPrimeOffDiagonalGramAt_eq_crossQ
     (R : ℕ) (x : SignedPrimeHitState → ℂ) :
@@ -352,10 +349,9 @@ theorem globalCenteredDistinguishedPrimeOffDiagonalGramAt_eq_crossQ
           (centeredCrossQGram R q q' x).re := by
   classical
   unfold globalCenteredDistinguishedPrimeOffDiagonalGramAt
-    heightShellOffDiagonalGram shellReInner centeredCrossQGram
-    restrictedPrimeStateInner
-    centeredDistinguishedPrimeActionCoordinateShell
-  simp_rw [map_add, map_sum]
+    heightShellOffDiagonalGram centeredDistinguishedPrimeActionCoordinateShell
+  simp_rw [shellReInner_complex_eq]
+  simp_rw [centeredCrossQGram_re_eq_coordinates]
   rw [Finset.sum_add_distrib]
   congr 1
   calc
@@ -377,11 +373,11 @@ theorem globalCenteredDistinguishedPrimeOffDiagonalGramAt_eq_crossQ
             (star ((physicalCenteredDistinguishedPrimeChannel R q).action x (some s)) *
               (physicalCenteredDistinguishedPrimeChannel R q').action x (some s)).re := by
           apply Finset.sum_congr rfl
-          intro q' hq'
+          intro q' _hq'
           rw [Finset.sum_comm]
 
-/-- **Exact requested cross-`q` expansion.**  Every off-diagonal interaction is
-part of the main signed object; no triangle inequality has replaced it. -/
+/-- **Exact requested cross-prime expansion.**  Every off-diagonal interaction
+is part of the main signed object. -/
 theorem globalCenteredDistinguishedPrimeEnergyAt_eq_crossQGram
     (R : ℕ) (x : SignedPrimeHitState → ℂ) :
     globalCenteredDistinguishedPrimeEnergyAt R x =
@@ -395,8 +391,7 @@ theorem globalCenteredDistinguishedPrimeEnergyAt_eq_crossQGram
     globalCenteredDistinguishedPrimeDiagonalEnergyAt_eq_crossQ,
     globalCenteredDistinguishedPrimeOffDiagonalGramAt_eq_crossQ]
 
-/-- **Open analytic proposition.**  The physical input family is an explicit
-parameter until its exact Mertens reconstruction is proved. -/
+/-- Open analytic proposition at the critical square-root exponent. -/
 def CenteredDistinguishedPrimeGlobalGramBoundedStatement
     (x : ℕ → SignedPrimeHitState → ℂ) : Prop :=
   ∀ ε : ℝ, 0 < ε →
@@ -405,9 +400,8 @@ def CenteredDistinguishedPrimeGlobalGramBoundedStatement
         globalCenteredDistinguishedPrimeEnergyAt R (x R) ≤
           C * Real.rpow (R : ℝ) (2 + ε)
 
-/-- Exact arithmetic bridge required to identify a chosen global centered input
-with the repository's square-prefix Mertens energy.  This records theorem data,
-not an axiom or an assumed estimate. -/
+/-- Exact arithmetic theorem data needed to identify a chosen global centered
+input family with square-prefix Mertens energy. -/
 structure CenteredDistinguishedPrimeMertensReconstruction
     (x : ℕ → SignedPrimeHitState → ℂ) : Prop where
   energy_eq_squarePrefix :
@@ -415,8 +409,8 @@ structure CenteredDistinguishedPrimeMertensReconstruction
       globalCenteredDistinguishedPrimeEnergyAt (n + 1) (x (n + 1)) =
         ‖squarePrefixMertens n‖ ^ 2
 
-/-- Once exact Mertens reconstruction is supplied, the global Gram bound is the
-protected square-prefix energy criterion. -/
+/-- Exact reconstruction plus the global Gram estimate gives the protected
+square-prefix criterion. -/
 theorem squarePrefixEnergyBounded_of_centeredDistinguishedPrimeGlobalGram
     {x : ℕ → SignedPrimeHitState → ℂ}
     (hrecon : CenteredDistinguishedPrimeMertensReconstruction x)
@@ -428,15 +422,13 @@ theorem squarePrefixEnergyBounded_of_centeredDistinguishedPrimeGlobalGram
   intro n
   by_cases hn : n = 0
   · subst n
-    simp [squarePrefixMertens, squarePrefixEndpoint, mertensSummatory]
+    simpa [squarePrefixMertens, squarePrefixEndpoint, mertensSummatory] using hC
   · have hn1 : 1 ≤ n := Nat.one_le_iff_ne_zero.mpr hn
     have hR : 2 ≤ n + 1 := by omega
     rw [← hrecon.energy_eq_squarePrefix n hn1]
     exact hbound (n + 1) hR
 
-/-- Protected terminal: exact physical reconstruction plus the signed global
-cross-`q` Gram bound implies Mathlib's Riemann hypothesis through the existing
-square-prefix and Mertens continuation chain. -/
+/-- Protected terminal through the existing square-prefix and Mertens chain. -/
 theorem riemannHypothesis_of_centeredDistinguishedPrimeGlobalGram
     {x : ℕ → SignedPrimeHitState → ℂ}
     (hrecon : CenteredDistinguishedPrimeMertensReconstruction x)
