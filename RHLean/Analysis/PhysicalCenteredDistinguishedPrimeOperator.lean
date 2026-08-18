@@ -160,9 +160,6 @@ theorem RestrictedPrimeTransitionOperator.activeSectorCentered_coeff_eq
           A.inactiveToActive t -
             restrictedPrimeActiveDestinationMean A.coeff none
       congr 1
-      unfold RestrictedPrimeTransitionOperator.activeDestinationMean
-        restrictedPrimeActiveDestinationMean
-        restrictedPrimeActiveDestinationSum
   · rcases t with _ | t
     · rfl
     · change
