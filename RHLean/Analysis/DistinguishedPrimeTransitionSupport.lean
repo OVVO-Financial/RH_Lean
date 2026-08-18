@@ -643,7 +643,11 @@ def complexOfRealPair (p : ComplexRealPair) : ℂ :=
 
 @[simp] theorem complexOfRealPair_complexRealPair (z : ℂ) :
     complexOfRealPair (complexRealPair z) = z := by
-  ext <;> simp [complexOfRealPair, complexRealPair] <;> ring
+  apply Complex.ext
+  · simp [complexOfRealPair, complexRealPair]
+    ring
+  · simp [complexOfRealPair, complexRealPair]
+    ring
 
 @[simp] theorem complexRealPair_complexOfRealPair (p : ComplexRealPair) :
     complexRealPair (complexOfRealPair p) = p := by
@@ -662,11 +666,13 @@ theorem complexRealPairEnergy_complexRealPair (z : ℂ) :
   unfold complexRealPairEnergy complexRealPair
   ring
 
+open ComplexConjugate
+
 /-- Complex conjugation is coordinate swap in real-pair coordinates. -/
 @[simp] theorem complexRealPair_conj (z : ℂ) :
-    complexRealPair (Complex.conj z) =
+    complexRealPair (conj z) =
       ((complexRealPair z).2, (complexRealPair z).1) := by
-  ext <;> simp [complexRealPair] <;> ring
+  ext <;> simp [complexRealPair]
 
 /-- Componentwise pair addition. -/
 def complexRealPairAdd (p q : ComplexRealPair) : ComplexRealPair :=
@@ -737,18 +743,17 @@ def restrictedPrimeRealPairOutputEnergy
     restrictedPrimeRealPairInactive
         (complexRealPair a) beta (complexRealPair u) (complexRealPair v) =
       complexRealPair (a * u + (beta : ℂ) * v) := by
-  simp [restrictedPrimeRealPairInactive]
+  rw [complexRealPair_add, complexRealPair_mul a u,
+    complexRealPair_real_mul beta v]
+  rfl
 
 /-- Exact scaling relation for the reduced input energy. -/
 theorem restrictedPrimeRealPairInputEnergy_complexRealPair
     (r : ℝ) (u v : ℂ) :
     restrictedPrimeRealPairInputEnergy r (complexRealPair u) (complexRealPair v) =
       2 * restrictedPrimeTwoScalarInputEnergy r u v := by
-  rw [show complexRealPairEnergy (complexRealPair u) = 2 * ‖u‖ ^ 2 by
-        exact complexRealPairEnergy_complexRealPair u,
-      show complexRealPairEnergy (complexRealPair v) = 2 * ‖v‖ ^ 2 by
-        exact complexRealPairEnergy_complexRealPair v]
   unfold restrictedPrimeRealPairInputEnergy restrictedPrimeTwoScalarInputEnergy
+  rw [complexRealPairEnergy_complexRealPair, complexRealPairEnergy_complexRealPair]
   ring
 
 /-- Exact scaling relation for the reduced output energy. -/
@@ -757,10 +762,10 @@ theorem restrictedPrimeRealPairOutputEnergy_complexRealPair
     restrictedPrimeRealPairOutputEnergy
         (complexRealPair a) beta gamma r (complexRealPair u) (complexRealPair v) =
       2 * restrictedPrimeTwoScalarOutputEnergy a beta gamma r u v := by
+  unfold restrictedPrimeRealPairOutputEnergy restrictedPrimeTwoScalarOutputEnergy
   rw [restrictedPrimeRealPairInactive_complexRealPair,
     complexRealPairEnergy_complexRealPair,
     complexRealPairEnergy_complexRealPair]
-  unfold restrictedPrimeRealPairOutputEnergy restrictedPrimeTwoScalarOutputEnergy
   ring
 
 /-- Complex form of the reduced two-scalar contraction problem. -/
