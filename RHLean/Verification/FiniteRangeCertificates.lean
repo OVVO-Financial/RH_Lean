@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.JointGramControl
+import RHLean.Verification.DistinguishedPrimeCenteringFiniteCertificates
 
 open scoped BigOperators
 
