@@ -226,26 +226,25 @@ theorem squareRootPrimeSmoothState_eq_mertensInt_sub_one
     squareRootLegalSuccessorReal_eq_neg_smoothMass hR hB] at hreal
   simpa [squareRootPrimeRootReal, squareRootSmoothMassReal] using hreal
 
-/-- The same state reconstruction written explicitly on the repository's
-square-prefix Mertens state. -/
-theorem squareRootPrimeSmoothState_eq_shiftedSquarePrefixMertens_re
+/-- The same state reconstruction, now as a literal equality in the repository's
+complex square-prefix Mertens state. -/
+theorem squareRootPrimeSmoothState_cast_eq_shiftedSquarePrefixMertens
     (R : ℕ) (hR : 2 ≤ R) :
-    squareRootPrimeRootReal R + squareRootSmoothMassReal R =
-      (RHLean.Analysis.squarePrefixMertens (R - 1)).re - 1 := by
+    ((squareRootPrimeRootReal R + squareRootSmoothMassReal R : ℝ) : ℂ) =
+      RHLean.Analysis.squarePrefixMertens (R - 1) - 1 := by
   rw [squareRootPrimeSmoothState_eq_mertensInt_sub_one R hR]
   have hR1 : 1 ≤ R := by omega
   have hend :
       RHLean.Analysis.squarePrefixEndpoint (R - 1) = squareRootEndpoint R :=
     squarePrefixEndpoint_pred_eq_squareRootEndpoint R hR1
-  have hre :
-      ((mertensSummatoryInt (squareRootEndpoint R) : ℤ) : ℝ) =
-        (RHLean.Analysis.mertensSummatory (squareRootEndpoint R)).re := by
-    have h := congrArg Complex.re
-      (mertensSummatoryInt_cast (squareRootEndpoint R))
-    simpa using h
   unfold RHLean.Analysis.squarePrefixMertens
-  rw [hend, ← hre]
-  push_cast
+  rw [hend, ← mertensSummatoryInt_cast (squareRootEndpoint R)]
+  have hcast :
+      ((((mertensSummatoryInt (squareRootEndpoint R) - 1 : ℤ) : ℝ) : ℂ)) =
+        ((mertensSummatoryInt (squareRootEndpoint R) : ℂ) - 1) := by
+    push_cast
+    ring
+  exact hcast
 
 /-- Consequently `D_R + 2 O_R` is literally the shifted square-prefix Mertens
 energy.  This is the exact root-smooth Gram requested by the empirical
