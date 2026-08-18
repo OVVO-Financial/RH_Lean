@@ -645,9 +645,7 @@ def complexOfRealPair (p : ComplexRealPair) : ℂ :=
     complexOfRealPair (complexRealPair z) = z := by
   apply Complex.ext
   · simp [complexOfRealPair, complexRealPair]
-    ring
   · simp [complexOfRealPair, complexRealPair]
-    ring
 
 @[simp] theorem complexRealPair_complexOfRealPair (p : ComplexRealPair) :
     complexRealPair (complexOfRealPair p) = p := by
@@ -672,7 +670,7 @@ open ComplexConjugate
 @[simp] theorem complexRealPair_conj (z : ℂ) :
     complexRealPair (conj z) =
       ((complexRealPair z).2, (complexRealPair z).1) := by
-  ext <;> simp [complexRealPair]
+  ext <;> simp [complexRealPair, sub_eq_add_neg]
 
 /-- Componentwise pair addition. -/
 def complexRealPairAdd (p q : ComplexRealPair) : ComplexRealPair :=
