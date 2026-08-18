@@ -21,15 +21,20 @@ to the `13` states consisting of inactive-to-inactive, active-to-inactive, and
 inactive-to-active transitions.
 
 The module also records the reciprocal-fibre cofactor bound
-`c <= floor((R^2-1)/q)` and its extreme fibre-one consequences.  No analytic
-estimate, stochastic model, or RH-scale contraction is asserted here: these are
-finite arithmetic support theorems intended to shrink the admissible operator
-class for a later restricted Gram or Lyapunov argument.
+`c <= floor((R^2-1)/q)` and its extreme fibre-one consequences.  The final
+section packages the exact `13`-entry support as a restricted operator, proves
+its active Gram block is rank-one, and derives the exact weighted Lyapunov
+identity with the signed active recombination kept inside one norm.
+
+No analytic estimate, stochastic model, or RH-scale contraction is asserted
+here: these are finite arithmetic and linear-algebra support theorems intended
+to shrink the admissible operator class for a later restricted Gram or Lyapunov
+argument.
 -/
 
 noncomputable section
 
-open scoped ArithmeticFunction.Moebius
+open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Analysis
 
@@ -290,5 +295,337 @@ theorem fibre_one_destination_middle_impossible
     False := by
   exact fibre_one_middle_threeSlot_impossible
     hqPrime hq2 hc hprod hfibre hmiddle
+
+/-! ## Exact restricted operator and Gram class -/
+
+/-- The six active slot/sign labels in a fixed distinguished-prime fibre. -/
+abbrev PrimeActiveLabel := Fin 3 × Bool
+
+/-- There are exactly six active slot/sign labels. -/
+theorem primeActiveLabel_card : Fintype.card PrimeActiveLabel = 6 := by
+  native_decide
+
+/-- Exact `13`-coefficient operator class forced by the distinguished-prime
+support theorem.  The absent active-to-active block is not a hypothesis: it is
+removed from the data structure itself. -/
+structure RestrictedPrimeTransitionOperator where
+  inactiveInactive : ℂ
+  inactiveToActive : PrimeActiveLabel → ℂ
+  activeToInactive : PrimeActiveLabel → ℂ
+
+namespace RestrictedPrimeTransitionOperator
+
+/-- Matrix coefficient of the restricted operator. -/
+def coeff (A : RestrictedPrimeTransitionOperator) :
+    SignedPrimeHitState → SignedPrimeHitState → ℂ
+  | none, none => A.inactiveInactive
+  | none, some t => A.inactiveToActive t
+  | some s, none => A.activeToInactive s
+  | some _, some _ => 0
+
+@[simp] theorem coeff_none_none (A : RestrictedPrimeTransitionOperator) :
+    A.coeff none none = A.inactiveInactive := rfl
+
+@[simp] theorem coeff_none_some
+    (A : RestrictedPrimeTransitionOperator) (t : PrimeActiveLabel) :
+    A.coeff none (some t) = A.inactiveToActive t := rfl
+
+@[simp] theorem coeff_some_none
+    (A : RestrictedPrimeTransitionOperator) (s : PrimeActiveLabel) :
+    A.coeff (some s) none = A.activeToInactive s := rfl
+
+@[simp] theorem coeff_some_some
+    (A : RestrictedPrimeTransitionOperator) (s t : PrimeActiveLabel) :
+    A.coeff (some s) (some t) = 0 := rfl
+
+/-- Every coefficient outside the arithmetic `13`-entry support vanishes. -/
+theorem coeff_eq_zero_of_not_admissible
+    (A : RestrictedPrimeTransitionOperator)
+    (s t : SignedPrimeHitState)
+    (h : ¬FixedPrimeTransitionAdmissible s t) :
+    A.coeff s t = 0 := by
+  rcases s with _ | s
+  · exact (h (Or.inl rfl)).elim
+  rcases t with _ | t
+  · exact (h (Or.inr rfl)).elim
+  rfl
+
+/-- A raw kernel has the distinguished-prime restricted support exactly when its
+active-to-active block vanishes. -/
+def IsRestrictedPrimeKernel
+    (K : SignedPrimeHitState → SignedPrimeHitState → ℂ) : Prop :=
+  ∀ s t : PrimeActiveLabel, K (some s) (some t) = 0
+
+/-- Package any raw kernel into its three surviving coefficient families. -/
+def ofKernel
+    (K : SignedPrimeHitState → SignedPrimeHitState → ℂ) :
+    RestrictedPrimeTransitionOperator where
+  inactiveInactive := K none none
+  inactiveToActive := fun t => K none (some t)
+  activeToInactive := fun s => K (some s) none
+
+/-- The restricted structure represents every raw kernel with the certified
+support, coefficient-for-coefficient. -/
+theorem coeff_ofKernel_eq
+    (K : SignedPrimeHitState → SignedPrimeHitState → ℂ)
+    (hK : IsRestrictedPrimeKernel K)
+    (s t : SignedPrimeHitState) :
+    (ofKernel K).coeff s t = K s t := by
+  rcases s with _ | s
+  · rcases t with _ | t <;> rfl
+  rcases t with _ | t
+  · rfl
+  · exact (hK s t).symm
+
+/-- Signed active input recombination feeding the unique inactive output. -/
+def activeInputForm
+    (A : RestrictedPrimeTransitionOperator)
+    (x : SignedPrimeHitState → ℂ) : ℂ :=
+  ∑ t : PrimeActiveLabel, A.inactiveToActive t * x (some t)
+
+/-- Squared coefficient energy feeding the six active outputs from the unique
+inactive input. -/
+def activeOutputEnergy (A : RestrictedPrimeTransitionOperator) : ℝ :=
+  ∑ s : PrimeActiveLabel, ‖A.activeToInactive s‖ ^ 2
+
+/-- Exact action of the restricted operator.  All active input coordinates are
+recombined before the norm at the inactive output. -/
+def action
+    (A : RestrictedPrimeTransitionOperator)
+    (x : SignedPrimeHitState → ℂ) : SignedPrimeHitState → ℂ
+  | none => A.inactiveInactive * x none + A.activeInputForm x
+  | some s => A.activeToInactive s * x none
+
+@[simp] theorem action_none
+    (A : RestrictedPrimeTransitionOperator)
+    (x : SignedPrimeHitState → ℂ) :
+    A.action x none = A.inactiveInactive * x none + A.activeInputForm x := rfl
+
+@[simp] theorem action_some
+    (A : RestrictedPrimeTransitionOperator)
+    (x : SignedPrimeHitState → ℂ)
+    (s : PrimeActiveLabel) :
+    A.action x (some s) = A.activeToInactive s * x none := rfl
+
+/-- Exact active-output energy.  Because the active-to-active block is zero, all
+six active outputs depend on the same scalar inactive input. -/
+theorem sum_norm_action_active_sq
+    (A : RestrictedPrimeTransitionOperator)
+    (x : SignedPrimeHitState → ℂ) :
+    (∑ s : PrimeActiveLabel, ‖A.action x (some s)‖ ^ 2) =
+      ‖x none‖ ^ 2 * A.activeOutputEnergy := by
+  calc
+    (∑ s : PrimeActiveLabel, ‖A.action x (some s)‖ ^ 2) =
+        ∑ s : PrimeActiveLabel,
+          ‖A.activeToInactive s‖ ^ 2 * ‖x none‖ ^ 2 := by
+      apply Finset.sum_congr rfl
+      intro s hs
+      simp [mul_pow]
+    _ = (∑ s : PrimeActiveLabel, ‖A.activeToInactive s‖ ^ 2) *
+        ‖x none‖ ^ 2 := by
+      rw [Finset.sum_mul]
+    _ = ‖x none‖ ^ 2 * A.activeOutputEnergy := by
+      unfold activeOutputEnergy
+      ring
+
+end RestrictedPrimeTransitionOperator
+
+/-- Nonnegative weights for the inactive scalar and the six active coordinates. -/
+structure RestrictedPrimeLyapunovWeights where
+  inactive : ℝ
+  active : ℝ
+  inactive_nonneg : 0 ≤ inactive
+  active_nonneg : 0 ≤ active
+
+/-- Weighted energy on the certified seven-state fixed-prime space. -/
+def restrictedPrimeLyapunov
+    (w : RestrictedPrimeLyapunovWeights)
+    (x : SignedPrimeHitState → ℂ) : ℝ :=
+  w.inactive * ‖x none‖ ^ 2 +
+    w.active * ∑ s : PrimeActiveLabel, ‖x (some s)‖ ^ 2
+
+/-- The restricted Lyapunov energy is nonnegative. -/
+theorem restrictedPrimeLyapunov_nonneg
+    (w : RestrictedPrimeLyapunovWeights)
+    (x : SignedPrimeHitState → ℂ) :
+    0 ≤ restrictedPrimeLyapunov w x := by
+  unfold restrictedPrimeLyapunov
+  apply add_nonneg
+  · exact mul_nonneg w.inactive_nonneg (sq_nonneg _)
+  · exact mul_nonneg w.active_nonneg (Finset.sum_nonneg fun _ _ => sq_nonneg _)
+
+/-- **Exact restricted Lyapunov identity.**  The only active-input interaction is
+its fully signed linear form feeding the inactive output; the active outputs
+carry only the inactive input.  No channelwise absolute values are introduced. -/
+theorem restrictedPrimeLyapunov_action_exact
+    (w : RestrictedPrimeLyapunovWeights)
+    (A : RestrictedPrimeTransitionOperator)
+    (x : SignedPrimeHitState → ℂ) :
+    restrictedPrimeLyapunov w (A.action x) =
+      w.inactive *
+          ‖A.inactiveInactive * x none + A.activeInputForm x‖ ^ 2 +
+        w.active *
+          (‖x none‖ ^ 2 * A.activeOutputEnergy) := by
+  unfold restrictedPrimeLyapunov
+  rw [RestrictedPrimeTransitionOperator.sum_norm_action_active_sq]
+  rfl
+
+/-- The still-open analytic obligation on this exact sparse class. -/
+def RestrictedPrimeLyapunovContraction
+    (w : RestrictedPrimeLyapunovWeights)
+    (A : RestrictedPrimeTransitionOperator)
+    (rho : ℝ) : Prop :=
+  ∀ x : SignedPrimeHitState → ℂ,
+    restrictedPrimeLyapunov w (A.action x) ≤
+      rho * restrictedPrimeLyapunov w x
+
+/-- The contraction problem is exactly the reduced signed inequality exposed by
+the sparse action formula.  This theorem introduces no estimate. -/
+theorem restrictedPrimeLyapunovContraction_iff_reduced
+    (w : RestrictedPrimeLyapunovWeights)
+    (A : RestrictedPrimeTransitionOperator)
+    (rho : ℝ) :
+    RestrictedPrimeLyapunovContraction w A rho ↔
+      ∀ x : SignedPrimeHitState → ℂ,
+        w.inactive *
+            ‖A.inactiveInactive * x none + A.activeInputForm x‖ ^ 2 +
+          w.active *
+            (‖x none‖ ^ 2 * A.activeOutputEnergy) ≤
+          rho * restrictedPrimeLyapunov w x := by
+  unfold RestrictedPrimeLyapunovContraction
+  constructor
+  · intro h x
+    rw [← restrictedPrimeLyapunov_action_exact w A x]
+    exact h x
+  · intro h x
+    rw [restrictedPrimeLyapunov_action_exact]
+    exact h x
+
+/-- Finite Hermitian pairing written in the inactive/active decomposition. -/
+def restrictedPrimeStateInner
+    (x y : SignedPrimeHitState → ℂ) : ℂ :=
+  star (x none) * y none +
+    ∑ s : PrimeActiveLabel, star (x (some s)) * y (some s)
+
+/-- Basis vector of one active slot/sign coordinate. -/
+def restrictedPrimeActiveBasis
+    (i : PrimeActiveLabel) : SignedPrimeHitState → ℂ
+  | none => 0
+  | some j => if j = i then 1 else 0
+
+/-- Basis vector of the unique inactive coordinate. -/
+def restrictedPrimeInactiveBasis : SignedPrimeHitState → ℂ
+  | none => 1
+  | some _ => 0
+
+@[simp] theorem action_restrictedPrimeActiveBasis_none
+    (A : RestrictedPrimeTransitionOperator)
+    (i : PrimeActiveLabel) :
+    A.action (restrictedPrimeActiveBasis i) none = A.inactiveToActive i := by
+  classical
+  simp [RestrictedPrimeTransitionOperator.action,
+    RestrictedPrimeTransitionOperator.activeInputForm,
+    restrictedPrimeActiveBasis]
+
+@[simp] theorem action_restrictedPrimeActiveBasis_some
+    (A : RestrictedPrimeTransitionOperator)
+    (i s : PrimeActiveLabel) :
+    A.action (restrictedPrimeActiveBasis i) (some s) = 0 := by
+  simp [RestrictedPrimeTransitionOperator.action, restrictedPrimeActiveBasis]
+
+@[simp] theorem action_restrictedPrimeInactiveBasis_none
+    (A : RestrictedPrimeTransitionOperator) :
+    A.action restrictedPrimeInactiveBasis none = A.inactiveInactive := by
+  classical
+  simp [RestrictedPrimeTransitionOperator.action,
+    RestrictedPrimeTransitionOperator.activeInputForm,
+    restrictedPrimeInactiveBasis]
+
+@[simp] theorem action_restrictedPrimeInactiveBasis_some
+    (A : RestrictedPrimeTransitionOperator)
+    (s : PrimeActiveLabel) :
+    A.action restrictedPrimeInactiveBasis (some s) = A.activeToInactive s := by
+  simp [RestrictedPrimeTransitionOperator.action, restrictedPrimeInactiveBasis]
+
+/-- Active-active Gram entry of the restricted operator. -/
+def restrictedPrimeActiveGramEntry
+    (A : RestrictedPrimeTransitionOperator)
+    (i j : PrimeActiveLabel) : ℂ :=
+  restrictedPrimeStateInner
+    (A.action (restrictedPrimeActiveBasis i))
+    (A.action (restrictedPrimeActiveBasis j))
+
+/-- **Rank-one active Gram block.**  All six-by-six active Gram interactions
+factor through the single inactive output coordinate. -/
+theorem restrictedPrimeActiveGramEntry_eq_outer
+    (A : RestrictedPrimeTransitionOperator)
+    (i j : PrimeActiveLabel) :
+    restrictedPrimeActiveGramEntry A i j =
+      star (A.inactiveToActive i) * A.inactiveToActive j := by
+  unfold restrictedPrimeActiveGramEntry restrictedPrimeStateInner
+  rw [action_restrictedPrimeActiveBasis_none A i,
+    action_restrictedPrimeActiveBasis_none A j]
+  simp only [action_restrictedPrimeActiveBasis_some, star_zero, zero_mul,
+    Finset.sum_const_zero, add_zero]
+
+/-- Inactive-to-active Gram entry. -/
+def restrictedPrimeInactiveActiveGramEntry
+    (A : RestrictedPrimeTransitionOperator)
+    (j : PrimeActiveLabel) : ℂ :=
+  restrictedPrimeStateInner
+    (A.action restrictedPrimeInactiveBasis)
+    (A.action (restrictedPrimeActiveBasis j))
+
+/-- Every inactive-to-active Gram entry also factors through the inactive scalar
+coefficient. -/
+theorem restrictedPrimeInactiveActiveGramEntry_eq
+    (A : RestrictedPrimeTransitionOperator)
+    (j : PrimeActiveLabel) :
+    restrictedPrimeInactiveActiveGramEntry A j =
+      star A.inactiveInactive * A.inactiveToActive j := by
+  unfold restrictedPrimeInactiveActiveGramEntry restrictedPrimeStateInner
+  rw [action_restrictedPrimeInactiveBasis_none,
+    action_restrictedPrimeActiveBasis_none A j]
+  simp only [action_restrictedPrimeActiveBasis_some, mul_zero,
+    Finset.sum_const_zero, add_zero]
+
+/-- Active-to-inactive Gram entry. -/
+def restrictedPrimeActiveInactiveGramEntry
+    (A : RestrictedPrimeTransitionOperator)
+    (i : PrimeActiveLabel) : ℂ :=
+  restrictedPrimeStateInner
+    (A.action (restrictedPrimeActiveBasis i))
+    (A.action restrictedPrimeInactiveBasis)
+
+/-- Adjoint cross block of the restricted Gram form. -/
+theorem restrictedPrimeActiveInactiveGramEntry_eq
+    (A : RestrictedPrimeTransitionOperator)
+    (i : PrimeActiveLabel) :
+    restrictedPrimeActiveInactiveGramEntry A i =
+      star (A.inactiveToActive i) * A.inactiveInactive := by
+  unfold restrictedPrimeActiveInactiveGramEntry restrictedPrimeStateInner
+  rw [action_restrictedPrimeActiveBasis_none A i,
+    action_restrictedPrimeInactiveBasis_none]
+  simp only [action_restrictedPrimeActiveBasis_some, star_zero, zero_mul,
+    Finset.sum_const_zero, add_zero]
+
+/-- Inactive-inactive Gram entry. -/
+def restrictedPrimeInactiveGramEntry
+    (A : RestrictedPrimeTransitionOperator) : ℂ :=
+  restrictedPrimeStateInner
+    (A.action restrictedPrimeInactiveBasis)
+    (A.action restrictedPrimeInactiveBasis)
+
+/-- Exact inactive Gram entry: the scalar self-term plus all six outgoing
+inactive-to-active coefficient squares, with no other terms. -/
+theorem restrictedPrimeInactiveGramEntry_eq
+    (A : RestrictedPrimeTransitionOperator) :
+    restrictedPrimeInactiveGramEntry A =
+      star A.inactiveInactive * A.inactiveInactive +
+        ∑ s : PrimeActiveLabel,
+          star (A.activeToInactive s) * A.activeToInactive s := by
+  unfold restrictedPrimeInactiveGramEntry restrictedPrimeStateInner
+  rw [action_restrictedPrimeInactiveBasis_none]
+  simp only [action_restrictedPrimeInactiveBasis_some]
 
 end RHLean.Analysis
