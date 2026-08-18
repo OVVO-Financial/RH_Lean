@@ -135,6 +135,7 @@ import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.OutsidePrimeDeletionMask
 import RHLean.Analysis.OutsidePrimeLeastSquareEndpoint
 import RHLean.Analysis.PRoughSquarePrefixEnergy
+import RHLean.Analysis.PhysicalCenteredDistinguishedPrimeOperator
 import RHLean.Analysis.PhysicalDegreeOneHigherSquareRecurrences
 import RHLean.Analysis.PhysicalDegreeOneLeastSquareChannels
 import RHLean.Analysis.PhysicalDegreeOneMixingConjecture
