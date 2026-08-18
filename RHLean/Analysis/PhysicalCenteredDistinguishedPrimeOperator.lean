@@ -163,13 +163,13 @@ theorem RestrictedPrimeTransitionOperator.activeSectorCentered_coeff_eq
       unfold RestrictedPrimeTransitionOperator.activeDestinationMean
         restrictedPrimeActiveDestinationMean
         restrictedPrimeActiveDestinationSum
-      rfl
   · rcases t with _ | t
     · rfl
     · change
         0 = A.coeff (some s) (some t) -
           restrictedPrimeActiveDestinationMean A.coeff (some s)
       rw [hA s t, restrictedPrimeActiveDestinationMean_some_eq_zero A.coeff hA s]
+      ring
 
 /-- The six centered inactive-to-active coefficients have exactly zero sum. -/
 theorem RestrictedPrimeTransitionOperator.sum_activeSectorCentered_inactiveToActive_eq_zero
