@@ -504,7 +504,7 @@ one of the physical three-slot cells retained by the carrier. The proof uses the
 fact that a square endpoint minus one has residue `0` or `3` modulo `4`. -/
 private theorem exists_physical_threeSlot_of_le_endpoint_of_not_four_dvd
     {R n : ℕ}
-    (hR : 2 ≤ R) (hnPos : 0 < n)
+    (hR : 2 ≤ R) (_hnPos : 0 < n)
     (hnX : n ≤ squareRootEndpoint R)
     (h4 : ¬4 ∣ n) :
     ∃ k ∈ Finset.range (physicalDistinguishedPrimeCarrierLength R + 1),
