@@ -97,7 +97,7 @@ theorem physicalSquareCompleteCRTCells_eq_empty_of_period_gt
     (P : Finset ℕ) (R : ℕ) (h : 2 * R + 2 < finitePrimeCRTPeriod P) :
     physicalSquareCompleteCRTCells P R = ∅ := by
   classical
-  rw [Finset.eq_empty_iff_forall_not_mem]
+  rw [Finset.eq_empty_iff_forall_notMem]
   intro k hk
   have hsub := finitePrimeCRTOrbit_subset_squareBlock_of_mem_complete hk
   have hle := Finset.card_le_card hsub
