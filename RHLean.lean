@@ -128,6 +128,7 @@ import RHLean.Analysis.NativePNTSummatorySelberg
 import RHLean.Analysis.NativePNTTailAffineEnvelope
 import RHLean.Analysis.NativePNTTailOptimalIntercept
 import RHLean.Analysis.NativePNTTransfer
+import RHLean.Analysis.NearestSquareEndpointDomination
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.OutsidePrimeDeletionMask
@@ -226,7 +227,6 @@ import RHLean.Analysis.SquareBlockDeathProcess
 import RHLean.Analysis.SquareBlockSurvivorBridge
 import RHLean.Analysis.SquarePrefixHeightPartition
 import RHLean.Analysis.SquarePrefixMertensBridge
-import RHLean.Analysis.NearestSquareEndpointDomination
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootPositiveSmoothCollapse
 import RHLean.Analysis.SquareRootSmoothRenewalInstantiation
