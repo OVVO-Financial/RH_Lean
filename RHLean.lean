@@ -211,6 +211,7 @@ import RHLean.Analysis.PrimeWheelRawShellConstancy
 import RHLean.Analysis.PrimeWheelRawUnitOrbit
 import RHLean.Analysis.PrimeWheelRecoveredMertensCriterion
 import RHLean.Analysis.PrimeWheelSmoothConductorMobiusReindex
+import RHLean.Analysis.PrimeWheelSquareEndpointDomination
 import RHLean.Analysis.PrimeWheelTorusRealization
 import RHLean.Analysis.PrimorialWheelExplicitCriterion
 import RHLean.Analysis.PrimorialWheelHarmonicReduction
