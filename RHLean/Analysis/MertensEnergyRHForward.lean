@@ -379,6 +379,139 @@ theorem globalCenteredDistinguishedPrimeEnergyAt_eq_crossQGram
     globalCenteredDistinguishedPrimeDiagonalEnergyAt_eq_crossQ,
     globalCenteredDistinguishedPrimeOffDiagonalGramAt_eq_crossQ]
 
+/-! ## First global signed cross-prime Gram bound -/
+
+/-- Cauchy is applied only after one complete scalar coordinate has been summed
+over the whole distinguished-prime range.  Thus this estimate never replaces
+the signed `q,q'` Gram by a sum of absolute pairwise Gram entries. -/
+private theorem complexHeightShellEnergy_le_card_mul_diagonal
+    (shell : ℕ → ℂ) (n : ℕ) :
+    ‖heightShellSum shell n‖ ^ 2 ≤
+      (n : ℝ) * heightShellDiagonalEnergy shell n := by
+  unfold heightShellSum heightShellDiagonalEnergy
+  have hnorm :
+      ‖∑ i ∈ Finset.range n, shell i‖ ≤
+        ∑ i ∈ Finset.range n, ‖shell i‖ := by
+    exact norm_sum_le (Finset.range n) shell
+  have hsq :
+      ‖∑ i ∈ Finset.range n, shell i‖ ^ 2 ≤
+        (∑ i ∈ Finset.range n, ‖shell i‖) ^ 2 :=
+    pow_le_pow_left₀ (norm_nonneg _) hnorm 2
+  have hcauchy :=
+    Finset.sum_mul_sq_le_sq_mul_sq
+      (Finset.range n) (fun _ => (1 : ℝ)) (fun i => ‖shell i‖)
+  have hcauchy' :
+      (∑ i ∈ Finset.range n, ‖shell i‖) ^ 2 ≤
+        (n : ℝ) * ∑ i ∈ Finset.range n, ‖shell i‖ ^ 2 := by
+    simpa using hcauchy
+  exact hsq.trans hcauchy'
+
+/-- **Unconditional global signed Gram baseline.**  The complete `q` family is
+assembled first in every one of the seven physical output coordinates.  Only
+then is finite Cauchy applied.  Consequently all cross-prime signs survive up
+to the single global norm, and the exact price of a sign-blind fallback is the
+number of natural prime slots, `R^2` at a complete-square endpoint. -/
+theorem globalCenteredDistinguishedPrimeEnergyAt_le_range_mul_diagonal
+    (R : ℕ) (x : SignedPrimeHitState → ℂ) :
+    globalCenteredDistinguishedPrimeEnergyAt R x ≤
+      ((squareRootEndpoint R + 1 : ℕ) : ℝ) *
+        globalCenteredDistinguishedPrimeDiagonalEnergyAt R x := by
+  unfold globalCenteredDistinguishedPrimeEnergyAt
+    globalCenteredDistinguishedPrimeAction
+    globalCenteredDistinguishedPrimeActionCoordinate
+    globalCenteredDistinguishedPrimeDiagonalEnergyAt
+  have hnone :=
+    complexHeightShellEnergy_le_card_mul_diagonal
+      (centeredDistinguishedPrimeActionCoordinateShell R x none)
+      (squareRootEndpoint R + 1)
+  have hactive :
+      (∑ s : PrimeActiveLabel,
+          ‖heightShellSum
+            (centeredDistinguishedPrimeActionCoordinateShell R x (some s))
+            (squareRootEndpoint R + 1)‖ ^ 2) ≤
+        ∑ s : PrimeActiveLabel,
+          ((squareRootEndpoint R + 1 : ℕ) : ℝ) *
+            heightShellDiagonalEnergy
+              (centeredDistinguishedPrimeActionCoordinateShell R x (some s))
+              (squareRootEndpoint R + 1) := by
+    apply Finset.sum_le_sum
+    intro s _hs
+    exact complexHeightShellEnergy_le_card_mul_diagonal
+      (centeredDistinguishedPrimeActionCoordinateShell R x (some s))
+      (squareRootEndpoint R + 1)
+  calc
+    ‖heightShellSum
+        (centeredDistinguishedPrimeActionCoordinateShell R x none)
+        (squareRootEndpoint R + 1)‖ ^ 2 +
+        ∑ s : PrimeActiveLabel,
+          ‖heightShellSum
+            (centeredDistinguishedPrimeActionCoordinateShell R x (some s))
+            (squareRootEndpoint R + 1)‖ ^ 2 ≤
+      ((squareRootEndpoint R + 1 : ℕ) : ℝ) *
+          heightShellDiagonalEnergy
+            (centeredDistinguishedPrimeActionCoordinateShell R x none)
+            (squareRootEndpoint R + 1) +
+        ∑ s : PrimeActiveLabel,
+          ((squareRootEndpoint R + 1 : ℕ) : ℝ) *
+            heightShellDiagonalEnergy
+              (centeredDistinguishedPrimeActionCoordinateShell R x (some s))
+              (squareRootEndpoint R + 1) :=
+        add_le_add hnone hactive
+    _ = ((squareRootEndpoint R + 1 : ℕ) : ℝ) *
+        (heightShellDiagonalEnergy
+            (centeredDistinguishedPrimeActionCoordinateShell R x none)
+            (squareRootEndpoint R + 1) +
+          ∑ s : PrimeActiveLabel,
+            heightShellDiagonalEnergy
+              (centeredDistinguishedPrimeActionCoordinateShell R x (some s))
+              (squareRootEndpoint R + 1)) := by
+      rw [← Finset.mul_sum]
+      ring
+
+/-- At every nonzero square scale the natural shell count is exactly `R^2`, so
+the preceding baseline exposes an exact quadratic Cauchy loss.  Any proof of the
+critical `R^(2+epsilon)` theorem must recover essentially this whole factor from
+the signed cross-`q` term rather than paying it. -/
+theorem globalCenteredDistinguishedPrimeEnergyAt_le_square_mul_diagonal
+    (R : ℕ) (hR : 1 ≤ R) (x : SignedPrimeHitState → ℂ) :
+    globalCenteredDistinguishedPrimeEnergyAt R x ≤
+      (R : ℝ) ^ 2 * globalCenteredDistinguishedPrimeDiagonalEnergyAt R x := by
+  have hbound := globalCenteredDistinguishedPrimeEnergyAt_le_range_mul_diagonal R x
+  have hendpoint : squareRootEndpoint R + 1 = R ^ 2 := by
+    unfold squareRootEndpoint
+    omega
+  simpa [hendpoint] using hbound
+
+/-- The same result written directly on the already-formalized exact signed
+cross-prime Gram.  No absolute value appears on the off-diagonal sum. -/
+theorem globalCenteredDistinguishedPrimeCrossQGram_le_square_mul_diagonal
+    (R : ℕ) (hR : 1 ≤ R) (x : SignedPrimeHitState → ℂ) :
+    (∑ q ∈ Finset.range (squareRootEndpoint R + 1),
+        (centeredCrossQGram R q q x).re) +
+      2 *
+        (∑ q' ∈ Finset.range (squareRootEndpoint R + 1),
+          ∑ q ∈ Finset.range q',
+            (centeredCrossQGram R q q' x).re) ≤
+      (R : ℝ) ^ 2 *
+        (∑ q ∈ Finset.range (squareRootEndpoint R + 1),
+          (centeredCrossQGram R q q x).re) := by
+  calc
+    (∑ q ∈ Finset.range (squareRootEndpoint R + 1),
+        (centeredCrossQGram R q q x).re) +
+      2 *
+        (∑ q' ∈ Finset.range (squareRootEndpoint R + 1),
+          ∑ q ∈ Finset.range q',
+            (centeredCrossQGram R q q' x).re) =
+      globalCenteredDistinguishedPrimeEnergyAt R x :=
+        (globalCenteredDistinguishedPrimeEnergyAt_eq_crossQGram R x).symm
+    _ ≤ (R : ℝ) ^ 2 *
+        globalCenteredDistinguishedPrimeDiagonalEnergyAt R x :=
+      globalCenteredDistinguishedPrimeEnergyAt_le_square_mul_diagonal R hR x
+    _ = (R : ℝ) ^ 2 *
+        (∑ q ∈ Finset.range (squareRootEndpoint R + 1),
+          (centeredCrossQGram R q q x).re) := by
+      rw [globalCenteredDistinguishedPrimeDiagonalEnergyAt_eq_crossQ]
+
 /-- Open analytic proposition at the critical square-root exponent. -/
 def CenteredDistinguishedPrimeGlobalGramBoundedStatement
     (x : ℕ → SignedPrimeHitState → ℂ) : Prop :=
