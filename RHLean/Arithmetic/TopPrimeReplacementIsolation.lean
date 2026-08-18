@@ -32,11 +32,11 @@ private theorem lt_two_mul_of_half_lt
     X < 2 * q := by
   omega
 
-/-- Any prime multiplied by a top prime crosses the square endpoint. -/
+/-- Any prime multiplied by a top coordinate crosses the square endpoint.  The
+geometric obstruction only needs the top-threshold hypothesis on `q`; primality
+of `q` is part of the transport application rather than this inequality. -/
 theorem topPrimeAtom_mul_prime_gt_endpoint
     {R q : ℕ}
-    (hR : 2 ≤ R)
-    (hq : Nat.Prime q)
     (hq_top : (R ^ 2 - 1) / 2 < q) :
     ∀ p : ℕ, Nat.Prime p → q * p > R ^ 2 - 1 := by
   intro p hp
@@ -62,14 +62,12 @@ theorem topPrimeSingleton_primeProductAdmissible
 while remaining in the prime-product complex. -/
 theorem topPrimeSingleton_insert_prime_not_admissible
     {S : Finset ℕ} {R q p : ℕ}
-    (hR : 2 ≤ R)
-    (hq : Nat.Prime q)
     (hq_top : (R ^ 2 - 1) / 2 < q)
     (hp : Nat.Prime p)
     (hpq : p ≠ q) :
     ¬ primeProductAdmissible S (R ^ 2 - 1) (insert p {q}) := by
   intro hadm
-  have hgt := topPrimeAtom_mul_prime_gt_endpoint hR hq hq_top p hp
+  have hgt := topPrimeAtom_mul_prime_gt_endpoint hq_top p hp
   have hprod : primeFaceProduct (insert p {q}) = q * p := by
     simp [primeFaceProduct, hpq, Nat.mul_comm]
   have hle : primeFaceProduct (insert p {q}) ≤ R ^ 2 - 1 := hadm.2
@@ -89,8 +87,6 @@ the empty face.  Upward toggles cross the endpoint; a downward toggle from a
 singleton necessarily removes its sole coordinate. -/
 theorem topPrimeSingleton_admissible_toggle_neighbor_eq_empty
     {S : Finset ℕ} {R q : ℕ} {v : Finset ℕ}
-    (hR : 2 ≤ R)
-    (hq : Nat.Prime q)
     (hq_top : (R ^ 2 - 1) / 2 < q)
     (hv : primeProductAdmissible S (R ^ 2 - 1) v)
     (htoggle : PrimeProductSinglePrimeToggle {q} v) :
@@ -102,7 +98,7 @@ theorem topPrimeSingleton_admissible_toggle_neighbor_eq_empty
       simpa using hpnot
     exfalso
     exact (topPrimeSingleton_insert_prime_not_admissible
-      (S := S) hR hq hq_top hp hpq) hv
+      (S := S) hq_top hp hpq) hv
   · rcases hdown with ⟨hpnot, heq⟩
     have hcard : ({q} : Finset ℕ).card = (insert p v).card :=
       congrArg Finset.card heq
@@ -118,9 +114,6 @@ one-prime-toggle neighbours by an injective map.  Both images would have to be
 the unique common lower neighbour, the empty face. -/
 theorem no_injective_singlePrimeToggle_pairing_of_two_topPrimes
     {S : Finset ℕ} {R q₁ q₂ : ℕ}
-    (hR : 2 ≤ R)
-    (hq₁ : Nat.Prime q₁)
-    (hq₂ : Nat.Prime q₂)
     (hq₁_top : (R ^ 2 - 1) / 2 < q₁)
     (hq₂_top : (R ^ 2 - 1) / 2 < q₂)
     (hne : q₁ ≠ q₂)
@@ -133,10 +126,10 @@ theorem no_injective_singlePrimeToggle_pairing_of_two_topPrimes
   intro hinj
   have hf₁empty : f {q₁} = ∅ :=
     topPrimeSingleton_admissible_toggle_neighbor_eq_empty
-      hR hq₁ hq₁_top hf₁adm hf₁toggle
+      hq₁_top hf₁adm hf₁toggle
   have hf₂empty : f {q₂} = ∅ :=
     topPrimeSingleton_admissible_toggle_neighbor_eq_empty
-      hR hq₂ hq₂_top hf₂adm hf₂toggle
+      hq₂_top hf₂adm hf₂toggle
   have himage : f {q₁} = f {q₂} := by
     rw [hf₁empty, hf₂empty]
   have hsingle : ({q₁} : Finset ℕ) = {q₂} := hinj himage
@@ -149,9 +142,6 @@ through admissible one-prime toggles.  This is the precise finite obstruction
 forcing any wholesale treatment of the top-prime block to be nonlocal. -/
 theorem no_singlePrimeToggle_involution_pairs_two_topPrimes
     {S : Finset ℕ} {R q₁ q₂ : ℕ}
-    (hR : 2 ≤ R)
-    (hq₁ : Nat.Prime q₁)
-    (hq₂ : Nat.Prime q₂)
     (hq₁_top : (R ^ 2 - 1) / 2 < q₁)
     (hq₂_top : (R ^ 2 - 1) / 2 < q₂)
     (hne : q₁ ≠ q₂)
@@ -170,7 +160,6 @@ theorem no_singlePrimeToggle_involution_pairs_two_topPrimes
       _ = v := hinv v
   exact
     (no_injective_singlePrimeToggle_pairing_of_two_topPrimes
-      hR hq₁ hq₂ hq₁_top hq₂_top hne f
-      hf₁adm hf₂adm hf₁toggle hf₂toggle) hinj
+      hq₁_top hq₂_top hne f hf₁adm hf₂adm hf₁toggle hf₂toggle) hinj
 
 end RHLean.Arithmetic
