@@ -24,6 +24,14 @@ This is the finite combinatorial obstruction needed before any recursive
 nonlocal prime-replacement construction.  No magnitude estimate is used.
 -/
 
+/-- A cutoff lying strictly below twice `q` is the exact arithmetic content of
+`X / 2 < q`.  Keeping this generic prevents the square endpoint expression from
+obscuring the Presburger division step. -/
+private theorem lt_two_mul_of_half_lt
+    {X q : ℕ} (h : X / 2 < q) :
+    X < 2 * q := by
+  omega
+
 /-- Any prime multiplied by a top prime crosses the square endpoint. -/
 theorem topPrimeAtom_mul_prime_gt_endpoint
     {R q : ℕ}
@@ -33,8 +41,8 @@ theorem topPrimeAtom_mul_prime_gt_endpoint
     ∀ p : ℕ, Nat.Prime p → q * p > R ^ 2 - 1 := by
   intro p hp
   have hp2 : 2 ≤ p := hp.two_le
-  have hXlt2q : R ^ 2 - 1 < 2 * q := by
-    omega
+  have hXlt2q : R ^ 2 - 1 < 2 * q :=
+    lt_two_mul_of_half_lt hq_top
   have hmul : 2 * q ≤ p * q := Nat.mul_le_mul_right q hp2
   calc
     R ^ 2 - 1 < 2 * q := hXlt2q
@@ -64,8 +72,9 @@ theorem topPrimeSingleton_insert_prime_not_admissible
   have hgt := topPrimeAtom_mul_prime_gt_endpoint hR hq hq_top p hp
   have hprod : primeFaceProduct (insert p {q}) = q * p := by
     simp [primeFaceProduct, hpq, Nat.mul_comm]
-  rw [hprod] at hadm
-  exact (Nat.not_lt_of_ge hadm.2) hgt
+  have hle : primeFaceProduct (insert p {q}) ≤ R ^ 2 - 1 := hadm.2
+  rw [hprod] at hle
+  exact (Nat.not_lt_of_ge hle) hgt
 
 /-- Two prime-product faces differ by one local prime toggle when one is obtained
 from the other by inserting a prime that was not already present.  The second
@@ -95,11 +104,13 @@ theorem topPrimeSingleton_admissible_toggle_neighbor_eq_empty
     exact (topPrimeSingleton_insert_prime_not_admissible
       (S := S) hR hq hq_top hp hpq) hv
   · rcases hdown with ⟨hpnot, heq⟩
-    have hcard := congrArg Finset.card heq
-    have hvcard : v.card = 0 := by
-      simp [hpnot] at hcard
-      omega
-    exact Finset.card_eq_zero.mp hvcard
+    have hcard : ({q} : Finset ℕ).card = (insert p v).card :=
+      congrArg Finset.card heq
+    have hcard' : 1 = v.card + 1 := by
+      simpa [hpnot] using hcard
+    have hzero : 0 = v.card :=
+      Nat.add_right_cancel (by simpa using hcard')
+    exact Finset.card_eq_zero.mp hzero.symm
 
 /-- Two distinct top-prime singleton faces cannot both be sent to admissible
 one-prime-toggle neighbours by an injective map.  Both images would have to be
