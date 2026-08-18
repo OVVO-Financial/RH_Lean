@@ -106,7 +106,7 @@ theorem restrictedPrimeRealQuadraticContraction_symmetrizingWeight
         0 < x ^ 2 + (beta / gamma) * y ^ 2 -
           ((alpha * x + beta * y) ^ 2 +
             (beta / gamma) * gamma ^ 2 * x ^ 2) :=
-      pos_of_mul_pos_left hprod hmult.le
+      pos_of_mul_pos_right hprod hmult.le
     linarith
 
 /-- **Scalar norm criterion for the real quadratic closure.**  If
@@ -124,7 +124,7 @@ theorem restrictedPrimeRealQuadraticContraction_iff_scalarNorm
       RestrictedPrimeRealQuadraticContraction ‖a‖ beta gamma r) ↔
         ‖a‖ + beta * gamma < 1 := by
   constructor
-  · rintro ⟨r, hr, hcontract⟩
+  · rintro ⟨r, _hr, hcontract⟩
     have htest := hcontract 1 gamma (Or.inl one_ne_zero)
     unfold restrictedPrimeRealQuadraticOutput
       restrictedPrimeRealQuadraticInput at htest
