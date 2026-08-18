@@ -193,6 +193,7 @@ theorem squareRootPrimeSmoothOffDiagonalGram_eq_neg_sourceLedger
     rw [squareRootRootSuccessorCrossLedger_eq_mul]
     unfold squareRootLegalRootReal squareRootLegalSuccessorReal
     push_cast
+    rfl
   rw [squareRootLegalRootReal_eq_primeMass hR hB,
     squareRootLegalSuccessorReal_eq_neg_smoothMass hR hB] at hledger
   unfold squareRootPrimeSmoothOffDiagonalGram
@@ -223,15 +224,15 @@ theorem rootSmoothSourceLedgerCoercivity_iff_globalSignedAntiAlignment :
     refine ⟨C, hC, ?_⟩
     intro R hR
     have h := hbound R hR
-    rw [← squareRootPrimeSmoothOffDiagonalGram_eq_neg_sourceLedger R hR] at h
-    linarith
+    have hcross := squareRootPrimeSmoothOffDiagonalGram_eq_neg_sourceLedger R hR
+    nlinarith
   · intro hanti ε hε
     rcases hanti ε hε with ⟨C, hC, hbound⟩
     refine ⟨C, hC, ?_⟩
     intro R hR
     have h := hbound R hR
-    rw [squareRootPrimeSmoothOffDiagonalGram_eq_neg_sourceLedger R hR] at h
-    linarith
+    have hcross := squareRootPrimeSmoothOffDiagonalGram_eq_neg_sourceLedger R hR
+    nlinarith
 
 /-- The sharp global signed anti-alignment theorem is algebraically equivalent
 to the complete root-smooth RH-scale energy bound. -/
