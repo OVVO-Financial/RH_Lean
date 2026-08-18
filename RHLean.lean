@@ -128,6 +128,7 @@ import RHLean.Analysis.NativePNTSummatorySelberg
 import RHLean.Analysis.NativePNTTailAffineEnvelope
 import RHLean.Analysis.NativePNTTailOptimalIntercept
 import RHLean.Analysis.NativePNTTransfer
+import RHLean.Analysis.NearestSquareEndpointDomination
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.OutsidePrimeDeletionMask
