@@ -1,0 +1,190 @@
+import Mathlib
+import RHLean.Analysis.MobiusRenewalTelescope
+import RHLean.Proof.SquareRootMertensEndpointAmplification
+import RHLean.Arithmetic.TopPrimeReplacementIsolation
+
+/-!
+# Recursive prime replacement at a square endpoint
+
+This module implements the first exact nonlocal replacement step forced by
+`TopPrimeReplacementIsolation`.
+
+For a square-root cutoff `R`, truncate the Möbius divisor convolution at
+`d < R`:
+
+`C_R(n) = sum_{d | n, d < R} mu(d)`.
+
+Because the full divisor Möbius sum vanishes away from `n = 1`, `C_R(n)` is
+zero for `1 < n < R`.  Applying the repository's exact Möbius renewal telescope
+at `X_R = R^2 - 1` therefore gives
+
+`M(X_R) = M(R-1) - sum_{R <= n <= X_R} C_R(n) M(floor(X_R/n))`.
+
+Every reciprocal argument on the right is strictly below `R`.  Thus the
+unmatched population is not an independent error: it is an exact signed family
+of lower-scale Mertens states.
+
+For a top prime `q > X_R/2`, the local insertion obstruction remains, but its
+replacement coefficient is now part of the complete quotient fibre
+`floor(X_R/n) = 1`, together with composite `n`.  This is the intended wholesale,
+nonlocal arena for cancellation.
+
+No absolute value is applied to an individual residual fibre in this module.
+The quantitative frontier is the weighted row energy after equal reciprocal
+arguments are recombined.
+-/
+
+noncomputable section
+
+open scoped ArithmeticFunction.Moebius BigOperators
+
+namespace RHLean.Proof
+
+/-- Möbius seed retained strictly below the square-root cutoff. -/
+def squareRootReplacementSeed (R d : ℕ) : ℂ :=
+  if d < R then (((μ d : ℤ) : ℂ)) else 0
+
+/-- Truncated divisor Möbius coefficient.  This is the complete signed
+replacement coefficient at physical index `n`, before any norm is taken. -/
+def squareRootReplacementKernel (R n : ℕ) : ℂ :=
+  ∑ d ∈ n.divisors, squareRootReplacementSeed R d
+
+/-- Below the root cutoff the truncated divisor sum is already the full Möbius
+divisor sum, hence it vanishes except at `n = 1`. -/
+theorem squareRootReplacementKernel_eq_ite_of_lt_root
+    {R n : ℕ} (hn1 : 1 ≤ n) (hnR : n < R) :
+    squareRootReplacementKernel R n = if n = 1 then 1 else 0 := by
+  have hn0 : n ≠ 0 := by omega
+  unfold squareRootReplacementKernel squareRootReplacementSeed
+  calc
+    (∑ d ∈ n.divisors,
+        if d < R then (((μ d : ℤ) : ℂ)) else 0) =
+      ∑ d ∈ n.divisors, (((μ d : ℤ) : ℂ)) := by
+        apply Finset.sum_congr rfl
+        intro d hd
+        have hddata := Nat.mem_divisors.mp hd
+        have hdn : d ≤ n := Nat.le_of_dvd (by omega) hddata.1
+        have hdR : d < R := hdn.trans_lt hnR
+        simp [hdR]
+    _ = if n = 1 then 1 else 0 :=
+      RHLean.Analysis.sum_divisors_moebius_eq_ite n
+
+/-- Summing the truncated seed through any cutoff containing `R-1` gives the
+ordinary Mertens prefix at `R-1`. -/
+theorem sum_squareRootReplacementSeed_eq_mertens_pred
+    {R X : ℕ} (hR : 2 ≤ R) (hRX : R - 1 ≤ X) :
+    (∑ d ∈ Finset.Icc 1 X, squareRootReplacementSeed R d) =
+      RHLean.Analysis.mertensSummatory (R - 1) := by
+  have hfilter :
+      (Finset.Icc 1 X).filter (fun d => d < R) = Finset.Icc 1 (R - 1) := by
+    ext d
+    simp only [Finset.mem_filter, Finset.mem_Icc]
+    omega
+  unfold squareRootReplacementSeed
+  rw [← Finset.sum_filter, hfilter]
+  exact (RHLean.Analysis.mertensSummatory_eq_sum_Icc (R - 1)).symm
+
+/-- On the complete prefix below `R`, the replacement kernel contributes only
+the `n = 1` term, which is exactly `M(X)`. -/
+theorem sum_replacementKernel_below_root_eq_mertens
+    {R X : ℕ} (hR : 2 ≤ R) :
+    (∑ n ∈ Finset.Icc 1 (R - 1),
+        squareRootReplacementKernel R n *
+          RHLean.Analysis.mertensSummatory (X / n)) =
+      RHLean.Analysis.mertensSummatory X := by
+  have h1mem : (1 : ℕ) ∈ Finset.Icc 1 (R - 1) := by
+    simp
+    omega
+  calc
+    (∑ n ∈ Finset.Icc 1 (R - 1),
+        squareRootReplacementKernel R n *
+          RHLean.Analysis.mertensSummatory (X / n)) =
+      ∑ n ∈ Finset.Icc 1 (R - 1),
+        if n = 1 then RHLean.Analysis.mertensSummatory X else 0 := by
+          apply Finset.sum_congr rfl
+          intro n hn
+          have hnIcc := Finset.mem_Icc.mp hn
+          have hnR : n < R := by omega
+          rw [squareRootReplacementKernel_eq_ite_of_lt_root hnIcc.1 hnR]
+          by_cases hnone : n = 1
+          · subst n
+            simp
+          · simp [hnone]
+    _ = RHLean.Analysis.mertensSummatory X := by
+      simp [h1mem]
+
+/-- Every residual reciprocal cutoff in the square-endpoint tail is genuinely
+lower scale. -/
+theorem squareRootEndpoint_div_lt_root_of_root_le
+    {R n : ℕ} (hR : 2 ≤ R) (hn : R ≤ n) :
+    squareRootEndpoint R / n < R := by
+  have hnpos : 0 < n := by omega
+  apply (Nat.div_lt_iff_lt_mul hnpos).2
+  have hXlt : squareRootEndpoint R < R * R := by
+    unfold squareRootEndpoint
+    have hsqpos : 0 < R ^ 2 := by positivity
+    omega
+  have hmul : R * R ≤ R * n := Nat.mul_le_mul_left R hn
+  exact hXlt.trans_le hmul
+
+/-- **Exact recursive replacement identity.**  At `X_R = R^2 - 1`, all
+nontrivial truncated-divisor coefficients occur at indices `n >= R`, hence all
+Mertens states produced by the replacement have argument strictly below `R`. -/
+theorem mertensEndpoint_eq_pred_sub_recursiveReplacement
+    (R : ℕ) (hR : 2 ≤ R) :
+    RHLean.Analysis.mertensSummatory (squareRootEndpoint R) =
+      RHLean.Analysis.mertensSummatory (R - 1) -
+        ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
+          squareRootReplacementKernel R n *
+            RHLean.Analysis.mertensSummatory (squareRootEndpoint R / n) := by
+  let X := squareRootEndpoint R
+  have hRX : R ≤ X := by
+    dsimp [X]
+    unfold squareRootEndpoint
+    have hsq : R + 1 ≤ R ^ 2 := by nlinarith
+    omega
+  have hpredX : R - 1 ≤ X := by omega
+  have hset :
+      Finset.Icc 1 X =
+        Finset.Icc 1 (R - 1) ∪ Finset.Icc R X := by
+    ext n
+    simp only [Finset.mem_Icc, Finset.mem_union]
+    omega
+  have hdisj :
+      Disjoint (Finset.Icc 1 (R - 1)) (Finset.Icc R X) := by
+    rw [Finset.disjoint_left]
+    intro n hnlo hnhi
+    simp only [Finset.mem_Icc] at hnlo hnhi
+    omega
+  have htel :=
+    RHLean.Analysis.sum_convolveOne_mul_mertensSummatory_div
+      (squareRootReplacementSeed R) X
+  change
+    (∑ n ∈ Finset.Icc 1 X,
+        squareRootReplacementKernel R n *
+          RHLean.Analysis.mertensSummatory (X / n)) =
+      ∑ d ∈ Finset.Icc 1 X, squareRootReplacementSeed R d at htel
+  rw [hset, Finset.sum_union hdisj,
+    sum_replacementKernel_below_root_eq_mertens hR,
+    sum_squareRootReplacementSeed_eq_mertens_pred hR hpredX] at htel
+  dsimp [X] at htel ⊢
+  rw [← htel]
+  ring
+
+/-- The exact residual tail, retained as a signed lower-scale Mertens family. -/
+def squareRootRecursiveReplacementResidual (R : ℕ) : ℂ :=
+  ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
+    squareRootReplacementKernel R n *
+      RHLean.Analysis.mertensSummatory (squareRootEndpoint R / n)
+
+/-- The endpoint is exactly the preceding lower-scale Mertens value minus the
+recursive residual family. -/
+theorem mertensEndpoint_eq_pred_sub_recursiveResidual
+    (R : ℕ) (hR : 2 ≤ R) :
+    RHLean.Analysis.mertensSummatory (squareRootEndpoint R) =
+      RHLean.Analysis.mertensSummatory (R - 1) -
+        squareRootRecursiveReplacementResidual R := by
+  simpa [squareRootRecursiveReplacementResidual] using
+    mertensEndpoint_eq_pred_sub_recursiveReplacement R hR
+
+end RHLean.Proof
