@@ -47,7 +47,7 @@ theorem topPrimeAtom_mul_prime_gt_endpoint
   calc
     R ^ 2 - 1 < 2 * q := hXlt2q
     _ ≤ p * q := hmul
-    _ = q * p := by omega
+    _ = q * p := Nat.mul_comm p q
 
 /-- A top-prime singleton that lies below the endpoint is an admissible face of
 the ordinary prime-product complex whenever the ambient prime set contains it. -/
@@ -108,8 +108,9 @@ theorem topPrimeSingleton_admissible_toggle_neighbor_eq_empty
       congrArg Finset.card heq
     have hcard' : 1 = v.card + 1 := by
       simpa [hpnot] using hcard
-    have hzero : 0 = v.card :=
-      Nat.add_right_cancel (by simpa using hcard')
+    have hzero : 0 = v.card := by
+      apply Nat.succ.inj
+      simpa [Nat.succ_eq_add_one] using hcard'
     exact Finset.card_eq_zero.mp hzero.symm
 
 /-- Two distinct top-prime singleton faces cannot both be sent to admissible
