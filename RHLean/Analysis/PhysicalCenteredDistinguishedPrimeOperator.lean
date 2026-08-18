@@ -447,7 +447,9 @@ def physicalCenteredDistinguishedPrimeOperator
     (R q : ℕ) (hq : q.Prime) (hRq : R < q) :
     (physicalCenteredDistinguishedPrimeOperator R q hq hRq).inactiveInactive =
       physicalDistinguishedPrimeA R q hq hRq := by
-  simp [physicalCenteredDistinguishedPrimeOperator]
+  change physicalDistinguishedPrimeRawKernel R q hq hRq none none =
+    physicalDistinguishedPrimeA R q hq hRq
+  exact physicalDistinguishedPrimeRawKernel_none_none R q hq hRq
 
 /-- **Coefficient identification:**
 `b^c_{R,q,t} = b_{R,q,t} - (1/6) * sum_u b_{R,q,u}`. -/
@@ -456,10 +458,14 @@ def physicalCenteredDistinguishedPrimeOperator
     (t : PrimeActiveLabel) :
     (physicalCenteredDistinguishedPrimeOperator R q hq hRq).inactiveToActive t =
       physicalDistinguishedPrimeCenteredB R q hq hRq t := by
-  simp [physicalCenteredDistinguishedPrimeOperator,
-    physicalDistinguishedPrimeCenteredB,
-    physicalDistinguishedPrimeBMean,
-    RestrictedPrimeTransitionOperator.activeDestinationMean]
+  change
+    physicalDistinguishedPrimeRawKernel R q hq hRq none (some t) -
+        (∑ u : PrimeActiveLabel,
+          physicalDistinguishedPrimeRawKernel R q hq hRq none (some u)) / 6 =
+      physicalDistinguishedPrimeCenteredB R q hq hRq t
+  unfold physicalDistinguishedPrimeCenteredB physicalDistinguishedPrimeBMean
+  rw [physicalDistinguishedPrimeRawKernel_none_some]
+  simp_rw [physicalDistinguishedPrimeRawKernel_none_some]
 
 /-- **Coefficient identification:** centering leaves every explicit arithmetic
 `c_{R,q,s}` unchanged. -/
@@ -468,7 +474,9 @@ def physicalCenteredDistinguishedPrimeOperator
     (s : PrimeActiveLabel) :
     (physicalCenteredDistinguishedPrimeOperator R q hq hRq).activeToInactive s =
       physicalDistinguishedPrimeC R q hq hRq s := by
-  simp [physicalCenteredDistinguishedPrimeOperator]
+  change physicalDistinguishedPrimeRawKernel R q hq hRq (some s) none =
+    physicalDistinguishedPrimeC R q hq hRq s
+  exact physicalDistinguishedPrimeRawKernel_some_none R q hq hRq s
 
 /-- The centered physical coefficient family has zero active-destination mean. -/
 theorem sum_physicalDistinguishedPrimeCenteredB_eq_zero
