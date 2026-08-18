@@ -187,4 +187,138 @@ theorem mertensEndpoint_eq_pred_sub_recursiveResidual
   simpa [squareRootRecursiveReplacementResidual] using
     mertensEndpoint_eq_pred_sub_recursiveReplacement R hR
 
+/-! ## Recombination by reciprocal quotient -/
+
+/-- Complete signed coefficient carried by the physical tail indices whose
+reciprocal cutoff is exactly `y`.  The complete fibre is summed before any norm. -/
+def squareRootReplacementTailCoefficient (R y : ℕ) : ℂ :=
+  ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
+    if squareRootEndpoint R / n = y then
+      squareRootReplacementKernel R n
+    else 0
+
+/-- Final lower-scale coefficient row.  The preceding value `M(R-1)` is the
+single Kronecker term; the entire physical replacement tail is subtracted only
+after each reciprocal quotient fibre has been recombined. -/
+def squareRootReplacementCoefficient (R y : ℕ) : ℂ :=
+  (if y = R - 1 then 1 else 0) - squareRootReplacementTailCoefficient R y
+
+/-- Recombining equal reciprocal cutoffs loses nothing: the physical residual
+family is exactly the sum of the fully signed quotient-fibre coefficients times
+the corresponding lower-scale Mertens values. -/
+theorem sum_replacementTailCoefficient_mul_mertens_eq_residual
+    (R : ℕ) (hR : 2 ≤ R) :
+    (∑ y ∈ Finset.range R,
+        squareRootReplacementTailCoefficient R y *
+          RHLean.Analysis.mertensSummatory y) =
+      squareRootRecursiveReplacementResidual R := by
+  classical
+  unfold squareRootReplacementTailCoefficient
+    squareRootRecursiveReplacementResidual
+  calc
+    (∑ y ∈ Finset.range R,
+        (∑ n ∈ Finset.Icc R (squareRootEndpoint R),
+          if squareRootEndpoint R / n = y then
+            squareRootReplacementKernel R n
+          else 0) * RHLean.Analysis.mertensSummatory y) =
+      ∑ y ∈ Finset.range R,
+        ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
+          (if squareRootEndpoint R / n = y then
+            squareRootReplacementKernel R n
+          else 0) * RHLean.Analysis.mertensSummatory y := by
+            apply Finset.sum_congr rfl
+            intro y _hy
+            rw [Finset.sum_mul]
+    _ =
+      ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
+        ∑ y ∈ Finset.range R,
+          (if squareRootEndpoint R / n = y then
+            squareRootReplacementKernel R n
+          else 0) * RHLean.Analysis.mertensSummatory y := by
+            rw [Finset.sum_comm]
+    _ =
+      ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
+        squareRootReplacementKernel R n *
+          RHLean.Analysis.mertensSummatory (squareRootEndpoint R / n) := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            have hnR : R ≤ n := (Finset.mem_Icc.mp hn).1
+            have hylt : squareRootEndpoint R / n < R :=
+              squareRootEndpoint_div_lt_root_of_root_le hR hnR
+            have hymem : squareRootEndpoint R / n ∈ Finset.range R :=
+              Finset.mem_range.mpr hylt
+            calc
+              (∑ y ∈ Finset.range R,
+                (if squareRootEndpoint R / n = y then
+                  squareRootReplacementKernel R n
+                else 0) * RHLean.Analysis.mertensSummatory y) =
+                ∑ y ∈ Finset.range R,
+                  if squareRootEndpoint R / n = y then
+                    squareRootReplacementKernel R n *
+                      RHLean.Analysis.mertensSummatory y
+                  else 0 := by
+                    apply Finset.sum_congr rfl
+                    intro y _hy
+                    by_cases heq : squareRootEndpoint R / n = y <;>
+                      simp [heq]
+              _ = squareRootReplacementKernel R n *
+                    RHLean.Analysis.mertensSummatory
+                      (squareRootEndpoint R / n) := by
+                    simp [hymem]
+
+/-- **Exact recombined lower-triangular row.**  The completed-square Mertens
+value is a single signed linear combination of Mertens values at `y < R`.
+There are no arbitrary-point or fibrewise error terms left. -/
+theorem mertensEndpoint_eq_recombinedReplacementRow
+    (R : ℕ) (hR : 2 ≤ R) :
+    RHLean.Analysis.mertensSummatory (squareRootEndpoint R) =
+      ∑ y ∈ Finset.range R,
+        squareRootReplacementCoefficient R y *
+          RHLean.Analysis.mertensSummatory y := by
+  have htail := sum_replacementTailCoefficient_mul_mertens_eq_residual R hR
+  have hpredlt : R - 1 < R := by omega
+  have hpredmem : R - 1 ∈ Finset.range R := Finset.mem_range.mpr hpredlt
+  have hpred :
+      (∑ y ∈ Finset.range R,
+        (if y = R - 1 then (1 : ℂ) else 0) *
+          RHLean.Analysis.mertensSummatory y) =
+        RHLean.Analysis.mertensSummatory (R - 1) := by
+    simp [hpredmem]
+  calc
+    RHLean.Analysis.mertensSummatory (squareRootEndpoint R) =
+        RHLean.Analysis.mertensSummatory (R - 1) -
+          squareRootRecursiveReplacementResidual R :=
+      mertensEndpoint_eq_pred_sub_recursiveResidual R hR
+    _ =
+        (∑ y ∈ Finset.range R,
+          (if y = R - 1 then (1 : ℂ) else 0) *
+            RHLean.Analysis.mertensSummatory y) -
+        ∑ y ∈ Finset.range R,
+          squareRootReplacementTailCoefficient R y *
+            RHLean.Analysis.mertensSummatory y := by rw [hpred, htail]
+    _ =
+      ∑ y ∈ Finset.range R,
+        squareRootReplacementCoefficient R y *
+          RHLean.Analysis.mertensSummatory y := by
+      rw [← Finset.sum_sub_distrib]
+      apply Finset.sum_congr rfl
+      intro y _hy
+      unfold squareRootReplacementCoefficient
+      ring
+
+/-- Weighted coefficient row energy.  This is evaluated only after the entire
+physical quotient fibre at each lower Mertens argument has been recombined. -/
+def squareRootReplacementRowEnergy (R : ℕ) : ℝ :=
+  ∑ y ∈ Finset.range R,
+    (((y + 1 : ℕ) : ℝ)) * ‖squareRootReplacementCoefficient R y‖ ^ 2
+
+/-- The genuinely new quantitative target for this recursive replacement.
+An `O(R)` bound is exactly the row scale compatible with a lower critical
+Mertens envelope after weighted Cauchy--Schwarz.  No such estimate is assumed by
+any exact identity above. -/
+def RecursivePrimeReplacementRowEnergyBoundedStatement : Prop :=
+  ∃ A : ℝ, 0 ≤ A ∧
+    ∀ R : ℕ, 2 ≤ R →
+      squareRootReplacementRowEnergy R ≤ A * (R : ℝ)
+
 end RHLean.Proof
