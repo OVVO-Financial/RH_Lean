@@ -94,7 +94,8 @@ theorem primeCombAnimationStepSite_eq_insert
   · subst n
     have hNotProper : ¬ PrimeCombFrameProperMultiple p 1 := by
       intro h
-      exact (not_lt_of_ge hpPrime.two_le) h.1
+      have hp2 := hpPrime.two_le
+      omega
     have hNotKilled : ¬ PrimeCombFrameKilled S p 1 := by
       intro h
       exact hNotProper h.2.1
