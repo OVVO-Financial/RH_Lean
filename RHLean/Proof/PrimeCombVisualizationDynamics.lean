@@ -602,6 +602,7 @@ theorem primeCombAnimationStepSite_sub
     simp [primeCombAnimationStepSite, hkilled, hnotFlipped]
   · by_cases hflipped : PrimeCombFrameFlipped S p n
     · simp [primeCombAnimationStepSite, hkilled, hflipped]
+      ring
     · simp [primeCombAnimationStepSite, hkilled, hflipped]
 
 /-- Number of killed seats in the current frame. -/
