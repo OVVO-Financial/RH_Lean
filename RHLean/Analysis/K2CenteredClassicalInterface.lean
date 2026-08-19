@@ -91,7 +91,6 @@ theorem k2_tendsto_div_four_ratio :
     simp only [hdiv, hmod]
     push_cast
     field_simp [hq0]
-    ring
   have htarget :
       Tendsto
         (fun N : ℕ => 4 +
