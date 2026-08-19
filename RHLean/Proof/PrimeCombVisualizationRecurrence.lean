@@ -391,7 +391,8 @@ theorem frozenFreshPrimeChildContribution_eq_firstHit_sub_reachableParent
         frozenFreshPrimeFirstHitContribution,
         frozenFreshPrimeReachableParentContribution,
         frozenPrimeUniverseFirstHitBoundaryMass,
-        primeFaceProduct, hpX, hsign]
+        primeFaceProduct, hpX]
+      norm_num [booleanCubeSign]
     · simp [frozenFreshPrimeChildContribution,
         frozenFreshPrimeFirstHitContribution,
         frozenFreshPrimeReachableParentContribution,
