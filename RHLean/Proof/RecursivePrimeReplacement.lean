@@ -853,7 +853,7 @@ private theorem sum_shiftedMertens_div_eq_one_sub
           rw [Finset.sum_sub_distrib]
     _ = 1 - (z : ℂ) := by
       rw [RHLean.Analysis.sum_mertensSummatory_div_eq_one hz]
-      simp [Nat.card_Icc, hz]
+      simp [Nat.card_Icc]
 
 /-- On every `z < R`, the quotient kernel sends the shifted lower-scale Mertens
 state to `1-z`.  This is the existing unit Möbius renewal identity written in
