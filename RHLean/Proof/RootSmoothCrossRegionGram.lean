@@ -460,8 +460,8 @@ theorem squareRootReplacementTailMoebiusCoefficient_eq_mertensIncrement
     simp only [Finset.mem_Icc] at hnlo hnhi
     omega
   have hL1 : 1 ≤ L := by
-    have hroot := squareRoot_root_le_replacementFibreLower R z hR hzR
-    dsimp [L] at hroot
+    have hroot : R ≤ L := by
+      simpa [L] using squareRoot_root_le_replacementFibreLower R z hR hzR
     omega
   have hprefix : Finset.Icc 1 H =
       Finset.Icc 1 (L - 1) ∪ Finset.Icc L H := by
