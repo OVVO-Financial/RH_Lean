@@ -209,7 +209,10 @@ theorem primeCombProperMultiplierSet_subset_two_of_third_lt
     (Nat.div_lt_iff_lt_mul hp).2 hWlt'
   have hkLe : k ≤ W / p :=
     (Nat.le_div_iff_mul_le hp).2 hkData.2
-  have hkEq : k = 2 := by omega
+  have hkLt3 : k < 3 := hkLe.trans_lt hdivlt
+  have hkLe2 : k ≤ 2 := by
+    exact Nat.lt_succ_iff.mp (by simpa using hkLt3)
+  have hkEq : k = 2 := Nat.le_antisymm hkLe2 hkData.1
   simp [hkEq]
 
 /-- On the active part of that regime, the bunch is literally the singleton
@@ -546,7 +549,7 @@ never receives a proper-prime hit and simply remains the displayed prime
 candidate `-1`, already equal to its final Möbius value. -/
 theorem primeCombSqrtFrame_largePrimeSeat_eq_neg_one
     {W p : ℕ}
-    (hp : p.Prime) (hpRoot : Nat.sqrt W < p) :
+    (hp : p.Prime) (hpRoot : Nat.sqrt W < p) (hpW : p ≤ W) :
     primeCombFrameSite (primesUpTo (Nat.sqrt W)) p = -1 := by
   classical
   have hp0 : p ≠ 0 := hp.ne_zero
@@ -571,10 +574,9 @@ theorem primeCombSqrtFrame_largePrimeSeat_eq_neg_one
       rcases hq2 with ⟨k, hk⟩
       refine ⟨q * k, ?_⟩
       simpa [pow_two, Nat.mul_assoc] using hk
-    have hmem : q ∈ primeCombFrameDivisors (primesUpTo (Nat.sqrt W)) p :=
+    have : q ∈ primeCombFrameDivisors (primesUpTo (Nat.sqrt W)) p :=
       Finset.mem_filter.mpr ⟨hqS, hqdiv⟩
-    rw [hdiv] at hmem
-    simp at hmem
+    simpa [hdiv] using this
   simp [primeCombFrameSite, hp0, hp1, hnoSquare, hdiv]
 
 /-! ## Active and inert large-prime frames -/
