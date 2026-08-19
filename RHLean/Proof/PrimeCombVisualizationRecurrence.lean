@@ -323,6 +323,7 @@ theorem primeCombAnimationStepSite_primesUpTo_pred_eq
   have hSlt : ∀ q ∈ primesUpTo (p - 1), q < p := by
     intro q hq
     have hqPred := (mem_primesUpTo.mp hq).2
+    have hp2 : 2 ≤ p := hp.two_le
     omega
   calc
     primeCombAnimationStepSite (primesUpTo (p - 1)) p n =
