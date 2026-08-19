@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.K2CenteredClassicalInterface
+import RHLean.Analysis.K2CenteredFinite
 import RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourShell
 
 /-!
@@ -31,6 +31,11 @@ def k2CenteredRecipValue (N : ℕ) : ℝ :=
   nativePNTSignedSecondSelbergKernelRecipMass N +
     2 * γE * Real.log (N : ℝ)
 
+/-- Centered convergence to a specified finite constant.  The analytic interface
+packages existence of such a constant separately. -/
+def K2CenteredConvergesTo (L : ℝ) : Prop :=
+  Tendsto k2CenteredRecipValue atTop (𝓝 L)
+
 /-- Division by the fixed positive integer four preserves escape to infinity. -/
 theorem k2_tendsto_nat_div_four_atTop :
     Tendsto (fun N : ℕ => N / 4) atTop atTop := by
@@ -57,7 +62,6 @@ theorem k2_tendsto_div_four_ratio :
     apply squeeze_zero'
     · exact Eventually.of_forall fun N => mul_nonneg (by positivity) (by positivity)
     · filter_upwards [eventually_ge_atTop 4] with N hN
-      have hqpos : 0 < N / 4 := by omega
       have hmodNat : N % 4 ≤ 3 := by omega
       have hmod : ((N % 4 : ℕ) : ℝ) ≤ 3 := by exact_mod_cast hmodNat
       exact mul_le_mul_of_nonneg_right hmod (inv_nonneg.mpr (by positivity))
@@ -123,24 +127,21 @@ theorem nativePNTSignedK2RecipInterval_four_eq_centered
 
 /-- Any centered K2 prefix limit yields the exact factor-four shell limit.  The
 unknown centered constant cancels from the difference. -/
-theorem nativePNTSignedK2RecipInterval_four_tendsto
-    (h : K2CenteredConverges) :
+theorem nativePNTSignedK2RecipInterval_four_tendsto_of_tendsto
+    (L : ℝ) (h : K2CenteredConvergesTo L) :
     Tendsto
       (fun N : ℕ => nativePNTSignedK2RecipInterval N 4)
       atTop
       (𝓝 (-2 * γE * Real.log 4)) := by
-  rcases h with ⟨L, hL⟩
-  have hL' : Tendsto k2CenteredRecipValue atTop (𝓝 L) := by
-    simpa [k2CenteredRecipValue] using hL
   have hL4 :
       Tendsto (fun N : ℕ => k2CenteredRecipValue (N / 4)) atTop (𝓝 L) :=
-    hL'.comp k2_tendsto_nat_div_four_atTop
+    h.comp k2_tendsto_nat_div_four_atTop
   have hdiff :
       Tendsto
         (fun N : ℕ =>
           k2CenteredRecipValue N - k2CenteredRecipValue (N / 4))
         atTop (𝓝 0) := by
-    simpa using hL'.sub hL4
+    simpa using h.sub hL4
   have hlog :
       Tendsto
         (fun N : ℕ =>
@@ -160,16 +161,15 @@ theorem nativePNTSignedK2RecipInterval_four_tendsto
 /-- The factor-four reciprocal shell is uniformly bounded once centered K2
 convergence is available.  This is a global bound, including the finite initial
 segment, not merely an eventual `O(1)` statement. -/
-theorem nativePNTSignedK2RecipInterval_four_uniform_bound
-    (h : K2CenteredConverges) :
+theorem nativePNTSignedK2RecipInterval_four_uniform_bound_of_tendsto
+    (Lcenter : ℝ) (hcenter : K2CenteredConvergesTo Lcenter) :
     ∃ C : ℝ, 0 ≤ C ∧
       ∀ N : ℕ, |nativePNTSignedK2RecipInterval N 4| ≤ C := by
-  rcases h with ⟨Lcenter, hcenter⟩
   have hconv :
       Tendsto
         (fun N : ℕ => nativePNTSignedK2RecipInterval N 4)
         atTop (𝓝 (-2 * γE * Real.log 4)) :=
-    nativePNTSignedK2RecipInterval_four_tendsto ⟨Lcenter, hcenter⟩
+    nativePNTSignedK2RecipInterval_four_tendsto_of_tendsto Lcenter hcenter
   let L : ℝ := -2 * γE * Real.log 4
   have hnear :
       ∀ᶠ N : ℕ in atTop,
