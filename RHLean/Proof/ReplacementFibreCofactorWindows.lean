@@ -409,7 +409,14 @@ theorem replacementFibreSmoothMass_eq_geometricSourceMass
       · by_cases hrough :
             canonicalLargestPrimeFactor (canonicalCofactor n) <
               canonicalLargestPrimeFactor n
-        · simp [hdiv, horient, ReplacementSmoothOriented, hsq, hrough]
+        · have hzero : (μ n : ℤ) = 0 :=
+            ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
+          have hweightzero : canonicalMoebiusWeight n = 0 := by
+            unfold canonicalMoebiusWeight
+            rw [hzero]
+            norm_num
+          simp [hdiv, horient, ReplacementSmoothOriented, hsq, hrough,
+            hweightzero]
         · simp [hdiv, horient, ReplacementSmoothOriented, hsq, hrough]
     · simp [hdiv, horient, ReplacementSmoothOriented]
   · simp [hdiv]
