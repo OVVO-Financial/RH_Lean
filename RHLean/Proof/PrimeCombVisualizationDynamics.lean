@@ -505,6 +505,18 @@ def PrimeCombFrameFlipped (S : Finset ℕ) (p n : ℕ) : Prop :=
       PrimeCombFrameProperTouched S n ∧
         ¬ p ^ 2 ∣ n
 
+instance instDecidablePrimeCombFrameKilled (S : Finset ℕ) (p n : ℕ) :
+    Decidable (PrimeCombFrameKilled S p n) :=
+  Classical.propDecidable _
+
+instance instDecidablePrimeCombFrameFirstHit (S : Finset ℕ) (p n : ℕ) :
+    Decidable (PrimeCombFrameFirstHit S p n) :=
+  Classical.propDecidable _
+
+instance instDecidablePrimeCombFrameFlipped (S : Finset ℕ) (p n : ℕ) :
+    Decidable (PrimeCombFrameFlipped S p n) :=
+  Classical.propDecidable _
+
 /-- Every alive proper multiple belongs to exactly one operational channel:
 kill, first touch, or later-touch flip. -/
 theorem primeCombFrameAliveProper_partition
@@ -587,9 +599,9 @@ theorem primeCombAnimationStepSite_sub
   · have hnotFlipped : ¬ PrimeCombFrameFlipped S p n := by
       intro hflipped
       exact primeCombFrameKilled_not_flipped S p n ⟨hkilled, hflipped⟩
-    simp [primeCombAnimationStepSite, hkilled, hnotFlipped] <;> ring
+    simp [primeCombAnimationStepSite, hkilled, hnotFlipped]
   · by_cases hflipped : PrimeCombFrameFlipped S p n
-    · simp [primeCombAnimationStepSite, hkilled, hflipped] <;> ring
+    · simp [primeCombAnimationStepSite, hkilled, hflipped]
     · simp [primeCombAnimationStepSite, hkilled, hflipped]
 
 /-- Number of killed seats in the current frame. -/
