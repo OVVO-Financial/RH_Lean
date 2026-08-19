@@ -207,12 +207,12 @@ theorem primeCombProperMultiplierSet_subset_two_of_third_lt
   by_contra hkTwo
   have hk3 : 3 ≤ k := by omega
   have h3p : 3 * p ≤ k * p := Nat.mul_le_mul_right p hk3
-  have : W < k * p := by
+  have hlt : W < k * p := by
     calc
       W < p * 3 := hWlt
       _ = 3 * p := by ring
       _ ≤ k * p := h3p
-  omega
+  exact (Nat.not_lt_of_ge hkData.2) hlt
 
 /-- On the active part of that regime, the bunch is literally the singleton
 `{2}`: the rake has become the pairing `p <-> 2p`. -/
@@ -235,8 +235,9 @@ theorem primeCombProperMultiplierSet_eq_empty_of_half_lt
   rw [card_primeCombProperMultiplierSet]
   have hWlt : W < p * 2 :=
     (Nat.div_lt_iff_lt_mul (by omega : 0 < 2)).1 hpHalf
+  have hWlt' : W < 2 * p := by simpa [Nat.mul_comm] using hWlt
   have hdivlt : W / p < 2 :=
-    (Nat.div_lt_iff_lt_mul hp).2 hWlt
+    (Nat.div_lt_iff_lt_mul hp).2 hWlt'
   omega
 
 /-- Prime children available to a fixed parent/cofactor `c`. -/
@@ -547,7 +548,7 @@ never receives a proper-prime hit and simply remains the displayed prime
 candidate `-1`, already equal to its final Möbius value. -/
 theorem primeCombSqrtFrame_largePrimeSeat_eq_neg_one
     {W p : ℕ}
-    (hp : p.Prime) (hpRoot : Nat.sqrt W < p) (hpW : p ≤ W) :
+    (hp : p.Prime) (hpRoot : Nat.sqrt W < p) :
     primeCombFrameSite (primesUpTo (Nat.sqrt W)) p = -1 := by
   classical
   have hp0 : p ≠ 0 := hp.ne_zero
@@ -567,8 +568,15 @@ theorem primeCombSqrtFrame_largePrimeSeat_eq_neg_one
   have hnoSquare : ¬ PrimeCombFrameSquareHit
       (primesUpTo (Nat.sqrt W)) p := by
     intro hsq
-    rcases hsq with ⟨q, _hqS, hq2⟩
-    exact largePrime_cannot_squareKill hpRoot hp.pos hpW hq2
+    rcases hsq with ⟨q, hqS, hq2⟩
+    have hqdiv : q ∣ p := by
+      rcases hq2 with ⟨k, hk⟩
+      refine ⟨q * k, ?_⟩
+      simpa [pow_two, Nat.mul_assoc] using hk
+    have hmem : q ∈ primeCombFrameDivisors (primesUpTo (Nat.sqrt W)) p :=
+      Finset.mem_filter.mpr ⟨hqS, hqdiv⟩
+    rw [hdiv] at hmem
+    simp at hmem
   simp [primeCombFrameSite, hp0, hp1, hnoSquare, hdiv]
 
 /-! ## Active and inert large-prime frames -/
