@@ -402,6 +402,7 @@ import RHLean.Proof.OrthogonalResidual
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
 import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Proof.PrimeCombVisualizationFrames
+import RHLean.Proof.PrimeCombVisualizationRecurrence
 import RHLean.Proof.PrimeCombWheelBoundary
 import RHLean.Proof.PrimeSievePostSqrtGap
 import RHLean.Proof.PrimeSieveSquareRootTransport
