@@ -30,6 +30,8 @@ The resulting statements are all finite exact identities.  In particular:
   `-pi(R) M(R-1)` edge, but this reindexing is not itself a contraction;
 * the Abel discrepancy and the prime-dilate cofactor-window discrepancy are two
   exact coordinates of the same centered error;
+* the weighted-middle bias from the unit model recombines exactly into full
+  transport minus the smooth mass;
 * the aggregate middle/top readouts do not replace the sequential mechanism:
   a fresh prime still acts parent by parent, with first-hit and reachable-parent
   channels kept separate before any sum is taken.
@@ -49,10 +51,6 @@ namespace RHLean.Proof
 open RHLean.Arithmetic
 open RHLean.Analysis
 
-private theorem mertensSummatory_one_coherence : mertensSummatory 1 = 1 := by
-  rw [← cofactorMobiusPrefixMass_eq_mertensSummatory]
-  simp [cofactorMobiusPrefixMass, canonicalMoebiusWeight]
-
 /-- At the complete-square endpoint the generic quotient support ends exactly
 at `R-1`:
 
@@ -63,10 +61,12 @@ theorem squareRootQuotientSupportTop_eq_pred
     squareRootEndpoint R / (R + 1) = R - 1 := by
   unfold squareRootEndpoint
   have hpred : R - 1 + 1 = R := Nat.sub_add_cancel hR
+  have hsq1 : 1 ≤ R ^ 2 := by nlinarith
+  have hsqpred : R ^ 2 - 1 + 1 = R ^ 2 := Nat.sub_add_cancel hsq1
   have hfactor : (R - 1) * (R + 1) = R ^ 2 - 1 := by
     nlinarith
   rw [← hfactor]
-  simpa using Nat.mul_div_right (R - 1) (by omega : 0 < R + 1)
+  exact Nat.mul_div_right (R - 1) (by omega : 0 < R + 1)
 
 /-- The harmonic tail at `j=2` is literally the middle Mertens tail from the
 three-section decomposition. -/
@@ -86,7 +86,7 @@ theorem squareRootMiddleHarmonicLayerPrimes_eq_reciprocalInterval
   ext q
   simp [squareRootMiddleHarmonicLayerPrimes,
     primeSieveReciprocalInterval, primeSieveReciprocalLower,
-    primeSieveReciprocalUpper, max_lt_iff]
+    primeSieveReciprocalUpper]
   omega
 
 /-- Equivalently, for positive quotient index `j`, the harmonic layer is the
@@ -180,8 +180,7 @@ theorem squareRootMiddleMertensTail_eq_reciprocalPrimeLayers
     rcases Finset.mem_Icc.mp hdrest with ⟨hd2, _⟩
     omega
   rw [hset, Finset.sum_union hdisj] at htransportRecip
-  simp [squareRootReciprocalPrimeCount_one_eq_topCard R hR,
-    mertensSummatory_one_coherence] at htransportRecip
+  simp [squareRootReciprocalPrimeCount_one_eq_topCard R hR] at htransportRecip
   have hsplit :=
     squareRootTransportPrimeFirst_eq_middleMertensTail_add_topCard R hR
   calc
@@ -241,8 +240,14 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting_sub_rootEdge
   rw [squareRootMiddleMertensTail_eq_swappedPrimeCounting R hR]
   have hsum := sum_canonicalMoebiusWeight_three_to_pred_eq_mertens R hR
   simp_rw [mul_sub]
-  rw [Finset.sum_sub_distrib, Finset.sum_mul, hsum]
-  ring
+  rw [Finset.sum_sub_distrib]
+  have hsecond :
+      (∑ c ∈ Finset.Icc 3 (R - 1),
+        canonicalMoebiusWeight c * (Nat.primeCounting R : ℂ)) =
+        (Nat.primeCounting R : ℂ) * mertensSummatory (R - 1) := by
+    rw [← Finset.sum_mul, hsum]
+    ring
+  rw [hsecond]
 
 /-- **Middle as the complete-square prime-dilate windows minus the inert top.**
 For any fixed prime `p`, the older prime-dilate compression removes every
@@ -264,6 +269,37 @@ theorem squareRootMiddleMertensTail_eq_primeDilateWindows_sub_topCard
           ((squareRootTopFibrePrimes R).card : ℂ) := by
       rw [squareRootTransportPrimeFirst_eq_squarePrimeDilateCofactorPrimeCountTransform
         p R hp (by omega)]
+
+/-- **Weighted-bias closure in the old prime-dilate coordinates.**  Once the
+population gap and unit model from the weighted-middle target are expanded, the
+entire centered bias is exactly full upper-prime transport minus the smooth
+mass.  Thus the PNT-scale middle/top population mismatch is a bookkeeping bias
+to be absorbed by the sequential transport; it is not a saving term. -/
+theorem squareRootMiddleBiasResidual_eq_primeDilateWindows_sub_smooth
+    (p R : ℕ) (hp : p.Prime) (hR : 3 ≤ R) :
+    squareRootMiddleBiasResidual R =
+      squarePrimeDilateCofactorPrimeCountTransform p R -
+        squareRootSmoothMass (R - 1) := by
+  unfold squareRootMiddleBiasResidual squareRootMiddleUnitModelDefect
+    squareRootOrientedMiddleThrowMass squareRootMiddleTopPrimeCountGapMass
+  rw [squareRootMiddleMertensTail_eq_primeDilateWindows_sub_topCard p R hp hR]
+  ring
+
+/-- The same weighted-bias target in harmonic coordinates.  This is the exact
+interface for peeling known long reciprocal fibres while leaving a later short
+fibre tail untouched.  No interval estimate is used here. -/
+theorem squareRootMiddleBiasResidual_eq_reciprocalLayers_add_top_sub_smooth
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootMiddleBiasResidual R =
+      (∑ d ∈ Finset.Icc 2 (R - 1),
+        primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+          mertensSummatory d) +
+        ((squareRootTopFibrePrimes R).card : ℂ) -
+          squareRootSmoothMass (R - 1) := by
+  unfold squareRootMiddleBiasResidual squareRootMiddleUnitModelDefect
+    squareRootOrientedMiddleThrowMass squareRootMiddleTopPrimeCountGapMass
+  rw [squareRootMiddleMertensTail_eq_reciprocalPrimeLayers R hR]
+  ring
 
 /-- **Abel and prime-dilate coherence.**  At the square endpoint, the older Abel
 coordinate and the older parent/child cofactor-window coordinate are exactly
