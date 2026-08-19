@@ -188,4 +188,92 @@ theorem squareRoot_middle_prime_population_eventually_exceeds_top
   exact
     (squareRoot_top_card_lt_middle_iff_secondOrder_primeCounting_gap R hR).2 hpi
 
+/-! ## Weighted middle bias target -/
+
+/-- The middle Mertens tail viewed in the sequential fresh-prime orientation.
+Each fresh-prime extension reverses the parent sign, so the oriented throw mass
+is the negative of the transport-convention middle tail. -/
+def squareRootOrientedMiddleThrowMass (R : ℕ) : ℂ :=
+  -squareRootMiddleMertensTail R
+
+/-- The defect of the actual oriented middle throws from the unit model in
+which every middle prime fibre contributes `+1`.
+
+If `A_R` denotes the oriented throw mass and `N_mid` the number of middle prime
+fibres, this is exactly `N_mid - A_R`. -/
+def squareRootMiddleUnitModelDefect (R : ℕ) : ℂ :=
+  ((squareRootMiddleFibrePrimes R).card : ℂ) -
+    squareRootOrientedMiddleThrowMass R
+
+/-- Complex-valued geometric presentation of the middle-minus-top population
+gap.  This is the bias term that the weighted middle throws must absorb; it is
+not itself a saving. -/
+def squareRootMiddleTopPrimeCountGapMass (R : ℕ) : ℂ :=
+  ((squareRootMiddleFibrePrimes R).card : ℂ) -
+    ((squareRootTopFibrePrimes R).card : ℂ)
+
+/-- The integer PNT-coordinate gap and the complex geometric gap are the same
+quantity after casting. -/
+theorem squareRootMiddleTopPrimeCountGap_cast_eq_mass
+    (R : ℕ) (hR : 3 ≤ R) :
+    ((squareRootMiddleTopPrimeCountGap R : ℤ) : ℂ) =
+      squareRootMiddleTopPrimeCountGapMass R := by
+  rw [squareRootMiddleTopPrimeCountGap_eq_card_sub R hR]
+  unfold squareRootMiddleTopPrimeCountGapMass
+  push_cast
+  rfl
+
+/-- **Exact weighted middle-bias identity.**  The deficit of the oriented
+middle throws from the unit model is the population gap plus the smooth edge,
+up to exactly the square-endpoint Mertens residual:
+
+`N_mid - A_R = G_R + S_R - M(X_R)`.
+
+Thus the positive prime-count gap is a deterministic bias that must be absorbed
+by the lower-scale Mertens weights; it is not a contraction term. -/
+theorem squareRootMiddleUnitModelDefect_eq_gap_add_smooth_sub_mertens
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootMiddleUnitModelDefect R =
+      squareRootMiddleTopPrimeCountGapMass R +
+        squareRootSmoothMass (R - 1) - squarePrefixMertens (R - 1) := by
+  rw [squarePrefixMertens_eq_smooth_sub_middle_sub_topCard R hR]
+  unfold squareRootMiddleUnitModelDefect squareRootOrientedMiddleThrowMass
+    squareRootMiddleTopPrimeCountGapMass
+  ring
+
+/-- The same identity with the population bias written directly in the exact
+integer PNT coordinate from the preceding section. -/
+theorem squareRootMiddleUnitModelDefect_eq_primeCountGap_add_smooth_sub_mertens
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootMiddleUnitModelDefect R =
+      ((squareRootMiddleTopPrimeCountGap R : ℤ) : ℂ) +
+        squareRootSmoothMass (R - 1) - squarePrefixMertens (R - 1) := by
+  rw [squareRootMiddleTopPrimeCountGap_cast_eq_mass R hR]
+  exact squareRootMiddleUnitModelDefect_eq_gap_add_smooth_sub_mertens R hR
+
+/-- After removing the deterministic prime-population gap and smooth-edge
+correction from the unit-model defect, the remaining weighted-middle bias is
+the exact Mertens target.  No division by the middle population is needed. -/
+def squareRootMiddleBiasResidual (R : ℕ) : ℂ :=
+  squareRootMiddleUnitModelDefect R -
+    (squareRootMiddleTopPrimeCountGapMass R + squareRootSmoothMass (R - 1))
+
+/-- **Cross-multiplied average target.**  The centered weighted-middle bias is
+exactly the negative square-prefix Mertens value. -/
+theorem squareRootMiddleBiasResidual_eq_neg_mertens
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootMiddleBiasResidual R = -squarePrefixMertens (R - 1) := by
+  unfold squareRootMiddleBiasResidual
+  rw [squareRootMiddleUnitModelDefect_eq_gap_add_smooth_sub_mertens R hR]
+  ring
+
+/-- Norm form: controlling the weighted-middle bias after subtracting the PNT
+population tilt and smooth correction is exactly equivalent, with no loss, to
+controlling Mertens at the square endpoint. -/
+theorem norm_squareRootMiddleBiasResidual_eq_mertens
+    (R : ℕ) (hR : 3 ≤ R) :
+    ‖squareRootMiddleBiasResidual R‖ = ‖squarePrefixMertens (R - 1)‖ := by
+  rw [squareRootMiddleBiasResidual_eq_neg_mertens R hR]
+  simp
+
 end RHLean.Proof
