@@ -321,4 +321,372 @@ theorem replacementFibreRootMass_eq_neg_cofactorPrimeWindows
     replacementFibreRootGeometricSourceMass_eq_pairMass R z hR hz hzR,
     replacementFibreRootPairMass_eq_neg_cofactorPrimeWindows R z hz]
 
+/-! ## Smooth orientation -/
+
+private theorem replacementPrimeFactor_le_canonicalLargestPrimeFactor
+    {n p : ℕ} (hn : 1 < n) (hp : p ∈ n.primeFactors) :
+    p ≤ canonicalLargestPrimeFactor n := by
+  unfold canonicalLargestPrimeFactor
+  rw [dif_pos hn]
+  exact Finset.le_max' n.primeFactors p hp
+
+/-- In a squarefree source, the largest prime of the canonical cofactor is
+strictly below the source's canonical largest prime. -/
+theorem canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree
+    {n : ℕ} (hn : 1 < n) (hsq : Squarefree n) :
+    canonicalLargestPrimeFactor (canonicalCofactor n) <
+      canonicalLargestPrimeFactor n := by
+  have hqPrime := canonicalLargestPrimeFactor_prime hn
+  by_cases hc1 : canonicalCofactor n = 1
+  · have hp1 : canonicalLargestPrimeFactor (canonicalCofactor n) = 1 := by
+      rw [hc1]
+      unfold canonicalLargestPrimeFactor
+      rw [dif_neg (by omega)]
+    rw [hp1]
+    exact hqPrime.one_lt
+  · have hcpos := CanonicalGapAncestryBridge.canonicalCofactor_pos hn
+    have hcgt : 1 < canonicalCofactor n := by omega
+    have hpPrime := canonicalLargestPrimeFactor_prime hcgt
+    have hpdvdC := canonicalLargestPrimeFactor_dvd hcgt
+    have hprod := canonicalCofactor_mul_largestPrimeFactor hn
+    have hcdvdN : canonicalCofactor n ∣ n :=
+      ⟨canonicalLargestPrimeFactor n, hprod.symm⟩
+    have hpdvdN := hpdvdC.trans hcdvdN
+    have hpmem :
+        canonicalLargestPrimeFactor (canonicalCofactor n) ∈ n.primeFactors :=
+      Nat.mem_primeFactors.mpr ⟨hpPrime, hpdvdN, by omega⟩
+    have hple :
+        canonicalLargestPrimeFactor (canonicalCofactor n) ≤
+          canonicalLargestPrimeFactor n :=
+      replacementPrimeFactor_le_canonicalLargestPrimeFactor hn hpmem
+    have hne :
+        canonicalLargestPrimeFactor (canonicalCofactor n) ≠
+          canonicalLargestPrimeFactor n := by
+      intro heq
+      apply canonicalLargestPrimeFactor_not_dvd_cofactor hsq hn
+      rw [← heq]
+      exact hpdvdC
+    omega
+
+/-- Geometric smooth population in reciprocal fibre `z`.  The roughness
+condition is the canonical-source condition `P+(c) < q`; nonsquarefree sources
+may remain in the set because their Möbius weight is zero. -/
+def replacementFibreSmoothGeometricSourceSet (R z : ℕ) : Finset ℕ :=
+  (Finset.Icc R (squareRootEndpoint R)).filter fun n =>
+    squareRootEndpoint R / n = z ∧
+      canonicalLargestPrimeFactor (canonicalCofactor n) <
+        canonicalLargestPrimeFactor n ∧
+      canonicalLargestPrimeFactor n < canonicalCofactor n
+
+/-- Signed Möbius mass of the geometric smooth population. -/
+def replacementFibreSmoothGeometricSourceMass (R z : ℕ) : ℂ :=
+  ∑ n ∈ replacementFibreSmoothGeometricSourceSet R z,
+    canonicalMoebiusWeight n
+
+/-- The strict smooth fibre equals its rough geometric realization. -/
+theorem replacementFibreSmoothMass_eq_geometricSourceMass
+    (R z : ℕ) (hR : 2 ≤ R) :
+    replacementFibreSmoothMass R z =
+      replacementFibreSmoothGeometricSourceMass R z := by
+  classical
+  unfold replacementFibreSmoothMass replacementFibreSmoothGeometricSourceMass
+    replacementFibreSmoothGeometricSourceSet
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro n hnTail
+  by_cases hdiv : squareRootEndpoint R / n = z
+  · by_cases horient :
+        canonicalLargestPrimeFactor n < canonicalCofactor n
+    · have hnR : R ≤ n := (Finset.mem_Icc.mp hnTail).1
+      have hn1 : 1 < n := by
+        have hn2 : 2 ≤ n := hR.trans hnR
+        omega
+      by_cases hsq : Squarefree n
+      · have hrough :=
+          canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hn1 hsq
+        simp [hdiv, horient, ReplacementSmoothOriented, hsq, hrough,
+          canonicalMoebiusWeight]
+      · have hzero : (μ n : ℤ) = 0 :=
+          ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
+        by_cases hrough :
+            canonicalLargestPrimeFactor (canonicalCofactor n) <
+              canonicalLargestPrimeFactor n
+        · simp [hdiv, horient, ReplacementSmoothOriented, hsq, hrough,
+            canonicalMoebiusWeight, hzero]
+        · simp [hdiv, horient, ReplacementSmoothOriented, hsq, hrough,
+            canonicalMoebiusWeight, hzero]
+    · simp [hdiv, horient, ReplacementSmoothOriented]
+  · simp [hdiv]
+
+/-- Canonical cofactor-prime coordinates for the geometric smooth population. -/
+def replacementFibreSmoothPairSet (R z : ℕ) : Finset (ℕ × ℕ) :=
+  ((Finset.Icc 1 (squareRootEndpoint R)).product
+      (Finset.Icc 2 (R - 1))).filter fun cq =>
+    cq.2.Prime ∧
+      canonicalLargestPrimeFactor cq.1 < cq.2 ∧
+      cq.2 < cq.1 ∧
+      squareRootEndpoint R / (cq.1 * cq.2) = z
+
+/-- Signed source mass in the cofactor-prime smooth coordinates. -/
+def replacementFibreSmoothPairMass (R z : ℕ) : ℂ :=
+  ∑ cq ∈ replacementFibreSmoothPairSet R z,
+    canonicalMoebiusWeight (cq.1 * cq.2)
+
+private theorem smoothGeometricSource_to_pair_mem
+    {R z n : ℕ} (hR : 2 ≤ R)
+    (hn : n ∈ replacementFibreSmoothGeometricSourceSet R z) :
+    (canonicalCofactor n, canonicalLargestPrimeFactor n) ∈
+      replacementFibreSmoothPairSet R z := by
+  classical
+  rcases Finset.mem_filter.mp hn with
+    ⟨hnTail, hdiv, hrough, horient⟩
+  rcases Finset.mem_Icc.mp hnTail with ⟨hnR, hnX⟩
+  have hn2 : 2 ≤ n := hR.trans hnR
+  have hn1 : 1 < n := by omega
+  have hcpos : 1 ≤ canonicalCofactor n :=
+    CanonicalGapAncestryBridge.canonicalCofactor_pos hn1
+  have hcdvd : canonicalCofactor n ∣ n :=
+    CanonicalGapAncestryBridge.canonicalCofactor_dvd hn1
+  have hcle : canonicalCofactor n ≤ n := Nat.le_of_dvd (by omega) hcdvd
+  have hqPrime := canonicalLargestPrimeFactor_prime hn1
+  have hqR := canonicalLargestPrimeFactor_lt_of_bornOrientation
+    hn1 hnX horient.le
+  refine Finset.mem_filter.mpr ⟨Finset.mem_product.mpr ⟨?_, ?_⟩,
+    hqPrime, hrough, horient, ?_⟩
+  · exact Finset.mem_Icc.mpr ⟨hcpos, hcle.trans hnX⟩
+  · exact Finset.mem_Icc.mpr ⟨hqPrime.two_le, by omega⟩
+  · rw [canonicalCofactor_mul_largestPrimeFactor hn1]
+    exact hdiv
+
+private theorem smoothGeometricSource_pair_injective
+    {R z m n : ℕ} (hR : 2 ≤ R)
+    (hm : m ∈ replacementFibreSmoothGeometricSourceSet R z)
+    (hn : n ∈ replacementFibreSmoothGeometricSourceSet R z)
+    (hpair :
+      (canonicalCofactor m, canonicalLargestPrimeFactor m) =
+        (canonicalCofactor n, canonicalLargestPrimeFactor n)) :
+    m = n := by
+  rcases Finset.mem_Icc.mp (Finset.mem_filter.mp hm).1 with ⟨hmR, _⟩
+  rcases Finset.mem_Icc.mp (Finset.mem_filter.mp hn).1 with ⟨hnR, _⟩
+  have hm1 : 1 < m := by
+    have hm2 : 2 ≤ m := hR.trans hmR
+    omega
+  have hn1 : 1 < n := by
+    have hn2 : 2 ≤ n := hR.trans hnR
+    omega
+  have hmprod := canonicalCofactor_mul_largestPrimeFactor hm1
+  have hnprod := canonicalCofactor_mul_largestPrimeFactor hn1
+  have hc : canonicalCofactor m = canonicalCofactor n :=
+    congrArg Prod.fst hpair
+  have hq : canonicalLargestPrimeFactor m = canonicalLargestPrimeFactor n :=
+    congrArg Prod.snd hpair
+  calc
+    m = canonicalCofactor m * canonicalLargestPrimeFactor m := hmprod.symm
+    _ = canonicalCofactor n * canonicalLargestPrimeFactor n := by rw [hc, hq]
+    _ = n := hnprod
+
+private theorem smoothPair_surjective
+    {R z : ℕ} (hR : 2 ≤ R) (hz : 1 ≤ z) (hzR : z < R)
+    (cq : ℕ × ℕ) (hcq : cq ∈ replacementFibreSmoothPairSet R z) :
+    ∃ n ∈ replacementFibreSmoothGeometricSourceSet R z,
+      (canonicalCofactor n, canonicalLargestPrimeFactor n) = cq := by
+  classical
+  rcases Finset.mem_filter.mp hcq with
+    ⟨hbase, hqPrime, hrough, hqc, hdiv⟩
+  rcases Finset.mem_product.mp hbase with ⟨hcMem, _hqMem⟩
+  have hc1 : 1 ≤ cq.1 := (Finset.mem_Icc.mp hcMem).1
+  have hcpos : 0 < cq.1 := by omega
+  have hprodpos : 0 < cq.1 * cq.2 :=
+    Nat.mul_pos hcpos hqPrime.pos
+  have hinterval :=
+    (squareRootEndpoint_div_eq_iff_mem_replacementFibre
+      (R := R) (n := cq.1 * cq.2) (z := z) hprodpos hz).1 hdiv
+  have htailDiv :=
+    (replacementTailFibre_mem_iff R z (cq.1 * cq.2) hR hz hzR).2 hinterval
+  have htop := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
+    hcpos hqPrime hrough
+  have hcore := canonicalCofactor_mul_prime_eq_of_rough
+    hcpos hqPrime hrough
+  refine ⟨cq.1 * cq.2, ?_, ?_⟩
+  · apply Finset.mem_filter.mpr
+    refine ⟨htailDiv.1, htailDiv.2, ?_, ?_⟩
+    · rw [htop, hcore]
+      exact hrough
+    · rw [htop, hcore]
+      exact hqc
+  · apply Prod.ext
+    · exact hcore
+    · exact htop
+
+/-- Exact bijective reindex from smooth-oriented integers to their canonical
+cofactor-prime coordinates. -/
+theorem replacementFibreSmoothGeometricSourceMass_eq_pairMass
+    (R z : ℕ) (hR : 2 ≤ R) (hz : 1 ≤ z) (hzR : z < R) :
+    replacementFibreSmoothGeometricSourceMass R z =
+      replacementFibreSmoothPairMass R z := by
+  classical
+  unfold replacementFibreSmoothGeometricSourceMass replacementFibreSmoothPairMass
+  refine Finset.sum_bij
+    (fun n _hn => (canonicalCofactor n, canonicalLargestPrimeFactor n))
+    (fun n hn => smoothGeometricSource_to_pair_mem hR hn)
+    (fun m hm n hn hmn => smoothGeometricSource_pair_injective hR hm hn hmn)
+    (fun cq hcq => by simpa using smoothPair_surjective hR hz hzR cq hcq)
+    ?_
+  intro n hn
+  rcases Finset.mem_Icc.mp (Finset.mem_filter.mp hn).1 with ⟨hnR, _hnX⟩
+  have hn1 : 1 < n := by
+    have hn2 : 2 ≤ n := hR.trans hnR
+    omega
+  rw [canonicalCofactor_mul_largestPrimeFactor hn1]
+
+/-- Prime count in the dilated reciprocal window for one smooth cofactor.  The
+canonical roughness and strict smooth orientation remain inside the count. -/
+def replacementFibreSmoothPrimeWindowCount (R z c : ℕ) : ℂ :=
+  ∑ q ∈ Finset.Icc
+      (replacementDilatedFibreLower R z c)
+      (replacementDilatedFibreUpper R z c),
+    if q.Prime ∧ canonicalLargestPrimeFactor c < q ∧ q < c then 1 else 0
+
+private theorem replacementSmoothPrimeWindow_filter_eq
+    {R z c : ℕ} (hR : 2 ≤ R) (hc : 1 ≤ c)
+    (hz : 1 ≤ z) (hzR : z < R) :
+    (Finset.Icc 2 (R - 1)).filter
+        (fun q => q.Prime ∧ canonicalLargestPrimeFactor c < q ∧ q < c ∧
+          squareRootEndpoint R / (c * q) = z) =
+      (Finset.Icc
+        (replacementDilatedFibreLower R z c)
+        (replacementDilatedFibreUpper R z c)).filter
+          (fun q => q.Prime ∧ canonicalLargestPrimeFactor c < q ∧ q < c) := by
+  classical
+  ext q
+  constructor
+  · intro hq
+    rcases Finset.mem_filter.mp hq with
+      ⟨_hqIcc, hprime, hrough, hqc, hdiv⟩
+    apply Finset.mem_filter.mpr
+    exact ⟨(squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
+      hc hprime.one_le hz).1 hdiv, hprime, hrough, hqc⟩
+  · intro hq
+    rcases Finset.mem_filter.mp hq with
+      ⟨hqWin, hprime, hrough, hqc⟩
+    have hdiv :=
+      (squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
+        hc hprime.one_le hz).2 hqWin
+    have hcpos : 0 < c := by omega
+    have hprodpos : 0 < c * q := Nat.mul_pos hcpos hprime.pos
+    have hinterval :=
+      (squareRootEndpoint_div_eq_iff_mem_replacementFibre
+        (R := R) (n := c * q) (z := z) hprodpos hz).1 hdiv
+    have htail :=
+      (replacementTailFibre_mem_iff R z (c * q) hR hz hzR).2 hinterval
+    have hnX := (Finset.mem_Icc.mp htail.1).2
+    have htop := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
+      hcpos hprime hrough
+    have hcore := canonicalCofactor_mul_prime_eq_of_rough
+      hcpos hprime hrough
+    have hm1 : 1 < c * q := by
+      calc
+        1 < q := hprime.one_lt
+        _ = 1 * q := (one_mul q).symm
+        _ ≤ c * q := Nat.mul_le_mul_right q hc
+    have hborn :
+        canonicalLargestPrimeFactor (c * q) ≤ canonicalCofactor (c * q) := by
+      rw [htop, hcore]
+      exact hqc.le
+    have hqR := canonicalLargestPrimeFactor_lt_of_bornOrientation
+      hm1 hnX hborn
+    rw [htop] at hqR
+    apply Finset.mem_filter.mpr
+    exact ⟨Finset.mem_Icc.mpr ⟨hprime.two_le, by omega⟩,
+      hprime, hrough, hqc, hdiv⟩
+
+/-- Fubini plus the dilated-window reindex turns the smooth pair mass into a
+signed cofactor-weighted rough prime-window count. -/
+theorem replacementFibreSmoothPairMass_eq_neg_cofactorPrimeWindows
+    (R z : ℕ) (hR : 2 ≤ R) (hz : 1 ≤ z) (hzR : z < R) :
+    replacementFibreSmoothPairMass R z =
+      -∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        canonicalMoebiusWeight c *
+          replacementFibreSmoothPrimeWindowCount R z c := by
+  classical
+  unfold replacementFibreSmoothPairMass replacementFibreSmoothPairSet
+  rw [Finset.sum_filter]
+  calc
+    (∑ cq ∈ (Finset.Icc 1 (squareRootEndpoint R)).product
+          (Finset.Icc 2 (R - 1)),
+        if cq.2.Prime ∧ canonicalLargestPrimeFactor cq.1 < cq.2 ∧
+            cq.2 < cq.1 ∧ squareRootEndpoint R / (cq.1 * cq.2) = z then
+          canonicalMoebiusWeight (cq.1 * cq.2)
+        else 0) =
+      ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        ∑ q ∈ Finset.Icc 2 (R - 1),
+          if q.Prime ∧ canonicalLargestPrimeFactor c < q ∧ q < c ∧
+              squareRootEndpoint R / (c * q) = z then
+            canonicalMoebiusWeight (c * q)
+          else 0 := by
+      simpa only using
+        (Finset.sum_product
+          (s := Finset.Icc 1 (squareRootEndpoint R))
+          (t := Finset.Icc 2 (R - 1))
+          (f := fun cq : ℕ × ℕ =>
+            if cq.2.Prime ∧ canonicalLargestPrimeFactor cq.1 < cq.2 ∧
+                cq.2 < cq.1 ∧ squareRootEndpoint R / (cq.1 * cq.2) = z then
+              canonicalMoebiusWeight (cq.1 * cq.2)
+            else 0))
+    _ = ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        -(canonicalMoebiusWeight c *
+          replacementFibreSmoothPrimeWindowCount R z c) := by
+      apply Finset.sum_congr rfl
+      intro c hcMem
+      have hc1 : 1 ≤ c := (Finset.mem_Icc.mp hcMem).1
+      have hcpos : 0 < c := by omega
+      have hset := replacementSmoothPrimeWindow_filter_eq
+        (R := R) (z := z) hR hc1 hz hzR
+      rw [← Finset.sum_filter, hset]
+      unfold replacementFibreSmoothPrimeWindowCount
+      rw [← Finset.sum_filter]
+      calc
+        (∑ q ∈ (Finset.Icc
+              (replacementDilatedFibreLower R z c)
+              (replacementDilatedFibreUpper R z c)).filter
+                (fun q => q.Prime ∧ canonicalLargestPrimeFactor c < q ∧ q < c),
+            canonicalMoebiusWeight (c * q)) =
+          ∑ q ∈ (Finset.Icc
+              (replacementDilatedFibreLower R z c)
+              (replacementDilatedFibreUpper R z c)).filter
+                (fun q => q.Prime ∧ canonicalLargestPrimeFactor c < q ∧ q < c),
+            -canonicalMoebiusWeight c := by
+              apply Finset.sum_congr rfl
+              intro q hq
+              rcases (Finset.mem_filter.mp hq).2 with ⟨hprime, hrough, _hqc⟩
+              exact canonicalMoebiusWeight_mul_prime_eq_neg_of_rough
+                hcpos hprime hrough
+        _ = -(canonicalMoebiusWeight c *
+            ∑ q ∈ (Finset.Icc
+              (replacementDilatedFibreLower R z c)
+              (replacementDilatedFibreUpper R z c)).filter
+                (fun q => q.Prime ∧ canonicalLargestPrimeFactor c < q ∧ q < c),
+              (1 : ℂ)) := by
+              rw [Finset.mul_sum]
+              rw [← Finset.sum_neg_distrib]
+              apply Finset.sum_congr rfl
+              intro q _hq
+              ring
+    _ = -∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        canonicalMoebiusWeight c *
+          replacementFibreSmoothPrimeWindowCount R z c := by
+      rw [Finset.sum_neg_distrib]
+
+/-- **Smooth fibre prime-window dictionary.**  The roughness condition remains
+inside the prime count, and no norm or fibrewise absolute value is taken. -/
+theorem replacementFibreSmoothMass_eq_neg_cofactorPrimeWindows
+    (R z : ℕ) (hR : 2 ≤ R) (hz : 1 ≤ z) (hzR : z < R) :
+    replacementFibreSmoothMass R z =
+      -∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        canonicalMoebiusWeight c *
+          replacementFibreSmoothPrimeWindowCount R z c := by
+  rw [replacementFibreSmoothMass_eq_geometricSourceMass R z hR,
+    replacementFibreSmoothGeometricSourceMass_eq_pairMass R z hR hz hzR,
+    replacementFibreSmoothPairMass_eq_neg_cofactorPrimeWindows R z hR hz hzR]
+
 end RHLean.Proof
