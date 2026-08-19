@@ -19,7 +19,7 @@ and
 a_R(y)=\mathbf 1_{y=R-1}-b_R(y).
 \]
 
-The finite computation was run at `R = 100, 200, 500, 1000` using exact integer arithmetic. It checks the physical replacement row, the complementary Möbius fibres, the joint shifted row, and the lower-triangular quotient kernel.
+The finite computation was run at `R = 100, 200, 500, 1000` using exact integer arithmetic. It checks the physical replacement row, the complementary Möbius fibres, and the lower-triangular quotient kernel.
 
 ## Exact quotient-kernel dictionary
 
@@ -36,7 +36,7 @@ K(z,y)=\left\lfloor\frac zy\right\rfloor-
        \left\lfloor\frac z{y+1}\right\rfloor.
 \]
 
-The computation verifies identically at every tested scale that
+The exact Type-II relation is
 
 \[
 \boxed{
@@ -44,17 +44,59 @@ The computation verifies identically at every tested scale that
 }
 \]
 
-This is not a nearest-neighbour transfer in `y`; it is the exact Type-II hyperbola transform obtained by writing the complementary large divisor as `d` and the remaining factor as `k`.
+This is not a nearest-neighbour transfer in `y`; it is the hyperbola transform obtained by writing the complementary large divisor as `d` and the remaining factor as `k`.
 
-The diagonal is `K(y,y)=1`, so
+The kernel is lower triangular:
+
+\[
+K(z,y)=0\quad(y>z),
+\qquad
+K(z,z)=1.
+\]
+
+Hence
 
 \[
 b_R(y)=-t_R(y)-\sum_{z>y}K(z,y)t_R(z).
 \]
 
-Thus the fibre dictionary is genuinely lower triangular.
+This dictionary is the structural theorem. It shows that `C_R`, `b_R`, and hence `a_R` are linear images of the complementary fibre state `t_R` rather than independent arithmetic data.
 
-## Renewal inside one `z` fibre
+## The surviving fibre state
+
+For `1 <= z < R`, the physical tail clipping is automatic and the fibre is exactly
+
+\[
+I_z=
+\left(
+\left\lfloor\frac{X_R}{z+1}\right\rfloor,
+\left\lfloor\frac{X_R}{z}\right\rfloor
+\right].
+\]
+
+Therefore
+
+\[
+\boxed{
+ t_R(z)
+ =M\!\left(\left\lfloor\frac{X_R}{z}\right\rfloor\right)
+ -M\!\left(\left\lfloor\frac{X_R}{z+1}\right\rfloor\right).
+}
+\]
+
+Thus the only surviving arithmetic state after the dictionary is the signed vector of hyperbola Mertens increments `(t_R(z))_{z<R}`.
+
+The geometry is strongly nonuniform:
+
+| fibres | length of `I_z` | role |
+|---|---:|---|
+| `z = 1` | `~ R^2 / 2` | old top half |
+| `z << R` | `~ R^2 / z^2` | long Type-II intervals |
+| `z ~ R` | `O(1)` | already root-scale |
+
+The top-prime obstruction is therefore transported to the long first fibres, especially `t_R(1)`; it is not removed by the dictionary.
+
+## Classical renewal and the tautological reconstruction
 
 For every `z >= 1`, the classical Möbius unit identity gives
 
@@ -65,46 +107,45 @@ For every `z >= 1`, the classical Möbius unit identity gives
 Grouping the `k` values by their quotient `y` gives
 
 \[
-\boxed{
 \sum_y K(z,y)(M(y)-1)=1-z.
-}
 \]
 
-Consequently
+Composing this identity with `b_R=-K t_R` is legitimate algebra, but it does not produce a new analytic cancellation theorem. It gives
 
 \[
 \sum_y b_R(y)(M(y)-1)
  =\sum_{z<R}t_R(z)(z-1).
 \]
 
-The final row therefore satisfies
-
-\[
-\sum_y a_R(y)(M(y)-1)
- =M(R-1)-1-\sum_{z<R}t_R(z)(z-1).
-\]
-
-Adding the complementary first moment gives cancellation **term by term in `z`**:
-
-\[
--(z-1)t_R(z)+z t_R(z)=t_R(z).
-\]
-
-Hence
-
-\[
-\boxed{
-\sum_y a_R(y)(M(y)-1)+\sum_{z<R}z\,t_R(z)=M(X_R)-1.
-}
-\]
-
-Since
+After adding the first moment
 
 \[
 S_R=-\sum_{z<R}z\,t_R(z),
 \]
 
-this is exactly the observed cancellation between the two large quantities. It does not estimate either quantity separately.
+the weights cancel algebraically:
+
+\[
+-(z-1)t_R(z)+z t_R(z)=t_R(z).
+\]
+
+What remains is only
+
+\[
+\boxed{
+\sum_{z<R}t_R(z)=M(X_R)-M(R-1),
+}
+\]
+
+which is the ordinary partition of the Möbius sum over `[1,X_R]` into `[1,R-1]` and `[R,X_R]`.
+
+Consequently
+
+\[
+\sum_y a_R(y)(M(y)-1)+\sum_{z<R}z\,t_R(z)=M(X_R)-1
+\]
+
+is a consistency reconstruction of the definition of `M`, rewritten on reciprocal hyperbola fibres. It carries no additional power-saving information.
 
 ## Finite diagnostics
 
@@ -127,7 +168,7 @@ The exact values are:
 | 500 | -39 | -2127 | -2167 | 2127 | -40 |
 | 1000 | 212 | 4406 | 4617 | -4406 | 211 |
 
-So the small endpoint is the difference of two large terms, exactly as expected.
+These values are consistency checks for the exact reindexing. In particular, `P_R+Q_R=211` at `R=1000` must hold because the two terms are complementary rewritings of the same tail partition; it is not an independent cancellation estimate.
 
 ### Is the raw same-`y` joint term sparse?
 
@@ -146,11 +187,11 @@ The fraction of `sum_y |j_R(y)|` carried by the 50 largest fibres is:
 | 500 | 24.72% |
 | 1000 | 13.58% |
 
-At `R=1000`, the top five fibres carry only 1.67% of the absolute mass. The cancellation is therefore not concentrated in one extra Farey window; the raw same-`y` joint mode is broadly distributed.
+At `R=1000`, the top five fibres carry only 1.67% of the absolute mass. The raw same-`y` residue is therefore broadly distributed rather than concentrated in one extra Farey window.
 
 ### Is `b_R(y)` locally proportional to `y t_R(y)`?
 
-No. The Pearson correlation of the two exact vectors is already near zero:
+No. The Pearson correlation of the two exact vectors is near zero:
 
 | `R` | correlation `corr(b_R, y t_R)` |
 |---:|---:|
@@ -159,7 +200,7 @@ No. The Pearson correlation of the two exact vectors is already near zero:
 | 500 | -0.0176 |
 | 1000 | -0.0072 |
 
-The correct relation is the quotient-kernel transform above, not `b_R(y)=y t_R(y)` plus a nearest-neighbour correction.
+The correct relation is the quotient-kernel transform, not `b_R(y)=y t_R(y)` plus a nearest-neighbour correction.
 
 ### Abel comparison
 
@@ -181,18 +222,20 @@ the main term and residual are:
 | 500 | -3007 | 880 | -2127 |
 | 1000 | 2001 | 2405 | 4406 |
 
-The Abel residual is not itself the shifted replacement row. The exact reorder occurs one level earlier, through the Type-II quotient kernel, where the unit renewal identity cancels `z-1` against the first moment `z` before summing over `z`.
+Crude absolute-value treatment of these two Abel pieces destroys the same sign information that survives in the fibre vector. The Abel form is therefore another coordinate system for the problem, not an independent route to a bound on `S_R`.
 
 ## Route decision
 
-The involution program has completed its useful role. The data rejects both a sparse-window explanation and a nearest-neighbour `y` derivative. The next exact structure is the quotient-kernel dictionary already present in the Möbius renewal architecture:
+The involution search is closed. The dictionary has eliminated `C_R`, `b_R`, `a_R`, and `S_R` as independent state. The remaining arithmetic object is
 
 \[
-C_R\text{-fibres}
-\longleftrightarrow
-K\,t_R
-\longrightarrow
-\sum_y K(z,y)(M(y)-1)=1-z.
+(t_R(z))_{z<R},
+\qquad
+ t_R(z)=M(H_z)-M(L_z-1).
 \]
 
-The remaining analytic problem is therefore to exploit this lower-triangular renewal jointly with the square-root root-smooth state, not to bound `S_R` or the shifted replacement row separately.
+The next exact task is to split this same fibre state into prime-supported and composite-supported increments and identify those pieces with differences of the existing root/transport and smooth operators on the same hyperbola intervals.
+
+The analytic obligation is then a single Type-II estimate:
+
+> bound the signed sum of hyperbola Mertens increments jointly with the existing root-smooth state, using the hyperbolic incidence `K` or its prime restriction before any `l1` or `l2` norm, without estimating the first moment `S_R` separately.
