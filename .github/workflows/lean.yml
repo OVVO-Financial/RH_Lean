@@ -1,194 +1,58 @@
 name: Lean source audits
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '**.lean'                        # warm the trusted main-branch Lean cache
-      - 'lean-toolchain'                 # Lean version bumps invalidate compiled artifacts
-      - 'lake-manifest.json'             # dependency/Mathlib bumps invalidate compiled artifacts
-      - '.github/workflows/lean.yml'     # changes to this audit workflow
   pull_request:
-    # Deliberately no `edited`.  That type fires on every PR title and body
-    # revision, which agents rewrite constantly, and each one queued a fresh
-    # ~16 minute Lean build for a change that cannot affect compilation.
-    # `synchronize` already covers every new commit.
-    #
-    # No `ready_for_review` either.  Draft pull requests are built here, which
-    # is what proof iteration depends on, so by the time one is marked ready
-    # `synchronize` has already built that exact commit.
     types: [opened, synchronize, reopened]
     paths:
-      - '**.lean'                        # any Lean source (incl. RHLean.lean, lakefile.lean)
-      - 'lean-toolchain'                 # Lean version bumps
-      - 'lake-manifest.json'             # dependency/Mathlib bumps
-      - '.github/workflows/lean.yml'     # changes to this audit workflow
+      - '**.lean'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - '.github/workflows/lean.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
-concurrency:
-  group: lean-audit-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  # Runs alongside the build rather than gating it.  The audit finishes in
-  # about ten seconds, so gating only pushed the expensive job back by the
-  # runner hand-off; both jobs still report independently, so a failed audit
-  # still fails the PR.
   audit:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Check paper / Analysis boundary
-        run: bash scripts/check_paper_analysis_boundary.sh
-
-      - name: Audit unfinished proofs and axioms
-        run: bash scripts/audit_assumptions.sh
-
-      # Catches a module that exists on disk but is missing from the root
-      # manifest, and so is never compiled and never has its `sorry`s
-      # reported.  This used to be `lake exe mk_all` inside the build job,
-      # where reaching the check first cost a Lean install, a Mathlib restore
-      # and a mk_all build -- about twenty seconds of every run, ninety
-      # seconds into it.  The property is a directory listing against a list
-      # of imports, so it belongs here, where it costs a second and runs in
-      # parallel with the build.  mk_all is still the generator; see the
-      # script's docstring.
-      - name: Check Lean root import manifest
-        run: python3 scripts/check_root_manifest.py
+      - uses: actions/checkout@v4
+      - run: bash scripts/check_paper_analysis_boundary.sh
+      - run: bash scripts/audit_assumptions.sh
+      - run: python3 scripts/check_root_manifest.py
 
   build:
-    name: Hosted Lean build
+    name: RHLean 4.32.2 compatibility build
     runs-on: ubuntu-latest
-    # A wedged proof search used to hold a runner for the six hour default.
-    # The slowest healthy build on record is under twenty minutes.
     timeout-minutes: 45
-    permissions:
-      contents: read
-      actions: write                     # required to trim superseded caches
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      # Mathlib's oleans live in .lake/packages. Restore that directory before
-      # lean-action runs, then save it immediately after setup rather than in a
-      # post-job hook. The explicit save is crucial while a proof PR is red:
-      # later Lean failures must not prevent the expensive dependency cache
-      # from being populated for the next compiler iteration.
-      - name: Restore Mathlib and dependency builds
-        id: lakepackages
-        uses: actions/cache/restore@v5
-        with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-          # Deliberately no restore-keys.  A prefix fallback would restore
-          # Mathlib at the previous manifest revision; lake then re-resolves to
-          # the correct one, but the superseded oleans stay in the tree and get
-          # written back under the new exact key, inflating it permanently.  All
-          # that buys is skipping one clone on a Mathlib bump, which is rare.
-          # The project build cache below is the opposite case: partial hits
-          # there are genuinely useful, so it keeps its fallbacks.
-
-      - name: Set up Lean and Mathlib
+      - uses: actions/checkout@v4
+      - name: Install Lean 4.32.2
         uses: leanprover/lean-action@v1
         with:
           use-github-cache: false
-          use-mathlib-cache: true
+          use-mathlib-cache: false
           build: false
           test: false
           lint: false
-
-      # The goal is to populate the dependency cache even when the Lean build
-      # fails, since that is exactly when a proof PR iterates.  A bare always()
-      # is too broad: a cancelled restore never sets cache-hit, an unset output
-      # compares unequal to 'true', and the step then tars a tree that unzstd
-      # is still writing into.  Require the restore to have genuinely completed
-      # and genuinely missed.
-      - name: Save Mathlib and dependency builds
-        if: >-
-          !cancelled()
-          && steps.lakepackages.outcome == 'success'
-          && steps.lakepackages.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v5
-        with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-
-      # Content-addressed project build cache.
-      #
-      # The source hash covers this Lake project only.  A bare '**/*.lean'
-      # glob also matched .lake/packages, which is already on disk by this
-      # point, so every key hashed the whole of Mathlib; and it matched the
-      # export_* trees, which are independent Lake projects whose sources
-      # cannot affect this build, so editing an export needlessly missed the
-      # cache.  Fallback keys still allow partial hits when only a few files
-      # changed.
-      - name: Restore RHLean build cache
-        uses: actions/cache/restore@v5
-        with:
-          path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
-          restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
-
-      - name: Build Lean project
-        id: directbuild
-        continue-on-error: true
-        run: lake build RHLean --wfail > lean-build.log 2>&1
-
-      # Saved on a red build on purpose, so the next compiler iteration resumes
-      # instead of recompiling; but not on a cancelled one, where .lake/build
-      # may not exist yet and the save only emits a path-validation warning.
-      - name: Save RHLean build cache
-        if: ${{ !cancelled() }}
-        uses: actions/cache/save@v5
-        with:
-          path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
-
-      # A repository gets 10 GB of Actions cache.  Mathlib holds several of
-      # them, and every run of this workflow used to add another multi-gigabyte
-      # .lake/build entry under a fresh content hash, so a busy afternoon
-      # evicted the very entries the next run wanted and turned a two minute
-      # incremental build back into a fifteen minute cold one.  Keep only the
-      # newest build entry per ref; the save above has already written it.
-      #
-      # Forked pull requests get a read-only token, so this is best effort.
-      - name: Trim superseded build caches for this ref
-        if: ${{ !cancelled() && github.event.pull_request.head.repo.fork != true }}
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-          CACHE_REF: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/merge', github.event.number) || github.ref }}
+      - name: Regenerate dependency manifest
         run: |
-          set -euo pipefail
-          gh api --paginate \
-            "/repos/${GITHUB_REPOSITORY}/actions/caches?ref=${CACHE_REF}&per_page=100" \
-            --jq '.actions_caches[] | select(.key | startswith("rhlean-build-")) | [.created_at, (.id|tostring), .key] | @tsv' \
-            > caches.tsv || : > caches.tsv
-          # Newest first, keep row one, delete the rest.
-          sort -r caches.tsv | tail -n +2 | while IFS=$'\t' read -r created id key; do
-            echo "deleting superseded cache ${key} (${created})"
-            gh api -X DELETE "/repos/${GITHUB_REPOSITORY}/actions/caches/${id}" || true
-          done
-
-      - name: Upload Lean build log
-        if: ${{ always() && hashFiles('lean-build.log') != '' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: lean-build-log
-          path: lean-build.log
-
-      - name: Print Lean build log
-        if: ${{ always() && hashFiles('lean-build.log') != '' }}
-        run: cat lean-build.log
-
-      - name: Fail if Lean build failed
-        if: steps.directbuild.outcome == 'failure'
+          rm -f lake-manifest.json
+          lake update mathlib
+          grep -A8 -B2 'mathlib' lake-manifest.json || true
+          grep -A8 -B2 'batteries' lake-manifest.json || true
+      - name: Fetch Mathlib cache
+        run: lake exe cache get
+      - name: Build RHLean under 4.32.2
+        id: compatbuild
+        continue-on-error: true
+        run: lake build RHLean --wfail > rhlean-432.log 2>&1
+      - name: Print build log
+        if: always()
+        run: cat rhlean-432.log || true
+      - name: Fail if source port is needed
+        if: steps.compatbuild.outcome == 'failure'
         run: exit 1
