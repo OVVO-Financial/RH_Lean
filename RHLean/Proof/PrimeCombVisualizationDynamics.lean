@@ -473,4 +473,186 @@ theorem primeCombTailSignedDelta_eq
   rw [primeCombTailSignedDelta, primeCombTailChannelMass_eq_mertens_sub_one hp hpW]
   ring
 
+/-! ## Literal per-prime masks and score accounting -/
+
+/-- The site is still alive immediately before the current prime acts. -/
+def PrimeCombFrameAlive (S : Finset ℕ) (n : ℕ) : Prop :=
+  primeCombFrameSite S n ≠ 0
+
+/-- The current prime reaches this site as a proper multiple. -/
+def PrimeCombFrameProperMultiple (p n : ℕ) : Prop :=
+  p < n ∧ p ∣ n
+
+/-- Literal `killed` mask from the animation. -/
+def PrimeCombFrameKilled (S : Finset ℕ) (p n : ℕ) : Prop :=
+  PrimeCombFrameAlive S n ∧
+    PrimeCombFrameProperMultiple p n ∧
+      p ^ 2 ∣ n
+
+/-- Literal `first_hit` mask: the site is alive, is a proper multiple of `p`,
+has not been hit by an earlier proper-multiple rake, and is not killed now. -/
+def PrimeCombFrameFirstHit (S : Finset ℕ) (p n : ℕ) : Prop :=
+  PrimeCombFrameAlive S n ∧
+    PrimeCombFrameProperMultiple p n ∧
+      ¬ PrimeCombFrameProperTouched S n ∧
+        ¬ p ^ 2 ∣ n
+
+/-- Literal `flipped` mask: the site is alive, has already been hit, is reached
+again by `p`, and is not killed by `p^2`. -/
+def PrimeCombFrameFlipped (S : Finset ℕ) (p n : ℕ) : Prop :=
+  PrimeCombFrameAlive S n ∧
+    PrimeCombFrameProperMultiple p n ∧
+      PrimeCombFrameProperTouched S n ∧
+        ¬ p ^ 2 ∣ n
+
+/-- Every alive proper multiple belongs to exactly one operational channel:
+kill, first touch, or later-touch flip. -/
+theorem primeCombFrameAliveProper_partition
+    (S : Finset ℕ) {p n : ℕ}
+    (halive : PrimeCombFrameAlive S n)
+    (hproper : PrimeCombFrameProperMultiple p n) :
+    PrimeCombFrameKilled S p n ∨
+      PrimeCombFrameFirstHit S p n ∨
+        PrimeCombFrameFlipped S p n := by
+  classical
+  by_cases hsq : p ^ 2 ∣ n
+  · exact Or.inl ⟨halive, hproper, hsq⟩
+  · by_cases htouched : PrimeCombFrameProperTouched S n
+    · exact Or.inr (Or.inr ⟨halive, hproper, htouched, hsq⟩)
+    · exact Or.inr (Or.inl ⟨halive, hproper, htouched, hsq⟩)
+
+/-- Kill and flip masks are disjoint. -/
+theorem primeCombFrameKilled_not_flipped
+    (S : Finset ℕ) (p n : ℕ) :
+    ¬ (PrimeCombFrameKilled S p n ∧ PrimeCombFrameFlipped S p n) := by
+  intro h
+  unfold PrimeCombFrameKilled PrimeCombFrameFlipped at h
+  exact h.2.2.2.2 h.1.2.2
+
+/-- The animation updates `hit` on every proper multiple, including a first
+hit and a square kill. -/
+theorem primeCombFrameProperTouched_insert_of_proper
+    (S : Finset ℕ) {p n : ℕ}
+    (hproper : PrimeCombFrameProperMultiple p n) :
+    PrimeCombFrameProperTouched (insert p S) n := by
+  unfold PrimeCombFrameProperTouched PrimeCombFrameProperMultiple at *
+  exact ⟨p, Finset.mem_insert_self p S, hproper.1, hproper.2⟩
+
+/-- Literal one-prime state transition used by the visualization. -/
+def primeCombAnimationStepSite (S : Finset ℕ) (p n : ℕ) : ℤ := by
+  classical
+  exact
+    if PrimeCombFrameKilled S p n then 0
+    else if PrimeCombFrameFlipped S p n then -primeCombFrameSite S n
+    else primeCombFrameSite S n
+
+/-- First touch leaves the prime-candidate sign unchanged. -/
+theorem primeCombAnimationStepSite_eq_of_firstHit
+    (S : Finset ℕ) {p n : ℕ}
+    (h : PrimeCombFrameFirstHit S p n) :
+    primeCombAnimationStepSite S p n = primeCombFrameSite S n := by
+  classical
+  unfold PrimeCombFrameFirstHit at h
+  rcases h with ⟨halive, hproper, hnotTouched, hnotSq⟩
+  simp [primeCombAnimationStepSite, PrimeCombFrameKilled,
+    PrimeCombFrameFlipped, halive, hproper, hnotTouched, hnotSq]
+
+/-- A kill writes zero. -/
+theorem primeCombAnimationStepSite_eq_zero_of_killed
+    (S : Finset ℕ) {p n : ℕ}
+    (h : PrimeCombFrameKilled S p n) :
+    primeCombAnimationStepSite S p n = 0 := by
+  classical
+  simp [primeCombAnimationStepSite, h]
+
+/-- A later touch flips the old sign. -/
+theorem primeCombAnimationStepSite_eq_neg_of_flipped
+    (S : Finset ℕ) {p n : ℕ}
+    (h : PrimeCombFrameFlipped S p n) :
+    primeCombAnimationStepSite S p n = -primeCombFrameSite S n := by
+  classical
+  unfold PrimeCombFrameFlipped at h
+  rcases h with ⟨halive, hproper, htouched, hnotSq⟩
+  simp [primeCombAnimationStepSite, PrimeCombFrameKilled,
+    PrimeCombFrameFlipped, halive, hproper, htouched, hnotSq]
+
+/-- Per-site score change in exactly the form used by the Python assertion. -/
+theorem primeCombAnimationStepSite_sub
+    (S : Finset ℕ) (p n : ℕ) :
+    primeCombAnimationStepSite S p n - primeCombFrameSite S n =
+      -(if PrimeCombFrameKilled S p n then primeCombFrameSite S n else 0) -
+        2 * (if PrimeCombFrameFlipped S p n then primeCombFrameSite S n else 0) := by
+  classical
+  by_cases hkilled : PrimeCombFrameKilled S p n
+  · have hnotFlipped : ¬ PrimeCombFrameFlipped S p n := by
+      intro hflipped
+      exact primeCombFrameKilled_not_flipped S p n ⟨hkilled, hflipped⟩
+    simp [primeCombAnimationStepSite, hkilled, hnotFlipped] <;> ring
+  · by_cases hflipped : PrimeCombFrameFlipped S p n
+    · simp [primeCombAnimationStepSite, hkilled, hflipped] <;> ring
+    · simp [primeCombAnimationStepSite, hkilled, hflipped]
+
+/-- Number of killed seats in the current frame. -/
+def primeCombFrameKilledCount (S : Finset ℕ) (p W : ℕ) : ℕ := by
+  classical
+  exact ((Finset.Icc 1 W).filter fun n => PrimeCombFrameKilled S p n).card
+
+/-- Number of first-hit seats in the current frame. -/
+def primeCombFrameFirstHitCount (S : Finset ℕ) (p W : ℕ) : ℕ := by
+  classical
+  exact ((Finset.Icc 1 W).filter fun n => PrimeCombFrameFirstHit S p n).card
+
+/-- Number of later-touch flipped seats in the current frame. -/
+def primeCombFrameFlippedCount (S : Finset ℕ) (p W : ℕ) : ℕ := by
+  classical
+  exact ((Finset.Icc 1 W).filter fun n => PrimeCombFrameFlipped S p n).card
+
+/-- Signed old-state mass on seats killed in this frame. -/
+def primeCombFrameKillChannelMass (S : Finset ℕ) (p W : ℕ) : ℤ := by
+  classical
+  exact ∑ n ∈ Finset.Icc 1 W,
+    if PrimeCombFrameKilled S p n then primeCombFrameSite S n else 0
+
+/-- Signed old-state mass on seats flipped in this frame. -/
+def primeCombFrameFlipChannelMass (S : Finset ℕ) (p W : ℕ) : ℤ := by
+  classical
+  exact ∑ n ∈ Finset.Icc 1 W,
+    if PrimeCombFrameFlipped S p n then primeCombFrameSite S n else 0
+
+/-- Prefix score after applying exactly one animation step. -/
+def primeCombAnimationStepPrefixMass (S : Finset ℕ) (p W : ℕ) : ℤ :=
+  ∑ n ∈ Finset.Icc 1 W, primeCombAnimationStepSite S p n
+
+/-- Displayed signed-score change in the current frame. -/
+def primeCombAnimationStepDelta (S : Finset ℕ) (p W : ℕ) : ℤ :=
+  primeCombAnimationStepPrefixMass S p W - primeCombFramePrefixMass S W
+
+/-- **Exact frame score assertion.**  Summing the pointwise update gives the
+Python identity
+
+`delta_signed_sum = - kill_channel_mass_before - 2 * flip_channel_mass_before`.
+-/
+theorem primeCombAnimationStepDelta_eq_channels
+    (S : Finset ℕ) (p W : ℕ) :
+    primeCombAnimationStepDelta S p W =
+      -primeCombFrameKillChannelMass S p W -
+        2 * primeCombFrameFlipChannelMass S p W := by
+  classical
+  unfold primeCombAnimationStepDelta primeCombAnimationStepPrefixMass
+    primeCombFramePrefixMass
+  rw [← Finset.sum_sub_distrib]
+  calc
+    (∑ n ∈ Finset.Icc 1 W,
+        (primeCombAnimationStepSite S p n - primeCombFrameSite S n)) =
+      ∑ n ∈ Finset.Icc 1 W,
+        (-(if PrimeCombFrameKilled S p n then primeCombFrameSite S n else 0) -
+          2 * (if PrimeCombFrameFlipped S p n then primeCombFrameSite S n else 0)) := by
+            apply Finset.sum_congr rfl
+            intro n _hn
+            exact primeCombAnimationStepSite_sub S p n
+    _ = -primeCombFrameKillChannelMass S p W -
+          2 * primeCombFrameFlipChannelMass S p W := by
+            unfold primeCombFrameKillChannelMass primeCombFrameFlipChannelMass
+            rw [Finset.sum_sub_distrib, Finset.sum_neg_distrib, ← Finset.mul_sum]
+
 end RHLean.Proof
