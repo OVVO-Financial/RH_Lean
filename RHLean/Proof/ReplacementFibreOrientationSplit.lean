@@ -1,10 +1,11 @@
 import Mathlib
 import RHLean.Proof.RootSmoothCrossRegionGram
+import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
 
 /-!
 # Replacement fibre orientation split
 
-This module identifies the surviving reciprocal-fibre Mobius state with the
+This module identifies the surviving reciprocal-fibre Möbius state with the
 repository's existing canonical root/smooth orientation.
 
 For `X_R = R^2 - 1` and `1 <= z < R`, the reciprocal fibre is
@@ -15,12 +16,12 @@ Every squarefree `n > 1` has canonical coordinates
 
 `n = c * q`,  `q = P+(n)`,  `c = n / q`,
 
-and equality `c = q` is impossible.  Hence the fibre splits exactly into
+and equality `c = q` is impossible. Hence the fibre splits exactly into
 
 * root orientation `c < q`;
 * smooth orientation `q < c`.
 
-On the root side, `c < R` is automatic from `n <= R^2 - 1`.  Primes are the
+On the root side, `c < R` is automatic from `n <= R^2 - 1`. Primes are the
 special face `c = 1`; they are not a separate arithmetic state.
 
 No norm, energy estimate, first-moment estimate, or new Gram is introduced.
@@ -40,8 +41,18 @@ def ReplacementRootOriented (n : ℕ) : Prop :=
 def ReplacementSmoothOriented (n : ℕ) : Prop :=
   Squarefree n ∧ canonicalLargestPrimeFactor n < canonicalCofactor n
 
+instance instDecidableReplacementRootOriented (n : ℕ) :
+    Decidable (ReplacementRootOriented n) := by
+  unfold ReplacementRootOriented
+  infer_instance
+
+instance instDecidableReplacementSmoothOriented (n : ℕ) :
+    Decidable (ReplacementSmoothOriented n) := by
+  unfold ReplacementSmoothOriented
+  infer_instance
+
 /-- For a nontrivial squarefree source the two strict canonical orientations
-are exhaustive.  Equality of the canonical cofactor and largest prime would
+are exhaustive. Equality of the canonical cofactor and largest prime would
 force that prime to divide the cofactor, contradicting squarefreeness. -/
 theorem replacementOrientation_exhaustive
     {n : ℕ} (hn : 1 < n) (hsq : Squarefree n) :
@@ -58,7 +69,7 @@ theorem replacementOrientation_exhaustive
 theorem replacementOrientation_disjoint
     {n : ℕ} : ¬(ReplacementRootOriented n ∧ ReplacementSmoothOriented n) := by
   rintro ⟨hroot, hsmooth⟩
-  omega
+  exact Nat.lt_asymm hroot.2 hsmooth.2
 
 /-- At the complete square endpoint, every root-oriented squarefree source has
 canonical cofactor strictly below the induction scale. -/
@@ -82,7 +93,7 @@ theorem replacementRootOriented_cofactor_lt_root
     omega
   have hnlt : n < R ^ 2 := hnX.trans_lt hXlt
   rw [hfactor] at hsqle
-  omega
+  exact (Nat.not_lt_of_ge hsqle) hnlt
 
 /-- Public reciprocal-interval form of the elementary floor identity used by
 the fibre dictionary. -/
@@ -126,23 +137,21 @@ theorem squareRootEndpoint_div_eq_iff_mem_replacementFibre
         (by simpa [Nat.mul_comm] using hmul)
     omega
 
-/-- Root-oriented Mobius mass carried by reciprocal fibre `z`.  The definition
-uses the physical tail plus quotient label; the next theorem identifies it with
-the literal interval `I_z`. -/
+/-- Root-oriented Möbius mass carried by reciprocal fibre `z`. -/
 def replacementFibreRootMass (R z : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
     if squareRootEndpoint R / n = z then
       if ReplacementRootOriented n then (((μ n : ℤ) : ℂ)) else 0
     else 0
 
-/-- Smooth-oriented Mobius mass carried by reciprocal fibre `z`. -/
+/-- Smooth-oriented Möbius mass carried by reciprocal fibre `z`. -/
 def replacementFibreSmoothMass (R z : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
     if squareRootEndpoint R / n = z then
       if ReplacementSmoothOriented n then (((μ n : ℤ) : ℂ)) else 0
     else 0
 
-/-- The root fibre is literally the root-oriented Mobius sum on `I_z`. -/
+/-- The root fibre is literally the root-oriented Möbius sum on `I_z`. -/
 theorem replacementFibreRootMass_eq_intervalSum
     (R z : ℕ) (hR : 2 ≤ R) (hz : 1 ≤ z) (hzR : z < R) :
     replacementFibreRootMass R z =
@@ -163,7 +172,7 @@ theorem replacementFibreRootMass_eq_intervalSum
   unfold replacementFibreRootMass
   rw [← Finset.sum_filter, hset]
 
-/-- The smooth fibre is literally the smooth-oriented Mobius sum on `I_z`. -/
+/-- The smooth fibre is literally the smooth-oriented Möbius sum on `I_z`. -/
 theorem replacementFibreSmoothMass_eq_intervalSum
     (R z : ℕ) (hR : 2 ≤ R) (hz : 1 ≤ z) (hzR : z < R) :
     replacementFibreSmoothMass R z =
@@ -184,9 +193,7 @@ theorem replacementFibreSmoothMass_eq_intervalSum
   unfold replacementFibreSmoothMass
   rw [← Finset.sum_filter, hset]
 
-/-- **Exact orientation split of the surviving Type-II fibre.**  This is the
-named interface theorem: the complementary Mobius fibre is root plus smooth in
-the pre-existing canonical orientation. -/
+/-- **Exact orientation split of the surviving Type-II fibre.** -/
 theorem squareRootReplacementTailMoebiusCoefficient_eq_root_add_smooth
     (R z : ℕ) (hR : 2 ≤ R) :
     squareRootReplacementTailMoebiusCoefficient R z =
@@ -200,7 +207,7 @@ theorem squareRootReplacementTailMoebiusCoefficient_eq_root_add_smooth
   by_cases hq : squareRootEndpoint R / n = z
   · simp only [hq, if_true]
     have hnR : R ≤ n := (Finset.mem_Icc.mp hn).1
-    have hn2 : 2 ≤ n := hnR.trans hR
+    have hn2 : 2 ≤ n := hR.trans hnR
     have hn1 : 1 < n := by omega
     by_cases hsq : Squarefree n
     · rcases replacementOrientation_exhaustive hn1 hsq with hroot | hsmooth
@@ -214,12 +221,8 @@ theorem squareRootReplacementTailMoebiusCoefficient_eq_root_add_smooth
         simp [hnotRoot, hsmooth]
     · have hzero : (μ n : ℤ) = 0 :=
         ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-      have hnotRoot : ¬ ReplacementRootOriented n := by
-        intro hr
-        exact hsq hr.1
-      have hnotSmooth : ¬ ReplacementSmoothOriented n := by
-        intro hs
-        exact hsq hs.1
+      have hnotRoot : ¬ ReplacementRootOriented n := fun hr => hsq hr.1
+      have hnotSmooth : ¬ ReplacementSmoothOriented n := fun hs => hsq hs.1
       simp [hzero, hnotRoot, hnotSmooth]
   · simp [hq]
 
@@ -270,7 +273,7 @@ theorem sum_replacementFibreSmoothMass_eq_tailSmoothMass
   simp [hzmem]
 
 /-- The high root plus high smooth masses are exactly the ordinary complementary
-Mertens tail.  This is a partition identity, not an estimate. -/
+Mertens tail. This is a partition identity, not an estimate. -/
 theorem replacementTailRoot_add_smooth_eq_mertens_sub_pred
     (R : ℕ) (hR : 2 ≤ R) :
     replacementTailRootMass R + replacementTailSmoothMass R =
@@ -304,58 +307,88 @@ def replacementLowSmoothMass (R : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc 2 (R - 1),
     if ReplacementSmoothOriented n then (((μ n : ℤ) : ℂ)) else 0
 
+private theorem replacement_orientations_sum_eq_mobius_sum
+    (s : Finset ℕ) (h2 : ∀ n ∈ s, 2 ≤ n) :
+    (∑ n ∈ s, if ReplacementRootOriented n then (((μ n : ℤ) : ℂ)) else 0) +
+      (∑ n ∈ s, if ReplacementSmoothOriented n then (((μ n : ℤ) : ℂ)) else 0) =
+        ∑ n ∈ s, (((μ n : ℤ) : ℂ)) := by
+  classical
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro n hn
+  have hn1 : 1 < n := by omega
+  by_cases hsq : Squarefree n
+  · rcases replacementOrientation_exhaustive hn1 hsq with hroot | hsmooth
+    · have hnotSmooth : ¬ ReplacementSmoothOriented n := by
+        intro hs
+        exact replacementOrientation_disjoint ⟨hroot, hs⟩
+      simp [hroot, hnotSmooth]
+    · have hnotRoot : ¬ ReplacementRootOriented n := by
+        intro hr
+        exact replacementOrientation_disjoint ⟨hr, hsmooth⟩
+      simp [hnotRoot, hsmooth]
+  · have hzero : (μ n : ℤ) = 0 :=
+      ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
+    have hnotRoot : ¬ ReplacementRootOriented n := fun hr => hsq hr.1
+    have hnotSmooth : ¬ ReplacementSmoothOriented n := fun hs => hsq hs.1
+    simp [hzero, hnotRoot, hnotSmooth]
+
 /-- The low orientation split is exactly `M(R-1)-1`. -/
 theorem replacementLowRoot_add_smooth_eq_mertens_pred_sub_one
     (R : ℕ) (hR : 2 ≤ R) :
     replacementLowRootMass R + replacementLowSmoothMass R =
       RHLean.Analysis.mertensSummatory (R - 1) - 1 := by
   classical
-  have hsplit :
-      replacementLowRootMass R + replacementLowSmoothMass R =
-        ∑ n ∈ Finset.Icc 2 (R - 1), (((μ n : ℤ) : ℂ)) := by
-    unfold replacementLowRootMass replacementLowSmoothMass
-    rw [← Finset.sum_add_distrib]
-    apply Finset.sum_congr rfl
-    intro n hn
-    have hn2 : 2 ≤ n := (Finset.mem_Icc.mp hn).1
-    have hn1 : 1 < n := by omega
-    by_cases hsq : Squarefree n
-    · rcases replacementOrientation_exhaustive hn1 hsq with hroot | hsmooth
-      · have hnotSmooth : ¬ ReplacementSmoothOriented n := by
-          intro hs
-          exact replacementOrientation_disjoint ⟨hroot, hs⟩
-        simp [hroot, hnotSmooth]
-      · have hnotRoot : ¬ ReplacementRootOriented n := by
-          intro hr
-          exact replacementOrientation_disjoint ⟨hr, hsmooth⟩
-        simp [hnotRoot, hsmooth]
-    · have hzero : (μ n : ℤ) = 0 :=
-        ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-      have hnotRoot : ¬ ReplacementRootOriented n := fun hr => hsq hr.1
-      have hnotSmooth : ¬ ReplacementSmoothOriented n := fun hs => hsq hs.1
-      simp [hzero, hnotRoot, hnotSmooth]
+  have hsplit := replacement_orientations_sum_eq_mobius_sum
+    (Finset.Icc 2 (R - 1)) (fun n hn => (Finset.mem_Icc.mp hn).1)
+  unfold replacementLowRootMass replacementLowSmoothMass
+  rw [hsplit]
   have hset :
       Finset.Icc 1 (R - 1) = insert 1 (Finset.Icc 2 (R - 1)) := by
     ext n
     simp only [Finset.mem_Icc, Finset.mem_insert]
     omega
-  rw [hsplit]
   have hM := RHLean.Analysis.mertensSummatory_eq_sum_Icc (R - 1)
   rw [hset] at hM
   have h1not : (1 : ℕ) ∉ Finset.Icc 2 (R - 1) := by simp
   rw [Finset.sum_insert h1not] at hM
   simp at hM
-  linarith
+  rw [hM]
+  ring
 
-/-- Full root-oriented Mobius population on `2 <= n <= X_R`. -/
+/-- Full root-oriented Möbius population on `2 <= n <= X_R`. -/
 def replacementFullRootMass (R : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc 2 (squareRootEndpoint R),
     if ReplacementRootOriented n then (((μ n : ℤ) : ℂ)) else 0
 
-/-- Full smooth-oriented Mobius population on `2 <= n <= X_R`. -/
+/-- Full smooth-oriented Möbius population on `2 <= n <= X_R`. -/
 def replacementFullSmoothMass (R : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc 2 (squareRootEndpoint R),
     if ReplacementSmoothOriented n then (((μ n : ℤ) : ℂ)) else 0
+
+/-- The complete orientation split is exactly `M(X_R)-1`. -/
+theorem replacementFullRoot_add_smooth_eq_mertens_sub_one
+    (R : ℕ) (hR : 2 ≤ R) :
+    replacementFullRootMass R + replacementFullSmoothMass R =
+      RHLean.Analysis.mertensSummatory (squareRootEndpoint R) - 1 := by
+  classical
+  have hsplit := replacement_orientations_sum_eq_mobius_sum
+    (Finset.Icc 2 (squareRootEndpoint R)) (fun n hn => (Finset.mem_Icc.mp hn).1)
+  unfold replacementFullRootMass replacementFullSmoothMass
+  rw [hsplit]
+  have hset :
+      Finset.Icc 1 (squareRootEndpoint R) =
+        insert 1 (Finset.Icc 2 (squareRootEndpoint R)) := by
+    ext n
+    simp only [Finset.mem_Icc, Finset.mem_insert]
+    omega
+  have hM := RHLean.Analysis.mertensSummatory_eq_sum_Icc (squareRootEndpoint R)
+  rw [hset] at hM
+  have h1not : (1 : ℕ) ∉ Finset.Icc 2 (squareRootEndpoint R) := by simp
+  rw [Finset.sum_insert h1not] at hM
+  simp at hM
+  rw [hM]
+  ring
 
 private theorem replacement_full_eq_low_add_tail
     (R : ℕ) (hR : 2 ≤ R)
@@ -392,9 +425,14 @@ theorem replacementFullRootMass_eq_low_add_fibres
     replacementFullRootMass R =
       replacementLowRootMass R +
         ∑ z ∈ Finset.range R, replacementFibreRootMass R z := by
-  unfold replacementFullRootMass replacementLowRootMass
-  rw [replacement_full_eq_low_add_tail R hR ReplacementRootOriented,
-    ← sum_replacementFibreRootMass_eq_tailRootMass R hR]
+  calc
+    replacementFullRootMass R =
+        replacementLowRootMass R + replacementTailRootMass R := by
+      unfold replacementFullRootMass replacementLowRootMass replacementTailRootMass
+      exact replacement_full_eq_low_add_tail R hR ReplacementRootOriented
+    _ = replacementLowRootMass R +
+        ∑ z ∈ Finset.range R, replacementFibreRootMass R z := by
+      rw [sum_replacementFibreRootMass_eq_tailRootMass R hR]
 
 /-- Full smooth orientation is low smooth plus the complete smooth fibre vector. -/
 theorem replacementFullSmoothMass_eq_low_add_fibres
@@ -402,9 +440,14 @@ theorem replacementFullSmoothMass_eq_low_add_fibres
     replacementFullSmoothMass R =
       replacementLowSmoothMass R +
         ∑ z ∈ Finset.range R, replacementFibreSmoothMass R z := by
-  unfold replacementFullSmoothMass replacementLowSmoothMass
-  rw [replacement_full_eq_low_add_tail R hR ReplacementSmoothOriented,
-    ← sum_replacementFibreSmoothMass_eq_tailSmoothMass R hR]
+  calc
+    replacementFullSmoothMass R =
+        replacementLowSmoothMass R + replacementTailSmoothMass R := by
+      unfold replacementFullSmoothMass replacementLowSmoothMass replacementTailSmoothMass
+      exact replacement_full_eq_low_add_tail R hR ReplacementSmoothOriented
+    _ = replacementLowSmoothMass R +
+        ∑ z ∈ Finset.range R, replacementFibreSmoothMass R z := by
+      rw [sum_replacementFibreSmoothMass_eq_tailSmoothMass R hR]
 
 /-- The repository's complete smooth ancestry mass is exactly the full strict
 smooth orientation on integers. -/
@@ -425,13 +468,10 @@ theorem ancestrySmoothMass_cast_eq_replacementFullSmoothMass
     simp only [Finset.mem_range]
     constructor
     · rintro ⟨hnlt, hn2, hsq, horient⟩
-      refine ⟨?_, ?_, ⟨hsq, horient⟩⟩
-      · exact hn2
-      · omega
+      exact ⟨hn2, by omega, hsq, horient⟩
     · rintro ⟨hn2, hnX, hsq, horient⟩
       have hsqpos : 0 < R ^ 2 := by positivity
-      refine ⟨?_, hn2, hsq, horient⟩
-      omega
+      exact ⟨by omega, hn2, hsq, horient⟩
   unfold squareRootAncestrySmoothMassInt replacementFullSmoothMass
   push_cast
   rw [hset, Finset.sum_filter]
@@ -446,8 +486,7 @@ private theorem ancestryRoot_add_smooth_eq_mertensInt_sub_one
   exact_mod_cast hreal
 
 /-- The repository's complete root coordinate is exactly the full strict root
-orientation.  This is derived from the already-proved total root-smooth state
-and the literal smooth-population identification above. -/
+orientation. -/
 theorem ancestryRootMass_cast_eq_replacementFullRootMass
     (R : ℕ) (hR : 2 ≤ R) :
     ((squareRootAncestryRootPrimeMass R : ℤ) : ℂ) =
@@ -457,17 +496,7 @@ theorem ancestryRootMass_cast_eq_replacementFullRootMass
   push_cast at htotal
   rw [mertensSummatoryInt_cast] at htotal
   have hsmooth := ancestrySmoothMass_cast_eq_replacementFullSmoothMass R hR
-  have hfull :
-      replacementFullRootMass R + replacementFullSmoothMass R =
-        RHLean.Analysis.mertensSummatory (squareRootEndpoint R) - 1 := by
-    rw [replacementFullRootMass_eq_low_add_fibres R hR,
-      replacementFullSmoothMass_eq_low_add_fibres R hR]
-    have hlow := replacementLowRoot_add_smooth_eq_mertens_pred_sub_one R hR
-    have htail := replacementTailRoot_add_smooth_eq_mertens_sub_pred R hR
-    rw [sum_replacementFibreRootMass_eq_tailRootMass R hR,
-      sum_replacementFibreSmoothMass_eq_tailSmoothMass R hR]
-    rw [hlow, htail]
-    ring
+  have hfull := replacementFullRoot_add_smooth_eq_mertens_sub_one R hR
   calc
     ((squareRootAncestryRootPrimeMass R : ℤ) : ℂ) =
         (RHLean.Analysis.mertensSummatory (squareRootEndpoint R) - 1) -
@@ -503,7 +532,6 @@ theorem ancestrySmoothMass_cast_eq_low_add_fibres
 /-- A prime source has canonical cofactor one and is therefore root-oriented. -/
 theorem prime_replacementRootOriented {q : ℕ} (hq : q.Prime) :
     ReplacementRootOriented q := by
-  have hq2 : 1 < q := hq.one_lt
   have htop : canonicalLargestPrimeFactor q = q := by
     simpa using canonicalLargestPrimeFactor_mul_prime_eq
       (c := 1) (q := q) (by decide) hq.one_lt hq
@@ -583,8 +611,8 @@ cofactor `c`. -/
 def replacementDilatedFibreUpper (R z c : ℕ) : ℕ :=
   squareRootEndpoint R / (z * c)
 
-/-- **Dilated-window reindex.**  For positive `c,z`, the root atom `(c,q)` lands
-in reciprocal fibre `z` exactly when the prime coordinate lies in `I_z^(c)`. -/
+/-- **Dilated-window reindex.** For positive `c,z`, the atom `(c,q)` lands in
+reciprocal fibre `z` exactly when the prime coordinate lies in `I_z^(c)`. -/
 theorem squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
     {R z c q : ℕ} (hc : 1 ≤ c) (hq : 1 ≤ q) (hz : 1 ≤ z) :
     squareRootEndpoint R / (c * q) = z ↔
@@ -592,16 +620,12 @@ theorem squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
         (replacementDilatedFibreLower R z c)
         (replacementDilatedFibreUpper R z c) := by
   have hcpos : 0 < c := by omega
-  have hqpos : 0 < q := by omega
-  have hprodpos : 0 < c * q := Nat.mul_pos hcpos hqpos
-  have hzpos : 0 < z := by omega
-  have hzp : 0 < z + 1 := by omega
   unfold replacementDilatedFibreLower replacementDilatedFibreUpper
   constructor
   · intro hdiv
     have hbase :=
       (squareRootEndpoint_div_eq_iff_mem_replacementFibre
-        (R := R) (n := c * q) (z := z) (by omega) hz).1 hdiv
+        (R := R) (n := c * q) (z := z) (by positivity) hz).1 hdiv
     rcases Finset.mem_Icc.mp hbase with ⟨hlowerProd, hupperProd⟩
     have hlower0 : squareRootEndpoint R / (z + 1) < c * q := by
       unfold squareRootReplacementFibreLower at hlowerProd
@@ -619,8 +643,7 @@ theorem squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
     exact Finset.mem_Icc.mpr ⟨by omega, hupper⟩
   · intro hmem
     rcases Finset.mem_Icc.mp hmem with ⟨hlower, hupper⟩
-    have hlower' : squareRootEndpoint R / ((z + 1) * c) < q := by
-      omega
+    have hlower' : squareRootEndpoint R / ((z + 1) * c) < q := by omega
     rw [← Nat.div_div_eq_div_mul] at hlower'
     have hlower0 : squareRootEndpoint R / (z + 1) < q * c :=
       (Nat.div_lt_iff_lt_mul hcpos).1 hlower'
@@ -629,18 +652,18 @@ theorem squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
     have hupper0 : q * c ≤ squareRootEndpoint R / z :=
       (Nat.le_div_iff_mul_le hcpos).1 hupper'
     apply (squareRootEndpoint_div_eq_iff_mem_replacementFibre
-      (R := R) (n := c * q) (z := z) (by omega) hz).2
+      (R := R) (n := c * q) (z := z) (by positivity) hz).2
     apply Finset.mem_Icc.mpr
     constructor
     · unfold squareRootReplacementFibreLower
-      have : squareRootEndpoint R / (z + 1) < c * q := by
+      have h : squareRootEndpoint R / (z + 1) < c * q := by
         simpa [Nat.mul_comm] using hlower0
       omega
     · unfold squareRootReplacementFibreUpper
       simpa [Nat.mul_comm] using hupper0
 
-/-- A nonempty dilated window forces the obvious endpoint-scale cofactor
-constraint.  This is only geometry of the incidence, not an analytic estimate. -/
+/-- A nonempty dilated window forces the elementary endpoint-scale cofactor
+constraint. This is geometry of the incidence, not an estimate. -/
 theorem replacementDilatedFibre_nonempty_imp_cofactor_mul_z_le_endpoint
     {R z c : ℕ} (hz : 1 ≤ z) (hc : 1 ≤ c)
     (hmem : ∃ q, q ∈ Finset.Icc
@@ -648,13 +671,14 @@ theorem replacementDilatedFibre_nonempty_imp_cofactor_mul_z_le_endpoint
       (replacementDilatedFibreUpper R z c)) :
     z * c ≤ squareRootEndpoint R := by
   rcases hmem with ⟨q, hq⟩
+  have hlower := (Finset.mem_Icc.mp hq).1
   have hupper := (Finset.mem_Icc.mp hq).2
+  have hLowerPos : 1 ≤ replacementDilatedFibreLower R z c := by
+    unfold replacementDilatedFibreLower
+    exact Nat.succ_le_succ (Nat.zero_le _)
+  have hq1 : 1 ≤ q := hLowerPos.trans hlower
   unfold replacementDilatedFibreUpper at hupper
-  have hone : 1 ≤ q := by
-    have hlower := (Finset.mem_Icc.mp hq).1
-    unfold replacementDilatedFibreLower at hlower
-    omega
-  have hdiv1 : 1 ≤ squareRootEndpoint R / (z * c) := hone.trans hupper
+  have hdiv1 : 1 ≤ squareRootEndpoint R / (z * c) := hq1.trans hupper
   have hzcpos : 0 < z * c := Nat.mul_pos (by omega) (by omega)
   exact (Nat.one_le_div_iff hzcpos).1 hdiv1
 
