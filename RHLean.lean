@@ -72,7 +72,7 @@ import RHLean.Analysis.NativePNTMobiusMoments
 import RHLean.Analysis.NativePNTMobiusSecondMoment
 import RHLean.Analysis.NativePNTNormalizedContinuity
 import RHLean.Analysis.NativePNTNormalizedReciprocal
-import RHLean.Analysis.NativePNTNormalizedSignedRecurrence
+import RHLean.Analysis.NativePNTSignedRecurrence
 import RHLean.Analysis.NativePNTOptimalInterceptCore
 import RHLean.Analysis.NativePNTOptimalInterceptGrowth
 import RHLean.Analysis.NativePNTOptimalInterceptStep
@@ -400,6 +400,7 @@ import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.OrthogonalResidual
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
+import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Proof.PrimeCombVisualizationFrames
 import RHLean.Proof.PrimeCombWheelBoundary
 import RHLean.Proof.PrimeSievePostSqrtGap
