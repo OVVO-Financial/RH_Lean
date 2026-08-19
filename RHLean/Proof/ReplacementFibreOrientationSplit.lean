@@ -377,6 +377,10 @@ theorem replacementFullRoot_add_smooth_eq_mertens_sub_one
     (Finset.Icc 2 (squareRootEndpoint R)) (fun n hn => (Finset.mem_Icc.mp hn).1)
   unfold replacementFullRootMass replacementFullSmoothMass
   rw [hsplit]
+  have hX1 : 1 ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hsq : 2 ≤ R ^ 2 := by nlinarith
+    omega
   have hset :
       Finset.Icc 1 (squareRootEndpoint R) =
         insert 1 (Finset.Icc 2 (squareRootEndpoint R)) := by
@@ -633,12 +637,14 @@ theorem squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
         (replacementDilatedFibreLower R z c)
         (replacementDilatedFibreUpper R z c) := by
   have hcpos : 0 < c := by omega
+  have hqpos : 0 < q := by omega
+  have hprodpos : 0 < c * q := Nat.mul_pos hcpos hqpos
   unfold replacementDilatedFibreLower replacementDilatedFibreUpper
   constructor
   · intro hdiv
     have hbase :=
       (squareRootEndpoint_div_eq_iff_mem_replacementFibre
-        (R := R) (n := c * q) (z := z) (by omega) hz).1 hdiv
+        (R := R) (n := c * q) (z := z) hprodpos hz).1 hdiv
     rcases Finset.mem_Icc.mp hbase with ⟨hlowerProd, hupperProd⟩
     have hlower0 : squareRootEndpoint R / (z + 1) < c * q := by
       unfold squareRootReplacementFibreLower at hlowerProd
@@ -665,7 +671,7 @@ theorem squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
     have hupper0 : q * c ≤ squareRootEndpoint R / z :=
       (Nat.le_div_iff_mul_le hcpos).1 hupper'
     apply (squareRootEndpoint_div_eq_iff_mem_replacementFibre
-      (R := R) (n := c * q) (z := z) (by omega) hz).2
+      (R := R) (n := c * q) (z := z) hprodpos hz).2
     apply Finset.mem_Icc.mpr
     constructor
     · unfold squareRootReplacementFibreLower
