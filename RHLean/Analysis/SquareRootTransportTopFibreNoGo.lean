@@ -228,9 +228,11 @@ theorem squareRootEndpoint_div_lt_root_of_middle
   apply (Nat.div_lt_iff_lt_mul hqpos).2
   have hRRlt : R * R < R * q :=
     Nat.mul_lt_mul_of_pos_left hRq (by omega)
+  have hRpos : 0 < R := by omega
+  have hRRpos : 0 < R * R := Nat.mul_pos hRpos hRpos
   have hXlt : squareRootEndpoint R < R * R := by
     unfold squareRootEndpoint
-    have hpow : R ^ 2 = R * R := by ring
+    rw [show R ^ 2 = R * R by ring]
     omega
   exact hXlt.trans hRRlt
 
