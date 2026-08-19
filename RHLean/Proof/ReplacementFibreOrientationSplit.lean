@@ -316,6 +316,7 @@ private theorem replacement_orientations_sum_eq_mobius_sum
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro n hn
+  have hn2 : 2 ≤ n := h2 n hn
   have hn1 : 1 < n := by omega
   by_cases hsq : Squarefree n
   · rcases replacementOrientation_exhaustive hn1 hsq with hroot | hsmooth
@@ -403,7 +404,7 @@ private theorem replacement_full_eq_low_add_tail
   have hRX : R ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
     have hsq : R + 1 ≤ R ^ 2 := by nlinarith
-    omega
+    exact Nat.le_sub_of_add_le hsq
   have hset :
       Finset.Icc 2 (squareRootEndpoint R) =
         Finset.Icc 2 (R - 1) ∪ Finset.Icc R (squareRootEndpoint R) := by
@@ -461,17 +462,29 @@ theorem ancestrySmoothMass_cast_eq_replacementFullSmoothMass
         (Finset.Icc 2 (squareRootEndpoint R)).filter
           ReplacementSmoothOriented := by
     ext n
-    simp only [squareRootAncestrySmoothIntegerSet, Finset.mem_filter,
-      ReplacementSmoothOriented, Finset.mem_Icc]
-    unfold cumulativeSquarePrefixSet squareRootEndpoint
-    rw [Nat.sub_add_cancel (by omega : 1 ≤ R)]
-    simp only [Finset.mem_range]
     constructor
-    · rintro ⟨hnlt, hn2, hsq, horient⟩
-      exact ⟨hn2, by omega, hsq, horient⟩
-    · rintro ⟨hn2, hnX, hsq, horient⟩
-      have hsqpos : 0 < R ^ 2 := by positivity
-      exact ⟨by omega, hn2, hsq, horient⟩
+    · intro hn
+      rcases Finset.mem_filter.mp hn with ⟨hnRange, hn2, hsq, horient⟩
+      have hnlt : n < R ^ 2 := by
+        simpa [cumulativeSquarePrefixSet,
+          Nat.sub_add_cancel (by omega : 1 ≤ R)] using hnRange
+      have hnX : n ≤ squareRootEndpoint R := by
+        unfold squareRootEndpoint
+        omega
+      apply Finset.mem_filter.mpr
+      exact ⟨Finset.mem_Icc.mpr ⟨hn2, hnX⟩, ⟨hsq, horient⟩⟩
+    · intro hn
+      rcases Finset.mem_filter.mp hn with ⟨hnIcc, hsmooth⟩
+      rcases Finset.mem_Icc.mp hnIcc with ⟨hn2, hnX⟩
+      rcases hsmooth with ⟨hsq, horient⟩
+      have hnlt : n < R ^ 2 := by
+        unfold squareRootEndpoint at hnX
+        have hsqpos : 0 < R ^ 2 := by positivity
+        omega
+      apply Finset.mem_filter.mpr
+      refine ⟨?_, hn2, hsq, horient⟩
+      simpa [cumulativeSquarePrefixSet,
+        Nat.sub_add_cancel (by omega : 1 ≤ R)] using hnlt
   unfold squareRootAncestrySmoothMassInt replacementFullSmoothMass
   push_cast
   rw [hset, Finset.sum_filter]
@@ -625,7 +638,7 @@ theorem squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
   · intro hdiv
     have hbase :=
       (squareRootEndpoint_div_eq_iff_mem_replacementFibre
-        (R := R) (n := c * q) (z := z) (by positivity) hz).1 hdiv
+        (R := R) (n := c * q) (z := z) (by omega) hz).1 hdiv
     rcases Finset.mem_Icc.mp hbase with ⟨hlowerProd, hupperProd⟩
     have hlower0 : squareRootEndpoint R / (z + 1) < c * q := by
       unfold squareRootReplacementFibreLower at hlowerProd
@@ -652,7 +665,7 @@ theorem squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
     have hupper0 : q * c ≤ squareRootEndpoint R / z :=
       (Nat.le_div_iff_mul_le hcpos).1 hupper'
     apply (squareRootEndpoint_div_eq_iff_mem_replacementFibre
-      (R := R) (n := c * q) (z := z) (by positivity) hz).2
+      (R := R) (n := c * q) (z := z) (by omega) hz).2
     apply Finset.mem_Icc.mpr
     constructor
     · unfold squareRootReplacementFibreLower
