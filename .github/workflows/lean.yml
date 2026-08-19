@@ -66,20 +66,23 @@ jobs:
           grep -A8 -B2 'StrongPNT' lake-manifest.json || true
           grep -A8 -B2 'mathlib' lake-manifest.json || true
 
-      - name: Compile StrongPNT theorem import
+      - name: Build StrongPNT library under Lean 4.24
         id: compatbuild
         continue-on-error: true
         run: |
+          lake build StrongPNT > strongpnt-build.log 2>&1
           cat > StrongPNTCompat.lean <<'EOF'
           import StrongPNT.PNT5_Strong
           #check Strong_PNT
           #print axioms Strong_PNT
           EOF
-          lake env lean StrongPNTCompat.lean > strongpnt-compat.log 2>&1
+          lake env lean StrongPNTCompat.lean > strongpnt-import.log 2>&1
 
-      - name: Print compatibility log
+      - name: Print compatibility logs
         if: always()
-        run: cat strongpnt-compat.log || true
+        run: |
+          cat strongpnt-build.log || true
+          cat strongpnt-import.log || true
 
       - name: Fail if compatibility build failed
         if: steps.compatbuild.outcome == 'failure'
