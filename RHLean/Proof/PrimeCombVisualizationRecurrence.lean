@@ -256,4 +256,80 @@ theorem primeCombAnimationStepSite_eq_insert
     rw [hFrameEq]
     simp [primeCombAnimationStepSite, hNotKilled, hNotFlipped]
 
+/-! ## Literal ordered-prime corollaries -/
+
+/-- The animation's `hit |= proper_multiple` assignment, as an exact logical
+recurrence for the hit mask. -/
+theorem primeCombFrameProperTouched_insert_iff
+    (S : Finset ℕ) (p n : ℕ) :
+    PrimeCombFrameProperTouched (insert p S) n ↔
+      PrimeCombFrameProperTouched S n ∨ PrimeCombFrameProperMultiple p n := by
+  unfold PrimeCombFrameProperTouched PrimeCombFrameProperMultiple
+  constructor
+  · rintro ⟨q, hq, hqn, hqdiv⟩
+    rcases Finset.mem_insert.mp hq with hqp | hqS
+    · subst q
+      exact Or.inr ⟨hqn, hqdiv⟩
+    · exact Or.inl ⟨q, hqS, hqn, hqdiv⟩
+  · rintro (⟨q, hqS, hqn, hqdiv⟩ | ⟨hpn, hpdiv⟩)
+    · exact ⟨q, Finset.mem_insert_of_mem hqS, hqn, hqdiv⟩
+    · exact ⟨p, Finset.mem_insert_self p S, hpn, hpdiv⟩
+
+/-- **Each successive rake can touch no more multiplier seats.**  Increasing
+the prime coordinate shrinks the hyperbolic multiplier bunch. -/
+theorem primeCombProperMultiplierSet_antitone
+    {W p q : ℕ} (hp : 0 < p) (hpq : p ≤ q) :
+    primeCombProperMultiplierSet q W ⊆ primeCombProperMultiplierSet p W := by
+  intro k hk
+  have hq : 0 < q := hp.trans_le hpq
+  have hkData := (mem_primeCombProperMultiplierSet_iff hq).1 hk
+  apply (mem_primeCombProperMultiplierSet_iff hp).2
+  exact ⟨hkData.1, (Nat.mul_le_mul_left k hpq).trans hkData.2⟩
+
+/-- Cardinal form of the shrinking-rake law. -/
+theorem card_primeCombProperMultiplierSet_antitone
+    {W p q : ℕ} (hp : 0 < p) (hpq : p ≤ q) :
+    (primeCombProperMultiplierSet q W).card ≤
+      (primeCombProperMultiplierSet p W).card :=
+  Finset.card_le_card (primeCombProperMultiplierSet_antitone hp hpq)
+
+/-- At a prime coordinate, the full ambient prime set is exactly the previous
+prime frame plus the fresh coordinate. -/
+theorem primesUpTo_eq_insert_pred_of_prime
+    {p : ℕ} (hp : p.Prime) :
+    primesUpTo p = insert p (primesUpTo (p - 1)) := by
+  classical
+  ext q
+  simp only [mem_primesUpTo, Finset.mem_insert]
+  constructor
+  · rintro ⟨hqPrime, hqp⟩
+    by_cases hqpEq : q = p
+    · exact Or.inl hqpEq
+    · exact Or.inr ⟨hqPrime, by omega⟩
+  · rintro (hqp | ⟨hqPrime, hqPred⟩)
+    · subst q
+      exact ⟨hp, le_rfl⟩
+    · exact ⟨hqPrime, by omega⟩
+
+/-- The abstract insertion recurrence is therefore the literal increasing-prime
+animation when the old frame is `primesUpTo (p-1)`. -/
+theorem primeCombAnimationStepSite_primesUpTo_pred_eq
+    (p n : ℕ) (hp : p.Prime) :
+    primeCombAnimationStepSite (primesUpTo (p - 1)) p n =
+      primeCombFrameSite (primesUpTo p) n := by
+  have hSPrime : ∀ q ∈ primesUpTo (p - 1), q.Prime := by
+    intro q hq
+    exact prime_of_mem_primesUpTo hq
+  have hSlt : ∀ q ∈ primesUpTo (p - 1), q < p := by
+    intro q hq
+    have hqPred := (mem_primesUpTo.mp hq).2
+    omega
+  calc
+    primeCombAnimationStepSite (primesUpTo (p - 1)) p n =
+        primeCombFrameSite (insert p (primesUpTo (p - 1))) n :=
+      primeCombAnimationStepSite_eq_insert
+        (primesUpTo (p - 1)) p n hp hSPrime hSlt
+    _ = primeCombFrameSite (primesUpTo p) n := by
+      rw [primesUpTo_eq_insert_pred_of_prime hp]
+
 end RHLean.Proof
