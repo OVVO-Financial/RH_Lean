@@ -268,9 +268,8 @@ private theorem frozenOldUniverse210_allPrime :
 `210` face lies above that cutoff.  Hence the old truncated mass is `-1`. -/
 theorem frozenOldUniverse210_mass_112 :
     frozenPrimeUniverseMass frozenOldUniverse210 112 = -1 := by
-  norm_num [frozenPrimeUniverseMass, truncatedCubeAlternatingSum,
-    primeProductAdmissible, frozenOldUniverse210, primeFaceProduct,
-    booleanCubeSign]
+  rw [frozenPrimeUniverseMass_eq_cutoffSum]
+  native_decide
 
 /-- Exact finite-universe value for the exercise:
 
