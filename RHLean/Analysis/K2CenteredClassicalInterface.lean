@@ -2,6 +2,7 @@ import Mathlib
 import Mathlib.NumberTheory.Harmonic.ZetaAsymp
 import RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourFubini
 import RHLean.Analysis.K2CenteredFinite
+import RHLean.Analysis.K2CenteredFactorFour
 
 /-!
 # Analytic interface for the centered K2 theorem
@@ -41,6 +42,27 @@ def K2CenteredConverges : Prop :=
         nativePNTSignedSecondSelbergKernelRecipMass N +
           2 * γE * Real.log (N : ℝ))
       atTop (𝓝 L)
+
+/-- The factor-four reciprocal shell has the exact asymptotic constant once the
+centered K2 prefix converges.  The unknown centered prefix limit cancels. -/
+theorem K2CenteredConverges.factorFourTendsto
+    (h : K2CenteredConverges) :
+    Tendsto
+      (fun N : ℕ => nativePNTSignedK2RecipInterval N 4)
+      atTop (𝓝 (-2 * γE * Real.log 4)) := by
+  rcases h with ⟨L, hL⟩
+  apply nativePNTSignedK2RecipInterval_four_tendsto_of_tendsto L
+  simpa [K2CenteredConvergesTo, k2CenteredRecipValue] using hL
+
+/-- Global `O(1)` factor-four reciprocal shell bound, including the finite
+initial segment. -/
+theorem K2CenteredConverges.factorFourUniformBound
+    (h : K2CenteredConverges) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ N : ℕ, |nativePNTSignedK2RecipInterval N 4| ≤ C := by
+  rcases h with ⟨L, hL⟩
+  apply nativePNTSignedK2RecipInterval_four_uniform_bound_of_tendsto L
+  simpa [K2CenteredConvergesTo, k2CenteredRecipValue] using hL
 
 /-!
 The mathematical proof in `research/K2_CENTERED_CLASSICAL_PROOF_COMPLETE.md` proves:
