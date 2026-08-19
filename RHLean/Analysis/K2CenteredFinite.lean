@@ -70,7 +70,7 @@ theorem k2C3_centered_abel (N : ℕ) (hN : 1 ≤ N) :
         ∑ n ∈ Finset.Ico 1 N,
           k2r n *
             (Real.log (n : ℝ) - Real.log ((n + 1 : ℕ) : ℝ)) := by
-  unfold k2C3 k2A2 k2r
+  unfold k2C3 k2r k2A2
   rw [k2_abel_Icc_one]
   have htel := k2_log_telescope N hN
   rw [Finset.sum_add_distrib]
@@ -124,6 +124,7 @@ theorem k2F_centered_abel (N : ℕ) (hN : 1 ≤ N) :
   simp_rw [add_mul]
   rw [Finset.sum_add_distrib]
   rw [← ht]
+  rw [mul_add, Finset.mul_sum]
   ring
 
 end RHLean.Analysis
