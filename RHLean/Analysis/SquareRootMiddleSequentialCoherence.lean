@@ -63,7 +63,7 @@ theorem squareRootQuotientSupportTop_eq_pred
   have hpred : R - 1 + 1 = R := Nat.sub_add_cancel hR
   have hsq1 : 1 ≤ R ^ 2 := by nlinarith
   have hsqpred : R ^ 2 - 1 + 1 = R ^ 2 := Nat.sub_add_cancel hsq1
-  have hfactor : (R - 1) * (R + 1) = R ^ 2 - 1 := by
+  have hfactor : (R + 1) * (R - 1) = R ^ 2 - 1 := by
     nlinarith
   rw [← hfactor]
   exact Nat.mul_div_right (R - 1) (by omega : 0 < R + 1)
