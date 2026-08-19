@@ -513,8 +513,8 @@ theorem squareRootFrozenPrimeUniverseMass_eq_smooth
   rw [← squareRootTransportPrimeFirst_eq_mertensTransform R (by omega)] at hseq
   have hclock :
       mertensSummatory (squareRootEndpoint R) = squarePrefixMertens (R - 1) := by
-    unfold squarePrefixMertens
-    rw [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)]
+    unfold squarePrefixMertens squarePrefixEndpoint squareRootEndpoint
+    rw [Nat.sub_add_cancel (by omega : 1 ≤ R)]
   rw [hclock] at hseq
   have hdecomp :
       squarePrefixMertens (R - 1) =
@@ -547,6 +547,7 @@ theorem squareRootFrozenPrimeUniverse_after_middle
       squareRootSmoothMass (R - 1) - squareRootMiddleMertensTail R := by
   have hmul : R * 2 ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
+    rw [show R ^ 2 = R * R by ring]
     have hge : 3 * R ≤ R * R := Nat.mul_le_mul hR (le_refl R)
     omega
   have hhalf : R ≤ squareRootEndpoint R / 2 :=
@@ -583,6 +584,7 @@ theorem squareRootFrozenPrimeUniverse_top_step_eq_sub_one
   rcases Finset.mem_Ioc.mp hq with ⟨hqHalf, hqX⟩
   have hmul : R * 2 ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
+    rw [show R ^ 2 = R * R by ring]
     have hge : 3 * R ≤ R * R := Nat.mul_le_mul hR (le_refl R)
     omega
   have hhalf : R ≤ squareRootEndpoint R / 2 :=
