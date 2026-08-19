@@ -207,6 +207,8 @@ theorem primeCombProperMultiplierSet_subset_two_of_third_lt
   have hWlt' : W < 3 * p := by simpa [Nat.mul_comm] using hWlt
   have hdivlt : W / p < 3 :=
     (Nat.div_lt_iff_lt_mul hp).2 hWlt'
+  have hkLe : k ≤ W / p :=
+    (Nat.le_div_iff_mul_le hp).2 hkData.2
   have hkEq : k = 2 := by omega
   simp [hkEq]
 
