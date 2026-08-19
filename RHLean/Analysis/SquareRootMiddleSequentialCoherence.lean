@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Analysis.PrimeDilateCofactorPrimeWindows
 import RHLean.Analysis.PrimeSieveAbelIdentity
 import RHLean.Analysis.SquareRootPrimeCountGap
+import RHLean.Arithmetic.TruncatedCubeMertensPrefix
 import RHLean.Proof.PrimeCombVisualizationRecurrence
 
 /-!
@@ -17,6 +18,8 @@ This module composes the existing interfaces without replacing any of them:
 * the Abel telescope from `PrimeSieveAbelIdentity`;
 * the complete-square prime-dilate cofactor windows from
   `PrimeDilateCofactorPrimeWindows`;
+* the finite frozen-prime universe and its fresh-prime recurrence from
+  `PrimeCombVisualizationDynamics`;
 * the local fresh-prime parent/child law and literal kill/flip recurrence from
   `PrimeCombVisualizationRecurrence`.
 
@@ -33,14 +36,19 @@ The resulting statements are all finite exact identities.  In particular:
 * the weighted-middle bias from the unit model recombines exactly into full
   transport minus the smooth mass, and equivalently into the harmonic layers
   `d >= 2` plus the inert top minus the smooth mass;
+* the finite frozen universe at primes `<= R` is exactly the square-root smooth
+  mass, and after that stopping point every fresh prime `q > R` subtracts the
+  already-complete ordinary Mertens value at `floor(X_R/q)`;
 * the aggregate middle/top readouts do not replace the sequential mechanism:
   a fresh prime still acts parent by parent, with first-hit and reachable-parent
   channels kept separate before any sum is taken.
 
-The internal cofactor-prefix cancellation `mu(1)+mu(2)=0` is deliberately not
-identified with the distinct source pairing `q <-> 2q`.  No interval-PNT
-estimate, averaging claim, recursive square-root hierarchy, or RH-scale saving
-is introduced here.
+The finite frozen universe is deliberately kept distinct from the separate
+all-plus visualization state used by `PrimeSievePostSqrtGap`.  The internal
+cofactor-prefix cancellation `mu(1)+mu(2)=0` is also deliberately not identified
+with the distinct source pairing `q <-> 2q`.  No interval-PNT estimate,
+averaging claim, recursive square-root hierarchy, or RH-scale saving is
+introduced here.
 -/
 
 noncomputable section
@@ -322,12 +330,292 @@ theorem squareRootAbelDiscrepancy_eq_primeDilateWindowDiscrepancy
       primeSievePNTError_squareRootEndpoint_eq_squarePrimeDilateCofactorDiscrepancyTransform
         p R hp (by omega)
 
+/-! ## Frozen-universe chronology at the square root -/
+
+/-- Once the ambient prime set contains every prime through the numerical
+cutoff, adding still larger prime coordinates cannot change the frozen mass.
+Any face that actually fits below `X` already uses only primes at most `X`. -/
+private theorem frozenPrimeUniverseMass_primesUpTo_saturates
+    {X Y : ℕ} (hXY : X ≤ Y) :
+    frozenPrimeUniverseMass (primesUpTo Y) X =
+      frozenPrimeUniverseMass (primesUpTo X) X := by
+  classical
+  rw [frozenPrimeUniverseMass_eq_cutoffSum,
+    frozenPrimeUniverseMass_eq_cutoffSum]
+  have hsub : (primesUpTo X).powerset ⊆ (primesUpTo Y).powerset := by
+    intro t ht
+    apply Finset.mem_powerset.mpr
+    intro p hp
+    have hpX := mem_primesUpTo.mp ((Finset.mem_powerset.mp ht) hp)
+    exact mem_primesUpTo.mpr ⟨hpX.1, hpX.2.trans hXY⟩
+  symm
+  apply Finset.sum_subset hsub
+  intro t htY htNotX
+  have htSubY := Finset.mem_powerset.mp htY
+  by_cases hfit : primeFaceProduct t ≤ X
+  · have htX : t ∈ (primesUpTo X).powerset := by
+      apply Finset.mem_powerset.mpr
+      intro p hp
+      have hpY := mem_primesUpTo.mp (htSubY hp)
+      have hprodPos : 0 < primeFaceProduct t := by
+        unfold primeFaceProduct
+        exact Finset.prod_pos fun q hq =>
+          (prime_of_mem_primesUpTo (htSubY hq)).pos
+      have hpdiv : p ∣ primeFaceProduct t := by
+        unfold primeFaceProduct
+        exact Finset.dvd_prod_of_mem id hp
+      have hpLeProd : p ≤ primeFaceProduct t := Nat.le_of_dvd hprodPos hpdiv
+      exact mem_primesUpTo.mpr ⟨hpY.1, hpLeProd.trans hfit⟩
+    exact (htNotX htX).elim
+  · simp [hfit]
+
+/-- Saturated frozen prime universes are ordinary Mertens prefixes.  This is the
+precise reason that every post-root fresh prime reads an already-completed
+lower-scale Mertens value rather than another provisional frozen value. -/
+theorem frozenPrimeUniverseMass_primesUpTo_cast_eq_mertens
+    {X Y : ℕ} (hXY : X ≤ Y) :
+    ((frozenPrimeUniverseMass (primesUpTo Y) X : ℤ) : ℂ) =
+      mertensSummatory X := by
+  rw [frozenPrimeUniverseMass_primesUpTo_saturates hXY]
+  unfold frozenPrimeUniverseMass
+  rw [truncatedPrimeCube_eq_moebiusPrefix]
+  unfold mertensSummatory
+  push_cast
+  rfl
+
+/-- Every reciprocal cutoff seen by a fresh prime strictly above the square-root
+stop lies strictly below `R`.  No upper-half hypothesis is needed. -/
+theorem squareRootEndpoint_div_lt_root_of_postRoot
+    {R q : ℕ} (hR : 1 ≤ R) (hRq : R < q) :
+    squareRootEndpoint R / q < R := by
+  have hqpos : 0 < q := by omega
+  apply (Nat.div_lt_iff_lt_mul hqpos).2
+  have hRRlt : R * R < R * q :=
+    Nat.mul_lt_mul_of_pos_left hRq (by omega)
+  have hRRpos : 0 < R * R := by positivity
+  have hXlt : squareRootEndpoint R < R * R := by
+    unfold squareRootEndpoint
+    rw [show R ^ 2 = R * R by ring]
+    omega
+  exact hXlt.trans hRRlt
+
+/-- **Completed-parent bridge.**  Immediately before a fresh prime `q > R`
+acts, its parent cutoff `floor(X_R/q)` is below `R`, hence below `q`.  The old
+prime universe therefore already contains every prime relevant to that cutoff,
+so its frozen parent mass is exactly ordinary `M(floor(X_R/q))`. -/
+theorem squareRootFrozenParentMass_eq_mertens
+    {R q : ℕ} (hR : 1 ≤ R) (hRq : R < q) :
+    ((frozenPrimeUniverseMass (primesUpTo (q - 1))
+        (squareRootEndpoint R / q) : ℤ) : ℂ) =
+      mertensSummatory (squareRootEndpoint R / q) := by
+  apply frozenPrimeUniverseMass_primesUpTo_cast_eq_mertens
+  have hcut := squareRootEndpoint_div_lt_root_of_postRoot hR hRq
+  omega
+
+/-- **Literal post-root fresh-prime step.**  This is the frozen-universe game in
+its exact square-root chronology.  After the stop at `R`, admitting a fresh
+prime `q` changes the full `X_R` state by subtracting the already-completed
+ordinary lower-scale value `M(floor(X_R/q))`.
+
+This theorem is about the finite frozen cube, not the separate all-plus comb. -/
+theorem squareRootFrozenPrimeUniverse_primesUpTo_step
+    (R q : ℕ) (hR : 1 ≤ R) (hq : q.Prime) (hRq : R < q) :
+    ((frozenPrimeUniverseMass (primesUpTo q) (squareRootEndpoint R) : ℤ) : ℂ) =
+      ((frozenPrimeUniverseMass (primesUpTo (q - 1))
+          (squareRootEndpoint R) : ℤ) : ℂ) -
+        mertensSummatory (squareRootEndpoint R / q) := by
+  have hqNot : q ∉ primesUpTo (q - 1) := by
+    simp only [mem_primesUpTo, not_and]
+    intro _hqPrime
+    omega
+  have hraw :
+      frozenPrimeUniverseMass (primesUpTo q) (squareRootEndpoint R) =
+        frozenPrimeUniverseMass (primesUpTo (q - 1)) (squareRootEndpoint R) -
+          frozenPrimeUniverseMass (primesUpTo (q - 1))
+            (squareRootEndpoint R / q) := by
+    rw [primesUpTo_eq_insert_pred_of_prime hq]
+    exact frozenPrimeUniverseMass_insert hqNot hq
+  have hcast := congrArg (fun z : ℤ => (z : ℂ)) hraw
+  push_cast at hcast
+  rw [squareRootFrozenParentMass_eq_mertens hR hRq] at hcast
+  exact hcast
+
+private theorem primesUpTo_succ_eq_of_not_prime
+    (n : ℕ) (hnot : ¬ (n + 1).Prime) :
+    primesUpTo (n + 1) = primesUpTo n := by
+  ext p
+  simp only [mem_primesUpTo]
+  constructor
+  · rintro ⟨hpPrime, hple⟩
+    refine ⟨hpPrime, ?_⟩
+    have hpne : p ≠ n + 1 := by
+      intro hpeq
+      subst p
+      exact hnot hpPrime
+    omega
+  · rintro ⟨hpPrime, hple⟩
+    exact ⟨hpPrime, by omega⟩
+
+/-- **Sequential frozen-universe telescope.**  Starting from the prime universe
+frozen at `R`, admit the later primes in increasing order through `y`.  The
+state after those admissions is the frozen root state minus exactly the sum of
+the lower-scale Mertens probes produced by the fresh-prime recurrence.
+
+No aggregate identity is used to define the sequence: this is obtained by
+iterating the one-prime update above, with composite integers producing no
+state change. -/
+theorem squareRootFrozenPrimeUniverse_sequence
+    (R y : ℕ) (hR : 1 ≤ R) (hRy : R ≤ y) :
+    ((frozenPrimeUniverseMass (primesUpTo y) (squareRootEndpoint R) : ℤ) : ℂ) =
+      ((frozenPrimeUniverseMass (primesUpTo R) (squareRootEndpoint R) : ℤ) : ℂ) -
+        ∑ q ∈ Finset.Ioc R y,
+          if q.Prime then mertensSummatory (squareRootEndpoint R / q) else 0 := by
+  induction y, hRy using Nat.le_induction with
+  | base => simp
+  | succ y hRy ih =>
+      rw [Finset.sum_Ioc_succ_top hRy]
+      by_cases hprime : (y + 1).Prime
+      · have hRq : R < y + 1 := by omega
+        have hstep :=
+          squareRootFrozenPrimeUniverse_primesUpTo_step R (y + 1) hR hprime hRq
+        have hpred : y + 1 - 1 = y := by omega
+        rw [hpred] at hstep
+        rw [if_pos hprime, hstep, ih]
+        ring
+      · have hsame := primesUpTo_succ_eq_of_not_prime y hprime
+        rw [if_neg hprime, add_zero, hsame, ih]
+
+/-- **The square-root stopping state is exactly the smooth/low edge.**  The
+finite frozen cube with precisely the primes `<= R` is not the all-plus comb
+state.  It is exactly
+
+`sum_{n <= X_R, P+(n) <= R} mu(n) = squareRootSmoothMass (R-1)`.
+
+The proof identifies it by continuing the same frozen-prime sequence to the
+fully saturated universe and comparing with the already-proved exact
+`smooth - transport` decomposition. -/
+theorem squareRootFrozenPrimeUniverseMass_eq_smooth
+    (R : ℕ) (hR : 3 ≤ R) :
+    ((frozenPrimeUniverseMass (primesUpTo R) (squareRootEndpoint R) : ℤ) : ℂ) =
+      squareRootSmoothMass (R - 1) := by
+  have hRX : R ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hRR : R + 1 ≤ R ^ 2 := by nlinarith
+    omega
+  have hseq :=
+    squareRootFrozenPrimeUniverse_sequence R (squareRootEndpoint R) (by omega) hRX
+  have hfinal :
+      ((frozenPrimeUniverseMass (primesUpTo (squareRootEndpoint R))
+          (squareRootEndpoint R) : ℤ) : ℂ) =
+        mertensSummatory (squareRootEndpoint R) :=
+    frozenPrimeUniverseMass_primesUpTo_cast_eq_mertens (le_refl _)
+  rw [hfinal] at hseq
+  rw [← squareRootTransportPrimeFirst_eq_mertensTransform R (by omega)] at hseq
+  have hclock :
+      mertensSummatory (squareRootEndpoint R) = squarePrefixMertens (R - 1) := by
+    unfold squarePrefixMertens
+    rw [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)]
+  rw [hclock] at hseq
+  have hdecomp :
+      squarePrefixMertens (R - 1) =
+        squareRootSmoothMass (R - 1) - squareRootTransportPrimeFirst R := by
+    rw [squarePrefixMertens_eq_squareRootSmooth_sub_transport]
+    rw [squareRootTransportMass_pred_eq_cofactorFirst R (by omega),
+      squareRootTransportCofactorFirst_eq_primeFirst]
+  calc
+    ((frozenPrimeUniverseMass (primesUpTo R) (squareRootEndpoint R) : ℤ) : ℂ) =
+        squarePrefixMertens (R - 1) + squareRootTransportPrimeFirst R := by
+      calc
+        ((frozenPrimeUniverseMass (primesUpTo R) (squareRootEndpoint R) : ℤ) : ℂ) =
+            (((frozenPrimeUniverseMass (primesUpTo R)
+                (squareRootEndpoint R) : ℤ) : ℂ) -
+              squareRootTransportPrimeFirst R) + squareRootTransportPrimeFirst R := by
+                ring
+        _ = squarePrefixMertens (R - 1) + squareRootTransportPrimeFirst R := by
+          rw [← hseq]
+    _ = squareRootSmoothMass (R - 1) := by
+      rw [hdecomp]
+      ring
+
+/-- After all middle primes have acted, but before the inert top primes act, the
+frozen-universe state is exactly `smooth - middle`.  This is a chronological
+statement, not a new harmonic coordinate. -/
+theorem squareRootFrozenPrimeUniverse_after_middle
+    (R : ℕ) (hR : 3 ≤ R) :
+    ((frozenPrimeUniverseMass (primesUpTo (squareRootEndpoint R / 2))
+        (squareRootEndpoint R) : ℤ) : ℂ) =
+      squareRootSmoothMass (R - 1) - squareRootMiddleMertensTail R := by
+  have hmul : R * 2 ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hge : 3 * R ≤ R * R := Nat.mul_le_mul hR (le_refl R)
+    omega
+  have hhalf : R ≤ squareRootEndpoint R / 2 :=
+    (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2 hmul
+  have hseq :=
+    squareRootFrozenPrimeUniverse_sequence R (squareRootEndpoint R / 2)
+      (by omega) hhalf
+  rw [squareRootFrozenPrimeUniverseMass_eq_smooth R hR] at hseq
+  simpa [squareRootMiddleMertensTail] using hseq
+
+/-- A middle fresh prime performs the same one-prime frozen update, and its
+ordinary Mertens probe lies exactly in the completed lower interval `[2,R)`. -/
+theorem squareRootFrozenPrimeUniverse_middle_step
+    {R q : ℕ} (hR : 3 ≤ R) (hqPrime : q.Prime)
+    (hq : q ∈ Finset.Ioc R (squareRootEndpoint R / 2)) :
+    ((frozenPrimeUniverseMass (primesUpTo q) (squareRootEndpoint R) : ℤ) : ℂ) =
+      ((frozenPrimeUniverseMass (primesUpTo (q - 1))
+          (squareRootEndpoint R) : ℤ) : ℂ) -
+        mertensSummatory (squareRootEndpoint R / q) ∧
+      2 ≤ squareRootEndpoint R / q ∧ squareRootEndpoint R / q < R := by
+  refine ⟨?_, squareRootMiddleQuotient_range (by omega) hq⟩
+  exact squareRootFrozenPrimeUniverse_primesUpTo_step
+    R q (by omega) hqPrime (Finset.mem_Ioc.mp hq).1
+
+/-- A top fresh prime performs the same one-prime update, but now its completed
+parent probe is the constant atom `M(1)=1`; hence each such prime subtracts
+exactly one unit from the frozen state. -/
+theorem squareRootFrozenPrimeUniverse_top_step_eq_sub_one
+    {R q : ℕ} (hR : 3 ≤ R) (hqPrime : q.Prime)
+    (hq : q ∈ Finset.Ioc (squareRootEndpoint R / 2) (squareRootEndpoint R)) :
+    ((frozenPrimeUniverseMass (primesUpTo q) (squareRootEndpoint R) : ℤ) : ℂ) =
+      ((frozenPrimeUniverseMass (primesUpTo (q - 1))
+          (squareRootEndpoint R) : ℤ) : ℂ) - 1 := by
+  rcases Finset.mem_Ioc.mp hq with ⟨hqHalf, hqX⟩
+  have hmul : R * 2 ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hge : 3 * R ≤ R * R := Nat.mul_le_mul hR (le_refl R)
+    omega
+  have hhalf : R ≤ squareRootEndpoint R / 2 :=
+    (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2 hmul
+  have hRq : R < q := hhalf.trans_lt hqHalf
+  rw [squareRootFrozenPrimeUniverse_primesUpTo_step R q (by omega) hqPrime hRq]
+  have hdiv : squareRootEndpoint R / q = 1 :=
+    squareRootEndpoint_div_eq_one_of_top_fibre hqPrime.pos (by omega) hqX
+  rw [hdiv]
+  have hM1 : mertensSummatory 1 = 1 := by
+    rw [← cofactorMobiusPrefixMass_eq_mertensSummatory]
+    simp [cofactorMobiusPrefixMass, canonicalMoebiusWeight]
+  rw [hM1]
+
+/-- At the fully saturated endpoint the frozen universe is ordinary Mertens.
+Together with the root, middle, and top theorems above this closes the exact
+chronology
+
+`frozen smooth -> middle probes -> unit top probes -> ordinary Mertens`.
+-/
+theorem squareRootFrozenPrimeUniverse_at_endpoint_eq_mertens
+    (R : ℕ) :
+    ((frozenPrimeUniverseMass (primesUpTo (squareRootEndpoint R))
+        (squareRootEndpoint R) : ℤ) : ℂ) =
+      mertensSummatory (squareRootEndpoint R) :=
+  frozenPrimeUniverseMass_primesUpTo_cast_eq_mertens (le_refl _)
+
 /-! ## Sequential mechanism retained underneath the readouts -/
 
-/-- The complete-square prime-sieve state before the upper primes act differs
-from the final Mertens state by exactly twice the middle-plus-top transport.
-Thus the harmonic and cofactor-window coordinates above are readouts of the
-actual remaining sequential prime action. -/
+/-- **Separate all-plus visualization state.**  This is not the frozen smooth
+mass above.  The all-plus comb keeps unresolved high-prime sources with
+provisional signs, so before the upper primes act it equals `smooth + transport`.
+Its gap to final Mertens is therefore twice the middle-plus-top transport. -/
 theorem allPlusSquareRootPrimeCombMass_sub_mertens_eq_two_middle_add_topCard
     (R : ℕ) (hR : 3 ≤ R) :
     allPlusSquareRootPrimeCombMass R - squarePrefixMertens (R - 1) =
