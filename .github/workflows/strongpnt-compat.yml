@@ -1,0 +1,35 @@
+name: StrongPNT 4.24 compatibility probe
+
+on:
+  push:
+    branches: [agent/strongpnt-424-compat]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Resolve StrongPNT dependency
+        run: |
+          rm -f lake-manifest.json
+          lake update StrongPNT
+      - name: Compile StrongPNT theorem import
+        run: |
+          cat > StrongPNTCompat.lean <<'EOF'
+          import StrongPNT.PNT5_Strong
+          #check Strong_PNT
+          #print axioms Strong_PNT
+          EOF
+          lake env lean StrongPNTCompat.lean
