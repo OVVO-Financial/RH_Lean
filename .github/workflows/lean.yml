@@ -59,12 +59,15 @@ jobs:
           test: false
           lint: false
 
-      - name: Resolve StrongPNT dependency under Lean 4.24
+      - name: Resolve StrongPNT and refresh Mathlib dependencies
         run: |
           rm -f lake-manifest.json
           lake update StrongPNT
+          lake update mathlib
           grep -A8 -B2 'StrongPNT' lake-manifest.json || true
-          grep -A8 -B2 'mathlib' lake-manifest.json || true
+          grep -A8 -B2 'batteries' lake-manifest.json || true
+          grep -A8 -B2 'aesop' lake-manifest.json || true
+          grep -A8 -B2 'proofwidgets' lake-manifest.json || true
 
       - name: Build StrongPNT library under Lean 4.24
         id: compatbuild
