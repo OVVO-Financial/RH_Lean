@@ -372,7 +372,7 @@ theorem primeCombInertMertensMass_eq_primeCountMass (W : ℕ) :
   rcases Finset.mem_Ioc.mp hpRange with ⟨hpHalf, hpW⟩
   by_cases hprime : p.Prime
   · have hdiv := primeComb_inert_div_eq_one hprime hpHalf hpW
-    simp [hprime, hdiv, primeComb_mertensSummatory_one]
+    simp [hprime, hdiv]
   · simp [hprime]
 
 /-- The active middle weighted mass is its unit baseline plus the centered
@@ -388,7 +388,6 @@ theorem primeCombMiddleMertensMass_eq_count_add_centered (W : ℕ) :
   intro p _hpRange
   by_cases hprime : p.Prime
   · simp [hprime]
-    ring
   · simp [hprime]
 
 /-- The entire post-root prime count splits into the active middle and inert
@@ -457,7 +456,7 @@ theorem primeCombTailChannelMass_eq_mertens_sub_one
   unfold cofactorMobiusPrefixMass at hM
   rw [hset, Finset.sum_insert (by simp)] at hM
   simp [canonicalMoebiusWeight] at hM
-  unfold primeCombTailChannelMass
+  unfold primeCombTailChannelMass canonicalMoebiusWeight
   linear_combination hM
 
 /-- Signed change of the displayed total when a post-root prime flips its
