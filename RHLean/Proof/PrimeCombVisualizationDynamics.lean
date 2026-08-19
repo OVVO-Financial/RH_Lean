@@ -300,4 +300,178 @@ theorem frozenPrimeUniverse_1234_missingParentMass_eq_one :
   · norm_num
   · simp
 
+/-! ## The post-square-root weighted pile -/
+
+/-- Prime count in the active post-root interval `sqrt(W) < p <= W/2`. -/
+def primeCombMiddlePrimeCount (W : ℕ) : ℕ :=
+  ((Finset.Ioc (Nat.sqrt W) (W / 2)).filter Nat.Prime).card
+
+/-- Prime count in the inert interval `W/2 < p <= W`. -/
+def primeCombInertPrimeCount (W : ℕ) : ℕ :=
+  ((Finset.Ioc (W / 2) W).filter Nat.Prime).card
+
+/-- Unit-weight prime mass in the active post-root interval. -/
+def primeCombMiddlePrimeCountMass (W : ℕ) : ℂ :=
+  ∑ p ∈ Finset.Ioc (Nat.sqrt W) (W / 2),
+    if p.Prime then 1 else 0
+
+/-- Unit-weight prime mass in the inert interval. -/
+def primeCombInertPrimeCountMass (W : ℕ) : ℂ :=
+  ∑ p ∈ Finset.Ioc (W / 2) W,
+    if p.Prime then 1 else 0
+
+/-- Unit-weight prime mass over the entire post-root interval. -/
+def primeCombPostSqrtPrimeCountMass (W : ℕ) : ℂ :=
+  ∑ p ∈ Finset.Ioc (Nat.sqrt W) W,
+    if p.Prime then 1 else 0
+
+/-- Mertens-weighted active post-root pile. -/
+def primeCombMiddleMertensMass (W : ℕ) : ℂ :=
+  ∑ p ∈ Finset.Ioc (Nat.sqrt W) (W / 2),
+    if p.Prime then RHLean.Analysis.mertensSummatory (W / p) else 0
+
+/-- The centered weighted middle pile.  This is the exact analytic residue:
+geometry alone supplies no bound for it. -/
+def primeCombMiddleCenteredMertensMass (W : ℕ) : ℂ :=
+  ∑ p ∈ Finset.Ioc (Nat.sqrt W) (W / 2),
+    if p.Prime then RHLean.Analysis.mertensSummatory (W / p) - 1 else 0
+
+/-- Mertens-weighted inert pile. -/
+def primeCombInertMertensMass (W : ℕ) : ℂ :=
+  ∑ p ∈ Finset.Ioc (W / 2) W,
+    if p.Prime then RHLean.Analysis.mertensSummatory (W / p) else 0
+
+/-- Every inert prime has reciprocal quotient exactly one. -/
+theorem primeComb_inert_div_eq_one
+    {W p : ℕ} (hp : p.Prime)
+    (hpHalf : W / 2 < p) (hpW : p ≤ W) :
+    W / p = 1 := by
+  have hWlt0 : W < p * 2 :=
+    (Nat.div_lt_iff_lt_mul (by omega : 0 < 2)).1 hpHalf
+  have hWlt : W < 2 * p := by
+    simpa [Nat.mul_comm] using hWlt0
+  have hlt : W / p < 2 :=
+    (Nat.div_lt_iff_lt_mul hp.pos).2 hWlt
+  have hle : 1 ≤ W / p := by
+    apply (Nat.le_div_iff_mul_le hp.pos).2
+    simpa using hpW
+  omega
+
+private theorem primeComb_mertensSummatory_one :
+    RHLean.Analysis.mertensSummatory 1 = 1 := by
+  rw [← cofactorMobiusPrefixMass_eq_mertensSummatory]
+  simp [cofactorMobiusPrefixMass, canonicalMoebiusWeight]
+
+/-- The inert Mertens-weighted pile is literally the unit prime-count pile.
+This is geometry, not a cancellation estimate. -/
+theorem primeCombInertMertensMass_eq_primeCountMass (W : ℕ) :
+    primeCombInertMertensMass W = primeCombInertPrimeCountMass W := by
+  unfold primeCombInertMertensMass primeCombInertPrimeCountMass
+  apply Finset.sum_congr rfl
+  intro p hpRange
+  rcases Finset.mem_Ioc.mp hpRange with ⟨hpHalf, hpW⟩
+  by_cases hprime : p.Prime
+  · have hdiv := primeComb_inert_div_eq_one hprime hpHalf hpW
+    simp [hprime, hdiv, primeComb_mertensSummatory_one]
+  · simp [hprime]
+
+/-- The active middle weighted mass is its unit baseline plus the centered
+Mertens residue.  No norm is taken. -/
+theorem primeCombMiddleMertensMass_eq_count_add_centered (W : ℕ) :
+    primeCombMiddleMertensMass W =
+      primeCombMiddlePrimeCountMass W +
+        primeCombMiddleCenteredMertensMass W := by
+  unfold primeCombMiddleMertensMass primeCombMiddlePrimeCountMass
+    primeCombMiddleCenteredMertensMass
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro p _hpRange
+  by_cases hprime : p.Prime
+  · simp [hprime]
+    ring
+  · simp [hprime]
+
+/-- The entire post-root prime count splits into the active middle and inert
+intervals.  This theorem asserts only the exact partition, not equality of the
+two counts. -/
+theorem primeCombPostSqrtPrimeCountMass_eq_middle_add_inert
+    (W : ℕ) (hseam : Nat.sqrt W ≤ W / 2) :
+    primeCombPostSqrtPrimeCountMass W =
+      primeCombMiddlePrimeCountMass W + primeCombInertPrimeCountMass W := by
+  unfold primeCombPostSqrtPrimeCountMass primeCombMiddlePrimeCountMass
+    primeCombInertPrimeCountMass
+  have hsplit := Finset.sum_Ioc_consecutive
+    (f := fun p : ℕ => if p.Prime then (1 : ℂ) else 0)
+    hseam (Nat.div_le_self W 2)
+  exact hsplit.symm
+
+/-- The Mertens-weighted post-root tail splits over the same two intervals. -/
+theorem primeSieveMertensPrimeTail_sqrt_eq_middle_add_inert
+    (W : ℕ) (hseam : Nat.sqrt W ≤ W / 2) :
+    primeSieveMertensPrimeTail (Nat.sqrt W) W =
+      primeCombMiddleMertensMass W + primeCombInertMertensMass W := by
+  unfold primeSieveMertensPrimeTail primeCombMiddleMertensMass
+    primeCombInertMertensMass
+  have hsplit := Finset.sum_Ioc_consecutive
+    (f := fun p : ℕ =>
+      if p.Prime then RHLean.Analysis.mertensSummatory (W / p) else 0)
+    hseam (Nat.div_le_self W 2)
+  exact hsplit.symm
+
+/-- **Exact pile identity from the animation.**  The post-root Mertens tail is
+not determined by the number of primes on the two sides of `W/2`.  It is the
+unit post-root prime pile plus the centered weighted middle throw
+
+`sum_{sqrt W < p <= W/2} (M(floor(W/p)) - 1)`.
+
+The second term is deliberately left signed and unestimated. -/
+theorem primeSieveMertensPrimeTail_sqrt_eq_count_add_centered
+    (W : ℕ) (hseam : Nat.sqrt W ≤ W / 2) :
+    primeSieveMertensPrimeTail (Nat.sqrt W) W =
+      primeCombPostSqrtPrimeCountMass W +
+        primeCombMiddleCenteredMertensMass W := by
+  rw [primeSieveMertensPrimeTail_sqrt_eq_middle_add_inert W hseam,
+    primeCombMiddleMertensMass_eq_count_add_centered,
+    primeCombInertMertensMass_eq_primeCountMass,
+    primeCombPostSqrtPrimeCountMass_eq_middle_add_inert W hseam]
+  ring
+
+/-- Proper-multiple signed channel before a large-prime flip. -/
+def primeCombTailChannelMass (W p : ℕ) : ℂ :=
+  ∑ c ∈ Finset.Icc 2 (W / p), canonicalMoebiusWeight c
+
+/-- The proper-multiple channel is exactly `M(floor(W/p))-1`. -/
+theorem primeCombTailChannelMass_eq_mertens_sub_one
+    {W p : ℕ} (hp : 0 < p) (hpW : p ≤ W) :
+    primeCombTailChannelMass W p =
+      RHLean.Analysis.mertensSummatory (W / p) - 1 := by
+  have hK1 : 1 ≤ W / p := by
+    apply (Nat.le_div_iff_mul_le hp).2
+    simpa using hpW
+  have hset :
+      Finset.Icc 1 (W / p) = insert 1 (Finset.Icc 2 (W / p)) := by
+    ext c
+    simp only [Finset.mem_Icc, Finset.mem_insert]
+    omega
+  have hM := cofactorMobiusPrefixMass_eq_mertensSummatory (W / p)
+  unfold cofactorMobiusPrefixMass at hM
+  rw [hset, Finset.sum_insert (by simp)] at hM
+  simp [canonicalMoebiusWeight] at hM
+  unfold primeCombTailChannelMass
+  linear_combination hM
+
+/-- Signed change of the displayed total when a post-root prime flips its
+proper-multiple channel. -/
+def primeCombTailSignedDelta (W p : ℕ) : ℂ :=
+  -2 * primeCombTailChannelMass W p
+
+/-- The frame formula printed by the visualization:
+`Delta B_p = 2 * (1 - M(floor(W/p)))`. -/
+theorem primeCombTailSignedDelta_eq
+    {W p : ℕ} (hp : 0 < p) (hpW : p ≤ W) :
+    primeCombTailSignedDelta W p =
+      2 * (1 - RHLean.Analysis.mertensSummatory (W / p)) := by
+  rw [primeCombTailSignedDelta, primeCombTailChannelMass_eq_mertens_sub_one hp hpW]
+  ring
+
 end RHLean.Proof
