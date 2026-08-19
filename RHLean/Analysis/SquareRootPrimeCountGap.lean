@@ -221,6 +221,7 @@ theorem squareRootMiddleTopPrimeCountGap_cast_eq_mass
   rw [squareRootMiddleTopPrimeCountGap_eq_card_sub R hR]
   unfold squareRootMiddleTopPrimeCountGapMass
   push_cast
+  rfl
 
 /-- **Exact weighted middle-bias identity.**  The deficit of the oriented
 middle throws from the unit model is the population gap plus the smooth edge,
