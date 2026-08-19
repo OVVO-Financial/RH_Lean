@@ -799,6 +799,10 @@ theorem sum_squareRootReplacementTailMoebiusCoefficient_eq_mertens_sub_pred
         squareRootReplacementTailMoebiusCoefficient R z) =
       ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
         (((μ n : ℤ) : ℂ)) := by simpa using hgroup
+  have hRX : R ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hsq : R + 1 ≤ R ^ 2 := by nlinarith
+    omega
   have hset :
       Finset.Icc 1 (squareRootEndpoint R) =
         Finset.Icc 1 (R - 1) ∪
@@ -849,7 +853,7 @@ private theorem sum_shiftedMertens_div_eq_one_sub
           rw [Finset.sum_sub_distrib]
     _ = 1 - (z : ℂ) := by
       rw [RHLean.Analysis.sum_mertensSummatory_div_eq_one hz]
-      simp [Finset.card_Icc, hz]
+      simp [Nat.card_Icc, hz]
 
 /-- On every `z < R`, the quotient kernel sends the shifted lower-scale Mertens
 state to `1-z`.  This is the existing unit Möbius renewal identity written in
@@ -980,8 +984,9 @@ theorem sum_replacementTailCoefficient_mul_shiftedMertens_eq_tailFirstMoment
       apply Finset.sum_congr rfl
       intro d hd
       have hdI := Finset.mem_Icc.mp hd
+      have hdpos : 0 < d := by omega
       have hz1 : 1 ≤ squareRootEndpoint R / d :=
-        (Nat.one_le_div_iff hdI.1).2 hdI.2
+        (Nat.one_le_div_iff hdpos).2 hdI.2
       rw [show (∑ k ∈ Finset.Icc 1 (squareRootEndpoint R / d),
           f (squareRootEndpoint R / d / k)) =
         1 - ((squareRootEndpoint R / d : ℕ) : ℂ) by
