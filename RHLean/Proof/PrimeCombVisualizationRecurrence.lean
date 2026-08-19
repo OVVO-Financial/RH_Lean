@@ -391,12 +391,12 @@ theorem frozenFreshPrimeChildContribution_eq_firstHit_sub_reachableParent
         frozenFreshPrimeFirstHitContribution,
         frozenFreshPrimeReachableParentContribution,
         frozenPrimeUniverseFirstHitBoundaryMass,
-        primeFaceProduct, booleanCubeSign, hpX]
+        primeFaceProduct, hpX]
     · simp [frozenFreshPrimeChildContribution,
         frozenFreshPrimeFirstHitContribution,
         frozenFreshPrimeReachableParentContribution,
         frozenPrimeUniverseFirstHitBoundaryMass,
-        primeFaceProduct, booleanCubeSign, hpX]
+        primeFaceProduct, hpX]
   · by_cases hfit : p * primeFaceProduct t ≤ X
     · simp [frozenFreshPrimeChildContribution,
         frozenFreshPrimeFirstHitContribution,
@@ -525,9 +525,9 @@ theorem primeCombFramePrefixMass_insert_eq_old_sub_channels
         primeCombFrameKillChannelMass S p W -
           2 * primeCombFrameFlipChannelMass S p W := by
   have hdelta := primeCombAnimationStepDelta_eq_channels S p W
+  unfold primeCombAnimationStepDelta at hdelta
   rw [primeCombAnimationStepPrefixMass_eq_insert
     S p W hpPrime hSPrime hSlt] at hdelta
-  unfold primeCombAnimationStepDelta at hdelta
   linear_combination hdelta
 
 /-- The preceding theorem specialized to the actual increasing-prime walk.
