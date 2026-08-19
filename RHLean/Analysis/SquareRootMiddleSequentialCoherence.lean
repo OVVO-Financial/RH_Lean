@@ -31,7 +31,8 @@ The resulting statements are all finite exact identities.  In particular:
 * the Abel discrepancy and the prime-dilate cofactor-window discrepancy are two
   exact coordinates of the same centered error;
 * the weighted-middle bias from the unit model recombines exactly into full
-  transport minus the smooth mass;
+  transport minus the smooth mass, and equivalently into the harmonic layers
+  `d >= 2` plus the inert top minus the smooth mass;
 * the aggregate middle/top readouts do not replace the sequential mechanism:
   a fresh prime still acts parent by parent, with first-hit and reachable-parent
   channels kept separate before any sum is taken.
