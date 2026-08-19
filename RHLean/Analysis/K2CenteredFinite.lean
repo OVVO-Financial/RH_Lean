@@ -74,7 +74,8 @@ theorem k2C3_centered_abel (N : ℕ) (hN : 1 ≤ N) :
   rw [k2_abel_Icc_one]
   have htel := k2_log_telescope N hN
   simp_rw [add_mul]
-  rw [Finset.sum_add_distrib, htel]
+  rw [Finset.sum_add_distrib]
+  rw [← Finset.mul_sum, htel]
   ring
 
 /-- The harmonic reciprocal quotient kernel. -/
