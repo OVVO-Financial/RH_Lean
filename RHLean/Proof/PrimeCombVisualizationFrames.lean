@@ -204,15 +204,11 @@ theorem primeCombProperMultiplierSet_subset_two_of_third_lt
   have hkData := (mem_primeCombProperMultiplierSet_iff hp).1 hk
   have hWlt : W < p * 3 :=
     (Nat.div_lt_iff_lt_mul (by omega : 0 < 3)).1 hpThird
-  by_contra hkTwo
-  have hk3 : 3 ≤ k := by omega
-  have h3p : 3 * p ≤ k * p := Nat.mul_le_mul_right p hk3
-  have hlt : W < k * p := by
-    calc
-      W < p * 3 := hWlt
-      _ = 3 * p := by ring
-      _ ≤ k * p := h3p
-  exact (Nat.not_lt_of_ge hkData.2) hlt
+  have hWlt' : W < 3 * p := by simpa [Nat.mul_comm] using hWlt
+  have hdivlt : W / p < 3 :=
+    (Nat.div_lt_iff_lt_mul hp).2 hWlt'
+  have hkEq : k = 2 := by omega
+  simp [hkEq]
 
 /-- On the active part of that regime, the bunch is literally the singleton
 `{2}`: the rake has become the pairing `p <-> 2p`. -/
