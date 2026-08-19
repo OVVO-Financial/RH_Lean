@@ -104,7 +104,8 @@ private theorem rootGeometricSource_to_pair_mem
   rcases Finset.mem_Icc.mp hnTail with ⟨hnR, hnX⟩
   have hn2 : 2 ≤ n := hR.trans hnR
   have hn1 : 1 < n := by omega
-  have hcpos : 1 ≤ canonicalCofactor n := canonicalCofactor_pos hn1
+  have hcpos : 1 ≤ canonicalCofactor n :=
+    CanonicalGapAncestryBridge.canonicalCofactor_pos hn1
   have hcR := replacementRootGeometric_cofactor_lt_root hR hn2 hnX horient
   have hqPrime := canonicalLargestPrimeFactor_prime hn1
   have hqdvd := canonicalLargestPrimeFactor_dvd hn1
@@ -118,7 +119,7 @@ private theorem rootGeometricSource_to_pair_mem
     exact hdiv
 
 private theorem rootGeometricSource_pair_injective
-    {R z m n : ℕ}
+    {R z m n : ℕ} (hR : 2 ≤ R)
     (hm : m ∈ replacementFibreRootGeometricSourceSet R z)
     (hn : n ∈ replacementFibreRootGeometricSourceSet R z)
     (hpair :
@@ -127,8 +128,14 @@ private theorem rootGeometricSource_pair_injective
     m = n := by
   rcases Finset.mem_Icc.mp (Finset.mem_filter.mp hm).1 with ⟨hmR, _⟩
   rcases Finset.mem_Icc.mp (Finset.mem_filter.mp hn).1 with ⟨hnR, _⟩
-  have hmprod := canonicalCofactor_mul_largestPrimeFactor (by omega : 1 < m)
-  have hnprod := canonicalCofactor_mul_largestPrimeFactor (by omega : 1 < n)
+  have hm1 : 1 < m := by
+    have hm2 : 2 ≤ m := hR.trans hmR
+    omega
+  have hn1 : 1 < n := by
+    have hn2 : 2 ≤ n := hR.trans hnR
+    omega
+  have hmprod := canonicalCofactor_mul_largestPrimeFactor hm1
+  have hnprod := canonicalCofactor_mul_largestPrimeFactor hn1
   have hc : canonicalCofactor m = canonicalCofactor n :=
     congrArg Prod.fst hpair
   have hq : canonicalLargestPrimeFactor m = canonicalLargestPrimeFactor n :=
@@ -150,7 +157,6 @@ private theorem rootPair_surjective
   rcases Finset.mem_Icc.mp hcMem with ⟨hc1, _hcR⟩
   rcases Finset.mem_Icc.mp hqMem with ⟨_hq2, _hqX⟩
   have hcpos : 0 < cq.1 := by omega
-  have hq1 : 1 ≤ cq.2 := hqPrime.one_le
   have hprodpos : 0 < cq.1 * cq.2 :=
     Nat.mul_pos hcpos hqPrime.pos
   have hinterval :=
@@ -180,12 +186,15 @@ theorem replacementFibreRootGeometricSourceMass_eq_pairMass
   refine Finset.sum_bij
     (fun n _hn => (canonicalCofactor n, canonicalLargestPrimeFactor n))
     (fun n hn => rootGeometricSource_to_pair_mem hR hn)
-    (fun m hm n hn hmn => rootGeometricSource_pair_injective hm hn hmn)
+    (fun m hm n hn hmn => rootGeometricSource_pair_injective hR hm hn hmn)
     (fun cq hcq => by simpa using rootPair_surjective hR hz hzR cq hcq)
     ?_
   intro n hn
   rcases Finset.mem_Icc.mp (Finset.mem_filter.mp hn).1 with ⟨hnR, _hnX⟩
-  rw [canonicalCofactor_mul_largestPrimeFactor (by omega : 1 < n)]
+  have hn1 : 1 < n := by
+    have hn2 : 2 ≤ n := hR.trans hnR
+    omega
+  rw [canonicalCofactor_mul_largestPrimeFactor hn1]
 
 /-- Prime count in the dilated reciprocal window for one root cofactor.  The
 value is represented in `ℂ` so it can be multiplied directly by the signed
@@ -290,7 +299,8 @@ theorem replacementFibreRootPairMass_eq_neg_cofactorPrimeWindows
               (replacementDilatedFibreLower R z c)
               (replacementDilatedFibreUpper R z c)).filter
                 (fun q => q.Prime ∧ c < q), (1 : ℂ)) := by
-              rw [neg_mul, Finset.mul_sum]
+              rw [Finset.mul_sum]
+              rw [← Finset.sum_neg_distrib]
               apply Finset.sum_congr rfl
               intro q _hq
               ring
