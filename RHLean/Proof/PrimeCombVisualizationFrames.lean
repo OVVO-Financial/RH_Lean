@@ -549,7 +549,7 @@ never receives a proper-prime hit and simply remains the displayed prime
 candidate `-1`, already equal to its final Möbius value. -/
 theorem primeCombSqrtFrame_largePrimeSeat_eq_neg_one
     {W p : ℕ}
-    (hp : p.Prime) (hpRoot : Nat.sqrt W < p) (hpW : p ≤ W) :
+    (hp : p.Prime) (hpRoot : Nat.sqrt W < p) :
     primeCombFrameSite (primesUpTo (Nat.sqrt W)) p = -1 := by
   classical
   have hp0 : p ≠ 0 := hp.ne_zero
@@ -574,9 +574,10 @@ theorem primeCombSqrtFrame_largePrimeSeat_eq_neg_one
       rcases hq2 with ⟨k, hk⟩
       refine ⟨q * k, ?_⟩
       simpa [pow_two, Nat.mul_assoc] using hk
-    have : q ∈ primeCombFrameDivisors (primesUpTo (Nat.sqrt W)) p :=
+    have hmem : q ∈ primeCombFrameDivisors (primesUpTo (Nat.sqrt W)) p :=
       Finset.mem_filter.mpr ⟨hqS, hqdiv⟩
-    simpa [hdiv] using this
+    rw [hdiv] at hmem
+    exact (Finset.notMem_empty q) hmem
   simp [primeCombFrameSite, hp0, hp1, hnoSquare, hdiv]
 
 /-! ## Active and inert large-prime frames -/
