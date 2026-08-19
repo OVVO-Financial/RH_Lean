@@ -82,20 +82,27 @@ theorem k2_tendsto_div_four_ratio :
         (fun N : ℕ => 4 +
           ((N % 4 : ℕ) : ℝ) * (((N / 4 : ℕ) : ℝ))⁻¹) := by
     filter_upwards [eventually_ge_atTop 4] with N hN
-    have hq0 : (((N / 4 : ℕ) : ℝ)) ≠ 0 := by
-      have : 0 < N / 4 := by omega
-      positivity
+    have hqpos : 0 < N / 4 := by omega
+    have hq0 : (((N / 4 : ℕ) : ℝ)) ≠ 0 := by positivity
     have hnat : N = 4 * (N / 4) + N % 4 := by omega
+    have hdiv : (4 * (N / 4) + N % 4) / 4 = N / 4 := by omega
+    have hmod : (4 * (N / 4) + N % 4) % 4 = N % 4 := by omega
     rw [hnat]
+    simp only [hdiv, hmod]
     push_cast
     field_simp [hq0]
     ring
-  apply heq.tendsto_iff.mpr
-  simpa using (tendsto_const_nhds.add hrem :
-    Tendsto
-      (fun N : ℕ => (4 : ℝ) +
-        ((N % 4 : ℕ) : ℝ) * (((N / 4 : ℕ) : ℝ))⁻¹)
-      atTop (𝓝 ((4 : ℝ) + 0)))
+  have htarget :
+      Tendsto
+        (fun N : ℕ => 4 +
+          ((N % 4 : ℕ) : ℝ) * (((N / 4 : ℕ) : ℝ))⁻¹)
+        atTop (𝓝 4) := by
+    simpa using (tendsto_const_nhds.add hrem :
+      Tendsto
+        (fun N : ℕ => (4 : ℝ) +
+          ((N % 4 : ℕ) : ℝ) * (((N / 4 : ℕ) : ℝ))⁻¹)
+        atTop (𝓝 ((4 : ℝ) + 0)))
+  exact htarget.congr' heq.symm
 
 /-- The logarithmic scale difference between `N` and `floor(N/4)` tends to
 `log 4`. -/
@@ -121,7 +128,7 @@ theorem k2_tendsto_log_sub_log_div_four :
       have : 0 < N / 4 := by omega
       positivity
     rw [Real.log_div hN0 hq0]
-  exact heq.tendsto_iff.mpr hlog
+  exact hlog.congr' heq.symm
 
 /-- Exact algebraic expression of the factor-four shell through centered
 prefixes. -/
@@ -189,7 +196,7 @@ theorem K2CenteredConverges.factorFourUniformBound
     calc
       |nativePNTSignedK2RecipInterval N 4| =
           |(nativePNTSignedK2RecipInterval N 4 - L) + L| := by ring_nf
-      _ ≤ |nativePNTSignedK2RecipInterval N 4 - L| + |L| := abs_add _ _
+      _ ≤ |nativePNTSignedK2RecipInterval N 4 - L| + |L| := abs_add_le _ _
       _ ≤ |L| + 1 := by linarith
   rcases eventually_atTop.1 hlarge with ⟨M, hM⟩
   let S : ℝ :=
