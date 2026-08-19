@@ -192,7 +192,9 @@ theorem squareRoot_middle_prime_population_eventually_exceeds_top
 
 private theorem mertensSummatory_two : mertensSummatory 2 = 0 := by
   rw [← cofactorMobiusPrefixMass_eq_mertensSummatory]
-  norm_num [cofactorMobiusPrefixMass, canonicalMoebiusWeight,
+  unfold cofactorMobiusPrefixMass
+  rw [show Finset.Icc 1 2 = ({1, 2} : Finset ℕ) by decide]
+  simp [canonicalMoebiusWeight,
     ArithmeticFunction.moebius_apply_prime Nat.prime_two]
 
 /-- The middle tail retained after peeling all quotient layers below `j`.
@@ -232,7 +234,7 @@ theorem squareRootMiddleHarmonicBand_two_eq_zero (R : ℕ) :
         (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 3)).1 hlow
       simpa [Nat.mul_comm] using hmul
     have hdiv : squareRootEndpoint R / q = 2 := by omega
-    simp [hqPrime, hdiv, mertensSummatory_two]
+    rw [if_pos hqPrime, hdiv, mertensSummatory_two]
   · simp [hqPrime]
 
 /-- **One-layer harmonic peel.**  For `2 <= j < R`, the difference between the
@@ -242,7 +244,7 @@ theorem squareRootMiddleHarmonicBand_two_eq_zero (R : ℕ) :
 In particular the specialization `j=2` gives `T_2=T_3` because `M(2)=0`.
 No interval estimate is used. -/
 theorem squareRootMiddleHarmonicTail_peel
-    (R j : ℕ) (hj : 2 ≤ j) (hjR : j < R) :
+    (R j : ℕ) (hj : 2 ≤ j) (_hjR : j < R) :
     squareRootMiddleHarmonicTail R j =
       mertensSummatory j * ((squareRootMiddleHarmonicLayerPrimes R j).card : ℂ) +
         squareRootMiddleHarmonicTail R (j + 1) := by
@@ -366,8 +368,11 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
         ∑ q ∈ fullQ, if q.Prime then (1 : ℂ) else 0 := by
           apply Finset.sum_congr rfl
           intro q hq
+          change q ∈ Finset.Ioc R X at hq
           have hqX := (Finset.mem_Ioc.mp hq).2
-          by_cases hqPrime : q.Prime <;> simp [hqPrime, hqX, hmu1]
+          by_cases hqPrime : q.Prime
+          · rw [if_pos ⟨hqPrime, by simpa using hqX⟩, if_pos hqPrime, hmu1]
+          · rw [if_neg (by intro h; exact hqPrime h.1), if_neg hqPrime]
       _ = ∑ q ∈ fullQ.filter Nat.Prime, (1 : ℂ) := by
         rw [Finset.sum_filter]
       _ = (((fullQ.filter Nat.Prime).card : ℕ) : ℂ) := by simp
@@ -375,17 +380,24 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
       fullQ.filter (fun q => q.Prime ∧ 2 * q ≤ X) =
         middleQ.filter Nat.Prime := by
     ext q
-    simp only [Finset.mem_filter, Finset.mem_Ioc]
+    simp only [Finset.mem_filter]
+    change
+      (q ∈ Finset.Ioc R X ∧ (q.Prime ∧ 2 * q ≤ X)) ↔
+        (q ∈ Finset.Ioc R (X / 2) ∧ q.Prime)
     constructor
-    · rintro ⟨⟨hRq, hqX⟩, hqPrime, htwo⟩
-      refine ⟨⟨hRq, ?_⟩, hqPrime⟩
-      apply (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2
-      simpa [Nat.mul_comm] using htwo
-    · rintro ⟨⟨hRq, hqhalf⟩, hqPrime⟩
+    · rintro ⟨hqfull, hqPrime, htwo⟩
+      rcases Finset.mem_Ioc.mp hqfull with ⟨hRq, _hqX⟩
+      have hqhalf : q ≤ X / 2 := by
+        apply (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2
+        simpa [Nat.mul_comm] using htwo
+      exact ⟨Finset.mem_Ioc.mpr ⟨hRq, hqhalf⟩, hqPrime⟩
+    · rintro ⟨hqmid, hqPrime⟩
+      rcases Finset.mem_Ioc.mp hqmid with ⟨hRq, hqhalf⟩
       have htwo : q * 2 ≤ X :=
         (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).1 hqhalf
       have hqX : q ≤ X := hqhalf.trans (Nat.div_le_self X 2)
-      exact ⟨⟨hRq, hqX⟩, hqPrime, by simpa [Nat.mul_comm] using htwo⟩
+      exact ⟨Finset.mem_Ioc.mpr ⟨hRq, hqX⟩, hqPrime,
+        by simpa [Nat.mul_comm] using htwo⟩
   have hc2 : inner 2 = -((squareRootMiddleFibrePrimes R).card : ℂ) := by
     unfold inner
     calc
@@ -394,11 +406,12 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
         ∑ q ∈ fullQ.filter (fun q => q.Prime ∧ 2 * q ≤ X),
           canonicalMoebiusWeight 2 := by
             rw [Finset.sum_filter]
-      _ = ∑ q ∈ middleQ.filter Nat.Prime, (-1 : ℂ) := by
+      _ = ∑ q ∈ middleQ.filter Nat.Prime, canonicalMoebiusWeight 2 := by
         rw [hset2]
+      _ = ∑ q ∈ middleQ.filter Nat.Prime, (-1 : ℂ) := by
         apply Finset.sum_congr rfl
-        intro q hq
-        rw [hmu2]
+        intro q _hq
+        exact hmu2
       _ = -((middleQ.filter Nat.Prime).card : ℂ) := by
         simp
       _ = -((squareRootMiddleFibrePrimes R).card : ℂ) := by
@@ -457,17 +470,24 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
         fullQ.filter (fun q => q.Prime ∧ c * q ≤ X) =
           (Finset.Ioc R (X / c)).filter Nat.Prime := by
       ext q
-      simp only [Finset.mem_filter, Finset.mem_Ioc]
+      simp only [Finset.mem_filter]
+      change
+        (q ∈ Finset.Ioc R X ∧ (q.Prime ∧ c * q ≤ X)) ↔
+          (q ∈ Finset.Ioc R (X / c) ∧ q.Prime)
       constructor
-      · rintro ⟨⟨hRq, hqX⟩, hqPrime, hmul⟩
-        refine ⟨⟨hRq, ?_⟩, hqPrime⟩
-        apply (Nat.le_div_iff_mul_le hcpos).2
-        simpa [Nat.mul_comm] using hmul
-      · rintro ⟨⟨hRq, hqB⟩, hqPrime⟩
+      · rintro ⟨hqfull, hqPrime, hmul⟩
+        rcases Finset.mem_Ioc.mp hqfull with ⟨hRq, _hqX⟩
+        have hqB : q ≤ X / c := by
+          apply (Nat.le_div_iff_mul_le hcpos).2
+          simpa [Nat.mul_comm] using hmul
+        exact ⟨Finset.mem_Ioc.mpr ⟨hRq, hqB⟩, hqPrime⟩
+      · rintro ⟨hqBmem, hqPrime⟩
+        rcases Finset.mem_Ioc.mp hqBmem with ⟨hRq, hqB⟩
         have hmul : q * c ≤ X :=
           (Nat.le_div_iff_mul_le hcpos).1 hqB
         have hqX : q ≤ X := hqB.trans (Nat.div_le_self X c)
-        exact ⟨⟨hRq, hqX⟩, hqPrime, by simpa [Nat.mul_comm] using hmul⟩
+        exact ⟨Finset.mem_Ioc.mpr ⟨hRq, hqX⟩, hqPrime,
+          by simpa [Nat.mul_comm] using hmul⟩
     have hcount := primeCard_Ioc_add_primeCounting_eq hRc
     have hcountC :
         (((Finset.Ioc R (X / c)).filter Nat.Prime).card : ℂ) +
@@ -479,11 +499,15 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
           (Nat.primeCounting (X / c) : ℂ) - (Nat.primeCounting R : ℂ) := by
       linear_combination hcountC
     unfold inner
-    rw [Finset.sum_filter, hfilter]
     calc
-      (∑ q ∈ (Finset.Ioc R (X / c)).filter Nat.Prime,
-          canonicalMoebiusWeight c) =
-        canonicalMoebiusWeight c *
+      (∑ q ∈ fullQ,
+          if q.Prime ∧ c * q ≤ X then canonicalMoebiusWeight c else 0) =
+        ∑ q ∈ fullQ.filter (fun q => q.Prime ∧ c * q ≤ X),
+          canonicalMoebiusWeight c := by
+            rw [Finset.sum_filter]
+      _ = ∑ q ∈ (Finset.Ioc R (X / c)).filter Nat.Prime,
+          canonicalMoebiusWeight c := by rw [hfilter]
+      _ = canonicalMoebiusWeight c *
           (((Finset.Ioc R (X / c)).filter Nat.Prime).card : ℂ) := by
             simp [nsmul_eq_mul, mul_comm]
       _ = canonicalMoebiusWeight c *
@@ -511,7 +535,20 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
         squareRootTransportPrimeFirst_eq_middleMertensTail_add_topCard R hR
   dsimp [lowC, X] at hcofactor ⊢
   rw [hcofactor] at hfull
-  linear_combination hfull
+  calc
+    squareRootMiddleMertensTail R =
+        (((squareRootTopFibrePrimes R).card : ℂ) +
+          ∑ c ∈ Finset.Icc 3 (R - 1),
+            canonicalMoebiusWeight c *
+              ((Nat.primeCounting (squareRootEndpoint R / c) : ℂ) -
+                (Nat.primeCounting R : ℂ))) -
+          ((squareRootTopFibrePrimes R).card : ℂ) := by
+            rw [hfull]
+            ring
+    _ = ∑ c ∈ Finset.Icc 3 (R - 1),
+          canonicalMoebiusWeight c *
+            ((Nat.primeCounting (squareRootEndpoint R / c) : ℂ) -
+              (Nat.primeCounting R : ℂ)) := by ring
 
 /-! ## Weighted middle bias target -/
 
