@@ -406,6 +406,8 @@ import RHLean.Proof.PrimeSieveSquareRootTransport
 import RHLean.Proof.RealSquareBlockIncrements
 import RHLean.Proof.RecursivePrimeReplacement
 import RHLean.Proof.ReducedSquareClassMod40
+import RHLean.Proof.ReplacementFibreCofactorWindows
+import RHLean.Proof.ReplacementFibreOrientationSplit
 import RHLean.Proof.ResonantCofactorCancellation
 import RHLean.Proof.ResonantLeakage
 import RHLean.Proof.ResonantProjection
