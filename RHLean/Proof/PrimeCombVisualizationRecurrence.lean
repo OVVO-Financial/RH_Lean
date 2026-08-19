@@ -43,7 +43,15 @@ private theorem primeCombFrameAlive_of_no_square
     (hnoSquare : ¬ PrimeCombFrameSquareHit S n) :
     PrimeCombFrameAlive S n := by
   unfold PrimeCombFrameAlive primeCombFrameSite
-  simp [hn0, hn1, hnoSquare]
+  rw [if_neg hn0, if_neg hn1, if_neg hnoSquare]
+  dsimp
+  by_cases hdiv : primeCombFrameDivisors S n = ∅
+  · rw [if_pos (Finset.card_eq_zero.mpr hdiv)]
+    norm_num
+  · have hcard : (primeCombFrameDivisors S n).card ≠ 0 :=
+      Finset.card_ne_zero.mpr (Finset.nonempty_iff_ne_empty.mpr hdiv)
+    rw [if_neg hcard]
+    exact pow_ne_zero _ (by norm_num : (-1 : ℤ) ≠ 0)
 
 private theorem primeCombFrameDivisors_prime_eq_empty
     (S : Finset ℕ) {p : ℕ}
@@ -84,19 +92,33 @@ theorem primeCombAnimationStepSite_eq_insert
       PrimeCombFrameFlipped, PrimeCombFrameAlive]
   by_cases hn1 : n = 1
   · subst n
-    simp [primeCombAnimationStepSite, PrimeCombFrameKilled,
-      PrimeCombFrameFlipped, PrimeCombFrameAlive]
+    have hNotProper : ¬ PrimeCombFrameProperMultiple p 1 := by
+      intro h
+      exact (not_lt_of_ge hpPrime.two_le) h.1
+    have hNotKilled : ¬ PrimeCombFrameKilled S p 1 := by
+      intro h
+      exact hNotProper h.2.1
+    have hNotFlipped : ¬ PrimeCombFrameFlipped S p 1 := by
+      intro h
+      exact hNotProper h.2.1
+    simp [primeCombAnimationStepSite, hNotKilled, hNotFlipped]
   have hnpos : 0 < n := Nat.pos_of_ne_zero hn0
   by_cases hOldSquare : PrimeCombFrameSquareHit S n
   · have hOldZero : primeCombFrameSite S n = 0 := by
       simp [primeCombFrameSite, hn0, hn1, hOldSquare]
     have hNotAlive : ¬ PrimeCombFrameAlive S n := by
       simp [PrimeCombFrameAlive, hOldZero]
+    have hNotKilled : ¬ PrimeCombFrameKilled S p n := by
+      intro h
+      exact hNotAlive h.1
+    have hNotFlipped : ¬ PrimeCombFrameFlipped S p n := by
+      intro h
+      exact hNotAlive h.1
     have hNewSquare : PrimeCombFrameSquareHit (insert p S) n :=
       (primeCombFrameSquareHit_insert S p n).2 (Or.inr hOldSquare)
-    simp [primeCombAnimationStepSite, PrimeCombFrameKilled,
-      PrimeCombFrameFlipped, hNotAlive, hOldZero,
-      primeCombFrameSite, hn0, hn1, hNewSquare]
+    rw [show primeCombAnimationStepSite S p n = 0 by
+      simp [primeCombAnimationStepSite, hNotKilled, hNotFlipped, hOldZero]]
+    simp [primeCombFrameSite, hn0, hn1, hNewSquare]
   have hAlive : PrimeCombFrameAlive S n :=
     primeCombFrameAlive_of_no_square hn0 hn1 hOldSquare
   by_cases hPSquare : p ^ 2 ∣ n
@@ -165,13 +187,20 @@ theorem primeCombAnimationStepSite_eq_insert
         have hfirst : PrimeCombFrameFirstHit S p n :=
           ⟨hAlive, hproper, hProperTouched, hPSquare⟩
         have hOld : primeCombFrameSite S n = -1 := by
-          simp [primeCombFrameSite, hn0, hn1, hOldSquare, hOldCardZero]
+          unfold primeCombFrameSite
+          rw [if_neg hn0, if_neg hn1, if_neg hOldSquare]
+          dsimp
+          rw [if_pos hOldCardZero]
         have hNewCard :
             (primeCombFrameDivisors (insert p S) n).card = 1 := by
           rw [primeCombFrameDivisors_insert S p n, if_pos hpdiv,
             Finset.card_insert_of_notMem hpNotOldDivisor, hOldCardZero]
         have hNew : primeCombFrameSite (insert p S) n = -1 := by
-          simp [primeCombFrameSite, hn0, hn1, hNewNoSquare, hNewCard]
+          unfold primeCombFrameSite
+          rw [if_neg hn0, if_neg hn1, if_neg hNewNoSquare]
+          dsimp
+          rw [hNewCard]
+          norm_num
         rw [primeCombAnimationStepSite_eq_of_firstHit S hfirst, hOld, hNew]
     · have hpLeN : p ≤ n := Nat.le_of_dvd hnpos hpdiv
       have hnLeP : n ≤ p := Nat.le_of_not_gt hplt
@@ -189,16 +218,24 @@ theorem primeCombAnimationStepSite_eq_insert
         intro h
         exact hNotProper h.2.1
       have hOld : primeCombFrameSite S p = -1 := by
-        simp [primeCombFrameSite, hpPrime.ne_zero, hpPrime.ne_one,
-          hOldSquare, hOldDivisors]
+        unfold primeCombFrameSite
+        rw [if_neg hpPrime.ne_zero, if_neg hpPrime.ne_one,
+          if_neg hOldSquare]
+        dsimp
+        rw [hOldDivisors]
+        norm_num
       have hNewCard :
           (primeCombFrameDivisors (insert p S) p).card = 1 := by
         rw [primeCombFrameDivisors_insert S p p, if_pos (dvd_refl p),
           hOldDivisors]
         simp
       have hNew : primeCombFrameSite (insert p S) p = -1 := by
-        simp [primeCombFrameSite, hpPrime.ne_zero, hpPrime.ne_one,
-          hNewNoSquare, hNewCard]
+        unfold primeCombFrameSite
+        rw [if_neg hpPrime.ne_zero, if_neg hpPrime.ne_one,
+          if_neg hNewNoSquare]
+        dsimp
+        rw [hNewCard]
+        norm_num
       simp [primeCombAnimationStepSite, hNotKilled, hNotFlipped, hOld, hNew]
   · have hNotProper : ¬ PrimeCombFrameProperMultiple p n := by
       intro h
@@ -211,11 +248,9 @@ theorem primeCombAnimationStepSite_eq_insert
       exact hNotProper h.2.1
     have hFrameEq :
         primeCombFrameSite (insert p S) n = primeCombFrameSite S n := by
-      unfold primeCombFrameSite
-      rw [if_neg hn0, if_neg hn1, if_neg hNewNoSquare,
-        if_neg hOldSquare]
-      dsimp
-      rw [primeCombFrameDivisors_insert S p n, if_neg hpdiv]
+      simp only [primeCombFrameSite, hn0, hn1, if_false,
+        hNewNoSquare, hOldSquare, primeCombFrameDivisors_insert,
+        hpdiv]
     rw [hFrameEq]
     simp [primeCombAnimationStepSite, hNotKilled, hNotFlipped]
 
