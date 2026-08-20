@@ -1,11 +1,24 @@
-commit=8d88c11092d2eb3d04feffe9e8fd2b88246d887d
-directbuild=success
-rhlean_warnings=success
+commit=7cf7ffd19a4409d0e3e6da381bc6cdb85de40d60
+directbuild=failure
+rhlean_warnings=skipped
 strongpnt_noise=success
 
 --- diagnostic inventory ---
 Deduplicated Lean diagnostic inventory
 =====================================
+
+RHLean/Analysis/StrongMertensLogNineBoundsCore.lean  (11 distinct)
+  151:10  error: Invalid field `congr_fun`: The environment does not contain `And.congr_fun`
+  152:10  error: No goals to be solved
+  168:77  error: unsolved goals
+  196:10  error: Invalid field `congr_fun`: The environment does not contain `And.congr_fun`
+  197:10  error: No goals to be solved
+  211:19  error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  291:2  error: 'change' tactic failed, pattern
+  352:6  error: failed to prove positivity/nonnegativity/nonzeroness
+  355:6  error: No goals to be solved
+  400:6  error: Type mismatch
+  435:6  error: Tactic `apply` failed: could not unify the conclusion of `setIntegral_congr_fun measurableSet_Ioi`
 
 StrongPNT/PNT1_ComplexAnalysis.lean  (1 distinct)
   2968:0  info: 'borel_caratheodory_II' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -25,7 +38,6 @@ info: StrongPNT/PNT1_ComplexAnalysis.lean:2968:0: 'borel_caratheodory_II' depend
 ℹ [7366/7368] Replayed StrongPNT.PNT4_ZeroFreeRegion
 info: StrongPNT/PNT4_ZeroFreeRegion.lean:6617:0: 'ZetaZeroFree_p' depends on axioms: [propext, Classical.choice, Quot.sound]
 info: StrongPNT/PNT4_ZeroFreeRegion.lean:6618:0: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
-✔ [7368/7368] Built RHLean.Analysis.StrongMertensLogNineCorridor (6.0s)
 Build completed successfully (7368 jobs).
 === RHLean.Analysis.StrongMertensZetaKernel ===
 warning: StrongPNT: repository '/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT' has local changes
@@ -36,7 +48,6 @@ info: StrongPNT/PNT4_ZeroFreeRegion.lean:6617:0: 'ZetaZeroFree_p' depends on axi
 info: StrongPNT/PNT4_ZeroFreeRegion.lean:6618:0: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
 ℹ [7370/7414] Replayed StrongPNT.PNT5_Strong
 info: StrongPNT/PNT5_Strong.lean:5643:0: 'Strong_PNT' depends on axioms: [propext, Classical.choice, Quot.sound]
-✔ [7414/7414] Built RHLean.Analysis.StrongMertensZetaKernel (5.9s)
 Build completed successfully (7414 jobs).
 === RHLean.Analysis.StrongMertensSmallHeight ===
 warning: StrongPNT: repository '/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT' has local changes
@@ -47,7 +58,6 @@ info: StrongPNT/PNT4_ZeroFreeRegion.lean:6617:0: 'ZetaZeroFree_p' depends on axi
 info: StrongPNT/PNT4_ZeroFreeRegion.lean:6618:0: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
 ℹ [7370/7415] Replayed StrongPNT.PNT5_Strong
 info: StrongPNT/PNT5_Strong.lean:5643:0: 'Strong_PNT' depends on axioms: [propext, Classical.choice, Quot.sound]
-✔ [7415/7415] Built RHLean.Analysis.StrongMertensSmallHeight (3.0s)
 Build completed successfully (7415 jobs).
 === RHLean.Analysis.StrongMertensLogNineContour ===
 warning: StrongPNT: repository '/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT' has local changes
@@ -58,5 +68,90 @@ info: StrongPNT/PNT4_ZeroFreeRegion.lean:6617:0: 'ZetaZeroFree_p' depends on axi
 info: StrongPNT/PNT4_ZeroFreeRegion.lean:6618:0: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
 ℹ [7370/7415] Replayed StrongPNT.PNT5_Strong
 info: StrongPNT/PNT5_Strong.lean:5643:0: 'Strong_PNT' depends on axioms: [propext, Classical.choice, Quot.sound]
-✔ [7415/7415] Built RHLean.Analysis.StrongMertensLogNineContour (7.8s)
 Build completed successfully (7415 jobs).
+=== RHLean.Analysis.StrongMertensLogNineBoundsCore ===
+warning: StrongPNT: repository '/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT' has local changes
+ℹ [7367/7417] Replayed StrongPNT.PNT1_ComplexAnalysis
+info: StrongPNT/PNT1_ComplexAnalysis.lean:2968:0: 'borel_caratheodory_II' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7371/7417] Replayed StrongPNT.PNT4_ZeroFreeRegion
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6617:0: 'ZetaZeroFree_p' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6618:0: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7373/7417] Replayed StrongPNT.PNT5_Strong
+info: StrongPNT/PNT5_Strong.lean:5643:0: 'Strong_PNT' depends on axioms: [propext, Classical.choice, Quot.sound]
+✖ [7417/7417] Building RHLean.Analysis.StrongMertensLogNineBoundsCore (8.3s)
+trace: .> LEAN_PATH=/home/runner/work/RH_Lean/RH_Lean/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/MD4Lean/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/BibtexQuery/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/UnicodeBasic/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/checkdecls/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/doc-gen4/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/build/lib/lean /home/runner/.elan/toolchains/leanprover--lean4---v4.24.0/bin/lean /home/runner/work/RH_Lean/RH_Lean/RHLean/Analysis/StrongMertensLogNineBoundsCore.lean -o /home/runner/work/RH_Lean/RH_Lean/.lake/build/lib/lean/RHLean/Analysis/StrongMertensLogNineBoundsCore.olean -i /home/runner/work/RH_Lean/RH_Lean/.lake/build/lib/lean/RHLean/Analysis/StrongMertensLogNineBoundsCore.ilean -c /home/runner/work/RH_Lean/RH_Lean/.lake/build/ir/RHLean/Analysis/StrongMertensLogNineBoundsCore.c --setup /home/runner/work/RH_Lean/RH_Lean/.lake/build/ir/RHLean/Analysis/StrongMertensLogNineBoundsCore.setup.json --json
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:151:10: Invalid field `congr_fun`: The environment does not contain `And.congr_fun`
+  hmul
+has type
+  AEStronglyMeasurable (fun x => C * x ^ (-3 / 2)) (volume.restrict (Set.Ici T)) ∧
+    HasFiniteIntegral (fun x => C * x ^ (-3 / 2)) (volume.restrict (Set.Ici T))
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:152:10: No goals to be solved
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:168:77: unsolved goals
+case h.e'_7
+T : ℝ
+hT : 3 < T
+hpos : IntegrableOn (fun t => Real.log t ^ 2 / t ^ 2) (Set.Ici T) volume
+⊢ Set.Iic (-T) = -Set.Ici T
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:196:10: Invalid field `congr_fun`: The environment does not contain `And.congr_fun`
+  hmul
+has type
+  AEStronglyMeasurable (fun x => C * x ^ (-3 / 2)) (volume.restrict (Set.Ici T)) ∧
+    HasFiniteIntegral (fun x => C * x ^ (-3 / 2)) (volume.restrict (Set.Ici T))
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:197:10: No goals to be solved
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:211:19: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (x : ℝ) in Set.Ioi (-?c), ?f x
+in the target expression
+  ∫ (t : ℝ) in Set.Iic (- - -T), Real.log (-t) ^ 2 / (-t) ^ 2 ≤ C / √(- -T)
+
+C : ℝ
+hC : C > 0
+hpos : ∀ (T : ℝ), 3 < T → ∫ (t : ℝ) in Set.Ici T, Real.log t ^ 2 / t ^ 2 ≤ C / √T
+T : ℝ
+hT : 3 < T
+⊢ ∫ (t : ℝ) in Set.Iic (- - -T), Real.log (-t) ^ 2 / (-t) ^ 2 ≤ C / √(- -T)
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:291:2: 'change' tactic failed, pattern
+  1 / ‖zetaC s‖ * ‖mellin (fun x => ↑(Smooth1 f eps x)) s‖ * ‖↑X ^ s‖ ≤ ?m.1035
+is not definitionally equal to target
+  1 / ‖zetaC (1 + ↑(Real.log X)⁻¹ + ↑t * I)‖ * ‖mellin (fun x => ↑(Smooth1 f eps x)) (1 + ↑(Real.log X)⁻¹ + ↑t * I)‖ *
+      ‖↑X ^ (1 + ↑(Real.log X)⁻¹ + ↑t * I)‖ ≤
+    8 * Cz * Cm * rexp 1 * (X * Real.log X / eps) * Real.log (-t) ^ 2 / (-t) ^ 2
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:352:6: failed to prove positivity/nonnegativity/nonzeroness
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:355:6: No goals to be solved
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:400:6: Type mismatch
+  riemannZeta_conj s
+has type
+  zetaC ((starRingEnd ℂ) s) = (starRingEnd ℂ) (zetaC s)
+but is expected to have type
+  (zetaC ((starRingEnd ℂ) s))⁻¹ = ((starRingEnd ℂ) (zetaC s))⁻¹
+error: RHLean/Analysis/StrongMertensLogNineBoundsCore.lean:435:6: Tactic `apply` failed: could not unify the conclusion of `setIntegral_congr_fun measurableSet_Ioi`
+  ∫ (x : ?m.201) in Set.Ioi ?m.207, ?m.197 x ∂?m.200 = ∫ (x : ?m.201) in Set.Ioi ?m.207, ?m.198 x ∂?m.200
+with the goal
+  I * ∫ (t : ℝ) in Set.Ioi T, nativeSmoothedMobiusIntegrand f eps X (1 + ↑(Real.log X)⁻¹ + ↑t * I) =
+    I *
+      ∫ (x : ℝ) in Set.Ioi T, (starRingEnd ℂ) (nativeSmoothedMobiusIntegrand f eps X (1 + ↑(Real.log X)⁻¹ + ↑(-x) * I))
+
+Note: The full type of `setIntegral_congr_fun measurableSet_Ioi` is
+  Set.EqOn ?m.197 ?m.198 (Set.Ioi ?m.207) →
+    ∫ (x : ?m.201) in Set.Ioi ?m.207, ?m.197 x ∂?m.200 = ∫ (x : ?m.201) in Set.Ioi ?m.207, ?m.198 x ∂?m.200
+
+case e_a
+f : ℝ → ℝ
+hsupp : Function.support f ⊆ Set.Icc (1 / 2) 2
+hdiff : ContDiff ℝ 1 f
+C : ℝ
+hC : C > 0
+hM1 :
+  ∀ {eps X T : ℝ},
+    eps ∈ Set.Ioo 0 1 → 3 < X → 3 < T → ‖nativeMertensContourM1 f eps X T‖ ≤ C * (X * Real.log X / (eps * √T))
+eps X T : ℝ
+heps : eps ∈ Set.Ioo 0 1
+hX : 3 < X
+hT : 3 < T
+hXpos : 0 < X
+⊢ I * ∫ (t : ℝ) in Set.Ioi T, nativeSmoothedMobiusIntegrand f eps X (1 + ↑(Real.log X)⁻¹ + ↑t * I) =
+    I *
+      ∫ (x : ℝ) in Set.Ioi T, (starRingEnd ℂ) (nativeSmoothedMobiusIntegrand f eps X (1 + ↑(Real.log X)⁻¹ + ↑(-x) * I))
+error: Lean exited with code 1
+Some required targets logged failures:
+- RHLean.Analysis.StrongMertensLogNineBoundsCore
+error: build failed
