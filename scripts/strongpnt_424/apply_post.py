@@ -111,6 +111,129 @@ import Mathlib.Analysis.MellinInversion
         "    ∀ ε ∈ Ioo 0 ε₀, ‖𝓜 ((Smooth1 ν ε) ·) 1 - 1‖ ≤ c * ε := by\n",
         "    ∀ ε ∈ Ioo 0 ε₀, ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) 1 - 1‖ ≤ c * ε := by\n",
     )
+    replace_exact(
+        target,
+        "normalize scalar multiplication in Mellin conjugation",
+        """    intro x xpos
+    simp only [map_mul, Complex.conj_ofReal]
+    congr
+""",
+        """    intro x xpos
+    simp only [smul_eq_mul, map_mul, Complex.conj_ofReal]
+    congr
+""",
+    )
+    replace_exact(
+        target,
+        "make Mellin continuity explicitly complex-valued",
+        """  have cont_mellin_smooth : Continuous fun (a : ℝ) ↦
+      𝓜 (fun x ↦ ↑(Smooth1 SmoothingF ε x)) (σ + ↑a * I) := by
+    rw [← continuousOn_univ]
+""",
+        """  have cont_mellin_smooth : Continuous fun (a : ℝ) ↦
+      𝓜 (fun x ↦ (Smooth1 SmoothingF ε x : ℂ)) (σ + ↑a * I) := by
+    rw [← continuousOn_univ]
+""",
+    )
+    replace_exact(
+        target,
+        "scope integral_tsum side conditions as in 4.24 MediumPNT",
+        """  rw [MeasureTheory.integral_tsum]
+  have x_neq_zero : X ≠ 0 := by linarith
+  . intro i
+    by_cases i_eq_zero : i = 0
+    . simpa [i_eq_zero] using aestronglyMeasurable_const
+    . apply Continuous.aestronglyMeasurable
+      fun_prop (disch := simp[i_eq_zero, x_neq_zero])
+  . rw [← lt_top_iff_ne_top]
+""",
+        """  rw [MeasureTheory.integral_tsum]
+  · have x_neq_zero : X ≠ 0 := by linarith
+    intro i
+    by_cases i_eq_zero : i = 0
+    · simpa [i_eq_zero] using aestronglyMeasurable_const
+    · apply Continuous.aestronglyMeasurable
+      fun_prop (disch := simp[i_eq_zero, x_neq_zero])
+  · rw [← lt_top_iff_ne_top]
+""",
+    )
+    replace_exact(
+        target,
+        "use direct 4.24 tsum-integral theorem without obsolete Mellin bridge",
+        """  · congr
+    rw [← MellinTransform_eq]
+    exact SmoothedChebyshevDirichlet_aux_tsum_integral diffSmoothingF SmoothingFpos
+      suppSmoothingF mass_one (by linarith) εpos ε_lt_one σ_gt σ_le
+""",
+        """  · congr
+    exact SmoothedChebyshevDirichlet_aux_tsum_integral diffSmoothingF SmoothingFpos
+      suppSmoothingF mass_one (by linarith) εpos ε_lt_one σ_gt σ_le
+""",
+    )
+    replace_exact(
+        target,
+        "port cpow quotient rewrite from 4.24 MediumPNT",
+        """    have := @mul_cpow_ofReal_nonneg (a := X / (n : ℝ)) (b := (n : ℝ)) (r := σ + t * I) ?_ ?_
+    push_cast at this ⊢
+    rw [← this, div_mul_cancel₀]
+    · simp only [ne_eq, Nat.cast_eq_zero, n_ne_zero, not_false_eq_true]
+    · apply div_nonneg (by linarith : 0 ≤ X); simp
+    · simp
+    · simp only [ne_eq, cpow_eq_zero_iff, Nat.cast_eq_zero, not_and, not_not]
+      intro hn; exfalso; exact n_ne_zero hn
+""",
+        """    have := @mul_cpow_ofReal_nonneg (a := X / (n : ℝ)) (b := (n : ℝ)) (r := σ + I * t) ?_ ?_
+    · push_cast at this ⊢
+      rw [← this, div_mul_cancel₀]
+      · simp only [ne_eq, Nat.cast_eq_zero, n_ne_zero, not_false_eq_true]
+    · apply div_nonneg (by linarith : 0 ≤ X); simp
+    · simp
+    · simp only [ne_eq, cpow_eq_zero_iff, Nat.cast_eq_zero, n_ne_zero, false_and,
+        not_false_eq_true]
+""",
+    )
+    replace_exact(
+        target,
+        "follow 4.24 conv path for inverse cpow",
+        "    conv => rhs; rhs; intro n; rhs; rhs; rhs; intro t; rhs; rw [ht t, h n t]; lhs; rw [hn]\n",
+        "    conv => rhs; lhs; intro n; rhs; rhs; rhs; intro t; rhs; rw [ht t, h n t]; lhs; rw [hn]\n",
+    )
+    replace_exact(
+        target,
+        "port Mellin inversion API to 4.24",
+        """    rw [(by rw [div_mul]; simp : 1 / (2 * π) = 1 / (2 * π * I) * I), mul_assoc]
+    conv => lhs; rhs; rhs; rhs; intro t; rw [mul_comm]; norm_cast
+    have := MellinInversion σ (f := fun x ↦ (Smooth1 SmoothingF ε x : ℂ)) (x := n / X)
+      ?_ ?_ ?_ ?_
+    · beta_reduce at this
+      dsimp [MellinInverseTransform, VerticalIntegral] at this
+      rw [← MellinTransform_eq, this]
+    · exact div_pos (by exact_mod_cast n_pos) (by linarith : 0 < X)
+    · apply Smooth1MellinConvergent diffSmoothingF suppSmoothingF ⟨εpos, ε_lt_one⟩ SmoothingFpos mass_one
+      simp only [ofReal_re]
+      linarith
+    · dsimp [VerticalIntegrable]
+      rw [← MellinTransform_eq]
+      apply SmoothedChebyshevDirichlet_aux_integrable diffSmoothingF SmoothingFpos
+        suppSmoothingF mass_one εpos ε_lt_one σ_gt σ_le
+""",
+        """    have := mellin_inversion σ (f := fun x ↦ (Smooth1 SmoothingF ε x : ℂ)) (x := n / X)
+      ?_ ?_ ?_ ?_
+    · beta_reduce at this
+      dsimp [mellinInv, VerticalIntegral] at this
+      convert this using 4
+      · norm_cast
+      · rw [mul_comm]
+        norm_cast
+    · exact div_pos (by exact_mod_cast n_pos) (by linarith : 0 < X)
+    · apply Smooth1MellinConvergent diffSmoothingF suppSmoothingF ⟨εpos, ε_lt_one⟩ SmoothingFpos mass_one
+      simp only [ofReal_re]
+      linarith
+    · dsimp [VerticalIntegrable]
+      apply SmoothedChebyshevDirichlet_aux_integrable diffSmoothingF SmoothingFpos
+        suppSmoothingF mass_one εpos ε_lt_one σ_gt σ_le
+""",
+    )
 
 
 if __name__ == "__main__":
