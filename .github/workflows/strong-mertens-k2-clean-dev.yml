@@ -1,0 +1,164 @@
+name: Strong Mertens K2 clean development gate
+
+on:
+  push:
+    branches: [agent/strong-mertens-k2-clean]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: strong-mertens-k2-clean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Targeted Lean build
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Restore Mathlib and dependency builds
+        id: lakepackages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Save Mathlib and dependency builds
+        if: >-
+          !cancelled()
+          && steps.lakepackages.outcome == 'success'
+          && steps.lakepackages.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Apply current StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Build recovered chain in dependency order
+        id: directbuild
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          targets=(
+            RHLean.Analysis.StrongMertensLogNineCorridor
+            RHLean.Analysis.StrongMertensZetaKernel
+            RHLean.Analysis.StrongMertensSmallHeight
+            RHLean.Analysis.StrongMertensLogNineContour
+            RHLean.Analysis.StrongMertensLogNineBoundsCore
+            RHLean.Analysis.StrongMertensLogNineHorizontal
+            RHLean.Analysis.StrongMertensLogNineBounds
+            RHLean.Analysis.StrongMertensLogNineEnvelope
+            RHLean.Analysis.StrongMertensSmoothingFinite
+            RHLean.Analysis.StrongMertensSmoothing
+            RHLean.Analysis.StrongMertensLogNineBalanceCore
+            RHLean.Analysis.StrongMertensLogNineBalance
+            RHLean.Analysis.K2RecipMomentAnalyticClosure
+            RHLean.Analysis.K2CenteredClassicalClosure
+          )
+          : > strong-mertens-build.log
+          for target in "${targets[@]}"; do
+            file="${target//./\/}.lean"
+            if [[ -f "$file" ]]; then
+              echo "=== $target ===" | tee -a strong-mertens-build.log
+              lake build "$target" 2>&1 | tee -a strong-mertens-build.log
+            fi
+          done
+
+      - name: Fail on RHLean-owned Lean warnings
+        id: rhlean_warnings
+        if: steps.directbuild.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          owned_path = re.compile(r"(?:^|[\s:])(?:\./)*RHLean(?:\.lean|/)")
+          lines = Path("strong-mertens-build.log").read_text(errors="replace").splitlines()
+          owned = [line for line in lines if "warning:" in line.lower() and owned_path.search(line)]
+          if owned:
+              print("RHLean-owned Lean warnings found:")
+              print("\n".join(owned))
+              raise SystemExit(1)
+          print("No RHLean-owned Lean warnings found.")
+          PY
+
+      - name: Save RHLean build cache
+        if: ${{ !cancelled() }}
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+
+      - name: Upload targeted Lean build log
+        if: ${{ always() && hashFiles('strong-mertens-build.log') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: strong-mertens-k2-clean-build-log
+          path: strong-mertens-build.log
+
+      - name: Print targeted Lean build log
+        if: ${{ always() && hashFiles('strong-mertens-build.log') != '' }}
+        run: cat strong-mertens-build.log
+
+      - name: Dependency diagnostic inventory
+        if: ${{ always() && hashFiles('strong-mertens-build.log') != '' }}
+        run: python3 scripts/lean_diagnostic_inventory.py strong-mertens-build.log
+
+      - name: Fail on StrongPNT port diagnostics
+        id: strongpnt_noise
+        if: ${{ always() && hashFiles('strong-mertens-build.log') != '' }}
+        continue-on-error: true
+        run: python3 scripts/lean_diagnostic_inventory.py --gate StrongPNT strong-mertens-build.log
+
+      - name: Fail if targeted build or owned diagnostics failed
+        if: >-
+          steps.directbuild.outcome == 'failure' ||
+          steps.rhlean_warnings.outcome == 'failure' ||
+          steps.strongpnt_noise.outcome == 'failure'
+        run: exit 1
