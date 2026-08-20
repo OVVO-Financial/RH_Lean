@@ -260,6 +260,7 @@ import RHLean.Analysis.StrongMertensLogNineContour
 import RHLean.Analysis.StrongMertensLogNineCorridor
 import RHLean.Analysis.StrongMertensLogNineEnvelope
 import RHLean.Analysis.StrongMertensLogNineHorizontal
+import RHLean.Analysis.StrongMertensRecipMomentTransfer
 import RHLean.Analysis.StrongMertensSmallHeight
 import RHLean.Analysis.StrongMertensSmoothing
 import RHLean.Analysis.StrongMertensSmoothingFinite

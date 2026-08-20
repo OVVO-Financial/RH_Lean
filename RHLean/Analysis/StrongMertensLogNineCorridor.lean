@@ -281,7 +281,9 @@ theorem nonempty_strongMertensLogNineCorridor :
         shift_lt_one hApos hT.le
       have hplus : 1 < 1 + Ainv / (Real.log |t|) ^ 9 := by
         have hlog : 0 < Real.log |t| := Real.log_pos (by linarith)
-        have : 0 < Ainv / (Real.log |t|) ^ 9 := by positivity
+        -- `positivity` cannot see `0 < Ainv`: the corridor only carries
+        -- `Ainv ∈ Ioc 0 (1/2)`, so give the division its two factors directly.
+        have : 0 < Ainv / (Real.log |t|) ^ 9 := div_pos hAinv.1 (pow_pos hlog 9)
         linarith
       exact hshiftlt.trans hplus
     exact hInv (strongMertensLogNineShift A T) t ht ⟨hlower, hupper⟩
