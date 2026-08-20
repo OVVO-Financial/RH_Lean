@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Apply the minimal StrongPNT source compatibility fixes for Mathlib 4.24.
 
-The upstream StrongPNT revision is pinned in lakefile.lean.  This script deliberately
+The upstream StrongPNT revision is pinned in lakefile.lean. This script deliberately
 uses exact source replacements: if that pinned source changes unexpectedly, the script
 fails instead of guessing at a repair.
 """
@@ -11,9 +11,11 @@ from __future__ import annotations
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-TARGET = ROOT / ".lake" / "packages" / "StrongPNT" / "StrongPNT" / "PNT1_ComplexAnalysis.lean"
+STRONGPNT = ROOT / ".lake" / "packages" / "StrongPNT" / "StrongPNT"
 
-PATCHES: tuple[tuple[str, str, str], ...] = (
+Patch = tuple[str, str, str]
+
+PNT1_PATCHES: tuple[Patch, ...] = (
     (
         "redundant ring after final-bound field_simp",
         """  have h_rearrange : (2 * M * r) / (R - r) = (2 * r / (R - r)) * M := by
@@ -63,33 +65,83 @@ PATCHES: tuple[tuple[str, str, str], ...] = (
     ),
 )
 
+PNT2_PATCHES: tuple[Patch, ...] = (
+    (
+        "numerator rewrite now closed by field_simp",
+        """      field_simp [ne_of_gt hR1_pos]
+      ring_nf
+      field_simp
+      ring_nf
+      norm_cast
+      rw [pow_two]
+      rw [mul_assoc R R R⁻¹]
+      -- rw [(mul_inv_cancel R)]
+      have : R * R⁻¹ = 1 := by
+        have : R > 0 := by linarith
+        -- apply mul_inv_cancel
+        field_simp
+      rw [this]
+      simp
+""",
+        """      field_simp [ne_of_gt hR1_pos]
+""",
+    ),
+    (
+        "remove no-progress second field_simp on boundary norm",
+        """    rw [factor_eq, Complex.norm_mul, norm_star, ←hz]
+    field_simp
+    field_simp [hz, z_ne_rho]
 
-def main() -> None:
-    if not TARGET.is_file():
-        raise SystemExit(f"StrongPNT source not found: {TARGET}")
+    have h_denom_ne_zero : R * ‖z - ρ‖ ≠ 0 := by
+""",
+        """    rw [factor_eq, Complex.norm_mul, norm_star, ←hz]
+    field_simp
 
-    text = TARGET.read_text()
+    have h_denom_ne_zero : R * ‖z - ρ‖ ≠ 0 := by
+""",
+    ),
+)
+
+FILE_PATCHES: tuple[tuple[str, tuple[Patch, ...]], ...] = (
+    ("PNT1_ComplexAnalysis.lean", PNT1_PATCHES),
+    ("PNT2_LogDerivative.lean", PNT2_PATCHES),
+)
+
+
+def patch_file(filename: str, patches: tuple[Patch, ...]) -> bool:
+    target = STRONGPNT / filename
+    if not target.is_file():
+        raise SystemExit(f"StrongPNT source not found: {target}")
+
+    text = target.read_text()
     changed = False
 
-    for label, old, new in PATCHES:
+    for label, old, new in patches:
         old_count = text.count(old)
         new_count = text.count(new)
         if old_count == 1:
             text = text.replace(old, new, 1)
             changed = True
-            print(f"applied: {label}")
+            print(f"applied {filename}: {label}")
         elif old_count == 0 and new_count == 1:
-            print(f"already applied: {label}")
+            print(f"already applied {filename}: {label}")
         else:
             raise SystemExit(
-                f"compatibility patch mismatch for {label!r}: "
+                f"compatibility patch mismatch in {filename} for {label!r}: "
                 f"old_count={old_count}, new_count={new_count}"
             )
 
     if changed:
-        TARGET.write_text(text)
-        print(f"patched {TARGET}")
-    else:
+        target.write_text(text)
+        print(f"patched {target}")
+    return changed
+
+
+def main() -> None:
+    changed = False
+    for filename, patches in FILE_PATCHES:
+        changed = patch_file(filename, patches) or changed
+    if not changed:
         print("StrongPNT 4.24 compatibility patch already present")
 
 
