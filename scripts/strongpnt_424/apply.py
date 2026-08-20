@@ -116,10 +116,13 @@ PNT2_PATCHES: tuple[Patch, ...] = (
 """,
         """    rw [factor_eq, Complex.norm_mul, norm_star, ←hz]
     have hR_pos : 0 < R := lt_trans hR1_pos hR1_lt_R
-    have hnorm_ne_zero : ‖z - ρ‖ ≠ 0 := by
-      simpa using z_ne_rho
-    rw [Complex.norm_real, abs_of_pos hR_pos]
-    field_simp [hR_pos.ne', hnorm_ne_zero]
+    have hnorm_ne_zero : ‖z - ρ‖ ≠ 0 :=
+      norm_ne_zero_iff.mpr (sub_ne_zero.mpr z_ne_rho)
+    have hz_norm_ne_zero : ‖z‖ ≠ 0 := by
+      rw [hz]
+      exact hR_pos.ne'
+    rw [Real.norm_eq_abs, abs_of_nonneg (norm_nonneg z)]
+    field_simp [hz_norm_ne_zero, hnorm_ne_zero]
 """,
     ),
 )
