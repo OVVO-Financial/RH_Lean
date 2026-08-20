@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   actions: read
 
 concurrency:
@@ -68,126 +68,6 @@ jobs:
 
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
-
-      - name: Apply BoundsCore repair candidate
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-
-          path = Path('RHLean/Analysis/StrongMertensLogNineBoundsCore.lean')
-          lines = path.read_text().splitlines()
-
-          def indices_where(stripped):
-              return [i for i, line in enumerate(lines) if line.strip() == stripped]
-
-          target = 'change C * t ^ (-((3 : ℝ) / 2)) = C / t ^ ((3 : ℝ) / 2)'
-          idxs = indices_where(target)
-          if len(idxs) != 2:
-              raise SystemExit(f'rpow normalization: expected 2 matches, found {len(idxs)}')
-          for i in reversed(idxs):
-              indent = lines[i][:len(lines[i]) - len(lines[i].lstrip())]
-              if lines[i + 1].strip() != 'rw [Real.rpow_neg (by linarith [Set.mem_Ici.mp ht]), div_eq_mul_inv]':
-                  raise SystemExit('rpow normalization: unexpected following line')
-              lines[i:i + 2] = [
-                  indent + 'simp only',
-                  indent + 'rw [show (-3 / 2 : ℝ) = -(3 / 2) by ring,',
-                  indent + '  Real.rpow_neg (by linarith [Set.mem_Ici.mp ht])]',
-                  indent + 'simp only [div_eq_mul_inv]',
-              ]
-
-          idxs = indices_where('exact integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2)')
-          if len(idxs) != 1:
-              raise SystemExit(f'negative-tail endpoint: expected 1 match, found {len(idxs)}')
-          i = idxs[0]
-          indent = lines[i][:len(lines[i]) - len(lines[i].lstrip())]
-          lines[i:i + 1] = [
-              indent + 'simpa only [neg_neg] using',
-              indent + '  (integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2))',
-          ]
-
-          idxs = indices_where('field_simp [ne_of_gt heps.1, ne_of_gt htpos]')
-          if len(idxs) != 1:
-              raise SystemExit(f'far-tail field_simp: expected 1 match, found {len(idxs)}')
-          i = idxs[0]
-          if i + 1 >= len(lines) or lines[i + 1].strip() != 'ring':
-              raise SystemExit('far-tail field_simp: stale ring not found')
-          del lines[i + 1]
-
-          idxs = indices_where('rw [div_le_div_iff₀ hsqpos]')
-          if len(idxs) != 1:
-              raise SystemExit(f'far-tail monotonicity: expected 1 match, found {len(idxs)}')
-          start = idxs[0]
-          end_candidates = [j for j in range(start, min(start + 12, len(lines)))
-                            if lines[j].strip() == 'exact mul_le_mul_of_nonneg_left hlog_le_sq hcoeff']
-          if len(end_candidates) != 1:
-              raise SystemExit('far-tail monotonicity: terminal line not found')
-          end = end_candidates[0]
-          indent = lines[start][:len(lines[start]) - len(lines[start].lstrip())]
-          lines[start:end + 1] = [
-              indent + 'rw [div_le_div_iff₀ hsqpos hsqpos]',
-              indent + 'have hnum : 0 ≤ X * Real.log X :=',
-              indent + '  mul_nonneg hXpos.le hlogXpos.le',
-              indent + 'have hratio : 0 ≤ X * Real.log X / eps :=',
-              indent + '  div_nonneg hnum heps.1.le',
-              indent + 'have hcoeff :',
-              indent + '    0 ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) :=',
-              indent + '  mul_nonneg',
-              indent + '    (mul_nonneg (mul_nonneg hCz.le hCm.le) (Real.exp_pos 1).le)',
-              indent + '    hratio',
-              indent + 'exact mul_le_mul_of_nonneg_right',
-              indent + '  (mul_le_mul_of_nonneg_left hlog_le_sq hcoeff) hsqpos.le',
-          ]
-
-          starts = [i for i, line in enumerate(lines)
-                    if line.strip() == 'have hbase : 0 ≤ Cz * Cm * Real.exp 1 *']
-          if len(starts) != 1:
-              raise SystemExit(f'far-tail base sign: expected 1 match, found {len(starts)}')
-          start = starts[0]
-          end_candidates = [j for j in range(start, min(start + 10, len(lines)))
-                            if lines[j].strip() == 'nlinarith']
-          if len(end_candidates) != 1:
-              raise SystemExit('far-tail base sign: nlinarith not found')
-          end = end_candidates[0]
-          indent = lines[start][:len(lines[start]) - len(lines[start].lstrip())]
-          lines[start:end + 1] = [
-              indent + 'have hnum : 0 ≤ X * Real.log X :=',
-              indent + '  mul_nonneg hXpos.le hlogXpos.le',
-              indent + 'have hratio : 0 ≤ X * Real.log X / eps :=',
-              indent + '  div_nonneg hnum heps.1.le',
-              indent + 'have hprefix :',
-              indent + '    0 ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) :=',
-              indent + '  mul_nonneg',
-              indent + '    (mul_nonneg (mul_nonneg hCz.le hCm.le) (Real.exp_pos 1).le)',
-              indent + '    hratio',
-              indent + 'have hbase : 0 ≤ Cz * Cm * Real.exp 1 *',
-              indent + '    (X * Real.log X / eps) * (Real.log (-t)) ^ 2 / (-t) ^ 2 :=',
-              indent + '  div_nonneg',
-              indent + '    (mul_nonneg hprefix (sq_nonneg (Real.log (-t))))',
-              indent + '    (sq_nonneg (-t))',
-              indent + 'nlinarith',
-          ]
-
-          starts = indices_where('let sneg : ℂ := (1 + (Real.log X)⁻¹) + (-x) * I')
-          if len(starts) != 1:
-              raise SystemExit(f'M5 pointwise conjugation: expected 1 start, found {len(starts)}')
-          start = starts[0]
-          end_candidates = [j for j in range(start, min(start + 30, len(lines)))
-                            if lines[j].strip() == '((1 + (Real.log X)⁻¹) + (-x) * I)) := by rfl']
-          if len(end_candidates) != 1:
-              raise SystemExit('M5 pointwise conjugation: terminal line not found')
-          end = end_candidates[0]
-          indent = lines[start][:len(lines[start]) - len(lines[start].lstrip())]
-          lines[start:end + 1] = [
-              indent + 'have hc := nativeSmoothedMobiusIntegrand_conj',
-              indent + '  (f := f) (eps := eps) (X := X) hXpos',
-              indent + '  ((1 + (Real.log X)⁻¹) + (-x) * I)',
-              indent + 'simpa using hc',
-          ]
-
-          path.write_text('\n'.join(lines) + '\n')
-          print('BoundsCore candidate transformations applied')
-          PY
 
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
@@ -240,22 +120,6 @@ jobs:
         if: ${{ always() && hashFiles('strong-mertens-build.log') != '' }}
         continue-on-error: true
         run: python3 scripts/lean_diagnostic_inventory.py --gate StrongPNT strong-mertens-build.log
-
-      - name: Publish validated BoundsCore repair
-        if: >-
-          github.event_name == 'push' &&
-          steps.directbuild.outcome == 'success' &&
-          steps.rhlean_warnings.outcome != 'failure' &&
-          steps.strongpnt_noise.outcome != 'failure'
-        shell: bash
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -- RHLean/Analysis/StrongMertensLogNineBoundsCore.lean
-          if ! git diff --cached --quiet; then
-            git commit -m 'Repair remaining BoundsCore normalization goals'
-            git push origin "HEAD:${GITHUB_REF_NAME}"
-          fi
 
       - name: Fail if targeted build or owned diagnostics failed
         if: >-
