@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   actions: read
 
 concurrency:
@@ -68,6 +68,41 @@ jobs:
 
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
+
+      - name: Apply final Horizontal sign candidate
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('RHLean/Analysis/StrongMertensLogNineHorizontal.lean')
+          text = path.read_text()
+          old1 = """    have hMnonneg : 0 ≤ Cm * (eps * ‖s‖ ^ 2)⁻¹ := by positivity"""
+          new1 = """    have hMnonneg : 0 ≤ Cm * (eps * ‖s‖ ^ 2)⁻¹ := by
+      have hden : 0 ≤ eps * ‖s‖ ^ 2 :=
+        mul_nonneg heps.1.le (sq_nonneg ‖s‖)
+      exact mul_nonneg hCm.le (inv_nonneg.mpr hden)"""
+          old2 = """                have hbase : 0 ≤ Cz * Cm * Real.exp 1 * X *
+                    (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by positivity"""
+          new2 = """                have hnum : 0 ≤ Cz * Cm * Real.exp 1 * X *
+                    (1 + (Real.log T) ^ 10) := by
+                  exact mul_nonneg
+                    (mul_nonneg
+                      (mul_nonneg (mul_nonneg hCz.le hCm.le) (Real.exp_pos 1).le)
+                        (by linarith : 0 ≤ X))
+                    (by positivity)
+                have hden : 0 ≤ eps * T ^ 2 :=
+                  mul_nonneg heps.1.le (sq_nonneg T)
+                have hbase : 0 ≤ Cz * Cm * Real.exp 1 * X *
+                    (1 + (Real.log T) ^ 10) / (eps * T ^ 2) :=
+                  div_nonneg hnum hden"""
+          for label, old, new in [('Mellin sign', old1, new1), ('base quotient sign', old2, new2)]:
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected 1 match, found {count}')
+              text = text.replace(old, new)
+              print(f'applied {label}')
+          path.write_text(text)
+          PY
 
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
@@ -120,6 +155,22 @@ jobs:
         if: ${{ always() && hashFiles('strong-mertens-build.log') != '' }}
         continue-on-error: true
         run: python3 scripts/lean_diagnostic_inventory.py --gate StrongPNT strong-mertens-build.log
+
+      - name: Publish validated Horizontal repair
+        if: >-
+          github.event_name == 'push' &&
+          steps.directbuild.outcome == 'success' &&
+          steps.rhlean_warnings.outcome != 'failure' &&
+          steps.strongpnt_noise.outcome != 'failure'
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -- RHLean/Analysis/StrongMertensLogNineHorizontal.lean
+          if ! git diff --cached --quiet; then
+            git commit -m 'Close Horizontal sign goals'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
 
       - name: Fail if targeted build or owned diagnostics failed
         if: >-
