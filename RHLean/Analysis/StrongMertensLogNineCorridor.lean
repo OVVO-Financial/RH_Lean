@@ -73,7 +73,7 @@ structure StrongMertensLogNineCorridor where
 private lemma log_three_gt_one : (1 : ℝ) < Real.log 3 := by
   rw [show (1 : ℝ) = Real.log (Real.exp 1) by rw [Real.log_exp]]
   apply Real.log_lt_log (Real.exp_pos 1)
-  exact Real.exp_one_lt_d9
+  exact Real.exp_one_lt_d9.trans (by norm_num)
 
 private lemma log_mono_of_three_le {x y : ℝ} (hx : 3 ≤ x) (hxy : x ≤ y) :
     Real.log x ≤ Real.log y := by
@@ -89,7 +89,9 @@ private lemma log_le_log_pow_nine {x : ℝ} (hx : 3 ≤ x) :
     Real.log x ≤ (Real.log x) ^ 9 := by
   have hlog : 1 < Real.log x :=
     lt_of_lt_of_le log_three_gt_one (log_mono_of_three_le (by norm_num) hx)
-  exact ZetaInvBnd_aux hlog
+  have hpos : (0 : ℝ) < Real.log x := lt_trans zero_lt_one hlog
+  have h8 : (1 : ℝ) ≤ (Real.log x) ^ 8 := one_le_pow₀ hlog.le
+  nlinarith [mul_nonneg hpos.le (sub_nonneg.mpr h8)]
 
 private lemma shift_lt_one {A T : ℝ} (hA : 0 < A) (hT : 3 ≤ T) :
     strongMertensLogNineShift A T < 1 := by
@@ -105,8 +107,16 @@ private lemma shift_lt_one {A T : ℝ} (hA : 0 < A) (hT : 3 ≤ T) :
 * the bounded-height allowance `(1-smallSigma) * (log 3)^9`.
 
 Shrinking is proved explicitly, so no downstream theorem relies on unrelated
-existential witnesses being definitionally equal. -/
-theorem strongMertensLogNineCorridor : StrongMertensLogNineCorridor := by
+existential witnesses being definitionally equal.
+
+`StrongMertensLogNineCorridor` bundles real data, so it lives in `Type`, while
+every analytic input below (`ZetaInvBnd`, `ZetaZeroFree_p`, `ZetaNoZerosInBox'`)
+is a `Prop`-valued existential whose witnesses may not be eliminated into
+`Type`.  Existence is therefore proved as the `Prop` statement `Nonempty
+StrongMertensLogNineCorridor`, and the corridor term used downstream is the
+choice of a witness. -/
+theorem nonempty_strongMertensLogNineCorridor :
+    Nonempty StrongMertensLogNineCorridor := by
   obtain ⟨Ainv, hAinv, Cinv, hCinv, hInv⟩ := ZetaInvBnd
   obtain ⟨Azf, hAzf, hZF⟩ := ZetaZeroFree_p
   obtain ⟨sigma0, hsigma0, hSmall⟩ := ZetaNoZerosInBox' 3
@@ -277,18 +287,24 @@ theorem strongMertensLogNineCorridor : StrongMertensLogNineCorridor := by
     exact hInv (strongMertensLogNineShift A T) t ht ⟨hlower, hupper⟩
 
   exact
-    { A := A
-      A_mem := hAmem
-      invConst := Cinv
-      invConst_pos := hCinv
-      smallSigma := sigma0
-      smallSigma_lt_one := hsigma0
-      small_zero := hSmall
-      shift_ge_small := hshift_ge_small
-      shift_pos := hshift_pos
-      shift_lt_one := fun T hT => shift_lt_one hApos hT
-      zero_free_box := hbox
-      inv_window_large := hinvwindow
-      inv_shift_large := hinvshift }
+    ⟨{ A := A
+       A_mem := hAmem
+       invConst := Cinv
+       invConst_pos := hCinv
+       smallSigma := sigma0
+       smallSigma_lt_one := hsigma0
+       small_zero := hSmall
+       shift_ge_small := hshift_ge_small
+       shift_pos := hshift_pos
+       shift_lt_one := fun T hT => shift_lt_one hApos hT
+       zero_free_box := hbox
+       inv_window_large := hinvwindow
+       inv_shift_large := hinvshift }⟩
+
+/-- The single corridor object threaded through the whole contour stack.  Every
+downstream module takes a `StrongMertensLogNineCorridor` as an argument, so this
+choice is made exactly once, here. -/
+def strongMertensLogNineCorridor : StrongMertensLogNineCorridor :=
+  Classical.choice nonempty_strongMertensLogNineCorridor
 
 end RHLean.Analysis

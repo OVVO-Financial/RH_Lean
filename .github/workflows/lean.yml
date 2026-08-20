@@ -250,8 +250,30 @@ jobs:
         if: ${{ always() && hashFiles('lean-build.log') != '' }}
         run: cat lean-build.log
 
-      - name: Fail if Lean build failed or RHLean emitted warnings
+      # The full build log is thousands of lines, and a single unused `simp`
+      # argument in a dependency is reported once per rebuild of the module
+      # that contains it.  Collapse the diagnostics that are not RHLean's into
+      # one deduplicated, sorted inventory printed at the end of the job, so
+      # the tail of the log says exactly which upstream sites are still noisy.
+      # This does not gate the build; see `strongpnt_noise` below.
+      - name: Dependency diagnostic inventory
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
+        shell: bash
+        run: python3 scripts/lean_diagnostic_inventory.py lean-build.log
+
+      # The StrongPNT 4.24 port is repository-owned: `scripts/strongpnt_424/`
+      # rewrites those sources, so a linter warning there is ours to fix and
+      # not upstream churn we merely tolerate.  Keep the ported surface silent.
+      - name: Fail on StrongPNT port diagnostics
+        id: strongpnt_noise
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
+        continue-on-error: true
+        shell: bash
+        run: python3 scripts/lean_diagnostic_inventory.py --gate StrongPNT lean-build.log
+
+      - name: Fail if Lean build failed or owned sources emitted warnings
         if: >-
           steps.directbuild.outcome == 'failure' ||
-          steps.rhlean_warnings.outcome == 'failure'
+          steps.rhlean_warnings.outcome == 'failure' ||
+          steps.strongpnt_noise.outcome == 'failure'
         run: exit 1
