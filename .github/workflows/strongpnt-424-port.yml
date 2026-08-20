@@ -1,0 +1,79 @@
+name: StrongPNT 4.24 port gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'scripts/strongpnt_424/**'
+      - '.github/workflows/strongpnt-424-port.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: strongpnt-424-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  strongpnt:
+    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'agent/k2-pnt-closure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Restore dependency builds
+        id: lakepackages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Build StrongPNT terminal module
+        id: strongbuild
+        continue-on-error: true
+        run: lake build StrongPNT.PNT5_Strong > strongpnt-build.log 2>&1
+
+      - name: Print StrongPNT build log
+        if: always()
+        run: cat strongpnt-build.log
+
+      - name: Audit Strong_PNT axioms
+        if: steps.strongbuild.outcome == 'success'
+        run: |
+          cat > StrongPNTAxiomAudit.lean <<'EOF'
+          import StrongPNT.PNT5_Strong
+          #print axioms Strong_PNT
+          EOF
+          lake env lean StrongPNTAxiomAudit.lean | tee strongpnt-axioms.log
+          if grep -q 'sorryAx' strongpnt-axioms.log; then
+            echo 'Strong_PNT depends on sorryAx.' >&2
+            exit 1
+          fi
+
+      - name: Upload diagnostic logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: strongpnt-424-diagnostics
+          path: |
+            strongpnt-build.log
+            strongpnt-axioms.log
+          if-no-files-found: ignore
+
+      - name: Fail if StrongPNT build failed
+        if: steps.strongbuild.outcome == 'failure'
+        run: exit 1
