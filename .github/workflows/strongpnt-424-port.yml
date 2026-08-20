@@ -101,6 +101,8 @@ jobs:
           path: |
             strongpnt-build.log
             strongpnt-axioms.log
+            .lake/packages/StrongPNT/StrongPNT/PNT5_Strong.lean
+            .lake/packages/PrimeNumberTheoremAnd/PrimeNumberTheoremAnd/MediumPNT.lean
           if-no-files-found: ignore
 
       - name: Fail if StrongPNT build failed
