@@ -100,11 +100,48 @@ PNT2_PATCHES: tuple[Patch, ...] = (
     have h_denom_ne_zero : R * ‖z - ρ‖ ≠ 0 := by
 """,
     ),
+    (
+        "normalize positive real denominator before field_simp",
+        """    rw [factor_eq, Complex.norm_mul, norm_star, ←hz]
+    field_simp
+
+    have h_denom_ne_zero : R * ‖z - ρ‖ ≠ 0 := by
+      apply mul_ne_zero
+      -- Prove R is not zero
+      · linarith [hR1_pos, hR1_lt_R]
+      -- Prove the norm is not zero
+      · simp [norm_ne_zero_iff, sub_ne_zero, z_ne_rho]
+    -- field_simp can now use this fact to solve the goal.
+    field_simp [h_denom_ne_zero]
+""",
+        """    rw [factor_eq, Complex.norm_mul, norm_star, ←hz]
+    have hR_pos : 0 < R := lt_trans hR1_pos hR1_lt_R
+    have hnorm_ne_zero : ‖z - ρ‖ ≠ 0 := by
+      simpa using z_ne_rho
+    rw [Complex.norm_real, abs_of_pos hR_pos]
+    field_simp [hR_pos.ne', hnorm_ne_zero]
+""",
+    ),
+)
+
+PNT5_PATCHES: tuple[Patch, ...] = (
+    (
+        "continuousOn_univ direction in smooth Mellin continuity",
+        """  have cont_mellin_smooth : Continuous fun (a : ℝ) ↦
+      𝓜 (fun x ↦ ↑(Smooth1 SmoothingF ε x)) (σ + ↑a * I) := by
+    rw [continuous_iff_continuousOn_univ]
+""",
+        """  have cont_mellin_smooth : Continuous fun (a : ℝ) ↦
+      𝓜 (fun x ↦ ↑(Smooth1 SmoothingF ε x)) (σ + ↑a * I) := by
+    rw [← continuousOn_univ]
+""",
+    ),
 )
 
 FILE_PATCHES: tuple[tuple[str, tuple[Patch, ...]], ...] = (
     ("PNT1_ComplexAnalysis.lean", PNT1_PATCHES),
     ("PNT2_LogDerivative.lean", PNT2_PATCHES),
+    ("PNT5_Strong.lean", PNT5_PATCHES),
 )
 
 
