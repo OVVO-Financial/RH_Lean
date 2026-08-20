@@ -125,8 +125,10 @@ jobs:
       # predates Mathlib 4.24. Apply the repository-owned, exact-match
       # compatibility patches after restoring the pristine dependency cache.
       # Build the external theorem boundary without --wfail so upstream linter
-      # warnings do not become RHLean policy failures; the project build below
-      # retains --wfail for RHLean itself.
+      # warnings do not become RHLean policy failures. The project build below
+      # also runs without global --wfail because Lake re-emits dependency
+      # warnings while building RHLean. A separate post-build gate scopes
+      # warning-as-error to repository-owned RHLean sources only.
       - name: Apply StrongPNT 4.24 compatibility patch
         run: |
           python3 scripts/strongpnt_424/apply.py
@@ -158,7 +160,35 @@ jobs:
       - name: Build Lean project
         id: directbuild
         continue-on-error: true
-        run: lake build RHLean --wfail > lean-build.log 2>&1
+        run: lake build RHLean > lean-build.log 2>&1
+
+      # Keep warning-as-error strict for repository-owned Lean without making
+      # RHLean responsible for linter churn in StrongPNT, PNT+, or Mathlib.
+      # Lean and Lake have emitted both `warning: path` and
+      # `path:line:column: warning:` forms over time, so match the owned path
+      # anywhere on a warning line rather than depending on one formatter.
+      - name: Fail on RHLean-owned Lean warnings
+        id: rhlean_warnings
+        if: steps.directbuild.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          owned_path = re.compile(r"(?:^|[\s:])(?:\./)*RHLean(?:\.lean|/)")
+          lines = Path("lean-build.log").read_text(errors="replace").splitlines()
+          owned = [
+              line for line in lines
+              if "warning:" in line.lower() and owned_path.search(line)
+          ]
+          if owned:
+              print("RHLean-owned Lean warnings found:")
+              print("\n".join(owned))
+              raise SystemExit(1)
+          print("No RHLean-owned Lean warnings found.")
+          PY
 
       # Saved on a red build on purpose, so the next compiler iteration resumes
       # instead of recompiling; but not on a cancelled one, where .lake/build
@@ -207,6 +237,8 @@ jobs:
         if: ${{ always() && hashFiles('lean-build.log') != '' }}
         run: cat lean-build.log
 
-      - name: Fail if Lean build failed
-        if: steps.directbuild.outcome == 'failure'
+      - name: Fail if Lean build failed or RHLean emitted warnings
+        if: >-
+          steps.directbuild.outcome == 'failure' ||
+          steps.rhlean_warnings.outcome == 'failure'
         run: exit 1
