@@ -27,6 +27,21 @@ def replace_exact(path: Path, label: str, old: str, new: str) -> None:
         )
 
 
+def remove_exact(path: Path, label: str, old: str) -> None:
+    text = path.read_text()
+    old_count = text.count(old)
+    if old_count == 1:
+        path.write_text(text.replace(old, "", 1))
+        print(f"removed {path.name}: {label}")
+    elif old_count == 0:
+        print(f"already removed {path.name}: {label}")
+    else:
+        raise SystemExit(
+            f"compatibility patch mismatch in {path.name} for {label!r}: "
+            f"old_count={old_count}"
+        )
+
+
 def main() -> None:
     target = STRONGPNT / "ZetaZeroFree.lean"
     replace_exact(
@@ -48,6 +63,53 @@ def main() -> None:
         hcont.tendsto.comp (ToOneT0.trans inf_le_left)
       exact h (isClosed_singleton.isSeqClosed this hz_tendsto)
 """,
+    )
+
+    target = STRONGPNT / "PNT5_Strong.lean"
+    replace_exact(
+        target,
+        "import the 4.24 Mellin and smoothing interfaces explicitly",
+        """import PrimeNumberTheoremAnd.ZetaBounds
+import PrimeNumberTheoremAnd.ZetaConj
+""",
+        """import PrimeNumberTheoremAnd.ZetaBounds
+import PrimeNumberTheoremAnd.ZetaConj
+import PrimeNumberTheoremAnd.SmoothExistence
+import Mathlib.Analysis.MellinInversion
+""",
+    )
+    replace_exact(
+        target,
+        "Mellin transform API rename",
+        'local notation (name := mellintransform2) "𝓜" => MellinTransform\n',
+        'local notation (name := mellintransform2) "𝓜" => mellin\n',
+    )
+    replace_exact(
+        target,
+        "make the smoothing Mellin integrand complex-valued",
+        """  fun s ↦ (- deriv riemannZeta s) / riemannZeta s *
+    𝓜 ((Smooth1 SmoothingF ε) ·) s * (X : ℂ) ^ s
+""",
+        """  fun s ↦ (- deriv riemannZeta s) / riemannZeta s *
+    𝓜 (fun x ↦ (Smooth1 SmoothingF ε x : ℂ)) s * (X : ℂ) ^ s
+""",
+    )
+    replace_exact(
+        target,
+        "unfold the Mathlib 4.24 Mellin definition",
+        "    unfold MellinTransform\n",
+        "    unfold mellin\n",
+    )
+    remove_exact(
+        target,
+        "obsolete MellinTransform_eq bridge",
+        "  rw [MellinTransform_eq]\n",
+    )
+    replace_exact(
+        target,
+        "make MellinOfSmooth1cExplicit use a complex-valued function",
+        "    ∀ ε ∈ Ioo 0 ε₀, ‖𝓜 ((Smooth1 ν ε) ·) 1 - 1‖ ≤ c * ε := by\n",
+        "    ∀ ε ∈ Ioo 0 ε₀, ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) 1 - 1‖ ≤ c * ε := by\n",
     )
 
 
