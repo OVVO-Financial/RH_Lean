@@ -123,12 +123,15 @@ jobs:
 
       # StrongPNT is pinned at its completed upstream revision, but that source
       # predates Mathlib 4.24. Apply the repository-owned, exact-match
-      # compatibility patch after restoring the pristine dependency cache.
+      # compatibility patches after restoring the pristine dependency cache.
       # Build the external theorem boundary without --wfail so upstream linter
       # warnings do not become RHLean policy failures; the project build below
       # retains --wfail for RHLean itself.
       - name: Apply StrongPNT 4.24 compatibility patch
-        run: python3 scripts/strongpnt_424/apply.py
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
 
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
@@ -146,9 +149,9 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/apply.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/apply.py') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Build Lean project
@@ -164,7 +167,7 @@ jobs:
         uses: actions/cache/save@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/apply.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
 
       # A repository gets 10 GB of Actions cache.  Mathlib holds several of
       # them, and every run of this workflow used to add another multi-gigabyte
