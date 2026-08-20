@@ -97,8 +97,8 @@ import Mathlib.Analysis.MellinInversion
     replace_exact(
         target,
         "unfold the Mathlib 4.24 Mellin definition",
-        "    unfold MellinTransform\n",
-        "    unfold mellin\n",
+        "  · unfold MellinTransform\n",
+        "  · unfold mellin\n",
     )
     remove_exact(
         target,
