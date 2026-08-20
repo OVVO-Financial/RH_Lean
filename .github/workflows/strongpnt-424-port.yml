@@ -47,6 +47,7 @@ jobs:
           python3 scripts/strongpnt_424/apply.py
           python3 scripts/strongpnt_424/apply_post.py
           python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
 
       - name: Restore StrongPNT port build cache
         id: strongcache
