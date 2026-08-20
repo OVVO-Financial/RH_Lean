@@ -81,7 +81,6 @@ jobs:
           def indices_where(stripped):
               return [i for i, line in enumerate(lines) if line.strip() == stripped]
 
-          # The two domination transports have the same beta-reduced rpow goal.
           target = 'change C * t ^ (-((3 : ℝ) / 2)) = C / t ^ ((3 : ℝ) / 2)'
           idxs = indices_where(target)
           if len(idxs) != 2:
@@ -93,10 +92,10 @@ jobs:
               lines[i:i + 2] = [
                   indent + 'simp only',
                   indent + 'rw [show (-3 / 2 : ℝ) = -(3 / 2) by ring,',
-                  indent + '  Real.rpow_neg (by linarith [Set.mem_Ici.mp ht]), div_eq_mul_inv]',
+                  indent + '  Real.rpow_neg (by linarith [Set.mem_Ici.mp ht])]',
+                  indent + 'simp only [div_eq_mul_inv]',
               ]
 
-          # Normalize the reflected endpoint -(-T) = T explicitly.
           idxs = indices_where('exact integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2)')
           if len(idxs) != 1:
               raise SystemExit(f'negative-tail endpoint: expected 1 match, found {len(idxs)}')
@@ -107,7 +106,6 @@ jobs:
               indent + '  (integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2))',
           ]
 
-          # field_simp already closes the algebraic equality in Lean 4.24.
           idxs = indices_where('field_simp [ne_of_gt heps.1, ne_of_gt htpos]')
           if len(idxs) != 1:
               raise SystemExit(f'far-tail field_simp: expected 1 match, found {len(idxs)}')
@@ -116,7 +114,6 @@ jobs:
               raise SystemExit('far-tail field_simp: stale ring not found')
           del lines[i + 1]
 
-          # Prove the coefficient sign explicitly and preserve the common positive denominator.
           idxs = indices_where('rw [div_le_div_iff₀ hsqpos]')
           if len(idxs) != 1:
               raise SystemExit(f'far-tail monotonicity: expected 1 match, found {len(idxs)}')
@@ -128,7 +125,7 @@ jobs:
           end = end_candidates[0]
           indent = lines[start][:len(lines[start]) - len(lines[start].lstrip())]
           lines[start:end + 1] = [
-              indent + 'rw [div_le_div_iff₀ hsqpos]',
+              indent + 'rw [div_le_div_iff₀ hsqpos hsqpos]',
               indent + 'have hnum : 0 ≤ X * Real.log X :=',
               indent + '  mul_nonneg hXpos.le hlogXpos.le',
               indent + 'have hratio : 0 ≤ X * Real.log X / eps :=',
@@ -142,7 +139,6 @@ jobs:
               indent + '  (mul_le_mul_of_nonneg_left hlog_le_sq hcoeff) hsqpos.le',
           ]
 
-          # Avoid positivity search on the nested quotient.
           starts = [i for i, line in enumerate(lines)
                     if line.strip() == 'have hbase : 0 ≤ Cz * Cm * Real.exp 1 *']
           if len(starts) != 1:
@@ -172,7 +168,6 @@ jobs:
               indent + 'nlinarith',
           ]
 
-          # Use the conjugation theorem directly; avoid syntactic rewrites of the integrand.
           starts = indices_where('let sneg : ℂ := (1 + (Real.log X)⁻¹) + (-x) * I')
           if len(starts) != 1:
               raise SystemExit(f'M5 pointwise conjugation: expected 1 start, found {len(starts)}')
