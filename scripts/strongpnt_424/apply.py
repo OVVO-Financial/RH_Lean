@@ -127,6 +127,48 @@ PNT2_PATCHES: tuple[Patch, ...] = (
     ),
 )
 
+PNT3_PATCHES: tuple[Patch, ...] = (
+    (
+        "explicit unconditional filter for imaginary part of real tsum",
+        """lemma im_tsum_ofReal (g : ℕ → ℝ) : (∑' n : ℕ, (g n : ℂ)).im = 0 := by
+  have him := congrArg Complex.im (Complex.ofReal_tsum (f := g)).symm
+""",
+        """lemma im_tsum_ofReal (g : ℕ → ℝ) : (∑' n : ℕ, (g n : ℂ)).im = 0 := by
+  have him := congrArg Complex.im
+    (Complex.ofReal_tsum (L := SummationFilter.unconditional ℕ) (f := g)).symm
+""",
+    ),
+    (
+        "explicit unconditional filter for real part of real tsum",
+        """lemma re_tsum_ofReal (g : ℕ → ℝ) : (∑' n : ℕ, (g n : ℂ)).re = ∑' n : ℕ, g n := by
+  have h := congrArg Complex.re (Complex.ofReal_tsum (f := g)).symm
+""",
+        """lemma re_tsum_ofReal (g : ℕ → ℝ) : (∑' n : ℕ, (g n : ℂ)).re = ∑' n : ℕ, g n := by
+  have h := congrArg Complex.re
+    (Complex.ofReal_tsum (L := SummationFilter.unconditional ℕ) (f := g)).symm
+""",
+    ),
+    (
+        "real absolute-value triangle inequality rename",
+        """  have h3 : |s.im + t| ≤ |s.im| + |t| := abs_add s.im t
+""",
+        """  have h3 : |s.im + t| ≤ |s.im| + |t| := abs_add_le s.im t
+""",
+    ),
+    (
+        "redundant ring after positive quotient field_simp",
+        """          have h_sq_div : R^2/R1 = R * (R/R1) := by
+            field_simp [ne_of_gt hR1_pos]
+            ring
+          rw [h_sq_div]
+""",
+        """          have h_sq_div : R^2/R1 = R * (R/R1) := by
+            field_simp [ne_of_gt hR1_pos]
+          rw [h_sq_div]
+""",
+    ),
+)
+
 PNT5_PATCHES: tuple[Patch, ...] = (
     (
         "continuousOn_univ direction in smooth Mellin continuity",
@@ -144,6 +186,7 @@ PNT5_PATCHES: tuple[Patch, ...] = (
 FILE_PATCHES: tuple[tuple[str, tuple[Patch, ...]], ...] = (
     ("PNT1_ComplexAnalysis.lean", PNT1_PATCHES),
     ("PNT2_LogDerivative.lean", PNT2_PATCHES),
+    ("PNT3_RiemannZeta.lean", PNT3_PATCHES),
     ("PNT5_Strong.lean", PNT5_PATCHES),
 )
 
