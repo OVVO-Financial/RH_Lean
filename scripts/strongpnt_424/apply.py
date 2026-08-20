@@ -169,6 +169,124 @@ PNT3_PATCHES: tuple[Patch, ...] = (
     ),
 )
 
+PNT4_PATCHES: tuple[Patch, ...] = (
+    (
+        "remove obsolete push_neg after finite-set contradiction",
+        """  by_contra h_not_finite
+  push_neg at h_not_finite
+
+  -- Let Z be the set of zeros in K
+""",
+        """  by_contra h_not_finite
+
+  -- Let Z be the set of zeros in K
+""",
+    ),
+    (
+        "triangle inequality near the 3/2 plus it center",
+        """  have h3 : |z.im| ≤ |z.im - t| + |t| := by
+    conv_lhs => rw [show z.im = (z.im - t) + t by ring]
+    exact abs_add (z.im - t) t
+""",
+        """  have h3 : |z.im| ≤ |z.im - t| + |t| := by
+    conv_lhs => rw [show z.im = (z.im - t) + t by ring]
+    exact abs_add_le (z.im - t) t
+""",
+    ),
+    (
+        "redundant ring in zerofree quotient rewrite",
+        """      have h_div_rewrite : C_3 / ((zerofree_constant / 20) / Real.log (|t| + 2)) =
+                          C_3 * Real.log (|t| + 2) * 20 / zerofree_constant := by
+        field_simp [ne_of_gt h_zerofree_pos, ne_of_gt (Real.log_pos (by linarith [abs_nonneg t] : (1 : ℝ) < |t| + 2))]
+        ring
+
+      rw [h_div_rewrite]
+""",
+        """      have h_div_rewrite : C_3 / ((zerofree_constant / 20) / Real.log (|t| + 2)) =
+                          C_3 * Real.log (|t| + 2) * 20 / zerofree_constant := by
+        field_simp [ne_of_gt h_zerofree_pos, ne_of_gt (Real.log_pos (by linarith [abs_nonneg t] : (1 : ℝ) < |t| + 2))]
+
+      rw [h_div_rewrite]
+""",
+    ),
+    (
+        "triangle inequality in small-ball imaginary bound",
+        """  have tri : |z.im| ≤ |z.im - t| + |t| := by
+    simpa [sub_eq_add_neg] using (abs_add (z.im - t) t)
+""",
+        """  have tri : |z.im| ≤ |z.im - t| + |t| := by
+    simpa [sub_eq_add_neg] using (abs_add_le (z.im - t) t)
+""",
+    ),
+    (
+        "triangle inequality in second small-ball imaginary bound",
+        """  have hz_im_le : |z.im| ≤ |z.im - t| + |t| := by
+    -- |z.im| = |(z.im - t) + t| ≤ |z.im - t| + |t|
+    simpa [sub_eq_add_neg, add_comm, add_left_comm, add_assoc] using abs_add (z.im - t) t
+""",
+        """  have hz_im_le : |z.im| ≤ |z.im - t| + |t| := by
+    -- |z.im| = |(z.im - t) + t| ≤ |z.im - t| + |t|
+    simpa [sub_eq_add_neg, add_comm, add_left_comm, add_assoc] using abs_add_le (z.im - t) t
+""",
+    ),
+    (
+        "triangle inequality in abs_le_add_of_abs_sub_le",
+        """lemma abs_le_add_of_abs_sub_le {a b ε : ℝ} (h : |a - b| ≤ ε) :
+  |a| ≤ |b| + ε := by
+  calc
+    |a| = |b + (a - b)| := by
+      simp [sub_eq_add_neg, add_comm, add_left_comm, add_assoc]
+    _ ≤ |b| + |a - b| := by
+      simpa [sub_eq_add_neg] using abs_add b (a - b)
+""",
+        """lemma abs_le_add_of_abs_sub_le {a b ε : ℝ} (h : |a - b| ≤ ε) :
+  |a| ≤ |b| + ε := by
+  calc
+    |a| = |b + (a - b)| := by
+      simp [sub_eq_add_neg, add_comm, add_left_comm, add_assoc]
+    _ ≤ |b| + |a - b| := by
+      simpa [sub_eq_add_neg] using abs_add_le b (a - b)
+""",
+    ),
+    (
+        "triangle inequality in primed abs_le_add helper",
+        """lemma abs_le_add_of_abs_sub_le' {a b ε : ℝ} (h : |a - b| ≤ ε) :
+  |a| ≤ |b| + ε := by
+  calc
+    |a| = |b + (a - b)| := by
+      simp [sub_eq_add_neg, add_comm, add_left_comm, add_assoc]
+    _ ≤ |b| + |a - b| := by
+      simpa [sub_eq_add_neg] using abs_add b (a - b)
+""",
+        """lemma abs_le_add_of_abs_sub_le' {a b ε : ℝ} (h : |a - b| ≤ ε) :
+  |a| ≤ |b| + ε := by
+  calc
+    |a| = |b + (a - b)| := by
+      simp [sub_eq_add_neg, add_comm, add_left_comm, add_assoc]
+    _ ≤ |b| + |a - b| := by
+      simpa [sub_eq_add_neg] using abs_add_le b (a - b)
+""",
+    ),
+    (
+        "triangle inequality in log_abs_im_le",
+        """  have habs : |t1| ≤ |t| + |t1 - t| := by
+    have htri : |(t1 - t) + t| ≤ |t1 - t| + |t| := abs_add (t1 - t) t
+""",
+        """  have habs : |t1| ≤ |t| + |t1 - t| := by
+    have htri : |(t1 - t) + t| ≤ |t1 - t| + |t| := abs_add_le (t1 - t) t
+""",
+    ),
+    (
+        "explicit unconditional filter in zero-free real tsum",
+        """    have := (Complex.ofReal_tsum (f := r))
+    -- ((∑' n, r n) : ℂ) = ∑' n, (r n : ℂ)
+""",
+        """    have := (Complex.ofReal_tsum (L := SummationFilter.unconditional ℕ) (f := r))
+    -- ((∑' n, r n) : ℂ) = ∑' n, (r n : ℂ)
+""",
+    ),
+)
+
 PNT5_PATCHES: tuple[Patch, ...] = (
     (
         "continuousOn_univ direction in smooth Mellin continuity",
@@ -187,6 +305,7 @@ FILE_PATCHES: tuple[tuple[str, tuple[Patch, ...]], ...] = (
     ("PNT1_ComplexAnalysis.lean", PNT1_PATCHES),
     ("PNT2_LogDerivative.lean", PNT2_PATCHES),
     ("PNT3_RiemannZeta.lean", PNT3_PATCHES),
+    ("PNT4_ZeroFreeRegion.lean", PNT4_PATCHES),
     ("PNT5_Strong.lean", PNT5_PATCHES),
 )
 
