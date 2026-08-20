@@ -188,15 +188,10 @@ theorem nativeMertensContourPull_holds : NativeMertensContourPullProp := by
       rw [hsubeq]
       exact hbig
 
-  have hTwoPiI : (2 * (Real.pi : ℂ) * I) ≠ 0 := by
-    have h2 : (2 : ℂ) ≠ 0 := by norm_num
-    have hpi : (Real.pi : ℂ) ≠ 0 := by exact_mod_cast Real.pi_ne_zero
-    exact mul_ne_zero (mul_ne_zero h2 hpi) Complex.I_ne_zero
-
   rw [RectangleIntegral', RectangleIntegral, HIntegral, HIntegral,
     VIntegral, VIntegral, smul_eq_mul, mul_eq_zero] at hrectZero
   rcases hrectZero with hbad | hbracket
-  · exact absurd hbad (by simp [hTwoPiI])
+  · exact absurd hbad (by simp)
   simp only [hfC_eq] at hbracket
 
   have hzre : (sigmaLeft - (T : ℂ) * I).re = sigmaLeft := by simp
@@ -221,13 +216,17 @@ theorem nativeMertensContourPull_holds : NativeMertensContourPullProp := by
   rw [verticalIntegral_split_three (a := -T) (b := T)]
   swap
   · refine hInt.congr (Filter.Eventually.of_forall fun t => ?_)
-    -- The two sides differ only in where the coercion sits on `(log X)⁻¹`.
-    rw [Complex.ofReal_inv]
+    -- The two sides differ only in where the coercions sit: the hypothesis
+    -- carries `↑((log X)⁻¹)`, the goal `↑(1 + (log X)⁻¹)`.
+    rw [Complex.ofReal_inv, hcast]
   unfold nativeMertensContourM1 nativeMertensContourM2
     nativeMertensContourM3 nativeMertensContourM4 nativeMertensContourM5 VIntegral
   rw [hIcc]
-  simp only [hcast, smul_eq_mul, ofReal_neg, neg_mul,
-    sub_eq_add_neg, mul_comm I] at hbracket ⊢
+  -- The five legs reach `ring` with the coercion on `(log X)⁻¹` sitting on
+  -- different sides, and under two names for the same reducible integrand;
+  -- normalize both so the pieces cancel as atoms.
+  simp only [hcast, Complex.ofReal_inv, nativeSmoothedMobiusIntegrand,
+    smul_eq_mul, ofReal_neg, neg_mul, sub_eq_add_neg, mul_comm I] at hbracket ⊢
   linear_combination (1 / (2 * (Real.pi : ℂ) * I)) * hbracket
 
 end RHLean.Analysis

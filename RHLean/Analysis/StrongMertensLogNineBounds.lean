@@ -15,6 +15,54 @@ local notation "zetaC" => riemannZeta
 -- so with `Complex` open the bare token `I` resolves two ways.
 local notation "I" => Complex.I
 
+/-! ### The scaled Cauchy kernel
+
+Mathlib carries the Cauchy integral only at `a = 1`
+(`integral_univ_inv_one_add_sq : ∫ x, (1 + x ^ 2)⁻¹ = π`).  The shifted
+vertical leg needs it at `a = sigmaLeft`, so both the integrability and the
+value are obtained here by rescaling that case. -/
+
+private theorem inv_sq_add_sq_eq {a : ℝ} (ha : a ≠ 0) (t : ℝ) :
+    (a ^ 2)⁻¹ * (1 + (a⁻¹ * t) ^ 2)⁻¹ = (a ^ 2 + t ^ 2)⁻¹ := by
+  have hprod : a ^ 2 * (1 + (a⁻¹ * t) ^ 2) = a ^ 2 + t ^ 2 := by
+    have hcancel : a * a⁻¹ = 1 := mul_inv_cancel₀ ha
+    have hsplit : a ^ 2 * (a⁻¹ * t) ^ 2 = (a * a⁻¹) ^ 2 * t ^ 2 := by ring
+    rw [mul_add, mul_one, hsplit, hcancel, one_pow, one_mul]
+  rw [← mul_inv, hprod]
+
+private theorem integrable_inv_sq_add_sq {a : ℝ} (ha : a ≠ 0) :
+    Integrable (fun t : ℝ => (a ^ 2 + t ^ 2)⁻¹) := by
+  have hscaled : Integrable (fun t : ℝ => (1 + (a⁻¹ * t) ^ 2)⁻¹) :=
+    integrable_inv_one_add_sq.comp_mul_left' (inv_ne_zero ha)
+  refine (hscaled.const_mul ((a ^ 2)⁻¹)).congr
+    (Filter.Eventually.of_forall fun t => ?_)
+  exact inv_sq_add_sq_eq ha t
+
+private theorem integral_inv_sq_add_sq {a : ℝ} (ha : a ≠ 0) :
+    ∫ t : ℝ, (a ^ 2 + t ^ 2)⁻¹ = Real.pi / |a| := by
+  have habs : (0 : ℝ) < |a| := abs_pos.mpr ha
+  have habs_ne : |a| ≠ 0 := ne_of_gt habs
+  have hsq : a ^ 2 = |a| * |a| := by rw [sq, ← abs_mul_abs_self]
+  calc
+    ∫ t : ℝ, (a ^ 2 + t ^ 2)⁻¹
+        = ∫ t : ℝ, (a ^ 2)⁻¹ * (1 + (a⁻¹ * t) ^ 2)⁻¹ := by
+          simp_rw [inv_sq_add_sq_eq ha]
+    _ = (a ^ 2)⁻¹ * ∫ t : ℝ, (1 + (a⁻¹ * t) ^ 2)⁻¹ :=
+          MeasureTheory.integral_const_mul _ _
+    _ = (a ^ 2)⁻¹ * (|(a⁻¹)⁻¹| • ∫ u : ℝ, (1 + u ^ 2)⁻¹) := by
+          congr 1
+          exact MeasureTheory.Measure.integral_comp_mul_left
+            (fun u : ℝ => (1 + u ^ 2)⁻¹) a⁻¹
+    _ = (a ^ 2)⁻¹ * (|a| * Real.pi) := by
+          rw [inv_inv, integral_univ_inv_one_add_sq, smul_eq_mul]
+    _ = Real.pi / |a| := by
+          rw [eq_div_iff habs_ne, hsq, mul_inv]
+          have hcancel : |a|⁻¹ * |a| = 1 := inv_mul_cancel₀ habs_ne
+          calc
+            |a|⁻¹ * |a|⁻¹ * (|a| * Real.pi) * |a|
+                = (|a|⁻¹ * |a|) * (|a|⁻¹ * |a|) * Real.pi := by ring
+            _ = Real.pi := by rw [hcancel, one_mul, one_mul]
+
 theorem nativeMertensM3_logNine_bound_for
     (corridor : StrongMertensLogNineCorridor) {f : ℝ → ℝ}
     (hsupp : Function.support f ⊆ Set.Icc (1 / 2) 2)
@@ -123,9 +171,11 @@ theorem nativeMertensM3_logNine_bound_for
                 have hfull := integral_inv_sq_add_sq (ne_of_gt hsigpos)
                 calc
                   ∫ t in Set.Icc (-T) T, (sigmaLeft^2+t^2)⁻¹
-                    ≤ ∫ t : ℝ, (sigmaLeft^2+t^2)⁻¹ := by
-                      apply integral_mono_measure_restrict
-                      positivity
+                    ≤ ∫ t : ℝ, (sigmaLeft^2+t^2)⁻¹ :=
+                      MeasureTheory.setIntegral_le_integral
+                        (integrable_inv_sq_add_sq (ne_of_gt hsigpos))
+                        (Filter.Eventually.of_forall fun t =>
+                          inv_nonneg.mpr (by positivity))
                   _ = Real.pi / sigmaLeft := by simpa [abs_of_pos hsigpos] using hfull
     _ ≤ 4 * Cz * Cm * X *
         Real.exp (-corridor.A * Real.log X / (Real.log T)^9) *
