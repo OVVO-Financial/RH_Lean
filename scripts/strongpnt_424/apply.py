@@ -287,6 +287,29 @@ PNT4_PATCHES: tuple[Patch, ...] = (
     ),
 )
 
+ZETA_ZERO_FREE_PATCHES: tuple[Patch, ...] = (
+    (
+        "avoid obsolete named sigma argument after push_neg",
+        """  have hn (n : ℕ) := h (σ := 1 - 1 / (n + 1)) (sub_lt_self _ (by positivity))
+""",
+        """  have hn (n : ℕ) := h (1 - 1 / (n + 1)) (sub_lt_self _ (by positivity))
+""",
+    ),
+    (
+        "finish elementary box endpoint identity after field_simp",
+        """      _ = _ := by field_simp
+
+/-%%
+""",
+        """      _ = _ := by
+        field_simp
+        ring
+
+/-%%
+""",
+    ),
+)
+
 PNT5_PATCHES: tuple[Patch, ...] = (
     (
         "continuousOn_univ direction in smooth Mellin continuity",
@@ -306,6 +329,7 @@ FILE_PATCHES: tuple[tuple[str, tuple[Patch, ...]], ...] = (
     ("PNT2_LogDerivative.lean", PNT2_PATCHES),
     ("PNT3_RiemannZeta.lean", PNT3_PATCHES),
     ("PNT4_ZeroFreeRegion.lean", PNT4_PATCHES),
+    ("ZetaZeroFree.lean", ZETA_ZERO_FREE_PATCHES),
     ("PNT5_Strong.lean", PNT5_PATCHES),
 )
 
