@@ -8,6 +8,14 @@ on:
       - 'RHLean/Analysis/K2*Closure.lean'
       - 'RHLean.lean'
       - '.github/workflows/strong-mertens-k2-clean-dev.yml'
+  pull_request:
+    branches: [agent/strong-mertens-k2-ci-base]
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'RHLean/Analysis/StrongMertens*.lean'
+      - 'RHLean/Analysis/K2*Closure.lean'
+      - 'RHLean.lean'
+      - '.github/workflows/strong-mertens-k2-clean-dev.yml'
   workflow_dispatch:
 
 permissions:
@@ -162,7 +170,7 @@ jobs:
         run: python3 scripts/lean_diagnostic_inventory.py --gate StrongPNT strong-mertens-build.log
 
       - name: Record development gate result on branch
-        if: ${{ always() }}
+        if: ${{ always() && github.event_name == 'push' }}
         shell: bash
         env:
           DIRECTBUILD: ${{ steps.directbuild.outcome }}
