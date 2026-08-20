@@ -76,100 +76,122 @@ jobs:
           from pathlib import Path
 
           path = Path('RHLean/Analysis/StrongMertensLogNineBoundsCore.lean')
-          text = path.read_text()
+          lines = path.read_text().splitlines()
 
-          def replace_exact(label: str, old: str, new: str, expected: int = 1) -> None:
-              global text
-              count = text.count(old)
-              if count != expected:
-                  raise SystemExit(f'{label}: expected {expected} matches, found {count}')
-              text = text.replace(old, new)
-              print(f'applied {label}: {count}')
+          def indices_where(stripped):
+              return [i for i, line in enumerate(lines) if line.strip() == stripped]
 
-          replace_exact(
-              'rpow tail normalization',
-              """    change C * t ^ (-((3 : ℝ) / 2)) = C / t ^ ((3 : ℝ) / 2)
-              rw [Real.rpow_neg (by linarith [Set.mem_Ici.mp ht]), div_eq_mul_inv]""",
-              """    change C * t ^ (-3 / 2 : ℝ) = C / t ^ (3 / 2 : ℝ)
-              rw [show (-3 / 2 : ℝ) = -(3 / 2) by ring,
-                Real.rpow_neg (by linarith [Set.mem_Ici.mp ht]), div_eq_mul_inv]""",
-              expected=2,
-          )
+          # The two domination transports have the same beta-reduced rpow goal.
+          target = 'change C * t ^ (-((3 : ℝ) / 2)) = C / t ^ ((3 : ℝ) / 2)'
+          idxs = indices_where(target)
+          if len(idxs) != 2:
+              raise SystemExit(f'rpow normalization: expected 2 matches, found {len(idxs)}')
+          for i in reversed(idxs):
+              indent = lines[i][:len(lines[i]) - len(lines[i].lstrip())]
+              if lines[i + 1].strip() != 'rw [Real.rpow_neg (by linarith [Set.mem_Ici.mp ht]), div_eq_mul_inv]':
+                  raise SystemExit('rpow normalization: unexpected following line')
+              lines[i:i + 2] = [
+                  indent + 'simp only',
+                  indent + 'rw [show (-3 / 2 : ℝ) = -(3 / 2) by ring,',
+                  indent + '  Real.rpow_neg (by linarith [Set.mem_Ici.mp ht]), div_eq_mul_inv]',
+              ]
 
-          replace_exact(
-              'negative tail integral endpoint',
-              """      exact integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2)""",
-              """      simpa only [neg_neg] using
-                (integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2))""",
-          )
+          # Normalize the reflected endpoint -(-T) = T explicitly.
+          idxs = indices_where('exact integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2)')
+          if len(idxs) != 1:
+              raise SystemExit(f'negative-tail endpoint: expected 1 match, found {len(idxs)}')
+          i = idxs[0]
+          indent = lines[i][:len(lines[i]) - len(lines[i].lstrip())]
+          lines[i:i + 1] = [
+              indent + 'simpa only [neg_neg] using',
+              indent + '  (integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2))',
+          ]
 
-          replace_exact(
-              'far tail field simp',
-              """        field_simp [ne_of_gt heps.1, ne_of_gt htpos]
-                      ring""",
-              """        field_simp [ne_of_gt heps.1, ne_of_gt htpos]""",
-          )
+          # field_simp already closes the algebraic equality in Lean 4.24.
+          idxs = indices_where('field_simp [ne_of_gt heps.1, ne_of_gt htpos]')
+          if len(idxs) != 1:
+              raise SystemExit(f'far-tail field_simp: expected 1 match, found {len(idxs)}')
+          i = idxs[0]
+          if i + 1 >= len(lines) or lines[i + 1].strip() != 'ring':
+              raise SystemExit('far-tail field_simp: stale ring not found')
+          del lines[i + 1]
 
-          replace_exact(
-              'far tail log square monotonicity',
-              """        rw [div_le_div_iff₀ hsqpos]
-                      have hcoeff :
-                          0 ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) := by
-                        positivity
-                      exact mul_le_mul_of_nonneg_left hlog_le_sq hcoeff""",
-              """        have hcoeff :
-                          0 ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) := by
-                        have hnum : 0 ≤ X * Real.log X :=
-                          mul_nonneg hXpos.le hlogXpos.le
-                        have hratio : 0 ≤ X * Real.log X / eps :=
-                          div_nonneg hnum heps.1.le
-                        exact mul_nonneg
-                          (mul_nonneg (mul_nonneg hCz.le hCm.le) (Real.exp_pos 1).le)
-                          hratio
-                      exact div_le_div_of_nonneg_right
-                        (mul_le_mul_of_nonneg_left hlog_le_sq hcoeff)
-                        (sq_nonneg (-t))""",
-          )
+          # Prove the coefficient sign explicitly and preserve the common positive denominator.
+          idxs = indices_where('rw [div_le_div_iff₀ hsqpos]')
+          if len(idxs) != 1:
+              raise SystemExit(f'far-tail monotonicity: expected 1 match, found {len(idxs)}')
+          start = idxs[0]
+          end_candidates = [j for j in range(start, min(start + 12, len(lines)))
+                            if lines[j].strip() == 'exact mul_le_mul_of_nonneg_left hlog_le_sq hcoeff']
+          if len(end_candidates) != 1:
+              raise SystemExit('far-tail monotonicity: terminal line not found')
+          end = end_candidates[0]
+          indent = lines[start][:len(lines[start]) - len(lines[start].lstrip())]
+          lines[start:end + 1] = [
+              indent + 'rw [div_le_div_iff₀ hsqpos]',
+              indent + 'have hnum : 0 ≤ X * Real.log X :=',
+              indent + '  mul_nonneg hXpos.le hlogXpos.le',
+              indent + 'have hratio : 0 ≤ X * Real.log X / eps :=',
+              indent + '  div_nonneg hnum heps.1.le',
+              indent + 'have hcoeff :',
+              indent + '    0 ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) :=',
+              indent + '  mul_nonneg',
+              indent + '    (mul_nonneg (mul_nonneg hCz.le hCm.le) (Real.exp_pos 1).le)',
+              indent + '    hratio',
+              indent + 'exact mul_le_mul_of_nonneg_right',
+              indent + '  (mul_le_mul_of_nonneg_left hlog_le_sq hcoeff) hsqpos.le',
+          ]
 
-          replace_exact(
-              'far tail base nonnegativity',
-              """        have hbase : 0 ≤ Cz * Cm * Real.exp 1 *
-                          (X * Real.log X / eps) * (Real.log (-t)) ^ 2 / (-t) ^ 2 := by
-                        positivity
-                      nlinarith""",
-              """        have hprefix :
-                          0 ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) := by
-                        have hnum : 0 ≤ X * Real.log X :=
-                          mul_nonneg hXpos.le hlogXpos.le
-                        have hratio : 0 ≤ X * Real.log X / eps :=
-                          div_nonneg hnum heps.1.le
-                        exact mul_nonneg
-                          (mul_nonneg (mul_nonneg hCz.le hCm.le) (Real.exp_pos 1).le)
-                          hratio
-                      have hbase : 0 ≤ Cz * Cm * Real.exp 1 *
-                          (X * Real.log X / eps) * (Real.log (-t)) ^ 2 / (-t) ^ 2 := by
-                        exact div_nonneg
-                          (mul_nonneg hprefix (sq_nonneg (Real.log (-t))))
-                          (sq_nonneg (-t))
-                      nlinarith""",
-          )
+          # Avoid positivity search on the nested quotient.
+          starts = [i for i, line in enumerate(lines)
+                    if line.strip() == 'have hbase : 0 ≤ Cz * Cm * Real.exp 1 *']
+          if len(starts) != 1:
+              raise SystemExit(f'far-tail base sign: expected 1 match, found {len(starts)}')
+          start = starts[0]
+          end_candidates = [j for j in range(start, min(start + 10, len(lines)))
+                            if lines[j].strip() == 'nlinarith']
+          if len(end_candidates) != 1:
+              raise SystemExit('far-tail base sign: nlinarith not found')
+          end = end_candidates[0]
+          indent = lines[start][:len(lines[start]) - len(lines[start].lstrip())]
+          lines[start:end + 1] = [
+              indent + 'have hnum : 0 ≤ X * Real.log X :=',
+              indent + '  mul_nonneg hXpos.le hlogXpos.le',
+              indent + 'have hratio : 0 ≤ X * Real.log X / eps :=',
+              indent + '  div_nonneg hnum heps.1.le',
+              indent + 'have hprefix :',
+              indent + '    0 ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) :=',
+              indent + '  mul_nonneg',
+              indent + '    (mul_nonneg (mul_nonneg hCz.le hCm.le) (Real.exp_pos 1).le)',
+              indent + '    hratio',
+              indent + 'have hbase : 0 ≤ Cz * Cm * Real.exp 1 *',
+              indent + '    (X * Real.log X / eps) * (Real.log (-t)) ^ 2 / (-t) ^ 2 :=',
+              indent + '  div_nonneg',
+              indent + '    (mul_nonneg hprefix (sq_nonneg (Real.log (-t))))',
+              indent + '    (sq_nonneg (-t))',
+              indent + 'nlinarith',
+          ]
 
-          replace_exact(
-              'M5 conjugate argument simplification',
-              """        simp [sneg]
-                      push_cast
-                      ring""",
-              """        simp [sneg]""",
-          )
+          # Use the conjugation theorem directly; avoid syntactic rewrites of the integrand.
+          starts = indices_where('let sneg : ℂ := (1 + (Real.log X)⁻¹) + (-x) * I')
+          if len(starts) != 1:
+              raise SystemExit(f'M5 pointwise conjugation: expected 1 start, found {len(starts)}')
+          start = starts[0]
+          end_candidates = [j for j in range(start, min(start + 30, len(lines)))
+                            if lines[j].strip() == '((1 + (Real.log X)⁻¹) + (-x) * I)) := by rfl']
+          if len(end_candidates) != 1:
+              raise SystemExit('M5 pointwise conjugation: terminal line not found')
+          end = end_candidates[0]
+          indent = lines[start][:len(lines[start]) - len(lines[start].lstrip())]
+          lines[start:end + 1] = [
+              indent + 'have hc := nativeSmoothedMobiusIntegrand_conj',
+              indent + '  (f := f) (eps := eps) (X := X) hXpos',
+              indent + '  ((1 + (Real.log X)⁻¹) + (-x) * I)',
+              indent + 'simpa using hc',
+          ]
 
-          replace_exact(
-              'M5 final sneg normalization',
-              """            ((1 + (Real.log X)⁻¹) + (-x) * I)) := by rfl""",
-              """            ((1 + (Real.log X)⁻¹) + (-x) * I)) := by
-                  simp [sneg]""",
-          )
-
-          path.write_text(text)
+          path.write_text('\n'.join(lines) + '\n')
+          print('BoundsCore candidate transformations applied')
           PY
 
       - name: Restore RHLean build cache
@@ -180,36 +202,13 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Build recovered chain in dependency order
+      - name: Build BoundsCore
         id: directbuild
         continue-on-error: true
         shell: bash
         run: |
           set -o pipefail
-          targets=(
-            RHLean.Analysis.StrongMertensLogNineCorridor
-            RHLean.Analysis.StrongMertensZetaKernel
-            RHLean.Analysis.StrongMertensSmallHeight
-            RHLean.Analysis.StrongMertensLogNineContour
-            RHLean.Analysis.StrongMertensLogNineBoundsCore
-            RHLean.Analysis.StrongMertensLogNineHorizontal
-            RHLean.Analysis.StrongMertensLogNineBounds
-            RHLean.Analysis.StrongMertensLogNineEnvelope
-            RHLean.Analysis.StrongMertensSmoothingFinite
-            RHLean.Analysis.StrongMertensSmoothing
-            RHLean.Analysis.StrongMertensLogNineBalanceCore
-            RHLean.Analysis.StrongMertensLogNineBalance
-            RHLean.Analysis.K2RecipMomentAnalyticClosure
-            RHLean.Analysis.K2CenteredClassicalClosure
-          )
-          : > strong-mertens-build.log
-          for target in "${targets[@]}"; do
-            file="${target//./\/}.lean"
-            if [[ -f "$file" ]]; then
-              echo "=== $target ===" | tee -a strong-mertens-build.log
-              lake build "$target" 2>&1 | tee -a strong-mertens-build.log
-            fi
-          done
+          lake build RHLean.Analysis.StrongMertensLogNineBoundsCore 2>&1 | tee strong-mertens-build.log
 
       - name: Fail on RHLean-owned Lean warnings
         id: rhlean_warnings
