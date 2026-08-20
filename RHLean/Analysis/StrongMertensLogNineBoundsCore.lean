@@ -211,7 +211,7 @@ theorem nativeMertensFarTail_pointwise {f : ℝ → ℝ}
         (by norm_num : (3 : ℝ) / 4 ≤ 1))
   have htfrac : (Real.log |t|) ^ ((1 : ℝ) / 4) ≤ Real.log (-t) := by
     rw [habs]
-    exact Real.rpow_le_self (by linarith) (by norm_num)
+    exact Real.rpow_le_self_of_one_le (by linarith) (by norm_num)
   have hzb' : 1 / ‖zetaC ((sigma : ℂ) + t * I)‖ ≤
       Cz * Real.log X * Real.log (-t) := by
     calc

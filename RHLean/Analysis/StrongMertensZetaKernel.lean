@@ -221,8 +221,8 @@ theorem strongMertens_inv_zeta_bdd_on_vertical_line_gt_one
       tsum_congr hterm_eq
     _ ≤ C := by rw [hC]; linarith
 
-/-- The smoothed integrand is integrable on the standard right Perron line. -/
 set_option maxHeartbeats 1000000 in
+/-- The smoothed integrand is integrable on the standard right Perron line. -/
 theorem strongMertensSmoothedIntegrand_integrable_right_line
     {SmoothingF : ℝ → ℝ} {epsilon : ℝ}
     (epsilon_pos : 0 < epsilon) (epsilon_lt_one : epsilon < 1)
@@ -285,7 +285,8 @@ theorem strongMertensSmoothedIntegrand_integrable_right_line
       · exact riemannZeta_ne_zero_of_one_lt_re (by simp [hsigma0gt])
     · exact ContinuousAt.comp
         (continuousAt_const_cpow (by exact_mod_cast (show 0 < X by linarith).ne')) hg
-  have key := hMint.bdd_mul hmeas (ae_of_all _ hbdd)
+  -- `Integrable.bdd_mul` wants a genuine uniform bound, not an a.e. one.
+  have key := hMint.bdd_mul hmeas ⟨c, hbdd⟩
   apply key.congr
   filter_upwards with t
   unfold strongMertensSmoothedIntegrand

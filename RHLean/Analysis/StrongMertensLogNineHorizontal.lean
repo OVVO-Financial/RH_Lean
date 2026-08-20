@@ -168,7 +168,7 @@ theorem nativeMertensHorizontal_logNine_bound_for
             _ = (corridor.A / (Real.log T) ^ 9)⁻¹ := by
                   rw [Real.rpow_neg_one]
         have hquarter : (Real.log T) ^ ((1 : ℝ) / 4) ≤ Real.log T :=
-          Real.rpow_le_self hlogT.le (by norm_num)
+          Real.rpow_le_self_of_one_le hlogT.le (by norm_num)
         have hu0inv : (corridor.A / (Real.log T) ^ 9)⁻¹ =
             (Real.log T) ^ 9 / corridor.A := by
           field_simp [ne_of_gt hApos, ne_of_gt hlogTpos]
