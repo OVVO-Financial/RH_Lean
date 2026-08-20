@@ -61,13 +61,12 @@ theorem strongMertens_inv_zeta_small_height_bdd
       ofReal_im, I_im, mul_one, sub_self, add_zero, one_re] at hre
     exact (corridor.shift_lt_one T hT).ne hre
   have hreg : nativeInvZetaRegularized s = (zetaC s)⁻¹ := by
-    simpa [nativeInvZetaRegularized, hsne]
+    simp [nativeInvZetaRegularized, hsne]
   have hb : ‖nativeInvZetaRegularized s‖ ≤ B := hB ⟨s, hsK, rfl⟩
   calc
     1 / ‖zetaC (strongMertensLogNineShift corridor.A T + t * I)‖
         = ‖nativeInvZetaRegularized s‖ := by
           rw [hreg, norm_inv, one_div]
-          rfl
     _ ≤ B := hb
     _ ≤ M := le_max_left _ _
 

@@ -1,6 +1,9 @@
 import Mathlib
 import Mathlib.NumberTheory.LSeries.Dirichlet
-import PrimeNumberTheoremAnd.MediumPNT
+-- See the note in `StrongMertensZetaKernel`: `StrongPNT.PNT5_Strong` and
+-- `PrimeNumberTheoremAnd.MediumPNT` cannot both be imported, and this route
+-- takes the StrongPNT side.
+import StrongPNT.PNT5_Strong
 import RHLean.Analysis.StrongMertensLogNineEnvelope
 
 /-!

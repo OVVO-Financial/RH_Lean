@@ -1,6 +1,11 @@
 import Mathlib
 import Mathlib.NumberTheory.LSeries.Dirichlet
-import PrimeNumberTheoremAnd.MediumPNT
+-- `StrongPNT.PNT5_Strong` is a fork of `PrimeNumberTheoremAnd.MediumPNT` and
+-- redeclares 55 of its 57 names, so no Lean environment can hold both.  This
+-- route is the StrongPNT one, and the only name it needs from either --
+-- `SmoothedChebyshevDirichlet_aux_integrable` -- is common to the two with the
+-- same signature.
+import StrongPNT.PNT5_Strong
 import PrimeNumberTheoremAnd.MellinCalculus
 import PrimeNumberTheoremAnd.ResidueCalcOnRectangles
 import RHLean.Analysis.NativePNTAxer
