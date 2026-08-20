@@ -43,7 +43,9 @@ jobs:
           lint: false
 
       - name: Apply StrongPNT 4.24 compatibility patch
-        run: python3 scripts/strongpnt_424/apply.py
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
 
       - name: Restore StrongPNT port build cache
         id: strongcache
@@ -52,7 +54,7 @@ jobs:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
             .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/apply.py') }}
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
           restore-keys: |
             strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
 
@@ -71,7 +73,7 @@ jobs:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
             .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/apply.py') }}
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
 
       - name: Print StrongPNT build log
         if: always()
