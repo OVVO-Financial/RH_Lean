@@ -19,8 +19,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  actions: write
+  contents: read
+  actions: read
 
 concurrency:
   group: strong-mertens-k2-clean-${{ github.ref }}
@@ -36,7 +36,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Restore Mathlib and dependency builds
-        id: lakepackages
         uses: actions/cache/restore@v5
         with:
           path: .lake/packages
@@ -51,16 +50,6 @@ jobs:
           test: false
           lint: false
 
-      - name: Save Mathlib and dependency builds
-        if: >-
-          !cancelled()
-          && steps.lakepackages.outcome == 'success'
-          && steps.lakepackages.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v5
-        with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-
       - name: Apply current StrongPNT 4.24 compatibility patch
         run: |
           python3 scripts/strongpnt_424/apply.py
@@ -70,170 +59,15 @@ jobs:
           python3 scripts/strongpnt_424/apply_lint.py
 
       - name: Restore StrongPNT port build cache
-        id: strongpnt_cache
         uses: actions/cache/restore@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
             .lake/packages/StrongPNT/.lake/build
           key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
-          restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
 
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
-
-      - name: Save StrongPNT port build cache
-        if: >-
-          !cancelled()
-          && steps.strongpnt_cache.outcome == 'success'
-          && steps.strongpnt_cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v5
-        with:
-          path: |
-            .lake/packages/PrimeNumberTheoremAnd/.lake/build
-            .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
-
-      - name: Apply BoundsCore repair candidate
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-
-          path = Path("RHLean/Analysis/StrongMertensLogNineBoundsCore.lean")
-          text = path.read_text()
-
-          def replace_named(label: str, old: str, new: str, expected: int = 1) -> None:
-              global text
-              old_count = text.count(old)
-              new_count = text.count(new)
-              if old_count == expected:
-                  text = text.replace(old, new)
-                  print(f"applied {label}: {old_count}")
-                  return
-              if old_count == 0 and new_count == expected:
-                  print(f"already applied {label}: {new_count}")
-                  return
-              raise SystemExit(
-                  f"{label} mismatch: expected {expected} old or new copies; "
-                  f"found old={old_count}, new={new_count}"
-              )
-
-          replace_named(
-              "positive-tail congr_fun",
-              "    have hmul := hpowIci.const_mul C\n"
-              "    apply hmul.congr_fun (s := Set.Ici T) ?_ measurableSet_Ici",
-              "    apply IntegrableOn.congr_fun (hpowIci.const_mul C) ?_ measurableSet_Ici",
-              expected=2,
-          )
-
-          replace_named(
-              "negative-tail integrability reflection",
-              "  have hpos := nativeLogSqOverTSq_integrableOn_Ici hT\n"
-              "  convert hpos.comp_neg using 1",
-              "  have hpos := nativeLogSqOverTSq_integrableOn_Ici hT\n"
-              "  simpa only [neg_Ici, neg_neg] using hpos.comp_neg",
-          )
-
-          replace_named(
-              "negative-tail integral reflection",
-              "  rw [← neg_neg T, ← integral_comp_neg_Iic]\n"
-              "  simpa only [neg_neg, neg_sq] using hpos T hT",
-              "  calc\n"
-              "    ∫ t in Set.Iic (-T), (Real.log (-t))^2 / (-t)^2 =\n"
-              "        ∫ t in Set.Ioi T, (Real.log t)^2 / t^2 := by\n"
-              "      simpa only [neg_neg, neg_sq] using\n"
-              "        (integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2))\n"
-              "    _ = ∫ t in Set.Ici T, (Real.log t)^2 / t^2 := by\n"
-              "      rw [MeasureTheory.integral_Ici_eq_integral_Ioi]\n"
-              "    _ ≤ C / Real.sqrt T := hpos T hT",
-          )
-
-          replace_named(
-              "far-tail local s normalization",
-              "  rw [nativeSmoothedMobiusIntegrand_norm_eq]\n"
-              "  change 1 / ‖zetaC s‖ *\n"
-              "      ‖mellin (fun x => (Smooth1 f eps x : ℂ)) s‖ * ‖(X : ℂ) ^ s‖ ≤ _\n"
-              "  rw [hXs]",
-              "  have hsarg : (1 : ℂ) + ((Real.log X)⁻¹ : ℝ) + (t : ℂ) * I = s := by\n"
-              "    simp [s, sigma]\n"
-              "  rw [nativeSmoothedMobiusIntegrand_norm_eq, hsarg, hXs]",
-          )
-
-          replace_named(
-              "M1 multiplier nonnegativity",
-              "      apply mul_le_mul_of_nonneg_left (hint T hT)\n"
-              "      positivity",
-              "      apply mul_le_mul_of_nonneg_left (hint T hT)\n"
-              "      have hX0 : 0 ≤ X := by linarith\n"
-              "      have hlogX0 : 0 ≤ Real.log X := Real.log_nonneg (by linarith)\n"
-              "      exact mul_nonneg hC1.le\n"
-              "        (div_nonneg (mul_nonneg hX0 hlogX0) heps.1.le)",
-          )
-
-          replace_named(
-              "M1 terminal field_simp",
-              "    _ = C1 * C2 * (X * Real.log X / (eps * Real.sqrt T)) := by\n"
-              "      field_simp\n"
-              "      ring",
-              "    _ = C1 * C2 * (X * Real.log X / (eps * Real.sqrt T)) := by\n"
-              "      field_simp",
-          )
-
-          old_conj = (
-              "  rw [map_mul, map_mul, map_inv₀]\n"
-              "  congr 1\n"
-              "  · congr 1\n"
-              "    · exact riemannZeta_conj s\n"
-              "    · unfold mellin\n"
-              "      rw [← integral_conj]\n"
-              "      apply setIntegral_congr_fun measurableSet_Ioi\n"
-              "      intro x hx\n"
-              "      simp only [smul_eq_mul, map_mul, Complex.conj_ofReal]\n"
-              "      congr 1\n"
-              "      nth_rw 1 [← map_one (starRingEnd ℂ)]\n"
-              "      rw [← map_sub, Complex.cpow_conj, Complex.conj_ofReal]\n"
-              "      rw [Complex.arg_ofReal_of_nonneg hx.le]\n"
-              "      exact Real.pi_ne_zero.symm\n"
-              "  · rw [Complex.cpow_conj, Complex.conj_ofReal]\n"
-              "    rw [Complex.arg_ofReal_of_nonneg hX.le]\n"
-              "    exact Real.pi_ne_zero.symm"
-          )
-          new_conj = (
-              "  have hmellin :\n"
-              "      mellin (fun x => (Smooth1 f eps x : ℂ)) (starRingEnd ℂ s) =\n"
-              "        starRingEnd ℂ (mellin (fun x => (Smooth1 f eps x : ℂ)) s) := by\n"
-              "    unfold mellin\n"
-              "    rw [← integral_conj]\n"
-              "    apply setIntegral_congr_fun measurableSet_Ioi\n"
-              "    intro x hx\n"
-              "    simp only [smul_eq_mul, map_mul, Complex.conj_ofReal]\n"
-              "    congr 1\n"
-              "    nth_rw 1 [← map_one (starRingEnd ℂ)]\n"
-              "    rw [← map_sub, Complex.cpow_conj, Complex.conj_ofReal]\n"
-              "    rw [Complex.arg_ofReal_of_nonneg hx.le]\n"
-              "    exact Real.pi_ne_zero.symm\n"
-              "  have hcpow :\n"
-              "      (X : ℂ) ^ (starRingEnd ℂ s) = starRingEnd ℂ ((X : ℂ) ^ s) := by\n"
-              "    rw [Complex.cpow_conj, Complex.conj_ofReal]\n"
-              "    rw [Complex.arg_ofReal_of_nonneg hX.le]\n"
-              "    exact Real.pi_ne_zero.symm\n"
-              "  rw [map_mul, map_mul, map_inv₀, riemannZeta_conj, hmellin, hcpow]"
-          )
-          replace_named("integrand conjugation decomposition", old_conj, new_conj)
-
-          replace_named(
-              "M5 conjugate integral focus",
-              "    · rw [← integral_conj, ← integral_comp_neg_Ioi, integral_Ici_eq_integral_Ioi]\n"
-              "      apply setIntegral_congr_fun measurableSet_Ioi",
-              "    · rw [← integral_conj, ← integral_comp_neg_Ioi, integral_Ici_eq_integral_Ioi]\n"
-              "      congr 1\n"
-              "      apply setIntegral_congr_fun measurableSet_Ioi",
-          )
-
-          path.write_text(text)
-          PY
 
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
@@ -241,7 +75,6 @@ jobs:
           path: .lake/build
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Build recovered chain in dependency order
@@ -285,21 +118,14 @@ jobs:
           from pathlib import Path
           import re
           owned_path = re.compile(r"(?:^|[\s:])(?:\./)*RHLean(?:\.lean|/)")
-          lines = Path("strong-mertens-build.log").read_text(errors="replace").splitlines()
-          owned = [line for line in lines if "warning:" in line.lower() and owned_path.search(line)]
+          lines = Path('strong-mertens-build.log').read_text(errors='replace').splitlines()
+          owned = [line for line in lines if 'warning:' in line.lower() and owned_path.search(line)]
           if owned:
-              print("RHLean-owned Lean warnings found:")
-              print("\n".join(owned))
+              print('RHLean-owned Lean warnings found:')
+              print('\n'.join(owned))
               raise SystemExit(1)
-          print("No RHLean-owned Lean warnings found.")
+          print('No RHLean-owned Lean warnings found.')
           PY
-
-      - name: Save RHLean build cache
-        if: ${{ !cancelled() }}
-        uses: actions/cache/save@v5
-        with:
-          path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
 
       - name: Upload targeted Lean build log
         if: ${{ always() && hashFiles('strong-mertens-build.log') != '' }}
@@ -307,10 +133,6 @@ jobs:
         with:
           name: strong-mertens-k2-clean-build-log
           path: strong-mertens-build.log
-
-      - name: Print targeted Lean build log
-        if: ${{ always() && hashFiles('strong-mertens-build.log') != '' }}
-        run: cat strong-mertens-build.log
 
       - name: Dependency diagnostic inventory
         if: ${{ always() && hashFiles('strong-mertens-build.log') != '' }}
@@ -321,51 +143,6 @@ jobs:
         if: ${{ always() && hashFiles('strong-mertens-build.log') != '' }}
         continue-on-error: true
         run: python3 scripts/lean_diagnostic_inventory.py --gate StrongPNT strong-mertens-build.log
-
-      - name: Publish validated BoundsCore repair
-        if: >-
-          github.event_name == 'push' &&
-          steps.directbuild.outcome == 'success' &&
-          steps.rhlean_warnings.outcome != 'failure' &&
-          steps.strongpnt_noise.outcome != 'failure'
-        shell: bash
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -- RHLean/Analysis/StrongMertensLogNineBoundsCore.lean
-          if ! git diff --cached --quiet; then
-            git commit -m "Repair Strong Mertens BoundsCore proof structure"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
-          fi
-
-      - name: Record development gate result on branch
-        if: ${{ always() && github.event_name == 'push' }}
-        shell: bash
-        env:
-          DIRECTBUILD: ${{ steps.directbuild.outcome }}
-          RHLEAN_WARNINGS: ${{ steps.rhlean_warnings.outcome }}
-          STRONGPNT_NOISE: ${{ steps.strongpnt_noise.outcome }}
-        run: |
-          inventory="$(python3 scripts/lean_diagnostic_inventory.py strong-mertens-build.log 2>&1 || true)"
-          {
-            echo "commit=${GITHUB_SHA}"
-            echo "directbuild=${DIRECTBUILD}"
-            echo "rhlean_warnings=${RHLEAN_WARNINGS}"
-            echo "strongpnt_noise=${STRONGPNT_NOISE}"
-            echo
-            echo "--- diagnostic inventory ---"
-            printf '%s\n' "$inventory"
-            echo
-            echo "--- build log tail ---"
-            tail -n 160 strong-mertens-build.log 2>/dev/null || true
-          } > .github/strong-mertens-k2-clean-status.txt
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -- .github/strong-mertens-k2-clean-status.txt
-          if ! git diff --cached --quiet; then
-            git commit -m "Record Strong Mertens clean gate result [skip ci]"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
-          fi
 
       - name: Fail if targeted build or owned diagnostics failed
         if: >-
