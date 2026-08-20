@@ -1,5 +1,6 @@
 import Mathlib
 import Mathlib.NumberTheory.Harmonic.ZetaAsymp
+import StrongPNT.PNT5_Strong
 import RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourFubini
 import RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourShell
 import RHLean.Analysis.K2CenteredFinite
