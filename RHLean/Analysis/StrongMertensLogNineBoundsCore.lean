@@ -147,11 +147,10 @@ lemma nativeLogSqOverTSq_integrableOn_Ici {T : ℝ} (hT : 3 < T) :
   have hpowIci : IntegrableOn (fun t : ℝ => t ^ (-3 / 2 : ℝ)) (Set.Ici T) :=
     (integrableOn_Ici_iff_integrableOn_Ioi).2 hpowIoi
   have hdom : IntegrableOn (fun t : ℝ => C / t ^ (3 / 2 : ℝ)) (Set.Ici T) := by
-    have hmul := hpowIci.const_mul C
-    apply hmul.congr_fun (s := Set.Ici T) ?_ measurableSet_Ici
+    apply IntegrableOn.congr_fun (hpowIci.const_mul C) ?_ measurableSet_Ici
     intro t ht
-    rw [← Real.rpow_neg (by linarith [Set.mem_Ici.mp ht])]
-    ring_nf
+    change C * t ^ (-((3 : ℝ) / 2)) = C / t ^ ((3 : ℝ) / 2)
+    rw [Real.rpow_neg (by linarith [Set.mem_Ici.mp ht]), div_eq_mul_inv]
   have hMeas : AEStronglyMeasurable (fun t : ℝ => Real.log t ^ 2 / t ^ 2)
       (volume.restrict (Set.Ici T)) :=
     ((Real.measurable_log.pow_const 2).div
@@ -166,8 +165,12 @@ lemma nativeLogSqOverTSq_integrableOn_Ici {T : ℝ} (hT : 3 < T) :
 /-- The reflected log-square kernel is integrable on every negative tail. -/
 lemma nativeLogSqOverTSq_integrableOn_Iic_neg {T : ℝ} (hT : 3 < T) :
     IntegrableOn (fun t : ℝ => (Real.log (-t))^2 / (-t)^2) (Set.Iic (-T)) := by
-  have hpos := nativeLogSqOverTSq_integrableOn_Ici hT
-  convert hpos.comp_neg using 1
+  have hneg := (nativeLogSqOverTSq_integrableOn_Ici hT).comp_neg
+  have hset : -Set.Ici T = Set.Iic (-T) := by
+    ext x
+    simp
+  rw [hset] at hneg
+  exact hneg
 
 /-- A convenient quantitative tail bound for the logarithmic kernel. -/
 lemma nativeIntegralLogSqOverTSqBound : ∃ C > 0, ∀ T, 3 < T →
@@ -192,11 +195,10 @@ lemma nativeIntegralLogSqOverTSqBound : ∃ C > 0, ∀ T, 3 < T →
       integrableOn_Ioi_rpow_of_lt (by norm_num) (by linarith)
     have hpowIci : IntegrableOn (fun t : ℝ => t ^ (-3 / 2 : ℝ)) (Set.Ici T) :=
       (integrableOn_Ici_iff_integrableOn_Ioi).2 hpowIoi
-    have hmul := hpowIci.const_mul C
-    apply hmul.congr_fun (s := Set.Ici T) ?_ measurableSet_Ici
+    apply IntegrableOn.congr_fun (hpowIci.const_mul C) ?_ measurableSet_Ici
     intro t ht
-    rw [← Real.rpow_neg (by linarith [Set.mem_Ici.mp ht])]
-    ring_nf
+    change C * t ^ (-((3 : ℝ) / 2)) = C / t ^ ((3 : ℝ) / 2)
+    rw [Real.rpow_neg (by linarith [Set.mem_Ici.mp ht]), div_eq_mul_inv]
   refine (MeasureTheory.setIntegral_mono_on
     (nativeLogSqOverTSq_integrableOn_Ici hT) hdom measurableSet_Ici
     (fun t ht => hCb t (by linarith [ht.out]))).trans ?_
@@ -208,8 +210,13 @@ lemma nativeIntegralNegLogSqOverTSqBound : ∃ C > 0, ∀ T, 3 < T →
   obtain ⟨C, hC, hpos⟩ := nativeIntegralLogSqOverTSqBound
   refine ⟨C, hC, ?_⟩
   intro T hT
-  rw [← neg_neg T, ← integral_comp_neg_Iic]
-  simpa only [neg_neg, neg_sq] using hpos T hT
+  calc
+    ∫ t in Set.Iic (-T), (Real.log (-t))^2 / (-t)^2 =
+        ∫ t in Set.Ioi T, (Real.log t)^2 / t^2 := by
+      exact integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2)
+    _ = ∫ t in Set.Ici T, (Real.log t)^2 / t^2 := by
+      rw [MeasureTheory.integral_Ici_eq_integral_Ioi]
+    _ ≤ C / Real.sqrt T := hpos T hT
 
 /-! ## Quantitative five-leg estimates -/
 
@@ -287,12 +294,13 @@ theorem nativeMertensFarTail_pointwise {f : ℝ → ℝ}
     have hsim : s.im = t := by simp [s]
     rw [hsim]
     nlinarith [sq_nonneg sigma]
-  rw [nativeSmoothedMobiusIntegrand_norm_eq]
-  change 1 / ‖zetaC s‖ *
-      ‖mellin (fun x => (Smooth1 f eps x : ℂ)) s‖ * ‖(X : ℂ) ^ s‖ ≤ _
-  rw [hXs]
+  have hsarg : (1 : ℂ) + ((Real.log X)⁻¹ : ℝ) + (t : ℂ) * I = s := by
+    simp [s, sigma]
+  rw [nativeSmoothedMobiusIntegrand_norm_eq, hsarg, hXs]
+  have htpos : 0 < -t := by linarith
+  have hsqpos : 0 < (-t) ^ 2 := sq_pos_of_pos htpos
   have hinv : (‖s‖ ^ 2)⁻¹ ≤ ((-t) ^ 2)⁻¹ := by
-    apply inv_anti₀ (by positivity)
+    apply inv_anti₀ hsqpos
     exact hnorm2
   calc
     1 / ‖zetaC s‖ *
@@ -301,14 +309,45 @@ theorem nativeMertensFarTail_pointwise {f : ℝ → ℝ}
       ≤ (Cz * Real.log X * Real.log (-t)) *
           (Cm * (eps * ‖s‖ ^ 2)⁻¹) * (X * Real.exp 1) := by
         gcongr
-    _ ≤ 8 * Cz * Cm * Real.exp 1 * (X * Real.log X / eps) *
+    _ ≤ (Cz * Real.log X * Real.log (-t)) *
+          (Cm * (eps⁻¹ * ((-t) ^ 2)⁻¹)) * (X * Real.exp 1) := by
+        have hepsinv : 0 ≤ eps⁻¹ := inv_nonneg.mpr heps.1.le
+        have hkernel :
+            (eps * ‖s‖ ^ 2)⁻¹ ≤ eps⁻¹ * ((-t) ^ 2)⁻¹ := by
+          rw [mul_inv]
+          exact mul_le_mul_of_nonneg_left hinv hepsinv
+        have hleft : 0 ≤ Cz * Real.log X * Real.log (-t) := by positivity
+        have hright : 0 ≤ X * Real.exp 1 := by positivity
+        have hmid :
+            Cm * (eps * ‖s‖ ^ 2)⁻¹ ≤
+              Cm * (eps⁻¹ * ((-t) ^ 2)⁻¹) :=
+          mul_le_mul_of_nonneg_left hkernel hCm.le
+        exact mul_le_mul_of_nonneg_right
+          (mul_le_mul_of_nonneg_left hmid hleft) hright
+    _ = Cz * Cm * Real.exp 1 * (X * Real.log X / eps) *
+          Real.log (-t) / (-t) ^ 2 := by
+        field_simp [ne_of_gt heps.1, ne_of_gt htpos]
+        ring
+    _ ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) *
           (Real.log (-t)) ^ 2 / (-t) ^ 2 := by
-        have hlog_nonneg : 0 ≤ Real.log (-t) := by linarith
         have hlog_le_sq : Real.log (-t) ≤ (Real.log (-t)) ^ 2 := by
+          have hlogt : 1 < Real.log (-t) := by
+            apply logt_gt_one
+            linarith
           nlinarith [sq_nonneg (Real.log (-t) - 1)]
-        rw [mul_inv]
-        gcongr
-        ring_nf
+        rw [div_le_div_iff₀ hsqpos]
+        have hcoeff :
+            0 ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) := by
+          positivity
+        exact mul_le_mul_of_nonneg_left hlog_le_sq hcoeff
+    _ ≤ 8 * (Cz * Cm * Real.exp 1 * (X * Real.log X / eps) *
+          (Real.log (-t)) ^ 2 / (-t) ^ 2) := by
+        have hbase : 0 ≤ Cz * Cm * Real.exp 1 *
+            (X * Real.log X / eps) * (Real.log (-t)) ^ 2 / (-t) ^ 2 := by
+          positivity
+        nlinarith
+    _ = 8 * Cz * Cm * Real.exp 1 * (X * Real.log X / eps) *
+          (Real.log (-t)) ^ 2 / (-t) ^ 2 := by ring
 
 /-- Norm estimate for the lower right-line tail before applying the contour
 normalization factor.  Keeping this as its own declaration prevents the
@@ -349,10 +388,12 @@ private lemma nativeMertensM1_integral_norm_bound {f : ℝ → ℝ}
       rw [← MeasureTheory.integral_const_mul]
     _ ≤ C1 * (X * Real.log X / eps) * (C2 / Real.sqrt T) := by
       apply mul_le_mul_of_nonneg_left (hint T hT)
-      positivity
+      have hX0 : 0 ≤ X := by linarith
+      have hlogX0 : 0 ≤ Real.log X := Real.log_nonneg (by linarith)
+      exact mul_nonneg hC1.le
+        (div_nonneg (mul_nonneg hX0 hlogX0) heps.1.le)
     _ = C1 * C2 * (X * Real.log X / (eps * Real.sqrt T)) := by
       field_simp
-      ring
 
 /-- Lower far-tail bound. -/
 theorem nativeMertensM1_logNine_bound {f : ℝ → ℝ}
@@ -394,23 +435,25 @@ theorem nativeSmoothedMobiusIntegrand_conj {f : ℝ → ℝ} {eps X : ℝ}
     nativeSmoothedMobiusIntegrand f eps X (starRingEnd ℂ s) =
       starRingEnd ℂ (nativeSmoothedMobiusIntegrand f eps X s) := by
   unfold nativeSmoothedMobiusIntegrand strongMertensSmoothedIntegrand
-  rw [map_mul, map_mul, map_inv₀]
-  congr 1
-  · congr 1
-    · exact riemannZeta_conj s
-    · unfold mellin
-      rw [← integral_conj]
-      apply setIntegral_congr_fun measurableSet_Ioi
-      intro x hx
-      simp only [smul_eq_mul, map_mul, Complex.conj_ofReal]
-      congr 1
-      nth_rw 1 [← map_one (starRingEnd ℂ)]
-      rw [← map_sub, Complex.cpow_conj, Complex.conj_ofReal]
-      rw [Complex.arg_ofReal_of_nonneg hx.le]
-      exact Real.pi_ne_zero.symm
-  · rw [Complex.cpow_conj, Complex.conj_ofReal]
+  have hmellin :
+      mellin (fun x => (Smooth1 f eps x : ℂ)) (starRingEnd ℂ s) =
+        starRingEnd ℂ (mellin (fun x => (Smooth1 f eps x : ℂ)) s) := by
+    unfold mellin
+    rw [← integral_conj]
+    apply setIntegral_congr_fun measurableSet_Ioi
+    intro x hx
+    simp only [smul_eq_mul, map_mul, Complex.conj_ofReal]
+    congr 1
+    nth_rw 1 [← map_one (starRingEnd ℂ)]
+    rw [← map_sub, Complex.cpow_conj, Complex.conj_ofReal]
+    rw [Complex.arg_ofReal_of_nonneg hx.le]
+    exact Real.pi_ne_zero.symm
+  have hcpow :
+      (X : ℂ) ^ (starRingEnd ℂ s) = starRingEnd ℂ ((X : ℂ) ^ s) := by
+    rw [Complex.cpow_conj, Complex.conj_ofReal]
     rw [Complex.arg_ofReal_of_nonneg hX.le]
     exact Real.pi_ne_zero.symm
+  rw [map_mul, map_mul, map_inv₀, riemannZeta_conj, hmellin, hcpow]
 
 /-- Upper far-tail bound, by conjugation. -/
 theorem nativeMertensM5_logNine_bound {f : ℝ → ℝ}
@@ -432,13 +475,24 @@ theorem nativeMertensM5_logNine_bound {f : ℝ → ℝ}
     congr 1
     · ring
     · rw [← integral_conj, ← integral_comp_neg_Ioi, integral_Ici_eq_integral_Ioi]
+      congr 1
       apply setIntegral_congr_fun measurableSet_Ioi
       intro x hx
-      rw [← nativeSmoothedMobiusIntegrand_conj hXpos]
-      simp only [map_add, map_one, map_mul, conj_I, conj_ofReal, map_inv₀,
-        map_neg, mul_neg, neg_neg]
-      push_cast
-      ring
+      let sneg : ℂ := (1 + (Real.log X)⁻¹) + (-x) * I
+      have hs : starRingEnd ℂ sneg =
+          (1 + (Real.log X)⁻¹) + x * I := by
+        simp [sneg]
+        push_cast
+        ring
+      calc
+        nativeSmoothedMobiusIntegrand f eps X
+            ((1 + (Real.log X)⁻¹) + x * I) =
+            nativeSmoothedMobiusIntegrand f eps X (starRingEnd ℂ sneg) := by
+              rw [hs]
+        _ = starRingEnd ℂ (nativeSmoothedMobiusIntegrand f eps X sneg) :=
+          nativeSmoothedMobiusIntegrand_conj hXpos sneg
+        _ = starRingEnd ℂ (nativeSmoothedMobiusIntegrand f eps X
+            ((1 + (Real.log X)⁻¹) + (-x) * I)) := by rfl
   rw [hconj, RCLike.norm_conj]
   exact hM1 heps hX hT
 
