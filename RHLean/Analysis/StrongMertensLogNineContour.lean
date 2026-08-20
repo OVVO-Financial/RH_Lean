@@ -26,7 +26,7 @@ local notation "I" => Complex.I
 /-- Lower far tail on the right Perron line. -/
 def nativeMertensContourM1
     (f : ℝ → ℝ) (eps X T : ℝ) : ℂ :=
-  (1 / (2 * pi * I)) *
+  (1 / (2 * Real.pi * I)) *
     (I * ∫ t : ℝ in Set.Iic (-T),
       nativeSmoothedMobiusIntegrand f eps X
         ((1 + (Real.log X)⁻¹) + t * I))
@@ -34,7 +34,7 @@ def nativeMertensContourM1
 /-- Upper far tail on the right Perron line. -/
 def nativeMertensContourM5
     (f : ℝ → ℝ) (eps X T : ℝ) : ℂ :=
-  (1 / (2 * pi * I)) *
+  (1 / (2 * Real.pi * I)) *
     (I * ∫ t : ℝ in Set.Ici T,
       nativeSmoothedMobiusIntegrand f eps X
         ((1 + (Real.log X)⁻¹) + t * I))
@@ -42,21 +42,21 @@ def nativeMertensContourM5
 /-- Lower horizontal cut. -/
 def nativeMertensContourM2
     (f : ℝ → ℝ) (eps X T sigmaLeft : ℝ) : ℂ :=
-  (1 / (2 * pi * I)) *
+  (1 / (2 * Real.pi * I)) *
     (∫ sigma in sigmaLeft..(1 + (Real.log X)⁻¹),
       nativeSmoothedMobiusIntegrand f eps X (sigma - T * I))
 
 /-- Upper horizontal cut. -/
 def nativeMertensContourM4
     (f : ℝ → ℝ) (eps X T sigmaLeft : ℝ) : ℂ :=
-  (1 / (2 * pi * I)) *
+  (1 / (2 * Real.pi * I)) *
     (∫ sigma in sigmaLeft..(1 + (Real.log X)⁻¹),
       nativeSmoothedMobiusIntegrand f eps X (sigma + T * I))
 
 /-- Shifted vertical cut. -/
 def nativeMertensContourM3
     (f : ℝ → ℝ) (eps X T sigmaLeft : ℝ) : ℂ :=
-  (1 / (2 * pi * I)) *
+  (1 / (2 * Real.pi * I)) *
     (I * ∫ t : ℝ in Set.Icc (-T) T,
       nativeSmoothedMobiusIntegrand f eps X (sigmaLeft + t * I))
 
@@ -188,9 +188,9 @@ theorem nativeMertensContourPull_holds : NativeMertensContourPullProp := by
       rw [hsubeq]
       exact hbig
 
-  have hTwoPiI : (2 * (pi : ℂ) * I) ≠ 0 := by
+  have hTwoPiI : (2 * (Real.pi : ℂ) * I) ≠ 0 := by
     have h2 : (2 : ℂ) ≠ 0 := by norm_num
-    have hpi : (pi : ℂ) ≠ 0 := by exact_mod_cast Real.pi_ne_zero
+    have hpi : (Real.pi : ℂ) ≠ 0 := by exact_mod_cast Real.pi_ne_zero
     exact mul_ne_zero (mul_ne_zero h2 hpi) Complex.I_ne_zero
 
   rw [RectangleIntegral', RectangleIntegral, HIntegral, HIntegral,
@@ -221,12 +221,13 @@ theorem nativeMertensContourPull_holds : NativeMertensContourPullProp := by
   rw [verticalIntegral_split_three (a := -T) (b := T)]
   swap
   · refine hInt.congr (Filter.Eventually.of_forall fun t => ?_)
-    rw [hcast]
+    -- The two sides differ only in where the coercion sits on `(log X)⁻¹`.
+    rw [Complex.ofReal_inv]
   unfold nativeMertensContourM1 nativeMertensContourM2
     nativeMertensContourM3 nativeMertensContourM4 nativeMertensContourM5 VIntegral
   rw [hIcc]
   simp only [hcast, smul_eq_mul, ofReal_neg, neg_mul,
     sub_eq_add_neg, mul_comm I] at hbracket ⊢
-  linear_combination (1 / (2 * (pi : ℂ) * I)) * hbracket
+  linear_combination (1 / (2 * (Real.pi : ℂ) * I)) * hbracket
 
 end RHLean.Analysis

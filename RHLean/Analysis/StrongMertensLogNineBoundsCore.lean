@@ -309,13 +309,13 @@ theorem nativeMertensM1_logNine_bound {f : ℝ → ℝ}
         apply mul_le_mul_of_nonneg_left (hint T hT)
         positivity
   unfold nativeMertensContourM1
-  have hpref : ‖(1 / (2 * (pi : ℂ) * I)) * I‖ = 1 / (2 * Real.pi) := by
-    rw [show (1 / (2 * (pi : ℂ) * I)) * I = 1 / (2 * (pi : ℂ)) by field_simp,
+  have hpref : ‖(1 / (2 * (Real.pi : ℂ) * I)) * I‖ = 1 / (2 * Real.pi) := by
+    rw [show (1 / (2 * (Real.pi : ℂ) * I)) * I = 1 / (2 * (Real.pi : ℂ)) by field_simp,
       norm_div, norm_one, norm_mul, Complex.norm_ofNat,
-      show ‖(pi : ℂ)‖ = Real.pi from (RCLike.norm_ofReal _).trans (abs_of_pos Real.pi_pos)]
-  rw [show (1 / (2 * (pi : ℂ) * I)) * (I * ∫ t in Set.Iic (-T),
+      show ‖(Real.pi : ℂ)‖ = Real.pi from (RCLike.norm_ofReal _).trans (abs_of_pos Real.pi_pos)]
+  rw [show (1 / (2 * (Real.pi : ℂ) * I)) * (I * ∫ t in Set.Iic (-T),
       nativeSmoothedMobiusIntegrand f eps X ((1 + (Real.log X)⁻¹) + t * I)) =
-      ((1 / (2 * (pi : ℂ) * I)) * I) *
+      ((1 / (2 * (Real.pi : ℂ) * I)) * I) *
         (∫ t in Set.Iic (-T), nativeSmoothedMobiusIntegrand f eps X
           ((1 + (Real.log X)⁻¹) + t * I)) by ring,
     norm_mul, hpref]

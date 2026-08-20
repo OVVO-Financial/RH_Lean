@@ -79,13 +79,13 @@ theorem nativeMertensM3_logNine_bound_for
       (Set.Icc (-T) T) := by
     exact ContinuousOn.comp' hHolo.continuousOn (by fun_prop) hVerticalMaps
   unfold nativeMertensContourM3
-  have hpref : ‖(1 / (2 * (pi : ℂ) * I)) * I‖ = 1 / (2 * Real.pi) := by
-    rw [show (1 / (2 * (pi : ℂ) * I)) * I = 1 / (2 * (pi : ℂ)) by field_simp,
+  have hpref : ‖(1 / (2 * (Real.pi : ℂ) * I)) * I‖ = 1 / (2 * Real.pi) := by
+    rw [show (1 / (2 * (Real.pi : ℂ) * I)) * I = 1 / (2 * (Real.pi : ℂ)) by field_simp,
       norm_div, norm_one, norm_mul, Complex.norm_ofNat,
-      show ‖(pi : ℂ)‖ = Real.pi from (RCLike.norm_ofReal _).trans (abs_of_pos Real.pi_pos)]
-  rw [show (1 / (2 * (pi : ℂ) * I)) * (I * ∫ t in Set.Icc (-T) T,
+      show ‖(Real.pi : ℂ)‖ = Real.pi from (RCLike.norm_ofReal _).trans (abs_of_pos Real.pi_pos)]
+  rw [show (1 / (2 * (Real.pi : ℂ) * I)) * (I * ∫ t in Set.Icc (-T) T,
       nativeSmoothedMobiusIntegrand f eps X (sigmaLeft + t * I)) =
-      ((1 / (2 * (pi : ℂ) * I)) * I) *
+      ((1 / (2 * (Real.pi : ℂ) * I)) * I) *
         (∫ t in Set.Icc (-T) T,
           nativeSmoothedMobiusIntegrand f eps X (sigmaLeft + t * I)) by ring,
     norm_mul, hpref]

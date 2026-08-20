@@ -117,7 +117,7 @@ theorem strongMertens_smoothedMobius_dirichlet
     have : (Real.log X)⁻¹ < 1 := inv_lt_one_of_one_lt₀ hlog
     linarith
   calc
-    _ = 1 / (2 * pi * I) * (I * ∫ t : ℝ, ∑' n : ℕ,
+    _ = 1 / (2 * Real.pi * I) * (I * ∫ t : ℝ, ∑' n : ℕ,
         (μ n : ℂ) / (n : ℂ) ^ (sigma + (t : ℂ) * I) *
         mellin (fun x => (Smooth1 SmoothingF eps x : ℂ)) (sigma + (t : ℂ) * I) *
         (X : ℂ) ^ (sigma + (t : ℂ) * I)) := by
@@ -131,14 +131,14 @@ theorem strongMertens_smoothedMobius_dirichlet
         intro n
         by_cases hn : n = 0 <;> simp [hn]]
       rw [← tsum_mul_right, ← tsum_mul_right]
-    _ = 1 / (2 * pi * I) * (I * ∑' n : ℕ, ∫ t : ℝ,
+    _ = 1 / (2 * Real.pi * I) * (I * ∑' n : ℕ, ∫ t : ℝ,
         (μ n : ℂ) / (n : ℂ) ^ (sigma + (t : ℂ) * I) *
         mellin (fun x => (Smooth1 SmoothingF eps x : ℂ)) (sigma + (t : ℂ) * I) *
         (X : ℂ) ^ (sigma + (t : ℂ) * I)) := by
       congr 2
       exact strongMertens_smoothedMobius_aux_tsum_integral diffF nonnegF suppF massF
         (by linarith) eps_pos eps_lt_one sigma_gt sigma_le
-    _ = 1 / (2 * pi * I) * (I * ∑' n : ℕ, (μ n : ℂ) * ∫ t : ℝ,
+    _ = 1 / (2 * Real.pi * I) * (I * ∑' n : ℕ, (μ n : ℂ) * ∫ t : ℝ,
         mellin (fun x => (Smooth1 SmoothingF eps x : ℂ)) (sigma + (t : ℂ) * I) *
           (X / (n : ℂ)) ^ (sigma + (t : ℂ) * I)) := by
       field_simp
@@ -157,15 +157,15 @@ theorem strongMertens_smoothedMobius_dirichlet
       push_cast at hcp ⊢
       rw [← hcp, div_mul_cancel₀]
       simp [hn]
-    _ = 1 / (2 * pi) * (∑' n : ℕ, (μ n : ℂ) * ∫ t : ℝ,
+    _ = 1 / (2 * Real.pi) * (∑' n : ℕ, (μ n : ℂ) * ∫ t : ℝ,
         mellin (fun x => (Smooth1 SmoothingF eps x : ℂ)) (sigma + (t : ℂ) * I) *
           (X / (n : ℂ)) ^ (sigma + (t : ℂ) * I)) := by
       field_simp
-    _ = ∑' n : ℕ, (μ n : ℂ) * (1 / (2 * pi) * ∫ t : ℝ,
+    _ = ∑' n : ℕ, (μ n : ℂ) * (1 / (2 * Real.pi) * ∫ t : ℝ,
         mellin (fun x => (Smooth1 SmoothingF eps x : ℂ)) (sigma + (t : ℂ) * I) *
           (X / (n : ℂ)) ^ (sigma + (t : ℂ) * I)) := by
       simp_rw [← tsum_mul_left, ← mul_assoc, mul_comm]
-    _ = ∑' n : ℕ, (μ n : ℂ) * (1 / (2 * pi) * ∫ t : ℝ,
+    _ = ∑' n : ℕ, (μ n : ℂ) * (1 / (2 * Real.pi) * ∫ t : ℝ,
         mellin (fun x => (Smooth1 SmoothingF eps x : ℂ)) (sigma + (t : ℂ) * I) *
           ((n : ℂ) / X) ^ (-(sigma + (t : ℂ) * I))) := by
       congr 1

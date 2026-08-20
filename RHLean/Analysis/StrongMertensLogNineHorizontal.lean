@@ -234,9 +234,9 @@ theorem nativeMertensHorizontal_logNine_bound_for
       Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by
     unfold nativeMertensContourM2
     rw [norm_mul]
-    have hpref : ‖(1 / (2 * (pi : ℂ) * I))‖ = 1 / (2 * Real.pi) := by
+    have hpref : ‖(1 / (2 * (Real.pi : ℂ) * I))‖ = 1 / (2 * Real.pi) := by
       rw [norm_div, norm_one, norm_mul, norm_mul, Complex.norm_ofNat,
-        show ‖(pi : ℂ)‖ = Real.pi from
+        show ‖(Real.pi : ℂ)‖ = Real.pi from
           (RCLike.norm_ofReal _).trans (abs_of_pos Real.pi_pos), norm_I]
       ring
     rw [hpref]
