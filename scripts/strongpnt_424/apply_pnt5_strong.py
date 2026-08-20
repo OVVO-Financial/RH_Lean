@@ -159,7 +159,7 @@ def main() -> None:
     ring
 """,
         """    field_simp
-    simpa [mul_comm] using h₁.symm
+    simpa [mul_comm, neg_div] using h₁.symm
 """,
     )
     replace_exact(
