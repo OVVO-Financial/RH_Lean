@@ -31,7 +31,7 @@ def main() -> None:
     target = STRONGPNT / "ZetaZeroFree.lean"
     replace_exact(
         target,
-        "prove the punctured-limit center is not one explicitly",
+        "use direct zeta continuity at the punctured-limit center",
         """      use h (isClosed_singleton.isSeqClosed this (.comp (cont.continuousAt.comp (eventually_ne_nhds (by field_simp [ht₀])).mono fun and=>.intro ⟨⟩) (ToOneT0.trans (inf_le_left))))
 """,
         """      have hcenter_ne : (1 : ℂ) + Complex.I * t₀ ≠ 1 := by
@@ -39,7 +39,14 @@ def main() -> None:
         apply ht₀
         have him := congrArg Complex.im hcenter
         simpa using him
-      use h (isClosed_singleton.isSeqClosed this (.comp (cont.continuousAt.comp (eventually_ne_nhds hcenter_ne)).mono fun and=>.intro ⟨⟩) (ToOneT0.trans (inf_le_left))))
+      have hcont : ContinuousAt ζ (1 + Complex.I * t₀) := by
+        apply DifferentiableAt.continuousAt (𝕜 := ℂ)
+        convert differentiableAt_riemannZeta hcenter_ne
+      have hz_tendsto :
+          Tendsto (fun n ↦ ζ (↑(σ' (subseq n)) + I * ↑(t (subseq n)))) atTop
+            (𝓝 (ζ (1 + I * ↑t₀))) :=
+        hcont.tendsto.comp (ToOneT0.trans inf_le_left)
+      exact h (isClosed_singleton.isSeqClosed this hz_tendsto)
 """,
     )
 
