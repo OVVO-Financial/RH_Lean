@@ -201,7 +201,10 @@ theorem nativeMertensHorizontal_logNine_bound_for
             nlinarith [show 0 ≤ Cright / corridor.A by positivity]
     rw [nativeSmoothedMobiusIntegrand_norm_eq]
     have hZnonneg : 0 ≤ Cz * (1 + (Real.log T) ^ 10) := by positivity
-    have hMnonneg : 0 ≤ Cm * (eps * ‖s‖ ^ 2)⁻¹ := by positivity
+    have hMnonneg : 0 ≤ Cm * (eps * ‖s‖ ^ 2)⁻¹ := by
+      have hden : 0 ≤ eps * ‖s‖ ^ 2 :=
+        mul_nonneg heps.1.le (sq_nonneg ‖s‖)
+      exact mul_nonneg hCm.le (inv_nonneg.mpr hden)
     have hXnonneg : 0 ≤ Real.exp 1 * X := by positivity
     calc
       1 / ‖zetaC s‖ * ‖mellin (fun x => (Smooth1 f eps x : ℂ)) s‖ *
@@ -237,8 +240,18 @@ theorem nativeMertensHorizontal_logNine_bound_for
                 ring
           _ ≤ 2 * (Cz * Cm * Real.exp 1 * X * (1 + (Real.log T) ^ 10) /
               (eps * T ^ 2)) := by
+                have hnum : 0 ≤ Cz * Cm * Real.exp 1 * X *
+                    (1 + (Real.log T) ^ 10) := by
+                  exact mul_nonneg
+                    (mul_nonneg
+                      (mul_nonneg (mul_nonneg hCz.le hCm.le) (Real.exp_pos 1).le)
+                        (by linarith : 0 ≤ X))
+                    (by positivity)
+                have hden : 0 ≤ eps * T ^ 2 :=
+                  mul_nonneg heps.1.le (sq_nonneg T)
                 have hbase : 0 ≤ Cz * Cm * Real.exp 1 * X *
-                    (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by positivity
+                    (1 + (Real.log T) ^ 10) / (eps * T ^ 2) :=
+                  div_nonneg hnum hden
                 nlinarith
           _ = Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by
                 dsimp [Cpoint]
