@@ -1,0 +1,62 @@
+commit=8d88c11092d2eb3d04feffe9e8fd2b88246d887d
+directbuild=success
+rhlean_warnings=success
+strongpnt_noise=success
+
+--- diagnostic inventory ---
+Deduplicated Lean diagnostic inventory
+=====================================
+
+StrongPNT/PNT1_ComplexAnalysis.lean  (1 distinct)
+  2968:0  info: 'borel_caratheodory_II' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+StrongPNT/PNT4_ZeroFreeRegion.lean  (2 distinct)
+  6617:0  info: 'ZetaZeroFree_p' depends on axioms: [propext, Classical.choice, Quot.sound]
+  6618:0  info: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+StrongPNT/PNT5_Strong.lean  (1 distinct)
+  5643:0  info: 'Strong_PNT' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+--- build log tail ---
+=== RHLean.Analysis.StrongMertensLogNineCorridor ===
+warning: StrongPNT: repository '/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT' has local changes
+ℹ [7362/7368] Replayed StrongPNT.PNT1_ComplexAnalysis
+info: StrongPNT/PNT1_ComplexAnalysis.lean:2968:0: 'borel_caratheodory_II' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7366/7368] Replayed StrongPNT.PNT4_ZeroFreeRegion
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6617:0: 'ZetaZeroFree_p' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6618:0: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [7368/7368] Built RHLean.Analysis.StrongMertensLogNineCorridor (6.0s)
+Build completed successfully (7368 jobs).
+=== RHLean.Analysis.StrongMertensZetaKernel ===
+warning: StrongPNT: repository '/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT' has local changes
+ℹ [7364/7414] Replayed StrongPNT.PNT1_ComplexAnalysis
+info: StrongPNT/PNT1_ComplexAnalysis.lean:2968:0: 'borel_caratheodory_II' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7368/7414] Replayed StrongPNT.PNT4_ZeroFreeRegion
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6617:0: 'ZetaZeroFree_p' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6618:0: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7370/7414] Replayed StrongPNT.PNT5_Strong
+info: StrongPNT/PNT5_Strong.lean:5643:0: 'Strong_PNT' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [7414/7414] Built RHLean.Analysis.StrongMertensZetaKernel (5.9s)
+Build completed successfully (7414 jobs).
+=== RHLean.Analysis.StrongMertensSmallHeight ===
+warning: StrongPNT: repository '/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT' has local changes
+ℹ [7364/7415] Replayed StrongPNT.PNT1_ComplexAnalysis
+info: StrongPNT/PNT1_ComplexAnalysis.lean:2968:0: 'borel_caratheodory_II' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7368/7415] Replayed StrongPNT.PNT4_ZeroFreeRegion
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6617:0: 'ZetaZeroFree_p' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6618:0: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7370/7415] Replayed StrongPNT.PNT5_Strong
+info: StrongPNT/PNT5_Strong.lean:5643:0: 'Strong_PNT' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [7415/7415] Built RHLean.Analysis.StrongMertensSmallHeight (3.0s)
+Build completed successfully (7415 jobs).
+=== RHLean.Analysis.StrongMertensLogNineContour ===
+warning: StrongPNT: repository '/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT' has local changes
+ℹ [7364/7415] Replayed StrongPNT.PNT1_ComplexAnalysis
+info: StrongPNT/PNT1_ComplexAnalysis.lean:2968:0: 'borel_caratheodory_II' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7368/7415] Replayed StrongPNT.PNT4_ZeroFreeRegion
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6617:0: 'ZetaZeroFree_p' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6618:0: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7370/7415] Replayed StrongPNT.PNT5_Strong
+info: StrongPNT/PNT5_Strong.lean:5643:0: 'Strong_PNT' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [7415/7415] Built RHLean.Analysis.StrongMertensLogNineContour (7.8s)
+Build completed successfully (7415 jobs).
