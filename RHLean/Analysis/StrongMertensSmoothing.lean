@@ -9,6 +9,9 @@ open scoped BigOperators ArithmeticFunction.Moebius LSeries.notation
 
 namespace RHLean.Analysis
 
+-- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
+-- so with `Complex` open the bare token `I` resolves two ways.
+local notation "I" => Complex.I
 theorem strongMertens_lseriesSummable_moebius {s : ℂ} (hs : 1 < s.re) :
     LSeriesSummable (fun n => (μ n : ℂ)) s :=
   LSeriesSummable_of_bounded_of_one_lt_re (m := 1)

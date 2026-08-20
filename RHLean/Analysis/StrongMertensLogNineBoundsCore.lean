@@ -37,6 +37,10 @@ namespace RHLean.Analysis
 
 local notation "zetaC" => riemannZeta
 
+-- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
+-- so with `Complex` open the bare token `I` resolves two ways.
+local notation "I" => Complex.I
+
 /-- One uniform inverse-zeta estimate on the fixed shifted line for an
 already-selected corridor. -/
 theorem nativeInvZeta_logNine_shift_uniform_for

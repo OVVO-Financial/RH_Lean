@@ -19,6 +19,10 @@ open scoped BigOperators ArithmeticFunction.Moebius LSeries.notation
 
 namespace RHLean.Analysis
 
+-- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
+-- so with `Complex` open the bare token `I` resolves two ways.
+local notation "I" => Complex.I
+
 /-- Lower far tail on the right Perron line. -/
 def nativeMertensContourM1
     (f : ℝ → ℝ) (eps X T : ℝ) : ℂ :=
@@ -86,10 +90,7 @@ theorem nativeMertensContourPull_holds : NativeMertensContourPullProp := by
     have hlogX : 0 < Real.log X := Real.log_pos (by linarith)
     have : 0 < (Real.log X)⁻¹ := by positivity
     linarith
-  have hlogX1 : (1 : ℝ) < Real.log X := by
-    rw [show (1 : ℝ) = Real.log (Real.exp 1) by rw [Real.log_exp]]
-    apply Real.log_lt_log (Real.exp_pos 1)
-    exact Real.exp_one_lt_d9.trans hX
+  have hlogX1 : (1 : ℝ) < Real.log X := logt_gt_one hX.le
   have hright2 : 1 + (Real.log X)⁻¹ < 2 := by
     rw [← one_add_one_eq_two]
     gcongr

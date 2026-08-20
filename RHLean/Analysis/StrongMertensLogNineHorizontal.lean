@@ -11,6 +11,10 @@ namespace RHLean.Analysis
 
 local notation "zetaC" => riemannZeta
 
+-- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
+-- so with `Complex` open the bare token `I` resolves two ways.
+local notation "I" => Complex.I
+
 theorem nativeMertensHorizontal_logNine_bound_for
     (corridor : StrongMertensLogNineCorridor) {f : ℝ → ℝ}
     (hsupp : Function.support f ⊆ Set.Icc (1 / 2) 2)

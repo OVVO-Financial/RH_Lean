@@ -19,6 +19,10 @@ namespace RHLean.Analysis
 
 local notation "zetaC" => riemannZeta
 
+-- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
+-- so with `Complex` open the bare token `I` resolves two ways.
+local notation "I" => Complex.I
+
 /-- Uniform reciprocal-zeta bound on the bounded-height part of every shifted
 line belonging to one shared corridor. -/
 theorem strongMertens_inv_zeta_small_height_bdd

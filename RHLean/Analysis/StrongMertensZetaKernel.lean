@@ -25,11 +25,17 @@ namespace RHLean.Analysis
 
 local notation "zetaC" => riemannZeta
 
+-- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
+-- so with `Complex` open the bare token `I` resolves two ways.  Fix it the way
+-- the corridor and StrongPNT's own PNT5 do.
+local notation "I" => Complex.I
+
 /-- The Mobius Dirichlet series is reciprocal zeta on `Re s > 1`. -/
 theorem strongMertens_LSeries_moebius_eq_inv_zeta {s : ℂ} (hs : 1 < s.re) :
     L ↗μ s = (zetaC s)⁻¹ := by
-  have hmul := ArithmeticFunction.LSeries_one_mul_Lseries_moebius hs
-  rw [ArithmeticFunction.LSeries_one_eq_riemannZeta hs] at hmul
+  -- Both of these live in the root namespace, not in `ArithmeticFunction`.
+  have hmul := LSeries_one_mul_Lseries_moebius hs
+  rw [LSeries_one_eq_riemannZeta hs] at hmul
   exact eq_inv_of_mul_eq_one_left (by rw [mul_comm]; exact hmul)
 
 /-- Smoothed Mobius Perron integrand. -/
@@ -97,7 +103,7 @@ theorem nativeInvZetaRegularized_continuousOn {K : Set ℂ}
     have hev : nativeInvZetaRegularized =ᶠ[𝓝 s] (fun z => (zetaC z)⁻¹) := by
       filter_upwards [hneighborhood] with z hz
       have hz1 : z ≠ (1 : ℂ) := by simpa using hz
-      simp [nativeInvZetaRegularized, Function.update_noteq, hz1]
+      exact Function.update_of_ne hz1 0 (fun w => (zetaC w)⁻¹)
     exact (hbase.congr_of_eventuallyEq hev).continuousWithinAt
 
 /-- The full integrand is bounded near `1`; this is the zero-residue input for
@@ -203,7 +209,7 @@ theorem strongMertens_inv_zeta_bdd_on_vertical_line_gt_one
     rcases Nat.eq_zero_or_pos n with rfl | hn
     · simp [LSeries.term]
     · rw [LSeries.term_def _ _ _, LSeries.term_def _ _ _]
-      simp only [hn.ne', if_neg, ne_eq, Nat.cast_eq_zero, not_false_eq_true]
+      simp only [hn.ne', if_neg, not_false_eq_true]
       rw [norm_div, norm_div, Complex.norm_natCast_cpow_of_pos hn,
         Complex.norm_natCast_cpow_of_pos hn, hsre, Complex.ofReal_re]
   calc
@@ -216,6 +222,7 @@ theorem strongMertens_inv_zeta_bdd_on_vertical_line_gt_one
     _ ≤ C := by rw [hC]; linarith
 
 /-- The smoothed integrand is integrable on the standard right Perron line. -/
+set_option maxHeartbeats 1000000 in
 theorem strongMertensSmoothedIntegrand_integrable_right_line
     {SmoothingF : ℝ → ℝ} {epsilon : ℝ}
     (epsilon_pos : 0 < epsilon) (epsilon_lt_one : epsilon < 1)
@@ -233,10 +240,7 @@ theorem strongMertensSmoothedIntegrand_integrable_right_line
     have hlog : 0 < Real.log X := Real.log_pos (by linarith)
     have : 0 < (Real.log X)⁻¹ := by positivity
     linarith
-  have hlogXgt1 : 1 < Real.log X := by
-    rw [show (1 : ℝ) = Real.log (Real.exp 1) by rw [Real.log_exp]]
-    apply Real.log_lt_log (Real.exp_pos 1)
-    exact Real.exp_one_lt_d9.trans hX
+  have hlogXgt1 : 1 < Real.log X := logt_gt_one hX.le
   have hsigma0le2 : sigma0 ≤ 2 := by
     rw [hsigma0, ← one_add_one_eq_two]
     gcongr
@@ -339,7 +343,12 @@ theorem rpow_logNine_shift {A X T : ℝ} (hX : 0 < X) :
     X ^ (1 - A / (Real.log T) ^ 9) =
       X * Real.exp (-A * Real.log X / (Real.log T) ^ 9) := by
   rw [Real.rpow_def_of_pos hX]
-  rw [← Real.exp_log hX, ← Real.exp_add]
+  -- Rewriting `X` into `exp (log X)` has to be confined to the standalone `X`:
+  -- done blindly it also rewrites the `X` inside `Real.log X`.
+  rw [show X * Real.exp (-A * Real.log X / (Real.log T) ^ 9) =
+      Real.exp (Real.log X) * Real.exp (-A * Real.log X / (Real.log T) ^ 9) by
+    rw [Real.exp_log hX]]
+  rw [← Real.exp_add]
   congr 1
   ring
 
