@@ -252,6 +252,7 @@ import RHLean.Analysis.SquareWheelSurvivorIncrement
 import RHLean.Analysis.SquareWheelSurvivorPrimeFibres
 import RHLean.Analysis.SquareWheelSurvivorRun
 import RHLean.Analysis.SquareWheelZeroModeElimination
+import RHLean.Analysis.StrongMertensRecipMomentTransfer
 import RHLean.Analysis.ThreeSlotDegreeOneCriterion
 import RHLean.Analysis.ThreeSlotDegreeOneSynthesis
 import RHLean.Analysis.ThreeSlotMertensDegreeOneProjection
