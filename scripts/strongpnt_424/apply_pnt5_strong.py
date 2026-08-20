@@ -9,7 +9,18 @@ logarithmic exponent used in the zero-free boundary.
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-TARGET = ROOT / ".lake" / "packages" / "StrongPNT" / "StrongPNT" / "PNT5_Strong.lean"
+STRONGPNT_ROOT = ROOT / ".lake" / "packages" / "StrongPNT"
+TARGET = STRONGPNT_ROOT / "StrongPNT" / "PNT5_Strong.lean"
+WARNING_POLICY_FILES = (
+    STRONGPNT_ROOT / "StrongPNT.lean",
+    STRONGPNT_ROOT / "StrongPNT" / "PNT1_ComplexAnalysis.lean",
+    STRONGPNT_ROOT / "StrongPNT" / "PNT2_LogDerivative.lean",
+    STRONGPNT_ROOT / "StrongPNT" / "PNT3_RiemannZeta.lean",
+    STRONGPNT_ROOT / "StrongPNT" / "Z0.lean",
+    STRONGPNT_ROOT / "StrongPNT" / "PNT4_ZeroFreeRegion.lean",
+    STRONGPNT_ROOT / "StrongPNT" / "ZetaZeroFree.lean",
+    TARGET,
+)
 
 
 def replace_exact(label: str, old: str, new: str) -> None:
@@ -41,6 +52,25 @@ def replace_all_exact(label: str, old: str, new: str, expected: int) -> None:
             f"compatibility patch mismatch for {label!r}: "
             f"old_count={old_count}, expected={expected}, new_count={text.count(new)}"
         )
+
+
+def keep_external_warnings_nonfatal(path: Path) -> None:
+    """Keep RHLean's --wfail policy from being inherited by vendored StrongPNT."""
+    directive = "set_option warningAsError false\n"
+    text = path.read_text()
+    if directive in text:
+        print(f"already applied {path.name}: external warning policy")
+        return
+
+    lines = text.splitlines(keepends=True)
+    import_lines = [i for i, line in enumerate(lines) if line.startswith("import ")]
+    if not import_lines:
+        raise SystemExit(f"no import boundary found in {path}")
+
+    insert_at = max(import_lines) + 1
+    lines.insert(insert_at, "\n" + directive)
+    path.write_text("".join(lines))
+    print(f"applied {path.name}: external warning policy")
 
 
 def main() -> None:
@@ -174,6 +204,14 @@ def main() -> None:
   norm_num
 """,
     )
+
+    # The repository intentionally enforces --wfail on RHLean itself while
+    # treating the pinned external theorem package as an independently audited
+    # boundary.  Lake propagates --wfail to dependency modules, so reset only
+    # that option inside the StrongPNT sources.  Warnings remain visible; they
+    # simply do not become failures of the RHLean target.
+    for path in WARNING_POLICY_FILES:
+        keep_external_warnings_nonfatal(path)
 
 
 if __name__ == "__main__":
