@@ -71,10 +71,13 @@ theorem nativeInvZeta_logNine_shift_uniform_for
             ≤ corridor.invConst * (Real.log |t|) ^ (7 : ℝ) := hlarge
         _ = corridor.invConst * (Real.log |t|) ^ 7 := by
           rw [Real.rpow_natCast]
-        _ ≤ corridor.invConst * (Real.log T) ^ 7 := by gcongr
+        _ ≤ corridor.invConst * (Real.log T) ^ 7 :=
+          mul_le_mul_of_nonneg_left hp7 corridor.invConst_pos.le
         _ ≤ C * (1 + (Real.log T) ^ 7) := by
           dsimp [C]
-          have hp : 0 ≤ (Real.log T) ^ 7 := by positivity
+          -- `positivity` cannot see `0 ≤ Real.log T` for a variable `T`.
+          have hp : 0 ≤ (Real.log T) ^ 7 :=
+            pow_nonneg (Real.log_nonneg (by linarith)) 7
           nlinarith [corridor.invConst_pos.le, hM]
     · have hsmallt : |t| ≤ 3 := le_of_not_gt ht
       have hb := hSmall T hT.le t hsmallt
@@ -82,7 +85,8 @@ theorem nativeInvZeta_logNine_shift_uniform_for
         1 / ‖zetaC (strongMertensLogNineShift corridor.A T + t * I)‖ ≤ M := hb
         _ ≤ C * (1 + (Real.log T) ^ 7) := by
           dsimp [C]
-          have hp : 0 ≤ (Real.log T) ^ 7 := by positivity
+          have hp : 0 ≤ (Real.log T) ^ 7 :=
+            pow_nonneg (Real.log_nonneg (by linarith)) 7
           nlinarith [corridor.invConst_pos.le, hM]
   · intro T hT
     exact corridor.zero_free_box T hT.le
@@ -196,19 +200,22 @@ theorem nativeMertensFarTail_pointwise {f : ℝ → ℝ}
     apply logt_gt_one
     rw [← habs]
     linarith
+  have hlogXpos : 0 < Real.log X := by linarith
+  have hlogXinv : 0 < (Real.log X)⁻¹ := inv_pos.mpr hlogXpos
   let sigma : ℝ := 1 + (Real.log X)⁻¹
   have hsigma : sigma ∈ Set.Ioc (1 : ℝ) 2 := by
     dsimp [sigma]
     constructor
-    · positivity
+    · linarith
     · have : (Real.log X)⁻¹ ≤ 1 := inv_le_one_of_one_le₀ hlogX.le
       linarith
   have hzb := hZ hsigma t (by rw [habs]; linarith)
   have hxfrac : ((Real.log X)⁻¹) ^ (-(3 : ℝ) / 4) ≤ Real.log X := by
-    rw [Real.rpow_neg (by positivity), Real.inv_rpow (by positivity)]
-    simpa only [inv_inv] using
-      (Real.rpow_le_rpow_of_exponent_le (by linarith : 1 ≤ Real.log X)
-        (by norm_num : (3 : ℝ) / 4 ≤ 1))
+    -- `-(3 : ℝ) / 4` is a quotient of a negation, not a negated quotient, so
+    -- `Real.rpow_neg`'s pattern does not match it as written.
+    rw [show (-(3 : ℝ) / 4) = -((3 : ℝ) / 4) by ring,
+      Real.rpow_neg hlogXinv.le, Real.inv_rpow hlogXpos.le, inv_inv]
+    exact Real.rpow_le_self_of_one_le hlogX.le (by norm_num)
   have htfrac : (Real.log |t|) ^ ((1 : ℝ) / 4) ≤ Real.log (-t) := by
     rw [habs]
     exact Real.rpow_le_self_of_one_le (by linarith) (by norm_num)
@@ -231,7 +238,7 @@ theorem nativeMertensFarTail_pointwise {f : ℝ → ℝ}
     rw [Complex.norm_cpow_eq_rpow_re_of_pos hXpos, hsre]
     dsimp [sigma]
     rw [Real.rpow_add hXpos, Real.rpow_one,
-      Real.rpow_inv_log (by linarith) (by linarith)]
+      Real.rpow_inv_log (by linarith) (ne_of_gt (by linarith))]
   have hnorm2 : (-t) ^ 2 ≤ ‖s‖ ^ 2 := by
     have hnsq : ‖s‖ ^ 2 = s.re ^ 2 + s.im ^ 2 := by
       rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
@@ -385,8 +392,8 @@ theorem nativeMertensM5_logNine_bound {f : ℝ → ℝ}
   rw [hconj, RCLike.norm_conj]
   exact hM1 heps hX hT
 
-/-- Both horizontal pieces satisfy a uniform quantitative bound with no
-compatibility condition between `X` and `T`.  The proof splits pointwise at the
-right edge of the shared PNT+ log-nine window. -/
+-- The horizontal legs are bounded in `StrongMertensLogNineHorizontal`, which
+-- splits pointwise at the right edge of the shared PNT+ log-nine window.  A
+-- doc comment for that statement was left here with no declaration under it.
 
 end RHLean.Analysis

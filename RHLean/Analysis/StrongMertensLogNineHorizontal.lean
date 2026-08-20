@@ -125,7 +125,7 @@ theorem nativeMertensHorizontal_logNine_bound_for
         _ = Real.exp 1 * X := by
           dsimp [sigmaRight]
           rw [Real.rpow_add (by linarith), Real.rpow_one,
-            Real.rpow_inv_log (by linarith) (by linarith)]
+            Real.rpow_inv_log (by linarith) (ne_of_gt (by linarith))]
           ring
     have hz : 1 / ‖zetaC s‖ ≤ Cz * (1 + (Real.log T) ^ 10) := by
       by_cases hleft : sigma < sigmaMid

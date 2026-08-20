@@ -188,7 +188,8 @@ theorem strongMertens_smoothedMobius_dirichlet
       · simp [hn]
       have hnpos : 0 < n := Nat.pos_of_ne_zero hn
       congr 1
-      have hinv := mellinInv_mellin_eq sigma
+      -- Mathlib 4.24 spells this `mellin_inversion`.
+      have hinv := mellin_inversion sigma
         (f := fun x => (Smooth1 SmoothingF eps x : ℂ)) (x := (n : ℝ) / X)
         (div_pos (by exact_mod_cast hnpos) (by linarith))
         (by
