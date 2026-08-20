@@ -64,6 +64,22 @@ def main() -> None:
         "𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ))",
         7,
     )
+    replace_all_exact(
+        "make terminal section-notation Mellin terms explicitly complex",
+        "𝓜 ((Smooth1 ν ε) ·)",
+        "𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ))",
+        2,
+    )
+
+    # Lean 4.24 no longer treats an unnamed local `have (x)` as the named
+    # rewrite theorem expected by the following `simp_rw`/`rw`.  This is the
+    # syntax used by the already-ported 4.24 MediumPNT source.
+    replace_all_exact(
+        "name terminal pointwise algebra helpers",
+        "    have (x) :",
+        "    have this (x) :",
+        4,
+    )
 
     # `logt_gt_one` now takes a non-strict lower bound at the call sites.
     replace_exact(
@@ -118,6 +134,44 @@ def main() -> None:
 """,
         """        _ = C' * X / (ε * T) := by
           field_simp
+""",
+    )
+
+    # I3: 4.24 exposes simpler residual real-arithmetic goals after the same
+    # analytic estimates have already been established.
+    replace_exact(
+        "discharge I3 negative-interval integrand nonnegativity directly",
+        """        · field_simp
+          apply div_nonneg
+          · linarith
+          · apply mul_nonneg
+            · linarith
+            · rw [Complex.sq_norm]
+              exact normSq_nonneg (↑σ₁ + ↑t * I)
+""",
+        """        · positivity
+""",
+    )
+    replace_exact(
+        "finish I3 reciprocal rpow identity by commutativity",
+        """    field_simp
+    rw[mul_assoc, h₁]
+    ring
+""",
+        """    field_simp
+    simpa [mul_comm] using h₁.symm
+""",
+    )
+    replace_exact(
+        "close normalized I3 terminal arithmetic goal",
+        """  apply le_trans this
+  ring_nf
+  field_simp
+""",
+        """  apply le_trans this
+  ring_nf
+  field_simp
+  norm_num
 """,
     )
 
