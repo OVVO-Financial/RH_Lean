@@ -329,9 +329,9 @@ theorem nativeMertensHorizontal_logNine_bound_for
         have hnonneg : 0 ≤ Cpoint * X * (1 + (Real.log T) ^ 10) /
             (eps * T ^ 2) := by positivity
         nlinarith
-    _ = Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
+      _ = Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
           (eps * T ^ 2) := by
-      field_simp <;> ring
+        field_simp <;> ring
   have hM4 : ‖nativeMertensContourM4 f eps X T sigmaLeft‖ ≤
       Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by
     have hXpos : 0 < X := by linarith
