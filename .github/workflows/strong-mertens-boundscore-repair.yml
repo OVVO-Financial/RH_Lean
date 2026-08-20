@@ -1,4 +1,4 @@
-name: Strong Mertens BoundsCore repair pass
+name: Strong Mertens Horizontal repair pass
 
 on:
   push:
@@ -17,250 +17,45 @@ jobs:
         with:
           ref: agent/strong-mertens-k2-clean
 
-      - name: Apply compiler-driven BoundsCore repairs
+      - name: Apply final Horizontal repairs
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
-
-          path = Path('RHLean/Analysis/StrongMertensLogNineBoundsCore.lean')
+          path = Path('RHLean/Analysis/StrongMertensLogNineHorizontal.lean')
           text = path.read_text()
-
-          def rep(label, old, new, count=1):
-              global text
+          old1 = """    have hMnonneg : 0 ≤ Cm * (eps * ‖s‖ ^ 2)⁻¹ := by positivity"""
+          new1 = """    have hMnonneg : 0 ≤ Cm * (eps * ‖s‖ ^ 2)⁻¹ := by
+      have hden : 0 ≤ eps * ‖s‖ ^ 2 :=
+        mul_nonneg heps.1.le (sq_nonneg ‖s‖)
+      exact mul_nonneg hCm.le (inv_nonneg.mpr hden)"""
+          old2 = """                have hbase : 0 ≤ Cz * Cm * Real.exp 1 * X *
+                    (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by positivity"""
+          new2 = """                have hnum : 0 ≤ Cz * Cm * Real.exp 1 * X *
+                    (1 + (Real.log T) ^ 10) := by
+                  exact mul_nonneg
+                    (mul_nonneg
+                      (mul_nonneg (mul_nonneg hCz.le hCm.le) (Real.exp_pos 1).le)
+                        (by linarith : 0 ≤ X))
+                    (by positivity)
+                have hden : 0 ≤ eps * T ^ 2 :=
+                  mul_nonneg heps.1.le (sq_nonneg T)
+                have hbase : 0 ≤ Cz * Cm * Real.exp 1 * X *
+                    (1 + (Real.log T) ^ 10) / (eps * T ^ 2) :=
+                  div_nonneg hnum hden"""
+          for label, old, new in [('Mellin sign', old1, new1), ('base quotient sign', old2, new2)]:
               n = text.count(old)
-              if n != count:
-                  raise SystemExit(f'{label}: expected {count}, found {n}')
+              if n != 1:
+                  raise SystemExit(f'{label}: expected 1 match, found {n}')
               text = text.replace(old, new)
-              print(f'applied {label}: {n}')
-
-          rep(
-              'integrable domination API',
-              "    have hmul := hpowIci.const_mul C\n"
-              "    apply hmul.congr_fun (s := Set.Ici T) ?_ measurableSet_Ici",
-              "    apply IntegrableOn.congr_fun (hpowIci.const_mul C) ?_ measurableSet_Ici",
-              2,
-          )
-
-          rep(
-              'rpow reciprocal identity',
-              "    intro t ht\n"
-              "    rw [← Real.rpow_neg (by linarith [Set.mem_Ici.mp ht])]\n"
-              "    ring_nf",
-              "    intro t ht\n"
-              "    change C * t ^ (-((3 : ℝ) / 2)) = C / t ^ ((3 : ℝ) / 2)\n"
-              "    rw [Real.rpow_neg (by linarith [Set.mem_Ici.mp ht]), div_eq_mul_inv]",
-              2,
-          )
-
-          rep(
-              'negative-tail integrability reflection',
-              "  have hpos := nativeLogSqOverTSq_integrableOn_Ici hT\n"
-              "  convert hpos.comp_neg using 1",
-              "  have hneg := (nativeLogSqOverTSq_integrableOn_Ici hT).comp_neg\n"
-              "  have hset : -Set.Ici T = Set.Iic (-T) := by\n"
-              "    ext x\n"
-              "    simp\n"
-              "  rw [hset] at hneg\n"
-              "  exact hneg",
-          )
-
-          rep(
-              'negative-tail integral reflection',
-              "  rw [← neg_neg T, ← integral_comp_neg_Iic]\n"
-              "  simpa only [neg_neg, neg_sq] using hpos T hT",
-              "  calc\n"
-              "    ∫ t in Set.Iic (-T), (Real.log (-t))^2 / (-t)^2 =\n"
-              "        ∫ t in Set.Ioi T, (Real.log t)^2 / t^2 := by\n"
-              "      exact integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2)\n"
-              "    _ = ∫ t in Set.Ici T, (Real.log t)^2 / t^2 := by\n"
-              "      rw [MeasureTheory.integral_Ici_eq_integral_Ioi]\n"
-              "    _ ≤ C / Real.sqrt T := hpos T hT",
-          )
-
-          rep(
-              'far-tail local s normalization',
-              "  rw [nativeSmoothedMobiusIntegrand_norm_eq]\n"
-              "  change 1 / ‖zetaC s‖ *\n"
-              "      ‖mellin (fun x => (Smooth1 f eps x : ℂ)) s‖ * ‖(X : ℂ) ^ s‖ ≤ _\n"
-              "  rw [hXs]",
-              "  have hsarg : (1 : ℂ) + ((Real.log X)⁻¹ : ℝ) + (t : ℂ) * I = s := by\n"
-              "    simp [s, sigma]\n"
-              "  rw [nativeSmoothedMobiusIntegrand_norm_eq, hsarg, hXs]",
-          )
-
-          rep(
-              'far-tail reciprocal and envelope algebra',
-              "  have hinv : (‖s‖ ^ 2)⁻¹ ≤ ((-t) ^ 2)⁻¹ := by\n"
-              "    apply inv_anti₀ (by positivity)\n"
-              "    exact hnorm2\n"
-              "  calc\n"
-              "    1 / ‖zetaC s‖ *\n"
-              "        ‖mellin (fun x => (Smooth1 f eps x : ℂ)) s‖ *\n"
-              "        (X * Real.exp 1)\n"
-              "      ≤ (Cz * Real.log X * Real.log (-t)) *\n"
-              "          (Cm * (eps * ‖s‖ ^ 2)⁻¹) * (X * Real.exp 1) := by\n"
-              "        gcongr\n"
-              "    _ ≤ 8 * Cz * Cm * Real.exp 1 * (X * Real.log X / eps) *\n"
-              "          (Real.log (-t)) ^ 2 / (-t) ^ 2 := by\n"
-              "        have hlog_nonneg : 0 ≤ Real.log (-t) := by linarith\n"
-              "        have hlog_le_sq : Real.log (-t) ≤ (Real.log (-t)) ^ 2 := by\n"
-              "          nlinarith [sq_nonneg (Real.log (-t) - 1)]\n"
-              "        rw [mul_inv]\n"
-              "        gcongr\n"
-              "        ring_nf",
-              "  have htpos : 0 < -t := by linarith\n"
-              "  have hsqpos : 0 < (-t) ^ 2 := sq_pos_of_pos htpos\n"
-              "  have hinv : (‖s‖ ^ 2)⁻¹ ≤ ((-t) ^ 2)⁻¹ := by\n"
-              "    apply inv_anti₀ hsqpos\n"
-              "    exact hnorm2\n"
-              "  calc\n"
-              "    1 / ‖zetaC s‖ *\n"
-              "        ‖mellin (fun x => (Smooth1 f eps x : ℂ)) s‖ *\n"
-              "        (X * Real.exp 1)\n"
-              "      ≤ (Cz * Real.log X * Real.log (-t)) *\n"
-              "          (Cm * (eps * ‖s‖ ^ 2)⁻¹) * (X * Real.exp 1) := by\n"
-              "        gcongr\n"
-              "    _ ≤ (Cz * Real.log X * Real.log (-t)) *\n"
-              "          (Cm * (eps⁻¹ * ((-t) ^ 2)⁻¹)) * (X * Real.exp 1) := by\n"
-              "        have hepsinv : 0 ≤ eps⁻¹ := inv_nonneg.mpr heps.1.le\n"
-              "        have hkernel :\n"
-              "            (eps * ‖s‖ ^ 2)⁻¹ ≤ eps⁻¹ * ((-t) ^ 2)⁻¹ := by\n"
-              "          rw [mul_inv]\n"
-              "          exact mul_le_mul_of_nonneg_left hinv hepsinv\n"
-              "        have hleft : 0 ≤ Cz * Real.log X * Real.log (-t) := by positivity\n"
-              "        have hright : 0 ≤ X * Real.exp 1 := by positivity\n"
-              "        have hmid :\n"
-              "            Cm * (eps * ‖s‖ ^ 2)⁻¹ ≤\n"
-              "              Cm * (eps⁻¹ * ((-t) ^ 2)⁻¹) :=\n"
-              "          mul_le_mul_of_nonneg_left hkernel hCm.le\n"
-              "        exact mul_le_mul_of_nonneg_right\n"
-              "          (mul_le_mul_of_nonneg_left hmid hleft) hright\n"
-              "    _ = Cz * Cm * Real.exp 1 * (X * Real.log X / eps) *\n"
-              "          Real.log (-t) / (-t) ^ 2 := by\n"
-              "        field_simp [ne_of_gt heps.1, ne_of_gt htpos]\n"
-              "        ring\n"
-              "    _ ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) *\n"
-              "          (Real.log (-t)) ^ 2 / (-t) ^ 2 := by\n"
-              "        have hlog_le_sq : Real.log (-t) ≤ (Real.log (-t)) ^ 2 := by\n"
-              "          have hlogt : 1 < Real.log (-t) := by\n"
-              "            apply logt_gt_one\n"
-              "            linarith\n"
-              "          nlinarith [sq_nonneg (Real.log (-t) - 1)]\n"
-              "        rw [div_le_div_iff₀ hsqpos]\n"
-              "        have hcoeff :\n"
-              "            0 ≤ Cz * Cm * Real.exp 1 * (X * Real.log X / eps) := by\n"
-              "          positivity\n"
-              "        exact mul_le_mul_of_nonneg_left hlog_le_sq hcoeff\n"
-              "    _ ≤ 8 * (Cz * Cm * Real.exp 1 * (X * Real.log X / eps) *\n"
-              "          (Real.log (-t)) ^ 2 / (-t) ^ 2) := by\n"
-              "        have hbase : 0 ≤ Cz * Cm * Real.exp 1 *\n"
-              "            (X * Real.log X / eps) * (Real.log (-t)) ^ 2 / (-t) ^ 2 := by\n"
-              "          positivity\n"
-              "        nlinarith\n"
-              "    _ = 8 * Cz * Cm * Real.exp 1 * (X * Real.log X / eps) *\n"
-              "          (Real.log (-t)) ^ 2 / (-t) ^ 2 := by ring",
-          )
-
-          rep(
-              'M1 multiplier nonnegativity',
-              "      apply mul_le_mul_of_nonneg_left (hint T hT)\n"
-              "      positivity",
-              "      apply mul_le_mul_of_nonneg_left (hint T hT)\n"
-              "      have hX0 : 0 ≤ X := by linarith\n"
-              "      have hlogX0 : 0 ≤ Real.log X := Real.log_nonneg (by linarith)\n"
-              "      exact mul_nonneg hC1.le\n"
-              "        (div_nonneg (mul_nonneg hX0 hlogX0) heps.1.le)",
-          )
-
-          rep(
-              'M1 terminal field_simp',
-              "    _ = C1 * C2 * (X * Real.log X / (eps * Real.sqrt T)) := by\n"
-              "      field_simp\n"
-              "      ring",
-              "    _ = C1 * C2 * (X * Real.log X / (eps * Real.sqrt T)) := by\n"
-              "      field_simp",
-          )
-
-          rep(
-              'integrand conjugation decomposition',
-              "  rw [map_mul, map_mul, map_inv₀]\n"
-              "  congr 1\n"
-              "  · congr 1\n"
-              "    · exact riemannZeta_conj s\n"
-              "    · unfold mellin\n"
-              "      rw [← integral_conj]\n"
-              "      apply setIntegral_congr_fun measurableSet_Ioi\n"
-              "      intro x hx\n"
-              "      simp only [smul_eq_mul, map_mul, Complex.conj_ofReal]\n"
-              "      congr 1\n"
-              "      nth_rw 1 [← map_one (starRingEnd ℂ)]\n"
-              "      rw [← map_sub, Complex.cpow_conj, Complex.conj_ofReal]\n"
-              "      rw [Complex.arg_ofReal_of_nonneg hx.le]\n"
-              "      exact Real.pi_ne_zero.symm\n"
-              "  · rw [Complex.cpow_conj, Complex.conj_ofReal]\n"
-              "    rw [Complex.arg_ofReal_of_nonneg hX.le]\n"
-              "    exact Real.pi_ne_zero.symm",
-              "  have hmellin :\n"
-              "      mellin (fun x => (Smooth1 f eps x : ℂ)) (starRingEnd ℂ s) =\n"
-              "        starRingEnd ℂ (mellin (fun x => (Smooth1 f eps x : ℂ)) s) := by\n"
-              "    unfold mellin\n"
-              "    rw [← integral_conj]\n"
-              "    apply setIntegral_congr_fun measurableSet_Ioi\n"
-              "    intro x hx\n"
-              "    simp only [smul_eq_mul, map_mul, Complex.conj_ofReal]\n"
-              "    congr 1\n"
-              "    nth_rw 1 [← map_one (starRingEnd ℂ)]\n"
-              "    rw [← map_sub, Complex.cpow_conj, Complex.conj_ofReal]\n"
-              "    rw [Complex.arg_ofReal_of_nonneg hx.le]\n"
-              "    exact Real.pi_ne_zero.symm\n"
-              "  have hcpow :\n"
-              "      (X : ℂ) ^ (starRingEnd ℂ s) = starRingEnd ℂ ((X : ℂ) ^ s) := by\n"
-              "    rw [Complex.cpow_conj, Complex.conj_ofReal]\n"
-              "    rw [Complex.arg_ofReal_of_nonneg hX.le]\n"
-              "    exact Real.pi_ne_zero.symm\n"
-              "  rw [map_mul, map_mul, map_inv₀, riemannZeta_conj, hmellin, hcpow]",
-          )
-
-          rep(
-              'M5 pointwise conjugation',
-              "    · rw [← integral_conj, ← integral_comp_neg_Ioi, integral_Ici_eq_integral_Ioi]\n"
-              "      apply setIntegral_congr_fun measurableSet_Ioi\n"
-              "      intro x hx\n"
-              "      rw [← nativeSmoothedMobiusIntegrand_conj hXpos]\n"
-              "      simp only [map_add, map_one, map_mul, conj_I, conj_ofReal, map_inv₀,\n"
-              "        map_neg, mul_neg, neg_neg]\n"
-              "      push_cast\n"
-              "      ring",
-              "    · rw [← integral_conj, ← integral_comp_neg_Ioi, integral_Ici_eq_integral_Ioi]\n"
-              "      congr 1\n"
-              "      apply setIntegral_congr_fun measurableSet_Ioi\n"
-              "      intro x hx\n"
-              "      let sneg : ℂ := (1 + (Real.log X)⁻¹) + (-x) * I\n"
-              "      have hs : starRingEnd ℂ sneg =\n"
-              "          (1 + (Real.log X)⁻¹) + x * I := by\n"
-              "        simp [sneg]\n"
-              "        push_cast\n"
-              "        ring\n"
-              "      calc\n"
-              "        nativeSmoothedMobiusIntegrand f eps X\n"
-              "            ((1 + (Real.log X)⁻¹) + x * I) =\n"
-              "            nativeSmoothedMobiusIntegrand f eps X (starRingEnd ℂ sneg) := by\n"
-              "              rw [hs]\n"
-              "        _ = starRingEnd ℂ (nativeSmoothedMobiusIntegrand f eps X sneg) :=\n"
-              "          nativeSmoothedMobiusIntegrand_conj hXpos sneg\n"
-              "        _ = starRingEnd ℂ (nativeSmoothedMobiusIntegrand f eps X\n"
-              "            ((1 + (Real.log X)⁻¹) + (-x) * I)) := by rfl",
-          )
-
           path.write_text(text)
           PY
 
-      - name: Commit repair
+      - name: Publish Horizontal repair
         shell: bash
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -- RHLean/Analysis/StrongMertensLogNineBoundsCore.lean
-          git commit -m "Repair remaining Strong Mertens BoundsCore diagnostics"
+          git add -- RHLean/Analysis/StrongMertensLogNineHorizontal.lean
+          git commit -m 'Close Horizontal sign goals'
           git push origin HEAD:agent/strong-mertens-k2-clean
