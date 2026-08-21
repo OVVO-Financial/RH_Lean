@@ -1,4 +1,4 @@
-name: Strong Mertens Bounds arithmetic repair
+name: Strong Mertens Bounds final elaboration repair
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
         with:
           ref: agent/strong-mertens-k2-clean
 
-      - name: Apply remaining Bounds arithmetic repairs
+      - name: Apply final Bounds elaboration repairs
         shell: bash
         run: |
           python3 - <<'PY'
@@ -25,49 +25,13 @@ jobs:
           path = Path('RHLean/Analysis/StrongMertensLogNineBounds.lean')
           text = path.read_text()
 
-          def rep(label, old, new):
-              global text
-              n = text.count(old)
-              if n != 1:
-                  raise SystemExit(f'{label}: expected 1, found {n}')
-              text = text.replace(old, new)
-              print(f'applied {label}')
+          old_pow = 'nlinarith [corridor.A_mem.2, one_le_pow₀ hlogT.le]'
+          new_pow = 'nlinarith [corridor.A_mem.2, one_le_pow₀ (n := 9) hlogT.le]'
+          if text.count(old_pow) != 1:
+              raise SystemExit(f'power repair: expected 1, found {text.count(old_pow)}')
+          text = text.replace(old_pow, new_pow)
 
-          rep('shared nonnegativity', '''  have hsigpos : 0 < sigmaLeft := by
-    dsimp [sigmaLeft]
-    exact corridor.shift_pos T hT.le
-  have hpoint''', '''  have hsigpos : 0 < sigmaLeft := by
-    dsimp [sigmaLeft]
-    exact corridor.shift_pos T hT.le
-  have hlogTnonneg : 0 ≤ Real.log T := Real.log_nonneg (by linarith)
-  have hZnonneg : 0 ≤ Cz * (1 + (Real.log T)^7) := by
-    exact mul_nonneg hCz.le (by positivity)
-  have hpoint''')
-
-          rep('remove local nonnegativity', '''    have hZnonneg : 0 ≤ Cz * (1 + (Real.log T)^7) := by positivity
-    have hprod''', '''    have hprod''')
-
-          rep('kernel coefficient nonnegativity', '''                apply mul_le_mul_of_nonneg_left hkernel
-                positivity''', '''                have hcoeff : 0 ≤
-                    Cz * (1 + (Real.log T)^7) * Cm / eps * X^sigmaLeft := by
-                  exact mul_nonneg
-                    (div_nonneg (mul_nonneg hZnonneg hCm.le) heps.1.le)
-                    (Real.rpow_nonneg (by linarith) _)
-                exact mul_le_mul_of_nonneg_left hkernel hcoeff''')
-
-          rep('final vertical coefficient comparison', '''      rw [show X ^ sigmaLeft =
-          X * Real.exp (-corridor.A * Real.log X / (Real.log T)^9) by
-        dsimp [sigmaLeft, strongMertensLogNineShift]
-        exact hXshift]
-      field_simp
-      nlinarith [Real.pi_pos]''', '''      rw [show X ^ sigmaLeft =
-          X * Real.exp (-corridor.A * Real.log X / (Real.log T)^9) by
-        dsimp [sigmaLeft, strongMertensLogNineShift]
-        exact hXshift]
-      let K : ℝ := Cz * Cm * X *
-        Real.exp (-corridor.A * Real.log X / (Real.log T)^9) *
-          (1 + (Real.log T)^7) / eps
-      have hK : 0 ≤ K := by
+          old_hk = '''      have hK : 0 ≤ K := by
         dsimp [K]
         exact div_nonneg
           (mul_nonneg
@@ -75,24 +39,24 @@ jobs:
               (mul_nonneg hCz.le hCm.le)
               (mul_nonneg (by linarith : 0 ≤ X) (Real.exp_pos _).le))
             (by positivity))
-          heps.1.le
-      have hfac : sigmaLeft⁻¹ / 2 ≤ 4 := by
-        linarith
-      calc
-        1 / (2 * Real.pi) *
-            (Cz * (1 + (Real.log T)^7) * Cm / eps *
-              (X * Real.exp (-corridor.A * Real.log X / (Real.log T)^9)) *
-              (Real.pi / sigmaLeft))
-          = K * (sigmaLeft⁻¹ / 2) := by
-              dsimp [K]
-              field_simp [Real.pi_ne_zero, ne_of_gt heps.1, ne_of_gt hsigpos]
-              <;> ring
-        _ ≤ K * 4 := mul_le_mul_of_nonneg_left hfac hK
-        _ = 4 * Cz * Cm * X *
-            Real.exp (-corridor.A * Real.log X / (Real.log T)^9) *
-              (1 + (Real.log T)^7) / eps := by
-              dsimp [K]
-              ring''')
+          heps.1.le'''
+          new_hk = '''      have hK : 0 ≤ K := by
+        dsimp [K]
+        have hXnonneg : 0 ≤ X := by linarith
+        have hpoly : 0 ≤ 1 + (Real.log T)^7 := by
+          exact add_nonneg zero_le_one (pow_nonneg hlogTnonneg 7)
+        exact div_nonneg
+          (mul_nonneg
+            (mul_nonneg
+              (mul_nonneg
+                (mul_nonneg hCz.le hCm.le)
+                hXnonneg)
+              (Real.exp_pos _).le)
+            hpoly)
+          heps.1.le'''
+          if text.count(old_hk) != 1:
+              raise SystemExit(f'hK repair: expected 1, found {text.count(old_hk)}')
+          text = text.replace(old_hk, new_hk)
 
           path.write_text(text)
           PY
@@ -103,5 +67,5 @@ jobs:
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add -- RHLean/Analysis/StrongMertensLogNineBounds.lean
-          git commit -m 'Close remaining Strong Mertens bounds goals'
+          git commit -m 'Finish Strong Mertens bounds elaboration'
           git push origin HEAD:agent/strong-mertens-k2-clean
