@@ -69,7 +69,7 @@ theorem k2AbelBoundaryWeight_tendsto_one (n : ℕ) (hn : 1 ≤ n) :
         (𝓝 (1 : ℝ)) (𝓝 (Real.log (n : ℝ) * 0)))
   simpa using Real.continuous_exp.continuousAt.tendsto.comp hmul
 
-/-- The finite Abel differences telescope exactly. -/
+/-- Abel differences telescope from one to the endpoint. -/
 theorem k2AbelBoundaryWeight_telescopes
     (sigma : ℝ) {M : ℕ} (hM : 1 ≤ M) :
     k2AbelBoundaryWeight sigma M +
@@ -79,6 +79,20 @@ theorem k2AbelBoundaryWeight_telescopes
   | base => simp
   | succ M hM ih =>
       rw [Finset.sum_Ico_succ_top hM]
+      rw [← ih]
+      ring
+
+/-- The same telescope started at an arbitrary positive prefix. -/
+theorem k2AbelBoundaryWeight_telescopes_Ico
+    (sigma : ℝ) {N M : ℕ} (hNM : N ≤ M) :
+    k2AbelBoundaryWeight sigma M +
+        ∑ n ∈ Finset.Ico N M,
+          (k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1)) =
+      k2AbelBoundaryWeight sigma N := by
+  induction M, hNM using Nat.le_induction with
+  | base => simp
+  | succ M hNM ih =>
+      rw [Finset.sum_Ico_succ_top hNM]
       rw [← ih]
       ring
 
@@ -146,5 +160,57 @@ theorem k2A2AbelPrefix_centered
     simpa [S, d] using hcenter
   rw [hcenter']
   nlinarith [hAtel]
+
+/-- The finite head in the centered Abel formula vanishes as `sigma -> 1`. -/
+theorem k2A2AbelHead_tendsto_zero (A : ℝ) (N : ℕ) :
+    Tendsto
+      (fun sigma : ℝ =>
+        ∑ n ∈ Finset.Ico 1 N,
+          (k2MobiusLogMoment 2 n - A) *
+            (k2AbelBoundaryWeight sigma n -
+              k2AbelBoundaryWeight sigma (n + 1)))
+      (𝓝 (1 : ℝ)) (𝓝 0) := by
+  classical
+  let s := Finset.Ico 1 N
+  have hs : ∀ n ∈ s, 1 ≤ n := by
+    intro n hn
+    exact (Finset.mem_Ico.mp hn).1
+  have hgeneral : ∀ (t : Finset ℕ),
+      (∀ n ∈ t, 1 ≤ n) →
+      Tendsto
+        (fun sigma : ℝ =>
+          ∑ n ∈ t,
+            (k2MobiusLogMoment 2 n - A) *
+              (k2AbelBoundaryWeight sigma n -
+                k2AbelBoundaryWeight sigma (n + 1)))
+        (𝓝 (1 : ℝ)) (𝓝 0) := by
+    intro t ht
+    induction t using Finset.induction_on with
+    | empty => simp
+    | @insert a t ha ih =>
+        have ha1 : 1 ≤ a := ht a (Finset.mem_insert_self a t)
+        have ht' : ∀ n ∈ t, 1 ≤ n := by
+          intro n hn
+          exact ht n (Finset.mem_insert_of_mem hn)
+        have hdiff :=
+          (k2AbelBoundaryWeight_tendsto_one a ha1).sub
+            (k2AbelBoundaryWeight_tendsto_one (a + 1) (by omega))
+        have hterm :
+            Tendsto
+              (fun sigma : ℝ =>
+                (k2MobiusLogMoment 2 a - A) *
+                  (k2AbelBoundaryWeight sigma a -
+                    k2AbelBoundaryWeight sigma (a + 1)))
+              (𝓝 (1 : ℝ)) (𝓝 0) := by
+          simpa using (tendsto_const_nhds.mul hdiff :
+            Tendsto
+              (fun sigma : ℝ =>
+                (k2MobiusLogMoment 2 a - A) *
+                  (k2AbelBoundaryWeight sigma a -
+                    k2AbelBoundaryWeight sigma (a + 1)))
+              (𝓝 (1 : ℝ))
+              (𝓝 ((k2MobiusLogMoment 2 a - A) * (1 - 1))))
+        simpa [Finset.sum_insert ha] using hterm.add (ih ht')
+  simpa [s] using hgeneral s hs
 
 end RHLean.Analysis
