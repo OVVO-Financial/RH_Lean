@@ -23,6 +23,14 @@ theorem k2A2AbelPrefix_centered_abs_le_head_add
   let f : ℕ → ℝ := fun n =>
     (k2MobiusLogMoment 2 n - A) *
       (k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1))
+  have habssum : ∀ s : Finset ℕ,
+      |∑ n ∈ s, f n| ≤ ∑ n ∈ s, |f n| := by
+    intro s
+    induction s using Finset.induction_on with
+    | empty => simp
+    | @insert a s ha ih =>
+        simp only [Finset.sum_insert ha]
+        exact (abs_add_le _ _).trans (add_le_add_left ih _)
   have hM : 1 ≤ M := hN.trans hNM
   have hsplit :
       (∑ n ∈ Finset.Ico 1 N, f n) + (∑ n ∈ Finset.Ico N M, f n) =
@@ -35,8 +43,7 @@ theorem k2A2AbelPrefix_centered_abs_le_head_add
             k2AbelBoundaryWeight sigma (n + 1)) := by
     calc
       |∑ n ∈ Finset.Ico N M, f n| ≤
-          ∑ n ∈ Finset.Ico N M, |f n| := by
-            exact abs_sum_le_sum_abs
+          ∑ n ∈ Finset.Ico N M, |f n| := habssum (Finset.Ico N M)
       _ ≤ ∑ n ∈ Finset.Ico N M,
           eps * (k2AbelBoundaryWeight sigma n -
             k2AbelBoundaryWeight sigma (n + 1)) := by
