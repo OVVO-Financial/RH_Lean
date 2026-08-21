@@ -79,8 +79,7 @@ theorem fermatSqReal_eq_sourceProduct {B : ℕ}
     ((fermatPoint (x.c : ℝ) (x.q : ℝ)) ^ 2).re =
       (sourceProduct (wheelToSource x) : ℝ) := by
   rw [fermatPoint_sq_re, sourceProduct_wheelToSource]
-  push_cast
-  simp [wheelProduct, mul_comm]
+  simp [wheelProduct, Nat.cast_mul, mul_comm]
 
 /-- Whole-source weight preservation. -/
 theorem sourceWeight_wheelToSource {B : ℕ}
@@ -173,7 +172,7 @@ theorem cofactor_eq_parent_iff_inserted_is_top {B : ℕ}
   have hfactor := canonicalCofactor_mul_largestPrimeFactor hchildgt
   constructor
   · intro hc
-    exact Nat.mul_left_cancel (by omega : 0 < m.parent.c) <| by
+    exact Nat.mul_left_cancel m.parent.data.2.1 <| by
       calc
         m.parent.c * canonicalLargestPrimeFactor m.child.c =
             canonicalCofactor m.child.c *
@@ -276,10 +275,11 @@ def wheelFreshPrimeCounterexampleParent : WheelFactorConfiguration 70 where
   q := 7
   c := 5
   data := by
-    refine ⟨by norm_num, by norm_num, by norm_num, by norm_num, ?_⟩
-    intro p _hp hpd
-    have hple : p ≤ 5 := Nat.le_of_dvd (by norm_num) hpd
-    omega
+    refine ⟨by norm_num, by norm_num, ?_, by norm_num, ?_⟩
+    · exact (show Nat.Prime 5 by norm_num).squarefree
+    · intro p _hp hpd
+      have hple : p ≤ 5 := Nat.le_of_dvd (by norm_num) hpd
+      omega
   q_lt := by norm_num
   c_lt := by norm_num
 
@@ -288,11 +288,15 @@ def wheelFreshPrimeCounterexampleChild : WheelFactorConfiguration 70 where
   q := 7
   c := 10
   data := by
-    refine ⟨by norm_num, by norm_num, by norm_num, by norm_num, ?_⟩
-    intro p hp hpd
-    have hp2 : 2 ≤ p := hp.two_le
-    have hple : p ≤ 10 := Nat.le_of_dvd (by norm_num) hpd
-    interval_cases p <;> norm_num at hp hpd ⊢
+    refine ⟨by norm_num, by norm_num, ?_, by norm_num, ?_⟩
+    · have h2 : Squarefree 2 := (show Nat.Prime 2 by norm_num).squarefree
+      have h5 : Squarefree 5 := (show Nat.Prime 5 by norm_num).squarefree
+      have hcop : Nat.Coprime 2 5 := by norm_num
+      simpa using (Nat.squarefree_mul hcop).2 ⟨h2, h5⟩
+    · intro p hp hpd
+      have hp2 : 2 ≤ p := hp.two_le
+      have hple : p ≤ 10 := Nat.le_of_dvd (by norm_num) hpd
+      interval_cases p <;> norm_num at hpd <;> omega
   q_lt := by norm_num
   c_lt := by norm_num
 
