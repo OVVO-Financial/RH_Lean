@@ -1,2 +1,2 @@
-target=RHLean.Analysis.K2RecipMomentAnalyticClosure
-probe=29
+target=RHLean.Analysis.K2RecipMomentBoundaryScratch
+probe=30
