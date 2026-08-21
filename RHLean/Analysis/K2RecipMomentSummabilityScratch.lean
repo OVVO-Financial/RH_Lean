@@ -1,0 +1,84 @@
+import RHLean.Analysis.K2RecipMomentWeightScratch
+
+noncomputable section
+
+open Filter Set Topology
+open scoped ArithmeticFunction.Moebius
+
+namespace RHLean.Analysis
+
+/-- Strong Mertens makes the order-two Abel increments absolutely summable. -/
+theorem k2MertensAbelTerm_two_summable :
+    Summable (k2MertensAbelTerm 2) := by
+  obtain ⟨c, C, hc, hC, hM⟩ := strongNativeMertensSubexp
+  let g : ℕ → ℝ := fun N =>
+    8 * C * (1 / ((N : ℝ) * (Real.log (N : ℝ)) ^ 3))
+  have hbase : Summable (fun N : ℕ =>
+      1 / ((N : ℝ) * (Real.log (N : ℝ)) ^ 3)) := by
+    rw [← summable_nat_add_iff 3 (G := ℝ)]
+    simpa [k2LogHarmonicTail] using
+      (k2LogHarmonicTail_summable (p := 3) (by norm_num))
+  have hg : Summable g := by
+    exact hbase.mul_left (8 * C)
+  apply Summable.of_norm_bounded_eventually_nat hg
+  filter_upwards [eventually_ge_atTop 3,
+    strongMertens_scale_pow_le_exp_eventually 50 hc] with N hN hpow
+  have hNposNat : 0 < N := by omega
+  have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast hNposNat
+  have hN1 : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hNposNat
+  have hL : 1 < Real.log (N : ℝ) := logt_gt_one (by exact_mod_cast hN : (3 : ℝ) ≤ N)
+  have hLpos : 0 < Real.log (N : ℝ) := by linarith
+  let r := strongMertensScale (N : ℝ)
+  have hr50 : (Real.log (N : ℝ)) ^ 5 = r ^ 50 := by
+    have hs := strongMertensScale_pow_ten (X := (N : ℝ)) hN1
+    dsimp [r]
+    rw [← hs]
+    ring
+  have hdecay5 :
+      Real.exp (-c * r) * (Real.log (N : ℝ)) ^ 5 ≤ 1 := by
+    rw [hr50]
+    calc
+      Real.exp (-c * r) * r ^ 50
+          ≤ Real.exp (-c * r) * Real.exp (c * r) :=
+        mul_le_mul_of_nonneg_left hpow (Real.exp_pos _).le
+      _ = 1 := by
+        rw [← Real.exp_add]
+        ring_nf
+        simp
+  have hdecay2 :
+      Real.exp (-c * r) * (Real.log (N : ℝ)) ^ 2 ≤
+        1 / (Real.log (N : ℝ)) ^ 3 := by
+    rw [le_div_iff₀ (pow_pos hLpos 3)]
+    calc
+      Real.exp (-c * r) * (Real.log (N : ℝ)) ^ 2 *
+          (Real.log (N : ℝ)) ^ 3
+          = Real.exp (-c * r) * (Real.log (N : ℝ)) ^ 5 := by ring
+      _ ≤ 1 := hdecay5
+  have hweight := k2LogRecipWeight_two_diff_abs_le N hN
+  rw [Real.norm_eq_abs, k2MertensAbelTerm, abs_mul]
+  calc
+    |nativeMertensSummatory N| *
+        |k2LogRecipWeight 2 N - k2LogRecipWeight 2 (N + 1)|
+      ≤ (C * (N : ℝ) * Real.exp (-c * r)) *
+          |k2LogRecipWeight 2 N - k2LogRecipWeight 2 (N + 1)| := by
+        apply mul_le_mul_of_nonneg_right
+        · simpa [r] using hM N hN
+        · exact abs_nonneg _
+    _ ≤ (C * (N : ℝ) * Real.exp (-c * r)) *
+          (8 * (Real.log (N : ℝ)) ^ 2 / (N : ℝ) ^ 2) := by
+        apply mul_le_mul_of_nonneg_left hweight
+        positivity
+    _ = (8 * C / (N : ℝ)) *
+          (Real.exp (-c * r) * (Real.log (N : ℝ)) ^ 2) := by
+        field_simp [ne_of_gt hNpos]
+        ring
+    _ ≤ (8 * C / (N : ℝ)) *
+          (1 / (Real.log (N : ℝ)) ^ 3) := by
+        apply mul_le_mul_of_nonneg_left hdecay2
+        positivity
+    _ = g N := by
+        dsimp [g]
+        field_simp [ne_of_gt hNpos]
+        ring
+
+end RHLean.Analysis
