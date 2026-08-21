@@ -54,7 +54,7 @@ theorem nativeMertensSharpReal_eq_sum_range (X : ℝ) :
 theorem strongMertens_smoothed_close_aux
     {Smooth : (ℝ → ℝ) → ℝ → ℝ → ℝ} (SmoothingF : ℝ → ℝ)
     (c1 : ℝ) (c1_pos : 0 < c1) (c1_lt : c1 < 1)
-    (c2 : ℝ) (c2_pos : 0 < c2) (c2_lt : c2 < 2)
+    (c2 : ℝ) (c2_pos : 0 < c2)
     (hc2 : ∀ (eps x : ℝ), eps ∈ Set.Ioo 0 1 →
       1 + c2 * eps ≤ x → Smooth SmoothingF eps x = 0)
     (C : ℝ) (C_eq : C = 6 * (3 * c1 + c2))
