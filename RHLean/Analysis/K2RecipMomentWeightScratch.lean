@@ -15,8 +15,9 @@ private def k2LogRecipRealTwo (x : ℝ) : ℝ :=
 private theorem k2LogRecipRealTwo_hasDerivAt {x : ℝ} (hx : x ≠ 0) :
     HasDerivAt k2LogRecipRealTwo
       ((2 * Real.log x - (Real.log x) ^ 2) / x ^ 2) x := by
-  have h := (Real.hasDerivAt_log hx).pow 2 |>.div (hasDerivAt_id x) hx
-  convert h using 1 <;> simp [k2LogRecipRealTwo] <;> field_simp [hx] <;> ring
+  have h := ((Real.hasDerivAt_log hx).pow 2).div (hasDerivAt_id x) hx
+  convert h using 1
+  field_simp [hx]
 
 /-- Adjacent order-two reciprocal-log weights differ by at most the natural
 `log^2(n) / n^2` derivative scale. -/
@@ -55,8 +56,10 @@ theorem k2LogRecipWeight_two_diff_abs_le
       ‖(2 * Real.log x - (Real.log x) ^ 2) / x ^ 2‖ ≤ C := by
     intro x hx
     have hx0 : 0 < x := ha0.trans_le hx.1
-    have hloga0 : 0 ≤ Real.log a := halog.le.trans' zero_le_one
-    have hlogx0 : 0 ≤ Real.log x := Real.log_nonneg (by linarith)
+    have hloga0 : 0 ≤ Real.log a := le_trans zero_le_one halog.le
+    have hx3 : (3 : ℝ) ≤ x := ha3.trans hx.1
+    have hx1 : (1 : ℝ) ≤ x := by linarith
+    have hlogx0 : 0 ≤ Real.log x := Real.log_nonneg hx1
     have hx_le_sq : x ≤ a ^ 2 := hx.2.le.trans hb_le_sq
     have hlogx_le : Real.log x ≤ 2 * Real.log a := by
       calc
@@ -65,10 +68,12 @@ theorem k2LogRecipWeight_two_diff_abs_le
     have hnum : |2 * Real.log x - (Real.log x) ^ 2| ≤
         8 * (Real.log a) ^ 2 := by
       calc
-        |2 * Real.log x - (Real.log x) ^ 2|
-            ≤ |2 * Real.log x| + |(Real.log x) ^ 2| := abs_sub_le _ _
+        |2 * Real.log x - (Real.log x) ^ 2| =
+            |2 * Real.log x + (-(Real.log x) ^ 2)| := by ring
+        _ ≤ |2 * Real.log x| + |-(Real.log x) ^ 2| := abs_add _ _
         _ = 2 * Real.log x + (Real.log x) ^ 2 := by
-          rw [abs_of_nonneg (by positivity), abs_of_nonneg (sq_nonneg _)]
+          rw [abs_of_nonneg (by positivity), abs_neg,
+            abs_of_nonneg (sq_nonneg _)]
         _ ≤ 8 * (Real.log a) ^ 2 := by
           nlinarith [sq_nonneg (Real.log x), sq_nonneg (Real.log a)]
     have hsq : a ^ 2 ≤ x ^ 2 :=
