@@ -1,1 +1,1 @@
-trigger=horizontal-closing-refactor-2026-08-20
+target=RHLean.Analysis.StrongMertensLogNineHorizontal
