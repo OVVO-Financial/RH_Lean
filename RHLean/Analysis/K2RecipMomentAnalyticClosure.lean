@@ -85,4 +85,45 @@ def k2InvZetaRegular (s : ℂ) : ℂ :=
 theorem k2InvZetaRegular_one : k2InvZetaRegular 1 = 0 := by
   simp [k2InvZetaRegular]
 
+/-- The regular reciprocal is analytic at the filled point. -/
+theorem k2InvZetaRegular_analyticAt_one :
+    AnalyticAt ℂ k2InvZetaRegular (1 : ℂ) := by
+  have hlin : AnalyticAt ℂ (fun s : ℂ => s - 1) (1 : ℂ) :=
+    analyticAt_id.sub analyticAt_const
+  have hden : AnalyticAt ℂ
+      (fun s : ℂ => 1 + (s - 1) * k2ZetaRegularPart s) (1 : ℂ) :=
+    analyticAt_const.add (hlin.mul k2ZetaRegularPart_analyticAt_one)
+  unfold k2InvZetaRegular
+  exact hlin.fun_div hden (by simp)
+
+/-- On the absolutely convergent half-plane the regular reciprocal is the
+ordinary reciprocal of the Riemann zeta function. -/
+theorem k2InvZetaRegular_eq_inv_riemannZeta {s : ℂ} (hs : 1 < s.re) :
+    k2InvZetaRegular s = (riemannZeta s)⁻¹ := by
+  have hs1 : s ≠ (1 : ℂ) := by
+    intro h
+    rw [h] at hs
+    norm_num at hs
+  have hsub : s - 1 ≠ 0 := sub_ne_zero.mpr hs1
+  have hz0 : riemannZeta s ≠ 0 := riemannZeta_ne_zero_of_one_lt_re hs
+  have hden :
+      1 + (s - 1) * (riemannZeta s - 1 / (s - 1)) =
+        (s - 1) * riemannZeta s := by
+    field_simp [hsub]
+    ring
+  rw [k2InvZetaRegular, k2ZetaRegularPart_eq hs1, hden]
+  field_simp [hsub, hz0]
+
+/-- On `re s > 1`, the regular reciprocal is exactly the Mobius L-series. -/
+theorem k2InvZetaRegular_eq_moebiusLSeries {s : ℂ} (hs : 1 < s.re) :
+    k2InvZetaRegular s = L ↗μ s := by
+  rw [k2InvZetaRegular_eq_inv_riemannZeta hs]
+  have hprod := ArithmeticFunction.LSeries_zeta_mul_Lseries_moebius hs
+  rw [ArithmeticFunction.LSeries_zeta_eq_riemannZeta hs] at hprod
+  have hz0 : riemannZeta s ≠ 0 := riemannZeta_ne_zero_of_one_lt_re hs
+  calc
+    (riemannZeta s)⁻¹ = (riemannZeta s)⁻¹ * 1 := by simp
+    _ = (riemannZeta s)⁻¹ * (riemannZeta s * L ↗μ s) := by rw [hprod]
+    _ = L ↗μ s := by simp [hz0, mul_assoc]
+
 end RHLean.Analysis
