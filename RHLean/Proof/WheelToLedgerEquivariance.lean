@@ -78,8 +78,9 @@ theorem fermatSqReal_eq_sourceProduct {B : ℕ}
     (x : WheelFactorConfiguration B) :
     ((fermatPoint (x.c : ℝ) (x.q : ℝ)) ^ 2).re =
       (sourceProduct (wheelToSource x) : ℝ) := by
-  rw [fermatPoint_sq_re]
-  simp [sourceProduct, wheelToSource, Nat.cast_mul, mul_comm]
+  rw [fermatPoint_sq_re, sourceProduct_wheelToSource]
+  push_cast
+  simp [wheelProduct, mul_comm]
 
 /-- Whole-source weight preservation. -/
 theorem sourceWeight_wheelToSource {B : ℕ}
@@ -172,11 +173,21 @@ theorem cofactor_eq_parent_iff_inserted_is_top {B : ℕ}
   have hfactor := canonicalCofactor_mul_largestPrimeFactor hchildgt
   constructor
   · intro hc
-    rw [hc, m.child_core] at hfactor
-    exact Nat.mul_left_cancel (Nat.zero_lt_of_lt m.parent.data.2.1) hfactor
+    exact Nat.mul_left_cancel (by omega : 0 < m.parent.c) <| by
+      calc
+        m.parent.c * canonicalLargestPrimeFactor m.child.c =
+            canonicalCofactor m.child.c *
+              canonicalLargestPrimeFactor m.child.c := by rw [hc]
+        _ = m.child.c := hfactor
+        _ = m.parent.c * m.freshPrime := m.child_core
   · intro hp
-    rw [hp, m.child_core] at hfactor
-    exact Nat.mul_right_cancel m.freshPrime_prime.pos hfactor
+    exact Nat.mul_right_cancel m.freshPrime_prime.pos <| by
+      calc
+        canonicalCofactor m.child.c * m.freshPrime =
+            canonicalCofactor m.child.c *
+              canonicalLargestPrimeFactor m.child.c := by rw [hp]
+        _ = m.child.c := hfactor
+        _ = m.parent.c * m.freshPrime := m.child_core
 
 /-- The inserted prime is the canonical top core prime exactly when the fresh
 prime was adjoined in increasing prime order. -/
@@ -208,8 +219,12 @@ theorem inserted_is_top_iff_ordered {B : ℕ}
         m.freshPrime_prime hpdiv
     have hlpfPrime := canonicalLargestPrimeFactor_prime hchildgt
     have hlpfDvd := canonicalLargestPrimeFactor_dvd hchildgt
-    rw [m.child_core] at hlpfDvd
-    rcases hlpfPrime.dvd_mul.mp hlpfDvd with hc | hp
+    have hlpfDvdProd :
+        canonicalLargestPrimeFactor m.child.c ∣
+          m.parent.c * m.freshPrime := by
+      rw [← m.child_core]
+      exact hlpfDvd
+    rcases hlpfPrime.dvd_mul.mp hlpfDvdProd with hc | hp
     · have hlt := hord _ hlpfPrime hc
       omega
     · rcases m.freshPrime_prime.eq_one_or_self_of_dvd
@@ -260,7 +275,11 @@ end WheelFreshPrimeMove
 def wheelFreshPrimeCounterexampleParent : WheelFactorConfiguration 70 where
   q := 7
   c := 5
-  data := by native_decide
+  data := by
+    refine ⟨by norm_num, by norm_num, by norm_num, by norm_num, ?_⟩
+    intro p _hp hpd
+    have hple : p ≤ 5 := Nat.le_of_dvd (by norm_num) hpd
+    omega
   q_lt := by norm_num
   c_lt := by norm_num
 
@@ -268,7 +287,12 @@ def wheelFreshPrimeCounterexampleParent : WheelFactorConfiguration 70 where
 def wheelFreshPrimeCounterexampleChild : WheelFactorConfiguration 70 where
   q := 7
   c := 10
-  data := by native_decide
+  data := by
+    refine ⟨by norm_num, by norm_num, by norm_num, by norm_num, ?_⟩
+    intro p hp hpd
+    have hp2 : 2 ≤ p := hp.two_le
+    have hple : p ≤ 10 := Nat.le_of_dvd (by norm_num) hpd
+    interval_cases p <;> norm_num at hp hpd ⊢
   q_lt := by norm_num
   c_lt := by norm_num
 
@@ -279,9 +303,15 @@ def wheelFreshPrimeCounterexample : WheelFreshPrimeMove 70 where
   freshPrime := 2
   freshPrime_prime := by norm_num
   same_distinguished := rfl
-  child_core := by norm_num
-  fresh := by norm_num
-  child_smooth := by norm_num
+  child_core := by
+    change 10 = 5 * 2
+    norm_num
+  fresh := by
+    change ¬ 2 ∣ 5
+    norm_num
+  child_smooth := by
+    change 7 < 10
+    norm_num
 
 /-- **Refutation of unrestricted equivariance.**  For `(q,c,p) = (7,5,2)`, the
 wheel move appends a genuinely fresh prime, but ancestry strips `5`, the largest
@@ -291,6 +321,8 @@ theorem unrestricted_wheelFreshPrime_parent_equivariance_fails :
       some (wheelToSource wheelFreshPrimeCounterexample.parent) := by
   exact WheelFreshPrimeMove.not_parent_equivariant_of_larger_parent_prime
     wheelFreshPrimeCounterexample (r := 5)
-    (by norm_num) (by norm_num) (by norm_num)
+    (by norm_num)
+    (by change 5 ∣ 5; simp)
+    (by change 2 < 5; norm_num)
 
 end RHLean.Proof
