@@ -487,4 +487,6 @@ import RHLean.Proof.TriplingPacketTransport
 import RHLean.Proof.TwoAnchorSlackCoverage
 import RHLean.Proof.UniformResidualBound
 import RHLean.Proof.VanishingTransitionRelevance
+import RHLean.Proof.WheelToLedgerEquivariance
+import RHLean.Proof.WheelToLedgerPushforward
 import RHLean.Verification.FiniteRangeCertificates
