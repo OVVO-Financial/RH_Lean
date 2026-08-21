@@ -173,7 +173,11 @@ theorem k2InvZetaRegular_iteratedDeriv_two :
   have hprod := hlin.fun_mul hderiv_factor_diff.hasDerivAt
   have hH : HasDerivAt H (-2 * (gammaE : ℂ)) (1 : ℂ) := by
     have hsum := k2InvZetaFactor_hasDerivAt_one.fun_add hprod
-    simpa [hfactor_deriv_value] using hsum
+    have hsum' : HasDerivAt H
+        (-(gammaE : ℂ) + -(gammaE : ℂ)) (1 : ℂ) := by
+      simpa using hsum
+    convert hsum' using 1
+    ring
   have hsecond :
       deriv (deriv k2InvZetaRegular) (1 : ℂ) = -2 * (gammaE : ℂ) := by
     rw [hderiv_eq.deriv_eq]
@@ -231,16 +235,18 @@ theorem k2InvZetaRegular_iteratedDeriv_two_eq_moebiusLogSqLSeries
   let U : Set ℂ := {z : ℂ | 1 < z.re}
   have hUopen : IsOpen U := by
     dsimp [U]
-    exact isOpen_lt continuous_const continuous_re
+    exact isOpen_lt continuous_const Complex.continuous_re
   have heq : Set.EqOn k2InvZetaRegular
       (LSeries (fun n : ℕ => (μ n : ℂ))) U := by
     intro z hz
     exact k2InvZetaRegular_eq_moebiusLSeries hz
   have hderiv := heq.iteratedDeriv_of_isOpen hUopen 2 hs
   rw [hderiv]
+  have hsE : (1 : EReal) < (s.re : EReal) := by
+    exact_mod_cast hs
   have habs :
-      LSeries.abscissaOfAbsConv (fun n : ℕ => (μ n : ℂ)) < s.re :=
-    k2Mobius_abscissaOfAbsConv_le_one.trans_lt hs
+      LSeries.abscissaOfAbsConv (fun n : ℕ => (μ n : ℂ)) < (s.re : EReal) :=
+    k2Mobius_abscissaOfAbsConv_le_one.trans_lt hsE
   rw [LSeries_iteratedDeriv 2 habs]
   norm_num
 
