@@ -124,6 +124,6 @@ theorem k2InvZetaRegular_eq_moebiusLSeries {s : ℂ} (hs : 1 < s.re) :
   calc
     (riemannZeta s)⁻¹ = (riemannZeta s)⁻¹ * 1 := by simp
     _ = (riemannZeta s)⁻¹ * (riemannZeta s * L ↗μ s) := by rw [hprod]
-    _ = L ↗μ s := by simp [hz0, mul_assoc]
+    _ = L ↗μ s := by simp [hz0]
 
 end RHLean.Analysis
