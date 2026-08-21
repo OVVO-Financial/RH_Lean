@@ -52,7 +52,7 @@ noncomputable def ancestryParentWheelMove {B : ℕ}
       freshPrime := canonicalLargestPrimeFactor (sourceCore s)
       freshPrime_prime := canonicalLargestPrimeFactor_prime hcgt
       same_distinguished := by
-        simpa [sourceToWheelFactor] using (sourcePrime_parentIndex s h).symm
+        simp [sourceToWheelFactor]
       child_core := by
         change sourceCore s =
           sourceCore (parentIndex s h) *
@@ -146,9 +146,14 @@ theorem orderedWheelParentWeight_eq_neg_childWeight
   have hsign := sourceWeight_signReversal s (parentIndex s h) hparent
   have hparentWeight : sourceWeight (parentIndex s h) = -sourceWeight s := by
     linarith
-  rw [← ancestryParentWheelMove_parent_source s h,
-    ← sourceWeight_wheelToSource]
-  exact hparentWeight
+  calc
+    wheelSignedWeight (ancestryParentWheelMove s h).parent =
+        sourceWeight
+          (wheelToSource (ancestryParentWheelMove s h).parent) :=
+      (sourceWeight_wheelToSource _).symm
+    _ = sourceWeight (parentIndex s h) := by
+      rw [ancestryParentWheelMove_parent_source]
+    _ = -sourceWeight s := hparentWeight
 
 /-- **Pushforward ledger identity.**  The complete parent-fibre cross ledger is
 exactly the signed sum over root configurations crossed with the canonical
@@ -163,13 +168,7 @@ theorem squareRootRootSuccessorCrossLedger_eq_orderedWheelCrossLedger
     sourceSuccessorPrefix_eq_neg_activeSmooth_sum]
   unfold orderedWheelCrossLedger orderedWheelCrossConfigurationSet
     orderedWheelCrossSignedContribution
-  rw [Finset.sum_product]
-  rw [Finset.sum_mul]
-  apply Finset.sum_congr rfl
-  intro u _hu
-  rw [mul_neg, Finset.mul_sum, ← Finset.sum_neg_distrib]
-  apply Finset.sum_congr rfl
-  intro s _hs
-  ring
+  simp [Finset.sum_product, Finset.sum_mul, Finset.mul_sum,
+    Finset.sum_neg_distrib]
 
 end RHLean.Proof
