@@ -282,76 +282,178 @@ theorem nativeMertensHorizontal_logNine_bound_for
       (fun sigma : ℝ => nativeSmoothedMobiusIntegrand f eps X (sigma - T * I))
       (Set.Icc sigmaLeft sigmaRight) := by
     exact ContinuousOn.comp' hHolo.continuousOn (by fun_prop) hHorizontalMaps
+  have hlen : sigmaRight - sigmaLeft ≤ 2 := by
+    dsimp [sigmaLeft, sigmaRight, strongMertensLogNineShift]
+    have hpow9 : (1 : ℝ) ≤ (Real.log T) ^ 9 := one_le_pow₀ hlogT.le
+    have hfrac : corridor.A / (Real.log T) ^ 9 ≤ 1 := by
+      apply (div_le_one (by positivity)).2
+      nlinarith [corridor.A_mem.2, hpow9]
+    have hinv : (Real.log X)⁻¹ ≤ 1 := inv_le_one_of_one_le₀ hlogX.le
+    linarith
+  have hbaseNonneg :
+      0 ≤ Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by
+    have hnum : 0 ≤ Cpoint * X * (1 + (Real.log T) ^ 10) := by
+      exact mul_nonneg
+        (mul_nonneg hCpoint.le (by linarith : 0 ≤ X))
+        (by positivity)
+    have hden : 0 ≤ eps * T ^ 2 := mul_nonneg heps.1.le (sq_nonneg T)
+    exact div_nonneg hnum hden
+  have hpref : ‖(1 / (2 * (Real.pi : ℂ) * I))‖ = 1 / (2 * Real.pi) := by
+    rw [norm_div, norm_one, norm_mul, norm_mul, Complex.norm_ofNat,
+      show ‖(Real.pi : ℂ)‖ = Real.pi from
+        (RCLike.norm_ofReal _).trans (abs_of_pos Real.pi_pos), norm_I]
+    ring
+  have hepsne : eps ≠ 0 := ne_of_gt heps.1
+  have hTne : T ≠ 0 := ne_of_gt (by linarith : 0 < T)
   have hM2 : ‖nativeMertensContourM2 f eps X T sigmaLeft‖ ≤
       Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by
     unfold nativeMertensContourM2
-    rw [norm_mul]
-    have hpref : ‖(1 / (2 * (Real.pi : ℂ) * I))‖ = 1 / (2 * Real.pi) := by
-      rw [norm_div, norm_one, norm_mul, norm_mul, Complex.norm_ofNat,
-        show ‖(Real.pi : ℂ)‖ = Real.pi from
-          (RCLike.norm_ofReal _).trans (abs_of_pos Real.pi_pos), norm_I]
-      ring
-    rw [hpref]
-    apply mul_le_mul_of_nonneg_left _ (by positivity)
-    calc
-      ‖∫ sigma in sigmaLeft..sigmaRight,
-          nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖
-        ≤ ∫ sigma in sigmaLeft..sigmaRight,
-          ‖nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖ :=
-            intervalIntegral.norm_integral_le_integral_norm _
-      _ ≤ (sigmaRight - sigmaLeft) *
-          (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
-        rw [intervalIntegral.integral_of_le hsigOrder]
-        calc
-          ∫ sigma in Set.Ioc sigmaLeft sigmaRight,
-              ‖nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖
-            ≤ ∫ _sigma in Set.Ioc sigmaLeft sigmaRight,
+    rw [norm_mul, hpref]
+    have hint :
+        ‖∫ sigma in sigmaLeft..sigmaRight,
+            nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖ ≤
+          2 * (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
+      calc
+        ‖∫ sigma in sigmaLeft..sigmaRight,
+            nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖
+          ≤ ∫ sigma in sigmaLeft..sigmaRight,
+            ‖nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖ :=
+              intervalIntegral.norm_integral_le_integral_norm _
+        _ ≤ (sigmaRight - sigmaLeft) *
+            (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
+          rw [intervalIntegral.integral_of_le hsigOrder]
+          calc
+            ∫ sigma in Set.Ioc sigmaLeft sigmaRight,
+                ‖nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖
+              ≤ ∫ _sigma in Set.Ioc sigmaLeft sigmaRight,
+                  (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
+                apply setIntegral_mono_on
+                · exact hHorizontalContinuous.norm.integrableOn_compact isCompact_Icc
+                · exact integrableOn_const (by simp)
+                · exact measurableSet_Ioc
+                · intro sigma hs
+                  exact hpoint sigma ⟨hs.1.le, hs.2.le⟩
+            _ = (sigmaRight - sigmaLeft) *
                 (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
-              apply setIntegral_mono_on
-              · exact hHorizontalContinuous.norm.integrableOn_compact isCompact_Icc
-              · exact integrableOn_const (by simp)
-              · exact measurableSet_Ioc
-              · intro sigma hs
-                exact hpoint sigma ⟨hs.1.le, hs.2.le⟩
-          _ = (sigmaRight - sigmaLeft) *
-              (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
-                rw [setIntegral_const, Real.volume_Ioc]
-                simp [hsigOrder]
-      _ ≤ 2 * (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
-        have hlen : sigmaRight - sigmaLeft ≤ 2 := by
-          dsimp [sigmaLeft, sigmaRight, strongMertensLogNineShift]
-          have hpow9 : (1 : ℝ) ≤ (Real.log T) ^ 9 := one_le_pow₀ hlogT.le
-          have hfrac : corridor.A / (Real.log T)^9 ≤ 1 := by
-            apply (div_le_one (by positivity)).2
-            nlinarith [corridor.A_mem.2, hpow9]
-          have hinv : (Real.log X)⁻¹ ≤ 1 := inv_le_one_of_one_le₀ hlogX.le
-          linarith
-        have hnonneg : 0 ≤ Cpoint * X * (1 + (Real.log T) ^ 10) /
-            (eps * T ^ 2) := by positivity
-        nlinarith
+                  rw [setIntegral_const, Real.volume_Ioc]
+                  simp [hsigOrder]
+        _ ≤ 2 * (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) :=
+          mul_le_mul_of_nonneg_right hlen hbaseNonneg
+    calc
+      1 / (2 * Real.pi) *
+          ‖∫ sigma in sigmaLeft..sigmaRight,
+            nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖
+        ≤ 1 / (2 * Real.pi) *
+            (2 * (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2))) :=
+          mul_le_mul_of_nonneg_left hint (by positivity)
       _ = Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
           (eps * T ^ 2) := by
-        field_simp <;> ring
+        field_simp [Real.pi_ne_zero, hepsne, hTne]
+        ring
+  have hXpos : 0 < X := by linarith
+  have hpointUpper : ∀ sigma ∈ Set.Icc sigmaLeft sigmaRight,
+      ‖nativeSmoothedMobiusIntegrand f eps X (sigma + T * I)‖ ≤
+        Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by
+    intro sigma hs
+    have hsym := nativeSmoothedMobiusIntegrand_conj
+      (f := f) (eps := eps) (X := X) hXpos ((sigma : ℂ) - T * I)
+    have hstar : starRingEnd ℂ ((sigma : ℂ) - T * I) =
+        (sigma : ℂ) + T * I := by simp
+    rw [hstar] at hsym
+    have hnorm := congrArg norm hsym
+    rw [RCLike.norm_conj] at hnorm
+    rw [hnorm]
+    exact hpoint sigma hs
+  have hHorizontalMapsUpper : Set.MapsTo
+      (fun sigma : ℝ => (sigma : ℂ) + T * I)
+      (Set.Icc sigmaLeft sigmaRight)
+      (((Set.Icc (strongMertensLogNineShift corridor.A T) 2) ×ℂ
+        Set.Icc (-T) T) \ {(1 : ℂ)}) := by
+    intro sigma hsigma
+    constructor
+    · rw [Complex.mem_reProdIm]
+      constructor
+      · have hre : ((sigma : ℂ) + T * I).re = sigma := by simp
+        rw [hre]
+        exact ⟨by simpa [sigmaLeft] using hsigma.1, hsigma.2.trans hsigRightLe2⟩
+      · have him : ((sigma : ℂ) + T * I).im = T := by simp
+        rw [him]
+        exact ⟨by linarith, le_rfl⟩
+    · intro heq
+      have him := congrArg Complex.im heq
+      simp at him
+      linarith
+  have hHorizontalContinuousUpper : ContinuousOn
+      (fun sigma : ℝ => nativeSmoothedMobiusIntegrand f eps X (sigma + T * I))
+      (Set.Icc sigmaLeft sigmaRight) := by
+    exact ContinuousOn.comp' hHolo.continuousOn (by fun_prop) hHorizontalMapsUpper
   have hM4 : ‖nativeMertensContourM4 f eps X T sigmaLeft‖ ≤
       Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by
-    have hXpos : 0 < X := by linarith
-    have hconj : nativeMertensContourM4 f eps X T sigmaLeft =
-        starRingEnd ℂ (nativeMertensContourM2 f eps X T sigmaLeft) := by
-      unfold nativeMertensContourM2 nativeMertensContourM4
-      simp only [map_mul, map_div₀, conj_I, conj_ofReal, conj_ofNat, map_one]
-      rw [← integral_conj]
-      congr 1
-      apply intervalIntegral.integral_congr
-      intro sigma hs
-      rw [← nativeSmoothedMobiusIntegrand_conj hXpos]
-      congr 1
-      simp
-    rw [hconj, RCLike.norm_conj]
-    exact hM2
+    unfold nativeMertensContourM4
+    rw [norm_mul, hpref]
+    have hint :
+        ‖∫ sigma in sigmaLeft..sigmaRight,
+            nativeSmoothedMobiusIntegrand f eps X (sigma + T * I)‖ ≤
+          2 * (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
+      calc
+        ‖∫ sigma in sigmaLeft..sigmaRight,
+            nativeSmoothedMobiusIntegrand f eps X (sigma + T * I)‖
+          ≤ ∫ sigma in sigmaLeft..sigmaRight,
+            ‖nativeSmoothedMobiusIntegrand f eps X (sigma + T * I)‖ :=
+              intervalIntegral.norm_integral_le_integral_norm _
+        _ ≤ (sigmaRight - sigmaLeft) *
+            (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
+          rw [intervalIntegral.integral_of_le hsigOrder]
+          calc
+            ∫ sigma in Set.Ioc sigmaLeft sigmaRight,
+                ‖nativeSmoothedMobiusIntegrand f eps X (sigma + T * I)‖
+              ≤ ∫ _sigma in Set.Ioc sigmaLeft sigmaRight,
+                  (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
+                apply setIntegral_mono_on
+                · exact hHorizontalContinuousUpper.norm.integrableOn_compact isCompact_Icc
+                · exact integrableOn_const (by simp)
+                · exact measurableSet_Ioc
+                · intro sigma hs
+                  exact hpointUpper sigma ⟨hs.1.le, hs.2.le⟩
+            _ = (sigmaRight - sigmaLeft) *
+                (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
+                  rw [setIntegral_const, Real.volume_Ioc]
+                  simp [hsigOrder]
+        _ ≤ 2 * (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) :=
+          mul_le_mul_of_nonneg_right hlen hbaseNonneg
+    calc
+      1 / (2 * Real.pi) *
+          ‖∫ sigma in sigmaLeft..sigmaRight,
+            nativeSmoothedMobiusIntegrand f eps X (sigma + T * I)‖
+        ≤ 1 / (2 * Real.pi) *
+            (2 * (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2))) :=
+          mul_le_mul_of_nonneg_left hint (by positivity)
+      _ = Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
+          (eps * T ^ 2) := by
+        field_simp [Real.pi_ne_zero, hepsne, hTne]
+        ring
   dsimp [C]
-  have hnonneg : 0 ≤ Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
-      (eps * T ^ 2) := by positivity
-  nlinarith [hM2, hM4]
+  have hBnonneg :
+      0 ≤ Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by
+    have hcoef : 0 ≤ Cpoint / Real.pi := div_nonneg hCpoint.le Real.pi_pos.le
+    have hnum : 0 ≤ Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) := by
+      exact mul_nonneg
+        (mul_nonneg hcoef (by linarith : 0 ≤ X))
+        (by positivity)
+    have hden : 0 ≤ eps * T ^ 2 := mul_nonneg heps.1.le (sq_nonneg T)
+    exact div_nonneg hnum hden
+  calc
+    ‖nativeMertensContourM2 f eps X T (strongMertensLogNineShift corridor.A T)‖ +
+        ‖nativeMertensContourM4 f eps X T (strongMertensLogNineShift corridor.A T)‖
+      ≤ (Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) +
+        (Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
+          simpa [sigmaLeft] using add_le_add hM2 hM4
+    _ = 2 * (Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
+          (eps * T ^ 2)) := by ring
+    _ ≤ 4 * (Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
+          (eps * T ^ 2)) := by nlinarith
+    _ = 4 * Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
+          (eps * T ^ 2) := by ring
 
 /-- Canonical existential facade for the horizontal estimate. -/
 theorem nativeMertensHorizontal_logNine_bound {f : ℝ → ℝ}
