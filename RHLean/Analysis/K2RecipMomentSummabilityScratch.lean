@@ -10,22 +10,23 @@ namespace RHLean.Analysis
 /-- Strong Mertens makes the order-two Abel increments absolutely summable. -/
 theorem k2MertensAbelTerm_two_summable :
     Summable (k2MertensAbelTerm 2) := by
-  obtain ⟨c, C, hc, hC, hM⟩ := strongNativeMertensSubexp
+  obtain ⟨c, C, hc, _hC, hM⟩ := strongNativeMertensSubexp
   let g : ℕ → ℝ := fun N =>
     8 * C * (1 / ((N : ℝ) * (Real.log (N : ℝ)) ^ 3))
   have hbase : Summable (fun N : ℕ =>
       1 / ((N : ℝ) * (Real.log (N : ℝ)) ^ 3)) := by
     rw [← summable_nat_add_iff 3 (G := ℝ)]
-    exact (k2LogHarmonicTail_summable (p := 3) (by norm_num)).congr fun n => by
-      simp [k2LogHarmonicTail, one_div, mul_inv_rev]
+    simpa only [k2LogHarmonicTail, one_div, mul_inv_rev] using
+      (k2LogHarmonicTail_summable (p := 3) (by norm_num))
   have hg : Summable g := by
     exact hbase.mul_left (8 * C)
+  have hnat : Tendsto (fun N : ℕ => (N : ℝ)) atTop atTop :=
+    tendsto_natCast_atTop_atTop
   have hpowNat :
       ∀ᶠ N : ℕ in atTop,
         strongMertensScale (N : ℝ) ^ 50 ≤
           Real.exp (c * strongMertensScale (N : ℝ)) :=
-    tendsto_natCast_atTop_atTop.eventually
-      (strongMertens_scale_pow_le_exp_eventually 50 hc)
+    hnat.eventually (strongMertens_scale_pow_le_exp_eventually 50 hc)
   apply Summable.of_norm_bounded_eventually_nat hg
   filter_upwards [eventually_ge_atTop 3, hpowNat] with N hN hpow
   have hNposNat : 0 < N := by omega
@@ -87,22 +88,23 @@ theorem k2MertensAbelTerm_two_summable :
 /-- Strong Mertens makes the order-three Abel increments absolutely summable. -/
 theorem k2MertensAbelTerm_three_summable :
     Summable (k2MertensAbelTerm 3) := by
-  obtain ⟨c, C, hc, hC, hM⟩ := strongNativeMertensSubexp
+  obtain ⟨c, C, hc, _hC, hM⟩ := strongNativeMertensSubexp
   let g : ℕ → ℝ := fun N =>
     24 * C * (1 / ((N : ℝ) * (Real.log (N : ℝ)) ^ 3))
   have hbase : Summable (fun N : ℕ =>
       1 / ((N : ℝ) * (Real.log (N : ℝ)) ^ 3)) := by
     rw [← summable_nat_add_iff 3 (G := ℝ)]
-    exact (k2LogHarmonicTail_summable (p := 3) (by norm_num)).congr fun n => by
-      simp [k2LogHarmonicTail, one_div, mul_inv_rev]
+    simpa only [k2LogHarmonicTail, one_div, mul_inv_rev] using
+      (k2LogHarmonicTail_summable (p := 3) (by norm_num))
   have hg : Summable g := by
     exact hbase.mul_left (24 * C)
+  have hnat : Tendsto (fun N : ℕ => (N : ℝ)) atTop atTop :=
+    tendsto_natCast_atTop_atTop
   have hpowNat :
       ∀ᶠ N : ℕ in atTop,
         strongMertensScale (N : ℝ) ^ 60 ≤
           Real.exp (c * strongMertensScale (N : ℝ)) :=
-    tendsto_natCast_atTop_atTop.eventually
-      (strongMertens_scale_pow_le_exp_eventually 60 hc)
+    hnat.eventually (strongMertens_scale_pow_le_exp_eventually 60 hc)
   apply Summable.of_norm_bounded_eventually_nat hg
   filter_upwards [eventually_ge_atTop 3, hpowNat] with N hN hpow
   have hNposNat : 0 < N := by omega
