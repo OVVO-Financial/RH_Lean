@@ -24,32 +24,37 @@ jobs:
           from pathlib import Path
           path = Path('RHLean/Analysis/StrongMertensSmoothingFinite.lean')
           text = path.read_text()
+          original = text
 
-          old = '''    rw [Real.norm_of_nonneg]
-    · apply smooth_le_one
-      omega
-    · apply smooth_nonneg
-      omega'''
-          new = '''    rw [Real.norm_of_nonneg]
-    · simpa [F, Nat.cast_add] using smooth_le_one (n + n0) (by omega)
-    · simpa [F, Nat.cast_add] using smooth_nonneg (n + n0) (by omega)'''
-          if text.count(old) != 1:
-              raise SystemExit(f'smoothing cast site: expected 1, found {text.count(old)}')
-          text = text.replace(old, new)
+          replacements = [
+            (
+              '    · apply smooth_le_one\n      omega',
+              '    · simpa [F, Nat.cast_add] using smooth_le_one (n + n0) (by omega)',
+              'upper smoothing cast'
+            ),
+            (
+              '    · apply smooth_nonneg\n      omega',
+              '    · simpa [F, Nat.cast_add] using smooth_nonneg (n + n0) (by omega)',
+              'lower smoothing cast'
+            ),
+            (
+              '        · apply floor_X_add_one_le_self.trans\n          rw [show X + 1 ≤ X * (1 + eps * c1) by\n            ring_nf\n            linarith [X_bound_1]]',
+              '        · exact floor_X_add_one_le_self.trans (by\n            ring_nf\n            linarith [X_bound_1])',
+              'floor transitivity'
+            ),
+          ]
+          for old, new, label in replacements:
+              n = text.count(old)
+              if n != 1:
+                  raise SystemExit(f'{label}: expected exactly one site, found {n}')
+              text = text.replace(old, new)
 
-          old = '''        · apply floor_X_add_one_le_self.trans
-          rw [show X + 1 ≤ X * (1 + eps * c1) by
-            ring_nf
-            linarith [X_bound_1]]'''
-          new = '''        · exact floor_X_add_one_le_self.trans (by
-            ring_nf
-            linarith [X_bound_1])'''
-          if text.count(old) != 1:
-              raise SystemExit(f'floor transitivity site: expected 1, found {text.count(old)}')
-          text = text.replace(old, new)
-
+          if text == original:
+              raise SystemExit('repair made no changes')
           path.write_text(text)
           PY
+          git diff --check
+          git diff -- RHLean/Analysis/StrongMertensSmoothingFinite.lean
 
       - name: Publish finite smoothing proof repair
         shell: bash
