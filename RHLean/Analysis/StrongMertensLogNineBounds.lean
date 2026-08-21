@@ -93,14 +93,22 @@ theorem nativeMertensM3_logNine_bound_for
     have hz := hInv hT habs
     let s : ℂ := (sigmaLeft : ℂ) + t * I
     have hsre : s.re = sigmaLeft := by simp [s]
-    have hM := hMel sigmaLeft hsigpos s (by simp [s]) (by simp [s]; linarith) eps heps.1 heps.2
+    have hsigle2 : sigmaLeft ≤ 2 := by
+      linarith [corridor.shift_lt_one T hT.le]
+    have hM := hMel sigmaLeft hsigpos s (by rw [hsre])
+      (by rw [hsre]; exact hsigle2) eps heps.1 heps.2
     have hnormsq : ‖s‖^2 = sigmaLeft^2 + t^2 := by
       rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
       simp [s]
       ring
+    rw [hnormsq] at hM
+    have hz' : 1 / ‖zetaC s‖ ≤ Cz * (1 + (Real.log T)^7) := by
+      simpa [s, sigmaLeft] using hz
     rw [nativeSmoothedMobiusIntegrand_norm_eq,
       Complex.norm_cpow_eq_rpow_re_of_pos (by linarith), hsre]
-    rwa [hnormsq] at hM ⊢
+    have hZnonneg : 0 ≤ Cz * (1 + (Real.log T)^7) := by positivity
+    have hprod := mul_le_mul hz' hM (norm_nonneg _) hZnonneg
+    exact mul_le_mul_of_nonneg_right hprod (Real.rpow_nonneg (by linarith) _)
   have hHolo := strongMertensSmoothedIntegrand_holomorphicOn_punctured_box
     corridor heps.1 heps.2 hsupp hnonneg hmass hdiff
     (X := X) (T := T) (by linarith : 0 < X) hT.le
@@ -156,27 +164,31 @@ theorem nativeMertensM3_logNine_bound_for
                 (sigmaLeft^2 + t^2)⁻¹ := by
                 apply setIntegral_mono_on
                 · exact hVerticalContinuous.norm.integrableOn_compact isCompact_Icc
-                · apply (ContinuousOn.const_mul (by
-                    apply ContinuousOn.inv₀
-                    · fun_prop
-                    · intro t ht
-                      positivity)).integrableOn_compact isCompact_Icc
+                · exact ((integrable_inv_sq_add_sq (ne_of_gt hsigpos)).const_mul
+                    (Cz * (1 + (Real.log T)^7) * Cm / eps * X^sigmaLeft)).integrableOn
                 · exact measurableSet_Icc
                 · intro t ht
                   have hp := hpoint t ht
-                  simpa [mul_inv, div_eq_mul_inv] using hp
+                  convert hp using 1 <;>
+                    field_simp [ne_of_gt heps.1] <;> ring
           _ ≤ (Cz * (1 + (Real.log T)^7) * Cm / eps * X^sigmaLeft) *
                 (Real.pi / sigmaLeft) := by
-                rw [← integral_const_mul]
+                rw [MeasureTheory.integral_const_mul]
                 have hfull := integral_inv_sq_add_sq (ne_of_gt hsigpos)
-                calc
-                  ∫ t in Set.Icc (-T) T, (sigmaLeft^2+t^2)⁻¹
-                    ≤ ∫ t : ℝ, (sigmaLeft^2+t^2)⁻¹ :=
-                      MeasureTheory.setIntegral_le_integral
-                        (integrable_inv_sq_add_sq (ne_of_gt hsigpos))
-                        (Filter.Eventually.of_forall fun t =>
-                          inv_nonneg.mpr (by positivity))
-                  _ = Real.pi / sigmaLeft := by simpa [abs_of_pos hsigpos] using hfull
+                have hkernel :
+                    ∫ t in Set.Icc (-T) T, (sigmaLeft^2+t^2)⁻¹ ≤
+                      Real.pi / sigmaLeft := by
+                  calc
+                    ∫ t in Set.Icc (-T) T, (sigmaLeft^2+t^2)⁻¹
+                      ≤ ∫ t : ℝ, (sigmaLeft^2+t^2)⁻¹ :=
+                        MeasureTheory.setIntegral_le_integral
+                          (integrable_inv_sq_add_sq (ne_of_gt hsigpos))
+                          (Filter.Eventually.of_forall fun t =>
+                            inv_nonneg.mpr (by positivity))
+                    _ = Real.pi / sigmaLeft := by
+                      simpa [abs_of_pos hsigpos] using hfull
+                apply mul_le_mul_of_nonneg_left hkernel
+                positivity
     _ ≤ 4 * Cz * Cm * X *
         Real.exp (-corridor.A * Real.log X / (Real.log T)^9) *
           (1 + (Real.log T)^7) / eps := by
@@ -186,14 +198,16 @@ theorem nativeMertensM3_logNine_bound_for
           have hlogT : 1 < Real.log T := logt_gt_one hT.le
           have hfrac : corridor.A / (Real.log T)^9 ≤ 1/2 := by
             apply (div_le_iff₀ (by positivity)).2
-            nlinarith [corridor.A_mem.2, one_le_pow₀ hlogT.le 9]
+            nlinarith [corridor.A_mem.2, one_le_pow₀ hlogT.le]
           linarith
         rw [inv_le_comm₀ hsigpos (by norm_num)]
         nlinarith
       have hXshift := LogNineContour.rpow_logNine_shift
         (A := corridor.A) (X := X) (T := T) (by linarith : 0 < X)
-      dsimp [sigmaLeft, strongMertensLogNineShift] at hXshift
-      rw [hXshift]
+      rw [show X ^ sigmaLeft =
+          X * Real.exp (-corridor.A * Real.log X / (Real.log T)^9) by
+        dsimp [sigmaLeft, strongMertensLogNineShift]
+        exact hXshift]
       field_simp
       nlinarith [Real.pi_pos]
 
