@@ -55,9 +55,8 @@ theorem k2AbelBoundaryWeight_tendsto_one (n : ℕ) (hn : 1 ≤ n) :
       (fun sigma : ℝ => Real.exp (Real.log (n : ℝ) * (1 - sigma))) by
         funext sigma
         rw [Real.rpow_def_of_pos hnpos]]
-  convert (Real.continuous_exp.continuousAt.comp
-    ((continuous_const.mul (continuous_const.sub continuous_id)).continuousAt)).tendsto using 1 <;>
-    simp
+  simpa using (Real.continuous_exp.continuousAt.comp
+    ((continuous_const.mul (continuous_const.sub continuous_id)).continuousAt)).tendsto
 
 /-- The finite Abel differences telescope exactly. -/
 theorem k2AbelBoundaryWeight_telescopes
@@ -95,20 +94,37 @@ theorem k2A2AbelPrefix_centered
   have htel := k2AbelBoundaryWeight_telescopes sigma hM
   unfold k2A2AbelPrefix k2MobiusLogMoment at *
   rw [habel]
-  calc
-    (∑ n ∈ Icc 1 M, ((μ n : ℤ) : ℝ) * k2LogRecipWeight 2 n) *
-          k2AbelBoundaryWeight sigma M +
-        ∑ n ∈ Ico 1 M,
-          (∑ k ∈ Icc 1 n, ((μ k : ℤ) : ℝ) * k2LogRecipWeight 2 k) *
-            (k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1)) - A
-        = ((∑ n ∈ Icc 1 M, ((μ n : ℤ) : ℝ) * k2LogRecipWeight 2 n) - A) *
-            k2AbelBoundaryWeight sigma M +
-          ∑ n ∈ Ico 1 M,
-            ((∑ k ∈ Icc 1 n, ((μ k : ℤ) : ℝ) * k2LogRecipWeight 2 k) - A) *
-              (k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1)) := by
-      rw [Finset.sum_sub_distrib]
-      rw [← Finset.mul_sum]
-      linarith
-    _ = _ := by rfl
+  let S : ℕ → ℝ := fun n =>
+    ∑ k ∈ Icc 1 n, ((μ k : ℤ) : ℝ) * k2LogRecipWeight 2 k
+  let d : ℕ → ℝ := fun n =>
+    k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1)
+  have hcenter :
+      ∑ n ∈ Ico 1 M, (S n - A) * d n =
+        (∑ n ∈ Ico 1 M, S n * d n) - A * (∑ n ∈ Ico 1 M, d n) := by
+    calc
+      ∑ n ∈ Ico 1 M, (S n - A) * d n =
+          ∑ n ∈ Ico 1 M, (S n * d n - A * d n) := by
+            apply Finset.sum_congr rfl
+            intro n _hn
+            ring
+      _ = (∑ n ∈ Ico 1 M, S n * d n) -
+          ∑ n ∈ Ico 1 M, A * d n := by
+            rw [Finset.sum_sub_distrib]
+      _ = (∑ n ∈ Ico 1 M, S n * d n) -
+          A * (∑ n ∈ Ico 1 M, d n) := by
+            rw [Finset.mul_sum]
+  have hAtel :
+      A * k2AbelBoundaryWeight sigma M +
+          A * (∑ n ∈ Ico 1 M, d n) = A := by
+    calc
+      A * k2AbelBoundaryWeight sigma M + A * (∑ n ∈ Ico 1 M, d n) =
+          A * (k2AbelBoundaryWeight sigma M + ∑ n ∈ Ico 1 M, d n) := by ring
+      _ = A := by
+        dsimp [d] at htel
+        rw [htel]
+        ring
+  dsimp [S, d] at hcenter ⊢
+  rw [hcenter]
+  nlinarith [hAtel]
 
 end RHLean.Analysis
