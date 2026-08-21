@@ -1,3 +1,4 @@
+import Mathlib.Analysis.PSeries
 import RHLean.Analysis.K2RecipMomentAnalyticClosure
 import RHLean.Analysis.StrongMertensLogNineBalance
 
@@ -99,6 +100,92 @@ theorem k2StrongMertens_logRecip_endpoint_tendsto_zero (m : ℕ) :
     _ = C * (strongMertensScale (N : ℝ) ^ (10 * m) *
         Real.exp (-c * strongMertensScale (N : ℝ))) := by
       rw [hlogpow]
+      ring
+
+private def k2LogHarmonicTail (p n : ℕ) : ℝ :=
+  1 / (((n + 3 : ℕ) : ℝ) * (Real.log ((n + 3 : ℕ) : ℝ)) ^ p)
+
+/-- Elementary logarithmic harmonic summability.  Cauchy condensation turns the
+tail into a constant multiple of a p-series. -/
+private theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
+    Summable (k2LogHarmonicTail p) := by
+  have hnonneg : ∀ n, 0 ≤ k2LogHarmonicTail p n := by
+    intro n
+    unfold k2LogHarmonicTail
+    positivity
+  have hmono : ∀ ⦃m n⦄, 0 < m → m ≤ n →
+      k2LogHarmonicTail p n ≤ k2LogHarmonicTail p m := by
+    intro m n _hm hmn
+    unfold k2LogHarmonicTail
+    have hmnNat : m + 3 ≤ n + 3 := by omega
+    have hmnR : (((m + 3 : ℕ) : ℝ)) ≤ ((n + 3 : ℕ) : ℝ) := by
+      exact_mod_cast hmnNat
+    have hmpos : 0 < (((m + 3 : ℕ) : ℝ)) := by positivity
+    have hlogm : 0 ≤ Real.log ((m + 3 : ℕ) : ℝ) :=
+      Real.log_nonneg (by exact_mod_cast (show 1 ≤ m + 3 by omega))
+    have hlogle : Real.log ((m + 3 : ℕ) : ℝ) ≤ Real.log ((n + 3 : ℕ) : ℝ) :=
+      Real.log_le_log hmpos hmnR
+    have hpowle : (Real.log ((m + 3 : ℕ) : ℝ)) ^ p ≤
+        (Real.log ((n + 3 : ℕ) : ℝ)) ^ p :=
+      pow_le_pow_left₀ hlogm hlogle p
+    have hdenle : (((m + 3 : ℕ) : ℝ)) * (Real.log ((m + 3 : ℕ) : ℝ)) ^ p ≤
+        ((n + 3 : ℕ) : ℝ) * (Real.log ((n + 3 : ℕ) : ℝ)) ^ p := by
+      exact mul_le_mul hmnR hpowle (by positivity) (by positivity)
+    exact one_div_le_one_div_of_le (by positivity) hdenle
+  rw [← summable_condensed_iff_of_nonneg hnonneg hmono]
+  rw [← summable_nat_add_iff 1 (G := ℝ)]
+  let D : ℝ := 1 / (Real.log 2) ^ p
+  have hpseries0 : Summable (fun n : ℕ => 1 / (n : ℝ) ^ p) :=
+    Real.summable_one_div_nat_pow.mpr hp
+  have hpseries : Summable (fun k : ℕ => 1 / (((k + 1 : ℕ) : ℝ) ^ p)) :=
+    (summable_nat_add_iff 1 (G := ℝ)).2 hpseries0
+  have hmajor : Summable (fun k : ℕ => D * (1 / (((k + 1 : ℕ) : ℝ) ^ p))) :=
+    hpseries.mul_left D
+  apply Summable.of_nonneg_of_le (fun k => by positivity) ?_ hmajor
+  intro k
+  let q : ℕ := 2 ^ (k + 1)
+  have hqpos : 0 < (q : ℝ) := by
+    dsimp [q]
+    positivity
+  have hqleNat : q ≤ q + 3 := by omega
+  have hqle : (q : ℝ) ≤ ((q + 3 : ℕ) : ℝ) := by exact_mod_cast hqleNat
+  have hlogq : Real.log (q : ℝ) = ((k + 1 : ℕ) : ℝ) * Real.log 2 := by
+    dsimp [q]
+    push_cast
+    exact Real.log_pow (2 : ℝ) (k + 1)
+  have hlogle : Real.log (q : ℝ) ≤ Real.log ((q + 3 : ℕ) : ℝ) :=
+    Real.log_le_log hqpos hqle
+  have hlogqpos : 0 < Real.log (q : ℝ) := by
+    rw [hlogq]
+    positivity
+  have hpowle : (Real.log (q : ℝ)) ^ p ≤ (Real.log ((q + 3 : ℕ) : ℝ)) ^ p :=
+    pow_le_pow_left₀ hlogqpos.le hlogle p
+  have hsmallpos : 0 < (q : ℝ) * (Real.log (q : ℝ)) ^ p := by
+    positivity
+  have hbigpos : 0 < ((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p := by
+    have : 1 < ((q + 3 : ℕ) : ℝ) := by
+      exact_mod_cast (show 1 < q + 3 by omega)
+    positivity
+  have hdenle : (q : ℝ) * (Real.log (q : ℝ)) ^ p ≤
+      ((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p := by
+    exact mul_le_mul hqle hpowle (by positivity) (by positivity)
+  have hquot :
+      (q : ℝ) / (((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p) ≤
+        (q : ℝ) / ((q : ℝ) * (Real.log (q : ℝ)) ^ p) := by
+    exact (div_le_div_iff_of_pos_left hqpos hbigpos hsmallpos).2 hdenle
+  calc
+    (2 : ℝ) ^ (k + 1) * k2LogHarmonicTail p (2 ^ (k + 1)) =
+        (q : ℝ) / (((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p) := by
+      dsimp [q, k2LogHarmonicTail]
+      push_cast
+      ring
+    _ ≤ (q : ℝ) / ((q : ℝ) * (Real.log (q : ℝ)) ^ p) := hquot
+    _ = 1 / (Real.log (q : ℝ)) ^ p := by
+      field_simp [ne_of_gt hqpos]
+    _ = D * (1 / (((k + 1 : ℕ) : ℝ) ^ p)) := by
+      dsimp [D]
+      rw [hlogq, mul_pow]
+      field_simp [ne_of_gt Real.log_two_pos]
       ring
 
 end RHLean.Analysis
