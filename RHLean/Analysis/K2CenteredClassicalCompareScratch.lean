@@ -72,7 +72,6 @@ theorem k2KernelComparisonLow_abs_le (N : ℕ) (hN : 1 ≤ N) :
     _ = 2 * ((Nat.sqrt N : ℝ)⁻¹ *
           ∑ d ∈ Finset.range (Nat.sqrt N), |k2r d|) := by
         field_simp [hspos.ne']
-        ring
 
 /-- The low square-root comparison block vanishes. -/
 theorem k2KernelComparisonLow_tendsto_zero (h : K2ClassicalMomentInput) :
