@@ -225,6 +225,14 @@ theorem strongMertens_smoothed_close_eps
   have c1_lt : c1 < 1 := by
     rw [c1_eq]
     exact Real.log_two_lt_d9.trans (by norm_num)
+  have c2_lt : c2 < 2 := by
+    rw [c2_eq]
+    nth_rewrite 3 [← mul_one 2]
+    apply mul_lt_mul'
+    · rfl
+    · exact Real.log_two_lt_d9.trans (by norm_num)
+    · exact Real.log_nonneg (by norm_num)
+    · positivity
   let C : ℝ := 6 * (3 * c1 + c2)
   have hC : 0 < C := by dsimp [C]; positivity
   refine ⟨C, hC, ?_⟩
@@ -266,7 +274,7 @@ theorem strongMertens_smoothed_close_eps
     push_cast
     ring
   rw [hsum_real]
-  exact strongMertens_smoothed_close_aux SmoothingF c1 c1_pos c1_lt c2 c2_pos hc2
+  exact strongMertens_smoothed_close_aux SmoothingF c1 c1_pos c1_lt c2 c2_pos c2_lt hc2
     C rfl eps heps heps1 X hXpos hX hb1 hb2 hsle hsnonneg hseq1 hseq0
 
 end RHLean.Analysis
