@@ -186,7 +186,6 @@ theorem strongMertens_smoothedMobius_dirichlet
         rw [cpow_mul] <;> simp [hlogim, Real.pi_pos, Real.pi_nonneg]
       rw [ht, hpow, hn]
     _ = _ := by
-      push_cast
       congr 1
       ext n
       by_cases hn : n = 0
