@@ -1,4 +1,4 @@
-name: Strong Mertens finite smoothing warning repair
+name: Strong Mertens smoothing restore
 
 on:
   push:
@@ -10,36 +10,50 @@ permissions:
   contents: write
 
 jobs:
-  repair:
+  restore:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: agent/strong-mertens-k2-clean
+          fetch-depth: 0
 
-      - name: Remove unused c2_lt parameter
+      - name: Restore only StrongMertensSmoothing from historical source
         shell: bash
         run: |
+          set -euo pipefail
+          git show d9bf9f76f21e7d56de15abc91e3128d23e15c746:RHLean/Analysis/StrongMertensSmoothing.lean > RHLean/Analysis/StrongMertensSmoothing.lean
           python3 - <<'PY'
           from pathlib import Path
-          path = Path('RHLean/Analysis/StrongMertensSmoothingFinite.lean')
+          path = Path('RHLean/Analysis/StrongMertensSmoothing.lean')
           text = path.read_text()
-          old = '(c2 : ℝ) (c2_pos : 0 < c2) (c2_lt : c2 < 2)'
-          new = '(c2 : ℝ) (c2_pos : 0 < c2)'
-          n = text.count(old)
-          if n != 1:
-              raise SystemExit(f'c2_lt parameter: expected exactly one site, found {n}')
-          text = text.replace(old, new)
+          old = '''  have c2_lt : c2 < 2 := by
+    rw [c2_eq]
+    nth_rewrite 3 [← mul_one 2]
+    apply mul_lt_mul'
+    · rfl
+    · exact Real.log_two_lt_d9.trans (by norm_num)
+    · exact Real.log_nonneg (by norm_num)
+    · positivity
+'''
+          if text.count(old) != 1:
+              raise SystemExit(f'c2_lt local proof: expected 1, found {text.count(old)}')
+          text = text.replace(old, '')
+          old_call = 'strongMertens_smoothed_close_aux SmoothingF c1 c1_pos c1_lt c2 c2_pos c2_lt hc2'
+          new_call = 'strongMertens_smoothed_close_aux SmoothingF c1 c1_pos c1_lt c2 c2_pos hc2'
+          if text.count(old_call) != 1:
+              raise SystemExit(f'c2_lt call argument: expected 1, found {text.count(old_call)}')
+          text = text.replace(old_call, new_call)
           path.write_text(text)
           PY
           git diff --check
-          git diff -- RHLean/Analysis/StrongMertensSmoothingFinite.lean
+          git diff -- RHLean/Analysis/StrongMertensSmoothing.lean
 
-      - name: Publish finite smoothing warning repair
+      - name: Publish smoothing module
         shell: bash
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -- RHLean/Analysis/StrongMertensSmoothingFinite.lean
-          git commit -m 'Remove unused Strong Mertens smoothing parameter'
+          git add -- RHLean/Analysis/StrongMertensSmoothing.lean
+          git commit -m 'Restore Strong Mertens smoothing bridge'
           git push origin HEAD:agent/strong-mertens-k2-clean
