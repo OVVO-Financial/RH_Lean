@@ -33,15 +33,11 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-# `path:line:col` where path ends in `.lean`.  Paths may be absolute (the
-# `trace:` lines echo full runner paths) or repository relative.
 POSITION = re.compile(r"(?P<path>[^\s:]+\.lean):(?P<line>\d+):(?P<col>\d+)")
 SEVERITY = re.compile(r"\b(?P<severity>warning|error|info):")
-
-# Diagnostics whose text continues on following lines; only the first line
-# carries the position, which is all the inventory reports.
 SEVERITY_ORDER = {"error": 0, "warning": 1, "info": 2}
 TARGET_STATUS = Path(".github/strong-mertens-k2-clean-status.txt")
+PROBE_REVISION = 2
 
 
 def normalize(path: str) -> str:
@@ -132,7 +128,7 @@ def targeted_probe() -> int:
             break
     if not target:
         return 0
-    print(f"\n=== targeted compiler probe: {target} ===")
+    print(f"\n=== targeted compiler probe r{PROBE_REVISION}: {target} ===")
     proc = subprocess.run(
         ["lake", "build", target],
         stdout=subprocess.PIPE,
