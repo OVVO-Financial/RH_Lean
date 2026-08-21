@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -40,6 +41,7 @@ SEVERITY = re.compile(r"\b(?P<severity>warning|error|info):")
 # Diagnostics whose text continues on following lines; only the first line
 # carries the position, which is all the inventory reports.
 SEVERITY_ORDER = {"error": 0, "warning": 1, "info": 2}
+TARGET_STATUS = Path(".github/strong-mertens-k2-clean-status.txt")
 
 
 def normalize(path: str) -> str:
@@ -49,9 +51,6 @@ def normalize(path: str) -> str:
         index = cleaned.find(marker)
         if index != -1:
             cleaned = cleaned[index + len(marker) :]
-            # `.lake/packages/StrongPNT/StrongPNT/PNT5_Strong.lean` names the
-            # package once as a directory and once as the module root.  Drop
-            # the outer package directory so the key reads as the module path.
             head, _, tail = cleaned.partition("/")
             if tail.startswith(head + "/"):
                 cleaned = tail
@@ -59,7 +58,6 @@ def normalize(path: str) -> str:
                 cleaned = tail or cleaned
             break
     else:
-        # Absolute checkout paths, e.g. /home/runner/work/RH_Lean/RH_Lean/Foo.lean
         marker = "/RH_Lean/"
         index = cleaned.rfind(marker)
         if index != -1:
@@ -72,8 +70,6 @@ def collect(log: str) -> dict[str, set[tuple[int, int, str, str]]]:
     found: dict[str, set[tuple[int, int, str, str]]] = defaultdict(set)
     lines = log.splitlines()
     for index, raw in enumerate(lines):
-        # `trace:` lines echo the whole `lean` command line, including the
-        # source path; they are provenance, not diagnostics.
         if raw.lstrip().startswith("trace:"):
             continue
         severity_match = SEVERITY.search(raw)
@@ -84,14 +80,7 @@ def collect(log: str) -> dict[str, set[tuple[int, int, str, str]]]:
         if position is None:
             continue
         message = raw[position.end() :].lstrip(": ").strip()
-        # When the formatter puts the severity after the position, the message
-        # still begins with `warning:`; drop it so identical diagnostics under
-        # the two formatters collapse to one entry.
         message = SEVERITY.sub("", message, count=1).strip()
-        # `This simp argument is unused:` names the argument on the following
-        # line, and that name is the whole content of the diagnostic.  Pull the
-        # first indented continuation line up so the inventory says what to fix
-        # rather than only that something needs fixing.
         if message.endswith(":"):
             message = f"{message} {continuation(lines, index)}".strip()
         found[normalize(position.group("path"))].add(
@@ -112,14 +101,7 @@ def continuation(lines: list[str], index: int) -> str:
 
 
 def is_noise(entry: tuple[int, int, str, str]) -> bool:
-    """Does this diagnostic represent linter churn a patch should remove?
-
-    Warnings and errors always do.  `info` covers two very different things:
-    Lean's suggestion mechanism (`Try this: ring_nf`), which is a failed tactic
-    reported politely and is exactly the noise being removed, and deliberate
-    reports such as the `#print axioms Strong_PNT` audit that upstream keeps at
-    the end of the file.  Only the former is gated.
-    """
+    """Does this diagnostic represent linter churn a patch should remove?"""
     _line, _col, severity, message = entry
     if severity in ("warning", "error"):
         return True
@@ -139,6 +121,30 @@ def report(found: dict[str, set[tuple[int, int, str, str]]]) -> None:
             print(f"  {line}:{col}  {severity}: {message}")
 
 
+def targeted_probe() -> int:
+    """Temporary branch-only compiler probe used during the clean rebuild."""
+    if not TARGET_STATUS.exists():
+        return 0
+    target = ""
+    for line in TARGET_STATUS.read_text().splitlines():
+        if line.startswith("target="):
+            target = line.partition("=")[2].strip()
+            break
+    if not target:
+        return 0
+    print(f"\n=== targeted compiler probe: {target} ===")
+    proc = subprocess.run(
+        ["lake", "build", target],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        check=False,
+    )
+    print(proc.stdout, end="")
+    print(f"=== targeted compiler probe exit: {proc.returncode} ===")
+    return proc.returncode
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("log", type=Path, help="path to the captured lake build log")
@@ -150,6 +156,11 @@ def main() -> int:
         help="fail when a diagnostic points at a source path starting with PREFIX",
     )
     args = parser.parse_args()
+
+    if not args.gate:
+        probe = targeted_probe()
+        if probe != 0:
+            return probe
 
     found = collect(args.log.read_text(errors="replace"))
 
