@@ -193,8 +193,8 @@ theorem k2WeightError_eq (N d : ℕ) (hN : 1 ≤ N) (hd : 1 ≤ d) :
       k2HarmonicQuotientError N d -
         k2HarmonicQuotientError N (d + 1) := by
   unfold k2WeightError k2H k2HarmonicQuotientError
-  rw [k2LogQuotient_diff N d hN hd]
-  ring
+  have hlog := k2LogQuotient_diff N d hN hd
+  linarith
 
 /-- If a positive scale lies below the quotient, the centered harmonic quotient
 error is bounded by the reciprocal scale. -/
@@ -223,9 +223,8 @@ from the logarithmic weight by at most `2/sqrt N`. -/
 theorem k2WeightError_abs_le_sqrt
     (N d : ℕ) (hN : 1 ≤ N) (hd : 1 ≤ d) (hds : d < Nat.sqrt N) :
     |k2WeightError N d| ≤ 2 / (Nat.sqrt N : ℝ) := by
-  have hs : 1 ≤ Nat.sqrt N := by
-    rw [Nat.one_le_iff_ne_zero]
-    exact (Nat.sqrt_ne_zero).2 (by omega)
+  have hspos : 0 < Nat.sqrt N := (Nat.sqrt_pos).2 (by omega)
+  have hs : 1 ≤ Nat.sqrt N := hspos
   have hdN : d ≤ N := by
     exact (hds.le.trans (Nat.sqrt_le_self N)).trans (Nat.le_refl N)
   have hdp1s : d + 1 ≤ Nat.sqrt N := by omega
