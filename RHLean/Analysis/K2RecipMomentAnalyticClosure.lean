@@ -1,3 +1,6 @@
+import Mathlib.Analysis.Calculus.FDeriv.Analytic
+import Mathlib.Analysis.Calculus.Deriv.Inv
+import Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas
 import Mathlib.NumberTheory.Harmonic.ZetaAsymp
 import Mathlib.NumberTheory.LSeries.Dirichlet
 import RHLean.Analysis.StrongMertensRecipMomentTransfer
@@ -13,8 +16,14 @@ Mathlib's proved limit
 
 `zeta(s) - 1 / (s - 1) -> gamma`.
 
-The resulting regular part is analytic at `1`.  This is the local germ from
-which the reciprocal-zeta Taylor coefficients needed by K2 are read.
+The resulting regular part is analytic at `1`.  The reciprocal germ is then
+factored as `(s - 1) q(s)`.  Differentiating this factorization twice reads the
+second Taylor coefficient directly and gives
+
+`(1 / zeta)''(1) = -2 * gamma`.
+
+This coefficient is the analytic value that the order-two reciprocal Mobius
+moment must attain at the Abel boundary.
 -/
 
 noncomputable section
@@ -76,10 +85,28 @@ theorem k2ZetaRegularPart_analyticAt_one :
     k2ZetaRegularPart_differentiable_punctured
     k2ZetaRegularPart_continuousAt_one
 
-/-- The analytic reciprocal-zeta germ written in terms of the regular part.
-At `s = 1` the numerator vanishes and the denominator is `1`. -/
+/-- The analytic unit factor in the reciprocal-zeta germ. -/
+def k2InvZetaFactor (s : ℂ) : ℂ :=
+  (1 + (s - 1) * k2ZetaRegularPart s)⁻¹
+
+@[simp]
+theorem k2InvZetaFactor_one : k2InvZetaFactor 1 = 1 := by
+  simp [k2InvZetaFactor]
+
+/-- The unit factor is analytic at the filled point. -/
+theorem k2InvZetaFactor_analyticAt_one :
+    AnalyticAt ℂ k2InvZetaFactor (1 : ℂ) := by
+  have hlin : AnalyticAt ℂ (fun s : ℂ => s - 1) (1 : ℂ) :=
+    analyticAt_id.sub analyticAt_const
+  have hden : AnalyticAt ℂ
+      (fun s : ℂ => 1 + (s - 1) * k2ZetaRegularPart s) (1 : ℂ) :=
+    analyticAt_const.add (hlin.mul k2ZetaRegularPart_analyticAt_one)
+  exact hden.fun_inv (by simp)
+
+/-- The analytic reciprocal-zeta germ, factored into its simple zero and a
+unit analytic factor. -/
 def k2InvZetaRegular (s : ℂ) : ℂ :=
-  (s - 1) / (1 + (s - 1) * k2ZetaRegularPart s)
+  (s - 1) * k2InvZetaFactor s
 
 @[simp]
 theorem k2InvZetaRegular_one : k2InvZetaRegular 1 = 0 := by
@@ -90,11 +117,65 @@ theorem k2InvZetaRegular_analyticAt_one :
     AnalyticAt ℂ k2InvZetaRegular (1 : ℂ) := by
   have hlin : AnalyticAt ℂ (fun s : ℂ => s - 1) (1 : ℂ) :=
     analyticAt_id.sub analyticAt_const
-  have hden : AnalyticAt ℂ
-      (fun s : ℂ => 1 + (s - 1) * k2ZetaRegularPart s) (1 : ℂ) :=
-    analyticAt_const.add (hlin.mul k2ZetaRegularPart_analyticAt_one)
-  unfold k2InvZetaRegular
-  exact hlin.fun_div hden (by simp)
+  exact hlin.mul k2InvZetaFactor_analyticAt_one
+
+/-- The derivative of the analytic unit factor at one is `-gamma`. -/
+theorem k2InvZetaFactor_hasDerivAt_one :
+    HasDerivAt k2InvZetaFactor (-(gammaE : ℂ)) (1 : ℂ) := by
+  have hlin : HasDerivAt (fun s : ℂ => s - 1) 1 (1 : ℂ) :=
+    (hasDerivAt_id (1 : ℂ)).sub_const 1
+  have hreg := k2ZetaRegularPart_analyticAt_one.differentiableAt.hasDerivAt
+  have hprod := hlin.fun_mul hreg
+  have hden : HasDerivAt
+      (fun s : ℂ => 1 + (s - 1) * k2ZetaRegularPart s)
+      (gammaE : ℂ) (1 : ℂ) := by
+    convert hprod.const_add 1 using 1 <;> simp [k2ZetaRegularPart_one]
+  have hinv := hden.fun_inv (by simp)
+  simpa [k2InvZetaFactor] using hinv
+
+/-- The reciprocal germ has the expected simple zero with first derivative
+one. -/
+theorem k2InvZetaRegular_hasDerivAt_one :
+    HasDerivAt k2InvZetaRegular 1 (1 : ℂ) := by
+  have hlin : HasDerivAt (fun s : ℂ => s - 1) 1 (1 : ℂ) :=
+    (hasDerivAt_id (1 : ℂ)).sub_const 1
+  have h := hlin.fun_mul k2InvZetaFactor_hasDerivAt_one
+  simpa [k2InvZetaRegular] using h
+
+/-- Coefficient extraction at the filled pole: the second derivative of the
+regular reciprocal-zeta germ is exactly `-2 * gamma`. -/
+theorem k2InvZetaRegular_iteratedDeriv_two :
+    iteratedDeriv 2 k2InvZetaRegular (1 : ℂ) =
+      (-2 * gammaE : ℂ) := by
+  let H : ℂ → ℂ := fun s =>
+    k2InvZetaFactor s + (s - 1) * deriv k2InvZetaFactor s
+  have hfactor_eventually :
+      ∀ᶠ s : ℂ in 𝓝 (1 : ℂ), DifferentiableAt ℂ k2InvZetaFactor s := by
+    exact ((isOpen_analyticAt ℂ k2InvZetaFactor).mem_nhds
+      k2InvZetaFactor_analyticAt_one).mono fun _ hs => hs.differentiableAt
+  have hderiv_eq : deriv k2InvZetaRegular =ᶠ[𝓝 (1 : ℂ)] H := by
+    filter_upwards [hfactor_eventually] with s hs
+    have hlin : HasDerivAt (fun z : ℂ => z - 1) 1 s :=
+      (hasDerivAt_id s).sub_const 1
+    have h := hlin.fun_mul hs.hasDerivAt
+    simpa [H, k2InvZetaRegular] using h.deriv
+  have hfactor_deriv_value :
+      deriv k2InvZetaFactor (1 : ℂ) = -(gammaE : ℂ) :=
+    k2InvZetaFactor_hasDerivAt_one.deriv
+  have hderiv_factor_diff :
+      DifferentiableAt ℂ (deriv k2InvZetaFactor) (1 : ℂ) :=
+    k2InvZetaFactor_analyticAt_one.deriv.differentiableAt
+  have hlin : HasDerivAt (fun s : ℂ => s - 1) 1 (1 : ℂ) :=
+    (hasDerivAt_id (1 : ℂ)).sub_const 1
+  have hprod := hlin.fun_mul hderiv_factor_diff.hasDerivAt
+  have hH : HasDerivAt H (-2 * (gammaE : ℂ)) (1 : ℂ) := by
+    have hsum := k2InvZetaFactor_hasDerivAt_one.fun_add hprod
+    convert hsum using 1 <;> simp [H, hfactor_deriv_value] <;> ring
+  have hsecond :
+      deriv (deriv k2InvZetaRegular) (1 : ℂ) = -2 * (gammaE : ℂ) := by
+    rw [hderiv_eq.deriv_eq]
+    exact hH.deriv
+  simpa [show (2 : ℕ) = 1 + 1 by norm_num, iteratedDeriv_succ] using hsecond
 
 /-- On the absolutely convergent half-plane the regular reciprocal is the
 ordinary reciprocal of the Riemann zeta function. -/
@@ -111,7 +192,7 @@ theorem k2InvZetaRegular_eq_inv_riemannZeta {s : ℂ} (hs : 1 < s.re) :
         (s - 1) * riemannZeta s := by
     field_simp [hsub]
     ring
-  rw [k2InvZetaRegular, k2ZetaRegularPart_eq hs1, hden]
+  rw [k2InvZetaRegular, k2InvZetaFactor, k2ZetaRegularPart_eq hs1, hden]
   field_simp [hsub, hz0]
 
 /-- On `re s > 1`, the regular reciprocal is exactly the Mobius L-series. -/
