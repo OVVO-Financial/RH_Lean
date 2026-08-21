@@ -126,7 +126,7 @@ theorem k2r_tendsto_zero_from_strongMertens :
 
 /-- The cubic reciprocal moment converges from the same Strong Mertens input. -/
 theorem k2C3_tendsto_from_strongMertens :
-    ∃ L : ℝ, Tendsto k2C3 atTop (𝓝 L) := by
+    ∃ ell : ℝ, Tendsto k2C3 atTop (𝓝 ell) := by
   refine ⟨(∑' n : ℕ, k2MertensAbelTerm 3 n), ?_⟩
   exact k2C3_tendsto_of_summable
     k2MertensAbelTerm_three_summable
