@@ -170,7 +170,7 @@ lemma strongMertensFarEnvelope_balance {corridor : StrongMertensLogNineCorridor}
 
 /-- Exact horizontal envelope at the balanced parameters. -/
 lemma strongMertensHorizontalEnvelope_balance
-    {corridor : StrongMertensLogNineCorridor} {X : ℝ} (hX : 1 < X) :
+    {corridor : StrongMertensLogNineCorridor} {X : ℝ} (_hX : 1 < X) :
     strongMertensHorizontalEnvelope (strongMertensBalanceEps corridor X) X
       (strongMertensBalanceHeight X) =
       X * (1 + strongMertensScale X ^ 10) *
@@ -208,8 +208,22 @@ lemma strongMertensVerticalEnvelope_balance
     strongMertensBalanceEps, hexp]
   rw [div_eq_mul_inv]
   simp_rw [← Real.exp_neg]
-  rw [← Real.exp_add]
-  ring_nf
+  have hcombine :
+      Real.exp (-corridor.A * strongMertensScale X) *
+          Real.exp (-(-(corridor.A / 4) * strongMertensScale X)) =
+        Real.exp (-(3 * corridor.A / 4) * strongMertensScale X) := by
+    rw [← Real.exp_add]
+    congr 1
+    ring
+  calc
+    X * Real.exp (-corridor.A * strongMertensScale X) *
+          (1 + strongMertensScale X ^ 7) *
+          Real.exp (-(-(corridor.A / 4) * strongMertensScale X))
+      = X * (1 + strongMertensScale X ^ 7) *
+          (Real.exp (-corridor.A * strongMertensScale X) *
+            Real.exp (-(-(corridor.A / 4) * strongMertensScale X))) := by ring
+    _ = X * (1 + strongMertensScale X ^ 7) *
+        Real.exp (-(3 * corridor.A / 4) * strongMertensScale X) := by rw [hcombine]
 
 /-- All three balanced contour envelopes are eventually bounded by one
 `X * exp(-c r)` envelope. -/
