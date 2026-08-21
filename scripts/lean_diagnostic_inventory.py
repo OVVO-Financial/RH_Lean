@@ -18,7 +18,7 @@ POSITION = re.compile(r"(?P<path>[^\s:]+\.lean):(?P<line>\d+):(?P<col>\d+)")
 SEVERITY = re.compile(r"\b(?P<severity>warning|error|info):")
 SEVERITY_ORDER = {"error": 0, "warning": 1, "info": 2}
 TARGET_STATUS = Path(".github/strong-mertens-k2-clean-status.txt")
-PROBE_REVISION = 3
+PROBE_REVISION = 4
 
 
 def normalize(path: str) -> str:
@@ -98,6 +98,11 @@ def apply_probe_repairs(target: str) -> None:
     path = Path("RHLean/Analysis/StrongMertensLogNineHorizontal.lean")
     text = path.read_text()
     replacements = [
+        (
+            "intervalIntegral.norm_integral_le_integral_norm _",
+            "intervalIntegral.norm_integral_le_integral_norm hsigOrder",
+            2,
+        ),
         (
             "exact hHorizontalContinuous.norm.integrableOn_compact isCompact_Icc",
             "exact (hHorizontalContinuous.norm.integrableOn_compact isCompact_Icc).mono_set Set.Ioc_subset_Icc_self",
