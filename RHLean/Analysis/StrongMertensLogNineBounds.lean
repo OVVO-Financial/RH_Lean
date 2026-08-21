@@ -204,7 +204,7 @@ theorem nativeMertensM3_logNine_bound_for
           have hlogT : 1 < Real.log T := logt_gt_one hT.le
           have hfrac : corridor.A / (Real.log T)^9 ≤ 1/2 := by
             apply (div_le_iff₀ (by positivity)).2
-            nlinarith [corridor.A_mem.2, one_le_pow₀ hlogT.le]
+            nlinarith [corridor.A_mem.2, one_le_pow₀ (n := 9) hlogT.le]
           linarith
         rw [inv_le_comm₀ hsigpos (by norm_num)]
         nlinarith
@@ -219,12 +219,17 @@ theorem nativeMertensM3_logNine_bound_for
           (1 + (Real.log T)^7) / eps
       have hK : 0 ≤ K := by
         dsimp [K]
+        have hXnonneg : 0 ≤ X := by linarith
+        have hpoly : 0 ≤ 1 + (Real.log T)^7 := by
+          exact add_nonneg zero_le_one (pow_nonneg hlogTnonneg 7)
         exact div_nonneg
           (mul_nonneg
             (mul_nonneg
-              (mul_nonneg hCz.le hCm.le)
-              (mul_nonneg (by linarith : 0 ≤ X) (Real.exp_pos _).le))
-            (by positivity))
+              (mul_nonneg
+                (mul_nonneg hCz.le hCm.le)
+                hXnonneg)
+              (Real.exp_pos _).le)
+            hpoly)
           heps.1.le
       have hfac : sigmaLeft⁻¹ / 2 ≤ 4 := by
         linarith
