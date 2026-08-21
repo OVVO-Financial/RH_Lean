@@ -2,6 +2,7 @@ import Mathlib.Analysis.Calculus.FDeriv.Analytic
 import Mathlib.Analysis.Calculus.Deriv.Inv
 import Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas
 import Mathlib.NumberTheory.Harmonic.ZetaAsymp
+import Mathlib.NumberTheory.LSeries.Deriv
 import Mathlib.NumberTheory.LSeries.Dirichlet
 import RHLean.Analysis.StrongMertensRecipMomentTransfer
 
@@ -22,8 +23,9 @@ second Taylor coefficient directly and gives
 
 `(1 / zeta)''(1) = -2 * gamma`.
 
-This coefficient is the analytic value that the order-two reciprocal Mobius
-moment must attain at the Abel boundary.
+On `re s > 1` the same second derivative is identified with the logarithmic
+square Mobius L-series.  The remaining Abel-boundary step therefore has a
+single explicit target: carry that Dirichlet series continuously to `s = 1`.
 -/
 
 noncomputable section
@@ -171,7 +173,7 @@ theorem k2InvZetaRegular_iteratedDeriv_two :
   have hprod := hlin.fun_mul hderiv_factor_diff.hasDerivAt
   have hH : HasDerivAt H (-2 * (gammaE : ℂ)) (1 : ℂ) := by
     have hsum := k2InvZetaFactor_hasDerivAt_one.fun_add hprod
-    convert hsum using 1 <;> simp [hfactor_deriv_value] <;> ring
+    simpa [hfactor_deriv_value] using hsum
   have hsecond :
       deriv (deriv k2InvZetaRegular) (1 : ℂ) = -2 * (gammaE : ℂ) := by
     rw [hderiv_eq.deriv_eq]
@@ -207,5 +209,39 @@ theorem k2InvZetaRegular_eq_moebiusLSeries {s : ℂ} (hs : 1 < s.re) :
     (riemannZeta s)⁻¹ = (riemannZeta s)⁻¹ * 1 := by simp
     _ = (riemannZeta s)⁻¹ * (riemannZeta s * L ↗μ s) := by rw [hprod]
     _ = L ↗μ s := by simp [hz0]
+
+/-- The Mobius Dirichlet series has abscissa of absolute convergence at most
+one; this is the exact half-plane on which termwise L-series differentiation is
+available. -/
+theorem k2Mobius_abscissaOfAbsConv_le_one :
+    LSeries.abscissaOfAbsConv (fun n : ℕ => (μ n : ℂ)) ≤ 1 := by
+  apply LSeries.abscissaOfAbsConv_le_of_le_const
+  refine ⟨1, ?_⟩
+  intro n _hn
+  simp only [Complex.norm_intCast]
+  exact_mod_cast ArithmeticFunction.abs_moebius_le_one
+
+/-- On `re s > 1`, the second derivative of the reciprocal-zeta germ is exactly
+the log-square Mobius L-series.  This is the analytic coefficient identity that
+will be continued to the Abel boundary `s = 1`. -/
+theorem k2InvZetaRegular_iteratedDeriv_two_eq_moebiusLogSqLSeries
+    {s : ℂ} (hs : 1 < s.re) :
+    iteratedDeriv 2 k2InvZetaRegular s =
+      LSeries (LSeries.logMul^[2] (fun n : ℕ => (μ n : ℂ))) s := by
+  let U : Set ℂ := {z : ℂ | 1 < z.re}
+  have hUopen : IsOpen U := by
+    dsimp [U]
+    exact isOpen_lt continuous_const continuous_re
+  have heq : Set.EqOn k2InvZetaRegular
+      (LSeries (fun n : ℕ => (μ n : ℂ))) U := by
+    intro z hz
+    exact k2InvZetaRegular_eq_moebiusLSeries hz
+  have hderiv := heq.iteratedDeriv_of_isOpen hUopen 2 hs
+  rw [hderiv]
+  have habs :
+      LSeries.abscissaOfAbsConv (fun n : ℕ => (μ n : ℂ)) < s.re :=
+    k2Mobius_abscissaOfAbsConv_le_one.trans_lt hs
+  rw [LSeries_iteratedDeriv 2 habs]
+  norm_num
 
 end RHLean.Analysis
