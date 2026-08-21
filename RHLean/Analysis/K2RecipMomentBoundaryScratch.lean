@@ -102,12 +102,13 @@ theorem k2StrongMertens_logRecip_endpoint_tendsto_zero (m : ℕ) :
       rw [hlogpow]
       ring
 
-private def k2LogHarmonicTail (p n : ℕ) : ℝ :=
+/-- Shifted logarithmic harmonic majorant used in the K2 Abel tails. -/
+def k2LogHarmonicTail (p n : ℕ) : ℝ :=
   1 / (((n + 3 : ℕ) : ℝ) * (Real.log ((n + 3 : ℕ) : ℝ)) ^ p)
 
 /-- Elementary logarithmic harmonic summability.  Cauchy condensation turns the
 tail into a constant multiple of a p-series. -/
-private theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
+theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
     Summable (k2LogHarmonicTail p) := by
   have hnonneg : ∀ n, 0 ≤ k2LogHarmonicTail p n := by
     intro n
