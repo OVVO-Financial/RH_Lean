@@ -6,6 +6,8 @@ open Filter Asymptotics Set
 
 namespace RHLean.Analysis
 
+/-! Final sharp-endpoint closure of the log-nine Strong Mertens chain. -/
+
 /-- Balanced smoothed Mobius transform with subexponential decay. -/
 theorem nativeSmoothedMobius_logNine_subexp_eventually
     (corridor : StrongMertensLogNineCorridor)
