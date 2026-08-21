@@ -17,11 +17,21 @@ theorem k2MobiusLogSqLSeries_tendsto_right_one :
       (fun sigma : ℝ =>
         LSeries (LSeries.logMul^[2] (fun n : ℕ => (μ n : ℂ))) (sigma : ℂ))
       (𝓝[>] (1 : ℝ)) (𝓝 (-2 * gammaE : ℂ)) := by
+  have hfun :
+      (fun s : ℂ => iteratedDeriv 2 k2InvZetaRegular s) =
+        deriv (deriv k2InvZetaRegular) := by
+    funext s
+    simp [show (2 : ℕ) = 1 + 1 by norm_num, iteratedDeriv_succ]
+  have hval :
+      deriv (deriv k2InvZetaRegular) (1 : ℂ) = (-2 * gammaE : ℂ) := by
+    simpa [show (2 : ℕ) = 1 + 1 by norm_num, iteratedDeriv_succ] using
+      k2InvZetaRegular_iteratedDeriv_two
   have hcomplex :
       Tendsto (fun s : ℂ => iteratedDeriv 2 k2InvZetaRegular s)
         (𝓝 (1 : ℂ)) (𝓝 (-2 * gammaE : ℂ)) := by
+    rw [hfun]
     have h := (k2InvZetaRegular_analyticAt_one.iterated_deriv 2).continuousAt.tendsto
-    simpa [k2InvZetaRegular_iteratedDeriv_two] using h
+    simpa [hval] using h
   have hreal :
       Tendsto (fun sigma : ℝ => (sigma : ℂ))
         (𝓝[>] (1 : ℝ)) (𝓝 (1 : ℂ)) := by
@@ -30,8 +40,9 @@ theorem k2MobiusLogSqLSeries_tendsto_right_one :
   apply (hcomplex.comp hreal).congr'
   filter_upwards [self_mem_nhdsWithin] with sigma hsigma
   have hs : 1 < sigma := by simpa using hsigma
-  exact (k2InvZetaRegular_iteratedDeriv_two_eq_moebiusLogSqLSeries
-    (s := (sigma : ℂ)) (by simpa using hs)).symm
+  simpa using
+    (k2InvZetaRegular_iteratedDeriv_two_eq_moebiusLogSqLSeries
+      (s := (sigma : ℂ)) (by simpa using hs))
 
 /-- Strong Mertens kills every fixed logarithmic reciprocal endpoint.  This is
 the endpoint term in Abel summation for the order-two and order-three K2
@@ -40,7 +51,7 @@ theorem k2StrongMertens_logRecip_endpoint_tendsto_zero (m : ℕ) :
     Tendsto
       (fun N : ℕ => nativeMertensSummatory N * k2LogRecipWeight m N)
       atTop (𝓝 0) := by
-  obtain ⟨c, C, hc, hC, hM⟩ := strongNativeMertensSubexp
+  obtain ⟨c, C, hc, _hC, hM⟩ := strongNativeMertensSubexp
   have hpolyexp :
       Tendsto (fun r : ℝ => r ^ (10 * m) * Real.exp (-c * r)) atTop (𝓝 0) := by
     have h := (isLittleO_pow_exp_pos_mul_atTop (10 * m) hc).tendsto_div_nhds_zero
@@ -64,7 +75,6 @@ theorem k2StrongMertens_logRecip_endpoint_tendsto_zero (m : ℕ) :
   have hNposNat : 0 < N := by omega
   have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast hNposNat
   have hN1 : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hNposNat
-  have hlognonneg : 0 ≤ Real.log (N : ℝ) := Real.log_nonneg hN1
   have hw_nonneg : 0 ≤ k2LogRecipWeight m N := by
     unfold k2LogRecipWeight
     positivity
@@ -86,7 +96,6 @@ theorem k2StrongMertens_logRecip_endpoint_tendsto_zero (m : ℕ) :
         Real.exp (-c * strongMertensScale (N : ℝ)) := by
       unfold k2LogRecipWeight
       field_simp [ne_of_gt hNpos]
-      ring
     _ = C * (strongMertensScale (N : ℝ) ^ (10 * m) *
         Real.exp (-c * strongMertensScale (N : ℝ))) := by
       rw [hlogpow]
