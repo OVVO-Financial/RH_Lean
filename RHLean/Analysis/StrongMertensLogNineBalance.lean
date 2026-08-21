@@ -91,13 +91,15 @@ theorem nativeMertensSharpReal_logNine_subexp_eventually_for
       nativeSmoothedMobius f eps X -
         (nativeSmoothedMobius f eps X - (nativeMertensSharpReal X : ℂ)) by ring]
     exact norm_sub_le _ _
-  rw [Complex.norm_real, Real.norm_eq_abs]
-  exact htri.trans <| by
-    calc
-      ‖nativeSmoothedMobius f eps X - (nativeMertensSharpReal X : ℂ)‖ +
-          ‖nativeSmoothedMobius f eps X‖
-        ≤ Cc * X * Real.exp (-c * strongMertensScale X) +
-          Cs * X * Real.exp (-c * strongMertensScale X) := add_le_add hclose' hs
-      _ = (Cc + Cs) * X * Real.exp (-c * strongMertensScale X) := by ring
+  have hfinal : ‖(nativeMertensSharpReal X : ℂ)‖ ≤
+      (Cc + Cs) * X * Real.exp (-c * strongMertensScale X) :=
+    htri.trans <| by
+      calc
+        ‖nativeSmoothedMobius f eps X - (nativeMertensSharpReal X : ℂ)‖ +
+            ‖nativeSmoothedMobius f eps X‖
+          ≤ Cc * X * Real.exp (-c * strongMertensScale X) +
+            Cs * X * Real.exp (-c * strongMertensScale X) := add_le_add hclose' hs
+        _ = (Cc + Cs) * X * Real.exp (-c * strongMertensScale X) := by ring
+  simpa [c, Complex.norm_real, Real.norm_eq_abs] using hfinal
 
 end RHLean.Analysis
