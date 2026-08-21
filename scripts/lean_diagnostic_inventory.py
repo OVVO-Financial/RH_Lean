@@ -1,27 +1,8 @@
 #!/usr/bin/env python3
 """Collapse a Lean build log into a deduplicated diagnostic inventory.
 
-A `lake build` log for this project is several thousand lines.  Almost all of
-it is a handful of distinct diagnostics repeated once per module rebuild, which
-makes the tail of a CI log useless for answering the only question that matters
-after a red run: *which source positions are still noisy?*
-
-This script groups every `warning:`/`error:`/`info:` diagnostic by the source
-file it points at, deduplicates identical `file:line:col` positions, and prints
-one sorted line per position.  With `--gate PREFIX` it exits non-zero when any
-diagnostic points into a source tree whose path starts with `PREFIX`, which is
-how the workflow keeps the repository-owned StrongPNT 4.24 port silent.
-
-Lean and Lake have emitted diagnostics in more than one shape over the years:
-
-    warning: Foo/Bar.lean:12:4: This simp argument is unused:
-    Foo/Bar.lean:12:4: warning: This simp argument is unused:
-    error: Foo/Bar.lean:12:4: Type mismatch
-
-so the position is matched wherever it sits on the line rather than assuming a
-single formatter.  Lines with no `file:line:col` at all (`error: build failed`,
-`Some required targets logged failures:`) carry no position to fix and are
-skipped.
+A `lake build` log for this project is several thousand lines. Almost all of
+it is a handful of distinct diagnostics repeated once per module rebuild.
 """
 
 from __future__ import annotations
@@ -37,11 +18,10 @@ POSITION = re.compile(r"(?P<path>[^\s:]+\.lean):(?P<line>\d+):(?P<col>\d+)")
 SEVERITY = re.compile(r"\b(?P<severity>warning|error|info):")
 SEVERITY_ORDER = {"error": 0, "warning": 1, "info": 2}
 TARGET_STATUS = Path(".github/strong-mertens-k2-clean-status.txt")
-PROBE_REVISION = 2
+PROBE_REVISION = 3
 
 
 def normalize(path: str) -> str:
-    """Strip runner-specific prefixes so keys are stable across machines."""
     cleaned = path.lstrip("./")
     for marker in (".lake/packages/",):
         index = cleaned.find(marker)
@@ -62,7 +42,6 @@ def normalize(path: str) -> str:
 
 
 def collect(log: str) -> dict[str, set[tuple[int, int, str, str]]]:
-    """Map source file -> {(line, col, severity, first line of message)}."""
     found: dict[str, set[tuple[int, int, str, str]]] = defaultdict(set)
     lines = log.splitlines()
     for index, raw in enumerate(lines):
@@ -86,7 +65,6 @@ def collect(log: str) -> dict[str, set[tuple[int, int, str, str]]]:
 
 
 def continuation(lines: list[str], index: int) -> str:
-    """First indented, non-blank line after `index`, or the empty string."""
     for raw in lines[index + 1 : index + 4]:
         if not raw.strip():
             continue
@@ -97,7 +75,6 @@ def continuation(lines: list[str], index: int) -> str:
 
 
 def is_noise(entry: tuple[int, int, str, str]) -> bool:
-    """Does this diagnostic represent linter churn a patch should remove?"""
     _line, _col, severity, message = entry
     if severity in ("warning", "error"):
         return True
@@ -109,16 +86,59 @@ def report(found: dict[str, set[tuple[int, int, str, str]]]) -> None:
         print("No Lean diagnostics with source positions in this build log.")
         return
     for path in sorted(found):
-        entries = sorted(
-            found[path], key=lambda e: (e[0], e[1], SEVERITY_ORDER.get(e[2], 9))
-        )
+        entries = sorted(found[path], key=lambda e: (e[0], e[1], SEVERITY_ORDER.get(e[2], 9)))
         print(f"\n{path}  ({len(entries)} distinct)")
         for line, col, severity, message in entries:
             print(f"  {line}:{col}  {severity}: {message}")
 
 
+def apply_probe_repairs(target: str) -> None:
+    if target != "RHLean.Analysis.StrongMertensLogNineHorizontal":
+        return
+    path = Path("RHLean/Analysis/StrongMertensLogNineHorizontal.lean")
+    text = path.read_text()
+    replacements = [
+        (
+            "exact hHorizontalContinuous.norm.integrableOn_compact isCompact_Icc",
+            "exact (hHorizontalContinuous.norm.integrableOn_compact isCompact_Icc).mono_set Set.Ioc_subset_Icc_self",
+            1,
+        ),
+        (
+            "exact hHorizontalContinuousUpper.norm.integrableOn_compact isCompact_Icc",
+            "exact (hHorizontalContinuousUpper.norm.integrableOn_compact isCompact_Icc).mono_set Set.Ioc_subset_Icc_self",
+            1,
+        ),
+        (
+            "exact hpoint sigma ⟨hs.1.le, hs.2.le⟩",
+            "exact hpoint sigma ⟨hs.1.le, hs.2⟩",
+            1,
+        ),
+        (
+            "exact hpointUpper sigma ⟨hs.1.le, hs.2.le⟩",
+            "exact hpointUpper sigma ⟨hs.1.le, hs.2⟩",
+            1,
+        ),
+        (
+            "rw [setIntegral_const, Real.volume_Ioc]\n                  simp [hsigOrder]",
+            "rw [setIntegral_const, Real.volume_real_Ioc_of_le hsigOrder]\n                  simp [smul_eq_mul]",
+            2,
+        ),
+        (
+            "field_simp [Real.pi_ne_zero, hepsne, hTne]\n        ring",
+            "field_simp [Real.pi_ne_zero, hepsne, hTne]",
+            2,
+        ),
+    ]
+    for old, new, expected in replacements:
+        count = text.count(old)
+        if count != expected:
+            raise RuntimeError(f"probe repair expected {expected} matches, found {count}: {old[:80]}")
+        text = text.replace(old, new)
+    path.write_text(text)
+    print("Applied compiler-driven Horizontal probe repairs.")
+
+
 def targeted_probe() -> int:
-    """Temporary branch-only compiler probe used during the clean rebuild."""
     if not TARGET_STATUS.exists():
         return 0
     target = ""
@@ -128,13 +148,11 @@ def targeted_probe() -> int:
             break
     if not target:
         return 0
+    apply_probe_repairs(target)
     print(f"\n=== targeted compiler probe r{PROBE_REVISION}: {target} ===")
     proc = subprocess.run(
-        ["lake", "build", target],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-        check=False,
+        ["lake", "build", target], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        text=True, check=False,
     )
     print(proc.stdout, end="")
     print(f"=== targeted compiler probe exit: {proc.returncode} ===")
@@ -144,13 +162,7 @@ def targeted_probe() -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("log", type=Path, help="path to the captured lake build log")
-    parser.add_argument(
-        "--gate",
-        action="append",
-        default=[],
-        metavar="PREFIX",
-        help="fail when a diagnostic points at a source path starting with PREFIX",
-    )
+    parser.add_argument("--gate", action="append", default=[], metavar="PREFIX")
     args = parser.parse_args()
 
     if not args.gate:
@@ -159,7 +171,6 @@ def main() -> int:
             return probe
 
     found = collect(args.log.read_text(errors="replace"))
-
     if not args.gate:
         print("Deduplicated Lean diagnostic inventory")
         print("=====================================")
@@ -177,10 +188,6 @@ def main() -> int:
         joined = ", ".join(args.gate)
         print(f"Diagnostics remain in gated sources ({joined}):")
         report(offending)
-        print(
-            "\nThese sources are rewritten by scripts/strongpnt_424/, so each "
-            "position above is fixed by extending those patches."
-        )
         return 1
     print(f"No diagnostics in gated sources ({', '.join(args.gate)}).")
     return 0
