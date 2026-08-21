@@ -1,2 +1,2 @@
-target=RHLean.Analysis.StrongMertensSmoothingFinite
-probe=18
+target=RHLean.Analysis.StrongMertensSmoothing
+probe=19
