@@ -1,2 +1,2 @@
-target=RHLean.Analysis.K2CenteredClassicalKernelScratch
-probe=69
+target=RHLean.Analysis.K2CenteredClassicalCompareScratch
+probe=70
