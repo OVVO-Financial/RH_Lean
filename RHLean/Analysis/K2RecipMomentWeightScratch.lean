@@ -18,6 +18,7 @@ private theorem k2LogRecipRealTwo_hasDerivAt {x : ℝ} (hx : x ≠ 0) :
   have h := ((Real.hasDerivAt_log hx).pow 2).div (hasDerivAt_id x) hx
   convert h using 1
   field_simp [hx]
+  ring_nf
 
 /-- Adjacent order-two reciprocal-log weights differ by at most the natural
 `log^2(n) / n^2` derivative scale. -/
@@ -69,8 +70,8 @@ theorem k2LogRecipWeight_two_diff_abs_le
         8 * (Real.log a) ^ 2 := by
       calc
         |2 * Real.log x - (Real.log x) ^ 2| =
-            |2 * Real.log x + (-(Real.log x) ^ 2)| := by ring
-        _ ≤ |2 * Real.log x| + |-(Real.log x) ^ 2| := abs_add _ _
+            |2 * Real.log x + (-(Real.log x) ^ 2)| := by ring_nf
+        _ ≤ |2 * Real.log x| + |-(Real.log x) ^ 2| := abs_add_le _ _
         _ = 2 * Real.log x + (Real.log x) ^ 2 := by
           rw [abs_of_nonneg (by positivity), abs_neg,
             abs_of_nonneg (sq_nonneg _)]
