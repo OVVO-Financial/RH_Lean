@@ -294,9 +294,16 @@ def wheelFreshPrimeCounterexampleChild : WheelFactorConfiguration 70 where
       have hcop : Nat.Coprime 2 5 := by norm_num
       simpa using (Nat.squarefree_mul hcop).2 ⟨h2, h5⟩
     · intro p hp hpd
-      have hp2 : 2 ≤ p := hp.two_le
-      have hple : p ≤ 10 := Nat.le_of_dvd (by norm_num) hpd
-      interval_cases p <;> norm_num at hpd <;> omega
+      have hpd' : p ∣ 2 * 5 := by simpa using hpd
+      rcases hp.dvd_mul.mp hpd' with h2 | h5
+      · rcases (Nat.dvd_prime (show Nat.Prime 2 by norm_num)).mp h2 with hp1 | hp2
+        · exact (hp.ne_one hp1).elim
+        · subst p
+          norm_num
+      · rcases (Nat.dvd_prime (show Nat.Prime 5 by norm_num)).mp h5 with hp1 | hp5
+        · exact (hp.ne_one hp1).elim
+        · subst p
+          norm_num
   q_lt := by norm_num
   c_lt := by norm_num
 
