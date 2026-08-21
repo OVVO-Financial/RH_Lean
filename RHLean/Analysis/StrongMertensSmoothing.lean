@@ -40,7 +40,9 @@ theorem strongMertens_smoothedMobius_aux_tsum_integral
     simp_rw [← norm_toNNReal]
     rw [norm_natCast_cpow_of_re_ne_zero _ (by simp; linarith)]
     simp only [add_re, ofReal_re, mul_re, I_re, mul_zero, ofReal_im, I_im,
-      mul_one, sub_self, add_zero, Real.toNNReal_of_nonneg (rpow_nonneg (by positivity) _)]
+      mul_one, sub_self, add_zero,
+      Real.toNNReal_of_nonneg (rpow_nonneg (Nat.cast_nonneg i) _)]
+    apply NNReal.eq
     norm_cast
   rw [MeasureTheory.integral_tsum]
   · intro i
@@ -62,7 +64,7 @@ theorem strongMertens_smoothedMobius_aux_tsum_integral
   · rw [← lt_top_iff_ne_top]
     simp_rw [enorm_mul, enorm_eq_nnnorm, nnnorm_div, ← norm_toNNReal,
       Complex.norm_cpow_eq_rpow_re_of_pos X_pos, norm_toNNReal, abs_two]
-    simp only [nnnorm_real, add_re, ofReal_re, mul_re, I_re, mul_zero, ofReal_im,
+    simp only [add_re, ofReal_re, mul_re, I_re, mul_zero, ofReal_im,
       I_im, mul_one, sub_self, add_zero]
     simp_rw [MeasureTheory.lintegral_mul_const' (r := ↑(X ^ sigma).toNNReal) (hr := by simp),
       ENNReal.tsum_mul_right]
@@ -92,7 +94,6 @@ theorem strongMertens_smoothedMobius_aux_tsum_integral
         (SmoothedChebyshevDirichlet_aux_integrable diffF nonnegF suppF massF
           eps_pos eps_lt_one sigma_gt sigma_le).hasFiniteIntegral
 
-set_option backward.isDefEq.respectTransparency false in
 /-- Perron-to-Dirichlet identity for the native smoothed Mobius transform. -/
 theorem strongMertens_smoothedMobius_dirichlet
     {SmoothingF : ℝ → ℝ}
@@ -122,7 +123,6 @@ theorem strongMertens_smoothedMobius_dirichlet
         mellin (fun x => (Smooth1 SmoothingF eps x : ℂ)) (sigma + (t : ℂ) * I) *
         (X : ℂ) ^ (sigma + (t : ℂ) * I)) := by
       congr 2
-      ext t
       rw [show (riemannZeta (sigma + (t : ℂ) * I))⁻¹ =
           ∑' n : ℕ, (μ n : ℂ) / (n : ℂ) ^ (sigma + (t : ℂ) * I) from by
         rw [← nativeLSeries_moebius_eq_inv_zeta (by simp [sigma_gt])]
@@ -171,7 +171,6 @@ theorem strongMertens_smoothedMobius_dirichlet
       congr 1
       ext n
       congr 2
-      ext t
       have ht : -(sigma + t * I) = (-1) * (sigma + t * I) := by simp
       have hn : ((n : ℂ) / X) ^ (-1 : ℂ) = X / n := by simp [cpow_neg_one]
       have him : (Complex.log ((n : ℂ) / (X : ℂ)) * -1).im = 0 := by
@@ -207,7 +206,6 @@ theorem strongMertens_smoothedMobius_dirichlet
       dsimp [mellinInv, VerticalIntegral] at hinv
       convert hinv using 4 <;> try norm_cast
       rw [mul_comm]
-      norm_cast
 
 /-- The native smoothed transform differs from the sharp real Mertens sum by
 `O(eps * X)`. -/
@@ -245,26 +243,27 @@ theorem strongMertens_smoothed_close_eps
     Smooth1Nonneg nonnegF (ndivpos hn) heps
   have hseq1 (n : ℕ) (hn : 0 < n) (hle : (n : ℝ) ≤ X * (1 - c1 * eps)) :
       Smooth1 SmoothingF eps ((n : ℝ) / X) = 1 := by
-    apply hc1 (eps := eps) ((n : ℝ) / X) heps (ndivpos hn)
+    apply hc1 eps ((n : ℝ) / X) heps (ndivpos hn)
     exact (div_le_iff₀' hXpos).mpr hle
   have hseq0 (n : ℕ) (hle : 1 + c2 * eps ≤ (n : ℝ) / X) :
       Smooth1 SmoothingF eps ((n : ℝ) / X) = 0 :=
     hc2 eps ((n : ℝ) / X) ⟨heps, heps1⟩ hle
   have hb1 : 1 ≤ X * eps * c1 := by
-    rw [c1_eq, ← div_le_iff₀ (Real.log_pos (by norm_num))]
+    have hlogpos : 0 < Real.log 2 := Real.log_pos (by norm_num)
+    rw [c1_eq, ← div_le_iff₀ hlogpos]
     have htwo : 1 / Real.log 2 < 2 := by
-      nth_rewrite 2 [← one_div_one_div 2]
-      rw [one_div_lt_one_div]
-      · exact (by norm_num : (1 : ℝ) / 2 ≤ 0.6).trans_lt Real.log_two_gt_d9
-      · exact Real.log_pos (by norm_num)
-      · norm_num
-    exact (le_of_lt hXeps).trans (le_of_lt htwo)
-  have hb2 : 1 ≤ X * eps * c2 := by
-    rw [c2_eq, ← div_le_iff₀ (by positivity : 0 < 2 * Real.log 2)]
-    have htwo : 1 / (2 * Real.log 2) < 2 := by
+      rw [div_lt_iff₀ hlogpos]
       have hl := Real.log_two_gt_d9
-      nlinarith [Real.log_pos (by norm_num : (1 : ℝ) < 2)]
-    exact (le_of_lt hXeps).trans (le_of_lt htwo)
+      nlinarith
+    exact (le_of_lt htwo).trans (le_of_lt hXeps)
+  have hb2 : 1 ≤ X * eps * c2 := by
+    have hden : 0 < 2 * Real.log 2 := by positivity
+    rw [c2_eq, ← div_le_iff₀ hden]
+    have htwo : 1 / (2 * Real.log 2) < 2 := by
+      rw [div_lt_iff₀ hden]
+      have hl := Real.log_two_gt_d9
+      nlinarith
+    exact (le_of_lt htwo).trans (le_of_lt hXeps)
   rw [strongMertens_smoothedMobius_dirichlet diffF nonnegF suppF massF hX heps heps1]
   have hsum_real : (∑' n : ℕ, (μ n : ℂ) * Smooth1 SmoothingF eps ((n : ℝ) / X)) =
       ((∑' n : ℕ, (μ n : ℝ) * Smooth1 SmoothingF eps ((n : ℝ) / X) : ℝ) : ℂ) := by
