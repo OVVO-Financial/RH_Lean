@@ -173,10 +173,12 @@ theorem k2InvZetaRegular_iteratedDeriv_two :
   have hprod := hlin.fun_mul hderiv_factor_diff.hasDerivAt
   have hH : HasDerivAt H (-2 * (gammaE : ℂ)) (1 : ℂ) := by
     have hsum := k2InvZetaFactor_hasDerivAt_one.fun_add hprod
-    have hsum' : HasDerivAt H
+    have hsum' := hsum
+    rw [hfactor_deriv_value] at hsum'
+    have hsumH : HasDerivAt H
         (-(gammaE : ℂ) + -(gammaE : ℂ)) (1 : ℂ) := by
-      simpa using hsum
-    convert hsum' using 1
+      simpa [H] using hsum'
+    convert hsumH using 1
     ring
   have hsecond :
       deriv (deriv k2InvZetaRegular) (1 : ℂ) = -2 * (gammaE : ℂ) := by
