@@ -75,6 +75,8 @@ theorem k2HarmonicError_le_log_step (n : ℕ) (hn : 1 ≤ n) :
       Real.log ((n + 1 : ℕ) : ℝ) - Real.log (n : ℝ) := by
   have h := Real.eulerMascheroniSeq_lt_eulerMascheroniConstant n
   simp [Real.eulerMascheroniSeq] at h
+  have hcast : (((n + 1 : ℕ) : ℝ)) = (n : ℝ) + 1 := by norm_num
+  rw [hcast]
   unfold k2HarmonicError
   linarith
 
@@ -94,5 +96,6 @@ theorem k2HarmonicError_le_inv (n : ℕ) (hn : 1 ≤ n) :
       Real.log_le_sub_one_of_pos (div_pos hnp1pos hnpos)
     _ = 1 / (n : ℝ) := by
       field_simp [hnpos.ne']
+      norm_num
 
 end RHLean.Analysis
