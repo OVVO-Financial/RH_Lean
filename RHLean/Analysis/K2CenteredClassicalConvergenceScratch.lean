@@ -143,12 +143,15 @@ theorem k2KernelComparisonSum_tendsto_zero (h : K2ClassicalMomentInput) :
     Tendsto k2KernelComparisonSum atTop (𝓝 0) := by
   have hsum := (k2KernelComparisonLow_tendsto_zero h).add
     (k2KernelComparisonHigh_tendsto_zero h)
-  simpa only [zero_add] at hsum
-  apply hsum.congr'
-  have hsEv : ∀ᶠ N : ℕ in atTop, 1 ≤ Nat.sqrt N :=
-    k2Sqrt_tendsto_atTop.eventually (eventually_ge_atTop 1)
-  filter_upwards [hsEv] with N hs
-  exact k2KernelComparisonSum_split N hs
+  have heq :
+      (fun N : ℕ => k2KernelComparisonLow N + k2KernelComparisonHigh N) =ᶠ[atTop]
+        k2KernelComparisonSum := by
+    have hsEv : ∀ᶠ N : ℕ in atTop, 1 ≤ Nat.sqrt N :=
+      k2Sqrt_tendsto_atTop.eventually (eventually_ge_atTop 1)
+    filter_upwards [hsEv] with N hs
+    exact k2KernelComparisonSum_split N hs
+  have hconv := hsum.congr' heq
+  simpa using hconv
 
 /-- Harmonic-floor weighted centered moment sum. -/
 def k2HarmonicCenteredWeightSum (N : ℕ) : ℝ :=
@@ -186,17 +189,22 @@ theorem k2CenteredHarmonic_tendsto (h : K2ClassicalMomentInput) :
   rcases k2HarmonicCenteredWeightSum_tendsto h with ⟨ell, hell⟩
   refine ⟨ell, ?_⟩
   have hsum := h.r_tendsto_zero.add hell
-  simpa only [zero_add] at hsum
-  apply hsum.congr'
-  filter_upwards [eventually_ge_atTop 1] with N hN
-  have hF := k2F_centered_abel N hN
-  have hNN : k2H N N = 1 := by
-    unfold k2H
-    rw [Nat.div_self (by omega)]
-    norm_num [harmonic]
-  rw [hNN, mul_one] at hF
-  unfold k2HarmonicCenteredWeightSum k2HarmonicWeight
-  exact hF.symm
+  have heq :
+      (fun N : ℕ => k2r N + k2HarmonicCenteredWeightSum N) =ᶠ[atTop]
+        (fun N : ℕ =>
+          nativePNTSignedSecondSelbergKernelRecipMass N +
+            2 * gammaE * (harmonic N : ℝ)) := by
+    filter_upwards [eventually_ge_atTop 1] with N hN
+    have hF := k2F_centered_abel N hN
+    have hNN : k2H N N = 1 := by
+      unfold k2H
+      rw [Nat.div_self (by omega)]
+      norm_num [harmonic]
+    rw [hNN, mul_one] at hF
+    unfold k2HarmonicCenteredWeightSum k2HarmonicWeight
+    exact hF.symm
+  have hconv := hsum.congr' heq
+  simpa using hconv
 
 /-- **Classical centered K2 closure.**  The three reciprocal moment limits imply
 convergence of the centered reciprocal K2 mass. -/
