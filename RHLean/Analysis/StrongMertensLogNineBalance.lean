@@ -110,4 +110,88 @@ theorem nativeMertensSharpReal_logNine_subexp_eventually_for
         _ = (Cc + Cs) * X * Real.exp (-c * strongMertensScale X) := by ring
   simpa [c, Complex.norm_real, Real.norm_eq_abs] using hfinal
 
+/-- The sharp real estimate transfers exactly to natural Mertens endpoints. -/
+theorem nativeMertensSummatory_logNine_subexp_eventually
+    (corridor : StrongMertensLogNineCorridor) :
+    ∃ C > 0, ∀ᶠ N : ℕ in atTop,
+      |nativeMertensSummatory N| ≤
+        C * (N : ℝ) *
+          Real.exp (-strongMertensFinalDecay corridor *
+            strongMertensScale (N : ℝ)) := by
+  obtain ⟨ν, hνdiff, hνnonneg, hνsupp, hνmass⟩ := SmoothExistence
+  have hdiff : ContDiff ℝ 1 ν := hνdiff.of_le (by simp)
+  have hnonneg : ∀ x > 0, 0 ≤ ν x := fun x _ => hνnonneg x
+  have hmass : ∫ x in Set.Ioi (0 : ℝ), ν x / x = 1 := by
+    rwa [← integral_Ici_eq_integral_Ioi]
+  obtain ⟨C, hC, hreal⟩ :=
+    nativeMertensSharpReal_logNine_subexp_eventually_for
+      corridor hνsupp hnonneg hmass hdiff
+  refine ⟨C, hC, ?_⟩
+  have hnat := tendsto_natCast_atTop_atTop.eventually hreal
+  filter_upwards [hnat] with N hN
+  simpa using hN
+
+/-- Unconditional strong Mertens estimate at natural endpoints.  The finite
+initial segment is absorbed into the constant, while the decay constant is the
+one supplied by the single canonical log-nine corridor. -/
+theorem StrongNativeMertensSubexp :
+    ∃ C > 0, ∃ c > 0, ∀ N : ℕ, 1 ≤ N →
+      |nativeMertensSummatory N| ≤
+        C * (N : ℝ) *
+          Real.exp (-c * (Real.log (N : ℝ)) ^ ((1 : ℝ) / 10)) := by
+  let corridor := strongMertensLogNineCorridor
+  let c := strongMertensFinalDecay corridor
+  have hc : 0 < c := by
+    dsimp [c]
+    exact strongMertensFinalDecay_pos corridor
+  obtain ⟨C0, hC0, hlarge⟩ :=
+    nativeMertensSummatory_logNine_subexp_eventually corridor
+  rcases eventually_atTop.1 hlarge with ⟨M, hM⟩
+  let D : ℕ → ℝ := fun n =>
+    (n : ℝ) * Real.exp (-c * strongMertensScale (n : ℝ))
+  let S : ℝ :=
+    ∑ n ∈ Finset.range M, |nativeMertensSummatory n| / D n
+  have hDnonneg (n : ℕ) : 0 ≤ D n := by
+    dsimp [D]
+    positivity
+  have hS : 0 ≤ S := by
+    dsimp [S]
+    exact Finset.sum_nonneg fun n _ =>
+      div_nonneg (abs_nonneg _) (hDnonneg n)
+  refine ⟨C0 + S, by positivity, c, hc, ?_⟩
+  intro N hN
+  have hNpos : (0 : ℝ) < (N : ℝ) := by
+    exact_mod_cast (show 0 < N by omega)
+  have hDpos : 0 < D N := by
+    dsimp [D]
+    exact mul_pos hNpos (Real.exp_pos _)
+  by_cases hMN : M ≤ N
+  · have htail := hM N hMN
+    have htailD : |nativeMertensSummatory N| ≤ C0 * D N := by
+      simpa [D, c, mul_assoc] using htail
+    calc
+      |nativeMertensSummatory N| ≤ C0 * D N := htailD
+      _ ≤ (C0 + S) * D N := by
+        exact mul_le_mul_of_nonneg_right (le_add_of_nonneg_right hS) hDpos.le
+      _ = (C0 + S) * (N : ℝ) *
+          Real.exp (-c * (Real.log (N : ℝ)) ^ ((1 : ℝ) / 10)) := by
+        dsimp [D, strongMertensScale]
+        ring
+  · have hNM : N < M := Nat.lt_of_not_ge hMN
+    have hsingle : |nativeMertensSummatory N| / D N ≤ S := by
+      dsimp [S]
+      exact Finset.single_le_sum
+        (fun n _ => div_nonneg (abs_nonneg _) (hDnonneg n))
+        (Finset.mem_range.2 hNM)
+    have hprefix : |nativeMertensSummatory N| ≤ S * D N :=
+      (div_le_iff₀ hDpos).1 hsingle
+    calc
+      |nativeMertensSummatory N| ≤ S * D N := hprefix
+      _ ≤ (C0 + S) * D N := by
+        exact mul_le_mul_of_nonneg_right (le_add_of_nonneg_left hC0.le) hDpos.le
+      _ = (C0 + S) * (N : ℝ) *
+          Real.exp (-c * (Real.log (N : ℝ)) ^ ((1 : ℝ) / 10)) := by
+        dsimp [D, strongMertensScale]
+        ring
+
 end RHLean.Analysis
