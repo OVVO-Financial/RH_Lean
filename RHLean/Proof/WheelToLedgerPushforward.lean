@@ -1,4 +1,5 @@
 import RHLean.Proof.WheelToLedgerEquivariance
+import RHLean.Proof.LowWheelHighPrimeSurvivor
 
 /-!
 # Pushforward of the ancestry cross ledger to ordered wheel edges
