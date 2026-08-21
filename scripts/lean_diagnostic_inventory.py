@@ -18,7 +18,7 @@ POSITION = re.compile(r"(?P<path>[^\s:]+\.lean):(?P<line>\d+):(?P<col>\d+)")
 SEVERITY = re.compile(r"\b(?P<severity>warning|error|info):")
 SEVERITY_ORDER = {"error": 0, "warning": 1, "info": 2}
 TARGET_STATUS = Path(".github/strong-mertens-k2-clean-status.txt")
-PROBE_REVISION = 4
+PROBE_REVISION = 5
 
 
 def normalize(path: str) -> str:
@@ -97,6 +97,12 @@ def apply_probe_repairs(target: str) -> None:
         return
     path = Path("RHLean/Analysis/StrongMertensLogNineHorizontal.lean")
     text = path.read_text()
+    if (
+        text.count("intervalIntegral.norm_integral_le_integral_norm hsigOrder") == 2
+        and text.count("Real.volume_real_Ioc_of_le hsigOrder") == 2
+    ):
+        print("Committed Horizontal repairs already present; compiling source unchanged.")
+        return
     replacements = [
         (
             "intervalIntegral.norm_integral_le_integral_norm _",
