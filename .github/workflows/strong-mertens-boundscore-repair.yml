@@ -1,4 +1,4 @@
-name: Strong Mertens Bounds final elaboration repair
+name: Strong Mertens Bounds warning repair
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
         with:
           ref: agent/strong-mertens-k2-clean
 
-      - name: Apply final Bounds elaboration repairs
+      - name: Remove Bounds dead tactics
         shell: bash
         run: |
           python3 - <<'PY'
@@ -25,47 +25,29 @@ jobs:
           path = Path('RHLean/Analysis/StrongMertensLogNineBounds.lean')
           text = path.read_text()
 
-          old_pow = 'nlinarith [corridor.A_mem.2, one_le_pow₀ hlogT.le]'
-          new_pow = 'nlinarith [corridor.A_mem.2, one_le_pow₀ (n := 9) hlogT.le]'
-          if text.count(old_pow) != 1:
-              raise SystemExit(f'power repair: expected 1, found {text.count(old_pow)}')
-          text = text.replace(old_pow, new_pow)
+          old1 = '''                  convert hp using 1 <;>
+                    field_simp [ne_of_gt heps.1] <;> ring'''
+          new1 = '''                  convert hp using 1
+                  field_simp [ne_of_gt heps.1]'''
+          if text.count(old1) != 1:
+              raise SystemExit(f'pointwise warning site: expected 1, found {text.count(old1)}')
+          text = text.replace(old1, new1)
 
-          old_hk = '''      have hK : 0 ≤ K := by
-        dsimp [K]
-        exact div_nonneg
-          (mul_nonneg
-            (mul_nonneg
-              (mul_nonneg hCz.le hCm.le)
-              (mul_nonneg (by linarith : 0 ≤ X) (Real.exp_pos _).le))
-            (by positivity))
-          heps.1.le'''
-          new_hk = '''      have hK : 0 ≤ K := by
-        dsimp [K]
-        have hXnonneg : 0 ≤ X := by linarith
-        have hpoly : 0 ≤ 1 + (Real.log T)^7 := by
-          exact add_nonneg zero_le_one (pow_nonneg hlogTnonneg 7)
-        exact div_nonneg
-          (mul_nonneg
-            (mul_nonneg
-              (mul_nonneg
-                (mul_nonneg hCz.le hCm.le)
-                hXnonneg)
-              (Real.exp_pos _).le)
-            hpoly)
-          heps.1.le'''
-          if text.count(old_hk) != 1:
-              raise SystemExit(f'hK repair: expected 1, found {text.count(old_hk)}')
-          text = text.replace(old_hk, new_hk)
+          old2 = '''              field_simp [Real.pi_ne_zero, ne_of_gt heps.1, ne_of_gt hsigpos]
+              <;> ring'''
+          new2 = '''              field_simp [Real.pi_ne_zero, ne_of_gt heps.1, ne_of_gt hsigpos]'''
+          if text.count(old2) != 1:
+              raise SystemExit(f'final algebra warning site: expected 1, found {text.count(old2)}')
+          text = text.replace(old2, new2)
 
           path.write_text(text)
           PY
 
-      - name: Publish Bounds repair
+      - name: Publish Bounds warning repair
         shell: bash
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add -- RHLean/Analysis/StrongMertensLogNineBounds.lean
-          git commit -m 'Finish Strong Mertens bounds elaboration'
+          git commit -m 'Remove dead tactics from Strong Mertens bounds'
           git push origin HEAD:agent/strong-mertens-k2-clean
