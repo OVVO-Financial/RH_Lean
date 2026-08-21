@@ -16,13 +16,18 @@ theorem k2MertensAbelTerm_two_summable :
   have hbase : Summable (fun N : ℕ =>
       1 / ((N : ℝ) * (Real.log (N : ℝ)) ^ 3)) := by
     rw [← summable_nat_add_iff 3 (G := ℝ)]
-    simpa [k2LogHarmonicTail] using
-      (k2LogHarmonicTail_summable (p := 3) (by norm_num))
+    exact (k2LogHarmonicTail_summable (p := 3) (by norm_num)).congr fun n => by
+      simp [k2LogHarmonicTail, one_div, mul_inv_rev]
   have hg : Summable g := by
     exact hbase.mul_left (8 * C)
+  have hpowNat :
+      ∀ᶠ N : ℕ in atTop,
+        strongMertensScale (N : ℝ) ^ 50 ≤
+          Real.exp (c * strongMertensScale (N : ℝ)) :=
+    tendsto_natCast_atTop_atTop.eventually
+      (strongMertens_scale_pow_le_exp_eventually 50 hc)
   apply Summable.of_norm_bounded_eventually_nat hg
-  filter_upwards [eventually_ge_atTop 3,
-    strongMertens_scale_pow_le_exp_eventually 50 hc] with N hN hpow
+  filter_upwards [eventually_ge_atTop 3, hpowNat] with N hN hpow
   have hNposNat : 0 < N := by omega
   have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast hNposNat
   have hN1 : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hNposNat
