@@ -1,3 +1,4 @@
+import RHLean.Analysis.K2CenteredClassicalInterface
 import RHLean.Analysis.K2RecipMomentAbelIdentificationScratch
 
 noncomputable section
@@ -88,7 +89,6 @@ theorem k2MertensAbelTerm_two_mul_log_summable :
     _ = (8 * C / (N : ℝ)) *
           (Real.exp (-c * r) * (Real.log (N : ℝ)) ^ 3) := by
         field_simp [ne_of_gt hNpos]
-        ring
     _ ≤ (8 * C / (N : ℝ)) *
           (1 / (Real.log (N : ℝ)) ^ 2) := by
         apply mul_le_mul_of_nonneg_left hdecay3
@@ -124,6 +124,12 @@ theorem k2MertensAbelTerm_two_tail_mul_log_tendsto_zero :
   have hlogN : 0 ≤ Real.log (N : ℝ) := Real.log_nonneg (by exact_mod_cast hN)
   have hshift : Summable (fun i : ℕ => k2MertensAbelTerm 2 (i + N)) :=
     (summable_nat_add_iff N).2 k2MertensAbelTerm_two_summable
+  have hleft : Summable (fun i : ℕ =>
+      Real.log (N : ℝ) * ‖k2MertensAbelTerm 2 (i + N)‖) :=
+    hshift.norm.mul_left (Real.log (N : ℝ))
+  have hright : Summable (fun i : ℕ =>
+      ‖Real.log ((i + N : ℕ) : ℝ) * k2MertensAbelTerm 2 (i + N)‖) :=
+    (summable_nat_add_iff N).2 hweightedNorm
   calc
     ‖Real.log (N : ℝ) *
         (∑' i : ℕ, k2MertensAbelTerm 2 (i + N))‖
@@ -133,23 +139,22 @@ theorem k2MertensAbelTerm_two_tail_mul_log_tendsto_zero :
     _ ≤ Real.log (N : ℝ) *
           (∑' i : ℕ, ‖k2MertensAbelTerm 2 (i + N)‖) := by
         exact mul_le_mul_of_nonneg_left
-          (norm_tsum_le_tsum_norm hshift) hlogN
+          (norm_tsum_le_tsum_norm hshift.norm) hlogN
     _ = ∑' i : ℕ,
           Real.log (N : ℝ) * ‖k2MertensAbelTerm 2 (i + N)‖ := by
         rw [tsum_mul_left]
     _ ≤ ∑' i : ℕ,
           ‖Real.log ((i + N : ℕ) : ℝ) *
             k2MertensAbelTerm 2 (i + N)‖ := by
-        apply tsum_le_tsum
-        · intro i
-          rw [norm_mul, Real.norm_eq_abs]
-          have hNi : N ≤ i + N := Nat.le_add_left N i
+        exact hleft.tsum_le_tsum (fun i => by
+          have hNi : N ≤ i + N := by omega
           have hcast : (N : ℝ) ≤ ((i + N : ℕ) : ℝ) := by exact_mod_cast hNi
+          have hNi1 : (1 : ℝ) ≤ ((i + N : ℕ) : ℝ) := by
+            exact hcast.trans' (by exact_mod_cast hN)
           have hlogle := Real.log_le_log hNpos hcast
-          rw [abs_of_nonneg (Real.log_nonneg (by exact_mod_cast hN))]
-          exact mul_le_mul_of_nonneg_right hlogle (norm_nonneg _)
-        · exact (hshift.norm.mul_left (Real.log (N : ℝ)))
-        · exact (summable_nat_add_iff N).2 hweightedNorm
+          have hlogNi : 0 ≤ Real.log ((i + N : ℕ) : ℝ) := Real.log_nonneg hNi1
+          rw [norm_mul, Real.norm_eq_abs, abs_of_nonneg hlogNi]
+          exact mul_le_mul_of_nonneg_right hlogle (norm_nonneg _)) hright
 
 /-- The centered order-two reciprocal moment has the stronger rate required by
 the classical K2 hyperbola closure. -/
@@ -159,13 +164,24 @@ theorem k2r_mul_log_tendsto_zero_from_strongMertens :
       atTop (𝓝 0) := by
   have hend3 := k2StrongMertens_logRecip_endpoint_tendsto_zero 3
   have htail := k2MertensAbelTerm_two_tail_mul_log_tendsto_zero
-  have hcombined := hend3.sub htail
-  rw [zero_sub] at hcombined
+  have hcombined :
+      Tendsto
+        (fun N : ℕ =>
+          nativeMertensSummatory N * k2LogRecipWeight 3 N -
+            Real.log (N : ℝ) *
+              (∑' i : ℕ, k2MertensAbelTerm 2 (i + N)))
+        atTop (𝓝 0) := by
+    simpa using hend3.sub htail
   refine hcombined.congr fun N => ?_
   have hsum := k2MertensAbelTerm_two_summable.sum_add_tsum_nat_add N
   have hmom := k2MobiusLogMoment_abel 2 N
   rw [k2MertensAbelTerm_sum_Ico_eq_range] at hmom
   have htsum := k2MertensAbelTerm_two_tsum_eq_neg_two_gamma
+  have htailEq :
+      (∑' i : ℕ, k2MertensAbelTerm 2 (i + N)) =
+        -2 * gammaE - ∑ n ∈ Finset.range N, k2MertensAbelTerm 2 n := by
+    rw [htsum] at hsum
+    linarith
   unfold k2r
   rw [k2A2_eq_moment, hmom]
   have hweight3 :
@@ -174,9 +190,8 @@ theorem k2r_mul_log_tendsto_zero_from_strongMertens :
           Real.log (N : ℝ) := by
     unfold k2LogRecipWeight
     ring
-  rw [hweight3]
-  rw [← htsum]
-  linarith
+  rw [hweight3, htailEq]
+  ring
 
 /-- All analytic inputs required by the finite classical K2 closure now follow
 from the Strong Mertens theorem. -/
