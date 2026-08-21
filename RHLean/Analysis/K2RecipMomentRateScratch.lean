@@ -153,7 +153,7 @@ theorem k2MertensAbelTerm_two_tail_mul_log_tendsto_zero :
             exact hcast.trans' (by exact_mod_cast hN)
           have hlogle := Real.log_le_log hNpos hcast
           have hlogNi : 0 ≤ Real.log ((i + N : ℕ) : ℝ) := Real.log_nonneg hNi1
-          rw [norm_mul, Real.norm_eq_abs, abs_of_nonneg hlogNi]
+          rw [norm_mul, Real.norm_of_nonneg hlogNi]
           exact mul_le_mul_of_nonneg_right hlogle (norm_nonneg _)) hright
 
 /-- The centered order-two reciprocal moment has the stronger rate required by
