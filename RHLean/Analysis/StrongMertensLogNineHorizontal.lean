@@ -318,7 +318,7 @@ theorem nativeMertensHorizontal_logNine_bound_for
             nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖
           ≤ ∫ sigma in sigmaLeft..sigmaRight,
             ‖nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖ :=
-              intervalIntegral.norm_integral_le_integral_norm _
+              intervalIntegral.norm_integral_le_integral_norm hsigOrder
         _ ≤ (sigmaRight - sigmaLeft) *
             (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
           rw [intervalIntegral.integral_of_le hsigOrder]
@@ -328,15 +328,15 @@ theorem nativeMertensHorizontal_logNine_bound_for
               ≤ ∫ _sigma in Set.Ioc sigmaLeft sigmaRight,
                   (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
                 apply setIntegral_mono_on
-                · exact hHorizontalContinuous.norm.integrableOn_compact isCompact_Icc
+                · exact (hHorizontalContinuous.norm.integrableOn_compact isCompact_Icc).mono_set Set.Ioc_subset_Icc_self
                 · exact integrableOn_const (by simp)
                 · exact measurableSet_Ioc
                 · intro sigma hs
-                  exact hpoint sigma ⟨hs.1.le, hs.2.le⟩
+                  exact hpoint sigma ⟨hs.1.le, hs.2⟩
             _ = (sigmaRight - sigmaLeft) *
                 (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
-                  rw [setIntegral_const, Real.volume_Ioc]
-                  simp [hsigOrder]
+                  rw [setIntegral_const, Real.volume_real_Ioc_of_le hsigOrder]
+                  simp [smul_eq_mul]
         _ ≤ 2 * (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) :=
           mul_le_mul_of_nonneg_right hlen hbaseNonneg
     calc
@@ -349,7 +349,6 @@ theorem nativeMertensHorizontal_logNine_bound_for
       _ = Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
           (eps * T ^ 2) := by
         field_simp [Real.pi_ne_zero, hepsne, hTne]
-        ring
   have hXpos : 0 < X := by linarith
   have hpointUpper : ∀ sigma ∈ Set.Icc sigmaLeft sigmaRight,
       ‖nativeSmoothedMobiusIntegrand f eps X (sigma + T * I)‖ ≤
@@ -400,7 +399,7 @@ theorem nativeMertensHorizontal_logNine_bound_for
             nativeSmoothedMobiusIntegrand f eps X (sigma + T * I)‖
           ≤ ∫ sigma in sigmaLeft..sigmaRight,
             ‖nativeSmoothedMobiusIntegrand f eps X (sigma + T * I)‖ :=
-              intervalIntegral.norm_integral_le_integral_norm _
+              intervalIntegral.norm_integral_le_integral_norm hsigOrder
         _ ≤ (sigmaRight - sigmaLeft) *
             (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
           rw [intervalIntegral.integral_of_le hsigOrder]
@@ -410,15 +409,15 @@ theorem nativeMertensHorizontal_logNine_bound_for
               ≤ ∫ _sigma in Set.Ioc sigmaLeft sigmaRight,
                   (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
                 apply setIntegral_mono_on
-                · exact hHorizontalContinuousUpper.norm.integrableOn_compact isCompact_Icc
+                · exact (hHorizontalContinuousUpper.norm.integrableOn_compact isCompact_Icc).mono_set Set.Ioc_subset_Icc_self
                 · exact integrableOn_const (by simp)
                 · exact measurableSet_Ioc
                 · intro sigma hs
-                  exact hpointUpper sigma ⟨hs.1.le, hs.2.le⟩
+                  exact hpointUpper sigma ⟨hs.1.le, hs.2⟩
             _ = (sigmaRight - sigmaLeft) *
                 (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
-                  rw [setIntegral_const, Real.volume_Ioc]
-                  simp [hsigOrder]
+                  rw [setIntegral_const, Real.volume_real_Ioc_of_le hsigOrder]
+                  simp [smul_eq_mul]
         _ ≤ 2 * (Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) :=
           mul_le_mul_of_nonneg_right hlen hbaseNonneg
     calc
@@ -431,7 +430,6 @@ theorem nativeMertensHorizontal_logNine_bound_for
       _ = Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
           (eps * T ^ 2) := by
         field_simp [Real.pi_ne_zero, hepsne, hTne]
-        ring
   dsimp [C]
   have hBnonneg :
       0 ≤ Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by
