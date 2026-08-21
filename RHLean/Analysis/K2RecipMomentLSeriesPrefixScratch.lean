@@ -33,6 +33,7 @@ theorem k2A2AbelCoeff_ofReal_eq_term
   rw [← Complex.natCast_log, Complex.ofReal_cpow (Nat.cast_nonneg n) sigma]
   have hncast : (((n : ℝ) : ℂ)) = (n : ℂ) := by norm_cast
   rw [hncast]
+  ring_nf
 
 /-- Complexifying the finite Abel prefix gives the ordinary finite L-series
 partial sum through the same endpoint. -/
@@ -57,12 +58,13 @@ theorem k2A2AbelPrefix_ofReal_eq_sum_range (sigma : ℝ) (M : ℕ) :
           intro n hnmem
           rw [← k2A2AbelCoeff_ofReal_eq_term sigma (Finset.mem_Ico.mp hnmem).1]
           push_cast
+          rfl
     _ = ∑ n ∈ Finset.Ico 0 (M + 1),
         LSeries.term k2MobiusLogSqCoeff (sigma : ℂ) n := by
           have hsplit := Finset.sum_Ico_consecutive
             (f := fun n : ℕ => LSeries.term k2MobiusLogSqCoeff (sigma : ℂ) n)
             (show 0 ≤ 1 by omega) (show 1 ≤ M + 1 by omega)
-          simpa using hsplit.symm
+          simpa using hsplit
     _ = ∑ n ∈ Finset.range (M + 1),
         LSeries.term k2MobiusLogSqCoeff (sigma : ℂ) n := by
           simp
