@@ -122,7 +122,7 @@ theorem nativeMertensSummatory_logNine_subexp_eventually
   have hdiff : ContDiff ℝ 1 ν := hνdiff.of_le (by simp)
   have hnonneg : ∀ x > 0, 0 ≤ ν x := fun x _ => hνnonneg x
   have hmass : ∫ x in Set.Ioi (0 : ℝ), ν x / x = 1 := by
-    rwa [← integral_Ici_eq_integral_Ioi]
+    rwa [← MeasureTheory.integral_Ici_eq_integral_Ioi]
   obtain ⟨C, hC, hreal⟩ :=
     nativeMertensSharpReal_logNine_subexp_eventually_for
       corridor hνsupp hnonneg hmass hdiff
@@ -131,14 +131,10 @@ theorem nativeMertensSummatory_logNine_subexp_eventually
   filter_upwards [hnat] with N hN
   simpa using hN
 
-/-- Unconditional strong Mertens estimate at natural endpoints.  The finite
-initial segment is absorbed into the constant, while the decay constant is the
-one supplied by the single canonical log-nine corridor. -/
-theorem StrongNativeMertensSubexp :
-    ∃ C > 0, ∃ c > 0, ∀ N : ℕ, 1 ≤ N →
-      |nativeMertensSummatory N| ≤
-        C * (N : ℝ) *
-          Real.exp (-c * (Real.log (N : ℝ)) ^ ((1 : ℝ) / 10)) := by
+/-- The global natural-endpoint target follows from the canonical log-nine
+corridor and finite-prefix absorption. -/
+theorem strongNativeMertensSubexp : StrongNativeMertensSubexp := by
+  unfold StrongNativeMertensSubexp
   let corridor := strongMertensLogNineCorridor
   let c := strongMertensFinalDecay corridor
   have hc : 0 < c := by
@@ -158,7 +154,7 @@ theorem StrongNativeMertensSubexp :
     dsimp [S]
     exact Finset.sum_nonneg fun n _ =>
       div_nonneg (abs_nonneg _) (hDnonneg n)
-  refine ⟨C0 + S, by positivity, c, hc, ?_⟩
+  refine ⟨c, C0 + S, hc, by positivity, ?_⟩
   intro N hN
   have hNpos : (0 : ℝ) < (N : ℝ) := by
     exact_mod_cast (show 0 < N by omega)
