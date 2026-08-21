@@ -1,2 +1,2 @@
-target=RHLean.Analysis.StrongMertensSmoothing
-probe=21
+target=RHLean.Analysis.StrongMertensLogNineBalanceCore
+probe=22
