@@ -69,15 +69,26 @@ theorem nativeMertensFiveLeg_logNine_bound_for
   have hh := hHorizontal heps hX hT
   have h3 := hM3 heps hX hT
   dsimp [sigmaLeft] at hh h3 ⊢
+  have hXnonneg : 0 ≤ X := by linarith
+  have hlogXnonneg : 0 ≤ Real.log X := Real.log_nonneg (by linarith)
+  have hlogTnonneg : 0 ≤ Real.log T := Real.log_nonneg (by linarith)
   have hfar_nonneg : 0 ≤ strongMertensFarEnvelope eps X T := by
     unfold strongMertensFarEnvelope
-    positivity
+    exact div_nonneg
+      (mul_nonneg hXnonneg hlogXnonneg)
+      (mul_nonneg heps.1.le (Real.sqrt_nonneg T))
   have hhor_nonneg : 0 ≤ strongMertensHorizontalEnvelope eps X T := by
     unfold strongMertensHorizontalEnvelope
-    positivity
+    exact div_nonneg
+      (mul_nonneg hXnonneg (add_nonneg zero_le_one (pow_nonneg hlogTnonneg 10)))
+      (mul_nonneg heps.1.le (sq_nonneg T))
   have hvert_nonneg : 0 ≤ strongMertensVerticalEnvelope corridor eps X T := by
     unfold strongMertensVerticalEnvelope
-    positivity
+    exact div_nonneg
+      (mul_nonneg
+        (mul_nonneg hXnonneg (Real.exp_pos _).le)
+        (add_nonneg zero_le_one (pow_nonneg hlogTnonneg 7)))
+      heps.1.le
   have h1' : ‖nativeMertensContourM1 f eps X T‖ ≤
       C1 * strongMertensFarEnvelope eps X T := by
     simpa [strongMertensFarEnvelope] using h1
@@ -90,12 +101,14 @@ theorem nativeMertensFiveLeg_logNine_bound_for
         ‖nativeMertensContourM4 f eps X T
           (strongMertensLogNineShift corridor.A T)‖ ≤
       Ch * strongMertensHorizontalEnvelope eps X T := by
-    simpa [strongMertensHorizontalEnvelope] using hh
+    unfold strongMertensHorizontalEnvelope
+    convert hh using 1 <;> ring
   have h3' :
       ‖nativeMertensContourM3 f eps X T
           (strongMertensLogNineShift corridor.A T)‖ ≤
       C3 * strongMertensVerticalEnvelope corridor eps X T := by
-    simpa [strongMertensVerticalEnvelope] using h3
+    unfold strongMertensVerticalEnvelope
+    convert h3 using 1 <;> ring
   calc
     ‖nativeMertensContourM1 f eps X T‖ +
           ‖nativeMertensContourM2 f eps X T
