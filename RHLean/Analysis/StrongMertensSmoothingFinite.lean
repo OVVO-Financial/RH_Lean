@@ -199,10 +199,8 @@ theorem strongMertens_smoothed_close_aux
     rw [← mul_one (1 : ℝ)]
     apply mul_le_mul (mu_bnd1 n hn) _ (norm_nonneg _) (by norm_num)
     rw [Real.norm_of_nonneg]
-    · apply smooth_le_one
-      omega
-    · apply smooth_nonneg
-      omega
+    · simpa [F, Nat.cast_add] using smooth_le_one (n + n0) (by omega)
+    · simpa [F, Nat.cast_add] using smooth_nonneg (n + n0) (by omega)
   have bnd2 :
       ∑ x ∈ Finset.range (⌊X + 1⌋₊ - n0), ‖(μ (x + n0) : ℝ)‖ ≤
         (⌊X + 1⌋₊ : ℝ) - n0 := by
@@ -250,9 +248,8 @@ theorem strongMertens_smoothed_close_aux
           X * (1 + eps * c1) - X * (1 - eps * c1))]
         apply sub_le_sub
         · apply floor_X_add_one_le_self.trans
-          rw [show X + 1 ≤ X * (1 + eps * c1) by
-            ring_nf
-            linarith [X_bound_1]]
+          ring_nf
+          linarith [X_bound_1]
         · simpa [mul_comm c1 eps] using n0_gt
       have hkey : ((n1 : ℝ) - n0) + ((⌊X + 1⌋₊ : ℝ) - n0) + 1 ≤
           X * eps * (c2 + c1) + 2 * (X * eps * c1) + X * eps * c1 := by
