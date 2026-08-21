@@ -27,7 +27,7 @@ theorem k2A2AbelPrefix_centered_abs_le_head_add
   have hsplit :
       (∑ n ∈ Finset.Ico 1 N, f n) + (∑ n ∈ Finset.Ico N M, f n) =
         ∑ n ∈ Finset.Ico 1 M, f n := by
-    exact Finset.sum_Ico_consecutive hN hNM
+    simpa only using (Finset.sum_Ico_consecutive (f := f) hN hNM)
   have htail :
       |∑ n ∈ Finset.Ico N M, f n| ≤
         eps * ∑ n ∈ Finset.Ico N M,
@@ -35,7 +35,8 @@ theorem k2A2AbelPrefix_centered_abs_le_head_add
             k2AbelBoundaryWeight sigma (n + 1)) := by
     calc
       |∑ n ∈ Finset.Ico N M, f n| ≤
-          ∑ n ∈ Finset.Ico N M, |f n| := abs_sum_le_sum_abs _
+          ∑ n ∈ Finset.Ico N M, |f n| := by
+            exact abs_sum_le_sum_abs
       _ ≤ ∑ n ∈ Finset.Ico N M,
           eps * (k2AbelBoundaryWeight sigma n -
             k2AbelBoundaryWeight sigma (n + 1)) := by
