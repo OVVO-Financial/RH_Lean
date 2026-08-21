@@ -95,8 +95,6 @@ theorem k2TotalWeight_sum_le_two_log (N : ℕ) (hN : 1 ≤ N) :
 theorem k2Sqrt_tendsto_atTop : Tendsto Nat.sqrt atTop atTop := by
   refine tendsto_atTop.2 ?_
   intro b
-  refine ⟨b * b, ?_⟩
-  intro N hN
-  exact (Nat.le_sqrt).2 hN
+  exact eventually_atTop.2 ⟨b * b, fun N hN => (Nat.le_sqrt).2 hN⟩
 
 end RHLean.Analysis
