@@ -159,6 +159,7 @@ private theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
     push_cast
     rw [Real.log_pow]
     push_cast
+    rfl
   have hlogle : Real.log (q : ℝ) ≤ Real.log ((q + 3 : ℕ) : ℝ) :=
     Real.log_le_log hqpos hqle
   have hlogqpos : 0 < Real.log (q : ℝ) := by
