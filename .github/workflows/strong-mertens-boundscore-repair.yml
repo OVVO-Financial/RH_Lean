@@ -1,4 +1,4 @@
-name: Strong Mertens Bounds repair
+name: Strong Mertens Bounds arithmetic repair
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
         with:
           ref: agent/strong-mertens-k2-clean
 
-      - name: Apply Bounds 4.24 repairs
+      - name: Apply remaining Bounds arithmetic repairs
         shell: bash
         run: |
           python3 - <<'PY'
@@ -25,95 +25,74 @@ jobs:
           path = Path('RHLean/Analysis/StrongMertensLogNineBounds.lean')
           text = path.read_text()
 
-          def rep(label, old, new, count=1):
+          def rep(label, old, new):
               global text
               n = text.count(old)
-              if n != count:
-                  raise SystemExit(f'{label}: expected {count}, found {n}')
+              if n != 1:
+                  raise SystemExit(f'{label}: expected 1, found {n}')
               text = text.replace(old, new)
               print(f'applied {label}')
 
-          rep('vertical Mellin pointwise closure', '''    have hsre : s.re = sigmaLeft := by simp [s]
-    have hM := hMel sigmaLeft hsigpos s (by simp [s]) (by simp [s]; linarith) eps heps.1 heps.2
-    have hnormsq : ‖s‖^2 = sigmaLeft^2 + t^2 := by
-      rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
-      simp [s]
-      ring
-    rw [nativeSmoothedMobiusIntegrand_norm_eq,
-      Complex.norm_cpow_eq_rpow_re_of_pos (by linarith), hsre]
-    rwa [hnormsq] at hM ⊢''', '''    have hsre : s.re = sigmaLeft := by simp [s]
-    have hsigle2 : sigmaLeft ≤ 2 := by
-      linarith [corridor.shift_lt_one T hT.le]
-    have hM := hMel sigmaLeft hsigpos s (by rw [hsre])
-      (by rw [hsre]; exact hsigle2) eps heps.1 heps.2
-    have hnormsq : ‖s‖^2 = sigmaLeft^2 + t^2 := by
-      rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
-      simp [s]
-      ring
-    rw [hnormsq] at hM
-    have hz' : 1 / ‖zetaC s‖ ≤ Cz * (1 + (Real.log T)^7) := by
-      simpa [s, sigmaLeft] using hz
-    rw [nativeSmoothedMobiusIntegrand_norm_eq,
-      Complex.norm_cpow_eq_rpow_re_of_pos (by linarith), hsre]
-    have hZnonneg : 0 ≤ Cz * (1 + (Real.log T)^7) := by positivity
-    have hprod := mul_le_mul hz' hM (norm_nonneg _) hZnonneg
-    exact mul_le_mul_of_nonneg_right hprod (Real.rpow_nonneg (by linarith) _)''')
+          rep('shared nonnegativity', '''  have hsigpos : 0 < sigmaLeft := by
+    dsimp [sigmaLeft]
+    exact corridor.shift_pos T hT.le
+  have hpoint''', '''  have hsigpos : 0 < sigmaLeft := by
+    dsimp [sigmaLeft]
+    exact corridor.shift_pos T hT.le
+  have hlogTnonneg : 0 ≤ Real.log T := Real.log_nonneg (by linarith)
+  have hZnonneg : 0 ≤ Cz * (1 + (Real.log T)^7) := by
+    exact mul_nonneg hCz.le (by positivity)
+  have hpoint''')
 
-          rep('kernel integrability', '''                · apply (ContinuousOn.const_mul (by
-                    apply ContinuousOn.inv₀
-                    · fun_prop
-                    · intro t ht
-                      positivity)).integrableOn_compact isCompact_Icc''', '''                · exact ((integrable_inv_sq_add_sq (ne_of_gt hsigpos)).const_mul
-                    (Cz * (1 + (Real.log T)^7) * Cm / eps * X^sigmaLeft)).integrableOn''')
+          rep('remove local nonnegativity', '''    have hZnonneg : 0 ≤ Cz * (1 + (Real.log T)^7) := by positivity
+    have hprod''', '''    have hprod''')
 
-          rep('pointwise factor normalization', '''                · intro t ht
-                  have hp := hpoint t ht
-                  simpa [mul_inv, div_eq_mul_inv] using hp''', '''                · intro t ht
-                  have hp := hpoint t ht
-                  convert hp using 1 <;>
-                    field_simp [ne_of_gt heps.1] <;> ring''')
+          rep('kernel coefficient nonnegativity', '''                apply mul_le_mul_of_nonneg_left hkernel
+                positivity''', '''                have hcoeff : 0 ≤
+                    Cz * (1 + (Real.log T)^7) * Cm / eps * X^sigmaLeft := by
+                  exact mul_nonneg
+                    (div_nonneg (mul_nonneg hZnonneg hCm.le) heps.1.le)
+                    (Real.rpow_nonneg (by linarith) _)
+                exact mul_le_mul_of_nonneg_left hkernel hcoeff''')
 
-          rep('set integral constant extraction', '''          _ ≤ (Cz * (1 + (Real.log T)^7) * Cm / eps * X^sigmaLeft) *
-                (Real.pi / sigmaLeft) := by
-                rw [← integral_const_mul]
-                have hfull := integral_inv_sq_add_sq (ne_of_gt hsigpos)
-                calc
-                  ∫ t in Set.Icc (-T) T, (sigmaLeft^2+t^2)⁻¹
-                    ≤ ∫ t : ℝ, (sigmaLeft^2+t^2)⁻¹ :=
-                      MeasureTheory.setIntegral_le_integral
-                        (integrable_inv_sq_add_sq (ne_of_gt hsigpos))
-                        (Filter.Eventually.of_forall fun t =>
-                          inv_nonneg.mpr (by positivity))
-                  _ = Real.pi / sigmaLeft := by simpa [abs_of_pos hsigpos] using hfull''', '''          _ ≤ (Cz * (1 + (Real.log T)^7) * Cm / eps * X^sigmaLeft) *
-                (Real.pi / sigmaLeft) := by
-                rw [MeasureTheory.integral_const_mul]
-                have hfull := integral_inv_sq_add_sq (ne_of_gt hsigpos)
-                have hkernel :
-                    ∫ t in Set.Icc (-T) T, (sigmaLeft^2+t^2)⁻¹ ≤
-                      Real.pi / sigmaLeft := by
-                  calc
-                    ∫ t in Set.Icc (-T) T, (sigmaLeft^2+t^2)⁻¹
-                      ≤ ∫ t : ℝ, (sigmaLeft^2+t^2)⁻¹ :=
-                        MeasureTheory.setIntegral_le_integral
-                          (integrable_inv_sq_add_sq (ne_of_gt hsigpos))
-                          (Filter.Eventually.of_forall fun t =>
-                            inv_nonneg.mpr (by positivity))
-                    _ = Real.pi / sigmaLeft := by
-                      simpa [abs_of_pos hsigpos] using hfull
-                apply mul_le_mul_of_nonneg_left hkernel
-                positivity''')
-
-          rep('one_le_pow API', 'one_le_pow₀ hlogT.le 9', 'one_le_pow₀ hlogT.le')
-
-          rep('shift rewrite normalization', '''      have hXshift := LogNineContour.rpow_logNine_shift
-        (A := corridor.A) (X := X) (T := T) (by linarith : 0 < X)
-      dsimp [sigmaLeft, strongMertensLogNineShift] at hXshift
-      rw [hXshift]''', '''      have hXshift := LogNineContour.rpow_logNine_shift
-        (A := corridor.A) (X := X) (T := T) (by linarith : 0 < X)
-      rw [show X ^ sigmaLeft =
+          rep('final vertical coefficient comparison', '''      rw [show X ^ sigmaLeft =
           X * Real.exp (-corridor.A * Real.log X / (Real.log T)^9) by
         dsimp [sigmaLeft, strongMertensLogNineShift]
-        exact hXshift]''')
+        exact hXshift]
+      field_simp
+      nlinarith [Real.pi_pos]''', '''      rw [show X ^ sigmaLeft =
+          X * Real.exp (-corridor.A * Real.log X / (Real.log T)^9) by
+        dsimp [sigmaLeft, strongMertensLogNineShift]
+        exact hXshift]
+      let K : ℝ := Cz * Cm * X *
+        Real.exp (-corridor.A * Real.log X / (Real.log T)^9) *
+          (1 + (Real.log T)^7) / eps
+      have hK : 0 ≤ K := by
+        dsimp [K]
+        exact div_nonneg
+          (mul_nonneg
+            (mul_nonneg
+              (mul_nonneg hCz.le hCm.le)
+              (mul_nonneg (by linarith : 0 ≤ X) (Real.exp_pos _).le))
+            (by positivity))
+          heps.1.le
+      have hfac : sigmaLeft⁻¹ / 2 ≤ 4 := by
+        linarith
+      calc
+        1 / (2 * Real.pi) *
+            (Cz * (1 + (Real.log T)^7) * Cm / eps *
+              (X * Real.exp (-corridor.A * Real.log X / (Real.log T)^9)) *
+              (Real.pi / sigmaLeft))
+          = K * (sigmaLeft⁻¹ / 2) := by
+              dsimp [K]
+              field_simp [Real.pi_ne_zero, ne_of_gt heps.1, ne_of_gt hsigpos]
+              <;> ring
+        _ ≤ K * 4 := mul_le_mul_of_nonneg_left hfac hK
+        _ = 4 * Cz * Cm * X *
+            Real.exp (-corridor.A * Real.log X / (Real.log T)^9) *
+              (1 + (Real.log T)^7) / eps := by
+              dsimp [K]
+              ring''')
 
           path.write_text(text)
           PY
@@ -124,5 +103,5 @@ jobs:
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add -- RHLean/Analysis/StrongMertensLogNineBounds.lean
-          git commit -m 'Repair Strong Mertens vertical bounds'
+          git commit -m 'Close remaining Strong Mertens bounds goals'
           git push origin HEAD:agent/strong-mertens-k2-clean
