@@ -148,7 +148,8 @@ theorem k2LogRecipWeight_three_diff_abs_le
       ‖(3 * (Real.log x) ^ 2 - (Real.log x) ^ 3) / x ^ 2‖ ≤ C := by
     intro x hx
     have hx0 : 0 < x := ha0.trans_le hx.1
-    have hx1 : (1 : ℝ) ≤ x := by linarith
+    have hx1 : (1 : ℝ) ≤ x :=
+      (by norm_num : (1 : ℝ) ≤ 3).trans (ha3.trans hx.1)
     have hlogx0 : 0 ≤ Real.log x := Real.log_nonneg hx1
     have hx_le_sq : x ≤ a ^ 2 := hx.2.le.trans hb_le_sq
     have hlogx_le : Real.log x ≤ 2 * Real.log a := by
@@ -160,21 +161,24 @@ theorem k2LogRecipWeight_three_diff_abs_le
     have hpow3 : (Real.log x) ^ 3 ≤ (2 * Real.log a) ^ 3 :=
       pow_le_pow_left₀ hlogx0 hlogx_le 3
     have hloga_sq_le_cube : (Real.log a) ^ 2 ≤ (Real.log a) ^ 3 := by
-      have hnonneg : 0 ≤ (Real.log a) ^ 2 * (Real.log a - 1) := by positivity
+      have hnonneg : 0 ≤ (Real.log a) ^ 2 * (Real.log a - 1) :=
+        mul_nonneg (sq_nonneg _) (sub_nonneg.mpr halog.le)
       nlinarith
     have hnum : |3 * (Real.log x) ^ 2 - (Real.log x) ^ 3| ≤
         24 * (Real.log a) ^ 3 := by
       calc
         |3 * (Real.log x) ^ 2 - (Real.log x) ^ 3| =
             |3 * (Real.log x) ^ 2 + (-(Real.log x) ^ 3)| := by ring_nf
-        _ ≤ |3 * (Real.log x) ^ 2| + |-(Real.log x) ^ 3| := abs_add_le _ _
+        _ ≤ |3 * Real.log x ^ 2| + |-(Real.log x) ^ 3| := abs_add_le _ _
         _ = 3 * (Real.log x) ^ 2 + (Real.log x) ^ 3 := by
           rw [abs_of_nonneg (by positivity), abs_neg,
             abs_of_nonneg (pow_nonneg hlogx0 3)]
         _ ≤ 3 * (2 * Real.log a) ^ 2 + (2 * Real.log a) ^ 3 := by
           gcongr
         _ = 12 * (Real.log a) ^ 2 + 8 * (Real.log a) ^ 3 := by ring
-        _ ≤ 24 * (Real.log a) ^ 3 := by linarith
+        _ ≤ 24 * (Real.log a) ^ 3 := by
+          have hcub : 0 ≤ (Real.log a) ^ 3 := pow_nonneg hloga0 3
+          linarith [hloga_sq_le_cube]
     have hsq : a ^ 2 ≤ x ^ 2 :=
       pow_le_pow_left₀ ha0.le hx.1 2
     rw [Real.norm_eq_abs, abs_div, abs_of_pos (sq_pos_of_pos hx0)]
