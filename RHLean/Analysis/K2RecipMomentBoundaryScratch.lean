@@ -147,16 +147,18 @@ private theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
     (fun k => mul_nonneg (by positivity) (hnonneg (2 ^ (k + 1)))) ?_ hmajor
   intro k
   let q : ℕ := 2 ^ (k + 1)
-  have hqpos : 0 < (q : ℝ) := by
+  have hqNatPos : 0 < q := by
     dsimp [q]
     positivity
+  have hqpos : 0 < (q : ℝ) := by exact_mod_cast hqNatPos
   have hqleNat : q ≤ q + 3 := by omega
   have hqle : (q : ℝ) ≤ ((q + 3 : ℕ) : ℝ) := by exact_mod_cast hqleNat
   have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
   have hlogq : Real.log (q : ℝ) = ((k + 1 : ℕ) : ℝ) * Real.log 2 := by
     dsimp [q]
     push_cast
-    simpa [Nat.cast_add, Nat.cast_one] using Real.log_pow (2 : ℝ) (k + 1)
+    rw [Real.log_pow]
+    push_cast
   have hlogle : Real.log (q : ℝ) ≤ Real.log ((q + 3 : ℕ) : ℝ) :=
     Real.log_le_log hqpos hqle
   have hlogqpos : 0 < Real.log (q : ℝ) := by
