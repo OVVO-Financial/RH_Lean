@@ -5,12 +5,14 @@ on:
     branches: [agent/wheel-to-ledger-equivariance]
     paths:
       - 'RHLean/Proof/WheelToLedgerEquivariance.lean'
+      - 'RHLean/Proof/WheelToLedgerPushforward.lean'
       - '.github/workflows/wheel-to-ledger-equivariance-dev.yml'
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened]
     paths:
       - 'RHLean/Proof/WheelToLedgerEquivariance.lean'
+      - 'RHLean/Proof/WheelToLedgerPushforward.lean'
       - '.github/workflows/wheel-to-ledger-equivariance-dev.yml'
   workflow_dispatch:
 
@@ -54,4 +56,4 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Build transport seam
-        run: lake build RHLean.Proof.WheelToLedgerEquivariance
+        run: lake build RHLean.Proof.WheelToLedgerPushforward
