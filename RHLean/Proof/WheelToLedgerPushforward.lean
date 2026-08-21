@@ -7,6 +7,8 @@ The equivariance module identifies the precise wheel move that commutes with the
 canonical ancestry parent: a fresh core prime must be inserted above every prime
 already present in the core.  This file proves the converse realization and then
 reindexes the full root-successor cross ledger through those ordered moves.
+Thus the final identity is a transport theorem on finite signed configurations,
+not an analytic estimate.
 
 No norm, asymptotic estimate, Strong Mertens input, or RH hypothesis appears.
 The only operation is an exact finite reindexing before absolute values.
