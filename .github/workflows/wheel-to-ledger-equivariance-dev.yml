@@ -6,6 +6,12 @@ on:
     paths:
       - 'RHLean/Proof/WheelToLedgerEquivariance.lean'
       - '.github/workflows/wheel-to-ledger-equivariance-dev.yml'
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'RHLean/Proof/WheelToLedgerEquivariance.lean'
+      - '.github/workflows/wheel-to-ledger-equivariance-dev.yml'
   workflow_dispatch:
 
 permissions:
