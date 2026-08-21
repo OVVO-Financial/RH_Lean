@@ -33,7 +33,7 @@ theorem k2HighTotalWeight_le_two_log (N : ℕ)
       · intro d hdmem
         rcases Finset.mem_Ico.mp hdmem with ⟨hds, hdN⟩
         exact Finset.mem_Ico.mpr ⟨hs.trans hds, hdN⟩
-      · intro d hdmem hnot
+      · intro d hdmem _hnot
         have hd : 1 ≤ d := (Finset.mem_Ico.mp hdmem).1
         exact add_nonneg (k2HarmonicWeight_nonneg N d hd)
           (k2LogWeight_nonneg d hd)
@@ -67,7 +67,6 @@ theorem k2KernelComparisonHigh_abs_le
         intro d hdmem
         rcases Finset.mem_Ico.mp hdmem with ⟨hds, hdN⟩
         have hd : 1 ≤ d := hs1.trans hds
-        have hdpos : (0 : ℝ) < (d : ℝ) := by exact_mod_cast (by omega : 0 < d)
         have hlogd : 0 ≤ Real.log (d : ℝ) := Real.log_nonneg (by exact_mod_cast hd)
         have hcast : (Nat.sqrt N : ℝ) ≤ (d : ℝ) := by exact_mod_cast hds
         have hlogle := Real.log_le_log hspos hcast
@@ -119,7 +118,7 @@ theorem k2KernelComparisonHigh_tendsto_zero (h : K2ClassicalMomentInput) :
   filter_upwards [hsEv] with N hNs
   have hKsqrt : K ≤ Nat.sqrt N := (le_max_left K 2).trans hNs
   have hs : 2 ≤ Nat.sqrt N := (le_max_right K 2).trans hNs
-  have hbound := k2KernelComparisonHigh_abs_le N eta heta.le hs (fun d hsd hdN =>
+  have hbound := k2KernelComparisonHigh_abs_le N eta heta.le hs (fun d hsd _hdN =>
     (hK d (hKsqrt.trans hsd)).le)
   have hsmall : 8 * eta < eps := by
     dsimp [eta]
@@ -164,7 +163,7 @@ theorem k2HarmonicCenteredWeightSum_eq (N : ℕ) :
     k2KernelComparisonSum k2HarmonicWeight k2LogWeight k2WeightError
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
-  intro d hd
+  intro d _hd
   ring
 
 /-- Harmonic-floor and logarithmic centered sums have the same limit. -/
@@ -204,7 +203,7 @@ convergence of the centered reciprocal K2 mass. -/
 theorem k2ClassicalMomentInput_to_centered_converges
     (h : K2ClassicalMomentInput) : K2CenteredConverges := by
   rcases k2CenteredHarmonic_tendsto h with ⟨ell, hell⟩
-  refine ⟨?_ ⟩
+  constructor
   refine ⟨ell - 2 * gammaE * gammaE, ?_⟩
   have hEuler :
       Tendsto
