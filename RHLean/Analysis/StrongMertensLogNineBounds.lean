@@ -171,8 +171,8 @@ theorem nativeMertensM3_logNine_bound_for
                 · exact measurableSet_Icc
                 · intro t ht
                   have hp := hpoint t ht
-                  convert hp using 1 <;>
-                    field_simp [ne_of_gt heps.1] <;> ring
+                  convert hp using 1
+                  field_simp [ne_of_gt heps.1]
           _ ≤ (Cz * (1 + (Real.log T)^7) * Cm / eps * X^sigmaLeft) *
                 (Real.pi / sigmaLeft) := by
                 rw [MeasureTheory.integral_const_mul]
@@ -241,7 +241,6 @@ theorem nativeMertensM3_logNine_bound_for
           = K * (sigmaLeft⁻¹ / 2) := by
               dsimp [K]
               field_simp [Real.pi_ne_zero, ne_of_gt heps.1, ne_of_gt hsigpos]
-              <;> ring
         _ ≤ K * 4 := mul_le_mul_of_nonneg_left hfac hK
         _ = 4 * Cz * Cm * X *
             Real.exp (-corridor.A * Real.log X / (Real.log T)^9) *
