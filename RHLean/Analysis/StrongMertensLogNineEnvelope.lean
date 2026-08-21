@@ -102,13 +102,15 @@ theorem nativeMertensFiveLeg_logNine_bound_for
           (strongMertensLogNineShift corridor.A T)‖ ≤
       Ch * strongMertensHorizontalEnvelope eps X T := by
     unfold strongMertensHorizontalEnvelope
-    convert hh using 1 <;> ring
+    convert hh using 1
+    ring
   have h3' :
       ‖nativeMertensContourM3 f eps X T
           (strongMertensLogNineShift corridor.A T)‖ ≤
       C3 * strongMertensVerticalEnvelope corridor eps X T := by
     unfold strongMertensVerticalEnvelope
-    convert h3 using 1 <;> ring
+    convert h3 using 1
+    ring
   calc
     ‖nativeMertensContourM1 f eps X T‖ +
           ‖nativeMertensContourM2 f eps X T
