@@ -129,7 +129,7 @@ theorem k2InvZetaFactor_hasDerivAt_one :
   have hden : HasDerivAt
       (fun s : ℂ => 1 + (s - 1) * k2ZetaRegularPart s)
       (gammaE : ℂ) (1 : ℂ) := by
-    convert hprod.const_add 1 using 1 <;> simp [k2ZetaRegularPart_one]
+    simpa [k2ZetaRegularPart_one] using hprod.const_add 1
   have hinv := hden.fun_inv (by simp)
   simpa [k2InvZetaFactor] using hinv
 
@@ -151,8 +151,9 @@ theorem k2InvZetaRegular_iteratedDeriv_two :
     k2InvZetaFactor s + (s - 1) * deriv k2InvZetaFactor s
   have hfactor_eventually :
       ∀ᶠ s : ℂ in 𝓝 (1 : ℂ), DifferentiableAt ℂ k2InvZetaFactor s := by
-    exact ((isOpen_analyticAt ℂ k2InvZetaFactor).mem_nhds
-      k2InvZetaFactor_analyticAt_one).mono fun _ hs => hs.differentiableAt
+    filter_upwards [((isOpen_analyticAt ℂ k2InvZetaFactor).mem_nhds
+      k2InvZetaFactor_analyticAt_one)] with s hs
+    exact hs.differentiableAt
   have hderiv_eq : deriv k2InvZetaRegular =ᶠ[𝓝 (1 : ℂ)] H := by
     filter_upwards [hfactor_eventually] with s hs
     have hlin : HasDerivAt (fun z : ℂ => z - 1) 1 s :=
@@ -170,7 +171,7 @@ theorem k2InvZetaRegular_iteratedDeriv_two :
   have hprod := hlin.fun_mul hderiv_factor_diff.hasDerivAt
   have hH : HasDerivAt H (-2 * (gammaE : ℂ)) (1 : ℂ) := by
     have hsum := k2InvZetaFactor_hasDerivAt_one.fun_add hprod
-    convert hsum using 1 <;> simp [H, hfactor_deriv_value] <;> ring
+    convert hsum using 1 <;> simp [hfactor_deriv_value] <;> ring
   have hsecond :
       deriv (deriv k2InvZetaRegular) (1 : ℂ) = -2 * (gammaE : ℂ) := by
     rw [hderiv_eq.deriv_eq]
