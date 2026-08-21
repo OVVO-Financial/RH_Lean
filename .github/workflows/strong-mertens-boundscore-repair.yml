@@ -1,4 +1,4 @@
-name: Strong Mertens finite smoothing syntax repair
+name: Strong Mertens finite smoothing proof repair
 
 on:
   push:
@@ -17,28 +17,45 @@ jobs:
         with:
           ref: agent/strong-mertens-k2-clean
 
-      - name: Port finite-sum binders to Lean 4.24
+      - name: Apply finite smoothing proof repairs
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          import re
           path = Path('RHLean/Analysis/StrongMertensSmoothingFinite.lean')
           text = path.read_text()
-          new, count = re.subn(r'∑ ([A-Za-z_][A-Za-z0-9_]*) in ', r'∑ \1 ∈ ', text)
-          if count < 2:
-              raise SystemExit(f'expected multiple historical finite-sum binders, found {count}')
-          if '∑ n in ' in new or '∑ x in ' in new or '∑ _n in ' in new:
-              raise SystemExit('old finite-sum binder syntax remains')
-          path.write_text(new)
-          print(f'ported {count} finite-sum binders')
+
+          old = '''    rw [Real.norm_of_nonneg]
+    · apply smooth_le_one
+      omega
+    · apply smooth_nonneg
+      omega'''
+          new = '''    rw [Real.norm_of_nonneg]
+    · simpa [F, Nat.cast_add] using smooth_le_one (n + n0) (by omega)
+    · simpa [F, Nat.cast_add] using smooth_nonneg (n + n0) (by omega)'''
+          if text.count(old) != 1:
+              raise SystemExit(f'smoothing cast site: expected 1, found {text.count(old)}')
+          text = text.replace(old, new)
+
+          old = '''        · apply floor_X_add_one_le_self.trans
+          rw [show X + 1 ≤ X * (1 + eps * c1) by
+            ring_nf
+            linarith [X_bound_1]]'''
+          new = '''        · exact floor_X_add_one_le_self.trans (by
+            ring_nf
+            linarith [X_bound_1])'''
+          if text.count(old) != 1:
+              raise SystemExit(f'floor transitivity site: expected 1, found {text.count(old)}')
+          text = text.replace(old, new)
+
+          path.write_text(text)
           PY
 
-      - name: Publish finite smoothing syntax repair
+      - name: Publish finite smoothing proof repair
         shell: bash
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add -- RHLean/Analysis/StrongMertensSmoothingFinite.lean
-          git commit -m 'Port Strong Mertens finite sums to Lean 4.24'
+          git commit -m 'Repair Strong Mertens finite smoothing proof'
           git push origin HEAD:agent/strong-mertens-k2-clean
