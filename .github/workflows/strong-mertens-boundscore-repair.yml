@@ -1,4 +1,4 @@
-name: Strong Mertens Bounds warning repair
+name: Strong Mertens finite smoothing syntax repair
 
 on:
   push:
@@ -17,37 +17,28 @@ jobs:
         with:
           ref: agent/strong-mertens-k2-clean
 
-      - name: Remove Bounds dead tactics
+      - name: Port finite-sum binders to Lean 4.24
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          path = Path('RHLean/Analysis/StrongMertensLogNineBounds.lean')
+          import re
+          path = Path('RHLean/Analysis/StrongMertensSmoothingFinite.lean')
           text = path.read_text()
-
-          old1 = '''                  convert hp using 1 <;>
-                    field_simp [ne_of_gt heps.1] <;> ring'''
-          new1 = '''                  convert hp using 1
-                  field_simp [ne_of_gt heps.1]'''
-          if text.count(old1) != 1:
-              raise SystemExit(f'pointwise warning site: expected 1, found {text.count(old1)}')
-          text = text.replace(old1, new1)
-
-          old2 = '''              field_simp [Real.pi_ne_zero, ne_of_gt heps.1, ne_of_gt hsigpos]
-              <;> ring'''
-          new2 = '''              field_simp [Real.pi_ne_zero, ne_of_gt heps.1, ne_of_gt hsigpos]'''
-          if text.count(old2) != 1:
-              raise SystemExit(f'final algebra warning site: expected 1, found {text.count(old2)}')
-          text = text.replace(old2, new2)
-
-          path.write_text(text)
+          new, count = re.subn(r'∑ ([A-Za-z_][A-Za-z0-9_]*) in ', r'∑ \1 ∈ ', text)
+          if count < 2:
+              raise SystemExit(f'expected multiple historical finite-sum binders, found {count}')
+          if '∑ n in ' in new or '∑ x in ' in new or '∑ _n in ' in new:
+              raise SystemExit('old finite-sum binder syntax remains')
+          path.write_text(new)
+          print(f'ported {count} finite-sum binders')
           PY
 
-      - name: Publish Bounds warning repair
+      - name: Publish finite smoothing syntax repair
         shell: bash
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -- RHLean/Analysis/StrongMertensLogNineBounds.lean
-          git commit -m 'Remove dead tactics from Strong Mertens bounds'
+          git add -- RHLean/Analysis/StrongMertensSmoothingFinite.lean
+          git commit -m 'Port Strong Mertens finite sums to Lean 4.24'
           git push origin HEAD:agent/strong-mertens-k2-clean
