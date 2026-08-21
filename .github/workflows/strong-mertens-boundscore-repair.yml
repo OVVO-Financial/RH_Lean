@@ -5,6 +5,7 @@ on:
     branches: [agent/strong-mertens-k2-clean]
     paths:
       - '.github/workflows/strong-mertens-boundscore-repair.yml'
+      - '.github/strong-mertens-k2-clean-status.txt'
 
 permissions:
   contents: write
