@@ -2,10 +2,12 @@ import RHLean.Analysis.K2RecipMomentAbelIdentificationScratch
 
 noncomputable section
 
-open Filter Set Topology
-open scoped ArithmeticFunction.Moebius
+open Filter Finset Set Topology
+open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Analysis
+
+local notation "gammaE" => Real.eulerMascheroniConstant
 
 /-- The order-two Abel increments remain absolutely summable after one extra
 logarithm.  This is the quantitative tail input needed for
@@ -75,7 +77,7 @@ theorem k2MertensAbelTerm_two_mul_log_summable :
         · apply mul_le_mul_of_nonneg_right
           · simpa [r, strongMertensScale, one_div] using hM N hN
           · exact abs_nonneg _
-        · exact (Real.log_nonneg hN1)
+        · exact Real.log_nonneg hN1
     _ ≤ Real.log (N : ℝ) *
           ((C * (N : ℝ) * Real.exp (-c * r)) *
             (8 * (Real.log (N : ℝ)) ^ 2 / (N : ℝ) ^ 2)) := by
@@ -94,5 +96,93 @@ theorem k2MertensAbelTerm_two_mul_log_summable :
     _ = g N := by
         dsimp [g]
         field_simp [ne_of_gt hNpos]
+
+/-- The Abel tail of the order-two moment is `o(1 / log N)`. -/
+theorem k2MertensAbelTerm_two_tail_mul_log_tendsto_zero :
+    Tendsto
+      (fun N : ℕ =>
+        Real.log (N : ℝ) *
+          (∑' i : ℕ, k2MertensAbelTerm 2 (i + N)))
+      atTop (𝓝 0) := by
+  have hweightedNorm : Summable (fun n : ℕ =>
+      ‖Real.log (n : ℝ) * k2MertensAbelTerm 2 n‖) :=
+    k2MertensAbelTerm_two_mul_log_summable.norm
+  have htailNorm :
+      Tendsto
+        (fun N : ℕ =>
+          ∑' i : ℕ,
+            ‖Real.log ((i + N : ℕ) : ℝ) *
+              k2MertensAbelTerm 2 (i + N)‖)
+        atTop (𝓝 0) := by
+    simpa [Nat.add_comm] using
+      (tendsto_sum_nat_add
+        (fun n : ℕ => ‖Real.log (n : ℝ) * k2MertensAbelTerm 2 n‖))
+  rw [tendsto_zero_iff_norm_tendsto_zero]
+  refine squeeze_zero' (Eventually.of_forall fun N => norm_nonneg _) ?_ htailNorm
+  filter_upwards [eventually_ge_atTop 1] with N hN
+  have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast hN
+  have hlogN : 0 ≤ Real.log (N : ℝ) := Real.log_nonneg (by exact_mod_cast hN)
+  have hshift : Summable (fun i : ℕ => k2MertensAbelTerm 2 (i + N)) :=
+    (summable_nat_add_iff N).2 k2MertensAbelTerm_two_summable
+  calc
+    ‖Real.log (N : ℝ) *
+        (∑' i : ℕ, k2MertensAbelTerm 2 (i + N))‖
+      = Real.log (N : ℝ) *
+          ‖∑' i : ℕ, k2MertensAbelTerm 2 (i + N)‖ := by
+        rw [norm_mul, Real.norm_eq_abs, abs_of_nonneg hlogN]
+    _ ≤ Real.log (N : ℝ) *
+          (∑' i : ℕ, ‖k2MertensAbelTerm 2 (i + N)‖) := by
+        exact mul_le_mul_of_nonneg_left
+          (norm_tsum_le_tsum_norm hshift) hlogN
+    _ = ∑' i : ℕ,
+          Real.log (N : ℝ) * ‖k2MertensAbelTerm 2 (i + N)‖ := by
+        rw [tsum_mul_left]
+    _ ≤ ∑' i : ℕ,
+          ‖Real.log ((i + N : ℕ) : ℝ) *
+            k2MertensAbelTerm 2 (i + N)‖ := by
+        apply tsum_le_tsum
+        · intro i
+          rw [norm_mul, Real.norm_eq_abs]
+          have hNi : N ≤ i + N := Nat.le_add_left N i
+          have hcast : (N : ℝ) ≤ ((i + N : ℕ) : ℝ) := by exact_mod_cast hNi
+          have hlogle := Real.log_le_log hNpos hcast
+          rw [abs_of_nonneg (Real.log_nonneg (by exact_mod_cast hN))]
+          exact mul_le_mul_of_nonneg_right hlogle (norm_nonneg _)
+        · exact (hshift.norm.mul_left (Real.log (N : ℝ)))
+        · exact (summable_nat_add_iff N).2 hweightedNorm
+
+/-- The centered order-two reciprocal moment has the stronger rate required by
+the classical K2 hyperbola closure. -/
+theorem k2r_mul_log_tendsto_zero_from_strongMertens :
+    Tendsto
+      (fun N : ℕ => k2r N * Real.log (N : ℝ))
+      atTop (𝓝 0) := by
+  have hend3 := k2StrongMertens_logRecip_endpoint_tendsto_zero 3
+  have htail := k2MertensAbelTerm_two_tail_mul_log_tendsto_zero
+  have hcombined := hend3.sub htail
+  rw [zero_sub] at hcombined
+  refine hcombined.congr fun N => ?_
+  have hsum := k2MertensAbelTerm_two_summable.sum_add_tsum_nat_add N
+  have hmom := k2MobiusLogMoment_abel 2 N
+  rw [k2MertensAbelTerm_sum_Ico_eq_range] at hmom
+  have htsum := k2MertensAbelTerm_two_tsum_eq_neg_two_gamma
+  unfold k2r
+  rw [k2A2_eq_moment, hmom]
+  have hweight3 :
+      nativeMertensSummatory N * k2LogRecipWeight 3 N =
+        (nativeMertensSummatory N * k2LogRecipWeight 2 N) *
+          Real.log (N : ℝ) := by
+    unfold k2LogRecipWeight
+    ring
+  rw [hweight3]
+  rw [← htsum]
+  linarith
+
+/-- All analytic inputs required by the finite classical K2 closure now follow
+from the Strong Mertens theorem. -/
+theorem k2ClassicalMomentInput_from_strongMertens : K2ClassicalMomentInput where
+  r_tendsto_zero := k2r_tendsto_zero_from_strongMertens
+  r_mul_log_tendsto_zero := k2r_mul_log_tendsto_zero_from_strongMertens
+  c3_tendsto := k2C3_tendsto_from_strongMertens
 
 end RHLean.Analysis
