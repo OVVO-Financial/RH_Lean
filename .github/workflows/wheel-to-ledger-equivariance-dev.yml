@@ -1,0 +1,51 @@
+name: Wheel to ledger equivariance development gate
+
+on:
+  push:
+    branches: [agent/wheel-to-ledger-equivariance]
+    paths:
+      - 'RHLean/Proof/WheelToLedgerEquivariance.lean'
+      - '.github/workflows/wheel-to-ledger-equivariance-dev.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wheel-to-ledger-equivariance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/wheel-to-ledger-equivariance
+
+      - name: Restore Mathlib and dependency builds
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Build transport seam
+        run: lake build RHLean.Proof.WheelToLedgerEquivariance
