@@ -170,5 +170,6 @@ theorem squareRootRootSuccessorCrossLedger_eq_orderedWheelCrossLedger
     orderedWheelCrossSignedContribution
   simp [Finset.sum_product, Finset.sum_mul, Finset.mul_sum,
     Finset.sum_neg_distrib]
+  exact Finset.sum_comm
 
 end RHLean.Proof
