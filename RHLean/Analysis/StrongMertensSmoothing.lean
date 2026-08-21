@@ -123,6 +123,8 @@ theorem strongMertens_smoothedMobius_dirichlet
         mellin (fun x => (Smooth1 SmoothingF eps x : ℂ)) (sigma + (t : ℂ) * I) *
         (X : ℂ) ^ (sigma + (t : ℂ) * I)) := by
       congr 2
+      apply MeasureTheory.integral_congr_ae
+      filter_upwards with t
       rw [show (riemannZeta (sigma + (t : ℂ) * I))⁻¹ =
           ∑' n : ℕ, (μ n : ℂ) / (n : ℂ) ^ (sigma + (t : ℂ) * I) from by
         rw [← nativeLSeries_moebius_eq_inv_zeta (by simp [sigma_gt])]
@@ -171,13 +173,17 @@ theorem strongMertens_smoothedMobius_dirichlet
       congr 1
       ext n
       congr 2
+      apply MeasureTheory.integral_congr_ae
+      filter_upwards with t
       have ht : -(sigma + t * I) = (-1) * (sigma + t * I) := by simp
       have hn : ((n : ℂ) / X) ^ (-1 : ℂ) = X / n := by simp [cpow_neg_one]
-      have him : (Complex.log ((n : ℂ) / (X : ℂ)) * -1).im = 0 := by
-        simp [Complex.log_im, arg_eq_zero_iff, div_nonneg (Nat.cast_nonneg _) (by linarith)]
+      have hdiv_nonneg : 0 ≤ (n : ℝ) / X :=
+        div_nonneg (Nat.cast_nonneg n) (by linarith)
+      have hlogim : (Complex.log ((n : ℂ) / (X : ℂ))).im = 0 := by
+        simp [Complex.log_im, arg_eq_zero_iff, hdiv_nonneg]
       have hpow : ((n : ℂ) / X) ^ ((-1 : ℂ) * (sigma + t * I)) =
           (((n : ℂ) / X) ^ (-1 : ℂ)) ^ (sigma + t * I) := by
-        rw [cpow_mul] <;> simp [him, Real.pi_pos, Real.pi_nonneg]
+        rw [cpow_mul] <;> simp [hlogim, Real.pi_pos, Real.pi_nonneg]
       rw [ht, hpow, hn]
     _ = _ := by
       push_cast
