@@ -18,7 +18,8 @@ private theorem k2LogRecipRealTwo_hasDerivAt {x : ℝ} (hx : x ≠ 0) :
   have h := ((Real.hasDerivAt_log hx).pow 2).div (hasDerivAt_id x) hx
   convert h using 1
   field_simp [hx]
-  ring_nf
+  simp
+  ring
 
 /-- Adjacent order-two reciprocal-log weights differ by at most the natural
 `log^2(n) / n^2` derivative scale. -/
@@ -36,11 +37,9 @@ theorem k2LogRecipWeight_two_diff_abs_le
   have halog : 1 < Real.log a := logt_gt_one ha3
   have hab : a ≤ b := by
     dsimp [a, b]
-    push_cast
     linarith
   have hb_le_sq : b ≤ a ^ 2 := by
     dsimp [a, b]
-    push_cast
     have hnR : (3 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
     nlinarith
   have hlog_sq : Real.log (a ^ 2) = 2 * Real.log a := by
@@ -96,7 +95,6 @@ theorem k2LogRecipWeight_two_diff_abs_le
     (C := C) hf hbound b (right_mem_Icc.mpr hab)
   have hba : b - a = 1 := by
     dsimp [a, b]
-    push_cast
     ring
   rw [hba, mul_one] at hseg
   rw [abs_sub_comm]
