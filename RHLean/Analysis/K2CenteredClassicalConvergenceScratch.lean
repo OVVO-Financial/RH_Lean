@@ -14,7 +14,8 @@ theorem k2WeightError_abs_le_total (N d : ℕ) (hd : 1 ≤ d) :
     |k2WeightError N d| ≤ k2HarmonicWeight N d + k2LogWeight d := by
   have hH := k2HarmonicWeight_nonneg N d hd
   have hL := k2LogWeight_nonneg d hd
-  unfold k2WeightError k2HarmonicWeight k2LogWeight
+  change |k2HarmonicWeight N d - k2LogWeight d| ≤
+    k2HarmonicWeight N d + k2LogWeight d
   rw [abs_le]
   constructor <;> linarith
 
@@ -97,7 +98,6 @@ theorem k2KernelComparisonHigh_abs_le
         · exact div_nonneg heta hlogspos.le
     _ = 8 * eta := by
         field_simp [hlogspos.ne']
-        ring
 
 /-- The high square-root comparison block vanishes from `r(N) log N -> 0`. -/
 theorem k2KernelComparisonHigh_tendsto_zero (h : K2ClassicalMomentInput) :
@@ -144,11 +144,11 @@ theorem k2KernelComparisonSum_tendsto_zero (h : K2ClassicalMomentInput) :
   have hsum := (k2KernelComparisonLow_tendsto_zero h).add
     (k2KernelComparisonHigh_tendsto_zero h)
   simpa only [zero_add] at hsum
-  refine hsum.congr' ?_
+  apply hsum.congr'
   have hsEv : ∀ᶠ N : ℕ in atTop, 1 ≤ Nat.sqrt N :=
     k2Sqrt_tendsto_atTop.eventually (eventually_ge_atTop 1)
   filter_upwards [hsEv] with N hs
-  exact (k2KernelComparisonSum_split N hs).symm
+  exact k2KernelComparisonSum_split N hs
 
 /-- Harmonic-floor weighted centered moment sum. -/
 def k2HarmonicCenteredWeightSum (N : ℕ) : ℝ :=
@@ -160,7 +160,7 @@ theorem k2HarmonicCenteredWeightSum_eq (N : ℕ) :
     k2HarmonicCenteredWeightSum N =
       k2LogCenteredWeightSum N + k2KernelComparisonSum N := by
   unfold k2HarmonicCenteredWeightSum k2LogCenteredWeightSum
-    k2KernelComparisonSum k2HarmonicWeight k2LogWeight k2WeightError
+    k2KernelComparisonSum k2HarmonicWeight k2WeightError
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro d _hd
@@ -187,7 +187,7 @@ theorem k2CenteredHarmonic_tendsto (h : K2ClassicalMomentInput) :
   refine ⟨ell, ?_⟩
   have hsum := h.r_tendsto_zero.add hell
   simpa only [zero_add] at hsum
-  refine hsum.congr' ?_
+  apply hsum.congr'
   filter_upwards [eventually_ge_atTop 1] with N hN
   have hF := k2F_centered_abel N hN
   have hNN : k2H N N = 1 := by
@@ -203,7 +203,7 @@ convergence of the centered reciprocal K2 mass. -/
 theorem k2ClassicalMomentInput_to_centered_converges
     (h : K2ClassicalMomentInput) : K2CenteredConverges := by
   rcases k2CenteredHarmonic_tendsto h with ⟨ell, hell⟩
-  constructor
+  unfold K2CenteredConverges
   refine ⟨ell - 2 * gammaE * gammaE, ?_⟩
   have hEuler :
       Tendsto
@@ -220,8 +220,10 @@ theorem k2ClassicalMomentInput_to_centered_converges
           ((harmonic N : ℝ) - Real.log (N : ℝ)))
         atTop (𝓝 ((2 * gammaE) * gammaE)))
   have hfinal := hell.sub hcorr
-  refine hfinal.congr' (Eventually.of_forall fun N => ?_)
-  ring
+  apply hfinal.congr'
+  exact Eventually.of_forall fun N => by
+    unfold k2CenteredRecipValue
+    ring
 
 /-- Strong Mertens supplies all moment inputs and therefore closes centered K2. -/
 theorem k2CenteredConverges_from_strongMertens : K2CenteredConverges :=
