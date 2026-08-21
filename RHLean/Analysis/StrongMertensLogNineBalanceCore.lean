@@ -39,12 +39,14 @@ def strongMertensFinalDecay
 lemma strongMertensFinalDecay_pos (corridor : StrongMertensLogNineCorridor) :
     0 < strongMertensFinalDecay corridor := by
   rw [strongMertensFinalDecay]
-  exact lt_min (by positivity [corridor.A_mem.1]) (by norm_num)
+  exact lt_min
+    (div_pos corridor.A_mem.1 (by norm_num))
+    (by norm_num)
 
 lemma strongMertensScale_tendsto_atTop :
     Tendsto strongMertensScale atTop atTop := by
   unfold strongMertensScale
-  exact (Real.tendsto_rpow_atTop (by norm_num : (0 : ℝ) < 1 / 10)).comp
+  exact (tendsto_rpow_atTop (by norm_num : (0 : ℝ) < 1 / 10)).comp
     Real.tendsto_log_atTop
 
 lemma strongMertensScale_pow_ten {X : ℝ} (hX : 1 ≤ X) :
@@ -71,7 +73,7 @@ lemma strongMertensBalanceHeight_sqrt (X : ℝ) :
 lemma strongMertensBalanceEps_pos
     (corridor : StrongMertensLogNineCorridor) (X : ℝ) :
     0 < strongMertensBalanceEps corridor X := by
-  simp [strongMertensBalanceEps]
+  exact Real.exp_pos _
 
 lemma strongMertensBalanceEps_lt_one
     (corridor : StrongMertensLogNineCorridor) {X : ℝ} (hX : 1 < X) :
@@ -128,18 +130,26 @@ lemma strongMertens_two_lt_X_mul_balanceEps
   · filter_upwards [eventually_gt_atTop (1 : ℝ),
       strongMertensScale_tendsto_atTop.eventually_ge_atTop (1 : ℝ)] with X hX hr1
     have hlog := strongMertensScale_pow_ten hX.le
-    rw [show X = Real.exp (Real.log X) from (Real.exp_log (by linarith)).symm,
-      strongMertensBalanceEps, ← Real.exp_add]
-    apply Real.exp_le_exp.mpr
-    rw [← hlog]
     have hpow : strongMertensScale X ≤ strongMertensScale X ^ 10 := by
       calc
         strongMertensScale X = strongMertensScale X * 1 := by ring
         _ ≤ strongMertensScale X * strongMertensScale X ^ 9 := by
-          apply mul_le_mul_of_nonneg_left (one_le_pow₀ hr1 9) (by linarith)
+          apply mul_le_mul_of_nonneg_left (one_le_pow₀ (n := 9) hr1) (by linarith)
         _ = strongMertensScale X ^ 10 := by ring
-    dsimp [d]
-    nlinarith
+    calc
+      Real.exp ((1 - d) * strongMertensScale X)
+          ≤ Real.exp (Real.log X - d * strongMertensScale X) := by
+        apply Real.exp_le_exp.mpr
+        rw [← hlog]
+        nlinarith
+      _ = Real.exp (Real.log X) *
+          Real.exp (-(corridor.A / 4) * strongMertensScale X) := by
+        rw [← Real.exp_add]
+        dsimp [d]
+        congr 1
+        ring
+      _ = X * strongMertensBalanceEps corridor X := by
+        rw [Real.exp_log (by linarith), strongMertensBalanceEps]
   · exact Real.tendsto_exp_atTop.comp
       ((tendsto_const_mul_atTop_of_pos hcoef).2 strongMertensScale_tendsto_atTop)
 
@@ -153,7 +163,9 @@ lemma strongMertensFarEnvelope_balance {corridor : StrongMertensLogNineCorridor}
   have hpow := strongMertensScale_pow_ten hX.le
   rw [strongMertensFarEnvelope, ← hpow, strongMertensBalanceEps,
     strongMertensBalanceHeight_sqrt]
-  rw [div_eq_mul_inv, mul_inv, ← Real.exp_neg, ← Real.exp_add]
+  rw [div_eq_mul_inv, mul_inv]
+  simp_rw [← Real.exp_neg]
+  rw [← Real.exp_add]
   ring_nf
 
 /-- Exact horizontal envelope at the balanced parameters. -/
@@ -169,7 +181,9 @@ lemma strongMertensHorizontalEnvelope_balance
       Real.exp (2 * strongMertensScale X) by
         rw [strongMertensBalanceHeight, ← Real.exp_nat_mul]
         ring_nf]
-  rw [div_eq_mul_inv, mul_inv, ← Real.exp_neg, ← Real.exp_add]
+  rw [div_eq_mul_inv, mul_inv]
+  simp_rw [← Real.exp_neg]
+  rw [← Real.exp_add]
   ring_nf
 
 /-- Exact shifted-vertical envelope at the balanced parameters. -/
@@ -184,10 +198,17 @@ lemma strongMertensVerticalEnvelope_balance
   have hratio : Real.log X / strongMertensScale X ^ 9 = strongMertensScale X := by
     rw [← hpow]
     field_simp [ne_of_gt hr]
-    ring
+  have hexp :
+      -corridor.A * Real.log X / strongMertensScale X ^ 9 =
+        -corridor.A * strongMertensScale X := by
+    calc
+      _ = -corridor.A * (Real.log X / strongMertensScale X ^ 9) := by ring
+      _ = _ := by rw [hratio]
   rw [strongMertensVerticalEnvelope, strongMertensBalanceHeight_log,
-    strongMertensBalanceEps, hratio]
-  rw [div_eq_mul_inv, ← Real.exp_neg, ← Real.exp_add]
+    strongMertensBalanceEps, hexp]
+  rw [div_eq_mul_inv]
+  simp_rw [← Real.exp_neg]
+  rw [← Real.exp_add]
   ring_nf
 
 /-- All three balanced contour envelopes are eventually bounded by one
@@ -244,7 +265,8 @@ theorem strongMertens_balanced_envelopes_eventually
       Real.exp (-c * strongMertensScale X) :=
     calc
       _ ≤ Real.exp (c * strongMertensScale X) *
-          Real.exp (-(1 / 2 - corridor.A / 4) * strongMertensScale X) := by gcongr
+          Real.exp (-(1 / 2 - corridor.A / 4) * strongMertensScale X) :=
+        mul_le_mul_of_nonneg_right h10 (Real.exp_pos _).le
       _ ≤ _ := hfar_exp
   have hhor : (1 + strongMertensScale X ^ 10) *
       Real.exp (-(2 - corridor.A / 4) * strongMertensScale X) ≤
@@ -252,31 +274,54 @@ theorem strongMertens_balanced_envelopes_eventually
     have h1 : 1 ≤ Real.exp (c * strongMertensScale X) := by
       rw [← Real.exp_zero]
       apply Real.exp_le_exp.mpr
-      positivity
+      exact mul_nonneg hc.le hr.le
+    have hpoly :
+        1 + strongMertensScale X ^ 10 ≤
+          2 * Real.exp (c * strongMertensScale X) := by
+      nlinarith [h1, h10]
     calc
       _ ≤ (2 * Real.exp (c * strongMertensScale X)) *
-          Real.exp (-(2 - corridor.A / 4) * strongMertensScale X) := by
-            gcongr
-            nlinarith
+          Real.exp (-(2 - corridor.A / 4) * strongMertensScale X) :=
+        mul_le_mul_of_nonneg_right hpoly (Real.exp_pos _).le
       _ = 2 * (Real.exp (c * strongMertensScale X) *
           Real.exp (-(2 - corridor.A / 4) * strongMertensScale X)) := by ring
-      _ ≤ 2 * Real.exp (-c * strongMertensScale X) := by gcongr
+      _ ≤ 2 * Real.exp (-c * strongMertensScale X) :=
+        mul_le_mul_of_nonneg_left hhor_exp (by norm_num)
   have hvert : (1 + strongMertensScale X ^ 7) *
       Real.exp (-(3 * corridor.A / 4) * strongMertensScale X) ≤
       2 * Real.exp (-c * strongMertensScale X) := by
     have h1 : 1 ≤ Real.exp (c * strongMertensScale X) := by
       rw [← Real.exp_zero]
       apply Real.exp_le_exp.mpr
-      positivity
+      exact mul_nonneg hc.le hr.le
+    have hpoly :
+        1 + strongMertensScale X ^ 7 ≤
+          2 * Real.exp (c * strongMertensScale X) := by
+      nlinarith [h1, h7]
     calc
       _ ≤ (2 * Real.exp (c * strongMertensScale X)) *
-          Real.exp (-(3 * corridor.A / 4) * strongMertensScale X) := by
-            gcongr
-            nlinarith
+          Real.exp (-(3 * corridor.A / 4) * strongMertensScale X) :=
+        mul_le_mul_of_nonneg_right hpoly (Real.exp_pos _).le
       _ = 2 * (Real.exp (c * strongMertensScale X) *
           Real.exp (-(3 * corridor.A / 4) * strongMertensScale X)) := by ring
-      _ ≤ 2 * Real.exp (-c * strongMertensScale X) := by gcongr
+      _ ≤ 2 * Real.exp (-c * strongMertensScale X) :=
+        mul_le_mul_of_nonneg_left hvert_exp (by norm_num)
   have hX0 : 0 ≤ X := by linarith
+  have hfarX :
+      X * strongMertensScale X ^ 10 *
+          Real.exp (-(1 / 2 - corridor.A / 4) * strongMertensScale X) ≤
+        X * Real.exp (-c * strongMertensScale X) := by
+    simpa [mul_assoc] using mul_le_mul_of_nonneg_left hfar hX0
+  have hhorX :
+      X * (1 + strongMertensScale X ^ 10) *
+          Real.exp (-(2 - corridor.A / 4) * strongMertensScale X) ≤
+        X * (2 * Real.exp (-c * strongMertensScale X)) := by
+    simpa [mul_assoc] using mul_le_mul_of_nonneg_left hhor hX0
+  have hvertX :
+      X * (1 + strongMertensScale X ^ 7) *
+          Real.exp (-(3 * corridor.A / 4) * strongMertensScale X) ≤
+        X * (2 * Real.exp (-c * strongMertensScale X)) := by
+    simpa [mul_assoc] using mul_le_mul_of_nonneg_left hvert hX0
   calc
     X * strongMertensScale X ^ 10 *
           Real.exp (-(1 / 2 - corridor.A / 4) * strongMertensScale X) +
@@ -286,7 +331,8 @@ theorem strongMertens_balanced_envelopes_eventually
           Real.exp (-(3 * corridor.A / 4) * strongMertensScale X)
       ≤ X * Real.exp (-c * strongMertensScale X) +
           X * (2 * Real.exp (-c * strongMertensScale X)) +
-          X * (2 * Real.exp (-c * strongMertensScale X)) := by gcongr
+          X * (2 * Real.exp (-c * strongMertensScale X)) :=
+        add_le_add (add_le_add hfarX hhorX) hvertX
     _ = 5 * X * Real.exp (-c * strongMertensScale X) := by ring
 
 end RHLean.Analysis
