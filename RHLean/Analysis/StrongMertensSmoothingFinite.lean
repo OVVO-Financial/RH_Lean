@@ -39,7 +39,7 @@ noncomputable def nativeMertensSharpReal (X : ℝ) : ℝ :=
 /-- Range form used by the transition-window counting argument. -/
 theorem nativeMertensSharpReal_eq_sum_range (X : ℝ) :
     nativeMertensSharpReal X =
-      ∑ n ∈ Finset.range (⌊X⌋₊ + 1), (μ n : ℝ) := by
+      ∑ n in Finset.range (⌊X⌋₊ + 1), (μ n : ℝ) := by
   rw [nativeMertensSharpReal]
   have hset : Finset.range (⌊X⌋₊ + 1) =
       insert 0 (Finset.Icc 1 ⌊X⌋₊) := by
@@ -54,7 +54,7 @@ theorem nativeMertensSharpReal_eq_sum_range (X : ℝ) :
 theorem strongMertens_smoothed_close_aux
     {Smooth : (ℝ → ℝ) → ℝ → ℝ → ℝ} (SmoothingF : ℝ → ℝ)
     (c1 : ℝ) (c1_pos : 0 < c1) (c1_lt : c1 < 1)
-    (c2 : ℝ) (c2_pos : 0 < c2)
+    (c2 : ℝ) (c2_pos : 0 < c2) (c2_lt : c2 < 2)
     (hc2 : ∀ (eps x : ℝ), eps ∈ Set.Ioo 0 1 →
       1 + c2 * eps ≤ x → Smooth SmoothingF eps x = 0)
     (C : ℝ) (C_eq : C = 6 * (3 * c1 + c2))
@@ -128,7 +128,7 @@ theorem strongMertens_smoothed_close_aux
       _ = X * eps * (c2 + c1) := by ring
   rw [show (∑' n : ℕ, (μ (n + n0) : ℝ) *
         Smooth SmoothingF eps (((n + n0 : ℕ) : ℝ) / X)) =
-      (∑ n ∈ Finset.range (n1 - n0), (μ (n + n0) : ℝ) *
+      (∑ n in Finset.range (n1 - n0), (μ (n + n0) : ℝ) *
         Smooth SmoothingF eps (((n + n0 : ℕ) : ℝ) / X)) +
       (∑' n : ℕ, (μ (n + n1) : ℝ) *
         Smooth SmoothingF eps (((n + n1 : ℕ) : ℝ) / X)) by
@@ -167,15 +167,15 @@ theorem strongMertens_smoothed_close_aux
   have hn0_le_floorX1 : n0 ≤ ⌊X + 1⌋₊ := by
     simp only [Nat.ceil_le, n0]
     exact n0_inside_le_X.trans X_le_floor_add_one
-  rw [show ∑ n ∈ Finset.range (⌊X⌋₊ + 1), (μ n : ℝ) =
-      (∑ x ∈ Finset.range n0, (μ x : ℝ)) +
-        ∑ x ∈ Finset.range (⌊X + 1⌋₊ - n0), (μ (x + n0) : ℝ) by
+  rw [show ∑ n in Finset.range (⌊X⌋₊ + 1), (μ n : ℝ) =
+      (∑ x in Finset.range n0, (μ x : ℝ)) +
+        ∑ x in Finset.range (⌊X + 1⌋₊ - n0), (μ (x + n0) : ℝ) by
     rw [show ⌊X⌋₊ + 1 = ⌊X + 1⌋₊ by rw [Nat.floor_add_one X_pos.le]]
     conv_lhs => rw [show ⌊X + 1⌋₊ = n0 + (⌊X + 1⌋₊ - n0) by omega]
     rw [Finset.sum_range_add]
     simp only [add_comm n0]]
-  rw [show ∑ n ∈ Finset.range n0, (μ n : ℝ) * F ((n : ℝ) / X) =
-      ∑ n ∈ Finset.range n0, (μ n : ℝ) by
+  rw [show ∑ n in Finset.range n0, (μ n : ℝ) * F ((n : ℝ) / X) =
+      ∑ n in Finset.range n0, (μ n : ℝ) by
     apply Finset.sum_congr rfl
     intro n hn
     obtain rfl | hn0 := eq_or_ne n 0
@@ -189,9 +189,9 @@ theorem strongMertens_smoothed_close_aux
     rw [Real.norm_eq_abs]
     exact_mod_cast ArithmeticFunction.abs_moebius_le_one
   have bnd1 :
-      ∑ n ∈ Finset.range (n1 - n0), ‖(μ (n + n0) : ℝ)‖ *
+      ∑ n in Finset.range (n1 - n0), ‖(μ (n + n0) : ℝ)‖ *
         ‖F (((n : ℝ) + n0) / X)‖ ≤ ((n1 : ℝ) - n0) := by
-    rw [show ((n1 : ℝ) - n0) = ∑ _n ∈ Finset.range (n1 - n0), (1 : ℝ) by
+    rw [show ((n1 : ℝ) - n0) = ∑ _n in Finset.range (n1 - n0), (1 : ℝ) by
       rw [← Nat.cast_sub n1_ge_n0]
       simp]
     apply Finset.sum_le_sum
@@ -199,13 +199,15 @@ theorem strongMertens_smoothed_close_aux
     rw [← mul_one (1 : ℝ)]
     apply mul_le_mul (mu_bnd1 n hn) _ (norm_nonneg _) (by norm_num)
     rw [Real.norm_of_nonneg]
-    · simpa [F, Nat.cast_add] using smooth_le_one (n + n0) (by omega)
-    · simpa [F, Nat.cast_add] using smooth_nonneg (n + n0) (by omega)
+    · apply smooth_le_one
+      omega
+    · apply smooth_nonneg
+      omega
   have bnd2 :
-      ∑ x ∈ Finset.range (⌊X + 1⌋₊ - n0), ‖(μ (x + n0) : ℝ)‖ ≤
+      ∑ x in Finset.range (⌊X + 1⌋₊ - n0), ‖(μ (x + n0) : ℝ)‖ ≤
         (⌊X + 1⌋₊ : ℝ) - n0 := by
     rw [show (⌊X + 1⌋₊ : ℝ) - n0 =
-      ∑ _n ∈ Finset.range (⌊X + 1⌋₊ - n0), (1 : ℝ) by
+      ∑ _n in Finset.range (⌊X + 1⌋₊ - n0), (1 : ℝ) by
         rw [← Nat.cast_sub hn0_le_floorX1]
         simp]
     apply Finset.sum_le_sum
@@ -220,16 +222,16 @@ theorem strongMertens_smoothed_close_aux
     · rw [Real.norm_of_nonneg (smooth_nonneg n1 n1_pos)]
       exact smooth_le_one n1 n1_pos
   calc
-    _ = ‖∑ n ∈ Finset.range (n1 - n0), (μ (n + n0) : ℝ) *
+    _ = ‖∑ n in Finset.range (n1 - n0), (μ (n + n0) : ℝ) *
           F (((n : ℝ) + n0) / X) -
-        ∑ x ∈ Finset.range (⌊X + 1⌋₊ - n0), (μ (x + n0) : ℝ) +
+        ∑ x in Finset.range (⌊X + 1⌋₊ - n0), (μ (x + n0) : ℝ) +
         (μ n1 : ℝ) * F ((n1 : ℝ) / X)‖ := by
       congr 1
       push_cast
       ring
-    _ ≤ (∑ n ∈ Finset.range (n1 - n0), ‖(μ (n + n0) : ℝ)‖ *
+    _ ≤ (∑ n in Finset.range (n1 - n0), ‖(μ (n + n0) : ℝ)‖ *
           ‖F (((n : ℝ) + n0) / X)‖) +
-        ∑ x ∈ Finset.range (⌊X + 1⌋₊ - n0), ‖(μ (x + n0) : ℝ)‖ +
+        ∑ x in Finset.range (⌊X + 1⌋₊ - n0), ‖(μ (x + n0) : ℝ)‖ +
         ‖(μ n1 : ℝ)‖ * ‖F ((n1 : ℝ) / X)‖ := by
       apply norm_add_le_of_le
       · apply norm_sub_le_of_le
@@ -247,9 +249,10 @@ theorem strongMertens_smoothed_close_aux
         rw [(by ring : 2 * (X * eps * c1) =
           X * (1 + eps * c1) - X * (1 - eps * c1))]
         apply sub_le_sub
-        · exact floor_X_add_one_le_self.trans (by
+        · apply floor_X_add_one_le_self.trans
+          rw [show X + 1 ≤ X * (1 + eps * c1) by
             ring_nf
-            linarith [X_bound_1])
+            linarith [X_bound_1]]
         · simpa [mul_comm c1 eps] using n0_gt
       have hkey : ((n1 : ℝ) - n0) + ((⌊X + 1⌋₊ : ℝ) - n0) + 1 ≤
           X * eps * (c2 + c1) + 2 * (X * eps * c1) + X * eps * c1 := by
@@ -263,6 +266,6 @@ theorem strongMertens_smoothed_close_aux
           have h0 : 0 ≤ eps * X := by positivity
           nlinarith [h0, c1_pos, c2_pos]
 
--- Mobius L-series summability on `Re s > 1` is supplied downstream.
+/-- Mobius L-series summability on `Re s > 1`. -/
 
 end RHLean.Analysis
