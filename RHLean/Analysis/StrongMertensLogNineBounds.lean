@@ -84,6 +84,9 @@ theorem nativeMertensM3_logNine_bound_for
   have hsigpos : 0 < sigmaLeft := by
     dsimp [sigmaLeft]
     exact corridor.shift_pos T hT.le
+  have hlogTnonneg : 0 ≤ Real.log T := Real.log_nonneg (by linarith)
+  have hZnonneg : 0 ≤ Cz * (1 + (Real.log T)^7) := by
+    exact mul_nonneg hCz.le (by positivity)
   have hpoint : ∀ t ∈ Set.Icc (-T) T,
       ‖nativeSmoothedMobiusIntegrand f eps X (sigmaLeft + t * I)‖ ≤
         Cz * (1 + (Real.log T)^7) *
@@ -106,7 +109,6 @@ theorem nativeMertensM3_logNine_bound_for
       simpa [s, sigmaLeft] using hz
     rw [nativeSmoothedMobiusIntegrand_norm_eq,
       Complex.norm_cpow_eq_rpow_re_of_pos (by linarith), hsre]
-    have hZnonneg : 0 ≤ Cz * (1 + (Real.log T)^7) := by positivity
     have hprod := mul_le_mul hz' hM (norm_nonneg _) hZnonneg
     exact mul_le_mul_of_nonneg_right hprod (Real.rpow_nonneg (by linarith) _)
   have hHolo := strongMertensSmoothedIntegrand_holomorphicOn_punctured_box
@@ -187,8 +189,12 @@ theorem nativeMertensM3_logNine_bound_for
                             inv_nonneg.mpr (by positivity))
                     _ = Real.pi / sigmaLeft := by
                       simpa [abs_of_pos hsigpos] using hfull
-                apply mul_le_mul_of_nonneg_left hkernel
-                positivity
+                have hcoeff : 0 ≤
+                    Cz * (1 + (Real.log T)^7) * Cm / eps * X^sigmaLeft := by
+                  exact mul_nonneg
+                    (div_nonneg (mul_nonneg hZnonneg hCm.le) heps.1.le)
+                    (Real.rpow_nonneg (by linarith) _)
+                exact mul_le_mul_of_nonneg_left hkernel hcoeff
     _ ≤ 4 * Cz * Cm * X *
         Real.exp (-corridor.A * Real.log X / (Real.log T)^9) *
           (1 + (Real.log T)^7) / eps := by
@@ -208,8 +214,35 @@ theorem nativeMertensM3_logNine_bound_for
           X * Real.exp (-corridor.A * Real.log X / (Real.log T)^9) by
         dsimp [sigmaLeft, strongMertensLogNineShift]
         exact hXshift]
-      field_simp
-      nlinarith [Real.pi_pos]
+      let K : ℝ := Cz * Cm * X *
+        Real.exp (-corridor.A * Real.log X / (Real.log T)^9) *
+          (1 + (Real.log T)^7) / eps
+      have hK : 0 ≤ K := by
+        dsimp [K]
+        exact div_nonneg
+          (mul_nonneg
+            (mul_nonneg
+              (mul_nonneg hCz.le hCm.le)
+              (mul_nonneg (by linarith : 0 ≤ X) (Real.exp_pos _).le))
+            (by positivity))
+          heps.1.le
+      have hfac : sigmaLeft⁻¹ / 2 ≤ 4 := by
+        linarith
+      calc
+        1 / (2 * Real.pi) *
+            (Cz * (1 + (Real.log T)^7) * Cm / eps *
+              (X * Real.exp (-corridor.A * Real.log X / (Real.log T)^9)) *
+              (Real.pi / sigmaLeft))
+          = K * (sigmaLeft⁻¹ / 2) := by
+              dsimp [K]
+              field_simp [Real.pi_ne_zero, ne_of_gt heps.1, ne_of_gt hsigpos]
+              <;> ring
+        _ ≤ K * 4 := mul_le_mul_of_nonneg_left hfac hK
+        _ = 4 * Cz * Cm * X *
+            Real.exp (-corridor.A * Real.log X / (Real.log T)^9) *
+              (1 + (Real.log T)^7) / eps := by
+              dsimp [K]
+              ring
 
 /-- Canonical existential facade for the shifted vertical estimate. -/
 theorem nativeMertensM3_logNine_bound {f : ℝ → ℝ}
