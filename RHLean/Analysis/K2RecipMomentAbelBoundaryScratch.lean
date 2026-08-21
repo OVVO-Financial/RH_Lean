@@ -55,8 +55,19 @@ theorem k2AbelBoundaryWeight_tendsto_one (n : ℕ) (hn : 1 ≤ n) :
       (fun sigma : ℝ => Real.exp (Real.log (n : ℝ) * (1 - sigma))) by
         funext sigma
         rw [Real.rpow_def_of_pos hnpos]]
-  simpa using (Real.continuous_exp.continuousAt.comp
-    ((continuous_const.mul (continuous_const.sub continuous_id)).continuousAt)).tendsto
+  have hsub :
+      Tendsto (fun sigma : ℝ => (1 : ℝ) - sigma)
+        (𝓝 (1 : ℝ)) (𝓝 0) := by
+    simpa using (tendsto_const_nhds.sub tendsto_id :
+      Tendsto (fun sigma : ℝ => (1 : ℝ) - sigma)
+        (𝓝 (1 : ℝ)) (𝓝 ((1 : ℝ) - 1)))
+  have hmul :
+      Tendsto (fun sigma : ℝ => Real.log (n : ℝ) * (1 - sigma))
+        (𝓝 (1 : ℝ)) (𝓝 0) := by
+    simpa using (tendsto_const_nhds.mul hsub :
+      Tendsto (fun sigma : ℝ => Real.log (n : ℝ) * (1 - sigma))
+        (𝓝 (1 : ℝ)) (𝓝 (Real.log (n : ℝ) * 0)))
+  simpa using Real.continuous_exp.continuousAt.tendsto.comp hmul
 
 /-- The finite Abel differences telescope exactly. -/
 theorem k2AbelBoundaryWeight_telescopes
@@ -113,18 +124,27 @@ theorem k2A2AbelPrefix_centered
       _ = (∑ n ∈ Ico 1 M, S n * d n) -
           A * (∑ n ∈ Ico 1 M, d n) := by
             rw [Finset.mul_sum]
+  have htel' :
+      k2AbelBoundaryWeight sigma M + ∑ n ∈ Ico 1 M, d n = 1 := by
+    simpa [d] using htel
   have hAtel :
       A * k2AbelBoundaryWeight sigma M +
           A * (∑ n ∈ Ico 1 M, d n) = A := by
     calc
       A * k2AbelBoundaryWeight sigma M + A * (∑ n ∈ Ico 1 M, d n) =
           A * (k2AbelBoundaryWeight sigma M + ∑ n ∈ Ico 1 M, d n) := by ring
-      _ = A := by
-        dsimp [d] at htel
-        rw [htel]
-        ring
-  dsimp [S, d] at hcenter ⊢
-  rw [hcenter]
+      _ = A := by rw [htel']; ring
+  have hcenter' :
+      ∑ n ∈ Ico 1 M,
+          ((∑ k ∈ Icc 1 n, ((μ k : ℤ) : ℝ) * k2LogRecipWeight 2 k) - A) *
+            (k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1)) =
+        (∑ n ∈ Ico 1 M,
+          (∑ k ∈ Icc 1 n, ((μ k : ℤ) : ℝ) * k2LogRecipWeight 2 k) *
+            (k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1))) -
+          A * (∑ n ∈ Ico 1 M,
+            (k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1))) := by
+    simpa [S, d] using hcenter
+  rw [hcenter']
   nlinarith [hAtel]
 
 end RHLean.Analysis
