@@ -98,7 +98,7 @@ theorem k2MertensAbelTerm_two_tsum_eq_neg_two_gamma :
   let A : ℝ := ∑' n : ℕ, k2MertensAbelTerm 2 n
   have hmoment : Tendsto (k2MobiusLogMoment 2) atTop (𝓝 A) := by
     dsimp [A]
-    exact k2MobiusLogMoment_tendsto_of_summable
+    exact k2MobiusLogMoment_tendsto_of_summable 2
       k2MertensAbelTerm_two_summable
       (k2StrongMertens_logRecip_endpoint_tendsto_zero 2)
   have habel := k2MobiusLogSqLSeries_re_tendsto_of_moment_tendsto hmoment
@@ -127,7 +127,7 @@ theorem k2r_tendsto_zero_from_strongMertens :
 /-- The cubic reciprocal moment converges from the same Strong Mertens input. -/
 theorem k2C3_tendsto_from_strongMertens :
     ∃ L : ℝ, Tendsto k2C3 atTop (𝓝 L) := by
-  refine ⟨∑' n : ℕ, k2MertensAbelTerm 3 n, ?_⟩
+  refine ⟨(∑' n : ℕ, k2MertensAbelTerm 3 n), ?_⟩
   exact k2C3_tendsto_of_summable
     k2MertensAbelTerm_three_summable
     (k2StrongMertens_logRecip_endpoint_tendsto_zero 3)
