@@ -1,2 +1,2 @@
-target=RHLean.Analysis.StrongMertensLogNineHorizontal
-probe=9
+target=RHLean.Analysis.StrongMertensLogNineBounds
+probe=10
