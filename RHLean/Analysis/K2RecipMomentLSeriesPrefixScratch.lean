@@ -29,8 +29,8 @@ theorem k2A2AbelCoeff_ofReal_eq_term
   rw [mul_assoc, hweight, LSeries.term_of_ne_zero hn0]
   simp only [k2MobiusLogSqCoeff, Function.iterate_succ_apply,
     Function.iterate_zero_apply, LSeries.logMul]
-  rw [← Complex.natCast_log, ← Complex.ofReal_cpow (Nat.cast_nonneg n) sigma]
   push_cast
+  rw [← Complex.natCast_log, Complex.ofReal_cpow (Nat.cast_nonneg n) sigma]
   ring
 
 /-- Complexifying the finite Abel prefix gives the ordinary finite L-series
@@ -48,13 +48,14 @@ theorem k2A2AbelPrefix_ofReal_eq_sum_range (sigma : ℝ) (M : ℕ) :
   push_cast
   calc
     ∑ n ∈ Finset.Ico 1 (M + 1),
-        ((((μ n : ℤ) : ℝ) * k2LogRecipWeight 2 n *
-          k2AbelBoundaryWeight sigma n : ℝ) : ℂ) =
+        (((μ n : ℤ) : ℂ) * (k2LogRecipWeight 2 n : ℂ) *
+          (k2AbelBoundaryWeight sigma n : ℂ)) =
       ∑ n ∈ Finset.Ico 1 (M + 1),
         LSeries.term k2MobiusLogSqCoeff (sigma : ℂ) n := by
           apply Finset.sum_congr rfl
           intro n hnmem
-          exact k2A2AbelCoeff_ofReal_eq_term sigma (Finset.mem_Ico.mp hnmem).1
+          simpa only [Int.cast_ofNat, map_mul] using
+            k2A2AbelCoeff_ofReal_eq_term sigma (Finset.mem_Ico.mp hnmem).1
     _ = ∑ n ∈ Finset.Ico 0 (M + 1),
         LSeries.term k2MobiusLogSqCoeff (sigma : ℂ) n := by
           rw [← Finset.sum_Ico_consecutive (show 0 ≤ 1 by omega) (show 1 ≤ M + 1 by omega)]
@@ -85,7 +86,7 @@ theorem k2A2AbelPrefix_tendsto_LSeries_re
         (𝓝 (LSeries k2MobiusLogSqCoeff (sigma : ℂ))) := by
     apply (hpartial.comp hsucc).congr'
     filter_upwards with M
-    exact k2A2AbelPrefix_ofReal_eq_sum_range sigma M
+    exact (k2A2AbelPrefix_ofReal_eq_sum_range sigma M).symm
   have hre := Complex.continuous_re.continuousAt.tendsto.comp hcomplex
   simpa using hre
 
