@@ -123,6 +123,8 @@ private theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
     have hmpos : 0 < (((m + 3 : ℕ) : ℝ)) := by positivity
     have hlogm : 0 ≤ Real.log ((m + 3 : ℕ) : ℝ) :=
       Real.log_nonneg (by exact_mod_cast (show 1 ≤ m + 3 by omega))
+    have hlogmpos : 0 < Real.log ((m + 3 : ℕ) : ℝ) :=
+      Real.log_pos (by exact_mod_cast (show 1 < m + 3 by omega))
     have hlogle : Real.log ((m + 3 : ℕ) : ℝ) ≤ Real.log ((n + 3 : ℕ) : ℝ) :=
       Real.log_le_log hmpos hmnR
     have hpowle : (Real.log ((m + 3 : ℕ) : ℝ)) ^ p ≤
@@ -131,7 +133,7 @@ private theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
     have hdenle : (((m + 3 : ℕ) : ℝ)) * (Real.log ((m + 3 : ℕ) : ℝ)) ^ p ≤
         ((n + 3 : ℕ) : ℝ) * (Real.log ((n + 3 : ℕ) : ℝ)) ^ p := by
       exact mul_le_mul hmnR hpowle (by positivity) (by positivity)
-    exact one_div_le_one_div_of_le (by positivity) hdenle
+    exact one_div_le_one_div_of_le (mul_pos hmpos (pow_pos hlogmpos p)) hdenle
   rw [← summable_condensed_iff_of_nonneg hnonneg hmono]
   rw [← summable_nat_add_iff 1 (G := ℝ)]
   let D : ℝ := 1 / (Real.log 2) ^ p
@@ -141,7 +143,8 @@ private theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
     (summable_nat_add_iff 1 (G := ℝ)).2 hpseries0
   have hmajor : Summable (fun k : ℕ => D * (1 / (((k + 1 : ℕ) : ℝ) ^ p))) :=
     hpseries.mul_left D
-  apply Summable.of_nonneg_of_le (fun k => by positivity) ?_ hmajor
+  apply Summable.of_nonneg_of_le
+    (fun k => mul_nonneg (by positivity) (hnonneg (2 ^ (k + 1)))) ?_ hmajor
   intro k
   let q : ℕ := 2 ^ (k + 1)
   have hqpos : 0 < (q : ℝ) := by
@@ -149,10 +152,11 @@ private theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
     positivity
   have hqleNat : q ≤ q + 3 := by omega
   have hqle : (q : ℝ) ≤ ((q + 3 : ℕ) : ℝ) := by exact_mod_cast hqleNat
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
   have hlogq : Real.log (q : ℝ) = ((k + 1 : ℕ) : ℝ) * Real.log 2 := by
     dsimp [q]
     push_cast
-    exact Real.log_pow (2 : ℝ) (k + 1)
+    simpa [Nat.cast_add, Nat.cast_one] using Real.log_pow (2 : ℝ) (k + 1)
   have hlogle : Real.log (q : ℝ) ≤ Real.log ((q + 3 : ℕ) : ℝ) :=
     Real.log_le_log hqpos hqle
   have hlogqpos : 0 < Real.log (q : ℝ) := by
@@ -162,10 +166,11 @@ private theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
     pow_le_pow_left₀ hlogqpos.le hlogle p
   have hsmallpos : 0 < (q : ℝ) * (Real.log (q : ℝ)) ^ p := by
     positivity
-  have hbigpos : 0 < ((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p := by
-    have : 1 < ((q + 3 : ℕ) : ℝ) := by
-      exact_mod_cast (show 1 < q + 3 by omega)
-    positivity
+  have hq3nat : 1 < q + 3 := by omega
+  have hq3 : (1 : ℝ) < ((q + 3 : ℕ) : ℝ) := by exact_mod_cast hq3nat
+  have hlogbigpos : 0 < Real.log ((q + 3 : ℕ) : ℝ) := Real.log_pos hq3
+  have hbigpos : 0 < ((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p :=
+    mul_pos (by positivity) (pow_pos hlogbigpos p)
   have hdenle : (q : ℝ) * (Real.log (q : ℝ)) ^ p ≤
       ((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p := by
     exact mul_le_mul hqle hpowle (by positivity) (by positivity)
@@ -185,7 +190,6 @@ private theorem k2LogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
     _ = D * (1 / (((k + 1 : ℕ) : ℝ) ^ p)) := by
       dsimp [D]
       rw [hlogq, mul_pow]
-      field_simp [ne_of_gt Real.log_two_pos]
-      ring
+      field_simp [ne_of_gt hlog2]
 
 end RHLean.Analysis
