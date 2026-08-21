@@ -87,10 +87,18 @@ theorem nativeMertensSharpReal_logNine_subexp_eventually_for
   have htri : ‖(nativeMertensSharpReal X : ℂ)‖ ≤
       ‖nativeSmoothedMobius f eps X - (nativeMertensSharpReal X : ℂ)‖ +
         ‖nativeSmoothedMobius f eps X‖ := by
-    rw [show (nativeMertensSharpReal X : ℂ) =
-      nativeSmoothedMobius f eps X -
-        (nativeSmoothedMobius f eps X - (nativeMertensSharpReal X : ℂ)) by ring]
-    exact norm_sub_le _ _
+    calc
+      ‖(nativeMertensSharpReal X : ℂ)‖ =
+          ‖nativeSmoothedMobius f eps X -
+            (nativeSmoothedMobius f eps X - (nativeMertensSharpReal X : ℂ))‖ := by
+              congr 1
+              ring
+      _ ≤ ‖nativeSmoothedMobius f eps X‖ +
+          ‖nativeSmoothedMobius f eps X - (nativeMertensSharpReal X : ℂ)‖ :=
+        norm_sub_le (nativeSmoothedMobius f eps X)
+          (nativeSmoothedMobius f eps X - (nativeMertensSharpReal X : ℂ))
+      _ = ‖nativeSmoothedMobius f eps X - (nativeMertensSharpReal X : ℂ)‖ +
+          ‖nativeSmoothedMobius f eps X‖ := by ring
   have hfinal : ‖(nativeMertensSharpReal X : ℂ)‖ ≤
       (Cc + Cs) * X * Real.exp (-c * strongMertensScale X) :=
     htri.trans <| by
