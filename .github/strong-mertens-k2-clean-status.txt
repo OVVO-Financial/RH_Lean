@@ -1,2 +1,2 @@
-target=RHLean.Analysis.K2RecipMomentLSeriesPrefixScratch
-probe=54
+target=RHLean.Analysis.K2RecipMomentAbelUniformScratch
+probe=55
