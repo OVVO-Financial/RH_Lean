@@ -15,7 +15,6 @@ theorem k2Log_le_four_log_sqrt (N : ℕ) (hs : 2 ≤ Nat.sqrt N) :
   have hsposNat : 0 < s := by omega
   have hNposNat : 0 < N := (Nat.sqrt_pos).1 hsposNat
   have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast hNposNat
-  have hspos : (0 : ℝ) < (s : ℝ) := by exact_mod_cast hsposNat
   have hsp1 : s + 1 ≤ s * s := by nlinarith
   have hNle : N ≤ s ^ 4 := by
     calc
