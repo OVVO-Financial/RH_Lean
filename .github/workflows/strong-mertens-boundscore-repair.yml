@@ -1,4 +1,4 @@
-name: Strong Mertens finite smoothing proof repair
+name: Strong Mertens finite smoothing warning repair
 
 on:
   push:
@@ -17,50 +17,29 @@ jobs:
         with:
           ref: agent/strong-mertens-k2-clean
 
-      - name: Apply finite smoothing proof repairs
+      - name: Remove unused c2_lt parameter
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
           path = Path('RHLean/Analysis/StrongMertensSmoothingFinite.lean')
           text = path.read_text()
-          original = text
-
-          replacements = [
-            (
-              '    · apply smooth_le_one\n      omega',
-              '    · simpa [F, Nat.cast_add] using smooth_le_one (n + n0) (by omega)',
-              'upper smoothing cast'
-            ),
-            (
-              '    · apply smooth_nonneg\n      omega',
-              '    · simpa [F, Nat.cast_add] using smooth_nonneg (n + n0) (by omega)',
-              'lower smoothing cast'
-            ),
-            (
-              '        · apply floor_X_add_one_le_self.trans\n          rw [show X + 1 ≤ X * (1 + eps * c1) by\n            ring_nf\n            linarith [X_bound_1]]',
-              '        · exact floor_X_add_one_le_self.trans (by\n            ring_nf\n            linarith [X_bound_1])',
-              'floor transitivity'
-            ),
-          ]
-          for old, new, label in replacements:
-              n = text.count(old)
-              if n != 1:
-                  raise SystemExit(f'{label}: expected exactly one site, found {n}')
-              text = text.replace(old, new)
-
-          if text == original:
-              raise SystemExit('repair made no changes')
+          old = '(c2 : ℝ) (c2_pos : 0 < c2) (c2_lt : c2 < 2)'
+          new = '(c2 : ℝ) (c2_pos : 0 < c2)'
+          n = text.count(old)
+          if n != 1:
+              raise SystemExit(f'c2_lt parameter: expected exactly one site, found {n}')
+          text = text.replace(old, new)
           path.write_text(text)
           PY
           git diff --check
           git diff -- RHLean/Analysis/StrongMertensSmoothingFinite.lean
 
-      - name: Publish finite smoothing proof repair
+      - name: Publish finite smoothing warning repair
         shell: bash
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add -- RHLean/Analysis/StrongMertensSmoothingFinite.lean
-          git commit -m 'Repair Strong Mertens finite smoothing proof'
+          git commit -m 'Remove unused Strong Mertens smoothing parameter'
           git push origin HEAD:agent/strong-mertens-k2-clean
