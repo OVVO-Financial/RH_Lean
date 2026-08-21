@@ -67,7 +67,7 @@ theorem k2MertensAbelTerm_two_summable :
       ≤ (C * (N : ℝ) * Real.exp (-c * r)) *
           |k2LogRecipWeight 2 N - k2LogRecipWeight 2 (N + 1)| := by
         apply mul_le_mul_of_nonneg_right
-        · simpa [r] using hM N hN
+        · simpa [r, strongMertensScale, one_div] using hM N hN
         · exact abs_nonneg _
     _ ≤ (C * (N : ℝ) * Real.exp (-c * r)) *
           (8 * (Real.log (N : ℝ)) ^ 2 / (N : ℝ) ^ 2) := by
@@ -76,7 +76,6 @@ theorem k2MertensAbelTerm_two_summable :
     _ = (8 * C / (N : ℝ)) *
           (Real.exp (-c * r) * (Real.log (N : ℝ)) ^ 2) := by
         field_simp [ne_of_gt hNpos]
-        ring
     _ ≤ (8 * C / (N : ℝ)) *
           (1 / (Real.log (N : ℝ)) ^ 3) := by
         apply mul_le_mul_of_nonneg_left hdecay2
@@ -84,6 +83,5 @@ theorem k2MertensAbelTerm_two_summable :
     _ = g N := by
         dsimp [g]
         field_simp [ne_of_gt hNpos]
-        ring
 
 end RHLean.Analysis
