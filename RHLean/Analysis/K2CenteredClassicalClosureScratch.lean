@@ -7,6 +7,8 @@ open scoped BigOperators
 
 namespace RHLean.Analysis
 
+local notation "gammaE" => Real.eulerMascheroniConstant
+
 /-- The positive logarithmic Abel weight appearing in the classical K2
 closure. -/
 def k2LogCenteredWeightSum (N : ℕ) : ℝ :=
@@ -45,9 +47,52 @@ theorem k2LogCenteredWeightSum_tendsto (h : K2ClassicalMomentInput) :
     ∃ ell : ℝ, Tendsto k2LogCenteredWeightSum atTop (𝓝 ell) := by
   rcases h.c3_tendsto with ⟨ell, hell⟩
   refine ⟨-ell, ?_⟩
-  have hlim := h.r_mul_log_tendsto_zero.sub hell
+  have hlim :
+      Tendsto
+        (fun N : ℕ => k2r N * Real.log (N : ℝ) - k2C3 N)
+        atTop (𝓝 (-ell)) := by
+    simpa using h.r_mul_log_tendsto_zero.sub hell
   refine hlim.congr' ?_
   filter_upwards [eventually_ge_atTop 1] with N hN
   exact (k2LogCenteredWeightSum_eq N hN).symm
+
+/-- Euler's harmonic remainder after subtracting `log n + gamma`. -/
+def k2HarmonicError (n : ℕ) : ℝ :=
+  (harmonic n : ℝ) - Real.log (n : ℝ) - gammaE
+
+/-- The harmonic remainder is nonnegative. -/
+theorem k2HarmonicError_nonneg (n : ℕ) (hn : 1 ≤ n) :
+    0 ≤ k2HarmonicError n := by
+  have hn0 : n ≠ 0 := by omega
+  have h := Real.eulerMascheroniConstant_lt_eulerMascheroniSeq' n
+  simp [Real.eulerMascheroniSeq', hn0] at h
+  unfold k2HarmonicError
+  linarith
+
+/-- The harmonic remainder is bounded by one logarithmic mesh step. -/
+theorem k2HarmonicError_le_log_step (n : ℕ) (hn : 1 ≤ n) :
+    k2HarmonicError n ≤
+      Real.log ((n + 1 : ℕ) : ℝ) - Real.log (n : ℝ) := by
+  have h := Real.eulerMascheroniSeq_lt_eulerMascheroniConstant n
+  simp [Real.eulerMascheroniSeq] at h
+  unfold k2HarmonicError
+  linarith
+
+/-- The harmonic remainder has the elementary reciprocal bound `E_n ≤ 1/n`. -/
+theorem k2HarmonicError_le_inv (n : ℕ) (hn : 1 ≤ n) :
+    k2HarmonicError n ≤ 1 / (n : ℝ) := by
+  have hnposNat : 0 < n := by omega
+  have hnpos : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hnposNat
+  have hnp1pos : (0 : ℝ) < ((n + 1 : ℕ) : ℝ) := by positivity
+  calc
+    k2HarmonicError n
+        ≤ Real.log ((n + 1 : ℕ) : ℝ) - Real.log (n : ℝ) :=
+      k2HarmonicError_le_log_step n hn
+    _ = Real.log (((n + 1 : ℕ) : ℝ) / (n : ℝ)) := by
+      rw [Real.log_div hnp1pos.ne' hnpos.ne']
+    _ ≤ (((n + 1 : ℕ) : ℝ) / (n : ℝ)) - 1 :=
+      Real.log_le_sub_one_of_pos (div_pos hnp1pos hnpos)
+    _ = 1 / (n : ℝ) := by
+      field_simp [hnpos.ne']
 
 end RHLean.Analysis
