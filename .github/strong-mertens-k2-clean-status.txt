@@ -1,2 +1,2 @@
-target=RHLean.Analysis.K2RecipMomentAbelBoundaryScratch
-probe=49
+target=RHLean.Analysis.K2RecipMomentAbelUniformScratch
+probe=50
