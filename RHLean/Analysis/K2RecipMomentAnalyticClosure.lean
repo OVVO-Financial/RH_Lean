@@ -55,10 +55,19 @@ theorem k2ZetaRegularPart_differentiable_punctured :
   filter_upwards [self_mem_nhdsWithin] with s hs
   have hs1 : s ≠ (1 : ℂ) := by
     simpa only [mem_compl_singleton_iff] using hs
-  rw [k2ZetaRegularPart_eq hs1]
-  refine (differentiableAt_riemannZeta hs1).sub ((differentiableAt_const _).div ?_ ?_)
-  · fun_prop
-  · exact sub_ne_zero.mpr hs1
+  have hbase : DifferentiableAt ℂ
+      (fun z : ℂ => riemannZeta z - 1 / (z - 1)) s := by
+    refine (differentiableAt_riemannZeta hs1).sub ((differentiableAt_const _).div ?_ ?_)
+    · fun_prop
+    · exact sub_ne_zero.mpr hs1
+  have hne : ({(1 : ℂ)}ᶜ : Set ℂ) ∈ 𝓝 s :=
+    isOpen_compl_singleton.mem_nhds hs
+  have heq : k2ZetaRegularPart =ᶠ[𝓝 s]
+      (fun z : ℂ => riemannZeta z - 1 / (z - 1)) := by
+    filter_upwards [hne] with z hz
+    exact k2ZetaRegularPart_eq (by
+      simpa only [mem_compl_singleton_iff] using hz)
+  exact hbase.congr_of_eventuallyEq heq
 
 /-- The pole-removed zeta germ is analytic at `1`. -/
 theorem k2ZetaRegularPart_analyticAt_one :
