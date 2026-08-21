@@ -191,7 +191,7 @@ theorem nativeMertensHorizontal_logNine_bound_for
                 gcongr
             _ = (Cright / corridor.A) * (Real.log T) ^ 10 := by
                 rw [hu0inv]
-                field_simp [ne_of_gt hApos] <;> ring
+                field_simp [ne_of_gt hApos]
         calc
           1 / ‖zetaC s‖ ≤ (Cright / corridor.A) * (Real.log T) ^ 10 := hzr'
           _ ≤ Cz * (1 + (Real.log T) ^ 10) := by
