@@ -93,7 +93,7 @@ theorem card_lowWheelPrimeWindowDilated_eq_divisible
   refine Finset.card_bij (fun k _hk => p * k) ?_ ?_ ?_
   · intro k hk
     rcases mem_lowWheelPrimeWindowDilatedMultiplierSet.mp hk with
-      ⟨hk1, hkX, hwindow⟩
+      ⟨hk1, _hkX, hwindow⟩
     have hwindow' :
         b * (p * k) ∈ primeDilateCofactorWindow p R X a := by
       simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hwindow
@@ -103,9 +103,12 @@ theorem card_lowWheelPrimeWindowDilated_eq_divisible
       simpa using Nat.mul_le_mul_right (p * k) hb1
     have hpkX : p * k ≤ X :=
       hpkLeQ.trans (Finset.mem_Ioc.mp hqRange).2
+    have hkpos : 0 < k := by omega
+    have hpk1 : 1 ≤ p * k := by
+      exact Nat.succ_le_iff.mpr (Nat.mul_pos hp.pos hkpos)
     apply mem_lowWheelPrimeWindowDivisibleMultiplierSet.mpr
     refine ⟨mem_lowWheelPrimeWindowMultiplierSet.mpr ?_, dvd_mul_right p k⟩
-    exact ⟨by positivity, hpkX, hwindow'⟩
+    exact ⟨hpk1, hpkX, hwindow'⟩
   · intro k1 _hk1 k2 _hk2 hmul
     exact Nat.eq_of_mul_eq_mul_left hp.pos hmul
   · intro j hj
@@ -125,9 +128,14 @@ theorem card_lowWheelPrimeWindowDilated_eq_divisible
     have hcancel : p * k = j := by
       unfold k
       exact Nat.mul_div_cancel' hpj
+    have harg : p * (b * k) = b * j := by
+      calc
+        p * (b * k) = b * (p * k) := by ring
+        _ = b * j := by rw [hcancel]
     have hwindow' :
         p * (b * k) ∈ primeDilateCofactorWindow p R X a := by
-      simpa [hcancel, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hwindow
+      rw [harg]
+      exact hwindow
     refine ⟨k, mem_lowWheelPrimeWindowDilatedMultiplierSet.mpr
       ⟨hk1, hkX, hwindow'⟩, hcancel⟩
 
