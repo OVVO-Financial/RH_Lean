@@ -413,6 +413,7 @@ import RHLean.Proof.HeightShellGram
 import RHLean.Proof.HeightShellReconstruction
 import RHLean.Proof.InternalBlockLifetimeGram
 import RHLean.Proof.JointGramControl
+import RHLean.Proof.LargePrimeTerminalFlipLayers
 import RHLean.Proof.LifetimeActiveSet
 import RHLean.Proof.LifetimeEndpointDecomposition
 import RHLean.Proof.LifetimeEndpointDiscrepancyAttack
