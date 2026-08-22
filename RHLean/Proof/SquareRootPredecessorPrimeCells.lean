@@ -90,8 +90,8 @@ theorem lowWheelSmoothFaceShellMass_add_predecessor_eq_parentPrefix
     lowWheelSmoothFaceShellMass p k + predecessorPrimeMass p k =
       frozenPrimeUniverseMass (primesUpTo (p - 1)) k := by
   rw [lowWheelSmoothFaceShellMass_eq_frozenPrimeUniverseMass p k hp]
-  have hstep := frozenPrimeUniverseMass_primesUpTo_step_eq_sub_predecessor p k hp
-  omega
+  rw [frozenPrimeUniverseMass_primesUpTo_step_eq_sub_predecessor p k hp]
+  ring
 
 /-- **Primorial deletion.** If `k/p` already contains the complete Boolean cube
 on all primes below `p`, then `A_p(k)` vanishes exactly. -/
@@ -111,8 +111,11 @@ theorem predecessorPrimeMass_eq_zero_of_predPrimeCube_complete
 /-- The first predecessor-prime channel at `k=2` has unit mass. -/
 theorem predecessorPrimeMass_two_two : predecessorPrimeMass 2 2 = 1 := by
   have hS : primesUpTo (2 - 1) = ∅ := by
-    ext q
-    simp [primesUpTo]
+    apply Finset.eq_empty_iff_forall_notMem.mpr
+    intro q hq
+    have hqData := mem_primesUpTo.mp hq
+    have hq2 : 2 ≤ q := hqData.1.two_le
+    omega
   unfold predecessorPrimeMass
   rw [hS]
   simp [frozenPrimeUniverseMass, truncatedCubeAlternatingSum,
