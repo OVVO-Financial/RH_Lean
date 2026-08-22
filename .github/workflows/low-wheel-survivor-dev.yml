@@ -12,6 +12,7 @@ on:
       - 'RHLean/Proof/LowWheelDoubleFaceFiniteDifference.lean'
       - 'RHLean/Proof/LowWheelSequentialGeometricSavings.lean'
       - 'RHLean/Proof/LowWheelSequentialPrimeWindows.lean'
+      - 'RHLean/Proof/LowWheelSequentialWindowTelescope.lean'
       - 'RHLean/Proof/LowWheelDoubleCubeTransport.lean'
       - 'RHLean/Proof/LowWheelDoubleCubeSequentialFold.lean'
       - 'RHLean/Proof/LowWheelAncestryCrossLedgerBridge.lean'
@@ -69,6 +70,7 @@ jobs:
           lake build RHLean.Proof.LowWheelDoubleFaceFiniteDifference
           lake build RHLean.Proof.LowWheelSequentialGeometricSavings
           lake build RHLean.Proof.LowWheelSequentialPrimeWindows
+          lake build RHLean.Proof.LowWheelSequentialWindowTelescope
           lake build RHLean.Proof.LowWheelDoubleCubeTransport
           lake build RHLean.Proof.LowWheelDoubleCubeSequentialFold
           lake build RHLean.Proof.LowWheelAncestryCrossLedgerBridge
