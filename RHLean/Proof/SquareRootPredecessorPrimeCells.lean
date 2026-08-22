@@ -130,18 +130,30 @@ theorem freshPrimePKCell_eq_cofactorDeletion_add_hitDeletion
       -A * (Q - H) - C * H := by
   ring
 
-/-- **Exact cross-root cancellation.** Add the terminal-prime predecessor mass
-`N*A` to the additive low-prime step. The terminal-prime part cancels
-algebraically, leaving only future composite hits and the current hit. -/
+/-- **Exact cross-root cancellation for the additive step.** Add the terminal-
+prime predecessor mass `N*A` to the change across the fresh prime. The terminal
+prime part cancels algebraically, leaving only future composite hits and the
+current hit. -/
 theorem freshPrimePKCrossRoot_eq_futureHitResidual
     (C A Q H N : ℤ) :
     ((C - A) * (Q - H) - C * Q) + N * A =
       -A * ((Q - H) - N) - C * H := by
   ring
 
+/-- **Literal cumulative-cell decomposition.** If the low term is the state
+*through* `p`, as in the cumulative double-cube/window fold, then adding the
+terminal predecessor term does not equal only the new cross-root residual: it
+also retains the entire inherited parent product `C*Q`. This identity is the
+exact distinction between the literal cumulative gate and the additive gate. -/
+theorem cumulativePKCrossRoot_eq_parent_add_futureHitResidual
+    (C A Q H N : ℤ) :
+    (C - A) * (Q - H) + N * A =
+      C * Q + (-A * ((Q - H) - N) - C * H) := by
+  ring
+
 /-- Replacing the evolving survivor population by the terminal prime population
 necessarily drops the future-hit channel. This is the residual term exposed by
-the preceding cross-root identity. -/
+the preceding cross-root identities. -/
 theorem predecessorPrime_terminalProjection_exposes_futureHits
     (A N future : ℤ) :
     -A * (N + future) = -A * N - A * future := by
@@ -150,7 +162,7 @@ theorem predecessorPrime_terminalProjection_exposes_futureHits
 /-- **Two-thirds support law.** In a reciprocal cell `k = floor(X_R/q)` with
 `p <= k`, any unresolved composite `q` whose least prime factor is at least `p`
 forces `p^3 < R^2`. Hence above the `R^(2/3)` predecessor scale the supported
-cross-root residual has no current or future composite hit. -/
+additive cross-root residual has no current or future composite hit. -/
 theorem reciprocalMiddle_composite_survivor_forces_predCube_lt_square
     {R p k q : ℕ}
     (hR : 2 ≤ R) (hp : 1 ≤ p) (hRq : R < q)
