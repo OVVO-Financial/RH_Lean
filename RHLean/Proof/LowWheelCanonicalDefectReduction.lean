@@ -20,10 +20,11 @@ leaves the endpoint identity
 
 `M(R^2-1) = M(R) - canonicalDefect`.
 
-Every term of `canonicalDefect` is already known to lie on one of the two
-explicit root-crossing surfaces of the canonical toggle.  Thus the remaining
-fixed-amplification problem is a signed estimate on a genuine geometric defect
-ledger, not on the full transport.
+Every term of `canonicalDefect` lies on the single quotient root-downcross
+frontier of the canonical least-prime toggle.  The apparent cofactor boundary
+is absorbed by the square-endpoint product ceiling.  Thus the remaining
+fixed-amplification problem is a signed estimate on one genuine geometric
+frontier ledger, not on the full transport or a union of unrelated boundaries.
 
 No norm, PNT estimate, asymptotic, or RH input is used.
 -/
@@ -350,7 +351,7 @@ theorem squarePrefixMertens_sub_one_eq_lower_sub_canonicalDefect
   ring
 
 /-- Every state contributing to the remaining global defect lies on one of the
-two root-crossing surfaces. -/
+original two root-crossing surfaces.  Retained for compatibility. -/
 theorem lowWheelCanonicalDefectLedger_state_boundary
     {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
     (hx : x ∈ lowWheelCanonicalDefectPart
@@ -359,5 +360,15 @@ theorem lowWheelCanonicalDefectLedger_state_boundary
       primeFaceProduct t *
           (x.2 / lowWheelCanonicalCofactorQuotientPivot x) ≤ R :=
   lowWheelCanonicalPhysicalDefect_boundary hx
+
+/-- **Surviving defect reduced to one frontier.**  Every state in the endpoint
+defect ledger is a canonical quotient root-downcross. -/
+theorem lowWheelCanonicalDefectLedger_state_downcross
+    {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
+    (hx : x ∈ lowWheelCanonicalDefectPart
+      (lowWheelCanonicalPhysicalStateSet R t)) :
+    primeFaceProduct t *
+        (x.2 / lowWheelCanonicalCofactorQuotientPivot x) ≤ R :=
+  lowWheelCanonicalPhysicalDefect_downcross hx
 
 end RHLean.Proof
