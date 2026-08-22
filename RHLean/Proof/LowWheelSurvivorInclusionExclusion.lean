@@ -201,6 +201,6 @@ theorem lowWheelHighSurvivorSet_card_eq_faceMultipleCounts
       apply Finset.sum_congr rfl
       intro t _ht
       rw [← Finset.sum_filter]
-      simpa [mul_comm]
+      simp [mul_comm]
 
 end RHLean.Proof
