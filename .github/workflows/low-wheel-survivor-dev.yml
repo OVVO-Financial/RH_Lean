@@ -8,6 +8,7 @@ on:
       - 'RHLean/Proof/LowWheelSurvivorInclusionExclusion.lean'
       - 'RHLean/Proof/LowWheelSurvivorFloorExpansion.lean'
       - 'RHLean/Proof/LowWheelTransportTripleCarrier.lean'
+      - 'RHLean/Proof/LowWheelCofactorQuotientToggle.lean'
       - '.github/workflows/low-wheel-survivor-dev.yml'
   workflow_dispatch:
 
@@ -58,3 +59,4 @@ jobs:
           lake build RHLean.Proof.LowWheelSurvivorInclusionExclusion
           lake build RHLean.Proof.LowWheelSurvivorFloorExpansion
           lake build RHLean.Proof.LowWheelTransportTripleCarrier
+          lake build RHLean.Proof.LowWheelCofactorQuotientToggle
