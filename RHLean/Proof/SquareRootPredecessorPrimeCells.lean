@@ -16,18 +16,11 @@ On squarefree support this is exactly the signed mass
 
 `sum_{d <= k/p, P+(d) < p} mu(d)`.
 
-The point is not to claim an estimate. The exact identities below record three
-guardrails for the next finite gate.
-
-* `A_p(k)` is the decrement produced when the frozen lower-scale cube admits
-  the fresh prime `p`.
-* The cumulative smooth-shell coefficient after processing `p` plus `A_p(k)`
-  is just the parent prefix before `p`. Thus pairing `A_p(k)` against the
-  cumulative `p`-window state would merely reconstruct an earlier coordinate;
-  a meaningful `(p,k)` cancellation test has to use the additive fresh-prime
-  increment instead.
-* Once the cutoff `k/p` contains the complete Boolean cube on primes below `p`,
-  `A_p(k)` is exactly zero. This is the primorial deletion mechanism.
+The exact identities below separate the genuinely additive fresh-prime state
+from the cumulative state, record the primorial deletion of completed old
+cubes, and expose the cross-root cancellation against the terminal prime fibre.
+They also give the elementary `p^3 < R^2` support condition for any unresolved
+composite in a reciprocal cell with `p <= k`.
 
 No analytic estimate, asymptotic, PNT input, or RH hypothesis is used.
 -/
@@ -84,7 +77,7 @@ theorem lowWheelSmoothFaceShellMass_eq_frozenPrimeUniverseMass
 
 /-- **Cumulative-state guardrail.** Adding `A_p(k)` back to the already-
 processed smooth-shell coefficient reconstructs the old parent prefix exactly.
-Therefore this pair is not an independent cancellation mechanism. -/
+Therefore this pair by itself is not an independent cancellation mechanism. -/
 theorem lowWheelSmoothFaceShellMass_add_predecessor_eq_parentPrefix
     (p k : ℕ) (hp : p.Prime) :
     lowWheelSmoothFaceShellMass p k + predecessorPrimeMass p k =
@@ -137,13 +130,67 @@ theorem freshPrimePKCell_eq_cofactorDeletion_add_hitDeletion
       -A * (Q - H) - C * H := by
   ring
 
+/-- **Exact cross-root cancellation.** Add the terminal-prime predecessor mass
+`N*A` to the additive low-prime step. The terminal-prime part cancels
+algebraically, leaving only future composite hits and the current hit. -/
+theorem freshPrimePKCrossRoot_eq_futureHitResidual
+    (C A Q H N : ℤ) :
+    ((C - A) * (Q - H) - C * Q) + N * A =
+      -A * ((Q - H) - N) - C * H := by
+  ring
+
 /-- Replacing the evolving survivor population by the terminal prime population
-necessarily drops the future-hit channel. This elementary identity is the
-reason a genuine continuation must keep the later prime-hit coordinate visible. -/
+necessarily drops the future-hit channel. This is the residual term exposed by
+the preceding cross-root identity. -/
 theorem predecessorPrime_terminalProjection_exposes_futureHits
     (A N future : ℤ) :
     -A * (N + future) = -A * N - A * future := by
   ring
+
+/-- **Two-thirds support law.** In a reciprocal cell `k = floor(X_R/q)` with
+`p <= k`, any unresolved composite `q` whose least prime factor is at least `p`
+forces `p^3 < R^2`. Hence above the `R^(2/3)` predecessor scale the supported
+cross-root residual has no current or future composite hit. -/
+theorem reciprocalMiddle_composite_survivor_forces_predCube_lt_square
+    {R p k q : ℕ}
+    (hR : 2 ≤ R) (hp : 1 ≤ p) (hRq : R < q)
+    (hqk : squareRootEndpoint R / q = k)
+    (hpk : p ≤ k) (hqPrime : ¬ q.Prime)
+    (hpMin : p ≤ q.minFac) :
+    p ^ 3 < R ^ 2 := by
+  have hqpos : 0 < q := by omega
+  have hminSq : q.minFac ^ 2 ≤ q :=
+    Nat.minFac_sq_le_self hqpos hqPrime
+  have hpSq : p ^ 2 ≤ q.minFac ^ 2 :=
+    Nat.pow_le_pow_left hpMin 2
+  have hpSqQ : p ^ 2 ≤ q := hpSq.trans hminSq
+  have hkq : k * q ≤ squareRootEndpoint R := by
+    rw [← hqk]
+    exact Nat.div_mul_le_self (squareRootEndpoint R) q
+  have hpq : p * q ≤ squareRootEndpoint R := by
+    exact (Nat.mul_le_mul_right q hpk).trans hkq
+  have hpCube : p ^ 3 ≤ squareRootEndpoint R := by
+    calc
+      p ^ 3 = p * p ^ 2 := by ring
+      _ ≤ p * q := Nat.mul_le_mul_left p hpSqQ
+      _ ≤ squareRootEndpoint R := hpq
+  have hXlt : squareRootEndpoint R < R ^ 2 := by
+    unfold squareRootEndpoint
+    have hsqpos : 0 < R ^ 2 := by positivity
+    omega
+  exact hpCube.trans_lt hXlt
+
+/-- Contrapositive form of the two-thirds support law. -/
+theorem no_reciprocalMiddle_composite_survivor_of_square_le_predCube
+    {R p k q : ℕ}
+    (hR : 2 ≤ R) (hp : 1 ≤ p) (hRq : R < q)
+    (hqk : squareRootEndpoint R / q = k)
+    (hpk : p ≤ k) (hqPrime : ¬ q.Prime)
+    (hpMin : p ≤ q.minFac) (hcube : R ^ 2 ≤ p ^ 3) :
+    False := by
+  exact (Nat.not_lt_of_ge hcube)
+    (reciprocalMiddle_composite_survivor_forces_predCube_lt_square
+      hR hp hRq hqk hpk hqPrime hpMin)
 
 /-- The already-formalized exact middle corridor, displayed in reciprocal
 coordinates. The quotient label `k` is the only surviving large-prime label
