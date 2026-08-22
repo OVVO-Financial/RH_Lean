@@ -36,6 +36,8 @@ namespace RHLean.Proof
 open RHLean.Arithmetic
 open RHLean.Analysis
 
+attribute [local instance] Classical.propDecidable
+
 /-- The prime predicate in the exact Mertens transform can be removed entirely:
 on the high square interval it is exactly the low-wheel survivor predicate. -/
 theorem squareRootTransportPrimeFirst_eq_lowWheelSequentialMertens
@@ -113,12 +115,12 @@ theorem squareRootFrozenPrimeUniverse_step_and_support
 cutoffs and actual rake cardinalities shrink as the fresh prime increases. -/
 theorem lowWheelSequential_twoPrimeGeometry
     {R p q : ℕ} (hR : 2 ≤ R)
-    (hp : p.Prime) (hq : q.Prime) (hRp : R < p) (hpq : p ≤ q) :
+    (hp : p.Prime) (_hq : q.Prime) (hRp : R < p) (hpq : p ≤ q) :
     squareRootEndpoint R / q ≤ squareRootEndpoint R / p ∧
       (primeCombProperMultiplierSet q (squareRootEndpoint R)).card ≤
         (primeCombProperMultiplierSet p (squareRootEndpoint R)).card ∧
       squareRootEndpoint R / q < R := by
-  refine ⟨Nat.div_le_div_left hpq, ?_, ?_⟩
+  refine ⟨Nat.div_le_div_left hpq hp.pos, ?_, ?_⟩
   · exact lowWheelSequential_postRootSeatCount_antitone hp hpq
   · have hRq : R < q := hRp.trans_le hpq
     exact lowWheelSequential_parentCutoff_lt_root hR hRq
@@ -193,10 +195,11 @@ theorem lowWheelMixedPrimeCell_ne_zero_imp_shell
     (h : lowWheelMixedPrimeCell p R X q n ≠ 0) :
     (R < q ∧ n ≤ X ∧ X < p * n) ∨
       (R < p * q ∧ p * n ≤ X ∧ X < p * p * n) := by
-  rw [lowWheelMixedPrimeCell_eq_sequentialShellDifference hp] at h
-  by_contra hnone
-  push_neg at hnone
-  rcases hnone with ⟨hfirst, hsecond⟩
-  simp [hfirst, hsecond] at h
+  by_cases hfirst : R < q ∧ n ≤ X ∧ X < p * n
+  · exact Or.inl hfirst
+  · by_cases hsecond : R < p * q ∧ p * n ≤ X ∧ X < p * p * n
+    · exact Or.inr hsecond
+    · rw [lowWheelMixedPrimeCell_eq_sequentialShellDifference hp] at h
+      simp [hfirst, hsecond] at h
 
 end RHLean.Proof
