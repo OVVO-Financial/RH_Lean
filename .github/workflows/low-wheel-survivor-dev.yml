@@ -5,6 +5,7 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - 'RHLean/Proof/LowWheelHighPrimeSurvivor.lean'
+      - 'RHLean/Proof/LowWheelSurvivorInclusionExclusion.lean'
       - '.github/workflows/low-wheel-survivor-dev.yml'
   workflow_dispatch:
 
@@ -49,5 +50,7 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
-      - name: Compile target
-        run: lake env lean RHLean/Proof/LowWheelHighPrimeSurvivor.lean
+      - name: Compile targets
+        run: |
+          lake env lean RHLean/Proof/LowWheelHighPrimeSurvivor.lean
+          lake env lean RHLean/Proof/LowWheelSurvivorInclusionExclusion.lean
