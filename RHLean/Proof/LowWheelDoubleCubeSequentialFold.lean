@@ -72,9 +72,7 @@ private theorem sum_double_powerset_insert
   apply Finset.sum_congr rfl
   intro u _hu
   rw [Finset.sum_powerset_insert hp, Finset.sum_powerset_insert hp]
-  rw [← Finset.sum_add_distrib]
-  apply Finset.sum_congr rfl
-  intro t _ht
+  simp only [Finset.sum_add_distrib]
   ac_rfl
 
 /-- One physical two-cube atom is its Boolean sign times the corresponding
