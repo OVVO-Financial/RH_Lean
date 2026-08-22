@@ -133,7 +133,7 @@ theorem lowWheelPrimeTwoCrossingProduct
     lowWheelEndpointCrossingDifference_two]
   by_cases hq : q ≤ R ∧ R < 2 * q <;>
     by_cases hn : 2 * n ≤ X ∧ X < 4 * n <;>
-    simp [hq, hn, and_assoc]
+    simp [hq, hn]
 
 /-- **Prime-two four-corner form.**  The exact local transport cell is the
 prime-two endpoint second difference plus the explicit factor-four boundary
