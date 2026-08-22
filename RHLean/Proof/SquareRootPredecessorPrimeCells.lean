@@ -6,7 +6,7 @@ import RHLean.Proof.LowWheelSequentialSmoothRoughBoundary
 # Predecessor-prime cells in the square-root reciprocal corridor
 
 The completed one-prime frontier is killed by full divisor-fibre Möbius
-inversion.  This module keeps one chronological low-prime coordinate visible.
+inversion. This module keeps one chronological low-prime coordinate visible.
 For a prime `p` and reciprocal label `k`, define
 
 `A_p(k) = F_{<p}(floor(k/p))`,
@@ -16,18 +16,18 @@ On squarefree support this is exactly the signed mass
 
 `sum_{d <= k/p, P+(d) < p} mu(d)`.
 
-The point is not to claim an estimate.  The exact identities below record two
+The point is not to claim an estimate. The exact identities below record three
 guardrails for the next finite gate.
 
 * `A_p(k)` is the decrement produced when the frozen lower-scale cube admits
   the fresh prime `p`.
 * The cumulative smooth-shell coefficient after processing `p` plus `A_p(k)`
-  is just the parent prefix before `p`.  Thus pairing `A_p(k)` against the
+  is just the parent prefix before `p`. Thus pairing `A_p(k)` against the
   cumulative `p`-window state would merely reconstruct an earlier coordinate;
   a meaningful `(p,k)` cancellation test has to use the additive fresh-prime
   increment instead.
 * Once the cutoff `k/p` contains the complete Boolean cube on primes below `p`,
-  `A_p(k)` is exactly zero.  This is the primorial deletion mechanism.
+  `A_p(k)` is exactly zero. This is the primorial deletion mechanism.
 
 No analytic estimate, asymptotic, PNT input, or RH hypothesis is used.
 -/
@@ -56,7 +56,7 @@ theorem predecessorPrimeMass_eq_faceSum (p k : ℕ) :
   unfold predecessorPrimeMass
   exact frozenPrimeUniverseMass_eq_cutoffSum _ _
 
-/-- **Fresh-prime decrement.**  Admitting a prime `p` to the frozen lower-scale
+/-- **Fresh-prime decrement.** Admitting a prime `p` to the frozen lower-scale
 cube subtracts exactly `A_p(k)`. -/
 theorem frozenPrimeUniverseMass_primesUpTo_step_eq_sub_predecessor
     (p k : ℕ) (hp : p.Prime) :
@@ -82,7 +82,7 @@ theorem lowWheelSmoothFaceShellMass_eq_frozenPrimeUniverseMass
   rw [frozenPrimeUniverseMass_primesUpTo_step_eq_sub_predecessor p k hp]
   rfl
 
-/-- **Cumulative-state guardrail.**  Adding `A_p(k)` back to the already-
+/-- **Cumulative-state guardrail.** Adding `A_p(k)` back to the already-
 processed smooth-shell coefficient reconstructs the old parent prefix exactly.
 Therefore this pair is not an independent cancellation mechanism. -/
 theorem lowWheelSmoothFaceShellMass_add_predecessor_eq_parentPrefix
@@ -93,7 +93,7 @@ theorem lowWheelSmoothFaceShellMass_add_predecessor_eq_parentPrefix
   have hstep := frozenPrimeUniverseMass_primesUpTo_step_eq_sub_predecessor p k hp
   omega
 
-/-- **Primorial deletion.**  If `k/p` already contains the complete Boolean cube
+/-- **Primorial deletion.** If `k/p` already contains the complete Boolean cube
 on all primes below `p`, then `A_p(k)` vanishes exactly. -/
 theorem predecessorPrimeMass_eq_zero_of_predPrimeCube_complete
     {p k : ℕ} (hp : p.Prime) (hp2 : 2 < p)
@@ -124,8 +124,26 @@ theorem edge_prime_plus_p2_cancel_of_k2 :
   rw [predecessorPrimeMass_two_two]
   norm_num
 
+/-- Algebra of one additive fresh-prime `(p,k)` cell. If `C` and `Q` are the
+cofactor and unresolved-quotient states before `p`, while `A` and `H` are their
+respective fresh-`p` deletions, then the four-corner update has the exact two
+component form used by the finite gate. -/
+theorem freshPrimePKCell_eq_cofactorDeletion_add_hitDeletion
+    (C A Q H : ℤ) :
+    (C - A) * (Q - H) - C * Q =
+      -A * (Q - H) - C * H := by
+  ring
+
+/-- Replacing the evolving survivor population by the terminal prime population
+necessarily drops the future-hit channel. This elementary identity is the
+reason a genuine continuation must keep the later prime-hit coordinate visible. -/
+theorem predecessorPrime_terminalProjection_exposes_futureHits
+    (A N future : ℤ) :
+    -A * (N + future) = -A * N - A * future := by
+  ring
+
 /-- The already-formalized exact middle corridor, displayed in reciprocal
-coordinates.  The quotient label `k` is the only surviving large-prime label
+coordinates. The quotient label `k` is the only surviving large-prime label
 after primes `q` in the same fibre are counted. -/
 theorem squareRootMiddle_exact_reciprocalLayers
     (R : ℕ) (hR : 3 ≤ R) :
