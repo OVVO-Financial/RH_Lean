@@ -9,6 +9,7 @@ on:
       - 'RHLean/Proof/LowWheelSurvivorFloorExpansion.lean'
       - 'RHLean/Proof/LowWheelTransportTripleCarrier.lean'
       - 'RHLean/Proof/LowWheelCofactorQuotientToggle.lean'
+      - 'RHLean/Proof/LowWheelCanonicalCofactorQuotientPairing.lean'
       - 'RHLean/Proof/LowWheelDoubleFaceFiniteDifference.lean'
       - 'RHLean/Proof/LowWheelSequentialGeometricSavings.lean'
       - 'RHLean/Proof/LowWheelSequentialPrimeWindows.lean'
@@ -77,6 +78,7 @@ jobs:
           lake build RHLean.Proof.LowWheelSurvivorFloorExpansion
           lake build RHLean.Proof.LowWheelTransportTripleCarrier
           lake build RHLean.Proof.LowWheelCofactorQuotientToggle
+          lake build RHLean.Proof.LowWheelCanonicalCofactorQuotientPairing
           lake build RHLean.Proof.LowWheelDoubleFaceFiniteDifference
           lake build RHLean.Proof.LowWheelSequentialGeometricSavings
           lake build RHLean.Proof.LowWheelSequentialPrimeWindows
