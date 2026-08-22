@@ -205,10 +205,18 @@ theorem reciprocalIndex_le_five_of_sixth_lt
 private theorem moebius_eq_neg_one_of_two_le_of_le_five_of_ne_zero
     {c : ℕ} (hc2 : 2 ≤ c) (hc5 : c ≤ 5) (hmu0 : μ c ≠ 0) :
     μ c = -1 := by
-  rcases ArithmeticFunction.moebius_eq_or c with h | h | h
-  · exact h
-  · exact (moebius_ne_one_of_two_le_of_le_five hc2 hc5 h).elim
-  · exact (hmu0 h).elim
+  have hcases : c = 2 ∨ c = 3 ∨ c = 4 ∨ c = 5 := by omega
+  rcases hcases with rfl | rfl | rfl | rfl
+  · rw [ArithmeticFunction.moebius_apply_prime Nat.prime_two]
+  · rw [ArithmeticFunction.moebius_apply_prime (by norm_num : Nat.Prime 3)]
+  · have hnsq : ¬ Squarefree 4 := by
+      rw [Nat.squarefree_iff_prime_squarefree]
+      push_neg
+      exact ⟨2, Nat.prime_two, by norm_num⟩
+    have hzero : μ 4 = 0 :=
+      ArithmeticFunction.moebius_eq_zero_of_not_squarefree hnsq
+    exact (hmu0 hzero).elim
+  · rw [ArithmeticFunction.moebius_apply_prime (by norm_num : Nat.Prime 5)]
 
 /-- **Pointwise up-only form.**  In the genuine terminal sector, if
 `q > X/6`, every surviving nonzero cofactor seat flips from `-1` to `+1`. -/
