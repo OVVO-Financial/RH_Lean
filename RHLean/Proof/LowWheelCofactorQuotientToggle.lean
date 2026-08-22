@@ -18,11 +18,12 @@ For a fixed prime `p` the map on `(c,k)` is
 
 On squarefree cofactors the active move is an involution and reverses the
 Möbius sign.  The complete physical product `c * P(t) * k` is invariant.  The
-removal direction always preserves the transport carrier.  The insertion
-direction can fail only at two explicit finite boundaries:
-
-* `c*p >= R` (cofactor crosses the root cutoff), or
-* `P(t)*(k/p) <= R` (the high quotient crosses back through the root cutoff).
+removal direction always preserves the transport carrier.  In the insertion
+direction the apparent cofactor and quotient boundary failures are not
+independent at the square endpoint: if `c*p >= R` while `P(t)*(k/p) > R`, then
+the invariant product is already at least `R^2`, contradicting the endpoint
+ceiling `R^2-1`.  Thus every genuine insertion failure is a quotient
+root-downcross `P(t)*(k/p) <= R`.
 
 No norm or estimate is taken.
 -/
@@ -222,5 +223,48 @@ theorem lowWheelCofactorQuotientToggleAt_preserves_or_boundary_of_dvd_quotient
   · right
     left
     exact Nat.le_of_not_gt hcR
+
+/-- **One-sided square-root insertion frontier.**  At the square endpoint the
+cofactor crossing is subsumed by the quotient crossing.  If `c*p >= R` and the
+post-toggle quotient were still above `R`, product invariance would force a
+physical product at least `R^2`, contradicting the ceiling `R^2-1`. -/
+theorem lowWheelCofactorQuotientToggleAt_preserves_or_downcross_of_dvd_quotient
+    {R c k p : ℕ} {t : Finset ℕ}
+    (hp : p.Prime) (hcarrier : LowWheelTransportPairCarrier R t (c, k))
+    (hpc : ¬ p ∣ c) (hpk : p ∣ k) :
+    LowWheelTransportPairCarrier R t
+        (lowWheelCofactorQuotientToggleAt p (c, k)) ∨
+      primeFaceProduct t * (k / p) ≤ R := by
+  rcases lowWheelCofactorQuotientToggleAt_preserves_or_boundary_of_dvd_quotient
+      hp hcarrier hpc hpk with hmate | hboundary
+  · exact Or.inl hmate
+  · right
+    rcases hboundary with hroot | hdown
+    · by_contra hnotDown
+      have hhigh : R < primeFaceProduct t * (k / p) := by omega
+      have hRpos : 0 < R := by
+        have hc1 := hcarrier.1
+        have hcR := hcarrier.2.1
+        omega
+      have hXlt : squareRootEndpoint R < R ^ 2 := by
+        unfold squareRootEndpoint
+        have hpos : 0 < R ^ 2 := by positivity
+        omega
+      have hprodEq :
+          (c * p) * (primeFaceProduct t * (k / p)) =
+            (c * primeFaceProduct t) * k := by
+        have hkCancel : p * (k / p) = k := Nat.mul_div_cancel' hpk
+        calc
+          (c * p) * (primeFaceProduct t * (k / p)) =
+              (c * primeFaceProduct t) * (p * (k / p)) := by ring
+          _ = (c * primeFaceProduct t) * k := by rw [hkCancel]
+      have hsqle :
+          R ^ 2 ≤ (c * p) * (primeFaceProduct t * (k / p)) := by
+        simpa [pow_two] using Nat.mul_le_mul hroot hhigh.le
+      rw [hprodEq] at hsqle
+      have hprodlt : (c * primeFaceProduct t) * k < R ^ 2 :=
+        hcarrier.2.2.2.trans_lt hXlt
+      exact (Nat.not_lt_of_ge hsqle) hprodlt
+    · exact hdown
 
 end RHLean.Proof
