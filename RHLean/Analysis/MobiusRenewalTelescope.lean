@@ -207,6 +207,111 @@ theorem sum_convolveOne_mul_mertensSummatory_div (g : ℕ → ℂ) (X : ℕ) :
           (fun a b => g a * mertensSummatory (X / a / b)) X
     _ = ∑ a ∈ Finset.Icc 1 X, g a := Finset.sum_congr rfl hinner
 
+/-! ## Frontier cohomology no-go -/
+
+/-- Generic triangular Möbius collapse.  Reindexing by `m = n*q` gives the
+coefficient `sum_{n|m} mu(n)`, so only the head `m = 1` survives. -/
+theorem mobius_hyperbola_double_sum_eq_head
+    (F : ℕ → ℂ) {R : ℕ} (hR : 1 ≤ R) :
+    (∑ n ∈ Finset.Icc 1 R,
+        (((μ n : ℤ) : ℂ)) *
+          ∑ q ∈ Finset.Icc 1 (R / n), F (n * q)) = F 1 := by
+  classical
+  calc
+    (∑ n ∈ Finset.Icc 1 R,
+        (((μ n : ℤ) : ℂ)) *
+          ∑ q ∈ Finset.Icc 1 (R / n), F (n * q)) =
+      ∑ n ∈ Finset.Icc 1 R,
+        ∑ q ∈ Finset.Icc 1 (R / n),
+          (((μ n : ℤ) : ℂ)) * F (n * q) := by
+            apply Finset.sum_congr rfl
+            intro n _hn
+            rw [Finset.mul_sum]
+    _ =
+      ∑ m ∈ Finset.Icc 1 R,
+        ∑ p ∈ m.divisorsAntidiagonal,
+          (((μ p.1 : ℤ) : ℂ)) * F (p.1 * p.2) := by
+            symm
+            exact sum_Icc_divisorsAntidiagonal_eq_sum_div
+              (fun a b => (((μ a : ℤ) : ℂ)) * F (a * b)) R
+    _ =
+      ∑ m ∈ Finset.Icc 1 R,
+        (if m = 1 then F 1 else 0) := by
+          apply Finset.sum_congr rfl
+          intro m hm
+          have hanti :
+              (∑ p ∈ m.divisorsAntidiagonal,
+                  (((μ p.1 : ℤ) : ℂ)) * F (p.1 * p.2)) =
+                (∑ d ∈ m.divisors, (((μ d : ℤ) : ℂ))) * F m := by
+            rw [Finset.sum_mul]
+            have h := Nat.sum_divisorsAntidiagonal
+              (f := fun a b => (((μ a : ℤ) : ℂ)) * F (a * b)) m
+            rw [h]
+            apply Finset.sum_congr rfl
+            intro d hd
+            rw [Nat.mem_divisors] at hd
+            rw [Nat.mul_div_cancel' hd.1]
+          rw [hanti, sum_divisors_moebius_eq_ite]
+          by_cases hm1 : m = 1
+          · subst m
+            simp
+          · simp [hm1]
+    _ = F 1 := by
+      have h1mem : (1 : ℕ) ∈ Finset.Icc 1 R :=
+        Finset.mem_Icc.mpr ⟨le_rfl, hR⟩
+      simp [h1mem]
+
+/-- Mertens-bundle frontier coordinate at the square endpoint. -/
+def canonicalFrontierMertensBundle (R n : ℕ) : ℂ :=
+  1 - ∑ q ∈ Finset.Icc 1 (R / n),
+    mertensSummatory (squareRootEndpoint R / (n * q))
+
+/-- Exact bundle presentation. -/
+theorem canonicalIncidence_eq_one_sub_mertensBundle
+    (R n : ℕ) :
+    canonicalFrontierMertensBundle R n =
+      1 - ∑ q ∈ Finset.Icc 1 (R / n),
+        mertensSummatory (squareRootEndpoint R / (n * q)) := by
+  rfl
+
+/-- On the top half of the frontier there is exactly one bundle term. -/
+theorem canonicalIncidence_eq_one_sub_mertens_of_half_lt
+    {R n : ℕ} (hnR : n ≤ R) (hhalf : R / 2 < n) :
+    canonicalFrontierMertensBundle R n =
+      1 - mertensSummatory (squareRootEndpoint R / n) := by
+  have hnpos : 0 < n := by
+    by_contra hn0
+    have hn : n = 0 := Nat.eq_zero_of_not_pos hn0
+    subst n
+    simp at hhalf
+  have hdiv1 : R / n = 1 := by
+    apply Nat.le_antisymm
+    · have hlt2 : R < 2 * n := by
+        have h := (Nat.div_lt_iff_lt_mul (by omega : 0 < 2)).1 hhalf
+        simpa [Nat.mul_comm] using h
+      by_contra hnot
+      have htwo : 2 ≤ R / n := by omega
+      have hmul : 2 * n ≤ R :=
+        (Nat.le_div_iff_mul_le hnpos).1 htwo
+      omega
+    · exact (Nat.one_le_div_iff hnpos).2 hnR
+  unfold canonicalFrontierMertensBundle
+  rw [hdiv1]
+  simp
+
+/-- Recursive reinsertion of the exact Mertens bundle collapses to the original
+head value.  This is the definitive signed-bootstrap no-go. -/
+theorem frontier_bootstrap_collapses_to_identity
+    {R : ℕ} (hR : 1 ≤ R) :
+    (∑ n ∈ Finset.Icc 1 R,
+        (((μ n : ℤ) : ℂ)) *
+          ∑ q ∈ Finset.Icc 1 (R / n),
+            mertensSummatory (squareRootEndpoint R / (n * q))) =
+      mertensSummatory (squareRootEndpoint R) := by
+  simpa using
+    (mobius_hyperbola_double_sum_eq_head
+      (F := fun m => mertensSummatory (squareRootEndpoint R / m)) hR)
+
 end RHLean.Analysis
 
 end
