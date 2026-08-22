@@ -76,8 +76,6 @@ theorem squareRootRootSuccessorCrossLedger_cast_eq_sequentialShells_of_prime
                     RHLean.Arithmetic.primeFaceProduct t) * k))) *
         (1 - squareRootBornSmoothMass R) := by
   rw [squareRootRootSuccessorCrossLedger_cast_eq_lowWheelDoubleCube hR hB]
-  rw [squareRootTransportCofactorFirst_eq_lowWheelDoubleCube R hR] at
-    squareRootTransportCofactorFirst_eq_sequentialShells_of_prime
   have hshell :=
     squareRootTransportCofactorFirst_eq_sequentialShells_of_prime R hR hprime
   have hdouble :
