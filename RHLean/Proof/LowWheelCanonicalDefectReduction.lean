@@ -93,9 +93,18 @@ theorem lowWheelCanonicalPhysicalFixedPart_eq_singleton_or_empty
         omega
       have hprod :=
         (lowWheelCanonicalToggle_eq_self_iff_product_eq_one hcpos).mp hdata.2
-      have hone := Nat.mul_eq_one.mp hprod
-      rcases hone with ⟨hc, hk⟩
+      have hkpos : 0 < k := by
+        by_contra hk
+        have hk0 : k = 0 := Nat.eq_zero_of_not_pos hk
+        subst k
+        simp at hprod
+      have hcLe : c ≤ 1 := by
+        have hmul : c * 1 ≤ c * k :=
+          Nat.mul_le_mul_left c (by omega : 1 ≤ k)
+        simpa [hprod] using hmul
+      have hcEq : c = 1 := by omega
       subst c
+      have hkEq : k = 1 := by simpa using hprod
       subst k
       simp
     · intro hx
@@ -108,8 +117,7 @@ theorem lowWheelCanonicalPhysicalFixedPart_eq_singleton_or_empty
         · apply Finset.mem_Icc.mpr
           constructor
           · norm_num
-          · unfold squareRootEndpoint
-            nlinarith
+          · omega
         · exact ⟨by norm_num, by omega, by simpa using hgeom.1,
             by simpa using hgeom.2⟩
       · exact lowWheelCanonicalToggle_eq_self_of_product_eq_one (by norm_num)
@@ -124,11 +132,18 @@ theorem lowWheelCanonicalPhysicalFixedPart_eq_singleton_or_empty
         omega
       have hprod :=
         (lowWheelCanonicalToggle_eq_self_iff_product_eq_one hcpos).mp hdata.2
-      have hone := Nat.mul_eq_one.mp hprod
-      have hxone : x = (1, 1) := by
-        apply Prod.ext
-        · exact hone.1
-        · exact hone.2
+      have hkpos : 0 < x.2 := by
+        by_contra hk
+        have hk0 : x.2 = 0 := Nat.eq_zero_of_not_pos hk
+        rw [hk0] at hprod
+        simp at hprod
+      have hcLe : x.1 ≤ 1 := by
+        have hmul : x.1 * 1 ≤ x.1 * x.2 :=
+          Nat.mul_le_mul_left x.1 (by omega : 1 ≤ x.2)
+        simpa [hprod] using hmul
+      have hcEq : x.1 = 1 := by omega
+      have hkEq : x.2 = 1 := by simpa [hcEq] using hprod
+      have hxone : x = (1, 1) := Prod.ext hcEq hkEq
       subst x
       have hcarrier := hmem.2.2.2
       apply hgeom
@@ -196,7 +211,7 @@ theorem sum_lowWheelCanonicalPhysicalState_eq_tripleFiber
           canonicalMoebiusWeight c * (booleanCubeSign t : ℂ) := by
   classical
   unfold lowWheelCanonicalPhysicalStateSet
-  rw [Finset.sum_filter, Finset.sum_product]
+  rw [Finset.sum_filter, Finset.product_eq_sprod, Finset.sum_product]
   apply Finset.sum_congr rfl
   intro c hc
   have hcpos : 0 < c := by
@@ -270,8 +285,15 @@ theorem lowWheelCanonicalFixedLedger_eq_frozenDifference
   apply Finset.sum_congr rfl
   intro t _ht
   have hRX : R ≤ squareRootEndpoint R := by
+    have htwo : R + 1 ≤ 2 * R := by omega
+    have hmul : 2 * R ≤ R * R := Nat.mul_le_mul_right R hR
+    have hplus : R + 1 ≤ R ^ 2 := by
+      calc
+        R + 1 ≤ 2 * R := htwo
+        _ ≤ R * R := hmul
+        _ = R ^ 2 := by ring
     unfold squareRootEndpoint
-    nlinarith
+    omega
   by_cases hX : primeFaceProduct t ≤ squareRootEndpoint R
   · by_cases hsmall : primeFaceProduct t ≤ R
     · have hnot : ¬ R < primeFaceProduct t := Nat.not_lt.mpr hsmall
