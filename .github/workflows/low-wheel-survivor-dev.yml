@@ -12,6 +12,7 @@ on:
       - 'RHLean/Proof/LowWheelDoubleFaceFiniteDifference.lean'
       - 'RHLean/Proof/LowWheelSequentialGeometricSavings.lean'
       - 'RHLean/Proof/LowWheelDoubleCubeTransport.lean'
+      - 'RHLean/Proof/LowWheelDoubleCubeSequentialFold.lean'
       - '.github/workflows/low-wheel-survivor-dev.yml'
   workflow_dispatch:
 
@@ -66,3 +67,4 @@ jobs:
           lake build RHLean.Proof.LowWheelDoubleFaceFiniteDifference
           lake build RHLean.Proof.LowWheelSequentialGeometricSavings
           lake build RHLean.Proof.LowWheelDoubleCubeTransport
+          lake build RHLean.Proof.LowWheelDoubleCubeSequentialFold
