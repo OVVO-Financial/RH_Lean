@@ -50,7 +50,7 @@ theorem card_Ioc_filter_dvd_eq_div_sub_div
           simpa [Nat.mul_comm] using h
       · exact ⟨k, rfl⟩
     · intro a _ha b _hb hab
-      exact Nat.mul_left_cancel hab
+      exact Nat.eq_of_mul_eq_mul_left hd hab
     · intro q hq
       rcases Finset.mem_filter.mp hq with ⟨hqIoc, hdiv⟩
       rcases hdiv with ⟨k, rfl⟩
@@ -98,23 +98,10 @@ theorem lowWheelHighSurvivorSet_card_eq_faceFloorDiff
   intro t ht
   rw [lowWheelFaceMultipleSet_card_eq_floorDiff ht]
 
-/-- Every low cofactor `1 <= c < R` sees at least the root cutoff in its
-reciprocal interval at the complete square endpoint. -/
-theorem root_le_squareRootEndpoint_div_cofactor
-    {R c : ℕ} (hR : 2 ≤ R) (hc : c ∈ Finset.Ico 1 R) :
-    R ≤ squareRootEndpoint R / c := by
-  have hcI := Finset.mem_Ico.mp hc
-  have hcpos : 0 < c := by omega
-  apply (Nat.le_div_iff_mul_le hcpos).2
-  unfold squareRootEndpoint
-  have hcPred : c ≤ R - 1 := by omega
-  have hmul : R * c ≤ R * (R - 1) := Nat.mul_le_mul_left R hcPred
-  nlinarith
-
 /-- The cofactor-specific high-prime multiplicity has no remaining prime-count
 term: it is a signed low-wheel face sum with a reciprocal hyperbolic cutoff. -/
 theorem lowWheelHighPrimeMultiplicity_eq_faceFloorDiff
-    {R c : ℕ} (hR : 2 ≤ R) (hc : c ∈ Finset.Ico 1 R) :
+    (R c : ℕ) :
     (lowWheelHighPrimeMultiplicity R c : ℤ) =
       ∑ t ∈ (primesUpTo R).powerset,
         booleanCubeSign t *
@@ -129,13 +116,13 @@ theorem lowWheelHighPrimeMultiplicity_eq_faceFloorDiff
 /-- Complex form of the exact frequency expansion, ready to substitute into
 the cofactor-first transport sum without changing its signed order. -/
 theorem lowWheelHighPrimeMultiplicity_cast_eq_faceFloorDiff
-    {R c : ℕ} (hR : 2 ≤ R) (hc : c ∈ Finset.Ico 1 R) :
+    (R c : ℕ) :
     (lowWheelHighPrimeMultiplicity R c : ℂ) =
       ∑ t ∈ (primesUpTo R).powerset,
         (booleanCubeSign t : ℂ) *
           ((squareRootEndpoint R / (c * primeFaceProduct t) -
               R / primeFaceProduct t : ℕ) : ℂ) := by
-  have h := lowWheelHighPrimeMultiplicity_eq_faceFloorDiff hR hc
+  have h := lowWheelHighPrimeMultiplicity_eq_faceFloorDiff R c
   exact_mod_cast h
 
 /-- **Prime-count-free transport identity.**  The whole upper-prime transport
@@ -152,8 +139,8 @@ theorem squareRootTransportCofactorFirst_eq_lowWheelFaceFloorSum
   rw [squareRootTransportCofactorFirst_eq_lowWheelFrequency R hR]
   unfold squareRootTransportLowWheelFrequency
   apply Finset.sum_congr rfl
-  intro c hc
-  rw [lowWheelHighPrimeMultiplicity_cast_eq_faceFloorDiff hR hc]
+  intro c _hc
+  rw [lowWheelHighPrimeMultiplicity_cast_eq_faceFloorDiff R c]
   rw [Finset.sum_mul]
   apply Finset.sum_congr rfl
   intro t _ht
