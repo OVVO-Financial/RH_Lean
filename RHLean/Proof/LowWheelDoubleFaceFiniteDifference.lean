@@ -25,12 +25,10 @@ The main theorem splits this *exactly* into
 * a mixed boundary term where the lower cutoff changes when `q` is multiplied
   by `p`.
 
-For `p = 2` the mixed term is supported exactly on the factor-four bands
+For `p = 2` the entire cell collapses onto the two factor-four endpoint shells.
+The outer shell survives only above the root cutoff, while the inner shell sees
+the enlarged dyadic cutoff `R < 2q`.
 
-`q <= R < 2q`,      `2n <= X < 4n`.
-
-Thus the first uncancelled piece of the two-face low-wheel operator is not a
-new analytic error: it is the existing dyadic/factor-four finite boundary.
 No norm or asymptotic estimate appears.
 -/
 
@@ -111,17 +109,18 @@ theorem lowWheelEndpointCrossingDifference_two
     lowWheelEndpointCrossingDifference 2 X n =
       if 2 * n ≤ X ∧ X < 4 * n then 1 else 0 := by
   unfold lowWheelEndpointCrossingDifference lowWheelEndpointIndicator
-  by_cases h2 : 2 * n ≤ X
-  · by_cases h4 : 4 * n ≤ X
-    · have hnot : ¬ X < 4 * n := Nat.not_lt.mpr h4
-      norm_num [h2, h4, hnot]
-    · have hlt : X < 4 * n := Nat.lt_of_not_ge h4
-      norm_num [h2, h4, hlt]
-  · have h4 : ¬ 4 * n ≤ X := by
-      intro h
-      apply h2
-      exact (Nat.mul_le_mul_right n (by norm_num : 2 ≤ 4)).trans h
-    norm_num [h2, h4]
+  split_ifs <;> omega
+
+/-- The prime-two endpoint *second* difference vanishes away from two adjacent
+factor-four shells.  It is `+1` on the outer half-shell and `-1` on the inner
+quarter-to-half shell. -/
+theorem lowWheelEndpointSecondDifference_two
+    (X n : ℕ) :
+    lowWheelEndpointSecondDifference 2 X n =
+      (if n ≤ X ∧ X < 2 * n then 1 else 0) -
+        (if 2 * n ≤ X ∧ X < 4 * n then 1 else 0) := by
+  unfold lowWheelEndpointSecondDifference lowWheelEndpointIndicator
+  split_ifs <;> omega
 
 /-- The entire prime-two mixed boundary is supported on the simultaneous dyadic
 root crossing and factor-four endpoint annulus. -/
@@ -147,5 +146,18 @@ theorem lowWheelMixedPrimeCell_two_eq_secondDifference_add_factorFourBoundary
         (if q ≤ R ∧ R < 2 * q ∧ 2 * n ≤ X ∧ X < 4 * n then -1 else 0) := by
   rw [lowWheelMixedPrimeCell_eq_bulk_add_crossing,
     lowWheelPrimeTwoCrossingProduct]
+
+/-- **Complete factor-four localization.**  Combining the bulk and crossing
+pieces removes the artificial split at `q = R`: the outer endpoint shell is
+seen for `R < q`, while the inner shell is seen for the enlarged cutoff
+`R < 2q`.  The mixed low-wheel prime-two cell is zero everywhere else. -/
+theorem lowWheelMixedPrimeCell_two_eq_factorFourShellDifference
+    (R X q n : ℕ) :
+    lowWheelMixedPrimeCell 2 R X q n =
+      (if R < q ∧ n ≤ X ∧ X < 2 * n then 1 else 0) -
+        (if R < 2 * q ∧ 2 * n ≤ X ∧ X < 4 * n then 1 else 0) := by
+  unfold lowWheelMixedPrimeCell lowWheelTransportIndicator
+    lowWheelRootHighIndicator lowWheelEndpointIndicator
+  split_ifs <;> omega
 
 end RHLean.Proof
