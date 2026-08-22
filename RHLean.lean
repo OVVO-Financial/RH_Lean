@@ -424,6 +424,7 @@ import RHLean.Proof.LowOmegaHighOrientation
 import RHLean.Proof.LowWheelAncestryCrossLedgerBridge
 import RHLean.Proof.LowWheelCanonicalCofactorQuotientPairing
 import RHLean.Proof.LowWheelCanonicalDefectReduction
+import RHLean.Proof.LowWheelCanonicalPrimeSplit
 import RHLean.Proof.LowWheelCanonicalPairingFrontier
 import RHLean.Proof.LowWheelCofactorQuotientToggle
 import RHLean.Proof.LowWheelDoubleCubeSequentialFold
