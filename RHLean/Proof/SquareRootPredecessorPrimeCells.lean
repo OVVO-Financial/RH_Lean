@@ -20,9 +20,15 @@ On squarefree support this is exactly the signed mass
 The exact identities below separate the genuinely additive fresh-prime state
 from the cumulative state, identify the reciprocal `k`-cells of the existing
 double-cube/window fold, record the primorial deletion of completed old cubes,
-and expose the cross-root cancellation against the terminal prime fibre. They
-also give the elementary `p^3 < R^2` support condition for any unresolved
-composite in a reciprocal cell with `p <= k`.
+and expose the cross-root cancellation against the terminal prime fibre.
+
+The final algebra is also recorded explicitly: once the predecessor chronology
+is completed, the cross-root derivative is not a new signed Mertens state. It
+collapses to `terminal primes - all unresolved integers`, i.e. minus the
+composite population of the reciprocal fibre. If the future composite channel
+is further split by its first-hit prime `r`, completing the predecessor primes
+below `r` gives coefficient `-1` on every such first-hit composite. Thus merely
+unsumming the first-hit coordinate does not escape the collapse.
 
 No analytic estimate, asymptotic, PNT input, or RH hypothesis is used.
 -/
@@ -241,6 +247,26 @@ the preceding cross-root identities. -/
 theorem predecessorPrime_terminalProjection_exposes_futureHits
     (A N future : ℤ) :
     -A * (N + future) = -A * N - A * future := by
+  ring
+
+/-- **Completed predecessor chronology collapses to composite count.** If the
+additive low state has telescoped from the initial cell `J` to terminal value
+`M*N`, while the predecessor decrements telescope from `1` to `M`, then adding
+all terminal-prime corrections leaves exactly `N-J`. In the reciprocal corridor
+this is minus the number of composites in the fibre. -/
+theorem completedPKCrossRoot_endpointCollapse
+    (M J N : ℤ) :
+    (M * N - J) + N * (1 - M) = N - J := by
+  ring
+
+/-- **First-hit refinement also completes to one sign.** For a fixed later
+first-hit prime `r`, the future terms from predecessor primes below `r` have
+total coefficient `1-C`, while the current-hit term has coefficient `C`.
+Completing the predecessor coordinate therefore gives coefficient `-1` on each
+first-hit composite. -/
+theorem completedPredecessorFirstHit_eq_neg_hitCount
+    (C H : ℤ) :
+    -(1 - C) * H - C * H = -H := by
   ring
 
 /-- **Two-thirds support law.** In a reciprocal cell `k = floor(X_R/q)` with
