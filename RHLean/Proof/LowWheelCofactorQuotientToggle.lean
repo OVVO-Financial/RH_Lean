@@ -49,10 +49,10 @@ def lowWheelCofactorQuotientToggleAt
   else
     x
 
-/-- The cofactor-times-quotient product is invariant under every positive prime
+/-- The cofactor-times-quotient product is invariant under every fixed-prime
 coordinate toggle. -/
 theorem lowWheelCofactorQuotientToggleAt_product
-    {p : ℕ} (hp : 0 < p) (x : LowWheelCofactorQuotientState) :
+    {p : ℕ} (x : LowWheelCofactorQuotientState) :
     (lowWheelCofactorQuotientToggleAt p x).1 *
         (lowWheelCofactorQuotientToggleAt p x).2 = x.1 * x.2 := by
   unfold lowWheelCofactorQuotientToggleAt
@@ -102,8 +102,13 @@ theorem canonicalMoebiusWeight_div_prime
   have hnot := prime_not_dvd_div_of_squarefree hp hsq hpc
   have hmu := moebius_prime_mul hp hnot
   have hcancel : p * (c / p) = c := Nat.mul_div_cancel' hpc
+  have hmu' : μ c = -μ (c / p) := by
+    calc
+      μ c = μ (p * (c / p)) := congrArg μ hcancel.symm
+      _ = -μ (c / p) := hmu
+  have hrev : μ (c / p) = -μ c := by linarith
   unfold canonicalMoebiusWeight
-  rw [← hcancel, hmu]
+  rw [hrev]
   push_cast
   ring
 
@@ -140,14 +145,12 @@ theorem lowWheelCofactorQuotientToggleAt_involutive
     have hpMul : p ∣ p * k := dvd_mul_right p k
     simp only [hpc, if_true, hnot, if_false, hpMul]
     have hcCancel : c / p * p = c := Nat.div_mul_cancel hpc
-    have hkCancel : (p * k) / p = k := by
-      simpa [hp.ne_zero] using Nat.mul_div_left p k
+    have hkCancel : (p * k) / p = k := by simp [hp.ne_zero]
     exact Prod.ext hcCancel hkCancel
   · have hpk : p ∣ k := hactive.resolve_left hpc
     have hpMul : p ∣ c * p := dvd_mul_left p c
     simp only [hpc, if_false, hpk, if_true, hpMul]
-    have hcCancel : (c * p) / p = c := by
-      simpa [hp.ne_zero] using Nat.mul_div_right c p
+    have hcCancel : (c * p) / p = c := by simp [hp.ne_zero]
     have hkCancel : p * (k / p) = k := Nat.mul_div_cancel' hpk
     exact Prod.ext hcCancel hkCancel
 
@@ -167,19 +170,19 @@ theorem lowWheelCofactorQuotientToggleAt_preserves_of_dvd_cofactor
     (hpc : p ∣ c) :
     LowWheelTransportPairCarrier R t
       (lowWheelCofactorQuotientToggleAt p (c, k)) := by
+  rcases hcarrier with ⟨hc1, hcR, hhigh, htop⟩
   have hcpos : 0 < c := by omega
   have hcp : p ≤ c := Nat.le_of_dvd hcpos hpc
   have hcdivpos : 1 ≤ c / p :=
     (Nat.one_le_div_iff hp.pos).2 hcp
   have hcdivle : c / p ≤ c := Nat.div_le_self _ _
-  have hprod := lowWheelCofactorQuotientToggleAt_product hp.pos (c, k)
+  have hprod := lowWheelCofactorQuotientToggleAt_product (c, k) (p := p)
   unfold lowWheelCofactorQuotientToggleAt at hprod ⊢
   simp only [hpc, if_true] at hprod ⊢
-  rcases hcarrier with ⟨hc1, hcR, hhigh, htop⟩
   refine ⟨hcdivpos, lt_of_le_of_lt hcdivle hcR, ?_, ?_⟩
   · have hkLe : k ≤ p * k := by
       have hp1 : 1 ≤ p := hp.one_le
-      simpa using Nat.mul_le_mul_right k hp1
+      exact Nat.le_mul_of_pos_left k hp.pos
     exact hhigh.trans_le (Nat.mul_le_mul_left (primeFaceProduct t) hkLe)
   · calc
       ((c / p) * primeFaceProduct t) * (p * k) =
@@ -201,8 +204,9 @@ theorem lowWheelCofactorQuotientToggleAt_preserves_or_boundary_of_dvd_quotient
   · by_cases hhigh : R < primeFaceProduct t * (k / p)
     · left
       have hc1 : 1 ≤ c := hcarrier.1
-      have hcp1 : 1 ≤ c * p := by positivity
-      have hprod := lowWheelCofactorQuotientToggleAt_product hp.pos (c, k)
+      have hcpos : 0 < c := by omega
+      have hcp1 : 1 ≤ c * p := Nat.succ_le_iff.mpr (Nat.mul_pos hcpos hp.pos)
+      have hprod := lowWheelCofactorQuotientToggleAt_product (c, k) (p := p)
       unfold lowWheelCofactorQuotientToggleAt at hprod ⊢
       simp only [hpc, if_false, hpk, if_true] at hprod ⊢
       refine ⟨hcp1, hcR, hhigh, ?_⟩
