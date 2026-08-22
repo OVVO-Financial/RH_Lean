@@ -237,8 +237,11 @@ theorem sum_mertensSummatory_Ioc_eq_moebius_floorDiff
                 simpa [Nat.mul_comm] using this
               have hqN : q ≤ N := hqdiv.trans (Nat.div_le_self N c)
               exact ⟨⟨hTq, hqN⟩, hmul⟩
+          have hcard : (Finset.Ioc T (N / c)).card = N / c - T := by
+            simpa using card_Ioc_filter_dvd_eq_div_sub_div
+              T (N / c) 1 (by norm_num)
           rw [← Finset.sum_filter, hfilter, Finset.sum_const, nsmul_eq_mul,
-            Finset.card_Ioc]
+            hcard]
           ring
 
 /-- The incidence bundle is the complementary tail of the classical unit
@@ -256,6 +259,7 @@ theorem canonicalFrontierIncidence_eq_mertensTail
     omega
   have hTleN : R / n ≤ squareRootEndpoint R / n :=
     Nat.div_le_div_right hRX
+  have hT1 : 1 ≤ R / n := (Nat.one_le_div_iff hnpos).2 hnR
   have hN1 : 1 ≤ squareRootEndpoint R / n :=
     (Nat.one_le_div_iff hnpos).2 (hnR.trans hRX)
   have hset :
@@ -264,7 +268,14 @@ theorem canonicalFrontierIncidence_eq_mertensTail
           Finset.Ioc (R / n) (squareRootEndpoint R / n) := by
     ext q
     simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_Ioc]
-    omega
+    constructor
+    · intro hq
+      by_cases hqT : q ≤ R / n
+      · exact Or.inl ⟨hq.1, hqT⟩
+      · exact Or.inr ⟨Nat.lt_of_not_ge hqT, hq.2⟩
+    · rintro (hq | hq)
+      · exact ⟨hq.1, hq.2.trans hTleN⟩
+      · exact ⟨hT1.trans (Nat.le_of_lt hq.1), hq.2⟩
   have hdisj :
       Disjoint (Finset.Icc 1 (R / n))
         (Finset.Ioc (R / n) (squareRootEndpoint R / n)) := by
@@ -298,10 +309,6 @@ theorem canonicalIncidence_eq_centeredCofactorHyperbola
           (((squareRootEndpoint R / (n * c) - R / n : ℕ) : ℂ)) := by
   classical
   have hnpos : 0 < n := by omega
-  have hRX : R ≤ squareRootEndpoint R := by
-    unfold squareRootEndpoint
-    have hsq : R + 1 ≤ R ^ 2 := by nlinarith
-    omega
   rw [canonicalFrontierIncidence_eq_mertensTail hR hn hnR,
     sum_mertensSummatory_Ioc_eq_moebius_floorDiff]
   have hsubset :
