@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.LowWheelCanonicalDefectReduction
+import RHLean.Proof.LowWheelDoubleCubeTransport
 
 /-!
 # Canonical downcross split at the square-root prime boundary
@@ -172,6 +173,7 @@ theorem lowWheelCanonicalPostRootDowncross_rigid
   have hjLeR : j ≤ R := hjLeProd.trans hdown
   have hpLeK : p ≤ k := Nat.le_of_dvd hkpos hpk
   have hjOne : 1 ≤ j := by
+    unfold j
     exact (Nat.one_le_div_iff hp.pos).2 hpLeK
   have hkCancel : p * j = k := by
     simpa [j] using Nat.mul_div_cancel' hpk
@@ -212,7 +214,7 @@ theorem lowWheelCanonicalPivot_one_prime
   have hminDvd : Nat.minFac q ∣ q := Nat.minFac_dvd q
   have hminEq : Nat.minFac q = q :=
     (Nat.prime_dvd_prime_iff_eq hminPrime hq).mp hminDvd
-  simpa [lowWheelCanonicalCofactorQuotientPivot, hminEq]
+  simp [lowWheelCanonicalCofactorQuotientPivot, hminEq]
 
 /-- Exact membership description of the post-root piece: after rigidity, the
 only state coordinate is the post-root prime itself. -/
@@ -228,7 +230,9 @@ theorem mem_lowWheelCanonicalPostRootDowncrossPart_iff
     rcases lowWheelCanonicalPostRootDowncross_rigid ht hdown hRp with
       ⟨hcEq, hkPivot⟩
     have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hdown
-    have hkPrime : k.Prime := by simpa [← hkPivot] using hshell.1
+    have hkPrime : k.Prime := by
+      rw [hkPivot]
+      exact hshell.1
     have hxPhys := (mem_lowWheelCanonicalDowncrossPart.mp hdown).1
     have hmem := mem_lowWheelCanonicalPhysicalStateSet.mp hxPhys
     have hkRange := Finset.mem_Icc.mp hmem.2.1
@@ -236,7 +240,8 @@ theorem mem_lowWheelCanonicalPostRootDowncrossPart_iff
     apply And.intro hcEq
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_Ioc.mpr ⟨?_, hkRange.2⟩, hkPrime, ?_⟩
-    · simpa [hkPivot] using hRp
+    · rw [hkPivot]
+      exact hRp
     · simpa [hcEq, Nat.one_mul] using hcarrier.2.2.2
   · rintro ⟨rfl, hk⟩
     rcases Finset.mem_filter.mp hk with ⟨hkI, hkPrime, htop⟩
@@ -266,11 +271,12 @@ theorem mem_lowWheelCanonicalPostRootDowncrossPart_iff
       omega
     have hdown : primeFaceProduct t *
         (k / lowWheelCanonicalCofactorQuotientPivot (1, k)) ≤ R := by
-      rw [hpivot, Nat.div_self hkPrime.ne_zero]
+      rw [hpivot, Nat.div_self hkPrime.pos]
       exact hfaceLt.le
     apply mem_lowWheelCanonicalPostRootDowncrossPart.mpr
     refine ⟨mem_lowWheelCanonicalDowncrossPart.mpr ⟨hxPhys, hnot, hdown⟩, ?_⟩
-    simpa [hpivot] using hRk
+    rw [hpivot]
+    exact hRk
 
 /-- The signed post-root state fibre for one face is simply one copy of the
 Boolean sign for each admissible post-root prime. -/
@@ -293,7 +299,7 @@ theorem sum_lowWheelCanonicalPostRootDowncrossPart_eq_primeSet
     have hmem := (mem_lowWheelCanonicalPostRootDowncrossPart_iff hR ht).1 hx
     refine ⟨k, hmem.2, ?_⟩
     exact Prod.ext hmem.1.symm rfl
-  · intro q _hq
+  · intro _q _hq
     simp [canonicalMoebiusWeight]
 
 /-- Completed low-wheel parent mass attached to one post-root prime. -/
@@ -342,23 +348,47 @@ theorem lowWheelCanonicalPostRootDowncrossLedger_eq_mertensTransform
         if q.Prime then mertensSummatory (squareRootEndpoint R / q) else 0 := by
   classical
   unfold lowWheelCanonicalPostRootDowncrossLedger
-  simp_rw [sum_lowWheelCanonicalPostRootDowncrossPart_eq_primeSet R hR]
-  unfold lowWheelCanonicalPostRootPrimeSet
-  rw [Finset.sum_comm]
-  apply Finset.sum_congr rfl
-  intro q hqI
-  by_cases hq : q.Prime
-  · simp only [hq, true_and, if_true]
-    have hRq := (Finset.mem_Ioc.mp hqI).1
-    calc
-      (∑ t ∈ (primesUpTo R).powerset,
-          if primeFaceProduct t * q ≤ squareRootEndpoint R then
+  calc
+    (∑ t ∈ (primesUpTo R).powerset,
+        ∑ x ∈ lowWheelCanonicalPostRootDowncrossPart R t,
+          canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ)) =
+      ∑ t ∈ (primesUpTo R).powerset,
+        ∑ q ∈ lowWheelCanonicalPostRootPrimeSet R t,
+          (booleanCubeSign t : ℂ) := by
+            apply Finset.sum_congr rfl
+            intro t ht
+            exact sum_lowWheelCanonicalPostRootDowncrossPart_eq_primeSet R hR ht
+    _ = ∑ t ∈ (primesUpTo R).powerset,
+        ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+          if q.Prime ∧ primeFaceProduct t * q ≤ squareRootEndpoint R then
             (booleanCubeSign t : ℂ)
-          else 0) = lowWheelCanonicalPostRootParentMass R q := by
-            rfl
-      _ = mertensSummatory (squareRootEndpoint R / q) :=
-        lowWheelCanonicalPostRootParentMass_eq_mertens (by omega) hq hRq
-  · simp [hq]
+          else 0 := by
+            apply Finset.sum_congr rfl
+            intro t _ht
+            unfold lowWheelCanonicalPostRootPrimeSet
+            rw [Finset.sum_filter]
+    _ = ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+        ∑ t ∈ (primesUpTo R).powerset,
+          if q.Prime ∧ primeFaceProduct t * q ≤ squareRootEndpoint R then
+            (booleanCubeSign t : ℂ)
+          else 0 := by
+            rw [Finset.sum_comm]
+    _ = ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+        if q.Prime then mertensSummatory (squareRootEndpoint R / q) else 0 := by
+      apply Finset.sum_congr rfl
+      intro q hqI
+      by_cases hq : q.Prime
+      · simp only [hq, true_and, if_true]
+        have hRq := (Finset.mem_Ioc.mp hqI).1
+        calc
+          (∑ t ∈ (primesUpTo R).powerset,
+              if primeFaceProduct t * q ≤ squareRootEndpoint R then
+                (booleanCubeSign t : ℂ)
+              else 0) = lowWheelCanonicalPostRootParentMass R q := by
+                rfl
+          _ = mertensSummatory (squareRootEndpoint R / q) :=
+            lowWheelCanonicalPostRootParentMass_eq_mertens (by omega) hq hRq
+      · simp [hq]
 
 /-- Therefore the entire `p > R` sector is not a new error term: it is exactly
 the original post-root upper-prime transport. -/
