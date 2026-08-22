@@ -165,7 +165,7 @@ theorem lowWheelDoubleCubePrimePrefix_step_eq_sum_pkCumulativeCells
     Finset.mem_range.mpr hklt
   by_cases hsurv : lowWheelHighSurvivor p q
   · simp [hsurv, hkmem]
-  · simp [hsurv, hkmem]
+  · simp [hsurv]
 
 /-- **Cumulative-state guardrail.** Adding `A_p(k)` back to the already-
 processed smooth-shell coefficient reconstructs the old parent prefix exactly.
