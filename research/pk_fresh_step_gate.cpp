@@ -8,8 +8,8 @@
 #include <vector>
 using namespace std;
 
-// Exact finite gate for the cross-root predecessor-prime / reciprocal-label
-// state.  Nothing in this program uses an asymptotic estimate.
+// Exact finite gates for predecessor-prime / reciprocal-label cells.
+// No asymptotic estimate is used.
 //
 // X = R^2-1, 2 <= k < R,
 //   J_R(k) = {q : R < q <= X/2, floor(X/q)=k}.
@@ -23,23 +23,31 @@ using namespace std;
 //   H_p(k) = #{q in J_R(k) : minFac(q)=p},
 //   N_R(k) = #{q in J_R(k) : q prime}.
 //
-// The additive fresh-prime step is
-//   D_p(k) = (C_<p-A_p)(Q_<p-H_p) - C_<p Q_<p
-//          = -A_p Q_<=p - C_<p H_p.
+// Then
+//   C_<=p = C_<p - A_p,
+//   Q_<=p = Q_<p - H_p.
 //
-// The cross-root cell proposed after #453 is
-//   Delta_p(k) = D_p(k) + N_R(k) A_p(k).
-// It has the exact residual form
-//   Delta_p(k)
-//     = -A_p(k) (Q_<=p(k)-N_R(k)) - C_<p(k) H_p(k),
-// so the terminal-prime component cancels algebraically before any statistic
-// is taken.  The remaining first term is exactly the future composite-hit
-// population.
+// Two distinct cross-root quantities must not be confused.
 //
-// The table is restricted to cells with N_R(k) A_p(k) != 0; these are the
-// cells where the cross-root pairing actually has both sides.  Moving p-cuts
-// test where the anti-alignment lives.  absDelta/R^2 is printed because a small
-// cancellation ratio is not itself an RH-scale estimate.
+// (1) Literal cumulative cell, matching the state *through p*:
+//     L_p(k) = C_<=p(k) Q_<=p(k),
+//     DeltaCum = L_p + N_R A_p.
+//     Exact identity:
+//       DeltaCum
+//         = C_<p Q_<p
+//           + [-A_p(Q_<=p-N_R) - C_<p H_p].
+//     Thus it retains the entire inherited parent product.
+//
+// (2) Additive fresh-prime change:
+//     D_p(k) = L_p(k) - C_<p(k)Q_<p(k),
+//     DeltaStep = D_p + N_R A_p
+//               = -A_p(Q_<=p-N_R) - C_<p H_p.
+//     The terminal-prime component cancels algebraically.  This derivative
+//     residual is the current/future composite chronology.
+//
+// Statistics are restricted to cells with N_R(k) A_p(k) != 0, where the
+// proposed low/post pairing actually has two sides.  The literal gate is
+// reported once; moving p-cuts are then applied to the additive residual.
 
 struct Sieve {
   vector<int> spf, primes;
@@ -71,8 +79,46 @@ struct Acc {
   long double sx = 0, sy = 0, sxx = 0, syy = 0, sxy = 0;
 };
 
+static void add(Acc& a, long long low, long long mid, long long delta) {
+  const long long den = llabs(low) + llabs(mid);
+  if (den == 0) return;
+  const double ratio = fabs((double)delta) / den;
+  a.l1 += den;
+  a.absDelta += llabs(delta);
+  a.lowAbs += llabs(low);
+  a.midAbs += llabs(mid);
+  a.signedDelta += delta;
+  ++a.n;
+  if (ratio <= 0.1) ++a.small10;
+  if (ratio <= 0.01) ++a.small1;
+  const long double x = low, y = mid;
+  a.sx += x; a.sy += y;
+  a.sxx += x * x; a.syy += y * y; a.sxy += x * y;
+}
+
+static long double corr(const Acc& a) {
+  if (a.n <= 1) return 0;
+  const long double num = a.n * a.sxy - a.sx * a.sy;
+  const long double dx = a.n * a.sxx - a.sx * a.sx;
+  const long double dy = a.n * a.syy - a.sy * a.sy;
+  return (dx > 0 && dy > 0) ? num / sqrt(dx * dy) : 0;
+}
+
 static int floorPower(int R, double theta) {
   return (int)floor(pow((double)R, theta) + 1e-12);
+}
+
+static void printAcc(const string& label, const Acc& a, int R) {
+  cout << "  " << label
+       << " n=" << setw(9) << a.n
+       << " corr=" << setw(10) << (double)corr(a)
+       << " <=.1=" << (a.n ? (double)a.small10 / a.n : 0.0)
+       << " <=.01=" << (a.n ? (double)a.small1 / a.n : 0.0)
+       << " weighted=" << (a.l1 ? (double)a.absDelta / a.l1 : 0.0)
+       << " low/mid=" << (a.midAbs ? (double)a.lowAbs / a.midAbs : 0.0)
+       << " absDelta/R=" << (double)a.absDelta / R
+       << " absDelta/R2=" << (double)a.absDelta / ((double)R * R)
+       << '\n';
 }
 
 static void run(int R) {
@@ -89,7 +135,6 @@ static void run(int R) {
   vector<int> pIndex(R + 1, -1);
   for (int i = 0; i < P; ++i) pIndex[ps[i]] = i;
 
-  // H[p,k], terminal primes N[k], and the unprocessed integer fibre J[k].
   vector<int> H((size_t)P * R, 0), N(R, 0), J(R, 0);
   auto at = [&](int pi, int k) -> int& { return H[(size_t)pi * R + k]; };
 
@@ -110,7 +155,6 @@ static void run(int R) {
     }
   }
 
-  // C[k]=F_<p(k), Q[k]=q survivors before p.
   vector<long long> C(R, 1), Q(R, 0);
   for (int k = 2; k < R; ++k) Q[k] = J[k];
 
@@ -122,51 +166,46 @@ static void run(int R) {
       {"R^1/2", floorPower(R, 0.5)},
       {"R^3/5", floorPower(R, 0.6)},
   };
-  vector<Acc> acc(cuts.size());
+  vector<Acc> step(cuts.size());
+  Acc literal;
 
-  long long identityError = 0;
+  long long stepIdentityError = 0;
+  long long cumulativeIdentityError = 0;
+
   for (int pi = 0; pi < P; ++pi) {
     const int p = ps[pi];
-    const vector<long long> Cold = C;  // simultaneous fresh-p update
+    const vector<long long> Cold = C;
 
     for (int k = 2; k < R; ++k) {
       if (J[k] == 0) continue;
 
       const long long cOld = Cold[k];
+      const long long qOld = Q[k];
       const long long A = (k / p == 0 ? 0 : Cold[k / p]);
       const long long hit = at(pi, k);
-      const long long qAfter = Q[k] - hit;
+      const long long cAfter = cOld - A;
+      const long long qAfter = qOld - hit;
 
-      const long long D = -A * qAfter - cOld * hit;
+      const long long cumulativeLow = cAfter * qAfter;
+      const long long D = cumulativeLow - cOld * qOld;
       const long long middle = 1LL * N[k] * A;
-      const long long delta = D + middle;
+      const long long deltaStep = D + middle;
       const long long future = qAfter - N[k];
       const long long residual = -A * future - cOld * hit;
-      identityError += llabs(delta - residual);
+      const long long deltaCum = cumulativeLow + middle;
 
-      C[k] = cOld - A;
+      stepIdentityError += llabs(deltaStep - residual);
+      cumulativeIdentityError += llabs(deltaCum - (cOld * qOld + residual));
+
+      C[k] = cAfter;
       Q[k] = qAfter;
 
-      // The cross-root cell has two sides only when N*A is nonzero.
+      // No two-sided cross-root cell if the post-root predecessor term is zero.
       if (middle == 0) continue;
-      const long long den = llabs(D) + llabs(middle);
-      if (den == 0) continue;
-      const double ratio = fabs((double)delta) / den;
 
+      add(literal, cumulativeLow, middle, deltaCum);
       for (size_t z = 0; z < cuts.size(); ++z) {
-        if (p < cuts[z].second) continue;
-        auto& a = acc[z];
-        a.l1 += den;
-        a.absDelta += llabs(delta);
-        a.lowAbs += llabs(D);
-        a.midAbs += llabs(middle);
-        a.signedDelta += delta;
-        ++a.n;
-        if (ratio <= 0.1) ++a.small10;
-        if (ratio <= 0.01) ++a.small1;
-        const long double x = D, y = middle;
-        a.sx += x; a.sy += y;
-        a.sxx += x * x; a.syy += y * y; a.sxy += x * y;
+        if (p >= cuts[z].second) add(step[z], D, middle, deltaStep);
       }
     }
   }
@@ -176,30 +215,14 @@ static void run(int R) {
 
   cout << "R=" << R << " X=" << X
        << " qError=" << qError
-       << " identityError=" << identityError << '\n';
+       << " stepIdentityError=" << stepIdentityError
+       << " cumulativeIdentityError=" << cumulativeIdentityError << '\n';
   cout << fixed << setprecision(6);
 
-  for (size_t z = 0; z < acc.size(); ++z) {
-    const auto& a = acc[z];
-    long double corr = 0;
-    if (a.n > 1) {
-      const long double num = a.n * a.sxy - a.sx * a.sy;
-      const long double dx = a.n * a.sxx - a.sx * a.sx;
-      const long double dy = a.n * a.syy - a.sy * a.sy;
-      if (dx > 0 && dy > 0) corr = num / sqrt(dx * dy);
-    }
-    cout << "  cut=" << setw(6) << cuts[z].first
-         << " C=" << setw(5) << cuts[z].second
-         << " n=" << setw(9) << a.n
-         << " corr=" << setw(10) << (double)corr
-         << " <=.1=" << (a.n ? (double)a.small10 / a.n : 0.0)
-         << " <=.01=" << (a.n ? (double)a.small1 / a.n : 0.0)
-         << " weighted=" << (a.l1 ? (double)a.absDelta / a.l1 : 0.0)
-         << " low/mid=" << (a.midAbs ? (double)a.lowAbs / a.midAbs : 0.0)
-         << " absDelta/R=" << (double)a.absDelta / R
-         << " absDelta/R2=" << (double)a.absDelta / ((double)R * R)
-         << " signedDelta/R=" << (double)a.signedDelta / R
-         << '\n';
+  printAcc("literal cumulative", literal, R);
+  for (size_t z = 0; z < step.size(); ++z) {
+    printAcc("step cut=" + cuts[z].first + " C=" + to_string(cuts[z].second),
+      step[z], R);
   }
 }
 
