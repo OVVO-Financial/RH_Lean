@@ -24,9 +24,41 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 
+attribute [local instance] Classical.propDecidable
+
 /-- Low-prime coordinates that actually divide one physical integer. -/
 def lowWheelDividingPrimeSet (R q : ℕ) : Finset ℕ :=
   (primesUpTo R).filter fun p => p ∣ q
+
+private theorem prime_finset_prod_dvd_of_all_dvd
+    {t : Finset ℕ} {q : ℕ}
+    (hprime : ∀ p ∈ t, p.Prime)
+    (hall : ∀ p ∈ t, p ∣ q) :
+    t.prod id ∣ q := by
+  classical
+  induction t using Finset.induction_on with
+  | empty => simp
+  | @insert p t hp ih =>
+      have hpPrime : p.Prime := hprime p (Finset.mem_insert_self p t)
+      have htPrime : ∀ r ∈ t, r.Prime := by
+        intro r hr
+        exact hprime r (Finset.mem_insert_of_mem hr)
+      have hpq : p ∣ q := hall p (Finset.mem_insert_self p t)
+      have htq : ∀ r ∈ t, r ∣ q := by
+        intro r hr
+        exact hall r (Finset.mem_insert_of_mem hr)
+      have htprod : t.prod id ∣ q := ih htPrime htq
+      have hcop : Nat.Coprime p (t.prod id) := by
+        rw [hpPrime.coprime_iff_not_dvd]
+        intro hpdiv
+        rcases (Prime.dvd_finset_prod_iff hpPrime.prime id).mp hpdiv with
+          ⟨r, hrt, hpr⟩
+        rcases (htPrime r hrt).eq_one_or_self_of_dvd p hpr with hpOne | hpeq
+        · exact hpPrime.ne_one hpOne
+        · exact hp (hpeq ▸ hrt)
+      have hmul : p * t.prod id ∣ q :=
+        hcop.mul_dvd_of_dvd_of_dvd hpq htprod
+      simpa [Finset.prod_insert hp] using hmul
 
 /-- A face of distinct prime coordinates divides `q` exactly when each of its
 prime coordinates divides `q`. -/
@@ -34,15 +66,15 @@ theorem primeFaceProduct_dvd_iff_all_dvd
     {S t : Finset ℕ} {q : ℕ}
     (ht : t ⊆ S) (hprime : ∀ p ∈ S, p.Prime) :
     primeFaceProduct t ∣ q ↔ ∀ p ∈ t, p ∣ q := by
-  have hpair : Set.Pairwise (↑t : Set ℕ) (Nat.Coprime on id) := by
-    intro p hp q' hq' hpq
-    have hpPrime := hprime p (ht hp)
-    have hqPrime := hprime q' (ht hq')
-    exact (Nat.coprime_primes hpPrime hqPrime).2 hpq
-  have hlcm : t.lcm id = t.prod id := Finset.lcm_eq_prod hpair
-  change t.prod id ∣ q ↔ _
-  rw [← hlcm, Finset.lcm_dvd_iff]
-  simp
+  classical
+  change t.prod id ∣ q ↔ ∀ p ∈ t, p ∣ q
+  constructor
+  · intro hprod p hp
+    have hpdiv : p ∣ t.prod id := Finset.dvd_prod_of_mem id hp
+    exact hpdiv.trans hprod
+  · intro hall
+    exact prime_finset_prod_dvd_of_all_dvd
+      (fun p hp => hprime p (ht hp)) hall
 
 /-- The face products dividing `q` are exactly the full Boolean cube on the
 subset of low primes that divide `q`. -/
@@ -110,11 +142,13 @@ theorem lowWheelDivisorFaceSum_eq_survivorIndicator
   by_cases hsurv : lowWheelHighSurvivor R q
   · have hempty : lowWheelDividingPrimeSet R q = ∅ :=
       (lowWheelDividingPrimeSet_eq_empty_iff R q).2 hsurv
-    simp [hsurv, hempty, booleanCubeAlternatingSum_empty]
+    rw [hempty, booleanCubeAlternatingSum_empty]
+    simp [hsurv]
   · have hne : (lowWheelDividingPrimeSet R q).Nonempty := by
-      rw [← Finset.ne_empty]
-      intro hempty
-      exact hsurv ((lowWheelDividingPrimeSet_eq_empty_iff R q).1 hempty)
+      unfold lowWheelHighSurvivor at hsurv
+      push_neg at hsurv
+      rcases hsurv with ⟨p, hpR, hpq⟩
+      exact ⟨p, Finset.mem_filter.mpr ⟨hpR, hpq⟩⟩
     rw [booleanCubeAlternatingSum_eq_zero hne]
     simp [hsurv]
 
@@ -168,6 +202,5 @@ theorem lowWheelHighSurvivorSet_card_eq_faceMultipleCounts
       intro t _ht
       rw [← Finset.sum_filter]
       simp
-      ring
 
 end RHLean.Proof
