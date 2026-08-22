@@ -146,6 +146,7 @@ theorem lowWheelCanonicalPhysicalFixedPart_eq_singleton_or_empty
       have hxone : x = (1, 1) := Prod.ext hcEq hkEq
       subst x
       have hcarrier := hmem.2.2.2
+      exfalso
       apply hgeom
       constructor
       · simpa [LowWheelTransportPairCarrier] using hcarrier.2.2.1
@@ -239,13 +240,14 @@ theorem sum_lowWheelCanonicalPhysicalState_eq_tripleFiber
       · apply Finset.mem_Icc.mpr
         constructor
         · have hkLower := (Finset.mem_Ioc.mp hk).1
-          omega
+          have hkpos : 0 < k := lt_of_le_of_lt (Nat.zero_le _) hkLower
+          exact Nat.succ_le_iff.mpr hkpos
         · have hkUpper := (Finset.mem_Ioc.mp hk).2
           exact hkUpper.trans (Nat.div_le_self _ _)
       · have hcData := Finset.mem_Ico.mp hc
         exact ⟨hcData.1, hcData.2, hbounds.1, hbounds.2⟩
   by_cases hsq : Squarefree c
-  · simp only [hsq, true_and, if_true]
+  · simp only [hsq, true_and]
     rw [← Finset.sum_filter, hset]
   · have hmu : μ c = 0 :=
       ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
