@@ -19,10 +19,11 @@ entirely through low-prime Boolean-cube signs and the hyperbolic cutoff
 `c * d * k <= R^2 - 1`.
 
 The second half records the exact closure of the resulting one-prime frontier
-coordinate.  Its pointwise incidence is a finite Mertens bundle.  On the top
-half of the root range it is literally `1 - M(floor((R^2-1)/n))`, so a positive
-energy contains local Mertens energy verbatim.  The remaining signed bootstrap
-collapses by `mu * 1 = delta` to `M(X) = M(X)`.
+coordinate.  Its pointwise incidence is both a centered cofactor hyperbola and
+a finite Mertens bundle.  On the top half of the root range it is literally
+`1 - M(floor((R^2-1)/n))`, so a positive energy contains local Mertens energy
+verbatim.  The remaining signed bootstrap collapses by `mu * 1 = delta` to
+`M(X) = M(X)`.
 
 No norm estimate, prime-number theorem, Strong Mertens estimate, asymptotic,
 or RH input is used.
@@ -173,6 +174,220 @@ theorem canonicalIncidence_eq_one_sub_mertensBundle
         mertensSummatory (squareRootEndpoint R / (n * q)) := by
   rfl
 
+/-- Summing Mertens over a reciprocal half-open interval is exactly the
+Möbius-weighted floor-difference hyperbola. -/
+theorem sum_mertensSummatory_Ioc_eq_moebius_floorDiff
+    (N T : ℕ) :
+    (∑ q ∈ Finset.Ioc T N, mertensSummatory (N / q)) =
+      ∑ c ∈ Finset.Icc 1 N,
+        canonicalMoebiusWeight c * (((N / c - T : ℕ) : ℂ)) := by
+  classical
+  calc
+    (∑ q ∈ Finset.Ioc T N, mertensSummatory (N / q)) =
+      ∑ q ∈ Finset.Ioc T N,
+        ∑ c ∈ Finset.Icc 1 N,
+          if c * q ≤ N then canonicalMoebiusWeight c else 0 := by
+            apply Finset.sum_congr rfl
+            intro q hq
+            have hqpos : 0 < q := by
+              have := (Finset.mem_Ioc.mp hq).1
+              omega
+            rw [RHLean.Analysis.mertensSummatory_eq_sum_Icc]
+            have hset :
+                Finset.Icc 1 (N / q) =
+                  (Finset.Icc 1 N).filter (fun c => c * q ≤ N) := by
+              ext c
+              simp only [Finset.mem_Icc, Finset.mem_filter]
+              constructor
+              · rintro ⟨hc1, hcdiv⟩
+                have hmul : c * q ≤ N :=
+                  (Nat.le_div_iff_mul_le hqpos).1 hcdiv
+                have hcN : c ≤ N :=
+                  (Nat.le_mul_of_pos_right c hqpos).trans hmul
+                exact ⟨⟨hc1, hcN⟩, hmul⟩
+              · rintro ⟨⟨hc1, _hcN⟩, hmul⟩
+                exact ⟨hc1, (Nat.le_div_iff_mul_le hqpos).2 hmul⟩
+            rw [hset, Finset.sum_filter]
+            simp [canonicalMoebiusWeight]
+    _ = ∑ c ∈ Finset.Icc 1 N,
+        ∑ q ∈ Finset.Ioc T N,
+          if c * q ≤ N then canonicalMoebiusWeight c else 0 := by
+            rw [Finset.sum_comm]
+    _ = ∑ c ∈ Finset.Icc 1 N,
+        canonicalMoebiusWeight c * (((N / c - T : ℕ) : ℂ)) := by
+          apply Finset.sum_congr rfl
+          intro c hc
+          have hcpos : 0 < c := by
+            have := (Finset.mem_Icc.mp hc).1
+            omega
+          have hfilter :
+              (Finset.Ioc T N).filter (fun q => c * q ≤ N) =
+                Finset.Ioc T (N / c) := by
+            ext q
+            simp only [Finset.mem_filter, Finset.mem_Ioc]
+            constructor
+            · rintro ⟨⟨hTq, _hqN⟩, hmul⟩
+              have hqdiv : q ≤ N / c := by
+                apply (Nat.le_div_iff_mul_le hcpos).2
+                simpa [Nat.mul_comm] using hmul
+              exact ⟨hTq, hqdiv⟩
+            · rintro ⟨hTq, hqdiv⟩
+              have hmul : c * q ≤ N := by
+                have := (Nat.le_div_iff_mul_le hcpos).1 hqdiv
+                simpa [Nat.mul_comm] using this
+              have hqN : q ≤ N := hqdiv.trans (Nat.div_le_self N c)
+              exact ⟨⟨hTq, hqN⟩, hmul⟩
+          rw [← Finset.sum_filter, hfilter, Finset.sum_const, nsmul_eq_mul,
+            Finset.card_Ioc]
+          ring
+
+/-- The incidence bundle is the complementary tail of the classical unit
+Mertens hyperbola after the cutoff `floor(R/n)`. -/
+theorem canonicalFrontierIncidence_eq_mertensTail
+    {R n : ℕ} (hR : 2 ≤ R) (hn : 1 ≤ n) (hnR : n ≤ R) :
+    canonicalFrontierIncidence R n =
+      ∑ q ∈ Finset.Ioc (R / n) (squareRootEndpoint R / n),
+        mertensSummatory ((squareRootEndpoint R / n) / q) := by
+  classical
+  have hnpos : 0 < n := by omega
+  have hRX : R ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hsq : R + 1 ≤ R ^ 2 := by nlinarith
+    omega
+  have hTleN : R / n ≤ squareRootEndpoint R / n :=
+    Nat.div_le_div_right hRX
+  have hN1 : 1 ≤ squareRootEndpoint R / n :=
+    (Nat.one_le_div_iff hnpos).2 (hnR.trans hRX)
+  have hset :
+      Finset.Icc 1 (squareRootEndpoint R / n) =
+        Finset.Icc 1 (R / n) ∪
+          Finset.Ioc (R / n) (squareRootEndpoint R / n) := by
+    ext q
+    simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_Ioc]
+    omega
+  have hdisj :
+      Disjoint (Finset.Icc 1 (R / n))
+        (Finset.Ioc (R / n) (squareRootEndpoint R / n)) := by
+    rw [Finset.disjoint_left]
+    intro q hqlo hqhi
+    simp only [Finset.mem_Icc] at hqlo
+    simp only [Finset.mem_Ioc] at hqhi
+    omega
+  have hunit := RHLean.Analysis.sum_mertensSummatory_div_eq_one hN1
+  have hprefix :
+      (∑ q ∈ Finset.Icc 1 (R / n),
+          mertensSummatory (squareRootEndpoint R / (n * q))) =
+        ∑ q ∈ Finset.Icc 1 (R / n),
+          mertensSummatory ((squareRootEndpoint R / n) / q) := by
+    apply Finset.sum_congr rfl
+    intro q _hq
+    rw [Nat.div_div_eq_div_mul]
+  unfold canonicalFrontierIncidence
+  rw [hprefix]
+  rw [← hunit, hset, Finset.sum_union hdisj]
+  ring
+
+/-- **Centered cofactor-hyperbola form of the canonical incidence.**  The same
+pointwise field obtained by the one-prime frontier is the complete signed low
+cofactor population through the square endpoint, centered by `floor(R/n)`. -/
+theorem canonicalIncidence_eq_centeredCofactorHyperbola
+    {R n : ℕ} (hR : 2 ≤ R) (hn : 1 ≤ n) (hnR : n ≤ R) :
+    canonicalFrontierIncidence R n =
+      ∑ c ∈ Finset.Ico 1 R,
+        canonicalMoebiusWeight c *
+          (((squareRootEndpoint R / (n * c) - R / n : ℕ) : ℂ)) := by
+  classical
+  have hnpos : 0 < n := by omega
+  have hRX : R ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hsq : R + 1 ≤ R ^ 2 := by nlinarith
+    omega
+  rw [canonicalFrontierIncidence_eq_mertensTail hR hn hnR,
+    sum_mertensSummatory_Ioc_eq_moebius_floorDiff]
+  have hsubset :
+      Finset.Ico 1 R ⊆ Finset.Icc 1 (squareRootEndpoint R / n) := by
+    intro c hc
+    rcases Finset.mem_Ico.mp hc with ⟨hc1, hcR⟩
+    have hcnLt : c * n < R * R := by
+      have h1 : c * n < R * n := Nat.mul_lt_mul_of_pos_right hcR hnpos
+      have h2 : R * n ≤ R * R := Nat.mul_le_mul_left R hnR
+      exact h1.trans_le h2
+    have hcnX : c * n ≤ squareRootEndpoint R := by
+      unfold squareRootEndpoint
+      have hpow : R ^ 2 = R * R := by ring
+      rw [hpow]
+      omega
+    exact Finset.mem_Icc.mpr
+      ⟨hc1, (Nat.le_div_iff_mul_le hnpos).2 hcnX⟩
+  have hzero :
+      ∀ c ∈ Finset.Icc 1 (squareRootEndpoint R / n),
+        c ∉ Finset.Ico 1 R →
+        canonicalMoebiusWeight c *
+          ((((squareRootEndpoint R / n) / c - R / n : ℕ) : ℂ)) = 0 := by
+    intro c hc hcnot
+    have hcdata := Finset.mem_Icc.mp hc
+    have hcR : R ≤ c := by
+      by_contra hnot
+      have hcLt : c < R := Nat.lt_of_not_ge hnot
+      exact hcnot (Finset.mem_Ico.mpr ⟨hcdata.1, hcLt⟩)
+    have hle : (squareRootEndpoint R / n) / c ≤ R / n := by
+      by_contra hnot
+      have hgt : R / n < (squareRootEndpoint R / n) / c :=
+        Nat.lt_of_not_ge hnot
+      have hRlt :
+          R < ((squareRootEndpoint R / n) / c) * n :=
+        (Nat.div_lt_iff_lt_mul hnpos).1 hgt
+      have hRpos : 0 < R := by omega
+      have hsqLt :
+          R * R < (((squareRootEndpoint R / n) / c) * n) * R :=
+        Nat.mul_lt_mul_of_pos_right hRlt hRpos
+      have hRtoC :
+          (((squareRootEndpoint R / n) / c) * n) * R ≤
+            (((squareRootEndpoint R / n) / c) * n) * c :=
+        Nat.mul_le_mul_left (((squareRootEndpoint R / n) / c) * n) hcR
+      have hdivC :
+          (squareRootEndpoint R / n) / c * c ≤ squareRootEndpoint R / n :=
+        Nat.div_mul_le_self (squareRootEndpoint R / n) c
+      have hmulN :
+          ((squareRootEndpoint R / n) / c * c) * n ≤
+            (squareRootEndpoint R / n) * n :=
+        Nat.mul_le_mul_right n hdivC
+      have hdivN :
+          (squareRootEndpoint R / n) * n ≤ squareRootEndpoint R :=
+        Nat.div_mul_le_self (squareRootEndpoint R) n
+      have hprod :
+          (((squareRootEndpoint R / n) / c) * n) * c ≤
+            squareRootEndpoint R := by
+        calc
+          (((squareRootEndpoint R / n) / c) * n) * c =
+              ((squareRootEndpoint R / n) / c * c) * n := by ring
+          _ ≤ (squareRootEndpoint R / n) * n := hmulN
+          _ ≤ squareRootEndpoint R := hdivN
+      have hbad : R * R < squareRootEndpoint R :=
+        hsqLt.trans_le (hRtoC.trans hprod)
+      unfold squareRootEndpoint at hbad
+      have hsqpos : 0 < R ^ 2 := by positivity
+      have hpow : R ^ 2 = R * R := by ring
+      rw [← hpow] at hbad
+      omega
+    have hsub : (squareRootEndpoint R / n) / c - R / n = 0 :=
+      Nat.sub_eq_zero_of_le hle
+    simp [hsub]
+  calc
+    (∑ c ∈ Finset.Icc 1 (squareRootEndpoint R / n),
+        canonicalMoebiusWeight c *
+          ((((squareRootEndpoint R / n) / c - R / n : ℕ) : ℂ))) =
+      ∑ c ∈ Finset.Ico 1 R,
+        canonicalMoebiusWeight c *
+          ((((squareRootEndpoint R / n) / c - R / n : ℕ) : ℂ)) :=
+        (Finset.sum_subset hsubset hzero).symm
+    _ = ∑ c ∈ Finset.Ico 1 R,
+        canonicalMoebiusWeight c *
+          (((squareRootEndpoint R / (n * c) - R / n : ℕ) : ℂ)) := by
+            apply Finset.sum_congr rfl
+            intro c _hc
+            rw [Nat.div_div_eq_div_mul]
+
 /-- On the upper half of the root range the bundle has only the `q = 1` term. -/
 theorem canonicalIncidence_eq_one_sub_mertens_of_half_lt
     {R n : ℕ} (hn : 1 ≤ n) (hnR : n ≤ R) (hhalf : R / 2 < n) :
@@ -267,6 +482,34 @@ theorem mobius_hyperbola_double_sum_eq_head
       have h1mem : (1 : ℕ) ∈ Finset.Icc 1 R :=
         Finset.mem_Icc.mpr ⟨le_rfl, hR⟩
       simp [h1mem]
+
+/-- The complete signed incidence sum is exactly the original square-endpoint
+Mertens gap; the pointwise coordinate has not introduced a new signed scalar. -/
+theorem canonicalFrontierIncidence_signedSum_eq_mertensGap
+    (R : ℕ) (hR : 1 ≤ R) :
+    (∑ n ∈ Finset.Icc 1 R,
+        (((μ n : ℤ) : ℂ)) * canonicalFrontierIncidence R n) =
+      mertensSummatory R - mertensSummatory (squareRootEndpoint R) := by
+  unfold canonicalFrontierIncidence
+  calc
+    (∑ n ∈ Finset.Icc 1 R,
+        (((μ n : ℤ) : ℂ)) *
+          (1 - ∑ q ∈ Finset.Icc 1 (R / n),
+            mertensSummatory (squareRootEndpoint R / (n * q)))) =
+      (∑ n ∈ Finset.Icc 1 R, (((μ n : ℤ) : ℂ))) -
+        ∑ n ∈ Finset.Icc 1 R,
+          (((μ n : ℤ) : ℂ)) *
+            ∑ q ∈ Finset.Icc 1 (R / n),
+              mertensSummatory (squareRootEndpoint R / (n * q)) := by
+                rw [← Finset.sum_sub_distrib]
+                apply Finset.sum_congr rfl
+                intro n _hn
+                ring
+    _ = mertensSummatory R - mertensSummatory (squareRootEndpoint R) := by
+      rw [← RHLean.Analysis.mertensSummatory_eq_sum_Icc R]
+      rw [mobius_hyperbola_double_sum_eq_head
+        (F := fun m => mertensSummatory (squareRootEndpoint R / m)) hR]
+      simp
 
 /-- Corrected lower-half/top-half bootstrap expression. -/
 def frontierBootstrapRHS (R : ℕ) : ℂ :=
@@ -369,5 +612,17 @@ theorem frontier_bootstrap_collapses_to_identity
     (R : ℕ) (hR : 2 ≤ R) :
     frontierBootstrapRHS R = mertensSummatory (squareRootEndpoint R) := by
   exact (frontier_bootstrap_self_consistency R hR).symm
+
+/-- Landmark closure statement for the one-prime frontier coordinate: its
+positive top-half energy is local Mertens energy, while its signed bootstrap is
+the identity. -/
+theorem frontier_cohomology_trivial
+    (R : ℕ) (hR : 2 ≤ R) :
+    frontierBootstrapRHS R = mertensSummatory (squareRootEndpoint R) ∧
+      canonicalFrontierTopEnergy R =
+        ∑ n ∈ Finset.Ioc (R / 2) R,
+          (n : ℝ) * ‖1 - mertensSummatory (squareRootEndpoint R / n)‖ ^ 2 := by
+  exact ⟨frontier_bootstrap_collapses_to_identity R hR,
+    canonicalFrontierTopEnergy_eq_localMertensEnergy R⟩
 
 end RHLean.Proof
