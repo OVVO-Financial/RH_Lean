@@ -42,6 +42,8 @@ namespace RHLean.Proof
 open RHLean.Arithmetic
 open RHLean.Analysis
 
+attribute [local instance] Classical.propDecidable
+
 /-- Signed predecessor-prime mass at reciprocal label `k`.
 
 This is the frozen old-prime cube strictly before `p`, evaluated at the child
@@ -275,7 +277,7 @@ forces `p^3 < R^2`. Hence above the `R^(2/3)` predecessor scale the supported
 additive cross-root residual has no current or future composite hit. -/
 theorem reciprocalMiddle_composite_survivor_forces_predCube_lt_square
     {R p k q : ℕ}
-    (hR : 2 ≤ R) (hp : 1 ≤ p) (hRq : R < q)
+    (hR : 2 ≤ R) (_hp : 1 ≤ p) (hRq : R < q)
     (hqk : squareRootEndpoint R / q = k)
     (hpk : p ≤ k) (hqPrime : ¬ q.Prime)
     (hpMin : p ≤ q.minFac) :
