@@ -5,7 +5,7 @@ import RHLean.Proof.LowWheelSequentialRoughWindowFold
 /-!
 # Smooth/rough boundary form of the sequential low-wheel state
 
-After prime `p` is processed, the cumulative rough-window fold leaves one old
+After a fresh prime `p` is processed, the cumulative rough-window fold leaves one old
 signed cofactor cube and counts of `p`-rough integers in reciprocal windows.
 Swapping the surviving rough integer `q` with the old cofactor face `u` exposes
 the dual geometry.
@@ -155,7 +155,7 @@ theorem lowWheelDoubleCubePrimePrefix_step_eq_smoothRoughShellMass
               lowWheelHighSurvivor p q ∧
                 squareRootEndpoint R / q / p < primeFaceProduct u ∧
                 primeFaceProduct u ≤ squareRootEndpoint R / q),
-            (booleanCubeSign u : ℂ) := by simpa [mul_comm]
+            (booleanCubeSign u : ℂ) := by simp [mul_comm]
         _ = ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
             if lowWheelHighSurvivor p q ∧
                 squareRootEndpoint R / q / p < primeFaceProduct u ∧
