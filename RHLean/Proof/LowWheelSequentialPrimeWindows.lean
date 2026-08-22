@@ -97,9 +97,9 @@ theorem lowWheelMixedPrimeCell_mul_eq_window_sub_dilate
   have hsecond := mul_mem_primeDilateCofactorWindow_iff_lowWheelSecondShell
     (p := p) (R := R) (X := X) (a := a) (q := q) hp ha
   unfold lowWheelPrimeDilateWindowIndicator
-  by_cases hq : q ∈ primeDilateCofactorWindow p R X a <;>
-    by_cases hpq : p * q ∈ primeDilateCofactorWindow p R X a <;>
-    simp [hq, hpq, hfirst, hsecond]
+  by_cases h1 : R < q ∧ a * q ≤ X ∧ X < p * (a * q) <;>
+    by_cases h2 : R < p * q ∧ p * (a * q) ≤ X ∧ X < p * p * (a * q) <;>
+    simp [h1, h2, hfirst, hsecond]
 
 /-- Support consequence in window language: a nonzero fresh-prime cell lies in
 the reciprocal window either before or after the prime dilation. -/
