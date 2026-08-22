@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Analysis.SquareRootMiddleSequentialCoherence
 import RHLean.Proof.LowWheelSequentialSmoothRoughBoundary
+import RHLean.Proof.RecursivePrimeReplacement
 
 /-!
 # Predecessor-prime cells in the square-root reciprocal corridor
@@ -17,9 +18,10 @@ On squarefree support this is exactly the signed mass
 `sum_{d <= k/p, P+(d) < p} mu(d)`.
 
 The exact identities below separate the genuinely additive fresh-prime state
-from the cumulative state, record the primorial deletion of completed old
-cubes, and expose the cross-root cancellation against the terminal prime fibre.
-They also give the elementary `p^3 < R^2` support condition for any unresolved
+from the cumulative state, identify the reciprocal `k`-cells of the existing
+double-cube/window fold, record the primorial deletion of completed old cubes,
+and expose the cross-root cancellation against the terminal prime fibre. They
+also give the elementary `p^3 < R^2` support condition for any unresolved
 composite in a reciprocal cell with `p <= k`.
 
 No analytic estimate, asymptotic, PNT input, or RH hypothesis is used.
@@ -74,6 +76,88 @@ theorem lowWheelSmoothFaceShellMass_eq_frozenPrimeUniverseMass
       frozenPrimeUniverseMass (primesUpTo p) k
   rw [frozenPrimeUniverseMass_primesUpTo_step_eq_sub_predecessor p k hp]
   rfl
+
+/-- Unresolved integers in one reciprocal quotient fibre which survive every
+prime coordinate through `p`. -/
+def lowWheelPKReciprocalSurvivorSet (p R k : ℕ) : Finset ℕ :=
+  (Finset.Ioc R (squareRootEndpoint R)).filter fun q =>
+    squareRootEndpoint R / q = k ∧ lowWheelHighSurvivor p q
+
+/-- The literal cumulative `(p,k)` cell obtained by retaining only the quotient
+fibre `floor(X_R/q)=k` in the q-first smooth/rough form of the double-cube state
+through prime `p`. -/
+def lowWheelPKCumulativeCell (p R k : ℕ) : ℂ :=
+  ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+    if squareRootEndpoint R / q = k then
+      if lowWheelHighSurvivor p q then
+        ((lowWheelSmoothFaceShellMass p k : ℤ) : ℂ)
+      else 0
+    else 0
+
+/-- **Exact factorization of one reciprocal cell.** Once the quotient label `k`
+is fixed, the old smooth-face coefficient is constant across the fibre, so the
+literal double-cube/window cell is the product of that coefficient and the
+through-`p` survivor population in the same fibre. -/
+theorem lowWheelPKCumulativeCell_eq_shell_mul_survivorCard
+    (p R k : ℕ) :
+    lowWheelPKCumulativeCell p R k =
+      ((lowWheelSmoothFaceShellMass p k : ℤ) : ℂ) *
+        ((lowWheelPKReciprocalSurvivorSet p R k).card : ℂ) := by
+  classical
+  unfold lowWheelPKCumulativeCell lowWheelPKReciprocalSurvivorSet
+  calc
+    (∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+      if squareRootEndpoint R / q = k then
+        if lowWheelHighSurvivor p q then
+          ((lowWheelSmoothFaceShellMass p k : ℤ) : ℂ)
+        else 0
+      else 0) =
+      ∑ q ∈ (Finset.Ioc R (squareRootEndpoint R)).filter (fun q =>
+          squareRootEndpoint R / q = k ∧ lowWheelHighSurvivor p q),
+        ((lowWheelSmoothFaceShellMass p k : ℤ) : ℂ) := by
+          rw [Finset.sum_filter]
+          apply Finset.sum_congr rfl
+          intro q _hq
+          by_cases hqk : squareRootEndpoint R / q = k <;>
+            by_cases hsurv : lowWheelHighSurvivor p q <;>
+              simp [hqk, hsurv]
+    _ = ((lowWheelSmoothFaceShellMass p k : ℤ) : ℂ) *
+        (((Finset.Ioc R (squareRootEndpoint R)).filter (fun q =>
+          squareRootEndpoint R / q = k ∧ lowWheelHighSurvivor p q)).card : ℂ) := by
+          simp [mul_comm]
+
+/-- In frozen-cube notation the literal reciprocal cell is exactly
+`C_{<=p}(k) * Q_{<=p}(k)`. -/
+theorem lowWheelPKCumulativeCell_eq_frozen_mul_survivorCard
+    (p R k : ℕ) (hp : p.Prime) :
+    lowWheelPKCumulativeCell p R k =
+      ((frozenPrimeUniverseMass (primesUpTo p) k : ℤ) : ℂ) *
+        ((lowWheelPKReciprocalSurvivorSet p R k).card : ℂ) := by
+  rw [lowWheelPKCumulativeCell_eq_shell_mul_survivorCard,
+    lowWheelSmoothFaceShellMass_eq_frozenPrimeUniverseMass p k hp]
+
+/-- **The full cumulative double-cube state is the sum of its reciprocal
+`(p,k)` cells.** Every unresolved `q>R` has quotient strictly below `R`, so the
+finite family `k<R` is exhaustive. -/
+theorem lowWheelDoubleCubePrimePrefix_step_eq_sum_pkCumulativeCells
+    (R p : ℕ) (hR : 2 ≤ R) (hp : p.Prime) :
+    lowWheelDoubleCubeSetTransportLedger R (primesUpTo p) =
+      ∑ k ∈ Finset.range R, lowWheelPKCumulativeCell p R k := by
+  rw [lowWheelDoubleCubePrimePrefix_step_eq_smoothRoughShellMass R p hp]
+  unfold lowWheelPKCumulativeCell
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro q hq
+  have hqR : R ≤ q := by
+    have := (Finset.mem_Ioc.mp hq).1
+    omega
+  have hklt : squareRootEndpoint R / q < R :=
+    squareRootEndpoint_div_lt_root_of_root_le hR hqR
+  have hkmem : squareRootEndpoint R / q ∈ Finset.range R :=
+    Finset.mem_range.mpr hklt
+  by_cases hsurv : lowWheelHighSurvivor p q
+  · simp [hsurv, hkmem]
+  · simp [hsurv, hkmem]
 
 /-- **Cumulative-state guardrail.** Adding `A_p(k)` back to the already-
 processed smooth-shell coefficient reconstructs the old parent prefix exactly.
