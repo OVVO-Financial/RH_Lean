@@ -63,6 +63,13 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+      - name: Restore partial low-wheel build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: low-wheel-build-${{ github.sha }}
+          restore-keys: |
+            low-wheel-build-
       - name: Compile targets
         run: |
           lake build RHLean.Proof.LowWheelHighPrimeSurvivor
@@ -80,3 +87,9 @@ jobs:
           lake build RHLean.Proof.LowWheelSequentialRoughWindowFold
           lake build RHLean.Proof.LowWheelSequentialSmoothRoughBoundary
           lake build RHLean.Proof.LowWheelAncestryCrossLedgerBridge
+      - name: Save partial low-wheel build cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: low-wheel-build-${{ github.sha }}
