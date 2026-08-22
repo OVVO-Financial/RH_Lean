@@ -70,13 +70,12 @@ theorem lowWheelCanonicalCofactorQuotientPivot_prime
   simpa [lowWheelCanonicalCofactorQuotientPivot] using
     Nat.minFac_prime hne
 
-/-- The canonical pivot divides the invariant physical product on every
-nontrivial state. -/
+/-- The canonical pivot divides the invariant physical product. -/
 theorem lowWheelCanonicalCofactorQuotientPivot_dvd
-    {c k : ℕ} (hne : c * k ≠ 1) :
+    (c k : ℕ) :
     lowWheelCanonicalCofactorQuotientPivot (c, k) ∣ c * k := by
   simpa [lowWheelCanonicalCofactorQuotientPivot] using
-    Nat.minFac_dvd hne
+    Nat.minFac_dvd (c * k)
 
 /-- On a nontrivial state, the canonical prime is active in either the cofactor
 or the residual quotient. -/
@@ -85,7 +84,7 @@ theorem lowWheelCanonicalCofactorQuotientPivot_active
     lowWheelCanonicalCofactorQuotientPivot (c, k) ∣ c ∨
       lowWheelCanonicalCofactorQuotientPivot (c, k) ∣ k := by
   have hp := lowWheelCanonicalCofactorQuotientPivot_prime hne
-  exact hp.dvd_mul.mp (lowWheelCanonicalCofactorQuotientPivot_dvd hne)
+  exact hp.dvd_mul.mp (lowWheelCanonicalCofactorQuotientPivot_dvd c k)
 
 /-- The canonical toggle reverses the Möbius/Boolean signed weight on every
 nontrivial squarefree-cofactor state. -/
@@ -107,25 +106,18 @@ theorem lowWheelCanonicalCofactorQuotientToggle_involutive
     {c k : ℕ} (hsq : Squarefree c) (hne : c * k ≠ 1) :
     lowWheelCanonicalCofactorQuotientToggle
         (lowWheelCanonicalCofactorQuotientToggle (c, k)) = (c, k) := by
-  let p := lowWheelCanonicalCofactorQuotientPivot (c, k)
-  have hp : p.Prime := by
-    simpa [p] using lowWheelCanonicalCofactorQuotientPivot_prime hne
-  have hactive : p ∣ c ∨ p ∣ k := by
-    simpa [p] using lowWheelCanonicalCofactorQuotientPivot_active hne
-  have hpivot :
-      lowWheelCanonicalCofactorQuotientPivot
-          (lowWheelCofactorQuotientToggleAt p (c, k)) = p := by
-    unfold lowWheelCanonicalCofactorQuotientPivot
-    have hprod := lowWheelCofactorQuotientToggleAt_product (c, k) (p := p)
-    rw [hprod]
-    rfl
-  unfold lowWheelCanonicalCofactorQuotientToggle
   change lowWheelCofactorQuotientToggleAt
       (lowWheelCanonicalCofactorQuotientPivot
-        (lowWheelCofactorQuotientToggleAt p (c, k)))
-      (lowWheelCofactorQuotientToggleAt p (c, k)) = (c, k)
-  rw [hpivot]
-  exact lowWheelCofactorQuotientToggleAt_involutive hp hsq hactive
+        (lowWheelCanonicalCofactorQuotientToggle (c, k)))
+      (lowWheelCanonicalCofactorQuotientToggle (c, k)) = (c, k)
+  rw [lowWheelCanonicalCofactorQuotientPivot_toggle]
+  change lowWheelCofactorQuotientToggleAt
+      (lowWheelCanonicalCofactorQuotientPivot (c, k))
+      (lowWheelCofactorQuotientToggleAt
+        (lowWheelCanonicalCofactorQuotientPivot (c, k)) (c, k)) = (c, k)
+  exact lowWheelCofactorQuotientToggleAt_involutive
+    (lowWheelCanonicalCofactorQuotientPivot_prime hne) hsq
+    (lowWheelCanonicalCofactorQuotientPivot_active hne)
 
 /-- **Canonical pairing or explicit boundary.**  Every nontrivial physical state
 has a canonical mate.  The mate remains physical unless the insertion direction
@@ -146,11 +138,13 @@ theorem lowWheelCanonicalCofactorQuotientToggle_preserves_or_boundary
     simpa [p] using lowWheelCanonicalCofactorQuotientPivot_active hne
   by_cases hpc : p ∣ c
   · left
-    simpa [lowWheelCanonicalCofactorQuotientToggle, p] using
+    unfold lowWheelCanonicalCofactorQuotientToggle
+    simpa [p] using
       lowWheelCofactorQuotientToggleAt_preserves_of_dvd_cofactor
         hp hcarrier hpc
   · have hpk : p ∣ k := hactive.resolve_left hpc
-    simpa [lowWheelCanonicalCofactorQuotientToggle, p] using
+    unfold lowWheelCanonicalCofactorQuotientToggle
+    simpa [p] using
       lowWheelCofactorQuotientToggleAt_preserves_or_boundary_of_dvd_quotient
         hp hcarrier hpc hpk
 
