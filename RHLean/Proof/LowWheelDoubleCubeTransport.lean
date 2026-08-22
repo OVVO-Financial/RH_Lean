@@ -172,7 +172,6 @@ theorem canonicalMoebiusWeighted_Ico_eq_admissibleFaceSum
     have hmu := moebius_admissiblePrimeFace_eq_booleanCubeSign huAdm
     unfold canonicalMoebiusWeight
     rw [hmu]
-    push_cast
 
 /-- The admissible cofactor faces below `R` are exactly the full low-prime cube
 faces whose product is strictly below `R`. -/
