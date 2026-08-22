@@ -6,6 +6,7 @@ on:
     paths:
       - 'RHLean/Proof/LowWheelHighPrimeSurvivor.lean'
       - 'RHLean/Proof/LowWheelSurvivorInclusionExclusion.lean'
+      - 'RHLean/Proof/LowWheelSurvivorFloorExpansion.lean'
       - '.github/workflows/low-wheel-survivor-dev.yml'
   workflow_dispatch:
 
@@ -52,5 +53,8 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
       - name: Compile targets
         run: |
-          lake env lean RHLean/Proof/LowWheelHighPrimeSurvivor.lean
-          lake env lean RHLean/Proof/LowWheelSurvivorInclusionExclusion.lean
+          lake build RHLean.Proof.LowWheelHighPrimeSurvivor
+          lake build RHLean.Proof.LowWheelSurvivorInclusionExclusion
+          if [ -f RHLean/Proof/LowWheelSurvivorFloorExpansion.lean ]; then
+            lake build RHLean.Proof.LowWheelSurvivorFloorExpansion
+          fi
