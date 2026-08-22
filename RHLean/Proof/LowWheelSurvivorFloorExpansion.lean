@@ -280,7 +280,7 @@ def frontierBootstrapRHS (R : ℕ) : ℂ :=
 /-- The corrected split bootstrap is exactly the full triangular Möbius bundle.
 This is the algebraic step that makes the no-go transparent. -/
 theorem frontierBootstrapRHS_eq_fullHyperbola
-    (R : ℕ) (hR : 2 ≤ R) :
+    (R : ℕ) :
     frontierBootstrapRHS R =
       ∑ n ∈ Finset.Icc 1 R,
         (((μ n : ℤ) : ℂ)) *
@@ -356,7 +356,7 @@ theorem frontierBootstrapRHS_eq_fullHyperbola
 theorem frontier_bootstrap_self_consistency
     (R : ℕ) (hR : 2 ≤ R) :
     mertensSummatory (squareRootEndpoint R) = frontierBootstrapRHS R := by
-  rw [frontierBootstrapRHS_eq_fullHyperbola R hR]
+  rw [frontierBootstrapRHS_eq_fullHyperbola R]
   symm
   simpa using mobius_hyperbola_double_sum_eq_head
     (F := fun m => mertensSummatory (squareRootEndpoint R / m))
