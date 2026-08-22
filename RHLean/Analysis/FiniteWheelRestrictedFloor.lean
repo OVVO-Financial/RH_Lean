@@ -125,7 +125,10 @@ theorem roughGE_convolution_roughGT_moebius_eq_primePowers
       have hprod : c * (n / c) = n := Nat.mul_div_cancel' hcData.1
       have hpf :
           n.primeFactors = c.primeFactors ∪ (n / c).primeFactors := by
-        rw [← hprod, Nat.primeFactors_mul hc0 hquot0]
+        calc
+          n.primeFactors = (c * (n / c)).primeFactors := by rw [hprod]
+          _ = c.primeFactors ∪ (n / c).primeFactors :=
+            Nat.primeFactors_mul hc0 hquot0
       have hcGE : RoughAbove (p - 1) c := by
         intro q hq
         apply hglobal q
@@ -163,7 +166,9 @@ theorem roughGE_convolution_roughGT_moebius_eq_primePowers
         simp [hgt, hquotGE, hnotcop]
     have hprimeSingleton : ∀ q ∈ ({p} : Finset ℕ), q.Prime := by
       intro q hq
-      simpa using hp
+      have hqp : q = p := Finset.mem_singleton.mp hq
+      subst q
+      exact hp
     rw [hsum, finiteWheelRoughMoebius_mul_zeta_apply
       ({p} : Finset ℕ) hprimeSingleton n]
   · have hzero : roughGEMobiusGTConvolution p n = 0 := by
@@ -180,7 +185,10 @@ theorem roughGE_convolution_roughGT_moebius_eq_primePowers
       have hprod : c * (n / c) = n := Nat.mul_div_cancel' hcData.1
       have hpf :
           n.primeFactors = c.primeFactors ∪ (n / c).primeFactors := by
-        rw [← hprod, Nat.primeFactors_mul hc0 hquot0]
+        calc
+          n.primeFactors = (c * (n / c)).primeFactors := by rw [hprod]
+          _ = c.primeFactors ∪ (n / c).primeFactors :=
+            Nat.primeFactors_mul hc0 hquot0
       have hcond :
           ¬ (RoughAbove p c ∧ RoughAbove (p - 1) (n / c)) := by
         rintro ⟨hcGT, hquotGE⟩
