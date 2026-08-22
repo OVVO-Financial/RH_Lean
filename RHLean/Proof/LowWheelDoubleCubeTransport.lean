@@ -64,7 +64,7 @@ theorem lowWheelTransportPhysicalKSet_eq_quotientInterval
   simp only [lowWheelTransportPhysicalKSet, Finset.mem_filter,
     Finset.mem_Icc, Finset.mem_Ioc]
   constructor
-  · rintro ⟨⟨hk1, hkX⟩, hlow, hup⟩
+  · rintro ⟨⟨_hk1, _hkX⟩, hlow, hup⟩
     constructor
     · apply (Nat.div_lt_iff_lt_mul hdpos).2
       simpa [Nat.mul_comm] using hlow
@@ -82,7 +82,7 @@ theorem lowWheelTransportPhysicalKSet_eq_quotientInterval
       have hkz : k = 0 := Nat.eq_zero_of_not_pos hk0
       subst k
       simp at hlow'
-    have hcd1 : 1 ≤ c * primeFaceProduct t := by positivity
+    have hcd1 : 1 ≤ c * primeFaceProduct t := hcdpos
     have hkX : k ≤ squareRootEndpoint R := by
       calc
         k = 1 * k := by simp
@@ -94,7 +94,7 @@ theorem lowWheelTransportPhysicalKSet_eq_quotientInterval
 def lowWheelTransportPhysicalLedger (R : ℕ) : ℂ :=
   ∑ c ∈ Finset.Ico 1 R,
     ∑ t ∈ (primesUpTo R).powerset,
-      ∑ k ∈ lowWheelTransportPhysicalKSet R c t,
+      ∑ _k ∈ lowWheelTransportPhysicalKSet R c t,
         canonicalMoebiusWeight c * (booleanCubeSign t : ℂ)
 
 /-- The quotient-interval triple ledger and the common physical carrier are
@@ -114,7 +114,7 @@ theorem lowWheelTransportTripleLedger_eq_physicalLedger
 /-- Weighted squarefree cofactor prefixes can be reindexed by their unique
 admissible prime faces. -/
 theorem canonicalMoebiusWeighted_Ico_eq_admissibleFaceSum
-    (R : ℕ) (hR : 1 ≤ R) (F : ℕ → ℂ) :
+    (R : ℕ) (_hR : 1 ≤ R) (F : ℕ → ℂ) :
     (∑ c ∈ Finset.Ico 1 R, canonicalMoebiusWeight c * F c) =
       ∑ u ∈ admissiblePrimeFaces (R - 1),
         (booleanCubeSign u : ℂ) * F (primeFaceProduct u) := by
@@ -126,7 +126,7 @@ theorem canonicalMoebiusWeighted_Ico_eq_admissibleFaceSum
     unfold sqIco
     rw [Finset.sum_filter]
     apply Finset.sum_congr rfl
-    intro c hc
+    intro c _hc
     by_cases hsq : Squarefree c
     · simp [hsq]
     · have hmu : μ c = 0 :=
@@ -173,12 +173,11 @@ theorem canonicalMoebiusWeighted_Ico_eq_admissibleFaceSum
     unfold canonicalMoebiusWeight
     rw [hmu]
     push_cast
-    rfl
 
 /-- The admissible cofactor faces below `R` are exactly the full low-prime cube
 faces whose product is strictly below `R`. -/
 theorem admissiblePrimeFaces_pred_eq_lowCube_filter_product_lt
-    (R : ℕ) (hR : 1 ≤ R) :
+    (R : ℕ) (_hR : 1 ≤ R) :
     admissiblePrimeFaces (R - 1) =
       (primesUpTo R).powerset.filter fun u => primeFaceProduct u < R := by
   classical
@@ -192,7 +191,8 @@ theorem admissiblePrimeFaces_pred_eq_lowCube_filter_product_lt
       intro p hp
       have hpPred := mem_primesUpTo.mp (huAdm.1 hp)
       exact mem_primesUpTo.mpr ⟨hpPred.1, hpPred.2.trans (Nat.sub_le R 1)⟩
-    · omega
+    · have hpred : R - 1 < R := by omega
+      exact huAdm.2.trans_lt hpred
   · intro hu
     rcases Finset.mem_filter.mp hu with ⟨huPow, hprodR⟩
     have huSubR := Finset.mem_powerset.mp huPow
@@ -230,8 +230,13 @@ theorem lowWheelPhysical_imp_cofactorFace_lt_root
   have hupper :
       primeFaceProduct u * (primeFaceProduct t * k) ≤ squareRootEndpoint R := by
     simpa [Nat.mul_assoc] using hup
-  unfold squareRootEndpoint at hupper
-  have hsqpos : 1 ≤ R ^ 2 := by nlinarith
+  have hsqLt : R ^ 2 < R * (R + 1) := by
+    rw [pow_two]
+    nlinarith
+  have hbad : R ^ 2 < squareRootEndpoint R :=
+    hsqLt.trans_le (hlower.trans hupper)
+  unfold squareRootEndpoint at hbad
+  have hsqpos : 0 < R ^ 2 := by positivity
   omega
 
 /-- Symmetric physical atom on two low-prime faces and one quotient coordinate. -/
@@ -263,37 +268,23 @@ theorem lowWheelTransportPhysicalLedger_eq_admissibleDoubleFace
   unfold lowWheelTransportPhysicalLedger
   let F : ℕ → ℂ := fun c =>
     ∑ t ∈ (primesUpTo R).powerset,
-      ∑ k ∈ Finset.Icc 1 (squareRootEndpoint R),
-        if R < primeFaceProduct t * k ∧
-            (c * primeFaceProduct t) * k ≤ squareRootEndpoint R then
-          (booleanCubeSign t : ℂ)
-        else 0
+      ∑ _k ∈ lowWheelTransportPhysicalKSet R c t,
+        (booleanCubeSign t : ℂ)
   have hreindex := canonicalMoebiusWeighted_Ico_eq_admissibleFaceSum
     R (by omega) F
   calc
     (∑ c ∈ Finset.Ico 1 R,
         ∑ t ∈ (primesUpTo R).powerset,
-          ∑ k ∈ lowWheelTransportPhysicalKSet R c t,
+          ∑ _k ∈ lowWheelTransportPhysicalKSet R c t,
             canonicalMoebiusWeight c * (booleanCubeSign t : ℂ)) =
       ∑ c ∈ Finset.Ico 1 R, canonicalMoebiusWeight c * F c := by
         apply Finset.sum_congr rfl
-        intro c hc
+        intro c _hc
+        dsimp [F]
         rw [Finset.mul_sum]
         apply Finset.sum_congr rfl
-        intro t ht
+        intro t _ht
         rw [Finset.mul_sum]
-        have hc1 : 1 ≤ c := (Finset.mem_Ico.mp hc).1
-        rw [lowWheelTransportPhysicalKSet_eq_quotientInterval hc1 ht]
-        unfold F
-        rw [Finset.sum_filter]
-        -- both sides are the same constant sum on the physical `k` set
-        have hset := lowWheelTransportPhysicalKSet_eq_quotientInterval hc1 ht
-        rw [← hset]
-        unfold lowWheelTransportPhysicalKSet
-        rw [Finset.sum_filter]
-        apply Finset.sum_congr rfl
-        intro k hk
-        simp
     _ = ∑ u ∈ admissiblePrimeFaces (R - 1),
         (booleanCubeSign u : ℂ) * F (primeFaceProduct u) := hreindex
     _ = ∑ u ∈ admissiblePrimeFaces (R - 1),
@@ -302,17 +293,19 @@ theorem lowWheelTransportPhysicalLedger_eq_admissibleDoubleFace
             lowWheelDoubleCubeAtom R u t k := by
       apply Finset.sum_congr rfl
       intro u _hu
-      unfold F lowWheelDoubleCubeAtom
+      dsimp [F]
       rw [Finset.mul_sum]
       apply Finset.sum_congr rfl
       intro t _ht
       rw [Finset.mul_sum]
+      unfold lowWheelTransportPhysicalKSet
+      rw [Finset.sum_filter]
       apply Finset.sum_congr rfl
       intro k _hk
+      unfold lowWheelDoubleCubeAtom
       by_cases hphys : R < primeFaceProduct t * k ∧
           (primeFaceProduct u * primeFaceProduct t) * k ≤ squareRootEndpoint R
       · simp [hphys]
-        ring
       · simp [hphys]
 
 /-- Faces with product at least `R` have zero physical contribution, uniformly
@@ -343,15 +336,16 @@ theorem admissibleDoubleFace_eq_fullDoubleCube
   unfold lowWheelDoubleCubeTransportLedger
   rw [Finset.sum_filter]
   apply Finset.sum_congr rfl
-  intro u hu
+  intro u _hu
   by_cases hlt : primeFaceProduct u < R
   · simp [hlt]
   · have hge : R ≤ primeFaceProduct u := Nat.le_of_not_gt hlt
     simp only [hlt, if_false]
+    symm
     apply Finset.sum_eq_zero
-    intro t ht
+    intro t _ht
     apply Finset.sum_eq_zero
-    intro k hk
+    intro k _hk
     exact lowWheelDoubleCubeAtom_eq_zero_of_root_le_face (by omega) hge
 
 /-- **Full two-cube transport identity.**  The original upper-prime transport is
