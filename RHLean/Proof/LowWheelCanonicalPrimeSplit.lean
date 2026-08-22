@@ -272,8 +272,7 @@ theorem mem_lowWheelCanonicalPostRootDowncrossPart_iff
     have hdown : primeFaceProduct t *
         (k / lowWheelCanonicalCofactorQuotientPivot (1, k)) ≤ R := by
       rw [hpivot, Nat.div_self hkPrime.pos]
-      change primeFaceProduct t ≤ R
-      exact hfaceLt.le
+      simpa only [Nat.mul_one] using hfaceLt.le
     apply mem_lowWheelCanonicalPostRootDowncrossPart.mpr
     refine ⟨mem_lowWheelCanonicalDowncrossPart.mpr ⟨hxPhys, hnot, hdown⟩, ?_⟩
     rw [hpivot]
