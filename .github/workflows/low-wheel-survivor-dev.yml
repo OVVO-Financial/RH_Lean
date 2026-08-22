@@ -7,6 +7,7 @@ on:
       - 'RHLean/Proof/LowWheelHighPrimeSurvivor.lean'
       - 'RHLean/Proof/LowWheelSurvivorInclusionExclusion.lean'
       - 'RHLean/Proof/LowWheelSurvivorFloorExpansion.lean'
+      - 'RHLean/Proof/LowWheelTransportTripleCarrier.lean'
       - '.github/workflows/low-wheel-survivor-dev.yml'
   workflow_dispatch:
 
@@ -55,6 +56,5 @@ jobs:
         run: |
           lake build RHLean.Proof.LowWheelHighPrimeSurvivor
           lake build RHLean.Proof.LowWheelSurvivorInclusionExclusion
-          if [ -f RHLean/Proof/LowWheelSurvivorFloorExpansion.lean ]; then
-            lake build RHLean.Proof.LowWheelSurvivorFloorExpansion
-          fi
+          lake build RHLean.Proof.LowWheelSurvivorFloorExpansion
+          lake build RHLean.Proof.LowWheelTransportTripleCarrier
