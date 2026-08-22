@@ -47,7 +47,7 @@ def lowWheelTransportTripleLedger (R : ℕ) : ℂ :=
 and square-endpoint pair of inequalities. -/
 theorem mem_lowWheelTransport_quotientInterval_iff
     {R c k : ℕ} {t : Finset ℕ}
-    (ht : t ∈ (primesUpTo R).powerset) :
+    (hc : 0 < c) (ht : t ∈ (primesUpTo R).powerset) :
     k ∈ Finset.Ioc
         (R / primeFaceProduct t)
         (squareRootEndpoint R / (c * primeFaceProduct t)) ↔
@@ -55,11 +55,7 @@ theorem mem_lowWheelTransport_quotientInterval_iff
         (c * primeFaceProduct t) * k ≤ squareRootEndpoint R := by
   have hdpos : 0 < primeFaceProduct t :=
     primeFaceProduct_pos_of_mem_powerset ht
-  have hcdpos : 0 < c * primeFaceProduct t := by
-    by_cases hc : c = 0
-    · subst c
-      simp
-    · exact Nat.mul_pos (Nat.pos_of_ne_zero hc) hdpos
+  have hcdpos : 0 < c * primeFaceProduct t := Nat.mul_pos hc hdpos
   constructor
   · intro hk
     rcases Finset.mem_Ioc.mp hk with ⟨hlow, hupp⟩
