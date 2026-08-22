@@ -50,8 +50,9 @@ theorem freshPrime_not_dvd_pred_primeFaceProduct
   have hrData := mem_primesUpTo.mp (htSub hrt)
   have hprEq : p = r :=
     (Nat.prime_dvd_prime_iff_eq hp hrData.1).mp hpr
-  have : p ≤ p - 1 := by simpa [hprEq] using hrData.2
-  omega
+  have hle : p ≤ p - 1 := by simpa [hprEq] using hrData.2
+  have hlt : p - 1 < p := Nat.sub_lt hp.pos (by norm_num)
+  exact (Nat.not_lt_of_ge hle) hlt
 
 /-- Divisor realization of one old face inside a fresh-prime reciprocal window,
 with the new prime excluded. -/
@@ -268,7 +269,9 @@ theorem lowWheelDoubleCubePrimePrefix_step_eq_survivorWindowCards
         ((lowWheelPrimeWindowSurvivorSet
           p R (squareRootEndpoint R) (primeFaceProduct u)).card : ℂ) := by
     exact_mod_cast hcollapse
-  rw [Finset.mul_sum]
-  rw [hcollapseC]
+  rw [← hcollapseC, Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro t _ht
+  ring
 
 end RHLean.Proof
