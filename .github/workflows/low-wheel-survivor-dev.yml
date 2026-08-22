@@ -10,6 +10,7 @@ on:
       - 'RHLean/Proof/LowWheelTransportTripleCarrier.lean'
       - 'RHLean/Proof/LowWheelCofactorQuotientToggle.lean'
       - 'RHLean/Proof/LowWheelDoubleFaceFiniteDifference.lean'
+      - 'RHLean/Proof/LowWheelSequentialGeometricSavings.lean'
       - '.github/workflows/low-wheel-survivor-dev.yml'
   workflow_dispatch:
 
@@ -30,7 +31,7 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}
       - name: Set up Lean
         uses: leanprover/lean-action@v1
         with:
@@ -62,3 +63,4 @@ jobs:
           lake build RHLean.Proof.LowWheelTransportTripleCarrier
           lake build RHLean.Proof.LowWheelCofactorQuotientToggle
           lake build RHLean.Proof.LowWheelDoubleFaceFiniteDifference
+          lake build RHLean.Proof.LowWheelSequentialGeometricSavings
