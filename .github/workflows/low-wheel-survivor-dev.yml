@@ -11,6 +11,7 @@ on:
       - 'RHLean/Proof/LowWheelCofactorQuotientToggle.lean'
       - 'RHLean/Proof/LowWheelDoubleFaceFiniteDifference.lean'
       - 'RHLean/Proof/LowWheelSequentialGeometricSavings.lean'
+      - 'RHLean/Proof/LowWheelDoubleCubeTransport.lean'
       - '.github/workflows/low-wheel-survivor-dev.yml'
   workflow_dispatch:
 
@@ -64,3 +65,4 @@ jobs:
           lake build RHLean.Proof.LowWheelCofactorQuotientToggle
           lake build RHLean.Proof.LowWheelDoubleFaceFiniteDifference
           lake build RHLean.Proof.LowWheelSequentialGeometricSavings
+          lake build RHLean.Proof.LowWheelDoubleCubeTransport
