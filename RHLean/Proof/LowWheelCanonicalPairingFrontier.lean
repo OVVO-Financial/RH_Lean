@@ -16,8 +16,9 @@ On squarefree cofactor states the pairable mass cancels exactly by
 `Finset.sum_involution`.  For the physical square-root carrier, a defect cannot
 be an arbitrary missing mate: once the mate still satisfies the physical
 inequalities, squarefreeness and the ambient finite bounds are automatic.
-Therefore every genuine defect is forced onto one of the two explicit
-root-crossing surfaces from the canonical toggle theorem.
+The square-endpoint product ceiling further collapses the apparent two-boundary
+failure to a single one-sided frontier: every genuine defect is a quotient
+root-downcross after the least-prime insertion move.
 
 No absolute value, density estimate, or analytic asymptotic appears.
 -/
@@ -320,7 +321,9 @@ theorem lowWheelCanonicalToggle_mem_physical_of_carrier
   apply mem_lowWheelCanonicalPhysicalStateSet.mpr
   exact ⟨hrange.1, hrange.2, hsquareMate, hmate⟩
 
-/-- **Every genuine physical pairing defect lies on a root-crossing boundary.** -/
+/-- Every genuine physical pairing defect lies on one of the original two
+root-crossing boundaries.  Retained for compatibility with the pre-reduction
+interface. -/
 theorem lowWheelCanonicalPhysicalDefect_boundary
     {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
     (hx : x ∈ lowWheelCanonicalDefectPart
@@ -345,6 +348,33 @@ theorem lowWheelCanonicalPhysicalDefect_boundary
       (lowWheelCanonicalToggle_mem_physical_of_carrier hxF hprod hmate)
   rcases x with ⟨c, k⟩
   exact lowWheelCanonicalCofactorQuotientToggle_boundary_of_not_preserves
+    hcarrier hprod hnotCarrier
+
+/-- **Reduced physical defect support.**  Every surviving canonical defect is a
+genuine quotient root-downcross; there is no independent cofactor boundary. -/
+theorem lowWheelCanonicalPhysicalDefect_downcross
+    {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
+    (hx : x ∈ lowWheelCanonicalDefectPart
+      (lowWheelCanonicalPhysicalStateSet R t)) :
+    primeFaceProduct t *
+        (x.2 / lowWheelCanonicalCofactorQuotientPivot x) ≤ R := by
+  have hdata := Finset.mem_filter.mp hx
+  have hxF := hdata.1
+  have hnotmate := hdata.2
+  have hcarrier := (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.2.2
+  have hprod : x.1 * x.2 ≠ 1 := by
+    intro hone
+    have hfix := lowWheelCanonicalToggle_eq_self_of_product_eq_one hone
+    apply hnotmate
+    rw [hfix]
+    exact hxF
+  have hnotCarrier : ¬ LowWheelTransportPairCarrier R t
+      (lowWheelCanonicalCofactorQuotientToggle x) := by
+    intro hmate
+    exact hnotmate
+      (lowWheelCanonicalToggle_mem_physical_of_carrier hxF hprod hmate)
+  rcases x with ⟨c, k⟩
+  exact lowWheelCanonicalCofactorQuotientToggle_downcross_of_not_preserves
     hcarrier hprod hnotCarrier
 
 /-- The actual physical signed mass is exactly fixed mass plus explicit
