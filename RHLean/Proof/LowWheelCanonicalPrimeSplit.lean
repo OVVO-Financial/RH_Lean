@@ -272,6 +272,7 @@ theorem mem_lowWheelCanonicalPostRootDowncrossPart_iff
     have hdown : primeFaceProduct t *
         (k / lowWheelCanonicalCofactorQuotientPivot (1, k)) ≤ R := by
       rw [hpivot, Nat.div_self hkPrime.pos]
+      change primeFaceProduct t ≤ R
       exact hfaceLt.le
     apply mem_lowWheelCanonicalPostRootDowncrossPart.mpr
     refine ⟨mem_lowWheelCanonicalDowncrossPart.mpr ⟨hxPhys, hnot, hdown⟩, ?_⟩
@@ -285,7 +286,7 @@ theorem sum_lowWheelCanonicalPostRootDowncrossPart_eq_primeSet
     (ht : t ∈ (primesUpTo R).powerset) :
     (∑ x ∈ lowWheelCanonicalPostRootDowncrossPart R t,
         canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ)) =
-      ∑ q ∈ lowWheelCanonicalPostRootPrimeSet R t,
+      ∑ _q ∈ lowWheelCanonicalPostRootPrimeSet R t,
         (booleanCubeSign t : ℂ) := by
   classical
   symm
@@ -353,7 +354,7 @@ theorem lowWheelCanonicalPostRootDowncrossLedger_eq_mertensTransform
         ∑ x ∈ lowWheelCanonicalPostRootDowncrossPart R t,
           canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ)) =
       ∑ t ∈ (primesUpTo R).powerset,
-        ∑ q ∈ lowWheelCanonicalPostRootPrimeSet R t,
+        ∑ _q ∈ lowWheelCanonicalPostRootPrimeSet R t,
           (booleanCubeSign t : ℂ) := by
             apply Finset.sum_congr rfl
             intro t ht
