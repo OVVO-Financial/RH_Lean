@@ -15,6 +15,7 @@ on:
       - 'RHLean/Proof/LowWheelSequentialWindowTelescope.lean'
       - 'RHLean/Proof/LowWheelDoubleCubeTransport.lean'
       - 'RHLean/Proof/LowWheelDoubleCubeSequentialFold.lean'
+      - 'RHLean/Proof/LowWheelDoubleCubeWindowFold.lean'
       - 'RHLean/Proof/LowWheelAncestryCrossLedgerBridge.lean'
       - '.github/workflows/low-wheel-survivor-dev.yml'
   workflow_dispatch:
@@ -73,4 +74,5 @@ jobs:
           lake build RHLean.Proof.LowWheelSequentialWindowTelescope
           lake build RHLean.Proof.LowWheelDoubleCubeTransport
           lake build RHLean.Proof.LowWheelDoubleCubeSequentialFold
+          lake build RHLean.Proof.LowWheelDoubleCubeWindowFold
           lake build RHLean.Proof.LowWheelAncestryCrossLedgerBridge
