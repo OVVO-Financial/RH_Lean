@@ -68,13 +68,33 @@ private theorem sum_double_powerset_insert
             f u (insert p t) + f (insert p u) (insert p t)) := by
   classical
   rw [Finset.sum_powerset_insert hp]
+  rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
-  intro u hu
+  intro u _hu
   rw [Finset.sum_powerset_insert hp, Finset.sum_powerset_insert hp]
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
-  intro t ht
+  intro t _ht
   ac_rfl
+
+/-- One physical two-cube atom is its Boolean sign times the corresponding
+root/endpoint indicator.  Naming this identity keeps the four-corner proof in
+signed algebra rather than repeatedly reopening the cutoff conjunction. -/
+private theorem lowWheelDoubleCubeAtom_eq_sign_mul_transportIndicator
+    (R k : ℕ) (u t : Finset ℕ) :
+    lowWheelDoubleCubeAtom R u t k =
+      (booleanCubeSign u : ℂ) * (booleanCubeSign t : ℂ) *
+        ((lowWheelTransportIndicator R (squareRootEndpoint R)
+          (primeFaceProduct t * k)
+          ((primeFaceProduct u * primeFaceProduct t) * k) : ℤ) : ℂ) := by
+  unfold lowWheelDoubleCubeAtom lowWheelTransportIndicator
+    lowWheelRootHighIndicator lowWheelEndpointIndicator
+  by_cases hq : R < primeFaceProduct t * k
+  · by_cases hn :
+        (primeFaceProduct u * primeFaceProduct t) * k ≤ squareRootEndpoint R
+    · simp [hq, hn]
+    · simp [hq, hn]
+  · simp [hq]
 
 /-- Four signed children of one old face pair are exactly the mixed physical
 prime cell, with the old Boolean sign factored out. -/
@@ -109,9 +129,10 @@ theorem lowWheelDoubleCube_fourCorners_eq_mixedPrimeCell
     rw [Finset.card_insert_of_notMem hpt, pow_succ]
     push_cast
     ring
-  unfold lowWheelDoubleCubeAtom lowWheelMixedPrimeCell
-    lowWheelTransportIndicator lowWheelRootHighIndicator
-    lowWheelEndpointIndicator
+  rw [lowWheelDoubleCubeAtom_eq_sign_mul_transportIndicator,
+    lowWheelDoubleCubeAtom_eq_sign_mul_transportIndicator,
+    lowWheelDoubleCubeAtom_eq_sign_mul_transportIndicator,
+    lowWheelDoubleCubeAtom_eq_sign_mul_transportIndicator]
   rw [hprodU, hprodT, hsignU, hsignT]
   have hqT :
       (p * primeFaceProduct t) * k = p * (primeFaceProduct t * k) := by ring
@@ -125,6 +146,7 @@ theorem lowWheelDoubleCube_fourCorners_eq_mixedPrimeCell
       ((p * primeFaceProduct u) * (p * primeFaceProduct t)) * k =
         p * p * ((primeFaceProduct u * primeFaceProduct t) * k) := by ring
   rw [hqT, hnU, hnT, hnUT]
+  unfold lowWheelMixedPrimeCell
   push_cast
   ring
 
@@ -173,7 +195,7 @@ theorem lowWheelDoubleCubeSetTransportLedger_insert
             (primeFaceProduct t * k)
             ((primeFaceProduct u * primeFaceProduct t) * k) : ℤ) : ℂ) := by
       apply Finset.sum_congr rfl
-      intro k hk
+      intro k _hk
       exact lowWheelDoubleCube_fourCorners_eq_mixedPrimeCell
         R p k hpu hpt
 
@@ -183,6 +205,7 @@ theorem freshPrime_not_mem_primesUpTo_pred
     p ∉ primesUpTo (p - 1) := by
   intro hmem
   have hpLe := (mem_primesUpTo.mp hmem).2
+  have hp2 : 2 ≤ p := hp.two_le
   omega
 
 /-- **Literal increasing-prime recurrence.**  At a prime coordinate `p`, the
@@ -224,11 +247,11 @@ theorem lowWheelDoubleCubePrimePrefix_step_eq_shells
                 ((primeFaceProduct u * primeFaceProduct t) * k) := by
   rw [lowWheelDoubleCubePrimePrefix_step R p hp]
   apply Finset.sum_congr rfl
-  intro u hu
+  intro u _hu
   apply Finset.sum_congr rfl
-  intro t ht
+  intro t _ht
   apply Finset.sum_congr rfl
-  intro k hk
+  intro k _hk
   rw [lowWheelMixedPrimeCell_eq_sequentialShellDifference hp.one_le]
   unfold lowWheelSequentialShellDifferenceC
   push_cast
