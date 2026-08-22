@@ -75,8 +75,6 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_renewalFarSurvivorCenter
           (RHLean.Analysis.mertensSummatory (primorialBlockUpper k) -
             RHLean.Analysis.mertensSummatory (primorialBlockLower k)) := by
   classical
-  -- Step 1: the telescope collapses the renewal realization to the
-  -- far-prime reciprocal Mertens transform.
   have htel : survivorFarUpperRenewalTelescope n =
       ∑ q ∈ Finset.Icc (n + 9) (RHLean.Analysis.squarePrefixEndpoint n),
         if q.Prime then
@@ -131,13 +129,9 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_renewalFarSurvivorCenter
             else 0 := by
           refine Finset.sum_congr rfl fun q hq => ?_
           simp [hq]
-  -- Step 2: global far-upper rigidity identifies the far survivor with the
-  -- negated telescope.
   have hsurv : survivorSixteenFarUpperPrimeMass n =
       -survivorFarUpperRenewalTelescope n := by
     rw [survivorSixteenFarUpperPrimeMass_eq_neg_mertensTransform n hn, htel]
-  -- Step 3: the matched square-prefix decomposition with the far survivor in
-  -- renewal coordinates.
   have hprefix : RHLean.Analysis.mertensSummatory
       (RHLean.Analysis.squarePrefixEndpoint n) =
       squareRootPositiveSmoothMass (n + 1) +
@@ -156,7 +150,6 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_renewalFarSurvivorCenter
           squareRootMatchedBornSmoothTransport (n + 1) := h1
     rw [h1', h2, hsurv]
     ring
-  -- Step 4: substitute into the primorial-wheel zero-mode center.
   rw [RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_mertensCenter
     k n hlower hupper]
   simp only [RHLean.Analysis.primorialSquareZeroModeCenter]
@@ -188,9 +181,6 @@ theorem frontier_bootstrap_self_consistency
   classical
   let H := R / 2
   have hR1 : 1 ≤ R := by omega
-  have hHR : H ≤ R := by
-    dsimp [H]
-    exact Nat.div_le_self R 2
   have hsplit :
       Finset.Icc 1 R = Finset.Icc 1 H ∪ Finset.Ioc H R := by
     ext n
@@ -258,6 +248,213 @@ theorem canonicalFrontierTopEnergy_eq_localMertensEnergy (R : ℕ) :
   intro n hn
   have hnIoc := Finset.mem_Ioc.mp hn
   rw [canonicalIncidence_eq_one_sub_mertens_of_half_lt hnIoc.2 hnIoc.1]
+
+/-- The completed pointwise frontier incidence before the cofactor cardinality
+is collapsed. It is the signed mass of pairs `1 <= c < R` and
+`floor(R/n) < q <= floor((R^2-1)/(n*c))`. -/
+def canonicalFrontierIncidence (R n : ℕ) : ℂ :=
+  ∑ c ∈ Finset.Ico 1 R,
+    ∑ _q ∈ Finset.Ioc (R / n) (squareRootEndpoint R / (n * c)),
+      (((μ c : ℤ) : ℂ))
+
+/-- **Centered cofactor-hyperbola form.** Summing the interval cardinality in
+the second coordinate gives exactly the discovered pointwise kernel. -/
+theorem canonicalIncidence_eq_centeredCofactorHyperbola
+    {R n : ℕ} (hR : 2 ≤ R) (hn : 1 ≤ n) (hnR : n ≤ R) :
+    canonicalFrontierIncidence R n =
+      ∑ c ∈ Finset.Ico 1 R,
+        (((μ c : ℤ) : ℂ)) *
+          (((squareRootEndpoint R / (n * c) : ℕ) : ℂ) -
+            ((R / n : ℕ) : ℂ)) := by
+  classical
+  have hnpos : 0 < n := by omega
+  have hcut : ∀ c ∈ Finset.Ico 1 R,
+      R / n ≤ squareRootEndpoint R / (n * c) := by
+    intro c hc
+    rcases Finset.mem_Ico.mp hc with ⟨hc1, hcR⟩
+    have hcLe : c ≤ R - 1 := by omega
+    have hdiv : (R / n) * n ≤ R := Nat.div_mul_le_self R n
+    have hmul : ((R / n) * n) * c ≤ R * (R - 1) :=
+      Nat.mul_le_mul hdiv hcLe
+    have hRX : R * (R - 1) ≤ squareRootEndpoint R := by
+      unfold squareRootEndpoint
+      rw [Nat.mul_sub_left_distrib]
+      simp only [mul_one]
+      rw [show R * R = R ^ 2 by ring]
+      exact Nat.sub_le_sub_left (by omega : 1 ≤ R) (R ^ 2)
+    have hfit : (R / n) * (n * c) ≤ squareRootEndpoint R := by
+      calc
+        (R / n) * (n * c) = ((R / n) * n) * c := by ring
+        _ ≤ R * (R - 1) := hmul
+        _ ≤ squareRootEndpoint R := hRX
+    exact (Nat.le_div_iff_mul_le (by positivity : 0 < n * c)).2 hfit
+  unfold canonicalFrontierIncidence
+  apply Finset.sum_congr rfl
+  intro c hc
+  have hTc := hcut c hc
+  calc
+    (∑ _q ∈ Finset.Ioc (R / n) (squareRootEndpoint R / (n * c)),
+        (((μ c : ℤ) : ℂ))) =
+      (((Finset.Ioc (R / n) (squareRootEndpoint R / (n * c))).card : ℕ) : ℂ) *
+        (((μ c : ℤ) : ℂ)) := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+    _ = (((squareRootEndpoint R / (n * c) - R / n : ℕ) : ℂ)) *
+        (((μ c : ℤ) : ℂ)) := by rw [Nat.card_Ioc]
+    _ = (((μ c : ℤ) : ℂ)) *
+        (((squareRootEndpoint R / (n * c) : ℕ) : ℂ) -
+          ((R / n : ℕ) : ℂ)) := by
+            rw [Nat.cast_sub hTc]
+            ring
+
+/-- **Exact pointwise low/post closure.** The centered cofactor-hyperbola
+incidence is exactly the finite Mertens bundle. The proof is a finite swap of
+the pair region; the square endpoint forces every cofactor in the upper
+`q`-strip to satisfy `c < R`. -/
+theorem canonicalFrontierIncidence_eq_mertensBundle
+    {R n : ℕ} (hR : 2 ≤ R) (hn : 1 ≤ n) (hnR : n ≤ R) :
+    canonicalFrontierIncidence R n = canonicalFrontierMertensBundle R n := by
+  classical
+  let X := squareRootEndpoint R
+  let N := X / n
+  let T := R / n
+  have hnpos : 0 < n := by omega
+  have hR1 : 1 ≤ R := by omega
+  have hRX : R ≤ X := by
+    dsimp [X]
+    unfold squareRootEndpoint
+    have hsq : R + 1 ≤ R ^ 2 := by nlinarith
+    omega
+  have hTN : T ≤ N := by
+    dsimp [T, N, X]
+    exact Nat.div_le_div_right hRX
+  have hN1 : 1 ≤ N := by
+    exact (Nat.one_le_div_iff hnpos).2 (hnR.trans hRX)
+  have hset :
+      Finset.Icc 1 N = Finset.Icc 1 T ∪ Finset.Ioc T N := by
+    ext q
+    simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_Ioc]
+    omega
+  have hdisj : Disjoint (Finset.Icc 1 T) (Finset.Ioc T N) := by
+    rw [Finset.disjoint_left]
+    intro q hq1 hq2
+    simp only [Finset.mem_Icc] at hq1
+    simp only [Finset.mem_Ioc] at hq2
+    omega
+  have hunit := sum_mertensSummatory_div_eq_one hN1
+  rw [hset, Finset.sum_union hdisj] at hunit
+  have hbundleUpper : canonicalFrontierMertensBundle R n =
+      ∑ q ∈ Finset.Ioc T N, mertensSummatory (N / q) := by
+    unfold canonicalFrontierMertensBundle
+    have hlow :
+        (∑ q ∈ Finset.Icc 1 (R / n),
+            mertensSummatory (squareRootEndpoint R / (n * q))) =
+          ∑ q ∈ Finset.Icc 1 T, mertensSummatory (N / q) := by
+      apply Finset.sum_congr
+      · rfl
+      · intro q hq
+        simp [T, N, X, Nat.div_div_eq_div_mul]
+    rw [hlow, ← hunit]
+    ring
+  have hswap :
+      (∑ q ∈ Finset.Ioc T N,
+          ∑ c ∈ Finset.Icc 1 (N / q), (((μ c : ℤ) : ℂ))) =
+        ∑ c ∈ Finset.Ico 1 R,
+          ∑ q ∈ Finset.Ioc T (N / c), (((μ c : ℤ) : ℂ)) := by
+    calc
+      (∑ q ∈ Finset.Ioc T N,
+          ∑ c ∈ Finset.Icc 1 (N / q), (((μ c : ℤ) : ℂ))) =
+        ∑ z ∈ (Finset.Ioc T N).sigma (fun q => Finset.Icc 1 (N / q)),
+          (((μ z.2 : ℤ) : ℂ)) :=
+            Finset.sum_sigma' (Finset.Ioc T N)
+              (fun q => Finset.Icc 1 (N / q)) (fun _ c => (((μ c : ℤ) : ℂ)))
+      _ = ∑ w ∈ (Finset.Ico 1 R).sigma (fun c => Finset.Ioc T (N / c)),
+          (((μ w.1 : ℤ) : ℂ)) := by
+            refine Finset.sum_nbij' (i := fun z => ⟨z.2, z.1⟩)
+              (j := fun w => ⟨w.2, w.1⟩) ?_ ?_ ?_ ?_ ?_
+            · rintro ⟨q, c⟩ hz
+              rw [Finset.mem_sigma] at hz ⊢
+              obtain ⟨hq, hc⟩ := hz
+              rcases Finset.mem_Ioc.mp hq with ⟨hTq, hqN⟩
+              rcases Finset.mem_Icc.mp hc with ⟨hc1, hcDiv⟩
+              have hqpos : 0 < q := by omega
+              have hcpos : 0 < c := by omega
+              have hcq : c * q ≤ N :=
+                (Nat.le_div_iff_mul_le hqpos).1 hcDiv
+              have hcR : c < R := by
+                by_contra hnot
+                have hcge : R ≤ c := Nat.le_of_not_gt hnot
+                have hnq : R < n * q := by
+                  have h := (Nat.div_lt_iff_lt_mul hnpos).1 hTq
+                  simpa [T, Nat.mul_comm] using h
+                have hlower : R * (R + 1) ≤ c * (n * q) :=
+                  Nat.mul_le_mul hcge (by omega)
+                have hupper : c * (n * q) ≤ X := by
+                  have hx : n * (c * q) ≤ X :=
+                    (Nat.le_div_iff_mul_le hnpos).1 hcq
+                  simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hx
+                have hXRR : X < R * (R + 1) := by
+                  have hsqpos : 0 < R ^ 2 := by positivity
+                  have hXsq : X < R ^ 2 := by
+                    dsimp [X]
+                    unfold squareRootEndpoint
+                    exact Nat.sub_lt hsqpos (by norm_num)
+                  have hsqRR : R ^ 2 = R * R := by ring
+                  rw [hsqRR] at hXsq
+                  have hRR : R * R < R * (R + 1) :=
+                    Nat.mul_lt_mul_of_pos_left (by omega) (by omega)
+                  exact hXsq.trans hRR
+                exact (not_le_of_gt hXRR) (hlower.trans hupper)
+              have hqDiv : q ≤ N / c := by
+                apply (Nat.le_div_iff_mul_le hcpos).2
+                simpa [Nat.mul_comm] using hcq
+              exact ⟨Finset.mem_Ico.mpr ⟨hc1, hcR⟩,
+                Finset.mem_Ioc.mpr ⟨hTq, hqDiv⟩⟩
+            · rintro ⟨c, q⟩ hw
+              rw [Finset.mem_sigma] at hw ⊢
+              obtain ⟨hc, hq⟩ := hw
+              rcases Finset.mem_Ico.mp hc with ⟨hc1, hcR⟩
+              rcases Finset.mem_Ioc.mp hq with ⟨hTq, hqDiv⟩
+              have hcpos : 0 < c := by omega
+              have hqpos : 0 < q := by omega
+              have hqc : q * c ≤ N :=
+                (Nat.le_div_iff_mul_le hcpos).1 hqDiv
+              have hqN : q ≤ N :=
+                hqDiv.trans (Nat.div_le_self N c)
+              have hcDiv : c ≤ N / q := by
+                apply (Nat.le_div_iff_mul_le hqpos).2
+                simpa [Nat.mul_comm] using hqc
+              exact ⟨Finset.mem_Ioc.mpr ⟨hTq, hqN⟩,
+                Finset.mem_Icc.mpr ⟨hc1, hcDiv⟩⟩
+            · rintro ⟨q, c⟩ hz
+              rfl
+            · rintro ⟨c, q⟩ hw
+              rfl
+            · rintro ⟨q, c⟩ hz
+              rfl
+      _ = ∑ c ∈ Finset.Ico 1 R,
+          ∑ q ∈ Finset.Ioc T (N / c), (((μ c : ℤ) : ℂ)) :=
+            (Finset.sum_sigma' (Finset.Ico 1 R)
+              (fun c => Finset.Ioc T (N / c))
+              (fun c _ => (((μ c : ℤ) : ℂ)))).symm
+  have hupperIncidence :
+      (∑ q ∈ Finset.Ioc T N, mertensSummatory (N / q)) =
+        canonicalFrontierIncidence R n := by
+    calc
+      (∑ q ∈ Finset.Ioc T N, mertensSummatory (N / q)) =
+        ∑ q ∈ Finset.Ioc T N,
+          ∑ c ∈ Finset.Icc 1 (N / q), (((μ c : ℤ) : ℂ)) := by
+            apply Finset.sum_congr rfl
+            intro q hq
+            exact mertensSummatory_eq_sum_Icc (N / q)
+      _ = ∑ c ∈ Finset.Ico 1 R,
+          ∑ q ∈ Finset.Ioc T (N / c), (((μ c : ℤ) : ℂ)) := hswap
+      _ = canonicalFrontierIncidence R n := by
+        unfold canonicalFrontierIncidence
+        apply Finset.sum_congr rfl
+        intro c hc
+        simp [T, N, X, Nat.div_div_eq_div_mul]
+  rw [hupperIncidence] at hbundleUpper
+  exact hbundleUpper.symm
 
 end RHLean.Analysis
 
