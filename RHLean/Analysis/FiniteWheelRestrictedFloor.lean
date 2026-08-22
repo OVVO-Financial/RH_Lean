@@ -143,8 +143,7 @@ theorem roughGE_convolution_roughGT_moebius_eq_primePowers
         constructor
         · intro hgt
           exact RoughAbove.not_dvd hp (by omega) hgt
-        · intro hnd
-          intro q hq
+        · intro hnd q hq
           have hge := hcGE q hq
           have hqdvd : q ∣ c := Nat.dvd_of_mem_primeFactors hq
           have hne : q ≠ p := by
