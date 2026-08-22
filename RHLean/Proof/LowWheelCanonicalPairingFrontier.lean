@@ -255,10 +255,12 @@ theorem lowWheelCanonicalToggle_squarefree
   have hactive : p ∣ c ∨ p ∣ k := by
     simpa [p] using lowWheelCanonicalCofactorQuotientPivot_active hne
   by_cases hpc : p ∣ c
-  · have hd : c / p ∣ c := ⟨p, Nat.div_mul_cancel hpc⟩
-    have hsqd : Squarefree (c / p) := hd.squarefree_of_dvd hsq
-    unfold lowWheelCanonicalCofactorQuotientToggle
-    simp [p, hpc, hsqd]
+  · have hd : c / p ∣ c := ⟨p, (Nat.div_mul_cancel hpc).symm⟩
+    have hsqd : Squarefree (c / p) := hsq.squarefree_of_dvd hd
+    change Squarefree (lowWheelCofactorQuotientToggleAt p (c, k)).1
+    unfold lowWheelCofactorQuotientToggleAt
+    rw [if_pos hpc]
+    exact hsqd
   · have hpk : p ∣ k := hactive.resolve_left hpc
     have hmuC : μ c ≠ 0 :=
       ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsq
@@ -268,8 +270,9 @@ theorem lowWheelCanonicalToggle_squarefree
       exact neg_ne_zero.mpr hmuC
     have hsqp : Squarefree (p * c) :=
       ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuNe
-    unfold lowWheelCanonicalCofactorQuotientToggle
-    simp only [p, hpc, if_false, hpk, if_true]
+    change Squarefree (lowWheelCofactorQuotientToggleAt p (c, k)).1
+    unfold lowWheelCofactorQuotientToggleAt
+    rw [if_neg hpc, if_pos hpk]
     simpa [Nat.mul_comm] using hsqp
 
 /-- The physical carrier inequalities themselves force the ambient finite range
