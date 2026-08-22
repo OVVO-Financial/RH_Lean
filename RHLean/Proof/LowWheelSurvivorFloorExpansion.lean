@@ -237,9 +237,10 @@ theorem sum_mertensSummatory_Ioc_eq_moebius_floorDiff
                 simpa [Nat.mul_comm] using this
               have hqN : q ≤ N := hqdiv.trans (Nat.div_le_self N c)
               exact ⟨⟨hTq, hqN⟩, hmul⟩
-          have hcard : (Finset.Ioc T (N / c)).card = N / c - T := by
-            simpa using card_Ioc_filter_dvd_eq_div_sub_div
-              T (N / c) 1 (by norm_num)
+          have hcard' := card_Ioc_filter_dvd_eq_div_sub_div
+            T (N / c) 1 Nat.zero_lt_one
+          simp at hcard'
+          have hcard : (Finset.Ioc T (N / c)).card = N / c - T := hcard'
           rw [← Finset.sum_filter, hfilter, Finset.sum_const, nsmul_eq_mul,
             hcard]
           ring
