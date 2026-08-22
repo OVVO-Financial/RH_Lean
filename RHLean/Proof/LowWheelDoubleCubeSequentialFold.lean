@@ -73,7 +73,12 @@ private theorem sum_double_powerset_insert
   intro u _hu
   rw [Finset.sum_powerset_insert hp, Finset.sum_powerset_insert hp]
   simp only [Finset.sum_add_distrib]
-  ac_rfl
+  exact congrArg
+    (fun z => (∑ t ∈ S.powerset, f u t) + z)
+    (add_left_comm
+      (∑ t ∈ S.powerset, f u (insert p t))
+      (∑ t ∈ S.powerset, f (insert p u) t)
+      (∑ t ∈ S.powerset, f (insert p u) (insert p t)))
 
 /-- One physical two-cube atom is its Boolean sign times the corresponding
 root/endpoint indicator.  Naming this identity keeps the four-corner proof in
