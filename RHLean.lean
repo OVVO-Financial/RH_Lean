@@ -483,6 +483,7 @@ import RHLean.Proof.SquareRootAncestrySuccessor
 import RHLean.Proof.SquareRootCrossRegionAmplification
 import RHLean.Proof.SquareRootLegalAncestryGramReduction
 import RHLean.Proof.SquareRootMertensEndpointAmplification
+import RHLean.Proof.SquareRootPredecessorPrimeCells
 import RHLean.Proof.SurvivorDyadicActivityMismatch
 import RHLean.Proof.SurvivorDyadicStaticCancellation
 import RHLean.Proof.SurvivorFarUpperRigidity
