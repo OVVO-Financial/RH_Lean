@@ -16,13 +16,16 @@ involution.
 The geometry is equally rigid.  If the least prime divides the cofactor, moving
 it from `c` into `k` always stays inside the physical transport carrier.  If it
 does not divide the cofactor, it must divide `k`; moving it into `c` either stays
-inside or crosses one of exactly two physical boundaries:
+inside or crosses the high quotient back through the root cutoff
 
-* `R <= c*p`, the cofactor crosses the root cutoff;
-* `P(t)*(k/p) <= R`, the high quotient crosses back through the root cutoff.
+`P(t)*(k/p) <= R`.
 
-Thus any failure of the canonical pairing is already localized to explicit
-square-root geometry.  No norm, estimate, or asymptotic input appears.
+The formerly separate cofactor condition `R <= c*p` is automatically absorbed
+by this same quotient downcross at the square endpoint: if both post-toggle
+coordinates remained at least root-sized, their invariant product would be at
+least `R^2`, beyond the physical ceiling `R^2-1`.
+
+No norm, estimate, or asymptotic input appears.
 -/
 
 noncomputable section
@@ -119,9 +122,8 @@ theorem lowWheelCanonicalCofactorQuotientToggle_involutive
     (lowWheelCanonicalCofactorQuotientPivot_prime hne) hsq
     (lowWheelCanonicalCofactorQuotientPivot_active hne)
 
-/-- **Canonical pairing or explicit boundary.**  Every nontrivial physical state
-has a canonical mate.  The mate remains physical unless the insertion direction
-crosses one of the two root boundaries. -/
+/-- Canonical pairing with the original two-boundary formulation retained for
+compatibility. -/
 theorem lowWheelCanonicalCofactorQuotientToggle_preserves_or_boundary
     {R c k : ℕ} {t : Finset ℕ}
     (hcarrier : LowWheelTransportPairCarrier R t (c, k))
@@ -148,8 +150,35 @@ theorem lowWheelCanonicalCofactorQuotientToggle_preserves_or_boundary
       lowWheelCofactorQuotientToggleAt_preserves_or_boundary_of_dvd_quotient
         hp hcarrier hpc hpk
 
-/-- If the canonical mate is not physical, one of the two explicit geometric
-boundary inequalities must hold. -/
+/-- **Canonical one-sided root frontier.**  The least-prime mate either remains
+physical or its post-removal quotient crosses down through the root. -/
+theorem lowWheelCanonicalCofactorQuotientToggle_preserves_or_downcross
+    {R c k : ℕ} {t : Finset ℕ}
+    (hcarrier : LowWheelTransportPairCarrier R t (c, k))
+    (hne : c * k ≠ 1) :
+    LowWheelTransportPairCarrier R t
+        (lowWheelCanonicalCofactorQuotientToggle (c, k)) ∨
+      primeFaceProduct t *
+          (k / lowWheelCanonicalCofactorQuotientPivot (c, k)) ≤ R := by
+  let p := lowWheelCanonicalCofactorQuotientPivot (c, k)
+  have hp : p.Prime := by
+    simpa [p] using lowWheelCanonicalCofactorQuotientPivot_prime hne
+  have hactive : p ∣ c ∨ p ∣ k := by
+    simpa [p] using lowWheelCanonicalCofactorQuotientPivot_active hne
+  by_cases hpc : p ∣ c
+  · left
+    unfold lowWheelCanonicalCofactorQuotientToggle
+    simpa [p] using
+      lowWheelCofactorQuotientToggleAt_preserves_of_dvd_cofactor
+        hp hcarrier hpc
+  · have hpk : p ∣ k := hactive.resolve_left hpc
+    unfold lowWheelCanonicalCofactorQuotientToggle
+    simpa [p] using
+      lowWheelCofactorQuotientToggleAt_preserves_or_downcross_of_dvd_quotient
+        hp hcarrier hpc hpk
+
+/-- If the canonical mate is not physical, one of the two original geometric
+boundary inequalities holds.  Kept as a compatibility theorem. -/
 theorem lowWheelCanonicalCofactorQuotientToggle_boundary_of_not_preserves
     {R c k : ℕ} {t : Finset ℕ}
     (hcarrier : LowWheelTransportPairCarrier R t (c, k))
@@ -163,5 +192,20 @@ theorem lowWheelCanonicalCofactorQuotientToggle_boundary_of_not_preserves
       hcarrier hne with hmate | hboundary
   · exact (hnot hmate).elim
   · exact hboundary
+
+/-- **Exact one-sided failure statement.**  A nonphysical canonical mate is
+necessarily a quotient root-downcross. -/
+theorem lowWheelCanonicalCofactorQuotientToggle_downcross_of_not_preserves
+    {R c k : ℕ} {t : Finset ℕ}
+    (hcarrier : LowWheelTransportPairCarrier R t (c, k))
+    (hne : c * k ≠ 1)
+    (hnot : ¬ LowWheelTransportPairCarrier R t
+      (lowWheelCanonicalCofactorQuotientToggle (c, k))) :
+    primeFaceProduct t *
+        (k / lowWheelCanonicalCofactorQuotientPivot (c, k)) ≤ R := by
+  rcases lowWheelCanonicalCofactorQuotientToggle_preserves_or_downcross
+      hcarrier hne with hmate | hdown
+  · exact (hnot hmate).elim
+  · exact hdown
 
 end RHLean.Proof

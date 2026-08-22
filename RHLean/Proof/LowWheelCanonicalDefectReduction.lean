@@ -20,10 +20,19 @@ leaves the endpoint identity
 
 `M(R^2-1) = M(R) - canonicalDefect`.
 
-Every term of `canonicalDefect` is already known to lie on one of the two
-explicit root-crossing surfaces of the canonical toggle.  Thus the remaining
-fixed-amplification problem is a signed estimate on a genuine geometric defect
-ledger, not on the full transport.
+Every term of `canonicalDefect` lies on the single quotient root-downcross
+frontier of the canonical least-prime toggle.  The apparent cofactor boundary
+is absorbed by the square-endpoint product ceiling.  In fact the abstract
+missing-mate predicate can be removed completely: the defect is exactly the
+physical insertion state whose least-prime pivot is absent from the cofactor
+and whose pivot-removal quotient has crossed down through the root.  Hence the
+survivor is an adjacent multiplicative shell state
+
+`P(t)*(k/p) <= R < P(t)*p*(k/p)`.
+
+Thus the remaining fixed-amplification problem is a signed estimate on one
+genuine first-failure frontier ledger, not on the full transport or a union of
+unrelated boundaries.
 
 No norm, PNT estimate, asymptotic, or RH input is used.
 -/
@@ -350,7 +359,7 @@ theorem squarePrefixMertens_sub_one_eq_lower_sub_canonicalDefect
   ring
 
 /-- Every state contributing to the remaining global defect lies on one of the
-two root-crossing surfaces. -/
+original two root-crossing surfaces.  Retained for compatibility. -/
 theorem lowWheelCanonicalDefectLedger_state_boundary
     {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
     (hx : x ∈ lowWheelCanonicalDefectPart
@@ -359,5 +368,170 @@ theorem lowWheelCanonicalDefectLedger_state_boundary
       primeFaceProduct t *
           (x.2 / lowWheelCanonicalCofactorQuotientPivot x) ≤ R :=
   lowWheelCanonicalPhysicalDefect_boundary hx
+
+/-- **Surviving defect reduced to one frontier.**  Every state in the endpoint
+defect ledger is a canonical quotient root-downcross. -/
+theorem lowWheelCanonicalDefectLedger_state_downcross
+    {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
+    (hx : x ∈ lowWheelCanonicalDefectPart
+      (lowWheelCanonicalPhysicalStateSet R t)) :
+    primeFaceProduct t *
+        (x.2 / lowWheelCanonicalCofactorQuotientPivot x) ≤ R :=
+  lowWheelCanonicalPhysicalDefect_downcross hx
+
+/-! ## Remove the abstract missing-mate predicate -/
+
+/-- Explicit one-sided carrier for the surviving defect.  A state is retained
+exactly when it is physical, the canonical pivot is not already in the cofactor
+(removal states always pair), and removing that pivot from the quotient crosses
+back through the root. -/
+def lowWheelCanonicalDowncrossPart
+    (R : ℕ) (t : Finset ℕ) : Finset LowWheelCofactorQuotientState :=
+  (lowWheelCanonicalPhysicalStateSet R t).filter fun x =>
+    ¬ lowWheelCanonicalCofactorQuotientPivot x ∣ x.1 ∧
+      primeFaceProduct t *
+          (x.2 / lowWheelCanonicalCofactorQuotientPivot x) ≤ R
+
+@[simp] theorem mem_lowWheelCanonicalDowncrossPart
+    {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState} :
+    x ∈ lowWheelCanonicalDowncrossPart R t ↔
+      x ∈ lowWheelCanonicalPhysicalStateSet R t ∧
+      ¬ lowWheelCanonicalCofactorQuotientPivot x ∣ x.1 ∧
+      primeFaceProduct t *
+          (x.2 / lowWheelCanonicalCofactorQuotientPivot x) ≤ R := by
+  simp [lowWheelCanonicalDowncrossPart]
+
+/-- A genuine defect can never point in the removal direction: if its canonical
+pivot divided the cofactor, the existing removal theorem would put the mate
+back in the physical carrier. -/
+theorem lowWheelCanonicalPhysicalDefect_pivot_not_dvd_cofactor
+    {R c k : ℕ} {t : Finset ℕ}
+    (hx : (c, k) ∈ lowWheelCanonicalDefectPart
+      (lowWheelCanonicalPhysicalStateSet R t)) :
+    ¬ lowWheelCanonicalCofactorQuotientPivot (c, k) ∣ c := by
+  have hdata := Finset.mem_filter.mp hx
+  have hxF := hdata.1
+  have hnotmate := hdata.2
+  have hcarrier := (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.2.2
+  have hprod : c * k ≠ 1 := by
+    intro hone
+    have hfix := lowWheelCanonicalToggle_eq_self_of_product_eq_one hone
+    apply hnotmate
+    rw [hfix]
+    exact hxF
+  intro hpc
+  have hp := lowWheelCanonicalCofactorQuotientPivot_prime hprod
+  have hmateCarrier : LowWheelTransportPairCarrier R t
+      (lowWheelCanonicalCofactorQuotientToggle (c, k)) := by
+    unfold lowWheelCanonicalCofactorQuotientToggle
+    exact lowWheelCofactorQuotientToggleAt_preserves_of_dvd_cofactor
+      hp hcarrier hpc
+  exact hnotmate
+    (lowWheelCanonicalToggle_mem_physical_of_carrier hxF hprod hmateCarrier)
+
+/-- **Exact defect identification.**  The abstract missing-mate defect is exactly
+the explicit one-sided downcross carrier. -/
+theorem lowWheelCanonicalDefectPart_eq_downcrossPart
+    (R : ℕ) (t : Finset ℕ) :
+    lowWheelCanonicalDefectPart (lowWheelCanonicalPhysicalStateSet R t) =
+      lowWheelCanonicalDowncrossPart R t := by
+  classical
+  ext x
+  rcases x with ⟨c, k⟩
+  constructor
+  · intro hx
+    apply mem_lowWheelCanonicalDowncrossPart.mpr
+    exact ⟨(Finset.mem_filter.mp hx).1,
+      lowWheelCanonicalPhysicalDefect_pivot_not_dvd_cofactor hx,
+      lowWheelCanonicalPhysicalDefect_downcross hx⟩
+  · intro hx
+    rcases mem_lowWheelCanonicalDowncrossPart.mp hx with
+      ⟨hxF, hpc, hdown⟩
+    apply Finset.mem_filter.mpr
+    refine ⟨hxF, ?_⟩
+    intro hmate
+    have hprod : c * k ≠ 1 := by
+      intro hone
+      apply hpc
+      unfold lowWheelCanonicalCofactorQuotientPivot
+      rw [hone]
+      simp
+    have hactive := lowWheelCanonicalCofactorQuotientPivot_active hprod
+    have hpk := hactive.resolve_left hpc
+    have hmateCarrier :=
+      (mem_lowWheelCanonicalPhysicalStateSet.mp hmate).2.2.2
+    change LowWheelTransportPairCarrier R t
+      (lowWheelCofactorQuotientToggleAt
+        (lowWheelCanonicalCofactorQuotientPivot (c, k)) (c, k)) at hmateCarrier
+    unfold lowWheelCofactorQuotientToggleAt at hmateCarrier
+    simp only [hpc, if_false, hpk, if_true] at hmateCarrier
+    exact (Nat.not_lt_of_ge hdown) hmateCarrier.2.2.1
+
+/-- Every explicit downcross state is literally an adjacent multiplicative
+least-prime shell.  The source lies above the root, while removing its canonical
+pivot drops the quotient side to or below the root. -/
+theorem lowWheelCanonicalDowncrossPart_adjacent_shell
+    {R c k : ℕ} {t : Finset ℕ}
+    (hx : (c, k) ∈ lowWheelCanonicalDowncrossPart R t) :
+    (lowWheelCanonicalCofactorQuotientPivot (c, k)).Prime ∧
+      ¬ lowWheelCanonicalCofactorQuotientPivot (c, k) ∣ c ∧
+      lowWheelCanonicalCofactorQuotientPivot (c, k) ∣ k ∧
+      primeFaceProduct t *
+          (k / lowWheelCanonicalCofactorQuotientPivot (c, k)) ≤ R ∧
+      R < primeFaceProduct t *
+          (lowWheelCanonicalCofactorQuotientPivot (c, k) *
+            (k / lowWheelCanonicalCofactorQuotientPivot (c, k))) := by
+  rcases mem_lowWheelCanonicalDowncrossPart.mp hx with
+    ⟨hxF, hpc, hdown⟩
+  have hcarrier := (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.2.2
+  have hprod : c * k ≠ 1 := by
+    intro hone
+    apply hpc
+    unfold lowWheelCanonicalCofactorQuotientPivot
+    rw [hone]
+    simp
+  have hp := lowWheelCanonicalCofactorQuotientPivot_prime hprod
+  have hactive := lowWheelCanonicalCofactorQuotientPivot_active hprod
+  have hpk := hactive.resolve_left hpc
+  refine ⟨hp, hpc, hpk, hdown, ?_⟩
+  have hkCancel :
+      lowWheelCanonicalCofactorQuotientPivot (c, k) *
+          (k / lowWheelCanonicalCofactorQuotientPivot (c, k)) = k :=
+    Nat.mul_div_cancel' hpk
+  rw [hkCancel]
+  exact hcarrier.2.2.1
+
+/-- Global signed ledger on the explicit one-sided first-failure carrier. -/
+def lowWheelCanonicalDowncrossLedger (R : ℕ) : ℂ :=
+  ∑ t ∈ (primesUpTo R).powerset,
+    ∑ x ∈ lowWheelCanonicalDowncrossPart R t,
+      canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ)
+
+/-- The former canonical defect ledger contains no additional states: it is
+exactly the explicit quotient-downcross ledger. -/
+theorem lowWheelCanonicalDefectLedger_eq_downcrossLedger (R : ℕ) :
+    lowWheelCanonicalDefectLedger R = lowWheelCanonicalDowncrossLedger R := by
+  unfold lowWheelCanonicalDefectLedger lowWheelCanonicalDowncrossLedger
+  apply Finset.sum_congr rfl
+  intro t _ht
+  rw [lowWheelCanonicalDefectPart_eq_downcrossPart R t]
+
+/-- **Endpoint with the surviving defect fully explicit.**  No missing-mate
+predicate remains: the complete square endpoint is the lower Mertens state
+minus one signed adjacent root-downcross ledger. -/
+theorem squarePrefixMertens_eq_mertens_sub_canonicalDowncross
+    (R : ℕ) (hR : 3 ≤ R) :
+    squarePrefixMertens (R - 1) =
+      mertensSummatory R - lowWheelCanonicalDowncrossLedger R := by
+  rw [squarePrefixMertens_eq_mertens_sub_canonicalDefect R hR,
+    lowWheelCanonicalDefectLedger_eq_downcrossLedger]
+
+/-- Shifted endpoint form with the same explicit adjacent-shell residual. -/
+theorem squarePrefixMertens_sub_one_eq_lower_sub_canonicalDowncross
+    (R : ℕ) (hR : 3 ≤ R) :
+    squarePrefixMertens (R - 1) - 1 =
+      (mertensSummatory R - 1) - lowWheelCanonicalDowncrossLedger R := by
+  rw [squarePrefixMertens_eq_mertens_sub_canonicalDowncross R hR]
+  ring
 
 end RHLean.Proof
