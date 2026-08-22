@@ -113,12 +113,18 @@ theorem largePrimeTerminalCofactorImbalance_eq_one_sub_mertens
   have hmu1 : canonicalMoebiusWeight 1 = 1 := by
     simp [canonicalMoebiusWeight]
   rw [hmu1] at hprefix
+  have hsum :
+      (∑ c ∈ Finset.Icc 2 k, canonicalMoebiusWeight c) =
+        mertensSummatory k - 1 := by
+    calc
+      (∑ c ∈ Finset.Icc 2 k, canonicalMoebiusWeight c) =
+          (1 + ∑ c ∈ Finset.Icc 2 k, canonicalMoebiusWeight c) - 1 := by ring
+      _ = mertensSummatory k - 1 := by rw [← hprefix]
   unfold largePrimeTerminalCofactorImbalance
   calc
     (∑ c ∈ Finset.Icc 2 k, -canonicalMoebiusWeight c) =
         -(∑ c ∈ Finset.Icc 2 k, canonicalMoebiusWeight c) := by simp
-    _ = 1 - mertensSummatory k := by
-      linear_combination -hprefix
+    _ = 1 - mertensSummatory k := by rw [hsum]; ring
 
 /-- Prime population of the canonical reciprocal layer `k`. -/
 def squareRootTerminalFlipLayerPrimeCount (R k : ℕ) : ℂ :=
