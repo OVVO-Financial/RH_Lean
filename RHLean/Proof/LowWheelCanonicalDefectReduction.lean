@@ -206,7 +206,7 @@ theorem sum_lowWheelCanonicalPhysicalState_eq_tripleFiber
     (∑ x ∈ lowWheelCanonicalPhysicalStateSet R t,
         canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ)) =
       ∑ c ∈ Finset.Ico 1 R,
-        ∑ k ∈ Finset.Ioc
+        ∑ _k ∈ Finset.Ioc
             (R / primeFaceProduct t)
             (squareRootEndpoint R / (c * primeFaceProduct t)),
           canonicalMoebiusWeight c * (booleanCubeSign t : ℂ) := by
