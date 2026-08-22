@@ -78,7 +78,7 @@ theorem card_lowWheelPrimeWindowFreeMultiplier_eq_faceDivisor
     rcases mem_lowWheelPrimeWindowFreeMultiplierSet.mp hk with
       ⟨hkWindow, hpk⟩
     rcases mem_lowWheelPrimeWindowMultiplierSet.mp hkWindow with
-      ⟨hk1, hkX, hwindow⟩
+      ⟨_hk1, _hkX, hwindow⟩
     unfold lowWheelPrimeWindowFaceDivisorSet
     apply Finset.mem_filter.mpr
     refine ⟨hwindow, ?_, dvd_mul_right (primeFaceProduct t) k⟩
@@ -155,7 +155,8 @@ theorem lowWheelPredFaceDivisorSum_eq_survivorIndicator
   by_cases hpq : p ∣ q
   · have hsurv : ¬ lowWheelHighSurvivor p q := by
       intro h
-      exact (lowWheelHighSurvivor_prime_iff_pred_and_not_dvd hp).mp h |>.2 hpq
+      have hstep := (lowWheelHighSurvivor_prime_iff_pred_and_not_dvd hp).mp h
+      exact hstep.2 hpq
     simp [hpq, hsurv]
   · have hstep := lowWheelHighSurvivor_prime_iff_pred_and_not_dvd
       (p := p) (q := q) hp
