@@ -237,7 +237,14 @@ theorem mobius_hyperbola_double_sum_eq_head
         (if m = 1 then F 1 else 0) := by
           apply Finset.sum_congr rfl
           intro m hm
-          rw [Nat.sum_divisorsAntidiagonal]
+          have hanti :
+              (∑ p ∈ m.divisorsAntidiagonal,
+                  (((μ p.1 : ℤ) : ℂ)) * F (p.1 * p.2)) =
+                ∑ d ∈ m.divisors,
+                  (((μ d : ℤ) : ℂ)) * F (d * (m / d)) :=
+            Nat.sum_divisorsAntidiagonal
+              (f := fun a b => (((μ a : ℤ) : ℂ)) * F (a * b))
+          rw [hanti]
           calc
             (∑ d ∈ m.divisors,
                 (((μ d : ℤ) : ℂ)) * F (d * (m / d))) =
@@ -315,15 +322,35 @@ theorem frontierBootstrapRHS_eq_fullHyperbola
     have hge1 : 1 ≤ R / n := (Nat.one_le_div_iff hnpos).2 hnR
     have hdiv : R / n = 1 := by omega
     simp [hdiv]
-  unfold frontierBootstrapRHS canonicalFrontierIncidence
-  dsimp [H] at hM ⊢
-  rw [hM]
+  have hlow :
+      mertensSummatory H -
+          ∑ n ∈ Finset.Icc 1 H,
+            (((μ n : ℤ) : ℂ)) * canonicalFrontierIncidence R n =
+        ∑ n ∈ Finset.Icc 1 H,
+          (((μ n : ℤ) : ℂ)) *
+            ∑ q ∈ Finset.Icc 1 (R / n),
+              mertensSummatory (squareRootEndpoint R / (n * q)) := by
+    rw [hM]
+    unfold canonicalFrontierIncidence
+    rw [← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro n _hn
+    ring
+  unfold frontierBootstrapRHS
+  change
+    mertensSummatory H -
+          ∑ n ∈ Finset.Icc 1 H,
+            (((μ n : ℤ) : ℂ)) * canonicalFrontierIncidence R n +
+        ∑ n ∈ Finset.Ioc H R,
+          (((μ n : ℤ) : ℂ)) *
+            mertensSummatory (squareRootEndpoint R / n) =
+      ∑ n ∈ Finset.Icc 1 R,
+        (((μ n : ℤ) : ℂ)) *
+          ∑ q ∈ Finset.Icc 1 (R / n),
+            mertensSummatory (squareRootEndpoint R / (n * q))
+  rw [hlow]
   rw [hset, Finset.sum_union hdisj]
   rw [htop]
-  rw [← Finset.sum_add_distrib]
-  apply Finset.sum_congr rfl
-  intro n hn
-  ring
 
 /-- Corrected finite self-consistency relation. -/
 theorem frontier_bootstrap_self_consistency
