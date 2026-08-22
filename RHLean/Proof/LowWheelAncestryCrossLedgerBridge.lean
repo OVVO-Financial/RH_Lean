@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.LowWheelDoubleCubeSequentialFold
+import RHLean.Proof.LowWheelCanonicalDefectReduction
 
 /-!
 # Sequential low-wheel operator inside the ancestry cross ledger
