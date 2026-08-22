@@ -71,10 +71,7 @@ theorem lowWheelSmoothFaceShellMass_eq_truncatedCubeDiff
   · have hsmall : ¬ primeFaceProduct u ≤ B / p := by
       intro h
       exact hbig (h.trans hsmallBig)
-    have hnotShell : ¬ (B / p < primeFaceProduct u ∧ primeFaceProduct u ≤ B) := by
-      intro h
-      exact hbig h.2
-    simp [hbig, hsmall, hnotShell]
+    simp [hbig, hsmall]
 
 /-- Reciprocal-window membership expressed on the common unresolved quotient
 interval and the smooth cofactor shell at `B = floor(X/q)`. -/
@@ -158,7 +155,7 @@ theorem lowWheelDoubleCubePrimePrefix_step_eq_smoothRoughShellMass
               lowWheelHighSurvivor p q ∧
                 squareRootEndpoint R / q / p < primeFaceProduct u ∧
                 primeFaceProduct u ≤ squareRootEndpoint R / q),
-            (booleanCubeSign u : ℂ) := by simp
+            (booleanCubeSign u : ℂ) := by simpa [mul_comm]
         _ = ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
             if lowWheelHighSurvivor p q ∧
                 squareRootEndpoint R / q / p < primeFaceProduct u ∧
