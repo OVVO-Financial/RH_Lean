@@ -1,24 +1,32 @@
 # Predecessor-prime / reciprocal-label cross-root gate
 
-**Status:** the literal cumulative `(p,k)` cell proposed from
-`LowWheelDoubleCubeWindowFold` fails the finite local-cancellation gate.  The
-reason is exact: it retains the entire inherited parent product.  Subtracting
-that inherited parent — equivalently taking the additive fresh-prime change —
-exposes a genuine terminal-prime cancellation, a pure current/future composite
-residual, and an exact `p^3 < R^2` support law.  That derivative residual shows
-strong high-`p` anti-alignment, but its absolute size below the cutoff is still
-too large to constitute an RH-scale estimate.
+**Status:** route closed in this coordinate family.
 
-No analytic Lean proposition or asymptotic estimate is introduced by this note.
+The literal cumulative `(p,k)` cell fails the finite local-cancellation gate. Its
+fresh-prime derivative does contain a real exact terminal-prime cancellation and
+an exact `p^3 < R^2` support law, which explains the striking high-`p`
+anti-alignment seen numerically. But completing the predecessor chronology gives
+an even stronger exact statement:
+
+\[
+\boxed{\sum_p \Delta_R^{\rm step}(p,k)=N_R(k)-|J_R(k)|,}
+\]
+
+namely **minus the number of composites in the reciprocal fibre**. If that
+composite channel is further split by its first-hit prime `r`, completion of the
+predecessor coordinate gives exactly `-H_r(k)`. Thus merely exposing an ordered
+future first-hit prime `(p,r,k)` is another refinement of the same one-sign
+composite population, not a new cancellation mechanism.
+
+No analytic estimate, asymptotic, PNT input, zeta input, or RH hypothesis is
+introduced.
 
 ## 1. Reciprocal and predecessor-prime coordinates
 
 Let
 
 \[
-X_R=R^2-1,
-\qquad
-2\le k<R,
+X_R=R^2-1,\qquad 2\le k<R,
 \]
 
 and
@@ -33,7 +41,7 @@ Let
 N_R(k)=\#\{q\in J_R(k):q\text{ prime}\}.
 \]
 
-For a low prime `p`, put
+For a low prime `p`, define
 
 \[
 C_{<p}(k)=F_{<p}(k),
@@ -41,27 +49,47 @@ C_{<p}(k)=F_{<p}(k),
 A_p(k)=F_{<p}(\lfloor k/p\rfloor),
 \]
 
-where `F_<p` is the truncated Boolean-cube mass on primes strictly below `p`.
-On squarefree support,
+where `F_<p` is the truncated Boolean cube on primes strictly below `p`. On
+squarefree support,
 
 \[
-A_p(k)=
-\sum_{\substack{d\le k/p\\P^+(d)<p}}\mu(d).
+A_p(k)=\sum_{\substack{d\le k/p\\P^+(d)<p}}\mu(d).
 \]
 
 The fresh-prime recurrence is exact:
 
 \[
-C_{\le p}(k)=C_{<p}(k)-A_p(k).
+\boxed{C_{\le p}(k)=C_{<p}(k)-A_p(k).}
 \]
 
-This is theorem
+This is formalized as
 `frozenPrimeUniverseMass_primesUpTo_step_eq_sub_predecessor`.
 
-## 2. Exact primorial deletion and the `k=2` null band
+## 2. The literal `k`-cell is exactly the repository double-cube state
 
-If the cutoff `k/p` contains the complete Boolean cube on the primes below `p`,
-then
+The new module does not introduce a surrogate scalar. It defines
+`lowWheelPKReciprocalSurvivorSet` and `lowWheelPKCumulativeCell` directly from
+the existing q-first sequential state, and proves
+
+\[
+\boxed{L_p(k)=C_{\le p}(k)\,Q_{\le p}(k),}
+\]
+
+where `Q_<=p(k)` is the number of integers in `J_R(k)` surviving every prime
+through `p`.
+
+The exact Lean interfaces are:
+
+- `lowWheelPKCumulativeCell_eq_shell_mul_survivorCard`;
+- `lowWheelPKCumulativeCell_eq_frozen_mul_survivorCard`;
+- `lowWheelDoubleCubePrimePrefix_step_eq_sum_pkCumulativeCells`.
+
+Thus the complete state through `p` is literally the sum of its reciprocal
+`(p,k)` cells. The finite scan is an exact image of the formal ledger.
+
+## 3. Exact primorial deletion and the `k=2` null band
+
+If `k/p` contains the complete Boolean cube on primes below `p`, then
 
 \[
 A_p(k)=0.
@@ -73,7 +101,7 @@ For prime `p>2`, a sufficient exact condition is
 p\prod_{r<p\atop r\text{ prime}}r\le k.
 \]
 
-The first deletion thresholds are
+The first thresholds are
 
 | `p` | predecessor primorial | first `k` forcing `A_p(k)=0` |
 |---:|---:|---:|
@@ -85,16 +113,17 @@ The first deletion thresholds are
 
 This is theorem `predecessorPrimeMass_eq_zero_of_predPrimeCube_complete`.
 
-At the opposite edge, `A_2(2)=1`, so the prime edge `-1` and the `p=2`
-predecessor contribution cancel exactly.  This is the local face version of the
-already-formalized `k=2` middle null band.
+At the first channel, `A_2(2)=1`, so the prime edge `-1` and the `p=2`
+predecessor term cancel identically. This is the face-level version of the
+already-formalized zero harmonic band `X_R/3 < q <= X_R/2`, where the reciprocal
+quotient is `2` and `M(2)=0`.
 
-## 3. Cumulative state versus additive change
+## 4. Cumulative state versus additive fresh-prime change
 
 Let
 
 \[
-Q_{<p}(k)=\#\{q\in J_R(k):q\text{ has no prime divisor }<p\},
+Q_{<p}(k)=\#\{q\in J_R(k):q\text{ survives every prime }<p\}
 \]
 
 and
@@ -109,23 +138,13 @@ Then
 Q_{\le p}(k)=Q_{<p}(k)-H_p(k).
 \]
 
-There are two different low `(p,k)` objects.
-
-### Cumulative low state
-
-The state **through** prime `p` is
+The cumulative low state is
 
 \[
-L_p(k)=C_{\le p}(k)Q_{\le p}(k)
-      =(C_{<p}(k)-A_p(k))(Q_{<p}(k)-H_p(k)).
+L_p(k)=(C_{<p}-A_p)(Q_{<p}-H_p).
 \]
 
-This is the scalar analogue of retaining the complete state through `p`, as in
-the cumulative double-cube/window fold.
-
-### Additive fresh-prime change
-
-The change across the `p` step is
+Its additive change across `p` is
 
 \[
 \begin{aligned}
@@ -137,21 +156,25 @@ D_p(k)
 
 This is theorem `freshPrimePKCell_eq_cofactorDeletion_add_hitDeletion`.
 
-The distinction is essential.  The cumulative state contains an inherited
-parent mode; the derivative does not.
-
-## 4. The literal proposed cell fails, for an exact reason
-
-The literal cross-root cell proposed from the cumulative low state is
+The separate identity
 
 \[
-\boxed{
-\Delta_R^{\rm cum}(p,k)=L_p(k)+N_R(k)A_p(k).
-}
+\operatorname{Shell}_p(k)+A_p(k)=F_{<p}(k)
 \]
 
-The new theorem
-`cumulativePKCrossRoot_eq_parent_add_futureHitResidual` gives
+is formalized as
+`lowWheelSmoothFaceShellMass_add_predecessor_eq_parentPrefix`; it warns that the
+cumulative state contains an inherited parent mode.
+
+## 5. The literal cumulative cross-root cell fails
+
+The literal proposal is
+
+\[
+\Delta_R^{\rm cum}(p,k)=L_p(k)+N_R(k)A_p(k).
+\]
+
+Lean records the exact decomposition
 
 \[
 \boxed{
@@ -164,23 +187,14 @@ The new theorem
 where
 
 \[
-\Delta_R^{\rm step}(p,k)
-=D_p(k)+N_R(k)A_p(k).
+\Delta_R^{\rm step}(p,k)=D_p(k)+N_R(k)A_p(k).
 \]
 
-So the literal cell is not expected to be locally small: it still contains the
-entire parent product `C_<p Q_<p`.
+This is theorem `cumulativePKCrossRoot_eq_parent_add_futureHitResidual`. The
+literal cell therefore retains the complete parent product and should not be
+expected to be small.
 
-The finite scan confirms this decisively.  Restricting to cells with an actual
-post-root predecessor term `N_R(k)A_p(k) != 0`, the literal ratio
-
-\[
-\rho^{\rm cum}_{p,k}
-=\frac{|L_p(k)+N_R(k)A_p(k)|}
-       {|L_p(k)|+|N_R(k)A_p(k)|}
-\]
-
-behaves as follows:
+Restricting to cells with `N_R(k)A_p(k) != 0`, the scan gives:
 
 | `R` | fraction `rho_cum<=0.1` | weighted residual | dyadic weighted residual |
 |---:|---:|---:|---:|
@@ -190,24 +204,17 @@ behaves as follows:
 | 5000 | 0.0074 | 0.9405 | 0.8879 |
 | 10000 | 0.0043 | 0.9621 | 0.9224 |
 
-The literal cumulative `(p,k)` local-cancellation proposal therefore **fails**.
-The failure gets stronger with scale.
+Thus the literal cumulative `(p,k)` local-cancellation lane is decisively closed.
 
-This is not a failure of the predecessor-prime idea itself; it identifies the
-inherited parent mode that has to be removed before the new prime step can be
-measured.
+## 6. The derivative has an exact terminal-prime cancellation
 
-## 5. The derivative cross-root residual
-
-For the additive step, define
+For the additive change,
 
 \[
-\boxed{
 \Delta_R^{\rm step}(p,k)=D_p(k)+N_R(k)A_p(k).
-}
 \]
 
-Then the terminal-prime component cancels algebraically:
+Then
 
 \[
 \boxed{
@@ -217,15 +224,13 @@ Then the terminal-prime component cancels algebraically:
 }
 \]
 
-This is theorem `freshPrimePKCrossRoot_eq_futureHitResidual`.
-
-Since
+This is theorem `freshPrimePKCrossRoot_eq_futureHitResidual`. Since
 
 \[
 Q_{\le p}(k)-N_R(k)=\sum_{r>p}H_r(k),
 \]
 
-we obtain
+we can write
 
 \[
 \boxed{
@@ -234,34 +239,28 @@ we obtain
 }
 \]
 
-Thus the final prime population disappears **cell by cell before any norm**.
-The remaining derivative is pure current/future composite first-hit chronology.
+The terminal prime population has disappeared exactly, before any norm. This is
+a real local mechanism; it is also the source of the strong high-`p`
+anti-alignment seen in the finite data.
 
-## 6. Exact two-thirds support law
+## 7. Exact two-thirds support law
 
-Suppose `p<=k` and an unresolved composite `q` remains with
+If a supported reciprocal cell satisfies `p<=k` and an unresolved composite
+`q` remains with
 
 \[
-R<q,
+R<q,\qquad \lfloor X_R/q\rfloor=k,\qquad p\le\minFac(q),
+\]
+
+then
+
+\[
+p^2\le q,
 \qquad
-\lfloor X_R/q\rfloor=k,
-\qquad
-p\le\minFac(q).
+pq\le X_R<R^2,
 \]
 
-Then
-
-\[
-p^2\le\minFac(q)^2\le q,
-\]
-
-while `p<=k` and `kq<=X_R` give
-
-\[
-pq\le X_R<R^2.
-\]
-
-Therefore
+hence
 
 \[
 \boxed{p^3<R^2.}
@@ -269,45 +268,18 @@ Therefore
 
 This is theorem
 `reciprocalMiddle_composite_survivor_forces_predCube_lt_square`, with the
-contrapositive recorded separately.
+contrapositive also formalized.
 
-Hence on the supported derivative cross-root corridor, once
+Thus the derivative residual has no supported current/future composite hit once
+`p^3>=R^2`. The observed disappearance near `R^(2/3)` is an exact geometric
+support fact, not an asymptotic phenomenon.
 
-\[
-R^2\le p^3,
-\]
+## 8. Why the high-p scan looked promising
 
-there is no current or future composite hit.  The derivative residual is
-identically zero above the exact `R^(2/3)` predecessor scale.
+On cells with `N_R(k)A_p(k) != 0`, the derivative pieces are strongly
+anti-aligned. At `R=10000`:
 
-## 7. Finite derivative gate
-
-For supported cells use
-
-\[
-\rho^{\rm step}_{p,k}
-=\frac{|\Delta_R^{\rm step}(p,k)|}
-       {|D_p(k)|+|N_R(k)A_p(k)|}.
-\]
-
-The all-`p` supported cells show increasingly widespread local anti-alignment:
-
-| `R` | `corr(D,NA)` | fraction `rho_step<=0.1` | fraction `rho_step<=0.01` | weighted residual |
-|---:|---:|---:|---:|---:|
-| 500 | -0.9263 | 0.8615 | 0.8486 | 0.6182 |
-| 1000 | -0.9273 | 0.8957 | 0.8817 | 0.6336 |
-| 2000 | -0.9283 | 0.9172 | 0.9045 | 0.6480 |
-| 5000 | -0.9292 | 0.9408 | 0.9288 | 0.6651 |
-| 10000 | -0.9297 | 0.9543 | 0.9441 | 0.6768 |
-
-The large weighted residual despite tiny ratios in most cells is caused by a
-small number of early-prime modes carrying most of the absolute mass.
-
-## 8. Moving predecessor cuts
-
-At `R=10000`:
-
-| cut | corr `(D,NA)` | fraction `rho_step<=0.01` | weighted residual | `sum|D| / sum|NA|` |
+| cut | corr `(D,NA)` | fraction `rho_step<=0.01` | weighted residual | `sum|D|/sum|NA|` |
 |---|---:|---:|---:|---:|
 | `p>=R^(1/4)` | -0.9875 | 0.9468 | 0.2444 | 1.6263 |
 | `p>=R^(1/3)` | -0.9884 | 0.9521 | 0.1646 | 1.3709 |
@@ -315,12 +287,8 @@ At `R=10000`:
 | `p>=R^(1/2)` | -0.9788 | 0.9738 | 0.0686 | 1.1204 |
 | `p>=R^(3/5)` | -0.9685 | 0.9942 | 0.0146 | 1.0281 |
 
-So after the inherited parent is removed, the high-`p` bulk is strongly aligned
-both in sign and magnitude.
-
-## 9. But the derivative residual is still too large
-
-A small cancellation ratio is not a power saving.  For `p>=R^(3/5)`:
+For `p>=R^(3/5)`, the absolute residual at the tested scales is still about
+`10^-3 R^2`:
 
 | `R` | `sum|Delta_step| / R` | `sum|Delta_step| / R^2` |
 |---:|---:|---:|
@@ -330,44 +298,98 @@ A small cancellation ratio is not a power saving.  For `p>=R^(3/5)`:
 | 5000 | 4.7858 | 0.000957 |
 | 10000 | 9.6107 | 0.000961 |
 
-On these finite scales the absolute derivative residual is still approximately
-a small constant times `R^2`, not an RH-scale `R^(1+epsilon)` object.  No
-analytic bound is claimed.
+The exact support theorem explains both facts: composites with large least prime
+factor are sparse, so terminal-prime matching is almost exact there. But the
+missing mass must reappear in the low-prime cells.
 
-The exact `p^3<R^2` theorem explains why this residual collapses rapidly as the
-predecessor cut approaches `R^(2/3)`.
+## 9. Definitive completed-p collapse: every composite survives once
 
-## 10. Route decision
-
-The requested finite test gives a clean two-part answer.
-
-1. **Literal cumulative `(p,k)` cell:** killed.  It contains the inherited
-   parent `C_<p Q_<p`, and the local cancellation ratio tends toward `1`.
-2. **Fresh-prime derivative after removing that parent:** genuinely new
-   structure.  Terminal primes cancel exactly, completed predecessor cubes
-   delete exactly, and the supported residual is confined to `p^3<R^2`.
-
-This still does **not** produce an RH estimate.  The unresolved core is the
-low-prime part of the derivative residual.  Its exact form already displays the
-next unsummed coordinate:
+The predecessor recurrence telescopes from the empty old-prime universe to the
+completed lower-scale Mertens state:
 
 \[
--A_p(k)\sum_{r>p}H_r(k)-C_{<p}(k)H_p(k).
+\sum_p A_p(k)=1-M(k).
 \]
 
-The next elementary continuation, if pursued, should therefore retain the
-future first-hit prime `r` explicitly:
+The product-state increments telescope from the initial integer population to
+the terminal prime/Mertens state:
 
 \[
-(p,r,k),\qquad p<r,
+\sum_p D_p(k)=N_R(k)M(k)-|J_R(k)|.
 \]
 
-or an equivalent genuinely bilinear first-hit representation, rather than
-summing `r` into `Q_{<=p}-N_R` before the estimate.
+Therefore
 
-Reproduce both gates with:
+\[
+\begin{aligned}
+\sum_p\Delta_R^{\rm step}(p,k)
+&=N_R(k)M(k)-|J_R(k)|+N_R(k)(1-M(k))\\
+&=\boxed{N_R(k)-|J_R(k)|}.
+\end{aligned}
+\]
 
-```bash
-g++ -O3 -std=c++17 research/pk_fresh_step_gate.cpp -o /tmp/pk_gate
-/tmp/pk_gate
-```
+Since `N_R(k)` counts primes inside `J_R(k)`, this is
+
+\[
+\boxed{-\#\{q\in J_R(k):q\text{ composite}\}.}
+\]
+
+The endpoint algebra is formalized as
+`completedPKCrossRoot_endpointCollapse`.
+
+This explains the finite-scale obstruction more strongly than an energy table:
+the derivative cannot have an RH-size completed sum. Its low-prime sector is
+**forced** to carry the negative composite population left over from the
+near-perfect high-prime matching.
+
+## 10. Unsumming the future first-hit prime does not escape
+
+Fix a first-hit prime `r`. Its contributions are
+
+\[
+-H_r(k)\sum_{p<r}A_p(k)-C_{<r}(k)H_r(k).
+\]
+
+But the predecessor recurrence gives
+
+\[
+C_{<r}(k)+\sum_{p<r}A_p(k)=1.
+\]
+
+Hence the whole first-hit fibre is
+
+\[
+\boxed{-H_r(k).}
+\]
+
+The algebra is formalized as
+`completedPredecessorFirstHit_eq_neg_hitCount`.
+
+Therefore a plain ordered `(p,r,k)` first-hit refinement is **not** a new open
+Type-II mechanism. It merely distributes the coefficient `-1` of each composite
+among predecessor coordinates and recombines to the positive first-hit count.
+
+## 11. Route decision
+
+The scan and exact algebra now agree completely:
+
+1. **Literal cumulative `(p,k)` cell:** closed by the inherited-parent identity
+   and a strongly negative finite gate.
+2. **Fresh-prime derivative:** contains a real local terminal-prime cancellation
+   and exact support `p^3<R^2`, but after completing `p` it is exactly minus the
+   composite population.
+3. **Plain `(p,r,k)` first-hit refinement:** also closed; completing `p` in each
+   fixed `r` fibre gives exactly `-H_r(k)`.
+
+So the next viable route cannot merely expose another positive first-hit label.
+It must introduce an operation or weight that **does not complete to coefficient
+`1` across the predecessor divisor fibre** — for example a genuinely restricted
+proper subregion whose complement is controlled separately, or a second
+Möbius-bearing/bilinear factor rather than a positive first-hit count.
+
+This is precisely the post-#453 survival criterion in sharper form: preserving
+more labels is not enough; the surviving weight must remain nonconstant on the
+completed divisor fibre.
+
+Reproduce the literal and derivative finite gates with
+`research/pk_fresh_step_gate.cpp`.
