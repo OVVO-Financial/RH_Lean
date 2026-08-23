@@ -251,6 +251,7 @@ import RHLean.Analysis.SquareRootCombinedSignedResidual
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootMiddleSequentialCoherence
 import RHLean.Analysis.SquareRootPositiveSmoothCollapse
+import RHLean.Analysis.SquareRootPostCrossingRenewal
 import RHLean.Analysis.SquareRootPostCrossingTail
 import RHLean.Analysis.SquareRootPrimeCountGap
 import RHLean.Analysis.SquareRootShallowReciprocalCrossing
