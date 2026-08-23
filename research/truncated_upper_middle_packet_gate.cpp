@@ -155,7 +155,8 @@ int main() {
   initPrimeCounting();
 
   const vector<int> Rs =
-    {200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000};
+    {200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000,
+      200000, 500000};
   const int scanK = 300;
   vector<int> mu, M;
   buildMobiusMertens(10000, mu, M);
