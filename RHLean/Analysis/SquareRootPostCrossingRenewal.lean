@@ -302,6 +302,77 @@ theorem replacementFibreRootPrimeWindowCount_one_eq_primeCount
   · simp [hqPrime, hqPrime.one_lt]
   · simp [hqPrime]
 
+/-- Every strict-root cofactor window is an existing prime-sieve reciprocal
+prime count at the contracted endpoint `X_R / c`, with the cofactor itself as
+the lower prime cutoff.  This is the exact interface from the crossing tail to
+the repository's reciprocal-prime analytic machinery. -/
+theorem replacementFibreRootPrimeWindowCount_eq_reciprocalPrimeCount
+    (R z c : ℕ) :
+    replacementFibreRootPrimeWindowCount R z c =
+      primeSieveReciprocalPrimeCount c (squareRootEndpoint R / c) z := by
+  classical
+  unfold replacementFibreRootPrimeWindowCount
+    primeSieveReciprocalPrimeCount primeSievePrimeIndicator
+  rw [← Finset.sum_filter, ← Finset.sum_filter]
+  congr 1
+  ext q
+  simp only [Finset.mem_filter, Finset.mem_Icc,
+    mem_primeSieveReciprocalInterval]
+  unfold replacementDilatedFibreLower replacementDilatedFibreUpper
+    primeSieveReciprocalLower primeSieveReciprocalUpper
+  rw [Nat.div_div_eq_div_mul, Nat.div_div_eq_div_mul]
+  constructor
+  · rintro ⟨⟨hlower, hupper⟩, hprime, hcq⟩
+    refine ⟨⟨max_lt hcq ?_, ?_⟩, hprime⟩
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using
+        (show squareRootEndpoint R / ((z + 1) * c) < q by omega)
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using hupper
+  · rintro ⟨⟨hlower, hupper⟩, hprime⟩
+    rcases max_lt_iff.mp hlower with ⟨hcq, hquot⟩
+    refine ⟨⟨?_, ?_⟩, hprime, hcq⟩
+    · have : squareRootEndpoint R / ((z + 1) * c) < q := by
+        simpa [Nat.mul_comm, Nat.mul_left_comm] using hquot
+      omega
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using hupper
+
+/-- Smooth-oriented reciprocal prime count at the contracted endpoint.  The
+canonical largest prime of the cofactor is the lower cutoff, while `q < c`
+retains the smooth orientation inside the same prime interval. -/
+def replacementFibreSmoothReciprocalPrimeCount (R z c : ℕ) : ℂ :=
+  ∑ q ∈ primeSieveReciprocalInterval
+      (canonicalLargestPrimeFactor c) (squareRootEndpoint R / c) z,
+    if q.Prime ∧ q < c then 1 else 0
+
+/-- Every smooth cofactor window is the contracted reciprocal-prime interval
+with the orientation cutoff `q < c` retained inside its signed summand. -/
+theorem replacementFibreSmoothPrimeWindowCount_eq_reciprocalPrimeCount
+    (R z c : ℕ) :
+    replacementFibreSmoothPrimeWindowCount R z c =
+      replacementFibreSmoothReciprocalPrimeCount R z c := by
+  classical
+  unfold replacementFibreSmoothPrimeWindowCount
+    replacementFibreSmoothReciprocalPrimeCount
+  rw [← Finset.sum_filter, ← Finset.sum_filter]
+  congr 1
+  ext q
+  simp only [Finset.mem_filter, Finset.mem_Icc,
+    mem_primeSieveReciprocalInterval]
+  unfold replacementDilatedFibreLower replacementDilatedFibreUpper
+    primeSieveReciprocalLower primeSieveReciprocalUpper
+  rw [Nat.div_div_eq_div_mul, Nat.div_div_eq_div_mul]
+  constructor
+  · rintro ⟨⟨hlower, hupper⟩, hprime, hrough, hqc⟩
+    refine ⟨⟨max_lt hrough ?_, ?_⟩, hprime, hqc⟩
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using
+        (show squareRootEndpoint R / ((z + 1) * c) < q by omega)
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using hupper
+  · rintro ⟨⟨hlower, hupper⟩, hprime, hqc⟩
+    rcases max_lt_iff.mp hlower with ⟨hrough, hquot⟩
+    refine ⟨⟨?_, ?_⟩, hprime, hrough, hqc⟩
+    · have : squareRootEndpoint R / ((z + 1) * c) < q := by
+        simpa [Nat.mul_comm, Nat.mul_left_comm] using hquot
+      omega
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using hupper
 /-- Strict-root mass after removing the cofactor-one prime face. -/
 def replacementFibreCompositeRootMass (R z : ℕ) : ℂ :=
   replacementFibreRootMass R z - replacementFibrePrimeFaceMass R z
@@ -342,10 +413,11 @@ inside `replacementFibreSmoothPrimeWindowCount`. -/
 def replacementFibreTypeIIWindowMass (R z : ℕ) : ℂ :=
   -((∑ c ∈ Finset.Icc 2 (R - 1),
         canonicalMoebiusWeight c *
-          replacementFibreRootPrimeWindowCount R z c) +
+          primeSieveReciprocalPrimeCount c
+            (squareRootEndpoint R / c) z) +
       ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
         canonicalMoebiusWeight c *
-          replacementFibreSmoothPrimeWindowCount R z c)
+          replacementFibreSmoothReciprocalPrimeCount R z c)
 
 /-- After prime-face removal, root-composite and smooth orientations are
 exactly the single signed Type-II window mass. -/
@@ -358,6 +430,8 @@ theorem replacementFibreCompositeRoot_add_smooth_eq_typeIIWindowMass
       R z hR hz hzR,
     replacementFibreSmoothMass_eq_neg_cofactorPrimeWindows
       R z hR hz hzR]
+  simp_rw [replacementFibreRootPrimeWindowCount_eq_reciprocalPrimeCount,
+    replacementFibreSmoothPrimeWindowCount_eq_reciprocalPrimeCount]
   unfold replacementFibreTypeIIWindowMass
   ring
 
