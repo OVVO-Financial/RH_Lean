@@ -32,6 +32,12 @@ at endpoint `X_R / c`, recombined into one canonical rough-prime count with
 lower cutoff `P+(c)`, then centered exactly into deterministic Li density and
 prime discrepancy channels without applying a norm.
 
+Including `c = 1` gives the same canonical formula for every complementary
+Möbius fibre.  Thus the universal post-crossing row is a full canonical
+rough-prime renewal on strict descendants, with the packet deleting only the
+admitted `c = 1` diagonal.  Its complete signed Gram is again exactly the
+coupled-tail norm square.
+
 The last form is the genuinely nonlocal bilinear proof object for a subsequent
 energy argument.  No diagonal estimate, triangle inequality, RH hypothesis,
 or critical tail bound is introduced here.
@@ -546,6 +552,14 @@ def replacementFibreCanonicalRoughReciprocalMass (R z : ℕ) : ℂ :=
       primeSieveReciprocalPrimeCount (canonicalLargestPrimeFactor c)
         (squareRootEndpoint R / c) z
 
+/-- Full canonical rough-prime reciprocal fibre, including the cofactor-one
+prime face. -/
+def replacementFibreCanonicalRoughFullMass (R z : ℕ) : ℂ :=
+  -∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+    canonicalMoebiusWeight c *
+      primeSieveReciprocalPrimeCount (canonicalLargestPrimeFactor c)
+        (squareRootEndpoint R / c) z
+
 /-- **Orientation recombination after prime-face cancellation.**  The root and
 smooth Type-II sectors are exactly one canonical rough-prime reciprocal sum.
 The root range may be extended through `X_R` because every `c >= R` root window
@@ -740,6 +754,47 @@ theorem squareRootReplacementTailMoebiusCoefficient_eq_prime_add_composite_add_s
   unfold replacementFibreCompositeRootMass
   ring
 
+/-- **Full canonical rough-prime fibre dictionary.**  Adding the cofactor-one
+prime face to the recombined Type-II mass gives the single rough-prime sum over
+all positive cofactors. -/
+theorem squareRootReplacementTailMoebiusCoefficient_eq_canonicalRoughFullMass
+    (R z : ℕ) (hR : 2 ≤ R) (hz : 1 ≤ z) (hzR : z < R) :
+    squareRootReplacementTailMoebiusCoefficient R z =
+      replacementFibreCanonicalRoughFullMass R z := by
+  rw [squareRootReplacementTailMoebiusCoefficient_eq_prime_add_composite_add_smooth
+      R z hR,
+    add_assoc,
+    replacementFibreCompositeRoot_add_smooth_eq_typeIIWindowMass
+      R z hR hz hzR,
+    replacementFibreTypeIIWindowMass_eq_canonicalRoughReciprocalMass
+      R z hR,
+    replacementFibrePrimeFaceMass_eq_neg_primeCount R z hR hz hzR,
+    ← replacementFibreRootPrimeWindowCount_one_eq_primeCount R z,
+    replacementFibreRootPrimeWindowCount_eq_reciprocalPrimeCount R z 1]
+  have hset :
+      Finset.Icc 1 (squareRootEndpoint R) =
+        ({1} : Finset ℕ) ∪ Finset.Icc 2 (squareRootEndpoint R) := by
+    ext c
+    simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_singleton]
+    have hRX : 1 ≤ squareRootEndpoint R := by
+      unfold squareRootEndpoint
+      have hpos : 1 < R ^ 2 := by nlinarith
+      omega
+    omega
+  have hdisj :
+      Disjoint ({1} : Finset ℕ)
+        (Finset.Icc 2 (squareRootEndpoint R)) := by
+    rw [Finset.disjoint_left]
+    intro c hc1 hc2
+    rw [Finset.mem_singleton] at hc1
+    subst c
+    simp at hc2
+  unfold replacementFibreCanonicalRoughFullMass
+    replacementFibreCanonicalRoughReciprocalMass
+  rw [hset, Finset.sum_union hdisj]
+  simp [canonicalMoebiusWeight, canonicalLargestPrimeFactor]
+  ring
+
 /-- The prime diagonal after adding the packet-removal row.  This is where the
 crossing acts inside the reciprocal-fibre renewal, before any norm. -/
 def squareRootPostCrossingPrimeDiagonal
@@ -844,6 +899,32 @@ def squareRootOrientedStrictDescendantTransform (R y : ℕ) : ℂ :=
           replacementFibreSmoothMass R z) *
       squareRootReplacementQuotientKernel z y
 
+/-- Strict descendants in the orientation-free canonical rough-prime
+coordinates.  Unlike the shallow diagonal, descendants retain the `c = 1`
+prime face. -/
+def squareRootCanonicalRoughStrictDescendantTransform (R y : ℕ) : ℂ :=
+  ∑ z ∈ Finset.Icc (y + 1) (R - 1),
+    replacementFibreCanonicalRoughFullMass R z *
+      squareRootReplacementQuotientKernel z y
+
+/-- The oriented descendant transform is exactly the full canonical
+rough-prime transform on every strict lower-triangular row. -/
+theorem squareRootOrientedStrictDescendantTransform_eq_canonicalRough
+    (R y : ℕ) (hR : 2 ≤ R) :
+    squareRootOrientedStrictDescendantTransform R y =
+      squareRootCanonicalRoughStrictDescendantTransform R y := by
+  unfold squareRootOrientedStrictDescendantTransform
+    squareRootCanonicalRoughStrictDescendantTransform
+  apply Finset.sum_congr rfl
+  intro z hz
+  rcases Finset.mem_Icc.mp hz with ⟨hzLower, hzUpper⟩
+  have hz1 : 1 ≤ z := by omega
+  have hzR : z < R := by omega
+  rw [← squareRootReplacementTailMoebiusCoefficient_eq_prime_add_composite_add_smooth
+      R z hR,
+    squareRootReplacementTailMoebiusCoefficient_eq_canonicalRoughFullMass
+      R z hR hz1 hzR]
+
 /-- Lower triangularity splits the complete quotient transform into its
 diagonal fibre and its strict descendants. -/
 theorem sum_tailMoebius_mul_quotientKernel_eq_diagonal_add_strict
@@ -902,6 +983,16 @@ def squareRootPostCrossingPrimeCancelledCoefficient
         replacementFibreSmoothMass R y +
           squareRootOrientedStrictDescendantTransform R y
 
+/-- Universal orientation-free coefficient row.  Packet removal is added to
+the full canonical rough-prime diagonal; strict descendants retain their full
+canonical rough mass. -/
+def squareRootPostCrossingCanonicalRoughCoefficient
+    (R K j y : ℕ) : ℂ :=
+  (if y = R - 1 then 1 else 0) +
+    squareRootCrossingRemovalCoefficient R K j y +
+      replacementFibreCanonicalRoughFullMass R y +
+        squareRootCanonicalRoughStrictDescendantTransform R y
+
 /-- **Coefficientwise prime-diagonal cancellation.**  The post-crossing
 replacement row is exactly the oriented prime-cancelled quotient row. -/
 theorem squareRootPostCrossingReplacementCoefficient_eq_primeCancelled
@@ -927,6 +1018,30 @@ theorem squareRootPostCrossingReplacementCoefficient_eq_primeCancelled
   simp_rw [squareRootReplacementTailMoebiusCoefficient_eq_prime_add_composite_add_smooth
     R _ hR]
   ring
+
+/-- **Universal canonical rough-prime row.**  Every positive lower scale of
+the post-crossing replacement is one packet-removal coefficient plus the full
+canonical rough-prime lower-triangular renewal. -/
+theorem squareRootPostCrossingReplacementCoefficient_eq_canonicalRough
+    (R K j y : ℕ) (hR : 2 ≤ R) (hy : 1 ≤ y) (hyR : y < R) :
+    squareRootPostCrossingReplacementCoefficient R K j y =
+      squareRootPostCrossingCanonicalRoughCoefficient R K j y := by
+  rw [squareRootPostCrossingReplacementCoefficient_eq_primeCancelled
+    R K j y hR hy hyR]
+  have hfull :
+      replacementFibrePrimeFaceMass R y +
+          replacementFibreCompositeRootMass R y +
+            replacementFibreSmoothMass R y =
+        replacementFibreCanonicalRoughFullMass R y := by
+    rw [← squareRootReplacementTailMoebiusCoefficient_eq_prime_add_composite_add_smooth
+        R y hR,
+      squareRootReplacementTailMoebiusCoefficient_eq_canonicalRoughFullMass
+        R y hR hy hyR]
+  unfold squareRootPostCrossingPrimeCancelledCoefficient
+    squareRootPostCrossingPrimeDiagonal
+    squareRootPostCrossingCanonicalRoughCoefficient
+  rw [squareRootOrientedStrictDescendantTransform_eq_canonicalRough R y hR]
+  linear_combination hfull
 
 /-- Below the crossing, the complete prime diagonal has disappeared from the
 renewal coefficient; no estimate or absolute value is used. -/
@@ -985,6 +1100,20 @@ theorem squareRootPostCrossingReplacementCoefficient_eq_belowCrossing_canonicalC
       R K j y hR hKR hy hyK,
     replacementFibreTypeIIWindowMass_eq_canonical_li_add_discrepancy
       R y hR]
+
+/-- Orientation-free lower-triangular shallow row: `c = 1` is absent only on
+the diagonal and is retained inside every strict descendant. -/
+theorem squareRootPostCrossingReplacementCoefficient_eq_belowCrossing_canonicalRough
+    (R K j y : ℕ) (hR : 2 ≤ R) (hKR : K + 1 < R)
+    (hy : 1 ≤ y) (hyK : y < K) :
+    squareRootPostCrossingReplacementCoefficient R K j y =
+      replacementFibreCanonicalRoughReciprocalMass R y +
+        squareRootCanonicalRoughStrictDescendantTransform R y := by
+  rw [squareRootPostCrossingReplacementCoefficient_eq_belowCrossing_typeII
+      R K j y hR hKR hy hyK,
+    replacementFibreTypeIIWindowMass_eq_canonicalRoughReciprocalMass
+      R y hR,
+    squareRootOrientedStrictDescendantTransform_eq_canonicalRough R y hR]
 
 /-- At the crossing depth, the only cofactor-one diagonal left in the renewal
 row is `j-N_R(K)`, the negative of the unfilled prime seats. -/
@@ -1048,6 +1177,19 @@ theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing_canonicalCent
       R K hR]
   ring
 
+/-- Orientation-free crossing row with the exact unfilled-seat remainder. -/
+theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing_canonicalRough
+    (R K j : ℕ) (hR : 2 ≤ R) (hK : 1 ≤ K) (hKR : K + 1 < R) :
+    squareRootPostCrossingReplacementCoefficient R K j K =
+      (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+        replacementFibreCanonicalRoughReciprocalMass R K +
+          squareRootCanonicalRoughStrictDescendantTransform R K := by
+  rw [squareRootPostCrossingReplacementCoefficient_eq_atCrossing_typeII
+      R K j hR hK hKR,
+    replacementFibreTypeIIWindowMass_eq_canonicalRoughReciprocalMass
+      R K hR,
+    squareRootOrientedStrictDescendantTransform_eq_canonicalRough R K hR]
+
 /-- **Exact post-crossing lower-triangular renewal row.**  The terminal tail is
 one signed combination of Mertens states at scales `y < R`; the shallow packet
 has modified the same row coefficientwise before any norm is taken. -/
@@ -1097,6 +1239,24 @@ theorem squareRootPostCrossingCoupledTail_eq_primeCancelledRow
   rcases Finset.mem_Icc.mp hy with ⟨hy1, hyR⟩
   rw [squareRootPostCrossingReplacementCoefficient_eq_primeCancelled
     R K j y (by omega) hy1 (by omega)]
+
+/-- **Canonical rough-prime lower-triangular row.**  The complete coupled tail
+is expressed without prime/root/smooth orientation labels. -/
+theorem squareRootPostCrossingCoupledTail_eq_canonicalRoughRow
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K < R) :
+    squareRootPostCrossingCoupledTail R K j =
+      ∑ y ∈ Finset.Icc 1 (R - 1),
+        squareRootPostCrossingCanonicalRoughCoefficient R K j y *
+          mertensSummatory y := by
+  rw [squareRootPostCrossingCoupledTail_eq_primeCancelledRow
+    R K j hR hK hKR]
+  apply Finset.sum_congr rfl
+  intro y hy
+  rcases Finset.mem_Icc.mp hy with ⟨hy1, hyR⟩
+  rw [← squareRootPostCrossingReplacementCoefficient_eq_primeCancelled
+      R K j y (by omega) hy1 (by omega),
+    squareRootPostCrossingReplacementCoefficient_eq_canonicalRough
+      R K j y (by omega) hy1 (by omega)]
 
 /-- **Exact crossing split of the prime-cancelled renewal.**  Every completed
 shallow prime diagonal is absent, the crossing row contains only the unfilled
@@ -1339,6 +1499,43 @@ theorem squareRootPostCrossingPrimeCancelledGram_eq_tail_norm_sq
     squareRootPostCrossingPrimeCancelledGram R K j =
       ((‖squareRootPostCrossingCoupledTail R K j‖ ^ 2 : ℝ) : ℂ) := by
   rw [squareRootPostCrossingPrimeCancelledGram_eq_tail_mul_conj
+    R K j hR hK hKR, Complex.mul_conj']
+  norm_cast
+
+/-- One summand of the universal canonical rough-prime row. -/
+def squareRootPostCrossingCanonicalRoughTerm
+    (R K j y : ℕ) : ℂ :=
+  squareRootPostCrossingCanonicalRoughCoefficient R K j y *
+    mertensSummatory y
+
+/-- The final orientation-free nonlocal Gram.  The `c = 1` diagonal deletion,
+all canonical rough-prime descendants, and every cross-scale interaction stay
+inside this double sum. -/
+def squareRootPostCrossingCanonicalRoughGram
+    (R K j : ℕ) : ℂ :=
+  ∑ y ∈ Finset.Icc 1 (R - 1),
+    ∑ z ∈ Finset.Icc 1 (R - 1),
+      squareRootPostCrossingCanonicalRoughTerm R K j y *
+        conj (squareRootPostCrossingCanonicalRoughTerm R K j z)
+
+/-- The canonical rough-prime Gram is exactly the coupled-tail energy. -/
+theorem squareRootPostCrossingCanonicalRoughGram_eq_tail_mul_conj
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K < R) :
+    squareRootPostCrossingCanonicalRoughGram R K j =
+      squareRootPostCrossingCoupledTail R K j *
+        conj (squareRootPostCrossingCoupledTail R K j) := by
+  rw [squareRootPostCrossingCoupledTail_eq_canonicalRoughRow
+    R K j hR hK hKR]
+  unfold squareRootPostCrossingCanonicalRoughGram
+    squareRootPostCrossingCanonicalRoughTerm
+  simp_rw [map_sum, Finset.sum_mul, Finset.mul_sum]
+
+/-- Real norm-square form of the canonical rough-prime Gram identity. -/
+theorem squareRootPostCrossingCanonicalRoughGram_eq_tail_norm_sq
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K < R) :
+    squareRootPostCrossingCanonicalRoughGram R K j =
+      ((‖squareRootPostCrossingCoupledTail R K j‖ ^ 2 : ℝ) : ℂ) := by
+  rw [squareRootPostCrossingCanonicalRoughGram_eq_tail_mul_conj
     R K j hR hK hKR, Complex.mul_conj']
   norm_cast
 
