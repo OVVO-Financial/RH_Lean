@@ -116,7 +116,7 @@ to cross within the scanned range. That small-scale success was useful for
 finding the packet, but the extended gate shows it must not be promoted into an
 asymptotic bound.
 
-## A fixed-depth asymptotic mechanism
+## The endpoint-parametric fixed-depth mechanism
 
 For fixed `K`, ordinary PNT expansion gives
 
@@ -146,9 +146,11 @@ S_K
 }
 \]
 
-The original finite scan stopped at `K=10000`, where `S_K` is still positive.
-Extending the search reveals a negative coefficient, and the formal proof now
-certifies the sign at `K=18800` by exact rational computation:
+The theorem is parameterized by any fixed `K_0` for which `S_{K_0}<0`; no
+particular numerical depth belongs in its statement.  The original finite scan
+stopped at `K=10000`, where `S_K` is still positive.  Extending the search gives
+one convenient unconditional witness, certified at `K_0=18800` by exact
+rational computation:
 
 \[
 \boxed{S_{18800}<0.}
@@ -170,29 +172,57 @@ Typical diagnostic values, including the certified depth, are
 | 10000 | 0.000217070 | 2.171 |
 | 18800 | -0.0000190870 | -0.359 |
 
-For every fixed positive `K`, the native PNT gives the formal limit
+More generally, let `x_n` be any endpoint sequence tending to infinity and let
+`y_n` be any lower prime cutoff satisfying
+
+\[
+y_n\le \frac{x_n}{K_0+1}
+\]
+
+eventually.  The native PNT gives the formal limit
+
+\[
+\frac{U_{y_n,x_n}(K_0)\log x_n}{x_n}\longrightarrow -S_{K_0}.
+\]
+
+Thus `S_{K_0}<0` forces eventual positivity at `K_0`.  The depth-one packet is
+the negative, nonempty Bertrand block whenever `y_n<=x_n/2`; taking the least
+nonnegative depth gives a genuine crossing at some `K<=K_0`.  If also
+`K_0<y_n` eventually, then for **every** `C>0`, eventually
+
+\[
+K<y_n,qquad K\le C\log x_n,qquad
+U_{y_n,x_n}(K-1)<0\le U_{y_n,x_n}(K).
+\]
+
+The square construction is only the specialization
+
+\[
+x_R=R^2-1,qquad y_R=R.
+\]
+
+For every fixed positive `K`, this recovers the former limit
 
 \[
 \frac{U_R(K)\log X_R}{X_R}\longrightarrow -S_K.
 \]
 
-Consequently `U_R(18800)>0` for all sufficiently large `R`. The depth-one
-packet is the negative, nonempty top-prime block, so `U_R(1)<0` for every
-`R>=3`. Taking the least nonnegative depth produces a genuine crossing at some
-`K<=18800`.
-
 This is formalized in
-`RHLean/Analysis/SquareRootShallowReciprocalCrossing.lean`. Its public theorem
-`squareRootPacket_eventual_log_crossing` states
+`RHLean/Analysis/SquareRootShallowReciprocalCrossing.lean`.  The primary theorem
+`endpointPacket_eventual_log_crossing_of_coefficient_neg` is the general
+`(x_n,y_n,K_0,C)` statement above.  Its square-endpoint corollary
+`squareRootPacket_eventual_log_endpoint_crossing` states, for every `C>0`,
 
 \[
-\exists C>0\;\exists R_0\;\forall R\ge R_0\;\exists K<R,
-\quad K\le C\log R,
+\exists R_0\;\forall R\ge R_0\;\exists K<R,
+\quad K\le C\log X_R,
 \quad U_R(K-1)<0\le U_R(K).
 \]
 
-The proof in fact takes `C=1` and obtains the stronger absolute bound
-`K<=18800`.
+The exact `S_{18800}<0` computation now appears only in the final witness
+corollary that discharges the general coefficient hypothesis.  It proves the
+stronger absolute bound `K<=18800`, but `18800` is not part of the architecture
+and is not a claim about the typical crossing depth.
 
 ## Why the observed depth is near `4 log R`
 
