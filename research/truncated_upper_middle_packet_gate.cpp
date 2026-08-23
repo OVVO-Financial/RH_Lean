@@ -159,7 +159,8 @@ int main() {
       200000, 500000};
   const int scanK = 300;
   vector<int> mu, M;
-  buildMobiusMertens(10000, mu, M);
+  const int coefficientMaxK = 18800;
+  buildMobiusMertens(coefficientMaxK, mu, M);
 
   cout << fixed << setprecision(6);
   cout << "R  K_cross  K_best  U_best  |U_best|/R  K_best/log(R)\n";
@@ -174,9 +175,10 @@ int main() {
 
   cout << "\nFixed-K main coefficient S_K = sum M(k)/(k(k+1))\n";
   long double S = 0.0L;
-  const vector<int> reportK = {50, 100, 200, 500, 1000, 2000, 5000, 10000};
+  const vector<int> reportK =
+    {50, 100, 200, 500, 1000, 2000, 5000, 10000, 18800};
   size_t next = 0;
-  for (int k = 1; k <= 10000; ++k) {
+  for (int k = 1; k <= coefficientMaxK; ++k) {
     S += static_cast<long double>(M[k]) /
       (static_cast<long double>(k) * (k + 1));
     if (next < reportK.size() && k == reportK[next]) {

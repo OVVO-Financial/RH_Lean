@@ -252,6 +252,7 @@ import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootMiddleSequentialCoherence
 import RHLean.Analysis.SquareRootPositiveSmoothCollapse
 import RHLean.Analysis.SquareRootPrimeCountGap
+import RHLean.Analysis.SquareRootShallowReciprocalCrossing
 import RHLean.Analysis.SquareRootSmoothParityClasses
 import RHLean.Analysis.SquareRootSmoothRenewalInstantiation
 import RHLean.Analysis.SquareRootTransportRealization

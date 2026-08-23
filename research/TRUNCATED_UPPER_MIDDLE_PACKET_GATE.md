@@ -1,6 +1,7 @@
 # Truncated upper-middle reciprocal packet gate
 
-**Status:** exact packet formalized; quantitative bound remains open.
+**Status:** eventual shallow crossing formalized; a root-scale packet bound
+remains open.
 
 This note corrects the earlier diagnostic that isolated the middle terminal-flip
 sector. The top sector `X_R/2 < q <= X_R` is dynamically inert but
@@ -115,7 +116,7 @@ to cross within the scanned range. That small-scale success was useful for
 finding the packet, but the extended gate shows it must not be promoted into an
 asymptotic bound.
 
-## Why a fixed K cannot be the asymptotic mechanism
+## A fixed-depth asymptotic mechanism
 
 For fixed `K`, ordinary PNT expansion gives
 
@@ -145,8 +146,17 @@ S_K
 }
 \]
 
-Direct exact arithmetic gives `S_K>0` for every `K<=10000` checked. Typical
-values are
+The original finite scan stopped at `K=10000`, where `S_K` is still positive.
+Extending the search reveals a negative coefficient, and the formal proof now
+certifies the sign at `K=18800` by exact rational computation:
+
+\[
+\boxed{S_{18800}<0.}
+\]
+
+The certificate uses `native_decide` after a proved rational Abel identity, so
+it contains no floating-point approximation or imported numerical data.
+Typical diagnostic values, including the certified depth, are
 
 | `K` | `S_K` | `K S_K` |
 |---:|---:|---:|
@@ -158,9 +168,31 @@ values are
 | 2000 | 0.000820805 | 1.642 |
 | 5000 | 0.000378297 | 1.891 |
 | 10000 | 0.000217070 | 2.171 |
+| 18800 | -0.0000190870 | -0.359 |
 
-Thus a **constant** reciprocal depth is not the finite/asymptotic mechanism
-suggested by the data.
+For every fixed positive `K`, the native PNT gives the formal limit
+
+\[
+\frac{U_R(K)\log X_R}{X_R}\longrightarrow -S_K.
+\]
+
+Consequently `U_R(18800)>0` for all sufficiently large `R`. The depth-one
+packet is the negative, nonempty top-prime block, so `U_R(1)<0` for every
+`R>=3`. Taking the least nonnegative depth produces a genuine crossing at some
+`K<=18800`.
+
+This is formalized in
+`RHLean/Analysis/SquareRootShallowReciprocalCrossing.lean`. Its public theorem
+`squareRootPacket_eventual_log_crossing` states
+
+\[
+\exists C>0\;\exists R_0\;\forall R\ge R_0\;\exists K<R,
+\quad K\le C\log R,
+\quad U_R(K-1)<0\le U_R(K).
+\]
+
+The proof in fact takes `C=1` and obtains the stronger absolute bound
+`K<=18800`.
 
 ## Why the observed depth is near `4 log R`
 
@@ -175,7 +207,7 @@ The first two truncated coefficients are
 
 \[
 S_K=
-\sum_{d\le K}\frac{\mu(d)}d-rac{M(K)}{K+1},
+\sum_{d\le K}\frac{\mu(d)}d-\frac{M(K)}{K+1},
 \]
 
 and
@@ -217,9 +249,11 @@ K\approx 2L\approx4\log R,
 
 which explains the observed crossing depths remarkably well.
 
-This is a **diagnostic explanation, not a theorem**. In particular, proving a
-uniform `K(R)=O(log R)` would require a quantitative rate for the reciprocal
-Möbius coefficient `S_K`, not merely qualitative PNT.
+This remains a **diagnostic explanation of the small finite crossing**, not the
+mechanism used by the eventual theorem. The eventual theorem needs no
+quantitative rate for a growing reciprocal coefficient: it uses the one exact
+negative coefficient at `K=18800` and qualitative PNT at finitely many fixed
+dilations.
 
 The repository already has the elementary bound
 
@@ -261,9 +295,8 @@ a separate estimate of the huge upper block.
 
 The analytic target is now sharper than the initial proposal.
 
-1. **Crossing-depth theorem:** still plausible as a structural question. The
-   finite data suggest a shallow, slowly growing `K_cross(R)`, but the presently
-   formalized reciprocal Möbius bounds do not prove `O(log R)`.
+1. **Crossing-depth theorem:** proved, in the stronger eventual form
+   `K_cross(R)<=18800`, hence in particular `K_cross(R)=O(log R)`.
 2. **Nearest-crossing root bound:** rejected as a naive finite conjecture. The
    extended exact gate already shows `min |U_R(K)|/R` growing beyond `1` and
    then `4`.
@@ -272,9 +305,10 @@ The analytic target is now sharper than the initial proposal.
    additional signed refinement inside the cap. A successful proof must explain
    more than the existence of a sign crossing.
 
-A constant `K` is not the route. Completing `K` through `R-1` is also not the
-route: that recovers the already-known full transport and erases the restricted
-nonconstant fibre.
+Completing `K` through `R-1` is still not the route: that recovers the
+already-known full transport and erases the restricted nonconstant fibre. The
+fixed-depth crossing settles the sign-crossing target, but it does not by itself
+give a root-scale bound for the packet value at the crossing.
 
 The critical invariant remains
 
