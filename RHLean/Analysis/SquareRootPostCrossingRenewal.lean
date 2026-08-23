@@ -1,7 +1,7 @@
 import Mathlib
 import RHLean.Analysis.SquareRootPostCrossingTail
 import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
-import RHLean.Proof.ReplacementFibreOrientationSplit
+import RHLean.Proof.ReplacementFibreCofactorWindows
 
 /-!
 # Renewal normal forms for the post-crossing tail
@@ -24,8 +24,9 @@ The replacement-fibre dictionary then identifies the packet layer with the
 negative cofactor-one prime face.  Consequently every fully admitted shallow
 layer cancels its prime diagonal exactly, while the crossing layer retains
 precisely `j - N_R(K)`, the negative number of unfilled seats.  The remaining
-composite-root, smooth, and strict-descendant terms are kept in one signed
-double Gram.
+composite-root and smooth orientations recombine as one signed Type-II
+cofactor-prime window mass (with the root cofactor range starting at two), and
+that mass stays coupled to the strict descendants in one signed double Gram.
 
 The last form is the genuinely nonlocal bilinear proof object for a subsequent
 energy argument.  No diagonal estimate, triangle inequality, RH hypothesis,
@@ -284,9 +285,81 @@ theorem replacementFibrePrimeFaceMass_eq_neg_reciprocalPrimeLayerCard
   rw [replacementFibrePrimeFaceMass_eq_neg_primeCount R z hR hz (by omega),
     replacementFibrePrimeCount_eq_reciprocalPrimeLayerCard R z hR hz hzR]
 
+/-- The cofactor-one dilated prime window is the literal reciprocal-fibre
+prime count. -/
+theorem replacementFibreRootPrimeWindowCount_one_eq_primeCount
+    (R z : ℕ) :
+    replacementFibreRootPrimeWindowCount R z 1 =
+      replacementFibrePrimeCount R z := by
+  classical
+  unfold replacementFibreRootPrimeWindowCount replacementFibrePrimeCount
+    replacementDilatedFibreLower replacementDilatedFibreUpper
+    squareRootReplacementFibreLower squareRootReplacementFibreUpper
+  simp only [Nat.mul_one]
+  apply Finset.sum_congr rfl
+  intro q _hq
+  by_cases hqPrime : q.Prime
+  · simp [hqPrime, hqPrime.one_lt]
+  · simp [hqPrime]
+
 /-- Strict-root mass after removing the cofactor-one prime face. -/
 def replacementFibreCompositeRootMass (R z : ℕ) : ℂ :=
   replacementFibreRootMass R z - replacementFibrePrimeFaceMass R z
+
+/-- Removing the cofactor-one prime face from the root orientation leaves
+exactly the signed Type-II prime windows with cofactors `c >= 2`. -/
+theorem replacementFibreCompositeRootMass_eq_neg_cofactorPrimeWindows
+    (R z : ℕ) (hR : 2 ≤ R) (hz : 1 ≤ z) (hzR : z < R) :
+    replacementFibreCompositeRootMass R z =
+      -∑ c ∈ Finset.Icc 2 (R - 1),
+        canonicalMoebiusWeight c *
+          replacementFibreRootPrimeWindowCount R z c := by
+  classical
+  unfold replacementFibreCompositeRootMass
+  rw [replacementFibreRootMass_eq_neg_cofactorPrimeWindows R z hR hz hzR,
+    replacementFibrePrimeFaceMass_eq_neg_primeCount R z hR hz hzR,
+    ← replacementFibreRootPrimeWindowCount_one_eq_primeCount R z]
+  have hset :
+      Finset.Icc 1 (R - 1) =
+        ({1} : Finset ℕ) ∪ Finset.Icc 2 (R - 1) := by
+    ext c
+    simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_singleton]
+    omega
+  have hdisj :
+      Disjoint ({1} : Finset ℕ) (Finset.Icc 2 (R - 1)) := by
+    rw [Finset.disjoint_left]
+    intro c hc1 hc2
+    rw [Finset.mem_singleton] at hc1
+    subst c
+    simp at hc2
+  rw [hset, Finset.sum_union hdisj]
+  simp [canonicalMoebiusWeight]
+
+/-- The two non-prime orientations kept as one signed cofactor-prime object.
+The root side starts at cofactor two because the packet has removed the
+cofactor-one face; the smooth side retains its canonical roughness condition
+inside `replacementFibreSmoothPrimeWindowCount`. -/
+def replacementFibreTypeIIWindowMass (R z : ℕ) : ℂ :=
+  -((∑ c ∈ Finset.Icc 2 (R - 1),
+        canonicalMoebiusWeight c *
+          replacementFibreRootPrimeWindowCount R z c) +
+      ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        canonicalMoebiusWeight c *
+          replacementFibreSmoothPrimeWindowCount R z c)
+
+/-- After prime-face removal, root-composite and smooth orientations are
+exactly the single signed Type-II window mass. -/
+theorem replacementFibreCompositeRoot_add_smooth_eq_typeIIWindowMass
+    (R z : ℕ) (hR : 2 ≤ R) (hz : 1 ≤ z) (hzR : z < R) :
+    replacementFibreCompositeRootMass R z +
+        replacementFibreSmoothMass R z =
+      replacementFibreTypeIIWindowMass R z := by
+  rw [replacementFibreCompositeRootMass_eq_neg_cofactorPrimeWindows
+      R z hR hz hzR,
+    replacementFibreSmoothMass_eq_neg_cofactorPrimeWindows
+      R z hR hz hzR]
+  unfold replacementFibreTypeIIWindowMass
+  ring
 
 /-- The complementary Möbius fibre is the prime face, the remaining strict-root
 mass, and the smooth-oriented mass, with all signs retained. -/
@@ -505,6 +578,19 @@ theorem squareRootPostCrossingReplacementCoefficient_eq_belowCrossing
   have hpredNe : y ≠ R - 1 := by omega
   simp [hpredNe]
 
+/-- Below the crossing, the residual coefficient is one signed Type-II
+cofactor-window mass plus the strict lower-triangular descendants. -/
+theorem squareRootPostCrossingReplacementCoefficient_eq_belowCrossing_typeII
+    (R K j y : ℕ) (hR : 2 ≤ R) (hKR : K + 1 < R)
+    (hy : 1 ≤ y) (hyK : y < K) :
+    squareRootPostCrossingReplacementCoefficient R K j y =
+      replacementFibreTypeIIWindowMass R y +
+        squareRootOrientedStrictDescendantTransform R y := by
+  rw [squareRootPostCrossingReplacementCoefficient_eq_belowCrossing
+      R K j y hR hKR hy hyK,
+    replacementFibreCompositeRoot_add_smooth_eq_typeIIWindowMass
+      R y hR hy (by omega)]
+
 /-- At the crossing depth, the only cofactor-one diagonal left in the renewal
 row is `j-N_R(K)`, the negative of the unfilled prime seats. -/
 theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing
@@ -521,6 +607,23 @@ theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing
     R K j hR hK hKR]
   have hpredNe : K ≠ R - 1 := by omega
   simp [hpredNe]
+
+/-- At the crossing, the residual row is the exact unfilled-seat remainder,
+the same signed Type-II window mass, and the strict descendants. -/
+theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing_typeII
+    (R K j : ℕ) (hR : 2 ≤ R) (hK : 1 ≤ K) (hKR : K + 1 < R) :
+    squareRootPostCrossingReplacementCoefficient R K j K =
+      (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+        replacementFibreTypeIIWindowMass R K +
+          squareRootOrientedStrictDescendantTransform R K := by
+  rw [squareRootPostCrossingReplacementCoefficient_eq_atCrossing
+      R K j hR hK hKR,
+    add_assoc
+      ((j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ))
+      (replacementFibreCompositeRootMass R K)
+      (replacementFibreSmoothMass R K),
+    replacementFibreCompositeRoot_add_smooth_eq_typeIIWindowMass
+      R K hR hK (by omega)]
 
 /-- **Exact post-crossing lower-triangular renewal row.**  The terminal tail is
 one signed combination of Mertens states at scales `y < R`; the shallow packet
@@ -623,6 +726,64 @@ theorem squareRootPostCrossingCoupledTail_eq_primeCancelledCrossingSplit
       R K j K (by omega) hK (by omega),
       squareRootPostCrossingReplacementCoefficient_eq_atCrossing
         R K j (by omega) hK hKR]
+  rw [hbelow, hat]
+
+/-- **Type-II crossing normal form.**  The completed shallow rows contain no
+cofactor-one prime term: their whole diagonal contribution is the single
+signed cofactor-window mass.  The crossing row differs only by its exact
+unfilled-seat remainder, while the deep tail remains coupled. -/
+theorem squareRootPostCrossingCoupledTail_eq_typeIICrossingSplit
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K + 1 < R) :
+    squareRootPostCrossingCoupledTail R K j =
+      (∑ y ∈ Finset.Icc 1 (K - 1),
+        (replacementFibreTypeIIWindowMass R y +
+            squareRootOrientedStrictDescendantTransform R y) *
+          mertensSummatory y) +
+      ((j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+          replacementFibreTypeIIWindowMass R K +
+            squareRootOrientedStrictDescendantTransform R K) *
+        mertensSummatory K +
+      ∑ y ∈ Finset.Icc (K + 1) (R - 1),
+        squareRootPostCrossingPrimeCancelledCoefficient R K j y *
+          mertensSummatory y := by
+  rw [squareRootPostCrossingCoupledTail_eq_primeCancelledCrossingSplit
+    R K j hR hK hKR]
+  have hbelow :
+      (∑ y ∈ Finset.Icc 1 (K - 1),
+        (replacementFibreCompositeRootMass R y +
+            replacementFibreSmoothMass R y +
+              squareRootOrientedStrictDescendantTransform R y) *
+          mertensSummatory y) =
+        ∑ y ∈ Finset.Icc 1 (K - 1),
+          (replacementFibreTypeIIWindowMass R y +
+              squareRootOrientedStrictDescendantTransform R y) *
+            mertensSummatory y := by
+    apply Finset.sum_congr rfl
+    intro y hy
+    rcases Finset.mem_Icc.mp hy with ⟨hy1, hyK⟩
+    rw [replacementFibreCompositeRoot_add_smooth_eq_typeIIWindowMass
+      R y (by omega) hy1 (by omega)]
+  have hat :
+      (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+          replacementFibreCompositeRootMass R K +
+            replacementFibreSmoothMass R K +
+              squareRootOrientedStrictDescendantTransform R K =
+        (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+          replacementFibreTypeIIWindowMass R K +
+            squareRootOrientedStrictDescendantTransform R K := by
+    calc
+      (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+            replacementFibreCompositeRootMass R K +
+              replacementFibreSmoothMass R K +
+                squareRootOrientedStrictDescendantTransform R K =
+          squareRootPostCrossingReplacementCoefficient R K j K :=
+            (squareRootPostCrossingReplacementCoefficient_eq_atCrossing
+              R K j (by omega) hK hKR).symm
+      _ = (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+            replacementFibreTypeIIWindowMass R K +
+              squareRootOrientedStrictDescendantTransform R K :=
+          squareRootPostCrossingReplacementCoefficient_eq_atCrossing_typeII
+            R K j (by omega) hK hKR
   rw [hbelow, hat]
 
 /-- One summand of the oriented prime-cancelled renewal row. -/
