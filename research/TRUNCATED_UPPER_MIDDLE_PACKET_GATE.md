@@ -3,8 +3,8 @@
 **Status:** exact packet formalized; quantitative bound remains open.
 
 This note corrects the earlier diagnostic that isolated the middle terminal-flip
-sector.  The top sector `X_R/2 < q <= X_R` is dynamically inert but
-arithmetically active: its untouched prime seat contributes `-1`.  It is the
+sector. The top sector `X_R/2 < q <= X_R` is dynamically inert but
+arithmetically active: its untouched prime seat contributes `-1`. It is the
 leading cancellation partner for the middle and must not be discarded.
 
 Let
@@ -40,8 +40,7 @@ start.
 Define the clipped post-root prime prefix
 
 \[
-P_R(d)
-=
+P_R(d)=
 \pi\!\left(\max\!\left(R,\left\lfloor\frac{X_R}{d}\right\rfloor\right)\right)
 -\pi(R).
 \]
@@ -71,17 +70,17 @@ U_R(K)
 +M(K)P_R(K+1).
 \]
 
-Note that `P_R(1)` is the **whole post-root prime prefix**.  The actual top
-`k=1` layer is `P_R(1)-P_R(2)`.  The formal packet definition, rather than a
-verbal interpretation of the Abel terms, is the safe source of bookkeeping.
+`P_R(1)` is the **whole post-root prime prefix**. The actual top `k=1` layer is
+`P_R(1)-P_R(2)`. The formal packet definition, rather than a verbal
+interpretation of the Abel terms, is the safe source of bookkeeping.
 
 These identities are formalized in
 `RHLean/Proof/LargePrimeTerminalFlipLayers.lean` on PR #457.
 
-## Finite gate
+## Exact finite gate
 
 For each tested `R`, let `K_cross(R)` be the first reciprocal depth for which
-`U_R(K) >= 0`, starting from the negative upper block.  Let `K_best(R)` minimize
+`U_R(K) >= 0`, starting from the negative upper block. Let `K_best(R)` minimize
 `|U_R(K)|` over the scanned shallow range.
 
 | `R` | `K_cross` | best `K` | best `|U_R(K)|/R` | best `K/log R` |
@@ -95,20 +94,26 @@ For each tested `R`, let `K_cross(R)` be the first reciprocal depth for which
 | 20000 | 45 | 44 | 0.2198 | 4.443 |
 | 50000 | 48 | 47 | 0.1605 | 4.344 |
 | 100000 | 49 | 49 | 0.3222 | 4.256 |
+| 200000 | 52 | 51 | 1.0795 | 4.178 |
+| 500000 | 54 | 54 | 4.6258 | 4.115 |
 
-Thus the data do **not** support a bounded reciprocal depth.  They support a
-slowly growing depth, numerically close to
+Two distinct conclusions must therefore be kept separate.
 
-\[
-K_*(R)\asymp 4.3\log R
-\]
+1. The **crossing depth remains shallow**. Through the extended scan,
+   `K_cross/log R` continues to drift slowly downward near `4`.
+2. The **nearest crossing is not uniformly root-scale**. The strong empirical
+   conjecture `min_K |U_R(K)| = O(R)` already fails as a stable numerical law:
+   the best shallow residual is about `1.08 R` at `R=200000` and `4.63 R` at
+   `R=500000`.
 
-on the tested range.  This is a diagnostic, not a theorem.
+So the finite evidence supports a slowly growing crossing depth, but it does
+**not** support the claim that a raw sign crossing by itself proves the desired
+packet bound.
 
 For the dense finite scan `3 <= R <= 5000`, only 13 very small endpoints failed
-to cross within the scanned range; from the stable range onward the same
-upper-to-middle crossing is persistent.  The largest best-packet ratio observed
-in that dense scan was about `0.27 R`.
+to cross within the scanned range. That small-scale success was useful for
+finding the packet, but the extended gate shows it must not be promoted into an
+asymptotic bound.
 
 ## Why a fixed K cannot be the asymptotic mechanism
 
@@ -125,8 +130,7 @@ Hence
 \[
 U_R(K)
 \sim
--\frac{R^2}{2\log R}
-S_K,
+-\frac{R^2}{2\log R}S_K,
 \qquad
 S_K:=\sum_{k\le K}\frac{M(k)}{k(k+1)}.
 \]
@@ -141,7 +145,7 @@ S_K
 }
 \]
 
-Direct exact arithmetic gives `S_K>0` for every `K<=10000` checked.  Typical
+Direct exact arithmetic gives `S_K>0` for every `K<=10000` checked. Typical
 values are
 
 | `K` | `S_K` | `K S_K` |
@@ -155,49 +159,124 @@ values are
 | 5000 | 0.000378297 | 1.891 |
 | 10000 | 0.000217070 | 2.171 |
 
-So on this range `S_K` behaves numerically like a constant multiple of `1/K`.
-Combining this with the prime-count expansion explains why the balancing depth
-appears proportional to `log R`.
+Thus a **constant** reciprocal depth is not the finite/asymptotic mechanism
+suggested by the data.
 
-This does **not** prove `S_K=O(1/K)`.  The exact identity shows that such a claim
-is a statement about the reciprocal Möbius sum
+## Why the observed depth is near `4 log R`
 
-\[
-\sum_{k\le K}\frac{\mu(k)}k.
-\]
-
-The repository currently has the elementary bound
+Put `L = log X_R`. Expanding the reciprocal prime density formally gives
 
 \[
-\left|\sum_{k\le K}\frac{\mu(k)}k\right|\le1,
+\frac1{\log(X_R/d)}
+=\frac1L+\frac{\log d}{L^2}+\cdots.
 \]
 
-but that is too weak to prove the observed logarithmic balancing depth.
+The first two truncated coefficients are
+
+\[
+S_K=
+\sum_{d\le K}\frac{\mu(d)}d-rac{M(K)}{K+1},
+\]
+
+and
+
+\[
+B_K=
+\sum_{d\le K}\frac{\mu(d)\log d}{d}
+-\frac{M(K)\log(K+1)}{K+1}.
+\]
+
+Exact finite arithmetic gives
+
+| `K` | `K S_K` | `B_K` |
+|---:|---:|---:|
+| 20 | 1.843 | -0.717 |
+| 30 | 1.989 | -0.774 |
+| 40 | 2.019 | -0.814 |
+| 42 | 2.049 | -0.819 |
+| 49 | 1.935 | -0.845 |
+| 50 | 1.916 | -0.849 |
+| 100 | 2.123 | -0.903 |
+| 200 | 1.807 | -0.951 |
+| 500 | 1.728 | -0.978 |
+| 1000 | 2.414 | -0.984 |
+| 10000 | 2.171 | -0.998 |
+
+On this finite range, `S_K` behaves roughly like `2/K` while `B_K` approaches
+`-1`. Balancing the first two terms
+
+\[
+\frac{S_K}{L}+\frac{B_K}{L^2}
+\]
+
+therefore predicts
+
+\[
+K\approx 2L\approx4\log R,
+\]
+
+which explains the observed crossing depths remarkably well.
+
+This is a **diagnostic explanation, not a theorem**. In particular, proving a
+uniform `K(R)=O(log R)` would require a quantitative rate for the reciprocal
+Möbius coefficient `S_K`, not merely qualitative PNT.
+
+The repository already has the elementary bound
+
+\[
+\left|\sum_{d\le K}\frac{\mu(d)}d\right|\le1,
+\]
+
+and it formalizes the complementary first logarithmic Möbius moment in
+`NativePNTMobiusMoments`. Those are exactly the right lower-scale objects, but
+the currently proved bounds are too weak to force the observed depth or a
+root-scale packet residual.
+
+## Direct cap interpretation
+
+The Abel boundary cancels every prime below `X_R/(K+1)`. Hence, after swapping
+the finite sums, the same packet can be read as the Möbius mass of the shallow
+high-prime cap
+
+\[
+\boxed{
+U_R(K)
+=
+\sum_{d\le K}
+\sum_{\substack{X_R/(K+1)<q\le X_R/d\\q\text{ prime}}}
+\mu(dq).
+}
+\]
+
+Because `K<R` and `q>X_R/(K+1)>R`, the prime `q` is fresh and larger than the
+cofactor, so `mu(dq)=-mu(d)` whenever the cofactor survives. This is the direct
+upper-plus-middle object; it is not a difference of independently estimated
+upper and middle masses.
+
+This cap form is the more promising object for a direct argument, because it
+preserves the exact cancellation that motivated the truncation while avoiding
+a separate estimate of the huge upper block.
 
 ## Route decision
 
-The next analytic target is now sharply separated into two possibilities.
+The analytic target is now sharper than the initial proposal.
 
-1. **Depth theorem.**  Prove existence/control of a shallow `K(R)` (the data
-   suggest `K(R)=O(log R)`) for which the upper and first middle layers balance.
-   This requires enough control of the lower-scale reciprocal Möbius coefficient
-   and the fixed-ratio prime-count weights.
+1. **Crossing-depth theorem:** still plausible as a structural question. The
+   finite data suggest a shallow, slowly growing `K_cross(R)`, but the presently
+   formalized reciprocal Möbius bounds do not prove `O(log R)`.
+2. **Nearest-crossing root bound:** rejected as a naive finite conjecture. The
+   extended exact gate already shows `min |U_R(K)|/R` growing beyond `1` and
+   then `4`.
+3. **Direct signed-cap theorem:** the viable quantitative target. Estimate the
+   entire cap before splitting its prime-count and Möbius pieces, or find an
+   additional signed refinement inside the cap. A successful proof must explain
+   more than the existence of a sign crossing.
 
-2. **Direct packet theorem.**  Avoid estimating `K(R)` as an intermediate
-   object and prove directly that a deliberately incomplete packet satisfies
+A constant `K` is not the route. Completing `K` through `R-1` is also not the
+route: that recovers the already-known full transport and erases the restricted
+nonconstant fibre.
 
-   \[
-   |U_R(K(R))|\ll R^{1+\varepsilon/2}
-   \]
-
-   for an explicit elementary choice of `K(R)`, while preserving the remaining
-   reciprocal tail for its separate smooth/cross-root pairing.
-
-A constant `K` is not the viable asymptotic route.  Completing `K` through
-`R-1` is also not the route: that recovers the already-known full transport and
-erases the restricted nonconstant fibre that this gate is designed to preserve.
-
-The critical invariant is therefore
+The critical invariant remains
 
 \[
 \boxed{
