@@ -28,7 +28,8 @@ composite-root and smooth orientations recombine as one signed Type-II
 cofactor-prime window mass (with the root cofactor range starting at two), and
 that mass stays coupled to the strict descendants in one signed double Gram.
 Both orientations are contracted to the native reciprocal-prime coordinates
-at endpoint `X_R / c`, then centered exactly into deterministic Li density and
+at endpoint `X_R / c`, recombined into one canonical rough-prime count with
+lower cutoff `P+(c)`, then centered exactly into deterministic Li density and
 prime discrepancy channels without applying a norm.
 
 The last form is the genuinely nonlocal bilinear proof object for a subsequent
@@ -377,6 +378,97 @@ theorem replacementFibreSmoothPrimeWindowCount_eq_reciprocalPrimeCount
       omega
     · simpa [Nat.mul_comm, Nat.mul_left_comm] using hupper
 
+private theorem canonicalLargestPrimeFactor_le_self_of_two
+    {c : ℕ} (hc : 2 ≤ c) :
+    canonicalLargestPrimeFactor c ≤ c := by
+  exact Nat.le_of_dvd (by omega) (canonicalLargestPrimeFactor_dvd (by omega))
+
+/-- Root and smooth orientations recombine pointwise into the single canonical
+rough-prime reciprocal count.  A prime in the full interval cannot equal its
+cofactor: at equality its canonical largest prime would violate the strict
+roughness cutoff. -/
+theorem rootReciprocalPrimeCount_add_smooth_eq_roughPrimeCount
+    (R z c : ℕ) (hc : 2 ≤ c) :
+    primeSieveReciprocalPrimeCount c (squareRootEndpoint R / c) z +
+        replacementFibreSmoothReciprocalPrimeCount R z c =
+      primeSieveReciprocalPrimeCount (canonicalLargestPrimeFactor c)
+        (squareRootEndpoint R / c) z := by
+  classical
+  have hPc : canonicalLargestPrimeFactor c ≤ c :=
+    canonicalLargestPrimeFactor_le_self_of_two hc
+  have hrootSet :
+      primeSieveReciprocalInterval c (squareRootEndpoint R / c) z =
+        (primeSieveReciprocalInterval (canonicalLargestPrimeFactor c)
+          (squareRootEndpoint R / c) z).filter (fun q => c < q) := by
+    ext q
+    simp only [Finset.mem_filter, mem_primeSieveReciprocalInterval]
+    unfold primeSieveReciprocalLower
+    simp only [max_lt_iff]
+    omega
+  unfold primeSieveReciprocalPrimeCount primeSievePrimeIndicator
+    replacementFibreSmoothReciprocalPrimeCount
+  rw [hrootSet, Finset.sum_filter, ← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro q hq
+  by_cases hprime : q.Prime
+  · have hqne : q ≠ c := by
+      intro heq
+      subst q
+      have hlower :=
+        (mem_primeSieveReciprocalInterval.mp hq).1
+      have hPlt : canonicalLargestPrimeFactor c < c :=
+        lt_of_le_of_lt
+          (le_max_left (canonicalLargestPrimeFactor c)
+            ((squareRootEndpoint R / c) / (z + 1))) hlower
+      have hPeq : canonicalLargestPrimeFactor c = c := by
+        simpa using canonicalLargestPrimeFactor_mul_prime_eq
+          (c := 1) (q := c) (by omega) hprime.one_lt hprime
+      omega
+    rcases lt_or_gt_of_ne hqne with hqc | hcq
+    · simp [hprime, hqc, Nat.not_lt_of_ge hqc.le]
+    · simp [hprime, hcq, Nat.not_lt_of_ge hcq.le]
+  · simp [hprime]
+
+/-- At the complete square endpoint, a root-oriented window with cofactor
+`c >= R` is empty: its contracted endpoint is already strictly below `c`. -/
+theorem rootReciprocalPrimeCount_eq_zero_of_root_le_cofactor
+    (R z c : ℕ) (hR : 2 ≤ R) (hc : R ≤ c) :
+    primeSieveReciprocalPrimeCount c (squareRootEndpoint R / c) z = 0 := by
+  have hcpos : 0 < c := by omega
+  have hendpointLt : squareRootEndpoint R < c * c := by
+    have hrootLt : squareRootEndpoint R < R ^ 2 := by
+      unfold squareRootEndpoint
+      have hpos : 0 < R ^ 2 := by positivity
+      omega
+    have hpow : R ^ 2 ≤ c ^ 2 := Nat.pow_le_pow_left hc 2
+    simpa [pow_two] using hrootLt.trans_le hpow
+  have hcontracted : squareRootEndpoint R / c < c :=
+    (Nat.div_lt_iff_lt_mul hcpos).2 hendpointLt
+  have hupper :
+      primeSieveReciprocalUpper (squareRootEndpoint R / c) z < c := by
+    unfold primeSieveReciprocalUpper
+    exact (Nat.div_le_self _ _).trans_lt hcontracted
+  have hlower :
+      c ≤ primeSieveReciprocalLower c (squareRootEndpoint R / c) z := by
+    unfold primeSieveReciprocalLower
+    exact le_max_left _ _
+  unfold primeSieveReciprocalPrimeCount primeSieveReciprocalInterval
+  rw [Finset.Ioc_eq_empty_of_le (hupper.le.trans hlower)]
+  simp
+
+/-- The smooth orientation has no cofactor-one contribution. -/
+@[simp] theorem replacementFibreSmoothReciprocalPrimeCount_one
+    (R z : ℕ) :
+    replacementFibreSmoothReciprocalPrimeCount R z 1 = 0 := by
+  unfold replacementFibreSmoothReciprocalPrimeCount
+  apply Finset.sum_eq_zero
+  intro q _hq
+  by_cases hprime : q.Prime
+  · have hq2 := hprime.two_le
+    have hnlt : ¬q < 1 := by omega
+    simp [hprime, hnlt]
+  · simp [hprime]
+
 /-- Deterministic PNT-density mass on the contracted smooth reciprocal
 interval, with the orientation cutoff retained before summation. -/
 def replacementFibreSmoothReciprocalLiMass (R z c : ℕ) : ℂ :=
@@ -445,6 +537,96 @@ def replacementFibreTypeIIWindowMass (R z : ℕ) : ℂ :=
         canonicalMoebiusWeight c *
           replacementFibreSmoothReciprocalPrimeCount R z c)
 
+/-- The orientation-free canonical rough-prime form of the residual Type-II
+mass.  Every cofactor begins at two, and freshness is carried solely by the
+canonical lower cutoff `P+(c)`. -/
+def replacementFibreCanonicalRoughReciprocalMass (R z : ℕ) : ℂ :=
+  -∑ c ∈ Finset.Icc 2 (squareRootEndpoint R),
+    canonicalMoebiusWeight c *
+      primeSieveReciprocalPrimeCount (canonicalLargestPrimeFactor c)
+        (squareRootEndpoint R / c) z
+
+/-- **Orientation recombination after prime-face cancellation.**  The root and
+smooth Type-II sectors are exactly one canonical rough-prime reciprocal sum.
+The root range may be extended through `X_R` because every `c >= R` root window
+is empty; the cofactor-one smooth term is empty as well. -/
+theorem replacementFibreTypeIIWindowMass_eq_canonicalRoughReciprocalMass
+    (R z : ℕ) (hR : 2 ≤ R) :
+    replacementFibreTypeIIWindowMass R z =
+      replacementFibreCanonicalRoughReciprocalMass R z := by
+  classical
+  have hRleX : R ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hsquare : R + 1 ≤ R ^ 2 := by nlinarith
+    omega
+  have hrootSet :
+      Finset.Icc 2 (squareRootEndpoint R) =
+        Finset.Icc 2 (R - 1) ∪
+          Finset.Icc R (squareRootEndpoint R) := by
+    ext c
+    simp only [Finset.mem_Icc, Finset.mem_union]
+    omega
+  have hrootDisj :
+      Disjoint (Finset.Icc 2 (R - 1))
+        (Finset.Icc R (squareRootEndpoint R)) := by
+    rw [Finset.disjoint_left]
+    intro c hcLow hcHigh
+    rcases Finset.mem_Icc.mp hcLow with ⟨_hc2, hcPred⟩
+    rcases Finset.mem_Icc.mp hcHigh with ⟨hcR, _hcX⟩
+    omega
+  have hrootZero :
+      (∑ c ∈ Finset.Icc R (squareRootEndpoint R),
+        canonicalMoebiusWeight c *
+          primeSieveReciprocalPrimeCount c
+            (squareRootEndpoint R / c) z) = 0 := by
+    apply Finset.sum_eq_zero
+    intro c hc
+    have hcR := (Finset.mem_Icc.mp hc).1
+    rw [rootReciprocalPrimeCount_eq_zero_of_root_le_cofactor
+      R z c hR hcR, mul_zero]
+  have hrootExtend :
+      (∑ c ∈ Finset.Icc 2 (R - 1),
+        canonicalMoebiusWeight c *
+          primeSieveReciprocalPrimeCount c
+            (squareRootEndpoint R / c) z) =
+        ∑ c ∈ Finset.Icc 2 (squareRootEndpoint R),
+          canonicalMoebiusWeight c *
+            primeSieveReciprocalPrimeCount c
+              (squareRootEndpoint R / c) z := by
+    rw [hrootSet, Finset.sum_union hrootDisj, hrootZero, add_zero]
+  have hsmoothSet :
+      Finset.Icc 1 (squareRootEndpoint R) =
+        ({1} : Finset ℕ) ∪ Finset.Icc 2 (squareRootEndpoint R) := by
+    ext c
+    simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_singleton]
+    omega
+  have hsmoothDisj :
+      Disjoint ({1} : Finset ℕ)
+        (Finset.Icc 2 (squareRootEndpoint R)) := by
+    rw [Finset.disjoint_left]
+    intro c hc1 hc2
+    rw [Finset.mem_singleton] at hc1
+    subst c
+    simp at hc2
+  have hsmoothDrop :
+      (∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        canonicalMoebiusWeight c *
+          replacementFibreSmoothReciprocalPrimeCount R z c) =
+        ∑ c ∈ Finset.Icc 2 (squareRootEndpoint R),
+          canonicalMoebiusWeight c *
+            replacementFibreSmoothReciprocalPrimeCount R z c := by
+    rw [hsmoothSet, Finset.sum_union hsmoothDisj]
+    simp
+  unfold replacementFibreTypeIIWindowMass
+    replacementFibreCanonicalRoughReciprocalMass
+  rw [hrootExtend, hsmoothDrop, ← Finset.sum_add_distrib]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro c hc
+  have hc2 := (Finset.mem_Icc.mp hc).1
+  rw [← mul_add,
+    rootReciprocalPrimeCount_add_smooth_eq_roughPrimeCount R z c hc2]
+
 /-- Deterministic PNT-density part of the prime-cancelled Type-II mass. -/
 def replacementFibreTypeIILiMass (R z : ℕ) : ℂ :=
   -((∑ c ∈ Finset.Icc 2 (R - 1),
@@ -474,6 +656,46 @@ theorem primeSieveReciprocalPrimeCount_eq_li_add_discrepancy
         primeSieveReciprocalPrimeDiscrepancy y x d := by
   unfold primeSieveReciprocalPrimeDiscrepancy
   ring
+
+/-- Deterministic PNT-density channel of the orientation-free canonical rough
+reciprocal mass. -/
+def replacementFibreCanonicalRoughLiMass (R z : ℕ) : ℂ :=
+  -∑ c ∈ Finset.Icc 2 (squareRootEndpoint R),
+    canonicalMoebiusWeight c *
+      primeSieveReciprocalLiMass (canonicalLargestPrimeFactor c)
+        (squareRootEndpoint R / c) z
+
+/-- Centered reciprocal-prime discrepancy channel of the same canonical rough
+mass. -/
+def replacementFibreCanonicalRoughDiscrepancyMass (R z : ℕ) : ℂ :=
+  -∑ c ∈ Finset.Icc 2 (squareRootEndpoint R),
+    canonicalMoebiusWeight c *
+      primeSieveReciprocalPrimeDiscrepancy
+        (canonicalLargestPrimeFactor c) (squareRootEndpoint R / c) z
+
+/-- Exact PNT centering after root/smooth orientation recombination. -/
+theorem replacementFibreCanonicalRoughReciprocalMass_eq_li_add_discrepancy
+    (R z : ℕ) :
+    replacementFibreCanonicalRoughReciprocalMass R z =
+      replacementFibreCanonicalRoughLiMass R z +
+        replacementFibreCanonicalRoughDiscrepancyMass R z := by
+  unfold replacementFibreCanonicalRoughReciprocalMass
+    replacementFibreCanonicalRoughLiMass
+    replacementFibreCanonicalRoughDiscrepancyMass
+  simp_rw [primeSieveReciprocalPrimeCount_eq_li_add_discrepancy,
+    mul_add, Finset.sum_add_distrib]
+  ring
+
+/-- The prime-cancelled Type-II diagonal in its final orientation-free,
+PNT-centered form. -/
+theorem replacementFibreTypeIIWindowMass_eq_canonical_li_add_discrepancy
+    (R z : ℕ) (hR : 2 ≤ R) :
+    replacementFibreTypeIIWindowMass R z =
+      replacementFibreCanonicalRoughLiMass R z +
+        replacementFibreCanonicalRoughDiscrepancyMass R z := by
+  rw [replacementFibreTypeIIWindowMass_eq_canonicalRoughReciprocalMass
+      R z hR,
+    replacementFibreCanonicalRoughReciprocalMass_eq_li_add_discrepancy]
 
 /-- **Signed Type-II PNT centering.**  The residual diagonal is exactly its
 deterministic Li mass plus its centered reciprocal discrepancy mass, before
@@ -750,6 +972,20 @@ theorem squareRootPostCrossingReplacementCoefficient_eq_belowCrossing_centered
       R K j y hR hKR hy hyK,
     replacementFibreTypeIIWindowMass_eq_li_add_discrepancy]
 
+/-- Final orientation-free centered shallow row.  Freshness is encoded only by
+the canonical largest-prime cutoff in the rough reciprocal mass. -/
+theorem squareRootPostCrossingReplacementCoefficient_eq_belowCrossing_canonicalCentered
+    (R K j y : ℕ) (hR : 2 ≤ R) (hKR : K + 1 < R)
+    (hy : 1 ≤ y) (hyK : y < K) :
+    squareRootPostCrossingReplacementCoefficient R K j y =
+      replacementFibreCanonicalRoughLiMass R y +
+        replacementFibreCanonicalRoughDiscrepancyMass R y +
+          squareRootOrientedStrictDescendantTransform R y := by
+  rw [squareRootPostCrossingReplacementCoefficient_eq_belowCrossing_typeII
+      R K j y hR hKR hy hyK,
+    replacementFibreTypeIIWindowMass_eq_canonical_li_add_discrepancy
+      R y hR]
+
 /-- At the crossing depth, the only cofactor-one diagonal left in the renewal
 row is `j-N_R(K)`, the negative of the unfilled prime seats. -/
 theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing
@@ -796,6 +1032,20 @@ theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing_centered
   rw [squareRootPostCrossingReplacementCoefficient_eq_atCrossing_typeII
       R K j hR hK hKR,
     replacementFibreTypeIIWindowMass_eq_li_add_discrepancy]
+  ring
+
+/-- Final orientation-free centered crossing row. -/
+theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing_canonicalCentered
+    (R K j : ℕ) (hR : 2 ≤ R) (hK : 1 ≤ K) (hKR : K + 1 < R) :
+    squareRootPostCrossingReplacementCoefficient R K j K =
+      (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+        replacementFibreCanonicalRoughLiMass R K +
+          replacementFibreCanonicalRoughDiscrepancyMass R K +
+            squareRootOrientedStrictDescendantTransform R K := by
+  rw [squareRootPostCrossingReplacementCoefficient_eq_atCrossing_typeII
+      R K j hR hK hKR,
+    replacementFibreTypeIIWindowMass_eq_canonical_li_add_discrepancy
+      R K hR]
   ring
 
 /-- **Exact post-crossing lower-triangular renewal row.**  The terminal tail is
@@ -1003,6 +1253,55 @@ theorem squareRootPostCrossingCoupledTail_eq_centeredTypeIICrossingSplit
             replacementFibreTypeIIDiscrepancyMass R K +
               squareRootOrientedStrictDescendantTransform R K := by
     rw [replacementFibreTypeIIWindowMass_eq_li_add_discrepancy]
+    ring
+  rw [hbelow, hat]
+
+/-- **Canonical centered crossing normal form.**  Root and smooth orientations
+have now disappeared completely.  Each shallow diagonal is one Möbius-weighted
+rough reciprocal count, centered into Li density and prime discrepancy, while
+strict descendants and the deep tail remain coupled. -/
+theorem squareRootPostCrossingCoupledTail_eq_canonicalCenteredCrossingSplit
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K + 1 < R) :
+    squareRootPostCrossingCoupledTail R K j =
+      (∑ y ∈ Finset.Icc 1 (K - 1),
+        (replacementFibreCanonicalRoughLiMass R y +
+            replacementFibreCanonicalRoughDiscrepancyMass R y +
+              squareRootOrientedStrictDescendantTransform R y) *
+          mertensSummatory y) +
+      ((j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+          replacementFibreCanonicalRoughLiMass R K +
+            replacementFibreCanonicalRoughDiscrepancyMass R K +
+              squareRootOrientedStrictDescendantTransform R K) *
+        mertensSummatory K +
+      ∑ y ∈ Finset.Icc (K + 1) (R - 1),
+        squareRootPostCrossingPrimeCancelledCoefficient R K j y *
+          mertensSummatory y := by
+  rw [squareRootPostCrossingCoupledTail_eq_typeIICrossingSplit
+    R K j hR hK hKR]
+  have hbelow :
+      (∑ y ∈ Finset.Icc 1 (K - 1),
+        (replacementFibreTypeIIWindowMass R y +
+            squareRootOrientedStrictDescendantTransform R y) *
+          mertensSummatory y) =
+        ∑ y ∈ Finset.Icc 1 (K - 1),
+          (replacementFibreCanonicalRoughLiMass R y +
+              replacementFibreCanonicalRoughDiscrepancyMass R y +
+                squareRootOrientedStrictDescendantTransform R y) *
+            mertensSummatory y := by
+    apply Finset.sum_congr rfl
+    intro y _hy
+    rw [replacementFibreTypeIIWindowMass_eq_canonical_li_add_discrepancy
+      R y (by omega)]
+  have hat :
+      (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+          replacementFibreTypeIIWindowMass R K +
+            squareRootOrientedStrictDescendantTransform R K =
+        (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+          replacementFibreCanonicalRoughLiMass R K +
+            replacementFibreCanonicalRoughDiscrepancyMass R K +
+              squareRootOrientedStrictDescendantTransform R K := by
+    rw [replacementFibreTypeIIWindowMass_eq_canonical_li_add_discrepancy
+      R K (by omega)]
     ring
   rw [hbelow, hat]
 
