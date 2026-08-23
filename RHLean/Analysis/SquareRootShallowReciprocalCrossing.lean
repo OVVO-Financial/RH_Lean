@@ -349,9 +349,11 @@ theorem endpointTruncatedUpperMiddlePacketInt_mul_log_div_tendsto
     apply tendsto_finset_sum
     intro d hdMem
     have hd : 0 < d := (Finset.mem_Icc.mp hdMem).1
+    have hdK : d ≤ K := (Finset.mem_Icc.mp hdMem).2
     have hyD : ∀ᶠ n : ℕ in atTop, y n ≤ x n / (d + 1) := by
       filter_upwards [hy] with n hyn
-      exact hyn.trans (Nat.div_le_div_left (by omega) (by omega))
+      exact hyn.trans
+        (Nat.div_le_div_left (Nat.add_le_add_right hdK 1) (by omega))
     exact tendsto_const_nhds.mul
       (endpointReciprocalPrimeLayerCard_mul_log_div_tendsto y x d hd hx hyD)
   have hsum' :
@@ -453,8 +455,8 @@ theorem endpointTruncatedUpperMiddlePacketInt_one_neg
   have hcard : 0 < endpointReciprocalPrimeLayerCard y x 1 := by
     apply Finset.card_pos.mpr
     refine ⟨p, ?_⟩
-    unfold endpointReciprocalPrimeLayerCard primeSieveReciprocalInterval
-      primeSieveReciprocalLower primeSieveReciprocalUpper
+    unfold primeSieveReciprocalInterval primeSieveReciprocalLower
+      primeSieveReciprocalUpper
     rw [max_eq_right hy]
     exact Finset.mem_filter.mpr
       ⟨Finset.mem_Ioc.mpr ⟨hplow, by simpa using hpX⟩, hpPrime⟩
