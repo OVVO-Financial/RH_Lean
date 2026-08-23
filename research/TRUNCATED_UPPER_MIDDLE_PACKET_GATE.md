@@ -1,7 +1,9 @@
 # Truncated upper-middle reciprocal packet gate
 
-**Status:** eventual shallow crossing formalized; a root-scale packet bound
-remains open.
+**Status:** eventual shallow crossing and an unconditional subexponential
+post-crossing tail bound are formalized. The critical root-scale coupled-tail
+bound remains open and is exactly equivalent to the square-prefix Mertens
+energy criterion.
 
 This note corrects the earlier diagnostic that isolated the middle terminal-flip
 sector. The top sector `X_R/2 < q <= X_R` is dynamically inert but
@@ -327,23 +329,87 @@ The analytic target is now sharper than the initial proposal.
 
 1. **Crossing-depth theorem:** proved, in the stronger eventual form
    `K_cross(R)<=18800`, hence in particular `K_cross(R)=O(log R)`.
-2. **Nearest-crossing root bound:** rejected as a naive finite conjecture. The
-   extended exact gate already shows `min |U_R(K)|/R` growing beyond `1` and
-   then `4`.
-3. **Direct signed-cap theorem:** the viable quantitative target. Estimate the
-   entire cap before splitting its prime-count and Möbius pieces, or find an
-   additional signed refinement inside the cap. A successful proof must explain
-   more than the existence of a sign crossing.
+2. **Interpolation at the crossing:** proved. Admitting the least sufficient
+   number of prime seats in the crossing layer produces an integer residual
+   `V_R(K,j)` satisfying `0 <= V_R(K,j) < K`.
+3. **Raw completion tail:** rejected as a root-scale target. Completing the
+   packet from the partial crossing through depth `R-1` recovers the full
+   transport and is numerically much larger than `R`.
+4. **Coupled post-crossing tail:** this is the terminal quantitative target.
+   It keeps the remaining transport signed together with the complete smooth
+   population before taking a norm.
 
-Completing `K` through `R-1` is still not the route: that recovers the
-already-known full transport and erases the restricted nonconstant fibre. The
-fixed-depth crossing settles the sign-crossing target, but it does not by itself
-give a root-scale bound for the packet value at the crossing.
+## Exact post-crossing tail boundary
 
-The critical invariant remains
+For a partial crossing residual `V_R(K,j)`, define
+
+\[
+T^{\mathrm{raw}}_{R,K,j}=U_R(R-1)-V_R(K,j)
+\]
+
+and retain the smooth population in the coupled tail
+
+\[
+T^{\mathrm{coupled}}_{R,K,j}
+=A_R^{\mathrm{smooth}}+T^{\mathrm{raw}}_{R,K,j}.
+\]
+
+The exact terminal identity is
 
 \[
 \boxed{
-\text{upper }k=1\text{ boundary}
-\;\text{plus a growing but shallow reciprocal packet, kept incomplete.}
+M(R^2-1)=V_R(K,j)+T^{\mathrm{coupled}}_{R,K,j}.
 }
+\]
+
+Thus the raw transport tail is not the Mertens remainder. The smooth term is
+essential, and upper and middle remain combined throughout the transport
+completion.
+
+The repository's unconditional strong Mertens theorem gives constants `c>0`
+and `C>=0` such that, for every fixed depth cap `K_0`, every valid crossing
+residual below that cap satisfies
+
+\[
+\boxed{
+\lVert T^{\mathrm{coupled}}_{R,K,j}\rVert
+\le
+C X_R\exp\!\left(-c(\log X_R)^{1/10}\right)+K_0.
+}
+\]
+
+Combining this with any exact certificate `S_{K_0}<0` selects an actual
+eventual crossing `(K,j)` obeying the same bound. This is a genuine
+premise-free tail theorem, but it is the classical zero-free-region scale, not
+the critical square-root scale.
+
+The critical statement is
+
+\[
+\forall\varepsilon>0\;\exists C_\varepsilon\;\forall R,K,j,
+\qquad
+\lVert T^{\mathrm{coupled}}_{R,K,j}\rVert^2
+\le C_\varepsilon R^{2+\varepsilon}
+\]
+
+for valid crossing residuals with `K<=K_0`. Once `S_{K_0}<0`, the formal
+theorems prove
+
+\[
+\boxed{
+\text{critical coupled-tail bound at depth }K_0
+\iff
+\text{square-prefix Mertens energy bound}
+\iff
+\text{global Mertens energy bound}.
+}
+\]
+
+Consequently the shallow crossing does not hide the remaining analytic work:
+the critical coupled-tail estimate is the full Mertens/RH-scale cancellation
+problem in this coordinate. The value `18800` occurs only when the general
+negative-coefficient theorem is instantiated by the existing exact
+certificate.
+
+These results are formalized in
+`RHLean/Analysis/SquareRootPostCrossingTail.lean`.
