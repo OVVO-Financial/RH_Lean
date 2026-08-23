@@ -28,6 +28,12 @@ exact dual weighted form
 
 `- sum_{2 <= c < R} mu(c) * (pi(floor(X_R/c)) - pi(R))`.
 
+The last section puts the untouched prime seat `c = 1` back into the same signed
+object.  The complete post-root prime fibre is then `-M(k)`, not `1-M(k)`, and
+the upper `k=1` block must remain paired with the first middle layers.  We define
+its truncated packet and give the exact finite Abel form before any completion
+of the reciprocal coordinate.
+
 No estimate, asymptotic, PNT input, RH hypothesis, or norm bound is used.
 -/
 
@@ -300,6 +306,125 @@ theorem squareRootMiddleTerminalFlipMass_eq_dual
     hset, Finset.sum_union hdisj]
   simp only [Finset.sum_singleton]
   rw [hmu2, hmidCountC]
+  ring
+
+/-! ## Put the untouched prime seat back: truncated upper-middle packets -/
+
+/-- Clipped post-root prime prefix at reciprocal depth `d`.
+
+`P_R(d)` counts primes in `(R, max R floor(X_R/d)]`.  The clipping makes the
+forward-difference identity valid even at the terminal quotient boundary. -/
+def squareRootPostRootPrimePrefix (R d : ℕ) : ℂ :=
+  primeSievePrefixPrimeCount (max R (squareRootEndpoint R / d)) -
+    primeSievePrefixPrimeCount R
+
+/-- The complete signed post-root packet through reciprocal layer `K`.
+
+The prime seat `c=1` is included.  Hence one complete `d`-fibre contributes
+`-M(d)`, and `d=1` is the same-sign upper block rather than a discarded edge. -/
+def squareRootTruncatedUpperMiddlePacket (R K : ℕ) : ℂ :=
+  -∑ d ∈ Finset.Icc 1 K,
+    primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+      mertensSummatory d
+
+/-- On every physical quotient-support layer, the reciprocal prime population
+is the forward difference of the clipped post-root prefix. -/
+theorem squareRoot_reciprocalPrimeCount_eq_postRootPrefix_diff
+    {R d : ℕ} (hR : 1 ≤ R) (hd1 : 1 ≤ d) (hdR : d < R) :
+    primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d =
+      squareRootPostRootPrimePrefix R d -
+        squareRootPostRootPrimePrefix R (d + 1) := by
+  have htop : squareRootEndpoint R / (R + 1) = R - 1 :=
+    squareRootQuotientSupportTop_eq_pred R hR
+  have hdSupport :
+      d ∈ primeSieveQuotientSupport R (squareRootEndpoint R) := by
+    unfold primeSieveQuotientSupport
+    rw [htop]
+    exact Finset.mem_Icc.mpr ⟨hd1, by omega⟩
+  have hRlt : R < squareRootEndpoint R / d :=
+    lt_div_of_mem_primeSieveQuotientSupport hdSupport
+  have hmono :
+      squareRootEndpoint R / (d + 1) ≤ squareRootEndpoint R / d :=
+    Nat.div_le_div_left (by omega) (by omega)
+  have hle :
+      primeSieveReciprocalLower R (squareRootEndpoint R) d ≤
+        primeSieveReciprocalUpper (squareRootEndpoint R) d := by
+    unfold primeSieveReciprocalLower primeSieveReciprocalUpper
+    exact max_le hRlt.le hmono
+  rw [primeSieveReciprocalPrimeCount_eq_sub R (squareRootEndpoint R) d hle]
+  unfold squareRootPostRootPrimePrefix
+    primeSieveReciprocalLower primeSieveReciprocalUpper
+  rw [max_eq_right hRlt.le]
+  ring
+
+/-- **Exact finite Abel packet.**  The truncated upper/middle object is a
+Möbius-weighted post-root prime prefix plus one terminal `K` boundary.  This is
+only a coordinate change; it asserts no estimate. -/
+theorem squareRootTruncatedUpperMiddlePacket_eq_abel
+    (R K : ℕ) (hR : 1 ≤ R) (hK : K < R) :
+    squareRootTruncatedUpperMiddlePacket R K =
+      -(∑ d ∈ Finset.Icc 1 K,
+          (((μ d : ℤ) : ℂ)) * squareRootPostRootPrimePrefix R d) +
+        mertensSummatory K * squareRootPostRootPrimePrefix R (K + 1) := by
+  have hrewrite :
+      (∑ d ∈ Finset.Icc 1 K,
+          primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+            mertensSummatory d) =
+        ∑ d ∈ Finset.Icc 1 K,
+          mertensSummatory d *
+            (squareRootPostRootPrimePrefix R d -
+              squareRootPostRootPrimePrefix R (d + 1)) := by
+    apply Finset.sum_congr rfl
+    intro d hd
+    rcases Finset.mem_Icc.mp hd with ⟨hd1, hdK⟩
+    rw [squareRoot_reciprocalPrimeCount_eq_postRootPrefix_diff
+      hR hd1 (hdK.trans_lt hK)]
+    ring
+  unfold squareRootTruncatedUpperMiddlePacket
+  rw [hrewrite, sum_mertensSummatory_mul_forwardDifference]
+  ring
+
+/-- Unit-separated Abel form.  The upper boundary and the shallow middle
+corrections remain inside one exact packet. -/
+theorem squareRootTruncatedUpperMiddlePacket_eq_upper_add_abelMiddle
+    (R K : ℕ) (hR : 1 ≤ R) (hK1 : 1 ≤ K) (hKR : K < R) :
+    squareRootTruncatedUpperMiddlePacket R K =
+      -squareRootPostRootPrimePrefix R 1 -
+        (∑ d ∈ Finset.Icc 2 K,
+          (((μ d : ℤ) : ℂ)) * squareRootPostRootPrimePrefix R d) +
+        mertensSummatory K * squareRootPostRootPrimePrefix R (K + 1) := by
+  rw [squareRootTruncatedUpperMiddlePacket_eq_abel R K hR hKR]
+  have hset :
+      Finset.Icc 1 K = ({1} : Finset ℕ) ∪ Finset.Icc 2 K := by
+    ext d
+    simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_singleton]
+    omega
+  have hdisj :
+      Disjoint ({1} : Finset ℕ) (Finset.Icc 2 K) := by
+    rw [Finset.disjoint_left]
+    intro d hd1 hd2
+    rw [Finset.mem_singleton] at hd1
+    subst d
+    simp at hd2
+  rw [hset, Finset.sum_union hdisj]
+  simp [ArithmeticFunction.moebius_apply_one]
+  ring
+
+/-- The first reciprocal layer is exactly the same-sign top-prime block, with
+its actual source sign.  This is the formal guardrail against asking the middle
+to self-cancel. -/
+theorem squareRootTruncatedUpperMiddlePacket_one_eq_neg_topCard
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootTruncatedUpperMiddlePacket R 1 =
+      -((squareRootTopFibrePrimes R).card : ℂ) := by
+  unfold squareRootTruncatedUpperMiddlePacket
+  rw [show Finset.Icc 1 1 = ({1} : Finset ℕ) by decide]
+  simp only [Finset.sum_singleton]
+  rw [squareRootReciprocalPrimeCount_one_eq_topCard R hR]
+  have hM1 : mertensSummatory 1 = 1 := by
+    rw [← cofactorMobiusPrefixMass_eq_mertensSummatory]
+    simp [cofactorMobiusPrefixMass, canonicalMoebiusWeight]
+  rw [hM1]
   ring
 
 end RHLean.Proof
