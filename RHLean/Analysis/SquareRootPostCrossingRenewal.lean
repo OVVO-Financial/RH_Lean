@@ -27,6 +27,9 @@ precisely `j - N_R(K)`, the negative number of unfilled seats.  The remaining
 composite-root and smooth orientations recombine as one signed Type-II
 cofactor-prime window mass (with the root cofactor range starting at two), and
 that mass stays coupled to the strict descendants in one signed double Gram.
+Both orientations are contracted to the native reciprocal-prime coordinates
+at endpoint `X_R / c`, then centered exactly into deterministic Li density and
+prime discrepancy channels without applying a norm.
 
 The last form is the genuinely nonlocal bilinear proof object for a subsequent
 energy argument.  No diagonal estimate, triangle inequality, RH hypothesis,
@@ -373,6 +376,29 @@ theorem replacementFibreSmoothPrimeWindowCount_eq_reciprocalPrimeCount
         simpa [Nat.mul_comm, Nat.mul_left_comm] using hquot
       omega
     · simpa [Nat.mul_comm, Nat.mul_left_comm] using hupper
+
+/-- Deterministic PNT-density mass on the contracted smooth reciprocal
+interval, with the orientation cutoff retained before summation. -/
+def replacementFibreSmoothReciprocalLiMass (R z c : ℕ) : ℂ :=
+  ∑ q ∈ primeSieveReciprocalInterval
+      (canonicalLargestPrimeFactor c) (squareRootEndpoint R / c) z,
+    if q < c then primeSievePNTDensity q else 0
+
+/-- Centered prime discrepancy on the same oriented smooth interval. -/
+def replacementFibreSmoothReciprocalPrimeDiscrepancy
+    (R z c : ℕ) : ℂ :=
+  replacementFibreSmoothReciprocalPrimeCount R z c -
+    replacementFibreSmoothReciprocalLiMass R z c
+
+/-- Exact PNT centering of one oriented smooth reciprocal window. -/
+theorem replacementFibreSmoothReciprocalPrimeCount_eq_li_add_discrepancy
+    (R z c : ℕ) :
+    replacementFibreSmoothReciprocalPrimeCount R z c =
+      replacementFibreSmoothReciprocalLiMass R z c +
+        replacementFibreSmoothReciprocalPrimeDiscrepancy R z c := by
+  unfold replacementFibreSmoothReciprocalPrimeDiscrepancy
+  ring
+
 /-- Strict-root mass after removing the cofactor-one prime face. -/
 def replacementFibreCompositeRootMass (R z : ℕ) : ℂ :=
   replacementFibreRootMass R z - replacementFibrePrimeFaceMass R z
@@ -418,6 +444,51 @@ def replacementFibreTypeIIWindowMass (R z : ℕ) : ℂ :=
       ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
         canonicalMoebiusWeight c *
           replacementFibreSmoothReciprocalPrimeCount R z c)
+
+/-- Deterministic PNT-density part of the prime-cancelled Type-II mass. -/
+def replacementFibreTypeIILiMass (R z : ℕ) : ℂ :=
+  -((∑ c ∈ Finset.Icc 2 (R - 1),
+        canonicalMoebiusWeight c *
+          primeSieveReciprocalLiMass c
+            (squareRootEndpoint R / c) z) +
+      ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        canonicalMoebiusWeight c *
+          replacementFibreSmoothReciprocalLiMass R z c)
+
+/-- Centered reciprocal-prime discrepancy part of the same signed Type-II
+mass.  Root and smooth orientations remain in one object. -/
+def replacementFibreTypeIIDiscrepancyMass (R z : ℕ) : ℂ :=
+  -((∑ c ∈ Finset.Icc 2 (R - 1),
+        canonicalMoebiusWeight c *
+          primeSieveReciprocalPrimeDiscrepancy c
+            (squareRootEndpoint R / c) z) +
+      ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        canonicalMoebiusWeight c *
+          replacementFibreSmoothReciprocalPrimeDiscrepancy R z c)
+
+/-- Exact PNT centering of a native reciprocal prime count. -/
+theorem primeSieveReciprocalPrimeCount_eq_li_add_discrepancy
+    (y x d : ℕ) :
+    primeSieveReciprocalPrimeCount y x d =
+      primeSieveReciprocalLiMass y x d +
+        primeSieveReciprocalPrimeDiscrepancy y x d := by
+  unfold primeSieveReciprocalPrimeDiscrepancy
+  ring
+
+/-- **Signed Type-II PNT centering.**  The residual diagonal is exactly its
+deterministic Li mass plus its centered reciprocal discrepancy mass, before
+any norm or orientation split. -/
+theorem replacementFibreTypeIIWindowMass_eq_li_add_discrepancy
+    (R z : ℕ) :
+    replacementFibreTypeIIWindowMass R z =
+      replacementFibreTypeIILiMass R z +
+        replacementFibreTypeIIDiscrepancyMass R z := by
+  unfold replacementFibreTypeIIWindowMass replacementFibreTypeIILiMass
+    replacementFibreTypeIIDiscrepancyMass
+  simp_rw [primeSieveReciprocalPrimeCount_eq_li_add_discrepancy,
+    replacementFibreSmoothReciprocalPrimeCount_eq_li_add_discrepancy,
+    mul_add, Finset.sum_add_distrib]
+  ring
 
 /-- After prime-face removal, root-composite and smooth orientations are
 exactly the single signed Type-II window mass. -/
@@ -665,6 +736,20 @@ theorem squareRootPostCrossingReplacementCoefficient_eq_belowCrossing_typeII
     replacementFibreCompositeRoot_add_smooth_eq_typeIIWindowMass
       R y hR hy (by omega)]
 
+/-- Below the crossing, PNT centering happens inside the signed coefficient:
+deterministic Li mass, centered discrepancy, and strict descendants remain
+coupled until the eventual row sum. -/
+theorem squareRootPostCrossingReplacementCoefficient_eq_belowCrossing_centered
+    (R K j y : ℕ) (hR : 2 ≤ R) (hKR : K + 1 < R)
+    (hy : 1 ≤ y) (hyK : y < K) :
+    squareRootPostCrossingReplacementCoefficient R K j y =
+      replacementFibreTypeIILiMass R y +
+        replacementFibreTypeIIDiscrepancyMass R y +
+          squareRootOrientedStrictDescendantTransform R y := by
+  rw [squareRootPostCrossingReplacementCoefficient_eq_belowCrossing_typeII
+      R K j y hR hKR hy hyK,
+    replacementFibreTypeIIWindowMass_eq_li_add_discrepancy]
+
 /-- At the crossing depth, the only cofactor-one diagonal left in the renewal
 row is `j-N_R(K)`, the negative of the unfilled prime seats. -/
 theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing
@@ -698,6 +783,20 @@ theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing_typeII
       (replacementFibreSmoothMass R K),
     replacementFibreCompositeRoot_add_smooth_eq_typeIIWindowMass
       R K hR hK (by omega)]
+
+/-- Centered crossing row: the unfilled-seat term, deterministic Li mass,
+centered discrepancy, and strict descendants are retained in one coefficient. -/
+theorem squareRootPostCrossingReplacementCoefficient_eq_atCrossing_centered
+    (R K j : ℕ) (hR : 2 ≤ R) (hK : 1 ≤ K) (hKR : K + 1 < R) :
+    squareRootPostCrossingReplacementCoefficient R K j K =
+      (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+        replacementFibreTypeIILiMass R K +
+          replacementFibreTypeIIDiscrepancyMass R K +
+            squareRootOrientedStrictDescendantTransform R K := by
+  rw [squareRootPostCrossingReplacementCoefficient_eq_atCrossing_typeII
+      R K j hR hK hKR,
+    replacementFibreTypeIIWindowMass_eq_li_add_discrepancy]
+  ring
 
 /-- **Exact post-crossing lower-triangular renewal row.**  The terminal tail is
 one signed combination of Mertens states at scales `y < R`; the shallow packet
@@ -858,6 +957,53 @@ theorem squareRootPostCrossingCoupledTail_eq_typeIICrossingSplit
               squareRootOrientedStrictDescendantTransform R K :=
           squareRootPostCrossingReplacementCoefficient_eq_atCrossing_typeII
             R K j (by omega) hK hKR
+  rw [hbelow, hat]
+
+/-- **Centered Type-II crossing normal form.**  This is the analytic handoff:
+the deterministic PNT-density channel and the centered reciprocal discrepancy
+channel remain signed together with all strict descendants and the deep tail.
+No triangle inequality or separate channel bound has been applied. -/
+theorem squareRootPostCrossingCoupledTail_eq_centeredTypeIICrossingSplit
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K + 1 < R) :
+    squareRootPostCrossingCoupledTail R K j =
+      (∑ y ∈ Finset.Icc 1 (K - 1),
+        (replacementFibreTypeIILiMass R y +
+            replacementFibreTypeIIDiscrepancyMass R y +
+              squareRootOrientedStrictDescendantTransform R y) *
+          mertensSummatory y) +
+      ((j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+          replacementFibreTypeIILiMass R K +
+            replacementFibreTypeIIDiscrepancyMass R K +
+              squareRootOrientedStrictDescendantTransform R K) *
+        mertensSummatory K +
+      ∑ y ∈ Finset.Icc (K + 1) (R - 1),
+        squareRootPostCrossingPrimeCancelledCoefficient R K j y *
+          mertensSummatory y := by
+  rw [squareRootPostCrossingCoupledTail_eq_typeIICrossingSplit
+    R K j hR hK hKR]
+  have hbelow :
+      (∑ y ∈ Finset.Icc 1 (K - 1),
+        (replacementFibreTypeIIWindowMass R y +
+            squareRootOrientedStrictDescendantTransform R y) *
+          mertensSummatory y) =
+        ∑ y ∈ Finset.Icc 1 (K - 1),
+          (replacementFibreTypeIILiMass R y +
+              replacementFibreTypeIIDiscrepancyMass R y +
+                squareRootOrientedStrictDescendantTransform R y) *
+            mertensSummatory y := by
+    apply Finset.sum_congr rfl
+    intro y _hy
+    rw [replacementFibreTypeIIWindowMass_eq_li_add_discrepancy]
+  have hat :
+      (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+          replacementFibreTypeIIWindowMass R K +
+            squareRootOrientedStrictDescendantTransform R K =
+        (j : ℂ) - (squareRootReciprocalPrimeLayerCard R K : ℂ) +
+          replacementFibreTypeIILiMass R K +
+            replacementFibreTypeIIDiscrepancyMass R K +
+              squareRootOrientedStrictDescendantTransform R K := by
+    rw [replacementFibreTypeIIWindowMass_eq_li_add_discrepancy]
+    ring
   rw [hbelow, hat]
 
 /-- One summand of the oriented prime-cancelled renewal row. -/
