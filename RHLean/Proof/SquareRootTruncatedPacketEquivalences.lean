@@ -141,7 +141,7 @@ the generic post-square-root source theorems. -/
 theorem squareRootEndpoint_sqrt_lt_root
     {R : ℕ} (hR : 2 ≤ R) :
     Nat.sqrt (squareRootEndpoint R) < R := by
-  rw [Nat.sqrt_lt' (by omega : 0 < R)]
+  apply (Nat.sqrt_lt').2
   unfold squareRootEndpoint
   omega
 
