@@ -407,7 +407,7 @@ theorem squareRootTruncatedUpperMiddlePacket_eq_upper_add_abelMiddle
     subst d
     simp at hd2
   rw [hset, Finset.sum_union hdisj]
-  simp [ArithmeticFunction.moebius_apply_one]
+  simp
   ring
 
 /-- The first reciprocal layer is exactly the same-sign top-prime block, with
@@ -426,5 +426,423 @@ theorem squareRootTruncatedUpperMiddlePacket_one_eq_neg_topCard
     simp [cofactorMobiusPrefixMass, canonicalMoebiusWeight]
   rw [hM1]
   ring
+
+/-! ## Reciprocal depth as a prime cutoff -/
+
+/-- For a positive prime-coordinate candidate `q`, being above the reciprocal
+cutoff `X/(K+1)` is exactly the same as having quotient depth at most `K`.
+This is the elementary bridge between the `q`-picture and the truncated
+`k`-packet. -/
+theorem reciprocalIndex_le_iff_cutoff_lt
+    {X q K : ℕ} (hq : 0 < q) :
+    X / q ≤ K ↔ X / (K + 1) < q := by
+  constructor
+  · intro h
+    have hlt : X / q < K + 1 := by omega
+    have hmul : X < (K + 1) * q :=
+      (Nat.div_lt_iff_lt_mul hq).1 hlt
+    have hmul' : X < q * (K + 1) := by
+      simpa [Nat.mul_comm] using hmul
+    exact (Nat.div_lt_iff_lt_mul (by omega : 0 < K + 1)).2 hmul'
+  · intro h
+    have hmul : X < q * (K + 1) :=
+      (Nat.div_lt_iff_lt_mul (by omega : 0 < K + 1)).1 h
+    have hmul' : X < (K + 1) * q := by
+      simpa [Nat.mul_comm] using hmul
+    have hlt : X / q < K + 1 :=
+      (Nat.div_lt_iff_lt_mul hq).2 hmul'
+    omega
+
+/-- Prime cutoff corresponding to a truncated reciprocal depth `K`. -/
+def squareRootTruncatedPrimeCutoff (R K : ℕ) : ℕ :=
+  squareRootEndpoint R / (K + 1)
+
+/-- The reciprocal cutoff and quotient-depth conditions are literally
+interchangeable at the square endpoint. -/
+theorem squareRoot_reciprocalIndex_le_iff_truncatedPrimeCutoff_lt
+    {R q K : ℕ} (hq : 0 < q) :
+    squareRootEndpoint R / q ≤ K ↔
+      squareRootTruncatedPrimeCutoff R K < q := by
+  exact reciprocalIndex_le_iff_cutoff_lt hq
+
+/-- If the truncated depth remains strictly inside the root corridor, its prime
+cutoff is still strictly post-root.  Thus shallow `K` means a genuinely high
+prime window, not a return to the root seam. -/
+theorem squareRoot_root_lt_truncatedPrimeCutoff
+    {R K : ℕ} (hR : 1 ≤ R) (hK : K + 1 < R) :
+    R < squareRootTruncatedPrimeCutoff R K := by
+  have htop : squareRootEndpoint R / (R + 1) = R - 1 :=
+    squareRootQuotientSupportTop_eq_pred R hR
+  have hmem :
+      K + 1 ∈ primeSieveQuotientSupport R (squareRootEndpoint R) := by
+    unfold primeSieveQuotientSupport
+    rw [htop]
+    exact Finset.mem_Icc.mpr ⟨by omega, by omega⟩
+  exact lt_div_of_mem_primeSieveQuotientSupport hmem
+
+/-! ## The incomplete cap and its surviving finite-difference structure -/
+
+/-- Prime multiplicity above the common lower boundary of a truncated packet.
+The same boundary `P_R(K+1)` is subtracted from every cofactor coordinate. -/
+def squareRootShallowCapWeight (R K d : ℕ) : ℂ :=
+  squareRootPostRootPrimePrefix R d -
+    squareRootPostRootPrimePrefix R (K + 1)
+
+/-- The common lower prime boundary cancels when two cap weights are differenced. -/
+theorem squareRootShallowCapWeight_sub
+    (R K a b : ℕ) :
+    squareRootShallowCapWeight R K a - squareRootShallowCapWeight R K b =
+      squareRootPostRootPrimePrefix R a - squareRootPostRootPrimePrefix R b := by
+  unfold squareRootShallowCapWeight
+  ring
+
+/-- **Direct incomplete-cap form.**  The Abel boundary exactly subtracts the
+complete lower prime rectangle, leaving one common-boundary cap.  Upper and
+middle therefore remain combined before any norm or completion. -/
+theorem squareRootTruncatedUpperMiddlePacket_eq_shallowCap
+    (R K : ℕ) (hR : 1 ≤ R) (hKR : K < R) :
+    squareRootTruncatedUpperMiddlePacket R K =
+      -∑ d ∈ Finset.Icc 1 K,
+        (((μ d : ℤ) : ℂ)) * squareRootShallowCapWeight R K d := by
+  rw [squareRootTruncatedUpperMiddlePacket_eq_abel R K hR hKR]
+  have hmu :
+      (∑ d ∈ Finset.Icc 1 K, (((μ d : ℤ) : ℂ))) = mertensSummatory K := by
+    rw [← cofactorMobiusPrefixMass_eq_mertensSummatory K]
+    rfl
+  rw [← hmu]
+  unfold squareRootShallowCapWeight
+  simp_rw [mul_sub]
+  rw [Finset.sum_sub_distrib]
+  rw [← Finset.sum_mul]
+  ring
+
+/-- **Fresh-prime finite difference inside the incomplete cap.**  Pairing a
+cofactor `d` with its fresh-prime child `d*p` cancels the common truncated lower
+boundary exactly.  What survives is only the nested prime-prefix difference
+between `d` and `d*p`; the weight is therefore nonconstant on the completed
+pair, unlike the dead completed-fibre routes. -/
+theorem squareRootShallowCap_moebiusPrimePair
+    {R K d p : ℕ} (hd : 0 < d) (hdp : d < p) (hp : p.Prime) :
+    (-canonicalMoebiusWeight d * squareRootShallowCapWeight R K d) +
+        (-canonicalMoebiusWeight (d * p) *
+          squareRootShallowCapWeight R K (d * p)) =
+      -canonicalMoebiusWeight d *
+        (squareRootPostRootPrimePrefix R d -
+          squareRootPostRootPrimePrefix R (d * p)) := by
+  rw [canonicalMoebiusWeight_mul_prime_eq_neg hd hdp hp]
+  unfold squareRootShallowCapWeight
+  ring
+
+/-! ## Exact coefficient packages behind the shallow-depth diagnostic -/
+
+/-- The first reciprocal coefficient generated by summation by parts.  Written
+as a Mertens-weighted finite difference, it is exactly the coefficient that
+appears when a slowly varying reciprocal prime-density weight is expanded. -/
+def squareRootPacketReciprocalCoefficient (K : ℕ) : ℂ :=
+  ∑ d ∈ Finset.Icc 1 K,
+    mertensSummatory d *
+      ((1 : ℂ) / (d : ℂ) - (1 : ℂ) / ((d + 1 : ℕ) : ℂ))
+
+/-- Exact Möbius-boundary form of the first reciprocal coefficient:
+
+`S_K = sum_{d<=K} mu(d)/d - M(K)/(K+1)`.
+-/
+theorem squareRootPacketReciprocalCoefficient_eq_moebiusBoundary
+    (K : ℕ) :
+    squareRootPacketReciprocalCoefficient K =
+      (∑ d ∈ Finset.Icc 1 K,
+        (((μ d : ℤ) : ℂ)) * ((1 : ℂ) / (d : ℂ))) -
+      mertensSummatory K * ((1 : ℂ) / ((K + 1 : ℕ) : ℂ)) := by
+  simpa [squareRootPacketReciprocalCoefficient] using
+    (sum_mertensSummatory_mul_forwardDifference
+      (fun d : ℕ => (1 : ℂ) / (d : ℂ)) K)
+
+/-- Reciprocal logarithmic weight used by the next finite coefficient. -/
+def squareRootPacketLogReciprocalValue (d : ℕ) : ℂ :=
+  (((Real.log (d : ℝ)) / (d : ℝ) : ℝ) : ℂ)
+
+/-- The next exact finite-difference coefficient, kept separate from any
+asymptotic claim about its numerical value. -/
+def squareRootPacketLogReciprocalCoefficient (K : ℕ) : ℂ :=
+  ∑ d ∈ Finset.Icc 1 K,
+    mertensSummatory d *
+      (squareRootPacketLogReciprocalValue d -
+        squareRootPacketLogReciprocalValue (d + 1))
+
+/-- Exact Möbius-boundary form of the logarithmic reciprocal coefficient. -/
+theorem squareRootPacketLogReciprocalCoefficient_eq_moebiusBoundary
+    (K : ℕ) :
+    squareRootPacketLogReciprocalCoefficient K =
+      (∑ d ∈ Finset.Icc 1 K,
+        (((μ d : ℤ) : ℂ)) * squareRootPacketLogReciprocalValue d) -
+      mertensSummatory K * squareRootPacketLogReciprocalValue (K + 1) := by
+  simpa [squareRootPacketLogReciprocalCoefficient] using
+    (sum_mertensSummatory_mul_forwardDifference
+      squareRootPacketLogReciprocalValue K)
+
+/-! ## Integer shadow, sign crossing, and partial-layer interpolation -/
+
+/-- Integer-valued ordinary Mertens prefix, used only so sign crossings can be
+stated in the ordered ring `ℤ`. -/
+def squareRootMertensInt (K : ℕ) : ℤ :=
+  ∑ d ∈ Finset.Icc 1 K, μ d
+
+/-- The integer shadow is exactly the repository's complex Mertens sum after
+casting. -/
+theorem squareRootMertensInt_cast_complex (K : ℕ) :
+    ((squareRootMertensInt K : ℤ) : ℂ) = mertensSummatory K := by
+  rw [← cofactorMobiusPrefixMass_eq_mertensSummatory K]
+  unfold squareRootMertensInt cofactorMobiusPrefixMass canonicalMoebiusWeight
+  push_cast
+
+/-- Honest natural cardinality of one reciprocal prime layer. -/
+def squareRootReciprocalPrimeLayerCard (R K : ℕ) : ℕ :=
+  ((primeSieveReciprocalInterval R (squareRootEndpoint R) K).filter Nat.Prime).card
+
+/-- The existing complex prime-count coordinate is just the cast of the honest
+layer cardinality. -/
+theorem squareRootReciprocalPrimeCount_eq_layerCard
+    (R K : ℕ) :
+    primeSieveReciprocalPrimeCount R (squareRootEndpoint R) K =
+      (squareRootReciprocalPrimeLayerCard R K : ℂ) := by
+  simpa [squareRootReciprocalPrimeLayerCard] using
+    (primeSieveReciprocalPrimeCount_eq_card R (squareRootEndpoint R) K)
+
+/-- Integer shadow of the complete truncated upper-middle packet. -/
+def squareRootTruncatedUpperMiddlePacketInt (R K : ℕ) : ℤ :=
+  -∑ d ∈ Finset.Icc 1 K,
+    (squareRootReciprocalPrimeLayerCard R d : ℤ) * squareRootMertensInt d
+
+/-- Casting the ordered integer packet recovers the existing complex packet
+exactly. -/
+theorem squareRootTruncatedUpperMiddlePacketInt_cast_complex
+    (R K : ℕ) :
+    ((squareRootTruncatedUpperMiddlePacketInt R K : ℤ) : ℂ) =
+      squareRootTruncatedUpperMiddlePacket R K := by
+  unfold squareRootTruncatedUpperMiddlePacketInt
+    squareRootTruncatedUpperMiddlePacket
+  push_cast
+  apply congrArg Neg.neg
+  apply Finset.sum_congr rfl
+  intro d _hd
+  rw [squareRootMertensInt_cast_complex,
+    ← squareRootReciprocalPrimeCount_eq_layerCard]
+
+@[simp] theorem squareRootTruncatedUpperMiddlePacketInt_zero (R : ℕ) :
+    squareRootTruncatedUpperMiddlePacketInt R 0 = 0 := by
+  simp [squareRootTruncatedUpperMiddlePacketInt]
+
+/-- One whole reciprocal layer changes the ordered packet by exactly
+`-N_R(K+1) M(K+1)`. -/
+theorem squareRootTruncatedUpperMiddlePacketInt_succ
+    (R K : ℕ) :
+    squareRootTruncatedUpperMiddlePacketInt R (K + 1) =
+      squareRootTruncatedUpperMiddlePacketInt R K -
+        (squareRootReciprocalPrimeLayerCard R (K + 1) : ℤ) *
+          squareRootMertensInt (K + 1) := by
+  unfold squareRootTruncatedUpperMiddlePacketInt
+  rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ K + 1)]
+  ring
+
+/-- Exact sign-crossing predicate for the ordered truncated packet. -/
+def SquareRootPacketCrossesAt (R K : ℕ) : Prop :=
+  1 ≤ K ∧
+    squareRootTruncatedUpperMiddlePacketInt R (K - 1) < 0 ∧
+      0 ≤ squareRootTruncatedUpperMiddlePacketInt R K
+
+/-- A crossing layer must be nonempty and its lower Mertens value must be
+negative.  Thus the upward jump is not an independent high-prime sign: it is a
+positive multiplicity times the already-completed lower sign `-M(K)`. -/
+theorem squareRootPacketCrossing_forces_layer_nonempty_and_mertens_neg
+    {R K : ℕ} (hcross : SquareRootPacketCrossesAt R K) :
+    0 < squareRootReciprocalPrimeLayerCard R K ∧
+      squareRootMertensInt K < 0 := by
+  rcases hcross with ⟨hK, hprev, hnow⟩
+  have hstep := squareRootTruncatedUpperMiddlePacketInt_succ R (K - 1)
+  rw [Nat.sub_add_cancel hK] at hstep
+  have hprod :
+      (squareRootReciprocalPrimeLayerCard R K : ℤ) * squareRootMertensInt K < 0 := by
+    linarith
+  have hM : squareRootMertensInt K < 0 := by
+    by_contra hnot
+    have hM0 : 0 ≤ squareRootMertensInt K := le_of_not_gt hnot
+    have hN0 : 0 ≤ (squareRootReciprocalPrimeLayerCard R K : ℤ) := by positivity
+    have hmul := mul_nonneg hN0 hM0
+    linarith
+  have hN : 0 < squareRootReciprocalPrimeLayerCard R K := by
+    by_contra hnot
+    have hz : squareRootReciprocalPrimeLayerCard R K = 0 :=
+      Nat.eq_zero_of_not_pos hnot
+    rw [hz] at hprod
+    norm_num at hprod
+  exact ⟨hN, hM⟩
+
+/-- A sign crossing therefore occurs on an actual post-root prime quotient
+fibre; it cannot be an empty numerical layer. -/
+theorem squareRootPacketCrossing_has_postRootPrime
+    {R K : ℕ} (hcross : SquareRootPacketCrossesAt R K) :
+    ∃ q : ℕ, q.Prime ∧ R < q ∧ q ≤ squareRootEndpoint R ∧
+      squareRootEndpoint R / q = K := by
+  have hK : 0 < K := by omega
+  have hcard :=
+    (squareRootPacketCrossing_forces_layer_nonempty_and_mertens_neg hcross).1
+  have hne :
+      ((primeSieveReciprocalInterval R (squareRootEndpoint R) K).filter
+        Nat.Prime).Nonempty := by
+    rw [Finset.nonempty_iff_ne_empty]
+    intro hempty
+    rw [hempty] at hcard
+    simp at hcard
+  rcases hne with ⟨q, hq⟩
+  rcases Finset.mem_filter.mp hq with ⟨hqInterval, hqPrime⟩
+  have hqFiber : q ∈ primeSieveQuotientFiber R (squareRootEndpoint R) K := by
+    rw [primeSieveQuotientFiber_eq_reciprocalInterval
+      R (squareRootEndpoint R) K hK]
+    exact hqInterval
+  rcases mem_primeSieveQuotientFiber.mp hqFiber with ⟨hRq, hqX, hqK⟩
+  exact ⟨q, hqPrime, hRq, hqX, hqK⟩
+
+/-- Packet value after admitting exactly `j` prime seats from the crossing
+layer.  This count-level interpolation is independent of how those primes are
+ordered inside the layer because every seat has the same increment `-M(K)`. -/
+def squareRootCrossingLayerPartialPacketInt (R K j : ℕ) : ℤ :=
+  squareRootTruncatedUpperMiddlePacketInt R (K - 1) -
+    (j : ℤ) * squareRootMertensInt K
+
+@[simp] theorem squareRootCrossingLayerPartialPacketInt_zero
+    (R K : ℕ) :
+    squareRootCrossingLayerPartialPacketInt R K 0 =
+      squareRootTruncatedUpperMiddlePacketInt R (K - 1) := by
+  simp [squareRootCrossingLayerPartialPacketInt]
+
+/-- Each additional prime in a fixed reciprocal layer changes the partial
+packet by exactly the same lower-scale amount `-M(K)`. -/
+theorem squareRootCrossingLayerPartialPacketInt_succ
+    (R K j : ℕ) :
+    squareRootCrossingLayerPartialPacketInt R K (j + 1) =
+      squareRootCrossingLayerPartialPacketInt R K j - squareRootMertensInt K := by
+  unfold squareRootCrossingLayerPartialPacketInt
+  push_cast
+  ring
+
+/-- Admitting every prime in the layer recovers the next whole-layer packet. -/
+theorem squareRootCrossingLayerPartialPacketInt_full
+    (R K : ℕ) (hK : 1 ≤ K) :
+    squareRootCrossingLayerPartialPacketInt R K
+        (squareRootReciprocalPrimeLayerCard R K) =
+      squareRootTruncatedUpperMiddlePacketInt R K := by
+  have hstep := squareRootTruncatedUpperMiddlePacketInt_succ R (K - 1)
+  rw [Nat.sub_add_cancel hK] at hstep
+  simpa [squareRootCrossingLayerPartialPacketInt] using hstep.symm
+
+/-- Trivial but useful lower-scale bound: the magnitude of a negative Mertens
+value is at most the number of available terms. -/
+theorem neg_squareRootMertensInt_le_depth (K : ℕ) :
+    -squareRootMertensInt K ≤ (K : ℤ) := by
+  unfold squareRootMertensInt
+  calc
+    -(∑ d ∈ Finset.Icc 1 K, μ d) =
+        ∑ d ∈ Finset.Icc 1 K, -μ d := by simp
+    _ ≤ ∑ _d ∈ Finset.Icc 1 K, (1 : ℤ) := by
+      apply Finset.sum_le_sum
+      intro d _hd
+      have h := ArithmeticFunction.abs_moebius_le_one (n := d)
+      have hlo : (-1 : ℤ) ≤ μ d := (abs_le.mp h).1
+      linarith
+    _ = (K : ℤ) := by
+      have hcard : (Finset.Icc 1 K).card = K := by
+        rw [Nat.card_Icc]
+        omega
+      simp [hcard]
+
+/-- **Discrete intermediate-value theorem for one crossing layer.**  If the
+whole packet changes sign at `K`, then admitting a least sufficient number of
+primes from that layer leaves a nonnegative residual strictly smaller than the
+single-prime step `-M(K)`. -/
+theorem squareRootPacketCrossing_exists_partial_residual
+    {R K : ℕ} (hcross : SquareRootPacketCrossesAt R K) :
+    ∃ j : ℕ,
+      j ≤ squareRootReciprocalPrimeLayerCard R K ∧
+        0 ≤ squareRootCrossingLayerPartialPacketInt R K j ∧
+          squareRootCrossingLayerPartialPacketInt R K j <
+            -squareRootMertensInt K := by
+  classical
+  have hK : 1 ≤ K := hcross.1
+  have hprev := hcross.2.1
+  have hnow := hcross.2.2
+  let P : ℕ → Prop := fun j =>
+    j ≤ squareRootReciprocalPrimeLayerCard R K ∧
+      0 ≤ squareRootCrossingLayerPartialPacketInt R K j
+  have hex : ∃ j, P j := by
+    refine ⟨squareRootReciprocalPrimeLayerCard R K, le_rfl, ?_⟩
+    rw [squareRootCrossingLayerPartialPacketInt_full R K hK]
+    exact hnow
+  let j := Nat.find hex
+  have hj : P j := by
+    exact Nat.find_spec hex
+  have hjpos : 0 < j := by
+    by_contra hnot
+    have hj0 : j = 0 := Nat.eq_zero_of_not_pos hnot
+    have hzero := hj.2
+    rw [hj0, squareRootCrossingLayerPartialPacketInt_zero] at hzero
+    linarith
+  have hpredNeg : squareRootCrossingLayerPartialPacketInt R K (j - 1) < 0 := by
+    by_contra hnot
+    have hpredNonneg : 0 ≤ squareRootCrossingLayerPartialPacketInt R K (j - 1) :=
+      le_of_not_gt hnot
+    have hpredP : P (j - 1) :=
+      ⟨(Nat.sub_le j 1).trans hj.1, hpredNonneg⟩
+    have hfind := Nat.find_min' hex hpredP
+    have hbad : j ≤ j - 1 := by
+      simpa [j] using hfind
+    omega
+  have hsucc := squareRootCrossingLayerPartialPacketInt_succ R K (j - 1)
+  rw [Nat.sub_add_cancel hjpos] at hsucc
+  refine ⟨j, hj.1, hj.2, ?_⟩
+  linarith
+
+/-- Consequently the partial-layer residual is automatically smaller than the
+reciprocal depth itself.  No prime-distribution estimate is used here. -/
+theorem squareRootPacketCrossing_exists_partial_residual_lt_depth
+    {R K : ℕ} (hcross : SquareRootPacketCrossesAt R K) :
+    ∃ j : ℕ,
+      j ≤ squareRootReciprocalPrimeLayerCard R K ∧
+        0 ≤ squareRootCrossingLayerPartialPacketInt R K j ∧
+          squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ) := by
+  rcases squareRootPacketCrossing_exists_partial_residual hcross with
+    ⟨j, hj, hnonneg, hlt⟩
+  exact ⟨j, hj, hnonneg,
+    lt_of_lt_of_le hlt (neg_squareRootMertensInt_le_depth K)⟩
+
+/-- If the crossing occurs anywhere before the root, the interpolated residual
+is strictly sub-root.  Thus the open quantitative burden is the existence and
+location of a crossing, not control of the overshoot once a crossing exists. -/
+theorem squareRootPacketCrossing_exists_partial_residual_lt_root
+    {R K : ℕ} (hcross : SquareRootPacketCrossesAt R K) (hKR : K < R) :
+    ∃ j : ℕ,
+      j ≤ squareRootReciprocalPrimeLayerCard R K ∧
+        0 ≤ squareRootCrossingLayerPartialPacketInt R K j ∧
+          squareRootCrossingLayerPartialPacketInt R K j < (R : ℤ) := by
+  rcases squareRootPacketCrossing_exists_partial_residual_lt_depth hcross with
+    ⟨j, hj, hnonneg, hlt⟩
+  have hKRz : (K : ℤ) < (R : ℤ) := by exact_mod_cast hKR
+  exact ⟨j, hj, hnonneg, hlt.trans hKRz⟩
+
+/-! ## Explicit open crossing statements -/
+
+/-- Weak structural target: every sufficiently large square prefix has some
+post-root sign crossing before the reciprocal coordinate reaches the root. -/
+def SquareRootPacketSubrootCrossingStatement : Prop :=
+  ∀ R : ℕ, 3 ≤ R → ∃ K : ℕ, K < R ∧ SquareRootPacketCrossesAt R K
+
+/-- Stronger diagnostic target suggested by the finite gate: the crossing depth
+is logarithmic in the square-root parameter.  This is only a proposition, not a
+theorem asserted here. -/
+def SquareRootPacketLogCrossingStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ R : ℕ, 3 ≤ R →
+      ∃ K : ℕ,
+        K < R ∧ SquareRootPacketCrossesAt R K ∧
+          (K : ℝ) ≤ C * Real.log (R : ℝ)
 
 end RHLean.Proof
