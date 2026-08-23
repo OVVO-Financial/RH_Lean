@@ -125,6 +125,9 @@ struct Row {
   int crossK = 0;
   int bestK = 0;
   long long bestU = 0;
+  long long partialResidual = 0;
+  long long fullU = 0;
+  long long postCrossingTail = 0;
 };
 
 static Row scanR(int R, int scanK, const vector<int>& M) {
@@ -134,21 +137,31 @@ static Row scanR(int R, int scanK, const vector<int>& M) {
   int bestK = 0;
   long long bestAbs = numeric_limits<long long>::max();
   long long bestU = 0;
+  long long partialResidual = 0;
 
-  for (int k = 1; k <= min(scanK, R - 1); ++k) {
+  for (int k = 1; k <= R - 1; ++k) {
+    const long long Uprev = U;
     const long long lo = max<long long>(R, X / (k + 1));
     const long long hi = X / k;
     const long long Nk = lehmerPi(hi) - lehmerPi(lo);
     U -= Nk * static_cast<long long>(M[k]);
 
-    if (llabs(U) < bestAbs) {
+    if (k <= scanK && llabs(U) < bestAbs) {
       bestAbs = llabs(U);
       bestK = k;
       bestU = U;
     }
-    if (crossK == 0 && U >= 0) crossK = k;
+    if (crossK == 0 && U >= 0) {
+      crossK = k;
+      const long long step = -static_cast<long long>(M[k]);
+      if (Uprev < 0 && step > 0) {
+        const long long j = (-Uprev + step - 1) / step;
+        partialResidual = Uprev + j * step;
+      }
+    }
   }
-  return {R, crossK, bestK, bestU};
+  return {R, crossK, bestK, bestU, partialResidual, U,
+    U - partialResidual};
 }
 
 int main() {
@@ -159,17 +172,21 @@ int main() {
       200000, 500000};
   const int scanK = 300;
   vector<int> mu, M;
-  const int coefficientMaxK = 18800;
+  const int coefficientMaxK = *max_element(Rs.begin(), Rs.end());
   buildMobiusMertens(coefficientMaxK, mu, M);
 
   cout << fixed << setprecision(6);
-  cout << "R  K_cross  K_best  U_best  |U_best|/R  K_best/log(R)\n";
+  cout << "R  K_cross  K_best  U_best  |U_best|/R  K_best/log(R)"
+       << "  V_partial  U_full  T_post  |T_post|/R\n";
   for (int R : Rs) {
     const Row row = scanR(R, scanK, M);
     cout << row.R << ' ' << row.crossK << ' ' << row.bestK << ' '
          << row.bestU << ' '
          << static_cast<double>(llabs(row.bestU)) / row.R << ' '
-         << static_cast<double>(row.bestK) / log(static_cast<double>(row.R))
+         << static_cast<double>(row.bestK) / log(static_cast<double>(row.R)) << ' '
+         << row.partialResidual << ' ' << row.fullU << ' '
+         << row.postCrossingTail << ' '
+         << static_cast<double>(llabs(row.postCrossingTail)) / row.R
          << '\n';
   }
 
