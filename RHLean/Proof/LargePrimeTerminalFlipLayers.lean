@@ -592,8 +592,7 @@ casting. -/
 theorem squareRootMertensInt_cast_complex (K : ℕ) :
     ((squareRootMertensInt K : ℤ) : ℂ) = mertensSummatory K := by
   rw [← cofactorMobiusPrefixMass_eq_mertensSummatory K]
-  unfold squareRootMertensInt cofactorMobiusPrefixMass canonicalMoebiusWeight
-  push_cast
+  simp [squareRootMertensInt, cofactorMobiusPrefixMass, canonicalMoebiusWeight]
 
 /-- Honest natural cardinality of one reciprocal prime layer. -/
 def squareRootReciprocalPrimeLayerCard (R K : ℕ) : ℕ :=
@@ -683,16 +682,17 @@ theorem squareRootPacketCrossing_has_postRootPrime
     {R K : ℕ} (hcross : SquareRootPacketCrossesAt R K) :
     ∃ q : ℕ, q.Prime ∧ R < q ∧ q ≤ squareRootEndpoint R ∧
       squareRootEndpoint R / q = K := by
-  have hK : 0 < K := by omega
+  have hK1 : 1 ≤ K := hcross.1
+  have hK : 0 < K := lt_of_lt_of_le Nat.zero_lt_one hK1
   have hcard :=
     (squareRootPacketCrossing_forces_layer_nonempty_and_mertens_neg hcross).1
+  have hcard' :
+      0 < ((primeSieveReciprocalInterval R (squareRootEndpoint R) K).filter
+        Nat.Prime).card := by
+    simpa [squareRootReciprocalPrimeLayerCard] using hcard
   have hne :
       ((primeSieveReciprocalInterval R (squareRootEndpoint R) K).filter
-        Nat.Prime).Nonempty := by
-    rw [Finset.nonempty_iff_ne_empty]
-    intro hempty
-    rw [hempty] at hcard
-    simp at hcard
+        Nat.Prime).Nonempty := Finset.card_pos.mp hcard'
   rcases hne with ⟨q, hq⟩
   rcases Finset.mem_filter.mp hq with ⟨hqInterval, hqPrime⟩
   have hqFiber : q ∈ primeSieveQuotientFiber R (squareRootEndpoint R) K := by
