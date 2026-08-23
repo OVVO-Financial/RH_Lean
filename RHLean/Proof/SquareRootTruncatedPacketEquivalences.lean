@@ -143,6 +143,7 @@ theorem squareRootEndpoint_sqrt_lt_root
     Nat.sqrt (squareRootEndpoint R) < R := by
   apply (Nat.sqrt_lt').2
   unfold squareRootEndpoint
+  have hpos : 0 < R ^ 2 := by positivity
   omega
 
 /-- A strict sub-root reciprocal depth produces a prime cutoff still strictly
