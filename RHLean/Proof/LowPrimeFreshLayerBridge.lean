@@ -84,11 +84,9 @@ private theorem sum_lpf_le_sub_pred_eq_sum_lpf_eq
   apply Finset.sum_congr rfl
   intro c _hc
   by_cases heq : canonicalLargestPrimeFactor c = p
-  · have hle : canonicalLargestPrimeFactor c ≤ p := heq.le
-    have hnle : ¬ canonicalLargestPrimeFactor c ≤ p - 1 := by
-      rw [heq]
-      omega
-    simp [heq, hle, hnle]
+  · rw [heq]
+    have hnot : ¬ p ≤ p - 1 := by omega
+    simp [hnot]
   · by_cases hle : canonicalLargestPrimeFactor c ≤ p
     · have hpred : canonicalLargestPrimeFactor c ≤ p - 1 := by omega
       simp [heq, hle, hpred]
@@ -127,7 +125,12 @@ theorem canonicalMoebiusWeighted_Icc_eq_admissibleFaceSum
         (booleanCubeSign u : ℂ) * F (primeFaceProduct u) := by
   have h := canonicalMoebiusWeighted_Ico_eq_admissibleFaceSum
     (B + 1) (by omega : 1 ≤ B + 1) F
-  simpa only [Nat.add_sub_cancel, Finset.Ico_succ_right] using h
+  have hset : Finset.Ico 1 (B + 1) = Finset.Icc 1 B := by
+    ext c
+    simp
+    omega
+  rw [hset] at h
+  simpa using h
 
 /-- Boolean-face form of the fresh LPR layer.  The condition `P+(P(u))=p`
 selects exactly the squarefree faces born at prime coordinate `p`; the
