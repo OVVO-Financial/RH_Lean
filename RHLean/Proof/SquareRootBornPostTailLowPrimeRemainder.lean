@@ -14,14 +14,14 @@ Write
 After the low-prime coordinates through `P_R` have been separated, the born
 complement vanishes exactly.  On the post-root side, every remaining cofactor
 with largest prime factor above `P_R` is itself a prime in `(P_R,R)`.  There are
-at most `sqrt R` such cofactor seats, and every one sees at most `2 sqrt R`
+at most `sqrt R` such cofactor seats, and every one sees at most `sqrt R`
 post-root prime seats.  Because every surviving cofactor is prime, its Mobius
 weight is exactly `-1`; the boundary remainder is therefore a positive natural
 cardinality, not a triangle-inequality estimate.
 
 The resulting bound is the elementary finite estimate
 
-`||nearRootRemainder|| <= 2 R`.
+`||nearRootRemainder|| <= R`.
 
 No PNT estimate, RH hypothesis, density model, independence assumption, or
 Mertens bound occurs.
@@ -52,9 +52,11 @@ private theorem two_mul_canonicalLargestPrimeFactor_le_of_lt
     rw [hk1, mul_one] at hk
     omega
   have hk2 : 2 ≤ k := by omega
-  rw [hk]
-  simpa [Nat.mul_comm] using
-    (Nat.mul_le_mul_left (canonicalLargestPrimeFactor c) hk2)
+  calc
+    2 * canonicalLargestPrimeFactor c ≤
+        k * canonicalLargestPrimeFactor c :=
+      Nat.mul_le_mul_right (canonicalLargestPrimeFactor c) hk2
+    _ = c := hk.symm
 
 /-- If the largest prime factor of a cofactor lies beyond the low-prime cutoff,
 that cofactor has no born-smooth partner at all.  This is exact vanishing, not
@@ -93,7 +95,9 @@ def squareRootBornPostTailHighComplementCofactors (R : ℕ) : Finset ℕ :=
       1 ≤ c ∧ c ≤ R - 1 ∧
         squareRootBornPostTailLowPrimeCutoff R <
           canonicalLargestPrimeFactor c := by
-  simp [squareRootBornPostTailHighComplementCofactors]
+  simp only [squareRootBornPostTailHighComplementCofactors,
+    Finset.mem_filter, Finset.mem_Icc]
+  tauto
 
 /-- High-complement rigidity: above `P_R`, a cofactor below `R` cannot retain a
 proper largest-prime-factor quotient.  It is itself prime, and lies in the
@@ -131,75 +135,59 @@ theorem squareRootBornPostTailHighComplement_prime
   have hcPrime : c.Prime := by simpa [hpEq] using hpPrime
   exact ⟨hcPrime, by simpa [hpEq] using hcP, by omega⟩
 
-private theorem remainder_sqrt_ge_four_of_sixteen_le
-    {R : ℕ} (hR : 16 ≤ R) : 4 ≤ Nat.sqrt R := by
-  by_contra h
-  have hs : Nat.sqrt R ≤ 3 := by omega
-  have hlt := Nat.lt_succ_sqrt' R
-  have hsq : (Nat.sqrt R + 1) ^ 2 ≤ 16 := by nlinarith
-  nlinarith
-
-private theorem remainder_four_mul_sqrt_le
-    {R : ℕ} (hR : 16 ≤ R) : 4 * Nat.sqrt R ≤ R := by
-  have hs4 := remainder_sqrt_ge_four_of_sixteen_le hR
-  have hsquare : (Nat.sqrt R) ^ 2 ≤ R := Nat.sqrt_le' R
-  nlinarith
-
-/-- The reciprocal cutoff of every unprocessed cofactor is at most
-`R + 2 floor(sqrt R)`. -/
-theorem squareRootBornPostTail_reciprocalCutoff_le_root_add_two_sqrt
+/-- The reciprocal cutoff of every unprocessed cofactor is already at most
+`R + floor(sqrt R)`. -/
+theorem squareRootBornPostTail_reciprocalCutoff_le_root_add_sqrt
     {R d : ℕ} (hR : 16 ≤ R)
     (hdP : squareRootBornPostTailLowPrimeCutoff R < d) :
-    squareRootEndpoint R / d ≤ R + 2 * Nat.sqrt R := by
+    squareRootEndpoint R / d ≤ R + Nat.sqrt R := by
   let s := Nat.sqrt R
   let P := squareRootBornPostTailLowPrimeCutoff R
-  have hs4 : 4 ≤ s := by
-    simpa [s] using remainder_sqrt_ge_four_of_sixteen_le hR
-  have h4s : 4 * s ≤ R := by
-    simpa [s] using remainder_four_mul_sqrt_le hR
   have hsR : s ≤ R := by nlinarith [Nat.sqrt_le' R]
   have hPs : P + s = R := by
     dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
     omega
   have hd : P + 1 ≤ d := by simpa [P] using hdP
-  have hbase : R ^ 2 ≤ (R + 2 * s) * (P + 1) := by
+  have hbase : R ^ 2 ≤ (R + s) * (P + 1) := by
     nlinarith [Nat.sqrt_le' R]
-  have hmono : (R + 2 * s) * (P + 1) ≤ (R + 2 * s) * d :=
-    Nat.mul_le_mul_left (R + 2 * s) hd
-  have hX : squareRootEndpoint R ≤ (R + 2 * s) * d := by
+  have hmono : (R + s) * (P + 1) ≤ (R + s) * d :=
+    Nat.mul_le_mul_left (R + s) hd
+  have hX : squareRootEndpoint R ≤ (R + s) * d := by
     have hXR : squareRootEndpoint R < R ^ 2 := by
       unfold squareRootEndpoint
       exact Nat.sub_lt (by positivity) (by norm_num)
     exact (Nat.le_of_lt hXR).trans (hbase.trans hmono)
   have hdpos : 0 < d := by omega
   apply (Nat.div_le_iff_le_mul hdpos).2
-  simpa [Nat.mul_comm] using hX
+  have hX' : squareRootEndpoint R ≤ d * (R + Nat.sqrt R) := by
+    simpa [s, Nat.mul_comm] using hX
+  omega
 
 /-- Every post-root prefix seen by an unprocessed cofactor contains at most
-`2 floor(sqrt R)` primes. -/
-theorem squareRootPostRootPrimePrefixCard_le_two_sqrt_of_lowPrimeCutoff_lt
+`floor(sqrt R)` primes. -/
+theorem squareRootPostRootPrimePrefixCard_le_sqrt_of_lowPrimeCutoff_lt
     {R d : ℕ} (hR : 16 ≤ R)
     (hdP : squareRootBornPostTailLowPrimeCutoff R < d) :
-    squareRootPostRootPrimePrefixCard R d ≤ 2 * Nat.sqrt R := by
+    squareRootPostRootPrimePrefixCard R d ≤ Nat.sqrt R := by
   classical
   let U := max R (squareRootEndpoint R / d)
   have hdiv :=
-    squareRootBornPostTail_reciprocalCutoff_le_root_add_two_sqrt hR hdP
-  have hU : U ≤ R + 2 * Nat.sqrt R := by
+    squareRootBornPostTail_reciprocalCutoff_le_root_add_sqrt hR hdP
+  have hU : U ≤ R + Nat.sqrt R := by
     dsimp [U]
     exact max_le (by omega) hdiv
   unfold squareRootPostRootPrimePrefixCard
-  change ((Finset.Ioc R U).filter Nat.Prime).card ≤ 2 * Nat.sqrt R
+  change ((Finset.Ioc R U).filter Nat.Prime).card ≤ Nat.sqrt R
   have hsub :
       (Finset.Ioc R U).filter Nat.Prime ⊆
-        Finset.Ioc R (R + 2 * Nat.sqrt R) := by
+        Finset.Ioc R (R + Nat.sqrt R) := by
     intro q hq
     rcases Finset.mem_filter.mp hq with ⟨hqIoc, _⟩
     rcases Finset.mem_Ioc.mp hqIoc with ⟨hRq, hqU⟩
     exact Finset.mem_Ioc.mpr ⟨hRq, hqU.trans hU⟩
   have hcard := Finset.card_le_card hsub
   have hIoc :
-      (Finset.Ioc R (R + 2 * Nat.sqrt R)).card = 2 * Nat.sqrt R := by
+      (Finset.Ioc R (R + Nat.sqrt R)).card = Nat.sqrt R := by
     rw [Nat.card_Ioc]
     omega
   simpa [hIoc] using hcard
@@ -230,25 +218,25 @@ theorem squareRootReciprocalPrimeLayerCard_add_postRootPrimePrefixCard
 /-- Pointwise near-root bound for the still-unprocessed high response.  The
 partially filled crossing layer is kept together with every deeper layer, and
 is bounded only after the exact natural Abel telescope above. -/
-theorem squareRootBornPostTailHighResponse_le_two_sqrt
+theorem squareRootBornPostTailHighResponse_le_sqrt
     {R K j c : ℕ} (hR : 16 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
     (hj : j ≤ squareRootReciprocalPrimeLayerCard R K)
     (hcP : squareRootBornPostTailLowPrimeCutoff R < c) :
-    squareRootBornPostTailHighResponse R K j c ≤ 2 * Nat.sqrt R := by
+    squareRootBornPostTailHighResponse R K j c ≤ Nat.sqrt R := by
   unfold squareRootBornPostTailHighResponse
   by_cases hcK : c ≤ K
   · rw [if_pos hcK]
     have hPK : squareRootBornPostTailLowPrimeCutoff R < K :=
       hcP.trans_le hcK
     have hprefix :=
-      squareRootPostRootPrimePrefixCard_le_two_sqrt_of_lowPrimeCutoff_lt
+      squareRootPostRootPrimePrefixCard_le_sqrt_of_lowPrimeCutoff_lt
         hR hPK
     have htel :=
       squareRootReciprocalPrimeLayerCard_add_postRootPrimePrefixCard
         R K (by omega) hK hKR
     omega
   · rw [if_neg hcK]
-    exact squareRootPostRootPrimePrefixCard_le_two_sqrt_of_lowPrimeCutoff_lt
+    exact squareRootPostRootPrimePrefixCard_le_sqrt_of_lowPrimeCutoff_lt
       hR hcP
 
 end RHLean.Proof
