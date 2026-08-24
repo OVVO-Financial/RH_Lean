@@ -167,7 +167,27 @@ private theorem freshCofactorBorn_eq_booleanFace
     else 0
   have h := canonicalMoebiusWeighted_Icc_eq_admissibleFaceSum
     (squareRootEndpoint R) F
-  simpa [F] using h
+  calc
+    (∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+      if canonicalLargestPrimeFactor c = p then
+        canonicalMoebiusWeight c * (squareRootBornPartnerCount R c : ℂ)
+      else 0) =
+        ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+          canonicalMoebiusWeight c * F c := by
+      apply Finset.sum_congr rfl
+      intro c _hc
+      by_cases heq : canonicalLargestPrimeFactor c = p <;> simp [F, heq]
+    _ = ∑ u ∈ admissiblePrimeFaces (squareRootEndpoint R),
+        (booleanCubeSign u : ℂ) * F (primeFaceProduct u) := h
+    _ = ∑ u ∈ admissiblePrimeFaces (squareRootEndpoint R),
+      if canonicalLargestPrimeFactor (primeFaceProduct u) = p then
+        (booleanCubeSign u : ℂ) *
+          (squareRootBornPartnerCount R (primeFaceProduct u) : ℂ)
+      else 0 := by
+      apply Finset.sum_congr rfl
+      intro u _hu
+      by_cases heq : canonicalLargestPrimeFactor (primeFaceProduct u) = p <;>
+        simp [F, heq]
 
 private theorem freshCofactorHigh_eq_booleanFace
     (R K j p : ℕ) :
@@ -187,7 +207,28 @@ private theorem freshCofactorHigh_eq_booleanFace
       (squareRootBornPostTailHighResponse R K j c : ℂ)
     else 0
   have h := canonicalMoebiusWeighted_Icc_eq_admissibleFaceSum (R - 1) F
-  simpa [F] using h
+  calc
+    (∑ c ∈ Finset.Icc 1 (R - 1),
+      if canonicalLargestPrimeFactor c = p then
+        canonicalMoebiusWeight c *
+          (squareRootBornPostTailHighResponse R K j c : ℂ)
+      else 0) =
+        ∑ c ∈ Finset.Icc 1 (R - 1), canonicalMoebiusWeight c * F c := by
+      apply Finset.sum_congr rfl
+      intro c _hc
+      by_cases heq : canonicalLargestPrimeFactor c = p <;> simp [F, heq]
+    _ = ∑ u ∈ admissiblePrimeFaces (R - 1),
+        (booleanCubeSign u : ℂ) * F (primeFaceProduct u) := h
+    _ = ∑ u ∈ admissiblePrimeFaces (R - 1),
+      if canonicalLargestPrimeFactor (primeFaceProduct u) = p then
+        (booleanCubeSign u : ℂ) *
+          (squareRootBornPostTailHighResponse R K j
+            (primeFaceProduct u) : ℂ)
+      else 0 := by
+      apply Finset.sum_congr rfl
+      intro u _hu
+      by_cases heq : canonicalLargestPrimeFactor (primeFaceProduct u) = p <;>
+        simp [F, heq]
 
 /-- The literal fresh cofactor layer and the Boolean prime-face layer are the
 same finite signed object. -/
