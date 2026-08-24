@@ -56,6 +56,7 @@ private theorem two_mul_canonicalLargestPrimeFactor_le_of_lt
     2 * canonicalLargestPrimeFactor c ≤
         k * canonicalLargestPrimeFactor c :=
       Nat.mul_le_mul_right (canonicalLargestPrimeFactor c) hk2
+    _ = canonicalLargestPrimeFactor c * k := by rw [Nat.mul_comm]
     _ = c := hk.symm
 
 /-- If the largest prime factor of a cofactor lies beyond the low-prime cutoff,
@@ -161,7 +162,11 @@ theorem squareRootBornPostTail_reciprocalCutoff_le_root_add_sqrt
   apply (Nat.div_le_iff_le_mul hdpos).2
   have hX' : squareRootEndpoint R ≤ d * (R + Nat.sqrt R) := by
     simpa [s, Nat.mul_comm] using hX
-  omega
+  have htail :
+      d * (R + Nat.sqrt R) ≤ (R + Nat.sqrt R) * d + d - 1 := by
+    rw [Nat.mul_comm d (R + Nat.sqrt R)]
+    omega
+  exact hX'.trans htail
 
 /-- Every post-root prefix seen by an unprocessed cofactor contains at most
 `floor(sqrt R)` primes. -/
@@ -335,6 +340,7 @@ theorem squareRootBornPostTailHighComplementWeighted_eq_neg_count
     _ = -((∑ c ∈ squareRootBornPostTailHighComplementCofactors R,
         squareRootBornPostTailHighResponse R K j c : ℕ) : ℂ) := by
           push_cast
+          rfl
 
 /-- Positive complex form of the near-root remainder. -/
 def squareRootBornPostTailNearRootRemainder
