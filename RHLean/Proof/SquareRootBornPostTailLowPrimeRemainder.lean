@@ -239,4 +239,223 @@ theorem squareRootBornPostTailHighResponse_le_sqrt
     exact squareRootPostRootPrimePrefixCard_le_sqrt_of_lowPrimeCutoff_lt
       hR hcP
 
+/-! ## Cardinality of the near-root boundary -/
+
+/-- The unprocessed high cofactors occupy at most `floor(sqrt R)` integer
+seats. -/
+theorem squareRootBornPostTailHighComplementCofactors_card_le_sqrt
+    {R : ℕ} (hR : 16 ≤ R) :
+    (squareRootBornPostTailHighComplementCofactors R).card ≤ Nat.sqrt R := by
+  classical
+  let P := squareRootBornPostTailLowPrimeCutoff R
+  have hsub :
+      squareRootBornPostTailHighComplementCofactors R ⊆
+        Finset.Ioc P (R - 1) := by
+    intro c hc
+    have hrigid := squareRootBornPostTailHighComplement_prime hR hc
+    have hmem := mem_squareRootBornPostTailHighComplementCofactors.mp hc
+    exact Finset.mem_Ioc.mpr ⟨by simpa [P] using hrigid.2.1, hmem.2.1⟩
+  have hcard := Finset.card_le_card hsub
+  have hsR : Nat.sqrt R ≤ R := by nlinarith [Nat.sqrt_le' R]
+  have hPs : P + Nat.sqrt R = R := by
+    dsimp [P, squareRootBornPostTailLowPrimeCutoff]
+    omega
+  have hIoc : (Finset.Ioc P (R - 1)).card ≤ Nat.sqrt R := by
+    rw [Nat.card_Ioc]
+    omega
+  exact hcard.trans hIoc
+
+/-- Natural cardinality carried by the near-root high complement. -/
+def squareRootBornPostTailNearRootRemainderCount
+    (R K j : ℕ) : ℕ :=
+  ∑ c ∈ squareRootBornPostTailHighComplementCofactors R,
+    squareRootBornPostTailHighResponse R K j c
+
+/-- The near-root response count is at most `R`; it is a rectangle of at most
+`sqrt R` cofactor seats by at most `sqrt R` post-root prime seats. -/
+theorem squareRootBornPostTailNearRootRemainderCount_le_root
+    (R K j : ℕ) (hR : 16 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K) :
+    squareRootBornPostTailNearRootRemainderCount R K j ≤ R := by
+  classical
+  unfold squareRootBornPostTailNearRootRemainderCount
+  have hsum :
+      (∑ c ∈ squareRootBornPostTailHighComplementCofactors R,
+        squareRootBornPostTailHighResponse R K j c) ≤
+      ∑ _c ∈ squareRootBornPostTailHighComplementCofactors R,
+        Nat.sqrt R := by
+    apply Finset.sum_le_sum
+    intro c hc
+    have hcP := (squareRootBornPostTailHighComplement_prime hR hc).2.1
+    exact squareRootBornPostTailHighResponse_le_sqrt hR hK hKR hj hcP
+  have hcard := squareRootBornPostTailHighComplementCofactors_card_le_sqrt hR
+  calc
+    (∑ c ∈ squareRootBornPostTailHighComplementCofactors R,
+        squareRootBornPostTailHighResponse R K j c) ≤
+        ∑ _c ∈ squareRootBornPostTailHighComplementCofactors R,
+          Nat.sqrt R := hsum
+    _ = (squareRootBornPostTailHighComplementCofactors R).card * Nat.sqrt R := by
+      simp
+    _ ≤ Nat.sqrt R * Nat.sqrt R :=
+      Nat.mul_le_mul_right (Nat.sqrt R) hcard
+    _ ≤ R := by simpa [pow_two] using Nat.sqrt_le' R
+
+private theorem canonicalMoebiusWeight_eq_neg_one_of_mem_highComplement
+    {R c : ℕ} (hR : 16 ≤ R)
+    (hc : c ∈ squareRootBornPostTailHighComplementCofactors R) :
+    canonicalMoebiusWeight c = -1 := by
+  have hcPrime := (squareRootBornPostTailHighComplement_prime hR hc).1
+  unfold canonicalMoebiusWeight
+  rw [ArithmeticFunction.moebius_apply_prime hcPrime]
+  norm_num
+
+/-- The signed high-complement sum is exactly minus its natural response
+cardinality.  No absolute value has been taken. -/
+theorem squareRootBornPostTailHighComplementWeighted_eq_neg_count
+    (R K j : ℕ) (hR : 16 ≤ R) :
+    (∑ c ∈ squareRootBornPostTailHighComplementCofactors R,
+      canonicalMoebiusWeight c *
+        (squareRootBornPostTailHighResponse R K j c : ℂ)) =
+      -((squareRootBornPostTailNearRootRemainderCount R K j : ℕ) : ℂ) := by
+  classical
+  unfold squareRootBornPostTailNearRootRemainderCount
+  calc
+    (∑ c ∈ squareRootBornPostTailHighComplementCofactors R,
+      canonicalMoebiusWeight c *
+        (squareRootBornPostTailHighResponse R K j c : ℂ)) =
+      ∑ c ∈ squareRootBornPostTailHighComplementCofactors R,
+        -((squareRootBornPostTailHighResponse R K j c : ℕ) : ℂ) := by
+          apply Finset.sum_congr rfl
+          intro c hc
+          rw [canonicalMoebiusWeight_eq_neg_one_of_mem_highComplement hR hc]
+          ring
+    _ = -∑ c ∈ squareRootBornPostTailHighComplementCofactors R,
+        ((squareRootBornPostTailHighResponse R K j c : ℕ) : ℂ) := by
+          rw [Finset.sum_neg_distrib]
+    _ = -((∑ c ∈ squareRootBornPostTailHighComplementCofactors R,
+        squareRootBornPostTailHighResponse R K j c : ℕ) : ℂ) := by
+          push_cast
+
+/-- Positive complex form of the near-root remainder. -/
+def squareRootBornPostTailNearRootRemainder
+    (R K j : ℕ) : ℂ :=
+  ((squareRootBornPostTailNearRootRemainderCount R K j : ℕ) : ℂ)
+
+/-- The near-root remainder satisfies the stronger bound `<= R`. -/
+theorem squareRootBornPostTailNearRootRemainder_norm_le_root
+    (R K j : ℕ) (hR : 16 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K) :
+    ‖squareRootBornPostTailNearRootRemainder R K j‖ ≤ (R : ℝ) := by
+  have hcount := squareRootBornPostTailNearRootRemainderCount_le_root
+    R K j hR hK hKR hj
+  have hreal :
+      (squareRootBornPostTailNearRootRemainderCount R K j : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast hcount
+  unfold squareRootBornPostTailNearRootRemainder
+  simpa using hreal
+
+/-! ## Exact processed-response split -/
+
+/-- The part of the complete BornPostTail response whose largest-prime
+coordinate has already been processed through `P_R`. -/
+def squareRootBornPostTailLowPrimeProcessedResponse
+    (R K j : ℕ) : ℂ :=
+  (∑ c ∈ (Finset.Icc 1 (squareRootEndpoint R)).filter (fun c =>
+      canonicalLargestPrimeFactor c ≤ squareRootBornPostTailLowPrimeCutoff R),
+      canonicalMoebiusWeight c * (squareRootBornPartnerCount R c : ℂ)) +
+  (∑ c ∈ (Finset.Icc 1 (R - 1)).filter (fun c =>
+      canonicalLargestPrimeFactor c ≤ squareRootBornPostTailLowPrimeCutoff R),
+      canonicalMoebiusWeight c *
+        (squareRootBornPostTailHighResponse R K j c : ℂ))
+
+private theorem squareRootBornPostTailBornWeighted_eq_lowPrimeProcessed
+    (R : ℕ) (hR : 16 ≤ R) :
+    (∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+      canonicalMoebiusWeight c * (squareRootBornPartnerCount R c : ℂ)) =
+    ∑ c ∈ (Finset.Icc 1 (squareRootEndpoint R)).filter (fun c =>
+      canonicalLargestPrimeFactor c ≤ squareRootBornPostTailLowPrimeCutoff R),
+      canonicalMoebiusWeight c * (squareRootBornPartnerCount R c : ℂ) := by
+  classical
+  let S := Finset.Icc 1 (squareRootEndpoint R)
+  let pred : ℕ → Prop := fun c =>
+    canonicalLargestPrimeFactor c ≤ squareRootBornPostTailLowPrimeCutoff R
+  let f : ℕ → ℂ := fun c =>
+    canonicalMoebiusWeight c * (squareRootBornPartnerCount R c : ℂ)
+  have hsplit := Finset.sum_filter_add_sum_filter_not S pred f
+  have hzero : (∑ c ∈ S.filter (fun c => ¬ pred c), f c) = 0 := by
+    apply Finset.sum_eq_zero
+    intro c hc
+    have hnot := (Finset.mem_filter.mp hc).2
+    have hcP : squareRootBornPostTailLowPrimeCutoff R <
+        canonicalLargestPrimeFactor c := by
+      exact Nat.lt_of_not_ge hnot
+    dsimp [f]
+    rw [squareRootBornPartnerCount_eq_zero_of_lowPrimeCutoff_lt_lpf hR hcP]
+    simp
+  have hres : (∑ c ∈ S, f c) = ∑ c ∈ S.filter pred, f c := by
+    rw [← hsplit, hzero, add_zero]
+  simpa [S, pred, f] using hres
+
+private theorem squareRootBornPostTailHighWeighted_eq_processed_add_complement
+    (R K j : ℕ) :
+    (∑ c ∈ Finset.Icc 1 (R - 1),
+      canonicalMoebiusWeight c *
+        (squareRootBornPostTailHighResponse R K j c : ℂ)) =
+    (∑ c ∈ (Finset.Icc 1 (R - 1)).filter (fun c =>
+      canonicalLargestPrimeFactor c ≤ squareRootBornPostTailLowPrimeCutoff R),
+      canonicalMoebiusWeight c *
+        (squareRootBornPostTailHighResponse R K j c : ℂ)) +
+    (∑ c ∈ squareRootBornPostTailHighComplementCofactors R,
+      canonicalMoebiusWeight c *
+        (squareRootBornPostTailHighResponse R K j c : ℂ)) := by
+  classical
+  let S := Finset.Icc 1 (R - 1)
+  let pred : ℕ → Prop := fun c =>
+    canonicalLargestPrimeFactor c ≤ squareRootBornPostTailLowPrimeCutoff R
+  let f : ℕ → ℂ := fun c =>
+    canonicalMoebiusWeight c *
+      (squareRootBornPostTailHighResponse R K j c : ℂ)
+  have hsplit := Finset.sum_filter_add_sum_filter_not S pred f
+  have hcomp : S.filter (fun c => ¬ pred c) =
+      squareRootBornPostTailHighComplementCofactors R := by
+    ext c
+    simp only [S, pred, squareRootBornPostTailHighComplementCofactors,
+      Finset.mem_filter, Finset.mem_Icc]
+    omega
+  have hres :
+      (∑ c ∈ S, f c) =
+        (∑ c ∈ S.filter pred, f c) +
+          ∑ c ∈ squareRootBornPostTailHighComplementCofactors R, f c := by
+    rw [← hsplit, hcomp]
+  simpa [S, pred, f] using hres
+
+/-- **Low-prime collapse of the BornPostTail gate.**  After every largest-prime
+coordinate through `P_R = R - floor(sqrt R)` is retained in one processed
+response, the entire born complement vanishes and the only remaining term is a
+positive near-root cardinality. -/
+theorem squareRootBornPostTail_eq_one_sub_lowPrimeProcessedResponse_add_nearRootRemainder
+    (R K j : ℕ) (hR : 16 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K) :
+    squareRootBornPostTail R K j =
+      1 - squareRootBornPostTailLowPrimeProcessedResponse R K j +
+        squareRootBornPostTailNearRootRemainder R K j := by
+  rw [squareRootBornPostTail_eq_one_sub_weighted_response
+    R K j (by omega) hK hKR hj]
+  rw [squareRootBornPostTailBornWeighted_eq_lowPrimeProcessed R hR]
+  rw [squareRootBornPostTailHighWeighted_eq_processed_add_complement]
+  rw [squareRootBornPostTailHighComplementWeighted_eq_neg_count R K j hR]
+  unfold squareRootBornPostTailLowPrimeProcessedResponse
+    squareRootBornPostTailNearRootRemainder
+  ring
+
+/-- The remainder in the exact low-prime collapse is `O(R)` with constant one;
+in particular it satisfies the originally targeted `2R` bound. -/
+theorem squareRootBornPostTailNearRootRemainder_norm_le_two_root
+    (R K j : ℕ) (hR : 16 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K) :
+    ‖squareRootBornPostTailNearRootRemainder R K j‖ ≤ 2 * (R : ℝ) := by
+  have h := squareRootBornPostTailNearRootRemainder_norm_le_root
+    R K j hR hK hKR hj
+  nlinarith
+
 end RHLean.Proof
