@@ -131,6 +131,20 @@ theorem squareRootBornPostTailHighComplement_prime
   have hcPrime : c.Prime := by simpa [hpEq] using hpPrime
   exact ⟨hcPrime, by simpa [hpEq] using hcP, by omega⟩
 
+private theorem remainder_sqrt_ge_four_of_sixteen_le
+    {R : ℕ} (hR : 16 ≤ R) : 4 ≤ Nat.sqrt R := by
+  by_contra h
+  have hs : Nat.sqrt R ≤ 3 := by omega
+  have hlt := Nat.lt_succ_sqrt' R
+  have hsq : (Nat.sqrt R + 1) ^ 2 ≤ 16 := by nlinarith
+  nlinarith
+
+private theorem remainder_four_mul_sqrt_le
+    {R : ℕ} (hR : 16 ≤ R) : 4 * Nat.sqrt R ≤ R := by
+  have hs4 := remainder_sqrt_ge_four_of_sixteen_le hR
+  have hsquare : (Nat.sqrt R) ^ 2 ≤ R := Nat.sqrt_le' R
+  nlinarith
+
 /-- The reciprocal cutoff of every unprocessed cofactor is at most
 `R + 2 floor(sqrt R)`. -/
 theorem squareRootBornPostTail_reciprocalCutoff_le_root_add_two_sqrt
@@ -140,9 +154,9 @@ theorem squareRootBornPostTail_reciprocalCutoff_le_root_add_two_sqrt
   let s := Nat.sqrt R
   let P := squareRootBornPostTailLowPrimeCutoff R
   have hs4 : 4 ≤ s := by
-    simpa [s] using sqrt_ge_four_of_sixteen_le hR
+    simpa [s] using remainder_sqrt_ge_four_of_sixteen_le hR
   have h4s : 4 * s ≤ R := by
-    simpa [s] using four_mul_sqrt_le hR
+    simpa [s] using remainder_four_mul_sqrt_le hR
   have hsR : s ≤ R := by nlinarith [Nat.sqrt_le' R]
   have hPs : P + s = R := by
     dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
