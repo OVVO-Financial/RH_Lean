@@ -486,6 +486,7 @@ import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootAncestryRoot
 import RHLean.Proof.SquareRootAncestrySuccessor
 import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
+import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
 import RHLean.Proof.SquareRootCrossRegionAmplification
 import RHLean.Proof.SquareRootLegalAncestryGramReduction
 import RHLean.Proof.SquareRootMertensEndpointAmplification
