@@ -1,5 +1,7 @@
 import RHLean.Proof.CanonicalGapAncestryQuadraticClosure
 import RHLean.Proof.SquareRootAncestryParentFibres
+import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
+import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
 
 /-!
 # Axiom footprint of the terminal reduction
