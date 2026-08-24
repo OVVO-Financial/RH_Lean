@@ -22,7 +22,7 @@ it contains the unfilled part of layer `K` plus the complete deeper prime prefix
 for `c > K` it is simply the post-root prime prefix at the reciprocal cutoff
 `floor(X_R/c)`.
 
-The later section will cut the cofactor coordinate at
+The later section cuts the cofactor coordinate at
 `P_R = R - floor(sqrt R)`.  The purpose of this file is to make that reduction
 an exact finite theorem rather than a numerical observation.
 -/
@@ -123,7 +123,8 @@ theorem squareRootPostRootPrimePrefixCard_cast
       primeSievePrefixPrimeCount U - primeSievePrefixPrimeCount R
   rw [primeSievePrefixPrimeCount_eq_card,
     primeSievePrefixPrimeCount_eq_card]
-  linear_combination hcardC
+  rw [hcardC]
+  ring
 
 /-- Natural high-prime response of one cofactor after the crossing packet has
 stopped inside layer `K`.  The hypothesis `j <= N_R(K)` is imposed only when
@@ -385,30 +386,33 @@ theorem squareRootBornPostTailLowPrimeCutoff_two_sq_gt_endpoint
     omega
   have hthree : 3 * R ≤ 4 * P := by omega
   have hsq := Nat.mul_le_mul hthree hthree
-  have hRpos : 0 < R := by omega
-  unfold squareRootEndpoint
-  change R ^ 2 - 1 < 2 * P ^ 2
-  nlinarith [hsq]
+  have hsq' : 9 * R ^ 2 ≤ 16 * P ^ 2 := by
+    nlinarith [hsq]
+  have hR2pos : 0 < R ^ 2 := by positivity
+  have h8lt : 8 * R ^ 2 < 9 * R ^ 2 := by nlinarith
+  have h16 : 8 * R ^ 2 < 16 * P ^ 2 := h8lt.trans_le hsq'
+  have htarget : R ^ 2 < 2 * P ^ 2 := by omega
+  have hXlt : squareRootEndpoint R < R ^ 2 := by
+    unfold squareRootEndpoint
+    exact Nat.sub_lt (by positivity) (by norm_num)
+  exact hXlt.trans htarget
 
 /-- A low-prime-cutoff factor times a post-root factor already exceeds the
-square endpoint.  This is the geometry that kills composite cofactors in the
-unprocessed complement. -/
+square endpoint. -/
 theorem squareRootBornPostTailLowPrimeCutoff_two_mul_root_gt_endpoint
     {R : ℕ} (hR : 16 ≤ R) :
     squareRootEndpoint R <
       2 * squareRootBornPostTailLowPrimeCutoff R * R := by
-  let s := Nat.sqrt R
   let P := squareRootBornPostTailLowPrimeCutoff R
-  have h4s : 4 * s ≤ R := by simpa [s] using four_mul_sqrt_le hR
-  have hsR : s ≤ R := by nlinarith [Nat.sqrt_le' R]
-  have hPs : P + s = R := by
-    dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
-    omega
-  have hthree : 3 * R ≤ 4 * P := by omega
-  have hmul := Nat.mul_le_mul_right R hthree
+  have hroot : R < 2 * P := by
+    simpa [P] using squareRootBornPostTailLowPrimeCutoff_two_mul_gt_root hR
   have hRpos : 0 < R := by omega
-  unfold squareRootEndpoint
-  change R ^ 2 - 1 < 2 * P * R
-  nlinarith [hmul]
+  have hmul := Nat.mul_lt_mul_of_pos_right hroot hRpos
+  have htarget : R ^ 2 < 2 * P * R := by
+    simpa [pow_two, Nat.mul_assoc] using hmul
+  have hXlt : squareRootEndpoint R < R ^ 2 := by
+    unfold squareRootEndpoint
+    exact Nat.sub_lt (by positivity) (by norm_num)
+  exact hXlt.trans htarget
 
 end RHLean.Proof
