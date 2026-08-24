@@ -82,31 +82,48 @@ theorem squareRootPostRootPrimePrefixCard_cast
         (Finset.Ioc 0 R).filter Nat.Prime ∪
           (Finset.Ioc R U).filter Nat.Prime := by
     ext q
-    simp only [Finset.mem_union, Finset.mem_filter, Finset.mem_Ioc]
     constructor
-    · rintro ⟨hq0, hqU, hp⟩
+    · intro hq
+      rcases Finset.mem_filter.mp hq with ⟨hqIoc, hqPrime⟩
+      rcases Finset.mem_Ioc.mp hqIoc with ⟨hq0, hqU⟩
       by_cases hqR : q ≤ R
-      · exact Or.inl ⟨⟨hq0, hqR⟩, hp⟩
-      · exact Or.inr ⟨⟨Nat.lt_of_not_ge hqR, hqU⟩, hp⟩
-    · rintro (h | h)
-      · exact ⟨h.1.1, h.1.2.trans hRU, h.2⟩
-      · exact ⟨h.1.1.trans (by omega), h.1.2, h.2⟩
+      · exact Finset.mem_union_left _
+          (Finset.mem_filter.mpr
+            ⟨Finset.mem_Ioc.mpr ⟨hq0, hqR⟩, hqPrime⟩)
+      · exact Finset.mem_union_right _
+          (Finset.mem_filter.mpr
+            ⟨Finset.mem_Ioc.mpr ⟨Nat.lt_of_not_ge hqR, hqU⟩, hqPrime⟩)
+    · intro hq
+      rcases Finset.mem_union.mp hq with hq | hq
+      · rcases Finset.mem_filter.mp hq with ⟨hqIoc, hqPrime⟩
+        rcases Finset.mem_Ioc.mp hqIoc with ⟨hq0, hqR⟩
+        exact Finset.mem_filter.mpr
+          ⟨Finset.mem_Ioc.mpr ⟨hq0, hqR.trans hRU⟩, hqPrime⟩
+      · rcases Finset.mem_filter.mp hq with ⟨hqIoc, hqPrime⟩
+        rcases Finset.mem_Ioc.mp hqIoc with ⟨hqR, hqU⟩
+        exact Finset.mem_filter.mpr
+          ⟨Finset.mem_Ioc.mpr ⟨by omega, hqU⟩, hqPrime⟩
   have hdisj :
       Disjoint ((Finset.Ioc 0 R).filter Nat.Prime)
         ((Finset.Ioc R U).filter Nat.Prime) := by
     rw [Finset.disjoint_left]
     intro q hq1 hq2
-    have h1 := (Finset.mem_filter.mp hq1).1
-    have h2 := (Finset.mem_filter.mp hq2).1
+    rcases Finset.mem_filter.mp hq1 with ⟨hq1Ioc, _⟩
+    rcases Finset.mem_filter.mp hq2 with ⟨hq2Ioc, _⟩
+    rcases Finset.mem_Ioc.mp hq1Ioc with ⟨_, hq1R⟩
+    rcases Finset.mem_Ioc.mp hq2Ioc with ⟨hq2R, _⟩
     omega
+  have hcard := congrArg Finset.card hset
+  rw [Finset.card_union_of_disjoint hdisj] at hcard
+  have hcardC := congrArg (fun n : ℕ => (n : ℂ)) hcard
+  push_cast at hcardC
   unfold squareRootPostRootPrimePrefixCard squareRootPostRootPrimePrefix
   change
     ((((Finset.Ioc R U).filter Nat.Prime).card : ℕ) : ℂ) =
       primeSievePrefixPrimeCount U - primeSievePrefixPrimeCount R
   rw [primeSievePrefixPrimeCount_eq_card,
-    primeSievePrefixPrimeCount_eq_card, hset, Finset.card_union hdisj]
-  push_cast
-  ring
+    primeSievePrefixPrimeCount_eq_card]
+  linear_combination hcardC
 
 /-- Natural high-prime response of one cofactor after the crossing packet has
 stopped inside layer `K`.  The hypothesis `j <= N_R(K)` is imposed only when
@@ -303,6 +320,7 @@ theorem squareRootPostCrossingRawTransportTail_eq_neg_weighted_highResponse
     R K j hR hK hKR]
   unfold squareRootPostCrossingRemainingAbelCap
   rw [hsplit, Finset.sum_union hdisj, hlow, hhigh, hN]
+  simp [canonicalMoebiusWeight]
   ring
 
 /-- Exact cofactor-response identity for the BornPostTail object.  The unit
@@ -335,7 +353,7 @@ private theorem sqrt_ge_four_of_sixteen_le
   have hs : Nat.sqrt R ≤ 3 := by omega
   have hlt := Nat.lt_succ_sqrt' R
   have hsq : (Nat.sqrt R + 1) ^ 2 ≤ 16 := by nlinarith
-  omega
+  nlinarith
 
 private theorem four_mul_sqrt_le
     {R : ℕ} (hR : 16 ≤ R) : 4 * Nat.sqrt R ≤ R := by
@@ -367,8 +385,10 @@ theorem squareRootBornPostTailLowPrimeCutoff_two_sq_gt_endpoint
     omega
   have hthree : 3 * R ≤ 4 * P := by omega
   have hsq := Nat.mul_le_mul hthree hthree
+  have hRpos : 0 < R := by omega
   unfold squareRootEndpoint
-  nlinarith
+  change R ^ 2 - 1 < 2 * P ^ 2
+  nlinarith [hsq]
 
 /-- A low-prime-cutoff factor times a post-root factor already exceeds the
 square endpoint.  This is the geometry that kills composite cofactors in the
@@ -386,7 +406,9 @@ theorem squareRootBornPostTailLowPrimeCutoff_two_mul_root_gt_endpoint
     omega
   have hthree : 3 * R ≤ 4 * P := by omega
   have hmul := Nat.mul_le_mul_right R hthree
+  have hRpos : 0 < R := by omega
   unfold squareRootEndpoint
-  nlinarith
+  change R ^ 2 - 1 < 2 * P * R
+  nlinarith [hmul]
 
 end RHLean.Proof
