@@ -167,7 +167,7 @@ private theorem freshCofactorBorn_eq_booleanFace
     else 0
   have h := canonicalMoebiusWeighted_Icc_eq_admissibleFaceSum
     (squareRootEndpoint R) F
-  simpa [F, mul_ite] using h
+  simpa [F] using h
 
 private theorem freshCofactorHigh_eq_booleanFace
     (R K j p : ℕ) :
@@ -187,7 +187,7 @@ private theorem freshCofactorHigh_eq_booleanFace
       (squareRootBornPostTailHighResponse R K j c : ℂ)
     else 0
   have h := canonicalMoebiusWeighted_Icc_eq_admissibleFaceSum (R - 1) F
-  simpa [F, mul_ite] using h
+  simpa [F] using h
 
 /-- The literal fresh cofactor layer and the Boolean prime-face layer are the
 same finite signed object. -/
