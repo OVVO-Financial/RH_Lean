@@ -532,6 +532,7 @@ import RHLean.Proof.SquareRootLowPrimeSequentialDissipationOwnership
 import RHLean.Proof.SquareRootLowPrimeSignedResponseChildren
 import RHLean.Proof.SquareRootLowPrimeSignedResponseEnergy
 import RHLean.Proof.SquareRootLowPrimeSignedResponseMatching
+import RHLean.Proof.SquareRootLowPrimeUpperDisplacement
 import RHLean.Proof.SquareRootMertensEndpointAmplification
 import RHLean.Proof.SquareRootPredecessorPrimeCells
 import RHLean.Proof.SquareRootTruncatedPacketEquivalences
