@@ -94,10 +94,22 @@ theorem squareRootLowPrimeBornResponseAtoms_eq_internal_union_frontier
       squareRootLowPrimeBornInternalAtoms R K U ∪
         squareRootLowPrimeBornFrontierAtoms R K U := by
   ext z
-  simp only [mem_squareRootLowPrimeBornResponseAtoms,
-    mem_squareRootLowPrimeBornInternalAtoms,
-    mem_squareRootLowPrimeBornFrontierAtoms, Finset.mem_union]
-  omega
+  constructor
+  · intro hz
+    have hbase := mem_squareRootLowPrimeBornResponseAtoms.mp hz
+    by_cases hqU : z.2 ≤ U
+    · exact Finset.mem_union.mpr <| Or.inl <|
+        mem_squareRootLowPrimeBornInternalAtoms.mpr
+          ⟨hbase.1, hbase.2, hqU⟩
+    · exact Finset.mem_union.mpr <| Or.inr <|
+        mem_squareRootLowPrimeBornFrontierAtoms.mpr
+          ⟨hbase.1, hbase.2, Nat.lt_of_not_ge hqU⟩
+  · intro hz
+    rcases Finset.mem_union.mp hz with hz | hz
+    · have h := mem_squareRootLowPrimeBornInternalAtoms.mp hz
+      exact mem_squareRootLowPrimeBornResponseAtoms.mpr ⟨h.1, h.2.1⟩
+    · have h := mem_squareRootLowPrimeBornFrontierAtoms.mp hz
+      exact mem_squareRootLowPrimeBornResponseAtoms.mpr ⟨h.1, h.2.1⟩
 
 /-- The internal and frontier born carriers are disjoint. -/
 theorem squareRootLowPrimeBornInternalAtoms_disjoint_frontier
@@ -158,16 +170,26 @@ theorem squareRootLowPrimeBornFrontier_reciprocalUpper_le_root_add_sqrt
       R + Nat.sqrt R := by
   let s := Nat.sqrt R
   let P := squareRootBornPostTailLowPrimeCutoff R
-  have hsR : s ≤ R := by
-    nlinarith [Nat.sqrt_le' R]
   have hPs : P + s = R := by
     dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
     omega
+  have hsSq : s ^ 2 ≤ R := by
+    simpa [s] using Nat.sqrt_le' R
   have hden : 0 < P + 1 := by omega
+  have hidentity :
+      (R + s + 1) * (P + 1) + s ^ 2 = (R + 1) ^ 2 := by
+    rw [← hPs]
+    ring
+  have hprodLower :
+      R ^ 2 + 1 ≤ (R + s + 1) * (P + 1) := by
+    nlinarith [hidentity, hsSq]
   have hprod :
       squareRootEndpoint R < (R + s + 1) * (P + 1) := by
-    unfold squareRootEndpoint
-    nlinarith [Nat.sqrt_le' R]
+    calc
+      squareRootEndpoint R < R ^ 2 + 1 := by
+        unfold squareRootEndpoint
+        omega
+      _ ≤ (R + s + 1) * (P + 1) := hprodLower
   have hlt :
       squareRootEndpoint R / (P + 1) < R + s + 1 :=
     (Nat.div_lt_iff_lt_mul hden).2 hprod
@@ -182,17 +204,17 @@ theorem squareRootLowPrimeBornFrontierAtoms_card_le_two_root
       (squareRootBornPostTailLowPrimeCutoff R)).card ≤ 2 * R := by
   let s := Nat.sqrt R
   let P := squareRootBornPostTailLowPrimeCutoff R
-  have hsR : s ≤ R := by
-    nlinarith [Nat.sqrt_le' R]
   have hPs : P + s = R := by
     dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
     omega
   have hupper :=
     squareRootLowPrimeBornFrontier_reciprocalUpper_le_root_add_sqrt R
+  have hupperP :
+      squareRootEndpoint R / (P + 1) ≤ R + s := by
+    simpa [P, s] using hupper
   have hwidthC :
       squareRootEndpoint R / (P + 1) - P ≤ 2 * s := by
-    simpa [P, s] using (show
-      squareRootEndpoint R / (P + 1) - P ≤ 2 * s by omega)
+    omega
   have hwidthQ : R - P = s := by omega
   have hrect :=
     squareRootLowPrimeBornFrontierAtoms_card_le_rectangle R K P
