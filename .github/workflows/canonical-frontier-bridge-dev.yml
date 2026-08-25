@@ -30,6 +30,7 @@ jobs:
           targets = {
               "import RHLean.Proof.SquareRootLowPrimeCanonicalFrontierBridge",
               "import RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms",
+              "import RHLean.Proof.SquareRootLowPrimeSignedResponseChildren",
           }
           lines = [line.strip() for line in manifest.read_text().splitlines() if line.strip()]
           for target in targets:
@@ -114,6 +115,7 @@ jobs:
         run: |
           set -o pipefail
           lake env lean RHLean/Proof/SquareRootLowPrimeDeepResponseAtoms.lean 2>&1 | tee fast-check.log
+          lake env lean RHLean/Proof/SquareRootLowPrimeSignedResponseChildren.lean 2>&1 | tee -a fast-check.log
           lake env lean RHLean/Proof/SquareRootLowPrimeCanonicalFrontierBridge.lean 2>&1 | tee -a fast-check.log
 
       - name: Build Lean project
