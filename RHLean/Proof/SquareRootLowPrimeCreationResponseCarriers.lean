@@ -76,7 +76,8 @@ def squareRootLowPrimeResponseAtomWeight (z : ℕ × ℕ) : ℤ :=
     z ∈ squareRootLowPrimeCreationSeatFiber R K j c ↔
       z.1 = c ∧
         z.2 < squareRootLowPrimeCombinedFreshResponse R K j c := by
-  simp [squareRootLowPrimeCreationSeatFiber]
+  rcases z with ⟨z1, z2⟩
+  simp [squareRootLowPrimeCreationSeatFiber, eq_comm, and_comm]
 
 /-- Distinct shallow-cofactor seat fibres are disjoint. -/
 theorem squareRootLowPrimeCreationSeatFiber_pairwiseDisjoint
@@ -85,6 +86,9 @@ theorem squareRootLowPrimeCreationSeatFiber_pairwiseDisjoint
       (↑(squareRootLowPrimeShallowSignedCofactors R K))
       (squareRootLowPrimeCreationSeatFiber R K j) := by
   intro c _hc d _hd hcd
+  change Disjoint
+    (squareRootLowPrimeCreationSeatFiber R K j c)
+    (squareRootLowPrimeCreationSeatFiber R K j d)
   rw [Finset.disjoint_left]
   intro z hzc hzd
   have hcEq := (mem_squareRootLowPrimeCreationSeatFiber.mp hzc).1
@@ -134,16 +138,15 @@ theorem squareRootLowPrimeCreationCarrier_weight_sum
   unfold squareRootLowPrimeCreationCarrier
   rw [Finset.sum_insert
     (none_not_mem_creationSeatAtoms_image_some R K j)]
-  simp only [squareRootLowPrimeCreationWeight]
   have himage :
       (∑ x ∈ (squareRootLowPrimeCreationSeatAtoms R K j).image some,
         squareRootLowPrimeCreationWeight x) =
         ∑ z ∈ squareRootLowPrimeCreationSeatAtoms R K j, -μ z.1 := by
-    symm
     apply Finset.sum_image
     intro a _ha b _hb hab
-    exact Option.some_injective hab
+    simpa using hab
   rw [himage, squareRootLowPrimeCreationSeatAtoms_weight_sum]
+  simp [squareRootLowPrimeCreationWeight]
 
 /-- Every shallow creation state has unit-or-zero integer weight. -/
 theorem abs_squareRootLowPrimeCreationWeight_le_one
@@ -172,7 +175,7 @@ theorem squareRootLowPrimeResponseAtomWeight_eq_child_moebius
     hUR hz
   have hcast := congrArg (fun w : ℂ => w.re) hflip
   simpa [squareRootLowPrimeResponseAtomWeight,
-    canonicalMoebiusWeight, squareRootLowPrimeBadAtomChild] using hcast
+    canonicalMoebiusWeight, squareRootLowPrimeBadAtomChild] using hcast.symm
 
 /-- Exact signed deep response mass on the literal atom carrier. -/
 theorem squareRootLowPrimeOwnedResponseAtoms_weight_sum_eq_neg_freshIncrementReal
@@ -200,7 +203,17 @@ theorem squareRootLowPrimeOwnedResponseAtoms_weight_sum_eq_neg_freshIncrementRea
     have h := squareRootLowPrimeResponseAtomWeight_eq_child_moebius
       hUR hz
     simpa [canonicalMoebiusWeight] using congrArg (fun a : ℤ => (a : ℝ)) h
-  rw [hweight]
-  simpa using hresponse.symm.trans (by simpa using hatomsRe)
+  calc
+    ((∑ z ∈ squareRootLowPrimeOwnedResponseAtoms R K U,
+      squareRootLowPrimeResponseAtomWeight z : ℤ) : ℝ) =
+        ∑ z ∈ squareRootLowPrimeOwnedResponseAtoms R K U,
+          (canonicalMoebiusWeight
+            (squareRootLowPrimeBadAtomChild z)).re := hweight
+    _ = ∑ n ∈ squareRootLowPrimeOwnedResponseChildren R K U,
+          (canonicalMoebiusWeight n).re := by
+      simpa using hatomsRe.symm
+    _ = -(∑ p ∈ squareRootLowPrimeFreshPrimeSet K U,
+          squareRootLowPrimeFreshIncrementReal R K j p) := by
+      linarith [hresponse]
 
 end RHLean.Proof

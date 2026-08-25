@@ -116,14 +116,14 @@ def squareRootLowPrimeResponseAtomWeightReal
     z ∈ squareRootLowPrimeShallowBornSeatFiber R c ↔
       z.1 = c ∧ z.2 < squareRootBornPartnerCount R c := by
   rcases z with ⟨z1, z2⟩
-  simp [squareRootLowPrimeShallowBornSeatFiber, eq_comm]
+  simp [squareRootLowPrimeShallowBornSeatFiber, eq_comm, and_comm]
 
 @[simp] theorem mem_squareRootLowPrimeShallowHighSeatFiber
     {R K j c : ℕ} {z : ℕ × ℕ} :
     z ∈ squareRootLowPrimeShallowHighSeatFiber R K j c ↔
       z.1 = c ∧ z.2 < squareRootBornPostTailHighResponse R K j c := by
   rcases z with ⟨z1, z2⟩
-  simp [squareRootLowPrimeShallowHighSeatFiber, eq_comm]
+  simp [squareRootLowPrimeShallowHighSeatFiber, eq_comm, and_comm]
 
 /-- Born seat fibres over different cofactors are disjoint. -/
 theorem squareRootLowPrimeShallowBornSeatFiber_pairwiseDisjoint
@@ -238,7 +238,7 @@ theorem squareRootLowPrimeShallowBornCreationStates_weight_sum
   unfold squareRootLowPrimeShallowBornCreationStates
   apply Finset.sum_image
   intro a _ha b _hb hab
-  exact Sum.inl_injective (Option.some_injective hab)
+  simpa using hab
 
 /-- Reindexing the high tagged states loses no signed mass. -/
 theorem squareRootLowPrimeShallowHighCreationStates_weight_sum
@@ -250,7 +250,7 @@ theorem squareRootLowPrimeShallowHighCreationStates_weight_sum
   unfold squareRootLowPrimeShallowHighCreationStates
   apply Finset.sum_image
   intro a _ha b _hb hab
-  exact Sum.inr_injective (Option.some_injective hab)
+  simpa using hab
 
 private theorem shallowBornSeatMass_eq_neg_runningBorn
     (R K : ℕ) :
