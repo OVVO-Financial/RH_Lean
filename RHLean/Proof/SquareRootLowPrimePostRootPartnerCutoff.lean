@@ -64,7 +64,8 @@ theorem squareRootLowPrimePostRootResponseAtom_partner_le_crossingCutoff
     mul_le_squareRootEndpoint_of_mem_deepPartnerSet
       (Finset.mem_union.mpr (Or.inr hzPost))
   apply (Nat.le_div_iff_mul_le (Nat.succ_pos K)).2
-  exact (Nat.mul_le_mul_right z.2 hKc).trans hproduct
+  simpa [Nat.mul_comm] using
+    ((Nat.mul_le_mul_right z.2 hKc).trans hproduct)
 
 /-- No actual deep post-root response atom can use a prime from the reciprocal
 crossing layer. -/
