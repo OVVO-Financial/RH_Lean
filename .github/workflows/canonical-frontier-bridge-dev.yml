@@ -77,23 +77,8 @@ jobs:
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
 
-      - name: Restore RHLean build cache
-        uses: actions/cache/restore@v5
-        with:
-          path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
-          restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
-
-      - name: Fast-check development modules
-        shell: bash
-        run: |
-          set -o pipefail
-          lake env lean RHLean/Proof/SquareRootLowPrimeDeepResponseAtoms.lean 2>&1 | tee fast-check.log
-          lake env lean RHLean/Proof/SquareRootLowPrimeCanonicalFrontierBridge.lean 2>&1 | tee -a fast-check.log
-
       - name: Restore StrongPNT port build cache
+        id: strongpnt_cache
         uses: actions/cache/restore@v5
         with:
           path: |
@@ -105,6 +90,31 @@ jobs:
 
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
+
+      - name: Save StrongPNT port build cache
+        if: ${{ !cancelled() && steps.strongpnt_cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Kernel-check development modules
+        shell: bash
+        run: |
+          set -o pipefail
+          lake env lean RHLean/Proof/SquareRootLowPrimeDeepResponseAtoms.lean 2>&1 | tee fast-check.log
+          lake env lean RHLean/Proof/SquareRootLowPrimeCanonicalFrontierBridge.lean 2>&1 | tee -a fast-check.log
 
       - name: Build Lean project
         id: directbuild
@@ -136,13 +146,13 @@ jobs:
 
       - name: Fail on StrongPNT port diagnostics
         id: strongpnt_noise
-        if: always()
+        if: ${{ always() && steps.directbuild.outcome != 'skipped' }}
         continue-on-error: true
         shell: bash
         run: python3 scripts/lean_diagnostic_inventory.py --gate StrongPNT lean-build.log
 
       - name: Print Lean build log
-        if: always()
+        if: ${{ always() && steps.directbuild.outcome != 'skipped' }}
         run: cat lean-build.log
 
       - name: Save RHLean build cache
