@@ -77,6 +77,22 @@ jobs:
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
 
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Fast-check development modules
+        shell: bash
+        run: |
+          set -o pipefail
+          lake env lean RHLean/Proof/SquareRootLowPrimeDeepResponseAtoms.lean 2>&1 | tee fast-check.log
+          lake env lean RHLean/Proof/SquareRootLowPrimeCanonicalFrontierBridge.lean 2>&1 | tee -a fast-check.log
+
       - name: Restore StrongPNT port build cache
         uses: actions/cache/restore@v5
         with:
@@ -90,15 +106,6 @@ jobs:
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
 
-      - name: Restore RHLean build cache
-        uses: actions/cache/restore@v5
-        with:
-          path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
-          restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
-
       - name: Build Lean project
         id: directbuild
         continue-on-error: true
@@ -106,7 +113,7 @@ jobs:
 
       - name: Fail on RHLean-owned warnings
         id: rhlean_warnings
-        if: steps.directbuild.outcome == 'success'
+        if: ${{ steps.directbuild.outcome == 'success' }}
         continue-on-error: true
         shell: bash
         run: |
@@ -146,8 +153,5 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
 
       - name: Fail if full validation did not close cleanly
-        if: >-
-          steps.directbuild.outcome == 'failure' ||
-          steps.rhlean_warnings.outcome == 'failure' ||
-          steps.strongpnt_noise.outcome == 'failure'
+        if: ${{ steps.directbuild.outcome == 'failure' || steps.rhlean_warnings.outcome == 'failure' || steps.strongpnt_noise.outcome == 'failure' }}
         run: exit 1
