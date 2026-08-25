@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  actions: write
 
 concurrency:
   group: low-prime-dissipation-dev-${{ github.ref }}
@@ -15,10 +16,19 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: Check out branch
         uses: actions/checkout@v4
+
+      - name: Check paper / Analysis boundary
+        run: bash scripts/check_paper_analysis_boundary.sh
+
+      - name: Audit unfinished proofs and axioms
+        run: bash scripts/audit_assumptions.sh
+
+      - name: Check Lean root import manifest
+        run: python3 scripts/check_root_manifest.py
 
       - name: Restore Mathlib packages
         uses: actions/cache/restore@v5
@@ -65,10 +75,10 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Compile low-prime sequential dissipation theorem
+      - name: Build Lean project
         id: directbuild
         continue-on-error: true
-        run: lake build RHLean.Proof.SquareRootLowPrimeSequentialDissipation > lean-build.log 2>&1
+        run: lake build RHLean > lean-build.log 2>&1
 
       - name: Fail on RHLean-owned warnings
         id: rhlean_warnings
@@ -93,12 +103,27 @@ jobs:
           print("No RHLean-owned Lean warnings found.")
           PY
 
+      - name: Fail on StrongPNT port diagnostics
+        id: strongpnt_noise
+        if: always()
+        continue-on-error: true
+        shell: bash
+        run: python3 scripts/lean_diagnostic_inventory.py --gate StrongPNT lean-build.log
+
       - name: Print Lean build log
         if: always()
         run: cat lean-build.log
 
-      - name: Fail if the theorem did not compile cleanly
+      - name: Save RHLean build cache
+        if: ${{ !cancelled() }}
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+
+      - name: Fail if full validation did not close cleanly
         if: >-
           steps.directbuild.outcome == 'failure' ||
-          steps.rhlean_warnings.outcome == 'failure'
+          steps.rhlean_warnings.outcome == 'failure' ||
+          steps.strongpnt_noise.outcome == 'failure'
         run: exit 1
