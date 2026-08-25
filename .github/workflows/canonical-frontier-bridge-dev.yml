@@ -126,12 +126,16 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Kernel-check development modules
+        id: kernel_checks
+        continue-on-error: true
         shell: bash
         run: |
           set -o pipefail
-          lake env lean RHLean/Proof/SquareRootLowPrimeDeepResponseAtoms.lean 2>&1 | tee fast-check.log
-          lake env lean RHLean/Proof/SquareRootLowPrimeSignedResponseChildren.lean 2>&1 | tee -a fast-check.log
-          lake env lean RHLean/Proof/SquareRootLowPrimeCanonicalFrontierBridge.lean 2>&1 | tee -a fast-check.log
+          lake build \
+            RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms \
+            RHLean.Proof.SquareRootLowPrimeSignedResponseChildren \
+            RHLean.Proof.SquareRootLowPrimeCanonicalFrontierBridge \
+            2>&1 | tee fast-check.log
 
       - name: Build Lean project
         id: directbuild
@@ -172,19 +176,20 @@ jobs:
         if: ${{ always() && steps.directbuild.outcome != 'skipped' }}
         run: cat lean-build.log
 
-      - name: Fail if full validation did not close cleanly
-        if: ${{ steps.directbuild.outcome == 'failure' || steps.rhlean_warnings.outcome == 'failure' || steps.strongpnt_noise.outcome == 'failure' }}
-        run: exit 1
-
       - name: Publish validation status
         if: ${{ always() }}
         uses: actions/github-script@v7
         with:
           script: |
-            const state = '${{ job.status }}' === 'success' ? 'success' : 'failure';
-            const description = state === 'success'
-              ? 'Kernel checks and full RHLean validation passed'
-              : 'Canonical frontier bridge validation failed';
+            const failed =
+              '${{ steps.kernel_checks.outcome }}' === 'failure' ||
+              '${{ steps.directbuild.outcome }}' === 'failure' ||
+              '${{ steps.rhlean_warnings.outcome }}' === 'failure' ||
+              '${{ steps.strongpnt_noise.outcome }}' === 'failure';
+            const state = failed ? 'failure' : 'success';
+            const description = failed
+              ? 'Canonical frontier bridge validation failed'
+              : 'Kernel checks and full RHLean validation passed';
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -194,3 +199,7 @@ jobs:
               description,
               target_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
             });
+
+      - name: Fail if validation did not close cleanly
+        if: ${{ steps.kernel_checks.outcome == 'failure' || steps.directbuild.outcome == 'failure' || steps.rhlean_warnings.outcome == 'failure' || steps.strongpnt_noise.outcome == 'failure' }}
+        run: exit 1
