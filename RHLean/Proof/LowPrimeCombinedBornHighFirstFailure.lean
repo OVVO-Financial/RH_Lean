@@ -61,7 +61,7 @@ fully shallow or fully deep cases. -/
 theorem squareRootBornPostTailHighResponse_sub_child_eq_clipped_sub_transitionSeat
     {R K j p a : ℕ} (hp : p.Prime)
     (hj : j ≤ squareRootReciprocalPrimeLayerCard R K)
-    (hK : 1 ≤ K) (hKR : K < R) (ha : 0 < a) :
+    (hK : 1 ≤ K) (hKR : K < R) :
     ((squareRootBornPostTailHighResponse R K j a : ℕ) : ℂ) -
         ((squareRootBornPostTailHighResponse R K j (p * a) : ℕ) : ℂ) =
       (squareRootBornPostTailClippedHighResponse R K a -
@@ -323,13 +323,10 @@ theorem squareRootBornPostTailExtendedHighPairedDifferenceLayer_eq_clipped_sub_t
   rw [← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro u hu
-  have huOld := (mem_lowPrimeFreshParentFaces.mp hu).1
-  have ha : 0 < primeFaceProduct u :=
-    primeFaceProduct_pos_of_mem_powerset huOld
   have hpoint :=
     squareRootBornPostTailHighResponse_sub_child_eq_clipped_sub_transitionSeat
       (R := R) (K := K) (j := j) (p := p)
-      (a := primeFaceProduct u) hp hj hK hKR ha
+      (a := primeFaceProduct u) hp hj hK hKR
   rw [hpoint]
   ring
 
