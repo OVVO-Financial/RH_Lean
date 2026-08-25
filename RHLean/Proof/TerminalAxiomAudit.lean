@@ -5,6 +5,7 @@ import RHLean.Proof.LowPrimeCompletedPartnerWindowFold
 import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
 import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
+import RHLean.Proof.SquareRootLowPrimeSequentialDissipation
 
 /-!
 # Axiom footprint of the terminal reduction
