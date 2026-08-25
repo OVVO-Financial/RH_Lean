@@ -170,12 +170,14 @@ theorem squareRootLowPrimeBornFrontier_reciprocalUpper_le_root_add_sqrt
       R + Nat.sqrt R := by
   let s := Nat.sqrt R
   let P := squareRootBornPostTailLowPrimeCutoff R
+  have hsR : s ≤ R := by
+    simpa [s] using Nat.sqrt_le_self R
   have hPs : P + s = R := by
     dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
     omega
   have hsSq : s ^ 2 ≤ R := by
     simpa [s] using Nat.sqrt_le' R
-  have hden : 0 < P + 1 := by omega
+  have hden : 0 < P + 1 := Nat.succ_pos P
   have hidentity :
       (R + s + 1) * (P + 1) + s ^ 2 = (R + 1) ^ 2 := by
     rw [← hPs]
@@ -204,6 +206,8 @@ theorem squareRootLowPrimeBornFrontierAtoms_card_le_two_root
       (squareRootBornPostTailLowPrimeCutoff R)).card ≤ 2 * R := by
   let s := Nat.sqrt R
   let P := squareRootBornPostTailLowPrimeCutoff R
+  have hsR : s ≤ R := by
+    simpa [s] using Nat.sqrt_le_self R
   have hPs : P + s = R := by
     dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
     omega
