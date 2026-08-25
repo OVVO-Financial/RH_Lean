@@ -90,8 +90,9 @@ theorem squareRootLowPrimeSequentialDissipation_runningImbalance
         ((squareRootLowPrimeBadMass R K j p : ℕ) : ℂ)) ∧
       (0 : ℤ) ≤ (squareRootLowPrimeDeletionMass R K j p : ℤ) ∧
       (0 : ℤ) ≤ (squareRootLowPrimeBadMass R K j p : ℤ) := by
-  rw [squareRootLowPrimeRunningImbalance_step_eq_freshIncrement R K j p hp]
-  exact squareRootLowPrimeSequentialDissipation hR hp hpR
+  simpa [squareRootLowPrimeRunningImbalance] using
+    (squareRootLowPrimeSequentialDissipation
+      (R := R) (K := K) (j := j) (p := p) hR hp hpR)
 
 /-- **Global one-sided decomposition.**  Summing fresh-prime steps produces one
 natural deletion mass and the globally assigned natural bad mass. -/
