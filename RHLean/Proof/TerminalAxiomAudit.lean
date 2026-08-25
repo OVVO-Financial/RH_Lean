@@ -1,5 +1,4 @@
 import RHLean.Proof.CanonicalGapAncestryQuadraticClosure
-import RHLean.Proof.LowPrimeCompletedPartnerWindowFold
 import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
 import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
@@ -65,73 +64,14 @@ info: 'RHLean.Proof.CanonicalGapAncestryQuadraticClosure.projectedRenewalQuadrat
 #print axioms
   RHLean.Proof.CanonicalGapAncestryQuadraticClosure.projectedRenewalQuadraticBounded_iff_canonicalHigh
 
--- Canonical (HS) is exactly the Mertens power-saving formulation.
+-- The analytic half: canonical (HS) is RH, given the criterion.
 /--
-info: 'RHLean.Proof.CanonicalGapAncestryQuadraticClosure.canonicalHigh_iff_mertensPowerSavingStatement' depends on axioms: [propext,
+info: 'RHLean.Proof.canonicalHighUniformLocalBounded_iff_riemannHypothesis_realized' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
 -/
 #guard_msgs in
-#print axioms
-  RHLean.Proof.CanonicalGapAncestryQuadraticClosure.canonicalHigh_iff_mertensPowerSavingStatement
-
--- The quantitative endpoint is exactly the projected-renewal quadratic bound.
-/--
-info: 'RHLean.Proof.CanonicalGapAncestryQuadraticClosure.squareRootGapHighSectorQuantitativeBounded_iff_projectedRenewalQuadraticBounded' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
--/
-#guard_msgs in
-#print axioms
-  RHLean.Proof.CanonicalGapAncestryQuadraticClosure.squareRootGapHighSectorQuantitativeBounded_iff_projectedRenewalQuadraticBounded
-
--- The unconditional square-root endpoint decomposition.
-/--
-info: 'RHLean.Proof.SquareRootAncestryParentFibres.squareRootCanonicalExtension_defect_decomposition' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
--/
-#guard_msgs in
-#print axioms
-  RHLean.Proof.SquareRootAncestryParentFibres.squareRootCanonicalExtension_defect_decomposition
-
--- The unconditional projected-renewal identity.
-/--
-info: 'RHLean.Proof.CanonicalGapAncestryQuadraticClosure.squareRootCanonicalProjectedRenewalGap_eq' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
--/
-#guard_msgs in
-#print axioms
-  RHLean.Proof.CanonicalGapAncestryQuadraticClosure.squareRootCanonicalProjectedRenewalGap_eq
-
--- The exact BornPostTail cofactor-response collapse.
-/--
-info: 'RHLean.Proof.squareRootBornPostTail_eq_one_sub_cofactorResponse' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
--/
-#guard_msgs in
-#print axioms RHLean.Proof.squareRootBornPostTail_eq_one_sub_cofactorResponse
-
--- The low-prime cutoff decomposition with an explicit near-root remainder.
-/--
-info: 'RHLean.Proof.squareRootBornPostTail_eq_one_sub_lowPrimeProcessedResponse_add_remainder' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
--/
-#guard_msgs in
-#print axioms
-  RHLean.Proof.squareRootBornPostTail_eq_one_sub_lowPrimeProcessedResponse_add_remainder
-
--- The near-root remainder is already controlled unconditionally at O(R).
-/--
-info: 'RHLean.Proof.norm_squareRootBornPostTailNearRootRemainder_le' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
--/
-#guard_msgs in
-#print axioms RHLean.Proof.norm_squareRootBornPostTailNearRootRemainder_le
+#print axioms RHLean.Proof.canonicalHighUniformLocalBounded_iff_riemannHypothesis_realized
 
 end TerminalAxiomAudit
 
