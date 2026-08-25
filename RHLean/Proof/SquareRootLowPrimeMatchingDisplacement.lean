@@ -85,7 +85,7 @@ theorem squareRootLowPrimeProcessedSeat_removed_has_owner
           (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) q := by
   induction ps generalizing S with
   | nil =>
-      simp [squareRootLowPrimeProcessedSeatMatchingFrontier] at hyLost
+      exact (hyLost hyS).elim
   | cons p ps ih =>
       let S₁ := squareRootLowPrimeProcessedSeatFrontierStep S p
       by_cases hyS₁ : y ∈ S₁
