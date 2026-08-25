@@ -135,10 +135,12 @@ theorem squareRootLowPrimeCreationStateCofactor_data
   · have hdata := squareRootLowPrimeShallowBornSeatAtom_data hz
     have hc := Finset.mem_filter.mp hdata.1
     rcases Finset.mem_Icc.mp hc.1 with ⟨hcOne, _hcTop⟩
+    change 0 < z.1 ∧ canonicalLargestPrimeFactor z.1 ≤ K ∧ μ z.1 ≠ 0
     exact ⟨by omega, hc.2.1, hc.2.2⟩
   · have hdata := squareRootLowPrimeShallowHighSeatAtom_data hz
     have hc := Finset.mem_filter.mp hdata.1
     rcases Finset.mem_Icc.mp hc.1 with ⟨hcOne, _hcTop⟩
+    change 0 < z.1 ∧ canonicalLargestPrimeFactor z.1 ≤ K ∧ μ z.1 ≠ 0
     exact ⟨by omega, hc.2.1, hc.2.2⟩
 
 /-- The pair `(source cofactor, absolute seat)` recovers every non-head creation
@@ -326,7 +328,7 @@ theorem squareRootLowPrimeCanonicalCreationToResponse_injOn
       squareRootLowPrimeCreationStateCofactor x =
         squareRootLowPrimeCreationStateCofactor y := by
     rw [hpEq] at hprod
-    exact Nat.mul_left_cancel hprod
+    exact Nat.mul_left_cancel hpy.2.2.pos hprod
   have hsEq :
       squareRootLowPrimeCreationStateAbsoluteSeat R x =
         squareRootLowPrimeCreationStateAbsoluteSeat R y := by

@@ -184,12 +184,12 @@ theorem squareRootLowPrimeProcessedCofactorMass_eq_neg_runningResponseReal
           push_cast
           ring
         · simp [hlpf, hmu, hcR]
-          push_cast
-          ring
     · simp [hlpf]
   rw [hsplit]
   unfold squareRootBornPostTailRunningLowPrimeResponse
-  simp [canonicalMoebiusWeight, Complex.re_sum] <;> ring
+  simp only [Complex.add_re, Complex.re_sum]
+  simp [canonicalMoebiusWeight, Complex.mul_re]
+  ring
 
 /-- **The complete processed seat carrier has signed mass exactly `T(P)`.** -/
 theorem squareRootLowPrimeProcessedSeatCarrier_mass_eq_runningImbalanceReal
@@ -201,7 +201,8 @@ theorem squareRootLowPrimeProcessedSeatCarrier_mass_eq_runningImbalanceReal
     squareRootLowPrimeProcessedCofactorMass_eq_neg_runningResponseReal hR]
   unfold squareRootLowPrimeRunningImbalanceReal
     squareRootLowPrimeRunningImbalance
-  simp <;> ring
+  simp
+  ring
 
 /-- Every processed seat has real weight at most one in absolute value. -/
 theorem abs_squareRootLowPrimeProcessedSeatWeightReal_le_one
@@ -209,7 +210,7 @@ theorem abs_squareRootLowPrimeProcessedSeatWeightReal_le_one
     |squareRootLowPrimeProcessedSeatWeightReal x| ≤ 1 := by
   rcases x with _ | z
   · simp [squareRootLowPrimeProcessedSeatWeightReal]
-  · unfold squareRootLowPrimeProcessedSeatWeightReal
+  · change |(((-μ z.1 : ℤ) : ℝ))| ≤ 1
     have hInt : |(-μ z.1 : ℤ)| ≤ 1 := by
       simpa using (ArithmeticFunction.abs_moebius_le_one (n := z.1))
     exact_mod_cast hInt
