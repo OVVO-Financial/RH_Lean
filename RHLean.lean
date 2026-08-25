@@ -521,6 +521,7 @@ import RHLean.Proof.SquareRootLowPrimePostRootTransform
 import RHLean.Proof.SquareRootLowPrimeProcessedSeatCarrier
 import RHLean.Proof.SquareRootLowPrimeProcessedSeatMatching
 import RHLean.Proof.SquareRootLowPrimeQuantitativeEnergyReduction
+import RHLean.Proof.SquareRootLowPrimeResponseDisplacementDiamond
 import RHLean.Proof.SquareRootLowPrimeResponseForest
 import RHLean.Proof.SquareRootLowPrimeResponseFrontier
 import RHLean.Proof.SquareRootLowPrimeResponseSeatCarrier
