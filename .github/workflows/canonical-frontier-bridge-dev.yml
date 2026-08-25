@@ -36,7 +36,7 @@ jobs:
               target_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
             });
 
-      - name: Import development modules
+      - name: Prepare development modules
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -52,12 +52,29 @@ jobs:
               if target not in lines:
                   lines.append(target)
           manifest.write_text("\n".join(sorted(lines)) + "\n")
+
+          source = Path("RHLean/Proof/SquareRootLowPrimeSignedResponseChildren.lean")
+          text = source.read_text()
+          unused_change = """  change
+            (∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
+              ∑ c ∈ squareRootLowPrimeDeletionCofactors R p,
+                squareRootLowPrimeCombinedFreshResponse R K j c) =
+              ∑ c ∈ (squareRootLowPrimeFreshPrimeSet L U).biUnion
+                (squareRootLowPrimeDeletionCofactors R),
+                  squareRootLowPrimeCombinedFreshResponse R K j c
+          """
+          text = text.replace(unused_change, "")
+          text = text.replace(
+              "    _ = 1 := by rw [hcofactor]\n",
+              "    _ = 1 := by\n      rw [hcofactor]\n      norm_num\n",
+          )
+          source.write_text(text)
           PY
-          if ! git diff --quiet -- RHLean.lean; then
+          if ! git diff --quiet -- RHLean.lean RHLean/Proof/SquareRootLowPrimeSignedResponseChildren.lean; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add RHLean.lean
-            git commit -m "Import low-prime frontier development modules"
+            git add RHLean.lean RHLean/Proof/SquareRootLowPrimeSignedResponseChildren.lean
+            git commit -m "Fix signed deletion child normalization"
             git push
           fi
 
