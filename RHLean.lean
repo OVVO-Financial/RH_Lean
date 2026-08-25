@@ -396,6 +396,7 @@ import RHLean.Proof.ConcreteLiCoreExtensionWeight
 import RHLean.Proof.ConcreteSquarePrefixCofactorRealization
 import RHLean.Proof.ConcreteSquarePrefixHighResidual
 import RHLean.Proof.CoreExtensionDefect
+import RHLean.Proof.CreationResponseFrontierCancellation
 import RHLean.Proof.CumulativeHeightFlow
 import RHLean.Proof.DeathProcessArithmetic
 import RHLean.Proof.DeathProcessShellIdentity
@@ -498,6 +499,7 @@ import RHLean.Proof.SquareRootLegalAncestryGramReduction
 import RHLean.Proof.SquareRootLowPrimeCanonicalChildCharacterization
 import RHLean.Proof.SquareRootLowPrimeCanonicalFrontierBridge
 import RHLean.Proof.SquareRootLowPrimeChildToRootBridge
+import RHLean.Proof.SquareRootLowPrimeCreationResponseEnergyGate
 import RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms
 import RHLean.Proof.SquareRootLowPrimeMatchedFrontierBound
 import RHLean.Proof.SquareRootLowPrimeMatchingFrontierRootCharge
