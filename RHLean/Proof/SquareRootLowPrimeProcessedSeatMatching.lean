@@ -119,10 +119,11 @@ theorem squareRootLowPrimeProcessedSeatPairLower_disjoint_upper
   · rcases y with _ | w
     · simp [squareRootLowPrimeProcessedSeatExtend] at hyx
     · simp only [squareRootLowPrimeProcessedSeatExtend,
-        Option.some.injEq, Prod.mk.injEq] at hyx
+        Option.some.injEq] at hyx
+      have hfirst := congrArg Prod.fst hyx
       apply hxData.2.2.1
       change p ∣ z.1
-      exact ⟨w.1, hyx.1.symm⟩
+      exact ⟨w.1, hfirst.symm⟩
 
 /-- Fresh-prime extension is injective on non-head lower endpoints. -/
 theorem squareRootLowPrimeProcessedSeatExtend_injOn
