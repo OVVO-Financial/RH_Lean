@@ -115,8 +115,11 @@ theorem canonicalLargestPrimeFactor_primeFaceProduct_lt_freshPrime
     have hrData := mem_primesUpTo.mp hrOld
     have hqrEq : canonicalLargestPrimeFactor (primeFaceProduct u) = r :=
       (Nat.prime_dvd_prime_iff_eq hqPrime hrData.1).mp hqr
-    rw [hqrEq]
-    omega
+    have hp2 : 2 ≤ p := hp.two_le
+    calc
+      canonicalLargestPrimeFactor (primeFaceProduct u) = r := hqrEq
+      _ ≤ p - 1 := hrData.2
+      _ < p := by omega
   · have hle : primeFaceProduct u ≤ 1 := Nat.le_of_not_gt huOne
     have hge : 1 ≤ primeFaceProduct u := huPos
     have hprodOne : primeFaceProduct u = 1 := Nat.le_antisymm hle hge
@@ -196,7 +199,7 @@ theorem erase_freshPrime_mem_parentFaces
       unfold canonicalLargestPrimeFactor
       rw [dif_neg hnot]
     rw [hvLpf] at hlpfOne
-    exact hp.ne_one hlpfOne.symm
+    exact hp.ne_one hlpfOne
   have hvOneLe : 1 ≤ primeFaceProduct v := hvPos
   have hvGt : 1 < primeFaceProduct v :=
     lt_of_le_of_ne hvOneLe (Ne.symm hvNotOne)
@@ -279,7 +282,7 @@ theorem lowPrimeFreshChildFaceMass_eq_parentIndexed
     have hpNot2 : p ∉ u2 :=
       Finset.notMem_of_mem_powerset_of_notMem h2Old
         (freshPrime_not_mem_primesUpTo_pred hp)
-    have hErase := congrArg (Finset.erase p) hEq
+    have hErase := congrArg (fun s : Finset ℕ => s.erase p) hEq
     simpa [hpNot1, hpNot2] using hErase
   · intro v hv
     rcases erase_freshPrime_mem_parentFaces hp hv with ⟨hu, hInv⟩
