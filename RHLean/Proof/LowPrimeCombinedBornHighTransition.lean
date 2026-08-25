@@ -324,4 +324,214 @@ theorem squareRootBornPostTailHighTransitionDifference_eq_prefixWindow_sub_admit
     squareRootPostRootPrimePrefixCard_cast, hN]
   ring
 
+/-! ## Completing the high cutoff isolates one root-crossing boundary -/
+
+/-- Fresh-parent faces are monotone in their arithmetic product cutoff. -/
+theorem lowPrimeFreshParentFaces_mono
+    {B C p : ℕ} (hBC : B ≤ C) :
+    lowPrimeFreshParentFaces B p ⊆ lowPrimeFreshParentFaces C p := by
+  intro u hu
+  rcases mem_lowPrimeFreshParentFaces.mp hu with ⟨huOld, hchildB⟩
+  exact mem_lowPrimeFreshParentFaces.mpr ⟨huOld, hchildB.trans hBC⟩
+
+/-- Extend the high response to the complete born parent cube before taking the
+parent/child finite difference.  The artificial extension is corrected below by
+one explicit boundary rather than by an estimate. -/
+def squareRootBornPostTailExtendedCombinedPairedDifferenceLayer
+    (R K j p : ℕ) : ℂ :=
+  lowPrimeFreshPairedDifferenceMass (squareRootEndpoint R) p
+    (fun c =>
+      (squareRootBornPartnerCount R c : ℂ) +
+        (squareRootBornPostTailHighResponse R K j c : ℂ))
+
+/-- Faces present at the complete born cutoff but absent from the honest high
+cutoff `R-1`. -/
+def squareRootBornPostTailHighCutoffBoundaryFaces
+    (R p : ℕ) : Finset (Finset ℕ) :=
+  lowPrimeFreshParentFaces (squareRootEndpoint R) p \
+    lowPrimeFreshParentFaces (R - 1) p
+
+/-- Signed high parent/child mass on the cutoff discrepancy. -/
+def squareRootBornPostTailHighCutoffBoundaryLayer
+    (R K j p : ℕ) : ℂ :=
+  ∑ u ∈ squareRootBornPostTailHighCutoffBoundaryFaces R p,
+    (booleanCubeSign u : ℂ) *
+      ((squareRootBornPostTailHighResponse
+          R K j (primeFaceProduct u) : ℂ) -
+        (squareRootBornPostTailHighResponse
+          R K j (p * primeFaceProduct u) : ℂ))
+
+/-- Membership in the high cutoff discrepancy means exactly that the fresh
+child lies at or beyond the root while remaining inside the complete square
+endpoint. -/
+@[simp] theorem mem_squareRootBornPostTailHighCutoffBoundaryFaces
+    {R p : ℕ} {u : Finset ℕ} :
+    u ∈ squareRootBornPostTailHighCutoffBoundaryFaces R p ↔
+      u ∈ (primesUpTo (p - 1)).powerset ∧
+        p * primeFaceProduct u ≤ squareRootEndpoint R ∧
+          R ≤ p * primeFaceProduct u := by
+  unfold squareRootBornPostTailHighCutoffBoundaryFaces
+  rw [Finset.mem_sdiff]
+  constructor
+  · rintro ⟨hlarge, hnotSmall⟩
+    rcases mem_lowPrimeFreshParentFaces.mp hlarge with ⟨huOld, hchildX⟩
+    refine ⟨huOld, hchildX, ?_⟩
+    by_contra hnot
+    have hchildSmall : p * primeFaceProduct u ≤ R - 1 := by omega
+    exact hnotSmall
+      (mem_lowPrimeFreshParentFaces.mpr ⟨huOld, hchildSmall⟩)
+  · rintro ⟨huOld, hchildX, hrootChild⟩
+    refine ⟨mem_lowPrimeFreshParentFaces.mpr ⟨huOld, hchildX⟩, ?_⟩
+    intro hsmall
+    have hchildSmall := (mem_lowPrimeFreshParentFaces.mp hsmall).2
+    omega
+
+/-- **Honest paired layer = completed combined cube - cutoff boundary.**
+
+This is the exact algebra needed to remove the artificial mismatch between the
+born cutoff `X=R^2-1` and the high cutoff `R-1`.  No boundary state is repeated:
+each lies in the literal set difference of the two fresh-parent cubes. -/
+theorem squareRootBornPostTailFreshPairedDifferenceLayer_eq_extended_sub_highCutoffBoundary
+    (R K j p : ℕ) (hR : 2 ≤ R) :
+    squareRootBornPostTailFreshPairedDifferenceLayer R K j p =
+      squareRootBornPostTailExtendedCombinedPairedDifferenceLayer R K j p -
+        squareRootBornPostTailHighCutoffBoundaryLayer R K j p := by
+  have hpredX : R - 1 ≤ squareRootEndpoint R := by
+    have hsq : R + 1 ≤ R ^ 2 := by nlinarith
+    unfold squareRootEndpoint
+    omega
+  have hsub :
+      lowPrimeFreshParentFaces (R - 1) p ⊆
+        lowPrimeFreshParentFaces (squareRootEndpoint R) p :=
+    lowPrimeFreshParentFaces_mono hpredX
+  have hext :
+      squareRootBornPostTailExtendedCombinedPairedDifferenceLayer R K j p =
+        lowPrimeFreshPairedDifferenceMass (squareRootEndpoint R) p
+            (fun c => (squareRootBornPartnerCount R c : ℂ)) +
+          lowPrimeFreshPairedDifferenceMass (squareRootEndpoint R) p
+            (fun c =>
+              (squareRootBornPostTailHighResponse R K j c : ℂ)) := by
+    unfold squareRootBornPostTailExtendedCombinedPairedDifferenceLayer
+      lowPrimeFreshPairedDifferenceMass
+    rw [← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro u _hu
+    ring
+  have hhigh :
+      squareRootBornPostTailHighCutoffBoundaryLayer R K j p +
+          lowPrimeFreshPairedDifferenceMass (R - 1) p
+            (fun c =>
+              (squareRootBornPostTailHighResponse R K j c : ℂ)) =
+        lowPrimeFreshPairedDifferenceMass (squareRootEndpoint R) p
+          (fun c =>
+            (squareRootBornPostTailHighResponse R K j c : ℂ)) := by
+    unfold squareRootBornPostTailHighCutoffBoundaryLayer
+      squareRootBornPostTailHighCutoffBoundaryFaces
+      lowPrimeFreshPairedDifferenceMass
+    exact Finset.sum_sdiff hsub
+  unfold squareRootBornPostTailFreshPairedDifferenceLayer
+  rw [hext, ← hhigh]
+  ring
+
+/-- Once a cofactor reaches the root, its post-root prime-prefix response is
+empty. -/
+theorem squareRootPostRootPrimePrefixCard_eq_zero_of_root_le
+    {R c : ℕ} (hR : 2 ≤ R) (hc : R ≤ c) :
+    squareRootPostRootPrimePrefixCard R c = 0 := by
+  have hcpos : 0 < c := by omega
+  have hsq : squareRootEndpoint R < R * R := by
+    unfold squareRootEndpoint
+    rw [pow_two]
+    have hpos : 0 < R * R := Nat.mul_pos (by omega) (by omega)
+    omega
+  have hXc : squareRootEndpoint R < R * c :=
+    hsq.trans_le (Nat.mul_le_mul_left R hc)
+  have hdiv : squareRootEndpoint R / c < R :=
+    (Nat.div_lt_iff_lt_mul hcpos).2 hXc
+  unfold squareRootPostRootPrimePrefixCard
+  rw [max_eq_left hdiv.le]
+  simp
+
+/-- Therefore the entire high response vanishes on cofactors at or beyond the
+root, independently of the partial-seat index `j`. -/
+theorem squareRootBornPostTailHighResponse_eq_zero_of_root_le
+    {R K j c : ℕ} (hR : 2 ≤ R) (hKR : K < R) (hc : R ≤ c) :
+    squareRootBornPostTailHighResponse R K j c = 0 := by
+  have hcK : ¬ c ≤ K := by omega
+  unfold squareRootBornPostTailHighResponse
+  rw [if_neg hcK,
+    squareRootPostRootPrimePrefixCard_eq_zero_of_root_le hR hc]
+
+/-- The only nonzero part of the cutoff discrepancy has an old parent below
+`R` and a fresh child at or above `R`. -/
+def squareRootBornPostTailRootCrossingHighBoundaryFaces
+    (R p : ℕ) : Finset (Finset ℕ) :=
+  (squareRootBornPostTailHighCutoffBoundaryFaces R p).filter fun u =>
+    primeFaceProduct u < R
+
+/-- Signed high correction supported on the genuine root-crossing faces. -/
+def squareRootBornPostTailRootCrossingHighBoundaryLayer
+    (R K j p : ℕ) : ℂ :=
+  ∑ u ∈ squareRootBornPostTailRootCrossingHighBoundaryFaces R p,
+    (booleanCubeSign u : ℂ) *
+      ((squareRootBornPostTailHighResponse
+          R K j (primeFaceProduct u) : ℂ) -
+        (squareRootBornPostTailHighResponse
+          R K j (p * primeFaceProduct u) : ℂ))
+
+/-- Exact membership description of the uniquely assigned root-crossing
+boundary. -/
+@[simp] theorem mem_squareRootBornPostTailRootCrossingHighBoundaryFaces
+    {R p : ℕ} {u : Finset ℕ} :
+    u ∈ squareRootBornPostTailRootCrossingHighBoundaryFaces R p ↔
+      u ∈ (primesUpTo (p - 1)).powerset ∧
+        p * primeFaceProduct u ≤ squareRootEndpoint R ∧
+          primeFaceProduct u < R ∧
+            R ≤ p * primeFaceProduct u := by
+  unfold squareRootBornPostTailRootCrossingHighBoundaryFaces
+  rw [Finset.mem_filter,
+    mem_squareRootBornPostTailHighCutoffBoundaryFaces]
+  tauto
+
+/-- All discrepancy faces whose parent was already at or beyond the root carry
+zero high response on both parent and child.  Hence the cutoff correction is
+literally the root-crossing boundary, not a larger uncontrolled shell. -/
+theorem squareRootBornPostTailHighCutoffBoundaryLayer_eq_rootCrossing
+    (R K j p : ℕ) (hR : 2 ≤ R) (hKR : K < R) :
+    squareRootBornPostTailHighCutoffBoundaryLayer R K j p =
+      squareRootBornPostTailRootCrossingHighBoundaryLayer R K j p := by
+  unfold squareRootBornPostTailHighCutoffBoundaryLayer
+    squareRootBornPostTailRootCrossingHighBoundaryLayer
+    squareRootBornPostTailRootCrossingHighBoundaryFaces
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro u hu
+  by_cases hparentR : primeFaceProduct u < R
+  · simp [hparentR]
+  · have hrootParent : R ≤ primeFaceProduct u :=
+      Nat.le_of_not_gt hparentR
+    have hrootChild : R ≤ p * primeFaceProduct u :=
+      (mem_squareRootBornPostTailHighCutoffBoundaryFaces.mp hu).2.2
+    have hparentZero :=
+      squareRootBornPostTailHighResponse_eq_zero_of_root_le
+        hR hKR hrootParent
+    have hchildZero :=
+      squareRootBornPostTailHighResponse_eq_zero_of_root_le
+        hR hKR hrootChild
+    rw [hparentZero, hchildZero]
+    simp [hparentR]
+
+/-- **Final cutoff-completed form.**  The honest BornPostTail paired layer is a
+single combined born/high parent cube minus one canonically assigned
+root-crossing high frontier. -/
+theorem squareRootBornPostTailFreshPairedDifferenceLayer_eq_extended_sub_rootCrossing
+    (R K j p : ℕ) (hR : 2 ≤ R) (hKR : K < R) :
+    squareRootBornPostTailFreshPairedDifferenceLayer R K j p =
+      squareRootBornPostTailExtendedCombinedPairedDifferenceLayer R K j p -
+        squareRootBornPostTailRootCrossingHighBoundaryLayer R K j p := by
+  rw [squareRootBornPostTailFreshPairedDifferenceLayer_eq_extended_sub_highCutoffBoundary
+      R K j p hR,
+    squareRootBornPostTailHighCutoffBoundaryLayer_eq_rootCrossing
+      R K j p hR hKR]
+
 end RHLean.Proof
