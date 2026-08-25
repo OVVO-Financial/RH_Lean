@@ -187,5 +187,5 @@ jobs:
             });
 
       - name: Fail if validation did not close cleanly
-        if: ${{ always() && (failure() || steps.kernel_checks.outcome == 'failure' || steps.directbuild.outcome == 'failure' || steps.rhlean_warnings.outcome == 'failure' || steps.strongpnt_noise.outcome == 'failure') }}
+        if: ${{ always() && (steps.kernel_checks.outcome == 'failure' || steps.directbuild.outcome == 'failure' || steps.rhlean_warnings.outcome == 'failure' || steps.strongpnt_noise.outcome == 'failure') }}
         run: exit 1
