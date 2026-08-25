@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeSequentialDissipationOwnership
+import RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms
 import RHLean.Proof.LowWheelCanonicalDefectReduction
 import RHLean.Analysis.SquareRootPositiveSmoothCollapse
 import RHLean.Proof.MatchedFarSurvivorBridge
