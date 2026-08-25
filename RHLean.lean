@@ -451,6 +451,7 @@ import RHLean.Proof.LowWheelSurvivorFloorExpansion
 import RHLean.Proof.LowWheelSurvivorInclusionExclusion
 import RHLean.Proof.LowWheelTransportTripleCarrier
 import RHLean.Proof.MatchedFarSurvivorBridge
+import RHLean.Proof.MiddlePrimeFibreCollapse
 import RHLean.Proof.MutablePNTClosure
 import RHLean.Proof.MutableSupportBound
 import RHLean.Proof.NearOrthogonality
