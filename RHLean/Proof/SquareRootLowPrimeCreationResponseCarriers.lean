@@ -174,8 +174,12 @@ theorem squareRootLowPrimeResponseAtomWeight_eq_child_moebius
   have hflip := squareRootLowPrimeOwnedResponseAtomChild_moebiusWeight
     hUR hz
   have hcast := congrArg (fun w : ℂ => w.re) hflip
-  simpa [squareRootLowPrimeResponseAtomWeight,
-    canonicalMoebiusWeight, squareRootLowPrimeBadAtomChild] using hcast.symm
+  have hcastReal :
+      ((-μ z.1 : ℤ) : ℝ) =
+        ((μ (squareRootLowPrimeBadAtomChild z) : ℤ) : ℝ) := by
+    simpa [canonicalMoebiusWeight] using hcast.symm
+  unfold squareRootLowPrimeResponseAtomWeight
+  exact_mod_cast hcastReal
 
 /-- Exact signed deep response mass on the literal atom carrier. -/
 theorem squareRootLowPrimeOwnedResponseAtoms_weight_sum_eq_neg_freshIncrementReal

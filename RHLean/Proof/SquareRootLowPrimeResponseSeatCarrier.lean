@@ -52,7 +52,8 @@ def squareRootLowPrimeResponseSeatWeightReal
     z ∈ squareRootLowPrimeCombinedSeatFiber R K j c ↔
       z.1 = c ∧
         z.2 < squareRootLowPrimeCombinedFreshResponse R K j c := by
-  simp [squareRootLowPrimeCombinedSeatFiber]
+  rcases z with ⟨z1, z2⟩
+  simp [squareRootLowPrimeCombinedSeatFiber, eq_comm, and_comm]
 
 /-- Distinct cofactor seat fibres are disjoint. -/
 theorem squareRootLowPrimeCombinedSeatFiber_pairwiseDisjoint
@@ -61,6 +62,9 @@ theorem squareRootLowPrimeCombinedSeatFiber_pairwiseDisjoint
       (↑(squareRootLowPrimeOwnedSignedCofactors R K U))
       (squareRootLowPrimeCombinedSeatFiber R K j) := by
   intro c _hc d _hd hcd
+  change Disjoint
+    (squareRootLowPrimeCombinedSeatFiber R K j c)
+    (squareRootLowPrimeCombinedSeatFiber R K j d)
   rw [Finset.disjoint_left]
   intro z hzc hzd
   exact hcd
@@ -108,19 +112,11 @@ theorem squareRootLowPrimeBadCofactor_responseSeatMass
       -(squareRootLowPrimeGlobalBadMass R K j K U : ℝ) := by
   rw [squareRootLowPrimeGlobalBadMass_eq_ownedCofactorSum]
   push_cast
-  calc
-    (∑ c ∈ squareRootLowPrimeOwnedBadCofactors R K U,
-      ((-μ c : ℤ) : ℝ) *
-        (squareRootLowPrimeCombinedFreshResponse R K j c : ℝ)) =
-      ∑ c ∈ squareRootLowPrimeOwnedBadCofactors R K U,
-        -(squareRootLowPrimeCombinedFreshResponse R K j c : ℝ) := by
-      apply Finset.sum_congr rfl
-      intro c hc
-      have hmu := (squareRootLowPrimeOwnedBadCofactor_data hc).2.2.2
-      simp [hmu]
-    _ = -(∑ c ∈ squareRootLowPrimeOwnedBadCofactors R K U,
-        (squareRootLowPrimeCombinedFreshResponse R K j c : ℝ)) := by
-      rw [Finset.sum_neg_distrib]
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro c hc
+  have hmu := (squareRootLowPrimeOwnedBadCofactor_data hc).2.2.2
+  simp [hmu]
 
 /-- Weighted response-seat mass on the deletion cofactor carrier. -/
 theorem squareRootLowPrimeDeletionCofactor_responseSeatMass
@@ -157,15 +153,22 @@ theorem squareRootLowPrimeOwnedResponseSeatCarrier_weight_sum
     squareRootLowPrimeFreshIncrement_sum_eq_neg_globalDeletion_add_badMass
       (R := R) (K := K) (j := j) (L := K) (U := U) hR
   have hincRe := congrArg Complex.re hinc
-  push_cast at hincRe
-  linarith
+  have hincReal :
+      (∑ p ∈ squareRootLowPrimeFreshPrimeSet K U,
+        squareRootLowPrimeFreshIncrementReal R K j p) =
+        -(squareRootLowPrimeGlobalDeletionMass R K j K U : ℝ) +
+          (squareRootLowPrimeGlobalBadMass R K j K U : ℝ) := by
+    simpa [squareRootLowPrimeFreshIncrementReal] using hincRe
+  linarith [hincReal]
 
 /-- Every response seat has unit real weight. -/
 theorem abs_squareRootLowPrimeResponseSeatWeightReal_le_one
     (z : ℕ × ℕ) :
     |squareRootLowPrimeResponseSeatWeightReal z| ≤ 1 := by
   unfold squareRootLowPrimeResponseSeatWeightReal
-  exact_mod_cast ArithmeticFunction.abs_moebius_le_one (n := z.1)
+  have hInt : |(-μ z.1 : ℤ)| ≤ 1 := by
+    simpa using (ArithmeticFunction.abs_moebius_le_one (n := z.1))
+  exact_mod_cast hInt
 
 /-- Recover the cofactor of a non-head creation state. -/
 def squareRootLowPrimeCreationStateCofactor :
@@ -200,26 +203,37 @@ theorem squareRootLowPrimeCreationToResponseSeat_weight_cancel
     squareRootLowPrimeCreationWeightReal x +
       squareRootLowPrimeResponseSeatWeightReal
         (squareRootLowPrimeCreationToResponseSeat R ownerPrime x) = 0 := by
+  have hcop :
+      Nat.Coprime (ownerPrime x)
+        (squareRootLowPrimeCreationStateCofactor x) :=
+    (hp.coprime_iff_not_dvd).2 hfresh
   have hmu :
       μ (ownerPrime x * squareRootLowPrimeCreationStateCofactor x) =
-        -μ (squareRootLowPrimeCreationStateCofactor x) :=
-    moebius_prime_mul_eq_neg_of_not_dvd hp hfresh
+        -μ (squareRootLowPrimeCreationStateCofactor x) := by
+    calc
+      μ (ownerPrime x * squareRootLowPrimeCreationStateCofactor x) =
+          μ (ownerPrime x) *
+            μ (squareRootLowPrimeCreationStateCofactor x) :=
+        ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop
+      _ = (-1) * μ (squareRootLowPrimeCreationStateCofactor x) := by
+        rw [ArithmeticFunction.moebius_apply_prime hp]
+      _ = -μ (squareRootLowPrimeCreationStateCofactor x) := by ring
   rcases x with _ | x
   · exact (hx rfl).elim
   · rcases x with z | z
-    · simp [squareRootLowPrimeCreationWeightReal,
-        squareRootLowPrimeCreationWeightComplex,
-        squareRootLowPrimeResponseSeatWeightReal,
-        squareRootLowPrimeCreationToResponseSeat,
-        squareRootLowPrimeCreationStateCofactor,
-        squareRootLowPrimeCreationStateAbsoluteSeat,
-        canonicalMoebiusWeight, hmu]
-    · simp [squareRootLowPrimeCreationWeightReal,
-        squareRootLowPrimeCreationWeightComplex,
-        squareRootLowPrimeResponseSeatWeightReal,
-        squareRootLowPrimeCreationToResponseSeat,
-        squareRootLowPrimeCreationStateCofactor,
-        squareRootLowPrimeCreationStateAbsoluteSeat,
-        canonicalMoebiusWeight, hmu]
+    · simp only [squareRootLowPrimeCreationStateCofactor] at hmu
+      have hmuReal := congrArg (fun a : ℤ => (a : ℝ)) hmu
+      push_cast at hmuReal
+      change -((μ z.1 : ℤ) : ℝ) +
+          ((-μ (ownerPrime (some (Sum.inl z)) * z.1) : ℤ) : ℝ) = 0
+      push_cast
+      linarith
+    · simp only [squareRootLowPrimeCreationStateCofactor] at hmu
+      have hmuReal := congrArg (fun a : ℤ => (a : ℝ)) hmu
+      push_cast at hmuReal
+      change -((μ z.1 : ℤ) : ℝ) +
+          ((-μ (ownerPrime (some (Sum.inr z)) * z.1) : ℤ) : ℝ) = 0
+      push_cast
+      linarith
 
 end RHLean.Proof
