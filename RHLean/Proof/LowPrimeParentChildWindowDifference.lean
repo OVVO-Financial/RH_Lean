@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.LowPrimeFreshLayerBridge
+import RHLean.Proof.LowWheelDoubleCubeSequentialFold
 import RHLean.Proof.LowWheelSequentialPrimeWindows
 import RHLean.Proof.PrimeCombVisualizationRecurrence
 import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
@@ -116,7 +117,9 @@ theorem canonicalLargestPrimeFactor_primeFaceProduct_lt_freshPrime
       (Nat.prime_dvd_prime_iff_eq hqPrime hrData.1).mp hqr
     rw [hqrEq]
     omega
-  · have hprodOne : primeFaceProduct u = 1 := by omega
+  · have hle : primeFaceProduct u ≤ 1 := Nat.le_of_not_gt huOne
+    have hge : 1 ≤ primeFaceProduct u := huPos
+    have hprodOne : primeFaceProduct u = 1 := Nat.le_antisymm hle hge
     rw [hprodOne]
     have hnot : ¬ (1 : ℕ) < 1 := by omega
     unfold canonicalLargestPrimeFactor
@@ -129,7 +132,9 @@ theorem canonicalLargestPrimeFactor_insert_freshPrime
     {p : ℕ} (hp : p.Prime) {u : Finset ℕ}
     (hu : u ∈ (primesUpTo (p - 1)).powerset) :
     canonicalLargestPrimeFactor (primeFaceProduct (insert p u)) = p := by
-  have hpNot : p ∉ u := freshPrime_not_mem_primesUpTo_pred hp |>.notMem_of_mem_powerset hu
+  have hpNot : p ∉ u :=
+    Finset.notMem_of_mem_powerset_of_notMem hu
+      (freshPrime_not_mem_primesUpTo_pred hp)
   have huPos : 0 < primeFaceProduct u :=
     primeFaceProduct_pos_of_mem_powerset hu
   have hrough :=
@@ -191,8 +196,10 @@ theorem erase_freshPrime_mem_parentFaces
       unfold canonicalLargestPrimeFactor
       rw [dif_neg hnot]
     rw [hvLpf] at hlpfOne
-    omega
-  have hvGt : 1 < primeFaceProduct v := by omega
+    exact hp.ne_one hlpfOne.symm
+  have hvOneLe : 1 ≤ primeFaceProduct v := hvPos
+  have hvGt : 1 < primeFaceProduct v :=
+    lt_of_le_of_ne hvOneLe (Ne.symm hvNotOne)
   have hpDvd : p ∣ primeFaceProduct v := by
     rw [← hvLpf]
     exact canonicalLargestPrimeFactor_dvd hvGt
@@ -217,9 +224,9 @@ theorem erase_freshPrime_mem_parentFaces
       exact Finset.dvd_prod_of_mem id hqData.2
     have hqLe : q ≤ canonicalLargestPrimeFactor (primeFaceProduct v) :=
       prime_le_canonicalLargestPrimeFactor_of_dvd hvGt hqPrime hqDvd
-    have hqLt : q < p := by
-      rw [hvLpf] at hqLe
-      omega
+    have hqLeP : q ≤ p := by simpa [hvLpf] using hqLe
+    have hqNeP : q ≠ p := hqData.1
+    have hqLt : q < p := lt_of_le_of_ne hqLeP hqNeP
     exact mem_primesUpTo.mpr ⟨hqPrime, by omega⟩
   have hpNotErase : p ∉ v.erase p := Finset.notMem_erase p v
   have hprod : primeFaceProduct v =
@@ -259,11 +266,10 @@ theorem lowPrimeFreshChildFaceMass_eq_parentIndexed
   classical
   unfold lowPrimeFreshChildFaceMass lowPrimeFreshParentIndexedChildMass
   symm
-  refine Finset.sum_bij (fun u _hu => insert p u) ?_ ?_ ?_ ?_
-  · intro u hu
-    exact insert_freshPrime_mem_childFaces hp hu
-  · intro u hu
-    rfl
+  refine Finset.sum_bij
+    (fun u _hu => insert p u)
+    (fun u hu => insert_freshPrime_mem_childFaces hp hu)
+    ?_ ?_ ?_
   · intro u1 hu1 u2 hu2 hEq
     have h1Old := (mem_lowPrimeFreshParentFaces.mp hu1).1
     have h2Old := (mem_lowPrimeFreshParentFaces.mp hu2).1
@@ -278,6 +284,8 @@ theorem lowPrimeFreshChildFaceMass_eq_parentIndexed
   · intro v hv
     rcases erase_freshPrime_mem_parentFaces hp hv with ⟨hu, hInv⟩
     exact ⟨v.erase p, hu, hInv⟩
+  · intro u _hu
+    rfl
 
 /-- Indicator form used by `LowPrimeFreshLayerBridge` is exactly the filtered
 fresh-child mass. -/
@@ -425,7 +433,7 @@ theorem card_squareRootPostRootPrimePartnerSet_eq_prefixCard
         rw [hmaxR] at hqMax
         omega
     have hdq : d * q ≤ squareRootEndpoint R := by
-      exact (Nat.le_div_iff_mul_le hd).1 hqDiv
+      simpa [Nat.mul_comm] using (Nat.le_div_iff_mul_le hd).1 hqDiv
     have hqX : q ≤ squareRootEndpoint R := by
       exact hqDiv.trans (Nat.div_le_self _ _)
     exact ⟨⟨hRq, hqX⟩, hqPrime, hdq⟩
@@ -454,8 +462,7 @@ theorem squareRootPostRootPrimePartnerSet_eq_child_union_window
     · exact Or.inl ⟨hqI, hqPrime, hchild⟩
     · exact Or.inr ⟨⟨hqI, ⟨hparent, Nat.lt_of_not_ge hchild⟩⟩, hqPrime⟩
   · rintro (⟨hqI, hqPrime, hchild⟩ | ⟨⟨hqI, hboundary⟩, hqPrime⟩)
-    · have haLe : a ≤ p * a := by
-        exact Nat.le_mul_of_pos_left a hp.pos
+    · have haLe : a ≤ p * a := Nat.le_mul_of_pos_left a hp.pos
       have hparent : a * q ≤ squareRootEndpoint R :=
         (Nat.mul_le_mul_right q haLe).trans hchild
       exact ⟨hqI, hqPrime, hparent⟩
@@ -482,8 +489,10 @@ theorem squareRootPostRootPrimePrefixCard_eq_child_add_windowCard
     squareRootPostRootPrimePrefixCard R a =
       squareRootPostRootPrimePrefixCard R (p * a) +
         (squareRootPrimeDilateWindowPrimeSet p R a).card := by
-  have hunion := squareRootPostRootPrimePartnerSet_eq_child_union_window hp ha
-  have hdisj := squareRootPostRootPrimePartnerSet_disjoint_window hp ha
+  have hunion := squareRootPostRootPrimePartnerSet_eq_child_union_window
+    (p := p) (R := R) (a := a) hp ha
+  have hdisj := squareRootPostRootPrimePartnerSet_disjoint_window
+    (p := p) (R := R) (a := a) hp ha
   have hcard := Finset.card_union_of_disjoint hdisj
   rw [← hunion] at hcard
   rw [card_squareRootPostRootPrimePartnerSet_eq_prefixCard ha] at hcard
@@ -510,7 +519,8 @@ theorem squareRootPostRootPrimePrefix_sub_child_eq_primeDilateWindow
         ((squareRootPostRootPrimePrefixCard R (p * a) : ℕ) : ℂ) =
       primeDilateCofactorWindowPrimeCount
         p R (squareRootEndpoint R) a := by
-  have hcard := squareRootPostRootPrimePrefixCard_eq_child_add_windowCard hp ha
+  have hcard := squareRootPostRootPrimePrefixCard_eq_child_add_windowCard
+    (p := p) (R := R) (a := a) hp ha
   rw [primeDilateCofactorWindowPrimeCount_eq_windowPrimeSet_card]
   exact_mod_cast (show
     (squareRootPostRootPrimePrefixCard R a : ℤ) -
@@ -529,17 +539,11 @@ def squareRootBornPostTailHighTransitionDifference
 /-- Below the shallow cutoff both parent and child see the same high response,
 so the high-channel finite difference is exactly zero. -/
 theorem squareRootBornPostTailHighResponse_sub_child_eq_zero_of_child_le_K
-    {R K j p a : ℕ} (hchildK : p * a ≤ K) :
+    {R K j p a : ℕ} (hp : p.Prime) (hchildK : p * a ≤ K) :
     ((squareRootBornPostTailHighResponse R K j a : ℕ) : ℂ) -
         ((squareRootBornPostTailHighResponse R K j (p * a) : ℕ) : ℂ) = 0 := by
-  have haK : a ≤ K := by
-    by_cases hp0 : p = 0
-    · subst p
-      simp at hchildK
-    · have hp1 : 1 ≤ p := Nat.one_le_iff_ne_zero.mpr hp0
-      have haLe : a ≤ p * a := by
-        exact Nat.le_mul_of_pos_left a hp1
-      exact haLe.trans hchildK
+  have haLe : a ≤ p * a := Nat.le_mul_of_pos_left a hp.pos
+  have haK : a ≤ K := haLe.trans hchildK
   unfold squareRootBornPostTailHighResponse
   rw [if_pos haK, if_pos hchildK]
   ring
@@ -557,7 +561,8 @@ theorem squareRootBornPostTailHighResponse_sub_child_eq_primeDilateWindow
   have hchildNot : ¬ p * a ≤ K := by omega
   unfold squareRootBornPostTailHighResponse
   rw [if_neg haNot, if_neg hchildNot]
-  exact squareRootPostRootPrimePrefix_sub_child_eq_primeDilateWindow hp ha
+  exact squareRootPostRootPrimePrefix_sub_child_eq_primeDilateWindow
+    (p := p) (R := R) (a := a) hp ha
 
 /-- Complete pointwise trichotomy for the high-response finite difference.
 Only the shallow transition `a <= K < p*a` is not already a pure reciprocal
@@ -575,7 +580,7 @@ theorem squareRootBornPostTailHighResponse_sub_child_trichotomy
   by_cases hchildK : p * a ≤ K
   · rw [if_pos hchildK]
     exact squareRootBornPostTailHighResponse_sub_child_eq_zero_of_child_le_K
-      hchildK
+      hp hchildK
   · rw [if_neg hchildK]
     by_cases haK : a ≤ K
     · rw [if_pos haK]
