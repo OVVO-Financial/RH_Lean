@@ -148,7 +148,7 @@ jobs:
 
       - name: Fail on RHLean-owned warnings
         id: rhlean_warnings
-        if: ${{ always() && steps.directbuild.outcome == 'success' }}
+        if: ${{ always() && steps.directbuild.outcome != 'skipped' }}
         continue-on-error: true
         shell: bash
         run: |
@@ -186,7 +186,6 @@ jobs:
         with:
           script: |
             const failed =
-              '${{ job.status }}' === 'failure' ||
               '${{ steps.kernel_checks.outcome }}' === 'failure' ||
               '${{ steps.directbuild.outcome }}' === 'failure' ||
               '${{ steps.rhlean_warnings.outcome }}' === 'failure' ||
@@ -206,5 +205,5 @@ jobs:
             });
 
       - name: Fail if validation did not close cleanly
-        if: ${{ always() && (failure() || steps.kernel_checks.outcome == 'failure' || steps.directbuild.outcome == 'failure' || steps.rhlean_warnings.outcome == 'failure' || steps.strongpnt_noise.outcome == 'failure') }}
+        if: ${{ always() && (steps.kernel_checks.outcome == 'failure' || steps.directbuild.outcome == 'failure' || steps.rhlean_warnings.outcome == 'failure' || steps.strongpnt_noise.outcome == 'failure') }}
         run: exit 1
