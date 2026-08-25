@@ -188,8 +188,8 @@ theorem squareRootLowPrimeProcessedCofactorMass_eq_neg_runningResponseReal
   rw [hsplit]
   unfold squareRootBornPostTailRunningLowPrimeResponse
   simp only [Complex.add_re, Complex.re_sum]
-  simp [canonicalMoebiusWeight, Complex.mul_re]
-  ring
+  simp [canonicalMoebiusWeight]
+  ring_nf
 
 /-- **The complete processed seat carrier has signed mass exactly `T(P)`.** -/
 theorem squareRootLowPrimeProcessedSeatCarrier_mass_eq_runningImbalanceReal
