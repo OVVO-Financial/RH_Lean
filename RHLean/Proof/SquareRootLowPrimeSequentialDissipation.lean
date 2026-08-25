@@ -5,29 +5,34 @@ import RHLean.Proof.LowPrimeFreshLayerBridge
 # One-sided low-prime sequential dissipation
 
 The running BornPostTail response is already split into exact fresh
-largest-prime-factor layers.  This module makes the first genuinely one-sided
-piece of that step explicit.
+largest-prime-factor layers.  This module turns one complete fresh layer into a
+genuine one-sided decomposition before any estimate.
 
-For a fresh prime `p < R`, the singleton cofactor `c = p` is the empty-parent
-child.  Its born response is zero, while its high response is a natural
-post-root prime-prefix cardinality.  Since `mu(p) = -1`, this atom contributes
-with a forced negative sign.
+The born and high responses are first kept together at each cofactor.  The high
+response is included on its honest cutoff `c <= R - 1`; outside that cutoff the
+combined response is just the born response.  The resulting response is a
+natural number.
 
-Every other cofactor in the fresh layer has a proper canonical parent.  Those
-terms are retained, with the born and high responses still added together, in
-one signed bad mass.  They are not duplicated over prime coordinates: membership
-itself records `P+(c) = p`, so the same cofactor cannot occur in the bad support
-of two distinct fresh primes.
+The fresh layer is then partitioned by its already-final Möbius orientation:
 
-Thus the actual running increment has the exact one-sided form
+* cofactors with `mu(c) = -1` form the deletion mass `D_p`;
+* cofactors with `mu(c) = 1` form the bad/frontier mass `F_p`;
+* cofactors with `mu(c) = 0` contribute nothing.
+
+Hence the actual running increment has the exact one-sided form
 
 `Delta_p^born + Delta_p^high = -D_p + F_p`,
 
-where `D_p` is a nonnegative natural cardinality and `F_p` is the globally
-assigned proper-parent mass.  No absolute value, Cauchy--Schwarz estimate, PNT,
-Mertens bound, covariance normalization, or RH-equivalent statement appears.
-The remaining quantitative problem is to control the single globally assigned
-proper-parent mass rather than paying a new local defect at every prime.
+with both `D_p` and `F_p` natural and therefore nonnegative.  The bad support is
+not copied into an independent error term for every prime: membership records
+`P+(c) = p`, so bad supports for distinct fresh primes are disjoint.  The
+earlier empty-parent atom `c = p` remains visible as one forced negative term
+inside the full deletion mass.
+
+No absolute value, Cauchy--Schwarz estimate, PNT, Mertens bound, covariance
+normalization, endpoint reconstruction, or RH-equivalent statement appears.
+The next quantitative obligation is now the globally assigned positive
+Möbius-orientation mass, rather than the original signed fresh layer.
 -/
 
 noncomputable section
@@ -93,7 +98,8 @@ def squareRootLowPrimePrimeDeletionCount
   squareRootBornPostTailHighResponse R K j p
 
 /-- All proper-parent terms at one fresh prime, with the born and high channels
-kept signed together. -/
+kept signed together.  This preliminary signed remainder is refined below into
+its full negative and positive Möbius orientations. -/
 def squareRootLowPrimeProperParentBadMass
     (R K j p : ℕ) : ℂ :=
   (∑ c ∈ squareRootLowPrimeProperBornCofactors R p,
@@ -102,9 +108,7 @@ def squareRootLowPrimeProperParentBadMass
       canonicalMoebiusWeight c *
         (squareRootBornPostTailHighResponse R K j c : ℂ)
 
-/-- Global proper-parent bad mass on a prime interval.  Each cofactor is assigned
-by its own canonical largest prime, not copied into an independent error term
-for every prime. -/
+/-- Global proper-parent signed mass on a prime interval. -/
 def squareRootLowPrimeGlobalProperParentBadMass
     (R K j L U : ℕ) : ℂ :=
   ∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
@@ -221,10 +225,9 @@ theorem squareRootLowPrimeHighFreshIncrement_eq_neg_deletion_add_properParent
     canonicalMoebiusWeight_prime_eq_neg_one hp]
   ring
 
-/-- **One-sided fresh-prime decomposition.**  The actual born-plus-high
-increment is a forced negative natural deletion plus one proper-parent bad mass.
-No channel is bounded separately. -/
-theorem squareRootLowPrimeFreshIncrement_eq_neg_deletion_add_badMass
+/-- Preliminary prime-atom split.  The full one-sided decomposition below also
+splits every proper-parent term by its Möbius orientation. -/
+theorem squareRootLowPrimeFreshIncrement_eq_neg_primeDeletion_add_properMass
     {R K j p : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hpR : p < R) :
     squareRootLowPrimeFreshIncrement R K j p =
       -((squareRootLowPrimePrimeDeletionCount R K j p : ℕ) : ℂ) +
@@ -236,15 +239,14 @@ theorem squareRootLowPrimeFreshIncrement_eq_neg_deletion_add_badMass
       hp hpR]
   ring
 
-/-- The deletion is a genuine nonnegative quantity, not an absolute value
-inserted after the fact. -/
+/-- The prime atom is a genuine nonnegative quantity. -/
 theorem squareRootLowPrimePrimeDeletionCount_nonneg
     (R K j p : ℕ) :
     (0 : ℤ) ≤ (squareRootLowPrimePrimeDeletionCount R K j p : ℤ) := by
   positivity
 
-/-- Beyond the shallow cutoff, the forced deletion is exactly the post-root
-prime-prefix cardinality at the fresh prime. -/
+/-- Beyond the shallow cutoff, the forced prime-atom deletion is exactly the
+post-root prime-prefix cardinality at the fresh prime. -/
 theorem squareRootLowPrimePrimeDeletionCount_eq_postRootPrefix
     {R K j p : ℕ} (hKp : K < p) :
     squareRootLowPrimePrimeDeletionCount R K j p =
@@ -253,8 +255,8 @@ theorem squareRootLowPrimePrimeDeletionCount_eq_postRootPrefix
     squareRootBornPostTailHighResponse
   rw [if_neg (by omega : ¬ p ≤ K)]
 
-/-- Later prime deletions have no larger geometric post-root prefix than earlier
-ones. -/
+/-- Later prime-atom deletions have no larger geometric post-root prefix than
+earlier ones. -/
 theorem squareRootLowPrimePrimeDeletionCount_antitone
     {R K j p q : ℕ} (hp : 0 < p) (hpq : p ≤ q)
     (hKp : K < p) (hKq : K < q) :
@@ -325,11 +327,203 @@ theorem squareRootLowPrimeProperParent_support_unique
     · exact lpf_eq_of_mem_properHigh hcq
   exact hp.symm.trans hq
 
-/-- **SquareRootLowPrimeSequentialDissipation.**  The running prime step has the
-accepted one-sided form, and its deletion term is certified nonnegative.  The
-only surviving obstruction is the single proper-parent mass on globally
-disjoint largest-prime supports. -/
-theorem squareRootLowPrimeSequentialDissipation
+/-! ## Full sign-oriented dissipation split -/
+
+/-- The complete natural response at one fresh cofactor.  Born and high are
+added before the Möbius sign is used; the high term is present exactly on its
+honest cutoff. -/
+def squareRootLowPrimeCombinedFreshResponse
+    (R K j c : ℕ) : ℕ :=
+  squareRootBornPartnerCount R c +
+    if c ≤ R - 1 then
+      squareRootBornPostTailHighResponse R K j c
+    else
+      0
+
+/-- Fresh cofactors whose already-final Möbius orientation is negative. -/
+def squareRootLowPrimeDeletionCofactors
+    (R p : ℕ) : Finset ℕ :=
+  (squareRootLowPrimeBornFreshCofactors R p).filter fun c =>
+    μ c = -1
+
+/-- Fresh cofactors whose already-final Möbius orientation is positive. -/
+def squareRootLowPrimeBadCofactors
+    (R p : ℕ) : Finset ℕ :=
+  (squareRootLowPrimeBornFreshCofactors R p).filter fun c =>
+    μ c = 1
+
+/-- Total negative-orientation response in one fresh layer. -/
+def squareRootLowPrimeDeletionMass
+    (R K j p : ℕ) : ℕ :=
+  ∑ c ∈ squareRootLowPrimeDeletionCofactors R p,
+    squareRootLowPrimeCombinedFreshResponse R K j c
+
+/-- Total positive-orientation response in one fresh layer.  This is the
+bad/frontier mass left for the global quantitative estimate. -/
+def squareRootLowPrimeBadMass
+    (R K j p : ℕ) : ℕ :=
+  ∑ c ∈ squareRootLowPrimeBadCofactors R p,
+    squareRootLowPrimeCombinedFreshResponse R K j c
+
+/-- Globally assigned bad mass on a prime interval. -/
+def squareRootLowPrimeGlobalBadMass
+    (R K j L U : ℕ) : ℕ :=
+  ∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
+    squareRootLowPrimeBadMass R K j p
+
+/-- The honest high support is exactly the part of the born support below `R`.
+This lets the two channels be added at each cofactor before splitting signs. -/
+theorem squareRootLowPrimeHighFreshCofactors_eq_bornFresh_filter
+    {R p : ℕ} (hR : 2 ≤ R) :
+    squareRootLowPrimeHighFreshCofactors R p =
+      (squareRootLowPrimeBornFreshCofactors R p).filter fun c =>
+        c ≤ R - 1 := by
+  have hpredX : R - 1 ≤ squareRootEndpoint R := by
+    have hsq : R + 1 ≤ R ^ 2 := by nlinarith
+    unfold squareRootEndpoint
+    omega
+  ext c
+  simp only [squareRootLowPrimeHighFreshCofactors,
+    squareRootLowPrimeBornFreshCofactors, Finset.mem_filter,
+    Finset.mem_Icc]
+  constructor
+  · rintro ⟨⟨hc1, hcR⟩, hlpf⟩
+    exact ⟨⟨⟨hc1, hcR.trans hpredX⟩, hlpf⟩, hcR⟩
+  · rintro ⟨⟨⟨hc1, _hcX⟩, hlpf⟩, hcR⟩
+    exact ⟨⟨hc1, hcR⟩, hlpf⟩
+
+/-- The actual born-plus-high increment is one cofactor sum of natural responses
+with Möbius signs outside. -/
+theorem squareRootLowPrimeFreshIncrement_eq_combinedCofactorSum
+    {R K j p : ℕ} (hR : 2 ≤ R) :
+    squareRootLowPrimeFreshIncrement R K j p =
+      ∑ c ∈ squareRootLowPrimeBornFreshCofactors R p,
+        canonicalMoebiusWeight c *
+          (squareRootLowPrimeCombinedFreshResponse R K j c : ℂ) := by
+  unfold squareRootLowPrimeFreshIncrement
+    squareRootLowPrimeBornFreshIncrement
+    squareRootLowPrimeHighFreshIncrement
+  rw [squareRootLowPrimeHighFreshCofactors_eq_bornFresh_filter hR,
+    Finset.sum_filter, ← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro c _hc
+  by_cases hcR : c ≤ R - 1
+  · simp [squareRootLowPrimeCombinedFreshResponse, hcR]
+    ring
+  · simp [squareRootLowPrimeCombinedFreshResponse, hcR]
+
+private theorem canonicalMoebiusWeight_mul_natCast_eq_signSplit
+    (c n : ℕ) :
+    canonicalMoebiusWeight c * (n : ℂ) =
+      -(if μ c = -1 then (n : ℂ) else 0) +
+        (if μ c = 1 then (n : ℂ) else 0) := by
+  have hbound := ArithmeticFunction.abs_moebius_le_one (n := c)
+  rw [abs_le] at hbound
+  have hcases : μ c = -1 ∨ μ c = 0 ∨ μ c = 1 := by omega
+  rcases hcases with hneg | hzero | hpos
+  · simp [canonicalMoebiusWeight, hneg]
+  · simp [canonicalMoebiusWeight, hzero]
+  · simp [canonicalMoebiusWeight, hpos]
+
+/-- **Full one-sided fresh-layer decomposition.**  Every negative Möbius
+orientation contributes to one natural deletion mass and every positive
+orientation contributes to one natural bad mass. -/
+theorem squareRootLowPrimeFreshIncrement_eq_neg_deletionMass_add_badMass
+    {R K j p : ℕ} (hR : 2 ≤ R) :
+    squareRootLowPrimeFreshIncrement R K j p =
+      -((squareRootLowPrimeDeletionMass R K j p : ℕ) : ℂ) +
+        ((squareRootLowPrimeBadMass R K j p : ℕ) : ℂ) := by
+  rw [squareRootLowPrimeFreshIncrement_eq_combinedCofactorSum hR]
+  have hDcast :
+      ((squareRootLowPrimeDeletionMass R K j p : ℕ) : ℂ) =
+        ∑ c ∈ squareRootLowPrimeDeletionCofactors R p,
+          (squareRootLowPrimeCombinedFreshResponse R K j c : ℂ) := by
+    unfold squareRootLowPrimeDeletionMass
+    push_cast
+    rfl
+  have hFcast :
+      ((squareRootLowPrimeBadMass R K j p : ℕ) : ℂ) =
+        ∑ c ∈ squareRootLowPrimeBadCofactors R p,
+          (squareRootLowPrimeCombinedFreshResponse R K j c : ℂ) := by
+    unfold squareRootLowPrimeBadMass
+    push_cast
+    rfl
+  calc
+    (∑ c ∈ squareRootLowPrimeBornFreshCofactors R p,
+        canonicalMoebiusWeight c *
+          (squareRootLowPrimeCombinedFreshResponse R K j c : ℂ)) =
+      ∑ c ∈ squareRootLowPrimeBornFreshCofactors R p,
+        (-(if μ c = -1 then
+              (squareRootLowPrimeCombinedFreshResponse R K j c : ℂ)
+            else 0) +
+          (if μ c = 1 then
+              (squareRootLowPrimeCombinedFreshResponse R K j c : ℂ)
+            else 0)) := by
+      apply Finset.sum_congr rfl
+      intro c _hc
+      exact canonicalMoebiusWeight_mul_natCast_eq_signSplit c
+        (squareRootLowPrimeCombinedFreshResponse R K j c)
+    _ = -(∑ c ∈ squareRootLowPrimeBornFreshCofactors R p,
+          if μ c = -1 then
+            (squareRootLowPrimeCombinedFreshResponse R K j c : ℂ)
+          else 0) +
+        ∑ c ∈ squareRootLowPrimeBornFreshCofactors R p,
+          if μ c = 1 then
+            (squareRootLowPrimeCombinedFreshResponse R K j c : ℂ)
+          else 0 := by
+      rw [Finset.sum_add_distrib, Finset.sum_neg_distrib]
+    _ = -(∑ c ∈ squareRootLowPrimeDeletionCofactors R p,
+          (squareRootLowPrimeCombinedFreshResponse R K j c : ℂ)) +
+        ∑ c ∈ squareRootLowPrimeBadCofactors R p,
+          (squareRootLowPrimeCombinedFreshResponse R K j c : ℂ) := by
+      unfold squareRootLowPrimeDeletionCofactors
+        squareRootLowPrimeBadCofactors
+      rw [Finset.sum_filter, Finset.sum_filter]
+    _ = -((squareRootLowPrimeDeletionMass R K j p : ℕ) : ℂ) +
+        ((squareRootLowPrimeBadMass R K j p : ℕ) : ℂ) := by
+      rw [hDcast, hFcast]
+
+/-- Both sides of the one-sided split are honest nonnegative natural masses. -/
+theorem squareRootLowPrimeDeletionMass_nonneg
+    (R K j p : ℕ) :
+    (0 : ℤ) ≤ (squareRootLowPrimeDeletionMass R K j p : ℤ) := by
+  positivity
+
+/-- The globally problematic orientation is also an honest nonnegative natural
+mass, ready for a single global estimate. -/
+theorem squareRootLowPrimeBadMass_nonneg
+    (R K j p : ℕ) :
+    (0 : ℤ) ≤ (squareRootLowPrimeBadMass R K j p : ℤ) := by
+  positivity
+
+private theorem lpf_eq_of_mem_badCofactors
+    {R p c : ℕ} (hc : c ∈ squareRootLowPrimeBadCofactors R p) :
+    canonicalLargestPrimeFactor c = p := by
+  exact (Finset.mem_filter.mp (Finset.mem_filter.mp hc).1).2
+
+/-- Bad supports for distinct fresh primes are disjoint.  Thus the global bad
+mass is assigned once by the canonical largest prime, not charged once per
+prime coordinate. -/
+theorem squareRootLowPrimeBadCofactors_disjoint
+    {R p q : ℕ} (hpq : p ≠ q) :
+    Disjoint (squareRootLowPrimeBadCofactors R p)
+      (squareRootLowPrimeBadCofactors R q) := by
+  rw [Finset.disjoint_left]
+  intro c hcp hcq
+  exact hpq ((lpf_eq_of_mem_badCofactors hcp).symm.trans
+    (lpf_eq_of_mem_badCofactors hcq))
+
+/-- The empty-parent prime atom lies inside the full deletion support. -/
+theorem prime_mem_squareRootLowPrimeDeletionCofactors
+    {R p : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hpR : p < R) :
+    p ∈ squareRootLowPrimeDeletionCofactors R p := by
+  unfold squareRootLowPrimeDeletionCofactors
+  exact Finset.mem_filter.mpr
+    ⟨prime_mem_squareRootLowPrimeBornFreshCofactors hR hp hpR,
+      by rw [ArithmeticFunction.moebius_apply_prime hp]⟩
+
+/-- Preliminary empty-parent split retained as a local diagnostic. -/
+theorem squareRootLowPrimePrimeAtomDecomposition
     {R K j p : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hpR : p < R) :
     (squareRootBornPostTailRunningLowPrimeResponse R K j p -
         squareRootBornPostTailRunningLowPrimeResponse R K j (p - 1) =
@@ -339,8 +533,26 @@ theorem squareRootLowPrimeSequentialDissipation
   constructor
   · rw [squareRootBornPostTailRunningLowPrimeResponse_step_eq_lowPrimeFreshIncrement
       R K j p hp]
-    exact squareRootLowPrimeFreshIncrement_eq_neg_deletion_add_badMass
+    exact squareRootLowPrimeFreshIncrement_eq_neg_primeDeletion_add_properMass
       hR hp hpR
   · exact squareRootLowPrimePrimeDeletionCount_nonneg R K j p
+
+/-- **SquareRootLowPrimeSequentialDissipation.**  The actual running fresh-prime
+step is the difference of two nonnegative natural masses.  The positive
+bad/frontier support is globally disjoint across fresh primes. -/
+theorem squareRootLowPrimeSequentialDissipation
+    {R K j p : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (_hpR : p < R) :
+    (squareRootBornPostTailRunningLowPrimeResponse R K j p -
+        squareRootBornPostTailRunningLowPrimeResponse R K j (p - 1) =
+      -((squareRootLowPrimeDeletionMass R K j p : ℕ) : ℂ) +
+        ((squareRootLowPrimeBadMass R K j p : ℕ) : ℂ)) ∧
+      (0 : ℤ) ≤ (squareRootLowPrimeDeletionMass R K j p : ℤ) ∧
+      (0 : ℤ) ≤ (squareRootLowPrimeBadMass R K j p : ℤ) := by
+  constructor
+  · rw [squareRootBornPostTailRunningLowPrimeResponse_step_eq_lowPrimeFreshIncrement
+      R K j p hp]
+    exact squareRootLowPrimeFreshIncrement_eq_neg_deletionMass_add_badMass hR
+  · exact ⟨squareRootLowPrimeDeletionMass_nonneg R K j p,
+      squareRootLowPrimeBadMass_nonneg R K j p⟩
 
 end RHLean.Proof
