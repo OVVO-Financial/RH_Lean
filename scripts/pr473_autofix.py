@@ -28,118 +28,56 @@ def replace_count(path: str, old: str, new: str, expected: int) -> None:
     p.write_text(text.replace(old, new))
 
 
+saturation = "RHLean/Proof/SquareRootLowPrimeMatchingFrontierSaturation.lean"
 replace_once(
-    "RHLean/Proof/SquareRootLowPrimeSignedResponseMatching.lean",
-    """  intro a _ha b _hb hab
-  omega
+    saturation,
+    """      · exact ih (squareRootLowPrimeResponseFrontierStep S q)
+          hTail hn hnot
 """,
-    """  intro a _ha b _hb hab
-  exact Nat.mul_left_cancel hell.pos hab
+    """      · exact ih (squareRootLowPrimeResponseFrontierStep S q)
+          hTail hn
 """,
 )
 
-creation = "RHLean/Proof/CreationResponseFrontierCancellation.lean"
-replace_once(
-    creation,
-    """    unfold creationResponseMatchedImage
-    symm
-    apply Finset.sum_image
-""",
-    """    unfold creationResponseMatchedImage
-    apply Finset.sum_image
-""",
-)
-replace_once(
-    creation,
-    """  rw [← hCsplit, ← hRsplit, himageSum]
-  abel
-""",
-    """  rw [← hCsplit, ← hRsplit, himageSum]
-  calc
-    _ = (∑ c ∈ C \ M, wC c) +
-          (∑ r ∈ R \ creationResponseMatchedImage M φ, wR r) +
-          ((∑ c ∈ M, wC c) + ∑ c ∈ M, wR (φ c)) := by
-      abel
-    _ = _ := by rw [hpair, add_zero]
-""",
-)
-replace_count(creation, "abs_add _ _", "abs_add_le _ _", 1)
-replace_once(
-    creation,
-    "    cases haz.symm.trans hbz\n",
-    "    cases haz.trans hbz.symm\n",
-)
-
-energy = "RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.lean"
-replace_once(
-    energy,
-    """  have hstep :=
-    squareRootLowPrimeRunningImbalanceReal_step_eq_freshIncrementReal
-      R K j p hp
-  nlinarith
-""",
-    """  have hstep :=
-    squareRootLowPrimeRunningImbalanceReal_step_eq_freshIncrementReal
-      R K j p hp
-  rw [← hstep]
-  ring
-""",
-)
-replace_count(energy, "abs_add _ _", "abs_add_le _ _", 2)
-
-postroot = "RHLean/Proof/SquareRootLowPrimePostRootTransform.lean"
-replace_once(
-    postroot,
-    """  classical
-  rw [squareRootLowPrimePostRootResponseAtoms_eq_product_filter]
-  unfold squareRootLowPrimePostRootParentMass
-    squareRootLowPrimePostRootCofactorTransform
-  rw [Finset.sum_filter]
-""",
-    """  classical
-  unfold squareRootLowPrimePostRootParentMass
-    squareRootLowPrimePostRootCofactorTransform
-  rw [squareRootLowPrimePostRootResponseAtoms_eq_product_filter,
-    Finset.sum_filter]
-""",
-)
-replace_once(
-    postroot,
-    """  have hXltSquare : squareRootEndpoint R < R ^ 2 := by
-    unfold squareRootEndpoint
-    positivity
-""",
-    """  have hXltSquare : squareRootEndpoint R < R ^ 2 := by
-    unfold squareRootEndpoint
-    have hsqpos : 0 < R ^ 2 := by positivity
-    exact Nat.sub_lt hsqpos (by norm_num)
-""",
-)
+real_cancellation = "RHLean/Proof/CreationResponseFrontierCancellationReal.lean"
+replace_count(real_cancellation, "abs_add _ _", "abs_add_le _ _", 1)
 
 rough = "RHLean/Proof/SquareRootLowPrimeRoughBaseResidual.lean"
 replace_once(
     rough,
-    """  unfold squareRootLowPrimeOwnedResponseRoughBaseResidual
-    squareRootLowPrimeOwnedResponseRoughBaseFiber
-  symm
-  simpa using
-    (Finset.sum_fiberwise_of_maps_to'
-      (s := squareRootLowPrimeOwnedResponseChildren R K U)
-      (t := squareRootLowPrimeOwnedResponseRoughBases R K U)
-      (g := squareRootLowPrimeResponseRoughBase K U)
-      hmaps
-      (fun n : ℕ => μ n))
-""",
-    """  unfold squareRootLowPrimeOwnedResponseRoughBaseResidual
-    squareRootLowPrimeOwnedResponseRoughBaseFiber
-  symm
-  have h := Finset.sum_fiberwise_eq_sum_filter
+    """  have h := Finset.sum_fiberwise_eq_sum_filter
     (squareRootLowPrimeOwnedResponseChildren R K U)
     (squareRootLowPrimeOwnedResponseRoughBases R K U)
     (squareRootLowPrimeResponseRoughBase K U)
     (fun n : ℕ => μ n)
   simpa [hmaps] using h
 """,
+    """  simpa using
+    (Finset.sum_fiberwise_of_maps_to
+      (s := squareRootLowPrimeOwnedResponseChildren R K U)
+      (t := squareRootLowPrimeOwnedResponseRoughBases R K U)
+      (g := squareRootLowPrimeResponseRoughBase K U)
+      hmaps
+      (fun n : ℕ => μ n))
+""",
+)
+
+running = "RHLean/Proof/SquareRootLowPrimeRunningTelescope.lean"
+replace_count(
+    running,
+    "rw [canonicalLargestPrimeFactor_le_composite_iff_le_pred hp hnot]",
+    "simp only [canonicalLargestPrimeFactor_le_composite_iff_le_pred hp hnot]",
+    2,
+)
+replace_once(
+    running,
+    "(∑ p ∈ Finset.Ioc K (K + n), T (p - 1) - T p) =",
+    "(∑ p ∈ Finset.Ioc K (K + n), (T (p - 1) - T p)) =",
+)
+replace_once(
+    running,
+    "(∑ p ∈ Finset.Ioc K U, T (p - 1) - T p) = T K - T U := by",
+    "(∑ p ∈ Finset.Ioc K U, (T (p - 1) - T p)) = T K - T U := by",
 )
 
 manifest = Path("RHLean.lean")
