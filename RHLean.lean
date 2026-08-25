@@ -426,6 +426,7 @@ import RHLean.Proof.LifetimeLocalEnergyCriterion
 import RHLean.Proof.LifetimeOverlapGramCriterion
 import RHLean.Proof.LifetimeOverlapKernel
 import RHLean.Proof.LowOmegaHighOrientation
+import RHLean.Proof.LowPrimeCombinedBornHighFirstFailure
 import RHLean.Proof.LowPrimeCombinedBornHighTransition
 import RHLean.Proof.LowPrimeCompletedPartnerWindowFold
 import RHLean.Proof.LowPrimeFreshLayerBridge
