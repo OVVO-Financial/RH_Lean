@@ -1,0 +1,142 @@
+name: Rough-base quantitative reduction check
+
+on:
+  push:
+    branches: [agent/full-sequential-canonical-frontier-bridge]
+    paths:
+      - RHLean/Proof/SquareRootLowPrimeRoughBaseResidual.lean
+      - RHLean/Proof/SquareRootLowPrimeRoughBaseBound.lean
+      - RHLean/Proof/SquareRootLowPrimeMatchedFrontierBound.lean
+      - RHLean/Proof/SquareRootLowPrimeMatchingFrontierRootCharge.lean
+      - .github/workflows/rough-base-bound-lean.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  statuses: write
+
+concurrency:
+  group: rough-base-bound-lean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Import rough-base modules
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          manifest = Path('RHLean.lean')
+          targets = {
+              'import RHLean.Proof.SquareRootLowPrimeRoughBaseResidual',
+              'import RHLean.Proof.SquareRootLowPrimeRoughBaseBound',
+          }
+          lines = [line.strip() for line in manifest.read_text().splitlines() if line.strip()]
+          manifest.write_text('\n'.join(sorted(set(lines) | targets)) + '\n')
+          PY
+          if ! git diff --quiet -- RHLean.lean; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add RHLean.lean
+            git commit -m "Import rough-base quantitative modules"
+            git push
+          fi
+
+      - name: Audit source and manifest
+        run: |
+          bash scripts/check_paper_analysis_boundary.sh
+          bash scripts/audit_assumptions.sh
+          python3 scripts/check_root_manifest.py
+
+      - name: Restore Mathlib packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Apply StrongPNT compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+
+      - name: Restore StrongPNT build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Build rough-base chain
+        id: build
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build \
+            RHLean.Proof.SquareRootLowPrimeRoughBaseResidual \
+            RHLean.Proof.SquareRootLowPrimeRoughBaseBound \
+            2>&1 | tee rough-base-bound.log
+
+      - name: Commit diagnostics on failure
+        if: ${{ steps.build.outcome == 'failure' }}
+        run: |
+          cp rough-base-bound.log research/rough-base-bound-build-errors.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/rough-base-bound-build-errors.txt
+          git commit -m "Record rough-base bound compiler diagnostics"
+          git push
+
+      - name: Publish status
+        if: ${{ always() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const failed = '${{ steps.build.outcome }}' === 'failure';
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: failed ? 'failure' : 'success',
+              context: 'rough-base-bound-lean',
+              description: failed
+                ? 'Rough-base quantitative chain failed'
+                : 'Rough-base quantitative chain compiled',
+              target_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            });
+
+      - name: Fail on build error
+        if: ${{ steps.build.outcome == 'failure' }}
+        run: exit 1
