@@ -123,8 +123,7 @@ theorem card_squareRootLowPrimeDeepPartnerSet_eq_combinedFreshResponse
       rw [← card_squareRootPostRootPrimePartnerSet_eq_prefixCard hc,
         hpostEmpty]
       simp
-    simp [squareRootLowPrimeCombinedFreshResponse,
-      squareRootBornPostTailHighResponse, hcR, hprefixZero]
+    simp [squareRootLowPrimeCombinedFreshResponse, hcR, hprefixZero]
 
 /-- One cofactor fibre of prime-extension atoms. -/
 def squareRootLowPrimeBadAtomFiber (R c : ℕ) : Finset (ℕ × ℕ) :=
@@ -134,7 +133,13 @@ def squareRootLowPrimeBadAtomFiber (R c : ℕ) : Finset (ℕ × ℕ) :=
     {R c : ℕ} {z : ℕ × ℕ} :
     z ∈ squareRootLowPrimeBadAtomFiber R c ↔
       z.1 = c ∧ z.2 ∈ squareRootLowPrimeDeepPartnerSet R c := by
-  simp [squareRootLowPrimeBadAtomFiber]
+  unfold squareRootLowPrimeBadAtomFiber
+  constructor
+  · intro hz
+    rcases Finset.mem_product.mp hz with ⟨hz1, hz2⟩
+    exact ⟨Finset.mem_singleton.mp hz1, hz2⟩
+  · rintro ⟨hz1, hz2⟩
+    exact Finset.mem_product.mpr ⟨Finset.mem_singleton.mpr hz1, hz2⟩
 
 /-- The complete atom carrier over the globally owned positive-orientation
 cofactors in `(K,U]`. -/
@@ -182,6 +187,8 @@ theorem squareRootLowPrimeBadAtomFiber_pairwiseDisjoint
       (↑(squareRootLowPrimeOwnedBadCofactors R K U))
       (squareRootLowPrimeBadAtomFiber R) := by
   intro c _hc d _hd hcd
+  change Disjoint (squareRootLowPrimeBadAtomFiber R c)
+    (squareRootLowPrimeBadAtomFiber R d)
   rw [Finset.disjoint_left]
   intro z hzc hzd
   have hzcData := mem_squareRootLowPrimeBadAtomFiber.mp hzc
@@ -231,7 +238,7 @@ theorem mul_le_squareRootEndpoint_of_mem_deepPartnerSet
     {R c q : ℕ} (hq : q ∈ squareRootLowPrimeDeepPartnerSet R c) :
     c * q ≤ squareRootEndpoint R := by
   rcases Finset.mem_union.mp hq with hborn | hpost
-  · exact (Finset.mem_filter.mp hborn).2.2.2
+  · exact (Finset.mem_filter.mp hborn).2.2.2.2
   · exact (Finset.mem_filter.mp hpost).2.2
 
 /-- On an interval ending below the root, every atom partner lies above every
@@ -324,12 +331,16 @@ theorem squareRootLowPrimeOwnedBadChildren_subset_Icc
   rcases Finset.mem_biUnion.mp hz with ⟨c, hc, hzc⟩
   have hzData := mem_squareRootLowPrimeBadAtomFiber.mp hzc
   have hcpos := (squareRootLowPrimeOwnedBadCofactor_data hc).1
+  have hz1pos : 0 < z.1 := by
+    simpa [hzData.1] using hcpos
   have hqPrime := prime_of_mem_squareRootLowPrimeDeepPartnerSet hzData.2
   have hprod := mul_le_squareRootEndpoint_of_mem_deepPartnerSet hzData.2
+  have hprod' : z.1 * z.2 ≤ squareRootEndpoint R := by
+    simpa [hzData.1] using hprod
   exact Finset.mem_Icc.mpr
     ⟨Nat.one_le_iff_ne_zero.mpr
-        (Nat.mul_ne_zero (Nat.ne_of_gt hcpos) hqPrime.ne_zero),
-      hprod⟩
+        (Nat.mul_ne_zero (Nat.ne_of_gt hz1pos) hqPrime.ne_zero),
+      hprod'⟩
 
 /-- **Global complete-response support bound.**  After the actual response
 weights are expanded into uniquely owned child states, the entire raw bad mass
