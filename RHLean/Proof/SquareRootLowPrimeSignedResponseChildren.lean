@@ -405,7 +405,9 @@ theorem squareRootLowPrimeOwnedDeletionAtomChild_moebiusWeight_eq_one
   calc
     canonicalMoebiusWeight (squareRootLowPrimeBadAtomChild z) =
         -canonicalMoebiusWeight z.1 := hflip
-    _ = 1 := by rw [hcofactor]
+    _ = 1 := by
+      rw [hcofactor]
+      norm_num
 
 /-- Signed Möbius mass of the bad child atoms. -/
 theorem squareRootLowPrimeOwnedBadAtomChild_weight_sum_eq_neg_card
