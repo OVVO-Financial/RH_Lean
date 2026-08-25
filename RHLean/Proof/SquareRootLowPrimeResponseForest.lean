@@ -256,10 +256,23 @@ theorem squareRootLowPrimeOwnedResponseCofactors_eq_roots_union_internalChildren
     squareRootLowPrimeOwnedResponseCofactors R K U =
       squareRootLowPrimeResponseRootCofactors R K U ∪
         squareRootLowPrimeBornInternalChildren R K U := by
+  have hsub :
+      squareRootLowPrimeBornInternalChildren R K U ⊆
+        squareRootLowPrimeOwnedResponseCofactors R K U :=
+    squareRootLowPrimeBornInternalChildren_subset_ownedResponseCofactors
+      (R := R) (K := K) (U := U) hUR
   ext c
-  have hsub :=
-    squareRootLowPrimeBornInternalChildren_subset_ownedResponseCofactors hUR
-  simp [squareRootLowPrimeResponseRootCofactors, hsub]
+  unfold squareRootLowPrimeResponseRootCofactors
+  constructor
+  · intro hc
+    by_cases hchild : c ∈ squareRootLowPrimeBornInternalChildren R K U
+    · exact Finset.mem_union.mpr (Or.inr hchild)
+    · exact Finset.mem_union.mpr
+        (Or.inl (Finset.mem_sdiff.mpr ⟨hc, hchild⟩))
+  · intro hc
+    rcases Finset.mem_union.mp hc with hroot | hchild
+    · exact (Finset.mem_sdiff.mp hroot).1
+    · exact hsub hchild
 
 /-- Roots and incoming internal children are disjoint. -/
 theorem squareRootLowPrimeResponseRootCofactors_disjoint_internalChildren
@@ -325,8 +338,9 @@ theorem squareRootLowPrimePostRootResponseAtom_canonicalSourceData
   rcases mem_squareRootLowPrimePostRootResponseAtoms.mp hz with
     ⟨hzResponse, hzPost⟩
   have hzData := squareRootLowPrimeOwnedResponseAtom_data hzResponse
-  have hqPrime : z.2.Prime :=
-    (Finset.mem_filter.mp hzPost).2.1
+  rcases Finset.mem_filter.mp hzPost with
+    ⟨hqIoc, hqPrime, hproduct⟩
+  have hRq : R < z.2 := (Finset.mem_Ioc.mp hqIoc).1
   have hrough :=
     canonicalLargestPrimeFactor_lt_partner_of_ownedResponseAtom hUR hzResponse
   have hcgt : 1 < z.1 := by omega
@@ -349,11 +363,25 @@ theorem squareRootLowPrimePostRootResponseAtom_canonicalSourceData
     intro p hp hpc
     have hle := prime_dvd_le_canonicalLargestPrimeFactor hcgt hp hpc
     omega
+  have hcDiv : z.1 ≤ squareRootEndpoint R / z.2 :=
+    (Nat.le_div_iff_mul_le hqPrime.pos).2 hproduct
+  have hRpos : 0 < R := by omega
+  have hXltSquare : squareRootEndpoint R < R ^ 2 := by
+    unfold squareRootEndpoint
+    have hsqpos : 0 < R ^ 2 := by positivity
+    omega
+  have hSquareLt : R ^ 2 < R * z.2 := by
+    simpa [pow_two] using Nat.mul_lt_mul_of_pos_left hRq hRpos
+  have hXlt : squareRootEndpoint R < R * z.2 :=
+    hXltSquare.trans hSquareLt
+  have hdivlt : squareRootEndpoint R / z.2 < R :=
+    (Nat.div_lt_iff_lt_mul hqPrime.pos).2 hXlt
+  have hcR : z.1 < R := hcDiv.trans_lt hdivlt
+  have hcq : z.1 < z.2 := hcR.trans hRq
   exact
     ⟨⟨hqPrime, Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hzData.1),
         hsq, hcop, hdom⟩,
-      lt_of_le_of_lt hzData.2.2.1
-        (hUR.trans (Finset.mem_Ioc.mp (Finset.mem_filter.mp hzPost).1).1)⟩
+      hcq⟩
 
 /-- Signed Möbius mass of the complete owned cofactor carrier. -/
 def squareRootLowPrimeOwnedResponseCofactorMass
@@ -399,8 +427,11 @@ theorem squareRootLowPrimeOwnedResponseCofactorMass_eq_root_add_internal
     squareRootLowPrimeOwnedResponseCofactorMass R K U =
       squareRootLowPrimeResponseRootCofactorMass R K U +
         squareRootLowPrimeBornInternalChildMass R K U := by
-  have hsub :=
-    squareRootLowPrimeBornInternalChildren_subset_ownedResponseCofactors hUR
+  have hsub :
+      squareRootLowPrimeBornInternalChildren R K U ⊆
+        squareRootLowPrimeOwnedResponseCofactors R K U :=
+    squareRootLowPrimeBornInternalChildren_subset_ownedResponseCofactors
+      (R := R) (K := K) (U := U) hUR
   unfold squareRootLowPrimeOwnedResponseCofactorMass
     squareRootLowPrimeResponseRootCofactorMass
     squareRootLowPrimeBornInternalChildMass
@@ -441,7 +472,8 @@ theorem neg_squareRootLowPrimeOwnedResponseAtomChildMass_eq_forestBoundary
   rw [squareRootLowPrimeOwnedResponseAtomChildMass_eq_internal_add_frontier_add_postRoot,
     ← squareRootLowPrimeBornInternalChildMass_eq_atomMass hUR]
   have hsplit :=
-    squareRootLowPrimeOwnedResponseCofactorMass_eq_root_add_internal hUR
+    squareRootLowPrimeOwnedResponseCofactorMass_eq_root_add_internal
+      (R := R) (K := K) (U := U) hUR
   linear_combination -hsplit
 
 /-- **Fresh response as a forest boundary.**  The exact sequential response on
@@ -457,6 +489,7 @@ theorem squareRootLowPrimeFreshIncrement_sum_eq_responseForestBoundary
             squareRootLowPrimePostRootChildMass R K U := by
   rw [squareRootLowPrimeFreshIncrement_sum_eq_neg_ownedResponseAtomChildMass
     hR hUR]
-  exact neg_squareRootLowPrimeOwnedResponseAtomChildMass_eq_forestBoundary hUR
+  exact neg_squareRootLowPrimeOwnedResponseAtomChildMass_eq_forestBoundary
+    (R := R) (K := K) (U := U) hUR
 
 end RHLean.Proof
