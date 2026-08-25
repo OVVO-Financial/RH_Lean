@@ -188,8 +188,37 @@ theorem squareRootLowPrimeProcessedCofactorMass_eq_neg_runningResponseReal
   rw [hsplit]
   unfold squareRootBornPostTailRunningLowPrimeResponse
   simp only [Complex.add_re, Complex.re_sum]
-  simp [canonicalMoebiusWeight]
-  ring_nf
+  have hborn :
+      (∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        (if canonicalLargestPrimeFactor c ≤ P then
+          canonicalMoebiusWeight c *
+            (squareRootBornPartnerCount R c : ℂ)
+        else 0).re) =
+      ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        if canonicalLargestPrimeFactor c ≤ P then
+          (μ c : ℝ) * (squareRootBornPartnerCount R c : ℝ)
+        else 0 := by
+    apply Finset.sum_congr rfl
+    intro c _hc
+    by_cases hlpf : canonicalLargestPrimeFactor c ≤ P <;>
+      simp [hlpf, canonicalMoebiusWeight]
+  have hhigh :
+      (∑ c ∈ Finset.Icc 1 (R - 1),
+        (if canonicalLargestPrimeFactor c ≤ P then
+          canonicalMoebiusWeight c *
+            (squareRootBornPostTailHighResponse R K j c : ℂ)
+        else 0).re) =
+      ∑ c ∈ Finset.Icc 1 (R - 1),
+        if canonicalLargestPrimeFactor c ≤ P then
+          (μ c : ℝ) *
+            (squareRootBornPostTailHighResponse R K j c : ℝ)
+        else 0 := by
+    apply Finset.sum_congr rfl
+    intro c _hc
+    by_cases hlpf : canonicalLargestPrimeFactor c ≤ P <;>
+      simp [hlpf, canonicalMoebiusWeight]
+  rw [hborn, hhigh]
+  ring
 
 /-- **The complete processed seat carrier has signed mass exactly `T(P)`.** -/
 theorem squareRootLowPrimeProcessedSeatCarrier_mass_eq_runningImbalanceReal
