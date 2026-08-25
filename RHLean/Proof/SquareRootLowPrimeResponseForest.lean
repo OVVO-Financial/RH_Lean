@@ -474,7 +474,8 @@ theorem neg_squareRootLowPrimeOwnedResponseAtomChildMass_eq_forestBoundary
   have hsplit :=
     squareRootLowPrimeOwnedResponseCofactorMass_eq_root_add_internal
       (R := R) (K := K) (U := U) hUR
-  linear_combination -hsplit
+  rw [hsplit]
+  ring
 
 /-- **Fresh response as a forest boundary.**  The exact sequential response on
 `(K,U]` consists only of its bottom roots, complete cofactor mass, born exit
