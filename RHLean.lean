@@ -426,6 +426,7 @@ import RHLean.Proof.LifetimeLocalEnergyCriterion
 import RHLean.Proof.LifetimeOverlapGramCriterion
 import RHLean.Proof.LifetimeOverlapKernel
 import RHLean.Proof.LowOmegaHighOrientation
+import RHLean.Proof.LowPrimeCompletedPartnerWindowFold
 import RHLean.Proof.LowPrimeFreshLayerBridge
 import RHLean.Proof.LowPrimeParentChildWindowDifference
 import RHLean.Proof.LowWheelAncestryCrossLedgerBridge
