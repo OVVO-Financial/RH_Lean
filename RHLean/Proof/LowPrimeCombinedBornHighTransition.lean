@@ -92,8 +92,7 @@ theorem squareRootBornPartnerCount_eq_primeIntervalCount_of_lt_root
     squareRootBornPartnerCount R c =
       squareRootPrimeIntervalCount (canonicalLargestPrimeFactor c) c := by
   unfold squareRootBornPartnerCount squareRootPrimeIntervalCount
-  rw [squareRootBornPartnerSet_eq_primeIntervalCount_of_lt_root] <;>
-    simp_all only
+  rw [squareRootBornPartnerSet_eq_primeInterval_of_lt_root hcR]
 
 /-- Explicit born parent/child interval difference when the fresh child remains
 below `R`.  Roughness identifies the child's largest prime factor with `p`. -/
@@ -511,9 +510,10 @@ theorem squareRootBornPostTailHighCutoffBoundaryLayer_eq_rootCrossing
   · simp [hparentR]
   · have hrootParent : R ≤ primeFaceProduct u :=
       Nat.le_of_not_gt hparentR
-    have hrootChild : R ≤ p * primeFaceProduct u :=
-      (mem_squareRootBornPostTailHighCutoffBoundaryFaces (R := R) (p := p)
-        (u := u) (by omega)).mp hu |>.2.2
+    have hboundary :=
+      (mem_squareRootBornPostTailHighCutoffBoundaryFaces
+        (R := R) (p := p) (u := u) (by omega)).mp hu
+    have hrootChild : R ≤ p * primeFaceProduct u := hboundary.2.2
     have hparentZero :
         squareRootBornPostTailHighResponse R K j (primeFaceProduct u) = 0 :=
       squareRootBornPostTailHighResponse_eq_zero_of_root_le
