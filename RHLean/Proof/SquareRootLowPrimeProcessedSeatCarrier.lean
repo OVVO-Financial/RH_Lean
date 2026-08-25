@@ -76,6 +76,9 @@ theorem squareRootLowPrimeProcessedSeatFiber_pairwiseDisjoint
       (↑(squareRootLowPrimeProcessedSignedCofactors R P))
       (squareRootLowPrimeCombinedSeatFiber R K j) := by
   intro c _hc d _hd hcd
+  change Disjoint
+    (squareRootLowPrimeCombinedSeatFiber R K j c)
+    (squareRootLowPrimeCombinedSeatFiber R K j d)
   rw [Finset.disjoint_left]
   intro z hzc hzd
   exact hcd
@@ -116,17 +119,16 @@ theorem squareRootLowPrimeProcessedSeatCarrier_weight_sum
   unfold squareRootLowPrimeProcessedSeatCarrier
   rw [Finset.sum_insert
     (none_not_mem_squareRootLowPrimeProcessedSeatAtoms_image R K j P)]
-  simp only [squareRootLowPrimeProcessedSeatWeightReal]
   have himage :
       (∑ x ∈ (squareRootLowPrimeProcessedSeatAtoms R K j P).image some,
         squareRootLowPrimeProcessedSeatWeightReal x) =
         ∑ z ∈ squareRootLowPrimeProcessedSeatAtoms R K j P,
           ((-μ z.1 : ℤ) : ℝ) := by
-    symm
     apply Finset.sum_image
     intro a _ha b _hb hab
-    exact Option.some_injective hab
+    simpa using hab
   rw [himage, squareRootLowPrimeProcessedSeatAtoms_weight_sum]
+  simp [squareRootLowPrimeProcessedSeatWeightReal]
 
 private theorem processedHighFilter_eq_honestHighRange
     {R : ℕ} (hR : 2 ≤ R) :
@@ -170,8 +172,8 @@ theorem squareRootLowPrimeProcessedCofactorMass_eq_neg_runningResponseReal
               (squareRootBornPostTailHighResponse R K j c : ℝ)
           else 0 := by
     rw [← processedHighFilter_eq_honestHighRange hR,
-      Finset.sum_filter, ← Finset.sum_add_distrib,
-      ← Finset.sum_neg_distrib]
+      Finset.sum_filter, ← Finset.sum_neg_distrib,
+      ← Finset.sum_sub_distrib]
     apply Finset.sum_congr rfl
     intro c _hc
     by_cases hlpf : canonicalLargestPrimeFactor c ≤ P
@@ -187,10 +189,7 @@ theorem squareRootLowPrimeProcessedCofactorMass_eq_neg_runningResponseReal
     · simp [hlpf]
   rw [hsplit]
   unfold squareRootBornPostTailRunningLowPrimeResponse
-    canonicalMoebiusWeight
-  simp only [Complex.neg_re, Complex.add_re]
-  push_cast
-  ring
+  simp [canonicalMoebiusWeight, Complex.re_sum] <;> ring
 
 /-- **The complete processed seat carrier has signed mass exactly `T(P)`.** -/
 theorem squareRootLowPrimeProcessedSeatCarrier_mass_eq_runningImbalanceReal
@@ -202,7 +201,7 @@ theorem squareRootLowPrimeProcessedSeatCarrier_mass_eq_runningImbalanceReal
     squareRootLowPrimeProcessedCofactorMass_eq_neg_runningResponseReal hR]
   unfold squareRootLowPrimeRunningImbalanceReal
     squareRootLowPrimeRunningImbalance
-  simp
+  simp <;> ring
 
 /-- Every processed seat has real weight at most one in absolute value. -/
 theorem abs_squareRootLowPrimeProcessedSeatWeightReal_le_one
@@ -211,6 +210,8 @@ theorem abs_squareRootLowPrimeProcessedSeatWeightReal_le_one
   rcases x with _ | z
   · simp [squareRootLowPrimeProcessedSeatWeightReal]
   · unfold squareRootLowPrimeProcessedSeatWeightReal
-    exact_mod_cast ArithmeticFunction.abs_moebius_le_one (n := z.1)
+    have hInt : |(-μ z.1 : ℤ)| ≤ 1 := by
+      simpa using (ArithmeticFunction.abs_moebius_le_one (n := z.1))
+    exact_mod_cast hInt
 
 end RHLean.Proof

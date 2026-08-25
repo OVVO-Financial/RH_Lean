@@ -134,11 +134,11 @@ theorem squareRootLowPrimeCreationStateCofactor_data
     ⟨z, hz, rfl⟩ | ⟨z, hz, rfl⟩
   · have hdata := squareRootLowPrimeShallowBornSeatAtom_data hz
     have hc := Finset.mem_filter.mp hdata.1
-    have hIcc := Finset.mem_Icc.mp hc.1
+    rcases Finset.mem_Icc.mp hc.1 with ⟨hcOne, _hcTop⟩
     exact ⟨by omega, hc.2.1, hc.2.2⟩
   · have hdata := squareRootLowPrimeShallowHighSeatAtom_data hz
     have hc := Finset.mem_filter.mp hdata.1
-    have hIcc := Finset.mem_Icc.mp hc.1
+    rcases Finset.mem_Icc.mp hc.1 with ⟨hcOne, _hcTop⟩
     exact ⟨by omega, hc.2.1, hc.2.2⟩
 
 /-- The pair `(source cofactor, absolute seat)` recovers every non-head creation
@@ -161,29 +161,44 @@ theorem squareRootLowPrimeCreationState_cofactorSeat_injOn
   rcases squareRootLowPrimeCreationCarrierExact_nonhead_cases
       hyCarrier hyNone with
     ⟨zy, hzy, rfl⟩ | ⟨zy, hzy, rfl⟩
-  · have hc : zx.1 = zy.1 := congrArg Prod.fst hxy
-    have hs : zx.2 = zy.2 := congrArg Prod.snd hxy
+  · have hc : zx.1 = zy.1 := by
+      simpa [squareRootLowPrimeCreationStateCofactor] using
+        congrArg (fun w : ℕ × ℕ => w.1) hxy
+    have hs : zx.2 = zy.2 := by
+      simpa [squareRootLowPrimeCreationStateAbsoluteSeat] using
+        congrArg (fun w : ℕ × ℕ => w.2) hxy
     exact congrArg (fun z => some (Sum.inl z)) (Prod.ext hc hs)
   · have hxData := squareRootLowPrimeShallowBornSeatAtom_data hzx
-    have hyData := squareRootLowPrimeShallowHighSeatAtom_data hzy
-    have hc : zx.1 = zy.1 := congrArg Prod.fst hxy
-    have hs := congrArg Prod.snd hxy
-    rw [squareRootLowPrimeCreationStateAbsoluteSeat,
-      squareRootLowPrimeCreationStateAbsoluteSeat, hc] at hs
+    have hc : zx.1 = zy.1 := by
+      simpa [squareRootLowPrimeCreationStateCofactor] using
+        congrArg (fun w : ℕ × ℕ => w.1) hxy
+    have hs :
+        zx.2 = squareRootBornPartnerCount R zy.1 + zy.2 := by
+      simpa [squareRootLowPrimeCreationStateAbsoluteSeat] using
+        congrArg (fun w : ℕ × ℕ => w.2) hxy
     have hzxBound := hxData.2
+    rw [hc] at hzxBound
     omega
-  · have hxData := squareRootLowPrimeShallowHighSeatAtom_data hzx
-    have hyData := squareRootLowPrimeShallowBornSeatAtom_data hzy
-    have hc : zx.1 = zy.1 := congrArg Prod.fst hxy
-    have hs := congrArg Prod.snd hxy
-    rw [squareRootLowPrimeCreationStateAbsoluteSeat,
-      squareRootLowPrimeCreationStateAbsoluteSeat, ← hc] at hs
+  · have hyData := squareRootLowPrimeShallowBornSeatAtom_data hzy
+    have hc : zx.1 = zy.1 := by
+      simpa [squareRootLowPrimeCreationStateCofactor] using
+        congrArg (fun w : ℕ × ℕ => w.1) hxy
+    have hs :
+        squareRootBornPartnerCount R zx.1 + zx.2 = zy.2 := by
+      simpa [squareRootLowPrimeCreationStateAbsoluteSeat] using
+        congrArg (fun w : ℕ × ℕ => w.2) hxy
     have hzyBound := hyData.2
+    rw [← hc] at hzyBound
     omega
-  · have hc : zx.1 = zy.1 := congrArg Prod.fst hxy
-    have hs := congrArg Prod.snd hxy
-    rw [squareRootLowPrimeCreationStateAbsoluteSeat,
-      squareRootLowPrimeCreationStateAbsoluteSeat, hc] at hs
+  · have hc : zx.1 = zy.1 := by
+      simpa [squareRootLowPrimeCreationStateCofactor] using
+        congrArg (fun w : ℕ × ℕ => w.1) hxy
+    have hs :
+        squareRootBornPartnerCount R zx.1 + zx.2 =
+          squareRootBornPartnerCount R zy.1 + zy.2 := by
+      simpa [squareRootLowPrimeCreationStateAbsoluteSeat] using
+        congrArg (fun w : ℕ × ℕ => w.2) hxy
+    rw [hc] at hs
     have hseat : zx.2 = zy.2 := by omega
     exact congrArg (fun z => some (Sum.inr z)) (Prod.ext hc hseat)
 
@@ -294,7 +309,14 @@ theorem squareRootLowPrimeCanonicalCreationToResponse_injOn
     simpa [Nat.mul_comm] using
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough
         hcy.1 hpy.2.2 hroughY
-  have hprod := congrArg Prod.fst hxy
+  have hprod :
+      squareRootLowPrimeCanonicalResponseOwner R K j U x *
+          squareRootLowPrimeCreationStateCofactor x =
+        squareRootLowPrimeCanonicalResponseOwner R K j U y *
+          squareRootLowPrimeCreationStateCofactor y := by
+    simpa [squareRootLowPrimeCanonicalCreationToResponse,
+      squareRootLowPrimeCreationToResponseSeat] using
+      congrArg (fun z : ℕ × ℕ => z.1) hxy
   have hpEq :
       squareRootLowPrimeCanonicalResponseOwner R K j U x =
         squareRootLowPrimeCanonicalResponseOwner R K j U y := by
@@ -307,8 +329,10 @@ theorem squareRootLowPrimeCanonicalCreationToResponse_injOn
     exact Nat.mul_left_cancel hprod
   have hsEq :
       squareRootLowPrimeCreationStateAbsoluteSeat R x =
-        squareRootLowPrimeCreationStateAbsoluteSeat R y :=
-    congrArg Prod.snd hxy
+        squareRootLowPrimeCreationStateAbsoluteSeat R y := by
+    simpa [squareRootLowPrimeCanonicalCreationToResponse,
+      squareRootLowPrimeCreationToResponseSeat] using
+      congrArg (fun z : ℕ × ℕ => z.2) hxy
   have hxErase :
       x ∈ (squareRootLowPrimeCreationCarrierExact R K j).erase none :=
     Finset.mem_erase.mpr ⟨hxData.2.1, hxData.1⟩
