@@ -118,10 +118,11 @@ theorem squareRootLowPrimeProcessedSeatPairLower_disjoint_upper
   · exact hxData.2.1 rfl
   · rcases y with _ | w
     · simp [squareRootLowPrimeProcessedSeatExtend] at hyx
-    · have hfirst := congrArg (fun t => (Option.get t (by simp)).1) hyx
+    · simp only [squareRootLowPrimeProcessedSeatExtend,
+        Option.some.injEq, Prod.mk.injEq] at hyx
       apply hxData.2.2.1
-      refine ⟨w.1, ?_⟩
-      simpa [squareRootLowPrimeProcessedSeatExtend] using hfirst.symm
+      change p ∣ z.1
+      exact ⟨w.1, hyx.1.symm⟩
 
 /-- Fresh-prime extension is injective on non-head lower endpoints. -/
 theorem squareRootLowPrimeProcessedSeatExtend_injOn
@@ -137,7 +138,7 @@ theorem squareRootLowPrimeProcessedSeatExtend_injOn
     · exact (hyNone rfl).elim
     · simp only [squareRootLowPrimeProcessedSeatExtend,
         Option.some.injEq, Prod.mk.injEq] at hxy
-      have hc : z.1 = w.1 := by omega
+      have hc : z.1 = w.1 := Nat.mul_left_cancel hp hxy.1
       exact congrArg some (Prod.ext hc hxy.2)
 
 /-- One fresh-prime extension reverses the processed seat weight. -/
@@ -151,9 +152,15 @@ theorem squareRootLowPrimeProcessedSeatExtend_weight_eq_neg
   have hxData := mem_squareRootLowPrimeProcessedSeatPairLower.mp hx
   rcases x with _ | z
   · exact (hxData.2.1 rfl).elim
-  · have hmu := moebius_prime_mul_eq_neg_of_not_dvd hp hxData.2.2.1
-    simp [squareRootLowPrimeProcessedSeatExtend,
-      squareRootLowPrimeProcessedSeatWeightReal, hmu]
+  · have hnot : ¬ p ∣ z.1 := by
+      simpa [squareRootLowPrimeProcessedStateCofactor] using hxData.2.2.1
+    have hmu : μ (p * z.1) = -μ z.1 :=
+      moebius_prime_mul_eq_neg_of_not_dvd hp hnot
+    change (((-μ (p * z.1) : ℤ) : ℝ)) =
+      - (((-μ z.1 : ℤ) : ℝ))
+    rw [hmu]
+    push_cast
+    ring
 
 /-- Upper-endpoint mass is the negative lower-endpoint mass. -/
 theorem squareRootLowPrimeProcessedSeatPairUpper_weight_sum_eq_neg_lower
@@ -218,13 +225,20 @@ theorem squareRootLowPrimeProcessedSeat_weight_sum_eq_frontierStep
     (∑ x ∈ S, squareRootLowPrimeProcessedSeatWeightReal x) =
       ∑ x ∈ squareRootLowPrimeProcessedSeatFrontierStep S p,
         squareRootLowPrimeProcessedSeatWeightReal x := by
-  apply sum_eq_frontier_sum_of_complement_zero
-    S (squareRootLowPrimeProcessedSeatFrontierStep S p)
-    (fun x => squareRootLowPrimeProcessedSeatWeightReal x)
-  · intro x hx
+  have hsubset :
+      squareRootLowPrimeProcessedSeatFrontierStep S p ⊆ S := by
+    intro x hx
     exact (Finset.mem_sdiff.mp hx).1
-  · rw [squareRootLowPrimeProcessedSeat_sdiff_frontierStep_eq_paired]
-    exact squareRootLowPrimeProcessedSeatPaired_weight_sum_eq_zero S hp
+  have hsplit :
+      (∑ x ∈ S \ squareRootLowPrimeProcessedSeatFrontierStep S p,
+          squareRootLowPrimeProcessedSeatWeightReal x) +
+        ∑ x ∈ squareRootLowPrimeProcessedSeatFrontierStep S p,
+          squareRootLowPrimeProcessedSeatWeightReal x =
+        ∑ x ∈ S, squareRootLowPrimeProcessedSeatWeightReal x :=
+    Finset.sum_sdiff hsubset
+  rw [squareRootLowPrimeProcessedSeat_sdiff_frontierStep_eq_paired,
+    squareRootLowPrimeProcessedSeatPaired_weight_sum_eq_zero S hp] at hsplit
+  simpa using hsplit.symm
 
 /-- Iterate processed-seat matching through an explicit prime list. -/
 def squareRootLowPrimeProcessedSeatMatchingFrontier :
