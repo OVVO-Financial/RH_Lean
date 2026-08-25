@@ -1,4 +1,5 @@
 import RHLean.Proof.CanonicalGapAncestryQuadraticClosure
+import RHLean.Proof.LowPrimeCompletedPartnerWindowFold
 import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
 import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
