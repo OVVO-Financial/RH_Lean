@@ -168,7 +168,13 @@ theorem squareRootLowPrimeSecondToggleRootCharge_injective
       _ = squareRootLowPrimeCanonicalFailurePrime K U B
           (squareRootLowPrimeSecondToggleRootCharge y) := by rw [hcharge]
       _ = y.firstPivot := hycanonical.symm
-  exact SquareRootLowPrimeDoubleToggleState.ext hbase hfirst hsecond
+  rcases x with ⟨xbase, xfirst, xsecond⟩
+  rcases y with ⟨ybase, yfirst, ysecond⟩
+  simp only at hbase hfirst hsecond
+  subst ybase
+  subst yfirst
+  subst ysecond
+  rfl
 
 /-- Every canonical double-toggle charge lies in the root interval. -/
 theorem squareRootLowPrimeSecondToggleRootCharge_mem_Icc
