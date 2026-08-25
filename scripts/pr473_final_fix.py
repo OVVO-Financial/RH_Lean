@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply the final literal creation-carrier repairs required by PR #473."""
+"""Apply the final response-carrier repairs required by PR #473."""
 
 from pathlib import Path
 
@@ -15,128 +15,160 @@ def replace_once(path: str, old: str, new: str) -> None:
     p.write_text(text.replace(old, new, 1))
 
 
-channel = "RHLean/Proof/SquareRootLowPrimeChannelCreationCarrier.lean"
-replace_once(
-    channel,
-    """  rcases z with ⟨z1, z2⟩
-  simp [squareRootLowPrimeShallowBornSeatFiber, eq_comm]
-""",
-    """  rcases z with ⟨z1, z2⟩
-  simp [squareRootLowPrimeShallowBornSeatFiber, eq_comm, and_comm]
-""",
-)
-replace_once(
-    channel,
-    """  rcases z with ⟨z1, z2⟩
-  simp [squareRootLowPrimeShallowHighSeatFiber, eq_comm]
-""",
-    """  rcases z with ⟨z1, z2⟩
-  simp [squareRootLowPrimeShallowHighSeatFiber, eq_comm, and_comm]
-""",
-)
-replace_once(
-    channel,
-    """  intro a _ha b _hb hab
-  exact Sum.inl_injective (Option.some_injective hab)
-""",
-    """  intro a _ha b _hb hab
-  simpa using hab
-""",
-)
-replace_once(
-    channel,
-    """  intro a _ha b _hb hab
-  exact Sum.inr_injective (Option.some_injective hab)
-""",
-    """  intro a _ha b _hb hab
-  simpa using hab
-""",
-)
-
 creation = "RHLean/Proof/SquareRootLowPrimeCreationResponseCarriers.lean"
 replace_once(
     creation,
+    """  have hcast := congrArg (fun w : ℂ => w.re) hflip
+  simpa [squareRootLowPrimeResponseAtomWeight,
+    canonicalMoebiusWeight, squareRootLowPrimeBadAtomChild] using hcast.symm
+""",
+    """  have hcast := congrArg (fun w : ℂ => w.re) hflip
+  have hcastReal :
+      ((-μ z.1 : ℤ) : ℝ) =
+        ((μ (squareRootLowPrimeBadAtomChild z) : ℤ) : ℝ) := by
+    simpa [canonicalMoebiusWeight] using hcast.symm
+  unfold squareRootLowPrimeResponseAtomWeight
+  exact_mod_cast hcastReal
+""",
+)
+
+response = "RHLean/Proof/SquareRootLowPrimeResponseSeatCarrier.lean"
+replace_once(
+    response,
     """      z.1 = c ∧
         z.2 < squareRootLowPrimeCombinedFreshResponse R K j c := by
-  simp [squareRootLowPrimeCreationSeatFiber]
+  simp [squareRootLowPrimeCombinedSeatFiber]
 """,
     """      z.1 = c ∧
         z.2 < squareRootLowPrimeCombinedFreshResponse R K j c := by
   rcases z with ⟨z1, z2⟩
-  simp [squareRootLowPrimeCreationSeatFiber, eq_comm, and_comm]
+  simp [squareRootLowPrimeCombinedSeatFiber, eq_comm, and_comm]
 """,
 )
 replace_once(
-    creation,
+    response,
     """  intro c _hc d _hd hcd
   rw [Finset.disjoint_left]
   intro z hzc hzd
-  have hcEq := (mem_squareRootLowPrimeCreationSeatFiber.mp hzc).1
+  exact hcd
 """,
     """  intro c _hc d _hd hcd
   change Disjoint
-    (squareRootLowPrimeCreationSeatFiber R K j c)
-    (squareRootLowPrimeCreationSeatFiber R K j d)
+    (squareRootLowPrimeCombinedSeatFiber R K j c)
+    (squareRootLowPrimeCombinedSeatFiber R K j d)
   rw [Finset.disjoint_left]
   intro z hzc hzd
-  have hcEq := (mem_squareRootLowPrimeCreationSeatFiber.mp hzc).1
+  exact hcd
 """,
 )
 replace_once(
-    creation,
-    """  unfold squareRootLowPrimeCreationCarrier
-  rw [Finset.sum_insert
-    (none_not_mem_creationSeatAtoms_image_some R K j)]
-  simp only [squareRootLowPrimeCreationWeight]
-  have himage :
-      (∑ x ∈ (squareRootLowPrimeCreationSeatAtoms R K j).image some,
-        squareRootLowPrimeCreationWeight x) =
-        ∑ z ∈ squareRootLowPrimeCreationSeatAtoms R K j, -μ z.1 := by
-    symm
-    apply Finset.sum_image
-    intro a _ha b _hb hab
-    exact Option.some_injective hab
-  rw [himage, squareRootLowPrimeCreationSeatAtoms_weight_sum]
+    response,
+    """  rw [squareRootLowPrimeGlobalBadMass_eq_ownedCofactorSum]
+  push_cast
+  calc
+    (∑ c ∈ squareRootLowPrimeOwnedBadCofactors R K U,
+      ((-μ c : ℤ) : ℝ) *
+        (squareRootLowPrimeCombinedFreshResponse R K j c : ℝ)) =
+      ∑ c ∈ squareRootLowPrimeOwnedBadCofactors R K U,
+        -(squareRootLowPrimeCombinedFreshResponse R K j c : ℝ) := by
+      apply Finset.sum_congr rfl
+      intro c hc
+      have hmu := (squareRootLowPrimeOwnedBadCofactor_data hc).2.2.2
+      simp [hmu]
+    _ = -(∑ c ∈ squareRootLowPrimeOwnedBadCofactors R K U,
+        (squareRootLowPrimeCombinedFreshResponse R K j c : ℝ)) := by
+      rw [Finset.sum_neg_distrib]
 """,
-    """  unfold squareRootLowPrimeCreationCarrier
-  rw [Finset.sum_insert
-    (none_not_mem_creationSeatAtoms_image_some R K j)]
-  have himage :
-      (∑ x ∈ (squareRootLowPrimeCreationSeatAtoms R K j).image some,
-        squareRootLowPrimeCreationWeight x) =
-        ∑ z ∈ squareRootLowPrimeCreationSeatAtoms R K j, -μ z.1 := by
-    apply Finset.sum_image
-    intro a _ha b _hb hab
-    simpa using hab
-  rw [himage, squareRootLowPrimeCreationSeatAtoms_weight_sum]
-  simp [squareRootLowPrimeCreationWeight]
+    """  rw [squareRootLowPrimeGlobalBadMass_eq_ownedCofactorSum]
+  push_cast
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro c hc
+  have hmu := (squareRootLowPrimeOwnedBadCofactor_data hc).2.2.2
+  simp [hmu]
 """,
 )
 replace_once(
-    creation,
-    """  simpa [squareRootLowPrimeResponseAtomWeight,
-    canonicalMoebiusWeight, squareRootLowPrimeBadAtomChild] using hcast
+    response,
+    """  have hincRe := congrArg Complex.re hinc
+  push_cast at hincRe
+  linarith
 """,
-    """  simpa [squareRootLowPrimeResponseAtomWeight,
-    canonicalMoebiusWeight, squareRootLowPrimeBadAtomChild] using hcast.symm
+    """  have hincRe := congrArg Complex.re hinc
+  have hincReal :
+      (∑ p ∈ squareRootLowPrimeFreshPrimeSet K U,
+        squareRootLowPrimeFreshIncrementReal R K j p) =
+        -(squareRootLowPrimeGlobalDeletionMass R K j K U : ℝ) +
+          (squareRootLowPrimeGlobalBadMass R K j K U : ℝ) := by
+    simpa [squareRootLowPrimeFreshIncrementReal] using hincRe
+  linarith [hincReal]
 """,
 )
 replace_once(
-    creation,
-    """  rw [hweight]
-  simpa using hresponse.symm.trans (by simpa using hatomsRe)
+    response,
+    """  unfold squareRootLowPrimeResponseSeatWeightReal
+  exact_mod_cast ArithmeticFunction.abs_moebius_le_one (n := z.1)
 """,
-    """  calc
-    ((∑ z ∈ squareRootLowPrimeOwnedResponseAtoms R K U,
-      squareRootLowPrimeResponseAtomWeight z : ℤ) : ℝ) =
-        ∑ z ∈ squareRootLowPrimeOwnedResponseAtoms R K U,
-          (canonicalMoebiusWeight
-            (squareRootLowPrimeBadAtomChild z)).re := hweight
-    _ = ∑ n ∈ squareRootLowPrimeOwnedResponseChildren R K U,
-          (canonicalMoebiusWeight n).re := by
-      simpa using hatomsRe.symm
-    _ = -(∑ p ∈ squareRootLowPrimeFreshPrimeSet K U,
-          squareRootLowPrimeFreshIncrementReal R K j p) := by
-      linarith [hresponse]
+    """  unfold squareRootLowPrimeResponseSeatWeightReal
+  have hInt : |(-μ z.1 : ℤ)| ≤ 1 := by
+    simpa using (ArithmeticFunction.abs_moebius_le_one (n := z.1))
+  exact_mod_cast hInt
+""",
+)
+replace_once(
+    response,
+    """  have hmu :
+      μ (ownerPrime x * squareRootLowPrimeCreationStateCofactor x) =
+        -μ (squareRootLowPrimeCreationStateCofactor x) :=
+    moebius_prime_mul_eq_neg_of_not_dvd hp hfresh
+""",
+    """  have hcop :
+      Nat.Coprime (ownerPrime x)
+        (squareRootLowPrimeCreationStateCofactor x) :=
+    (hp.coprime_iff_not_dvd).2 hfresh
+  have hmu :
+      μ (ownerPrime x * squareRootLowPrimeCreationStateCofactor x) =
+        -μ (squareRootLowPrimeCreationStateCofactor x) := by
+    calc
+      μ (ownerPrime x * squareRootLowPrimeCreationStateCofactor x) =
+          μ (ownerPrime x) *
+            μ (squareRootLowPrimeCreationStateCofactor x) :=
+        ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop
+      _ = (-1) * μ (squareRootLowPrimeCreationStateCofactor x) := by
+        rw [ArithmeticFunction.moebius_apply_prime hp]
+      _ = -μ (squareRootLowPrimeCreationStateCofactor x) := by ring
+""",
+)
+replace_once(
+    response,
+    """    · simp [squareRootLowPrimeCreationWeightReal,
+        squareRootLowPrimeCreationWeightComplex,
+        squareRootLowPrimeResponseSeatWeightReal,
+        squareRootLowPrimeCreationToResponseSeat,
+        squareRootLowPrimeCreationStateCofactor,
+        squareRootLowPrimeCreationStateAbsoluteSeat,
+        canonicalMoebiusWeight, hmu]
+    · simp [squareRootLowPrimeCreationWeightReal,
+        squareRootLowPrimeCreationWeightComplex,
+        squareRootLowPrimeResponseSeatWeightReal,
+        squareRootLowPrimeCreationToResponseSeat,
+        squareRootLowPrimeCreationStateCofactor,
+        squareRootLowPrimeCreationStateAbsoluteSeat,
+        canonicalMoebiusWeight, hmu]
+""",
+    """    · simp only [squareRootLowPrimeCreationStateCofactor] at hmu
+      have hmuReal := congrArg (fun a : ℤ => (a : ℝ)) hmu
+      push_cast at hmuReal
+      change -((μ z.1 : ℤ) : ℝ) +
+          ((-μ (ownerPrime (some (Sum.inl z)) * z.1) : ℤ) : ℝ) = 0
+      push_cast
+      linarith
+    · simp only [squareRootLowPrimeCreationStateCofactor] at hmu
+      have hmuReal := congrArg (fun a : ℤ => (a : ℝ)) hmu
+      push_cast at hmuReal
+      change -((μ z.1 : ℤ) : ℝ) +
+          ((-μ (ownerPrime (some (Sum.inr z)) * z.1) : ℤ) : ℝ) = 0
+      push_cast
+      linarith
 """,
 )
