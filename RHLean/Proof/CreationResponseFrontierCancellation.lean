@@ -68,7 +68,6 @@ theorem creationResponse_sum_eq_unmatchedFrontiers
       (∑ r ∈ creationResponseMatchedImage M φ, wR r) =
         ∑ c ∈ M, wR (φ c) := by
     unfold creationResponseMatchedImage
-    symm
     apply Finset.sum_image
     intro a ha b hb hab
     exact hinj ha hb hab
@@ -83,7 +82,12 @@ theorem creationResponse_sum_eq_unmatchedFrontiers
         exact hcancel c hc
       _ = 0 := by simp
   rw [← hCsplit, ← hRsplit, himageSum]
-  abel
+  calc
+    _ = (∑ c ∈ C \ M, wC c) +
+          (∑ r ∈ R \ creationResponseMatchedImage M φ, wR r) +
+          ((∑ c ∈ M, wC c) + ∑ c ∈ M, wR (φ c)) := by
+      abel
+    _ = _ := by rw [hpair, add_zero]
 
 /-- Integer unit weights give a pure unmatched-population bound. -/
 theorem abs_creationResponse_sum_le_unmatchedCards
@@ -107,7 +111,7 @@ theorem abs_creationResponse_sum_le_unmatchedCards
         ∑ r ∈ R \ creationResponseMatchedImage M φ, wR r| ≤
       |∑ c ∈ C \ M, wC c| +
         |∑ r ∈ R \ creationResponseMatchedImage M φ, wR r| :=
-      abs_add _ _
+      abs_add_le _ _
     _ ≤ (∑ c ∈ C \ M, |wC c|) +
         ∑ r ∈ R \ creationResponseMatchedImage M φ, |wR r| := by
       exact add_le_add
@@ -152,7 +156,7 @@ theorem card_creationResponseTaggedFrontier
     intro z hzL hzR
     rcases Finset.mem_map.mp hzL with ⟨a, _ha, haz⟩
     rcases Finset.mem_map.mp hzR with ⟨b, _hb, hbz⟩
-    cases haz.symm.trans hbz
+    cases haz.trans hbz.symm
   rw [Finset.card_union_of_disjoint hdisj]
   simp
 

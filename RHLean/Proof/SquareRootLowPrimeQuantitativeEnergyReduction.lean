@@ -83,7 +83,8 @@ theorem squareRootLowPrimeRunningEnergyReal_step
   have hstep :=
     squareRootLowPrimeRunningImbalanceReal_step_eq_freshIncrementReal
       R K j p hp
-  nlinarith
+  rw [← hstep]
+  ring
 
 /-- The complete deep signed-child identity in real coordinates.  The response
 weights and both Möbius orientations have already been reunited before this
@@ -141,7 +142,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_canonicalCore_add_root
           (squareRootBornPostTailLowPrimeCutoff R) -
         squareRootLowPrimeCanonicalTerminalCoreReal R K j| +
           |squareRootLowPrimeCanonicalTerminalCoreReal R K j| :=
-      abs_add _ _
+      abs_add_le _ _
     _ ≤ (R : ℝ) +
           |squareRootLowPrimeCanonicalTerminalCoreReal R K j| :=
       add_le_add_right hdiff _
@@ -245,7 +246,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_farSurvivorCore_add_bounda
           (squareRootBornPostTailLowPrimeCutoff R) -
         squareRootLowPrimeFarSurvivorTerminalCoreReal R| +
           |squareRootLowPrimeFarSurvivorTerminalCoreReal R| :=
-      abs_add _ _
+      abs_add_le _ _
     _ ≤ (8 * (R : ℝ) + (K : ℝ)) +
           |squareRootLowPrimeFarSurvivorTerminalCoreReal R| :=
       add_le_add_right hdiff _

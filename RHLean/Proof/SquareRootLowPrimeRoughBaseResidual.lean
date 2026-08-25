@@ -92,13 +92,12 @@ theorem squareRootLowPrimeOwnedResponseChildren_moebiusSum_eq_roughBaseResidualS
   unfold squareRootLowPrimeOwnedResponseRoughBaseResidual
     squareRootLowPrimeOwnedResponseRoughBaseFiber
   symm
-  simpa using
-    (Finset.sum_fiberwise_of_maps_to'
-      (s := squareRootLowPrimeOwnedResponseChildren R K U)
-      (t := squareRootLowPrimeOwnedResponseRoughBases R K U)
-      (g := squareRootLowPrimeResponseRoughBase K U)
-      hmaps
-      (fun n : ℕ => μ n))
+  have h := Finset.sum_fiberwise_eq_sum_filter
+    (squareRootLowPrimeOwnedResponseChildren R K U)
+    (squareRootLowPrimeOwnedResponseRoughBases R K U)
+    (squareRootLowPrimeResponseRoughBase K U)
+    (fun n : ℕ => μ n)
+  simpa [hmaps] using h
 
 /-- Zero rough-base fibres may be deleted without changing the signed mass. -/
 theorem squareRootLowPrimeOwnedResponseRoughBaseResidualSum_eq_nonzero

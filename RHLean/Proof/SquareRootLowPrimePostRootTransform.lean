@@ -137,10 +137,10 @@ theorem squareRootLowPrimePostRootParentMass_eq_cofactorTransform
     squareRootLowPrimePostRootParentMass R K U =
       squareRootLowPrimePostRootCofactorTransform R K U := by
   classical
-  rw [squareRootLowPrimePostRootResponseAtoms_eq_product_filter]
   unfold squareRootLowPrimePostRootParentMass
     squareRootLowPrimePostRootCofactorTransform
-  rw [Finset.sum_filter]
+  rw [squareRootLowPrimePostRootResponseAtoms_eq_product_filter,
+    Finset.sum_filter]
   calc
     (∑ z ∈ (squareRootLowPrimeOwnedResponseCofactors R K U).product
           (squareRootLowPrimePostRootPrimeSet R),
@@ -246,7 +246,8 @@ theorem squareRootLowPrimePostRoot_quotient_mem_Icc
   have hRpos : 0 < R := by omega
   have hXltSquare : squareRootEndpoint R < R ^ 2 := by
     unfold squareRootEndpoint
-    positivity
+    have hsqpos : 0 < R ^ 2 := by positivity
+    exact Nat.sub_lt hsqpos (by norm_num)
   have hSquareLt : R ^ 2 < R * q := by
     simpa [pow_two] using Nat.mul_lt_mul_of_pos_left hRq hRpos
   have hXlt : squareRootEndpoint R < R * q :=

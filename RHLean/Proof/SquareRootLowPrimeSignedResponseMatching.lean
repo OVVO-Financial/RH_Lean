@@ -116,7 +116,7 @@ theorem squareRootLowPrimeResponsePair_mul_injective
     Set.InjOn (fun n : ℕ => ell * n)
       (squareRootLowPrimeResponsePairLower S ell) := by
   intro a _ha b _hb hab
-  omega
+  exact Nat.mul_left_cancel hell.pos hab
 
 /-- Fresh-prime multiplication reverses the Möbius sign. -/
 theorem moebius_prime_mul_eq_neg_of_not_dvd
