@@ -45,14 +45,20 @@ jobs:
           python3 scripts/strongpnt_424/apply_lint.py
 
       - name: Import every RHLean module
+        shell: bash
         run: |
+          set +e
           lake exe mk_all
+          status=$?
+          set -e
           if ! git diff --quiet -- RHLean.lean; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add RHLean.lean
             git commit -m "Import residual population module"
             git push origin HEAD:agent/low-prime-residual-population-bound
+          elif [ "$status" -ne 0 ]; then
+            exit "$status"
           fi
 
       - name: Check paper and Analysis boundary
