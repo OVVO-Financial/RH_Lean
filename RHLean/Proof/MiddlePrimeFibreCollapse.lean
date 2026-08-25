@@ -1,6 +1,6 @@
 import Mathlib
 import RHLean.Analysis.LargePrimeTTransport
-import RHLean.Analysis.SquareRootPrimeCountGap
+import RHLean.Analysis.SquareRootTransportTopFibreNoGo
 
 /-!
 # Exact middle-prime fibre collapse
@@ -43,13 +43,13 @@ def nativeMertens (N : ℕ) : ℤ :=
 
 /-- The middle prime range `R < q <= (R^2-1)/2`. -/
 def middlePrimeSet (R : ℕ) : Finset ℕ :=
-  squareRootMiddleFibrePrimes R
+  (Finset.Ioc R (squareRootEndpoint R / 2)).filter Nat.Prime
 
 @[simp] theorem mem_middlePrimeSet
     {R q : ℕ} :
     q ∈ middlePrimeSet R ↔
       R < q ∧ q ≤ squareRootEndpoint R / 2 ∧ q.Prime := by
-  unfold middlePrimeSet squareRootMiddleFibrePrimes
+  unfold middlePrimeSet
   constructor
   · intro hq
     rcases Finset.mem_filter.mp hq with ⟨hqIoc, hqPrime⟩
