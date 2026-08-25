@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   actions: write
   statuses: write
 
@@ -21,6 +21,17 @@ jobs:
     steps:
       - name: Check out branch
         uses: actions/checkout@v4
+
+      - name: Apply final literal-carrier repairs
+        run: |
+          python3 scripts/pr473_final_fix.py
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add RHLean/Proof
+            git commit -m "Repair literal creation carriers"
+            git push
+          fi
 
       - name: Publish pending validation status
         uses: actions/github-script@v7
@@ -118,6 +129,7 @@ jobs:
             RHLean.Proof.SquareRootLowPrimeRoughBaseResidual \
             RHLean.Proof.SquareRootLowPrimeRunningTelescope \
             RHLean.Proof.SquareRootLowPrimeChannelCreationCarrier \
+            RHLean.Proof.SquareRootLowPrimeCreationResponseCarriers \
             RHLean.Proof.SquareRootLowPrimeCreationResponseEnergyGate \
             RHLean.Proof.SquareRootLowPrimeChildToRootBridge \
             2>&1 | tee fast-check.log
