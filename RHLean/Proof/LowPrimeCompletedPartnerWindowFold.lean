@@ -72,7 +72,7 @@ def lowPrimeCompletedWindowSurvivorSet
 /-- A completed partner face omitting `p` has product coprime to the fresh
 prime. -/
 theorem freshPrime_not_dvd_completedPartnerFaceProduct
-    {p R : ℕ} (hp : p.Prime) (hpR : p ≤ R) {t : Finset ℕ}
+    {p R : ℕ} (hp : p.Prime) (_hpR : p ≤ R) {t : Finset ℕ}
     (ht : t ∈ (lowPrimeCompletedPartnerCoordinates p R).powerset) :
     ¬ p ∣ primeFaceProduct t := by
   intro hdiv
@@ -117,6 +117,8 @@ theorem lowPrimeCompletedPartnerDivisorSum_eq_survivorIndicator
   classical
   have hpMem : p ∈ primesUpTo R :=
     mem_primesUpTo.mpr ⟨hp, hpR⟩
+  have hpNotCoord : p ∉ lowPrimeCompletedPartnerCoordinates p R := by
+    simp [lowPrimeCompletedPartnerCoordinates]
   have hdecomp :
       insert p (lowPrimeCompletedPartnerCoordinates p R) = primesUpTo R := by
     simpa [lowPrimeCompletedPartnerCoordinates] using
@@ -128,14 +130,12 @@ theorem lowPrimeCompletedPartnerDivisorSum_eq_survivorIndicator
         else 0) = lowWheelDivisorFaceSum R q := by
       unfold lowWheelDivisorFaceSum
       rw [← hdecomp]
-      rw [Finset.sum_powerset_insert
-        (Finset.notMem_erase p (primesUpTo R))]
+      rw [Finset.sum_powerset_insert hpNotCoord]
       rw [← Finset.sum_add_distrib]
       apply Finset.sum_congr rfl
       intro t ht
       have hpNot : p ∉ t :=
-        Finset.notMem_of_mem_powerset_of_notMem ht
-          (Finset.notMem_erase p (primesUpTo R))
+        Finset.notMem_of_mem_powerset_of_notMem ht hpNotCoord
       have hprod : primeFaceProduct (insert p t) =
           p * primeFaceProduct t := by
         simp [primeFaceProduct, hpNot]
@@ -299,7 +299,7 @@ theorem lowPrimeCompletedPartnerMixedFold_eq_windowSurvivorCard
         (b := primeFaceProduct t) hp ha htPos
       have hcard :=
         card_lowWheelPrimeWindowFreeMultiplier_eq_completedFaceDivisor
-          hp hpR ha ht
+          (p := p) (R := R) (X := X) (a := a) hp hpR ha ht
       rw [htel, hcard]
     _ = ((lowPrimeCompletedWindowSurvivorSet p R X a).card : ℤ) :=
       sum_completedPartnerFaceDivisorCounts_eq_windowSurvivorCard
