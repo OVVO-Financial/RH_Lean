@@ -189,6 +189,7 @@ theorem abs_squareRootLowPrimeOwnedResponseChildMassReal_sub_farSurvivorCore_sub
   have hfar :=
     squareRootLowPrimeRunningImbalanceReal_sub_farSurvivorCore_abs_le
       R K j hR hK hKR hj hV0 hVK
-  convert hfar using 1 <;> ring
+  convert hfar using 1
+  all_goals ring_nf
 
 end RHLean.Proof

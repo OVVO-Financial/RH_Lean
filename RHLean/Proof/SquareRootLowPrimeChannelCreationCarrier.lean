@@ -115,13 +115,15 @@ def squareRootLowPrimeResponseAtomWeightReal
     {R c : ℕ} {z : ℕ × ℕ} :
     z ∈ squareRootLowPrimeShallowBornSeatFiber R c ↔
       z.1 = c ∧ z.2 < squareRootBornPartnerCount R c := by
-  simp [squareRootLowPrimeShallowBornSeatFiber]
+  rcases z with ⟨z1, z2⟩
+  simp [squareRootLowPrimeShallowBornSeatFiber, eq_comm]
 
 @[simp] theorem mem_squareRootLowPrimeShallowHighSeatFiber
     {R K j c : ℕ} {z : ℕ × ℕ} :
     z ∈ squareRootLowPrimeShallowHighSeatFiber R K j c ↔
       z.1 = c ∧ z.2 < squareRootBornPostTailHighResponse R K j c := by
-  simp [squareRootLowPrimeShallowHighSeatFiber]
+  rcases z with ⟨z1, z2⟩
+  simp [squareRootLowPrimeShallowHighSeatFiber, eq_comm]
 
 /-- Born seat fibres over different cofactors are disjoint. -/
 theorem squareRootLowPrimeShallowBornSeatFiber_pairwiseDisjoint
@@ -130,6 +132,9 @@ theorem squareRootLowPrimeShallowBornSeatFiber_pairwiseDisjoint
       (↑(squareRootLowPrimeShallowBornCofactors R K))
       (squareRootLowPrimeShallowBornSeatFiber R) := by
   intro c _hc d _hd hcd
+  change Disjoint
+    (squareRootLowPrimeShallowBornSeatFiber R c)
+    (squareRootLowPrimeShallowBornSeatFiber R d)
   rw [Finset.disjoint_left]
   intro z hzc hzd
   exact hcd
@@ -143,6 +148,9 @@ theorem squareRootLowPrimeShallowHighSeatFiber_pairwiseDisjoint
       (↑(squareRootLowPrimeShallowHighCofactors R K))
       (squareRootLowPrimeShallowHighSeatFiber R K j) := by
   intro c _hc d _hd hcd
+  change Disjoint
+    (squareRootLowPrimeShallowHighSeatFiber R K j c)
+    (squareRootLowPrimeShallowHighSeatFiber R K j d)
   rw [Finset.disjoint_left]
   intro z hzc hzd
   exact hcd
@@ -228,7 +236,6 @@ theorem squareRootLowPrimeShallowBornCreationStates_weight_sum
       ∑ z ∈ squareRootLowPrimeShallowBornSeatAtoms R K,
         -canonicalMoebiusWeight z.1 := by
   unfold squareRootLowPrimeShallowBornCreationStates
-  symm
   apply Finset.sum_image
   intro a _ha b _hb hab
   exact Sum.inl_injective (Option.some_injective hab)
@@ -241,7 +248,6 @@ theorem squareRootLowPrimeShallowHighCreationStates_weight_sum
       ∑ z ∈ squareRootLowPrimeShallowHighSeatAtoms R K j,
         -canonicalMoebiusWeight z.1 := by
   unfold squareRootLowPrimeShallowHighCreationStates
-  symm
   apply Finset.sum_image
   intro a _ha b _hb hab
   exact Sum.inr_injective (Option.some_injective hab)
@@ -345,8 +351,14 @@ theorem squareRootLowPrimeOwnedResponseAtoms_realWeight_sum
   have h := congrArg Complex.re
     (squareRootLowPrimeFreshIncrement_sum_eq_neg_ownedResponseAtomChildMass
       (R := R) (K := K) (j := j) (U := U) hR hUR)
-  simpa [squareRootLowPrimeResponseAtomWeightReal,
-    squareRootLowPrimeFreshIncrementReal] using h.symm
+  have hre :
+      (∑ p ∈ squareRootLowPrimeFreshPrimeSet K U,
+        squareRootLowPrimeFreshIncrementReal R K j p) =
+        -(∑ z ∈ squareRootLowPrimeOwnedResponseAtoms R K U,
+          squareRootLowPrimeResponseAtomWeightReal z) := by
+    simpa [squareRootLowPrimeResponseAtomWeightReal,
+      squareRootLowPrimeFreshIncrementReal] using h
+  linarith
 
 /-- Every deep response atom has real weight of absolute value at most one. -/
 theorem abs_squareRootLowPrimeResponseAtomWeightReal_le_one

@@ -60,8 +60,8 @@ theorem squareRootLowPrimeRunningImbalanceReal_eq_creation_add_response
   have htelescope :=
     squareRootLowPrimeRunningImbalanceReal_sub_eq_freshIncrement_sum
       (R := R) (K := K) (j := j) (U := U) hK hKU
-  rw [hcreation]
-  linarith
+  rw [hcreation] at htelescope
+  linarith [hresponse]
 
 /-- Exact terminal reconstruction on the unmatched creation/response
 frontiers. -/
@@ -91,11 +91,14 @@ theorem squareRootLowPrimeRunningImbalanceReal_eq_unmatchedCreationResponse
       C Resp wC wR hK hKU hcreation hresponse
   have hcancelInt := creationResponse_sum_eq_unmatchedFrontiers
     C M Resp φ wC wR hMC hmap hinj hcancel
-  have hcancelReal := congrArg (fun z : ℤ => (z : ℝ)) hcancelInt
-  unfold intMassReal at hterminal ⊢
-  push_cast at hcancelReal
-  rw [hterminal]
-  exact hcancelReal
+  calc
+    squareRootLowPrimeRunningImbalanceReal R K j U =
+        intMassReal C wC + intMassReal Resp wR := hterminal
+    _ = intMassReal (C \ M) wC +
+        intMassReal
+          (Resp \ creationResponseMatchedImage M φ) wR := by
+      unfold intMassReal
+      exact_mod_cast hcancelInt
 
 /-- Unit weights bound the terminal state by the total unmatched population. -/
 theorem abs_squareRootLowPrimeRunningImbalanceReal_le_unmatchedCreationResponseCards
@@ -165,7 +168,8 @@ theorem abs_squareRootLowPrimeRunningImbalanceReal_le_root_mul_seats_of_creation
       (squareRootLowPrimeRootSeatBox R B) encode
       hMC hmap hinj hcancel hCunit hRunit hencodeInj hbox
   unfold intMassReal at hterminal
-  rw [hterminal, card_squareRootLowPrimeRootSeatBox] at hbound
+  rw [hterminal]
+  rw [card_squareRootLowPrimeRootSeatBox] at hbound
   exact_mod_cast hbound
 
 /-- Squared terminal bound supplied by the root-seat creation/response map. -/
