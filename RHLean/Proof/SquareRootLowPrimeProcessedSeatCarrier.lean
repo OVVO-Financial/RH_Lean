@@ -181,7 +181,6 @@ theorem squareRootLowPrimeProcessedCofactorMass_eq_neg_runningResponseReal
       · simp [hlpf, hmu]
       · by_cases hcR : c ≤ R - 1
         · simp [hlpf, hmu, hcR]
-          push_cast
           ring
         · simp [hlpf, hmu, hcR]
     · simp [hlpf]
