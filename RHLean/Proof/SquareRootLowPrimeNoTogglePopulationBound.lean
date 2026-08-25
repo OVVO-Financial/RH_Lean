@@ -173,6 +173,10 @@ theorem squareRootLowPrimeCanonicalParent_mem_ownedResponseCofactors
     rcases hcSign with h | h <;> omega
   have hsq : Squarefree c :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hcMuNe
+  have hcPos : 0 < c := by
+    rcases mem_squareRootLowPrimeOwnedResponseCofactors.mp hc with hcBad | hcDel
+    · exact (squareRootLowPrimeOwnedBadCofactor_data hcBad).1
+    · exact (squareRootLowPrimeOwnedDeletionCofactor_data hcDel).1
   have hcGt : 1 < c := by
     by_contra h
     have hcEq : c = 1 := by omega
@@ -250,6 +254,7 @@ theorem squareRootLowPrimePostRootCanonicalParentAtom_mem
     canonicalLargestPrimeFactor_mem_freshPrimeSet_of_mem_ownedResponseCofactors
       hcOwned
   have hcPrime := (Finset.mem_filter.mp hcOwner).2
+  have hcPos := (squareRootLowPrimeOwnedResponseAtom_data hzResponse).1
   have hcGt : 1 < z.1 := by
     by_contra h
     have hcEq : z.1 = 1 := by omega
