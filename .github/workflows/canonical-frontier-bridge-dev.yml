@@ -1,0 +1,193 @@
+name: Canonical frontier bridge development check
+
+on:
+  push:
+    branches: [agent/full-sequential-canonical-frontier-bridge]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  statuses: write
+
+concurrency:
+  group: canonical-frontier-bridge-dev-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Publish pending validation status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'pending',
+              context: 'canonical-frontier-bridge-dev',
+              description: 'Canonical frontier bridge validation is running',
+              target_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            });
+
+      - name: Check paper / Analysis boundary
+        run: bash scripts/check_paper_analysis_boundary.sh
+
+      - name: Audit unfinished proofs and axioms
+        run: bash scripts/audit_assumptions.sh
+
+      - name: Check Lean root import manifest
+        run: python3 scripts/check_root_manifest.py
+
+      - name: Restore Mathlib packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+
+      - name: Restore StrongPNT port build cache
+        id: strongpnt_cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+
+      - name: Save StrongPNT port build cache
+        if: ${{ !cancelled() && steps.strongpnt_cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Kernel-check development modules
+        id: kernel_checks
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build \
+            RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms \
+            RHLean.Proof.SquareRootLowPrimeSignedResponseChildren \
+            RHLean.Proof.SquareRootLowPrimeSignedResponseEnergy \
+            RHLean.Proof.SquareRootLowPrimeResponseFrontier \
+            RHLean.Proof.SquareRootLowPrimeResponseForest \
+            RHLean.Proof.SquareRootLowPrimePostRootTransform \
+            RHLean.Proof.SquareRootLowPrimeCanonicalFrontierBridge \
+            RHLean.Proof.SquareRootLowPrimeMatchingFrontierSaturation \
+            RHLean.Proof.SquareRootLowPrimeRoughBaseResidual \
+            RHLean.Proof.SquareRootLowPrimeRunningTelescope \
+            RHLean.Proof.SquareRootLowPrimeChannelCreationCarrier \
+            RHLean.Proof.SquareRootLowPrimeCreationResponseCarriers \
+            RHLean.Proof.SquareRootLowPrimeCreationResponseEnergyGate \
+            RHLean.Proof.SquareRootLowPrimeChildToRootBridge \
+            RHLean.Proof.SquareRootLowPrimeProcessedSeatCarrier \
+            2>&1 | tee fast-check.log
+
+      - name: Build Lean project
+        id: directbuild
+        continue-on-error: true
+        run: lake build RHLean > lean-build.log 2>&1
+
+      - name: Fail on RHLean-owned warnings
+        id: rhlean_warnings
+        if: ${{ always() && steps.directbuild.outcome != 'skipped' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          owned_path = re.compile(r"(?:^|[\s:])(?:\./)*RHLean(?:\.lean|/)")
+          lines = Path("lean-build.log").read_text(errors="replace").splitlines()
+          owned = [
+              line for line in lines
+              if "warning:" in line.lower() and owned_path.search(line)
+          ]
+          if owned:
+              print("RHLean-owned Lean warnings found:")
+              print("\n".join(owned))
+              raise SystemExit(1)
+          print("No RHLean-owned Lean warnings found.")
+          PY
+
+      - name: Fail on StrongPNT port diagnostics
+        id: strongpnt_noise
+        if: ${{ always() && steps.directbuild.outcome != 'skipped' }}
+        continue-on-error: true
+        shell: bash
+        run: python3 scripts/lean_diagnostic_inventory.py --gate StrongPNT lean-build.log
+
+      - name: Print Lean build log
+        if: ${{ always() && steps.directbuild.outcome != 'skipped' }}
+        run: cat lean-build.log
+
+      - name: Publish validation status
+        if: ${{ always() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const failed =
+              '${{ job.status }}' === 'failure' ||
+              '${{ steps.kernel_checks.outcome }}' === 'failure' ||
+              '${{ steps.directbuild.outcome }}' === 'failure' ||
+              '${{ steps.rhlean_warnings.outcome }}' === 'failure' ||
+              '${{ steps.strongpnt_noise.outcome }}' === 'failure';
+            const state = failed ? 'failure' : 'success';
+            const description = failed
+              ? 'Canonical frontier bridge validation failed'
+              : 'Kernel checks and full RHLean validation passed';
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state,
+              context: 'canonical-frontier-bridge-dev',
+              description,
+              target_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            });
+
+      - name: Fail if validation did not close cleanly
+        if: ${{ always() && (steps.kernel_checks.outcome == 'failure' || steps.directbuild.outcome == 'failure' || steps.rhlean_warnings.outcome == 'failure' || steps.strongpnt_noise.outcome == 'failure') }}
+        run: exit 1

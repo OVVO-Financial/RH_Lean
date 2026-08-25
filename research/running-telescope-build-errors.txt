@@ -1,0 +1,46 @@
+warning: StrongPNT: repository '/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT' has local changes
+ℹ [7527/7592] Replayed StrongPNT.PNT1_ComplexAnalysis
+info: StrongPNT/PNT1_ComplexAnalysis.lean:2968:0: 'borel_caratheodory_II' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7531/7592] Replayed StrongPNT.PNT4_ZeroFreeRegion
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6617:0: 'ZetaZeroFree_p' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: StrongPNT/PNT4_ZeroFreeRegion.lean:6618:0: 'LogDerivZetaBndUnif2' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [7533/7592] Replayed StrongPNT.PNT5_Strong
+info: StrongPNT/PNT5_Strong.lean:5643:0: 'Strong_PNT' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [7586/7592] Built RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms (4.6s)
+✔ [7587/7592] Built RHLean.Proof.SquareRootLowPrimeCanonicalFrontierBridge (4.6s)
+✔ [7588/7592] Built RHLean.Proof.SquareRootLowPrimeSignedResponseChildren (5.0s)
+✖ [7589/7592] Building RHLean.Proof.SquareRootLowPrimeSignedResponseMatching (4.2s)
+trace: .> LEAN_PATH=/home/runner/work/RH_Lean/RH_Lean/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/MD4Lean/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/BibtexQuery/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/UnicodeBasic/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/checkdecls/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/doc-gen4/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/build/lib/lean /home/runner/.elan/toolchains/leanprover--lean4---v4.24.0/bin/lean /home/runner/work/RH_Lean/RH_Lean/RHLean/Proof/SquareRootLowPrimeSignedResponseMatching.lean -o /home/runner/work/RH_Lean/RH_Lean/.lake/build/lib/lean/RHLean/Proof/SquareRootLowPrimeSignedResponseMatching.olean -i /home/runner/work/RH_Lean/RH_Lean/.lake/build/lib/lean/RHLean/Proof/SquareRootLowPrimeSignedResponseMatching.ilean -c /home/runner/work/RH_Lean/RH_Lean/.lake/build/ir/RHLean/Proof/SquareRootLowPrimeSignedResponseMatching.c --setup /home/runner/work/RH_Lean/RH_Lean/.lake/build/ir/RHLean/Proof/SquareRootLowPrimeSignedResponseMatching.setup.json --json
+error: RHLean/Proof/SquareRootLowPrimeSignedResponseMatching.lean:119:2: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  f ≥ 0
+  d ≥ 0
+  d - f ≥ 1
+  c ≥ 0
+where
+ c := ↑((fun n => ell * n) b)
+ d := ↑b
+ f := ↑a
+error: Lean exited with code 1
+✖ [7590/7592] Building RHLean.Proof.SquareRootLowPrimeQuantitativeEnergyReduction (5.0s)
+trace: .> LEAN_PATH=/home/runner/work/RH_Lean/RH_Lean/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/MD4Lean/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/BibtexQuery/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/UnicodeBasic/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/checkdecls/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/doc-gen4/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/packages/StrongPNT/.lake/build/lib/lean:/home/runner/work/RH_Lean/RH_Lean/.lake/build/lib/lean /home/runner/.elan/toolchains/leanprover--lean4---v4.24.0/bin/lean /home/runner/work/RH_Lean/RH_Lean/RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.lean -o /home/runner/work/RH_Lean/RH_Lean/.lake/build/lib/lean/RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.olean -i /home/runner/work/RH_Lean/RH_Lean/.lake/build/lib/lean/RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.ilean -c /home/runner/work/RH_Lean/RH_Lean/.lake/build/ir/RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.c --setup /home/runner/work/RH_Lean/RH_Lean/.lake/build/ir/RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.setup.json --json
+error: RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.lean:86:2: linarith failed to find a contradiction
+case h1.h
+R K j p : ℕ
+hp : Nat.Prime p
+hstep :
+  squareRootLowPrimeRunningImbalanceReal R K j (p - 1) - squareRootLowPrimeRunningImbalanceReal R K j p =
+    squareRootLowPrimeFreshIncrementReal R K j p
+a✝ :
+  squareRootLowPrimeRunningImbalanceReal R K j (p - 1) ^ 2 - squareRootLowPrimeRunningImbalanceReal R K j p ^ 2 <
+    2 * squareRootLowPrimeRunningImbalanceReal R K j (p - 1) * squareRootLowPrimeFreshIncrementReal R K j p -
+      squareRootLowPrimeFreshIncrementReal R K j p ^ 2
+⊢ False
+failed
+error: RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.lean:144:6: Unknown identifier `abs_add`
+error: RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.lean:248:6: Unknown identifier `abs_add`
+error: Lean exited with code 1
+Some required targets logged failures:
+- RHLean.Proof.SquareRootLowPrimeSignedResponseMatching
+- RHLean.Proof.SquareRootLowPrimeQuantitativeEnergyReduction
+error: build failed

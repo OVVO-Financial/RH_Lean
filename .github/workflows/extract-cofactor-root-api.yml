@@ -1,0 +1,40 @@
+name: Extract cofactor-to-root API
+
+on:
+  push:
+    branches: [agent/full-sequential-canonical-frontier-bridge]
+    paths:
+      - research/extract_cofactor_root_api.py
+      - RHLean/**/*.lean
+      - .github/workflows/extract-cofactor-root-api.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: extract-cofactor-root-api-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Extract declarations
+        run: |
+          python3 research/extract_cofactor_root_api.py
+          head -n 120 research/COFACTOR_ROOT_MAPPING_API.md
+
+      - name: Commit index
+        run: |
+          if git diff --quiet -- research/COFACTOR_ROOT_MAPPING_API.md; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/COFACTOR_ROOT_MAPPING_API.md
+          git commit -m "Index the existing cofactor-to-root mapping API"
+          git push

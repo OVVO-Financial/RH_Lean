@@ -1,0 +1,121 @@
+name: Apply quantitative proof repairs
+
+on:
+  push:
+    branches: [agent/full-sequential-canonical-frontier-bridge]
+    paths:
+      - research/patches/SquareRootLowPrimeQuantitativeEnergyReduction.lean
+      - research/patches/SquareRootLowPrimeMatchedFrontierBound.lean
+      - .github/workflows/apply-quantitative-proof-repairs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-quantitative-proof-repairs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Stage conservative proof versions
+        run: |
+          cp research/patches/SquareRootLowPrimeQuantitativeEnergyReduction.lean \
+            RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.lean
+          cp research/patches/SquareRootLowPrimeMatchedFrontierBound.lean \
+            RHLean/Proof/SquareRootLowPrimeMatchedFrontierBound.lean
+
+      - name: Restore Mathlib packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Apply StrongPNT compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+
+      - name: Restore StrongPNT build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Compile the complete quantitative chain
+        id: build
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build \
+            RHLean.Proof.SquareRootLowPrimeSignedResponseChildren \
+            RHLean.Proof.SquareRootLowPrimeSignedResponseMatching \
+            RHLean.Proof.SquareRootLowPrimeMatchingFrontierSaturation \
+            RHLean.Proof.SquareRootLowPrimeQuantitativeEnergyReduction \
+            RHLean.Proof.SquareRootLowPrimeMatchedFrontierBound \
+            RHLean.Proof.SquareRootLowPrimeRunningTelescope \
+            RHLean.Proof.SquareRootLowPrimeMatchingFrontierRootCharge \
+            2>&1 | tee quantitative-proof-repair.log
+
+      - name: Commit compiled proof versions
+        if: ${{ steps.build.outcome == 'success' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.lean \
+            RHLean/Proof/SquareRootLowPrimeMatchedFrontierBound.lean
+          if ! git diff --cached --quiet; then
+            git commit -m "Harden real energy and matched frontier reductions"
+            git push
+          fi
+
+      - name: Commit exact diagnostics on failure
+        if: ${{ steps.build.outcome == 'failure' }}
+        run: |
+          cp quantitative-proof-repair.log \
+            research/quantitative-proof-repair-errors.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/quantitative-proof-repair-errors.txt
+          git commit -m "Record quantitative proof compiler diagnostics"
+          git push
+
+      - name: Fail on compiler diagnostics
+        if: ${{ steps.build.outcome == 'failure' }}
+        run: exit 1
