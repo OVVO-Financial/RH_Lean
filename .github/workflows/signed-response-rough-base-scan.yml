@@ -1,0 +1,120 @@
+name: Signed response rough-base scan
+
+on:
+  push:
+    branches: [agent/full-sequential-canonical-frontier-bridge]
+    paths:
+      - research/signed_response_rough_base_scan.cpp
+      - .github/workflows/signed-response-rough-base-scan.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: signed-response-rough-base-scan-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Compile scanner
+        run: |
+          c++ -O3 -std=c++17 -Wall -Wextra -pedantic \
+            research/signed_response_rough_base_scan.cpp \
+            -o /tmp/signed_response_rough_base_scan
+
+      - name: Scan representative endpoints
+        run: |
+          /tmp/signed_response_rough_base_scan \
+            200 20 \
+            300 25 \
+            500 30 \
+            600 30 \
+            800 30 \
+            1000 31 \
+            1200 31 \
+            1500 32 \
+            2000 33 \
+            > research/signed_response_rough_base_metrics.csv
+          cat research/signed_response_rough_base_metrics.csv
+
+      - name: Write interpretation
+        run: |
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+
+          path = Path('research/signed_response_rough_base_metrics.csv')
+          rows = list(csv.DictReader(path.open()))
+          cols = [
+              'R', 'K', 'children', 'rough_bases', 'nonzero_bases',
+              'unit_residual_bases', 'larger_residual_bases',
+              'total_abs_base_residual', 'max_abs_base_residual',
+              'signed_mass', 'nonzero_bases_over_R_sqrtK',
+              'total_abs_residual_over_R_sqrtK',
+              'abs_signed_mass_over_R_sqrtK',
+          ]
+          all_unit = all(int(r['larger_residual_bases']) == 0 for r in rows)
+          all_root = all(
+              int(r['nonzero_bases']) == int(r['nonzero_bases_at_or_below_root'])
+              for r in rows
+          )
+          max_nonzero_scale = max(float(r['nonzero_bases_over_R_sqrtK']) for r in rows)
+          max_l1_scale = max(float(r['total_abs_residual_over_R_sqrtK']) for r in rows)
+          max_signed_scale = max(float(r['abs_signed_mass_over_R_sqrtK']) for r in rows)
+
+          lines = [
+              '# Signed response residuals by rough base',
+              '',
+              '**Status:** finite route-selection diagnostic only.',
+              '',
+              'Every response child is grouped after stripping all processed',
+              'prime factors in `(K,U]`. This is an exact finite regrouping:',
+              'the sum of all rough-base residuals equals the original signed',
+              'response-child mass.',
+              '',
+              '| ' + ' | '.join(cols) + ' |',
+              '|' + '|'.join(['---:'] * len(cols)) + '|',
+          ]
+          for row in rows:
+              lines.append('| ' + ' | '.join(row[c] for c in cols) + ' |')
+          lines += [
+              '',
+              '## Finite diagnostics',
+              '',
+              f'- Every nonzero base residual had unit magnitude: **{all_unit}**.',
+              f'- Every nonzero residual base lay at or below the root: **{all_root}**.',
+              f'- Maximum `nonzero_bases/(R*sqrt(K))`: `{max_nonzero_scale:.12g}`.',
+              f'- Maximum `L1 base residual/(R*sqrt(K))`: `{max_l1_scale:.12g}`.',
+              f'- Maximum `|signed mass|/(R*sqrt(K))`: `{max_signed_scale:.12g}`.',
+              '',
+              'These observations are not promoted to a theorem. They decide',
+              'whether the next formal target should count nonzero incomplete',
+              'rough-base fibres, or whether a further signed cancellation is',
+              'needed inside those fibres.',
+              '',
+          ]
+          Path('research/SIGNED_RESPONSE_ROUGH_BASE.md').write_text('\n'.join(lines))
+          PY
+          cat research/SIGNED_RESPONSE_ROUGH_BASE.md
+
+      - name: Commit frozen outputs
+        run: |
+          if git diff --quiet -- \
+              research/signed_response_rough_base_metrics.csv \
+              research/SIGNED_RESPONSE_ROUGH_BASE.md; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            research/signed_response_rough_base_metrics.csv \
+            research/SIGNED_RESPONSE_ROUGH_BASE.md
+          git commit -m "Freeze signed rough-base response diagnostics"
+          git push
