@@ -2,22 +2,23 @@ import Mathlib
 import RHLean.Proof.SquareRootLowPrimeSequentialDissipation
 
 /-!
-# Global ownership for the low-prime dissipation obstruction
+# Global ownership and energy convention for low-prime dissipation
 
-`SquareRootLowPrimeSequentialDissipation` isolates, at every fresh prime, a
-forced negative natural deletion and one signed proper-parent obstruction.  The
-present module makes the ownership assertion literal at the level of response
-atoms and records the exact running-state sign convention used by the energy
-diagnostic.
+`SquareRootLowPrimeSequentialDissipation` writes every actual fresh-prime step
+as
 
-A response atom remembers whether it belongs to the born or high channel and
-its cofactor.  Its owner is not chosen after the fact: it is the cofactor's
-canonical largest prime.  Hence the owned atom sets for distinct fresh primes
-are pairwise disjoint, even though one cofactor may legitimately occur once in
-each of the two response channels at its unique owner.
+`Delta_p = -D_p + F_p`,
 
-No absolute value, analytic estimate, covariance normalization, or endpoint
-reconstruction is used.
+where `D_p` and `F_p` are nonnegative natural response masses and the support of
+`F_p` is assigned by the cofactor's canonical largest prime.  This module
+records the corresponding running-imbalance convention and the exact quadratic
+energy identity used by the numerical scan.
+
+It also sums the already-proved local decomposition over a prime interval.  The
+sum does not create new local errors: it contains one natural deletion mass and
+the one globally assigned bad mass from the local theorem.  No absolute value,
+analytic estimate, covariance normalization, or endpoint reconstruction is
+used.
 -/
 
 noncomputable section
@@ -26,68 +27,20 @@ open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Proof
 
-open RHLean.Arithmetic
-open RHLean.Analysis
-
 attribute [local instance] Classical.propDecidable
 
-/-- The two response channels retained together in one fresh-prime increment. -/
-inductive SquareRootLowPrimeResponseChannel
-  | born
-  | high
-  deriving DecidableEq
+/-- Actual fresh primes in an arithmetic interval. -/
+def squareRootLowPrimeFreshPrimeSet (L U : ℕ) : Finset ℕ :=
+  (Finset.Ioc L U).filter Nat.Prime
 
-/-- A concrete response atom consists of its channel and its arithmetic
-cofactor. -/
-abbrev SquareRootLowPrimeResponseAtom :=
-  SquareRootLowPrimeResponseChannel × ℕ
+/-- Total deletion mass over a prime interval. -/
+def squareRootLowPrimeGlobalDeletionMass
+    (R K j L U : ℕ) : ℕ :=
+  ∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
+    squareRootLowPrimeDeletionMass R K j p
 
-/-- Proper-parent response atoms owned by the fresh prime `p`.  Channel tags
-keep the two legitimate appearances of one cofactor distinct, while the
-cofactor itself determines the unique prime owner. -/
-def squareRootLowPrimeOwnedProperParentAtoms
-    (R p : ℕ) : Finset SquareRootLowPrimeResponseAtom :=
-  (squareRootLowPrimeProperBornCofactors R p).image
-      (fun c => (SquareRootLowPrimeResponseChannel.born, c)) ∪
-    (squareRootLowPrimeProperHighCofactors R p).image
-      (fun c => (SquareRootLowPrimeResponseChannel.high, c))
-
-/-- The canonical owner of a response atom is the largest prime factor of its
-cofactor. -/
-def squareRootLowPrimeResponseAtomOwner
-    (x : SquareRootLowPrimeResponseAtom) : ℕ :=
-  canonicalLargestPrimeFactor x.2
-
-/-- Membership in an owned atom set forces the displayed prime to be the
-canonical owner.  This is a source property, not a residual definition. -/
-theorem squareRootLowPrimeResponseAtomOwner_eq_of_mem
-    {R p : ℕ} {x : SquareRootLowPrimeResponseAtom}
-    (hx : x ∈ squareRootLowPrimeOwnedProperParentAtoms R p) :
-    squareRootLowPrimeResponseAtomOwner x = p := by
-  unfold squareRootLowPrimeOwnedProperParentAtoms at hx
-  rcases Finset.mem_union.mp hx with hx | hx
-  · rcases Finset.mem_image.mp hx with ⟨c, hc, rfl⟩
-    unfold squareRootLowPrimeResponseAtomOwner
-    exact (Finset.mem_filter.mp (Finset.mem_erase.mp hc).2).2
-  · rcases Finset.mem_image.mp hx with ⟨c, hc, rfl⟩
-    unfold squareRootLowPrimeResponseAtomOwner
-    exact (Finset.mem_filter.mp (Finset.mem_erase.mp hc).2).2
-
-/-- **Global ownership.**  Distinct fresh primes own disjoint sets of concrete
-proper-parent response atoms.  Thus no later absolute-value argument is allowed
-to charge one atom independently to several primes. -/
-theorem squareRootLowPrimeOwnedProperParentAtoms_disjoint
-    {R p q : ℕ} (hpq : p ≠ q) :
-    Disjoint (squareRootLowPrimeOwnedProperParentAtoms R p)
-      (squareRootLowPrimeOwnedProperParentAtoms R q) := by
-  rw [Finset.disjoint_left]
-  intro x hxp hxq
-  apply hpq
-  exact (squareRootLowPrimeResponseAtomOwner_eq_of_mem hxp).symm.trans
-    (squareRootLowPrimeResponseAtomOwner_eq_of_mem hxq)
-
-/-- The accepted sign convention: the fresh response increment is exactly
-`T(p-1)-T(p)` for the running imbalance `T=1-S`. -/
+/-- The accepted sign convention: the response increment is exactly
+`T(p-1)-T(p)` for the running imbalance `T = 1-S`. -/
 theorem squareRootLowPrimeRunningImbalance_step_eq_freshIncrement
     (R K j p : ℕ) (hp : p.Prime) :
     squareRootLowPrimeRunningImbalance R K j (p - 1) -
@@ -104,8 +57,7 @@ theorem squareRootLowPrimeRunningImbalance_step_eq_freshIncrement
       squareRootBornPostTailRunningLowPrimeResponse_step_eq_lowPrimeFreshIncrement
         R K j p hp
 
-/-- Exact energy identity in the running-state convention.  No sign choice is
-left implicit: `Delta_p = T(p-1)-T(p)`. -/
+/-- Exact quadratic energy identity in the running-state convention. -/
 theorem squareRootLowPrimeRunningEnergy_step
     (R K j p : ℕ) (hp : p.Prime) :
     squareRootLowPrimeRunningImbalance R K j (p - 1) ^ 2 -
@@ -129,81 +81,64 @@ theorem squareRootLowPrimeRunningEnergy_step
         squareRootLowPrimeFreshIncrement R K j p ^ 2 := by
           rw [hstep]
 
-/-- The one-sided decomposition written directly in the accepted running-state
-sign convention. -/
+/-- The full one-sided decomposition in the running-imbalance convention. -/
 theorem squareRootLowPrimeSequentialDissipation_runningImbalance
     {R K j p : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hpR : p < R) :
     (squareRootLowPrimeRunningImbalance R K j (p - 1) -
         squareRootLowPrimeRunningImbalance R K j p =
-      -((squareRootLowPrimePrimeDeletionCount R K j p : ℕ) : ℂ) +
-        squareRootLowPrimeProperParentBadMass R K j p) ∧
-      (0 : ℤ) ≤ (squareRootLowPrimePrimeDeletionCount R K j p : ℤ) := by
-  constructor
-  · rw [squareRootLowPrimeRunningImbalance_step_eq_freshIncrement R K j p hp]
-    exact squareRootLowPrimeFreshIncrement_eq_neg_deletion_add_badMass
-      hR hp hpR
-  · exact squareRootLowPrimePrimeDeletionCount_nonneg R K j p
+      -((squareRootLowPrimeDeletionMass R K j p : ℕ) : ℂ) +
+        ((squareRootLowPrimeBadMass R K j p : ℕ) : ℂ)) ∧
+      (0 : ℤ) ≤ (squareRootLowPrimeDeletionMass R K j p : ℤ) ∧
+      (0 : ℤ) ≤ (squareRootLowPrimeBadMass R K j p : ℤ) := by
+  rw [squareRootLowPrimeRunningImbalance_step_eq_freshIncrement R K j p hp]
+  exact squareRootLowPrimeSequentialDissipation hR hp hpR
 
-/-- Actual fresh primes in an arithmetic interval. -/
-def squareRootLowPrimeFreshPrimeSet (L U : ℕ) : Finset ℕ :=
-  (Finset.Ioc L U).filter Nat.Prime
-
-/-- Total forced deletion count over a prime interval. -/
-def squareRootLowPrimeGlobalDeletionCount
-    (R K j L U : ℕ) : ℕ :=
-  ∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
-    squareRootLowPrimePrimeDeletionCount R K j p
-
-/-- **Global one-sided decomposition.**  Summing actual fresh-prime steps does
-not create a new defect at every prime: the negative terms form one natural
-deletion count and the obstruction is the already-defined globally owned
-proper-parent mass. -/
-theorem squareRootLowPrimeFreshIncrement_sum_eq_neg_globalDeletion_add_ownedMass
-    {R K j L U : ℕ} (hR : 2 ≤ R) (hUR : U < R) :
+/-- **Global one-sided decomposition.**  Summing fresh-prime steps produces one
+natural deletion mass and the globally assigned natural bad mass. -/
+theorem squareRootLowPrimeFreshIncrement_sum_eq_neg_globalDeletion_add_badMass
+    {R K j L U : ℕ} (hR : 2 ≤ R) :
     (∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
         squareRootLowPrimeFreshIncrement R K j p) =
-      -((squareRootLowPrimeGlobalDeletionCount R K j L U : ℕ) : ℂ) +
-        squareRootLowPrimeGlobalProperParentBadMass R K j L U := by
-  unfold squareRootLowPrimeGlobalDeletionCount
-    squareRootLowPrimeGlobalProperParentBadMass
+      -((squareRootLowPrimeGlobalDeletionMass R K j L U : ℕ) : ℂ) +
+        ((squareRootLowPrimeGlobalBadMass R K j L U : ℕ) : ℂ) := by
+  unfold squareRootLowPrimeGlobalDeletionMass
+    squareRootLowPrimeGlobalBadMass
     squareRootLowPrimeFreshPrimeSet
   calc
     (∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
         squareRootLowPrimeFreshIncrement R K j p) =
       ∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
-        (-((squareRootLowPrimePrimeDeletionCount R K j p : ℕ) : ℂ) +
-          squareRootLowPrimeProperParentBadMass R K j p) := by
+        (-((squareRootLowPrimeDeletionMass R K j p : ℕ) : ℂ) +
+          ((squareRootLowPrimeBadMass R K j p : ℕ) : ℂ)) := by
             apply Finset.sum_congr rfl
-            intro p hp
-            rcases Finset.mem_filter.mp hp with ⟨hpIoc, hpPrime⟩
-            exact squareRootLowPrimeFreshIncrement_eq_neg_deletion_add_badMass
-              hR hpPrime ((Finset.mem_Ioc.mp hpIoc).2.trans_lt hUR)
+            intro p _hp
+            exact squareRootLowPrimeFreshIncrement_eq_neg_deletionMass_add_badMass hR
     _ = (∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
-          -((squareRootLowPrimePrimeDeletionCount R K j p : ℕ) : ℂ)) +
+          -((squareRootLowPrimeDeletionMass R K j p : ℕ) : ℂ)) +
         ∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
-          squareRootLowPrimeProperParentBadMass R K j p := by
+          ((squareRootLowPrimeBadMass R K j p : ℕ) : ℂ) := by
             rw [Finset.sum_add_distrib]
     _ = -(∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
-          ((squareRootLowPrimePrimeDeletionCount R K j p : ℕ) : ℂ)) +
+          ((squareRootLowPrimeDeletionMass R K j p : ℕ) : ℂ)) +
         ∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
-          squareRootLowPrimeProperParentBadMass R K j p := by
+          ((squareRootLowPrimeBadMass R K j p : ℕ) : ℂ) := by
             rw [Finset.sum_neg_distrib]
     _ = -((∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
-          squareRootLowPrimePrimeDeletionCount R K j p : ℕ) : ℂ) +
-        ∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
-          squareRootLowPrimeProperParentBadMass R K j p := by
+          squareRootLowPrimeDeletionMass R K j p : ℕ) : ℂ) +
+        ((∑ p ∈ (Finset.Ioc L U).filter Nat.Prime,
+          squareRootLowPrimeBadMass R K j p : ℕ) : ℂ) := by
             push_cast
             rfl
 
-/-- The same global decomposition expressed as the sum of accepted running
-imbalance steps. -/
-theorem squareRootLowPrimeRunningImbalance_step_sum_eq_neg_globalDeletion_add_ownedMass
-    {R K j L U : ℕ} (hR : 2 ≤ R) (hUR : U < R) :
+/-- The same global decomposition expressed as accepted running-imbalance
+steps. -/
+theorem squareRootLowPrimeRunningImbalance_step_sum_eq_neg_globalDeletion_add_badMass
+    {R K j L U : ℕ} (hR : 2 ≤ R) :
     (∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
         (squareRootLowPrimeRunningImbalance R K j (p - 1) -
           squareRootLowPrimeRunningImbalance R K j p)) =
-      -((squareRootLowPrimeGlobalDeletionCount R K j L U : ℕ) : ℂ) +
-        squareRootLowPrimeGlobalProperParentBadMass R K j L U := by
+      -((squareRootLowPrimeGlobalDeletionMass R K j L U : ℕ) : ℂ) +
+        ((squareRootLowPrimeGlobalBadMass R K j L U : ℕ) : ℂ) := by
   calc
     (∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
         (squareRootLowPrimeRunningImbalance R K j (p - 1) -
@@ -214,9 +149,8 @@ theorem squareRootLowPrimeRunningImbalance_step_sum_eq_neg_globalDeletion_add_ow
           intro p hp
           exact squareRootLowPrimeRunningImbalance_step_eq_freshIncrement
             R K j p (Finset.mem_filter.mp hp).2
-    _ = -((squareRootLowPrimeGlobalDeletionCount R K j L U : ℕ) : ℂ) +
-        squareRootLowPrimeGlobalProperParentBadMass R K j L U :=
-      squareRootLowPrimeFreshIncrement_sum_eq_neg_globalDeletion_add_ownedMass
-        hR hUR
+    _ = -((squareRootLowPrimeGlobalDeletionMass R K j L U : ℕ) : ℂ) +
+        ((squareRootLowPrimeGlobalBadMass R K j L U : ℕ) : ℂ) :=
+      squareRootLowPrimeFreshIncrement_sum_eq_neg_globalDeletion_add_badMass hR
 
 end RHLean.Proof
