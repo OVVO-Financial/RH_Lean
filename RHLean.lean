@@ -495,6 +495,8 @@ import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
 import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
 import RHLean.Proof.SquareRootCrossRegionAmplification
 import RHLean.Proof.SquareRootLegalAncestryGramReduction
+import RHLean.Proof.SquareRootLowPrimeSequentialDissipation
+import RHLean.Proof.SquareRootLowPrimeSequentialDissipationOwnership
 import RHLean.Proof.SquareRootMertensEndpointAmplification
 import RHLean.Proof.SquareRootPredecessorPrimeCells
 import RHLean.Proof.SquareRootTruncatedPacketEquivalences
