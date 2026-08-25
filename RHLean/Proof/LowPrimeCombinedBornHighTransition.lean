@@ -92,7 +92,8 @@ theorem squareRootBornPartnerCount_eq_primeIntervalCount_of_lt_root
     squareRootBornPartnerCount R c =
       squareRootPrimeIntervalCount (canonicalLargestPrimeFactor c) c := by
   unfold squareRootBornPartnerCount squareRootPrimeIntervalCount
-  rw [squareRootBornPartnerSet_eq_primeInterval_of_lt_root hcR]
+  rw [squareRootBornPartnerSet_eq_primeIntervalCount_of_lt_root] <;>
+    simp_all only
 
 /-- Explicit born parent/child interval difference when the fresh child remains
 below `R`.  Roughness identifies the child's largest prime factor with `p`. -/
@@ -365,7 +366,7 @@ def squareRootBornPostTailHighCutoffBoundaryLayer
 child lies at or beyond the root while remaining inside the complete square
 endpoint. -/
 @[simp] theorem mem_squareRootBornPostTailHighCutoffBoundaryFaces
-    {R p : ℕ} {u : Finset ℕ} :
+    {R p : ℕ} {u : Finset ℕ} (hR : 1 ≤ R) :
     u ∈ squareRootBornPostTailHighCutoffBoundaryFaces R p ↔
       u ∈ (primesUpTo (p - 1)).powerset ∧
         p * primeFaceProduct u ≤ squareRootEndpoint R ∧
@@ -482,7 +483,7 @@ def squareRootBornPostTailRootCrossingHighBoundaryLayer
 /-- Exact membership description of the uniquely assigned root-crossing
 boundary. -/
 @[simp] theorem mem_squareRootBornPostTailRootCrossingHighBoundaryFaces
-    {R p : ℕ} {u : Finset ℕ} :
+    {R p : ℕ} {u : Finset ℕ} (hR : 1 ≤ R) :
     u ∈ squareRootBornPostTailRootCrossingHighBoundaryFaces R p ↔
       u ∈ (primesUpTo (p - 1)).powerset ∧
         p * primeFaceProduct u ≤ squareRootEndpoint R ∧
@@ -490,7 +491,7 @@ boundary. -/
             R ≤ p * primeFaceProduct u := by
   unfold squareRootBornPostTailRootCrossingHighBoundaryFaces
   rw [Finset.mem_filter,
-    mem_squareRootBornPostTailHighCutoffBoundaryFaces]
+    mem_squareRootBornPostTailHighCutoffBoundaryFaces hR]
   tauto
 
 /-- All discrepancy faces whose parent was already at or beyond the root carry
@@ -511,12 +512,17 @@ theorem squareRootBornPostTailHighCutoffBoundaryLayer_eq_rootCrossing
   · have hrootParent : R ≤ primeFaceProduct u :=
       Nat.le_of_not_gt hparentR
     have hrootChild : R ≤ p * primeFaceProduct u :=
-      (mem_squareRootBornPostTailHighCutoffBoundaryFaces.mp hu).2.2
-    have hparentZero :=
+      (mem_squareRootBornPostTailHighCutoffBoundaryFaces (R := R) (p := p)
+        (u := u) (by omega)).mp hu |>.2.2
+    have hparentZero :
+        squareRootBornPostTailHighResponse R K j (primeFaceProduct u) = 0 :=
       squareRootBornPostTailHighResponse_eq_zero_of_root_le
+        (R := R) (K := K) (j := j) (c := primeFaceProduct u)
         hR hKR hrootParent
-    have hchildZero :=
+    have hchildZero :
+        squareRootBornPostTailHighResponse R K j (p * primeFaceProduct u) = 0 :=
       squareRootBornPostTailHighResponse_eq_zero_of_root_le
+        (R := R) (K := K) (j := j) (c := p * primeFaceProduct u)
         hR hKR hrootChild
     rw [hparentZero, hchildZero]
     simp [hparentR]
