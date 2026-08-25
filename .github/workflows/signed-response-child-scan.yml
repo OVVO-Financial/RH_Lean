@@ -1,0 +1,106 @@
+name: Signed response-child matching scan
+
+on:
+  push:
+    branches: [agent/full-sequential-canonical-frontier-bridge]
+    paths:
+      - research/signed_response_child_matching_scan.cpp
+      - .github/workflows/signed-response-child-scan.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: signed-response-child-scan-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Compile scanner
+        run: |
+          c++ -O3 -std=c++17 -Wall -Wextra -pedantic \
+            research/signed_response_child_matching_scan.cpp \
+            -o /tmp/signed_response_child_matching_scan
+
+      - name: Scan representative endpoints
+        run: |
+          /tmp/signed_response_child_matching_scan \
+            500 30 \
+            1000 31 \
+            2000 33 \
+            > research/signed_response_child_matching_metrics.csv
+          cat research/signed_response_child_matching_metrics.csv
+
+      - name: Write diagnostic summary
+        run: |
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+
+          csv_path = Path('research/signed_response_child_matching_metrics.csv')
+          rows = list(csv.DictReader(csv_path.open()))
+          columns = [
+              'R', 'K', 'children', 'matched_pairs', 'frontier',
+              'signed_mass', 'frontier_born', 'frontier_far',
+              'frontier_over_R', 'frontier_over_R_sqrtK',
+              'abs_mass_over_R', 'abs_mass_over_R_sqrtK',
+          ]
+
+          lines = [
+              '# Complete signed response-child matching diagnostic',
+              '',
+              '**Status:** finite falsification and route-selection data only.',
+              '',
+              'The scanner constructs the exact complete deep response-child carrier,',
+              'then processes every fresh prime coordinate in increasing order. At',
+              'coordinate `ell`, every still-unmatched pair `n, ell*n` lying in the',
+              'carrier is matched. Their Mobius signs are opposite, so every pair',
+              'cancels exactly. The final unmatched population is therefore the',
+              'complete frontier of this concrete sequential matching—not merely the',
+              'previous transition-seat subset.',
+              '',
+              '| ' + ' | '.join(columns) + ' |',
+              '|' + '|'.join(['---:'] * len(columns)) + '|',
+          ]
+          for row in rows:
+              lines.append('| ' + ' | '.join(row[c] for c in columns) + ' |')
+
+          lines += [
+              '',
+              'The identity `signed_mass = frontier_signed_mass` is checked by the',
+              'program, as is `children = 2*matched_pairs + frontier`. No asymptotic',
+              'claim is inferred from this table.',
+              '',
+              'Reproduce with:',
+              '',
+              '```bash',
+              'c++ -O3 -std=c++17 research/signed_response_child_matching_scan.cpp -o /tmp/scan',
+              '/tmp/scan 500 30 1000 31 2000 33',
+              '```',
+              '',
+          ]
+          Path('research/SIGNED_RESPONSE_CHILD_MATCHING.md').write_text('\n'.join(lines))
+          PY
+          cat research/SIGNED_RESPONSE_CHILD_MATCHING.md
+
+      - name: Commit frozen outputs
+        run: |
+          if git diff --quiet -- \
+              research/signed_response_child_matching_metrics.csv \
+              research/SIGNED_RESPONSE_CHILD_MATCHING.md; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            research/signed_response_child_matching_metrics.csv \
+            research/SIGNED_RESPONSE_CHILD_MATCHING.md
+          git commit -m "Freeze signed response-child matching diagnostics"
+          git push
