@@ -45,6 +45,7 @@ jobs:
           targets = {
               "import RHLean.Proof.SquareRootLowPrimeCanonicalFrontierBridge",
               "import RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms",
+              "import RHLean.Proof.SquareRootLowPrimePostRootTransform",
               "import RHLean.Proof.SquareRootLowPrimeResponseForest",
               "import RHLean.Proof.SquareRootLowPrimeResponseFrontier",
               "import RHLean.Proof.SquareRootLowPrimeSignedResponseChildren",
@@ -60,7 +61,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add RHLean.lean
-            git commit -m "Import the signed response forest"
+            git commit -m "Import the post-root cofactor transform"
             git push
           fi
 
@@ -140,6 +141,7 @@ jobs:
             RHLean.Proof.SquareRootLowPrimeSignedResponseEnergy \
             RHLean.Proof.SquareRootLowPrimeResponseFrontier \
             RHLean.Proof.SquareRootLowPrimeResponseForest \
+            RHLean.Proof.SquareRootLowPrimePostRootTransform \
             RHLean.Proof.SquareRootLowPrimeCanonicalFrontierBridge \
             2>&1 | tee fast-check.log
 
