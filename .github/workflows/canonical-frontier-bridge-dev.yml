@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   actions: write
   statuses: write
 
@@ -35,6 +35,33 @@ jobs:
               description: 'Canonical frontier bridge validation is running',
               target_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
             });
+
+      - name: Import development modules
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          manifest = Path("RHLean.lean")
+          targets = {
+              "import RHLean.Proof.SquareRootLowPrimeCanonicalFrontierBridge",
+              "import RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms",
+              "import RHLean.Proof.SquareRootLowPrimeResponseFrontier",
+              "import RHLean.Proof.SquareRootLowPrimeSignedResponseChildren",
+              "import RHLean.Proof.SquareRootLowPrimeSignedResponseEnergy",
+          }
+          lines = [line.strip() for line in manifest.read_text().splitlines() if line.strip()]
+          for target in targets:
+              if target not in lines:
+                  lines.append(target)
+          manifest.write_text("\n".join(sorted(lines)) + "\n")
+          PY
+          if ! git diff --quiet -- RHLean.lean; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add RHLean.lean
+            git commit -m "Import the root-scale response frontier"
+            git push
+          fi
 
       - name: Check paper / Analysis boundary
         run: bash scripts/check_paper_analysis_boundary.sh
@@ -110,6 +137,7 @@ jobs:
             RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms \
             RHLean.Proof.SquareRootLowPrimeSignedResponseChildren \
             RHLean.Proof.SquareRootLowPrimeSignedResponseEnergy \
+            RHLean.Proof.SquareRootLowPrimeResponseFrontier \
             RHLean.Proof.SquareRootLowPrimeCanonicalFrontierBridge \
             2>&1 | tee fast-check.log
 
