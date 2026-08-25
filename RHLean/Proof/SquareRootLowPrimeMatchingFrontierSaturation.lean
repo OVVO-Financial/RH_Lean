@@ -86,7 +86,7 @@ theorem squareRootLowPrimeResponseMatchingFrontier_pair_free
           (squareRootLowPrimeResponseFrontierStep_pair_free hnStep hnot)
             hmStep
       · exact ih (squareRootLowPrimeResponseFrontierStep S q)
-          hTail hn hnot
+          hTail hn
 
 /-- The complete owned matching frontier is pair-free in every actual fresh
 prime direction. -/

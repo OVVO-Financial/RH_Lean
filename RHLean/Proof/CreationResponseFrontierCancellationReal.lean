@@ -39,7 +39,7 @@ theorem abs_creationResponse_realSum_le_unmatchedCards
         ∑ r ∈ R \ creationResponseMatchedImage M φ, wR r| ≤
       |∑ c ∈ C \ M, wC c| +
         |∑ r ∈ R \ creationResponseMatchedImage M φ, wR r| :=
-      abs_add _ _
+      abs_add_le _ _
     _ ≤ (∑ c ∈ C \ M, |wC c|) +
         ∑ r ∈ R \ creationResponseMatchedImage M φ, |wR r| := by
       exact add_le_add

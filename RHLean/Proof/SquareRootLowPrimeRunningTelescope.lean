@@ -68,10 +68,10 @@ theorem squareRootBornPostTailRunningLowPrimeResponse_eq_pred_of_not_prime
   congr 1
   · apply Finset.sum_congr rfl
     intro c _hc
-    rw [canonicalLargestPrimeFactor_le_composite_iff_le_pred hp hnot]
+    simp only [canonicalLargestPrimeFactor_le_composite_iff_le_pred hp hnot]
   · apply Finset.sum_congr rfl
     intro c _hc
-    rw [canonicalLargestPrimeFactor_le_composite_iff_le_pred hp hnot]
+    simp only [canonicalLargestPrimeFactor_le_composite_iff_le_pred hp hnot]
 
 /-- Hence the real running imbalance has zero composite step. -/
 theorem squareRootLowPrimeRunningImbalanceReal_eq_pred_of_not_prime
@@ -86,7 +86,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_eq_pred_of_not_prime
 /-- Generic arithmetic telescope on a natural interval. -/
 theorem real_pred_sub_telescope
     (T : ℕ → ℝ) (K n : ℕ) :
-    (∑ p ∈ Finset.Ioc K (K + n), T (p - 1) - T p) =
+    (∑ p ∈ Finset.Ioc K (K + n), (T (p - 1) - T p)) =
       T K - T (K + n) := by
   induction n with
   | zero => simp
@@ -107,7 +107,7 @@ theorem real_pred_sub_telescope
 /-- Interval form of the generic arithmetic telescope. -/
 theorem real_pred_sub_telescope_Ioc
     (T : ℕ → ℝ) {K U : ℕ} (hKU : K ≤ U) :
-    (∑ p ∈ Finset.Ioc K U, T (p - 1) - T p) = T K - T U := by
+    (∑ p ∈ Finset.Ioc K U, (T (p - 1) - T p)) = T K - T U := by
   have h := real_pred_sub_telescope T K (U - K)
   simpa [Nat.add_sub_of_le hKU] using h
 
