@@ -25,7 +25,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 # This workflow fires on '**.lean', so it followed every Lean commit -- 839
 # runs so far -- and without a concurrency group a burst of pushes left a
@@ -41,30 +41,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: Insert generated root import once
-        if: github.event_name == 'pull_request'
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-
-          manifest = Path("RHLean.lean")
-          target = "import RHLean.Proof.LowPrimeCompletedPartnerWindowFold"
-          lines = manifest.read_text(encoding="utf-8").splitlines()
-          if target not in lines:
-              lines.append(target)
-          lines.sort()
-          manifest.write_text("\n".join(lines) + "\n", encoding="utf-8")
-          PY
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add RHLean.lean
-          if ! git diff --cached --quiet; then
-            git commit -m "Import completed partner fold in root manifest"
-            git push origin HEAD:${{ github.event.pull_request.head.ref }}
-          fi
 
       - name: Verify every export closes as a buildable Lake project
         run: python3 scripts/check_export_sync.py
