@@ -1,0 +1,148 @@
+name: Signed response matching Lean check
+
+on:
+  push:
+    branches: [agent/full-sequential-canonical-frontier-bridge]
+    paths:
+      - RHLean/Proof/SquareRootLowPrimeSignedResponseChildren.lean
+      - RHLean/Proof/SquareRootLowPrimeSignedResponseMatching.lean
+      - RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.lean
+      - .github/workflows/signed-response-matching-lean.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  statuses: write
+
+concurrency:
+  group: signed-response-matching-lean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Publish pending status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'pending',
+              context: 'signed-response-matching-lean',
+              description: 'Signed response matching validation is running',
+              target_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            });
+
+      - name: Import matching modules
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          manifest = Path('RHLean.lean')
+          targets = {
+              'import RHLean.Proof.SquareRootLowPrimeSignedResponseChildren',
+              'import RHLean.Proof.SquareRootLowPrimeSignedResponseMatching',
+              'import RHLean.Proof.SquareRootLowPrimeQuantitativeEnergyReduction',
+          }
+          lines = [line.strip() for line in manifest.read_text().splitlines() if line.strip()]
+          lines = sorted(set(lines) | targets)
+          manifest.write_text('\n'.join(lines) + '\n')
+          PY
+          if ! git diff --quiet -- RHLean.lean; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add RHLean.lean
+            git commit -m "Import signed response matching modules"
+            git push
+          fi
+
+      - name: Audit source and manifest
+        run: |
+          bash scripts/check_paper_analysis_boundary.sh
+          bash scripts/audit_assumptions.sh
+          python3 scripts/check_root_manifest.py
+
+      - name: Restore Mathlib packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Apply StrongPNT compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+
+      - name: Restore StrongPNT build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Build matching modules
+        id: build
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build \
+            RHLean.Proof.SquareRootLowPrimeSignedResponseChildren \
+            RHLean.Proof.SquareRootLowPrimeSignedResponseMatching \
+            RHLean.Proof.SquareRootLowPrimeQuantitativeEnergyReduction \
+            2>&1 | tee signed-response-matching.log
+
+      - name: Publish final status
+        if: ${{ always() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const failed = '${{ steps.build.outcome }}' === 'failure';
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: failed ? 'failure' : 'success',
+              context: 'signed-response-matching-lean',
+              description: failed
+                ? 'Signed response matching validation failed'
+                : 'Signed response matching modules compiled',
+              target_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            });
+
+      - name: Fail on build error
+        if: ${{ steps.build.outcome == 'failure' }}
+        run: exit 1
