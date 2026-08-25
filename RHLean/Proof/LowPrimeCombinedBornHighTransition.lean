@@ -195,4 +195,133 @@ theorem squareRootBornPostTailCombinedParentChildDifference_face_trichotomy
   exact squareRootBornPostTailCombinedParentChildDifference_trichotomy
     hp hpR hR ha hrough hchildR
 
+/-! ## The born finite difference already has deletion/frontier form -/
+
+/-- Prime counts are additive across a nested interval split. -/
+theorem squareRootPrimeIntervalCount_add
+    {L M U : ℕ} (hLM : L ≤ M) (hMU : M ≤ U) :
+    squareRootPrimeIntervalCount L M +
+        squareRootPrimeIntervalCount M U =
+      squareRootPrimeIntervalCount L U := by
+  unfold squareRootPrimeIntervalCount squareRootPrimeIntervalSet
+  have hLM' := primeCard_Ioc_add_primeCounting_eq hLM
+  have hMU' := primeCard_Ioc_add_primeCounting_eq hMU
+  have hLU' := primeCard_Ioc_add_primeCounting_eq (hLM.trans hMU)
+  omega
+
+/-- The primes retained on the small side of a born parent/child pair. -/
+def squareRootBornFrontierPrimeCount (p a : ℕ) : ℕ :=
+  squareRootPrimeIntervalCount
+    (canonicalLargestPrimeFactor a) (min p a)
+
+/-- The new prime interval removed on the large side of a born parent/child
+pair. -/
+def squareRootBornDeletionPrimeCount (p a : ℕ) : ℕ :=
+  squareRootPrimeIntervalCount (max p a) (p * a)
+
+/-- Elementary interval cancellation.  The overlap between `(L,a]` and
+`(p,p*a]` disappears exactly, leaving the small frontier
+`(L,min(p,a)]` minus the newly deleted interval `(max(p,a),p*a]`. -/
+theorem squareRootPrimeIntervalDifference_eq_frontier_sub_deletion
+    {L p a : ℕ} (hp : 0 < p) (hLp : L < p) :
+    ((squareRootPrimeIntervalCount L a : ℕ) : ℂ) -
+        ((squareRootPrimeIntervalCount p (p * a) : ℕ) : ℂ) =
+      ((squareRootPrimeIntervalCount L (min p a) : ℕ) : ℂ) -
+        ((squareRootPrimeIntervalCount (max p a) (p * a) : ℕ) : ℂ) := by
+  by_cases hap : a ≤ p
+  · rw [min_eq_right hap, max_eq_left hap]
+  · have hpa : p ≤ a := Nat.le_of_not_ge hap
+    rw [min_eq_left hpa, max_eq_right hpa]
+    have haChild : a ≤ p * a := Nat.le_mul_of_pos_left a hp
+    have hparent :=
+      squareRootPrimeIntervalCount_add (le_of_lt hLp) hpa
+    have hchild := squareRootPrimeIntervalCount_add hpa haChild
+    have hparentC :
+        ((squareRootPrimeIntervalCount L p : ℕ) : ℂ) +
+            ((squareRootPrimeIntervalCount p a : ℕ) : ℂ) =
+          ((squareRootPrimeIntervalCount L a : ℕ) : ℂ) := by
+      exact_mod_cast hparent
+    have hchildC :
+        ((squareRootPrimeIntervalCount p a : ℕ) : ℂ) +
+            ((squareRootPrimeIntervalCount a (p * a) : ℕ) : ℂ) =
+          ((squareRootPrimeIntervalCount p (p * a) : ℕ) : ℂ) := by
+      exact_mod_cast hchild
+    calc
+      ((squareRootPrimeIntervalCount L a : ℕ) : ℂ) -
+          ((squareRootPrimeIntervalCount p (p * a) : ℕ) : ℂ) =
+        (((squareRootPrimeIntervalCount L p : ℕ) : ℂ) +
+            ((squareRootPrimeIntervalCount p a : ℕ) : ℂ)) -
+          (((squareRootPrimeIntervalCount p a : ℕ) : ℂ) +
+            ((squareRootPrimeIntervalCount a (p * a) : ℕ) : ℂ)) := by
+              rw [hparentC, hchildC]
+      _ = ((squareRootPrimeIntervalCount L p : ℕ) : ℂ) -
+          ((squareRootPrimeIntervalCount a (p * a) : ℕ) : ℂ) := by ring
+
+/-- **Born parent/child response = frontier - deletion.**  This is the local
+signed form sought by the sequential dissipation route; no inequality is used. -/
+theorem squareRootBornPrimeIntervalDifference_eq_frontier_sub_deletion
+    {p a : ℕ} (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor a < p) :
+    squareRootBornPrimeIntervalDifference p a =
+      ((squareRootBornFrontierPrimeCount p a : ℕ) : ℂ) -
+        ((squareRootBornDeletionPrimeCount p a : ℕ) : ℂ) := by
+  unfold squareRootBornPrimeIntervalDifference
+    squareRootBornFrontierPrimeCount squareRootBornDeletionPrimeCount
+  exact squareRootPrimeIntervalDifference_eq_frontier_sub_deletion
+    hp.pos hrough
+
+/-- The combined three-way theorem with the born contribution already exposed
+as a nonnegative deletion count and a canonically located frontier count. -/
+theorem squareRootBornPostTailCombinedParentChildDifference_frontier_trichotomy
+    {R K j p a : ℕ} (hp : p.Prime) (hpR : p ≤ R)
+    (hR : 2 ≤ R) (ha : 0 < a)
+    (hrough : canonicalLargestPrimeFactor a < p)
+    (hchildR : p * a < R) :
+    squareRootBornPostTailCombinedParentChildDifference R K j p a =
+      if p * a ≤ K then
+        ((squareRootBornFrontierPrimeCount p a : ℕ) : ℂ) -
+          ((squareRootBornDeletionPrimeCount p a : ℕ) : ℂ)
+      else if a ≤ K then
+        (((squareRootBornFrontierPrimeCount p a : ℕ) : ℂ) -
+          ((squareRootBornDeletionPrimeCount p a : ℕ) : ℂ)) +
+            squareRootBornPostTailHighTransitionDifference R K j p a
+      else
+        (((squareRootBornFrontierPrimeCount p a : ℕ) : ℂ) -
+          ((squareRootBornDeletionPrimeCount p a : ℕ) : ℂ)) +
+            (lowPrimeCompletedPartnerMixedFold
+              p R (squareRootEndpoint R) a : ℂ) := by
+  rw [squareRootBornPostTailCombinedParentChildDifference_trichotomy
+    hp hpR hR ha hrough hchildR]
+  simp_rw [squareRootBornPrimeIntervalDifference_eq_frontier_sub_deletion
+    hp hrough]
+
+/-! ## The shallow high transition is a window minus admitted seats -/
+
+/-- In the middle case `a <= K < p*a`, the high defect is not opaque.  It is
+the post-root prime-prefix window from `K` to `p*a`, minus the `j` seats already
+admitted in the crossing layer. -/
+theorem squareRootBornPostTailHighTransitionDifference_eq_prefixWindow_sub_admitted
+    {R K j p a : ℕ}
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K)
+    (hK : 1 ≤ K) (hKR : K < R)
+    (haK : a ≤ K) (hchildK : K < p * a) :
+    squareRootBornPostTailHighTransitionDifference R K j p a =
+      squareRootPostRootPrimePrefix R K -
+        squareRootPostRootPrimePrefix R (p * a) - (j : ℂ) := by
+  have hchildNot : ¬ p * a ≤ K := by omega
+  have hN :
+      ((squareRootReciprocalPrimeLayerCard R K : ℕ) : ℂ) =
+        squareRootPostRootPrimePrefix R K -
+          squareRootPostRootPrimePrefix R (K + 1) := by
+    rw [← squareRootReciprocalPrimeCount_eq_layerCard]
+    exact squareRoot_reciprocalPrimeCount_eq_postRootPrefix_diff
+      (by omega : 1 ≤ R) hK hKR
+  unfold squareRootBornPostTailHighTransitionDifference
+    squareRootBornPostTailHighResponse
+  rw [if_pos haK, if_neg hchildNot]
+  rw [Nat.cast_add, Nat.cast_sub hj,
+    squareRootPostRootPrimePrefixCard_cast,
+    squareRootPostRootPrimePrefixCard_cast, hN]
+  ring
+
 end RHLean.Proof
