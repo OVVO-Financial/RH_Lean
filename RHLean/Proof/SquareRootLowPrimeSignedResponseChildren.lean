@@ -73,13 +73,6 @@ theorem squareRootLowPrimeGlobalDeletionMass_eq_ownedCofactorSum
   unfold squareRootLowPrimeGlobalDeletionMass
     squareRootLowPrimeDeletionMass
     squareRootLowPrimeOwnedDeletionCofactors
-  change
-    (∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
-      ∑ c ∈ squareRootLowPrimeDeletionCofactors R p,
-        squareRootLowPrimeCombinedFreshResponse R K j c) =
-      ∑ c ∈ (squareRootLowPrimeFreshPrimeSet L U).biUnion
-        (squareRootLowPrimeDeletionCofactors R),
-          squareRootLowPrimeCombinedFreshResponse R K j c
   rw [← Finset.sum_biUnion
     (squareRootLowPrimeDeletionCofactors_pairwiseDisjoint R L U)]
 
