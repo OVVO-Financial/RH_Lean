@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   actions: write
 
 concurrency:
@@ -20,6 +20,26 @@ jobs:
     steps:
       - name: Check out branch
         uses: actions/checkout@v4
+
+      - name: Generate sorted root import
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          manifest = Path("RHLean.lean")
+          target = "import RHLean.Proof.SquareRootLowPrimeSequentialDissipation"
+          lines = [line.strip() for line in manifest.read_text().splitlines() if line.strip()]
+          if target not in lines:
+              lines.append(target)
+          manifest.write_text("\n".join(sorted(lines)) + "\n")
+          PY
+          if ! git diff --quiet -- RHLean.lean; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add RHLean.lean
+            git commit -m "Import low-prime sequential dissipation module"
+            git push
+          fi
 
       - name: Check paper / Analysis boundary
         run: bash scripts/check_paper_analysis_boundary.sh
