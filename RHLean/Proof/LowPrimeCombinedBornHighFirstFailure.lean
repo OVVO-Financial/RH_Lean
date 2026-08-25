@@ -70,11 +70,12 @@ theorem squareRootBornPostTailHighResponse_sub_child_eq_clipped_sub_transitionSe
   have haChild : a ≤ p * a := Nat.le_mul_of_pos_left a hp.pos
   by_cases hchildK : p * a ≤ K
   · have haK : a ≤ K := haChild.trans hchildK
+    have hnotChildGt : ¬ K < p * a := Nat.not_lt_of_ge hchildK
     have hzero :=
       squareRootBornPostTailHighResponse_sub_child_eq_zero_of_child_le_K
         (R := R) (j := j) hp hchildK
     simpa [squareRootBornPostTailClippedHighResponse,
-      max_eq_left haK, max_eq_left hchildK, hchildK] using hzero
+      max_eq_left haK, max_eq_left hchildK, haK, hnotChildGt] using hzero
   · have hchildGt : K < p * a := Nat.lt_of_not_ge hchildK
     by_cases haK : a ≤ K
     · have htransition :=
