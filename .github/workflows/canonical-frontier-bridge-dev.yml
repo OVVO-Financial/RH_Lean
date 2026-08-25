@@ -55,15 +55,12 @@ jobs:
 
           source = Path("RHLean/Proof/SquareRootLowPrimeSignedResponseChildren.lean")
           text = source.read_text()
-          unused_change = """  change
-            (∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
-              ∑ c ∈ squareRootLowPrimeDeletionCofactors R p,
-                squareRootLowPrimeCombinedFreshResponse R K j c) =
-              ∑ c ∈ (squareRootLowPrimeFreshPrimeSet L U).biUnion
-                (squareRootLowPrimeDeletionCofactors R),
-                  squareRootLowPrimeCombinedFreshResponse R K j c
-          """
-          text = text.replace(unused_change, "")
+          change_start = "  change\n    (∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,"
+          rewrite_start = "  rw [← Finset.sum_biUnion"
+          if change_start in text:
+              start = text.index(change_start)
+              end = text.index(rewrite_start, start)
+              text = text[:start] + text[end:]
           text = text.replace(
               "    _ = 1 := by rw [hcofactor]\n",
               "    _ = 1 := by\n      rw [hcofactor]\n      norm_num\n",
@@ -74,7 +71,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add RHLean.lean RHLean/Proof/SquareRootLowPrimeSignedResponseChildren.lean
-            git commit -m "Fix signed deletion child normalization"
+            git commit -m "Remove unused signed-response change tactic"
             git push
           fi
 
