@@ -101,25 +101,15 @@ theorem squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier
 
 /-- **Direct terminal born no-toggle bound.** -/
 theorem squareRootLowPrimeBornNoSuccessorAtoms_card_le_two_root
-    (R K : ℕ) :
+    (R K : ℕ) (hR : 1 ≤ R) :
     (squareRootLowPrimeBornNoSuccessorAtoms R K
       (squareRootBornPostTailLowPrimeCutoff R)).card ≤ 2 * R := by
-  by_cases hcut : squareRootBornPostTailLowPrimeCutoff R < R
-  · rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hcut]
-    exact squareRootLowPrimeBornFrontierAtoms_card_le_two_root R K
-  · have hzero : R = 0 := by
-      unfold squareRootBornPostTailLowPrimeCutoff at hcut
-      have hsle : Nat.sqrt R ≤ R := Nat.sqrt_le_self R
-      omega
-    subst R
-    simp [squareRootLowPrimeBornNoSuccessorAtoms,
-      squareRootLowPrimeBornResponseAtoms,
-      squareRootLowPrimeOwnedResponseAtoms,
-      squareRootLowPrimeOwnedBadAtoms,
-      squareRootLowPrimeOwnedDeletionAtoms,
-      squareRootLowPrimeOwnedBadCofactors,
-      squareRootLowPrimeOwnedDeletionCofactors,
-      squareRootLowPrimeFreshPrimeSet]
+  have hcut : squareRootBornPostTailLowPrimeCutoff R < R := by
+    unfold squareRootBornPostTailLowPrimeCutoff
+    have hsqrtPos : 0 < Nat.sqrt R := Nat.sqrt_pos.2 (by omega)
+    omega
+  rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hcut]
+  exact squareRootLowPrimeBornFrontierAtoms_card_le_two_root R K
 
 /-- Delete the canonical largest prime from the cofactor coordinate while
 retaining the post-root partner. -/
@@ -138,8 +128,11 @@ theorem squareRootPostRootPrimePartnerSet_canonicalCofactor
   have hlpfPos : 0 < canonicalLargestPrimeFactor c :=
     (canonicalLargestPrimeFactor_prime hc).pos
   have hparentLe : canonicalCofactor c ≤ c := by
-    rw [← hprod]
-    exact Nat.le_mul_of_pos_right _ hlpfPos
+    calc
+      canonicalCofactor c ≤
+          canonicalCofactor c * canonicalLargestPrimeFactor c :=
+        Nat.le_mul_of_pos_right _ hlpfPos
+      _ = c := hprod
   exact Finset.mem_filter.mpr
     ⟨hqRange, hqPrime,
       (Nat.mul_le_mul_right q hparentLe).trans hcq⟩
@@ -180,25 +173,19 @@ theorem squareRootLowPrimeCanonicalParent_mem_ownedResponseCofactors
     rcases hcSign with h | h <;> omega
   have hsq : Squarefree c :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hcMuNe
-  have hcPos : 0 < c := by
-    rcases mem_squareRootLowPrimeOwnedResponseCofactors.mp hc with hcBad | hcDel
-    · exact (squareRootLowPrimeOwnedBadCofactor_data hcBad).1
-    · exact (squareRootLowPrimeOwnedDeletionCofactor_data hcDel).1
   have hcGt : 1 < c := by
     by_contra h
     have hcEq : c = 1 := by omega
     subst c
-    simp [canonicalLargestPrimeFactor] at hcOwnerPrime
-  have hparentSq : Squarefree (canonicalCofactor c) :=
-    squarefree_canonicalCofactor hsq hcGt
-  have hparentMuNe : μ (canonicalCofactor c) ≠ 0 :=
-    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hparentSq
+    norm_num [canonicalLargestPrimeFactor] at hcOwnerPrime
+  have hflip := canonicalSignedParent_moebius hsq hcGt
   have hparentSign :
       μ (canonicalCofactor c) = 1 ∨ μ (canonicalCofactor c) = -1 := by
-    have hbound := ArithmeticFunction.abs_moebius_le_one
-      (n := canonicalCofactor c)
-    rw [abs_le] at hbound
-    omega
+    rcases hcSign with hpos | hneg
+    · right
+      omega
+    · left
+      omega
   have hprod := canonicalCofactor_mul_largestPrimeFactor hcGt
   have hparentPos : 0 < canonicalCofactor c := by
     by_contra h
@@ -206,8 +193,11 @@ theorem squareRootLowPrimeCanonicalParent_mem_ownedResponseCofactors
     rw [hzero, zero_mul] at hprod
     omega
   have hparentLe : canonicalCofactor c ≤ c := by
-    rw [← hprod]
-    exact Nat.le_mul_of_pos_right _ hcOwnerPrime.pos
+    calc
+      canonicalCofactor c ≤
+          canonicalCofactor c * canonicalLargestPrimeFactor c :=
+        Nat.le_mul_of_pos_right _ hcOwnerPrime.pos
+      _ = c := hprod
   have hcUpper : c ≤ squareRootEndpoint R := by
     rcases mem_squareRootLowPrimeOwnedResponseCofactors.mp hc with hcBad | hcDel
     · unfold squareRootLowPrimeOwnedBadCofactors at hcBad
@@ -260,15 +250,11 @@ theorem squareRootLowPrimePostRootCanonicalParentAtom_mem
     canonicalLargestPrimeFactor_mem_freshPrimeSet_of_mem_ownedResponseCofactors
       hcOwned
   have hcPrime := (Finset.mem_filter.mp hcOwner).2
-  have hcPos : 0 < z.1 := by
-    rcases mem_squareRootLowPrimeOwnedResponseCofactors.mp hcOwned with h | h
-    · exact (squareRootLowPrimeOwnedBadCofactor_data h).1
-    · exact (squareRootLowPrimeOwnedDeletionCofactor_data h).1
   have hcGt : 1 < z.1 := by
     by_contra h
     have hcEq : z.1 = 1 := by omega
     rw [hcEq] at hcPrime
-    simp [canonicalLargestPrimeFactor] at hcPrime
+    norm_num [canonicalLargestPrimeFactor] at hcPrime
   have hparentOwned :=
     squareRootLowPrimeCanonicalParent_mem_ownedResponseCofactors
       hcOwned hparentOwner
@@ -304,6 +290,17 @@ theorem squareRootLowPrimePostRootInteriorNoToggleAtoms_eq_empty
     (squareRootLowPrimePostRootInteriorNoToggleAtoms R K U).card = 0 := by
   rw [squareRootLowPrimePostRootInteriorNoToggleAtoms_eq_empty]
   simp
+
+/-- The two directly controlled no-toggle populations have total cardinality at
+most `2*R` at the canonical terminal cutoff. -/
+theorem squareRootLowPrimeDirectNoTogglePopulations_card_le_two_root
+    (R K : ℕ) (hR : 1 ≤ R) :
+    (squareRootLowPrimeBornNoSuccessorAtoms R K
+        (squareRootBornPostTailLowPrimeCutoff R)).card +
+      (squareRootLowPrimePostRootInteriorNoToggleAtoms R K
+        (squareRootBornPostTailLowPrimeCutoff R)).card ≤ 2 * R := by
+  rw [squareRootLowPrimePostRootInteriorNoToggleAtoms_card]
+  simpa using squareRootLowPrimeBornNoSuccessorAtoms_card_le_two_root R K hR
 
 /-- Therefore absence of the post-root canonical predecessor can occur only
 when the parent owner has left the processed prime interval. -/
