@@ -67,8 +67,9 @@ private theorem one_le_root_of_middlePrime
   by_contra hR
   have hR0 : R = 0 := by omega
   subst R
-  have hq0 : q ≤ 0 := by
-    simpa [squareRootEndpoint] using hqle
+  have hqpos : 0 < q := hq.pos
+  unfold squareRootEndpoint at hqle
+  norm_num at hqle
   omega
 
 /-- Every middle reciprocal quotient lies in the exact finite shell range
