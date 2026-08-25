@@ -16,9 +16,10 @@ energy identity used by the numerical scan.
 
 It also sums the already-proved local decomposition over a prime interval.  The
 sum does not create new local errors: it contains one natural deletion mass and
-the one globally assigned bad mass from the local theorem.  No absolute value,
-analytic estimate, covariance normalization, or endpoint reconstruction is
-used.
+the one globally assigned bad mass from the local theorem.  The latter is
+realized below as one sum over the literal disjoint union of its canonically
+owned cofactor fibres.  No absolute value, analytic estimate, covariance
+normalization, or endpoint reconstruction is used.
 -/
 
 noncomputable section
@@ -38,6 +39,42 @@ def squareRootLowPrimeGlobalDeletionMass
     (R K j L U : ℕ) : ℕ :=
   ∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
     squareRootLowPrimeDeletionMass R K j p
+
+/-- The literal union of all positive-orientation cofactors in the selected
+fresh-prime interval.  The union is disjoint by the unique largest-prime owner
+proved below. -/
+def squareRootLowPrimeOwnedBadCofactors
+    (R L U : ℕ) : Finset ℕ :=
+  (squareRootLowPrimeFreshPrimeSet L U).biUnion
+    (squareRootLowPrimeBadCofactors R)
+
+/-- The bad cofactor fibres over actual fresh primes are pairwise disjoint. -/
+theorem squareRootLowPrimeBadCofactors_pairwiseDisjoint
+    (R L U : ℕ) :
+    Set.PairwiseDisjoint (↑(squareRootLowPrimeFreshPrimeSet L U))
+      (squareRootLowPrimeBadCofactors R) := by
+  intro p _hp q _hq hpq
+  exact squareRootLowPrimeBadCofactors_disjoint hpq
+
+/-- **Literal global ownership.**  The global positive obstruction is one sum
+on one disjoint support, not a collection of independently charged local
+errors.  Every cofactor occurs in the union at its unique largest-prime owner. -/
+theorem squareRootLowPrimeGlobalBadMass_eq_ownedCofactorSum
+    (R K j L U : ℕ) :
+    squareRootLowPrimeGlobalBadMass R K j L U =
+      ∑ c ∈ squareRootLowPrimeOwnedBadCofactors R L U,
+        squareRootLowPrimeCombinedFreshResponse R K j c := by
+  unfold squareRootLowPrimeGlobalBadMass squareRootLowPrimeBadMass
+    squareRootLowPrimeOwnedBadCofactors
+  change
+    (∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
+      ∑ c ∈ squareRootLowPrimeBadCofactors R p,
+        squareRootLowPrimeCombinedFreshResponse R K j c) =
+      ∑ c ∈ (squareRootLowPrimeFreshPrimeSet L U).biUnion
+        (squareRootLowPrimeBadCofactors R),
+          squareRootLowPrimeCombinedFreshResponse R K j c
+  rw [← Finset.sum_biUnion
+    (squareRootLowPrimeBadCofactors_pairwiseDisjoint R L U)]
 
 /-- The accepted sign convention: the response increment is exactly
 `T(p-1)-T(p)` for the running imbalance `T = 1-S`. -/
@@ -131,6 +168,18 @@ theorem squareRootLowPrimeFreshIncrement_sum_eq_neg_globalDeletion_add_badMass
             push_cast
             rfl
 
+/-- The global decomposition with the obstruction exposed on its one literal
+owned support. -/
+theorem squareRootLowPrimeFreshIncrement_sum_eq_neg_globalDeletion_add_ownedBadMass
+    {R K j L U : ℕ} (hR : 2 ≤ R) :
+    (∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
+        squareRootLowPrimeFreshIncrement R K j p) =
+      -((squareRootLowPrimeGlobalDeletionMass R K j L U : ℕ) : ℂ) +
+        ((∑ c ∈ squareRootLowPrimeOwnedBadCofactors R L U,
+          squareRootLowPrimeCombinedFreshResponse R K j c : ℕ) : ℂ) := by
+  rw [squareRootLowPrimeFreshIncrement_sum_eq_neg_globalDeletion_add_badMass hR,
+    squareRootLowPrimeGlobalBadMass_eq_ownedCofactorSum]
+
 /-- The same global decomposition expressed as accepted running-imbalance
 steps. -/
 theorem squareRootLowPrimeRunningImbalance_step_sum_eq_neg_globalDeletion_add_badMass
@@ -153,5 +202,18 @@ theorem squareRootLowPrimeRunningImbalance_step_sum_eq_neg_globalDeletion_add_ba
     _ = -((squareRootLowPrimeGlobalDeletionMass R K j L U : ℕ) : ℂ) +
         ((squareRootLowPrimeGlobalBadMass R K j L U : ℕ) : ℂ) :=
       squareRootLowPrimeFreshIncrement_sum_eq_neg_globalDeletion_add_badMass hR
+
+/-- Running-imbalance version with the bad term exposed on its one literal
+owned support. -/
+theorem squareRootLowPrimeRunningImbalance_step_sum_eq_neg_globalDeletion_add_ownedBadMass
+    {R K j L U : ℕ} (hR : 2 ≤ R) :
+    (∑ p ∈ squareRootLowPrimeFreshPrimeSet L U,
+        (squareRootLowPrimeRunningImbalance R K j (p - 1) -
+          squareRootLowPrimeRunningImbalance R K j p)) =
+      -((squareRootLowPrimeGlobalDeletionMass R K j L U : ℕ) : ℂ) +
+        ((∑ c ∈ squareRootLowPrimeOwnedBadCofactors R L U,
+          squareRootLowPrimeCombinedFreshResponse R K j c : ℕ) : ℂ) := by
+  rw [squareRootLowPrimeRunningImbalance_step_sum_eq_neg_globalDeletion_add_badMass hR,
+    squareRootLowPrimeGlobalBadMass_eq_ownedCofactorSum]
 
 end RHLean.Proof
