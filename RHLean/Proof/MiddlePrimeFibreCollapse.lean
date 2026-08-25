@@ -211,7 +211,8 @@ theorem middlePrimeShell_sum_eq_neg_count_mul_mertens
         -nativeMertens (squareRootEndpoint R / q) := by
           apply Finset.sum_congr rfl
           intro q hq
-          exact middlePrimeFibreResidual_eq_neg_mertens hq
+          simpa [middlePrimeFibreResidual] using
+            (middlePrimeFibreResidual_eq_neg_mertens hq)
     _ = -(∑ q ∈ middlePrimeSet R,
         nativeMertens (squareRootEndpoint R / q) : ℤ) := by
           rw [Finset.sum_neg_distrib]
