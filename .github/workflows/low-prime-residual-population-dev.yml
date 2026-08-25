@@ -71,6 +71,7 @@ jobs:
         run: python3 scripts/check_root_manifest.py
 
       - name: Restore StrongPNT port build cache
+        id: strongpnt_cache
         uses: actions/cache/restore@v5
         with:
           path: |
@@ -82,6 +83,15 @@ jobs:
 
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
+
+      - name: Save StrongPNT port build cache
+        if: ${{ !cancelled() && steps.strongpnt_cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
 
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
