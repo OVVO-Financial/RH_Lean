@@ -504,6 +504,7 @@ import RHLean.Proof.SquareRootLowPrimePostRootTransform
 import RHLean.Proof.SquareRootLowPrimeQuantitativeEnergyReduction
 import RHLean.Proof.SquareRootLowPrimeResponseForest
 import RHLean.Proof.SquareRootLowPrimeResponseFrontier
+import RHLean.Proof.SquareRootLowPrimeRunningTelescope
 import RHLean.Proof.SquareRootLowPrimeSequentialDissipation
 import RHLean.Proof.SquareRootLowPrimeSequentialDissipationOwnership
 import RHLean.Proof.SquareRootLowPrimeSignedResponseChildren
