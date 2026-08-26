@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.SquareRootLowPrimeProcessedSeatMatching
+import RHLean.Proof.SquareRootLowPrimeDisplacementDiamond
 
 /-!
 # Descending-prime stability of processed-seat pivots
@@ -68,22 +68,6 @@ theorem squareRootLowPrimeProcessedSeatDescendingTerminalFrontier_weight_sum
     at hmatch
   exact hmatch.symm
 
-/-- Prime extensions commute.  This is the arithmetic square used to compare
-larger- and smaller-prime matching coordinates. -/
-theorem squareRootLowPrimeProcessedSeatExtend_comm
-    (p q : ℕ) (x : Option (ℕ × ℕ)) :
-    squareRootLowPrimeProcessedSeatExtend p
-        (squareRootLowPrimeProcessedSeatExtend q x) =
-      squareRootLowPrimeProcessedSeatExtend q
-        (squareRootLowPrimeProcessedSeatExtend p x) := by
-  rcases x with _ | z
-  · rfl
-  · simp only [squareRootLowPrimeProcessedSeatExtend, Option.some.injEq,
-      Prod.mk.injEq]
-    constructor
-    · ac_rfl
-    · rfl
-
 /-- A state fresh in the `q` coordinate cannot be an upper endpoint of a
 `q`-pair. -/
 theorem squareRootLowPrimeProcessedSeat_not_mem_pairUpper_of_fresh
@@ -99,10 +83,11 @@ theorem squareRootLowPrimeProcessedSeat_not_mem_pairUpper_of_fresh
   · rcases x with _ | z
     · simp [squareRootLowPrimeProcessedSeatExtend] at hyx
     · simp only [squareRootLowPrimeProcessedSeatExtend,
-        Option.some.injEq, Prod.mk.injEq] at hyx
+        Option.some.injEq] at hyx
+      have hfirst := congrArg Prod.fst hyx
       apply hfresh
       change q ∣ z.1
-      exact ⟨w.1, hyx.1.symm⟩
+      exact ⟨w.1, hfirst.symm⟩
 
 /-- If the two endpoints of a `p`-edge see the same `q`-extension membership,
 then they are simultaneously lower endpoints of the `q`-matching. -/
@@ -123,11 +108,15 @@ theorem squareRootLowPrimeProcessedSeatPairLower_mem_iff_of_fresh_square
     x ∈ squareRootLowPrimeProcessedSeatPairLower S q ↔
       squareRootLowPrimeProcessedSeatExtend p x ∈
         squareRootLowPrimeProcessedSeatPairLower S q := by
-  rw [mem_squareRootLowPrimeProcessedSeatPairLower,
-    mem_squareRootLowPrimeProcessedSeatPairLower]
-  simp only [hxS, hpxS, hxNone, hpxNone, hqFreshX, hqFreshPX,
-    true_and]
-  exact hsquare
+  constructor
+  · intro hxLower
+    have hxData := mem_squareRootLowPrimeProcessedSeatPairLower.mp hxLower
+    apply mem_squareRootLowPrimeProcessedSeatPairLower.mpr
+    exact ⟨hpxS, hpxNone, hqFreshPX, hsquare.mp hxData.2.2.2⟩
+  · intro hpxLower
+    have hpxData := mem_squareRootLowPrimeProcessedSeatPairLower.mp hpxLower
+    apply mem_squareRootLowPrimeProcessedSeatPairLower.mpr
+    exact ⟨hxS, hxNone, hqFreshX, hsquare.mpr hpxData.2.2.2⟩
 
 /-- **One-step pivot synchronization.**  Under the commuting-square condition,
 a fresh `q`-matching preserves the two endpoints of a `p`-edge together: after
