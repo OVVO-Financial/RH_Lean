@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Proof.SquareRootLowPrimeBornSquareBoundary
 import RHLean.Proof.SquareRootLowPrimeHighSupportDichotomy
 
 /-!
@@ -96,18 +97,6 @@ theorem squarefree_of_dvd_ownedResponseCofactor
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hcMuNe
   exact hcSq.squarefree_of_dvd hdc
 
-/-- The largest prime of a nontrivial divisor does not exceed the largest prime
-of the ambient cofactor. -/
-theorem canonicalLargestPrimeFactor_le_of_dvd
-    {c d : ℕ} (hc : 1 < c) (hd : 1 < d) (hdc : d ∣ c) :
-    canonicalLargestPrimeFactor d ≤ canonicalLargestPrimeFactor c := by
-  have hdPrime : (canonicalLargestPrimeFactor d).Prime :=
-    canonicalLargestPrimeFactor_prime hd
-  have hdDvdD : canonicalLargestPrimeFactor d ∣ d :=
-    canonicalLargestPrimeFactor_dvd hd
-  have hdDvdC : canonicalLargestPrimeFactor d ∣ c := dvd_trans hdDvdD hdc
-  exact prime_dvd_le_canonicalLargestPrimeFactor hc hdPrime hdDvdC
-
 /-- **Born divisor-parent closure above the order boundary.** -/
 theorem squareRootLowPrimeBornDivisorAtom_mem
     {R K U c d q : ℕ}
@@ -131,7 +120,7 @@ theorem squareRootLowPrimeBornDivisorAtom_mem
   have hcGt : 1 < c := lt_of_lt_of_le hdGt (Nat.le_of_dvd hcPos hdc)
   have hdSq := squarefree_of_dvd_ownedResponseCofactor hcOwned hdc
   have hrough : canonicalLargestPrimeFactor d < q :=
-    (canonicalLargestPrimeFactor_le_of_dvd hcGt hdGt hdc).trans_lt
+    (canonicalLargestPrimeFactor_le_of_dvd hd hcGt hdc).trans_lt
       hqData.2.2.1
   have hdq : d * q ≤ squareRootEndpoint R :=
     (Nat.mul_le_mul_right q (Nat.le_of_dvd hcPos hdc)).trans
