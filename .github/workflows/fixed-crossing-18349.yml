@@ -1,0 +1,36 @@
+name: Fixed reciprocal crossing 18349 check
+
+on:
+  push:
+    branches:
+      - agent/canonical-liberty-augmenting-path
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache/restore@v5
+        with:
+          path: |
+            ~/.elan
+            .lake/packages
+          key: lean-deps-${{ runner.os }}-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}
+          restore-keys: |
+            lean-deps-${{ runner.os }}-
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+      - name: Apply StrongPNT compatibility patch
+        run: |
+          if [ -f scripts/apply_strongpnt_patch.sh ]; then
+            bash scripts/apply_strongpnt_patch.sh
+          fi
+      - name: Prebuild StrongPNT dependency
+        run: lake env lean StrongPNT.lean
+      - name: Kernel-check fixed crossing theorem
+        run: lake env lean RHLean/Analysis/SquareRootFixedCrossing18349.lean
