@@ -64,6 +64,10 @@ theorem squareRootLowPrimePartialPacketBoundary_card_lt_depth
       (Int.toNat (squareRootCrossingLayerPartialPacketInt R K j) : ℤ) =
         squareRootCrossingLayerPartialPacketInt R K j :=
     Int.toNat_of_nonneg hV0
-  exact_mod_cast hVK
+  have hltZ :
+      (Int.toNat (squareRootCrossingLayerPartialPacketInt R K j) : ℤ) < (K : ℤ) := by
+    rw [hcast]
+    exact hVK
+  exact_mod_cast hltZ
 
 end RHLean.Proof
