@@ -76,6 +76,7 @@ jobs:
           set -o pipefail
           lake build \
             RHLean.Proof.SquareRootLowPrimeCanonicalLiberty \
+            RHLean.Proof.SquareRootLowPrimeCanonicalLibertyPartition \
             RHLean.Proof.SquareRootLowPrimePartialPacketBoundary \
             2>&1 | tee canonical-liberty-packet.log
       - name: Commit diagnostics on failure
