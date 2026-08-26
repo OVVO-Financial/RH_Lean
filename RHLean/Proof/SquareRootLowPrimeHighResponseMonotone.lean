@@ -67,16 +67,12 @@ theorem squareRootBornPostTailHighResponse_antitone
       rw [if_neg hbK, if_neg haK]
       exact squareRootPostRootPrimePrefixCard_antitone ha hab
 
-/-- Multiplying a positive cofactor can only decrease its high response. -/
+/-- Multiplying by a positive factor can only decrease the high response. -/
 theorem squareRootBornPostTailHighResponse_mul_le
-    (R K j p c : ℕ) (hc : 0 < c) :
+    (R K j p c : ℕ) (hp : 0 < p) (hc : 0 < c) :
     squareRootBornPostTailHighResponse R K j (p * c) ≤
       squareRootBornPostTailHighResponse R K j c := by
-  by_cases hp : 0 < p
-  · apply squareRootBornPostTailHighResponse_antitone hc
-    exact Nat.le_mul_of_pos_left c hp
-  · have hp0 : p = 0 := Nat.eq_zero_of_not_pos hp
-    subst p
-    simp [squareRootBornPostTailHighResponse]
+  apply squareRootBornPostTailHighResponse_antitone hc
+  exact Nat.le_mul_of_pos_left c hp
 
 end RHLean.Proof
