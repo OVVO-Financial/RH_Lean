@@ -514,6 +514,7 @@ import RHLean.Proof.SquareRootLowPrimeDisplacementDiamond
 import RHLean.Proof.SquareRootLowPrimeDisplacementTower
 import RHLean.Proof.SquareRootLowPrimeEulerCreationResponseEnergyGate
 import RHLean.Proof.SquareRootLowPrimeHighDivisorDownwardClosure
+import RHLean.Proof.SquareRootLowPrimeHighResponseMonotone
 import RHLean.Proof.SquareRootLowPrimeHighSupportDichotomy
 import RHLean.Proof.SquareRootLowPrimeMatchedFrontierBound
 import RHLean.Proof.SquareRootLowPrimeMatchingDisplacement
@@ -540,6 +541,7 @@ import RHLean.Proof.SquareRootLowPrimeSequentialDissipationOwnership
 import RHLean.Proof.SquareRootLowPrimeSignedResponseChildren
 import RHLean.Proof.SquareRootLowPrimeSignedResponseEnergy
 import RHLean.Proof.SquareRootLowPrimeSignedResponseMatching
+import RHLean.Proof.SquareRootLowPrimeSquareDefect
 import RHLean.Proof.SquareRootLowPrimeUpperDisplacement
 import RHLean.Proof.SquareRootMertensEndpointAmplification
 import RHLean.Proof.SquareRootPredecessorPrimeCells
