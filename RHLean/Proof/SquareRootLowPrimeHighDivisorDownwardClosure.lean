@@ -35,13 +35,12 @@ attribute [local instance] Classical.propDecidable
 /-- Post-root partner support is downward closed in the cofactor under any
 positive divisor relation. -/
 theorem squareRootPostRootPrimePartnerSet_of_dvd
-    {R c d q : ℕ} (hd : 0 < d) (hdc : d ∣ c)
+    {R c d q : ℕ} (hc : 0 < c) (hd : 0 < d) (hdc : d ∣ c)
     (hq : q ∈ squareRootPostRootPrimePartnerSet R c) :
     q ∈ squareRootPostRootPrimePartnerSet R d := by
   unfold squareRootPostRootPrimePartnerSet at hq ⊢
   rcases Finset.mem_filter.mp hq with ⟨hqRange, hqPrime, hcq⟩
-  have hcPos : 0 < c := lt_of_lt_of_le hd (Nat.le_of_dvd hd hdc)
-  have hdcLe : d ≤ c := Nat.le_of_dvd hcPos hdc
+  have hdcLe : d ≤ c := Nat.le_of_dvd hc hdc
   exact Finset.mem_filter.mpr
     ⟨hqRange, hqPrime,
       (Nat.mul_le_mul_right q hdcLe).trans hcq⟩
@@ -67,7 +66,11 @@ theorem squareRootLowPrimeResponseDivisor_mem_ownedResponseCofactors
   have hdBound := ArithmeticFunction.abs_moebius_le_one (n := d)
   rw [abs_le] at hdBound
   have hdSign : μ d = 1 ∨ μ d = -1 := by omega
-  have hcPos : 0 < c := lt_of_lt_of_le hd (Nat.le_of_dvd hd hdc)
+  have hcPos : 0 < c := by
+    by_contra h
+    have hc0 : c = 0 := Nat.eq_zero_of_not_pos h
+    subst c
+    simp at hcMuNe
   have hdUpper : d ≤ squareRootEndpoint R :=
     (Nat.le_of_dvd hcPos hdc).trans hcUpper
   have hdFresh :
@@ -117,6 +120,15 @@ theorem squareRootLowPrimePostRootDivisorAtom_mem
   have hcOwned :=
     squareRootLowPrimeOwnedResponseAtom_fst_mem_ownedResponseCofactors
       hzResponse
+  have hcSign :=
+    squareRootLowPrimeOwnedResponseCofactor_moebius_eq_one_or_neg_one hcOwned
+  have hcMuNe : μ c ≠ 0 := by
+    rcases hcSign with h | h <;> omega
+  have hcPos : 0 < c := by
+    by_contra h
+    have hc0 : c = 0 := Nat.eq_zero_of_not_pos h
+    subst c
+    simp at hcMuNe
   have hqData := Finset.mem_filter.mp hzPost
   have hcUpper : c ≤ squareRootEndpoint R := by
     have hcLeProd : c ≤ c * q := by
@@ -125,7 +137,8 @@ theorem squareRootLowPrimePostRootDivisorAtom_mem
   have hdOwned :=
     squareRootLowPrimeResponseDivisor_mem_ownedResponseCofactors
       hcOwned hd hdc hcUpper hdOwner
-  have hdPost := squareRootPostRootPrimePartnerSet_of_dvd hd hdc hzPost
+  have hdPost :=
+    squareRootPostRootPrimePartnerSet_of_dvd hcPos hd hdc hzPost
   apply mem_squareRootLowPrimePostRootResponseAtoms.mpr
   exact ⟨squareRootLowPrimeOwnedResponseAtom_of_ownedCofactor
       hdOwned (Finset.mem_union.mpr (Or.inr hdPost)),
@@ -148,7 +161,7 @@ theorem squareRootLowPrimePostRoot_missingDivisor_supported_at_owner_cutoff
 theorem squareRootLowPrimePostRoot_primeFactorParent_mem
     {R K U c d r q : ℕ}
     (hz : (c, q) ∈ squareRootLowPrimePostRootResponseAtoms R K U)
-    (hr : r.Prime) (hd : 0 < d) (hprod : d * r = c)
+    (_hr : r.Prime) (hd : 0 < d) (hprod : d * r = c)
     (hdOwner : canonicalLargestPrimeFactor d ∈
       squareRootLowPrimeFreshPrimeSet K U) :
     (d, q) ∈ squareRootLowPrimePostRootResponseAtoms R K U := by
