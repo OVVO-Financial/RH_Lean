@@ -43,8 +43,11 @@ theorem squareRootLowPrimeProcessedSeatExtend_comm
         (squareRootLowPrimeProcessedSeatExtend p x) := by
   rcases x with _ | z
   · rfl
-  · simp [squareRootLowPrimeProcessedSeatExtend,
-      Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm]
+  · simp only [squareRootLowPrimeProcessedSeatExtend, Option.some.injEq]
+    apply Prod.ext
+    · dsimp
+      ac_rfl
+    · rfl
 
 /-- Extending a non-head state keeps it non-head. -/
 theorem squareRootLowPrimeProcessedSeatExtend_ne_none
