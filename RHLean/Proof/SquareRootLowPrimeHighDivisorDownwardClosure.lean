@@ -35,7 +35,7 @@ attribute [local instance] Classical.propDecidable
 /-- Post-root partner support is downward closed in the cofactor under any
 positive divisor relation. -/
 theorem squareRootPostRootPrimePartnerSet_of_dvd
-    {R c d q : ℕ} (hc : 0 < c) (hd : 0 < d) (hdc : d ∣ c)
+    {R c d q : ℕ} (hc : 0 < c) (_hd : 0 < d) (hdc : d ∣ c)
     (hq : q ∈ squareRootPostRootPrimePartnerSet R c) :
     q ∈ squareRootPostRootPrimePartnerSet R d := by
   unfold squareRootPostRootPrimePartnerSet at hq ⊢
@@ -57,7 +57,11 @@ theorem squareRootLowPrimeResponseDivisor_mem_ownedResponseCofactors
   have hcSign :=
     squareRootLowPrimeOwnedResponseCofactor_moebius_eq_one_or_neg_one hc
   have hcMuNe : μ c ≠ 0 := by
-    rcases hcSign with h | h <;> omega
+    rcases hcSign with h | h
+    · rw [h]
+      norm_num
+    · rw [h]
+      norm_num
   have hcSq : Squarefree c :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hcMuNe
   have hdSq : Squarefree d := hcSq.squarefree_of_dvd hdc
@@ -123,7 +127,11 @@ theorem squareRootLowPrimePostRootDivisorAtom_mem
   have hcSign :=
     squareRootLowPrimeOwnedResponseCofactor_moebius_eq_one_or_neg_one hcOwned
   have hcMuNe : μ c ≠ 0 := by
-    rcases hcSign with h | h <;> omega
+    rcases hcSign with h | h
+    · rw [h]
+      norm_num
+    · rw [h]
+      norm_num
   have hcPos : 0 < c := by
     by_contra h
     have hc0 : c = 0 := Nat.eq_zero_of_not_pos h
