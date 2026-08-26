@@ -2,9 +2,12 @@ name: Running-state matched frontier telescope check
 
 on:
   push:
-    branches: [agent/full-sequential-canonical-frontier-bridge]
+    branches:
+      - agent/full-sequential-canonical-frontier-bridge
+      - agent/global-energy-telescope
     paths:
       - RHLean/Proof/SquareRootLowPrimeRunningTelescope.lean
+      - RHLean/Proof/SquareRootLowPrimeGlobalEnergyTelescope.lean
       - RHLean/Proof/SquareRootLowPrimeMatchedFrontierBound.lean
       - RHLean/Proof/SquareRootLowPrimeQuantitativeEnergyReduction.lean
       - RHLean/Proof/SquareRootLowPrimeSignedResponseMatching.lean
@@ -38,6 +41,7 @@ jobs:
               'import RHLean.Proof.SquareRootLowPrimeQuantitativeEnergyReduction',
               'import RHLean.Proof.SquareRootLowPrimeMatchedFrontierBound',
               'import RHLean.Proof.SquareRootLowPrimeRunningTelescope',
+              'import RHLean.Proof.SquareRootLowPrimeGlobalEnergyTelescope',
           }
           lines = [line.strip() for line in manifest.read_text().splitlines() if line.strip()]
           manifest.write_text('\n'.join(sorted(set(lines) | targets)) + '\n')
@@ -46,7 +50,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add RHLean.lean
-            git commit -m "Import running-state frontier telescope"
+            git commit -m "Import global energy telescope"
             git push
           fi
 
@@ -113,6 +117,7 @@ jobs:
             RHLean.Proof.SquareRootLowPrimeQuantitativeEnergyReduction \
             RHLean.Proof.SquareRootLowPrimeMatchedFrontierBound \
             RHLean.Proof.SquareRootLowPrimeRunningTelescope \
+            RHLean.Proof.SquareRootLowPrimeGlobalEnergyTelescope \
             2>&1 | tee running-telescope.log
 
       - name: Commit diagnostics on failure
