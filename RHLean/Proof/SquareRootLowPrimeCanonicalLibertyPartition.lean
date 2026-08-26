@@ -287,7 +287,22 @@ theorem squareRootLowPrimeLibertySource_add_target_weight_sum_eq_zero
           squareRootLowPrimeProcessedSeatWeightReal x) +
         ∑ x ∈ squareRootLowPrimeNoLibertyBoundary ps S,
           squareRootLowPrimeProcessedSeatWeightReal x := by
-    rw [← hpart, Finset.sum_union hBoundary, Finset.sum_union hST]
+    calc
+      (∑ x ∈ S, squareRootLowPrimeProcessedSeatWeightReal x) =
+          ∑ x ∈
+            (squareRootLowPrimeLibertySourcePart ps S ∪
+              squareRootLowPrimeLibertyTargetPart ps S ∪
+              squareRootLowPrimeNoLibertyBoundary ps S),
+            squareRootLowPrimeProcessedSeatWeightReal x := by
+        rw [hpart]
+      _ =
+          (∑ x ∈ squareRootLowPrimeLibertySourcePart ps S,
+            squareRootLowPrimeProcessedSeatWeightReal x) +
+          (∑ x ∈ squareRootLowPrimeLibertyTargetPart ps S,
+            squareRootLowPrimeProcessedSeatWeightReal x) +
+          ∑ x ∈ squareRootLowPrimeNoLibertyBoundary ps S,
+            squareRootLowPrimeProcessedSeatWeightReal x := by
+        rw [Finset.sum_union hBoundary, Finset.sum_union hST]
   have hmatch := squareRootLowPrimeProcessedSeat_weight_sum_eq_matchingFrontier
     ps S hprime
   have hmatch' :
