@@ -150,7 +150,7 @@ theorem squareRootLowPrimeProcessedHighSeatAtoms_downward_square
   have hsSmall :
       z.2 < squareRootBornPostTailHighResponse R K j (q * z.1) := by
     have hmono := squareRootBornPostTailHighResponse_antitone
-      hsmallPos hsmallLe
+      (R := R) (K := K) (j := j) hsmallPos hsmallLe
     exact hsUpper.trans_le hmono
   exact mem_squareRootLowPrimeProcessedHighSeatAtoms.mpr
     ⟨Finset.mem_filter.mpr
