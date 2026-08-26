@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.SquareRootLowPrimeHighResponseMonotone
 import RHLean.Proof.SquareRootLowPrimeSquareDefect
 
@@ -142,7 +143,7 @@ theorem squareRootLowPrimeProcessedHighSeatAtoms_downward_square
   have hlpfSmallLeUpper :
       canonicalLargestPrimeFactor (q * z.1) ≤
         canonicalLargestPrimeFactor (q * (p * z.1)) :=
-    prime_dvd_le_canonicalLargestPrimeFactor
+    CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
       hupperGt hlpfSmallPrime hlpfSmallDvdUpper
   have hlpfSmallP : canonicalLargestPrimeFactor (q * z.1) ≤ P :=
     hlpfSmallLeUpper.trans hlpfMu.1
