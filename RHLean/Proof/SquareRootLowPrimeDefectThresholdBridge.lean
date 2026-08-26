@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Arithmetic.PrimeProductCubeFrontier
 import RHLean.Proof.SquareRootLowPrimeBornSquareBoundary
 import RHLean.Proof.SquareRootLowPrimeHighProductBoundary
 
@@ -23,6 +24,8 @@ shell / first-failure machinery.  They are not separate error mechanisms.
 noncomputable section
 
 namespace RHLean.Proof
+
+open RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
 
@@ -79,6 +82,7 @@ theorem mem_squareRootBornPartnerBirthBoundary_iff_thresholdCrosses
     apply mem_squareRootBornPartnerBirthBoundary.mpr
     refine ⟨hrUpper, ?_⟩
     have hrPrime := (Finset.mem_filter.mp hrUpper).2.1
+    have hrPos : 0 < r := hrPrime.pos
     omega
 
 /-- The generic threshold predicate is exactly the geometric part of the
