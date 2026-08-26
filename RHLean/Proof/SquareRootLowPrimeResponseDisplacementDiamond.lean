@@ -73,14 +73,15 @@ theorem squareRootLowPrimeResponse_upperDisplacement_forces_bottom_missing
       p * n ∈ squareRootLowPrimeResponsePairLower S q :=
     mem_squareRootLowPrimeResponsePairLower.mpr
       ⟨hbottom, hqFresh, by
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using
-          htopData.1⟩
+        have hcomm : q * (p * n) = p * (q * n) := by ac_rfl
+        rw [hcomm]
+        exact htopData.1⟩
   have htranslatedUpper :
       p * (q * n) ∈ squareRootLowPrimeResponsePairUpper S q := by
     unfold squareRootLowPrimeResponsePairUpper
     apply Finset.mem_image.mpr
     refine ⟨p * n, htranslatedLower, ?_⟩
-    simp [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm]
+    ac_rfl
   exact htopData.2
     (Finset.mem_union.mpr (Or.inr htranslatedUpper))
 
