@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  actions: write
+  contents: read
+  actions: read
 
 jobs:
   check:
@@ -44,25 +44,15 @@ jobs:
             strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
-      - name: Kernel-check canonical liberty core
-        id: build
-        continue-on-error: true
+      - name: Kernel-check canonical liberty branch
         shell: bash
         run: |
           set -o pipefail
-          lake build RHLean.Proof.SquareRootLowPrimeCanonicalLiberty 2>&1 | tee canonical-liberty-core.log
-      - name: Commit diagnostics on failure
-        if: ${{ steps.build.outcome == 'failure' }}
-        run: |
-          cp canonical-liberty-core.log research/canonical-liberty-core-build-errors.txt
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/canonical-liberty-core-build-errors.txt
-          git commit -m "Record canonical liberty core diagnostics"
-          git push origin HEAD:agent/canonical-mobius-liberty-core
+          lake build \
+            RHLean.Proof.SquareRootLowPrimeCanonicalLiberty \
+            RHLean.Proof.SquareRootLowPrimeCanonicalLibertyPartition \
+            RHLean.Proof.SquareRootLowPrimePartialPacketBoundary \
+            2>&1 | tee canonical-liberty-core.log
       - name: Print log
         if: ${{ always() }}
         run: cat canonical-liberty-core.log
-      - name: Fail on build error
-        if: ${{ steps.build.outcome == 'failure' }}
-        run: exit 1
