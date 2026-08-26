@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
 
 /-!
@@ -39,7 +40,12 @@ theorem canonicalLargestPrimeFactor_le_of_dvd
     canonicalLargestPrimeFactor a ≤ canonicalLargestPrimeFactor b := by
   by_cases haOne : a = 1
   · subst a
-    simp [canonicalLargestPrimeFactor]
+    have hone : canonicalLargestPrimeFactor 1 = 1 := by
+      simp [canonicalLargestPrimeFactor]
+    have hpos : 0 < canonicalLargestPrimeFactor b :=
+      (canonicalLargestPrimeFactor_prime hb).pos
+    rw [hone]
+    omega
   · have haGt : 1 < a := by omega
     have hp : (canonicalLargestPrimeFactor a).Prime :=
       canonicalLargestPrimeFactor_prime haGt
@@ -47,7 +53,8 @@ theorem canonicalLargestPrimeFactor_le_of_dvd
       canonicalLargestPrimeFactor_dvd haGt
     have hpDvdB : canonicalLargestPrimeFactor a ∣ b :=
       dvd_trans hpDvdA hab
-    exact prime_dvd_le_canonicalLargestPrimeFactor hb hp hpDvdB
+    exact CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
+      hb hp hpDvdB
 
 /-- **A born partner descends through divisibility exactly until its numerical
 birth threshold is crossed.** -/
@@ -110,7 +117,7 @@ theorem squareRootBornPartnerSet_sdiff_divisor_eq_birthBoundary
 
 /-- Multiplicative specialization used by a prime square. -/
 theorem squareRootBornPartnerSet_sdiff_mul_eq_birthBoundary
-    {R p a : ℕ} (hp : 0 < p) (ha : 0 < a) :
+    {R p a : ℕ} (_hp : 0 < p) (ha : 0 < a) :
     squareRootBornPartnerSet R (p * a) \
         squareRootBornPartnerSet R a =
       squareRootBornPartnerBirthBoundary R a (p * a) := by
