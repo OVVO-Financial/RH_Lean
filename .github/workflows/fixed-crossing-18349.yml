@@ -8,29 +8,45 @@ on:
 
 permissions:
   contents: read
+  actions: read
+
+concurrency:
+  group: fixed-crossing-18349-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache/restore@v5
         with:
-          path: |
-            ~/.elan
-            .lake/packages
-          key: lean-deps-${{ runner.os }}-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}
-          restore-keys: |
-            lean-deps-${{ runner.os }}-
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       - uses: leanprover/lean-action@v1
         with:
           use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
       - name: Apply StrongPNT compatibility patch
         run: |
-          if [ -f scripts/apply_strongpnt_patch.sh ]; then
-            bash scripts/apply_strongpnt_patch.sh
-          fi
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Prebuild StrongPNT dependency
-        run: lake env lean StrongPNT.lean
+        run: lake build StrongPNT.PNT5_Strong
       - name: Kernel-check fixed crossing theorem
-        run: lake env lean RHLean/Analysis/SquareRootFixedCrossing18349.lean
+        run: lake build RHLean.Analysis.SquareRootFixedCrossing18349
