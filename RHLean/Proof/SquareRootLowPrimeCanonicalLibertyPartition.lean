@@ -2,7 +2,7 @@ import Mathlib
 import RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
 
 /-!
-# Exact canonical-liberty source/target partition
+# Exact raw canonical-liberty source/target partition
 
 The canonical-liberty dichotomy is useful quantitatively only if the removed
 population is retained as the two endpoints of the actual prime matchings.
@@ -13,14 +13,17 @@ For every processed prime stage we keep
 
 * the lower endpoint as a liberty source;
 * the prime-extended endpoint as its liberty target; and
-* the states surviving every stage as the no-liberty boundary.
+* the states surviving every stage as the raw no-liberty frontier.
 
 The three populations are pairwise disjoint and partition the original carrier.
-The source and target masses cancel exactly, so the boundary carries the entire
-signed mass of the original carrier.  Specializing to the complete processed
-seat carrier at the canonical terminal cutoff therefore gives the exact identity
+The source and target masses cancel exactly, so the raw frontier carries the
+entire signed mass of the original carrier.
 
-`T(P_R) = sum_{x in boundary} w(x)`.
+This raw frontier is deliberately **not** named as the final compressed liberty
+boundary: several unit seats may still lie over one arithmetic root.  The final
+boundary theorem must perform the additional alternating creation/response
+rematching and prove at most one unmatched unit per canonical root before any
+cardinality estimate is accepted.
 
 No estimate, encoding, root box, terminal hypothesis, or frontier-cardinality
 assumption appears here.
@@ -80,7 +83,7 @@ theorem squareRootLowPrimeLibertyTargetPart_subset
       · exact squareRootLowPrimeProcessedSeatFrontierStep_subset' S p
           (ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p) hxTail)
 
-/-- The no-liberty boundary is a subset of its original carrier. -/
+/-- The raw no-liberty frontier is a subset of its original carrier. -/
 theorem squareRootLowPrimeNoLibertyBoundary_subset
     (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState) :
     squareRootLowPrimeNoLibertyBoundary ps S ⊆ S := by
@@ -142,7 +145,7 @@ theorem squareRootLowPrimeLibertySourcePart_disjoint_targetPart
             (ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p)))
             hxSourceTail hxTargetTail
 
-/-- Liberty sources are disjoint from the terminal no-liberty boundary. -/
+/-- Liberty sources are disjoint from the raw terminal no-liberty frontier. -/
 theorem squareRootLowPrimeLibertySourcePart_disjoint_boundary
     (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState) :
     Disjoint (squareRootLowPrimeLibertySourcePart ps S)
@@ -164,7 +167,7 @@ theorem squareRootLowPrimeLibertySourcePart_disjoint_boundary
           (ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p)))
           hxSourceTail hxBoundary
 
-/-- Liberty targets are disjoint from the terminal no-liberty boundary. -/
+/-- Liberty targets are disjoint from the raw terminal no-liberty frontier. -/
 theorem squareRootLowPrimeLibertyTargetPart_disjoint_boundary
     (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState) :
     Disjoint (squareRootLowPrimeLibertyTargetPart ps S)
@@ -187,7 +190,7 @@ theorem squareRootLowPrimeLibertyTargetPart_disjoint_boundary
           hxTargetTail hxBoundary
 
 /-- The union of all removed source and target endpoints is disjoint from the
-terminal boundary. -/
+raw terminal frontier. -/
 theorem squareRootLowPrimeLibertySourceTarget_disjoint_boundary
     (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState) :
     Disjoint
@@ -204,7 +207,7 @@ theorem squareRootLowPrimeLibertySourceTarget_disjoint_boundary
       (squareRootLowPrimeLibertyTargetPart_disjoint_boundary ps S))
       hxTarget hxBoundary
 
-/-- **Exact source/target/boundary partition of an arbitrary processed carrier.** -/
+/-- **Exact source/target/raw-frontier partition of an arbitrary processed carrier.** -/
 theorem squareRootLowPrimeCanonicalLiberty_partition
     (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState) :
     squareRootLowPrimeLibertySourcePart ps S ∪
@@ -295,12 +298,12 @@ theorem squareRootLowPrimeLibertySource_add_target_weight_sum_eq_zero
   rw [hdecomp] at hmatch'
   linarith
 
-/-- Canonical terminal cutoff used by the liberty theorem. -/
+/-- Canonical terminal cutoff used by the raw liberty partition. -/
 def squareRootLowPrimeCanonicalLibertyCutoff (R : ℕ) : ℕ :=
   squareRootBornPostTailLowPrimeCutoff R
 
-/-- Actual liberty sources at the canonical terminal cutoff. -/
-def squareRootLowPrimeCanonicalLibertySources
+/-- Raw prime-matching source population at the canonical terminal cutoff. -/
+def squareRootLowPrimeCanonicalRawLibertySources
     (R K j : ℕ) : Finset SquareRootLowPrimeProcessedState :=
   squareRootLowPrimeLibertySourcePart
     (squareRootLowPrimeFreshPrimeList K
@@ -308,8 +311,8 @@ def squareRootLowPrimeCanonicalLibertySources
     (squareRootLowPrimeProcessedSeatCarrier R K j
       (squareRootLowPrimeCanonicalLibertyCutoff R))
 
-/-- Actual liberty targets at the canonical terminal cutoff. -/
-def squareRootLowPrimeCanonicalLibertyTargets
+/-- Raw prime-matching target population at the canonical terminal cutoff. -/
+def squareRootLowPrimeCanonicalRawLibertyTargets
     (R K j : ℕ) : Finset SquareRootLowPrimeProcessedState :=
   squareRootLowPrimeLibertyTargetPart
     (squareRootLowPrimeFreshPrimeList K
@@ -317,8 +320,8 @@ def squareRootLowPrimeCanonicalLibertyTargets
     (squareRootLowPrimeProcessedSeatCarrier R K j
       (squareRootLowPrimeCanonicalLibertyCutoff R))
 
-/-- Actual exposed no-liberty boundary at the canonical terminal cutoff. -/
-def squareRootLowPrimeCanonicalLibertyBoundary
+/-- Raw no-liberty frontier before alternating-component compression. -/
+def squareRootLowPrimeCanonicalRawNoLibertyFrontier
     (R K j : ℕ) : Finset SquareRootLowPrimeProcessedState :=
   squareRootLowPrimeNoLibertyBoundary
     (squareRootLowPrimeFreshPrimeList K
@@ -326,40 +329,42 @@ def squareRootLowPrimeCanonicalLibertyBoundary
     (squareRootLowPrimeProcessedSeatCarrier R K j
       (squareRootLowPrimeCanonicalLibertyCutoff R))
 
-/-- **Canonical terminal source/target/boundary decomposition.** -/
-theorem squareRootLowPrimeCanonicalLiberty_decomposition
+/-- **Canonical terminal raw source/target/frontier decomposition.** -/
+theorem squareRootLowPrimeCanonicalRawLiberty_decomposition
     (R K j : ℕ) :
-    squareRootLowPrimeCanonicalLibertySources R K j ∪
-        squareRootLowPrimeCanonicalLibertyTargets R K j ∪
-        squareRootLowPrimeCanonicalLibertyBoundary R K j =
+    squareRootLowPrimeCanonicalRawLibertySources R K j ∪
+        squareRootLowPrimeCanonicalRawLibertyTargets R K j ∪
+        squareRootLowPrimeCanonicalRawNoLibertyFrontier R K j =
       squareRootLowPrimeProcessedSeatCarrier R K j
         (squareRootLowPrimeCanonicalLibertyCutoff R) := by
   exact squareRootLowPrimeCanonicalLiberty_partition _ _
 
-/-- The terminal source/target pieces are disjoint. -/
-theorem squareRootLowPrimeCanonicalLiberty_sources_disjoint_targets
+/-- The raw terminal source/target pieces are disjoint. -/
+theorem squareRootLowPrimeCanonicalRawLiberty_sources_disjoint_targets
     (R K j : ℕ) :
-    Disjoint (squareRootLowPrimeCanonicalLibertySources R K j)
-      (squareRootLowPrimeCanonicalLibertyTargets R K j) :=
+    Disjoint (squareRootLowPrimeCanonicalRawLibertySources R K j)
+      (squareRootLowPrimeCanonicalRawLibertyTargets R K j) :=
   squareRootLowPrimeLibertySourcePart_disjoint_targetPart _ _
 
-/-- The terminal paired interior is disjoint from the exposed boundary. -/
-theorem squareRootLowPrimeCanonicalLiberty_interior_disjoint_boundary
+/-- The raw paired interior is disjoint from the raw exposed frontier. -/
+theorem squareRootLowPrimeCanonicalRawLiberty_interior_disjoint_frontier
     (R K j : ℕ) :
     Disjoint
-      (squareRootLowPrimeCanonicalLibertySources R K j ∪
-        squareRootLowPrimeCanonicalLibertyTargets R K j)
-      (squareRootLowPrimeCanonicalLibertyBoundary R K j) :=
+      (squareRootLowPrimeCanonicalRawLibertySources R K j ∪
+        squareRootLowPrimeCanonicalRawLibertyTargets R K j)
+      (squareRootLowPrimeCanonicalRawNoLibertyFrontier R K j) :=
   squareRootLowPrimeLibertySourceTarget_disjoint_boundary _ _
 
-/-- **Exact carrier mass identity at the canonical terminal cutoff.** -/
-theorem squareRootLowPrimeCanonicalLibertyBoundary_weight_sum_eq_terminal
+/-- **Exact raw frontier mass identity at the canonical terminal cutoff.**
+This is the entry point for the still-required alternating-component
+compression; it is not a cardinality theorem. -/
+theorem squareRootLowPrimeCanonicalRawNoLibertyFrontier_weight_sum_eq_terminal
     {R K j : ℕ} (hR : 2 ≤ R) :
-    (∑ x ∈ squareRootLowPrimeCanonicalLibertyBoundary R K j,
+    (∑ x ∈ squareRootLowPrimeCanonicalRawNoLibertyFrontier R K j,
       squareRootLowPrimeProcessedSeatWeightReal x) =
       squareRootLowPrimeRunningImbalanceReal R K j
         (squareRootLowPrimeCanonicalLibertyCutoff R) := by
-  unfold squareRootLowPrimeCanonicalLibertyBoundary
+  unfold squareRootLowPrimeCanonicalRawNoLibertyFrontier
     squareRootLowPrimeCanonicalLibertyCutoff
     squareRootLowPrimeNoLibertyBoundary
   simpa [squareRootLowPrimeProcessedSeatTerminalFrontier] using
