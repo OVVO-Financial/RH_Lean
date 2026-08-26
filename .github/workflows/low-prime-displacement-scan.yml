@@ -1,0 +1,45 @@
+name: Low-prime displacement forest scan
+
+on:
+  push:
+    branches: [agent/low-prime-residual-population-bound]
+    paths:
+      - "research/scan_low_prime_displacement_forest.py"
+      - ".github/workflows/low-prime-displacement-scan.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: low-prime-displacement-scan-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Validate scanner syntax
+        run: python3 -m py_compile research/scan_low_prime_displacement_forest.py
+
+      - name: Exhaustive small-range displacement scan
+        run: |
+          python3 research/scan_low_prime_displacement_forest.py \
+            --r-min 16 --r-max 90 --k 5 \
+            --output research/results/low_prime_displacement_R16_90_K5.json
+
+      - name: Commit deterministic scan output
+        run: |
+          if git diff --quiet -- research/results/low_prime_displacement_R16_90_K5.json; then
+            echo "Scan output is unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/results/low_prime_displacement_R16_90_K5.json
+          git commit -m "Record low-prime displacement scan"
+          git push origin HEAD:agent/low-prime-residual-population-bound
