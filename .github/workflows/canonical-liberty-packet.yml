@@ -1,0 +1,95 @@
+name: Canonical liberty and packet compression check
+
+on:
+  push:
+    branches: [agent/canonical-mobius-liberty-core]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: canonical-liberty-packet-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Import every RHLean module
+        shell: bash
+        run: |
+          set +e
+          lake exe mk_all
+          status=$?
+          set -e
+          if ! git diff --quiet -- RHLean.lean; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add RHLean.lean
+            git commit -m "Import canonical liberty and packet modules"
+            git push origin HEAD:agent/canonical-mobius-liberty-core
+          elif [ "$status" -ne 0 ]; then
+            exit "$status"
+          fi
+      - name: Audit source and manifest
+        run: |
+          bash scripts/check_paper_analysis_boundary.sh
+          bash scripts/audit_assumptions.sh
+          python3 scripts/check_root_manifest.py
+      - uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+      - name: Kernel-check canonical liberty chain
+        id: build
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build \
+            RHLean.Proof.SquareRootLowPrimeCanonicalLiberty \
+            RHLean.Proof.SquareRootLowPrimePartialPacketBoundary \
+            2>&1 | tee canonical-liberty-packet.log
+      - name: Commit diagnostics on failure
+        if: ${{ steps.build.outcome == 'failure' }}
+        run: |
+          cp canonical-liberty-packet.log research/canonical-liberty-packet-build-errors.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/canonical-liberty-packet-build-errors.txt
+          git commit -m "Record canonical liberty packet diagnostics"
+          git push origin HEAD:agent/canonical-mobius-liberty-core
+      - name: Print log
+        if: ${{ always() }}
+        run: cat canonical-liberty-packet.log
+      - name: Fail on targeted build error
+        if: ${{ steps.build.outcome == 'failure' }}
+        run: exit 1
