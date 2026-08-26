@@ -2,7 +2,9 @@ name: Canonical creation-response energy reduction check
 
 on:
   push:
-    branches: [agent/full-sequential-canonical-frontier-bridge]
+    branches:
+      - agent/full-sequential-canonical-frontier-bridge
+      - agent/canonical-mobius-liberty-core
     paths:
       - RHLean/Proof/CreationResponseFrontierCancellation.lean
       - RHLean/Proof/CreationResponseFrontierCancellationReal.lean
@@ -11,6 +13,9 @@ on:
       - RHLean/Proof/SquareRootLowPrimeEulerCreationResponseEnergyGate.lean
       - RHLean/Proof/SquareRootLowPrimeCanonicalCreationResponseMap.lean
       - RHLean/Proof/SquareRootLowPrimeCanonicalCreationResponseEnergy.lean
+      - RHLean/Proof/SquareRootLowPrimeCanonicalLiberty.lean
+      - RHLean/Proof/SquareRootLowPrimeCanonicalLibertyPartition.lean
+      - RHLean/Proof/SquareRootLowPrimePartialPacketBoundary.lean
       - .github/workflows/canonical-creation-response-energy-lean.yml
   workflow_dispatch:
 
@@ -43,6 +48,9 @@ jobs:
               'import RHLean.Proof.SquareRootLowPrimeEulerCreationResponseEnergyGate',
               'import RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseMap',
               'import RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseEnergy',
+              'import RHLean.Proof.SquareRootLowPrimeCanonicalLiberty',
+              'import RHLean.Proof.SquareRootLowPrimeCanonicalLibertyPartition',
+              'import RHLean.Proof.SquareRootLowPrimePartialPacketBoundary',
           }
           lines = [line.strip() for line in manifest.read_text().splitlines() if line.strip()]
           manifest.write_text('\n'.join(sorted(set(lines) | targets)) + '\n')
@@ -51,7 +59,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add RHLean.lean
-            git commit -m "Import the canonical creation-response energy reduction"
+            git commit -m "Import the canonical liberty reduction"
             git push
           fi
 
@@ -92,7 +100,7 @@ jobs:
             .lake/packages/StrongPNT/.lake/build
           key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
           restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
 
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
@@ -106,7 +114,7 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Build canonical C-to-R chain
+      - name: Build canonical liberty chain
         id: build
         continue-on-error: true
         shell: bash
@@ -120,6 +128,9 @@ jobs:
             RHLean.Proof.SquareRootLowPrimeEulerCreationResponseEnergyGate \
             RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseMap \
             RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseEnergy \
+            RHLean.Proof.SquareRootLowPrimeCanonicalLiberty \
+            RHLean.Proof.SquareRootLowPrimeCanonicalLibertyPartition \
+            RHLean.Proof.SquareRootLowPrimePartialPacketBoundary \
             2>&1 | tee canonical-creation-response-energy.log
 
       - name: Commit diagnostics on failure
@@ -130,7 +141,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add research/canonical-creation-response-energy-build-errors.txt
-          git commit -m "Record canonical C-to-R compiler diagnostics"
+          git commit -m "Record canonical liberty compiler diagnostics"
           git push
 
       - name: Publish status
@@ -144,10 +155,10 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha,
               state: failed ? 'failure' : 'success',
-              context: 'canonical-creation-response-energy-lean',
+              context: 'canonical-liberty-reduction-lean',
               description: failed
-                ? 'Canonical creation-response reduction failed'
-                : 'Canonical creation-response reduction compiled',
+                ? 'Canonical liberty reduction failed'
+                : 'Canonical liberty reduction compiled',
               target_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
             });
 
