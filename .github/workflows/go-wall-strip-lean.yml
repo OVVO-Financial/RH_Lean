@@ -44,11 +44,11 @@ jobs:
             strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
-      - name: Kernel-check Go wall strip
+      - name: Kernel-check Go wall modules
         shell: bash
         run: |
           set -o pipefail
-          lake build RHLean.Proof.SquareRootLowPrimeGoWallStrip 2>&1 | tee go-wall-strip.log
+          lake build RHLean.Proof.SquareRootLowPrimeGoWallStrip RHLean.Proof.SquareRootLowPrimeGoWallChild 2>&1 | tee go-wall-strip.log
       - name: Fail on RHLean warnings
         shell: bash
         run: |
