@@ -287,8 +287,7 @@ theorem squareRootLowPrimeFirstOwnerWall_mem_assignedTerminal
   have hheadData := Finset.mem_filter.mp hhead
   rcases hheadData.2 with hnone | hnoOwner
   · simp at hnone
-  · rw [hfirst] at hnoOwner
-    simp at hnoOwner
+  · simpa [squareRootLowPrimeProcessedStateCofactor, hfirst] using hnoOwner
 
 /-- **Wall first-owner state lies in the actual terminal first-owner fibre.** -/
 theorem squareRootLowPrimeFirstOwnerWall_mem_intrinsicFirstOwnerSlice
