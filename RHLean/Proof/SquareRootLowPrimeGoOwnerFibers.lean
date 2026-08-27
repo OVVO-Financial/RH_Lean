@@ -161,7 +161,8 @@ theorem squareRootLowPrimeGoSmallerOwnerParent_child_mem
   have hsqChild : Squarefree (r * d) :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuChild
   have hchildB : r * d ≤ B := by
-    exact (Nat.le_div_iff_mul_le hr.pos).1 hdB
+    have h := (Nat.le_div_iff_mul_le hr.pos).1 hdB
+    simpa [Nat.mul_comm] using h
   have hchildLower : q ≤ r * d := by
     have hlt : q - 1 < d * r :=
       (Nat.div_lt_iff_lt_mul hr.pos).1 hlower
