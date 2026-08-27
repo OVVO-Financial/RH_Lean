@@ -23,9 +23,12 @@ There is a second collapse.  Since every scheduled prime is strictly above
 the same fresh-prime list.  Thus all first-owner wall states share one fresh
 owner.  The wall is not a sum of independent fresh-prime defects.
 
-The next exact step is the Fubini swap of its already-proved born multiplicity
-onto the old partner prime `q <= K`, where the inner cofactor interval is the
-frozen-prime window underlying `F_{q^-}`.
+The final section opens the resulting old-prime Fubini window.  For one old
+partner `q`, the cofactor interval is the exact frozen-prime difference
+
+`F_{q^-}(X_R/q) - F_{q^-}(X_R/p)`
+
+before any norm is taken.
 
 No norm, cardinality estimate, PNT input, Mertens bound, or RH-equivalent input
 is introduced here.
@@ -317,5 +320,131 @@ theorem squareRootLowPrimeFirstOwnerWall_mem_intrinsicFirstOwnerSlice
   rw [hsplit]
   simp only [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner]
   simp [hfall]
+
+/-! ## Frozen old-prime cofactor windows -/
+
+open RHLean.Arithmetic
+
+/-- Boolean faces in one open/closed prime-product window. -/
+def frozenPrimeUniverseWindowFaces
+    (S : Finset ℕ) (A B : ℕ) : Finset (Finset ℕ) :=
+  S.powerset.filter fun t =>
+    A < primeFaceProduct t ∧ primeFaceProduct t ≤ B
+
+@[simp] theorem mem_frozenPrimeUniverseWindowFaces
+    {S : Finset ℕ} {A B : ℕ} {t : Finset ℕ} :
+    t ∈ frozenPrimeUniverseWindowFaces S A B ↔
+      t ∈ S.powerset ∧ A < primeFaceProduct t ∧ primeFaceProduct t ≤ B := by
+  simp [frozenPrimeUniverseWindowFaces]
+
+/-- Signed alternating mass of one frozen product window. -/
+def frozenPrimeUniverseWindowMass
+    (S : Finset ℕ) (A B : ℕ) : ℤ :=
+  ∑ t ∈ frozenPrimeUniverseWindowFaces S A B, booleanCubeSign t
+
+/-- **Frozen mass difference = exact open/closed face window.** -/
+theorem frozenPrimeUniverseWindowMass_eq_sub
+    {S : Finset ℕ} {A B : ℕ} (hAB : A ≤ B) :
+    frozenPrimeUniverseWindowMass S A B =
+      frozenPrimeUniverseMass S B - frozenPrimeUniverseMass S A := by
+  unfold frozenPrimeUniverseWindowMass frozenPrimeUniverseWindowFaces
+  rw [Finset.sum_filter,
+    frozenPrimeUniverseMass_eq_cutoffSum,
+    frozenPrimeUniverseMass_eq_cutoffSum,
+    ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro t _ht
+  by_cases hA : primeFaceProduct t ≤ A
+  · have hB : primeFaceProduct t ≤ B := hA.trans hAB
+    have hnot : ¬ A < primeFaceProduct t := Nat.not_lt.mpr hA
+    simp [hA, hB, hnot]
+  · have hAt : A < primeFaceProduct t := Nat.lt_of_not_ge hA
+    by_cases hB : primeFaceProduct t ≤ B
+    · simp [hA, hAt, hB]
+    · simp [hA, hAt, hB]
+
+/-- Square-root wall faces at old partner `q` and fresh wall owner `p`. -/
+def squareRootLowPrimeOldPrimeWallWindowFaces
+    (R p q : ℕ) : Finset (Finset ℕ) :=
+  frozenPrimeUniverseWindowFaces
+    (primesUpTo (q - 1))
+    (squareRootEndpoint R / p)
+    (squareRootEndpoint R / q)
+
+/-- Signed mass of the old-prime wall window. -/
+def squareRootLowPrimeOldPrimeWallWindowMass
+    (R p q : ℕ) : ℤ :=
+  frozenPrimeUniverseWindowMass
+    (primesUpTo (q - 1))
+    (squareRootEndpoint R / p)
+    (squareRootEndpoint R / q)
+
+/-- **The wall cofactor window is an exact frozen `F_{q^-}` difference.** -/
+theorem squareRootLowPrimeOldPrimeWallWindowMass_eq_frozenDifference
+    {R p q : ℕ} (hq : q.Prime) (hqp : q ≤ p) :
+    squareRootLowPrimeOldPrimeWallWindowMass R p q =
+      frozenPrimeUniverseMass (primesUpTo (q - 1))
+          (squareRootEndpoint R / q) -
+        frozenPrimeUniverseMass (primesUpTo (q - 1))
+          (squareRootEndpoint R / p) := by
+  unfold squareRootLowPrimeOldPrimeWallWindowMass
+  apply frozenPrimeUniverseWindowMass_eq_sub
+  exact Nat.div_le_div_left hqp hq.pos
+
+/-- Squarefree cofactors represented by the frozen wall window. -/
+def squareRootLowPrimeOldPrimeWallWindowCofactors
+    (R p q : ℕ) : Finset ℕ :=
+  (squareRootLowPrimeOldPrimeWallWindowFaces R p q).image primeFaceProduct
+
+/-- Prime-face products are injective on one frozen wall window. -/
+theorem squareRootLowPrimeOldPrimeWallWindow_primeFaceProduct_injOn
+    (R p q : ℕ) :
+    Set.InjOn primeFaceProduct
+      (↑(squareRootLowPrimeOldPrimeWallWindowFaces R p q)) := by
+  intro t ht u hu hprod
+  have htPow := (mem_frozenPrimeUniverseWindowFaces.mp ht).1
+  have huPow := (mem_frozenPrimeUniverseWindowFaces.mp hu).1
+  have htSub := Finset.mem_powerset.mp htPow
+  have huSub := Finset.mem_powerset.mp huPow
+  exact (primeFaceProduct_eq_iff
+    (fun r hr => prime_of_mem_primesUpTo (htSub hr))
+    (fun r hr => prime_of_mem_primesUpTo (huSub hr))).mp hprod
+
+/-- Möbius on a represented rough cofactor is its Boolean face sign. -/
+theorem squareRootLowPrimeOldPrimeWallWindow_moebius_eq_sign
+    {R p q : ℕ} {t : Finset ℕ}
+    (ht : t ∈ squareRootLowPrimeOldPrimeWallWindowFaces R p q) :
+    μ (primeFaceProduct t) = booleanCubeSign t := by
+  have htPow := (mem_frozenPrimeUniverseWindowFaces.mp ht).1
+  have htSub := Finset.mem_powerset.mp htPow
+  exact moebius_primeFaceProduct_eq_booleanCubeSign t
+    (fun r hr => prime_of_mem_primesUpTo (htSub hr))
+
+/-- The ordinary Möbius sum of the represented cofactors is the face mass. -/
+theorem squareRootLowPrimeOldPrimeWallWindowCofactors_moebiusSum
+    (R p q : ℕ) :
+    (∑ c ∈ squareRootLowPrimeOldPrimeWallWindowCofactors R p q, μ c) =
+      squareRootLowPrimeOldPrimeWallWindowMass R p q := by
+  unfold squareRootLowPrimeOldPrimeWallWindowCofactors
+    squareRootLowPrimeOldPrimeWallWindowMass
+    frozenPrimeUniverseWindowMass
+  rw [Finset.sum_image]
+  · apply Finset.sum_congr rfl
+    intro t ht
+    exact squareRootLowPrimeOldPrimeWallWindow_moebius_eq_sign ht
+  · intro a ha b hb hab
+    exact squareRootLowPrimeOldPrimeWallWindow_primeFaceProduct_injOn
+      R p q ha hb hab
+
+/-- **Integer rough-cofactor form of the horizontal recurrence window.** -/
+theorem squareRootLowPrimeOldPrimeWallWindowCofactors_moebiusSum_eq_frozenDifference
+    {R p q : ℕ} (hq : q.Prime) (hqp : q ≤ p) :
+    (∑ c ∈ squareRootLowPrimeOldPrimeWallWindowCofactors R p q, μ c) =
+      frozenPrimeUniverseMass (primesUpTo (q - 1))
+          (squareRootEndpoint R / q) -
+        frozenPrimeUniverseMass (primesUpTo (q - 1))
+          (squareRootEndpoint R / p) := by
+  rw [squareRootLowPrimeOldPrimeWallWindowCofactors_moebiusSum,
+    squareRootLowPrimeOldPrimeWallWindowMass_eq_frozenDifference hq hqp]
 
 end RHLean.Proof
