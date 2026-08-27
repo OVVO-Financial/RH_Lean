@@ -116,7 +116,7 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_none_iff
   | nil =>
       constructor
       · intro _ p hp
-        exact (List.not_mem_nil p hp).elim
+        simp at hp
       · intro _
         rfl
   | cons p ps ih =>
