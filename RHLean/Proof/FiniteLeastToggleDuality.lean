@@ -30,8 +30,6 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 
-attribute [local instance] Classical.propDecidable
-
 /-- Alternating payload on the nonempty faces of a finite coordinate set. -/
 def finiteNonemptyFaceAlternatingSum
     {α A : Type*} [DecidableEq α] [AddCommGroup A]
