@@ -20,6 +20,14 @@ literal carrier walls:
 
 The second alternative is the existing parent/child response-window boundary,
 not a mutable-row matching skip.
+
+Finally, the first scheduled prime strictly above a terminal cofactor's
+canonical largest prime is singled out.  If a non-head intrinsic residual has
+such a prime, the child must have existed in the original carrier, hence was
+consumed earlier.  Because this is the *first* scheduled prime above the
+canonical owner, its earlier blocker is already at or below that owner.  Thus
+the residual is exactly split into a no-later-owner case or a low-owner blocker
+case; there is no unclassified interior skip.
 -/
 
 noncomputable section
@@ -100,8 +108,9 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_carrierObstruction
     (mem_squareRootLowPrimeProcessedSeatAtoms.mp hparentAtom).1
   rcases Finset.mem_filter.mp hcSigned with
     ⟨hcRange, _hcOwner, hcMu⟩
-  have hcOne : 1 ≤ c := (Finset.mem_Icc.mp hcRange).1
-  have hcPos : 0 < c := by omega
+  have hcPos : 0 < c := by
+    have hcOne : 1 ≤ c := (Finset.mem_Icc.mp hcRange).1
+    omega
   by_cases hwall : squareRootEndpoint R < p * c
   · exact Or.inl hwall
   by_cases hseat :
@@ -133,5 +142,223 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_carrierObstruction
   unfold squareRootLowPrimeProcessedSeatCarrier
   exact Finset.mem_insert_of_mem
     (Finset.mem_image.mpr ⟨(p * c, s), hchildAtom, rfl⟩)
+
+/-! ## First scheduled owner above the canonical cofactor owner -/
+
+/-- First listed owner strictly above a numerical cutoff. -/
+def squareRootLowPrimeFirstOwnerAbove : List ℕ → ℕ → Option ℕ
+  | [], _L => none
+  | p :: ps, L =>
+      if L < p then some p else squareRootLowPrimeFirstOwnerAbove ps L
+
+/-- There is no later owner exactly when every listed owner is at or below the
+cutoff. -/
+theorem squareRootLowPrimeFirstOwnerAbove_eq_none_iff
+    (ps : List ℕ) (L : ℕ) :
+    squareRootLowPrimeFirstOwnerAbove ps L = none ↔
+      ∀ p ∈ ps, p ≤ L := by
+  induction ps with
+  | nil => simp [squareRootLowPrimeFirstOwnerAbove]
+  | cons p ps ih =>
+      by_cases hLp : L < p
+      · simp [squareRootLowPrimeFirstOwnerAbove, hLp]
+      · have hpL : p ≤ L := Nat.le_of_not_gt hLp
+        simp [squareRootLowPrimeFirstOwnerAbove, hLp, hpL, ih]
+
+/-- If a first owner above `L` exists, the list splits at it and every earlier
+coordinate is at or below `L`. -/
+theorem squareRootLowPrimeFirstOwnerAbove_some_split
+    {ps : List ℕ} {L p : ℕ}
+    (hfirst : squareRootLowPrimeFirstOwnerAbove ps L = some p) :
+    ∃ pre post,
+      ps = pre ++ p :: post ∧
+        (∀ q ∈ pre, q ≤ L) ∧
+        L < p := by
+  induction ps with
+  | nil =>
+      simp [squareRootLowPrimeFirstOwnerAbove] at hfirst
+  | cons q qs ih =>
+      by_cases hLq : L < q
+      · have hqp : q = p := by
+          apply Option.some.inj
+          simpa [squareRootLowPrimeFirstOwnerAbove, hLq] using hfirst
+        subst p
+        exact ⟨[], qs, by simp, by simp, hLq⟩
+      · have hqL : q ≤ L := Nat.le_of_not_gt hLq
+        have htail : squareRootLowPrimeFirstOwnerAbove qs L = some p := by
+          simpa [squareRootLowPrimeFirstOwnerAbove, hLq] using hfirst
+        rcases ih htail with ⟨pre, post, hsplit, hpre, hLp⟩
+        refine ⟨q :: pre, post, ?_, ?_, hLp⟩
+        · simp [hsplit]
+        · intro r hr
+          rcases List.mem_cons.mp hr with rfl | hr
+          · exact hqL
+          · exact hpre r hr
+
+/-- Positive processed-seat cofactors really are positive arithmetic states. -/
+private theorem squareRootLowPrimeProcessedSeatCofactor_pos_of_mem_carrier
+    {R K j U : ℕ} {x : SquareRootLowPrimeProcessedState}
+    (hx : x ∈ squareRootLowPrimeProcessedSeatCarrier R K j U)
+    (hxHead : x ≠ none) :
+    0 < squareRootLowPrimeProcessedStateCofactor x := by
+  rcases x with _ | z
+  · exact (hxHead rfl).elim
+  · have hzAtom : z ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using hx
+    have hcSigned := (mem_squareRootLowPrimeProcessedSeatAtoms.mp hzAtom).1
+    have hcRange := (Finset.mem_filter.mp hcSigned).1
+    have hcOne := (Finset.mem_Icc.mp hcRange).1
+    change 0 < z.1
+    omega
+
+/-- A prime strictly above the largest prime factor of a positive cofactor is
+fresh for that cofactor. -/
+private theorem squareRootLowPrimePrime_not_dvd_of_lpf_lt
+    {c p : ℕ} (hc : 0 < c) (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p) :
+    ¬ p ∣ c := by
+  intro hdiv
+  by_cases hcOne : c = 1
+  · subst c
+    exact hp.not_dvd_one hdiv
+  · have hcGt : 1 < c := by omega
+    have hmem : p ∈ c.primeFactors :=
+      Nat.mem_primeFactors.mpr ⟨hp, hdiv, by omega⟩
+    have hle : p ≤ canonicalLargestPrimeFactor c := by
+      unfold canonicalLargestPrimeFactor
+      rw [dif_pos hcGt]
+      exact Finset.le_max' c.primeFactors p hmem
+    omega
+
+/-- **First-later-owner skip lands immediately on the low-owner boundary.**
+
+Take the first scheduled fresh prime `p` strictly above the canonical largest
+prime of a non-head terminal intrinsic residual.  The residual condition says
+`p` is not intrinsic fallout, so its child existed in the original carrier.
+Terminal survival therefore forces that child to have been consumed earlier.
+Every earlier scheduled coordinate is at most the parent's canonical largest
+prime by firstness of `p`; hence the concrete blocker supplied by displacement
+already lies on the low-owner side. -/
+theorem squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_firstOwnerAbove_blocker
+    {R K j U p : ℕ} {x : SquareRootLowPrimeProcessedState}
+    (hxResidual :
+      x ∈ squareRootLowPrimeProcessedSeatNonHeadTerminalIntrinsicResidual
+        (squareRootLowPrimeFreshPrimeList K U)
+        (squareRootLowPrimeProcessedSeatCarrier R K j U))
+    (hfirst :
+      squareRootLowPrimeFirstOwnerAbove
+          (squareRootLowPrimeFreshPrimeList K U)
+          (canonicalLargestPrimeFactor
+            (squareRootLowPrimeProcessedStateCofactor x)) = some p) :
+    ∃ pre post pre' q post' z,
+      squareRootLowPrimeFreshPrimeList K U = pre ++ p :: post ∧
+        pre = pre' ++ q :: post' ∧
+        p.Prime ∧ q.Prime ∧
+        q ≤ canonicalLargestPrimeFactor
+          (squareRootLowPrimeProcessedStateCofactor x) ∧
+        q < p ∧
+        z ∈ squareRootLowPrimeProcessedSeatMatchingFrontier pre'
+          (squareRootLowPrimeProcessedSeatCarrier R K j U) ∧
+        ((squareRootLowPrimeProcessedSeatExtend p x ∈
+              squareRootLowPrimeProcessedSeatPairLower
+                (squareRootLowPrimeProcessedSeatMatchingFrontier pre'
+                  (squareRootLowPrimeProcessedSeatCarrier R K j U)) q ∧
+            z = squareRootLowPrimeProcessedSeatExtend q
+              (squareRootLowPrimeProcessedSeatExtend p x)) ∨
+          (z ∈ squareRootLowPrimeProcessedSeatPairLower
+              (squareRootLowPrimeProcessedSeatMatchingFrontier pre'
+                (squareRootLowPrimeProcessedSeatCarrier R K j U)) q ∧
+            squareRootLowPrimeProcessedSeatExtend p x =
+              squareRootLowPrimeProcessedSeatExtend q z)) := by
+  rcases squareRootLowPrimeFirstOwnerAbove_some_split hfirst with
+    ⟨pre, post, hsplit, hpre, hLp⟩
+  have hpMem : p ∈ squareRootLowPrimeFreshPrimeList K U := by
+    rw [hsplit]
+    simp
+  have hpPrime : p.Prime := prime_of_mem_squareRootLowPrimeFreshPrimeList hpMem
+  have hxResidualData :=
+    mem_squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerResidual.mp hxResidual
+  have hxTargetData := Finset.mem_erase.mp hxResidualData.1
+  have hxHead : x ≠ none := hxTargetData.1
+  have hxTerminal := hxTargetData.2
+  have hxCarrier :
+      x ∈ squareRootLowPrimeProcessedSeatCarrier R K j U :=
+    squareRootLowPrimeProcessedSeatMatchingFrontier_subset'
+      (squareRootLowPrimeFreshPrimeList K U)
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) hxTerminal
+  have hcPos := squareRootLowPrimeProcessedSeatCofactor_pos_of_mem_carrier
+    hxCarrier hxHead
+  have hpFresh : ¬ p ∣ squareRootLowPrimeProcessedStateCofactor x :=
+    squareRootLowPrimePrime_not_dvd_of_lpf_lt hcPos hpPrime hLp
+  have hpreLt : ∀ q ∈ pre, q < p := by
+    intro q hq
+    exact lt_of_le_of_lt (hpre q hq) hLp
+  rcases
+      squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_has_earlier_blocker
+        (squareRootLowPrimeFreshPrimeList K U) pre post
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        hxResidual hsplit hpFresh hLp hpreLt with
+    ⟨pre', q, post', z, hpreSplit, hqp, hz, hedge⟩
+  have hqPre : q ∈ pre := by
+    rw [hpreSplit]
+    simp
+  have hqLe := hpre q hqPre
+  have hqMem : q ∈ squareRootLowPrimeFreshPrimeList K U := by
+    rw [hsplit]
+    simp [hqPre]
+  have hqPrime : q.Prime := prime_of_mem_squareRootLowPrimeFreshPrimeList hqMem
+  exact ⟨pre, post, pre', q, post', z, hsplit, hpreSplit,
+    hpPrime, hqPrime, hqLe, hqp, hz, hedge⟩
+
+/-- **Complete non-head intrinsic-residual classification before estimation.**
+
+Every non-head terminal residual is in exactly the intended qualitative
+position: either there is no scheduled owner above its canonical largest prime,
+or the first such owner has a concrete earlier prime blocker already at or
+below that canonical owner boundary.  There is no free interior skip term. -/
+theorem squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_noLaterOwner_or_lowBlocker
+    {R K j U : ℕ} {x : SquareRootLowPrimeProcessedState}
+    (hxResidual :
+      x ∈ squareRootLowPrimeProcessedSeatNonHeadTerminalIntrinsicResidual
+        (squareRootLowPrimeFreshPrimeList K U)
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)) :
+    (∀ p ∈ squareRootLowPrimeFreshPrimeList K U,
+        p ≤ canonicalLargestPrimeFactor
+          (squareRootLowPrimeProcessedStateCofactor x)) ∨
+      ∃ p pre post pre' q post' z,
+        squareRootLowPrimeFreshPrimeList K U = pre ++ p :: post ∧
+          pre = pre' ++ q :: post' ∧
+          p.Prime ∧ q.Prime ∧
+          q ≤ canonicalLargestPrimeFactor
+            (squareRootLowPrimeProcessedStateCofactor x) ∧
+          q < p ∧
+          z ∈ squareRootLowPrimeProcessedSeatMatchingFrontier pre'
+            (squareRootLowPrimeProcessedSeatCarrier R K j U) ∧
+          ((squareRootLowPrimeProcessedSeatExtend p x ∈
+                squareRootLowPrimeProcessedSeatPairLower
+                  (squareRootLowPrimeProcessedSeatMatchingFrontier pre'
+                    (squareRootLowPrimeProcessedSeatCarrier R K j U)) q ∧
+              z = squareRootLowPrimeProcessedSeatExtend q
+                (squareRootLowPrimeProcessedSeatExtend p x)) ∨
+            (z ∈ squareRootLowPrimeProcessedSeatPairLower
+                (squareRootLowPrimeProcessedSeatMatchingFrontier pre'
+                  (squareRootLowPrimeProcessedSeatCarrier R K j U)) q ∧
+              squareRootLowPrimeProcessedSeatExtend p x =
+                squareRootLowPrimeProcessedSeatExtend q z)) := by
+  let L := canonicalLargestPrimeFactor
+    (squareRootLowPrimeProcessedStateCofactor x)
+  cases hfirst :
+      squareRootLowPrimeFirstOwnerAbove
+        (squareRootLowPrimeFreshPrimeList K U) L with
+  | none =>
+      left
+      simpa [L] using
+        (squareRootLowPrimeFirstOwnerAbove_eq_none_iff
+          (squareRootLowPrimeFreshPrimeList K U) L).mp hfirst
+  | some p =>
+      right
+      simpa [L] using
+        (squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_firstOwnerAbove_blocker
+          hxResidual hfirst)
 
 end RHLean.Proof
