@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
+import RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms
 
 /-!
 # Exact fixed-owner fallout widths
@@ -328,5 +329,141 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerSlice_subset_falloff
   have howner :=
     (mem_squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerSlice.mp hx).2
   exact (squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_some_mem howner).2
+
+/-! ## First-owner wall fallout is confined to the low-owner boundary -/
+
+/-- The first listed owner above `L` is no larger than any other listed
+coordinate above `L`.  This packages the fact that the fresh-prime list is
+sorted increasingly. -/
+theorem squareRootLowPrimeFirstOwnerAbove_le_of_mem
+    {K U L p q : ℕ}
+    (hfirst : squareRootLowPrimeFirstOwnerAbove
+      (squareRootLowPrimeFreshPrimeList K U) L = some p)
+    (hq : q ∈ squareRootLowPrimeFreshPrimeList K U)
+    (hLq : L < q) :
+    p ≤ q := by
+  rcases squareRootLowPrimeFirstOwnerAbove_some_split hfirst with
+    ⟨pre, post, hsplit, hpre, _hLp⟩
+  have hsorted :
+      List.Pairwise (fun a b : ℕ => a ≤ b)
+        (squareRootLowPrimeFreshPrimeList K U) := by
+    unfold squareRootLowPrimeFreshPrimeList
+    exact Finset.pairwise_sort _ _
+  rw [hsplit] at hq hsorted
+  rcases List.mem_append.mp hq with hqPre | hqTail
+  · have hqLe := hpre q hqPre
+    omega
+  · rcases List.mem_cons.mp hqTail with rfl | hqPost
+    · exact le_rfl
+    · have htailSorted :
+          List.Pairwise (fun a b : ℕ => a ≤ b) (p :: post) := by
+        have hdrop := hsorted.drop pre.length
+        simpa using hdrop
+      exact (List.pairwise_cons.mp htailSorted).1 q hqPost
+
+/-- **Deep-owner first fallout cannot cross the square wall.**
+
+Assume the canonical owner of `c` is already beyond the shallow cutoff `K` and
+`p` is the first scheduled prime above that owner.  Any parent seat gives a
+literal deep partner prime `q > P⁺(c)` with `c*q <= X_R`.  Firstness of `p`
+forces `p <= q` (whether `q` lies inside the processed list or beyond `U`), so
+`p*c <= c*q <= X_R`. -/
+theorem squareRootLowPrimeFirstOwnerFalloff_product_le_of_deepOwner
+    {R K j U p c s : ℕ}
+    (hR : 1 ≤ R) (hUR : U < R)
+    (hKOwner : K < canonicalLargestPrimeFactor c)
+    (hfirst : squareRootLowPrimeFirstOwnerAbove
+      (squareRootLowPrimeFreshPrimeList K U)
+      (canonicalLargestPrimeFactor c) = some p)
+    (hfall :
+      some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+        (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
+    p * c ≤ squareRootEndpoint R := by
+  rcases mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hfall with
+    ⟨hparent, _hhead, _hpFresh, _hmissing, _hrough⟩
+  have hparentAtom :
+      (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+  have hcSigned :=
+    (mem_squareRootLowPrimeProcessedSeatAtoms.mp hparentAtom).1
+  have hsParent :
+      s < squareRootLowPrimeCombinedFreshResponse R K j c :=
+    (mem_squareRootLowPrimeProcessedSeatAtoms.mp hparentAtom).2
+  have hcData := Finset.mem_filter.mp hcSigned
+  have hcOne : 1 ≤ c := (Finset.mem_Icc.mp hcData.1).1
+  have hcPos : 0 < c := by omega
+  have hcOwnerU : canonicalLargestPrimeFactor c ≤ U := hcData.2.1
+  have hKc : K < c := by
+    by_cases hcEq : c = 1
+    · subst c
+      simpa [canonicalLargestPrimeFactor] using hKOwner
+    · have hcGt : 1 < c := by omega
+      have hdiv := canonicalLargestPrimeFactor_dvd hcGt
+      have hle : canonicalLargestPrimeFactor c ≤ c :=
+        Nat.le_of_dvd hcPos hdiv
+      exact hKOwner.trans_le hle
+  have hresponsePos :
+      0 < squareRootLowPrimeCombinedFreshResponse R K j c := by
+    omega
+  have hcard :=
+    card_squareRootLowPrimeDeepPartnerSet_eq_combinedFreshResponse
+      (R := R) (K := K) (j := j) (c := c) hR hcPos hKc
+  have hcardPos : 0 < (squareRootLowPrimeDeepPartnerSet R c).card := by
+    rw [hcard]
+    exact hresponsePos
+  rcases Finset.card_pos.mp hcardPos with ⟨q, hqPartner⟩
+  have hqPrime := prime_of_mem_squareRootLowPrimeDeepPartnerSet hqPartner
+  have hqProduct :=
+    mul_le_squareRootEndpoint_of_mem_deepPartnerSet hqPartner
+  have hOwnerQ : canonicalLargestPrimeFactor c < q := by
+    rcases Finset.mem_union.mp hqPartner with hqBorn | hqPost
+    · exact (Finset.mem_filter.mp hqBorn).2.2.1
+    · have hRq : R < q :=
+        (Finset.mem_Ioc.mp (Finset.mem_filter.mp hqPost).1).1
+      exact lt_of_le_of_lt hcOwnerU (hUR.trans hRq)
+  rcases squareRootLowPrimeFirstOwnerAbove_some_split hfirst with
+    ⟨pre, post, hsplit, _hpre, _hLp⟩
+  have hpList : p ∈ squareRootLowPrimeFreshPrimeList K U := by
+    rw [hsplit]
+    simp
+  have hpSet : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
+    simpa [squareRootLowPrimeFreshPrimeList] using hpList
+  have hpIoc := Finset.mem_Ioc.mp (Finset.mem_filter.mp hpSet).1
+  have hpU : p ≤ U := hpIoc.2
+  have hpq : p ≤ q := by
+    by_cases hqU : q ≤ U
+    · have hqSet : q ∈ squareRootLowPrimeFreshPrimeSet K U := by
+        apply Finset.mem_filter.mpr
+        exact ⟨Finset.mem_Ioc.mpr
+          ⟨hKOwner.trans hOwnerQ, hqU⟩, hqPrime⟩
+      have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
+        simpa [squareRootLowPrimeFreshPrimeList] using hqSet
+      exact squareRootLowPrimeFirstOwnerAbove_le_of_mem hfirst hqList hOwnerQ
+    · have hUq : U < q := Nat.lt_of_not_ge hqU
+      exact hpU.trans (Nat.le_of_lt hUq)
+  calc
+    p * c ≤ q * c := Nat.mul_le_mul_right c hpq
+    _ = c * q := by ring
+    _ ≤ squareRootEndpoint R := hqProduct
+
+/-- Equivalently, a genuine first-owner square-wall event can occur only while
+the parent's canonical owner is still at or below the shallow cutoff `K`. -/
+theorem squareRootLowPrimeFirstOwnerFalloff_productWall_forces_lowOwner
+    {R K j U p c s : ℕ}
+    (hR : 1 ≤ R) (hUR : U < R)
+    (hfirst : squareRootLowPrimeFirstOwnerAbove
+      (squareRootLowPrimeFreshPrimeList K U)
+      (canonicalLargestPrimeFactor c) = some p)
+    (hfall :
+      some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+        (squareRootLowPrimeProcessedSeatCarrier R K j U) p)
+    (hwall : squareRootEndpoint R < p * c) :
+    canonicalLargestPrimeFactor c ≤ K := by
+  by_contra hnot
+  have hdeep : K < canonicalLargestPrimeFactor c := Nat.lt_of_not_ge hnot
+  have hinside :=
+    squareRootLowPrimeFirstOwnerFalloff_product_le_of_deepOwner
+      hR hUR hdeep hfirst hfall
+  omega
 
 end RHLean.Proof
