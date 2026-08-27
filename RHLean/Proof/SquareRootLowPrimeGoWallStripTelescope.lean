@@ -1,5 +1,7 @@
 import Mathlib
+import RHLean.Arithmetic.TruncatedCubeMertensPrefix
 import RHLean.Proof.LowPrimeParentChildWindowDifference
+import RHLean.Proof.SquareRootAncestryRoot
 import RHLean.Proof.SquareRootPredecessorPrimeCells
 
 /-!
@@ -25,7 +27,12 @@ belonging to distinct Go liberties are disjoint by canonical largest-prime
 ownership.  Moreover `q*m <= X`: losing one liberty is recorded by one concrete
 multiplicative square certificate.
 
-No estimate is asserted here.
+Once the square-dilated cutoff lies below `q`, the predecessor universe is
+already complete at that lower scale.  The residual is then exactly the ordinary
+integer Mertens prefix at that cutoff.  Thus the genuinely unfinished Go
+territory is restricted to the complementary `q^3 <= X` range.
+
+No quantitative estimate is asserted here.
 -/
 
 noncomputable section
@@ -175,5 +182,163 @@ theorem squareRootLowPrimeGoWallSquareResidualChildren_pairwiseDisjoint
   intro q hq r hr hqr
   exact squareRootLowPrimeGoWallSquareResidualChildren_disjoint
     (hprime q hq) (hprime r hr) hqr
+
+/-! ## Arithmetic cofactor form and completed Go positions -/
+
+/-- Squarefree cofactors represented by the predecessor cube below `q`. -/
+def squareRootLowPrimeGoSmoothCofactors (q B : ℕ) : Finset ℕ :=
+  (Finset.Icc 1 B).filter fun c =>
+    Squarefree c ∧ canonicalLargestPrimeFactor c < q
+
+@[simp] theorem mem_squareRootLowPrimeGoSmoothCofactors
+    {q B c : ℕ} :
+    c ∈ squareRootLowPrimeGoSmoothCofactors q B ↔
+      1 ≤ c ∧ c ≤ B ∧ Squarefree c ∧
+        canonicalLargestPrimeFactor c < q := by
+  simp [squareRootLowPrimeGoSmoothCofactors, and_assoc]
+
+/-- The literal face support and arithmetic smooth-cofactor support are the same
+finite population. -/
+theorem squareRootLowPrimeGoWallSquareResidualFaces_image_eq_smoothCofactors
+    {q X : ℕ} (hq : q.Prime) :
+    (squareRootLowPrimeGoWallSquareResidualFaces q X).image primeFaceProduct =
+      squareRootLowPrimeGoSmoothCofactors q (X / (q * q)) := by
+  ext c
+  constructor
+  · intro hc
+    rcases Finset.mem_image.mp hc with ⟨u, hu, rfl⟩
+    have huData := mem_squareRootLowPrimeGoWallSquareResidualFaces.mp hu
+    have hprime : ∀ r ∈ u, r.Prime := by
+      intro r hr
+      have hrOld := (Finset.mem_powerset.mp huData.1) hr
+      exact (mem_primesUpTo.mp hrOld).1
+    have hmuEq := moebius_primeFaceProduct_eq_booleanCubeSign u hprime
+    have hmuNe : μ (primeFaceProduct u) ≠ 0 := by
+      rw [hmuEq]
+      unfold booleanCubeSign
+      exact pow_ne_zero _ (by norm_num)
+    have hsq : Squarefree (primeFaceProduct u) :=
+      ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuNe
+    have hrough :=
+      canonicalLargestPrimeFactor_primeFaceProduct_lt_freshPrime hq huData.1
+    have hpos : 0 < primeFaceProduct u :=
+      primeFaceProduct_pos_of_mem_powerset huData.1
+    exact mem_squareRootLowPrimeGoSmoothCofactors.mpr
+      ⟨by omega, huData.2, hsq, hrough⟩
+  · intro hc
+    rcases mem_squareRootLowPrimeGoSmoothCofactors.mp hc with
+      ⟨hc1, hcB, hsq, hrough⟩
+    let u := squarefreePrimeFace c
+    have hprod : primeFaceProduct u = c := by
+      simpa [u] using primeFaceProduct_squarefreePrimeFace hsq
+    have huSub : u ⊆ primesUpTo (q - 1) := by
+      intro r hr
+      have hrData : r ∈ c.primeFactors := by
+        simpa [u, squarefreePrimeFace] using hr
+      have hrPrime : r.Prime := (Nat.mem_primeFactors.mp hrData).1
+      have hrDvd : r ∣ c := (Nat.mem_primeFactors.mp hrData).2.1
+      have hcPos : 0 < c := by omega
+      have hrLeC : r ≤ c := Nat.le_of_dvd hcPos hrDvd
+      have hcGt : 1 < c := lt_of_lt_of_le hrPrime.one_lt hrLeC
+      have hrLeLpf : r ≤ canonicalLargestPrimeFactor c := by
+        unfold canonicalLargestPrimeFactor
+        rw [dif_pos hcGt]
+        exact Finset.le_max' c.primeFactors r hrData
+      exact mem_primesUpTo.mpr ⟨hrPrime, by omega⟩
+    have huFace : u ∈ squareRootLowPrimeGoWallSquareResidualFaces q X := by
+      apply mem_squareRootLowPrimeGoWallSquareResidualFaces.mpr
+      refine ⟨Finset.mem_powerset.mpr huSub, ?_⟩
+      simpa [hprod] using hcB
+    exact Finset.mem_image.mpr ⟨u, huFace, hprod⟩
+
+/-- The frozen square residual is exactly the ordinary Möbius sum over its
+squarefree smooth cofactor population. -/
+theorem squareRootLowPrimeGoWallSquareResidual_eq_smoothCofactorSum
+    {q X : ℕ} (hq : q.Prime) :
+    squareRootLowPrimeGoWallSquareResidual q X =
+      ∑ c ∈ squareRootLowPrimeGoSmoothCofactors q (X / (q * q)), μ c := by
+  rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
+  rw [frozenPrimeUniverseMass_eq_cutoffSum]
+  have hfilter :
+      (∑ u ∈ (primesUpTo (q - 1)).powerset,
+          if primeFaceProduct u ≤ X / (q * q) then booleanCubeSign u else 0) =
+        ∑ u ∈ squareRootLowPrimeGoWallSquareResidualFaces q X,
+          booleanCubeSign u := by
+    unfold squareRootLowPrimeGoWallSquareResidualFaces
+    rw [Finset.sum_filter]
+  rw [hfilter]
+  calc
+    (∑ u ∈ squareRootLowPrimeGoWallSquareResidualFaces q X,
+        booleanCubeSign u) =
+      ∑ u ∈ squareRootLowPrimeGoWallSquareResidualFaces q X,
+        μ (primeFaceProduct u) := by
+          apply Finset.sum_congr rfl
+          intro u hu
+          symm
+          apply moebius_primeFaceProduct_eq_booleanCubeSign
+          intro r hr
+          have huOld :=
+            (mem_squareRootLowPrimeGoWallSquareResidualFaces.mp hu).1
+          exact (mem_primesUpTo.mp ((Finset.mem_powerset.mp huOld) hr)).1
+    _ = ∑ c ∈
+        (squareRootLowPrimeGoWallSquareResidualFaces q X).image primeFaceProduct,
+          μ c := by
+            symm
+            apply Finset.sum_image
+            intro u hu v hv huv
+            apply (primeFaceProduct_eq_iff ?_ ?_).mp huv
+            · intro r hr
+              have huOld :=
+                (mem_squareRootLowPrimeGoWallSquareResidualFaces.mp hu).1
+              exact (mem_primesUpTo.mp ((Finset.mem_powerset.mp huOld) hr)).1
+            · intro r hr
+              have hvOld :=
+                (mem_squareRootLowPrimeGoWallSquareResidualFaces.mp hv).1
+              exact (mem_primesUpTo.mp ((Finset.mem_powerset.mp hvOld) hr)).1
+    _ = ∑ c ∈ squareRootLowPrimeGoSmoothCofactors q (X / (q * q)), μ c := by
+          rw [squareRootLowPrimeGoWallSquareResidualFaces_image_eq_smoothCofactors hq]
+
+/-- Once the physical cutoff lies below the owner prime, the smoothness
+restriction is vacuous. -/
+theorem squareRootLowPrimeGoSmoothCofactors_eq_squarefreeUpTo
+    {q B : ℕ} (hq : q.Prime) (hBq : B < q) :
+    squareRootLowPrimeGoSmoothCofactors q B = squarefreeUpTo B := by
+  ext c
+  constructor
+  · intro hc
+    rcases mem_squareRootLowPrimeGoSmoothCofactors.mp hc with
+      ⟨hc1, hcB, hsq, _hrough⟩
+    unfold squarefreeUpTo
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_range.mpr (by omega), hsq⟩
+  · intro hc
+    unfold squarefreeUpTo at hc
+    rcases Finset.mem_filter.mp hc with ⟨hcRange, hsq⟩
+    have hcB : c ≤ B := by
+      have := Finset.mem_range.mp hcRange
+      omega
+    have hc1 : 1 ≤ c := Nat.one_le_iff_ne_zero.mpr hsq.ne_zero
+    have hrough : canonicalLargestPrimeFactor c < q := by
+      by_cases hcEq : c = 1
+      · subst c
+        simp [canonicalLargestPrimeFactor, hq.one_lt]
+      · have hcGt : 1 < c := by omega
+        have hlpfLe : canonicalLargestPrimeFactor c ≤ c :=
+          Nat.le_of_dvd (by omega) (canonicalLargestPrimeFactor_dvd hcGt)
+        omega
+    exact mem_squareRootLowPrimeGoSmoothCofactors.mpr
+      ⟨hc1, hcB, hsq, hrough⟩
+
+/-- **Completed Go position = lower-scale Mertens.**  If the square-dilated
+cutoff lies below `q`, every possible prime factor is already present in the
+predecessor universe. -/
+theorem squareRootLowPrimeGoWallSquareResidual_eq_mertensSummatoryInt
+    {q X : ℕ} (hq : q.Prime) (hcomplete : X / (q * q) < q) :
+    squareRootLowPrimeGoWallSquareResidual q X =
+      mertensSummatoryInt (X / (q * q)) := by
+  rw [squareRootLowPrimeGoWallSquareResidual_eq_smoothCofactorSum hq,
+    squareRootLowPrimeGoSmoothCofactors_eq_squarefreeUpTo hq hcomplete]
+  unfold mertensSummatoryInt
+  exact squarefreeMoebiusSum_eq_fullPrefix (X / (q * q))
 
 end RHLean.Proof
