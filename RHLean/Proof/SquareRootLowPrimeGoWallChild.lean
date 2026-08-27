@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.SquareRootLowPrimeFirstOwnerWallRecurrence
 
 /-!
@@ -187,5 +188,132 @@ theorem squareRootLowPrimeGoWallChild_parent_gt_cutoff
       simpa [Nat.mul_comm] using hwall)
   rw [← hzn, hcoords.1]
   exact hdiv
+
+/-- **Intrinsic Go-wall characterization.**
+
+When `p` is the first scheduled fresh prime after `K`, membership in the entire
+wall child carrier depends only on the child integer: it is squarefree, lies
+below the square endpoint, and stripping its canonical largest prime still
+leaves a parent above the common lower wall cutoff `floor(X_R/p)`.
+
+The old-owner condition is not an extra hypothesis.  It follows automatically:
+if the canonical owner `q` were at least `p`, then `p*cofactor <= q*cofactor = n`
+would contradict the wall inequality.  First-fresh minimality then forces
+`q <= K`. -/
+theorem mem_squareRootLowPrimeGoWallChildren_iff_parentAbove
+    {R K U p n : ℕ} (hR : 2 ≤ R) (hUR : U < R)
+    (hfirst : squareRootLowPrimeFirstOwnerAbove
+      (squareRootLowPrimeFreshPrimeList K U) K = some p) :
+    n ∈ squareRootLowPrimeGoWallChildren R K p ↔
+      2 ≤ n ∧ n ≤ squareRootEndpoint R ∧ Squarefree n ∧
+        squareRootEndpoint R / p < canonicalCofactor n := by
+  rcases squareRootLowPrimeFirstOwnerAbove_split_of_le_shallowCutoff
+      (K := K) (U := U) (L := K) (p := p) (le_refl K) hfirst with
+    ⟨post, hlist⟩
+  have hpList : p ∈ squareRootLowPrimeFreshPrimeList K U := by
+    rw [hlist]
+    simp
+  have hpSet : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
+    simpa [squareRootLowPrimeFreshPrimeList] using hpList
+  have hpData := Finset.mem_filter.mp hpSet
+  have hpPrime : p.Prime := hpData.2
+  have hpIoc := Finset.mem_Ioc.mp hpData.1
+  have hKp : K < p := hpIoc.1
+  have hpU : p ≤ U := hpIoc.2
+  have hpR : p < R := hpU.trans_lt hUR
+  constructor
+  · intro hn
+    rcases Finset.mem_image.mp hn with ⟨z, hz, hzn⟩
+    have heuler := squareRootLowPrimeWallPair_euler_data hz
+    have hendpoint := squareRootLowPrimeGoWallChildren_subset_endpoint hn
+    have hnIcc := Finset.mem_Icc.mp hendpoint
+    have hn2 : 2 ≤ n := by
+      rw [← hzn]
+      unfold squareRootLowPrimeGoWallChild
+      have hcOne : 1 ≤ z.1 := by omega
+      nlinarith [heuler.2.1.two_le]
+    have hwallData := squareRootLowPrimeWallPair_data hz
+    have hcSigned := (Finset.mem_filter.mp hwallData.1).1
+    have hmuC : μ z.1 ≠ 0 :=
+      (Finset.mem_filter.mp hcSigned).2.2
+    have hmuChild : μ (squareRootLowPrimeGoWallChild z) ≠ 0 := by
+      rw [squareRootLowPrimeGoWallChild_moebius hz]
+      exact neg_ne_zero.mpr hmuC
+    have hsq : Squarefree n := by
+      apply ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp
+      simpa [hzn] using hmuChild
+    exact ⟨hn2, hnIcc.2, hsq,
+      squareRootLowPrimeGoWallChild_parent_gt_cutoff hn⟩
+  · rintro ⟨hn2, hnX, hsq, hparent⟩
+    have hn1 : 1 < n := by omega
+    let q := canonicalLargestPrimeFactor n
+    let c := canonicalCofactor n
+    have hsource :=
+      CanonicalGapAncestryBridge.canonicalSourceData_of_squarefree hsq hn1
+    have hqPrime : q.Prime := by
+      simpa [q] using hsource.1
+    have hcOne : 1 ≤ c := by
+      simpa [c] using hsource.2.1
+    have hcSq : Squarefree c := by
+      simpa [c] using hsource.2.2.1
+    have hprod : c * q = n := by
+      simpa [c, q] using canonicalCofactor_mul_largestPrimeFactor hn1
+    have hrough : canonicalLargestPrimeFactor c < q := by
+      by_cases hcEq : c = 1
+      · subst c
+        simp [canonicalLargestPrimeFactor, hqPrime.one_lt]
+      · have hcGt : 1 < c := by omega
+        exact hsource.2.2.2.2
+          (canonicalLargestPrimeFactor c)
+          (canonicalLargestPrimeFactor_prime hcGt)
+          (canonicalLargestPrimeFactor_dvd hcGt)
+    have hwall' : squareRootEndpoint R < c * p :=
+      (Nat.div_lt_iff_lt_mul hpPrime.pos).1 (by simpa [c] using hparent)
+    have hwall : squareRootEndpoint R < p * c := by
+      simpa [Nat.mul_comm] using hwall'
+    have hqLtP : q < p := by
+      by_contra hnot
+      have hpq : p ≤ q := Nat.le_of_not_gt hnot
+      have hpcq : p * c ≤ q * c := Nat.mul_le_mul_right c hpq
+      have hqc : q * c = n := by simpa [Nat.mul_comm] using hprod
+      have hpn : p * c ≤ n := by simpa [hqc] using hpcq
+      omega
+    have hqK : q ≤ K := by
+      by_contra hnot
+      have hKq : K < q := Nat.lt_of_not_ge hnot
+      have hqU : q ≤ U := by omega
+      have hqSet : q ∈ squareRootLowPrimeFreshPrimeSet K U := by
+        unfold squareRootLowPrimeFreshPrimeSet
+        exact Finset.mem_filter.mpr
+          ⟨Finset.mem_Ioc.mpr ⟨hKq, hqU⟩, hqPrime⟩
+      have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
+        simpa [squareRootLowPrimeFreshPrimeList] using hqSet
+      have hpLeq := squareRootLowPrimeFirstOwnerAbove_le_of_mem
+        hfirst hqList hKq
+      omega
+    have hupp : c ≤ squareRootEndpoint R / q := by
+      apply (Nat.le_div_iff_mul_le hqPrime.pos).2
+      simpa [hprod] using hnX
+    have hcWin :
+        c ∈ squareRootLowPrimeOldPrimeWallWindowCofactors R p q := by
+      exact (mem_squareRootLowPrimeOldPrimeWallWindowCofactors_iff hqPrime).2
+        ⟨hcSq, hrough, by simpa [c] using hparent, hupp⟩
+    have hqOld : q ∈ squareRootLowPrimeWallOldPrimeSet K :=
+      mem_squareRootLowPrimeWallOldPrimeSet.mpr ⟨hqPrime, hqK⟩
+    have hpairOld :
+        (c, q) ∈ squareRootLowPrimeWallPairCarrierOldPrimeFirst R K p := by
+      unfold squareRootLowPrimeWallPairCarrierOldPrimeFirst
+      apply Finset.mem_biUnion.mpr
+      refine ⟨q, hqOld, ?_⟩
+      exact Finset.mem_image.mpr ⟨c, hcWin, rfl⟩
+    have hpair :
+        (c, q) ∈ squareRootLowPrimeWallPairCarrierCofactorFirst R K p := by
+      rw [squareRootLowPrimeWallPairCarrierCofactorFirst_eq_oldPrimeFirst
+        hR hpPrime hKp hpR]
+      exact hpairOld
+    unfold squareRootLowPrimeGoWallChildren
+    apply Finset.mem_image.mpr
+    refine ⟨(c, q), hpair, ?_⟩
+    simpa [squareRootLowPrimeGoWallChild] using hprod
 
 end RHLean.Proof
