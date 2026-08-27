@@ -98,9 +98,12 @@ theorem finiteFaceMaxPayload_insert_least
   have haMax : a ≤ u.max' huNonempty := hmin _ hmaxS
   have hinsNonempty : (insert a u).Nonempty :=
     ⟨a, Finset.mem_insert_self _ _⟩
+  have hmaxEq :
+      (insert a u).max' hinsNonempty = max a (u.max' huNonempty) := by
+    simpa using (Finset.max'_insert a u huNonempty)
   unfold finiteFaceMaxPayload
-  rw [dif_pos hinsNonempty, dif_pos huNonempty]
-  rw [Finset.max'_insert a u huNonempty, max_eq_right haMax]
+  rw [dif_pos hinsNonempty, dif_pos huNonempty, hmaxEq,
+    max_eq_right haMax]
 
 /-- **Largest-coordinate / least-coordinate duality.**  On a finite ordered
 set with least coordinate `a`, the complete nonempty alternating face sum of a
