@@ -668,6 +668,12 @@ theorem squareRootLowPrimeProcessedSeatCanonicalChild_not_paired_before_owner
     have hEq := congrArg
       (fun t => canonicalLargestPrimeFactor
         (squareRootLowPrimeProcessedStateCofactor t)) hyEq
+    change canonicalLargestPrimeFactor
+        (squareRootLowPrimeProcessedStateCofactor
+          (squareRootLowPrimeProcessedSeatExtend q y)) =
+      canonicalLargestPrimeFactor
+        (squareRootLowPrimeProcessedStateCofactor
+          (squareRootLowPrimeProcessedSeatExtend p x)) at hEq
     rw [hlpfQ, hlpfP] at hEq
     omega
 
@@ -758,7 +764,8 @@ theorem squareRootLowPrimeProcessedSeatCanonicalTerminal_firstOwnerAbove_mem_fal
       x ∈ squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier
         (pre ++ p :: post)
         (squareRootLowPrimeProcessedSeatCarrier R K j U) := by
-    simpa [hsplit] using hxTerminal
+    simpa [squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier, hsplit] using
+      hxTerminal
   rw [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier_append] at hxSplit
   have hxAfterP :
       x ∈ squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier post
