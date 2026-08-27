@@ -114,8 +114,11 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_none_iff
         x ∉ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S p := by
   induction ps with
   | nil =>
-      simp only [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner,
-        List.not_mem_nil, IsEmpty.forall_iff]
+      constructor
+      · intro _ p hp
+        exact (List.not_mem_nil p hp).elim
+      · intro _
+        rfl
   | cons p ps ih =>
       by_cases hp :
           x ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S p
