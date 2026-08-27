@@ -72,8 +72,8 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_mem_frontierStep
       (squareRootLowPrimeProcessedSeat_not_mem_pairUpper_of_fresh hpFresh)
         hupper'
 
-/-- A square-wall `p`-child remains beyond the wall after replacing `p` by any
-larger coordinate `r`. -/
+/-- A square-wall `p`-child remains beyond the square endpoint after replacing
+`p` by any larger coordinate `r`. -/
 theorem squareRootLowPrimeWall_mono
     {R p r c : ℕ} (hpr : p ≤ r)
     (hwall : squareRootEndpoint R < p * c) :
@@ -745,8 +745,11 @@ theorem frozenPrimeUniverse_upperColumn_telescope
   induction K with
   | zero =>
       have hzero : primesUpTo 0 = ∅ := by
-        ext q
-        simp [primesUpTo]
+        apply Finset.eq_empty_iff_forall_notMem.mpr
+        intro q hq
+        have hdata := mem_primesUpTo.mp hq
+        have htwo := hdata.1.two_le
+        omega
       rw [hzero]
       simp [frozenPrimeUniverseMass_eq_cutoffSum,
         primeFaceProduct, booleanCubeSign, hX]
