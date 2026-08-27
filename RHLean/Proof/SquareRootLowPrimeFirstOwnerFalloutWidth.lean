@@ -150,7 +150,8 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_iff_seatIndex
     · have hseat :
           squareRootLowPrimeCombinedFreshResponse R K j (p * c) ≤ s :=
         hobs.resolve_left hwall
-      exact Finset.mem_Ico.mpr ⟨hseat, hsParent⟩
+      simpa [squareRootLowPrimeCanonicalOwnerFalloutSeatIndices, hwall] using
+        (Finset.mem_Ico.mpr ⟨hseat, hsParent⟩)
   · intro hsLost
     by_cases hwall : squareRootEndpoint R < p * c
     · have hsParent :
@@ -223,6 +224,9 @@ theorem squareRootLowPrimeCanonicalOwnerFalloutFiber_pairwiseDisjoint
       (↑(squareRootLowPrimeCanonicalOwnerParentCofactors R U p))
       (squareRootLowPrimeCanonicalOwnerFalloutFiber R K j p) := by
   intro c _hc d _hd hcd
+  change Disjoint
+    (squareRootLowPrimeCanonicalOwnerFalloutFiber R K j p c)
+    (squareRootLowPrimeCanonicalOwnerFalloutFiber R K j p d)
   rw [Finset.disjoint_left]
   intro x hxc hxd
   rcases Finset.mem_image.mp hxc with ⟨s, _hs, hsx⟩
@@ -345,10 +349,10 @@ theorem squareRootLowPrimeFirstOwnerAbove_le_of_mem
   rcases squareRootLowPrimeFirstOwnerAbove_some_split hfirst with
     ⟨pre, post, hsplit, hpre, _hLp⟩
   have hsorted :
-      List.Pairwise (fun a b : ℕ => a ≤ b)
+      List.Sorted (fun a b : ℕ => a ≤ b)
         (squareRootLowPrimeFreshPrimeList K U) := by
     unfold squareRootLowPrimeFreshPrimeList
-    exact Finset.pairwise_sort _ _
+    exact Finset.sort_sorted (· ≤ ·) _
   rw [hsplit] at hq hsorted
   rcases List.mem_append.mp hq with hqPre | hqTail
   · have hqLe := hpre q hqPre
@@ -356,9 +360,8 @@ theorem squareRootLowPrimeFirstOwnerAbove_le_of_mem
   · rcases List.mem_cons.mp hqTail with rfl | hqPost
     · exact le_rfl
     · have htailSorted :
-          List.Pairwise (fun a b : ℕ => a ≤ b) (p :: post) := by
-        have hdrop := hsorted.drop pre.length
-        simpa using hdrop
+          List.Sorted (fun a b : ℕ => a ≤ b) (p :: post) :=
+        (List.pairwise_append.mp hsorted).2.1
       exact (List.pairwise_cons.mp htailSorted).1 q hqPost
 
 /-- A first scheduled owner is itself one of the fresh scheduled primes. -/
@@ -513,7 +516,7 @@ theorem squareRootLowPrimeFirstOwnerWall_forces_root_le_cofactor
 /-- At or beyond the root the processed combined response is purely born: the
 honest high channel has already ended. -/
 theorem squareRootLowPrimeCombinedFreshResponse_eq_born_of_root_le
-    {R K j c : ℕ} (hcR : R ≤ c) :
+    {R K j c : ℕ} (hR : 1 ≤ R) (hcR : R ≤ c) :
     squareRootLowPrimeCombinedFreshResponse R K j c =
       squareRootBornPartnerCount R c := by
   unfold squareRootLowPrimeCombinedFreshResponse
@@ -590,6 +593,6 @@ theorem squareRootLowPrimeFirstOwnerWall_falloutWidth_eq_born
     hR hUR hfirst hwall
   unfold squareRootLowPrimeCanonicalOwnerFalloutWidth
   rw [if_pos hwall,
-    squareRootLowPrimeCombinedFreshResponse_eq_born_of_root_le hcR]
+    squareRootLowPrimeCombinedFreshResponse_eq_born_of_root_le (by omega) hcR]
 
 end RHLean.Proof
