@@ -48,18 +48,13 @@ theorem finiteNonemptyFaceAlternatingSum_eq_neg_singleton
     (hinvariant : ∀ u ∈ (S.erase a).powerset, u.Nonempty →
       g (insert a u) = g u) :
     finiteNonemptyFaceAlternatingSum S g = -g {a} := by
-  classical
   have hdecomp : S = insert a (S.erase a) := (Finset.insert_erase ha).symm
   have haErase : a ∉ S.erase a := Finset.notMem_erase a S
   unfold finiteNonemptyFaceAlternatingSum
   rw [hdecomp, Finset.sum_powerset_insert haErase]
   rw [← Finset.sum_add_distrib]
   calc
-    (∑ u ∈ (S.erase a).powerset,
-      (if u.Nonempty then booleanCubeSign u • g u else 0) +
-        (if (insert a u).Nonempty then
-          booleanCubeSign (insert a u) • g (insert a u) else 0)) =
-      ∑ u ∈ (S.erase a).powerset,
+    _ = ∑ u ∈ (S.erase a).powerset,
         if u = ∅ then -g {a} else 0 := by
       apply Finset.sum_congr rfl
       intro u hu
@@ -78,10 +73,8 @@ theorem finiteNonemptyFaceAlternatingSum_eq_neg_singleton
           ring
         simp only [huNonempty, hinsNonempty, if_true]
         rw [hginv, hsign]
-        simp
-    _ = -g {a} := by
-      have hEmptyMem : (∅ : Finset α) ∈ (S.erase a).powerset := by simp
-      simp [hEmptyMem]
+        simp [huEmpty]
+    _ = -g {a} := by simp
 
 /-- Total maximum-coordinate payload, zero on the empty face. -/
 def finiteFaceMaxPayload
@@ -98,7 +91,6 @@ theorem finiteFaceMaxPayload_insert_least
     {u : Finset α} (hu : u ∈ (S.erase a).powerset)
     (huNonempty : u.Nonempty) :
     finiteFaceMaxPayload f (insert a u) = finiteFaceMaxPayload f u := by
-  classical
   have huSub : u ⊆ S.erase a := Finset.mem_powerset.mp hu
   have hmaxMem : u.max' huNonempty ∈ u := Finset.max'_mem u huNonempty
   have hmaxS : u.max' huNonempty ∈ S :=
@@ -107,9 +99,8 @@ theorem finiteFaceMaxPayload_insert_least
   have hinsNonempty : (insert a u).Nonempty :=
     ⟨a, Finset.mem_insert_self _ _⟩
   unfold finiteFaceMaxPayload
-  simp only [huNonempty, hinsNonempty, dif_pos]
-  rw [Finset.max'_insert]
-  rw [max_eq_right haMax]
+  rw [dif_pos hinsNonempty, dif_pos huNonempty]
+  rw [Finset.max'_insert a u huNonempty, max_eq_right haMax]
 
 /-- **Largest-coordinate / least-coordinate duality.**  On a finite ordered
 set with least coordinate `a`, the complete nonempty alternating face sum of a
