@@ -113,12 +113,28 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_none_iff
       ∀ p ∈ ps,
         x ∉ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S p := by
   induction ps with
-  | nil => simp [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner]
+  | nil =>
+      simp only [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner,
+        List.not_mem_nil, IsEmpty.forall_iff]
   | cons p ps ih =>
       by_cases hp :
           x ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S p
-      · simp [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, hp]
-      · simp [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, hp, ih]
+      · constructor
+        · intro hnone
+          simp [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, hp] at hnone
+        · intro hall
+          exfalso
+          exact (hall p (by simp)) hp
+      · rw [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner]
+        simp only [if_neg hp]
+        rw [ih]
+        constructor
+        · intro htail q hq
+          rcases List.mem_cons.mp hq with rfl | hq
+          · exact hp
+          · exact htail q hq
+        · intro hall q hq
+          exact hall q (by simp [hq])
 
 /-- Any returned owner is actually listed and is an intrinsic fallout owner. -/
 theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_some_mem
@@ -215,7 +231,7 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_existsUnique
     (mem_squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerSlice.mp hxp).2
   have hqEq :=
     (mem_squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerSlice.mp hq.2).2
-  exact Option.some.inj (hpEq.symm.trans hqEq)
+  exact Option.some.inj (hqEq.symm.trans hpEq)
 
 /-- Assigned intrinsic fibres and the honest residual partition the target. -/
 theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerSupport_union_residual
