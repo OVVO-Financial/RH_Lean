@@ -357,8 +357,13 @@ theorem squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_noLaterOwner_or
           (squareRootLowPrimeFreshPrimeList K U) L).mp hfirst
   | some p =>
       right
-      simpa [L] using
-        (squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_firstOwnerAbove_blocker
-          hxResidual hfirst)
+      have hblock :=
+        squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_firstOwnerAbove_blocker
+          hxResidual (by simpa [L] using hfirst)
+      rcases hblock with
+        ⟨pre, post, pre', q, post', z, hsplit, hpreSplit,
+          hpPrime, hqPrime, hqLe, hqp, hz, hedge⟩
+      exact ⟨p, pre, post, pre', q, post', z, hsplit, hpreSplit,
+        hpPrime, hqPrime, hqLe, hqp, hz, hedge⟩
 
 end RHLean.Proof
