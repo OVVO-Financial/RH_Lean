@@ -238,7 +238,7 @@ theorem squareRootLowPrimeFirstOwnerWall_mem_canonicalTerminal
     (hwall : squareRootEndpoint R < p * c) :
     some (c, s) ∈
       squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U := by
-  have hlow := squareRootLowPrimeFirstOwnerFallout_productWall_forces_lowOwner
+  have hlow := squareRootLowPrimeFirstOwnerFalloff_productWall_forces_lowOwner
     (R := R) (K := K) (j := j) (U := U) (p := p) (c := c) (s := s)
     (by omega) hUR hfirst hfall hwall
   rcases squareRootLowPrimeFirstOwnerAbove_split_of_le_shallowCutoff hlow hfirst with
@@ -314,7 +314,7 @@ theorem squareRootLowPrimeFirstOwnerWall_mem_intrinsicFirstOwnerSlice
         (squareRootLowPrimeFreshPrimeList K U)
         (squareRootLowPrimeProcessedSeatCarrier R K j U)
         (squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U) p := by
-  have hlow := squareRootLowPrimeFirstOwnerFallout_productWall_forces_lowOwner
+  have hlow := squareRootLowPrimeFirstOwnerFalloff_productWall_forces_lowOwner
     (R := R) (K := K) (j := j) (U := U) (p := p) (c := c) (s := s)
     (by omega) hUR hfirst hfall hwall
   rcases squareRootLowPrimeFirstOwnerAbove_split_of_le_shallowCutoff hlow hfirst with
@@ -678,6 +678,11 @@ theorem squareRootLowPrimeOldPrimeWallPairFibers_pairwiseDisjoint
         (squareRootLowPrimeOldPrimeWallWindowCofactors R p q).image
           fun c => (c, q)) := by
   intro q _hq r _hr hqr
+  change Disjoint
+    ((squareRootLowPrimeOldPrimeWallWindowCofactors R p q).image
+      fun c => (c, q))
+    ((squareRootLowPrimeOldPrimeWallWindowCofactors R p r).image
+      fun c => (c, r))
   rw [Finset.disjoint_left]
   intro z hzq hzr
   rcases Finset.mem_image.mp hzq with ⟨c, _hc, hcz⟩
@@ -704,9 +709,8 @@ theorem squareRootLowPrimeWallPairCarrierOldPrimeFirst_moebiusSum
         (fun c => (c, q)), μ z.1) =
       ∑ c ∈ squareRootLowPrimeOldPrimeWallWindowCofactors R p q, μ c := by
         rw [Finset.sum_image]
-        · simp
-        · intro a _ha b _hb hab
-          exact congrArg Prod.fst hab
+        intro a _ha b _hb hab
+        exact congrArg Prod.fst hab
     _ = squareRootLowPrimeOldPrimeWallWindowMass R p q :=
       squareRootLowPrimeOldPrimeWallWindowCofactors_moebiusSum R p q
 
@@ -740,8 +744,12 @@ theorem frozenPrimeUniverse_upperColumn_telescope
       1 - frozenPrimeUniverseMass (primesUpTo K) X := by
   induction K with
   | zero =>
-      simp [primesUpTo, frozenPrimeUniverseMass_eq_cutoffSum,
-        hX, primeFaceProduct, booleanCubeSign]
+      have hzero : primesUpTo 0 = ∅ := by
+        ext q
+        simp [primesUpTo]
+      rw [hzero]
+      simp [frozenPrimeUniverseMass_eq_cutoffSum,
+        primeFaceProduct, booleanCubeSign, hX]
   | succ K ih =>
       by_cases hq : (K + 1).Prime
       · have hnotMem : K + 1 ∉ primesUpTo K := by
@@ -781,7 +789,7 @@ theorem squareRootLowPrimeWallUpperColumn_telescope
 /-- Old-prime window mass after the moving upper column has telescoped.  Only
 one common lower-cutoff column remains. -/
 theorem squareRootLowPrimeOldPrimeWallWindowMassSum_eq_fixedColumn
-    {R K p : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hKp : K < p) :
+    {R K p : ℕ} (hR : 2 ≤ R) (hKp : K < p) :
     (∑ q ∈ squareRootLowPrimeWallOldPrimeSet K,
       squareRootLowPrimeOldPrimeWallWindowMass R p q) =
       (1 - frozenPrimeUniverseMass (primesUpTo K) (squareRootEndpoint R)) -
@@ -882,7 +890,7 @@ theorem squareRootLowPrimeWallPairCarrier_moebiusSum_eq_unfinishedFixedColumn
   rw [squareRootLowPrimeWallPairCarrierCofactorFirst_eq_oldPrimeFirst
       hR hp hKp hpR,
     squareRootLowPrimeWallPairCarrierOldPrimeFirst_moebiusSum,
-    squareRootLowPrimeOldPrimeWallWindowMassSum_eq_fixedColumn hR hp hKp,
+    squareRootLowPrimeOldPrimeWallWindowMassSum_eq_fixedColumn hR hKp,
     squareRootLowPrimeWallFixedColumn_eq_unfinished]
 
 end RHLean.Proof
