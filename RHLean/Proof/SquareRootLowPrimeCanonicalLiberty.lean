@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.SquareRootLowPrimeMatchingDisplacement
+import RHLean.Proof.SquareRootLowPrimeHorizontalTerminalCoverage
 
 /-!
 # Canonical prime liberties for finite processed-seat matching
