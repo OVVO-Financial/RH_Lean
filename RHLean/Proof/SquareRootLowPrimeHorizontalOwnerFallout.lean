@@ -2,33 +2,28 @@ import Mathlib
 import RHLean.Proof.SquareRootLowPrimeMatchingDisplacement
 
 /-!
-# Horizontal owner slices for the processed low-prime frontier
+# Horizontal owner cuts for processed low-prime matching
 
-This module separates the two objects that occur at one chronological prime
-stage.
+At one chronological prime `p` there are two different populations.
 
-* The complete paired population removed at `p` is a zero-mass object: every
-  lower endpoint is matched with its `p`-extension and the two Mobius weights
-  cancel.
-* A fresh parent whose `p`-child is absent from the current row is surviving
-  fallout.  Its mass is retained and must be estimated; it is never declared
-  zero.
+* `paired(S,p)` is the complete lower/upper population actually removed from
+  the current row.  It has signed mass zero because every lower endpoint is
+  paired with its fresh `p`-extension.
+* a fresh parent whose `p`-child is absent is fallout.  Its signed mass is not
+  zero and is retained for the quantitative argument.
 
-The removed populations are recorded by chronological owner and are pairwise
-disjoint because every later row is a subset of the frontier left by every
-earlier row.
+The chronological paired populations are disjoint because every later row is a
+subset of every earlier frontier.  Their union together with the terminal row
+is exactly the original carrier.
 
-For fallout, the genuine Euler orientation adds
+The final section defines the fixed-owner missing-child population and its
+canonical Euler-oriented subpopulation `P+(c) < p`.  Whether the row supplied
+to that definition is the mutable stage row or the original static carrier is
+an explicit choice; terminal coverage will use the original carrier so that a
+child consumed by an earlier owner is not misclassified as intrinsic fallout.
 
-`P+(cofactor) < p`.
-
-A chosen target population is then assigned to the first chronological owner at
-which it lies in this canonical fallout.  Once assigned, it is deleted only
-from the still-unassigned target.  Therefore the first-fallout slices are
-pairwise disjoint and their signed masses add exactly, with an explicit residual
-for states having no such owner.
-
-No estimate, chain parity, PNT input, or Mertens bound is used here.
+No estimate, chain-parity argument, PNT input, Mertens bound, or RH-equivalent
+statement is used here.
 -/
 
 noncomputable section
@@ -39,7 +34,7 @@ namespace RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
 
-/-! ## Chronological removed-pair slices -/
+/-! ## Chronological zero-mass paired cuts -/
 
 /-- Owner-tagged populations actually removed by chronological matching. -/
 def squareRootLowPrimeProcessedSeatRemovedPairSliceFamily :
@@ -51,8 +46,7 @@ def squareRootLowPrimeProcessedSeatRemovedPairSliceFamily :
         squareRootLowPrimeProcessedSeatRemovedPairSliceFamily ps
           (squareRootLowPrimeProcessedSeatFrontierStep S p)
 
-/-- Every recorded removed population lies in the carrier entering the whole
-chronological matching. -/
+/-- Every recorded paired cut lies in the original carrier. -/
 theorem squareRootLowPrimeProcessedSeatRemovedPairSliceFamily_entry_subset
     (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState)
     {a : ℕ × Finset SquareRootLowPrimeProcessedState}
@@ -70,8 +64,8 @@ theorem squareRootLowPrimeProcessedSeatRemovedPairSliceFamily_entry_subset
           (ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p) ha).trans
             (squareRootLowPrimeProcessedSeatFrontierStep_subset' S p)
 
-/-- The population removed at one owner is disjoint from the row that survives
-that owner. -/
+/-- The population removed at one owner is disjoint from the row surviving that
+owner. -/
 theorem squareRootLowPrimeProcessedSeatPaired_disjoint_frontierStep
     (S : Finset SquareRootLowPrimeProcessedState) (p : ℕ) :
     Disjoint (squareRootLowPrimeProcessedSeatPaired S p)
@@ -80,7 +74,7 @@ theorem squareRootLowPrimeProcessedSeatPaired_disjoint_frontierStep
   intro x hxPaired hxFrontier
   exact (Finset.mem_sdiff.mp hxFrontier).2 hxPaired
 
-/-- Distinct chronological removed-pair slices have disjoint support. -/
+/-- Distinct chronological paired cuts have disjoint support. -/
 theorem squareRootLowPrimeProcessedSeatRemovedPairSliceFamily_disjoint
     (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState)
     {a b : ℕ × Finset SquareRootLowPrimeProcessedState}
@@ -118,8 +112,8 @@ theorem squareRootLowPrimeProcessedSeatRemovedPairSliceFamily_disjoint
             (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
             ha hb hab
 
-/-- Every removed-pair slice cancels by itself.  This theorem applies only to
-the paired population, never to fallout. -/
+/-- Every chronological paired cut cancels by itself.  This theorem applies
+only to the paired population, never to fallout. -/
 theorem squareRootLowPrimeProcessedSeatRemovedPairSliceFamily_weight_sum_eq_zero
     (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState)
     (hprime : ∀ p ∈ ps, p.Prime)
@@ -142,10 +136,115 @@ theorem squareRootLowPrimeProcessedSeatRemovedPairSliceFamily_weight_sum_eq_zero
           (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
           htail ha
 
+/-- Union of every population removed by the chronological owner cuts. -/
+def squareRootLowPrimeProcessedSeatRemovedPairSupport :
+    List ℕ → Finset SquareRootLowPrimeProcessedState →
+      Finset SquareRootLowPrimeProcessedState
+  | [], _S => ∅
+  | p :: ps, S =>
+      squareRootLowPrimeProcessedSeatPaired S p ∪
+        squareRootLowPrimeProcessedSeatRemovedPairSupport ps
+          (squareRootLowPrimeProcessedSeatFrontierStep S p)
+
+/-- The complete removed support lies in the original carrier. -/
+theorem squareRootLowPrimeProcessedSeatRemovedPairSupport_subset
+    (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState) :
+    squareRootLowPrimeProcessedSeatRemovedPairSupport ps S ⊆ S := by
+  induction ps generalizing S with
+  | nil => simp [squareRootLowPrimeProcessedSeatRemovedPairSupport]
+  | cons p ps ih =>
+      intro x hx
+      rcases Finset.mem_union.mp hx with hxPair | hxTail
+      · exact squareRootLowPrimeProcessedSeatPaired_subset S p hxPair
+      · exact squareRootLowPrimeProcessedSeatFrontierStep_subset' S p
+          (ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p) hxTail)
+
+/-- Removed paired support is disjoint from the final terminal row. -/
+theorem squareRootLowPrimeProcessedSeatRemovedPairSupport_disjoint_terminal
+    (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState) :
+    Disjoint
+      (squareRootLowPrimeProcessedSeatRemovedPairSupport ps S)
+      (squareRootLowPrimeProcessedSeatMatchingFrontier ps S) := by
+  induction ps generalizing S with
+  | nil => simp [squareRootLowPrimeProcessedSeatRemovedPairSupport]
+  | cons p ps ih =>
+      rw [Finset.disjoint_left]
+      intro x hxRemoved hxTerminal
+      rcases Finset.mem_union.mp hxRemoved with hxPair | hxTail
+      · have hxStep :
+            x ∈ squareRootLowPrimeProcessedSeatFrontierStep S p :=
+          squareRootLowPrimeProcessedSeatMatchingFrontier_subset' ps
+            (squareRootLowPrimeProcessedSeatFrontierStep S p) hxTerminal
+        exact (Finset.disjoint_left.mp
+          (squareRootLowPrimeProcessedSeatPaired_disjoint_frontierStep S p))
+          hxPair hxStep
+      · exact (Finset.disjoint_left.mp
+          (ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p)))
+          hxTail hxTerminal
+
+/-- **Exact horizontal partition.**  Chronological paired cuts together with the
+terminal row are exactly the original carrier. -/
+theorem squareRootLowPrimeProcessedSeatRemovedPairSupport_union_terminal
+    (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState) :
+    squareRootLowPrimeProcessedSeatRemovedPairSupport ps S ∪
+        squareRootLowPrimeProcessedSeatMatchingFrontier ps S = S := by
+  induction ps generalizing S with
+  | nil => simp [squareRootLowPrimeProcessedSeatRemovedPairSupport,
+      squareRootLowPrimeProcessedSeatMatchingFrontier]
+  | cons p ps ih =>
+      simp only [squareRootLowPrimeProcessedSeatRemovedPairSupport,
+        squareRootLowPrimeProcessedSeatMatchingFrontier,
+        Finset.union_assoc]
+      rw [ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p)]
+      ext x
+      constructor
+      · intro hx
+        rcases Finset.mem_union.mp hx with hxPair | hxStep
+        · exact squareRootLowPrimeProcessedSeatPaired_subset S p hxPair
+        · exact squareRootLowPrimeProcessedSeatFrontierStep_subset' S p hxStep
+      · intro hxS
+        by_cases hxPair : x ∈ squareRootLowPrimeProcessedSeatPaired S p
+        · exact Finset.mem_union.mpr (Or.inl hxPair)
+        · exact Finset.mem_union.mpr (Or.inr
+            (Finset.mem_sdiff.mpr ⟨hxS, hxPair⟩))
+
+/-- The union of all chronological paired cuts has signed mass zero. -/
+theorem squareRootLowPrimeProcessedSeatRemovedPairSupport_weight_sum_eq_zero
+    (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState)
+    (hprime : ∀ p ∈ ps, p.Prime) :
+    (∑ x ∈ squareRootLowPrimeProcessedSeatRemovedPairSupport ps S,
+      squareRootLowPrimeProcessedSeatWeightReal x) = 0 := by
+  induction ps generalizing S with
+  | nil => simp [squareRootLowPrimeProcessedSeatRemovedPairSupport]
+  | cons p ps ih =>
+      have hp : p.Prime := hprime p (by simp)
+      have htailPrime : ∀ q ∈ ps, q.Prime := by
+        intro q hq
+        exact hprime q (by simp [hq])
+      have htailSubset :
+          squareRootLowPrimeProcessedSeatRemovedPairSupport ps
+              (squareRootLowPrimeProcessedSeatFrontierStep S p) ⊆
+            squareRootLowPrimeProcessedSeatFrontierStep S p :=
+        squareRootLowPrimeProcessedSeatRemovedPairSupport_subset ps _
+      have hdisj :
+          Disjoint (squareRootLowPrimeProcessedSeatPaired S p)
+            (squareRootLowPrimeProcessedSeatRemovedPairSupport ps
+              (squareRootLowPrimeProcessedSeatFrontierStep S p)) := by
+        rw [Finset.disjoint_left]
+        intro x hxPair hxTail
+        exact (Finset.disjoint_left.mp
+          (squareRootLowPrimeProcessedSeatPaired_disjoint_frontierStep S p))
+          hxPair (htailSubset hxTail)
+      rw [squareRootLowPrimeProcessedSeatRemovedPairSupport,
+        Finset.sum_union hdisj,
+        squareRootLowPrimeProcessedSeatPaired_weight_sum_eq_zero S hp,
+        ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p) htailPrime]
+      ring
+
 /-! ## Fixed-owner missing-child fallout -/
 
 /-- States eligible to be lower endpoints at owner `p`, before asking whether
-their `p`-child is present in the current row. -/
+their `p`-child is present. -/
 def squareRootLowPrimeProcessedSeatFreshParentCandidates
     (S : Finset SquareRootLowPrimeProcessedState) (p : ℕ) :
     Finset SquareRootLowPrimeProcessedState :=
@@ -160,7 +259,7 @@ def squareRootLowPrimeProcessedSeatFreshParentCandidates
         ¬ p ∣ squareRootLowPrimeProcessedStateCofactor x := by
   simp [squareRootLowPrimeProcessedSeatFreshParentCandidates]
 
-/-- Fresh parents whose `p`-child is absent from the current row. -/
+/-- Fresh parents whose `p`-child is absent from the supplied row. -/
 def squareRootLowPrimeProcessedSeatOwnerFalloff
     (S : Finset SquareRootLowPrimeProcessedState) (p : ℕ) :
     Finset SquareRootLowPrimeProcessedState :=
@@ -294,7 +393,9 @@ theorem squareRootLowPrimeProcessedSeatFreshParent_frontier_eq_ownerFalloff
         squareRootLowPrimeProcessedSeatOwnerFalloff_subset_frontierStep
           S p hxFalloff⟩
 
-/-- Genuine Euler-oriented fallout: the parent is rough below the fresh owner. -/
+/-- Genuine Euler-oriented fallout: the parent is rough below the proposed
+fresh owner.  When `S` is the original carrier, this is the intrinsic fixed-owner
+fallout used by the terminal assignment. -/
 def squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
     (S : Finset SquareRootLowPrimeProcessedState) (p : ℕ) :
     Finset SquareRootLowPrimeProcessedState :=
@@ -321,311 +422,5 @@ def squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
       ⟨mem_squareRootLowPrimeProcessedSeatOwnerFalloff.mpr
           ⟨hxS, hxHead, hpFresh, hmissing⟩,
         hlpf⟩
-
-/-! ## Disjoint first-fallout owner slices -/
-
-/-- The current owner slice inside a still-unassigned target population. -/
-def squareRootLowPrimeProcessedSeatFirstFalloffSlice
-    (T S : Finset SquareRootLowPrimeProcessedState) (p : ℕ) :
-    Finset SquareRootLowPrimeProcessedState :=
-  T ∩ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S p
-
-/-- Chronological first-fallout slices.  Assigned states are removed from the
-unassigned target before later owners are visited. -/
-def squareRootLowPrimeProcessedSeatFirstFalloffFamily :
-    List ℕ → Finset SquareRootLowPrimeProcessedState →
-      Finset SquareRootLowPrimeProcessedState →
-      List (ℕ × Finset SquareRootLowPrimeProcessedState)
-  | [], _S, _T => []
-  | p :: ps, S, T =>
-      (p, squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p) ::
-        squareRootLowPrimeProcessedSeatFirstFalloffFamily ps
-          (squareRootLowPrimeProcessedSeatFrontierStep S p)
-          (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-
-/-- Union of all assigned first-fallout slices. -/
-def squareRootLowPrimeProcessedSeatFirstFalloffSupport :
-    List ℕ → Finset SquareRootLowPrimeProcessedState →
-      Finset SquareRootLowPrimeProcessedState →
-      Finset SquareRootLowPrimeProcessedState
-  | [], _S, _T => ∅
-  | p :: ps, S, T =>
-      squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p ∪
-        squareRootLowPrimeProcessedSeatFirstFalloffSupport ps
-          (squareRootLowPrimeProcessedSeatFrontierStep S p)
-          (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-
-/-- Target states still unassigned after all owner coordinates. -/
-def squareRootLowPrimeProcessedSeatFirstFalloffResidual :
-    List ℕ → Finset SquareRootLowPrimeProcessedState →
-      Finset SquareRootLowPrimeProcessedState →
-      Finset SquareRootLowPrimeProcessedState
-  | [], _S, T => T
-  | p :: ps, S, T =>
-      squareRootLowPrimeProcessedSeatFirstFalloffResidual ps
-        (squareRootLowPrimeProcessedSeatFrontierStep S p)
-        (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-
-/-- Every recorded first-fallout slice lies in the original target. -/
-theorem squareRootLowPrimeProcessedSeatFirstFalloffFamily_entry_subset_target
-    (ps : List ℕ) (S T : Finset SquareRootLowPrimeProcessedState)
-    {a : ℕ × Finset SquareRootLowPrimeProcessedState}
-    (ha : a ∈ squareRootLowPrimeProcessedSeatFirstFalloffFamily ps S T) :
-    a.2 ⊆ T := by
-  induction ps generalizing S T a with
-  | nil =>
-      simp [squareRootLowPrimeProcessedSeatFirstFalloffFamily] at ha
-  | cons p ps ih =>
-      simp only [squareRootLowPrimeProcessedSeatFirstFalloffFamily,
-        List.mem_cons] at ha
-      rcases ha with rfl | ha
-      · intro x hx
-        exact (Finset.mem_inter.mp hx).1
-      · intro x hx
-        have hxTail :=
-          ih
-            (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
-            (T := T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-            ha hx
-        exact (Finset.mem_sdiff.mp hxTail).1
-
-/-- Distinct first-fallout owner slices are disjoint. -/
-theorem squareRootLowPrimeProcessedSeatFirstFalloffFamily_disjoint
-    (ps : List ℕ) (S T : Finset SquareRootLowPrimeProcessedState)
-    {a b : ℕ × Finset SquareRootLowPrimeProcessedState}
-    (ha : a ∈ squareRootLowPrimeProcessedSeatFirstFalloffFamily ps S T)
-    (hb : b ∈ squareRootLowPrimeProcessedSeatFirstFalloffFamily ps S T)
-    (hab : a ≠ b) :
-    Disjoint a.2 b.2 := by
-  induction ps generalizing S T a b with
-  | nil =>
-      simp [squareRootLowPrimeProcessedSeatFirstFalloffFamily] at ha
-  | cons p ps ih =>
-      simp only [squareRootLowPrimeProcessedSeatFirstFalloffFamily,
-        List.mem_cons] at ha hb
-      rcases ha with rfl | ha
-      · rcases hb with rfl | hb
-        · exact (hab rfl).elim
-        · rw [Finset.disjoint_left]
-          intro x hxHead hxTail
-          have hxTailTarget :=
-            squareRootLowPrimeProcessedSeatFirstFalloffFamily_entry_subset_target
-              ps
-              (squareRootLowPrimeProcessedSeatFrontierStep S p)
-              (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-              hb hxTail
-          exact (Finset.mem_sdiff.mp hxTailTarget).2 hxHead
-      · rcases hb with rfl | hb
-        · rw [Finset.disjoint_left]
-          intro x hxTail hxHead
-          have hxTailTarget :=
-            squareRootLowPrimeProcessedSeatFirstFalloffFamily_entry_subset_target
-              ps
-              (squareRootLowPrimeProcessedSeatFrontierStep S p)
-              (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-              ha hxTail
-          exact (Finset.mem_sdiff.mp hxTailTarget).2 hxHead
-        · exact ih
-            (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
-            (T := T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-            ha hb hab
-
-/-- The assigned support stays inside the chosen target. -/
-theorem squareRootLowPrimeProcessedSeatFirstFalloffSupport_subset_target
-    (ps : List ℕ) (S T : Finset SquareRootLowPrimeProcessedState) :
-    squareRootLowPrimeProcessedSeatFirstFalloffSupport ps S T ⊆ T := by
-  induction ps generalizing S T with
-  | nil =>
-      simp [squareRootLowPrimeProcessedSeatFirstFalloffSupport]
-  | cons p ps ih =>
-      intro x hx
-      change x ∈ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p ∪
-        squareRootLowPrimeProcessedSeatFirstFalloffSupport ps
-          (squareRootLowPrimeProcessedSeatFrontierStep S p)
-          (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p) at hx
-      rcases Finset.mem_union.mp hx with hxHead | hxTail
-      · exact (Finset.mem_inter.mp hxHead).1
-      · have hxTailTarget :=
-          ih
-            (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
-            (T := T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-            hxTail
-        exact (Finset.mem_sdiff.mp hxTailTarget).1
-
-/-- The unassigned residual stays inside the chosen target. -/
-theorem squareRootLowPrimeProcessedSeatFirstFalloffResidual_subset_target
-    (ps : List ℕ) (S T : Finset SquareRootLowPrimeProcessedState) :
-    squareRootLowPrimeProcessedSeatFirstFalloffResidual ps S T ⊆ T := by
-  induction ps generalizing S T with
-  | nil =>
-      intro x hx
-      simpa [squareRootLowPrimeProcessedSeatFirstFalloffResidual] using hx
-  | cons p ps ih =>
-      intro x hx
-      have hxTail :=
-        ih
-          (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
-          (T := T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-          hx
-      exact (Finset.mem_sdiff.mp hxTail).1
-
-/-- Assigned support and residual are disjoint. -/
-theorem squareRootLowPrimeProcessedSeatFirstFalloffSupport_disjoint_residual
-    (ps : List ℕ) (S T : Finset SquareRootLowPrimeProcessedState) :
-    Disjoint
-      (squareRootLowPrimeProcessedSeatFirstFalloffSupport ps S T)
-      (squareRootLowPrimeProcessedSeatFirstFalloffResidual ps S T) := by
-  induction ps generalizing S T with
-  | nil =>
-      simp [squareRootLowPrimeProcessedSeatFirstFalloffSupport]
-  | cons p ps ih =>
-      rw [Finset.disjoint_left]
-      intro x hxSupport hxResidual
-      change x ∈ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p ∪
-        squareRootLowPrimeProcessedSeatFirstFalloffSupport ps
-          (squareRootLowPrimeProcessedSeatFrontierStep S p)
-          (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p) at hxSupport
-      rcases Finset.mem_union.mp hxSupport with hxHead | hxTail
-      · have hxResidualTarget :=
-          squareRootLowPrimeProcessedSeatFirstFalloffResidual_subset_target
-            ps
-            (squareRootLowPrimeProcessedSeatFrontierStep S p)
-            (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-            hxResidual
-        exact (Finset.mem_sdiff.mp hxResidualTarget).2 hxHead
-      · exact (Finset.disjoint_left.mp
-          (ih
-            (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
-            (T := T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)))
-          hxTail hxResidual
-
-/-- Assigned first-fallout support and residual partition the target exactly. -/
-theorem squareRootLowPrimeProcessedSeatFirstFalloffSupport_union_residual
-    (ps : List ℕ) (S T : Finset SquareRootLowPrimeProcessedState) :
-    squareRootLowPrimeProcessedSeatFirstFalloffSupport ps S T ∪
-        squareRootLowPrimeProcessedSeatFirstFalloffResidual ps S T = T := by
-  induction ps generalizing S T with
-  | nil =>
-      simp [squareRootLowPrimeProcessedSeatFirstFalloffSupport,
-        squareRootLowPrimeProcessedSeatFirstFalloffResidual]
-  | cons p ps ih =>
-      simp only [squareRootLowPrimeProcessedSeatFirstFalloffSupport,
-        squareRootLowPrimeProcessedSeatFirstFalloffResidual]
-      rw [Finset.union_assoc,
-        ih
-          (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
-          (T := T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)]
-      ext x
-      simp [squareRootLowPrimeProcessedSeatFirstFalloffSlice]
-      omega
-
-/-- Recursive signed mass of the disjoint first-fallout owner slices.  Unlike
-removed-pair mass, this quantity is not asserted to vanish. -/
-def squareRootLowPrimeProcessedSeatFirstFalloffMass :
-    List ℕ → Finset SquareRootLowPrimeProcessedState →
-      Finset SquareRootLowPrimeProcessedState → ℝ
-  | [], _S, _T => 0
-  | p :: ps, S, T =>
-      (∑ x ∈ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p,
-        squareRootLowPrimeProcessedSeatWeightReal x) +
-      squareRootLowPrimeProcessedSeatFirstFalloffMass ps
-        (squareRootLowPrimeProcessedSeatFrontierStep S p)
-        (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-
-/-- The assigned support mass is exactly the chronological sum of owner-slice
-masses. -/
-theorem squareRootLowPrimeProcessedSeatFirstFalloffSupport_weight_sum_eq_mass
-    (ps : List ℕ) (S T : Finset SquareRootLowPrimeProcessedState) :
-    (∑ x ∈ squareRootLowPrimeProcessedSeatFirstFalloffSupport ps S T,
-      squareRootLowPrimeProcessedSeatWeightReal x) =
-      squareRootLowPrimeProcessedSeatFirstFalloffMass ps S T := by
-  induction ps generalizing S T with
-  | nil =>
-      simp [squareRootLowPrimeProcessedSeatFirstFalloffSupport,
-        squareRootLowPrimeProcessedSeatFirstFalloffMass]
-  | cons p ps ih =>
-      have htailSub :
-          squareRootLowPrimeProcessedSeatFirstFalloffSupport ps
-              (squareRootLowPrimeProcessedSeatFrontierStep S p)
-              (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p) ⊆
-            T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p :=
-        squareRootLowPrimeProcessedSeatFirstFalloffSupport_subset_target
-          ps
-          (squareRootLowPrimeProcessedSeatFrontierStep S p)
-          (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-      have hdisj :
-          Disjoint
-            (squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)
-            (squareRootLowPrimeProcessedSeatFirstFalloffSupport ps
-              (squareRootLowPrimeProcessedSeatFrontierStep S p)
-              (T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)) := by
-        rw [Finset.disjoint_left]
-        intro x hxHead hxTail
-        exact (Finset.mem_sdiff.mp (htailSub hxTail)).2 hxHead
-      simp only [squareRootLowPrimeProcessedSeatFirstFalloffSupport,
-        squareRootLowPrimeProcessedSeatFirstFalloffMass]
-      rw [Finset.sum_union hdisj,
-        ih
-          (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
-          (T := T \ squareRootLowPrimeProcessedSeatFirstFalloffSlice T S p)]
-
-/-- **Horizontal mass decomposition.**  Target mass equals the sum of the
-disjoint first-fallout owner masses plus the unassigned residual mass. -/
-theorem squareRootLowPrimeProcessedSeatTarget_weight_sum_eq_firstFalloff_add_residual
-    (ps : List ℕ) (S T : Finset SquareRootLowPrimeProcessedState) :
-    (∑ x ∈ T, squareRootLowPrimeProcessedSeatWeightReal x) =
-      squareRootLowPrimeProcessedSeatFirstFalloffMass ps S T +
-        ∑ x ∈ squareRootLowPrimeProcessedSeatFirstFalloffResidual ps S T,
-          squareRootLowPrimeProcessedSeatWeightReal x := by
-  have hdisj :=
-    squareRootLowPrimeProcessedSeatFirstFalloffSupport_disjoint_residual ps S T
-  have hunion :=
-    squareRootLowPrimeProcessedSeatFirstFalloffSupport_union_residual ps S T
-  calc
-    (∑ x ∈ T, squareRootLowPrimeProcessedSeatWeightReal x) =
-        ∑ x ∈
-          (squareRootLowPrimeProcessedSeatFirstFalloffSupport ps S T ∪
-            squareRootLowPrimeProcessedSeatFirstFalloffResidual ps S T),
-          squareRootLowPrimeProcessedSeatWeightReal x := by
-            rw [hunion]
-    _ =
-        (∑ x ∈ squareRootLowPrimeProcessedSeatFirstFalloffSupport ps S T,
-          squareRootLowPrimeProcessedSeatWeightReal x) +
-        ∑ x ∈ squareRootLowPrimeProcessedSeatFirstFalloffResidual ps S T,
-          squareRootLowPrimeProcessedSeatWeightReal x :=
-      Finset.sum_union hdisj
-    _ = squareRootLowPrimeProcessedSeatFirstFalloffMass ps S T +
-        ∑ x ∈ squareRootLowPrimeProcessedSeatFirstFalloffResidual ps S T,
-          squareRootLowPrimeProcessedSeatWeightReal x := by
-      rw [squareRootLowPrimeProcessedSeatFirstFalloffSupport_weight_sum_eq_mass]
-
-/-- Coverage of the target by first-fallout owners empties the residual. -/
-theorem squareRootLowPrimeProcessedSeatFirstFalloffResidual_eq_empty_of_covered
-    (ps : List ℕ) (S T : Finset SquareRootLowPrimeProcessedState)
-    (hcover : ∀ x ∈ T,
-      x ∈ squareRootLowPrimeProcessedSeatFirstFalloffSupport ps S T) :
-    squareRootLowPrimeProcessedSeatFirstFalloffResidual ps S T = ∅ := by
-  apply Finset.eq_empty_iff_forall_notMem.mpr
-  intro x hxResidual
-  have hxT :=
-    squareRootLowPrimeProcessedSeatFirstFalloffResidual_subset_target
-      ps S T hxResidual
-  have hxSupport := hcover x hxT
-  exact (Finset.disjoint_left.mp
-    (squareRootLowPrimeProcessedSeatFirstFalloffSupport_disjoint_residual
-      ps S T)) hxSupport hxResidual
-
-/-- Under exact coverage, target mass is literally the sum of the disjoint
-first-fallout owner-slice masses. -/
-theorem squareRootLowPrimeProcessedSeatTarget_weight_sum_eq_firstFalloffMass_of_covered
-    (ps : List ℕ) (S T : Finset SquareRootLowPrimeProcessedState)
-    (hcover : ∀ x ∈ T,
-      x ∈ squareRootLowPrimeProcessedSeatFirstFalloffSupport ps S T) :
-    (∑ x ∈ T, squareRootLowPrimeProcessedSeatWeightReal x) =
-      squareRootLowPrimeProcessedSeatFirstFalloffMass ps S T := by
-  rw [squareRootLowPrimeProcessedSeatTarget_weight_sum_eq_firstFalloff_add_residual]
-  rw [squareRootLowPrimeProcessedSeatFirstFalloffResidual_eq_empty_of_covered
-    ps S T hcover]
-  simp
 
 end RHLean.Proof
