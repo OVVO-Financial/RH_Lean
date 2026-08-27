@@ -30,5 +30,8 @@ jobs:
           build: false
           test: false
           lint: false
-      - name: Kernel-check finite Othello parity theorem
-        run: lake build RHLean.Proof.FiniteOthelloMatching
+      - name: Kernel-check finite Othello parity theorems
+        run: |
+          lake build \
+            RHLean.Proof.FiniteOthelloMatching \
+            RHLean.Proof.FiniteLeastToggleDuality
