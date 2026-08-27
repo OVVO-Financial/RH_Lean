@@ -14,10 +14,12 @@ is inserted into any nonempty face which omits `a`.  Splitting the powerset at
 empty old face has no payload, while its child `{a}` survives.  Therefore the
 whole nonempty alternating cube is exactly `-g {a}`.
 
-For prime-factor faces and `a` the least prime factor, a payload depending only
-on the largest prime is insertion-invariant away from the singleton.  This is
-the finite core of Alladi's largest/smallest-prime duality: an arbitrarily large
-history fibre has one signed last move.
+For a finite linearly ordered coordinate set, if `a` is its least element then
+inserting `a` into a nonempty face does not change that face's maximum.  Hence
+any payload depending only on the maximum coordinate satisfies the preceding
+invariance automatically.  On prime-factor faces this is the finite core of
+Alladi's largest/smallest-prime duality: an arbitrarily large divisor-history
+fibre has one signed last move.
 -/
 
 noncomputable section
@@ -63,7 +65,8 @@ theorem finiteNonemptyFaceAlternatingSum_eq_neg_singleton
       intro u hu
       have hau : a ∉ u :=
         Finset.notMem_of_mem_powerset_of_notMem hu haErase
-      have hinsNonempty : (insert a u).Nonempty := ⟨a, Finset.mem_insert_self _ _⟩
+      have hinsNonempty : (insert a u).Nonempty :=
+        ⟨a, Finset.mem_insert_self _ _⟩
       by_cases huEmpty : u = ∅
       · subst u
         simp [booleanCubeSign]
@@ -79,5 +82,48 @@ theorem finiteNonemptyFaceAlternatingSum_eq_neg_singleton
     _ = -g {a} := by
       have hEmptyMem : (∅ : Finset α) ∈ (S.erase a).powerset := by simp
       simp [hEmptyMem]
+
+/-- Total maximum-coordinate payload, zero on the empty face. -/
+def finiteFaceMaxPayload
+    {α A : Type*} [LinearOrder α] [AddCommGroup A]
+    (f : α → A) (t : Finset α) : A :=
+  if h : t.Nonempty then f (t.max' h) else 0
+
+/-- Inserting the least ambient coordinate into a nonempty face does not change
+that face's maximum payload. -/
+theorem finiteFaceMaxPayload_insert_least
+    {α A : Type*} [LinearOrder α] [AddCommGroup A]
+    (S : Finset α) (a : α) (f : α → A)
+    (hmin : ∀ x ∈ S, a ≤ x)
+    {u : Finset α} (hu : u ∈ (S.erase a).powerset)
+    (huNonempty : u.Nonempty) :
+    finiteFaceMaxPayload f (insert a u) = finiteFaceMaxPayload f u := by
+  classical
+  have huSub : u ⊆ S.erase a := Finset.mem_powerset.mp hu
+  have hmaxMem : u.max' huNonempty ∈ u := Finset.max'_mem u huNonempty
+  have hmaxS : u.max' huNonempty ∈ S :=
+    (Finset.mem_erase.mp (huSub hmaxMem)).2
+  have haMax : a ≤ u.max' huNonempty := hmin _ hmaxS
+  have hinsNonempty : (insert a u).Nonempty :=
+    ⟨a, Finset.mem_insert_self _ _⟩
+  unfold finiteFaceMaxPayload
+  simp only [huNonempty, hinsNonempty, dif_pos]
+  rw [Finset.max'_insert]
+  rw [max_eq_right haMax]
+
+/-- **Largest-coordinate / least-coordinate duality.**  On a finite ordered
+set with least coordinate `a`, the complete nonempty alternating face sum of a
+maximum-coordinate payload is exactly the negative payload at `a`. -/
+theorem finiteNonemptyFaceAlternatingMax_eq_neg_least
+    {α A : Type*} [LinearOrder α] [AddCommGroup A]
+    (S : Finset α) (a : α) (f : α → A)
+    (ha : a ∈ S)
+    (hmin : ∀ x ∈ S, a ≤ x) :
+    finiteNonemptyFaceAlternatingSum S (finiteFaceMaxPayload f) = -f a := by
+  rw [finiteNonemptyFaceAlternatingSum_eq_neg_singleton
+    S a (finiteFaceMaxPayload f) ha]
+  · simp [finiteFaceMaxPayload]
+  · intro u hu huNonempty
+    exact finiteFaceMaxPayload_insert_least S a f hmin hu huNonempty
 
 end RHLean.Proof
