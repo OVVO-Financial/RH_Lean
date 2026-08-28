@@ -57,8 +57,13 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Prebuild merged Go partner dependency
-        run: lake build RHLean.Proof.SquareRootLowPrimeGoGlobalPartner
+      - name: Compile merged Go partner directly
+        run: |
+          mkdir -p .lake/build/lib/lean/RHLean/Proof
+          lake env lean \
+            -o .lake/build/lib/lean/RHLean/Proof/SquareRootLowPrimeGoGlobalPartner.olean \
+            -i .lake/build/lib/lean/RHLean/Proof/SquareRootLowPrimeGoGlobalPartner.ilean \
+            RHLean/Proof/SquareRootLowPrimeGoGlobalPartner.lean
 
       - name: Check Go crossing mate ledger directly
         run: lake env lean RHLean/Proof/SquareRootLowPrimeGoCrossingMateLedger.lean
