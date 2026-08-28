@@ -1,6 +1,6 @@
 import Mathlib
 import RHLean.Proof.LowWheelCanonicalDefectReduction
-import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
+import RHLean.Proof.SquareRootLowPrimeGoGlobalPartner
 
 /-!
 # Strict Go crossing mates as an existing transport subledger
@@ -296,8 +296,11 @@ theorem squareRootLowPrimeGoStrictCrossingSourceMate_disjoint
         (lowWheelCanonicalCofactorQuotientToggle (e, t)).1 :=
     squareRootLowPrimeGoFullBirthBoundary_matePivot_not_dvd_cofactor
       ht hs hst hfullE
-  rw [hstate] at hdiv
-  exact hnot hdiv
+  have hdiv' :
+      lowWheelCanonicalCofactorQuotientPivot (d, q) ∣ (d, q).1 := by
+    simpa using hdiv
+  rw [hstate] at hdiv'
+  exact hnot hdiv'
 
 /-- Source and mate image carriers. -/
 def squareRootLowPrimeGoStrictCrossingSourceImage
