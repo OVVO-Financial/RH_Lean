@@ -155,9 +155,12 @@ theorem squareRootLowPrimeGoSmallerOwnerParent_child_mem
       omega
   have hmuD : μ d ≠ 0 :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsq
+  have hcop : Nat.Coprime r d :=
+    (hr.coprime_iff_not_dvd).2 hrNotDvd
   have hmuChild : μ (r * d) ≠ 0 := by
-    rw [moebius_prime_mul_eq_neg_of_not_dvd hr hrNotDvd]
-    exact neg_ne_zero.mpr hmuD
+    rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
+      ArithmeticFunction.moebius_apply_prime hr]
+    exact mul_ne_zero (by norm_num) hmuD
   have hsqChild : Squarefree (r * d) :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuChild
   have hchildB : r * d ≤ B := by
@@ -178,7 +181,7 @@ theorem squareRootLowPrimeGoSmallerOwnerParent_child_mem
 
 /-- Reconstructing a parent and stripping its child returns the same parent. -/
 theorem squareRootLowPrimeGoSmallerOwnerParent_child_cofactor
-    {q B r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    {q B r d : ℕ} (_hq : q.Prime) (hr : r.Prime) (_hrq : r < q)
     (hd : d ∈ squareRootLowPrimeGoSmallerOwnerParentStrip q B r) :
     canonicalCofactor (r * d) = d := by
   have hdData := mem_squareRootLowPrimeGoSmallerOwnerParentStrip.mp hd
