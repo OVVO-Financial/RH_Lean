@@ -90,6 +90,7 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_coordinates
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
   have hroot :=
     squareRootLowPrimeGoFullBirthBoundary_parent_canonicalRoot hq hr hrq hfull
+  have hd1 := (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull).1
   have hdPos : 0 < d := by omega
   have hroughQ : canonicalLargestPrimeFactor d < q := by
     rcases mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull with
