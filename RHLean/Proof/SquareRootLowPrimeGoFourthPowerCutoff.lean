@@ -35,13 +35,19 @@ on `m` and its canonical largest prime factor.  In particular
 
 `X < m^3 < X^2`.
 
-At the square wall `X_R = R^2 - 1`, this is the deliberately loose but genuine
-cubic shell `R^(2/3) < m < R^(4/3)`.  The point is to expose a finite boundary
-that can now be tightened; no asymptotic, prime-density, divisor, or cancellation
-estimate enters here.
+The forgotten `r`-coordinate is not discarded: it survives as an exact prime
+liberty multiplicity over each fixed parent source.  In unfinished territory
+the full birth condition is redundant, and the admissible `r`-fibre is exactly
+
+`max(P+(d), X/(q^2*d)) < r < q`,  with `r` prime.
+
+Thus the raw defect mass is a weighted boundary mass, with no estimate or norm
+inserted.
 -/
 
 noncomputable section
+
+open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Proof
 
@@ -173,6 +179,142 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_parentCore_mem_boundary
   have hi := squareRootLowPrimeGoSecondBoundaryDefect_parentCore_interval
     hq hr hrq hcube hd
   exact Finset.mem_filter.mpr ⟨Finset.mem_range.mpr hi.2, hi.1⟩
+
+/-! ## Exact weighted flattening of the interior prime coordinate -/
+
+/-- The exact `r`-fibre over a fixed outer owner `q` and parent core `d`.
+Every point of this fibre carries the same arithmetic source weight `μ(q*d)`. -/
+def squareRootLowPrimeGoDefectPrimeFiber (q X d : ℕ) : Finset ℕ :=
+  (Finset.range q).filter fun r =>
+    r.Prime ∧ d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r
+
+@[simp] theorem mem_squareRootLowPrimeGoDefectPrimeFiber
+    {q X d r : ℕ} :
+    r ∈ squareRootLowPrimeGoDefectPrimeFiber q X d ↔
+      r < q ∧ r.Prime ∧
+        d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r := by
+  simp [squareRootLowPrimeGoDefectPrimeFiber, and_assoc]
+
+/-- In the unfinished owner band, the full birth inequality is redundant and
+the surviving interior-prime fibre is exactly one strict prime interval.
+Writing `m=q*d`, the moving lower endpoint is `floor(X/(q*m))`. -/
+theorem squareRootLowPrimeGoDefectPrimeFiber_eq_primeGap
+    {q X d : ℕ} (hq : q.Prime) (hcube : q ^ 3 ≤ X)
+    (hd1 : 1 ≤ d) (hdq : d ≤ q - 1) (hsq : Squarefree d) :
+    squareRootLowPrimeGoDefectPrimeFiber q X d =
+      (Finset.Ioo
+        (max (canonicalLargestPrimeFactor d) (X / (q * q * d))) q).filter Nat.Prime := by
+  classical
+  ext r
+  constructor
+  · intro hrmem
+    rcases mem_squareRootLowPrimeGoDefectPrimeFiber.mp hrmem with
+      ⟨hrq, hrPrime, hdDefect⟩
+    rcases mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hdDefect with
+      ⟨hfull, hphysical⟩
+    have hrough :=
+      (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull).2.2.2.1
+    have hdPos : 0 < d := by omega
+    have hq2Pos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
+    have hq2dPos : 0 < q * q * d := Nat.mul_pos hq2Pos hdPos
+    have hXdiv : X / (q * q) < d * r :=
+      (Nat.div_lt_iff_lt_mul hrPrime.pos).1 hphysical
+    have hX : X < (d * r) * (q * q) :=
+      (Nat.div_lt_iff_lt_mul hq2Pos).1 hXdiv
+    have hgap : X / (q * q * d) < r := by
+      apply (Nat.div_lt_iff_lt_mul hq2dPos).2
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hX
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_Ioo.mpr ⟨?_, hrq⟩, hrPrime⟩
+    exact (max_lt_iff).2 ⟨hrough, hgap⟩
+  · intro hrmem
+    rcases Finset.mem_filter.mp hrmem with ⟨hrIoo, hrPrime⟩
+    rcases Finset.mem_Ioo.mp hrIoo with ⟨hlower, hrq⟩
+    have hrough : canonicalLargestPrimeFactor d < r :=
+      (max_lt_iff.mp hlower).1
+    have hgap : X / (q * q * d) < r :=
+      (max_lt_iff.mp hlower).2
+    have hdPos : 0 < d := by omega
+    have hq2Pos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
+    have hq2dPos : 0 < q * q * d := Nat.mul_pos hq2Pos hdPos
+    have hX : X < r * (q * q * d) :=
+      (Nat.div_lt_iff_lt_mul hq2dPos).1 hgap
+    have hXdiv : X / (q * q) < d * r := by
+      apply (Nat.div_lt_iff_lt_mul hq2Pos).2
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hX
+    have hphysical : X / (q * q) / r < d :=
+      (Nat.div_lt_iff_lt_mul hrPrime.pos).2 hXdiv
+    have hqleCut : q ≤ X / (q * q) := by
+      apply (Nat.le_div_iff_mul_le hq2Pos).2
+      calc
+        q * (q * q) = q ^ 3 := by ring
+        _ ≤ X := hcube
+    have hbirthMul : q - 1 < d * r := by omega
+    have hbirth : (q - 1) / r < d :=
+      (Nat.div_lt_iff_lt_mul hrPrime.pos).2 hbirthMul
+    apply mem_squareRootLowPrimeGoDefectPrimeFiber.mpr
+    refine ⟨hrq, hrPrime, ?_⟩
+    apply mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mpr
+    exact ⟨mem_squareRootLowPrimeGoFullBirthBoundaryParents.mpr
+      ⟨hd1, hdq, hsq, hrough, hbirth⟩, hphysical⟩
+
+/-- Exact number of prime liberties remaining above the exposed parent source. -/
+def squareRootLowPrimeGoDefectLibertyMultiplicity (q X d : ℕ) : ℕ :=
+  (squareRootLowPrimeGoDefectPrimeFiber q X d).card
+
+/-- The liberty multiplicity is literally the cardinality of the strict prime
+interval from the moving lower endpoint to the owner `q`. -/
+theorem squareRootLowPrimeGoDefectLibertyMultiplicity_eq_primeGapCard
+    {q X d : ℕ} (hq : q.Prime) (hcube : q ^ 3 ≤ X)
+    (hd1 : 1 ≤ d) (hdq : d ≤ q - 1) (hsq : Squarefree d) :
+    squareRootLowPrimeGoDefectLibertyMultiplicity q X d =
+      ((Finset.Ioo
+        (max (canonicalLargestPrimeFactor d) (X / (q * q * d))) q).filter Nat.Prime).card := by
+  unfold squareRootLowPrimeGoDefectLibertyMultiplicity
+  rw [squareRootLowPrimeGoDefectPrimeFiber_eq_primeGap hq hcube hd1 hdq hsq]
+
+/-- Every prime in a fixed defect fibre carries exactly the same source sign.
+This is the weighted Othello flattening: multiplicity changes, sign does not. -/
+theorem squareRootLowPrimeGoDefectPrimeFiber_edgeValue_eq_parentSource
+    {q X d r : ℕ} (hq : q.Prime) (hcube : q ^ 3 ≤ X)
+    (hrmem : r ∈ squareRootLowPrimeGoDefectPrimeFiber q X d) :
+    squareRootLowPrimeGoAncestryEdgeValue q X r d = (μ (q * d) : ℤ) := by
+  rcases mem_squareRootLowPrimeGoDefectPrimeFiber.mp hrmem with
+    ⟨hrq, hrPrime, hdDefect⟩
+  exact squareRootLowPrimeGoAncestryEdgeValue_eq_parentWeight_of_defect
+    hq hrPrime hrq hcube hdDefect
+
+/-- Rectangular presentation of the exact fixed-owner raw defect mass.  The
+indicator is precisely the #483 predicate; no absolute value is taken. -/
+def squareRootLowPrimeGoOwnerRawDefectMass (q X : ℕ) : ℤ :=
+  ∑ r ∈ Finset.range q, ∑ d ∈ Finset.range q,
+    if r.Prime ∧ d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r then
+      (μ (q * d) : ℤ)
+    else 0
+
+/-- The same mass after forgetting `r`: each parent source is multiplied by its
+exact prime-liberty multiplicity. -/
+def squareRootLowPrimeGoOwnerWeightedBoundaryMass (q X : ℕ) : ℤ :=
+  ∑ d ∈ Finset.range q,
+    (squareRootLowPrimeGoDefectLibertyMultiplicity q X d) • (μ (q * d) : ℤ)
+
+/-- **Exact weighted flattening.**  Summing the raw second-boundary defects over
+`r` and then `d` is identically the same as summing once over parent cores with
+the exact liberty multiplicity.  This is finite Fubini, not an estimate. -/
+theorem squareRootLowPrimeGoOwnerRawDefectMass_eq_weightedBoundaryMass
+    (q X : ℕ) :
+    squareRootLowPrimeGoOwnerRawDefectMass q X =
+      squareRootLowPrimeGoOwnerWeightedBoundaryMass q X := by
+  classical
+  unfold squareRootLowPrimeGoOwnerRawDefectMass
+    squareRootLowPrimeGoOwnerWeightedBoundaryMass
+    squareRootLowPrimeGoDefectLibertyMultiplicity
+    squareRootLowPrimeGoDefectPrimeFiber
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro d hd
+  rw [← Finset.sum_filter]
+  simp
 
 /-- A finite `r`-free boundary containing every exposed parent source.  The
 predicate depends only on the arithmetic source `m` and its canonical largest
