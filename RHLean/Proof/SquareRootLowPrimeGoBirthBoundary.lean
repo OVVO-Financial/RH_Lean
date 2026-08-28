@@ -114,7 +114,7 @@ theorem squareRootLowPrimeGoSquareParent_outerOwner_bornAtChild
   rcases mem_squareRootLowPrimeGoSmallerOwnerChildren.mp hchild with
     ⟨hchildSmooth, hqchild, _howner⟩
   rcases mem_squareRootLowPrimeGoSmoothCofactors.mp hchildSmooth with
-    ⟨hchildOne, hchildCutoff, _hchildSq, hchildRough⟩
+    ⟨_hchildOne, hchildCutoff, _hchildSq, hchildRough⟩
   have hqqPos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
   have hsecondContact : (r * d) * (q * q) ≤ squareRootEndpoint R :=
     (Nat.le_div_iff_mul_le hqqPos).1 hchildCutoff
@@ -126,6 +126,50 @@ theorem squareRootLowPrimeGoSquareParent_outerOwner_bornAtChild
   apply Finset.mem_filter.mpr
   refine ⟨Finset.mem_Icc.mpr ⟨hq.two_le, hqR⟩,
     hq, hchildRough, hqchild, hproduct⟩
+
+/-- **Scale collapse at the stopping boundary.**  A terminal recursive child
+`c = r*d` is simultaneously below `q^2` (because `r,d < q`) and satisfies the
+second-contact inequality `c*q^2 <= R^2-1`.  Therefore `c^2 < R^2`, hence
+`c < R`. -/
+theorem squareRootLowPrimeGoSquareBirthBoundary_child_lt_root
+    {R q r d : ℕ} (hq : q.Prime) (hqR : q ≤ R)
+    (hr : r.Prime) (hrq : r < q)
+    (hd : d ∈ squareRootLowPrimeGoSmallerOwnerBirthBoundaryParents q
+      (squareRootEndpoint R / (q * q)) r) :
+    r * d < R := by
+  have hdStrip :=
+    (mem_squareRootLowPrimeGoSmallerOwnerBirthBoundaryParents.mp hd).1
+  have hdq :=
+    (mem_squareRootLowPrimeGoSmallerOwnerBirthBoundaryParents.mp hd).2
+  have hchild := squareRootLowPrimeGoSmallerOwnerParent_child_mem
+    hq hr hrq hdStrip
+  have hchildSmooth :=
+    (mem_squareRootLowPrimeGoSmallerOwnerChildren.mp hchild).1
+  have hchildCutoff :=
+    (mem_squareRootLowPrimeGoSmoothCofactors.mp hchildSmooth).2.1
+  have hdSmooth :=
+    (mem_squareRootLowPrimeGoSmallerOwnerParentStrip.mp hdStrip).1
+  have hdOne := (mem_squareRootLowPrimeGoSmoothCofactors.mp hdSmooth).1
+  have hdPos : 0 < d := by omega
+  have hchildPos : 0 < r * d := Nat.mul_pos hr.pos hdPos
+  have hchildLtQQ : r * d < q * q := by
+    calc
+      r * d < q * d := Nat.mul_lt_mul_of_pos_right hrq hdPos
+      _ < q * q := Nat.mul_lt_mul_of_pos_left hdq hq.pos
+  have hqqPos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
+  have hsecondContact : (r * d) * (q * q) ≤ squareRootEndpoint R :=
+    (Nat.le_div_iff_mul_le hqqPos).1 hchildCutoff
+  have hchildSqLt : (r * d) * (r * d) < (r * d) * (q * q) :=
+    Nat.mul_lt_mul_of_pos_left hchildLtQQ hchildPos
+  by_contra hnot
+  have hRchild : R ≤ r * d := Nat.le_of_not_gt hnot
+  have hRRle : R * R ≤ (r * d) * (r * d) :=
+    Nat.mul_le_mul hRchild hRchild
+  have hendpointLt : squareRootEndpoint R < R * R := by
+    have hRpos : 0 < R := lt_of_lt_of_le hq.pos hqR
+    unfold squareRootEndpoint
+    simpa [pow_two] using Nat.sub_lt (Nat.mul_pos hRpos hRpos) (by omega : 0 < 1)
+  omega
 
 /-- **Go boundary = born birth boundary.**  Once the stripped parent falls below
 `q`, the fixed outer owner is lost for exactly one reason: the numerical birth
