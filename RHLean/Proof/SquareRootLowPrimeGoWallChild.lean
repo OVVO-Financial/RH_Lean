@@ -260,8 +260,7 @@ theorem mem_squareRootLowPrimeGoWallChildren_iff_parentAbove
       simpa [c, q] using canonicalCofactor_mul_largestPrimeFactor hn1
     have hrough : canonicalLargestPrimeFactor c < q := by
       by_cases hcEq : c = 1
-      · subst c
-        simp [canonicalLargestPrimeFactor, hqPrime.one_lt]
+      · simpa [canonicalLargestPrimeFactor, hcEq] using hqPrime.one_lt
       · have hcGt : 1 < c := by omega
         exact hsource.2.2.2.2
           (canonicalLargestPrimeFactor c)
@@ -283,7 +282,7 @@ theorem mem_squareRootLowPrimeGoWallChildren_iff_parentAbove
       have hKq : K < q := Nat.lt_of_not_ge hnot
       have hqU : q ≤ U := by omega
       have hqSet : q ∈ squareRootLowPrimeFreshPrimeSet K U := by
-        unfold squareRootLowPrimeFreshPrimeSet
+        unfold squareRootLowPrimeFreshPrimeFreshPrimeSet
         exact Finset.mem_filter.mpr
           ⟨Finset.mem_Ioc.mpr ⟨hKq, hqU⟩, hqPrime⟩
       have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
