@@ -1,0 +1,38 @@
+name: Fix Go root equality once
+
+on:
+  push:
+    branches: [agent/go-crossing-global-partner]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Normalize cancellable product and remove this workflow
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('RHLean/Proof/SquareRootLowPrimeGoRootEqualityBoundary.lean')
+          s = p.read_text()
+          old = '''    have hprod : r * q = s * r := hrqR.trans hstR.symm
+    have hqs : q = s := Nat.mul_right_cancel hr.pos hprod
+    omega'''
+          new = '''    have hprod : r * q = s * r := hrqR.trans hstR.symm
+    have hprod' : q * r = s * r := by
+      simpa [Nat.mul_comm] using hprod
+    have hqs : q = s := Nat.mul_right_cancel hr.pos hprod'
+    omega'''
+          if s.count(old) != 1:
+              raise SystemExit(f'expected one target, found {s.count(old)}')
+          p.write_text(s.replace(old, new))
+          PY
+          rm .github/workflows/fix-go-root-equality-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add RHLean/Proof/SquareRootLowPrimeGoRootEqualityBoundary.lean .github/workflows/fix-go-root-equality-once.yml
+          git commit -m 'Normalize Go root-equality factor cancellation'
+          git push
