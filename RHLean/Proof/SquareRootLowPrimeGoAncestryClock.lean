@@ -57,7 +57,7 @@ theorem squareRootLowPrimeGo_canonicalSourceData_of_rough
   intro p hp hpc
   by_cases hcOne : c = 1
   · subst c
-    exact (Nat.not_prime_one hp) (Nat.dvd_one.mp hpc)
+    exact hp.not_dvd_one hpc
   · have hcgt : 1 < c := by omega
     have hle := prime_dvd_le_canonicalLargestPrimeFactor hcgt hp hpc
     omega
@@ -109,7 +109,9 @@ theorem squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth
   have hroughQ : canonicalLargestPrimeFactor (r * d) < q := by
     rw [hlpfChild]
     exact hrq
-  have hchild1 : 1 <= r * d := by positivity
+  have hchild1 : 1 <= r * d := by
+    exact Nat.one_le_iff_ne_zero.mpr
+      (Nat.mul_ne_zero hr.ne_zero (Nat.ne_of_gt hdPos))
   have hqChild : q <= r * d :=
     squareRootLowPrimeGoFullBirthBoundary_outer_le_child hr hd
   have hqNotEq : q ≠ r * d := by
@@ -120,7 +122,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth
       omega
     · by_cases hdOne : d = 1
       · subst d
-        simpa using hqd
+        exact hq.not_dvd_one hqd
       · have hdgt : 1 < d := by omega
         have hqLe := prime_dvd_le_canonicalLargestPrimeFactor hdgt hq hqd
         omega
@@ -177,6 +179,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_parentClock_le
     squareRootLowPrimeGoAncestryClock q d ≤ X := by
   have hdq1 :=
     (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hd).2.1
+  have hqTwo : 2 ≤ q := hq.two_le
   have hdq : d < q := by omega
   have hlt : q * q * d < q ^ 3 := by
     calc
@@ -200,7 +203,9 @@ theorem squareRootLowPrimeGoTerminalParent_childClock_le
   have hrdCut : r * d ≤ X / (q * q) := by
     have h := (Nat.le_div_iff_mul_le hr.pos).1 hdCut
     simpa [Nat.mul_comm] using h
-  exact (Nat.le_div_iff_mul_le hq2Pos).1 hrdCut
+  have h := (Nat.le_div_iff_mul_le hq2Pos).1 hrdCut
+  simpa [squareRootLowPrimeGoAncestryClock,
+    Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
 
 /-- The complementary two-boundary defect is exactly a smooth child entering
 after the second-contact clock cutoff. -/
