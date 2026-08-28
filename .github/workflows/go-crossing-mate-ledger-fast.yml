@@ -57,5 +57,5 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Build Go crossing mate ledger
-        run: lake build RHLean.Proof.SquareRootLowPrimeGoCrossingMateLedger
+      - name: Check Go crossing mate ledger directly
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeGoCrossingMateLedger.lean
