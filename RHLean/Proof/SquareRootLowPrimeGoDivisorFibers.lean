@@ -38,6 +38,7 @@ theorem deathShellDivisorCode_injOn_positiveHeight :
   have hgapPos : 0 < canonicalAbsoluteGap m := by
     apply Nat.pos_of_ne_zero
     intro hgapZero
+    change 0 < deathShellHeightNat m at hm
     rw [deathShellHeightNat, hgapZero, zero_mul] at hm
     exact (Nat.lt_irrefl 0) hm
   have hsum :
