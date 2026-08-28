@@ -5,6 +5,9 @@ on:
     branches: [agent/go-crossing-mate-ledger-inclusion]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 concurrency:
   group: go-crossing-mate-ledger-fast-${{ github.ref }}
   cancel-in-progress: false
@@ -15,6 +18,31 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+
+      - name: Import mate-ledger module in root manifest
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          manifest = Path("RHLean.lean")
+          target = "import RHLean.Proof.SquareRootLowPrimeGoCrossingMateLedger"
+          lines = [line.strip() for line in manifest.read_text().splitlines() if line.strip()]
+          if target not in lines:
+              lines.append(target)
+              manifest.write_text("\n".join(sorted(lines)) + "\n")
+          PY
+          if ! git diff --quiet -- RHLean.lean; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add RHLean.lean
+            git commit -m "Import Go crossing mate ledger module"
+            git push
+          fi
+
+      - name: Check Lean root import manifest
+        run: python3 scripts/check_root_manifest.py
+
+      - name: Audit unfinished proofs and axioms
+        run: bash scripts/audit_assumptions.sh
 
       - name: Restore Mathlib packages
         uses: actions/cache/restore@v5
@@ -56,7 +84,7 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-go-mate-ledger-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean/Proof/SquareRootLowPrimeGoCrossingMateLedger.lean') }}
+          key: rhlean-go-mate-ledger-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/Proof/SquareRootLowPrimeGoCrossingMateLedger.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
