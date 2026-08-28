@@ -65,7 +65,7 @@ theorem squareRootLowPrimeGo_canonicalSourceData_of_rough
 /-- Every full Go birth-boundary parent is a transport-oriented ancestry root
 for the fixed distinguished owner `q`. -/
 theorem squareRootLowPrimeGoFullBirthBoundary_parent_canonicalRoot
-    {q r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    {q r d : ℕ} (hq : q.Prime) (_hr : r.Prime) (hrq : r < q)
     (hd : d ∈ squareRootLowPrimeGoFullBirthBoundaryParents q r) :
     CanonicalSourceData q d ∧ d < q := by
   rcases mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hd with
@@ -94,9 +94,12 @@ theorem squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth
       omega
   have hmuD : μ d ≠ 0 :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsq
+  have hcop : Nat.Coprime r d :=
+    (hr.coprime_iff_not_dvd).2 hrNotDvd
   have hmuChild : μ (r * d) ≠ 0 := by
-    rw [moebius_prime_mul_eq_neg_of_not_dvd hr hrNotDvd]
-    exact neg_ne_zero.mpr hmuD
+    rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
+      ArithmeticFunction.moebius_apply_prime hr]
+    exact mul_ne_zero (by norm_num) hmuD
   have hsqChild : Squarefree (r * d) :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuChild
   have hlpfChild : canonicalLargestPrimeFactor (r * d) = r := by
@@ -241,7 +244,7 @@ theorem squareRootLowPrimeGoAncestryEdgeValue_eq_zero_of_terminal
 edge the parent has entered but the child has not, so the edge value is exactly
 the parent source weight. -/
 theorem squareRootLowPrimeGoAncestryEdgeValue_eq_parentWeight_of_defect
-    {q X r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    {q X r d : ℕ} (hq : q.Prime) (hr : r.Prime) (_hrq : r < q)
     (hcube : q ^ 3 ≤ X)
     (hd : d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r) :
     squareRootLowPrimeGoAncestryEdgeValue q X r d =
