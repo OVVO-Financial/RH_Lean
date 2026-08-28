@@ -167,7 +167,7 @@ theorem lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face
     have hqProd : lowWheelCanonicalDowncrossLatePrime (t, (c, k)) ∣
         t.prod id := by
       simpa [primeFaceProduct] using hqFace
-    rcases (Prime.dvd_finset_prod_iff hqPrime.prime id).mp hqProd with
+    rcases (Prime.dvd_finsetProd_iff hqPrime.prime id).mp hqProd with
       ⟨r, hrt, hqr⟩
     have hrPrime : r.Prime :=
       prime_of_mem_primesUpTo ((Finset.mem_powerset.mp ht) hrt)
@@ -175,5 +175,76 @@ theorem lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face
       (Nat.prime_dvd_prime_iff_eq hqPrime hrPrime).mp hqr
     exact hqt (hqrEq ▸ hrt)
   · exact hqQuot
+
+/-- In the absent-face branch the allocation prime divides the actual quotient
+`k`, not only `k/p`. -/
+theorem lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face'
+    {R : ℕ} {t : Finset ℕ} {c k : ℕ}
+    (hy : (t, (c, k)) ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R)
+    (hqt : lowWheelCanonicalDowncrossLatePrime (t, (c, k)) ∉ t) :
+    lowWheelCanonicalDowncrossLatePrime (t, (c, k)) ∣ k := by
+  let p := lowWheelCanonicalDowncrossPivot (c, k)
+  let q := lowWheelCanonicalDowncrossLatePrime (t, (c, k))
+  have hlate :=
+    (mem_lowWheelCanonicalDowncrossLateTaggedCarrier.mp hy).2.2
+  have hdown := (mem_lowWheelCanonicalDowncrossLateParentPart.mp hlate).1
+  have hgeom := lowWheelCanonicalDowncross_firstFailure_geometry hdown
+  dsimp only at hgeom
+  have hpk : p ∣ k := by simpa [p] using hgeom.2.2.1
+  have hqu : q ∣ k / p := by
+    simpa [p, q] using
+      lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face hy hqt
+  rcases hqu with ⟨u, hu⟩
+  refine ⟨p * u, ?_⟩
+  calc
+    k = p * (k / p) := (Nat.mul_div_cancel' hpk).symm
+    _ = p * (q * u) := by rw [hu]
+    _ = q * (p * u) := by ring
+
+/-- Canonical face/quotient allocation move at the invariant largest parent
+prime.  It leaves the cofactor untouched and toggles whether `q` is stored in
+the Boolean face or in the residual quotient. -/
+def lowWheelCanonicalDowncrossLateMate
+    (y : LowWheelCanonicalDowncrossTaggedState) :
+    LowWheelCanonicalDowncrossTaggedState :=
+  let q := lowWheelCanonicalDowncrossLatePrime y
+  if q ∈ y.1 then
+    (y.1.erase q, (y.2.1, q * y.2.2))
+  else
+    (insert q y.1, (y.2.1, y.2.2 / q))
+
+/-- The allocation move preserves the complete high coordinate `P(t)*k`. -/
+theorem lowWheelCanonicalDowncrossLateMate_highProduct
+    {R : ℕ} {t : Finset ℕ} {c k : ℕ}
+    (hy : (t, (c, k)) ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R) :
+    primeFaceProduct (lowWheelCanonicalDowncrossLateMate (t, (c, k))).1 *
+        (lowWheelCanonicalDowncrossLateMate (t, (c, k))).2.2 =
+      primeFaceProduct t * k := by
+  let q := lowWheelCanonicalDowncrossLatePrime (t, (c, k))
+  have hqPrime : q.Prime := by
+    simpa [q] using lowWheelCanonicalDowncrossLatePrime_prime hy
+  unfold lowWheelCanonicalDowncrossLateMate
+  dsimp only
+  by_cases hqt : q ∈ t
+  · rw [if_pos hqt]
+    have hface : q * primeFaceProduct (t.erase q) = primeFaceProduct t := by
+      simpa [primeFaceProduct] using Finset.mul_prod_erase t id hqt
+    calc
+      primeFaceProduct (t.erase q) * (q * k) =
+          (q * primeFaceProduct (t.erase q)) * k := by ring
+      _ = primeFaceProduct t * k := by rw [hface]
+  · rw [if_neg hqt]
+    have hqk : q ∣ k := by
+      simpa [q] using
+        lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face'
+          hy (by simpa [q] using hqt)
+    have hkCancel : k / q * q = k := Nat.div_mul_cancel hqk
+    have hface : primeFaceProduct (insert q t) = q * primeFaceProduct t := by
+      simp [primeFaceProduct, hqt]
+    calc
+      primeFaceProduct (insert q t) * (k / q) =
+          (q * primeFaceProduct t) * (k / q) := by rw [hface]
+      _ = primeFaceProduct t * (k / q * q) := by ring
+      _ = primeFaceProduct t * k := by rw [hkCancel]
 
 end RHLean.Proof
