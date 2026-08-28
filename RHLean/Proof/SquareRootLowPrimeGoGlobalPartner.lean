@@ -216,7 +216,7 @@ theorem squareRootLowPrimeGoStrictCrossing_mem_transport_pairable
         q = 1 * q := by simp
         _ < lowWheelCanonicalCofactorQuotientPivot (d, q) * q :=
           Nat.mul_lt_mul_of_pos_right hpPrime.one_lt hq.pos
-    omega
+    exact (Nat.ne_of_gt hlt) hsecond
   exact Finset.mem_filter.mpr ⟨hsource, hmateMem, hmateNe⟩
 
 /-- The transport sign of the embedded Go state is exactly its source Möbius
