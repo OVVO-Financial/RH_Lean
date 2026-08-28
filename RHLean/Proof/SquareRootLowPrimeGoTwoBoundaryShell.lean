@@ -166,9 +166,13 @@ theorem squareRootLowPrimeGoFullBirthBoundaryFaces_eq_filter
   simp only [Finset.mem_filter, Finset.mem_powerset]
   constructor
   · rintro ⟨hu, hupper, hlower⟩
-    exact ⟨hu, (Nat.div_lt_iff_lt_mul hr.pos).2 hlower, hupper⟩
+    have hlower' : q - 1 < primeFaceProduct u * r := by
+      simpa [Nat.mul_comm] using hlower
+    exact ⟨hu, (Nat.div_lt_iff_lt_mul hr.pos).2 hlower', hupper⟩
   · rintro ⟨hu, hlower, hupper⟩
-    exact ⟨hu, hupper, (Nat.div_lt_iff_lt_mul hr.pos).1 hlower⟩
+    have hlower' : q - 1 < primeFaceProduct u * r :=
+      (Nat.div_lt_iff_lt_mul hr.pos).1 hlower
+    exact ⟨hu, hupper, by simpa [Nat.mul_comm] using hlower'⟩
 
 /-- The native low-wheel smooth shell is precisely this one first-failure face
 population when the pivot itself is used as the fresh coordinate. -/
@@ -265,7 +269,6 @@ theorem squareRootLowPrimeGoFullBirthBoundary_moebiusSum_eq_lowWheelSmoothFaceSh
   · rw [lowWheelSmoothFaceShellMass_eq_goFullBirthBoundaryFaceMass hr]
     apply Finset.sum_congr rfl
     intro u hu
-    symm
     apply moebius_primeFaceProduct_eq_booleanCubeSign
     intro p hp
     have huOld : u ∈ (primesUpTo (r - 1)).powerset := by
