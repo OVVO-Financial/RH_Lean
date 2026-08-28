@@ -100,11 +100,12 @@ theorem frozenPrimeUniverseMass_eq_goSmoothCofactorSum
   have h :=
     squareRootLowPrimeGoWallSquareResidual_eq_smoothCofactorSum
       (q := r) (X := (r * r) * Y) hr
+  rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff] at h
   have hrrPos : 0 < r * r := Nat.mul_pos hr.pos hr.pos
-  have hcut : (r * r) * Y / (r * r) = Y :=
-    Nat.mul_div_right Y hrrPos
-  rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff, hcut, hcut] at h
-  simpa using h
+  have hcut : r * r * Y / (r * r) = Y :=
+    Nat.mul_div_cancel_left Y hrrPos
+  rw [hcut] at h
+  exact h
 
 /-- Total lower cutoff for one `r`-liberty slice. -/
 def squareRootLowPrimeGoDefectSliceLowerCutoff
@@ -196,15 +197,24 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_moebiusSum_eq_frozenStrip
   rw [squareRootLowPrimeGoSecondBoundaryDefectParents_eq_smooth_sdiff
     hq hr hrq hcube]
   have hsub := squareRootLowPrimeGoDefectSliceLower_subset_upper q X r
-  have hsum := Finset.sum_sdiff hsub (f := fun d => μ d)
   have hUpper :=
     frozenPrimeUniverseMass_eq_goSmoothCofactorSum
       (r := r) (Y := q - 1) hr
   have hLower :=
     frozenPrimeUniverseMass_eq_goSmoothCofactorSum
       (r := r) (Y := squareRootLowPrimeGoDefectSliceLowerCutoff q X r) hr
-  rw [← hUpper, ← hLower] at hsum
-  omega
+  calc
+    (∑ d ∈ squareRootLowPrimeGoSmoothCofactors r (q - 1) \
+        squareRootLowPrimeGoSmoothCofactors r
+          (squareRootLowPrimeGoDefectSliceLowerCutoff q X r), μ d) =
+      (∑ d ∈ squareRootLowPrimeGoSmoothCofactors r (q - 1), μ d) -
+        ∑ d ∈ squareRootLowPrimeGoSmoothCofactors r
+          (squareRootLowPrimeGoDefectSliceLowerCutoff q X r), μ d :=
+      (eq_sub_iff_add_eq).2 (Finset.sum_sdiff hsub)
+    _ = frozenPrimeUniverseMass (primesUpTo (r - 1)) (q - 1) -
+        frozenPrimeUniverseMass (primesUpTo (r - 1))
+          (squareRootLowPrimeGoDefectSliceLowerCutoff q X r) := by
+      rw [← hUpper, ← hLower]
 
 /-- Source-signed mass of one fixed interior-prime liberty slice. -/
 def squareRootLowPrimeGoDefectPrimeSliceSourceMass
@@ -247,10 +257,10 @@ theorem squareRootLowPrimeGoSecondBoundaryDefectParents_subset_range
     (q X r : ℕ) :
     squareRootLowPrimeGoSecondBoundaryDefectParents q X r ⊆ Finset.range q := by
   intro d hd
-  have hfull :=
-    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
-  have hdq :=
-    (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull).2.1
+  rcases mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd with
+    ⟨hfull, _hphysical⟩
+  rcases mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull with
+    ⟨hd1, hdq, _hsq, _hrough, _hbirth⟩
   exact Finset.mem_range.mpr (by omega)
 
 /-- Filtering the ambient parent range by the exact defect predicate recovers
