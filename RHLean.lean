@@ -531,6 +531,7 @@ import RHLean.Proof.SquareRootLowPrimeGoRecursiveDescent
 import RHLean.Proof.SquareRootLowPrimeGoSecondContactSources
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 import RHLean.Proof.SquareRootLowPrimeGoWallChild
+import RHLean.Proof.SquareRootLowPrimeGoWallPartnerReassembly
 import RHLean.Proof.SquareRootLowPrimeGoWallQuantitative
 import RHLean.Proof.SquareRootLowPrimeGoWallStrip
 import RHLean.Proof.SquareRootLowPrimeGoWallStripTelescope
