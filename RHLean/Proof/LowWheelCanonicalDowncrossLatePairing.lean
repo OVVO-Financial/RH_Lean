@@ -167,7 +167,7 @@ theorem lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face
     have hqProd : lowWheelCanonicalDowncrossLatePrime (t, (c, k)) ∣
         t.prod id := by
       simpa [primeFaceProduct] using hqFace
-    rcases (Prime.dvd_finsetProd_iff hqPrime.prime id).mp hqProd with
+    rcases (Prime.dvd_finset_prod_iff hqPrime.prime id).mp hqProd with
       ⟨r, hrt, hqr⟩
     have hrPrime : r.Prime :=
       prime_of_mem_primesUpTo ((Finset.mem_powerset.mp ht) hrt)
@@ -246,5 +246,89 @@ theorem lowWheelCanonicalDowncrossLateMate_highProduct
           (q * primeFaceProduct t) * (k / q) := by rw [hface]
       _ = primeFaceProduct t * (k / q * q) := by ring
       _ = primeFaceProduct t * k := by rw [hkCancel]
+
+/-- Minimal-factor recognition from one prime divisor together with the absence
+of any smaller prime divisor. -/
+private theorem minFac_eq_of_prime_dvd_and_le_prime_divisors
+    {p n : ℕ} (hp : p.Prime) (hpn : p ∣ n)
+    (hle : ∀ r, r.Prime → r ∣ n → p ≤ r) :
+    Nat.minFac n = p := by
+  have hminLe : Nat.minFac n ≤ p :=
+    Nat.minFac_le_of_dvd hp.two_le hpn
+  have hn1 : n ≠ 1 := by
+    intro hn
+    have hp1 : p ∣ 1 := by simpa [hn] using hpn
+    have hpEq : p = 1 := Nat.dvd_one.mp hp1
+    omega
+  have hminPrime : (Nat.minFac n).Prime := Nat.minFac_prime hn1
+  have hminDvd : Nat.minFac n ∣ n := Nat.minFac_dvd n
+  have hpLeMin : p ≤ Nat.minFac n := hle _ hminPrime hminDvd
+  exact Nat.le_antisymm hminLe hpLeMin
+
+/-- Moving the canonical late-parent allocation prime between face and quotient
+does not change the least-prime pivot of `c*k`. -/
+theorem lowWheelCanonicalDowncrossLateMate_pivot_eq
+    {R : ℕ} {t : Finset ℕ} {c k : ℕ}
+    (hy : (t, (c, k)) ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R) :
+    lowWheelCanonicalDowncrossPivot
+        (lowWheelCanonicalDowncrossLateMate (t, (c, k))).2 =
+      lowWheelCanonicalDowncrossPivot (c, k) := by
+  let p := lowWheelCanonicalDowncrossPivot (c, k)
+  let q := lowWheelCanonicalDowncrossLatePrime (t, (c, k))
+  have hlate :=
+    (mem_lowWheelCanonicalDowncrossLateTaggedCarrier.mp hy).2.2
+  have hdown := (mem_lowWheelCanonicalDowncrossLateParentPart.mp hlate).1
+  have hgeom := lowWheelCanonicalDowncross_firstFailure_geometry hdown
+  dsimp only at hgeom
+  have hp : p.Prime := by simpa [p] using hgeom.1
+  have hpk : p ∣ k := by simpa [p] using hgeom.2.2.1
+  have hqPrime : q.Prime := by
+    simpa [q] using lowWheelCanonicalDowncrossLatePrime_prime hy
+  have hpq : p ≤ q := by
+    simpa [p, q] using lowWheelCanonicalDowncrossLate_pivot_le_prime hy
+  unfold lowWheelCanonicalDowncrossLateMate
+  dsimp only
+  by_cases hqt : q ∈ t
+  · rw [if_pos hqt]
+    change Nat.minFac (c * (q * k)) = p
+    apply minFac_eq_of_prime_dvd_and_le_prime_divisors hp
+    · exact dvd_mul_of_dvd_right (dvd_mul_of_dvd_right hpk q) c
+    · intro r hr hrd
+      rcases hr.dvd_mul.mp hrd with hrc | hrqk
+      · exact Nat.minFac_le_of_dvd hr.two_le
+          (dvd_mul_of_dvd_left hrc k)
+      · rcases hr.dvd_mul.mp hrqk with hrq | hrk
+        · have hrEq : r = q :=
+            (Nat.prime_dvd_prime_iff_eq hr hqPrime).mp hrq
+          simpa [hrEq] using hpq
+        · exact Nat.minFac_le_of_dvd hr.two_le
+            (dvd_mul_of_dvd_right hrk c)
+  · rw [if_neg hqt]
+    have hqu : q ∣ k / p := by
+      simpa [p, q] using
+        lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face
+          hy (by simpa [q] using hqt)
+    rcases hqu with ⟨u, hu⟩
+    have hkEq : k = q * (p * u) := by
+      calc
+        k = p * (k / p) := (Nat.mul_div_cancel' hpk).symm
+        _ = p * (q * u) := by rw [hu]
+        _ = q * (p * u) := by ring
+    have hkDivEq : k / q = p * u := by
+      rw [hkEq]
+      simp [hqPrime.ne_zero]
+    change Nat.minFac (c * (k / q)) = p
+    apply minFac_eq_of_prime_dvd_and_le_prime_divisors hp
+    · exact dvd_mul_of_dvd_right ⟨u, hkDivEq⟩ c
+    · intro r hr hrd
+      rcases hr.dvd_mul.mp hrd with hrc | hrdiv
+      · exact Nat.minFac_le_of_dvd hr.two_le
+          (dvd_mul_of_dvd_left hrc k)
+      · have hrk : r ∣ k := by
+          rw [hkEq]
+          rw [hkDivEq] at hrdiv
+          exact dvd_mul_of_dvd_right hrdiv q
+        exact Nat.minFac_le_of_dvd hr.two_le
+          (dvd_mul_of_dvd_right hrk c)
 
 end RHLean.Proof
