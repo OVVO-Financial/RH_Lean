@@ -133,7 +133,7 @@ theorem squareRootLowPrimeGoSmallerOwnerChild_moebius
 /-- Conversely, every parent in the exact quotient strip reconstructs a unique
 unfinished child with owner `r`. -/
 theorem squareRootLowPrimeGoSmallerOwnerParent_child_mem
-    {q B r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    {q B r d : ℕ} (_hq : q.Prime) (hr : r.Prime) (hrq : r < q)
     (hd : d ∈ squareRootLowPrimeGoSmallerOwnerParentStrip q B r) :
     r * d ∈ squareRootLowPrimeGoSmallerOwnerChildren q B r := by
   rcases mem_squareRootLowPrimeGoSmallerOwnerParentStrip.mp hd with
