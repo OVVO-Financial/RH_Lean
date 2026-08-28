@@ -81,8 +81,9 @@ theorem lowWheelCanonicalDowncross_firstFailure_geometry
       c * (p * a) ≤ squareRootEndpoint R := by
   rcases lowWheelCanonicalDowncrossPart_adjacent_shell hx with
     ⟨hp, hpc, hpk, hparent, hchild⟩
-  have hxF := (mem_lowWheelCanonicalDowncrossDowncrossPart.mp hx).1
-  have htop := (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.2.2.2
+  have hxF := (mem_lowWheelCanonicalDowncrossPart.mp hx).1
+  have hcarrier := (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.2.2
+  have htop := hcarrier.2.2.2
   have hkCancel :
       lowWheelCanonicalCofactorQuotientPivot (c, k) *
           (k / lowWheelCanonicalCofactorQuotientPivot (c, k)) = k :=
