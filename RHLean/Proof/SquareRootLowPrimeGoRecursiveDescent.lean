@@ -108,7 +108,11 @@ theorem frozenPrimeUniverseMass_eq_goSmoothCofactorSum
     squareRootLowPrimeGoWallSquareResidual_eq_smoothCofactorSum
       (q := r) (X := (r * r) * Y) hr
   rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff] at h
-  simpa using h
+  have hrrPos : 0 < r * r := Nat.mul_pos hr.pos hr.pos
+  have hcut : r * r * Y / (r * r) = Y :=
+    Nat.mul_div_cancel_left Y hrrPos
+  rw [hcut] at h
+  exact h
 
 /-- Total lower cutoff for one `r`-liberty slice.  The minimum makes the
 subtraction identity total even when the physical cutoff has already passed the
