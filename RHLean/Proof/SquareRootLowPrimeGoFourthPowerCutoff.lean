@@ -15,19 +15,26 @@ two-boundary defect lies in the strict band
 
 `q^3 <= X < q^4`.
 
-There is also a first finite cage for the exposed parent source.  After the
-`r`-coordinate is recombined, the surviving edge carries the arithmetic source
+After the `r`-coordinate is recombined, the surviving edge carries the exposed
+parent arithmetic source
 
 `m = q*d`.
 
-The birth-boundary geometry gives `d < q`, hence `m < q^2`; together with
-`q^3 <= X` this implies the integral power bound
+This source is canonical: `P+(m) = q`.  Its active parent clock and inactive
+child clock imply the `r`-free second-contact shell
 
-`m^3 < X^2`.
+`q*m <= X < q^2*m`,
 
-At the square wall `X_R = R^2 - 1`, this is the loose but genuine scale
-`m < R^(4/3)`.  It is intentionally only a first finite boundary to tighten:
-no asymptotic, prime-density, divisor, or cancellation estimate enters here.
+while the birth-boundary geometry gives `m < q^2`.  Hence every raw defect maps
+into one finite arithmetic boundary depending only on `m` and its canonical
+largest prime factor.  In particular
+
+`X < m^3 < X^2`.
+
+At the square wall `X_R = R^2 - 1`, this is the deliberately loose but genuine
+cubic shell `R^(2/3) < m < R^(4/3)`.  The point is to expose a finite boundary
+that can now be tightened; no asymptotic, prime-density, divisor, or cancellation
+estimate enters here.
 -/
 
 noncomputable section
@@ -91,20 +98,82 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_coordinates
   · rw [pow_two]
     exact Nat.mul_lt_mul_of_pos_left hroot.2 hq.pos
 
-/-- **First finite Go endpoint cage.**  In genuinely unfinished territory,
-every exposed parent source `m = q*d` from a surviving second-boundary edge
-satisfies
-
-`m^3 < X^2`.
-
-This is the integral form of the scale `m < X^(2/3)`.  At a square endpoint
-`X = R^2 - 1` it is the loose boundary `m < R^(4/3)`, which can be tightened
-without changing the canonical source coordinate. -/
-theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_cube_lt_cutoffSquare
+/-- The exposed parent source itself lies on an `r`-free second-contact shell.
+The parent clock is active at `q*m`; the defect child enters after `X`, and
+`r < q` enlarges that inactive clock to the canonical upper wall `q^2*m`. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_contactShell
     {q X r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
     (hcube : q ^ 3 ≤ X)
     (hd : d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r) :
-    (q * d) ^ 3 < X ^ 2 := by
+    q * (q * d) ≤ X ∧ X < q ^ 2 * (q * d) := by
+  have hfull : d ∈ squareRootLowPrimeGoFullBirthBoundaryParents q r :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  have hparentClock :=
+    squareRootLowPrimeGoFullBirthBoundary_parentClock_le hq hcube hfull
+  have hparent : q * (q * d) ≤ X := by
+    simpa [squareRootLowPrimeGoAncestryClock, Nat.mul_assoc] using hparentClock
+  have hsecond :=
+    squareRootLowPrimeGoSecondBoundaryDefect_secondContact_gt hq hr hd
+  have hdPos : 0 < d := by
+    have hd1 := (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull).1
+    omega
+  have hrdLt : r * d < q * d :=
+    Nat.mul_lt_mul_of_pos_right hrq hdPos
+  have hq2Pos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
+  have hupper : q * q * (r * d) < q * q * (q * d) :=
+    Nat.mul_lt_mul_of_pos_left hrdLt hq2Pos
+  refine ⟨hparent, ?_⟩
+  calc
+    X < q * q * (r * d) := hsecond
+    _ < q * q * (q * d) := hupper
+    _ = q ^ 2 * (q * d) := by ring
+
+/-- A finite `r`-free boundary containing every exposed parent source.  The
+predicate depends only on the arithmetic source `m` and its canonical largest
+prime factor. -/
+def squareRootLowPrimeGoExposedParentBoundary (X : ℕ) : Finset ℕ :=
+  (Finset.range (X + 1)).filter fun m =>
+    let q := canonicalLargestPrimeFactor m
+    q ^ 3 ≤ X ∧ X < q ^ 4 ∧
+      q * m ≤ X ∧ X < q ^ 2 * m ∧ m < q ^ 2
+
+/-- Every surviving two-boundary defect maps to the finite canonical exposed
+parent boundary after forgetting the interior prime `r`. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_mem_boundary
+    {q X r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hcube : q ^ 3 ≤ X)
+    (hd : d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r) :
+    q * d ∈ squareRootLowPrimeGoExposedParentBoundary X := by
+  have hcoords :=
+    squareRootLowPrimeGoSecondBoundaryDefect_parentSource_coordinates
+      hq hr hrq hd
+  have hcontact :=
+    squareRootLowPrimeGoSecondBoundaryDefect_parentSource_contactShell
+      hq hr hrq hcube hd
+  have hfourth :=
+    squareRootLowPrimeGoSecondBoundaryDefect_ownerFourth_gt hq hr hrq hd
+  have hmLeQm : q * d ≤ q * (q * d) := by
+    calc
+      q * d = 1 * (q * d) := by simp
+      _ ≤ q * (q * d) := Nat.mul_le_mul_right (q * d) hq.one_le
+  have hmLeX : q * d ≤ X := hmLeQm.trans hcontact.1
+  apply Finset.mem_filter.mpr
+  refine ⟨Finset.mem_range.mpr (by omega), ?_⟩
+  dsimp
+  rw [hcoords.1]
+  exact ⟨hcube, hfourth, hcontact.1, hcontact.2, hcoords.2⟩
+
+/-- The same finite boundary is a genuine cubic shell: every exposed parent
+source lies strictly above `X^(1/3)` and below `X^(2/3)`, stated integrally as
+`X < m^3 < X^2`. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_cubeShell
+    {q X r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hcube : q ^ 3 ≤ X)
+    (hd : d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r) :
+    X < (q * d) ^ 3 ∧ (q * d) ^ 3 < X ^ 2 := by
+  have hcontact :=
+    squareRootLowPrimeGoSecondBoundaryDefect_parentSource_contactShell
+      hq hr hrq hcube hd
   have hsource :=
     (squareRootLowPrimeGoSecondBoundaryDefect_parentSource_coordinates
       hq hr hrq hd).2
@@ -112,9 +181,27 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_cube_lt_cutoffSqua
     Nat.pow_lt_pow_left hsource (by omega)
   have hownerSquare : (q ^ 3) ^ 2 ≤ X ^ 2 :=
     Nat.pow_le_pow_left hcube 2
+  have hdCube : d ≤ d ^ 3 :=
+    Nat.le_self_pow (by norm_num : 3 ≠ 0) d
+  have hlower : X < (q * d) ^ 3 := by
+    calc
+      X < q ^ 2 * (q * d) := hcontact.2
+      _ = q ^ 3 * d := by ring
+      _ ≤ q ^ 3 * d ^ 3 := Nat.mul_le_mul_left (q ^ 3) hdCube
+      _ = (q * d) ^ 3 := by ring
+  refine ⟨hlower, ?_⟩
   calc
     (q * d) ^ 3 < (q ^ 2) ^ 3 := hsourceCube
     _ = (q ^ 3) ^ 2 := by ring
     _ ≤ X ^ 2 := hownerSquare
+
+/-- Upper half of the cubic shell, retained as a convenient standalone API. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_cube_lt_cutoffSquare
+    {q X r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hcube : q ^ 3 ≤ X)
+    (hd : d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r) :
+    (q * d) ^ 3 < X ^ 2 :=
+  (squareRootLowPrimeGoSecondBoundaryDefect_parentSource_cubeShell
+    hq hr hrq hcube hd).2
 
 end RHLean.Proof
