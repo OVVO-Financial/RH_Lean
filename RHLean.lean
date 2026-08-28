@@ -520,8 +520,6 @@ import RHLean.Proof.SquareRootLowPrimeEulerCreationResponseEnergyGate
 import RHLean.Proof.SquareRootLowPrimeFirstOwnerFalloutWidth
 import RHLean.Proof.SquareRootLowPrimeFirstOwnerWallRecurrence
 import RHLean.Proof.SquareRootLowPrimeGlobalEnergyTelescope
-import RHLean.Proof.SquareRootLowPrimeGoWallChild
-import RHLean.Proof.SquareRootLowPrimeGoWallStrip
 import RHLean.Proof.SquareRootLowPrimeGoAncestryClock
 import RHLean.Proof.SquareRootLowPrimeGoBirthBoundary
 import RHLean.Proof.SquareRootLowPrimeGoDivisorFibers
@@ -531,7 +529,9 @@ import RHLean.Proof.SquareRootLowPrimeGoOwnerFibers
 import RHLean.Proof.SquareRootLowPrimeGoRecursiveDescent
 import RHLean.Proof.SquareRootLowPrimeGoSecondContactSources
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
+import RHLean.Proof.SquareRootLowPrimeGoWallChild
 import RHLean.Proof.SquareRootLowPrimeGoWallQuantitative
+import RHLean.Proof.SquareRootLowPrimeGoWallStrip
 import RHLean.Proof.SquareRootLowPrimeGoWallStripTelescope
 import RHLean.Proof.SquareRootLowPrimeHighDivisorDownwardClosure
 import RHLean.Proof.SquareRootLowPrimeHighProductBoundary
