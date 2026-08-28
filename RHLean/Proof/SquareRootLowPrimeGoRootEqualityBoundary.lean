@@ -78,7 +78,7 @@ theorem squareRootLowPrimeGo_crossing_forces_root_le_product
 is unique. -/
 theorem squareRootLowPrimeGo_rootEquality_primePair_unique
     {R r q s t : ℕ}
-    (hr : r.Prime) (hq : q.Prime) (hrs : r < q)
+    (hr : r.Prime) (_hq : q.Prime) (hrs : r < q)
     (hs : s.Prime) (ht : t.Prime) (hst : s < t)
     (hrqR : r * q = R) (hstR : s * t = R) :
     r = s ∧ q = t := by
