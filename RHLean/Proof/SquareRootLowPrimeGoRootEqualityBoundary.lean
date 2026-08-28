@@ -92,7 +92,9 @@ theorem squareRootLowPrimeGo_rootEquality_primePair_unique
       (Nat.prime_dvd_prime_iff_eq hr ht).mp hrtDvd
     subst t
     have hprod : r * q = s * r := hrqR.trans hstR.symm
-    have hqs : q = s := Nat.mul_right_cancel hr.pos hprod
+    have hprod' : q * r = s * r := by
+      simpa [Nat.mul_comm] using hprod
+    have hqs : q = s := Nat.mul_right_cancel hr.pos hprod'
     omega
 
 /-- Literal exceptional carrier.  Coordinates are `((r,q),d)`: the two prime
