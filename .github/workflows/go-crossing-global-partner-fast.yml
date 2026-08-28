@@ -65,12 +65,12 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-go-partner-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean/Proof/SquareRootLowPrimeGoGlobalPartner.lean') }}
+          key: rhlean-go-partner-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean/Proof/SquareRootLowPrimeGoGlobalPartner.lean', 'RHLean/Proof/SquareRootLowPrimeGoRootEqualityBoundary.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Build Go global partner module
-        run: lake build RHLean.Proof.SquareRootLowPrimeGoGlobalPartner
+      - name: Build complete Go crossing closure
+        run: lake build RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
 
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
