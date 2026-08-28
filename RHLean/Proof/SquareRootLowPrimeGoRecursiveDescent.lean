@@ -48,10 +48,7 @@ theorem frozenPrimeUniverseMass_pred_eq_mertensSummatoryInt
 
 /-- **Recursive Go law.**  An unfinished frozen predecessor state at owner `q`
 is the completed lower-scale Mertens state through `q-1` minus disjoint
-smaller-prime boundary strips.  Each strip is itself the difference between two
-frozen predecessor states belonging to a prime `r < q`.
-
-This is the signed recursion to use before taking any norm. -/
+smaller-prime boundary strips. -/
 theorem frozenPrimeUniverseMass_eq_mertensPred_sub_smallerOwnerStrips
     {q y : ℕ} (hq : q.Prime) (hqy : q ≤ y) :
     frozenPrimeUniverseMass (primesUpTo (q - 1)) y =
@@ -79,9 +76,7 @@ theorem mem_primesUpTo_pred_lt_owner
   have hrq := hrData.2
   omega
 
-/-- Square-residual specialization of the recursive Go law.  In the unfinished
-region `q <= floor(X/q^2)`, the residual is a completed `M(q-1)` state plus only
-strictly descending owner strips. -/
+/-- Square-residual specialization of the recursive Go law. -/
 theorem squareRootLowPrimeGoWallSquareResidual_eq_mertensPred_sub_smallerOwnerStrips
     {q X : ℕ} (hq : q.Prime)
     (hunfinished : q ≤ X / (q * q)) :
@@ -97,9 +92,7 @@ theorem squareRootLowPrimeGoWallSquareResidual_eq_mertensPred_sub_smallerOwnerSt
 
 /-! ## Weighted liberty slices are frozen predecessor strips -/
 
-/-- Generic arithmetic form of a frozen predecessor cube: it is exactly the
-Möbius mass of squarefree cofactors whose canonical largest prime is below the
-fresh owner `r`. -/
+/-- Generic arithmetic form of a frozen predecessor cube. -/
 theorem frozenPrimeUniverseMass_eq_goSmoothCofactorSum
     {r Y : ℕ} (hr : r.Prime) :
     frozenPrimeUniverseMass (primesUpTo (r - 1)) Y =
@@ -114,17 +107,12 @@ theorem frozenPrimeUniverseMass_eq_goSmoothCofactorSum
   rw [hcut] at h
   exact h
 
-/-- Total lower cutoff for one `r`-liberty slice.  The minimum makes the
-subtraction identity total even when the physical cutoff has already passed the
-whole parent range. -/
+/-- Total lower cutoff for one `r`-liberty slice. -/
 def squareRootLowPrimeGoDefectSliceLowerCutoff
     (q X r : ℕ) : ℕ :=
   min (q - 1) (X / (q * q) / r)
 
-/-- **Exact support flattening at fixed `r`.**  In unfinished territory the
-old birth inequality is implied by the physical second-contact inequality.
-Therefore the #483 defect parents at fixed `q,r` are literally the upper frozen
-smooth prefix minus its lower physical prefix. -/
+/-- Exact support flattening at fixed `r`. -/
 theorem squareRootLowPrimeGoSecondBoundaryDefectParents_eq_smooth_sdiff
     {q X r : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
     (hcube : q ^ 3 ≤ X) :
@@ -198,7 +186,7 @@ theorem squareRootLowPrimeGoDefectSliceLower_subset_upper
     exact min_le_left _ _)
 
 /-- The Möbius mass of one fixed `r` defect slice is exactly one difference of
-frozen predecessor states.  The prime-count multiplicity has disappeared. -/
+frozen predecessor states. -/
 theorem squareRootLowPrimeGoSecondBoundaryDefect_moebiusSum_eq_frozenStrip
     {q X r : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
     (hcube : q ^ 3 ≤ X) :
@@ -233,9 +221,7 @@ def squareRootLowPrimeGoDefectPrimeSliceSourceMass
     (q X r : ℕ) : ℤ :=
   ∑ d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r, μ (q * d)
 
-/-- **One liberty prime = one signed frozen strip.**  Every source in the slice
-has the common outer fresh-prime sign flip, so the actual source mass is the
-negative of the frozen predecessor strip. -/
+/-- One liberty prime is one signed frozen strip. -/
 theorem squareRootLowPrimeGoDefectPrimeSliceSourceMass_eq_neg_frozenStrip
     {q X r : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
     (hcube : q ^ 3 ≤ X) :
@@ -262,5 +248,89 @@ theorem squareRootLowPrimeGoDefectPrimeSliceSourceMass_eq_neg_frozenStrip
           (squareRootLowPrimeGoDefectSliceLowerCutoff q X r)) := by
       rw [squareRootLowPrimeGoSecondBoundaryDefect_moebiusSum_eq_frozenStrip
         hq hr hrq hcube]
+
+/-! ## Global handoff: the liberty coefficient disappears -/
+
+/-- Every defect parent is already in the rectangular ambient range used by the
+weighted flattening. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefectParents_subset_range
+    (q X r : ℕ) :
+    squareRootLowPrimeGoSecondBoundaryDefectParents q X r ⊆ Finset.range q := by
+  intro d hd
+  rcases mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd with
+    ⟨hfull, _hphysical⟩
+  rcases mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull with
+    ⟨hd1, hdq, _hsq, _hrough, _hbirth⟩
+  exact Finset.mem_range.mpr (by omega)
+
+/-- Filtering the ambient parent range by the exact defect predicate recovers
+the defect-parent finset itself. -/
+theorem squareRootLowPrimeGo_range_filter_defectParents_eq
+    (q X r : ℕ) :
+    (Finset.range q).filter
+        (fun d => d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r) =
+      squareRootLowPrimeGoSecondBoundaryDefectParents q X r := by
+  ext d
+  constructor
+  · intro hd
+    exact (Finset.mem_filter.mp hd).2
+  · intro hd
+    exact Finset.mem_filter.mpr
+      ⟨squareRootLowPrimeGoSecondBoundaryDefectParents_subset_range q X r hd, hd⟩
+
+/-- The rectangular raw defect mass is the sum of its actual prime-liberty
+slice masses. -/
+theorem squareRootLowPrimeGoOwnerRawDefectMass_eq_sum_primeSlices
+    (q X : ℕ) :
+    squareRootLowPrimeGoOwnerRawDefectMass q X =
+      ∑ r ∈ Finset.range q,
+        if r.Prime then
+          squareRootLowPrimeGoDefectPrimeSliceSourceMass q X r
+        else 0 := by
+  classical
+  unfold squareRootLowPrimeGoOwnerRawDefectMass
+  apply Finset.sum_congr rfl
+  intro r _hrange
+  by_cases hr : r.Prime
+  · simp only [hr, true_and, if_true]
+    unfold squareRootLowPrimeGoDefectPrimeSliceSourceMass
+    rw [← Finset.sum_filter,
+      squareRootLowPrimeGo_range_filter_defectParents_eq q X r]
+  · simp [hr]
+
+/-- One strictly descending predecessor-strip contribution. -/
+def squareRootLowPrimeGoFrozenLibertyStripContribution
+    (q X r : ℕ) : ℤ :=
+  -(frozenPrimeUniverseMass (primesUpTo (r - 1)) (q - 1) -
+    frozenPrimeUniverseMass (primesUpTo (r - 1))
+      (squareRootLowPrimeGoDefectSliceLowerCutoff q X r))
+
+/-- Complete fixed-owner frozen-strip mass, with composite indices carrying zero. -/
+def squareRootLowPrimeGoOwnerFrozenLibertyStripMass
+    (q X : ℕ) : ℤ :=
+  ∑ r ∈ Finset.range q,
+    if r.Prime then squareRootLowPrimeGoFrozenLibertyStripContribution q X r
+    else 0
+
+/-- **Global weighted-liberty descent.**  The exact liberty-weighted parent
+source mass is identically a sum of signed frozen predecessor strips with
+strictly smaller prime owner `r < q`.  No estimate is taken. -/
+theorem squareRootLowPrimeGoOwnerWeightedBoundaryMass_eq_frozenLibertyStrips
+    {q X : ℕ} (hq : q.Prime) (hcube : q ^ 3 ≤ X) :
+    squareRootLowPrimeGoOwnerWeightedBoundaryMass q X =
+      squareRootLowPrimeGoOwnerFrozenLibertyStripMass q X := by
+  rw [← squareRootLowPrimeGoOwnerRawDefectMass_eq_weightedBoundaryMass q X,
+    squareRootLowPrimeGoOwnerRawDefectMass_eq_sum_primeSlices]
+  unfold squareRootLowPrimeGoOwnerFrozenLibertyStripMass
+  apply Finset.sum_congr rfl
+  intro r hrange
+  by_cases hr : r.Prime
+  · have hrq : r < q := Finset.mem_range.mp hrange
+    have hs :=
+      squareRootLowPrimeGoDefectPrimeSliceSourceMass_eq_neg_frozenStrip
+        hq hr hrq hcube
+    rw [if_pos hr, if_pos hr]
+    exact hs
+  · simp [hr]
 
 end RHLean.Proof
