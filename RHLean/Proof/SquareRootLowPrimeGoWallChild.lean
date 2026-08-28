@@ -282,7 +282,7 @@ theorem mem_squareRootLowPrimeGoWallChildren_iff_parentAbove
       have hKq : K < q := Nat.lt_of_not_ge hnot
       have hqU : q ≤ U := by omega
       have hqSet : q ∈ squareRootLowPrimeFreshPrimeSet K U := by
-        unfold squareRootLowPrimeFreshPrimeFreshPrimeSet
+        unfold squareRootLowPrimeFreshPrimeSet
         exact Finset.mem_filter.mpr
           ⟨Finset.mem_Ioc.mpr ⟨hKq, hqU⟩, hqPrime⟩
       have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
