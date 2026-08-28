@@ -66,15 +66,16 @@ jobs:
       - uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-downcross-first-failure-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean/Proof/LowWheelCanonicalDowncrossOwnership.lean', 'RHLean/Proof/LowWheelCanonicalDowncrossLatePairing.lean') }}
+          key: rhlean-downcross-first-failure-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean/Proof/LowWheelCanonicalDowncrossOwnership.lean', 'RHLean/Proof/LowWheelCanonicalDowncrossLatePairing.lean', 'RHLean/Proof/LowWheelCanonicalDowncrossLateCancellation.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Build downcross ownership and late pairing
+      - name: Build downcross ownership and late cancellation
         run: |
           lake build \
             RHLean.Proof.LowWheelCanonicalDowncrossOwnership \
-            RHLean.Proof.LowWheelCanonicalDowncrossLatePairing
+            RHLean.Proof.LowWheelCanonicalDowncrossLatePairing \
+            RHLean.Proof.LowWheelCanonicalDowncrossLateCancellation
 
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
