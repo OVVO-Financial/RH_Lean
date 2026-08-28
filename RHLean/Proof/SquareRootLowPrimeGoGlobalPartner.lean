@@ -1,5 +1,4 @@
 import Mathlib
-import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
 import RHLean.Proof.LowWheelCanonicalPairingFrontier
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 
@@ -228,12 +227,18 @@ theorem squareRootLowPrimeGoFullBirthBoundary_transportWeight_eq_sourceWeight
   have hroughR :=
     (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hd).2.2.2.1
   have hroughQ : canonicalLargestPrimeFactor d < q := hroughR.trans hrq
-  have hflip := canonicalMoebiusWeight_mul_prime_eq_neg_of_rough
-    hdPos hq hroughQ
-  have hflip' : canonicalMoebiusWeight (q * d) =
-      -canonicalMoebiusWeight d := by
-    simpa [Nat.mul_comm] using hflip
-  rw [hflip']
+  have hnotdvd : ¬ q ∣ d := by
+    intro hdiv
+    by_cases hdOne : d = 1
+    · subst d
+      exact hq.not_dvd_one hdiv
+    · have hdgt : 1 < d := by omega
+      have hle := prime_dvd_le_canonicalLargestPrimeFactor hdgt hq hdiv
+      omega
+  have hcop : Nat.Coprime q d := hq.coprime_iff_not_dvd.mpr hnotdvd
+  unfold canonicalMoebiusWeight
+  rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
+    ArithmeticFunction.moebius_apply_prime hq]
   simp [booleanCubeSign]
 
 /-- The canonical global mate carries exactly the opposite Go source weight. -/
