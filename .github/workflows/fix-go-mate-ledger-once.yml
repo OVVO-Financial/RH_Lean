@@ -1,0 +1,42 @@
+name: Fix Go mate ledger once
+
+on:
+  push:
+    branches: [agent/go-crossing-mate-ledger-inclusion]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Normalize mate-ledger imports and disjointness proof
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('RHLean/Proof/SquareRootLowPrimeGoCrossingMateLedger.lean')
+          s = p.read_text()
+          old_import = 'import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary'
+          new_import = 'import RHLean.Proof.SquareRootLowPrimeGoGlobalPartner'
+          if s.count(old_import) != 1:
+              raise SystemExit(f'expected one root-equality import, found {s.count(old_import)}')
+          s = s.replace(old_import, new_import)
+          old = '''  rw [hstate] at hdiv
+  exact hnot hdiv'''
+          new = '''  have hdiv' :
+      lowWheelCanonicalCofactorQuotientPivot (d, q) ∣ (d, q).1 := by
+    simpa using hdiv
+  rw [hstate] at hdiv'
+  exact hnot hdiv' '''
+          if s.count(old) != 1:
+              raise SystemExit(f'expected one disjointness target, found {s.count(old)}')
+          p.write_text(s.replace(old, new))
+          PY
+          rm .github/workflows/fix-go-mate-ledger-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add RHLean/Proof/SquareRootLowPrimeGoCrossingMateLedger.lean .github/workflows/fix-go-mate-ledger-once.yml
+          git commit -m 'Normalize Go mate-ledger carrier proof'
+          git push
