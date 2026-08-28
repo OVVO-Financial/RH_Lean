@@ -278,9 +278,10 @@ theorem lowWheelCanonicalDowncrossOriented_parent_eq_faceProduct
   have hk0 : k ≠ 0 := by
     rw [hq]
     exact hp.ne_zero
+  have hkpos : 0 < k := Nat.pos_of_ne_zero hk0
   unfold lowWheelCanonicalDowncrossParent
   rw [hq.symm]
-  rw [Nat.div_self hk0, Nat.mul_one]
+  rw [Nat.div_self hkpos, Nat.mul_one]
 
 /-- Every Boolean-face prime in an oriented state is strictly below the fresh
 crossing pivot. -/
