@@ -106,12 +106,12 @@ theorem frozenPrimeUniverseMass_eq_goSmoothCofactorSum
       ∑ d ∈ squareRootLowPrimeGoSmoothCofactors r Y, μ d := by
   have h :=
     squareRootLowPrimeGoWallSquareResidual_eq_smoothCofactorSum
-      (q := r) (X := Y * (r * r)) hr
+      (q := r) (X := (r * r) * Y) hr
   have hrrPos : 0 < r * r := Nat.mul_pos hr.pos hr.pos
-  have hcut : Y * (r * r) / (r * r) = Y :=
+  have hcut : (r * r) * Y / (r * r) = Y :=
     Nat.mul_div_right Y hrrPos
   rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff, hcut, hcut] at h
-  exact h
+  simpa using h
 
 /-- Total lower cutoff for one `r`-liberty slice.  The minimum makes the
 subtraction identity total even when the physical cutoff has already passed the
@@ -209,8 +209,13 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_moebiusSum_eq_frozenStrip
     hq hr hrq hcube]
   have hsub := squareRootLowPrimeGoDefectSliceLower_subset_upper q X r
   have hsum := Finset.sum_sdiff hsub (f := fun d => μ d)
-  rw [← frozenPrimeUniverseMass_eq_goSmoothCofactorSum hr,
-    ← frozenPrimeUniverseMass_eq_goSmoothCofactorSum hr]
+  have hUpper :=
+    frozenPrimeUniverseMass_eq_goSmoothCofactorSum
+      (r := r) (Y := q - 1) hr
+  have hLower :=
+    frozenPrimeUniverseMass_eq_goSmoothCofactorSum
+      (r := r) (Y := squareRootLowPrimeGoDefectSliceLowerCutoff q X r) hr
+  rw [← hUpper, ← hLower] at hsum
   omega
 
 /-- Source-signed mass of one fixed interior-prime liberty slice. -/
