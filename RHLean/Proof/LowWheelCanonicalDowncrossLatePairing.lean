@@ -35,17 +35,13 @@ open RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
 
-/-- A tagged occurrence remembers the Boolean face as well as the physical
-cofactor/quotient state. -/
 abbrev LowWheelCanonicalDowncrossTaggedState :=
   Finset ℕ × LowWheelCofactorQuotientState
 
-/-- Common finite state universe underlying every physical low-wheel face. -/
 def lowWheelCanonicalDowncrossStateUniverse
     (R : ℕ) : Finset LowWheelCofactorQuotientState :=
   (Finset.Ico 1 R).product (Finset.Icc 1 (squareRootEndpoint R))
 
-/-- Tagged late-parent carrier, preserving face multiplicity exactly. -/
 def lowWheelCanonicalDowncrossLateTaggedCarrier
     (R : ℕ) : Finset LowWheelCanonicalDowncrossTaggedState :=
   ((primesUpTo R).powerset.product
@@ -60,23 +56,18 @@ def lowWheelCanonicalDowncrossLateTaggedCarrier
         y.2 ∈ lowWheelCanonicalDowncrossLateParentPart R y.1 := by
   simp [lowWheelCanonicalDowncrossLateTaggedCarrier, and_assoc]
 
-/-- Invariant root-side parent of one tagged occurrence. -/
 def lowWheelCanonicalDowncrossTaggedParent
     (y : LowWheelCanonicalDowncrossTaggedState) : ℕ :=
   lowWheelCanonicalDowncrossParent y.1 y.2
 
-/-- Canonical face/quotient allocation coordinate: the largest prime divisor of
-the invariant root-side parent. -/
 def lowWheelCanonicalDowncrossLatePrime
     (y : LowWheelCanonicalDowncrossTaggedState) : ℕ :=
   canonicalLargestPrimeFactor (lowWheelCanonicalDowncrossTaggedParent y)
 
-/-- Signed weight of one tagged occurrence. -/
 def lowWheelCanonicalDowncrossTaggedWeight
     (y : LowWheelCanonicalDowncrossTaggedState) : ℂ :=
   canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ)
 
-/-- A late parent is nontrivial. -/
 theorem lowWheelCanonicalDowncrossLate_parent_one_lt
     {R : ℕ} {y : LowWheelCanonicalDowncrossTaggedState}
     (hy : y ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R) :
@@ -93,7 +84,6 @@ theorem lowWheelCanonicalDowncrossLate_parent_one_lt
     Nat.le_of_dvd hparentPos hqDvd
   exact lt_of_lt_of_le hqPrime.one_lt hqLe
 
-/-- The canonical late-parent coordinate is prime. -/
 theorem lowWheelCanonicalDowncrossLatePrime_prime
     {R : ℕ} {y : LowWheelCanonicalDowncrossTaggedState}
     (hy : y ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R) :
@@ -101,7 +91,6 @@ theorem lowWheelCanonicalDowncrossLatePrime_prime
   exact canonicalLargestPrimeFactor_prime
     (lowWheelCanonicalDowncrossLate_parent_one_lt hy)
 
-/-- The canonical late-parent coordinate divides the invariant parent. -/
 theorem lowWheelCanonicalDowncrossLatePrime_dvd_parent
     {R : ℕ} {y : LowWheelCanonicalDowncrossTaggedState}
     (hy : y ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R) :
@@ -110,7 +99,6 @@ theorem lowWheelCanonicalDowncrossLatePrime_dvd_parent
   exact canonicalLargestPrimeFactor_dvd
     (lowWheelCanonicalDowncrossLate_parent_one_lt hy)
 
-/-- Late means that the canonical parent prime lies at or above the pivot. -/
 theorem lowWheelCanonicalDowncrossLate_pivot_le_prime
     {R : ℕ} {y : LowWheelCanonicalDowncrossTaggedState}
     (hy : y ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R) :
@@ -126,7 +114,6 @@ theorem lowWheelCanonicalDowncrossLate_pivot_le_prime
       (lowWheelCanonicalDowncrossLate_parent_one_lt hy) hqPrime hqDvd
   exact hpq.trans hqLe
 
-/-- The canonical late-parent prime is itself in the already-existing low wheel. -/
 theorem lowWheelCanonicalDowncrossLatePrime_mem_primesUpTo
     {R : ℕ} {y : LowWheelCanonicalDowncrossTaggedState}
     (hy : y ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R) :
@@ -148,8 +135,6 @@ theorem lowWheelCanonicalDowncrossLatePrime_mem_primesUpTo
     ⟨lowWheelCanonicalDowncrossLatePrime_prime hy,
       hprimeLeParent.trans hparentLe⟩
 
-/-- If the canonical allocation prime is not already stored in the Boolean
-face, then it is stored in the quotient part `k/p` of the same parent. -/
 theorem lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face
     {R : ℕ} {t : Finset ℕ} {c k : ℕ}
     (hy : (t, (c, k)) ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R)
@@ -176,8 +161,6 @@ theorem lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face
     exact hqt (hqrEq ▸ hrt)
   · exact hqQuot
 
-/-- In the absent-face branch the allocation prime divides the actual quotient
-`k`, not only `k/p`. -/
 theorem lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face'
     {R : ℕ} {t : Finset ℕ} {c k : ℕ}
     (hy : (t, (c, k)) ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R)
@@ -201,9 +184,6 @@ theorem lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face'
     _ = p * (q * u) := by rw [hu]
     _ = q * (p * u) := by ring
 
-/-- Canonical face/quotient allocation move at the invariant largest parent
-prime.  It leaves the cofactor untouched and toggles whether `q` is stored in
-the Boolean face or in the residual quotient. -/
 def lowWheelCanonicalDowncrossLateMate
     (y : LowWheelCanonicalDowncrossTaggedState) :
     LowWheelCanonicalDowncrossTaggedState :=
@@ -213,7 +193,6 @@ def lowWheelCanonicalDowncrossLateMate
   else
     (insert q y.1, (y.2.1, y.2.2 / q))
 
-/-- The allocation move preserves the complete high coordinate `P(t)*k`. -/
 theorem lowWheelCanonicalDowncrossLateMate_highProduct
     {R : ℕ} {t : Finset ℕ} {c k : ℕ}
     (hy : (t, (c, k)) ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R) :
@@ -247,8 +226,6 @@ theorem lowWheelCanonicalDowncrossLateMate_highProduct
       _ = primeFaceProduct t * (k / q * q) := by ring
       _ = primeFaceProduct t * k := by rw [hkCancel]
 
-/-- Minimal-factor recognition from one prime divisor together with the absence
-of any smaller prime divisor. -/
 private theorem minFac_eq_of_prime_dvd_and_le_prime_divisors
     {p n : ℕ} (hp : p.Prime) (hpn : p ∣ n)
     (hle : ∀ r, r.Prime → r ∣ n → p ≤ r) :
@@ -259,14 +236,13 @@ private theorem minFac_eq_of_prime_dvd_and_le_prime_divisors
     intro hn
     have hp1 : p ∣ 1 := by simpa [hn] using hpn
     have hpEq : p = 1 := Nat.dvd_one.mp hp1
+    have hp2 : 2 ≤ p := hp.two_le
     omega
   have hminPrime : (Nat.minFac n).Prime := Nat.minFac_prime hn1
   have hminDvd : Nat.minFac n ∣ n := Nat.minFac_dvd n
   have hpLeMin : p ≤ Nat.minFac n := hle _ hminPrime hminDvd
   exact Nat.le_antisymm hminLe hpLeMin
 
-/-- Moving the canonical late-parent allocation prime between face and quotient
-does not change the least-prime pivot of `c*k`. -/
 theorem lowWheelCanonicalDowncrossLateMate_pivot_eq
     {R : ℕ} {t : Finset ℕ} {c k : ℕ}
     (hy : (t, (c, k)) ∈ lowWheelCanonicalDowncrossLateTaggedCarrier R) :
