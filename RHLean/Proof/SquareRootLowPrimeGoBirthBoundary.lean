@@ -98,7 +98,8 @@ theorem squareRootLowPrimeGoBirthBoundary_thresholdCrosses
   unfold squareRootLowPrimeThresholdCrosses
   constructor
   · omega
-  · exact (Nat.div_lt_iff_lt_mul hr.pos).1 hlower
+  · simpa [Nat.mul_comm] using
+      (Nat.div_lt_iff_lt_mul hr.pos).1 hlower
 
 /-- At the square-dilated cutoff, the outer owner `q` is genuinely a born
 partner of every reconstructed recursive child.  This records the extra
