@@ -280,7 +280,7 @@ theorem lowWheelCanonicalDowncrossOriented_parent_eq_faceProduct
     exact hp.ne_zero
   unfold lowWheelCanonicalDowncrossParent
   rw [hq.symm]
-  simp [hk0]
+  rw [Nat.div_self hk0, Nat.mul_one]
 
 /-- Every Boolean-face prime in an oriented state is strictly below the fresh
 crossing pivot. -/
