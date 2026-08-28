@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Proof.MutableSupportBound
 import RHLean.Proof.SquareRootLowPrimeGoGlobalPartner
 
 /-!
@@ -22,7 +23,9 @@ has the exact arithmetic equality
 This file packages that equality population as one literal finite carrier and
 charges it injectively to its parent coordinate `d < R`.  The resulting global
 boundary has cardinality at most `R`; there is no remaining prime-owner
-multiplicity on this exceptional root face.
+multiplicity on this exceptional root face.  After that ownership theorem is
+proved, the signed Mobius mass of the same carrier is bounded by `R` using only
+`|mu| <= 1`.
 
 No estimate is made on the isolated Go crossing kernel.  Strict crossings are
 returned to their global transport partners first; only the exact root-equality
@@ -167,6 +170,34 @@ theorem squareRootLowPrimeGoRootEqualityDefectCarrier_card_le_root
     Finset.card_image_iff.mpr hinj
   rw [← hcard]
   simpa using Finset.card_le_card himage
+
+/-- Signed Go source mass on the only crossing population left after global
+transport pairing. -/
+def squareRootLowPrimeGoRootEqualityDefectMass (R : ℕ) : ℤ :=
+  ∑ z ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R,
+    μ (z.1.2 * z.2)
+
+/-- **Quantitative root-equality closure.**  Once strict crossings have been
+reattached to their global transport partners, the remaining exact root face
+has signed mass at most `R`.  Absolute values enter only after the canonical
+carrier and its injective root charge have been established. -/
+theorem abs_squareRootLowPrimeGoRootEqualityDefectMass_le_root
+    (R : ℕ) :
+    |squareRootLowPrimeGoRootEqualityDefectMass R| ≤ (R : ℤ) := by
+  unfold squareRootLowPrimeGoRootEqualityDefectMass
+  calc
+    |∑ z ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R,
+        μ (z.1.2 * z.2)| ≤
+      ∑ z ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R,
+        |μ (z.1.2 * z.2)| :=
+      Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _z ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R, (1 : ℤ) := by
+      apply Finset.sum_le_sum
+      intro z _hz
+      exact abs_moebius_le_one _
+    _ = ((squareRootLowPrimeGoRootEqualityDefectCarrier R).card : ℤ) := by simp
+    _ ≤ (R : ℤ) := by
+      exact_mod_cast squareRootLowPrimeGoRootEqualityDefectCarrier_card_le_root R
 
 /-- **Complete crossing classification at the square endpoint.**  Every
 second-boundary crossing incidence either has its opposite-sign partner in the
