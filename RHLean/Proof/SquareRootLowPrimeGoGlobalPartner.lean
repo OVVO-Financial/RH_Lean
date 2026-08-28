@@ -75,6 +75,11 @@ theorem squareRootLowPrimeGoFullBirthBoundary_parent_one_lt
     1 < d := by
   have houter := squareRootLowPrimeGoFullBirthBoundary_outer_le_child hr hd
   have hd1 := (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hd).1
+  have hdne : d ≠ 1 := by
+    intro hdOne
+    subst d
+    simp at houter
+    omega
   omega
 
 /-- **Strict Go crossings are already global transport states.**
@@ -85,7 +90,7 @@ quotient is the outer owner `q`; and the low cofactor is the stripped parent
 while the Go first-contact theorem supplies the square-endpoint ceiling. -/
 theorem squareRootLowPrimeGoStrictCrossing_mem_transport
     {R q r d : ℕ} (hR : 2 ≤ R)
-    (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hq : q.Prime) (_hr : r.Prime) (hrq : r < q)
     (hcube : q ^ 3 ≤ squareRootEndpoint R)
     (hroot : R < r * q)
     (hd : d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q
@@ -201,40 +206,34 @@ theorem squareRootLowPrimeGoStrictCrossing_mem_transport_pairable
       ⟨hmateRanges.1, hmateRanges.2, hmateSq, hmateCarrier⟩
   have hmateNe : lowWheelCanonicalCofactorQuotientToggle (d, q) ≠ (d, q) := by
     intro heq
-    let p := lowWheelCanonicalCofactorQuotientPivot (d, q)
-    have hpDvd' : p ∣ d := by simpa [p] using hpDvd
-    have hpPrime' : p.Prime := by simpa [p] using hpPrime
-    have hfirst : d / p = d := by
-      have heq' := congrArg Prod.fst heq
-      unfold lowWheelCanonicalCofactorQuotientToggle
-        lowWheelCofactorQuotientToggleAt at heq'
-      simp only [hpDvd', if_true] at heq'
-      exact heq'
-    have hlt : d / p < d := Nat.div_lt_self (by omega) hpPrime'.one_lt
+    have hsecond := congrArg Prod.snd heq
+    unfold lowWheelCanonicalCofactorQuotientToggle
+      lowWheelCofactorQuotientToggleAt at hsecond
+    rw [if_pos hpDvd] at hsecond
+    have hlt :
+        q < lowWheelCanonicalCofactorQuotientPivot (d, q) * q := by
+      calc
+        q = 1 * q := by simp
+        _ < lowWheelCanonicalCofactorQuotientPivot (d, q) * q :=
+          Nat.mul_lt_mul_of_pos_right hpPrime.one_lt hq.pos
     omega
   exact Finset.mem_filter.mpr ⟨hsource, hmateMem, hmateNe⟩
 
 /-- The transport sign of the embedded Go state is exactly its source Möbius
 sign `mu(q*d)`.  Thus no sign convention is being changed by the embedding. -/
 theorem squareRootLowPrimeGoFullBirthBoundary_transportWeight_eq_sourceWeight
-    {q r d : ℕ} (hq : q.Prime) (_hr : r.Prime) (hrq : r < q)
+    {q r d : ℕ} (hq : q.Prime)
     (hd : d ∈ squareRootLowPrimeGoFullBirthBoundaryParents q r) :
     canonicalMoebiusWeight d *
         (booleanCubeSign ({r} : Finset ℕ) : ℂ) =
       canonicalMoebiusWeight (q * d) := by
-  have hd1 := (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hd).1
+  have hdata := mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hd
   have hdPos : 0 < d := by omega
-  have hroughR :=
-    (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hd).2.2.2.1
-  have hroughQ : canonicalLargestPrimeFactor d < q := hroughR.trans hrq
+  have hdUpper := hdata.2.1
   have hnotdvd : ¬ q ∣ d := by
     intro hdiv
-    by_cases hdOne : d = 1
-    · subst d
-      exact hq.not_dvd_one hdiv
-    · have hdgt : 1 < d := by omega
-      have hle := prime_dvd_le_canonicalLargestPrimeFactor hdgt hq hdiv
-      omega
+    have hqd : q ≤ d := Nat.le_of_dvd hdPos hdiv
+    omega
   have hcop : Nat.Coprime q d := hq.coprime_iff_not_dvd.mpr hnotdvd
   unfold canonicalMoebiusWeight
   rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
@@ -254,7 +253,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_partnerWeight_eq_neg_sourceWeight
   have hne : d * q ≠ 1 := by nlinarith [hdgt, hq.two_le]
   rw [lowWheelCanonicalCofactorQuotientToggle_weight_neg hsq hne]
   rw [squareRootLowPrimeGoFullBirthBoundary_transportWeight_eq_sourceWeight
-    hq hr hrq hd]
+    hq hd]
 
 /-- Pointwise cancellation of a strict Go crossing incidence with the partner
 already present in the global transport ledger. -/
@@ -270,12 +269,14 @@ theorem squareRootLowPrimeGoStrictCrossing_globalPartner_cancel
       (canonicalMoebiusWeight
           (lowWheelCanonicalCofactorQuotientToggle (d, q)).1 *
         (booleanCubeSign ({r} : Finset ℕ) : ℂ)) = 0 := by
+  have _hpair := squareRootLowPrimeGoStrictCrossing_mem_transport_pairable
+    hR hq hr hrq hcube hroot hd
   have hfull :=
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
   rw [squareRootLowPrimeGoFullBirthBoundary_partnerWeight_eq_neg_sourceWeight
       hq hr hrq hfull,
     squareRootLowPrimeGoFullBirthBoundary_transportWeight_eq_sourceWeight
-      hq hr hrq hfull]
+      hq hfull]
   ring
 
 end RHLean.Proof
