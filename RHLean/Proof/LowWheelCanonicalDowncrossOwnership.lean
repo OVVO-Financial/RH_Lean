@@ -81,7 +81,7 @@ theorem lowWheelCanonicalDowncross_firstFailure_geometry
       c * (p * a) ≤ squareRootEndpoint R := by
   rcases lowWheelCanonicalDowncrossPart_adjacent_shell hx with
     ⟨hp, hpc, hpk, hparent, hchild⟩
-  have hxF := (mem_lowWheelCanonicalDowncrossPart.mp hx).1
+  have hxF := (mem_lowWheelCanonicalDowncrossDowncrossPart.mp hx).1
   have htop := (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.2.2.2
   have hkCancel :
       lowWheelCanonicalCofactorQuotientPivot (c, k) *
@@ -107,12 +107,11 @@ theorem lowWheelCanonicalDowncrossParent_pos
     0 < lowWheelCanonicalDowncrossParent t (c, k) := by
   have h := lowWheelCanonicalDowncross_firstFailure_geometry hx
   dsimp only at h
-  have hp := h.1
   have hcross := h.2.2.2.2.1
   have hchildPos : 0 <
       lowWheelCanonicalDowncrossPivot (c, k) *
         lowWheelCanonicalDowncrossParent t (c, k) := by omega
-  exact Nat.pos_of_mul_pos_left hchildPos hp.pos
+  exact (Nat.mul_pos_iff.mp hchildPos).2
 
 /-- Population whose root-side parent still contains a prime coordinate not
 strictly below the canonical pivot.  This is the face/quotient duplication
@@ -242,7 +241,8 @@ theorem lowWheelCanonicalDowncrossOriented_quotient_eq_pivot
   by_cases hu : u = 1
   · rw [← hkCancel, hu]
     simp [p]
-  · have hqPrime : (Nat.minFac u).Prime := Nat.minFac_prime hu
+  · exfalso
+    have hqPrime : (Nat.minFac u).Prime := Nat.minFac_prime hu
     have hqDvdU : Nat.minFac u ∣ u := Nat.minFac_dvd u
     have hqDvdK : Nat.minFac u ∣ k := by
       rw [← hkCancel]
@@ -262,7 +262,7 @@ theorem lowWheelCanonicalDowncrossOriented_quotient_eq_pivot
       Nat.mem_primeFactors.mpr
         ⟨hqPrime, hqDvdParent, Nat.ne_of_gt hparentPos⟩
     have hqLtP := horiented (Nat.minFac u) hqMem
-    simpa [p] using (not_lt_of_ge hpLeQ hqLtP)
+    exact (not_lt_of_ge hpLeQ) hqLtP
 
 /-- Hence the root-side parent of an oriented state is literally its face
 product. -/
@@ -282,19 +282,26 @@ theorem lowWheelCanonicalDowncrossOriented_parent_eq_faceProduct
 crossing pivot. -/
 theorem lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot
     {R c k q : ℕ} {t : Finset ℕ}
+    (ht : t ∈ (primesUpTo R).powerset)
     (hx : (c, k) ∈ lowWheelCanonicalDowncrossOrientedPart R t)
     (hq : q ∈ t) :
     q < lowWheelCanonicalDowncrossPivot (c, k) := by
   have hparent := lowWheelCanonicalDowncrossOriented_parent_eq_faceProduct hx
-  have hqPrime : q.Prime := by
-    have hdown := (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx).1
-    have hxF := (mem_lowWheelCanonicalDowncrossPart.mp hdown).1
-    have htPow :=
-      (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.2.2
-    -- `LowWheelTransportPairCarrier` does not store the powerset witness;
-    -- face primality comes from the ambient global ledger, so this theorem is
-    -- used below only with an explicit powerset hypothesis.
-    sorry
+  have hqPrime : q.Prime :=
+    prime_of_mem_primesUpTo ((Finset.mem_powerset.mp ht) hq)
+  have hqDvdFace : q ∣ primeFaceProduct t := by
+    simpa [primeFaceProduct] using Finset.dvd_prod_of_mem id hq
+  have hqDvdParent : q ∣ lowWheelCanonicalDowncrossParent t (c, k) := by
+    rw [hparent]
+    exact hqDvdFace
+  have hparentPos :=
+    lowWheelCanonicalDowncrossParent_pos
+      (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx).1
+  have hqMem : q ∈
+      (lowWheelCanonicalDowncrossParent t (c, k)).primeFactors :=
+    Nat.mem_primeFactors.mpr
+      ⟨hqPrime, hqDvdParent, Nat.ne_of_gt hparentPos⟩
+  exact (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx).2 q hqMem
 
 /-- Prime factors of the squarefree cofactor lie strictly above the oriented
 crossing pivot. -/
@@ -308,7 +315,6 @@ theorem lowWheelCanonicalDowncrossOriented_cofactor_roughAbove
   have hdown := (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx).1
   have hgeom := lowWheelCanonicalDowncross_firstFailure_geometry hdown
   dsimp only at hgeom
-  have hp := hgeom.1
   have hpc := hgeom.2.1
   have hpLeQ : lowWheelCanonicalDowncrossPivot (c, k) ≤ q := by
     change Nat.minFac (c * k) ≤ q
