@@ -16,7 +16,8 @@ two-boundary defect lies in the strict band
 `q^3 <= X < q^4`.
 
 At the square wall `X_R = R^2 - 1`, this deletes the entire owner range below
-approximately `sqrt R` before any norm or divisor estimate is used.
+approximately `sqrt R` before any norm or divisor estimate is used.  This file
+is intentionally purely structural: no asymptotic input enters the cutoff.
 -/
 
 noncomputable section
