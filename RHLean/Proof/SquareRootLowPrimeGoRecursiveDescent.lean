@@ -333,4 +333,28 @@ theorem squareRootLowPrimeGoOwnerWeightedBoundaryMass_eq_frozenLibertyStrips
     exact hs
   · simp [hr]
 
+/-- **Outer signed handoff.**  Over any finite unfinished prime-owner schedule,
+the complete raw second-boundary defect mass is exactly the signed sum of the
+fixed-owner frozen liberty-strip masses.  Here every strip uses
+
+`L(q,X,r) = min (q-1) (X/(q^2*r))`
+
+through `squareRootLowPrimeGoDefectSliceLowerCutoff`.  Neither the inner `r`
+sum nor the outer `q` sum is replaced by a sum of absolute values. -/
+theorem squareRootLowPrimeGoRawDefectMassTotal_eq_frozenLibertyStrips
+    {Q : Finset ℕ} {X : ℕ}
+    (hlive : ∀ q ∈ Q, q.Prime ∧ q ^ 3 ≤ X) :
+    (∑ q ∈ Q, squareRootLowPrimeGoOwnerRawDefectMass q X) =
+      ∑ q ∈ Q, squareRootLowPrimeGoOwnerFrozenLibertyStripMass q X := by
+  apply Finset.sum_congr rfl
+  intro q hqQ
+  rcases hlive q hqQ with ⟨hq, hcube⟩
+  calc
+    squareRootLowPrimeGoOwnerRawDefectMass q X =
+        squareRootLowPrimeGoOwnerWeightedBoundaryMass q X :=
+      squareRootLowPrimeGoOwnerRawDefectMass_eq_weightedBoundaryMass q X
+    _ = squareRootLowPrimeGoOwnerFrozenLibertyStripMass q X :=
+      squareRootLowPrimeGoOwnerWeightedBoundaryMass_eq_frozenLibertyStrips
+        hq hcube
+
 end RHLean.Proof
