@@ -9,7 +9,7 @@ The endpoint identity has already reduced the square prefix to
 
 `M(R^2-1) = M(R) - lowWheelCanonicalDowncrossLedger R`.
 
-This file does not estimate that ledger.  It exposes the canonical parent
+This file does not estimate that ledger. It exposes the canonical parent
 coordinate of every surviving first-failure state and splits the ledger before
 any absolute value.
 
@@ -29,9 +29,9 @@ while the square ceiling becomes
 
 `c*p*a <= R^2-1`.
 
-Thus every state has a literal root-side parent `a <= R`.  We then split the
+Thus every state has a literal root-side parent `a <= R`. We then split the
 carrier according to whether that parent still has a prime factor at least the
-pivot `p`.  On the complementary oriented population all parent primes are
+pivot `p`. On the complementary oriented population all parent primes are
 strictly below `p`; the canonical-pivot condition then forces `k = p`.
 Consequently that population is the genuine monotone Euler first-crossing
 shape: every face prime is below `p`, while every prime factor of the squarefree
@@ -109,13 +109,14 @@ theorem lowWheelCanonicalDowncrossParent_pos
   have h := lowWheelCanonicalDowncross_firstFailure_geometry hx
   dsimp only at h
   have hcross := h.2.2.2.2.1
-  have hchildPos : 0 <
-      lowWheelCanonicalDowncrossPivot (c, k) *
-        lowWheelCanonicalDowncrossParent t (c, k) := by omega
-  exact (Nat.mul_pos_iff.mp hchildPos).2
+  by_contra hnot
+  have hzero : lowWheelCanonicalDowncrossParent t (c, k) = 0 :=
+    Nat.eq_zero_of_not_pos hnot
+  rw [hzero] at hcross
+  simp at hcross
 
 /-- Population whose root-side parent still contains a prime coordinate not
-strictly below the canonical pivot.  This is the face/quotient duplication
+strictly below the canonical pivot. This is the face/quotient duplication
 population which must earn an exact sign-reversing partner. -/
 def lowWheelCanonicalDowncrossLateParentPart
     (R : ℕ) (t : Finset ℕ) : Finset LowWheelCofactorQuotientState :=
@@ -167,14 +168,13 @@ theorem lowWheelCanonicalDowncross_late_union_oriented
           lowWheelCanonicalDowncrossPivot x ≤ q
     · exact Finset.mem_union.mpr <| Or.inl <|
         mem_lowWheelCanonicalDowncrossLateParentPart.mpr ⟨hx, hlate⟩
-    · right
-      apply mem_lowWheelCanonicalDowncrossOrientedPart.mpr
-      refine ⟨hx, ?_⟩
-      intro q hq
-      have hnot : ¬ lowWheelCanonicalDowncrossPivot x ≤ q := by
-        intro hpq
-        exact hlate ⟨q, hq, hpq⟩
-      omega
+    · exact Finset.mem_union.mpr <| Or.inr <|
+        mem_lowWheelCanonicalDowncrossOrientedPart.mpr ⟨hx, by
+          intro q hq
+          have hnot : ¬ lowWheelCanonicalDowncrossPivot x ≤ q := by
+            intro hpq
+            exact hlate ⟨q, hq, hpq⟩
+          omega⟩
 
 /-- The two named populations are disjoint. -/
 theorem lowWheelCanonicalDowncross_late_disjoint_oriented
@@ -203,7 +203,7 @@ def lowWheelCanonicalDowncrossOrientedLedger (R : ℕ) : ℂ :=
     ∑ x ∈ lowWheelCanonicalDowncrossOrientedPart R t,
       canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ)
 
-/-- Exact signed decomposition of the global boundary.  No magnitude has been
+/-- Exact signed decomposition of the global boundary. No magnitude has been
 taken: the only two remaining obligations are the face/quotient late-parent
 population and the genuinely ordered Euler first-crossing population. -/
 theorem lowWheelCanonicalDowncrossLedger_eq_late_add_oriented
@@ -222,7 +222,7 @@ theorem lowWheelCanonicalDowncrossLedger_eq_late_add_oriented
     lowWheelCanonicalDowncross_late_union_oriented R t]
 
 /-- On the oriented population the residual quotient contains no factor beyond
-the canonical pivot: `k = p`.  Any nontrivial `k/p` would contribute a prime
+the canonical pivot: `k = p`. Any nontrivial `k/p` would contribute a prime
 factor to the root parent which is at least the least prime `p`, contradicting
 orientation. -/
 theorem lowWheelCanonicalDowncrossOriented_quotient_eq_pivot
@@ -240,8 +240,8 @@ theorem lowWheelCanonicalDowncrossOriented_quotient_eq_pivot
   have hkCancel : p * u = k := by
     simpa [u, p] using Nat.mul_div_cancel' hpk
   by_cases hu : u = 1
-  · rw [← hkCancel, hu]
-    simp [p]
+  · have hpkEq : p = k := by simpa [hu] using hkCancel
+    simpa [p] using hpkEq.symm
   · exfalso
     have hqPrime : (Nat.minFac u).Prime := Nat.minFac_prime hu
     have hqDvdU : Nat.minFac u ∣ u := Nat.minFac_dvd u
@@ -272,12 +272,15 @@ theorem lowWheelCanonicalDowncrossOriented_parent_eq_faceProduct
     (hx : (c, k) ∈ lowWheelCanonicalDowncrossOrientedPart R t) :
     lowWheelCanonicalDowncrossParent t (c, k) = primeFaceProduct t := by
   have hq := lowWheelCanonicalDowncrossOriented_quotient_eq_pivot hx
-  unfold lowWheelCanonicalDowncrossParent lowWheelCanonicalDowncrossPivot
-  rw [hq]
   have hp :=
     (lowWheelCanonicalDowncross_firstFailure_geometry
       (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx).1).1
-  simp [hp.ne_zero]
+  have hk0 : k ≠ 0 := by
+    rw [hq]
+    exact hp.ne_zero
+  unfold lowWheelCanonicalDowncrossParent
+  rw [hq.symm]
+  simp [hk0]
 
 /-- Every Boolean-face prime in an oriented state is strictly below the fresh
 crossing pivot. -/
