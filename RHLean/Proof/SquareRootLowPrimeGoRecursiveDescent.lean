@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeFirstOwnerWallRecurrence
+import RHLean.Proof.SquareRootLowPrimeGoFourthPowerCutoff
 import RHLean.Proof.SquareRootLowPrimeGoWallStripTelescope
 
 /-!
@@ -16,7 +17,16 @@ Algebraically this gives
 
 The prime coordinate in every summand is strictly smaller than `q`; the
 underlying recurrence is the same fresh-prime Euler recurrence already used by
-the wall telescope.  No norm, PNT input, or asymptotic estimate is used.
+the wall telescope.
+
+After the weighted-liberty flattening, the apparently prime-count weighted
+second-boundary defect admits the same treatment.  For one fixed liberty prime
+`r < q`, the surviving parents are exactly one interval in the frozen
+predecessor cube through `r-1`.  Thus one whole `r`-slice is a difference of
+two frozen predecessor states; the prime-count weight disappears before any
+norm or estimate is taken.
+
+No norm, PNT input, or asymptotic estimate is used.
 -/
 
 noncomputable section
@@ -84,5 +94,173 @@ theorem squareRootLowPrimeGoWallSquareResidual_eq_mertensPred_sub_smallerOwnerSt
   rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
   exact frozenPrimeUniverseMass_eq_mertensPred_sub_smallerOwnerStrips
     hq hunfinished
+
+/-! ## Weighted liberty slices are frozen predecessor strips -/
+
+/-- Generic arithmetic form of a frozen predecessor cube: it is exactly the
+Möbius mass of squarefree cofactors whose canonical largest prime is below the
+fresh owner `r`. -/
+theorem frozenPrimeUniverseMass_eq_goSmoothCofactorSum
+    {r Y : ℕ} (hr : r.Prime) :
+    frozenPrimeUniverseMass (primesUpTo (r - 1)) Y =
+      ∑ d ∈ squareRootLowPrimeGoSmoothCofactors r Y, μ d := by
+  have h :=
+    squareRootLowPrimeGoWallSquareResidual_eq_smoothCofactorSum
+      (q := r) (X := (r * r) * Y) hr
+  rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff] at h
+  have hrrPos : 0 < r * r := Nat.mul_pos hr.pos hr.pos
+  have hcut : r * r * Y / (r * r) = Y :=
+    Nat.mul_div_cancel_left Y hrrPos
+  rw [hcut] at h
+  exact h
+
+/-- Total lower cutoff for one `r`-liberty slice.  The minimum makes the
+subtraction identity total even when the physical cutoff has already passed the
+whole parent range. -/
+def squareRootLowPrimeGoDefectSliceLowerCutoff
+    (q X r : ℕ) : ℕ :=
+  min (q - 1) (X / (q * q) / r)
+
+/-- **Exact support flattening at fixed `r`.**  In unfinished territory the
+old birth inequality is implied by the physical second-contact inequality.
+Therefore the #483 defect parents at fixed `q,r` are literally the upper frozen
+smooth prefix minus its lower physical prefix. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefectParents_eq_smooth_sdiff
+    {q X r : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hcube : q ^ 3 ≤ X) :
+    squareRootLowPrimeGoSecondBoundaryDefectParents q X r =
+      squareRootLowPrimeGoSmoothCofactors r (q - 1) \
+        squareRootLowPrimeGoSmoothCofactors r
+          (squareRootLowPrimeGoDefectSliceLowerCutoff q X r) := by
+  classical
+  have hq2Pos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
+  have hqleCut : q ≤ X / (q * q) := by
+    apply (Nat.le_div_iff_mul_le hq2Pos).2
+    calc
+      q * (q * q) = q ^ 3 := by ring
+      _ ≤ X := hcube
+  ext d
+  constructor
+  · intro hd
+    rcases mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd with
+      ⟨hfull, hphysical⟩
+    rcases mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull with
+      ⟨hd1, hdq, hsq, hrough, _hbirth⟩
+    apply Finset.mem_sdiff.mpr
+    refine ⟨mem_squareRootLowPrimeGoSmoothCofactors.mpr
+      ⟨hd1, hdq, hsq, hrough⟩, ?_⟩
+    intro hlower
+    have hdLower :=
+      (mem_squareRootLowPrimeGoSmoothCofactors.mp hlower).2.1
+    have hLowerLe :
+        squareRootLowPrimeGoDefectSliceLowerCutoff q X r ≤
+          X / (q * q) / r := by
+      unfold squareRootLowPrimeGoDefectSliceLowerCutoff
+      exact min_le_right _ _
+    exact (Nat.not_lt_of_ge (hdLower.trans hLowerLe)) hphysical
+  · intro hd
+    rcases Finset.mem_sdiff.mp hd with ⟨hupper, hnotLower⟩
+    rcases mem_squareRootLowPrimeGoSmoothCofactors.mp hupper with
+      ⟨hd1, hdq, hsq, hrough⟩
+    have hphysical : X / (q * q) / r < d := by
+      by_contra hnot
+      have hdPhys : d ≤ X / (q * q) / r := Nat.le_of_not_gt hnot
+      have hdLower :
+          d ≤ squareRootLowPrimeGoDefectSliceLowerCutoff q X r := by
+        unfold squareRootLowPrimeGoDefectSliceLowerCutoff
+        exact le_min hdq hdPhys
+      exact hnotLower
+        (mem_squareRootLowPrimeGoSmoothCofactors.mpr
+          ⟨hd1, hdLower, hsq, hrough⟩)
+    have hbirthMul : q - 1 < d * r := by
+      have hcutMul : X / (q * q) < d * r :=
+        (Nat.div_lt_iff_lt_mul hr.pos).1 hphysical
+      omega
+    have hbirth : (q - 1) / r < d :=
+      (Nat.div_lt_iff_lt_mul hr.pos).2 hbirthMul
+    apply mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mpr
+    exact ⟨mem_squareRootLowPrimeGoFullBirthBoundaryParents.mpr
+      ⟨hd1, hdq, hsq, hrough, hbirth⟩, hphysical⟩
+
+/-- The lower smooth prefix is contained in the full fixed-owner parent prefix. -/
+theorem squareRootLowPrimeGoDefectSliceLower_subset_upper
+    (q X r : ℕ) :
+    squareRootLowPrimeGoSmoothCofactors r
+        (squareRootLowPrimeGoDefectSliceLowerCutoff q X r) ⊆
+      squareRootLowPrimeGoSmoothCofactors r (q - 1) := by
+  intro d hd
+  rcases mem_squareRootLowPrimeGoSmoothCofactors.mp hd with
+    ⟨hd1, hdLower, hsq, hrough⟩
+  apply mem_squareRootLowPrimeGoSmoothCofactors.mpr
+  refine ⟨hd1, ?_, hsq, hrough⟩
+  exact hdLower.trans (by
+    unfold squareRootLowPrimeGoDefectSliceLowerCutoff
+    exact min_le_left _ _)
+
+/-- The Möbius mass of one fixed `r` defect slice is exactly one difference of
+frozen predecessor states.  The prime-count multiplicity has disappeared. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefect_moebiusSum_eq_frozenStrip
+    {q X r : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hcube : q ^ 3 ≤ X) :
+    (∑ d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r, μ d) =
+      frozenPrimeUniverseMass (primesUpTo (r - 1)) (q - 1) -
+        frozenPrimeUniverseMass (primesUpTo (r - 1))
+          (squareRootLowPrimeGoDefectSliceLowerCutoff q X r) := by
+  rw [squareRootLowPrimeGoSecondBoundaryDefectParents_eq_smooth_sdiff
+    hq hr hrq hcube]
+  have hsub := squareRootLowPrimeGoDefectSliceLower_subset_upper q X r
+  have hUpper :=
+    frozenPrimeUniverseMass_eq_goSmoothCofactorSum
+      (r := r) (Y := q - 1) hr
+  have hLower :=
+    frozenPrimeUniverseMass_eq_goSmoothCofactorSum
+      (r := r) (Y := squareRootLowPrimeGoDefectSliceLowerCutoff q X r) hr
+  calc
+    (∑ d ∈ squareRootLowPrimeGoSmoothCofactors r (q - 1) \
+        squareRootLowPrimeGoSmoothCofactors r
+          (squareRootLowPrimeGoDefectSliceLowerCutoff q X r), μ d) =
+      (∑ d ∈ squareRootLowPrimeGoSmoothCofactors r (q - 1), μ d) -
+        ∑ d ∈ squareRootLowPrimeGoSmoothCofactors r
+          (squareRootLowPrimeGoDefectSliceLowerCutoff q X r), μ d :=
+      (eq_sub_iff_add_eq).2 (Finset.sum_sdiff hsub)
+    _ = frozenPrimeUniverseMass (primesUpTo (r - 1)) (q - 1) -
+        frozenPrimeUniverseMass (primesUpTo (r - 1))
+          (squareRootLowPrimeGoDefectSliceLowerCutoff q X r) := by
+      rw [← hUpper, ← hLower]
+
+/-- Source-signed mass of one fixed interior-prime liberty slice. -/
+def squareRootLowPrimeGoDefectPrimeSliceSourceMass
+    (q X r : ℕ) : ℤ :=
+  ∑ d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r, μ (q * d)
+
+/-- **One liberty prime = one signed frozen strip.**  Every source in the slice
+has the common outer fresh-prime sign flip, so the actual source mass is the
+negative of the frozen predecessor strip. -/
+theorem squareRootLowPrimeGoDefectPrimeSliceSourceMass_eq_neg_frozenStrip
+    {q X r : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hcube : q ^ 3 ≤ X) :
+    squareRootLowPrimeGoDefectPrimeSliceSourceMass q X r =
+      -(frozenPrimeUniverseMass (primesUpTo (r - 1)) (q - 1) -
+        frozenPrimeUniverseMass (primesUpTo (r - 1))
+          (squareRootLowPrimeGoDefectSliceLowerCutoff q X r)) := by
+  unfold squareRootLowPrimeGoDefectPrimeSliceSourceMass
+  calc
+    (∑ d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r,
+        μ (q * d)) =
+      ∑ d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r,
+        -μ d := by
+      apply Finset.sum_congr rfl
+      intro d hd
+      exact squareRootLowPrimeGoFullBirthBoundary_parentSourceWeight_eq_neg
+        hq hr hrq
+        (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+    _ = -(∑ d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r,
+        μ d) := by
+      rw [Finset.sum_neg_distrib]
+    _ = -(frozenPrimeUniverseMass (primesUpTo (r - 1)) (q - 1) -
+        frozenPrimeUniverseMass (primesUpTo (r - 1))
+          (squareRootLowPrimeGoDefectSliceLowerCutoff q X r)) := by
+      rw [squareRootLowPrimeGoSecondBoundaryDefect_moebiusSum_eq_frozenStrip
+        hq hr hrq hcube]
 
 end RHLean.Proof
