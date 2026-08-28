@@ -30,7 +30,7 @@ open RHLean.Arithmetic
 /-- At its own predecessor cutoff, the frozen prime universe is already the
 complete ordinary Mertens prefix. -/
 theorem frozenPrimeUniverseMass_pred_eq_mertensSummatoryInt
-    {q : ℕ} (hq : q.Prime) :
+    {q : ℕ} (_hq : q.Prime) :
     frozenPrimeUniverseMass (primesUpTo (q - 1)) (q - 1) =
       mertensSummatoryInt (q - 1) := by
   unfold frozenPrimeUniverseMass mertensSummatoryInt
@@ -49,9 +49,12 @@ theorem frozenPrimeUniverseMass_eq_mertensPred_sub_smallerOwnerStrips
         ∑ r ∈ primesUpTo (q - 1),
           (frozenPrimeUniverseMass (primesUpTo (r - 1)) (y / r) -
             frozenPrimeUniverseMass (primesUpTo (r - 1)) ((q - 1) / r)) := by
-  have hy := frozenPrimeUniverse_upperColumn_telescope y (q - 1) (by omega)
+  have hqTwo : 2 ≤ q := hq.two_le
+  have hyOne : 1 ≤ y := by omega
+  have hpredOne : 1 ≤ q - 1 := by omega
+  have hy := frozenPrimeUniverse_upperColumn_telescope y (q - 1) hyOne
   have hpred :=
-    frozenPrimeUniverse_upperColumn_telescope (q - 1) (q - 1) (by omega)
+    frozenPrimeUniverse_upperColumn_telescope (q - 1) (q - 1) hpredOne
   rw [frozenPrimeUniverseMass_pred_eq_mertensSummatoryInt hq] at hpred
   rw [Finset.sum_sub_distrib, hy, hpred]
   ring
@@ -61,7 +64,9 @@ current owner. -/
 theorem mem_primesUpTo_pred_lt_owner
     {q r : ℕ} (hr : r ∈ primesUpTo (q - 1)) :
     r < q := by
-  have hrq := (mem_primesUpTo.mp hr).2
+  have hrData := mem_primesUpTo.mp hr
+  have hrTwo : 2 ≤ r := hrData.1.two_le
+  have hrq := hrData.2
   omega
 
 /-- Square-residual specialization of the recursive Go law.  In the unfinished
