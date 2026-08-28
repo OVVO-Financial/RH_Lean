@@ -25,9 +25,13 @@ child clock imply the `r`-free second-contact shell
 
 `q*m <= X < q^2*m`,
 
-while the birth-boundary geometry gives `m < q^2`.  Hence every raw defect maps
-into one finite arithmetic boundary depending only on `m` and its canonical
-largest prime factor.  In particular
+while the birth-boundary geometry gives `m < q^2`.  Equivalently, at a fixed
+owner `q`, every exposed parent core lies in the explicit no-liberty interval
+
+`X/q^3 < d < q`.
+
+Hence every raw defect maps into one finite arithmetic boundary depending only
+on `m` and its canonical largest prime factor.  In particular
 
 `X < m^3 < X^2`.
 
@@ -127,6 +131,47 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_contactShell
     X < q * q * (r * d) := hsecond
     _ < q * q * (q * d) := hupper
     _ = q ^ 2 * (q * d) := by ring
+
+/-- **Fixed-owner no-liberty interval.**  Once the interior prime `r` is
+forgotten, every surviving parent core at owner `q` lies in the literal finite
+interval
+
+`X / q^3 < d < q`.
+
+This is an exact boundary statement, not an estimate. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefect_parentCore_interval
+    {q X r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hcube : q ^ 3 ≤ X)
+    (hd : d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r) :
+    X / q ^ 3 < d ∧ d < q := by
+  have hfull : d ∈ squareRootLowPrimeGoFullBirthBoundaryParents q r :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  have hdlt :=
+    (squareRootLowPrimeGoFullBirthBoundary_parent_canonicalRoot
+      hq hr hrq hfull).2
+  have hcontact :=
+    squareRootLowPrimeGoSecondBoundaryDefect_parentSource_contactShell
+      hq hr hrq hcube hd
+  have hq3Pos : 0 < q ^ 3 := pow_pos hq.pos 3
+  constructor
+  · apply (Nat.div_lt_iff_lt_mul hq3Pos).2
+    simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hcontact.2
+  · exact hdlt
+
+/-- The finite fixed-owner parent-core slice itself. -/
+def squareRootLowPrimeGoExposedParentCoreBoundary (q X : ℕ) : Finset ℕ :=
+  (Finset.range q).filter fun d => X / q ^ 3 < d
+
+/-- Every exact second-boundary defect lands in the fixed-owner no-liberty
+slice after forgetting the interior prime `r`. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefect_parentCore_mem_boundary
+    {q X r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hcube : q ^ 3 ≤ X)
+    (hd : d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r) :
+    d ∈ squareRootLowPrimeGoExposedParentCoreBoundary q X := by
+  have hi := squareRootLowPrimeGoSecondBoundaryDefect_parentCore_interval
+    hq hr hrq hcube hd
+  exact Finset.mem_filter.mpr ⟨Finset.mem_range.mpr hi.2, hi.1⟩
 
 /-- A finite `r`-free boundary containing every exposed parent source.  The
 predicate depends only on the arithmetic source `m` and its canonical largest
