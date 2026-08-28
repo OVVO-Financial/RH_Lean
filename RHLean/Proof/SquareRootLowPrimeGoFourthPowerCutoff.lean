@@ -287,7 +287,7 @@ theorem squareRootLowPrimeGoDefectPrimeFiber_edgeValue_eq_parentSource
 /-- Rectangular presentation of the exact fixed-owner raw defect mass.  The
 indicator is precisely the #483 predicate; no absolute value is taken. -/
 def squareRootLowPrimeGoOwnerRawDefectMass (q X : ℕ) : ℤ :=
-  ∑ r in Finset.range q, ∑ d in Finset.range q,
+  ∑ r ∈ Finset.range q, ∑ d ∈ Finset.range q,
     if r.Prime ∧ d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r then
       (μ (q * d) : ℤ)
     else 0
@@ -295,7 +295,7 @@ def squareRootLowPrimeGoOwnerRawDefectMass (q X : ℕ) : ℤ :=
 /-- The same mass after forgetting `r`: each parent source is multiplied by its
 exact prime-liberty multiplicity. -/
 def squareRootLowPrimeGoOwnerWeightedBoundaryMass (q X : ℕ) : ℤ :=
-  ∑ d in Finset.range q,
+  ∑ d ∈ Finset.range q,
     (squareRootLowPrimeGoDefectLibertyMultiplicity q X d) • (μ (q * d) : ℤ)
 
 /-- **Exact weighted flattening.**  Summing the raw second-boundary defects over
