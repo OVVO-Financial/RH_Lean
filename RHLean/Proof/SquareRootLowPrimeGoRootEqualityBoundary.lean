@@ -37,6 +37,25 @@ namespace RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
 
+private theorem squareRootLowPrimeGoRootEquality_liveOwner_lt_root
+    {R q : ℕ} (hR : 2 ≤ R) (_hq : q.Prime)
+    (hcube : q ^ 3 ≤ squareRootEndpoint R) :
+    q < R := by
+  have hXlt : squareRootEndpoint R < R ^ 2 := by
+    unfold squareRootEndpoint
+    have hpos : 0 < R ^ 2 := by positivity
+    omega
+  have hq3lt : q ^ 3 < R ^ 2 := hcube.trans_lt hXlt
+  by_contra hnot
+  have hRq : R ≤ q := Nat.le_of_not_gt hnot
+  have hR2leR3 : R ^ 2 ≤ R ^ 3 := by
+    calc
+      R ^ 2 = R ^ 2 * 1 := by simp
+      _ ≤ R ^ 2 * R := Nat.mul_le_mul_left (R ^ 2) (by omega)
+      _ = R ^ 3 := by ring
+  have hR3leQ3 : R ^ 3 ≤ q ^ 3 := Nat.pow_le_pow_left hRq 3
+  omega
+
 /-- A square-endpoint hyperbolic crossing cannot lie strictly below the root
 product. -/
 theorem squareRootLowPrimeGo_crossing_forces_root_le_product
@@ -168,7 +187,8 @@ theorem squareRootLowPrimeGoCrossing_pairable_or_rootEquality
       (squareRootLowPrimeGoStrictCrossing_mem_transport_pairable
         hR hq hr hrq hcube hstrict hd)
   · right
-    have hqR : q < R := squareRootLowPrimeGo_liveOwner_lt_root hR hq hcube
+    have hqR : q < R :=
+      squareRootLowPrimeGoRootEquality_liveOwner_lt_root hR hq hcube
     have hrR : r < R := hrq.trans hqR
     have hfull :=
       (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
