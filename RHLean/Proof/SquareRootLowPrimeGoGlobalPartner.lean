@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
 import RHLean.Proof.LowWheelCanonicalPairingFrontier
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 
@@ -49,7 +50,7 @@ open RHLean.Arithmetic
 attribute [local instance] Classical.propDecidable
 
 private theorem squareRootLowPrimeGo_liveOwner_lt_root
-    {R q : ℕ} (hR : 2 ≤ R) (hq : q.Prime)
+    {R q : ℕ} (hR : 2 ≤ R) (_hq : q.Prime)
     (hcube : q ^ 3 ≤ squareRootEndpoint R) :
     q < R := by
   have hXlt : squareRootEndpoint R < R ^ 2 := by
@@ -59,7 +60,13 @@ private theorem squareRootLowPrimeGo_liveOwner_lt_root
   have hq3lt : q ^ 3 < R ^ 2 := hcube.trans_lt hXlt
   by_contra hnot
   have hRq : R ≤ q := Nat.le_of_not_gt hnot
-  nlinarith [hq.two_le]
+  have hR2leR3 : R ^ 2 ≤ R ^ 3 := by
+    calc
+      R ^ 2 = R ^ 2 * 1 := by simp
+      _ ≤ R ^ 2 * R := Nat.mul_le_mul_left (R ^ 2) (by omega)
+      _ = R ^ 3 := by ring
+  have hR3leQ3 : R ^ 3 ≤ q ^ 3 := Nat.pow_le_pow_left hRq 3
+  omega
 
 /-- A full Go birth-boundary parent is genuinely nontrivial.  If `d = 1`, the
 birth condition `q <= r*d` would contradict `r < q`. -/
@@ -88,11 +95,12 @@ theorem squareRootLowPrimeGoStrictCrossing_mem_transport
   have hfull :=
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
   rcases mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull with
-    ⟨hd1, hdq1, hsq, _hrough, _hbirth⟩
+    ⟨hd1, _hdq1, hsq, _hrough, _hbirth⟩
   have hqR : q < R := squareRootLowPrimeGo_liveOwner_lt_root hR hq hcube
   have hRX : R ≤ squareRootEndpoint R := by
+    have hsqR : R + 1 ≤ R ^ 2 := by nlinarith
     unfold squareRootEndpoint
-    nlinarith
+    omega
   have hfirst :=
     squareRootLowPrimeGoFullBirthBoundary_firstContact_le
       hq hrq hcube hfull
@@ -143,7 +151,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_canonicalPivot_dvd_parent
     simpa [lowWheelCanonicalCofactorQuotientPivot] using h
   have hpLtQ : lowWheelCanonicalCofactorQuotientPivot (d, q) < q :=
     lt_of_le_of_lt hpLe (hrough.trans hrq)
-  have hne : d * q ≠ 1 := by nlinarith [hq.two_le]
+  have hne : d * q ≠ 1 := by nlinarith [hdgt, hq.two_le]
   have hpPrime := lowWheelCanonicalCofactorQuotientPivot_prime hne
   rcases lowWheelCanonicalCofactorQuotientPivot_active hne with hpd | hpq
   · exact hpd
@@ -174,7 +182,7 @@ theorem squareRootLowPrimeGoStrictCrossing_mem_transport_pairable
   have hsourceData := mem_lowWheelCanonicalPhysicalStateSet.mp hsource
   have hsq := hsourceData.2.2.1
   have hcarrier := hsourceData.2.2.2
-  have hne : d * q ≠ 1 := by nlinarith [hq.two_le]
+  have hne : d * q ≠ 1 := by nlinarith [hdgt, hq.two_le]
   have hpPrime := lowWheelCanonicalCofactorQuotientPivot_prime hne
   have hpDvd :=
     squareRootLowPrimeGoFullBirthBoundary_canonicalPivot_dvd_parent
@@ -238,7 +246,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_partnerWeight_eq_neg_sourceWeight
       -canonicalMoebiusWeight (q * d) := by
   have hdgt := squareRootLowPrimeGoFullBirthBoundary_parent_one_lt hr hrq hd
   have hsq := (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hd).2.2.1
-  have hne : d * q ≠ 1 := by nlinarith [hq.two_le]
+  have hne : d * q ≠ 1 := by nlinarith [hdgt, hq.two_le]
   rw [lowWheelCanonicalCofactorQuotientToggle_weight_neg hsq hne]
   rw [squareRootLowPrimeGoFullBirthBoundary_transportWeight_eq_sourceWeight
     hq hr hrq hd]
