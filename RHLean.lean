@@ -412,6 +412,8 @@ import RHLean.Proof.EndpointProjectionBridge
 import RHLean.Proof.ExactPrefixPopulationIdentity
 import RHLean.Proof.FarSurvivorRenewal_is_LowerMertens
 import RHLean.Proof.FareyModesAndTransportWindows
+import RHLean.Proof.FiniteLeastToggleDuality
+import RHLean.Proof.FiniteOthelloMatching
 import RHLean.Proof.FinitePartialMoments
 import RHLean.Proof.FullFactorizationBridge
 import RHLean.Proof.GeometricRHReduction
