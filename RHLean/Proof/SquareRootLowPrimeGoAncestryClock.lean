@@ -57,7 +57,7 @@ theorem squareRootLowPrimeGo_canonicalSourceData_of_rough
   intro p hp hpc
   by_cases hcOne : c = 1
   · subst c
-    exact hp.not_dvd_one hpc
+    exact (hp.not_dvd_one hpc).elim
   · have hcgt : 1 < c := by omega
     have hle := prime_dvd_le_canonicalLargestPrimeFactor hcgt hp hpc
     omega
