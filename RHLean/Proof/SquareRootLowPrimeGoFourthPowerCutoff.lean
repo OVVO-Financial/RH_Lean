@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
+import RHLean.Proof.SquareRootLowPrimeGoAncestryClock
 
 /-!
 # The Go second-boundary defect lives only in the fourth-power owner band
@@ -15,14 +15,26 @@ two-boundary defect lies in the strict band
 
 `q^3 <= X < q^4`.
 
-At the square wall `X_R = R^2 - 1`, this deletes the entire owner range below
-approximately `sqrt R` before any norm or divisor estimate is used.  This file
-is intentionally purely structural: no asymptotic input enters the cutoff.
+There is also a first finite cage for the exposed parent source.  After the
+`r`-coordinate is recombined, the surviving edge carries the arithmetic source
+
+`m = q*d`.
+
+The birth-boundary geometry gives `d < q`, hence `m < q^2`; together with
+`q^3 <= X` this implies the integral power bound
+
+`m^3 < X^2`.
+
+At the square wall `X_R = R^2 - 1`, this is the loose but genuine scale
+`m < R^(4/3)`.  It is intentionally only a first finite boundary to tighten:
+no asymptotic, prime-density, divisor, or cancellation estimate enters here.
 -/
 
 noncomputable section
 
 namespace RHLean.Proof
+
+open RHLean.Arithmetic
 
 /-- A surviving Go second-boundary defect forces the physical cutoff below the
 fourth power of its outer owner. -/
@@ -53,5 +65,56 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_ownerPowerBand
     q ^ 3 ≤ X ∧ X < q ^ 4 := by
   exact ⟨hcube,
     squareRootLowPrimeGoSecondBoundaryDefect_ownerFourth_gt hq hr hrq hd⟩
+
+/-- A surviving two-boundary edge has one exposed parent arithmetic source
+`m = q*d`.  Its largest prime factor is exactly the outer Go owner and the
+source lies strictly below the owner square.  Thus the outer coordinate is
+recoverable from `m`; there is no additional `q` multiplicity in this source
+encoding. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_coordinates
+    {q X r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hd : d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r) :
+    canonicalLargestPrimeFactor (q * d) = q ∧ q * d < q ^ 2 := by
+  have hfull : d ∈ squareRootLowPrimeGoFullBirthBoundaryParents q r :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  have hroot :=
+    squareRootLowPrimeGoFullBirthBoundary_parent_canonicalRoot hq hr hrq hfull
+  have hdPos : 0 < d := by omega
+  have hroughQ : canonicalLargestPrimeFactor d < q := by
+    rcases mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull with
+      ⟨_hd1, _hdq, _hsq, hroughR, _hlower⟩
+    exact hroughR.trans hrq
+  constructor
+  · have howner :=
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough hdPos hq hroughQ
+    simpa [Nat.mul_comm] using howner
+  · rw [pow_two]
+    exact Nat.mul_lt_mul_of_pos_left hroot.2 hq.pos
+
+/-- **First finite Go endpoint cage.**  In genuinely unfinished territory,
+every exposed parent source `m = q*d` from a surviving second-boundary edge
+satisfies
+
+`m^3 < X^2`.
+
+This is the integral form of the scale `m < X^(2/3)`.  At a square endpoint
+`X = R^2 - 1` it is the loose boundary `m < R^(4/3)`, which can be tightened
+without changing the canonical source coordinate. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_cube_lt_cutoffSquare
+    {q X r d : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hcube : q ^ 3 ≤ X)
+    (hd : d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents q X r) :
+    (q * d) ^ 3 < X ^ 2 := by
+  have hsource :=
+    (squareRootLowPrimeGoSecondBoundaryDefect_parentSource_coordinates
+      hq hr hrq hd).2
+  have hsourceCube : (q * d) ^ 3 < (q ^ 2) ^ 3 :=
+    Nat.pow_lt_pow_left hsource (by omega)
+  have hownerSquare : (q ^ 3) ^ 2 ≤ X ^ 2 :=
+    Nat.pow_le_pow_left hcube 2
+  calc
+    (q * d) ^ 3 < (q ^ 2) ^ 3 := hsourceCube
+    _ = (q ^ 3) ^ 2 := by ring
+    _ ≤ X ^ 2 := hownerSquare
 
 end RHLean.Proof
