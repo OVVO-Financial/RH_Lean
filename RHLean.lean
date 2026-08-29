@@ -442,6 +442,7 @@ import RHLean.Proof.LowWheelCanonicalDefectReduction
 import RHLean.Proof.LowWheelCanonicalDowncrossParentFibers
 import RHLean.Proof.LowWheelCanonicalPairingFrontier
 import RHLean.Proof.LowWheelCanonicalPrimeSplit
+import RHLean.Proof.LowWheelCanonicalRepeatedParentClassification
 import RHLean.Proof.LowWheelCofactorQuotientToggle
 import RHLean.Proof.LowWheelDoubleCubeSequentialFold
 import RHLean.Proof.LowWheelDoubleCubeTransport
