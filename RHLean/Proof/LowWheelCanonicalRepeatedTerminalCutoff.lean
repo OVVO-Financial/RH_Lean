@@ -115,6 +115,6 @@ theorem lowWheelCanonicalRepeatedTerminalExternal_mem_firstFailureBoundary
   rw [mem_primeProductFirstFailureBoundary, herase]
   simp only [Finset.mem_filter, Finset.mem_powerset]
   refine ⟨htSub, hgeom.2.2.2.2.1, ?_⟩
-  simpa [p, Nat.mul_comm] using hgeom.2.2.2.2.2
+  exact hgeom.2.2.2.2.2
 
 end RHLean.Proof
