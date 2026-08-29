@@ -80,15 +80,15 @@ theorem lowWheelCanonicalDowncrossParent_le_root
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hy with ⟨_ht, hx⟩
   exact (mem_lowWheelCanonicalDowncrossPart.mp hx).2.2
 
-/-- At a positive root, every tagged downcross parent is positive. -/
+/-- Every tagged downcross parent is positive. -/
 theorem lowWheelCanonicalDowncrossParent_pos
-    {R : ℕ} (hR : 1 ≤ R) {y : LowWheelTaggedDowncrossState}
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
     (hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R) :
     0 < lowWheelCanonicalDowncrossParent y := by
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hy with ⟨ht, hx⟩
   rcases y with ⟨t, ⟨c, k⟩⟩
   have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hx
-  rcases hshell with ⟨hp, _hpc, hpk, _hdown, hup⟩
+  rcases hshell with ⟨hp, _hpc, hpk, _hdown, _hup⟩
   have hP : 0 < primeFaceProduct t := primeFaceProduct_pos_of_mem_powerset ht
   have hkpos : 0 < k := by
     have hkge : 1 ≤ k := by
@@ -96,8 +96,10 @@ theorem lowWheelCanonicalDowncrossParent_pos
       exact (Finset.mem_Icc.mp
         (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.1).1
     omega
+  have hpLeK : lowWheelCanonicalCofactorQuotientPivot (c, k) ≤ k :=
+    Nat.le_of_dvd hkpos hpk
   have hdivpos : 0 < k / lowWheelCanonicalCofactorQuotientPivot (c, k) :=
-    Nat.div_pos hpk hp.pos
+    Nat.div_pos hpLeK hp.pos
   unfold lowWheelCanonicalDowncrossParent
   exact Nat.mul_pos hP hdivpos
 
@@ -127,12 +129,20 @@ theorem lowWheelCanonicalTaggedDowncrossCarrier_eq_unique_union_repeated
       lowWheelCanonicalDowncrossUniqueParentPart R ∪
         lowWheelCanonicalDowncrossRepeatedParentPart R := by
   ext y
-  simp only [lowWheelCanonicalDowncrossUniqueParentPart,
-    lowWheelCanonicalDowncrossRepeatedParentPart,
-    Finset.mem_union, Finset.mem_filter]
-  by_cases hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R
-  · simp [hy]
-  · simp [hy]
+  constructor
+  · intro hy
+    by_cases hunique :
+        ∀ z ∈ lowWheelCanonicalTaggedDowncrossCarrier R,
+          lowWheelCanonicalDowncrossParent z = lowWheelCanonicalDowncrossParent y →
+            z = y
+    · exact Finset.mem_union.mpr <| Or.inl <|
+        Finset.mem_filter.mpr ⟨hy, hunique⟩
+    · exact Finset.mem_union.mpr <| Or.inr <|
+        Finset.mem_filter.mpr ⟨hy, hunique⟩
+  · intro hy
+    rcases Finset.mem_union.mp hy with hy | hy
+    · exact (Finset.mem_filter.mp hy).1
+    · exact (Finset.mem_filter.mp hy).1
 
 /-- The two parent-fiber populations are disjoint. -/
 theorem lowWheelCanonicalDowncrossUnique_disjoint_repeated
@@ -155,7 +165,7 @@ theorem lowWheelCanonicalDowncrossParent_injOn_unique
   intro a ha b hb hab
   have haData := Finset.mem_filter.mp ha
   have hbData := Finset.mem_filter.mp hb
-  exact haData.2 b hbData.1 hab.symm
+  exact (haData.2 b hbData.1 hab.symm).symm
 
 /-- The unique-parent population has at most `R` states: its parent map lands
 injectively in the positive root interval `1..R`. -/
@@ -173,7 +183,7 @@ theorem lowWheelCanonicalDowncrossUniqueParentPart_card_le_root
     rcases Finset.mem_image.mp hn with ⟨y, hy, rfl⟩
     have hyCarrier := (Finset.mem_filter.mp hy).1
     exact Finset.mem_Icc.mpr
-      ⟨lowWheelCanonicalDowncrossParent_pos hR hyCarrier,
+      ⟨lowWheelCanonicalDowncrossParent_pos hyCarrier,
         lowWheelCanonicalDowncrossParent_le_root hyCarrier⟩
   have hcard :
       ((lowWheelCanonicalDowncrossUniqueParentPart R).image parent).card =
