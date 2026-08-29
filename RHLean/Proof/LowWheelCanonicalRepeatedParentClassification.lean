@@ -21,9 +21,8 @@ parent fiber.
   Boolean face or in `k/p`; this is the coordinate on which a parent-preserving
   Boolean toggle acts;
 * **frozen cofactor state:** no such coordinate remains, hence `k = p` and every
-  face prime is `< p`, but `c > 1`; a prime can then be removed from `c` into
-  the quotient, producing an already-existing opposite-sign physical transport
-  occurrence;
+  face prime is `< p`, but `c > 1`; this exposes a concrete transport candidate
+  for subsequent global mate accounting;
 * **terminal Euler boundary:** `c = 1`, `k = p`, and every face prime is `< p`.
   This is the literal monotone first crossing `P(t) <= R < p*P(t)`.
 
