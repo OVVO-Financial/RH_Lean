@@ -5,7 +5,9 @@ on:
     branches: [agent/recouple-terminal-energy-smooth-transport]
     paths:
       - .github/workflows/recouple-terminal-energy.yml
+      - RHLean.lean
       - RHLean/Proof/SquareRootLowPrimeSmoothTransportRecoupling.lean
+      - RHLean/Proof/TerminalAxiomAudit.lean
   workflow_dispatch:
 
 concurrency:
@@ -38,6 +40,11 @@ jobs:
           python3 scripts/strongpnt_424/apply_pnt5_mid.py
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
+      - name: Audit source and manifest
+        run: |
+          bash scripts/check_paper_analysis_boundary.sh
+          bash scripts/audit_assumptions.sh
+          python3 scripts/check_root_manifest.py
       - name: Restore StrongPNT port build cache
         uses: actions/cache/restore@v5
         with:
@@ -46,7 +53,7 @@ jobs:
             .lake/packages/StrongPNT/.lake/build
           key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
           restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
       - name: Restore RHLean build cache
@@ -56,5 +63,8 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
-      - name: Build terminal recoupling
-        run: lake build RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
+      - name: Kernel-check recoupling and audit
+        run: |
+          lake build \
+            RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling \
+            RHLean.Proof.TerminalAxiomAudit
