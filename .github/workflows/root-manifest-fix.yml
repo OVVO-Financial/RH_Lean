@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   refresh:
-    if: github.event.head_commit.message == 'Add one-shot root manifest fix workflow'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -25,7 +24,7 @@ jobs:
           test: false
           lint: false
       - name: Regenerate root manifest
-        run: lake exe mk_all
+        run: lake exe mk_all || true
       - name: Commit generated root
         run: |
           git config user.name 'github-actions[bot]'
