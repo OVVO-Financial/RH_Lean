@@ -7,12 +7,16 @@ on:
       - RHLean/Proof/LowWheelCanonicalRepeatedTerminalHighPrimeBridge.lean
       - RHLean/Proof/LowWheelExternalTerminalFaceLedger.lean
       - RHLean/Proof/LowWheelExternalTerminalParentSplit.lean
-      - RHLean/Proof/LowWheelCanonicalDowncrossRoughCorrelationBridge.lean
+      - RHLean/Proof/LowWheelExternalTerminalEightRootBound.lean
       - .github/workflows/repeated-terminal-high-prime-synthesis.yml
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: repeated-terminal-high-prime-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   check:
@@ -54,14 +58,6 @@ jobs:
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
 
-      - name: Save StrongPNT port build cache
-        uses: actions/cache/save@v5
-        with:
-          path: |
-            .lake/packages/PrimeNumberTheoremAnd/.lake/build
-            .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
-
       - uses: actions/cache/restore@v5
         with:
           path: .lake/build
@@ -70,9 +66,9 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Build synthesis modules
+      - name: Build quantitative closure
         run: |
           lake build RHLean.Proof.LowWheelCanonicalRepeatedTerminalHighPrimeBridge
           lake build RHLean.Proof.LowWheelExternalTerminalFaceLedger
           lake build RHLean.Proof.LowWheelExternalTerminalParentSplit
-          lake build RHLean.Proof.LowWheelCanonicalDowncrossRoughCorrelationBridge
+          lake build RHLean.Proof.LowWheelExternalTerminalEightRootBound
