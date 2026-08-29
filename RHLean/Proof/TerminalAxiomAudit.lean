@@ -6,6 +6,7 @@ import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
 import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
 import RHLean.Proof.SquareRootLowPrimeSequentialDissipation
+import RHLean.Proof.SquareRootLowPrimeTerminalHighPrimeIntegration
 
 /-!
 # Axiom footprint of the terminal reduction
@@ -40,6 +41,11 @@ The square-root legal-ancestry Gram reduction is imported here as well so the or
 root build type-checks its exact endpoint and parent-fibre identities. Its new analytic
 amplification statement remains an explicitly open proposition and is not added to the
 axiom guards below.
+
+The terminal high-prime integration is imported here for the same reason: the ordinary
+root build now type-checks the exact #497 high-prime splice on the canonical processed
+terminal frontier.  Its endpoint transfer lemmas do not discharge the independent
+signed-energy decrement; that inequality remains the next quantitative theorem.
 -/
 
 namespace RHLean.Proof
