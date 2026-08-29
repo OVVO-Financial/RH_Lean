@@ -439,6 +439,7 @@ import RHLean.Proof.LowPrimeParentChildWindowDifference
 import RHLean.Proof.LowWheelAncestryCrossLedgerBridge
 import RHLean.Proof.LowWheelCanonicalCofactorQuotientPairing
 import RHLean.Proof.LowWheelCanonicalDefectReduction
+import RHLean.Proof.LowWheelCanonicalDowncrossParentFibers
 import RHLean.Proof.LowWheelCanonicalPairingFrontier
 import RHLean.Proof.LowWheelCanonicalPrimeSplit
 import RHLean.Proof.LowWheelCofactorQuotientToggle
