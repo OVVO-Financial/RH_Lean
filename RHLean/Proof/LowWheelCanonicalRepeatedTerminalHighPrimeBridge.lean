@@ -78,6 +78,7 @@ theorem lowWheelCanonicalRepeatedExternalTerminal_parent_eq_faceProduct
     ⟨_hc, hk, hp, _hface, _hdown, _hup⟩
   have hp0 : lowWheelCanonicalCofactorQuotientPivot y.2 ≠ 0 := by
     simpa [lowWheelTaggedDowncrossPivot] using hp.ne_zero
+  unfold lowWheelTaggedDowncrossPivot at hk
   unfold lowWheelCanonicalDowncrossParent
   rw [hk, Nat.div_self hp0, Nat.mul_one]
 
