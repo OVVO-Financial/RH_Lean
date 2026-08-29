@@ -1,0 +1,41 @@
+name: Regenerate recoupling root manifest
+
+on:
+  push:
+    branches: [agent/recouple-terminal-energy-smooth-transport]
+    paths:
+      - .github/workflows/recouple-root-manifest.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore Mathlib packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Set up Lean
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: false
+          build: false
+          test: false
+          lint: false
+      - name: Regenerate RHLean.lean
+        run: lake exe mk_all || true
+      - name: Commit generated root import
+        run: |
+          if ! git diff --quiet -- RHLean.lean; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add RHLean.lean
+            git commit -m "Regenerate root import manifest"
+            git push
+          fi
