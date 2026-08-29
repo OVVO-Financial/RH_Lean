@@ -7,6 +7,7 @@ import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
 import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
 import RHLean.Proof.SquareRootLowPrimeSequentialDissipation
 import RHLean.Proof.SquareRootLowPrimeTerminalHighPrimeIntegration
+import RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
 
 /-!
 # Axiom footprint of the terminal reduction
@@ -43,9 +44,18 @@ amplification statement remains an explicitly open proposition and is not added 
 axiom guards below.
 
 The terminal high-prime integration is imported here for the same reason: the ordinary
-root build now type-checks the exact #497 high-prime splice on the canonical processed
-terminal frontier.  Its endpoint transfer lemmas do not discharge the independent
-signed-energy decrement; that inequality remains the next quantitative theorem.
+root build type-checks the exact #497 high-prime splice on the canonical processed
+terminal frontier.
+
+The smooth/transport recoupling is also imported here.  It proves that the terminal
+running imbalance is the historical matched born-smooth/transport residual minus only
+the partial crossing packet and the near-root rectangle, whose combined norm is at
+most `R + K`.  It also proves that a `3 R sqrt(K)` bound for that matched residual
+implies the exact `25 R^2 K` terminal-square bound and hence the signed response-child
+energy decrement through the pre-existing exact telescope.  The `3 R sqrt(K)` matched
+bound itself is not proved here: that signed `BornSmooth - Transport` / `A - T`
+correlation is the remaining arithmetic input.  In particular, no independent
+low-prime frontier estimate is introduced as a new analytic obligation.
 -/
 
 namespace RHLean.Proof
