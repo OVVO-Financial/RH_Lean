@@ -77,7 +77,7 @@ theorem abs_squareRootLowPrimeMatchedTerminalBoundary_lt_two_root
     |(((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)).re +
         (squareRootBornPostTailNearRootRemainder R K j).re| ≤
       |(((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)).re| +
-        |(squareRootBornPostTailNearRootRemainder R K j).re| := abs_add _ _
+        |(squareRootBornPostTailNearRootRemainder R K j).re| := abs_add_le _ _
     _ < (R : ℝ) + (R : ℝ) := add_lt_add_of_lt_of_le hpacket hnear
     _ = 2 * (R : ℝ) := by ring
 
@@ -103,8 +103,8 @@ theorem squareRootLowPrimeTerminal_sq_le_two_matched_sq_add_eight_root_sq
       squareRootLowPrimeRunningImbalanceReal R K j
           (squareRootBornPostTailLowPrimeCutoff R) =
         (squareRootMatchedBornSmoothTransport R).re -
-          ((((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)).re +
-            (squareRootBornPostTailNearRootRemainder R K j).re) := by
+          (((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)).re -
+          (squareRootBornPostTailNearRootRemainder R K j).re := by
     simpa [squareRootLowPrimeRunningImbalanceReal] using hterminalR
   have hboundary :=
     abs_squareRootLowPrimeMatchedTerminalBoundary_lt_two_root
@@ -113,8 +113,6 @@ theorem squareRootLowPrimeTerminal_sq_le_two_matched_sq_add_eight_root_sq
       |(squareRootMatchedBornSmoothTransport R).re| ≤
         ‖squareRootMatchedBornSmoothTransport R‖ :=
     Complex.abs_re_le_norm _
-  have hR0 : 0 ≤ (R : ℝ) := by positivity
-  have hmatched0 : 0 ≤ ‖squareRootMatchedBornSmoothTransport R‖ := norm_nonneg _
   have htermAbs :
       |squareRootLowPrimeRunningImbalanceReal R K j
           (squareRootBornPostTailLowPrimeCutoff R)| ≤
@@ -122,20 +120,33 @@ theorem squareRootLowPrimeTerminal_sq_le_two_matched_sq_add_eight_root_sq
     rw [hterminal]
     calc
       |(squareRootMatchedBornSmoothTransport R).re -
+          (((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)).re -
+          (squareRootBornPostTailNearRootRemainder R K j).re| =
+        |(squareRootMatchedBornSmoothTransport R).re -
           ((((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)).re +
-            (squareRootBornPostTailNearRootRemainder R K j).re)| ≤
-        |(squareRootMatchedBornSmoothTransport R).re| +
+            (squareRootBornPostTailNearRootRemainder R K j).re)| := by
+          congr 1
+          ring
+      _ ≤ |(squareRootMatchedBornSmoothTransport R).re| +
           |(((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)).re +
             (squareRootBornPostTailNearRootRemainder R K j).re| := abs_sub _ _
       _ ≤ ‖squareRootMatchedBornSmoothTransport R‖ + 2 * (R : ℝ) :=
         add_le_add hmatched (le_of_lt hboundary)
+  have hright :
+      0 ≤ ‖squareRootMatchedBornSmoothTransport R‖ + 2 * (R : ℝ) := by
+    positivity
+  have hsquare :
+      |squareRootLowPrimeRunningImbalanceReal R K j
+          (squareRootBornPostTailLowPrimeCutoff R)| ^ 2 ≤
+        (‖squareRootMatchedBornSmoothTransport R‖ + 2 * (R : ℝ)) ^ 2 := by
+    nlinarith [abs_nonneg
+      (squareRootLowPrimeRunningImbalanceReal R K j
+        (squareRootBornPostTailLowPrimeCutoff R))]
   have htermSq :
       squareRootLowPrimeRunningImbalanceReal R K j
           (squareRootBornPostTailLowPrimeCutoff R) ^ 2 ≤
         (‖squareRootMatchedBornSmoothTransport R‖ + 2 * (R : ℝ)) ^ 2 := by
-    nlinarith [sq_abs
-      (squareRootLowPrimeRunningImbalanceReal R K j
-        (squareRootBornPostTailLowPrimeCutoff R))]
+    simpa [sq_abs] using hsquare
   have hsplit :
       (‖squareRootMatchedBornSmoothTransport R‖ + 2 * (R : ℝ)) ^ 2 ≤
         2 * ‖squareRootMatchedBornSmoothTransport R‖ ^ 2 +
