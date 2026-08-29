@@ -5,29 +5,10 @@ import RHLean.Proof.LowWheelHighPrimeSurvivor
 /-!
 # Repeated terminal downcrosses as the existing high-prime transport geometry
 
-The repeated-parent classification leaves a terminal shape
-
-`y = (t,(1,p))`,
-
-with `p` the canonical pivot and
-
-`P(t) <= R < p * P(t)`.
-
-This module isolates the genuinely external part `R < p`.  In that regime the
-same physical integer can be read in a second, already-existing coordinate
-system:
-
-`P(t) * p = canonicalCofactor * canonicalLargestPrimeFactor`.
-
-Thus the Boolean face product is not a new recursive parent population.  It is
-literally the low cofactor of one of the repository's native high-prime
-transport pairs, and the terminal Boolean sign is exactly the Möbius sign of
-that cofactor.
-
-The module also defines the corresponding external-terminal carrier before the
-unique/repeated parent split.  Its unique-parent subpopulation inherits the
-already-proved cardinality bound `<= R`; hence only the repeated external part
-can carry multiplicity.
+The repeated-parent classification leaves a terminal shape `y = (t,(1,p))`
+with `P(t) <= R < p * P(t)`.  This module isolates the genuinely external part
+`R < p` and records that it is literally the repository's pre-existing
+high-prime transport fibre with low cofactor `P(t)`.
 
 No norm, PNT estimate, asymptotic input, or further Euler descent appears.
 -/
@@ -42,8 +23,7 @@ open RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
 
-/-- The genuinely external part of the repeated terminal boundary: the fresh
-canonical pivot lies strictly above the root cutoff. -/
+/-- The genuinely external part of the repeated terminal boundary. -/
 def lowWheelCanonicalRepeatedExternalTerminalPart (R : ℕ) :
     Finset LowWheelTaggedDowncrossState :=
   (lowWheelCanonicalRepeatedTerminalBoundary R).filter fun y =>
@@ -56,8 +36,8 @@ def lowWheelCanonicalRepeatedExternalTerminalPart (R : ℕ) :
         R < lowWheelTaggedDowncrossPivot y := by
   simp [lowWheelCanonicalRepeatedExternalTerminalPart]
 
-/-- Every repeated external terminal occurrence is still a member of the full
-tagged downcross carrier. -/
+/-- Every repeated external terminal occurrence is still in the complete
+canonical tagged downcross carrier. -/
 theorem lowWheelCanonicalRepeatedExternalTerminal_mem_taggedCarrier
     {R : ℕ} {y : LowWheelTaggedDowncrossState}
     (hy : y ∈ lowWheelCanonicalRepeatedExternalTerminalPart R) :
@@ -67,29 +47,11 @@ theorem lowWheelCanonicalRepeatedExternalTerminal_mem_taggedCarrier
   have hrepeated := (Finset.mem_filter.mp hfrozen).1
   exact (Finset.mem_filter.mp hrepeated).1
 
-/-- On the external terminal shape the root-side parent is just the Boolean
-face product. -/
-theorem lowWheelCanonicalRepeatedExternalTerminal_parent_eq_faceProduct
-    {R : ℕ} {y : LowWheelTaggedDowncrossState}
-    (hy : y ∈ lowWheelCanonicalRepeatedExternalTerminalPart R) :
-    lowWheelCanonicalDowncrossParent y = primeFaceProduct y.1 := by
-  have hterminal := (Finset.mem_filter.mp hy).1
-  rcases lowWheelCanonicalRepeatedTerminalBoundary_geometry hterminal with
-    ⟨_hc, hk, hp, _hface, _hdown, _hup⟩
-  have hp0 : lowWheelCanonicalCofactorQuotientPivot y.2 ≠ 0 := by
-    simpa [lowWheelTaggedDowncrossPivot] using hp.ne_zero
-  unfold lowWheelTaggedDowncrossPivot at hk
-  unfold lowWheelCanonicalDowncrossParent
-  rw [hk, Nat.div_self hp0, Nat.mul_one]
-
 /-- **External-terminal/high-prime bridge.**  A repeated terminal state with
-`R < p` is literally an existing high-prime transport pair when read using its
-face product as the low cofactor.  The same product has canonical coordinates
-`(P(t),p)`, and the Boolean face sign is the Möbius sign of `P(t)`.
-
-This is the key coordinate rotation: repeated-parent multiplicity is a
-parent-first view of an already-existing high-prime fibre, not a new recursive
-population. -/
+`R < p` is literally an existing high-prime transport pair when its Boolean
+face product is read as the low cofactor.  The same product has canonical
+coordinates `(P(t),p)`, and the Boolean face sign is the Möbius sign of `P(t)`.
+-/
 theorem lowWheelCanonicalRepeatedExternalTerminal_highPrime_data
     {R : ℕ} {y : LowWheelTaggedDowncrossState}
     (hy : y ∈ lowWheelCanonicalRepeatedExternalTerminalPart R) :
@@ -141,15 +103,13 @@ theorem lowWheelCanonicalRepeatedExternalTerminal_highPrime_data
       Nat.le_antisymm hdown hRleP
     have hSquareLt :
         R ^ 2 < R * lowWheelTaggedDowncrossPivot y := by
-      simpa [pow_two] using
-        Nat.mul_lt_mul_of_pos_left hpR hRpos
+      simpa [pow_two] using Nat.mul_lt_mul_of_pos_left hpR hRpos
     have hbad :
         squareRootEndpoint R < R * lowWheelTaggedDowncrossPivot y :=
       hXltSquare.trans hSquareLt
     rw [hPeq] at htop
     exact (Nat.not_lt_of_ge htop) hbad
-  have hPone : 1 ≤ primeFaceProduct y.1 :=
-    Nat.succ_le_iff.mpr hPpos
+  have hPone : 1 ≤ primeFaceProduct y.1 := Nat.succ_le_iff.mpr hPpos
   have hpLeProduct :
       lowWheelTaggedDowncrossPivot y ≤
         primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y := by
@@ -158,8 +118,7 @@ theorem lowWheelCanonicalRepeatedExternalTerminal_highPrime_data
           1 * lowWheelTaggedDowncrossPivot y := by simp
       _ ≤ primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y :=
         Nat.mul_le_mul_right _ hPone
-  have hpX :
-      lowWheelTaggedDowncrossPivot y ≤ squareRootEndpoint R :=
+  have hpX : lowWheelTaggedDowncrossPivot y ≤ squareRootEndpoint R :=
     hpLeProduct.trans htop
   have hhigh :
       lowWheelTaggedDowncrossPivot y ∈
@@ -177,16 +136,8 @@ theorem lowWheelCanonicalRepeatedExternalTerminal_highPrime_data
     · exact Finset.mem_Ioc.mpr ⟨hpR, hpX⟩
   have hPp : primeFaceProduct y.1 < lowWheelTaggedDowncrossPivot y :=
     hPltR.trans hpR
-  have hcofactor :
-      canonicalCofactor
-          (primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y) =
-        primeFaceProduct y.1 :=
-    canonicalCofactor_mul_prime_eq hPpos hPp hp
-  have hlargest :
-      canonicalLargestPrimeFactor
-          (primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y) =
-        lowWheelTaggedDowncrossPivot y :=
-    canonicalLargestPrimeFactor_mul_prime_eq hPpos hPp hp
+  have hcofactor := canonicalCofactor_mul_prime_eq hPpos hPp hp
+  have hlargest := canonicalLargestPrimeFactor_mul_prime_eq hPpos hPp hp
   have hfaceSub := Finset.mem_powerset.mp htagData.1
   have hprimeFace : ∀ q ∈ y.1, q.Prime := by
     intro q hq
@@ -200,9 +151,7 @@ theorem lowWheelCanonicalRepeatedExternalTerminal_highPrime_data
   exact ⟨Finset.mem_Ico.mpr ⟨hPone, hPltR⟩,
     hhigh, htransport, hcofactor, hlargest, hweight⟩
 
-/-- External terminal shape before imposing the unique/repeated parent split.
-This is the same geometric shape as above, but on the complete tagged downcross
-carrier. -/
+/-- External terminal shape before imposing the unique/repeated parent split. -/
 def lowWheelCanonicalExternalTerminalPart (R : ℕ) :
     Finset LowWheelTaggedDowncrossState :=
   (lowWheelCanonicalTaggedDowncrossCarrier R).filter fun y =>
