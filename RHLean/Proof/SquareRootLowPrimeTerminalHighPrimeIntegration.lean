@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeQuantitativeEnergyReduction
+import RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
 import RHLean.Proof.LowWheelExternalTerminalEightRootBound
 
 /-!
@@ -30,7 +31,7 @@ opposite sign.  Therefore the entire integrated external boundary is exactly
 `-ERuniq_R`, whose norm is at most `R`.  No second charge for the near strip is
 needed.
 
-Consequently the terminal running state differs from the single remaining core
+Consequently the terminal running state differs from the single integrated core
 
 `BornSmooth_R - ERrep_R`
 
@@ -41,9 +42,16 @@ by only
   hypotheses; and
 * the near-root response rectangle, bounded by `R`.
 
-Thus the full terminal discrepancy is at most `2R + K`.  This file does not
-bound the remaining signed core.  It isolates that core as the sole quantitative
-object to be controlled by the final signed energy inequality.
+Thus the full terminal discrepancy is at most `2R + K`.  The same statement is
+proved below directly on the canonical terminal processed frontier, not merely
+on an abstract analytic coordinate.
+
+Finally, the integrated core is shown to be the repository's old matched
+born-smooth/transport core plus `ERuniq`.  This is an audit theorem: the
+integration introduces no new hard population.  It does **not** prove the final
+signed energy inequality.  In particular, the endpoint-transfer lemmas below
+are bookkeeping consequences only; they must not be substituted for an
+independent signed dissipation estimate.
 
 No PNT input, asymptotic estimate, further Euler descent, or independent norm of
 an already-cancelled population is introduced.
@@ -58,8 +66,8 @@ namespace RHLean.Proof
 open RHLean.Arithmetic
 open RHLean.Analysis
 
-/-- The sole signed core left after the external repeated-parent high-prime mass
-is inserted into the terminal processed identity. -/
+/-- The signed core left after the external repeated-parent high-prime mass is
+inserted into the terminal processed identity. -/
 def squareRootLowPrimeIntegratedTerminalCore (R : ℕ) : ℂ :=
   squareRootBornSmoothMass R - squareRootERrep R
 
@@ -112,6 +120,36 @@ theorem squareRootLowPrimeRunningImbalance_at_cutoff_eq_integratedCore_sub_bound
   unfold squareRootLowPrimeFarSurvivorTerminalCore at hterminal
   unfold squareRootLowPrimeIntegratedTerminalCore
   linear_combination hterminal + hhigh
+
+/-- **No-new-core audit.**  The integrated core is exactly the historical
+matched born-smooth/transport object plus the already-owned unique-parent
+external mass.  Thus the high-prime integration changes the bookkeeping, not
+the underlying hard signed population. -/
+theorem squareRootLowPrimeIntegratedTerminalCore_eq_matched_add_ERuniq
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootLowPrimeIntegratedTerminalCore R =
+      squareRootMatchedBornSmoothTransport R + squareRootERuniq R := by
+  unfold squareRootLowPrimeIntegratedTerminalCore
+  rw [squareRootMatchedBornSmoothTransport_eq_bornSmooth_sub_transport,
+    squareRootTransport_eq_ERuniq_add_ERrep R hR]
+  ring
+
+/-- After the ownership term is cancelled in the full terminal identity, the
+same state is the old matched signed core minus only the shallow partial packet
+and the near-root rectangle.  This theorem is included to certify that the
+integration has not hidden or duplicated a population. -/
+theorem squareRootLowPrimeRunningImbalance_at_cutoff_eq_matched_sub_boundaries
+    (R K j : ℕ) (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K) :
+    squareRootLowPrimeRunningImbalance R K j
+        (squareRootBornPostTailLowPrimeCutoff R) =
+      squareRootMatchedBornSmoothTransport R -
+        ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ) -
+        squareRootBornPostTailNearRootRemainder R K j := by
+  rw [squareRootLowPrimeRunningImbalance_at_cutoff_eq_integratedCore_sub_boundaries
+      R K j hR hK hKR hj,
+    squareRootLowPrimeIntegratedTerminalCore_eq_matched_add_ERuniq R (by omega)]
+  ring
 
 private theorem squareRootCrossingLayerPartialPacket_norm_le_depth_integrated
     {R K j : ℕ}
@@ -197,8 +235,61 @@ theorem squareRootLowPrimeRunningImbalanceReal_sub_integratedCore_abs_le
       (squareRootLowPrimeRunningImbalance_sub_integratedCore_norm_le
         R K j hR hK hKR hj hV0 hVK)
 
-/-- Any absolute bound for the sole integrated signed core transfers immediately
-to the full terminal processed state. -/
+/-- **Integration on the literal canonical terminal processed carrier.**  Its
+signed mass is the integrated core plus only the three explicit boundary terms.
+This is the finite processed-state form needed by the subsequent signed-energy
+argument. -/
+theorem squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier_weight_sum_eq_integrated
+    (R K j : ℕ) (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K) :
+    (∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier
+        R K j (squareRootBornPostTailLowPrimeCutoff R),
+      squareRootLowPrimeProcessedSeatWeightReal x) =
+      squareRootLowPrimeIntegratedTerminalCoreReal R -
+        (squareRootERuniq R).re -
+        (((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)).re -
+        (squareRootBornPostTailNearRootRemainder R K j).re := by
+  calc
+    (∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier
+        R K j (squareRootBornPostTailLowPrimeCutoff R),
+      squareRootLowPrimeProcessedSeatWeightReal x) =
+      squareRootLowPrimeRunningImbalanceReal R K j
+        (squareRootBornPostTailLowPrimeCutoff R) :=
+      squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier_weight_sum
+        (R := R) (K := K) (j := j)
+        (U := squareRootBornPostTailLowPrimeCutoff R) (by omega)
+    _ = squareRootLowPrimeIntegratedTerminalCoreReal R -
+        (squareRootERuniq R).re -
+        (((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)).re -
+        (squareRootBornPostTailNearRootRemainder R K j).re := by
+      have h := congrArg Complex.re
+        (squareRootLowPrimeRunningImbalance_at_cutoff_eq_integratedCore_sub_boundaries
+          R K j hR hK hKR hj)
+      simpa [squareRootLowPrimeRunningImbalanceReal,
+        squareRootLowPrimeIntegratedTerminalCoreReal] using h
+
+/-- The literal canonical terminal processed frontier is within `2R + K` of the
+single integrated signed core.  This is the quantitative integration theorem on
+the actual finite carrier. -/
+theorem abs_squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier_sub_integratedCore_le
+    (R K j : ℕ) (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K)
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
+    (hVK : squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ)) :
+    |(∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier
+          R K j (squareRootBornPostTailLowPrimeCutoff R),
+        squareRootLowPrimeProcessedSeatWeightReal x) -
+      squareRootLowPrimeIntegratedTerminalCoreReal R| ≤
+        2 * (R : ℝ) + (K : ℝ) := by
+  rw [squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier_weight_sum
+    (R := R) (K := K) (j := j)
+    (U := squareRootBornPostTailLowPrimeCutoff R) (by omega)]
+  exact squareRootLowPrimeRunningImbalanceReal_sub_integratedCore_abs_le
+    R K j hR hK hKR hj hV0 hVK
+
+/-- Any absolute bound for the integrated signed core transfers immediately to
+the full terminal processed state.  This is a terminal transfer lemma only, not
+the final independent signed-energy inequality. -/
 theorem squareRootLowPrimeRunningImbalanceReal_abs_le_of_integratedCore
     (R K j : ℕ) (B : ℝ)
     (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
@@ -231,9 +322,9 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_of_integratedCore
       add_le_add_left hcore _
     _ = B + (2 * (R : ℝ) + (K : ℝ)) := by ring
 
-/-- Squared terminal-state transfer.  After this integration, a bound for the
-single signed core is the only missing quantitative input needed to bound the
-terminal energy. -/
+/-- Squared terminal-state transfer.  This is again only endpoint bookkeeping:
+the independent global signed-energy decrement remains the next theorem to be
+proved. -/
 theorem squareRootLowPrimeRunningImbalanceReal_sq_le_of_integratedCore
     (R K j : ℕ) (B : ℝ)
     (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
@@ -257,26 +348,5 @@ theorem squareRootLowPrimeRunningImbalanceReal_sq_le_of_integratedCore
       (squareRootLowPrimeRunningImbalanceReal R K j
         (squareRootBornPostTailLowPrimeCutoff R))]
   simpa [sq_abs] using hsquare
-
-/-- Endpoint energy reduction after the high-prime integration.  The right side
-contains no high-prime transport or survivor term: only a bound for the single
-integrated signed core remains to be supplied. -/
-theorem squareRootLowPrimeEndpointEnergyReal_ge_of_integratedCore
-    (R K j : ℕ) (B : ℝ)
-    (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
-    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K)
-    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
-    (hVK : squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ))
-    (hB : 0 ≤ B)
-    (hcore : |squareRootLowPrimeIntegratedTerminalCoreReal R| ≤ B) :
-    squareRootLowPrimeRunningImbalanceReal R K j K ^ 2 -
-        squareRootLowPrimeRunningImbalanceReal R K j
-          (squareRootBornPostTailLowPrimeCutoff R) ^ 2 ≥
-      squareRootLowPrimeRunningImbalanceReal R K j K ^ 2 -
-        (B + (2 * (R : ℝ) + (K : ℝ))) ^ 2 := by
-  have hterminal :=
-    squareRootLowPrimeRunningImbalanceReal_sq_le_of_integratedCore
-      R K j B hR hK hKR hj hV0 hVK hB hcore
-  linarith
 
 end RHLean.Proof
