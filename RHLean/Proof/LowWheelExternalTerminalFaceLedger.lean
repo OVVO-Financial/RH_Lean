@@ -102,6 +102,6 @@ theorem squareRootTransportCofactorFirst_eq_externalTerminalFaceLedger
     ∑ _p ∈ squareRootHighPrimeCofactorSet R (primeFaceProduct t),
       (booleanCubeSign t : ℂ)
   rw [lowWheelHighPrimeMultiplicity_face_eq_highPrimeCard hR ht]
-  simp
+  simp [mul_comm]
 
 end RHLean.Proof
