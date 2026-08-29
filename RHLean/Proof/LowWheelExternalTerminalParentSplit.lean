@@ -194,6 +194,7 @@ theorem squareRootExternalTerminalUnique_disjoint_repeated
   intro z hzU hzR
   have hU := (Finset.mem_filter.mp hzU).2
   have hC := (Finset.mem_filter.mp hzR).2
-  exact (lowWheelCanonicalDowncrossUnique_disjoint_repeated R).not_mem hU hC
+  exact (Finset.disjoint_left.mp
+    (lowWheelCanonicalDowncrossUnique_disjoint_repeated R)) hU hC
 
 end RHLean.Proof
