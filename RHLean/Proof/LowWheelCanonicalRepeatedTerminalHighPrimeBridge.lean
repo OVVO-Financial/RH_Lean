@@ -79,8 +79,7 @@ theorem lowWheelCanonicalRepeatedExternalTerminal_parent_eq_faceProduct
   have hp0 : lowWheelCanonicalCofactorQuotientPivot y.2 ≠ 0 := by
     simpa [lowWheelTaggedDowncrossPivot] using hp.ne_zero
   unfold lowWheelCanonicalDowncrossParent
-  rw [hk]
-  simp [hp0]
+  rw [hk, Nat.div_self hp0, Nat.mul_one]
 
 /-- **External-terminal/high-prime bridge.**  A repeated terminal state with
 `R < p` is literally an existing high-prime transport pair when read using its
