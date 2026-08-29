@@ -170,7 +170,7 @@ theorem lowWheelCanonicalDowncrossParent_injOn_unique
 /-- The unique-parent population has at most `R` states: its parent map lands
 injectively in the positive root interval `1..R`. -/
 theorem lowWheelCanonicalDowncrossUniqueParentPart_card_le_root
-    (R : ℕ) (hR : 1 ≤ R) :
+    (R : ℕ) :
     (lowWheelCanonicalDowncrossUniqueParentPart R).card ≤ R := by
   let parent := lowWheelCanonicalDowncrossParent
   have hinj : Set.InjOn parent
@@ -191,6 +191,6 @@ theorem lowWheelCanonicalDowncrossUniqueParentPart_card_le_root
     Finset.card_image_iff.mpr hinj
   rw [← hcard]
   have hle := Finset.card_le_card himage
-  simpa [Nat.card_Icc, hR] using hle
+  simpa [Nat.card_Icc] using hle
 
 end RHLean.Proof
