@@ -5,6 +5,7 @@ on:
     branches: [agent/repeated-terminal-high-prime-synthesis]
     paths:
       - RHLean/Proof/LowWheelCanonicalRepeatedTerminalHighPrimeBridge.lean
+      - RHLean/Proof/LowWheelExternalTerminalFaceLedger.lean
       - .github/workflows/repeated-terminal-high-prime-synthesis.yml
   workflow_dispatch:
 
@@ -58,6 +59,7 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Build bridge module
+      - name: Build synthesis modules
         run: |
           lake build RHLean.Proof.LowWheelCanonicalRepeatedTerminalHighPrimeBridge
+          lake build RHLean.Proof.LowWheelExternalTerminalFaceLedger
