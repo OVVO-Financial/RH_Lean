@@ -2,7 +2,9 @@ name: Square-root two-direction Othello check
 
 on:
   push:
-    branches: [agent/square-root-two-direction-othello]
+    branches:
+      - agent/square-root-two-direction-othello
+      - agent/square-root-two-direction-othello-proof
   workflow_dispatch:
 
 permissions:
