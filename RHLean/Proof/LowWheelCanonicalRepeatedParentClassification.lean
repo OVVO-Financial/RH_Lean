@@ -90,15 +90,6 @@ theorem lowWheelCanonicalDowncross_movable_or_frozen
         intro hm
         have : p = k := by simpa [hm] using hkCancel
         exact hkp this.symm
-      have hmGt : 1 < k / p := by
-        have hmPos : 0 < k / p := by
-          have hpLeK : p ≤ k := Nat.le_of_dvd (by
-            have hxF := (mem_lowWheelCanonicalDowncrossPart.mp hx).1
-            have hk1 := (Finset.mem_Icc.mp
-              (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.1).1
-            omega) hpk
-          exact Nat.div_pos hpLeK hp.pos
-        omega
       let q := Nat.minFac (k / p)
       have hqPrime : q.Prime := by
         simpa [q] using Nat.minFac_prime hmNe
@@ -221,9 +212,17 @@ theorem lowWheelCanonicalRepeatedTerminalBoundary_geometry
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨_ht, hx⟩
   have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hx
   rcases hshell with ⟨hp, _hpc, _hpk, hdown, hup⟩
-  refine ⟨hc, hshape.1, hp, hshape.2, ?_, ?_⟩
-  · simpa [lowWheelTaggedDowncrossPivot, hshape.1] using hdown
-  · simpa [lowWheelTaggedDowncrossPivot, hshape.1,
-      Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hup
+  have hpne : lowWheelTaggedDowncrossPivot y ≠ 0 := hp.ne_zero
+  have hquot : y.2.2 / lowWheelTaggedDowncrossPivot y = 1 := by
+    rw [hshape.1]
+    exact Nat.div_self hpne
+  have hdown' : primeFaceProduct y.1 ≤ R := by
+    rw [hquot, Nat.mul_one] at hdown
+    exact hdown
+  have hup' : R < primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y := by
+    rw [hquot, Nat.mul_one] at hup
+    exact hup
+  refine ⟨hc, hshape.1, hp, hshape.2, hdown', ?_⟩
+  simpa [Nat.mul_comm] using hup'
 
 end RHLean.Proof
