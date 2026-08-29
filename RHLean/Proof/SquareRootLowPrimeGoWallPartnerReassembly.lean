@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeFirstOwnerWallRecurrence
 import RHLean.Proof.SquareRootLowPrimeGoWallStripTelescope
+import RHLean.Proof.SquareRootLowPrimeGoSecondContactSources
 
 /-!
 # Reassemble the literal first-owner wall with its Go partner
@@ -213,5 +214,48 @@ theorem squareRootLowPrimeLiteralWallPartnerLedgerMass_eq_endpoint_sub_residual_
   unfold squareRootLowPrimeLiteralWallPartnerLedgerMass
   rw [hsplit] at hupper
   omega
+
+/-! ## Literal wall schedule as the Go second-contact schedule -/
+
+/-- The literal first-owner wall residual is definitionally the Go square
+residual total on the *same* old-prime owner schedule.  This is the exact
+schedule bridge; no generic fourth-power owner schedule is substituted. -/
+theorem squareRootLowPrimeLiteralWallSquareResidualMass_eq_goWallSquareResidualTotal
+    (R K : ℕ) :
+    squareRootLowPrimeLiteralWallSquareResidualMass R K =
+      squareRootLowPrimeGoWallSquareResidualTotal
+        (squareRootLowPrimeWallOldPrimeSet K) (squareRootEndpoint R) := by
+  rfl
+
+/-- **Literal wall-to-Go source reindexing.**  On the exact wall schedule, the
+square residual recombines before any norm into one disjoint population of
+actual arithmetic second-contact children.  Their owner multiplicity is stored
+in the child itself through its canonical largest prime. -/
+theorem squareRootLowPrimeLiteralWallSquareResidual_cast_eq_neg_goSecondContactSourceMass
+    (R K : ℕ) :
+    (((squareRootLowPrimeLiteralWallSquareResidualMass R K : ℤ) : ℂ)) =
+      -∑ m ∈ squareRootLowPrimeGoSecondContactSources
+          (squareRootLowPrimeWallOldPrimeSet K) (squareRootEndpoint R),
+        canonicalMoebiusWeight m := by
+  rw [squareRootLowPrimeLiteralWallSquareResidualMass_eq_goWallSquareResidualTotal]
+  apply squareRootLowPrimeGoWallSquareResidualTotal_cast_eq_neg_sourceMass
+  intro q hq
+  exact (mem_squareRootLowPrimeWallOldPrimeSet.mp hq).1
+
+/-- Every arithmetic source in the literal wall Go population recovers a unique
+old-prime owner from its canonical largest prime, and records its second contact
+below the square endpoint. -/
+theorem squareRootLowPrimeLiteralWallGoSecondContactSource_owner
+    {R K m : ℕ}
+    (hm : m ∈ squareRootLowPrimeGoSecondContactSources
+      (squareRootLowPrimeWallOldPrimeSet K) (squareRootEndpoint R)) :
+    canonicalLargestPrimeFactor m ∈ squareRootLowPrimeWallOldPrimeSet K ∧
+      canonicalLargestPrimeFactor m * m ≤ squareRootEndpoint R := by
+  apply squareRootLowPrimeGoSecondContactSource_owner_exists
+    (Q := squareRootLowPrimeWallOldPrimeSet K)
+    (X := squareRootEndpoint R)
+  · intro q hq
+    exact (mem_squareRootLowPrimeWallOldPrimeSet.mp hq).1
+  · exact hm
 
 end RHLean.Proof
