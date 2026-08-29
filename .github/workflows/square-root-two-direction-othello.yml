@@ -44,13 +44,17 @@ jobs:
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
 
-      - name: Kernel-check Othello bridge modules
-        run: |
-          lake build \
-            RHLean.Proof.CreationResponseOthelloInvolution \
-            RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution \
-            RHLean.Proof.SquareRootLowPrimeResponseMatchingOthelloInvolution \
-            RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
+      - name: Kernel-check creation-response involution
+        run: timeout 600 lake build RHLean.Proof.CreationResponseOthelloInvolution
+
+      - name: Kernel-check response-forest involution
+        run: timeout 600 lake build RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution
+
+      - name: Kernel-check arithmetic response involution
+        run: timeout 600 lake build RHLean.Proof.SquareRootLowPrimeResponseMatchingOthelloInvolution
+
+      - name: Kernel-check opposite-fixed classification
+        run: timeout 600 lake build RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
 
       - name: Audit assumptions
         run: bash scripts/audit_assumptions.sh
