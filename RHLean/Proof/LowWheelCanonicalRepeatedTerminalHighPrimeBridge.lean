@@ -76,9 +76,11 @@ theorem lowWheelCanonicalRepeatedExternalTerminal_parent_eq_faceProduct
   have hterminal := (Finset.mem_filter.mp hy).1
   rcases lowWheelCanonicalRepeatedTerminalBoundary_geometry hterminal with
     ⟨_hc, hk, hp, _hface, _hdown, _hup⟩
+  have hp0 : lowWheelCanonicalCofactorQuotientPivot y.2 ≠ 0 := by
+    simpa [lowWheelTaggedDowncrossPivot] using hp.ne_zero
   unfold lowWheelCanonicalDowncrossParent
   rw [hk]
-  simp [lowWheelTaggedDowncrossPivot, hp.ne_zero]
+  simp [hp0]
 
 /-- **External-terminal/high-prime bridge.**  A repeated terminal state with
 `R < p` is literally an existing high-prime transport pair when read using its
