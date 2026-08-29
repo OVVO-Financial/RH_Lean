@@ -4,6 +4,7 @@ on:
   push:
     branches: [agent/repeated-terminal-high-prime-synthesis]
     paths:
+      - RHLean.lean
       - RHLean/Proof/LowWheelCanonicalRepeatedTerminalHighPrimeBridge.lean
       - RHLean/Proof/LowWheelExternalTerminalFaceLedger.lean
       - RHLean/Proof/LowWheelExternalTerminalParentSplit.lean
@@ -12,7 +13,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: repeated-terminal-high-prime-${{ github.ref }}
@@ -72,3 +73,19 @@ jobs:
           lake build RHLean.Proof.LowWheelExternalTerminalFaceLedger
           lake build RHLean.Proof.LowWheelExternalTerminalParentSplit
           lake build RHLean.Proof.LowWheelExternalTerminalEightRootBound
+
+      - name: Refresh canonical root manifest
+        run: lake exe mk_all
+
+      - name: Build root manifest
+        run: lake build RHLean
+
+      - name: Commit canonical root manifest
+        run: |
+          if ! git diff --quiet -- RHLean.lean; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add RHLean.lean
+            git commit -m "Export external terminal eight-root closure"
+            git push
+          fi
