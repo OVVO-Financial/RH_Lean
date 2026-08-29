@@ -1,6 +1,10 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeTerminalHighPrimeIntegration
 import RHLean.Proof.SquareRootLowPrimeGlobalEnergyTelescope
+import RHLean.Proof.SquareRootLowPrimeDefectThresholdBridge
+import RHLean.Proof.SquareRootLowPrimeGoWallPartnerReassembly
+import RHLean.Proof.SquareRootLowPrimeGoCrossingMateLedger
+import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
 
 /-!
 # Recouple the terminal low-prime state to the original smooth/transport residual
@@ -306,5 +310,159 @@ theorem squareRootLowPrimeSignedResponseEnergy_decrement_ge_of_matched
     (R := R) (K := K) (j := j)
     (U := squareRootBornPostTailLowPrimeCutoff R)
     (25 * (R : ℝ) ^ 2 * (K : ℝ)) hK hKU hterminal
+
+/-! ## Cross-coordinate square-root intertwiner -/
+
+/-- The literal canonical processed-seat terminal frontier and the historical
+matched smooth/transport coordinate are the same signed state after removing
+only the already-exposed shallow boundary.  This is the occurrence-level
+Othello-to-`A-T` edge of the cross-coordinate diagram. -/
+theorem squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier_weight_sum_eq_matched_sub_shallowBoundary_re
+    (R K j : ℕ) (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K) :
+    (∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier
+        R K j (squareRootBornPostTailLowPrimeCutoff R),
+      squareRootLowPrimeProcessedSeatWeightReal x) =
+      (squareRootMatchedBornSmoothTransport R -
+        squareRootLowPrimeTerminalShallowBoundary R K j).re := by
+  calc
+    (∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier
+        R K j (squareRootBornPostTailLowPrimeCutoff R),
+      squareRootLowPrimeProcessedSeatWeightReal x) =
+        squareRootLowPrimeRunningImbalanceReal R K j
+          (squareRootBornPostTailLowPrimeCutoff R) :=
+      squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier_weight_sum
+        (R := R) (K := K) (j := j)
+        (U := squareRootBornPostTailLowPrimeCutoff R) (by omega)
+    _ = (squareRootMatchedBornSmoothTransport R -
+          squareRootLowPrimeTerminalShallowBoundary R K j).re := by
+      have h := congrArg Complex.re
+        (squareRootLowPrimeRunningImbalance_at_cutoff_eq_matched_sub_shallowBoundary
+          R K j hR hK hKR hj)
+      simpa [squareRootLowPrimeRunningImbalanceReal] using h
+
+/-- A single proposition carrying all exact maps needed to identify the
+square-root obstruction across the Born/high, processed-seat, literal Go-wall,
+and tagged transport coordinates.
+
+The fixed prime `p` is the fresh wall coordinate used by the literal
+first-owner wall carrier. -/
+structure SquareRootLowPrimeCrossCoordinateIntertwiner
+    (R K j p : ℕ) : Prop where
+  postRootThreshold :
+    ∀ a r : ℕ,
+      r ∈ squareRootPostRootPrimePartnerProductBoundary R a (p * a) ↔
+        r ∈ squareRootPostRootPrimePartnerSet R a ∧
+          squareRootLowPrimeThresholdCrosses p (squareRootEndpoint R / r) a
+  bornThreshold :
+    ∀ a r : ℕ,
+      r ∈ squareRootBornPartnerBirthBoundary R a (p * a) ↔
+        r ∈ squareRootBornPartnerSet R (p * a) ∧
+          squareRootLowPrimeThresholdCrosses p (r - 1) a
+  processedTerminalToMatched :
+    (∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier
+        R K j (squareRootBornPostTailLowPrimeCutoff R),
+      squareRootLowPrimeProcessedSeatWeightReal x) =
+      (squareRootMatchedBornSmoothTransport R -
+        squareRootLowPrimeTerminalShallowBoundary R K j).re
+  terminalToMatched :
+    squareRootLowPrimeRunningImbalance R K j
+        (squareRootBornPostTailLowPrimeCutoff R) =
+      squareRootMatchedBornSmoothTransport R -
+        squareRootLowPrimeTerminalShallowBoundary R K j
+  literalWallCarrier :
+    squareRootLowPrimeWallPairCarrierCofactorFirst R K p =
+      squareRootLowPrimeWallPairCarrierOldPrimeFirst R K p
+  literalWallReassembly :
+    squareRootLowPrimeLiteralWallFalloutMass R K p =
+      squareRootLowPrimeLiteralWallResidualFalloutMass R K +
+        squareRootLowPrimeLiteralWallPartnerFalloutMass R K p
+  goSourceInjective :
+    Function.Injective squareRootLowPrimeGoStrictCrossingSourceTag
+  goMateInjective :
+    Set.InjOn squareRootLowPrimeGoStrictCrossingMateTag
+      (squareRootLowPrimeGoStrictCrossingCarrier R)
+  goSourceInTransport :
+    squareRootLowPrimeGoStrictCrossingSourceImage R ⊆
+      lowWheelCanonicalTaggedPhysicalCarrier R
+  goMateInTransport :
+    squareRootLowPrimeGoStrictCrossingMateImage R ⊆
+      lowWheelCanonicalTaggedPhysicalCarrier R
+  goImagesDisjoint :
+    Disjoint
+      (squareRootLowPrimeGoStrictCrossingSourceImage R)
+      (squareRootLowPrimeGoStrictCrossingMateImage R)
+  goStrictCancellation :
+    ((squareRootLowPrimeGoStrictCrossingSourceMass R : ℤ) : ℂ) +
+      squareRootLowPrimeGoStrictCrossingMateLedger R = 0
+  goRootEqualityCard :
+    (squareRootLowPrimeGoRootEqualityDefectCarrier R).card ≤ R
+  goRootEqualityMass :
+    |squareRootLowPrimeGoRootEqualityDefectMass R| ≤ (R : ℤ)
+  shallowBoundaryBound :
+    ‖squareRootLowPrimeTerminalShallowBoundary R K j‖ ≤
+      (R : ℝ) + (K : ℝ)
+
+/-- **Cross-coordinate square-root intertwiner.**
+
+Under the native terminal packet hypotheses and one fresh wall prime
+`K < p < R`, every structural edge in the diagram above is simultaneously
+realized.  The old high response has not disappeared while a new low
+obstruction appeared: both sides have been transported to the same
+threshold/first-owner/Go coordinates, while the terminal signed state remains
+exactly the historical matched `A-T` core modulo the explicit shallow boundary.
+-/
+theorem squareRootLowPrime_crossCoordinateIntertwiner
+    (R K j p : ℕ)
+    (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hp : p.Prime) (hKp : K < p) (hpR : p < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K)
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
+    (hVK : squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ)) :
+    SquareRootLowPrimeCrossCoordinateIntertwiner R K j p := by
+  have hR2 : 2 ≤ R := by omega
+  refine
+    { postRootThreshold := ?_
+      bornThreshold := ?_
+      processedTerminalToMatched := ?_
+      terminalToMatched := ?_
+      literalWallCarrier := ?_
+      literalWallReassembly := ?_
+      goSourceInjective := ?_
+      goMateInjective := ?_
+      goSourceInTransport := ?_
+      goMateInTransport := ?_
+      goImagesDisjoint := ?_
+      goStrictCancellation := ?_
+      goRootEqualityCard := ?_
+      goRootEqualityMass := ?_
+      shallowBoundaryBound := ?_ }
+  · intro a r
+    exact mem_squareRootPostRootPrimePartnerProductBoundary_iff_thresholdCrosses
+  · intro a r
+    exact mem_squareRootBornPartnerBirthBoundary_iff_thresholdCrosses
+  · exact
+      squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier_weight_sum_eq_matched_sub_shallowBoundary_re
+        R K j hR hK hKR hj
+  · exact
+      squareRootLowPrimeRunningImbalance_at_cutoff_eq_matched_sub_shallowBoundary
+        R K j hR hK hKR hj
+  · exact
+      squareRootLowPrimeWallPairCarrierCofactorFirst_eq_oldPrimeFirst
+        hR2 hp hKp hpR
+  · exact
+      squareRootLowPrimeLiteralWallFalloutMass_eq_residual_add_partner
+        hR2 hp hKp hpR
+  · exact squareRootLowPrimeGoStrictCrossingSourceTag_injective
+  · exact squareRootLowPrimeGoStrictCrossingMateTag_injOn R
+  · exact squareRootLowPrimeGoStrictCrossingSourceImage_subset_transport hR2
+  · exact squareRootLowPrimeGoStrictCrossingMateImage_subset_transport hR2
+  · exact squareRootLowPrimeGoStrictCrossingImages_disjoint R
+  · exact squareRootLowPrimeGoStrictCrossingMass_add_existingMate_eq_zero hR2
+  · exact squareRootLowPrimeGoRootEqualityDefectCarrier_card_le_root R
+  · exact abs_squareRootLowPrimeGoRootEqualityDefectMass_le_root R
+  · exact
+      norm_squareRootLowPrimeTerminalShallowBoundary_le_root_add_depth
+        R K j hR hK hKR hj hV0 hVK
 
 end RHLean.Proof
