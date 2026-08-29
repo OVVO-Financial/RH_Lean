@@ -211,11 +211,17 @@ theorem lowWheelCanonicalRepeatedTerminalBoundary_geometry
   have hcarrier := (Finset.mem_filter.mp hrepeated).1
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨_ht, hx⟩
   have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hx
-  rcases hshell with ⟨hp, _hpc, _hpk, hdown, hup⟩
-  have hpne : lowWheelTaggedDowncrossPivot y ≠ 0 := hp.ne_zero
+  rcases hshell with ⟨hpRaw, _hpc, _hpk, hdown, hup⟩
+  have hp : (lowWheelTaggedDowncrossPivot y).Prime := by
+    simpa [lowWheelTaggedDowncrossPivot] using hpRaw
+  change primeFaceProduct y.1 *
+      (y.2.2 / lowWheelTaggedDowncrossPivot y) ≤ R at hdown
+  change R < primeFaceProduct y.1 *
+      (lowWheelTaggedDowncrossPivot y *
+        (y.2.2 / lowWheelTaggedDowncrossPivot y)) at hup
   have hquot : y.2.2 / lowWheelTaggedDowncrossPivot y = 1 := by
     rw [hshape.1]
-    exact Nat.div_self hpne
+    exact Nat.div_self hp.pos
   have hdown' : primeFaceProduct y.1 ≤ R := by
     rw [hquot, Nat.mul_one] at hdown
     exact hdown
