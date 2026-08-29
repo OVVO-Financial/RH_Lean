@@ -51,11 +51,34 @@ theorem squareRootExternalTerminalFaceLedger_eq_carrierSum
   unfold squareRootExternalTerminalFaceLedger
     squareRootExternalTerminalFaceCarrier
   rw [Finset.sum_filter]
-  rw [Finset.sum_product]
-  apply Finset.sum_congr rfl
-  intro t _ht
-  unfold squareRootHighPrimeCofactorSet
-  rw [Finset.sum_filter]
+  calc
+    (∑ t ∈ admissiblePrimeFaces (R - 1),
+        ∑ _p ∈ squareRootHighPrimeCofactorSet R (primeFaceProduct t),
+          (booleanCubeSign t : ℂ)) =
+      ∑ t ∈ admissiblePrimeFaces (R - 1),
+        ∑ p ∈ Finset.Ioc R (squareRootEndpoint R),
+          if p.Prime ∧ primeFaceProduct t * p ≤ squareRootEndpoint R then
+            (booleanCubeSign t : ℂ)
+          else 0 := by
+      apply Finset.sum_congr rfl
+      intro t _ht
+      unfold squareRootHighPrimeCofactorSet
+      rw [Finset.sum_filter]
+    _ = ∑ z ∈
+        (admissiblePrimeFaces (R - 1)).product
+          (Finset.Ioc R (squareRootEndpoint R)),
+        if z.2.Prime ∧ primeFaceProduct z.1 * z.2 ≤ squareRootEndpoint R then
+          (booleanCubeSign z.1 : ℂ)
+        else 0 := by
+      symm
+      simpa only using
+        (Finset.sum_product
+          (s := admissiblePrimeFaces (R - 1))
+          (t := Finset.Ioc R (squareRootEndpoint R))
+          (f := fun z : LowWheelExternalTerminalFacePrime =>
+            if z.2.Prime ∧ primeFaceProduct z.1 * z.2 ≤ squareRootEndpoint R then
+              (booleanCubeSign z.1 : ℂ)
+            else 0))
 
 /-- **External high-prime / high-prime-grid identification.**  The original
 cofactor-first `T_R` is literally the flattened terminal face/high-prime grid. -/
