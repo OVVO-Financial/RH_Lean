@@ -6,6 +6,7 @@ on:
     paths:
       - RHLean/Proof/LowWheelCanonicalRepeatedTerminalHighPrimeBridge.lean
       - RHLean/Proof/LowWheelExternalTerminalFaceLedger.lean
+      - RHLean/Proof/LowWheelExternalTerminalParentSplit.lean
       - RHLean/Proof/LowWheelCanonicalDowncrossRoughCorrelationBridge.lean
       - .github/workflows/repeated-terminal-high-prime-synthesis.yml
   workflow_dispatch:
@@ -73,4 +74,5 @@ jobs:
         run: |
           lake build RHLean.Proof.LowWheelCanonicalRepeatedTerminalHighPrimeBridge
           lake build RHLean.Proof.LowWheelExternalTerminalFaceLedger
+          lake build RHLean.Proof.LowWheelExternalTerminalParentSplit
           lake build RHLean.Proof.LowWheelCanonicalDowncrossRoughCorrelationBridge
