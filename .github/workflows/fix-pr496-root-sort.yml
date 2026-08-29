@@ -1,0 +1,42 @@
+name: Fix PR496 root sort
+
+on:
+  push:
+    branches:
+      - agent/repeated-parent-fiber-classification
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/repeated-parent-fiber-classification
+          fetch-depth: 0
+      - name: Sort repeated-parent root import and clean fixer
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('RHLean.lean')
+          text = path.read_text()
+          target = 'import RHLean.Proof.LowWheelCanonicalRepeatedParentClassification\n'
+          anchor = 'import RHLean.Proof.LowWheelCanonicalPrimeSplit\n'
+          if target not in text:
+              raise SystemExit('target import missing')
+          if anchor not in text:
+              raise SystemExit('sort anchor missing')
+          text = text.replace(target, '', 1)
+          text = text.replace(anchor, anchor + target, 1)
+          path.write_text(text)
+          PY
+          rm .github/workflows/fix-pr496-root-sort.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add RHLean.lean .github/workflows/fix-pr496-root-sort.yml
+          git commit -m 'Sort repeated-parent root export'
+          git push origin HEAD:agent/repeated-parent-fiber-classification
