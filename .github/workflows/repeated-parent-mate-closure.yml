@@ -57,9 +57,11 @@ jobs:
       - uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-repeated-parent-mates-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean/Proof/LowWheelCanonicalRepeatedParentClassification.lean', 'RHLean/Proof/LowWheelCanonicalRepeatedTerminalCutoff.lean') }}
+          key: rhlean-repeated-parent-mates-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean/Proof/LowWheelCanonicalRepeatedParentClassification.lean', 'RHLean/Proof/LowWheelCanonicalRepeatedTerminalCutoff.lean', 'RHLean/Proof/LowWheelCanonicalRepeatedFrozenCofactorMate.lean') }}
           restore-keys: |
             rhlean-repeated-parent-${{ runner.os }}-${{ runner.arch }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
-      - name: Build repeated-parent terminal cutoff
-        run: lake build RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
+      - name: Build repeated-parent mate modules
+        run: |
+          lake build RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
+          lake build RHLean.Proof.LowWheelCanonicalRepeatedFrozenCofactorMate
