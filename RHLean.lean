@@ -581,6 +581,7 @@ import RHLean.Proof.SquareRootLowPrimeSignedResponseChildren
 import RHLean.Proof.SquareRootLowPrimeSignedResponseEnergy
 import RHLean.Proof.SquareRootLowPrimeSignedResponseMatching
 import RHLean.Proof.SquareRootLowPrimeSquareDefect
+import RHLean.Proof.SquareRootLowPrimeTerminalHighPrimeIntegration
 import RHLean.Proof.SquareRootLowPrimeUpperDisplacement
 import RHLean.Proof.SquareRootMertensEndpointAmplification
 import RHLean.Proof.SquareRootPredecessorPrimeCells
