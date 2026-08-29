@@ -54,7 +54,8 @@ theorem admissibleTerminalFace_product_mem_Ico
     Finset.mem_powerset.mpr htAdm.1
   have hpos : 0 < primeFaceProduct t :=
     primeFaceProduct_pos_of_mem_powerset htPow
-  exact Finset.mem_Ico.mpr ⟨by omega, by omega⟩
+  have hpredLt : R - 1 < R := by omega
+  exact Finset.mem_Ico.mpr ⟨by omega, htAdm.2.trans_lt hpredLt⟩
 
 /-- The low-wheel high-prime multiplicity at an admissible face product is
 literally the cardinality of its native high-prime fibre. -/
@@ -96,7 +97,11 @@ theorem squareRootTransportCofactorFirst_eq_externalTerminalFaceLedger
   rw [hleft, hreindex]
   apply Finset.sum_congr rfl
   intro t ht
+  change (booleanCubeSign t : ℂ) *
+      (lowWheelHighPrimeMultiplicity R (primeFaceProduct t) : ℂ) =
+    ∑ _p ∈ squareRootHighPrimeCofactorSet R (primeFaceProduct t),
+      (booleanCubeSign t : ℂ)
   rw [lowWheelHighPrimeMultiplicity_face_eq_highPrimeCard hR ht]
-  simp [F]
+  simp
 
 end RHLean.Proof
