@@ -47,6 +47,7 @@ jobs:
           lake build \
             RHLean.Proof.CreationResponseOthelloInvolution \
             RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution \
+            RHLean.Proof.SquareRootLowPrimeResponseMatchingOthelloInvolution \
             RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
 
       - name: Audit assumptions
