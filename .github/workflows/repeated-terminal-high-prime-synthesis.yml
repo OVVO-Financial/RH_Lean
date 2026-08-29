@@ -75,7 +75,7 @@ jobs:
           lake build RHLean.Proof.LowWheelExternalTerminalEightRootBound
 
       - name: Refresh canonical root manifest
-        run: lake exe mk_all
+        run: lake exe mk_all || test $? -eq 1
 
       - name: Build root manifest
         run: lake build RHLean
