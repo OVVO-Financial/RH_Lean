@@ -1,0 +1,65 @@
+name: Frozen top-bottom Othello fast check
+
+on:
+  push:
+    branches:
+      - agent/square-root-two-direction-othello-scratch
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: frozen-top-bottom-fast-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore Mathlib packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Restore scratch project build
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: top-bottom-project-${{ runner.os }}-${{ runner.arch }}-v1-${{ github.sha }}
+          restore-keys: |
+            othello-project-${{ runner.os }}-${{ runner.arch }}-v1-
+
+      - name: Kernel-check frozen top-bottom edge
+        id: leancheck
+        run: |
+          set +e
+          timeout 600 lake build RHLean.Proof.LowWheelFrozenCofactorTopBottomToggle
+          rc=$?
+          echo "exit_code=$rc" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Save top-bottom project build
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: top-bottom-project-${{ runner.os }}-${{ runner.arch }}-v1-${{ github.sha }}
+
+      - name: Fail if Lean failed
+        if: steps.leancheck.outputs.exit_code != '0'
+        run: exit 1
