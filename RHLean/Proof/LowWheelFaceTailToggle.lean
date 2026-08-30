@@ -55,7 +55,7 @@ theorem booleanCubeSign_erase_eq_neg
   have hnot : q ∉ t.erase q := Finset.notMem_erase q t
   have hsign := booleanCubeSign_insert_eq_neg (q := q) (t := t.erase q) hnot
   rw [Finset.insert_erase hq] at hsign
-  omega
+  linarith
 
 /-- Inserting a fresh coordinate multiplies the represented face product by
 that coordinate. -/
@@ -105,61 +105,91 @@ coordinate is positive. -/
 theorem lowWheelFaceTailToggleAt_involutive
     {q : ℕ} (hqpos : 0 < q) (x : LowWheelFaceTailState) :
     lowWheelFaceTailToggleAt q (lowWheelFaceTailToggleAt q x) = x := by
+  unfold lowWheelFaceTailToggleAt
   by_cases hqt : q ∈ x.1
   · have hnot : q ∉ x.1.erase q := Finset.notMem_erase q x.1
-    have hdiv : q ∣ q * x.2 := by exact dvd_mul_right q x.2
-    simp [lowWheelFaceTailToggleAt, hqt, hnot, hdiv, hqpos.ne',
-      Finset.insert_erase]
+    have hdiv : q ∣ q * x.2 := dvd_mul_right q x.2
+    have htail : (q * x.2) / q = x.2 := by
+      simpa [Nat.mul_comm] using (Nat.mul_div_left x.2 hqpos)
+    simp only [hqt, if_true, hnot, if_false, hdiv]
+    apply Prod.ext
+    · exact Finset.insert_erase hqt
+    · exact htail
   · by_cases hqm : q ∣ x.2
     · have hmem : q ∈ insert q x.1 := Finset.mem_insert_self q x.1
       have htail : q * (x.2 / q) = x.2 := Nat.mul_div_cancel' hqm
-      simp [lowWheelFaceTailToggleAt, hqt, hqm, hmem,
-        Finset.erase_insert, htail]
-    · simp [lowWheelFaceTailToggleAt, hqt, hqm]
+      simp only [hqt, if_false, hqm, if_true, hmem]
+      apply Prod.ext
+      · exact Finset.erase_insert hqt
+      · exact htail
+    · simp [hqt, hqm]
 
-/-- An active coordinate stays active after the transfer. -/
-theorem lowWheelFaceTailToggleAt_active
-    {q : ℕ} {x : LowWheelFaceTailState}
-    (hactive : q ∈ x.1 ∨ q ∣ x.2) :
-    q ∈ (lowWheelFaceTailToggleAt q x).1 ∨
-      q ∣ (lowWheelFaceTailToggleAt q x).2 := by
-  unfold lowWheelFaceTailToggleAt
-  by_cases hqt : q ∈ x.1
-  · simp only [hqt, if_true]
-    right
-    exact dvd_mul_right q x.2
-  · have hqm : q ∣ x.2 := hactive.resolve_left hqt
-    simp only [hqt, if_false, hqm, if_true]
-    exact Or.inl (Finset.mem_insert_self q x.1)
-
-/-- Every active transfer changes the Boolean face itself. -/
-theorem lowWheelFaceTailToggleAt_fst_ne_of_active
-    {q : ℕ} {x : LowWheelFaceTailState}
-    (hactive : q ∈ x.1 ∨ q ∣ x.2) :
-    (lowWheelFaceTailToggleAt q x).1 ≠ x.1 := by
-  unfold lowWheelFaceTailToggleAt
-  by_cases hqt : q ∈ x.1
-  · simp only [hqt, if_true]
-    intro heq
-    have hmem : q ∈ x.1.erase q := by
-      rw [heq]
-      exact hqt
-    exact (Finset.notMem_erase q x.1) hmem
-  · have hqm : q ∣ x.2 := hactive.resolve_left hqt
-    simp only [hqt, if_false, hqm, if_true]
-    intro heq
-    apply hqt
-    rw [← heq]
-    exact Finset.mem_insert_self q x.1
-
-/-- Every active transfer genuinely changes the full face/tail state. -/
-theorem lowWheelFaceTailToggleAt_ne_of_active
-    {q : ℕ} {x : LowWheelFaceTailState}
-    (hactive : q ∈ x.1 ∨ q ∣ x.2) :
-    lowWheelFaceTailToggleAt q x ≠ x := by
-  intro heq
-  exact (lowWheelFaceTailToggleAt_fst_ne_of_active hactive)
-    (congrArg Prod.fst heq)
+/-- Moving only a prime coordinate no smaller than an existing canonical pivot
+cannot create a smaller prime divisor of the cofactor-times-pivot-times-tail
+product.  Thus a pivot which was `minFac` before the move remains `minFac`
+after it. -/
+theorem lowWheelFaceTailToggleAt_preserves_minFac
+    {c p q m : ℕ} {t : Finset ℕ}
+    (hp : p.Prime) (hq : q.Prime) (hpq : p ≤ q)
+    (hmin : Nat.minFac (c * (p * m)) = p)
+    (hactive : q ∈ t ∨ q ∣ m) :
+    Nat.minFac
+        (c * (p * (lowWheelFaceTailToggleAt q (t, m)).2)) = p := by
+  let m' := (lowWheelFaceTailToggleAt q (t, m)).2
+  have hpDvdNew : p ∣ c * (p * m') := by
+    exact dvd_mul_of_dvd_right (dvd_mul_right p m') c
+  have hnewNe : c * (p * m') ≠ 1 := by
+    intro hone
+    have : p ∣ 1 := by simpa [hone] using hpDvdNew
+    exact hp.not_dvd_one this
+  let r := Nat.minFac (c * (p * m'))
+  have hrPrime : r.Prime := by
+    simpa [r] using Nat.minFac_prime hnewNe
+  have hrDvd : r ∣ c * (p * m') := by
+    simpa [r] using Nat.minFac_dvd (c * (p * m'))
+  have hnewLeP : r ≤ p := by
+    have h := Nat.minFac_le_of_dvd hp.two_le hpDvdNew
+    simpa [r] using h
+  have hpLeR : p ≤ r := by
+    rcases hrPrime.dvd_mul.mp hrDvd with hrc | hrpm
+    · have hrOld : r ∣ c * (p * m) := dvd_mul_of_dvd_left hrc (p * m)
+      have h := Nat.minFac_le_of_dvd hrPrime.two_le hrOld
+      rw [hmin] at h
+      exact h
+    · rcases hrPrime.dvd_mul.mp hrpm with hrp | hrm'
+      · have hrEqP : r = p :=
+          (Nat.prime_dvd_prime_iff_eq hrPrime hp).mp hrp
+        exact hrEqP.ge
+      · by_cases hqt : q ∈ t
+        · have hmEq : m' = q * m := by
+            simp [m', lowWheelFaceTailToggleAt, hqt]
+          rw [hmEq] at hrm'
+          rcases hrPrime.dvd_mul.mp hrm' with hrq | hrm
+          · have hrEqQ : r = q :=
+              (Nat.prime_dvd_prime_iff_eq hrPrime hq).mp hrq
+            simpa [hrEqQ] using hpq
+          · have hrOldTail : r ∣ p * m := dvd_mul_of_dvd_right hrm p
+            have hrOld : r ∣ c * (p * m) :=
+              dvd_mul_of_dvd_right hrOldTail c
+            have h := Nat.minFac_le_of_dvd hrPrime.two_le hrOld
+            rw [hmin] at h
+            exact h
+        · have hqm : q ∣ m := hactive.resolve_left hqt
+          have hmEq : m' = m / q := by
+            simp [m', lowWheelFaceTailToggleAt, hqt, hqm]
+          rw [hmEq] at hrm'
+          have hdiv : m / q ∣ m := by
+            refine ⟨q, ?_⟩
+            simpa [Nat.mul_comm] using (Nat.div_mul_cancel hqm).symm
+          have hrm : r ∣ m := hrm'.trans hdiv
+          have hrOldTail : r ∣ p * m := dvd_mul_of_dvd_right hrm p
+          have hrOld : r ∣ c * (p * m) :=
+            dvd_mul_of_dvd_right hrOldTail c
+          have h := Nat.minFac_le_of_dvd hrPrime.two_le hrOld
+          rw [hmin] at h
+          exact h
+  have hrEq : r = p := Nat.le_antisymm hnewLeP hpLeR
+  simpa [r, m'] using hrEq
 
 /-- Every active fixed-coordinate transfer reverses the Boolean sign. -/
 theorem lowWheelFaceTailToggleAt_sign_neg
