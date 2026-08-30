@@ -57,6 +57,9 @@ jobs:
       - name: Kernel-check signed downcross parent split
         run: timeout 300 lake build RHLean.Proof.LowWheelCanonicalDowncrossSignedParentSplit
 
+      - name: Kernel-check face-tail opposite move
+        run: timeout 300 lake build RHLean.Proof.LowWheelFaceTailToggle
+
       - name: Kernel-check opposite-fixed classification
         run: timeout 300 lake build RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
 
