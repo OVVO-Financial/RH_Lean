@@ -235,7 +235,21 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_parent
         lowWheelTaggedDowncrossPivot y) =
     primeFaceProduct y.1 *
       (y.2.2 / lowWheelTaggedDowncrossPivot y)
-  rw [Nat.mul_div_left _ hp.pos]
-  exact hprod
+  let a :=
+    (lowWheelFaceTailToggleAt q
+      (y.1, y.2.2 / lowWheelTaggedDowncrossPivot y)).2
+  have hdiv :
+      (lowWheelTaggedDowncrossPivot y * a) /
+          lowWheelTaggedDowncrossPivot y = a := by
+    apply Nat.mul_left_cancel hp.pos
+    exact Nat.mul_div_cancel'
+      (dvd_mul_right (lowWheelTaggedDowncrossPivot y) a)
+  rw [show
+      (lowWheelTaggedDowncrossPivot y *
+          (lowWheelFaceTailToggleAt q
+            (y.1, y.2.2 / lowWheelTaggedDowncrossPivot y)).2) /
+          lowWheelTaggedDowncrossPivot y = a by
+        simpa [a] using hdiv]
+  simpa using hprod
 
 end RHLean.Proof
