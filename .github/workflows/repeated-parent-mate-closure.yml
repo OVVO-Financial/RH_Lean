@@ -1,0 +1,68 @@
+name: Repeated parent mate closure check
+
+on:
+  push:
+    branches: [agent/repeated-parent-mate-closure]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: repeated-parent-mate-closure-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - id: strongpntcache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+      - name: Save StrongPNT dependency cache
+        if: steps.strongpntcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-repeated-parent-mates-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean/Proof/LowWheelCanonicalRepeatedParentClassification.lean', 'RHLean/Proof/LowWheelCanonicalRepeatedTerminalCutoff.lean', 'RHLean/Proof/LowWheelCanonicalRepeatedFrozenCofactorMate.lean', 'RHLean/Proof/LowWheelCanonicalRepeatedTerminalInternalMate.lean') }}
+          restore-keys: |
+            rhlean-repeated-parent-${{ runner.os }}-${{ runner.arch }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+      - name: Build repeated-parent mate modules
+        run: |
+          lake build RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
+          lake build RHLean.Proof.LowWheelCanonicalRepeatedFrozenCofactorMate
+          lake build RHLean.Proof.LowWheelCanonicalRepeatedTerminalInternalMate
