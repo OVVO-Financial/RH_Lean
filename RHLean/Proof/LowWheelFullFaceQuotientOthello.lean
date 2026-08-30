@@ -283,7 +283,7 @@ theorem lowWheelFullOppositePrime_toggleAt
 def lowWheelFullFaceQuotientMate
     (R : ℕ) (y : LowWheelFullTaggedPhysicalState) :
     LowWheelFullTaggedPhysicalState :=
-  if h : (lowWheelFullActivePrimeSet R y).Nonempty then
+  if _h : (lowWheelFullActivePrimeSet R y).Nonempty then
     lowWheelFullFaceQuotientToggleAt (lowWheelFullOppositePrime R y) y
   else y
 
@@ -303,7 +303,7 @@ theorem lowWheelFullFaceQuotientMate_mem
 /-- The total second mate is involutive on the complete physical carrier. -/
 theorem lowWheelFullFaceQuotientMate_involutive
     {R : ℕ} {y : LowWheelFullTaggedPhysicalState}
-    (hy : y ∈ lowWheelFullTaggedPhysicalCarrier R) :
+    (_hy : y ∈ lowWheelFullTaggedPhysicalCarrier R) :
     lowWheelFullFaceQuotientMate R (lowWheelFullFaceQuotientMate R y) = y := by
   unfold lowWheelFullFaceQuotientMate
   by_cases h : (lowWheelFullActivePrimeSet R y).Nonempty
@@ -351,7 +351,7 @@ theorem lowWheelFullStable_face_eq_empty
     rw [dif_pos h] at hstable
     exact lowWheelFullFaceQuotientToggleAt_ne
       (lowWheelFullOppositePrime_data h).2 hstable
-  apply Finset.eq_empty_iff_forall_not_mem.mpr
+  apply Finset.eq_empty_iff_forall_notMem.mpr
   intro q hqt
   have ht := (mem_lowWheelFullTaggedPhysicalCarrier.mp hy).1
   have hqGlobal := (Finset.mem_powerset.mp ht) hqt
