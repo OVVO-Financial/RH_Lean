@@ -35,6 +35,9 @@ theorem lowWheelCanonicalTaggedDowncrossFiber_pairwise
     Set.PairwiseDisjoint (↑(primesUpTo R).powerset)
       (lowWheelCanonicalTaggedDowncrossFiber R) := by
   intro t _ht u _hu htu
+  change Disjoint
+    (lowWheelCanonicalTaggedDowncrossFiber R t)
+    (lowWheelCanonicalTaggedDowncrossFiber R u)
   rw [Finset.disjoint_left]
   intro y hyt hyu
   rcases Finset.mem_image.mp hyt with ⟨x, _hx, rfl⟩
@@ -67,8 +70,8 @@ theorem lowWheelCanonicalDowncrossLedger_eq_tagged
     (R : ℕ) :
     lowWheelCanonicalDowncrossLedger R =
       lowWheelCanonicalTaggedDowncrossLedger R := by
-  rw [lowWheelCanonicalTaggedDowncrossCarrier_eq_biUnion_fibers]
   unfold lowWheelCanonicalTaggedDowncrossLedger
+  rw [lowWheelCanonicalTaggedDowncrossCarrier_eq_biUnion_fibers]
   rw [Finset.sum_biUnion (lowWheelCanonicalTaggedDowncrossFiber_pairwise R)]
   unfold lowWheelCanonicalDowncrossLedger
     lowWheelCanonicalTaggedDowncrossFiber
@@ -111,14 +114,16 @@ theorem lowWheelCanonicalTaggedDowncrossLedger_eq_unique_add_repeated
 /-- Every tagged downcross occurrence has weight norm at most one. -/
 theorem norm_lowWheelTaggedDowncrossWeight_le_one
     {R : ℕ} {y : LowWheelTaggedDowncrossState}
-    (hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R) :
+    (_hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R) :
     ‖lowWheelTaggedDowncrossWeight y‖ ≤ 1 := by
   unfold lowWheelTaggedDowncrossWeight canonicalMoebiusWeight
   rw [norm_mul, Complex.norm_intCast]
   have hface : ‖(booleanCubeSign y.1 : ℂ)‖ = 1 := by
     simp [booleanCubeSign]
   rw [hface, mul_one]
-  exact_mod_cast abs_moebius_le_one y.2.1
+  have hmu : |μ y.2.1| ≤ (1 : ℤ) := by
+    rcases ArithmeticFunction.moebius_eq_or y.2.1 with h | h | h <;> simp [h]
+  exact_mod_cast hmu
 
 /-- The unique-parent signed downcross mass is already root scale. -/
 theorem norm_lowWheelCanonicalDowncrossUniqueParentLedger_le_root
