@@ -439,11 +439,18 @@ import RHLean.Proof.LowPrimeParentChildWindowDifference
 import RHLean.Proof.LowWheelAncestryCrossLedgerBridge
 import RHLean.Proof.LowWheelCanonicalCofactorQuotientPairing
 import RHLean.Proof.LowWheelCanonicalDefectReduction
+import RHLean.Proof.LowWheelCanonicalDowncrossLateCancellation
+import RHLean.Proof.LowWheelCanonicalDowncrossLatePairing
+import RHLean.Proof.LowWheelCanonicalDowncrossOwnership
 import RHLean.Proof.LowWheelCanonicalDowncrossParentFibers
 import RHLean.Proof.LowWheelCanonicalPairingFrontier
 import RHLean.Proof.LowWheelCanonicalPrimeSplit
+import RHLean.Proof.LowWheelCanonicalRepeatedFrozenCofactorMate
+import RHLean.Proof.LowWheelCanonicalRepeatedFrozenFactorGeometry
 import RHLean.Proof.LowWheelCanonicalRepeatedParentClassification
+import RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
 import RHLean.Proof.LowWheelCanonicalRepeatedTerminalHighPrimeBridge
+import RHLean.Proof.LowWheelCanonicalRepeatedTerminalInternalMate
 import RHLean.Proof.LowWheelCofactorQuotientToggle
 import RHLean.Proof.LowWheelDoubleCubeSequentialFold
 import RHLean.Proof.LowWheelDoubleCubeTransport
@@ -586,6 +593,7 @@ import RHLean.Proof.SquareRootLowPrimeTerminalHighPrimeIntegration
 import RHLean.Proof.SquareRootLowPrimeUpperDisplacement
 import RHLean.Proof.SquareRootMertensEndpointAmplification
 import RHLean.Proof.SquareRootPredecessorPrimeCells
+import RHLean.Proof.SquareRootSmoothTransportEnergyRecoupling
 import RHLean.Proof.SquareRootTruncatedPacketEquivalences
 import RHLean.Proof.SurvivorDyadicActivityMismatch
 import RHLean.Proof.SurvivorDyadicStaticCancellation
@@ -613,13 +621,3 @@ import RHLean.Proof.VanishingTransitionRelevance
 import RHLean.Proof.WheelToLedgerEquivariance
 import RHLean.Proof.WheelToLedgerPushforward
 import RHLean.Verification.FiniteRangeCertificates
-
--- Consolidated proof modules with passing branch-level Actions.
-import RHLean.Proof.LowWheelCanonicalDowncrossLateCancellation
-import RHLean.Proof.LowWheelCanonicalDowncrossLatePairing
-import RHLean.Proof.LowWheelCanonicalDowncrossOwnership
-import RHLean.Proof.LowWheelCanonicalRepeatedFrozenCofactorMate
-import RHLean.Proof.LowWheelCanonicalRepeatedFrozenFactorGeometry
-import RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
-import RHLean.Proof.LowWheelCanonicalRepeatedTerminalInternalMate
-import RHLean.Proof.SquareRootSmoothTransportEnergyRecoupling
