@@ -104,11 +104,10 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMate_weight_neg
   have hpNotFace : p ∉ y.1 := by
     simpa [p] using lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hy
   have hc : y.2.1 = 1 := hgeom.1
-  have hk : y.2.2 = p := by simpa [p] using hgeom.2.1
   have hsign : booleanCubeSign (insert p y.1) = -booleanCubeSign y.1 := by
     simp [booleanCubeSign, hpNotFace, pow_succ]
   simp [lowWheelTaggedCanonicalWeight,
-    lowWheelCanonicalRepeatedTerminalInternalMate, hc, hk, p, hsign]
+    lowWheelCanonicalRepeatedTerminalInternalMate, hc, p, hsign]
 
 /-- The mate is pointwise distinct from the terminal source because the fresh
 prime was not already in the old Boolean face. -/
