@@ -76,14 +76,14 @@ private theorem lowWheelLargestRawToggle_ne
   · have hpk := hactive.resolve_left hpc
     simp only [hpc, if_false, hpk, if_true]
     intro heq
-    have hfirst : lowWheelLargestCofactorQuotientPivot x * x.1 = x.1 :=
+    have hfirst : x.1 * lowWheelLargestCofactorQuotientPivot x = x.1 :=
       congrArg Prod.fst heq
     have hlt :
-        x.1 < lowWheelLargestCofactorQuotientPivot x * x.1 := by
+        x.1 < x.1 * lowWheelLargestCofactorQuotientPivot x := by
       calc
-        x.1 = 1 * x.1 := by simp
-        _ < lowWheelLargestCofactorQuotientPivot x * x.1 :=
-          Nat.mul_lt_mul_of_pos_right hp.one_lt hcPos
+        x.1 = x.1 * 1 := by simp
+        _ < x.1 * lowWheelLargestCofactorQuotientPivot x :=
+          Nat.mul_lt_mul_of_pos_left hp.one_lt hcPos
     omega
 
 /-- Stable states of the completed least-prime mate are exactly product-one
@@ -108,12 +108,13 @@ theorem finiteOthelloStablePart_least_eq_productOne_union_defect
       refine ⟨hx, ?_⟩
       intro hmate
       unfold lowWheelLeastOthelloMate at hfix
-      simp only [hprod, if_false, hmate, if_true] at hfix
+      simp only [hprod, hmate, if_true] at hfix
       have hxData := mem_lowWheelCanonicalPhysicalStateSet.mp hx
       have hcPos : 0 < x.1 := by
         have hc1 := (Finset.mem_Ico.mp hxData.1).1
         omega
-      have hiff := lowWheelCanonicalToggle_eq_self_iff_product_eq_one hcPos
+      have hiff := lowWheelCanonicalToggle_eq_self_iff_product_eq_one
+        (c := x.1) (k := x.2) hcPos
       exact hprod (hiff.mp hfix)
   · intro hxUnion
     rcases Finset.mem_union.mp hxUnion with h1 | hd
@@ -124,10 +125,6 @@ theorem finiteOthelloStablePart_least_eq_productOne_union_defect
     · rcases Finset.mem_filter.mp hd with ⟨hx, hnot⟩
       apply Finset.mem_filter.mpr
       refine ⟨hx, ?_⟩
-      have hxData := mem_lowWheelCanonicalPhysicalStateSet.mp hx
-      have hcPos : 0 < x.1 := by
-        have hc1 := (Finset.mem_Ico.mp hxData.1).1
-        omega
       have hprod : x.1 * x.2 ≠ 1 := by
         intro hprod
         have htoggle := lowWheelCanonicalToggle_eq_self_of_product_eq_one hprod
@@ -158,7 +155,7 @@ theorem finiteOthelloStablePart_largest_eq_productOne_union_defect
       refine ⟨hx, hprod, ?_⟩
       intro hmate
       unfold lowWheelLargestOthelloMate at hfix
-      simp only [hprod, if_false, hmate, if_true] at hfix
+      simp only [hprod, hmate, if_true] at hfix
       exact (lowWheelLargestRawToggle_ne ht hx hprod) hfix
   · intro hxUnion
     rcases Finset.mem_union.mp hxUnion with h1 | hd
