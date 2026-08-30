@@ -37,8 +37,13 @@ def squareRootLowPrimeCanonicalLibertyFailureRoots
     n ∈ squareRootLowPrimeCanonicalLibertyFailureRoots K U R ↔
       0 < n ∧ n ≤ R ∧
         (squareRootLowPrimeFailurePrimeCandidates K U R n).Nonempty := by
-  simp [squareRootLowPrimeCanonicalLibertyFailureRoots]
-  omega
+  simp only [squareRootLowPrimeCanonicalLibertyFailureRoots,
+    Finset.mem_filter, Finset.mem_Icc]
+  constructor
+  · rintro ⟨⟨hn1, hnR⟩, hfail⟩
+    exact ⟨by omega, hnR, hfail⟩
+  · rintro ⟨hn, hnR, hfail⟩
+    exact ⟨⟨by omega, hnR⟩, hfail⟩
 
 /-- Every retained canonical home carries the failure-root data already used by
 `SquareRootLowPrimeCanonicalFailureRoot`. -/
