@@ -2,23 +2,19 @@ import RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
 
 open RHLean.Proof
 
-private def terminal (R : Nat) := squareRootBornPostTailLowPrimeCutoff R
+/-!
+Kernel-only smoke test for the processed-seat no-liberty Othello seam.
 
-#eval (squareRootLowPrimeProcessedSeatDescendingTerminalFrontier
-  10 1 0 (terminal 10)).card
-#eval (squareRootLowPrimeProcessedSeatNoLibertyBoundary
-  10 1 0 (terminal 10)).card
-#eval squareRootLowPrimeProcessedSeatDescendingTerminalFrontier
-  10 1 0 (terminal 10)
-#eval squareRootLowPrimeProcessedSeatNoLibertyBoundary
-  10 1 0 (terminal 10)
+The carriers in this proof path are deliberately noncomputable, so this file
+must not use `#eval`.  The custom workflow checks the declarations themselves;
+the final arithmetic stable-boundary theorem belongs in the imported module.
+-/
 
-#eval (squareRootLowPrimeProcessedSeatDescendingTerminalFrontier
-  20 1 0 (terminal 20)).card
-#eval (squareRootLowPrimeProcessedSeatNoLibertyBoundary
-  20 1 0 (terminal 20)).card
-
-#eval (squareRootLowPrimeProcessedSeatDescendingTerminalFrontier
-  30 1 0 (terminal 30)).card
-#eval (squareRootLowPrimeProcessedSeatNoLibertyBoundary
-  30 1 0 (terminal 30)).card
+#check squareRootLowPrimeProcessedSeatNoLibertyMate
+#check squareRootLowPrimeProcessedSeatNoLibertyMate_mem
+#check squareRootLowPrimeProcessedSeatNoLibertyMate_involutive
+#check squareRootLowPrimeProcessedSeatNoLibertyMate_weight_neg
+#check finiteOthelloStablePart_processedSeatNoLibertyMate_eq_descendingFrontier
+#check squareRootLowPrimeProcessedSeatNoLibertyMate_stableMass_eq_runningImbalance
+#check squareRootLowPrimeProcessedSeatNoLibertyBoundary
+#check squareRootLowPrimeNoLibertyBoundaryWeight
