@@ -1,8 +1,0 @@
-import RHLean.Proof.SquareRootLowPrimeNoLibertyBoundaryHome
-
-open RHLean.Proof
-
-#check squareRootLowPrimeNoLibertyBoundaryHome_injOn
-#check squareRootLowPrimeNoLibertyBoundaryHome_mem
-#check squareRootLowPrimeNoLibertyBoundaryHomeSpace_card_le_four_root
-#check squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_le_four_root
