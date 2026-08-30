@@ -32,5 +32,5 @@ jobs:
           test: false
           lint: false
 
-      - name: Kernel-check canonical repeated mover
-        run: timeout 600 lake build RHLean.Proof.LowWheelCanonicalRepeatedMovableOthello
+      - name: Kernel-check lifted repeated-parent toggle
+        run: timeout 600 lake build RHLean.Proof.LowWheelCanonicalRepeatedMovableToggle
