@@ -48,9 +48,9 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorPrime_spec
   have hcgt := (Finset.mem_filter.mp hy).2
   have hcne : y.2.1 ≠ 1 := by omega
   constructor
-  · simpa [lowWheelCanonicalRepeatedFrozenCofactorPrime] using
+  · simpa only [lowWheelCanonicalRepeatedFrozenCofactorPrime] using
       Nat.minFac_prime hcne
-  · simpa [lowWheelCanonicalRepeatedFrozenCofactorPrime] using
+  · simpa only [lowWheelCanonicalRepeatedFrozenCofactorPrime] using
       Nat.minFac_dvd y.2.1
 
 /-- Frozen shape turns the abstract mate into the requested concrete formula
@@ -66,11 +66,15 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorMate_eq
   let q := Nat.minFac c
   have hfrozen := (Finset.mem_filter.mp hy).1
   have hshape := (Finset.mem_filter.mp hfrozen).2
-  have hk : k = p := by simpa [p] using hshape.1
+  have hk : k = p := by simpa only [p] using hshape.1
   have hqd : q ∣ c := by
-    simpa [q] using (lowWheelCanonicalRepeatedFrozenCofactorPrime_spec hy).2
-  simp [lowWheelCanonicalRepeatedFrozenCofactorMate,
-    lowWheelCanonicalRepeatedFrozenCofactorPrime, q, hqd, hk, p]
+    simpa only [q, lowWheelCanonicalRepeatedFrozenCofactorPrime] using
+      (lowWheelCanonicalRepeatedFrozenCofactorPrime_spec hy).2
+  change (t, lowWheelCofactorQuotientToggleAt q (c, k)) =
+    (t, (c / q, q * p))
+  unfold lowWheelCofactorQuotientToggleAt
+  simp only [hqd, if_true]
+  rw [hk]
 
 /-- The frozen `c>1` mate is a literal occurrence of the already-existing
 physical transport ledger on the same Boolean face. -/
@@ -80,10 +84,10 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorMate_mem_transport
     lowWheelCanonicalRepeatedFrozenCofactorMate y ∈
       lowWheelCanonicalTaggedPhysicalCarrier R := by
   rcases y with ⟨t, ⟨c, k⟩⟩
+  let q := lowWheelCanonicalRepeatedFrozenCofactorPrime (t, (c, k))
   have hprime := lowWheelCanonicalRepeatedFrozenCofactorPrime_spec hy
-  let q := Nat.minFac c
-  have hqPrime : q.Prime := by simpa [q] using hprime.1
-  have hqc : q ∣ c := by simpa [q] using hprime.2
+  have hqPrime : q.Prime := by exact hprime.1
+  have hqc : q ∣ c := by exact hprime.2
   have hfrozen := (Finset.mem_filter.mp hy).1
   have hrepeated := (Finset.mem_filter.mp hfrozen).1
   have htagged := (Finset.mem_filter.mp hrepeated).1
@@ -99,17 +103,20 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorMate_mem_transport
   have hcdiv : c / q ∣ c := ⟨q, (Nat.div_mul_cancel hqc).symm⟩
   have hmateSq : Squarefree (c / q) :=
     hphysData.2.2.1.squarefree_of_dvd hcdiv
-  have hmatePhysical : lowWheelCofactorQuotientToggleAt q (c, k) ∈
-      lowWheelCanonicalPhysicalStateSet R t := by
-    apply mem_lowWheelCanonicalPhysicalStateSet.mpr
+  have hmateSq' :
+      Squarefree (lowWheelCofactorQuotientToggleAt q (c, k)).1 := by
     unfold lowWheelCofactorQuotientToggleAt
     simp only [hqc, if_true]
-    exact ⟨hmateRanges.1, hmateRanges.2, hmateSq, by
-      simpa [lowWheelCofactorQuotientToggleAt, hqc] using hmateCarrier⟩
+    exact hmateSq
+  have hmatePhysical : lowWheelCofactorQuotientToggleAt q (c, k) ∈
+      lowWheelCanonicalPhysicalStateSet R t := by
+    exact mem_lowWheelCanonicalPhysicalStateSet.mpr
+      ⟨hmateRanges.1, hmateRanges.2, hmateSq', hmateCarrier⟩
   apply mem_lowWheelCanonicalTaggedPhysicalCarrier.mpr
   refine ⟨htag.1, ?_⟩
-  simpa [lowWheelCanonicalRepeatedFrozenCofactorMate,
-    lowWheelCanonicalRepeatedFrozenCofactorPrime, q] using hmatePhysical
+  change lowWheelCofactorQuotientToggleAt q (c, k) ∈
+    lowWheelCanonicalPhysicalStateSet R t
+  exact hmatePhysical
 
 /-- The existing mate has exactly the opposite signed physical weight. -/
 theorem lowWheelCanonicalRepeatedFrozenCofactorMate_weight_neg
@@ -119,19 +126,18 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorMate_weight_neg
         (lowWheelCanonicalRepeatedFrozenCofactorMate y) =
       -lowWheelTaggedCanonicalWeight (y.1, y.2) := by
   rcases y with ⟨t, ⟨c, k⟩⟩
+  let q := lowWheelCanonicalRepeatedFrozenCofactorPrime (t, (c, k))
   have hprime := lowWheelCanonicalRepeatedFrozenCofactorPrime_spec hy
-  let q := Nat.minFac c
-  have hqPrime : q.Prime := by simpa [q] using hprime.1
-  have hqc : q ∣ c := by simpa [q] using hprime.2
+  have hqPrime : q.Prime := by exact hprime.1
+  have hqc : q ∣ c := by exact hprime.2
   have hfrozen := (Finset.mem_filter.mp hy).1
   have hrepeated := (Finset.mem_filter.mp hfrozen).1
   have htagged := (Finset.mem_filter.mp hrepeated).1
   have htag := mem_lowWheelCanonicalTaggedDowncrossCarrier.mp htagged
   have hphys := (mem_lowWheelCanonicalDowncrossPart.mp htag.2).1
   have hsq := (mem_lowWheelCanonicalPhysicalStateSet.mp hphys).2.2.1
-  unfold lowWheelTaggedCanonicalWeight
-  simpa [lowWheelCanonicalRepeatedFrozenCofactorMate,
-    lowWheelCanonicalRepeatedFrozenCofactorPrime, q] using
+  simpa only [lowWheelCanonicalRepeatedFrozenCofactorMate,
+    lowWheelTaggedCanonicalWeight, q] using
     (lowWheelCofactorQuotientToggleAt_weight_neg
       (t := t) hqPrime hsq (Or.inl hqc))
 
@@ -141,10 +147,10 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorMate_ne
     (hy : y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R) :
     lowWheelCanonicalRepeatedFrozenCofactorMate y ≠ (y.1, y.2) := by
   rcases y with ⟨t, ⟨c, k⟩⟩
+  let q := lowWheelCanonicalRepeatedFrozenCofactorPrime (t, (c, k))
   have hprime := lowWheelCanonicalRepeatedFrozenCofactorPrime_spec hy
-  let q := Nat.minFac c
-  have hqPrime : q.Prime := by simpa [q] using hprime.1
-  have hqc : q ∣ c := by simpa [q] using hprime.2
+  have hqPrime : q.Prime := by exact hprime.1
+  have hqc : q ∣ c := by exact hprime.2
   have hfrozen := (Finset.mem_filter.mp hy).1
   have hrepeated := (Finset.mem_filter.mp hfrozen).1
   have htagged := (Finset.mem_filter.mp hrepeated).1
@@ -157,7 +163,8 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorMate_ne
   have hstate := congrArg Prod.snd heq
   have hcofactor := congrArg Prod.fst hstate
   change (lowWheelCofactorQuotientToggleAt q (c, k)).1 = c at hcofactor
-  simp only [lowWheelCofactorQuotientToggleAt, hqc, if_true] at hcofactor
+  unfold lowWheelCofactorQuotientToggleAt at hcofactor
+  simp only [hqc, if_true] at hcofactor
   have hqdSource : q ∣ c := hqc
   rw [← hcofactor] at hqdSource
   exact hnot hqdSource
