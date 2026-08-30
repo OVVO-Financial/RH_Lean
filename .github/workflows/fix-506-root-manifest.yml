@@ -1,0 +1,44 @@
+name: Fix PR 506 root manifest
+
+on:
+  push:
+    branches: [agent/no-liberty-boundary-home]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/no-liberty-boundary-home
+          fetch-depth: 0
+      - name: Register theorem and remove branch-only probes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('RHLean.lean')
+          lines = p.read_text().splitlines()
+          new = 'import RHLean.Proof.SquareRootLowPrimeNoLibertyBoundaryHome'
+          if new not in lines:
+              for i, line in enumerate(lines):
+                  if line.startswith('import ') and line > new:
+                      lines.insert(i, new)
+                      break
+              else:
+                  lines.append(new)
+          p.write_text('\n'.join(lines) + '\n')
+          PY
+          rm -f \
+            .github/workflows/no-liberty-boundary-fast.yml \
+            .github/workflows/no-liberty-boundary-home-probe.yml \
+            ScratchNoLibertyBoundary.lean \
+            .github/workflows/fix-506-root-manifest.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "Register no-liberty home theorem in root manifest"
+          git push origin HEAD:agent/no-liberty-boundary-home
