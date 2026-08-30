@@ -55,7 +55,7 @@ theorem booleanCubeSign_erase_eq_neg
   have hnot : q ∉ t.erase q := Finset.notMem_erase q t
   have hsign := booleanCubeSign_insert_eq_neg (q := q) (t := t.erase q) hnot
   rw [Finset.insert_erase hq] at hsign
-  linarith
+  omega
 
 /-- Inserting a fresh coordinate multiplies the represented face product by
 that coordinate. -/
@@ -105,24 +105,17 @@ coordinate is positive. -/
 theorem lowWheelFaceTailToggleAt_involutive
     {q : ℕ} (hqpos : 0 < q) (x : LowWheelFaceTailState) :
     lowWheelFaceTailToggleAt q (lowWheelFaceTailToggleAt q x) = x := by
-  unfold lowWheelFaceTailToggleAt
   by_cases hqt : q ∈ x.1
   · have hnot : q ∉ x.1.erase q := Finset.notMem_erase q x.1
-    have hdiv : q ∣ q * x.2 := dvd_mul_right q x.2
-    have htail : (q * x.2) / q = x.2 := by
-      exact Nat.mul_div_left x.2 q
-    simp only [hqt, if_true, hnot, if_false, hdiv]
-    apply Prod.ext
-    · exact Finset.insert_erase hqt
-    · exact htail
+    have hdiv : q ∣ q * x.2 := by exact dvd_mul_right q x.2
+    simp [lowWheelFaceTailToggleAt, hqt, hnot, hdiv, hqpos.ne',
+      Finset.insert_erase]
   · by_cases hqm : q ∣ x.2
     · have hmem : q ∈ insert q x.1 := Finset.mem_insert_self q x.1
       have htail : q * (x.2 / q) = x.2 := Nat.mul_div_cancel' hqm
-      simp only [hqt, if_false, hqm, if_true, hmem]
-      apply Prod.ext
-      · exact Finset.erase_insert hqt
-      · exact htail
-    · simp [hqt, hqm]
+      simp [lowWheelFaceTailToggleAt, hqt, hqm, hmem,
+        Finset.erase_insert, htail]
+    · simp [lowWheelFaceTailToggleAt, hqt, hqm]
 
 /-- Every active fixed-coordinate transfer reverses the Boolean sign. -/
 theorem lowWheelFaceTailToggleAt_sign_neg
