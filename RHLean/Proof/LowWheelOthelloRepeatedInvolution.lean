@@ -34,7 +34,7 @@ def lowWheelOthelloWeight
 def lowWheelOthelloRepeatedOppositeMate
     (R : ℕ) (y : LowWheelOthelloTaggedDowncrossState) :
     LowWheelOthelloTaggedDowncrossState :=
-  if h : (lowWheelOthelloMovablePrimeSet R y).Nonempty then
+  if _h : (lowWheelOthelloMovablePrimeSet R y).Nonempty then
     lowWheelOthelloParentToggleAt (lowWheelOthelloOppositePrime R y) y
   else y
 
