@@ -54,6 +54,9 @@ jobs:
       - name: Kernel-check arithmetic response involution
         run: timeout 300 lake build RHLean.Proof.SquareRootLowPrimeResponseMatchingOthelloInvolution
 
+      - name: Kernel-check signed downcross parent split
+        run: timeout 300 lake build RHLean.Proof.LowWheelCanonicalDowncrossSignedParentSplit
+
       - name: Kernel-check opposite-fixed classification
         run: timeout 300 lake build RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
 
