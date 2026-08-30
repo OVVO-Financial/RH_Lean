@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: read
-  actions: read
+  actions: write
 
 concurrency:
   group: no-liberty-home-${{ github.ref }}
@@ -37,7 +37,9 @@ jobs:
           python3 scripts/strongpnt_424/apply_pnt5_mid.py
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
-      - uses: actions/cache/restore@v5
+      - name: Restore StrongPNT port build cache
+        id: strongpntcache
+        uses: actions/cache/restore@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
@@ -47,6 +49,14 @@ jobs:
             strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
+      - name: Save StrongPNT port build cache
+        if: steps.strongpntcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
