@@ -18,6 +18,7 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Arithmetic
+open LowWheelCanonicalDowncrossOwnership
 
 attribute [local instance] Classical.propDecidable
 
