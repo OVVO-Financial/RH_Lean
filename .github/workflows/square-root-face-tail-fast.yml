@@ -1,4 +1,4 @@
-name: Face-tail Othello fast check
+name: Repeated-parent Othello fast check
 
 on:
   push:
@@ -32,5 +32,5 @@ jobs:
           test: false
           lint: false
 
-      - name: Kernel-check face-tail opposite move
-        run: timeout 600 lake build RHLean.Proof.LowWheelFaceTailToggle
+      - name: Kernel-check canonical repeated mover
+        run: timeout 600 lake build RHLean.Proof.LowWheelCanonicalRepeatedMovableOthello
