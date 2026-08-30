@@ -6,14 +6,12 @@ import RHLean.Proof.SquareRootLowPrimeMatchingDisplacement
 # The complete processed-prime chronology as one involution
 
 Sequential fresh-prime matching can be viewed as one Othello position rather
-than a long sequence of local deletions.  At the first stage where a state is
+than a long sequence of local deletions. At the first stage where a state is
 paired, remember its unique opposite endpoint; states never paired are fixed.
 
 The resulting global map is a genuine sign-reversing involution on the original
-finite carrier.  Its fixed set is exactly the existing iterated matching
-frontier.  Thus the terminal frontier is literally a fixed-point set, allowing
-it to be compared to a second arithmetic involution by the finite parity
-principle in `AlternatingSignMatchingParity`.
+finite carrier. Its fixed set is exactly the existing iterated matching
+frontier.
 -/
 
 noncomputable section
@@ -65,6 +63,36 @@ private theorem squareRootLowPrimeProcessedSeatPairUpper_iff_exists_lower
         squareRootLowPrimeProcessedSeatExtend p y = x := by
   simp [squareRootLowPrimeProcessedSeatPairUpper]
 
+private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_lower
+    {S : Finset SquareRootLowPrimeProcessedState} {p : ℕ}
+    {x : SquareRootLowPrimeProcessedState}
+    (hx : x ∈ squareRootLowPrimeProcessedSeatPairLower S p) :
+    squareRootLowPrimeProcessedSeatStepInvolution S p x =
+      squareRootLowPrimeProcessedSeatExtend p x := by
+  unfold squareRootLowPrimeProcessedSeatStepInvolution
+  rw [if_pos hx]
+
+private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_upper
+    {S : Finset SquareRootLowPrimeProcessedState} {p : ℕ}
+    {x : SquareRootLowPrimeProcessedState}
+    (hx : x ∉ squareRootLowPrimeProcessedSeatPairLower S p)
+    (hupper : ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
+      squareRootLowPrimeProcessedSeatExtend p y = x) :
+    squareRootLowPrimeProcessedSeatStepInvolution S p x =
+      squareRootLowPrimeProcessedSeatPairPreimage S p x hupper := by
+  unfold squareRootLowPrimeProcessedSeatStepInvolution
+  rw [if_neg hx, dif_pos hupper]
+
+private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired
+    {S : Finset SquareRootLowPrimeProcessedState} {p : ℕ}
+    {x : SquareRootLowPrimeProcessedState}
+    (hx : x ∉ squareRootLowPrimeProcessedSeatPairLower S p)
+    (hupper : ¬ ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
+      squareRootLowPrimeProcessedSeatExtend p y = x) :
+    squareRootLowPrimeProcessedSeatStepInvolution S p x = x := by
+  unfold squareRootLowPrimeProcessedSeatStepInvolution
+  rw [if_neg hx, dif_neg hupper]
+
 /-- The one-step involution preserves the ambient carrier. -/
 theorem squareRootLowPrimeProcessedSeatStepInvolution_mem
     (S : Finset SquareRootLowPrimeProcessedState) (p : ℕ)
@@ -72,15 +100,16 @@ theorem squareRootLowPrimeProcessedSeatStepInvolution_mem
     squareRootLowPrimeProcessedSeatStepInvolution S p x ∈ S := by
   classical
   by_cases hxLower : x ∈ squareRootLowPrimeProcessedSeatPairLower S p
-  · simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower]
+  · rw [squareRootLowPrimeProcessedSeatStepInvolution_of_lower hxLower]
     exact (mem_squareRootLowPrimeProcessedSeatPairLower.mp hxLower).2.2.2
   · by_cases hupper :
       ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
         squareRootLowPrimeProcessedSeatExtend p y = x
-    · have hspec := squareRootLowPrimeProcessedSeatPairPreimage_spec hupper
-      simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, hupper]
-      exact (mem_squareRootLowPrimeProcessedSeatPairLower.mp hspec.1).1
-    · simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, hupper, hxS]
+    · rw [squareRootLowPrimeProcessedSeatStepInvolution_of_upper hxLower hupper]
+      exact squareRootLowPrimeProcessedSeatPairLower_subset S p
+        (squareRootLowPrimeProcessedSeatPairPreimage_spec hupper).1
+    · rw [squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired hxLower hupper]
+      exact hxS
 
 /-- Every lower endpoint is sent to the corresponding upper endpoint, and the
 upper endpoint is sent back. -/
@@ -96,9 +125,10 @@ theorem squareRootLowPrimeProcessedSeatStepInvolution_involutive
       unfold y squareRootLowPrimeProcessedSeatPairUpper
       exact Finset.mem_image.mpr ⟨x, hxLower, rfl⟩
     have hyNotLower : y ∉ squareRootLowPrimeProcessedSeatPairLower S p := by
+      intro hyLower
       exact (Finset.disjoint_left.mp
         (squareRootLowPrimeProcessedSeatPairLower_disjoint_upper S p))
-        (by exact hyUpper) |>.elim
+        hyLower hyUpper
     have hpre :
         ∃ z ∈ squareRootLowPrimeProcessedSeatPairLower S p,
           squareRootLowPrimeProcessedSeatExtend p z = y :=
@@ -106,8 +136,10 @@ theorem squareRootLowPrimeProcessedSeatStepInvolution_involutive
     have hspec := squareRootLowPrimeProcessedSeatPairPreimage_spec hpre
     have hback : squareRootLowPrimeProcessedSeatPairPreimage S p y hpre = x :=
       squareRootLowPrimeProcessedSeatExtend_injOn hp hspec.1 hxLower hspec.2
-    simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, y,
-      hyNotLower, hpre, hback]
+    rw [squareRootLowPrimeProcessedSeatStepInvolution_of_lower hxLower]
+    change squareRootLowPrimeProcessedSeatStepInvolution S p y = x
+    rw [squareRootLowPrimeProcessedSeatStepInvolution_of_upper hyNotLower hpre,
+      hback]
   · by_cases hupper :
       ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
         squareRootLowPrimeProcessedSeatExtend p y = x
@@ -116,9 +148,11 @@ theorem squareRootLowPrimeProcessedSeatStepInvolution_involutive
         (squareRootLowPrimeProcessedSeatPairPreimage_spec hupper).1
       have hyExt : squareRootLowPrimeProcessedSeatExtend p y = x :=
         (squareRootLowPrimeProcessedSeatPairPreimage_spec hupper).2
-      simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, hupper,
-        y, hyLower, hyExt]
-    · simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, hupper]
+      rw [squareRootLowPrimeProcessedSeatStepInvolution_of_upper hxLower hupper]
+      change squareRootLowPrimeProcessedSeatStepInvolution S p y = x
+      rw [squareRootLowPrimeProcessedSeatStepInvolution_of_lower hyLower, hyExt]
+    · rw [squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired hxLower hupper,
+        squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired hxLower hupper]
 
 /-- One-step fixed points are exactly states outside the paired population. -/
 theorem squareRootLowPrimeProcessedSeatStepInvolution_eq_self_iff
@@ -138,8 +172,8 @@ theorem squareRootLowPrimeProcessedSeatStepInvolution_eq_self_iff
       exact (Finset.disjoint_left.mp
         (squareRootLowPrimeProcessedSeatPairLower_disjoint_upper S p))
         hxLower hxUpper
-    simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower,
-      hxPaired, hne]
+    rw [squareRootLowPrimeProcessedSeatStepInvolution_of_lower hxLower]
+    exact ⟨fun h => (hne h).elim, fun h => (h hxPaired).elim⟩
   · by_cases hupper :
       ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
         squareRootLowPrimeProcessedSeatExtend p y = x
@@ -151,20 +185,22 @@ theorem squareRootLowPrimeProcessedSeatStepInvolution_eq_self_iff
       have hne : squareRootLowPrimeProcessedSeatPairPreimage S p x hupper ≠ x := by
         intro heq
         have hxLower' : x ∈ squareRootLowPrimeProcessedSeatPairLower S p := by
-          simpa [heq] using hspec.1
+          rw [← heq]
+          exact hspec.1
         exact hxLower hxLower'
-      simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, hupper,
-        hxPaired, hne]
+      rw [squareRootLowPrimeProcessedSeatStepInvolution_of_upper hxLower hupper]
+      exact ⟨fun h => (hne h).elim, fun h => (h hxPaired).elim⟩
     · have hxNotUpper : x ∉ squareRootLowPrimeProcessedSeatPairUpper S p := by
-        simpa [squareRootLowPrimeProcessedSeatPairUpper_iff_exists_lower]
-          using hupper
+        intro hxUpper
+        exact hupper
+          (squareRootLowPrimeProcessedSeatPairUpper_iff_exists_lower.mp hxUpper)
       have hxNotPaired : x ∉ squareRootLowPrimeProcessedSeatPaired S p := by
         intro hx
         rcases Finset.mem_union.mp hx with h | h
         · exact hxLower h
         · exact hxNotUpper h
-      simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, hupper,
-        hxNotPaired]
+      rw [squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired hxLower hupper]
+      exact ⟨fun _ => hxNotPaired, fun _ => rfl⟩
 
 /-- Every moved one-step state has opposite processed-seat weight. -/
 theorem squareRootLowPrimeProcessedSeatStepInvolution_weight_neg
@@ -176,7 +212,7 @@ theorem squareRootLowPrimeProcessedSeatStepInvolution_weight_neg
       -squareRootLowPrimeProcessedSeatWeightReal x := by
   classical
   by_cases hxLower : x ∈ squareRootLowPrimeProcessedSeatPairLower S p
-  · simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower]
+  · rw [squareRootLowPrimeProcessedSeatStepInvolution_of_lower hxLower]
     exact squareRootLowPrimeProcessedSeatExtend_weight_eq_neg hp hxLower
   · by_cases hupper :
       ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
@@ -185,10 +221,10 @@ theorem squareRootLowPrimeProcessedSeatStepInvolution_weight_neg
       have hforward :=
         squareRootLowPrimeProcessedSeatExtend_weight_eq_neg hp hspec.1
       rw [hspec.2] at hforward
-      simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, hupper]
+      rw [squareRootLowPrimeProcessedSeatStepInvolution_of_upper hxLower hupper]
       linarith
-    · simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, hupper]
-      at hne
+    · exact (hne
+        (squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired hxLower hupper)).elim
 
 /-- Complete chronological matching, with every state paired at the first stage
 that removes it and never-paired states left fixed. -/
@@ -212,13 +248,15 @@ theorem squareRootLowPrimeProcessedSeatMatchingInvolution_mem
   | nil => simpa [squareRootLowPrimeProcessedSeatMatchingInvolution] using hxS
   | cons p ps ih =>
       by_cases hxPaired : x ∈ squareRootLowPrimeProcessedSeatPaired S p
-      · simp [squareRootLowPrimeProcessedSeatMatchingInvolution, hxPaired]
+      · rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+        simp only [hxPaired, if_true]
         exact squareRootLowPrimeProcessedSeatStepInvolution_mem S p hxS
       · have hxFrontier : x ∈ squareRootLowPrimeProcessedSeatFrontierStep S p :=
           Finset.mem_sdiff.mpr ⟨hxS, hxPaired⟩
         have hrec := ih
           (S := squareRootLowPrimeProcessedSeatFrontierStep S p) hxFrontier
-        simp [squareRootLowPrimeProcessedSeatMatchingInvolution, hxPaired]
+        rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+        simp only [hxPaired, if_false]
         exact squareRootLowPrimeProcessedSeatFrontierStep_subset' S p hrec
 
 /-- The global chronology map is an involution. -/
@@ -241,19 +279,22 @@ theorem squareRootLowPrimeProcessedSeatMatchingInvolution_involutive
           squareRootLowPrimeProcessedSeatStepInvolution_mem S p
             (squareRootLowPrimeProcessedSeatPaired_subset S p hxPaired)
         have hyPaired : y ∈ squareRootLowPrimeProcessedSeatPaired S p := by
-          have hfix := squareRootLowPrimeProcessedSeatStepInvolution_eq_self_iff S p
           by_contra hnot
           have hyFixed : squareRootLowPrimeProcessedSeatStepInvolution S p y = y :=
-            hfix.mpr hnot
+            (squareRootLowPrimeProcessedSeatStepInvolution_eq_self_iff
+              S p (x := y)).mpr hnot
           have hback := squareRootLowPrimeProcessedSeatStepInvolution_involutive
             S hp x
           change squareRootLowPrimeProcessedSeatStepInvolution S p y = x at hback
           rw [hyFixed] at hback
           subst y
           exact hnot hxPaired
-        simp [squareRootLowPrimeProcessedSeatMatchingInvolution, hxPaired,
-          y, hyPaired,
-          squareRootLowPrimeProcessedSeatStepInvolution_involutive S hp x]
+        rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+        simp only [hxPaired, if_true]
+        change squareRootLowPrimeProcessedSeatMatchingInvolution (p :: ps) S y = x
+        rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+        simp only [hyPaired, if_true]
+        exact squareRootLowPrimeProcessedSeatStepInvolution_involutive S hp x
       · have hxFrontier : x ∈ squareRootLowPrimeProcessedSeatFrontierStep S p :=
           Finset.mem_sdiff.mpr ⟨hxS, hxPaired⟩
         let y := squareRootLowPrimeProcessedSeatMatchingInvolution ps
@@ -266,8 +307,11 @@ theorem squareRootLowPrimeProcessedSeatMatchingInvolution_involutive
         have hrec := ih
           (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
           hrest hxFrontier
-        simp [squareRootLowPrimeProcessedSeatMatchingInvolution, hxPaired,
-          y, hyNotPaired] at hrec ⊢
+        rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+        simp only [hxPaired, if_false]
+        change squareRootLowPrimeProcessedSeatMatchingInvolution (p :: ps) S y = x
+        rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+        simp only [hyNotPaired, if_false]
         exact hrec
 
 /-- Moved states of the global chronology still reverse signed weight. -/
@@ -291,17 +335,19 @@ theorem squareRootLowPrimeProcessedSeatMatchingInvolution_weight_neg
           fun h =>
             (squareRootLowPrimeProcessedSeatStepInvolution_eq_self_iff S p).mp h
               hxPaired
-        simp [squareRootLowPrimeProcessedSeatMatchingInvolution, hxPaired]
+        rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+        simp only [hxPaired, if_true]
         exact squareRootLowPrimeProcessedSeatStepInvolution_weight_neg
           S hp x hstepNe
       · have hxFrontier : x ∈ squareRootLowPrimeProcessedSeatFrontierStep S p :=
           Finset.mem_sdiff.mpr ⟨hxS, hxPaired⟩
-        simp [squareRootLowPrimeProcessedSeatMatchingInvolution, hxPaired] at hne ⊢
+        rw [squareRootLowPrimeProcessedSeatMatchingInvolution] at hne ⊢
+        simp only [hxPaired, if_false] at hne ⊢
         exact ih
           (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
           hrest hxFrontier hne
 
-/-- **Othello stable-disc theorem for the prime chronology.**  The fixed states
+/-- **Othello stable-disc theorem for the prime chronology.** The fixed states
 of the global sign-reversing involution are exactly the terminal matching
 frontier. -/
 theorem signMatchingFixedPart_processedSeatMatching_eq_frontier
@@ -318,7 +364,6 @@ theorem signMatchingFixedPart_processedSeatMatching_eq_frontier
         squareRootLowPrimeProcessedSeatMatchingInvolution,
         squareRootLowPrimeProcessedSeatMatchingFrontier]
   | cons p ps ih =>
-      have hp : 0 < p := hpos p (by simp)
       have hrest : ∀ q ∈ ps, 0 < q := by
         intro q hq
         exact hpos q (by simp [hq])
@@ -336,15 +381,34 @@ theorem signMatchingFixedPart_processedSeatMatching_eq_frontier
             have hxStep := squareRootLowPrimeProcessedSeatMatchingFrontier_subset'
               ps (squareRootLowPrimeProcessedSeatFrontierStep S p) hx
             exact (Finset.mem_sdiff.mp hxStep).2 hxPaired
-          simp [squareRootLowPrimeProcessedSeatMatchingInvolution, hxPaired,
-            hstepNe, hxNotFrontier]
+          rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+          simp only [hxPaired, if_true]
+          exact ⟨fun h => (hstepNe h.2).elim,
+            fun h => (hxNotFrontier h).elim⟩
         · have hxStep : x ∈ squareRootLowPrimeProcessedSeatFrontierStep S p :=
             Finset.mem_sdiff.mpr ⟨hxS, hxPaired⟩
           have hih := Finset.ext_iff.mp
             (ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p) hrest) x
           simp only [mem_signMatchingFixedPart] at hih
-          simp [squareRootLowPrimeProcessedSeatMatchingInvolution, hxPaired,
-            squareRootLowPrimeProcessedSeatMatchingFrontier, hxS, hih]
+          have hreciff :
+              squareRootLowPrimeProcessedSeatMatchingInvolution ps
+                    (squareRootLowPrimeProcessedSeatFrontierStep S p) x = x ↔
+                x ∈ squareRootLowPrimeProcessedSeatMatchingFrontier ps
+                  (squareRootLowPrimeProcessedSeatFrontierStep S p) := by
+            constructor
+            · intro hrec
+              exact hih.mp ⟨hxStep, hrec⟩
+            · intro hfront
+              exact (hih.mpr hfront).2
+          rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+          simp only [hxPaired, if_false]
+          change (x ∈ S ∧
+              squareRootLowPrimeProcessedSeatMatchingInvolution ps
+                (squareRootLowPrimeProcessedSeatFrontierStep S p) x = x) ↔
+            x ∈ squareRootLowPrimeProcessedSeatMatchingFrontier ps
+              (squareRootLowPrimeProcessedSeatFrontierStep S p)
+          rw [hreciff]
+          simp [hxS]
       · have hxNotFrontier :
           x ∉ squareRootLowPrimeProcessedSeatMatchingFrontier (p :: ps) S :=
           fun hx => hxS
@@ -352,7 +416,8 @@ theorem signMatchingFixedPart_processedSeatMatching_eq_frontier
               (p :: ps) S hx)
         have hxNotPaired : x ∉ squareRootLowPrimeProcessedSeatPaired S p :=
           fun hx => hxS (squareRootLowPrimeProcessedSeatPaired_subset S p hx)
-        simp [squareRootLowPrimeProcessedSeatMatchingInvolution, hxNotPaired,
-          hxS, hxNotFrontier]
+        rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+        simp only [hxNotPaired, if_false]
+        exact ⟨fun h => (hxS h.1).elim, fun h => (hxNotFrontier h).elim⟩
 
 end RHLean.Proof
