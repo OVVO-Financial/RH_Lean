@@ -117,6 +117,43 @@ theorem lowWheelFaceTailToggleAt_involutive
         Finset.erase_insert, htail]
     · simp [lowWheelFaceTailToggleAt, hqt, hqm]
 
+/-- An active coordinate stays active after the transfer. -/
+theorem lowWheelFaceTailToggleAt_active
+    {q : ℕ} {x : LowWheelFaceTailState}
+    (hactive : q ∈ x.1 ∨ q ∣ x.2) :
+    q ∈ (lowWheelFaceTailToggleAt q x).1 ∨
+      q ∣ (lowWheelFaceTailToggleAt q x).2 := by
+  unfold lowWheelFaceTailToggleAt
+  by_cases hqt : q ∈ x.1
+  · simp only [hqt, if_true]
+    right
+    exact dvd_mul_right q x.2
+  · have hqm : q ∣ x.2 := hactive.resolve_left hqt
+    simp only [hqt, if_false, hqm, if_true]
+    exact Or.inl (Finset.mem_insert_self q x.1)
+
+/-- Every active transfer genuinely changes the face coordinate. -/
+theorem lowWheelFaceTailToggleAt_ne_of_active
+    {q : ℕ} {x : LowWheelFaceTailState}
+    (hactive : q ∈ x.1 ∨ q ∣ x.2) :
+    lowWheelFaceTailToggleAt q x ≠ x := by
+  unfold lowWheelFaceTailToggleAt
+  by_cases hqt : q ∈ x.1
+  · simp only [hqt, if_true]
+    intro heq
+    have hface : x.1.erase q = x.1 := congrArg Prod.fst heq
+    have hmem : q ∈ x.1.erase q := by
+      rw [hface]
+      exact hqt
+    exact (Finset.notMem_erase q x.1) hmem
+  · have hqm : q ∣ x.2 := hactive.resolve_left hqt
+    simp only [hqt, if_false, hqm, if_true]
+    intro heq
+    have hface : insert q x.1 = x.1 := congrArg Prod.fst heq
+    apply hqt
+    rw [← hface]
+    exact Finset.mem_insert_self q x.1
+
 /-- Every active fixed-coordinate transfer reverses the Boolean sign. -/
 theorem lowWheelFaceTailToggleAt_sign_neg
     {q : ℕ} {x : LowWheelFaceTailState}
