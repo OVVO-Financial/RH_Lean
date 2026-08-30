@@ -153,24 +153,40 @@ theorem squareRootLowPrimeNoLibertyBoundaryHome_injOn
   intro x hx y hy hxy
   rcases x with xu | x
   · rcases y with yu | y
-    · rfl
-    · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
-  · rcases y with yu | y
-    · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
-    · rcases x with xs | x
-      · rcases y with ys | y
+    · cases xu
+      cases yu
+      rfl
+    · rcases y with ys | y
+      · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+      · rcases y with yz | yw
         · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+        · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+  · rcases x with xs | x
+    · rcases y with yu | y
+      · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+      · rcases y with ys | y
+        · have hs : xs = ys := by
+            simpa [squareRootLowPrimeNoLibertyBoundaryHome] using hxy
           subst ys
           rfl
+        · rcases y with yz | yw
+          · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+          · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+    · rcases x with xz | xw
+      · rcases y with yu | y
         · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
-      · rcases y with ys | y
-        · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
-        · rcases x with xz | xw
+        · rcases y with ys | y
+          · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
           · rcases y with yz | yw
-            · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+            · have hz : xz = yz := by
+                simpa [squareRootLowPrimeNoLibertyBoundaryHome] using hxy
               subst yz
               rfl
             · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+      · rcases y with yu | y
+        · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+        · rcases y with ys | y
+          · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
           · rcases y with yz | yw
             · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
             · have hxw : xw ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R := by
