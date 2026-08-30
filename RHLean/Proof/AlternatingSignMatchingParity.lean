@@ -89,7 +89,7 @@ theorem sum_signMatchingMovedPart_eq_zero
       intro hfix
       have hback := hinv x hxS
       rw [hfix] at hback
-      exact hxne hback.symm)
+      exact hxne hback)
     (fun x hx =>
       hinv x (mem_signMatchingMovedPart.mp hx).1)
 
