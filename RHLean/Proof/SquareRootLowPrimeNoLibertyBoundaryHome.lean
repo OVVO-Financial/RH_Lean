@@ -1,23 +1,28 @@
 import Mathlib
-import RHLean.Proof.SquareRootLowPrimeCanonicalFailureRoot
+import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
 import RHLean.Proof.SquareRootLowPrimeNoTogglePopulationBound
 import RHLean.Proof.SquareRootLowPrimePartialPacketBoundary
 
 /-!
-# Tagged homes for the terminal no-liberty boundary
+# Canonical homes for the terminal no-liberty boundary
 
-The final low-prime boundary is charged into four genuinely disjoint kinds of
-home:
+The square-root terminal normal form has four already-existing endpoint classes:
 
 * one distinguished head;
-* the already-compressed partial crossing packet;
-* the born-exit frontier;
-* canonical least-failure roots.
+* the compressed partial crossing packet;
+* born response atoms with no successor;
+* the exact Go root-equality boundary left after every strict crossing has its
+  existing global transport mate.
 
-The nested `Sum` below is the literal tagged disjoint union.  This module proves
-its root-scale cardinality budget.  It deliberately does not identify a raw
-terminal seat with a home: that is the remaining alternating-rematching
-injectivity theorem.
+The last class is the cross-coordinate point.  A root-equality incidence
+`((r,q),d)` is not charged by its two prime owners.  The theorem
+`squareRootLowPrimeGoRootEquality_parentProjection_injOn` proves that its parent
+`d < R` recovers the complete incidence.  Thus the root endpoint contributes at
+most one unit per canonical parent home.
+
+No analytic input and no new arithmetic carrier occur below.  Both the terminal
+normal form and its home space are tagged disjoint unions of endpoint carriers
+already present in the repository.
 -/
 
 noncomputable section
@@ -26,68 +31,27 @@ namespace RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
 
-/-- Canonical roots at most `R` which have at least one fresh failing prime. -/
-def squareRootLowPrimeCanonicalLibertyFailureRoots
-    (K U R : ℕ) : Finset ℕ :=
-  (Finset.Icc 1 R).filter fun n =>
-    (squareRootLowPrimeFailurePrimeCandidates K U R n).Nonempty
+/-- Root homes are the integer parent slots strictly below `R`.  The zero slot
+is harmless and keeps the cardinality definitionally equal to `R`; actual Go
+root-equality incidences occupy positive parent slots. -/
+def squareRootLowPrimeNoLibertyFailureRoots (R : ℕ) : Finset ℕ :=
+  Finset.range R
 
-@[simp] theorem mem_squareRootLowPrimeCanonicalLibertyFailureRoots
-    {K U R n : ℕ} :
-    n ∈ squareRootLowPrimeCanonicalLibertyFailureRoots K U R ↔
-      0 < n ∧ n ≤ R ∧
-        (squareRootLowPrimeFailurePrimeCandidates K U R n).Nonempty := by
-  simp only [squareRootLowPrimeCanonicalLibertyFailureRoots,
-    Finset.mem_filter, Finset.mem_Icc]
-  constructor
-  · rintro ⟨⟨hn1, hnR⟩, hfail⟩
-    exact ⟨by omega, hnR, hfail⟩
-  · rintro ⟨hn, hnR, hfail⟩
-    exact ⟨⟨by omega, hnR⟩, hfail⟩
+/-- The requested tagged home type
 
-/-- Every retained canonical home carries the failure-root data already used by
-`SquareRootLowPrimeCanonicalFailureRoot`. -/
-theorem squareRootLowPrimeCanonicalLibertyFailureRoot_data
-    {K U R n : ℕ}
-    (hn : n ∈ squareRootLowPrimeCanonicalLibertyFailureRoots K U R) :
-    SquareRootLowPrimeCanonicalFailureRootData K U R n := by
-  simpa [SquareRootLowPrimeCanonicalFailureRootData] using
-    (mem_squareRootLowPrimeCanonicalLibertyFailureRoots.mp hn)
-
-/-- Canonical failure-root homes cost at most one state per integer root. -/
-theorem squareRootLowPrimeCanonicalLibertyFailureRoots_card_le_root
-    (K U R : ℕ) :
-    (squareRootLowPrimeCanonicalLibertyFailureRoots K U R).card ≤ R := by
-  have hsub :
-      squareRootLowPrimeCanonicalLibertyFailureRoots K U R ⊆
-        Finset.Icc 1 R := by
-    intro n hn
-    exact (Finset.mem_filter.mp hn).1
-  calc
-    (squareRootLowPrimeCanonicalLibertyFailureRoots K U R).card ≤
-        (Finset.Icc 1 R).card := Finset.card_le_card hsub
-    _ = R := by simp
-
-/-- The final home type is a literal tagged disjoint union
-
-`Head ⊔ PartialSeat ⊔ BornExit ⊔ FailureRoot`.
-
-The tags make collisions between different boundary classes impossible by
-construction. -/
+`Head ⊔ PartialSeats ⊔ BornExit ⊔ FailureRoots`.
+-/
 abbrev SquareRootLowPrimeNoLibertyBoundaryHome :=
   Sum Unit (Sum ℕ (Sum (ℕ × ℕ) ℕ))
 
-/-- The finite set of available terminal homes at the canonical low-prime
-cutoff.  The partial component is the compressed packet itself, not its raw
-prime population. -/
+/-- The finite set of available canonical homes. -/
 def squareRootLowPrimeNoLibertyBoundaryHomeSpace
     (R K j : ℕ) : Finset SquareRootLowPrimeNoLibertyBoundaryHome :=
   ({()} : Finset Unit).disjSum
     ((squareRootLowPrimePartialPacketBoundary R K j).disjSum
       ((squareRootLowPrimeBornNoSuccessorAtoms R K
           (squareRootBornPostTailLowPrimeCutoff R)).disjSum
-        (squareRootLowPrimeCanonicalLibertyFailureRoots K
-          (squareRootBornPostTailLowPrimeCutoff R) R)))
+        (squareRootLowPrimeNoLibertyFailureRoots R)))
 
 /-- Exact cardinality of the tagged home space. -/
 theorem card_squareRootLowPrimeNoLibertyBoundaryHomeSpace
@@ -96,16 +60,12 @@ theorem card_squareRootLowPrimeNoLibertyBoundaryHomeSpace
       1 +
         (squareRootLowPrimePartialPacketBoundary R K j).card +
         (squareRootLowPrimeBornNoSuccessorAtoms R K
-          (squareRootBornPostTailLowPrimeCutoff R)).card +
-        (squareRootLowPrimeCanonicalLibertyFailureRoots K
-          (squareRootBornPostTailLowPrimeCutoff R) R).card := by
-  simp [squareRootLowPrimeNoLibertyBoundaryHomeSpace]
+          (squareRootBornPostTailLowPrimeCutoff R)).card + R := by
+  simp [squareRootLowPrimeNoLibertyBoundaryHomeSpace,
+    squareRootLowPrimeNoLibertyFailureRoots]
   omega
 
-/-- **The four canonical home classes have total cardinality at most `4*R`.**
-
-No analytic input enters: the packet costs `< K`, the born-exit edge costs
-`2*R`, failure roots cost `R`, and `1 + K <= R` when `K < R`. -/
+/-- **The four canonical home classes have total cardinality at most `4*R`.** -/
 theorem squareRootLowPrimeNoLibertyBoundaryHomeSpace_card_le_four_root
     {R K j : ℕ} (hR : 1 ≤ R) (hKR : K < R)
     (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
@@ -116,10 +76,143 @@ theorem squareRootLowPrimeNoLibertyBoundaryHomeSpace_card_le_four_root
       (R := R) (K := K) (j := j) hV0 hVK
   have hborn :=
     squareRootLowPrimeBornNoSuccessorAtoms_card_le_two_root R K hR
-  have hroots :=
-    squareRootLowPrimeCanonicalLibertyFailureRoots_card_le_root K
-      (squareRootBornPostTailLowPrimeCutoff R) R
   rw [card_squareRootLowPrimeNoLibertyBoundaryHomeSpace]
   omega
+
+/-- Post-rematching processed-seat normal form.  The first three summands are
+already literal terminal endpoints.  The last summand retains the complete Go
+root-equality incidence until the home projection below forgets its redundant
+prime-owner coordinates. -/
+abbrev SquareRootLowPrimeProcessedSeatNoLibertyState :=
+  Sum Unit (Sum ℕ (Sum (ℕ × ℕ) ((ℕ × ℕ) × ℕ)))
+
+/-- The terminal no-liberty boundary after all strict Go crossings have been
+reattached to their existing global transport mates.  Nothing is estimated in
+this definition: it is the tagged union of the four surviving endpoint
+populations. -/
+def squareRootLowPrimeProcessedSeatNoLibertyBoundary
+    (R K j U : ℕ) : Finset SquareRootLowPrimeProcessedSeatNoLibertyState :=
+  ({()} : Finset Unit).disjSum
+    ((squareRootLowPrimePartialPacketBoundary R K j).disjSum
+      ((squareRootLowPrimeBornNoSuccessorAtoms R K U).disjSum
+        (squareRootLowPrimeGoRootEqualityDefectCarrier R)))
+
+/-- Canonical home of one terminal unit.  Only the root-equality case forgets
+coordinates: `((r,q),d)` is sent to `d`. -/
+def squareRootLowPrimeNoLibertyBoundaryHome
+    (_R _K _j : ℕ) :
+    SquareRootLowPrimeProcessedSeatNoLibertyState →
+      SquareRootLowPrimeNoLibertyBoundaryHome
+  | .inl u => .inl u
+  | .inr (.inl s) => .inr (.inl s)
+  | .inr (.inr (.inl z)) => .inr (.inr (.inl z))
+  | .inr (.inr (.inr z)) => .inr (.inr (.inr z.2))
+
+/-- Every canonical terminal unit lands in the finite home space. -/
+theorem squareRootLowPrimeNoLibertyBoundaryHome_mem
+    {R K j : ℕ} {x : SquareRootLowPrimeProcessedSeatNoLibertyState}
+    (hx : x ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary
+      R K j (squareRootBornPostTailLowPrimeCutoff R)) :
+    squareRootLowPrimeNoLibertyBoundaryHome R K j x ∈
+      squareRootLowPrimeNoLibertyBoundaryHomeSpace R K j := by
+  rcases x with u | x
+  · simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary,
+      squareRootLowPrimeNoLibertyBoundaryHome,
+      squareRootLowPrimeNoLibertyBoundaryHomeSpace] using hx
+  · rcases x with s | x
+    · simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary,
+        squareRootLowPrimeNoLibertyBoundaryHome,
+        squareRootLowPrimeNoLibertyBoundaryHomeSpace] using hx
+    · rcases x with z | w
+      · simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary,
+          squareRootLowPrimeNoLibertyBoundaryHome,
+          squareRootLowPrimeNoLibertyBoundaryHomeSpace] using hx
+      · have hw : w ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R := by
+          simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary] using hx
+        rcases w with ⟨⟨r, q⟩, d⟩
+        rcases mem_squareRootLowPrimeGoRootEqualityDefectCarrier.mp hw with
+          ⟨_hrR, _hqR, hdR, _hr, _hq, _hrq, _heq, _hcube, _hd⟩
+        simp [squareRootLowPrimeNoLibertyBoundaryHome,
+          squareRootLowPrimeNoLibertyBoundaryHomeSpace,
+          squareRootLowPrimeNoLibertyFailureRoots, hdR]
+
+/-- **Final canonical-home injectivity.**
+
+Different terminal units cannot occupy the same canonical home.  The first
+three tagged classes are injective by construction.  In the only nontrivial
+case, equality of failure-root homes is equality of the Go parent coordinate;
+the already-proved root-equality ownership theorem recovers both prime owners
+and hence the complete incidence.
+-/
+theorem squareRootLowPrimeNoLibertyBoundaryHome_injOn
+    (R K j : ℕ) :
+    Set.InjOn
+      (squareRootLowPrimeNoLibertyBoundaryHome R K j)
+      (squareRootLowPrimeProcessedSeatNoLibertyBoundary
+        R K j (squareRootBornPostTailLowPrimeCutoff R)) := by
+  intro x hx y hy hxy
+  rcases x with xu | x
+  · rcases y with yu | y
+    · rfl
+    · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+  · rcases y with yu | y
+    · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+    · rcases x with xs | x
+      · rcases y with ys | y
+        · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+          subst ys
+          rfl
+        · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+      · rcases y with ys | y
+        · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+        · rcases x with xz | xw
+          · rcases y with yz | yw
+            · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+              subst yz
+              rfl
+            · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+          · rcases y with yz | yw
+            · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
+            · have hxw : xw ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R := by
+                simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary] using hx
+              have hyw : yw ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R := by
+                simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary] using hy
+              have hparent : xw.2 = yw.2 := by
+                simpa [squareRootLowPrimeNoLibertyBoundaryHome] using hxy
+              have hroot : xw = yw :=
+                squareRootLowPrimeGoRootEquality_parentProjection_injOn
+                  R hxw hyw hparent
+              subst yw
+              rfl
+
+/-- The injective home map immediately transfers the `4*R` home budget to the
+post-rematching no-liberty boundary. -/
+theorem squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_le_four_root
+    {R K j : ℕ} (hR : 1 ≤ R) (hKR : K < R)
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
+    (hVK : squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ)) :
+    (squareRootLowPrimeProcessedSeatNoLibertyBoundary
+      R K j (squareRootBornPostTailLowPrimeCutoff R)).card ≤ 4 * R := by
+  let B := squareRootLowPrimeProcessedSeatNoLibertyBoundary
+    R K j (squareRootBornPostTailLowPrimeCutoff R)
+  let H := squareRootLowPrimeNoLibertyBoundaryHomeSpace R K j
+  let home := squareRootLowPrimeNoLibertyBoundaryHome R K j
+  have hinj : Set.InjOn home B := by
+    simpa [B, home] using
+      squareRootLowPrimeNoLibertyBoundaryHome_injOn R K j
+  have himage : B.image home ⊆ H := by
+    intro h hh
+    rcases Finset.mem_image.mp hh with ⟨x, hx, rfl⟩
+    simpa [B, H, home] using
+      squareRootLowPrimeNoLibertyBoundaryHome_mem (R := R) (K := K) (j := j) hx
+  have hcardImage : (B.image home).card = B.card :=
+    Finset.card_image_iff.mpr hinj
+  have hhome :=
+    squareRootLowPrimeNoLibertyBoundaryHomeSpace_card_le_four_root
+      hR hKR hV0 hVK
+  calc
+    B.card = (B.image home).card := hcardImage.symm
+    _ ≤ H.card := Finset.card_le_card himage
+    _ ≤ 4 * R := by simpa [H] using hhome
 
 end RHLean.Proof
