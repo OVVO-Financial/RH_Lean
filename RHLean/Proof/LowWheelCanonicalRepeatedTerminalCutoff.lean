@@ -113,7 +113,6 @@ theorem lowWheelCanonicalRepeatedTerminalExternal_mem_firstFailureBoundary
   have htag := mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier
   have htSub : y.1 ⊆ primesUpTo R := Finset.mem_powerset.mp htag.1
   rw [mem_primeProductFirstFailureBoundary, herase]
-  simp only [Finset.mem_filter, Finset.mem_powerset]
   refine ⟨htSub, hgeom.2.2.2.2.1, ?_⟩
   exact hgeom.2.2.2.2.2
 
