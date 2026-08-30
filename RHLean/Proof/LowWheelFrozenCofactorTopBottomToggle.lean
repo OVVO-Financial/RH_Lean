@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.LowWheelCanonicalRepeatedParentClassification
+import RHLean.Proof.LowWheelCanonicalDowncrossSignedParentSplit
 import RHLean.Proof.LowWheelCofactorQuotientToggle
 
 /-!
@@ -83,8 +84,9 @@ theorem lowWheelFrozenCofactorTopPrime_data
       lowWheelTaggedDowncrossPivot y ≠ lowWheelFrozenCofactorTopPrime y := by
     intro heq
     apply hpNotC
-    rw [← heq]
-    exact hqDvd
+    have hpDvd : lowWheelTaggedDowncrossPivot y ∣ y.2.1 := by
+      simpa [heq] using hqDvd
+    simpa [lowWheelTaggedDowncrossPivot] using hpDvd
   have hpLtQ :
       lowWheelTaggedDowncrossPivot y < lowWheelFrozenCofactorTopPrime y := by
     omega
