@@ -15,4 +15,4 @@ open RHLean.Proof
 #eval squareRootLowPrimeCanonicalRawNoLibertyFrontier 30 1 0
 #eval squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier 30 1 0
 
--- Trigger the branch-only probe after the workflow is present.
+-- Trigger cached branch-only probe.
