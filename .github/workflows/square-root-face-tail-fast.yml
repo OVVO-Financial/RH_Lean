@@ -32,5 +32,5 @@ jobs:
           test: false
           lint: false
 
-      - name: Kernel-check lifted repeated-parent toggle
-        run: timeout 600 lake build RHLean.Proof.LowWheelCanonicalRepeatedMovableToggle
+      - name: Kernel-check movable repeated-parent cancellation
+        run: timeout 600 lake build RHLean.Proof.LowWheelCanonicalRepeatedMovableCancellation
