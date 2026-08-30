@@ -108,7 +108,7 @@ def creationResponseOthelloWeight
 theorem creationResponseOthelloMate_weight_neg
     {α β G : Type*} [DecidableEq α] [AddCommGroup G]
     (M : Finset α) (φ : α → β) (wC : α → G) (wR : β → G)
-    (hinj : Set.InjOn φ M)
+    (_hinj : Set.InjOn φ M)
     (hcancel : ∀ c ∈ M, wC c + wR (φ c) = 0)
     (x : Sum α β)
     (hne : creationResponseOthelloMate M φ x ≠ x) :
@@ -120,7 +120,7 @@ theorem creationResponseOthelloMate_weight_neg
     · have hpair := hcancel c hcM
       simp [creationResponseOthelloMate, hcM,
         creationResponseOthelloWeight]
-      exact eq_neg_of_add_eq_zero_left hpair
+      exact eq_neg_of_add_eq_zero_right hpair
     · simp [creationResponseOthelloMate, hcM] at hne
   · by_cases hpre : ∃ c ∈ M, φ c = r
     · have hspec := creationResponseOthelloPreimage_spec hpre
@@ -128,7 +128,7 @@ theorem creationResponseOthelloMate_weight_neg
       rw [hspec.2] at hpair
       simp [creationResponseOthelloMate, hpre,
         creationResponseOthelloWeight]
-      exact eq_neg_of_add_eq_zero_right hpair
+      exact eq_neg_of_add_eq_zero_left hpair
     · simp [creationResponseOthelloMate, hpre] at hne
 
 /-- Fixed states are exactly the unmatched tagged frontier. -/
