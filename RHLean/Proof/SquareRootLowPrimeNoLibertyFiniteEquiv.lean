@@ -68,7 +68,7 @@ theorem squareRootLowPrimeNoLibertyWeightEquiv_sum_eq
     (∑ x ∈ A, squareRootLowPrimeProcessedSeatWeightReal x) =
         ∑ x : ↥A, squareRootLowPrimeProcessedSeatWeightReal
           (x : SquareRootLowPrimeProcessedState) := by
-      exact (sum_attach A squareRootLowPrimeProcessedSeatWeightReal).symm
+      exact (Finset.sum_attach A squareRootLowPrimeProcessedSeatWeightReal).symm
     _ = ∑ z : ↥B, squareRootLowPrimeNoLibertyBoundaryWeight
           (z : SquareRootLowPrimeProcessedSeatNoLibertyState) := by
       rw [← e.toEquiv.sum_comp]
@@ -76,7 +76,7 @@ theorem squareRootLowPrimeNoLibertyWeightEquiv_sum_eq
       intro x _hx
       simpa [A, B] using (e.weight_eq x).symm
     _ = ∑ z ∈ B, squareRootLowPrimeNoLibertyBoundaryWeight z := by
-      exact sum_attach B squareRootLowPrimeNoLibertyBoundaryWeight
+      exact Finset.sum_attach B squareRootLowPrimeNoLibertyBoundaryWeight
 
 /-- Once the carrier-specific weight equivalence is constructed, the tagged
 boundary mass is exactly the running imbalance already computed on the true
