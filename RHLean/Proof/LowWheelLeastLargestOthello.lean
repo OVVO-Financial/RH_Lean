@@ -62,20 +62,15 @@ theorem lowWheelLargestCofactorQuotientPivot_toggle
 
 private theorem lowWheelPhysicalState_product_pos
     {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
-    (ht : t ∈ (primesUpTo R).powerset)
+    (_ht : t ∈ (primesUpTo R).powerset)
     (hx : x ∈ lowWheelCanonicalPhysicalStateSet R t) :
     0 < x.1 * x.2 := by
   have hxData := mem_lowWheelCanonicalPhysicalStateSet.mp hx
   have hcPos : 0 < x.1 := by
     have hc1 := (Finset.mem_Ico.mp hxData.1).1
     omega
-  have hPpos : 0 < primeFaceProduct t :=
-    primeFaceProduct_pos_of_mem_powerset ht
   have hkPos : 0 < x.2 := by
-    have hhigh := hxData.2.2.2.2.1
-    by_contra hk
-    have hk0 : x.2 = 0 := Nat.eq_zero_of_not_pos hk
-    rw [hk0, Nat.mul_zero] at hhigh
+    have hk1 := (Finset.mem_Icc.mp hxData.2.1).1
     omega
   exact Nat.mul_pos hcPos hkPos
 
