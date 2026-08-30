@@ -45,4 +45,22 @@ jobs:
           python3 scripts/strongpnt_424/apply_lint.py
 
       - name: Kernel-check face-tail opposite move
-        run: timeout 600 lake build RHLean.Proof.LowWheelFaceTailToggle
+        id: leancheck
+        run: |
+          set +e
+          timeout 600 lake build RHLean.Proof.LowWheelFaceTailToggle > lean-build.log 2>&1
+          rc=$?
+          echo "exit_code=$rc" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload Lean compiler log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-build-log
+          path: lean-build.log
+          if-no-files-found: error
+
+      - name: Fail if Lean failed
+        if: steps.leancheck.outputs.exit_code != '0'
+        run: exit 1
