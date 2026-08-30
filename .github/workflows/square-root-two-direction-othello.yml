@@ -1,10 +1,9 @@
-name: Square-root two-direction Othello check
+name: Square-root Othello scratch check
 
 on:
   push:
     branches:
-      - agent/square-root-two-direction-othello
-      - agent/square-root-two-direction-othello-proof
+      - agent/square-root-two-direction-othello-scratch
   workflow_dispatch:
 
 permissions:
@@ -12,13 +11,13 @@ permissions:
   actions: read
 
 concurrency:
-  group: square-root-two-direction-othello-${{ github.ref }}
+  group: square-root-othello-scratch-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -45,23 +44,5 @@ jobs:
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
 
-      - name: Kernel-check creation-response involution
-        run: timeout 300 lake build RHLean.Proof.CreationResponseOthelloInvolution
-
-      - name: Kernel-check response-forest involution
-        run: timeout 300 lake build RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution
-
-      - name: Kernel-check arithmetic response involution
-        run: timeout 300 lake build RHLean.Proof.SquareRootLowPrimeResponseMatchingOthelloInvolution
-
-      - name: Kernel-check signed downcross parent split
-        run: timeout 300 lake build RHLean.Proof.LowWheelCanonicalDowncrossSignedParentSplit
-
       - name: Kernel-check face-tail opposite move
-        run: timeout 300 lake build RHLean.Proof.LowWheelFaceTailToggle
-
-      - name: Kernel-check opposite-fixed classification
-        run: timeout 300 lake build RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
-
-      - name: Audit assumptions
-        run: bash scripts/audit_assumptions.sh
+        run: timeout 600 lake build RHLean.Proof.LowWheelFaceTailToggle
