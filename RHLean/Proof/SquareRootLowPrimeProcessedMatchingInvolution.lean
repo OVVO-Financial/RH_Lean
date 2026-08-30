@@ -69,8 +69,7 @@ private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_lower
     (hx : x ∈ squareRootLowPrimeProcessedSeatPairLower S p) :
     squareRootLowPrimeProcessedSeatStepInvolution S p x =
       squareRootLowPrimeProcessedSeatExtend p x := by
-  unfold squareRootLowPrimeProcessedSeatStepInvolution
-  rw [if_pos hx]
+  simp [squareRootLowPrimeProcessedSeatStepInvolution, hx]
 
 private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_upper
     {S : Finset SquareRootLowPrimeProcessedState} {p : ℕ}
@@ -80,8 +79,7 @@ private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_upper
       squareRootLowPrimeProcessedSeatExtend p y = x) :
     squareRootLowPrimeProcessedSeatStepInvolution S p x =
       squareRootLowPrimeProcessedSeatPairPreimage S p x hupper := by
-  unfold squareRootLowPrimeProcessedSeatStepInvolution
-  rw [if_neg hx, dif_pos hupper]
+  simp [squareRootLowPrimeProcessedSeatStepInvolution, hx, hupper]
 
 private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired
     {S : Finset SquareRootLowPrimeProcessedState} {p : ℕ}
@@ -90,8 +88,7 @@ private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired
     (hupper : ¬ ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
       squareRootLowPrimeProcessedSeatExtend p y = x) :
     squareRootLowPrimeProcessedSeatStepInvolution S p x = x := by
-  unfold squareRootLowPrimeProcessedSeatStepInvolution
-  rw [if_neg hx, dif_neg hupper]
+  simp [squareRootLowPrimeProcessedSeatStepInvolution, hx, hupper]
 
 /-- The one-step involution preserves the ambient carrier. -/
 theorem squareRootLowPrimeProcessedSeatStepInvolution_mem
@@ -287,9 +284,7 @@ theorem squareRootLowPrimeProcessedSeatMatchingInvolution_involutive
             S hp x
           change squareRootLowPrimeProcessedSeatStepInvolution S p y = x at hback
           rw [hyFixed] at hback
-          apply hnot
-          rw [hback]
-          exact hxPaired
+          exact hnot (hback.symm ▸ hxPaired)
         rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
         simp only [hxPaired, if_true]
         change squareRootLowPrimeProcessedSeatMatchingInvolution (p :: ps) S y = x
