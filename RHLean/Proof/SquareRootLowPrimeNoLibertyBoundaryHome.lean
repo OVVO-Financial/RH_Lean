@@ -27,6 +27,8 @@ already present in the repository.
 
 noncomputable section
 
+open scoped ArithmeticFunction.Moebius
+
 namespace RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
@@ -96,6 +98,38 @@ def squareRootLowPrimeProcessedSeatNoLibertyBoundary
     ((squareRootLowPrimePartialPacketBoundary R K j).disjSum
       ((squareRootLowPrimeBornNoSuccessorAtoms R K U).disjSum
         (squareRootLowPrimeGoRootEqualityDefectCarrier R)))
+
+/-- Native real weight of one tagged no-liberty boundary endpoint.
+
+This equips the exact four-class carrier above with the signed orientation
+needed for the eventual second-involution mass theorem, without asserting that
+mass theorem here. -/
+def squareRootLowPrimeNoLibertyBoundaryWeight :
+    SquareRootLowPrimeProcessedSeatNoLibertyState → ℝ
+  | .inl _ => 1
+  | .inr (.inl _) => -1
+  | .inr (.inr (.inl z)) =>
+      ((μ (squareRootLowPrimeBadAtomChild z) : ℤ) : ℝ)
+  | .inr (.inr (.inr z)) =>
+      ((μ (z.1.2 * z.2) : ℤ) : ℝ)
+
+@[simp] theorem squareRootLowPrimeNoLibertyBoundaryWeight_head
+    (u : Unit) :
+    squareRootLowPrimeNoLibertyBoundaryWeight (.inl u) = 1 := rfl
+
+@[simp] theorem squareRootLowPrimeNoLibertyBoundaryWeight_partial
+    (s : ℕ) :
+    squareRootLowPrimeNoLibertyBoundaryWeight (.inr (.inl s)) = -1 := rfl
+
+@[simp] theorem squareRootLowPrimeNoLibertyBoundaryWeight_born
+    (z : ℕ × ℕ) :
+    squareRootLowPrimeNoLibertyBoundaryWeight (.inr (.inr (.inl z))) =
+      ((μ (squareRootLowPrimeBadAtomChild z) : ℤ) : ℝ) := rfl
+
+@[simp] theorem squareRootLowPrimeNoLibertyBoundaryWeight_rootEquality
+    (z : (ℕ × ℕ) × ℕ) :
+    squareRootLowPrimeNoLibertyBoundaryWeight (.inr (.inr (.inr z))) =
+      ((μ (z.1.2 * z.2) : ℤ) : ℝ) := rfl
 
 /-- Canonical home of one terminal unit.  Only the root-equality case forgets
 coordinates: `((r,q),d)` is sent to `d`. -/
