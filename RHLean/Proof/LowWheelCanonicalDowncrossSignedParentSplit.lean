@@ -77,17 +77,10 @@ theorem lowWheelCanonicalDowncrossLedger_eq_tagged
     lowWheelCanonicalTaggedDowncrossFiber
   apply Finset.sum_congr rfl
   intro t _ht
-  calc
-    (∑ y ∈ (lowWheelCanonicalDowncrossPart R t).image (fun x => (t, x)),
-        lowWheelTaggedDowncrossWeight y) =
-      ∑ x ∈ lowWheelCanonicalDowncrossPart R t,
-        lowWheelTaggedDowncrossWeight (t, x) := by
-          apply Finset.sum_image
-          intro a _ha b _hb hab
-          exact congrArg Prod.snd hab
-    _ = ∑ x ∈ lowWheelCanonicalDowncrossPart R t,
-        canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ) := by
-          rfl
+  symm
+  apply Finset.sum_image
+  intro a _ha b _hb hab
+  exact congrArg Prod.snd hab
 
 /-- Signed unique-parent part of the canonical downcross ledger. -/
 def lowWheelCanonicalDowncrossUniqueParentLedger (R : ℕ) : ℂ :=
