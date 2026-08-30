@@ -613,3 +613,13 @@ import RHLean.Proof.VanishingTransitionRelevance
 import RHLean.Proof.WheelToLedgerEquivariance
 import RHLean.Proof.WheelToLedgerPushforward
 import RHLean.Verification.FiniteRangeCertificates
+
+-- Consolidated proof modules with passing branch-level Actions.
+import RHLean.Proof.LowWheelCanonicalDowncrossLateCancellation
+import RHLean.Proof.LowWheelCanonicalDowncrossLatePairing
+import RHLean.Proof.LowWheelCanonicalDowncrossOwnership
+import RHLean.Proof.LowWheelCanonicalRepeatedFrozenCofactorMate
+import RHLean.Proof.LowWheelCanonicalRepeatedFrozenFactorGeometry
+import RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
+import RHLean.Proof.LowWheelCanonicalRepeatedTerminalInternalMate
+import RHLean.Proof.SquareRootSmoothTransportEnergyRecoupling
