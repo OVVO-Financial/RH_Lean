@@ -136,7 +136,7 @@ theorem finiteOthelloStablePart_creationResponse_eq_frontier
     {α β : Type*} [DecidableEq α] [DecidableEq β]
     (C M : Finset α) (R : Finset β) (φ : α → β)
     (hMC : M ⊆ C)
-    (hinj : Set.InjOn φ M) :
+    (_hinj : Set.InjOn φ M) :
     finiteOthelloStablePart
         (creationResponseOthelloCarrier C R)
         (creationResponseOthelloMate M φ) =
