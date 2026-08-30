@@ -66,9 +66,6 @@ theorem lowWheelFrozenCofactorTopPrime_data
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨_ht, hx⟩
   rcases mem_lowWheelCanonicalDowncrossPart.mp hx with
     ⟨_hphysical, hpNotC, _hdown⟩
-  have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hx
-  have hp : (lowWheelTaggedDowncrossPivot y).Prime := by
-    simpa [lowWheelTaggedDowncrossPivot] using hshell.1
   have hqPrime : (lowWheelFrozenCofactorTopPrime y).Prime := by
     simpa [lowWheelFrozenCofactorTopPrime] using
       canonicalLargestPrimeFactor_prime hcgt
@@ -88,7 +85,10 @@ theorem lowWheelFrozenCofactorTopPrime_data
     apply hpNotC
     rw [← heq]
     exact hqDvd
-  exact ⟨hqPrime, hqDvd, lt_of_le_of_ne hpLeQ hpNeQ⟩
+  have hpLtQ :
+      lowWheelTaggedDowncrossPivot y < lowWheelFrozenCofactorTopPrime y := by
+    omega
+  exact ⟨hqPrime, hqDvd, hpLtQ⟩
 
 /-- The top/bottom move preserves the complete cofactor-times-quotient product,
 so in particular it preserves the canonical least-prime pivot. -/
@@ -122,7 +122,8 @@ theorem lowWheelFrozenCofactorTopToggle_mem_physical
   have hranges := lowWheelTransportPairCarrier_mem_ranges hpairNew
   have hdivisor :
       y.2.1 / lowWheelFrozenCofactorTopPrime y ∣ y.2.1 :=
-    ⟨lowWheelFrozenCofactorTopPrime y, Nat.div_mul_cancel hqDvd⟩
+    ⟨lowWheelFrozenCofactorTopPrime y,
+      (Nat.div_mul_cancel hqDvd).symm⟩
   have hsqNew :
       Squarefree
         (lowWheelCofactorQuotientToggleAt
@@ -198,26 +199,6 @@ theorem lowWheelFrozenCofactorTopToggle_weight_neg
   unfold lowWheelTaggedDowncrossWeight lowWheelFrozenCofactorTopToggle
   exact lowWheelCofactorQuotientToggleAt_weight_neg
     (t := y.1) hqPrime hsq (Or.inl hqDvd)
-
-/-- The chosen top prime is also the largest prime of the invariant `c*k`
-product, so it is recoverable after the move. -/
-theorem lowWheelFrozenCofactorTopPrime_eq_lpf_product
-    {R : ℕ} {y : LowWheelTaggedDowncrossState}
-    (hy : y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R) :
-    lowWheelFrozenCofactorTopPrime y =
-      canonicalLargestPrimeFactor (y.2.1 * y.2.2) := by
-  have hfrozen := (Finset.mem_filter.mp hy).1
-  have hshape := (Finset.mem_filter.mp hfrozen).2
-  rcases lowWheelFrozenCofactorTopPrime_data hy with
-    ⟨hqPrime, _hqDvd, hpq⟩
-  have hcgt := (Finset.mem_filter.mp hy).2
-  have hcPos : 0 < y.2.1 := by omega
-  rw [hshape.1]
-  unfold lowWheelFrozenCofactorTopPrime
-  symm
-  exact canonicalLargestPrimeFactor_mul_prime_eq_of_rough
-    hcPos hqPrime (by
-      simpa using hpq)
 
 /-- Fixed-coordinate involutivity gives the exact return edge from top to bottom. -/
 theorem lowWheelFrozenCofactorTopToggle_involutive
