@@ -150,7 +150,7 @@ theorem lowWheelLargestCofactorQuotientToggle_involutive
 def lowWheelLeastOthelloMate
     (R : ℕ) (t : Finset ℕ) (x : LowWheelCofactorQuotientState) :
     LowWheelCofactorQuotientState :=
-  if hprod : x.1 * x.2 = 1 then x
+  if _hprod : x.1 * x.2 = 1 then x
   else if lowWheelCanonicalCofactorQuotientToggle x ∈
       lowWheelCanonicalPhysicalStateSet R t then
     lowWheelCanonicalCofactorQuotientToggle x
@@ -160,7 +160,7 @@ def lowWheelLeastOthelloMate
 def lowWheelLargestOthelloMate
     (R : ℕ) (t : Finset ℕ) (x : LowWheelCofactorQuotientState) :
     LowWheelCofactorQuotientState :=
-  if hprod : x.1 * x.2 = 1 then x
+  if _hprod : x.1 * x.2 = 1 then x
   else if lowWheelLargestCofactorQuotientToggle x ∈
       lowWheelCanonicalPhysicalStateSet R t then
     lowWheelLargestCofactorQuotientToggle x
@@ -239,7 +239,7 @@ theorem lowWheelLeastOthelloMate_weight_neg
   unfold lowWheelLeastOthelloMate at hne ⊢
   by_cases hprod : x.1 * x.2 = 1
   · simp [hprod] at hne
-  · simp only [hprod, if_false] at hne ⊢
+  · simp only [hprod] at hne ⊢
     by_cases hmate : lowWheelCanonicalCofactorQuotientToggle x ∈
         lowWheelCanonicalPhysicalStateSet R t
     · simp only [hmate, if_true]
@@ -259,7 +259,7 @@ theorem lowWheelLargestOthelloMate_weight_neg
   unfold lowWheelLargestOthelloMate at hne ⊢
   by_cases hprod : x.1 * x.2 = 1
   · simp [hprod] at hne
-  · simp only [hprod, if_false] at hne ⊢
+  · simp only [hprod] at hne ⊢
     by_cases hmate : lowWheelLargestCofactorQuotientToggle x ∈
         lowWheelCanonicalPhysicalStateSet R t
     · simp only [hmate, if_true]
