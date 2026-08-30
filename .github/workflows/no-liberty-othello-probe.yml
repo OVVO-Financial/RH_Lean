@@ -45,5 +45,7 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
       - name: Kernel-check processed-seat no-liberty Othello
         run: lake build RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
-      - name: Compare descending frontier and tagged boundary
+      - name: Kernel-check finite equivalence interface
+        run: lake build RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv
+      - name: Smoke-test no-liberty interface
         run: lake env lean ScratchNoLibertyOthello.lean
