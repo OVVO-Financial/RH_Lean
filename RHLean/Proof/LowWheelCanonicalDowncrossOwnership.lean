@@ -50,6 +50,8 @@ open RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
 
+namespace LowWheelCanonicalDowncrossOwnership
+
 /-- Canonical prime attached to one cofactor/quotient state. -/
 def lowWheelCanonicalDowncrossPivot
     (x : LowWheelCofactorQuotientState) : ℕ :=
@@ -330,5 +332,7 @@ theorem lowWheelCanonicalDowncrossOriented_cofactor_roughAbove
     subst q
     exact hpc hqDvd
   omega
+
+end LowWheelCanonicalDowncrossOwnership
 
 end RHLean.Proof
