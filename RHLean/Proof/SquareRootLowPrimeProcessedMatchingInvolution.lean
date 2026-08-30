@@ -69,7 +69,7 @@ private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_lower
     (hx : x ∈ squareRootLowPrimeProcessedSeatPairLower S p) :
     squareRootLowPrimeProcessedSeatStepInvolution S p x =
       squareRootLowPrimeProcessedSeatExtend p x := by
-  unfold squareRootLowPrimeProcessedSeatStepInvolution
+  dsimp [squareRootLowPrimeProcessedSeatStepInvolution]
   rw [dif_pos hx]
 
 private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_upper
@@ -80,7 +80,7 @@ private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_upper
       squareRootLowPrimeProcessedSeatExtend p y = x) :
     squareRootLowPrimeProcessedSeatStepInvolution S p x =
       squareRootLowPrimeProcessedSeatPairPreimage S p x hupper := by
-  unfold squareRootLowPrimeProcessedSeatStepInvolution
+  dsimp [squareRootLowPrimeProcessedSeatStepInvolution]
   rw [dif_neg hx, dif_pos hupper]
 
 private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired
@@ -90,7 +90,7 @@ private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired
     (hupper : ¬ ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
       squareRootLowPrimeProcessedSeatExtend p y = x) :
     squareRootLowPrimeProcessedSeatStepInvolution S p x = x := by
-  unfold squareRootLowPrimeProcessedSeatStepInvolution
+  dsimp [squareRootLowPrimeProcessedSeatStepInvolution]
   rw [dif_neg hx, dif_neg hupper]
 
 /-- The one-step involution preserves the ambient carrier. -/
