@@ -51,6 +51,7 @@ jobs:
         run: |
           lake build \
             RHLean.Proof.SquareRootLowPrimeCanonicalLibertyPartition \
-            RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
+            RHLean.Proof.SquareRootLowPrimeCanonicalLiberty \
+            RHLean.Proof.SquareRootLowPrimeNoLibertyBoundaryHome
       - name: Evaluate raw and canonical frontiers
         run: lake env lean ScratchNoLibertyBoundary.lean
