@@ -5,15 +5,10 @@ import RHLean.Proof.LowWheelCanonicalRepeatedMovableToggle
 # Exact cancellation of movable repeated-parent downcross fibres
 
 The lifted face/tail toggle preserves the canonical pivot and root-side parent.
-This file proves that it also preserves the literal downcross carrier.  Because
-the canonical mover is selected only from those two invariant coordinates, the
-same mover is selected after the first flip.  The resulting self-map is therefore
-a genuine fixed-point-free sign-reversing involution on the entire movable
-repeated-parent population.
-
-Hence that whole population has signed mass exactly zero.  The repeated-parent
-obstruction is reduced, before any norm is taken, to the two frozen classes from
-`LowWheelCanonicalRepeatedParentClassification`.
+Because the canonical mover is selected only from those invariant coordinates,
+the same mover is selected after the first flip.  Hence the movable repeated
+population carries a fixed-point-free sign-reversing involution and has signed
+mass exactly zero.
 -/
 
 noncomputable section
@@ -26,8 +21,7 @@ open RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
 
-/-- The full high coordinate `P(t)*k` is invariant under every legal lifted
-face/tail transfer. -/
+/-- The full high coordinate `P(t)*k` is invariant under a legal lifted move. -/
 theorem lowWheelTaggedDowncrossFaceTailToggleAt_faceQuotientProduct
     {R q : ℕ} {y : LowWheelTaggedDowncrossState}
     (hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R)
@@ -61,8 +55,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_faceQuotientProduct
     _ = primeFaceProduct y.1 * y.2.2 := by
       rw [Nat.mul_div_cancel' hpk']
 
-/-- A legal lifted transfer keeps the Boolean face inside the global low-prime
-cube. -/
+/-- The toggled face remains a face of the global low-prime cube. -/
 theorem lowWheelTaggedDowncrossFaceTailToggleAt_face_mem
     {R q : ℕ} {y : LowWheelTaggedDowncrossState}
     (hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R)
@@ -92,8 +85,8 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_face_mem
     · exact hqGlobal
     · exact htSub hr
 
-/-- The physical transport state remains physical: cofactor is unchanged and
-the complete face/quotient product is invariant. -/
+/-- The physical transport state remains physical because cofactor and complete
+face/quotient product are unchanged. -/
 theorem lowWheelTaggedDowncrossFaceTailToggleAt_mem_physical
     {R q : ℕ} {y : LowWheelTaggedDowncrossState}
     (hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R)
@@ -105,7 +98,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_mem_physical
   rcases mem_lowWheelCanonicalDowncrossPart.mp hx with
     ⟨hxPhysical, _hpc, _hdown⟩
   rcases mem_lowWheelCanonicalPhysicalStateSet.mp hxPhysical with
-    ⟨hcRange, _hkRange, hsq, hcarrier⟩
+    ⟨_hcRange, _hkRange, hsq, hcarrier⟩
   have hprod :=
     lowWheelTaggedDowncrossFaceTailToggleAt_faceQuotientProduct hy hq
   have hcEq := lowWheelTaggedDowncrossFaceTailToggleAt_cofactor q y
@@ -156,8 +149,10 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_mem
   refine ⟨lowWheelTaggedDowncrossFaceTailToggleAt_mem_physical hy hq, ?_, ?_⟩
   · intro hdiv
     apply hpc
-    rw [← hpivot]
-    simpa using hdiv
+    have hdiv' : lowWheelTaggedDowncrossPivot y ∣ y.2.1 := by
+      rw [← hpivot]
+      simpa [lowWheelTaggedDowncrossPivot] using hdiv
+    simpa [lowWheelTaggedDowncrossPivot] using hdiv'
   · change lowWheelCanonicalDowncrossParent
         (lowWheelTaggedDowncrossFaceTailToggleAt q y) ≤ R
     rw [hparent]
@@ -175,7 +170,9 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_movable
   have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hyData.2
   have hp : (lowWheelTaggedDowncrossPivot y).Prime := by
     simpa [lowWheelTaggedDowncrossPivot] using hshell.1
-  have hactive := lowWheelFaceTailToggleAt_active hq.2.2
+  have hactive := lowWheelFaceTailToggleAt_active
+    (q := q)
+    (x := (y.1, y.2.2 / lowWheelTaggedDowncrossPivot y)) hq.2.2
   refine ⟨hq.1, ?_, ?_⟩
   · rw [hpivot]
     exact hq.2.1
@@ -188,14 +185,22 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_movable
             (y.1, y.2.2 / lowWheelTaggedDowncrossPivot y)).2) /
           lowWheelTaggedDowncrossPivot
             (lowWheelTaggedDowncrossFaceTailToggleAt q y)
-    rw [hpivot, Nat.mul_div_left _ hp.pos]
-    exact hactive
+    rw [hpivot]
+    let a :=
+      (lowWheelFaceTailToggleAt q
+        (y.1, y.2.2 / lowWheelTaggedDowncrossPivot y)).2
+    have hdiv :
+        (lowWheelTaggedDowncrossPivot y * a) /
+            lowWheelTaggedDowncrossPivot y = a := by
+      apply Nat.mul_left_cancel hp.pos
+      exact Nat.mul_div_cancel'
+        (dvd_mul_right (lowWheelTaggedDowncrossPivot y) a)
+    simpa [a, hdiv] using hactive
 
-/-- Every legal lifted transfer is nontrivial because it changes the Boolean
-face. -/
+/-- Every legal lifted transfer is nontrivial because it changes the face. -/
 theorem lowWheelTaggedDowncrossFaceTailToggleAt_ne
     {R q : ℕ} {y : LowWheelTaggedDowncrossState}
-    (hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R)
+    (_hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R)
     (hq : LowWheelDowncrossMovablePrime y q) :
     lowWheelTaggedDowncrossFaceTailToggleAt q y ≠ y := by
   intro heq
@@ -205,8 +210,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_ne
       (y.1, y.2.2 / lowWheelTaggedDowncrossPivot y)).1 = y.1 at hface
   exact (lowWheelFaceTailToggleAt_fst_ne_of_active hq.2.2) hface
 
-/-- A movable repeated-parent state remains repeated after the lifted move,
-because the original state is a distinct state with the same parent. -/
+/-- A movable repeated-parent state remains repeated after the move. -/
 theorem lowWheelTaggedDowncrossFaceTailToggleAt_mem_repeated
     {R q : ℕ} {y : LowWheelTaggedDowncrossState}
     (hy : y ∈ lowWheelCanonicalRepeatedMovablePart R)
@@ -225,7 +229,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_mem_repeated
     huniq y hyCarrier hparent.symm
   exact hne hback.symm
 
-/-- Therefore the lifted move preserves the movable repeated-parent region. -/
+/-- The lifted move preserves the movable repeated-parent region. -/
 theorem lowWheelTaggedDowncrossFaceTailToggleAt_mem_movablePart
     {R q : ℕ} {y : LowWheelTaggedDowncrossState}
     (hy : y ∈ lowWheelCanonicalRepeatedMovablePart R)
@@ -250,7 +254,7 @@ theorem lowWheelCanonicalDowncrossMovablePrimeSet_toggle
   unfold lowWheelCanonicalDowncrossMovablePrimeSet
   rw [hpivot, hparent]
 
-/-- Consequently the canonical least mover is itself invariant. -/
+/-- Therefore the canonical least mover is unchanged after the flip. -/
 theorem lowWheelCanonicalDowncrossMover_toggle
     {R q : ℕ} {y : LowWheelTaggedDowncrossState}
     (hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R)
@@ -298,10 +302,16 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_involutive
         ((lowWheelFaceTailToggleAt q x).1,
           (p * (lowWheelFaceTailToggleAt q x).2) / p)
       (z'.1, (y.2.1, p * z'.2))) = y
-  rw [Nat.mul_div_left _ hp.pos]
+  let a := (lowWheelFaceTailToggleAt q x).2
+  have hdiv : (p * a) / p = a := by
+    apply Nat.mul_left_cancel hp.pos
+    exact Nat.mul_div_cancel' (dvd_mul_right p a)
+  rw [show
+      (p * (lowWheelFaceTailToggleAt q x).2) / p =
+        (lowWheelFaceTailToggleAt q x).2 by
+      simpa [a] using hdiv]
   change
-    (let z' := lowWheelFaceTailToggleAt q
-        (lowWheelFaceTailToggleAt q x)
+    (let z' := lowWheelFaceTailToggleAt q (lowWheelFaceTailToggleAt q x)
       (z'.1, (y.2.1, p * z'.2))) = y
   rw [hinv]
   change (x.1, (y.2.1, p * x.2)) = y
@@ -311,7 +321,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_involutive
 /-- The lifted move reverses the signed tagged-downcross weight. -/
 theorem lowWheelTaggedDowncrossFaceTailToggleAt_weight_neg
     {R q : ℕ} {y : LowWheelTaggedDowncrossState}
-    (hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R)
+    (_hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R)
     (hq : LowWheelDowncrossMovablePrime y q) :
     lowWheelTaggedDowncrossWeight
         (lowWheelTaggedDowncrossFaceTailToggleAt q y) =
@@ -387,8 +397,7 @@ theorem lowWheelCanonicalRepeatedMovableMate_weight_neg
   exact lowWheelTaggedDowncrossFaceTailToggleAt_weight_neg hyCarrier
     (lowWheelCanonicalDowncrossMover_movable hy)
 
-/-- **Exact movable-fibre cancellation.**  Every non-frozen repeated-parent
-state disappears under the canonical opposite Othello involution. -/
+/-- **Exact movable-fibre cancellation.** -/
 theorem sum_lowWheelCanonicalRepeatedMovablePart_eq_zero
     (R : ℕ) :
     (∑ y ∈ lowWheelCanonicalRepeatedMovablePart R,
