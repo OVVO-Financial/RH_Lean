@@ -47,5 +47,10 @@ jobs:
             strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
+      - name: Build no-liberty modules
+        run: |
+          lake build \
+            RHLean.Proof.SquareRootLowPrimeCanonicalLibertyPartition \
+            RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
       - name: Evaluate raw and canonical frontiers
         run: lake env lean ScratchNoLibertyBoundary.lean
