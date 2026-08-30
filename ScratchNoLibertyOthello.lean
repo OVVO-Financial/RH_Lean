@@ -3,10 +3,13 @@ import RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv
 open RHLean.Proof
 
 /-!
-Kernel-only smoke test for the processed-seat no-liberty Othello seam.
+Kernel smoke test for the processed-seat no-liberty Othello seam.
 
-The carriers in this proof path are deliberately noncomputable, so this file
-must not use `#eval`.
+The two tiny `#reduce` probes below deliberately use kernel reduction rather
+than code generation.  They are a guard against attempting to prove an
+incorrect finite equivalence: before constructing the general classifier we
+compare the literal descending-frontier and tagged-boundary cardinalities on a
+small terminal instance.
 -/
 
 #check squareRootLowPrimeProcessedSeatNoLibertyMate
@@ -17,6 +20,16 @@ must not use `#eval`.
 #check squareRootLowPrimeProcessedSeatNoLibertyMate_stableMass_eq_runningImbalance
 #check squareRootLowPrimeProcessedSeatNoLibertyBoundary
 #check squareRootLowPrimeNoLibertyBoundaryWeight
+#check SquareRootLowPrimeProcessedSeatDescendingFrontier
+#check squareRootLowPrimeProcessedSeatNoLibertyStableEquivDescending
+#check SquareRootLowPrimeDescendingBoundaryWeightEquiv
 #check SquareRootLowPrimeNoLibertyWeightEquiv
 #check squareRootLowPrimeNoLibertyWeightEquiv_sum_eq
 #check squareRootLowPrimeNoLibertyWeightEquiv_boundaryMass_eq_runningImbalance
+
+#reduce
+  (squareRootLowPrimeProcessedSeatDescendingTerminalFrontier
+    6 1 0 (squareRootBornPostTailLowPrimeCutoff 6)).card
+#reduce
+  (squareRootLowPrimeProcessedSeatNoLibertyBoundary
+    6 1 0 (squareRootBornPostTailLowPrimeCutoff 6)).card
