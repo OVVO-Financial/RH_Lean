@@ -21,12 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Restore Mathlib packages
-        uses: actions/cache/restore@v5
-        with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-
       - name: Set up Lean and Mathlib
         uses: leanprover/lean-action@v1
         with:
