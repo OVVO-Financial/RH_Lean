@@ -300,7 +300,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_involutive
   change
     (let z' := lowWheelFaceTailToggleAt q
         ((lowWheelFaceTailToggleAt q x).1,
-          (p * (lowWheelFaceTailToggleAt q x).2) / p)
+          (p * (lowWheelFaceTailToggleAt q x).2) / p);
       (z'.1, (y.2.1, p * z'.2))) = y
   let a := (lowWheelFaceTailToggleAt q x).2
   have hdiv : (p * a) / p = a := by
@@ -311,7 +311,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_involutive
         (lowWheelFaceTailToggleAt q x).2 by
       simpa [a] using hdiv]
   change
-    (let z' := lowWheelFaceTailToggleAt q (lowWheelFaceTailToggleAt q x)
+    (let z' := lowWheelFaceTailToggleAt q (lowWheelFaceTailToggleAt q x);
       (z'.1, (y.2.1, p * z'.2))) = y
   rw [hinv]
   change (x.1, (y.2.1, p * x.2)) = y
