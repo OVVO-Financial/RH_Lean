@@ -1,4 +1,4 @@
-name: Repeated-parent Othello fast check
+name: Full frozen downcross reduction check
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: repeated-parent-othello-fast-${{ github.ref }}
+  group: full-frozen-downcross-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -44,11 +44,11 @@ jobs:
           restore-keys: |
             othello-project-${{ runner.os }}-${{ runner.arch }}-v1-
 
-      - name: Kernel-check movable repeated-parent cancellation
+      - name: Kernel-check full frozen downcross reduction
         id: leancheck
         run: |
           set +e
-          timeout 600 lake build RHLean.Proof.LowWheelCanonicalRepeatedMovableCancellation
+          timeout 600 lake build RHLean.Proof.LowWheelCanonicalFrozenReduction
           rc=$?
           echo "exit_code=$rc" >> "$GITHUB_OUTPUT"
           exit 0
