@@ -1,6 +1,5 @@
 import Mathlib
 import RHLean.Proof.LowWheelCanonicalDowncrossParentFibers
-import RHLean.Proof.SquareRootLowPrimeGoCrossingMateLedger
 
 /-!
 # Repeated-parent classification for the canonical downcross frontier
