@@ -47,7 +47,7 @@ noncomputable def squareRootLowPrimeProcessedSeatStepInvolution
     (S : Finset SquareRootLowPrimeProcessedState) (p : ℕ) :
     SquareRootLowPrimeProcessedState → SquareRootLowPrimeProcessedState :=
   fun x =>
-    if hx : x ∈ squareRootLowPrimeProcessedSeatPairLower S p then
+    if x ∈ squareRootLowPrimeProcessedSeatPairLower S p then
       squareRootLowPrimeProcessedSeatExtend p x
     else if hupper :
         ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
@@ -287,8 +287,9 @@ theorem squareRootLowPrimeProcessedSeatMatchingInvolution_involutive
             S hp x
           change squareRootLowPrimeProcessedSeatStepInvolution S p y = x at hback
           rw [hyFixed] at hback
-          subst y
-          exact hnot hxPaired
+          apply hnot
+          rw [hback]
+          exact hxPaired
         rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
         simp only [hxPaired, if_true]
         change squareRootLowPrimeProcessedSeatMatchingInvolution (p :: ps) S y = x
