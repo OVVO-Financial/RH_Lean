@@ -39,9 +39,11 @@ noncomputable def squareRootLowPrimeResponseSeatPartnerEquiv
     ↥(squareRootLowPrimeResponseSeatIndexSet R K j c) ≃
       ↥(squareRootLowPrimeDeepPartnerSet R c) := by
   apply Finset.equivOfCardEq
-  rw [Finset.card_range,
-    card_squareRootLowPrimeDeepPartnerSet_eq_combinedFreshResponse
-      hR hc hKc]
+  show (Finset.range (squareRootLowPrimeCombinedFreshResponse R K j c)).card =
+    (squareRootLowPrimeDeepPartnerSet R c).card
+  rw [Finset.card_range]
+  exact (card_squareRootLowPrimeDeepPartnerSet_eq_combinedFreshResponse
+    hR hc hKc).symm
 
 /-- The chosen partner of a valid seat is genuinely in the deep partner set. -/
 theorem squareRootLowPrimeResponseSeatPartnerEquiv_mem

@@ -47,7 +47,7 @@ noncomputable def squareRootLowPrimeProcessedSeatStepInvolution
     (S : Finset SquareRootLowPrimeProcessedState) (p : ℕ) :
     SquareRootLowPrimeProcessedState → SquareRootLowPrimeProcessedState :=
   fun x =>
-    if hx : x ∈ squareRootLowPrimeProcessedSeatPairLower S p then
+    if x ∈ squareRootLowPrimeProcessedSeatPairLower S p then
       squareRootLowPrimeProcessedSeatExtend p x
     else if hupper :
         ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
@@ -69,8 +69,8 @@ private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_lower
     (hx : x ∈ squareRootLowPrimeProcessedSeatPairLower S p) :
     squareRootLowPrimeProcessedSeatStepInvolution S p x =
       squareRootLowPrimeProcessedSeatExtend p x := by
-  dsimp [squareRootLowPrimeProcessedSeatStepInvolution]
-  rw [dif_pos hx]
+  dsimp only [squareRootLowPrimeProcessedSeatStepInvolution]
+  rw [if_pos hx]
 
 private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_upper
     {S : Finset SquareRootLowPrimeProcessedState} {p : ℕ}
@@ -80,8 +80,8 @@ private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_upper
       squareRootLowPrimeProcessedSeatExtend p y = x) :
     squareRootLowPrimeProcessedSeatStepInvolution S p x =
       squareRootLowPrimeProcessedSeatPairPreimage S p x hupper := by
-  dsimp [squareRootLowPrimeProcessedSeatStepInvolution]
-  rw [dif_neg hx, dif_pos hupper]
+  dsimp only [squareRootLowPrimeProcessedSeatStepInvolution]
+  rw [if_neg hx, dif_pos hupper]
 
 private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired
     {S : Finset SquareRootLowPrimeProcessedState} {p : ℕ}
@@ -90,8 +90,8 @@ private theorem squareRootLowPrimeProcessedSeatStepInvolution_of_unpaired
     (hupper : ¬ ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
       squareRootLowPrimeProcessedSeatExtend p y = x) :
     squareRootLowPrimeProcessedSeatStepInvolution S p x = x := by
-  dsimp [squareRootLowPrimeProcessedSeatStepInvolution]
-  rw [dif_neg hx, dif_neg hupper]
+  dsimp only [squareRootLowPrimeProcessedSeatStepInvolution]
+  rw [if_neg hx, dif_neg hupper]
 
 /-- The one-step involution preserves the ambient carrier. -/
 theorem squareRootLowPrimeProcessedSeatStepInvolution_mem
