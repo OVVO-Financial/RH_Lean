@@ -37,6 +37,9 @@ namespace RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
 
+/-- The literal state type of the complete processed-seat carrier. -/
+abbrev SquareRootLowPrimeProcessedState := Option (ℕ × ℕ)
+
 /-- Unique lower endpoint whose `p`-extension is a given upper endpoint. -/
 noncomputable def squareRootLowPrimeProcessedSeatOthelloPairPreimage
     (S : Finset SquareRootLowPrimeProcessedState) (p : ℕ)
