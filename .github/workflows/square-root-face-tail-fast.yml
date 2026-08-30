@@ -10,6 +10,10 @@ permissions:
   contents: read
   actions: read
 
+concurrency:
+  group: repeated-parent-othello-fast-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -32,5 +36,30 @@ jobs:
           test: false
           lint: false
 
+      - name: Restore scratch project build
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: othello-project-${{ runner.os }}-${{ runner.arch }}-v1-${{ github.sha }}
+          restore-keys: |
+            othello-project-${{ runner.os }}-${{ runner.arch }}-v1-
+
       - name: Kernel-check movable repeated-parent cancellation
-        run: timeout 600 lake build RHLean.Proof.LowWheelCanonicalRepeatedMovableCancellation
+        id: leancheck
+        run: |
+          set +e
+          timeout 600 lake build RHLean.Proof.LowWheelCanonicalRepeatedMovableCancellation
+          rc=$?
+          echo "exit_code=$rc" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Save scratch project build
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: othello-project-${{ runner.os }}-${{ runner.arch }}-v1-${{ github.sha }}
+
+      - name: Fail if Lean failed
+        if: steps.leancheck.outputs.exit_code != '0'
+        run: exit 1
