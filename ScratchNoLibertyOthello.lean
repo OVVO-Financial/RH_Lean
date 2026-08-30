@@ -1,4 +1,4 @@
-import RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
+import RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv
 
 open RHLean.Proof
 
@@ -6,8 +6,7 @@ open RHLean.Proof
 Kernel-only smoke test for the processed-seat no-liberty Othello seam.
 
 The carriers in this proof path are deliberately noncomputable, so this file
-must not use `#eval`.  The custom workflow checks the declarations themselves;
-the final arithmetic stable-boundary theorem belongs in the imported module.
+must not use `#eval`.
 -/
 
 #check squareRootLowPrimeProcessedSeatNoLibertyMate
@@ -18,3 +17,6 @@ the final arithmetic stable-boundary theorem belongs in the imported module.
 #check squareRootLowPrimeProcessedSeatNoLibertyMate_stableMass_eq_runningImbalance
 #check squareRootLowPrimeProcessedSeatNoLibertyBoundary
 #check squareRootLowPrimeNoLibertyBoundaryWeight
+#check SquareRootLowPrimeNoLibertyWeightEquiv
+#check squareRootLowPrimeNoLibertyWeightEquiv_sum_eq
+#check squareRootLowPrimeNoLibertyWeightEquiv_boundaryMass_eq_runningImbalance
