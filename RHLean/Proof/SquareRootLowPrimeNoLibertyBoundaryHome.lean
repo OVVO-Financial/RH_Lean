@@ -116,9 +116,9 @@ theorem squareRootLowPrimeNoLibertyBoundaryHome_mem
     squareRootLowPrimeNoLibertyBoundaryHome R K j x ∈
       squareRootLowPrimeNoLibertyBoundaryHomeSpace R K j := by
   rcases x with u | x
-  · simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary,
+  · simp [squareRootLowPrimeProcessedSeatNoLibertyBoundary,
       squareRootLowPrimeNoLibertyBoundaryHome,
-      squareRootLowPrimeNoLibertyBoundaryHomeSpace] using hx
+      squareRootLowPrimeNoLibertyBoundaryHomeSpace] at hx ⊢
   · rcases x with s | x
     · simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary,
         squareRootLowPrimeNoLibertyBoundaryHome,
