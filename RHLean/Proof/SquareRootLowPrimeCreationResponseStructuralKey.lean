@@ -115,7 +115,7 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_structuralKey
 /-- Encoding the exact processed carrier does not change the common structural
 key. -/
 theorem squareRootLowPrimeProcessedCreationResponseEncode_structuralKey
-    {R K j U : ℕ} (hR : 1 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U)
+    {R K j U : ℕ} (_hR : 1 ≤ R) (_hK : 1 ≤ K) (_hKU : K ≤ U)
     {x : SquareRootLowPrimeProcessedState}
     (hx : x ∈ squareRootLowPrimeProcessedSeatCarrier R K j U) :
     squareRootLowPrimeProcessedCreationResponseTaggedStructuralKey R K

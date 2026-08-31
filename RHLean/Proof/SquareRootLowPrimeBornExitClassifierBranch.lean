@@ -55,10 +55,7 @@ theorem squareRootLowPrimeProcessedDeepSeatResponseAtom_mem
     (hdeep : K < canonicalLargestPrimeFactor z.1) :
     (squareRootLowPrimeProcessedDeepSeatResponseAtom
         R K j U hR hK z hz hdeep).1 = z.1 := by
-  simpa [squareRootLowPrimeProcessedDeepSeatResponseAtom] using
-    squareRootLowPrimeOwnedResponseSeatAtomEquiv_fst R K j U hR
-      ⟨z, squareRootLowPrimeProcessedSeat_mem_ownedResponseSeatCarrier_of_deep
-        hK hz hdeep⟩
+  simp [squareRootLowPrimeProcessedDeepSeatResponseAtom]
 
 /-- Literal atom recovery is injective on deep processed seats.  No target
 cardinality argument is used: this is injectivity of the canonical seat/partner
@@ -139,8 +136,7 @@ theorem squareRootLowPrimeProcessedDeepSeatResponseAtom_bornExit_weight_eq
     simpa [Nat.mul_comm] using
       (moebius_prime_mul_eq_neg_of_not_dvd hqPrime hqFresh)
   have hfst : a.1 = z.1 := by
-    simpa [a] using squareRootLowPrimeProcessedDeepSeatResponseAtom_fst
-      hR hK hz hdeep
+    simp [a]
   change ((μ (a.1 * a.2) : ℤ) : ℝ) = ((-μ z.1 : ℤ) : ℝ)
   rw [hmu, hfst]
 
