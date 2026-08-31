@@ -80,9 +80,12 @@ jobs:
       - name: Build packet-free mass transfer
         if: always()
         run: lake build RHLean.Proof.SquareRootLowPrimePacketFreeMassTransfer
-      - name: Kernel-check near-root remainder
+      - name: Build near-root remainder
         if: always()
-        run: lake env lean RHLean/Proof/SquareRootLowPrimeNearRootRemainder.lean
+        run: lake build RHLean.Proof.SquareRootLowPrimeNearRootRemainder
+      - name: Kernel-check matched core bound
+        if: always()
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeMatchedCoreBound.lean
       - name: Build shallow processed/creation bridge
         run: lake build RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv
       - name: Build fixed partial packet residual
