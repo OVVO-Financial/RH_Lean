@@ -664,4 +664,128 @@ theorem abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_massTransfer'
     (R := R) (K := K) (j := j) (by omega) hKR hV0 hVK
   exact hmassLe.trans (by exact_mod_cast hcard)
 
+/-! ## Closed form of the boundary mass
+
+The tagged boundary is a disjoint sum of four explicit carriers, so its signed
+mass has a closed form with no survivor set in it: the head contributes `1`, the
+compressed packet contributes `-V`, and the remaining two blocks are sums of
+Möbius values over the BornExit atoms and the root-equality incidences.
+
+Combined with `..._DescendingTerminalFrontier_weight_sum`, this turns the whole
+mass-transfer programme into **one explicit arithmetic identity** between
+already-defined quantities.  In particular it does not require choosing a
+shallow/deep decomposition of the frontier — which matters, because the
+descending matching does not respect that split: every matched edge
+`(c,s) ↔ (p·c,s)` adjoins a prime above `K`, so it is shallow-to-deep or
+deep-to-deep.  The shallow block's mass is therefore not preserved by the
+cancellation, and no identity for it follows from the packet identity alone. -/
+
+/-- Signed mass of the BornExit block. -/
+def squareRootLowPrimeBornExitBoundaryMassReal (R K U : ℕ) : ℝ :=
+  ∑ a ∈ squareRootLowPrimeBornNoSuccessorAtoms R K U,
+    ((μ (squareRootLowPrimeBadAtomChild a) : ℤ) : ℝ)
+
+/-- Signed mass of the root-equality block. -/
+def squareRootLowPrimeRootEqualityBoundaryMassReal (R : ℕ) : ℝ :=
+  ∑ w ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R,
+    ((μ (w.1.2 * w.2) : ℤ) : ℝ)
+
+/-- The root-equality block vanishes exactly when its carrier is empty, which
+by `..._eq_empty_of_prime` is the case at every prime root. -/
+@[simp] theorem squareRootLowPrimeRootEqualityBoundaryMassReal_of_empty
+    {R : ℕ} (hroot : squareRootLowPrimeGoRootEqualityDefectCarrier R = ∅) :
+    squareRootLowPrimeRootEqualityBoundaryMassReal R = 0 := by
+  unfold squareRootLowPrimeRootEqualityBoundaryMassReal
+  rw [hroot]
+  simp
+
+/-- **Closed form of the tagged boundary mass.** -/
+theorem squareRootLowPrimeNoLibertyBoundary_mass_closed_form
+    {R K j U : ℕ}
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j) :
+    (∑ z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U,
+        squareRootLowPrimeNoLibertyBoundaryWeight z) =
+      1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+        squareRootLowPrimeBornExitBoundaryMassReal R K U +
+        squareRootLowPrimeRootEqualityBoundaryMassReal R := by
+  have hcast :
+      ((Int.toNat (squareRootCrossingLayerPartialPacketInt R K j) : ℕ) : ℤ) =
+        squareRootCrossingLayerPartialPacketInt R K j :=
+    Int.toNat_of_nonneg hV0
+  have hcastR :
+      ((Int.toNat (squareRootCrossingLayerPartialPacketInt R K j) : ℕ) : ℝ) =
+        ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) := by
+    exact_mod_cast hcast
+  have hhead :
+      (∑ u ∈ ({()} : Finset Unit),
+        squareRootLowPrimeNoLibertyBoundaryWeight
+          (Sum.inl u : SquareRootLowPrimeProcessedSeatNoLibertyState)) = 1 := by
+    rw [Finset.sum_singleton]
+  have hpartial :
+      (∑ s ∈ squareRootLowPrimePartialPacketBoundary R K j,
+        squareRootLowPrimeNoLibertyBoundaryWeight
+          (Sum.inr (Sum.inl s) :
+            SquareRootLowPrimeProcessedSeatNoLibertyState)) =
+        -((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) := by
+    have hconst :
+        (∑ s ∈ squareRootLowPrimePartialPacketBoundary R K j,
+          squareRootLowPrimeNoLibertyBoundaryWeight
+            (Sum.inr (Sum.inl s) :
+              SquareRootLowPrimeProcessedSeatNoLibertyState)) =
+          ∑ _s ∈ squareRootLowPrimePartialPacketBoundary R K j, (-1 : ℝ) :=
+      Finset.sum_congr rfl fun _s _hs => rfl
+    rw [hconst, Finset.sum_const, squareRootLowPrimePartialPacketBoundary_card,
+      nsmul_eq_mul, mul_neg_one, hcastR]
+  have hborn :
+      (∑ a ∈ squareRootLowPrimeBornNoSuccessorAtoms R K U,
+        squareRootLowPrimeNoLibertyBoundaryWeight
+          (Sum.inr (Sum.inr (Sum.inl a)) :
+            SquareRootLowPrimeProcessedSeatNoLibertyState)) =
+        squareRootLowPrimeBornExitBoundaryMassReal R K U :=
+    Finset.sum_congr rfl fun _a _ha => rfl
+  have hroot :
+      (∑ w ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R,
+        squareRootLowPrimeNoLibertyBoundaryWeight
+          (Sum.inr (Sum.inr (Sum.inr w)) :
+            SquareRootLowPrimeProcessedSeatNoLibertyState)) =
+        squareRootLowPrimeRootEqualityBoundaryMassReal R :=
+    Finset.sum_congr rfl fun _w _hw => rfl
+  unfold squareRootLowPrimeProcessedSeatNoLibertyBoundary
+  simp only [Finset.sum_disjSum]
+  rw [hhead, hpartial, hborn, hroot]
+  ring
+
+/-- **The mass-transfer identity is one explicit arithmetic statement.**  No
+frontier, no survivor set, no classifier appears on the right. -/
+theorem squareRootLowPrimeMassTransfer_iff_closedForm
+    {R K j U : ℕ} (hR : 2 ≤ R)
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j) :
+    ((∑ x ∈ squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      ∑ z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U,
+        squareRootLowPrimeNoLibertyBoundaryWeight z) ↔
+      squareRootLowPrimeRunningImbalanceReal R K j U =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K U +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R := by
+  rw [squareRootLowPrimeProcessedSeatDescendingTerminalFrontier_weight_sum hR,
+    squareRootLowPrimeNoLibertyBoundary_mass_closed_form hV0]
+
+/-- **The whole remaining programme, in one hypothesis.** -/
+theorem abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_closedForm
+    {R K j : ℕ} (hR : 2 ≤ R) (hKR : K < R)
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
+    (hVK : squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ))
+    (h : squareRootLowPrimeRunningImbalanceReal R K j
+          (squareRootBornPostTailLowPrimeCutoff R) =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K
+            (squareRootBornPostTailLowPrimeCutoff R) +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) :
+    |squareRootLowPrimeRunningImbalanceReal R K j
+        (squareRootBornPostTailLowPrimeCutoff R)| ≤ 4 * (R : ℝ) := by
+  refine abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_massTransfer'
+    hR hKR hV0 hVK ?_
+  rw [h, squareRootLowPrimeNoLibertyBoundary_mass_closed_form hV0]
+
 end RHLean.Proof
