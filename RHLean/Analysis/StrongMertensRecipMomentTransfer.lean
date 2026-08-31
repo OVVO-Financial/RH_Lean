@@ -52,7 +52,7 @@ def k2MertensAbelTerm (m n : ℕ) : ℝ :=
   nativeMertensSummatory n *
     (k2LogRecipWeight m n - k2LogRecipWeight m (n + 1))
 
-theorem nativeMertensSummatory_zero : nativeMertensSummatory 0 = 0 := by
+private theorem nativeMertensSummatory_zero : nativeMertensSummatory 0 = 0 := by
   have hempty : Finset.Icc 1 0 = (∅ : Finset ℕ) := Finset.Icc_eq_empty (by omega)
   unfold nativeMertensSummatory
   rw [hempty, Finset.sum_empty]
