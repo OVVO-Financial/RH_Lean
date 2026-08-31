@@ -1,5 +1,6 @@
 import Mathlib
-import RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv
+import RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
+import RHLean.Proof.SquareRootLowPrimeNoLibertyBoundaryHome
 
 /-!
 # Pointwise embedding interface for the no-liberty boundary
@@ -28,8 +29,8 @@ weight unchanged. -/
 structure SquareRootLowPrimeDescendingBoundaryWeightEmbedding
     (R K j U : ℕ) where
   toEmbedding :
-    SquareRootLowPrimeProcessedSeatDescendingFrontier R K j U ↪
-      SquareRootLowPrimeProcessedSeatNoLibertyTaggedBoundary R K j U
+    ↥(squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U) ↪
+      ↥(squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U)
   weight_eq : ∀ x,
     squareRootLowPrimeNoLibertyBoundaryWeight
         (toEmbedding x : SquareRootLowPrimeProcessedSeatNoLibertyState) =
@@ -40,7 +41,7 @@ structure SquareRootLowPrimeDescendingBoundaryWeightEmbedding
 argument is made. -/
 theorem abs_squareRootLowPrimeProcessedSeatDescendingFrontierWeight_le_one
     {R K j U : ℕ}
-    (x : SquareRootLowPrimeProcessedSeatDescendingFrontier R K j U) :
+    (x : ↥(squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U)) :
     |squareRootLowPrimeProcessedSeatWeightReal
         (x : SquareRootLowPrimeProcessedState)| ≤ 1 := by
   exact abs_squareRootLowPrimeProcessedSeatWeightReal_le_one
@@ -77,9 +78,9 @@ theorem squareRootLowPrimeProcessedSeatDescendingFrontier_card_le_boundary
     (squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U).card ≤
       (squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U).card := by
   have hcard :
-      Fintype.card (SquareRootLowPrimeProcessedSeatDescendingFrontier R K j U) ≤
-        Fintype.card (SquareRootLowPrimeProcessedSeatNoLibertyTaggedBoundary
-          R K j U) :=
+      Fintype.card
+          ↥(squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U) ≤
+        Fintype.card ↥(squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U) :=
     Fintype.card_le_of_injective e.toEmbedding e.toEmbedding.injective
   simpa using hcard
 
