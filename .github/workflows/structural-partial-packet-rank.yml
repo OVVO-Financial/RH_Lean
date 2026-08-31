@@ -67,7 +67,7 @@ jobs:
       - name: Build structural key module
         run: lake build RHLean.Proof.SquareRootLowPrimeStructuralKey
       - name: Build deep processed-seat bridge
-        run: lake build RHLean.Proof.SquareRootLowPrimeDeepProcessedSeatBridge
+        run: lake build RHLean.Proof/SquareRootLowPrimeDeepProcessedSeatBridge
       - name: Kernel-check structural endpoint normalization
         run: lake env lean RHLean/Proof/SquareRootLowPrimeStructuralEndpointNormalization.lean
       - name: Kernel-check BornExit classifier branch
@@ -84,3 +84,5 @@ jobs:
         run: lake build RHLean.Proof.SquareRootLowPrimeProcessedCreationResponseInvolution
       - name: Kernel-check first Othello fixed-state classification
         run: lake env lean RHLean/Proof/SquareRootLowPrimeProcessedCreationResponseFixedClassification.lean
+      - name: Kernel-check common creation-response structural key
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeCreationResponseStructuralKey.lean
