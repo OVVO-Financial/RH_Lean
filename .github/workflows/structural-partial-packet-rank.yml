@@ -86,6 +86,9 @@ jobs:
       - name: Kernel-check matched core bound
         if: always()
         run: lake env lean RHLean/Proof/SquareRootLowPrimeMatchedCoreBound.lean
+      - name: Kernel-check Mertens-minus-middle identity
+        if: always()
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeMatchedCoreMertensObstruction.lean
       - name: Build shallow processed/creation bridge
         run: lake build RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv
       - name: Build fixed partial packet residual
