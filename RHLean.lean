@@ -642,6 +642,7 @@ import RHLean.Proof.SquareRootMertensEndpointAmplification
 import RHLean.Proof.SquareRootMertensMiddleTracking
 import RHLean.Proof.SquareRootMertensPositiveTracking
 import RHLean.Proof.SquareRootPredecessorPrimeCells
+import RHLean.Proof.SquareRootReciprocalProcessedResponseBridge
 import RHLean.Proof.SquareRootSmoothTransportEnergyRecoupling
 import RHLean.Proof.SquareRootTruncatedPacketEquivalences
 import RHLean.Proof.SurvivorDyadicActivityMismatch
