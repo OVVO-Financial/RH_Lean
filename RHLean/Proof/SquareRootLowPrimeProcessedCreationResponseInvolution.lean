@@ -93,9 +93,10 @@ theorem squareRootLowPrimeProcessedCreationResponseEncode_mem
           ⟨hzAtom, hshallow⟩
       have hcreation :=
         squareRootLowPrimeProcessedShallowSeatToCreation_mem hR hKU hzShallow
-      simp [squareRootLowPrimeProcessedCreationResponseEncode, hshallow,
+      simpa [squareRootLowPrimeProcessedCreationResponseEncode, hshallow,
         squareRootLowPrimeProcessedCreationResponseTaggedCarrier,
-        creationResponseOthelloCarrier, hcreation]
+        creationResponseOthelloCarrier] using
+          (Finset.mem_erase.mp hcreation)
     · have hdeep : K < canonicalLargestPrimeFactor z.1 := by omega
       have hresponse :
           z ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j U :=
@@ -312,9 +313,16 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_weight_neg
       squareRootLowPrimeCanonicalCreationToResponse_injOn
       (fun c hc => squareRootLowPrimeCanonicalCreationToResponse_weight_cancel hc)
       y hne'
-    simpa [squareRootLowPrimeProcessedCreationResponseTaggedMate,
-      squareRootLowPrimeProcessedCreationResponseTaggedWeight,
-      creationResponseOthelloWeight] using h
+    change creationResponseOthelloWeight
+        squareRootLowPrimeCreationWeightReal
+        squareRootLowPrimeResponseSeatWeightReal
+        (creationResponseOthelloMate
+          (squareRootLowPrimeMatchedCreationStates R K j U)
+          (squareRootLowPrimeCanonicalCreationToResponse R K j U) y) =
+      -creationResponseOthelloWeight
+        squareRootLowPrimeCreationWeightReal
+        squareRootLowPrimeResponseSeatWeightReal y
+    exact h
 
 /-- **First Othello mate on the exact processed-seat universe.** -/
 noncomputable def squareRootLowPrimeProcessedSeatCreationResponseMate
