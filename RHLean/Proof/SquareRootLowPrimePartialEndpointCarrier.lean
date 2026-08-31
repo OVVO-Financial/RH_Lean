@@ -76,17 +76,23 @@ theorem mem_squareRootLowPrimeShallowDescendingEndpointCarrier
     {R K j U : ℕ} {x : SquareRootLowPrimeProcessedState} :
     x ∈ squareRootLowPrimeShallowDescendingEndpointCarrier R K j U ↔
       x ∈ squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U ∧
-        x ≠ none ∧ SquareRootLowPrimeProcessedStateShallow K x :=
-  Finset.mem_filter
+        x ≠ none ∧ SquareRootLowPrimeProcessedStateShallow K x := by
+  unfold squareRootLowPrimeShallowDescendingEndpointCarrier
+  exact Finset.mem_filter
 
 /-- A shallow survivor lies in the underlying processed carrier. -/
 theorem squareRootLowPrimeShallowDescendingEndpointCarrier_subset_carrier
     {R K j U : ℕ} {x : SquareRootLowPrimeProcessedState}
     (hx : x ∈ squareRootLowPrimeShallowDescendingEndpointCarrier R K j U) :
     x ∈ squareRootLowPrimeProcessedSeatCarrier R K j U := by
-  have hfront :=
+  have hfront :
+      x ∈ squareRootLowPrimeProcessedSeatMatchingFrontier
+        (squareRootLowPrimeFreshPrimeListDescending K U)
+        (squareRootLowPrimeProcessedSeatCarrier R K j U) :=
     (mem_squareRootLowPrimeShallowDescendingEndpointCarrier.mp hx).1
-  exact squareRootLowPrimeProcessedSeatMatchingFrontier_subset' _ _ hfront
+  exact squareRootLowPrimeProcessedSeatMatchingFrontier_subset'
+    (squareRootLowPrimeFreshPrimeListDescending K U)
+    (squareRootLowPrimeProcessedSeatCarrier R K j U) hfront
 
 /-! ## The `Partial`-eligible subset -/
 
@@ -101,14 +107,14 @@ theorem mem_squareRootLowPrimePartialEndpointCarrier
     {R K j U : ℕ} {x : SquareRootLowPrimeProcessedState} :
     x ∈ squareRootLowPrimePartialEndpointCarrier R K j U ↔
       x ∈ squareRootLowPrimeShallowDescendingEndpointCarrier R K j U ∧
-        μ (squareRootLowPrimeProcessedStateCofactor x) = 1 :=
-  Finset.mem_filter
+        μ (squareRootLowPrimeProcessedStateCofactor x) = 1 := by
+  unfold squareRootLowPrimePartialEndpointCarrier
+  exact Finset.mem_filter
 
-theorem squareRootLowPrimePartialEndpointCarrier_subset :
-    ∀ {R K j U : ℕ},
-      squareRootLowPrimePartialEndpointCarrier R K j U ⊆
-        squareRootLowPrimeShallowDescendingEndpointCarrier R K j U := by
-  intro R K j U x hx
+theorem squareRootLowPrimePartialEndpointCarrier_subset {R K j U : ℕ} :
+    squareRootLowPrimePartialEndpointCarrier R K j U ⊆
+      squareRootLowPrimeShallowDescendingEndpointCarrier R K j U := by
+  intro x hx
   exact (mem_squareRootLowPrimePartialEndpointCarrier.mp hx).1
 
 /-- Every `Partial`-eligible survivor has exactly the `Partial` cell weight. -/
@@ -224,13 +230,12 @@ theorem squareRootLowPrimePartialEndpointCarrier_structuralKey_injOn
     Set.InjOn (squareRootLowPrimeProcessedSeatStructuralKey K)
       (squareRootLowPrimePartialEndpointCarrier R K j U) := by
   intro x hx y hy hxy
+  have hx' : x ∈ squareRootLowPrimeShallowDescendingEndpointCarrier R K j U :=
+    (mem_squareRootLowPrimePartialEndpointCarrier.mp (Finset.mem_coe.mp hx)).1
+  have hy' : y ∈ squareRootLowPrimeShallowDescendingEndpointCarrier R K j U :=
+    (mem_squareRootLowPrimePartialEndpointCarrier.mp (Finset.mem_coe.mp hy)).1
   exact squareRootLowPrimeShallowDescendingEndpointCarrier_structuralKey_injOn
-    R K j U
-    (Finset.mem_coe.mpr
-      (squareRootLowPrimePartialEndpointCarrier_subset (Finset.mem_coe.mp hx)))
-    (Finset.mem_coe.mpr
-      (squareRootLowPrimePartialEndpointCarrier_subset (Finset.mem_coe.mp hy)))
-    hxy
+    R K j U (Finset.mem_coe.mpr hx') (Finset.mem_coe.mpr hy') hxy
 
 /-! ## The single remaining arithmetic obligation -/
 
@@ -377,8 +382,9 @@ theorem mem_squareRootLowPrimePartialTerminalCarrier
     {x : SquareRootLowPrimeProcessedState} :
     x ∈ squareRootLowPrimePartialTerminalCarrier R K j U removed ↔
       x ∈ squareRootLowPrimeShallowDescendingEndpointCarrier R K j U ∧
-        ¬ removed x :=
-  Finset.mem_filter
+        ¬ removed x := by
+  unfold squareRootLowPrimePartialTerminalCarrier
+  exact Finset.mem_filter
 
 /-- Sign homogeneity of the post-rematching carrier is exactly what places it
 inside the `Partial`-eligible carrier. -/
@@ -422,7 +428,7 @@ arithmetic enters; in particular the seat index is never used. -/
 noncomputable def squareRootLowPrimePartialRank
     (R K j U : ℕ)
     (x : ↥(squareRootLowPrimePartialEndpointCarrier R K j U)) : ℕ :=
-  (((squareRootLowPrimePartialEndpointCarrier R K j U).equivFin x) : Fin _).val
+  ((squareRootLowPrimePartialEndpointCarrier R K j U).equivFin x).val
 
 theorem squareRootLowPrimePartialRank_lt_card
     (R K j U : ℕ)
@@ -446,8 +452,8 @@ theorem squareRootLowPrimePartialRank_injective
     Function.Injective (squareRootLowPrimePartialRank R K j U) := by
   intro x y hxy
   have hval :
-      (((squareRootLowPrimePartialEndpointCarrier R K j U).equivFin x) : Fin _).val =
-        (((squareRootLowPrimePartialEndpointCarrier R K j U).equivFin y) : Fin _).val :=
+      ((squareRootLowPrimePartialEndpointCarrier R K j U).equivFin x).val =
+        ((squareRootLowPrimePartialEndpointCarrier R K j U).equivFin y).val :=
     hxy
   have hfin :
       ((squareRootLowPrimePartialEndpointCarrier R K j U).equivFin x) =
