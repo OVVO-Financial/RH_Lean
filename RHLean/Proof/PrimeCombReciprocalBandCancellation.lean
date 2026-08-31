@@ -63,10 +63,9 @@ theorem primeCombReciprocalBand_prime
     p.Prime :=
   (mem_primeCombReciprocalBand.mp hp).2.2
 
-/-- A prime in a positive reciprocal band lies inside the ambient block. -/
+/-- A prime in a reciprocal band lies inside the ambient block. -/
 theorem primeCombReciprocalBand_le_endpoint
-    {W z p : ℕ} (hz : 0 < z)
-    (hp : p ∈ primeCombReciprocalBand W z) :
+    {W z p : ℕ} (hp : p ∈ primeCombReciprocalBand W z) :
     p ≤ W := by
   have hupper := (mem_primeCombReciprocalBand.mp hp).2.1
   exact hupper.trans (Nat.div_le_self W z)
@@ -81,8 +80,8 @@ theorem primeCombReciprocalBand_multiplierSet_eq
   rw [primeCombReciprocalBand_div_eq hz hp]
 
 /-- Hence every prime in the band has exactly `z-1` candidate proper-multiple
-seats.  Squareful cofactors among these seats have already been killed; the
-signed channel below records that automatically through `mu(c)=0`. -/
+seats.  Squareful cofactors among these seats contribute zero to the signed
+cofactor channel below through `mu(c)=0`. -/
 theorem primeCombReciprocalBand_seatCount
     {W z p : ℕ} (hz : 0 < z)
     (hp : p ∈ primeCombReciprocalBand W z) :
@@ -98,7 +97,7 @@ theorem primeCombReciprocalBand_channelMass_eq
     primeCombTailChannelMass W p =
       RHLean.Analysis.mertensSummatory z - 1 := by
   have hpPrime := primeCombReciprocalBand_prime hp
-  have hpW := primeCombReciprocalBand_le_endpoint hz hp
+  have hpW := primeCombReciprocalBand_le_endpoint hp
   rw [primeCombTailChannelMass_eq_mertens_sub_one hpPrime.pos hpW,
     primeCombReciprocalBand_div_eq hz hp]
 
@@ -106,15 +105,15 @@ theorem primeCombReciprocalBand_channelMass_eq
 def primeCombReciprocalBandKernel (z : ℕ) : ℂ :=
   2 * (1 - RHLean.Analysis.mertensSummatory z)
 
-/-- Every prime in the same reciprocal band performs exactly the same signed
-comb correction. -/
+/-- Every prime in the same reciprocal band has the same post-root tail
+correction. -/
 theorem primeCombReciprocalBand_signedDelta_eq
     {W z p : ℕ} (hz : 0 < z)
     (hp : p ∈ primeCombReciprocalBand W z) :
     primeCombTailSignedDelta W p =
       primeCombReciprocalBandKernel z := by
   have hpPrime := primeCombReciprocalBand_prime hp
-  have hpW := primeCombReciprocalBand_le_endpoint hz hp
+  have hpW := primeCombReciprocalBand_le_endpoint hp
   unfold primeCombReciprocalBandKernel
   rw [primeCombTailSignedDelta_eq hpPrime.pos hpW,
     primeCombReciprocalBand_div_eq hz hp]
