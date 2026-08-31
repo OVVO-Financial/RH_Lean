@@ -73,20 +73,44 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_structuralKey
     · by_cases hpre :
         ∃ c ∈ squareRootLowPrimeMatchedCreationStates R K j U,
           squareRootLowPrimeCanonicalCreationToResponse R K j U c = z
-      · let c := creationResponseOthelloPreimage
-          (squareRootLowPrimeMatchedCreationStates R K j U)
-          (squareRootLowPrimeCanonicalCreationToResponse R K j U) z hpre
-        have hc : c ∈ squareRootLowPrimeMatchedCreationStates R K j U ∧
-            squareRootLowPrimeCanonicalCreationToResponse R K j U c = z := by
-          dsimp [c, creationResponseOthelloPreimage]
+      · -- `simp` cannot be used to select this branch: it rewrites membership in
+        -- `squareRootLowPrimeMatchedCreationStates` inside the `dite` condition,
+        -- after which `hpre` no longer matches it.  Select the branch with
+        -- `dif_pos` directly.
+        have hmate :
+            squareRootLowPrimeProcessedCreationResponseTaggedMate R K j U
+                (Sum.inr (Sum.inr z)) =
+              Sum.inr (Sum.inl (creationResponseOthelloPreimage
+                (squareRootLowPrimeMatchedCreationStates R K j U)
+                (squareRootLowPrimeCanonicalCreationToResponse R K j U)
+                z hpre)) := by
+          dsimp only [squareRootLowPrimeProcessedCreationResponseTaggedMate,
+            creationResponseOthelloMate]
+          rw [dif_pos hpre]
+        have hc :
+            creationResponseOthelloPreimage
+                (squareRootLowPrimeMatchedCreationStates R K j U)
+                (squareRootLowPrimeCanonicalCreationToResponse R K j U) z hpre ∈
+              squareRootLowPrimeMatchedCreationStates R K j U ∧
+              squareRootLowPrimeCanonicalCreationToResponse R K j U
+                (creationResponseOthelloPreimage
+                  (squareRootLowPrimeMatchedCreationStates R K j U)
+                  (squareRootLowPrimeCanonicalCreationToResponse R K j U)
+                  z hpre) = z := by
+          dsimp only [creationResponseOthelloPreimage]
           exact Classical.choose_spec hpre
         have hkey := squareRootLowPrimeCanonicalCreationToResponse_structuralKey
           hc.1
         rw [hc.2] at hkey
-        simpa [squareRootLowPrimeProcessedCreationResponseTaggedMate,
-          creationResponseOthelloMate, hpre, c] using hkey.symm
-      · simp [squareRootLowPrimeProcessedCreationResponseTaggedMate,
-          creationResponseOthelloMate, hpre]
+        rw [hmate]
+        exact hkey.symm
+      · have hmate :
+            squareRootLowPrimeProcessedCreationResponseTaggedMate R K j U
+                (Sum.inr (Sum.inr z)) = Sum.inr (Sum.inr z) := by
+          dsimp only [squareRootLowPrimeProcessedCreationResponseTaggedMate,
+            creationResponseOthelloMate]
+          rw [dif_neg hpre]
+        rw [hmate]
 
 /-- Encoding the exact processed carrier does not change the common structural
 key. -/
