@@ -76,8 +76,8 @@ jobs:
         run: lake env lean RHLean/Proof/SquareRootLowPrimeHeadClassifierBranch.lean
       - name: Build shallow processed/creation bridge
         run: lake build RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv
-      - name: Kernel-check fixed partial packet residual
-        run: lake env lean RHLean/Proof/SquareRootLowPrimeFixedPartialPacketResidual.lean
+      - name: Build fixed partial packet residual
+        run: lake build RHLean.Proof.SquareRootLowPrimeFixedPartialPacketResidual
       - name: Kernel-check fixed boundary budget
         run: lake env lean RHLean/Proof/SquareRootLowPrimeFixedBoundaryBudget.lean
       - name: Build processed creation-response Othello
