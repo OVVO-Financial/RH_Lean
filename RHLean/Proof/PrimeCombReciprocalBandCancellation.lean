@@ -23,7 +23,8 @@ exact sign-reversed copy of the already-completed lower prefix:
 `sum_{1 <= c <= floor(W/p)} mu(c*p) = -M(floor(W/p))`.
 
 Thus on one reciprocal band every large prime carries the same final family
-mass `-M(z)`, seat by seat through `mu(c*p) = -mu(c)`.
+mass `-M(z)`, seat by seat through `mu(c*p) = -mu(c)`.  Summing the post-root
+part of a band therefore gives exactly its prime cardinality times `-M(z)`.
 
 The adjacent-band finite difference is especially important:
 
@@ -157,6 +158,44 @@ theorem primeCombReciprocalBand_familyMass_eq_neg_mertens
         (primeCombReciprocalBand_prime hp) hpRoot
     _ = -RHLean.Analysis.mertensSummatory z := by
       rw [primeCombReciprocalBand_div_eq hz hp]
+
+/-- The post-root portion of reciprocal band `z`. -/
+def primeCombPostRootReciprocalBand (W z : ℕ) : Finset ℕ :=
+  (primeCombReciprocalBand W z).filter fun p => Nat.sqrt W < p
+
+@[simp] theorem mem_primeCombPostRootReciprocalBand
+    {W z p : ℕ} :
+    p ∈ primeCombPostRootReciprocalBand W z ↔
+      p ∈ primeCombReciprocalBand W z ∧ Nat.sqrt W < p := by
+  simp [primeCombPostRootReciprocalBand]
+
+/-- Final signed mass of all large-prime families in one post-root reciprocal
+band. -/
+def primeCombPostRootReciprocalBandFamilyMass (W z : ℕ) : ℂ :=
+  ∑ p ∈ primeCombPostRootReciprocalBand W z,
+    primeCombLargePrimeFamilyMass W p
+
+/-- **Whole-band cancellation law.**  After the square-root frontier, the entire
+reciprocal band is exactly its prime population times the common sign-reversed
+lower prefix `-M(z)`. -/
+theorem primeCombPostRootReciprocalBandFamilyMass_eq_card_mul_neg_mertens
+    (W z : ℕ) (hz : 0 < z) :
+    primeCombPostRootReciprocalBandFamilyMass W z =
+      ((primeCombPostRootReciprocalBand W z).card : ℂ) *
+        (-RHLean.Analysis.mertensSummatory z) := by
+  unfold primeCombPostRootReciprocalBandFamilyMass
+  calc
+    (∑ p ∈ primeCombPostRootReciprocalBand W z,
+        primeCombLargePrimeFamilyMass W p) =
+      ∑ p ∈ primeCombPostRootReciprocalBand W z,
+        (-RHLean.Analysis.mertensSummatory z) := by
+      apply Finset.sum_congr rfl
+      intro p hp
+      rcases mem_primeCombPostRootReciprocalBand.mp hp with ⟨hpBand, hpRoot⟩
+      exact primeCombReciprocalBand_familyMass_eq_neg_mertens hz hpRoot hpBand
+    _ = ((primeCombPostRootReciprocalBand W z).card : ℂ) *
+        (-RHLean.Analysis.mertensSummatory z) := by
+      simp
 
 /-- The final family kernel attached to quotient band `z`. -/
 def primeCombReciprocalBandFamilyKernel (z : ℕ) : ℂ :=
