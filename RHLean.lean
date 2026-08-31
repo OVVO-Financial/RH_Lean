@@ -499,6 +499,7 @@ import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.OrthogonalResidual
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
+import RHLean.Proof.PrimeCombReciprocalBandCancellation
 import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Proof.PrimeCombVisualizationFrames
 import RHLean.Proof.PrimeCombVisualizationRecurrence
