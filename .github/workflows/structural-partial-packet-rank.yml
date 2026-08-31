@@ -39,6 +39,16 @@ jobs:
           python3 scripts/strongpnt_424/apply_lint.py
       - uses: actions/cache/restore@v5
         with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+      - uses: actions/cache/restore@v5
+        with:
           path: .lake/build
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
