@@ -113,12 +113,17 @@ theorem squarePrefixEnergyBounded_of_canonicalOrientedEpsilon
               C * Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε / 2) :=
             add_le_add (hM.trans hRle) (hO (n + 1) hR)
         _ = (1 + C) * Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε / 2) := by ring
-    have hexp : (2 : ℝ) + ε = (1 + ε / 2) + (1 + ε / 2) := by ring
     have hprod :
         Real.rpow ((n + 1 : ℕ) : ℝ) (2 + ε) =
           Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε / 2) *
             Real.rpow ((n + 1 : ℕ) : ℝ) (1 + ε / 2) := by
-      rw [hexp, Real.rpow_add (cast_succ_pos n)]
+      -- Mathlib states the `rpow` laws with `^` notation, which is defeq to
+      -- `Real.rpow` but not syntactically equal, so rewrite the exponent inside
+      -- the instantiated lemma and close by defeq rather than rewriting the goal.
+      have h := Real.rpow_add (cast_succ_pos n) (1 + ε / 2) (1 + ε / 2)
+      have hexp : (1 + ε / 2) + (1 + ε / 2) = 2 + ε := by ring
+      rw [hexp] at h
+      exact h
     have hAnn : (0 : ℝ) ≤ ‖squarePrefixMertens n‖ := norm_nonneg _
     have hsq :
         ‖squarePrefixMertens n‖ ^ 2 ≤
