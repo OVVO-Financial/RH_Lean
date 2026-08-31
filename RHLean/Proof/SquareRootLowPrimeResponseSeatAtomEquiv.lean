@@ -49,20 +49,20 @@ noncomputable def squareRootLowPrimeResponseSeatPartnerEquiv
         ↥(squareRootLowPrimeDeepPartnerSet R c) :=
     (squareRootLowPrimeDeepPartnerSet R c).orderIsoOfFin hcard
   refine
-    { toFun := fun s => e ⟨s.1, by
-        simpa [squareRootLowPrimeResponseSeatIndexSet] using s.2⟩
+    { toFun := fun s => e ⟨s.1,
+        mem_squareRootLowPrimeResponseSeatIndexSet.mp s.2⟩
       invFun := fun q =>
         ⟨((e.symm q : Fin
-          (squareRootLowPrimeCombinedFreshResponse R K j c)) : ℕ), by
-          simpa [squareRootLowPrimeResponseSeatIndexSet] using
+          (squareRootLowPrimeCombinedFreshResponse R K j c)) : ℕ),
+          mem_squareRootLowPrimeResponseSeatIndexSet.mpr
             (e.symm q : Fin
               (squareRootLowPrimeCombinedFreshResponse R K j c)).2⟩
       left_inv := ?_
       right_inv := ?_ }
   · intro s
     apply Subtype.ext
-    exact congrArg Fin.val (e.left_inv ⟨s.1, by
-      simpa [squareRootLowPrimeResponseSeatIndexSet] using s.2⟩)
+    exact congrArg Fin.val (e.left_inv ⟨s.1,
+      mem_squareRootLowPrimeResponseSeatIndexSet.mp s.2⟩)
   · intro q
     exact e.right_inv q
 
@@ -112,8 +112,7 @@ noncomputable def squareRootLowPrimeOwnedResponseSeatAtomEquiv
     have hz := mem_squareRootLowPrimeOwnedResponseSeatCarrier_iff.mp z.2
     have hcData := squareRootLowPrimeOwnedSignedCofactor_data hz.1
     let s : ↥(squareRootLowPrimeResponseSeatIndexSet R K j z.1.1) :=
-      ⟨z.1.2, by
-        simpa [squareRootLowPrimeResponseSeatIndexSet] using hz.2⟩
+      ⟨z.1.2, mem_squareRootLowPrimeResponseSeatIndexSet.mpr hz.2⟩
     let q := squareRootLowPrimeResponseSeatPartnerEquiv
       R K j z.1.1 hR hcData.1 hcData.2.1 s
     exact ⟨(z.1.1, (q : ℕ)),
@@ -126,8 +125,7 @@ noncomputable def squareRootLowPrimeOwnedResponseSeatAtomEquiv
       R K j z.1.1 hR hcData.1 hcData.2.1).symm q
     exact ⟨(z.1.1, (s : ℕ)),
       mem_squareRootLowPrimeOwnedResponseSeatCarrier_iff.mpr
-        ⟨hz.1, by
-          simpa [squareRootLowPrimeResponseSeatIndexSet] using s.2⟩⟩
+        ⟨hz.1, mem_squareRootLowPrimeResponseSeatIndexSet.mp s.2⟩⟩
   left_inv := by
     intro z
     apply Subtype.ext
@@ -136,8 +134,7 @@ noncomputable def squareRootLowPrimeOwnedResponseSeatAtomEquiv
     · have hz := mem_squareRootLowPrimeOwnedResponseSeatCarrier_iff.mp z.2
       have hcData := squareRootLowPrimeOwnedSignedCofactor_data hz.1
       let s : ↥(squareRootLowPrimeResponseSeatIndexSet R K j z.1.1) :=
-        ⟨z.1.2, by
-          simpa [squareRootLowPrimeResponseSeatIndexSet] using hz.2⟩
+        ⟨z.1.2, mem_squareRootLowPrimeResponseSeatIndexSet.mpr hz.2⟩
       exact congrArg Subtype.val
         ((squareRootLowPrimeResponseSeatPartnerEquiv
           R K j z.1.1 hR hcData.1 hcData.2.1).left_inv s)
