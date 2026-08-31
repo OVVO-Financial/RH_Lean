@@ -105,16 +105,15 @@ theorem squareRootLowPrimeResponseForestOthelloMate_weight_neg
       intro z _hz
       simp)
     x hne'
-  change creationResponseOthelloWeight
-      (fun z => -μ (squareRootLowPrimeBadAtomChild z))
-      (fun c => μ c)
-      (creationResponseOthelloMate
-        (squareRootLowPrimeBornInternalAtoms R K U)
-        squareRootLowPrimeBadAtomChild x) =
-    -creationResponseOthelloWeight
-      (fun z => -μ (squareRootLowPrimeBadAtomChild z))
-      (fun c => μ c) x
-  exact h
+  have hweight :
+      squareRootLowPrimeResponseForestOthelloWeight =
+        creationResponseOthelloWeight
+          (fun z => -μ (squareRootLowPrimeBadAtomChild z))
+          (fun c => μ c) := by
+    funext y
+    rcases y with z | c <;> rfl
+  rw [hweight]
+  simpa only [squareRootLowPrimeResponseForestOthelloMate] using h
 
 /-- Explicit stable boundary of the response forest. -/
 def squareRootLowPrimeResponseForestOthelloBoundary
