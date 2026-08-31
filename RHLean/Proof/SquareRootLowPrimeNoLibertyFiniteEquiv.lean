@@ -1,5 +1,7 @@
 import Mathlib
+import RHLean.Analysis.SquareRootFixedCrossing18349
 import RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
+import RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
 
 /-!
 # Weight-preserving finite equivalence at the no-liberty seam
@@ -18,6 +20,7 @@ boundary.
 
 noncomputable section
 
+open Filter
 open scoped BigOperators
 
 namespace RHLean.Proof
@@ -132,6 +135,53 @@ theorem abs_squareRootLowPrimeNoLibertyBoundaryMass_le_four_root
   have hcard := squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_le_four_root
     hR hKR hV0 hVK
   exact hmass.trans (by exact_mod_cast hcard)
+
+/-- The fixed certified crossing at depth `18349` supplies one actual partial
+layer index satisfying every packet-range hypothesis used by both the `4*R`
+no-liberty boundary and the `R+K` smooth/transport recoupling. -/
+theorem squareRootLowPrimeFixedCrossing18349_exists_boundary_and_recoupling
+    {R : ℕ} (hR : 56 ≤ R) (hKR : 18349 < R)
+    (hcross : SquareRootPacketCrossesAt R 18349) :
+    ∃ j : ℕ,
+      j ≤ squareRootReciprocalPrimeLayerCard R 18349 ∧
+        0 ≤ squareRootCrossingLayerPartialPacketInt R 18349 j ∧
+        squareRootCrossingLayerPartialPacketInt R 18349 j < (18349 : ℤ) ∧
+        |∑ z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R 18349 j
+            (squareRootBornPostTailLowPrimeCutoff R),
+            squareRootLowPrimeNoLibertyBoundaryWeight z| ≤ 4 * (R : ℝ) ∧
+        ‖squareRootLowPrimeRunningImbalance R 18349 j
+            (squareRootBornPostTailLowPrimeCutoff R) -
+          squareRootMatchedBornSmoothTransport R‖ ≤
+            (R : ℝ) + (18349 : ℝ) := by
+  rcases squareRootPacketCrossing_exists_partial_residual_lt_depth hcross with
+    ⟨j, hj, hV0, hVK⟩
+  refine ⟨j, hj, hV0, hVK, ?_, ?_⟩
+  · exact abs_squareRootLowPrimeNoLibertyBoundaryMass_le_four_root
+      (R := R) (K := 18349) (j := j) (by omega) hKR hV0 hVK
+  · exact norm_squareRootLowPrimeRunningImbalance_sub_matched_le_root_add_depth
+      R 18349 j hR (by norm_num) hKR hj hV0 hVK
+
+/-- The fixed crossing theorem is now wired into the terminal proof graph:
+for all sufficiently large roots there is a concrete crossing-layer index `j`
+for which both elementary bounds hold simultaneously. -/
+theorem eventually_squareRootLowPrimeFixedCrossing18349_boundary_and_recoupling :
+    ∀ᶠ R : ℕ in atTop,
+      ∃ j : ℕ,
+        j ≤ squareRootReciprocalPrimeLayerCard R 18349 ∧
+          0 ≤ squareRootCrossingLayerPartialPacketInt R 18349 j ∧
+          squareRootCrossingLayerPartialPacketInt R 18349 j < (18349 : ℤ) ∧
+          |∑ z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R 18349 j
+              (squareRootBornPostTailLowPrimeCutoff R),
+              squareRootLowPrimeNoLibertyBoundaryWeight z| ≤ 4 * (R : ℝ) ∧
+          ‖squareRootLowPrimeRunningImbalance R 18349 j
+              (squareRootBornPostTailLowPrimeCutoff R) -
+            squareRootMatchedBornSmoothTransport R‖ ≤
+              (R : ℝ) + (18349 : ℝ) := by
+  filter_upwards
+    [eventually_squareRootPacketCrossesAt_18349,
+      eventually_ge_atTop (18350 : ℕ)] with R hcross hRlarge
+  exact squareRootLowPrimeFixedCrossing18349_exists_boundary_and_recoupling
+    (R := R) (by omega) (by omega) hcross
 
 /-- The genuinely arithmetic seam: a finite equivalence from the descending
 processed terminal frontier to the four tagged homes, preserving the native
