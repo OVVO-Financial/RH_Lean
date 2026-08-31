@@ -1,4 +1,5 @@
 import RHLean.Proof.CanonicalGapAncestryQuadraticClosure
+import RHLean.Proof.SquareRootCanonicalRoughPrimePartnerDifference
 
 /-!
 # The reduction is unconditional down to the classical Mertens statement
