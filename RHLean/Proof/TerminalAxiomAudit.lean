@@ -8,6 +8,9 @@ import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
 import RHLean.Proof.SquareRootLowPrimeSequentialDissipation
 import RHLean.Proof.SquareRootLowPrimeTerminalHighPrimeIntegration
 import RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
+import RHLean.Proof.SquareRootLowPrimeMatchedCoreMertensObstruction
+import RHLean.Proof.SquareRootMertensMiddleTracking
+import RHLean.Proof.SquareRootMertensPositiveTracking
 
 /-!
 # Axiom footprint of the terminal reduction
@@ -56,6 +59,14 @@ energy decrement through the pre-existing exact telescope.  The `3 R sqrt(K)` ma
 bound itself is not proved here: that signed `BornSmooth - Transport` / `A - T`
 correlation is the remaining arithmetic input.  In particular, no independent
 low-prime frontier estimate is introduced as a new analytic obligation.
+
+The final low-prime branch now exposes the same arithmetic input in two exact Mertens
+tracking coordinates.  First, the matched core is `M(R^2-1)` minus one literal
+positive-orientation middle source mass.  Second, and more economically,
+`M(R^2-1) - PositiveSmooth(R)` is exactly the matched channel itself.  The corresponding
+`O(R)` tracking estimates remain explicit theorem hypotheses.  The guards below certify
+that the exact identities and the implications *from* those hypotheses have no hidden
+project axiom.
 -/
 
 namespace RHLean.Proof
@@ -92,6 +103,35 @@ info: 'RHLean.Proof.canonicalHighUniformLocalBounded_iff_riemannHypothesis_reali
 -/
 #guard_msgs in
 #print axioms RHLean.Proof.canonicalHighUniformLocalBounded_iff_riemannHypothesis_realized
+
+-- Exact source-form obstruction: no estimate is used here.
+/--
+info: 'RHLean.Proof.squareRootLowPrimeMatchedCore_eq_mertens_sub_middleSourceMass' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Proof.squareRootLowPrimeMatchedCore_eq_mertens_sub_middleSourceMass
+
+-- Conditional terminal implication from the explicit Mertens/middle tracking
+-- proposition.  The tracking proposition is an ordinary theorem argument, not an axiom.
+/--
+info: 'RHLean.Proof.abs_squareRootLowPrimeRunningImbalanceReal_le_of_mertensMiddleTracking' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Proof.abs_squareRootLowPrimeRunningImbalanceReal_le_of_mertensMiddleTracking
+
+-- Shortest conditional endpoint: M(R^2-1) - PositiveSmooth(R) is exactly the matched
+-- channel, so this route incurs no seven-strip loss.
+/--
+info: 'RHLean.Proof.abs_squareRootLowPrimeRunningImbalanceReal_le_of_mertensPositiveTracking' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Proof.abs_squareRootLowPrimeRunningImbalanceReal_le_of_mertensPositiveTracking
 
 end TerminalAxiomAudit
 

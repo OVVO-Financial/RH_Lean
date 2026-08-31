@@ -1,0 +1,118 @@
+name: Structural partial-packet rank probe
+
+on:
+  push:
+    branches: [agent/structural-partial-packet-rank, claude/partial-rank-theorem-ot5tkc]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: structural-partial-packet-rank-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - id: strongpnt-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+      - name: Save StrongPNT dependency cache
+        if: steps.strongpnt-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+      - name: Kernel-check canonical Euler Othello module
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeCanonicalMatchingInvolution.lean
+      - name: Build structural key module
+        run: lake build RHLean.Proof.SquareRootLowPrimeStructuralKey
+      - name: Build deep processed-seat bridge
+        run: lake build RHLean.Proof.SquareRootLowPrimeDeepProcessedSeatBridge
+      - name: Kernel-check structural endpoint normalization
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeStructuralEndpointNormalization.lean
+      - name: Kernel-check BornExit classifier branch
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeBornExitClassifierBranch.lean
+      - name: Kernel-check Head classifier branch
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeHeadClassifierBranch.lean
+      - name: Build Partial endpoint carrier branch
+        if: always()
+        run: lake build RHLean.Proof.SquareRootLowPrimePartialEndpointCarrier
+      - name: Build packet-free mass transfer
+        if: always()
+        run: lake build RHLean.Proof.SquareRootLowPrimePacketFreeMassTransfer
+      - name: Build near-root remainder
+        if: always()
+        run: lake build RHLean.Proof.SquareRootLowPrimeNearRootRemainder
+      - name: Build matched core bound
+        if: always()
+        run: lake build RHLean.Proof.SquareRootLowPrimeMatchedCoreBound
+      - name: Kernel-check Mertens-minus-middle identity
+        if: always()
+        run: lake build RHLean.Proof.SquareRootLowPrimeMatchedCoreMertensObstruction
+      - name: Build shallow processed/creation bridge
+        run: lake build RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv
+      - name: Build fixed partial packet residual
+        run: lake build RHLean.Proof.SquareRootLowPrimeFixedPartialPacketResidual
+      - name: Kernel-check fixed boundary budget
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeFixedBoundaryBudget.lean
+      - name: Build processed creation-response Othello
+        run: lake build RHLean.Proof.SquareRootLowPrimeProcessedCreationResponseInvolution
+      - name: Kernel-check first Othello fixed-state classification
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeProcessedCreationResponseFixedClassification.lean
+      - name: Kernel-check common creation-response structural key
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeCreationResponseStructuralKey.lean
+      - name: Kernel-check terminal Mertens/middle tracking
+        if: always()
+        run: lake env lean RHLean/Proof/SquareRootMertensMiddleTracking.lean
+      - name: Build Mertens/positive tracking
+        if: always()
+        run: lake build RHLean.Proof.SquareRootMertensPositiveTracking
+      - name: Build Mertens/middle tracking
+        if: always()
+        run: lake build RHLean.Proof.SquareRootMertensMiddleTracking
+      - name: Kernel-check ancestral tracking
+        if: always()
+        run: lake env lean RHLean/Proof/SquareRootMertensAncestralTracking.lean
+      - name: Kernel-check terminal axiom audit
+        if: always()
+        run: lake env lean RHLean/Proof/TerminalAxiomAudit.lean
