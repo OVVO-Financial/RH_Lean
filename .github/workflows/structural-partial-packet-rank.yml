@@ -101,3 +101,6 @@ jobs:
         run: lake env lean RHLean/Proof/SquareRootLowPrimeProcessedCreationResponseFixedClassification.lean
       - name: Kernel-check common creation-response structural key
         run: lake env lean RHLean/Proof/SquareRootLowPrimeCreationResponseStructuralKey.lean
+      - name: Kernel-check terminal Mertens/middle tracking
+        if: always()
+        run: lake env lean RHLean/Proof/SquareRootMertensMiddleTracking.lean
