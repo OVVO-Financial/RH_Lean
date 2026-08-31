@@ -62,6 +62,8 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+      - name: Kernel-check canonical Euler Othello module
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeCanonicalMatchingInvolution.lean
       - name: Kernel-check structural key module
         run: lake env lean RHLean/Proof/SquareRootLowPrimeStructuralKey.lean
       - name: Kernel-check structural rank probe
