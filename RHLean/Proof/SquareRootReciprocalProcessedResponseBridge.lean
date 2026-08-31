@@ -120,7 +120,7 @@ theorem squareRootProcessedPostRootCapacity_self
 /-- With no layer prime admitted the boundary is the full depth-`K` prefix, so
 nothing at depth `K` has been eliminated yet. -/
 theorem squareRootProcessedPostRootCapacity_zero
-    (R K : ℕ) (hK : 1 ≤ K) :
+    (R K : ℕ) :
     squareRootProcessedPostRootCapacity R K 0 K = 0 := by
   rw [squareRootProcessedPostRootCapacity_eq_sub R K 0 K (le_refl K)]
   omega
