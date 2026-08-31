@@ -74,9 +74,9 @@ jobs:
         run: lake env lean RHLean/Proof/SquareRootLowPrimeBornExitClassifierBranch.lean
       - name: Kernel-check Head classifier branch
         run: lake env lean RHLean/Proof/SquareRootLowPrimeHeadClassifierBranch.lean
-      - name: Kernel-check Partial endpoint carrier branch
+      - name: Build Partial endpoint carrier branch
         if: always()
-        run: lake env lean RHLean/Proof/SquareRootLowPrimePartialEndpointCarrier.lean
+        run: lake build RHLean.Proof.SquareRootLowPrimePartialEndpointCarrier
       - name: Kernel-check packet-free mass transfer
         if: always()
         run: lake env lean RHLean/Proof/SquareRootLowPrimePacketFreeMassTransfer.lean
