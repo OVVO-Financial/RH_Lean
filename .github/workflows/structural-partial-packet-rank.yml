@@ -104,3 +104,6 @@ jobs:
       - name: Kernel-check terminal Mertens/middle tracking
         if: always()
         run: lake env lean RHLean/Proof/SquareRootMertensMiddleTracking.lean
+      - name: Kernel-check Mertens/positive tracking
+        if: always()
+        run: lake env lean RHLean/Proof/SquareRootMertensPositiveTracking.lean
