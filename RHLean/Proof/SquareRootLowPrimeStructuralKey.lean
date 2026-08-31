@@ -82,31 +82,29 @@ theorem squareRootLowPrimeShallowBase_eq_self_of_squarefree_lpf_le
   · exact Nat.gcd_dvd_left _ _
   · apply Nat.dvd_gcd
     · exact Nat.dvd_refl c
-    · by_cases hcOne : c = 1
-      · simp [hcOne]
-      · have hcGt : 1 < c := by
+    · apply (Nat.factorization_prime_le_iff_dvd
+        hsq.ne_zero (Nat.factorial_ne_zero K)).mp
+      intro p hp
+      by_cases hpc : p ∣ c
+      · have hcOne : c ≠ 1 := fun hc => by
+          subst c
+          exact hp.not_dvd_one hpc
+        have hcGt : 1 < c := by
           have hcPos : 0 < c := Nat.pos_of_ne_zero hsq.ne_zero
           omega
-        have hsubset : c.primeFactors ⊆ K.factorial.primeFactors := by
-          intro p hp
-          have hpData := Nat.mem_primeFactors.mp hp
-          have hpPrime : p.Prime := hpData.1
-          have hpLeLpf : p ≤ canonicalLargestPrimeFactor c := by
-            unfold canonicalLargestPrimeFactor
-            rw [dif_pos hcGt]
-            exact Finset.le_max' c.primeFactors p hp
-          have hpK : p ≤ K := hpLeLpf.trans hlpf
-          have hKtwo : 2 ≤ K := hpPrime.two_le.trans hpK
-          have hfactNeOne : K.factorial ≠ 1 := by
-            rw [Nat.factorial_eq_one]
-            omega
-          exact Nat.mem_primeFactors.mpr
-            ⟨hpPrime, Nat.dvd_factorial hpPrime.pos hpK, hfactNeOne⟩
-        have hprod :
-            (∏ p ∈ c.primeFactors, p) ∣ K.factorial :=
-          (Nat.prod_primeFactors_dvd_iff (Nat.factorial_ne_zero K)).2 hsubset
-        rw [Nat.prod_primeFactors_of_squarefree hsq] at hprod
-        exact hprod
+        have hpMem : p ∈ c.primeFactors :=
+          Nat.mem_primeFactors.mpr ⟨hp, hpc, hsq.ne_zero⟩
+        have hpLeLpf : p ≤ canonicalLargestPrimeFactor c := by
+          unfold canonicalLargestPrimeFactor
+          rw [dif_pos hcGt]
+          exact Finset.le_max' c.primeFactors p hpMem
+        have hpK : p ≤ K := hpLeLpf.trans hlpf
+        rw [Nat.factorization_eq_one_of_squarefree hsq hp hpc]
+        exact (hp.dvd_iff_one_le_factorization
+          (Nat.factorial_ne_zero K)).mp
+            (Nat.dvd_factorial hp.pos hpK)
+      · rw [Nat.factorization_eq_zero_of_not_dvd hpc]
+        exact Nat.zero_le _
 
 /-- Raw seat coordinate. Prime-toggle edges alter only the cofactor and leave
 this coordinate literally unchanged. -/
