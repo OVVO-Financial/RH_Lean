@@ -86,14 +86,15 @@ theorem abs_squareRootLowPrimeNoLibertyBoundaryWeight_le_one
           simpa using
             (ArithmeticFunction.abs_moebius_le_one
               (n := squareRootLowPrimeBadAtomChild z))
-        unfold squareRootLowPrimeNoLibertyBoundaryWeight
+        change |((ArithmeticFunction.moebius
+          (squareRootLowPrimeBadAtomChild z) : ℤ) : ℝ)| ≤ 1
         exact_mod_cast hInt
       · have hInt :
           |(ArithmeticFunction.moebius (z.1.2 * z.2) : ℤ)| ≤ 1 := by
           simpa using
             (ArithmeticFunction.abs_moebius_le_one
               (n := z.1.2 * z.2))
-        unfold squareRootLowPrimeNoLibertyBoundaryWeight
+        change |((ArithmeticFunction.moebius (z.1.2 * z.2) : ℤ) : ℝ)| ≤ 1
         exact_mod_cast hInt
 
 /-- Consequently the absolute signed mass of any finite no-liberty boundary is
