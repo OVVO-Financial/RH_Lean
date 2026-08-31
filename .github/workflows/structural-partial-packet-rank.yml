@@ -72,3 +72,7 @@ jobs:
         run: lake env lean RHLean/Proof/SquareRootLowPrimeStructuralEndpointNormalization.lean
       - name: Kernel-check BornExit classifier branch
         run: lake env lean RHLean/Proof/SquareRootLowPrimeBornExitClassifierBranch.lean
+      - name: Kernel-check Head classifier branch
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeHeadClassifierBranch.lean
+      - name: Kernel-check shallow processed/creation bridge
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeShallowProcessedCreationEquiv.lean
