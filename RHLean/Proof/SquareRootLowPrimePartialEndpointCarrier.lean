@@ -550,4 +550,56 @@ theorem squareRootLowPrimePartialBoundaryTag_ne_rootEquality
         SquareRootLowPrimeProcessedSeatNoLibertyState) := by
   simp [squareRootLowPrimePartialBoundaryTag]
 
+/-! ## The root fallback is empty for most roots
+
+Membership in `squareRootLowPrimeGoRootEqualityDefectCarrier R` requires
+`r * q = R` on the nose, with `r < q` both prime.  So the class is empty unless
+`R` is a product of two distinct primes.
+
+This matters for the routing of the shallow survivors.  A shallow survivor with
+`mu c = -1` has native weight `+1`, so the `Partial` summand is closed to it by
+`squareRootLowPrimePartialTag_ne_of_moebius_neg`.  At a root where the carrier
+below is empty there is no root cell either, and the repository's `BornExit`
+construction applies only to *deep* processed seats.  Since the downstream
+statements quantify over all large `R` — prime roots included — the shallow
+residual cannot in general be discharged by "Partial or the root fallback". -/
+
+/-- The root-equality class is empty at every root admitting no factorisation
+into two distinct primes. -/
+theorem squareRootLowPrimeGoRootEqualityDefectCarrier_eq_empty_of_no_prime_pair
+    {R : ℕ}
+    (h : ∀ r q : ℕ, r.Prime → q.Prime → r < q → r * q ≠ R) :
+    squareRootLowPrimeGoRootEqualityDefectCarrier R = ∅ := by
+  apply Finset.eq_empty_of_forall_not_mem
+  intro z hz
+  obtain ⟨⟨r, q⟩, d⟩ := z
+  obtain ⟨_hrR, _hqR, _hdR, hr, hq, hrq, hprod, _hcube, _hd⟩ :=
+    mem_squareRootLowPrimeGoRootEqualityDefectCarrier.mp hz
+  exact h r q hr hq hrq hprod
+
+/-- In particular the root fallback is empty at every prime root. -/
+theorem squareRootLowPrimeGoRootEqualityDefectCarrier_eq_empty_of_prime
+    {R : ℕ} (hR : R.Prime) :
+    squareRootLowPrimeGoRootEqualityDefectCarrier R = ∅ := by
+  apply squareRootLowPrimeGoRootEqualityDefectCarrier_eq_empty_of_no_prime_pair
+  intro r q hr hq _hrq hprod
+  have hrdvd : r ∣ R := ⟨q, hprod.symm⟩
+  rcases hR.eq_one_or_self_of_dvd r hrdvd with h1 | hrR
+  · exact hr.one_lt.ne' h1
+  · rw [hrR] at hprod
+    have hq1 : R * q = R * 1 := by simpa using hprod
+    exact hq.one_lt.ne' (Nat.eq_of_mul_eq_mul_left hR.pos hq1)
+
+/-- At such a root the tagged boundary loses its whole fourth class, so the
+budget sharpens accordingly. -/
+theorem squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_eq_of_empty_root
+    {R K j U : ℕ}
+    (hroot : squareRootLowPrimeGoRootEqualityDefectCarrier R = ∅) :
+    (squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U).card =
+      1 + (squareRootLowPrimePartialPacketBoundary R K j).card +
+        (squareRootLowPrimeBornNoSuccessorAtoms R K U).card := by
+  simp only [squareRootLowPrimeProcessedSeatNoLibertyBoundary, hroot,
+    Finset.card_disjSum, Finset.card_singleton, Finset.card_empty]
+  omega
+
 end RHLean.Proof
