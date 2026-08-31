@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.PrimeCombVisualizationDynamics
+import RHLean.Proof.LargePrimeTerminalFlipLayers
 
 /-!
 # Arbitrary-endpoint reciprocal-band cancellation in the prime comb
@@ -15,6 +16,14 @@ This file packages that law on the reciprocal quotient bands
 Every prime in one such band has the same quotient `floor(W/p)=z`, hence the
 same proper-multiple seat set `{2,...,z}`, the same signed cofactor channel
 `M(z)-1`, and the same score correction `2*(1-M(z))`.
+
+More fundamentally, once `p > sqrt W`, the complete final `p`-family is an
+exact sign-reversed copy of the already-completed lower prefix:
+
+`sum_{1 <= c <= floor(W/p)} mu(c*p) = -M(floor(W/p))`.
+
+Thus on one reciprocal band every large prime carries the same final family
+mass `-M(z)`, seat by seat through `mu(c*p) = -mu(c)`.
 
 The adjacent-band finite difference is especially important:
 
@@ -101,6 +110,73 @@ theorem primeCombReciprocalBand_channelMass_eq
   rw [primeCombTailChannelMass_eq_mertens_sub_one hpPrime.pos hpW,
     primeCombReciprocalBand_div_eq hz hp]
 
+/-! ## The final large-prime family is a reversed lower prefix -/
+
+/-- Final Möbius mass of all multiples `c*p <= W` in the family of one prime
+`p`, including the prime seat `c=1`. -/
+def primeCombLargePrimeFamilyMass (W p : ℕ) : ℂ :=
+  ∑ c ∈ Finset.Icc 1 (W / p), canonicalMoebiusWeight (c * p)
+
+/-- **Arbitrary-endpoint sign-reversed family theorem.**  Once `p` lies above
+`sqrt W`, every admissible lower cofactor satisfies `c < p`, so the fresh prime
+reverses its completed Möbius sign.  Consequently the entire final `p`-family
+is exactly the negative lower Mertens prefix at the reciprocal cutoff. -/
+theorem primeCombLargePrimeFamilyMass_eq_neg_mertens
+    {W p : ℕ} (hp : p.Prime) (hpRoot : Nat.sqrt W < p)
+    (hpW : p ≤ W) :
+    primeCombLargePrimeFamilyMass W p =
+      -RHLean.Analysis.mertensSummatory (W / p) := by
+  unfold primeCombLargePrimeFamilyMass
+  calc
+    (∑ c ∈ Finset.Icc 1 (W / p), canonicalMoebiusWeight (c * p)) =
+        ∑ c ∈ Finset.Icc 1 (W / p), -canonicalMoebiusWeight c := by
+      apply Finset.sum_congr rfl
+      intro c hc
+      rcases Finset.mem_Icc.mp hc with ⟨hc1, hcTop⟩
+      have hcpW : c * p ≤ W :=
+        (Nat.le_div_iff_mul_le hp.pos).1 hcTop
+      exact canonicalMoebiusWeight_mul_largePrime_eq_neg_cofactor
+        hp hpRoot (by omega) hcpW
+    _ = -(∑ c ∈ Finset.Icc 1 (W / p), canonicalMoebiusWeight c) := by
+      simp
+    _ = -RHLean.Analysis.mertensSummatory (W / p) := by
+      have hM := cofactorMobiusPrefixMass_eq_mertensSummatory (W / p)
+      unfold cofactorMobiusPrefixMass at hM
+      rw [hM]
+
+/-- **Reciprocal-band family cancellation.**  Every post-root prime in the
+same quotient band carries the same final signed family `-M(z)`. -/
+theorem primeCombReciprocalBand_familyMass_eq_neg_mertens
+    {W z p : ℕ} (hz : 0 < z) (hpRoot : Nat.sqrt W < p)
+    (hp : p ∈ primeCombReciprocalBand W z) :
+    primeCombLargePrimeFamilyMass W p =
+      -RHLean.Analysis.mertensSummatory z := by
+  calc
+    primeCombLargePrimeFamilyMass W p =
+        -RHLean.Analysis.mertensSummatory (W / p) :=
+      primeCombLargePrimeFamilyMass_eq_neg_mertens
+        (primeCombReciprocalBand_prime hp) hpRoot
+        (primeCombReciprocalBand_le_endpoint hp)
+    _ = -RHLean.Analysis.mertensSummatory z := by
+      rw [primeCombReciprocalBand_div_eq hz hp]
+
+/-- The final family kernel attached to quotient band `z`. -/
+def primeCombReciprocalBandFamilyKernel (z : ℕ) : ℂ :=
+  -RHLean.Analysis.mertensSummatory z
+
+/-- Adding the next lower cofactor changes the final family by exactly the
+opposite Möbius sign. -/
+theorem primeCombReciprocalBandFamilyKernel_succ_sub
+    (z : ℕ) :
+    primeCombReciprocalBandFamilyKernel (z + 1) -
+        primeCombReciprocalBandFamilyKernel z =
+      -(((μ (z + 1) : ℤ) : ℂ)) := by
+  unfold primeCombReciprocalBandFamilyKernel
+  rw [RHLean.Analysis.mertensSummatory_succ]
+  ring
+
+/-! ## The displayed score correction -/
+
 /-- The constant signed correction attached to quotient band `z`. -/
 def primeCombReciprocalBandKernel (z : ℕ) : ℂ :=
   2 * (1 - RHLean.Analysis.mertensSummatory z)
@@ -143,7 +219,7 @@ theorem primeCombReciprocalBandSignedDelta_eq_card_mul
 
 /-- **Adjacent-band cancellation law.**  Exposing one additional lower cofactor
 changes the next reciprocal-band correction by the opposite of twice its
-Mobius sign.
+Möbius sign.
 
 This is the exact negative-feedback identity visible in the prime-comb movie. -/
 theorem primeCombReciprocalBandKernel_succ_sub
