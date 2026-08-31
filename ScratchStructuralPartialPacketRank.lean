@@ -4,6 +4,8 @@ import RHLean.Proof.SquareRootLowPrimeHorizontalTerminalCoverage
 
 open scoped ArithmeticFunction.Moebius BigOperators
 
+noncomputable section
+
 namespace RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
@@ -109,7 +111,12 @@ theorem squareRootLowPrimeProcessedSeatStructuralKey_stepInvolution
       squareRootLowPrimeProcessedSeatStructuralKey K x := by
   classical
   by_cases hxLower : x ∈ squareRootLowPrimeProcessedSeatPairLower S p
-  · simp only [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, if_true]
+  · have hstep :
+        squareRootLowPrimeProcessedSeatStepInvolution S p x =
+          squareRootLowPrimeProcessedSeatExtend p x := by
+      dsimp only [squareRootLowPrimeProcessedSeatStepInvolution]
+      rw [if_pos hxLower]
+    rw [hstep]
     exact squareRootLowPrimeProcessedSeatStructuralKey_extend hp hKp x
   · by_cases hupper :
       ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
@@ -120,13 +127,17 @@ theorem squareRootLowPrimeProcessedSeatStructuralKey_stepInvolution
             squareRootLowPrimeProcessedSeatExtend p y = x := by
         dsimp [y, squareRootLowPrimeProcessedSeatPairPreimage]
         exact Classical.choose_spec hupper
-      simp only [squareRootLowPrimeProcessedSeatStepInvolution, hxLower,
-        if_false, hupper, dif_pos]
-      change squareRootLowPrimeProcessedSeatStructuralKey K y =
-        squareRootLowPrimeProcessedSeatStructuralKey K x
-      rw [← hy.2]
+      have hstep :
+          squareRootLowPrimeProcessedSeatStepInvolution S p x = y := by
+        dsimp only [squareRootLowPrimeProcessedSeatStepInvolution]
+        rw [if_neg hxLower, dif_pos hupper]
+      rw [hstep, ← hy.2]
       exact (squareRootLowPrimeProcessedSeatStructuralKey_extend hp hKp y).symm
-    · simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, hupper]
+    · have hstep :
+          squareRootLowPrimeProcessedSeatStepInvolution S p x = x := by
+        dsimp only [squareRootLowPrimeProcessedSeatStepInvolution]
+        rw [if_neg hxLower, dif_neg hupper]
+      rw [hstep]
 
 /-- A complete chronology made only of primes above `K` preserves the
 structural key. -/
