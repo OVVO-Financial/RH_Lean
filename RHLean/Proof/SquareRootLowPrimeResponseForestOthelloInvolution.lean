@@ -90,17 +90,24 @@ theorem squareRootLowPrimeResponseForestOthelloMate_weight_neg
     squareRootLowPrimeResponseForestOthelloWeight
         (squareRootLowPrimeResponseForestOthelloMate R K U x) =
       -squareRootLowPrimeResponseForestOthelloWeight x := by
-  unfold squareRootLowPrimeResponseForestOthelloMate
-    squareRootLowPrimeResponseForestOthelloWeight
-  apply creationResponseOthelloMate_weight_neg
+  have hne' :
+      creationResponseOthelloMate
+          (squareRootLowPrimeBornInternalAtoms R K U)
+          squareRootLowPrimeBadAtomChild x ≠ x := by
+    simpa [squareRootLowPrimeResponseForestOthelloMate] using hne
+  have h := creationResponseOthelloMate_weight_neg
     (squareRootLowPrimeBornInternalAtoms R K U)
     squareRootLowPrimeBadAtomChild
     (fun z => -μ (squareRootLowPrimeBadAtomChild z))
     (fun c => μ c)
     (squareRootLowPrimeBadAtomChild_injOn_bornInternalAtoms hUR)
-  · intro z _hz
-    simp
-  · exact hne
+    (by
+      intro z _hz
+      simp)
+    x hne'
+  simpa [squareRootLowPrimeResponseForestOthelloWeight,
+    squareRootLowPrimeResponseForestOthelloMate,
+    creationResponseOthelloWeight] using h
 
 /-- Explicit stable boundary of the response forest. -/
 def squareRootLowPrimeResponseForestOthelloBoundary
@@ -131,14 +138,18 @@ private theorem squareRootLowPrimeOwnedResponseAtoms_sdiff_internal_eq_boundaryA
     · exact Finset.mem_union.mpr (Or.inr hzPost)
   · intro hz
     rcases Finset.mem_union.mp hz with hzFront | hzPost
-    · have hzBorn := (mem_squareRootLowPrimeBornFrontierAtoms.mp hzFront).1
+    · have hzFrontData := mem_squareRootLowPrimeBornFrontierAtoms.mp hzFront
+      have hzBorn : z ∈ squareRootLowPrimeBornResponseAtoms R K U :=
+        mem_squareRootLowPrimeBornResponseAtoms.mpr
+          ⟨hzFrontData.1, hzFrontData.2.1⟩
       apply Finset.mem_sdiff.mpr
       constructor
       · rw [squareRootLowPrimeOwnedResponseAtoms_eq_born_union_postRoot]
         exact Finset.mem_union.mpr (Or.inl hzBorn)
-      · exact (Finset.disjoint_left.mp
+      · intro hzInternal
+        exact (Finset.disjoint_left.mp
           (squareRootLowPrimeBornInternalAtoms_disjoint_frontier R K U))
-          |>.2 hzFront
+          hzInternal hzFront
     · apply Finset.mem_sdiff.mpr
       constructor
       · rw [squareRootLowPrimeOwnedResponseAtoms_eq_born_union_postRoot]
