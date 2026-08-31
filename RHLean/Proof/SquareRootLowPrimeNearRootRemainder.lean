@@ -47,7 +47,7 @@ theorem canonicalLargestPrimeFactor_of_prime {p : ℕ} (hp : p.Prime) :
 /-- Above the cutoff the born partner set is empty. -/
 theorem squareRootBornPartnerCount_eq_zero_of_lpf_gt_cutoff
     {R c : ℕ} (hR : 16 ≤ R)
-    (hcX : c ≤ squareRootEndpoint R)
+    (_hcX : c ≤ squareRootEndpoint R)
     (hlpf : squareRootBornPostTailLowPrimeCutoff R <
       canonicalLargestPrimeFactor c) :
     squareRootBornPartnerCount R c = 0 := by
