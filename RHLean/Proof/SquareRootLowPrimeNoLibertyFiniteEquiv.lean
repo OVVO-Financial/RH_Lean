@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Analysis.SquareRootFixedCrossing18349
 import RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
 import RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
+import RHLean.Proof.SquareRootLowPrimeDescendingBoundaryEmbedding
 
 /-!
 # Weight-preserving finite equivalence at the no-liberty seam
