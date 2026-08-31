@@ -53,10 +53,15 @@ theorem squareRootPacketCrossing18349_exists_partialBoundary_card_lt_twentyOne
   rcases squareRootPacketCrossing18349_exists_partial_residual_lt_twentyOne
       hcross with ⟨j, hj, hV0, hV21⟩
   refine ⟨j, hj, hV0, hV21, ?_⟩
-  rw [card_squareRootLowPrimePartialPacketBoundary]
-  have hToNat :
-      Int.toNat (squareRootCrossingLayerPartialPacketInt R 18349 j) < 21 := by
-    exact_mod_cast hV21
-  exact hToNat
+  rw [squareRootLowPrimePartialPacketBoundary_card]
+  have hcast :
+      (Int.toNat (squareRootCrossingLayerPartialPacketInt R 18349 j) : ℤ) =
+        squareRootCrossingLayerPartialPacketInt R 18349 j :=
+    Int.toNat_of_nonneg hV0
+  have hltZ :
+      (Int.toNat (squareRootCrossingLayerPartialPacketInt R 18349 j) : ℤ) < 21 := by
+    rw [hcast]
+    exact hV21
+  exact_mod_cast hltZ
 
 end RHLean.Proof
