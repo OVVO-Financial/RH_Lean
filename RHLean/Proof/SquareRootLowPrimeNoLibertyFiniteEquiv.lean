@@ -8,14 +8,14 @@ import RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
 
 The true fixed population of the second processed-seat Othello matching and the
 four-class tagged no-liberty boundary live in different coordinate types.  The
-correct closure object is therefore not literal Finset equality, but an
-Equiv between the corresponding finite subtypes which preserves signed weight.
+correct closure object is therefore not literal Finset equality, but a
+pointwise weight-preserving map between the corresponding finite subtypes.
 
 The stable set is already literally the descending processed frontier as a
 Finset.  We first package that equality as a value-preserving subtype
-Equiv.  Thus the only arithmetic construction left in this file is exactly the
-weight-preserving equivalence from the descending frontier to the tagged
-boundary.
+Equiv.  For quantitative closure, an injective weight-preserving classifier is
+enough; the older full-equivalence interface is retained for exact signed-mass
+transfer when surjectivity is also available.
 -/
 
 noncomputable section
@@ -100,6 +100,16 @@ theorem abs_squareRootLowPrimeNoLibertyBoundaryWeight_le_one
         change |((ArithmeticFunction.moebius (z.1.2 * z.2) : ℤ) : ℝ)| ≤ 1
         exact_mod_cast hInt
 
+/-- The source side is pointwise unit-bounded before any mass-from-cardinality
+argument is made. -/
+theorem abs_squareRootLowPrimeProcessedSeatDescendingFrontierWeight_le_one
+    {R K j U : ℕ}
+    (x : SquareRootLowPrimeProcessedSeatDescendingFrontier R K j U) :
+    |squareRootLowPrimeProcessedSeatWeightReal
+        (x : SquareRootLowPrimeProcessedState)| ≤ 1 := by
+  exact abs_squareRootLowPrimeProcessedSeatWeightReal_le_one
+    (x : SquareRootLowPrimeProcessedState)
+
 /-- Consequently the absolute signed mass of any finite no-liberty boundary is
 bounded by its number of unit endpoints. -/
 theorem abs_squareRootLowPrimeNoLibertyBoundaryMass_le_card
@@ -121,6 +131,29 @@ theorem abs_squareRootLowPrimeNoLibertyBoundaryMass_le_card
     _ = ((squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U).card : ℝ) := by
       simp
 
+/-- Unit source weights bound the absolute descending-frontier mass by the
+number of surviving processed seats. -/
+theorem abs_squareRootLowPrimeProcessedSeatDescendingFrontierMass_le_card
+    (R K j U : ℕ) :
+    |∑ x ∈ squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x| ≤
+      ((squareRootLowPrimeProcessedSeatDescendingTerminalFrontier
+          R K j U).card : ℝ) := by
+  calc
+    |∑ x ∈ squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x| ≤
+      ∑ x ∈ squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U,
+        |squareRootLowPrimeProcessedSeatWeightReal x| :=
+          Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _x ∈ squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U,
+        (1 : ℝ) := by
+      apply Finset.sum_le_sum
+      intro x _hx
+      exact abs_squareRootLowPrimeProcessedSeatWeightReal_le_one x
+    _ = ((squareRootLowPrimeProcessedSeatDescendingTerminalFrontier
+          R K j U).card : ℝ) := by
+      simp
+
 /-- At the canonical terminal cutoff, the already-proved `4*R` endpoint count
 therefore gives the same `4*R` bound for signed boundary mass. -/
 theorem abs_squareRootLowPrimeNoLibertyBoundaryMass_le_four_root
@@ -135,6 +168,59 @@ theorem abs_squareRootLowPrimeNoLibertyBoundaryMass_le_four_root
   have hcard := squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_le_four_root
     hR hKR hV0 hVK
   exact hmass.trans (by exact_mod_cast hcard)
+
+/-- A pointwise no-liberty classifier: every descending terminal survivor is
+sent to one actual tagged boundary endpoint, injectively and with its signed
+weight unchanged. -/
+structure SquareRootLowPrimeDescendingBoundaryWeightEmbedding
+    (R K j U : ℕ) where
+  toEmbedding :
+    SquareRootLowPrimeProcessedSeatDescendingFrontier R K j U ↪
+      SquareRootLowPrimeProcessedSeatNoLibertyTaggedBoundary R K j U
+  weight_eq : ∀ x,
+    squareRootLowPrimeNoLibertyBoundaryWeight
+        (toEmbedding x : SquareRootLowPrimeProcessedSeatNoLibertyState) =
+      squareRootLowPrimeProcessedSeatWeightReal
+        (x : SquareRootLowPrimeProcessedState)
+
+/-- An actual pointwise embedding transfers source cardinality to the tagged
+boundary cardinality. -/
+theorem squareRootLowPrimeProcessedSeatDescendingFrontier_card_le_boundary
+    {R K j U : ℕ}
+    (e : SquareRootLowPrimeDescendingBoundaryWeightEmbedding R K j U) :
+    (squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j U).card ≤
+      (squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U).card := by
+  have hcard :
+      Fintype.card (SquareRootLowPrimeProcessedSeatDescendingFrontier R K j U) ≤
+        Fintype.card (SquareRootLowPrimeProcessedSeatNoLibertyTaggedBoundary
+          R K j U) :=
+    Fintype.card_le_of_injective e.toEmbedding e.toEmbedding.injective
+  simpa using hcard
+
+/-- **Mass transfer from the actual classifier.**  At the canonical terminal
+cutoff, a weight-preserving injection into the four tagged endpoint classes
+immediately gives the `4*R` bound.  No surjectivity and no arbitrary finite-set
+equivalence are used. -/
+theorem abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_embedding
+    {R K j : ℕ}
+    (hR : 2 ≤ R) (hKR : K < R)
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
+    (hVK : squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ))
+    (e : SquareRootLowPrimeDescendingBoundaryWeightEmbedding
+      R K j (squareRootBornPostTailLowPrimeCutoff R)) :
+    |squareRootLowPrimeRunningImbalanceReal R K j
+        (squareRootBornPostTailLowPrimeCutoff R)| ≤ 4 * (R : ℝ) := by
+  rw [← squareRootLowPrimeProcessedSeatDescendingTerminalFrontier_weight_sum hR]
+  have hmass :=
+    abs_squareRootLowPrimeProcessedSeatDescendingFrontierMass_le_card
+      R K j (squareRootBornPostTailLowPrimeCutoff R)
+  have hsourceTarget :=
+    squareRootLowPrimeProcessedSeatDescendingFrontier_card_le_boundary e
+  have htarget :=
+    squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_le_four_root
+      (R := R) (K := K) (j := j) (by omega) hKR hV0 hVK
+  exact hmass.trans <| by
+    exact_mod_cast hsourceTarget.trans htarget
 
 /-- The fixed certified crossing at depth `18349` supplies one actual partial
 layer index satisfying every packet-range hypothesis used by both the `4*R`
