@@ -77,6 +77,9 @@ jobs:
       - name: Kernel-check Partial endpoint carrier branch
         if: always()
         run: lake env lean RHLean/Proof/SquareRootLowPrimePartialEndpointCarrier.lean
+      - name: Kernel-check packet-free mass transfer
+        if: always()
+        run: lake env lean RHLean/Proof/SquareRootLowPrimePacketFreeMassTransfer.lean
       - name: Build shallow processed/creation bridge
         run: lake build RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv
       - name: Build fixed partial packet residual
