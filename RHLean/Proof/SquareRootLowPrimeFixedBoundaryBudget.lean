@@ -12,10 +12,10 @@ with the already-proved endpoint budgets gives
 * Head: `1`;
 * Partial: at most `20`;
 * BornExit: at most `2*R`;
-* RootEquality homes: exactly `R` available parent slots.
+* RootEquality: at most `R` by the Go parent projection.
 
-Hence the canonical home space, and therefore the actual tagged no-liberty
-boundary, has cardinality at most `3*R + 21`.
+Hence the actual tagged no-liberty boundary has cardinality at most
+`3*R + 21`.
 
 This is only a target-side improvement.  It does not assume or manufacture the
 still-open source-to-boundary classifier.
@@ -56,9 +56,10 @@ theorem squareRootLowPrimeNoLibertyBoundaryHomeSpace18349_card_le_three_root_add
   rw [card_squareRootLowPrimeNoLibertyBoundaryHomeSpace]
   omega
 
-/-- **The actual fixed-depth tagged boundary inherits the sharper home budget.**
-The only nontrivial home projection remains the already-proved injective Go
-parent projection. -/
+/-- **The actual fixed-depth tagged boundary has the sharper budget directly.**
+The four tags are disjoint by construction, so no home-map unfolding is needed:
+use the packet bound, the born-exit bound, and the existing injective Go
+root-equality carrier bound separately. -/
 theorem squareRootLowPrimeProcessedSeatNoLibertyBoundary18349_card_le_three_root_add_twentyOne
     {R j : ℕ} (hR : 1 ≤ R)
     (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R 18349 j)
@@ -66,28 +67,14 @@ theorem squareRootLowPrimeProcessedSeatNoLibertyBoundary18349_card_le_three_root
     (squareRootLowPrimeProcessedSeatNoLibertyBoundary
       R 18349 j (squareRootBornPostTailLowPrimeCutoff R)).card ≤
       3 * R + 21 := by
-  let B := squareRootLowPrimeProcessedSeatNoLibertyBoundary
-    R 18349 j (squareRootBornPostTailLowPrimeCutoff R)
-  let H := squareRootLowPrimeNoLibertyBoundaryHomeSpace R 18349 j
-  let home := squareRootLowPrimeNoLibertyBoundaryHome R 18349 j
-  have hinj : Set.InjOn home B := by
-    simpa [B, home] using
-      squareRootLowPrimeNoLibertyBoundaryHome_injOn R 18349 j
-  have himage : B.image home ⊆ H := by
-    intro y hy
-    rcases Finset.mem_image.mp hy with ⟨x, hx, rfl⟩
-    simpa [B, H, home] using
-      squareRootLowPrimeNoLibertyBoundaryHome_mem
-        (R := R) (K := 18349) (j := j) hx
-  have hcardImage : (B.image home).card = B.card :=
-    Finset.card_image_iff.mpr hinj
-  have hhome :=
-    squareRootLowPrimeNoLibertyBoundaryHomeSpace18349_card_le_three_root_add_twentyOne
-      hR hV0 hV21
-  calc
-    B.card = (B.image home).card := hcardImage.symm
-    _ ≤ H.card := Finset.card_le_card himage
-    _ ≤ 3 * R + 21 := by simpa [H] using hhome
+  have hpacket :=
+    squareRootLowPrimePartialPacketBoundary18349_card_lt_twentyOne hV0 hV21
+  have hborn :=
+    squareRootLowPrimeBornNoSuccessorAtoms_card_le_two_root R 18349 hR
+  have hroot := squareRootLowPrimeGoRootEqualityDefectCarrier_card_le_root R
+  simp only [squareRootLowPrimeProcessedSeatNoLibertyBoundary,
+    Finset.card_disjSum, Finset.card_singleton]
+  omega
 
 /-- A genuine fixed crossing supplies a concrete layer index with the sharper
 `3*R+21` target-side budget. -/
