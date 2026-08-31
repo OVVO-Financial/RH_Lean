@@ -66,7 +66,8 @@ noncomputable def onePrimeTailHallDefect (R : ℕ) : ℕ :=
       (onePrimeTailHallDefectAt R)).max'
     (by
       refine ⟨onePrimeTailHallDefectAt R ∅, ?_⟩
-      simp)
+      exact Finset.mem_image.mpr
+        ⟨∅, Finset.mem_powerset.mpr (Finset.empty_subset _), rfl⟩)
 
 /-- Top-half primes are genuine negative vertices of the Mertens tail. -/
 theorem squareRootTopFibrePrimes_subset_negative
@@ -76,8 +77,13 @@ theorem squareRootTopFibrePrimes_subset_negative
   rcases Finset.mem_filter.mp hq with ⟨hqIoc, hqPrime⟩
   rcases Finset.mem_Ioc.mp hqIoc with ⟨hqHalf, hqX⟩
   have hmul : R * 2 ≤ squareRootEndpoint R := by
-    unfold squareRootEndpoint
+    -- `omega` treats `R ^ 2` and `R * R` as unrelated atoms, so present the
+    -- endpoint in the same shape as the hypothesis before calling it.
     have hRR : 3 * R ≤ R * R := Nat.mul_le_mul hR (le_refl R)
+    have hsq : squareRootEndpoint R = R * R - 1 := by
+      unfold squareRootEndpoint
+      rw [pow_two]
+    rw [hsq]
     omega
   have hhalf : R ≤ squareRootEndpoint R / 2 :=
     (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2 hmul
@@ -94,7 +100,7 @@ theorem squareRootTopFibrePrimes_neighbors_eq_empty
     (R : ℕ) (hR : 3 ≤ R) :
     onePrimeTailNeighbors R (squareRootTopFibrePrimes R) = ∅ := by
   classical
-  rw [Finset.eq_empty_iff_forall_not_mem]
+  rw [Finset.eq_empty_iff_forall_notMem]
   intro m hm
   rcases Finset.mem_filter.mp hm with ⟨hmPos, hneighbor⟩
   rcases hneighbor with ⟨q, hqTop, hadj⟩
