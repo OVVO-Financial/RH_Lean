@@ -98,4 +98,111 @@ theorem squareRootLowPrimeProcessedSeatStructuralKey_extend
       squareRootLowPrimeProcessedSeatIndex]
     rw [squareRootLowPrimeShallowBase_mul_fresh_prime hp hKp]
 
+/-- One completed prime-coordinate involution preserves the structural key in
+both directions, including the upper-endpoint preimage branch. -/
+theorem squareRootLowPrimeProcessedSeatStructuralKey_stepInvolution
+    {K p : ℕ} (hp : p.Prime) (hKp : K < p)
+    (S : Finset SquareRootLowPrimeProcessedState)
+    (x : SquareRootLowPrimeProcessedState) :
+    squareRootLowPrimeProcessedSeatStructuralKey K
+        (squareRootLowPrimeProcessedSeatStepInvolution S p x) =
+      squareRootLowPrimeProcessedSeatStructuralKey K x := by
+  classical
+  by_cases hxLower : x ∈ squareRootLowPrimeProcessedSeatPairLower S p
+  · simp only [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, if_true]
+    exact squareRootLowPrimeProcessedSeatStructuralKey_extend hp hKp x
+  · by_cases hupper :
+      ∃ y ∈ squareRootLowPrimeProcessedSeatPairLower S p,
+        squareRootLowPrimeProcessedSeatExtend p y = x
+    · let y := squareRootLowPrimeProcessedSeatPairPreimage S p x hupper
+      have hy :
+          y ∈ squareRootLowPrimeProcessedSeatPairLower S p ∧
+            squareRootLowPrimeProcessedSeatExtend p y = x := by
+        dsimp [y, squareRootLowPrimeProcessedSeatPairPreimage]
+        exact Classical.choose_spec hupper
+      simp only [squareRootLowPrimeProcessedSeatStepInvolution, hxLower,
+        if_false, hupper, dif_pos]
+      change squareRootLowPrimeProcessedSeatStructuralKey K y =
+        squareRootLowPrimeProcessedSeatStructuralKey K x
+      rw [← hy.2]
+      exact (squareRootLowPrimeProcessedSeatStructuralKey_extend hp hKp y).symm
+    · simp [squareRootLowPrimeProcessedSeatStepInvolution, hxLower, hupper]
+
+/-- A complete chronology made only of primes above `K` preserves the
+structural key. -/
+theorem squareRootLowPrimeProcessedSeatStructuralKey_matchingInvolution
+    (K : ℕ) (ps : List ℕ)
+    (S : Finset SquareRootLowPrimeProcessedState)
+    (hprime : ∀ p ∈ ps, p.Prime ∧ K < p)
+    (x : SquareRootLowPrimeProcessedState) :
+    squareRootLowPrimeProcessedSeatStructuralKey K
+        (squareRootLowPrimeProcessedSeatMatchingInvolution ps S x) =
+      squareRootLowPrimeProcessedSeatStructuralKey K x := by
+  induction ps generalizing S x with
+  | nil =>
+      simp [squareRootLowPrimeProcessedSeatMatchingInvolution]
+  | cons p ps ih =>
+      have hpData : p.Prime ∧ K < p := hprime p (by simp)
+      have hrest : ∀ q ∈ ps, q.Prime ∧ K < q := by
+        intro q hq
+        exact hprime q (by simp [hq])
+      by_cases hxPaired : x ∈ squareRootLowPrimeProcessedSeatPaired S p
+      · rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+        simp only [hxPaired, if_true]
+        exact squareRootLowPrimeProcessedSeatStructuralKey_stepInvolution
+          hpData.1 hpData.2 S x
+      · rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
+        simp only [hxPaired, if_false]
+        exact ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
+          hrest x
+
+/-- Every chronological fresh-prime coordinate is prime and strictly above the
+packet cutoff. -/
+theorem squareRootLowPrimeFreshPrimeList_prime_and_above
+    {K U p : ℕ} (hp : p ∈ squareRootLowPrimeFreshPrimeList K U) :
+    p.Prime ∧ K < p := by
+  have hset : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
+    simpa [squareRootLowPrimeFreshPrimeList] using hp
+  have hdata := Finset.mem_filter.mp hset
+  exact ⟨hdata.2, (Finset.mem_Ioc.mp hdata.1).1⟩
+
+/-- The same statement for the reversed prime order. -/
+theorem squareRootLowPrimeFreshPrimeListDescending_prime_and_above
+    {K U p : ℕ}
+    (hp : p ∈ squareRootLowPrimeFreshPrimeListDescending K U) :
+    p.Prime ∧ K < p := by
+  have hpInc : p ∈ squareRootLowPrimeFreshPrimeList K U := by
+    simpa [squareRootLowPrimeFreshPrimeListDescending] using hp
+  exact squareRootLowPrimeFreshPrimeList_prime_and_above hpInc
+
+/-- The increasing-order Othello mate on the common processed carrier. -/
+noncomputable def squareRootLowPrimeProcessedSeatChronologicalMate
+    (R K j U : ℕ) :
+    SquareRootLowPrimeProcessedState → SquareRootLowPrimeProcessedState :=
+  squareRootLowPrimeProcessedSeatMatchingInvolution
+    (squareRootLowPrimeFreshPrimeList K U)
+    (squareRootLowPrimeProcessedSeatCarrier R K j U)
+
+/-- The structural key is invariant under the first Othello involution. -/
+theorem squareRootLowPrimeProcessedSeatChronologicalMate_structuralKey
+    (R K j U : ℕ) (x : SquareRootLowPrimeProcessedState) :
+    squareRootLowPrimeProcessedSeatStructuralKey K
+        (squareRootLowPrimeProcessedSeatChronologicalMate R K j U x) =
+      squareRootLowPrimeProcessedSeatStructuralKey K x := by
+  unfold squareRootLowPrimeProcessedSeatChronologicalMate
+  apply squareRootLowPrimeProcessedSeatStructuralKey_matchingInvolution
+  intro p hp
+  exact squareRootLowPrimeFreshPrimeList_prime_and_above hp
+
+/-- The structural key is invariant under the descending Othello involution. -/
+theorem squareRootLowPrimeProcessedSeatNoLibertyMate_structuralKey
+    (R K j U : ℕ) (x : SquareRootLowPrimeProcessedState) :
+    squareRootLowPrimeProcessedSeatStructuralKey K
+        (squareRootLowPrimeProcessedSeatNoLibertyMate R K j U x) =
+      squareRootLowPrimeProcessedSeatStructuralKey K x := by
+  unfold squareRootLowPrimeProcessedSeatNoLibertyMate
+  apply squareRootLowPrimeProcessedSeatStructuralKey_matchingInvolution
+  intro p hp
+  exact squareRootLowPrimeFreshPrimeListDescending_prime_and_above hp
+
 end RHLean.Proof
