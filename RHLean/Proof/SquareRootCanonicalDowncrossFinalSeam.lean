@@ -92,7 +92,7 @@ theorem canonicalDowncross_eq_lower_sub_smooth_add_middle_add_topCard
 /-- A linear downcross bound immediately gives a linear square-prefix Mertens
 bound, using only the trivial interval bound `|M(R)| <= R`. -/
 theorem norm_squarePrefixMertens_le_of_canonicalDowncrossLinear
-    {C : ℝ} (hC : 0 ≤ C)
+    {C : ℝ} (_hC : 0 ≤ C)
     (hdown : ∀ R : ℕ, 3 ≤ R →
       ‖lowWheelCanonicalDowncrossLedger R‖ ≤ C * (R : ℝ))
     {R : ℕ} (hR : 3 ≤ R) :
@@ -114,6 +114,7 @@ theorem squarePrefixCurrentPointwiseBounded_of_canonicalDowncrossLinear
     (hdown : SquareRootCanonicalDowncrossLinearBound) :
     SquarePrefixCurrentPointwiseBoundedStatement := by
   obtain ⟨C, hC, hD⟩ := hdown
+  intro ε hε
   refine ⟨4 * (C + 1) ^ 2 + 9, by positivity, ?_⟩
   intro N hN
   by_cases hN1 : N = 1
