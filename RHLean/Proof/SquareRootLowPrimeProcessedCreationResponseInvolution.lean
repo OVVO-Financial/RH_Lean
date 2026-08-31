@@ -142,7 +142,7 @@ theorem squareRootLowPrimeProcessedCreationResponseDecode_mem
 
 /-- Decode after encode is literally the identity on the processed carrier. -/
 theorem squareRootLowPrimeProcessedCreationResponseDecode_encode
-    {R K j U : ℕ} (hR : 1 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U)
+    {R K j U : ℕ} (hR : 1 ≤ R) (_hK : 1 ≤ K) (hKU : K ≤ U)
     {x : SquareRootLowPrimeProcessedState}
     (hx : x ∈ squareRootLowPrimeProcessedSeatCarrier R K j U) :
     squareRootLowPrimeProcessedCreationResponseDecode R
@@ -221,8 +221,8 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_mem
     squareRootLowPrimeProcessedCreationResponseTaggedMate R K j U y ∈
       squareRootLowPrimeProcessedCreationResponseTaggedCarrier R K j U := by
   rcases y with u | y
-  · simpa [squareRootLowPrimeProcessedCreationResponseTaggedMate,
-      squareRootLowPrimeProcessedCreationResponseTaggedCarrier] using hy
+  · simp [squareRootLowPrimeProcessedCreationResponseTaggedMate,
+      squareRootLowPrimeProcessedCreationResponseTaggedCarrier]
   · have hyCR :
       y ∈ creationResponseOthelloCarrier
         ((squareRootLowPrimeCreationCarrierExact R K j).erase none)
@@ -263,7 +263,7 @@ def squareRootLowPrimeProcessedCreationResponseTaggedWeight :
 
 /-- The encoding preserves native processed-seat weight. -/
 theorem squareRootLowPrimeProcessedCreationResponseEncode_weight
-    {R K j U : ℕ} (hR : 1 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U)
+    {R K j U : ℕ} (hR : 1 ≤ R) (_hK : 1 ≤ K) (hKU : K ≤ U)
     {x : SquareRootLowPrimeProcessedState}
     (hx : x ∈ squareRootLowPrimeProcessedSeatCarrier R K j U) :
     squareRootLowPrimeProcessedCreationResponseTaggedWeight
