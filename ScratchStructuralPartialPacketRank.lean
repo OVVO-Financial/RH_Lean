@@ -137,4 +137,41 @@ theorem squareRootLowPrimeProcessedSeat_prefixBlocker_length_lt
   rw [hsplit, List.length_append, List.length_cons]
   omega
 
+/-- Every blocker partner in a fresh-prime schedule remains in the same
+`(shallowBase, seat)` fibre as the terminal state that exposed it.  This is the
+key invariant needed by the recursive partial-packet traversal. -/
+theorem squareRootLowPrimeProcessedSeat_prefixBlocker_structuralKey
+    {K U p q : ℕ} {pre post pre' post' : List ℕ}
+    {x z : SquareRootLowPrimeProcessedState}
+    (hps : squareRootLowPrimeFreshPrimeList K U = pre ++ p :: post)
+    (hpre : pre = pre' ++ q :: post')
+    (hedge :
+      (z = squareRootLowPrimeProcessedSeatExtend q
+          (squareRootLowPrimeProcessedSeatExtend p x)) ∨
+        (squareRootLowPrimeProcessedSeatExtend p x =
+          squareRootLowPrimeProcessedSeatExtend q z)) :
+    squareRootLowPrimeProcessedSeatStructuralKey K z =
+      squareRootLowPrimeProcessedSeatStructuralKey K x := by
+  have hpMem : p ∈ squareRootLowPrimeFreshPrimeList K U := by
+    rw [hps]
+    simp
+  have hqPre : q ∈ pre := by
+    rw [hpre]
+    simp
+  have hqMem : q ∈ squareRootLowPrimeFreshPrimeList K U := by
+    rw [hps]
+    simp [hqPre]
+  have hpData := squareRootLowPrimeFreshPrimeList_prime_and_above hpMem
+  have hqData := squareRootLowPrimeFreshPrimeList_prime_and_above hqMem
+  rcases hedge with hforward | hback
+  · rw [hforward,
+      squareRootLowPrimeProcessedSeatStructuralKey_extend hqData.1 hqData.2,
+      squareRootLowPrimeProcessedSeatStructuralKey_extend hpData.1 hpData.2]
+  · have hkey := congrArg
+      (squareRootLowPrimeProcessedSeatStructuralKey K) hback
+    rw [squareRootLowPrimeProcessedSeatStructuralKey_extend hpData.1 hpData.2,
+      squareRootLowPrimeProcessedSeatStructuralKey_extend hqData.1 hqData.2]
+      at hkey
+    exact hkey.symm
+
 end RHLean.Proof
