@@ -74,6 +74,9 @@ jobs:
         run: lake env lean RHLean/Proof/SquareRootLowPrimeBornExitClassifierBranch.lean
       - name: Kernel-check Head classifier branch
         run: lake env lean RHLean/Proof/SquareRootLowPrimeHeadClassifierBranch.lean
+      - name: Kernel-check Partial endpoint carrier branch
+        if: always()
+        run: lake env lean RHLean/Proof/SquareRootLowPrimePartialEndpointCarrier.lean
       - name: Build shallow processed/creation bridge
         run: lake build RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv
       - name: Build fixed partial packet residual
@@ -86,5 +89,3 @@ jobs:
         run: lake env lean RHLean/Proof/SquareRootLowPrimeProcessedCreationResponseFixedClassification.lean
       - name: Kernel-check common creation-response structural key
         run: lake env lean RHLean/Proof/SquareRootLowPrimeCreationResponseStructuralKey.lean
-      - name: Kernel-check Partial endpoint carrier branch
-        run: lake env lean RHLean/Proof/SquareRootLowPrimePartialEndpointCarrier.lean

@@ -290,6 +290,20 @@ theorem squareRootLowPrimeProcessedCreationResponseEncode_weight
         squareRootLowPrimeResponseSeatWeightReal,
         squareRootLowPrimeProcessedSeatWeightReal]
 
+/-- On the non-head tag the tagged weight is literally the generic
+creation-response Othello weight.  The nested match in the definition does not
+reduce for a variable `y`, so this has to be proved by cases rather than used
+definitionally. -/
+theorem squareRootLowPrimeProcessedCreationResponseTaggedWeight_inr
+    (y : Sum SquareRootLowPrimeCreationState (ℕ × ℕ)) :
+    squareRootLowPrimeProcessedCreationResponseTaggedWeight (Sum.inr y) =
+      creationResponseOthelloWeight
+        squareRootLowPrimeCreationWeightReal
+        squareRootLowPrimeResponseSeatWeightReal y := by
+  cases y with
+  | inl c => rfl
+  | inr z => rfl
+
 /-- Every moved tagged creation-response state reverses its native weight. -/
 theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_weight_neg
     (R K j U : ℕ)
@@ -313,15 +327,14 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_weight_neg
       squareRootLowPrimeCanonicalCreationToResponse_injOn
       (fun c hc => squareRootLowPrimeCanonicalCreationToResponse_weight_cancel hc)
       y hne'
-    change creationResponseOthelloWeight
-        squareRootLowPrimeCreationWeightReal
-        squareRootLowPrimeResponseSeatWeightReal
-        (creationResponseOthelloMate
-          (squareRootLowPrimeMatchedCreationStates R K j U)
-          (squareRootLowPrimeCanonicalCreationToResponse R K j U) y) =
-      -creationResponseOthelloWeight
-        squareRootLowPrimeCreationWeightReal
-        squareRootLowPrimeResponseSeatWeightReal y
+    have hmate :
+        squareRootLowPrimeProcessedCreationResponseTaggedMate R K j U
+            (Sum.inr y) =
+          Sum.inr (creationResponseOthelloMate
+            (squareRootLowPrimeMatchedCreationStates R K j U)
+            (squareRootLowPrimeCanonicalCreationToResponse R K j U) y) := rfl
+    rw [hmate, squareRootLowPrimeProcessedCreationResponseTaggedWeight_inr,
+      squareRootLowPrimeProcessedCreationResponseTaggedWeight_inr]
     exact h
 
 /-- **First Othello mate on the exact processed-seat universe.** -/

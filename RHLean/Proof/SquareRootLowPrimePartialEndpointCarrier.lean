@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Proof.SquareRootLowPrimeStructuralKey
 import RHLean.Proof.SquareRootLowPrimeNoLibertyBoundaryHome
 import RHLean.Proof.SquareRootLowPrimeDescendingPivotStability
+import RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv
 
 /-!
 # The Partial branch of the no-liberty classifier
@@ -601,5 +602,66 @@ theorem squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_eq_of_empty_root
   simp only [squareRootLowPrimeProcessedSeatNoLibertyBoundary, hroot,
     Finset.card_disjSum, Finset.card_singleton, Finset.card_empty]
   omega
+
+/-! ## The `4R` bound does not need an injective classifier
+
+The pointwise embedding interface asks for an *injection* of the descending
+frontier into the tagged boundary, which forces the boundary to be
+cardinality-faithful.  The compressed `Partial` class is not: it represents the
+shallow residual by `toNat V` cells of weight `-1`, which is faithful to the
+residual's *mass* and lossy on its *cardinality* — the shallow survivors of
+either sign both contribute cells, while `V` records only their difference.
+
+But the downstream target `|runningImbalance| ≤ 4R` never used injectivity for
+its own sake; it used it only to move mass from the source to the target.  An
+aggregate mass identity does that directly, and is strictly weaker: it needs no
+exhaustive four-way classification, no injectivity, and no sign homogeneity of
+the shallow survivors. -/
+
+/-- **Aggregate mass transfer suffices.**  If the descending terminal frontier
+and the tagged boundary carry the same signed mass, the `4R` bound follows —
+with no classifier, no injection, and no exhaustiveness claim. -/
+theorem abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_massTransfer
+    {R K j : ℕ} (hR : 2 ≤ R) (hKR : K < R)
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
+    (hVK : squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ))
+    (hmass :
+      (∑ x ∈ squareRootLowPrimeProcessedSeatDescendingTerminalFrontier R K j
+          (squareRootBornPostTailLowPrimeCutoff R),
+          squareRootLowPrimeProcessedSeatWeightReal x) =
+        ∑ z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j
+            (squareRootBornPostTailLowPrimeCutoff R),
+          squareRootLowPrimeNoLibertyBoundaryWeight z) :
+    |squareRootLowPrimeRunningImbalanceReal R K j
+        (squareRootBornPostTailLowPrimeCutoff R)| ≤ 4 * (R : ℝ) := by
+  rw [← squareRootLowPrimeProcessedSeatDescendingTerminalFrontier_weight_sum hR,
+    hmass]
+  have hmassLe := abs_squareRootLowPrimeNoLibertyBoundaryMass_le_card
+    R K j (squareRootBornPostTailLowPrimeCutoff R)
+  have hcard := squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_le_four_root
+    (R := R) (K := K) (j := j) (by omega) hKR hV0 hVK
+  exact hmassLe.trans (by exact_mod_cast hcard)
+
+/-- The same transfer in the form the classifier work would actually produce:
+a weight-preserving injection is one way to get the mass identity, but any
+mass-preserving decomposition of the frontier will do. -/
+theorem abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_massTransfer'
+    {R K j : ℕ} (hR : 2 ≤ R) (hKR : K < R)
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
+    (hVK : squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ))
+    (hmass :
+      squareRootLowPrimeRunningImbalanceReal R K j
+          (squareRootBornPostTailLowPrimeCutoff R) =
+        ∑ z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j
+            (squareRootBornPostTailLowPrimeCutoff R),
+          squareRootLowPrimeNoLibertyBoundaryWeight z) :
+    |squareRootLowPrimeRunningImbalanceReal R K j
+        (squareRootBornPostTailLowPrimeCutoff R)| ≤ 4 * (R : ℝ) := by
+  rw [hmass]
+  have hmassLe := abs_squareRootLowPrimeNoLibertyBoundaryMass_le_card
+    R K j (squareRootBornPostTailLowPrimeCutoff R)
+  have hcard := squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_le_four_root
+    (R := R) (K := K) (j := j) (by omega) hKR hV0 hVK
+  exact hmassLe.trans (by exact_mod_cast hcard)
 
 end RHLean.Proof
