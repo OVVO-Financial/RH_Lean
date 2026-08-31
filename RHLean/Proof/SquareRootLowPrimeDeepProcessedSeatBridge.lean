@@ -63,6 +63,8 @@ private theorem squareRootLowPrimeProcessedDeepCofactor_mem_ownedSigned
     exact Finset.mem_filter.mpr ⟨hcRange, rfl⟩
   have habs : |μ c| ≤ 1 :=
     ArithmeticFunction.abs_moebius_le_one (n := c)
+  have hbounds : -(1 : ℤ) ≤ μ c ∧ μ c ≤ 1 :=
+    abs_le.mp habs
   have hsign : μ c = 1 ∨ μ c = -1 := by
     omega
   unfold squareRootLowPrimeOwnedSignedCofactors
