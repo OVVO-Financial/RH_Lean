@@ -49,6 +49,111 @@ theorem mertensSummatory_squareRootEndpoint_re
   rw [← squareRootMertensInt_cast_complex]
   simp
 
+/-- **Clean ancestral form of the terminal open proposition.**
+
+The positive orientation has already collapsed exactly to the negative
+prime-indexed ancestral Mertens transform.  This therefore states the remaining
+question in its most readable coordinates:
+
+`|M(R^2 - 1) + sum_{q <= R, q prime} M(q - 1)| <= C * R`.
+
+The existing complex transform is real-valued, but the terminal theorem only
+consumes its real coordinate, so the proposition is stated directly in `ℝ`. -/
+def SquareRootMertensPositiveTracking (C : ℝ) (R : ℕ) : Prop :=
+  |(squareRootMertensInt (squareRootEndpoint R) : ℝ) +
+      (squareRootPositiveSmoothPrimeMertensTransform R).re| ≤
+    C * (R : ℝ)
+
+/-- The middle population differs from the negative ancestral transform only by
+the seven-coordinate near-prime strip. -/
+private theorem squareRootLowPrimeMiddleMertensMass_re_eq_neg_primeTransform_sub_near
+    (R : ℕ) (hR : 1 ≤ R) :
+    (squareRootLowPrimeMiddleMertensMass R).re =
+      -(squareRootPositiveSmoothPrimeMertensTransform R).re -
+        (squareRootNearPrimeTransport R).re := by
+  unfold squareRootLowPrimeMiddleMertensMass
+  rw [squareRootPositiveSmoothMass_eq_neg_primeMertensTransform R hR]
+  simp
+
+/-- Clean ancestral tracking implies the existing middle-tracking proposition,
+losing only the already-proved `7R` near-prime strip. -/
+theorem squareRootMertensMiddleTracking_of_positiveTracking
+    {C : ℝ} {R : ℕ} (hR : 56 ≤ R)
+    (htrack : SquareRootMertensPositiveTracking C R) :
+    SquareRootMertensMiddleTracking (C + 7) R := by
+  unfold SquareRootMertensPositiveTracking at htrack
+  unfold SquareRootMertensMiddleTracking
+  have hmiddle :=
+    squareRootLowPrimeMiddleMertensMass_re_eq_neg_primeTransform_sub_near
+      R (by omega)
+  have hnearNorm := norm_squareRootNearPrimeTransport_le R hR
+  have hnearRe :
+      |(squareRootNearPrimeTransport R).re| ≤ 7 * (R : ℝ) :=
+    (Complex.abs_re_le_norm _).trans hnearNorm
+  rw [hmiddle]
+  have hsplit :
+      (squareRootMertensInt (squareRootEndpoint R) : ℝ) -
+          (-(squareRootPositiveSmoothPrimeMertensTransform R).re -
+            (squareRootNearPrimeTransport R).re) =
+        ((squareRootMertensInt (squareRootEndpoint R) : ℝ) +
+            (squareRootPositiveSmoothPrimeMertensTransform R).re) +
+          (squareRootNearPrimeTransport R).re := by
+    ring
+  rw [hsplit]
+  calc
+    |((squareRootMertensInt (squareRootEndpoint R) : ℝ) +
+          (squareRootPositiveSmoothPrimeMertensTransform R).re) +
+        (squareRootNearPrimeTransport R).re| ≤
+      |(squareRootMertensInt (squareRootEndpoint R) : ℝ) +
+          (squareRootPositiveSmoothPrimeMertensTransform R).re| +
+        |(squareRootNearPrimeTransport R).re| := abs_add_le _ _
+    _ ≤ C * (R : ℝ) + 7 * (R : ℝ) := add_le_add htrack hnearRe
+    _ = (C + 7) * (R : ℝ) := by ring
+
+/-- Conversely, the existing middle-tracking proposition implies the clean
+ancestral form with the same `7R` constant loss.  Thus the two formulations are
+asymptotically identical and differ only by the harmless fixed-width strip. -/
+theorem squareRootMertensPositiveTracking_of_middleTracking
+    {C : ℝ} {R : ℕ} (hR : 56 ≤ R)
+    (htrack : SquareRootMertensMiddleTracking C R) :
+    SquareRootMertensPositiveTracking (C + 7) R := by
+  unfold SquareRootMertensMiddleTracking at htrack
+  unfold SquareRootMertensPositiveTracking
+  have hmiddle :=
+    squareRootLowPrimeMiddleMertensMass_re_eq_neg_primeTransform_sub_near
+      R (by omega)
+  have hnearNorm := norm_squareRootNearPrimeTransport_le R hR
+  have hnearRe :
+      |(squareRootNearPrimeTransport R).re| ≤ 7 * (R : ℝ) :=
+    (Complex.abs_re_le_norm _).trans hnearNorm
+  rw [hmiddle] at htrack
+  have hsplit :
+      (squareRootMertensInt (squareRootEndpoint R) : ℝ) +
+          (squareRootPositiveSmoothPrimeMertensTransform R).re =
+        ((squareRootMertensInt (squareRootEndpoint R) : ℝ) -
+            (-(squareRootPositiveSmoothPrimeMertensTransform R).re -
+              (squareRootNearPrimeTransport R).re)) -
+          (squareRootNearPrimeTransport R).re := by
+    ring
+  rw [hsplit]
+  calc
+    |((squareRootMertensInt (squareRootEndpoint R) : ℝ) -
+          (-(squareRootPositiveSmoothPrimeMertensTransform R).re -
+            (squareRootNearPrimeTransport R).re)) -
+        (squareRootNearPrimeTransport R).re| ≤
+      |(squareRootMertensInt (squareRootEndpoint R) : ℝ) -
+          (-(squareRootPositiveSmoothPrimeMertensTransform R).re -
+            (squareRootNearPrimeTransport R).re)| +
+        |(squareRootNearPrimeTransport R).re| := by
+          simpa [sub_eq_add_neg, abs_neg] using
+            (abs_add_le
+              ((squareRootMertensInt (squareRootEndpoint R) : ℝ) -
+                (-(squareRootPositiveSmoothPrimeMertensTransform R).re -
+                  (squareRootNearPrimeTransport R).re))
+              (-(squareRootNearPrimeTransport R).re))
+    _ ≤ C * (R : ℝ) + 7 * (R : ℝ) := add_le_add htrack hnearRe
+    _ = (C + 7) * (R : ℝ) := by ring
+
 /-- The terminal proposition is exactly the real-coordinate Mertens-minus-middle
 bound already isolated by the obstruction module. -/
 theorem squareRootMertensMiddleTracking_iff_mertensMiddleRealBound
