@@ -139,6 +139,9 @@ theorem squareRootCanonicalRoughPrimePartnerLayerSet_pairwiseDisjoint
     Set.PairwiseDisjoint (↑(Finset.Icc 1 (R - 1)))
       (squareRootCanonicalRoughPrimePartnerLayerSet R c) := by
   intro z hz w hw hzw
+  change Disjoint
+    (squareRootCanonicalRoughPrimePartnerLayerSet R c z)
+    (squareRootCanonicalRoughPrimePartnerLayerSet R c w)
   rw [Finset.disjoint_left]
   intro q hqz hqw
   have hz0 : 0 < z := by
@@ -230,7 +233,8 @@ theorem mem_squareRootCanonicalRoughPrimePartnerSet_iff
             Nat.mul_le_mul_left R hcqPred
           _ ≤ squareRootEndpoint R := by
             unfold squareRootEndpoint
-            nlinarith
+            rw [pow_two, Nat.mul_sub_left_distrib]
+            omega
       have hRleDiv : R ≤ squareRootEndpoint R / (c * q) :=
         (Nat.le_div_iff_mul_le hcqPos).2 hRmul
       rw [hdivGlobal] at hRleDiv
@@ -246,9 +250,13 @@ theorem mem_squareRootCanonicalRoughPrimePartnerSet_iff
       exact (Nat.one_le_div_iff hqPrime.pos).2 hqUpper
     have hcqPos : 0 < c * q := Nat.mul_pos hc hqPrime.pos
     have hXlt : squareRootEndpoint R < R * (c * q) := by
-      unfold squareRootEndpoint
       have hRR : R * R ≤ R * (c * q) := Nat.mul_le_mul_left R hroot
-      nlinarith
+      have hXltSquare : squareRootEndpoint R < R * R := by
+        unfold squareRootEndpoint
+        rw [pow_two]
+        have hRRpos : 0 < R * R := Nat.mul_pos (by omega) (by omega)
+        omega
+      exact hXltSquare.trans_le hRR
     have hzR : z < R := by
       have hdivLt : squareRootEndpoint R / (c * q) < R :=
         (Nat.div_lt_iff_lt_mul hcqPos).2 hXlt
@@ -304,7 +312,7 @@ theorem mem_squareRootCanonicalRoughFreshLossBoundary_iff
     rcases Finset.mem_sdiff.mp hq with ⟨hqParent, hqNotChild⟩
     have hpData :=
       (mem_squareRootCanonicalRoughPrimePartnerSet_iff hR hc).1 hqParent
-    refine ⟨hpData.1, hpData.2.1, hpData.2.2.1, hpData.2.2.2.1, ?_⟩
+    refine ⟨hpData.1, hpData.2.1, hpData.2.2.1, hpData.2.2.2, ?_⟩
     by_cases hpq : p < q
     · right
       by_contra hnot
@@ -378,8 +386,7 @@ theorem mem_squareRootCanonicalRoughFreshBirthBoundary_iff
 /-- General fresh-prime capacity law: the parent/child response difference is
 exactly the loss boundary minus the root-crossing birth boundary. -/
 theorem squareRootCanonicalRoughPrimePartnerCount_sub_freshChild_eq_loss_sub_birth
-    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
-    (hfresh : canonicalLargestPrimeFactor c < p) :
+    {R c p : ℕ} :
     squareRootCanonicalRoughPrimePartnerCount R c -
         squareRootCanonicalRoughPrimePartnerCount R (p * c) =
       ((squareRootCanonicalRoughFreshLossBoundary R c p).card : ℂ) -
@@ -447,8 +454,7 @@ theorem squareRootCanonicalRoughPrimePartnerCount_sub_freshChild_eq_lossBoundary
     squareRootCanonicalRoughPrimePartnerCount R c -
         squareRootCanonicalRoughPrimePartnerCount R (p * c) =
       ((squareRootCanonicalRoughFreshLossBoundary R c p).card : ℂ) := by
-  rw [squareRootCanonicalRoughPrimePartnerCount_sub_freshChild_eq_loss_sub_birth
-      hR hc hp hfresh,
+  rw [squareRootCanonicalRoughPrimePartnerCount_sub_freshChild_eq_loss_sub_birth,
     squareRootCanonicalRoughFreshBirthBoundary_eq_empty_of_root_reached
       hR hc hp hfresh hroot]
   simp
