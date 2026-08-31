@@ -76,3 +76,5 @@ jobs:
         run: lake env lean RHLean/Proof/SquareRootLowPrimeHeadClassifierBranch.lean
       - name: Kernel-check shallow processed/creation bridge
         run: lake env lean RHLean/Proof/SquareRootLowPrimeShallowProcessedCreationEquiv.lean
+      - name: Kernel-check fixed partial packet residual
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeFixedPartialPacketResidual.lean
