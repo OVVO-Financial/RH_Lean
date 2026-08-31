@@ -84,8 +84,14 @@ theorem squareRootBornPartnerCount_eq_zero_of_lpf_gt_cutoff
     omega
   · have hPpos : 0 < canonicalLargestPrimeFactor c := hPprime.pos
     have hcP : 2 * canonicalLargestPrimeFactor c ≤ c := by
-      rw [hm]
-      nlinarith [hPpos, hm2]
+      have h2m :
+          canonicalLargestPrimeFactor c * 2 ≤
+            canonicalLargestPrimeFactor c * m :=
+        Nat.mul_le_mul (le_refl _) hm2
+      calc 2 * canonicalLargestPrimeFactor c
+          = canonicalLargestPrimeFactor c * 2 := by ring
+        _ ≤ canonicalLargestPrimeFactor c * m := h2m
+        _ = c := hm.symm
     have hq1 : canonicalLargestPrimeFactor c + 1 ≤ q := hqRough
     have hUP : (squareRootBornPostTailLowPrimeCutoff R) ^ 2 ≤
         (canonicalLargestPrimeFactor c) ^ 2 :=
@@ -132,8 +138,14 @@ theorem prime_of_le_pred_root_of_lpf_gt_cutoff
   · exfalso
     have hPpos : 0 < canonicalLargestPrimeFactor c := hPprime.pos
     have hcP : 2 * canonicalLargestPrimeFactor c ≤ c := by
-      rw [hm]
-      nlinarith [hPpos, hm2]
+      have h2m :
+          canonicalLargestPrimeFactor c * 2 ≤
+            canonicalLargestPrimeFactor c * m :=
+        Nat.mul_le_mul (le_refl _) hm2
+      calc 2 * canonicalLargestPrimeFactor c
+          = canonicalLargestPrimeFactor c * 2 := by ring
+        _ ≤ canonicalLargestPrimeFactor c * m := h2m
+        _ = c := hm.symm
     omega
 
 /-- The cofactors surviving the cutoff complement below the root. -/
