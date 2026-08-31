@@ -1,6 +1,6 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeStructuralKey
-import RHLean.Proof.SquareRootLowPrimeChannelCreationCarrier
+import RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseMap
 
 /-!
 # Shallow processed seats are exactly tagged creation seats
@@ -181,7 +181,7 @@ theorem squareRootLowPrimeCreationToProcessedShallowSeat_mem
 
 /-- Restoring the absolute seat after tagging born/high is the identity. -/
 theorem squareRootLowPrimeCreationToProcessedShallowSeat_toCreation
-    {R K j U : ℕ} (hR : 1 ≤ R) (hKU : K ≤ U)
+    {R K j U : ℕ} (_hR : 1 ≤ R) (_hKU : K ≤ U)
     {z : ℕ × ℕ}
     (hz : z ∈ squareRootLowPrimeProcessedShallowSeatAtoms R K j U) :
     squareRootLowPrimeCreationToProcessedShallowSeat R
@@ -200,7 +200,7 @@ theorem squareRootLowPrimeCreationToProcessedShallowSeat_toCreation
 
 /-- Tagging a non-head creation state after forgetting the tag recovers it. -/
 theorem squareRootLowPrimeProcessedShallowSeatToCreation_fromCreation
-    {R K j U : ℕ} (hR : 1 ≤ R) (hKU : K ≤ U)
+    {R K j U : ℕ} (_hR : 1 ≤ R) (_hKU : K ≤ U)
     {x : SquareRootLowPrimeCreationState}
     (hx : x ∈ (squareRootLowPrimeCreationCarrierExact R K j).erase none) :
     squareRootLowPrimeProcessedShallowSeatToCreation R
@@ -247,16 +247,17 @@ theorem squareRootLowPrimeProcessedShallowSeatCreationEquiv_weight_eq
         (squareRootLowPrimeProcessedShallowSeatCreationEquiv
           R K j U hR hKU z : SquareRootLowPrimeCreationState) =
       squareRootLowPrimeProcessedSeatWeightReal (some z.1) := by
-  rcases z.1 with ⟨c, s⟩
-  change squareRootLowPrimeCreationWeightReal
-      (squareRootLowPrimeProcessedShallowSeatToCreation R (c, s)) =
-    ((-μ c : ℤ) : ℝ)
+  rcases z with ⟨⟨c, s⟩, hz⟩
   by_cases hsBorn : s < squareRootBornPartnerCount R c
-  · simp [squareRootLowPrimeProcessedShallowSeatToCreation, hsBorn,
+  · simp [squareRootLowPrimeProcessedShallowSeatCreationEquiv,
+      squareRootLowPrimeProcessedShallowSeatToCreation, hsBorn,
       squareRootLowPrimeCreationWeightReal,
-      squareRootLowPrimeCreationWeightComplex, canonicalMoebiusWeight]
-  · simp [squareRootLowPrimeProcessedShallowSeatToCreation, hsBorn,
+      squareRootLowPrimeCreationWeightComplex, canonicalMoebiusWeight,
+      squareRootLowPrimeProcessedSeatWeightReal]
+  · simp [squareRootLowPrimeProcessedShallowSeatCreationEquiv,
+      squareRootLowPrimeProcessedShallowSeatToCreation, hsBorn,
       squareRootLowPrimeCreationWeightReal,
-      squareRootLowPrimeCreationWeightComplex, canonicalMoebiusWeight]
+      squareRootLowPrimeCreationWeightComplex, canonicalMoebiusWeight,
+      squareRootLowPrimeProcessedSeatWeightReal]
 
 end RHLean.Proof
