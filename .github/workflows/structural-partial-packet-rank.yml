@@ -2,7 +2,7 @@ name: Structural partial-packet rank probe
 
 on:
   push:
-    branches: [agent/structural-partial-packet-rank]
+    branches: [agent/structural-partial-packet-rank, claude/partial-rank-theorem-ot5tkc]
   workflow_dispatch:
 
 permissions:
@@ -86,3 +86,5 @@ jobs:
         run: lake env lean RHLean/Proof/SquareRootLowPrimeProcessedCreationResponseFixedClassification.lean
       - name: Kernel-check common creation-response structural key
         run: lake env lean RHLean/Proof/SquareRootLowPrimeCreationResponseStructuralKey.lean
+      - name: Kernel-check Partial endpoint carrier branch
+        run: lake env lean RHLean/Proof/SquareRootLowPrimePartialEndpointCarrier.lean
