@@ -122,8 +122,7 @@ def primeCombLargePrimeFamilyMass (W p : ℕ) : ℂ :=
 reverses its completed Möbius sign.  Consequently the entire final `p`-family
 is exactly the negative lower Mertens prefix at the reciprocal cutoff. -/
 theorem primeCombLargePrimeFamilyMass_eq_neg_mertens
-    {W p : ℕ} (hp : p.Prime) (hpRoot : Nat.sqrt W < p)
-    (hpW : p ≤ W) :
+    {W p : ℕ} (hp : p.Prime) (hpRoot : Nat.sqrt W < p) :
     primeCombLargePrimeFamilyMass W p =
       -RHLean.Analysis.mertensSummatory (W / p) := by
   unfold primeCombLargePrimeFamilyMass
@@ -156,7 +155,6 @@ theorem primeCombReciprocalBand_familyMass_eq_neg_mertens
         -RHLean.Analysis.mertensSummatory (W / p) :=
       primeCombLargePrimeFamilyMass_eq_neg_mertens
         (primeCombReciprocalBand_prime hp) hpRoot
-        (primeCombReciprocalBand_le_endpoint hp)
     _ = -RHLean.Analysis.mertensSummatory z := by
       rw [primeCombReciprocalBand_div_eq hz hp]
 
