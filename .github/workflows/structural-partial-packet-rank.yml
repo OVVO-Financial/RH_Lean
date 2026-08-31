@@ -37,7 +37,8 @@ jobs:
           python3 scripts/strongpnt_424/apply_pnt5_mid.py
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
-      - uses: actions/cache/restore@v5
+      - id: strongpnt-cache
+        uses: actions/cache/restore@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
@@ -47,11 +48,21 @@ jobs:
             strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
+      - name: Save StrongPNT dependency cache
+        if: steps.strongpnt-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
       - uses: actions/cache/restore@v5
         with:
           path: .lake/build
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+      - name: Kernel-check structural key module
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeStructuralKey.lean
       - name: Kernel-check structural rank probe
         run: lake env lean ScratchStructuralPartialPacketRank.lean
