@@ -24,7 +24,9 @@ exact sign-reversed copy of the already-completed lower prefix:
 
 Thus on one reciprocal band every large prime carries the same final family
 mass `-M(z)`, seat by seat through `mu(c*p) = -mu(c)`.  Summing the post-root
-part of a band therefore gives exactly its prime cardinality times `-M(z)`.
+part of a band therefore gives exactly its prime cardinality times `-M(z)`, and
+summing every post-root prime gives the negative of the repository's complete
+Mertens-weighted prime tail.
 
 The adjacent-band finite difference is especially important:
 
@@ -196,6 +198,36 @@ theorem primeCombPostRootReciprocalBandFamilyMass_eq_card_mul_neg_mertens
     _ = ((primeCombPostRootReciprocalBand W z).card : ℂ) *
         (-RHLean.Analysis.mertensSummatory z) := by
       simp
+
+/-- Final signed mass of every post-root prime family at endpoint `W`. -/
+def primeCombPostRootFamilyMass (W : ℕ) : ℂ :=
+  ∑ p ∈ Finset.Ioc (Nat.sqrt W) W,
+    if p.Prime then primeCombLargePrimeFamilyMass W p else 0
+
+/-- **Complete arbitrary-endpoint post-root cancellation.**  The union of all
+post-root prime families is exactly the negative Mertens-weighted prime tail.
+Each large prime contributes one sign-reversed lower prefix and nothing else. -/
+theorem primeCombPostRootFamilyMass_eq_neg_mertensPrimeTail
+    (W : ℕ) :
+    primeCombPostRootFamilyMass W =
+      -primeSieveMertensPrimeTail (Nat.sqrt W) W := by
+  unfold primeCombPostRootFamilyMass primeSieveMertensPrimeTail
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro p hpRange
+  have hpRoot := (Finset.mem_Ioc.mp hpRange).1
+  by_cases hpPrime : p.Prime
+  · simp [hpPrime,
+      primeCombLargePrimeFamilyMass_eq_neg_mertens hpPrime hpRoot]
+  · simp [hpPrime]
+
+/-- The same complete post-root family mass in reciprocal-band coordinates. -/
+theorem primeCombPostRootFamilyMass_eq_neg_reciprocalPrimeTail
+    (W : ℕ) :
+    primeCombPostRootFamilyMass W =
+      -RHLean.Analysis.primeSieveReciprocalPrimeTail (Nat.sqrt W) W := by
+  rw [primeCombPostRootFamilyMass_eq_neg_mertensPrimeTail,
+    RHLean.Analysis.primeSieveMertensPrimeTail_eq_reciprocalPrimeTail]
 
 /-- The final family kernel attached to quotient band `z`. -/
 def primeCombReciprocalBandFamilyKernel (z : ℕ) : ℂ :=
