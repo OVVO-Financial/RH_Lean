@@ -174,8 +174,14 @@ private theorem nearPositiveSource_to_pair_mem
     rw [hc0, zero_mul] at hprod
     omega
   have hcLeM : canonicalCofactor m ≤ m := by
-    rw [← hprod]
-    exact Nat.le_mul_of_pos_right _ hqPrime.pos
+    -- `rw [← hprod]` would rewrite the `m` inside `canonicalCofactor m` as well,
+    -- so rewrite forward in a derived inequality instead.
+    have hle :
+        canonicalCofactor m ≤
+          canonicalCofactor m * canonicalLargestPrimeFactor m :=
+      Nat.le_mul_of_pos_right _ hqPrime.pos
+    rw [hprod] at hle
+    exact hle
   have hcX : canonicalCofactor m ≤ squareRootEndpoint R :=
     hcLeM.trans (Finset.mem_Icc.mp hmRange).2
   apply Finset.mem_filter.mpr
