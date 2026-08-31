@@ -104,9 +104,15 @@ jobs:
       - name: Kernel-check terminal Mertens/middle tracking
         if: always()
         run: lake env lean RHLean/Proof/SquareRootMertensMiddleTracking.lean
-      - name: Kernel-check Mertens/positive tracking
+      - name: Build Mertens/positive tracking
         if: always()
-        run: lake env lean RHLean/Proof/SquareRootMertensPositiveTracking.lean
+        run: lake build RHLean.Proof.SquareRootMertensPositiveTracking
+      - name: Build Mertens/middle tracking
+        if: always()
+        run: lake build RHLean.Proof.SquareRootMertensMiddleTracking
+      - name: Kernel-check ancestral tracking
+        if: always()
+        run: lake env lean RHLean/Proof/SquareRootMertensAncestralTracking.lean
       - name: Kernel-check terminal axiom audit
         if: always()
         run: lake env lean RHLean/Proof/TerminalAxiomAudit.lean

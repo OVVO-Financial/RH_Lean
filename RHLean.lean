@@ -636,6 +636,7 @@ import RHLean.Proof.SquareRootLowPrimeStructuralEndpointNormalization
 import RHLean.Proof.SquareRootLowPrimeStructuralKey
 import RHLean.Proof.SquareRootLowPrimeTerminalHighPrimeIntegration
 import RHLean.Proof.SquareRootLowPrimeUpperDisplacement
+import RHLean.Proof.SquareRootMertensAncestralTracking
 import RHLean.Proof.SquareRootMertensEndpointAmplification
 import RHLean.Proof.SquareRootMertensMiddleTracking
 import RHLean.Proof.SquareRootMertensPositiveTracking
