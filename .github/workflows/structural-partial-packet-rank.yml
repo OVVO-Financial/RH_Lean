@@ -107,3 +107,6 @@ jobs:
       - name: Kernel-check Mertens/positive tracking
         if: always()
         run: lake env lean RHLean/Proof/SquareRootMertensPositiveTracking.lean
+      - name: Kernel-check terminal axiom audit
+        if: always()
+        run: lake env lean RHLean/Proof/TerminalAxiomAudit.lean
