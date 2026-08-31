@@ -63,7 +63,7 @@ def squareRootLowPrimeCreationToProcessedShallowSeat
 
 /-- A shallow processed seat lands in the literal non-head creation carrier. -/
 theorem squareRootLowPrimeProcessedShallowSeatToCreation_mem
-    {R K j U : ℕ} (hR : 1 ≤ R) (hKU : K ≤ U)
+    {R K j U : ℕ} (_hR : 1 ≤ R) (_hKU : K ≤ U)
     {z : ℕ × ℕ}
     (hz : z ∈ squareRootLowPrimeProcessedShallowSeatAtoms R K j U) :
     squareRootLowPrimeProcessedShallowSeatToCreation R z ∈
@@ -162,9 +162,14 @@ theorem squareRootLowPrimeCreationToProcessedShallowSeat_mem
     have hmu := hcData.2.2
     have hcOne := (Finset.mem_Icc.mp hcHighRange).1
     have hcR := (Finset.mem_Icc.mp hcHighRange).2
+    have hRR : R ≤ R ^ 2 := by
+      calc
+        R = R * 1 := by simp
+        _ ≤ R * R := Nat.mul_le_mul_left R hR
+        _ = R ^ 2 := by ring
     have hRX : R - 1 ≤ squareRootEndpoint R := by
       unfold squareRootEndpoint
-      nlinarith
+      exact Nat.sub_le_sub_right hRR 1
     have hcProcessed :
         z.1 ∈ squareRootLowPrimeProcessedSignedCofactors R U := by
       exact Finset.mem_filter.mpr
