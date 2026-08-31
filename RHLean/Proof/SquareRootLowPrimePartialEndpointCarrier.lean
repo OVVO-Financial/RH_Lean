@@ -571,7 +571,7 @@ theorem squareRootLowPrimeGoRootEqualityDefectCarrier_eq_empty_of_no_prime_pair
     {R : ℕ}
     (h : ∀ r q : ℕ, r.Prime → q.Prime → r < q → r * q ≠ R) :
     squareRootLowPrimeGoRootEqualityDefectCarrier R = ∅ := by
-  apply Finset.eq_empty_of_forall_not_mem
+  apply Finset.eq_empty_of_forall_notMem
   intro z hz
   obtain ⟨⟨r, q⟩, d⟩ := z
   obtain ⟨_hrR, _hqR, _hdR, hr, hq, hrq, hprod, _hcube, _hd⟩ :=
@@ -721,6 +721,7 @@ theorem squareRootLowPrimeNoLibertyBoundary_mass_closed_form
         squareRootLowPrimeNoLibertyBoundaryWeight
           (Sum.inl u : SquareRootLowPrimeProcessedSeatNoLibertyState)) = 1 := by
     rw [Finset.sum_singleton]
+    exact squareRootLowPrimeNoLibertyBoundaryWeight_head ()
   have hpartial :
       (∑ s ∈ squareRootLowPrimePartialPacketBoundary R K j,
         squareRootLowPrimeNoLibertyBoundaryWeight
