@@ -186,7 +186,8 @@ theorem squarePrefixCurrentPointwiseBounded_of_canonicalDowncrossLinear
         mul_le_mul_of_nonneg_left hrpow hsmallCoeff
       _ ≤ (4 * (C + 1) ^ 2 + 9) *
           Real.rpow (N : ℝ) (2 + ε) :=
-        mul_le_mul_of_nonneg_right hcoeff (Real.rpow_nonneg _ _)
+        mul_le_mul_of_nonneg_right hcoeff
+          (Real.rpow_nonneg (by positivity) _)
 
 /-- The primitive downcross bound therefore gives the exact square-prefix energy
 criterion already consumed by the analytic bridge. -/
