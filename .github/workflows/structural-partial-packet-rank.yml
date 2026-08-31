@@ -68,5 +68,7 @@ jobs:
         run: lake build RHLean.Proof.SquareRootLowPrimeStructuralKey
       - name: Kernel-check deep processed-seat bridge
         run: lake env lean RHLean/Proof/SquareRootLowPrimeDeepProcessedSeatBridge.lean
-      - name: Kernel-check structural rank probe
-        run: lake env lean ScratchStructuralPartialPacketRank.lean
+      - name: Kernel-check structural endpoint normalization
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeStructuralEndpointNormalization.lean
+      - name: Kernel-check BornExit classifier branch
+        run: lake env lean RHLean/Proof/SquareRootLowPrimeBornExitClassifierBranch.lean
