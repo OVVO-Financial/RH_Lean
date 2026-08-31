@@ -1,5 +1,6 @@
 import RHLean.Analysis.MertensEnergyRHForward
 import RHLean.Proof.TerminalMertensReduction
+import RHLean.Proof.CanonicalRoughPartnerAncestryBoundary
 
 /-!
 # Discharge the terminal forward Mertens criterion
