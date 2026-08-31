@@ -162,16 +162,20 @@ theorem squarePrefixCurrentPointwiseBounded_of_canonicalDowncrossLinear
             (2 * (C + 1) * (N : ℝ)) ^ 2 := hsq
         _ = 4 * (C + 1) ^ 2 * (N : ℝ) ^ 2 := by ring
     have hbase : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
-    have htwo :
-        Real.rpow (N : ℝ) (2 : ℝ) = (N : ℝ) ^ (2 : ℕ) :=
-      Real.rpow_natCast (N : ℝ) 2
     have hrpow :
         (N : ℝ) ^ 2 ≤ Real.rpow (N : ℝ) (2 + ε) := by
       have hmono :=
         Real.rpow_le_rpow_of_exponent_le hbase
           (by linarith : (2 : ℝ) ≤ 2 + ε)
-      rw [htwo] at hmono
-      simpa using hmono
+      -- `Real.rpow_natCast` states the exponent as `((2 : ℕ) : ℝ)`, which is not
+      -- syntactically the literal `(2 : ℝ)` produced by the monotonicity lemma,
+      -- so bridge the two rather than rewriting one into the other.
+      have h2 : Real.rpow (N : ℝ) (2 : ℝ) = (N : ℝ) ^ 2 := by
+        rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num]
+        exact Real.rpow_natCast (N : ℝ) 2
+      calc
+        (N : ℝ) ^ 2 = Real.rpow (N : ℝ) (2 : ℝ) := h2.symm
+        _ ≤ Real.rpow (N : ℝ) (2 + ε) := hmono
     have hsmallCoeff : 0 ≤ 4 * (C + 1) ^ 2 := by positivity
     have hcoeff :
         4 * (C + 1) ^ 2 ≤ 4 * (C + 1) ^ 2 + 9 := by linarith
