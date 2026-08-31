@@ -69,6 +69,69 @@ noncomputable def squareRootLowPrimeProcessedSeatNoLibertyStableEquivDescending
         SquareRootLowPrimeProcessedState) = x := by
   rfl
 
+/-- Every tagged no-liberty endpoint has native weight of absolute value at most
+one.  The head and packet cells have weights `+1` and `-1`; the two arithmetic
+endpoint classes are Möbius weights. -/
+theorem abs_squareRootLowPrimeNoLibertyBoundaryWeight_le_one
+    (x : SquareRootLowPrimeProcessedSeatNoLibertyState) :
+    |squareRootLowPrimeNoLibertyBoundaryWeight x| ≤ 1 := by
+  rcases x with u | x
+  · simp [squareRootLowPrimeNoLibertyBoundaryWeight]
+  · rcases x with s | x
+    · simp [squareRootLowPrimeNoLibertyBoundaryWeight]
+    · rcases x with z | z
+      · have hInt :
+          |(ArithmeticFunction.moebius
+              (squareRootLowPrimeBadAtomChild z) : ℤ)| ≤ 1 := by
+          simpa using
+            (ArithmeticFunction.abs_moebius_le_one
+              (n := squareRootLowPrimeBadAtomChild z))
+        unfold squareRootLowPrimeNoLibertyBoundaryWeight
+        exact_mod_cast hInt
+      · have hInt :
+          |(ArithmeticFunction.moebius (z.1.2 * z.2) : ℤ)| ≤ 1 := by
+          simpa using
+            (ArithmeticFunction.abs_moebius_le_one
+              (n := z.1.2 * z.2))
+        unfold squareRootLowPrimeNoLibertyBoundaryWeight
+        exact_mod_cast hInt
+
+/-- Consequently the absolute signed mass of any finite no-liberty boundary is
+bounded by its number of unit endpoints. -/
+theorem abs_squareRootLowPrimeNoLibertyBoundaryMass_le_card
+    (R K j U : ℕ) :
+    |∑ z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U,
+        squareRootLowPrimeNoLibertyBoundaryWeight z| ≤
+      ((squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U).card : ℝ) := by
+  calc
+    |∑ z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U,
+        squareRootLowPrimeNoLibertyBoundaryWeight z| ≤
+      ∑ z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U,
+        |squareRootLowPrimeNoLibertyBoundaryWeight z| :=
+          Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U,
+        (1 : ℝ) := by
+      apply Finset.sum_le_sum
+      intro z _hz
+      exact abs_squareRootLowPrimeNoLibertyBoundaryWeight_le_one z
+    _ = ((squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U).card : ℝ) := by
+      simp
+
+/-- At the canonical terminal cutoff, the already-proved `4*R` endpoint count
+therefore gives the same `4*R` bound for signed boundary mass. -/
+theorem abs_squareRootLowPrimeNoLibertyBoundaryMass_le_four_root
+    {R K j : ℕ} (hR : 1 ≤ R) (hKR : K < R)
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
+    (hVK : squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ)) :
+    |∑ z ∈ squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j
+        (squareRootBornPostTailLowPrimeCutoff R),
+        squareRootLowPrimeNoLibertyBoundaryWeight z| ≤ 4 * (R : ℝ) := by
+  have hmass := abs_squareRootLowPrimeNoLibertyBoundaryMass_le_card
+    R K j (squareRootBornPostTailLowPrimeCutoff R)
+  have hcard := squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_le_four_root
+    hR hKR hV0 hVK
+  exact hmass.trans (by exact_mod_cast hcard)
+
 /-- The genuinely arithmetic seam: a finite equivalence from the descending
 processed terminal frontier to the four tagged homes, preserving the native
 signed weight pointwise. -/
