@@ -54,8 +54,10 @@ theorem squareRootLowPrimeMatchedCore_eq_mertens_sub_positiveSmooth_add_near
     squareRootMatchedBornSmoothTransport_eq_core_sub_near R hR]
   ring
 
-/-- **The terminal open proposition**, norm form. -/
-def SquareRootMertensPositiveTracking (C : ℝ) (R : ℕ) : Prop :=
+/-- Norm form of the matched-channel target.  The ancestral proposition
+`SquareRootMertensPositiveTracking` lives in `SquareRootMertensMiddleTracking`;
+this is the stronger complex-norm variant against `squareRootPositiveSmoothMass`. -/
+def SquareRootMertensMatchedNormTracking (C : ℝ) (R : ℕ) : Prop :=
   ‖RHLean.Analysis.mertensSummatory (squareRootEndpoint R) -
       squareRootPositiveSmoothMass R‖ ≤ C * (R : ℝ)
 
@@ -66,11 +68,11 @@ def SquareRootMertensPositiveTrackingReal (C : ℝ) (R : ℕ) : Prop :=
       squareRootPositiveSmoothMass R).re| ≤ C * (R : ℝ)
 
 /-- The tracking hypothesis is literally the matched-channel norm bound. -/
-theorem squareRootMertensPositiveTracking_iff_matched_norm
+theorem squareRootMertensMatchedNormTracking_iff_matched_norm
     {C : ℝ} {R : ℕ} (hR : 1 ≤ R) :
-    SquareRootMertensPositiveTracking C R ↔
+    SquareRootMertensMatchedNormTracking C R ↔
       ‖squareRootMatchedBornSmoothTransport R‖ ≤ C * (R : ℝ) := by
-  unfold SquareRootMertensPositiveTracking
+  unfold SquareRootMertensMatchedNormTracking
   rw [mertens_sub_positiveSmooth_eq_matched R hR]
 
 /-- The real form is literally the matched-channel real bound. -/
@@ -84,9 +86,9 @@ theorem squareRootMertensPositiveTrackingReal_iff_matched_re
 /-- The norm form supplies the real form. -/
 theorem squareRootMertensPositiveTrackingReal_of_norm
     {C : ℝ} {R : ℕ}
-    (htrack : SquareRootMertensPositiveTracking C R) :
+    (htrack : SquareRootMertensMatchedNormTracking C R) :
     SquareRootMertensPositiveTrackingReal C R := by
-  unfold SquareRootMertensPositiveTracking at htrack
+  unfold SquareRootMertensMatchedNormTracking at htrack
   unfold SquareRootMertensPositiveTrackingReal
   exact (Complex.abs_re_le_norm _).trans htrack
 
