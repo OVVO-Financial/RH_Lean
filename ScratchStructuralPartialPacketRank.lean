@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeStructuralKey
 import RHLean.Proof.SquareRootLowPrimeHorizontalTerminalCoverage
+import RHLean.Proof.SquareRootLowPrimeFirstOwnerFalloutWidth
 
 open scoped ArithmeticFunction.Moebius BigOperators
 
@@ -173,5 +174,163 @@ theorem squareRootLowPrimeProcessedSeat_prefixBlocker_structuralKey
       squareRootLowPrimeProcessedSeatStructuralKey_extend hqData.1 hqData.2]
       at hkey
     exact hkey.symm
+
+/-- A terminal cursor has reached an endpoint when it is the distinguished head,
+has a genuine intrinsic first owner in the original carrier, or has no listed
+owner strictly above its canonical largest prime. -/
+def SquareRootLowPrimeStructuralEndpointStop
+    (ps : List ℕ) (S : Finset SquareRootLowPrimeProcessedState)
+    (x : SquareRootLowPrimeProcessedState) : Prop :=
+  x = none ∨
+    squareRootLowPrimeProcessedSeatIntrinsicFirstOwner ps S x ≠ none ∨
+      squareRootLowPrimeFirstOwnerAbove ps
+        (canonicalLargestPrimeFactor
+          (squareRootLowPrimeProcessedStateCofactor x)) = none
+
+/-- **Well-founded alternating blocker normalization.**
+
+Starting from any terminal state of a schedule consisting of the actual fresh
+prime coordinates, repeatedly expose the first still-eligible owner.  If its
+child is intrinsically absent, stop.  Otherwise terminality forces that child
+to have been consumed by an owner in a strict prefix; flip to the blocker
+partner and recurse on that prefix.  Hence the schedule length decreases at
+every genuine displacement.
+
+The terminal endpoint stays in the same `(shallowBase, seat)` fibre. -/
+theorem squareRootLowPrimeProcessedSeat_exists_structuralEndpoint
+    {R K j U : ℕ}
+    (ps : List ℕ) (x : SquareRootLowPrimeProcessedState)
+    (hsub : ∀ p ∈ ps, p ∈ squareRootLowPrimeFreshPrimeList K U)
+    (hx : x ∈ squareRootLowPrimeProcessedSeatMatchingFrontier ps
+      (squareRootLowPrimeProcessedSeatCarrier R K j U)) :
+    ∃ qs y,
+      qs.length ≤ ps.length ∧
+        (∀ p ∈ qs, p ∈ squareRootLowPrimeFreshPrimeList K U) ∧
+        y ∈ squareRootLowPrimeProcessedSeatMatchingFrontier qs
+          (squareRootLowPrimeProcessedSeatCarrier R K j U) ∧
+        SquareRootLowPrimeStructuralEndpointStop qs
+          (squareRootLowPrimeProcessedSeatCarrier R K j U) y ∧
+        squareRootLowPrimeProcessedSeatStructuralKey K y =
+          squareRootLowPrimeProcessedSeatStructuralKey K x := by
+  by_cases hxHead : x = none
+  · exact ⟨ps, x, le_rfl, hsub, hx, Or.inl hxHead, rfl⟩
+  cases howner : squareRootLowPrimeProcessedSeatIntrinsicFirstOwner ps
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) x with
+  | some p =>
+      refine ⟨ps, x, le_rfl, hsub, hx, ?_, rfl⟩
+      exact Or.inr (Or.inl (by simp [howner]))
+  | none =>
+      let L := canonicalLargestPrimeFactor
+        (squareRootLowPrimeProcessedStateCofactor x)
+      cases hfirst : squareRootLowPrimeFirstOwnerAbove ps L with
+      | none =>
+          refine ⟨ps, x, le_rfl, hsub, hx, ?_, rfl⟩
+          exact Or.inr (Or.inr (by simpa [L] using hfirst))
+      | some p =>
+          rcases squareRootLowPrimeFirstOwnerAbove_some_split hfirst with
+            ⟨pre, post, hps, _hpre, hLp⟩
+          have hpPs : p ∈ ps := by
+            rw [hps]
+            simp
+          have hpFreshList : p ∈ squareRootLowPrimeFreshPrimeList K U :=
+            hsub p hpPs
+          have hpData :=
+            squareRootLowPrimeFreshPrimeList_prime_and_above hpFreshList
+          have hxCarrier :
+              x ∈ squareRootLowPrimeProcessedSeatCarrier R K j U :=
+            squareRootLowPrimeProcessedSeatMatchingFrontier_subset' ps _ hx
+          have hcPos :
+              0 < squareRootLowPrimeProcessedStateCofactor x := by
+            rcases x with _ | z
+            · exact (hxHead rfl).elim
+            · have hzAtom :
+                  z ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
+                simpa [squareRootLowPrimeProcessedSeatCarrier] using hxCarrier
+              have hcSigned :=
+                (mem_squareRootLowPrimeProcessedSeatAtoms.mp hzAtom).1
+              have hcRange := (Finset.mem_filter.mp hcSigned).1
+              have hcOne := (Finset.mem_Icc.mp hcRange).1
+              change 0 < z.1
+              omega
+          have hpFresh :
+              ¬ p ∣ squareRootLowPrimeProcessedStateCofactor x :=
+            squareRootLowPrimePrime_fresh_of_lpf_lt hcPos hpData.1
+              (by simpa [L] using hLp)
+          have hxTarget :
+              x ∈ squareRootLowPrimeProcessedSeatNonHeadTerminalTarget ps
+                (squareRootLowPrimeProcessedSeatCarrier R K j U) := by
+            exact Finset.mem_erase.mpr ⟨hxHead, hx⟩
+          have hxResidual :
+              x ∈ squareRootLowPrimeProcessedSeatNonHeadTerminalIntrinsicResidual ps
+                (squareRootLowPrimeProcessedSeatCarrier R K j U) := by
+            unfold squareRootLowPrimeProcessedSeatNonHeadTerminalIntrinsicResidual
+            exact
+              mem_squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerResidual.mpr
+                ⟨hxTarget, howner⟩
+          rcases
+              squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_has_prefix_blocker
+                ps pre post (squareRootLowPrimeProcessedSeatCarrier R K j U)
+                hxResidual hps hpFresh (by simpa [L] using hLp) with
+            ⟨pre', q, post', z, hpreSplit, hz, hedge⟩
+          have hpreLt : pre'.length < ps.length := by
+            have h₁ := squareRootLowPrimeProcessedSeat_prefixBlocker_length_lt
+              hpreSplit
+            rw [hps, List.length_append, List.length_cons]
+            omega
+          have hsubPre :
+              ∀ r ∈ pre', r ∈ squareRootLowPrimeFreshPrimeList K U := by
+            intro r hr
+            have hrPre : r ∈ pre := by
+              rw [hpreSplit]
+              simp [hr]
+            have hrPs : r ∈ ps := by
+              rw [hps]
+              simp [hrPre]
+            exact hsub r hrPs
+          have hqPre : q ∈ pre := by
+            rw [hpreSplit]
+            simp
+          have hqPs : q ∈ ps := by
+            rw [hps]
+            simp [hqPre]
+          have hqFreshList : q ∈ squareRootLowPrimeFreshPrimeList K U :=
+            hsub q hqPs
+          have hqData :=
+            squareRootLowPrimeFreshPrimeList_prime_and_above hqFreshList
+          have hedgeEq :
+              z = squareRootLowPrimeProcessedSeatExtend q
+                    (squareRootLowPrimeProcessedSeatExtend p x) ∨
+                squareRootLowPrimeProcessedSeatExtend p x =
+                  squareRootLowPrimeProcessedSeatExtend q z := by
+            rcases hedge with hedge | hedge
+            · exact Or.inl hedge.2
+            · exact Or.inr hedge.2
+          have hkeyZX :
+              squareRootLowPrimeProcessedSeatStructuralKey K z =
+                squareRootLowPrimeProcessedSeatStructuralKey K x := by
+            rcases hedgeEq with hforward | hback
+            · rw [hforward,
+                squareRootLowPrimeProcessedSeatStructuralKey_extend
+                  hqData.1 hqData.2,
+                squareRootLowPrimeProcessedSeatStructuralKey_extend
+                  hpData.1 hpData.2]
+            · have hkey := congrArg
+                (squareRootLowPrimeProcessedSeatStructuralKey K) hback
+              rw [squareRootLowPrimeProcessedSeatStructuralKey_extend
+                    hpData.1 hpData.2,
+                  squareRootLowPrimeProcessedSeatStructuralKey_extend
+                    hqData.1 hqData.2] at hkey
+              exact hkey.symm
+          rcases squareRootLowPrimeProcessedSeat_exists_structuralEndpoint
+              (R := R) (K := K) (j := j) (U := U)
+              pre' z hsubPre hz with
+            ⟨qs, y, hlen, hsubQs, hy, hstop, hkeyYZ⟩
+          refine ⟨qs, y, ?_, hsubQs, hy, hstop, ?_⟩
+          · exact hlen.trans (Nat.le_of_lt hpreLt)
+          · exact hkeyYZ.trans hkeyZX
+termination_by ps.length
+
+decreasing_by
+  exact hpreLt
 
 end RHLean.Proof
