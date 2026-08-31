@@ -178,4 +178,52 @@ theorem abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_packetFree
   exact (squareRootLowPrimeMassTransfer_iff_packetFree R K j
     (squareRootBornPostTailLowPrimeCutoff R) hR hK hKR hj).mpr h
 
+/-! ## The boundary machinery is not on the critical path
+
+The identity `Re(matched) + Re(Above) = 1 + BornExitMass + RootEqualityMass` is
+not weaker than the `4R` conclusion.  The repository already bounds both
+right-hand blocks — `squareRootLowPrimeBornNoSuccessorAtoms_card_le_two_root`
+gives `|BornExitMass| ≤ 2R` and `abs_squareRootLowPrimeGoRootEqualityDefectMass_le_root`
+gives `|RootEqualityMass| ≤ R` — so the identity immediately yields
+`|Re(matched) + Re(Above)| ≤ 1 + 3R`.  An identity with that much metric content
+cannot be produced by rearranging identities that do not already have it.
+
+Conversely the repository *already* proves that the running imbalance sits
+within `R + K` of the matched channel.  Taking real parts, that alone reduces
+the whole `4R` bound to a bound on `Re(matched)` — no boundary, no packet, no
+classifier, no mass transfer, no four tags. -/
+
+/-- **`4R` from a bound on the matched channel alone.** -/
+theorem abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_matched_re_bound
+    {R K j : ℕ} (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K)
+    (hV0 : 0 ≤ squareRootCrossingLayerPartialPacketInt R K j)
+    (hVK : squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ))
+    (hmatched :
+      |(squareRootMatchedBornSmoothTransport R).re| ≤ 3 * (R : ℝ) - (K : ℝ)) :
+    |squareRootLowPrimeRunningImbalanceReal R K j
+        (squareRootBornPostTailLowPrimeCutoff R)| ≤ 4 * (R : ℝ) := by
+  have hnorm :=
+    norm_squareRootLowPrimeRunningImbalance_sub_matched_le_root_add_depth
+      R K j hR hK hKR hj hV0 hVK
+  have hre :
+      |(squareRootLowPrimeRunningImbalance R K j
+            (squareRootBornPostTailLowPrimeCutoff R) -
+          squareRootMatchedBornSmoothTransport R).re| ≤ (R : ℝ) + (K : ℝ) :=
+    le_trans (Complex.abs_re_le_norm _) hnorm
+  have hsplit :
+      (squareRootLowPrimeRunningImbalance R K j
+            (squareRootBornPostTailLowPrimeCutoff R) -
+          squareRootMatchedBornSmoothTransport R).re =
+        squareRootLowPrimeRunningImbalanceReal R K j
+            (squareRootBornPostTailLowPrimeCutoff R) -
+          (squareRootMatchedBornSmoothTransport R).re := by
+    unfold squareRootLowPrimeRunningImbalanceReal
+    simp
+  rw [hsplit] at hre
+  have h1 := abs_le.mp hre
+  have h2 := abs_le.mp hmatched
+  rw [abs_le]
+  constructor <;> linarith
+
 end RHLean.Proof
