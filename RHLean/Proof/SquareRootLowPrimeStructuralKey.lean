@@ -70,6 +70,44 @@ makes fresh-prime invariance elementary. -/
 def squareRootLowPrimeShallowBase (K c : ℕ) : ℕ :=
   Nat.gcd c K.factorial
 
+/-- On a squarefree cofactor whose prime support is already entirely shallow,
+`shallowBase` recovers the cofactor itself.  This is the unique-factorization
+endpoint of the alternating structural key. -/
+theorem squareRootLowPrimeShallowBase_eq_self_of_squarefree_lpf_le
+    {K c : ℕ} (hsq : Squarefree c)
+    (hlpf : canonicalLargestPrimeFactor c ≤ K) :
+    squareRootLowPrimeShallowBase K c = c := by
+  unfold squareRootLowPrimeShallowBase
+  apply Nat.dvd_antisymm
+  · exact Nat.gcd_dvd_left _ _
+  · apply Nat.dvd_gcd
+    · exact Nat.dvd_refl c
+    · by_cases hcOne : c = 1
+      · simp [hcOne]
+      · have hcGt : 1 < c := by
+          have hcPos : 0 < c := Nat.pos_of_ne_zero hsq.ne_zero
+          omega
+        have hsubset : c.primeFactors ⊆ K.factorial.primeFactors := by
+          intro p hp
+          have hpData := Nat.mem_primeFactors.mp hp
+          have hpPrime : p.Prime := hpData.1
+          have hpLeLpf : p ≤ canonicalLargestPrimeFactor c := by
+            unfold canonicalLargestPrimeFactor
+            rw [dif_pos hcGt]
+            exact Finset.le_max' c.primeFactors p hp
+          have hpK : p ≤ K := hpLeLpf.trans hlpf
+          have hKtwo : 2 ≤ K := hpPrime.two_le.trans hpK
+          have hfactNeOne : K.factorial ≠ 1 := by
+            rw [Nat.factorial_eq_one]
+            omega
+          exact Nat.mem_primeFactors.mpr
+            ⟨hpPrime, Nat.dvd_factorial hpPrime.pos hpK, hfactNeOne⟩
+        have hprod :
+            (∏ p ∈ c.primeFactors, p) ∣ K.factorial :=
+          (Nat.prod_primeFactors_dvd_iff (Nat.factorial_ne_zero K)).2 hsubset
+        rw [Nat.prod_primeFactors_of_squarefree hsq] at hprod
+        exact hprod
+
 /-- Raw seat coordinate. Prime-toggle edges alter only the cofactor and leave
 this coordinate literally unchanged. -/
 def squareRootLowPrimeProcessedSeatIndex :
@@ -84,6 +122,25 @@ def squareRootLowPrimeProcessedSeatStructuralKey
   (squareRootLowPrimeShallowBase K
       (squareRootLowPrimeProcessedStateCofactor x),
     squareRootLowPrimeProcessedSeatIndex x)
+
+/-- A shallow non-head processed carrier state is literally reconstructed by
+its structural key. -/
+theorem squareRootLowPrimeProcessedSeatStructuralKey_eq_state_of_shallow
+    {R K j U c s : ℕ}
+    (hx : some (c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U)
+    (hshallow : canonicalLargestPrimeFactor c ≤ K) :
+    squareRootLowPrimeProcessedSeatStructuralKey K (some (c, s)) = (c, s) := by
+  have hatom : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using hx
+  have hsigned := (mem_squareRootLowPrimeProcessedSeatAtoms.mp hatom).1
+  have hmu : μ c ≠ 0 := (Finset.mem_filter.mp hsigned).2.2
+  have hsq : Squarefree c :=
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmu
+  have hbase :=
+    squareRootLowPrimeShallowBase_eq_self_of_squarefree_lpf_le hsq hshallow
+  simp [squareRootLowPrimeProcessedSeatStructuralKey,
+    squareRootLowPrimeProcessedStateCofactor,
+    squareRootLowPrimeProcessedSeatIndex, hbase]
 
 /-- Adjoining one prime strictly above `K` does not change the shallow base. -/
 theorem squareRootLowPrimeShallowBase_mul_fresh_prime
