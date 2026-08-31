@@ -10,20 +10,18 @@ connect opposite Mobius signs when one tail integer is obtained from the other
 by adding or deleting one prime.  The actual crossing-prime deletion graph is a
 subgraph of this more generous one-prime graph.
 
-This module records the obstruction before attempting any Hall estimate.  Every
-prime in the inert top half `(X_R / 2, X_R]`, where `X_R = R^2 - 1`, is an
-isolated negative vertex even in the enlarged graph.  Hence every crossing-prime
-deletion graph has Hall defect at least the cardinality of the complete top
-prime fibre.
+The first section records the obstruction before attempting any Hall estimate.
+Every prime in the inert top half `(X_R / 2, X_R]`, where `X_R = R^2 - 1`, is
+an isolated negative vertex even in the enlarged graph.  Hence every
+crossing-prime deletion graph has Hall defect at least the cardinality of the
+complete top prime fibre.
 
 The second section attacks the remaining Othello/Euler question directly: how
 the canonical rough-prime partner multiplicity changes under a fresh-prime
 extension `c -> c*p`.  The reciprocal-depth sum collapses exactly to one clipped
-prime window.  A fresh-prime move changes both ends of that window, so the
-response is not a nested capacity.  The signed parent/child contribution is an
-exact difference of an upper prime-count boundary and a lower prime-count
-boundary.  A concrete finite witness shows that partners can simultaneously
-enter at the lower end and leave at the upper end.
+prime-count window.  A fresh-prime move changes both ends of that window, and
+the signed parent/child contribution is exactly an upper prime-count boundary
+minus a lower prime-count boundary.
 -/
 
 noncomputable section
@@ -46,12 +44,7 @@ def squareRootTailNegativePart (R : ℕ) : Finset ℕ :=
 def squareRootTailPositivePart (R : ℕ) : Finset ℕ :=
   (Finset.Ioc R (squareRootEndpoint R)).filter fun n => μ n = 1
 
-/-- Enlarged one-prime adjacency on opposite signs in the Mertens tail.
-
-The intended crossing-prime deletion graph is a subgraph: here we allow *any*
-prime insertion/deletion which stays in the tail.  Proving isolation in this
-supergraph is therefore stronger than proving it for the canonical crossing
-move alone. -/
+/-- Enlarged one-prime adjacency on opposite signs in the Mertens tail. -/
 def OnePrimeTailAdjacent (R n m : ℕ) : Prop :=
   n ∈ squareRootTailNegativePart R ∧
     m ∈ squareRootTailPositivePart R ∧
@@ -96,10 +89,7 @@ theorem squareRootTopFibrePrimes_subset_negative
   simpa using ArithmeticFunction.moebius_apply_prime hqPrime
 
 /-- **Top-prime isolation.**  A top-half prime has no opposite-sign neighbor
-obtained by inserting or deleting one prime while remaining in the tail.
-
-Deletion cannot factor the prime nontrivially.  Insertion cannot remain below
-`X_R`, since every inserted prime is at least `2` and `q > X_R / 2`. -/
+obtained by inserting or deleting one prime while remaining in the tail. -/
 theorem squareRootTopFibrePrimes_neighbors_eq_empty
     (R : ℕ) (hR : 3 ≤ R) :
     onePrimeTailNeighbors R (squareRootTopFibrePrimes R) = ∅ := by
@@ -145,8 +135,7 @@ theorem onePrimeTailHallDefectAt_topFibre
   simp
 
 /-- **Hall no-go.**  Even the enlarged one-prime graph has Hall defect at least
-the entire inert top-prime population.  The canonical crossing-prime deletion
-graph, having fewer edges, cannot do better on this witness. -/
+the entire inert top-prime population. -/
 theorem squareRootTopFibrePrimes_card_le_onePrimeTailHallDefect
     (R : ℕ) (hR : 3 ≤ R) :
     (squareRootTopFibrePrimes R).card ≤ onePrimeTailHallDefect R := by
@@ -173,7 +162,7 @@ theorem primeSieveReciprocalPrimeCount_eq_clippedPrefix_diff
     primeSieveReciprocalPrimeCount y x d =
       clippedPrimePrefix y x d - clippedPrimePrefix y x (d + 1) := by
   have hmono : x / (d + 1) ≤ x / d :=
-    Nat.div_le_div_left (by omega) hd
+    Nat.div_le_div_left (by omega) (by omega)
   by_cases hy : y ≤ x / d
   · have hle : primeSieveReciprocalLower y x d ≤
         primeSieveReciprocalUpper x d := by
@@ -211,12 +200,6 @@ def squareRootCanonicalRoughPrimePartnerLower (R c : ℕ) : ℕ :=
 /-- Upper endpoint of the complete canonical rough-prime partner window. -/
 def squareRootCanonicalRoughPrimePartnerUpper (R c : ℕ) : ℕ :=
   max (canonicalLargestPrimeFactor c) (squareRootEndpoint R / c)
-
-/-- The literal prime window whose cardinality is the complete partner count. -/
-def squareRootCanonicalRoughPrimePartnerWindow (R c : ℕ) : Finset ℕ :=
-  (Finset.Ioc
-      (squareRootCanonicalRoughPrimePartnerLower R c)
-      (squareRootCanonicalRoughPrimePartnerUpper R c)).filter Nat.Prime
 
 /-- **Partner-window collapse.**  The sum over every positive reciprocal depth
 below `R` telescopes to one clipped prime-count interval. -/
@@ -260,39 +243,8 @@ theorem squareRootCanonicalRoughPrimePartnerCount_eq_prefixWindow
           squareRootCanonicalRoughPrimePartnerUpper,
           squareRootCanonicalRoughPrimePartnerLower]
 
-/-- Cardinality form of the same collapse: the complete response is literally
-one prime window, not an opaque sum of reciprocal layers. -/
-theorem squareRootCanonicalRoughPrimePartnerCount_eq_windowCard
-    {R c : ℕ} (hR : 1 ≤ R) :
-    squareRootCanonicalRoughPrimePartnerCount R c =
-      ((squareRootCanonicalRoughPrimePartnerWindow R c).card : ℂ) := by
-  rw [squareRootCanonicalRoughPrimePartnerCount_eq_prefixWindow hR]
-  let L := squareRootCanonicalRoughPrimePartnerLower R c
-  let U := squareRootCanonicalRoughPrimePartnerUpper R c
-  have hdiv : (squareRootEndpoint R / c) / R ≤ squareRootEndpoint R / c :=
-    Nat.div_le_self _ _
-  have hLU : L ≤ U := by
-    dsimp [L, U, squareRootCanonicalRoughPrimePartnerLower,
-      squareRootCanonicalRoughPrimePartnerUpper]
-    exact max_le_max_left _ hdiv
-  have hsplit := Finset.sum_Ioc_consecutive
-    (f := primeSievePrimeIndicator) (Nat.zero_le L) hLU
-  have hinterval :
-      primeSievePrefixPrimeCount U - primeSievePrefixPrimeCount L =
-        ∑ q ∈ Finset.Ioc L U, primeSievePrimeIndicator q := by
-    unfold primeSievePrefixPrimeCount at hsplit ⊢
-    linear_combination hsplit
-  rw [show squareRootCanonicalRoughPrimePartnerUpper R c = U by rfl,
-    show squareRootCanonicalRoughPrimePartnerLower R c = L by rfl,
-    hinterval]
-  unfold squareRootCanonicalRoughPrimePartnerWindow
-  rw [show squareRootCanonicalRoughPrimePartnerLower R c = L by rfl,
-    show squareRootCanonicalRoughPrimePartnerUpper R c = U by rfl,
-    ← Finset.sum_filter]
-  simp [primeSievePrimeIndicator]
-
 /-- A fresh prime becomes the canonical largest prime factor of its arithmetic
-child, so both clipped partner-window endpoints have an explicit child form. -/
+child, giving an explicit upper endpoint. -/
 theorem squareRootCanonicalRoughPrimePartnerUpper_mul_freshPrime
     {R c p : ℕ} (hc : 0 < c) (hp : p.Prime)
     (hrough : canonicalLargestPrimeFactor c < p) :
@@ -301,6 +253,7 @@ theorem squareRootCanonicalRoughPrimePartnerUpper_mul_freshPrime
   unfold squareRootCanonicalRoughPrimePartnerUpper
   rw [canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hp hrough]
 
+/-- Fresh extension gives the corresponding explicit lower endpoint. -/
 theorem squareRootCanonicalRoughPrimePartnerLower_mul_freshPrime
     {R c p : ℕ} (hc : 0 < c) (hp : p.Prime)
     (hrough : canonicalLargestPrimeFactor c < p) :
@@ -317,8 +270,7 @@ def squareRootCanonicalRoughFreshPrimeUpperBoundary
     primeSievePrefixPrimeCount
       (squareRootCanonicalRoughPrimePartnerUpper R (c * p))
 
-/-- Signed displacement of the lower endpoint under `c -> c*p`.  This quantity
-need not be nonnegative: lower partners may enter as reciprocal depth rescales. -/
+/-- Signed displacement of the lower endpoint under `c -> c*p`. -/
 def squareRootCanonicalRoughFreshPrimeLowerBoundary
     (R c p : ℕ) : ℂ :=
   primeSievePrefixPrimeCount
@@ -372,26 +324,18 @@ theorem canonicalMoebiusWeight_mul_primePartnerCount_pair_eq_boundaries
       canonicalMoebiusWeight c *
         (squareRootCanonicalRoughFreshPrimeUpperBoundary R c p -
           squareRootCanonicalRoughFreshPrimeLowerBoundary R c p) := by
-  rw [canonicalMoebiusWeight_mul_prime_eq_neg_of_rough hc hp hrough,
-    ← mul_sub]
-  rw [squareRootCanonicalRoughPrimePartnerCount_sub_mul_eq_boundaries hR]
-
-/-- Freshness holds in the smallest nontrivial example used below. -/
-theorem two_fresh_for_unit :
-    (2 : ℕ).Prime ∧ canonicalLargestPrimeFactor 1 < 2 := by
-  native_decide
-
-/-- **Two-way non-nesting witness.**  At `R=10`, the fresh move `1 -> 2`
-admits the lower partner `5` while simultaneously ejecting the upper partner
-`53`.  Thus neither partner window contains the other.  Any successful global
-ancestry estimate must retain the signed upper-minus-lower recoupling; it cannot
-replace this by monotone capacity loss or absolute edge variation. -/
-theorem freshPrimePartnerWindow_not_nested :
-    5 ∈ squareRootCanonicalRoughPrimePartnerWindow 10 2 ∧
-      5 ∉ squareRootCanonicalRoughPrimePartnerWindow 10 1 ∧
-      53 ∈ squareRootCanonicalRoughPrimePartnerWindow 10 1 ∧
-      53 ∉ squareRootCanonicalRoughPrimePartnerWindow 10 2 := by
-  native_decide
+  rw [canonicalMoebiusWeight_mul_prime_eq_neg_of_rough hc hp hrough]
+  calc
+    canonicalMoebiusWeight c * squareRootCanonicalRoughPrimePartnerCount R c +
+        -canonicalMoebiusWeight c *
+          squareRootCanonicalRoughPrimePartnerCount R (c * p) =
+      canonicalMoebiusWeight c *
+        (squareRootCanonicalRoughPrimePartnerCount R c -
+          squareRootCanonicalRoughPrimePartnerCount R (c * p)) := by ring
+    _ = canonicalMoebiusWeight c *
+        (squareRootCanonicalRoughFreshPrimeUpperBoundary R c p -
+          squareRootCanonicalRoughFreshPrimeLowerBoundary R c p) := by
+      rw [squareRootCanonicalRoughPrimePartnerCount_sub_mul_eq_boundaries hR]
 
 end CanonicalRoughFreshPrimeDifference
 
