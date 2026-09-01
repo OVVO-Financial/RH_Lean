@@ -334,7 +334,9 @@ private theorem squareRun_sample_bracket (x : ℕ) :
 private theorem squareRun_linear_le_rpow
     {ε : ℝ} (hε : 0 < ε) (x : ℕ) :
     (((x + 1 : ℕ) : ℝ)) ≤ Real.rpow (((x + 1 : ℕ) : ℝ)) (1 + ε) := by
-  have hbase : (1 : ℝ) ≤ (((x + 1 : ℕ) : ℝ)) := by positivity
+  have hbase : (1 : ℝ) ≤ (((x + 1 : ℕ) : ℝ)) := by
+    have hone : (1 : ℕ) ≤ x + 1 := Nat.le_add_left 1 x
+    exact_mod_cast hone
   have h := Real.rpow_le_rpow_of_exponent_le hbase
     (by linarith : (1 : ℝ) ≤ 1 + ε)
   simpa using h
@@ -362,7 +364,10 @@ theorem squareRunEnergyBounded_of_primorialResidualBounded
     hendpoint.le.trans hrightUpper
   have hrightLower : primorialBlockLower k < squarePrefixEndpoint b :=
     lt_of_le_of_lt hleftLower hendpoint
-  have hright := hbound k (squarePrefixEndpoint b) hrightLower hrightUpper
+  have hright :
+      ‖(((primorialWheelSystem k).residual (squarePrefixEndpoint b) : ℤ) : ℂ)‖ ^ 2 ≤
+        C * Real.rpow (((squarePrefixEndpoint b + 1 : ℕ) : ℝ)) (1 + ε) :=
+    hbound k (squarePrefixEndpoint b) hrightLower hrightUpper
   have hleft :
       ‖(((primorialWheelSystem k).residual
           (squarePrefixEndpoint (a - 1)) : ℤ) : ℂ)‖ ^ 2 ≤
@@ -377,14 +382,17 @@ theorem squareRunEnergyBounded_of_primorialResidualBounded
         hleftLower.trans hleftUpper
       rw [RHLean.Proof.primorialWheel_residual_cast_eq_mertens_sub_le
         k le_rfl hblock]
-      simp
+      have hrpow : (0 : ℝ) ≤
+          Real.rpow (((squarePrefixEndpoint b + 1 : ℕ) : ℝ)) (1 + ε) :=
+        Real.rpow_nonneg (by positivity) _
+      simpa using mul_nonneg hC hrpow
   rw [RHLean.Proof.sum_canonicalTotalIncrement_Ico_eq_primorialResidual_sub
     k a b ha (by omega) hleftLower hleftUpper hrightLower.le hrightUpper]
   have htwo := squareRun_norm_sq_add_le_two
     ((((primorialWheelSystem k).residual (squarePrefixEndpoint b) : ℤ) : ℂ))
     (-((((primorialWheelSystem k).residual
       (squarePrefixEndpoint (a - 1)) : ℤ) : ℂ)))
-  simp only [add_neg_eq_sub, norm_neg] at htwo
+  simp only [← sub_eq_add_neg, norm_neg] at htwo
   calc
     ‖(((primorialWheelSystem k).residual (squarePrefixEndpoint b) : ℤ) : ℂ) -
         (((primorialWheelSystem k).residual
@@ -445,7 +453,7 @@ private theorem squareRun_firstEdge_sq_le_nine
       (((squarePrefixEndpoint (m + 1) - primorialBlockLower k : ℕ) : ℝ)) ≤
         (((2 * m + 3 : ℕ) : ℝ)) := by exact_mod_cast hgapNat
   have hmx : squarePrefixEndpoint m ≤ x :=
-    hmLower.trans hLowerNext.le.trans hnextx
+    hmLower.trans (hLowerNext.le.trans hnextx)
   have hsqGapNat := squareGap_sq_le_nine_mul_succ m x hmx
   have hsqGapReal : (((2 * m + 3 : ℕ) : ℝ)) ^ 2 ≤
       9 * (((x + 1 : ℕ) : ℝ)) := by exact_mod_cast hsqGapNat
@@ -513,7 +521,8 @@ theorem primorialResidualBounded_of_squareRunEnergyBounded
             k hlower.le hupper,
           RHLean.Proof.primorialWheel_residual_cast_eq_mertens_sub_le
             k hsampleLower hsampleUpper] at hrightEdge
-        convert hrightEdge using 1 <;> ring
+        convert hrightEdge using 1
+        ring
       have hsplit :
           mertensSummatory x - mertensSummatory (primorialBlockLower k) =
             (mertensSummatory (squarePrefixEndpoint (m + 1)) -
@@ -570,7 +579,8 @@ theorem primorialResidualBounded_of_squareRunEnergyBounded
             k hlower.le hupper,
           RHLean.Proof.primorialWheel_residual_cast_eq_mertens_sub_le
             k hsampleLower hsampleUpper] at hrightEdge
-        convert hrightEdge using 1 <;> ring
+        convert hrightEdge using 1
+        ring
       rw [RHLean.Proof.primorialWheel_residual_cast_eq_mertens_sub_le
         k hlower.le hupper]
       have hsplit :
