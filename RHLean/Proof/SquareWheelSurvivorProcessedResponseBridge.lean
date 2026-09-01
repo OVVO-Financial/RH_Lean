@@ -1,7 +1,9 @@
 import Mathlib
+import RHLean.Analysis.SquareWheelSurvivorRun
 import RHLean.Proof.SquareRootAncestryRoot
 import RHLean.Proof.SquareRootLowPrimeProcessedSeatCarrier
 import RHLean.Proof.SquareRootLowPrimeResponseSeatAtomEquiv
+import RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
 import RHLean.Proof.SurvivorZeroMode
 
 /-!
@@ -348,5 +350,50 @@ theorem squareWheelSurvivorToProcessedSeat_weight_eq
   change (((-μ cq.1.1 : ℤ) : ℝ)) =
     (((μ (cq.1.1 * cq.1.2) : ℤ) : ℝ))
   rw [moebius_mul_eq_neg_of_sourceData hdata]
+
+/-! ## Exact total-mass bridge -/
+
+/-- **Exact survivor / processed-total degree-of-freedom bridge.**
+
+The native survivor zero mode is the complete processed running imbalance plus
+the other four endpoint coordinates.  This is the mass-level projection that
+does not require the survivor-to-seat map above to be surjective. -/
+theorem survivorZeroMode_eq_processedRunningImbalance_add_endpointResiduals
+    (R K j : ℕ) (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K) :
+    survivorZeroMode 16 (R - 1) =
+      squareRootLowPrimeRunningImbalance R K j
+        (squareRootBornPostTailLowPrimeCutoff R) +
+      squareRootPositiveSmoothMass R +
+      squareRootLowPrimeTerminalShallowBoundary R K j -
+      canonicalLowPrefix 16 (R - 1) -
+      lifetimeDeathMass 16 (R - 1) := by
+  rw [squareRootLowPrimeRunningImbalance_at_cutoff_eq_squarePrefixMertens_sub_positiveSmooth_sub_boundary
+      R K j hR hK hKR hj,
+    squarePrefixMertens_eq_low_add_survivor_add_death]
+  ring
+
+/-- Literal processed-seat-carrier form of the same exact identity on real
+parts.  The first term on the right is the signed mass of the actual
+`SquareRootLowPrimeProcessedState` carrier. -/
+theorem survivorZeroMode_re_eq_processedSeatCarrierMass_add_endpointResiduals
+    (R K j : ℕ) (hR : 56 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K) :
+    (survivorZeroMode 16 (R - 1)).re =
+      (∑ x ∈ squareRootLowPrimeProcessedSeatCarrier R K j
+          (squareRootBornPostTailLowPrimeCutoff R),
+        squareRootLowPrimeProcessedSeatWeightReal x) +
+      (squareRootPositiveSmoothMass R).re +
+      (squareRootLowPrimeTerminalShallowBoundary R K j).re -
+      (canonicalLowPrefix 16 (R - 1)).re -
+      (lifetimeDeathMass 16 (R - 1)).re := by
+  rw [squareRootLowPrimeProcessedSeatCarrier_mass_eq_runningImbalanceReal
+      (R := R) (K := K) (j := j)
+      (P := squareRootBornPostTailLowPrimeCutoff R) (by omega)]
+  have h :=
+    survivorZeroMode_eq_processedRunningImbalance_add_endpointResiduals
+      R K j hR hK hKR hj
+  have hre := congrArg Complex.re h
+  simpa [squareRootLowPrimeRunningImbalanceReal] using hre
 
 end RHLean.Proof
