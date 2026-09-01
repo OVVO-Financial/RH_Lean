@@ -58,7 +58,7 @@ open RHLean.Analysis
 
 private theorem complex_sum_range_forwardDifference
     (f : ℕ → ℂ) (n : ℕ) :
-    (∑ i in Finset.range n, (f i - f (i + 1))) = f 0 - f n := by
+    (∑ i ∈ Finset.range n, (f i - f (i + 1))) = f 0 - f n := by
   induction n with
   | zero => simp
   | succ n ih =>
@@ -72,16 +72,16 @@ set-theoretic aggregation of the exact one-edge law. -/
 theorem squareRootCanonicalRoughFreshBoundary_chain_telescope
     {R n : ℕ} (c p : ℕ → ℕ)
     (hstep : ∀ i, i < n → c (i + 1) = p i * c i) :
-    (∑ i in Finset.range n,
+    (∑ i ∈ Finset.range n,
         (((squareRootCanonicalRoughFreshLossBoundary R (c i) (p i)).card : ℂ) -
           ((squareRootCanonicalRoughFreshBirthBoundary R (c i) (p i)).card : ℂ))) =
       squareRootCanonicalRoughPrimePartnerCount R (c 0) -
         squareRootCanonicalRoughPrimePartnerCount R (c n) := by
   calc
-    (∑ i in Finset.range n,
+    (∑ i ∈ Finset.range n,
         (((squareRootCanonicalRoughFreshLossBoundary R (c i) (p i)).card : ℂ) -
           ((squareRootCanonicalRoughFreshBirthBoundary R (c i) (p i)).card : ℂ))) =
-      ∑ i in Finset.range n,
+      ∑ i ∈ Finset.range n,
         (squareRootCanonicalRoughPrimePartnerCount R (c i) -
           squareRootCanonicalRoughPrimePartnerCount R (c (i + 1))) := by
         apply Finset.sum_congr rfl
@@ -106,7 +106,7 @@ theorem squareRootCanonicalRoughFreshBirthBoundary_chain_sum_eq_zero_of_root_rea
     (hp : ∀ i, i < n → (p i).Prime)
     (hfresh : ∀ i, i < n → canonicalLargestPrimeFactor (c i) < p i)
     (hroot : ∀ i, i < n → R ≤ p i * c i) :
-    (∑ i in Finset.range n,
+    (∑ i ∈ Finset.range n,
         ((squareRootCanonicalRoughFreshBirthBoundary R (c i) (p i)).card : ℂ)) = 0 := by
   apply Finset.sum_eq_zero
   intro i hi
@@ -129,14 +129,14 @@ theorem squareRootCanonicalRoughFreshLossBoundary_chain_telescope_of_root_reache
     (hfresh : ∀ i, i < n → canonicalLargestPrimeFactor (c i) < p i)
     (hstep : ∀ i, i < n → c (i + 1) = p i * c i)
     (hroot : ∀ i, i < n → R ≤ p i * c i) :
-    (∑ i in Finset.range n,
+    (∑ i ∈ Finset.range n,
         ((squareRootCanonicalRoughFreshLossBoundary R (c i) (p i)).card : ℂ)) =
       squareRootCanonicalRoughPrimePartnerCount R (c 0) -
         squareRootCanonicalRoughPrimePartnerCount R (c n) := by
   calc
-    (∑ i in Finset.range n,
+    (∑ i ∈ Finset.range n,
         ((squareRootCanonicalRoughFreshLossBoundary R (c i) (p i)).card : ℂ)) =
-      ∑ i in Finset.range n,
+      ∑ i ∈ Finset.range n,
         (squareRootCanonicalRoughPrimePartnerCount R (c i) -
           squareRootCanonicalRoughPrimePartnerCount R (c (i + 1))) := by
         apply Finset.sum_congr rfl
