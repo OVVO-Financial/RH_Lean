@@ -181,7 +181,7 @@ theorem ramanujanDivisorInterval_eq_boundary
 
 /-- Residue counting is literally the cardinality of the corresponding finite
 filter.  This form is useful for short-interval rigidity. -/
-theorem divisorResidueCount_eq_filterCard
+theorem divisorResidueCount_eq_filterCard_sharp
     (I : Finset ℕ) (d a : ℕ) :
     divisorResidueCount I d a =
       (((I.filter fun m => Nat.ModEq d m a).card : ℕ) : ℤ) := by
@@ -199,7 +199,7 @@ positive modulus contains at most one point of any fixed residue class.  Hence
 the centered residue defect has absolute value at most one modulus, not the
 quadratic bound used by the earlier deliberately crude conductor estimate. -/
 theorem abs_divisorIntervalBoundary_le_modulus_of_short
-    (d a lower upper : ℕ) (hd : 0 < d)
+    (d a lower upper : ℕ)
     (hlower : lower ≤ upper) (hshort : upper - lower < d) :
     |divisorIntervalBoundary d a lower upper| ≤ (d : ℤ) := by
   classical
@@ -231,7 +231,7 @@ theorem abs_divisorIntervalBoundary_le_modulus_of_short
       simpa using Nat.mod_injOn_Ico (lower + 1) d
     exact hinj hmBig hnBig hrem
   have hcount : divisorResidueCount I d a = (F.card : ℤ) := by
-    simpa [F] using divisorResidueCount_eq_filterCard I d a
+    simpa [F] using divisorResidueCount_eq_filterCard_sharp I d a
   have hc0 : (0 : ℤ) ≤ divisorResidueCount I d a := by
     rw [hcount]
     positivity
