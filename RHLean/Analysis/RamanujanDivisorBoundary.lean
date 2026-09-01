@@ -221,10 +221,11 @@ theorem abs_divisorIntervalBoundary_le_modulus_of_short
     have hnBig : n ∈ Finset.Ico (lower + 1) (lower + 1 + d) := by
       apply Finset.mem_Ico.mpr
       omega
-    have hrem : m % d = n % d := by
-      change m % d = a % d at hmData
-      change n % d = a % d at hnData
-      exact hmData.2.trans hnData.2.symm
+    have hmrem : m % d = a % d := by
+      simpa [Nat.ModEq] using hmData.2
+    have hnrem : n % d = a % d := by
+      simpa [Nat.ModEq] using hnData.2
+    have hrem : m % d = n % d := hmrem.trans hnrem.symm
     have hinj : Set.InjOn (fun z : ℕ => z % d)
         (↑(Finset.Ico (lower + 1) (lower + 1 + d))) := by
       simpa using Nat.mod_injOn_Ico (lower + 1) d
