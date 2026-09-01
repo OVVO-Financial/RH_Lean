@@ -186,9 +186,13 @@ theorem squareRootLowPrimeResponseReentry_window_card_le_birthBoundary
   have hle : p * c ≤ q * c := Nat.mul_le_mul (le_of_lt hpq) (le_refl c)
   have hE := squareRootLowPrimeHonestHighResponse_antitone
     (R := R) (K := K) (j := j) hpcPos hle
-  have hsdiff := Finset.card_le_card
-    (squareRootLowPrimeResponseReentry_sdiff_subset_birthBoundary
-      hc hp hq hrough hpq)
+  have hsdiff :
+      (squareRootBornPartnerSet R (q * c) \
+        squareRootBornPartnerSet R (p * c)).card ≤
+        (squareRootBornPartnerBirthBoundary R c (q * c)).card :=
+    Finset.card_le_card
+      (squareRootLowPrimeResponseReentry_sdiff_subset_birthBoundary
+        hc hp hq hrough hpq)
   have hsub : squareRootBornPartnerSet R (q * c) ⊆
       (squareRootBornPartnerSet R (q * c) \
         squareRootBornPartnerSet R (p * c)) ∪
