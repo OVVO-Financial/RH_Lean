@@ -313,11 +313,16 @@ theorem squareWheelShallowCorePostRootMassComplex_eq_partial_add_highCreation
   have habel := squareRootTruncatedUpperMiddlePacket_eq_abel R K hR hKR
   have hhigh := squareWheelShallowCoreHighCreationMassComplex_eq
     hR hK hKR hj
-  unfold squareWheelShallowCorePostRootMassComplex
+  have hprev :
+      squareRootTruncatedUpperMiddlePacket R (K - 1) =
+        squareWheelShallowCorePostRootMassComplex R K +
+          mertensSummatory K * squareRootPostRootPrimePrefix R K := by
+    unfold squareWheelShallowCorePostRootMassComplex
+    rw [habel] at hstepC
+    rw [hlayer] at hstepC
+    linear_combination hstepC
   rw [hhigh]
-  rw [habel] at hstepC
-  rw [hlayer] at hstepC
-  rw [hstepC] at hpartial
+  rw [hprev] at hpartial
   rw [hpartial]
   ring
 
