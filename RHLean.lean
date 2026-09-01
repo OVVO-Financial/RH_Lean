@@ -441,6 +441,7 @@ import RHLean.Proof.LowPrimeParentChildWindowDifference
 import RHLean.Proof.LowWheelAncestryCrossLedgerBridge
 import RHLean.Proof.LowWheelCanonicalCofactorQuotientPairing
 import RHLean.Proof.LowWheelCanonicalDefectReduction
+import RHLean.Proof.LowWheelCanonicalDowncrossBoundaryMultiplicity
 import RHLean.Proof.LowWheelCanonicalDowncrossLateCancellation
 import RHLean.Proof.LowWheelCanonicalDowncrossLatePairing
 import RHLean.Proof.LowWheelCanonicalDowncrossOwnership
