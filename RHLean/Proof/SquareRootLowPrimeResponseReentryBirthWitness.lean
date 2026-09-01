@@ -189,13 +189,25 @@ theorem squareRootLowPrimeResponseReentry_window_card_le_birthBoundary
   have hsdiff := Finset.card_le_card
     (squareRootLowPrimeResponseReentry_sdiff_subset_birthBoundary
       hc hp hq hrough hpq)
+  have hsub : squareRootBornPartnerSet R (q * c) ⊆
+      (squareRootBornPartnerSet R (q * c) \
+        squareRootBornPartnerSet R (p * c)) ∪
+        squareRootBornPartnerSet R (p * c) := by
+    intro x hx
+    by_cases hxB : x ∈ squareRootBornPartnerSet R (p * c)
+    · exact Finset.mem_union_right _ hxB
+    · exact Finset.mem_union_left _ (Finset.mem_sdiff.mpr ⟨hx, hxB⟩)
   have hcardsub :
-      squareRootBornPartnerCount R (q * c) -
-          squareRootBornPartnerCount R (p * c) ≤
+      squareRootBornPartnerCount R (q * c) ≤
         (squareRootBornPartnerSet R (q * c) \
-          squareRootBornPartnerSet R (p * c)).card :=
-    Finset.le_card_sdiff (squareRootBornPartnerSet R (p * c))
-      (squareRootBornPartnerSet R (q * c))
+          squareRootBornPartnerSet R (p * c)).card +
+          squareRootBornPartnerCount R (p * c) := by
+    calc squareRootBornPartnerCount R (q * c)
+        ≤ ((squareRootBornPartnerSet R (q * c) \
+            squareRootBornPartnerSet R (p * c)) ∪
+            squareRootBornPartnerSet R (p * c)).card :=
+          Finset.card_le_card hsub
+      _ ≤ _ := Finset.card_union_le _ _
   rw [squareRootLowPrimeCombinedFreshResponse_eq_born_add_honestHigh,
     squareRootLowPrimeCombinedFreshResponse_eq_born_add_honestHigh]
   omega
