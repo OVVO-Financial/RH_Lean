@@ -314,7 +314,12 @@ theorem realMertensLength_cast_eq_mertensSummatory (x : ℕ) :
 theorem norm_mertensSummatory_sq_eq_realMertensLength_sq (x : ℕ) :
     ‖mertensSummatory x‖ ^ 2 = realMertensLength (x + 1) ^ 2 := by
   rw [← realMertensLength_cast_eq_mertensSummatory]
-  simp [sq_abs]
+  have hnorm :
+      ‖((realMertensLength (x + 1) : ℝ) : ℂ)‖ =
+        |realMertensLength (x + 1)| := by
+    simp
+  rw [hnorm]
+  exact sq_abs _
 
 /-- **One-sided arithmetic target.**  Only positive aggregate covariance can
 increase Mertens energy.  An absolute-value bound would be unnecessarily strong. -/
@@ -475,6 +480,7 @@ theorem positiveLagPairMixedPrimeCell_add_swap_eq_topEscape
     positiveLagPairMixedPrimeCell_eq_orderShells p K n m hp1]
   have hnm : ¬ n < m := Nat.not_lt_of_ge hmn.le
   have hle : m ≤ n := hmn.le
+  have hnotle : ¬ n ≤ m := Nat.not_le_of_gt hmn
   have hne : n ≠ p * m := by
     intro heq
     apply hpn
@@ -483,17 +489,21 @@ theorem positiveLagPairMixedPrimeCell_add_swap_eq_topEscape
   by_cases hnK : n < K
   · by_cases htop : K ≤ p * m
     · have hnpm : n < p * m := lt_of_lt_of_le hnK htop
-      simp [hmn, hnm, hle, hnK, htop, hnpm]
+      have hnlepm : n ≤ p * m := hnpm.le
+      have hnotpmK : ¬ p * m < K := Nat.not_lt_of_ge htop
+      simp [hmn, hnm, hle, hnotle, hnK, htop, hnpm, hnlepm, hnotpmK]
     · have hpmK : p * m < K := Nat.lt_of_not_ge htop
       by_cases hnpm : n < p * m
-      · simp [hmn, hnm, hle, hnK, htop, hpmK, hnpm]
+      · have hnlepm : n ≤ p * m := hnpm.le
+        simp [hmn, hnm, hle, hnotle, hnK, htop, hpmK, hnpm, hnlepm]
       · have hpmle : p * m ≤ n := Nat.le_of_not_gt hnpm
         have hpmne : p * m ≠ n := Ne.symm hne
         have hpmLt : p * m < n := lt_of_le_of_ne hpmle hpmne
-        simp [hmn, hnm, hle, hnK, htop, hpmK, hnpm, hpmLt]
-  · have hnegSwap : ¬ (m ≤ n ∧ n < p * m ∧ p * m < K) := by
+        have hnot_nlepm : ¬ n ≤ p * m := Nat.not_le_of_gt hpmLt
+        simp [hmn, hnm, hle, hnotle, hnK, htop, hpmK, hnpm, hnot_nlepm]
+  · have hnoTop : ¬ (n < p * m ∧ p * m < K) := by
       intro h
-      exact hnK (h.2.1.trans h.2.2)
-    simp [hmn, hnm, hle, hnK, hnegSwap]
+      exact hnK (h.1.trans h.2)
+    simp [hmn, hnm, hle, hnotle, hnK, hnoTop]
 
 end RHLean.Analysis
