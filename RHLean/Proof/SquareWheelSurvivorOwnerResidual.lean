@@ -308,6 +308,7 @@ theorem squareWheelSurvivorAboveCutoffMatchedPair_postRoot_highComplement
       exact Finset.card_pos.mpr ⟨q, hqBorn⟩
     have hzero :=
       squareRootBornPartnerCount_eq_zero_of_lowPrimeCutoff_lt_lpf hR howner
+    rw [hzero] at hpos
     omega
   · have hcR : c ≤ R - 1 := by
       by_contra hnot
@@ -315,9 +316,15 @@ theorem squareWheelSurvivorAboveCutoffMatchedPair_postRoot_highComplement
       have hRq1 : R + 1 ≤ q := by omega
       have hmul : R * (R + 1) ≤ c * q := Nat.mul_le_mul hRc hRq1
       have hXlt : squareRootEndpoint R < R * (R + 1) := by
-        unfold squareRootEndpoint
-        nlinarith
-      omega
+        have hsub : squareRootEndpoint R < R ^ 2 := by
+          unfold squareRootEndpoint
+          exact Nat.sub_lt (by positivity) (by norm_num)
+        have hsqLt : R ^ 2 < R * (R + 1) := by
+          nlinarith
+        exact hsub.trans hsqLt
+      have hle : R * (R + 1) ≤ squareRootEndpoint R :=
+        hmul.trans hprod
+      exact (not_lt_of_ge hle) hXlt
     refine ⟨hRq, ?_⟩
     exact Finset.mem_filter.mpr
       ⟨Finset.mem_Icc.mpr ⟨hc1, hcR⟩, howner⟩
@@ -366,13 +373,14 @@ theorem squareWheelSurvivorAboveCutoffMatchedPairSet_subset_boundingBox
     (mem_squareWheelSurvivorAboveCutoffMatchedPairSet.mp hcq).1
   have hbase := (mem_squareWheelSurvivorEndpointMatchedPairSet.mp hmatched).1
   have hprod := squareWheelSurvivorEndpointPair_product_le (by omega) hbase
-  have hcData := mem_squareRootBornPostTailHighComplementCofactors.mp hclass.2
-  have hcpos : 0 < c := by omega
+  have hcRigid :=
+    squareRootBornPostTailHighComplement_prime hR hclass.2
+  have hcpos : 0 < c := hcRigid.1.pos
   have hqDiv : q ≤ squareRootEndpoint R / c := by
     apply (Nat.le_div_iff_mul_le hcpos).2
     simpa [Nat.mul_comm] using hprod
   have hdiv :=
-    squareRootBornPostTail_reciprocalCutoff_le_root_add_sqrt hR hcData.2.2
+    squareRootBornPostTail_reciprocalCutoff_le_root_add_sqrt hR hcRigid.2.1
   unfold squareWheelSurvivorAboveCutoffBoundingBox
   exact Finset.mem_product.mpr
     ⟨hclass.2, Finset.mem_Ioc.mpr ⟨hclass.1, hqDiv.trans hdiv⟩⟩
@@ -388,15 +396,18 @@ theorem squareWheelSurvivorAboveCutoffMatchedPairSet_card_le_root
   have hIoc : (Finset.Ioc R (R + Nat.sqrt R)).card = Nat.sqrt R := by
     rw [Nat.card_Ioc]
     omega
-  unfold squareWheelSurvivorAboveCutoffBoundingBox at hsub
-  rw [Finset.card_product, hIoc] at hsub
+  have hsub' :
+      (squareWheelSurvivorAboveCutoffMatchedPairSet R
+        (squareRootBornPostTailLowPrimeCutoff R)).card ≤
+        (squareRootBornPostTailHighComplementCofactors R).card * Nat.sqrt R := by
+    simpa [squareWheelSurvivorAboveCutoffBoundingBox, hIoc] using hsub
   have hrect :
       (squareRootBornPostTailHighComplementCofactors R).card * Nat.sqrt R ≤
         Nat.sqrt R * Nat.sqrt R :=
     Nat.mul_le_mul_right (Nat.sqrt R) hcof
   have hsqrt : Nat.sqrt R * Nat.sqrt R ≤ R := by
     simpa [pow_two] using Nat.sqrt_le' R
-  exact hsub.trans (hrect.trans hsqrt)
+  exact hsub'.trans (hrect.trans hsqrt)
 
 /-- The above-cutoff matched survivor mass is exactly its cardinality. -/
 theorem squareWheelSurvivorAboveCutoffMatchedPairMassReal_eq_card
