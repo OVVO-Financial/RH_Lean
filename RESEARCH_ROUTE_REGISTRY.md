@@ -778,6 +778,59 @@ mechanism.
 - treating an unfavourable cross term as a refutation of backward filling: it is
   a demand on the endpoint reserve.
 
+### Cumulative Othello boundary of a prefix carrier
+
+**Status: OPEN. Exact layer formalized; quantitative target predeclared; the
+naive peel family already closed by its own stop criterion.**
+
+The exact object changed is the *carrier* of the Othello involution, not the
+involution: the sign-reversing prime toggle is played on a whole ordered prefix
+or a whole square run at once instead of site by site. For any finite region
+`S` and any prime `p`,
+
+```text
+sum over S of mu = sum over { n in S : tau_p n not in S } of mu,
+```
+
+exactly, so the interior of the region contributes zero whatever the length of
+the alternating paths inside it. On the prefix carrier `(L,x]` the surviving
+set is two explicit walls, and the same statement covers the pinned
+primorial-wheel residual `R_k(x)` and an entire consecutive square run treated
+as one space-time carrier.
+
+Lean:
+
+- [`RHLean/Proof/GlobalPrefixCarrierOthello.lean`](RHLean/Proof/GlobalPrefixCarrierOthello.lean)
+- [`RHLean/Proof/PrefixCarrierOthelloWalls.lean`](RHLean/Proof/PrefixCarrierOthelloWalls.lean)
+- [`RHLean/Analysis/PrimeWheelRunOthelloBoundary.lean`](RHLean/Analysis/PrimeWheelRunOthelloBoundary.lean)
+
+Sufficient criterion, proved: an RH-scale multiplicity bound on the iterated
+boundary gives `MertensEnergyBoundedStatement`, hence the pinned wheel-residual
+and maximal square-run criteria already recorded in this repository.
+
+Predeclared stop criterion, and its first casualty: a peel family whose boundary
+population stays a fixed positive proportion of `x` is dead. The naive
+increasing peel on a fixed interval carrier is exactly that — its boundary ratio
+descends to `2/pi^2 = 0.20264...`, measured in
+[`scripts/CumulativeOthelloBoundary/peel_diagnostic.py`](scripts/CumulativeOthelloBoundary/peel_diagnostic.py).
+The same diagnostic confirms the signed mass is invariant along every peel.
+
+The remaining free parameter is the carrier, not the peel order. See
+[`research/CUMULATIVE_OTHELLO_BOUNDARY.md`](research/CUMULATIVE_OTHELLO_BOUNDARY.md).
+
+### Do not repeat this route by
+
+- rerunning the naive peel at larger `x`, with more primes, or in a different
+  prime order: the limiting proportion `2/pi^2` is structural, not a range
+  effect;
+- reporting the first peel `x -> x/4` as progress; one bounded factor is not a
+  power saving;
+- replacing the boundary population by a signed statistic and claiming
+  cancellation on the wall — that is the closed dyadic Li mechanism in new
+  coordinates;
+- treating the identity as an asymptotic statement. It moves the signed mass
+  onto a smaller set; it does not shrink it.
+
 ## Acceptance rule for future routes
 
 A proposed route must state:
