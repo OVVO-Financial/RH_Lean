@@ -174,7 +174,8 @@ theorem squareRootLowPrimeOutwardSquareDefect_corner_moebius_ne_zero
     intro hdvd
     rcases (Nat.Prime.dvd_mul hq).mp hdvd with hqp | hqc'
     · exact hpq ((Nat.prime_dvd_prime_iff_eq hq hp).mp hqp).symm
-    · exact hq.not_unit (hsqQC q (mul_dvd_mul_left q hqc'))
+    · have hunit : IsUnit q := hsqQC q (mul_dvd_mul_left q hqc')
+      exact absurd (Nat.isUnit_iff.mp hunit) hq.ne_one
   rw [moebius_prime_mul hq hqnd]
   exact neg_ne_zero.mpr hpc.2.2.2.1
 
