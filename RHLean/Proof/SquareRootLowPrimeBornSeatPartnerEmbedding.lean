@@ -257,7 +257,7 @@ theorem squareRootLowPrimeCanonicalAssigned_firstOwner_wall_or_seatTail
         hR hUR hfirst hwall
     have hborn :=
       squareRootLowPrimeCombinedFreshResponse_eq_born_of_root_le
-        (by omega) hcR
+        (K := K) (j := j) (by omega) hcR
     exact ⟨hwall, hlow, hcR, hborn⟩
   · right
     have hinside : p * c ≤ squareRootEndpoint R := Nat.le_of_not_gt hwall
@@ -293,7 +293,7 @@ theorem squareRootLowPrimeCanonicalAssigned_wall_bornSeat_oldPartner
   have hcR := squareRootLowPrimeFirstOwnerWall_forces_root_le_cofactor
     hR hUR hfirst hwall
   have hborn := squareRootLowPrimeCombinedFreshResponse_eq_born_of_root_le
-    (by omega) hcR
+    (K := K) (j := j) (by omega) hcR
   have hsBorn : s < squareRootBornPartnerCount R c := by
     simpa [hborn] using hseat
   refine ⟨hsBorn, ?_⟩
