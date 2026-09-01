@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.SquareRootCanonicalDowncrossFinalSeam
 import RHLean.Proof.LowWheelCanonicalRepeatedMovableCancellation
+import RHLean.Proof.LowWheelCanonicalSignedOwnershipInterval
 
 /-!
 # The oriented seam at RH scale
