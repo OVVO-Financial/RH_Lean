@@ -281,7 +281,8 @@ theorem squareWheelShallowCoreHighCreationMassComplex_eq
               hR hK hKR hj (Finset.mem_Icc.mp hc).2]
     _ = -(∑ c ∈ Finset.Icc 1 K, canonicalMoebiusWeight c) *
         (squareRootPostRootPrimePrefix R K - (j : ℂ)) := by
-          rw [Finset.sum_mul]
+          simp_rw [neg_mul]
+          rw [Finset.sum_neg_distrib, Finset.sum_mul]
           ring
     _ = -mertensSummatory K *
         (squareRootPostRootPrimePrefix R K - (j : ℂ)) := by rw [hmu]
@@ -320,6 +321,7 @@ theorem squareWheelShallowCorePostRootMassComplex_eq_partial_add_highCreation
     unfold squareWheelShallowCorePostRootMassComplex
     rw [habel] at hstepC
     rw [hlayer] at hstepC
+    simp only [canonicalMoebiusWeight]
     linear_combination hstepC
   rw [hhigh]
   rw [hprev] at hpartial
