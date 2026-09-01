@@ -244,7 +244,7 @@ theorem squareWheelSurvivorProcessedDeepPair_cofactor_data
 /-- A processed-compatible survivor cofactor is literally in the processed
 signed-cofactor carrier at cutoff `U`. -/
 theorem squareWheelSurvivorProcessedDeepPair_cofactor_mem_processed
-    {R K U c q : ℕ} (hR : 1 ≤ R) (hK : 1 ≤ K)
+    {R K U c q : ℕ} (hR : 1 ≤ R) (_hK : 1 ≤ K)
     (hcq : (c, q) ∈ squareWheelSurvivorProcessedDeepPairSet R K U) :
     c ∈ squareRootLowPrimeProcessedSignedCofactors R U := by
   have hmatched :=
@@ -256,11 +256,10 @@ theorem squareWheelSurvivorProcessedDeepPair_cofactor_mem_processed
   have hownerLe :=
     (mem_squareWheelSurvivorProcessedDeepPairSet.mp hcq).2.2
   rcases hdata with ⟨hqPrime, hc1, hsq, _hcop, _hdom⟩
-  have hq2 : 2 ≤ q := hqPrime.two_le
   have hcLeProd : c ≤ c * q := by
     calc
       c = c * 1 := by simp
-      _ ≤ c * q := Nat.mul_le_mul_left c (by omega)
+      _ ≤ c * q := Nat.mul_le_mul_left c hqPrime.one_le
   have hcX : c ≤ squareRootEndpoint R := hcLeProd.trans hprod
   have hmu : μ c ≠ 0 :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsq
@@ -349,29 +348,5 @@ theorem squareWheelSurvivorToProcessedSeat_weight_eq
   change (((-μ cq.1.1 : ℤ) : ℝ)) =
     (((μ (cq.1.1 * cq.1.2) : ℤ) : ℝ))
   rw [moebius_mul_eq_neg_of_sourceData hdata]
-
-/-- The survivor-to-seat map is injective: equality of mapped seats first
-recovers the common cofactor and then the common literal prime partner. -/
-theorem squareWheelSurvivorToProcessedSeat_injective
-    (R K j U : ℕ) (hR : 1 ≤ R) (hK : 1 ≤ K) :
-    Function.Injective (squareWheelSurvivorToProcessedSeat R K j U hR hK) := by
-  intro a b hab
-  apply Subtype.ext
-  apply Prod.ext
-  · exact congrArg Prod.fst (congrArg Subtype.val hab)
-  · have hc : a.1.1 = b.1.1 :=
-      congrArg Prod.fst (congrArg Subtype.val hab)
-    subst b
-    have hs :
-        (squareWheelSurvivorProcessedSeatIndex R K j U hR hK a : ℕ) =
-          (squareWheelSurvivorProcessedSeatIndex R K j U hR hK
-            ⟨(a.1.1, b.1.2), b.2⟩ : ℕ) :=
-      congrArg Prod.snd (congrArg Subtype.val hab)
-    have hqa := squareWheelSurvivorToProcessedSeat_partner_eq
-      R K j U hR hK a
-    have hqb := squareWheelSurvivorToProcessedSeat_partner_eq
-      R K j U hR hK ⟨(a.1.1, b.1.2), b.2⟩
-    rw [hs] at hqa
-    exact hqa.symm.trans hqb
 
 end RHLean.Proof
