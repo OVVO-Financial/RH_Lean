@@ -491,10 +491,9 @@ theorem positiveLagPairMixedPrimeCell_add_swap_eq_topEscape
         have hpmne : p * m ≠ n := Ne.symm hne
         have hpmLt : p * m < n := lt_of_le_of_ne hpmle hpmne
         simp [hmn, hnm, hle, hnK, htop, hpmK, hnpm, hpmLt]
-  · have hnotTop : ¬ K ≤ p * m := by
-      intro htop
-      have hnpm : n < p * m := lt_of_lt_of_le (lt_of_not_ge hnK) htop
-      exact hnK (hnpm.trans htop)
-    simp [hmn, hnm, hle, hnK, hnotTop]
+  · have hnegSwap : ¬ (m ≤ n ∧ n < p * m ∧ p * m < K) := by
+      intro h
+      exact hnK (h.2.1.trans h.2.2)
+    simp [hmn, hnm, hle, hnK, hnegSwap]
 
 end RHLean.Analysis
