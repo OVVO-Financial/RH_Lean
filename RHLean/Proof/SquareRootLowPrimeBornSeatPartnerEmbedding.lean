@@ -176,11 +176,8 @@ theorem squareRootLowPrimeBornSeatHome_injOn
       (z.1, squareRootLowPrimeSeatBornPartner R z.1 z.2) =
         (w.1, squareRootLowPrimeSeatBornPartner R w.1 w.2) :=
     Sum.inl.inj (Sum.inr.inj (Sum.inr.inj h))
-  have hfirst : z.1 = w.1 := congrArg Prod.fst hpair
-  have hsecond :
-      squareRootLowPrimeSeatBornPartner R z.1 z.2 =
-        squareRootLowPrimeSeatBornPartner R w.1 w.2 :=
-    congrArg Prod.snd hpair
+  rw [Prod.mk.injEq] at hpair
+  obtain ⟨hfirst, hsecond⟩ := hpair
   have hwz : w.2 < squareRootBornPartnerCount R z.1 := by
     rw [hfirst]; exact hw
   have hsecond' :
