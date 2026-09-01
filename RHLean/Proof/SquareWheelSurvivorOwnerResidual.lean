@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
 import RHLean.Proof.SquareWheelSurvivorProcessedResponseBridge
 
 /-!
@@ -31,8 +32,16 @@ Equivalently, after splitting `W`,
 
 `mass(P) = mass(S) - mass(D) - mass(W_shallow) - mass(W_above)`.
 
+At the canonical cutoff `U = R - floor(sqrt R)`, the above-cutoff survivor
+sector is even simpler: the born orientation is impossible, every remaining
+cofactor is a near-root prime, every pair has source weight `+1`, and the whole
+sector has cardinality at most `R` by the existing `sqrt R × sqrt R` near-root
+rectangle.
+
 Thus a later proof need not construct a separate positive-orientation carrier
-bridge merely to identify its signed mass.  No estimate or norm is used here.
+bridge merely to identify its signed mass.  No cancellation estimate is used
+in the degree-of-freedom identities; the only magnitude estimate below is the
+already-elementary near-root rectangle bound.
 -/
 
 noncomputable section
@@ -265,5 +274,168 @@ theorem squareWheelSurvivorPositivePairMassReal_eq_fourSectorResidual
   rw [squareWheelSurvivorPositivePairMassReal_eq_residual,
     squareWheelSurvivorOwnerResidualPairMassReal_eq_shallow_add_above R K U hKU]
   ring
+
+/-! ## Canonical-cutoff rigidity of the above-owner residual -/
+
+/-- At the canonical low-prime cutoff, an above-cutoff matched survivor cannot
+be born-oriented.  It is necessarily post-root, and its cofactor belongs to the
+existing near-root high-complement set. -/
+theorem squareWheelSurvivorAboveCutoffMatchedPair_postRoot_highComplement
+    {R c q : ℕ} (hR : 16 ≤ R)
+    (hcq : (c, q) ∈ squareWheelSurvivorAboveCutoffMatchedPairSet R
+      (squareRootBornPostTailLowPrimeCutoff R)) :
+    R < q ∧ c ∈ squareRootBornPostTailHighComplementCofactors R := by
+  have hmem := mem_squareWheelSurvivorAboveCutoffMatchedPairSet.mp hcq
+  have hmatched := hmem.1
+  have howner := hmem.2
+  have hbase := (mem_squareWheelSurvivorEndpointMatchedPairSet.mp hmatched).1
+  have horient := (mem_squareWheelSurvivorEndpointMatchedPairSet.mp hmatched).2
+  have hdata := squareWheelSurvivorEndpointPair_sourceData hbase
+  have hprod := squareWheelSurvivorEndpointPair_product_le (by omega) hbase
+  have hrough := canonicalLargestPrimeFactor_lt_of_sourceData hdata
+  rcases hdata with ⟨hqPrime, hc1, _hsq, _hcop, _hdom⟩
+  rcases horient with hqcBorn | hRq
+  · have hqR : q ≤ R :=
+      squareWheelSurvivorEndpointPair_prime_le_root_of_le_cofactor
+        (by omega) hbase hqcBorn
+    have hqBorn : q ∈ squareRootBornPartnerSet R c := by
+      unfold squareRootBornPartnerSet
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_Icc.mpr ⟨hqPrime.two_le, hqR⟩,
+          hqPrime, hrough, hqcBorn, hprod⟩
+    have hpos : 0 < squareRootBornPartnerCount R c := by
+      unfold squareRootBornPartnerCount
+      exact Finset.card_pos.mpr ⟨q, hqBorn⟩
+    have hzero :=
+      squareRootBornPartnerCount_eq_zero_of_lowPrimeCutoff_lt_lpf hR howner
+    omega
+  · have hcR : c ≤ R - 1 := by
+      by_contra hnot
+      have hRc : R ≤ c := by omega
+      have hRq1 : R + 1 ≤ q := by omega
+      have hmul : R * (R + 1) ≤ c * q := Nat.mul_le_mul hRc hRq1
+      have hXlt : squareRootEndpoint R < R * (R + 1) := by
+        unfold squareRootEndpoint
+        nlinarith
+      omega
+    refine ⟨hRq, ?_⟩
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_Icc.mpr ⟨hc1, hcR⟩, howner⟩
+
+/-- Every canonical-cutoff above-owner survivor pair has source Möbius weight
+`+1`: both its near-root cofactor and its post-root distinguished coordinate
+are prime. -/
+theorem squareWheelSurvivorAboveCutoffMatchedPair_weight_eq_one
+    {R c q : ℕ} (hR : 16 ≤ R)
+    (hcq : (c, q) ∈ squareWheelSurvivorAboveCutoffMatchedPairSet R
+      (squareRootBornPostTailLowPrimeCutoff R)) :
+    squareWheelSurvivorPairWeightReal (c, q) = 1 := by
+  have hclass :=
+    squareWheelSurvivorAboveCutoffMatchedPair_postRoot_highComplement hR hcq
+  have hcPrime := (squareRootBornPostTailHighComplement_prime hR hclass.2).1
+  have hmatched :=
+    (mem_squareWheelSurvivorAboveCutoffMatchedPairSet.mp hcq).1
+  have hbase := (mem_squareWheelSurvivorEndpointMatchedPairSet.mp hmatched).1
+  have hdata := squareWheelSurvivorEndpointPair_sourceData hbase
+  rcases hdata with ⟨hqPrime, _hc1, _hsq, hcop, _hdom⟩
+  have hmul :=
+    ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop.symm
+  unfold squareWheelSurvivorPairWeightReal
+  rw [hmul, ArithmeticFunction.moebius_apply_prime hcPrime,
+    ArithmeticFunction.moebius_apply_prime hqPrime]
+  norm_num
+
+/-- A simple rectangle containing every canonical-cutoff above-owner survivor:
+near-root cofactors times the first `floor(sqrt R)` integer seats above `R`. -/
+def squareWheelSurvivorAboveCutoffBoundingBox (R : ℕ) : Finset (ℕ × ℕ) :=
+  (squareRootBornPostTailHighComplementCofactors R).product
+    (Finset.Ioc R (R + Nat.sqrt R))
+
+/-- Every canonical-cutoff above-owner survivor lies in the elementary
+`sqrt R × sqrt R` near-root rectangle. -/
+theorem squareWheelSurvivorAboveCutoffMatchedPairSet_subset_boundingBox
+    {R : ℕ} (hR : 16 ≤ R) :
+    squareWheelSurvivorAboveCutoffMatchedPairSet R
+        (squareRootBornPostTailLowPrimeCutoff R) ⊆
+      squareWheelSurvivorAboveCutoffBoundingBox R := by
+  intro cq hcq
+  rcases cq with ⟨c, q⟩
+  have hclass :=
+    squareWheelSurvivorAboveCutoffMatchedPair_postRoot_highComplement hR hcq
+  have hmatched :=
+    (mem_squareWheelSurvivorAboveCutoffMatchedPairSet.mp hcq).1
+  have hbase := (mem_squareWheelSurvivorEndpointMatchedPairSet.mp hmatched).1
+  have hprod := squareWheelSurvivorEndpointPair_product_le (by omega) hbase
+  have hcData := mem_squareRootBornPostTailHighComplementCofactors.mp hclass.2
+  have hcpos : 0 < c := by omega
+  have hqDiv : q ≤ squareRootEndpoint R / c := by
+    apply (Nat.le_div_iff_mul_le hcpos).2
+    simpa [Nat.mul_comm] using hprod
+  have hdiv :=
+    squareRootBornPostTail_reciprocalCutoff_le_root_add_sqrt hR hcData.2.2
+  unfold squareWheelSurvivorAboveCutoffBoundingBox
+  exact Finset.mem_product.mpr
+    ⟨hclass.2, Finset.mem_Ioc.mpr ⟨hclass.1, hqDiv.trans hdiv⟩⟩
+
+/-- The canonical-cutoff above-owner survivor population has at most `R` atoms. -/
+theorem squareWheelSurvivorAboveCutoffMatchedPairSet_card_le_root
+    {R : ℕ} (hR : 16 ≤ R) :
+    (squareWheelSurvivorAboveCutoffMatchedPairSet R
+      (squareRootBornPostTailLowPrimeCutoff R)).card ≤ R := by
+  have hsub := Finset.card_le_card
+    (squareWheelSurvivorAboveCutoffMatchedPairSet_subset_boundingBox hR)
+  have hcof := squareRootBornPostTailHighComplementCofactors_card_le_sqrt hR
+  have hIoc : (Finset.Ioc R (R + Nat.sqrt R)).card = Nat.sqrt R := by
+    rw [Nat.card_Ioc]
+    omega
+  unfold squareWheelSurvivorAboveCutoffBoundingBox at hsub
+  rw [Finset.card_product, hIoc] at hsub
+  have hrect :
+      (squareRootBornPostTailHighComplementCofactors R).card * Nat.sqrt R ≤
+        Nat.sqrt R * Nat.sqrt R :=
+    Nat.mul_le_mul_right (Nat.sqrt R) hcof
+  have hsqrt : Nat.sqrt R * Nat.sqrt R ≤ R := by
+    simpa [pow_two] using Nat.sqrt_le' R
+  exact hsub.trans (hrect.trans hsqrt)
+
+/-- The above-cutoff matched survivor mass is exactly its cardinality. -/
+theorem squareWheelSurvivorAboveCutoffMatchedPairMassReal_eq_card
+    {R : ℕ} (hR : 16 ≤ R) :
+    squareWheelSurvivorAboveCutoffMatchedPairMassReal R
+        (squareRootBornPostTailLowPrimeCutoff R) =
+      ((squareWheelSurvivorAboveCutoffMatchedPairSet R
+        (squareRootBornPostTailLowPrimeCutoff R)).card : ℝ) := by
+  unfold squareWheelSurvivorAboveCutoffMatchedPairMassReal
+    squareWheelSurvivorPairSetMassReal
+  calc
+    (∑ cq ∈ squareWheelSurvivorAboveCutoffMatchedPairSet R
+        (squareRootBornPostTailLowPrimeCutoff R),
+        squareWheelSurvivorPairWeightReal cq) =
+      ∑ _cq ∈ squareWheelSurvivorAboveCutoffMatchedPairSet R
+        (squareRootBornPostTailLowPrimeCutoff R), (1 : ℝ) := by
+          apply Finset.sum_congr rfl
+          intro cq hcq
+          rcases cq with ⟨c, q⟩
+          exact squareWheelSurvivorAboveCutoffMatchedPair_weight_eq_one hR hcq
+    _ = ((squareWheelSurvivorAboveCutoffMatchedPairSet R
+        (squareRootBornPostTailLowPrimeCutoff R)).card : ℝ) := by simp
+
+/-- **Above-owner residual discharged.**  At the canonical cutoff its signed
+mass already satisfies the elementary root-scale bound with constant one. -/
+theorem abs_squareWheelSurvivorAboveCutoffMatchedPairMassReal_le_root
+    {R : ℕ} (hR : 16 ≤ R) :
+    |squareWheelSurvivorAboveCutoffMatchedPairMassReal R
+        (squareRootBornPostTailLowPrimeCutoff R)| ≤ (R : ℝ) := by
+  rw [squareWheelSurvivorAboveCutoffMatchedPairMassReal_eq_card hR]
+  have hcard := squareWheelSurvivorAboveCutoffMatchedPairSet_card_le_root hR
+  have hcast :
+      ((squareWheelSurvivorAboveCutoffMatchedPairSet R
+        (squareRootBornPostTailLowPrimeCutoff R)).card : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast hcard
+  have hnonneg :
+      0 ≤ ((squareWheelSurvivorAboveCutoffMatchedPairSet R
+        (squareRootBornPostTailLowPrimeCutoff R)).card : ℝ) := by positivity
+  rw [abs_of_nonneg hnonneg]
+  exact hcast
 
 end RHLean.Proof
