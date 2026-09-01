@@ -314,11 +314,7 @@ theorem realMertensLength_cast_eq_mertensSummatory (x : ℕ) :
 theorem norm_mertensSummatory_sq_eq_realMertensLength_sq (x : ℕ) :
     ‖mertensSummatory x‖ ^ 2 = realMertensLength (x + 1) ^ 2 := by
   rw [← realMertensLength_cast_eq_mertensSummatory]
-  have hnorm :
-      ‖((realMertensLength (x + 1) : ℝ) : ℂ)‖ =
-        |realMertensLength (x + 1)| := by
-    simp
-  rw [hnorm]
+  rw [Complex.norm_real, Real.norm_eq_abs]
   exact sq_abs _
 
 /-- **One-sided arithmetic target.**  Only positive aggregate covariance can
