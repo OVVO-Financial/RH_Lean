@@ -25,12 +25,16 @@ This file installs the transport.
   Mertens increment `M(x) - M(L_k)` — as the anchor wall plus the cutoff wall
   of the prefix carrier `(L_k, x]`.
 * `sum_canonicalTotalIncrement_Ico_eq_runWallMass` does the same for an entire
-  consecutive run of complete square blocks, treated as **one** space-time
-  carrier `(X_{a-1}, X_b]` rather than as a sum of `b - a + 1` separate block
-  statements.  Every interior square time cancels; only the two temporal
-  endpoints and the wheel cutoff survive.  This is the run-level statement the
-  route needs: the path length between a birth and its capture is irrelevant,
-  because a pair born and captured inside the run contributes exactly zero.
+  consecutive run of complete square blocks.  Two separate mechanisms are
+  composed there and should not be confused.  The square times collapse by the
+  **already-known telescope** `sum Delta_j = M(X_b) - M(X_{a-1})`, which is what
+  removes the block count; what is left is then a cumulative arithmetic
+  interval `(X_{a-1}, X_b]`, and the fixed-prime pairing reduces that interval
+  to its two walls.  Nothing here is a survivor trajectory: the interval is not
+  a space-time carrier, and no birth-to-capture cancellation is claimed.  That
+  statement — an atom born and captured strictly inside a run costs zero
+  whatever its lifetime — is proved separately, on the actual birth/death
+  process, in `RHLean.Proof.LifetimeRunCancellation`.
 * `mertensEnergyBounded_of_iteratedPrefixBoundaryBounded` states what is left to
   prove.  If some finite peel of distinguished primes leaves an iterated
   boundary of RH-scale population, the Mertens energy criterion follows — and
@@ -85,7 +89,9 @@ theorem abs_primorialWheelResidual_le_wallCard
 /-! ## A whole square run as one carrier -/
 
 /-- A consecutive run of complete square blocks is the Möbius mass of the single
-space-time carrier `(X_{a-1}, X_b]`. -/
+cumulative arithmetic interval `(X_{a-1}, X_b]`.  This is the pre-existing
+square-prefix telescope, restated in interval form; it is where the block count
+disappears. -/
 theorem sum_canonicalTotalIncrement_Ico_eq_moebius_Ioc_cast
     (a b : ℕ) (ha : 1 ≤ a) (hab : a ≤ b + 1) :
     (∑ j ∈ Finset.Ico a (b + 1), canonicalTotalIncrement j) =
@@ -106,13 +112,13 @@ theorem sum_canonicalTotalIncrement_Ico_eq_moebius_Ioc_cast
         push_cast
         ring
 
-/-- **Run-level Othello boundary theorem.**
+/-- **Run-level wall identity.**
 
-The whole signed square run equals the mass of the boundary of one space-time
-carrier: the anchor wall sitting on the initial temporal endpoint `X_{a-1}` and
-the cutoff wall sitting on the terminal temporal endpoint `X_b`.  Every
-intervening square time has cancelled in pairs, so the number of blocks in the
-run never enters. -/
+The whole signed square run equals the anchor wall at `X_{a-1}` plus the cutoff
+wall at `X_b`.  The block count drops out at the first step, by the existing
+square-prefix telescope; the pairing then acts on the resulting cumulative
+interval.  The two steps are independent, and only the first one is about square
+time. -/
 theorem sum_canonicalTotalIncrement_Ico_eq_runWallMass
     {p : ℕ} (hp : p.Prime) (a b : ℕ) (ha : 1 ≤ a) (hab : a ≤ b + 1) :
     (∑ j ∈ Finset.Ico a (b + 1), canonicalTotalIncrement j) =

@@ -37,8 +37,18 @@ sum over S of mu = sum over the escape part of S of mu,
 ```
 
 where the escape part is the set of sites whose mate has left `S`.  Nothing is
-estimated: this is an equality, and the interior of `S` — however long the
-alternating paths inside it are — contributes exactly zero.
+estimated: this is an equality, and the whole interior of `S` contributes
+exactly zero.
+
+The scope is worth stating precisely, because it is narrower than the Othello
+picture it is named after.  For one fixed `p` every orbit of `tau_p` is a two
+cycle or a fixed point, so this is a global *pairing* of a cumulative region.
+It is not a statement about long alternating components, and it contains no
+birth-to-capture cancellation: there is no trajectory here, only a mate.  The
+adaptive version, in which the prime is allowed to depend on the state, is
+`RHLean.Proof.AdaptivePrimeMatching`.  The birth/death lifetime cancellation
+over square time, where the length of a lifetime genuinely does drop out, is
+`RHLean.Proof.LifetimeRunCancellation`.
 
 Three consequences are recorded.
 

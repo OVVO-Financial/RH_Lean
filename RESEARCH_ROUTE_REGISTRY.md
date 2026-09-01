@@ -778,58 +778,75 @@ mechanism.
 - treating an unfavourable cross term as a refutation of backward filling: it is
   a demand on the endpoint reserve.
 
-### Cumulative Othello boundary of a prefix carrier
+### Cumulative carriers: pairing, adaptive matching, lifetimes
 
-**Status: OPEN. Exact layer formalized; quantitative target predeclared; the
-naive peel family already closed by its own stop criterion.**
+**Status: exact layer formalized for all three notions. The raw prefix carrier
+is CLOSED for both matching notions, by two proved no-go theorems plus finite
+diagnostics. The lifetime notion is open and lives on a different carrier.**
 
-The exact object changed is the *carrier* of the Othello involution, not the
-involution: the sign-reversing prime toggle is played on a whole ordered prefix
-or a whole square run at once instead of site by site. For any finite region
-`S` and any prime `p`,
+Three notions that were being conflated, now separated.
 
-```text
-sum over S of mu = sum over { n in S : tau_p n not in S } of mu,
-```
+1. **Fixed-prime pairing.** For any finite region `S` and prime `p`,
+   `sum over S of mu = sum over { n in S : tau_p n not in S } of mu`, exactly.
+   On `(L,x]` the surviving set is two explicit walls; the pinned wheel residual
+   and a whole square run are stated in that form. Genuinely cumulative and
+   worth keeping. **Scope:** for one fixed `p` every orbit is a two cycle, so
+   this proves a pairing, not an alternating-path or birth-to-capture
+   cancellation. Earlier prose in this repository claiming otherwise was wrong
+   and is corrected in place. In the square-run statement the block count is
+   removed by the pre-existing telescope, not by the pairing, and
+   `(X_{a-1}, X_b]` is a cumulative arithmetic interval, not a space-time
+   carrier.
 
-exactly, so the interior of the region contributes zero whatever the length of
-the alternating paths inside it. On the prefix carrier `(L,x]` the surviving
-set is two explicit walls, and the same statement covers the pinned
-primorial-wheel residual `R_k(x)` and an entire consecutive square run treated
-as one space-time carrier.
+2. **Adaptive carrier-wide matching.** `AdaptivePrimeMate S m`: preserves `S`,
+   involutive on `S`, moves only along prime-toggle edges with the prime free to
+   depend on the state. Sign reversal is a consequence, not a hypothesis.
+   `HasLiberty` and `trueNoLibertyBoundary` give the right boundary notion —
+   *no legal move remaining anywhere in the geometry* — and a liberty-exhausting
+   mate would put the whole mass on it. **The raw prefix carrier is closed for
+   this**, twice over and unconditionally: every squarefree site of `(0,x]` has
+   a legal move, so the true boundary there carries no Moebius mass at all; and
+   every prime `p` with `x < 2p` has the single legal move `p -> 1`, so any
+   adaptive mate leaves at least `pi(x) - pi(x/2) - 1` states fixed.
+
+3. **Lifetime cancellation over square time.** With birth `beta` and capture
+   `delta`, the activity indicator telescopes across a run, so an atom born
+   after the run starts and captured before it ends contributes `0 - 0 = 0`
+   whatever its lifetime. The length never enters the statement or the proof.
+   Bridged to the repository's own process: `IsLifetimeActive` is proved to be a
+   genuine interval (death is permanent for a nonnegative cutoff slope), and the
+   run identity is restated in the existing `Active = Birth - Death`
+   coordinates.
 
 Lean:
 
 - [`RHLean/Proof/GlobalPrefixCarrierOthello.lean`](RHLean/Proof/GlobalPrefixCarrierOthello.lean)
 - [`RHLean/Proof/PrefixCarrierOthelloWalls.lean`](RHLean/Proof/PrefixCarrierOthelloWalls.lean)
+- [`RHLean/Proof/AdaptivePrimeMatching.lean`](RHLean/Proof/AdaptivePrimeMatching.lean)
+- [`RHLean/Proof/LifetimeRunCancellation.lean`](RHLean/Proof/LifetimeRunCancellation.lean)
 - [`RHLean/Analysis/PrimeWheelRunOthelloBoundary.lean`](RHLean/Analysis/PrimeWheelRunOthelloBoundary.lean)
 
-Sufficient criterion, proved: an RH-scale multiplicity bound on the iterated
-boundary gives `MertensEnergyBoundedStatement`, hence the pinned wheel-residual
-and maximal square-run criteria already recorded in this repository.
+Diagnostics,
+[`scripts/CumulativeOthelloBoundary/peel_diagnostic.py`](scripts/CumulativeOthelloBoundary/peel_diagnostic.py):
+the signed mass never moves under any peel; the fixed-prime peel bottoms out at
+`2/pi^2` of `x` and is identical in ascending, descending and mixed prime order;
+a maximum matching in the whole prime-toggle graph still leaves `0.166 x`
+exposed with exposed mass exactly `M(x)`.
 
-Predeclared stop criterion, and its first casualty: a peel family whose boundary
-population stays a fixed positive proportion of `x` is dead. The naive
-increasing peel on a fixed interval carrier is exactly that — its boundary ratio
-descends to `2/pi^2 = 0.20264...`, measured in
-[`scripts/CumulativeOthelloBoundary/peel_diagnostic.py`](scripts/CumulativeOthelloBoundary/peel_diagnostic.py).
-The same diagnostic confirms the signed mass is invariant along every peel.
-
-The remaining free parameter is the carrier, not the peel order. See
-[`research/CUMULATIVE_OTHELLO_BOUNDARY.md`](research/CUMULATIVE_OTHELLO_BOUNDARY.md).
+The free parameter is the **carrier**, not the matching and not the prime order.
+See [`research/CUMULATIVE_OTHELLO_BOUNDARY.md`](research/CUMULATIVE_OTHELLO_BOUNDARY.md).
 
 ### Do not repeat this route by
 
-- rerunning the naive peel at larger `x`, with more primes, or in a different
-  prime order: the limiting proportion `2/pi^2` is structural, not a range
-  effect;
+- rerunning the fixed-prime peel at larger `x`, with more primes, or in a
+  different prime order: the limiting proportion `2/pi^2` is structural and
+  order independence is measured;
+- proposing an adaptive or "smarter" matching on the raw interval carrier: the
+  top-half prime bottleneck is proved and a maximum matching is measured;
 - reporting the first peel `x -> x/4` as progress; one bounded factor is not a
   power saving;
-- replacing the boundary population by a signed statistic and claiming
-  cancellation on the wall — that is the closed dyadic Li mechanism in new
-  coordinates;
-- treating the identity as an asymptotic statement. It moves the signed mass
-  onto a smaller set; it does not shrink it.
+- describing a fixed-prime pairing as a birth/death or alternating-path
+  cancellation, or a cumulative arithmetic interval as a space-time carrier.
 
 ## Acceptance rule for future routes
 

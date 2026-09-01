@@ -24,10 +24,10 @@ Möbius mass, so they never reach the boundary at all.  Hence
 sum over (L, x] of mu = anchor wall mass + cutoff wall mass,
 ```
 
-an exact identity in which the whole interior of the prefix — every alternating
-path, of any length — has cancelled.  This is the cumulative form of the
-Othello picture: pair the interior of the prefix, and only the prefix boundary
-remains.
+an exact identity in which the whole interior of the prefix has cancelled in
+mated pairs.  The pairing is by two cycles of one fixed prime, so this is the
+cumulative form of a *pairing*, not of an alternating-component argument: no
+path longer than one edge occurs anywhere in the proof.
 
 The file closes with the honest population bounds for the two walls at a single
 prime: the anchor wall injects into `(0, L]` by dividing out `p`, and the cutoff
@@ -124,9 +124,9 @@ theorem primeEscapePart_Ioc_eq_walls {p : ℕ} (hp : p.Prime) (L x : ℕ) :
       have hle := (Finset.mem_Ioc.mp hcontra).2
       exact absurd hle (not_le.mpr hgt)
 
-/-- **Cumulative Othello identity.**  A whole ordered prefix of Möbius values
-equals the signed mass of its two boundary walls.  The interior contributes
-exactly zero, whatever the length of the alternating paths inside it. -/
+/-- **Cumulative prefix pairing identity.**  A whole ordered prefix of Möbius
+values equals the signed mass of its two boundary walls: every interior site is
+mated with its `p`-partner and cancels against it. -/
 theorem sum_moebius_Ioc_eq_wallMass {p : ℕ} (hp : p.Prime) (L x : ℕ) :
     (∑ n ∈ Finset.Ioc L x, μ n) =
       (∑ n ∈ primeCarrierAnchorWall p L x, μ n) +
