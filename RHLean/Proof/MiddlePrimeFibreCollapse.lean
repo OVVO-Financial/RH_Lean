@@ -643,6 +643,6 @@ theorem norm_squareRootHierarchicalTerminalCorrectionMass_le_primeTwoEulerAtomCa
   intro d hd
   exact mem_primesUpTo.mpr ⟨Nat.prime_two, by
     have hd3 : 3 ≤ d := (Finset.mem_Icc.mp hd).1
-    omega⟩
+    simpa using (show 2 ≤ d by omega)⟩
 
 end RHLean.Proof
