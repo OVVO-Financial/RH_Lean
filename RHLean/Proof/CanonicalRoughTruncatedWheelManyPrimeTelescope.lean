@@ -40,8 +40,11 @@ T_L(N) - EulerProduct(L).
 ```
 
 This is the quantitative structural replacement for the `(1-P) * Delta`
-majorant: after the partner reindex, the physical defect shells telescope to one
-final boundary profile instead of accumulating one normed error per prime.
+majorant at fixed partner.  The final section then distinguishes two different
+partner aggregates which must not be conflated: the reciprocal-weighted
+`(1/q)` upper column telescopes to one final boundary, whereas the literal
+physical partner aggregate is unweighted in `q` and is therefore a
+prime-weighted discrete boundary drop.
 -/
 
 noncomputable section
@@ -172,7 +175,7 @@ theorem primorialTruncatedTransportedShellLedger_eq_zero_of_complete
     primorialSignedContractionFactor_toFinset_eq_primeListEulerProduct ps hnodup]
   ring
 
-/-! ## Reciprocal upper-column telescope -/
+/-! ## Reciprocal-weighted upper-column telescope -/
 
 /-- Composite successor cutoffs do not change the prime prefix. -/
 theorem primesUpTo_succ_eq_of_not_prime_reciprocal
@@ -191,12 +194,14 @@ theorem primesUpTo_succ_eq_of_not_prime_reciprocal
   · rintro ⟨hqPrime, hqle⟩
     exact ⟨hqPrime, by omega⟩
 
-/-- **Reciprocal upper-column telescope.**
+/-- **Reciprocal-weighted upper-column telescope.**
 
-Each partner prime contributes its final truncated-wheel boundary with the
-native reciprocal owner weight `1/q`.  Summing over a complete prime prefix
-cancels both the moving truncated profile and the matching uniform Euler
-contraction, leaving exactly the negative final boundary. -/
+The truncated reciprocal Euler recurrence places a native coefficient `1/q`
+on the moving `X/q` column.  With exactly that coefficient, summing over a
+complete prime prefix cancels both the truncated profile and the matching
+uniform Euler contraction, leaving the negative final boundary.  The literal
+physical partner aggregate from #544 has no such `1/q`; see the exact
+unweighted-column identity below. -/
 theorem primorialTruncatedBoundary_upperColumn_telescope
     (X K : ℕ) (hX : 1 ≤ X) :
     (∑ q ∈ primesUpTo K,
@@ -269,7 +274,7 @@ theorem primorialTruncatedBoundary_upperColumn_telescope
       · have hset := primesUpTo_succ_eq_of_not_prime_reciprocal K hq
         rw [hset, ih]
 
-/-- The same identity in final-boundary sign orientation. -/
+/-- The same reciprocal-weighted identity in final-boundary sign orientation. -/
 theorem primorialTruncatedBoundary_upperColumn_telescope_boundary
     (X K : ℕ) (hX : 1 ≤ X) :
     (∑ q ∈ primesUpTo K,
@@ -281,5 +286,66 @@ theorem primorialTruncatedBoundary_upperColumn_telescope_boundary
           primorialSignedContractionFactor (primesUpTo K)) := by
   rw [primorialTruncatedBoundary_upperColumn_telescope X K hX]
   ring
+
+/-! ## Literal physical partner column -/
+
+/-- **Unweighted partner column = prime-weighted boundary drop.**
+
+The fixed-partner mass in #544 has no reciprocal factor in the partner `q`.
+The fresh-prime recurrence therefore does *not* identify that physical column
+with a telescoping boundary increment.  Instead it is exactly `q` times the
+discrete drop of the boundary when the prime coordinate `q` is adjoined. -/
+theorem primorialTruncatedBoundary_unweightedColumn_eq_prime_mul_boundaryDrop
+    (X : ℕ) {q : ℕ} (hq : q.Prime) :
+    primorialTruncatedSignedReciprocalCube
+        (primesUpTo (q - 1)) (X / q) -
+      primorialSignedContractionFactor (primesUpTo (q - 1)) =
+    (q : ℝ) *
+      ((primorialTruncatedSignedReciprocalCube
+          (primesUpTo (q - 1)) X -
+        primorialSignedContractionFactor (primesUpTo (q - 1))) -
+       (primorialTruncatedSignedReciprocalCube
+          (primesUpTo q) X -
+        primorialSignedContractionFactor (primesUpTo q))) := by
+  have hnot : q ∉ primesUpTo (q - 1) :=
+    freshPrime_not_mem_primesUpTo_pred hq
+  have hset := insert_freshPrime_primesUpTo_pred_eq hq
+  have htrunc :=
+    primorialTruncatedSignedReciprocalCube_insert
+      (P := primesUpTo (q - 1)) (p := q) (X := X) hnot hq
+  have hfactor :
+      primorialSignedContractionFactor
+          (insert q (primesUpTo (q - 1))) =
+        (1 - 1 / (q : ℝ)) *
+          primorialSignedContractionFactor (primesUpTo (q - 1)) := by
+    unfold primorialSignedContractionFactor
+    rw [Finset.prod_insert hnot]
+  have hq0 : (q : ℝ) ≠ 0 := by
+    exact_mod_cast hq.ne_zero
+  rw [← hset, htrunc, hfactor]
+  field_simp [hq0] <;> ring
+
+/-- Summing the literal physical-style partner columns therefore produces a
+prime-weighted discrete boundary variation, not one terminal boundary.  This is
+the exact seam which a physical post-root/birth bridge must control or cancel
+using the existing external/root geometry. -/
+theorem primorialTruncatedBoundary_unweightedUpperColumn_eq_primeWeightedDrops
+    (X K : ℕ) :
+    (∑ q ∈ primesUpTo K,
+      (primorialTruncatedSignedReciprocalCube
+          (primesUpTo (q - 1)) (X / q) -
+        primorialSignedContractionFactor (primesUpTo (q - 1)))) =
+      ∑ q ∈ primesUpTo K,
+        (q : ℝ) *
+          ((primorialTruncatedSignedReciprocalCube
+              (primesUpTo (q - 1)) X -
+            primorialSignedContractionFactor (primesUpTo (q - 1))) -
+           (primorialTruncatedSignedReciprocalCube
+              (primesUpTo q) X -
+            primorialSignedContractionFactor (primesUpTo q))) := by
+  apply Finset.sum_congr rfl
+  intro q hq
+  exact primorialTruncatedBoundary_unweightedColumn_eq_prime_mul_boundaryDrop
+    X (prime_of_mem_primesUpTo hq)
 
 end RHLean.Proof
