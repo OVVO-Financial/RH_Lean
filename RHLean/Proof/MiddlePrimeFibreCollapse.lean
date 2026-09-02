@@ -493,6 +493,15 @@ def SquareRootHierarchicalEulerPivotAdmissible
     (R : ℕ) (pivot : ℕ → ℕ) : Prop :=
   ∀ d ∈ Finset.Icc 3 (R - 1), pivot d ∈ primesUpTo d
 
+/-- The number of deeper unit frontier atoms still available after the chosen
+Euler face is exposed separately in every reciprocal layer. -/
+def squareRootHierarchicalEulerDeepAtomCapacity
+    (R : ℕ) (pivot : ℕ → ℕ) : ℝ :=
+  ∑ d ∈ Finset.Icc 3 (R - 1),
+    ((((primeSieveReciprocalInterval R (squareRootEndpoint R) d).filter
+        Nat.Prime).card : ℝ) *
+      (primeProductFrontierCard d (pivot d) : ℝ))
+
 /-- Unit-atom support capacity left after #532 and after exposing the selected
 Euler face in each completed lower-scale `M(d)`.  The first term counts the
 literal middle and top prime seats.  In each deeper layer the reciprocal prime
@@ -501,10 +510,7 @@ def squareRootHierarchicalEulerAtomCapacity
     (R : ℕ) (pivot : ℕ → ℕ) : ℝ :=
   (((squareRootMiddleFibrePrimes R).card : ℝ) +
       ((squareRootTopFibrePrimes R).card : ℝ)) +
-    ∑ d ∈ Finset.Icc 3 (R - 1),
-      ((((primeSieveReciprocalInterval R (squareRootEndpoint R) d).filter
-          Nat.Prime).card : ℝ) *
-        (primeProductFrontierCard d (pivot d) : ℝ))
+    squareRootHierarchicalEulerDeepAtomCapacity R pivot
 
 /-- The signed middle-minus-top first face is bounded by the total number of
 its literal unit prime seats. -/
@@ -538,10 +544,8 @@ theorem norm_squareRootHierarchicalTerminalCorrectionMass_le_eulerAtomCapacity
       ‖∑ d ∈ Finset.Icc 3 (R - 1),
           primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
             mertensSummatory d‖ ≤
-        ∑ d ∈ Finset.Icc 3 (R - 1),
-          ((((primeSieveReciprocalInterval R (squareRootEndpoint R) d).filter
-              Nat.Prime).card : ℝ) *
-            (primeProductFrontierCard d (pivot d) : ℝ)) := by
+        squareRootHierarchicalEulerDeepAtomCapacity R pivot := by
+    unfold squareRootHierarchicalEulerDeepAtomCapacity
     calc
       ‖∑ d ∈ Finset.Icc 3 (R - 1),
           primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
@@ -580,12 +584,74 @@ theorem norm_squareRootHierarchicalTerminalCorrectionMass_le_eulerAtomCapacity
             mertensSummatory d‖ := norm_sub_le _ _
     _ ≤ (((squareRootMiddleFibrePrimes R).card : ℝ) +
           ((squareRootTopFibrePrimes R).card : ℝ)) +
-        ∑ d ∈ Finset.Icc 3 (R - 1),
-          ((((primeSieveReciprocalInterval R (squareRootEndpoint R) d).filter
-              Nat.Prime).card : ℝ) *
-            (primeProductFrontierCard d (pivot d) : ℝ)) :=
+        squareRootHierarchicalEulerDeepAtomCapacity R pivot :=
       add_le_add hgap hsum
     _ = squareRootHierarchicalEulerAtomCapacity R pivot := rfl
+
+/-- Forced-sign amplitude capacity.  Unlike the coarse atom capacity, the
+middle and top prime populations are not allowed to align: their contribution
+is the exact norm of their already-opposite signed difference.  Only the deeper
+frontier atoms are allowed arbitrary worst-case alignment. -/
+def squareRootHierarchicalEulerForcedSignCapacity
+    (R : ℕ) (pivot : ℕ → ℕ) : ℝ :=
+  ‖squareRootMiddleTopPrimeCountGapMass R‖ +
+    squareRootHierarchicalEulerDeepAtomCapacity R pivot
+
+/-- **Sharp support-only amplitude bound preserving the middle/top offset.**
+All deeper Euler layers may oscillate arbitrarily and may finally align in the
+worst possible direction; the first prime-2 face nevertheless enters only by
+its exact middle-minus-top population difference. -/
+theorem norm_squareRootHierarchicalTerminalCorrectionMass_le_eulerForcedSignCapacity
+    (R : ℕ) (pivot : ℕ → ℕ) (hR : 3 ≤ R)
+    (hpivot : SquareRootHierarchicalEulerPivotAdmissible R pivot) :
+    ‖squareRootHierarchicalTerminalCorrectionMass R‖ ≤
+      squareRootHierarchicalEulerForcedSignCapacity R pivot := by
+  rw [squareRootHierarchicalCovarianceExhaustion R hR]
+  have hsum :
+      ‖∑ d ∈ Finset.Icc 3 (R - 1),
+          primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+            mertensSummatory d‖ ≤
+        squareRootHierarchicalEulerDeepAtomCapacity R pivot := by
+    unfold squareRootHierarchicalEulerDeepAtomCapacity
+    calc
+      ‖∑ d ∈ Finset.Icc 3 (R - 1),
+          primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+            mertensSummatory d‖ ≤
+        ∑ d ∈ Finset.Icc 3 (R - 1),
+          ‖primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+            mertensSummatory d‖ := by
+              exact norm_sum_le _ _
+      _ ≤ ∑ d ∈ Finset.Icc 3 (R - 1),
+          ((((primeSieveReciprocalInterval R (squareRootEndpoint R) d).filter
+              Nat.Prime).card : ℝ) *
+            (primeProductFrontierCard d (pivot d) : ℝ)) := by
+              apply Finset.sum_le_sum
+              intro d hd
+              have hM :=
+                norm_mertensSummatory_le_primeProductFrontierCard
+                  (hpivot d hd)
+              have hcount :
+                  ‖primeSieveReciprocalPrimeCount R
+                      (squareRootEndpoint R) d‖ =
+                    (((primeSieveReciprocalInterval R
+                        (squareRootEndpoint R) d).filter Nat.Prime).card : ℝ) := by
+                rw [primeSieveReciprocalPrimeCount_eq_card]
+                simp
+              rw [norm_mul, hcount]
+              exact mul_le_mul_of_nonneg_left hM (by positivity)
+  calc
+    ‖squareRootMiddleTopPrimeCountGapMass R -
+        ∑ d ∈ Finset.Icc 3 (R - 1),
+          primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+            mertensSummatory d‖ ≤
+      ‖squareRootMiddleTopPrimeCountGapMass R‖ +
+        ‖∑ d ∈ Finset.Icc 3 (R - 1),
+          primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+            mertensSummatory d‖ := norm_sub_le _ _
+    _ ≤ ‖squareRootMiddleTopPrimeCountGapMass R‖ +
+        squareRootHierarchicalEulerDeepAtomCapacity R pivot :=
+      add_le_add_left hsum _
+    _ = squareRootHierarchicalEulerForcedSignCapacity R pivot := rfl
 
 /-- Algebraic off-diagonal covariance left after the exact hierarchy and the
 selected remaining Euler faces.  The diagonal is the expanded unit-atom
@@ -595,17 +661,14 @@ def squareRootHierarchicalSurvivingCovariance
   (‖squareRootHierarchicalTerminalCorrectionMass R‖ ^ 2 -
     squareRootHierarchicalEulerAtomCapacity R pivot) / 2
 
-/-- Absolute worst case: every unit atom surviving all selected Euler faces has
-the same sign. -/
+/-- Coarse absolute worst case: every literal unit atom, including the already
+opposite middle/top populations, is allowed to have the same sign. -/
 def squareRootHierarchicalMaximumCovariance
     (R : ℕ) (pivot : ℕ → ℕ) : ℝ :=
   (squareRootHierarchicalEulerAtomCapacity R pivot *
     (squareRootHierarchicalEulerAtomCapacity R pivot - 1)) / 2
 
-/-- **Maximum covariance that can survive the remaining Euler faces.**  This is
-the requested worst-case theorem.  It allows arbitrary sign reversals and
-oscillation at every intermediate prime addition: the only input is the exact
-post-pairing support capacity. -/
+/-- **Coarse maximum covariance after the remaining Euler faces.** -/
 theorem squareRootHierarchicalSurvivingCovariance_le_maximum
     (R : ℕ) (pivot : ℕ → ℕ) (hR : 3 ≤ R)
     (hpivot : SquareRootHierarchicalEulerPivotAdmissible R pivot) :
@@ -616,6 +679,7 @@ theorem squareRootHierarchicalSurvivingCovariance_le_maximum
       R pivot hR hpivot
   have hcap0 : 0 ≤ squareRootHierarchicalEulerAtomCapacity R pivot := by
     unfold squareRootHierarchicalEulerAtomCapacity
+      squareRootHierarchicalEulerDeepAtomCapacity
     positivity
   have hsq :
       ‖squareRootHierarchicalTerminalCorrectionMass R‖ ^ 2 ≤
@@ -624,6 +688,40 @@ theorem squareRootHierarchicalSurvivingCovariance_le_maximum
   unfold squareRootHierarchicalSurvivingCovariance
     squareRootHierarchicalMaximumCovariance
   nlinarith
+
+/-- **Forced-sign maximum covariance.**  This is the sharper worst case that
+respects the exact prime-2 middle/top opposition from #532.  Deeper Euler faces
+may oscillate arbitrarily and then align adversarially; the first face cannot
+undo its already-forced population difference. -/
+def squareRootHierarchicalForcedSignMaximumCovariance
+    (R : ℕ) (pivot : ℕ → ℕ) : ℝ :=
+  (squareRootHierarchicalEulerForcedSignCapacity R pivot ^ 2 -
+    squareRootHierarchicalEulerAtomCapacity R pivot) / 2
+
+/-- **Maximum covariance that can survive all selected remaining Euler faces,
+with arbitrary sign oscillation at every deeper stage.**  The diagonal uses all
+literal surviving unit atoms, while the amplitude retains the exact
+middle-minus-top signed difference. -/
+theorem squareRootHierarchicalSurvivingCovariance_le_forcedSignMaximum
+    (R : ℕ) (pivot : ℕ → ℕ) (hR : 3 ≤ R)
+    (hpivot : SquareRootHierarchicalEulerPivotAdmissible R pivot) :
+    squareRootHierarchicalSurvivingCovariance R pivot ≤
+      squareRootHierarchicalForcedSignMaximumCovariance R pivot := by
+  have hnorm :=
+    norm_squareRootHierarchicalTerminalCorrectionMass_le_eulerForcedSignCapacity
+      R pivot hR hpivot
+  have hforced0 :
+      0 ≤ squareRootHierarchicalEulerForcedSignCapacity R pivot := by
+    unfold squareRootHierarchicalEulerForcedSignCapacity
+      squareRootHierarchicalEulerDeepAtomCapacity
+    positivity
+  have hsq :
+      ‖squareRootHierarchicalTerminalCorrectionMass R‖ ^ 2 ≤
+        squareRootHierarchicalEulerForcedSignCapacity R pivot ^ 2 :=
+    (sq_le_sq₀ (norm_nonneg _) hforced0).2 hnorm
+  unfold squareRootHierarchicalSurvivingCovariance
+    squareRootHierarchicalForcedSignMaximumCovariance
+  linarith
 
 /-- Concrete admissible choice: prime `2` is available in every lower layer
 `d >= 3`.  This is not a monotonicity statement; it is simply one simultaneous
