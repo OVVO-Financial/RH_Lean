@@ -350,8 +350,8 @@ theorem squareRootHierarchicalCovarianceExhaustion
     squareRootMiddleTerminalFlipMass
     squareRootMiddleTopPrimeCountGapMass
   rw [squareRootMiddleMertensTail_eq_reciprocalPrimeLayers R hR,
-    hset, Finset.sum_union hdisj]
-  simp [hierarchical_mertensSummatory_two]
+    hset, Finset.sum_union hdisj, Finset.sum_singleton,
+    hierarchical_mertensSummatory_two]
   ring
 
 /-- The same exhaustion with the first face written as the literal difference
@@ -372,6 +372,7 @@ theorem squareRootHierarchicalCovarianceExhaustion_primeCounting
     unfold squareRootMiddleTopPrimeCountGapMass
     rw [squareRootMiddleTopPrimeCountGap_eq_card_sub R hR]
     push_cast
+    rfl
   rw [hgap]
   unfold squareRootMiddleTopPrimeCountGap
   push_cast
