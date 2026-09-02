@@ -68,16 +68,12 @@ def IsCanonicalFreshPrimeChain : ℕ → List ℕ → Prop
 
 theorem isCanonicalFreshPrimeChain_nil (b : ℕ) :
     IsCanonicalFreshPrimeChain b [] := by
-  first
-    | trivial
-    | simp [IsCanonicalFreshPrimeChain]
+  trivial
 
 theorem isCanonicalFreshPrimeChain_cons {b q : ℕ} {L : List ℕ} :
     IsCanonicalFreshPrimeChain b (q :: L) ↔
       q.Prime ∧ b < q ∧ IsCanonicalFreshPrimeChain q L := by
-  first
-    | exact Iff.rfl
-    | simp [IsCanonicalFreshPrimeChain]
+  exact Iff.rfl
 
 /-- Lowering the bound keeps a fresh prime chain legal. -/
 theorem isCanonicalFreshPrimeChain_of_le {b b' : ℕ} {L : List ℕ}
