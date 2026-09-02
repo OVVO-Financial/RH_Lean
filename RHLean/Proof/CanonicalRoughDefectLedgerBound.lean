@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Proof.CanonicalRoughCriticalDefectWindows
 import RHLean.Proof.CanonicalRoughReciprocalCompression
 import RHLean.Analysis.CanonicalLowOccupancy
 
@@ -34,15 +35,31 @@ wall; a birth is a partner in the reciprocal band that adjoining `p` pulls up
 across the root.  Hence the signed ledger obeys
 
 ```text
-‖defect R c p‖ <= ledgerWindow R c p / (c*p),
+‖defect R c p‖ <= ledgerWindow R c p / (c*p).
 ```
 
-which is the first bound on these terms anywhere in the development.
-
 Summing over the legal parents of a fresh prime turns the exact carrier-level
-compression identity into a genuine quantitative estimate: the reciprocal
-covariance potential is bounded by the contracted parent mass, plus an explicit
-arithmetic ledger, plus the still-unpaired survivor mass.
+compression identity into a quantitative estimate: the reciprocal covariance
+potential is bounded by the contracted parent mass, plus an explicit arithmetic
+ledger, plus the still-unpaired survivor mass.
+
+## What this bound is worth, and what it is not
+
+The step from the three window cardinalities to a single ledger is a triangle
+inequality, `‖T + E - B‖ <= T + E + B`, and that discards the Euler sign
+structure the compression was built to preserve.  `RESEARCH_ROUTE_REGISTRY.md`
+records this route as one not to repeat: an unsigned count of surviving pairs
+leaves `F^2` scale, and a capacity theorem has to be a signed identity or
+recurrence taken *before* absolute values.  `CanonicalRoughCriticalDefectWindows`
+declines the same step for the same reason.
+
+So the ledger below is an honest global estimate on `T`, `E` and `B` -- the
+first one in the development, and enough to turn the exact identities into
+inequalities -- but it is not expected to reach the critical scale on its own,
+and no claim that it does is made here.  What survives that objection is the
+signed material it supports: the exact many-prime cube identity in
+`CanonicalRoughManyPrimeContraction`, which is taken before any norm, and the
+Euler product decay attached to it.
 
 Nothing here is asymptotic and no analytic input is used.  Every bound is a
 finite counting inequality followed by one triangle inequality.
@@ -79,61 +96,18 @@ private theorem reciprocalLedgerEqMulDiv {α : Type*} [Field α] {N : α} (hN : 
     (a : α) : a = N * a / N := by
   rw [mul_comm N a, mul_div_assoc, div_self hN, mul_one]
 
-/-! ## The three reciprocal windows -/
+/-! ## The three reciprocal windows
 
-/-- **Threshold window.**  A parent partner lost at the order threshold lies
-strictly above `(R-1)/c` — because it must already reach the root with `c` — and
-at or below the newly adjoined prime. -/
-theorem squareRootCanonicalRoughFreshThresholdLossBoundary_subset_Ioc
-    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
-    (hfresh : canonicalLargestPrimeFactor c < p) :
-    squareRootCanonicalRoughFreshThresholdLossBoundary R c p ⊆
-      Finset.Ioc ((R - 1) / c) p := by
-  intro q hq
-  rcases (mem_squareRootCanonicalRoughFreshThresholdLossBoundary_iff hR hc hp hfresh).1 hq with
-    ⟨_hqPrime, _hrough, hroot, _hupper, hqp⟩
-  refine Finset.mem_Ioc.mpr ⟨(Nat.div_lt_iff_lt_mul hc).2 ?_, hqp⟩
-  rw [Nat.mul_comm q c]
-  omega
+`CanonicalRoughCriticalDefectWindows` proves the three support inclusions
 
-/-- **Top-escape window.**  A genuine top escape is a partner of `c` that the
-fresh prime pushes through the terminal wall, so it lies in the reciprocal band
-`(X_R/(p*c), X_R/c]`.  This band is exactly the mass removed from the reciprocal
-fibre by the Euler factor. -/
-theorem squareRootCanonicalRoughFreshTopEscapeBoundary_subset_Ioc
-    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
-    (hfresh : canonicalLargestPrimeFactor c < p) :
-    squareRootCanonicalRoughFreshTopEscapeBoundary R c p ⊆
-      Finset.Ioc (squareRootEndpoint R / (p * c)) (squareRootEndpoint R / c) := by
-  intro q hq
-  rcases (mem_squareRootCanonicalRoughFreshTopEscapeBoundary_iff hR hc hp hfresh).1 hq with
-    ⟨_hqPrime, _hrough, _hroot, hupper, _hpq, hwall⟩
-  have hpc : 0 < p * c := Nat.mul_pos hp.pos hc
-  refine Finset.mem_Ioc.mpr
-    ⟨(Nat.div_lt_iff_lt_mul hpc).2 ?_, (Nat.le_div_iff_mul_le hc).2 ?_⟩
-  · rw [Nat.mul_comm q (p * c)]
-    exact hwall
-  · rw [Nat.mul_comm q c]
-    exact hupper
+```text
+T  into  ((R-1)/c,     p],
+E  into  (X_R/(p*c),   X_R/c],
+B  into  ((R-1)/(p*c), (R-1)/c],
+```
 
-/-- **Birth window.**  A post-move birth is a partner that only the child
-reaches, so it sits below the root for `c` and above the root for `p*c`; that is
-the reciprocal band `((R-1)/(p*c), (R-1)/c]`. -/
-theorem squareRootCanonicalRoughFreshBirthBoundary_subset_Ioc
-    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
-    (hfresh : canonicalLargestPrimeFactor c < p) :
-    squareRootCanonicalRoughFreshBirthBoundary R c p ⊆
-      Finset.Ioc ((R - 1) / (p * c)) ((R - 1) / c) := by
-  intro q hq
-  rcases (mem_squareRootCanonicalRoughFreshBirthBoundary_iff hR hc hp hfresh).1 hq with
-    ⟨_hqPrime, _hpq, hbelow, hroot, _hchildUpper⟩
-  have hpc : 0 < p * c := Nat.mul_pos hp.pos hc
-  refine Finset.mem_Ioc.mpr
-    ⟨(Nat.div_lt_iff_lt_mul hpc).2 ?_, (Nat.le_div_iff_mul_le hc).2 ?_⟩
-  · rw [Nat.mul_comm q (p * c)]
-    omega
-  · rw [Nat.mul_comm q c]
-    omega
+and they are reused here rather than restated.  What this file adds on top of
+them is the step from support to a count, and from a count to a norm. -/
 
 /-! ## Cardinality of the three channels -/
 
