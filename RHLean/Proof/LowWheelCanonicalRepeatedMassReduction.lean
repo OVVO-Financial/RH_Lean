@@ -106,7 +106,7 @@ theorem squareRootCanonicalRoughFreshBirthBoundary_child_lt_root
       hR hc hp hfresh).1 hq
   rcases hdata with ⟨_hqPrime, hpq, hcqR, _hchildRoot, _hchildUpper⟩
   have hpc_lt_qc : p * c < q * c :=
-    Nat.mul_lt_mul_right c hpq hc
+    Nat.mul_lt_mul_of_pos_right hpq hc
   have hpc_lt_cq : p * c < c * q := by
     simpa [Nat.mul_comm] using hpc_lt_qc
   exact hpc_lt_cq.trans hcqR
