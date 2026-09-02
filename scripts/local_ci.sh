@@ -64,6 +64,13 @@ bash scripts/audit_assumptions.sh
 step 'Verifying every export closes as a buildable Lake project'
 "$python_bin" scripts/check_export_sync.py
 
+# Reporting only. `#print axioms` cannot see an assumed criterion, because it is
+# a theorem parameter rather than an axiom, so this is the other half of the
+# terminal acceptance test. Use --require-unconditional <name> to make it fatal
+# for a specific declaration once that declaration is meant to be closed.
+step 'Reporting RH-facing theorems still conditional on an assumed criterion'
+"$python_bin" scripts/check_rh_conditionality.py
+
 step 'Restoring the Mathlib build cache'
 # CI gets this from lean-action's use-mathlib-cache. Locally nothing supplies
 # it, and without it `lake build` compiles Mathlib from source: hours, not

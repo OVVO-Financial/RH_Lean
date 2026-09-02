@@ -1,0 +1,223 @@
+import Mathlib
+import RHLean.Analysis.BlockCovarianceRefinement
+import RHLean.Analysis.SquareWheelSurvivorRun
+
+open scoped BigOperators
+
+/-!
+# The run-level seam: escape covariance across square time
+
+`SquareWheelSurvivorRun` proves
+
+```text
+SquareRunEnergyBoundedStatement
+  <-> PrimeWheelResidualBoundedStatement primorialWheelFamily
+  <-> MertensEnergyBoundedStatement,
+```
+
+so a uniform bound on every consecutive complete-square run finishes the wheel
+and the arbitrary-`x` interpolation as deterministic bookkeeping.  The seam
+should therefore be stated at run level, and this file does that.
+
+For a run `I = [a, b]` of complete square blocks, write the window objects
+
+```text
+squareRunMass       a b = M((b+1)^2) - M(a^2)
+squareRunDiagonal   a b = Q((b+1)^2) - Q(a^2)
+squareRunCovariance a b = the exact within-window Möbius pair covariance.
+```
+
+`squareRunMass_sq_eq` is the exact window Green--Kubo identity
+
+```text
+(sum_{j in I} Delta_j)^2 = Q_I + 2 * C_I,
+```
+
+with `Q_I` the singleton squarefree diagonal, hence at most the window length.
+
+Splitting `C_I` into a *descended* part and an *escape* part gives
+
+```text
+(sum_{j in I} Delta_j)^2 = Q_I + 2 * descended + 2 * escape.
+```
+
+The escape part is defined as the remainder, so the identity is exact for any
+proposed descended part.  Two hypotheses then finish the criterion:
+
+* `SquareRunDescendedNonpositive` — the descended contribution does not add
+  positive covariance.  This is what complete fresh-prime pair-cube cancellation
+  and lower-scale family covariance descent are for: every post-root family is
+  covariance-isomorphic to a prefix below `sqrt W`
+  (`largePrimeFamilyPairSum_postRoot`), and complete pair cubes cancel.
+* `SquareRunTopEscapeCovarianceBoundedStatement` — the escape covariance is of
+  RH scale, uniformly over consecutive runs.
+
+`squareRunEnergyBounded_of_topEscapeCovarianceBounded` proves those two give
+`SquareRunEnergyBoundedStatement`, and
+`mertensEnergyBounded_of_topEscapeCovarianceBounded` chains through the existing
+equivalence to the global Mertens energy criterion.
+
+**What the escape part must contain.**  It is *not* enough to control
+family interaction separately inside each `Delta_j`.  The window covariance
+`C_I` contains the cross-square-block pairs `2 * sum_{a <= i < j <= b} Delta_i
+Delta_j` as well, and any descended part that omits them leaves them in the
+escape remainder by construction.  That is deliberate: the definition of escape
+as a remainder makes the identity exact and makes the omission visible instead
+of silent.
+
+**What this file does not do.**  Nesting supplies a chronological coordinate and
+proves that controlling the escape on every signed run suffices.  It does not
+produce the cancellation.  The negative feedback still has to come from the
+fresh-prime arithmetic as square time advances — the four-corner pair identity
+of `DeterministicTGreenKuboComparison` cancels every interior order-crossing
+shell and leaves the top-escape shell, and the remaining native theorem is that
+those escapes cannot maintain a positive supercritical record through square
+time.
+
+No estimate, asymptotic input or RH hypothesis is proved here.
+-/
+
+noncomputable section
+
+namespace RHLean.Analysis
+
+open RHLean.Proof
+
+/-! ## Exact window objects for a consecutive square run -/
+
+/-- Signed Möbius mass of the complete-square run `[a, b]`. -/
+def squareRunMass (a b : ℕ) : ℝ :=
+  realMertensLength ((b + 1) ^ 2) - realMertensLength (a ^ 2)
+
+/-- Squarefree diagonal of the same window. -/
+def squareRunDiagonal (a b : ℕ) : ℝ :=
+  realMertensDiagonal ((b + 1) ^ 2) - realMertensDiagonal (a ^ 2)
+
+/-- Exact Möbius pair covariance carried strictly inside the window. -/
+def squareRunCovariance (a b : ℕ) : ℝ :=
+  signedBlockInnerCovariance realMoebiusStep (a ^ 2) ((b + 1) ^ 2)
+
+/-- **Window Green--Kubo for a square run.**  No absolute value is taken and no
+block is bounded on its own. -/
+theorem squareRunMass_sq_eq (a b : ℕ) :
+    squareRunMass a b ^ 2 =
+      squareRunDiagonal a b + 2 * squareRunCovariance a b :=
+  signedBlockPrefix_sub_sq_eq_energy_sub_add_two_mul_inner realMoebiusStep
+    (a ^ 2) ((b + 1) ^ 2)
+
+/-- The run diagonal is at most the window's right endpoint: no conjecture. -/
+theorem squareRunDiagonal_le (a b : ℕ) :
+    squareRunDiagonal a b ≤ (((b + 1) ^ 2 : ℕ) : ℝ) := by
+  have hle := realMertensDiagonal_le ((b + 1) ^ 2)
+  have hnn := realMertensDiagonal_nonneg (a ^ 2)
+  unfold squareRunDiagonal
+  linarith
+
+/-! ## Splitting the window covariance -/
+
+/-- Whatever a descent argument does not account for.  Defined as a remainder,
+so the decomposition below is exact for every proposed `descended`. -/
+def squareRunEscapeCovariance (descended : ℕ → ℕ → ℝ) (a b : ℕ) : ℝ :=
+  squareRunCovariance a b - descended a b
+
+/-- **Exact escape decomposition of a signed square run.** -/
+theorem squareRunMass_sq_eq_diagonal_add_descended_add_escape
+    (descended : ℕ → ℕ → ℝ) (a b : ℕ) :
+    squareRunMass a b ^ 2 =
+      squareRunDiagonal a b + 2 * descended a b +
+        2 * squareRunEscapeCovariance descended a b := by
+  have h := squareRunMass_sq_eq a b
+  unfold squareRunEscapeCovariance
+  linarith
+
+/-- The descended contribution adds no positive covariance.  This is the target
+of complete fresh-prime pair-cube cancellation together with lower-scale family
+covariance descent. -/
+def SquareRunDescendedNonpositive (descended : ℕ → ℕ → ℝ) : Prop :=
+  ∀ a b : ℕ, a ≤ b → descended a b ≤ 0
+
+/-- **The final native seam.**  Uniformly over consecutive complete-square runs,
+the escape covariance is of RH scale. -/
+def SquareRunTopEscapeCovarianceBoundedStatement
+    (descended : ℕ → ℕ → ℝ) : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ a b : ℕ, a ≤ b →
+        squareRunEscapeCovariance descended a b ≤
+          C * Real.rpow (((squarePrefixEndpoint b + 1 : ℕ) : ℝ)) (1 + ε)
+
+/-! ## The run mass is the square-run energy coordinate -/
+
+private theorem natCast_le_rpow_one_add {ε : ℝ} (hε : 0 < ε) (x : ℕ) :
+    (((x + 1 : ℕ) : ℝ)) ≤ Real.rpow (((x + 1 : ℕ) : ℝ)) (1 + ε) := by
+  have hbase : (1 : ℝ) ≤ (((x + 1 : ℕ) : ℝ)) := by
+    have hone : (1 : ℕ) ≤ x + 1 := Nat.le_add_left 1 x
+    exact_mod_cast hone
+  have h := Real.rpow_le_rpow_of_exponent_le hbase
+    (by linarith : (1 : ℝ) ≤ 1 + ε)
+  simpa using h
+
+theorem sum_canonicalTotalIncrement_eq_squareRunMass_cast
+    (a b : ℕ) (ha : 1 ≤ a) (hab : a ≤ b + 1) :
+    (∑ j ∈ Finset.Ico a (b + 1), canonicalTotalIncrement j) =
+      ((squareRunMass a b : ℝ) : ℂ) := by
+  have hb : squarePrefixMertens b = ((realMertensLength ((b + 1) ^ 2) : ℝ) : ℂ) := by
+    have h1 := realMertensLength_cast_eq_mertensSummatory (squarePrefixEndpoint b)
+    rw [squarePrefixEndpoint_add_one b] at h1
+    exact h1.symm
+  have ha' : squarePrefixMertens (a - 1) =
+      ((realMertensLength (a ^ 2) : ℝ) : ℂ) := by
+    have h1 :=
+      realMertensLength_cast_eq_mertensSummatory (squarePrefixEndpoint (a - 1))
+    rw [squarePrefixEndpoint_add_one (a - 1)] at h1
+    have hpred : a - 1 + 1 = a := Nat.sub_add_cancel ha
+    rw [hpred] at h1
+    exact h1.symm
+  rw [sum_canonicalTotalIncrement_Ico_eq_squarePrefix_sub a b ha hab, hb, ha']
+  unfold squareRunMass
+  push_cast
+  ring
+
+theorem norm_sum_canonicalTotalIncrement_sq_eq_squareRunMass_sq
+    (a b : ℕ) (ha : 1 ≤ a) (hab : a ≤ b + 1) :
+    ‖∑ j ∈ Finset.Ico a (b + 1), canonicalTotalIncrement j‖ ^ 2 =
+      squareRunMass a b ^ 2 := by
+  rw [sum_canonicalTotalIncrement_eq_squareRunMass_cast a b ha hab,
+    Complex.norm_real, Real.norm_eq_abs]
+  exact sq_abs _
+
+/-! ## The reduction -/
+
+/-- **Escape control gives the maximal signed square-run criterion.** -/
+theorem squareRunEnergyBounded_of_topEscapeCovarianceBounded
+    {descended : ℕ → ℕ → ℝ}
+    (hneg : SquareRunDescendedNonpositive descended)
+    (hesc : SquareRunTopEscapeCovarianceBoundedStatement descended) :
+    SquareRunEnergyBoundedStatement := by
+  intro ε hε
+  rcases hesc ε hε with ⟨C, hC, hbound⟩
+  refine ⟨1 + 2 * C, by linarith, ?_⟩
+  intro k a b ha hab _hleft _hright
+  rw [norm_sum_canonicalTotalIncrement_sq_eq_squareRunMass_sq a b ha (by omega)]
+  have hid := squareRunMass_sq_eq_diagonal_add_descended_add_escape descended a b
+  have hd := hneg a b hab
+  have he := hbound a b hab
+  have hdiagRaw := squareRunDiagonal_le a b
+  have hcast : (((b + 1) ^ 2 : ℕ) : ℝ) =
+      (((squarePrefixEndpoint b + 1 : ℕ) : ℝ)) := by
+    rw [squarePrefixEndpoint_add_one b]
+  rw [hcast] at hdiagRaw
+  have hlin := natCast_le_rpow_one_add hε (squarePrefixEndpoint b)
+  linarith
+
+/-- **Hence the global Mertens energy criterion**, through the equivalence
+already proved for maximal signed square runs. -/
+theorem mertensEnergyBounded_of_topEscapeCovarianceBounded
+    {descended : ℕ → ℕ → ℝ}
+    (hneg : SquareRunDescendedNonpositive descended)
+    (hesc : SquareRunTopEscapeCovarianceBoundedStatement descended) :
+    MertensEnergyBoundedStatement :=
+  squareRunEnergyBounded_iff_mertensEnergy.mp
+    (squareRunEnergyBounded_of_topEscapeCovarianceBounded hneg hesc)
+
+end RHLean.Analysis

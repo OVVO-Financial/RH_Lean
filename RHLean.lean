@@ -1,5 +1,7 @@
 import RHLean.Analysis.AffineExcursion
 import RHLean.Analysis.BalancedPrimeBilinearCentering
+import RHLean.Analysis.BlockCovarianceDecomposition
+import RHLean.Analysis.BlockCovarianceRefinement
 import RHLean.Analysis.CanonicalExtremePrimeSupport
 import RHLean.Analysis.CanonicalHighSectorBridge
 import RHLean.Analysis.CanonicalHighSectorCore
@@ -45,6 +47,7 @@ import RHLean.Analysis.LogWeightedPrimeExtension
 import RHLean.Analysis.LogWeightedPrimeExtensionEndpoint
 import RHLean.Analysis.LogWeightedPrimeExtensionFiber
 import RHLean.Analysis.MathlibMertensHook
+import RHLean.Analysis.MertensCovarianceDescent
 import RHLean.Analysis.MertensEnergyCriterion
 import RHLean.Analysis.MertensEnergyRHForward
 import RHLean.Analysis.MertensMellinContinuation
@@ -228,6 +231,7 @@ import RHLean.Analysis.PrimeWheelRawPeriod
 import RHLean.Analysis.PrimeWheelRawShellConstancy
 import RHLean.Analysis.PrimeWheelRawUnitOrbit
 import RHLean.Analysis.PrimeWheelRecoveredMertensCriterion
+import RHLean.Analysis.PrimeWheelRunOthelloBoundary
 import RHLean.Analysis.PrimeWheelSmoothConductorMobiusReindex
 import RHLean.Analysis.PrimeWheelSquareEndpointDomination
 import RHLean.Analysis.PrimeWheelTorusRealization
@@ -261,6 +265,7 @@ import RHLean.Analysis.SquareRootSmoothParityClasses
 import RHLean.Analysis.SquareRootSmoothRenewalInstantiation
 import RHLean.Analysis.SquareRootTransportRealization
 import RHLean.Analysis.SquareRootTransportTopFibreNoGo
+import RHLean.Analysis.SquareRunEscapeCovariance
 import RHLean.Analysis.SquareWheelCenteredIncrement
 import RHLean.Analysis.SquareWheelEndpointCofactorFibres
 import RHLean.Analysis.SquareWheelNesting
@@ -363,6 +368,7 @@ import RHLean.Proof.ActualForcingEstimates
 import RHLean.Proof.ActualResidualDecomposition
 import RHLean.Proof.ActualStartLocalSignedFrame
 import RHLean.Proof.ActualStartSignedFrame
+import RHLean.Proof.AdaptivePrimeMatching
 import RHLean.Proof.AlternatingSignMatchingParity
 import RHLean.Proof.BalancedCanonicalGap
 import RHLean.Proof.BirthMovingAbsorption
@@ -420,6 +426,7 @@ import RHLean.Proof.FiniteOthelloMatching
 import RHLean.Proof.FinitePartialMoments
 import RHLean.Proof.FullFactorizationBridge
 import RHLean.Proof.GeometricRHReduction
+import RHLean.Proof.GlobalPrefixCarrierOthello
 import RHLean.Proof.HeightShellGram
 import RHLean.Proof.HeightShellReconstruction
 import RHLean.Proof.InternalBlockLifetimeGram
@@ -432,6 +439,7 @@ import RHLean.Proof.LifetimeGramArchitectureBridge
 import RHLean.Proof.LifetimeLocalEnergyCriterion
 import RHLean.Proof.LifetimeOverlapGramCriterion
 import RHLean.Proof.LifetimeOverlapKernel
+import RHLean.Proof.LifetimeRunCancellation
 import RHLean.Proof.LowOmegaHighOrientation
 import RHLean.Proof.LowPrimeCombinedBornHighFirstFailure
 import RHLean.Proof.LowPrimeCombinedBornHighTransition
@@ -499,6 +507,7 @@ import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.OrthogonalResidual
+import RHLean.Proof.PrefixCarrierOthelloWalls
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
 import RHLean.Proof.PrimeCombReciprocalBandCancellation
 import RHLean.Proof.PrimeCombVisualizationDynamics

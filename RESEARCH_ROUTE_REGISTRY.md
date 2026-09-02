@@ -778,6 +778,166 @@ mechanism.
 - treating an unfavourable cross term as a refutation of backward filling: it is
   a demand on the endpoint reserve.
 
+### Cumulative carriers: pairing, adaptive matching, lifetimes
+
+**Status: exact layer formalized for all three notions. The raw prefix carrier
+is CLOSED for both matching notions, by two proved no-go theorems plus finite
+diagnostics. The lifetime notion is open and lives on a different carrier.**
+
+Three notions that were being conflated, now separated.
+
+1. **Fixed-prime pairing.** For any finite region `S` and prime `p`,
+   `sum over S of mu = sum over { n in S : tau_p n not in S } of mu`, exactly.
+   On `(L,x]` the surviving set is two explicit walls; the pinned wheel residual
+   and a whole square run are stated in that form. Genuinely cumulative and
+   worth keeping. **Scope:** for one fixed `p` every orbit is a two cycle, so
+   this proves a pairing, not an alternating-path or birth-to-capture
+   cancellation. Earlier prose in this repository claiming otherwise was wrong
+   and is corrected in place. In the square-run statement the block count is
+   removed by the pre-existing telescope, not by the pairing, and
+   `(X_{a-1}, X_b]` is a cumulative arithmetic interval, not a space-time
+   carrier.
+
+2. **Adaptive carrier-wide matching.** `AdaptivePrimeMate S m`: preserves `S`,
+   involutive on `S`, moves only along prime-toggle edges with the prime free to
+   depend on the state. Sign reversal is a consequence, not a hypothesis.
+   `HasLiberty` and `trueNoLibertyBoundary` give the right boundary notion —
+   *no legal move remaining anywhere in the geometry* — and a liberty-exhausting
+   mate would put the whole mass on it. **The raw prefix carrier is closed for
+   this**, twice over and unconditionally: every squarefree site of `(0,x]` has
+   a legal move, so the true boundary there carries no Moebius mass at all; and
+   every prime `p` with `x < 2p` has the single legal move `p -> 1`, so any
+   adaptive mate leaves at least `pi(x) - pi(x/2) - 1` states fixed.
+
+3. **Lifetime cancellation over square time.** With birth `beta` and capture
+   `delta`, the activity indicator telescopes across a run, so an atom born
+   after the run starts and captured before it ends contributes `0 - 0 = 0`
+   whatever its lifetime. The length never enters the statement or the proof.
+   Bridged to the repository's own process: `IsLifetimeActive` is proved to be a
+   genuine interval (death is permanent for a nonnegative cutoff slope), and the
+   run identity is restated in the existing `Active = Birth - Death`
+   coordinates.
+
+Lean:
+
+- [`RHLean/Proof/GlobalPrefixCarrierOthello.lean`](RHLean/Proof/GlobalPrefixCarrierOthello.lean)
+- [`RHLean/Proof/PrefixCarrierOthelloWalls.lean`](RHLean/Proof/PrefixCarrierOthelloWalls.lean)
+- [`RHLean/Proof/AdaptivePrimeMatching.lean`](RHLean/Proof/AdaptivePrimeMatching.lean)
+- [`RHLean/Proof/LifetimeRunCancellation.lean`](RHLean/Proof/LifetimeRunCancellation.lean)
+- [`RHLean/Analysis/PrimeWheelRunOthelloBoundary.lean`](RHLean/Analysis/PrimeWheelRunOthelloBoundary.lean)
+
+Diagnostics,
+[`scripts/CumulativeOthelloBoundary/peel_diagnostic.py`](scripts/CumulativeOthelloBoundary/peel_diagnostic.py):
+the signed mass never moves under any peel; the fixed-prime peel bottoms out at
+`2/pi^2` of `x` and is identical in ascending, descending and mixed prime order;
+a maximum matching in the whole prime-toggle graph still leaves `0.166 x`
+exposed with exposed mass exactly `M(x)`.
+
+The free parameter is the **carrier**, not the matching and not the prime order.
+See [`research/CUMULATIVE_OTHELLO_BOUNDARY.md`](research/CUMULATIVE_OTHELLO_BOUNDARY.md).
+
+### Do not repeat this route by
+
+- rerunning the fixed-prime peel at larger `x`, with more primes, or in a
+  different prime order: the limiting proportion `2/pi^2` is structural and
+  order independence is measured;
+- proposing an adaptive or "smarter" matching on the raw interval carrier: the
+  top-half prime bottleneck is proved and a maximum matching is measured;
+- reporting the first peel `x -> x/4` as progress; one bounded factor is not a
+  power saving;
+- describing a fixed-prime pairing as a birth/death or alternating-path
+  cancellation, or a cumulative arithmetic interval as a space-time carrier.
+
+### Covariance capacity: the two arrows
+
+**Status: OPEN. Both arrows named and their composition proved; neither arrow
+proved. The support-only route is measured a full power of `x` short.**
+
+Exact frame: `|M(x)|^2 = x - Z(x) + 2 C(x+1)`, so RH scale is equivalent to the
+one-sided `C(x) <<_eta x^(1+eta)`. Two thresholds must not be conflated: the
+`sqrt x` line is `C(x+1) > Z(x)/2 ~ 0.196 x`, which is the *false* Mertens
+conjecture and cannot be a target; the RH threshold is the weaker power bound.
+An RH-violating excursion of exponent `eps` needs `C(x+1) ~ x^(1+2eps)/2`, a
+fixed power above target. The trivial deterministic bound is `O(x^2)`, so `O(x)`
+is not automatic and is stronger than needed.
+
+The critical path has two arrows, and the first is not proved:
+
+```text
+Euler frontier covariance  -->  global C(x)  -->  C(x) <= x^(1+eta).
+```
+
+`RHLean/Analysis/MertensCovarianceDescent.lean` names both for an arbitrary
+envelope — `CovarianceEnvelopeDominates` (the bridge) and
+`CovarianceEnvelopeRootScale` (the capacity) — and proves that both together,
+and only both together, give the energy criterion. It also gives a capacity
+route that never counts pairs: `MertensCovarianceDescentStatement` forbids a
+minimal supercritical normalized excursion and yields the energy criterion.
+
+Measured, `scripts/CumulativeOthelloBoundary/frontier_capacity.py`: the
+minimising Euler pivot is `ell = 2`, whose first-failure frontier is the
+squarefree part of the top-half window — the same set as the `ell = 2` cutoff
+wall of `PrefixCarrierOthelloWalls` — with density tending to the same
+`2/pi^2 = 0.20264`. It is linear in `x`, so the support capacity `F(F-1)/2` is
+of order `x^2`. `PrimeProductFrontierRootScaleStatement` records exactly what
+would be needed instead, and is proved to suffice.
+
+See [`research/COVARIANCE_CAPACITY_SEAM.md`](research/COVARIANCE_CAPACITY_SEAM.md).
+
+The seam is now stated at run level, where the equivalence already bites.
+`RHLean/Analysis/SquareRunEscapeCovariance.lean` proves the exact window identity
+`(sum Delta_j)^2 = Q_I + 2 descended + 2 escape` with escape defined as the
+remainder, so anything a proposed descent omits -- including the cross-square-block
+pairs `2 sum_{i<j} Delta_i Delta_j` -- stays visible. Non-positive descended part
+plus RH-scale escape gives `SquareRunEnergyBoundedStatement` and hence, through
+`squareRunEnergyBounded_iff_mertensEnergy`, the global Mertens energy criterion.
+Nesting supplies the chronological coordinate; it does not supply the
+cancellation, which must still come from the fresh-prime arithmetic.
+
+Terminal acceptance needs two halves. `ClassicalMertensRHCriterion` is a theorem
+*parameter*, so `#print axioms` cannot see it: a conditional theorem has a clean
+printout. The test is (1) no assumed criterion in the signature and (2) a clean
+axiom printout, and neither implies the other.
+`scripts/check_rh_conditionality.py` mechanizes (1), is wired into
+`scripts/local_ci.sh`, and currently lists 18 RH-facing theorems that remain
+conditional.
+
+Refinement replaces the block-energy problem. `E - Q = 2 sum_j C_j` exactly, so
+the measured linearity of the square-block energy must not be promoted: proving
+`E << N^(1+eps)` *is* proving the aggregate within-block covariance is RH-scale.
+`RHLean/Analysis/BlockCovarianceRefinement.lean` instead refines: each step gives
+`E_coarse = E_refined + 2 sum_j (children cross)`, and the leaf energy is exactly
+the squarefree diagonal, linear with no conjecture. The refinement that earns a
+saving is by large-prime families: for `p * p > W`, multiplication by `p` reverses
+the family mass but *preserves* the family pair covariance, so the covariance
+inside a post-root `p`-family is exactly `C(floor(W/p) + 1)` -- an isometric copy
+of a lower-scale prefix. Verified over 4082 families by
+`scripts/CumulativeOthelloBoundary/family_descent_check.py`. Still open: the
+elementary sum estimate `sum_{z<sqrt W} N_W(z) z^(1+delta) << W^(1+delta/2)`, and
+the covariance *between* distinct family blocks and the smooth block, where the
+Gram identity `(A-T)^2 = A^2 + T^2 - 2AT` must be carried down rather than
+replaced by `|A| + |T|`.
+
+Signed blocks remove the bridge in one coordinate.
+`RHLean/Analysis/BlockCovarianceDecomposition.lean` partitions the pair sum
+instead of counting atoms: `S^2 = E + 2X` for signed block masses, so cross-block
+coherence is pinned by total mass and block energy rather than free to align;
+the two-block prototype `((a-b)^2 - (a+b))/2` is the first Euler face as algebra,
+and `realMertensPositiveLagPairSum_eq_inner_add_cross` proves the global
+covariance *is* within-block plus cross-block on one carrier. Measured: the
+magnitude-first step discards `N^(3/2)`, a half power, and the block energy is
+already linear, so the whole difficulty is the cross term.
+
+### Do not repeat this route by
+
+- bounding `|C|` by a count of surviving pairs: that discards the Euler sign
+  structure and leaves `F^2`. The capacity theorem must be a signed multi-face
+  identity or recurrence taken *before* absolute values;
+- targeting `C(x) = O(x)`, which is stronger than RH scale, or `C(x) <= 0.196x`,
+  which is the false Mertens conjecture;
+- reporting a frontier capacity bound as progress on the global covariance
+  without the domination arrow. They are different objects.
+
 ## Acceptance rule for future routes
 
 A proposed route must state:
