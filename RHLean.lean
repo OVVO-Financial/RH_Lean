@@ -397,6 +397,7 @@ import RHLean.Proof.CanonicalRoughCriticalCorrelationContraction
 import RHLean.Proof.CanonicalRoughDefectLedgerBound
 import RHLean.Proof.CanonicalRoughFiniteAbelReturn
 import RHLean.Proof.CanonicalRoughManyPrimeContraction
+import RHLean.Proof.CanonicalRoughCriticalDefectWindows
 import RHLean.Proof.CanonicalRoughQuantitativeContraction
 import RHLean.Proof.CanonicalRoughReciprocalCompression
 import RHLean.Proof.CanonicalSignedParent
