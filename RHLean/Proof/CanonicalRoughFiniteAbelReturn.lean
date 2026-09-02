@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.CanonicalRoughReciprocalCompression
+import RHLean.Proof.CanonicalRoughQuantitativeContraction
 
 /-!
 # Finite Abel return from the reciprocal profile to the covariance numerator
@@ -44,6 +44,13 @@ and since the canonical cofactor population is exactly the square-root endpoint
 So the reciprocal weight, which is what makes the Euler compression work at all,
 costs nothing beyond an absolute constant on the way back.  What remains open is
 only the input: a uniform bound `M` on the compressed reciprocal profile itself.
+
+`CanonicalRoughQuantitativeContraction` already carries the profile itself and
+an Abel reconstruction of the *numerator*.  The profile is reused from there
+rather than redeclared.  What this file adds is the `Icc`-indexed form of the
+transform, which needs no `range`/`Icc` bookkeeping at the call site, and the
+final normalization step: the cofactor population is exactly `X_R`, so the
+bound lands on the covariance itself rather than on its numerator.
 -/
 
 noncomputable section
@@ -58,34 +65,24 @@ open CanonicalRoughPrimeAdditionDescent
 
 attribute [local instance] Classical.propDecidable
 
-/-- Compressed reciprocal profile: the partial sums of the reciprocal covariance
-coordinate on which the Euler compression acts. -/
-def squareRootCanonicalRoughReciprocalPrefix (R n : ℕ) : ℂ :=
-  ∑ c ∈ Finset.Icc 1 n, squareRootCanonicalRoughResponseCenteredReciprocalSummand R c
+/-! ## Endpoints of the compressed reciprocal profile
+
+The profile itself is `squareRootCanonicalRoughReciprocalPrefix` from
+`CanonicalRoughQuantitativeContraction`, reused here rather than redeclared.
+Its inclusive form starts at index zero, which is harmless: the reciprocal
+summand at zero divides by zero and so vanishes. -/
 
 @[simp] theorem squareRootCanonicalRoughReciprocalPrefix_zero (R : ℕ) :
     squareRootCanonicalRoughReciprocalPrefix R 0 = 0 := by
-  unfold squareRootCanonicalRoughReciprocalPrefix
-  rw [Finset.Icc_eq_empty (by omega : ¬(1 : ℕ) ≤ 0)]
-  simp
+  simp [squareRootCanonicalRoughReciprocalPrefix, inclusivePrefix,
+    squareRootCanonicalRoughResponseCenteredReciprocalSummand]
 
 theorem squareRootCanonicalRoughReciprocalPrefix_succ (R n : ℕ) :
     squareRootCanonicalRoughReciprocalPrefix R (n + 1) =
       squareRootCanonicalRoughReciprocalPrefix R n +
         squareRootCanonicalRoughResponseCenteredReciprocalSummand R (n + 1) := by
-  unfold squareRootCanonicalRoughReciprocalPrefix
-  rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ n + 1)]
-
-/-- The unweighted covariance summand is the reciprocal coordinate multiplied
-back by its own cofactor. -/
-theorem natCast_mul_squareRootCanonicalRoughResponseCenteredReciprocalSummand
-    (R c : ℕ) (hc : 0 < c) :
-    (c : ℂ) * squareRootCanonicalRoughResponseCenteredReciprocalSummand R c =
-      squareRootCanonicalRoughResponseCenteredSummand R c := by
-  unfold squareRootCanonicalRoughResponseCenteredReciprocalSummand
-  have hc0 : (c : ℂ) ≠ 0 := by
-    exact_mod_cast Nat.ne_of_gt hc
-  rw [mul_comm, div_mul_eq_mul_div, mul_div_assoc, div_self hc0, mul_one]
+  simp [squareRootCanonicalRoughReciprocalPrefix, inclusivePrefix,
+    Finset.sum_range_succ]
 
 /-- **Finite Abel return (exact).**  Summation by parts expresses the unweighted
 canonical rough covariance numerator entirely in terms of the compressed
@@ -106,7 +103,7 @@ theorem sum_squareRootCanonicalRoughResponseCenteredSummand_eq_abel (R N : ℕ) 
           ((N : ℂ) + 1) *
             squareRootCanonicalRoughResponseCenteredReciprocalSummand R (N + 1) := by
         have h := natCast_mul_squareRootCanonicalRoughResponseCenteredReciprocalSummand
-          R (N + 1) (by omega)
+          R (show 0 < N + 1 by omega)
         push_cast at h
         exact h.symm
       rw [hS]
