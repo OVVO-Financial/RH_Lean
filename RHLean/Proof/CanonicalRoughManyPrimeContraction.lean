@@ -61,30 +61,23 @@ attribute [local instance] Classical.propDecidable
 /-- A strictly increasing list of primes, every entry above the bound `b`.  With
 `b = P^+(c)` this is exactly the legality condition for compressing the whole
 list onto `c`, because adjoining a fresh prime moves the canonical largest prime
-factor to that prime. -/
-def IsCanonicalFreshPrimeChain (b : ℕ) (L : List ℕ) : Prop :=
-  (∀ q ∈ L, Nat.Prime q) ∧ List.Chain (· < ·) b L
+factor to that prime, so the next entry must clear the previous one. -/
+def IsCanonicalFreshPrimeChain : ℕ → List ℕ → Prop
+  | _b, [] => True
+  | b, q :: L => q.Prime ∧ b < q ∧ IsCanonicalFreshPrimeChain q L
 
 theorem isCanonicalFreshPrimeChain_nil (b : ℕ) :
     IsCanonicalFreshPrimeChain b [] := by
-  refine ⟨?_, List.Chain.nil⟩
-  intro q hq
-  simp at hq
+  first
+    | trivial
+    | simp [IsCanonicalFreshPrimeChain]
 
 theorem isCanonicalFreshPrimeChain_cons {b q : ℕ} {L : List ℕ} :
     IsCanonicalFreshPrimeChain b (q :: L) ↔
       q.Prime ∧ b < q ∧ IsCanonicalFreshPrimeChain q L := by
-  constructor
-  · rintro ⟨hprime, hchain⟩
-    rw [List.chain_cons] at hchain
-    exact ⟨hprime q (by simp), hchain.1,
-      fun r hr => hprime r (by simp [hr]), hchain.2⟩
-  · rintro ⟨hq, hbq, hprime, hchain⟩
-    refine ⟨?_, List.chain_cons.2 ⟨hbq, hchain⟩⟩
-    intro r hr
-    rcases List.mem_cons.1 hr with rfl | hr'
-    · exact hq
-    · exact hprime r hr'
+  first
+    | exact Iff.rfl
+    | simp [IsCanonicalFreshPrimeChain]
 
 /-- Lowering the bound keeps a fresh prime chain legal. -/
 theorem isCanonicalFreshPrimeChain_of_le {b b' : ℕ} {L : List ℕ}
@@ -97,9 +90,19 @@ theorem isCanonicalFreshPrimeChain_of_le {b b' : ℕ} {L : List ℕ}
       exact isCanonicalFreshPrimeChain_cons.2 ⟨hq, lt_of_le_of_lt hb hbq, hrest⟩
 
 /-- Every entry of a fresh prime chain is at least two. -/
-theorem two_le_of_isCanonicalFreshPrimeChain {b : ℕ} {L : List ℕ}
-    (h : IsCanonicalFreshPrimeChain b L) : ∀ q ∈ L, 2 ≤ q :=
-  fun q hq => (h.1 q hq).two_le
+theorem two_le_of_isCanonicalFreshPrimeChain :
+    ∀ (L : List ℕ) (b : ℕ), IsCanonicalFreshPrimeChain b L → ∀ q ∈ L, 2 ≤ q := by
+  intro L
+  induction L with
+  | nil =>
+      intro _b _h q hq
+      simp at hq
+  | cons r L ih =>
+      intro _b h q hq
+      rcases isCanonicalFreshPrimeChain_cons.1 h with ⟨hr, _hbr, hrest⟩
+      rcases List.mem_cons.1 hq with rfl | hq'
+      · exact hr.two_le
+      · exact ih r hrest q hq'
 
 /-! ## Euler factors of a chain -/
 
@@ -238,8 +241,10 @@ theorem squareRootCanonicalRoughCubeEulerFactorReal_le_exp_neg (L : List ℕ)
       have hfac : 1 - 1 / (q : ℝ) ≤ Real.exp (-(1 / (q : ℝ))) := by
         have h := Real.add_one_le_exp (-(1 / (q : ℝ)))
         linarith
+      have harg : -(1 / (q : ℝ) + squareRootCanonicalRoughCubeReciprocalPrimeSum L) =
+          -(1 / (q : ℝ)) + -squareRootCanonicalRoughCubeReciprocalPrimeSum L := by ring
       rw [squareRootCanonicalRoughCubeEulerFactorReal_cons,
-        squareRootCanonicalRoughCubeReciprocalPrimeSum_cons, neg_add, Real.exp_add]
+        squareRootCanonicalRoughCubeReciprocalPrimeSum_cons, harg, Real.exp_add]
       exact mul_le_mul hfac (ih hrest)
         (squareRootCanonicalRoughCubeEulerFactorReal_nonneg L hrest)
         (le_of_lt (Real.exp_pos _))
@@ -393,7 +398,7 @@ theorem norm_squareRootCanonicalRoughCubeReciprocalPotential_le
       squareRootCanonicalRoughCubeEulerFactorReal L *
           ‖squareRootCanonicalRoughResponseCenteredReciprocalSummand R c‖ +
         squareRootCanonicalRoughCubeReciprocalDefectBudget R L c := by
-  have h2 := two_le_of_isCanonicalFreshPrimeChain hchain
+  have h2 := two_le_of_isCanonicalFreshPrimeChain L _ hchain
   rw [squareRootCanonicalRoughCubeReciprocalPotential_eq_eulerFactor_mul_add_defect
     R hR L c hc hchain]
   refine le_trans (norm_add_le _ _) ?_
@@ -418,7 +423,7 @@ theorem norm_squareRootCanonicalRoughCubeReciprocalPotential_le_exp_add_ledger
       Real.exp (-squareRootCanonicalRoughCubeReciprocalPrimeSum L) *
           ‖squareRootCanonicalRoughResponseCenteredReciprocalSummand R c‖ +
         squareRootCanonicalRoughCubeReciprocalLedgerBudget R L c := by
-  have h2 := two_le_of_isCanonicalFreshPrimeChain hchain
+  have h2 := two_le_of_isCanonicalFreshPrimeChain L _ hchain
   refine le_trans
     (norm_squareRootCanonicalRoughCubeReciprocalPotential_le R hR L c hc hchain) ?_
   refine add_le_add ?_
