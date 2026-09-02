@@ -1,5 +1,7 @@
 import Mathlib
 import RHLean.Analysis.DeterministicTGreenKuboComparison
+import RHLean.Arithmetic.AdmissibleFaceSquarefreeImage
+import RHLean.Arithmetic.PrimeFaceProductUniqueness
 import RHLean.Proof.MiddlePrimeFibreCollapse
 
 open scoped BigOperators
@@ -59,32 +61,29 @@ above the target.  See `scripts/CumulativeOthelloBoundary/frontier_capacity.py`.
 So support exhaustion alone cannot close the argument, and the next theorem has
 to be a signed multi-face statement, not another cardinality statement.
 
-## 3. The two arrows, and why a frontier bound alone closes nothing
+## 3. The covariance bridge: what closes and what remains distinct
 
-Two covariance objects are in play and must not be conflated.
+There are two Euler-frontier coordinates in the current development and they
+must not be conflated.
 
-* The **global** integer-order Green--Kubo covariance
-  `C(x+1) = sum over 1 <= a < b <= x of mu a * mu b`, which is
-  `realMertensPositiveLagPairSum`, and which satisfies the exact square
-  expansion with diagonal `x - Z(x)`, `Z` counting the Moebius zeros.
-* The **hierarchical Euler frontier** covariance of the terminal-correction
-  coordinate, whose worst case over arbitrary deeper sign oscillation is what
-  `MiddlePrimeFibreCollapse` bounds by
-  `(|G_R| + D_R)^2 - (N_mid + N_top + D_R)` over 2.
+* The **one-face prime-product frontier** keeps the actual Mertens amplitude
+  `‖M(X)‖` and replaces only the diagonal by the surviving first-failure
+  population `F(X, ell)`.  This file now puts that object on the same carrier as
+  the global integer-order Green--Kubo covariance exactly: the difference is
+  one half of the squarefree diagonal discarded by the frontier.
+* The **hierarchical terminal-correction frontier** of
+  `MiddlePrimeFibreCollapse` is a different signed scalar assembled from the
+  middle/top correction channel and deeper reciprocal layers.  No theorem here
+  identifies that scalar covariance with the global pair sum.  It still needs a
+  physical carrier map before its forced-sign capacity can be used as a global
+  covariance envelope.
 
-No theorem yet identifies or dominates the first by the second.  So the critical
-path is two arrows, not one:
-
-```text
-Euler frontier covariance  -->  global C(x)  -->  C(x) <= x^(1+eta).
-```
-
-`CovarianceEnvelopeDominates` and `CovarianceEnvelopeRootScale` below name the
-two arrows for an arbitrary envelope `E`, and
-`mertensEnergyBounded_of_covarianceEnvelope` proves that *both together* — and
-only both together — give the energy criterion.  A frontier route supplies a
-candidate `E`; until it is proved to dominate the global pair sum, however sharp
-its own capacity bound is, it bounds a different object.
+Thus `CovarianceEnvelopeDominates` is no longer wholly abstract: it is compiled
+below for the one-face prime-product surviving-covariance envelope.  This does
+**not** rescue the support-only route, because the existing maximum envelope
+`F(F-1)/2` remains quadratic when `F` is linear.  The remaining useful attack is
+therefore signed refinement/descent before absolute values, not another support
+count.
 
 Two thresholds also should not be conflated.  Crossing the literal `sqrt x` line
 is `C(x+1) > Z(x)/2`, and `Z(x)/2 ~ (1 - 6/pi^2) x / 2 ~ 0.196 x`; that is the
@@ -245,6 +244,119 @@ theorem mertensEnergyBounded_of_primeProductFrontierRootScale
       _ = 1 := one_pow 2
       _ ≤ max (C ^ 2) 1 * Real.rpow (((x + 1 : ℕ) : ℝ)) (1 + ε) := hone'
 
+/-! ## The exact one-face Euler-frontier covariance bridge -/
+
+/-- The deterministic Möbius diagonal is exactly the number of squarefree
+physical sites through `X`. -/
+theorem realMertensDiagonal_eq_card_squarefreeUpTo (X : ℕ) :
+    realMertensDiagonal (X + 1) = ((squarefreeUpTo X).card : ℝ) := by
+  classical
+  calc
+    realMertensDiagonal (X + 1) =
+        ∑ n ∈ Finset.range (X + 1),
+          if Squarefree n then (1 : ℝ) else 0 := by
+      unfold realMertensDiagonal
+      apply Finset.sum_congr rfl
+      intro n _hn
+      by_cases hsq : Squarefree n
+      · have hne : ArithmeticFunction.moebius n ≠ 0 :=
+          ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsq
+        rcases ArithmeticFunction.moebius_eq_or n with h | h | h
+        · exact (hne h).elim
+        · simp [realMoebiusStep, h, hsq]
+        · simp [realMoebiusStep, h, hsq]
+      · have hz := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
+        simp [realMoebiusStep, hz, hsq]
+    _ = ∑ _n ∈ (Finset.range (X + 1)).filter Squarefree, (1 : ℝ) := by
+      rw [Finset.sum_filter]
+    _ = (((Finset.range (X + 1)).filter Squarefree).card : ℝ) := by simp
+    _ = ((squarefreeUpTo X).card : ℝ) := rfl
+
+/-- The canonical prime-face parametrization is injective, so the number of
+admissible Boolean faces is exactly the number of squarefree physical sites. -/
+private theorem card_admissiblePrimeFaces_eq_squarefreeUpTo (X : ℕ) :
+    (admissiblePrimeFaces X).card = (squarefreeUpTo X).card := by
+  classical
+  have hinj : Set.InjOn primeFaceProduct
+      (↑(admissiblePrimeFaces X) : Set (Finset ℕ)) := by
+    intro t ht u hu hprod
+    have ht' : t ∈ admissiblePrimeFaces X := by simpa using ht
+    have hu' : u ∈ admissiblePrimeFaces X := by simpa using hu
+    exact primeFaceProduct_injective_on_admissible_primesUpTo
+      (mem_admissiblePrimeFaces.mp ht')
+      (mem_admissiblePrimeFaces.mp hu') hprod
+  have hcard :
+      ((admissiblePrimeFaces X).image primeFaceProduct).card =
+        (admissiblePrimeFaces X).card :=
+    Finset.card_image_iff.mpr hinj
+  calc
+    (admissiblePrimeFaces X).card =
+        ((admissiblePrimeFaces X).image primeFaceProduct).card := hcard.symm
+    _ = (squarefreeUpTo X).card := by
+      rw [image_primeFaceProduct_admissiblePrimeFaces]
+
+/-- Every first-failure Euler face is one of the admissible squarefree faces of
+the original prime cube. -/
+private theorem primeProductFirstFailureBoundary_subset_admissiblePrimeFaces
+    (X ell : ℕ) :
+    primeProductFirstFailureBoundary (primesUpTo X) X ell ⊆
+      admissiblePrimeFaces X := by
+  intro t ht
+  apply mem_admissiblePrimeFaces.mpr
+  rcases mem_primeProductFirstFailureBoundary.mp ht with ⟨htsub, hprod, _hcross⟩
+  refine ⟨?_, hprod⟩
+  intro p hp
+  exact (Finset.mem_erase.mp (htsub hp)).2
+
+/-- **Frontier diagonal is a sub-diagonal of the physical carrier.**  The
+surviving first-failure population can never exceed the exact squarefree
+Green--Kubo diagonal. -/
+theorem primeProductFrontierCard_le_realMertensDiagonal (X ell : ℕ) :
+    (primeProductFrontierCard X ell : ℝ) ≤ realMertensDiagonal (X + 1) := by
+  unfold primeProductFrontierCard
+  rw [realMertensDiagonal_eq_card_squarefreeUpTo,
+    ← card_admissiblePrimeFaces_eq_squarefreeUpTo]
+  exact_mod_cast Finset.card_le_card
+    (primeProductFirstFailureBoundary_subset_admissiblePrimeFaces X ell)
+
+/-- **Exact covariance bridge.**  The one-face Euler-frontier covariance and
+the global integer-order covariance differ by exactly half of the squarefree
+diagonal removed by the frontier.  No estimate and no sign assumption occurs. -/
+theorem primeProductFrontierSurvivingCovariance_sub_global_eq_diagonalGap
+    (X ell : ℕ) :
+    primeProductFrontierSurvivingCovariance X ell -
+        realMertensPositiveLagPairSum (X + 1) =
+      (realMertensDiagonal (X + 1) -
+        (primeProductFrontierCard X ell : ℝ)) / 2 := by
+  have hnorm := norm_mertensSummatory_sq_eq_realMertensLength_sq X
+  have hgreen :=
+    realMertensLength_sq_eq_diagonal_add_two_mul_positiveLagPairSum (X + 1)
+  unfold primeProductFrontierSurvivingCovariance
+  rw [hnorm]
+  linarith
+
+/-- **The Euler frontier dominates the global covariance on the same physical
+prefix.**  This is the formerly unnamed first arrow for the one-face
+prime-product frontier. -/
+theorem realMertensPositiveLagPairSum_le_primeProductFrontierSurvivingCovariance
+    (X ell : ℕ) :
+    realMertensPositiveLagPairSum (X + 1) ≤
+      primeProductFrontierSurvivingCovariance X ell := by
+  have hgap :=
+    primeProductFrontierSurvivingCovariance_sub_global_eq_diagonalGap X ell
+  have hdiag := primeProductFrontierCard_le_realMertensDiagonal X ell
+  linarith
+
+/-- For a genuine exposed prime coordinate, the already-formalized support
+maximum is therefore also a valid upper envelope for the global covariance.
+This closes domination only; its capacity is still measured to be quadratic. -/
+theorem realMertensPositiveLagPairSum_le_primeProductFrontierMaximumCovariance
+    {X ell : ℕ} (hell : ell ∈ primesUpTo X) :
+    realMertensPositiveLagPairSum (X + 1) ≤
+      primeProductFrontierMaximumCovariance X ell :=
+  (realMertensPositiveLagPairSum_le_primeProductFrontierSurvivingCovariance X ell).trans
+    (primeProductFrontierSurvivingCovariance_le_maximum hell)
+
 /-! ## The two arrows of the critical path -/
 
 /-- **First arrow: the covariance bridge.**  A frontier route must dominate the
@@ -253,6 +365,27 @@ coordinate.  This is the step that puts the two covariance objects on one
 carrier. -/
 def CovarianceEnvelopeDominates (E : ℕ → ℝ) : Prop :=
   ∀ K : ℕ, 1 ≤ K → realMertensPositiveLagPairSum K ≤ E K
+
+/-- The one-face Euler frontier, indexed on the same prefix length `K` as the
+global covariance.  `pivot X` is interpreted as the Euler coordinate exposed at
+cutoff `X`; primality is needed only when one additionally invokes the frontier
+maximum theorem. -/
+def primeProductFrontierCovarianceEnvelope
+    (pivot : ℕ → ℕ) (K : ℕ) : ℝ :=
+  primeProductFrontierSurvivingCovariance (K - 1) (pivot (K - 1))
+
+/-- **`CovarianceEnvelopeDominates` is compiled for the prime-product Euler
+frontier.**  The proof is only the exact diagonal-gap bridge above plus the
+index change from cutoff `X` to prefix length `K = X+1`. -/
+theorem covarianceEnvelopeDominates_primeProductFrontier
+    (pivot : ℕ → ℕ) :
+    CovarianceEnvelopeDominates (primeProductFrontierCovarianceEnvelope pivot) := by
+  intro K hK
+  unfold primeProductFrontierCovarianceEnvelope
+  have h :=
+    realMertensPositiveLagPairSum_le_primeProductFrontierSurvivingCovariance
+      (K - 1) (pivot (K - 1))
+  simpa [Nat.sub_add_cancel hK] using h
 
 /-- **Second arrow: capacity.**  The envelope itself is of RH scale. -/
 def CovarianceEnvelopeRootScale (E : ℕ → ℝ) : Prop :=
