@@ -79,7 +79,6 @@ theorem natCast_mul_squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect
     squareRootCanonicalRoughFreshPrimeSignedBoundaryScalar
   push_cast
   field_simp [hc0, hp0]
-  ring
 
 /-- The signed scaled boundary mass of one prime on an arbitrary active
 carrier.  No channel norm is taken inside this definition. -/
