@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Analysis.SquareRootShallowReciprocalCrossing
 import RHLean.Analysis.SquareRootCanonicalRoughCovariance
+import RHLean.Analysis.NativePNTAxer
 
 /-!
 # Fixed eventual reciprocal crossing at depth 18349
@@ -129,11 +130,148 @@ theorem eventually_squareRootPacketCrossesAt_18349 :
   norm_num
   exact hprev
 
-/-! ## Strictly reduced bound on the exact canonical rough covariance seam -/
+/-! ## PNT floor on the exact canonical rough covariance seam -/
 
-/-- The exact mean-plus-covariance seam inherits the repository's premise-free
-strong-Mertens subexponential envelope.  This is a strict quantitative
-reduction from the crude quartic support envelope: the energy is bounded by
+/-- The elementary native PNT is the minimum acceptable asymptotic baseline.
+For every fixed shallow-depth cap and every `eta > 0`, the exact coupled
+mean-plus-covariance seam is eventually at most `eta * X_R + K₀`, uniformly over
+all valid crossing interpolation seats below the cap.
+
+This is just the repository's elementary Axer conclusion `M(X)=o(X)` pushed
+through the exact identity
+
+`coupledTail = M(X_R) - partial`
+
+and then through the exact canonical covariance coordinate change. -/
+def SquareRootCanonicalRoughCovarianceNativePNTStatement (K₀ : ℕ) : Prop :=
+  ∀ η : ℝ, 0 < η →
+    ∀ᶠ R : ℕ in atTop,
+      ∀ K j : ℕ,
+        K ≤ K₀ →
+        SquareRootPacketCrossesAt R K →
+        j ≤ squareRootReciprocalPrimeLayerCard R K →
+        0 ≤ squareRootCrossingLayerPartialPacketInt R K j →
+        squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ) →
+        ‖squareRootPostCrossingCanonicalBaseline R K j -
+            (squareRootCanonicalRoughCofactorCard R : ℂ) *
+              (squareRootCanonicalRoughParityMean R *
+                  squareRootCanonicalRoughResponseMean R +
+                squareRootCanonicalRoughCovariance R)‖ ≤
+          η * (squareRootEndpoint R : ℝ) + (K₀ : ℝ)
+
+/-- **Native-PNT floor for the covariance seam.**  No zero-free region or
+strong-Mertens estimate is used. -/
+theorem squareRootCanonicalRoughCovarianceNativePNT
+    (K₀ : ℕ) :
+    SquareRootCanonicalRoughCovarianceNativePNTStatement K₀ := by
+  intro η hη
+  have hratio :
+      Tendsto
+        (fun R : ℕ =>
+          nativeMertensSummatory (squareRootEndpoint R) /
+            (squareRootEndpoint R : ℝ))
+        atTop (𝓝 0) :=
+    nativeMertens_div_atTop_zero.comp squareRootEndpoint_tendsto_atTop
+  have habs :
+      Tendsto
+        (fun R : ℕ =>
+          |nativeMertensSummatory (squareRootEndpoint R) /
+            (squareRootEndpoint R : ℝ)|)
+        atTop (𝓝 0) :=
+    tendsto_zero_iff_abs_tendsto_zero.mp hratio
+  have hsmall :
+      ∀ᶠ R : ℕ in atTop,
+        |nativeMertensSummatory (squareRootEndpoint R) /
+            (squareRootEndpoint R : ℝ)| < η :=
+    (tendsto_order.1 habs).2 η hη
+  filter_upwards [hsmall, eventually_ge_atTop (3 : ℕ)] with R hsmallR hR
+  intro K j hK hcross _hj hV0 hVK
+  have hendpoint : 3 ≤ squareRootEndpoint R := by
+    have hsquare : 2 ^ 2 ≤ R ^ 2 :=
+      Nat.pow_le_pow_left (by omega : 2 ≤ R) 2
+    unfold squareRootEndpoint
+    omega
+  have hXpos : 0 < (squareRootEndpoint R : ℝ) := by
+    exact_mod_cast (show 0 < squareRootEndpoint R by omega)
+  have hMdiv :
+      |nativeMertensSummatory (squareRootEndpoint R)| /
+          (squareRootEndpoint R : ℝ) < η := by
+    simpa [abs_div, abs_of_pos hXpos] using hsmallR
+  have hMreal :
+      |nativeMertensSummatory (squareRootEndpoint R)| ≤
+        η * (squareRootEndpoint R : ℝ) := by
+    exact ((div_lt_iff₀ hXpos).mp hMdiv).le
+  have hM :
+      ‖mertensSummatory (squareRootEndpoint R)‖ ≤
+        η * (squareRootEndpoint R : ℝ) := by
+    rw [norm_mertensSummatory_eq_abs_nativeMertensSummatory]
+    exact hMreal
+  have hV :
+      ‖((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖ ≤
+        (K₀ : ℝ) := by
+    rw [Complex.norm_intCast, abs_of_nonneg]
+    · exact_mod_cast
+        (le_trans (Int.le_of_lt hVK)
+          (by exact_mod_cast hK : (K : ℤ) ≤ K₀))
+    · exact_mod_cast hV0
+  have hKR : K < R := by
+    rcases squareRootPacketCrossing_has_postRootPrime hcross with
+      ⟨q, _hqPrime, hRq, _hqX, hqK⟩
+    rw [← hqK]
+    exact squareRootEndpoint_div_lt_root_of_root_le (by omega) (by omega)
+  have htail :
+      ‖squareRootPostCrossingCoupledTail R K j‖ ≤
+        η * (squareRootEndpoint R : ℝ) + (K₀ : ℝ) := by
+    rw [postCrossingCoupledTail_eq_mertens_sub_partial R K j hR]
+    calc
+      ‖mertensSummatory (squareRootEndpoint R) -
+          ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖ ≤
+          ‖mertensSummatory (squareRootEndpoint R)‖ +
+            ‖((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖ :=
+        norm_sub_le _ _
+      _ ≤ η * (squareRootEndpoint R : ℝ) + (K₀ : ℝ) :=
+        add_le_add hM hV
+  rw [squareRootPostCrossingCoupledTail_eq_baseline_sub_mean_covariance
+    R K j hR hcross.1 hKR] at htail
+  exact htail
+
+/-- Squared form of the native-PNT floor.  In particular the exact covariance
+seam has energy `o(X_R^2) = o(R^4)` for every fixed shallow cap. -/
+def SquareRootCanonicalRoughCovarianceNativePNTEnergyStatement (K₀ : ℕ) : Prop :=
+  ∀ η : ℝ, 0 < η →
+    ∀ᶠ R : ℕ in atTop,
+      ∀ K j : ℕ,
+        K ≤ K₀ →
+        SquareRootPacketCrossesAt R K →
+        j ≤ squareRootReciprocalPrimeLayerCard R K →
+        0 ≤ squareRootCrossingLayerPartialPacketInt R K j →
+        squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ) →
+        ‖squareRootPostCrossingCanonicalBaseline R K j -
+            (squareRootCanonicalRoughCofactorCard R : ℂ) *
+              (squareRootCanonicalRoughParityMean R *
+                  squareRootCanonicalRoughResponseMean R +
+                squareRootCanonicalRoughCovariance R)‖ ^ 2 ≤
+          (η * (squareRootEndpoint R : ℝ) + (K₀ : ℝ)) ^ 2
+
+/-- **Native-PNT energy floor for the covariance seam.** -/
+theorem squareRootCanonicalRoughCovarianceNativePNTEnergy
+    (K₀ : ℕ) :
+    SquareRootCanonicalRoughCovarianceNativePNTEnergyStatement K₀ := by
+  intro η hη
+  have hnormEventually := squareRootCanonicalRoughCovarianceNativePNT K₀ η hη
+  filter_upwards [hnormEventually] with R hnormR
+  intro K j hK hcross hj hV0 hVK
+  have hnorm := hnormR K j hK hcross hj hV0 hVK
+  have hright :
+      0 ≤ η * (squareRootEndpoint R : ℝ) + (K₀ : ℝ) := by
+    positivity
+  exact (sq_le_sq₀ (norm_nonneg _) hright).2 hnorm
+
+/-! ## Strict subexponential benchmark on the same seam -/
+
+/-- The exact mean-plus-covariance seam also inherits the repository's
+premise-free strong-Mertens subexponential envelope.  This is retained only as
+a stronger classical benchmark above the native-PNT floor:
 
 `(C * X_R * exp (-c * (log X_R)^(1/10)) + K₀)^2`.
 
@@ -174,6 +312,13 @@ theorem squareRootCanonicalRoughCovarianceSubexpEnergy
   have hnorm := htail R K j hR hK hcross hj hV0 hVK
   rw [squareRootPostCrossingCoupledTail_eq_baseline_sub_mean_covariance
     R K j hR hcross.1 hKR] at hnorm
-  exact pow_le_pow_left₀ (norm_nonneg _) hnorm 2
+  have hright :
+      0 ≤ C * (squareRootEndpoint R : ℝ) *
+          Real.exp
+            (-c *
+              (Real.log (squareRootEndpoint R : ℝ)) ^ ((1 : ℝ) / 10)) +
+        (K₀ : ℝ) := by
+    positivity
+  exact (sq_le_sq₀ (norm_nonneg _) hright).2 hnorm
 
 end RHLean.Proof
