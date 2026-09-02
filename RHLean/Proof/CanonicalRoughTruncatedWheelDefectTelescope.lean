@@ -48,6 +48,7 @@ namespace RHLean.Proof
 open RHLean.Analysis
 open RHLean.Arithmetic
 open CanonicalRoughFreshPrimeDifference
+open CanonicalRoughPrimeAdditionDescent
 
 attribute [local instance] Classical.propDecidable
 
@@ -82,7 +83,7 @@ theorem insert_freshPrime_primesUpTo_pred_eq
   · intro hq
     rcases mem_primesUpTo.mp hq with ⟨hqPrime, hqLe⟩
     by_cases hqp : q = p
-    · simpa [hqp]
+    · simp [hqp]
     · have hqPred : q ≤ p - 1 := by omega
       exact Finset.mem_insert.mpr <| Or.inr <|
         mem_primesUpTo.mpr ⟨hqPrime, hqPred⟩
@@ -205,7 +206,11 @@ theorem squareRootCanonicalRoughCompleteWheelTopEscapePartnerFaceMass_eq_truncat
         q ∉ squareRootCanonicalRoughFreshTopEscapeBoundary
           R (primeFaceProduct u) p := by
       simpa [hmem] using hnotShell
-    simp [hnotMem, hupper]
+    have hnotLowerCut :
+        ¬ primeFaceProduct u ≤ (squareRootEndpoint R / q) / p := by
+      intro hlowerCut
+      exact hupper (hlowerCut.trans (Nat.div_le_self _ p))
+    simp [hnotMem, hupper, hnotLowerCut]
 
 /-- On a complete sub-root wheel, fixed lower-root birth is exactly the
 reciprocal face shell
@@ -305,7 +310,11 @@ theorem squareRootCanonicalRoughCompleteWheelBirthPartnerFaceMass_eq_truncatedSh
         q ∉ squareRootCanonicalRoughFreshBirthBoundary
           R (primeFaceProduct u) p := by
       simpa [hmem] using hnotShell
-    simp [hnotMem, hupper]
+    have hnotLowerCut :
+        ¬ primeFaceProduct u ≤ ((R - 1) / q) / p := by
+      intro hlowerCut
+      exact hupper (hlowerCut.trans (Nat.div_le_self _ p))
+    simp [hnotMem, hupper, hnotLowerCut]
 
 /-- The fixed-partner top-escape shell, after restoring the native `1/p`, is
 exactly the next truncated wheel minus the Euler-contracted old wheel. -/
