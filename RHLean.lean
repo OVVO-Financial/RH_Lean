@@ -375,7 +375,6 @@ import RHLean.Proof.BirthMovingAbsorption
 import RHLean.Proof.BlockLyapunovClosure
 import RHLean.Proof.BornSmoothFarSurvivorIncrement
 import RHLean.Proof.CanonicalExtremeHeight
-import RHLean.Proof.CanonicalRoughReciprocalCompression
 import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.CanonicalGapAncestryEnergyBridge
 import RHLean.Proof.CanonicalGapAncestryFlow
@@ -394,6 +393,7 @@ import RHLean.Proof.CanonicalGapBridgeGram
 import RHLean.Proof.CanonicalGapOrthogonalMode
 import RHLean.Proof.CanonicalGapPrefixGram
 import RHLean.Proof.CanonicalHighSectorCovariance
+import RHLean.Proof.CanonicalRoughReciprocalCompression
 import RHLean.Proof.CanonicalSignedParent
 import RHLean.Proof.CoherentGramVanishingTransfer
 import RHLean.Proof.CollisionCellFrontierBound
