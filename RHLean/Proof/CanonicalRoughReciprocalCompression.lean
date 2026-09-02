@@ -25,6 +25,13 @@ reciprocal fibre, while all failure of exact contraction is confined to the
 already-formalized threshold, top-escape, and lower-root birth channels and is
 suppressed by the reciprocal child cofactor `1/(c*p)`.
 
+The final section proves that the Euler factors really accumulate.  For
+ordered fresh primes `p < q`, compress the two `q`-edges of the Boolean square
+first and then the remaining `p`-edge.  The base potential acquires the exact
+product `(1 - 1/q) * (1 - 1/p)`, while the only remainder is the corresponding
+signed reciprocal physical defects.  This is the finite two-prime model for a
+chronological descending-prime compression.
+
 No norm, independence assumption, or analytic estimate is introduced here.
 -/
 
@@ -127,6 +134,26 @@ theorem squareRootCanonicalRoughResponseCenteredReciprocalSummand_add_mul_freshP
   simp [squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect,
     hthreshold, htop, hbirth]
 
+/-- Once the child has reached the root, the birth channel vanishes from the
+reciprocal compression law.  The only defects left at the same root are the
+order threshold and genuine top escape. -/
+theorem squareRootCanonicalRoughResponseCenteredReciprocalSummand_add_mul_freshPrime_of_root_reached
+    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p) (hroot : R ≤ p * c) :
+    squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+        squareRootCanonicalRoughResponseCenteredReciprocalSummand R (c * p) =
+      (1 - 1 / (p : ℂ)) *
+          squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+        canonicalMoebiusWeight c / (((c * p : ℕ) : ℂ)) *
+          (((squareRootCanonicalRoughFreshThresholdLossBoundary R c p).card : ℂ) +
+            ((squareRootCanonicalRoughFreshTopEscapeBoundary R c p).card : ℂ)) := by
+  rw [squareRootCanonicalRoughResponseCenteredReciprocalSummand_add_mul_freshPrime
+    hR hc hp hfresh]
+  unfold squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect
+  rw [squareRootCanonicalRoughFreshBirthBoundary_eq_empty_of_root_reached
+    hR hc hp hfresh hroot]
+  simp
+
 /-- Contracted reciprocal parent mass for all legal parents of one fresh prime
 on an arbitrary active carrier. -/
 def squareRootCanonicalRoughFreshPrimeReciprocalCompressedMass
@@ -217,5 +244,79 @@ theorem sum_squareRootCanonicalRoughResponseCenteredReciprocal_eq_compressed_add
         squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefectMass R p U +
         ∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
           squareRootCanonicalRoughResponseCenteredReciprocalSummand R n := by ring
+
+/-! ## Accumulation of Euler factors on a descending two-prime square -/
+
+/-- **Two-prime Euler compression.**  Let `p < q` be successive fresh prime
+coordinates above the canonical largest prime of `c`.  Compressing the two
+`q`-edges first and then the remaining `p`-edge produces the exact product
+`(1 - 1/q) * (1 - 1/p)` on the base reciprocal covariance potential.
+
+All departure from the pure Euler product is explicit: the `p`-defect is itself
+carried through the later `q` contraction, and the two `q`-edge defects are
+added without taking norms.  This is the finite Boolean-square mechanism by
+which PNT-style contraction can accumulate on the RH-critical carrier. -/
+theorem squareRootCanonicalRoughResponseCenteredReciprocal_twoPrime_descending_compression
+    {R c p q : ℕ} (hR : 2 ≤ R) (hc : 0 < c)
+    (hp : p.Prime) (hq : q.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p) (hpq : p < q) :
+    (squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+        squareRootCanonicalRoughResponseCenteredReciprocalSummand R (c * q)) +
+      (squareRootCanonicalRoughResponseCenteredReciprocalSummand R (c * p) +
+        squareRootCanonicalRoughResponseCenteredReciprocalSummand R ((c * p) * q)) =
+      (1 - 1 / (q : ℂ)) * (1 - 1 / (p : ℂ)) *
+          squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+        (1 - 1 / (q : ℂ)) *
+          squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c p +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c q +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R (c * p) q := by
+  have hfreshq : canonicalLargestPrimeFactor c < q := hfresh.trans hpq
+  have hcp : 0 < c * p := Nat.mul_pos hc hp.pos
+  have hlpfcp : canonicalLargestPrimeFactor (c * p) = p :=
+    canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hp hfresh
+  have hcpfreshq : canonicalLargestPrimeFactor (c * p) < q := by
+    rw [hlpfcp]
+    exact hpq
+  have hqBase :=
+    squareRootCanonicalRoughResponseCenteredReciprocalSummand_add_mul_freshPrime
+      hR hc hq hfreshq
+  have hqChild :=
+    squareRootCanonicalRoughResponseCenteredReciprocalSummand_add_mul_freshPrime
+      hR hcp hq hcpfreshq
+  have hpBase :=
+    squareRootCanonicalRoughResponseCenteredReciprocalSummand_add_mul_freshPrime
+      hR hc hp hfresh
+  calc
+    (squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+        squareRootCanonicalRoughResponseCenteredReciprocalSummand R (c * q)) +
+      (squareRootCanonicalRoughResponseCenteredReciprocalSummand R (c * p) +
+        squareRootCanonicalRoughResponseCenteredReciprocalSummand R ((c * p) * q)) =
+      ((1 - 1 / (q : ℂ)) *
+          squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c q) +
+      ((1 - 1 / (q : ℂ)) *
+          squareRootCanonicalRoughResponseCenteredReciprocalSummand R (c * p) +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R (c * p) q) := by
+          rw [hqBase, hqChild]
+    _ = (1 - 1 / (q : ℂ)) *
+          (squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+            squareRootCanonicalRoughResponseCenteredReciprocalSummand R (c * p)) +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c q +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R (c * p) q := by
+          ring
+    _ = (1 - 1 / (q : ℂ)) *
+          ((1 - 1 / (p : ℂ)) *
+              squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+            squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c p) +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c q +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R (c * p) q := by
+          rw [hpBase]
+    _ = (1 - 1 / (q : ℂ)) * (1 - 1 / (p : ℂ)) *
+          squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+        (1 - 1 / (q : ℂ)) *
+          squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c p +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c q +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R (c * p) q := by
+          ring
 
 end RHLean.Proof
