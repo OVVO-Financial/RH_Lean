@@ -116,6 +116,7 @@ theorem primorialTruncatedTransportedShellLedger_eq_boundary
       rw [ih htailPrime htailNodup]
       rw [hstep]
       simp only [List.toFinset_cons]
+      unfold canonicalRoughEulerFactor
       ring
 
 /-- At every positive cutoff the empty truncated wheel is the unit state, so the
@@ -153,6 +154,9 @@ theorem primorialTruncatedTransportedShellLedger_eq_zero_of_complete
         canonicalRoughPrimeListEulerProduct]
     | cons p ps ih =>
         rcases List.nodup_cons.mp hnodup with ⟨hpNotList, htailNodup⟩
+        have htailPrime : ∀ q ∈ ps, q.Prime := by
+          intro q hq
+          exact hprime q (by simp [hq])
         have hpNot : p ∉ ps.toFinset := by simpa using hpNotList
         simp only [List.toFinset_cons, canonicalRoughPrimeListEulerProduct]
         unfold primorialSignedContractionFactor
@@ -160,7 +164,7 @@ theorem primorialTruncatedTransportedShellLedger_eq_zero_of_complete
         change (1 - 1 / (p : ℝ)) *
             (ps.toFinset.prod fun q => 1 - 1 / (q : ℝ)) =
           canonicalRoughEulerFactor p * canonicalRoughPrimeListEulerProduct ps
-        rw [ih htailNodup]
+        rw [ih htailPrime htailNodup]
         rfl
   rw [hlistFactor]
   ring
