@@ -338,10 +338,13 @@ theorem eventually_exists_squareRootCanonicalRoughCovarianceNativePNT_18349_twen
   rcases squareRootPacketCrossing18349_exists_partialResidual_lt_twentyOne hcross with
     ⟨j, hj, hV0, hV21⟩
   have hR : 3 ≤ R := by omega
+  have hXnat : 0 < squareRootEndpoint R := by
+    have hsquare : 2 ^ 2 ≤ R ^ 2 :=
+      Nat.pow_le_pow_left (by omega : 2 ≤ R) 2
+    unfold squareRootEndpoint
+    omega
   have hXpos : 0 < (squareRootEndpoint R : ℝ) := by
-    exact_mod_cast (show 0 < squareRootEndpoint R by
-      unfold squareRootEndpoint
-      omega)
+    exact_mod_cast hXnat
   have hMdiv :
       |nativeMertensSummatory (squareRootEndpoint R)| /
           (squareRootEndpoint R : ℝ) < η := by
