@@ -224,7 +224,7 @@ theorem primorialTruncatedBoundary_upperColumn_telescope
         have hpred : K + 1 - 1 = K := by omega
         have hset :
             primesUpTo (K + 1) = insert (K + 1) (primesUpTo K) := by
-          simpa [hpred] using insert_freshPrime_primesUpTo_pred_eq hq
+          simpa [hpred] using (insert_freshPrime_primesUpTo_pred_eq hq).symm
         have htrunc :=
           primorialTruncatedSignedReciprocalCube_insert
             (P := primesUpTo K) (p := K + 1) (X := X) hnotMem hq
