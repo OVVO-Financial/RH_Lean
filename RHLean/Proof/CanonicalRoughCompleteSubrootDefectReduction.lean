@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Arithmetic.PrimorialTruncatedWheelBoundary
 import RHLean.Proof.CanonicalRoughCriticalDefectWindows
 import RHLean.Proof.LowPrimeParentChildWindowDifference
 
@@ -59,10 +60,10 @@ wheel product. -/
 theorem primeFaceProduct_le_full_primesUpTo
     {p : ℕ} {u : Finset ℕ} (hu : u ⊆ primesUpTo p) :
     primeFaceProduct u ≤ primeFaceProduct (primesUpTo p) := by
-  unfold primeFaceProduct
-  apply Finset.prod_le_prod_of_subset_of_one_le' hu
-  intro q hqFull _hqU
-  exact (prime_of_mem_primesUpTo hqFull).one_le
+  have hle := primeFaceProduct_le_primorialWheelProduct hu (by
+    intro q hq
+    exact (prime_of_mem_primesUpTo hq).one_le)
+  simpa [primorialWheelProduct, primeFaceProduct] using hle
 
 /-- A partner strictly above the canonical largest prime factor of an old face
 cannot already be one of that face's coordinates. -/
@@ -80,8 +81,7 @@ theorem fresh_partner_not_mem_oldFace
   have hqleC : q ≤ primeFaceProduct u := Nat.le_of_dvd hcpos hqdvd
   have hcgt : 1 < primeFaceProduct u := hq.one_lt.trans_le hqleC
   have hqle :=
-    CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
-      hcgt hq hqdvd
+    prime_dvd_le_canonicalLargestPrimeFactor hcgt hq hqdvd
   omega
 
 /-- Adjoining a prime partner `q <= p` to an old face produces another face of
@@ -180,7 +180,9 @@ theorem squareRootCanonicalRoughFreshTopEscapeBoundary_partner_gt_root_of_comple
     unfold squareRootEndpoint
     rw [pow_two]
     omega
-  exact (Nat.not_lt_of_ge (hprodLe.trans hboundary)) hwall
+  have hwallLe : (p * primeFaceProduct u) * q ≤ squareRootEndpoint R :=
+    hprodLe.trans hboundary
+  exact (Nat.not_lt_of_ge hwallLe) hwall
 
 /-- Every top-escape set on a complete sub-root wheel lies entirely in the
 post-root partner range. -/
