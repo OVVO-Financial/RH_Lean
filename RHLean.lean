@@ -375,6 +375,7 @@ import RHLean.Proof.BirthMovingAbsorption
 import RHLean.Proof.BlockLyapunovClosure
 import RHLean.Proof.BornSmoothFarSurvivorIncrement
 import RHLean.Proof.CanonicalExtremeHeight
+import RHLean.Proof.CanonicalRoughReciprocalCompression
 import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.CanonicalGapAncestryEnergyBridge
 import RHLean.Proof.CanonicalGapAncestryFlow
