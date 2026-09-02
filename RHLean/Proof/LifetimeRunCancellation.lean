@@ -42,6 +42,22 @@ The file then connects this to the repository's actual birth/death process.
   aggregate run identity in the existing `Active = Birth - Death` endpoint
   coordinates.
 
+**Scope.**  What is proved here is *interval structure plus endpoint telescope*,
+not a fully instantiated birth/death-time representation.  No explicit pair of
+functions `beta, delta : CanonicalSourceAtom -> N` is constructed, and the
+pointwise identification
+
+```text
+indicator of IsLifetimeActive (alpha, t)  =  indicator of  beta alpha <= t < delta alpha
+```
+
+is not proved.  The abstract lifetime telescope is proved for the indicator
+model, the actual active predicate is separately proved to have the
+no-resurrection property that makes the model faithful, and the aggregate run
+identity for the actual mass follows from the telescope directly.  That is
+sufficient for the endpoint argument; constructing the explicit birth and
+capture times would be an additional step.
+
 No estimate, asymptotic input or RH hypothesis appears here.
 -/
 

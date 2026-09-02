@@ -848,6 +848,52 @@ See [`research/CUMULATIVE_OTHELLO_BOUNDARY.md`](research/CUMULATIVE_OTHELLO_BOUN
 - describing a fixed-prime pairing as a birth/death or alternating-path
   cancellation, or a cumulative arithmetic interval as a space-time carrier.
 
+### Covariance capacity: the two arrows
+
+**Status: OPEN. Both arrows named and their composition proved; neither arrow
+proved. The support-only route is measured a full power of `x` short.**
+
+Exact frame: `|M(x)|^2 = x - Z(x) + 2 C(x+1)`, so RH scale is equivalent to the
+one-sided `C(x) <<_eta x^(1+eta)`. Two thresholds must not be conflated: the
+`sqrt x` line is `C(x+1) > Z(x)/2 ~ 0.196 x`, which is the *false* Mertens
+conjecture and cannot be a target; the RH threshold is the weaker power bound.
+An RH-violating excursion of exponent `eps` needs `C(x+1) ~ x^(1+2eps)/2`, a
+fixed power above target. The trivial deterministic bound is `O(x^2)`, so `O(x)`
+is not automatic and is stronger than needed.
+
+The critical path has two arrows, and the first is not proved:
+
+```text
+Euler frontier covariance  -->  global C(x)  -->  C(x) <= x^(1+eta).
+```
+
+`RHLean/Analysis/MertensCovarianceDescent.lean` names both for an arbitrary
+envelope — `CovarianceEnvelopeDominates` (the bridge) and
+`CovarianceEnvelopeRootScale` (the capacity) — and proves that both together,
+and only both together, give the energy criterion. It also gives a capacity
+route that never counts pairs: `MertensCovarianceDescentStatement` forbids a
+minimal supercritical normalized excursion and yields the energy criterion.
+
+Measured, `scripts/CumulativeOthelloBoundary/frontier_capacity.py`: the
+minimising Euler pivot is `ell = 2`, whose first-failure frontier is the
+squarefree part of the top-half window — the same set as the `ell = 2` cutoff
+wall of `PrefixCarrierOthelloWalls` — with density tending to the same
+`2/pi^2 = 0.20264`. It is linear in `x`, so the support capacity `F(F-1)/2` is
+of order `x^2`. `PrimeProductFrontierRootScaleStatement` records exactly what
+would be needed instead, and is proved to suffice.
+
+See [`research/COVARIANCE_CAPACITY_SEAM.md`](research/COVARIANCE_CAPACITY_SEAM.md).
+
+### Do not repeat this route by
+
+- bounding `|C|` by a count of surviving pairs: that discards the Euler sign
+  structure and leaves `F^2`. The capacity theorem must be a signed multi-face
+  identity or recurrence taken *before* absolute values;
+- targeting `C(x) = O(x)`, which is stronger than RH scale, or `C(x) <= 0.196x`,
+  which is the false Mertens conjecture;
+- reporting a frontier capacity bound as progress on the global covariance
+  without the domination arrow. They are different objects.
+
 ## Acceptance rule for future routes
 
 A proposed route must state:

@@ -49,6 +49,24 @@ geometry for this, in two independent ways.
 Neither statement uses an estimate or an asymptotic input.  Together they say
 the state-dependent freedom alone does not rescue a raw interval carrier: the
 carrier itself has to retain the geometry that restricts which moves are legal.
+
+**How to use this file.**  It is a *negative control*, not a template.  The raw
+integer prime-toggle graph has the wrong capacity structure: thousands of
+top-half primes share the single neighbour `1`.  The processed-seat carrier
+replaces an arithmetic object by a population of response seats carrying the
+relevant multiplicities, which is exactly the kind of enlargement that removes a
+star bottleneck.  So the content here is
+
+```text
+raw carrier impossible  =>  processed multiplicity is mathematically load-bearing.
+```
+
+Do **not** port `AdaptivePrimeMate` to the processed-seat state.  That carrier
+already has `squareRootLowPrimeProcessedSeatNoLibertyMate`, whose stable
+population is already proved literally equal to the descending terminal
+frontier, and `SquareRootLowPrimeNoLibertyFiniteEquiv` starts from that fact.
+Re-deriving an abstraction of it would replace something concrete the repository
+already knows.
 -/
 
 noncomputable section
