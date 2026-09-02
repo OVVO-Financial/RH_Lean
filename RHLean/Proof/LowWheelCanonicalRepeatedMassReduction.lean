@@ -311,6 +311,7 @@ theorem squareRootCanonicalRoughResponseCenteredSummand_add_mul_freshPrime_eq_th
     hR hc hp hfresh,
     squareRootCanonicalRoughFreshLossBoundary_card_eq_threshold_add_topEscape]
   push_cast
+  rfl
 
 /-- Physical three-channel boundary mass produced by one Euler prime on an
 arbitrary active cofactor carrier. -/
