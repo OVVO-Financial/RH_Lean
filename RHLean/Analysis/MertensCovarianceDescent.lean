@@ -47,16 +47,26 @@ excursion at the two scales is compared.
 
 `MiddlePrimeFibreCollapse.norm_mertensSummatory_le_primeProductFrontierCard`
 gives the exact support bound `‖M(X)‖ <= F(X, ell)` after Euler parent/child
-pairing, and hence a covariance capacity `F (F - 1) / 2`.  That is RH strength
-exactly when the exposed frontier is itself of square-root size, which is what
-`PrimeProductFrontierRootScaleStatement` asks for and what the theorem below
-converts into the energy criterion.
+pairing.  Once the lag-zero diagonal is kept rather than discarded, the sharp
+resulting global covariance bound is
+
+```text
+C(X+1) <= (F(X,ell)^2 - Q(X+1)) / 2,
+```
+
+where `Q = sum mu(n)^2` is the exact squarefree diagonal.  The older
+`F(F-1)/2` frontier maximum is a weaker consequence because `F <= Q`.
+
+This is RH strength exactly when the exposed frontier is itself of square-root
+size, which is what `PrimeProductFrontierRootScaleStatement` asks for and what
+the theorem below converts into the energy criterion.
 
 It is stated as a hypothesis because it is measured to be false for the raw
 prime cube: the minimising pivot is `ell = 2`, whose frontier is the squarefree
 part of the top-half window `(X/2, X]`, and its cardinality tends to
-`(2/pi^2) X`.  A linear frontier gives capacity of order `X^2`, a full power
-above the target.  See `scripts/CumulativeOthelloBoundary/frontier_capacity.py`.
+`(2/pi^2) X`.  A linear frontier still leaves a quadratic `F^2` term, so the
+linear diagonal subtraction does not rescue support exhaustion.  See
+`scripts/CumulativeOthelloBoundary/frontier_capacity.py`.
 
 So support exhaustion alone cannot close the argument, and the next theorem has
 to be a signed multi-face statement, not another cardinality statement.
@@ -70,7 +80,8 @@ must not be conflated.
   `‖M(X)‖` and replaces only the diagonal by the surviving first-failure
   population `F(X, ell)`.  This file now puts that object on the same carrier as
   the global integer-order Green--Kubo covariance exactly: the difference is
-  one half of the squarefree diagonal discarded by the frontier.
+  one half of the squarefree diagonal discarded by the frontier.  Restoring
+  that lag-zero energy gives the sharper support bound `(F^2-Q)/2`.
 * The **hierarchical terminal-correction frontier** of
   `MiddlePrimeFibreCollapse` is a different signed scalar assembled from the
   middle/top correction channel and deeper reciprocal layers.  No theorem here
@@ -80,10 +91,10 @@ must not be conflated.
 
 Thus `CovarianceEnvelopeDominates` is no longer wholly abstract: it is compiled
 below for the one-face prime-product surviving-covariance envelope.  This does
-**not** rescue the support-only route, because the existing maximum envelope
-`F(F-1)/2` remains quadratic when `F` is linear.  The remaining useful attack is
-therefore signed refinement/descent before absolute values, not another support
-count.
+**not** rescue the support-only route, because its frontier is linear and hence
+its squared amplitude capacity remains quadratic even after the exact diagonal
+is restored.  The remaining useful attack is therefore signed
+refinement/descent before absolute values, not another support count.
 
 Two thresholds also should not be conflated.  Crossing the literal `sqrt x` line
 is `C(x+1) > Z(x)/2`, and `Z(x)/2 ~ (1 - 6/pi^2) x / 2 ~ 0.196 x`; that is the
@@ -319,6 +330,17 @@ theorem primeProductFrontierCard_le_realMertensDiagonal (X ell : ℕ) :
   exact_mod_cast Finset.card_le_card
     (primeProductFirstFailureBoundary_subset_admissiblePrimeFaces X ell)
 
+/-- **Exact lag-zero/off-diagonal decomposition.**  The global positive-lag
+covariance is the Mertens energy after subtracting the full squarefree diagonal,
+with the factor `1/2` coming from the two symmetric off-diagonal orientations. -/
+theorem realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal (X : ℕ) :
+    realMertensPositiveLagPairSum (X + 1) =
+      (‖mertensSummatory X‖ ^ 2 - realMertensDiagonal (X + 1)) / 2 := by
+  have hnorm := norm_mertensSummatory_sq_eq_realMertensLength_sq X
+  have hgreen :=
+    realMertensLength_sq_eq_diagonal_add_two_mul_positiveLagPairSum (X + 1)
+  linarith
+
 /-- **Exact covariance bridge.**  The one-face Euler-frontier covariance and
 the global integer-order covariance differ by exactly half of the squarefree
 diagonal removed by the frontier.  No estimate and no sign assumption occurs. -/
@@ -347,9 +369,27 @@ theorem realMertensPositiveLagPairSum_le_primeProductFrontierSurvivingCovariance
   have hdiag := primeProductFrontierCard_le_realMertensDiagonal X ell
   linarith
 
-/-- For a genuine exposed prime coordinate, the already-formalized support
-maximum is therefore also a valid upper envelope for the global covariance.
-This closes domination only; its capacity is still measured to be quadratic. -/
+/-- **Diagonal-corrected support envelope.**  The exact frontier amplitude bound
+`‖M(X)‖ <= F` controls global covariance only after the *full* squarefree
+lag-zero energy is restored.  This is strictly sharper than the frontier-only
+maximum `F(F-1)/2` because `F <= Q`. -/
+theorem realMertensPositiveLagPairSum_le_frontier_sq_sub_diagonal
+    {X ell : ℕ} (hell : ell ∈ primesUpTo X) :
+    realMertensPositiveLagPairSum (X + 1) ≤
+      ((primeProductFrontierCard X ell : ℝ) ^ 2 -
+        realMertensDiagonal (X + 1)) / 2 := by
+  have hnorm := norm_mertensSummatory_le_primeProductFrontierCard hell
+  have hcard0 : 0 ≤ (primeProductFrontierCard X ell : ℝ) := by positivity
+  have hsq :
+      ‖mertensSummatory X‖ ^ 2 ≤
+        (primeProductFrontierCard X ell : ℝ) ^ 2 :=
+    (sq_le_sq₀ (norm_nonneg _) hcard0).2 hnorm
+  rw [realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal X]
+  linarith
+
+/-- For a genuine exposed prime coordinate, the older frontier-maximum bound is
+also a valid upper envelope.  The diagonal-corrected theorem immediately above
+is stronger and is the preferred support-only statement. -/
 theorem realMertensPositiveLagPairSum_le_primeProductFrontierMaximumCovariance
     {X ell : ℕ} (hell : ell ∈ primesUpTo X) :
     realMertensPositiveLagPairSum (X + 1) ≤
