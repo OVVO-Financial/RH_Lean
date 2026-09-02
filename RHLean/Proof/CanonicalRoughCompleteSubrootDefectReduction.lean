@@ -69,7 +69,7 @@ theorem primeFaceProduct_le_full_primesUpTo
 /-- A partner strictly above the canonical largest prime factor of an old face
 cannot already be one of that face's coordinates. -/
 theorem fresh_partner_not_mem_oldFace
-    {p q : ℕ} {u : Finset ℕ} (hp : p.Prime)
+    {p q : ℕ} {u : Finset ℕ}
     (hu : u ∈ (primesUpTo (p - 1)).powerset) (hq : q.Prime)
     (hrough : canonicalLargestPrimeFactor (primeFaceProduct u) < q) :
     q ∉ u := by
@@ -139,7 +139,7 @@ theorem squareRootCanonicalRoughFreshThresholdLossBoundary_eq_empty_of_completeW
       (mem_squareRootCanonicalRoughFreshThresholdLossBoundary_iff
         hR hcpos hp hfresh).1 hq with
     ⟨hqPrime, hqRough, hroot, _hupper, hqp⟩
-  have hqNot : q ∉ u := fresh_partner_not_mem_oldFace hp hu hqPrime hqRough
+  have hqNot : q ∉ u := fresh_partner_not_mem_oldFace hu hqPrime hqRough
   have hsub : insert q u ⊆ primesUpTo p :=
     insert_partner_subset_primesUpTo hu hqPrime hqp
   have hfaceLe := primeFaceProduct_le_full_primesUpTo hsub
