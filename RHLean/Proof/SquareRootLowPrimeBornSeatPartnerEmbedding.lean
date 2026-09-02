@@ -205,4 +205,122 @@ theorem squareRootLowPrimeSeat_lt_root_of_not_bornRange
   rw [if_neg hc] at hs
   omega
 
+/-! ## Canonical terminal first-owner geometry -/
+
+/-- **Every assigned canonical terminal has only the two literal carrier-wall
+geometries at its first owner.**
+
+The square-wall branch is completely shallow: its parent owner is at most `K`,
+the parent cofactor has reached the root, and its complete response is therefore
+purely born.  In the complementary branch the child stays under the square
+wall and the inherited seat index lies beyond the child's response fibre.
+
+This is a disjoint arithmetic classification of the canonical terminal
+survivor; no mutable-row displacement residual remains. -/
+theorem squareRootLowPrimeCanonicalAssigned_firstOwner_wall_or_seatTail
+    {R K j U p c s : ℕ}
+    (hR : 2 ≤ R) (hUR : U < R)
+    (hx : some (c, s) ∈
+      squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U)
+    (hfirst : squareRootLowPrimeFirstOwnerAbove
+      (squareRootLowPrimeFreshPrimeList K U)
+      (canonicalLargestPrimeFactor c) = some p) :
+    (squareRootEndpoint R < p * c ∧
+        canonicalLargestPrimeFactor c ≤ K ∧
+        R ≤ c ∧
+        squareRootLowPrimeCombinedFreshResponse R K j c =
+          squareRootBornPartnerCount R c) ∨
+      (p * c ≤ squareRootEndpoint R ∧
+        squareRootLowPrimeCombinedFreshResponse R K j (p * c) ≤ s) := by
+  have hxTerminal : some (c, s) ∈
+      squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U :=
+    (Finset.mem_sdiff.mp hx).1
+  have hfall :=
+    squareRootLowPrimeProcessedSeatCanonicalTerminal_firstOwnerAbove_mem_falloff
+      hxTerminal (by simp) hfirst
+  have hpList := squareRootLowPrimeFirstOwnerAbove_mem_freshPrimeList hfirst
+  have hpSet : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
+    simpa [squareRootLowPrimeFreshPrimeList] using hpList
+  have hpData := Finset.mem_filter.mp hpSet
+  have hpPrime : p.Prime := hpData.2
+  have hpU : p ≤ U := (Finset.mem_Ioc.mp hpData.1).2
+  have hobstruction :=
+    squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_carrierObstruction
+      hpPrime hpU hfall
+  by_cases hwall : squareRootEndpoint R < p * c
+  · left
+    have hlow :=
+      squareRootLowPrimeFirstOwnerFalloff_productWall_forces_lowOwner
+        (by omega) hUR hfirst hfall hwall
+    have hcR :=
+      squareRootLowPrimeFirstOwnerWall_forces_root_le_cofactor
+        hR hUR hfirst hwall
+    have hborn :=
+      squareRootLowPrimeCombinedFreshResponse_eq_born_of_root_le
+        (K := K) (j := j) (by omega) hcR
+    exact ⟨hwall, hlow, hcR, hborn⟩
+  · right
+    have hinside : p * c ≤ squareRootEndpoint R := Nat.le_of_not_gt hwall
+    rcases hobstruction with hwall' | hseat
+    · exact (hwall hwall').elim
+    · exact ⟨hinside, hseat⟩
+
+/-- **A square-wall assigned terminal is a shallow born seat, and its actual
+born partner is an old prime.** -/
+theorem squareRootLowPrimeCanonicalAssigned_wall_bornSeat_oldPartner
+    {R K j U p c s : ℕ}
+    (hR : 2 ≤ R) (hUR : U < R)
+    (hx : some (c, s) ∈
+      squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U)
+    (hfirst : squareRootLowPrimeFirstOwnerAbove
+      (squareRootLowPrimeFreshPrimeList K U)
+      (canonicalLargestPrimeFactor c) = some p)
+    (hwall : squareRootEndpoint R < p * c) :
+    s < squareRootBornPartnerCount R c ∧
+      squareRootLowPrimeSeatBornPartner R c s ≤ K := by
+  have hxTerminal : some (c, s) ∈
+      squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U :=
+    (Finset.mem_sdiff.mp hx).1
+  have hxCarrier : some (c, s) ∈
+      squareRootLowPrimeProcessedSeatCarrier R K j U :=
+    squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier_subset
+      (squareRootLowPrimeFreshPrimeList K U)
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) hxTerminal
+  have hseat : s < squareRootLowPrimeCombinedFreshResponse R K j c := by
+    have hatom : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using hxCarrier
+    exact (mem_squareRootLowPrimeProcessedSeatAtoms.mp hatom).2
+  have hcR := squareRootLowPrimeFirstOwnerWall_forces_root_le_cofactor
+    hR hUR hfirst hwall
+  have hborn := squareRootLowPrimeCombinedFreshResponse_eq_born_of_root_le
+    (K := K) (j := j) (by omega) hcR
+  have hsBorn : s < squareRootBornPartnerCount R c := by
+    simpa [hborn] using hseat
+  refine ⟨hsBorn, ?_⟩
+  exact squareRootLowPrimeFirstOwnerWall_bornPartner_le_shallowCutoff
+    hfirst hwall (squareRootLowPrimeSeatBornPartner_mem hsBorn)
+
+/-- Every assigned terminal outside born-seat range lies strictly below the
+root.  Combined with the preceding dichotomy, the only uncovered terminal
+sector is therefore the sub-root seat-tail sector. -/
+theorem squareRootLowPrimeCanonicalAssigned_not_bornRange_lt_root
+    {R K j U c s : ℕ}
+    (hx : some (c, s) ∈
+      squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U)
+    (hnb : ¬ s < squareRootBornPartnerCount R c) :
+    c ≤ R - 1 := by
+  have hxTerminal : some (c, s) ∈
+      squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U :=
+    (Finset.mem_sdiff.mp hx).1
+  have hxCarrier : some (c, s) ∈
+      squareRootLowPrimeProcessedSeatCarrier R K j U :=
+    squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier_subset
+      (squareRootLowPrimeFreshPrimeList K U)
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) hxTerminal
+  have hseat : s < squareRootLowPrimeCombinedFreshResponse R K j c := by
+    have hatom : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using hxCarrier
+    exact (mem_squareRootLowPrimeProcessedSeatAtoms.mp hatom).2
+  exact squareRootLowPrimeSeat_lt_root_of_not_bornRange hseat hnb
+
 end RHLean.Proof
