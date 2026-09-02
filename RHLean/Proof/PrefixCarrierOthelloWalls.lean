@@ -187,6 +187,6 @@ theorem abs_sum_moebius_Ioc_le_wallCard {p : ℕ} (hp : p.Prime) (L x : ℕ) :
       |∑ n ∈ primeCarrierCutoffWall p L x, μ n| ≤ ((x - x / p : ℕ) : ℤ) := by
     refine le_trans (abs_sum_moebius_le_card _) ?_
     exact_mod_cast card_primeCarrierCutoffWall_le hp L x
-  exact le_trans (abs_add ..) (add_le_add hanchor hcutoff)
+  exact le_trans (abs_add_le _ _) (add_le_add hanchor hcutoff)
 
 end RHLean.Proof
