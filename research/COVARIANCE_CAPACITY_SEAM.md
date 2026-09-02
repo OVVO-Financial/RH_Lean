@@ -181,13 +181,71 @@ Three readings.
   discarded cross-cancellation grows like `N^(3/2)`.  Magnitude-first bounding
   loses **a half power**, not a constant factor.  That is precisely the cost of
   `|H_R| <= |G_R| + D_R` followed by squaring.
-* The block energy is measured linear in `N`, about `6/pi^2 N` — the squarefree
-  density, the same size as the diagonal — so `E` is already at RH scale.  All of
-  the difficulty therefore sits in `X = (S^2 - E)/2`, which is equivalent to the
-  original problem.  **The decomposition localizes the difficulty and removes the
-  bridge; it does not by itself dissolve the bound.**  The remaining theorem is
-  that positive cross-block coherence cannot persist through the fresh-prime band
-  recursion, which is what the covariance-descent formulation asks for.
+* The block energy *looks* linear here, about `6/pi^2 N`, the squarefree
+  density.  **That must not be promoted to a theorem.**  Exactly,
+  `E - Q = 2 sum_j C_j` with `Q(N) = N - Z(N)` the squarefree diagonal
+  (`signedBlockEnergy_realSquareBlockMass_sub_diagonal`), so proving
+  `E << N^(1+eps)` *is* proving the aggregate within-block covariance is of RH
+  scale.  It is not an independent input.  **The decomposition localizes the
+  difficulty and removes the bridge; it does not by itself dissolve the bound.**
+
+## Refinement: drive the energy down to the exact diagonal
+
+`RHLean/Analysis/BlockCovarianceRefinement.lean` takes the way out that does not
+require bounding `E` at all.
+
+For any splitting of every block into signed children,
+`signedBlockEnergy_refine` gives
+
+```text
+E_coarse = E_refined + 2 * sum_j (children cross covariance of block j).
+```
+
+Each step moves energy into the children and leaves an explicit signed cross
+term behind.  Iterated to singletons the leaf energy is exactly the squarefree
+diagonal `Q(N)`, linear with no conjecture (`signedBlockEnergy_leaf_le`).  Every
+unordered Möbius pair is charged to the unique refinement node at which its two
+entries first separate — Green--Kubo as an Euler/Othello covariance tree, with
+every signed cross term preserved on the way down.
+
+## Fresh post-root primes preserve covariance exactly
+
+The refinement that earns a power saving is by large-prime families.  For a
+prime `p` and cofactors below it, multiplication by `p` flips the Möbius sign,
+so it **reverses the family mass but preserves the family pair covariance**:
+
+```text
+mu(p c) = - mu(c)          (realMoebiusStep_prime_mul_of_lt)
+mu(p c) mu(p d) = mu(c) mu(d)   (realMoebiusStep_prime_mul_pair)
+```
+
+Hence `largePrimeFamilyPairSum_eq`, and in post-root form
+(`largePrimeFamilyPairSum_postRoot`), for `p * p > W`:
+
+```text
+family mass       = - M(floor(W/p) + 1)
+family covariance =   C(floor(W/p) + 1).
+```
+
+A post-root prime family is an *isometric copy* of a lower-scale prefix as far
+as pair covariance is concerned.  That is an exact covariance descent, not an
+analogy, and it is what feeds the descent formulation: at a minimal
+supercritical scale every reduced scale `z < sqrt W` is already subcritical, so
+summing the families and grouping by reciprocal quotient bounds the inner
+post-root covariance by lower-scale data.
+
+Verified over 4082 post-root prime families and three cutoffs by
+`scripts/CumulativeOthelloBoundary/family_descent_check.py`, together with the
+`E - Q = 2 sum_j C_j` identity.
+
+**Still open:** the elementary sum estimate that converts the descent into the
+power saving — with `N_W(z) <= W/(z(z+1)) + 1` and every `C(z) < z^(1+delta)`,
+one wants `sum_{z < sqrt W} N_W(z) z^(1+delta) << W^(1 + delta/2)`.  No PNT is
+needed, but the estimate is not formalized here.  Also open: the covariance
+*between* distinct fresh-prime family blocks, and their interaction with the
+complementary smooth block, where the block Gram identity
+`(A - T)^2 = A^2 + T^2 - 2AT` should be carried down rather than replaced by
+`|A| + |T|`.
 
 ## Do not
 

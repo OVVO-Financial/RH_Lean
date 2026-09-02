@@ -92,12 +92,14 @@ def main(argv: list[str]) -> int:
     print("    so the discarded cross-cancellation grows like N^(3/2).")
     print("    Magnitude-first bounding therefore loses a half power, not a")
     print("    constant factor -- that is exactly what |H| <= |G| + D removes;")
-    print("  * the block energy E = sum B_j^2 is measured LINEAR in N (about")
-    print("    6/pi^2 N, the squarefree density, i.e. the same size as the")
-    print("    diagonal), so E is already at RH scale.  All of the difficulty")
-    print("    sits in the cross term X = (S^2 - E)/2, which is equivalent to")
-    print("    the original problem.  The decomposition localizes the")
-    print("    difficulty; it does not by itself dissolve it.")
+    print("  * the block energy E = sum B_j^2 LOOKS linear here (about 6/pi^2 N,")
+    print("    the squarefree density) but that is a measurement, not a theorem.")
+    print("    Exactly, E - Q = 2 sum_j C_j with Q the squarefree diagonal, so")
+    print("    proving E << N^(1+eps) IS proving the aggregate within-block")
+    print("    covariance is RH-scale.  Do not promote the linearity;")
+    print("  * the way out is refinement, not a bound on E: each refinement step")
+    print("    moves energy into children plus an explicit signed cross term, and")
+    print("    the leaf energy is exactly Q, linear with no conjecture.")
     return 0
 
 

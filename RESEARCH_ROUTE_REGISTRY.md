@@ -884,6 +884,22 @@ would be needed instead, and is proved to suffice.
 
 See [`research/COVARIANCE_CAPACITY_SEAM.md`](research/COVARIANCE_CAPACITY_SEAM.md).
 
+Refinement replaces the block-energy problem. `E - Q = 2 sum_j C_j` exactly, so
+the measured linearity of the square-block energy must not be promoted: proving
+`E << N^(1+eps)` *is* proving the aggregate within-block covariance is RH-scale.
+`RHLean/Analysis/BlockCovarianceRefinement.lean` instead refines: each step gives
+`E_coarse = E_refined + 2 sum_j (children cross)`, and the leaf energy is exactly
+the squarefree diagonal, linear with no conjecture. The refinement that earns a
+saving is by large-prime families: for `p * p > W`, multiplication by `p` reverses
+the family mass but *preserves* the family pair covariance, so the covariance
+inside a post-root `p`-family is exactly `C(floor(W/p) + 1)` -- an isometric copy
+of a lower-scale prefix. Verified over 4082 families by
+`scripts/CumulativeOthelloBoundary/family_descent_check.py`. Still open: the
+elementary sum estimate `sum_{z<sqrt W} N_W(z) z^(1+delta) << W^(1+delta/2)`, and
+the covariance *between* distinct family blocks and the smooth block, where the
+Gram identity `(A-T)^2 = A^2 + T^2 - 2AT` must be carried down rather than
+replaced by `|A| + |T|`.
+
 Signed blocks remove the bridge in one coordinate.
 `RHLean/Analysis/BlockCovarianceDecomposition.lean` partitions the pair sum
 instead of counting atoms: `S^2 = E + 2X` for signed block masses, so cross-block
