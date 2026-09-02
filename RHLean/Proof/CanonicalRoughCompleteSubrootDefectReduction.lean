@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Arithmetic.PrimorialTruncatedWheelBoundary
+import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.CanonicalRoughCriticalDefectWindows
 import RHLean.Proof.LowPrimeParentChildWindowDifference
 
