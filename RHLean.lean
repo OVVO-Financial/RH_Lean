@@ -393,6 +393,7 @@ import RHLean.Proof.CanonicalGapBridgeGram
 import RHLean.Proof.CanonicalGapOrthogonalMode
 import RHLean.Proof.CanonicalGapPrefixGram
 import RHLean.Proof.CanonicalHighSectorCovariance
+import RHLean.Proof.CanonicalRoughCompleteSubrootDefectReduction
 import RHLean.Proof.CanonicalRoughCriticalCorrelationContraction
 import RHLean.Proof.CanonicalRoughCriticalDefectWindows
 import RHLean.Proof.CanonicalRoughQuantitativeContraction
