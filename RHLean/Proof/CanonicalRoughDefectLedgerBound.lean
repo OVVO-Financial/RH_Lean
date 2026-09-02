@@ -201,7 +201,14 @@ theorem squareRootCanonicalRoughFreshPrimeLedgerWindow_le
     omega
   have hdiv : (R - 1) / c ≤ squareRootEndpoint R / c := Nat.div_le_div_right hle
   unfold squareRootCanonicalRoughFreshPrimeLedgerWindow
-  omega
+  calc
+    (p - (R - 1) / c) +
+          (squareRootEndpoint R / c - squareRootEndpoint R / (p * c)) +
+        ((R - 1) / c - (R - 1) / (p * c)) ≤
+        p + squareRootEndpoint R / c + squareRootEndpoint R / c :=
+      Nat.add_le_add (Nat.add_le_add (Nat.sub_le _ _) (Nat.sub_le _ _))
+        (le_trans (Nat.sub_le _ _) hdiv)
+    _ = p + 2 * (squareRootEndpoint R / c) := by ring
 
 /-! ## The reciprocal-weighted defect estimate -/
 
@@ -221,11 +228,11 @@ theorem norm_squareRootCanonicalRoughFreshPrimeSignedLedger_le
         ((squareRootCanonicalRoughFreshThresholdLossBoundary R c p).card : ℝ) +
           ((squareRootCanonicalRoughFreshTopEscapeBoundary R c p).card : ℝ) := by
     refine le_trans (norm_add_le _ _) ?_
-    simp [Complex.norm_natCast]
+    simp
   have hbirth :
       ‖((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ)‖ =
         ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℝ) := by
-    simp [Complex.norm_natCast]
+    simp
   rw [hbirth]
   linarith
 
