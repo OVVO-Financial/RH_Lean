@@ -121,7 +121,7 @@ theorem sum_moebius_eq_fixed_of_adaptivePrimeMate
     {S : Finset ℕ} {m : ℕ → ℕ} (h : AdaptivePrimeMate S m) :
     (∑ n ∈ S, μ n) = ∑ n ∈ signMatchingFixedPart S m, μ n :=
   sum_eq_sum_signMatchingFixedPart S m (fun n => μ n) h.maps h.involutive
-    fun n hn hne => h.moebius_neg hn hne
+    fun _ hn hne => h.moebius_neg hn hne
 
 /-- A state with no liberty is fixed by every adaptive mate. -/
 theorem trueNoLibertyBoundary_subset_fixed
