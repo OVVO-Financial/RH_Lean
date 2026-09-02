@@ -68,6 +68,29 @@ def canonicalRoughPrimeListEulerProduct : List ℕ → ℝ
       canonicalRoughEulerFactor p * canonicalRoughPrimeListEulerProduct ps := by
   rfl
 
+/-- The Finset Euler contraction factor agrees exactly with the chronological
+list product whenever the list has no duplicate coordinates. -/
+theorem primorialSignedContractionFactor_toFinset_eq_primeListEulerProduct
+    (ps : List ℕ) (hnodup : ps.Nodup) :
+    primorialSignedContractionFactor ps.toFinset =
+      canonicalRoughPrimeListEulerProduct ps := by
+  induction ps with
+  | nil =>
+      simp [primorialSignedContractionFactor,
+        canonicalRoughPrimeListEulerProduct]
+  | cons p ps ih =>
+      rcases List.nodup_cons.mp hnodup with ⟨hpNotList, htailNodup⟩
+      have hpNot : p ∉ ps.toFinset := by
+        simpa using hpNotList
+      simp only [List.toFinset_cons, canonicalRoughPrimeListEulerProduct]
+      unfold primorialSignedContractionFactor
+      rw [Finset.prod_insert hpNot]
+      have ih' := ih htailNodup
+      unfold primorialSignedContractionFactor at ih'
+      rw [ih']
+      unfold canonicalRoughEulerFactor
+      rfl
+
 /-- Transported reciprocal shell ledger for one fixed truncation cutoff `N`.
 The head of the list is the larger/earlier prime, exactly matching the transport
 orientation in `squareRootCanonicalRoughTransportedDefectLedger`. -/
@@ -145,28 +168,8 @@ theorem primorialTruncatedTransportedShellLedger_eq_zero_of_complete
       (by
         intro p hp
         exact hprime p (by simpa using hp)) hcomplete
-  rw [hfactor]
-  have hlistFactor :
-      primorialSignedContractionFactor ps.toFinset =
-        canonicalRoughPrimeListEulerProduct ps := by
-    induction ps with
-    | nil => simp [primorialSignedContractionFactor,
-        canonicalRoughPrimeListEulerProduct]
-    | cons p ps ih =>
-        rcases List.nodup_cons.mp hnodup with ⟨hpNotList, htailNodup⟩
-        have htailPrime : ∀ q ∈ ps, q.Prime := by
-          intro q hq
-          exact hprime q (by simp [hq])
-        have hpNot : p ∉ ps.toFinset := by simpa using hpNotList
-        simp only [List.toFinset_cons, canonicalRoughPrimeListEulerProduct]
-        unfold primorialSignedContractionFactor
-        rw [Finset.prod_insert hpNot]
-        change (1 - 1 / (p : ℝ)) *
-            (ps.toFinset.prod fun q => 1 - 1 / (q : ℝ)) =
-          canonicalRoughEulerFactor p * canonicalRoughPrimeListEulerProduct ps
-        rw [ih htailPrime htailNodup]
-        rfl
-  rw [hlistFactor]
+  rw [hfactor,
+    primorialSignedContractionFactor_toFinset_eq_primeListEulerProduct ps hnodup]
   ring
 
 end RHLean.Proof
