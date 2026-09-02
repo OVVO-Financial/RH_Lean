@@ -1,338 +1,266 @@
-# Covariance capacity: the two arrows
+# Covariance capacity: bridge closed, signed capacity open
 
-**Status: OPEN. Both arrows of the critical path are now named and the
-composition is proved; neither arrow is proved. The support-only route is
-measured to be a full power of `x` short.**
+**Status.** The covariance *bridge* is no longer an unproved abstract seam.
+`MertensCovarianceDescent.lean` now proves it in two increasingly faithful forms:
 
-## The exact frame
+1. the one-face prime-product Euler frontier dominates the global integer-order
+   covariance, with an exact diagonal-gap formula; and
+2. at square endpoints the centered middle-bias Euler coordinate has covariance
+   **exactly equal** to the global covariance.
 
-With `C(x+1) = sum over 1 <= a < b <= x of mu(a) mu(b)` and
-`Z(x) = #{n <= x : mu(n) = 0}`, the square expansion is exact:
+The open problem is now the **RH-scale signed capacity estimate** on that global
+centered coordinate. The raw support-only frontier remains a full power too
+large.
 
-```text
-|M(x)|^2 = x - Z(x) + 2 C(x+1),        C(x+1) = (|M(x)|^2 - x + Z(x)) / 2.
-```
+## 1. Keep the lag-zero energy
 
-`DeterministicTGreenKuboComparison` already carries this as
-`realMertensLength_sq_eq_diagonal_add_two_mul_positiveLagPairSum`, isolates the
-one-sided target `MertensPositiveLagUpperBoundedStatement`, and proves it gives
-the Mertens energy criterion.
-
-## Two thresholds, not one
-
-| threshold | condition | status |
-| --- | --- | --- |
-| `\|M(x)\| > sqrt x` | `C(x+1) > Z(x)/2 ~ 0.196 x` | happens; this is the **false** Mertens conjecture, so no global bound of this shape is provable |
-| RH scale | `C(x) <= x^(1+o(1))` | the real target |
-
-An RH-violating excursion `|M(x)| >= x^(1/2+eps)` needs
-`C(x+1) >= (x^(1+2eps) - x + Z(x))/2 ~ x^(1+2eps)/2` — a fixed *power* above the
-target, not a constant factor. Conversely `C(x) <<_eta x^(1+eta)` gives
-`|M(x)| <<_eps x^(1/2+eps)`. So the covariance route is essentially equivalent
-to RH-scale Mertens, and the trivial deterministic bound is `O(x^2)`, since the
-sum has `binom(x,2)` terms. `O(x)` is *not* automatic and would already be
-stronger than needed.
-
-## The critical path is two arrows
-
-Two different covariance objects are in play.
-
-* **Global**: `C(x+1)`, the integer-order Green--Kubo covariance of Moebius.
-* **Hierarchical Euler frontier**: the covariance of the terminal-correction
-  coordinate, whose worst case over arbitrary deeper sign oscillation
-  `MiddlePrimeFibreCollapse` bounds by
-  `(|G_R| + D_R)^2 - (N_mid + N_top + D_R)` over `2`, with
-  `D_R(p) = sum_{3<=d<R} N_R(d) F_d(p(d))` the deeper surviving atom count.
-
-**No theorem identifies or dominates the first by the second.** So:
+Write
 
 ```text
-Euler frontier covariance  -->  global C(x)  -->  C(x) <= x^(1+eta).
+Q(X+1) = sum_{n <= X} mu(n)^2
+C(X+1) = sum_{1 <= a < b <= X} mu(a) mu(b).
 ```
 
-`RHLean/Analysis/MertensCovarianceDescent.lean` names both arrows for an
-arbitrary envelope `E`:
-
-* `CovarianceEnvelopeDominates E` — the **bridge**: `C(K) <= E K`;
-* `CovarianceEnvelopeRootScale E` — the **capacity**: `E K <<_eps K^(1+eps)`;
-* `mertensEnergyBounded_of_covarianceEnvelope` — both together, and only both
-  together, give the energy criterion.
-
-A frontier route supplies a candidate `E`. Until domination is proved, however
-sharp its own capacity bound is, it bounds a different object. The bridge is now
-at least as important as squeezing `D_R`.
-
-## Record descent: a capacity route that never counts pairs
-
-The same file gives an alternative second arrow that stays signed throughout.
-With
+The deterministic Green--Kubo identity is
 
 ```text
-excursion(delta, K) = C(K) / K^(1 + delta),
+|M(X)|^2 = Q(X+1) + 2 C(X+1),
+C(X+1) = (|M(X)|^2 - Q(X+1)) / 2.
 ```
 
-`MertensCovarianceDescentStatement` says every supercritical scale
-(`excursion >= 1`) is forced by a strictly smaller supercritical scale. Because
-the scales are natural numbers that alone forbids a minimal supercritical
-excursion, hence any at all:
+`Q` is the sign-definite lag-zero quadratic variation (the uncentered variance
+analogue). The factor `1/2` appears because the square contains both orientations
+of every off-diagonal pair.
 
-* `mertensCovarianceExcursion_lt_one_of_descent`,
-* `mertensPositiveLagUpperBounded_of_covarianceDescent`,
-* `mertensEnergyBounded_of_covarianceDescent`.
-
-Nothing here bounds `|C|` by a count of surviving pairs, and every intermediate
-signed correction may oscillate arbitrarily; only the normalized excursion at
-two scales is compared. That is the shape a capacity theorem has to have.
-
-## Why support exhaustion alone cannot close it
-
-`norm_mertensSummatory_le_primeProductFrontierCard` gives the exact support
-bound `|M(X)| <= F(X, ell)` after Euler parent/child pairing, hence capacity
-`F (F-1) / 2`. `PrimeProductFrontierRootScaleStatement` states what would make
-that RH strength, and `mertensEnergyBounded_of_primeProductFrontierRootScale`
-proves it suffices. It is stated as a hypothesis because it is measured false.
-
-`scripts/CumulativeOthelloBoundary/frontier_capacity.py`, at `x = 200000`:
+This diagonal is not bookkeeping. Any positive covariance excursion must first
+overcome it. The theorem
 
 ```text
-M(x) = -1        sqrt(x) = 447.2        x - Z(x) = 121581
-actual C(x+1)                    = -6.079e+04  = -0.3039 x
-Mertens-conjecture threshold Z/2 =  3.921e+04  =  0.1960 x   (false conjecture)
-RH target                        C(x) <= x^(1+eps) ~ 2e+05
-frontier ell=2: F = 40527   F/x = 0.20264   F/sqrt(x) = 90.6
-                capacity F(F-1)/2 = 8.212e+08 = 4106 x
+realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal
 ```
 
-Readings.
-
-* The minimising pivot is `ell = 2` and its frontier is
-  `{n <= X : n squarefree, n odd, X < 2n}` — the squarefree part of the top-half
-  window, which is exactly the `ell = 2` **cutoff wall** of
-  `PrefixCarrierOthelloWalls`. Its density tends to `2/pi^2 = 0.20264`, the same
-  constant that closed the fixed-prime peel family. Two independent routes hit
-  the same object and the same constant.
-* `F` is linear in `X`, so `F/sqrt(X)` grows and capacity is of order `X^2` — a
-  full power above the target. Support exhaustion alone is not a power saving.
-* The actual global covariance is strongly negative, far below every threshold.
-  The difficulty is not the true value; it is that no theorem bounds it, and the
-  frontier bound bounds a different object until the bridge is proved.
-
-## Signed blocks: the decomposition that removes the bridge
-
-`RHLean/Analysis/BlockCovarianceDecomposition.lean` takes the arrows above and
-collapses them into one problem, by partitioning the pair sum instead of
-counting atoms.
-
-For a signed block sequence `B` write `S K = sum_{j<K} B j`,
-`E K = sum_{j<K} (B j)^2`, `X K = sum_{j<K} B j * S j`.  Then
+records the identity directly, while
 
 ```text
-S K ^ 2 = E K + 2 X K,      hence      2 X K = S K ^ 2 - E K.
+realMertensDiagonal_eq_card_squarefreeUpTo
 ```
 
-That rearrangement is the point.  **Cross-block coherence is pinned, not free.**
-It is determined by the total signed mass and the block energy, so a route that
-lets every deeper block align adversarially is over-counting by construction.
-`signedBlockPrefix_abs_sq_sub_sq` measures exactly what the magnitude-first step
-discards: twice the cross-covariance defect, with the block energy untouched.
+identifies `Q` with the exact squarefree population.
 
-The two-block prototype is the first Euler face.  With `a` seats of one sign and
-`b` of the other,
+## 2. Exact one-face bridge
+
+Let `F(X,ell)` be the first-failure frontier population after exposing Euler
+coordinate `ell`. The frontier covariance used by the support calculation is
 
 ```text
-a(a-1)/2 + b(b-1)/2 - a b = ((a - b)^2 - (a + b)) / 2,
+C_frontier = (|M(X)|^2 - F(X,ell)) / 2.
 ```
 
-linear or negative when `a ~ b`, while bounding the blocks independently returns
-`~ (a+b)^2 / 2`.  The gap is exactly `2ab` (`twoBlockAbsoluteLoss`).  That is the
-`(N_mid - N_top)` versus `N_mid + N_top` phenomenon, stated as algebra.
-
-Instantiated at the literal square blocks `[j^2, (j+1)^2)`:
-
-* `signedBlockPrefix_realSquareBlockMass` — the block masses telescope to
-  `M(R^2)`;
-* `realMertensLength_sq_eq_blockEnergy_add_two_mul_cross` — Mertens energy at a
-  square endpoint is block energy plus twice the cross-block covariance;
-* `realMertensPositiveLagPairSum_eq_inner_add_cross` — **the partition
-  identity**: the global integer-order covariance *is* the within-block
-  covariances plus the cross-block covariance.  Same pair sum, same carrier, no
-  domination hypothesis.  The window form is proved by prefix differences alone
-  (`signedBlockPrefix_sub_sq_eq_energy_sub_add_two_mul_inner`), so no interval
-  induction is needed.
-
-### What the measurement says
-
-`scripts/CumulativeOthelloBoundary/block_covariance.py`, at `R = 400`,
-`N = 160000`:
+Because every first-failure face is a genuine admissible squarefree face,
 
 ```text
-sum B_j = M(N-1) = -67          block energy E = sum B_j^2 = 99961 (= 0.625 N)
-cross X = (S^2 - E)/2 = -47736  within-block sum_j C_j = 1347
-partition check: sum C_j + X = -46389 = global C          OK
-magnitude-first: sum |B_j| = 4781,  (sum|B_j|)^2 = 2.29e7  vs  S^2 = 4489
-discarded cross-cancellation = 2.285e7 = 142.8 N
+F(X,ell) <= Q(X+1).
 ```
 
-Three readings.
-
-* Both identities hold exactly at every scale tested. The block decomposition is
-  a partition, so the bridge problem is gone in this coordinate.
-* `sum |B_j|` grows like `N^(3/4)` while `|S| = |M|` stays near `N^(1/2)`, so the
-  discarded cross-cancellation grows like `N^(3/2)`.  Magnitude-first bounding
-  loses **a half power**, not a constant factor.  That is precisely the cost of
-  `|H_R| <= |G_R| + D_R` followed by squaring.
-* The block energy *looks* linear here, about `6/pi^2 N`, the squarefree
-  density.  **That must not be promoted to a theorem.**  Exactly,
-  `E - Q = 2 sum_j C_j` with `Q(N) = N - Z(N)` the squarefree diagonal
-  (`signedBlockEnergy_realSquareBlockMass_sub_diagonal`), so proving
-  `E << N^(1+eps)` *is* proving the aggregate within-block covariance is of RH
-  scale.  It is not an independent input.  **The decomposition localizes the
-  difficulty and removes the bridge; it does not by itself dissolve the bound.**
-
-## Refinement: drive the energy down to the exact diagonal
-
-`RHLean/Analysis/BlockCovarianceRefinement.lean` takes the way out that does not
-require bounding `E` at all.
-
-For any splitting of every block into signed children,
-`signedBlockEnergy_refine` gives
+Therefore the difference from global covariance is exact:
 
 ```text
-E_coarse = E_refined + 2 * sum_j (children cross covariance of block j).
+C_frontier - C_global = (Q - F) / 2 >= 0.
 ```
 
-Each step moves energy into the children and leaves an explicit signed cross
-term behind.  Iterated to singletons the leaf energy is exactly the squarefree
-diagonal `Q(N)`, linear with no conjecture (`signedBlockEnergy_leaf_le`).  Every
-unordered Möbius pair is charged to the unique refinement node at which its two
-entries first separate — Green--Kubo as an Euler/Othello covariance tree, with
-every signed cross term preserved on the way down.
-
-## Fresh post-root primes preserve covariance exactly
-
-The refinement that earns a power saving is by large-prime families.  For a
-prime `p` and cofactors below it, multiplication by `p` flips the Möbius sign,
-so it **reverses the family mass but preserves the family pair covariance**:
+Compiled as:
 
 ```text
-mu(p c) = - mu(c)          (realMoebiusStep_prime_mul_of_lt)
-mu(p c) mu(p d) = mu(c) mu(d)   (realMoebiusStep_prime_mul_pair)
+primeProductFrontierSurvivingCovariance_sub_global_eq_diagonalGap
+realMertensPositiveLagPairSum_le_primeProductFrontierSurvivingCovariance
+covarianceEnvelopeDominates_primeProductFrontier
 ```
 
-Hence `largePrimeFamilyPairSum_eq`, and in post-root form
-(`largePrimeFamilyPairSum_postRoot`), for `p * p > W`:
+So `CovarianceEnvelopeDominates` is proved for the prime-product Euler frontier.
+No probability, independence, asymptotic estimate, or sign assumption is used.
+
+## 3. The sharper support-only bound
+
+The existing Othello pairing gives
 
 ```text
-family mass       = - M(floor(W/p) + 1)
-family covariance =   C(floor(W/p) + 1).
+|M(X)| <= F(X,ell).
 ```
 
-A post-root prime family is an *isometric copy* of a lower-scale prefix as far
-as pair covariance is concerned.  That is an exact covariance descent, not an
-analogy, and it is what feeds the descent formulation: at a minimal
-supercritical scale every reduced scale `z < sqrt W` is already subcritical, so
-summing the families and grouping by reciprocal quotient bounds the inner
-post-root covariance by lower-scale data.
-
-Verified over 4082 post-root prime families and three cutoffs by
-`scripts/CumulativeOthelloBoundary/family_descent_check.py`, together with the
-`E - Q = 2 sum_j C_j` identity.
-
-**Still open:** the elementary sum estimate that converts the descent into the
-power saving — with `N_W(z) <= W/(z(z+1)) + 1` and every `C(z) < z^(1+delta)`,
-one wants `sum_{z < sqrt W} N_W(z) z^(1+delta) << W^(1 + delta/2)`.  No PNT is
-needed, but the estimate is not formalized here.  Also open: the covariance
-*between* distinct fresh-prime family blocks, and their interaction with the
-complementary smooth block, where the block Gram identity
-`(A - T)^2 = A^2 + T^2 - 2AT` should be carried down rather than replaced by
-`|A| + |T|`.
-
-## The seam, stated at run level
-
-`main` proves
+Restoring the *global* diagonal before taking covariance yields
 
 ```text
-SquareRunEnergyBoundedStatement
-  <-> PrimeWheelResidualBoundedStatement primorialWheelFamily
-  <-> MertensEnergyBoundedStatement
+C(X+1) <= (F(X,ell)^2 - Q(X+1)) / 2.
 ```
 
-(`squareRunEnergyBounded_iff_primorialResidualBounded`,
-`squareRunEnergyBounded_iff_mertensEnergy`), so once a uniform maximal signed
-run estimate exists the wheel and the arbitrary-`x` interpolation are finished
-bookkeeping.  `RHLean/Analysis/SquareRunEscapeCovariance.lean` therefore states
-the seam there.
-
-For a run `I = [a, b]` of complete square blocks, `squareRunMass_sq_eq` is the
-exact window Green--Kubo identity
+This is compiled as
 
 ```text
-(sum_{j in I} Delta_j)^2 = Q_I + 2 * C_I,
+realMertensPositiveLagPairSum_le_frontier_sq_sub_diagonal.
 ```
 
-`Q_I` the singleton squarefree diagonal, at most the window length
-(`squareRunDiagonal_le`, no conjecture).  Splitting `C_I` into a *descended*
-part and an escape remainder gives the exact
+It is strictly sharper than the older frontier-only maximum
+`F(F-1)/2`, because `F <= Q`.
+
+This does **not** rescue support exhaustion. The minimizing raw frontier is still
+linear. For the prime-2 face it is the odd squarefree top-half wall and has
+asymptotic density `2/pi^2`. Hence `F^2` remains quadratic while the restored
+diagonal is only linear.
+
+At the diagnostic cutoff `X = 200000` the existing script records
 
 ```text
-(sum_{j in I} Delta_j)^2 = Q_I + 2 * descended + 2 * escape.
+Q = 121581,
+F_2 = 40527.
 ```
 
-Two hypotheses then close it:
+Thus the exact diagonal correction `(Q-F)/2` is `40527`: large on the linear
+scale, but still unable to cancel the quadratic support term.
 
-* `SquareRunDescendedNonpositive` — the descended contribution adds no positive
-  covariance.  This is what complete fresh-prime pair-cube cancellation plus
-  lower-scale family descent are for; every post-root family is
-  covariance-isomorphic to a prefix below `sqrt W`.
-* `SquareRunTopEscapeCovarianceBoundedStatement` — the escape covariance is of
-  RH scale, uniformly over consecutive runs.
+## 4. The terminal-correction scalar is not the right global carrier
 
-`squareRunEnergyBounded_of_topEscapeCovarianceBounded` proves those give the run
-criterion, and `mertensEnergyBounded_of_topEscapeCovarianceBounded` chains
-through the existing equivalence.
+`MiddlePrimeFibreCollapse` defines a hierarchical terminal-correction mass and
+bounds its worst-case surviving covariance. That scalar is useful Euler
+bookkeeping, but its amplitude is not `M(R^2-1)`, so its covariance cannot simply
+be declared global.
 
-**The escape part must contain the cross-block pairs.**  Controlling family
-interaction separately inside each `Delta_j` would still miss
-`2 sum_{a <= i < j <= b} Delta_i Delta_j`.  Defining escape as a *remainder*
-makes that omission visible rather than silent: anything a proposed descent does
-not account for is in the escape term by construction.
+This distinction remains important: the theorem below does **not** identify
+`squareRootHierarchicalSurvivingCovariance` with global covariance.
 
-**Nesting does not cause the cancellation.**  It supplies a chronological
-coordinate and proves that controlling the escape on every signed run suffices.
-The negative feedback still has to come from the fresh-prime arithmetic as
-square time advances: the four-corner pair identity cancels every interior
-order-crossing shell and leaves the top-escape shell.  The remaining native
-sentence is:
+## 5. The centered middle-bias residual *is* the global carrier
 
-> Top-escape covariance cannot maintain a positive supercritical record through
-> square time.
+The repository already had the exact identity
 
-## The terminal acceptance test needs two halves
+```text
+squareRootMiddleBiasResidual R = -squarePrefixMertens (R-1).
+```
 
-`ClassicalMertensRHCriterion` is a structure taken as an ordinary theorem
-*argument*.  It is therefore invisible to `#print axioms`: a theorem assuming it
-has a clean axiom printout while remaining conditional on an unproved classical
-equivalence.
+The current PR now rewrites that same centered coordinate into the elementary
+reciprocal Euler hierarchy:
 
-So the acceptance test for a terminal RH theorem is **both**:
+```text
+squareRootMiddleBiasResidual R
+  = topPrimeCard
+    - squareRootSmoothMass (R-1)
+    + sum_{2 <= d < R} N_R(d) * M(d).
+```
 
-1. its signature carries no `ClassicalMertensRHCriterion` (or equivalent open
-   hypothesis), because that equivalence has actually been instantiated; and
-2. `#print axioms` on it reports only the standard logical axioms.
+Compiled as
 
-Neither implies the other.  `scripts/check_rh_conditionality.py` mechanizes the
-first half; `--require-unconditional <name>` makes it fatal for a named
-declaration, and the report is wired into `scripts/local_ci.sh`.  At present it
-lists **18** RH-facing theorems that remain conditional on the assumed criterion,
-so every RH-facing conclusion in this repository is a reduction, not a closure.
+```text
+squareRootMiddleBiasResidual_eq_top_sub_smooth_add_reciprocalLayers.
+```
+
+This is the faithful prime-by-prime carrier:
+
+- the top prime block is deterministic;
+- the smooth term is the completed low-prime state;
+- every remaining reciprocal layer samples a complete lower-scale Mertens state;
+- no absolute value is taken between layers.
+
+Define its covariance using the **global** lag-zero diagonal:
+
+```text
+squareRootMiddleBiasResidualCovariance R
+  = (|squareRootMiddleBiasResidual R|^2
+       - Q(squareRootEndpoint R + 1)) / 2.
+```
+
+Then the bridge is equality:
+
+```text
+squareRootMiddleBiasResidualCovariance_eq_global:
+  squareRootMiddleBiasResidualCovariance R
+    = realMertensPositiveLagPairSum (squareRootEndpoint R + 1).
+```
+
+So at square endpoints there is no remaining carrier mismatch at all.
+
+## 6. Square endpoints lose no RH-scale information
+
+`SquarePrefixMertensBridge.lean` already proves
+
+```text
+MertensEnergyBoundedStatement
+  <-> SquarePrefixEnergyBoundedStatement.
+```
+
+The interpolation from square endpoints to arbitrary `x` uses only
+`|mu(n)| <= 1` across the gap to the nearest square.
+
+Therefore an RH-scale covariance bound on the centered reciprocal Euler carrier
+above is enough to return to the full Mertens energy criterion. The geometry is
+now on the correct carrier; the remaining issue is quantitative cancellation.
+
+## 7. What remains open
+
+The remaining native task is a **signed capacity/descent theorem**, not another
+bridge theorem and not another support count.
+
+Two existing pieces point in the right direction.
+
+### Record descent
+
+`MertensCovarianceDescentStatement` says every supercritical covariance record is
+forced by a strictly smaller supercritical record. Natural-number well-foundedness
+then rules out any such record. The implication to the Mertens energy criterion
+is already compiled.
+
+What is still needed is the elementary prime-by-prime theorem that produces this
+descent from the Euler geometry.
+
+### Fresh-prime covariance copies
+
+For a fresh post-root prime `p`, multiplication by `p` reverses Möbius mass but
+preserves pair products. Thus each prime family is covariance-isomorphic to a
+lower prefix. Grouping families by reciprocal quotient gives the schematic
+upper sum
+
+```text
+sum_{z < sqrt W} N_W(z) C(z),
+N_W(z) <= W/(z(z+1)) + 1.
+```
+
+At a minimal supercritical scale, every lower `C(z)` is already subcritical. The
+remaining work is to preserve the signed cross-family/smooth interaction while
+performing this descent, rather than replacing it with a magnitude-first bound.
+
+## 8. Why the diagonal observation matters for the next attack
+
+The diagonal is the fixed baseline. Off-diagonal covariance is only the excess
+(or deficit) of total signed energy over that baseline:
+
+```text
+2 C = |M|^2 - Q.
+```
+
+Thus every refinement should carry its lag-zero energy with it. Squaring a sum of
+support capacities and subtracting a surrogate atom count only at the end loses
+the most useful sign-definite part of the identity.
+
+The next theorem should therefore refine the centered global carrier
+
+```text
+top - smooth + sum_d N_R(d) M(d)
+```
+
+prime by prime while preserving:
+
+1. the exact lower-scale covariance copied by each fresh prime;
+2. the exact diagonal contribution of each physical squarefree seat; and
+3. the signed cross terms between distinct prime families and the smooth block.
+
+That is the elementary Euler version of the covariance tree already formalized
+by `BlockCovarianceRefinement`.
 
 ## Do not
 
-* bound `|C|` by a count of surviving pairs. That discards the Euler sign
-  structure and leaves `F^2`. A capacity theorem has to be a signed multi-face
-  identity or recurrence taken **before** absolute values;
-* treat `C(x) = O(x)` as the target. It is stronger than RH scale and stronger
-  than the trivial deterministic bound permits to be automatic;
-* aim at `C(x) <= 0.196 x`. That is the false Mertens conjecture;
-* report a frontier capacity bound as progress on the global covariance without
-  the domination arrow. They are different objects.
+- replace signed layer interactions by `sum |layer|` before squaring;
+- count surviving pairs as a substitute for covariance;
+- identify the hierarchical terminal-correction covariance with global
+  covariance without recentering;
+- discard `Q`: it is the lag-zero energy that makes the exact bridge and the
+  sharper support bound work;
+- aim for `C(X) = O(X)` as though it were automatic. That would already imply
+the false-conjecture-scale square-root strength far beyond what the trivial pair
+count gives.
