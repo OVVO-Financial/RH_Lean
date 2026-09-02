@@ -172,4 +172,114 @@ theorem primorialTruncatedTransportedShellLedger_eq_zero_of_complete
     primorialSignedContractionFactor_toFinset_eq_primeListEulerProduct ps hnodup]
   ring
 
+/-! ## Reciprocal upper-column telescope -/
+
+/-- Composite successor cutoffs do not change the prime prefix. -/
+theorem primesUpTo_succ_eq_of_not_prime_reciprocal
+    (n : ℕ) (hnot : ¬ (n + 1).Prime) :
+    primesUpTo (n + 1) = primesUpTo n := by
+  ext q
+  simp only [mem_primesUpTo]
+  constructor
+  · rintro ⟨hqPrime, hqle⟩
+    refine ⟨hqPrime, ?_⟩
+    have hqne : q ≠ n + 1 := by
+      intro hEq
+      subst q
+      exact hnot hqPrime
+    omega
+  · rintro ⟨hqPrime, hqle⟩
+    exact ⟨hqPrime, by omega⟩
+
+/-- **Reciprocal upper-column telescope.**
+
+Each partner prime contributes its final truncated-wheel boundary with the
+native reciprocal owner weight `1/q`.  Summing over a complete prime prefix
+cancels both the moving truncated profile and the matching uniform Euler
+contraction, leaving exactly the negative final boundary. -/
+theorem primorialTruncatedBoundary_upperColumn_telescope
+    (X K : ℕ) (hX : 1 ≤ X) :
+    (∑ q ∈ primesUpTo K,
+      (1 / (q : ℝ)) *
+        (primorialTruncatedSignedReciprocalCube
+            (primesUpTo (q - 1)) (X / q) -
+          primorialSignedContractionFactor (primesUpTo (q - 1)))) =
+      primorialSignedContractionFactor (primesUpTo K) -
+        primorialTruncatedSignedReciprocalCube (primesUpTo K) X := by
+  induction K with
+  | zero =>
+      have hzero : primesUpTo 0 = ∅ := by
+        apply Finset.eq_empty_iff_forall_notMem.mpr
+        intro q hq
+        have hdata := mem_primesUpTo.mp hq
+        have htwo := hdata.1.two_le
+        omega
+      rw [hzero]
+      simp [primorialSignedContractionFactor,
+        primorialTruncatedSignedReciprocalCube_empty X hX]
+  | succ K ih =>
+      by_cases hq : (K + 1).Prime
+      · have hnotMem : K + 1 ∉ primesUpTo K := by
+          simp
+        have hpred : K + 1 - 1 = K := by omega
+        have hset :
+            primesUpTo (K + 1) = insert (K + 1) (primesUpTo K) := by
+          simpa [hpred] using insert_freshPrime_primesUpTo_pred_eq hq
+        have htrunc :=
+          primorialTruncatedSignedReciprocalCube_insert
+            (P := primesUpTo K) (p := K + 1) (X := X) hnotMem hq
+        have hfactor :
+            primorialSignedContractionFactor (primesUpTo (K + 1)) =
+              (1 - 1 / ((K + 1 : ℕ) : ℝ)) *
+                primorialSignedContractionFactor (primesUpTo K) := by
+          rw [hset]
+          unfold primorialSignedContractionFactor
+          rw [Finset.prod_insert hnotMem]
+        calc
+          (∑ q ∈ primesUpTo (K + 1),
+              (1 / (q : ℝ)) *
+                (primorialTruncatedSignedReciprocalCube
+                    (primesUpTo (q - 1)) (X / q) -
+                  primorialSignedContractionFactor
+                    (primesUpTo (q - 1)))) =
+            (1 / ((K + 1 : ℕ) : ℝ)) *
+                (primorialTruncatedSignedReciprocalCube
+                    (primesUpTo K) (X / (K + 1)) -
+                  primorialSignedContractionFactor (primesUpTo K)) +
+              ∑ q ∈ primesUpTo K,
+                (1 / (q : ℝ)) *
+                  (primorialTruncatedSignedReciprocalCube
+                      (primesUpTo (q - 1)) (X / q) -
+                    primorialSignedContractionFactor
+                      (primesUpTo (q - 1))) := by
+                rw [hset, Finset.sum_insert hnotMem, hpred]
+          _ =
+            (1 / ((K + 1 : ℕ) : ℝ)) *
+                (primorialTruncatedSignedReciprocalCube
+                    (primesUpTo K) (X / (K + 1)) -
+                  primorialSignedContractionFactor (primesUpTo K)) +
+              (primorialSignedContractionFactor (primesUpTo K) -
+                primorialTruncatedSignedReciprocalCube
+                  (primesUpTo K) X) := by rw [ih]
+          _ = primorialSignedContractionFactor (primesUpTo (K + 1)) -
+                primorialTruncatedSignedReciprocalCube
+                  (primesUpTo (K + 1)) X := by
+              rw [hfactor, hset, htrunc]
+              ring
+      · have hset := primesUpTo_succ_eq_of_not_prime_reciprocal K hq
+        rw [hset, ih]
+
+/-- The same identity in final-boundary sign orientation. -/
+theorem primorialTruncatedBoundary_upperColumn_telescope_boundary
+    (X K : ℕ) (hX : 1 ≤ X) :
+    (∑ q ∈ primesUpTo K,
+      (1 / (q : ℝ)) *
+        (primorialTruncatedSignedReciprocalCube
+            (primesUpTo (q - 1)) (X / q) -
+          primorialSignedContractionFactor (primesUpTo (q - 1)))) =
+      -(primorialTruncatedSignedReciprocalCube (primesUpTo K) X -
+          primorialSignedContractionFactor (primesUpTo K)) := by
+  rw [primorialTruncatedBoundary_upperColumn_telescope X K hX]
+  ring
+
 end RHLean.Proof
