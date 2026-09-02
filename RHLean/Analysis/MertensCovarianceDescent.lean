@@ -73,28 +73,30 @@ to be a signed multi-face statement, not another cardinality statement.
 
 ## 3. The covariance bridge: what closes and what remains distinct
 
-There are two Euler-frontier coordinates in the current development and they
-must not be conflated.
+There are three Euler coordinates worth separating.
 
 * The **one-face prime-product frontier** keeps the actual Mertens amplitude
   `‖M(X)‖` and replaces only the diagonal by the surviving first-failure
-  population `F(X, ell)`.  This file now puts that object on the same carrier as
-  the global integer-order Green--Kubo covariance exactly: the difference is
-  one half of the squarefree diagonal discarded by the frontier.  Restoring
-  that lag-zero energy gives the sharper support bound `(F^2-Q)/2`.
+  population `F(X, ell)`.  This file puts that object on the same carrier as the
+  global integer-order Green--Kubo covariance exactly: the difference is one
+  half of the squarefree diagonal discarded by the frontier.  Restoring that
+  lag-zero energy gives the sharper support bound `(F^2-Q)/2`.
 * The **hierarchical terminal-correction frontier** of
   `MiddlePrimeFibreCollapse` is a different signed scalar assembled from the
-  middle/top correction channel and deeper reciprocal layers.  No theorem here
-  identifies that scalar covariance with the global pair sum.  It still needs a
-  physical carrier map before its forced-sign capacity can be used as a global
-  covariance envelope.
+  middle/top correction channel and deeper reciprocal layers.  Its covariance
+  is not automatically the global pair sum.
+* The **centered middle-bias residual** from `SquareRootPrimeCountGap` is the
+  correct square-endpoint global carrier: it is exactly `-M(R^2-1)`.  Below we
+  rewrite it into the same elementary reciprocal Euler layers and prove that,
+  once the full squarefree lag-zero diagonal is used, its covariance is
+  **exactly** the global covariance at the square endpoint.  No domination loss
+  remains on that coordinate.
 
-Thus `CovarianceEnvelopeDominates` is no longer wholly abstract: it is compiled
-below for the one-face prime-product surviving-covariance envelope.  This does
-**not** rescue the support-only route, because its frontier is linear and hence
-its squared amplitude capacity remains quadratic even after the exact diagonal
-is restored.  The remaining useful attack is therefore signed
-refinement/descent before absolute values, not another support count.
+Thus `CovarianceEnvelopeDominates` is compiled below for the one-face global
+frontier, while the square-root centered carrier enjoys the stronger equality
+bridge.  Neither fact rescues support-only capacity: the remaining useful attack
+is signed refinement/descent before absolute values, now on a carrier that is
+known to be physically global.
 
 Two thresholds also should not be conflated.  Crossing the literal `sqrt x` line
 is `C(x+1) > Z(x)/2`, and `Z(x)/2 ~ (1 - 6/pi^2) x / 2 ~ 0.196 x`; that is the
@@ -396,6 +398,50 @@ theorem realMertensPositiveLagPairSum_le_primeProductFrontierMaximumCovariance
       primeProductFrontierMaximumCovariance X ell :=
   (realMertensPositiveLagPairSum_le_primeProductFrontierSurvivingCovariance X ell).trans
     (primeProductFrontierSurvivingCovariance_le_maximum hell)
+
+/-! ## The centered square-root Euler carrier is already global -/
+
+/-- The centered middle-bias coordinate written directly in the elementary
+reciprocal Euler layers.  The top block is deterministic, the smooth term is the
+completed low-prime state, and every remaining term samples a complete lower
+Mertens state.  No absolute value or estimate is used. -/
+theorem squareRootMiddleBiasResidual_eq_top_sub_smooth_add_reciprocalLayers
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootMiddleBiasResidual R =
+      ((squareRootTopFibrePrimes R).card : ℂ) -
+        squareRootSmoothMass (R - 1) +
+        ∑ d ∈ Finset.Icc 2 (R - 1),
+          primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+            mertensSummatory d := by
+  rw [squareRootMiddleBiasResidual_eq_neg_mertens R hR,
+    squarePrefixMertens_eq_smooth_sub_middle_sub_topCard R hR,
+    squareRootMiddleMertensTail_eq_reciprocalPrimeLayers R hR]
+  ring
+
+/-- Covariance of the centered square-root Euler carrier, using the **global**
+lag-zero squarefree energy rather than a surrogate frontier cardinality. -/
+def squareRootMiddleBiasResidualCovariance (R : ℕ) : ℝ :=
+  (‖squareRootMiddleBiasResidual R‖ ^ 2 -
+    realMertensDiagonal (squareRootEndpoint R + 1)) / 2
+
+/-- **Exact square-endpoint covariance bridge.**  The centered reciprocal Euler
+carrier is not merely an envelope for global covariance: after restoring the
+full lag-zero diagonal, it *is* the global covariance at `R^2-1`. -/
+theorem squareRootMiddleBiasResidualCovariance_eq_global
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootMiddleBiasResidualCovariance R =
+      realMertensPositiveLagPairSum (squareRootEndpoint R + 1) := by
+  unfold squareRootMiddleBiasResidualCovariance
+  rw [norm_squareRootMiddleBiasResidual_eq_mertens R hR]
+  have hclock :
+      squarePrefixMertens (R - 1) =
+        mertensSummatory (squareRootEndpoint R) := by
+    unfold squarePrefixMertens squarePrefixEndpoint squareRootEndpoint
+    rw [Nat.sub_add_cancel (by omega : 1 ≤ R)]
+  rw [hclock]
+  exact
+    (realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal
+      (squareRootEndpoint R)).symm
 
 /-! ## The two arrows of the critical path -/
 
