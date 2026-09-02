@@ -26,13 +26,16 @@ There are two pieces.
    split is taken inside `D_i`.
 
 2. A finite Abel return from reciprocal prefixes to the original unweighted
-   centered covariance numerator.  If every reciprocal prefix through `n` has
-   norm at most `A`, then
+   centered covariance numerator.  The sharp return surface is the complete
+   prefix profile
 
-   `||sum_{c=1}^n s_R(c)|| <= 2 * n * A`.
+   `n * ||V_R(n)|| + sum_{k<n} ||V_R(k)||`.
 
-   At `n = X_R` this directly bounds
-   `cofactorCard(R) * canonicalRoughCovariance(R)`.
+   In particular, if every reciprocal prefix through `n` has norm at most `A`,
+   then the unweighted numerator is at most `2 * n * A`.
+
+At `n = X_R` these estimates directly bound
+`cofactorCard(R) * canonicalRoughCovariance(R)`.
 
 The remaining arithmetic target is therefore explicit: prove a small bound on
 the scaled signed defect floor uniformly for the reciprocal prefixes produced by
@@ -259,7 +262,7 @@ theorem squareRootCanonicalRoughTransportedDefectLedger_norm_le
         _ ≤ a * ((1 - P) * Δ) + Δ / (step.1 : ℝ) :=
           add_le_add (mul_le_mul_of_nonneg_left hledgerTail ha0) hdefect
         _ = (1 - a * P) * Δ := by
-          dsimp [a]
+          dsimp [a, canonicalRoughEulerFactor]
           ring
         _ = (1 - canonicalRoughEulerProduct (step :: steps)) *
             squareRootCanonicalRoughScaledSignedDefectFloor R (step :: steps) := by
@@ -353,7 +356,7 @@ theorem sum_squareRootCanonicalRoughResponseCentered_eq_abel_reciprocalPrefix
         R (Nat.pos_of_ne_zero hc0)]
       ring
     rw [hweighted] at hsplit
-    simpa [v] using hsplit.symm
+    simpa [v] using hsplit
   rw [hleft]
   rw [habel]
   unfold squareRootCanonicalRoughReciprocalPrefix
@@ -362,13 +365,63 @@ theorem sum_squareRootCanonicalRoughResponseCentered_eq_abel_reciprocalPrefix
     intro k
     push_cast
     ring
-  simp_rw [hdiff]
+  simp_rw [hdiff, mul_neg_one]
+  rw [Finset.sum_neg_distrib]
   ring
 
-/-- Uniform reciprocal-prefix control returns quantitatively to the original
-unweighted centered numerator with only the sharp finite Abel factor `2n`. -/
+/-- Exact Abel profile budget.  This is the sharp return surface for a later
+scale-dependent contraction theorem; no uniform prefix envelope is imposed. -/
+def squareRootCanonicalRoughReciprocalAbelBudget (R n : ℕ) : ℝ :=
+  (n : ℝ) * ‖squareRootCanonicalRoughReciprocalPrefix R n‖ +
+    ∑ k ∈ Finset.range n,
+      ‖squareRootCanonicalRoughReciprocalPrefix R k‖
+
+/-- The original unweighted centered numerator is bounded by the complete
+reciprocal-prefix Abel profile. -/
+theorem norm_sum_squareRootCanonicalRoughResponseCentered_le_abelBudget
+    (R n : ℕ) :
+    ‖∑ c ∈ Finset.Icc 1 n,
+        squareRootCanonicalRoughResponseCenteredSummand R c‖ ≤
+      squareRootCanonicalRoughReciprocalAbelBudget R n := by
+  rw [sum_squareRootCanonicalRoughResponseCentered_eq_abel_reciprocalPrefix]
+  unfold squareRootCanonicalRoughReciprocalAbelBudget
+  calc
+    ‖(n : ℂ) * squareRootCanonicalRoughReciprocalPrefix R n -
+        ∑ k ∈ Finset.range n,
+          squareRootCanonicalRoughReciprocalPrefix R k‖ ≤
+      ‖(n : ℂ) * squareRootCanonicalRoughReciprocalPrefix R n‖ +
+        ‖∑ k ∈ Finset.range n,
+          squareRootCanonicalRoughReciprocalPrefix R k‖ :=
+      norm_sub_le _ _
+    _ ≤ (n : ℝ) * ‖squareRootCanonicalRoughReciprocalPrefix R n‖ +
+        ∑ k ∈ Finset.range n,
+          ‖squareRootCanonicalRoughReciprocalPrefix R k‖ := by
+      apply add_le_add
+      · rw [norm_mul]
+        simp
+      · exact norm_sum_le _ _
+
+/-- A pointwise envelope for the reciprocal-prefix profile returns directly
+through Abel summation, without replacing it by its worst prefix. -/
+theorem norm_sum_squareRootCanonicalRoughResponseCentered_le_profile
+    (R n : ℕ) (A : ℕ → ℝ)
+    (hprefix : ∀ k ≤ n,
+      ‖squareRootCanonicalRoughReciprocalPrefix R k‖ ≤ A k) :
+    ‖∑ c ∈ Finset.Icc 1 n,
+        squareRootCanonicalRoughResponseCenteredSummand R c‖ ≤
+      (n : ℝ) * A n + ∑ k ∈ Finset.range n, A k := by
+  exact (norm_sum_squareRootCanonicalRoughResponseCentered_le_abelBudget R n).trans <| by
+    unfold squareRootCanonicalRoughReciprocalAbelBudget
+    apply add_le_add
+    · exact mul_le_mul_of_nonneg_left (hprefix n le_rfl) (by positivity)
+    · apply Finset.sum_le_sum
+      intro k hk
+      exact hprefix k (Nat.le_of_lt (Finset.mem_range.mp hk))
+
+/-- Uniform reciprocal-prefix control is the coarse corollary of the sharper
+profile return and costs only the finite Abel factor `2n`. -/
 theorem norm_sum_squareRootCanonicalRoughResponseCentered_le_two_mul_of_prefix_bound
-    (R n : ℕ) (A : ℝ) (hA : 0 ≤ A)
+    (R n : ℕ) (A : ℝ)
     (hprefix : ∀ k ≤ n,
       ‖squareRootCanonicalRoughReciprocalPrefix R k‖ ≤ A) :
     ‖∑ c ∈ Finset.Icc 1 n,
@@ -410,11 +463,23 @@ theorem norm_sum_squareRootCanonicalRoughResponseCentered_le_two_mul_of_prefix_b
     _ ≤ (n : ℝ) * A + (n : ℝ) * A := add_le_add hend hsum
     _ = 2 * (n : ℝ) * A := by ring
 
-/-- **Finite Abel return on the exact RH-critical covariance carrier.**
-A uniform reciprocal-prefix bound through the square endpoint gives a bound on
-the original unweighted covariance numerator. -/
+/-- **Sharp finite Abel return on the exact RH-critical covariance carrier.**
+At the square endpoint the covariance numerator is controlled by the complete
+reciprocal-prefix profile, with no extra arithmetic hypothesis. -/
+theorem squareRootCanonicalRoughCovarianceNumerator_norm_le_abelBudget
+    (R : ℕ) (hR : 2 ≤ R) :
+    ‖(squareRootCanonicalRoughCofactorCard R : ℂ) *
+        squareRootCanonicalRoughCovariance R‖ ≤
+      squareRootCanonicalRoughReciprocalAbelBudget R (squareRootEndpoint R) := by
+  rw [squareRootCanonicalRoughCofactorCard_mul_covariance_eq_sum_responseCentered
+    R hR]
+  exact
+    norm_sum_squareRootCanonicalRoughResponseCentered_le_abelBudget
+      R (squareRootEndpoint R)
+
+/-- Uniform-prefix endpoint corollary of the sharp Abel return. -/
 theorem squareRootCanonicalRoughCovarianceNumerator_norm_le_two_endpoint_mul
-    (R : ℕ) (hR : 2 ≤ R) (A : ℝ) (hA : 0 ≤ A)
+    (R : ℕ) (hR : 2 ≤ R) (A : ℝ)
     (hprefix : ∀ k ≤ squareRootEndpoint R,
       ‖squareRootCanonicalRoughReciprocalPrefix R k‖ ≤ A) :
     ‖(squareRootCanonicalRoughCofactorCard R : ℂ) *
@@ -424,6 +489,6 @@ theorem squareRootCanonicalRoughCovarianceNumerator_norm_le_two_endpoint_mul
     R hR]
   exact
     norm_sum_squareRootCanonicalRoughResponseCentered_le_two_mul_of_prefix_bound
-      R (squareRootEndpoint R) A hA hprefix
+      R (squareRootEndpoint R) A hprefix
 
 end RHLean.Proof
