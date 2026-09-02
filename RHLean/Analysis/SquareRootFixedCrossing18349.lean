@@ -172,18 +172,22 @@ theorem squareRootCanonicalRoughCovarianceNativePNT
             (squareRootEndpoint R : ℝ))
         atTop (𝓝 0) :=
     nativeMertens_div_atTop_zero.comp squareRootEndpoint_tendsto_atTop
-  have habs :
-      Tendsto
-        (fun R : ℕ =>
-          |nativeMertensSummatory (squareRootEndpoint R) /
-            (squareRootEndpoint R : ℝ)|)
-        atTop (𝓝 0) :=
-    tendsto_zero_iff_abs_tendsto_zero.mp hratio
+  have hupper :
+      ∀ᶠ R : ℕ in atTop,
+        nativeMertensSummatory (squareRootEndpoint R) /
+            (squareRootEndpoint R : ℝ) < η :=
+    (tendsto_order.1 hratio).2 η hη
+  have hlower :
+      ∀ᶠ R : ℕ in atTop,
+        -η < nativeMertensSummatory (squareRootEndpoint R) /
+            (squareRootEndpoint R : ℝ) :=
+    (tendsto_order.1 hratio).1 (-η) (by linarith)
   have hsmall :
       ∀ᶠ R : ℕ in atTop,
         |nativeMertensSummatory (squareRootEndpoint R) /
-            (squareRootEndpoint R : ℝ)| < η :=
-    (tendsto_order.1 habs).2 η hη
+            (squareRootEndpoint R : ℝ)| < η := by
+    filter_upwards [hlower, hupper] with R hlo hhi
+    exact abs_lt.mpr ⟨hlo, hhi⟩
   filter_upwards [hsmall, eventually_ge_atTop (3 : ℕ)] with R hsmallR hR
   intro K j hK hcross _hj hV0 hVK
   have hendpoint : 3 ≤ squareRootEndpoint R := by
@@ -313,18 +317,22 @@ theorem eventually_exists_squareRootCanonicalRoughCovarianceNativePNT_18349_twen
             (squareRootEndpoint R : ℝ))
         atTop (𝓝 0) :=
     nativeMertens_div_atTop_zero.comp squareRootEndpoint_tendsto_atTop
-  have habs :
-      Tendsto
-        (fun R : ℕ =>
-          |nativeMertensSummatory (squareRootEndpoint R) /
-            (squareRootEndpoint R : ℝ)|)
-        atTop (𝓝 0) :=
-    tendsto_zero_iff_abs_tendsto_zero.mp hratio
+  have hupper :
+      ∀ᶠ R : ℕ in atTop,
+        nativeMertensSummatory (squareRootEndpoint R) /
+            (squareRootEndpoint R : ℝ) < η :=
+    (tendsto_order.1 hratio).2 η hη
+  have hlower :
+      ∀ᶠ R : ℕ in atTop,
+        -η < nativeMertensSummatory (squareRootEndpoint R) /
+            (squareRootEndpoint R : ℝ) :=
+    (tendsto_order.1 hratio).1 (-η) (by linarith)
   have hsmall :
       ∀ᶠ R : ℕ in atTop,
         |nativeMertensSummatory (squareRootEndpoint R) /
-            (squareRootEndpoint R : ℝ)| < η :=
-    (tendsto_order.1 habs).2 η hη
+            (squareRootEndpoint R : ℝ)| < η := by
+    filter_upwards [hlower, hupper] with R hlo hhi
+    exact abs_lt.mpr ⟨hlo, hhi⟩
   filter_upwards [hsmall, eventually_squareRootPacketCrossesAt_18349,
     eventually_ge_atTop (18350 : ℕ)] with R hsmallR hcross hRlarge
   rcases squareRootPacketCrossing18349_exists_partialResidual_lt_twentyOne hcross with
@@ -343,12 +351,19 @@ theorem eventually_exists_squareRootCanonicalRoughCovarianceNativePNT_18349_twen
         η * (squareRootEndpoint R : ℝ) := by
     rw [norm_mertensSummatory_eq_abs_nativeMertensSummatory]
     exact ((div_lt_iff₀ hXpos).mp hMdiv).le
+  have hVInt :
+      squareRootCrossingLayerPartialPacketInt R 18349 j ≤ (21 : ℤ) :=
+    Int.le_of_lt hV21
+  have hVReal :
+      ((squareRootCrossingLayerPartialPacketInt R 18349 j : ℤ) : ℝ) ≤ 21 := by
+    exact_mod_cast hVInt
+  have hVNonnegReal :
+      0 ≤ ((squareRootCrossingLayerPartialPacketInt R 18349 j : ℤ) : ℝ) := by
+    exact_mod_cast hV0
   have hV :
       ‖((squareRootCrossingLayerPartialPacketInt R 18349 j : ℤ) : ℂ)‖ ≤
         (21 : ℝ) := by
-    rw [Complex.norm_intCast, abs_of_nonneg]
-    · exact_mod_cast Int.le_of_lt hV21
-    · exact_mod_cast hV0
+    simpa [Complex.norm_intCast, abs_of_nonneg hVNonnegReal] using hVReal
   have htail :
       ‖squareRootPostCrossingCoupledTail R 18349 j‖ ≤
         η * (squareRootEndpoint R : ℝ) + 21 := by
