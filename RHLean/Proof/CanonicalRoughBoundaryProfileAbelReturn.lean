@@ -183,11 +183,8 @@ theorem abs_primorialTruncatedBoundaryAbelReturn_le (X K : ℕ) :
       |(∑ n ∈ Finset.range K, primorialTruncatedWheelBoundaryProfile X n) -
           (K : ℝ) * primorialTruncatedWheelBoundaryProfile X K| ≤
         |∑ n ∈ Finset.range K, primorialTruncatedWheelBoundaryProfile X n| +
-          |(K : ℝ) * primorialTruncatedWheelBoundaryProfile X K| := by
-    have h :=
-      abs_add (∑ n ∈ Finset.range K, primorialTruncatedWheelBoundaryProfile X n)
-        (-((K : ℝ) * primorialTruncatedWheelBoundaryProfile X K))
-    simpa [sub_eq_add_neg, abs_neg] using h
+          |(K : ℝ) * primorialTruncatedWheelBoundaryProfile X K| :=
+    abs_sub _ _
   have hsum :
       |∑ n ∈ Finset.range K, primorialTruncatedWheelBoundaryProfile X n| ≤
         ∑ n ∈ Finset.range K, |primorialTruncatedWheelBoundaryProfile X n| :=
