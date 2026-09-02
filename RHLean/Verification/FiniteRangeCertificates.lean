@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.CanonicalRoughCompleteSubrootDefectReduction
+import RHLean.Proof.CanonicalRoughTruncatedWheelDefectTelescope
 import RHLean.Proof.JointGramControl
 
 open scoped BigOperators
