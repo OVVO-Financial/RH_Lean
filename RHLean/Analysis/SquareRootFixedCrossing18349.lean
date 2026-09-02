@@ -1,6 +1,6 @@
 import Mathlib
 import RHLean.Analysis.SquareRootShallowReciprocalCrossing
-import RHLean.Analysis.SquareRootCanonicalRoughSubexpBound
+import RHLean.Analysis.SquareRootCanonicalRoughCovariance
 
 /-!
 # Fixed eventual reciprocal crossing at depth 18349
@@ -128,5 +128,52 @@ theorem eventually_squareRootPacketCrossesAt_18349 :
   refine ⟨by norm_num, ?_, hcurr.le⟩
   norm_num
   exact hprev
+
+/-! ## Strictly reduced bound on the exact canonical rough covariance seam -/
+
+/-- The exact mean-plus-covariance seam inherits the repository's premise-free
+strong-Mertens subexponential envelope.  This is a strict quantitative
+reduction from the crude quartic support envelope: the energy is bounded by
+
+`(C * X_R * exp (-c * (log X_R)^(1/10)) + K₀)^2`.
+
+The seam remains fully coupled; no mean/covariance split or support replacement
+is used. -/
+def SquareRootCanonicalRoughCovarianceSubexpEnergyStatement (K₀ : ℕ) : Prop :=
+  ∃ c C : ℝ, 0 < c ∧ 0 ≤ C ∧
+    ∀ R K j : ℕ,
+      3 ≤ R →
+      K ≤ K₀ →
+      SquareRootPacketCrossesAt R K →
+      j ≤ squareRootReciprocalPrimeLayerCard R K →
+      0 ≤ squareRootCrossingLayerPartialPacketInt R K j →
+      squareRootCrossingLayerPartialPacketInt R K j < (K : ℤ) →
+      ‖squareRootPostCrossingCanonicalBaseline R K j -
+          (squareRootCanonicalRoughCofactorCard R : ℂ) *
+            (squareRootCanonicalRoughParityMean R *
+                squareRootCanonicalRoughResponseMean R +
+              squareRootCanonicalRoughCovariance R)‖ ^ 2 ≤
+        (C * (squareRootEndpoint R : ℝ) *
+            Real.exp
+              (-c *
+                (Real.log (squareRootEndpoint R : ℝ)) ^ ((1 : ℝ) / 10)) +
+          (K₀ : ℝ)) ^ 2
+
+/-- **Strictly reduced covariance-seam energy bound.** -/
+theorem squareRootCanonicalRoughCovarianceSubexpEnergy
+    (K₀ : ℕ) :
+    SquareRootCanonicalRoughCovarianceSubexpEnergyStatement K₀ := by
+  rcases postCrossingCoupledTailSubexp K₀ with ⟨c, C, hc, hC, htail⟩
+  refine ⟨c, C, hc, hC, ?_⟩
+  intro R K j hR hK hcross hj hV0 hVK
+  have hKR : K < R := by
+    rcases squareRootPacketCrossing_has_postRootPrime hcross with
+      ⟨q, _hqPrime, hRq, _hqX, hqK⟩
+    rw [← hqK]
+    exact squareRootEndpoint_div_lt_root_of_root_le (by omega) (by omega)
+  have hnorm := htail R K j hR hK hcross hj hV0 hVK
+  rw [squareRootPostCrossingCoupledTail_eq_baseline_sub_mean_covariance
+    R K j hR hcross.1 hKR] at hnorm
+  exact pow_le_pow_left₀ (norm_nonneg _) hnorm 2
 
 end RHLean.Proof
