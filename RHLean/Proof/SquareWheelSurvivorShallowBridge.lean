@@ -283,7 +283,6 @@ theorem squareWheelShallowCoreHighCreationMassComplex_eq
         (squareRootPostRootPrimePrefix R K - (j : ℂ)) := by
           simp_rw [neg_mul]
           rw [Finset.sum_neg_distrib, Finset.sum_mul]
-          ring
     _ = -mertensSummatory K *
         (squareRootPostRootPrimePrefix R K - (j : ℂ)) := by rw [hmu]
 
@@ -322,7 +321,7 @@ theorem squareWheelShallowCorePostRootMassComplex_eq_partial_add_highCreation
     rw [habel] at hstepC
     rw [hlayer] at hstepC
     simp only [canonicalMoebiusWeight]
-    linear_combination hstepC
+    linear_combination -hstepC
   rw [hhigh]
   rw [hprev] at hpartial
   rw [hpartial]
