@@ -82,7 +82,8 @@ theorem fresh_partner_not_mem_oldFace
   have hqleC : q ≤ primeFaceProduct u := Nat.le_of_dvd hcpos hqdvd
   have hcgt : 1 < primeFaceProduct u := hq.one_lt.trans_le hqleC
   have hqle :=
-    prime_dvd_le_canonicalLargestPrimeFactor hcgt hq hqdvd
+    CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
+      hcgt hq hqdvd
   omega
 
 /-- Adjoining a prime partner `q <= p` to an old face produces another face of
@@ -177,6 +178,8 @@ theorem squareRootCanonicalRoughFreshTopEscapeBoundary_partner_gt_root_of_comple
   have hpcLe : p * primeFaceProduct u ≤ R - 1 := by omega
   have hprodLe : (p * primeFaceProduct u) * q ≤ (R - 1) * R :=
     Nat.mul_le_mul hpcLe hqLe
+  have hboundaryLt : (R - 1) * R < R * R := by
+    exact Nat.mul_lt_mul_of_pos_right (by omega) (by omega)
   have hboundary : (R - 1) * R ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
     rw [pow_two]
@@ -208,7 +211,8 @@ theorem squareRootCanonicalRoughFreshTopEscapeBoundary_subset_postRoot_of_comple
   refine ⟨Finset.mem_Ioc.mpr ⟨
       squareRootCanonicalRoughFreshTopEscapeBoundary_partner_gt_root_of_completeWheel
         hR hp hu hWheel hq, ?_⟩, hqPrime⟩
-  exact (Nat.le_div_iff_mul_le hcpos).2 hupper
+  exact (Nat.le_div_iff_mul_le hcpos).2 (by
+    simpa [Nat.mul_comm] using hupper)
 
 /-- Births remain on the opposite side of the root: their fresh child cofactor
 is strictly below `R`. -/
