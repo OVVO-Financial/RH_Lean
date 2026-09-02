@@ -122,8 +122,30 @@ theorem squareRootCanonicalRoughCorrelationReciprocalSummand_add_mul_freshPrime
     squareRootCanonicalRoughParityReciprocalSummand_add_mul_freshPrime
       hc hp hfresh
   rw [canonicalRoughEulerFactor_cast_complex]
-  rw [hcenter, hparity]
-  ring
+  calc
+    squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+          squareRootCanonicalRoughResponseMean R *
+            squareRootCanonicalRoughParityReciprocalSummand c +
+        (squareRootCanonicalRoughResponseCenteredReciprocalSummand R (c * p) +
+          squareRootCanonicalRoughResponseMean R *
+            squareRootCanonicalRoughParityReciprocalSummand (c * p)) =
+      (squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+          squareRootCanonicalRoughResponseCenteredReciprocalSummand R (c * p)) +
+        squareRootCanonicalRoughResponseMean R *
+          (squareRootCanonicalRoughParityReciprocalSummand c +
+            squareRootCanonicalRoughParityReciprocalSummand (c * p)) := by ring
+    _ = ((1 - 1 / (p : ℂ)) *
+          squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+          squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c p) +
+        squareRootCanonicalRoughResponseMean R *
+          ((1 - 1 / (p : ℂ)) *
+            squareRootCanonicalRoughParityReciprocalSummand c) := by
+      rw [hcenter, hparity]
+    _ = (1 - 1 / (p : ℂ)) *
+          (squareRootCanonicalRoughResponseCenteredReciprocalSummand R c +
+            squareRootCanonicalRoughResponseMean R *
+              squareRootCanonicalRoughParityReciprocalSummand c) +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c p := by ring
 
 /-! ## One physical prime on the complete active carrier -/
 
@@ -193,7 +215,22 @@ theorem sum_squareRootCanonicalRoughCorrelationReciprocal_eq_compressed_add_defe
         (f := squareRootCanonicalRoughCorrelationReciprocalSummand R))
   rw [sum_squareRootCanonicalRoughFreshPrimePairedOn_correlationReciprocal
     R U hR hp] at hsplit
-  linarith
+  calc
+    (∑ n ∈ U,
+        squareRootCanonicalRoughCorrelationReciprocalSummand R n) =
+      (∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
+          squareRootCanonicalRoughCorrelationReciprocalSummand R n) +
+        ((canonicalRoughEulerFactor p : ℂ) *
+          (∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+            squareRootCanonicalRoughCorrelationReciprocalSummand R c) +
+          squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefectMass R p U) :=
+      hsplit.symm
+    _ = (canonicalRoughEulerFactor p : ℂ) *
+        (∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+          squareRootCanonicalRoughCorrelationReciprocalSummand R c) +
+        squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefectMass R p U +
+        ∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
+          squareRootCanonicalRoughCorrelationReciprocalSummand R n := by ring
 
 /-! ## Actual many-prime parent-carrier recursion -/
 
@@ -290,6 +327,7 @@ theorem sum_squareRootCanonicalRoughCorrelationReciprocal_eq_manyPrimeCompressio
         squareRootCanonicalRoughTransportedDefectLedger,
         squareRootCanonicalRoughPhysicalStepDefect,
         squareRootCanonicalRoughCorrelationTransportedSurvivorLedger]
+      push_cast
       ring
 
 /-- **Quantitative many-prime carrier contraction.**  The exact decomposition
