@@ -468,7 +468,6 @@ theorem squareRootCanonicalRoughCofactorCard_mul_covariance_eq_sum_responseCente
   unfold squareRootCanonicalRoughCovariance
     squareRootCanonicalRoughResponseMean
   field_simp [hcard]
-  ring
 
 /-- **Fresh-prime covariance pair law.**  On one legal arithmetic pair
 `c, c*p`, both the global response mean and the Mobius sign flip disappear.
@@ -532,7 +531,7 @@ def squareRootCanonicalRoughFreshPrimeSurvivorsOn
     {p c : ℕ} {U : Finset ℕ} :
     c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U ↔
       c ∈ U ∧ 0 < c ∧ canonicalLargestPrimeFactor c < p ∧ c * p ∈ U := by
-  simp [squareRootCanonicalRoughFreshPrimeParentsOn, and_assoc]
+  simp [squareRootCanonicalRoughFreshPrimeParentsOn]
 
 /-- Parents are active sites. -/
 theorem squareRootCanonicalRoughFreshPrimeParentsOn_subset
