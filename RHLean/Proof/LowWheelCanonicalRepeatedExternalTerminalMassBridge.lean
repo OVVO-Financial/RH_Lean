@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.MertensCovarianceDescent
 import RHLean.Analysis.SquareRootTransportTopFibreNoGo
 import RHLean.Analysis.SquareRootCanonicalRoughCovariance
 
@@ -22,6 +23,16 @@ extension `c -> c*p`.  The reciprocal-depth sum collapses exactly to one clipped
 prime-count window.  A fresh-prime move changes both ends of that window, and
 the signed parent/child contribution is exactly an upper prime-count boundary
 minus a lower prime-count boundary.
+
+The final sections put the centered numerical coordinate used by the covariance
+experiments on this same packet API, then lift the fresh-prime law to the actual
+centered covariance numerator.  The key normalization is one-sided: center the
+rough response but not the Mobius parity field.  Globally this is exactly the
+same centered covariance, while on every fresh-prime pair the common response
+mean cancels because the two Mobius signs are opposite.  Thus one Euler-prime
+step leaves only its two prime-count boundaries plus the still-unpaired carrier.
+The construction is iterable along any list of primes and never takes an
+absolute value.
 -/
 
 noncomputable section
@@ -338,5 +349,373 @@ theorem canonicalMoebiusWeight_mul_primePartnerCount_pair_eq_boundaries
       rw [squareRootCanonicalRoughPrimePartnerCount_sub_mul_eq_boundaries hR]
 
 end CanonicalRoughFreshPrimeDifference
+
+/-! ## The centered reciprocal partial is exactly the negative packet -/
+
+/-- The signed cumulative coordinate used in the numerical depth scans.  It
+keeps the deterministic top block, the complete smooth state, and every
+reciprocal layer through `D` together before any norm is taken. -/
+def squareRootCenteredReciprocalPartialResidual (R D : ℕ) : ℂ :=
+  ((squareRootTopFibrePrimes R).card : ℂ) -
+    squareRootSmoothMass (R - 1) +
+    ∑ d ∈ Finset.Icc 2 D,
+      primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+        mertensSummatory d
+
+/-- **Centered-partial / packet identity.**  The cumulative depth coordinate is
+literally the negative upper-middle packet after restoring the complete smooth
+zero mode.  This is the exact coordinate equality used by the numerical scans. -/
+theorem squareRootCenteredReciprocalPartialResidual_eq_neg_smooth_sub_packet
+    (R D : ℕ) (hR : 3 ≤ R) (hD : 1 ≤ D) :
+    squareRootCenteredReciprocalPartialResidual R D =
+      -squareRootSmoothMass (R - 1) -
+        squareRootTruncatedUpperMiddlePacket R D := by
+  classical
+  have hset :
+      Finset.Icc 1 D = ({1} : Finset ℕ) ∪ Finset.Icc 2 D := by
+    ext d
+    simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_singleton]
+    omega
+  have hdisj :
+      Disjoint ({1} : Finset ℕ) (Finset.Icc 2 D) := by
+    rw [Finset.disjoint_left]
+    intro d hd1 hd2
+    rw [Finset.mem_singleton] at hd1
+    subst d
+    simp at hd2
+  have hM1 : mertensSummatory 1 = 1 := by
+    rw [← cofactorMobiusPrefixMass_eq_mertensSummatory]
+    simp [cofactorMobiusPrefixMass, canonicalMoebiusWeight]
+  unfold squareRootCenteredReciprocalPartialResidual
+    squareRootTruncatedUpperMiddlePacket
+  rw [hset, Finset.sum_union hdisj]
+  simp only [Finset.sum_singleton]
+  rw [squareRootReciprocalPrimeCount_one_eq_topCard R hR, hM1, mul_one]
+  ring
+
+/-- At full reciprocal depth the scanned partial is exactly the centered
+middle-bias residual already identified with the global Mertens carrier. -/
+theorem squareRootCenteredReciprocalPartialResidual_full_eq_middleBiasResidual
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootCenteredReciprocalPartialResidual R (R - 1) =
+      squareRootMiddleBiasResidual R := by
+  rw [RHLean.Analysis.squareRootMiddleBiasResidual_eq_top_sub_smooth_add_reciprocalLayers
+    R hR]
+  rfl
+
+/-- Consequently the full centered partial is exactly negative square-prefix
+Mertens. -/
+theorem squareRootCenteredReciprocalPartialResidual_full_eq_neg_mertens
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootCenteredReciprocalPartialResidual R (R - 1) =
+      -squarePrefixMertens (R - 1) := by
+  rw [squareRootCenteredReciprocalPartialResidual_full_eq_middleBiasResidual R hR,
+    squareRootMiddleBiasResidual_eq_neg_mertens R hR]
+
+/-- Admitting one more complete reciprocal layer changes the centered partial by
+exactly that signed lower-Mertens layer. -/
+theorem squareRootCenteredReciprocalPartialResidual_succ_sub
+    (R D : ℕ) (hD : 1 ≤ D) :
+    squareRootCenteredReciprocalPartialResidual R (D + 1) -
+        squareRootCenteredReciprocalPartialResidual R D =
+      primeSieveReciprocalPrimeCount R (squareRootEndpoint R) (D + 1) *
+        mertensSummatory (D + 1) := by
+  unfold squareRootCenteredReciprocalPartialResidual
+  rw [Finset.sum_Icc_succ_top (by omega : 2 ≤ D + 1)]
+  ring
+
+/-! ## Canonical rough covariance: one Euler-prime descent step -/
+
+namespace CanonicalRoughPrimeAdditionDescent
+
+open CanonicalRoughFreshPrimeDifference
+
+/-- One-sided centered covariance summand.  Centering only the response field is
+globally equivalent to centering both fields, because the centered response has
+zero total mass.  This normalization is adapted to fresh-prime pairing: the
+response mean then cancels inside each opposite-sign pair. -/
+def squareRootCanonicalRoughResponseCenteredSummand (R c : ℕ) : ℂ :=
+  canonicalMoebiusWeight c *
+    (squareRootCanonicalRoughCofactorResponse R c -
+      squareRootCanonicalRoughResponseMean R)
+
+/-- **One-sided covariance numerator.**  The canonical rough covariance times
+its cofactor population is exactly the sum of the response-centered Mobius
+summands.  No mean-zero hypothesis is introduced. -/
+theorem squareRootCanonicalRoughCofactorCard_mul_covariance_eq_sum_responseCentered
+    (R : ℕ) (hR : 2 ≤ R) :
+    (squareRootCanonicalRoughCofactorCard R : ℂ) *
+        squareRootCanonicalRoughCovariance R =
+      ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+        squareRootCanonicalRoughResponseCenteredSummand R c := by
+  classical
+  have hcardNat : squareRootCanonicalRoughCofactorCard R ≠ 0 :=
+    Nat.ne_of_gt (squareRootCanonicalRoughCofactorCard_pos R hR)
+  have hcard : (squareRootCanonicalRoughCofactorCard R : ℂ) ≠ 0 := by
+    exact_mod_cast hcardNat
+  have hsum :
+      (∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+          squareRootCanonicalRoughResponseCenteredSummand R c) =
+        squareRootCanonicalRoughCorrelation R -
+          squareRootCanonicalRoughParitySum R *
+            squareRootCanonicalRoughResponseMean R := by
+    unfold squareRootCanonicalRoughResponseCenteredSummand
+      squareRootCanonicalRoughCorrelation
+      squareRootCanonicalRoughParitySum
+    simp_rw [mul_sub]
+    rw [Finset.sum_sub_distrib, ← Finset.sum_mul]
+  rw [hsum]
+  unfold squareRootCanonicalRoughCovariance
+    squareRootCanonicalRoughResponseMean
+  field_simp [hcard]
+
+/-- **Fresh-prime covariance pair law.**  On one legal arithmetic pair
+`c, c*p`, both the global response mean and the Mobius sign flip disappear.
+The centered covariance pair is therefore exactly the same two prime-count
+boundaries already exposed by the uncentered Othello law. -/
+theorem squareRootCanonicalRoughResponseCenteredSummand_add_mul_freshPrime
+    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p) :
+    squareRootCanonicalRoughResponseCenteredSummand R c +
+        squareRootCanonicalRoughResponseCenteredSummand R (c * p) =
+      canonicalMoebiusWeight c *
+        (squareRootCanonicalRoughFreshPrimeUpperBoundary R c p -
+          squareRootCanonicalRoughFreshPrimeLowerBoundary R c p) := by
+  unfold squareRootCanonicalRoughResponseCenteredSummand
+  rw [squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount R c hR,
+    squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount R (c * p) hR,
+    canonicalMoebiusWeight_mul_prime_eq_neg_of_rough hc hp hrough]
+  have hdiff :=
+    squareRootCanonicalRoughPrimePartnerCount_sub_mul_eq_boundaries
+      (R := R) (c := c) (p := p) (by omega : 1 ≤ R)
+  calc
+    canonicalMoebiusWeight c *
+          (squareRootCanonicalRoughPrimePartnerCount R c -
+            squareRootCanonicalRoughResponseMean R) +
+        -canonicalMoebiusWeight c *
+          (squareRootCanonicalRoughPrimePartnerCount R (c * p) -
+            squareRootCanonicalRoughResponseMean R) =
+      canonicalMoebiusWeight c *
+        (squareRootCanonicalRoughPrimePartnerCount R c -
+          squareRootCanonicalRoughPrimePartnerCount R (c * p)) := by ring
+    _ = canonicalMoebiusWeight c *
+        (squareRootCanonicalRoughFreshPrimeUpperBoundary R c p -
+          squareRootCanonicalRoughFreshPrimeLowerBoundary R c p) := by
+      rw [hdiff]
+
+/-- Legal parents for one fresh-prime step on an arbitrary active carrier.  A
+parent and its child must both still be active, and `p` must be genuinely fresh
+relative to the parent's canonical largest prime. -/
+def squareRootCanonicalRoughFreshPrimeParentsOn
+    (p : ℕ) (U : Finset ℕ) : Finset ℕ :=
+  U.filter fun c =>
+    0 < c ∧ canonicalLargestPrimeFactor c < p ∧ c * p ∈ U
+
+/-- Children paired off by this fresh-prime step. -/
+def squareRootCanonicalRoughFreshPrimeChildrenOn
+    (p : ℕ) (U : Finset ℕ) : Finset ℕ :=
+  (squareRootCanonicalRoughFreshPrimeParentsOn p U).image fun c => c * p
+
+/-- Entire portion removed by one prime step. -/
+def squareRootCanonicalRoughFreshPrimePairedOn
+    (p : ℕ) (U : Finset ℕ) : Finset ℕ :=
+  squareRootCanonicalRoughFreshPrimeParentsOn p U ∪
+    squareRootCanonicalRoughFreshPrimeChildrenOn p U
+
+/-- Carrier surviving one exact fresh-prime descent step. -/
+def squareRootCanonicalRoughFreshPrimeSurvivorsOn
+    (p : ℕ) (U : Finset ℕ) : Finset ℕ :=
+  U \ squareRootCanonicalRoughFreshPrimePairedOn p U
+
+@[simp] theorem mem_squareRootCanonicalRoughFreshPrimeParentsOn
+    {p c : ℕ} {U : Finset ℕ} :
+    c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U ↔
+      c ∈ U ∧ 0 < c ∧ canonicalLargestPrimeFactor c < p ∧ c * p ∈ U := by
+  simp [squareRootCanonicalRoughFreshPrimeParentsOn]
+
+/-- Parents are active sites. -/
+theorem squareRootCanonicalRoughFreshPrimeParentsOn_subset
+    (p : ℕ) (U : Finset ℕ) :
+    squareRootCanonicalRoughFreshPrimeParentsOn p U ⊆ U := by
+  intro c hc
+  exact (mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hc).1
+
+/-- Every generated child is active by construction. -/
+theorem squareRootCanonicalRoughFreshPrimeChildrenOn_subset
+    (p : ℕ) (U : Finset ℕ) :
+    squareRootCanonicalRoughFreshPrimeChildrenOn p U ⊆ U := by
+  intro n hn
+  rcases Finset.mem_image.mp hn with ⟨c, hc, rfl⟩
+  exact (mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hc).2.2.2
+
+/-- A legal fresh-prime parent cannot itself be one of the generated children:
+the child has canonical largest prime exactly `p`. -/
+theorem squareRootCanonicalRoughFreshPrimeParentsOn_disjoint_childrenOn
+    {p : ℕ} (U : Finset ℕ) (hp : p.Prime) :
+    Disjoint (squareRootCanonicalRoughFreshPrimeParentsOn p U)
+      (squareRootCanonicalRoughFreshPrimeChildrenOn p U) := by
+  rw [Finset.disjoint_left]
+  intro n hnParent hnChild
+  rcases mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hnParent with
+    ⟨_hnU, _hnpos, hnrough, _hnchild⟩
+  rcases Finset.mem_image.mp hnChild with ⟨c, hcParent, hcn⟩
+  rcases mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hcParent with
+    ⟨_hcU, hcpos, hcrough, _hcchild⟩
+  subst n
+  have hlpf := canonicalLargestPrimeFactor_mul_prime_eq_of_rough hcpos hp hcrough
+  rw [hlpf] at hnrough
+  exact (lt_irrefl p hnrough)
+
+/-- The paired portion is a subset of the current active carrier. -/
+theorem squareRootCanonicalRoughFreshPrimePairedOn_subset
+    (p : ℕ) (U : Finset ℕ) :
+    squareRootCanonicalRoughFreshPrimePairedOn p U ⊆ U := by
+  intro n hn
+  rcases Finset.mem_union.mp hn with hn | hn
+  · exact squareRootCanonicalRoughFreshPrimeParentsOn_subset p U hn
+  · exact squareRootCanonicalRoughFreshPrimeChildrenOn_subset p U hn
+
+/-- Reindexing the paired part by its unique parents produces the literal sum of
+parent/child covariance pairs. -/
+theorem sum_squareRootCanonicalRoughFreshPrimePairedOn_eq_sum_pairs
+    (R : ℕ) {p : ℕ} (U : Finset ℕ) (hp : p.Prime) :
+    (∑ n ∈ squareRootCanonicalRoughFreshPrimePairedOn p U,
+        squareRootCanonicalRoughResponseCenteredSummand R n) =
+      ∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+        (squareRootCanonicalRoughResponseCenteredSummand R c +
+          squareRootCanonicalRoughResponseCenteredSummand R (c * p)) := by
+  unfold squareRootCanonicalRoughFreshPrimePairedOn
+  rw [Finset.sum_union
+    (squareRootCanonicalRoughFreshPrimeParentsOn_disjoint_childrenOn U hp)]
+  unfold squareRootCanonicalRoughFreshPrimeChildrenOn
+  rw [Finset.sum_image]
+  · rw [Finset.sum_add_distrib]
+  · intro a _ha b _hb hab
+    exact Nat.mul_right_cancel hp.pos hab
+
+/-- Boundary charge produced by one Euler-prime descent step. -/
+def squareRootCanonicalRoughFreshPrimeBoundaryMass
+    (R p : ℕ) (U : Finset ℕ) : ℂ :=
+  ∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+    canonicalMoebiusWeight c *
+      (squareRootCanonicalRoughFreshPrimeUpperBoundary R c p -
+        squareRootCanonicalRoughFreshPrimeLowerBoundary R c p)
+
+/-- The entire paired covariance contribution is exactly the signed two-boundary
+charge of that prime. -/
+theorem sum_squareRootCanonicalRoughFreshPrimePairedOn_eq_boundaryMass
+    (R : ℕ) {p : ℕ} (U : Finset ℕ) (hR : 2 ≤ R) (hp : p.Prime) :
+    (∑ n ∈ squareRootCanonicalRoughFreshPrimePairedOn p U,
+        squareRootCanonicalRoughResponseCenteredSummand R n) =
+      squareRootCanonicalRoughFreshPrimeBoundaryMass R p U := by
+  rw [sum_squareRootCanonicalRoughFreshPrimePairedOn_eq_sum_pairs R U hp]
+  unfold squareRootCanonicalRoughFreshPrimeBoundaryMass
+  apply Finset.sum_congr rfl
+  intro c hc
+  rcases mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hc with
+    ⟨_hcU, hcpos, hcrough, _hcchild⟩
+  exact squareRootCanonicalRoughResponseCenteredSummand_add_mul_freshPrime
+    hR hcpos hp hcrough
+
+/-- **One exact prime-addition descent step.**  Processing one fresh prime on any
+active carrier decomposes the complete centered covariance numerator into its
+signed two-boundary charge plus the still-unpaired centered carrier.  No term is
+normed separately. -/
+theorem sum_squareRootCanonicalRoughResponseCentered_eq_boundaryMass_add_survivors
+    (R : ℕ) {p : ℕ} (U : Finset ℕ) (hR : 2 ≤ R) (hp : p.Prime) :
+    (∑ n ∈ U, squareRootCanonicalRoughResponseCenteredSummand R n) =
+      squareRootCanonicalRoughFreshPrimeBoundaryMass R p U +
+        ∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
+          squareRootCanonicalRoughResponseCenteredSummand R n := by
+  have hsub := squareRootCanonicalRoughFreshPrimePairedOn_subset p U
+  have hsplit :
+      (∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
+          squareRootCanonicalRoughResponseCenteredSummand R n) +
+        (∑ n ∈ squareRootCanonicalRoughFreshPrimePairedOn p U,
+          squareRootCanonicalRoughResponseCenteredSummand R n) =
+        ∑ n ∈ U, squareRootCanonicalRoughResponseCenteredSummand R n := by
+    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn] using
+      (Finset.sum_sdiff hsub
+        (f := squareRootCanonicalRoughResponseCenteredSummand R))
+  rw [sum_squareRootCanonicalRoughFreshPrimePairedOn_eq_boundaryMass
+    R U hR hp] at hsplit
+  calc
+    (∑ n ∈ U, squareRootCanonicalRoughResponseCenteredSummand R n) =
+        (∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
+          squareRootCanonicalRoughResponseCenteredSummand R n) +
+          squareRootCanonicalRoughFreshPrimeBoundaryMass R p U := hsplit.symm
+    _ = squareRootCanonicalRoughFreshPrimeBoundaryMass R p U +
+        ∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
+          squareRootCanonicalRoughResponseCenteredSummand R n := by ring
+
+/-- Active carrier remaining after a chronological list of Euler primes. -/
+def squareRootCanonicalRoughPrimeDescentSurvivors :
+    List ℕ → Finset ℕ → Finset ℕ
+  | [], U => U
+  | p :: ps, U =>
+      squareRootCanonicalRoughPrimeDescentSurvivors ps
+        (squareRootCanonicalRoughFreshPrimeSurvivorsOn p U)
+
+/-- Cumulative signed boundary charge generated by the same chronological prime
+list.  Each next prime acts only on the carrier left by the previous ones. -/
+def squareRootCanonicalRoughPrimeDescentBoundaryMass
+    (R : ℕ) : List ℕ → Finset ℕ → ℂ
+  | [], _U => 0
+  | p :: ps, U =>
+      squareRootCanonicalRoughFreshPrimeBoundaryMass R p U +
+        squareRootCanonicalRoughPrimeDescentBoundaryMass R ps
+          (squareRootCanonicalRoughFreshPrimeSurvivorsOn p U)
+
+/-- **Sequential prime-addition covariance descent.**  Along any list of genuine
+primes, the centered covariance numerator telescopes exactly into the cumulative
+signed two-boundary charges plus the final survivor carrier. -/
+theorem sum_squareRootCanonicalRoughResponseCentered_eq_primeDescent
+    (R : ℕ) (hR : 2 ≤ R) (ps : List ℕ) (U : Finset ℕ)
+    (hprime : ∀ p ∈ ps, p.Prime) :
+    (∑ n ∈ U, squareRootCanonicalRoughResponseCenteredSummand R n) =
+      squareRootCanonicalRoughPrimeDescentBoundaryMass R ps U +
+        ∑ n ∈ squareRootCanonicalRoughPrimeDescentSurvivors ps U,
+          squareRootCanonicalRoughResponseCenteredSummand R n := by
+  induction ps generalizing U with
+  | nil =>
+      simp [squareRootCanonicalRoughPrimeDescentBoundaryMass,
+        squareRootCanonicalRoughPrimeDescentSurvivors]
+  | cons p ps ih =>
+      have hp : p.Prime := hprime p (by simp)
+      have hps : ∀ q ∈ ps, q.Prime := by
+        intro q hq
+        exact hprime q (by simp [hq])
+      rw [sum_squareRootCanonicalRoughResponseCentered_eq_boundaryMass_add_survivors
+        R U hR hp]
+      rw [ih (U := squareRootCanonicalRoughFreshPrimeSurvivorsOn p U) hps]
+      simp [squareRootCanonicalRoughPrimeDescentBoundaryMass,
+        squareRootCanonicalRoughPrimeDescentSurvivors]
+      ring
+
+/-- Physical cofactor carrier of the canonical rough covariance. -/
+def squareRootCanonicalRoughCofactorCarrier (R : ℕ) : Finset ℕ :=
+  Finset.Icc 1 (squareRootEndpoint R)
+
+/-- **Canonical rough covariance prime-addition descent.**  This is the concrete
+sequential Euler theorem: after multiplying the normalized covariance by its
+physical cofactor population, any chosen sequence of genuine prime additions
+leaves exactly the cumulative signed prime-count boundaries and the centered
+survivor carrier. -/
+theorem squareRootCanonicalRoughCovariance_primeAdditionDescent
+    (R : ℕ) (hR : 2 ≤ R) (ps : List ℕ)
+    (hprime : ∀ p ∈ ps, p.Prime) :
+    (squareRootCanonicalRoughCofactorCard R : ℂ) *
+        squareRootCanonicalRoughCovariance R =
+      squareRootCanonicalRoughPrimeDescentBoundaryMass R ps
+          (squareRootCanonicalRoughCofactorCarrier R) +
+        ∑ n ∈ squareRootCanonicalRoughPrimeDescentSurvivors ps
+            (squareRootCanonicalRoughCofactorCarrier R),
+          squareRootCanonicalRoughResponseCenteredSummand R n := by
+  rw [squareRootCanonicalRoughCofactorCard_mul_covariance_eq_sum_responseCentered
+    R hR]
+  exact sum_squareRootCanonicalRoughResponseCentered_eq_primeDescent
+    R hR ps (squareRootCanonicalRoughCofactorCarrier R) hprime
+
+end CanonicalRoughPrimeAdditionDescent
 
 end RHLean.Proof
