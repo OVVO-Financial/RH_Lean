@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.SquareRootShallowReciprocalCrossing
+import RHLean.Analysis.SquareRootCanonicalRoughSubexpBound
 
 /-!
 # Fixed eventual reciprocal crossing at depth 18349
