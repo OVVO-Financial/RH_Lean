@@ -267,6 +267,120 @@ theorem squareRootCanonicalRoughCovarianceNativePNTEnergy
     positivity
   exact (sq_le_sq₀ (norm_nonneg _) hright).2 hnorm
 
+/-! ## Fixed-depth residual sharpening -/
+
+/-- Exact finite Mertens step at the certified crossing depth.  The first
+interpolation overshoot at `18349` is therefore strictly smaller than `21`, not
+merely smaller than the generic depth cap `18349`. -/
+theorem squareRootMertensInt_18349_eq_neg_twentyOne :
+    squareRootMertensInt 18349 = -21 := by
+  native_decide
+
+/-- A genuine crossing at `18349` has an interpolation seat with residual in
+`[0,21)`. -/
+theorem squareRootPacketCrossing18349_exists_partialResidual_lt_twentyOne
+    {R : ℕ} (hcross : SquareRootPacketCrossesAt R 18349) :
+    ∃ j : ℕ,
+      j ≤ squareRootReciprocalPrimeLayerCard R 18349 ∧
+        0 ≤ squareRootCrossingLayerPartialPacketInt R 18349 j ∧
+        squareRootCrossingLayerPartialPacketInt R 18349 j < 21 := by
+  rcases squareRootPacketCrossing_exists_partial_residual hcross with
+    ⟨j, hj, hV0, hVstep⟩
+  rw [squareRootMertensInt_18349_eq_neg_twentyOne] at hVstep
+  norm_num at hVstep
+  exact ⟨j, hj, hV0, hVstep⟩
+
+/-- **PNT floor with the actual fixed-depth overshoot.**  At the certified
+crossing, the exact canonical rough seam eventually obeys `eta * X_R + 21` for
+one genuine interpolation seat.  The former generic `+18349` charge disappears. -/
+theorem eventually_exists_squareRootCanonicalRoughCovarianceNativePNT_18349_twentyOne
+    (η : ℝ) (hη : 0 < η) :
+    ∀ᶠ R : ℕ in atTop,
+      ∃ j : ℕ,
+        j ≤ squareRootReciprocalPrimeLayerCard R 18349 ∧
+          0 ≤ squareRootCrossingLayerPartialPacketInt R 18349 j ∧
+          squareRootCrossingLayerPartialPacketInt R 18349 j < 21 ∧
+          ‖squareRootPostCrossingCanonicalBaseline R 18349 j -
+              (squareRootCanonicalRoughCofactorCard R : ℂ) *
+                (squareRootCanonicalRoughParityMean R *
+                    squareRootCanonicalRoughResponseMean R +
+                  squareRootCanonicalRoughCovariance R)‖ ≤
+            η * (squareRootEndpoint R : ℝ) + 21 := by
+  have hratio :
+      Tendsto
+        (fun R : ℕ =>
+          nativeMertensSummatory (squareRootEndpoint R) /
+            (squareRootEndpoint R : ℝ))
+        atTop (𝓝 0) :=
+    nativeMertens_div_atTop_zero.comp squareRootEndpoint_tendsto_atTop
+  have habs :
+      Tendsto
+        (fun R : ℕ =>
+          |nativeMertensSummatory (squareRootEndpoint R) /
+            (squareRootEndpoint R : ℝ)|)
+        atTop (𝓝 0) :=
+    tendsto_zero_iff_abs_tendsto_zero.mp hratio
+  have hsmall :
+      ∀ᶠ R : ℕ in atTop,
+        |nativeMertensSummatory (squareRootEndpoint R) /
+            (squareRootEndpoint R : ℝ)| < η :=
+    (tendsto_order.1 habs).2 η hη
+  filter_upwards [hsmall, eventually_squareRootPacketCrossesAt_18349,
+    eventually_ge_atTop (18350 : ℕ)] with R hsmallR hcross hRlarge
+  rcases squareRootPacketCrossing18349_exists_partialResidual_lt_twentyOne hcross with
+    ⟨j, hj, hV0, hV21⟩
+  have hR : 3 ≤ R := by omega
+  have hXpos : 0 < (squareRootEndpoint R : ℝ) := by
+    exact_mod_cast (show 0 < squareRootEndpoint R by
+      unfold squareRootEndpoint
+      omega)
+  have hMdiv :
+      |nativeMertensSummatory (squareRootEndpoint R)| /
+          (squareRootEndpoint R : ℝ) < η := by
+    simpa [abs_div, abs_of_pos hXpos] using hsmallR
+  have hM :
+      ‖mertensSummatory (squareRootEndpoint R)‖ ≤
+        η * (squareRootEndpoint R : ℝ) := by
+    rw [norm_mertensSummatory_eq_abs_nativeMertensSummatory]
+    exact ((div_lt_iff₀ hXpos).mp hMdiv).le
+  have hV :
+      ‖((squareRootCrossingLayerPartialPacketInt R 18349 j : ℤ) : ℂ)‖ ≤
+        (21 : ℝ) := by
+    rw [Complex.norm_intCast, abs_of_nonneg]
+    · exact_mod_cast Int.le_of_lt hV21
+    · exact_mod_cast hV0
+  have htail :
+      ‖squareRootPostCrossingCoupledTail R 18349 j‖ ≤
+        η * (squareRootEndpoint R : ℝ) + 21 := by
+    rw [postCrossingCoupledTail_eq_mertens_sub_partial R 18349 j hR]
+    exact (norm_sub_le _ _).trans (add_le_add hM hV)
+  have hKR : 18349 < R := by omega
+  rw [squareRootPostCrossingCoupledTail_eq_baseline_sub_mean_covariance
+    R 18349 j hR hcross.1 hKR] at htail
+  exact ⟨j, hj, hV0, hV21, htail⟩
+
+/-- Energy form of the fixed-depth PNT floor with the exact `21` overshoot. -/
+theorem eventually_exists_squareRootCanonicalRoughCovarianceNativePNTEnergy_18349_twentyOne
+    (η : ℝ) (hη : 0 < η) :
+    ∀ᶠ R : ℕ in atTop,
+      ∃ j : ℕ,
+        j ≤ squareRootReciprocalPrimeLayerCard R 18349 ∧
+          0 ≤ squareRootCrossingLayerPartialPacketInt R 18349 j ∧
+          squareRootCrossingLayerPartialPacketInt R 18349 j < 21 ∧
+          ‖squareRootPostCrossingCanonicalBaseline R 18349 j -
+              (squareRootCanonicalRoughCofactorCard R : ℂ) *
+                (squareRootCanonicalRoughParityMean R *
+                    squareRootCanonicalRoughResponseMean R +
+                  squareRootCanonicalRoughCovariance R)‖ ^ 2 ≤
+            (η * (squareRootEndpoint R : ℝ) + 21) ^ 2 := by
+  filter_upwards
+    [eventually_exists_squareRootCanonicalRoughCovarianceNativePNT_18349_twentyOne
+      η hη] with R hR
+  rcases hR with ⟨j, hj, hV0, hV21, hnorm⟩
+  refine ⟨j, hj, hV0, hV21, ?_⟩
+  have hright : 0 ≤ η * (squareRootEndpoint R : ℝ) + 21 := by positivity
+  exact (sq_le_sq₀ (norm_nonneg _) hright).2 hnorm
+
 /-! ## Strict subexponential benchmark on the same seam -/
 
 /-- The exact mean-plus-covariance seam also inherits the repository's
