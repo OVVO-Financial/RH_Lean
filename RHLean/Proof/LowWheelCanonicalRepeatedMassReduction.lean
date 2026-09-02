@@ -17,9 +17,12 @@ This file opens that difference on the literal partner sets from
 * **birth**: a new partner appears only because the child `p*c` crosses the
   square-root wall together with a still larger fresh prime.
 
-The birth geometry is automatically lower-scale: every birth forces
-`p*c < R`.  Once `R <= p*c`, births vanish identically.  In particular a fresh
-prime already above the root gives its child zero rough response altogether.
+The loss boundary itself splits exactly into the fresh-prime order threshold
+`q <= p` and the genuine upper multiplicative escape `p < q` with
+`X_R < (p*c)*q`.  The birth geometry is automatically lower-scale: every birth
+forces `p*c < R`.  Once `R <= p*c`, births vanish identically.  In particular a
+fresh prime already above the root gives its child zero rough response
+altogether.
 
 The second half records the zero mode that prime pairing cannot destroy.  Every
 fresh-prime parent/child pair has zero Mobius mass, so sequential prime descent
@@ -35,9 +38,9 @@ card * covariance
 
 No term is normed separately and no independence or mean-zero hypothesis is
 introduced.  The remaining quantitative problem is therefore explicit: control
-the signed loss/birth boundary accumulation and the raw response on the final
-survivor carrier.  The only genuinely new positive partner capacity is born at
-strictly smaller root scale.
+the signed threshold/top-escape/birth accumulation and the raw response on the
+final survivor carrier.  The only genuinely new positive partner capacity is
+born at strictly smaller root scale.
 -/
 
 noncomputable section
@@ -188,6 +191,170 @@ theorem squareRootCanonicalRoughResponseCenteredSummand_add_mul_freshPrime_eq_pa
       hR hc hp hfresh hRp,
     canonicalMoebiusWeight_mul_prime_eq_neg_of_rough hc hp hfresh]
   ring
+
+/-! ## Threshold and top-escape decomposition of the loss boundary -/
+
+/-- Parent partners lost because they lie at or below the newly adjoined prime.
+This is the order/threshold shell of the fresh-prime move. -/
+def squareRootCanonicalRoughFreshThresholdLossBoundary
+    (R c p : ℕ) : Finset ℕ :=
+  (squareRootCanonicalRoughFreshLossBoundary R c p).filter fun q => q ≤ p
+
+/-- Parent partners above the fresh prime that are lost only because adjoining
+`p` pushes the product through the terminal wall `X_R`. -/
+def squareRootCanonicalRoughFreshTopEscapeBoundary
+    (R c p : ℕ) : Finset ℕ :=
+  (squareRootCanonicalRoughFreshLossBoundary R c p).filter fun q => p < q
+
+@[simp] theorem mem_squareRootCanonicalRoughFreshThresholdLossBoundary
+    {R c p q : ℕ} :
+    q ∈ squareRootCanonicalRoughFreshThresholdLossBoundary R c p ↔
+      q ∈ squareRootCanonicalRoughFreshLossBoundary R c p ∧ q ≤ p := by
+  simp [squareRootCanonicalRoughFreshThresholdLossBoundary]
+
+@[simp] theorem mem_squareRootCanonicalRoughFreshTopEscapeBoundary
+    {R c p q : ℕ} :
+    q ∈ squareRootCanonicalRoughFreshTopEscapeBoundary R c p ↔
+      q ∈ squareRootCanonicalRoughFreshLossBoundary R c p ∧ p < q := by
+  simp [squareRootCanonicalRoughFreshTopEscapeBoundary]
+
+/-- The threshold component has no hidden wall condition: membership is exactly
+parent-partner membership together with `q <= p`. -/
+theorem mem_squareRootCanonicalRoughFreshThresholdLossBoundary_iff
+    {R c p q : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p) :
+    q ∈ squareRootCanonicalRoughFreshThresholdLossBoundary R c p ↔
+      q.Prime ∧ canonicalLargestPrimeFactor c < q ∧
+        R ≤ c * q ∧ c * q ≤ squareRootEndpoint R ∧ q ≤ p := by
+  rw [mem_squareRootCanonicalRoughFreshThresholdLossBoundary,
+    mem_squareRootCanonicalRoughFreshLossBoundary_iff hR hc hp hfresh]
+  constructor
+  · rintro ⟨⟨hqPrime, hrough, hroot, hupper, _hloss⟩, hqp⟩
+    exact ⟨hqPrime, hrough, hroot, hupper, hqp⟩
+  · rintro ⟨hqPrime, hrough, hroot, hupper, hqp⟩
+    exact ⟨⟨hqPrime, hrough, hroot, hupper, Or.inl hqp⟩, hqp⟩
+
+/-- Above the fresh prime, loss is *exactly* a genuine terminal top escape. -/
+theorem mem_squareRootCanonicalRoughFreshTopEscapeBoundary_iff
+    {R c p q : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p) :
+    q ∈ squareRootCanonicalRoughFreshTopEscapeBoundary R c p ↔
+      q.Prime ∧ canonicalLargestPrimeFactor c < q ∧
+        R ≤ c * q ∧ c * q ≤ squareRootEndpoint R ∧
+        p < q ∧ squareRootEndpoint R < (p * c) * q := by
+  rw [mem_squareRootCanonicalRoughFreshTopEscapeBoundary,
+    mem_squareRootCanonicalRoughFreshLossBoundary_iff hR hc hp hfresh]
+  constructor
+  · rintro ⟨⟨hqPrime, hrough, hroot, hupper, hloss⟩, hpq⟩
+    refine ⟨hqPrime, hrough, hroot, hupper, hpq, ?_⟩
+    rcases hloss with hqp | hwall
+    · omega
+    · exact hwall
+  · rintro ⟨hqPrime, hrough, hroot, hupper, hpq, hwall⟩
+    exact ⟨⟨hqPrime, hrough, hroot, hupper, Or.inr hwall⟩, hpq⟩
+
+/-- The loss carrier is exactly the disjoint union of order-threshold losses and
+true top escapes. -/
+theorem squareRootCanonicalRoughFreshLossBoundary_eq_threshold_union_topEscape
+    (R c p : ℕ) :
+    squareRootCanonicalRoughFreshLossBoundary R c p =
+      squareRootCanonicalRoughFreshThresholdLossBoundary R c p ∪
+        squareRootCanonicalRoughFreshTopEscapeBoundary R c p := by
+  ext q
+  simp only [Finset.mem_union,
+    mem_squareRootCanonicalRoughFreshThresholdLossBoundary,
+    mem_squareRootCanonicalRoughFreshTopEscapeBoundary]
+  constructor
+  · intro hq
+    rcases le_or_gt q p with hqp | hpq
+    · exact Or.inl ⟨hq, hqp⟩
+    · exact Or.inr ⟨hq, hpq⟩
+  · rintro (⟨hq, _hqp⟩ | ⟨hq, _hpq⟩) <;> exact hq
+
+/-- Threshold losses and genuine top escapes cannot overlap. -/
+theorem squareRootCanonicalRoughFreshThresholdLossBoundary_disjoint_topEscape
+    (R c p : ℕ) :
+    Disjoint (squareRootCanonicalRoughFreshThresholdLossBoundary R c p)
+      (squareRootCanonicalRoughFreshTopEscapeBoundary R c p) := by
+  rw [Finset.disjoint_left]
+  intro q hthreshold htop
+  have hqp :=
+    (mem_squareRootCanonicalRoughFreshThresholdLossBoundary.mp hthreshold).2
+  have hpq :=
+    (mem_squareRootCanonicalRoughFreshTopEscapeBoundary.mp htop).2
+  omega
+
+/-- Exact cardinal decomposition of the fresh-prime loss population. -/
+theorem squareRootCanonicalRoughFreshLossBoundary_card_eq_threshold_add_topEscape
+    (R c p : ℕ) :
+    (squareRootCanonicalRoughFreshLossBoundary R c p).card =
+      (squareRootCanonicalRoughFreshThresholdLossBoundary R c p).card +
+        (squareRootCanonicalRoughFreshTopEscapeBoundary R c p).card := by
+  rw [squareRootCanonicalRoughFreshLossBoundary_eq_threshold_union_topEscape,
+    Finset.card_union_of_disjoint
+      (squareRootCanonicalRoughFreshThresholdLossBoundary_disjoint_topEscape
+        R c p)]
+
+/-- **Three-channel fresh-prime covariance law.**  One centered Euler pair is
+exactly threshold loss plus genuine top escape minus lower-root birth, all with
+the parent's Möbius sign kept outside the bracket. -/
+theorem squareRootCanonicalRoughResponseCenteredSummand_add_mul_freshPrime_eq_threshold_add_topEscape_sub_birth
+    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p) :
+    squareRootCanonicalRoughResponseCenteredSummand R c +
+        squareRootCanonicalRoughResponseCenteredSummand R (c * p) =
+      canonicalMoebiusWeight c *
+        (((squareRootCanonicalRoughFreshThresholdLossBoundary R c p).card : ℂ) +
+          ((squareRootCanonicalRoughFreshTopEscapeBoundary R c p).card : ℂ) -
+          ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ)) := by
+  rw [squareRootCanonicalRoughResponseCenteredSummand_add_mul_freshPrime_eq_loss_sub_birth
+    hR hc hp hfresh,
+    squareRootCanonicalRoughFreshLossBoundary_card_eq_threshold_add_topEscape]
+  push_cast
+
+/-- Physical three-channel boundary mass produced by one Euler prime on an
+arbitrary active cofactor carrier. -/
+def squareRootCanonicalRoughFreshPrimePhysicalBoundaryMass
+    (R p : ℕ) (U : Finset ℕ) : ℂ :=
+  ∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+    canonicalMoebiusWeight c *
+      (((squareRootCanonicalRoughFreshThresholdLossBoundary R c p).card : ℂ) +
+        ((squareRootCanonicalRoughFreshTopEscapeBoundary R c p).card : ℂ) -
+        ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ))
+
+/-- The prefix-difference boundary mass from the first descent file is literally
+the same threshold/top-escape/birth mass on every legal fresh-prime carrier. -/
+theorem squareRootCanonicalRoughFreshPrimeBoundaryMass_eq_physicalBoundaryMass
+    (R : ℕ) {p : ℕ} (U : Finset ℕ) (hR : 2 ≤ R) (hp : p.Prime) :
+    squareRootCanonicalRoughFreshPrimeBoundaryMass R p U =
+      squareRootCanonicalRoughFreshPrimePhysicalBoundaryMass R p U := by
+  unfold squareRootCanonicalRoughFreshPrimeBoundaryMass
+    squareRootCanonicalRoughFreshPrimePhysicalBoundaryMass
+  apply Finset.sum_congr rfl
+  intro c hcParent
+  rcases mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hcParent with
+    ⟨_hcU, hcpos, hcrough, _hcchild⟩
+  have hboundary :=
+    squareRootCanonicalRoughResponseCenteredSummand_add_mul_freshPrime
+      hR hcpos hp hcrough
+  have hphysical :=
+    squareRootCanonicalRoughResponseCenteredSummand_add_mul_freshPrime_eq_threshold_add_topEscape_sub_birth
+      hR hcpos hp hcrough
+  exact hboundary.symm.trans hphysical
+
+/-- One prime-addition covariance step in the fully physical three-channel
+coordinate.  No absolute value is taken between threshold loss, top escape,
+birth, and the survivor carrier. -/
+theorem sum_squareRootCanonicalRoughResponseCentered_eq_physicalBoundaryMass_add_survivors
+    (R : ℕ) {p : ℕ} (U : Finset ℕ) (hR : 2 ≤ R) (hp : p.Prime) :
+    (∑ n ∈ U, squareRootCanonicalRoughResponseCenteredSummand R n) =
+      squareRootCanonicalRoughFreshPrimePhysicalBoundaryMass R p U +
+        ∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
+          squareRootCanonicalRoughResponseCenteredSummand R n := by
+  rw [sum_squareRootCanonicalRoughResponseCentered_eq_boundaryMass_add_survivors
+    R U hR hp,
+    squareRootCanonicalRoughFreshPrimeBoundaryMass_eq_physicalBoundaryMass
+      R U hR hp]
 
 /-! ## The parity zero mode is invariant under prime descent -/
 
