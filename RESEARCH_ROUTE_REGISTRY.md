@@ -884,6 +884,16 @@ would be needed instead, and is proved to suffice.
 
 See [`research/COVARIANCE_CAPACITY_SEAM.md`](research/COVARIANCE_CAPACITY_SEAM.md).
 
+Signed blocks remove the bridge in one coordinate.
+`RHLean/Analysis/BlockCovarianceDecomposition.lean` partitions the pair sum
+instead of counting atoms: `S^2 = E + 2X` for signed block masses, so cross-block
+coherence is pinned by total mass and block energy rather than free to align;
+the two-block prototype `((a-b)^2 - (a+b))/2` is the first Euler face as algebra,
+and `realMertensPositiveLagPairSum_eq_inner_add_cross` proves the global
+covariance *is* within-block plus cross-block on one carrier. Measured: the
+magnitude-first step discards `N^(3/2)`, a half power, and the block energy is
+already linear, so the whole difficulty is the cross term.
+
 ### Do not repeat this route by
 
 - bounding `|C|` by a count of surviving pairs: that discards the Euler sign

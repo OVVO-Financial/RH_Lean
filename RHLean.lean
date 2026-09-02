@@ -1,5 +1,6 @@
 import RHLean.Analysis.AffineExcursion
 import RHLean.Analysis.BalancedPrimeBilinearCentering
+import RHLean.Analysis.BlockCovarianceDecomposition
 import RHLean.Analysis.CanonicalExtremePrimeSupport
 import RHLean.Analysis.CanonicalHighSectorBridge
 import RHLean.Analysis.CanonicalHighSectorCore

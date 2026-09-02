@@ -117,6 +117,78 @@ Readings.
   The difficulty is not the true value; it is that no theorem bounds it, and the
   frontier bound bounds a different object until the bridge is proved.
 
+## Signed blocks: the decomposition that removes the bridge
+
+`RHLean/Analysis/BlockCovarianceDecomposition.lean` takes the arrows above and
+collapses them into one problem, by partitioning the pair sum instead of
+counting atoms.
+
+For a signed block sequence `B` write `S K = sum_{j<K} B j`,
+`E K = sum_{j<K} (B j)^2`, `X K = sum_{j<K} B j * S j`.  Then
+
+```text
+S K ^ 2 = E K + 2 X K,      hence      2 X K = S K ^ 2 - E K.
+```
+
+That rearrangement is the point.  **Cross-block coherence is pinned, not free.**
+It is determined by the total signed mass and the block energy, so a route that
+lets every deeper block align adversarially is over-counting by construction.
+`signedBlockPrefix_abs_sq_sub_sq` measures exactly what the magnitude-first step
+discards: twice the cross-covariance defect, with the block energy untouched.
+
+The two-block prototype is the first Euler face.  With `a` seats of one sign and
+`b` of the other,
+
+```text
+a(a-1)/2 + b(b-1)/2 - a b = ((a - b)^2 - (a + b)) / 2,
+```
+
+linear or negative when `a ~ b`, while bounding the blocks independently returns
+`~ (a+b)^2 / 2`.  The gap is exactly `2ab` (`twoBlockAbsoluteLoss`).  That is the
+`(N_mid - N_top)` versus `N_mid + N_top` phenomenon, stated as algebra.
+
+Instantiated at the literal square blocks `[j^2, (j+1)^2)`:
+
+* `signedBlockPrefix_realSquareBlockMass` — the block masses telescope to
+  `M(R^2)`;
+* `realMertensLength_sq_eq_blockEnergy_add_two_mul_cross` — Mertens energy at a
+  square endpoint is block energy plus twice the cross-block covariance;
+* `realMertensPositiveLagPairSum_eq_inner_add_cross` — **the partition
+  identity**: the global integer-order covariance *is* the within-block
+  covariances plus the cross-block covariance.  Same pair sum, same carrier, no
+  domination hypothesis.  The window form is proved by prefix differences alone
+  (`signedBlockPrefix_sub_sq_eq_energy_sub_add_two_mul_inner`), so no interval
+  induction is needed.
+
+### What the measurement says
+
+`scripts/CumulativeOthelloBoundary/block_covariance.py`, at `R = 400`,
+`N = 160000`:
+
+```text
+sum B_j = M(N-1) = -67          block energy E = sum B_j^2 = 99961 (= 0.625 N)
+cross X = (S^2 - E)/2 = -47736  within-block sum_j C_j = 1347
+partition check: sum C_j + X = -46389 = global C          OK
+magnitude-first: sum |B_j| = 4781,  (sum|B_j|)^2 = 2.29e7  vs  S^2 = 4489
+discarded cross-cancellation = 2.285e7 = 142.8 N
+```
+
+Three readings.
+
+* Both identities hold exactly at every scale tested. The block decomposition is
+  a partition, so the bridge problem is gone in this coordinate.
+* `sum |B_j|` grows like `N^(3/4)` while `|S| = |M|` stays near `N^(1/2)`, so the
+  discarded cross-cancellation grows like `N^(3/2)`.  Magnitude-first bounding
+  loses **a half power**, not a constant factor.  That is precisely the cost of
+  `|H_R| <= |G_R| + D_R` followed by squaring.
+* The block energy is measured linear in `N`, about `6/pi^2 N` — the squarefree
+  density, the same size as the diagonal — so `E` is already at RH scale.  All of
+  the difficulty therefore sits in `X = (S^2 - E)/2`, which is equivalent to the
+  original problem.  **The decomposition localizes the difficulty and removes the
+  bridge; it does not by itself dissolve the bound.**  The remaining theorem is
+  that positive cross-block coherence cannot persist through the fresh-prime band
+  recursion, which is what the covariance-descent formulation asks for.
+
 ## Do not
 
 * bound `|C|` by a count of surviving pairs. That discards the Euler sign
