@@ -324,8 +324,9 @@ theorem squareRootCanonicalRoughCovariance_primeAdditionDescent_rawSurvivors
           squareRootCanonicalRoughResponseMean R := by
   rw [squareRootCanonicalRoughCofactorCard_mul_covariance_eq_sum_responseCentered
     R hR]
+  unfold squareRootCanonicalRoughCofactorCarrier
   rw [sum_squareRootCanonicalRoughResponseCentered_eq_primeDescent_rawSurvivors
-    R hR ps (squareRootCanonicalRoughCofactorCarrier R) hprime]
+    R hR ps (Finset.Icc 1 (squareRootEndpoint R)) hprime]
   rfl
 
 end CanonicalRoughPrimeAdditionDescent
