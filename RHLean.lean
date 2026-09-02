@@ -265,6 +265,7 @@ import RHLean.Analysis.SquareRootSmoothParityClasses
 import RHLean.Analysis.SquareRootSmoothRenewalInstantiation
 import RHLean.Analysis.SquareRootTransportRealization
 import RHLean.Analysis.SquareRootTransportTopFibreNoGo
+import RHLean.Analysis.SquareRunEscapeCovariance
 import RHLean.Analysis.SquareWheelCenteredIncrement
 import RHLean.Analysis.SquareWheelEndpointCofactorFibres
 import RHLean.Analysis.SquareWheelNesting

@@ -247,6 +247,85 @@ complementary smooth block, where the block Gram identity
 `(A - T)^2 = A^2 + T^2 - 2AT` should be carried down rather than replaced by
 `|A| + |T|`.
 
+## The seam, stated at run level
+
+`main` proves
+
+```text
+SquareRunEnergyBoundedStatement
+  <-> PrimeWheelResidualBoundedStatement primorialWheelFamily
+  <-> MertensEnergyBoundedStatement
+```
+
+(`squareRunEnergyBounded_iff_primorialResidualBounded`,
+`squareRunEnergyBounded_iff_mertensEnergy`), so once a uniform maximal signed
+run estimate exists the wheel and the arbitrary-`x` interpolation are finished
+bookkeeping.  `RHLean/Analysis/SquareRunEscapeCovariance.lean` therefore states
+the seam there.
+
+For a run `I = [a, b]` of complete square blocks, `squareRunMass_sq_eq` is the
+exact window Green--Kubo identity
+
+```text
+(sum_{j in I} Delta_j)^2 = Q_I + 2 * C_I,
+```
+
+`Q_I` the singleton squarefree diagonal, at most the window length
+(`squareRunDiagonal_le`, no conjecture).  Splitting `C_I` into a *descended*
+part and an escape remainder gives the exact
+
+```text
+(sum_{j in I} Delta_j)^2 = Q_I + 2 * descended + 2 * escape.
+```
+
+Two hypotheses then close it:
+
+* `SquareRunDescendedNonpositive` — the descended contribution adds no positive
+  covariance.  This is what complete fresh-prime pair-cube cancellation plus
+  lower-scale family descent are for; every post-root family is
+  covariance-isomorphic to a prefix below `sqrt W`.
+* `SquareRunTopEscapeCovarianceBoundedStatement` — the escape covariance is of
+  RH scale, uniformly over consecutive runs.
+
+`squareRunEnergyBounded_of_topEscapeCovarianceBounded` proves those give the run
+criterion, and `mertensEnergyBounded_of_topEscapeCovarianceBounded` chains
+through the existing equivalence.
+
+**The escape part must contain the cross-block pairs.**  Controlling family
+interaction separately inside each `Delta_j` would still miss
+`2 sum_{a <= i < j <= b} Delta_i Delta_j`.  Defining escape as a *remainder*
+makes that omission visible rather than silent: anything a proposed descent does
+not account for is in the escape term by construction.
+
+**Nesting does not cause the cancellation.**  It supplies a chronological
+coordinate and proves that controlling the escape on every signed run suffices.
+The negative feedback still has to come from the fresh-prime arithmetic as
+square time advances: the four-corner pair identity cancels every interior
+order-crossing shell and leaves the top-escape shell.  The remaining native
+sentence is:
+
+> Top-escape covariance cannot maintain a positive supercritical record through
+> square time.
+
+## The terminal acceptance test needs two halves
+
+`ClassicalMertensRHCriterion` is a structure taken as an ordinary theorem
+*argument*.  It is therefore invisible to `#print axioms`: a theorem assuming it
+has a clean axiom printout while remaining conditional on an unproved classical
+equivalence.
+
+So the acceptance test for a terminal RH theorem is **both**:
+
+1. its signature carries no `ClassicalMertensRHCriterion` (or equivalent open
+   hypothesis), because that equivalence has actually been instantiated; and
+2. `#print axioms` on it reports only the standard logical axioms.
+
+Neither implies the other.  `scripts/check_rh_conditionality.py` mechanizes the
+first half; `--require-unconditional <name>` makes it fatal for a named
+declaration, and the report is wired into `scripts/local_ci.sh`.  At present it
+lists **18** RH-facing theorems that remain conditional on the assumed criterion,
+so every RH-facing conclusion in this repository is a reduction, not a closure.
+
 ## Do not
 
 * bound `|C|` by a count of surviving pairs. That discards the Euler sign

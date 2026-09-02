@@ -884,6 +884,24 @@ would be needed instead, and is proved to suffice.
 
 See [`research/COVARIANCE_CAPACITY_SEAM.md`](research/COVARIANCE_CAPACITY_SEAM.md).
 
+The seam is now stated at run level, where the equivalence already bites.
+`RHLean/Analysis/SquareRunEscapeCovariance.lean` proves the exact window identity
+`(sum Delta_j)^2 = Q_I + 2 descended + 2 escape` with escape defined as the
+remainder, so anything a proposed descent omits -- including the cross-square-block
+pairs `2 sum_{i<j} Delta_i Delta_j` -- stays visible. Non-positive descended part
+plus RH-scale escape gives `SquareRunEnergyBoundedStatement` and hence, through
+`squareRunEnergyBounded_iff_mertensEnergy`, the global Mertens energy criterion.
+Nesting supplies the chronological coordinate; it does not supply the
+cancellation, which must still come from the fresh-prime arithmetic.
+
+Terminal acceptance needs two halves. `ClassicalMertensRHCriterion` is a theorem
+*parameter*, so `#print axioms` cannot see it: a conditional theorem has a clean
+printout. The test is (1) no assumed criterion in the signature and (2) a clean
+axiom printout, and neither implies the other.
+`scripts/check_rh_conditionality.py` mechanizes (1), is wired into
+`scripts/local_ci.sh`, and currently lists 18 RH-facing theorems that remain
+conditional.
+
 Refinement replaces the block-energy problem. `E - Q = 2 sum_j C_j` exactly, so
 the measured linearity of the square-block energy must not be promoted: proving
 `E << N^(1+eps)` *is* proving the aggregate within-block covariance is RH-scale.
