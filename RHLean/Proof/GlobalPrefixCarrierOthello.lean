@@ -306,7 +306,7 @@ theorem sum_moebius_eq_neg_sdiff_of_toggleClosed {p : ℕ} (hp : p.Prime)
   have hsplit : (∑ n ∈ S \ T, μ n) + ∑ n ∈ T, μ n = ∑ n ∈ S, μ n :=
     Finset.sum_sdiff hsub
   rw [sum_moebius_eq_zero_of_toggleClosed hp hclosed] at hsplit
-  exact eq_neg_of_add_eq_zero_left hsplit
+  exact eq_neg_of_add_eq_zero_right hsplit
 
 /-! ## Iterating the peel -/
 
