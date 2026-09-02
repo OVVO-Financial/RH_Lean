@@ -1,6 +1,8 @@
 import Mathlib
 import RHLean.Analysis.LargePrimeTTransport
 import RHLean.Analysis.SquareRootTransportTopFibreNoGo
+import RHLean.Proof.LargePrimeTerminalFlipLayers
+import RHLean.Proof.SquareRootPredecessorPrimeCells
 
 /-!
 # Exact middle-prime fibre collapse
@@ -24,6 +26,14 @@ regrouping.  It proves:
 * the separate quotient-one top block is deterministic: every top prime
   contributes exactly `-1` to the final Möbius fibre.
 
+The final section adds the multi-prime **hierarchical covariance exhaustion**
+coordinate.  The prime-2 face is isolated as the exact middle-minus-top prime
+population gap, while every remaining face is a deeper reciprocal layer
+`d >= 3` weighted by the already-complete lower-scale value `M(d)`.  Later
+prime injections inspect only the smaller child cutoff `floor(k/p)`, complete
+old Boolean cubes vanish exactly, and nonsquarefree cofactors remain exact
+Möbius zeros.  No probabilistic independence or density hypothesis is used.
+
 No absolute value, Cauchy--Schwarz inequality, prime-count estimate, Mertens
 bound, density statement, RH input, or dissipation claim is used.
 -/
@@ -35,6 +45,7 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Analysis
+open RHLean.Arithmetic
 
 /-- Integer-valued Möbius prefix through `N`.  This is the exact finite object
 used in the middle fibres; no estimate is attached to it here. -/
@@ -287,5 +298,117 @@ theorem middlePrimeTopBlock_sum_eq_deterministicBaseline
         exact middlePrimeTopFibreResidual_eq_neg_one hq
     _ = -((squareRootTopFibrePrimes R).card : ℤ) := by
       simp
+
+/-! ## Hierarchical covariance exhaustion -/
+
+/-- The signed terminal-correction channel: genuine middle cofactor flips
+(`c >= 2`) together with the untouched top-prime seats (`c = 1`).  The middle
+bare-prime seats are deliberately not included here: prime 2 is the first
+injection that cancels those seats whenever `2q <= X_R`. -/
+def squareRootHierarchicalTerminalCorrectionMass (R : ℕ) : ℂ :=
+  squareRootMiddleTerminalFlipMass R -
+    ((squareRootTopFibrePrimes R).card : ℂ)
+
+private theorem hierarchical_mertensSummatory_two : mertensSummatory 2 = 0 := by
+  rw [← cofactorMobiusPrefixMass_eq_mertensSummatory]
+  unfold cofactorMobiusPrefixMass
+  rw [show Finset.Icc 1 2 = ({1, 2} : Finset ℕ) by decide]
+  simp [canonicalMoebiusWeight,
+    ArithmeticFunction.moebius_apply_prime Nat.prime_two]
+
+/-- **Hierarchical covariance exhaustion.**  After the bare middle-prime seats
+are paired with their prime-2 children, the first surviving face is exactly the
+middle-minus-top prime population gap.  Every remaining correction is already
+a deeper reciprocal Euler layer `d >= 3`, weighted by the complete lower-scale
+Mertens state `M(d)`.
+
+In particular, even the worst same-sign coherence of the first middle face is
+not an independent quadratic obstruction: before any norm is taken it enters
+only through the *difference* of the middle and top prime populations.  The
+`d = 2` layer is absent exactly because `M(2)=0`. -/
+theorem squareRootHierarchicalCovarianceExhaustion
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootHierarchicalTerminalCorrectionMass R =
+      squareRootMiddleTopPrimeCountGapMass R -
+        ∑ d ∈ Finset.Icc 3 (R - 1),
+          primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+            mertensSummatory d := by
+  have hset :
+      Finset.Icc 2 (R - 1) =
+        ({2} : Finset ℕ) ∪ Finset.Icc 3 (R - 1) := by
+    ext d
+    simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_singleton]
+    omega
+  have hdisj :
+      Disjoint ({2} : Finset ℕ) (Finset.Icc 3 (R - 1)) := by
+    rw [Finset.disjoint_left]
+    intro d hd2 hd3
+    rw [Finset.mem_singleton] at hd2
+    subst d
+    simp at hd3
+  unfold squareRootHierarchicalTerminalCorrectionMass
+    squareRootMiddleTerminalFlipMass
+    squareRootMiddleTopPrimeCountGapMass
+  rw [squareRootMiddleMertensTail_eq_reciprocalPrimeLayers R hR,
+    hset, Finset.sum_union hdisj, Finset.sum_singleton,
+    hierarchical_mertensSummatory_two]
+  ring
+
+/-- The same exhaustion with the first face written as the literal difference
+of prime counts in the middle and top sections. -/
+theorem squareRootHierarchicalCovarianceExhaustion_primeCounting
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootHierarchicalTerminalCorrectionMass R =
+      (2 * (Nat.primeCounting (squareRootEndpoint R / 2) : ℂ) -
+          (Nat.primeCounting (squareRootEndpoint R) : ℂ) -
+          (Nat.primeCounting R : ℂ)) -
+        ∑ d ∈ Finset.Icc 3 (R - 1),
+          primeSieveReciprocalPrimeCount R (squareRootEndpoint R) d *
+            mertensSummatory d := by
+  rw [squareRootHierarchicalCovarianceExhaustion R hR]
+  have hgap :
+      squareRootMiddleTopPrimeCountGapMass R =
+        ((squareRootMiddleTopPrimeCountGap R : ℤ) : ℂ) := by
+    unfold squareRootMiddleTopPrimeCountGapMass
+    rw [squareRootMiddleTopPrimeCountGap_eq_card_sub R hR]
+    push_cast
+    rfl
+  rw [hgap]
+  unfold squareRootMiddleTopPrimeCountGap
+  push_cast
+  ring
+
+/-- **Later prime injections inspect smaller child cutoffs.**  If `p <= q`,
+then the predecessor state sampled by `q` lies no deeper than the predecessor
+state sampled by `p`.  This is the exact support contraction; it deliberately
+does not assert monotonicity of the signed masses themselves. -/
+theorem hierarchicalChildCutoff_antitone
+    {p q k : ℕ} (hp : 0 < p) (hpq : p ≤ q) :
+    k / q ≤ k / p := by
+  apply (Nat.le_div_iff_mul_le hp).2
+  calc
+    (k / q) * p ≤ (k / q) * q := Nat.mul_le_mul_left (k / q) hpq
+    _ ≤ k := Nat.div_mul_le_self k q
+
+/-- **Complete predecessor cubes are exhausted exactly.**  Once all old
+Boolean faces below a fresh prime `p` fit into its child cutoff, its signed
+predecessor correction vanishes identically. -/
+theorem hierarchicalPredecessorMass_eq_zero_of_complete_old_cube
+    {p k : ℕ} (hp : p.Prime) (hp2 : 2 < p)
+    (hfit : p * primeFaceProduct (primesUpTo (p - 1)) ≤ k) :
+    predecessorPrimeMass p k = 0 :=
+  predecessorPrimeMass_eq_zero_of_predPrimeCube_complete hp hp2 hfit
+
+/-- **Möbius-zero seats are removed pointwise.**  A nonsquarefree lower
+cofactor remains zero after adjoining a fresh large prime.  This exact
+construction-level statement is what matters here; no asymptotic zero-density
+input is required. -/
+theorem hierarchicalTerminalFlip_eq_zero_of_cofactor_not_squarefree
+    {X c q : ℕ} (hq : q.Prime) (hqRoot : Nat.sqrt X < q)
+    (hcpos : 0 < c) (hcqX : c * q ≤ X)
+    (hnsq : ¬ Squarefree c) :
+    μ (c * q) = 0 :=
+  moebius_mul_largePrime_eq_zero_of_cofactor_not_squarefree
+    hq hqRoot hcpos hcqX hnsq
 
 end RHLean.Proof
