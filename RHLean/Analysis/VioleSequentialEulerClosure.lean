@@ -89,9 +89,9 @@ theorem nativePNTSequentialMobiusSignedAtom_pair_adjoin_prime
   push_cast
   have hmul : m * (p * k) = (m * p) * k := by ring
   rw [hmul]
-  have hp0 : (p : Real) != 0 := by exact_mod_cast hp.ne_zero
-  have hk0 : (k : Real) != 0 := by
-    exact_mod_cast (show k != 0 by omega)
+  have hp0 : (p : Real) ≠ 0 := by exact_mod_cast hp.ne_zero
+  have hk0 : (k : Real) ≠ 0 := by
+    exact_mod_cast (show k ≠ 0 by omega)
   rw [Real.log_mul hp0 hk0]
   ring
 
@@ -128,9 +128,9 @@ theorem nativePNTSequentialMobiusSignedAtom_pair_abs_surplus_eq
   push_cast
   have hmul : m * (p * k) = (m * p) * k := by ring
   rw [hmul]
-  have hp0 : (p : Real) != 0 := by exact_mod_cast hp.ne_zero
-  have hk0 : (k : Real) != 0 := by
-    exact_mod_cast (show k != 0 by omega)
+  have hp0 : (p : Real) ≠ 0 := by exact_mod_cast hp.ne_zero
+  have hk0 : (k : Real) ≠ 0 := by
+    exact_mod_cast (show k ≠ 0 by omega)
   have hpLog0 : 0 <= Real.log (p : Real) :=
     Real.log_nonneg (by exact_mod_cast hp.one_le)
   have hkLog0 : 0 <= Real.log (k : Real) :=
