@@ -1,6 +1,5 @@
 import Mathlib
 import RHLean.Analysis.NativePNTLogSums
-import RHLean.Analysis.NativePNTErdosContraction
 import RHLean.Analysis.NativePNTEvolvingTailState
 import RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
 
@@ -154,123 +153,80 @@ theorem nativePNTEvolvingTailCost_ge_canonical_obstruction
   rw [← hsplit]
   nlinarith
 
-/-! ## Consequence for the state-dependent cubic consumer -/
+/-! ## Subdoubling obstruction for moving cutoffs -/
 
-/-- The good mass available to the state-dependent tail step is a positive
-submass of the total reciprocal `Lambda_2` mass. -/
-theorem nativeLambdaTwoGoodTailRecipMass_le_recipMass
-    (N M : ℕ) (beta : ℝ) :
-    nativeLambdaTwoGoodTailRecipMass N M beta ≤
-      nativeLambdaTwoRecipMass N := by
-  unfold nativeLambdaTwoGoodTailRecipMass nativeLambdaTwoRecipMass
+/-- The second von Mangoldt kernel has zero mass at the trivial reciprocal
+fibre. -/
+theorem nativeLambdaTwo_one : nativeLambdaTwo 1 = 0 := by
+  rw [nativeLambdaTwo_eq_logWeight_vonMangoldt_add_convolution]
+  simp [arithmeticLogWeight_apply]
+
+/-- If the new endpoint has not even doubled the old tail cutoff, the only
+possible reciprocal tail fibre at that endpoint is `n = 1`, whose `Lambda_2`
+weight is zero.  Hence the entire good-tail reciprocal mass vanishes, for every
+candidate contracted slope `beta`.
+
+This is exactly the geometry of consecutive square cutoffs: their ratio tends
+to one, not two. -/
+theorem nativeLambdaTwoGoodTailRecipMass_eq_zero_of_lt_two_mul
+    (N M : ℕ) (beta : ℝ) (hNM : N < 2 * M) :
+    nativeLambdaTwoGoodTailRecipMass N M beta = 0 := by
+  classical
+  unfold nativeLambdaTwoGoodTailRecipMass
     nativePNTSquarePrefixGoodTailFiberSet nativePNTSquarePrefixTailFiberSet
-  refine Finset.sum_le_sum_of_subset_of_nonneg ?_ ?_
-  · intro n hn
-    exact (Finset.mem_filter.mp (Finset.mem_filter.mp hn).1).1
-  · intro n hn _hgood
-    have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
-    exact div_nonneg (nativeLambdaTwo_nonneg n hn1) (by positivity)
+  apply Finset.sum_eq_zero
+  intro n hn
+  rcases Finset.mem_filter.mp hn with ⟨hnTail, _hnGood⟩
+  rcases Finset.mem_filter.mp hnTail with ⟨hnI, hMdiv⟩
+  have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hnI).1
+  have hnEq : n = 1 := by
+    by_contra hne
+    have hn2 : 2 ≤ n := by omega
+    have hMn : M * n ≤ N :=
+      (Nat.le_div_iff_mul_le (by omega : 0 < n)).1 hMdiv
+    have h2Mn : 2 * M ≤ M * n := by
+      have h := Nat.mul_le_mul_left M hn2
+      simpa [Nat.mul_comm] using h
+    omega
+  subst n
+  simp [nativeLambdaTwo_one]
 
-/-- The canonical absolute-remainder state has an explicit finite upper bound
-on its net gain.  The positive good-tail contribution can use at most the full
-reciprocal `Lambda_2` mass, while the canonical evolving cost retains the
-`N log N` floor proved above. -/
-theorem primeSieveStateDependentSelbergNetGain_le_canonical_obstruction
-    (N M : ℕ) (alpha beta : ℝ)
-    (hN : 3 ≤ N) (halpha : 0 ≤ alpha) (hba : beta ≤ alpha) :
-    primeSieveStateDependentSelbergNetGain N M alpha beta ≤
-      alpha * (N : ℝ) *
-          (2 * (Real.log (N : ℝ)) ^ 2 +
-            1000 * Real.log (N : ℝ) + 2000) -
-        ((N : ℝ) - 1 - Real.log (N : ℝ)) * Real.log (N : ℝ) := by
-  have hmass := nativeLambdaTwoGoodTailRecipMass_le_recipMass N M beta
-  have htotal := nativeLambdaTwoRecipMass_upper N hN
-  have hgoodMass :
-      nativeLambdaTwoGoodTailRecipMass N M beta ≤
-        (Real.log (N : ℝ)) ^ 2 +
-          1000 * Real.log (N : ℝ) + 2000 :=
-    hmass.trans htotal
-  have hN0 : 0 ≤ (N : ℝ) := by positivity
-  have hcoef0 : 0 ≤ (alpha - beta) * (N : ℝ) :=
-    mul_nonneg (sub_nonneg.mpr hba) hN0
-  have hgoodScaled := mul_le_mul_of_nonneg_left hgoodMass hcoef0
-  have hlog0 : 0 ≤ Real.log (N : ℝ) :=
-    Real.log_nonneg (by exact_mod_cast (show 1 ≤ N by omega))
-  have hupper0 :
-      0 ≤ (Real.log (N : ℝ)) ^ 2 +
-          1000 * Real.log (N : ℝ) + 2000 := by
-    nlinarith [sq_nonneg (Real.log (N : ℝ))]
-  have hcoefLe :
-      (alpha - beta) * (N : ℝ) ≤ alpha * (N : ℝ) := by
-    nlinarith
-  have hcoefScaled := mul_le_mul_of_nonneg_right hcoefLe hupper0
-  have hgoodTerm :
-      (alpha - beta) * (N : ℝ) *
-          nativeLambdaTwoGoodTailRecipMass N M beta ≤
-        alpha * (N : ℝ) *
-          ((Real.log (N : ℝ)) ^ 2 +
-            1000 * Real.log (N : ℝ) + 2000) :=
-    hgoodScaled.trans hcoefScaled
-  have hcost := nativePNTEvolvingTailCost_ge_canonical_obstruction
-    N M alpha (by omega) halpha
-  rw [primeSieveStateDependentSelbergNetGain_eq]
-  nlinarith
+/-- **Exact obstruction to using the current one-step cubic consumer across a
+subdoubling cutoff move.**  At the mandatory first endpoint `N = L`, the
+positive good-tail term is identically zero whenever `L < 2*M`.  If the
+already-proved canonical absolute-remainder floor is positive there, the net
+gain is negative, so no positive cubic coefficient can satisfy
+`CubicGainFromTo M L alpha c`.
 
-/-- If the canonical `N log N` floor is already larger than the largest
-possible good-tail deficit at an endpoint, no positive cubic power gain exists
-there.  This is a finite obstruction, not an asymptotic statement. -/
-theorem primeSieveStateDependentSelberg_no_positive_powerGain_of_canonical_obstruction
-    (c : ℝ) (N M : ℕ) (alpha beta : ℝ)
-    (hN : 3 ≤ N) (hc : 0 < c) (halpha : 0 < alpha)
-    (hba : beta < alpha)
-    (hobs :
-      alpha * (N : ℝ) *
-          (2 * (Real.log (N : ℝ)) ^ 2 +
-            1000 * Real.log (N : ℝ) + 2000) <
-        ((N : ℝ) - 1 - Real.log (N : ℝ)) * Real.log (N : ℝ)) :
-    ¬ PrimeSieveStateDependentSelbergStateHasPowerGain
-        c 3 N M alpha beta := by
-  intro hgain
-  have hnet := primeSieveStateDependentSelbergNetGain_le_canonical_obstruction
-    N M alpha beta hN halpha.le hba.le
-  have hnetNeg :
-      primeSieveStateDependentSelbergNetGain N M alpha beta < 0 := by
-    linarith
-  have hNR : 0 < (N : ℝ) := by
-    exact_mod_cast (show 0 < N by omega)
-  have hlog : 0 < Real.log (N : ℝ) := by
-    apply Real.log_pos
-    exact_mod_cast (show 1 < N by omega)
-  have hlhs :
-      0 < c * alpha ^ 3 * (N : ℝ) * (Real.log (N : ℝ)) ^ 2 := by
-    positivity
-  unfold PrimeSieveStateDependentSelbergStateHasPowerGain at hgain
-  linarith
-
-/-- **No-go for the current moving-cutoff consumer.**  Because
-`CubicGainFromTo M L alpha c` quantifies over every endpoint `N ≥ L`, it must in
-particular supply a power gain at `N = L`.  Under the explicit finite
-obstruction below, the canonical absolute-remainder state makes that impossible
-for every positive block coefficient `c`.
-
-Thus a square-block signed argument cannot be inserted merely as a lower bound
-for the present canonical net gain once this inequality holds: the consumer
-itself must first expose a signed remainder state that can receive that block
-cancellation. -/
-theorem primeSieveStateDependentSelberg_no_positive_cubicGainFromTo_of_canonical_obstruction
+No asymptotic estimate and no affine/onset argument is used. -/
+theorem primeSieveStateDependentSelberg_no_positive_cubicGainFromTo_of_subdoubling
     (M L : ℕ) (alpha c : ℝ)
-    (hL : 3 ≤ L) (halpha : 0 < alpha) (hc : 0 < c)
+    (hL : 3 ≤ L) (hLM : L < 2 * M)
+    (halpha : 0 < alpha) (hc : 0 < c)
     (hobs :
-      alpha * (L : ℝ) *
-          (2 * (Real.log (L : ℝ)) ^ 2 +
-            1000 * Real.log (L : ℝ) + 2000) <
+      alpha * (L : ℝ) * (Real.log (L : ℝ)) ^ 2 <
         ((L : ℝ) - 1 - Real.log (L : ℝ)) * Real.log (L : ℝ)) :
     ¬ PrimeSieveStateDependentSelbergCubicGainFromTo M L alpha c := by
   intro hgain
   rcases hgain with ⟨_hML, hgain⟩
-  rcases hgain L le_rfl with ⟨beta, _hbeta0, hbeta, hpower⟩
-  exact
-    (primeSieveStateDependentSelberg_no_positive_powerGain_of_canonical_obstruction
-      c L M alpha beta hL hc halpha hbeta hobs) hpower
+  rcases hgain L le_rfl with ⟨beta, _hbeta0, _hbeta, hpower⟩
+  have hgood0 :=
+    nativeLambdaTwoGoodTailRecipMass_eq_zero_of_lt_two_mul L M beta hLM
+  have hcost := nativePNTEvolvingTailCost_ge_canonical_obstruction
+    L M alpha (by omega) halpha.le
+  have hnetNeg :
+      primeSieveStateDependentSelbergNetGain L M alpha beta < 0 := by
+    rw [primeSieveStateDependentSelbergNetGain_eq, hgood0]
+    nlinarith
+  have hLR : 0 < (L : ℝ) := by
+    exact_mod_cast (show 0 < L by omega)
+  have hlog : 0 < Real.log (L : ℝ) := by
+    apply Real.log_pos
+    exact_mod_cast (show 1 < L by omega)
+  have hlhs :
+      0 < c * alpha ^ 3 * (L : ℝ) * (Real.log (L : ℝ)) ^ 2 := by
+    positivity
+  unfold PrimeSieveStateDependentSelbergStateHasPowerGain at hpower
+  linarith
 
 end RHLean.Analysis
