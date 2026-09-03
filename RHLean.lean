@@ -394,6 +394,7 @@ import RHLean.Proof.CanonicalGapOrthogonalMode
 import RHLean.Proof.CanonicalGapPrefixGram
 import RHLean.Proof.CanonicalHighSectorCovariance
 import RHLean.Proof.CanonicalRoughBoundaryProfileAbelReturn
+import RHLean.Proof.CanonicalRoughCompleteSubrootDefectReduction
 import RHLean.Proof.CanonicalRoughCriticalCorrelationContraction
 import RHLean.Proof.CanonicalRoughCriticalDefectWindows
 import RHLean.Proof.CanonicalRoughDefectLedgerBound
@@ -401,6 +402,8 @@ import RHLean.Proof.CanonicalRoughFiniteAbelReturn
 import RHLean.Proof.CanonicalRoughManyPrimeContraction
 import RHLean.Proof.CanonicalRoughQuantitativeContraction
 import RHLean.Proof.CanonicalRoughReciprocalCompression
+import RHLean.Proof.CanonicalRoughTruncatedWheelDefectTelescope
+import RHLean.Proof.CanonicalRoughTruncatedWheelManyPrimeTelescope
 import RHLean.Proof.CanonicalSignedParent
 import RHLean.Proof.CoherentGramVanishingTransfer
 import RHLean.Proof.CollisionCellFrontierBound
