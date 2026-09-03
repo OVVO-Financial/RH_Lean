@@ -170,4 +170,153 @@ def DyadicFrozenPrefixCancellation : Prop :=
   ∀ ε : ℝ, 0 < ε → ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N →
     |((∑ n ∈ dyadicBlock N, μ n : ℤ) : ℝ)| ≤ ε * N
 
+/-! ## Arbitrary frozen subdoubling runs -/
+
+/-- A half-open physical run `[N,L)`.  When `L ≤ 2N`, every proper divisor of
+every site in this run lies strictly below the initial cutoff `N`. -/
+def frozenRunBlock (N L : ℕ) : Finset ℕ := Finset.Ico N L
+
+/-- Number of sites in `[N,L)` hit by the old divisor coordinate `d`. -/
+def frozenRunDivisorWeight (N L d : ℕ) : ℕ :=
+  ((frozenRunBlock N L).filter fun n => d ∣ n).card
+
+/-- Proper divisors of one site read only from the prefix strictly below `N`. -/
+def frozenRunProperDivisors (N n : ℕ) : Finset ℕ :=
+  (Finset.range N).filter fun d => d ∣ n
+
+/-- In a subdoubling run, every proper divisor lies strictly below the run's
+left endpoint.  This is the strict version needed for a genuinely frozen
+prefix: no divisor coordinate created during the run can be consulted later in
+the same run. -/
+theorem properDivisor_lt_frozenRunBase {N L n d : ℕ}
+    (hN : 2 ≤ N) (hL : L ≤ 2 * N)
+    (hn : n ∈ frozenRunBlock N L)
+    (hd : d ∣ n) (hdn : d < n) : d < N := by
+  obtain ⟨k, rfl⟩ := hd
+  have hk : 2 ≤ k := by
+    by_contra h
+    interval_cases k <;> simp_all [frozenRunBlock]
+  have hnlt : d * k < 2 * N := by
+    exact lt_of_lt_of_le (Finset.mem_Ico.mp hn).2 hL
+  nlinarith
+
+/-- On a subdoubling run the strict frozen prefix is exactly the complete set of
+proper divisors of every visited site. -/
+theorem frozenRunProperDivisors_eq {N L n : ℕ}
+    (hN : 2 ≤ N) (hL : L ≤ 2 * N)
+    (hn : n ∈ frozenRunBlock N L) :
+    frozenRunProperDivisors N n = n.divisors.erase n := by
+  have hnLower : N ≤ n := (Finset.mem_Ico.mp hn).1
+  have hnpos : 0 < n := by omega
+  ext d
+  simp only [frozenRunProperDivisors, Finset.mem_filter, Finset.mem_range,
+    Finset.mem_erase, Nat.mem_divisors]
+  constructor
+  · rintro ⟨hdN, hdvd⟩
+    have hdn : d < n := lt_of_lt_of_le hdN hnLower
+    exact ⟨Nat.ne_of_lt hdn, hdvd, hnpos.ne'⟩
+  · rintro ⟨hdne, hdvd, _⟩
+    have hle : d ≤ n := Nat.le_of_dvd hnpos hdvd
+    have hlt : d < n := lt_of_le_of_ne hle hdne
+    exact ⟨properDivisor_lt_frozenRunBase hN hL hn hdvd hlt, hdvd⟩
+
+/-- Pointwise frozen-prefix reconstruction on an arbitrary subdoubling run. -/
+theorem moebius_eq_neg_frozenRunPrefixSum {N L n : ℕ}
+    (hN : 2 ≤ N) (hL : L ≤ 2 * N)
+    (hn : n ∈ frozenRunBlock N L) :
+    μ n = -∑ d ∈ frozenRunProperDivisors N n, μ d := by
+  have hnLower : N ≤ n := (Finset.mem_Ico.mp hn).1
+  have hn1 : 1 < n := by omega
+  rw [frozenRunProperDivisors_eq hN hL hn]
+  exact moebius_eq_neg_sum_properDivisors hn1
+
+/-- **Frozen-run identity.**  On every half-open run `[N,L)` with `L ≤ 2N`, the
+entire new Möbius mass is one static linear functional of the prefix strictly
+below `N`.  No Möbius value created inside the run appears on the right-hand
+side. -/
+theorem frozenRun_moebius_increment_eq_frozen_weighted_sum
+    (N L : ℕ) (hN : 2 ≤ N) (hL : L ≤ 2 * N) :
+    (∑ n ∈ frozenRunBlock N L, μ n) =
+      -∑ d ∈ Finset.range N, (frozenRunDivisorWeight N L d : ℤ) * μ d := by
+  classical
+  calc
+    (∑ n ∈ frozenRunBlock N L, μ n) =
+        ∑ n ∈ frozenRunBlock N L,
+          -∑ d ∈ frozenRunProperDivisors N n, μ d := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            exact moebius_eq_neg_frozenRunPrefixSum hN hL hn
+    _ = -∑ d ∈ Finset.range N,
+          ∑ n ∈ frozenRunBlock N L, if d ∣ n then μ d else 0 := by
+            simp only [frozenRunProperDivisors, Finset.sum_neg_distrib,
+              Finset.sum_filter]
+            rw [Finset.sum_comm]
+    _ = -∑ d ∈ Finset.range N,
+          (frozenRunDivisorWeight N L d : ℤ) * μ d := by
+            apply congrArg Neg.neg
+            apply Finset.sum_congr rfl
+            intro d _hd
+            change (∑ n ∈ frozenRunBlock N L, if d ∣ n then μ d else 0) =
+              (((frozenRunBlock N L).filter fun n => d ∣ n).card : ℤ) * μ d
+            rw [← Finset.sum_filter]
+            simp
+
+/-! ## Static square-run correlation -/
+
+/-- Integer Möbius mass of the repository's half-open complete-square run
+`[a^2,(b+1)^2)`. -/
+def squareFrozenRunMass (a b : ℕ) : ℤ :=
+  ∑ n ∈ frozenRunBlock (a ^ 2) ((b + 1) ^ 2), μ n
+
+/-- Static divisor-incidence correlation of the prefix below `a^2` against the
+whole square-run kernel.  This is the exact finite object that the frozen-run
+identity exposes. -/
+def squareFrozenRunCorrelation (a b : ℕ) : ℤ :=
+  ∑ d ∈ Finset.range (a ^ 2),
+    (frozenRunDivisorWeight (a ^ 2) ((b + 1) ^ 2) d : ℤ) * μ d
+
+/-- **Square frozen-run identity.**  As long as the entire square run remains
+inside the first doubling of its left endpoint, its complete signed mass is the
+negative of one static correlation against the Möbius prefix that existed
+before the run began. -/
+theorem squareFrozenRunMass_eq_neg_staticCorrelation
+    (a b : ℕ) (ha : 2 ≤ a)
+    (hsub : (b + 1) ^ 2 ≤ 2 * (a ^ 2)) :
+    squareFrozenRunMass a b = -squareFrozenRunCorrelation a b := by
+  unfold squareFrozenRunMass squareFrozenRunCorrelation
+  have hbase : 2 ≤ a ^ 2 := by nlinarith
+  exact frozenRun_moebius_increment_eq_frozen_weighted_sum
+    (a ^ 2) ((b + 1) ^ 2) hbase hsub
+
+/-- Absolute-value form: on a frozen square run, bounding the static correlation
+is literally the same as bounding the run mass; no triangle inequality or
+covariance relaxation is used. -/
+theorem abs_squareFrozenRunMass_eq_abs_staticCorrelation
+    (a b : ℕ) (ha : 2 ≤ a)
+    (hsub : (b + 1) ^ 2 ≤ 2 * (a ^ 2)) :
+    |((squareFrozenRunMass a b : ℤ) : ℝ)| =
+      |((squareFrozenRunCorrelation a b : ℤ) : ℝ)| := by
+  rw [squareFrozenRunMass_eq_neg_staticCorrelation a b ha hsub]
+  simp
+
+/-- **Static correlation bound.**  This is the cancellation statement suggested
+by the frozen-run geometry.  Uniformly over every nonempty complete-square run
+whose physical window stays below the first doubling of its left endpoint, the
+single frozen-prefix divisor-incidence correlation has RH-scale size
+`O_epsilon(a^(1+epsilon))`.
+
+This is a named open analytic premise only.  The exact identities above show
+that it is neither an independence assumption nor a new random-sign model: the
+right-hand side uses the actual completed Möbius prefix below `a^2` and a fully
+deterministic incidence kernel. -/
+def SquareFrozenRunStaticCorrelationBoundedStatement : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ a b : ℕ,
+        2 ≤ a →
+        a ≤ b →
+        (b + 1) ^ 2 ≤ 2 * (a ^ 2) →
+        |((squareFrozenRunCorrelation a b : ℤ) : ℝ)| ≤
+          C * Real.rpow (a : ℝ) (1 + ε)
+
 end RHLean.Arithmetic
