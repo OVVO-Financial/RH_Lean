@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.DynamicVioleBaseline
+import RHLean.Analysis.VioleClockDirectTailInduction
 import RHLean.Proof.NearOrthogonality
 
 /-!
