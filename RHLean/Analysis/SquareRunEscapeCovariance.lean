@@ -41,7 +41,7 @@ Splitting `C_I` into a *descended* part and an *escape* part gives
 (sum_{j in I} Delta_j)^2 = Q_I + 2 * descended + 2 * escape.
 ```
 
-The escape part is defined as the remainder, so the identity is exact for any
+The escape part is defined as the remainder, so the decomposition below is exact for any
 proposed descended part.  Two hypotheses then finish the criterion:
 
 * `SquareRunDescendedNonpositive` — the descended contribution does not add
@@ -145,6 +145,90 @@ def SquareRunTopEscapeCovarianceBoundedStatement
       ∀ a b : ℕ, a ≤ b →
         squareRunEscapeCovariance descended a b ≤
           C * Real.rpow (((squarePrefixEndpoint b + 1 : ℕ) : ℝ)) (1 + ε)
+
+/-! ## Coherent persistence pressure -/
+
+/-- A run `[a,b]` carries coherent average bias at least `eta` when the absolute
+signed run mass is at least `eta` times the number of complete square blocks in
+the run.  This is deliberately a run-level condition: no pointwise bound on an
+individual square block is imposed. -/
+def SquareRunCoherentBiasAtLeast (eta : ℝ) (a b : ℕ) : Prop :=
+  eta * (((b + 1 - a : ℕ) : ℝ)) ≤ |squareRunMass a b|
+
+/-- **Coherent persistence has to escape.**  If the descended Euler interior is
+nonpositive, a run of `ell = b+1-a` square blocks with average coherent bias at
+least `eta` forces positive escape covariance of size at least
+
+`(eta^2 * ell^2 - (b+1)^2) / 2`.
+
+Thus any coherent run which exceeds the square-root diagonal scale cannot hide
+inside the diagonal or the descended interior: every excess unit is charged to
+the top-escape covariance. -/
+theorem squareRunEscapeCovariance_ge_of_coherentBias
+    {descended : ℕ → ℕ → ℝ}
+    (hneg : SquareRunDescendedNonpositive descended)
+    (a b : ℕ) (hab : a ≤ b)
+    (eta : ℝ) (heta : 0 ≤ eta)
+    (hcoh : SquareRunCoherentBiasAtLeast eta a b) :
+    ((eta * (((b + 1 - a : ℕ) : ℝ))) ^ 2 -
+        (((b + 1) ^ 2 : ℕ) : ℝ)) / 2 ≤
+      squareRunEscapeCovariance descended a b := by
+  have hlen : 0 ≤ (((b + 1 - a : ℕ) : ℝ)) := by positivity
+  have hleft : 0 ≤ eta * (((b + 1 - a : ℕ) : ℝ)) :=
+    mul_nonneg heta hlen
+  have habs : 0 ≤ |squareRunMass a b| := abs_nonneg _
+  have hmassSq :
+      (eta * (((b + 1 - a : ℕ) : ℝ))) ^ 2 ≤ squareRunMass a b ^ 2 := by
+    calc
+      (eta * (((b + 1 - a : ℕ) : ℝ))) ^ 2 ≤ |squareRunMass a b| ^ 2 := by
+        unfold SquareRunCoherentBiasAtLeast at hcoh
+        nlinarith
+      _ = squareRunMass a b ^ 2 := sq_abs _
+  have hid :=
+    squareRunMass_sq_eq_diagonal_add_descended_add_escape descended a b
+  have hdiag := squareRunDiagonal_le a b
+  have hdesc := hneg a b hab
+  nlinarith
+
+/-- **Persistence-length budget.**  If the top escape covariance on the same
+run is at most `B`, then coherent average bias `eta` can persist only while
+
+`(eta * ell)^2 <= (b+1)^2 + 2 B`.
+
+This is the exact finite form of the statement that an escape budget limits the
+length of a coherently aligned block run. -/
+theorem squareRunCoherentBias_sq_le_of_escape_le
+    {descended : ℕ → ℕ → ℝ}
+    (hneg : SquareRunDescendedNonpositive descended)
+    (a b : ℕ) (hab : a ≤ b)
+    (eta : ℝ) (heta : 0 ≤ eta) (B : ℝ)
+    (hcoh : SquareRunCoherentBiasAtLeast eta a b)
+    (hesc : squareRunEscapeCovariance descended a b ≤ B) :
+    (eta * (((b + 1 - a : ℕ) : ℝ))) ^ 2 ≤
+      (((b + 1) ^ 2 : ℕ) : ℝ) + 2 * B := by
+  have hpressure :=
+    squareRunEscapeCovariance_ge_of_coherentBias
+      hneg a b hab eta heta hcoh
+  nlinarith
+
+/-- **Literal non-persistence contrapositive.**  Under a top-escape budget `B`,
+a proposed coherent run is impossible as soon as its squared coherent mass
+exceeds the square-root diagonal budget plus twice the escape budget. -/
+theorem squareRunCoherentBias_cannot_persist_of_escape_budget
+    {descended : ℕ → ℕ → ℝ}
+    (hneg : SquareRunDescendedNonpositive descended)
+    (a b : ℕ) (hab : a ≤ b)
+    (eta : ℝ) (heta : 0 ≤ eta) (B : ℝ)
+    (hesc : squareRunEscapeCovariance descended a b ≤ B)
+    (hsuper :
+      (((b + 1) ^ 2 : ℕ) : ℝ) + 2 * B <
+        (eta * (((b + 1 - a : ℕ) : ℝ))) ^ 2) :
+    ¬ SquareRunCoherentBiasAtLeast eta a b := by
+  intro hcoh
+  have hbudget :=
+    squareRunCoherentBias_sq_le_of_escape_le
+      hneg a b hab eta heta B hcoh hesc
+  linarith
 
 /-! ## The run mass is the square-run energy coordinate -/
 
