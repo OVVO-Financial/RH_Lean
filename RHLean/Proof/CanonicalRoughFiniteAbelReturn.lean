@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.CanonicalRoughQuantitativeContraction
+import RHLean.Proof.CanonicalRoughGoodMassContraction
 
 /-!
 # Finite Abel return from the reciprocal profile to the covariance numerator
