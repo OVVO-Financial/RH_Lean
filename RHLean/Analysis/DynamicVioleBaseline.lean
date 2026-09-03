@@ -342,14 +342,13 @@ theorem nativePNTNormalizedFloorSquareBlockResponse_endpoint_of_subdoubling
       have hdI := Finset.mem_Ioc.mp hd
       have hlo : 1 * d ≤ L := by simpa using hdI.2
       have hhi : L < (1 + 1) * d := by
-        have htwo : 2 * M < 2 * d := Nat.mul_lt_mul_left 2 hdI.1
+        have htwo : 2 * M < 2 * d := by omega
         omega
       have hdiv : L / d = 1 := Nat.div_eq_of_lt_le hlo hhi
       rw [hdiv, violeClock_nativePNTNormalizedError_one]
-      unfold nativePNTNormalizedFloorWeight
-      ring
+      simp [nativePNTNormalizedFloorWeight, hdiv]
     _ = -(∑ d ∈ Finset.Ioc M L, Λ d) / (L : Real) := by
-      rw [Finset.sum_div, Finset.sum_neg_distrib]
+      rw [← Finset.sum_div, Finset.sum_neg_distrib]
 
 /-- The block von-Mangoldt mass is the exact Chebyshev increment. -/
 theorem nativePNTLambdaSquareBlockMass_eq_psi_sub
@@ -390,7 +389,8 @@ theorem violeClockCutoff_succ_lt_two_mul
   unfold violeClockCutoff
   calc
     (r + 1) ^ 2 + (r + 1) = r ^ 2 + 2 * r + (r + 2) := by ring
-    _ < r ^ 2 + 2 * r + r ^ 2 := Nat.add_lt_add_left hrr (r ^ 2 + 2 * r)
+    _ < r ^ 2 + 2 * r + r ^ 2 := by
+      simpa [pow_two] using Nat.add_lt_add_left hrr (r ^ 2 + 2 * r)
     _ = 2 * (r ^ 2 + r) := by ring
 
 /-- At a Viole adjacent-square endpoint the new signed divisor block is
@@ -429,8 +429,10 @@ theorem primeSieveStateDependentSelbergTailAbove_normalizedError_abs_le
     (htail : PrimeSieveStateDependentSelbergTailAbove M alpha)
     (hMN : M ≤ N) :
     |nativePNTNormalizedError N| ≤ alpha := by
+  have hM2 : 2 ≤ M := htail.1
+  have hNposNat : 0 < N := by omega
   have hNpos : (0 : Real) < (N : Real) := by
-    exact_mod_cast (show 0 < N by omega)
+    exact_mod_cast hNposNat
   have hraw := htail.2.2 N hMN
   unfold nativePNTNormalizedError
   rw [abs_div, abs_of_pos hNpos]
@@ -548,9 +550,15 @@ theorem nativePNTReciprocalSquareSlope_inv_sq_sub
     Real.sqrt_pos.2 hins
   have halpha0 : alpha ≠ 0 := ne_of_gt halpha
   have hsqrt0 : Real.sqrt (1 + delta * alpha ^ 2) ≠ 0 := ne_of_gt hsqrtPos
+  have hsqrtSq' :
+      (Real.sqrt (1 + alpha ^ 2 * delta)) ^ 2 =
+        1 + alpha ^ 2 * delta := by
+    simpa [mul_comm] using hsqrtSq
+  have hsqrt0' : Real.sqrt (1 + alpha ^ 2 * delta) ≠ 0 := by
+    simpa [mul_comm] using hsqrt0
   unfold nativePNTReciprocalSquareSlope
-  field_simp [halpha0, hsqrt0]
-  nlinarith [hsqrtSq]
+  field_simp [halpha0, hsqrt0, hsqrt0']
+  nlinarith [hsqrtSq, hsqrtSq']
 
 /-- One exact reciprocal-square direct cutoff step. -/
 theorem nativePNTReciprocalSquareSignedBlockDirectCutoff_step
@@ -720,7 +728,6 @@ theorem nativePNTNormalizedFloorSquareBlockResponse_eq_mobiusCorrelation_div
           exact_mod_cast (show N / d ≠ 0 by omega)
         unfold nativePNTNormalizedFloorWeight nativePNTNormalizedError
         field_simp [hNR0, hqR0]
-        ring
     _ = (∑ d ∈ Finset.Ioc M L,
           Λ d * nativePNTError (N / d)) / (N : Real) := by
       rw [Finset.sum_div]
