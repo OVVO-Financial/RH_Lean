@@ -499,14 +499,10 @@ theorem violeClockError_energyChange_eq_eulerForcing
       (violeClockCutoff_lt_two_mul_sq r (by omega))
       (violeClockCutoff_succ_lt_two_mul_sq r hr))
 
-end RHLean.Analysis
+/-! ## Sign retention and block-bias limits -/
 
-namespace RHLean.Analysis
-
-/-! ## Sign retention and recursive cancellation on the protected carrier -/
-
-/-- Positive Euler factor retained after pairing a parent with its fresh-prime
-child. -/
+/-- Positive Euler factor retained after pairing a reciprocal parent with its
+fresh-prime child. -/
 def nativePNTSignedSquareBlockEulerFactor (p : Nat) : Real :=
   1 - 1 / (p : Real)
 
@@ -522,7 +518,8 @@ theorem nativePNTSignedSquareBlockEulerFactor_pos
   apply (div_lt_iff₀ hpRpos).2
   simpa using hpR
 
-/-- **Child = opposite `1/p` copy + physical defect.** -/
+/-- The child is an opposite-sign `1/p` copy of its parent plus the explicit
+physical response defect. -/
 theorem nativePNTSignedSquareBlockCorrelationReciprocalChild_eq_neg_inv_parent_add_defect
     (N M L : Nat) {m p : Nat}
     (hm : 0 < m) (hp : p.Prime) (hcop : Nat.Coprime m p) :
@@ -548,7 +545,7 @@ theorem nativePNTSignedSquareBlockCorrelationReciprocalChild_eq_neg_inv_parent_a
         nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p := by ring
 
 private theorem mul_add_same_sign_of_abs_le
-    (x f d : Real) (hf : 0 <= f) (hd : |d| <= f * |x|) :
+    (x f d : Real) (hd : |d| <= f * |x|) :
     0 <= x * (f * x + d) := by
   by_cases hx : 0 <= x
   · have hdlo := (abs_le.mp hd).1
@@ -561,8 +558,8 @@ private theorem mul_add_same_sign_of_abs_le
     have hsum : f * x + d <= 0 := by linarith
     exact mul_nonneg_of_nonpos_of_nonpos hx' hsum
 
-/-- **Quantitative sign-retention criterion.**  A fresh-prime pair cannot flip
-the parent sign unless the physical defect exceeds the retained Euler mass. -/
+/-- **Quantitative sign retention.**  A fresh-prime pair cannot reverse the
+ancestral sign unless its physical defect exceeds the retained Euler mass. -/
 theorem nativePNTSignedSquareBlockCorrelationReciprocal_pair_sign_retained_of_defect_le
     (N M L : Nat) {m p : Nat}
     (hm : 0 < m) (hp : p.Prime) (hcop : Nat.Coprime m p)
@@ -580,94 +577,103 @@ theorem nativePNTSignedSquareBlockCorrelationReciprocal_pair_sign_retained_of_de
     (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m)
     (nativePNTSignedSquareBlockEulerFactor p)
     (nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p)
-    (nativePNTSignedSquareBlockEulerFactor_pos hp).le hdefect
+    hdefect
 
-/-- **Two-prime chronological Euler compression.**  The ancestral summand gets
-the positive product of Euler factors; every failure of pure cancellation is an
-explicit transported physical defect. -/
-theorem nativePNTSignedSquareBlockCorrelationReciprocal_twoPrime_compression
-    (N M L : Nat) {m p q : Nat}
-    (hm : 0 < m) (hp : p.Prime) (hq : q.Prime)
-    (hcopMP : Nat.Coprime m p)
-    (hcopMQ : Nat.Coprime m q)
-    (hcopMPQ : Nat.Coprime (m * p) q) :
-    (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
-        nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * q)) +
-      (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * p) +
-        nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L ((m * p) * q)) =
-      nativePNTSignedSquareBlockEulerFactor q *
-          nativePNTSignedSquareBlockEulerFactor p *
-          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
-        nativePNTSignedSquareBlockEulerFactor q *
-          nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p +
-        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m q +
-        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L (m * p) q := by
-  have hmq :=
-    nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
-      N M L hm hq hcopMQ
-  have hmpq :=
-    nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
-      N M L (Nat.mul_pos hm hp.pos) hq hcopMPQ
-  have hmp :=
-    nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
-      N M L hm hp hcopMP
-  calc
-    (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
-        nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * q)) +
-      (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * p) +
-        nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L ((m * p) * q)) =
-      nativePNTSignedSquareBlockEulerFactor q *
-          (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
-            nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * p)) +
-        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m q +
-        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L (m * p) q := by
-      rw [hmq, hmpq]
-      unfold nativePNTSignedSquareBlockEulerFactor
-      ring
-    _ = nativePNTSignedSquareBlockEulerFactor q *
-          nativePNTSignedSquareBlockEulerFactor p *
-          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
-        nativePNTSignedSquareBlockEulerFactor q *
-          nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p +
-        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m q +
-        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L (m * p) q := by
-      rw [hmp]
-      unfold nativePNTSignedSquareBlockEulerFactor
-      ring
+/-- Remove the deterministic Selberg feedback from one protected block pull.
+This is the genuine residual bias which would have to remain coherently signed
+for the endpoint error to drift away from zero. -/
+def nativePNTSequentialBlockBiasResidual (M L : Nat) : Real :=
+  (Real.log (L : Real) - 1) * nativePNTSequentialProtectedBlockPull M L -
+    nativePNTError M * (Real.log (L : Real) - Real.log (M : Real))
 
-/-- Second mixed physical-response difference created when the `p` defect is
-compressed across a fresh `q` coordinate. -/
-def nativePNTSignedSquareBlockFreshPrimeMixedResponseDifference
-    (N M L m p q : Nat) : Real :=
-  (nativePNTSignedSquareBlockCofactorResponse N M L m -
-      nativePNTSignedSquareBlockCofactorResponse N M L (m * p)) -
-    (nativePNTSignedSquareBlockCofactorResponse N M L (m * q) -
-      nativePNTSignedSquareBlockCofactorResponse N M L ((m * q) * p))
+/-- **Exact arithmetic realization of the residual block bias.**  After the
+feedback term is removed, only the shared proper-fibre drift, physical block
+length, and signed Selberg-remainder difference remain. -/
+theorem nativePNTSequentialBlockBiasResidual_eq_shared_sub_length_sub_remainderDiff
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M) :
+    nativePNTSequentialBlockBiasResidual M L =
+      nativePNTSequentialSharedFiberDrift M L - ((L - M : Nat) : Real) -
+        (nativePNTSignedSelbergRemainder L - nativePNTSignedSelbergRemainder M) := by
+  have hseed :=
+    nativePNTSequentialDiscrepancy_mul_log_sub_one_eq M L hM hML hsub
+  have hpull :=
+    nativePNTSequentialSquareBlockDiscrepancy_eq_neg_protectedBlockPull
+      M L hM hML hsub
+  rw [hpull] at hseed
+  unfold nativePNTSequentialBlockBiasResidual
+  ring_nf at hseed ⊢
+  linarith
 
-/-- **Defect-of-defect cancellation.**  Under the next fresh prime, a physical
-defect gets the same positive Euler factor and leaves only a mixed second finite
-difference.  Iteration pushes uncanceled mass to higher-order boundary finite
-differences. -/
-theorem nativePNTSignedSquareBlockFreshPrimePhysicalDefect_add_mul_freshPrime
-    (N M L : Nat) {m p q : Nat}
-    (hm : 0 < m) (hp : p.Prime) (hq : q.Prime)
-    (hcopMQ : Nat.Coprime m q) :
-    nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p +
-        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L (m * q) p =
-      nativePNTSignedSquareBlockEulerFactor q *
-          nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p +
-        (((μ m : Int) : Real) *
-          nativePNTSignedSquareBlockFreshPrimeMixedResponseDifference N M L m p q) /
-          (((m * p) * q : Nat) : Real) := by
-  have hm0 : (m : Real) != 0 := by exact_mod_cast (Nat.ne_of_gt hm)
-  have hp0 : (p : Real) != 0 := by exact_mod_cast hp.ne_zero
-  have hq0 : (q : Real) != 0 := by exact_mod_cast hq.ne_zero
-  unfold nativePNTSignedSquareBlockFreshPrimePhysicalDefect
-    nativePNTSignedSquareBlockFreshPrimeMixedResponseDifference
-    nativePNTSignedSquareBlockEulerFactor
-  rw [nativeMobius_adjoin_prime m q hq hcopMQ]
-  push_cast
-  field_simp [hm0, hp0, hq0]
+/-- **Anti-bias threshold.**  If a block pull points opposite the inherited
+error, then its feedback-subtracted residual must pay at least the quadratic
+amount `log(L/M) * E(M)^2` against the inherited sign.  A wrong-way block
+therefore cannot be generated by an arbitrarily small residual once the
+endpoint error is large. -/
+theorem nativePNTSequentialBlockBiasResidual_wrongSign_threshold
+    (M L : Nat)
+    (hlog : 0 <= Real.log (L : Real) - 1)
+    (hwrong :
+      nativePNTError M * nativePNTSequentialProtectedBlockPull M L <= 0) :
+    nativePNTError M * nativePNTSequentialBlockBiasResidual M L <=
+      -(Real.log (L : Real) - Real.log (M : Real)) * nativePNTError M ^ 2 := by
+  have hretained :
+      (Real.log (L : Real) - 1) *
+          (nativePNTError M * nativePNTSequentialProtectedBlockPull M L) <= 0 :=
+    mul_nonpos_of_nonneg_of_nonpos hlog hwrong
+  unfold nativePNTSequentialBlockBiasResidual
+  nlinarith
+
+/-- Log-weighted endpoint potential whose discrete derivative is the residual
+block bias. -/
+def violeClockBiasPotential (r : Nat) : Real :=
+  (Real.log (violeClockCutoff r : Real) - 1) *
+    nativePNTError (violeClockCutoff r)
+
+/-- Feedback-subtracted residual bias of one literal Viole square step. -/
+def violeClockBlockBiasResidual (r : Nat) : Real :=
+  nativePNTSequentialBlockBiasResidual
+    (violeClockCutoff r) (violeClockCutoff (r + 1))
+
+/-- **The block bias is a coboundary.**  From the subdoubling onset, the entire
+feedback-subtracted bias of one Viole block is exactly the drop of the
+log-weighted endpoint potential.  There is therefore no independent bias state
+which can silently accumulate across blocks. -/
+theorem violeClockBlockBiasResidual_eq_potential_sub
+    (r : Nat) (hr : 3 <= r) :
+    violeClockBlockBiasResidual r =
+      violeClockBiasPotential r - violeClockBiasPotential (r + 1) := by
+  have hupdate :=
+    nativePNTError_eq_old_sub_protectedBlockPull
+      (violeClockCutoff r) (violeClockCutoff (r + 1))
+      (by unfold violeClockCutoff; nlinarith)
+      (violeClockCutoff_le_succ r)
+      (violeClockCutoff_succ_lt_two_mul r hr)
+  unfold violeClockBlockBiasResidual nativePNTSequentialBlockBiasResidual
+    violeClockBiasPotential
+  rw [hupdate]
   ring
+
+/-- **Exact cumulative bias limit on a run.**  Residual block biases telescope:
+their signed cumulative mass on any Viole run is only the difference of the two
+endpoint potentials. -/
+theorem sum_violeClockBlockBiasResidual_Ico
+    (a b : Nat) (ha : 3 <= a) (hab : a <= b) :
+    (∑ r ∈ Finset.Ico a b, violeClockBlockBiasResidual r) =
+      violeClockBiasPotential a - violeClockBiasPotential b := by
+  induction b, hab using Nat.le_induction with
+  | base => simp
+  | succ b hab ih =>
+      rw [Finset.sum_Ico_succ_top hab, ih,
+        violeClockBlockBiasResidual_eq_potential_sub b (ha.trans hab)]
+      ring
+
+/-- Consequently, even without estimating individual blocks, the absolute
+coherent bias of a whole run is bounded by its two endpoint potentials. -/
+theorem abs_sum_violeClockBlockBiasResidual_Ico_le
+    (a b : Nat) (ha : 3 <= a) (hab : a <= b) :
+    |∑ r ∈ Finset.Ico a b, violeClockBlockBiasResidual r| <=
+      |violeClockBiasPotential a| + |violeClockBiasPotential b| := by
+  rw [sum_violeClockBlockBiasResidual_Ico a b ha hab]
+  exact abs_sub _ _
 
 end RHLean.Analysis
