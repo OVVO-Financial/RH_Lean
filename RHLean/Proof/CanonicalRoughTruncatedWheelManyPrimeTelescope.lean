@@ -323,7 +323,8 @@ theorem primorialTruncatedBoundary_unweightedColumn_eq_prime_mul_boundaryDrop
   have hq0 : (q : ℝ) ≠ 0 := by
     exact_mod_cast hq.ne_zero
   rw [← hset, htrunc, hfactor]
-  field_simp [hq0] <;> ring
+  field_simp [hq0]
+  ring
 
 /-- Summing the literal physical-style partner columns therefore produces a
 prime-weighted discrete boundary variation, not one terminal boundary.  This is
