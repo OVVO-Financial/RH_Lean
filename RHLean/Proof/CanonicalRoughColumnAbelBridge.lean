@@ -444,8 +444,9 @@ theorem squareRootCanonicalRoughCompleteWheelPrimeSchedule_postRoot_eq_primesUpT
         p ∈ squareRootCanonicalRoughCompleteWheelPrimeSchedule R R := by
       rw [mem_squareRootCanonicalRoughCompleteWheelPrimeSchedule_iff_lt]
       exact ⟨hp, prime_lt_root_of_completeWheel hp hWheel, hWheel⟩
-    rw [← squareRootCanonicalRoughCompleteWheelPrimeSchedule_root_eq_primesUpTo_cutoff hR]
-    exact hpRoot
+    exact mem_primesUpTo.mp <| by
+      rw [← squareRootCanonicalRoughCompleteWheelPrimeSchedule_root_eq_primesUpTo_cutoff hR]
+      exact hpRoot
   · rintro ⟨hp, hpCutoff⟩
     have hpRoot :
         p ∈ squareRootCanonicalRoughCompleteWheelPrimeSchedule R R := by
