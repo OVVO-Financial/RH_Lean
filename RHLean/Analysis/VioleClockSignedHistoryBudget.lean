@@ -5,12 +5,17 @@ import RHLean.Analysis.OriginalVioleFunction
 # Signed-history budget for direct Viole cutoff propagation
 
 The adjacent square block is a seed, not a uniform payment at every later
-endpoint.  Strong induction supplies the new slope on all proper reciprocal
+endpoint. Strong induction supplies the new slope on all proper reciprocal
 quotients already beyond `L`; the old tail supplies the transition strip
 `M <= q < L`; only the finite history `q < M` remains signed.
 
-This module packages exactly that non-tautological endpoint budget.  No current
-endpoint error occurs on the right-hand side of the budget.
+This module packages the exact propagation budget. Its subdoubling seed
+specialization is deliberately analyzed below: at `N = L` the recursive and
+transition ledgers vanish, so the signed-history residual is exactly the
+current normalized endpoint error times `log L`. Thus the seed clause itself
+is equivalent to the desired endpoint contraction; the genuinely new
+arithmetic input must enter before this consumer, through a local signed
+comparison of the old endpoint with the new square-block response.
 -/
 
 noncomputable section
@@ -198,8 +203,8 @@ def nativePNTDirectCutoffSignedHistoryResidual
   nativePNTNormalizedExactSignedRemainder N -
     nativePNTDirectCutoffHistoryAverage N M
 
-/-- **Reduced endpoint budget.**  There is no occurrence of the current
-endpoint error on the right.  Recursive quotient mass is charged at `alpha'`,
+/-- **Reduced endpoint budget.** There is no occurrence of the current
+endpoint error on the right. Recursive quotient mass is charged at `alpha'`,
 the old-only transition annulus at `alpha`, and the sub-`M` history remains
 signed inside one residual. -/
 def NativePNTDirectCutoffSignedHistoryBudgetLaw
@@ -291,5 +296,129 @@ theorem primeSieveStateDependentSelberg_tailAbove_of_signedHistoryBudget
   exact nativePNTDirectCutoffInductionLaw_step M L alpha alpha' htail
     (nativePNTDirectCutoffInductionLaw_of_signedHistoryBudget
       M L alpha alpha' hlaw)
+
+/-! ## Exact seed specialization -/
+
+/-- At the first endpoint `N = L`, the recursively controlled average vanishes:
+there is no proper quotient `q` with `L <= q < L`, and the only endpoint fibre
+`d = 1` has von-Mangoldt weight zero. -/
+theorem nativePNTDirectCutoffRecursiveAverage_endpoint_eq_zero
+    (L : Nat) (hL : 1 <= L) :
+    nativePNTDirectCutoffRecursiveAverage L L = 0 := by
+  have hbound :=
+    nativePNTDirectCutoffRecursiveAverage_abs_le L L 0 hL le_rfl le_rfl
+      (fun q hLq hqL => by omega)
+  have hle : |nativePNTDirectCutoffRecursiveAverage L L| <= 0 := by
+    simpa using hbound
+  have habs : |nativePNTDirectCutoffRecursiveAverage L L| = 0 :=
+    le_antisymm hle (abs_nonneg _)
+  exact abs_eq_zero.mp habs
+
+/-- At a subdoubling seed endpoint the transition average vanishes because the
+moving old-only quotient annulus is empty. -/
+theorem nativePNTDirectCutoffTransitionAverage_endpoint_eq_zero_of_subdoubling
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M) :
+    nativePNTDirectCutoffTransitionAverage L M L = 0 := by
+  unfold nativePNTDirectCutoffTransitionAverage
+  rw [nativePNTDirectCutoffTransitionDivisorSet_endpoint_eq_empty_of_subdoubling
+    M L hM hML hsub]
+  simp [nativePNTNormalizedFloorAverageOn]
+
+/-- Therefore, at a subdoubling seed endpoint the finite-history average is the
+entire normalized floor average. -/
+theorem nativePNTDirectCutoffHistoryAverage_endpoint_eq_floorAverage_of_subdoubling
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M) :
+    nativePNTDirectCutoffHistoryAverage L M = nativePNTNormalizedFloorAverage L := by
+  have hsplit :=
+    nativePNTNormalizedFloorAverage_eq_recursive_add_transition_add_history
+      L M L hML
+  have hrec0 := nativePNTDirectCutoffRecursiveAverage_endpoint_eq_zero L
+    (hM.trans hML)
+  have htrans0 :=
+    nativePNTDirectCutoffTransitionAverage_endpoint_eq_zero_of_subdoubling
+      M L hM hML hsub
+  rw [hrec0, htrans0] at hsplit
+  simpa using hsplit.symm
+
+/-- **Seed identity.** At `N = L < 2M`, the #553 signed-history residual is
+exactly the current normalized endpoint error times `log L`. Hence it contains
+no smaller seed obligation by itself. -/
+theorem nativePNTDirectCutoffSignedHistoryResidual_endpoint_eq_error_mul_log
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M) :
+    nativePNTDirectCutoffSignedHistoryResidual L M =
+      nativePNTNormalizedError L * Real.log (L : Real) := by
+  have hrec :=
+    nativePNTNormalized_signed_floor_recurrence_eq_exactRemainder L
+      (hM.trans hML)
+  have hhist :=
+    nativePNTDirectCutoffHistoryAverage_endpoint_eq_floorAverage_of_subdoubling
+      M L hM hML hsub
+  unfold nativePNTDirectCutoffSignedHistoryResidual
+  rw [hhist]
+  linarith
+
+/-- The recursively controlled *weight* also vanishes at the seed endpoint. -/
+theorem nativePNTDirectCutoffRecursiveWeight_endpoint_eq_zero
+    (L : Nat) (hL : 1 <= L) :
+    nativePNTDirectCutoffRecursiveWeight L L = 0 := by
+  unfold nativePNTDirectCutoffRecursiveWeight nativePNTSquarePrefixTailFiberSet
+  apply Finset.sum_eq_zero
+  intro d hd
+  rcases Finset.mem_filter.mp hd with ⟨hdI, hLd⟩
+  have hd1 : d = 1 := by
+    by_contra hne
+    have hd2 : 2 <= d := by
+      have hdpos : 1 <= d := (Finset.mem_Icc.mp hdI).1
+      omega
+    have hlt : L / d < L :=
+      nativePNTDirectCutoff_recursive_quotient_lt L d hL hd2
+    omega
+  subst d
+  simp [nativePNTNormalizedFloorWeight]
+
+/-- The transition *weight* vanishes at the same subdoubling endpoint. -/
+theorem nativePNTDirectCutoffTransitionWeight_endpoint_eq_zero_of_subdoubling
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M) :
+    nativePNTDirectCutoffTransitionWeight L M L = 0 := by
+  unfold nativePNTDirectCutoffTransitionWeight
+  rw [nativePNTDirectCutoffTransitionDivisorSet_endpoint_eq_empty_of_subdoubling
+    M L hM hML hsub]
+  simp
+
+/-- The complete seed clause of the signed-history budget is equivalent to the
+desired new-slope endpoint estimate. This is the exact reason the #553 budget
+is a propagation consumer rather than an independent seed theorem. -/
+theorem nativePNTDirectCutoffSignedHistoryBudget_seed_iff_normalizedError
+    (M L : Nat) (alpha alpha' : Real)
+    (hM : 2 <= M) (hML : M <= L) (hsub : L < 2 * M) :
+    (|nativePNTDirectCutoffSignedHistoryResidual L M| +
+          alpha' * nativePNTDirectCutoffRecursiveWeight L L +
+          alpha * nativePNTDirectCutoffTransitionWeight L M L <=
+        alpha' * Real.log (L : Real)) ↔
+      |nativePNTNormalizedError L| <= alpha' := by
+  have hM1 : 1 <= M := by omega
+  have hL2 : 2 <= L := hM.trans hML
+  have hlog : 0 < Real.log (L : Real) := by
+    apply Real.log_pos
+    exact_mod_cast (show 1 < L by omega)
+  rw [nativePNTDirectCutoffSignedHistoryResidual_endpoint_eq_error_mul_log
+      M L hM1 hML hsub,
+    nativePNTDirectCutoffRecursiveWeight_endpoint_eq_zero L (by omega),
+    nativePNTDirectCutoffTransitionWeight_endpoint_eq_zero_of_subdoubling
+      M L hM1 hML hsub]
+  simp only [mul_zero, add_zero, abs_mul, abs_of_pos hlog]
+  exact mul_le_mul_right hlog
+
+/-- The square-block von-Mangoldt discrepancy is exactly the change in the PNT
+error across the block. This is the local signed object that must interact with
+the old endpoint error to start a contracted square step. -/
+theorem nativePNTError_sub_eq_lambdaSquareBlockMass_sub_length
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) :
+    nativePNTError L - nativePNTError M =
+      nativePNTLambdaSquareBlockMass M L - ((L - M : Nat) : Real) := by
+  rw [nativePNTLambdaSquareBlockMass_eq_psi_sub M L hM hML]
+  unfold nativePNTError
+  rw [Nat.cast_sub hML]
+  ring
 
 end RHLean.Analysis
