@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
 import RHLean.Proof.SquareBlockTransportBaseline
 
 /-!
@@ -28,6 +29,8 @@ implication.
 -/
 
 noncomputable section
+
+open scoped BigOperators
 
 namespace RHLean.Proof
 
@@ -138,3 +141,108 @@ theorem squarePrefixMertens_eq_dynamicVioleMain_sub_error (n : ℕ) :
   exact squarePrefixMertens_eq_baselineMain_sub_error dynamicVioleBaseline n
 
 end RHLean.Proof
+
+namespace RHLean.Analysis
+
+open RHLean.Proof
+
+/-! ## Reciprocal-square coupling to the square clock -/
+
+/-- The remaining local arithmetic seam for the Viole-clock route.
+
+The left-hand state is deliberately the pure tail predicate: there is no
+affine intercept and no globalization through a finite prefix.  The square
+cutoff at stage `r` is the already-compiled floor `r^2 + r`, and the gain is
+measured directly against the increment of `dynamicVioleAnchor`.
+
+A proof of this proposition must therefore produce the new tail slope from the
+signed arithmetic born in the single square block `r`; consumers may telescope
+the resulting reciprocal-square gains, but cannot manufacture them. -/
+def VioleClockReciprocalSquareCoupling
+    (r0 : Nat) (c : Real) (eps : Nat → Real) : Prop :=
+  2 ≤ r0 ∧ 0 < c ∧
+  ∀ (r : Nat) (alpha : Real),
+    r0 ≤ r →
+    PrimeSieveStateDependentSelbergTailAbove (r ^ 2 + r) alpha →
+    ∃ alpha' : Real,
+      PrimeSieveStateDependentSelbergTailAbove
+        ((r + 1) ^ 2 + (r + 1)) alpha' ∧
+      alpha' ≤ alpha ∧
+      c * (dynamicVioleAnchor (r + 1) - dynamicVioleAnchor r) - eps r
+        ≤ 1 / alpha' ^ 2 - 1 / alpha ^ 2
+
+/-- Projection of the frozen coupling to one admissible square block. -/
+theorem violeClockReciprocalSquareCoupling_step
+    {r0 : Nat} {c : Real} {eps : Nat → Real}
+    (h : VioleClockReciprocalSquareCoupling r0 c eps)
+    (r : Nat) (alpha : Real) (hr : r0 ≤ r)
+    (htail : PrimeSieveStateDependentSelbergTailAbove (r ^ 2 + r) alpha) :
+    ∃ alpha' : Real,
+      PrimeSieveStateDependentSelbergTailAbove
+        ((r + 1) ^ 2 + (r + 1)) alpha' ∧
+      alpha' ≤ alpha ∧
+      c * (dynamicVioleAnchor (r + 1) - dynamicVioleAnchor r) - eps r
+        ≤ 1 / alpha' ^ 2 - 1 / alpha ^ 2 :=
+  h.2.2 r alpha hr htail
+
+private theorem violeClock_sum_increment_Ico
+    (f : Nat → Real) {a b : Nat} (hab : a ≤ b) :
+    (∑ k ∈ Finset.Ico a b, (f (k + 1) - f k)) = f b - f a := by
+  rw [Finset.sum_Ico_eq_sub _ hab, Finset.sum_range_sub f b,
+    Finset.sum_range_sub f a]
+  abel
+
+/-- Deterministic consumption of any selected slope chain: the local
+reciprocal-square gains telescope exactly against the same Viole clock. -/
+theorem violeClockReciprocalSquare_telescope
+    (r0 R : Nat) (c : Real) (eps : Nat → Real) (a : Nat → Real)
+    (hR : r0 ≤ R)
+    (hstep : ∀ r : Nat, r ∈ Finset.Ico r0 R →
+      c * (dynamicVioleAnchor (r + 1) - dynamicVioleAnchor r) - eps r
+        ≤ 1 / (a (r + 1)) ^ 2 - 1 / (a r) ^ 2) :
+    c * (dynamicVioleAnchor R - dynamicVioleAnchor r0) -
+        ∑ r ∈ Finset.Ico r0 R, eps r
+      ≤ 1 / (a R) ^ 2 - 1 / (a r0) ^ 2 := by
+  have hsum :
+      (∑ r ∈ Finset.Ico r0 R,
+        (c * (dynamicVioleAnchor (r + 1) - dynamicVioleAnchor r) - eps r))
+        ≤
+      ∑ r ∈ Finset.Ico r0 R,
+        (1 / (a (r + 1)) ^ 2 - 1 / (a r) ^ 2) := by
+    exact Finset.sum_le_sum (fun r hr => hstep r hr)
+  have hV :=
+    violeClock_sum_increment_Ico dynamicVioleAnchor hR
+  have hA :=
+    violeClock_sum_increment_Ico (fun r => 1 / (a r) ^ 2) hR
+  calc
+    c * (dynamicVioleAnchor R - dynamicVioleAnchor r0) -
+          ∑ r ∈ Finset.Ico r0 R, eps r
+        = c * (∑ r ∈ Finset.Ico r0 R,
+            (dynamicVioleAnchor (r + 1) - dynamicVioleAnchor r)) -
+            ∑ r ∈ Finset.Ico r0 R, eps r := by rw [hV]
+    _ = ∑ r ∈ Finset.Ico r0 R,
+          (c * (dynamicVioleAnchor (r + 1) - dynamicVioleAnchor r) - eps r) := by
+      rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
+    _ ≤ ∑ r ∈ Finset.Ico r0 R,
+          (1 / (a (r + 1)) ^ 2 - 1 / (a r) ^ 2) := hsum
+    _ = 1 / (a R) ^ 2 - 1 / (a r0) ^ 2 := hA
+
+/-- If cumulative leakage costs at most half the clock, the selected slope
+chain retains at least half of the reciprocal-square clock gain. -/
+theorem violeClockReciprocalSquare_of_half_leakage
+    (r0 R : Nat) (c : Real) (eps : Nat → Real) (a : Nat → Real)
+    (hR : r0 ≤ R)
+    (hstep : ∀ r : Nat, r ∈ Finset.Ico r0 R →
+      c * (dynamicVioleAnchor (r + 1) - dynamicVioleAnchor r) - eps r
+        ≤ 1 / (a (r + 1)) ^ 2 - 1 / (a r) ^ 2)
+    (hleak :
+      (∑ r ∈ Finset.Ico r0 R, eps r) ≤
+        (c / 2) * (dynamicVioleAnchor R - dynamicVioleAnchor r0)) :
+    1 / (a r0) ^ 2 +
+        (c / 2) * (dynamicVioleAnchor R - dynamicVioleAnchor r0)
+      ≤ 1 / (a R) ^ 2 := by
+  have htel :=
+    violeClockReciprocalSquare_telescope r0 R c eps a hR hstep
+  nlinarith
+
+end RHLean.Analysis
