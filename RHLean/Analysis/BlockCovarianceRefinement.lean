@@ -374,7 +374,7 @@ theorem freshPrimePrefixPairCubeBoundaryMass_eq_positiveLag
       exact absurd (Nat.le_of_dvd hnpos hdiv) (not_le.mpr hnp)
     have hpair :=
       realMoebiusPairFourCornerMass_add_swap_eq_topEscape
-        hp hmn hpm hpn
+        (K := K) hp hmn hpm hpn
     have hm1 : 1 ≤ m := hmpos
     have hp_le_pm : p ≤ p * m := by
       have hmul := Nat.mul_le_mul_left p hm1
