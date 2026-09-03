@@ -293,6 +293,7 @@ import RHLean.Analysis.ThreeSlotDegreeOneSynthesis
 import RHLean.Analysis.ThreeSlotMertensDegreeOneProjection
 import RHLean.Analysis.TwoABPrimeDilation
 import RHLean.Analysis.TwoABScaleTransfer
+import RHLean.Analysis.VioleClockSignedHistoryBudget
 import RHLean.Analysis.WheelRoughSquarePrefixEnergy
 import RHLean.Arithmetic.AdmissibleFaceSquarefreeImage
 import RHLean.Arithmetic.BooleanCubeCancellation
