@@ -500,3 +500,174 @@ theorem violeClockError_energyChange_eq_eulerForcing
       (violeClockCutoff_succ_lt_two_mul_sq r hr))
 
 end RHLean.Analysis
+
+namespace RHLean.Analysis
+
+/-! ## Sign retention and recursive cancellation on the protected carrier -/
+
+/-- Positive Euler factor retained after pairing a parent with its fresh-prime
+child. -/
+def nativePNTSignedSquareBlockEulerFactor (p : Nat) : Real :=
+  1 - 1 / (p : Real)
+
+/-- Every genuine prime leaves a strictly positive inherited Euler factor. -/
+theorem nativePNTSignedSquareBlockEulerFactor_pos
+    {p : Nat} (hp : p.Prime) :
+    0 < nativePNTSignedSquareBlockEulerFactor p := by
+  have hpR : (1 : Real) < (p : Real) := by
+    exact_mod_cast hp.one_lt
+  have hpRpos : (0 : Real) < (p : Real) := lt_trans zero_lt_one hpR
+  unfold nativePNTSignedSquareBlockEulerFactor
+  apply sub_pos.mpr
+  apply (div_lt_iff₀ hpRpos).2
+  simpa using hpR
+
+/-- **Child = opposite `1/p` copy + physical defect.** -/
+theorem nativePNTSignedSquareBlockCorrelationReciprocalChild_eq_neg_inv_parent_add_defect
+    (N M L : Nat) {m p : Nat}
+    (hm : 0 < m) (hp : p.Prime) (hcop : Nat.Coprime m p) :
+    nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * p) =
+      -(1 / (p : Real)) *
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p := by
+  have hpair :=
+    nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
+      N M L hm hp hcop
+  calc
+    nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * p) =
+        (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * p)) -
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m := by ring
+    _ = ((1 - 1 / (p : Real)) *
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p) -
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m := by
+      rw [hpair]
+    _ = -(1 / (p : Real)) *
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p := by ring
+
+private theorem mul_add_same_sign_of_abs_le
+    (x f d : Real) (hf : 0 <= f) (hd : |d| <= f * |x|) :
+    0 <= x * (f * x + d) := by
+  by_cases hx : 0 <= x
+  · have hdlo := (abs_le.mp hd).1
+    rw [abs_of_nonneg hx] at hdlo
+    have hsum : 0 <= f * x + d := by linarith
+    exact mul_nonneg hx hsum
+  · have hx' : x <= 0 := le_of_not_ge hx
+    have hdhi := (abs_le.mp hd).2
+    rw [abs_of_nonpos hx'] at hdhi
+    have hsum : f * x + d <= 0 := by linarith
+    exact mul_nonneg_of_nonpos_of_nonpos hx' hsum
+
+/-- **Quantitative sign-retention criterion.**  A fresh-prime pair cannot flip
+the parent sign unless the physical defect exceeds the retained Euler mass. -/
+theorem nativePNTSignedSquareBlockCorrelationReciprocal_pair_sign_retained_of_defect_le
+    (N M L : Nat) {m p : Nat}
+    (hm : 0 < m) (hp : p.Prime) (hcop : Nat.Coprime m p)
+    (hdefect :
+      |nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p| <=
+        nativePNTSignedSquareBlockEulerFactor p *
+          |nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m|) :
+    0 <=
+      nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m *
+        (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * p)) := by
+  rw [nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
+    N M L hm hp hcop]
+  exact mul_add_same_sign_of_abs_le
+    (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m)
+    (nativePNTSignedSquareBlockEulerFactor p)
+    (nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p)
+    (nativePNTSignedSquareBlockEulerFactor_pos hp).le hdefect
+
+/-- **Two-prime chronological Euler compression.**  The ancestral summand gets
+the positive product of Euler factors; every failure of pure cancellation is an
+explicit transported physical defect. -/
+theorem nativePNTSignedSquareBlockCorrelationReciprocal_twoPrime_compression
+    (N M L : Nat) {m p q : Nat}
+    (hm : 0 < m) (hp : p.Prime) (hq : q.Prime)
+    (hcopMP : Nat.Coprime m p)
+    (hcopMQ : Nat.Coprime m q)
+    (hcopMPQ : Nat.Coprime (m * p) q) :
+    (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * q)) +
+      (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * p) +
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L ((m * p) * q)) =
+      nativePNTSignedSquareBlockEulerFactor q *
+          nativePNTSignedSquareBlockEulerFactor p *
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
+        nativePNTSignedSquareBlockEulerFactor q *
+          nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m q +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L (m * p) q := by
+  have hmq :=
+    nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
+      N M L hm hq hcopMQ
+  have hmpq :=
+    nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
+      N M L (Nat.mul_pos hm hp.pos) hq hcopMPQ
+  have hmp :=
+    nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
+      N M L hm hp hcopMP
+  calc
+    (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * q)) +
+      (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * p) +
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L ((m * p) * q)) =
+      nativePNTSignedSquareBlockEulerFactor q *
+          (nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
+            nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L (m * p)) +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m q +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L (m * p) q := by
+      rw [hmq, hmpq]
+      unfold nativePNTSignedSquareBlockEulerFactor
+      ring
+    _ = nativePNTSignedSquareBlockEulerFactor q *
+          nativePNTSignedSquareBlockEulerFactor p *
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m +
+        nativePNTSignedSquareBlockEulerFactor q *
+          nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m q +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L (m * p) q := by
+      rw [hmp]
+      unfold nativePNTSignedSquareBlockEulerFactor
+      ring
+
+/-- Second mixed physical-response difference created when the `p` defect is
+compressed across a fresh `q` coordinate. -/
+def nativePNTSignedSquareBlockFreshPrimeMixedResponseDifference
+    (N M L m p q : Nat) : Real :=
+  (nativePNTSignedSquareBlockCofactorResponse N M L m -
+      nativePNTSignedSquareBlockCofactorResponse N M L (m * p)) -
+    (nativePNTSignedSquareBlockCofactorResponse N M L (m * q) -
+      nativePNTSignedSquareBlockCofactorResponse N M L ((m * q) * p))
+
+/-- **Defect-of-defect cancellation.**  Under the next fresh prime, a physical
+defect gets the same positive Euler factor and leaves only a mixed second finite
+difference.  Iteration pushes uncanceled mass to higher-order boundary finite
+differences. -/
+theorem nativePNTSignedSquareBlockFreshPrimePhysicalDefect_add_mul_freshPrime
+    (N M L : Nat) {m p q : Nat}
+    (hm : 0 < m) (hp : p.Prime) (hq : q.Prime)
+    (hcopMQ : Nat.Coprime m q) :
+    nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L (m * q) p =
+      nativePNTSignedSquareBlockEulerFactor q *
+          nativePNTSignedSquareBlockFreshPrimePhysicalDefect N M L m p +
+        (((μ m : Int) : Real) *
+          nativePNTSignedSquareBlockFreshPrimeMixedResponseDifference N M L m p q) /
+          (((m * p) * q : Nat) : Real) := by
+  have hm0 : (m : Real) != 0 := by exact_mod_cast (Nat.ne_of_gt hm)
+  have hp0 : (p : Real) != 0 := by exact_mod_cast hp.ne_zero
+  have hq0 : (q : Real) != 0 := by exact_mod_cast hq.ne_zero
+  unfold nativePNTSignedSquareBlockFreshPrimePhysicalDefect
+    nativePNTSignedSquareBlockFreshPrimeMixedResponseDifference
+    nativePNTSignedSquareBlockEulerFactor
+  rw [nativeMobius_adjoin_prime m q hq hcopMQ]
+  push_cast
+  field_simp [hm0, hp0, hq0]
+  ring
+
+end RHLean.Analysis
