@@ -238,12 +238,27 @@ theorem nativePNTLambdaSignedErrorMass_sub_eq_shared_add_new
     rw [hset, Finset.sum_union hdis]
   rw [hsplit]
   unfold nativePNTSequentialSharedFiberDrift nativePNTSequentialNewFiberMass
-  rw [← Finset.sum_sub_distrib]
-  apply congrArg₂ (· + ·)
-  · apply Finset.sum_congr rfl
+  have hshared :
+      (∑ d ∈ Finset.Icc 1 M, Λ d * nativePNTError (L / d)) -
+          (∑ d ∈ Finset.Icc 1 M, Λ d * nativePNTError (M / d)) =
+        ∑ d ∈ Finset.Icc 1 M,
+          Λ d * (nativePNTError (L / d) - nativePNTError (M / d)) := by
+    rw [← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
     intro d _hd
     ring
-  · rfl
+  calc
+    (∑ d ∈ Finset.Icc 1 M, Λ d * nativePNTError (L / d)) +
+          (∑ d ∈ Finset.Ioc M L, Λ d * nativePNTError (L / d)) -
+          (∑ d ∈ Finset.Icc 1 M, Λ d * nativePNTError (M / d)) =
+      ((∑ d ∈ Finset.Icc 1 M, Λ d * nativePNTError (L / d)) -
+          (∑ d ∈ Finset.Icc 1 M, Λ d * nativePNTError (M / d))) +
+        (∑ d ∈ Finset.Ioc M L, Λ d * nativePNTError (L / d)) := by ring
+    _ =
+      (∑ d ∈ Finset.Icc 1 M,
+        Λ d * (nativePNTError (L / d) - nativePNTError (M / d))) +
+        (∑ d ∈ Finset.Ioc M L, Λ d * nativePNTError (L / d)) := by
+      rw [hshared]
 
 /-- Exact difference of the signed Selberg recurrences at `M` and `L`. -/
 theorem nativePNTSignedSelberg_recurrence_difference_eq_shared_add_new
