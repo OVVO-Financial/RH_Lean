@@ -447,6 +447,10 @@ private theorem frozenSquareAnchor_rpow_le
     Real.rpow_le_rpow (Nat.cast_nonneg a) hayReal hε
   have haPos : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha1
   have hyPos : (0 : ℝ) < (y : ℝ) := by exact_mod_cast hy1
+  have htwoA : Real.rpow (a : ℝ) (2 : ℝ) = (a : ℝ) ^ (2 : ℕ) :=
+    Real.rpow_natCast (a : ℝ) 2
+  have htwoY : Real.rpow (y : ℝ) (2 : ℝ) = (y : ℝ) ^ (2 : ℕ) :=
+    Real.rpow_natCast (y : ℝ) 2
   have haSplit :
       Real.rpow (a : ℝ) (2 + ε) =
         (a : ℝ) ^ 2 * Real.rpow (a : ℝ) ε := by
@@ -455,7 +459,7 @@ private theorem frozenSquareAnchor_rpow_le
           Real.rpow (a : ℝ) 2 * Real.rpow (a : ℝ) ε :=
         Real.rpow_add haPos 2 ε
       _ = (a : ℝ) ^ 2 * Real.rpow (a : ℝ) ε := by
-        rw [Real.rpow_natCast]
+        rw [htwoA]
   have hySplit :
       Real.rpow (y : ℝ) (2 + ε) =
         (y : ℝ) ^ 2 * Real.rpow (y : ℝ) ε := by
@@ -464,7 +468,7 @@ private theorem frozenSquareAnchor_rpow_le
           Real.rpow (y : ℝ) 2 * Real.rpow (y : ℝ) ε :=
         Real.rpow_add hyPos 2 ε
       _ = (y : ℝ) ^ 2 * Real.rpow (y : ℝ) ε := by
-        rw [Real.rpow_natCast]
+        rw [htwoY]
   rw [haSplit, hySplit]
   calc
     (a : ℝ) ^ 2 * Real.rpow (a : ℝ) ε ≤
