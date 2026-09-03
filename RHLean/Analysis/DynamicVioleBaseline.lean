@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.NativePNTNormalizedSignedRecurrence
 import RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
 import RHLean.Proof.SquareBlockTransportBaseline
 
@@ -30,7 +31,7 @@ implication.
 
 noncomputable section
 
-open scoped BigOperators
+open scoped ArithmeticFunction.vonMangoldt BigOperators
 
 namespace RHLean.Proof
 
@@ -244,5 +245,379 @@ theorem violeClockReciprocalSquare_of_half_leakage
   have htel :=
     violeClockReciprocalSquare_telescope r0 R c eps a hR hstep
   nlinarith
+
+/-! ## Exact signed square-block cutoff consumer -/
+
+/-- The physical cutoff beneath the `r`th Viole midpoint. -/
+def violeClockCutoff (r : Nat) : Nat := r ^ 2 + r
+
+/-- The exact normalized signed response of the divisor block `(M,L]` at a
+later endpoint `N`.  This is the socket in which one additive square block can
+enter the first signed Selberg recurrence. -/
+def nativePNTNormalizedFloorSquareBlockResponse
+    (N M L : Nat) : Real :=
+  ∑ d ∈ Finset.Ioc M L,
+    nativePNTNormalizedFloorWeight N d * nativePNTNormalizedError (N / d)
+
+/-- All terms of the normalized floor average outside the designated divisor
+block.  No absolute value is taken. -/
+def nativePNTNormalizedFloorOutsideSquareBlock
+    (N M L : Nat) : Real :=
+  nativePNTNormalizedFloorAverage N -
+    nativePNTNormalizedFloorSquareBlockResponse N M L
+
+/-- The signed Selberg remainder before any absolute constant is applied,
+after division by the current endpoint. -/
+def nativePNTNormalizedExactSignedRemainder (N : Nat) : Real :=
+  ((nativeSelbergPair N - 2 * (N : Real) * Real.log (N : Real)) -
+      (Real.log ((Nat.factorial N : Nat) : Real) -
+        (N : Real) * Real.log (N : Real))) / (N : Real)
+
+/-- The normalized floor recurrence with its exact signed remainder.  This is
+the equality hidden underneath the scale-free absolute bound. -/
+theorem nativePNTNormalized_signed_floor_recurrence_eq_exactRemainder
+    (N : Nat) (hN : 1 ≤ N) :
+    nativePNTNormalizedError N * Real.log (N : Real) +
+        nativePNTNormalizedFloorAverage N =
+      nativePNTNormalizedExactSignedRemainder N := by
+  rw [← nativePNTNormalizedFloorSelbergMass_eq_average N hN]
+  have hdecomp := nativePNTError_selberg_decomposition N
+  have hnum :
+      nativePNTError N * Real.log (N : Real) +
+          (∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) =
+        (nativeSelbergPair N - 2 * (N : Real) * Real.log (N : Real)) -
+          (Real.log ((Nat.factorial N : Nat) : Real) -
+            (N : Real) * Real.log (N : Real)) := by
+    linarith
+  unfold nativePNTNormalizedError nativePNTNormalizedFloorSelbergMass
+    nativePNTNormalizedExactSignedRemainder
+  calc
+    nativePNTError N / (N : Real) * Real.log (N : Real) +
+          (∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) / (N : Real) =
+        (nativePNTError N * Real.log (N : Real) +
+          ∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) / (N : Real) := by
+      ring
+    _ = ((nativeSelbergPair N - 2 * (N : Real) * Real.log (N : Real)) -
+          (Real.log ((Nat.factorial N : Nat) : Real) -
+            (N : Real) * Real.log (N : Real))) / (N : Real) := by
+      rw [hnum]
+
+/-- Exact three-ledger form: endpoint error + everything outside the square
+block + the square-block response equals the signed normalized remainder. -/
+theorem nativePNTNormalized_signed_squareBlock_recurrence_eq
+    (N M L : Nat) (hN : 1 ≤ N) :
+    nativePNTNormalizedError N * Real.log (N : Real) +
+        nativePNTNormalizedFloorOutsideSquareBlock N M L +
+        nativePNTNormalizedFloorSquareBlockResponse N M L =
+      nativePNTNormalizedExactSignedRemainder N := by
+  have h := nativePNTNormalized_signed_floor_recurrence_eq_exactRemainder N hN
+  unfold nativePNTNormalizedFloorOutsideSquareBlock
+  linarith
+
+/-- Total von-Mangoldt mass carried by the divisor block `(M,L]`. -/
+def nativePNTLambdaSquareBlockMass (M L : Nat) : Real :=
+  ∑ d ∈ Finset.Ioc M L, Λ d
+
+@[simp] theorem violeClock_nativePNTNormalizedError_one :
+    nativePNTNormalizedError 1 = -1 := by
+  rw [nativePNTNormalizedError_eq_psi_div_sub_one 1 (by norm_num)]
+  simp [nativePsi]
+
+/-- At the first subdoubling endpoint, every divisor in `(M,L]` has quotient
+one.  Therefore the entire signed square-block response is exactly the
+negative block von-Mangoldt mass divided by `L`. -/
+theorem nativePNTNormalizedFloorSquareBlockResponse_endpoint_of_subdoubling
+    (M L : Nat) (hsub : L < 2 * M) :
+    nativePNTNormalizedFloorSquareBlockResponse L M L =
+      -nativePNTLambdaSquareBlockMass M L / (L : Real) := by
+  unfold nativePNTNormalizedFloorSquareBlockResponse
+    nativePNTLambdaSquareBlockMass
+  calc
+    (∑ d ∈ Finset.Ioc M L,
+      nativePNTNormalizedFloorWeight L d * nativePNTNormalizedError (L / d)) =
+        ∑ d ∈ Finset.Ioc M L, (-(Λ d)) / (L : Real) := by
+      apply Finset.sum_congr rfl
+      intro d hd
+      have hdI := Finset.mem_Ioc.mp hd
+      have hlo : 1 * d ≤ L := by simpa using hdI.2
+      have hhi : L < (1 + 1) * d := by
+        have htwo : 2 * M < 2 * d := Nat.mul_lt_mul_left 2 hdI.1
+        omega
+      have hdiv : L / d = 1 := Nat.div_eq_of_lt_le hlo hhi
+      rw [hdiv, violeClock_nativePNTNormalizedError_one]
+      unfold nativePNTNormalizedFloorWeight
+      ring
+    _ = -(∑ d ∈ Finset.Ioc M L, Λ d) / (L : Real) := by
+      rw [Finset.sum_div, Finset.sum_neg_distrib]
+
+/-- The block von-Mangoldt mass is the exact Chebyshev increment. -/
+theorem nativePNTLambdaSquareBlockMass_eq_psi_sub
+    (M L : Nat) (hM : 1 ≤ M) (hML : M ≤ L) :
+    nativePNTLambdaSquareBlockMass M L = nativePsi L - nativePsi M := by
+  unfold nativePNTLambdaSquareBlockMass nativePsi
+  have hset :
+      Finset.Icc 1 L = Finset.Icc 1 M ∪ Finset.Ioc M L := by
+    ext d
+    simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_Ioc]
+    omega
+  have hdis : Disjoint (Finset.Icc 1 M) (Finset.Ioc M L) := by
+    rw [Finset.disjoint_left]
+    intro d hdM hdBlock
+    rw [Finset.mem_Icc] at hdM
+    rw [Finset.mem_Ioc] at hdBlock
+    omega
+  rw [hset, Finset.sum_union hdis]
+  ring
+
+/-- Consecutive Viole cutoffs are increasing. -/
+theorem violeClockCutoff_le_succ (r : Nat) :
+    violeClockCutoff r ≤ violeClockCutoff (r + 1) := by
+  unfold violeClockCutoff
+  have hsquare : r ^ 2 ≤ (r + 1) ^ 2 :=
+    Nat.pow_le_pow_left (by omega) 2
+  exact Nat.add_le_add hsquare (by omega)
+
+/-- From `r >= 3` onward, adjacent Viole cutoffs are subdoubling. -/
+theorem violeClockCutoff_succ_lt_two_mul
+    (r : Nat) (hr : 3 ≤ r) :
+    violeClockCutoff (r + 1) < 2 * violeClockCutoff r := by
+  have hrpos : 0 < r := by omega
+  have h2r : 2 * r < r * r :=
+    Nat.mul_lt_mul_of_pos_right (by omega : 2 < r) hrpos
+  have hsmall : r + 2 ≤ 2 * r := by omega
+  have hrr : r + 2 < r * r := hsmall.trans_lt h2r
+  unfold violeClockCutoff
+  calc
+    (r + 1) ^ 2 + (r + 1) = r ^ 2 + 2 * r + (r + 2) := by ring
+    _ < r ^ 2 + 2 * r + r ^ 2 := Nat.add_lt_add_left hrr (r ^ 2 + 2 * r)
+    _ = 2 * (r ^ 2 + r) := by ring
+
+/-- At a Viole adjacent-square endpoint the new signed divisor block is
+literally the negative Chebyshev block increment divided by the endpoint. -/
+theorem violeClockNormalizedFloorSquareBlockResponse_endpoint
+    (r : Nat) (hr : 3 ≤ r) :
+    nativePNTNormalizedFloorSquareBlockResponse
+        (violeClockCutoff (r + 1))
+        (violeClockCutoff r)
+        (violeClockCutoff (r + 1)) =
+      -(nativePsi (violeClockCutoff (r + 1)) -
+          nativePsi (violeClockCutoff r)) /
+        (violeClockCutoff (r + 1) : Real) := by
+  have hM : 1 ≤ violeClockCutoff r := by
+    unfold violeClockCutoff
+    nlinarith
+  have hML := violeClockCutoff_le_succ r
+  rw [nativePNTNormalizedFloorSquareBlockResponse_endpoint_of_subdoubling
+      (violeClockCutoff r) (violeClockCutoff (r + 1))
+      (violeClockCutoff_succ_lt_two_mul r hr),
+    nativePNTLambdaSquareBlockMass_eq_psi_sub _ _ hM hML]
+
+/-- Raising the physical cutoff preserves a true tail at the same slope. -/
+theorem primeSieveStateDependentSelbergTailAbove_mono_cutoff
+    (M L : Nat) (alpha : Real)
+    (htail : PrimeSieveStateDependentSelbergTailAbove M alpha)
+    (hML : M ≤ L) :
+    PrimeSieveStateDependentSelbergTailAbove L alpha := by
+  rcases htail with ⟨hM2, halpha, htail⟩
+  exact ⟨hM2.trans hML, halpha, fun q hLq => htail q (hML.trans hLq)⟩
+
+/-- A true tail is an absolute bound on the normalized error at every later
+endpoint. -/
+theorem primeSieveStateDependentSelbergTailAbove_normalizedError_abs_le
+    (M N : Nat) (alpha : Real)
+    (htail : PrimeSieveStateDependentSelbergTailAbove M alpha)
+    (hMN : M ≤ N) :
+    |nativePNTNormalizedError N| ≤ alpha := by
+  have hNpos : (0 : Real) < (N : Real) := by
+    exact_mod_cast (show 0 < N by omega)
+  have hraw := htail.2.2 N hMN
+  unfold nativePNTNormalizedError
+  rw [abs_div, abs_of_pos hNpos]
+  exact (div_le_iff₀ hNpos).2 hraw
+
+/-- **Direct signed square-block exclusion law.**
+
+The old tail already confines `e(N)` to `[-alpha,alpha]`.  The only arithmetic
+obligation is to exclude the two extremal strips using the actual signed
+response of the one divisor block `(M,L]`.  The outside terms and the Selberg
+remainder remain signed and exact; no universal constant is inserted. -/
+def NativePNTSignedSquareBlockDirectCutoffExclusion
+    (M L : Nat) (alpha alpha' : Real) : Prop :=
+  3 ≤ L ∧ M ≤ L ∧ 0 < alpha' ∧ alpha' ≤ alpha ∧
+    ∀ N : Nat, L ≤ N →
+      (alpha' < nativePNTNormalizedError N →
+        nativePNTNormalizedError N ≤ alpha →
+          nativePNTNormalizedExactSignedRemainder N -
+              nativePNTNormalizedFloorOutsideSquareBlock N M L -
+              alpha' * Real.log (N : Real) ≤
+            nativePNTNormalizedFloorSquareBlockResponse N M L) ∧
+      (nativePNTNormalizedError N < -alpha' →
+        -alpha ≤ nativePNTNormalizedError N →
+          nativePNTNormalizedFloorSquareBlockResponse N M L ≤
+            nativePNTNormalizedExactSignedRemainder N -
+              nativePNTNormalizedFloorOutsideSquareBlock N M L +
+              alpha' * Real.log (N : Real))
+
+/-- The exact signed block exclusion upgrades the old tail directly. -/
+theorem nativePNTSignedSquareBlockDirectCutoffExclusion_step
+    (M L : Nat) (alpha alpha' : Real)
+    (htail : PrimeSieveStateDependentSelbergTailAbove M alpha)
+    (hexcl : NativePNTSignedSquareBlockDirectCutoffExclusion M L alpha alpha') :
+    PrimeSieveStateDependentSelbergTailAbove L alpha' := by
+  rcases hexcl with ⟨hL3, hML, halpha', _hale, hexcl⟩
+  refine ⟨by omega, halpha', ?_⟩
+  intro N hLN
+  have hN3 : 3 ≤ N := hL3.trans hLN
+  have hNpos : (0 : Real) < (N : Real) := by
+    exact_mod_cast (show 0 < N by omega)
+  have hlog : 0 < Real.log (N : Real) := by
+    apply Real.log_pos
+    exact_mod_cast (show 1 < N by omega)
+  have hold :=
+    primeSieveStateDependentSelbergTailAbove_normalizedError_abs_le
+      M N alpha htail (hML.trans hLN)
+  have holdBounds := abs_le.mp hold
+  have hrec :=
+    nativePNTNormalized_signed_squareBlock_recurrence_eq N M L (by omega)
+  have hbar := hexcl N hLN
+  have hnorm : |nativePNTNormalizedError N| ≤ alpha' := by
+    rw [abs_le]
+    constructor
+    · by_contra hneg
+      have hextreme : nativePNTNormalizedError N < -alpha' :=
+        lt_of_not_ge hneg
+      have hblock := hbar.2 hextreme holdBounds.1
+      have hmul :
+          nativePNTNormalizedError N * Real.log (N : Real) <
+            (-alpha') * Real.log (N : Real) :=
+        mul_lt_mul_of_pos_right hextreme hlog
+      linarith
+    · by_contra hpos
+      have hextreme : alpha' < nativePNTNormalizedError N :=
+        lt_of_not_ge hpos
+      have hblock := hbar.1 hextreme holdBounds.2
+      have hmul :
+          alpha' * Real.log (N : Real) <
+            nativePNTNormalizedError N * Real.log (N : Real) :=
+        mul_lt_mul_of_pos_right hextreme hlog
+      linarith
+  unfold nativePNTNormalizedError at hnorm
+  rw [abs_div, abs_of_pos hNpos] at hnorm
+  exact (div_le_iff₀ hNpos).1 hnorm
+
+/-- Exact slope whose reciprocal square increases by `delta`. -/
+def nativePNTReciprocalSquareSlope
+    (alpha delta : Real) : Real :=
+  alpha / Real.sqrt (1 + delta * alpha ^ 2)
+
+theorem nativePNTReciprocalSquareSlope_pos
+    (alpha delta : Real) (halpha : 0 < alpha) (hdelta : 0 ≤ delta) :
+    0 < nativePNTReciprocalSquareSlope alpha delta := by
+  have hins : 0 < 1 + delta * alpha ^ 2 := by
+    nlinarith [mul_nonneg hdelta (sq_nonneg alpha)]
+  exact div_pos halpha (Real.sqrt_pos.2 hins)
+
+theorem nativePNTReciprocalSquareSlope_le
+    (alpha delta : Real) (halpha : 0 < alpha) (hdelta : 0 ≤ delta) :
+    nativePNTReciprocalSquareSlope alpha delta ≤ alpha := by
+  have hins : 1 ≤ 1 + delta * alpha ^ 2 := by
+    nlinarith [mul_nonneg hdelta (sq_nonneg alpha)]
+  have hsqrt : 1 ≤ Real.sqrt (1 + delta * alpha ^ 2) := by
+    simpa using Real.sqrt_le_sqrt hins
+  have hsqrtPos : 0 < Real.sqrt (1 + delta * alpha ^ 2) :=
+    lt_of_lt_of_le zero_lt_one hsqrt
+  unfold nativePNTReciprocalSquareSlope
+  apply (div_le_iff₀ hsqrtPos).2
+  have hmul := mul_le_mul_of_nonneg_left hsqrt halpha.le
+  simpa using hmul
+
+/-- Exact reciprocal-square gain of the scalar update. -/
+theorem nativePNTReciprocalSquareSlope_inv_sq_sub
+    (alpha delta : Real) (halpha : 0 < alpha) (hdelta : 0 ≤ delta) :
+    1 / (nativePNTReciprocalSquareSlope alpha delta) ^ 2 -
+        1 / alpha ^ 2 = delta := by
+  have hins0 : 0 ≤ 1 + delta * alpha ^ 2 := by
+    nlinarith [mul_nonneg hdelta (sq_nonneg alpha)]
+  have hins : 0 < 1 + delta * alpha ^ 2 := by
+    nlinarith [mul_nonneg hdelta (sq_nonneg alpha)]
+  have hsqrtSq :
+      (Real.sqrt (1 + delta * alpha ^ 2)) ^ 2 =
+        1 + delta * alpha ^ 2 := Real.sq_sqrt hins0
+  have hsqrtPos : 0 < Real.sqrt (1 + delta * alpha ^ 2) :=
+    Real.sqrt_pos.2 hins
+  have halpha0 : alpha ≠ 0 := ne_of_gt halpha
+  have hsqrt0 : Real.sqrt (1 + delta * alpha ^ 2) ≠ 0 := ne_of_gt hsqrtPos
+  unfold nativePNTReciprocalSquareSlope
+  field_simp [halpha0, hsqrt0]
+  nlinarith [hsqrtSq]
+
+/-- One exact reciprocal-square direct cutoff step. -/
+theorem nativePNTReciprocalSquareSignedBlockDirectCutoff_step
+    (M L : Nat) (alpha delta : Real)
+    (htail : PrimeSieveStateDependentSelbergTailAbove M alpha)
+    (hdelta : 0 ≤ delta)
+    (hexcl : NativePNTSignedSquareBlockDirectCutoffExclusion
+      M L alpha (nativePNTReciprocalSquareSlope alpha delta)) :
+    PrimeSieveStateDependentSelbergTailAbove
+        L (nativePNTReciprocalSquareSlope alpha delta) ∧
+      nativePNTReciprocalSquareSlope alpha delta ≤ alpha ∧
+      1 / (nativePNTReciprocalSquareSlope alpha delta) ^ 2 -
+          1 / alpha ^ 2 = delta := by
+  have halpha : 0 < alpha := htail.2.1
+  exact ⟨
+    nativePNTSignedSquareBlockDirectCutoffExclusion_step
+      M L alpha (nativePNTReciprocalSquareSlope alpha delta) htail hexcl,
+    nativePNTReciprocalSquareSlope_le alpha delta halpha hdelta,
+    nativePNTReciprocalSquareSlope_inv_sq_sub alpha delta halpha hdelta⟩
+
+/-- Reciprocal-square gain requested from block `r` after its explicit leakage. -/
+def violeClockBlockReciprocalSquareGain
+    (c : Real) (eps : Nat → Real) (r : Nat) : Real :=
+  c * (dynamicVioleAnchor (r + 1) - dynamicVioleAnchor r) - eps r
+
+/-- **Remaining arithmetic seam.**  On every positive-gain block, the literal
+signed divisor-block response must exclude the old-tail extremal strip. -/
+def VioleClockSignedSquareBlockDirectCutoffLaw
+    (r0 : Nat) (c : Real) (eps : Nat → Real) : Prop :=
+  3 ≤ r0 ∧ 0 < c ∧
+    ∀ (r : Nat) (alpha : Real),
+      r0 ≤ r →
+      PrimeSieveStateDependentSelbergTailAbove (violeClockCutoff r) alpha →
+      0 < violeClockBlockReciprocalSquareGain c eps r →
+      NativePNTSignedSquareBlockDirectCutoffExclusion
+        (violeClockCutoff r) (violeClockCutoff (r + 1)) alpha
+        (nativePNTReciprocalSquareSlope alpha
+          (violeClockBlockReciprocalSquareGain c eps r))
+
+/-- A signed square-block direct cutoff law implies the frozen #551 coupling
+without `CubicGainFromTo`, an affine envelope, or an onset lemma. -/
+theorem violeClockReciprocalSquareCoupling_of_signedSquareBlockDirectCutoffLaw
+    (r0 : Nat) (c : Real) (eps : Nat → Real)
+    (hlaw : VioleClockSignedSquareBlockDirectCutoffLaw r0 c eps) :
+    VioleClockReciprocalSquareCoupling r0 c eps := by
+  rcases hlaw with ⟨hr0, hc, hlaw⟩
+  refine ⟨by omega, hc, ?_⟩
+  intro r alpha hr htail
+  have hML := violeClockCutoff_le_succ r
+  have htailCut :
+      PrimeSieveStateDependentSelbergTailAbove (violeClockCutoff (r + 1)) alpha :=
+    primeSieveStateDependentSelbergTailAbove_mono_cutoff
+      (violeClockCutoff r) (violeClockCutoff (r + 1)) alpha htail hML
+  let delta : Real := violeClockBlockReciprocalSquareGain c eps r
+  by_cases hdelta : 0 < delta
+  · have hexcl := hlaw r alpha hr htail (by simpa [delta] using hdelta)
+    have hstep := nativePNTReciprocalSquareSignedBlockDirectCutoff_step
+      (violeClockCutoff r) (violeClockCutoff (r + 1)) alpha delta htail
+      hdelta.le (by simpa [delta] using hexcl)
+    refine ⟨nativePNTReciprocalSquareSlope alpha delta, hstep.1, hstep.2.1, ?_⟩
+    have hgain := hstep.2.2
+    simpa [delta, violeClockCutoff, violeClockBlockReciprocalSquareGain] using
+      hgain.ge
+  · have hdeltaNonpos : delta ≤ 0 := le_of_not_gt hdelta
+    refine ⟨alpha, ?_, le_rfl, ?_⟩
+    · simpa [violeClockCutoff] using htailCut
+    · have hzero : 1 / alpha ^ 2 - 1 / alpha ^ 2 = 0 := by ring
+      rw [hzero]
+      simpa [delta, violeClockBlockReciprocalSquareGain] using hdeltaNonpos
 
 end RHLean.Analysis
