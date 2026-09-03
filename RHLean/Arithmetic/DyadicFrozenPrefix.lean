@@ -321,4 +321,249 @@ def SquareFrozenRunStaticCorrelationBoundedStatement : Prop :=
         |((squareFrozenRunCorrelation a b : ℤ) : ℝ)| ≤
           C * Real.rpow (a : ℝ) (1 + ε)
 
+
+/-! ## The static correlation in closed form
+
+The frozen-run identity turns the new mass of a subdoubling run into a single
+pairing of the *already completed* prefix against a deterministic kernel.  This
+section makes both halves of that pairing explicit and then says exactly what
+the resulting bound is worth.
+
+Three things are proved.
+
+* `frozenRunDivisorWeight_eq_div_sub_div` puts the kernel in closed floor form,
+  `w(N,L,d) = ⌊(L-1)/d⌋ - ⌊(N-1)/d⌋`, so the correlation is a literal finite
+  floor sum against `μ` and nothing about it is implicit.
+* `frozenRunCorrelation_eq_length_add_deep` splits off the `d = 1` atom.  Its
+  weight is the full run length, so the correlation always carries one rigid
+  deterministic mode of size `L - N`; every cancellation has to come from the
+  `d ≥ 2` coordinates.  This is why a random-sign surrogate on the same support
+  does not model the object: it leaves the `d = 1` mode uncancelled.
+* `frozenRunCorrelation_eq_prefix_sub` identifies the correlation exactly with
+  the Möbius prefix increment across the run.
+
+That last identity is the one that fixes the status of the seam.  Together with
+`squareFrozenRunMass_eq_neg_staticCorrelation` it gives, with no inequality
+anywhere,
+
+```text
+|squareFrozenRunCorrelation a b| = |M((b+1)^2) - M(a^2)|.
+```
+
+So `SquareFrozenRunStaticCorrelationBoundedStatement` is neither more nor less
+than an RH-scale bound on Möbius prefix increments across subdoubling square
+windows.  The frozen-prefix geometry has bought a genuine structural
+reformulation -- the whole run is one linear functional of a prefix that is
+complete before the run starts, with an explicit kernel, so no Möbius value
+created during the run is consulted -- but it has not made the analytic content
+smaller, and it should not be presented as though it had.
+`squareFrozenRunStaticCorrelationBounded_of_moebiusPrefixRHScale` records the
+easy half of that equivalence: the premise is implied by the RH-scale Mertens
+bound, hence is not stronger than RH.  The converse needs the increments summed
+along a subdoubling chain, for which `dyadic_telescoping_series` above is the
+exact arithmetic half; it is not attempted here. -/
+
+/-- The Möbius prefix on the half-open window `[0,x)`, matching the half-open
+run convention used throughout this section. -/
+def moebiusRangePrefix (x : ℕ) : ℤ := ∑ n ∈ Finset.range x, μ n
+
+/-- The half-open prefix agrees with the closed prefix used earlier. -/
+theorem moebiusRangePrefix_succ (N : ℕ) :
+    moebiusRangePrefix (N + 1) = moebiusPrefix N := rfl
+
+/-- Counting multiples in a half-open window, as a floor difference. -/
+private theorem card_filter_dvd_Ioc {x y d : ℕ} (hxy : x ≤ y) :
+    ((Finset.Ioc x y).filter fun n => d ∣ n).card = y / d - x / d := by
+  classical
+  have hdisj : Disjoint ((Finset.Ioc 0 x).filter fun n => d ∣ n)
+      ((Finset.Ioc x y).filter fun n => d ∣ n) := by
+    refine Finset.disjoint_filter_filter ?_
+    rw [Finset.disjoint_left]
+    intro a ha hb
+    rw [Finset.mem_Ioc] at ha hb
+    omega
+  have hsplit : ((Finset.Ioc 0 y).filter fun n => d ∣ n).card
+      = ((Finset.Ioc 0 x).filter fun n => d ∣ n).card
+        + ((Finset.Ioc x y).filter fun n => d ∣ n).card := by
+    rw [← Finset.Ioc_union_Ioc_eq_Ioc (Nat.zero_le x) hxy,
+      Finset.filter_union, Finset.card_union_of_disjoint hdisj]
+  have h1 := Nat.Ioc_filter_dvd_card_eq_div y d
+  have h2 := Nat.Ioc_filter_dvd_card_eq_div x d
+  rw [h1, h2] at hsplit
+  omega
+
+/-- The half-open run rewritten with a closed right endpoint. -/
+theorem frozenRunBlock_eq_Ioc {N L : ℕ} (hN : 1 ≤ N) :
+    frozenRunBlock N L = Finset.Ioc (N - 1) (L - 1) := by
+  unfold frozenRunBlock
+  ext n
+  simp only [Finset.mem_Ico, Finset.mem_Ioc]
+  omega
+
+/-- **Closed form of the frozen-run kernel.**  The divisor coordinate `d` sees
+the run exactly `⌊(L-1)/d⌋ - ⌊(N-1)/d⌋` times, so the static correlation is a
+literal finite floor sum against the frozen prefix. -/
+theorem frozenRunDivisorWeight_eq_div_sub_div {N L d : ℕ}
+    (hN : 1 ≤ N) (hNL : N ≤ L) :
+    frozenRunDivisorWeight N L d = (L - 1) / d - (N - 1) / d := by
+  classical
+  unfold frozenRunDivisorWeight
+  rw [frozenRunBlock_eq_Ioc hN]
+  exact card_filter_dvd_Ioc (by omega)
+
+/-- The `d = 1` coordinate meets every site of the run, so its weight is the
+full run length. -/
+theorem frozenRunDivisorWeight_one (N L : ℕ) :
+    frozenRunDivisorWeight N L 1 = L - N := by
+  classical
+  have hfilter :
+      (frozenRunBlock N L).filter (fun n => (1 : ℕ) ∣ n) = frozenRunBlock N L := by
+    ext n
+    simp
+  unfold frozenRunDivisorWeight
+  rw [hfilter]
+  unfold frozenRunBlock
+  exact Nat.card_Ico N L
+
+/-- The static frozen-prefix correlation at general endpoints. -/
+def frozenRunCorrelation (N L : ℕ) : ℤ :=
+  ∑ d ∈ Finset.range N, (frozenRunDivisorWeight N L d : ℤ) * μ d
+
+/-- The square correlation is the general one at square endpoints. -/
+theorem squareFrozenRunCorrelation_eq_frozenRunCorrelation (a b : ℕ) :
+    squareFrozenRunCorrelation a b = frozenRunCorrelation (a ^ 2) ((b + 1) ^ 2) := rfl
+
+/-- **The rigid deterministic mode.**  The correlation always contains the full
+run length from the single coordinate `d = 1`; all cancellation must come from
+the `d ≥ 2` coordinates.  A random-sign surrogate on the same squarefree support
+leaves this mode standing, which is why it does not model the true object. -/
+theorem frozenRunCorrelation_eq_length_add_deep (N L : ℕ) (hN : 2 ≤ N) :
+    frozenRunCorrelation N L =
+      ((L - N : ℕ) : ℤ) +
+        ∑ d ∈ Finset.Ico 2 N, (frozenRunDivisorWeight N L d : ℤ) * μ d := by
+  classical
+  have hsplit :
+      ((∑ d ∈ Finset.range 2, (frozenRunDivisorWeight N L d : ℤ) * μ d) +
+        ∑ d ∈ Finset.Ico 2 N, (frozenRunDivisorWeight N L d : ℤ) * μ d) =
+      ∑ d ∈ Finset.range N, (frozenRunDivisorWeight N L d : ℤ) * μ d :=
+    Finset.sum_range_add_sum_Ico _ hN
+  have hlow :
+      (∑ d ∈ Finset.range 2, (frozenRunDivisorWeight N L d : ℤ) * μ d) =
+        ((L - N : ℕ) : ℤ) := by
+    simp [Finset.sum_range_succ, frozenRunDivisorWeight_one]
+  unfold frozenRunCorrelation
+  rw [← hsplit, hlow]
+
+/-- The run mass is the Möbius prefix increment across the run. -/
+theorem frozenRunMass_eq_prefix_sub {N L : ℕ} (h : N ≤ L) :
+    (∑ n ∈ frozenRunBlock N L, μ n) =
+      moebiusRangePrefix L - moebiusRangePrefix N := by
+  unfold frozenRunBlock moebiusRangePrefix
+  exact Finset.sum_Ico_eq_sub _ h
+
+/-- **The static correlation is the Möbius prefix increment.**  On a subdoubling
+run the frozen-prefix correlation is not merely comparable to the prefix
+increment across the run; it is that increment, with a sign. -/
+theorem frozenRunCorrelation_eq_prefix_sub {N L : ℕ}
+    (hN : 2 ≤ N) (hL : L ≤ 2 * N) (hNL : N ≤ L) :
+    frozenRunCorrelation N L = moebiusRangePrefix N - moebiusRangePrefix L := by
+  have hid := frozenRun_moebius_increment_eq_frozen_weighted_sum N L hN hL
+  rw [frozenRunMass_eq_prefix_sub hNL] at hid
+  unfold frozenRunCorrelation
+  linarith
+
+/-- The square specialization of the prefix identification. -/
+theorem squareFrozenRunCorrelation_eq_prefix_sub {a b : ℕ}
+    (ha : 2 ≤ a) (hab : a ≤ b) (hsub : (b + 1) ^ 2 ≤ 2 * (a ^ 2)) :
+    squareFrozenRunCorrelation a b =
+      moebiusRangePrefix (a ^ 2) - moebiusRangePrefix ((b + 1) ^ 2) := by
+  have hbase : 2 ≤ a ^ 2 := by nlinarith
+  have hNL : a ^ 2 ≤ (b + 1) ^ 2 := by nlinarith
+  rw [squareFrozenRunCorrelation_eq_frozenRunCorrelation]
+  exact frozenRunCorrelation_eq_prefix_sub hbase hsub hNL
+
+/-- **What the static correlation bound actually asks for.**  In absolute value
+the frozen-prefix correlation of a subdoubling square run equals the Möbius
+prefix increment across that run, exactly.  Bounding one is bounding the other;
+no inequality is spent in passing between them. -/
+theorem abs_squareFrozenRunCorrelation_eq_abs_prefix_increment {a b : ℕ}
+    (ha : 2 ≤ a) (hab : a ≤ b) (hsub : (b + 1) ^ 2 ≤ 2 * (a ^ 2)) :
+    |((squareFrozenRunCorrelation a b : ℤ) : ℝ)| =
+      |((moebiusRangePrefix ((b + 1) ^ 2) : ℤ) : ℝ) -
+        ((moebiusRangePrefix (a ^ 2) : ℤ) : ℝ)| := by
+  rw [squareFrozenRunCorrelation_eq_prefix_sub ha hab hsub]
+  push_cast
+  rw [abs_sub_comm]
+
+/-- The RH-scale bound on the Möbius prefix, in this module's presentation. -/
+def MoebiusPrefixRHScaleBoundedStatement : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ x : ℕ, 1 ≤ x →
+        |((moebiusRangePrefix x : ℤ) : ℝ)| ≤ C * Real.rpow (x : ℝ) ((1 : ℝ) / 2 + ε)
+
+/-- Half the exponent at a square endpoint is the full exponent at its root. -/
+private theorem rpow_square_half (a : ℕ) (ε : ℝ) :
+    Real.rpow ((a ^ 2 : ℕ) : ℝ) ((1 : ℝ) / 2 + ε / 2) = Real.rpow (a : ℝ) (1 + ε) := by
+  have ha : (0 : ℝ) ≤ (a : ℝ) := Nat.cast_nonneg a
+  have hpow : Real.rpow (a : ℝ) (2 : ℝ) = ((a ^ 2 : ℕ) : ℝ) := by
+    rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+    push_cast
+    ring
+  rw [← hpow, ← Real.rpow_mul ha]
+  congr 1
+  ring
+
+/-- A subdoubling right endpoint costs only the fixed factor `2 ^ (1/2 + eps/2)`. -/
+private theorem rpow_run_ceiling (a L : ℕ) (ε : ℝ) (hε : 0 ≤ ε)
+    (hL : L ≤ 2 * a ^ 2) :
+    Real.rpow (L : ℝ) ((1 : ℝ) / 2 + ε / 2)
+      ≤ Real.rpow 2 ((1 : ℝ) / 2 + ε / 2) * Real.rpow (a : ℝ) (1 + ε) := by
+  have hs : (0 : ℝ) ≤ (1 : ℝ) / 2 + ε / 2 := by linarith
+  have hLle : (L : ℝ) ≤ 2 * ((a ^ 2 : ℕ) : ℝ) := by exact_mod_cast hL
+  calc Real.rpow (L : ℝ) ((1 : ℝ) / 2 + ε / 2)
+      ≤ Real.rpow (2 * ((a ^ 2 : ℕ) : ℝ)) ((1 : ℝ) / 2 + ε / 2) :=
+        Real.rpow_le_rpow (Nat.cast_nonneg L) hLle hs
+    _ = Real.rpow 2 ((1 : ℝ) / 2 + ε / 2) *
+          Real.rpow ((a ^ 2 : ℕ) : ℝ) ((1 : ℝ) / 2 + ε / 2) :=
+        Real.mul_rpow (by norm_num) (Nat.cast_nonneg _)
+    _ = Real.rpow 2 ((1 : ℝ) / 2 + ε / 2) * Real.rpow (a : ℝ) (1 + ε) := by
+        rw [rpow_square_half]
+
+/-- **The static correlation bound is not stronger than RH.**  The RH-scale
+Möbius prefix bound implies it, with the exponent matching because the window
+endpoints are squares: `(a^2)^(1/2 + eps/2) = a^(1 + eps)`.  Together with
+`abs_squareFrozenRunCorrelation_eq_abs_prefix_increment`, which is an equality,
+this places the named premise exactly at RH scale rather than beyond it. -/
+theorem squareFrozenRunStaticCorrelationBounded_of_moebiusPrefixRHScale
+    (h : MoebiusPrefixRHScaleBoundedStatement) :
+    SquareFrozenRunStaticCorrelationBoundedStatement := by
+  intro ε hε
+  obtain ⟨C, hC0, hC⟩ := h (ε / 2) (by linarith)
+  have hK0 : (0 : ℝ) ≤ Real.rpow 2 ((1 : ℝ) / 2 + ε / 2) :=
+    Real.rpow_nonneg (by norm_num) _
+  refine ⟨C * (1 + Real.rpow 2 ((1 : ℝ) / 2 + ε / 2)),
+    mul_nonneg hC0 (by linarith), ?_⟩
+  intro a b ha hab hsub
+  have hA : (1 : ℕ) ≤ a ^ 2 := by nlinarith
+  have hB : (1 : ℕ) ≤ (b + 1) ^ 2 := by nlinarith
+  have hleft := hC (a ^ 2) hA
+  have hright := hC ((b + 1) ^ 2) hB
+  rw [rpow_square_half] at hleft
+  have hright' :
+      |((moebiusRangePrefix ((b + 1) ^ 2) : ℤ) : ℝ)|
+        ≤ C * (Real.rpow 2 ((1 : ℝ) / 2 + ε / 2) * Real.rpow (a : ℝ) (1 + ε)) :=
+    hright.trans
+      (mul_le_mul_of_nonneg_left (rpow_run_ceiling a ((b + 1) ^ 2) ε hε.le hsub) hC0)
+  calc |((squareFrozenRunCorrelation a b : ℤ) : ℝ)|
+      = |((moebiusRangePrefix ((b + 1) ^ 2) : ℤ) : ℝ) -
+          ((moebiusRangePrefix (a ^ 2) : ℤ) : ℝ)| :=
+        abs_squareFrozenRunCorrelation_eq_abs_prefix_increment ha hab hsub
+    _ ≤ |((moebiusRangePrefix ((b + 1) ^ 2) : ℤ) : ℝ)| +
+          |((moebiusRangePrefix (a ^ 2) : ℤ) : ℝ)| := abs_sub _ _
+    _ ≤ C * (Real.rpow 2 ((1 : ℝ) / 2 + ε / 2) * Real.rpow (a : ℝ) (1 + ε)) +
+          C * Real.rpow (a : ℝ) (1 + ε) := by linarith
+    _ = (C * (1 + Real.rpow 2 ((1 : ℝ) / 2 + ε / 2))) * Real.rpow (a : ℝ) (1 + ε) := by
+        ring
+
 end RHLean.Arithmetic
