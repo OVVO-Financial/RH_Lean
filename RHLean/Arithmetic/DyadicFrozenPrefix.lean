@@ -502,17 +502,25 @@ def MoebiusPrefixRHScaleBoundedStatement : Prop :=
       ∀ x : ℕ, 1 ≤ x →
         |((moebiusRangePrefix x : ℤ) : ℝ)| ≤ C * Real.rpow (x : ℝ) ((1 : ℝ) / 2 + ε)
 
-/-- Half the exponent at a square endpoint is the full exponent at its root. -/
+/-- Half the exponent at a square endpoint is the full exponent at its root.
+
+The rewrites run in `^` notation rather than on `Real.rpow` applications:
+`Real.rpow_natCast` and `Real.rpow_mul` are stated with `^`, and `rw` matches
+syntactically, so the two forms have to be lined up before rewriting even
+though they are definitionally equal. -/
 private theorem rpow_square_half (a : ℕ) (ε : ℝ) :
     Real.rpow ((a ^ 2 : ℕ) : ℝ) ((1 : ℝ) / 2 + ε / 2) = Real.rpow (a : ℝ) (1 + ε) := by
   have ha : (0 : ℝ) ≤ (a : ℝ) := Nat.cast_nonneg a
-  have hpow : Real.rpow (a : ℝ) (2 : ℝ) = ((a ^ 2 : ℕ) : ℝ) := by
-    rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  have hcast : ((a ^ 2 : ℕ) : ℝ) = (a : ℝ) ^ (2 : ℕ) := by
     push_cast
     ring
-  rw [← hpow, ← Real.rpow_mul ha]
-  congr 1
-  ring
+  have hexp : ((2 : ℕ) : ℝ) * ((1 : ℝ) / 2 + ε / 2) = 1 + ε := by
+    push_cast
+    ring
+  have key :
+      ((a ^ 2 : ℕ) : ℝ) ^ ((1 : ℝ) / 2 + ε / 2) = (a : ℝ) ^ (1 + ε) := by
+    rw [hcast, ← Real.rpow_natCast (a : ℝ) 2, ← Real.rpow_mul ha, hexp]
+  exact key
 
 /-- A subdoubling right endpoint costs only the fixed factor `2 ^ (1/2 + eps/2)`. -/
 private theorem rpow_run_ceiling (a L : ℕ) (ε : ℝ) (hε : 0 ≤ ε)
