@@ -113,6 +113,30 @@ theorem squareRunDiagonal_le (a b : ℕ) :
   unfold squareRunDiagonal
   linarith
 
+/-- **Sharp run-diagonal bound.**  Only sites actually traversed by the run can
+contribute to its squarefree diagonal, so the diagonal is bounded by the exact
+window length `(b+1)^2-a^2`, not by the whole prefix up to `(b+1)^2`. -/
+theorem squareRunDiagonal_le_windowLength (a b : ℕ) (hab : a ≤ b) :
+    squareRunDiagonal a b ≤
+      ((((b + 1) ^ 2 - a ^ 2 : ℕ) : ℝ)) := by
+  have hsq : a ^ 2 ≤ (b + 1) ^ 2 :=
+    Nat.pow_le_pow_left (by omega) 2
+  have hsplit :=
+    Finset.sum_range_add_sum_Ico (fun n => realMoebiusStep n ^ 2) hsq
+  have hdiag :
+      squareRunDiagonal a b =
+        ∑ n ∈ Finset.Ico (a ^ 2) ((b + 1) ^ 2), realMoebiusStep n ^ 2 := by
+    unfold squareRunDiagonal realMertensDiagonal
+    linarith [hsplit]
+  rw [hdiag]
+  calc
+    (∑ n ∈ Finset.Ico (a ^ 2) ((b + 1) ^ 2), realMoebiusStep n ^ 2) ≤
+        ∑ n ∈ Finset.Ico (a ^ 2) ((b + 1) ^ 2), (1 : ℝ) := by
+      exact Finset.sum_le_sum (fun n _hn => realMoebiusStep_sq_le_one n)
+    _ = ((Finset.Ico (a ^ 2) ((b + 1) ^ 2)).card : ℝ) := by simp
+    _ = ((((b + 1) ^ 2 - a ^ 2 : ℕ) : ℝ)) := by
+      rw [Nat.card_Ico]
+
 /-! ## Splitting the window covariance -/
 
 /-- Whatever a descent argument does not account for.  Defined as a remainder,
@@ -155,24 +179,22 @@ individual square block is imposed. -/
 def SquareRunCoherentBiasAtLeast (eta : ℝ) (a b : ℕ) : Prop :=
   eta * (((b + 1 - a : ℕ) : ℝ)) ≤ |squareRunMass a b|
 
-/-- **Coherent persistence has to escape.**  If the descended Euler interior is
-nonpositive, a run of `ell = b+1-a` square blocks with average coherent bias at
-least `eta` forces positive escape covariance of size at least
+/-- **Unconditional covariance pressure.**  A coherent run of
+`ell = b+1-a` square blocks with average signed bias at least `eta` forces the
+actual within-window Möbius covariance to be at least
 
-`(eta^2 * ell^2 - (b+1)^2) / 2`.
+`(eta^2 * ell^2 - ((b+1)^2-a^2)) / 2`.
 
-Thus any coherent run which exceeds the square-root diagonal scale cannot hide
-inside the diagonal or the descended interior: every excess unit is charged to
-the top-escape covariance. -/
-theorem squareRunEscapeCovariance_ge_of_coherentBias
-    {descended : ℕ → ℕ → ℝ}
-    (hneg : SquareRunDescendedNonpositive descended)
+No Euler-descent hypothesis enters this statement.  It is the exact
+Green--Kubo cost of coherent persistence after charging only the sites actually
+visited by the run to the diagonal. -/
+theorem squareRunCovariance_ge_of_coherentBias
     (a b : ℕ) (hab : a ≤ b)
     (eta : ℝ) (heta : 0 ≤ eta)
     (hcoh : SquareRunCoherentBiasAtLeast eta a b) :
     ((eta * (((b + 1 - a : ℕ) : ℝ))) ^ 2 -
-        (((b + 1) ^ 2 : ℕ) : ℝ)) / 2 ≤
-      squareRunEscapeCovariance descended a b := by
+        ((((b + 1) ^ 2 - a ^ 2 : ℕ) : ℝ))) / 2 ≤
+      squareRunCovariance a b := by
   have hlen : 0 ≤ (((b + 1 - a : ℕ) : ℝ)) := by positivity
   have hleft : 0 ≤ eta * (((b + 1 - a : ℕ) : ℝ)) :=
     mul_nonneg heta hlen
@@ -184,19 +206,35 @@ theorem squareRunEscapeCovariance_ge_of_coherentBias
         unfold SquareRunCoherentBiasAtLeast at hcoh
         nlinarith
       _ = squareRunMass a b ^ 2 := sq_abs _
-  have hid :=
-    squareRunMass_sq_eq_diagonal_add_descended_add_escape descended a b
-  have hdiag := squareRunDiagonal_le a b
-  have hdesc := hneg a b hab
+  have hid := squareRunMass_sq_eq a b
+  have hdiag := squareRunDiagonal_le_windowLength a b hab
   nlinarith
+
+/-- **Coherent persistence has to escape.**  If the descended Euler interior is
+nonpositive, every covariance unit forced by the preceding unconditional
+pressure law must be carried by the top-escape remainder. -/
+theorem squareRunEscapeCovariance_ge_of_coherentBias
+    {descended : ℕ → ℕ → ℝ}
+    (hneg : SquareRunDescendedNonpositive descended)
+    (a b : ℕ) (hab : a ≤ b)
+    (eta : ℝ) (heta : 0 ≤ eta)
+    (hcoh : SquareRunCoherentBiasAtLeast eta a b) :
+    ((eta * (((b + 1 - a : ℕ) : ℝ))) ^ 2 -
+        ((((b + 1) ^ 2 - a ^ 2 : ℕ) : ℝ))) / 2 ≤
+      squareRunEscapeCovariance descended a b := by
+  have hraw := squareRunCovariance_ge_of_coherentBias a b hab eta heta hcoh
+  have hdesc := hneg a b hab
+  unfold squareRunEscapeCovariance
+  linarith
 
 /-- **Persistence-length budget.**  If the top escape covariance on the same
 run is at most `B`, then coherent average bias `eta` can persist only while
 
-`(eta * ell)^2 <= (b+1)^2 + 2 B`.
+`(eta * ell)^2 <= ((b+1)^2-a^2) + 2 B`.
 
-This is the exact finite form of the statement that an escape budget limits the
-length of a coherently aligned block run. -/
+The diagonal term is now the exact physical run length.  Large individual
+square blocks remain allowed; only sustained signed alignment consumes the
+quadratic left-hand side. -/
 theorem squareRunCoherentBias_sq_le_of_escape_le
     {descended : ℕ → ℕ → ℝ}
     (hneg : SquareRunDescendedNonpositive descended)
@@ -205,7 +243,7 @@ theorem squareRunCoherentBias_sq_le_of_escape_le
     (hcoh : SquareRunCoherentBiasAtLeast eta a b)
     (hesc : squareRunEscapeCovariance descended a b ≤ B) :
     (eta * (((b + 1 - a : ℕ) : ℝ))) ^ 2 ≤
-      (((b + 1) ^ 2 : ℕ) : ℝ) + 2 * B := by
+      ((((b + 1) ^ 2 - a ^ 2 : ℕ) : ℝ)) + 2 * B := by
   have hpressure :=
     squareRunEscapeCovariance_ge_of_coherentBias
       hneg a b hab eta heta hcoh
@@ -213,7 +251,7 @@ theorem squareRunCoherentBias_sq_le_of_escape_le
 
 /-- **Literal non-persistence contrapositive.**  Under a top-escape budget `B`,
 a proposed coherent run is impossible as soon as its squared coherent mass
-exceeds the square-root diagonal budget plus twice the escape budget. -/
+exceeds the exact run-diagonal budget plus twice the escape budget. -/
 theorem squareRunCoherentBias_cannot_persist_of_escape_budget
     {descended : ℕ → ℕ → ℝ}
     (hneg : SquareRunDescendedNonpositive descended)
@@ -221,7 +259,7 @@ theorem squareRunCoherentBias_cannot_persist_of_escape_budget
     (eta : ℝ) (heta : 0 ≤ eta) (B : ℝ)
     (hesc : squareRunEscapeCovariance descended a b ≤ B)
     (hsuper :
-      (((b + 1) ^ 2 : ℕ) : ℝ) + 2 * B <
+      ((((b + 1) ^ 2 - a ^ 2 : ℕ) : ℝ)) + 2 * B <
         (eta * (((b + 1 - a : ℕ) : ℝ))) ^ 2) :
     ¬ SquareRunCoherentBiasAtLeast eta a b := by
   intro hcoh
