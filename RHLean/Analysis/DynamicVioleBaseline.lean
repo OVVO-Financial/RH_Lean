@@ -346,7 +346,7 @@ theorem nativePNTNormalizedFloorSquareBlockResponse_endpoint_of_subdoubling
         omega
       have hdiv : L / d = 1 := Nat.div_eq_of_lt_le hlo hhi
       rw [hdiv, violeClock_nativePNTNormalizedError_one]
-      simpa [nativePNTNormalizedFloorWeight, hdiv, neg_div]
+      simp [nativePNTNormalizedFloorWeight, hdiv, neg_div]
     _ = -(∑ d ∈ Finset.Ioc M L, Λ d) / (L : Real) := by
       rw [← Finset.sum_div, Finset.sum_neg_distrib]
 
