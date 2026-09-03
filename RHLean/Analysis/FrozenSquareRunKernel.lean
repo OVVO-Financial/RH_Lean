@@ -613,7 +613,8 @@ all: it is a rigid Möbius-inversion constant. -/
 theorem frozenTruncatedFloorTransform_squarePred_eq_one
     (a : ℕ) (ha : 2 ≤ a) :
     frozenTruncatedFloorTransform (a ^ 2) (a ^ 2 - 1) = 1 := by
-  have hN : 1 ≤ a ^ 2 - 1 := by nlinarith
+  have htwo : 1 + 1 ≤ a ^ 2 := by nlinarith
+  have hN : 1 ≤ a ^ 2 - 1 := Nat.le_sub_of_add_le htwo
   have hset : Finset.Ico 1 (a ^ 2) = Finset.Icc 1 (a ^ 2 - 1) := by
     ext d
     simp only [Finset.mem_Ico, Finset.mem_Icc]
@@ -669,7 +670,8 @@ theorem frozenReciprocalBandMassKernelReal_cast_eq_primeCombFamilyKernel
     (z : ℕ) :
     ((frozenReciprocalBandMassKernelReal z : ℝ) : ℂ) =
       primeCombReciprocalBandFamilyKernel z := by
-  change -((realMertensLength (z + 1) : ℝ) : ℂ) = -mertensSummatory z
+  unfold frozenReciprocalBandMassKernelReal primeCombReciprocalBandFamilyKernel
+  push_cast
   exact congrArg Neg.neg (realMertensLength_cast_eq_mertensSummatory z)
 
 /-- Adding the next lower-prefix Möbius coordinate changes the reciprocal-band
@@ -690,6 +692,7 @@ theorem frozenReciprocalBandCovarianceKernel_succ_sub (z : ℕ) :
         realMoebiusStep (z + 1) * realMertensLength (z + 1) := by
   unfold frozenReciprocalBandCovarianceKernel
   rw [realMertensPositiveLagPairSum_succ]
+  ring
 
 /-- **Mass/covariance coupling.**  The covariance response is exactly mass
 level times mass increment.  Hence an outward reciprocal-band update creates
