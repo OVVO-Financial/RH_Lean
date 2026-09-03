@@ -231,6 +231,5 @@ theorem canonicalPostRoot_sub_canonicalBirth_eq_threePrimitiveValues
         primorialTruncatedWheelAbelPrimitive (R - 1) (R - 1) := by
   rw [canonicalPostRootBandColumn_eq_abelPrimitive_sub (by omega : (2:ℕ) ≤ R),
     canonicalBirthOwnerBandColumn_eq_abelPrimitive hR]
-  ring
 
 end RHLean.Proof
