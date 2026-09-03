@@ -189,7 +189,7 @@ left endpoint.  This is the strict version needed for a genuinely frozen
 prefix: no divisor coordinate created during the run can be consulted later in
 the same run. -/
 theorem properDivisor_lt_frozenRunBase {N L n d : ℕ}
-    (hN : 2 ≤ N) (hL : L ≤ 2 * N)
+    (hL : L ≤ 2 * N)
     (hn : n ∈ frozenRunBlock N L)
     (hd : d ∣ n) (hdn : d < n) : d < N := by
   obtain ⟨k, rfl⟩ := hd
@@ -203,7 +203,7 @@ theorem properDivisor_lt_frozenRunBase {N L n d : ℕ}
 /-- On a subdoubling run the strict frozen prefix is exactly the complete set of
 proper divisors of every visited site. -/
 theorem frozenRunProperDivisors_eq {N L n : ℕ}
-    (hN : 2 ≤ N) (hL : L ≤ 2 * N)
+    (hL : L ≤ 2 * N)
     (hn : n ∈ frozenRunBlock N L) :
     frozenRunProperDivisors N n = n.divisors.erase n := by
   have hnLower : N ≤ n := (Finset.mem_Ico.mp hn).1
@@ -218,7 +218,7 @@ theorem frozenRunProperDivisors_eq {N L n : ℕ}
   · rintro ⟨hdne, hdvd, _⟩
     have hle : d ≤ n := Nat.le_of_dvd hnpos hdvd
     have hlt : d < n := lt_of_le_of_ne hle hdne
-    exact ⟨properDivisor_lt_frozenRunBase hN hL hn hdvd hlt, hdvd⟩
+    exact ⟨properDivisor_lt_frozenRunBase hL hn hdvd hlt, hdvd⟩
 
 /-- Pointwise frozen-prefix reconstruction on an arbitrary subdoubling run. -/
 theorem moebius_eq_neg_frozenRunPrefixSum {N L n : ℕ}
@@ -227,7 +227,7 @@ theorem moebius_eq_neg_frozenRunPrefixSum {N L n : ℕ}
     μ n = -∑ d ∈ frozenRunProperDivisors N n, μ d := by
   have hnLower : N ≤ n := (Finset.mem_Ico.mp hn).1
   have hn1 : 1 < n := by omega
-  rw [frozenRunProperDivisors_eq hN hL hn]
+  rw [frozenRunProperDivisors_eq hL hn]
   exact moebius_eq_neg_sum_properDivisors hn1
 
 /-- **Frozen-run identity.**  On every half-open run `[N,L)` with `L ≤ 2N`, the
