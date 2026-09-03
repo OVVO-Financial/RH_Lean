@@ -104,6 +104,7 @@ theorem squarePrefixMertens_eq_moebiusRangePrefix_square_cast (n : ℕ) :
   unfold squarePrefixMertens mertensSummatory RHLean.Arithmetic.moebiusRangePrefix
   rw [squarePrefixEndpoint_add_one]
   push_cast
+  rfl
 
 /-- **Exact frozen-run identity in square-prefix coordinates.**  On a
 subdoubling run the frozen divisor kernel is the old square-prefix value minus
@@ -140,6 +141,7 @@ theorem squareFrozenRunMass_cast_eq_neg_frozenSquareRunKernel
           rw [hm]
     _ = -((RHLean.Arithmetic.squareFrozenRunCorrelation a b : ℤ) : ℂ) := by
           push_cast
+          rfl
     _ = -frozenSquareRunKernel a b := by rw [hk]
 
 /-- The same exact identity against the repository's canonical square-run
@@ -264,7 +266,7 @@ theorem primeCombReciprocalBand_eq_filter_frozenReciprocalBand (W z : ℕ) :
 constant.  This is the exact bridge from the divisor kernel to reciprocal-band
 coordinates; no magnitude bound is taken. -/
 theorem frozenFloorWeight_upperQuotient_eq
-    {a b d z : ℕ} (hz : 0 < z)
+    {b d z : ℕ} (hz : 0 < z)
     (hd : d ∈ frozenReciprocalBand (((b + 1) ^ 2) - 1) z) :
     ((((b + 1) ^ 2) - 1) / d) = z :=
   frozenReciprocalBand_div_eq hz hd
@@ -282,12 +284,11 @@ private theorem norm_sq_add_le_five_quarter (x y : ℂ) :
 
 private theorem norm_sq_sub_le_two_frozen (x y : ℂ) :
     ‖x - y‖ ^ 2 ≤ 2 * ‖x‖ ^ 2 + 2 * ‖y‖ ^ 2 := by
-  have h := norm_sq_add_le_five_quarter x (-y)
-  have h2 := norm_add_le x (-y)
+  have hnorm : ‖x - y‖ ≤ ‖x‖ + ‖y‖ := by
+    simpa [sub_eq_add_neg] using norm_add_le x (-y)
   have hx : 0 ≤ ‖x‖ := norm_nonneg x
   have hy : 0 ≤ ‖y‖ := norm_nonneg y
   have hxy : 0 ≤ ‖x - y‖ := norm_nonneg (x - y)
-  rw [← sub_eq_add_neg] at h2
   nlinarith [sq_nonneg (‖x‖ - ‖y‖)]
 
 /-- Physical square energy exponent written in root coordinates. -/
@@ -348,9 +349,13 @@ theorem frozenSquareRunEnergyBounded_of_mertensEnergyBounded
     have hpred : a - 1 + 1 = a := Nat.sub_add_cancel (by omega)
     rw [hpred] at hA
     have ha_le : a ≤ b + 1 := by omega
-    have hpowAB := Real.rpow_le_rpow
-      (Nat.cast_nonneg a) (by exact_mod_cast ha_le)
-      (by linarith : 0 ≤ 2 + 2 * ε)
+    have ha_le_real : (a : ℝ) ≤ ((b + 1 : ℕ) : ℝ) := by
+      exact_mod_cast ha_le
+    have hpowAB :
+        Real.rpow (a : ℝ) (2 + 2 * ε) ≤
+          Real.rpow ((b + 1 : ℕ) : ℝ) (2 + 2 * ε) :=
+      Real.rpow_le_rpow (Nat.cast_nonneg a) ha_le_real
+        (by linarith : 0 ≤ 2 + 2 * ε)
     have hA' :
         ‖squarePrefixMertens (a - 1)‖ ^ 2 ≤
           C * Real.rpow ((b + 1 : ℕ) : ℝ) (2 + 2 * ε) :=
@@ -372,7 +377,10 @@ theorem frozenSquareRunEnergyBounded_of_mertensEnergyBounded
     rw [frozenSquareRunKernel_eq_zero_of_succ_le hba]
     have hp0 : 0 ≤ Real.rpow (((b + 1) ^ 2 : ℕ) : ℝ) (1 + ε) :=
       Real.rpow_nonneg (by positivity) _
-    positivity
+    have hrhs :
+        0 ≤ 4 * C * Real.rpow (((b + 1) ^ 2 : ℕ) : ℝ) (1 + ε) :=
+      mul_nonneg (mul_nonneg (by norm_num) hC) hp0
+    simpa using hrhs
 
 /-- A fixed three-quarter anchor.  It is above the `1/sqrt 2` freezing
 threshold, while from scale `14` onward it is at most four-fifths of the
@@ -417,6 +425,8 @@ private theorem frozenSquareAnchor_rpow_le
       ((16 : ℝ) / 25) * Real.rpow ((b + 1 : ℕ) : ℝ) (2 + ε) := by
   let a := frozenSquareAnchor b
   let y := b + 1
+  change Real.rpow (a : ℝ) (2 + ε) ≤
+    ((16 : ℝ) / 25) * Real.rpow (y : ℝ) (2 + ε)
   have ha1 : 1 ≤ a := by dsimp [a]; exact frozenSquareAnchor_pos b
   have hy1 : 1 ≤ y := by dsimp [y]; omega
   have h5 : 5 * a ≤ 4 * y := by
@@ -430,8 +440,11 @@ private theorem frozenSquareAnchor_rpow_le
       exact_mod_cast hsNat
     push_cast at hsCast
     nlinarith
-  have he := Real.rpow_le_rpow
-    (Nat.cast_nonneg a) (by exact_mod_cast hay) hε
+  have hayReal : (a : ℝ) ≤ (y : ℝ) := by
+    exact_mod_cast hay
+  have he :
+      Real.rpow (a : ℝ) ε ≤ Real.rpow (y : ℝ) ε :=
+    Real.rpow_le_rpow (Nat.cast_nonneg a) hayReal hε
   have haPos : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha1
   have hyPos : (0 : ℝ) < (y : ℝ) := by exact_mod_cast hy1
   have haSplit :
