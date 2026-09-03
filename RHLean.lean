@@ -26,6 +26,7 @@ import RHLean.Analysis.FiniteTorusFourierPairing
 import RHLean.Analysis.FiniteWheelReciprocalMertensImprovement
 import RHLean.Analysis.FiniteWheelRestrictedFloor
 import RHLean.Analysis.FreshPrimeOscillationTransfer
+import RHLean.Analysis.FrozenSquareRunKernel
 import RHLean.Analysis.GrowingParentPhaseUniformity
 import RHLean.Analysis.K2CenteredClassicalClosureScratch
 import RHLean.Analysis.K2CenteredClassicalCompareScratch
