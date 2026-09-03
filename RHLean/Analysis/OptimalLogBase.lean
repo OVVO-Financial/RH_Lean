@@ -215,7 +215,7 @@ def nativePNTSequentialNewFiberMass (M L : Nat) : Real :=
 /-- The full signed reciprocal error-mass increment splits exactly into shared
 old-fibre drift plus genuinely new fibres. -/
 theorem nativePNTLambdaSignedErrorMass_sub_eq_shared_add_new
-    (M L : Nat) (hM : 1 <= M) (hML : M <= L) :
+    (M L : Nat) (_hM : 1 <= M) (hML : M <= L) :
     (∑ d ∈ Finset.Icc 1 L, Λ d * nativePNTError (L / d)) -
         (∑ d ∈ Finset.Icc 1 M, Λ d * nativePNTError (M / d)) =
       nativePNTSequentialSharedFiberDrift M L +
@@ -350,6 +350,22 @@ theorem nativePNTMobiusReciprocalSignedErrorMass_sub_eq_shared_add_blockCorrelat
   rw [hblock] at hsplit
   exact hsplit
 
+/-- The same carrier identity with the new-block correlation expanded into its
+existing parity-mean plus centered-covariance decomposition. -/
+theorem nativePNTMobiusReciprocalSignedErrorMass_sub_eq_shared_add_blockMeanCovariance
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) :
+    nativePNTMobiusReciprocalSignedErrorMass L -
+        nativePNTMobiusReciprocalSignedErrorMass M =
+      nativePNTSequentialSharedMobiusReciprocalMass M L +
+        (nativePNTSignedSquareBlockCofactorCard L : Real) *
+          (nativePNTSignedSquareBlockParityMean L *
+              nativePNTSignedSquareBlockResponseMean L M L +
+            nativePNTSignedSquareBlockCovariance L M L) := by
+  rw [nativePNTMobiusReciprocalSignedErrorMass_sub_eq_shared_add_blockCorrelation
+      M L hM hML,
+    nativePNTSignedSquareBlockMobiusCorrelation_eq_card_mul_mean_add_covariance
+      L M L (hM.trans hML)]
+
 /-- Shared reciprocal drift is the full reciprocal-mass change after removing
 the new-block correlation. -/
 theorem nativePNTSequentialSharedMobiusReciprocalMass_eq_full_sub_old_sub_block
@@ -380,6 +396,6 @@ theorem nativePNTSequentialCrossEnergy_mul_log_sub_one_eq_mobiusReciprocal
     nativePNTSequentialDiscrepancy_mul_log_sub_one_eq M L hM hML hsub
   rw [nativePNTSequentialSharedFiberDrift_eq_mobiusReciprocalMass] at hseed
   unfold nativePNTSequentialSquareBlockCrossEnergy
-  nlinarith
+  linear_combination nativePNTError M * hseed
 
 end RHLean.Analysis
