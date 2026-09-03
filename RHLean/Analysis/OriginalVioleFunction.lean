@@ -1,4 +1,6 @@
 import Mathlib
+import RHLean.Analysis.DynamicVioleBaseline
+import RHLean.Proof.NearOrthogonality
 
 /-!
 # Original parameter-free Viole function
@@ -39,8 +41,11 @@ numerator.
 noncomputable section
 
 open Filter Topology
+open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Analysis
+
+open RHLean.Proof
 
 /-- Base-ten logarithm written by change of base. -/
 def originalVFLog10 (x : ℝ) : ℝ :=
@@ -98,5 +103,215 @@ theorem originalVFImpliedBase_tendsto_e
   have htarget : Real.exp (1 / (1 - (0 : ℝ))) = Real.exp 1 := by
     norm_num
   simpa only [Function.comp_apply, htarget] using hcont.tendsto.comp hRatio
+
+/-! ## Abel return for the dynamic Viole square-block correlation
+
+The dynamic square-clock module exposes a reciprocal cofactor coordinate because
+that is where a fresh prime has a literal Euler law.  The protected block,
+however, is the unweighted correlation `sum mu(m) * Resp(m)`.  Exactly as in
+the canonical rough critical-correlation route, finite Abel summation returns
+the reciprocal prefix profile to that unweighted object without changing the
+arithmetic content.
+-/
+
+/-- Reciprocal-prefix profile of the signed Viole square-block correlation. -/
+def nativePNTSignedSquareBlockCorrelationReciprocalPrefix
+    (N M L n : Nat) : Real :=
+  inclusivePrefix
+    (fun m =>
+      nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m) n
+
+/-- Multiplication by the positive cofactor recovers the literal unweighted
+Möbius-response summand. -/
+theorem natCast_mul_nativePNTSignedSquareBlockCorrelationReciprocalSummand
+    (N M L : Nat) {m : Nat} (hm : 0 < m) :
+    (m : Real) *
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m =
+      (μ : ArithmeticFunction Real) m *
+        nativePNTSignedSquareBlockCofactorResponse N M L m := by
+  have hm0 : (m : Real) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt hm)
+  unfold nativePNTSignedSquareBlockCorrelationReciprocalSummand
+  change
+    (m : Real) *
+        ((((μ m : Int) : Real) *
+          nativePNTSignedSquareBlockCofactorResponse N M L m) / (m : Real)) =
+      ((μ m : Int) : Real) *
+        nativePNTSignedSquareBlockCofactorResponse N M L m
+  field_simp [hm0]
+
+/-- Exact Abel reconstruction of the protected unweighted block correlation
+from its reciprocal prefix profile. -/
+theorem nativePNTSignedSquareBlockMobiusCorrelation_eq_abel_reciprocalPrefix
+    (N M L : Nat) :
+    nativePNTSignedSquareBlockMobiusCorrelation N M L =
+      (L : Real) *
+          nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L L -
+        ∑ k ∈ Finset.range L,
+          nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k := by
+  let v : Nat → Real :=
+    fun m => nativePNTSignedSquareBlockCorrelationReciprocalSummand N M L m
+  have habel := finite_abel_identity v (fun k : Nat => (k : Real)) L
+  have hleft :
+      nativePNTSignedSquareBlockMobiusCorrelation N M L =
+        ∑ m ∈ Finset.range (L + 1), v m * (m : Real) := by
+    have hset : Finset.Icc 1 L = Finset.range (L + 1) \ {0} := by
+      ext m
+      simp
+      omega
+    rw [nativePNTSignedSquareBlockMobiusCorrelation, hset]
+    have hsub : ({0} : Finset Nat) ⊆ Finset.range (L + 1) := by
+      intro m hm
+      simp at hm
+      subst m
+      simp
+    have hsplit :=
+      Finset.sum_sdiff hsub (f := fun m => v m * (m : Real))
+    have hweighted :
+        (∑ m ∈ Finset.range (L + 1) \ {0}, v m * (m : Real)) =
+          ∑ m ∈ Finset.range (L + 1) \ {0},
+            (μ : ArithmeticFunction Real) m *
+              nativePNTSignedSquareBlockCofactorResponse N M L m := by
+      apply Finset.sum_congr rfl
+      intro m hm
+      have hm0 : m ≠ 0 := by
+        have hmnot : m ∉ ({0} : Finset Nat) := (Finset.mem_sdiff.mp hm).2
+        simpa using hmnot
+      rw [← natCast_mul_nativePNTSignedSquareBlockCorrelationReciprocalSummand
+        N M L (Nat.pos_of_ne_zero hm0)]
+      ring
+    rw [hweighted] at hsplit
+    simpa [v] using hsplit
+  rw [hleft, habel]
+  unfold nativePNTSignedSquareBlockCorrelationReciprocalPrefix
+  simp only [inclusivePrefix]
+  have hdiff : ∀ k : Nat, (k : Real) - ((k + 1 : Nat) : Real) = -1 := by
+    intro k
+    push_cast
+    ring
+  simp_rw [hdiff, mul_neg_one]
+  rw [Finset.sum_neg_distrib]
+  ring
+
+/-- Abel budget of the reciprocal prefix profile. -/
+def nativePNTSignedSquareBlockCorrelationReciprocalAbelBudget
+    (N M L : Nat) : Real :=
+  (L : Real) *
+      |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L L| +
+    ∑ k ∈ Finset.range L,
+      |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k|
+
+/-- The protected block correlation is bounded by the exact reciprocal-prefix
+Abel profile. -/
+theorem nativePNTSignedSquareBlockMobiusCorrelation_abs_le_abelBudget
+    (N M L : Nat) :
+    |nativePNTSignedSquareBlockMobiusCorrelation N M L| ≤
+      nativePNTSignedSquareBlockCorrelationReciprocalAbelBudget N M L := by
+  rw [nativePNTSignedSquareBlockMobiusCorrelation_eq_abel_reciprocalPrefix]
+  unfold nativePNTSignedSquareBlockCorrelationReciprocalAbelBudget
+  calc
+    |(L : Real) *
+          nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L L -
+        ∑ k ∈ Finset.range L,
+          nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k| ≤
+      |(L : Real) *
+          nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L L| +
+        |∑ k ∈ Finset.range L,
+          nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k| :=
+      abs_sub _ _
+    _ ≤ (L : Real) *
+          |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L L| +
+        ∑ k ∈ Finset.range L,
+          |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k| := by
+      apply add_le_add
+      · rw [abs_mul, abs_of_nonneg (by positivity : (0 : Real) ≤ (L : Real))]
+      · exact Finset.abs_sum_le_sum_abs _ _
+
+/-- Uniform reciprocal-prefix control returns to the unweighted block with the
+sharp finite Abel factor `2L`. -/
+theorem nativePNTSignedSquareBlockMobiusCorrelation_abs_le_two_mul_endpoint
+    (N M L : Nat) (A : Real)
+    (hA : 0 ≤ A)
+    (hprefix : ∀ k ≤ L,
+      |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k| ≤ A) :
+    |nativePNTSignedSquareBlockMobiusCorrelation N M L| ≤
+      2 * (L : Real) * A := by
+  have hprofile :=
+    nativePNTSignedSquareBlockMobiusCorrelation_abs_le_abelBudget N M L
+  exact hprofile.trans <| by
+    unfold nativePNTSignedSquareBlockCorrelationReciprocalAbelBudget
+    have hend := hprefix L le_rfl
+    have hsum :
+        (∑ k ∈ Finset.range L,
+          |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k|) ≤
+          (L : Real) * A := by
+      calc
+        (∑ k ∈ Finset.range L,
+            |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k|) ≤
+          ∑ _k ∈ Finset.range L, A := by
+            apply Finset.sum_le_sum
+            intro k hk
+            exact hprefix k (Nat.le_of_lt (Finset.mem_range.mp hk))
+        _ = (L : Real) * A := by simp
+    calc
+      (L : Real) *
+            |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L L| +
+          ∑ k ∈ Finset.range L,
+            |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k| ≤
+        (L : Real) * A + (L : Real) * A :=
+          add_le_add
+            (mul_le_mul_of_nonneg_left hend (by positivity)) hsum
+      _ = 2 * (L : Real) * A := by ring
+
+/-- A large protected block forces a reciprocal-prefix excursion on which the
+fresh-prime Euler law can act. -/
+theorem nativePNTSignedSquareBlockMobiusCorrelation_large_forces_reciprocalPrefix
+    (N M L : Nat) (A : Real) (hA : 0 ≤ A)
+    (hlarge :
+      2 * (L : Real) * A <
+        |nativePNTSignedSquareBlockMobiusCorrelation N M L|) :
+    ∃ k : Nat, k ≤ L ∧
+      A < |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k| := by
+  by_contra hnone
+  have hprefix : ∀ k ≤ L,
+      |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k| ≤ A := by
+    intro k hk
+    apply le_of_not_gt
+    intro hkLarge
+    apply hnone
+    exact ⟨k, hk, hkLarge⟩
+  have hbound :=
+    nativePNTSignedSquareBlockMobiusCorrelation_abs_le_two_mul_endpoint
+      N M L A hA hprefix
+  exact (not_lt_of_ge hbound) hlarge
+
+/-- Literal unweighted Möbius-response summand of the protected block. -/
+def nativePNTSignedSquareBlockCorrelationSummand
+    (N M L m : Nat) : Real :=
+  (μ : ArithmeticFunction Real) m *
+    nativePNTSignedSquareBlockCofactorResponse N M L m
+
+/-- On the actual protected coordinate, adjoining a fresh prime gives complete
+Möbius sign cancellation except for the physical response difference.  This is
+the exact object whose matched-charge/survivor decomposition supplies leakage. -/
+theorem nativePNTSignedSquareBlockCorrelationSummand_add_mul_freshPrime
+    (N M L : Nat) {m p : Nat}
+    (hp : p.Prime) (hcop : Nat.Coprime m p) :
+    nativePNTSignedSquareBlockCorrelationSummand N M L m +
+        nativePNTSignedSquareBlockCorrelationSummand N M L (m * p) =
+      (μ : ArithmeticFunction Real) m *
+        (nativePNTSignedSquareBlockCofactorResponse N M L m -
+          nativePNTSignedSquareBlockCofactorResponse N M L (m * p)) := by
+  unfold nativePNTSignedSquareBlockCorrelationSummand
+  change
+    ((μ m : Int) : Real) * nativePNTSignedSquareBlockCofactorResponse N M L m +
+        ((μ (m * p) : Int) : Real) *
+          nativePNTSignedSquareBlockCofactorResponse N M L (m * p) =
+      ((μ m : Int) : Real) *
+        (nativePNTSignedSquareBlockCofactorResponse N M L m -
+          nativePNTSignedSquareBlockCofactorResponse N M L (m * p))
+  rw [nativeMobius_adjoin_prime m p hp hcop]
+  push_cast
+  ring
 
 end RHLean.Analysis
