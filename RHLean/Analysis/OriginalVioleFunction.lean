@@ -232,7 +232,7 @@ theorem nativePNTSignedSquareBlockMobiusCorrelation_abs_le_abelBudget
 sharp finite Abel factor `2L`. -/
 theorem nativePNTSignedSquareBlockMobiusCorrelation_abs_le_two_mul_endpoint
     (N M L : Nat) (A : Real)
-    (hA : 0 ≤ A)
+    (_hA : 0 ≤ A)
     (hprefix : ∀ k ≤ L,
       |nativePNTSignedSquareBlockCorrelationReciprocalPrefix N M L k| ≤ A) :
     |nativePNTSignedSquareBlockMobiusCorrelation N M L| ≤
@@ -368,6 +368,7 @@ theorem nativePNTDirectCutoffTransitionDivisorSet_eq_Icc
     nativePNTSquarePrefixSmallQuotientFiberSet_eq_Icc N M hM]
   have hdiv : N / L <= N / M :=
     Nat.div_le_div_left hML (by omega)
+  have hNM : N / M <= N := Nat.div_le_self N M
   ext d
   simp only [Finset.mem_sdiff, Finset.mem_Icc]
   omega
@@ -380,8 +381,8 @@ theorem mem_nativePNTDirectCutoffTransitionDivisorSet_iff
       d ∈ Finset.Icc 1 N ∧ M <= N / d ∧ N / d < L := by
   unfold nativePNTDirectCutoffTransitionDivisorSet
     nativePNTSquarePrefixSmallQuotientFiberSet
-  simp only [Finset.mem_sdiff, Finset.mem_filter, Finset.mem_Icc, not_lt]
-  tauto
+  simp only [Finset.mem_sdiff, Finset.mem_filter, Finset.mem_Icc]
+  omega
 
 /-- At the first subdoubling endpoint the moving transition annulus is empty.
 This is why the adjacent-square argument needs a finite-history seed before
