@@ -53,6 +53,8 @@ namespace RHLean.Analysis
 open RHLean.Arithmetic
 open RHLean.Proof
 
+attribute [local instance] Classical.propDecidable
+
 /-- The complete-square endpoint is monotone. -/
 theorem squarePrefixEndpoint_mono {a b : ℕ} (hab : a ≤ b) :
     squarePrefixEndpoint a ≤ squarePrefixEndpoint b := by
@@ -472,10 +474,10 @@ theorem squarefreePairFreshPrimeOwner_parentCube
   refine ⟨hfreshM, hfreshN, ?_⟩
   rcases squarefreePairFreshPrimeOwner_dvd_xor hm hn hmn hmpos hnpos with h | h
   · left
-    refine ⟨?_, squarefreePrimeFamilyParent_eq_of_not_dvd h.2 |>.symm⟩
+    refine ⟨?_, (squarefreePrimeFamilyParent_eq_of_not_dvd h.2).symm⟩
     exact (prime_mul_squarefreePrimeFamilyParent_eq h.1).symm
   · right
-    refine ⟨squarefreePrimeFamilyParent_eq_of_not_dvd h.2 |>.symm, ?_⟩
+    refine ⟨(squarefreePrimeFamilyParent_eq_of_not_dvd h.2).symm, ?_⟩
     exact (prime_mul_squarefreePrimeFamilyParent_eq h.1).symm
 
 /-- Owner-projector expansion of one physical Möbius pair over all primes up to
@@ -516,14 +518,14 @@ theorem squarefreePairFreshPrimeOwnerExpansion_eq_pairWeight
   have hpP : p ∈ primesUpTo X := mem_primesUpTo.mpr ⟨hp, hpX⟩
   unfold squarefreePairFreshPrimeOwnerExpansion
   rw [Finset.sum_eq_single p]
-  · simp [hpown]
-  · intro q hqP hqp
+  · rw [if_pos hpown]
+  · intro q _hqP hqp
     have hnot : ¬ IsSquarefreePairFreshPrimeOwner q m n := by
       intro hqown
       have hq_le : q ≤ p := hqown.2 p hpown.1
       have hp_le : p ≤ q := hpown.2 q hqown.1
       exact hqp (by omega)
-    simp [hnot]
+    rw [if_neg hnot]
   · exact fun hnot => (hnot hpP).elim
 
 /-- Sum every physical run pair after projecting it to its unique owner prime. -/
