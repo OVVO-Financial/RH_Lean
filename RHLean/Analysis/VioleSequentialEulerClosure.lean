@@ -18,15 +18,28 @@ forcing:
 
 `D = shared reciprocal drift - resolved-wheel drift - (L-M)`.
 
-For Viole cutoffs the common choice `y=r` resolves both endpoints from `r>=4`.
-Thus the old/new cross energy is literally the inherited endpoint error times a
-proper-fibre Euler forcing.  No absolute remainder, probability, independence,
-or auxiliary covariance envelope enters.
+There is an even more direct block form at every subdoubling endpoint.  The
+new-fibre mass is exactly the existing protected square-block Mobius
+correlation, so
+
+`D = -(protected block correlation + (L-M))`.
+
+Thus the endpoint update is literally `E(L) = E(M) - P`, where `P` is the
+protected block pull, and the complete energy change is
+
+`P^2 - 2 E(M) P`.
+
+For Viole cutoffs the common choice `y=r` resolves both endpoints from `r>=4`;
+the protected-block form already holds from the subdoubling onset `r>=3`.
+No absolute remainder, probability, independence, or auxiliary covariance
+envelope enters.
 
 The shared reciprocal drift is also expanded atom-by-atom.  On those sequential
 atoms adjoining one fresh prime has exactly the same Mobius cancellation law as
-`NativePNTSignedLocalSurplus`, with an exact positive absolute surplus.  This is
-the direct socket for the repository's matched-parent / survivor machinery.
+`NativePNTSignedLocalSurplus`, with an exact positive absolute surplus.  The
+protected block itself already has the repository's reciprocal fresh-prime law,
+physical-defect ledger, and Abel return.  These are now two exact views of the
+same one-step energy update.
 -/
 
 noncomputable section
@@ -241,6 +254,110 @@ theorem nativePNTSequentialEulerForcing_seed_contraction
       y M L hM hML hsub hMscale hLscale]
   nlinarith
 
+/-! ## Direct bridge to the protected square-block correlation -/
+
+/-- The signed amount by which the new physical block pulls the inherited
+endpoint error.  It is the already-defined protected Mobius correlation plus
+the deterministic physical block length. -/
+def nativePNTSequentialProtectedBlockPull (M L : Nat) : Real :=
+  nativePNTSignedSquareBlockMobiusCorrelation L M L +
+    ((L - M : Nat) : Real)
+
+/-- **The missing connection.**  At a subdoubling endpoint the entire new
+PNT-error discrepancy is the negative of the protected block pull.  This uses
+the exact #555 new-fibre identity and the existing interval Fubini theorem, so
+no same-wheel scale assumption is needed. -/
+theorem nativePNTSequentialSquareBlockDiscrepancy_eq_neg_protectedBlockPull
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M) :
+    nativePNTSequentialSquareBlockDiscrepancy M L =
+      -nativePNTSequentialProtectedBlockPull M L := by
+  have hD :=
+    nativePNTSequentialSquareBlockDiscrepancy_eq_lambdaMass_sub_length
+      M L hM hML
+  have hnew := nativePNTSequentialNewFiberMass_endpoint_of_subdoubling M L hsub
+  unfold nativePNTSequentialNewFiberMass at hnew
+  rw [nativeLambdaSquareBlockWeighted_eq_mobiusCorrelation L M L] at hnew
+  unfold nativePNTSequentialProtectedBlockPull
+  linarith
+
+/-- The endpoint itself is therefore updated by subtracting the protected block
+pull from the inherited error. -/
+theorem nativePNTError_eq_old_sub_protectedBlockPull
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M) :
+    nativePNTError L =
+      nativePNTError M - nativePNTSequentialProtectedBlockPull M L := by
+  have hD :=
+    nativePNTSequentialSquareBlockDiscrepancy_eq_neg_protectedBlockPull
+      M L hM hML hsub
+  unfold nativePNTSequentialSquareBlockDiscrepancy at hD
+  linarith
+
+/-- The #555 cross energy is exactly the negative old-error/protected-pull
+interaction. -/
+theorem nativePNTSequentialSquareBlockCrossEnergy_eq_neg_error_mul_protectedBlockPull
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M) :
+    nativePNTSequentialSquareBlockCrossEnergy M L =
+      -nativePNTError M * nativePNTSequentialProtectedBlockPull M L := by
+  unfold nativePNTSequentialSquareBlockCrossEnergy
+  rw [nativePNTSequentialSquareBlockDiscrepancy_eq_neg_protectedBlockPull
+    M L hM hML hsub]
+  ring
+
+/-- **Protected-correlation energy identity.**  The complete one-step energy
+change is `P^2 - 2 E(M) P` for the single protected block pull `P`.  Thus the
+positive diagonal and signed cross covariance are literally the square and
+linear parts of one already-formalized Euler object. -/
+theorem nativePNTError_sq_sub_sq_eq_protectedBlockPull_sq_sub_two_mul_error
+    (M L : Nat) (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M) :
+    nativePNTError L ^ 2 - nativePNTError M ^ 2 =
+      nativePNTSequentialProtectedBlockPull M L ^ 2 -
+        2 * nativePNTError M * nativePNTSequentialProtectedBlockPull M L := by
+  have henergy :=
+    nativePNTError_sq_sub_sq_eq_two_mul_crossEnergy_add_discrepancy_sq M L
+  rw [nativePNTSequentialSquareBlockCrossEnergy_eq_neg_error_mul_protectedBlockPull
+      M L hM hML hsub,
+    nativePNTSequentialSquareBlockDiscrepancy_eq_neg_protectedBlockPull
+      M L hM hML hsub] at henergy
+  nlinarith
+
+/-- The same-wheel Euler forcing and the protected block pull are the same
+quantity with opposite sign.  This identifies the sequential reciprocal/wheel
+view and the existing protected block/Abel view exactly. -/
+theorem nativePNTSequentialEulerForcing_eq_neg_protectedBlockPull
+    (y M L : Nat)
+    (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M)
+    (hMscale : M < 2 * y ^ 2) (hLscale : L < 2 * y ^ 2) :
+    nativePNTSequentialEulerForcing y M L =
+      -nativePNTSequentialProtectedBlockPull M L := by
+  have hEuler :=
+    nativePNTSequentialSquareBlockDiscrepancy_eq_eulerForcing
+      y M L hM hML hsub hMscale hLscale
+  have hProtected :=
+    nativePNTSequentialSquareBlockDiscrepancy_eq_neg_protectedBlockPull
+      M L hM hML hsub
+  linarith
+
+/-- Non-circular endpoint seed consumer stated directly on the protected block
+pull.  This is the exact socket to be paid by the existing fresh-prime physical
+defect / survivor / Abel machinery. -/
+theorem nativePNTSequentialProtectedBlockPull_seed_contraction
+    (M L : Nat) (alpha alpha' : Real)
+    (hM : 1 <= M) (hML : M <= L) (hsub : L < 2 * M)
+    (halpha : 0 <= alpha) (halpha' : 0 <= alpha')
+    (hold : |nativePNTError M| <= alpha * (M : Real))
+    (hpull :
+      nativePNTSequentialProtectedBlockPull M L ^ 2 -
+          2 * nativePNTError M * nativePNTSequentialProtectedBlockPull M L <=
+        (alpha' * (L : Real)) ^ 2 - (alpha * (M : Real)) ^ 2) :
+    |nativePNTError L| <= alpha' * (L : Real) := by
+  apply nativePNTSequentialCrossEnergy_seed_contraction
+    M L alpha alpha' halpha halpha' hold
+  rw [nativePNTSequentialSquareBlockCrossEnergy_eq_neg_error_mul_protectedBlockPull
+      M L hM hML hsub,
+    nativePNTSequentialSquareBlockDiscrepancy_eq_neg_protectedBlockPull
+      M L hM hML hsub]
+  nlinarith
+
 /-! ## Literal Viole specialization -/
 
 /-- The old Viole endpoint lies below twice the square of the same wheel cutoff
@@ -277,6 +394,54 @@ theorem violeClockCutoff_succ_lt_two_mul_sq
 def violeClockSequentialEulerForcing (r : Nat) : Real :=
   nativePNTSequentialEulerForcing r
     (violeClockCutoff r) (violeClockCutoff (r + 1))
+
+/-- Protected block pull for the literal Viole adjacent-square step. -/
+def violeClockProtectedBlockPull (r : Nat) : Real :=
+  nativePNTSequentialProtectedBlockPull
+    (violeClockCutoff r) (violeClockCutoff (r + 1))
+
+/-- **Viole protected-block closure.**  From the exact subdoubling onset, the
+new discrepancy is simply the negative protected block pull. -/
+theorem violeClockSequentialSquareBlockDiscrepancy_eq_neg_protectedBlockPull
+    (r : Nat) (hr : 3 <= r) :
+    nativePNTSequentialSquareBlockDiscrepancy
+        (violeClockCutoff r) (violeClockCutoff (r + 1)) =
+      -violeClockProtectedBlockPull r := by
+  unfold violeClockProtectedBlockPull
+  apply nativePNTSequentialSquareBlockDiscrepancy_eq_neg_protectedBlockPull
+  · unfold violeClockCutoff
+    nlinarith
+  · exact violeClockCutoff_le_succ r
+  · exact violeClockCutoff_succ_lt_two_mul r hr
+
+/-- The actual Viole cross-covariance increment is the negative interaction of
+the inherited endpoint error with the protected block pull. -/
+theorem violeClockSequentialCrossEnergy_eq_neg_error_mul_protectedBlockPull
+    (r : Nat) (hr : 3 <= r) :
+    violeClockSequentialCrossEnergy r =
+      -nativePNTError (violeClockCutoff r) * violeClockProtectedBlockPull r := by
+  unfold violeClockSequentialCrossEnergy violeClockProtectedBlockPull
+  apply nativePNTSequentialSquareBlockCrossEnergy_eq_neg_error_mul_protectedBlockPull
+  · unfold violeClockCutoff
+    nlinarith
+  · exact violeClockCutoff_le_succ r
+  · exact violeClockCutoff_succ_lt_two_mul r hr
+
+/-- The full Viole endpoint energy change is the residual-reduction quadratic
+of the existing protected block correlation. -/
+theorem violeClockError_energyChange_eq_protectedBlockPull
+    (r : Nat) (hr : 3 <= r) :
+    nativePNTError (violeClockCutoff (r + 1)) ^ 2 -
+        nativePNTError (violeClockCutoff r) ^ 2 =
+      violeClockProtectedBlockPull r ^ 2 -
+        2 * nativePNTError (violeClockCutoff r) *
+          violeClockProtectedBlockPull r := by
+  unfold violeClockProtectedBlockPull
+  apply nativePNTError_sq_sub_sq_eq_protectedBlockPull_sq_sub_two_mul_error
+  · unfold violeClockCutoff
+    nlinarith
+  · exact violeClockCutoff_le_succ r
+  · exact violeClockCutoff_succ_lt_two_mul r hr
 
 /-- **Viole closure.** From `r>=4`, the complete adjacent-square discrepancy is
 exactly the shared sequential Mobius drift minus the same-wheel resolved drift
