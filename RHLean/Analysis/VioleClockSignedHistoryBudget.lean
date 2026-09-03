@@ -129,10 +129,11 @@ theorem nativePNTDirectCutoffRecursiveAverage_abs_le
         have hqLt : N / d < N :=
           nativePNTDirectCutoff_recursive_quotient_lt N d hN hd2
         have hraw := hnew (N / d) hLd hqLt
-        have hqpos : 0 < (N / d : Real) := by
-          exact_mod_cast (show 0 < N / d by
-            have hdpos : 0 < d := by omega
-            exact Nat.div_pos (Finset.mem_Icc.mp hdI).2 hdpos)
+        have hqNat : 0 < N / d := by
+          have hdpos : 0 < d := by omega
+          exact Nat.div_pos (Finset.mem_Icc.mp hdI).2 hdpos
+        have hqpos : (0 : Real) < ((N / d : Nat) : Real) := by
+          exact_mod_cast hqNat
         have hnorm : |nativePNTNormalizedError (N / d)| <= alpha' := by
           unfold nativePNTNormalizedError
           rw [abs_div, abs_of_pos hqpos]
@@ -170,8 +171,12 @@ theorem nativePNTDirectCutoffTransitionAverage_abs_le
       have hdq := (mem_nativePNTDirectCutoffTransitionDivisorSet_iff N M L d).mp hd
       have hw0 := nativePNTNormalizedFloorWeight_nonneg N d
       have hraw := hold (N / d) hdq.2.1
-      have hqpos : 0 < (N / d : Real) := by
-        exact_mod_cast (show 0 < N / d by omega)
+      have hdI := Finset.mem_Icc.mp hdq.1
+      have hqNat : 0 < N / d := by
+        have hdpos : 0 < d := by omega
+        exact Nat.div_pos hdI.2 hdpos
+      have hqpos : (0 : Real) < ((N / d : Nat) : Real) := by
+        exact_mod_cast hqNat
       have hnorm : |nativePNTNormalizedError (N / d)| <= alpha := by
         unfold nativePNTNormalizedError
         rw [abs_div, abs_of_pos hqpos]
@@ -268,7 +273,11 @@ theorem nativePNTDirectCutoffInductionLaw_of_signedHistoryBudget
       _ <= alpha' * Real.log (N : Real) := hbud
   have hnorm : |nativePNTNormalizedError N| <= alpha' := by
     rw [abs_mul, abs_of_pos hlog] at hmulAbs
-    exact (mul_le_mul_iff_right₀ hlog).mp hmulAbs
+    have hmulAbs' :
+        Real.log (N : Real) * |nativePNTNormalizedError N| <=
+          Real.log (N : Real) * alpha' := by
+      simpa [mul_comm] using hmulAbs
+    exact (mul_le_mul_iff_right₀ hlog).mp hmulAbs'
   unfold nativePNTNormalizedError at hnorm
   rw [abs_div, abs_of_pos hNpos] at hnorm
   exact (div_le_iff₀ hNpos).1 hnorm
