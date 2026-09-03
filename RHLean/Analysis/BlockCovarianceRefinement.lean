@@ -261,4 +261,174 @@ theorem largePrimeFamilyPairSum_postRoot {p W : ℕ} (hp : p.Prime)
   have hlt : W / p < p := (Nat.div_lt_iff_lt_mul hp.pos).mpr hW
   omega
 
+/-! ## Fresh-prime pair-cube boundary recombination -/
+
+/-- The four signed descendants obtained by toggling a fresh prime in either
+coordinate of a physical ordered pair. -/
+def realMoebiusPairFourCornerMass (p K m n : ℕ) : ℝ :=
+  realMoebiusStep m * realMoebiusStep n * positiveLagPairIndicator K m n +
+    realMoebiusStep (p * m) * realMoebiusStep n *
+      positiveLagPairIndicator K (p * m) n +
+    realMoebiusStep m * realMoebiusStep (p * n) *
+      positiveLagPairIndicator K m (p * n) +
+    realMoebiusStep (p * m) * realMoebiusStep (p * n) *
+      positiveLagPairIndicator K (p * m) (p * n)
+
+/-- The packaged four-corner mass is exactly the old Möbius pair weight times
+the mixed prime cell. -/
+theorem realMoebiusPairFourCornerMass_eq_mixedPrimeCell
+    {p K m n : ℕ} (hp : p.Prime) (hpm : ¬ p ∣ m) (hpn : ¬ p ∣ n) :
+    realMoebiusPairFourCornerMass p K m n =
+      realMoebiusStep m * realMoebiusStep n *
+        positiveLagPairMixedPrimeCell p K m n := by
+  unfold realMoebiusPairFourCornerMass
+  exact realMoebiusPair_fourCorners_eq_mixedPrimeCell hp hpm hpn
+
+/-- **Local boundary recombination.**  Add the two orientations of one old pair.
+The two interior order-crossing shells cancel exactly, leaving only the top
+escape shell. -/
+theorem realMoebiusPairFourCornerMass_add_swap_eq_topEscape
+    {p K m n : ℕ} (hp : p.Prime) (hmn : m < n)
+    (hpm : ¬ p ∣ m) (hpn : ¬ p ∣ n) :
+    realMoebiusPairFourCornerMass p K m n +
+        realMoebiusPairFourCornerMass p K n m =
+      realMoebiusStep m * realMoebiusStep n *
+        (if n < K ∧ K ≤ p * m then 1 else 0) := by
+  rw [realMoebiusPairFourCornerMass_eq_mixedPrimeCell hp hpm hpn,
+    realMoebiusPairFourCornerMass_eq_mixedPrimeCell hp hpn hpm]
+  have hswap : realMoebiusStep n * realMoebiusStep m =
+      realMoebiusStep m * realMoebiusStep n := by ring
+  rw [hswap, ← mul_add,
+    positiveLagPairMixedPrimeCell_add_swap_eq_topEscape hp hmn hpn]
+
+/-- Sum of the swapped four-corner pair cubes over an arbitrary old pair
+carrier.  The carrier can include pairs from other Euler families; the only
+requirement below is that `p` is fresh in both old coordinates. -/
+def realMoebiusPairFourCornerBoundarySum
+    (p K : ℕ) (S : Finset (ℕ × ℕ)) : ℝ :=
+  ∑ mn ∈ S,
+    (realMoebiusPairFourCornerMass p K mn.1 mn.2 +
+      realMoebiusPairFourCornerMass p K mn.2 mn.1)
+
+/-- The corresponding signed top-escape boundary on the same old pair carrier. -/
+def realMoebiusPairTopEscapeBoundarySum
+    (p K : ℕ) (S : Finset (ℕ × ℕ)) : ℝ :=
+  ∑ mn ∈ S,
+    realMoebiusStep mn.1 * realMoebiusStep mn.2 *
+      (if mn.2 < K ∧ K ≤ p * mn.1 then 1 else 0)
+
+/-- **Finite-carrier boundary recombination.**  Complete fresh-prime pair cubes
+cancel on every interior order shell.  After summing the signed old carrier,
+only the explicit top-escape boundary remains.  No absolute value is taken and
+no distributional assumption is used. -/
+theorem realMoebiusPairFourCornerBoundaryRecombination
+    {p K : ℕ} (S : Finset (ℕ × ℕ)) (hp : p.Prime)
+    (hS : ∀ mn ∈ S,
+      mn.1 < mn.2 ∧ ¬ p ∣ mn.1 ∧ ¬ p ∣ mn.2) :
+    realMoebiusPairFourCornerBoundarySum p K S =
+      realMoebiusPairTopEscapeBoundarySum p K S := by
+  unfold realMoebiusPairFourCornerBoundarySum
+    realMoebiusPairTopEscapeBoundarySum
+  apply Finset.sum_congr rfl
+  intro mn hmn
+  rcases hS mn hmn with ⟨hlt, hfresh1, hfresh2⟩
+  exact realMoebiusPairFourCornerMass_add_swap_eq_topEscape
+    hp hlt hfresh1 hfresh2
+
+/-- The complete lower-prefix pair carrier, recombined through the two
+orientations of the fresh-prime four-corner cube. -/
+def freshPrimePrefixPairCubeBoundaryMass (p K : ℕ) : ℝ :=
+  ∑ n ∈ Finset.range K,
+    ∑ m ∈ Finset.range n,
+      (realMoebiusPairFourCornerMass p K m n +
+        realMoebiusPairFourCornerMass p K n m)
+
+/-- **Complete-prefix specialization.**  If the whole old prefix lies below the
+fresh prime, the top escape left by four-corner cancellation is exactly the old
+positive-lag Möbius covariance.  Thus the boundary is not estimated: it is
+identified with the lower-scale covariance. -/
+theorem freshPrimePrefixPairCubeBoundaryMass_eq_positiveLag
+    {p K : ℕ} (hp : p.Prime) (hK : K ≤ p) :
+    freshPrimePrefixPairCubeBoundaryMass p K =
+      realMertensPositiveLagPairSum K := by
+  rw [realMertensPositiveLagPairSum_eq_doubleSum]
+  unfold freshPrimePrefixPairCubeBoundaryMass
+  apply Finset.sum_congr rfl
+  intro n hn
+  have hnK : n < K := Finset.mem_range.mp hn
+  apply Finset.sum_congr rfl
+  intro m hm
+  have hmn : m < n := Finset.mem_range.mp hm
+  by_cases hm0 : m = 0
+  · subst m
+    simp [realMoebiusPairFourCornerMass, realMoebiusStep]
+  · have hmpos : 0 < m := Nat.pos_of_ne_zero hm0
+    have hnpos : 0 < n := lt_trans hmpos hmn
+    have hnp : n < p := lt_of_lt_of_le hnK hK
+    have hmp : m < p := hmn.trans hnp
+    have hpm : ¬ p ∣ m := by
+      intro hdiv
+      exact absurd (Nat.le_of_dvd hmpos hdiv) (not_le.mpr hmp)
+    have hpn : ¬ p ∣ n := by
+      intro hdiv
+      exact absurd (Nat.le_of_dvd hnpos hdiv) (not_le.mpr hnp)
+    have hpair :=
+      realMoebiusPairFourCornerMass_add_swap_eq_topEscape
+        hp hmn hpm hpn
+    have hm1 : 1 ≤ m := hmpos
+    have hp_le_pm : p ≤ p * m := by
+      have hmul := Nat.mul_le_mul_left p hm1
+      simpa using hmul
+    have htop : K ≤ p * m := hK.trans hp_le_pm
+    rw [hpair]
+    simp [hnK, htop]
+
+/-- **Boundary recombination equals covariance descent.**  For a complete fresh
+prime family, the entire swapped four-corner boundary is exactly the covariance
+carried inside that prime family.  This is the exact bridge between the
+four-corner cancellation layer and the lower-scale family descent layer. -/
+theorem freshPrimePrefixPairCubeBoundaryMass_eq_familyPairCovariance
+    {p K : ℕ} (hp : p.Prime) (hK : K ≤ p) :
+    freshPrimePrefixPairCubeBoundaryMass p K =
+      largePrimeFamilyPairSum p K := by
+  rw [freshPrimePrefixPairCubeBoundaryMass_eq_positiveLag hp hK,
+    largePrimeFamilyPairSum_eq hp hK]
+
+/-- Post-root form of the same recombination: the complete physical `p`-family
+through cutoff `W` is exactly the boundary left after the fresh-prime pair cube
+has canceled its interior shells. -/
+theorem freshPrimePrefixPairCubeBoundaryMass_postRoot_eq_familyPairCovariance
+    {p W : ℕ} (hp : p.Prime) (hW : W < p * p) :
+    freshPrimePrefixPairCubeBoundaryMass p (W / p + 1) =
+      largePrimeFamilyPairSum p (W / p + 1) := by
+  apply freshPrimePrefixPairCubeBoundaryMass_eq_familyPairCovariance hp
+  have hlt : W / p < p := (Nat.div_lt_iff_lt_mul hp.pos).mpr hW
+  omega
+
+/-- Aggregate the complete-prefix four-corner boundary over any finite family of
+fresh primes. -/
+def freshPrimeFamilySetPairCubeBoundaryMass
+    (P : Finset ℕ) (K : ℕ) : ℝ :=
+  ∑ p ∈ P, freshPrimePrefixPairCubeBoundaryMass p K
+
+/-- **Family-set recombination.**  If every prime in `P` is fresh above the same
+lower prefix `K`, all complete pair cubes reduce exactly to prime cardinality
+times the one lower-scale covariance.  This is the form consumed by reciprocal
+quotient bands. -/
+theorem freshPrimeFamilySetPairCubeBoundaryMass_eq_card_mul_positiveLag
+    (P : Finset ℕ) (K : ℕ)
+    (hprime : ∀ p ∈ P, p.Prime)
+    (hK : ∀ p ∈ P, K ≤ p) :
+    freshPrimeFamilySetPairCubeBoundaryMass P K =
+      (P.card : ℝ) * realMertensPositiveLagPairSum K := by
+  unfold freshPrimeFamilySetPairCubeBoundaryMass
+  calc
+    (∑ p ∈ P, freshPrimePrefixPairCubeBoundaryMass p K) =
+        ∑ _p ∈ P, realMertensPositiveLagPairSum K := by
+          apply Finset.sum_congr rfl
+          intro p hpP
+          exact freshPrimePrefixPairCubeBoundaryMass_eq_positiveLag
+            (hprime p hpP) (hK p hpP)
+    _ = (P.card : ℝ) * realMertensPositiveLagPairSum K := by simp
+
 end RHLean.Analysis
