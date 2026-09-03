@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Arithmetic.DyadicFrozenPrefix
+import RHLean.Analysis.NativePNTMertens
 import RHLean.Analysis.SquareRunEscapeCovariance
 import RHLean.Proof.PrimeCombReciprocalBandCancellation
 
@@ -598,5 +599,153 @@ theorem frozenSquareRunEnergyBounded_iff_primorialResidualBounded :
       PrimeWheelResidualBoundedStatement primorialWheelFamily := by
   exact frozenSquareRunEnergyBounded_iff_squareRunEnergyBounded.trans
     squareRunEnergyBounded_iff_primorialResidualBounded
+
+/-! ## Exact floor normalization and reciprocal-band covariance descent -/
+
+/-- The upper reciprocal-floor transform truncated at the prefix cutoff `A`. -/
+def frozenTruncatedFloorTransform (A W : ℕ) : ℂ :=
+  ∑ d ∈ Finset.Ico 1 A,
+    (((μ d : ℤ) : ℂ)) * (((W / d : ℕ) : ℂ))
+
+/-- At the lower square endpoint the complete Möbius-floor transform is exactly
+`1`.  Thus the lower endpoint of the frozen kernel is not an analytic term at
+all: it is a rigid Möbius-inversion constant. -/
+theorem frozenTruncatedFloorTransform_squarePred_eq_one
+    (a : ℕ) (ha : 2 ≤ a) :
+    frozenTruncatedFloorTransform (a ^ 2) (a ^ 2 - 1) = 1 := by
+  have hN : 1 ≤ a ^ 2 - 1 := by nlinarith
+  have hset : Finset.Ico 1 (a ^ 2) = Finset.Icc 1 (a ^ 2 - 1) := by
+    ext d
+    simp only [Finset.mem_Ico, Finset.mem_Icc]
+    omega
+  have h := nativeSumMoebiusMulFloor (a ^ 2 - 1) hN
+  have hc := congrArg (fun z : ℤ => (z : ℂ)) h
+  push_cast at hc
+  unfold frozenTruncatedFloorTransform
+  rw [hset]
+  simpa using hc
+
+/-- The frozen kernel is exactly the difference of two signed reciprocal-floor
+transforms on the same frozen divisor carrier. -/
+theorem frozenSquareRunKernel_eq_truncatedFloorTransform_sub
+    (a b : ℕ) (ha : 1 ≤ a) (hab : a ≤ b) :
+    frozenSquareRunKernel a b =
+      frozenTruncatedFloorTransform (a ^ 2) (((b + 1) ^ 2) - 1) -
+        frozenTruncatedFloorTransform (a ^ 2) (a ^ 2 - 1) := by
+  unfold frozenSquareRunKernel frozenTruncatedFloorTransform
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro d _hd
+  have hsq : a ^ 2 ≤ (b + 1) ^ 2 :=
+    Nat.pow_le_pow_left (by omega) 2
+  have hpred : a ^ 2 - 1 ≤ (b + 1) ^ 2 - 1 := by omega
+  have hdiv : (a ^ 2 - 1) / d ≤ (((b + 1) ^ 2) - 1) / d :=
+    Nat.div_le_div_right hpred
+  rw [frozenFloorWeight_eq_div_sub_div ha hab]
+  rw [Nat.cast_sub hdiv]
+  ring
+
+/-- After Möbius inversion removes the lower endpoint, the entire kernel is one
+truncated upper reciprocal-floor transform minus the rigid constant `1`. -/
+theorem frozenSquareRunKernel_eq_truncatedUpper_sub_one
+    (a b : ℕ) (ha : 2 ≤ a) (hab : a ≤ b) :
+    frozenSquareRunKernel a b =
+      frozenTruncatedFloorTransform (a ^ 2) (((b + 1) ^ 2) - 1) - 1 := by
+  rw [frozenSquareRunKernel_eq_truncatedFloorTransform_sub a b (by omega) hab,
+    frozenTruncatedFloorTransform_squarePred_eq_one a ha]
+
+/-- Real reciprocal-band family mass kernel.  It is the real form of the
+existing exact family mass `-M(z)`. -/
+def frozenReciprocalBandMassKernelReal (z : ℕ) : ℝ :=
+  -realMertensLength (z + 1)
+
+/-- Lower-prefix pair covariance carried by reciprocal quotient depth `z`. -/
+def frozenReciprocalBandCovarianceKernel (z : ℕ) : ℝ :=
+  realMertensPositiveLagPairSum (z + 1)
+
+/-- The real mass kernel is exactly the existing complex reciprocal-band family
+kernel after casting. -/
+theorem frozenReciprocalBandMassKernelReal_cast_eq_primeCombFamilyKernel
+    (z : ℕ) :
+    ((frozenReciprocalBandMassKernelReal z : ℝ) : ℂ) =
+      primeCombReciprocalBandFamilyKernel z := by
+  change -((realMertensLength (z + 1) : ℝ) : ℂ) = -mertensSummatory z
+  exact congrArg Neg.neg (realMertensLength_cast_eq_mertensSummatory z)
+
+/-- Adding the next lower-prefix Möbius coordinate changes the reciprocal-band
+family mass by the exact sign flip `-mu(z+1)`. -/
+theorem frozenReciprocalBandMassKernelReal_succ_sub (z : ℕ) :
+    frozenReciprocalBandMassKernelReal (z + 1) -
+      frozenReciprocalBandMassKernelReal z =
+        -realMoebiusStep (z + 1) := by
+  unfold frozenReciprocalBandMassKernelReal
+  rw [realMertensLength_succ]
+  ring
+
+/-- The same successor changes lower-prefix pair covariance by the current
+prefix times the new Möbius coordinate. -/
+theorem frozenReciprocalBandCovarianceKernel_succ_sub (z : ℕ) :
+    frozenReciprocalBandCovarianceKernel (z + 1) -
+      frozenReciprocalBandCovarianceKernel z =
+        realMoebiusStep (z + 1) * realMertensLength (z + 1) := by
+  unfold frozenReciprocalBandCovarianceKernel
+  rw [realMertensPositiveLagPairSum_succ]
+
+/-- **Mass/covariance coupling.**  The covariance response is exactly mass
+level times mass increment.  Hence an outward reciprocal-band update creates
+positive covariance and a restoring update creates negative covariance, with no
+probabilistic assumption and no absolute values. -/
+theorem frozenReciprocalBandCovarianceKernel_succ_sub_eq_mass_mul_mass_diff
+    (z : ℕ) :
+    frozenReciprocalBandCovarianceKernel (z + 1) -
+        frozenReciprocalBandCovarianceKernel z =
+      frozenReciprocalBandMassKernelReal z *
+        (frozenReciprocalBandMassKernelReal (z + 1) -
+          frozenReciprocalBandMassKernelReal z) := by
+  rw [frozenReciprocalBandCovarianceKernel_succ_sub,
+    frozenReciprocalBandMassKernelReal_succ_sub]
+  unfold frozenReciprocalBandMassKernelReal
+  ring
+
+/-- One post-root prime family in reciprocal band `z` has exactly the
+lower-scale covariance kernel at depth `z`. -/
+theorem primeCombReciprocalBand_familyPairCovariance_eq
+    {W z p : ℕ} (hz : 0 < z) (hpRoot : Nat.sqrt W < p)
+    (hp : p ∈ primeCombReciprocalBand W z) :
+    largePrimeFamilyPairSum p (z + 1) =
+      frozenReciprocalBandCovarianceKernel z := by
+  have hsq : W < p ^ 2 := (Nat.sqrt_lt').1 hpRoot
+  have hW : W < p * p := by simpa [pow_two] using hsq
+  have h := largePrimeFamilyPairSum_postRoot
+    (primeCombReciprocalBand_prime hp) hW
+  rw [primeCombReciprocalBand_div_eq hz hp] at h
+  simpa [frozenReciprocalBandCovarianceKernel] using h
+
+/-- Total post-root family covariance in one reciprocal band. -/
+def primeCombPostRootReciprocalBandPairCovariance (W z : ℕ) : ℝ :=
+  ∑ p ∈ primeCombPostRootReciprocalBand W z,
+    largePrimeFamilyPairSum p (z + 1)
+
+/-- **Whole-band covariance descent.**  Every post-root family in a quotient
+band is covariance-isomorphic to the same completed lower prefix, so the whole
+band is exactly prime cardinality times lower-scale covariance. -/
+theorem primeCombPostRootReciprocalBandPairCovariance_eq_card_mul
+    (W z : ℕ) (hz : 0 < z) :
+    primeCombPostRootReciprocalBandPairCovariance W z =
+      ((primeCombPostRootReciprocalBand W z).card : ℝ) *
+        frozenReciprocalBandCovarianceKernel z := by
+  unfold primeCombPostRootReciprocalBandPairCovariance
+  calc
+    (∑ p ∈ primeCombPostRootReciprocalBand W z,
+        largePrimeFamilyPairSum p (z + 1)) =
+      ∑ _p ∈ primeCombPostRootReciprocalBand W z,
+        frozenReciprocalBandCovarianceKernel z := by
+          apply Finset.sum_congr rfl
+          intro p hp
+          rcases mem_primeCombPostRootReciprocalBand.mp hp with
+            ⟨hpBand, hpRoot⟩
+          exact primeCombReciprocalBand_familyPairCovariance_eq hz hpRoot hpBand
+    _ = ((primeCombPostRootReciprocalBand W z).card : ℝ) *
+        frozenReciprocalBandCovarianceKernel z := by simp
 
 end RHLean.Analysis
