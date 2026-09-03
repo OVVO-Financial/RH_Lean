@@ -1,6 +1,8 @@
 import Mathlib
 import RHLean.Analysis.NativePNTLogSums
+import RHLean.Analysis.NativePNTErdosContraction
 import RHLean.Analysis.NativePNTEvolvingTailState
+import RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
 
 /-!
 # Structural obstruction for the absolute evolving-tail state
@@ -151,5 +153,124 @@ theorem nativePNTEvolvingTailCost_ge_canonical_obstruction
     nativeLambdaTwoRecipDefect
   rw [← hsplit]
   nlinarith
+
+/-! ## Consequence for the state-dependent cubic consumer -/
+
+/-- The good mass available to the state-dependent tail step is a positive
+submass of the total reciprocal `Lambda_2` mass. -/
+theorem nativeLambdaTwoGoodTailRecipMass_le_recipMass
+    (N M : ℕ) (beta : ℝ) :
+    nativeLambdaTwoGoodTailRecipMass N M beta ≤
+      nativeLambdaTwoRecipMass N := by
+  unfold nativeLambdaTwoGoodTailRecipMass nativeLambdaTwoRecipMass
+    nativePNTSquarePrefixGoodTailFiberSet nativePNTSquarePrefixTailFiberSet
+  refine Finset.sum_le_sum_of_subset_of_nonneg ?_ ?_
+  · intro n hn
+    exact (Finset.mem_filter.mp (Finset.mem_filter.mp hn).1).1
+  · intro n hn _hgood
+    have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
+    exact div_nonneg (nativeLambdaTwo_nonneg n hn1) (by positivity)
+
+/-- The canonical absolute-remainder state has an explicit finite upper bound
+on its net gain.  The positive good-tail contribution can use at most the full
+reciprocal `Lambda_2` mass, while the canonical evolving cost retains the
+`N log N` floor proved above. -/
+theorem primeSieveStateDependentSelbergNetGain_le_canonical_obstruction
+    (N M : ℕ) (alpha beta : ℝ)
+    (hN : 3 ≤ N) (halpha : 0 ≤ alpha) (hba : beta ≤ alpha) :
+    primeSieveStateDependentSelbergNetGain N M alpha beta ≤
+      alpha * (N : ℝ) *
+          (2 * (Real.log (N : ℝ)) ^ 2 +
+            1000 * Real.log (N : ℝ) + 2000) -
+        ((N : ℝ) - 1 - Real.log (N : ℝ)) * Real.log (N : ℝ) := by
+  have hmass := nativeLambdaTwoGoodTailRecipMass_le_recipMass N M beta
+  have htotal := nativeLambdaTwoRecipMass_upper N hN
+  have hgoodMass :
+      nativeLambdaTwoGoodTailRecipMass N M beta ≤
+        (Real.log (N : ℝ)) ^ 2 +
+          1000 * Real.log (N : ℝ) + 2000 :=
+    hmass.trans htotal
+  have hN0 : 0 ≤ (N : ℝ) := by positivity
+  have hcoef0 : 0 ≤ (alpha - beta) * (N : ℝ) :=
+    mul_nonneg (sub_nonneg.mpr hba) hN0
+  have hgoodScaled := mul_le_mul_of_nonneg_left hgoodMass hcoef0
+  have hlog0 : 0 ≤ Real.log (N : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast (show 1 ≤ N by omega))
+  have hupper0 :
+      0 ≤ (Real.log (N : ℝ)) ^ 2 +
+          1000 * Real.log (N : ℝ) + 2000 := by
+    nlinarith [sq_nonneg (Real.log (N : ℝ))]
+  have hcoefLe :
+      (alpha - beta) * (N : ℝ) ≤ alpha * (N : ℝ) := by
+    nlinarith
+  have hcoefScaled := mul_le_mul_of_nonneg_right hcoefLe hupper0
+  have hgoodTerm :
+      (alpha - beta) * (N : ℝ) *
+          nativeLambdaTwoGoodTailRecipMass N M beta ≤
+        alpha * (N : ℝ) *
+          ((Real.log (N : ℝ)) ^ 2 +
+            1000 * Real.log (N : ℝ) + 2000) :=
+    hgoodScaled.trans hcoefScaled
+  have hcost := nativePNTEvolvingTailCost_ge_canonical_obstruction
+    N M alpha (by omega) halpha
+  rw [primeSieveStateDependentSelbergNetGain_eq]
+  nlinarith
+
+/-- If the canonical `N log N` floor is already larger than the largest
+possible good-tail deficit at an endpoint, no positive cubic power gain exists
+there.  This is a finite obstruction, not an asymptotic statement. -/
+theorem primeSieveStateDependentSelberg_no_positive_powerGain_of_canonical_obstruction
+    (c : ℝ) (N M : ℕ) (alpha beta : ℝ)
+    (hN : 3 ≤ N) (hc : 0 < c) (halpha : 0 < alpha)
+    (hba : beta < alpha)
+    (hobs :
+      alpha * (N : ℝ) *
+          (2 * (Real.log (N : ℝ)) ^ 2 +
+            1000 * Real.log (N : ℝ) + 2000) <
+        ((N : ℝ) - 1 - Real.log (N : ℝ)) * Real.log (N : ℝ)) :
+    ¬ PrimeSieveStateDependentSelbergStateHasPowerGain
+        c 3 N M alpha beta := by
+  intro hgain
+  have hnet := primeSieveStateDependentSelbergNetGain_le_canonical_obstruction
+    N M alpha beta hN halpha.le hba.le
+  have hnetNeg :
+      primeSieveStateDependentSelbergNetGain N M alpha beta < 0 := by
+    linarith
+  have hNR : 0 < (N : ℝ) := by
+    exact_mod_cast (show 0 < N by omega)
+  have hlog : 0 < Real.log (N : ℝ) := by
+    apply Real.log_pos
+    exact_mod_cast (show 1 < N by omega)
+  have hlhs :
+      0 < c * alpha ^ 3 * (N : ℝ) * (Real.log (N : ℝ)) ^ 2 := by
+    positivity
+  unfold PrimeSieveStateDependentSelbergStateHasPowerGain at hgain
+  linarith
+
+/-- **No-go for the current moving-cutoff consumer.**  Because
+`CubicGainFromTo M L alpha c` quantifies over every endpoint `N ≥ L`, it must in
+particular supply a power gain at `N = L`.  Under the explicit finite
+obstruction below, the canonical absolute-remainder state makes that impossible
+for every positive block coefficient `c`.
+
+Thus a square-block signed argument cannot be inserted merely as a lower bound
+for the present canonical net gain once this inequality holds: the consumer
+itself must first expose a signed remainder state that can receive that block
+cancellation. -/
+theorem primeSieveStateDependentSelberg_no_positive_cubicGainFromTo_of_canonical_obstruction
+    (M L : ℕ) (alpha c : ℝ)
+    (hL : 3 ≤ L) (halpha : 0 < alpha) (hc : 0 < c)
+    (hobs :
+      alpha * (L : ℝ) *
+          (2 * (Real.log (L : ℝ)) ^ 2 +
+            1000 * Real.log (L : ℝ) + 2000) <
+        ((L : ℝ) - 1 - Real.log (L : ℝ)) * Real.log (L : ℝ)) :
+    ¬ PrimeSieveStateDependentSelbergCubicGainFromTo M L alpha c := by
+  intro hgain
+  rcases hgain with ⟨_hML, hgain⟩
+  rcases hgain L le_rfl with ⟨beta, _hbeta0, hbeta, hpower⟩
+  exact
+    (primeSieveStateDependentSelberg_no_positive_powerGain_of_canonical_obstruction
+      c L M alpha beta hL hc halpha hbeta hobs) hpower
 
 end RHLean.Analysis
