@@ -98,7 +98,7 @@ The `d=1` fibre has zero von-Mangoldt weight; every other quotient is strictly
 smaller than `N`. -/
 theorem nativePNTDirectCutoffRecursiveAverage_abs_le
     (N L : Nat) (alpha' : Real)
-    (hN : 1 <= N) (hL : L <= N) (halpha' : 0 <= alpha')
+    (hN : 1 <= N) (_hL : L <= N) (_halpha' : 0 <= alpha')
     (hnew : forall q : Nat, L <= q -> q < N ->
       |nativePNTError q| <= alpha' * (q : Real)) :
     |nativePNTDirectCutoffRecursiveAverage N L| <=
@@ -151,7 +151,7 @@ theorem nativePNTDirectCutoffRecursiveAverage_abs_le
 /-- Transition-region estimate from the old true tail. -/
 theorem nativePNTDirectCutoffTransitionAverage_abs_le
     (N M L : Nat) (alpha : Real)
-    (halpha : 0 <= alpha)
+    (_halpha : 0 <= alpha)
     (hold : forall q : Nat, M <= q ->
       |nativePNTError q| <= alpha * (q : Real)) :
     |nativePNTDirectCutoffTransitionAverage N M L| <=
