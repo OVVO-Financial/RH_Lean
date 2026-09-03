@@ -407,7 +407,7 @@ theorem nativePNTDirectCutoffSignedHistoryBudget_seed_iff_normalizedError
     nativePNTDirectCutoffTransitionWeight_endpoint_eq_zero_of_subdoubling
       M L hM1 hML hsub]
   simp only [mul_zero, add_zero, abs_mul, abs_of_pos hlog]
-  exact mul_le_mul_right hlog
+  exact mul_le_mul_iff_left₀ hlog
 
 /-- The square-block von-Mangoldt discrepancy is exactly the change in the PNT
 error across the block. This is the local signed object that must interact with
