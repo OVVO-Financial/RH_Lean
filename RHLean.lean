@@ -489,6 +489,7 @@ import RHLean.Proof.LowWheelCanonicalRepeatedParentClassification
 import RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
 import RHLean.Proof.LowWheelCanonicalRepeatedTerminalHighPrimeBridge
 import RHLean.Proof.LowWheelCanonicalRepeatedTerminalInternalMate
+import RHLean.Proof.LowWheelCanonicalSqrtDenseContraction
 import RHLean.Proof.LowWheelCofactorQuotientToggle
 import RHLean.Proof.LowWheelDoubleCubeSequentialFold
 import RHLean.Proof.LowWheelDoubleCubeTransport

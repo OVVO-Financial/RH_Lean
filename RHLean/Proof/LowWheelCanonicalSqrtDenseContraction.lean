@@ -48,8 +48,11 @@ theorem sqrt_mul_root_lt_succ_fourth (R : ℕ) :
     dsimp [s]
     exact Nat.lt_succ_sqrt' R
   by_cases hs : s = 0
-  · subst s
-    simp
+  · -- `subst` on the let-bound `s` replaces it by its definition `Nat.sqrt R`,
+    -- not by `0`, so `hs` has to be handed to `simp` explicitly; the goal is
+    -- then `0 * R < (0 + 1) ^ 4`.
+    subst s
+    simp [hs]
   · have hspos : 0 < s := Nat.pos_of_ne_zero hs
     have hleft : s * R < s * (s + 1) ^ 2 :=
       Nat.mul_lt_mul_of_pos_left hR hspos
