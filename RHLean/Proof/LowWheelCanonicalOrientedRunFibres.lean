@@ -650,4 +650,112 @@ theorem orientedChargingFace_fourthUnsafe_forces_firstLowerJump
   · exact (hnot hdense).elim
   · exact hjump
 
+/-! ## The actual owner fourth-power wall
+
+The Go fourth-power geometry is expressed at the *fresh owner* itself, not at
+an arbitrary face prime.  At smooth scale `Y = 1`, every prime coordinate is
+large.  If the canonical pivot `q` satisfies `X_R < q^4`, the physical ceiling
+forces `primeFaceProduct t < q^3`; therefore adjoining `q` to its complete old
+face is not triply predecessor-dense.  Its canonical first multiplicative jump
+is either exactly `q` (the terminal owner wall) or occurs at a strictly smaller
+face prime. -/
+
+/-- If the fresh canonical owner lies beyond the fourth-power wall, adjoining
+it to the old face fails triply predecessor density at smooth scale one. -/
+theorem orientedChargingFace_ownerFourthUnsafe_insert_not_triplyDense
+    {R c k : ℕ} {t : Finset ℕ}
+    (ht : t ∈ lowWheelCanonicalDowncrossOrientedChargingFaces R (c, k))
+    (hunsafe :
+      squareRootEndpoint R <
+        (lowWheelCanonicalDowncrossPivot (c, k)) ^ 4) :
+    ¬ PredecessorDenseFace 3 1
+      (insert (lowWheelCanonicalDowncrossPivot (c, k)) t) := by
+  let q := lowWheelCanonicalDowncrossPivot (c, k)
+  change ¬ PredecessorDenseFace 3 1 (insert q t)
+  rcases mem_lowWheelCanonicalDowncrossOrientedChargingFaces.mp ht with
+    ⟨htPow, hx⟩
+  have hdown := (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx).1
+  have hgeom := lowWheelCanonicalDowncross_firstFailure_geometry hdown
+  dsimp only at hgeom
+  have hqPrime : q.Prime := by
+    simpa [q] using hgeom.1
+  have hkPivot := lowWheelCanonicalDowncrossOriented_quotient_eq_pivot hx
+  have hk : k = q := by
+    simpa [q] using hkPivot
+  have hpTop : ∀ p ∈ t, p < q := by
+    intro p hpt
+    simpa [q] using
+      lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot htPow hx hpt
+  have hphys := (mem_lowWheelCanonicalDowncrossPart.mp hdown).1
+  have hphysical := mem_lowWheelCanonicalPhysicalStateSet.mp hphys
+  have hcarrier := hphysical.2.2.2
+  rcases hcarrier with ⟨hc1, _hcR, _hhigh, htop⟩
+  rw [hk] at htop
+  have hQle : primeFaceProduct t ≤ c * primeFaceProduct t := by
+    simpa [one_mul] using Nat.mul_le_mul_right (primeFaceProduct t) hc1
+  have hQq : primeFaceProduct t * q ≤ squareRootEndpoint R := by
+    exact (Nat.mul_le_mul_right q hQle).trans htop
+  have hQlt : primeFaceProduct t < q ^ 3 := by
+    by_contra hnot
+    have hq3Q : q ^ 3 ≤ primeFaceProduct t := Nat.le_of_not_gt hnot
+    have hq4Qq : q ^ 4 ≤ primeFaceProduct t * q := by
+      calc
+        q ^ 4 = q ^ 3 * q := by ring
+        _ ≤ primeFaceProduct t * q := Nat.mul_le_mul_right q hq3Q
+    have hq4X : q ^ 4 ≤ squareRootEndpoint R := hq4Qq.trans hQq
+    have hXq4 : squareRootEndpoint R < q ^ 4 := by
+      simpa [q] using hunsafe
+    omega
+  intro hdense
+  have hqCond := hdense q (by simp) hqPrime.one_lt
+  rw [predecessorPrimeFaceProduct_insert_top hpTop] at hqCond
+  have hq3Q : q ^ 3 ≤ primeFaceProduct t := by
+    simpa using hqCond
+  omega
+
+/-- **Descending-or-terminal owner classification.**  Beyond the owner
+fourth-power wall, the canonical first multiplicative jump on `insert q t` is
+either the owner itself, in which case the complete predecessor face `t` is
+already triply dense and has product below `q^3`, or a strictly lower face
+prime with its own already-dense predecessor cube. -/
+theorem orientedChargingFace_ownerFourthUnsafe_firstJump_dichotomy
+    {R c k : ℕ} {t : Finset ℕ}
+    (ht : t ∈ lowWheelCanonicalDowncrossOrientedChargingFaces R (c, k))
+    (hunsafe :
+      squareRootEndpoint R <
+        (lowWheelCanonicalDowncrossPivot (c, k)) ^ 4) :
+    (PredecessorDenseFace 3 1 t ∧
+      primeFaceProduct t <
+        (lowWheelCanonicalDowncrossPivot (c, k)) ^ 3) ∨
+      ∃ p ∈ t,
+        p < lowWheelCanonicalDowncrossPivot (c, k) ∧
+        predecessorPrimeFaceProduct t p < p ^ 3 ∧
+          PredecessorDenseFace 3 1 (predecessorPrimeFace t p) := by
+  let q := lowWheelCanonicalDowncrossPivot (c, k)
+  have hnot : ¬ PredecessorDenseFace 3 1 (insert q t) := by
+    simpa [q] using
+      orientedChargingFace_ownerFourthUnsafe_insert_not_triplyDense ht hunsafe
+  rcases exists_first_predecessorDenseFailure_with_densePredecessor hnot with
+    ⟨p, hpins, _h1p, hfail, hpredDense⟩
+  rcases mem_lowWheelCanonicalDowncrossOrientedChargingFaces.mp ht with
+    ⟨htPow, hx⟩
+  have hpTop : ∀ r ∈ t, r < q := by
+    intro r hrt
+    simpa [q] using
+      lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot htPow hx hrt
+  rcases Finset.mem_insert.mp hpins with hpq | hpt
+  · subst p
+    left
+    rw [predecessorPrimeFace_insert_top hpTop] at hpredDense
+    rw [predecessorPrimeFaceProduct_insert_top hpTop] at hfail
+    refine ⟨hpredDense, ?_⟩
+    simpa [q] using hfail
+  · right
+    have hpq : p < q := hpTop p hpt
+    rw [predecessorPrimeFaceProduct_insert_of_lt hpq] at hfail
+    rw [predecessorPrimeFace_insert_of_lt hpq] at hpredDense
+    refine ⟨p, hpt, ?_, ?_, hpredDense⟩
+    · simpa [q] using hpq
+    · simpa using hfail
+
 end RHLean.Proof
