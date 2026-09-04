@@ -300,14 +300,15 @@ theorem canonicalOrientedRunDifference_eq_sum_frozenStateFibreDifferences
 
 /-! ## Sequential insertion law for predecessor density
 
-This is the exact Euler-prime form of the dense-divisibility idea.  If `p` is
-inserted after every coordinate already in `t`, all old predecessor products are
-unchanged and the only new condition is
+The squarefree dense-divisibility criterion has a smooth core: only a newly
+inserted prime `p > Y` is constrained.  Thus, if `p` is inserted after every
+coordinate already in `t`, all old predecessor products are unchanged and the
+only possible new condition is
 
-`p^d <= Y * primeFaceProduct t`.
+`Y < p -> p^d <= Y * primeFaceProduct t`.
 
-Thus, once the old face is dense, failure after adjoining `p` is *exactly* one
-large multiplicative jump relative to the entire predecessor cube. -/
+Once the old face is dense, failure after adjoining `p` is therefore exactly a
+large multiplicative jump above the smooth threshold. -/
 
 /-- Inserting a later coordinate does not change the predecessor face of an
 older coordinate. -/
@@ -362,45 +363,60 @@ theorem predecessorPrimeFaceProduct_insert_top
 
 /-- **Sequential Euler insertion law.**  Once `p` is the new largest
 coordinate, predecessor density of the enlarged face is exactly old density
-plus the single multiplicative condition at `p`. -/
+plus the one possible large-prime condition at `p`. -/
 theorem predecessorDenseFace_insert_top_iff
     {d Y p : ℕ} {t : Finset ℕ}
     (hpTop : ∀ q ∈ t, q < p) :
     PredecessorDenseFace d Y (insert p t) ↔
       PredecessorDenseFace d Y t ∧
-        p ^ d ≤ Y * primeFaceProduct t := by
+        (Y < p → p ^ d ≤ Y * primeFaceProduct t) := by
   unfold PredecessorDenseFace
   constructor
   · intro h
     refine ⟨?_, ?_⟩
-    · intro q hqt
-      have hq := h q (Finset.mem_insert_of_mem hqt)
+    · intro q hqt hYq
+      have hq := h q (Finset.mem_insert_of_mem hqt) hYq
       rw [predecessorPrimeFaceProduct_insert_of_lt (hpTop q hqt)] at hq
       exact hq
-    · have hp := h p (by simp)
+    · intro hYp
+      have hp := h p (by simp) hYp
       rw [predecessorPrimeFaceProduct_insert_top hpTop] at hp
       exact hp
-  · rintro ⟨ht, hp⟩ q hq
+  · rintro ⟨ht, hp⟩ q hq hYq
     rcases Finset.mem_insert.mp hq with hEq | hqt
     · subst q
       rw [predecessorPrimeFaceProduct_insert_top hpTop]
-      exact hp
+      exact hp hYq
     · have hqp := hpTop q hqt
       rw [predecessorPrimeFaceProduct_insert_of_lt hqp]
-      exact ht q hqt
+      exact ht q hqt hYq
 
 /-- With the predecessor already dense, adjoining a new largest coordinate
-fails density exactly when that coordinate is too large relative to the whole
-predecessor product. -/
+fails density exactly when that coordinate lies above the smooth threshold and
+is too large relative to the whole predecessor product. -/
 theorem not_predecessorDenseFace_insert_top_iff
     {d Y p : ℕ} {t : Finset ℕ}
     (hpTop : ∀ q ∈ t, q < p)
     (hdense : PredecessorDenseFace d Y t) :
     ¬ PredecessorDenseFace d Y (insert p t) ↔
-      Y * primeFaceProduct t < p ^ d := by
+      Y < p ∧ Y * primeFaceProduct t < p ^ d := by
   rw [predecessorDenseFace_insert_top_iff hpTop]
   simp only [hdense, true_and]
-  omega
+  constructor
+  · intro h
+    have hYp : Y < p := by
+      by_contra hnot
+      apply h
+      intro hYp
+      exact (hnot hYp).elim
+    refine ⟨hYp, ?_⟩
+    by_contra hnot
+    apply h
+    intro _hYp
+    omega
+  · rintro ⟨hYp, hfail⟩ hgood
+    have hle := hgood hYp
+    omega
 
 /-- Truncating at `p` and then looking below an earlier `q` gives the same
 predecessor face as looking below `q` in the original face. -/
@@ -427,17 +443,17 @@ theorem predecessorPrimeFaceProduct_predecessor_of_lt
   unfold predecessorPrimeFaceProduct
   rw [predecessorPrimeFace_predecessor_of_lt hqp]
 
-/-- If every coordinate before `p` satisfies the density inequality, then the
-entire predecessor face below `p` is itself predecessor-dense. -/
+/-- If every large coordinate before `p` satisfies the density inequality, then
+the entire predecessor face below `p` is itself predecessor-dense. -/
 theorem predecessorPrimeFace_dense_of_previous
     {d Y p : ℕ} {t : Finset ℕ}
-    (hprev : ∀ q ∈ t, q < p →
+    (hprev : ∀ q ∈ t, q < p → Y < q →
       q ^ d ≤ Y * predecessorPrimeFaceProduct t q) :
     PredecessorDenseFace d Y (predecessorPrimeFace t p) := by
-  intro q hq
+  intro q hq hYq
   rcases mem_predecessorPrimeFace.mp hq with ⟨hqt, hqp⟩
   rw [predecessorPrimeFaceProduct_predecessor_of_lt hqp]
-  exact hprev q hqt hqp
+  exact hprev q hqt hqp hYq
 
 /-- A non-dense face therefore has a first large multiplicative jump attached
 to a predecessor face which is already dense. -/
@@ -445,21 +461,24 @@ theorem exists_first_predecessorDenseFailure_with_densePredecessor
     {d Y : ℕ} {t : Finset ℕ}
     (hnot : ¬ PredecessorDenseFace d Y t) :
     ∃ p ∈ t,
+      Y < p ∧
       Y * predecessorPrimeFaceProduct t p < p ^ d ∧
         PredecessorDenseFace d Y (predecessorPrimeFace t p) := by
   rcases exists_first_predecessorDenseFailure hnot with
-    ⟨p, hpt, hfail, hprev⟩
-  exact ⟨p, hpt, hfail, predecessorPrimeFace_dense_of_previous hprev⟩
+    ⟨p, hpt, hYp, hfail, hprev⟩
+  exact ⟨p, hpt, hYp, hfail,
+    predecessorPrimeFace_dense_of_previous hprev⟩
 
 /-- On an oriented charging face, the exceptional first jump is a strictly
-smaller owner than the current fresh pivot *and* is attached to an already
-dense predecessor cube. -/
+smaller owner than the current fresh pivot, is above the smooth threshold, and
+is attached to an already-dense predecessor cube. -/
 theorem orientedChargingFace_dense_or_firstLowerJump_with_densePredecessor
     {R c k d Y : ℕ} {t : Finset ℕ}
     (ht : t ∈ lowWheelCanonicalDowncrossOrientedChargingFaces R (c, k)) :
     PredecessorDenseFace d Y t ∨
       ∃ p ∈ t,
         p < lowWheelCanonicalDowncrossPivot (c, k) ∧
+        Y < p ∧
         Y * predecessorPrimeFaceProduct t p < p ^ d ∧
           PredecessorDenseFace d Y (predecessorPrimeFace t p) := by
   rcases mem_lowWheelCanonicalDowncrossOrientedChargingFaces.mp ht with
@@ -468,23 +487,25 @@ theorem orientedChargingFace_dense_or_firstLowerJump_with_densePredecessor
   · exact Or.inl hdense
   · right
     rcases exists_first_predecessorDenseFailure_with_densePredecessor hdense with
-      ⟨p, hpt, hfail, hpredDense⟩
+      ⟨p, hpt, hYp, hfail, hpredDense⟩
     have hpLt :=
       lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot htPow hx hpt
-    exact ⟨p, hpt, hpLt, hfail, hpredDense⟩
+    exact ⟨p, hpt, hpLt, hYp, hfail, hpredDense⟩
 
-/-! ## Triply dense faces and the existing fourth-power wall
+/-! ## Triply dense faces and the fourth-power wall
 
-For `d = 3`, the prime-factor criterion has a fourth-power consequence after
-one Euler insertion.  On the physical oriented carrier the natural scale is
-`Y = c*k`: the complete state already satisfies
+For a coordinate above the smooth threshold, the `d`-fold predecessor
+inequality gains one more power after multiplying by that coordinate.  For a
+coordinate at or below `Y`, the same `d+1` power is controlled by `Y^(d+1)`.
+Hence, if both
 
-`(c * primeFaceProduct t) * k <= squareRootEndpoint R`.
+`Y^(d+1) <= X`  and  `Y * primeFaceProduct t <= X`,
 
-Therefore every prime coordinate of a triply predecessor-dense face satisfies
-`p^4 <= squareRootEndpoint R`.  Any face containing a fourth-power-unsafe prime
-must lie in the first-jump branch.  This is the exact exponent already exposed
-by the repository's Go fourth-power cutoff.
+all coordinates of a predecessor-dense face satisfy `p^(d+1) <= X`.
+
+At `d = 3` this lands exactly on the fourth-power wall already isolated by the
+Go geometry.  The scale `Y` remains independent of the physical state: the
+smooth core is not accidentally enlarged to the entire oriented face.
 -/
 
 /-- For a face of prime coordinates, adjoining `p` to its strict predecessor
@@ -511,14 +532,15 @@ theorem prime_mul_predecessorPrimeFaceProduct_le
   have hpNot : p ∉ predecessorPrimeFace t p := by simp
   simpa [primeFaceProduct, predecessorPrimeFaceProduct, hpNot] using hle
 
-/-- Every coordinate of a predecessor-dense prime face obeys the corresponding
-`d+1` power bound against the complete face product. -/
-theorem predecessorDenseFace_coordinate_power_succ_le
+/-- Every *large* coordinate of a predecessor-dense prime face obeys the
+corresponding `d+1` power bound against the complete face product. -/
+theorem predecessorDenseFace_coordinate_power_succ_le_of_large
     {d Y p : ℕ} {t : Finset ℕ}
     (hprime : ∀ q ∈ t, q.Prime)
-    (hdense : PredecessorDenseFace d Y t) (hpt : p ∈ t) :
+    (hdense : PredecessorDenseFace d Y t) (hpt : p ∈ t)
+    (hYp : Y < p) :
     p ^ (d + 1) ≤ Y * primeFaceProduct t := by
-  have hd := hdense p hpt
+  have hd := hdense p hpt hYp
   have hprefix := prime_mul_predecessorPrimeFaceProduct_le hprime hpt
   calc
     p ^ (d + 1) = p ^ d * p := by rw [pow_succ]
@@ -527,59 +549,104 @@ theorem predecessorDenseFace_coordinate_power_succ_le
     _ = Y * (p * predecessorPrimeFaceProduct t p) := by ring
     _ ≤ Y * primeFaceProduct t := Nat.mul_le_mul_left Y hprefix
 
-/-- **Triply dense oriented faces are fourth-power safe.**  With the physical
-state scale `Y=c*k`, every prime coordinate lies below the exact fourth-power
-wall of the square endpoint. -/
-theorem orientedChargingFace_triplyDense_facePrimeFourth_le_endpoint
-    {R c k p : ℕ} {t : Finset ℕ}
-    (ht : t ∈ lowWheelCanonicalDowncrossOrientedChargingFaces R (c, k))
-    (hdense : PredecessorDenseFace 3 (c * k) t) (hpt : p ∈ t) :
-    p ^ 4 ≤ squareRootEndpoint R := by
+/-- Combining the smooth and large branches: if both natural `Y`-scale
+quantities fit below `X`, then every coordinate of a predecessor-dense prime
+face lies below the `d+1` power wall at `X`. -/
+theorem predecessorDenseFace_coordinate_power_succ_le_of_scale
+    {d Y X p : ℕ} {t : Finset ℕ}
+    (hprime : ∀ q ∈ t, q.Prime)
+    (hdense : PredecessorDenseFace d Y t) (hpt : p ∈ t)
+    (hYpow : Y ^ (d + 1) ≤ X)
+    (hYprod : Y * primeFaceProduct t ≤ X) :
+    p ^ (d + 1) ≤ X := by
+  by_cases hYp : Y < p
+  · exact
+      (predecessorDenseFace_coordinate_power_succ_le_of_large
+        hprime hdense hpt hYp).trans hYprod
+  · have hpY : p ≤ Y := Nat.le_of_not_gt hYp
+    exact (Nat.pow_le_pow_left hpY (d + 1)).trans hYpow
+
+/-- Every oriented charging face has product at most the root parameter `R`.
+This is just the exact state ownership interval already proved for the frozen
+carrier. -/
+theorem orientedChargingFace_faceProduct_le_root
+    {R c k : ℕ} {t : Finset ℕ}
+    (ht : t ∈ lowWheelCanonicalDowncrossOrientedChargingFaces R (c, k)) :
+    primeFaceProduct t ≤ R := by
   rcases mem_lowWheelCanonicalDowncrossOrientedChargingFaces.mp ht with
     ⟨htPow, hx⟩
+  have htCharging :
+      t ∈ lowWheelCanonicalDowncrossChargingFaces R (c, k) :=
+    mem_lowWheelCanonicalDowncrossChargingFaces.mpr
+      ⟨htPow, (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx).1⟩
+  have hwindow := primeFaceProduct_mem_exactOwnershipInterval htCharging
+  have hup := (Finset.mem_Ioc.mp hwindow).2
+  have hupperLeR :
+      lowWheelCanonicalDowncrossOwnershipUpper R c k ≤ R := by
+    unfold lowWheelCanonicalDowncrossOwnershipUpper
+    exact (min_le_left _ _).trans (Nat.div_le_self _ _)
+  exact hup.trans hupperLeR
+
+/-- **Triply dense oriented faces are fourth-power safe at any admissible
+smooth scale.**  It is enough that the smooth fourth power and the complete
+`Y`-weighted face product both fit below the square endpoint. -/
+theorem orientedChargingFace_triplyDense_facePrimeFourth_le_endpoint
+    {R c k Y p : ℕ} {t : Finset ℕ}
+    (ht : t ∈ lowWheelCanonicalDowncrossOrientedChargingFaces R (c, k))
+    (hdense : PredecessorDenseFace 3 Y t)
+    (hY4 : Y ^ 4 ≤ squareRootEndpoint R)
+    (hYR : Y * R ≤ squareRootEndpoint R)
+    (hpt : p ∈ t) :
+    p ^ 4 ≤ squareRootEndpoint R := by
+  rcases mem_lowWheelCanonicalDowncrossOrientedChargingFaces.mp ht with
+    ⟨htPow, _hx⟩
   have hsub := Finset.mem_powerset.mp htPow
   have hprime : ∀ q ∈ t, q.Prime := by
     intro q hqt
     exact prime_of_mem_primesUpTo (hsub hqt)
+  have hface := orientedChargingFace_faceProduct_le_root ht
+  have hYprod : Y * primeFaceProduct t ≤ squareRootEndpoint R :=
+    (Nat.mul_le_mul_left Y hface).trans hYR
   have hpower :=
-    predecessorDenseFace_coordinate_power_succ_le hprime hdense hpt
-  have hdown := (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx).1
-  have hphys := (mem_lowWheelCanonicalDowncrossPart.mp hdown).1
-  have hcarrier := (mem_lowWheelCanonicalPhysicalStateSet.mp hphys).2.2.2
-  have htop := hcarrier.2.2.2
-  calc
-    p ^ 4 ≤ (c * k) * primeFaceProduct t := by simpa using hpower
-    _ = (c * primeFaceProduct t) * k := by ring
-    _ ≤ squareRootEndpoint R := htop
+    predecessorDenseFace_coordinate_power_succ_le_of_scale
+      (d := 3) (Y := Y) (X := squareRootEndpoint R)
+      hprime hdense hpt (by simpa using hY4) hYprod
+  simpa using hpower
 
 /-- A fourth-power-unsafe prime coordinate is an exact certificate that the
-face is not triply predecessor-dense at its physical state scale. -/
+face is not triply predecessor-dense at any admissible smooth scale. -/
 theorem orientedChargingFace_fourthUnsafe_not_triplyDense
-    {R c k p : ℕ} {t : Finset ℕ}
+    {R c k Y p : ℕ} {t : Finset ℕ}
     (ht : t ∈ lowWheelCanonicalDowncrossOrientedChargingFaces R (c, k))
+    (hY4 : Y ^ 4 ≤ squareRootEndpoint R)
+    (hYR : Y * R ≤ squareRootEndpoint R)
     (hpt : p ∈ t) (hunsafe : squareRootEndpoint R < p ^ 4) :
-    ¬ PredecessorDenseFace 3 (c * k) t := by
+    ¬ PredecessorDenseFace 3 Y t := by
   intro hdense
   have hsafe :=
     orientedChargingFace_triplyDense_facePrimeFourth_le_endpoint
-      ht hdense hpt
+      ht hdense hY4 hYR hpt
   omega
 
 /-- Consequently a fourth-power-unsafe coordinate forces the canonical
-first-jump alternative: a strictly lower owner with an already-dense
-predecessor cube. -/
+first-jump alternative: a strictly lower owner above the smooth threshold,
+with an already-triply-dense predecessor cube. -/
 theorem orientedChargingFace_fourthUnsafe_forces_firstLowerJump
-    {R c k p : ℕ} {t : Finset ℕ}
+    {R c k Y p : ℕ} {t : Finset ℕ}
     (ht : t ∈ lowWheelCanonicalDowncrossOrientedChargingFaces R (c, k))
+    (hY4 : Y ^ 4 ≤ squareRootEndpoint R)
+    (hYR : Y * R ≤ squareRootEndpoint R)
     (hpt : p ∈ t) (hunsafe : squareRootEndpoint R < p ^ 4) :
     ∃ q ∈ t,
       q < lowWheelCanonicalDowncrossPivot (c, k) ∧
-      (c * k) * predecessorPrimeFaceProduct t q < q ^ 3 ∧
-        PredecessorDenseFace 3 (c * k) (predecessorPrimeFace t q) := by
+      Y < q ∧
+      Y * predecessorPrimeFaceProduct t q < q ^ 3 ∧
+        PredecessorDenseFace 3 Y (predecessorPrimeFace t q) := by
   have hnot :=
-    orientedChargingFace_fourthUnsafe_not_triplyDense ht hpt hunsafe
+    orientedChargingFace_fourthUnsafe_not_triplyDense
+      ht hY4 hYR hpt hunsafe
   rcases orientedChargingFace_dense_or_firstLowerJump_with_densePredecessor
-      (d := 3) (Y := c * k) ht with hdense | hjump
+      (d := 3) (Y := Y) ht with hdense | hjump
   · exact (hnot hdense).elim
   · exact hjump
 
