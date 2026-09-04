@@ -1,43 +1,106 @@
 import Mathlib
 import RHLean.Analysis.FrozenSquareRunKernel
 import RHLean.Proof.SquareRootCanonicalDowncrossFinalSeam
+import RHLean.Proof.SquareRootLowPrimeFirstOwnerWallRecurrence
 
 open scoped BigOperators
 
 /-!
-# Frozen square runs as differences of the canonical root-downcross frontier
+# Frozen square runs as changes of the canonical Euler frontier
 
-The frozen square-run kernel already gives the exact signed mass of a forward
+There are two exact ingredients.
+
+First, for a finite old prime universe `S`, admitting one fresh Euler prime `p`
+acts on a *signed window* by
+
+`W_{S ∪ {p}}(A,B) = W_S(A,B) - W_S(floor(A/p), floor(B/p))`.
+
+Thus a new prime does not leave another independent copy of one old parent.  Its
+whole additive effect is one compressed predecessor-cube window.  This is the
+finite algebraic replacement for the false prime-gap lifetime picture.
+
+Second, the frozen square-run kernel gives the exact signed mass of a forward
 subdoubling square run,
 
-`K(a,b) = M(a^2-1) - M((b+1)^2-1)`.
+`K(a,b) = M(a^2-1) - M((b+1)^2-1)`,
 
-Independently, the canonical low-wheel involution gives at every square endpoint
+while the canonical low-wheel involution gives at every square endpoint
 
 `M(R^2-1) = M(R) - D_R`,
 
 where `D_R = lowWheelCanonicalDowncrossLedger R` is the one signed adjacent
-multiplicative root-downcross frontier.
-
-Combining the two identities gives the exact run law
+multiplicative root-downcross frontier.  Combining them gives
 
 `K(a,b) = (M(a)-M(b+1)) + (D_{b+1}-D_a)`.
 
-The lower-scale Mertens gap is harmless at run scale: its norm is at most the
-root interval length `b+1-a`.  Consequently the frozen-kernel energy and the
-energy of the *change* in the canonical downcross frontier differ by only one
-linear run-length square.  This file proves that the resulting downcross-run
-energy statement is exactly equivalent to the existing frozen-square-run,
-global Mertens-energy, signed square-run, and primorial residual criteria.
+The lower-scale Mertens gap costs at most the root interval length `b+1-a`.
+Consequently the frozen-kernel energy and the energy of the *change* in the
+canonical downcross frontier differ by only one root-interval square.  The
+resulting difference-only statement is proved equivalent to the existing
+frozen-square-run, global Mertens-energy, signed square-run, and primorial
+residual criteria.
 
-This is deliberately a difference theorem.  No pointwise bound on `D_R` is
-assumed, and no prime-gap lifetime model is used.  The remaining arithmetic
-problem is therefore to control how the signed Euler frontier changes across a
-subdoubling run, where the predecessor-cube / recursive-Go machinery can act
-before any norm is taken.
+No pointwise bound on `D_R`, prime-gap estimate, PNT input, or asymptotic
+estimate is introduced.  The remaining arithmetic problem is to control the
+signed predecessor windows created by fresh Euler primes before taking norms.
 -/
 
 noncomputable section
+
+namespace RHLean.Proof
+
+/-- **Fresh-prime frozen-window recurrence.**  Adding `p` to the finite prime
+universe subtracts exactly the old signed window seen through reciprocal
+compression. -/
+theorem frozenPrimeUniverseWindowMass_insert
+    {S : Finset ℕ} {p A B : ℕ}
+    (hp : p ∉ S) (hpPrime : p.Prime) (hAB : A ≤ B) :
+    frozenPrimeUniverseWindowMass (insert p S) A B =
+      frozenPrimeUniverseWindowMass S A B -
+        frozenPrimeUniverseWindowMass S (A / p) (B / p) := by
+  have hdiv : A / p ≤ B / p := Nat.div_le_div_right hAB
+  rw [frozenPrimeUniverseWindowMass_eq_sub hAB,
+    frozenPrimeUniverseWindowMass_eq_sub hAB,
+    frozenPrimeUniverseWindowMass_eq_sub hdiv,
+    frozenPrimeUniverseMass_insert hp hpPrime,
+    frozenPrimeUniverseMass_insert hp hpPrime]
+  ring
+
+/-- **Additive fresh-prime derivative.**  The change from the old window to the
+new window is the negative compressed predecessor window. -/
+theorem frozenPrimeUniverseWindowMass_insert_sub_old
+    {S : Finset ℕ} {p A B : ℕ}
+    (hp : p ∉ S) (hpPrime : p.Prime) (hAB : A ≤ B) :
+    frozenPrimeUniverseWindowMass (insert p S) A B -
+        frozenPrimeUniverseWindowMass S A B =
+      -frozenPrimeUniverseWindowMass S (A / p) (B / p) := by
+  rw [frozenPrimeUniverseWindowMass_insert hp hpPrime hAB]
+  ring
+
+/-- Reverse-sign form: deleting the fresh coordinate recovers exactly the
+compressed predecessor window. -/
+theorem frozenPrimeUniverseWindowMass_old_sub_insert
+    {S : Finset ℕ} {p A B : ℕ}
+    (hp : p ∉ S) (hpPrime : p.Prime) (hAB : A ≤ B) :
+    frozenPrimeUniverseWindowMass S A B -
+        frozenPrimeUniverseWindowMass (insert p S) A B =
+      frozenPrimeUniverseWindowMass S (A / p) (B / p) := by
+  rw [frozenPrimeUniverseWindowMass_insert hp hpPrime hAB]
+  ring
+
+/-- A zero compressed predecessor window means the fresh prime has no net
+signed effect on the physical window.  This is the exact cancellation test to
+apply before any magnitude estimate. -/
+theorem frozenPrimeUniverseWindowMass_insert_eq_old_of_predecessor_zero
+    {S : Finset ℕ} {p A B : ℕ}
+    (hp : p ∉ S) (hpPrime : p.Prime) (hAB : A ≤ B)
+    (hzero : frozenPrimeUniverseWindowMass S (A / p) (B / p) = 0) :
+    frozenPrimeUniverseWindowMass (insert p S) A B =
+      frozenPrimeUniverseWindowMass S A B := by
+  rw [frozenPrimeUniverseWindowMass_insert hp hpPrime hAB, hzero]
+  ring
+
+end RHLean.Proof
 
 namespace RHLean.Analysis
 
@@ -50,11 +113,9 @@ def canonicalDowncrossRunDifference (a b : ℕ) : ℂ :=
   lowWheelCanonicalDowncrossLedger (b + 1) -
     lowWheelCanonicalDowncrossLedger a
 
-/-- **Exact square-run / downcross-difference identity.**
-
-The only term between the frozen square-run kernel and the change in the
-canonical downcross frontier is the ordinary lower-scale Mertens gap across the
-root interval. -/
+/-- **Exact square-run / downcross-difference identity.**  The only term between
+the frozen square-run kernel and the change in the canonical downcross frontier
+is the ordinary lower-scale Mertens gap across the root interval. -/
 theorem frozenSquareRunKernel_eq_mertensGap_add_canonicalDowncrossRunDifference
     (a b : ℕ) (ha : 3 ≤ a) (hab : a ≤ b)
     (hsub : (b + 1) ^ 2 ≤ 2 * a ^ 2) :
