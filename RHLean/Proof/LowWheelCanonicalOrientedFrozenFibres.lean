@@ -88,19 +88,30 @@ theorem lowWheelCanonicalDowncrossOrientedChargingFaces_eq_frozenWindow
         (lowWheelCanonicalDowncrossOwnershipUpper R c k) := by
   classical
   let p := lowWheelCanonicalDowncrossPivot (c, k)
-  have hk : k = p := by
-    simpa [p] using
-      lowWheelCanonicalDowncrossOrientedChargingFaces_quotient_eq_pivot hne
+  have hkPivot : k = lowWheelCanonicalDowncrossPivot (c, k) :=
+    lowWheelCanonicalDowncrossOrientedChargingFaces_quotient_eq_pivot hne
+  have hk : k = p := by simpa [p] using hkPivot
   have hcharging :
       (lowWheelCanonicalDowncrossChargingFaces R (c, k)).Nonempty :=
     lowWheelCanonicalDowncrossChargingFaces_nonempty_of_oriented hne
   rcases hne with ⟨t0, ht0⟩
   rcases mem_lowWheelCanonicalDowncrossOrientedChargingFaces.mp ht0 with
-    ⟨ht0Pow, hx0⟩
+    ⟨_ht0Pow, hx0⟩
   have hdown0 := (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx0).1
   have hgeom0 := lowWheelCanonicalDowncross_firstFailure_geometry hdown0
   dsimp only at hgeom0
   have hp : p.Prime := by simpa [p] using hgeom0.1
+  have hpivotPos : 0 < lowWheelCanonicalDowncrossPivot (c, k) := by
+    simpa [p] using hp.pos
+  have hquotient :
+      k / lowWheelCanonicalDowncrossPivot (c, k) = 1 := by
+    calc
+      k / lowWheelCanonicalDowncrossPivot (c, k) =
+          lowWheelCanonicalDowncrossPivot (c, k) /
+            lowWheelCanonicalDowncrossPivot (c, k) :=
+        congrArg
+          (fun n => n / lowWheelCanonicalDowncrossPivot (c, k)) hkPivot
+      _ = 1 := Nat.div_self hpivotPos
   ext t
   constructor
   · intro ht
@@ -131,11 +142,7 @@ theorem lowWheelCanonicalDowncrossOrientedChargingFaces_eq_frozenWindow
     have hupperLeR :
         lowWheelCanonicalDowncrossOwnershipUpper R c k ≤ R := by
       unfold lowWheelCanonicalDowncrossOwnershipUpper
-      have hpPos : 0 < p := hp.pos
-      have hdiv : k / lowWheelCanonicalDowncrossPivot (c, k) = 1 := by
-        rw [hk]
-        simpa [p] using Nat.div_self hpPos
-      rw [hdiv]
+      rw [hquotient]
       simpa using (min_le_left R (squareRootEndpoint R / (c * k)))
     have htSubR : t ⊆ primesUpTo R := by
       intro q hqt
@@ -185,13 +192,7 @@ theorem lowWheelCanonicalDowncrossOrientedChargingFaces_eq_frozenWindow
     have hparentEq :
         lowWheelCanonicalDowncrossParent t (c, k) = primeFaceProduct t := by
       unfold lowWheelCanonicalDowncrossParent
-      have hpPos : 0 < p := hp.pos
-      rw [hk]
-      change primeFaceProduct t *
-          (p / lowWheelCanonicalDowncrossPivot (c, p)) = primeFaceProduct t
-      have hpivot : lowWheelCanonicalDowncrossPivot (c, p) = p := by
-        simpa [hk, p] using congrArg lowWheelCanonicalDowncrossPivot (Prod.ext rfl hk)
-      rw [hpivot, Nat.div_self hpPos, Nat.mul_one]
+      rw [hquotient, Nat.mul_one]
     rw [hparentEq] at hqParent
     have hqData := Nat.mem_primeFactors.mp hqParent
     rcases hqData with ⟨hqPrime, hqDvd, _hprodNe⟩
