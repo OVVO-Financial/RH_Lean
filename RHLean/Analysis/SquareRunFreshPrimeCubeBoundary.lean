@@ -50,7 +50,7 @@ the other orientation.
 Thus the unique owner cube exists, but its complementary corners lie on opposite
 sides of the physical square-time window. -/
 theorem squareRunFreshPrimeOwner_cube_straddles
-    {a b m n : ℕ} (hab : a ≤ b)
+    {a b m n : ℕ} (_hab : a ≤ b)
     (hm : m ∈ Finset.Ico (a ^ 2) ((b + 1) ^ 2))
     (hn : n ∈ Finset.Ico (a ^ 2) ((b + 1) ^ 2))
     (hmn : m < n)
@@ -84,6 +84,7 @@ theorem squareRunFreshPrimeOwner_cube_straddles
       dsimp [un]
       exact squarefreePrimeFamilyParent_eq_of_not_dvd h.2
     refine ⟨hum, ?_⟩
+    change (b + 1) ^ 2 ≤ p * un
     rw [hun]
     exact prime_mul_runSite_ge_top_of_subdoubling hp hn hsub
   · right
@@ -94,6 +95,7 @@ theorem squareRunFreshPrimeOwner_cube_straddles
       dsimp [um]
       exact squarefreePrimeFamilyParent_eq_of_not_dvd h.2
     refine ⟨hun, ?_⟩
+    change (b + 1) ^ 2 ≤ p * um
     rw [hum]
     exact prime_mul_runSite_ge_top_of_subdoubling hp hm hsub
 
@@ -114,9 +116,11 @@ theorem squareRunFreshPrimeOwner_not_complete_internal_cube
        un ∈ Finset.Ico (a ^ 2) ((b + 1) ^ 2) ∧
        p * um ∈ Finset.Ico (a ^ 2) ((b + 1) ^ 2) ∧
        p * un ∈ Finset.Ico (a ^ 2) ((b + 1) ^ 2)) := by
+  dsimp only
   intro hall
   have hstraddle := squareRunFreshPrimeOwner_cube_straddles
     hab hm hn hmn hm0 hn0 hsub
+  dsimp only at hstraddle
   rcases hstraddle with h | h
   · exact (not_lt_of_ge (Finset.mem_Ico.mp hall.1).1) h.1
   · exact (not_lt_of_ge (Finset.mem_Ico.mp hall.2.1).1) h.1
@@ -452,7 +456,13 @@ theorem mertensEnergyBounded_of_pntSpacedWorstCasePrimeFlipClosure
     _ ≤ B * (C * Real.rpow B ε) := hmul
     _ = C * (B * Real.rpow B ε) := by ring
     _ = C * Real.rpow B (1 + ε) := by
-      rw [Real.rpow_add hBpos 1 ε, Real.rpow_one]
+      calc
+        C * (B * Real.rpow B ε) =
+            C * (Real.rpow B 1 * Real.rpow B ε) := by
+              rw [Real.rpow_one]
+        _ = C * Real.rpow B (1 + ε) := by
+          exact congrArg (fun t : ℝ => C * t)
+            (Real.rpow_add hBpos 1 ε).symm
     _ = C * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
       congr 2
       dsimp [B]
