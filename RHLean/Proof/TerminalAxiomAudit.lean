@@ -11,6 +11,7 @@ import RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
 import RHLean.Proof.SquareRootLowPrimeMatchedCoreMertensObstruction
 import RHLean.Proof.SquareRootMertensMiddleTracking
 import RHLean.Proof.SquareRootMertensPositiveTracking
+import RHLean.Proof.TerminalMertensForward
 
 /-!
 # Axiom footprint of the terminal reduction
@@ -34,12 +35,15 @@ these lists -- in particular `sorryAx`, which is what an unfinished proof compil
 or any project-declared axiom -- fails this module and invalidates the corresponding
 reduction claim.
 
-Note what this does **not** certify. These are equivalences and implications, not
-proofs of their left-hand sides. `ProjectedRenewalQuadraticBoundedStatement` remains
-an open analytic proposition; nothing in the project proves it. Likewise,
-`ClassicalMertensRHCriterion` is a structure taken as an ordinary theorem argument,
-not an axiom, so it does not appear in these lists. The RH endpoint remains conditional
-on supplying that classical criterion.
+A clean axiom list is necessary but does not by itself certify that a theorem has no
+ordinary hypothesis representing an external criterion.  The historical equivalences
+below still accept `ClassicalMertensRHCriterion` as an ordinary theorem argument, so
+that conditionality remains visible in their signatures even though it is absent from
+`#print axioms`.  The new guarded theorem
+`TerminalMertensForward.riemannHypothesis_of_squarePrefixEnergy` is different: its only
+hypothesis is the square-prefix energy estimate itself.  The forward Mertens-to-RH
+criterion is constructed internally by `MertensEnergyRHForward`, so this is the terminal
+unconditional analytic consumer for the arithmetic project.
 
 The square-root legal-ancestry Gram reduction is imported here as well so the ordinary
 root build type-checks its exact endpoint and parent-fibre identities. Its new analytic
@@ -72,6 +76,16 @@ project axiom.
 namespace RHLean.Proof
 
 namespace TerminalAxiomAudit
+
+-- The direct terminal arithmetic-to-RH consumer.  Unlike the historical
+-- equivalences below, its only ordinary hypothesis is the square-prefix energy bound.
+/--
+info: 'RHLean.Proof.TerminalMertensForward.riemannHypothesis_of_squarePrefixEnergy' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Proof.TerminalMertensForward.riemannHypothesis_of_squarePrefixEnergy
 
 -- The terminal equivalence: the projected-renewal quadratic bound is RH, given the
 -- classical Mertens criterion.
