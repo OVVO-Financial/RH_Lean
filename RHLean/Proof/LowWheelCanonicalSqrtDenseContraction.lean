@@ -62,7 +62,7 @@ theorem sqrt_mul_root_lt_succ_fourth (R : ℕ) :
     exact Nat.lt_succ_sqrt' R
   by_cases hs : s = 0
   · subst s
-    simp
+    simpa [hs]
   · have hspos : 0 < s := Nat.pos_of_ne_zero hs
     have hleft : s * R < s * (s + 1) ^ 2 :=
       Nat.mul_lt_mul_of_pos_left hR hspos
@@ -416,6 +416,7 @@ theorem sqrtFirstJumpSlice_tail_eq_empty
     have hne : p ≠ r := by omega
     simpa [hne, Nat.mul_comm] using hle
   have hRnext : R < (Nat.sqrt R + 1) ^ 2 := Nat.lt_succ_sqrt' R
+  have hrootLt : Nat.sqrt R < p := hfirst.2.1
   have hsp : Nat.sqrt R + 1 ≤ p := by omega
   have hsr : Nat.sqrt R + 1 ≤ r := by omega
   have hnextLe : (Nat.sqrt R + 1) ^ 2 ≤ p * r := by
