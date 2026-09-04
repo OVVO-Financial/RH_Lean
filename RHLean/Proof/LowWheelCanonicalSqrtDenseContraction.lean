@@ -62,7 +62,7 @@ theorem sqrt_mul_root_lt_succ_fourth (R : ℕ) :
     exact Nat.lt_succ_sqrt' R
   by_cases hs : s = 0
   · subst s
-    simpa [hs]
+    simp [hs]
   · have hspos : 0 < s := Nat.pos_of_ne_zero hs
     have hleft : s * R < s * (s + 1) ^ 2 :=
       Nat.mul_lt_mul_of_pos_left hR hspos
