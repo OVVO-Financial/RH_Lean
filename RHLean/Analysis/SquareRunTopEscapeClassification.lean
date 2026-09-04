@@ -217,7 +217,8 @@ private theorem squareRun_endpoint_le_rpow
     {ε : ℝ} (hε : 0 < ε) (b : ℕ) :
     ((((b + 1) ^ 2 : ℕ) : ℝ)) ≤
       Real.rpow ((((b + 1) ^ 2 : ℕ) : ℝ)) (1 + ε) := by
-  have hbaseNat : 1 ≤ (b + 1) ^ 2 := by nlinarith
+  have hbasePos : 0 < (b + 1) ^ 2 := by positivity
+  have hbaseNat : 1 ≤ (b + 1) ^ 2 := by omega
   have hbase : (1 : ℝ) ≤ ((((b + 1) ^ 2 : ℕ) : ℝ)) := by
     exact_mod_cast hbaseNat
   have h := Real.rpow_le_rpow_of_exponent_le hbase
@@ -250,7 +251,8 @@ theorem squareRunPrimeLeafTopEscapeBounded_of_mertensEnergy
       _ ≤ C * Real.rpow ((b + 1 : ℕ) : ℝ) (2 + 2 * ε) := hbound b
       _ = C * P := by
         dsimp [P]
-        rw [squareRun_root_rpow_eq_endpoint_rpow b ε]
+        exact congrArg (fun t : ℝ => C * t)
+          (squareRun_root_rpow_eq_endpoint_rpow b ε)
   have hA : realMertensLength (a ^ 2) ^ 2 ≤ C * P := by
     by_cases ha0 : a = 0
     · subst a
@@ -291,7 +293,8 @@ theorem squareRunPrimeLeafTopEscapeBounded_of_mertensEnergy
         _ ≤ C * Real.rpow ((b + 1 : ℕ) : ℝ) (2 + 2 * ε) := hmono
         _ = C * P := by
           dsimp [P]
-          rw [squareRun_root_rpow_eq_endpoint_rpow b ε]
+          exact congrArg (fun t : ℝ => C * t)
+            (squareRun_root_rpow_eq_endpoint_rpow b ε)
   have hmass : squareRunMass a b ^ 2 ≤ 4 * C * P := by
     unfold squareRunMass
     nlinarith [sq_nonneg
