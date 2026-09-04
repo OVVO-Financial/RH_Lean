@@ -3,7 +3,6 @@ import RHLean.Proof.LowPrimeCombinedBornHighFirstFailure
 import RHLean.Proof.LowPrimeCombinedBornHighTransition
 import RHLean.Proof.LowPrimeCompletedPartnerWindowFold
 import RHLean.Proof.LowWheelCanonicalSqrtDenseContraction
-import RHLean.Proof.LowWheelFirstJumpPrimeSieveBridge
 import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
 import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
