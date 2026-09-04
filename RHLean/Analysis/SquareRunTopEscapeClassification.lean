@@ -59,7 +59,7 @@ theorem squarefreePrimeFamilyParent_lt_runAnchor_of_dvd
 subdoubling run crosses the lower anchor in the coordinate carrying its owner.
 The owner cube is a boundary cube, not a complete cube internal to the run. -/
 theorem squareRunFreshPrimeOwner_parent_below_anchor
-    {a b m n : ℕ} (hab : a ≤ b)
+    {a b m n : ℕ} (_hab : a ≤ b)
     (hm : m ∈ Finset.Ico (a ^ 2) ((b + 1) ^ 2))
     (hn : n ∈ Finset.Ico (a ^ 2) ((b + 1) ^ 2))
     (hmn : m < n)
@@ -113,13 +113,13 @@ theorem squareRunPrimeLeafCovariance_nonpos (p a b : ℕ) :
 /-- The fixed-prime leaf is an admissible nonpositive descended term. -/
 theorem squareRunPrimeLeafDescendedNonpositive (p : ℕ) :
     SquareRunDescendedNonpositive (squareRunPrimeLeafCovariance p) := by
-  intro a b hab
+  intro a b _hab
   exact squareRunPrimeLeafCovariance_nonpos p a b
 
 /-- The magnitude of the negative same-prime leaf is at most the exact physical
 window length. -/
 theorem neg_squareRunPrimeLeafCovariance_le_windowLength
-    (p a b : ℕ) (hab : a ≤ b) :
+    (p a b : ℕ) (_hab : a ≤ b) :
     -squareRunPrimeLeafCovariance p a b ≤
       ((((b + 1) ^ 2 - a ^ 2 : ℕ) : ℝ)) := by
   unfold squareRunPrimeLeafCovariance
@@ -175,8 +175,10 @@ theorem squareRunPrimeLeafEscape_eq_covariance_of_subdoubling
     (hsub : (b + 1) ^ 2 ≤ 2 * a ^ 2) :
     squareRunEscapeCovariance (squareRunPrimeLeafCovariance p) a b =
       squareRunCovariance a b := by
-  rw [squareRunPrimeLeafCovariance_eq_zero_of_subdoubling hp hsub]
-  simp [squareRunEscapeCovariance]
+  unfold squareRunEscapeCovariance
+  have hleaf := squareRunPrimeLeafCovariance_eq_zero_of_subdoubling hp hsub
+  rw [hleaf]
+  ring
 
 /-- The run diagonal is nonnegative on every forward run. -/
 theorem squareRunDiagonal_nonneg (a b : ℕ) (hab : a ≤ b) :
@@ -215,7 +217,9 @@ private theorem squareRun_endpoint_le_rpow
     {ε : ℝ} (hε : 0 < ε) (b : ℕ) :
     ((((b + 1) ^ 2 : ℕ) : ℝ)) ≤
       Real.rpow ((((b + 1) ^ 2 : ℕ) : ℝ)) (1 + ε) := by
-  have hbase : (1 : ℝ) ≤ ((((b + 1) ^ 2 : ℕ) : ℝ)) := by positivity
+  have hbaseNat : 1 ≤ (b + 1) ^ 2 := by nlinarith
+  have hbase : (1 : ℝ) ≤ ((((b + 1) ^ 2 : ℕ) : ℝ)) := by
+    exact_mod_cast hbaseNat
   have h := Real.rpow_le_rpow_of_exponent_le hbase
     (by linarith : (1 : ℝ) ≤ 1 + ε)
   simpa using h
@@ -234,17 +238,26 @@ theorem squareRunPrimeLeafTopEscapeBounded_of_mertensEnergy
   intro a b hab
   let P : ℝ := Real.rpow ((((b + 1) ^ 2 : ℕ) : ℝ)) (1 + ε)
   have hB : realMertensLength ((b + 1) ^ 2) ^ 2 ≤ C * P := by
-    have hb := hbound b
-    have hnorm :=
-      norm_mertensSummatory_sq_eq_realMertensLength_sq (squarePrefixEndpoint b)
-    rw [squarePrefixEndpoint_add_one b] at hnorm
-    rw [← hnorm]
-    have hroot := squareRun_root_rpow_eq_endpoint_rpow b ε
-    simpa [squarePrefixMertens, P, hroot] using hb
+    have hnorm :
+        ‖squarePrefixMertens b‖ ^ 2 =
+          realMertensLength ((b + 1) ^ 2) ^ 2 := by
+      unfold squarePrefixMertens
+      rw [norm_mertensSummatory_sq_eq_realMertensLength_sq,
+        squarePrefixEndpoint_add_one]
+    calc
+      realMertensLength ((b + 1) ^ 2) ^ 2 =
+          ‖squarePrefixMertens b‖ ^ 2 := hnorm.symm
+      _ ≤ C * Real.rpow ((b + 1 : ℕ) : ℝ) (2 + 2 * ε) := hbound b
+      _ = C * P := by
+        dsimp [P]
+        rw [squareRun_root_rpow_eq_endpoint_rpow b ε]
   have hA : realMertensLength (a ^ 2) ^ 2 ≤ C * P := by
     by_cases ha0 : a = 0
     · subst a
-      simp [realMertensLength, P, hC]
+      have hP : 0 ≤ P := by
+        dsimp [P]
+        exact Real.rpow_nonneg (by positivity) _
+      simpa [realMertensLength] using mul_nonneg hC hP
     · have ha1 : 1 ≤ a := Nat.one_le_iff_ne_zero.mpr ha0
       have haB : a ≤ b + 1 := by omega
       have haBase : (((a : ℕ) : ℝ)) ≤ (((b + 1 : ℕ) : ℝ)) := by exact_mod_cast haB
@@ -252,24 +265,33 @@ theorem squareRunPrimeLeafTopEscapeBounded_of_mertensEnergy
           Real.rpow (a : ℝ) (2 + 2 * ε) ≤
             Real.rpow ((b + 1 : ℕ) : ℝ) (2 + 2 * ε) :=
         Real.rpow_le_rpow (by positivity) haBase (by linarith)
-      have ha := hbound (a - 1)
-      have hnorm :=
-        norm_mertensSummatory_sq_eq_realMertensLength_sq
-          (squarePrefixEndpoint (a - 1))
-      rw [squarePrefixEndpoint_add_one (a - 1)] at hnorm
       have hpred : a - 1 + 1 = a := Nat.sub_add_cancel ha1
-      rw [hpred] at hnorm
+      have hnorm :
+          ‖squarePrefixMertens (a - 1)‖ ^ 2 =
+            realMertensLength (a ^ 2) ^ 2 := by
+        unfold squarePrefixMertens
+        rw [norm_mertensSummatory_sq_eq_realMertensLength_sq,
+          squarePrefixEndpoint_add_one, hpred]
       have haReal :
           realMertensLength (a ^ 2) ^ 2 ≤
             C * Real.rpow (a : ℝ) (2 + 2 * ε) := by
-        rw [← hnorm]
-        simpa [squarePrefixMertens, hpred] using ha
+        calc
+          realMertensLength (a ^ 2) ^ 2 =
+              ‖squarePrefixMertens (a - 1)‖ ^ 2 := hnorm.symm
+          _ ≤ C * Real.rpow ((a - 1 + 1 : ℕ) : ℝ) (2 + 2 * ε) :=
+            hbound (a - 1)
+          _ = C * Real.rpow (a : ℝ) (2 + 2 * ε) := by rw [hpred]
       have hmono :
           C * Real.rpow (a : ℝ) (2 + 2 * ε) ≤
             C * Real.rpow ((b + 1 : ℕ) : ℝ) (2 + 2 * ε) :=
         mul_le_mul_of_nonneg_left hpowRoot hC
-      have hroot := squareRun_root_rpow_eq_endpoint_rpow b ε
-      exact haReal.trans (by simpa [P, hroot] using hmono)
+      calc
+        realMertensLength (a ^ 2) ^ 2 ≤
+            C * Real.rpow (a : ℝ) (2 + 2 * ε) := haReal
+        _ ≤ C * Real.rpow ((b + 1 : ℕ) : ℝ) (2 + 2 * ε) := hmono
+        _ = C * P := by
+          dsimp [P]
+          rw [squareRun_root_rpow_eq_endpoint_rpow b ε]
   have hmass : squareRunMass a b ^ 2 ≤ 4 * C * P := by
     unfold squareRunMass
     nlinarith [sq_nonneg
