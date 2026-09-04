@@ -256,9 +256,10 @@ theorem sqrtFirstJumpResidual_cast_eq_band_sub_band
     hqroot hBR hAB
   have hcast := congrArg (fun z : ℤ => (z : ℂ)) hJ
   push_cast at hcast
+  simp only [mertensSummatoryInt_cast] at hcast
+  rw [Finset.sum_sub_distrib] at hcast
   unfold firstJumpPrimeSieveMertensBand
-  rw [Finset.sum_sub_distrib]
-  simpa only [mertensSummatoryInt_cast, neg_sub] using hcast
+  simpa only [neg_sub] using hcast
 
 /-- The exact signed reciprocal-Mertens object left after the geometric
 contractions.  No norm is built into this definition. -/
