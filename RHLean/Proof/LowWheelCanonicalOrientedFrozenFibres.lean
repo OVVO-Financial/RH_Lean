@@ -264,7 +264,7 @@ def predecessorDenseFailureSet
     p ∈ predecessorDenseFailureSet d Y t ↔
       p ∈ t ∧ Y < p ∧
         Y * predecessorPrimeFaceProduct t p < p ^ d := by
-  simp [predecessorDenseFailureSet, and_assoc]
+  simp [predecessorDenseFailureSet]
 
 /-- Failure-set nonemptiness is exactly failure of predecessor density. -/
 theorem predecessorDenseFailureSet_nonempty_iff_not_dense
