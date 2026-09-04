@@ -213,15 +213,16 @@ def ConsecutivePrimePair (pLo pHi : ℕ) : Prop :=
   pLo.Prime ∧ pHi.Prime ∧ pLo < pHi ∧
     ∀ p : ℕ, p.Prime → pLo < p → p < pHi → False
 
-/-- **Explicit PNT-spacing model.**  This is an assumption, not a consequence
-claimed from ordinary PNT: every consecutive prime gap is bounded by one
-binary-logarithmic unit at the upper endpoint.  `log_2` is used because the repo
-already has an elementary subpolynomial theorem for this exact integer scale;
-it differs from natural-log spacing only by a fixed constant. -/
+/-- **Explicit PNT-spacing model at a bracketed scale.**  This is an assumption,
+not a consequence claimed from ordinary PNT.  Whenever the integer scale `t`
+is bracketed by consecutive primes, their gap is at most one binary-logarithmic
+unit at `t`.  `log_2` differs from natural-log spacing only by a fixed constant
+and has an elementary subpolynomial implementation already present in the repo. -/
 def PNTLogPrimeSpacingModel : Prop :=
-  ∀ pLo pHi : ℕ,
+  ∀ t pLo pHi : ℕ,
     ConsecutivePrimePair pLo pHi →
-      pHi - pLo ≤ Nat.log 2 (pHi + 1) + 1
+      pLo ≤ t → t < pHi →
+        pHi - pLo ≤ Nat.log 2 (t + 1) + 1
 
 /-- The physical distance from the midpoint of a reciprocal prime gap to either
 endpoint flip.  A prime gap `pHi-pLo` is magnified by the lower cofactor `q`. -/
@@ -298,22 +299,23 @@ theorem reciprocalPrimeMidpointDelay_le_root_gap
   unfold reciprocalPrimeMidpointDelay
   nlinarith
 
-/-- Under the explicit logarithmic spacing model, a post-root reciprocal channel
-whose upper prime is still at most `x` has midpoint delay at most
-`sqrt(x) * (log_2(x+1)+1) / 2`.  This is the formal worst-case version of the
-`q * gap / 2` calculation. -/
+/-- Under the explicit logarithmic spacing model, if the reciprocal integer
+scale `floor(x/q)` is bracketed by consecutive primes, the maximally bad
+midpoint delay is at most `sqrt(x) * (log_2(x+1)+1) / 2`.  The upper prime may
+lie above `x/q`; the model is pinned to the bracketed scale, not to that prime. -/
 theorem reciprocalPrimeMidpointDelay_le_root_log_of_pntSpacing
     (hPNT : PNTLogPrimeSpacingModel)
     {x q pLo pHi : ℕ}
     (hq : q ≤ Nat.sqrt x)
     (hpair : ConsecutivePrimePair pLo pHi)
-    (hpHi : pHi ≤ x) :
+    (hlo : pLo ≤ x / q) (hhi : x / q < pHi) :
     reciprocalPrimeMidpointDelay q pLo pHi ≤
       (Nat.sqrt x : ℝ) *
         (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ)) / 2 := by
-  have hgap0 := hPNT pLo pHi hpair
+  have hgap0 := hPNT (x / q) pLo pHi hpair hlo hhi
+  have hquot : x / q ≤ x := Nat.div_le_self x q
   have hlog :
-      Nat.log 2 (pHi + 1) + 1 ≤ Nat.log 2 (x + 1) + 1 := by
+      Nat.log 2 (x / q + 1) + 1 ≤ Nat.log 2 (x + 1) + 1 := by
     exact Nat.add_le_add_right (Nat.log_mono_right (by omega)) 1
   have hgap : pHi - pLo ≤ Nat.log 2 (x + 1) + 1 := hgap0.trans hlog
   exact reciprocalPrimeMidpointDelay_le_root_gap
