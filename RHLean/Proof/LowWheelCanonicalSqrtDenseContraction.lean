@@ -1,7 +1,7 @@
 import Mathlib
-import RHLean.Arithmetic.PrimeProductFrontierExhaustion
 import RHLean.Proof.LowWheelCanonicalOrientedRunFibres
-import RHLean.Proof.LowWheelFaceTailToggle
+import RHLean.Proof.SquareRootLowPrimeFirstOwnerWallRecurrence
+import RHLean.Proof.SquareRootLowPrimeGoHyperbolicStripRecursion
 
 /-!
 # Square-root contraction of predecessor-dense frozen cubes
@@ -27,6 +27,17 @@ Thus a high-owner frozen window admits the exact contraction
 `F_{q^-} = F_{sqrt R} + J_{q,sqrt R}`
 
 before any norm or triangle inequality.
+
+The next step is stronger than a recursive tail estimate.  At the same physical
+cutoff `B <= R`, a first jump `p > sqrt R` cannot have any later prime
+coordinate at all: two primes larger than `sqrt R` already have product larger
+than `R`.  Hence the nominal decomposition
+
+`t = u union {p} union v`
+
+has `v = empty` identically.  The first-jump residual is therefore an exact
+one-dimensional high-prime ledger with a completed lower-scale Mertens gap at
+each prime.  No fixed-prime absolute value is taken.
 -/
 
 noncomputable section
@@ -256,19 +267,7 @@ theorem sum_booleanCubeSign_orientedChargingFaces_eq_sqrtFrozen_add_firstJump
       (R / k) (lowWheelCanonicalDowncrossOwnershipUpper R c k)
       hqroot hupper]
 
-/-! ## Canonical first-jump Fubini
-
-The square-root contraction above leaves one signed first-high-jump residual.
-We now open that residual without losing its sign.  Every non-dense face has a
-unique first failing prime `p`; after fixing `p`, the face splits canonically as
-
-`u ∪ {p} ∪ v`,
-
-where `u` is the already-dense predecessor and `v` contains only later Euler
-coordinates.  For fixed `(p,u)`, the `v`-population is exactly one frozen window
-on the strict tail universe above `p`.  The existing fresh-prime recurrence
-therefore acts on the tail cube verbatim.
--/
+/-! ## The first-jump residual has no later tail at square-root scale -/
 
 /-- `p` is the canonical first large predecessor-density failure of `t`. -/
 def IsPredecessorFirstJumpAt
@@ -276,10 +275,10 @@ def IsPredecessorFirstJumpAt
   p ∈ t ∧
     Y < p ∧
     Y * predecessorPrimeFaceProduct t p < p ^ d ∧
-    ∀ q ∈ t, q < p → Y < q →
-      q ^ d ≤ Y * predecessorPrimeFaceProduct t q
+    ∀ r ∈ t, r < p → Y < r →
+      r ^ d ≤ Y * predecessorPrimeFaceProduct t r
 
-/-- The first predecessor jump is unique. -/
+/-- The canonical first predecessor jump is unique. -/
 theorem isPredecessorFirstJumpAt_unique
     {d Y : ℕ} {t : Finset ℕ} {p q : ℕ}
     (hp : IsPredecessorFirstJumpAt d Y t p)
@@ -296,7 +295,7 @@ theorem isPredecessorFirstJumpAt_unique
       have hgood := hprevP q hqt hqLtP hYq
       omega
 
-/-- Every first-jump frozen face has a canonical first-jump coordinate. -/
+/-- Every first-jump frozen face has its canonical first failure. -/
 theorem firstJumpFrozenWindowFace_exists_isPredecessorFirstJumpAt
     {d Y : ℕ} {S : Finset ℕ} {A B : ℕ} {t : Finset ℕ}
     (ht : t ∈ predecessorFirstJumpFrozenWindowFaces d Y S A B) :
@@ -305,7 +304,7 @@ theorem firstJumpFrozenWindowFace_exists_isPredecessorFirstJumpAt
     ⟨p, hpt, hYp, hfail, hprev⟩
   exact ⟨p, hpt, hYp, hfail, hprev⟩
 
-/-- Faces in the first-jump residual whose canonical first failure is `p`. -/
+/-- The slice of the first-jump residual whose canonical jump is `p`. -/
 def predecessorFirstJumpFrozenWindowSlice
     (d Y : ℕ) (S : Finset ℕ) (A B p : ℕ) : Finset (Finset ℕ) :=
   (predecessorFirstJumpFrozenWindowFaces d Y S A B).filter fun t =>
@@ -318,7 +317,7 @@ def predecessorFirstJumpFrozenWindowSlice
         IsPredecessorFirstJumpAt d Y t p := by
   simp [predecessorFirstJumpFrozenWindowSlice]
 
-/-- The first-jump slices are pairwise disjoint. -/
+/-- The canonical first-jump slices are pairwise disjoint. -/
 theorem predecessorFirstJumpFrozenWindowSlice_pairwise
     (d Y : ℕ) (S : Finset ℕ) (A B : ℕ) :
     Set.PairwiseDisjoint (↑S)
@@ -333,8 +332,8 @@ theorem predecessorFirstJumpFrozenWindowSlice_pairwise
   have hqFirst := (mem_predecessorFirstJumpFrozenWindowSlice.mp htq).2
   exact hpq (isPredecessorFirstJumpAt_unique hpFirst hqFirst)
 
-/-- The entire first-jump residual is the disjoint union over its canonical
-first jump `p`. -/
+/-- The full first-jump residual is the disjoint union of its canonical
+prime-indexed slices. -/
 theorem predecessorFirstJumpFrozenWindowFaces_eq_biUnion_slices
     (d Y : ℕ) (S : Finset ℕ) (A B : ℕ) :
     predecessorFirstJumpFrozenWindowFaces d Y S A B =
@@ -360,8 +359,7 @@ def predecessorFirstJumpFrozenWindowSliceMass
   ∑ t ∈ predecessorFirstJumpFrozenWindowSlice d Y S A B p,
     booleanCubeSign t
 
-/-- **First Fubini step.**  The signed first-jump residual is exactly the sum of
-its canonical first-jump slices. -/
+/-- Exact signed Fubini over the canonical first jump. -/
 theorem predecessorFirstJumpFrozenWindowMass_eq_sum_slices
     (d Y : ℕ) (S : Finset ℕ) (A B : ℕ) :
     predecessorFirstJumpFrozenWindowMass d Y S A B =
@@ -373,641 +371,334 @@ theorem predecessorFirstJumpFrozenWindowMass_eq_sum_slices
   exact Finset.sum_biUnion
     (predecessorFirstJumpFrozenWindowSlice_pairwise d Y S A B)
 
-/-! ### Canonical predecessor / jump / tail coordinates -/
-
-/-- Coordinates strictly after the first jump `p`. -/
+/-- Coordinates strictly after the canonical first jump. -/
 def firstJumpTailFace (t : Finset ℕ) (p : ℕ) : Finset ℕ :=
-  t.filter fun q => p < q
+  t.filter fun r => p < r
 
 @[simp] theorem mem_firstJumpTailFace
-    {t : Finset ℕ} {p q : ℕ} :
-    q ∈ firstJumpTailFace t p ↔ q ∈ t ∧ p < q := by
+    {t : Finset ℕ} {p r : ℕ} :
+    r ∈ firstJumpTailFace t p ↔ r ∈ t ∧ p < r := by
   simp [firstJumpTailFace]
 
-/-- Prime coordinates of `S` strictly before `p`. -/
-def firstJumpPredecessorPrimeUniverse
-    (S : Finset ℕ) (p : ℕ) : Finset ℕ :=
-  S.filter fun q => q < p
-
-/-- Prime coordinates of `S` strictly after `p`. -/
-def firstJumpTailPrimeUniverse
-    (S : Finset ℕ) (p : ℕ) : Finset ℕ :=
-  S.filter fun q => p < q
-
-@[simp] theorem mem_firstJumpPredecessorPrimeUniverse
-    {S : Finset ℕ} {p q : ℕ} :
-    q ∈ firstJumpPredecessorPrimeUniverse S p ↔ q ∈ S ∧ q < p := by
-  simp [firstJumpPredecessorPrimeUniverse]
-
-@[simp] theorem mem_firstJumpTailPrimeUniverse
-    {S : Finset ℕ} {p q : ℕ} :
-    q ∈ firstJumpTailPrimeUniverse S p ↔ q ∈ S ∧ p < q := by
-  simp [firstJumpTailPrimeUniverse]
-
-/-- Every face containing `p` decomposes uniquely into predecessor, jump, and
-tail coordinates. -/
-theorem face_eq_insert_predecessor_union_firstJumpTail
-    {t : Finset ℕ} {p : ℕ} (hpt : p ∈ t) :
-    t = insert p (predecessorPrimeFace t p ∪ firstJumpTailFace t p) := by
-  ext q
-  constructor
-  · intro hqt
-    by_cases hqp : q = p
-    · subst q
-      simp
-    · by_cases hlt : q < p
-      · exact Finset.mem_insert_of_mem
-          (Finset.mem_union_left _
-            (mem_predecessorPrimeFace.mpr ⟨hqt, hlt⟩))
-      · have hgt : p < q := by omega
-        exact Finset.mem_insert_of_mem
-          (Finset.mem_union_right _
-            (mem_firstJumpTailFace.mpr ⟨hqt, hgt⟩))
-  · intro hq
-    rcases Finset.mem_insert.mp hq with hEq | hrest
-    · simpa [hEq] using hpt
-    · rcases Finset.mem_union.mp hrest with hpred | htail
-      · exact (mem_predecessorPrimeFace.mp hpred).1
-      · exact (mem_firstJumpTailFace.mp htail).1
-
-/-- Predecessor and strict-tail coordinates are disjoint. -/
-theorem predecessorPrimeFace_disjoint_firstJumpTailFace
-    (t : Finset ℕ) (p : ℕ) :
-    Disjoint (predecessorPrimeFace t p) (firstJumpTailFace t p) := by
-  rw [Finset.disjoint_left]
-  intro q hpred htail
-  have hpq := (mem_predecessorPrimeFace.mp hpred).2
-  have hqp := (mem_firstJumpTailFace.mp htail).2
-  omega
-
-/-- The first-jump coordinate is in neither the predecessor nor tail face. -/
-theorem firstJump_not_mem_predecessor_union_tail
-    (t : Finset ℕ) (p : ℕ) :
-    p ∉ predecessorPrimeFace t p ∪ firstJumpTailFace t p := by
-  simp
-
-/-- Product factorization along the canonical `u,p,v` decomposition. -/
-theorem primeFaceProduct_eq_predecessor_mul_jump_mul_tail
-    {t : Finset ℕ} {p : ℕ} (hpt : p ∈ t) :
-    primeFaceProduct t =
-      p * primeFaceProduct (predecessorPrimeFace t p) *
-        primeFaceProduct (firstJumpTailFace t p) := by
-  rw [face_eq_insert_predecessor_union_firstJumpTail hpt]
-  rw [primeFaceProduct_insert_eq_mul
-    (firstJump_not_mem_predecessor_union_tail t p)]
-  rw [primeFaceProduct_union_of_disjoint
-    (predecessorPrimeFace_disjoint_firstJumpTailFace t p)]
-  ring
-
-/-- Sign factorization along the canonical `u,p,v` decomposition. -/
-theorem booleanCubeSign_eq_neg_predecessor_mul_tail
-    {t : Finset ℕ} {p : ℕ} (hpt : p ∈ t) :
-    booleanCubeSign t =
-      -(booleanCubeSign (predecessorPrimeFace t p) *
-        booleanCubeSign (firstJumpTailFace t p)) := by
-  rw [face_eq_insert_predecessor_union_firstJumpTail hpt]
-  have hpNot := firstJump_not_mem_predecessor_union_tail t p
-  rw [booleanCubeSign_insert_eq_neg hpNot]
-  unfold booleanCubeSign
-  rw [Finset.card_union_of_disjoint
-    (predecessorPrimeFace_disjoint_firstJumpTailFace t p), pow_add]
-  ring
-
-/-- At a canonical first jump, the complete predecessor face is already dense. -/
-theorem isPredecessorFirstJumpAt_predecessor_dense
-    {d Y : ℕ} {t : Finset ℕ} {p : ℕ}
-    (hfirst : IsPredecessorFirstJumpAt d Y t p) :
-    PredecessorDenseFace d Y (predecessorPrimeFace t p) := by
-  exact predecessorPrimeFace_dense_of_previous hfirst.2.2.2
-
-/-- The old part of a first-jump face lies in the strict predecessor universe. -/
-theorem predecessor_of_firstJumpSlice_mem_predecessorUniverse
-    {d Y : ℕ} {S : Finset ℕ} {A B p : ℕ} {t : Finset ℕ}
-    (ht : t ∈ predecessorFirstJumpFrozenWindowSlice d Y S A B p) :
-    predecessorPrimeFace t p ∈
-      (firstJumpPredecessorPrimeUniverse S p).powerset := by
-  rcases mem_predecessorFirstJumpFrozenWindowSlice.mp ht with
-    ⟨hjump, _hfirst⟩
-  have hwindow := (mem_predecessorFirstJumpFrozenWindowFaces.mp hjump).1
-  have htPow := (mem_frozenPrimeUniverseWindowFaces.mp hwindow).1
-  have htSub := Finset.mem_powerset.mp htPow
-  apply Finset.mem_powerset.mpr
-  intro q hq
-  rcases mem_predecessorPrimeFace.mp hq with ⟨hqt, hqp⟩
-  exact mem_firstJumpPredecessorPrimeUniverse.mpr ⟨htSub hqt, hqp⟩
-
-/-- The later part lies in the strict tail universe. -/
-theorem tail_of_firstJumpSlice_mem_tailUniverse
-    {d Y : ℕ} {S : Finset ℕ} {A B p : ℕ} {t : Finset ℕ}
-    (ht : t ∈ predecessorFirstJumpFrozenWindowSlice d Y S A B p) :
-    firstJumpTailFace t p ∈
-      (firstJumpTailPrimeUniverse S p).powerset := by
-  rcases mem_predecessorFirstJumpFrozenWindowSlice.mp ht with
-    ⟨hjump, _hfirst⟩
-  have hwindow := (mem_predecessorFirstJumpFrozenWindowFaces.mp hjump).1
-  have htPow := (mem_frozenPrimeUniverseWindowFaces.mp hwindow).1
-  have htSub := Finset.mem_powerset.mp htPow
-  apply Finset.mem_powerset.mpr
-  intro q hq
-  rcases mem_firstJumpTailFace.mp hq with ⟨hqt, hpq⟩
-  exact mem_firstJumpTailPrimeUniverse.mpr ⟨htSub hqt, hpq⟩
-
-/-- At the first jump, the predecessor is already dense and the failure
-inequality depends only on its product. -/
-theorem firstJumpSlice_predecessor_dense_and_jump
-    {d Y : ℕ} {S : Finset ℕ} {A B p : ℕ} {t : Finset ℕ}
-    (ht : t ∈ predecessorFirstJumpFrozenWindowSlice d Y S A B p) :
-    PredecessorDenseFace d Y (predecessorPrimeFace t p) ∧
-      Y < p ∧
-      Y * primeFaceProduct (predecessorPrimeFace t p) < p ^ d := by
-  have hfirst := (mem_predecessorFirstJumpFrozenWindowSlice.mp ht).2
-  refine ⟨isPredecessorFirstJumpAt_predecessor_dense hfirst,
-    hfirst.2.1, ?_⟩
-  simpa [predecessorPrimeFaceProduct] using hfirst.2.2.1
-
-/-! ### Second Fubini step: fix the predecessor `u` -/
-
-/-- First-jump faces with fixed canonical predecessor `u`. -/
-def predecessorFirstJumpFrozenWindowPredecessorSlice
-    (d Y : ℕ) (S : Finset ℕ) (A B p : ℕ) (u : Finset ℕ) :
-    Finset (Finset ℕ) :=
-  (predecessorFirstJumpFrozenWindowSlice d Y S A B p).filter fun t =>
-    predecessorPrimeFace t p = u
-
-@[simp] theorem mem_predecessorFirstJumpFrozenWindowPredecessorSlice
-    {d Y : ℕ} {S : Finset ℕ} {A B p : ℕ} {u t : Finset ℕ} :
-    t ∈ predecessorFirstJumpFrozenWindowPredecessorSlice d Y S A B p u ↔
-      t ∈ predecessorFirstJumpFrozenWindowSlice d Y S A B p ∧
-        predecessorPrimeFace t p = u := by
-  simp [predecessorFirstJumpFrozenWindowPredecessorSlice]
-
-/-- Fixed-predecessor slices are pairwise disjoint. -/
-theorem predecessorFirstJumpFrozenWindowPredecessorSlice_pairwise
-    (d Y : ℕ) (S : Finset ℕ) (A B p : ℕ) :
-    Set.PairwiseDisjoint
-      (↑((firstJumpPredecessorPrimeUniverse S p).powerset))
-      (predecessorFirstJumpFrozenWindowPredecessorSlice d Y S A B p) := by
-  intro u _hu v _hv huv
-  change Disjoint
-    (predecessorFirstJumpFrozenWindowPredecessorSlice d Y S A B p u)
-    (predecessorFirstJumpFrozenWindowPredecessorSlice d Y S A B p v)
-  rw [Finset.disjoint_left]
-  intro t htu htv
-  have huEq :=
-    (mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mp htu).2
-  have hvEq :=
-    (mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mp htv).2
-  exact huv (huEq.symm.trans hvEq)
-
-/-- One `p`-slice is the disjoint union over its canonical predecessors. -/
-theorem predecessorFirstJumpFrozenWindowSlice_eq_biUnion_predecessors
-    (d Y : ℕ) (S : Finset ℕ) (A B p : ℕ) :
-    predecessorFirstJumpFrozenWindowSlice d Y S A B p =
-      (firstJumpPredecessorPrimeUniverse S p).powerset.biUnion
-        (predecessorFirstJumpFrozenWindowPredecessorSlice d Y S A B p) := by
-  ext t
-  constructor
-  · intro ht
-    let u := predecessorPrimeFace t p
-    have hu := predecessor_of_firstJumpSlice_mem_predecessorUniverse ht
-    exact Finset.mem_biUnion.mpr
-      ⟨u, hu,
-        mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mpr ⟨ht, rfl⟩⟩
-  · intro ht
-    rcases Finset.mem_biUnion.mp ht with ⟨u, _hu, htu⟩
-    exact (mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mp htu).1
-
-/-- Signed mass of a fixed `(p,u)` first-jump slice. -/
-def predecessorFirstJumpFrozenWindowPredecessorSliceMass
-    (d Y : ℕ) (S : Finset ℕ) (A B p : ℕ) (u : Finset ℕ) : ℤ :=
-  ∑ t ∈ predecessorFirstJumpFrozenWindowPredecessorSlice d Y S A B p u,
-    booleanCubeSign t
-
-/-- **Second Fubini step.** -/
-theorem predecessorFirstJumpFrozenWindowSliceMass_eq_sum_predecessors
-    (d Y : ℕ) (S : Finset ℕ) (A B p : ℕ) :
-    predecessorFirstJumpFrozenWindowSliceMass d Y S A B p =
-      ∑ u ∈ (firstJumpPredecessorPrimeUniverse S p).powerset,
-        predecessorFirstJumpFrozenWindowPredecessorSliceMass
-          d Y S A B p u := by
-  unfold predecessorFirstJumpFrozenWindowSliceMass
-    predecessorFirstJumpFrozenWindowPredecessorSliceMass
-  rw [predecessorFirstJumpFrozenWindowSlice_eq_biUnion_predecessors]
-  exact Finset.sum_biUnion
-    (predecessorFirstJumpFrozenWindowPredecessorSlice_pairwise
-      d Y S A B p)
-
-/-! ### The fixed `(p,u)` remainder is exactly a frozen tail cube -/
-
-/-- The strict tail window after fixing predecessor `u` and jump `p`. -/
-def predecessorFirstJumpTailWindowFaces
-    (S : Finset ℕ) (A B p : ℕ) (u : Finset ℕ) : Finset (Finset ℕ) :=
-  frozenPrimeUniverseWindowFaces
-    (firstJumpTailPrimeUniverse S p)
-    (A / (p * primeFaceProduct u))
-    (B / (p * primeFaceProduct u))
-
-/-- Signed mass of that strict tail cube. -/
-def predecessorFirstJumpTailWindowMass
-    (S : Finset ℕ) (A B p : ℕ) (u : Finset ℕ) : ℤ :=
-  frozenPrimeUniverseWindowMass
-    (firstJumpTailPrimeUniverse S p)
-    (A / (p * primeFaceProduct u))
-    (B / (p * primeFaceProduct u))
-
-/-- Reassemble a face from its predecessor, jump coordinate, and strict tail. -/
-def assembleFirstJumpFace
-    (u : Finset ℕ) (p : ℕ) (v : Finset ℕ) : Finset ℕ :=
-  insert p (u ∪ v)
-
-/-- Reassembly recovers the fixed predecessor. -/
-theorem predecessorPrimeFace_assembleFirstJumpFace
-    {u v : Finset ℕ} {p : ℕ}
-    (huLt : ∀ q ∈ u, q < p) (hvGt : ∀ q ∈ v, p < q) :
-    predecessorPrimeFace (assembleFirstJumpFace u p v) p = u := by
-  ext q
-  constructor
-  · intro hq
-    rcases mem_predecessorPrimeFace.mp hq with ⟨hqFace, hqp⟩
-    rcases Finset.mem_insert.mp hqFace with hEq | hUnion
-    · subst q
-      omega
-    · rcases Finset.mem_union.mp hUnion with hqu | hqv
-      · exact hqu
-      · exact (not_lt_of_ge (hvGt q hqv).le hqp).elim
-  · intro hqu
-    exact mem_predecessorPrimeFace.mpr
-      ⟨Finset.mem_insert_of_mem (Finset.mem_union_left _ hqu), huLt q hqu⟩
-
-/-- Reassembly recovers the strict tail. -/
-theorem firstJumpTailFace_assembleFirstJumpFace
-    {u v : Finset ℕ} {p : ℕ}
-    (huLt : ∀ q ∈ u, q < p) (hvGt : ∀ q ∈ v, p < q) :
-    firstJumpTailFace (assembleFirstJumpFace u p v) p = v := by
-  ext q
-  constructor
-  · intro hq
-    rcases mem_firstJumpTailFace.mp hq with ⟨hqFace, hpq⟩
-    rcases Finset.mem_insert.mp hqFace with hEq | hUnion
-    · subst q
-      omega
-    · rcases Finset.mem_union.mp hUnion with hqu | hqv
-      · exact (not_lt_of_ge (huLt q hqu).le hpq).elim
-      · exact hqv
-  · intro hqv
-    exact mem_firstJumpTailFace.mpr
-      ⟨Finset.mem_insert_of_mem (Finset.mem_union_right _ hqv), hvGt q hqv⟩
-
-/-- Earlier predecessor faces are unchanged by the first jump and its tail. -/
-theorem predecessorPrimeFace_assembleFirstJumpFace_of_lt
-    {u v : Finset ℕ} {p q : ℕ} (hqp : q < p)
-    (hvGt : ∀ r ∈ v, p < r) :
-    predecessorPrimeFace (assembleFirstJumpFace u p v) q =
-      predecessorPrimeFace u q := by
-  ext r
-  constructor
-  · intro hr
-    rcases mem_predecessorPrimeFace.mp hr with ⟨hrFace, hrq⟩
-    rcases Finset.mem_insert.mp hrFace with hEq | hUnion
-    · subst r
-      omega
-    · rcases Finset.mem_union.mp hUnion with hru | hrv
-      · exact mem_predecessorPrimeFace.mpr ⟨hru, hrq⟩
-      · have hpr := hvGt r hrv
-        omega
-  · intro hr
-    rcases mem_predecessorPrimeFace.mp hr with ⟨hru, hrq⟩
-    exact mem_predecessorPrimeFace.mpr
-      ⟨Finset.mem_insert_of_mem (Finset.mem_union_left _ hru), hrq⟩
-
-/-- Reassembly stays inside the original prime universe. -/
-theorem assembleFirstJumpFace_mem_powerset
-    {S u v : Finset ℕ} {p : ℕ}
-    (hpS : p ∈ S)
-    (hu : u ∈ (firstJumpPredecessorPrimeUniverse S p).powerset)
-    (hv : v ∈ (firstJumpTailPrimeUniverse S p).powerset) :
-    assembleFirstJumpFace u p v ∈ S.powerset := by
-  have huSub := Finset.mem_powerset.mp hu
-  have hvSub := Finset.mem_powerset.mp hv
-  apply Finset.mem_powerset.mpr
-  intro q hq
-  rcases Finset.mem_insert.mp hq with hEq | hUnion
-  · simpa [hEq] using hpS
-  · rcases Finset.mem_union.mp hUnion with hqu | hqv
-    · exact (mem_firstJumpPredecessorPrimeUniverse.mp (huSub hqu)).1
-    · exact (mem_firstJumpTailPrimeUniverse.mp (hvSub hqv)).1
-
-/-- Reassembly has `p` as its canonical first jump whenever `u` is already
-dense and the jump inequality fails at `p`. -/
-theorem assembleFirstJumpFace_isPredecessorFirstJumpAt
-    {d Y : ℕ} {S u v : Finset ℕ} {p : ℕ}
-    (hu : u ∈ (firstJumpPredecessorPrimeUniverse S p).powerset)
-    (hv : v ∈ (firstJumpTailPrimeUniverse S p).powerset)
-    (huDense : PredecessorDenseFace d Y u)
-    (hYp : Y < p) (hfail : Y * primeFaceProduct u < p ^ d) :
-    IsPredecessorFirstJumpAt d Y (assembleFirstJumpFace u p v) p := by
-  have huSub := Finset.mem_powerset.mp hu
-  have hvSub := Finset.mem_powerset.mp hv
-  have huLt : ∀ q ∈ u, q < p := by
-    intro q hqu
-    exact (mem_firstJumpPredecessorPrimeUniverse.mp (huSub hqu)).2
-  have hvGt : ∀ q ∈ v, p < q := by
-    intro q hqv
-    exact (mem_firstJumpTailPrimeUniverse.mp (hvSub hqv)).2
-  refine ⟨by simp [assembleFirstJumpFace], hYp, ?_, ?_⟩
-  · rw [predecessorPrimeFaceProduct]
-    rw [predecessorPrimeFace_assembleFirstJumpFace huLt hvGt]
-    exact hfail
-  · intro q hqFace hqp hYq
-    have hqPred : q ∈ predecessorPrimeFace (assembleFirstJumpFace u p v) p :=
-      mem_predecessorPrimeFace.mpr ⟨hqFace, hqp⟩
-    rw [predecessorPrimeFace_assembleFirstJumpFace huLt hvGt] at hqPred
-    have hgood := huDense q hqPred hYq
-    rw [predecessorPrimeFaceProduct]
-    rw [predecessorPrimeFace_assembleFirstJumpFace_of_lt hqp hvGt]
-    exact hgood
-
-/-- Every fixed-slice tail is a face of the scaled frozen tail window. -/
-theorem tail_of_firstJumpPredecessorSlice_mem_tailWindow
-    {d Y : ℕ} {S : Finset ℕ} {A B p : ℕ} {u t : Finset ℕ}
-    (hprimeS : ∀ q ∈ S, q.Prime)
-    (ht : t ∈ predecessorFirstJumpFrozenWindowPredecessorSlice
-      d Y S A B p u) :
-    firstJumpTailFace t p ∈ predecessorFirstJumpTailWindowFaces S A B p u := by
-  have htSlice :=
-    (mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mp ht).1
-  have huEq :=
-    (mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mp ht).2
-  have hfirst := (mem_predecessorFirstJumpFrozenWindowSlice.mp htSlice).2
-  have hjump := (mem_predecessorFirstJumpFrozenWindowSlice.mp htSlice).1
-  have hwindow := (mem_predecessorFirstJumpFrozenWindowFaces.mp hjump).1
-  rcases mem_frozenPrimeUniverseWindowFaces.mp hwindow with
-    ⟨htPow, hlo, hup⟩
-  have htSub := Finset.mem_powerset.mp htPow
-  have hpPrime : p.Prime := hprimeS p (htSub hfirst.1)
-  have huPos : 0 < primeFaceProduct u := by
-    rw [← huEq]
-    unfold primeFaceProduct
-    exact Finset.prod_pos fun q hq =>
-      (hprimeS q (htSub (mem_predecessorPrimeFace.mp hq).1)).pos
-  have hbasePos : 0 < p * primeFaceProduct u := Nat.mul_pos hpPrime.pos huPos
-  apply mem_frozenPrimeUniverseWindowFaces.mpr
-  refine ⟨tail_of_firstJumpSlice_mem_tailUniverse htSlice, ?_, ?_⟩
-  · apply (Nat.div_lt_iff_lt_mul hbasePos).2
-    have hprod := primeFaceProduct_eq_predecessor_mul_jump_mul_tail hfirst.1
-    rw [huEq] at hprod
-    simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using (hprod ▸ hlo)
-  · apply (Nat.le_div_iff_mul_le hbasePos).2
-    have hprod := primeFaceProduct_eq_predecessor_mul_jump_mul_tail hfirst.1
-    rw [huEq] at hprod
-    simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using (hprod ▸ hup)
-
-/-- Conversely, every face of the scaled strict tail window reassembles to the
-fixed first-jump slice. -/
-theorem assembleFirstJumpFace_mem_predecessorSlice_of_tailWindow
-    {d Y : ℕ} {S : Finset ℕ} {A B p : ℕ} {u v : Finset ℕ}
-    (hprimeS : ∀ q ∈ S, q.Prime) (hpS : p ∈ S)
-    (hu : u ∈ (firstJumpPredecessorPrimeUniverse S p).powerset)
-    (huDense : PredecessorDenseFace d Y u)
-    (hYp : Y < p) (hfail : Y * primeFaceProduct u < p ^ d)
-    (hv : v ∈ predecessorFirstJumpTailWindowFaces S A B p u) :
-    assembleFirstJumpFace u p v ∈
-      predecessorFirstJumpFrozenWindowPredecessorSlice d Y S A B p u := by
-  rcases mem_frozenPrimeUniverseWindowFaces.mp hv with
-    ⟨hvPow, hlo, hup⟩
-  have huSub := Finset.mem_powerset.mp hu
-  have hvSub := Finset.mem_powerset.mp hvPow
-  have huLt : ∀ q ∈ u, q < p := by
-    intro q hqu
-    exact (mem_firstJumpPredecessorPrimeUniverse.mp (huSub hqu)).2
-  have hvGt : ∀ q ∈ v, p < q := by
-    intro q hqv
-    exact (mem_firstJumpTailPrimeUniverse.mp (hvSub hqv)).2
-  have hpPrime := hprimeS p hpS
-  have huPos : 0 < primeFaceProduct u := by
-    unfold primeFaceProduct
-    exact Finset.prod_pos fun q hq =>
-      (hprimeS q
-        (mem_firstJumpPredecessorPrimeUniverse.mp (huSub hq)).1).pos
-  have hbasePos : 0 < p * primeFaceProduct u := Nat.mul_pos hpPrime.pos huPos
-  have hfirst := assembleFirstJumpFace_isPredecessorFirstJumpAt
-    hu hvPow huDense hYp hfail
-  have htPow := assembleFirstJumpFace_mem_powerset hpS hu hvPow
-  have hpredEq := predecessorPrimeFace_assembleFirstJumpFace huLt hvGt
-  have htailEq := firstJumpTailFace_assembleFirstJumpFace huLt hvGt
-  have hprod :
-      primeFaceProduct (assembleFirstJumpFace u p v) =
-        p * primeFaceProduct u * primeFaceProduct v := by
-    have h := primeFaceProduct_eq_predecessor_mul_jump_mul_tail hfirst.1
-    simpa [hpredEq, htailEq] using h
-  have hloFull : A < primeFaceProduct (assembleFirstJumpFace u p v) := by
-    have h := (Nat.div_lt_iff_lt_mul hbasePos).1 hlo
-    rw [hprod]
-    simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using h
-  have hupFull : primeFaceProduct (assembleFirstJumpFace u p v) ≤ B := by
-    have h := (Nat.le_div_iff_mul_le hbasePos).1 hup
-    rw [hprod]
-    simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using h
-  have hwindow :
-      assembleFirstJumpFace u p v ∈ frozenPrimeUniverseWindowFaces S A B :=
-    mem_frozenPrimeUniverseWindowFaces.mpr ⟨htPow, hloFull, hupFull⟩
-  have hnotDense : ¬ PredecessorDenseFace d Y (assembleFirstJumpFace u p v) := by
-    intro hdense
-    have hgood := hdense p hfirst.1 hYp
-    rw [predecessorPrimeFaceProduct] at hgood
-    rw [hpredEq] at hgood
-    omega
-  have hjump :
-      assembleFirstJumpFace u p v ∈ predecessorFirstJumpFrozenWindowFaces
-        d Y S A B :=
-    mem_predecessorFirstJumpFrozenWindowFaces.mpr ⟨hwindow, hnotDense⟩
-  have hslice :
-      assembleFirstJumpFace u p v ∈ predecessorFirstJumpFrozenWindowSlice
-        d Y S A B p :=
-    mem_predecessorFirstJumpFrozenWindowSlice.mpr ⟨hjump, hfirst⟩
-  exact mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mpr
-    ⟨hslice, hpredEq⟩
-
-/-- **Exact fixed-`(p,u)` tail-cube factorization.**  The fixed predecessor
-slice is not merely bounded by a tail cube: it is in signed bijection with it.
-The only scalar left outside the tail is the predecessor Boolean sign. -/
-theorem predecessorFirstJumpFrozenWindowPredecessorSliceMass_eq_tailWindowMass
-    {d Y : ℕ} {S : Finset ℕ} {A B p : ℕ} {u : Finset ℕ}
-    (hprimeS : ∀ q ∈ S, q.Prime) (hpS : p ∈ S)
-    (hu : u ∈ (firstJumpPredecessorPrimeUniverse S p).powerset)
-    (huDense : PredecessorDenseFace d Y u)
-    (hYp : Y < p) (hfail : Y * primeFaceProduct u < p ^ d) :
-    predecessorFirstJumpFrozenWindowPredecessorSliceMass
-        d Y S A B p u =
-      -booleanCubeSign u * predecessorFirstJumpTailWindowMass S A B p u := by
-  classical
-  unfold predecessorFirstJumpFrozenWindowPredecessorSliceMass
-    predecessorFirstJumpTailWindowMass frozenPrimeUniverseWindowMass
-    predecessorFirstJumpTailWindowFaces
-  rw [Finset.mul_sum]
-  refine Finset.sum_bij (fun t _ht => firstJumpTailFace t p) ?_ ?_ ?_ ?_
-  · intro t ht
-    exact tail_of_firstJumpPredecessorSlice_mem_tailWindow hprimeS ht
-  · intro t₁ ht₁ t₂ ht₂ htail
-    have hdata₁ :=
-      mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mp ht₁
-    have hdata₂ :=
-      mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mp ht₂
-    have hp₁ :=
-      (mem_predecessorFirstJumpFrozenWindowSlice.mp hdata₁.1).2.1
-    have hp₂ :=
-      (mem_predecessorFirstJumpFrozenWindowSlice.mp hdata₂.1).2.1
-    calc
-      t₁ = insert p (u ∪ firstJumpTailFace t₁ p) := by
-        rw [face_eq_insert_predecessor_union_firstJumpTail hp₁, hdata₁.2]
-      _ = insert p (u ∪ firstJumpTailFace t₂ p) := by rw [htail]
-      _ = t₂ := by
-        rw [← face_eq_insert_predecessor_union_firstJumpTail hp₂, hdata₂.2]
-  · intro v hv
-    have ht := assembleFirstJumpFace_mem_predecessorSlice_of_tailWindow
-      hprimeS hpS hu huDense hYp hfail hv
-    refine ⟨assembleFirstJumpFace u p v, ht, ?_⟩
-    have huSub := Finset.mem_powerset.mp hu
-    have hvPow := (mem_frozenPrimeUniverseWindowFaces.mp hv).1
-    have hvSub := Finset.mem_powerset.mp hvPow
-    have huLt : ∀ q ∈ u, q < p := by
-      intro q hqu
-      exact (mem_firstJumpPredecessorPrimeUniverse.mp (huSub hqu)).2
-    have hvGt : ∀ q ∈ v, p < q := by
-      intro q hqv
-      exact (mem_firstJumpTailPrimeUniverse.mp (hvSub hqv)).2
-    exact firstJumpTailFace_assembleFirstJumpFace huLt hvGt
-  · intro t ht
-    have hdata :=
-      mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mp ht
-    have hfirst := (mem_predecessorFirstJumpFrozenWindowSlice.mp hdata.1).2
-    have hsign := booleanCubeSign_eq_neg_predecessor_mul_tail hfirst.1
-    rw [hdata.2] at hsign
-    simpa [mul_assoc] using hsign
-
-/-- A fixed predecessor slice is empty unless its predecessor is dense and its
-jump really fails at `p`. -/
-theorem predecessorFirstJumpFrozenWindowPredecessorSlice_eq_empty_of_inactive
-    {d Y : ℕ} {S : Finset ℕ} {A B p : ℕ} {u : Finset ℕ}
-    (hinactive : ¬ (PredecessorDenseFace d Y u ∧
-      Y < p ∧ Y * primeFaceProduct u < p ^ d)) :
-    predecessorFirstJumpFrozenWindowPredecessorSlice d Y S A B p u = ∅ := by
-  apply Finset.eq_empty_iff_forall_not_mem.mpr
-  intro t ht
-  have hdata :=
-    firstJumpSlice_predecessor_dense_and_jump
-      (mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mp ht).1
-  have huEq :=
-    (mem_predecessorFirstJumpFrozenWindowPredecessorSlice.mp ht).2
-  apply hinactive
-  simpa [huEq] using hdata
-
-/-- The exact signed first-jump slice indexed by `p`, written in the desired
-`u,p,v` coordinates.  Inactive predecessor cubes contribute zero. -/
-def predecessorFirstJumpEulerSliceMass
-    (d Y : ℕ) (S : Finset ℕ) (A B p : ℕ) : ℤ :=
-  ∑ u ∈ (firstJumpPredecessorPrimeUniverse S p).powerset,
-    if PredecessorDenseFace d Y u ∧
-        Y < p ∧ Y * primeFaceProduct u < p ^ d then
-      -booleanCubeSign u * predecessorFirstJumpTailWindowMass S A B p u
-    else 0
-
-/-- One canonical `p`-slice is exactly its signed low-predecessor / tail-cube
-Fubini expansion. -/
-theorem predecessorFirstJumpFrozenWindowSliceMass_eq_eulerSliceMass
-    {d Y : ℕ} {S : Finset ℕ} {A B p : ℕ}
-    (hprimeS : ∀ q ∈ S, q.Prime) (hpS : p ∈ S) :
-    predecessorFirstJumpFrozenWindowSliceMass d Y S A B p =
-      predecessorFirstJumpEulerSliceMass d Y S A B p := by
-  rw [predecessorFirstJumpFrozenWindowSliceMass_eq_sum_predecessors]
-  unfold predecessorFirstJumpEulerSliceMass
-  apply Finset.sum_congr rfl
-  intro u hu
-  by_cases hactive : PredecessorDenseFace d Y u ∧
-      Y < p ∧ Y * primeFaceProduct u < p ^ d
-  · rw [if_pos hactive]
-    exact predecessorFirstJumpFrozenWindowPredecessorSliceMass_eq_tailWindowMass
-      hprimeS hpS hu hactive.1 hactive.2.1 hactive.2.2
-  · rw [if_neg hactive]
-    rw [predecessorFirstJumpFrozenWindowPredecessorSlice_eq_empty_of_inactive
-      hactive]
-    simp [predecessorFirstJumpFrozenWindowPredecessorSliceMass]
-
-/-- **Exact first-jump ledger.**  The whole residual is now one signed sum over
-first jumps `p`, each carrying only an already-dense predecessor `u` and an
-unestimated tail cube `v`. -/
-theorem predecessorFirstJumpFrozenWindowMass_eq_sum_eulerSlices
-    {d Y : ℕ} {S : Finset ℕ} {A B : ℕ}
-    (hprimeS : ∀ q ∈ S, q.Prime) :
-    predecessorFirstJumpFrozenWindowMass d Y S A B =
-      ∑ p ∈ S, predecessorFirstJumpEulerSliceMass d Y S A B p := by
-  rw [predecessorFirstJumpFrozenWindowMass_eq_sum_slices]
-  apply Finset.sum_congr rfl
-  intro p hpS
-  exact predecessorFirstJumpFrozenWindowSliceMass_eq_eulerSliceMass hprimeS hpS
-
-/-! ### Sequential Euler recurrence on the strict tail cube -/
-
-/-- Adding a new coordinate `r > p` inserts it exactly into the strict tail
-universe. -/
-theorem firstJumpTailPrimeUniverse_insert_of_gt
-    {S : Finset ℕ} {p r : ℕ} (hpr : p < r) :
-    firstJumpTailPrimeUniverse (insert r S) p =
-      insert r (firstJumpTailPrimeUniverse S p) := by
-  ext q
-  simp [firstJumpTailPrimeUniverse, hpr]
-
-/-- A fresh later prime is not already in the old strict tail universe. -/
-theorem not_mem_firstJumpTailPrimeUniverse_of_not_mem
-    {S : Finset ℕ} {p r : ℕ} (hrS : r ∉ S) :
-    r ∉ firstJumpTailPrimeUniverse S p := by
-  intro hr
-  exact hrS (mem_firstJumpTailPrimeUniverse.mp hr).1
-
-/-- **Tail Euler recurrence.**  Once `(p,u)` is fixed, adding one later fresh
-prime subtracts exactly the reciprocal-compressed old tail cube. -/
-theorem predecessorFirstJumpTailWindowMass_insert_later
-    {S : Finset ℕ} {A B p r : ℕ} {u : Finset ℕ}
-    (hrS : r ∉ S) (hrPrime : r.Prime) (hpr : p < r) (hAB : A ≤ B) :
-    predecessorFirstJumpTailWindowMass (insert r S) A B p u =
-      predecessorFirstJumpTailWindowMass S A B p u -
-        frozenPrimeUniverseWindowMass
-          (firstJumpTailPrimeUniverse S p)
-          ((A / (p * primeFaceProduct u)) / r)
-          ((B / (p * primeFaceProduct u)) / r) := by
-  unfold predecessorFirstJumpTailWindowMass
-  rw [firstJumpTailPrimeUniverse_insert_of_gt hpr]
-  exact frozenPrimeUniverseWindowMass_insert
-    (not_mem_firstJumpTailPrimeUniverse_of_not_mem hrS)
-    hrPrime
-    (Nat.div_le_div_right hAB)
-
-/-! ### Square-root specialization and explicit remaining seam -/
-
-/-- On the #567 square-root residual, every canonical first jump lies strictly
-between the fourth-root cutoff and the old owner. -/
-theorem sqrtFirstJumpSlice_coordinate_band
+/-- **No later tail at the square-root wall.**  In a product window with
+`B <= R`, once the first jump satisfies `p > sqrt R`, a second later prime
+would force the face product above `R`. -/
+theorem sqrtFirstJumpSlice_tail_eq_empty
     {R q A B p : ℕ} {t : Finset ℕ}
+    (hBR : B ≤ R)
     (ht : t ∈ predecessorFirstJumpFrozenWindowSlice
       3 (Nat.sqrt R) (primesUpTo (q - 1)) A B p) :
-    Nat.sqrt R < p ∧ p < q := by
-  have hfirst := (mem_predecessorFirstJumpFrozenWindowSlice.mp ht).2
-  have hjump := (mem_predecessorFirstJumpFrozenWindowSlice.mp ht).1
+    firstJumpTailFace t p = ∅ := by
+  apply Finset.eq_empty_iff_forall_notMem.mpr
+  intro r hr
+  have hslice := mem_predecessorFirstJumpFrozenWindowSlice.mp ht
+  have hfirst := hslice.2
+  have hjump := hslice.1
   have hwindow := (mem_predecessorFirstJumpFrozenWindowFaces.mp hjump).1
-  have htPow := (mem_frozenPrimeUniverseWindowFaces.mp hwindow).1
-  have hpOld := (Finset.mem_powerset.mp htPow) hfirst.1
-  rcases mem_primesUpTo.mp hpOld with ⟨_hpPrime, hpLe⟩
-  exact ⟨hfirst.2.1, by omega⟩
+  rcases mem_frozenPrimeUniverseWindowFaces.mp hwindow with
+    ⟨htPow, _hlo, hup⟩
+  have htSub := Finset.mem_powerset.mp htPow
+  have hrt := (mem_firstJumpTailFace.mp hr).1
+  have hpr := (mem_firstJumpTailFace.mp hr).2
+  have hsub : insert p {r} ⊆ t := by
+    intro z hz
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hz
+    rcases hz with hz | hz
+    · subst z
+      exact hfirst.1
+    · subst z
+      exact hrt
+  have hprodLower : p * r ≤ primeFaceProduct t := by
+    unfold primeFaceProduct
+    have hle := Finset.prod_le_prod_of_subset_of_one_le' hsub (by
+      intro z hzt _hzsmall
+      exact (prime_of_mem_primesUpTo (htSub hzt)).one_le)
+    have hne : p ≠ r := by omega
+    simpa [hne, Nat.mul_comm] using hle
+  have hRnext : R < (Nat.sqrt R + 1) ^ 2 := Nat.lt_succ_sqrt' R
+  have hsp : Nat.sqrt R + 1 ≤ p := by omega
+  have hsr : Nat.sqrt R + 1 ≤ r := by omega
+  have hnextLe : (Nat.sqrt R + 1) ^ 2 ≤ p * r := by
+    rw [pow_two]
+    exact Nat.mul_le_mul hsp hsr
+  have hRpr : R < p * r := hRnext.trans_le hnextLe
+  have hprR : p * r ≤ R := hprodLower.trans (hup.trans hBR)
+  omega
 
-/-- The remaining quantitative target is deliberately stated on the complete
-signed first-jump ledger, never on fixed `p`-slices separately. -/
-def SqrtFirstJumpSignedBoundStatement : Prop :=
-  ∀ ε : ℝ, 0 < ε →
-    ∃ C : ℝ, 0 ≤ C ∧
-      ∀ R q A B : ℕ,
-        Nat.sqrt R < q → B ≤ R →
-        ‖((predecessorFirstJumpFrozenWindowMass
-          3 (Nat.sqrt R) (primesUpTo (q - 1)) A B : ℤ) : ℂ)‖ ^ 2 ≤
-          C * Real.rpow (R : ℝ) (1 + ε)
+/-- Thus a square-root first-jump face is exactly its completed predecessor
+with the single high prime adjoined; the nominal later cube is empty. -/
+theorem sqrtFirstJumpSlice_face_eq_insert_predecessor
+    {R q A B p : ℕ} {t : Finset ℕ}
+    (hBR : B ≤ R)
+    (ht : t ∈ predecessorFirstJumpFrozenWindowSlice
+      3 (Nat.sqrt R) (primesUpTo (q - 1)) A B p) :
+    t = insert p (predecessorPrimeFace t p) := by
+  have htail := sqrtFirstJumpSlice_tail_eq_empty hBR ht
+  have hfirst := (mem_predecessorFirstJumpFrozenWindowSlice.mp ht).2
+  ext r
+  constructor
+  · intro hrt
+    by_cases hrp : r = p
+    · subst r
+      simp
+    · have hrlt : r < p := by
+        by_contra hnot
+        have hpr : p < r := by omega
+        have hrTail : r ∈ firstJumpTailFace t p :=
+          mem_firstJumpTailFace.mpr ⟨hrt, hpr⟩
+        rw [htail] at hrTail
+        simp at hrTail
+      exact Finset.mem_insert_of_mem
+        (mem_predecessorPrimeFace.mpr ⟨hrt, hrlt⟩)
+  · intro hr
+    rcases Finset.mem_insert.mp hr with hEq | hpred
+    · subst r
+      exact hfirst.1
+    · exact (mem_predecessorPrimeFace.mp hpred).1
+
+/-- The predecessor attached to a canonical square-root first jump is entirely
+supported on the lower prime universe through `sqrt R`. -/
+theorem sqrtFirstJumpSlice_predecessor_subset_sqrt
+    {R q A B p : ℕ} {t : Finset ℕ}
+    (hBR : B ≤ R)
+    (ht : t ∈ predecessorFirstJumpFrozenWindowSlice
+      3 (Nat.sqrt R) (primesUpTo (q - 1)) A B p) :
+    predecessorPrimeFace t p ∈ (primesUpTo (Nat.sqrt R)).powerset := by
+  have hslice := mem_predecessorFirstJumpFrozenWindowSlice.mp ht
+  have hfirst := hslice.2
+  have hjump := hslice.1
+  have hwindow := (mem_predecessorFirstJumpFrozenWindowFaces.mp hjump).1
+  rcases mem_frozenPrimeUniverseWindowFaces.mp hwindow with
+    ⟨htPow, _hlo, hup⟩
+  have htSub := Finset.mem_powerset.mp htPow
+  have hprimePred : ∀ r ∈ predecessorPrimeFace t p, r.Prime := by
+    intro r hr
+    exact prime_of_mem_primesUpTo
+      (htSub (mem_predecessorPrimeFace.mp hr).1)
+  have hpredDense :
+      PredecessorDenseFace 3 (Nat.sqrt R) (predecessorPrimeFace t p) :=
+    predecessorPrimeFace_dense_of_previous hfirst.2.2.2
+  have hpPrime := prime_of_mem_primesUpTo (htSub hfirst.1)
+  have hprefix :=
+    prime_mul_predecessorPrimeFaceProduct_le
+      (fun r hr => prime_of_mem_primesUpTo (htSub hr)) hfirst.1
+  have hpredLeMul :
+      predecessorPrimeFaceProduct t p ≤
+        p * predecessorPrimeFaceProduct t p := by
+    simpa [one_mul, Nat.mul_comm] using
+      Nat.mul_le_mul_right (predecessorPrimeFaceProduct t p) hpPrime.one_le
+  have hpredLeR : predecessorPrimeFaceProduct t p ≤ R :=
+    (hpredLeMul.trans hprefix).trans (hup.trans hBR)
+  exact Finset.mem_powerset.mpr
+    (predecessorDensePrimeFace_subset_primesUpTo_sqrt
+      hprimePred hpredDense hpredLeR)
+
+/-! ## Exact high-prime telescope of the first-jump residual -/
+
+/-- Prime coordinates added between two prefix universes. -/
+def frozenPrimeUniverseHighPrimeSet (s K : ℕ) : Finset ℕ :=
+  primesUpTo K \ primesUpTo s
+
+@[simp] theorem mem_frozenPrimeUniverseHighPrimeSet
+    {s K p : ℕ} :
+    p ∈ frozenPrimeUniverseHighPrimeSet s K ↔
+      p.Prime ∧ s < p ∧ p ≤ K := by
+  constructor
+  · intro hp
+    rcases Finset.mem_sdiff.mp hp with ⟨hpK, hpNotS⟩
+    rcases mem_primesUpTo.mp hpK with ⟨hpPrime, hpLeK⟩
+    have hsp : s < p := by
+      by_contra hnot
+      have hpLeS : p ≤ s := Nat.le_of_not_gt hnot
+      exact hpNotS (mem_primesUpTo.mpr ⟨hpPrime, hpLeS⟩)
+    exact ⟨hpPrime, hsp, hpLeK⟩
+  · rintro ⟨hpPrime, hsp, hpLeK⟩
+    apply Finset.mem_sdiff.mpr
+    refine ⟨mem_primesUpTo.mpr ⟨hpPrime, hpLeK⟩, ?_⟩
+    intro hpS
+    have hpLeS := (mem_primesUpTo.mp hpS).2
+    omega
+
+/-- Monotonicity of the finite prime prefix. -/
+theorem primesUpTo_subset_of_le
+    {s K : ℕ} (hsK : s ≤ K) : primesUpTo s ⊆ primesUpTo K := by
+  intro p hp
+  rcases mem_primesUpTo.mp hp with ⟨hpPrime, hpLeS⟩
+  exact mem_primesUpTo.mpr ⟨hpPrime, hpLeS.trans hsK⟩
+
+/-- A genuine prime universe has no face product at cutoff zero. -/
+theorem frozenPrimeUniverseMass_primesUpTo_zero (K : ℕ) :
+    frozenPrimeUniverseMass (primesUpTo K) 0 = 0 := by
+  rw [frozenPrimeUniverseMass_eq_cutoffSum]
+  apply Finset.sum_eq_zero
+  intro t ht
+  have htSub := Finset.mem_powerset.mp ht
+  have hprodPos : 0 < primeFaceProduct t := by
+    unfold primeFaceProduct
+    exact Finset.prod_pos fun p hp =>
+      (prime_of_mem_primesUpTo (htSub hp)).pos
+  have hnot : ¬ primeFaceProduct t ≤ 0 := by omega
+  simp [hnot]
+
+/-- **High-prime upper-column telescope.**  The contribution of the primes
+inserted after `s` is exactly the difference between the two frozen prefixes.
+This version includes cutoff zero. -/
+theorem frozenPrimeUniverse_highUpperColumn_telescope
+    (X s K : ℕ) (hsK : s ≤ K) :
+    (∑ p ∈ frozenPrimeUniverseHighPrimeSet s K,
+      frozenPrimeUniverseMass (primesUpTo (p - 1)) (X / p)) =
+      frozenPrimeUniverseMass (primesUpTo s) X -
+        frozenPrimeUniverseMass (primesUpTo K) X := by
+  have hsub : primesUpTo s ⊆ primesUpTo K := primesUpTo_subset_of_le hsK
+  by_cases hX0 : X = 0
+  · subst X
+    calc
+      (∑ p ∈ frozenPrimeUniverseHighPrimeSet s K,
+          frozenPrimeUniverseMass (primesUpTo (p - 1)) (0 / p)) = 0 := by
+        apply Finset.sum_eq_zero
+        intro p _hp
+        simpa using frozenPrimeUniverseMass_primesUpTo_zero (p - 1)
+      _ = frozenPrimeUniverseMass (primesUpTo s) 0 -
+          frozenPrimeUniverseMass (primesUpTo K) 0 := by
+        rw [frozenPrimeUniverseMass_primesUpTo_zero,
+          frozenPrimeUniverseMass_primesUpTo_zero]
+        ring
+  · have hX : 1 ≤ X := by omega
+    have hK := frozenPrimeUniverse_upperColumn_telescope X K hX
+    have hs := frozenPrimeUniverse_upperColumn_telescope X s hX
+    have hsplit :
+        (∑ p ∈ frozenPrimeUniverseHighPrimeSet s K,
+            frozenPrimeUniverseMass (primesUpTo (p - 1)) (X / p)) +
+          (∑ p ∈ primesUpTo s,
+            frozenPrimeUniverseMass (primesUpTo (p - 1)) (X / p)) =
+          ∑ p ∈ primesUpTo K,
+            frozenPrimeUniverseMass (primesUpTo (p - 1)) (X / p) := by
+      unfold frozenPrimeUniverseHighPrimeSet
+      exact Finset.sum_sdiff hsub
+    calc
+      (∑ p ∈ frozenPrimeUniverseHighPrimeSet s K,
+          frozenPrimeUniverseMass (primesUpTo (p - 1)) (X / p)) =
+        (∑ p ∈ primesUpTo K,
+          frozenPrimeUniverseMass (primesUpTo (p - 1)) (X / p)) -
+        ∑ p ∈ primesUpTo s,
+          frozenPrimeUniverseMass (primesUpTo (p - 1)) (X / p) :=
+        (eq_sub_iff_add_eq).2 hsplit
+      _ = (1 - frozenPrimeUniverseMass (primesUpTo K) X) -
+          (1 - frozenPrimeUniverseMass (primesUpTo s) X) := by
+        rw [hK, hs]
+      _ = frozenPrimeUniverseMass (primesUpTo s) X -
+          frozenPrimeUniverseMass (primesUpTo K) X := by ring
+
+/-- Window form of the high-prime telescope.  The whole signed high-prime
+column is retained before any norm is taken. -/
+theorem frozenPrimeUniverse_highWindow_telescope
+    (s K A B : ℕ) (hsK : s ≤ K) (hAB : A ≤ B) :
+    (∑ p ∈ frozenPrimeUniverseHighPrimeSet s K,
+      frozenPrimeUniverseWindowMass (primesUpTo (p - 1))
+        (A / p) (B / p)) =
+      frozenPrimeUniverseWindowMass (primesUpTo s) A B -
+        frozenPrimeUniverseWindowMass (primesUpTo K) A B := by
+  calc
+    (∑ p ∈ frozenPrimeUniverseHighPrimeSet s K,
+        frozenPrimeUniverseWindowMass (primesUpTo (p - 1))
+          (A / p) (B / p)) =
+      ∑ p ∈ frozenPrimeUniverseHighPrimeSet s K,
+        (frozenPrimeUniverseMass (primesUpTo (p - 1)) (B / p) -
+          frozenPrimeUniverseMass (primesUpTo (p - 1)) (A / p)) := by
+      apply Finset.sum_congr rfl
+      intro p _hp
+      rw [frozenPrimeUniverseWindowMass_eq_sub (Nat.div_le_div_right hAB)]
+    _ = (∑ p ∈ frozenPrimeUniverseHighPrimeSet s K,
+          frozenPrimeUniverseMass (primesUpTo (p - 1)) (B / p)) -
+        ∑ p ∈ frozenPrimeUniverseHighPrimeSet s K,
+          frozenPrimeUniverseMass (primesUpTo (p - 1)) (A / p) := by
+      rw [Finset.sum_sub_distrib]
+    _ = (frozenPrimeUniverseMass (primesUpTo s) B -
+          frozenPrimeUniverseMass (primesUpTo K) B) -
+        (frozenPrimeUniverseMass (primesUpTo s) A -
+          frozenPrimeUniverseMass (primesUpTo K) A) := by
+      rw [frozenPrimeUniverse_highUpperColumn_telescope B s K hsK,
+        frozenPrimeUniverse_highUpperColumn_telescope A s K hsK]
+    _ = frozenPrimeUniverseWindowMass (primesUpTo s) A B -
+        frozenPrimeUniverseWindowMass (primesUpTo K) A B := by
+      rw [frozenPrimeUniverseWindowMass_eq_sub hAB,
+        frozenPrimeUniverseWindowMass_eq_sub hAB]
+      ring
+
+/-- The #567 first-jump residual is exactly the negative high-prime column.
+Thus the canonical `u,p,v` decomposition has already telescoped the complete
+later-prime geometry into one signed sum indexed only by the first high prime. -/
+theorem sqrtFirstJumpResidual_eq_neg_highPrimeWindows
+    {R q A B : ℕ}
+    (hqroot : Nat.sqrt R < q) (hBR : B ≤ R) (hAB : A ≤ B) :
+    predecessorFirstJumpFrozenWindowMass
+        3 (Nat.sqrt R) (primesUpTo (q - 1)) A B =
+      -(∑ p ∈ frozenPrimeUniverseHighPrimeSet (Nat.sqrt R) (q - 1),
+        frozenPrimeUniverseWindowMass (primesUpTo (p - 1))
+          (A / p) (B / p)) := by
+  have hsK : Nat.sqrt R ≤ q - 1 := by omega
+  have hcontract :=
+    frozenPrimeUniverseWindowMass_eq_sqrtContraction_add_firstJump
+      R q A B hqroot hBR
+  have htelescope :=
+    frozenPrimeUniverse_highWindow_telescope
+      (Nat.sqrt R) (q - 1) A B hsK hAB
+  have hJ :
+      predecessorFirstJumpFrozenWindowMass
+          3 (Nat.sqrt R) (primesUpTo (q - 1)) A B =
+        frozenPrimeUniverseWindowMass (primesUpTo (q - 1)) A B -
+          frozenPrimeUniverseWindowMass (primesUpTo (Nat.sqrt R)) A B := by
+    apply (eq_sub_iff_add_eq).2
+    simpa [add_comm] using hcontract.symm
+  calc
+    predecessorFirstJumpFrozenWindowMass
+        3 (Nat.sqrt R) (primesUpTo (q - 1)) A B =
+      frozenPrimeUniverseWindowMass (primesUpTo (q - 1)) A B -
+        frozenPrimeUniverseWindowMass (primesUpTo (Nat.sqrt R)) A B := hJ
+    _ = -(frozenPrimeUniverseWindowMass (primesUpTo (Nat.sqrt R)) A B -
+        frozenPrimeUniverseWindowMass (primesUpTo (q - 1)) A B) := by ring
+    _ = -(∑ p ∈ frozenPrimeUniverseHighPrimeSet (Nat.sqrt R) (q - 1),
+        frozenPrimeUniverseWindowMass (primesUpTo (p - 1))
+          (A / p) (B / p)) := by rw [← htelescope]
+
+/-- Above `sqrt R`, every reciprocal cutoff `B/p` is already below its owner
+`p`, so the predecessor frozen window is a complete ordinary Mertens gap. -/
+theorem sqrtHighPrimePredecessorWindow_eq_mertensGap
+    {R A B p : ℕ} (hBR : B ≤ R) (hAB : A ≤ B)
+    (hp : p.Prime) (hsp : Nat.sqrt R < p) :
+    frozenPrimeUniverseWindowMass (primesUpTo (p - 1))
+        (A / p) (B / p) =
+      mertensSummatoryInt (B / p) - mertensSummatoryInt (A / p) := by
+  have hRnext : R < (Nat.sqrt R + 1) ^ 2 := Nat.lt_succ_sqrt' R
+  have hsucc : Nat.sqrt R + 1 ≤ p := by omega
+  have hnextLe : (Nat.sqrt R + 1) ^ 2 ≤ p * p := by
+    rw [pow_two]
+    exact Nat.mul_le_mul hsucc hsucc
+  have hBlt : B < p * p := hBR.trans_lt (hRnext.trans_le hnextLe)
+  have hBdiv : B / p < p := by
+    apply (Nat.div_lt_iff_lt_mul hp.pos).2
+    simpa [Nat.mul_comm] using hBlt
+  have hAdiv : A / p < p :=
+    (Nat.div_le_div_right hAB).trans_lt hBdiv
+  rw [frozenPrimeUniverseWindowMass_eq_sub (Nat.div_le_div_right hAB),
+    frozenPrimeUniverseMass_eq_mertensSummatoryInt_of_lt_owner hp hBdiv,
+    frozenPrimeUniverseMass_eq_mertensSummatoryInt_of_lt_owner hp hAdiv]
+
+/-- **Final exact first-jump form.**  The residual is one signed high-prime
+sum of lower-scale Mertens gaps.  There is no later tail cube left to estimate. -/
+theorem sqrtFirstJumpResidual_eq_neg_sum_mertensGaps
+    {R q A B : ℕ}
+    (hqroot : Nat.sqrt R < q) (hBR : B ≤ R) (hAB : A ≤ B) :
+    predecessorFirstJumpFrozenWindowMass
+        3 (Nat.sqrt R) (primesUpTo (q - 1)) A B =
+      -(∑ p ∈ frozenPrimeUniverseHighPrimeSet (Nat.sqrt R) (q - 1),
+        (mertensSummatoryInt (B / p) - mertensSummatoryInt (A / p))) := by
+  rw [sqrtFirstJumpResidual_eq_neg_highPrimeWindows hqroot hBR hAB]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro p hpSet
+  have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp hpSet
+  exact sqrtHighPrimePredecessorWindow_eq_mertensGap
+    hBR hAB hpData.1 hpData.2.1
 
 end RHLean.Proof
