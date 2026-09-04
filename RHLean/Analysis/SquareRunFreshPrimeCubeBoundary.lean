@@ -1,5 +1,6 @@
 import Mathlib
-import RHLean.Analysis.PNTSpacedPrimeFlipClosure
+import RHLean.Analysis.PrimeSieveCollapseIdentity
+import RHLean.Analysis.SquarePrefixMertensBridge
 import RHLean.Analysis.SquareRunTopEscapeClassification
 
 open scoped BigOperators
@@ -118,5 +119,79 @@ theorem squareRunFreshPrimeOwner_not_complete_internal_cube
   rcases hstraddle with h | h
   · exact (not_lt_of_ge (Finset.mem_Ico.mp hall.1).1) h.1
   · exact (not_lt_of_ge (Finset.mem_Ico.mp hall.2.1).1) h.1
+
+/-! ## Conditional PNT-spaced prime-flip closure
+
+The exact prime-sieve collapse shows why a bare PNT or prime-gap estimate is not
+by itself a Mertens bound: even after the post-root prime counts are controlled,
+the signed smooth remainder remains.  The following hypothesis isolates the
+stronger chronology proposed here.  It says that PNT-spaced fresh-prime arrivals,
+together with complete Euler-generation cancellation, leave at most one
+unit-bounded endpoint residual for each reciprocal coordinate below `sqrt x`.
+
+This is intentionally a conditional statement.  The content still to be derived
+from the actual owner chronology is precisely this closure representation; once
+it is available, the square-root bound is elementary.
+-/
+
+/-- **PNT-spaced prime-flip closure hypothesis.**  After every completed Euler
+generation has cancelled, `M(x)` is the sum of one unit-bounded residual for
+each of the `sqrt x` lower reciprocal coordinates. -/
+def PNTSpacedPrimeFlipClosureStatement : Prop :=
+  ∀ x : ℕ,
+    ∃ residual : Fin (Nat.sqrt x) → ℂ,
+      (∀ z, ‖residual z‖ ≤ 1) ∧
+      mertensSummatory x = ∑ z, residual z
+
+/-- Under the explicit prime-flip closure hypothesis, the Mertens function obeys
+the strong square-root bound pointwise. -/
+theorem norm_mertensSummatory_le_sqrt_of_pntSpacedPrimeFlipClosure
+    (h : PNTSpacedPrimeFlipClosureStatement) (x : ℕ) :
+    ‖mertensSummatory x‖ ≤ (Nat.sqrt x : ℝ) := by
+  classical
+  rcases h x with ⟨residual, hresidual, hcollapse⟩
+  rw [hcollapse]
+  calc
+    ‖∑ z, residual z‖ ≤
+        ∑ z : Fin (Nat.sqrt x), ‖residual z‖ := by
+      exact norm_sum_le Finset.univ residual
+    _ ≤ ∑ _z : Fin (Nat.sqrt x), (1 : ℝ) := by
+      exact Finset.sum_le_sum (fun z _hz => hresidual z)
+    _ = (Nat.sqrt x : ℝ) := by simp
+
+/-- The conditional square-root bound is stronger than the repository's
+RH-scale squared-energy criterion; the latter holds with constant `C = 1`. -/
+theorem mertensEnergyBounded_of_pntSpacedPrimeFlipClosure
+    (h : PNTSpacedPrimeFlipClosureStatement) :
+    MertensEnergyBoundedStatement := by
+  intro ε hε
+  refine ⟨1, by norm_num, ?_⟩
+  intro x
+  have hnorm :=
+    norm_mertensSummatory_le_sqrt_of_pntSpacedPrimeFlipClosure h x
+  have hnorm0 : 0 ≤ ‖mertensSummatory x‖ := norm_nonneg _
+  have hsqrt0 : 0 ≤ (Nat.sqrt x : ℝ) := by positivity
+  have hsq :
+      ‖mertensSummatory x‖ ^ 2 ≤ (Nat.sqrt x : ℝ) ^ 2 := by
+    nlinarith
+  have hsqrtNat : (Nat.sqrt x) ^ 2 ≤ x := Nat.sqrt_le' x
+  have hsqrtReal : (Nat.sqrt x : ℝ) ^ 2 ≤ (x : ℝ) := by
+    exact_mod_cast hsqrtNat
+  have hxsucc : (x : ℝ) ≤ ((x + 1 : ℕ) : ℝ) := by
+    exact_mod_cast Nat.le_succ x
+  have hbase : (1 : ℝ) ≤ ((x + 1 : ℕ) : ℝ) := by
+    exact_mod_cast (Nat.succ_le_succ (Nat.zero_le x))
+  have hexp : (1 : ℝ) ≤ 1 + ε := by linarith
+  have hbasePow :
+      ((x + 1 : ℕ) : ℝ) ≤
+        Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
+    simpa only [Real.rpow_one] using
+      Real.rpow_le_rpow_of_exponent_le hbase hexp
+  calc
+    ‖mertensSummatory x‖ ^ 2 ≤ (Nat.sqrt x : ℝ) ^ 2 := hsq
+    _ ≤ (x : ℝ) := hsqrtReal
+    _ ≤ ((x + 1 : ℕ) : ℝ) := hxsucc
+    _ ≤ 1 * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
+      simpa using hbasePow
 
 end RHLean.Analysis
