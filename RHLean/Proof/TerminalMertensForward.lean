@@ -40,6 +40,16 @@ theorem mertensForwardCriterion : MertensForwardCriterion := by
   change RiemannHypothesis
   exact riemannHypothesis_of_mertensEnergy hM
 
+/-- **Square-prefix terminal theorem.**  Once the exact square-prefix Mertens
+energy estimate is proved, the existing square-to-global bridge and the
+unconditional forward Mertens theorem give Mathlib's Riemann Hypothesis.  No
+`ClassicalMertensRHCriterion` argument is used. -/
+theorem riemannHypothesis_of_squarePrefixEnergy
+    (hS : SquarePrefixEnergyBoundedStatement) :
+    RiemannHypothesis := by
+  exact riemannHypothesis_of_mertensEnergy
+    (mertensEnergyBounded_of_squarePrefixEnergyBounded hS)
+
 /-- Consequently the terminal implication no longer needs a classical
 Mertens/RH criterion supplied by the caller. Once the projected-renewal
 quadratic estimate is proved, RH follows outright. -/
