@@ -41,6 +41,7 @@ noncomputable section
 
 namespace RHLean.Analysis
 
+open RHLean.Arithmetic
 open RHLean.Proof
 
 /-- Change of the canonical adjacent root-downcross frontier across the square
@@ -82,7 +83,8 @@ theorem canonicalDowncrossRunDifference_eq_kernel_sub_mertensGap
   have h :=
     frozenSquareRunKernel_eq_mertensGap_add_canonicalDowncrossRunDifference
       a b ha hab hsub
-  linear_combination h
+  rw [h]
+  ring
 
 /-- The lower-scale Mertens part of the exact run law costs at most the root
 interval length. -/
@@ -191,7 +193,8 @@ private theorem rootLength_sq_le_endpoint_rpow
   have hendpoint :
       (((b + 1 : ℕ) : ℝ)) ^ 2 = ((((b + 1) ^ 2 : ℕ) : ℝ)) := by
     norm_cast
-  have hbaseNat : 1 ≤ (b + 1) ^ 2 := by positivity
+  have hbaseNat : 1 ≤ (b + 1) ^ 2 := by
+    nlinarith [Nat.zero_le b]
   have hbase :
       (1 : ℝ) ≤ ((((b + 1) ^ 2 : ℕ) : ℝ)) := by
     exact_mod_cast hbaseNat
@@ -322,7 +325,7 @@ theorem canonicalDowncrossRunDifferenceEnergyBounded_iff_squareRunEnergyBounded 
 /-- Equivalent form on the synchronized primorial-wheel residual criterion. -/
 theorem canonicalDowncrossRunDifferenceEnergyBounded_iff_primorialResidualBounded :
     CanonicalDowncrossRunDifferenceEnergyBoundedStatement ↔
-      PrimeWheelResidualBoundedStatement primorialWheelFamily := by
+      PrimeWheelResidualBoundedStatement RHLean.Arithmetic.primorialWheelFamily := by
   exact canonicalDowncrossRunDifferenceEnergyBounded_iff_frozenSquareRunEnergyBounded.trans
     frozenSquareRunEnergyBounded_iff_primorialResidualBounded
 
