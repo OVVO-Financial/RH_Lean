@@ -223,9 +223,15 @@ theorem sum_booleanCubeSign_orientedChargingFaces_eq_frozenWindowMass
 
 /-! ## Ordered predecessor dense-divisibility
 
-The prime-gap picture controls arrival chronology but not the lifetime of an
-exposed face.  The natural multiplicative replacement measures a new prime
-against the product of the whole face already present below it.
+The multiplicative density condition follows the squarefree factorization
+criterion used in short-gap sieve work: coordinates at or below `Y` form a
+smooth core, while only primes strictly above `Y` must satisfy
+
+`p^d <= Y * P_<(t,p)`.
+
+This threshold matters here.  It keeps the construction faithful to the
+factorization criterion and separates the harmless smooth core from genuine
+large-prime predecessor jumps.
 -/
 
 /-- Coordinates of `t` already present before inserting `p`. -/
@@ -241,23 +247,24 @@ def predecessorPrimeFace (t : Finset ℕ) (p : ℕ) : Finset ℕ :=
 def predecessorPrimeFaceProduct (t : Finset ℕ) (p : ℕ) : ℕ :=
   primeFaceProduct (predecessorPrimeFace t p)
 
-/-- Ordered multiplicative density condition on a Boolean face.  The exponent is
-kept general; `d = 3` is the triply-dense regime suggested by the short-gap
-factorization criterion. -/
+/-- Ordered multiplicative density condition on a Boolean face.  Primes at or
+below `Y` belong to the smooth core and impose no condition. -/
 def PredecessorDenseFace (d Y : ℕ) (t : Finset ℕ) : Prop :=
-  ∀ p ∈ t, p ^ d ≤ Y * predecessorPrimeFaceProduct t p
+  ∀ p ∈ t, Y < p →
+    p ^ d ≤ Y * predecessorPrimeFaceProduct t p
 
-/-- Coordinates at which predecessor density fails. -/
+/-- Large coordinates at which predecessor density fails. -/
 def predecessorDenseFailureSet
     (d Y : ℕ) (t : Finset ℕ) : Finset ℕ :=
   t.filter fun p =>
-    Y * predecessorPrimeFaceProduct t p < p ^ d
+    Y < p ∧ Y * predecessorPrimeFaceProduct t p < p ^ d
 
 @[simp] theorem mem_predecessorDenseFailureSet
     {d Y : ℕ} {t : Finset ℕ} {p : ℕ} :
     p ∈ predecessorDenseFailureSet d Y t ↔
-      p ∈ t ∧ Y * predecessorPrimeFaceProduct t p < p ^ d := by
-  simp [predecessorDenseFailureSet]
+      p ∈ t ∧ Y < p ∧
+        Y * predecessorPrimeFaceProduct t p < p ^ d := by
+  simp [predecessorDenseFailureSet, and_assoc]
 
 /-- Failure-set nonemptiness is exactly failure of predecessor density. -/
 theorem predecessorDenseFailureSet_nonempty_iff_not_dense
@@ -266,55 +273,61 @@ theorem predecessorDenseFailureSet_nonempty_iff_not_dense
       ¬ PredecessorDenseFace d Y t := by
   constructor
   · rintro ⟨p, hp⟩ hdense
-    rcases mem_predecessorDenseFailureSet.mp hp with ⟨hpt, hfail⟩
-    have hgood := hdense p hpt
+    rcases mem_predecessorDenseFailureSet.mp hp with
+      ⟨hpt, hYp, hfail⟩
+    have hgood := hdense p hpt hYp
     omega
   · intro hnot
     by_contra hnone
     have hempty : predecessorDenseFailureSet d Y t = ∅ :=
       Finset.not_nonempty_iff_eq_empty.mp hnone
     apply hnot
-    intro p hpt
+    intro p hpt hYp
     by_contra hbad
-    have hfail : Y * predecessorPrimeFaceProduct t p < p ^ d := by omega
+    have hfail : Y * predecessorPrimeFaceProduct t p < p ^ d := by
+      omega
     have hpFail : p ∈ predecessorDenseFailureSet d Y t :=
-      mem_predecessorDenseFailureSet.mpr ⟨hpt, hfail⟩
+      mem_predecessorDenseFailureSet.mpr ⟨hpt, hYp, hfail⟩
     rw [hempty] at hpFail
     simp at hpFail
 
-/-- If density fails, the least failing coordinate is an exact first
-multiplicative jump: it fails the inequality while every earlier coordinate
-still satisfies it. -/
+/-- If density fails, the least failing large coordinate is an exact first
+multiplicative jump: it fails the inequality while every earlier *large*
+coordinate still satisfies it. -/
 theorem exists_first_predecessorDenseFailure
     {d Y : ℕ} {t : Finset ℕ}
     (hnot : ¬ PredecessorDenseFace d Y t) :
     ∃ p ∈ t,
+      Y < p ∧
       Y * predecessorPrimeFaceProduct t p < p ^ d ∧
-      ∀ q ∈ t, q < p →
+      ∀ q ∈ t, q < p → Y < q →
         q ^ d ≤ Y * predecessorPrimeFaceProduct t q := by
   have hne : (predecessorDenseFailureSet d Y t).Nonempty :=
     (predecessorDenseFailureSet_nonempty_iff_not_dense d Y t).2 hnot
   let p := (predecessorDenseFailureSet d Y t).min' hne
   have hpFail : p ∈ predecessorDenseFailureSet d Y t :=
     Finset.min'_mem _ hne
-  rcases mem_predecessorDenseFailureSet.mp hpFail with ⟨hpt, hfail⟩
-  refine ⟨p, hpt, hfail, ?_⟩
-  intro q hqt hqp
+  rcases mem_predecessorDenseFailureSet.mp hpFail with
+    ⟨hpt, hYp, hfail⟩
+  refine ⟨p, hpt, hYp, hfail, ?_⟩
+  intro q hqt hqp hYq
   by_contra hqbad
-  have hqFail : Y * predecessorPrimeFaceProduct t q < q ^ d := by omega
+  have hqFail : Y * predecessorPrimeFaceProduct t q < q ^ d := by
+    omega
   have hqMem : q ∈ predecessorDenseFailureSet d Y t :=
-    mem_predecessorDenseFailureSet.mpr ⟨hqt, hqFail⟩
+    mem_predecessorDenseFailureSet.mpr ⟨hqt, hYq, hqFail⟩
   have hpLeQ : p ≤ q := Finset.min'_le _ _ hqMem
   omega
 
 /-- Exact ordered dichotomy: every face is predecessor-dense, or it has a first
-multiplicative jump. -/
+large multiplicative jump above the smooth threshold. -/
 theorem predecessorDenseFace_or_exists_firstFailure
     (d Y : ℕ) (t : Finset ℕ) :
     PredecessorDenseFace d Y t ∨
       ∃ p ∈ t,
+        Y < p ∧
         Y * predecessorPrimeFaceProduct t p < p ^ d ∧
-        ∀ q ∈ t, q < p →
+        ∀ q ∈ t, q < p → Y < q →
           q ^ d ≤ Y * predecessorPrimeFaceProduct t q := by
   by_cases h : PredecessorDenseFace d Y t
   · exact Or.inl h
@@ -326,7 +339,8 @@ def predecessorDenseFrozenWindowFaces
   (frozenPrimeUniverseWindowFaces S A B).filter
     (PredecessorDenseFace d Y)
 
-/-- Complementary faces, each carrying a canonical first multiplicative jump. -/
+/-- Complementary faces, each carrying a canonical first large multiplicative
+jump above the smooth threshold. -/
 def predecessorFirstJumpFrozenWindowFaces
     (d Y : ℕ) (S : Finset ℕ) (A B : ℕ) : Finset (Finset ℕ) :=
   (frozenPrimeUniverseWindowFaces S A B).filter fun t =>
@@ -396,57 +410,62 @@ theorem frozenPrimeUniverseWindowMass_eq_dense_add_firstJump
   rw [Finset.sum_union
     (predecessorDense_disjoint_firstJump_frozenWindow d Y S A B)]
 
-/-- Every first-jump face has a canonical least failing coordinate. -/
+/-- Every first-jump face has a canonical least failing large coordinate. -/
 theorem firstJumpFrozenWindowFace_exists_firstFailure
     {d Y : ℕ} {S : Finset ℕ} {A B : ℕ} {t : Finset ℕ}
     (ht : t ∈ predecessorFirstJumpFrozenWindowFaces d Y S A B) :
     ∃ p ∈ t,
+      Y < p ∧
       Y * predecessorPrimeFaceProduct t p < p ^ d ∧
-      ∀ q ∈ t, q < p →
+      ∀ q ∈ t, q < p → Y < q →
         q ^ d ≤ Y * predecessorPrimeFaceProduct t q := by
   have hnot := (mem_predecessorFirstJumpFrozenWindowFaces.mp ht).2
   exact exists_first_predecessorDenseFailure hnot
 
 /-- In a frozen predecessor cube through `pivot-1`, even the exceptional first
-jump has owner strictly below `pivot`. -/
+jump has owner strictly below `pivot`; it is also strictly above the smooth
+threshold `Y`. -/
 theorem firstJumpFrozenPredecessorWindow_exists_lowerOwner
     {d Y pivot A B : ℕ} {t : Finset ℕ}
     (ht : t ∈ predecessorFirstJumpFrozenWindowFaces d Y
       (primesUpTo (pivot - 1)) A B) :
     ∃ p ∈ t,
       p < pivot ∧
+      Y < p ∧
       Y * predecessorPrimeFaceProduct t p < p ^ d ∧
-      ∀ q ∈ t, q < p →
+      ∀ q ∈ t, q < p → Y < q →
         q ^ d ≤ Y * predecessorPrimeFaceProduct t q := by
   rcases firstJumpFrozenWindowFace_exists_firstFailure ht with
-    ⟨p, hpt, hfail, hprev⟩
+    ⟨p, hpt, hYp, hfail, hprev⟩
   have hwindow := (mem_predecessorFirstJumpFrozenWindowFaces.mp ht).1
   have htPred := (mem_frozenPrimeUniverseWindowFaces.mp hwindow).1
   have hpPrefix := (Finset.mem_powerset.mp htPred) hpt
   rcases mem_primesUpTo.mp hpPrefix with ⟨hpPrime, hpLe⟩
   have hpTwo : 2 ≤ p := hpPrime.two_le
   have hpLt : p < pivot := by omega
-  exact ⟨p, hpt, hpLt, hfail, hprev⟩
+  exact ⟨p, hpt, hpLt, hYp, hfail, hprev⟩
 
 /-- On an actual oriented charging face, density failure still chooses a
-strictly smaller Euler owner than the fresh crossing pivot. -/
+strictly smaller Euler owner than the fresh crossing pivot, while remaining
+above the smooth threshold. -/
 theorem orientedChargingFace_dense_or_firstLowerJump
     {R c k d Y : ℕ} {t : Finset ℕ}
     (ht : t ∈ lowWheelCanonicalDowncrossOrientedChargingFaces R (c, k)) :
     PredecessorDenseFace d Y t ∨
       ∃ p ∈ t,
         p < lowWheelCanonicalDowncrossPivot (c, k) ∧
+        Y < p ∧
         Y * predecessorPrimeFaceProduct t p < p ^ d ∧
-        ∀ q ∈ t, q < p →
+        ∀ q ∈ t, q < p → Y < q →
           q ^ d ≤ Y * predecessorPrimeFaceProduct t q := by
   rcases mem_lowWheelCanonicalDowncrossOrientedChargingFaces.mp ht with
     ⟨htPow, hx⟩
   rcases predecessorDenseFace_or_exists_firstFailure d Y t with hdense | hjump
   · exact Or.inl hdense
   · right
-    rcases hjump with ⟨p, hpt, hfail, hprev⟩
+    rcases hjump with ⟨p, hpt, hYp, hfail, hprev⟩
     have hpLt :=
       lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot htPow hx hpt
-    exact ⟨p, hpt, hpLt, hfail, hprev⟩
+    exact ⟨p, hpt, hpLt, hYp, hfail, hprev⟩
 
 end RHLean.Proof
