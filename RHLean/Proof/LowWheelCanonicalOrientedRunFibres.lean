@@ -153,7 +153,7 @@ theorem lowWheelCanonicalDowncrossOrientedStateFibre_eq_frozenStateFibre
       Finset.not_nonempty_iff_eq_empty.mp hne
     simp [lowWheelCanonicalDowncrossOrientedStateFibre,
       lowWheelCanonicalDowncrossOrientedStateFaceMass,
-      lowWheelCanonicalDowncrossOrientedFrozenStateFibre, hne, hempty]
+      lowWheelCanonicalDowncrossOrientedFrozenStateFibre, hempty]
 
 /-- A state outside the oriented state carrier has zero state fibre. -/
 theorem lowWheelCanonicalDowncrossOrientedStateFibre_eq_zero_of_not_mem
@@ -234,7 +234,7 @@ theorem lowWheelCanonicalDowncrossOrientedLedger_eq_sum_stateFibres
       · simp [hne]
       · have hempty : lowWheelCanonicalDowncrossOrientedChargingFaces R x = ∅ :=
           Finset.not_nonempty_iff_eq_empty.mp hne
-        simp [hne, lowWheelCanonicalDowncrossOrientedStateFibre,
+        simp [lowWheelCanonicalDowncrossOrientedStateFibre,
           lowWheelCanonicalDowncrossOrientedStateFaceMass, hempty]
 
 /-- State-fibre Fubini with the predecessor cube made explicit. -/
@@ -263,7 +263,7 @@ theorem lowWheelCanonicalDowncrossOrientedLedger_eq_sum_runCarrier_left
       ∑ x ∈ canonicalOrientedRunStateCarrier a b,
         lowWheelCanonicalDowncrossOrientedFrozenStateFibre a x := by
   rw [lowWheelCanonicalDowncrossOrientedLedger_eq_sum_frozenStateFibres]
-  refine (Finset.sum_subset Finset.subset_union_left ?_).symm
+  refine Finset.sum_subset Finset.subset_union_left ?_
   intro x hxUnion hxNot
   exact lowWheelCanonicalDowncrossOrientedFrozenStateFibre_eq_zero_of_not_mem hxNot
 
@@ -274,7 +274,7 @@ theorem lowWheelCanonicalDowncrossOrientedLedger_eq_sum_runCarrier_right
       ∑ x ∈ canonicalOrientedRunStateCarrier a b,
         lowWheelCanonicalDowncrossOrientedFrozenStateFibre (b + 1) x := by
   rw [lowWheelCanonicalDowncrossOrientedLedger_eq_sum_frozenStateFibres]
-  refine (Finset.sum_subset Finset.subset_union_right ?_).symm
+  refine Finset.sum_subset Finset.subset_union_right ?_
   intro x hxUnion hxNot
   exact lowWheelCanonicalDowncrossOrientedFrozenStateFibre_eq_zero_of_not_mem hxNot
 
