@@ -165,7 +165,7 @@ interpretation, not for this coordinate conversion.
 -/
 
 /-- Literal Mertens column carried by primes in the frozen band `(s,K]`. -/
-def firstJumpPrimeSieveMertensBand (s K X : ℕ) : ℂ :=
+noncomputable def firstJumpPrimeSieveMertensBand (s K X : ℕ) : ℂ :=
   ∑ p ∈ frozenPrimeUniverseHighPrimeSet s K,
     mertensSummatory (X / p)
 
@@ -263,7 +263,7 @@ theorem sqrtFirstJumpResidual_cast_eq_band_sub_band
 
 /-- The exact signed reciprocal-Mertens object left after the geometric
 contractions.  No norm is built into this definition. -/
-def firstJumpReciprocalMertensDifference
+noncomputable def firstJumpReciprocalMertensDifference
     (s K A B : ℕ) : ℂ :=
   (primeSieveReciprocalMertensSignedSum s A -
       primeSieveReciprocalMertensSignedSum K A) -
