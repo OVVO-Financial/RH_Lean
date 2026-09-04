@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.LowWheelCanonicalOrientedRunFibres
+import RHLean.Proof.LowWheelCanonicalOrientedFrozenFibres
 
 /-!
 # Ordered predecessor dense-divisibility on frozen Euler faces
