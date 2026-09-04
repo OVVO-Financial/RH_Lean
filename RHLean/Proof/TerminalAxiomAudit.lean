@@ -2,6 +2,7 @@ import RHLean.Proof.CanonicalGapAncestryQuadraticClosure
 import RHLean.Proof.LowPrimeCombinedBornHighFirstFailure
 import RHLean.Proof.LowPrimeCombinedBornHighTransition
 import RHLean.Proof.LowPrimeCompletedPartnerWindowFold
+import RHLean.Proof.LowWheelCanonicalSqrtDenseContraction
 import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootBornPostTailLowPrimeCollapse
 import RHLean.Proof.SquareRootBornPostTailLowPrimeRemainder
