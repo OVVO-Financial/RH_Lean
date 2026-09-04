@@ -298,4 +298,179 @@ theorem canonicalOrientedRunDifference_eq_sum_frozenStateFibreDifferences
     lowWheelCanonicalDowncrossOrientedLedger_eq_sum_runCarrier_left,
     ← Finset.sum_sub_distrib]
 
+/-! ## Sequential insertion law for predecessor density
+
+This is the exact Euler-prime form of the dense-divisibility idea.  If `p` is
+inserted after every coordinate already in `t`, all old predecessor products are
+unchanged and the only new condition is
+
+`p^d <= Y * primeFaceProduct t`.
+
+Thus, once the old face is dense, failure after adjoining `p` is *exactly* one
+large multiplicative jump relative to the entire predecessor cube. -/
+
+/-- Inserting a later coordinate does not change the predecessor face of an
+older coordinate. -/
+theorem predecessorPrimeFace_insert_of_lt
+    {t : Finset ℕ} {p q : ℕ} (hqp : q < p) :
+    predecessorPrimeFace (insert p t) q = predecessorPrimeFace t q := by
+  ext r
+  constructor
+  · intro hr
+    rcases mem_predecessorPrimeFace.mp hr with ⟨hrins, hrq⟩
+    rcases Finset.mem_insert.mp hrins with hrp | hrt
+    · subst r
+      omega
+    · exact mem_predecessorPrimeFace.mpr ⟨hrt, hrq⟩
+  · intro hr
+    rcases mem_predecessorPrimeFace.mp hr with ⟨hrt, hrq⟩
+    exact mem_predecessorPrimeFace.mpr ⟨Finset.mem_insert_of_mem hrt, hrq⟩
+
+/-- If `p` is larger than the whole old face, its predecessor face after
+insertion is literally the whole old face. -/
+theorem predecessorPrimeFace_insert_top
+    {t : Finset ℕ} {p : ℕ}
+    (hpTop : ∀ q ∈ t, q < p) :
+    predecessorPrimeFace (insert p t) p = t := by
+  ext q
+  constructor
+  · intro hq
+    rcases mem_predecessorPrimeFace.mp hq with ⟨hqins, hqp⟩
+    rcases Finset.mem_insert.mp hqins with hEq | hqt
+    · subst q
+      omega
+    · exact hqt
+  · intro hqt
+    exact mem_predecessorPrimeFace.mpr
+      ⟨Finset.mem_insert_of_mem hqt, hpTop q hqt⟩
+
+/-- Product form of `predecessorPrimeFace_insert_of_lt`. -/
+theorem predecessorPrimeFaceProduct_insert_of_lt
+    {t : Finset ℕ} {p q : ℕ} (hqp : q < p) :
+    predecessorPrimeFaceProduct (insert p t) q =
+      predecessorPrimeFaceProduct t q := by
+  unfold predecessorPrimeFaceProduct
+  rw [predecessorPrimeFace_insert_of_lt hqp]
+
+/-- Product form of the top-insertion identity. -/
+theorem predecessorPrimeFaceProduct_insert_top
+    {t : Finset ℕ} {p : ℕ}
+    (hpTop : ∀ q ∈ t, q < p) :
+    predecessorPrimeFaceProduct (insert p t) p = primeFaceProduct t := by
+  unfold predecessorPrimeFaceProduct
+  rw [predecessorPrimeFace_insert_top hpTop]
+
+/-- **Sequential Euler insertion law.**  Once `p` is the new largest
+coordinate, predecessor density of the enlarged face is exactly old density
+plus the single multiplicative condition at `p`. -/
+theorem predecessorDenseFace_insert_top_iff
+    {d Y p : ℕ} {t : Finset ℕ}
+    (hpTop : ∀ q ∈ t, q < p) :
+    PredecessorDenseFace d Y (insert p t) ↔
+      PredecessorDenseFace d Y t ∧
+        p ^ d ≤ Y * primeFaceProduct t := by
+  unfold PredecessorDenseFace
+  constructor
+  · intro h
+    refine ⟨?_, ?_⟩
+    · intro q hqt
+      have hq := h q (Finset.mem_insert_of_mem hqt)
+      rw [predecessorPrimeFaceProduct_insert_of_lt (hpTop q hqt)] at hq
+      exact hq
+    · have hp := h p (by simp)
+      rw [predecessorPrimeFaceProduct_insert_top hpTop] at hp
+      exact hp
+  · rintro ⟨ht, hp⟩ q hq
+    rcases Finset.mem_insert.mp hq with hEq | hqt
+    · subst q
+      rw [predecessorPrimeFaceProduct_insert_top hpTop]
+      exact hp
+    · have hqp := hpTop q hqt
+      rw [predecessorPrimeFaceProduct_insert_of_lt hqp]
+      exact ht q hqt
+
+/-- With the predecessor already dense, adjoining a new largest coordinate
+fails density exactly when that coordinate is too large relative to the whole
+predecessor product. -/
+theorem not_predecessorDenseFace_insert_top_iff
+    {d Y p : ℕ} {t : Finset ℕ}
+    (hpTop : ∀ q ∈ t, q < p)
+    (hdense : PredecessorDenseFace d Y t) :
+    ¬ PredecessorDenseFace d Y (insert p t) ↔
+      Y * primeFaceProduct t < p ^ d := by
+  rw [predecessorDenseFace_insert_top_iff hpTop]
+  simp only [hdense, true_and]
+  omega
+
+/-- Truncating at `p` and then looking below an earlier `q` gives the same
+predecessor face as looking below `q` in the original face. -/
+theorem predecessorPrimeFace_predecessor_of_lt
+    {t : Finset ℕ} {p q : ℕ} (hqp : q < p) :
+    predecessorPrimeFace (predecessorPrimeFace t p) q =
+      predecessorPrimeFace t q := by
+  ext r
+  constructor
+  · intro hr
+    rcases mem_predecessorPrimeFace.mp hr with ⟨hrp, hrq⟩
+    exact mem_predecessorPrimeFace.mpr
+      ⟨(mem_predecessorPrimeFace.mp hrp).1, hrq⟩
+  · intro hr
+    rcases mem_predecessorPrimeFace.mp hr with ⟨hrt, hrq⟩
+    exact mem_predecessorPrimeFace.mpr
+      ⟨mem_predecessorPrimeFace.mpr ⟨hrt, hrq.trans hqp⟩, hrq⟩
+
+/-- Product form of predecessor truncation stability. -/
+theorem predecessorPrimeFaceProduct_predecessor_of_lt
+    {t : Finset ℕ} {p q : ℕ} (hqp : q < p) :
+    predecessorPrimeFaceProduct (predecessorPrimeFace t p) q =
+      predecessorPrimeFaceProduct t q := by
+  unfold predecessorPrimeFaceProduct
+  rw [predecessorPrimeFace_predecessor_of_lt hqp]
+
+/-- If every coordinate before `p` satisfies the density inequality, then the
+entire predecessor face below `p` is itself predecessor-dense. -/
+theorem predecessorPrimeFace_dense_of_previous
+    {d Y p : ℕ} {t : Finset ℕ}
+    (hprev : ∀ q ∈ t, q < p →
+      q ^ d ≤ Y * predecessorPrimeFaceProduct t q) :
+    PredecessorDenseFace d Y (predecessorPrimeFace t p) := by
+  intro q hq
+  rcases mem_predecessorPrimeFace.mp hq with ⟨hqt, hqp⟩
+  rw [predecessorPrimeFaceProduct_predecessor_of_lt hqp]
+  exact hprev q hqt hqp
+
+/-- A non-dense face therefore has a first large multiplicative jump attached
+to a predecessor face which is already dense. -/
+theorem exists_first_predecessorDenseFailure_with_densePredecessor
+    {d Y : ℕ} {t : Finset ℕ}
+    (hnot : ¬ PredecessorDenseFace d Y t) :
+    ∃ p ∈ t,
+      Y * predecessorPrimeFaceProduct t p < p ^ d ∧
+        PredecessorDenseFace d Y (predecessorPrimeFace t p) := by
+  rcases exists_first_predecessorDenseFailure hnot with
+    ⟨p, hpt, hfail, hprev⟩
+  exact ⟨p, hpt, hfail, predecessorPrimeFace_dense_of_previous hprev⟩
+
+/-- On an oriented charging face, the exceptional first jump is a strictly
+smaller owner than the current fresh pivot *and* is attached to an already
+dense predecessor cube. -/
+theorem orientedChargingFace_dense_or_firstLowerJump_with_densePredecessor
+    {R c k d Y : ℕ} {t : Finset ℕ}
+    (ht : t ∈ lowWheelCanonicalDowncrossOrientedChargingFaces R (c, k)) :
+    PredecessorDenseFace d Y t ∨
+      ∃ p ∈ t,
+        p < lowWheelCanonicalDowncrossPivot (c, k) ∧
+        Y * predecessorPrimeFaceProduct t p < p ^ d ∧
+          PredecessorDenseFace d Y (predecessorPrimeFace t p) := by
+  rcases mem_lowWheelCanonicalDowncrossOrientedChargingFaces.mp ht with
+    ⟨htPow, hx⟩
+  by_cases hdense : PredecessorDenseFace d Y t
+  · exact Or.inl hdense
+  · right
+    rcases exists_first_predecessorDenseFailure_with_densePredecessor hdense with
+      ⟨p, hpt, hfail, hpredDense⟩
+    have hpLt :=
+      lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot htPow hx hpt
+    exact ⟨p, hpt, hpLt, hfail, hpredDense⟩
+
 end RHLean.Proof
