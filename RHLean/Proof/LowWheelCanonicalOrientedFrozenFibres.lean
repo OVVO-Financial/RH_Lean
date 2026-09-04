@@ -142,8 +142,7 @@ theorem lowWheelCanonicalDowncrossOrientedChargingFaces_eq_frozenWindow
     have hupperLeR :
         lowWheelCanonicalDowncrossOwnershipUpper R c k ≤ R := by
       unfold lowWheelCanonicalDowncrossOwnershipUpper
-      rw [hquotient]
-      simpa using (min_le_left R (squareRootEndpoint R / (c * k)))
+      exact (min_le_left _ _).trans (Nat.div_le_self _ _)
     have htSubR : t ⊆ primesUpTo R := by
       intro q hqt
       have hqPred := hpredSub hqt
@@ -190,8 +189,9 @@ theorem lowWheelCanonicalDowncrossOrientedChargingFaces_eq_frozenWindow
       ⟨huData.2, ?_⟩⟩
     intro q hqParent
     have hparentEq :
-        lowWheelCanonicalDowncrossParent t (c, k) = primeFaceProduct t := by
-      unfold lowWheelCanonicalDowncrossParent
+        LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossParent
+            t (c, k) = primeFaceProduct t := by
+      unfold LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossParent
       rw [hquotient, Nat.mul_one]
     rw [hparentEq] at hqParent
     have hqData := Nat.mem_primeFactors.mp hqParent
