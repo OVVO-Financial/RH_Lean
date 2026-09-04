@@ -450,6 +450,8 @@ theorem mertensEnergyBounded_of_pntSpacedWorstCasePrimeFlipClosure
       R ^ 2 * L ^ 2 ≤ B * (C * Real.rpow B ε) := by
     exact mul_le_mul hroot hover (sq_nonneg L) (by dsimp [B]; positivity)
   have hBpos : 0 < B := by dsimp [B]; positivity
+  have hone : Real.rpow B (1 : ℝ) = B := by
+    exact (Real.rpow_eq_pow B (1 : ℝ)).trans (Real.rpow_one B)
   have hrpow :
       Real.rpow B (1 + ε) = B * Real.rpow B ε := by
     calc
@@ -457,7 +459,7 @@ theorem mertensEnergyBounded_of_pntSpacedWorstCasePrimeFlipClosure
           Real.rpow B 1 * Real.rpow B ε :=
         Real.rpow_add hBpos 1 ε
       _ = B * Real.rpow B ε := by
-        simp only [Real.rpow_one]
+        rw [hone]
   calc
     ‖mertensSummatory x‖ ^ 2 ≤ (R * L) ^ 2 := hsq
     _ = R ^ 2 * L ^ 2 := by ring
