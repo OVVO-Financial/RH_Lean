@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.FrozenSquareRunKernel
+import RHLean.Proof.LowWheelCanonicalRepeatedMovableCancellation
 import RHLean.Proof.SquareRootCanonicalDowncrossFinalSeam
 import RHLean.Proof.SquareRootLowPrimeFirstOwnerWallRecurrence
 
@@ -39,6 +40,11 @@ canonical downcross frontier differ by only one root-interval square.  The
 resulting difference-only statement is proved equivalent to the existing
 frozen-square-run, global Mertens-energy, signed square-run, and primorial
 residual criteria.
+
+Finally the already-compiled exact late-parent cancellation is applied at both
+run endpoints.  Therefore `D_{b+1}-D_a` is literally the difference of the
+canonically oriented Euler first-crossing ledgers.  The RH-scale run seam can be
+stated on that genuine ordered population with no loss.
 
 No pointwise bound on `D_R`, prime-gap estimate, PNT input, or asymptotic
 estimate is introduced.  The remaining arithmetic problem is to control the
@@ -113,6 +119,24 @@ def canonicalDowncrossRunDifference (a b : ℕ) : ℂ :=
   lowWheelCanonicalDowncrossLedger (b + 1) -
     lowWheelCanonicalDowncrossLedger a
 
+/-- Change of the already-cancelled, canonically oriented Euler first-crossing
+ledger across the same square run. -/
+def canonicalOrientedRunDifference (a b : ℕ) : ℂ :=
+  LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossOrientedLedger
+      (b + 1) -
+    LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossOrientedLedger a
+
+/-- **Late-parent cancellation commutes with square time.**  The complete
+canonical frontier change is exactly the change of the genuine oriented Euler
+first-crossing population.  No norm or estimate is used. -/
+theorem canonicalDowncrossRunDifference_eq_orientedRunDifference
+    (a b : ℕ) :
+    canonicalDowncrossRunDifference a b =
+      canonicalOrientedRunDifference a b := by
+  unfold canonicalDowncrossRunDifference canonicalOrientedRunDifference
+  rw [LateParentCancellation.downcrossLedger_eq_orientedLedger,
+    LateParentCancellation.downcrossLedger_eq_orientedLedger]
+
 /-- **Exact square-run / downcross-difference identity.**  The only term between
 the frozen square-run kernel and the change in the canonical downcross frontier
 is the ordinary lower-scale Mertens gap across the root interval. -/
@@ -133,6 +157,18 @@ theorem frozenSquareRunKernel_eq_mertensGap_add_canonicalDowncrossRunDifference
   rw [hk, hA, hB]
   unfold canonicalDowncrossRunDifference
   ring
+
+/-- Oriented form of the same exact run identity.  All late-parent multiplicity
+has disappeared before the energy estimate is even stated. -/
+theorem frozenSquareRunKernel_eq_mertensGap_add_canonicalOrientedRunDifference
+    (a b : ℕ) (ha : 3 ≤ a) (hab : a ≤ b)
+    (hsub : (b + 1) ^ 2 ≤ 2 * a ^ 2) :
+    frozenSquareRunKernel a b =
+      (mertensSummatory a - mertensSummatory (b + 1)) +
+        canonicalOrientedRunDifference a b := by
+  rw [← canonicalDowncrossRunDifference_eq_orientedRunDifference]
+  exact frozenSquareRunKernel_eq_mertensGap_add_canonicalDowncrossRunDifference
+    a b ha hab hsub
 
 /-- Reverse form of the same exact identity. -/
 theorem canonicalDowncrossRunDifference_eq_kernel_sub_mertensGap
@@ -278,6 +314,35 @@ def CanonicalDowncrossRunDifferenceEnergyBoundedStatement : Prop :=
         ‖canonicalDowncrossRunDifference a b‖ ^ 2 ≤
           C * Real.rpow ((((b + 1) ^ 2 : ℕ) : ℝ)) (1 + ε)
 
+/-- The same RH-scale seam after exact late-parent cancellation.  This is the
+version to attack arithmetically: only the ordered Euler first-crossing
+population remains. -/
+def CanonicalOrientedRunDifferenceEnergyBoundedStatement : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ a b : ℕ, 3 ≤ a → a ≤ b →
+        (b + 1) ^ 2 < 2 * a ^ 2 →
+        ‖canonicalOrientedRunDifference a b‖ ^ 2 ≤
+          C * Real.rpow ((((b + 1) ^ 2 : ℕ) : ℝ)) (1 + ε)
+
+/-- Exact equivalence of the full-frontier and oriented-frontier run seams. -/
+theorem canonicalOrientedRunDifferenceEnergyBounded_iff_downcrossRunDifferenceEnergyBounded :
+    CanonicalOrientedRunDifferenceEnergyBoundedStatement ↔
+      CanonicalDowncrossRunDifferenceEnergyBoundedStatement := by
+  constructor
+  · intro hO ε hε
+    rcases hO ε hε with ⟨C, hC, hbound⟩
+    refine ⟨C, hC, ?_⟩
+    intro a b ha hab hsub
+    rw [canonicalDowncrossRunDifference_eq_orientedRunDifference]
+    exact hbound a b ha hab hsub
+  · intro hD ε hε
+    rcases hD ε hε with ⟨C, hC, hbound⟩
+    refine ⟨C, hC, ?_⟩
+    intro a b ha hab hsub
+    rw [← canonicalDowncrossRunDifference_eq_orientedRunDifference]
+    exact hbound a b ha hab hsub
+
 /-- The downcross-run energy premise supplies the full frozen square-run energy
 criterion.  Backward runs have zero frozen kernel; every forward strict
 subdoubling run automatically starts at root at least `3`. -/
@@ -375,6 +440,14 @@ theorem canonicalDowncrossRunDifferenceEnergyBounded_iff_mertensEnergyBounded :
       MertensEnergyBoundedStatement := by
   exact canonicalDowncrossRunDifferenceEnergyBounded_iff_frozenSquareRunEnergyBounded.trans
     frozenSquareRunEnergyBounded_iff_mertensEnergyBounded
+
+/-- The genuinely ordered Euler first-crossing run seam is therefore itself
+exactly the global Mertens-energy criterion. -/
+theorem canonicalOrientedRunDifferenceEnergyBounded_iff_mertensEnergyBounded :
+    CanonicalOrientedRunDifferenceEnergyBoundedStatement ↔
+      MertensEnergyBoundedStatement := by
+  exact canonicalOrientedRunDifferenceEnergyBounded_iff_downcrossRunDifferenceEnergyBounded.trans
+    canonicalDowncrossRunDifferenceEnergyBounded_iff_mertensEnergyBounded
 
 /-- Equivalent form on the repository's maximal signed square-run criterion. -/
 theorem canonicalDowncrossRunDifferenceEnergyBounded_iff_squareRunEnergyBounded :
