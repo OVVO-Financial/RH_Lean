@@ -187,10 +187,13 @@ private theorem sum_squareDivIndicator_Icc (d x : ℕ) :
         (((Finset.Icc 1 x).filter fun n => d ∣ n).card : ℝ) := by
       simp [squareDivIndicator]
     _ = (((Finset.range x.succ).filter fun n => n ≠ 0 ∧ d ∣ n).card : ℝ) := by
-      congr 1
-      ext n
-      simp
-      omega
+      have hset :
+          (Finset.Icc 1 x).filter (fun n => d ∣ n) =
+            (Finset.range x.succ).filter (fun n => n ≠ 0 ∧ d ∣ n) := by
+        ext n
+        simp
+        omega
+      rw [hset]
     _ = ((x / d : ℕ) : ℝ) := by
       exact_mod_cast (Nat.card_multiples' x d)
 
@@ -199,7 +202,7 @@ private theorem squareDivIndicator_mul_of_coprime
     squareDivIndicator a n * squareDivIndicator b n =
       squareDivIndicator (a * b) n := by
   have haProd : a ∣ a * b := ⟨b, rfl⟩
-  have hbProd : b ∣ a * b := ⟨a, by simpa [mul_comm]⟩
+  have hbProd : b ∣ a * b := ⟨a, by simp [mul_comm]⟩
   by_cases ha : a ∣ n
   · by_cases hb : b ∣ n
     · have habd : a * b ∣ n := hab.mul_dvd_of_dvd_of_dvd ha hb
@@ -232,11 +235,11 @@ private theorem natCast_div_ge_realDiv_sub_one
     (x d : ℕ) (hd : 0 < d) :
     (x : ℝ) / (d : ℝ) - 1 ≤ ((x / d : ℕ) : ℝ) := by
   have hmod : x % d < d := Nat.mod_lt x hd
-  have hdecomp : x / d * d + x % d = x := Nat.div_add_mod x d
+  have hdecomp : d * (x / d) + x % d = x := Nat.div_add_mod x d
   have hdR : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
   have hmodR : ((x % d : ℕ) : ℝ) < (d : ℝ) := by exact_mod_cast hmod
   have hdecompR :
-      ((x / d : ℕ) : ℝ) * (d : ℝ) + ((x % d : ℕ) : ℝ) = (x : ℝ) := by
+      (d : ℝ) * ((x / d : ℕ) : ℝ) + ((x % d : ℕ) : ℝ) = (x : ℝ) := by
     exact_mod_cast hdecomp
   have hlt :
       (x : ℝ) < (((x / d : ℕ) : ℝ) + 1) * (d : ℝ) := by
@@ -291,7 +294,8 @@ private theorem fivePrimeSquareBonferroni_le_zeroIndicator (n : ℕ) :
     by_cases h49 : 49 ∣ n <;>
     by_cases h121 : 121 ∣ n <;>
       simp [fivePrimeSquareBonferroni, squareDivIndicator,
-        realMoebiusZeroIndicator, hmu, h4, h9, h25, h49, h121]
+        realMoebiusZeroIndicator, hmu, h4, h9, h25, h49, h121] <;>
+      norm_num
   · have h4 : ¬ 4 ∣ n := by tauto
     have h9 : ¬ 9 ∣ n := by tauto
     have h25 : ¬ 25 ∣ n := by tauto
@@ -344,7 +348,6 @@ theorem realMertensZeroCount_ge_three_eighths_sub_five (x : ℕ) :
       sum_squareDivIndicator_mul_Icc 25 49 x (by norm_num),
       sum_squareDivIndicator_mul_Icc 25 121 x (by norm_num),
       sum_squareDivIndicator_mul_Icc 49 121 x (by norm_num)]
-    norm_num
   rw [hbonf, sum_realMoebiusZeroIndicator_eq_zeroCount] at hsum
   have h4 := natCast_div_ge_realDiv_sub_one x 4 (by norm_num)
   have h9 := natCast_div_ge_realDiv_sub_one x 9 (by norm_num)
