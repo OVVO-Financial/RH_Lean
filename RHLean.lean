@@ -550,6 +550,7 @@ import RHLean.Proof.RootSmoothCrossRegionGram
 import RHLean.Proof.SeededPopulationInduction
 import RHLean.Proof.SignedCanonicalHeight
 import RHLean.Proof.SignedMutableFinalObject
+import RHLean.Proof.SignedPrefixEventLifetime
 import RHLean.Proof.SpectralEndpointGramBridge
 import RHLean.Proof.SquareBlockCoherentGram
 import RHLean.Proof.SquareBlockGramRowCancellation
