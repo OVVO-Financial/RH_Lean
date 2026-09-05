@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Geometry.ComplexSquareRecovery
 import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.SignedPrefixEventLifetime
 
@@ -159,7 +160,7 @@ theorem orderedEulerCutShape_canonicalPivot
       exact Nat.le_of_lt (hrough r hrcMem)
     · have hre : r = p :=
         (Nat.prime_dvd_prime_iff_eq hr hp).mp hrp
-      simpa [hre]
+      simp [hre]
 
 /-- Face products are positive for every ordered cut. -/
 theorem orderedEulerCutLowProduct_pos
@@ -561,6 +562,247 @@ theorem lowWheelCanonicalDowncrossOrientedLedger_eq_sum_orderedEulerCutWeights
   rw [Finset.sum_filter, Finset.product_eq_sprod, Finset.sum_product]
   apply Finset.sum_congr rfl
   intro t _ht
-  exact (sum_orientedPart_eq_sum_stateAmbient_indicator R t).symm
+  change
+    (∑ x ∈ lowWheelCanonicalDowncrossOrientedPart R t,
+        canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ)) =
+      ∑ x ∈ lowWheelCanonicalDowncrossOrientedStateAmbient R,
+        if x ∈ lowWheelCanonicalDowncrossOrientedPart R t then
+          canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ)
+        else 0
+  exact sum_orientedPart_eq_sum_stateAmbient_indicator R t
+
+/-!
+## Squared Fermat realization of the same ordered-cut atom
+
+The lifetime carrier above already contains the original complex/Fermat
+geometry.  The two factors used here are the rough high cofactor `c` and the
+death factor `q = p * P(t)`.  Their product is exactly the physical child
+integer.  Squaring the associated Fermat point therefore places every ordered
+cut on the vertical fibre whose real coordinate is that child integer.
+
+For fixed `c` and low face product `a`, varying the crossing pivot `p` varies the
+imaginary coordinate strictly monotonically.  Hence a pivot interval is exactly
+a vertical-height interval, with no probabilistic or analytic input.
+-/
+
+open RHLean.Geometry
+
+/-- The upper Fermat factor attached to one ordered cut.  It is exactly the root
+at which the missing Euler partner becomes complete. -/
+def orderedEulerCutUpperFactor (y : OrderedEulerCutTaggedState) : ℕ :=
+  orderedEulerCutDeathRoot y
+
+@[simp] theorem orderedEulerCutUpperFactor_eq
+    (y : OrderedEulerCutTaggedState) :
+    orderedEulerCutUpperFactor y =
+      orderedEulerCutPivot y * orderedEulerCutLowProduct y := rfl
+
+/-- The Fermat factor product is exactly the physical child integer. -/
+@[simp] theorem orderedEulerCutHighCofactor_mul_upperFactor
+    (y : OrderedEulerCutTaggedState) :
+    orderedEulerCutHighCofactor y * orderedEulerCutUpperFactor y =
+      orderedEulerCutChildInteger y := rfl
+
+/-- The complex Fermat point of the ordered cut, using the factor pair
+`(c, p * P(t))`. -/
+noncomputable def orderedEulerCutFermatPoint
+    (y : OrderedEulerCutTaggedState) : ℂ :=
+  fermatPoint (orderedEulerCutHighCofactor y : ℝ)
+    (orderedEulerCutUpperFactor y : ℝ)
+
+/-- Imaginary coordinate of the squared Fermat point. -/
+noncomputable def orderedEulerCutVerticalHeight
+    (y : OrderedEulerCutTaggedState) : ℝ :=
+  ((orderedEulerCutUpperFactor y : ℝ) ^ 2 -
+      (orderedEulerCutHighCofactor y : ℝ) ^ 2) / 2
+
+/-- Squaring straightens the ordered cut onto the vertical line whose real
+coordinate is the child integer. -/
+theorem orderedEulerCutFermatPoint_sq_re
+    (y : OrderedEulerCutTaggedState) :
+    ((orderedEulerCutFermatPoint y) ^ 2).re =
+      (orderedEulerCutChildInteger y : ℝ) := by
+  unfold orderedEulerCutFermatPoint
+  rw [fermatPoint_sq_re]
+  exact_mod_cast orderedEulerCutHighCofactor_mul_upperFactor y
+
+/-- The vertical coordinate is exactly the Fermat imbalance
+`(q^2-c^2)/2`. -/
+theorem orderedEulerCutFermatPoint_sq_im
+    (y : OrderedEulerCutTaggedState) :
+    ((orderedEulerCutFermatPoint y) ^ 2).im =
+      orderedEulerCutVerticalHeight y := by
+  unfold orderedEulerCutFermatPoint orderedEulerCutVerticalHeight
+  exact fermatPoint_sq_im
+    (orderedEulerCutHighCofactor y : ℝ)
+    (orderedEulerCutUpperFactor y : ℝ)
+
+/-- Full squared-complex coordinate identity for one ordered cut. -/
+theorem orderedEulerCutFermatPoint_sq
+    (y : OrderedEulerCutTaggedState) :
+    (orderedEulerCutFermatPoint y) ^ 2 =
+      ⟨(orderedEulerCutChildInteger y : ℝ),
+        orderedEulerCutVerticalHeight y⟩ := by
+  apply Complex.ext
+  · exact orderedEulerCutFermatPoint_sq_re y
+  · exact orderedEulerCutFermatPoint_sq_im y
+
+/-- During its exposed lifetime, the root lies strictly between the two Fermat
+factors `c` and `p * P(t)`. -/
+theorem orderedEulerCutOccursAt_factor_window
+    {R : ℕ} {y : OrderedEulerCutTaggedState}
+    (hy : OrderedEulerCutShape y)
+    (hocc : OrderedEulerCutOccursAt R y) :
+    orderedEulerCutHighCofactor y < R ∧
+      R < orderedEulerCutUpperFactor y := by
+  have hlife := (orderedEulerCutOccursAt_iff_lifetime hy).1 hocc
+  have hbirth := hlife.1
+  unfold orderedEulerCutBirthRoot at hbirth
+  rcases Nat.max_le.mp hbirth with ⟨_hlow, hrest⟩
+  rcases Nat.max_le.mp hrest with ⟨hcSucc, _hsqrtSucc⟩
+  refine ⟨Nat.lt_of_succ_le hcSucc, ?_⟩
+  change R < orderedEulerCutDeathRoot y
+  exact hlife.2
+
+/-- Exact discrete square-root demarcation of an exposed ordered cut:
+`c <= floor(sqrt n) < R < q`, with `n = c*q`. -/
+theorem orderedEulerCutOccursAt_sqrt_factor_window
+    {R : ℕ} {y : OrderedEulerCutTaggedState}
+    (hy : OrderedEulerCutShape y)
+    (hocc : OrderedEulerCutOccursAt R y) :
+    orderedEulerCutHighCofactor y ≤
+        Nat.sqrt (orderedEulerCutChildInteger y) ∧
+      Nat.sqrt (orderedEulerCutChildInteger y) < R ∧
+      R < orderedEulerCutUpperFactor y := by
+  have hfactor := orderedEulerCutOccursAt_factor_window hy hocc
+  have hcq : orderedEulerCutHighCofactor y ≤ orderedEulerCutUpperFactor y :=
+    Nat.le_of_lt (lt_trans hfactor.1 hfactor.2)
+  have hsq :
+      orderedEulerCutHighCofactor y * orderedEulerCutHighCofactor y ≤
+        orderedEulerCutChildInteger y := by
+    calc
+      orderedEulerCutHighCofactor y * orderedEulerCutHighCofactor y ≤
+          orderedEulerCutHighCofactor y * orderedEulerCutUpperFactor y :=
+        Nat.mul_le_mul_left _ hcq
+      _ = orderedEulerCutChildInteger y :=
+        orderedEulerCutHighCofactor_mul_upperFactor y
+  have hcsqrt :
+      orderedEulerCutHighCofactor y ≤
+        Nat.sqrt (orderedEulerCutChildInteger y) :=
+    (Nat.le_sqrt).2 hsq
+  have hlife := (orderedEulerCutOccursAt_iff_lifetime hy).1 hocc
+  have hbirth := hlife.1
+  unfold orderedEulerCutBirthRoot at hbirth
+  rcases Nat.max_le.mp hbirth with ⟨_hlow, hrest⟩
+  rcases Nat.max_le.mp hrest with ⟨_hcSucc, hsqrtSucc⟩
+  exact ⟨hcsqrt, Nat.lt_of_succ_le hsqrtSucc, hfactor.2⟩
+
+/-- Vertical height of a potential pivot on fixed cofactor/low-product data. -/
+noncomputable def orderedEulerPivotVerticalHeight
+    (c a p : ℕ) : ℝ :=
+  ((((p * a : ℕ) : ℝ) ^ 2) - (c : ℝ) ^ 2) / 2
+
+/-- The atom height is exactly the height obtained from its own pivot. -/
+@[simp] theorem orderedEulerCutVerticalHeight_eq_pivotHeight
+    (y : OrderedEulerCutTaggedState) :
+    orderedEulerCutVerticalHeight y =
+      orderedEulerPivotVerticalHeight
+        (orderedEulerCutHighCofactor y)
+        (orderedEulerCutLowProduct y)
+        (orderedEulerCutPivot y) := rfl
+
+/-- For a positive low product, increasing the crossing pivot strictly increases
+the squared-complex vertical coordinate.  Prime order and vertical order are
+therefore identical on each fixed `(c,a)` fibre. -/
+theorem orderedEulerPivotVerticalHeight_strictMono
+    {c a p₁ p₂ : ℕ}
+    (ha : 0 < a)
+    (hp : p₁ < p₂) :
+    orderedEulerPivotVerticalHeight c a p₁ <
+      orderedEulerPivotVerticalHeight c a p₂ := by
+  have haR : 0 < (a : ℝ) := by exact_mod_cast ha
+  have hpR : (p₁ : ℝ) < (p₂ : ℝ) := by exact_mod_cast hp
+  have hp1R : 0 ≤ (p₁ : ℝ) := by positivity
+  have hp2R : 0 ≤ (p₂ : ℝ) := by positivity
+  have hdiff :
+      0 < ((p₂ : ℝ) - (p₁ : ℝ)) * (a : ℝ) :=
+    mul_pos (sub_pos.mpr hpR) haR
+  have hpa :
+      (p₁ : ℝ) * (a : ℝ) < (p₂ : ℝ) * (a : ℝ) := by
+    nlinarith
+  have hq1 : 0 ≤ (p₁ : ℝ) * (a : ℝ) :=
+    mul_nonneg hp1R (le_of_lt haR)
+  have hp2pos : 0 < (p₂ : ℝ) := by linarith
+  have hq2 : 0 < (p₂ : ℝ) * (a : ℝ) :=
+    mul_pos hp2pos haR
+  have hprod :
+      0 < ((p₂ : ℝ) * (a : ℝ) - (p₁ : ℝ) * (a : ℝ)) *
+        ((p₂ : ℝ) * (a : ℝ) + (p₁ : ℝ) * (a : ℝ)) :=
+    mul_pos (sub_pos.mpr hpa) (add_pos_of_pos_of_nonneg hq2 hq1)
+  unfold orderedEulerPivotVerticalHeight
+  push_cast
+  nlinarith
+
+/-- Weak monotonicity version of the pivot-height ordering. -/
+theorem orderedEulerPivotVerticalHeight_mono
+    {c a p₁ p₂ : ℕ}
+    (ha : 0 < a)
+    (hp : p₁ ≤ p₂) :
+    orderedEulerPivotVerticalHeight c a p₁ ≤
+      orderedEulerPivotVerticalHeight c a p₂ := by
+  rcases eq_or_lt_of_le hp with hEq | hLt
+  · subst p₂
+    exact le_rfl
+  · exact le_of_lt (orderedEulerPivotVerticalHeight_strictMono ha hLt)
+
+/-- A pivot interval is exactly its vertical-height interval on a fixed ordered
+Euler fibre.  This is the literal interval form of the original squared-strip
+picture. -/
+theorem orderedEulerPivotVerticalHeight_between_iff
+    {c a p lo hi : ℕ}
+    (ha : 0 < a) :
+    (orderedEulerPivotVerticalHeight c a lo ≤
+        orderedEulerPivotVerticalHeight c a p ∧
+      orderedEulerPivotVerticalHeight c a p ≤
+        orderedEulerPivotVerticalHeight c a hi) ↔
+      lo ≤ p ∧ p ≤ hi := by
+  constructor
+  · intro h
+    constructor
+    · by_contra hnot
+      have hpLo : p < lo := Nat.lt_of_not_ge hnot
+      have hs := orderedEulerPivotVerticalHeight_strictMono ha hpLo
+      exact (not_lt_of_ge h.1) hs
+    · by_contra hnot
+      have hHiP : hi < p := Nat.lt_of_not_ge hnot
+      have hs := orderedEulerPivotVerticalHeight_strictMono ha hHiP
+      exact (not_lt_of_ge h.2) hs
+  · rintro ⟨hlo, hhi⟩
+    exact ⟨orderedEulerPivotVerticalHeight_mono ha hlo,
+      orderedEulerPivotVerticalHeight_mono ha hhi⟩
+
+/-- **Complex/Fermat package for one exposed Euler atom.**  The same carrier
+point simultaneously has the child product as squared real coordinate, the
+ordered vertical height as squared imaginary coordinate, the exact square-root
+factor window, and the fresh-prime Möbius sign reversal. -/
+theorem orderedEulerCut_complexFiber_lifetime_package
+    {R : ℕ} {y : OrderedEulerCutTaggedState}
+    (hy : OrderedEulerCutShape y)
+    (hocc : OrderedEulerCutOccursAt R y) :
+    ((orderedEulerCutFermatPoint y) ^ 2).re =
+        (orderedEulerCutChildInteger y : ℝ) ∧
+      ((orderedEulerCutFermatPoint y) ^ 2).im =
+        orderedEulerCutVerticalHeight y ∧
+      orderedEulerCutHighCofactor y ≤
+        Nat.sqrt (orderedEulerCutChildInteger y) ∧
+      Nat.sqrt (orderedEulerCutChildInteger y) < R ∧
+      R < orderedEulerCutUpperFactor y ∧
+      canonicalMoebiusWeight (orderedEulerCutChildInteger y) =
+        -orderedEulerCutWeight y := by
+  have hsqrt := orderedEulerCutOccursAt_sqrt_factor_window hy hocc
+  refine ⟨orderedEulerCutFermatPoint_sq_re y,
+    orderedEulerCutFermatPoint_sq_im y,
+    hsqrt.1, hsqrt.2.1, hsqrt.2.2, ?_⟩
+  exact orderedEulerCutChildWeight_eq_neg hy
 
 end RHLean.Proof
