@@ -710,7 +710,12 @@ theorem norm_firstJumpPrimeSieveMertensBand_le_endpoint
             ((firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card : ℝ) := by
         simp
       rw [hcardnorm]
-      exact mul_le_mul_of_nonneg_right hmu (by positivity)
+      have hcardNonneg :
+          (0 : ℝ) ≤
+            ((firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card : ℝ) := by
+        exact_mod_cast (Nat.zero_le
+          (firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card)
+      exact mul_le_mul_of_nonneg_right hmu hcardNonneg
     _ ≤ (X : ℝ) := hpackR
 
 /-- **Local first-jump residual is linear.**  The complete signed residual of
@@ -738,7 +743,7 @@ theorem norm_sqrtFirstJumpResidual_cast_le_two_mul_root
         (norm_firstJumpPrimeSieveMertensBand_le_endpoint
           Nat.prime_two hBR hsK)
     _ ≤ 2 * (R : ℝ) := by
-      have hsum : A + B ≤ R + R := Nat.add_le_add hAR hBR
+      have hsum : A + B ≤ 2 * R := by omega
       exact_mod_cast hsum
 
 /-! ## Signed lift to the global oriented state carrier -/
@@ -751,7 +756,7 @@ states are replaced by the complete `primesUpTo (sqrt R)` frozen cube; states
 whose owner is not above the contraction wall are left unchanged. -/
 noncomputable def lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre
     (R : ℕ) (x : LowWheelCofactorQuotientState) : ℂ :=
-  if h : (lowWheelCanonicalDowncrossOrientedChargingFaces R x).Nonempty ∧
+  if (lowWheelCanonicalDowncrossOrientedChargingFaces R x).Nonempty ∧
       Nat.sqrt R < lowWheelCanonicalDowncrossPivot x then
     canonicalMoebiusWeight x.1 *
       ((frozenPrimeUniverseWindowMass
@@ -765,7 +770,7 @@ noncomputable def lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre
 canonical owner lies above the square-root contraction wall. -/
 noncomputable def lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre
     (R : ℕ) (x : LowWheelCofactorQuotientState) : ℂ :=
-  if h : (lowWheelCanonicalDowncrossOrientedChargingFaces R x).Nonempty ∧
+  if (lowWheelCanonicalDowncrossOrientedChargingFaces R x).Nonempty ∧
       Nat.sqrt R < lowWheelCanonicalDowncrossPivot x then
     canonicalMoebiusWeight x.1 *
       ((predecessorFirstJumpFrozenWindowMass
@@ -800,7 +805,7 @@ theorem lowWheelCanonicalDowncrossOrientedFrozenStateFibre_eq_sqrtDense_add_firs
     unfold lowWheelCanonicalDowncrossOrientedFrozenStateFibre
       lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre
       lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre
-    simp only [hne, h, if_true]
+    rw [if_pos hne, if_pos h, if_pos h]
     rw [hcast]
     ring
   · simp [lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre,
@@ -891,7 +896,7 @@ theorem firstJumpHighPrimeCofactorWindowSet_subset_canonicalRoughPrimePartnerSet
       simpa [canonicalLargestPrimeFactor] using hqPrime.one_lt
     · have hcgt : 1 < c := by omega
       exact
-        (CanonicalGapAncestryPrimePackets.canonicalLargestPrimeFactor_le_self hcgt).trans_lt
+        (Nat.le_of_dvd (by omega) (canonicalLargestPrimeFactor_dvd hcgt)).trans_lt
           (hcle.trans_lt hsltq)
   unfold primeDilateCofactorWindowUpper at hup
   have hqcX : q * c ≤ X :=
