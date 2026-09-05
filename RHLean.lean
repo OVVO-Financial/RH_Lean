@@ -417,6 +417,7 @@ import RHLean.Proof.CollisionCellFrontierBound
 import RHLean.Proof.ComplementaryMainGram
 import RHLean.Proof.CompleteFermatSieve
 import RHLean.Proof.CompleteHighFamilyDecomposition
+import RHLean.Proof.ComplexVerticalIntervalEulerBridge
 import RHLean.Proof.ConcreteHighFamilyJointGram
 import RHLean.Proof.ConcreteLiCoreExtensionWeight
 import RHLean.Proof.ConcreteSquarePrefixCofactorRealization
