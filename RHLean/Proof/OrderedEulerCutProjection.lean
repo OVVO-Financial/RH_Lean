@@ -322,7 +322,7 @@ theorem orderedEulerCutChild_le_endpoint_iff
       subst R
       unfold squareRootEndpoint at h
       simp at h
-      exact (Nat.not_lt_of_ge h) hchildPos
+      exact (Nat.ne_of_gt hchildPos) h
     apply (Nat.sqrt_lt').2
     have hend : squareRootEndpoint R < R ^ 2 := by
       unfold squareRootEndpoint
@@ -362,10 +362,9 @@ theorem orderedEulerCutOccursAt_iff_lifetime
     have hcR : c < R := (Finset.mem_Ico.mp hphys.1).2
     have hparentR := hgeom.2.2.2.1
     rw [hparent] at hparentR
-    have hdeath : R < p * primeFaceProduct t := hgeom.2.2.2.2.1
+    have hdeath := hgeom.2.2.2.2.1
     rw [hpivot, hparent] at hdeath
-    have hchild : c * (p * primeFaceProduct t) ≤ squareRootEndpoint R :=
-      hgeom.2.2.2.2.2
+    have hchild := hgeom.2.2.2.2.2
     rw [hpivot, hparent] at hchild
     have hchildWrapped :
         orderedEulerCutChildInteger (t, (c, p)) ≤ squareRootEndpoint R := by
@@ -467,8 +466,7 @@ theorem orderedEulerCut_lifetimeActivity_eq_one
     lifetimeActivity (orderedEulerCutBirthRoot y)
         (orderedEulerCutDeathRoot y) R = 1 := by
   have hlife := (orderedEulerCutOccursAt_iff_lifetime hy).1 hocc
-  exact (lifetimeActivity_eq_one_iff
-    (orderedEulerCutBirthRoot y) (orderedEulerCutDeathRoot y) R).2 hlife
+  simp [lifetimeActivity, hlife]
 
 /-- Every actual tagged carrier point has the static ordered-cut shape. -/
 theorem orderedEulerCutShape_of_mem_carrier
@@ -531,7 +529,7 @@ theorem lowWheelCanonicalDowncrossOrientedLedger_eq_sum_orderedEulerCutWeights
       ∑ y ∈ orderedEulerCutCarrier R, orderedEulerCutWeight y := by
   unfold lowWheelCanonicalDowncrossOrientedLedger orderedEulerCutCarrier
     orderedEulerCutWeight orderedEulerCutHighCofactor
-  rw [Finset.sum_filter, Finset.sum_product]
+  rw [Finset.sum_filter, Finset.product_eq_sprod, Finset.sum_product]
   apply Finset.sum_congr rfl
   intro t _ht
   symm
