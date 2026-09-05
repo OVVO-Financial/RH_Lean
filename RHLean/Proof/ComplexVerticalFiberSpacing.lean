@@ -96,8 +96,8 @@ theorem orderedEulerPivotVerticalHeight_add_displacement_ge_lowProduct_sq
   calc
     (a : ℝ) ^ 2 ≤
         (a : ℝ) ^ 2 *
-          ((h : ℝ) * (2 * (p : ℝ) + (h : ℝ)) / 2) :=
-      mul_le_mul_of_nonneg_left hcoef ha2
+          ((h : ℝ) * (2 * (p : ℝ) + (h : ℝ)) / 2) := by
+      simpa using (mul_le_mul_of_nonneg_left hcoef ha2)
     _ = (a : ℝ) ^ 2 * (h : ℝ) *
           (2 * (p : ℝ) + (h : ℝ)) / 2 := by ring
 
@@ -481,9 +481,10 @@ theorem orderedEulerCutLowProduct_eq_upperFactor_of_consecutive_same_child
   have hface : z.1 = insert (orderedEulerCutPivot y) y.1 :=
     Finset.Subset.antisymm hback hforward
   have hpNot := orderedEulerCutPivot_not_mem_face hy
+  change primeFaceProduct z.1 =
+    orderedEulerCutPivot y * primeFaceProduct y.1
   rw [hface]
-  simp [orderedEulerCutLowProduct, orderedEulerCutUpperFactor,
-    orderedEulerCutDeathRoot, primeFaceProduct, hpNot]
+  simp [primeFaceProduct, hpNot]
 
 /-! ## Reindexing by conserved child charge -/
 
@@ -572,7 +573,6 @@ theorem orderedEulerCutChildDeathContribution
 strictly less than a factor of two. -/
 theorem succ_lt_two_mul_of_square_subdoubling
     {a b : ℕ}
-    (ha : 0 < a)
     (hsub : (b + 1) ^ 2 < 2 * a ^ 2) :
     b + 1 < 2 * a := by
   by_contra hnot
@@ -613,7 +613,6 @@ such that the first is active at the initial root and the third is active at
 the final root. -/
 theorem orderedEulerCut_atMostOneTransition_of_subdoubling
     {a b : ℕ} {y z w : OrderedEulerCutTaggedState}
-    (ha : 0 < a)
     (hsub : (b + 1) ^ 2 < 2 * a ^ 2)
     (hy : OrderedEulerCutShape y)
     (hz : OrderedEulerCutShape z)
@@ -629,7 +628,7 @@ theorem orderedEulerCut_atMostOneTransition_of_subdoubling
     hy hz hw hchildYZ hchildZW hpYZ hpZW
   have hyUpper := (orderedEulerCutOccursAt_factor_window hy hyOcc).2
   have hwLow := orderedEulerCutOccursAt_lowProduct_le hw hwOcc
-  have hroot := succ_lt_two_mul_of_square_subdoubling ha hsub
+  have hroot := succ_lt_two_mul_of_square_subdoubling hsub
   omega
 
 end RHLean.Proof
