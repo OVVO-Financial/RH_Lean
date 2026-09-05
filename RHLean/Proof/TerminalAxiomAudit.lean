@@ -715,7 +715,7 @@ theorem norm_firstJumpPrimeSieveMertensBand_le_endpoint
             ((firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card : ℝ) := by
         exact_mod_cast (Nat.zero_le
           (firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card)
-      exact mul_le_mul_of_nonneg_right hmu hcardNonneg
+      simpa using mul_le_mul_of_nonneg_right hmu hcardNonneg
     _ ≤ (X : ℝ) := hpackR
 
 /-- **Local first-jump residual is linear.**  The complete signed residual of
