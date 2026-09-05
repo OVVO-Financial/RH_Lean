@@ -258,7 +258,7 @@ theorem sqrt_endpoint_root_boundary_dichotomy
 
 /-- Zero-extended cofactor response of the high-prime band `(sqrt R,K]` at
 endpoint `X`.  This is a response field, not a covariance object. -/
-def firstJumpHighPrimeCofactorResponse
+noncomputable def firstJumpHighPrimeCofactorResponse
     (p R K X c : ℕ) : ℂ :=
   if c ∈ primeDilateCofactorSupport p X then
     primeDilateCofactorWindowPrimeCount p (Nat.sqrt R) X c -
@@ -443,7 +443,7 @@ def firstJumpHighPrimeCofactorWindowSet
       primeDilateCofactorWindow p K X c).filter Nat.Prime
 
 /-- Prime-indicator mass of that literal support. -/
-def firstJumpHighPrimeCofactorWindowMass
+noncomputable def firstJumpHighPrimeCofactorWindowMass
     (p R K X c : ℕ) : ℂ :=
   ∑ q ∈ primeDilateCofactorWindow p (Nat.sqrt R) X c \
       primeDilateCofactorWindow p K X c,
@@ -554,8 +554,9 @@ theorem firstJumpHighPrimeCofactorWindowSet_subset_canonicalRoughPrimePartnerSet
     · subst c
       simpa [canonicalLargestPrimeFactor] using hqPrime.one_lt
     · have hcgt : 1 < c := by omega
-      exact (canonicalLargestPrimeFactor_le_self hcgt).trans_lt
-        (hcle.trans_lt hsltq)
+      exact
+        (CanonicalGapAncestryPrimePackets.canonicalLargestPrimeFactor_le_self hcgt).trans_lt
+          (hcle.trans_lt hsltq)
   unfold primeDilateCofactorWindowUpper at hup
   have hqcX : q * c ≤ X :=
     (Nat.le_div_iff_mul_le hcpos).1 hup
