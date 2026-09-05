@@ -145,31 +145,36 @@ theorem orderedEulerCutShape_canonicalPivot
     {y : OrderedEulerCutTaggedState} (hy : OrderedEulerCutShape y) :
     lowWheelCanonicalDowncrossPivot y.2 = orderedEulerCutPivot y := by
   rcases y with ⟨t, ⟨c, p⟩⟩
+  change p.Prime ∧ 1 ≤ c ∧ Squarefree c ∧ ¬ p ∣ c ∧
+    (∀ q ∈ t, q.Prime ∧ q < p) ∧ RoughAbove p c at hy
+  rcases hy with ⟨hp, hc1, _hcsq, _hpc, _hfaces, hrough⟩
   change Nat.minFac (c * p) = p
-  have hcpos : 0 < c := lt_of_lt_of_le Nat.zero_lt_one hy.2.1
-  have hc0 : c ≠ 0 := Nat.ne_of_gt hcpos
-  apply minFac_eq_of_prime_dvd_and_le_prime_divisors hy.1
+  have hc0 : c ≠ 0 := by omega
+  apply minFac_eq_of_prime_dvd_and_le_prime_divisors hp
   · exact dvd_mul_left p c
   · intro r hr hrd
     rcases hr.dvd_mul.mp hrd with hrc | hrp
     · have hrcMem : r ∈ c.primeFactors :=
         Nat.mem_primeFactors.mpr ⟨hr, hrc, hc0⟩
-      exact Nat.le_of_lt (hy.2.2.2.2.2 r hrcMem)
+      exact Nat.le_of_lt (hrough r hrcMem)
     · have hre : r = p :=
-        (Nat.prime_dvd_prime_iff_eq hr hy.1).mp hrp
-      simp [hre]
+        (Nat.prime_dvd_prime_iff_eq hr hp).mp hrp
+      simpa [hre]
 
 /-- Face products are positive for every ordered cut. -/
 theorem orderedEulerCutLowProduct_pos
     {y : OrderedEulerCutTaggedState} (hy : OrderedEulerCutShape y) :
     0 < orderedEulerCutLowProduct y := by
   rcases y with ⟨t, ⟨c, p⟩⟩
-  unfold orderedEulerCutLowProduct
+  change p.Prime ∧ 1 ≤ c ∧ Squarefree c ∧ ¬ p ∣ c ∧
+    (∀ q ∈ t, q.Prime ∧ q < p) ∧ RoughAbove p c at hy
+  rcases hy with ⟨_hp, _hc1, _hcsq, _hpc, hfaces, _hrough⟩
+  change 0 < primeFaceProduct t
   have ht : t ∈ (primesUpTo p).powerset := by
     apply Finset.mem_powerset.mpr
     intro q hq
-    exact mem_primesUpTo.mpr ⟨(hy.2.2.2.2.1 q hq).1,
-      Nat.le_of_lt (hy.2.2.2.2.1 q hq).2⟩
+    exact mem_primesUpTo.mpr
+      ⟨(hfaces q hq).1, Nat.le_of_lt (hfaces q hq).2⟩
   exact primeFaceProduct_pos_of_mem_powerset ht
 
 /-- The crossing prime is fresh to the complete low face product. -/
@@ -177,16 +182,19 @@ theorem orderedEulerCutPivot_not_dvd_lowProduct
     {y : OrderedEulerCutTaggedState} (hy : OrderedEulerCutShape y) :
     ¬ orderedEulerCutPivot y ∣ orderedEulerCutLowProduct y := by
   rcases y with ⟨t, ⟨c, p⟩⟩
+  change p.Prime ∧ 1 ≤ c ∧ Squarefree c ∧ ¬ p ∣ c ∧
+    (∀ q ∈ t, q.Prime ∧ q < p) ∧ RoughAbove p c at hy
+  rcases hy with ⟨hp, _hc1, _hcsq, _hpc, hfaces, _hrough⟩
   change ¬ p ∣ primeFaceProduct t
   intro hpdiv
   have hpdiv' : p ∣ t.prod id := by
     simpa [primeFaceProduct] using hpdiv
-  rcases (Prime.dvd_finset_prod_iff hy.1.prime id).mp hpdiv' with
+  rcases (Prime.dvd_finset_prod_iff hp.prime id).mp hpdiv' with
     ⟨q, hqt, hpq⟩
-  have hqPrime := (hy.2.2.2.2.1 q hqt).1
+  have hqPrime := (hfaces q hqt).1
   have hpEq : p = q :=
-    (Nat.prime_dvd_prime_iff_eq hy.1 hqPrime).mp hpq
-  have hlt := (hy.2.2.2.2.1 q hqt).2
+    (Nat.prime_dvd_prime_iff_eq hp hqPrime).mp hpq
+  have hlt := (hfaces q hqt).2
   rw [← hpEq] at hlt
   exact (Nat.lt_irrefl p) hlt
 
@@ -196,12 +204,19 @@ theorem orderedEulerCut_lowSourceData
     {y : OrderedEulerCutTaggedState} (hy : OrderedEulerCutShape y) :
     CanonicalSourceData (orderedEulerCutPivot y)
       (orderedEulerCutLowProduct y) := by
+  have hlowPos0 := orderedEulerCutLowProduct_pos hy
+  have hpNot0 := orderedEulerCutPivot_not_dvd_lowProduct hy
   rcases y with ⟨t, ⟨c, p⟩⟩
-  have hlowPos : 0 < primeFaceProduct t :=
-    orderedEulerCutLowProduct_pos hy
+  change p.Prime ∧ 1 ≤ c ∧ Squarefree c ∧ ¬ p ∣ c ∧
+    (∀ q ∈ t, q.Prime ∧ q < p) ∧ RoughAbove p c at hy
+  rcases hy with ⟨hp, _hc1, _hcsq, _hpc, hfaces, _hrough⟩
+  have hlowPos : 0 < primeFaceProduct t := by
+    simpa [orderedEulerCutLowProduct] using hlowPos0
+  have hpNot : ¬ p ∣ primeFaceProduct t := by
+    simpa [orderedEulerCutPivot, orderedEulerCutLowProduct] using hpNot0
   have hmu : μ (primeFaceProduct t) = booleanCubeSign t :=
     moebius_primeFaceProduct_eq_booleanCubeSign t
-      (fun q hq => (hy.2.2.2.2.1 q hq).1)
+      (fun q hq => (hfaces q hq).1)
   have hmuNe : μ (primeFaceProduct t) ≠ 0 := by
     rw [hmu]
     unfold booleanCubeSign
@@ -209,44 +224,50 @@ theorem orderedEulerCut_lowSourceData
   have hsq : Squarefree (primeFaceProduct t) :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuNe
   have hcop : Nat.Coprime p (primeFaceProduct t) :=
-    (hy.1.coprime_iff_not_dvd).2 (orderedEulerCutPivot_not_dvd_lowProduct hy)
-  refine ⟨hy.1, Nat.succ_le_iff.mpr hlowPos, hsq, hcop, ?_⟩
+    (hp.coprime_iff_not_dvd).2 hpNot
+  change CanonicalSourceData p (primeFaceProduct t)
+  refine ⟨hp, Nat.succ_le_iff.mpr hlowPos, hsq, hcop, ?_⟩
   intro q hqPrime hqDvd
   have hqProd : q ∣ t.prod id := by
     simpa [primeFaceProduct] using hqDvd
   rcases (Prime.dvd_finset_prod_iff hqPrime.prime id).mp hqProd with
     ⟨r, hrt, hqr⟩
-  have hrPrime := (hy.2.2.2.2.1 r hrt).1
+  have hrPrime := (hfaces r hrt).1
   have hqrEq : q = r :=
     (Nat.prime_dvd_prime_iff_eq hqPrime hrPrime).mp hqr
   subst q
-  exact (hy.2.2.2.2.1 r hrt).2
+  exact (hfaces r hrt).2
 
 /-- The rough high cofactor and low face product have disjoint prime support. -/
 theorem orderedEulerCut_highCofactor_coprime_lowProduct
     {y : OrderedEulerCutTaggedState} (hy : OrderedEulerCutShape y) :
     Nat.Coprime (orderedEulerCutHighCofactor y)
       (orderedEulerCutLowProduct y) := by
+  have hlowPos0 := orderedEulerCutLowProduct_pos hy
   rcases y with ⟨t, ⟨c, p⟩⟩
+  change p.Prime ∧ 1 ≤ c ∧ Squarefree c ∧ ¬ p ∣ c ∧
+    (∀ q ∈ t, q.Prime ∧ q < p) ∧ RoughAbove p c at hy
+  rcases hy with ⟨_hp, hc1, _hcsq, _hpc, hfaces, hrough⟩
+  have hc0 : c ≠ 0 := by omega
+  have ha0 : primeFaceProduct t ≠ 0 := by
+    have hpos : 0 < primeFaceProduct t := by
+      simpa [orderedEulerCutLowProduct] using hlowPos0
+    exact Nat.ne_of_gt hpos
   change Nat.Coprime c (primeFaceProduct t)
-  have hcpos : 0 < c := lt_of_lt_of_le Nat.zero_lt_one hy.2.1
-  have hc0 : c ≠ 0 := Nat.ne_of_gt hcpos
-  have ha0 : primeFaceProduct t ≠ 0 :=
-    Nat.ne_of_gt (orderedEulerCutLowProduct_pos hy)
   rw [← Nat.disjoint_primeFactors hc0 ha0]
   rw [Finset.disjoint_left]
   intro q hqc hqa
-  have hqHigh : p < q := hy.2.2.2.2.2 q hqc
+  have hqHigh : p < q := hrough q hqc
   rcases Nat.mem_primeFactors.mp hqa with ⟨hqPrime, hqDvd, _ha0⟩
   have hqProd : q ∣ t.prod id := by
     simpa [primeFaceProduct] using hqDvd
   rcases (Prime.dvd_finset_prod_iff hqPrime.prime id).mp hqProd with
     ⟨r, hrt, hqr⟩
-  have hrPrime := (hy.2.2.2.2.1 r hrt).1
+  have hrPrime := (hfaces r hrt).1
   have hqrEq : q = r :=
     (Nat.prime_dvd_prime_iff_eq hqPrime hrPrime).mp hqr
   subst q
-  have hrLow := (hy.2.2.2.2.1 r hrt).2
+  have hrLow := (hfaces r hrt).2
   exact (Nat.not_lt_of_ge (Nat.le_of_lt hqHigh)) hrLow
 
 /-- The native low-wheel sign is exactly the ordinary Möbius weight of the
@@ -255,18 +276,22 @@ theorem orderedEulerCutWeight_eq_parentMoebius
     {y : OrderedEulerCutTaggedState} (hy : OrderedEulerCutShape y) :
     orderedEulerCutWeight y =
       canonicalMoebiusWeight (orderedEulerCutParentInteger y) := by
-  rcases y with ⟨t, ⟨c, p⟩⟩
   have hcop0 := orderedEulerCut_highCofactor_coprime_lowProduct hy
+  rcases y with ⟨t, ⟨c, p⟩⟩
+  change p.Prime ∧ 1 ≤ c ∧ Squarefree c ∧ ¬ p ∣ c ∧
+    (∀ q ∈ t, q.Prime ∧ q < p) ∧ RoughAbove p c at hy
+  rcases hy with ⟨_hp, _hc1, _hcsq, _hpc, hfaces, _hrough⟩
   have hcop : Nat.Coprime c (primeFaceProduct t) := by
     simpa [orderedEulerCutHighCofactor, orderedEulerCutLowProduct] using hcop0
   have hface : μ (primeFaceProduct t) = booleanCubeSign t :=
     moebius_primeFaceProduct_eq_booleanCubeSign t
-      (fun q hq => (hy.2.2.2.2.1 q hq).1)
+      (fun q hq => (hfaces q hq).1)
+  have hmu : μ (c * primeFaceProduct t) = μ c * μ (primeFaceProduct t) :=
+    ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop
   change canonicalMoebiusWeight c * (booleanCubeSign t : ℂ) =
     canonicalMoebiusWeight (c * primeFaceProduct t)
   unfold canonicalMoebiusWeight
-  rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
-    hface]
+  rw [hmu, hface]
   push_cast
   ring
 
@@ -274,12 +299,18 @@ theorem orderedEulerCutWeight_eq_parentMoebius
 theorem orderedEulerCutPivot_not_dvd_parentInteger
     {y : OrderedEulerCutTaggedState} (hy : OrderedEulerCutShape y) :
     ¬ orderedEulerCutPivot y ∣ orderedEulerCutParentInteger y := by
+  have hpLow0 := orderedEulerCutPivot_not_dvd_lowProduct hy
   rcases y with ⟨t, ⟨c, p⟩⟩
+  change p.Prime ∧ 1 ≤ c ∧ Squarefree c ∧ ¬ p ∣ c ∧
+    (∀ q ∈ t, q.Prime ∧ q < p) ∧ RoughAbove p c at hy
+  rcases hy with ⟨hp, _hc1, _hcsq, hpc, _hfaces, _hrough⟩
+  have hpLow : ¬ p ∣ primeFaceProduct t := by
+    simpa [orderedEulerCutPivot, orderedEulerCutLowProduct] using hpLow0
   change ¬ p ∣ c * primeFaceProduct t
-  intro hp
-  rcases hy.1.dvd_mul.mp hp with hpc | hpa
-  · exact hy.2.2.2.1 hpc
-  · exact orderedEulerCutPivot_not_dvd_lowProduct hy hpa
+  intro hdiv
+  rcases hp.dvd_mul.mp hdiv with hc | ha
+  · exact hpc hc
+  · exact hpLow ha
 
 /-- **Euler sign reversal on the common integer coordinate.** The physical
 child has exactly the opposite Möbius weight from the tagged parent occurrence. -/
@@ -292,48 +323,52 @@ theorem orderedEulerCutChildWeight_eq_neg
     unfold orderedEulerCutChildInteger orderedEulerCutParentInteger
       orderedEulerCutHighCofactor orderedEulerCutLowProduct orderedEulerCutPivot
     ring
+  have hflip :
+      canonicalMoebiusWeight
+          (orderedEulerCutParentInteger y * orderedEulerCutPivot y) =
+        -canonicalMoebiusWeight (orderedEulerCutParentInteger y) :=
+    canonicalMoebiusWeight_mul_freshPrime hy.1
+      (orderedEulerCutPivot_not_dvd_parentInteger hy)
   calc
     canonicalMoebiusWeight (orderedEulerCutChildInteger y) =
         canonicalMoebiusWeight
-          (orderedEulerCutParentInteger y * orderedEulerCutPivot y) := by rw [hchild]
-    _ = -canonicalMoebiusWeight (orderedEulerCutParentInteger y) := by
-      exact canonicalMoebiusWeight_mul_freshPrime hy.1
-        (orderedEulerCutPivot_not_dvd_parentInteger hy)
+          (orderedEulerCutParentInteger y * orderedEulerCutPivot y) :=
+      congrArg canonicalMoebiusWeight hchild
+    _ = -canonicalMoebiusWeight (orderedEulerCutParentInteger y) := hflip
     _ = -orderedEulerCutWeight y := by
-      rw [orderedEulerCutWeight_eq_parentMoebius hy]
+      exact congrArg (fun z : ℂ => -z)
+        (orderedEulerCutWeight_eq_parentMoebius hy).symm
 
-/-- A square-product cutoff is exactly a lower bound on the square-root clock
-for every positive ordered-cut child. -/
+/-- A positive child lies below `R^2 - 1` exactly when its integer square root
+is strictly below `R`. -/
 theorem orderedEulerCutChild_le_endpoint_iff
     {R : ℕ} {y : OrderedEulerCutTaggedState} (hy : OrderedEulerCutShape y) :
     orderedEulerCutChildInteger y ≤ squareRootEndpoint R ↔
       Nat.sqrt (orderedEulerCutChildInteger y) < R := by
-  have hcpos : 0 < orderedEulerCutHighCofactor y :=
-    lt_of_lt_of_le Nat.zero_lt_one hy.2.1
+  have hcpos : 0 < orderedEulerCutHighCofactor y := by
+    exact lt_of_lt_of_le Nat.zero_lt_one hy.2.1
   have hchildPos : 0 < orderedEulerCutChildInteger y := by
     unfold orderedEulerCutChildInteger
     exact Nat.mul_pos hcpos
       (Nat.mul_pos hy.1.pos (orderedEulerCutLowProduct_pos hy))
   constructor
-  · intro h
-    have hRpos : 0 < R := by
-      by_contra hnot
-      have hR0 : R = 0 := Nat.eq_zero_of_not_pos hnot
-      subst R
-      unfold squareRootEndpoint at h
-      simp at h
-      exact (Nat.ne_of_gt hchildPos) h
-    apply (Nat.sqrt_lt').2
-    have hend : squareRootEndpoint R < R ^ 2 := by
+  · intro hle
+    have hendPos : 0 < squareRootEndpoint R :=
+      lt_of_lt_of_le hchildPos hle
+    have hsqPos : 0 < R ^ 2 := by
+      have hendLe : squareRootEndpoint R ≤ R ^ 2 := by
+        unfold squareRootEndpoint
+        exact Nat.sub_le _ _
+      exact lt_of_lt_of_le hendPos hendLe
+    have hendLt : squareRootEndpoint R < R ^ 2 := by
       unfold squareRootEndpoint
-      have hsquare : 0 < R ^ 2 := pow_pos hRpos 2
-      omega
-    exact h.trans_lt hend
-  · intro h
+      exact Nat.sub_lt hsqPos (by norm_num)
+    exact (Nat.sqrt_lt').2 (hle.trans_lt hendLt)
+  · intro hsqrt
     have hlt : orderedEulerCutChildInteger y < R ^ 2 :=
-      (Nat.sqrt_lt').1 h
+      (Nat.sqrt_lt').1 hsqrt
     unfold squareRootEndpoint
-    omega
+    exact Nat.le_sub_of_add_le (Nat.succ_le_iff.mpr hlt)
 
 /-- **Exact lifetime characterization.** For a static ordered Euler cut, being
 an oriented physical boundary occurrence at root `R` is equivalent to one
@@ -343,13 +378,17 @@ theorem orderedEulerCutOccursAt_iff_lifetime
     OrderedEulerCutOccursAt R y ↔
       orderedEulerCutBirthRoot y ≤ R ∧ R < orderedEulerCutDeathRoot y := by
   rcases y with ⟨t, ⟨c, p⟩⟩
+  have hyShape : OrderedEulerCutShape (t, (c, p)) := hy
+  change p.Prime ∧ 1 ≤ c ∧ Squarefree c ∧ ¬ p ∣ c ∧
+    (∀ q ∈ t, q.Prime ∧ q < p) ∧ RoughAbove p c at hy
+  rcases hy with ⟨hp, hc1, hcsq, hpc, hfaces, hrough⟩
   have hpivot : lowWheelCanonicalDowncrossPivot (c, p) = p :=
-    orderedEulerCutShape_canonicalPivot hy
+    orderedEulerCutShape_canonicalPivot hyShape
   have hpivotCQ : lowWheelCanonicalCofactorQuotientPivot (c, p) = p := by
-    simpa [lowWheelCanonicalDowncrossPivot] using hpivot
-  have hlowPos : 0 < primeFaceProduct t :=
-    orderedEulerCutLowProduct_pos hy
-  have hcpos : 0 < c := lt_of_lt_of_le Nat.zero_lt_one hy.2.1
+    exact hpivot
+  have hlowPos : 0 < primeFaceProduct t := by
+    simpa [orderedEulerCutLowProduct] using orderedEulerCutLowProduct_pos hyShape
+  have hcpos : 0 < c := by omega
   constructor
   · rintro ⟨_ht, hx⟩
     have hdown := (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx).1
@@ -368,13 +407,12 @@ theorem orderedEulerCutOccursAt_iff_lifetime
     rw [hpivot, hparent] at hchild
     have hchildWrapped :
         orderedEulerCutChildInteger (t, (c, p)) ≤ squareRootEndpoint R := by
-      simpa [orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
-        orderedEulerCutPivot, orderedEulerCutLowProduct] using hchild
+      change c * (p * primeFaceProduct t) ≤ squareRootEndpoint R
+      exact hchild
     have hsqrtWrapped :=
-      (orderedEulerCutChild_le_endpoint_iff (R := R) hy).1 hchildWrapped
+      (orderedEulerCutChild_le_endpoint_iff (R := R) hyShape).1 hchildWrapped
     have hsqrt : Nat.sqrt (c * (p * primeFaceProduct t)) < R := by
-      simpa [orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
-        orderedEulerCutPivot, orderedEulerCutLowProduct] using hsqrtWrapped
+      exact hsqrtWrapped
     constructor
     · change max (primeFaceProduct t)
         (max (c + 1) (Nat.sqrt (c * (p * primeFaceProduct t)) + 1)) ≤ R
@@ -392,25 +430,18 @@ theorem orderedEulerCutOccursAt_iff_lifetime
     have hcLt : c < R := Nat.lt_of_succ_le hcSuccR
     have hsqrt : Nat.sqrt (c * (p * primeFaceProduct t)) < R :=
       Nat.lt_of_succ_le hsqrtSuccR
-    have hsqrtWrapped :
-        Nat.sqrt (orderedEulerCutChildInteger (t, (c, p))) < R := by
-      simpa [orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
-        orderedEulerCutPivot, orderedEulerCutLowProduct] using hsqrt
-    have hchildWrapped :=
-      (orderedEulerCutChild_le_endpoint_iff (R := R) hy).2 hsqrtWrapped
     have hchild : c * (p * primeFaceProduct t) ≤ squareRootEndpoint R := by
-      simpa [orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
-        orderedEulerCutPivot, orderedEulerCutLowProduct] using hchildWrapped
+      exact (orderedEulerCutChild_le_endpoint_iff (R := R) hyShape).2 hsqrt
     have htPow : t ∈ (primesUpTo R).powerset := by
       apply Finset.mem_powerset.mpr
       intro q hqt
-      have hqData := hy.2.2.2.2.1 q hqt
+      have hqData := hfaces q hqt
       have hqDvd : q ∣ primeFaceProduct t := by
         simpa [primeFaceProduct] using Finset.dvd_prod_of_mem id hqt
       have hqLe : q ≤ primeFaceProduct t := Nat.le_of_dvd hlowPos hqDvd
       exact mem_primesUpTo.mpr ⟨hqData.1, hqLe.trans hlowR⟩
     have hchildPos : 0 < c * (p * primeFaceProduct t) :=
-      Nat.mul_pos hcpos (Nat.mul_pos hy.1.pos hlowPos)
+      Nat.mul_pos hcpos (Nat.mul_pos hp.pos hlowPos)
     have hpDvdChild : p ∣ c * (p * primeFaceProduct t) := by
       refine ⟨c * primeFaceProduct t, ?_⟩
       ring
@@ -418,43 +449,43 @@ theorem orderedEulerCutOccursAt_iff_lifetime
       Nat.le_of_dvd hchildPos hpDvdChild
     have hphysical : (c, p) ∈ lowWheelCanonicalPhysicalStateSet R t := by
       apply mem_lowWheelCanonicalPhysicalStateSet.mpr
-      refine ⟨Finset.mem_Ico.mpr ⟨hy.2.1, hcLt⟩,
-        Finset.mem_Icc.mpr ⟨hy.1.one_le, hpLeChild.trans hchild⟩,
-        hy.2.2.1, ?_⟩
+      refine ⟨Finset.mem_Ico.mpr ⟨hc1, hcLt⟩,
+        Finset.mem_Icc.mpr ⟨hp.one_le, hpLeChild.trans hchild⟩,
+        hcsq, ?_⟩
       unfold LowWheelTransportPairCarrier
-      refine ⟨hy.2.1, hcLt, ?_, ?_⟩
+      refine ⟨hc1, hcLt, ?_, ?_⟩
       · simpa [Nat.mul_comm] using hdeath
       · simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hchild
-    have hdown : (c, p) ∈ lowWheelCanonicalDowncrossPart R t := by
-      apply mem_lowWheelCanonicalDowncrossPart.mpr
-      refine ⟨hphysical, ?_, ?_⟩
-      · rw [hpivotCQ]
-        exact hy.2.2.2.1
-      · rw [hpivotCQ, Nat.div_self hy.1.pos, Nat.mul_one]
-        exact hlowR
+    have hnotPivot :
+        ¬ lowWheelCanonicalCofactorQuotientPivot (c, p) ∣ c := by
+      rw [hpivotCQ]
+      exact hpc
+    have hdownLow :
+        primeFaceProduct t *
+            (p / lowWheelCanonicalCofactorQuotientPivot (c, p)) ≤ R := by
+      rw [hpivotCQ, Nat.div_self hp.pos, Nat.mul_one]
+      exact hlowR
+    have hdown : (c, p) ∈ lowWheelCanonicalDowncrossPart R t :=
+      mem_lowWheelCanonicalDowncrossPart.mpr
+        ⟨hphysical, hnotPivot, hdownLow⟩
     have horiented : (c, p) ∈ lowWheelCanonicalDowncrossOrientedPart R t := by
       apply mem_lowWheelCanonicalDowncrossOrientedPart.mpr
       refine ⟨hdown, ?_⟩
       intro q hqParent
-      have hparentEq :
-          LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossParent
-              t (c, p) = primeFaceProduct t := by
-        unfold LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossParent
-          LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossPivot
-        rw [hpivotCQ, Nat.div_self hy.1.pos, Nat.mul_one]
-      rw [hparentEq] at hqParent
+      unfold LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossParent at hqParent
+      rw [hpivot, Nat.div_self hp.pos, Nat.mul_one] at hqParent
       rcases Nat.mem_primeFactors.mp hqParent with
         ⟨hqPrime, hqDvd, _hface0⟩
       have hqProd : q ∣ t.prod id := by
         simpa [primeFaceProduct] using hqDvd
       rcases (Prime.dvd_finset_prod_iff hqPrime.prime id).mp hqProd with
         ⟨r, hrt, hqr⟩
-      have hrPrime := (hy.2.2.2.2.1 r hrt).1
+      have hrPrime := (hfaces r hrt).1
       have hqrEq : q = r :=
         (Nat.prime_dvd_prime_iff_eq hqPrime hrPrime).mp hqr
       subst q
       rw [hpivot]
-      exact (hy.2.2.2.2.1 r hrt).2
+      exact (hfaces r hrt).2
     exact ⟨htPow, horiented⟩
 
 /-- The abstract lifetime indicator applies literally to every static ordered
@@ -466,7 +497,8 @@ theorem orderedEulerCut_lifetimeActivity_eq_one
     lifetimeActivity (orderedEulerCutBirthRoot y)
         (orderedEulerCutDeathRoot y) R = 1 := by
   have hlife := (orderedEulerCutOccursAt_iff_lifetime hy).1 hocc
-  simp [lifetimeActivity, hlife]
+  unfold lifetimeActivity
+  rw [if_pos hlife]
 
 /-- Every actual tagged carrier point has the static ordered-cut shape. -/
 theorem orderedEulerCutShape_of_mem_carrier
@@ -484,22 +516,19 @@ theorem orderedEulerCutShape_of_mem_carrier
     mem_lowWheelCanonicalPhysicalStateSet.mp
       (mem_lowWheelCanonicalDowncrossPart.mp hdown).1
   have hkPrime : k.Prime := by
-    rw [hq]
-    exact hgeom.1
+    simpa only [← hq] using hgeom.1
   have hkNot : ¬ k ∣ c := by
-    rw [hq]
-    exact hgeom.2.1
+    simpa only [← hq] using hgeom.2.1
   have hfaces : ∀ q ∈ t, q.Prime ∧ q < k := by
     intro q hqt
     have hqPrime := prime_of_mem_primesUpTo ((Finset.mem_powerset.mp ht) hqt)
     have hqLt := lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot ht hx hqt
     refine ⟨hqPrime, ?_⟩
-    rw [hq]
-    exact hqLt
+    simpa only [← hq] using hqLt
   have hroughPivot := lowWheelCanonicalDowncrossOriented_cofactor_roughAbove hx
   have hrough : RoughAbove k c := by
-    rw [hq]
-    exact hroughPivot
+    simpa only [← hq] using hroughPivot
+  change OrderedEulerCutShape (t, (c, k))
   exact ⟨hkPrime, (Finset.mem_Ico.mp hphys.1).1, hphys.2.2.1,
     hkNot, hfaces, hrough⟩
 
@@ -532,7 +561,6 @@ theorem lowWheelCanonicalDowncrossOrientedLedger_eq_sum_orderedEulerCutWeights
   rw [Finset.sum_filter, Finset.product_eq_sprod, Finset.sum_product]
   apply Finset.sum_congr rfl
   intro t _ht
-  simpa only [Prod.fst, Prod.snd] using
-    (sum_orientedPart_eq_sum_stateAmbient_indicator R t).symm
+  exact (sum_orientedPart_eq_sum_stateAmbient_indicator R t).symm
 
 end RHLean.Proof
