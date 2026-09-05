@@ -352,7 +352,7 @@ theorem signedVerticalLineEventStep_eq_moebius_mul_mask
     by_cases hb : n ∈ orderedEulerCutActiveChildren (b + 1) <;>
       simp [signedVerticalLineEventStep, signedVerticalLineEventMask,
         orderedEulerCutChildEndpointChargeReal, orderedEulerCutChildChargeReal,
-        realMoebiusStep, ha, hb] <;> ring
+        realMoebiusStep, ha, hb]
 
 /-- The covariance term is literally the masked ordinary Möbius pair sum. -/
 theorem signedVerticalLineRunCovariance_eq_masked_doubleSum
@@ -412,15 +412,8 @@ theorem signedVerticalLinePairFourCornerMass_eq_mixedPrimeCell
       realMoebiusStep m * realMoebiusStep n *
         signedVerticalLinePairMixedPrimeCell a b p K m n := by
   unfold signedVerticalLinePairFourCornerMass
-  rw [signedVerticalLineEventStep_eq_moebius_mul_mask,
-    signedVerticalLineEventStep_eq_moebius_mul_mask,
-    signedVerticalLineEventStep_eq_moebius_mul_mask,
-    signedVerticalLineEventStep_eq_moebius_mul_mask,
-    signedVerticalLineEventStep_eq_moebius_mul_mask,
-    signedVerticalLineEventStep_eq_moebius_mul_mask,
-    signedVerticalLineEventStep_eq_moebius_mul_mask,
-    signedVerticalLineEventStep_eq_moebius_mul_mask,
-    realMoebiusStep_mul_prime_eq_neg hp hpm,
+  simp_rw [signedVerticalLineEventStep_eq_moebius_mul_mask]
+  rw [realMoebiusStep_mul_prime_eq_neg hp hpm,
     realMoebiusStep_mul_prime_eq_neg hp hpn]
   unfold signedVerticalLinePairMixedPrimeCell
     signedVerticalLineMaskedPairIndicator
