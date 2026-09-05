@@ -771,11 +771,13 @@ theorem orderedEulerPivotVerticalHeight_between_iff
     constructor
     · by_contra hnot
       have hpLo : p < lo := Nat.lt_of_not_ge hnot
-      have hs := orderedEulerPivotVerticalHeight_strictMono ha hpLo
+      have hs :=
+        orderedEulerPivotVerticalHeight_strictMono (c := c) ha hpLo
       exact (not_lt_of_ge h.1) hs
     · by_contra hnot
       have hHiP : hi < p := Nat.lt_of_not_ge hnot
-      have hs := orderedEulerPivotVerticalHeight_strictMono ha hHiP
+      have hs :=
+        orderedEulerPivotVerticalHeight_strictMono (c := c) ha hHiP
       exact (not_lt_of_ge h.2) hs
   · rintro ⟨hlo, hhi⟩
     exact ⟨orderedEulerPivotVerticalHeight_mono ha hlo,
