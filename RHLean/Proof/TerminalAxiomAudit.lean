@@ -239,7 +239,7 @@ theorem sqrtFirstJumpResidual_cast_eq_reciprocalMertensDifference
   rw [sqrtFirstJumpResidual_cast_eq_band_sub_band hqroot hBR hAB]
   unfold firstJumpReciprocalMertensDifference
   rw [firstJumpPrimeSieveMertensBand_eq_reciprocalSignedSum_sub hsK,
-    firstJumpPrimeSieveMertensBand_eq_reciprocalSignedSum_sub hsK]
+    firstJumpPrimeSieveReciprocalMertensSignedSum_eq_mertensPrimeTail]
 
 /-- Endpoints `X <= R` have no larger square root. -/
 theorem sqrt_le_root_of_endpoint_le
@@ -520,6 +520,342 @@ theorem sqrtFirstJumpResidual_cast_eq_cofactorWindowCardDifference
   intro c _hc
   rw [firstJumpHighPrimeCofactorResponse_eq_activeWindowSet_card hsK,
     firstJumpHighPrimeCofactorResponse_eq_activeWindowSet_card hsK]
+
+/-! ## Local first-jump packing -/
+
+/-- Every active window point carries a prime strictly above the square-root
+cut and its cofactor product stays below the physical endpoint. -/
+theorem firstJumpHighPrimeCofactorActiveWindowSet_data
+    {p R K X c q : ℕ}
+    (hcRoot : c ∈ Finset.Icc 1 (Nat.sqrt R))
+    (hq : q ∈ firstJumpHighPrimeCofactorActiveWindowSet p R K X c) :
+    q.Prime ∧ Nat.sqrt R < q ∧ c * q ≤ X := by
+  by_cases hcSupport : c ∈ primeDilateCofactorSupport p X
+  · have hq' : q ∈ firstJumpHighPrimeCofactorWindowSet p R K X c := by
+      simpa [firstJumpHighPrimeCofactorActiveWindowSet, hcSupport] using hq
+    rcases Finset.mem_filter.mp hq' with ⟨hqDiff, hqPrime⟩
+    have hqWindow := (Finset.mem_sdiff.mp hqDiff).1
+    rcases mem_primeDilateCofactorWindow.mp hqWindow with ⟨hlo, hup⟩
+    have hsltq : Nat.sqrt R < q := by
+      have hsle :
+          Nat.sqrt R ≤
+            primeDilateCofactorWindowLower p (Nat.sqrt R) X c := by
+        unfold primeDilateCofactorWindowLower
+        exact le_max_left _ _
+      exact hsle.trans_lt hlo
+    have hcpos : 0 < c := by
+      have hc1 := (Finset.mem_Icc.mp hcRoot).1
+      omega
+    unfold primeDilateCofactorWindowUpper at hup
+    have hqcX : q * c ≤ X :=
+      (Nat.le_div_iff_mul_le hcpos).1 hup
+    exact ⟨hqPrime, hsltq, by simpa [Nat.mul_comm] using hqcX⟩
+  · simp [firstJumpHighPrimeCofactorActiveWindowSet, hcSupport] at hq
+
+/-- Product image of one active cofactor window. -/
+def firstJumpHighPrimeCofactorProductSet
+    (p R K X c : ℕ) : Finset ℕ :=
+  (firstJumpHighPrimeCofactorActiveWindowSet p R K X c).image
+    (fun q => c * q)
+
+/-- Multiplication by a positive cofactor preserves the active-window
+cardinality. -/
+theorem firstJumpHighPrimeCofactorProductSet_card
+    {p R K X c : ℕ} (hcpos : 0 < c) :
+    (firstJumpHighPrimeCofactorProductSet p R K X c).card =
+      (firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card := by
+  unfold firstJumpHighPrimeCofactorProductSet
+  rw [Finset.card_image_of_injective _
+    (fun a b hab => Nat.eq_of_mul_eq_mul_left hcpos hab)]
+
+/-- Distinct low cofactors have disjoint product images.  The reason is
+canonical rather than probabilistic: if `c <= sqrt R < q`, then `q` is the
+canonical largest prime factor of `c*q`, so the product itself recovers both
+`q` and then `c`. -/
+theorem firstJumpHighPrimeCofactorProductSet_pairwiseDisjoint
+    (p R K X : ℕ) :
+    Set.PairwiseDisjoint (↑(Finset.Icc 1 (Nat.sqrt R)))
+      (firstJumpHighPrimeCofactorProductSet p R K X) := by
+  intro c hc d hd hcd
+  have hcRoot : c ∈ Finset.Icc 1 (Nat.sqrt R) := by simpa using hc
+  have hdRoot : d ∈ Finset.Icc 1 (Nat.sqrt R) := by simpa using hd
+  change Disjoint
+    (firstJumpHighPrimeCofactorProductSet p R K X c)
+    (firstJumpHighPrimeCofactorProductSet p R K X d)
+  rw [Finset.disjoint_left]
+  intro n hnc hnd
+  rcases Finset.mem_image.mp hnc with ⟨q, hq, hcq⟩
+  rcases Finset.mem_image.mp hnd with ⟨r, hr, hdr⟩
+  rcases firstJumpHighPrimeCofactorActiveWindowSet_data hcRoot hq with
+    ⟨hqPrime, hsq, _hcqX⟩
+  rcases firstJumpHighPrimeCofactorActiveWindowSet_data hdRoot hr with
+    ⟨hrPrime, hsr, _hdrX⟩
+  have hcData := Finset.mem_Icc.mp hcRoot
+  have hdData := Finset.mem_Icc.mp hdRoot
+  have hcpos : 0 < c := by omega
+  have hdpos : 0 < d := by omega
+  have hcLtq : c < q := hcData.2.trans_lt hsq
+  have hdLtr : d < r := hdData.2.trans_lt hsr
+  have hqTop : canonicalLargestPrimeFactor (c * q) = q :=
+    canonicalLargestPrimeFactor_mul_prime_eq hcpos hcLtq hqPrime
+  have hrTop : canonicalLargestPrimeFactor (d * r) = r :=
+    canonicalLargestPrimeFactor_mul_prime_eq hdpos hdLtr hrPrime
+  have hprod : c * q = d * r := hcq.trans hdr.symm
+  have hqr : q = r := by
+    calc
+      q = canonicalLargestPrimeFactor (c * q) := hqTop.symm
+      _ = canonicalLargestPrimeFactor (d * r) := by rw [hprod]
+      _ = r := hrTop
+  subst r
+  have hcdEq : c = d :=
+    Nat.eq_of_mul_eq_mul_right hqPrime.pos hprod
+  exact hcd hcdEq
+
+/-- Every packed product lies in the ordinary positive prefix through `X`. -/
+theorem firstJumpHighPrimeCofactorProductSet_subset_Icc
+    {p R K X c : ℕ}
+    (hcRoot : c ∈ Finset.Icc 1 (Nat.sqrt R)) :
+    firstJumpHighPrimeCofactorProductSet p R K X c ⊆
+      Finset.Icc 1 X := by
+  intro n hn
+  rcases Finset.mem_image.mp hn with ⟨q, hq, rfl⟩
+  rcases firstJumpHighPrimeCofactorActiveWindowSet_data hcRoot hq with
+    ⟨hqPrime, _hsq, hcqX⟩
+  have hc1 := (Finset.mem_Icc.mp hcRoot).1
+  have hcpos : 0 < c := by omega
+  have hprodpos : 0 < c * q := Nat.mul_pos hcpos hqPrime.pos
+  exact Finset.mem_Icc.mpr ⟨by omega, hcqX⟩
+
+/-- The union of all packed low-cofactor windows is contained in `[1,X]`. -/
+theorem firstJumpHighPrimeCofactorProductUnion_subset_Icc
+    (p R K X : ℕ) :
+    (Finset.Icc 1 (Nat.sqrt R)).biUnion
+        (firstJumpHighPrimeCofactorProductSet p R K X) ⊆
+      Finset.Icc 1 X := by
+  intro n hn
+  rcases Finset.mem_biUnion.mp hn with ⟨c, hc, hnc⟩
+  exact firstJumpHighPrimeCofactorProductSet_subset_Icc hc hnc
+
+/-- **Local packing bound.**  Across all `c <= sqrt R`, the active high-prime
+windows inject into the ordinary integers through `q |-> c*q`.  Hence their
+total cardinality is at most the endpoint `X`. -/
+theorem sum_firstJumpHighPrimeCofactorActiveWindowSet_card_le_endpoint
+    (p R K X : ℕ) :
+    (∑ c ∈ Finset.Icc 1 (Nat.sqrt R),
+        (firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card) ≤ X := by
+  let S := Finset.Icc 1 (Nat.sqrt R)
+  let F := firstJumpHighPrimeCofactorProductSet p R K X
+  have hpair : Set.PairwiseDisjoint (↑S) F := by
+    simpa [S, F] using
+      firstJumpHighPrimeCofactorProductSet_pairwiseDisjoint p R K X
+  have hunion :
+      (S.biUnion F).card = ∑ c ∈ S, (F c).card := by
+    have h := Finset.sum_biUnion hpair (f := fun _ : ℕ => (1 : ℕ))
+    simpa using h
+  have hsubset : S.biUnion F ⊆ Finset.Icc 1 X := by
+    simpa [S, F] using
+      firstJumpHighPrimeCofactorProductUnion_subset_Icc p R K X
+  calc
+    (∑ c ∈ Finset.Icc 1 (Nat.sqrt R),
+        (firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card) =
+      ∑ c ∈ S, (F c).card := by
+        apply Finset.sum_congr rfl
+        intro c hc
+        have hcpos : 0 < c := by
+          have hc1 := (Finset.mem_Icc.mp (by simpa [S] using hc)).1
+          omega
+        symm
+        exact firstJumpHighPrimeCofactorProductSet_card hcpos
+    _ = (S.biUnion F).card := hunion.symm
+    _ ≤ (Finset.Icc 1 X).card := Finset.card_le_card hsubset
+    _ = X := by
+      rw [Nat.card_Icc]
+      omega
+
+/-- One high-prime Mertens band is itself bounded by its physical endpoint.
+This is a consequence of the packing theorem, not cancellation between
+cofactors. -/
+theorem norm_firstJumpPrimeSieveMertensBand_le_endpoint
+    {p R K X : ℕ} (hp : p.Prime)
+    (hXR : X ≤ R) (hsK : Nat.sqrt R ≤ K) :
+    ‖firstJumpPrimeSieveMertensBand (Nat.sqrt R) K X‖ ≤ (X : ℝ) := by
+  rw [highPrimeBand_windowTransform hp hXR hsK]
+  simp_rw [firstJumpHighPrimeCofactorResponse_eq_activeWindowSet_card hsK]
+  have hpack :=
+    sum_firstJumpHighPrimeCofactorActiveWindowSet_card_le_endpoint p R K X
+  have hpackR :
+      (∑ c ∈ Finset.Icc 1 (Nat.sqrt R),
+        ((firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card : ℝ)) ≤
+        (X : ℝ) := by
+    exact_mod_cast hpack
+  calc
+    ‖∑ c ∈ Finset.Icc 1 (Nat.sqrt R),
+        canonicalMoebiusWeight c *
+          (((firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card : ℕ) : ℂ)‖ ≤
+      ∑ c ∈ Finset.Icc 1 (Nat.sqrt R),
+        ‖canonicalMoebiusWeight c *
+          (((firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card : ℕ) : ℂ)‖ :=
+      norm_sum_le _ _
+    _ ≤ ∑ c ∈ Finset.Icc 1 (Nat.sqrt R),
+        ((firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card : ℝ) := by
+      apply Finset.sum_le_sum
+      intro c _hc
+      rw [norm_mul]
+      have hmu : ‖canonicalMoebiusWeight c‖ ≤ 1 := by
+        rcases ArithmeticFunction.moebius_eq_or c with h | h | h <;>
+          simp [canonicalMoebiusWeight, h]
+      have hcardnorm :
+          ‖(((firstJumpHighPrimeCofactorActiveWindowSet
+              p R K X c).card : ℕ) : ℂ)‖ =
+            ((firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card : ℝ) := by
+        simp
+      rw [hcardnorm]
+      exact mul_le_mul_of_nonneg_right hmu (by positivity)
+    _ ≤ (X : ℝ) := hpackR
+
+/-- **Local first-jump residual is linear.**  The complete signed residual of
+one frozen state costs at most `2R`; this is stronger than the RH-scale epsilon
+bound and uses no prime-distribution estimate. -/
+theorem norm_sqrtFirstJumpResidual_cast_le_two_mul_root
+    {R q A B : ℕ}
+    (hqroot : Nat.sqrt R < q) (hBR : B ≤ R) (hAB : A ≤ B) :
+    ‖((predecessorFirstJumpFrozenWindowMass
+        3 (Nat.sqrt R) (primesUpTo (q - 1)) A B : ℤ) : ℂ)‖ ≤
+      2 * (R : ℝ) := by
+  have hAR : A ≤ R := hAB.trans hBR
+  have hsK : Nat.sqrt R ≤ q - 1 := by omega
+  rw [sqrtFirstJumpResidual_cast_eq_band_sub_band hqroot hBR hAB]
+  calc
+    ‖firstJumpPrimeSieveMertensBand (Nat.sqrt R) (q - 1) A -
+        firstJumpPrimeSieveMertensBand (Nat.sqrt R) (q - 1) B‖ ≤
+      ‖firstJumpPrimeSieveMertensBand (Nat.sqrt R) (q - 1) A‖ +
+        ‖firstJumpPrimeSieveMertensBand (Nat.sqrt R) (q - 1) B‖ :=
+      norm_sub_le _ _
+    _ ≤ (A : ℝ) + (B : ℝ) :=
+      add_le_add
+        (norm_firstJumpPrimeSieveMertensBand_le_endpoint
+          Nat.prime_two hAR hsK)
+        (norm_firstJumpPrimeSieveMertensBand_le_endpoint
+          Nat.prime_two hBR hsK)
+    _ ≤ 2 * (R : ℝ) := by
+      have hsum : A + B ≤ R + R := Nat.add_le_add hAR hBR
+      exact_mod_cast hsum
+
+/-! ## Signed lift to the global oriented state carrier -/
+
+open LowWheelCanonicalDowncrossOwnership
+open SignedOwnershipInterval
+
+/-- The dense side of one state after square-root contraction.  High-owner
+states are replaced by the complete `primesUpTo (sqrt R)` frozen cube; states
+whose owner is not above the contraction wall are left unchanged. -/
+noncomputable def lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre
+    (R : ℕ) (x : LowWheelCofactorQuotientState) : ℂ :=
+  if h : (lowWheelCanonicalDowncrossOrientedChargingFaces R x).Nonempty ∧
+      Nat.sqrt R < lowWheelCanonicalDowncrossPivot x then
+    canonicalMoebiusWeight x.1 *
+      ((frozenPrimeUniverseWindowMass
+        (primesUpTo (Nat.sqrt R))
+        (R / x.2)
+        (lowWheelCanonicalDowncrossOwnershipUpper R x.1 x.2) : ℤ) : ℂ)
+  else
+    lowWheelCanonicalDowncrossOrientedFrozenStateFibre R x
+
+/-- The signed first-jump component of one state.  It is zero unless the
+canonical owner lies above the square-root contraction wall. -/
+noncomputable def lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre
+    (R : ℕ) (x : LowWheelCofactorQuotientState) : ℂ :=
+  if h : (lowWheelCanonicalDowncrossOrientedChargingFaces R x).Nonempty ∧
+      Nat.sqrt R < lowWheelCanonicalDowncrossPivot x then
+    canonicalMoebiusWeight x.1 *
+      ((predecessorFirstJumpFrozenWindowMass
+        3 (Nat.sqrt R)
+        (primesUpTo (lowWheelCanonicalDowncrossPivot x - 1))
+        (R / x.2)
+        (lowWheelCanonicalDowncrossOwnershipUpper R x.1 x.2) : ℤ) : ℂ)
+  else
+    0
+
+/-- **Statewise square-root contraction with signs intact.** -/
+theorem lowWheelCanonicalDowncrossOrientedFrozenStateFibre_eq_sqrtDense_add_firstJump
+    (R : ℕ) (x : LowWheelCofactorQuotientState) :
+    lowWheelCanonicalDowncrossOrientedFrozenStateFibre R x =
+      lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre R x +
+        lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre R x := by
+  by_cases h : (lowWheelCanonicalDowncrossOrientedChargingFaces R x).Nonempty ∧
+      Nat.sqrt R < lowWheelCanonicalDowncrossPivot x
+  · rcases x with ⟨c, k⟩
+    have hne := h.1
+    have hqroot := h.2
+    have hupper : lowWheelCanonicalDowncrossOwnershipUpper R c k ≤ R := by
+      unfold lowWheelCanonicalDowncrossOwnershipUpper
+      exact (min_le_left _ _).trans (Nat.div_le_self _ _)
+    have hsplit :=
+      frozenPrimeUniverseWindowMass_eq_sqrtContraction_add_firstJump
+        R (lowWheelCanonicalDowncrossPivot (c, k))
+        (R / k) (lowWheelCanonicalDowncrossOwnershipUpper R c k)
+        hqroot hupper
+    have hcast := congrArg (fun z : ℤ => (z : ℂ)) hsplit
+    push_cast at hcast
+    unfold lowWheelCanonicalDowncrossOrientedFrozenStateFibre
+      lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre
+      lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre
+    simp only [hne, h, if_true]
+    rw [hcast]
+    ring
+  · simp [lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre,
+      lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre, h]
+
+/-- The complete oriented ledger is the signed dense aggregate plus the signed
+first-jump aggregate.  No norm is taken over the state carrier. -/
+theorem lowWheelCanonicalDowncrossOrientedLedger_eq_sqrtDense_add_firstJump
+    (R : ℕ) :
+    lowWheelCanonicalDowncrossOrientedLedger R =
+      (∑ x ∈ lowWheelCanonicalDowncrossOrientedStateCarrier R,
+        lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre R x) +
+      ∑ x ∈ lowWheelCanonicalDowncrossOrientedStateCarrier R,
+        lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre R x := by
+  rw [lowWheelCanonicalDowncrossOrientedLedger_eq_sum_frozenStateFibres]
+  calc
+    (∑ x ∈ lowWheelCanonicalDowncrossOrientedStateCarrier R,
+        lowWheelCanonicalDowncrossOrientedFrozenStateFibre R x) =
+      ∑ x ∈ lowWheelCanonicalDowncrossOrientedStateCarrier R,
+        (lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre R x +
+          lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre R x) := by
+        apply Finset.sum_congr rfl
+        intro x _hx
+        rw [lowWheelCanonicalDowncrossOrientedFrozenStateFibre_eq_sqrtDense_add_firstJump]
+    _ = _ := by rw [Finset.sum_add_distrib]
+
+/-- **True global run object after local contraction.**  Both endpoint ledgers
+live on the same canonical physical-state carrier.  The RH-hard quantity is the
+outer signed aggregation of the dense differences and first-jump differences;
+no local `O(R)` estimate has been summed by triangle inequality. -/
+theorem canonicalOrientedRunDifference_eq_sqrtDenseDifference_add_firstJumpDifference
+    (a b : ℕ) :
+    canonicalOrientedRunDifference a b =
+      (∑ x ∈ canonicalOrientedRunStateCarrier a b,
+        (lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre (b + 1) x -
+          lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre a x)) +
+      ∑ x ∈ canonicalOrientedRunStateCarrier a b,
+        (lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre (b + 1) x -
+          lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre a x) := by
+  rw [canonicalOrientedRunDifference_eq_sum_frozenStateFibreDifferences]
+  calc
+    (∑ x ∈ canonicalOrientedRunStateCarrier a b,
+        (lowWheelCanonicalDowncrossOrientedFrozenStateFibre (b + 1) x -
+          lowWheelCanonicalDowncrossOrientedFrozenStateFibre a x)) =
+      ∑ x ∈ canonicalOrientedRunStateCarrier a b,
+        ((lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre (b + 1) x -
+            lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre a x) +
+          (lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre (b + 1) x -
+            lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre a x)) := by
+        apply Finset.sum_congr rfl
+        intro x _hx
+        rw [lowWheelCanonicalDowncrossOrientedFrozenStateFibre_eq_sqrtDense_add_firstJump,
+          lowWheelCanonicalDowncrossOrientedFrozenStateFibre_eq_sqrtDense_add_firstJump]
+        ring
+    _ = _ := by rw [Finset.sum_add_distrib]
 
 /-- **Comparison with the existing canonical rough-prime carrier.**
 
