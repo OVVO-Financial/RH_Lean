@@ -1,3 +1,4 @@
+import RHLean.Analysis.NativePNTAxer
 import RHLean.Proof.CanonicalGapAncestryQuadraticClosure
 import RHLean.Proof.LowPrimeCombinedBornHighFirstFailure
 import RHLean.Proof.LowPrimeCombinedBornHighTransition
@@ -72,6 +73,13 @@ positive-orientation middle source mass.  Second, and more economically,
 `O(R)` tracking estimates remain explicit theorem hypotheses.  The guards below certify
 that the exact identities and the implications *from* those hypotheses have no hidden
 project axiom.
+
+The final section is different in kind.  Every guard above certifies an implication or
+an identity, so a clean axiom list there says only that no hidden project axiom is used;
+the open analytic content still sits in an ordinary hypothesis, and a clean list alone
+establishes nothing about `M`.  The last two theorems have no hypotheses at all, so for
+them the kernel's answer is the whole story: they are finished, unconditional
+mathematics.
 -/
 
 namespace RHLean.Proof
@@ -147,6 +155,52 @@ info: 'RHLean.Proof.abs_squareRootLowPrimeRunningImbalanceReal_le_of_mertensPosi
 -/
 #guard_msgs in
 #print axioms RHLean.Proof.abs_squareRootLowPrimeRunningImbalanceReal_le_of_mertensPositiveTracking
+
+/-! ## Unconditional results
+
+The two theorems below take no arguments.  They are restated here under explicit names,
+with their statements written out, so that the guard records exactly what is claimed and
+so that a later change to the underlying definitions breaks this module rather than
+silently weakening the claim. -/
+
+/-- **Native Chebyshev prime number theorem, unconditional.**  `psi(N)/N -> 1`, with no
+hypothesis.  The underlying contraction is this repository's own elementary argument:
+`NativePNTErdosContraction` imports Mathlib and one project file, so this does not route
+through the vendored StrongPNT port. -/
+theorem nativeChebyshevPrimeNumberTheorem_unconditional :
+    Filter.Tendsto (fun N : ℕ => RHLean.Analysis.nativePsi N / (N : ℝ))
+      Filter.atTop (nhds 1) :=
+  RHLean.Analysis.nativePsi_div_atTop_one
+
+/--
+info: 'RHLean.Proof.TerminalAxiomAudit.nativeChebyshevPrimeNumberTheorem_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms
+  RHLean.Proof.TerminalAxiomAudit.nativeChebyshevPrimeNumberTheorem_unconditional
+
+/-- **Mertens cancellation, unconditional.**  `M(N)/N -> 0`, that is `M(x) = o(x)`, with
+no hypothesis, via the Axer bridge applied to the native PNT above.
+
+This is exactly prime-number-theorem strength and no more.  It is *not* the RH-scale
+bound `M(x) << x^(1/2+eps)`, which is equivalent to the Riemann hypothesis and remains
+open; that bound is the content of `SquarePrefixEnergyBoundedStatement` and of the other
+`...BoundedStatement` premises in this development, none of which is discharged here. -/
+theorem nativeMertensSummatoryCancellation_unconditional :
+    Filter.Tendsto (fun N : ℕ => RHLean.Analysis.nativeMertensSummatory N / (N : ℝ))
+      Filter.atTop (nhds 0) :=
+  RHLean.Analysis.nativeMertens_div_atTop_zero
+
+/--
+info: 'RHLean.Proof.TerminalAxiomAudit.nativeMertensSummatoryCancellation_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms
+  RHLean.Proof.TerminalAxiomAudit.nativeMertensSummatoryCancellation_unconditional
 
 end TerminalAxiomAudit
 
