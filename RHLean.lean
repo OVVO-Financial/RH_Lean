@@ -420,6 +420,7 @@ import RHLean.Proof.CompleteHighFamilyDecomposition
 import RHLean.Proof.ComplexVerticalFiberSpacing
 import RHLean.Proof.ComplexVerticalIntervalEulerBridge
 import RHLean.Proof.ComplexVerticalLineGreenKubo
+import RHLean.Proof.ComplexVerticalLineSquarefreeDiagonal
 import RHLean.Proof.ConcreteHighFamilyJointGram
 import RHLean.Proof.ConcreteLiCoreExtensionWeight
 import RHLean.Proof.ConcreteSquarePrefixCofactorRealization
