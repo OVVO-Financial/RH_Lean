@@ -239,7 +239,7 @@ theorem sqrtFirstJumpResidual_cast_eq_reciprocalMertensDifference
   rw [sqrtFirstJumpResidual_cast_eq_band_sub_band hqroot hBR hAB]
   unfold firstJumpReciprocalMertensDifference
   rw [firstJumpPrimeSieveMertensBand_eq_reciprocalSignedSum_sub hsK,
-    firstJumpPrimeSieveReciprocalMertensSignedSum_eq_mertensPrimeTail]
+    firstJumpPrimeSieveMertensBand_eq_reciprocalSignedSum_sub hsK]
 
 /-- Endpoints `X <= R` have no larger square root. -/
 theorem sqrt_le_root_of_endpoint_le
