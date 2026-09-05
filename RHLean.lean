@@ -527,6 +527,7 @@ import RHLean.Proof.NearOrthogonality
 import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.OneBlockInvariant
+import RHLean.Proof.OrderedEulerCutProjection
 import RHLean.Proof.OrthogonalResidual
 import RHLean.Proof.PrefixCarrierOthelloWalls
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
