@@ -41,7 +41,7 @@ attribute [local instance] Classical.propDecidable
 
 /-- **Exact squarefree pointwise envelope.**  A physical child line either does
 not change endpoint status, in which case its event is zero, or it is born/dies,
-in which case its event is `+/- mu(n)`.  Hence its squared event is bounded by
+in which case its event is plus or minus `mu(n)`.  Hence its squared event is bounded by
 `mu(n)^2`, not merely by one. -/
 theorem signedVerticalLineEventStep_sq_le_moebius_sq
     (a b n : ℕ) :
