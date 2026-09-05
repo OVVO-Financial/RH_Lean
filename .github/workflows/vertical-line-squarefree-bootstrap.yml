@@ -1,0 +1,33 @@
+name: Bootstrap vertical line squarefree diagonal manifest
+
+on:
+  push:
+    branches: [agent/vertical-line-squarefree-diagonal]
+    paths:
+      - .github/workflows/vertical-line-squarefree-bootstrap.yml
+      - RHLean/Proof/ComplexVerticalLineSquarefreeDiagonal.lean
+
+permissions:
+  contents: write
+
+jobs:
+  import-root:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add generated root import
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('RHLean.lean')
+          target = 'import RHLean.Proof.ComplexVerticalLineSquarefreeDiagonal'
+          lines = [line.strip() for line in p.read_text().splitlines() if line.strip()]
+          p.write_text('\n'.join(sorted(set(lines) | {target})) + '\n')
+          PY
+          if ! git diff --quiet -- RHLean.lean; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add RHLean.lean
+            git commit -m "Import complex vertical line squarefree diagonal"
+            git push
+          fi
