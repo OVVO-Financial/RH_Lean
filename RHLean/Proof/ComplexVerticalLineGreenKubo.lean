@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.BlockCovarianceDecomposition
+import RHLean.Analysis.BlockCovarianceRefinement
 import RHLean.Proof.ComplexVerticalFiberSpacing
 
 /-!
@@ -314,5 +315,260 @@ theorem norm_signedVerticalIntervalMass_sq_le_subdoubling_root_sq_add_covariance
       ((((b + 1) ^ 2 : ℕ) : ℝ)) ≤ (((2 * a ^ 2 : ℕ) : ℝ)) := by
     exact_mod_cast hsqNat
   linarith
+
+/-! ## Sequential Euler action on the covariance term
+
+The birth/death event is a Möbius sign times a deterministic endpoint mask.
+This exposes the exact two-coordinate Euler action on the *covariance itself*.
+For a fresh prime, the four pair descendants still carry the `+,-,-,+`
+Möbius pattern.  Hence every complete four-corner covariance cube cancels up to
+the mixed finite difference of the endpoint mask and the physical order cutoff.
+
+If the endpoint mask is stable under multiplication by that fresh prime, the
+masked mixed cell collapses to the already-formalized global order cell.  After
+swapping the two old coordinates, its two interior order shells cancel and only
+the usual top escape remains.  Likewise the covariance strictly inside a
+prime-family is an exact lower-scale copy of the same line covariance whenever
+the mask is stable on that lower prefix.
+
+Thus positive line covariance is no longer an opaque pair sum: prime-stable
+families descend exactly, and the genuinely new obstruction is localized to
+prime-instability of the physical birth/death mask plus the standard top escape.
+No absolute covariance bound is introduced.
+-/
+
+/-- Deterministic endpoint-status mask multiplying the ordinary Möbius sign.
+It is `+1` on deaths, `-1` on births, and `0` on persistent/absent lines. -/
+def signedVerticalLineEventMask (a b n : ℕ) : ℝ :=
+  (if n ∈ orderedEulerCutActiveChildren a then 1 else 0) -
+    (if n ∈ orderedEulerCutActiveChildren (b + 1) then 1 else 0)
+
+/-- The line event factors exactly as ordinary Möbius times its endpoint mask. -/
+theorem signedVerticalLineEventStep_eq_moebius_mul_mask
+    (a b n : ℕ) :
+    signedVerticalLineEventStep a b n =
+      realMoebiusStep n * signedVerticalLineEventMask a b n := by
+  by_cases ha : n ∈ orderedEulerCutActiveChildren a <;>
+    by_cases hb : n ∈ orderedEulerCutActiveChildren (b + 1) <;>
+      simp [signedVerticalLineEventStep, signedVerticalLineEventMask,
+        orderedEulerCutChildEndpointChargeReal, orderedEulerCutChildChargeReal,
+        realMoebiusStep, ha, hb] <;> ring
+
+/-- The covariance term is literally the masked ordinary Möbius pair sum. -/
+theorem signedVerticalLineRunCovariance_eq_masked_doubleSum
+    (a b : ℕ) :
+    signedVerticalLineRunCovariance a b =
+      ∑ n ∈ Finset.range ((b + 1) ^ 2),
+        ∑ m ∈ Finset.range n,
+          realMoebiusStep m * realMoebiusStep n *
+            (signedVerticalLineEventMask a b m *
+              signedVerticalLineEventMask a b n) := by
+  unfold signedVerticalLineRunCovariance
+  rw [signedBlockCrossCovariance_eq_doubleSum]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  apply Finset.sum_congr rfl
+  intro m _hm
+  rw [signedVerticalLineEventStep_eq_moebius_mul_mask,
+    signedVerticalLineEventStep_eq_moebius_mul_mask]
+  ring
+
+/-- Ordered physical pair cell with the line-event mask retained. -/
+def signedVerticalLineMaskedPairIndicator
+    (a b K m n : ℕ) : ℝ :=
+  signedVerticalLineEventMask a b m *
+    signedVerticalLineEventMask a b n *
+      positiveLagPairIndicator K m n
+
+/-- Mixed two-coordinate finite difference after adjoining one prime in either
+physical child coordinate. -/
+def signedVerticalLinePairMixedPrimeCell
+    (a b p K m n : ℕ) : ℝ :=
+  signedVerticalLineMaskedPairIndicator a b K m n -
+    signedVerticalLineMaskedPairIndicator a b K (p * m) n -
+    signedVerticalLineMaskedPairIndicator a b K m (p * n) +
+    signedVerticalLineMaskedPairIndicator a b K (p * m) (p * n)
+
+/-- Actual four-corner covariance mass of the line-event trajectory. -/
+def signedVerticalLinePairFourCornerMass
+    (a b p K m n : ℕ) : ℝ :=
+  signedVerticalLineEventStep a b m * signedVerticalLineEventStep a b n *
+      positiveLagPairIndicator K m n +
+    signedVerticalLineEventStep a b (p * m) * signedVerticalLineEventStep a b n *
+      positiveLagPairIndicator K (p * m) n +
+    signedVerticalLineEventStep a b m * signedVerticalLineEventStep a b (p * n) *
+      positiveLagPairIndicator K m (p * n) +
+    signedVerticalLineEventStep a b (p * m) *
+      signedVerticalLineEventStep a b (p * n) *
+        positiveLagPairIndicator K (p * m) (p * n)
+
+/-- **Fresh-prime covariance cube.**  All Möbius dependence factors into the
+old pair weight.  The complete remaining defect is the mixed finite difference
+of the physical line mask and order cutoff. -/
+theorem signedVerticalLinePairFourCornerMass_eq_mixedPrimeCell
+    {a b p K m n : ℕ}
+    (hp : p.Prime) (hpm : ¬ p ∣ m) (hpn : ¬ p ∣ n) :
+    signedVerticalLinePairFourCornerMass a b p K m n =
+      realMoebiusStep m * realMoebiusStep n *
+        signedVerticalLinePairMixedPrimeCell a b p K m n := by
+  unfold signedVerticalLinePairFourCornerMass
+  rw [signedVerticalLineEventStep_eq_moebius_mul_mask,
+    signedVerticalLineEventStep_eq_moebius_mul_mask,
+    signedVerticalLineEventStep_eq_moebius_mul_mask,
+    signedVerticalLineEventStep_eq_moebius_mul_mask,
+    signedVerticalLineEventStep_eq_moebius_mul_mask,
+    signedVerticalLineEventStep_eq_moebius_mul_mask,
+    signedVerticalLineEventStep_eq_moebius_mul_mask,
+    signedVerticalLineEventStep_eq_moebius_mul_mask,
+    realMoebiusStep_mul_prime_eq_neg hp hpm,
+    realMoebiusStep_mul_prime_eq_neg hp hpn]
+  unfold signedVerticalLinePairMixedPrimeCell
+    signedVerticalLineMaskedPairIndicator
+  ring
+
+/-- If the physical endpoint mask is prime-stable in both old coordinates, the
+masked covariance cell is exactly the old mask product times the ordinary
+Möbius order cell. -/
+theorem signedVerticalLinePairMixedPrimeCell_eq_mask_mul_positiveLag
+    {a b p K m n : ℕ}
+    (hm : signedVerticalLineEventMask a b (p * m) =
+      signedVerticalLineEventMask a b m)
+    (hn : signedVerticalLineEventMask a b (p * n) =
+      signedVerticalLineEventMask a b n) :
+    signedVerticalLinePairMixedPrimeCell a b p K m n =
+      signedVerticalLineEventMask a b m *
+        signedVerticalLineEventMask a b n *
+          positiveLagPairMixedPrimeCell p K m n := by
+  unfold signedVerticalLinePairMixedPrimeCell
+    signedVerticalLineMaskedPairIndicator positiveLagPairMixedPrimeCell
+  rw [hm, hn]
+  ring
+
+/-- **Stable swapped pair cancellation.**  On a prime-stable pair the same two
+interior order-crossing shells as in the global Möbius covariance cancel after
+swapping coordinates.  Only the standard top escape remains. -/
+theorem signedVerticalLinePairMixedPrimeCell_add_swap_eq_topEscape_of_stable
+    {a b p K m n : ℕ}
+    (hp : p.Prime) (hmn : m < n) (hpn : ¬ p ∣ n)
+    (hm : signedVerticalLineEventMask a b (p * m) =
+      signedVerticalLineEventMask a b m)
+    (hn : signedVerticalLineEventMask a b (p * n) =
+      signedVerticalLineEventMask a b n) :
+    signedVerticalLinePairMixedPrimeCell a b p K m n +
+        signedVerticalLinePairMixedPrimeCell a b p K n m =
+      signedVerticalLineEventMask a b m *
+        signedVerticalLineEventMask a b n *
+          (if n < K ∧ K ≤ p * m then 1 else 0) := by
+  rw [signedVerticalLinePairMixedPrimeCell_eq_mask_mul_positiveLag hm hn,
+    signedVerticalLinePairMixedPrimeCell_eq_mask_mul_positiveLag hn hm]
+  have hcomm :
+      signedVerticalLineEventMask a b n * signedVerticalLineEventMask a b m =
+        signedVerticalLineEventMask a b m * signedVerticalLineEventMask a b n := by
+    ring
+  rw [hcomm, ← mul_add,
+    positiveLagPairMixedPrimeCell_add_swap_eq_topEscape hp hmn hpn]
+
+/-- Endpoint-membership stability implies mask stability.  Hence mask failure
+must come from a genuine active-child boundary at at least one endpoint. -/
+theorem signedVerticalLineEventMask_prime_stable_of_endpoint_stable
+    {a b p n : ℕ}
+    (ha : (p * n ∈ orderedEulerCutActiveChildren a) ↔
+      n ∈ orderedEulerCutActiveChildren a)
+    (hb : (p * n ∈ orderedEulerCutActiveChildren (b + 1)) ↔
+      n ∈ orderedEulerCutActiveChildren (b + 1)) :
+    signedVerticalLineEventMask a b (p * n) =
+      signedVerticalLineEventMask a b n := by
+  simp [signedVerticalLineEventMask, ha, hb]
+
+/-- Therefore every prime-instability of the covariance mask is physically
+owned by an endpoint active-set transition, rather than by Möbius signs. -/
+theorem signedVerticalLineEventMask_prime_unstable_imp_endpoint_unstable
+    {a b p n : ℕ}
+    (h : signedVerticalLineEventMask a b (p * n) ≠
+      signedVerticalLineEventMask a b n) :
+    (¬ ((p * n ∈ orderedEulerCutActiveChildren a) ↔
+      n ∈ orderedEulerCutActiveChildren a)) ∨
+    (¬ ((p * n ∈ orderedEulerCutActiveChildren (b + 1)) ↔
+      n ∈ orderedEulerCutActiveChildren (b + 1))) := by
+  by_cases ha : (p * n ∈ orderedEulerCutActiveChildren a) ↔
+      n ∈ orderedEulerCutActiveChildren a
+  · by_cases hb : (p * n ∈ orderedEulerCutActiveChildren (b + 1)) ↔
+        n ∈ orderedEulerCutActiveChildren (b + 1)
+    · exact False.elim
+        (h (signedVerticalLineEventMask_prime_stable_of_endpoint_stable ha hb))
+    · exact Or.inr hb
+  · exact Or.inl ha
+
+/-- One prime-family prefix of the physical line-event trajectory. -/
+def signedVerticalLinePrimeFamilyPrefix
+    (a b p K : ℕ) : ℝ :=
+  ∑ c ∈ Finset.range K, signedVerticalLineEventStep a b (p * c)
+
+/-- Pair covariance carried strictly inside one prime-family. -/
+def signedVerticalLinePrimeFamilyCovariance
+    (a b p K : ℕ) : ℝ :=
+  ∑ d ∈ Finset.range K,
+    signedVerticalLineEventStep a b (p * d) *
+      signedVerticalLinePrimeFamilyPrefix a b p d
+
+/-- On a prime-stable child, adjoining a fresh larger prime reverses the line
+event exactly.  The endpoint mask is preserved and the Möbius sign flips. -/
+theorem signedVerticalLineEventStep_prime_mul_eq_neg_of_mask_stable
+    {a b p c : ℕ}
+    (hp : p.Prime) (hc : c < p)
+    (hstable : signedVerticalLineEventMask a b (p * c) =
+      signedVerticalLineEventMask a b c) :
+    signedVerticalLineEventStep a b (p * c) =
+      -signedVerticalLineEventStep a b c := by
+  rw [signedVerticalLineEventStep_eq_moebius_mul_mask,
+    signedVerticalLineEventStep_eq_moebius_mul_mask,
+    realMoebiusStep_prime_mul_of_lt hp hc, hstable]
+  ring
+
+/-- A complete stable prime-family reverses total mass and introduces no new
+amplitude. -/
+theorem signedVerticalLinePrimeFamilyPrefix_eq_neg
+    {a b p K : ℕ}
+    (hp : p.Prime) (hK : K ≤ p)
+    (hstable : ∀ c : ℕ, c < K →
+      signedVerticalLineEventMask a b (p * c) =
+        signedVerticalLineEventMask a b c) :
+    signedVerticalLinePrimeFamilyPrefix a b p K =
+      -signedBlockPrefix (signedVerticalLineEventStep a b) K := by
+  unfold signedVerticalLinePrimeFamilyPrefix signedBlockPrefix
+  have hstep : ∀ c ∈ Finset.range K,
+      signedVerticalLineEventStep a b (p * c) =
+        -signedVerticalLineEventStep a b c := by
+    intro c hcK
+    have hcLt : c < K := Finset.mem_range.mp hcK
+    exact signedVerticalLineEventStep_prime_mul_eq_neg_of_mask_stable
+      hp (hcLt.trans_le hK) (hstable c hcLt)
+  rw [Finset.sum_congr rfl hstep]
+  simp
+
+/-- **Covariance descent on a stable fresh-prime family.**  Two sign reversals
+cancel in every pair product, so the covariance inside the `p`-family is
+*exactly* the same line covariance at the strictly lower prefix.  Any failure
+of this descent is therefore mask-instability, already localized above to an
+endpoint active-set transition. -/
+theorem signedVerticalLinePrimeFamilyCovariance_eq_lower
+    {a b p K : ℕ}
+    (hp : p.Prime) (hK : K ≤ p)
+    (hstable : ∀ c : ℕ, c < K →
+      signedVerticalLineEventMask a b (p * c) =
+        signedVerticalLineEventMask a b c) :
+    signedVerticalLinePrimeFamilyCovariance a b p K =
+      signedBlockCrossCovariance (signedVerticalLineEventStep a b) K := by
+  unfold signedVerticalLinePrimeFamilyCovariance signedBlockCrossCovariance
+  apply Finset.sum_congr rfl
+  intro d hdKmem
+  have hdK : d < K := Finset.mem_range.mp hdKmem
+  have hdp : d < p := hdK.trans_le hK
+  rw [signedVerticalLineEventStep_prime_mul_eq_neg_of_mask_stable
+      hp hdp (hstable d hdK),
+    signedVerticalLinePrimeFamilyPrefix_eq_neg hp (hdK.le.trans hK)]
+  · ring
+  · intro c hc
+    exact hstable c (hc.trans hdK)
 
 end RHLean.Proof
