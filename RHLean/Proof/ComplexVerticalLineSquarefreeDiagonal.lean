@@ -51,15 +51,13 @@ theorem signedVerticalLineEventStep_sq_le_moebius_sq
     · have hsq : 0 ≤ realMoebiusStep n ^ 2 := sq_nonneg _
       simpa [signedVerticalLineEventStep,
         orderedEulerCutChildEndpointChargeReal, hb, ha] using hsq
-    · have hrefl : realMoebiusStep n ^ 2 ≤ realMoebiusStep n ^ 2 := le_rfl
-      simpa [signedVerticalLineEventStep,
+    · simp [signedVerticalLineEventStep,
         orderedEulerCutChildEndpointChargeReal,
-        orderedEulerCutChildChargeReal, realMoebiusStep, hb, ha] using hrefl
+        orderedEulerCutChildChargeReal, realMoebiusStep, hb, ha]
   · by_cases ha : n ∈ orderedEulerCutActiveChildren a
-    · have hrefl : realMoebiusStep n ^ 2 ≤ realMoebiusStep n ^ 2 := le_rfl
-      simpa [signedVerticalLineEventStep,
+    · simp [signedVerticalLineEventStep,
         orderedEulerCutChildEndpointChargeReal,
-        orderedEulerCutChildChargeReal, realMoebiusStep, hb, ha] using hrefl
+        orderedEulerCutChildChargeReal, realMoebiusStep, hb, ha]
     · have hsq : 0 ≤ realMoebiusStep n ^ 2 := sq_nonneg _
       simpa [signedVerticalLineEventStep,
         orderedEulerCutChildEndpointChargeReal, hb, ha] using hsq
