@@ -532,7 +532,7 @@ theorem lowWheelCanonicalDowncrossOrientedLedger_eq_sum_orderedEulerCutWeights
   rw [Finset.sum_filter, Finset.product_eq_sprod, Finset.sum_product]
   apply Finset.sum_congr rfl
   intro t _ht
-  symm
-  exact sum_orientedPart_eq_sum_stateAmbient_indicator R t
+  simpa only [Prod.fst, Prod.snd] using
+    (sum_orientedPart_eq_sum_stateAmbient_indicator R t).symm
 
 end RHLean.Proof
