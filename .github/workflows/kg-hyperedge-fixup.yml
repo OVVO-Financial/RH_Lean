@@ -1,0 +1,69 @@
+name: Apply KG hyperedge fix
+
+on:
+  push:
+    branches: [claude/rh-lean-knowledge-graph-uhooqu]
+    paths:
+      - 'scripts/apply_kg_hyperedge_fix.py'
+      - '.github/workflows/kg-hyperedge-fixup.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: claude/rh-lean-knowledge-graph-uhooqu
+          fetch-depth: 0
+
+      - name: Apply conjunctive reduction fix
+        run: python3 scripts/apply_kg_hyperedge_fix.py
+
+      - name: Validate graph tooling
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/proof_inventory.py scripts/rhlean_kg.py scripts/decl_graph.py scripts/proofq.py
+          python3 scripts/decl_graph.py --json /tmp/decl-graph.json --require-acyclic > /tmp/decl.txt
+          python3 scripts/proofq.py open-leaves --rh-only --graph /tmp/decl-graph.json --limit 100 > /tmp/open.txt
+          python3 scripts/proofq.py obligations --rh-only --graph /tmp/decl-graph.json --limit 100 > /tmp/obligations.txt
+          python3 scripts/proofq.py reductions RiemannHypothesisStatement --graph /tmp/decl-graph.json --depth 2 > /tmp/reductions.txt
+          python3 - <<'PY'
+          import json, sys
+          sys.path.insert(0, 'scripts')
+          import proofq
+          data = json.load(open('/tmp/decl-graph.json'))
+          g = proofq.KnowledgeGraph(data)
+          multi = [
+              (target, premises, via)
+              for target, rules in g.reduction_rules.items()
+              for premises, via in rules
+              if len(premises) > 1
+          ]
+          assert multi, 'expected at least one conjunctive reduction rule'
+          # The projection contains every required premise, but no individual
+          # premise is thereby promoted to a unary sufficient implication.
+          for target, premises, _via in multi:
+              for p in premises:
+                  assert p in g.reduction_graph[target]
+              unresolved = [p for p in premises if g.status(p) != 'proved']
+              if len(unresolved) > 1:
+                  for p in unresolved:
+                      assert p not in g.sufficient_graph[target]
+          print(f'validated {len(multi)} conjunctive reduction rules')
+          PY
+          head -80 /tmp/reductions.txt
+
+      - name: Commit and push non-workflow fixes
+        run: |
+          set -euo pipefail
+          git config user.name 'OVVO-Financial'
+          git config user.email 'ovvo.financial.systems@gmail.com'
+          git add scripts/proofq.py docs/KNOWLEDGE_GRAPH.md
+          git diff --cached --check
+          git commit -m 'Preserve conjunctive premises in reduction graph'
+          git push origin HEAD:claude/rh-lean-knowledge-graph-uhooqu
