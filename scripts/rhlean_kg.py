@@ -37,7 +37,7 @@ from __future__ import annotations
 
 import hashlib
 import re
-from collections import deque
+from collections import defaultdict, deque
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -248,6 +248,7 @@ class Declaration:
     value: str = ""
     doc: str = ""
     statement_refs: list[str] = field(default_factory=list)
+    conclusion_refs: list[str] = field(default_factory=list)
     proof_refs: list[str] = field(default_factory=list)
     external_refs: list[str] = field(default_factory=list)
 
@@ -498,6 +499,19 @@ def resolve_references(decls: list[Declaration], table: NameTable) -> None:
             setattr(decl, attr, seen)
             if attr == "statement_refs":
                 decl.external_refs = sorted(unresolved)
+
+        # The conclusion is resolved separately: a reference appearing only in
+        # a hypothesis means the theorem *assumes* that proposition, while one
+        # in the conclusion means it *establishes* it. That distinction is what
+        # separates a proved result from a conditional reduction.
+        conclusion: list[str] = []
+        for tok in _tokens(statement_conclusion(decl.statement)):
+            full = table.resolve(tok, decl)
+            if full is None or full == decl.decl_id:
+                continue
+            if full not in conclusion:
+                conclusion.append(full)
+        decl.conclusion_refs = conclusion
 
 
 def normalized_signature(decl: Declaration, table: NameTable) -> str:
@@ -809,3 +823,198 @@ def tag_declaration(
 
 def tag_all(nodes: dict[str, dict], facets: dict) -> dict[str, dict]:
     return {name: tag_declaration(name, entry, facets) for name, entry in nodes.items()}
+
+
+# --------------------------------------------------------------------------
+# Proof status layer
+# --------------------------------------------------------------------------
+
+STATUS_PROVED = "proved"
+STATUS_REDUCED = "reduced"
+STATUS_OPEN = "open"
+STATUS_NOGO = "no-go"
+STATUS_REFUTED = "refuted"
+STATUS_DEFINITION = "definition"
+
+_CLOSED_PROP_RE = re.compile(
+    r"^\s*(?:\w+\s+)*?(?:def|abbrev)\s+(\S+)(.*?):\s*Prop\s*$"
+)
+
+
+# Glyphs that mark a hypothesis stated inline rather than through a named
+# project proposition -- `(hR : 1 ≤ R)`, `∀ᶠ R in atTop, ...`, and so on.
+_RAW_HYPOTHESIS_GLYPHS = ("≤", "<", "≥", ">", "=", "∈", "∣", "≠", "∀", "∃", "¬")
+
+
+def statement_hypotheses(statement: str) -> str:
+    """The binder and antecedent text of a declaration, excluding its conclusion.
+
+    Binders sit before the first bracket-depth-zero `:`; antecedents sit between
+    that `:` and the last depth-zero `→`.  Everything else is the conclusion.
+    """
+
+    idx = _split_top_level(statement, ":")
+    if idx < 0:
+        return statement
+    binders = statement[:idx]
+    body = statement[idx + 1 :]
+
+    depth = 0
+    last = 0
+    for i, ch in enumerate(body):
+        if ch in "([{⟨⦃":
+            depth += 1
+        elif ch in ")]}⟩⦄":
+            depth -= 1
+        elif depth == 0 and ch == "→":
+            last = i + 1
+    return binders + " " + body[:last]
+
+
+def has_raw_hypothesis(statement: str) -> bool:
+    """Does this declaration assume something not named by a project proposition?
+
+    A theorem whose conclusion is a closed proposition but which assumes
+    `1 ≤ R`, or an eventually-quantified condition, does not establish that
+    proposition outright -- it establishes it for whoever can supply the
+    hypothesis.
+    """
+
+    hyp = statement_hypotheses(statement)
+    return any(g in hyp for g in _RAW_HYPOTHESIS_GLYPHS)
+
+
+def prop_valued_defs(nodes: dict[str, dict]) -> set[str]:
+    """Every `Prop`-valued definition, whether or not it takes binders.
+
+    Parameterised ones (`CenteredDistinguishedPrimeGlobalGramBounded x`) are
+    just as much an assumption as closed ones when they appear as a hypothesis,
+    so the assumption side must see both.
+    """
+
+    out: set[str] = set()
+    for name, entry in nodes.items():
+        if entry.get("kind") not in ("def", "abbrev"):
+            continue
+        if _CLOSED_PROP_RE.match(str(entry.get("statement_preview", ""))):
+            out.add(name)
+    return out
+
+
+def closed_propositions(nodes: dict[str, dict]) -> set[str]:
+    """Named `def X : Prop` statements that take no binders.
+
+    A binder-free Prop is a closed statement -- something someone is trying to
+    prove.  `def IsFoo (n : ℕ) : Prop` is a predicate applied throughout the
+    library and is not an obligation, so binders are the discriminator.
+    """
+
+    out: set[str] = set()
+    for name, entry in nodes.items():
+        if entry.get("kind") not in ("def", "abbrev"):
+            continue
+        m = _CLOSED_PROP_RE.match(str(entry.get("statement_preview", "")))
+        if m and not m.group(2).strip():
+            out.add(name)
+    return out
+
+
+def compute_status(
+    nodes: dict[str, dict],
+    tags: dict[str, dict] | None = None,
+) -> tuple[dict[str, str], dict[str, list[str]]]:
+    """Classify every declaration as proved, reduced, open, no-go or definition.
+
+    Lean's kernel already guarantees that a compiled theorem is proved *from its
+    hypotheses*.  What it does not surface is which theorems are conditional on
+    a proposition nobody has established.  That is the distinction this computes:
+
+    * a theorem **establishes** a closed proposition `X` when `X` is the whole of
+      its conclusion -- so `A ↔ B` establishes neither side, and `A → B`
+      establishes `B` while assuming `A`;
+    * a theorem **assumes** the closed propositions that appear in its statement
+      but not in its conclusion;
+    * `X` becomes *proved* as soon as some theorem establishing it assumes only
+      propositions already proved.
+
+    That last clause is a least fixpoint, computed by iterating to stability, so
+    a chain of conditional reductions only discharges when something actually
+    closes the bottom of it.
+
+    Returns `(status_by_name, assumptions_by_name)`.
+    """
+
+    closed = closed_propositions(nodes)
+    all_props = prop_valued_defs(nodes)
+    # A binder of structure/class type is a hypothesis too: a theorem taking
+    # `(bridge : ActualStartRHBridge start)` establishes its conclusion only for
+    # whoever can exhibit such a bridge. These do not make a theorem *research*
+    # conditional -- they are data, not open problems -- but they do stop it
+    # from establishing a closed proposition outright.
+    carriers = {
+        n for n, e in nodes.items()
+        if e.get("kind") in ("structure", "class", "inductive")
+    }
+    blocking = all_props | carriers
+
+    assumed: dict[str, list[str]] = {}
+    unconditional: dict[str, bool] = {}
+    establishes: dict[str, list[str]] = defaultdict(list)
+    refutes: dict[str, list[str]] = defaultdict(list)
+    for name, entry in nodes.items():
+        if entry.get("kind") not in PROOF_KINDS:
+            continue
+        stmt = set(entry.get("statement_refs", ()))
+        concl = list(entry.get("conclusion_refs", ()))
+        hypothesis_refs = stmt - set(concl)
+        assumed[name] = sorted(hypothesis_refs & all_props)
+        # Strict gate, used only to decide whether this theorem *establishes* a
+        # closed proposition: no inline hypothesis and no assumed proposition or
+        # structure of any kind.
+        unconditional[name] = not entry.get("has_raw_hypothesis") and not (
+            hypothesis_refs & blocking
+        )
+        # Exactly one repository constant in the conclusion, and it is a closed
+        # proposition: this theorem states that proposition and nothing else.
+        # `A ↔ B` has two and establishes neither; `A → B` has one, B, having
+        # already dropped A into `assumed`.
+        if len(concl) == 1 and concl[0] in closed:
+            # `¬ X` refutes X, it does not establish it. Without this check a
+            # recorded no-go reads as a proved proposition, which is the most
+            # damaging error this layer could make.
+            if "¬" in (entry.get("shape") or ()):
+                refutes[concl[0]].append(name)
+            else:
+                establishes[concl[0]].append(name)
+
+    proved_props: set[str] = set()
+    changed = True
+    while changed:
+        changed = False
+        for prop in closed - proved_props:
+            for thm in establishes.get(prop, ()):
+                if unconditional[thm] and all(a in proved_props for a in assumed[thm]):
+                    proved_props.add(prop)
+                    changed = True
+                    break
+
+    status: dict[str, str] = {}
+    for name, entry in nodes.items():
+        kind = entry.get("kind")
+        if kind in PROOF_KINDS:
+            if tags is not None and "no-go" in tags[name]["roles"]:
+                status[name] = STATUS_NOGO
+            elif any(a not in proved_props for a in assumed[name]):
+                status[name] = STATUS_REDUCED
+            else:
+                status[name] = STATUS_PROVED
+        elif name in closed:
+            if name in proved_props:
+                status[name] = STATUS_PROVED
+            elif refutes.get(name):
+                status[name] = STATUS_REFUTED
+            else:
+                status[name] = STATUS_OPEN
+        else:
+            status[name] = STATUS_DEFINITION
+    return status, assumed

@@ -122,6 +122,7 @@ def build_graph_from_lean(jsonl: Path, include_docs: bool = True) -> dict[str, o
     for rec in records:
         node_id, is_private = demangle_private(rec["name"], rec["module"])
         stmt_refs = sorted({to_id(r) for r in rec["typeRefs"]} - {node_id})
+        stmt_refs_set = set(stmt_refs)
         proof_refs = sorted({to_id(r) for r in rec["valueRefs"]} - {node_id})
         entry: dict[str, object] = {
             "kind": rec["kind"],
@@ -143,6 +144,13 @@ def build_graph_from_lean(jsonl: Path, include_docs: bool = True) -> dict[str, o
             entry["signature_constants"] = sig_constants
             entry["shape"] = kg.statement_shape(decl.statement)
             entry["shape_full"] = kg.statement_shape(decl.statement, conclusion_only=False)
+            # The environment dump does not distinguish hypothesis from
+            # conclusion, so the conclusion split comes from the source parse
+            # and is intersected with the exact statement references.
+            entry["conclusion_refs"] = [
+                r for r in decl.conclusion_refs if r in stmt_refs_set
+            ]
+            entry["has_raw_hypothesis"] = kg.has_raw_hypothesis(decl.statement)
             entry["statement_preview"] = _preview(decl.statement, STATEMENT_PREVIEW)
             if include_docs and decl.doc:
                 entry["doc"] = _preview(decl.doc, DOC_PREVIEW)
@@ -221,11 +229,13 @@ def build_graph(include_docs: bool = True) -> dict[str, object]:
             "line": decl.line,
             "namespace": decl.namespace,
             "statement_refs": decl.statement_refs,
+            "conclusion_refs": decl.conclusion_refs,
             "proof_refs": decl.proof_refs,
             "signature": kg.normalized_signature_parts(decl, table)[0],
             "signature_constants": kg.normalized_signature_parts(decl, table)[1],
             "shape": kg.statement_shape(decl.statement),
             "shape_full": kg.statement_shape(decl.statement, conclusion_only=False),
+            "has_raw_hypothesis": kg.has_raw_hypothesis(decl.statement),
             "statement_preview": _preview(decl.statement, STATEMENT_PREVIEW),
         }
         if include_docs and decl.doc:
@@ -282,6 +292,13 @@ def _finalize(
         sig: sorted(names) for sig, names in signatures.items() if len(names) > 1
     }
 
+    tags = kg.tag_all(nodes, kg.load_facets())
+    status, assumed = kg.compute_status(nodes, tags)
+    for name, entry in nodes.items():
+        entry["status"] = status[name]
+        if assumed.get(name):
+            entry["assumes"] = assumed[name]
+
     isolated = sorted(n for n in nodes if not combined[n] and not rev.get(n))
 
     return {
@@ -295,6 +312,7 @@ def _finalize(
             "proof_edges": proof_edges,
             "distinct_edges": sum(len(v) for v in combined.values()),
             "isolated_declarations": len(isolated),
+            "status": dict(sorted(Counter(status.values()).items())),
             "duplicate_signature_groups": len(duplicate_signatures),
             "declarations_in_duplicate_groups": sum(
                 len(v) for v in duplicate_signatures.values()

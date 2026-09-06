@@ -68,6 +68,8 @@ class KnowledgeGraph:
         self._tags: dict[str, dict] | None = None
         self._closure: dict[str, int] | None = None
         self._order: list[str] | None = None
+        self._closed_props: set[str] | None = None
+        self._reductions: dict[str, list[tuple[str, str]]] | None = None
 
     # -- loading -----------------------------------------------------------
 
@@ -91,6 +93,42 @@ class KnowledgeGraph:
         if self._tags is None:
             self._tags = kg.tag_all(self.nodes, self.facets)
         return self._tags
+
+    def status(self, name: str) -> str:
+        return str(self.nodes[name].get("status", "?"))
+
+    @property
+    def closed_props(self) -> set[str]:
+        if self._closed_props is None:
+            self._closed_props = kg.closed_propositions(self.nodes)
+        return self._closed_props
+
+    @property
+    def reductions(self) -> dict[str, list[tuple[str, str]]]:
+        """The reduction DAG: `X -> (Y, via)` when a theorem proves X from Y.
+
+        This is the structure that collapses 6,616 proofs into a handful of
+        visible open leaves. An edge means "X has been reduced to Y", so
+        following edges downward from a proposition reaches the statements that
+        actually still need proving.
+        """
+
+        if self._reductions is None:
+            out: dict[str, list[tuple[str, str]]] = defaultdict(list)
+            closed = self.closed_props
+            for name, entry in self.nodes.items():
+                if entry.get("kind") not in kg.PROOF_KINDS:
+                    continue
+                concl = list(entry.get("conclusion_refs", ()))
+                if len(concl) != 1 or concl[0] not in closed:
+                    continue
+                if "¬" in (entry.get("shape") or ()):
+                    continue  # a refutation is not a reduction
+                for dep in entry.get("assumes", ()):
+                    if dep in closed and dep != concl[0]:
+                        out[concl[0]].append((dep, name))
+            self._reductions = {k: sorted(set(v)) for k, v in out.items()}
+        return self._reductions
 
     def carriers(self, name: str) -> set[str]:
         return set(self.tags[name]["facets"].get("carrier", ()))
@@ -626,6 +664,258 @@ def cmd_obligations(g: KnowledgeGraph, args) -> int:
     return 0
 
 
+def cmd_reductions(g: KnowledgeGraph, args) -> int:
+    """Print the reduction tree beneath a proposition."""
+
+    root = g.require(args.name)
+    seen: set[str] = set()
+
+    def walk(node: str, depth: int, via: str | None) -> None:
+        if depth > args.depth:
+            return
+        mark = {"open": "OPEN", "proved": "PROVED", "refuted": "REFUTED"}.get(
+            g.status(node), g.status(node).upper()
+        )
+        lead = "    " * depth
+        arrow = f"reduces to " if depth else ""
+        print(f"{lead}{arrow}{node}   [{mark}]")
+        if via:
+            print(f"{lead}  via {via}")
+        if node in seen:
+            print(f"{lead}  (already shown)")
+            return
+        seen.add(node)
+        for dep, thm in g.reductions.get(node, ()):
+            walk(dep, depth + 1, thm.rsplit(".", 1)[-1])
+
+    walk(root, 0, None)
+    leaves = [
+        n for n in kg.reachable({k: [d for d, _ in v] for k, v in g.reductions.items()}, [root])
+        if g.status(n) == "open" and not g.reductions.get(n)
+    ]
+    print()
+    print(f"open leaves beneath this proposition: {len(leaves)}")
+    for n in sorted(leaves):
+        print(f"  {n}")
+        print(f"      {g.nodes[n].get('path')}:{g.nodes[n].get('line')}")
+    return 0
+
+
+def cmd_open_leaves(g: KnowledgeGraph, args) -> int:
+    """Open propositions that nothing further reduces to.
+
+    An open proposition with outgoing reduction edges has already been traded
+    for something else. One with none is where mathematics still has to happen.
+    """
+
+    closed = g.closed_props
+    leaves = [
+        n
+        for n in closed
+        if g.status(n) == "open" and not g.reductions.get(n)
+    ]
+    rows = []
+    for n in leaves:
+        desc = g.descendants(n)
+        rh = any("riemannhypothesis" in d.lower() for d in desc)
+        if args.rh_only and not rh:
+            continue
+        rows.append((len(desc), rh, n))
+    rows.sort(key=lambda r: (-r[0], r[2]))
+
+    print("Open leaves of the reduction DAG")
+    print("===============================")
+    print("These propositions have no onward reduction recorded: nothing in the")
+    print("library trades them for anything simpler. Every conditional result")
+    print("above them is waiting on one of these.")
+    print()
+    print(f"{'users':>6}  {'→RH':>3}  proposition")
+    for desc, rh, n in rows[: args.limit]:
+        car = ",".join(sorted(g.carriers(n))) or "-"
+        print(f"{desc:6d}  {'yes' if rh else '-':>3}  {n}")
+        print(f"{'':13}{g.nodes[n].get('path')}:{g.nodes[n].get('line')}  carrier={car}")
+        if args.verbose and g.nodes[n].get("doc"):
+            print(f"{'':13}{g.nodes[n]['doc'][:150]}")
+    print(f"\n{len(rows)} open leaves")
+    return 0
+
+
+def cmd_frontier(g: KnowledgeGraph, args) -> int:
+    """Proved results outside an open node's cone that share its carrier.
+
+    This is the automated form of the synthesis that has so far been done by
+    hand: an open proposition needs machinery; somewhere in the other 6,000
+    proofs sits a proved theorem about the same carrier that the proposition
+    does not yet reach. Those are the candidates for wiring in.
+    """
+
+    closed = g.closed_props
+    if args.open:
+        targets = [g.require(args.open)]
+    else:
+        targets = [
+            n
+            for n in closed
+            if g.status(n) == "open"
+            and any("riemannhypothesis" in d.lower() for d in g.descendants(n))
+        ]
+        targets.sort(key=lambda n: -len(g.descendants(n)))
+        targets = targets[: args.targets]
+
+    print("Frontier: proved machinery not yet reaching an open proposition")
+    print("===============================================================")
+    print("For each open proposition, proved theorems on the same carrier that")
+    print("it does not currently depend on, ranked by how heavily used they are.")
+    print()
+    print("Carrier match is lexical. A row is a place to look, not a claim that")
+    print("the theorem applies. Confirm against compiled source.")
+    print()
+
+    for target in targets:
+        carriers = g.carriers(target)
+        if not carriers:
+            continue
+        cone = g.ancestors(target) | {target}
+        cands = []
+        for n, entry in g.nodes.items():
+            if entry.get("kind") not in kg.PROOF_KINDS:
+                continue
+            if g.status(n) != "proved" or n in cone:
+                continue
+            shared = g.carriers(n) & carriers
+            if not shared:
+                continue
+            weight_match = g.tags[n]["facets"].get("weight") and (
+                set(g.tags[n]["facets"].get("weight", ()))
+                & set(g.tags[target]["facets"].get("weight", ()))
+            )
+            score = _strength(g, n) * (2 if weight_match else 1) * len(shared)
+            cands.append((score, n, shared, bool(weight_match)))
+        cands.sort(key=lambda t: (-t[0], t[1]))
+        print(f"OPEN  {target}")
+        print(f"      carrier={','.join(sorted(carriers))}  "
+              f"cone={len(cone)}  candidates={len(cands)}")
+        for score, n, shared, wm in cands[: args.limit]:
+            print(f"      {_strength(g, n):4d} users  {n}")
+            print(f"                  shares {','.join(sorted(shared))}"
+                  f"{'  + weight' if wm else ''}"
+                  f"   {g.nodes[n].get('path')}:{g.nodes[n].get('line')}")
+        print()
+    return 0
+
+
+def cmd_neighbors(g: KnowledgeGraph, args) -> int:
+    """Declarations sharing this one's semantic facets."""
+
+    name = g.require(args.name)
+    tag = g.tags[name]
+    facets = ["carrier", "weight", "clock", "endpoint_convention"]
+    if args.facet:
+        facets = [args.facet]
+    want = {f: set(tag["facets"].get(f, ())) for f in facets}
+    print(f"{name}")
+    for f, v in want.items():
+        print(f"  {f:20s} {', '.join(sorted(v)) or '-'}")
+    print()
+    rows = []
+    for n, entry in g.nodes.items():
+        if n == name:
+            continue
+        if args.proofs_only and entry.get("kind") not in kg.PROOF_KINDS:
+            continue
+        overlap = sum(
+            len(set(g.tags[n]["facets"].get(f, ())) & want[f]) for f in facets
+        )
+        if overlap < args.min_overlap:
+            continue
+        connected = g.reaches(name, n) or g.reaches(n, name)
+        if args.unconnected and connected:
+            continue
+        rows.append((overlap, _strength(g, n), n, connected))
+    rows.sort(key=lambda r: (-r[0], -r[1], r[2]))
+    for overlap, strength, n, connected in rows[: args.limit]:
+        link = "connected" if connected else "NO PATH"
+        print(f"  {overlap} facets  {strength:4d} users  [{g.status(n)}, {link}]  {n}")
+    print(f"\n{len(rows)} declarations match")
+    return 0
+
+
+def cmd_export(g: KnowledgeGraph, args) -> int:
+    """Emit one JSON record per declaration for downstream semantic search."""
+
+    out = []
+    for name, entry in sorted(g.nodes.items()):
+        if args.proofs_only and entry.get("kind") not in kg.PROOF_KINDS:
+            continue
+        tag = g.tags[name]
+        out.append(
+            {
+                "name": name,
+                "kind": entry.get("kind"),
+                "module": entry.get("module"),
+                "path": entry.get("path"),
+                "line": entry.get("line"),
+                "statement": entry.get("statement_preview"),
+                "description": entry.get("doc", ""),
+                "depends_on": sorted(
+                    set(entry.get("statement_refs", ()))
+                    | set(entry.get("proof_refs", ()))
+                ),
+                "assumes": entry.get("assumes", []),
+                "establishes": entry.get("conclusion_refs", []),
+                "carrier": tag["facets"].get("carrier", []),
+                "weight": tag["facets"].get("weight", []),
+                "clock": tag["facets"].get("clock", []),
+                "endpoint_convention": tag["facets"].get("endpoint_convention", []),
+                "role": tag["roles"],
+                "status": entry.get("status"),
+                "used_by_count": entry.get("used_by_count", 0),
+            }
+        )
+    payload = {
+        "schema": "rhlean-proof-records/1",
+        "provenance": g.provenance,
+        "note": (
+            "carrier/weight/clock/role are lexical and statement-shape heuristics, "
+            "not mathematical claims. status is derived from the dependency graph: "
+            "see docs/KNOWLEDGE_GRAPH.md."
+        ),
+        "records": out,
+    }
+    if args.out:
+        args.out.write_text(
+            json.dumps(payload, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
+        print(f"wrote {len(out):,} records to {args.out}")
+    else:
+        json.dump(payload, sys.stdout, indent=1, ensure_ascii=False)
+    return 0
+
+
+def cmd_status(g: KnowledgeGraph, args) -> int:
+    counts = Counter(g.status(n) for n in g.nodes)
+    print("Declaration status")
+    print("==================")
+    print("proved     unconditional, or conditional only on proved propositions")
+    print("reduced    conditional on a proposition nobody has established")
+    print("open       a closed proposition with no unconditional proof")
+    print("refuted    a closed proposition proved false (a recorded no-go)")
+    print("no-go      a theorem recording a failed route")
+    print("definition not a proposition")
+    print()
+    for st, k in counts.most_common():
+        print(f"  {k:6d}  {st}")
+    closed = g.closed_props
+    print(f"\nclosed propositions: {len(closed):,}")
+    for st in ("open", "proved", "refuted"):
+        hits = sorted(n for n in closed if g.status(n) == st)
+        print(f"  {st}: {len(hits)}")
+        if st != "open":
+            for n in hits:
+                print(f"      {n}")
+    return 0
+
+
 def cmd_search(g: KnowledgeGraph, args) -> int:
     pattern = re.compile(args.pattern, re.IGNORECASE)
     hits = [n for n in g.nodes if pattern.search(n)]
@@ -757,6 +1047,37 @@ def main() -> int:
     )
     p.add_argument("--verbose", action="store_true", help="show doc comments")
     p.set_defaults(func=cmd_obligations)
+
+    p = sub.add_parser("reductions", help="reduction tree beneath a proposition", parents=[common])
+    p.add_argument("name")
+    p.add_argument("--depth", type=int, default=4)
+    p.set_defaults(func=cmd_reductions)
+
+    p = sub.add_parser("open-leaves", help="open propositions with no onward reduction", parents=[common])
+    p.add_argument("--rh-only", action="store_true")
+    p.add_argument("--verbose", action="store_true")
+    p.set_defaults(func=cmd_open_leaves)
+
+    p = sub.add_parser("frontier", help="proved machinery not reaching an open proposition", parents=[common])
+    p.add_argument("--open", help="a single open proposition to analyse")
+    p.add_argument("--targets", type=int, default=3, help="open propositions to cover")
+    p.set_defaults(func=cmd_frontier)
+
+    p = sub.add_parser("neighbors", help="declarations sharing semantic facets", parents=[common])
+    p.add_argument("name")
+    p.add_argument("--facet", choices=["carrier", "weight", "clock", "endpoint_convention"])
+    p.add_argument("--min-overlap", type=int, default=2)
+    p.add_argument("--unconnected", action="store_true", help="only those with no dependency path")
+    p.add_argument("--proofs-only", action="store_true")
+    p.set_defaults(func=cmd_neighbors)
+
+    p = sub.add_parser("export", help="per-declaration JSON records", parents=[common])
+    p.add_argument("--out", type=Path)
+    p.add_argument("--proofs-only", action="store_true")
+    p.set_defaults(func=cmd_export)
+
+    p = sub.add_parser("status", help="proof status summary", parents=[common])
+    p.set_defaults(func=cmd_status)
 
     p = sub.add_parser("search", help="find declarations", parents=[common])
     p.add_argument("pattern")

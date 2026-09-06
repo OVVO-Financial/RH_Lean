@@ -74,6 +74,9 @@ jobs:
       # conditional on; `duplicates` surfaces the same proposition proved twice.
       - name: Standing knowledge-graph reports
         run: |
+          python3 scripts/proofq.py status > kg-status.txt
+          python3 scripts/proofq.py open-leaves --rh-only --limit 40 \
+            > kg-open-leaves.txt
           python3 scripts/proofq.py obligations --rh-only --limit 40 \
             > kg-obligations.txt
           python3 scripts/proofq.py terminal-cone --limit 30 > kg-terminal-cone.txt
@@ -100,6 +103,8 @@ jobs:
             decl-graph.txt
             decl-graph.json
             decl-graph.dot
+            kg-status.txt
+            kg-open-leaves.txt
             kg-obligations.txt
             kg-terminal-cone.txt
             kg-duplicates.txt
