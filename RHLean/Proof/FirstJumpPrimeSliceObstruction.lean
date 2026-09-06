@@ -229,4 +229,142 @@ theorem upperHalfFirstJumpFrozenWindowSliceMass_eq_neg_one
     hpPrime hpRoot hpq hAp hpB hBR hR2p]
   simp [booleanCubeSign]
 
+/-- **Nontrivial cofactors cannot carry an upper-half first jump.**
+
+For `R / 2 < p` and a high-owner state with `c ≠ 1`, the ordered-triangle
+classification gives prime inequalities `p < k < c`.  Once `R ≥ 9` we have
+`p ≥ 5`, hence
+
+`R^2 - 1 < R^2 < (2p)^2 ≤ p^3 ≤ p*c*k`.
+
+Therefore the physical ownership upper endpoint `X/(c*k)` lies below `p`, so
+the complete canonical `p`-slice is empty. -/
+theorem upperHalfFirstJumpPrimeStateSlice_eq_zero_of_cofactor_ne_one
+    {R p c k : ℕ}
+    (hR : 9 ≤ R)
+    (hhalf : R / 2 < p)
+    (hx : (c, k) ∈ lowWheelCanonicalDowncrossOrientedStateCarrier R)
+    (hc : c ≠ 1) :
+    signedFirstJumpPrimeStateSlice R p (c, k) = 0 := by
+  classical
+  unfold signedFirstJumpPrimeStateSlice
+  split_ifs with hstate hpMem
+  · have hxData := mem_lowWheelCanonicalDowncrossOrientedStateCarrier.mp hx
+    have hne := hxData.2
+    have hkPivot : k = lowWheelCanonicalDowncrossPivot (c, k) :=
+      lowWheelCanonicalDowncrossOrientedChargingFaces_quotient_eq_pivot hne
+    have hkRoot : Nat.sqrt R < k := by
+      simpa only [← hkPivot] using hstate.2
+    have hshape := highOwner_orientedState_shape hx hkRoot
+    rcases hshape.2 with hcOne | hcData
+    · exact (hc hcOne).elim
+    have hpData := mem_primesUpTo.mp hpMem
+    have hpLtK : p < k := by omega
+    have hp4 : 4 ≤ p := by omega
+    have hR2p : R < p * 2 :=
+      (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 2)).1 hhalf
+    have hRsq : R ^ 2 < (p * 2) ^ 2 :=
+      Nat.pow_lt_pow_left hR2p (by norm_num : 2 ≠ 0)
+    have h4p2 : (p * 2) ^ 2 ≤ p ^ 3 := by
+      calc
+        (p * 2) ^ 2 = 4 * (p * p) := by ring
+        _ ≤ p * (p * p) := Nat.mul_le_mul_right (p * p) hp4
+        _ = p ^ 3 := by ring
+    have hpk : p ≤ k := Nat.le_of_lt hpLtK
+    have hpc : p ≤ c := hpk.trans (Nat.le_of_lt hcData.2)
+    have hpcProd : p ^ 3 ≤ p * (c * k) := by
+      calc
+        p ^ 3 = p * (p * p) := by ring
+        _ ≤ p * (c * k) :=
+          Nat.mul_le_mul_left p (Nat.mul_le_mul hpc hpk)
+    have hXltRsq : squareRootEndpoint R < R ^ 2 := by
+      unfold squareRootEndpoint
+      have hpos : 0 < R ^ 2 := by positivity
+      omega
+    have hXlt : squareRootEndpoint R < p * (c * k) :=
+      hXltRsq.trans (hRsq.trans_le (h4p2.trans hpcProd))
+    have hckPos : 0 < c * k := Nat.mul_pos hcData.1.pos hshape.1.pos
+    have hdiv : squareRootEndpoint R / (c * k) < p :=
+      (Nat.div_lt_iff_lt_mul hckPos).2 hXlt
+    have hupper : lowWheelCanonicalDowncrossOwnershipUpper R c k < p := by
+      unfold lowWheelCanonicalDowncrossOwnershipUpper
+      exact (min_le_right _ _).trans_lt hdiv
+    rw [predecessorFirstJumpFrozenWindowSliceMass_eq_zero_of_upper_lt hupper]
+    simp
+  · rfl
+  · rfl
+
+/-- **Every actual owner in the upper-half column contributes exactly `-1`.**
+The state sign is `μ(1)=1`; all of the sign is the singleton Boolean flip at
+`p`. -/
+theorem upperHalfFirstJumpOwner_stateSlice_eq_neg_one
+    {R p k : ℕ}
+    (hR : 3 ≤ R)
+    (hpSet : p ∈ signedFirstJumpPostRootPrimeSet R)
+    (hhalf : R / 2 < p)
+    (hkSet : k ∈ upperHalfFirstJumpOwnerSet R p) :
+    signedFirstJumpPrimeStateSlice R p (1, k) = -1 := by
+  classical
+  have hpData : p.Prime ∧ Nat.sqrt R < p ∧ p ≤ R := by
+    simpa [signedFirstJumpPostRootPrimeSet] using
+      (mem_frozenPrimeUniverseHighPrimeSet.mp hpSet)
+  have hkData : k.Prime ∧ p < k ∧ k ≤ squareRootEndpoint R / p :=
+    mem_upperHalfFirstJumpOwnerSet.mp hkSet
+  have hx := upperHalfFirstJumpOwner_state_mem hR hpSet hhalf hkSet
+  have hxData := mem_lowWheelCanonicalDowncrossOrientedStateCarrier.mp hx
+  have hne := hxData.2
+  have hkPivot : k = lowWheelCanonicalDowncrossPivot (1, k) :=
+    lowWheelCanonicalDowncrossOrientedChargingFaces_quotient_eq_pivot hne
+  have hkRoot : Nat.sqrt R < k := hpData.2.1.trans hkData.2.1
+  have hactive :
+      (lowWheelCanonicalDowncrossOrientedChargingFaces R (1, k)).Nonempty ∧
+        Nat.sqrt R < lowWheelCanonicalDowncrossPivot (1, k) := by
+    refine ⟨hne, ?_⟩
+    simpa only [← hkPivot] using hkRoot
+  have hpMem : p ∈ primesUpTo (lowWheelCanonicalDowncrossPivot (1, k) - 1) := by
+    apply mem_primesUpTo.mpr
+    refine ⟨hpData.1, ?_⟩
+    rw [← hkPivot]
+    omega
+  have hR2p : R < p * 2 :=
+    (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 2)).1 hhalf
+  have hp2k : p * 2 ≤ p * k :=
+    Nat.mul_le_mul_left p hkData.1.two_le
+  have hRpk : R < p * k := hR2p.trans_le hp2k
+  have hA : R / k < p :=
+    (Nat.div_lt_iff_lt_mul hkData.1.pos).2 hRpk
+  have hraw : lowWheelCanonicalCofactorQuotientPivot (1, k) = k := by
+    simpa [lowWheelCanonicalDowncrossPivot] using hkPivot.symm
+  have hBform :
+      lowWheelCanonicalDowncrossOwnershipUpper R 1 k =
+        min R (squareRootEndpoint R / k) := by
+    unfold lowWheelCanonicalDowncrossOwnershipUpper
+    rw [hraw]
+    simp [hkData.1.ne_zero]
+  have hkp : k * p ≤ squareRootEndpoint R :=
+    (Nat.le_div_iff_mul_le hpData.1.pos).1 hkData.2.2
+  have hpXdiv : p ≤ squareRootEndpoint R / k := by
+    apply (Nat.le_div_iff_mul_le hkData.1.pos).2
+    simpa [Nat.mul_comm] using hkp
+  have hpB : p ≤ lowWheelCanonicalDowncrossOwnershipUpper R 1 k := by
+    rw [hBform]
+    exact le_min hpData.2.2 hpXdiv
+  have hBR : lowWheelCanonicalDowncrossOwnershipUpper R 1 k ≤ R := by
+    rw [hBform]
+    exact min_le_left _ _
+  have hpPivot : p < lowWheelCanonicalDowncrossPivot (1, k) := by
+    simpa only [← hkPivot] using hkData.2.1
+  have hmass :
+      predecessorFirstJumpFrozenWindowSliceMass
+          3 (Nat.sqrt R)
+          (primesUpTo (lowWheelCanonicalDowncrossPivot (1, k) - 1))
+          (R / k)
+          (lowWheelCanonicalDowncrossOwnershipUpper R 1 k)
+          p = -1 :=
+    upperHalfFirstJumpFrozenWindowSliceMass_eq_neg_one
+      hpData.1 hpData.2.1 hpPivot hA hpB hBR hR2p
+  unfold signedFirstJumpPrimeStateSlice
+  rw [if_pos hactive, if_pos hpMem, hmass]
+  simp [canonicalMoebiusWeight]
+
 end RHLean.Proof
