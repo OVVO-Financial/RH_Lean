@@ -9,6 +9,9 @@ on:
       - 'lake-manifest.json'             # dependency/Mathlib bumps invalidate compiled artifacts
       - 'scripts/strongpnt_424/**'       # StrongPNT 4.24 compatibility layer
       - 'scripts/lean_diagnostic_inventory.py'  # the dependency-noise gate
+      - 'scripts/proof_inventory.py'     # exact-graph count cross-check
+      - 'scripts/decl_graph.py'          # exact graph ingestion/validation
+      - 'scripts/rhlean_kg.py'           # source metadata/status semantics
       - '.github/workflows/lean.yml'     # changes to this audit workflow
   pull_request:
     # Deliberately no `edited`.  That type fires on every PR title and body
@@ -26,6 +29,9 @@ on:
       - 'lake-manifest.json'             # dependency/Mathlib bumps
       - 'scripts/strongpnt_424/**'       # StrongPNT 4.24 compatibility layer
       - 'scripts/lean_diagnostic_inventory.py'  # the dependency-noise gate
+      - 'scripts/proof_inventory.py'     # exact-graph count cross-check
+      - 'scripts/decl_graph.py'          # exact graph ingestion/validation
+      - 'scripts/rhlean_kg.py'           # source metadata/status semantics
       - '.github/workflows/lean.yml'     # changes to this audit workflow
   workflow_dispatch:
 
@@ -177,6 +183,52 @@ jobs:
         id: directbuild
         continue-on-error: true
         run: lake build RHLean > lean-build.log 2>&1
+
+      # The source graph is the fast navigation index. This step is the
+      # authoritative dependency graph: constants actually recorded by the
+      # elaborated environment, including dependencies introduced by simp,
+      # instances, notation and macro expansion.
+      - name: Validate exact elaborated declaration graph
+        if: steps.directbuild.outcome == 'success'
+        run: |
+          lake env lean --run scripts/lean/DeclGraph.lean lean-decl-graph.jsonl
+          python3 scripts/decl_graph.py \
+            --from-lean lean-decl-graph.jsonl \
+            --json lean-decl-graph.json \
+            --require-acyclic
+          python3 scripts/decl_graph.py \
+            --json syntactic-decl-graph.json \
+            --require-acyclic \
+            --no-summary
+          python3 scripts/decl_graph.py \
+            --compare syntactic-decl-graph.json lean-decl-graph.json \
+            | tee decl-graph-compare.txt
+          python3 scripts/proof_inventory.py \
+            --json exact-proof-inventory.json > /dev/null
+          python3 - <<'PY'
+          import json
+          inv = json.load(open('exact-proof-inventory.json'))
+          exact = json.load(open('lean-decl-graph.json'))
+          expected = inv['named_proofs']['total_theorem_plus_lemma']
+          actual = exact['stats']['named_proofs']
+          if expected != actual:
+              raise SystemExit(
+                  f'elaborated/source named-proof mismatch: source={expected}, elaborated={actual}'
+              )
+          print(f'Elaborated graph agrees with source inventory on {actual:,} named proofs.')
+          PY
+
+      - name: Upload exact declaration graph
+        if: steps.directbuild.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-declaration-graph
+          path: |
+            lean-decl-graph.jsonl
+            lean-decl-graph.json
+            syntactic-decl-graph.json
+            decl-graph-compare.txt
+            exact-proof-inventory.json
 
       # Keep warning-as-error strict for repository-owned Lean without making
       # RHLean responsible for linter churn in StrongPNT, PNT+, or Mathlib.

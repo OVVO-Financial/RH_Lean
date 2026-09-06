@@ -7,6 +7,12 @@ on:
       - 'RHLean.lean'
       - 'RHLean/**/*.lean'
       - 'scripts/proof_inventory.py'
+      - 'scripts/rhlean_kg.py'
+      - 'scripts/decl_graph.py'
+      - 'scripts/proofq.py'
+      - 'scripts/check_knowledge_graph.py'
+      - 'scripts/semantic_facets.json'
+      - 'scripts/lean/DeclGraph.lean'
       - '.github/workflows/proof-inventory.yml'
   pull_request:
     types: [opened, synchronize, reopened]
@@ -14,6 +20,12 @@ on:
       - 'RHLean.lean'
       - 'RHLean/**/*.lean'
       - 'scripts/proof_inventory.py'
+      - 'scripts/rhlean_kg.py'
+      - 'scripts/decl_graph.py'
+      - 'scripts/proofq.py'
+      - 'scripts/check_knowledge_graph.py'
+      - 'scripts/semantic_facets.json'
+      - 'scripts/lean/DeclGraph.lean'
       - '.github/workflows/proof-inventory.yml'
   workflow_dispatch:
 
@@ -45,6 +57,69 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      # Layer 2a: the declaration graph. Source-level and dependency-free, so it
+      # runs in seconds without a Lean toolchain. The exact elaborated graph is
+      # validated after the hosted RHLean build in the Lean source-audit workflow.
+      - name: Build declaration dependency graph
+        run: |
+          python3 scripts/decl_graph.py \
+            --json decl-graph.json \
+            --dot decl-graph.dot \
+            --require-acyclic \
+            | tee decl-graph.txt
+          python3 - <<'PY'
+          import json
+          inv = json.load(open('proof-inventory.json'))
+          graph = json.load(open('decl-graph.json'))
+          expected = inv['named_proofs']['total_theorem_plus_lemma']
+          actual = graph['stats']['named_proofs']
+          if expected != actual:
+              raise SystemExit(
+                  f'named-proof count mismatch: inventory={expected}, graph={actual}'
+              )
+          print(f'Source counters agree on {actual:,} named proofs.')
+          PY
+          {
+            echo '## RHLean declaration graph'
+            echo '```text'
+            cat decl-graph.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Check knowledge-graph semantics
+        run: |
+          python3 scripts/check_knowledge_graph.py decl-graph.json \
+            | tee kg-check.txt
+          {
+            echo '## Knowledge-graph regression checks'
+            echo '```text'
+            cat kg-check.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The standing reports a research agent would otherwise have to rerun by
+      # hand. `obligations` maps genuinely open propositions appearing on RH
+      # reduction routes; multi-premise packages remain conjunctive in proofq.
+      - name: Standing knowledge-graph reports
+        run: |
+          python3 scripts/proofq.py status > kg-status.txt
+          python3 scripts/proofq.py open-leaves --rh-only --limit 40 \
+            > kg-open-leaves.txt
+          python3 scripts/proofq.py obligations --rh-only --limit 40 \
+            > kg-obligations.txt
+          python3 scripts/proofq.py terminal-cone --limit 30 > kg-terminal-cone.txt
+          python3 scripts/proofq.py duplicates --limit 30 > kg-duplicates.txt
+          {
+            echo '## Open propositions on RH reduction routes'
+            echo '```text'
+            cat kg-obligations.txt
+            echo '```'
+            echo '## Duplicate statement signatures'
+            echo '```text'
+            head -60 kg-duplicates.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload proof inventory
         uses: actions/upload-artifact@v4
         with:
@@ -53,3 +128,12 @@ jobs:
             proof-inventory.txt
             proof-inventory.json
             proof-import-graph.dot
+            decl-graph.txt
+            decl-graph.json
+            decl-graph.dot
+            kg-check.txt
+            kg-status.txt
+            kg-open-leaves.txt
+            kg-obligations.txt
+            kg-terminal-cone.txt
+            kg-duplicates.txt

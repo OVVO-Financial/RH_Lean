@@ -1,0 +1,622 @@
+{
+  "schema": "rhlean-semantic-facets/1",
+  "status": "SEARCH HEURISTIC, NOT A MATHEMATICAL CLAIM",
+  "disclaimer": [
+    "Every tag in this file is a lexical or syntactic hint used to rank where a",
+    "human or agent should look next. A shared `carrier` tag does NOT mean two",
+    "declarations are about the same object, and matching facets are NOT evidence",
+    "that a bridge theorem is true or even plausible.",
+    "AGENTS.md is explicit: never infer that two quantities are equal because their",
+    "prose descriptions sound similar; use or prove an exact bridge theorem.",
+    "This layer exists only to shorten the candidate list that then gets checked",
+    "against compiled Lean source."
+  ],
+  "matching": [
+    "A declaration matches a facet value if its name tokens (camelCase and",
+    "snake_case split, lowercased) contain every token of any one `tokens` group,",
+    "or if its module path contains one of `modules`. Statement-shape roles are",
+    "matched against the declaration's statement text instead, which is structural",
+    "rather than lexical and therefore the most reliable signal here."
+  ],
+  "facets": {
+    "carrier": {
+      "_doc": "The mathematical object a declaration is stated about.",
+      "squarefree-shell": {
+        "tokens": [
+          [
+            "squarefree"
+          ],
+          [
+            "shell"
+          ]
+        ]
+      },
+      "square-run": {
+        "tokens": [
+          [
+            "square",
+            "run"
+          ],
+          [
+            "run",
+            "covariance"
+          ],
+          [
+            "subdoubling"
+          ]
+        ]
+      },
+      "vertical-line": {
+        "tokens": [
+          [
+            "vertical"
+          ]
+        ]
+      },
+      "downcross-ledger": {
+        "tokens": [
+          [
+            "downcross"
+          ]
+        ]
+      },
+      "defect-ledger": {
+        "tokens": [
+          [
+            "defect"
+          ]
+        ]
+      },
+      "oriented-euler": {
+        "tokens": [
+          [
+            "oriented"
+          ],
+          [
+            "euler",
+            "cut"
+          ],
+          [
+            "euler",
+            "ledger"
+          ],
+          [
+            "ordered",
+            "euler"
+          ]
+        ]
+      },
+      "prefix-lifetime": {
+        "tokens": [
+          [
+            "lifetime"
+          ],
+          [
+            "prefix",
+            "residual"
+          ]
+        ]
+      },
+      "square-prefix": {
+        "tokens": [
+          [
+            "square",
+            "prefix"
+          ]
+        ]
+      },
+      "gap-ancestry": {
+        "tokens": [
+          [
+            "ancestry"
+          ],
+          [
+            "ancestral"
+          ]
+        ]
+      },
+      "prime-wheel": {
+        "tokens": [
+          [
+            "wheel"
+          ],
+          [
+            "primorial"
+          ]
+        ]
+      },
+      "mertens": {
+        "tokens": [
+          [
+            "mertens"
+          ]
+        ]
+      },
+      "low-prime-frontier": {
+        "tokens": [
+          [
+            "frontier"
+          ],
+          [
+            "low",
+            "prime"
+          ],
+          [
+            "lowprime"
+          ]
+        ]
+      },
+      "transport": {
+        "tokens": [
+          [
+            "transport"
+          ]
+        ]
+      },
+      "born-smooth": {
+        "tokens": [
+          [
+            "born"
+          ],
+          [
+            "smooth"
+          ]
+        ]
+      },
+      "seat": {
+        "tokens": [
+          [
+            "seat"
+          ]
+        ]
+      },
+      "gram": {
+        "tokens": [
+          [
+            "gram"
+          ]
+        ]
+      },
+      "dyadic": {
+        "tokens": [
+          [
+            "dyadic"
+          ]
+        ]
+      },
+      "green-kubo": {
+        "tokens": [
+          [
+            "kubo"
+          ],
+          [
+            "line",
+            "event"
+          ]
+        ]
+      },
+      "endpoint-mass": {
+        "tokens": [
+          [
+            "endpoint"
+          ]
+        ]
+      },
+      "cofactor": {
+        "tokens": [
+          [
+            "cofactor"
+          ]
+        ]
+      },
+      "packet": {
+        "tokens": [
+          [
+            "packet"
+          ]
+        ]
+      },
+      "survivor": {
+        "tokens": [
+          [
+            "survivor"
+          ]
+        ]
+      },
+      "response": {
+        "tokens": [
+          [
+            "response"
+          ]
+        ]
+      },
+      "moebius": {
+        "tokens": [
+          [
+            "moebius"
+          ],
+          [
+            "mobius"
+          ]
+        ]
+      },
+      "prime-gap": {
+        "tokens": [
+          [
+            "gap"
+          ]
+        ]
+      },
+      "parent-child": {
+        "tokens": [
+          [
+            "parent"
+          ],
+          [
+            "child"
+          ],
+          [
+            "fibre"
+          ]
+        ]
+      },
+      "top-escape": {
+        "tokens": [
+          [
+            "escape"
+          ],
+          [
+            "top",
+            "fibre"
+          ]
+        ]
+      }
+    },
+    "weight": {
+      "_doc": "What is being measured, and whether the sign is retained.",
+      "signed": {
+        "tokens": [
+          [
+            "signed"
+          ]
+        ]
+      },
+      "covariance": {
+        "tokens": [
+          [
+            "covariance"
+          ],
+          [
+            "covar"
+          ]
+        ]
+      },
+      "energy": {
+        "tokens": [
+          [
+            "energy"
+          ]
+        ]
+      },
+      "mass": {
+        "tokens": [
+          [
+            "mass"
+          ]
+        ]
+      },
+      "capacity": {
+        "tokens": [
+          [
+            "capacity"
+          ]
+        ]
+      },
+      "residual": {
+        "tokens": [
+          [
+            "residual"
+          ],
+          [
+            "imbalance"
+          ]
+        ]
+      },
+      "defect": {
+        "tokens": [
+          [
+            "defect"
+          ]
+        ]
+      },
+      "absolute-value": {
+        "tokens": [
+          [
+            "abs"
+          ],
+          [
+            "norm"
+          ]
+        ]
+      },
+      "support-count": {
+        "tokens": [
+          [
+            "card"
+          ],
+          [
+            "count"
+          ],
+          [
+            "support"
+          ]
+        ]
+      },
+      "density": {
+        "tokens": [
+          [
+            "density"
+          ]
+        ]
+      }
+    },
+    "clock": {
+      "_doc": "Which scale parameter the statement is indexed by.",
+      "root-R": {
+        "tokens": [
+          [
+            "root"
+          ],
+          [
+            "sqrt"
+          ]
+        ]
+      },
+      "window-NH": {
+        "tokens": [
+          [
+            "window"
+          ],
+          [
+            "interval"
+          ]
+        ]
+      },
+      "fresh-prime": {
+        "tokens": [
+          [
+            "fresh"
+          ]
+        ]
+      },
+      "block": {
+        "tokens": [
+          [
+            "block"
+          ]
+        ]
+      },
+      "stage": {
+        "tokens": [
+          [
+            "stage"
+          ],
+          [
+            "step"
+          ]
+        ]
+      }
+    },
+    "endpoint_convention": {
+      "_doc": "Which boundary convention the carrier is cut with.",
+      "endpoint": {
+        "tokens": [
+          [
+            "endpoint"
+          ]
+        ]
+      },
+      "interval": {
+        "tokens": [
+          [
+            "interval"
+          ],
+          [
+            "ico"
+          ]
+        ]
+      },
+      "prefix": {
+        "tokens": [
+          [
+            "prefix"
+          ]
+        ]
+      },
+      "window": {
+        "tokens": [
+          [
+            "window"
+          ]
+        ]
+      },
+      "tail": {
+        "tokens": [
+          [
+            "tail"
+          ]
+        ]
+      },
+      "boundary": {
+        "tokens": [
+          [
+            "boundary"
+          ]
+        ]
+      },
+      "frontier": {
+        "tokens": [
+          [
+            "frontier"
+          ]
+        ]
+      }
+    }
+  },
+  "roles": {
+    "_doc": [
+      "Theorem role, matched primarily on statement shape. Shape rules read the",
+      "declaration's statement text; name rules are a weaker fallback."
+    ],
+    "equivalence": {
+      "shape": [
+        "↔"
+      ],
+      "tokens": [
+        [
+          "iff"
+        ]
+      ]
+    },
+    "exact-equality": {
+      "shape_eq_only": true
+    },
+    "upper-bound": {
+      "shape": [
+        "≤",
+        "<"
+      ],
+      "tokens": [
+        [
+          "le"
+        ],
+        [
+          "bounded"
+        ],
+        [
+          "bound"
+        ]
+      ]
+    },
+    "lower-bound": {
+      "shape": [
+        "≥",
+        ">"
+      ],
+      "tokens": [
+        [
+          "ge"
+        ],
+        [
+          "lower",
+          "bound"
+        ]
+      ]
+    },
+    "existence": {
+      "shape": [
+        "∃"
+      ]
+    },
+    "no-go": {
+      "tokens": [
+        [
+          "nogo"
+        ],
+        [
+          "no",
+          "go"
+        ],
+        [
+          "falsification"
+        ],
+        [
+          "obstruction"
+        ],
+        [
+          "counterexample"
+        ],
+        [
+          "impossible"
+        ]
+      ],
+      "modules": [
+        "NoGo",
+        "Falsification",
+        "Obstruction"
+      ]
+    },
+    "recursion-descent": {
+      "tokens": [
+        [
+          "descent"
+        ],
+        [
+          "recursion"
+        ],
+        [
+          "recurrence"
+        ],
+        [
+          "telescope"
+        ],
+        [
+          "contraction"
+        ],
+        [
+          "succ"
+        ],
+        [
+          "dissipation"
+        ]
+      ]
+    },
+    "reindexing-involution": {
+      "tokens": [
+        [
+          "involution"
+        ],
+        [
+          "reindex"
+        ],
+        [
+          "bijection"
+        ],
+        [
+          "equiv"
+        ],
+        [
+          "swap"
+        ],
+        [
+          "symm"
+        ],
+        [
+          "pairing"
+        ]
+      ]
+    },
+    "terminal-implication": {
+      "tokens": [
+        [
+          "riemann"
+        ],
+        [
+          "riemannhypothesis"
+        ],
+        [
+          "terminal"
+        ]
+      ]
+    },
+    "definition": {
+      "kinds": [
+        "def",
+        "abbrev",
+        "structure",
+        "class",
+        "inductive"
+      ]
+    }
+  }
+}
