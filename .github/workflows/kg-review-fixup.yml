@@ -1,0 +1,35 @@
+name: Apply KG review fixes
+
+on:
+  push:
+    branches: [claude/rh-lean-knowledge-graph-uhooqu]
+    paths:
+      - 'scripts/apply_kg_review_fixes.py'
+      - '.github/workflows/kg-review-fixup.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: claude/rh-lean-knowledge-graph-uhooqu
+          fetch-depth: 0
+
+      - name: Apply reviewed fixes
+        run: python3 scripts/apply_kg_review_fixes.py
+
+      - name: Commit fixes and remove one-shot machinery
+        run: |
+          set -euo pipefail
+          git config user.name 'OVVO-Financial'
+          git config user.email 'ovvo.financial.systems@gmail.com'
+          git add -A
+          git diff --cached --check
+          git commit -m 'Fix knowledge graph parsing, reductions, and exact validation'
+          git push origin HEAD:claude/rh-lean-knowledge-graph-uhooqu
