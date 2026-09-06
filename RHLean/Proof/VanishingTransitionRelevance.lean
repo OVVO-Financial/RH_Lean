@@ -164,7 +164,6 @@ theorem orderedPrimeReplicationResponse_eq_transport
             (Nat.primeCounting R : ℂ))) = squareRootTransportCofactorFirst R
   rw [← hmiddle, squareRootTransportCofactorFirst_eq_primeFirst,
     squareRootTransportPrimeFirst_eq_middleMertensTail_add_topCard R hR]
-  ring
 
 /-- **Global deterministic non-iid compression.**  The whole ordered prime
 replication of the fixed Möbius prefix is exactly the repository's odd dyadic
