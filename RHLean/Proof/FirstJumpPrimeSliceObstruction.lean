@@ -100,7 +100,7 @@ theorem upperHalfFirstJumpOwner_state_mem
     calc
       R < p * 2 := hR2p
       _ ≤ p * k := hp2k
-      _ = k * p := by omega
+      _ = k * p := Nat.mul_comm p k
   have hdeath : R < orderedEulerCutDeathRoot y := by
     simpa [y, orderedEulerCutDeathRoot, orderedEulerCutPivot,
       orderedEulerCutLowProduct, primeFaceProduct] using hdeathNat
@@ -146,8 +146,10 @@ theorem upperHalfFirstJumpFrozenWindowSlice_eq_singleton
     · simpa [primeFaceProduct] using hpB
   have hfirst : IsPredecessorFirstJumpAt 3 (Nat.sqrt R) ({p} : Finset ℕ) p := by
     refine ⟨by simp, hpRoot, ?_, ?_⟩
-    · simp [predecessorPrimeFaceProduct, predecessorPrimeFace, primeFaceProduct]
-      nlinarith [hpPrime.two_le]
+    · have hpCube : Nat.sqrt R < p ^ 3 :=
+        hpRoot.trans_le (Nat.le_self_pow (by norm_num : 3 ≠ 0) p)
+      simpa [predecessorPrimeFaceProduct, predecessorPrimeFace,
+        primeFaceProduct] using hpCube
     · intro r hr hrp _hrRoot
       have hrEq : r = p := by simpa using hr
       omega
@@ -203,9 +205,9 @@ theorem upperHalfFirstJumpFrozenWindowSlice_eq_singleton
     have htEq : t = {p} := by
       rw [hshape, hpredEmpty]
       simp
-    simpa [htEq]
+    exact Finset.mem_singleton.mpr htEq
   · intro ht
-    have htEq : t = {p} := by simpa using ht
+    have htEq : t = {p} := Finset.mem_singleton.mp ht
     subst t
     exact hpSlice
 
