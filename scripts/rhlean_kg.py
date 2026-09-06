@@ -532,7 +532,7 @@ def normalized_signature_parts(decl: Declaration, table: NameTable) -> tuple[str
 
     text = decl.statement
     # Drop the declaration header up to the first binder or `:`.
-    text = re.sub(r"^" + _MODIFIERS + r"\w+\s+\S+", "", text)
+    text = re.sub(r"^" + _ATTR_PREFIX + _MODIFIERS + r"\w+\s+\S+", "", text)
     parts: list[str] = []
     i = 0
     n = len(text)
@@ -892,7 +892,8 @@ STATUS_REFUTED = "refuted"
 STATUS_DEFINITION = "definition"
 
 _CLOSED_PROP_RE = re.compile(
-    r"^\s*(?:\w+\s+)*?(?:def|abbrev)\s+(\S+)(.*?):\s*Prop\s*$"
+    r"^\s*" + _ATTR_PREFIX + _MODIFIERS
+    + r"(?:def|abbrev)\s+(\S+)(.*?):\s*Prop\s*$"
 )
 
 

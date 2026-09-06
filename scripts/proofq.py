@@ -687,18 +687,8 @@ def cmd_obligations(g: KnowledgeGraph, args) -> int:
     # target. `def IsFoo (n : ℕ) : Prop` is a predicate applied all over the
     # library; it is Prop-valued but it is not something anyone is trying to
     # prove. Only the former is an obligation, so binders are the discriminator.
-    props = []
-    for n, e in g.nodes.items():
-        if e.get("kind") not in ("def", "abbrev"):
-            continue
-        preview = str(e.get("statement_preview", ""))
-        m = re.match(r"^\s*(?:\w+\s+)*?(?:def|abbrev)\s+(\S+)(.*?):\s*Prop\s*$", preview)
-        if not m:
-            continue
-        if not args.predicates and m.group(2).strip():
-            continue
-        if g.status(n) == kg.STATUS_OPEN:
-            props.append(n)
+    candidates = kg.prop_valued_defs(g.nodes) if args.predicates else g.closed_props
+    props = sorted(n for n in candidates if g.status(n) == kg.STATUS_OPEN)
     rows = []
     for n in props:
         desc = g.descendants(n)
@@ -792,8 +782,7 @@ def cmd_open_leaves(g: KnowledgeGraph, args) -> int:
             print(f"{'':13}≡ {eq}")
         if args.verbose and g.nodes[n].get("doc"):
             print(f"{'':13}{g.nodes[n]['doc'][:150]}")
-    print(f"
-{len(rows)} open leaf components")
+    print(f"\n{len(rows)} open leaf components")
     return 0
 
 
