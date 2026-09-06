@@ -10,6 +10,7 @@ on:
       - 'scripts/rhlean_kg.py'
       - 'scripts/decl_graph.py'
       - 'scripts/proofq.py'
+      - 'scripts/check_knowledge_graph.py'
       - 'scripts/semantic_facets.json'
       - 'scripts/lean/DeclGraph.lean'
       - '.github/workflows/proof-inventory.yml'
@@ -22,6 +23,7 @@ on:
       - 'scripts/rhlean_kg.py'
       - 'scripts/decl_graph.py'
       - 'scripts/proofq.py'
+      - 'scripts/check_knowledge_graph.py'
       - 'scripts/semantic_facets.json'
       - 'scripts/lean/DeclGraph.lean'
       - '.github/workflows/proof-inventory.yml'
@@ -84,6 +86,17 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Check knowledge-graph semantics
+        run: |
+          python3 scripts/check_knowledge_graph.py decl-graph.json \
+            | tee kg-check.txt
+          {
+            echo '## Knowledge-graph regression checks'
+            echo '```text'
+            cat kg-check.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       # The standing reports a research agent would otherwise have to rerun by
       # hand. `obligations` maps genuinely open propositions appearing on RH
       # reduction routes; multi-premise packages remain conjunctive in proofq.
@@ -118,6 +131,7 @@ jobs:
             decl-graph.txt
             decl-graph.json
             decl-graph.dot
+            kg-check.txt
             kg-status.txt
             kg-open-leaves.txt
             kg-obligations.txt
