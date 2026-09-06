@@ -9,11 +9,11 @@ partition to the global state carrier without taking norms.  It is the
 correct object on which to attempt the next deterministic finite-difference
 contraction.
 
-The final section records the structural correction exposed by this slicing:
-above the square-root wall the rough cofactor of an oriented state is either
-`1` or one single prime strictly above the owner.  Thus the remaining live
-carrier is an ordered prime triangle, not a family of independent `R/p` seats.
-No per-prime norm bound is asserted here.
+The quantitative section isolates the still-missing norm-after-signs estimate
+for one prime slice and proves that it implies the global bound by an exact
+finite product packing.  The local estimate itself is not proved here.  The
+final section records the complementary structural fact that the remaining
+high-owner carrier is an ordered prime triangle, not an independent family.
 -/
 
 noncomputable section
@@ -292,16 +292,18 @@ def PNTFiniteDifferenceLiveExposureBound : Prop :=
 /-! ## Finite product-packing reduction
 
 For one post-root first-jump prime `p`, the exact finite seat scale is the
-integer quotient `R / p`, not the stronger real quotient `R / p`.  The local
-arithmetic input below is imposed only after every state and Boolean sign in
-the `p`-slice has been summed.
+natural-number quotient `(R / p : ℕ)`, not the stronger real quotient
+`(R : ℝ) / (p : ℝ)`.  The local arithmetic input below is imposed only after
+every state and Boolean sign in the `p`-slice has been summed.
 
 The products `c * p`, with `1 <= c <= R / p`, remember `p` uniquely: because
 `sqrt R < p`, every such `c` is strictly smaller than `p`, so `p` is the
 canonical largest prime factor.  Consequently the seat-product sets for
 distinct post-root primes are disjoint and their total cardinality is at most
 `R`.  This is the finite product packing which leaves one logarithmic factor
-from the prime-local estimate; it uses neither PNT nor prime gaps.
+from the prime-local estimate; it uses neither PNT nor prime gaps.  These sets
+are only certificates for packing the numerical factors `(R / p : ℕ)`; they
+are not identified with the actual prime-slice state carriers.
 -/
 
 /-- The genuinely missing prime-local finite-difference estimate.  Its seat
@@ -313,8 +315,8 @@ def FirstJumpPrimeSliceFiniteDifferenceBound : Prop :=
       ‖signedFirstJumpPrimeSliceAggregate R p‖ ≤
         C * (((R / p : ℕ) : ℝ)) * (Real.log (R : ℝ) + 1)
 
-/-- Physical products attached to the `R / p` finite seats of one post-root
-prime. -/
+/-- Auxiliary products packing the numerical `R / p` seat factor of one
+post-root prime. -/
 def signedFirstJumpPrimeSeatProductSet (R p : ℕ) : Finset ℕ :=
   (Finset.Icc 1 (R / p)).image fun c => c * p
 
