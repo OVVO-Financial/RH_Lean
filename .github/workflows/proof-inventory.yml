@@ -1,0 +1,55 @@
+name: Proof inventory
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'RHLean.lean'
+      - 'RHLean/**/*.lean'
+      - 'scripts/proof_inventory.py'
+      - '.github/workflows/proof-inventory.yml'
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'RHLean.lean'
+      - 'RHLean/**/*.lean'
+      - 'scripts/proof_inventory.py'
+      - '.github/workflows/proof-inventory.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: proof-inventory-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build primary-source proof inventory
+        run: |
+          python3 scripts/proof_inventory.py \
+            --json proof-inventory.json \
+            --dot proof-import-graph.dot \
+            | tee proof-inventory.txt
+          {
+            echo '## RHLean proof inventory'
+            echo '```text'
+            cat proof-inventory.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload proof inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: proof-inventory
+          path: |
+            proof-inventory.txt
+            proof-inventory.json
+            proof-import-graph.dot
