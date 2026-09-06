@@ -1,5 +1,7 @@
 import Mathlib
 import RHLean.Proof.MutableSupportBound
+import RHLean.Analysis.SquareRootPrimeCountGap
+import RHLean.Proof.PrimeCombReciprocalBandCancellation
 
 /-!
 # Vanishing transition relevance
@@ -27,6 +29,7 @@ open Filter
 namespace RHLean.Proof
 
 open RHLean.Arithmetic
+open RHLean.Analysis
 
 /-- Transition relevance on the natural linear scale of the square block. -/
 def transitionRelevance (U : ℕ → Finset ℕ) (n : ℕ) : ℝ :=
@@ -77,5 +80,100 @@ theorem squareBlockDiscrepancyVanishes_of_transitionRelevanceVanishes
   exact le_trans
     (normalizedSquareBlockDiscrepancy_le_transitionRelevance U hU hinterior hnPos)
     hnRel
+
+/-! ## Ordered prime replication as deterministic Möbius transport
+
+The fixed lower Möbius prefix is not resampled by post-root primes.  This
+section identifies the user's cofactor-first response with the repository's
+existing high transport and therefore with its exact dyadic compression.
+-/
+
+/-- Complete signed replication response of the fixed prefix at the square
+endpoint `X_R = R^2 - 1`. -/
+def orderedPrimeReplicationResponse (R : ℕ) : ℂ :=
+  ∑ c ∈ Finset.Ico 1 R,
+    canonicalMoebiusWeight c *
+      ((Nat.primeCounting (squareRootEndpoint R / c) : ℂ) -
+        (Nat.primeCounting R : ℂ))
+
+/-- The `c=1,2` channels cancel everything except the inert top-prime block. -/
+theorem orderedPrimeReplication_firstTwo_eq_topCard
+    (R : ℕ) :
+    (∑ c ∈ ({1, 2} : Finset ℕ),
+      canonicalMoebiusWeight c *
+        ((Nat.primeCounting (squareRootEndpoint R / c) : ℂ) -
+          (Nat.primeCounting R : ℂ))) =
+      ((squareRootTopFibrePrimes R).card : ℂ) := by
+  have hmu1 : canonicalMoebiusWeight 1 = 1 := by
+    simp [canonicalMoebiusWeight]
+  have hmu2 : canonicalMoebiusWeight 2 = -1 := by
+    unfold canonicalMoebiusWeight
+    rw [ArithmeticFunction.moebius_apply_prime Nat.prime_two]
+    norm_num
+  have htop := squareRootTopFibrePrimes_card_add_primeCounting_half R
+  have htopC :
+      ((squareRootTopFibrePrimes R).card : ℂ) +
+          (Nat.primeCounting (squareRootEndpoint R / 2) : ℂ) =
+        (Nat.primeCounting (squareRootEndpoint R) : ℂ) := by
+    exact_mod_cast htop
+  have htopDiff :
+      (Nat.primeCounting (squareRootEndpoint R) : ℂ) -
+          (Nat.primeCounting (squareRootEndpoint R / 2) : ℂ) =
+        ((squareRootTopFibrePrimes R).card : ℂ) := by
+    symm
+    exact (eq_sub_iff_add_eq).2 htopC
+  calc
+    (∑ c ∈ ({1, 2} : Finset ℕ),
+      canonicalMoebiusWeight c *
+        ((Nat.primeCounting (squareRootEndpoint R / c) : ℂ) -
+          (Nat.primeCounting R : ℂ))) =
+        (Nat.primeCounting (squareRootEndpoint R) : ℂ) -
+          (Nat.primeCounting (squareRootEndpoint R / 2) : ℂ) := by
+      simp [hmu1, hmu2]
+      ring
+    _ = ((squareRootTopFibrePrimes R).card : ℂ) := htopDiff
+
+/-- **Exact global identification.**  The full ordered replication response is
+exactly the existing cofactor-first transport.  No iid or probabilistic input
+appears. -/
+theorem orderedPrimeReplicationResponse_eq_transport
+    (R : ℕ) (hR : 3 ≤ R) :
+    orderedPrimeReplicationResponse R = squareRootTransportCofactorFirst R := by
+  classical
+  let lowC : Finset ℕ := Finset.Icc 3 (R - 1)
+  have hset :
+      Finset.Ico 1 R = ({1, 2} : Finset ℕ) ∪ lowC := by
+    ext c
+    simp only [lowC, Finset.mem_Ico, Finset.mem_union, Finset.mem_insert,
+      Finset.mem_singleton, Finset.mem_Icc]
+    omega
+  have hdisj : Disjoint ({1, 2} : Finset ℕ) lowC := by
+    rw [Finset.disjoint_left]
+    intro c hc12 hclow
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hc12
+    rcases Finset.mem_Icc.mp hclow with ⟨hc3, _hcTop⟩
+    omega
+  have hmiddle := squareRootMiddleMertensTail_eq_swappedPrimeCounting R hR
+  unfold orderedPrimeReplicationResponse
+  rw [hset, Finset.sum_union hdisj,
+    orderedPrimeReplication_firstTwo_eq_topCard R]
+  change ((squareRootTopFibrePrimes R).card : ℂ) +
+      (∑ c ∈ Finset.Icc 3 (R - 1),
+        canonicalMoebiusWeight c *
+          ((Nat.primeCounting (squareRootEndpoint R / c) : ℂ) -
+            (Nat.primeCounting R : ℂ))) = squareRootTransportCofactorFirst R
+  rw [← hmiddle, squareRootTransportCofactorFirst_eq_primeFirst,
+    squareRootTransportPrimeFirst_eq_middleMertensTail_add_topCard R hR]
+  ring
+
+/-- **Global deterministic non-iid compression.**  The whole ordered prime
+replication of the fixed Möbius prefix is exactly the repository's odd dyadic
+boundary mass. -/
+theorem orderedPrimeReplicationResponse_eq_dyadicBoundaryMass
+    (R : ℕ) (hR : 3 ≤ R) :
+    orderedPrimeReplicationResponse R =
+      squareRootDyadicTransportBoundaryMass R := by
+  rw [orderedPrimeReplicationResponse_eq_transport R hR,
+    squareRootTransportCofactorFirst_eq_dyadicBoundaryMass]
 
 end RHLean.Proof
