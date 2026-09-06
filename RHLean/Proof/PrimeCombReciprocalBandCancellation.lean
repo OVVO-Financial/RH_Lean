@@ -391,13 +391,12 @@ theorem middlePrimeFibre_moebius_eq_neg
     (Finset.mem_Ico.mp (middlePrime_quotient_mem_Ico hqmem)).2
   have hcData := Finset.mem_Icc.mp hc
   have hcR : c < R := hcData.2.trans_lt hquotR
-  let D : LargePrimeTransportData R c q :=
-    { c_pos := hcData.1
-      c_lt_cutoff := hcR
-      q_prime := hqPrime
-      cutoff_lt_q := hRq }
-  have hflip := LargePrimeTransportData.moebius_mul_eq_neg D
-  simpa [Nat.mul_comm] using hflip
+  have hcq : c < q := hcR.trans hRq
+  have hcop : Nat.Coprime c q :=
+    (Nat.coprime_of_lt_prime (Nat.ne_of_gt hcData.1) hcq hqPrime).symm
+  rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
+    ArithmeticFunction.moebius_apply_prime hqPrime]
+  ring
 
 /-- Lower-prefix coordinates carrying one exact Möbius state. -/
 def prefixMobiusStateSet (N : ℕ) (z : ℤ) : Finset ℕ :=
@@ -485,11 +484,10 @@ theorem orderedPrimeReplication_dyadic_pair
 same non-iid mechanism: every complete lower prefix collapses exactly to its
 odd dyadic boundary. -/
 theorem middlePrimeFibre_inheritedPrefix_eq_dyadicBoundary
-    {R q : ℕ} (hqmem : q ∈ middlePrimeSet R) :
+    {R q : ℕ} (hR : 0 < R) (hqmem : q ∈ middlePrimeSet R) :
     primeDilatedLowCofactorMass R q =
       dyadicPrimeFiberBoundaryMass R q := by
   rcases mem_middlePrimeSet.mp hqmem with ⟨hRq, _hqle, hqPrime⟩
-  have hR : 0 < R := by omega
   exact primeDilatedLowCofactorMass_eq_dyadicPrimeFiberBoundaryMass
     R q hR hRq hqPrime.pos
 
