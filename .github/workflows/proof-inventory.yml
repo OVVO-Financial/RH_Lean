@@ -11,6 +11,7 @@ on:
       - 'scripts/decl_graph.py'
       - 'scripts/proofq.py'
       - 'scripts/semantic_facets.json'
+      - 'scripts/lean/DeclGraph.lean'
       - '.github/workflows/proof-inventory.yml'
   pull_request:
     types: [opened, synchronize, reopened]
@@ -22,6 +23,7 @@ on:
       - 'scripts/decl_graph.py'
       - 'scripts/proofq.py'
       - 'scripts/semantic_facets.json'
+      - 'scripts/lean/DeclGraph.lean'
       - '.github/workflows/proof-inventory.yml'
   workflow_dispatch:
 
@@ -53,15 +55,28 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # Layer 2: the declaration graph. Source-level and dependency-free, so it
-      # runs in seconds without a Lean toolchain. The exact elaborated graph
-      # (scripts/lean/DeclGraph.lean) needs a built project and is not run here.
+      # Layer 2a: the declaration graph. Source-level and dependency-free, so it
+      # runs in seconds without a Lean toolchain. The exact elaborated graph is
+      # validated after the hosted RHLean build in the Lean source-audit workflow.
       - name: Build declaration dependency graph
         run: |
           python3 scripts/decl_graph.py \
             --json decl-graph.json \
             --dot decl-graph.dot \
+            --require-acyclic \
             | tee decl-graph.txt
+          python3 - <<'PY'
+          import json
+          inv = json.load(open('proof-inventory.json'))
+          graph = json.load(open('decl-graph.json'))
+          expected = inv['named_proofs']['total_theorem_plus_lemma']
+          actual = graph['stats']['named_proofs']
+          if expected != actual:
+              raise SystemExit(
+                  f'named-proof count mismatch: inventory={expected}, graph={actual}'
+              )
+          print(f'Source counters agree on {actual:,} named proofs.')
+          PY
           {
             echo '## RHLean declaration graph'
             echo '```text'
@@ -70,8 +85,8 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       # The standing reports a research agent would otherwise have to rerun by
-      # hand. `obligations` is the map of open propositions the RH route is
-      # conditional on; `duplicates` surfaces the same proposition proved twice.
+      # hand. `obligations` is the map of genuinely open propositions sufficient
+      # for RH; exact iff bridges are collapsed by the reduction-graph queries.
       - name: Standing knowledge-graph reports
         run: |
           python3 scripts/proofq.py status > kg-status.txt
