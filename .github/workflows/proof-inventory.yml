@@ -7,6 +7,10 @@ on:
       - 'RHLean.lean'
       - 'RHLean/**/*.lean'
       - 'scripts/proof_inventory.py'
+      - 'scripts/rhlean_kg.py'
+      - 'scripts/decl_graph.py'
+      - 'scripts/proofq.py'
+      - 'scripts/semantic_facets.json'
       - '.github/workflows/proof-inventory.yml'
   pull_request:
     types: [opened, synchronize, reopened]
@@ -14,6 +18,10 @@ on:
       - 'RHLean.lean'
       - 'RHLean/**/*.lean'
       - 'scripts/proof_inventory.py'
+      - 'scripts/rhlean_kg.py'
+      - 'scripts/decl_graph.py'
+      - 'scripts/proofq.py'
+      - 'scripts/semantic_facets.json'
       - '.github/workflows/proof-inventory.yml'
   workflow_dispatch:
 
@@ -45,6 +53,42 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      # Layer 2: the declaration graph. Source-level and dependency-free, so it
+      # runs in seconds without a Lean toolchain. The exact elaborated graph
+      # (scripts/lean/DeclGraph.lean) needs a built project and is not run here.
+      - name: Build declaration dependency graph
+        run: |
+          python3 scripts/decl_graph.py \
+            --json decl-graph.json \
+            --dot decl-graph.dot \
+            | tee decl-graph.txt
+          {
+            echo '## RHLean declaration graph'
+            echo '```text'
+            cat decl-graph.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The standing reports a research agent would otherwise have to rerun by
+      # hand. `obligations` is the map of open propositions the RH route is
+      # conditional on; `duplicates` surfaces the same proposition proved twice.
+      - name: Standing knowledge-graph reports
+        run: |
+          python3 scripts/proofq.py obligations --rh-only --limit 40 \
+            > kg-obligations.txt
+          python3 scripts/proofq.py terminal-cone --limit 30 > kg-terminal-cone.txt
+          python3 scripts/proofq.py duplicates --limit 30 > kg-duplicates.txt
+          {
+            echo '## Open propositions sufficient for RH'
+            echo '```text'
+            cat kg-obligations.txt
+            echo '```'
+            echo '## Duplicate statement signatures'
+            echo '```text'
+            head -60 kg-duplicates.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload proof inventory
         uses: actions/upload-artifact@v4
         with:
@@ -53,3 +97,9 @@ jobs:
             proof-inventory.txt
             proof-inventory.json
             proof-import-graph.dot
+            decl-graph.txt
+            decl-graph.json
+            decl-graph.dot
+            kg-obligations.txt
+            kg-terminal-cone.txt
+            kg-duplicates.txt

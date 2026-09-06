@@ -5,3 +5,11 @@ build/
 *.trace
 __pycache__/
 *.pyc
+
+# Generated knowledge-graph artifacts
+decl-graph.json
+decl-graph.dot
+lean-decl-graph.jsonl
+proof-inventory.json
+proof-import-graph.dot
+proof-inventory.txt
