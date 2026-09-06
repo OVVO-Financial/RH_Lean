@@ -146,10 +146,14 @@ theorem upperHalfFirstJumpFrozenWindowSlice_eq_singleton
     · simpa [primeFaceProduct] using hpB
   have hfirst : IsPredecessorFirstJumpAt 3 (Nat.sqrt R) ({p} : Finset ℕ) p := by
     refine ⟨by simp, hpRoot, ?_, ?_⟩
-    · have hpCube : Nat.sqrt R < p ^ 3 :=
+    · have hpredProd :
+          predecessorPrimeFaceProduct ({p} : Finset ℕ) p = 1 := by
+        unfold predecessorPrimeFaceProduct predecessorPrimeFace primeFaceProduct
+        simp
+      have hpCube : Nat.sqrt R < p ^ 3 :=
         hpRoot.trans_le (Nat.le_self_pow (by norm_num : 3 ≠ 0) p)
-      simpa [predecessorPrimeFaceProduct, predecessorPrimeFace,
-        primeFaceProduct] using hpCube
+      rw [hpredProd, Nat.mul_one]
+      exact hpCube
     · intro r hr hrp _hrRoot
       have hrEq : r = p := by simpa using hr
       omega
@@ -339,8 +343,8 @@ theorem upperHalfFirstJumpOwner_stateSlice_eq_neg_one
       lowWheelCanonicalDowncrossOwnershipUpper R 1 k =
         min R (squareRootEndpoint R / k) := by
     unfold lowWheelCanonicalDowncrossOwnershipUpper
-    rw [hraw]
-    simp [hkData.1.ne_zero]
+    rw [hraw, Nat.div_self hkData.1.pos]
+    simp
   have hkp : k * p ≤ squareRootEndpoint R :=
     (Nat.le_div_iff_mul_le hpData.1.pos).1 hkData.2.2
   have hpXdiv : p ≤ squareRootEndpoint R / k := by
@@ -363,8 +367,7 @@ theorem upperHalfFirstJumpOwner_stateSlice_eq_neg_one
           p = -1 :=
     upperHalfFirstJumpFrozenWindowSliceMass_eq_neg_one
       hpData.1 hpData.2.1 hpPivot hA hpB hBR hR2p
-  unfold signedFirstJumpPrimeStateSlice
-  rw [if_pos hactive, if_pos hpMem, hmass]
-  simp [canonicalMoebiusWeight]
+  simp [signedFirstJumpPrimeStateSlice, hactive, hpMem, hmass,
+    canonicalMoebiusWeight]
 
 end RHLean.Proof
