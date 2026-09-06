@@ -326,7 +326,7 @@ theorem signedFirstJumpPrimeSeatProductSet_card
   rw [Finset.card_image_of_injective _
     (fun a b hab => Nat.eq_of_mul_eq_mul_right hp.pos hab)]
   rw [Nat.card_Icc]
-  have hcard : R / p + 1 - 1 = R / p := by omega
+  have hcard : (R / p : ℕ) + 1 - 1 = R / p := by omega
   exact hcard
 
 /-- Every seat product is a positive integer at most `R`. -/
@@ -420,8 +420,10 @@ theorem sum_signedFirstJumpPostRootPrimeSeatCounts_le_root
         ∑ p ∈ S, (F p).card := by
       apply Finset.sum_congr rfl
       intro p hp
-      have hpPrime :=
-        (mem_frozenPrimeUniverseHighPrimeSet.mp (by simpa [S] using hp)).1
+      have hpAsHigh :
+          p ∈ frozenPrimeUniverseHighPrimeSet (Nat.sqrt R) R := by
+        simpa [S, signedFirstJumpPostRootPrimeSet] using hp
+      have hpPrime := (mem_frozenPrimeUniverseHighPrimeSet.mp hpAsHigh).1
       exact (signedFirstJumpPrimeSeatProductSet_card hpPrime).symm
     _ = (S.biUnion F).card := hunion.symm
     _ ≤ (Finset.Icc 1 R).card := Finset.card_le_card hsubset
