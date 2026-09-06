@@ -85,8 +85,8 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       # The standing reports a research agent would otherwise have to rerun by
-      # hand. `obligations` is the map of genuinely open propositions sufficient
-      # for RH; exact iff bridges are collapsed by the reduction-graph queries.
+      # hand. `obligations` maps genuinely open propositions appearing on RH
+      # reduction routes; multi-premise packages remain conjunctive in proofq.
       - name: Standing knowledge-graph reports
         run: |
           python3 scripts/proofq.py status > kg-status.txt
@@ -97,7 +97,7 @@ jobs:
           python3 scripts/proofq.py terminal-cone --limit 30 > kg-terminal-cone.txt
           python3 scripts/proofq.py duplicates --limit 30 > kg-duplicates.txt
           {
-            echo '## Open propositions sufficient for RH'
+            echo '## Open propositions on RH reduction routes'
             echo '```text'
             cat kg-obligations.txt
             echo '```'
