@@ -601,13 +601,14 @@ theorem orderedEulerCutActiveChild_of_squarefree_shell
           refine ⟨hq, ?_, hcsqNew, hqNotCP, hfaces, hroughNew⟩
           have hcpos : 0 < c := by omega
           exact Nat.succ_le_iff.mpr (Nat.mul_pos hcpos hp.pos)
-        have hzChild : orderedEulerCutChildInteger (t, (c * p, q)) = n := by
-          change (c * p) * (q * primeFaceProduct t) = n
+        have hzChildRaw : (c * p) * (q * primeFaceProduct t) = n := by
           calc
             (c * p) * (q * primeFaceProduct t) =
                 (c * (q * primeFaceProduct t)) * p := by ring
             _ = m * p := by rw [hychild]
             _ = n := hmp
+        have hzChild : orderedEulerCutChildInteger (t, (c * p, q)) = n := by
+          exact hzChildRaw
         have hyLife :=
           (mem_orderedEulerCutCarrier_iff_shape_lifetime.mp hy).2
         have hyBirthRaw :
@@ -629,7 +630,7 @@ theorem orderedEulerCutActiveChild_of_squarefree_shell
           have hmul :
               R * (R + 1) ≤ (c * p) * (q * primeFaceProduct t) :=
             Nat.mul_le_mul hhigh hdeathSucc
-          rw [hzChild] at hmul
+          rw [hzChildRaw] at hmul
           have hRR : R ^ 2 < R * (R + 1) := by
             nlinarith
           omega
@@ -637,7 +638,7 @@ theorem orderedEulerCutActiveChild_of_squarefree_shell
           change max (primeFaceProduct t)
             (max (c * p + 1)
               (Nat.sqrt ((c * p) * (q * primeFaceProduct t)) + 1)) ≤ R
-          rw [hzChild]
+          rw [hzChildRaw]
           apply Nat.max_le.mpr
           refine ⟨hlowR, Nat.max_le.mpr ⟨?_, ?_⟩⟩ <;> omega
         have hdeath : R < orderedEulerCutDeathRoot (t, (c * p, q)) := by
