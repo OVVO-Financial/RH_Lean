@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.DyadicTransportCompression
+import RHLean.Analysis.SquareRootPrimeCountGap
 import RHLean.Proof.MiddlePrimeFibreCollapse
 import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Proof.LargePrimeTerminalFlipLayers
@@ -490,5 +491,81 @@ theorem middlePrimeFibre_inheritedPrefix_eq_dyadicBoundary
   rcases mem_middlePrimeSet.mp hqmem with ⟨hRq, _hqle, hqPrime⟩
   exact primeDilatedLowCofactorMass_eq_dyadicPrimeFiberBoundaryMass
     R q hR hRq hqPrime.pos
+
+/-! ## The complete ordered replication response -/
+
+/-- Complex form of the user's cofactor-first replication response.  The lower
+Möbius prefix is fixed; the prime clock appears only through its exact nested
+multiplicity `pi(X_R/c)-pi(R)`. -/
+def orderedPrimeReplicationResponse (R : ℕ) : ℂ :=
+  ∑ c ∈ Finset.Ico 1 R,
+    canonicalMoebiusWeight c *
+      ((Nat.primeCounting (squareRootEndpoint R / c) : ℂ) -
+        (Nat.primeCounting R : ℂ))
+
+/-- **Exact identification with the existing transport.**  The complete
+ordered replication response is not a new analytic object.  The `c=1,2`
+contribution is exactly the inert top-prime cardinality; the remaining
+`c>=3` contribution is the already-compiled middle Mertens tail.  Together
+they are the existing cofactor-first transport. -/
+theorem orderedPrimeReplicationResponse_eq_transport
+    (R : ℕ) (hR : 3 ≤ R) :
+    orderedPrimeReplicationResponse R = squareRootTransportCofactorFirst R := by
+  classical
+  let lowC : Finset ℕ := Finset.Icc 3 (R - 1)
+  have hset :
+      Finset.Ico 1 R = ({1, 2} : Finset ℕ) ∪ lowC := by
+    ext c
+    simp only [lowC, Finset.mem_Ico, Finset.mem_union, Finset.mem_insert,
+      Finset.mem_singleton, Finset.mem_Icc]
+    omega
+  have hdisj : Disjoint ({1, 2} : Finset ℕ) lowC := by
+    rw [Finset.disjoint_left]
+    intro c hc12 hclow
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hc12
+    rcases Finset.mem_Icc.mp hclow with ⟨hc3, _hcTop⟩
+    omega
+  have hmu1 : canonicalMoebiusWeight 1 = 1 := by
+    simp [canonicalMoebiusWeight]
+  have hmu2 : canonicalMoebiusWeight 2 = -1 := by
+    unfold canonicalMoebiusWeight
+    rw [ArithmeticFunction.moebius_apply_prime Nat.prime_two]
+    norm_num
+  have htop := squareRootTopFibrePrimes_card_add_primeCounting_half R
+  have htopC :
+      ((squareRootTopFibrePrimes R).card : ℂ) +
+          (Nat.primeCounting (squareRootEndpoint R / 2) : ℂ) =
+        (Nat.primeCounting (squareRootEndpoint R) : ℂ) := by
+    exact_mod_cast htop
+  have h12 :
+      (∑ c ∈ ({1, 2} : Finset ℕ),
+        canonicalMoebiusWeight c *
+          ((Nat.primeCounting (squareRootEndpoint R / c) : ℂ) -
+            (Nat.primeCounting R : ℂ))) =
+        ((squareRootTopFibrePrimes R).card : ℂ) := by
+    simp [hmu1, hmu2]
+    linear_combination htopC
+  have hmiddle := squareRootMiddleMertensTail_eq_swappedPrimeCounting R hR
+  unfold orderedPrimeReplicationResponse
+  rw [hset, Finset.sum_union hdisj, h12]
+  change ((squareRootTopFibrePrimes R).card : ℂ) +
+      (∑ c ∈ Finset.Icc 3 (R - 1),
+        canonicalMoebiusWeight c *
+          ((Nat.primeCounting (squareRootEndpoint R / c) : ℂ) -
+            (Nat.primeCounting R : ℂ))) = squareRootTransportCofactorFirst R
+  rw [← hmiddle, squareRootTransportCofactorFirst_eq_primeFirst,
+    squareRootTransportPrimeFirst_eq_middleMertensTail_add_topCard R hR]
+  ring
+
+/-- **Global deterministic non-iid compression.**  The entire ordered prime
+replication of the fixed Möbius prefix is exactly the existing odd dyadic
+boundary sum.  Thus the first global contraction is an arithmetic identity,
+not an iid concentration estimate. -/
+theorem orderedPrimeReplicationResponse_eq_dyadicBoundaryMass
+    (R : ℕ) (hR : 3 ≤ R) :
+    orderedPrimeReplicationResponse R =
+      squareRootDyadicTransportBoundaryMass R := by
+  rw [orderedPrimeReplicationResponse_eq_transport R hR,
+    squareRootTransportCofactorFirst_eq_dyadicBoundaryMass]
 
 end RHLean.Proof
