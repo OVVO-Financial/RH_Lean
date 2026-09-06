@@ -59,7 +59,7 @@ def constantKind : ConstantInfo → String
 
 /-- Escape a name for embedding in a JSON string literal. -/
 def jsonString (s : String) : String :=
-  Json.render (Json.str s)
+  Json.compress (Json.str s)
 
 /-- Render an array of names as a JSON array, keeping only project constants. -/
 def refsJson (names : Array Name) (project : NameSet) (self : Name) :
