@@ -134,7 +134,6 @@ theorem orderedPrimeReplication_firstTwo_eq_topCard
         (Nat.primeCounting (squareRootEndpoint R) : ℂ) -
           (Nat.primeCounting (squareRootEndpoint R / 2) : ℂ) := by
       simp [hmu1, hmu2]
-      ring
     _ = ((squareRootTopFibrePrimes R).card : ℂ) := htopDiff
 
 /-- **Exact global identification.**  The full ordered replication response is
@@ -168,6 +167,7 @@ theorem orderedPrimeReplicationResponse_eq_transport
             (Nat.primeCounting R : ℂ))) = squareRootTransportCofactorFirst R
   rw [← hmiddle, squareRootTransportCofactorFirst_eq_primeFirst,
     squareRootTransportPrimeFirst_eq_middleMertensTail_add_topCard R hR]
+  ring
 
 /-- **Global deterministic non-iid compression.**  The whole ordered prime
 replication of the fixed Möbius prefix is exactly the repository's odd dyadic
@@ -279,7 +279,9 @@ theorem orderedPrimeReplicationResponse_eq_eulerFiniteDifference
   classical
   unfold orderedPrimeReplicationResponse orderedPrimeReplicationEulerResponse
   rw [canonicalMoebiusWeighted_Ico_eq_admissibleFaceSum
-    R hR (fun c => orderedPrimeWindowWeight R (squareRootEndpoint R / c))]
+    R hR (fun c =>
+      (Nat.primeCounting (squareRootEndpoint R / c) : ℂ) -
+        (Nat.primeCounting R : ℂ))]
   rw [admissiblePrimeFaces_pred_eq_lowCube_filter_product_lt R hR]
   unfold eulerFiniteDifferenceResponse
   rw [Finset.sum_filter]
