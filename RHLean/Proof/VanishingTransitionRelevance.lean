@@ -290,4 +290,173 @@ def FirstJumpPrimeSliceFiniteDifferenceBound : Prop :=
       ‖signedFirstJumpPrimeSliceAggregate R p‖ ≤
         C * (((R / p : ℕ) : ℝ)) * (Real.log (R : ℝ) + 1)
 
+/-! ## Product packing of the post-root prime slices
+
+For a fixed post-root prime `p`, the natural seat index is `1 <= c <= R/p`.
+The product `c*p` remembers `p` uniquely because `p > sqrt R`: any cofactor
+`c <= R/p` is strictly below `p`, so `p` is the canonical largest prime factor
+of the packed product.  Distinct post-root prime slices therefore pack
+disjointly into the ordinary root interval `[1,R]`.
+-/
+
+/-- Physical products associated with the `R/p` seats of one post-root prime. -/
+def signedFirstJumpPrimeSeatProductSet (R p : ℕ) : Finset ℕ :=
+  (Finset.Icc 1 (R / p)).image fun c => c * p
+
+/-- Multiplication by a positive prime preserves the number of seats. -/
+theorem signedFirstJumpPrimeSeatProductSet_card
+    {R p : ℕ} (hp : p.Prime) :
+    (signedFirstJumpPrimeSeatProductSet R p).card = R / p := by
+  unfold signedFirstJumpPrimeSeatProductSet
+  rw [Finset.card_image_of_injective _
+    (fun a b hab => Nat.eq_of_mul_eq_mul_right hp.pos hab)]
+  rw [Nat.card_Icc]
+  omega
+
+/-- Every seat product of a post-root prime lies in the positive root prefix. -/
+theorem signedFirstJumpPrimeSeatProductSet_subset_Icc
+    {R p : ℕ} (hp : p.Prime) :
+    signedFirstJumpPrimeSeatProductSet R p ⊆ Finset.Icc 1 R := by
+  intro n hn
+  rcases Finset.mem_image.mp hn with ⟨c, hc, rfl⟩
+  rcases Finset.mem_Icc.mp hc with ⟨hc1, hcTop⟩
+  have hcpos : 0 < c := by omega
+  have hprodPos : 0 < c * p := Nat.mul_pos hcpos hp.pos
+  have hprodTop : c * p ≤ R := by
+    exact (Nat.le_div_iff_mul_le hp.pos).1 hcTop
+  exact Finset.mem_Icc.mpr ⟨by omega, hprodTop⟩
+
+/-- Above the square-root wall, every legal seat cofactor is strictly smaller
+than its owning prime. -/
+theorem signedFirstJumpPrimeSeat_lt_prime
+    {R p c : ℕ} (hp : p.Prime) (hroot : Nat.sqrt R < p)
+    (hc : c ∈ Finset.Icc 1 (R / p)) :
+    c < p := by
+  have hcTop := (Finset.mem_Icc.mp hc).2
+  have hcp : c * p ≤ R := (Nat.le_div_iff_mul_le hp.pos).1 hcTop
+  have hnext : R < (Nat.sqrt R + 1) ^ 2 := Nat.lt_succ_sqrt' R
+  have hsp : Nat.sqrt R + 1 ≤ p := by omega
+  have hpp : (Nat.sqrt R + 1) ^ 2 ≤ p * p := by
+    rw [pow_two]
+    exact Nat.mul_le_mul hsp hsp
+  have hRpp : R < p * p := hnext.trans_le hpp
+  by_contra hnot
+  have hpcLower : p * p ≤ c * p := Nat.mul_le_mul_right p (Nat.le_of_not_gt hnot)
+  omega
+
+/-- Distinct post-root primes have disjoint packed seat-product images. -/
+theorem signedFirstJumpPrimeSeatProductSet_pairwiseDisjoint
+    (R : ℕ) :
+    Set.PairwiseDisjoint (↑(signedFirstJumpPostRootPrimeSet R))
+      (signedFirstJumpPrimeSeatProductSet R) := by
+  intro p hpMem q hqMem hpq
+  have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp (by simpa [signedFirstJumpPostRootPrimeSet] using hpMem)
+  have hqData := mem_frozenPrimeUniverseHighPrimeSet.mp (by simpa [signedFirstJumpPostRootPrimeSet] using hqMem)
+  change Disjoint
+    (signedFirstJumpPrimeSeatProductSet R p)
+    (signedFirstJumpPrimeSeatProductSet R q)
+  rw [Finset.disjoint_left]
+  intro n hnp hnq
+  rcases Finset.mem_image.mp hnp with ⟨c, hc, hcp⟩
+  rcases Finset.mem_image.mp hnq with ⟨d, hd, hdq⟩
+  have hcpos : 0 < c := by omega
+  have hdpos : 0 < d := by omega
+  have hcLtP := signedFirstJumpPrimeSeat_lt_prime hpData.1 hpData.2.1 hc
+  have hdLtQ := signedFirstJumpPrimeSeat_lt_prime hqData.1 hqData.2.1 hd
+  have hpTop : canonicalLargestPrimeFactor (c * p) = p :=
+    canonicalLargestPrimeFactor_mul_prime_eq hcpos hcLtP hpData.1
+  have hqTop : canonicalLargestPrimeFactor (d * q) = q :=
+    canonicalLargestPrimeFactor_mul_prime_eq hdpos hdLtQ hqData.1
+  have hprod : c * p = d * q := hcp.trans hdq.symm
+  have hpqEq : p = q := by
+    calc
+      p = canonicalLargestPrimeFactor (c * p) := hpTop.symm
+      _ = canonicalLargestPrimeFactor (d * q) := by rw [hprod]
+      _ = q := hqTop
+  exact hpq hpqEq
+
+/-- The union of all post-root prime seat products lies in `[1,R]`. -/
+theorem signedFirstJumpPrimeSeatProductUnion_subset_Icc
+    (R : ℕ) :
+    (signedFirstJumpPostRootPrimeSet R).biUnion
+        (signedFirstJumpPrimeSeatProductSet R) ⊆
+      Finset.Icc 1 R := by
+  intro n hn
+  rcases Finset.mem_biUnion.mp hn with ⟨p, hpSet, hnp⟩
+  have hpPrime :=
+    (mem_frozenPrimeUniverseHighPrimeSet.mp
+      (by simpa [signedFirstJumpPostRootPrimeSet] using hpSet)).1
+  exact signedFirstJumpPrimeSeatProductSet_subset_Icc hpPrime hnp
+
+/-- **Root packing.**  The total number of `R/p` seats over all post-root
+first-jump primes is at most `R`.  This is finite canonical ownership, not PNT. -/
+theorem sum_signedFirstJumpPostRootPrimeSeatCounts_le_root
+    (R : ℕ) :
+    (∑ p ∈ signedFirstJumpPostRootPrimeSet R, R / p) ≤ R := by
+  let S := signedFirstJumpPostRootPrimeSet R
+  let F := signedFirstJumpPrimeSeatProductSet R
+  have hpair : Set.PairwiseDisjoint (↑S) F := by
+    simpa [S, F] using signedFirstJumpPrimeSeatProductSet_pairwiseDisjoint R
+  have hunion : (S.biUnion F).card = ∑ p ∈ S, (F p).card := by
+    have h := Finset.sum_biUnion hpair (f := fun _ : ℕ => (1 : ℕ))
+    simpa using h
+  have hsubset : S.biUnion F ⊆ Finset.Icc 1 R := by
+    simpa [S, F] using signedFirstJumpPrimeSeatProductUnion_subset_Icc R
+  calc
+    (∑ p ∈ signedFirstJumpPostRootPrimeSet R, R / p) =
+        ∑ p ∈ S, (F p).card := by
+      apply Finset.sum_congr rfl
+      intro p hp
+      have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp
+        (by simpa [S, signedFirstJumpPostRootPrimeSet] using hp)
+      symm
+      exact signedFirstJumpPrimeSeatProductSet_card hpData.1
+    _ = (S.biUnion F).card := hunion.symm
+    _ ≤ (Finset.Icc 1 R).card := Finset.card_le_card hsubset
+    _ = R := by
+      rw [Nat.card_Icc]
+      omega
+
+/-- **Prime-local finite-difference control implies the global live-boundary
+bound.**  The only global summation cost is the exact root packing above; no
+prime-gap or independence hypothesis is used. -/
+theorem pntFiniteDifferenceLiveExposureBound_of_primeSlice
+    (h : FirstJumpPrimeSliceFiniteDifferenceBound) :
+    PNTFiniteDifferenceLiveExposureBound := by
+  rcases h with ⟨C, hC, hslice⟩
+  refine ⟨C, hC, ?_⟩
+  intro R hR
+  rw [signedLiveFirstJumpAggregate_eq_sum_postRootPrimeSlices R hR]
+  have hpackNat := sum_signedFirstJumpPostRootPrimeSeatCounts_le_root R
+  have hpack :
+      (∑ p ∈ signedFirstJumpPostRootPrimeSet R, ((R / p : ℕ) : ℝ)) ≤
+        (R : ℝ) := by
+    exact_mod_cast hpackNat
+  have hlog : 0 ≤ Real.log (R : ℝ) := by
+    apply Real.log_nonneg
+    exact_mod_cast (show 1 ≤ R by omega)
+  have hfactor : 0 ≤ C * (Real.log (R : ℝ) + 1) := by positivity
+  calc
+    ‖∑ p ∈ signedFirstJumpPostRootPrimeSet R,
+        signedFirstJumpPrimeSliceAggregate R p‖ ≤
+      ∑ p ∈ signedFirstJumpPostRootPrimeSet R,
+        ‖signedFirstJumpPrimeSliceAggregate R p‖ := norm_sum_le _ _
+    _ ≤ ∑ p ∈ signedFirstJumpPostRootPrimeSet R,
+        C * (((R / p : ℕ) : ℝ)) * (Real.log (R : ℝ) + 1) := by
+      apply Finset.sum_le_sum
+      intro p hp
+      have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp
+        (by simpa [signedFirstJumpPostRootPrimeSet] using hp)
+      exact hslice R p hR hpData.1 hpData.2.1 hpData.2.2
+    _ = C * (Real.log (R : ℝ) + 1) *
+        (∑ p ∈ signedFirstJumpPostRootPrimeSet R,
+          ((R / p : ℕ) : ℝ)) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro p _hp
+      ring
+    _ ≤ C * (Real.log (R : ℝ) + 1) * (R : ℝ) :=
+      mul_le_mul_of_nonneg_left hpack hfactor
+    _ = C * (R : ℝ) * (Real.log (R : ℝ) + 1) := by ring
+
 end RHLean.Proof
