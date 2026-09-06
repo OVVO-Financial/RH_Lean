@@ -28,13 +28,15 @@ from typing import Iterable
 SOURCE_ROOT = Path("RHLean")
 ROOT_MANIFEST = Path("RHLean.lean")
 
+ATTR_PREFIX = r"(?:@\[[^\n]*?\]\s*)*"
+MODIFIER_PREFIX = r"(?:(?:private|protected|noncomputable|unsafe|partial|scoped|local)\s+)*"
 DECL_RE = re.compile(
-    r"^\s*(?:(?:private|protected|noncomputable|unsafe)\s+)*"
-    r"(theorem|lemma|def|abbrev|structure|class|inductive|instance|example|axiom)\b"
+    r"^\s*" + ATTR_PREFIX + MODIFIER_PREFIX
+    + r"(theorem|lemma|def|abbrev|structure|class|inductive|instance|example|axiom|opaque)\b"
 )
 NAMED_PROOF_RE = re.compile(
-    r"^\s*(?:(?:private|protected|noncomputable|unsafe)\s+)*"
-    r"(theorem|lemma)\s+([^\s(:{\[]+)"
+    r"^\s*" + ATTR_PREFIX + MODIFIER_PREFIX
+    + r"(theorem|lemma)\s+([^\s(:{\[]+)"
 )
 IMPORT_RE = re.compile(r"^\s*import\s+([A-Za-z0-9_'.]+)\s*$")
 

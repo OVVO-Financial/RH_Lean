@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from collections import Counter
 from pathlib import Path
 
@@ -114,6 +115,10 @@ def build_graph_from_lean(jsonl: Path, include_docs: bool = True) -> dict[str, o
             return raw
         return demangle_private(raw, mod)[0]
 
+    # References may point at elaborator-generated constants that were filtered
+    # out above.  Drop those edges before statistics/reachability are computed.
+    kept_ids = {demangle_private(r["name"], r["module"])[0] for r in records}
+
     # Source-side metadata, keyed by the same ids.
     src_decls, table = kg.build_declarations()
     meta = {d.decl_id: (d, kg.normalized_signature_parts(d, table)) for d in src_decls}
@@ -121,9 +126,13 @@ def build_graph_from_lean(jsonl: Path, include_docs: bool = True) -> dict[str, o
     nodes: dict[str, dict[str, object]] = {}
     for rec in records:
         node_id, is_private = demangle_private(rec["name"], rec["module"])
-        stmt_refs = sorted({to_id(r) for r in rec["typeRefs"]} - {node_id})
+        stmt_refs = sorted(
+            ({to_id(r) for r in rec["typeRefs"]} - {node_id}) & kept_ids
+        )
         stmt_refs_set = set(stmt_refs)
-        proof_refs = sorted({to_id(r) for r in rec["valueRefs"]} - {node_id})
+        proof_refs = sorted(
+            ({to_id(r) for r in rec["valueRefs"]} - {node_id}) & kept_ids
+        )
         entry: dict[str, object] = {
             "kind": rec["kind"],
             "name": node_id.split("#", 1)[0],
@@ -300,6 +309,11 @@ def _finalize(
             entry["assumes"] = assumed[name]
 
     isolated = sorted(n for n in nodes if not combined[n] and not rev.get(n))
+    sccs = kg.strongly_connected_components(combined, set(nodes))
+    cyclic = [
+        comp for comp in sccs
+        if len(comp) > 1 or (len(comp) == 1 and comp[0] in combined.get(comp[0], ()))
+    ]
 
     return {
         "schema": SCHEMA,
@@ -312,6 +326,8 @@ def _finalize(
             "proof_edges": proof_edges,
             "distinct_edges": sum(len(v) for v in combined.values()),
             "isolated_declarations": len(isolated),
+            "cyclic_components": len(cyclic),
+            "largest_cyclic_component": max((len(c) for c in cyclic), default=0),
             "status": dict(sorted(Counter(status.values()).items())),
             "duplicate_signature_groups": len(duplicate_signatures),
             "declarations_in_duplicate_groups": sum(
@@ -358,6 +374,7 @@ def print_summary(graph: dict[str, object]) -> None:
     print(f"Proof edges:                         {stats['proof_edges']:,}")
     print(f"Distinct declaration edges:          {stats['distinct_edges']:,}")
     print(f"Isolated declarations:               {stats['isolated_declarations']:,}")
+    print(f"Cyclic declaration components:       {stats['cyclic_components']:,}")
     print(f"Duplicate statement-signature groups:{stats['duplicate_signature_groups']:,}")
     print()
     print("Most-referenced declarations")
@@ -393,6 +410,10 @@ def main() -> int:
     )
     parser.add_argument("--no-docs", action="store_true", help="omit doc comments from JSON")
     parser.add_argument("--no-summary", action="store_true")
+    parser.add_argument(
+        "--require-acyclic", action="store_true",
+        help="fail when the retained declaration dependency graph contains a cycle",
+    )
     args = parser.parse_args()
 
     if args.compare:
@@ -412,6 +433,13 @@ def main() -> int:
         )
     if args.dot:
         write_dot(args.dot, graph, args.dot_limit)
+    if args.require_acyclic and int(graph["stats"].get("cyclic_components", 0)):
+        print(
+            f"ERROR: declaration dependency graph has "
+            f"{graph['stats']['cyclic_components']} cyclic component(s)",
+            file=sys.stderr,
+        )
+        return 2
     return 0
 
 

@@ -60,11 +60,12 @@ DECL_KEYWORDS = (
 PROOF_KINDS = ("theorem", "lemma")
 
 _MODIFIERS = r"(?:(?:private|protected|noncomputable|unsafe|partial|scoped|local)\s+)*"
+_ATTR_PREFIX = r"(?:@\[[^\n]*?\]\s*)*"
 DECL_START_RE = re.compile(
-    r"^" + _MODIFIERS + r"(" + "|".join(DECL_KEYWORDS) + r")\b"
+    r"^" + _ATTR_PREFIX + _MODIFIERS + r"(" + "|".join(DECL_KEYWORDS) + r")\b"
 )
 DECL_NAME_RE = re.compile(
-    r"^" + _MODIFIERS + r"(" + "|".join(DECL_KEYWORDS) + r")\s+([^\s(:{\[⦃]+)"
+    r"^" + _ATTR_PREFIX + _MODIFIERS + r"(" + "|".join(DECL_KEYWORDS) + r")\s+([^\s(:{\[⦃]+)"
 )
 NAMESPACE_RE = re.compile(r"^namespace\s+([\w.'!?]+)")
 SECTION_RE = re.compile(r"^section\b\s*([\w.'!?]*)")
@@ -386,7 +387,9 @@ def parse_module(path: Path, text: str) -> list[Declaration]:
             pending_doc = ""
             continue
 
-        if ATTR_RE.match(stripped):
+        if ATTR_RE.match(stripped) and not DECL_START_RE.match(stripped):
+            # Attribute-only command.  A same-line `@[simp] theorem ...` must
+            # fall through to the declaration parser below.
             flush(idx - 1)
             continue
 
@@ -596,6 +599,58 @@ def invert(graph: dict[str, list[str]]) -> dict[str, list[str]]:
     for key in rev:
         rev[key].sort()
     return rev
+
+
+def strongly_connected_components(
+    graph: dict[str, list[str]], nodes: set[str] | None = None
+) -> list[list[str]]:
+    """Kosaraju SCCs, implemented iteratively so a 10k-node graph is safe."""
+
+    keep = set(graph) if nodes is None else set(nodes)
+    for deps in graph.values():
+        keep.update(d for d in deps if nodes is None or d in nodes)
+
+    seen: set[str] = set()
+    finish: list[str] = []
+    for root in sorted(keep):
+        if root in seen:
+            continue
+        seen.add(root)
+        stack: list[tuple[str, object]] = [
+            (root, iter(d for d in graph.get(root, ()) if d in keep))
+        ]
+        while stack:
+            node, raw_it = stack[-1]
+            it = raw_it  # iterator, kept opaque only to satisfy the type checker
+            try:
+                nxt = next(it)  # type: ignore[arg-type]
+            except StopIteration:
+                stack.pop()
+                finish.append(node)
+                continue
+            if nxt in seen:
+                continue
+            seen.add(nxt)
+            stack.append((nxt, iter(d for d in graph.get(nxt, ()) if d in keep)))
+
+    rev = invert({n: [d for d in graph.get(n, ()) if d in keep] for n in keep})
+    seen.clear()
+    out: list[list[str]] = []
+    for root in reversed(finish):
+        if root in seen:
+            continue
+        comp: list[str] = []
+        seen.add(root)
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            comp.append(node)
+            for nxt in rev.get(node, ()):
+                if nxt not in seen:
+                    seen.add(nxt)
+                    stack.append(nxt)
+        out.append(sorted(comp))
+    return out
 
 
 def topological_order(graph: dict[str, list[str]], nodes: set[str]) -> list[str]:
@@ -843,7 +898,9 @@ _CLOSED_PROP_RE = re.compile(
 
 # Glyphs that mark a hypothesis stated inline rather than through a named
 # project proposition -- `(hR : 1 ≤ R)`, `∀ᶠ R in atTop, ...`, and so on.
-_RAW_HYPOTHESIS_GLYPHS = ("≤", "<", "≥", ">", "=", "∈", "∣", "≠", "∀", "∃", "¬")
+_RAW_HYPOTHESIS_GLYPHS = (
+    "≤", "<", "≥", ">", "=", "∈", "∣", "≠", "∀", "∃", "¬", "↔", "∧", "∨"
+)
 
 
 def statement_hypotheses(statement: str) -> str:
@@ -923,77 +980,87 @@ def compute_status(
     nodes: dict[str, dict],
     tags: dict[str, dict] | None = None,
 ) -> tuple[dict[str, str], dict[str, list[str]]]:
-    """Classify every declaration as proved, reduced, open, no-go or definition.
+    """Classify declarations and derive proposition-level proof rules.
 
-    Lean's kernel already guarantees that a compiled theorem is proved *from its
-    hypotheses*.  What it does not surface is which theorems are conditional on
-    a proposition nobody has established.  That is the distinction this computes:
+    Closed `def X : Prop` declarations are the research propositions.  A theorem
+    can close one only when every *hard* hypothesis is absent and every named
+    closed proposition it assumes has already been closed.  Parameterised Prop
+    hypotheses and structure/class/inductive binders are hard blockers: they are
+    data the theorem requires, not globally discharged propositions.
 
-    * a theorem **establishes** a closed proposition `X` when `X` is the whole of
-      its conclusion -- so `A ↔ B` establishes neither side, and `A → B`
-      establishes `B` while assuming `A`;
-    * a theorem **assumes** the closed propositions that appear in its statement
-      but not in its conclusion;
-    * `X` becomes *proved* as soon as some theorem establishing it assumes only
-      propositions already proved.
-
-    That last clause is a least fixpoint, computed by iterating to stability, so
-    a chain of conditional reductions only discharges when something actually
-    closes the bottom of it.
-
-    Returns `(status_by_name, assumptions_by_name)`.
+    Exact unconditional `A ↔ B` theorems contribute both implication rules.  The
+    least fixpoint therefore propagates proved status across compiled coordinate
+    equivalences instead of leaving an equivalent proposition artificially open.
     """
 
     closed = closed_propositions(nodes)
     all_props = prop_valued_defs(nodes)
-    # A binder of structure/class type is a hypothesis too: a theorem taking
-    # `(bridge : ActualStartRHBridge start)` establishes its conclusion only for
-    # whoever can exhibit such a bridge. These do not make a theorem *research*
-    # conditional -- they are data, not open problems -- but they do stop it
-    # from establishing a closed proposition outright.
     carriers = {
         n for n, e in nodes.items()
         if e.get("kind") in ("structure", "class", "inductive")
     }
-    blocking = all_props | carriers
+    parameterised_props = all_props - closed
 
-    assumed: dict[str, list[str]] = {}
-    unconditional: dict[str, bool] = {}
-    establishes: dict[str, list[str]] = defaultdict(list)
+    assumed_all: dict[str, list[str]] = {}
+    rules: dict[str, list[tuple[set[str], str]]] = defaultdict(list)
     refutes: dict[str, list[str]] = defaultdict(list)
+
     for name, entry in nodes.items():
         if entry.get("kind") not in PROOF_KINDS:
             continue
+
         stmt = set(entry.get("statement_refs", ()))
         concl = list(entry.get("conclusion_refs", ()))
         hypothesis_refs = stmt - set(concl)
-        assumed[name] = sorted(hypothesis_refs & all_props)
-        # Strict gate, used only to decide whether this theorem *establishes* a
-        # closed proposition: no inline hypothesis and no assumed proposition or
-        # structure of any kind.
-        unconditional[name] = not entry.get("has_raw_hypothesis") and not (
-            hypothesis_refs & blocking
+        prop_assumptions = sorted(hypothesis_refs & all_props)
+        closed_assumptions = sorted(hypothesis_refs & closed)
+
+        hard_blocked = bool(entry.get("has_raw_hypothesis")) or bool(
+            hypothesis_refs & (parameterised_props | carriers)
         )
-        # Exactly one repository constant in the conclusion, and it is a closed
-        # proposition: this theorem states that proposition and nothing else.
-        # `A ↔ B` has two and establishes neither; `A → B` has one, B, having
-        # already dropped A into `assumed`.
-        if len(concl) == 1 and concl[0] in closed:
-            # `¬ X` refutes X, it does not establish it. Without this check a
-            # recorded no-go reads as a proved proposition, which is the most
-            # damaging error this layer could make.
-            if "¬" in (entry.get("shape") or ()):
-                refutes[concl[0]].append(name)
-            else:
-                establishes[concl[0]].append(name)
+        assumed_all[name] = prop_assumptions
+        entry["closed_assumes"] = closed_assumptions
+        entry["hard_blocked"] = hard_blocked
+
+        conclusion_props = [r for r in concl if r in closed]
+        shape = set(entry.get("shape") or ())
+
+        if "¬" in shape and len(concl) == 1 and len(conclusion_props) == 1:
+            target = conclusion_props[0]
+            entry["refutes_prop"] = target
+            refutes[target].append(name)
+            continue
+
+        # B from A (or from several named closed propositions).  Raw/data
+        # hypotheses block a global proposition rule, but named closed premises
+        # are allowed to discharge later in the fixpoint.
+        if not hard_blocked and len(concl) == 1 and len(conclusion_props) == 1:
+            target = conclusion_props[0]
+            entry["establishes_prop"] = target
+            rules[target].append((set(closed_assumptions), name))
+            continue
+
+        # An exact unconditional A ↔ B is two proposition implications.  Do not
+        # manufacture this from a theorem that itself assumes another Prop.
+        if (
+            not hard_blocked
+            and "↔" in shape
+            and len(concl) == 2
+            and len(conclusion_props) == 2
+            and not prop_assumptions
+        ):
+            a, b = conclusion_props
+            entry["iff_props"] = [a, b]
+            rules[a].append(({b}, name))
+            rules[b].append(({a}, name))
 
     proved_props: set[str] = set()
     changed = True
     while changed:
         changed = False
         for prop in closed - proved_props:
-            for thm in establishes.get(prop, ()):
-                if unconditional[thm] and all(a in proved_props for a in assumed[thm]):
+            for premises, _thm in rules.get(prop, ()):
+                if premises <= proved_props:
                     proved_props.add(prop)
                     changed = True
                     break
@@ -1004,7 +1071,7 @@ def compute_status(
         if kind in PROOF_KINDS:
             if tags is not None and "no-go" in tags[name]["roles"]:
                 status[name] = STATUS_NOGO
-            elif any(a not in proved_props for a in assumed[name]):
+            elif any(a not in proved_props for a in assumed_all.get(name, ())):
                 status[name] = STATUS_REDUCED
             else:
                 status[name] = STATUS_PROVED
@@ -1017,4 +1084,4 @@ def compute_status(
                 status[name] = STATUS_OPEN
         else:
             status[name] = STATUS_DEFINITION
-    return status, assumed
+    return status, assumed_all

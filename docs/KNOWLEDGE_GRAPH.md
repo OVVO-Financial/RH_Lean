@@ -1,10 +1,11 @@
 # The RHLean knowledge graph
 
-At 718 modules, 9,819 declarations and 6,616 named proofs, `grep` no longer
-finds the structure that matters.  This directory's tooling treats the library
-as a mathematical knowledge graph instead.
+At hundreds of modules and thousands of declarations, `grep` no longer
+finds the structure that matters.  The generated inventory is authoritative for
+current counts; this directory's tooling treats the library as a mathematical
+knowledge graph instead.
 
-There are four layers.  Each answers a different question, and it is worth being
+There are six layers.  Each answers a different question, and it is worth being
 precise about which question, because they are easy to confuse.
 
 | Layer | Question | Producer | Exact? |
@@ -70,10 +71,12 @@ The resulting statuses:
 | `refuted` | a closed proposition proved false -- a recorded no-go |
 | `no-go` | a theorem recording a failed route |
 
-Layer 6 is the reduction DAG: an edge `X → Y` whenever a theorem proves `X`
-from `Y`.  Following it downward reaches the **open leaves** -- propositions
-nothing trades for anything simpler, which is where mathematics still has to
-happen.  This is what collapses 6,616 proofs into a short list.
+Layer 6 is the proposition reduction graph: an edge `X → Y` whenever a
+compiled theorem proves `X` from `Y`.  An unconditional exact `X ↔ Y` contributes
+both directions.  Before leafhood is computed, strongly connected components are
+collapsed, so coordinate equivalences do not create fake non-leaves.  Following
+the condensed DAG downward reaches the **open leaves** -- the propositions where
+mathematics still has to happen.
 
 ```bash
 proofq status                    # the five-way classification
@@ -94,8 +97,12 @@ The exact graph needs a built project:
 ```bash
 lake build
 lake env lean --run scripts/lean/DeclGraph.lean lean-decl-graph.jsonl
-python3 scripts/decl_graph.py --from-lean lean-decl-graph.jsonl --json decl-graph.json
+python3 scripts/decl_graph.py --from-lean lean-decl-graph.jsonl --json decl-graph.json --require-acyclic
 ```
+
+The hosted Lean workflow runs this extractor after every successful RHLean build,
+compares it with the cheap syntactic graph, checks named-proof counts against the
+independent inventory, and uploads the exact graph as an artifact.
 
 `scripts/lean/DeclGraph.lean` imports only `Lean`, not Mathlib and not RHLean,
 and is not part of the `lakefile.lean` build target, so it cannot break the
@@ -150,15 +157,10 @@ identification took many separate attacks to notice.
 
 ### The two cones
 
-`terminal-cone` reports something surprising the first time:
-
-```
-declarations in cone : 40 of 9,819
-named proofs in cone : 29 of 6,616
-```
-
-That is correct, and it is the single most important structural fact about the
-repository.  `riemannHypothesis_of_squarePrefixEnergy` is conditional: its only
+`terminal-cone` reports that only a small analytic consumer cone sits below
+the terminal theorem; the exact counts are generated on every run rather than
+hard-coded here.  That separation is one of the most important structural facts
+about the repository.  `riemannHypothesis_of_squarePrefixEnergy` is conditional: its only
 hypothesis is `SquarePrefixEnergyBoundedStatement`.  Its cone therefore contains
 just the finished *analytic* consumer -- Mertens summatory, Mellin
 continuation, the zeta identity, RH -- and none of the arithmetic.  The other

@@ -10,6 +10,10 @@ __pycache__/
 decl-graph.json
 decl-graph.dot
 lean-decl-graph.jsonl
+lean-decl-graph.json
+syntactic-decl-graph.json
+exact-proof-inventory.json
+decl-graph-compare.txt
 proof-inventory.json
 proof-import-graph.dot
 proof-inventory.txt

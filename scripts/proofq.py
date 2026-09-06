@@ -47,6 +47,7 @@ import rhlean_kg as kg
 
 DEFAULT_GRAPH = Path("decl-graph.json")
 DEFAULT_TERMINAL = "RHLean.Proof.TerminalMertensForward.riemannHypothesis_of_squarePrefixEnergy"
+DEFAULT_RH_PROPOSITION = "RHLean.Analysis.RiemannHypothesisStatement"
 
 
 class KnowledgeGraph:
@@ -105,30 +106,92 @@ class KnowledgeGraph:
 
     @property
     def reductions(self) -> dict[str, list[tuple[str, str]]]:
-        """The reduction DAG: `X -> (Y, via)` when a theorem proves X from Y.
+        """Proposition reduction graph, including exact iff bridges.
 
-        This is the structure that collapses 6,616 proofs into a handful of
-        visible open leaves. An edge means "X has been reduced to Y", so
-        following edges downward from a proposition reaches the statements that
-        actually still need proving.
+        `X -> (Y, via)` means the compiled theorem `via` proves X from Y.  A
+        theorem with hard/raw hypotheses contributes no global rule.  An exact
+        unconditional `X ↔ Y` contributes both directions; SCC condensation is
+        used by leaf queries so equivalence loops do not hide a frontier.
         """
 
         if self._reductions is None:
             out: dict[str, list[tuple[str, str]]] = defaultdict(list)
-            closed = self.closed_props
             for name, entry in self.nodes.items():
                 if entry.get("kind") not in kg.PROOF_KINDS:
                     continue
-                concl = list(entry.get("conclusion_refs", ()))
-                if len(concl) != 1 or concl[0] not in closed:
+                if entry.get("hard_blocked"):
                     continue
-                if "¬" in (entry.get("shape") or ()):
-                    continue  # a refutation is not a reduction
-                for dep in entry.get("assumes", ()):
-                    if dep in closed and dep != concl[0]:
-                        out[concl[0]].append((dep, name))
+                iff = list(entry.get("iff_props", ()))
+                if len(iff) == 2:
+                    a, b = iff
+                    out[a].append((b, name))
+                    out[b].append((a, name))
+                    continue
+                target = entry.get("establishes_prop")
+                if target not in self.closed_props:
+                    continue
+                for dep in entry.get("closed_assumes", ()):
+                    if dep in self.closed_props and dep != target:
+                        out[target].append((dep, name))
             self._reductions = {k: sorted(set(v)) for k, v in out.items()}
         return self._reductions
+
+    @property
+    def reduction_graph(self) -> dict[str, list[str]]:
+        return {
+            p: sorted({d for d, _via in self.reductions.get(p, ())})
+            for p in self.closed_props
+        }
+
+    def reduction_component_data(
+        self,
+    ) -> tuple[list[list[str]], dict[str, int], dict[int, set[int]]]:
+        comps = kg.strongly_connected_components(self.reduction_graph, self.closed_props)
+        which: dict[str, int] = {}
+        for i, comp in enumerate(comps):
+            for node in comp:
+                which[node] = i
+        cgraph: dict[int, set[int]] = {i: set() for i in range(len(comps))}
+        for src, deps in self.reduction_graph.items():
+            a = which[src]
+            for dep in deps:
+                b = which[dep]
+                if a != b:
+                    cgraph[a].add(b)
+        return comps, which, cgraph
+
+    def reduction_cone(self, root: str = DEFAULT_RH_PROPOSITION) -> set[str]:
+        if root not in self.nodes:
+            root = self.require(root)
+        return kg.reachable(self.reduction_graph, [root])
+
+    def is_rh_sufficient(self, proposition: str) -> bool:
+        return proposition in self.reduction_cone(DEFAULT_RH_PROPOSITION)
+
+    def open_leaf_components(self, root: str | None = None) -> list[list[str]]:
+        comps, which, cgraph = self.reduction_component_data()
+        if root is None:
+            allowed = set(range(len(comps)))
+        else:
+            if root not in self.nodes:
+                root = self.require(root)
+            start = which[root]
+            allowed: set[int] = set()
+            stack = [start]
+            while stack:
+                i = stack.pop()
+                if i in allowed:
+                    continue
+                allowed.add(i)
+                stack.extend(cgraph[i])
+        leaves: list[list[str]] = []
+        for i in sorted(allowed):
+            if any(j in allowed for j in cgraph[i]):
+                continue
+            open_members = [n for n in comps[i] if self.status(n) == kg.STATUS_OPEN]
+            if open_members:
+                leaves.append(sorted(open_members))
+        return leaves
 
     def carriers(self, name: str) -> set[str]:
         return set(self.tags[name]["facets"].get("carrier", ()))
@@ -634,12 +697,13 @@ def cmd_obligations(g: KnowledgeGraph, args) -> int:
             continue
         if not args.predicates and m.group(2).strip():
             continue
-        props.append(n)
+        if g.status(n) == kg.STATUS_OPEN:
+            props.append(n)
     rows = []
     for n in props:
         desc = g.descendants(n)
         anc = g.ancestors(n)
-        reaches_rh = any("riemannhypothesis" in d.lower() for d in desc)
+        reaches_rh = g.is_rh_sufficient(n)
         rows.append((len(desc), len(anc), reaches_rh, n))
     rows.sort(key=lambda r: (-r[0], r[3]))
 
@@ -677,66 +741,59 @@ def cmd_reductions(g: KnowledgeGraph, args) -> int:
             g.status(node), g.status(node).upper()
         )
         lead = "    " * depth
-        arrow = f"reduces to " if depth else ""
+        arrow = "reduces to " if depth else ""
         print(f"{lead}{arrow}{node}   [{mark}]")
         if via:
             print(f"{lead}  via {via}")
         if node in seen:
-            print(f"{lead}  (already shown)")
+            print(f"{lead}  (already shown; possibly an iff-equivalence component)")
             return
         seen.add(node)
         for dep, thm in g.reductions.get(node, ()):
             walk(dep, depth + 1, thm.rsplit(".", 1)[-1])
 
     walk(root, 0, None)
-    leaves = [
-        n for n in kg.reachable({k: [d for d, _ in v] for k, v in g.reductions.items()}, [root])
-        if g.status(n) == "open" and not g.reductions.get(n)
-    ]
+    leaves = g.open_leaf_components(root)
     print()
-    print(f"open leaves beneath this proposition: {len(leaves)}")
-    for n in sorted(leaves):
-        print(f"  {n}")
-        print(f"      {g.nodes[n].get('path')}:{g.nodes[n].get('line')}")
+    print(f"open leaf components beneath this proposition: {len(leaves)}")
+    for comp in leaves:
+        print(f"  {comp[0]}")
+        for eq in comp[1:]:
+            print(f"      equivalent: {eq}")
+        print(f"      {g.nodes[comp[0]].get('path')}:{g.nodes[comp[0]].get('line')}")
     return 0
 
 
 def cmd_open_leaves(g: KnowledgeGraph, args) -> int:
-    """Open propositions that nothing further reduces to.
+    """Open SCC leaves of the proposition reduction graph."""
 
-    An open proposition with outgoing reduction edges has already been traded
-    for something else. One with none is where mathematics still has to happen.
-    """
-
-    closed = g.closed_props
-    leaves = [
-        n
-        for n in closed
-        if g.status(n) == "open" and not g.reductions.get(n)
-    ]
+    root = DEFAULT_RH_PROPOSITION if args.rh_only else None
+    components = g.open_leaf_components(root)
     rows = []
-    for n in leaves:
-        desc = g.descendants(n)
-        rh = any("riemannhypothesis" in d.lower() for d in desc)
-        if args.rh_only and not rh:
-            continue
-        rows.append((len(desc), rh, n))
-    rows.sort(key=lambda r: (-r[0], r[2]))
+    for comp in components:
+        users = max((len(g.descendants(n)) for n in comp), default=0)
+        rows.append((users, comp))
+    rows.sort(key=lambda r: (-r[0], r[1][0]))
 
     print("Open leaves of the reduction DAG")
     print("===============================")
-    print("These propositions have no onward reduction recorded: nothing in the")
-    print("library trades them for anything simpler. Every conditional result")
-    print("above them is waiting on one of these.")
+    print("Exact iff bridges are collapsed to strongly connected proposition")
+    print("components before leafhood is decided, so an equivalence loop cannot")
+    print("hide a genuine open frontier.")
     print()
-    print(f"{'users':>6}  {'→RH':>3}  proposition")
-    for desc, rh, n in rows[: args.limit]:
+    print(f"{'users':>6}  {'→RH':>3}  proposition/component")
+    for users, comp in rows[: args.limit]:
+        n = comp[0]
         car = ",".join(sorted(g.carriers(n))) or "-"
-        print(f"{desc:6d}  {'yes' if rh else '-':>3}  {n}")
+        rh = g.is_rh_sufficient(n)
+        print(f"{users:6d}  {'yes' if rh else '-':>3}  {n}")
         print(f"{'':13}{g.nodes[n].get('path')}:{g.nodes[n].get('line')}  carrier={car}")
+        for eq in comp[1:]:
+            print(f"{'':13}≡ {eq}")
         if args.verbose and g.nodes[n].get("doc"):
             print(f"{'':13}{g.nodes[n]['doc'][:150]}")
-    print(f"\n{len(rows)} open leaves")
+    print(f"
+{len(rows)} open leaf components")
     return 0
 
 
@@ -756,8 +813,8 @@ def cmd_frontier(g: KnowledgeGraph, args) -> int:
         targets = [
             n
             for n in closed
-            if g.status(n) == "open"
-            and any("riemannhypothesis" in d.lower() for d in g.descendants(n))
+            if g.status(n) == kg.STATUS_OPEN
+            and g.is_rh_sufficient(n)
         ]
         targets.sort(key=lambda n: -len(g.descendants(n)))
         targets = targets[: args.targets]
