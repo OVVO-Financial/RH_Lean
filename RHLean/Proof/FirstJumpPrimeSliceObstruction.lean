@@ -17,8 +17,9 @@ column literal: every prime
 `p < k <= (R^2 - 1) / p`
 
 produces the actual oriented state `(1,k)` carrying the singleton low face
-`{p}`.  The next step is to identify the `p`-slice on each such state with
-`-1` and prove that no other state survives in the upper half.
+`{p}`.  The second step shows that, once the owner window is below `2p`, the
+entire canonical `p`-slice is literally the singleton Boolean face `{p}` and
+therefore has signed mass `-1`.
 -/
 
 noncomputable section
@@ -110,5 +111,120 @@ theorem upperHalfFirstJumpOwner_state_mem
         lowWheelCanonicalDowncrossOrientedChargingFaces R (1, k) := by
     exact mem_lowWheelCanonicalDowncrossOrientedChargingFaces.mpr hocc
   exact mem_orientedStateCarrier_of_chargingFaces_nonempty ⟨{p}, hcharge⟩
+
+/-- **Upper-half first-jump slices are singleton faces.**
+
+The repository already proves that a square-root first-jump face has no later
+high-prime tail.  If moreover the full window lies below `2p`, it cannot contain
+any earlier prime coordinate either: adjoining any prime `r >= 2` to `p` would
+force the face product to at least `2p`.  Thus the complete canonical `p`-slice
+is exactly `{{p}}`. -/
+theorem upperHalfFirstJumpFrozenWindowSlice_eq_singleton
+    {R q A B p : ℕ}
+    (hpPrime : p.Prime)
+    (hpRoot : Nat.sqrt R < p)
+    (hpq : p < q)
+    (hAp : A < p)
+    (hpB : p ≤ B)
+    (hBR : B ≤ R)
+    (hR2p : R < p * 2) :
+    predecessorFirstJumpFrozenWindowSlice
+        3 (Nat.sqrt R) (primesUpTo (q - 1)) A B p =
+      {{p}} := by
+  have hpS : p ∈ primesUpTo (q - 1) := by
+    exact mem_primesUpTo.mpr ⟨hpPrime, by omega⟩
+  have hwindow :
+      ({p} : Finset ℕ) ∈
+        frozenPrimeUniverseWindowFaces (primesUpTo (q - 1)) A B := by
+    apply mem_frozenPrimeUniverseWindowFaces.mpr
+    refine ⟨?_, ?_, ?_⟩
+    · apply Finset.mem_powerset.mpr
+      intro r hr
+      have hrp : r = p := by simpa using hr
+      simpa [hrp] using hpS
+    · simpa [primeFaceProduct] using hAp
+    · simpa [primeFaceProduct] using hpB
+  have hfirst : IsPredecessorFirstJumpAt 3 (Nat.sqrt R) ({p} : Finset ℕ) p := by
+    refine ⟨by simp, hpRoot, ?_, ?_⟩
+    · simp [predecessorPrimeFaceProduct, predecessorPrimeFace, primeFaceProduct]
+      nlinarith [hpPrime.two_le]
+    · intro r hr hrp _hrRoot
+      have hrEq : r = p := by simpa using hr
+      omega
+  have hjump :
+      ({p} : Finset ℕ) ∈
+        predecessorFirstJumpFrozenWindowFaces
+          3 (Nat.sqrt R) (primesUpTo (q - 1)) A B := by
+    apply mem_predecessorFirstJumpFrozenWindowFaces.mpr
+    refine ⟨hwindow, ?_⟩
+    intro hdense
+    have hdenseP := hdense p (by simp) hpRoot
+    exact (Nat.not_lt_of_ge hdenseP) hfirst.2.2.1
+  have hpSlice :
+      ({p} : Finset ℕ) ∈
+        predecessorFirstJumpFrozenWindowSlice
+          3 (Nat.sqrt R) (primesUpTo (q - 1)) A B p :=
+    mem_predecessorFirstJumpFrozenWindowSlice.mpr ⟨hjump, hfirst⟩
+  ext t
+  constructor
+  · intro ht
+    have hslice := mem_predecessorFirstJumpFrozenWindowSlice.mp ht
+    have hwindowT :=
+      (mem_predecessorFirstJumpFrozenWindowFaces.mp hslice.1).1
+    have htPow := (mem_frozenPrimeUniverseWindowFaces.mp hwindowT).1
+    have htSub := Finset.mem_powerset.mp htPow
+    have hshape := sqrtFirstJumpSlice_face_eq_insert_predecessor hBR ht
+    have hpredEmpty : predecessorPrimeFace t p = ∅ := by
+      apply Finset.eq_empty_iff_forall_notMem.mpr
+      intro r hr
+      have hrData := mem_predecessorPrimeFace.mp hr
+      have hrPrime : r.Prime := prime_of_mem_primesUpTo (htSub hrData.1)
+      have hsub : insert p {r} ⊆ t := by
+        intro z hz
+        simp only [Finset.mem_insert, Finset.mem_singleton] at hz
+        rcases hz with hz | hz
+        · subst z
+          exact hslice.2.1
+        · subst z
+          exact hrData.1
+      have hprodLower : p * r ≤ primeFaceProduct t := by
+        unfold primeFaceProduct
+        have hle := Finset.prod_le_prod_of_subset_of_one_le' hsub (by
+          intro z hzt _hzsmall
+          exact (prime_of_mem_primesUpTo (htSub hzt)).one_le)
+        have hne : p ≠ r := by omega
+        simpa [hne, Nat.mul_comm] using hle
+      have hprodLeR : primeFaceProduct t ≤ R :=
+        (mem_frozenPrimeUniverseWindowFaces.mp hwindowT).2.2.trans hBR
+      have htwo : p * 2 ≤ p * r :=
+        Nat.mul_le_mul_left p hrPrime.two_le
+      have : p * 2 ≤ R := htwo.trans (hprodLower.trans hprodLeR)
+      omega
+    have htEq : t = {p} := by
+      rw [hshape, hpredEmpty]
+      simp
+    simpa [htEq]
+  · intro ht
+    have htEq : t = {p} := by simpa using ht
+    subst t
+    exact hpSlice
+
+/-- Consequently the signed mass of every upper-half frozen `p`-slice is
+exactly `-1`; there is no cancellation left inside that fixed owner state. -/
+theorem upperHalfFirstJumpFrozenWindowSliceMass_eq_neg_one
+    {R q A B p : ℕ}
+    (hpPrime : p.Prime)
+    (hpRoot : Nat.sqrt R < p)
+    (hpq : p < q)
+    (hAp : A < p)
+    (hpB : p ≤ B)
+    (hBR : B ≤ R)
+    (hR2p : R < p * 2) :
+    predecessorFirstJumpFrozenWindowSliceMass
+        3 (Nat.sqrt R) (primesUpTo (q - 1)) A B p = -1 := by
+  unfold predecessorFirstJumpFrozenWindowSliceMass
+  rw [upperHalfFirstJumpFrozenWindowSlice_eq_singleton
+    hpPrime hpRoot hpq hAp hpB hBR hR2p]
+  simp [booleanCubeSign]
 
 end RHLean.Proof
