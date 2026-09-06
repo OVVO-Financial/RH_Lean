@@ -35,12 +35,13 @@ jobs:
           PY
           python3 scripts/apply_kg_review_fixes.py
 
-      - name: Commit fixes and remove one-shot machinery
+      - name: Commit and push non-workflow fixes
         run: |
           set -euo pipefail
           git config user.name 'OVVO-Financial'
           git config user.email 'ovvo.financial.systems@gmail.com'
           git add -A
+          git reset -- .github/workflows/lean.yml .github/workflows/proof-inventory.yml .github/workflows/kg-review-fixup.yml
           git diff --cached --check
-          git commit -m 'Fix knowledge graph parsing, reductions, and exact validation'
+          git commit -m 'Fix knowledge graph parsing, reductions, and status semantics'
           git push origin HEAD:claude/rh-lean-knowledge-graph-uhooqu
