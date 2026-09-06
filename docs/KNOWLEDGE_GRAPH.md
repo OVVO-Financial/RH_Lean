@@ -40,10 +40,10 @@ Layer 2a is likewise not the kernel's opinion.  It records that one
 declaration's *text* mentions another's *name*.  It cannot see a dependency
 introduced by elaboration -- instance resolution, notation, `simp` closing a
 goal with lemmas nobody wrote down, dot-notation on a hypothesis -- and it can
-over-report when a local name shadows a global one.  Two checks bound the
-damage: the graph it produces is acyclic (a graph full of spurious edges would
-not be), and it recovers exactly the 6,616 named proofs the independent
-inventory counts.  Where layer 2a and layer 2b disagree, **2b is
+over-report when a local name shadows a global one.  The source graph is required to be acyclic and its named-proof count is
+cross-checked against the independent inventory, but neither check is a
+precision certificate for name resolution.  The hosted build compares it with
+the elaborated graph.  Where layer 2a and layer 2b disagree, **2b is
 authoritative**, per `AGENTS.md` rule 1.
 
 ## Status and the reduction DAG
@@ -53,10 +53,10 @@ hypotheses*.  What it does not surface is which theorems are conditional on a
 proposition nobody has established.  Layer 5 computes that:
 
 * a theorem **establishes** a closed proposition `X` only when `X` is the whole
-  of its conclusion and it has no hypotheses at all -- no inline hypothesis like
-  `1 ≤ R`, no assumed proposition, no structure-typed binder.  `A ↔ B`
-  establishes neither side; `A → B` establishes `B` while assuming `A`;
-  `¬ X` **refutes** `X` rather than establishing it;
+  of its conclusion and has no unresolved raw/data hypotheses.  Named closed
+  proposition assumptions are discharged by a least fixpoint.  An exact
+  unconditional `A ↔ B` contributes the two conditional rules `A ← B` and
+  `B ← A`; it proves neither side from nothing.  `¬ X` **refutes** `X`;
 * `X` becomes *proved* as soon as some theorem establishing it assumes only
   propositions already proved -- a least fixpoint, so a chain of conditional
   reductions discharges only when something closes the bottom of it.
@@ -71,12 +71,15 @@ The resulting statuses:
 | `refuted` | a closed proposition proved false -- a recorded no-go |
 | `no-go` | a theorem recording a failed route |
 
-Layer 6 is the proposition reduction graph: an edge `X → Y` whenever a
-compiled theorem proves `X` from `Y`.  An unconditional exact `X ↔ Y` contributes
-both directions.  Before leafhood is computed, strongly connected components are
-collapsed, so coordinate equivalences do not create fake non-leaves.  Following
-the condensed DAG downward reaches the **open leaves** -- the propositions where
-mathematics still has to happen.
+Layer 6 is a proposition **reduction-rule system**.  A theorem proving `X`
+from `A` and `B` records one conjunctive rule `X ← {A,B}`; it is never split
+into the false claims `A → X` and `B → X`.  For navigation, those rules have an
+ordinary dependency projection `X → A`, `X → B`.  Exact unconditional `X ↔ Y`
+adds the two unary rules.  Strongly connected components of the projection are
+collapsed before leafhood is computed, so coordinate equivalences do not create
+fake non-leaves.  The tool separately reports whether an open proposition is
+merely on an RH reduction route or can by itself imply RH after proved premises
+are discharged.
 
 ```bash
 proofq status                    # the five-way classification
@@ -126,7 +129,7 @@ proofq descendants   <theorem>          # everything resting on it
 proofq path          <A> <B>            # a concrete dependency chain
 proofq common-ancestors <A> <B>         # shared machinery
 proofq diff          <A> <B>            # what A's cone has that B's lacks
-proofq obligations   --rh-only          # open propositions sufficient for RH
+proofq obligations   --rh-only          # open propositions on RH reduction routes
 proofq terminal-cone                    # what does / does not feed the terminal theorem
 proofq dominators                       # choke points every route must cross
 proofq bridges       --carrier vertical-line
@@ -146,8 +149,10 @@ Shared flags (`--limit`, `--by-module`, `--graph`) go *after* the subcommand.
 
 ### Start here: the open leaves
 
-`proofq open-leaves --rh-only` is the shortest useful description of the whole
-project.  Everything conditional sits above one of those propositions.
+`proofq open-leaves --rh-only` is the shortest useful description of the
+current RH-relevant frontier.  Multi-premise packages remain conjunctive, so a
+leaf on that list is not automatically sufficient for RH by itself; the
+`alone→RH` column distinguishes the unary-sufficient case.
 
 `proofq frontier` then asks the question this tooling exists for: for an open
 proposition, which **proved** theorems share its carrier but are not in its
@@ -163,8 +168,9 @@ hard-coded here.  That separation is one of the most important structural facts
 about the repository.  `riemannHypothesis_of_squarePrefixEnergy` is conditional: its only
 hypothesis is `SquarePrefixEnergyBoundedStatement`.  Its cone therefore contains
 just the finished *analytic* consumer -- Mertens summatory, Mellin
-continuation, the zeta identity, RH -- and none of the arithmetic.  The other
-6,587 proofs are not orphaned work; they are the attack on the hypothesis.
+continuation, the zeta identity, RH -- and none of the arithmetic.  The
+remaining thousands of proofs are not orphaned work; they are attacks on the
+conditional propositions feeding that consumer.
 
 So the useful map is `proofq obligations`, which lists the closed propositions
 the route is conditional on, ranked by how much of the library already depends

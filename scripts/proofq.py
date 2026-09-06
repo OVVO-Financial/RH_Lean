@@ -70,6 +70,7 @@ class KnowledgeGraph:
         self._closure: dict[str, int] | None = None
         self._order: list[str] | None = None
         self._closed_props: set[str] | None = None
+        self._reduction_rules: dict[str, list[tuple[tuple[str, ...], str]]] | None = None
         self._reductions: dict[str, list[tuple[str, str]]] | None = None
 
     # -- loading -----------------------------------------------------------
@@ -105,43 +106,84 @@ class KnowledgeGraph:
         return self._closed_props
 
     @property
-    def reductions(self) -> dict[str, list[tuple[str, str]]]:
-        """Proposition reduction graph, including exact iff bridges.
+    def reduction_rules(self) -> dict[str, list[tuple[tuple[str, ...], str]]]:
+        """Exact proposition-level reduction rules, preserving conjunction.
 
-        `X -> (Y, via)` means the compiled theorem `via` proves X from Y.  A
-        theorem with hard/raw hypotheses contributes no global rule.  An exact
-        unconditional `X ↔ Y` contributes both directions; SCC condensation is
-        used by leaf queries so equivalence loops do not hide a frontier.
+        A rule `(X, (A, B), t)` means theorem `t` proves X assuming *both* A
+        and B.  Premises are never split into independent logical implications.
+        Exact unconditional `A ↔ B` theorems contribute the two unary rules
+        `A <- B` and `B <- A`.
         """
 
-        if self._reductions is None:
-            out: dict[str, list[tuple[str, str]]] = defaultdict(list)
+        if self._reduction_rules is None:
+            out: dict[str, list[tuple[tuple[str, ...], str]]] = defaultdict(list)
             for name, entry in self.nodes.items():
-                if entry.get("kind") not in kg.PROOF_KINDS:
-                    continue
-                if entry.get("hard_blocked"):
+                if entry.get("kind") not in kg.PROOF_KINDS or entry.get("hard_blocked"):
                     continue
                 iff = list(entry.get("iff_props", ()))
                 if len(iff) == 2:
                     a, b = iff
-                    out[a].append((b, name))
-                    out[b].append((a, name))
+                    out[a].append(((b,), name))
+                    out[b].append(((a,), name))
                     continue
                 target = entry.get("establishes_prop")
                 if target not in self.closed_props:
                     continue
-                for dep in entry.get("closed_assumes", ()):
-                    if dep in self.closed_props and dep != target:
-                        out[target].append((dep, name))
+                premises = tuple(sorted({
+                    p for p in entry.get("closed_assumes", ())
+                    if p in self.closed_props and p != target
+                }))
+                if premises:
+                    out[target].append((premises, name))
+            self._reduction_rules = {
+                k: sorted(set(v), key=lambda x: (x[0], x[1])) for k, v in out.items()
+            }
+        return self._reduction_rules
+
+    @property
+    def reductions(self) -> dict[str, list[tuple[str, str]]]:
+        """Dependency projection of `reduction_rules` for graph navigation.
+
+        Each premise of a conjunctive rule appears as an edge so reachability
+        can find everything a route may require.  These projected edges are
+        *not* independent implications; use `reduction_rules` whenever logical
+        sufficiency matters.
+        """
+
+        if self._reductions is None:
+            out: dict[str, list[tuple[str, str]]] = defaultdict(list)
+            for target, rules in self.reduction_rules.items():
+                for premises, via in rules:
+                    for dep in premises:
+                        out[target].append((dep, via))
             self._reductions = {k: sorted(set(v)) for k, v in out.items()}
         return self._reductions
 
     @property
     def reduction_graph(self) -> dict[str, list[str]]:
+        """Ordinary dependency projection of the conjunctive reduction rules."""
         return {
             p: sorted({d for d, _via in self.reductions.get(p, ())})
             for p in self.closed_props
         }
+
+    @property
+    def sufficient_graph(self) -> dict[str, list[str]]:
+        """Unary implications after already-proved premises are discharged.
+
+        An edge X -> Y exists only when some compiled rule for X has exactly one
+        unresolved named premise Y; all of that rule's other premises are already
+        proved.  Reachability here therefore supports the literal statement
+        "Y alone (together with established library facts) is sufficient for X".
+        """
+
+        out: dict[str, set[str]] = {p: set() for p in self.closed_props}
+        for target, rules in self.reduction_rules.items():
+            for premises, _via in rules:
+                unresolved = [p for p in premises if self.status(p) != kg.STATUS_PROVED]
+                if len(unresolved) == 1:
+                    out[target].add(unresolved[0])
+        return {p: sorted(v) for p, v in out.items()}
 
     def reduction_component_data(
         self,
@@ -161,12 +203,22 @@ class KnowledgeGraph:
         return comps, which, cgraph
 
     def reduction_cone(self, root: str = DEFAULT_RH_PROPOSITION) -> set[str]:
+        """All propositions appearing as premises anywhere below `root`."""
         if root not in self.nodes:
             root = self.require(root)
         return kg.reachable(self.reduction_graph, [root])
 
-    def is_rh_sufficient(self, proposition: str) -> bool:
+    def sufficient_cone(self, root: str = DEFAULT_RH_PROPOSITION) -> set[str]:
+        """Propositions that individually suffice for `root` via unary rules."""
+        if root not in self.nodes:
+            root = self.require(root)
+        return kg.reachable(self.sufficient_graph, [root])
+
+    def is_rh_relevant(self, proposition: str) -> bool:
         return proposition in self.reduction_cone(DEFAULT_RH_PROPOSITION)
+
+    def is_rh_sufficient(self, proposition: str) -> bool:
+        return proposition in self.sufficient_cone(DEFAULT_RH_PROPOSITION)
 
     def open_leaf_components(self, root: str | None = None) -> list[list[str]]:
         comps, which, cgraph = self.reduction_component_data()
@@ -693,24 +745,24 @@ def cmd_obligations(g: KnowledgeGraph, args) -> int:
     for n in props:
         desc = g.descendants(n)
         anc = g.ancestors(n)
-        reaches_rh = g.is_rh_sufficient(n)
+        reaches_rh = g.is_rh_relevant(n)
         rows.append((len(desc), len(anc), reaches_rh, n))
     rows.sort(key=lambda r: (-r[0], r[3]))
 
     if args.rh_only:
         rows = [r for r in rows if r[2]]
 
-    print("Open propositions the RH route is conditional on")
-    print("===============================================")
+    print("Open propositions appearing on RH reduction routes")
+    print("==================================================")
     print("A `def ... : Prop` is a named statement. Where no theorem proves it")
     print("outright, everything downstream of it is conditional. `users` counts")
     print("declarations that transitively depend on the proposition; `built-from`")
     print("counts what the proposition itself is defined in terms of.")
     print()
-    print(f"{'users':>6} {'built-from':>10}  {'→RH':>3}  proposition")
+    print(f"{'users':>6} {'built-from':>10}  {'RH-path':>7}  proposition")
     for desc, anc, rh, n in rows[: args.limit]:
         mark = "yes" if rh else "-"
-        print(f"{desc:6d} {anc:10d}  {mark:>3}  {n}")
+        print(f"{desc:6d} {anc:10d}  {mark:>7}  {n}")
         entry = g.nodes[n]
         if args.verbose and entry.get("doc"):
             print(f"{'':22}{entry['doc'][:140]}")
@@ -719,30 +771,31 @@ def cmd_obligations(g: KnowledgeGraph, args) -> int:
 
 
 def cmd_reductions(g: KnowledgeGraph, args) -> int:
-    """Print the reduction tree beneath a proposition."""
+    """Print the exact conjunctive reduction rules beneath a proposition."""
 
     root = g.require(args.name)
     seen: set[str] = set()
 
-    def walk(node: str, depth: int, via: str | None) -> None:
+    def walk(node: str, depth: int) -> None:
         if depth > args.depth:
             return
         mark = {"open": "OPEN", "proved": "PROVED", "refuted": "REFUTED"}.get(
             g.status(node), g.status(node).upper()
         )
         lead = "    " * depth
-        arrow = "reduces to " if depth else ""
-        print(f"{lead}{arrow}{node}   [{mark}]")
-        if via:
-            print(f"{lead}  via {via}")
+        print(f"{lead}{node}   [{mark}]")
         if node in seen:
             print(f"{lead}  (already shown; possibly an iff-equivalence component)")
             return
         seen.add(node)
-        for dep, thm in g.reductions.get(node, ()):
-            walk(dep, depth + 1, thm.rsplit(".", 1)[-1])
+        for premises, thm in g.reduction_rules.get(node, ()):
+            short = thm.rsplit(".", 1)[-1]
+            noun = "premise" if len(premises) == 1 else "premises"
+            print(f"{lead}  via {short} requires {len(premises)} {noun} together:")
+            for dep in premises:
+                walk(dep, depth + 1)
 
-    walk(root, 0, None)
+    walk(root, 0)
     leaves = g.open_leaf_components(root)
     print()
     print(f"open leaf components beneath this proposition: {len(leaves)}")
@@ -755,7 +808,7 @@ def cmd_reductions(g: KnowledgeGraph, args) -> int:
 
 
 def cmd_open_leaves(g: KnowledgeGraph, args) -> int:
-    """Open SCC leaves of the proposition reduction graph."""
+    """Open SCC leaves in the dependency projection of reduction rules."""
 
     root = DEFAULT_RH_PROPOSITION if args.rh_only else None
     components = g.open_leaf_components(root)
@@ -765,23 +818,28 @@ def cmd_open_leaves(g: KnowledgeGraph, args) -> int:
         rows.append((users, comp))
     rows.sort(key=lambda r: (-r[0], r[1][0]))
 
-    print("Open leaves of the reduction DAG")
-    print("===============================")
-    print("Exact iff bridges are collapsed to strongly connected proposition")
-    print("components before leafhood is decided, so an equivalence loop cannot")
-    print("hide a genuine open frontier.")
+    print("Open leaves of the reduction system")
+    print("===================================")
+    print("Conjunctive theorem premises remain grouped as rules. Exact iff bridges")
+    print("are collapsed to strongly connected proposition components before")
+    print("leafhood is decided. A listed leaf is RH-relevant, not necessarily")
+    print("sufficient for RH by itself when it belongs to a multi-premise package.")
     print()
-    print(f"{'users':>6}  {'→RH':>3}  proposition/component")
+    print(f"{'users':>6}  {'RH-path':>7}  {'alone→RH':>8}  proposition/component")
     for users, comp in rows[: args.limit]:
         n = comp[0]
         car = ",".join(sorted(g.carriers(n))) or "-"
-        rh = g.is_rh_sufficient(n)
-        print(f"{users:6d}  {'yes' if rh else '-':>3}  {n}")
-        print(f"{'':13}{g.nodes[n].get('path')}:{g.nodes[n].get('line')}  carrier={car}")
+        relevant = g.is_rh_relevant(n)
+        sufficient = g.is_rh_sufficient(n)
+        print(
+            f"{users:6d}  {'yes' if relevant else '-':>7}  "
+            f"{'yes' if sufficient else '-':>8}  {n}"
+        )
+        print(f"{'':25}{g.nodes[n].get('path')}:{g.nodes[n].get('line')}  carrier={car}")
         for eq in comp[1:]:
-            print(f"{'':13}≡ {eq}")
+            print(f"{'':25}≡ {eq}")
         if args.verbose and g.nodes[n].get("doc"):
-            print(f"{'':13}{g.nodes[n]['doc'][:150]}")
+            print(f"{'':25}{g.nodes[n]['doc'][:150]}")
     print(f"\n{len(rows)} open leaf components")
     return 0
 
@@ -803,7 +861,7 @@ def cmd_frontier(g: KnowledgeGraph, args) -> int:
             n
             for n in closed
             if g.status(n) == kg.STATUS_OPEN
-            and g.is_rh_sufficient(n)
+            and g.is_rh_relevant(n)
         ]
         targets.sort(key=lambda n: -len(g.descendants(n)))
         targets = targets[: args.targets]
