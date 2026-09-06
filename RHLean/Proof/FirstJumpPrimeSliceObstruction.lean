@@ -519,7 +519,8 @@ theorem upperHalfFirstJumpOwnerSet_card_add_primeCounting_eq
       upperHalfFirstJumpOwnerSet R p =
         (Finset.Ioc p (squareRootEndpoint R / p)).filter Nat.Prime := by
     ext k
-    simp [upperHalfFirstJumpOwnerSet, mem_frozenPrimeUniverseHighPrimeSet]
+    simp only [mem_upperHalfFirstJumpOwnerSet, Finset.mem_filter, Finset.mem_Ioc]
+    tauto
   rw [hset]
   exact primeCard_Ioc_add_primeCounting_eq hle
 
