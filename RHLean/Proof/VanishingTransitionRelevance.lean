@@ -289,6 +289,78 @@ def PNTFiniteDifferenceLiveExposureBound : Prop :=
       ‖signedLiveFirstJumpAggregate R‖ ≤
         C * (R : ℝ) * (Real.log (R : ℝ) + 1)
 
+/-! ## Finite product-packing reduction
+
+The prime-local input is stated only after all state and Möbius signs in one
+canonical first-jump-prime slice have been summed.  The remaining passage to
+the global signed aggregate is a finite deterministic packing argument.
+-/
+
+/-- The prime-local finite-difference seam at its natural reciprocal seat
+scale.  This is the only arithmetic cancellation estimate used below. -/
+def FirstJumpPrimeSliceFiniteDifferenceBound : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ R p : ℕ, 3 ≤ R → p ∈ signedFirstJumpPostRootPrimeSet R →
+      ‖signedFirstJumpPrimeSliceAggregate R p‖ ≤
+        C * (R : ℝ) / (p : ℝ)
+
+/-- The post-root prime seats pack inside the ordinary harmonic prefix.  This
+uses only positivity and inclusion in `[1,R]`; no PNT or prime-gap estimate is
+needed. -/
+theorem signedFirstJumpPostRootPrimeSet_recip_sum_le_log_add_one
+    (R : ℕ) :
+    (∑ p ∈ signedFirstJumpPostRootPrimeSet R, (1 / (p : ℝ))) ≤
+      Real.log (R : ℝ) + 1 := by
+  classical
+  have hsubset : signedFirstJumpPostRootPrimeSet R ⊆ Finset.Icc 1 R := by
+    intro p hp
+    have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp hp
+    exact Finset.mem_Icc.mpr ⟨hpData.1.one_le, hpData.2.2⟩
+  have hnonneg : ∀ p ∈ Finset.Icc 1 R, 0 ≤ (1 / (p : ℝ)) := by
+    intro p hp
+    positivity
+  calc
+    (∑ p ∈ signedFirstJumpPostRootPrimeSet R, (1 / (p : ℝ))) ≤
+        ∑ p ∈ Finset.Icc 1 R, (1 / (p : ℝ)) :=
+      Finset.sum_le_sum_of_subset_of_nonneg hsubset hnonneg
+    _ = ((harmonic R : ℚ) : ℝ) := by
+      simp only [harmonic_eq_sum_Icc, Rat.cast_sum, Rat.cast_inv,
+        Rat.cast_natCast]
+    _ ≤ 1 + Real.log (R : ℝ) := by
+      simpa using (harmonic_le_one_add_log R)
+    _ = Real.log (R : ℝ) + 1 := by ring
+
+/-- **Advertised finite product-packing reduction.**  A deterministic
+`R/p` bound for each already-signed prime slice implies the global `R log R`
+bound.  The norm is introduced only after the exact prime slicing. -/
+theorem pntFiniteDifferenceLiveExposureBound_of_firstJumpPrimeSliceBound
+    (hlocal : FirstJumpPrimeSliceFiniteDifferenceBound) :
+    PNTFiniteDifferenceLiveExposureBound := by
+  rcases hlocal with ⟨C, hC, hlocal⟩
+  refine ⟨C, hC, ?_⟩
+  intro R hR
+  rw [signedLiveFirstJumpAggregate_eq_sum_postRootPrimeSlices R hR]
+  calc
+    ‖∑ p ∈ signedFirstJumpPostRootPrimeSet R,
+        signedFirstJumpPrimeSliceAggregate R p‖ ≤
+        ∑ p ∈ signedFirstJumpPostRootPrimeSet R,
+          ‖signedFirstJumpPrimeSliceAggregate R p‖ := norm_sum_le _ _
+    _ ≤ ∑ p ∈ signedFirstJumpPostRootPrimeSet R,
+          (C * (R : ℝ) / (p : ℝ)) := by
+      apply Finset.sum_le_sum
+      intro p hp
+      exact hlocal R p hR hp
+    _ = C * (R : ℝ) *
+          (∑ p ∈ signedFirstJumpPostRootPrimeSet R, (1 / (p : ℝ))) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro p _hp
+      ring
+    _ ≤ C * (R : ℝ) * (Real.log (R : ℝ) + 1) := by
+      apply mul_le_mul_of_nonneg_left
+        (signedFirstJumpPostRootPrimeSet_recip_sum_le_log_add_one R)
+      positivity
+
 /-! ## High-owner state classification
 
 Once the oriented owner `k` is above `sqrt R`, all prime factors of the rough
