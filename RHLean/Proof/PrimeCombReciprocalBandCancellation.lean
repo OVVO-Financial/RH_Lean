@@ -1,4 +1,6 @@
 import Mathlib
+import RHLean.Analysis.DyadicTransportCompression
+import RHLean.Proof.MiddlePrimeFibreCollapse
 import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Proof.LargePrimeTerminalFlipLayers
 
@@ -308,5 +310,187 @@ theorem primeCombReciprocalBandKernel_succ
         2 * (((μ (z + 1) : ℤ) : ℂ)) := by
   have h := primeCombReciprocalBandKernel_succ_sub z
   linear_combination h
+
+/-! ## Deterministic non-iid Möbius replication -/
+
+/-- A same-sign run after zero Möbius values are ignored.  This is deliberately
+deterministic: it makes no independence assumption about the remaining signs. -/
+def IsSameSignNonzeroMobiusRun (a b : ℕ) (s : ℤ) : Prop :=
+  (s = 1 ∨ s = -1) ∧
+    ∀ n ∈ Finset.Ioc a b, μ n ≠ 0 → μ n = s
+
+/-- Number of nonzero observations in `(a,b]`. -/
+def sameSignNonzeroMobiusRunLength (a b : ℕ) : ℕ :=
+  ((Finset.Ioc a b).filter fun n => μ n ≠ 0).card
+
+/-- A same-sign nonzero run produces its entire signed excursion exactly. -/
+theorem sameSignNonzeroMobiusRun_sum
+    {a b : ℕ} {s : ℤ}
+    (hrun : IsSameSignNonzeroMobiusRun a b s) :
+    (∑ n ∈ Finset.Ioc a b, μ n) =
+      s * (sameSignNonzeroMobiusRunLength a b : ℤ) := by
+  classical
+  rcases hrun with ⟨_hs, hsign⟩
+  let S : Finset ℕ := Finset.Ioc a b
+  let T : Finset ℕ := S.filter fun n => μ n ≠ 0
+  have hsub : T ⊆ S := Finset.filter_subset _ _
+  have hvanish : ∀ n ∈ S, n ∉ T → μ n = 0 := by
+    intro n hnS hnT
+    by_contra hne
+    exact hnT (Finset.mem_filter.mpr ⟨hnS, hne⟩)
+  have hrestrict :
+      (∑ n ∈ S, μ n) = ∑ n ∈ T, μ n :=
+    (Finset.sum_subset hsub hvanish).symm
+  calc
+    (∑ n ∈ Finset.Ioc a b, μ n) = ∑ n ∈ T, μ n := by
+      simpa [S] using hrestrict
+    _ = ∑ _n ∈ T, s := by
+      apply Finset.sum_congr rfl
+      intro n hnT
+      have hmem := Finset.mem_filter.mp hnT
+      exact hsign n hmem.1 hmem.2
+    _ = (T.card : ℤ) * s := by simp
+    _ = s * (sameSignNonzeroMobiusRunLength a b : ℤ) := by
+      simp [T, S, sameSignNonzeroMobiusRunLength, mul_comm]
+
+/-- Any admissible post-root replication with a genuine cofactor `c >= 2` is
+forced into the middle sector `R < q <= X_R/2`. -/
+theorem nontrivialPostRootReplication_mem_middlePrimeSet
+    {R q c : ℕ}
+    (hqPrime : q.Prime) (hRq : R < q)
+    (hc2 : 2 ≤ c) (hcq : c * q ≤ squareRootEndpoint R) :
+    q ∈ middlePrimeSet R := by
+  apply mem_middlePrimeSet.mpr
+  refine ⟨hRq, ?_, hqPrime⟩
+  apply (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).2
+  calc
+    q * 2 = 2 * q := by omega
+    _ ≤ c * q := Nat.mul_le_mul_right q hc2
+    _ ≤ squareRootEndpoint R := hcq
+
+/-- Conversely, a top-sector prime has no positive admissible cofactor except
+`1`: the top sector cannot generate nontrivial prefix replication. -/
+theorem topPrime_admissibleCofactor_eq_one
+    {R q c : ℕ}
+    (hqmem : q ∈ squareRootTopFibrePrimes R)
+    (hc1 : 1 ≤ c) (hcq : c * q ≤ squareRootEndpoint R) :
+    c = 1 := by
+  have hqPrime : q.Prime := (Finset.mem_filter.mp hqmem).2
+  have hcdiv : c ≤ squareRootEndpoint R / q :=
+    (Nat.le_div_iff_mul_le hqPrime.pos).2 hcq
+  rw [middlePrimeTop_quotient_eq_one hqmem] at hcdiv
+  omega
+
+/-- Pointwise deterministic sign inheritance in every middle prime fibre. -/
+theorem middlePrimeFibre_moebius_eq_neg
+    {R q c : ℕ} (hqmem : q ∈ middlePrimeSet R)
+    (hc : c ∈ Finset.Icc 1 (squareRootEndpoint R / q)) :
+    μ (c * q) = -μ c := by
+  rcases mem_middlePrimeSet.mp hqmem with ⟨hRq, _hqle, hqPrime⟩
+  have hquotR : squareRootEndpoint R / q < R :=
+    (Finset.mem_Ico.mp (middlePrime_quotient_mem_Ico hqmem)).2
+  have hcData := Finset.mem_Icc.mp hc
+  have hcR : c < R := hcData.2.trans_lt hquotR
+  let D : LargePrimeTransportData R c q :=
+    { c_pos := hcData.1
+      c_lt_cutoff := hcR
+      q_prime := hqPrime
+      cutoff_lt_q := hRq }
+  have hflip := LargePrimeTransportData.moebius_mul_eq_neg D
+  simpa [Nat.mul_comm] using hflip
+
+/-- Lower-prefix coordinates carrying one exact Möbius state. -/
+def prefixMobiusStateSet (N : ℕ) (z : ℤ) : Finset ℕ :=
+  (Finset.Icc 1 N).filter fun c => μ c = z
+
+/-- Cofactor coordinates in one middle prime fibre carrying state `z`. -/
+def middlePrimeFibreStateSet (R q : ℕ) (z : ℤ) : Finset ℕ :=
+  (Finset.Icc 1 (squareRootEndpoint R / q)).filter fun c => μ (c * q) = z
+
+/-- **Exact three-state transport.**  A middle prime does not resample the
+Möbius distribution.  The `z` population is literally the lower-prefix `-z`
+population on the same cofactor coordinates. -/
+theorem middlePrimeFibreStateSet_eq_prefix_neg
+    {R q : ℕ} (hqmem : q ∈ middlePrimeSet R) (z : ℤ) :
+    middlePrimeFibreStateSet R q z =
+      prefixMobiusStateSet (squareRootEndpoint R / q) (-z) := by
+  classical
+  ext c
+  simp only [middlePrimeFibreStateSet, prefixMobiusStateSet,
+    Finset.mem_filter]
+  constructor
+  · rintro ⟨hc, hz⟩
+    refine ⟨hc, ?_⟩
+    have hflip := middlePrimeFibre_moebius_eq_neg hqmem hc
+    rw [hflip] at hz
+    omega
+  · rintro ⟨hc, hz⟩
+    refine ⟨hc, ?_⟩
+    have hflip := middlePrimeFibre_moebius_eq_neg hqmem hc
+    rw [hflip, hz]
+    simp
+
+/-- Cardinal version: zeros are preserved and the two nonzero populations are
+swapped exactly. -/
+theorem middlePrimeFibre_zero_pos_neg_counts
+    {R q : ℕ} (hqmem : q ∈ middlePrimeSet R) :
+    (middlePrimeFibreStateSet R q 0).card =
+        (prefixMobiusStateSet (squareRootEndpoint R / q) 0).card ∧
+    (middlePrimeFibreStateSet R q 1).card =
+        (prefixMobiusStateSet (squareRootEndpoint R / q) (-1)).card ∧
+    (middlePrimeFibreStateSet R q (-1)).card =
+        (prefixMobiusStateSet (squareRootEndpoint R / q) 1).card := by
+  constructor
+  · rw [middlePrimeFibreStateSet_eq_prefix_neg hqmem]
+    simp
+  constructor
+  · rw [middlePrimeFibreStateSet_eq_prefix_neg hqmem]
+  · rw [middlePrimeFibreStateSet_eq_prefix_neg hqmem]
+    simp
+
+/-! ## Exact non-iid finite difference in the replication weights -/
+
+/-- Integer multiplicity attached to one fixed lower cofactor in the square
+endpoint replication response. -/
+def orderedPrimeReplicationWeightInt (R c : ℕ) : ℤ :=
+  (Nat.primeCounting (squareRootEndpoint R / c) : ℤ) -
+    (Nat.primeCounting R : ℤ)
+
+/-- One signed lower-prefix contribution to the ordered replication response. -/
+def orderedPrimeReplicationTermInt (R c : ℕ) : ℤ :=
+  μ c * orderedPrimeReplicationWeightInt R c
+
+/-- Integer form of the complete fixed-prefix replication response. -/
+def orderedPrimeReplicationResponseInt (R : ℕ) : ℤ :=
+  ∑ c ∈ Finset.Ico 1 R, orderedPrimeReplicationTermInt R c
+
+/-- **Dyadic parent/child cancellation of the prime-clock baseline.**  For an
+odd lower cofactor `c`, deterministic Möbius dependence gives
+`mu(2c)=-mu(c)`.  Hence the two replication channels cancel the common
+`-pi(R)` term exactly and leave only the finite difference of the two prime
+counts.  This identity is unavailable under an iid sign model. -/
+theorem orderedPrimeReplication_dyadic_pair
+    (R c : ℕ) (hc : Odd c) :
+    orderedPrimeReplicationTermInt R c +
+        orderedPrimeReplicationTermInt R (2 * c) =
+      μ c *
+        ((Nat.primeCounting (squareRootEndpoint R / c) : ℤ) -
+          (Nat.primeCounting (squareRootEndpoint R / (2 * c)) : ℤ)) := by
+  have hmu := RHLean.Arithmetic.moebius_two_mul_of_odd c hc
+  unfold orderedPrimeReplicationTermInt orderedPrimeReplicationWeightInt
+  rw [hmu]
+  ring
+
+/-- The pre-existing dyadic transport theorem is the fibrewise version of the
+same non-iid mechanism: every complete lower prefix collapses exactly to its
+odd dyadic boundary. -/
+theorem middlePrimeFibre_inheritedPrefix_eq_dyadicBoundary
+    {R q : ℕ} (hqmem : q ∈ middlePrimeSet R) :
+    primeDilatedLowCofactorMass R q =
+      dyadicPrimeFiberBoundaryMass R q := by
+  rcases mem_middlePrimeSet.mp hqmem with ⟨hRq, _hqle, hqPrime⟩
+  have hR : 0 < R := by omega
+  exact primeDilatedLowCofactorMass_eq_dyadicPrimeFiberBoundaryMass
+    R q hR hRq hqPrime.pos
 
 end RHLean.Proof
