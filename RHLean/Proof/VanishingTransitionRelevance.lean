@@ -325,9 +325,7 @@ theorem signedFirstJumpPrimeSeatProductSet_card
   unfold signedFirstJumpPrimeSeatProductSet
   rw [Finset.card_image_of_injective _
     (fun a b hab => Nat.eq_of_mul_eq_mul_right hp.pos hab)]
-  rw [Nat.card_Icc]
-  have hcard : (R / p : ℕ) + 1 - 1 = R / p := by omega
-  exact hcard
+  rw [Nat.card_Icc, Nat.add_sub_cancel]
 
 /-- Every seat product is a positive integer at most `R`. -/
 theorem signedFirstJumpPrimeSeatProductSet_subset_Icc
