@@ -4,7 +4,6 @@ on:
   push:
     branches: [claude/rh-lean-knowledge-graph-uhooqu]
     paths:
-      - 'scripts/apply_kg_review_fixes.py'
       - '.github/workflows/kg-review-fixup.yml'
 
 permissions:
@@ -13,7 +12,7 @@ permissions:
 jobs:
   fix:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Check out branch
         uses: actions/checkout@v4
@@ -21,27 +20,89 @@ jobs:
           ref: claude/rh-lean-knowledge-graph-uhooqu
           fetch-depth: 0
 
-      - name: Apply reviewed fixes
+      - name: Apply follow-up source fixes
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          p = Path('scripts/apply_kg_review_fixes.py')
+          import re
+
+          def replace_once(path, old, new):
+              p = Path(path)
+              s = p.read_text()
+              n = s.count(old)
+              if n != 1:
+                  raise SystemExit(f'{path}: expected one match, found {n}: {old!r}')
+              p.write_text(s.replace(old, new, 1))
+
+          # re.sub replacement processing turned the intended backslash-n into
+          # a literal newline inside this f-string. Repair the source spelling.
+          replace_once(
+              'scripts/proofq.py',
+              '    print(f"\n{len(rows)} open leaf components")\n',
+              r'    print(f"\n{len(rows)} open leaf components")' + '\n',
+          )
+
+          # Same-line attributes are part of the declaration header everywhere,
+          # including normalized signatures and Prop-valued definition detection.
+          replace_once(
+              'scripts/rhlean_kg.py',
+              '    text = re.sub(r"^" + _MODIFIERS + r"\\w+\\s+\\S+", "", text)\n',
+              '    text = re.sub(r"^" + _ATTR_PREFIX + _MODIFIERS + r"\\w+\\s+\\S+", "", text)\n',
+          )
+          replace_once(
+              'scripts/rhlean_kg.py',
+              '_CLOSED_PROP_RE = re.compile(\n    r"^\\s*(?:\\w+\\s+)*?(?:def|abbrev)\\s+(\\S+)(.*?):\\s*Prop\\s*$"\n)\n',
+              '_CLOSED_PROP_RE = re.compile(\n    r"^\\s*" + _ATTR_PREFIX + _MODIFIERS\n    + r"(?:def|abbrev)\\s+(\\S+)(.*?):\\s*Prop\\s*$"\n)\n',
+          )
+
+          # Obligations should use the same Prop classifier as the status layer,
+          # not a second regex that can drift from it.
+          p = Path('scripts/proofq.py')
           s = p.read_text()
-          old = '    if count != 1:\n        raise SystemExit(f"{path}: expected one exact match, found {count}\\n--- needle ---\\n{old}")\n'
-          new = '    if count not in (1, 2):\n        raise SystemExit(f"{path}: expected one or two exact matches, found {count}\\n--- needle ---\\n{old}")\n'
-          if old not in s:
-              raise SystemExit('could not patch replace_once multiplicity guard')
-          p.write_text(s.replace(old, new, 1))
+          pattern = re.compile(
+              r'    props = \[\]\n    for n, e in g\.nodes\.items\(\):\n.*?    rows = \[\]\n',
+              re.S,
+          )
+          repl = (
+              '    candidates = kg.prop_valued_defs(g.nodes) if args.predicates else g.closed_props\n'
+              '    props = sorted(n for n in candidates if g.status(n) == kg.STATUS_OPEN)\n'
+              '    rows = []\n'
+          )
+          s2, n = pattern.subn(lambda _m: repl, s, count=1)
+          if n != 1:
+              raise SystemExit(f'scripts/proofq.py: obligation block matches={n}')
+          p.write_text(s2)
           PY
-          python3 scripts/apply_kg_review_fixes.py
+
+      - name: Validate Python graph tooling
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/proof_inventory.py scripts/rhlean_kg.py scripts/decl_graph.py scripts/proofq.py
+          python3 scripts/proof_inventory.py --json /tmp/proof-inventory.json > /tmp/proof-inventory.txt
+          python3 scripts/decl_graph.py --json /tmp/decl-graph.json --require-acyclic > /tmp/decl-graph.txt
+          python3 - <<'PY'
+          import json
+          inv = json.load(open('/tmp/proof-inventory.json'))
+          graph = json.load(open('/tmp/decl-graph.json'))
+          expected = inv['named_proofs']['total_theorem_plus_lemma']
+          actual = graph['stats']['named_proofs']
+          assert expected == actual, (expected, actual)
+          assert graph['stats']['cyclic_components'] == 0
+          print(f'source counters agree: {actual} named proofs')
+          PY
+          python3 scripts/proofq.py status --graph /tmp/decl-graph.json > /tmp/kg-status.txt
+          python3 scripts/proofq.py open-leaves --rh-only --graph /tmp/decl-graph.json --limit 100 > /tmp/kg-open.txt
+          python3 scripts/proofq.py obligations --rh-only --graph /tmp/decl-graph.json --limit 100 > /tmp/kg-obligations.txt
+          python3 scripts/proofq.py reductions SquarePrefixEnergyBoundedStatement --graph /tmp/decl-graph.json --depth 8 > /tmp/kg-reductions.txt
+          cat /tmp/kg-status.txt
+          cat /tmp/kg-open.txt
 
       - name: Commit and push non-workflow fixes
         run: |
           set -euo pipefail
           git config user.name 'OVVO-Financial'
           git config user.email 'ovvo.financial.systems@gmail.com'
-          git add -A
-          git reset -- .github/workflows/lean.yml .github/workflows/proof-inventory.yml .github/workflows/kg-review-fixup.yml
+          git add scripts/rhlean_kg.py scripts/proofq.py
           git diff --cached --check
-          git commit -m 'Fix knowledge graph parsing, reductions, and status semantics'
+          git commit -m 'Finish knowledge graph parser and reduction fixes'
           git push origin HEAD:claude/rh-lean-knowledge-graph-uhooqu
