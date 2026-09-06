@@ -90,12 +90,36 @@ theorem signedVerticalIntervalEndpointMass_eq_orientedEulerLedger
   symm
   exact lowWheelCanonicalDowncrossOrientedLedger_eq_sum_orderedEulerCutWeights R
 
+/-- **Cross-coordinate closure.**  The complex vertical endpoint is not merely
+analogous to the historical canonical defect: it is exactly the same signed
+scalar.  The equality passes through the already-compiled late-parent
+cancellation from the full downcross ledger to the oriented ledger. -/
+theorem signedVerticalIntervalEndpointMass_eq_canonicalDefectLedger
+    (R : ℕ) :
+    signedVerticalIntervalEndpointMass R = lowWheelCanonicalDefectLedger R := by
+  rw [signedVerticalIntervalEndpointMass_eq_orientedEulerLedger]
+  rw [← LateParentCancellation.downcrossLedger_eq_orientedLedger R]
+  rw [← lowWheelCanonicalDefectLedger_eq_downcrossLedger R]
+
 /-- Net signed vertical-interval mass across the run from root `a` to root
 `b+1`.  This is the arrival-side vertical strip minus the completion-side
 vertical strip on the same growing-prefix process. -/
 noncomputable def signedVerticalIntervalMass (a b : ℕ) : ℂ :=
   signedVerticalIntervalEndpointMass (b + 1) -
     signedVerticalIntervalEndpointMass a
+
+/-- The complete vertical run is therefore exactly one increment of the
+historical canonical defect ledger.  In particular, the Green--Kubo process
+introduced later is an energy decomposition of this already-existing defect
+trajectory, not a new arithmetic residual. -/
+theorem signedVerticalIntervalMass_eq_canonicalDefectDifference
+    (a b : ℕ) :
+    signedVerticalIntervalMass a b =
+      lowWheelCanonicalDefectLedger (b + 1) -
+        lowWheelCanonicalDefectLedger a := by
+  unfold signedVerticalIntervalMass
+  rw [signedVerticalIntervalEndpointMass_eq_canonicalDefectLedger,
+    signedVerticalIntervalEndpointMass_eq_canonicalDefectLedger]
 
 /-- **Aggregate complex/Fermat-to-Euler bridge.**  The original signed vertical
 factor-strip mass is exactly the active RH-critical oriented Euler run object,

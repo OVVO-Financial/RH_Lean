@@ -423,4 +423,396 @@ theorem signedVerticalLineRunCovariance_ge_half_squarefree_excess
       a b hab
   linarith
 
+/-! ## Active-child shell and covariance-boundary identification
+
+The physical vertical-line carrier has no hidden arithmetic condition beyond
+squarefreeness and the two square-root walls.  Every active child at root `R`
+is a squarefree integer strictly in `(R,R^2)`, and conversely every such integer
+has a unique ordered Euler cut: recursively strip its largest prime until the
+remaining cofactor lies below `R`, placing stripped larger primes in the rough
+high cofactor.  This turns prime-instability of the line mask into the literal
+two-wall birth/top-escape geometry.
+-/
+
+open RHLean.Arithmetic
+open CanonicalGapAncestryBridge
+
+/-- The literal squarefree physical shell between the root and square wall. -/
+def orderedEulerCutSquarefreeShell (R : ℕ) : Finset ℕ :=
+  (Finset.Ioo R (R ^ 2)).filter Squarefree
+
+@[simp] theorem mem_orderedEulerCutSquarefreeShell
+    {R n : ℕ} :
+    n ∈ orderedEulerCutSquarefreeShell R ↔
+      R < n ∧ n < R ^ 2 ∧ Squarefree n := by
+  simp [orderedEulerCutSquarefreeShell, and_assoc]
+
+/-- Every active physical child is squarefree. -/
+theorem orderedEulerCutActiveChild_squarefree
+    {R n : ℕ} (hn : n ∈ orderedEulerCutActiveChildren R) :
+    Squarefree n := by
+  rcases Finset.mem_image.mp hn with ⟨y, hy, rfl⟩
+  have hshape := orderedEulerCutShape_of_mem_carrier hy
+  have hlow := orderedEulerCut_lowSourceData hshape
+  have hhighLow := orderedEulerCut_highCofactor_coprime_lowProduct hshape
+  have hp : (orderedEulerCutPivot y).Prime := by
+    simpa [orderedEulerCutPivot] using hshape.1
+  have hcsq : Squarefree (orderedEulerCutHighCofactor y) := by
+    simpa [orderedEulerCutHighCofactor] using hshape.2.2.1
+  have hpc : ¬ orderedEulerCutPivot y ∣ orderedEulerCutHighCofactor y := by
+    simpa [orderedEulerCutPivot, orderedEulerCutHighCofactor] using
+      hshape.2.2.2.1
+  have hcp : Nat.Coprime (orderedEulerCutHighCofactor y)
+      (orderedEulerCutPivot y) :=
+    ((hp.coprime_iff_not_dvd
+      (n := orderedEulerCutHighCofactor y)).2 hpc).symm
+  have hpLowSq :
+      Squarefree (orderedEulerCutPivot y * orderedEulerCutLowProduct y) :=
+    (Nat.squarefree_mul hlow.2.2.2.1).2
+      ⟨hp.squarefree, hlow.2.2.1⟩
+  have hcop : Nat.Coprime (orderedEulerCutHighCofactor y)
+      (orderedEulerCutPivot y * orderedEulerCutLowProduct y) :=
+    Nat.Coprime.mul_right hcp hhighLow
+  change Squarefree
+    (orderedEulerCutHighCofactor y *
+      (orderedEulerCutPivot y * orderedEulerCutLowProduct y))
+  exact (Nat.squarefree_mul hcop).2 ⟨hcsq, hpLowSq⟩
+
+/-- Every active physical child is strictly above its current root. -/
+theorem orderedEulerCutActiveChild_root_lt
+    {R n : ℕ} (hn : n ∈ orderedEulerCutActiveChildren R) :
+    R < n := by
+  rcases Finset.mem_image.mp hn with ⟨y, hy, rfl⟩
+  have hshape := orderedEulerCutShape_of_mem_carrier hy
+  have hocc := mem_orderedEulerCutCarrier.mp hy
+  have hfactor := orderedEulerCutOccursAt_factor_window hshape hocc
+  have hc1 : 1 ≤ orderedEulerCutHighCofactor y := by
+    simpa [orderedEulerCutHighCofactor] using hshape.2.1
+  have hle : orderedEulerCutUpperFactor y ≤ orderedEulerCutChildInteger y := by
+    have hmul := Nat.mul_le_mul_right (orderedEulerCutUpperFactor y) hc1
+    simpa [orderedEulerCutUpperFactor, orderedEulerCutDeathRoot,
+      orderedEulerCutChildInteger, orderedEulerCutHighCofactor] using hmul
+  exact hfactor.2.trans_le hle
+
+/-- **Squarefree shell realization.**  Every squarefree integer strictly between
+`R` and `R^2` is the child of an ordered Euler cut active at `R`. -/
+theorem orderedEulerCutActiveChild_of_squarefree_shell
+    {R n : ℕ} (hR : 2 ≤ R) (hsq : Squarefree n)
+    (hRn : R < n) (hnR : n < R ^ 2) :
+    n ∈ orderedEulerCutActiveChildren R := by
+  revert hsq hRn hnR
+  induction n using Nat.strong_induction_on with
+  | h n ih =>
+      intro hsq hRn hnR
+      have hn1 : 1 < n := by omega
+      let p := canonicalLargestPrimeFactor n
+      let m := canonicalCofactor n
+      have hdata : CanonicalSourceData p m := by
+        simpa [p, m] using canonicalSourceData_of_squarefree hsq hn1
+      rcases hdata with ⟨hp, hm1, hmsq, hcop, hdom⟩
+      have hmp : m * p = n := by
+        simpa [m, p] using canonicalCofactor_mul_largestPrimeFactor hn1
+      have hmLt : m < n := by
+        simpa [m] using canonicalCofactor_lt_self hn1
+      have hsqrt : Nat.sqrt n < R := (Nat.sqrt_lt').2 hnR
+      by_cases hmR : m ≤ R
+      · have htprod : primeFaceProduct m.primeFactors = m := by
+          simpa [primeFaceProduct] using Nat.prod_primeFactors_of_squarefree hmsq
+        have hpn : p * m = n := by
+          simpa [Nat.mul_comm] using hmp
+        have hshape : OrderedEulerCutShape (m.primeFactors, (1, p)) := by
+          change p.Prime ∧ 1 ≤ (1 : ℕ) ∧ Squarefree 1 ∧ ¬ p ∣ 1 ∧
+            (∀ q ∈ m.primeFactors, q.Prime ∧ q < p) ∧ RoughAbove p 1
+          refine ⟨hp, by simp, by simp, ?_, ?_, ?_⟩
+          · intro hp1
+            exact hp.ne_one (Nat.dvd_one.mp hp1)
+          · intro q hq
+            rcases Nat.mem_primeFactors.mp hq with ⟨hqPrime, hqm, _hm0⟩
+            exact ⟨hqPrime, hdom q hqPrime hqm⟩
+          · simp [RoughAbove]
+        have hbirth : orderedEulerCutBirthRoot
+            (m.primeFactors, (1, p)) ≤ R := by
+          change max (primeFaceProduct m.primeFactors)
+            (max (1 + 1)
+              (Nat.sqrt (1 * (p * primeFaceProduct m.primeFactors)) + 1)) ≤ R
+          rw [htprod, one_mul, hpn]
+          apply Nat.max_le.mpr
+          refine ⟨hmR, Nat.max_le.mpr ⟨?_, ?_⟩⟩ <;> omega
+        have hdeath : R < orderedEulerCutDeathRoot
+            (m.primeFactors, (1, p)) := by
+          change R < p * primeFaceProduct m.primeFactors
+          rw [htprod, hpn]
+          exact hRn
+        have hmem : (m.primeFactors, (1, p)) ∈ orderedEulerCutCarrier R :=
+          mem_orderedEulerCutCarrier_iff_shape_lifetime.mpr
+            ⟨hshape, hbirth, hdeath⟩
+        apply Finset.mem_image.mpr
+        refine ⟨(m.primeFactors, (1, p)), hmem, ?_⟩
+        change 1 * (p * primeFaceProduct m.primeFactors) = n
+        rw [htprod, one_mul, hpn]
+      · have hRm : R < m := Nat.lt_of_not_ge hmR
+        have hmActive : m ∈ orderedEulerCutActiveChildren R :=
+          ih m hmLt hmsq hRm (hmLt.trans hnR)
+        rcases Finset.mem_image.mp hmActive with ⟨y, hy, hychild⟩
+        rcases y with ⟨t, ⟨c, q⟩⟩
+        change c * (q * primeFaceProduct t) = m at hychild
+        have hyShape0 := orderedEulerCutShape_of_mem_carrier hy
+        have hyShape := hyShape0
+        change q.Prime ∧ 1 ≤ c ∧ Squarefree c ∧ ¬ q ∣ c ∧
+          (∀ r ∈ t, r.Prime ∧ r < q) ∧ RoughAbove q c at hyShape
+        rcases hyShape with
+          ⟨hq, hc1, hcsq, hqNotC, hfaces, hrough⟩
+        have hqDvdM : q ∣ m := by
+          rw [← hychild]
+          exact ⟨c * primeFaceProduct t, by ring⟩
+        have hqp : q < p := hdom q hq hqDvdM
+        have hcDvdM : c ∣ m := by
+          rw [← hychild]
+          exact ⟨q * primeFaceProduct t, rfl⟩
+        have hpcop : Nat.Coprime p c :=
+          hcop.coprime_dvd_right hcDvdM
+        have hcsqNew : Squarefree (c * p) :=
+          (Nat.squarefree_mul hpcop.symm).2 ⟨hcsq, hp.squarefree⟩
+        have hqNotP : ¬ q ∣ p := by
+          intro hqdp
+          have heq : q = p :=
+            (Nat.prime_dvd_prime_iff_eq hq hp).mp hqdp
+          omega
+        have hqNotCP : ¬ q ∣ c * p := by
+          intro hqcp
+          rcases hq.dvd_mul.mp hqcp with hqc | hqpDvd
+          · exact hqNotC hqc
+          · exact hqNotP hqpDvd
+        have hroughNew : RoughAbove q (c * p) := by
+          intro r hr
+          rcases Nat.mem_primeFactors.mp hr with ⟨hrPrime, hrDvd, _hcp0⟩
+          rcases hrPrime.dvd_mul.mp hrDvd with hrc | hrp
+          · have hc0 : c ≠ 0 := by omega
+            have hrMem : r ∈ c.primeFactors :=
+              Nat.mem_primeFactors.mpr ⟨hrPrime, hrc, hc0⟩
+            exact hrough r hrMem
+          · have hre : r = p :=
+              (Nat.prime_dvd_prime_iff_eq hrPrime hp).mp hrp
+            simpa [hre] using hqp
+        have hzShape : OrderedEulerCutShape (t, (c * p, q)) := by
+          change q.Prime ∧ 1 ≤ c * p ∧ Squarefree (c * p) ∧
+            ¬ q ∣ c * p ∧
+            (∀ r ∈ t, r.Prime ∧ r < q) ∧ RoughAbove q (c * p)
+          refine ⟨hq, ?_, hcsqNew, hqNotCP, hfaces, hroughNew⟩
+          have hcpos : 0 < c := by omega
+          exact Nat.succ_le_iff.mpr (Nat.mul_pos hcpos hp.pos)
+        have hzChildRaw : (c * p) * (q * primeFaceProduct t) = n := by
+          calc
+            (c * p) * (q * primeFaceProduct t) =
+                (c * (q * primeFaceProduct t)) * p := by ring
+            _ = m * p := by rw [hychild]
+            _ = n := hmp
+        have hzChild : orderedEulerCutChildInteger (t, (c * p, q)) = n := by
+          exact hzChildRaw
+        have hyLife :=
+          (mem_orderedEulerCutCarrier_iff_shape_lifetime.mp hy).2
+        have hyBirthRaw :
+            max (primeFaceProduct t)
+              (max (c + 1)
+                (Nat.sqrt (c * (q * primeFaceProduct t)) + 1)) ≤ R := by
+          simpa [orderedEulerCutBirthRoot, orderedEulerCutLowProduct,
+            orderedEulerCutHighCofactor, orderedEulerCutChildInteger,
+            orderedEulerCutPivot] using hyLife.1
+        have hlowR : primeFaceProduct t ≤ R :=
+          (Nat.max_le.mp hyBirthRaw).1
+        have hdeathOld : R < q * primeFaceProduct t := by
+          simpa [orderedEulerCutDeathRoot, orderedEulerCutPivot,
+            orderedEulerCutLowProduct] using hyLife.2
+        have hnewHighLt : c * p < R := by
+          by_contra hnot
+          have hhigh : R ≤ c * p := Nat.le_of_not_gt hnot
+          have hdeathSucc : R + 1 ≤ q * primeFaceProduct t := by omega
+          have hmul :
+              R * (R + 1) ≤ (c * p) * (q * primeFaceProduct t) :=
+            Nat.mul_le_mul hhigh hdeathSucc
+          rw [hzChildRaw] at hmul
+          have hRR : R ^ 2 < R * (R + 1) := by
+            nlinarith
+          omega
+        have hbirth : orderedEulerCutBirthRoot (t, (c * p, q)) ≤ R := by
+          change max (primeFaceProduct t)
+            (max (c * p + 1)
+              (Nat.sqrt ((c * p) * (q * primeFaceProduct t)) + 1)) ≤ R
+          rw [hzChildRaw]
+          apply Nat.max_le.mpr
+          refine ⟨hlowR, Nat.max_le.mpr ⟨?_, ?_⟩⟩ <;> omega
+        have hdeath : R < orderedEulerCutDeathRoot (t, (c * p, q)) := by
+          simpa [orderedEulerCutDeathRoot, orderedEulerCutPivot,
+            orderedEulerCutLowProduct] using hdeathOld
+        have hmem : (t, (c * p, q)) ∈ orderedEulerCutCarrier R :=
+          mem_orderedEulerCutCarrier_iff_shape_lifetime.mpr
+            ⟨hzShape, hbirth, hdeath⟩
+        apply Finset.mem_image.mpr
+        exact ⟨(t, (c * p, q)), hmem, hzChild⟩
+
+/-- **Exact active-child normal form.**  At every nontrivial root, the physical
+vertical lines are precisely the squarefree integers in the open shell
+`R < n < R^2`. -/
+theorem orderedEulerCutActiveChildren_eq_squarefreeShell
+    (R : ℕ) (hR : 2 ≤ R) :
+    orderedEulerCutActiveChildren R = orderedEulerCutSquarefreeShell R := by
+  ext n
+  constructor
+  · intro hn
+    exact mem_orderedEulerCutSquarefreeShell.mpr
+      ⟨orderedEulerCutActiveChild_root_lt hn,
+        orderedEulerCutActiveChild_lt_root_sq hn,
+        orderedEulerCutActiveChild_squarefree hn⟩
+  · intro hn
+    rcases mem_orderedEulerCutSquarefreeShell.mp hn with ⟨hRn, hnR, hsq⟩
+    exact orderedEulerCutActiveChild_of_squarefree_shell hR hsq hRn hnR
+
+/-- Membership in the vertical-line endpoint carrier is now a literal physical
+squarefree-shell predicate. -/
+theorem mem_orderedEulerCutActiveChildren_iff_squarefreeShell
+    {R n : ℕ} (hR : 2 ≤ R) :
+    n ∈ orderedEulerCutActiveChildren R ↔
+      R < n ∧ n < R ^ 2 ∧ Squarefree n := by
+  rw [orderedEulerCutActiveChildren_eq_squarefreeShell R hR]
+  exact mem_orderedEulerCutSquarefreeShell
+
+/-- Lower-wall crossing under one fresh prime. -/
+def orderedEulerCutPrimeBirthBoundary (R p n : ℕ) : Prop :=
+  n ≤ R ∧ R < p * n ∧ p * n < R ^ 2
+
+/-- Upper-square-wall crossing under one fresh prime. -/
+def orderedEulerCutPrimeTopEscapeBoundary (R p n : ℕ) : Prop :=
+  R < n ∧ n < R ^ 2 ∧ R ^ 2 ≤ p * n
+
+/-- A fresh-prime transition from inactive to active is exactly a lower-root
+birth. -/
+theorem orderedEulerCutPrime_inactive_to_active_iff_birth
+    {R p n : ℕ} (hR : 2 ≤ R) (hp : p.Prime)
+    (hsq : Squarefree n) (hpn : ¬ p ∣ n) :
+    (p * n ∈ orderedEulerCutActiveChildren R ∧
+        n ∉ orderedEulerCutActiveChildren R) ↔
+      orderedEulerCutPrimeBirthBoundary R p n := by
+  have hsqpn : Squarefree (p * n) :=
+    (Nat.squarefree_mul ((hp.coprime_iff_not_dvd (n := n)).2 hpn)).2
+      ⟨hp.squarefree, hsq⟩
+  have hnpos : 0 < n := Nat.pos_of_ne_zero hsq.ne_zero
+  have hnle : n ≤ p * n := by
+    have hp1 : 1 ≤ p := hp.one_le
+    simpa [one_mul, Nat.mul_comm] using Nat.mul_le_mul_right n hp1
+  constructor
+  · rintro ⟨hpnActive, hnInactive⟩
+    have hpData :=
+      (mem_orderedEulerCutActiveChildren_iff_squarefreeShell hR).1 hpnActive
+    have hnlt : n < R ^ 2 := hnle.trans_lt hpData.2.1
+    have hnR : n ≤ R := by
+      by_contra hnot
+      have hRn : R < n := Nat.lt_of_not_ge hnot
+      exact hnInactive
+        ((mem_orderedEulerCutActiveChildren_iff_squarefreeShell hR).2
+          ⟨hRn, hnlt, hsq⟩)
+    exact ⟨hnR, hpData.1, hpData.2.1⟩
+  · rintro ⟨hnR, hRpn, hpnlt⟩
+    refine ⟨?_, ?_⟩
+    · exact (mem_orderedEulerCutActiveChildren_iff_squarefreeShell hR).2
+        ⟨hRpn, hpnlt, hsqpn⟩
+    · intro hnActive
+      have hnData :=
+        (mem_orderedEulerCutActiveChildren_iff_squarefreeShell hR).1 hnActive
+      omega
+
+/-- A fresh-prime transition from active to inactive is exactly an upper-square
+escape. -/
+theorem orderedEulerCutPrime_active_to_inactive_iff_topEscape
+    {R p n : ℕ} (hR : 2 ≤ R) (hp : p.Prime)
+    (hsq : Squarefree n) (hpn : ¬ p ∣ n) :
+    (n ∈ orderedEulerCutActiveChildren R ∧
+        p * n ∉ orderedEulerCutActiveChildren R) ↔
+      orderedEulerCutPrimeTopEscapeBoundary R p n := by
+  have hsqpn : Squarefree (p * n) :=
+    (Nat.squarefree_mul ((hp.coprime_iff_not_dvd (n := n)).2 hpn)).2
+      ⟨hp.squarefree, hsq⟩
+  have hnle : n ≤ p * n := by
+    have hp1 : 1 ≤ p := hp.one_le
+    simpa [one_mul, Nat.mul_comm] using Nat.mul_le_mul_right n hp1
+  constructor
+  · rintro ⟨hnActive, hpnInactive⟩
+    have hnData :=
+      (mem_orderedEulerCutActiveChildren_iff_squarefreeShell hR).1 hnActive
+    have hsqWall : R ^ 2 ≤ p * n := by
+      by_contra hnot
+      have hpnlt : p * n < R ^ 2 := Nat.lt_of_not_ge hnot
+      have hRpn : R < p * n := hnData.1.trans_le hnle
+      exact hpnInactive
+        ((mem_orderedEulerCutActiveChildren_iff_squarefreeShell hR).2
+          ⟨hRpn, hpnlt, hsqpn⟩)
+    exact ⟨hnData.1, hnData.2.1, hsqWall⟩
+  · rintro ⟨hRn, hnlt, hwall⟩
+    refine ⟨?_, ?_⟩
+    · exact (mem_orderedEulerCutActiveChildren_iff_squarefreeShell hR).2
+        ⟨hRn, hnlt, hsq⟩
+    · intro hpnActive
+      have hpData :=
+        (mem_orderedEulerCutActiveChildren_iff_squarefreeShell hR).1 hpnActive
+      omega
+
+/-- **Endpoint-instability identification.**  Under a fresh prime, endpoint
+membership changes if and only if that prime crosses one of the two physical
+walls: lower-root birth or upper-square escape. -/
+theorem orderedEulerCutPrime_membership_unstable_iff_birth_or_topEscape
+    {R p n : ℕ} (hR : 2 ≤ R) (hp : p.Prime)
+    (hsq : Squarefree n) (hpn : ¬ p ∣ n) :
+    ¬ ((p * n ∈ orderedEulerCutActiveChildren R) ↔
+        n ∈ orderedEulerCutActiveChildren R) ↔
+      orderedEulerCutPrimeBirthBoundary R p n ∨
+        orderedEulerCutPrimeTopEscapeBoundary R p n := by
+  constructor
+  · intro hunstable
+    by_cases hpActive : p * n ∈ orderedEulerCutActiveChildren R
+    · have hnInactive : n ∉ orderedEulerCutActiveChildren R := by
+        intro hnActive
+        exact hunstable ⟨fun _ => hnActive, fun _ => hpActive⟩
+      exact Or.inl
+        ((orderedEulerCutPrime_inactive_to_active_iff_birth
+          hR hp hsq hpn).1 ⟨hpActive, hnInactive⟩)
+    · have hnActive : n ∈ orderedEulerCutActiveChildren R := by
+        by_contra hnInactive
+        exact hunstable
+          ⟨fun hpMem => (hpActive hpMem).elim,
+            fun hnMem => (hnInactive hnMem).elim⟩
+      exact Or.inr
+        ((orderedEulerCutPrime_active_to_inactive_iff_topEscape
+          hR hp hsq hpn).1 ⟨hnActive, hpActive⟩)
+  · intro hboundary hstable
+    rcases hboundary with hbirth | hescape
+    · have hstatus :=
+        (orderedEulerCutPrime_inactive_to_active_iff_birth
+          hR hp hsq hpn).2 hbirth
+      exact hstatus.2 (hstable.1 hstatus.1)
+    · have hstatus :=
+        (orderedEulerCutPrime_active_to_inactive_iff_topEscape
+          hR hp hsq hpn).2 hescape
+      exact hstatus.2 (hstable.2 hstatus.1)
+
+/-- **Covariance-mask boundary identification.**  Any fresh-prime failure of
+the #581 line-event mask is owned at one of the two run endpoints by the same
+physical lower-root birth or upper-square top-escape wall.  Thus mask
+instability is not an additional covariance population. -/
+theorem signedVerticalLineEventMask_prime_unstable_imp_birth_or_topEscape
+    {a b p n : ℕ} (ha : 2 ≤ a) (hb : 2 ≤ b + 1)
+    (hp : p.Prime) (hsq : Squarefree n) (hpn : ¬ p ∣ n)
+    (hunstable : signedVerticalLineEventMask a b (p * n) ≠
+      signedVerticalLineEventMask a b n) :
+    (orderedEulerCutPrimeBirthBoundary a p n ∨
+      orderedEulerCutPrimeTopEscapeBoundary a p n) ∨
+    (orderedEulerCutPrimeBirthBoundary (b + 1) p n ∨
+      orderedEulerCutPrimeTopEscapeBoundary (b + 1) p n) := by
+  rcases signedVerticalLineEventMask_prime_unstable_imp_endpoint_unstable
+      hunstable with hleft | hright
+  · exact Or.inl
+      ((orderedEulerCutPrime_membership_unstable_iff_birth_or_topEscape
+        ha hp hsq hpn).1 hleft)
+  · exact Or.inr
+      ((orderedEulerCutPrime_membership_unstable_iff_birth_or_topEscape
+        hb hp hsq hpn).1 hright)
+
 end RHLean.Proof
