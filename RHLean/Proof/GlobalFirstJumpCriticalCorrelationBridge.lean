@@ -1,6 +1,8 @@
 import Mathlib
+import RHLean.Analysis.BlockCovarianceRefinement
 import RHLean.Proof.GlobalFirstJumpCofactorCompression
 import RHLean.Proof.CanonicalRoughCriticalCorrelationContraction
+import RHLean.Proof.PrimeCombReciprocalBandCancellation
 import RHLean.Proof.SquareRootLowPrimeMatchedCoreMertensObstruction
 
 /-!
@@ -149,5 +151,50 @@ theorem recombinedCanonicalDefectLogBound_of_criticalReciprocalPrefixRootBound
               (R : ℝ) * (Real.log (R : ℝ) + 1) :=
           add_le_add_left hscaleOne _
         _ = (C + 1) * (R : ℝ) * (Real.log (R : ℝ) + 1) := by ring
+
+/-! ## Post-root covariance descent on reciprocal bands
+
+This is the second-difference route.  A post-root prime family is an exact
+sign-reversed copy of a lower prefix in mass and an isometric copy in pair
+covariance.  Grouping by `z = floor(W/p)` therefore leaves one lower-scale
+covariance value per reciprocal band, multiplied only by the population of that
+band.  No norm and no PNT estimate enters this identity.
+-/
+
+/-- Pair covariance carried by every post-root prime family in one reciprocal
+quotient band. -/
+def postRootReciprocalBandFamilyCovariance (W z : ℕ) : ℝ :=
+  ∑ p ∈ primeCombPostRootReciprocalBand W z,
+    largePrimeFamilyPairSum p (z + 1)
+
+/-- A post-root reciprocal band is literally its prime multiplicity times the
+one lower-scale covariance `C(z+1)`.  This is the exact scale descent that the
+fixed-prime norm route destroyed. -/
+theorem postRootReciprocalBandFamilyCovariance_eq_card_mul_lowerCovariance
+    (W z : ℕ) (hz : 0 < z) :
+    postRootReciprocalBandFamilyCovariance W z =
+      ((primeCombPostRootReciprocalBand W z).card : ℝ) *
+        realMertensPositiveLagPairSum (z + 1) := by
+  unfold postRootReciprocalBandFamilyCovariance
+  calc
+    (∑ p ∈ primeCombPostRootReciprocalBand W z,
+        largePrimeFamilyPairSum p (z + 1)) =
+      ∑ _p ∈ primeCombPostRootReciprocalBand W z,
+        realMertensPositiveLagPairSum (z + 1) := by
+      apply Finset.sum_congr rfl
+      intro p hp
+      rcases mem_primeCombPostRootReciprocalBand.mp hp with
+        ⟨hpBand, hpRoot⟩
+      have hpPrime := primeCombReciprocalBand_prime hpBand
+      have hW : W < p * p := (Nat.sqrt_lt).1 hpRoot
+      have hdiv := primeCombReciprocalBand_div_eq hz hpBand
+      calc
+        largePrimeFamilyPairSum p (z + 1) =
+            largePrimeFamilyPairSum p (W / p + 1) := by rw [hdiv]
+        _ = realMertensPositiveLagPairSum (W / p + 1) :=
+          largePrimeFamilyPairSum_postRoot hpPrime hW
+        _ = realMertensPositiveLagPairSum (z + 1) := by rw [hdiv]
+    _ = ((primeCombPostRootReciprocalBand W z).card : ℝ) *
+        realMertensPositiveLagPairSum (z + 1) := by simp
 
 end RHLean.Proof
