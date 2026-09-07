@@ -18,6 +18,28 @@ Numerical experiments are diagnostics only. A route marked **closed** must not
 be restarted by merely increasing the finite range, renaming the same
 components, or replacing one sign-blind inequality by another.
 
+## Refuted premise: uniformly small uncentered reciprocal prefixes
+
+The `CriticalReciprocalPrefixRootBound` proposed in
+`GlobalFirstJumpCriticalCorrelationBridge.lean` requires every prefix through
+`R^2 - 1` to be at most `C * (log R + 1) / R` in norm.
+
+The exact partner-count coordinate refutes this already at prefix `1`:
+
+```text
+P_R(1) = #{q prime : R <= q <= R^2 - 1}.
+```
+
+Thus `P_R(1) >= 1` at every prime root. The proposed upper bound tends to zero,
+and there are arbitrarily large prime roots. The Lean declaration
+`not_criticalReciprocalPrefixRootBound` expresses this contradiction using
+Euclid and logarithmic decay, without PNT or any Mertens estimate.
+
+The Abel identity, Euler contractions, partner-count identification, and
+conditional implications are retained. What is refuted is this uniform prefix
+premise, not the desired bound on the completely recombined endpoint. A prime
+schedule cannot change the exact value of the first prefix.
+
 ## Closed route: single-prime dyadic Li-residual cancellation
 
 **Status: CLOSED AS AN RH MECHANISM. Recorded by PR #105.**

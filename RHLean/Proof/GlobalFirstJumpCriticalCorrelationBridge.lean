@@ -16,10 +16,11 @@ correlation already differs from this defect by only the single root Mobius
 atom, while its reciprocal prefixes are exactly the coordinate on which the
 fresh-prime Euler factor `1 - 1/p` acts.
 
-This file makes that reduction quantitative.  A uniform reciprocal-prefix bound
-of size `(log R + 1) / R` implies the desired root-scale `R (log R + 1)` bound
-on the recombined canonical defect.  No first-jump-prime or cofactor-column norm
-is inserted in the argument.
+The conditional Abel return is retained, but its proposed uniform
+`(log R + 1) / R` prefix premise is refuted here: the first prefix is the
+unsigned unit-cofactor prime-partner count.  The active quantitative target is
+instead the signed post-root covariance remainder below, whose bound remains
+open.  No first-jump-prime or cofactor-column norm is inserted in the argument.
 -/
 
 noncomputable section
@@ -424,7 +425,7 @@ theorem two_mul_postRootCovarianceRemainder_eq_besselDefect (W : ℕ) :
     postRootPrimeFamilyCovarianceTotal_eq_energyDifference W]
   ring
 
-/-- Weakest useful one-sided leap: after removing every complete lower-scale
+/-- A sufficient one-sided target: after removing every complete lower-scale
 post-root family covariance, the remaining positive same-scale covariance is
 only linear in the physical endpoint. -/
 def PostRootCovarianceLinearRemainderStatement : Prop :=
