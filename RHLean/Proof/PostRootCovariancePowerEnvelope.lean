@@ -77,6 +77,80 @@ theorem postRootCovariancePowerSeat_le_envelope
   (postRootCovariancePowerSeat_le_selfEnvelope ε W).trans
     (postRootCovariancePowerEnvelope_mono ε hWN)
 
+/-- The positive amount by which the next normalized remainder seat sets a new
+record above the previous finite-horizon envelope.  Non-record seats cost zero. -/
+def postRootCovariancePowerRecordExcess (ε : ℝ) (N : ℕ) : ℝ :=
+  max 0
+    (postRootCovariancePowerSeat ε (N + 1) -
+      postRootCovariancePowerEnvelope ε N)
+
+theorem postRootCovariancePowerRecordExcess_nonneg (ε : ℝ) (N : ℕ) :
+    0 ≤ postRootCovariancePowerRecordExcess ε N := by
+  unfold postRootCovariancePowerRecordExcess
+  exact le_max_left _ _
+
+/-- The running envelope advances by exactly the positive new-record excess. -/
+theorem postRootCovariancePowerEnvelope_succ_eq_add_recordExcess
+    (ε : ℝ) (N : ℕ) :
+    postRootCovariancePowerEnvelope ε (N + 1) =
+      postRootCovariancePowerEnvelope ε N +
+        postRootCovariancePowerRecordExcess ε N := by
+  rw [postRootCovariancePowerEnvelope]
+  unfold postRootCovariancePowerRecordExcess
+  by_cases h :
+      postRootCovariancePowerSeat ε (N + 1) ≤
+        postRootCovariancePowerEnvelope ε N
+  · have hdiff :
+        postRootCovariancePowerSeat ε (N + 1) -
+            postRootCovariancePowerEnvelope ε N ≤ 0 :=
+      sub_nonpos.mpr h
+    rw [max_eq_left h, max_eq_left hdiff]
+    ring
+  · have hlt :
+        postRootCovariancePowerEnvelope ε N <
+          postRootCovariancePowerSeat ε (N + 1) :=
+      lt_of_not_ge h
+    have hrev :
+        postRootCovariancePowerEnvelope ε N ≤
+          postRootCovariancePowerSeat ε (N + 1) := hlt.le
+    have hdiff :
+        0 ≤ postRootCovariancePowerSeat ε (N + 1) -
+          postRootCovariancePowerEnvelope ε N :=
+      sub_nonneg.mpr hrev
+    rw [max_eq_right hrev, max_eq_right hdiff]
+    ring
+
+/-- **Record-excess telescope.**  The whole finite-horizon envelope is exactly
+the cumulative mass of its positive record-breaking increments.  This is the
+string to tighten: local sequential inequalities only need to control new
+records, not re-bound every old seat. -/
+theorem postRootCovariancePowerEnvelope_eq_sum_recordExcess
+    (ε : ℝ) (N : ℕ) :
+    postRootCovariancePowerEnvelope ε N =
+      ∑ j in Finset.range N, postRootCovariancePowerRecordExcess ε j := by
+  induction N with
+  | zero => simp [postRootCovariancePowerEnvelope]
+  | succ N ih =>
+      rw [Finset.sum_range_succ, ← ih]
+      simpa only [Nat.succ_eq_add_one] using
+        postRootCovariancePowerEnvelope_succ_eq_add_recordExcess ε N
+
+/-- Any summable finite majorant for the record excesses bounds the running
+envelope.  This is the plug-in interface for later Euler, LCM-wall, covariance,
+or square-wheel inequalities. -/
+theorem postRootCovariancePowerEnvelope_le_of_recordExcess_majorant
+    (ε : ℝ) (g : ℕ → ℝ) {D : ℝ}
+    (hexcess : ∀ j : ℕ, postRootCovariancePowerRecordExcess ε j ≤ g j)
+    (hpartial : ∀ N : ℕ, (∑ j in Finset.range N, g j) ≤ D) :
+    ∀ N : ℕ, postRootCovariancePowerEnvelope ε N ≤ D := by
+  intro N
+  rw [postRootCovariancePowerEnvelope_eq_sum_recordExcess]
+  calc
+    (∑ j in Finset.range N, postRootCovariancePowerRecordExcess ε j) ≤
+        ∑ j in Finset.range N, g j :=
+      Finset.sum_le_sum fun j _hj => hexcess j
+    _ ≤ D := hpartial N
+
 /-- **Finite-horizon tether.** Every signed remainder up to `N` is bounded by
 the explicit running envelope times the target power. No arithmetic estimate is
 used here; the theorem only packages the exact finite obstruction into a single
@@ -112,6 +186,13 @@ def PostRootCovariancePowerEnvelopeBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ D : ℝ, 0 ≤ D ∧
       ∀ N : ℕ, postRootCovariancePowerEnvelope ε N ≤ D
+
+/-- Uniform boundedness of the cumulative positive record excesses. -/
+def PostRootCovariancePowerRecordExcessBoundedStatement : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ D : ℝ, 0 ≤ D ∧
+      ∀ N : ℕ,
+        (∑ j in Finset.range N, postRootCovariancePowerRecordExcess ε j) ≤ D
 
 /-- The abstract power-remainder hypothesis bounds the explicit running
 envelope. -/
@@ -159,6 +240,27 @@ theorem postRootCovariancePowerRemainder_of_powerEnvelopeBounded
   exact htether.trans
     (mul_le_mul_of_nonneg_right (hbound W) hpow_nonneg)
 
+/-- The record-excess partial sums and the running envelope are exactly the same
+quantity, so boundedness of either formulation is equivalent. -/
+theorem postRootCovariancePowerRecordExcessBounded_iff_powerEnvelopeBounded :
+    PostRootCovariancePowerRecordExcessBoundedStatement ↔
+      PostRootCovariancePowerEnvelopeBoundedStatement := by
+  constructor
+  · intro hexcess
+    intro ε hε
+    rcases hexcess ε hε with ⟨D, hD, hbound⟩
+    refine ⟨D, hD, ?_⟩
+    intro N
+    rw [postRootCovariancePowerEnvelope_eq_sum_recordExcess]
+    exact hbound N
+  · intro henv
+    intro ε hε
+    rcases henv ε hε with ⟨D, hD, hbound⟩
+    refine ⟨D, hD, ?_⟩
+    intro N
+    rw [← postRootCovariancePowerEnvelope_eq_sum_recordExcess]
+    exact hbound N
+
 /-- **Exact tether equivalence.** The new running envelope is not a stronger
 assumption and not a heuristic replacement: its uniform boundedness is exactly
 the positive-power signed remainder seam from #599. -/
@@ -168,6 +270,14 @@ theorem postRootCovariancePowerEnvelopeBounded_iff_powerRemainder :
   ⟨postRootCovariancePowerRemainder_of_powerEnvelopeBounded,
     postRootCovariancePowerEnvelopeBounded_of_powerRemainder⟩
 
+/-- The same terminal seam in record-excess form: bounding only the cumulative
+new-record increments is already sufficient for the power remainder. -/
+theorem postRootCovariancePowerRecordExcessBounded_iff_powerRemainder :
+    PostRootCovariancePowerRecordExcessBoundedStatement ↔
+      PostRootCovariancePowerRemainderStatement := by
+  rw [postRootCovariancePowerRecordExcessBounded_iff_powerEnvelopeBounded,
+    postRootCovariancePowerEnvelopeBounded_iff_powerRemainder]
+
 /-- Bounding the explicit running envelope therefore reaches the protected
 Mertens energy criterion through the #599 bootstrap. -/
 theorem mertensEnergyBounded_of_postRootCovariancePowerEnvelopeBounded
@@ -175,5 +285,13 @@ theorem mertensEnergyBounded_of_postRootCovariancePowerEnvelopeBounded
     MertensEnergyBoundedStatement :=
   mertensEnergyBounded_of_postRootCovariancePowerRemainder
     (postRootCovariancePowerRemainder_of_powerEnvelopeBounded henv)
+
+/-- A bounded cumulative record-excess majorant therefore reaches the protected
+Mertens energy criterion as well. -/
+theorem mertensEnergyBounded_of_postRootCovariancePowerRecordExcessBounded
+    (hexcess : PostRootCovariancePowerRecordExcessBoundedStatement) :
+    MertensEnergyBoundedStatement :=
+  mertensEnergyBounded_of_postRootCovariancePowerEnvelopeBounded
+    (postRootCovariancePowerRecordExcessBounded_iff_powerEnvelopeBounded.mp hexcess)
 
 end RHLean.Proof
