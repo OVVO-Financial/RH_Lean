@@ -219,4 +219,230 @@ theorem realMoebiusSuperLcmFourCorner_eq_firstFailure
   · rw [if_neg hcross] at hwall ⊢
     linear_combination (realMoebiusStep a * realMoebiusStep b) * hwall
 
+/-! ## Retain the physical endpoint when recombining the LCM wall
+
+The uncut stencil above does not by itself describe a physical prefix: a
+corner can lie beyond `W`.  Clipping the same symmetric LCM kernel leaves a
+positive top escape as well as the negative first crossing.  Keeping both
+terms is necessary before aggregating any owner cubes.
+-/
+
+/-- The super-LCM kernel with both physical endpoint cutoffs retained.  It is
+symmetric, so a crossed pair is counted in its positive orientation. -/
+def physicalSuperLcmIndicator (W m n : ℕ) : ℝ :=
+  if m ≤ W ∧ n ≤ W then superLcmIndicator W m n else 0
+
+/-- **Physical LCM stencil.**  After reorienting a fresh parent pair `a ≤ b`,
+the exact residue is top escape minus admitted first LCM crossing. -/
+theorem physicalSuperLcmIndicator_fourCorner_eq_walls
+    {W p a b : ℕ} (hp : p.Prime) (hpa : ¬ p ∣ a) (hpb : ¬ p ∣ b)
+    (hab : a ≤ b) (hbW : b ≤ W) :
+    physicalSuperLcmIndicator W a b -
+        physicalSuperLcmIndicator W (p * a) b -
+        physicalSuperLcmIndicator W a (p * b) +
+        physicalSuperLcmIndicator W (p * a) (p * b) =
+      (if W < Nat.lcm a b ∧ W < p * a then 1 else 0) -
+        (if Nat.lcm a b ≤ W ∧ W < p * Nat.lcm a b ∧ p * a ≤ W
+          then 1 else 0) := by
+  have haW : a ≤ W := hab.trans hbW
+  have hleft := lcm_prime_mul_left_of_not_dvd hp hpa hpb
+  have hright := lcm_prime_mul_right_of_not_dvd hp hpa hpb
+  have hboth : Nat.lcm (p * a) (p * b) = p * Nat.lcm a b :=
+    by rw [Nat.lcm_mul_left]
+  have hcancel : physicalSuperLcmIndicator W a (p * b) =
+      physicalSuperLcmIndicator W (p * a) (p * b) := by
+    unfold physicalSuperLcmIndicator superLcmIndicator
+    rw [hright, hboth]
+    by_cases hpbW : p * b ≤ W
+    · have hpaW : p * a ≤ W := (Nat.mul_le_mul_left p hab).trans hpbW
+      simp [haW, hpbW, hpaW]
+    · simp [hpbW]
+  have hreduce :
+      physicalSuperLcmIndicator W a b -
+          physicalSuperLcmIndicator W (p * a) b -
+          physicalSuperLcmIndicator W a (p * b) +
+          physicalSuperLcmIndicator W (p * a) (p * b) =
+        superLcmIndicator W a b -
+          (if p * a ≤ W then superLcmIndicator W (p * a) b else 0) := by
+    rw [hcancel]
+    simp [physicalSuperLcmIndicator, haW, hbW]
+  rw [hreduce]
+  have hL : Nat.lcm a b ≤ p * Nat.lcm a b := by
+    simpa using Nat.mul_le_mul_right (Nat.lcm a b) hp.one_le
+  by_cases hpaW : p * a ≤ W
+  · have hnotTop : ¬ W < p * a := Nat.not_lt.mpr hpaW
+    by_cases hbase : W < Nat.lcm a b
+    · have hupper : W < p * Nat.lcm a b := hbase.trans_le hL
+      simp [superLcmIndicator, hleft, hpaW, hnotTop, hbase, hupper]
+    · have hbaseLe : Nat.lcm a b ≤ W := Nat.le_of_not_gt hbase
+      by_cases hupper : W < p * Nat.lcm a b
+      · simp [superLcmIndicator, hleft, hpaW, hnotTop, hbase, hbaseLe, hupper]
+      · simp [superLcmIndicator, hleft, hpaW, hnotTop, hbase, hupper]
+  · have htop : W < p * a := Nat.lt_of_not_ge hpaW
+    simp [superLcmIndicator, hpaW, htop]
+
+/-- Signed mass of one physical fresh-prime LCM cube, with each corner clipped
+at the actual prefix endpoint. -/
+def realMoebiusPhysicalSuperLcmFourCorner (W p a b : ℕ) : ℝ :=
+  (realMoebiusStep a * realMoebiusStep b) * physicalSuperLcmIndicator W a b +
+    (realMoebiusStep (p * a) * realMoebiusStep b) *
+      physicalSuperLcmIndicator W (p * a) b +
+    (realMoebiusStep a * realMoebiusStep (p * b)) *
+      physicalSuperLcmIndicator W a (p * b) +
+    (realMoebiusStep (p * a) * realMoebiusStep (p * b)) *
+      physicalSuperLcmIndicator W (p * a) (p * b)
+
+/-- Fresh-prime signs retain both physical walls on the same old pair weight. -/
+theorem realMoebiusPhysicalSuperLcmFourCorner_eq_walls
+    {W p a b : ℕ} (hp : p.Prime) (hpa : ¬ p ∣ a) (hpb : ¬ p ∣ b)
+    (hab : a ≤ b) (hbW : b ≤ W) :
+    realMoebiusPhysicalSuperLcmFourCorner W p a b =
+      (realMoebiusStep a * realMoebiusStep b) *
+        ((if W < Nat.lcm a b ∧ W < p * a then 1 else 0) -
+          (if Nat.lcm a b ≤ W ∧ W < p * Nat.lcm a b ∧ p * a ≤ W
+            then 1 else 0)) := by
+  unfold realMoebiusPhysicalSuperLcmFourCorner
+  rw [realMoebiusStep_mul_prime_eq_neg hp hpa,
+    realMoebiusStep_mul_prime_eq_neg hp hpb]
+  have hwall := physicalSuperLcmIndicator_fourCorner_eq_walls hp hpa hpb hab hbW
+  linear_combination (realMoebiusStep a * realMoebiusStep b) * hwall
+
+/-- Finite signed recombination on any physical fresh-parent carrier.  The top
+escape stays explicit; there is no conversion to a support count. -/
+theorem sum_realMoebiusPhysicalSuperLcmFourCorner_eq_walls
+    {W p : ℕ} (S : Finset (ℕ × ℕ)) (hp : p.Prime)
+    (hS : ∀ mn ∈ S,
+      mn.1 ≤ mn.2 ∧ mn.2 ≤ W ∧ ¬ p ∣ mn.1 ∧ ¬ p ∣ mn.2) :
+    (∑ mn ∈ S, realMoebiusPhysicalSuperLcmFourCorner W p mn.1 mn.2) =
+      (∑ mn ∈ S, (realMoebiusStep mn.1 * realMoebiusStep mn.2) *
+        (if W < Nat.lcm mn.1 mn.2 ∧ W < p * mn.1 then 1 else 0)) -
+      ∑ mn ∈ S, (realMoebiusStep mn.1 * realMoebiusStep mn.2) *
+        (if Nat.lcm mn.1 mn.2 ≤ W ∧
+            W < p * Nat.lcm mn.1 mn.2 ∧ p * mn.1 ≤ W then 1 else 0) := by
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro mn hmn
+  rcases hS mn hmn with ⟨hab, hbW, hpa, hpb⟩
+  rw [realMoebiusPhysicalSuperLcmFourCorner_eq_walls hp hpa hpb hab hbW, mul_sub]
+
+/-- The physical top escape is real: the uncut stencil cancels at this cell,
+but clipping leaves the base pair.  Thus the extra term cannot be discarded. -/
+theorem physicalSuperLcmIndicator_topEscape_example :
+    physicalSuperLcmIndicator 5 2 5 -
+        physicalSuperLcmIndicator 5 (3 * 2) 5 -
+        physicalSuperLcmIndicator 5 2 (3 * 5) +
+        physicalSuperLcmIndicator 5 (3 * 2) (3 * 5) = 1 := by
+  norm_num [physicalSuperLcmIndicator, superLcmIndicator, Nat.lcm]
+
+/-! ## Complete post-root cubes have a nonpositive signed total -/
+
+/-- The scalar boundary kernel is the literal physical super-LCM pair sum. -/
+theorem fullLcmBoundaryKernel_eq_sum_superLcmIndicator (W : ℕ) :
+    fullLcmBoundaryKernel W =
+      ∑ mn ∈ mertensPositivePhysicalPairCarrier W,
+        (realMoebiusStep mn.1 * realMoebiusStep mn.2) *
+          superLcmIndicator W mn.1 mn.2 := by
+  have hsplit := Finset.sum_filter_add_sum_filter_not
+    (mertensPositivePhysicalPairCarrier W)
+    (fun mn : ℕ × ℕ => Nat.lcm mn.1 mn.2 ≤ W)
+    (fun mn : ℕ × ℕ => realMoebiusStep mn.1 * realMoebiusStep mn.2)
+  rw [sum_mertensPositivePhysicalPairCarrier_eq_positiveLagPairSum] at hsplit
+  have hinterior := moebiusLcmInteriorPositiveCarrier_eq_filter W
+  rw [← hinterior] at hsplit
+  have hboundary :
+      (∑ mn ∈ (mertensPositivePhysicalPairCarrier W).filter
+          (fun mn => ¬ Nat.lcm mn.1 mn.2 ≤ W),
+        realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      ∑ mn ∈ mertensPositivePhysicalPairCarrier W,
+        (realMoebiusStep mn.1 * realMoebiusStep mn.2) *
+          superLcmIndicator W mn.1 mn.2 := by
+    rw [Finset.sum_filter]
+    apply Finset.sum_congr rfl
+    intro mn _hmn
+    simp [superLcmIndicator, mul_ite]
+  rw [hboundary] at hsplit
+  unfold fullLcmBoundaryKernel
+  linarith
+
+/-- **Boundary positivity from integrality.**  Its exact scalar value is
+`M(W) * (M(W)-1) / 2`, which is nonnegative for every integer Mertens value.
+No Mertens magnitude estimate is used. -/
+theorem fullLcmBoundaryKernel_nonneg (W : ℕ) :
+    0 ≤ fullLcmBoundaryKernel W := by
+  let z : ℤ := ∑ n ∈ Finset.range (W + 1), μ n
+  have hzcast : (z : ℝ) = realMertensLength (W + 1) := by
+    simp [z, realMertensLength, realMoebiusStep]
+  have hquad : 0 ≤ (z : ℝ) ^ 2 - (z : ℝ) := by
+    have hz : z ≤ 0 ∨ 1 ≤ z := by omega
+    rcases hz with hz | hz
+    · have hzreal : (z : ℝ) ≤ 0 := by exact_mod_cast hz
+      nlinarith [sq_nonneg (z : ℝ)]
+    · have hzreal : (1 : ℝ) ≤ (z : ℝ) := by exact_mod_cast hz
+      nlinarith [sq_nonneg ((z : ℝ) - 1)]
+  rw [hzcast] at hquad
+  have hid := two_mul_fullLcmBoundaryKernel_eq_length_sq_sub_length W
+  linarith
+
+/-- A complete post-root parent cube has no physical top escape.  Its first
+LCM crossing is precisely the super-LCM kernel at the quotient endpoint. -/
+theorem realMoebiusPhysicalSuperLcmFourCorner_postRoot_eq_neg_lower
+    {W p a b : ℕ} (hp : p ∈ postRootPrimeFamilySet W)
+    (hab : (a, b) ∈ mertensPositivePhysicalPairCarrier (W / p)) :
+    realMoebiusPhysicalSuperLcmFourCorner W p a b =
+      -((realMoebiusStep a * realMoebiusStep b) *
+        superLcmIndicator (W / p) a b) := by
+  rcases mem_postRootPrimeFamilySet.mp hp with ⟨hpRoot, _hpW, hpPrime⟩
+  rcases mem_mertensPositivePhysicalPairCarrier.mp hab with
+    ⟨ha1, haq, hb1, hbq, hablt⟩
+  have hqLt : W / p < p :=
+    (Nat.div_lt_iff_lt_mul hpPrime.pos).2 ((Nat.sqrt_lt).1 hpRoot)
+  have hpa : ¬ p ∣ a := by
+    intro hdiv
+    exact (not_le.mpr (haq.trans_lt hqLt)) (Nat.le_of_dvd ha1 hdiv)
+  have hpb : ¬ p ∣ b := by
+    intro hdiv
+    exact (not_le.mpr (hbq.trans_lt hqLt)) (Nat.le_of_dvd hb1 hdiv)
+  have hqW : W / p ≤ W := Nat.div_le_self W p
+  have hpaW : p * a ≤ W := by
+    calc
+      p * a ≤ p * (W / p) := Nat.mul_le_mul_left p haq
+      _ ≤ W := by simpa [Nat.mul_comm] using Nat.div_mul_le_self W p
+  have hlcmDvd : Nat.lcm a b ∣ a * b :=
+    Nat.lcm_dvd_iff.mpr ⟨⟨b, rfl⟩, ⟨a, by ring⟩⟩
+  have hL : Nat.lcm a b ≤ W := by
+    calc
+      Nat.lcm a b ≤ a * b := Nat.le_of_dvd (Nat.mul_pos ha1 hb1) hlcmDvd
+      _ ≤ (W / p) * (W / p) := Nat.mul_le_mul haq hbq
+      _ = (W / p) ^ 2 := by ring
+      _ ≤ W := postRootPrimeFamily_quotient_sq_le hp
+  have hcross : W < p * Nat.lcm a b ↔ W / p < Nat.lcm a b := by
+    simpa [Nat.mul_comm] using
+      (Nat.div_lt_iff_lt_mul hpPrime.pos :
+        W / p < Nat.lcm a b ↔ W < Nat.lcm a b * p).symm
+  rw [realMoebiusPhysicalSuperLcmFourCorner_eq_walls
+    hpPrime hpa hpb hablt.le (hbq.trans hqW)]
+  simp [Nat.not_lt.mpr hpaW, hL, hpaW, hcross, superLcmIndicator]
+
+/-- **Complete post-root cube collapse on the physical carrier.**  The whole
+signed family of parent cubes equals minus one lower boundary kernel. -/
+theorem sum_realMoebiusPhysicalSuperLcmFourCorner_postRoot_eq_neg_lower
+    {W p : ℕ} (hp : p ∈ postRootPrimeFamilySet W) :
+    (∑ mn ∈ mertensPositivePhysicalPairCarrier (W / p),
+      realMoebiusPhysicalSuperLcmFourCorner W p mn.1 mn.2) =
+        -fullLcmBoundaryKernel (W / p) := by
+  rw [fullLcmBoundaryKernel_eq_sum_superLcmIndicator, ← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro mn hmn
+  exact realMoebiusPhysicalSuperLcmFourCorner_postRoot_eq_neg_lower hp hmn
+
+/-- **Unconditional signed inequality.**  Complete post-root parent cubes
+cannot contribute positively to the LCM boundary.  Cubes clipped outside this
+lower parent carrier still retain the explicit physical top-escape term. -/
+theorem sum_realMoebiusPhysicalSuperLcmFourCorner_postRoot_nonpos
+    {W p : ℕ} (hp : p ∈ postRootPrimeFamilySet W) :
+    (∑ mn ∈ mertensPositivePhysicalPairCarrier (W / p),
+      realMoebiusPhysicalSuperLcmFourCorner W p mn.1 mn.2) ≤ 0 := by
+  rw [sum_realMoebiusPhysicalSuperLcmFourCorner_postRoot_eq_neg_lower hp]
+  exact neg_nonpos.mpr (fullLcmBoundaryKernel_nonneg (W / p))
+
 end RHLean.Proof
