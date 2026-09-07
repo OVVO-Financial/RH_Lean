@@ -136,6 +136,69 @@ theorem sum_postRootPrimeFamily_quotients_le_endpoint (W : ℕ) :
   rw [postRootPrimeFamilySet_eq_signedFirstJumpPostRootPrimeSet]
   exact sum_signedFirstJumpPostRootPrimeSeatCounts_le_root W
 
+/-! ## Literal disjoint pair carriers for the post-root family subtraction -/
+
+/-- Literal positive unordered-pair carrier through endpoint `W`, represented
+in the canonical orientation `m < n`.  The omitted zero site has zero Möbius
+weight, so this is the exact nonzero carrier of
+`realMertensPositiveLagPairSum (W + 1)`. -/
+def mertensPositivePhysicalPairCarrier (W : ℕ) : Finset (ℕ × ℕ) :=
+  ((Finset.Icc 1 W).product (Finset.Icc 1 W)).filter fun mn => mn.1 < mn.2
+
+/-- Physical positive-lag pairs contained in one common post-root prime family. -/
+def postRootPrimePhysicalPairCarrier (W p : ℕ) : Finset (ℕ × ℕ) :=
+  (mertensPositivePhysicalPairCarrier W).filter fun mn =>
+    p ∣ mn.1 ∧ p ∣ mn.2
+
+/-- Two distinct post-root primes cannot divide the same positive physical site
+below `W`: their product already exceeds the endpoint. -/
+theorem no_common_distinct_postRootPrime_divisors
+    {W p q n : ℕ}
+    (hp : p ∈ postRootPrimeFamilySet W)
+    (hq : q ∈ postRootPrimeFamilySet W)
+    (hpq : p ≠ q)
+    (hnpos : 0 < n) (hnW : n ≤ W)
+    (hpn : p ∣ n) (hqn : q ∣ n) : False := by
+  rcases mem_postRootPrimeFamilySet.mp hp with ⟨hpRoot, _hpW, hpPrime⟩
+  rcases mem_postRootPrimeFamilySet.mp hq with ⟨hqRoot, _hqW, hqPrime⟩
+  have hcop : Nat.Coprime p q := by
+    rw [hpPrime.coprime_iff_not_dvd]
+    intro hpdq
+    have heq : p = q :=
+      (Nat.prime_dvd_prime_iff_eq hpPrime hqPrime).mp hpdq
+    exact hpq heq
+  have hpqdvd : p * q ∣ n :=
+    hcop.mul_dvd_of_dvd_of_dvd hpn hqn
+  have hpqle : p * q ≤ n := Nat.le_of_dvd hnpos hpqdvd
+  have hWlt : W < p * q := by
+    by_cases hp_le_q : p ≤ q
+    · have hWpp : W < p * p := (Nat.sqrt_lt).1 hpRoot
+      exact hWpp.trans_le (Nat.mul_le_mul_left p hp_le_q)
+    · have hq_le_p : q ≤ p := Nat.le_of_not_ge hp_le_q
+      have hWqq : W < q * q := (Nat.sqrt_lt).1 hqRoot
+      have hqqp : q * q ≤ q * p := Nat.mul_le_mul_left q hq_le_p
+      simpa [Nat.mul_comm] using hWqq.trans_le hqqp
+  omega
+
+/-- **Distinct post-root family pair carriers are disjoint.**  Hence the scalar
+family subtraction has no hidden pair multiplicity. -/
+theorem postRootPrimePhysicalPairCarrier_disjoint
+    {W p q : ℕ}
+    (hp : p ∈ postRootPrimeFamilySet W)
+    (hq : q ∈ postRootPrimeFamilySet W)
+    (hpq : p ≠ q) :
+    Disjoint (postRootPrimePhysicalPairCarrier W p)
+      (postRootPrimePhysicalPairCarrier W q) := by
+  rw [Finset.disjoint_left]
+  intro mn hmp hmq
+  rcases Finset.mem_filter.mp hmp with ⟨hmBase, hpDiv⟩
+  rcases Finset.mem_filter.mp hmq with ⟨_hmBaseQ, hqDiv⟩
+  rcases Finset.mem_filter.mp hmBase with ⟨hmProd, _hmLt⟩
+  rcases Finset.mem_product.mp hmProd with ⟨hmRange, _hnRange⟩
+  rcases Finset.mem_Icc.mp hmRange with ⟨hm1, hmW⟩
+  exact no_common_distinct_postRootPrime_divisors hp hq hpq
+    (by omega) hmW hpDiv.1 hqDiv.1
+
 /-- Every post-root quotient lies at square-root scale: its square is at most
 the physical endpoint. -/
 theorem postRootPrimeFamily_quotient_sq_le
