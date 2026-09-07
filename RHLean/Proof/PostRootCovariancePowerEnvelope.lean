@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.EndpointCubeAnalyticClosure
+import RHLean.Proof.PostRootCovarianceLcmBoundaryClosure
 import RHLean.Proof.PostRootCovarianceLcmInteriorPacking
 
 open scoped ArithmeticFunction.Moebius BigOperators
@@ -413,6 +414,181 @@ theorem endpoint_le_postRootPowerScale
   have h := Real.rpow_le_rpow_of_exponent_le hbase
     (by linarith : (1 : ℝ) ≤ 1 + ε)
   simpa only [Real.rpow_one] using h
+
+/-! ## New-record first-wall discharge -/
+
+/-- The total signed mass of the complete lower post-root physical parent
+cubes from #598.  These are the cubes on which the physical top escape has
+already vanished, leaving only the negative first-LCM-wall contribution. -/
+def postRootCovarianceCompleteFirstWallCubeMass (W : ℕ) : ℝ :=
+  ∑ p ∈ postRootPrimeFamilySet W,
+    ∑ mn ∈ mertensPositivePhysicalPairCarrier (W / p),
+      realMoebiusPhysicalSuperLcmFourCorner W p mn.1 mn.2
+
+/-- The complete lower cube mass is exactly minus the sum of the lower scalar
+LCM boundary kernels. -/
+theorem postRootCovarianceCompleteFirstWallCubeMass_eq_neg_lowerBoundarySum
+    (W : ℕ) :
+    postRootCovarianceCompleteFirstWallCubeMass W =
+      -(∑ p ∈ postRootPrimeFamilySet W, fullLcmBoundaryKernel (W / p)) := by
+  unfold postRootCovarianceCompleteFirstWallCubeMass
+  calc
+    (∑ p ∈ postRootPrimeFamilySet W,
+        ∑ mn ∈ mertensPositivePhysicalPairCarrier (W / p),
+          realMoebiusPhysicalSuperLcmFourCorner W p mn.1 mn.2) =
+      ∑ p ∈ postRootPrimeFamilySet W, -fullLcmBoundaryKernel (W / p) := by
+        apply Finset.sum_congr rfl
+        intro p hp
+        exact sum_realMoebiusPhysicalSuperLcmFourCorner_postRoot_eq_neg_lower hp
+    _ = -(∑ p ∈ postRootPrimeFamilySet W, fullLcmBoundaryKernel (W / p)) := by
+      rw [Finset.sum_neg_distrib]
+
+/-- The amount gained from the complete first-wall cubes.  It is defined with
+the favorable sign, so later bounds can subtract it directly. -/
+def postRootCovarianceCompleteFirstWallGain (W : ℕ) : ℝ :=
+  -postRootCovarianceCompleteFirstWallCubeMass W
+
+theorem postRootCovarianceCompleteFirstWallGain_eq_lowerBoundarySum
+    (W : ℕ) :
+    postRootCovarianceCompleteFirstWallGain W =
+      ∑ p ∈ postRootPrimeFamilySet W, fullLcmBoundaryKernel (W / p) := by
+  unfold postRootCovarianceCompleteFirstWallGain
+  rw [postRootCovarianceCompleteFirstWallCubeMass_eq_neg_lowerBoundarySum]
+  ring
+
+/-- Every complete first-wall cube helps the desired one-sided estimate in the
+aggregate: the total gain is nonnegative. -/
+theorem postRootCovarianceCompleteFirstWallGain_nonneg (W : ℕ) :
+    0 ≤ postRootCovarianceCompleteFirstWallGain W := by
+  rw [postRootCovarianceCompleteFirstWallGain_eq_lowerBoundarySum]
+  exact Finset.sum_nonneg fun p _hp => fullLcmBoundaryKernel_nonneg (W / p)
+
+/-- **Exact wall decomposition.**  The literal post-root LCM-boundary mass is
+the full physical outer boundary minus the complete first-wall gain.  This is
+an equality, not a global reindexing claim about clipped cubes. -/
+theorem sum_postRootCovarianceRemainderBoundaryLcmCarrier_eq_outerBoundary_sub_completeFirstWallGain
+    (W : ℕ) :
+    (∑ mn ∈ postRootCovarianceRemainderBoundaryLcmCarrier W,
+      realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      fullLcmBoundaryKernel W - postRootCovarianceCompleteFirstWallGain W := by
+  rw [sum_postRootCovarianceRemainderBoundaryLcmCarrier_eq_finiteDifference,
+    postRootCovarianceCompleteFirstWallGain_eq_lowerBoundarySum]
+
+/-- The whole post-root remainder is therefore the packed complete-LCM interior,
+plus the physical outer boundary, minus the favorable complete first-wall gain. -/
+theorem postRootCovarianceRemainder_eq_interior_add_outerBoundary_sub_completeFirstWallGain
+    (W : ℕ) :
+    postRootCovarianceRemainder W =
+      (∑ mn ∈ postRootCovarianceRemainderInteriorLcmCarrier W,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2) +
+      fullLcmBoundaryKernel W - postRootCovarianceCompleteFirstWallGain W := by
+  rw [postRootCovarianceRemainder_eq_interiorLcm_add_boundaryLcm,
+    sum_postRootCovarianceRemainderBoundaryLcmCarrier_eq_outerBoundary_sub_completeFirstWallGain]
+  ring
+
+/-- After discarding the favorable complete cubes, only one endpoint unit of
+packed interior plus the physical outer boundary can create a positive record. -/
+theorem postRootCovarianceRemainder_le_endpoint_add_outerBoundary (W : ℕ) :
+    postRootCovarianceRemainder W ≤ (W : ℝ) + fullLcmBoundaryKernel W := by
+  have hsplit :=
+    postRootCovarianceRemainder_eq_interior_add_outerBoundary_sub_completeFirstWallGain W
+  have hinterior :=
+    sum_postRootCovarianceRemainderInteriorLcmCarrier_le_endpoint W
+  have hgain := postRootCovarianceCompleteFirstWallGain_nonneg W
+  linarith
+
+/-- The record-only residual budget after complete first-wall cubes are removed.
+The packed interior costs at most one unit on the `W^(1+ε)` scale. -/
+def postRootCovariancePowerOuterBoundaryRecordBudget (ε : ℝ) (N : ℕ) : ℝ :=
+  max 0
+    (fullLcmBoundaryKernel (N + 1) /
+        Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) +
+      1 - postRootCovariancePowerEnvelope ε N)
+
+/-- **New-record -> outer-wall residual.**  Every positive record increment is
+paid for by the normalized physical outer LCM boundary above the old record,
+with only the already-packed one-unit interior allowance.  The complete #598
+first-wall cube gain has disappeared from the upper bound with its correct sign. -/
+theorem postRootCovariancePowerRecordExcess_le_outerBoundaryRecordBudget
+    (ε : ℝ) (hε : 0 < ε) {N : ℕ} (hN : 1 ≤ N) :
+    postRootCovariancePowerRecordExcess ε N ≤
+      postRootCovariancePowerOuterBoundaryRecordBudget ε N := by
+  have hW : 2 ≤ N + 1 := by omega
+  have hWpos : (0 : ℝ) < ((N + 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 0 < N + 1 by omega)
+  have hpowpos :
+      0 < Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) :=
+    Real.rpow_pos_of_pos hWpos _
+  have hpowne : Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) ≠ 0 :=
+    ne_of_gt hpowpos
+  have hscale := endpoint_le_postRootPowerScale hε hW
+  have hrem := postRootCovarianceRemainder_le_endpoint_add_outerBoundary (N + 1)
+  have hcancel :
+      (fullLcmBoundaryKernel (N + 1) /
+          Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε)) *
+          Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) =
+        fullLcmBoundaryKernel (N + 1) := by
+    exact div_mul_cancel₀ _ hpowne
+  have hratio :
+      postRootCovarianceRemainder (N + 1) /
+          Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) ≤
+        fullLcmBoundaryKernel (N + 1) /
+            Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) + 1 := by
+    apply (div_le_iff₀ hpowpos).2
+    calc
+      postRootCovarianceRemainder (N + 1) ≤
+          (((N + 1 : ℕ) : ℝ) + fullLcmBoundaryKernel (N + 1)) := hrem
+      _ ≤ Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) +
+          fullLcmBoundaryKernel (N + 1) := by linarith
+      _ = (fullLcmBoundaryKernel (N + 1) /
+              Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) + 1) *
+            Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) := by
+        rw [add_mul, hcancel, one_mul]
+        ring
+  have hseat :
+      postRootCovariancePowerSeat ε (N + 1) ≤
+        fullLcmBoundaryKernel (N + 1) /
+            Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) + 1 := by
+    unfold postRootCovariancePowerSeat
+    rw [if_pos hW]
+    apply max_le
+    · have hboundary : 0 ≤ fullLcmBoundaryKernel (N + 1) :=
+        fullLcmBoundaryKernel_nonneg (N + 1)
+      have hdiv :
+          0 ≤ fullLcmBoundaryKernel (N + 1) /
+            Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) :=
+        div_nonneg hboundary hpowpos.le
+      linarith
+    · exact hratio
+  unfold postRootCovariancePowerRecordExcess
+    postRootCovariancePowerOuterBoundaryRecordBudget
+  apply max_le
+  · exact le_max_left _ _
+  · exact (sub_le_sub_right hseat _).trans (le_max_right _ _)
+
+/-- A genuine new record forces the normalized outer LCM boundary to clear the
+old envelope, up to the single packed-interior unit.  This is the extremality
+condition to feed into the other deterministic coordinate inequalities. -/
+theorem postRootCovariancePowerEnvelope_lt_outerBoundaryNormalized_add_one_of_recordExcess_pos
+    (ε : ℝ) (hε : 0 < ε) {N : ℕ} (hN : 1 ≤ N)
+    (hrecord : 0 < postRootCovariancePowerRecordExcess ε N) :
+    postRootCovariancePowerEnvelope ε N <
+      fullLcmBoundaryKernel (N + 1) /
+        Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) + 1 := by
+  have hle :=
+    postRootCovariancePowerRecordExcess_le_outerBoundaryRecordBudget ε hε hN
+  have hbudget :
+      0 < postRootCovariancePowerOuterBoundaryRecordBudget ε N :=
+    lt_of_lt_of_le hrecord hle
+  unfold postRootCovariancePowerOuterBoundaryRecordBudget at hbudget
+  by_contra hnot
+  have hnonpos :
+      fullLcmBoundaryKernel (N + 1) /
+          Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) +
+        1 - postRootCovariancePowerEnvelope ε N ≤ 0 := by
+    linarith
+  rw [max_eq_left hnonpos] at hbudget
+  linarith
 
 /-- Positive-power control of the exact scalar falling-energy finite difference.
 This is the #597 boundary seam with the weaker exponent needed by #599. -/
