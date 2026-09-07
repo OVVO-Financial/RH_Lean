@@ -63,14 +63,14 @@ theorem sum_postRootPrimePhysicalInteriorLcmCarrier_eq_lower
       have hmul : p * Nat.lcm ab.1 ab.2 ≤ W := by
         have h := (Nat.le_div_iff_mul_le hpPrime.pos).1 hlcm
         simpa [Nat.mul_comm] using h
-      simpa [lcm_mul_left] using hmul
+      simpa only [Nat.lcm_mul_left] using hmul
     apply mem_postRootPrimePhysicalInteriorLcmCarrier.mpr
     constructor
     · apply mem_postRootPrimePhysicalPairCarrier.mpr
       exact ⟨Nat.mul_pos hpPrime.pos (by omega), haW,
         Nat.mul_pos hpPrime.pos (by omega), hbW, habp,
-        ⟨ab.1, by simp [Nat.mul_comm]⟩,
-        ⟨ab.2, by simp [Nat.mul_comm]⟩⟩
+        ⟨ab.1, by simp⟩,
+        ⟨ab.2, by simp⟩⟩
     · exact hlcmW
   · intro a ha b hb hab
     apply Prod.ext
@@ -86,15 +86,11 @@ theorem sum_postRootPrimePhysicalInteriorLcmCarrier_eq_lower
     have hma : p * a = mn.1 := Nat.mul_div_cancel' hpm
     have hnb : p * b = mn.2 := Nat.mul_div_cancel' hpn
     have ha1 : 1 ≤ a := by
-      by_contra h
-      have ha0 : a = 0 := by omega
-      rw [ha0, mul_zero] at hma
-      omega
+      dsimp [a]
+      exact Nat.div_pos (Nat.le_of_dvd (by omega) hpm) hpPrime.pos
     have hb1 : 1 ≤ b := by
-      by_contra h
-      have hb0 : b = 0 := by omega
-      rw [hb0, mul_zero] at hnb
-      omega
+      dsimp [b]
+      exact Nat.div_pos (Nat.le_of_dvd (by omega) hpn) hpPrime.pos
     have haQ : a ≤ W / p := by
       apply (Nat.le_div_iff_mul_le hpPrime.pos).2
       simpa [Nat.mul_comm, hma] using hmW
@@ -108,7 +104,8 @@ theorem sum_postRootPrimePhysicalInteriorLcmCarrier_eq_lower
       apply (Nat.le_div_iff_mul_le hpPrime.pos).2
       have hlcmScaled : Nat.lcm (p * a) (p * b) ≤ W := by
         simpa [hma, hnb] using hlcmW
-      simpa [lcm_mul_left, Nat.mul_comm] using hlcmScaled
+      rw [Nat.lcm_mul_left] at hlcmScaled
+      simpa [Nat.mul_comm] using hlcmScaled
     refine ⟨(a, b), ?_, ?_⟩
     · exact mem_moebiusLcmInteriorPositiveCarrier.mpr ⟨
         Finset.mem_Icc.mpr ⟨ha1, haQ⟩,
@@ -163,14 +160,28 @@ theorem postRootPrimePhysicalInteriorLcmUnion_eq_biUnion (W : ℕ) :
       (postRootPrimeFamilySet W).biUnion
         (postRootPrimePhysicalInteriorLcmCarrier W) := by
   ext mn
-  simp [postRootPrimePhysicalInteriorLcmUnion,
-    postRootPrimePhysicalInteriorLcmCarrier]
+  constructor
+  · intro hmn
+    rcases mem_postRootPrimePhysicalInteriorLcmUnion.mp hmn with
+      ⟨hunion, hlcm⟩
+    rcases mem_postRootPrimePhysicalPairUnion.mp hunion with
+      ⟨p, hp, hpair⟩
+    exact Finset.mem_biUnion.mpr ⟨p, hp,
+      mem_postRootPrimePhysicalInteriorLcmCarrier.mpr ⟨hpair, hlcm⟩⟩
+  · intro hmn
+    rcases Finset.mem_biUnion.mp hmn with ⟨p, hp, hinterior⟩
+    rcases mem_postRootPrimePhysicalInteriorLcmCarrier.mp hinterior with
+      ⟨hpair, hlcm⟩
+    exact mem_postRootPrimePhysicalInteriorLcmUnion.mpr ⟨
+      mem_postRootPrimePhysicalPairUnion.mpr ⟨p, hp, hpair⟩, hlcm⟩
 
 /-- The filtered family interiors remain pairwise disjoint. -/
 theorem postRootPrimePhysicalInteriorLcmCarrier_pairwiseDisjoint (W : ℕ) :
     Set.PairwiseDisjoint (↑(postRootPrimeFamilySet W))
       (postRootPrimePhysicalInteriorLcmCarrier W) := by
   intro p hp q hq hpq
+  change Disjoint (postRootPrimePhysicalInteriorLcmCarrier W p)
+    (postRootPrimePhysicalInteriorLcmCarrier W q)
   rw [Finset.disjoint_left]
   intro mn hmnp hmnq
   have hfullp : mn ∈ postRootPrimePhysicalPairCarrier W p :=
