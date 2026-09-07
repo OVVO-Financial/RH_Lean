@@ -291,4 +291,71 @@ theorem postRootCovarianceRemainderBoundary_owner_parent_lcm_dichotomy
     rw [← hscale]
     exact hchildWall
 
+/-! ## Exact four-corner finite difference at the LCM wall -/
+
+/-- Real indicator for the literal super-endpoint lcm wall. -/
+def superLcmIndicator (W m n : ℕ) : ℝ :=
+  if W < Nat.lcm m n then 1 else 0
+
+private theorem lcm_prime_mul_right_of_not_dvd
+    {p a b : ℕ} (hp : p.Prime) (hpa : ¬ p ∣ a) (hpb : ¬ p ∣ b) :
+    Nat.lcm a (p * b) = p * Nat.lcm a b := by
+  rw [Nat.lcm_comm]
+  simpa [Nat.lcm_comm] using lcm_prime_mul_left_of_not_dvd hp hpb hpa
+
+/-- **Exact one-prime LCM wall stencil.**  For a prime fresh to both parent
+coordinates, the three non-base corners have common lcm `p*lcm(a,b)`.  The
+complete four-corner indicator derivative therefore vanishes everywhere except
+at the literal first crossing `lcm(a,b) ≤ W < p*lcm(a,b)`, where it is `-1`. -/
+theorem superLcmIndicator_fourCorner_eq_firstFailure
+    {W p a b : ℕ} (hp : p.Prime) (hpa : ¬ p ∣ a) (hpb : ¬ p ∣ b) :
+    superLcmIndicator W a b -
+        superLcmIndicator W (p * a) b -
+        superLcmIndicator W a (p * b) +
+        superLcmIndicator W (p * a) (p * b) =
+      if Nat.lcm a b ≤ W ∧ W < p * Nat.lcm a b then -1 else 0 := by
+  have hleft := lcm_prime_mul_left_of_not_dvd hp hpa hpb
+  have hright := lcm_prime_mul_right_of_not_dvd hp hpa hpb
+  have hboth : Nat.lcm (p * a) (p * b) = p * Nat.lcm a b := by
+    simpa only [Nat.lcm_mul_left]
+  unfold superLcmIndicator
+  rw [hleft, hright, hboth]
+  have hle : Nat.lcm a b ≤ p * Nat.lcm a b := by
+    calc
+      Nat.lcm a b = 1 * Nat.lcm a b := by simp
+      _ ≤ p * Nat.lcm a b := Nat.mul_le_mul_right _ hp.one_le
+  by_cases hbase : W < Nat.lcm a b
+  · have hupper : W < p * Nat.lcm a b := hbase.trans_le hle
+    simp [hbase, hupper]
+  · have hbaseLe : Nat.lcm a b ≤ W := Nat.le_of_not_gt hbase
+    by_cases hupper : W < p * Nat.lcm a b
+    · simp [hbase, hbaseLe, hupper]
+    · simp [hbase, hupper]
+
+/-- **Möbius-weighted first-failure stencil.**  Fresh-prime sign reversal turns
+the four physical pair corners into the Boolean derivative above.  Thus a full
+Euler square contributes exactly zero away from the first LCM wall and exactly
+minus its old pair weight on that wall. -/
+theorem realMoebiusSuperLcmFourCorner_eq_firstFailure
+    {W p a b : ℕ} (hp : p.Prime) (hpa : ¬ p ∣ a) (hpb : ¬ p ∣ b) :
+    (realMoebiusStep a * realMoebiusStep b) * superLcmIndicator W a b +
+      (realMoebiusStep (p * a) * realMoebiusStep b) *
+        superLcmIndicator W (p * a) b +
+      (realMoebiusStep a * realMoebiusStep (p * b)) *
+        superLcmIndicator W a (p * b) +
+      (realMoebiusStep (p * a) * realMoebiusStep (p * b)) *
+        superLcmIndicator W (p * a) (p * b) =
+      if Nat.lcm a b ≤ W ∧ W < p * Nat.lcm a b then
+        -(realMoebiusStep a * realMoebiusStep b)
+      else 0 := by
+  rw [realMoebiusStep_mul_prime_eq_neg hp hpa,
+    realMoebiusStep_mul_prime_eq_neg hp hpb]
+  have hwall := superLcmIndicator_fourCorner_eq_firstFailure
+    (W := W) hp hpa hpb
+  by_cases hcross : Nat.lcm a b ≤ W ∧ W < p * Nat.lcm a b
+  · rw [if_pos hcross] at hwall ⊢
+    linear_combination (realMoebiusStep a * realMoebiusStep b) * hwall
+  · rw [if_neg hcross] at hwall ⊢
+    linear_combination (realMoebiusStep a * realMoebiusStep b) * hwall
+
 end RHLean.Proof
