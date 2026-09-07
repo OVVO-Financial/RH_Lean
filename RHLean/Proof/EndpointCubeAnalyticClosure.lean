@@ -758,6 +758,92 @@ theorem postRootCovarianceRemainderRecursivePair_owner_descent
   · rw [squarefreePairFreshPrimeSet_orderedParent_card]
     exact hrank
 
+/-- Number of nonzero recursive children with a given ordered owner-parent.
+Distinct children may have the same parent, so a signed aggregate descent must
+retain this multiplicity. -/
+def postRootCovarianceRemainderOwnerChildMultiplicity
+    (W : ℕ) (parent : ℕ × ℕ) : ℕ :=
+  (((postRootCovarianceRemainderRecursivePairCarrier W).filter
+      (fun mn => realMoebiusStep mn.1 * realMoebiusStep mn.2 ≠ 0)).filter
+    (fun mn => squarefreePairFreshPrimeOrderedParent mn.1 mn.2 = parent)).card
+
+/-- **Aggregate owner descent with exact multiplicities.**  The pointwise sign
+reversal does not give an unweighted reindexing: each parent carries precisely
+the number of recursive children that strip to it.  Zero-weight children are
+discarded before applying the squarefree owner law. -/
+theorem sum_postRootCovarianceRemainderRecursive_eq_neg_parentMultiplicity
+    (W : ℕ) :
+    (∑ mn ∈ postRootCovarianceRemainderRecursivePairCarrier W,
+      realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      -∑ parent ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
+        (postRootCovarianceRemainderOwnerChildMultiplicity W parent : ℝ) *
+          (realMoebiusStep parent.1 * realMoebiusStep parent.2) := by
+  let S := (postRootCovarianceRemainderRecursivePairCarrier W).filter
+    (fun mn => realMoebiusStep mn.1 * realMoebiusStep mn.2 ≠ 0)
+  let P : ℕ × ℕ → ℕ × ℕ :=
+    fun mn => squarefreePairFreshPrimeOrderedParent mn.1 mn.2
+  let w : ℕ × ℕ → ℝ :=
+    fun mn => realMoebiusStep mn.1 * realMoebiusStep mn.2
+  have hmaps : ∀ mn ∈ S,
+      P mn ∈ postRootCovarianceRemainderPhysicalPairCarrier W := by
+    intro mn hmn
+    rcases Finset.mem_filter.mp hmn with ⟨hpair, hweight⟩
+    exact (postRootCovarianceRemainderRecursivePair_owner_descent hpair hweight).1
+  have hzero :
+      (∑ mn ∈ postRootCovarianceRemainderRecursivePairCarrier W, w mn) =
+        ∑ mn ∈ S, w mn := by
+    symm
+    apply Finset.sum_subset (Finset.filter_subset _ _)
+    intro mn hmn hnot
+    by_contra hweight
+    exact hnot (Finset.mem_filter.mpr ⟨hmn, hweight⟩)
+  have hsign : (∑ mn ∈ S, w mn) = -(∑ mn ∈ S, w (P mn)) := by
+    rw [← Finset.sum_neg_distrib]
+    apply Finset.sum_congr rfl
+    intro mn hmn
+    rcases Finset.mem_filter.mp hmn with ⟨hpair, hweight⟩
+    exact (postRootCovarianceRemainderRecursivePair_owner_descent hpair hweight).2.2.2
+  have hfiber :
+      (∑ parent ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
+        (postRootCovarianceRemainderOwnerChildMultiplicity W parent : ℝ) *
+          w parent) = ∑ mn ∈ S, w (P mn) := by
+    calc
+      (∑ parent ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
+          (postRootCovarianceRemainderOwnerChildMultiplicity W parent : ℝ) *
+            w parent) =
+          ∑ parent ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
+            ∑ _mn ∈ S with P _mn = parent, w parent := by
+        apply Finset.sum_congr rfl
+        intro parent _hparent
+        simp [postRootCovarianceRemainderOwnerChildMultiplicity, S, P,
+          nsmul_eq_mul]
+      _ = ∑ mn ∈ S, w (P mn) :=
+        Finset.sum_fiberwise_of_maps_to'
+          (s := S) (t := postRootCovarianceRemainderPhysicalPairCarrier W)
+          (g := P) hmaps w
+  change (∑ mn ∈ postRootCovarianceRemainderRecursivePairCarrier W, w mn) =
+    -∑ parent ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
+      (postRootCovarianceRemainderOwnerChildMultiplicity W parent : ℝ) * w parent
+  rw [hzero, hsign, hfiber]
+
+/-- The exact scalar remainder is the nonpositive terminal mass minus the
+signed parent mass with its full child multiplicities.  This is the aggregate
+form of owner descent on the existing physical remainder, not a claim that the
+parent map is injective. -/
+theorem postRootCovarianceRemainder_eq_terminal_sub_parentMultiplicity
+    (W : ℕ) :
+    postRootCovarianceRemainder W =
+      (∑ mn ∈ postRootCovarianceRemainderTerminalPairCarrier W,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2) -
+      ∑ parent ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
+        (postRootCovarianceRemainderOwnerChildMultiplicity W parent : ℝ) *
+          (realMoebiusStep parent.1 * realMoebiusStep parent.2) := by
+  rw [postRootCovarianceRemainder_eq_physicalPairCarrier]
+  have hsplit := postRootCovarianceRemainder_terminal_recursive_partition W
+    (fun mn : ℕ × ℕ => realMoebiusStep mn.1 * realMoebiusStep mn.2)
+  rw [sum_postRootCovarianceRemainderRecursive_eq_neg_parentMultiplicity] at hsplit
+  linarith
+
 /-- Every post-root quotient lies at square-root scale: its square is at most
 the physical endpoint. -/
 theorem postRootPrimeFamily_quotient_sq_le
