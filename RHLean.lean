@@ -399,6 +399,11 @@ import RHLean.Proof.CanonicalGapBridgeGram
 import RHLean.Proof.CanonicalGapOrthogonalMode
 import RHLean.Proof.CanonicalGapPrefixGram
 import RHLean.Proof.CanonicalHighSectorCovariance
+import RHLean.Proof.CanonicalRoughAdaptiveCriticalCompression
+import RHLean.Proof.CanonicalRoughAdaptiveLargestPrimeElimination
+import RHLean.Proof.CanonicalRoughAdaptiveRawAnnihilation
+import RHLean.Proof.CanonicalRoughAdaptiveWeightedEulerCompression
+import RHLean.Proof.CanonicalRoughAdaptiveWeightedIteration
 import RHLean.Proof.CanonicalRoughBoundaryProfileAbelReturn
 import RHLean.Proof.CanonicalRoughColumnAbelBridge
 import RHLean.Proof.CanonicalRoughCompleteSubrootDefectReduction
@@ -449,6 +454,8 @@ import RHLean.Proof.FinitePartialMoments
 import RHLean.Proof.FirstJumpPrimeSliceObstruction
 import RHLean.Proof.FullFactorizationBridge
 import RHLean.Proof.GeometricRHReduction
+import RHLean.Proof.GlobalFirstJumpCofactorCompression
+import RHLean.Proof.GlobalFirstJumpCriticalCorrelationBridge
 import RHLean.Proof.GlobalPrefixCarrierOthello
 import RHLean.Proof.HeightShellGram
 import RHLean.Proof.HeightShellReconstruction
