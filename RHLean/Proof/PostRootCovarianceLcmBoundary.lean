@@ -238,14 +238,14 @@ private theorem sum_moebiusLcmInteriorOrderedCarrier_fiber
         exact Nat.dvd_lcm_right mn.1 mn.2
       exact Finset.mem_filter.mpr ⟨
         Finset.mem_product.mpr ⟨
-          Finset.mem_divisors.mpr ⟨hmdiv, hLpos.ne'⟩,
-          Finset.mem_divisors.mpr ⟨hndiv, hLpos.ne'⟩⟩,
+          mem_divisors.mpr ⟨hmdiv, hLpos.ne'⟩,
+          mem_divisors.mpr ⟨hndiv, hLpos.ne'⟩⟩,
         heq.symm⟩
     · intro hmn
       rcases Finset.mem_filter.mp hmn with ⟨hprod, heq⟩
       rcases Finset.mem_product.mp hprod with ⟨hm, hn⟩
-      have hmData := Finset.mem_divisors.mp hm
-      have hnData := Finset.mem_divisors.mp hn
+      have hmData := mem_divisors.mp hm
+      have hnData := mem_divisors.mp hn
       have hmpos : 0 < mn.1 := Nat.pos_of_dvd_of_pos hmData.1 hLpos
       have hnpos : 0 < mn.2 := Nat.pos_of_dvd_of_pos hnData.1 hLpos
       have hmle : mn.1 ≤ L := Nat.le_of_dvd hLpos hmData.1
@@ -256,8 +256,7 @@ private theorem sum_moebiusLcmInteriorOrderedCarrier_fiber
         Finset.mem_Icc.mpr ⟨hnpos, hnle.trans hLtop⟩,
         by simpa [← heq] using hLtop⟩
   unfold moebiusLcmPairMass
-  rw [← Finset.sum_product, ← Finset.sum_filter]
-  rw [hcarrier]
+  rw [hcarrier, Finset.sum_filter, Finset.sum_product]
 
 /-- **Cumulative complete-cube identity.**  The ordered Möbius mass of every
 physical pair whose lcm is at most `W` is exactly the ordinary Möbius prefix on
