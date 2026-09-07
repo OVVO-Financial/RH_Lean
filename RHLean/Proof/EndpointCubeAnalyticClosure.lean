@@ -380,7 +380,8 @@ theorem postRootPrimePhysicalPairCarrier_eq_dilated_image
     apply (Nat.mul_lt_mul_left hp.pos).mp
     simpa only [hmEq, hnEq] using hmnlt
   · intro hmn
-    rcases Finset.mem_image.mp hmn with ⟨cd, hcd, rfl⟩
+    rcases Finset.mem_image.mp hmn with ⟨cd, hcd, hcdEq⟩
+    rw [← hcdEq]
     rcases cd with ⟨c, d⟩
     rcases mem_mertensPositivePhysicalPairCarrier.mp hcd with
       ⟨hc1, hcW, hd1, hdW, hcdlt⟩
