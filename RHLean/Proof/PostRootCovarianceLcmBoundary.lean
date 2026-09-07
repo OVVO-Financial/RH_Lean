@@ -229,7 +229,7 @@ private theorem sum_moebiusLcmInteriorOrderedCarrier_fiber
     · intro hmn
       rcases Finset.mem_filter.mp hmn with ⟨hbase, heq⟩
       rcases mem_moebiusLcmInteriorOrderedCarrier.mp hbase with
-        ⟨hm, hn, _htop⟩
+        ⟨_hm, _hn, _htop⟩
       have hmdiv : mn.1 ∣ L := by
         rw [← heq]
         exact Nat.dvd_lcm_left mn.1 mn.2
@@ -256,7 +256,12 @@ private theorem sum_moebiusLcmInteriorOrderedCarrier_fiber
         Finset.mem_Icc.mpr ⟨hnpos, hnle.trans hLtop⟩,
         by simpa [← heq] using hLtop⟩
   unfold moebiusLcmPairMass
-  rw [hcarrier, Finset.sum_filter, Finset.sum_product]
+  rw [hcarrier, Finset.sum_filter]
+  simpa only using
+    (Finset.sum_product
+      (s := L.divisors) (t := L.divisors)
+      (f := fun mn : ℕ × ℕ =>
+        if L = Nat.lcm mn.1 mn.2 then μ mn.1 * μ mn.2 else 0))
 
 /-- **Cumulative complete-cube identity.**  The ordered Möbius mass of every
 physical pair whose lcm is at most `W` is exactly the ordinary Möbius prefix on
@@ -322,11 +327,11 @@ theorem sum_moebiusLcmInteriorOrderedCarrier_eq_diagonal_add_two_mul_positive
         (if n < m ∧ Nat.lcm m n ≤ W then μ m * μ n else 0) := by
     by_cases hcut : Nat.lcm m n ≤ W
     · rcases lt_trichotomy m n with hlt | heq | hgt
-      · have hne : m ≠ n := ne_of_lt hlt
+      · have hne : m ≠ n := Nat.ne_of_lt hlt
         have hrev : ¬ n < m := by omega
         simp [hcut, hlt, hne, hrev]
       · subst n
-        simp [hcut]
+        simp
       · have hne : m ≠ n := by omega
         have hfwd : ¬ m < n := by omega
         simp [hcut, hgt, hne, hfwd]
@@ -357,7 +362,7 @@ theorem sum_moebiusLcmInteriorOrderedCarrier_eq_diagonal_add_two_mul_positive
     intro m _hm
     apply Finset.sum_congr rfl
     intro n _hn
-    simp [Nat.lcm_comm, mul_comm]
+    rfl
   unfold moebiusLcmInteriorOrderedCarrier
     moebiusLcmInteriorPositiveCarrier
   simp_rw [Finset.sum_filter, Finset.sum_product]
