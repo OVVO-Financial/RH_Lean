@@ -8,7 +8,81 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
-## Current main baseline
+## Current continuation: PR #593 after merged #592
+
+The active branch is `agent/post-root-remainder-owner-carrier` in PR #593.
+The older #582 normalization below remains valid background. The new work is
+in `GlobalFirstJumpCriticalCorrelationBridge.lean` and
+`EndpointCubeAnalyticClosure.lean`; consult the current head's Hosted Lean
+result before treating a newly added declaration as compiled.
+
+### A proposed reciprocal bound is refuted on the existing partner coordinate
+
+`criticalReciprocalPrefix_one_eq_partnerCard` and
+`criticalReciprocalPrefix_unitPartnerSet` identify the first reciprocal prefix
+exactly:
+
+```text
+P_R(1) = #{q prime : R <= q <= R^2 - 1}.
+```
+
+At every prime root `R`, this is at least one. Since
+`C * (log R + 1) / R -> 0`, Euclid's infinitude of primes alone contradicts
+`CriticalReciprocalPrefixRootBound`. The declaration
+`not_criticalReciprocalPrefixRootBound` records this obstruction.
+
+The old implications from that premise remain logically valid, but cannot
+close the endpoint bound. Do not try to prove the premise by changing the
+Euler schedule or importing PNT. The exact endpoint/rough-correlation equality
+does not identify a partial reciprocal prefix with the endpoint. In particular,
+the unit prefix has no opposite Möbius sign with which to cancel.
+
+### The post-root covariance remainder has an exact physical carrier
+
+For the physical endpoint `W`, put `C(W) = sum_{1 <= m < n <= W} mu(m) mu(n)`.
+The same-scale remainder is
+
+```text
+E(W) = C(W) - sum_{sqrt(W) < p <= W, p prime} C(floor(W/p)).
+```
+
+`postRootCovarianceRemainder_eq_physicalPairCarrier` identifies it with the
+signed pair sum over pairs with **no common post-root prime**. The removed
+families are pairwise disjoint literal finite carriers.
+
+The remaining quantitative proposition is
+`PostRootCovarianceLinearRemainderStatement`, namely `E(W) <= D * W` for one
+constant `D >= 0`. The compiled conditional route is
+`mertensEnergyBounded_of_postRootCovarianceLinearRemainder`. Its hypothesis is
+still open; neither the pair partition nor owner promotion discharges it.
+
+### Owner descent must retain child multiplicities
+
+`postRootCovarianceRemainderRecursivePair_owner_descent` proves that every
+nonzero recursive pair has an ordered parent on the same remainder carrier,
+its owner strictly increases, its separation rank falls by one, and its weight
+changes sign. Equal-parent terminal pairs have nonpositive weight.
+
+This parent map is not injective. For any primes `p < q <= W`, the positive
+pair `(p,q)` strips at `p` to `(1,q)`. At `W=60`, the sixteen primes below `59`
+therefore give sixteen positive children of the one negative pair `(1,59)`.
+Owner promotion alone cannot pay for all children with that single parent.
+
+The new aggregate theorem is
+`postRootCovarianceRemainder_eq_terminal_sub_parentMultiplicity`:
+
+```text
+E(W) = terminalMass(W)
+       - sum_parent childMultiplicity(W,parent) * mu(parent.1) * mu(parent.2).
+```
+
+Here `terminalMass(W) <= 0`; multiplicity counts precisely the nonzero
+recursive children with that ordered parent. No triangle inequality or
+support estimate is used. This identity makes the outstanding signed
+multiplicity estimate explicit. Replacing those multiplicities by one is not
+a valid cancellation argument.
+
+## Earlier main baseline: physical normalization
 
 PR #582 merged into `main` at:
 
