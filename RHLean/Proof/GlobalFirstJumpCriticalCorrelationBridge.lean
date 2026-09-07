@@ -433,7 +433,8 @@ private theorem mem_squarefreePrimeFace_parent_iff_of_ne
     q ∈ squarefreePrimeFace (squarefreePrimeFamilyParent p n) ↔
       q ∈ squarefreePrimeFace n := by
   have hparentPos := squarefreePrimeFamilyParent_pos hp hn
-  have hdvd := prime_dvd_squarefreePrimeFamilyParent_iff_of_ne hp hq hqp
+  have hdvd : q ∣ squarefreePrimeFamilyParent p n ↔ q ∣ n :=
+    prime_dvd_squarefreePrimeFamilyParent_iff_of_ne (n := n) hp hq hqp
   constructor
   · intro hface
     have hmem : q ∈ (squarefreePrimeFamilyParent p n).primeFactors := by
@@ -513,7 +514,11 @@ theorem squarefreePairFreshPrimeOwner_lt_parentOwner
       have hnotUn : p ∉ squarefreePrimeFace un := by
         dsimp [un]
         exact owner_not_mem_squarefreePrimeFace_parent hp hn
-      simp [hnotUm, hnotUn]
+      constructor
+      · intro hmem
+        exact (hnotUm hmem).elim
+      · intro hmem
+        exact (hnotUn hmem).elim
     · have hq_lt_p : q < p := by omega
       have hchron :
           q ∈ squarefreePrimeFace m ↔ q ∈ squarefreePrimeFace n :=
