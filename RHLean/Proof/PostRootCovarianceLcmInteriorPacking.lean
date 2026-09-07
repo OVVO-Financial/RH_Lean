@@ -141,4 +141,151 @@ theorem neg_quotient_le_sum_postRootPrimePhysicalInteriorLcmCarrier
   rw [sum_postRootPrimePhysicalInteriorLcmCarrier_eq_lower hp]
   exact neg_endpoint_le_sum_realMoebiusStep_lcmInteriorPositive (W / p)
 
+/-! ## Aggregate product packing of all removed interiors -/
+
+/-- The complete-lcm portion of the literal union removed by all post-root
+prime families. -/
+def postRootPrimePhysicalInteriorLcmUnion (W : ℕ) : Finset (ℕ × ℕ) :=
+  (postRootPrimePhysicalPairUnion W).filter fun mn =>
+    Nat.lcm mn.1 mn.2 ≤ W
+
+@[simp] theorem mem_postRootPrimePhysicalInteriorLcmUnion
+    {W : ℕ} {mn : ℕ × ℕ} :
+    mn ∈ postRootPrimePhysicalInteriorLcmUnion W ↔
+      mn ∈ postRootPrimePhysicalPairUnion W ∧
+        Nat.lcm mn.1 mn.2 ≤ W := by
+  simp [postRootPrimePhysicalInteriorLcmUnion]
+
+/-- Filtering by the lcm cutoff commutes with the disjoint post-root family
+union. -/
+theorem postRootPrimePhysicalInteriorLcmUnion_eq_biUnion (W : ℕ) :
+    postRootPrimePhysicalInteriorLcmUnion W =
+      (postRootPrimeFamilySet W).biUnion
+        (postRootPrimePhysicalInteriorLcmCarrier W) := by
+  ext mn
+  simp [postRootPrimePhysicalInteriorLcmUnion,
+    postRootPrimePhysicalInteriorLcmCarrier]
+
+/-- The filtered family interiors remain pairwise disjoint. -/
+theorem postRootPrimePhysicalInteriorLcmCarrier_pairwiseDisjoint (W : ℕ) :
+    Set.PairwiseDisjoint (↑(postRootPrimeFamilySet W))
+      (postRootPrimePhysicalInteriorLcmCarrier W) := by
+  intro p hp q hq hpq
+  rw [Finset.disjoint_left]
+  intro mn hmnp hmnq
+  have hfullp : mn ∈ postRootPrimePhysicalPairCarrier W p :=
+    (Finset.mem_filter.mp hmnp).1
+  have hfullq : mn ∈ postRootPrimePhysicalPairCarrier W q :=
+    (Finset.mem_filter.mp hmnq).1
+  exact (Finset.disjoint_left.mp
+    (postRootPrimePhysicalPairCarrier_disjoint hp hq hpq)) hfullp hfullq
+
+/-- The complete positive lcm interior is the disjoint union of the #593
+remainder interior and the filtered post-root family interiors. -/
+theorem moebiusLcmInteriorPositiveCarrier_eq_remainder_union_removed
+    (W : ℕ) :
+    moebiusLcmInteriorPositiveCarrier W =
+      postRootCovarianceRemainderInteriorLcmCarrier W ∪
+        postRootPrimePhysicalInteriorLcmUnion W := by
+  ext mn
+  constructor
+  · intro hmn
+    have hbase : mn ∈ mertensPositivePhysicalPairCarrier W := by
+      rw [moebiusLcmInteriorPositiveCarrier_eq_filter] at hmn
+      exact (Finset.mem_filter.mp hmn).1
+    have hlcm : Nat.lcm mn.1 mn.2 ≤ W := by
+      rw [moebiusLcmInteriorPositiveCarrier_eq_filter] at hmn
+      exact (Finset.mem_filter.mp hmn).2
+    by_cases hremoved : mn ∈ postRootPrimePhysicalPairUnion W
+    · exact Finset.mem_union_right _
+        (mem_postRootPrimePhysicalInteriorLcmUnion.mpr ⟨hremoved, hlcm⟩)
+    · apply Finset.mem_union_left
+      exact mem_postRootCovarianceRemainderInteriorLcmCarrier.mpr ⟨
+        mem_postRootCovarianceRemainderPhysicalPairCarrier.mpr
+          ⟨hbase, hremoved⟩,
+        hlcm⟩
+  · intro hmn
+    rcases Finset.mem_union.mp hmn with hrem | hremoved
+    · rcases mem_postRootCovarianceRemainderInteriorLcmCarrier.mp hrem with
+        ⟨hphys, hlcm⟩
+      have hbase :=
+        (mem_postRootCovarianceRemainderPhysicalPairCarrier.mp hphys).1
+      rw [moebiusLcmInteriorPositiveCarrier_eq_filter]
+      exact Finset.mem_filter.mpr ⟨hbase, hlcm⟩
+    · rcases mem_postRootPrimePhysicalInteriorLcmUnion.mp hremoved with
+        ⟨hunion, hlcm⟩
+      have hbase := postRootPrimePhysicalPairUnion_subset W hunion
+      rw [moebiusLcmInteriorPositiveCarrier_eq_filter]
+      exact Finset.mem_filter.mpr ⟨hbase, hlcm⟩
+
+/-- The two pieces in the complete-interior decomposition are disjoint. -/
+theorem postRootCovarianceRemainderInteriorLcmCarrier_disjoint_removed
+    (W : ℕ) :
+    Disjoint (postRootCovarianceRemainderInteriorLcmCarrier W)
+      (postRootPrimePhysicalInteriorLcmUnion W) := by
+  rw [Finset.disjoint_left]
+  intro mn hrem hremoved
+  have hnot :=
+    (mem_postRootCovarianceRemainderPhysicalPairCarrier.mp
+      (mem_postRootCovarianceRemainderInteriorLcmCarrier.mp hrem).1).2
+  exact hnot (mem_postRootPrimePhysicalInteriorLcmUnion.mp hremoved).1
+
+/-- Exact signed partition of the full positive complete-lcm interior into the
+remainder and all removed post-root interiors. -/
+theorem sum_moebiusLcmInteriorPositiveCarrier_eq_remainder_add_removed
+    (W : ℕ) :
+    (∑ mn ∈ moebiusLcmInteriorPositiveCarrier W,
+      realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      (∑ mn ∈ postRootCovarianceRemainderInteriorLcmCarrier W,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2) +
+      ∑ mn ∈ postRootPrimePhysicalInteriorLcmUnion W,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2 := by
+  rw [moebiusLcmInteriorPositiveCarrier_eq_remainder_union_removed,
+    Finset.sum_union
+      (postRootCovarianceRemainderInteriorLcmCarrier_disjoint_removed W)]
+
+/-- The removed complete-lcm mass is exactly the sum of the lower-scale family
+interiors. -/
+theorem sum_postRootPrimePhysicalInteriorLcmUnion_eq_familySum
+    (W : ℕ) :
+    (∑ mn ∈ postRootPrimePhysicalInteriorLcmUnion W,
+      realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      ∑ p ∈ postRootPrimeFamilySet W,
+        ∑ mn ∈ postRootPrimePhysicalInteriorLcmCarrier W p,
+          realMoebiusStep mn.1 * realMoebiusStep mn.2 := by
+  rw [postRootPrimePhysicalInteriorLcmUnion_eq_biUnion,
+    Finset.sum_biUnion
+      (postRootPrimePhysicalInteriorLcmCarrier_pairwiseDisjoint W)]
+
+/-- **Complete-lcm remainder interior is linearly bounded.**  Every removed
+post-root family is a lower-scale complete interior of size `W / p`; their
+negative costs pack into at most `W` quotient seats.  The full complete interior
+is already nonpositive, so the #593 remainder interior is at most the endpoint.
+
+This closes the entire `lcm(m,n) ≤ W` region without an iid assumption, prime-gap
+hypothesis, PNT error term, or absolute-value estimate. -/
+theorem sum_postRootCovarianceRemainderInteriorLcmCarrier_le_endpoint
+    (W : ℕ) :
+    (∑ mn ∈ postRootCovarianceRemainderInteriorLcmCarrier W,
+      realMoebiusStep mn.1 * realMoebiusStep mn.2) ≤ (W : ℝ) := by
+  have hfull := sum_realMoebiusStep_lcmInteriorPositive_nonpos W
+  have hpart :=
+    sum_moebiusLcmInteriorPositiveCarrier_eq_remainder_add_removed W
+  have hremovedEq :=
+    sum_postRootPrimePhysicalInteriorLcmUnion_eq_familySum W
+  have hfamilyLower :
+      -(∑ p ∈ postRootPrimeFamilySet W, ((W / p : ℕ) : ℝ)) ≤
+        ∑ p ∈ postRootPrimeFamilySet W,
+          ∑ mn ∈ postRootPrimePhysicalInteriorLcmCarrier W p,
+            realMoebiusStep mn.1 * realMoebiusStep mn.2 := by
+    rw [← Finset.sum_neg_distrib]
+    exact Finset.sum_le_sum fun p hp =>
+      neg_quotient_le_sum_postRootPrimePhysicalInteriorLcmCarrier hp
+  have hpackNat := sum_postRootPrimeFamily_quotients_le_endpoint W
+  have hpack :
+      (∑ p ∈ postRootPrimeFamilySet W, ((W / p : ℕ) : ℝ)) ≤ (W : ℝ) := by
+    exact_mod_cast hpackNat
+  rw [hremovedEq] at hpart
+  linarith
+
 end RHLean.Proof
