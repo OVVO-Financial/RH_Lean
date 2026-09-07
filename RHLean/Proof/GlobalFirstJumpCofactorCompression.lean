@@ -1,8 +1,9 @@
 import Mathlib
 import RHLean.Proof.FirstJumpPrimeSliceObstruction
+import RHLean.Proof.ComplexVerticalLineSquarefreeDiagonal
 
 /-!
-# Global first-jump cofactor compression
+# Global first-jump cofactor compression and recombination
 
 The fixed-first-jump-prime norm estimate is too strong: the upper-half slice can
 have prime-count size even when `R / p = 1`.  This file keeps the first-jump
@@ -14,14 +15,16 @@ choosing the fresh coordinate `2`.  Thus every statewise first-jump residual is
 written as a signed sum over `1 <= d <= sqrt R` before any norm is taken.  A
 finite Fubini swap then produces global cofactor columns.
 
-The quantitative seam isolated below is the column-packing estimate
+The first proposed column estimate `||G_R(d)|| <= R/d` is retained below only as
+a diagnostic conditional implication.  Direct finite tests show that estimate
+is too strong, just as the earlier fixed-first-jump-prime estimate was too
+strong.  The important exact correction is therefore recorded in this same
+module: the first-jump aggregate must be recombined with the square-root-dense
+piece before a critical norm is taken.  That recombined scalar is exactly the
+canonical defect ledger and, through the vertical-line normalization, exactly
+the signed squarefree shell between `R` and `R^2`.
 
-`||G_R(d)|| <= R / d`.
-
-Unlike the failed fixed-`p` estimate, each `G_R(d)` already contains the full
-signed sum over all oriented states and all first-jump-prime coordinates.  If
-this packing estimate holds, the desired `R (1 + log R)` bound follows
-immediately from the harmonic sum, with constant `1`.
+No analytic estimate is introduced by the recombination theorems.
 -/
 
 noncomputable section
@@ -132,17 +135,126 @@ theorem signedLiveFirstJumpAggregate_eq_sum_cofactorColumns
             unfold signedFirstJumpCofactorColumnAggregate
             rw [Finset.mul_sum]
 
-/-- The concrete global packing seam suggested by the cofactor Fubini
-coordinate.  Every cancellation across first-jump primes and oriented owners
-has already happened inside `G_R(d)` before its norm is taken. -/
+/-! ## Correct critical recombination
+
+The first-jump term is only one half of the exact square-root contraction.
+The dense half has to remain coupled to it.  The sum is the historical oriented
+Euler ledger, hence the canonical defect, and the vertical-line normalization
+puts that defect on one physical squarefree shell.
+-/
+
+/-- Global square-root-dense contribution on the same oriented state carrier as
+`signedLiveFirstJumpAggregate`. -/
+noncomputable def signedLiveSqrtDenseAggregate (R : ℕ) : ℂ :=
+  ∑ x ∈ lowWheelCanonicalDowncrossOrientedStateCarrier R,
+    lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre R x
+
+/-- **Dense + first jump = oriented ledger.**  This is the aggregate form of the
+statewise square-root contraction, with no norm inserted between the two
+pieces. -/
+theorem signedLiveSqrtDenseAggregate_add_firstJump_eq_orientedLedger
+    (R : ℕ) :
+    signedLiveSqrtDenseAggregate R + signedLiveFirstJumpAggregate R =
+      lowWheelCanonicalDowncrossOrientedLedger R := by
+  unfold signedLiveSqrtDenseAggregate
+  exact (lowWheelCanonicalDowncrossOrientedLedger_eq_sqrtDense_add_signedLive R).symm
+
+/-- **Correct endpoint object.**  After late-parent cancellation, the recombined
+square-root contraction is exactly the canonical defect ledger. -/
+theorem signedLiveSqrtDenseAggregate_add_firstJump_eq_canonicalDefect
+    (R : ℕ) :
+    signedLiveSqrtDenseAggregate R + signedLiveFirstJumpAggregate R =
+      lowWheelCanonicalDefectLedger R := by
+  calc
+    signedLiveSqrtDenseAggregate R + signedLiveFirstJumpAggregate R =
+        lowWheelCanonicalDowncrossOrientedLedger R :=
+      signedLiveSqrtDenseAggregate_add_firstJump_eq_orientedLedger R
+    _ = lowWheelCanonicalDowncrossLedger R :=
+      (LateParentCancellation.downcrossLedger_eq_orientedLedger R).symm
+    _ = lowWheelCanonicalDefectLedger R :=
+      (lowWheelCanonicalDefectLedger_eq_downcrossLedger R).symm
+
+/-- Signed charge of the literal squarefree physical shell between the root and
+its square wall. -/
+noncomputable def canonicalDefectSquarefreeShellCharge (R : ℕ) : ℂ :=
+  ∑ n ∈ orderedEulerCutSquarefreeShell R,
+    -canonicalMoebiusWeight n
+
+/-- **Canonical defect = signed squarefree shell.**  The ordered Euler cut has
+one active atom per physical child and the active children are exactly the
+squarefree integers `R < n < R^2`. -/
+theorem canonicalDefectLedger_eq_squarefreeShellCharge
+    (R : ℕ) (hR : 2 ≤ R) :
+    lowWheelCanonicalDefectLedger R =
+      canonicalDefectSquarefreeShellCharge R := by
+  calc
+    lowWheelCanonicalDefectLedger R = signedVerticalIntervalEndpointMass R :=
+      (signedVerticalIntervalEndpointMass_eq_canonicalDefectLedger R).symm
+    _ = ∑ n ∈ orderedEulerCutActiveChildren R,
+          orderedEulerCutChildCharge n :=
+      signedVerticalIntervalEndpointMass_eq_sum_activeChildCharges R
+    _ = ∑ n ∈ orderedEulerCutSquarefreeShell R,
+          orderedEulerCutChildCharge n := by
+      rw [orderedEulerCutActiveChildren_eq_squarefreeShell R hR]
+    _ = canonicalDefectSquarefreeShellCharge R := by
+      unfold canonicalDefectSquarefreeShellCharge orderedEulerCutChildCharge
+      rfl
+
+/-- **Full recombination on the physical shell.**  This is the endpoint on which
+any subsequent quantitative contraction must act. -/
+theorem signedLiveSqrtDenseAggregate_add_firstJump_eq_squarefreeShellCharge
+    (R : ℕ) (hR : 2 ≤ R) :
+    signedLiveSqrtDenseAggregate R + signedLiveFirstJumpAggregate R =
+      canonicalDefectSquarefreeShellCharge R := by
+  rw [signedLiveSqrtDenseAggregate_add_firstJump_eq_canonicalDefect R,
+    canonicalDefectLedger_eq_squarefreeShellCharge R hR]
+
+/-- The corrected direct root-scale target.  Unlike the first-jump-only target,
+this keeps the exact dense/first-jump cancellation intact before taking the
+norm. -/
+def RecombinedCanonicalDefectLogBound : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ R : ℕ, 3 ≤ R →
+      ‖lowWheelCanonicalDefectLedger R‖ ≤
+        C * (R : ℝ) * (Real.log (R : ℝ) + 1)
+
+/-- The corrected target can equivalently be stated directly on the two pieces
+of the square-root contraction, provided they are summed before the norm. -/
+theorem recombinedCanonicalDefectLogBound_iff_dense_add_firstJump :
+    RecombinedCanonicalDefectLogBound ↔
+      ∃ C : ℝ, 0 ≤ C ∧
+        ∀ R : ℕ, 3 ≤ R →
+          ‖signedLiveSqrtDenseAggregate R + signedLiveFirstJumpAggregate R‖ ≤
+            C * (R : ℝ) * (Real.log (R : ℝ) + 1) := by
+  constructor
+  · rintro ⟨C, hC, hbound⟩
+    refine ⟨C, hC, ?_⟩
+    intro R hR
+    rw [signedLiveSqrtDenseAggregate_add_firstJump_eq_canonicalDefect R]
+    exact hbound R hR
+  · rintro ⟨C, hC, hbound⟩
+    refine ⟨C, hC, ?_⟩
+    intro R hR
+    rw [← signedLiveSqrtDenseAggregate_add_firstJump_eq_canonicalDefect R]
+    exact hbound R hR
+
+/-! ## Rejected diagnostic harmonic packing seam
+
+The implication below is mathematically valid and useful as a record of the
+scale one would obtain from `R/d` column packing.  Finite diagnostics reject the
+premise itself, so this proposition is not treated as the active proof seam.
+-/
+
+/-- Diagnostic only: a fully signed cofactor-column bound that would have been
+sufficient for the first-jump-only target. -/
 def FirstJumpCofactorColumnPackingBound : Prop :=
   ∀ R d : ℕ, 3 ≤ R → d ∈ Finset.Icc 1 (Nat.sqrt R) →
     ‖signedFirstJumpCofactorColumnAggregate R d‖ ≤
       (R : ℝ) / (d : ℝ)
 
-/-- **Column packing closes the desired global bound.**  If each fully signed
-cofactor column costs at most its physical harmonic seat scale `R/d`, then the
-whole live first-jump aggregate is bounded by `R (1 + log R)`. -/
+/-- If the rejected diagnostic premise held, the first-jump-only target would
+follow with constant `1`.  The theorem is retained only to document the exact
+strength of that failed route. -/
 theorem pntFiniteDifferenceLiveExposureBound_of_cofactorColumnPacking
     (hcol : FirstJumpCofactorColumnPackingBound) :
     PNTFiniteDifferenceLiveExposureBound := by
