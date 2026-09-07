@@ -339,6 +339,6 @@ theorem sum_postRootCovarianceRemainderBoundaryLcmCarrier_eq_complete_sub_famili
   unfold completeLcmBoundaryPositiveMass
   rw [Finset.sum_sub_distrib]
   unfold postRootCovarianceRemainder postRootPrimeFamilyCovarianceTotal at hsplit
-  linear_combination hsplit - hinterior
+  linear_combination -hsplit + hinterior
 
 end RHLean.Proof
