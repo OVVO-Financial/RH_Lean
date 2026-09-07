@@ -362,10 +362,10 @@ theorem sum_moebiusLcmInteriorOrderedCarrier_eq_diagonal_add_two_mul_positive
     intro m _hm
     apply Finset.sum_congr rfl
     intro n _hn
-    rfl
+    simp only [Nat.lcm_comm, mul_comm]
   unfold moebiusLcmInteriorOrderedCarrier
     moebiusLcmInteriorPositiveCarrier
-  simp_rw [Finset.sum_filter, Finset.sum_product]
+  simp only [Finset.sum_filter, Finset.sum_product]
   calc
     (∑ m ∈ Finset.Icc 1 W,
       ∑ n ∈ Finset.Icc 1 W,
