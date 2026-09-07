@@ -621,10 +621,10 @@ theorem squarefreePairFreshPrimeOwner_pairWeight_eq_neg_orderedParentWeight
   dsimp only
   split_ifs <;> ring
 
-/-- Predicate selecting owner cubes whose stripped mixed corner collapses to a
-single parent site. -/
 attribute [local instance] Classical.propDecidable
 
+/-- Predicate selecting owner cubes whose stripped mixed corner collapses to a
+single parent site. -/
 def SquarefreePairFreshPrimeParentsEqual (mn : ℕ × ℕ) : Prop :=
   squarefreePrimeFamilyParent
       (squarefreePairFreshPrimeOwner mn.1 mn.2) mn.1 =
@@ -666,7 +666,12 @@ theorem postRootCovarianceRemainderTerminalPair_weight_nonpos
     squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n at hparentEq
   by_cases hweight : realMoebiusStep m * realMoebiusStep n = 0
   · rw [hweight]
-  · rcases mul_ne_zero.mp hweight with ⟨hmstep, hnstep⟩
+  · have hmstep : realMoebiusStep m ≠ 0 := by
+      intro hmzero
+      exact hweight (by rw [hmzero, zero_mul])
+    have hnstep : realMoebiusStep n ≠ 0 := by
+      intro hnzero
+      exact hweight (by rw [hnzero, mul_zero])
     have hm : Squarefree m := squarefree_of_realMoebiusStep_ne_zero hmstep
     have hn : Squarefree n := squarefree_of_realMoebiusStep_ne_zero hnstep
     have hphysical :=
@@ -723,7 +728,12 @@ theorem postRootCovarianceRemainderRecursivePair_owner_descent
   rcases Finset.mem_filter.mp hpair with ⟨hremainder, hparentNe⟩
   change squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m ≠
     squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n at hparentNe
-  rcases mul_ne_zero.mp hweight with ⟨hmstep, hnstep⟩
+  have hmstep : realMoebiusStep m ≠ 0 := by
+    intro hmzero
+    exact hweight (by rw [hmzero, zero_mul])
+  have hnstep : realMoebiusStep n ≠ 0 := by
+    intro hnzero
+    exact hweight (by rw [hnzero, mul_zero])
   have hm : Squarefree m := squarefree_of_realMoebiusStep_ne_zero hmstep
   have hn : Squarefree n := squarefree_of_realMoebiusStep_ne_zero hnstep
   have hphysical :=
