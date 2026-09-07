@@ -85,7 +85,8 @@ theorem lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre_eq_sum_cofactorRes
       rcases lowWheelCanonicalDowncrossChargingFaces_nonempty_of_oriented hstate.1 with
         ⟨t, ht⟩
       have hI := primeFaceProduct_mem_exactOwnershipInterval ht
-      exact (Finset.mem_Ioc.mp hI).1.le
+      rcases Finset.mem_Ioc.mp hI with ⟨hlow, hup⟩
+      exact hlow.le.trans hup
     have hJ :=
       sqrtFirstJumpResidual_cast_eq_cofactorWindowDifference
         (p := 2) (R := R) (q := lowWheelCanonicalDowncrossPivot x)
@@ -94,7 +95,8 @@ theorem lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre_eq_sum_cofactorRes
         Nat.prime_two hstate.2 hBR hAB
     unfold lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre
       firstJumpStateCofactorResponse
-    rw [if_pos hstate, if_pos hstate, hJ, Finset.mul_sum]
+    simp only [if_pos hstate]
+    rw [hJ, Finset.mul_sum]
     apply Finset.sum_congr rfl
     intro d _hd
     ring
