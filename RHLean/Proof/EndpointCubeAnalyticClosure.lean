@@ -223,4 +223,179 @@ theorem sum_postRootPrimeFamily_rpow_le_endpoint_halfPower
       mul_le_mul_of_nonneg_left hpack hfactor
     _ = (W : ℝ) * Real.rpow (W : ℝ) (ε / 2) := by ring
 
+/-- **The linear Bessel remainder closes the one-sided RH covariance target.**
+For a fixed `ε > 0`, strong induction is run at the same exponent `1+ε`.
+Every post-root family is evaluated at `q = floor(W/p) < W`, while the exact
+product packing above compresses the complete inherited family contribution to
+`W^(1+ε/2)`.  Thus it has a fixed power of slack against the target
+`W^(1+ε)`, and the linear same-scale remainder is absorbed at the same finite
+onset.  No prime-density estimate or independence input occurs. -/
+theorem mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder
+    (hlin : PostRootCovarianceLinearRemainderStatement) :
+    MertensPositiveLagUpperBoundedStatement := by
+  intro ε hε
+  rcases hlin with ⟨D, hD, hrem⟩
+  have hhalf : 0 < ε / 2 := by linarith
+  have htend :
+      Filter.Tendsto (fun W : ℕ => Real.rpow (W : ℝ) (ε / 2))
+        Filter.atTop Filter.atTop :=
+    (tendsto_rpow_atTop hhalf).comp tendsto_natCast_atTop_atTop
+  have hevent : ∀ᶠ W : ℕ in Filter.atTop,
+      2 ≤ Real.rpow (W : ℝ) (ε / 2) :=
+    (Filter.tendsto_atTop.1 htend) 2
+  rcases (Filter.eventually_atTop.1 hevent) with ⟨N, hN⟩
+  let W0 : ℕ := max 2 N
+  let A : ℝ := (W0 : ℝ) + D + 1
+  have hA : 0 ≤ A := by
+    dsimp [A]
+    positivity
+  have hW0A : (W0 : ℝ) ≤ A := by
+    dsimp [A]
+    linarith
+  have hDA : D ≤ A := by
+    dsimp [A]
+    have hW0nn : (0 : ℝ) ≤ (W0 : ℝ) := by positivity
+    linarith
+  refine ⟨A, hA, ?_⟩
+  have hendpoint : ∀ W : ℕ, 1 ≤ W →
+      realMertensPositiveLagPairSum (W + 1) ≤
+        A * Real.rpow (W : ℝ) (1 + ε) := by
+    intro W
+    induction W using Nat.strong_induction_on with
+    | _ W ih =>
+        intro hW1
+        by_cases hsmall : W < W0
+        · have hM := norm_mertensSummatory_sub_le 0 W (Nat.zero_le W)
+          rw [mertensSummatory_zero, sub_zero, Nat.sub_zero] at hM
+          have hMsq : ‖mertensSummatory W‖ ^ 2 ≤ (W : ℝ) ^ 2 := by
+            have hnorm0 : 0 ≤ ‖mertensSummatory W‖ := norm_nonneg _
+            have hW0 : (0 : ℝ) ≤ (W : ℝ) := by positivity
+            nlinarith
+          have hdiag := realMertensDiagonal_nonneg (W + 1)
+          have hid := realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal W
+          have hcrude :
+              realMertensPositiveLagPairSum (W + 1) ≤ (W : ℝ) ^ 2 := by
+            rw [hid]
+            nlinarith [sq_nonneg (W : ℝ)]
+          have hWW0 : W ≤ W0 := by omega
+          have hWleA : (W : ℝ) ≤ A := by
+            have hcast : (W : ℝ) ≤ (W0 : ℝ) := by exact_mod_cast hWW0
+            exact hcast.trans hW0A
+          have hquad : (W : ℝ) ^ 2 ≤ A * (W : ℝ) := by
+            have hWnn : (0 : ℝ) ≤ (W : ℝ) := by positivity
+            nlinarith
+          have hbase : (1 : ℝ) ≤ (W : ℝ) := by exact_mod_cast hW1
+          have hexp : (1 : ℝ) ≤ 1 + ε := by linarith
+          have hpow :
+              (W : ℝ) ≤ Real.rpow (W : ℝ) (1 + ε) := by
+            simpa only [Real.rpow_one] using
+              Real.rpow_le_rpow_of_exponent_le hbase hexp
+          calc
+            realMertensPositiveLagPairSum (W + 1) ≤ (W : ℝ) ^ 2 := hcrude
+            _ ≤ A * (W : ℝ) := hquad
+            _ ≤ A * Real.rpow (W : ℝ) (1 + ε) :=
+              mul_le_mul_of_nonneg_left hpow hA
+        · have hW0le : W0 ≤ W := Nat.le_of_not_gt hsmall
+          have htwoW0 : 2 ≤ W0 := le_max_left 2 N
+          have hNW0 : N ≤ W0 := le_max_right 2 N
+          have hW2 : 2 ≤ W := htwoW0.trans hW0le
+          have hNW : N ≤ W := hNW0.trans hW0le
+          have hTtwo : 2 ≤ Real.rpow (W : ℝ) (ε / 2) := hN W hNW
+          have hWposNat : 0 < W := by omega
+          have hWpos : (0 : ℝ) < (W : ℝ) := by exact_mod_cast hWposNat
+          have hWnn : (0 : ℝ) ≤ (W : ℝ) := hWpos.le
+          have hfamilyTerms : ∀ p ∈ postRootPrimeFamilySet W,
+              realMertensPositiveLagPairSum (W / p + 1) ≤
+                A * Real.rpow ((W / p : ℕ) : ℝ) (1 + ε) := by
+            intro p hp
+            rcases mem_postRootPrimeFamilySet.mp hp with
+              ⟨_hpRoot, hpW, hpPrime⟩
+            have hq1 : 1 ≤ W / p :=
+              (Nat.one_le_div_iff hpPrime.pos).2 hpW
+            have hqW : W / p < W :=
+              Nat.div_lt_self hWposNat hpPrime.one_lt
+            exact ih (W / p) hqW hq1
+          have hfamily :
+              postRootPrimeFamilyCovarianceTotal W ≤
+                A * ((W : ℝ) * Real.rpow (W : ℝ) (ε / 2)) := by
+            unfold postRootPrimeFamilyCovarianceTotal
+            calc
+              (∑ p ∈ postRootPrimeFamilySet W,
+                  realMertensPositiveLagPairSum (W / p + 1)) ≤
+                ∑ p ∈ postRootPrimeFamilySet W,
+                  A * Real.rpow ((W / p : ℕ) : ℝ) (1 + ε) :=
+                Finset.sum_le_sum hfamilyTerms
+              _ = A * (∑ p ∈ postRootPrimeFamilySet W,
+                    Real.rpow ((W / p : ℕ) : ℝ) (1 + ε)) := by
+                rw [Finset.mul_sum]
+              _ ≤ A * ((W : ℝ) * Real.rpow (W : ℝ) (ε / 2)) :=
+                mul_le_mul_of_nonneg_left
+                  (sum_postRootPrimeFamily_rpow_le_endpoint_halfPower W hε.le) hA
+          have hglobal :
+              realMertensPositiveLagPairSum (W + 1) ≤
+                postRootPrimeFamilyCovarianceTotal W + D * (W : ℝ) := by
+            have hr := hrem W hW2
+            unfold postRootCovarianceRemainder at hr
+            linarith
+          let T : ℝ := Real.rpow (W : ℝ) (ε / 2)
+          have hTtwo' : 2 ≤ T := by simpa [T] using hTtwo
+          have hTplus : T + 1 ≤ T ^ 2 := by
+            nlinarith [sq_nonneg (T - 1)]
+          have hdouble : Real.rpow (W : ℝ) ε = T * T := by
+            dsimp [T]
+            rw [show ε = ε / 2 + ε / 2 by ring]
+            exact Real.rpow_add (x := (W : ℝ)) hWpos (ε / 2) (ε / 2)
+          have htarget :
+              Real.rpow (W : ℝ) (1 + ε) = (W : ℝ) * T ^ 2 := by
+            calc
+              Real.rpow (W : ℝ) (1 + ε) =
+                  Real.rpow (W : ℝ) 1 * Real.rpow (W : ℝ) ε :=
+                Real.rpow_add (x := (W : ℝ)) hWpos 1 ε
+              _ = (W : ℝ) * Real.rpow (W : ℝ) ε := by
+                rw [Real.rpow_one]
+              _ = (W : ℝ) * (T * T) := by rw [hdouble]
+              _ = (W : ℝ) * T ^ 2 := by ring
+          have hfamily' :
+              postRootPrimeFamilyCovarianceTotal W ≤ A * ((W : ℝ) * T) := by
+            simpa [T] using hfamily
+          have hDW : D * (W : ℝ) ≤ A * (W : ℝ) :=
+            mul_le_mul_of_nonneg_right hDA hWnn
+          have hAWnn : 0 ≤ A * (W : ℝ) := mul_nonneg hA hWnn
+          calc
+            realMertensPositiveLagPairSum (W + 1) ≤
+                postRootPrimeFamilyCovarianceTotal W + D * (W : ℝ) := hglobal
+            _ ≤ A * ((W : ℝ) * T) + D * (W : ℝ) :=
+              add_le_add_right hfamily' _
+            _ ≤ A * ((W : ℝ) * T) + A * (W : ℝ) :=
+              add_le_add_left hDW _
+            _ = A * (W : ℝ) * (T + 1) := by ring
+            _ ≤ A * (W : ℝ) * T ^ 2 :=
+              mul_le_mul_of_nonneg_left hTplus hAWnn
+            _ = A * Real.rpow (W : ℝ) (1 + ε) := by
+              rw [htarget]
+              ring
+  intro K hK
+  cases K with
+  | zero => omega
+  | succ W =>
+      by_cases hWzero : W = 0
+      · subst W
+        simp [realMertensPositiveLagPairSum]
+      · have hW1 : 1 ≤ W := by omega
+        have hbound := hendpoint W hW1
+        have hbase : (W : ℝ) ≤ ((W + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ W
+        have hpow :
+            Real.rpow (W : ℝ) (1 + ε) ≤
+              Real.rpow ((W + 1 : ℕ) : ℝ) (1 + ε) :=
+          Real.rpow_le_rpow (by positivity) hbase (by linarith)
+        exact hbound.trans (mul_le_mul_of_nonneg_left hpow hA)
+
+/-- The same single signed remainder proposition therefore closes the protected
+Mertens energy criterion through the already-compiled Green--Kubo bridge. -/
+theorem mertensEnergyBounded_of_postRootCovarianceLinearRemainder
+    (hlin : PostRootCovarianceLinearRemainderStatement) :
+    MertensEnergyBoundedStatement :=
+  mertensEnergyBounded_of_positiveLagUpperBounded
+    (mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder hlin)
+
 end RHLean.Proof
