@@ -58,15 +58,108 @@ theorem canonicalDefectLedger_eq_roughCorrelation_add_rootAtom
   unfold canonicalMoebiusWeight
   ring
 
-/-- The reciprocal-prefix scale naturally matched to an `R log R` endpoint
-after the exact Abel return.  This is the coordinate on which the repository's
-fresh-prime Euler contraction already acts. -/
+/-- A proposed sufficient reciprocal-prefix scale for an `R log R` endpoint.
+The implication below is valid, but the premise is impossible: the unit prefix
+is an unsigned prime-partner count.  See
+`not_criticalReciprocalPrefixRootBound`. -/
 def CriticalReciprocalPrefixRootBound : Prop :=
   ∃ C : ℝ, 0 ≤ C ∧
     ∀ R : ℕ, 3 ≤ R →
       ∀ k ≤ squareRootEndpoint R,
         ‖squareRootCanonicalRoughCorrelationReciprocalPrefix R k‖ ≤
           C * (Real.log (R : ℝ) + 1) / (R : ℝ)
+
+/-- The first reciprocal prefix contains only the unit-cofactor response.
+The existing renewal collapse identifies it with a literal prime count, before
+any asymptotic estimate or choice of an Euler compression order. -/
+theorem criticalReciprocalPrefix_one_eq_partnerCard
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootCanonicalRoughCorrelationReciprocalPrefix R 1 =
+      ((squareRootCanonicalRoughPrimePartnerSet R 1).card : ℂ) := by
+  have hzero : squareRootCanonicalRoughCorrelationReciprocalSummand R 0 = 0 := by
+    simp [squareRootCanonicalRoughCorrelationReciprocalSummand,
+      squareRootCanonicalRoughResponseCenteredReciprocalSummand,
+      squareRootCanonicalRoughParityReciprocalSummand]
+  unfold squareRootCanonicalRoughCorrelationReciprocalPrefix inclusivePrefix
+  rw [Finset.sum_range_succ, Finset.sum_range_succ]
+  simp only [Finset.sum_range_zero, zero_add, hzero]
+  rw [squareRootCanonicalRoughCorrelationReciprocalSummand_eq_weighted_response_div
+    R (by decide : 0 < 1),
+    squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount R 1 hR,
+    squareRootCanonicalRoughPrimePartnerCount_eq_partnerSet_card]
+  simp [canonicalMoebiusWeight]
+
+/-- In the physical partner coordinate the unit prefix counts precisely the
+primes in the inclusive interval `[R, R^2 - 1]`. -/
+theorem criticalReciprocalPrefix_unitPartnerSet
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootCanonicalRoughPrimePartnerSet R 1 =
+      (Finset.Icc R (squareRootEndpoint R)).filter Nat.Prime := by
+  ext q
+  rw [mem_squareRootCanonicalRoughPrimePartnerSet_iff hR (by decide : 0 < 1),
+    Finset.mem_filter, Finset.mem_Icc]
+  constructor
+  · rintro ⟨hq, _hfresh, hlo, hhi⟩
+    exact ⟨⟨by simpa using hlo, by simpa using hhi⟩, hq⟩
+  · rintro ⟨⟨hlo, hhi⟩, hq⟩
+    refine ⟨hq, ?_, by simpa using hlo, by simpa using hhi⟩
+    simpa [canonicalLargestPrimeFactor] using hq.one_lt
+
+/-- Every prime root supplies a unit partner itself.  Consequently the first
+prefix stays at least one along an unbounded sequence of roots. -/
+theorem one_le_norm_criticalReciprocalPrefix_one_of_prime
+    {R : ℕ} (hR : R.Prime) :
+    1 ≤ ‖squareRootCanonicalRoughCorrelationReciprocalPrefix R 1‖ := by
+  have hRtwo : 2 ≤ R := hR.two_le
+  have hRX : R ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hsq : R + 1 ≤ R ^ 2 := by nlinarith
+    omega
+  have hmem : R ∈ squareRootCanonicalRoughPrimePartnerSet R 1 := by
+    rw [criticalReciprocalPrefix_unitPartnerSet R hRtwo]
+    exact Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨le_rfl, hRX⟩, hR⟩
+  have hcard : 1 ≤ (squareRootCanonicalRoughPrimePartnerSet R 1).card :=
+    Finset.card_pos.mpr ⟨R, hmem⟩
+  rw [criticalReciprocalPrefix_one_eq_partnerCard R hRtwo]
+  simpa using (show (1 : ℝ) ≤
+    ((squareRootCanonicalRoughPrimePartnerSet R 1).card : ℝ) by exact_mod_cast hcard)
+
+/-- **The uniform small-prefix premise is false.**  Its right side tends to
+zero, whereas its unit prefix is at least one at every prime root.  Only
+Euclid's infinitude of primes and `log R / R -> 0` are needed; no PNT or
+Mertens estimate enters the obstruction. -/
+theorem not_criticalReciprocalPrefixRootBound :
+    ¬ CriticalReciprocalPrefixRootBound := by
+  rintro ⟨C, _hC, hbound⟩
+  have hlog : Filter.Tendsto
+      (fun R : ℕ => Real.log (R : ℝ) / (R : ℝ))
+      Filter.atTop (nhds 0) := by
+    simpa using
+      Real.isLittleO_log_id_atTop.tendsto_div_nhds_zero.comp
+        tendsto_natCast_atTop_atTop
+  have hinv : Filter.Tendsto (fun R : ℕ => (1 : ℝ) / (R : ℝ))
+      Filter.atTop (nhds 0) :=
+    Filter.Tendsto.div_atTop tendsto_const_nhds tendsto_natCast_atTop_atTop
+  have hlim : Filter.Tendsto
+      (fun R : ℕ => C * (Real.log (R : ℝ) + 1) / (R : ℝ))
+      Filter.atTop (nhds 0) := by
+    simpa only [add_div, mul_div_assoc, add_zero, mul_zero] using
+      (hlog.add hinv).const_mul C
+  have hsmall : ∀ᶠ R : ℕ in Filter.atTop,
+      C * (Real.log (R : ℝ) + 1) / (R : ℝ) < 1 :=
+    hlim.eventually (gt_mem_nhds (by norm_num : (0 : ℝ) < 1))
+  rcases Filter.eventually_atTop.mp hsmall with ⟨N, hN⟩
+  rcases Nat.exists_infinite_primes (max 3 N) with ⟨R, hRlarge, hRprime⟩
+  have hRthree : 3 ≤ R := (le_max_left 3 N).trans hRlarge
+  have hNR : N ≤ R := (le_max_right 3 N).trans hRlarge
+  have hX : 1 ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hsq : 2 ≤ R ^ 2 := by nlinarith
+    omega
+  have hlo := one_le_norm_criticalReciprocalPrefix_one_of_prime hRprime
+  have hhi := hbound R hRthree 1 hX
+  have hlt := hN R hNR
+  linarith
 
 /-- A critical reciprocal-prefix bound gives the corresponding `R log R` bound
 on the uncentered canonical rough correlation. -/
