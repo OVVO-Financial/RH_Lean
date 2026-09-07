@@ -251,7 +251,7 @@ theorem adaptiveWeightedMass_eq_next_add_physicalDefect_add_mismatch
       squareRootCanonicalRoughAdaptiveCoefficientMismatchMass R p U a := by
     unfold squareRootCanonicalRoughAdaptiveWeightedPhysicalDefectMass
       squareRootCanonicalRoughAdaptiveCoefficientMismatchMass
-    rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib, Finset.mul_sum]
+    rw [Finset.mul_sum, ← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
     apply Finset.sum_congr rfl
     intro c hc
     rcases mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hc with
