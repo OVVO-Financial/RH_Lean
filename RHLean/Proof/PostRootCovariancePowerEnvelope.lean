@@ -528,6 +528,75 @@ theorem postRootCovariancePowerRecordExcess_le_rawIncrementBudget
       max_zero_normalized_jump_le_raw_increment hS hT hST
     _ = postRootCovariancePowerRawIncrementBudget ε N := rfl
 
+/-- The one-step change in covariance inherited from all complete post-root
+prime families.  Keeping this signed is essential: it is the old lower-scale
+material that must be removed from the new same-scale covariance shell. -/
+def postRootPrimeFamilyCovarianceIncrement (W : ℕ) : ℝ :=
+  postRootPrimeFamilyCovarianceTotal (W + 1) -
+    postRootPrimeFamilyCovarianceTotal W
+
+/-- **Local covariance innovation.**  This is the genuinely new signed mass at
+the step `W -> W+1`: the new Möbius covariance row minus the simultaneous
+change in all inherited post-root family copies. -/
+def postRootCovarianceLocalInnovation (W : ℕ) : ℝ :=
+  realMoebiusStep (W + 1) * realMertensLength (W + 1) -
+    postRootPrimeFamilyCovarianceIncrement W
+
+/-- The raw remainder increment is exactly the local covariance innovation.
+Thus differencing `E` does not introduce a new global object: it exposes the
+new same-scale Möbius row and the inherited-family wall motion. -/
+theorem postRootCovarianceRemainder_succ_sub_eq_localInnovation (W : ℕ) :
+    postRootCovarianceRemainder (W + 1) -
+        postRootCovarianceRemainder W =
+      postRootCovarianceLocalInnovation W := by
+  unfold postRootCovarianceRemainder postRootCovarianceLocalInnovation
+    postRootPrimeFamilyCovarianceIncrement
+  have hsucc := realMertensPositiveLagPairSum_succ (W + 1)
+  rw [hsucc]
+  ring
+
+/-- On any fixed prime coordinate, the inherited lower covariance changes at a
+unit endpoint step exactly when that prime divides the new endpoint.  This is
+the precise reciprocal-wall indicator behind the local innovation. -/
+theorem postRootLowerCovariance_succQuotient_sub (W p : ℕ) :
+    realMertensPositiveLagPairSum ((W + 1) / p + 1) -
+        realMertensPositiveLagPairSum (W / p + 1) =
+      if p ∣ W + 1 then
+        realMoebiusStep (W / p + 1) * realMertensLength (W / p + 1)
+      else 0 := by
+  by_cases hdvd : p ∣ W + 1
+  · have hdiv : (W + 1) / p = W / p + 1 := by
+      rw [Nat.succ_div, if_pos hdvd]
+    rw [if_pos hdvd, hdiv]
+    have hsucc := realMertensPositiveLagPairSum_succ (W / p + 1)
+    rw [hsucc]
+    ring
+  · have hdiv : (W + 1) / p = W / p := by
+      rw [Nat.succ_div, if_neg hdvd, add_zero]
+    rw [if_neg hdvd, hdiv]
+    ring
+
+/-- The record budget after the raw remainder increment has been replaced by
+its exact local covariance innovation. -/
+def postRootCovariancePowerLocalInnovationBudget (ε : ℝ) (N : ℕ) : ℝ :=
+  max 0
+    (postRootCovarianceLocalInnovation N /
+      Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε))
+
+/-- **New record -> local innovation.**  A positive normalized record can be
+paid only by the newly created covariance row after subtracting the motion of
+the inherited post-root family copies.  No accumulated old remainder remains. -/
+theorem postRootCovariancePowerRecordExcess_le_localInnovationBudget
+    (ε : ℝ) (hε : 0 < ε) {N : ℕ} (hN : 2 ≤ N) :
+    postRootCovariancePowerRecordExcess ε N ≤
+      postRootCovariancePowerLocalInnovationBudget ε N := by
+  have hraw :=
+    postRootCovariancePowerRecordExcess_le_rawIncrementBudget ε hε hN
+  unfold postRootCovariancePowerRawIncrementBudget
+    postRootCovariancePowerLocalInnovationBudget at hraw ⊢
+  rw [postRootCovarianceRemainder_succ_sub_eq_localInnovation] at hraw
+  exact hraw
+
 /-! ## New-record first-wall discharge -/
 
 /-- The total signed mass of the complete lower post-root physical parent
