@@ -1,6 +1,8 @@
 import Mathlib
 import RHLean.Proof.CanonicalRoughAdaptiveCriticalCompression
+import RHLean.Proof.CanonicalRoughAdaptiveRawAnnihilation
 import RHLean.Proof.ReplacementFibreCofactorWindows
+import RHLean.Proof.TerminalMertensReduction
 
 /-!
 # Largest-prime elimination in the adaptive critical descent
@@ -198,5 +200,106 @@ theorem squarefree_not_mem_adaptiveCarrier_of_schedule_split
   apply not_mem_adaptiveCarrier_of_not_mem rs
   exact squarefree_not_mem_adaptiveNext_after_largerPrimePrefix
     qs hsq hn hnU hcU hprime hlarger
+
+/-! ## Descending coefficient field: mismatch atoms vanish -/
+
+/-- A physical prime extension still available strictly above the current
+coordinate.  This is deliberately weaker than being a rough-response partner:
+it remembers only that the future Euler child still fits below the square
+endpoint. -/
+def squareRootCanonicalRoughHasPrimeExtensionAbove
+    (R p n : ℕ) : Prop :=
+  ∃ q : ℕ, q.Prime ∧ p < q ∧ n * q ≤ squareRootEndpoint R
+
+/-- Zero-factor coefficient after all prime coordinates strictly above `p` have
+been spent: a state with any future larger-prime child has already spent its
+raw mass and carries coefficient zero; otherwise it carries coefficient one. -/
+def squareRootCanonicalRoughDescendingCoefficient
+    (R p n : ℕ) : ℂ :=
+  if squareRootCanonicalRoughHasPrimeExtensionAbove R p n then 0 else 1
+
+/-- Any larger-prime extension of a fresh child is also an extension of its
+parent.  This is the monotonicity which rules out the bad coefficient pattern
+`parent = 1, child = 0`. -/
+theorem squareRootCanonicalRoughHasPrimeExtensionAbove_parent_of_child
+    {R c p : ℕ} (hp : p.Prime)
+    (hchild : squareRootCanonicalRoughHasPrimeExtensionAbove R p (c * p)) :
+    squareRootCanonicalRoughHasPrimeExtensionAbove R p c := by
+  rcases hchild with ⟨q, hqPrime, hpq, hupper⟩
+  refine ⟨q, hqPrime, hpq, ?_⟩
+  have hcp : c ≤ c * p := Nat.le_mul_of_pos_right c hp.pos
+  have hmul : c * q ≤ (c * p) * q := Nat.mul_le_mul_right q hcp
+  exact hmul.trans hupper
+
+/-- If a fresh `p`-child has no physical larger-prime extension, then its exact
+rough-partner support is empty and its raw critical atom is literally zero. -/
+theorem squareRootCanonicalRoughRawCorrelationSummand_mul_freshPrime_eq_zero_of_no_extension
+    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p)
+    (hno : ¬ squareRootCanonicalRoughHasPrimeExtensionAbove R p (c * p)) :
+    squareRootCanonicalRoughRawCorrelationSummand R (c * p) = 0 := by
+  have hchildPos : 0 < c * p := Nat.mul_pos hc hp.pos
+  have hlpf : canonicalLargestPrimeFactor (c * p) = p :=
+    canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hp hrough
+  have hset : squareRootCanonicalRoughPrimePartnerSet R (c * p) = ∅ := by
+    ext q
+    simp only [Finset.notMem_empty, iff_false]
+    intro hq
+    have hdata :=
+      (mem_squareRootCanonicalRoughPrimePartnerSet_iff hR hchildPos).mp hq
+    apply hno
+    refine ⟨q, hdata.1, ?_, hdata.2.2.2⟩
+    rw [hlpf] at hdata
+    exact hdata.2.1
+  unfold squareRootCanonicalRoughRawCorrelationSummand
+  rw [squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount R (c * p) hR,
+    squareRootCanonicalRoughPrimePartnerCount_eq_partnerSet_card R (c * p), hset]
+  simp
+
+/-- **Mismatch cancellation at one descending threshold.**  With the exact
+future-extension coefficient field, every current fresh-prime mismatch atom
+vanishes pointwise.  Either the child still has a larger extension, in which
+case parent and child both have coefficient zero, or the child has no larger
+extension, in which case the child's raw correlation atom is zero. -/
+theorem squareRootCanonicalRoughAdaptiveRawMismatchMass_descendingCoefficient_eq_zero
+    (R : ℕ) {p : ℕ} (U : Finset ℕ)
+    (hR : 2 ≤ R) (hp : p.Prime) :
+    squareRootCanonicalRoughAdaptiveRawMismatchMass R p U
+      (squareRootCanonicalRoughDescendingCoefficient R p) = 0 := by
+  unfold squareRootCanonicalRoughAdaptiveRawMismatchMass
+  apply Finset.sum_eq_zero
+  intro c hcParent
+  rcases mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hcParent with
+    ⟨_hcU, hcpos, hrough, _hchildU⟩
+  by_cases hchild :
+      squareRootCanonicalRoughHasPrimeExtensionAbove R p (c * p)
+  · have hparent :=
+      squareRootCanonicalRoughHasPrimeExtensionAbove_parent_of_child hp hchild
+    simp [squareRootCanonicalRoughDescendingCoefficient, hchild, hparent]
+  · have hraw :=
+      squareRootCanonicalRoughRawCorrelationSummand_mul_freshPrime_eq_zero_of_no_extension
+        hR hcpos hp hrough hchild
+    rw [hraw]
+    simp
+
+/-- Consequently one raw adaptive step with the descending future-extension
+field has no coefficient leakage at all: the exact signed loss/birth wall is
+the only correction left by zero-factor annihilation. -/
+theorem adaptiveRawWeightedMass_descendingCoefficient_eq_next_add_boundary
+    (R : ℕ) {p : ℕ} (U : Finset ℕ)
+    (hR : 2 ≤ R) (hp : p.Prime) :
+    squareRootCanonicalRoughAdaptiveRawWeightedMass R U
+        (squareRootCanonicalRoughDescendingCoefficient R p) =
+      squareRootCanonicalRoughAdaptiveRawWeightedMass R
+        (squareRootCanonicalRoughAdaptiveNextCarrier p U)
+        (squareRootCanonicalRoughAdaptiveRawNextCoefficient p U
+          (squareRootCanonicalRoughDescendingCoefficient R p)) +
+      squareRootCanonicalRoughAdaptiveRawBoundaryMass R p U
+        (squareRootCanonicalRoughDescendingCoefficient R p) := by
+  have h := adaptiveRawWeightedMass_eq_next_add_boundary_add_mismatch
+    R U (squareRootCanonicalRoughDescendingCoefficient R p) hR hp
+  rw [squareRootCanonicalRoughAdaptiveRawMismatchMass_descendingCoefficient_eq_zero
+    R U hR hp, add_zero] at h
+  exact h
 
 end RHLean.Proof

@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.BlockCovarianceRefinement
+import RHLean.Analysis.MertensCovarianceDescent
 import RHLean.Proof.GlobalFirstJumpCofactorCompression
 import RHLean.Proof.CanonicalRoughCriticalCorrelationContraction
 import RHLean.Proof.PrimeCombReciprocalBandCancellation
@@ -15,9 +16,9 @@ atom, while its reciprocal prefixes are exactly the coordinate on which the
 fresh-prime Euler factor `1 - 1/p` acts.
 
 This file makes that reduction quantitative.  A uniform reciprocal-prefix bound
-of size `(log R + 1) / R` implies the desired root-scale `R (log R + 1)` bound on
-the recombined canonical defect.  No first-jump-prime or cofactor-column norm is
-inserted in the argument.
+of size `(log R + 1) / R` implies the desired root-scale `R (log R + 1)` bound
+on the recombined canonical defect.  No first-jump-prime or cofactor-column norm
+is inserted in the argument.
 -/
 
 noncomputable section
@@ -248,5 +249,136 @@ theorem postRootReciprocalBandFamilyCovariance_le_width_mul_positivePart
     _ ≤ ((W / z - W / (z + 1) : ℕ) : ℝ) *
         max (realMertensPositiveLagPairSum (z + 1)) 0 :=
       mul_le_mul_of_nonneg_right hcard hmax0
+
+/-! ## Exact Bessel remainder after the post-root families
+
+The band identities above identify every post-root prime family with a complete
+lower-scale covariance copy.  The only same-scale object left after removing all
+of them is the cross-family/smooth covariance.  Green--Kubo turns this remainder
+into one exact Bessel defect.  This is the intended target for a canonical
+pair-owner/four-corner charging argument.
+-/
+
+/-- Literal post-root prime coordinates at endpoint `W`. -/
+def postRootPrimeFamilySet (W : ℕ) : Finset ℕ :=
+  (Finset.Ioc (Nat.sqrt W) W).filter Nat.Prime
+
+@[simp] theorem mem_postRootPrimeFamilySet {W p : ℕ} :
+    p ∈ postRootPrimeFamilySet W ↔ Nat.sqrt W < p ∧ p ≤ W ∧ p.Prime := by
+  simp [postRootPrimeFamilySet, and_assoc]
+
+/-- Total covariance inherited from all complete post-root prime families. -/
+def postRootPrimeFamilyCovarianceTotal (W : ℕ) : ℝ :=
+  ∑ p ∈ postRootPrimeFamilySet W,
+    realMertensPositiveLagPairSum (W / p + 1)
+
+/-- The inherited covariance is literally the sum of the actual physical family
+covariances, with no absolute value or prime-density estimate. -/
+theorem postRootPrimeFamilyCovarianceTotal_eq_actualFamilies (W : ℕ) :
+    postRootPrimeFamilyCovarianceTotal W =
+      ∑ p ∈ postRootPrimeFamilySet W,
+        largePrimeFamilyPairSum p (W / p + 1) := by
+  unfold postRootPrimeFamilyCovarianceTotal
+  apply Finset.sum_congr rfl
+  intro p hp
+  rcases mem_postRootPrimeFamilySet.mp hp with ⟨hpRoot, _hpW, hpPrime⟩
+  have hW : W < p * p := (Nat.sqrt_lt).1 hpRoot
+  exact (largePrimeFamilyPairSum_postRoot hpPrime hW).symm
+
+/-- Signed same-scale covariance after all complete post-root family copies have
+been removed. -/
+def postRootCovarianceRemainder (W : ℕ) : ℝ :=
+  realMertensPositiveLagPairSum (W + 1) -
+    postRootPrimeFamilyCovarianceTotal W
+
+/-- Sum of the lower-scale Mertens energies carried by the post-root families. -/
+def postRootFamilyMertensSquareEnergy (W : ℕ) : ℝ :=
+  ∑ p ∈ postRootPrimeFamilySet W,
+    ‖mertensSummatory (W / p)‖ ^ 2
+
+/-- Sum of the exact lower-scale squarefree diagonals carried by those families. -/
+def postRootFamilyDiagonalEnergy (W : ℕ) : ℝ :=
+  ∑ p ∈ postRootPrimeFamilySet W,
+    realMertensDiagonal (W / p + 1)
+
+/-- The part of the global diagonal not assigned to the post-root families. -/
+def postRootComplementDiagonalResidual (W : ℕ) : ℝ :=
+  realMertensDiagonal (W + 1) - postRootFamilyDiagonalEnergy W
+
+/-- The inherited post-root covariance is half lower-scale Mertens energy minus
+lower-scale diagonal energy. -/
+theorem postRootPrimeFamilyCovarianceTotal_eq_energyDifference (W : ℕ) :
+    postRootPrimeFamilyCovarianceTotal W =
+      (postRootFamilyMertensSquareEnergy W -
+        postRootFamilyDiagonalEnergy W) / 2 := by
+  unfold postRootPrimeFamilyCovarianceTotal
+    postRootFamilyMertensSquareEnergy postRootFamilyDiagonalEnergy
+  simp_rw [realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal]
+  rw [← Finset.sum_div, Finset.sum_sub_distrib]
+
+/-- **Exact Bessel-defect identity.**  Twice the unexplained covariance is the
+global Mertens energy minus the complementary diagonal and all inherited
+lower-scale family energies. -/
+theorem two_mul_postRootCovarianceRemainder_eq_besselDefect (W : ℕ) :
+    2 * postRootCovarianceRemainder W =
+      ‖mertensSummatory W‖ ^ 2 -
+        postRootComplementDiagonalResidual W -
+        postRootFamilyMertensSquareEnergy W := by
+  unfold postRootCovarianceRemainder postRootComplementDiagonalResidual
+  rw [realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal W,
+    postRootPrimeFamilyCovarianceTotal_eq_energyDifference W]
+  ring
+
+/-- Weakest useful one-sided leap: after removing every complete lower-scale
+post-root family covariance, the remaining positive same-scale covariance is
+only linear in the physical endpoint. -/
+def PostRootCovarianceLinearRemainderStatement : Prop :=
+  ∃ D : ℝ, 0 ≤ D ∧
+    ∀ W : ℕ, 2 ≤ W →
+      postRootCovarianceRemainder W ≤ D * (W : ℝ)
+
+/-- Equivalent Bessel form of the same one-sided linear statement. -/
+def PostRootCovarianceBesselLinearStatement : Prop :=
+  ∃ D : ℝ, 0 ≤ D ∧
+    ∀ W : ℕ, 2 ≤ W →
+      ‖mertensSummatory W‖ ^ 2 ≤
+        postRootComplementDiagonalResidual W +
+          postRootFamilyMertensSquareEnergy W +
+          2 * D * (W : ℝ)
+
+/-- The covariance-remainder and Bessel-defect formulations are literally
+equivalent. -/
+theorem postRootCovarianceLinearRemainder_iff_besselLinear :
+    PostRootCovarianceLinearRemainderStatement ↔
+      PostRootCovarianceBesselLinearStatement := by
+  constructor
+  · rintro ⟨D, hD, hrem⟩
+    refine ⟨D, hD, ?_⟩
+    intro W hW
+    have h := hrem W hW
+    have hid := two_mul_postRootCovarianceRemainder_eq_besselDefect W
+    nlinarith
+  · rintro ⟨D, hD, hbessel⟩
+    refine ⟨D, hD, ?_⟩
+    intro W hW
+    have h := hbessel W hW
+    have hid := two_mul_postRootCovarianceRemainder_eq_besselDefect W
+    nlinarith
+
+/-- The linear remainder gives the exact recurrence used by the exponent
+bootstrap: global covariance is inherited lower-scale covariance plus a linear
+same-scale charge. -/
+theorem globalCovariance_le_postRootFamilies_add_linear
+    (hlin : PostRootCovarianceLinearRemainderStatement) :
+    ∃ D : ℝ, 0 ≤ D ∧
+      ∀ W : ℕ, 2 ≤ W →
+        realMertensPositiveLagPairSum (W + 1) ≤
+          postRootPrimeFamilyCovarianceTotal W + D * (W : ℝ) := by
+  rcases hlin with ⟨D, hD, hrem⟩
+  refine ⟨D, hD, ?_⟩
+  intro W hW
+  have h := hrem W hW
+  unfold postRootCovarianceRemainder at h
+  linarith
 
 end RHLean.Proof
