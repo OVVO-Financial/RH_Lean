@@ -294,8 +294,10 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder
             have hone : Real.rpow (W : ℝ) (1 : ℝ) = (W : ℝ) := by
               exact (Real.rpow_eq_pow (W : ℝ) (1 : ℝ)).trans
                 (Real.rpow_one (W : ℝ))
-            rw [← hone]
-            exact Real.rpow_le_rpow_of_exponent_le hbase hexp
+            calc
+              (W : ℝ) = Real.rpow (W : ℝ) (1 : ℝ) := hone.symm
+              _ ≤ Real.rpow (W : ℝ) (1 + ε) :=
+                Real.rpow_le_rpow_of_exponent_le hbase hexp
           calc
             realMertensPositiveLagPairSum (W + 1) ≤ (W : ℝ) ^ 2 := hcrude
             _ ≤ A * (W : ℝ) := hquad
