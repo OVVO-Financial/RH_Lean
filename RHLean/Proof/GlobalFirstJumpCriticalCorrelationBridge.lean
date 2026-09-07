@@ -433,6 +433,33 @@ def PostRootCovarianceLinearRemainderStatement : Prop :=
     ∀ W : ℕ, 2 ≤ W →
       postRootCovarianceRemainder W ≤ D * (W : ℝ)
 
+/-- The weaker one-sided target needed for Mertens energy: the signed remainder
+may have any positive power loss over linear growth, with its constant depending
+on that loss. This is an explicit arithmetic hypothesis, not a proved bound. -/
+def PostRootCovariancePowerRemainderStatement : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ D : ℝ, 0 ≤ D ∧
+      ∀ W : ℕ, 2 ≤ W →
+        postRootCovarianceRemainder W ≤ D * Real.rpow (W : ℝ) (1 + ε)
+
+/-- A linear remainder satisfies every positive-power remainder target. -/
+theorem postRootCovariancePowerRemainder_of_linear
+    (hlin : PostRootCovarianceLinearRemainderStatement) :
+    PostRootCovariancePowerRemainderStatement := by
+  intro ε hε
+  rcases hlin with ⟨D, hD, hrem⟩
+  refine ⟨D, hD, ?_⟩
+  intro W hW
+  have hbase : (1 : ℝ) ≤ (W : ℝ) := by exact_mod_cast (by omega : 1 ≤ W)
+  have hone : Real.rpow (W : ℝ) (1 : ℝ) = (W : ℝ) :=
+    (Real.rpow_eq_pow (W : ℝ) (1 : ℝ)).trans (Real.rpow_one (W : ℝ))
+  have hpow : (W : ℝ) ≤ Real.rpow (W : ℝ) (1 + ε) := by
+    calc
+      (W : ℝ) = Real.rpow (W : ℝ) (1 : ℝ) := hone.symm
+      _ ≤ Real.rpow (W : ℝ) (1 + ε) :=
+        Real.rpow_le_rpow_of_exponent_le hbase (by linarith)
+  exact (hrem W hW).trans (mul_le_mul_of_nonneg_left hpow hD)
+
 /-- Equivalent Bessel form of the same one-sided linear statement. -/
 def PostRootCovarianceBesselLinearStatement : Prop :=
   ∃ D : ℝ, 0 ≤ D ∧
