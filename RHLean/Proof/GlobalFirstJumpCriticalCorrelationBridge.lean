@@ -507,8 +507,7 @@ theorem squarefreePairFreshPrimeOwner_lt_parentOwner
   have hqle : q ≤ p := Nat.le_of_not_gt hnot
   have hfaceEq : q ∈ squarefreePrimeFace um ↔ q ∈ squarefreePrimeFace un := by
     by_cases hqp : q = p
-    · subst q
-      have hnotUm : p ∉ squarefreePrimeFace um := by
+    · have hnotUm : p ∉ squarefreePrimeFace um := by
         dsimp [um]
         exact owner_not_mem_squarefreePrimeFace_parent hp hm
       have hnotUn : p ∉ squarefreePrimeFace un := by
@@ -516,9 +515,9 @@ theorem squarefreePairFreshPrimeOwner_lt_parentOwner
         exact owner_not_mem_squarefreePrimeFace_parent hp hn
       constructor
       · intro hmem
-        exact (hnotUm hmem).elim
+        exact (hnotUm (hqp ▸ hmem)).elim
       · intro hmem
-        exact (hnotUn hmem).elim
+        exact (hnotUn (hqp ▸ hmem)).elim
     · have hq_lt_p : q < p := by omega
       have hchron :
           q ∈ squarefreePrimeFace m ↔ q ∈ squarefreePrimeFace n :=
