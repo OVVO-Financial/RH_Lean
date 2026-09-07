@@ -415,6 +415,119 @@ theorem endpoint_le_postRootPowerScale
     (by linarith : (1 : ℝ) ≤ 1 + ε)
   simpa only [Real.rpow_one] using h
 
+/-! ## New-record one-step innovation -/
+
+/-- The positive part is 1-Lipschitz under a simultaneous growth of the
+normalizing denominator.  This is the elementary order fact that turns a
+normalized record event into a raw one-step remainder increment. -/
+private theorem max_zero_normalized_jump_le_raw_increment
+    {a b S T : ℝ} (hS : 0 < S) (hT : 0 < T) (hST : S ≤ T) :
+    max 0 (max 0 (b / T) - max 0 (a / S)) ≤
+      max 0 ((b - a) / T) := by
+  by_cases ha : a ≤ 0
+  · have haDiv : a / S ≤ 0 := by
+      rw [div_le_iff₀ hS]
+      simpa using ha
+    have hab : b ≤ b - a := by linarith
+    have hdiv : b / T ≤ (b - a) / T := by
+      rw [div_le_div_iff₀ hT hT]
+      exact mul_le_mul_of_nonneg_right hab hT.le
+    rw [max_eq_left haDiv]
+    simp only [sub_zero]
+    apply max_le
+    · exact le_max_left _ _
+    · apply max_le
+      · exact le_max_left _ _
+      · exact hdiv.trans (le_max_right _ _)
+  · have haPos : 0 < a := lt_of_not_ge ha
+    have haDiv : 0 ≤ a / S := div_nonneg haPos.le hS.le
+    rw [max_eq_right haDiv]
+    by_cases hb : b ≤ 0
+    · have hbDiv : b / T ≤ 0 := by
+        rw [div_le_iff₀ hT]
+        simpa using hb
+      rw [max_eq_left hbDiv]
+      have hleft : 0 - a / S ≤ 0 := by linarith
+      rw [max_eq_left hleft]
+      exact le_max_left _ _
+    · have hbPos : 0 < b := lt_of_not_ge hb
+      have hbDiv : 0 ≤ b / T := div_nonneg hbPos.le hT.le
+      rw [max_eq_right hbDiv]
+      have haFrac : a / T ≤ a / S := by
+        rw [div_le_div_iff₀ hT hS]
+        exact mul_le_mul_of_nonneg_left hST haPos.le
+      have hdiff : b / T - a / S ≤ (b - a) / T := by
+        rw [sub_div]
+        linarith
+      apply max_le
+      · exact le_max_left _ _
+      · exact hdiff.trans (le_max_right _ _)
+
+/-- The positive raw remainder created on the single step `N -> N+1`, measured
+at the new endpoint scale.  Unlike the running envelope this object contains no
+old record mass. -/
+def postRootCovariancePowerRawIncrementBudget (ε : ℝ) (N : ℕ) : ℝ :=
+  max 0
+    ((postRootCovarianceRemainder (N + 1) -
+        postRootCovarianceRemainder N) /
+      Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε))
+
+/-- **Record excess is paid only by new raw remainder mass.**  Once `N >= 2`,
+monotonicity of the positive power scale and the fact that the old envelope
+already dominates the old seat imply that a new normalized record can gain no
+more than the positive one-step increment of the unnormalized remainder. -/
+theorem postRootCovariancePowerRecordExcess_le_rawIncrementBudget
+    (ε : ℝ) (hε : 0 < ε) {N : ℕ} (hN : 2 ≤ N) :
+    postRootCovariancePowerRecordExcess ε N ≤
+      postRootCovariancePowerRawIncrementBudget ε N := by
+  have hNext : 2 ≤ N + 1 := by omega
+  have hNpos : (0 : ℝ) < (N : ℝ) := by
+    exact_mod_cast (show 0 < N by omega)
+  have hNextPos : (0 : ℝ) < ((N + 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 0 < N + 1 by omega)
+  have hS : 0 < Real.rpow (N : ℝ) (1 + ε) :=
+    Real.rpow_pos_of_pos hNpos _
+  have hT : 0 < Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) :=
+    Real.rpow_pos_of_pos hNextPos _
+  have hST :
+      Real.rpow (N : ℝ) (1 + ε) ≤
+        Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) := by
+    apply Real.rpow_le_rpow (by positivity)
+    · exact_mod_cast Nat.le_succ N
+    · linarith
+  have hlocal :
+      postRootCovariancePowerRecordExcess ε N ≤
+        max 0
+          (postRootCovariancePowerSeat ε (N + 1) -
+            postRootCovariancePowerSeat ε N) := by
+    unfold postRootCovariancePowerRecordExcess
+    apply max_le
+    · exact le_max_left _ _
+    · exact
+        (sub_le_sub_left
+          (postRootCovariancePowerSeat_le_selfEnvelope ε N) _).trans
+          (le_max_right _ _)
+  calc
+    postRootCovariancePowerRecordExcess ε N ≤
+        max 0
+          (postRootCovariancePowerSeat ε (N + 1) -
+            postRootCovariancePowerSeat ε N) := hlocal
+    _ = max 0
+        (max 0
+            (postRootCovarianceRemainder (N + 1) /
+              Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε)) -
+          max 0
+            (postRootCovarianceRemainder N /
+              Real.rpow (N : ℝ) (1 + ε))) := by
+        unfold postRootCovariancePowerSeat
+        rw [if_pos hNext, if_pos hN]
+    _ ≤ max 0
+        ((postRootCovarianceRemainder (N + 1) -
+            postRootCovarianceRemainder N) /
+          Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε)) :=
+      max_zero_normalized_jump_le_raw_increment hS hT hST
+    _ = postRootCovariancePowerRawIncrementBudget ε N := rfl
+
 /-! ## New-record first-wall discharge -/
 
 /-- The total signed mass of the complete lower post-root physical parent
