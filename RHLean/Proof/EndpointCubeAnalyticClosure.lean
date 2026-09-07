@@ -456,6 +456,296 @@ theorem postRootCovarianceRemainder_eq_physicalPairCarrier (W : ℕ) :
   unfold postRootCovarianceRemainder
   linarith
 
+/-! ## Triangular owner descent on the literal remainder carrier -/
+
+/-- Canonically orient the two stripped owner-parents as a positive-lag pair. -/
+def squarefreePairFreshPrimeOrderedParent (m n : ℕ) : ℕ × ℕ :=
+  let p := squarefreePairFreshPrimeOwner m n
+  let um := squarefreePrimeFamilyParent p m
+  let un := squarefreePrimeFamilyParent p n
+  if um < un then (um, un) else (un, um)
+
+/-- The differing-prime face is symmetric in the two pair coordinates. -/
+theorem squarefreePairFreshPrimeSet_comm (m n : ℕ) :
+    squarefreePairFreshPrimeSet m n = squarefreePairFreshPrimeSet n m := by
+  unfold squarefreePairFreshPrimeSet
+  rw [Finset.union_comm]
+
+/-- Consequently the chronological first-separation owner is orientation-free. -/
+theorem squarefreePairFreshPrimeOwner_comm (m n : ℕ) :
+    squarefreePairFreshPrimeOwner m n =
+      squarefreePairFreshPrimeOwner n m := by
+  unfold squarefreePairFreshPrimeOwner
+  rw [squarefreePairFreshPrimeSet_comm m n]
+
+private theorem endpointCube_squarefreePrimeFamilyParent_dvd
+    (p n : ℕ) : squarefreePrimeFamilyParent p n ∣ n := by
+  unfold squarefreePrimeFamilyParent
+  by_cases hpn : p ∣ n
+  · rw [if_pos hpn]
+    exact ⟨p, (Nat.div_mul_cancel hpn).symm⟩
+  · simp [hpn]
+
+private theorem endpointCube_squarefreePrimeFamilyParent_pos
+    {p n : ℕ} (hp : p.Prime) (hn : 0 < n) :
+    0 < squarefreePrimeFamilyParent p n := by
+  unfold squarefreePrimeFamilyParent
+  by_cases hpn : p ∣ n
+  · rw [if_pos hpn]
+    exact Nat.div_pos (Nat.le_of_dvd hn hpn) hp.pos
+  · simpa [hpn] using hn
+
+/-- Downward closure of the post-root complement: replacing the two endpoints
+by positive divisors, in either orientation, cannot create a common post-root
+prime. -/
+theorem postRootCovarianceRemainderPhysicalPairCarrier_of_dvd
+    {W m n a b : ℕ}
+    (hpair : (m, n) ∈ postRootCovarianceRemainderPhysicalPairCarrier W)
+    (hdiv : (a ∣ m ∧ b ∣ n) ∨ (a ∣ n ∧ b ∣ m))
+    (hapos : 0 < a) (hbpos : 0 < b) (hab : a < b) :
+    (a, b) ∈ postRootCovarianceRemainderPhysicalPairCarrier W := by
+  rcases mem_postRootCovarianceRemainderPhysicalPairCarrier.mp hpair with
+    ⟨hphysical, houtside⟩
+  rcases mem_mertensPositivePhysicalPairCarrier.mp hphysical with
+    ⟨hm1, hmW, hn1, hnW, hmn⟩
+  have hmpos : 0 < m := by omega
+  have hnpos : 0 < n := by omega
+  have haW : a ≤ W := by
+    rcases hdiv with hdiv | hdiv
+    · exact (Nat.le_of_dvd hmpos hdiv.1).trans hmW
+    · exact (Nat.le_of_dvd hnpos hdiv.1).trans hnW
+  have hbW : b ≤ W := by
+    rcases hdiv with hdiv | hdiv
+    · exact (Nat.le_of_dvd hnpos hdiv.2).trans hnW
+    · exact (Nat.le_of_dvd hmpos hdiv.2).trans hmW
+  apply mem_postRootCovarianceRemainderPhysicalPairCarrier.mpr
+  refine ⟨mem_mertensPositivePhysicalPairCarrier.mpr
+    ⟨by omega, haW, by omega, hbW, hab⟩, ?_⟩
+  intro habUnion
+  rcases mem_postRootPrimePhysicalPairUnion.mp habUnion with
+    ⟨q, hq, hqab⟩
+  rcases mem_postRootPrimePhysicalPairCarrier.mp hqab with
+    ⟨_ha1, _haW, _hb1, _hbW, _hab, hqa, hqb⟩
+  apply houtside
+  apply mem_postRootPrimePhysicalPairUnion.mpr
+  refine ⟨q, hq, ?_⟩
+  apply mem_postRootPrimePhysicalPairCarrier.mpr
+  refine ⟨hm1, hmW, hn1, hnW, hmn, ?_⟩
+  rcases hdiv with hdiv | hdiv
+  · exact ⟨hqa.trans hdiv.1, hqb.trans hdiv.2⟩
+  · exact ⟨hqb.trans hdiv.2, hqa.trans hdiv.1⟩
+
+/-- Stripping and reorienting the owner keeps every distinct squarefree
+contributing pair inside the literal post-root remainder carrier. -/
+theorem squarefreePairFreshPrimeOrderedParent_mem_postRootRemainder
+    {W m n : ℕ}
+    (hpair : (m, n) ∈ postRootCovarianceRemainderPhysicalPairCarrier W)
+    (hm : Squarefree m) (hn : Squarefree n)
+    (hparentNe :
+      squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m ≠
+        squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n) :
+    squarefreePairFreshPrimeOrderedParent m n ∈
+      postRootCovarianceRemainderPhysicalPairCarrier W := by
+  have hphysical :=
+    (mem_postRootCovarianceRemainderPhysicalPairCarrier.mp hpair).1
+  have hdata := mem_mertensPositivePhysicalPairCarrier.mp hphysical
+  have hmn : m ≠ n := ne_of_lt hdata.2.2.2.2
+  let p := squarefreePairFreshPrimeOwner m n
+  let um := squarefreePrimeFamilyParent p m
+  let un := squarefreePrimeFamilyParent p n
+  have hp : p.Prime := squarefreePairFreshPrimeOwner_prime hm hn hmn
+  have humpos : 0 < um := by
+    dsimp [um]
+    exact endpointCube_squarefreePrimeFamilyParent_pos hp (by omega)
+  have hunpos : 0 < un := by
+    dsimp [un]
+    exact endpointCube_squarefreePrimeFamilyParent_pos hp (by omega)
+  have humdvd : um ∣ m := by
+    dsimp [um]
+    exact endpointCube_squarefreePrimeFamilyParent_dvd p m
+  have hundvd : un ∣ n := by
+    dsimp [un]
+    exact endpointCube_squarefreePrimeFamilyParent_dvd p n
+  have hne : um ≠ un := by
+    simpa [p, um, un] using hparentNe
+  change (if um < un then (um, un) else (un, um)) ∈
+    postRootCovarianceRemainderPhysicalPairCarrier W
+  by_cases humlt : um < un
+  · rw [if_pos humlt]
+    exact postRootCovarianceRemainderPhysicalPairCarrier_of_dvd hpair
+      (Or.inl ⟨humdvd, hundvd⟩) humpos hunpos humlt
+  · rw [if_neg humlt]
+    have hunlt : un < um := by omega
+    exact postRootCovarianceRemainderPhysicalPairCarrier_of_dvd hpair
+      (Or.inr ⟨hundvd, humdvd⟩) hunpos humpos hunlt
+
+/-- Reorienting the stripped pair does not change its next owner. -/
+theorem squarefreePairFreshPrimeOwner_orderedParent (m n : ℕ) :
+    squarefreePairFreshPrimeOwner
+        (squarefreePairFreshPrimeOrderedParent m n).1
+        (squarefreePairFreshPrimeOrderedParent m n).2 =
+      squarefreePairFreshPrimeOwner
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m)
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n) := by
+  unfold squarefreePairFreshPrimeOrderedParent
+  dsimp only
+  split_ifs
+  · rfl
+  · exact squarefreePairFreshPrimeOwner_comm _ _
+
+/-- Reorienting the stripped pair also preserves its separation rank. -/
+theorem squarefreePairFreshPrimeSet_orderedParent_card (m n : ℕ) :
+    (squarefreePairFreshPrimeSet
+        (squarefreePairFreshPrimeOrderedParent m n).1
+        (squarefreePairFreshPrimeOrderedParent m n).2).card =
+      (squarefreePairFreshPrimeSet
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m)
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n)).card := by
+  unfold squarefreePairFreshPrimeOrderedParent
+  dsimp only
+  split_ifs
+  · rfl
+  · rw [squarefreePairFreshPrimeSet_comm]
+
+/-- The exact owner sign reversal survives canonical positive-lag orientation
+of the parent pair. -/
+theorem squarefreePairFreshPrimeOwner_pairWeight_eq_neg_orderedParentWeight
+    {m n : ℕ} (hm : Squarefree m) (hn : Squarefree n)
+    (hmn : m ≠ n) (hmpos : 0 < m) (hnpos : 0 < n) :
+    realMoebiusStep m * realMoebiusStep n =
+      -(realMoebiusStep (squarefreePairFreshPrimeOrderedParent m n).1 *
+        realMoebiusStep (squarefreePairFreshPrimeOrderedParent m n).2) := by
+  rw [squarefreePairFreshPrimeOwner_pairWeight_eq_neg_parentPairWeight
+    hm hn hmn hmpos hnpos]
+  unfold squarefreePairFreshPrimeOrderedParent
+  dsimp only
+  split_ifs <;> ring
+
+/-- Predicate selecting owner cubes whose stripped mixed corner collapses to a
+single parent site. -/
+def SquarefreePairFreshPrimeParentsEqual (mn : ℕ × ℕ) : Prop :=
+  squarefreePrimeFamilyParent
+      (squarefreePairFreshPrimeOwner mn.1 mn.2) mn.1 =
+    squarefreePrimeFamilyParent
+      (squarefreePairFreshPrimeOwner mn.1 mn.2) mn.2
+
+/-- Equal-parent pairs terminate the owner recursion. -/
+def postRootCovarianceRemainderTerminalPairCarrier
+    (W : ℕ) : Finset (ℕ × ℕ) :=
+  (postRootCovarianceRemainderPhysicalPairCarrier W).filter
+    SquarefreePairFreshPrimeParentsEqual
+
+/-- Distinct-parent pairs are the genuinely recursive part of the remainder. -/
+def postRootCovarianceRemainderRecursivePairCarrier
+    (W : ℕ) : Finset (ℕ × ℕ) :=
+  (postRootCovarianceRemainderPhysicalPairCarrier W).filter
+    (fun mn => ¬ SquarefreePairFreshPrimeParentsEqual mn)
+
+/-- Exact terminal/recursive partition on arbitrary signed weights. -/
+theorem postRootCovarianceRemainder_terminal_recursive_partition
+    (W : ℕ) (f : ℕ × ℕ → ℝ) :
+    (∑ mn ∈ postRootCovarianceRemainderTerminalPairCarrier W, f mn) +
+        (∑ mn ∈ postRootCovarianceRemainderRecursivePairCarrier W, f mn) =
+      ∑ mn ∈ postRootCovarianceRemainderPhysicalPairCarrier W, f mn := by
+  unfold postRootCovarianceRemainderTerminalPairCarrier
+    postRootCovarianceRemainderRecursivePairCarrier
+  exact Finset.sum_filter_add_sum_filter_not _ _ _
+
+/-- Every terminal pair has nonpositive Möbius-pair weight.  If its weight is
+nonzero, owner stripping identifies the two parents and turns the pair into
+the negative of a square. -/
+theorem postRootCovarianceRemainderTerminalPair_weight_nonpos
+    {W : ℕ} {mn : ℕ × ℕ}
+    (hmn : mn ∈ postRootCovarianceRemainderTerminalPairCarrier W) :
+    realMoebiusStep mn.1 * realMoebiusStep mn.2 ≤ 0 := by
+  rcases mn with ⟨m, n⟩
+  rcases Finset.mem_filter.mp hmn with ⟨hpair, hparentEq⟩
+  change squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m =
+    squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n at hparentEq
+  by_cases hweight : realMoebiusStep m * realMoebiusStep n = 0
+  · rw [hweight]
+  · rcases mul_ne_zero.mp hweight with ⟨hmstep, hnstep⟩
+    have hm : Squarefree m := squarefree_of_realMoebiusStep_ne_zero hmstep
+    have hn : Squarefree n := squarefree_of_realMoebiusStep_ne_zero hnstep
+    have hphysical :=
+      (mem_postRootCovarianceRemainderPhysicalPairCarrier.mp hpair).1
+    rcases mem_mertensPositivePhysicalPairCarrier.mp hphysical with
+      ⟨hm1, _hmW, hn1, _hnW, hmnlt⟩
+    have hneg :=
+      squarefreePairFreshPrimeOwner_pairWeight_eq_neg_parentPairWeight
+        hm hn (ne_of_lt hmnlt) (by omega) (by omega)
+    rw [hneg, hparentEq]
+    exact neg_nonpos.mpr (mul_self_nonneg _)
+
+/-- The complete equal-parent terminal class can only improve the desired
+one-sided upper bound. -/
+theorem sum_postRootCovarianceRemainderTerminalPairCarrier_nonpos (W : ℕ) :
+    (∑ mn ∈ postRootCovarianceRemainderTerminalPairCarrier W,
+      realMoebiusStep mn.1 * realMoebiusStep mn.2) ≤ 0 := by
+  apply Finset.sum_nonpos
+  intro mn hmn
+  exact postRootCovarianceRemainderTerminalPair_weight_nonpos hmn
+
+/-- The scalar remainder is bounded above by its genuinely recursive owner
+class; all equal-parent terminal cubes have already been discharged with the
+correct sign. -/
+theorem postRootCovarianceRemainder_le_recursivePairCarrier (W : ℕ) :
+    postRootCovarianceRemainder W ≤
+      ∑ mn ∈ postRootCovarianceRemainderRecursivePairCarrier W,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2 := by
+  rw [postRootCovarianceRemainder_eq_physicalPairCarrier]
+  have hsplit :=
+    postRootCovarianceRemainder_terminal_recursive_partition W
+      (fun mn : ℕ × ℕ =>
+        realMoebiusStep mn.1 * realMoebiusStep mn.2)
+  have hterminal :=
+    sum_postRootCovarianceRemainderTerminalPairCarrier_nonpos W
+  linarith
+
+/-- **Triangular recursion on every contributing recursive pair.**  Its ordered
+parent remains on the literal remainder carrier, its owner moves strictly
+upward, its separation rank drops by exactly one, and its signed weight is
+reversed exactly. -/
+theorem postRootCovarianceRemainderRecursivePair_owner_descent
+    {W m n : ℕ}
+    (hpair : (m, n) ∈ postRootCovarianceRemainderRecursivePairCarrier W)
+    (hweight : realMoebiusStep m * realMoebiusStep n ≠ 0) :
+    let parent := squarefreePairFreshPrimeOrderedParent m n
+    parent ∈ postRootCovarianceRemainderPhysicalPairCarrier W ∧
+      squarefreePairFreshPrimeOwner m n <
+        squarefreePairFreshPrimeOwner parent.1 parent.2 ∧
+      (squarefreePairFreshPrimeSet parent.1 parent.2).card + 1 =
+        (squarefreePairFreshPrimeSet m n).card ∧
+      realMoebiusStep m * realMoebiusStep n =
+        -(realMoebiusStep parent.1 * realMoebiusStep parent.2) := by
+  rcases Finset.mem_filter.mp hpair with ⟨hremainder, hparentNe⟩
+  change squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m ≠
+    squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n at hparentNe
+  rcases mul_ne_zero.mp hweight with ⟨hmstep, hnstep⟩
+  have hm : Squarefree m := squarefree_of_realMoebiusStep_ne_zero hmstep
+  have hn : Squarefree n := squarefree_of_realMoebiusStep_ne_zero hnstep
+  have hphysical :=
+    (mem_postRootCovarianceRemainderPhysicalPairCarrier.mp hremainder).1
+  rcases mem_mertensPositivePhysicalPairCarrier.mp hphysical with
+    ⟨hm1, _hmW, hn1, _hnW, hmnlt⟩
+  have hmn : m ≠ n := ne_of_lt hmnlt
+  have hparentMem :=
+    squarefreePairFreshPrimeOrderedParent_mem_postRootRemainder
+      hremainder hm hn hparentNe
+  have howner := squarefreePairFreshPrimeOwner_lt_parentOwner
+    hm hn hmn (by omega) (by omega) hparentNe
+  have hrank := squarefreePairFreshPrimeSet_parent_card_add_one
+    hm hn hmn (by omega) (by omega)
+  have hsign :=
+    squarefreePairFreshPrimeOwner_pairWeight_eq_neg_orderedParentWeight
+      hm hn hmn (by omega) (by omega)
+  dsimp only
+  refine ⟨hparentMem, ?_, ?_, hsign⟩
+  · rw [squarefreePairFreshPrimeOwner_orderedParent]
+    exact howner
+  · rw [squarefreePairFreshPrimeSet_orderedParent_card]
+    exact hrank
+
 /-- Every post-root quotient lies at square-root scale: its square is at most
 the physical endpoint. -/
 theorem postRootPrimeFamily_quotient_sq_le
