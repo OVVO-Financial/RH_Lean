@@ -1,6 +1,7 @@
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.NumberTheory.LSeries.RiemannZeta
 import RHLean.Proof.ActualStartLocalSignedFrame
+import RHLean.Proof.PostRootCovarianceLcmInteriorPacking
 
 noncomputable section
 
