@@ -363,9 +363,34 @@ theorem sum_moebiusLcmInteriorOrderedCarrier_eq_diagonal_add_two_mul_positive
     apply Finset.sum_congr rfl
     intro n _hn
     simp only [Nat.lcm_comm, mul_comm]
-  unfold moebiusLcmInteriorOrderedCarrier
-    moebiusLcmInteriorPositiveCarrier
-  simp only [Finset.sum_filter, Finset.sum_product]
+  have hordered :
+      (∑ mn ∈ moebiusLcmInteriorOrderedCarrier W,
+        μ mn.1 * μ mn.2) =
+        ∑ m ∈ Finset.Icc 1 W,
+          ∑ n ∈ Finset.Icc 1 W,
+            if Nat.lcm m n ≤ W then μ m * μ n else 0 := by
+    unfold moebiusLcmInteriorOrderedCarrier
+    rw [Finset.sum_filter]
+    simpa only using
+      (Finset.sum_product
+        (s := Finset.Icc 1 W) (t := Finset.Icc 1 W)
+        (f := fun mn : ℕ × ℕ =>
+          if Nat.lcm mn.1 mn.2 ≤ W then μ mn.1 * μ mn.2 else 0))
+  have hpositive :
+      (∑ mn ∈ moebiusLcmInteriorPositiveCarrier W,
+        μ mn.1 * μ mn.2) =
+        ∑ m ∈ Finset.Icc 1 W,
+          ∑ n ∈ Finset.Icc 1 W,
+            if m < n ∧ Nat.lcm m n ≤ W then μ m * μ n else 0 := by
+    unfold moebiusLcmInteriorPositiveCarrier
+    rw [Finset.sum_filter]
+    simpa only using
+      (Finset.sum_product
+        (s := Finset.Icc 1 W) (t := Finset.Icc 1 W)
+        (f := fun mn : ℕ × ℕ =>
+          if mn.1 < mn.2 ∧ Nat.lcm mn.1 mn.2 ≤ W then
+            μ mn.1 * μ mn.2 else 0))
+  rw [hordered, hpositive]
   calc
     (∑ m ∈ Finset.Icc 1 W,
       ∑ n ∈ Finset.Icc 1 W,
