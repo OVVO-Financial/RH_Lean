@@ -355,15 +355,13 @@ theorem postRootCovariancePowerRecordExcessBounded_iff_powerEnvelopeBounded :
     PostRootCovariancePowerRecordExcessBoundedStatement ↔
       PostRootCovariancePowerEnvelopeBoundedStatement := by
   constructor
-  · intro hexcess
-    intro ε hε
+  · intro hexcess ε hε
     rcases hexcess ε hε with ⟨D, hD, hbound⟩
     refine ⟨D, hD, ?_⟩
     intro N
     rw [postRootCovariancePowerEnvelope_eq_sum_recordExcess]
     exact hbound N
-  · intro henv
-    intro ε hε
+  · intro henv ε hε
     rcases henv ε hε with ⟨D, hD, hbound⟩
     refine ⟨D, hD, ?_⟩
     intro N
