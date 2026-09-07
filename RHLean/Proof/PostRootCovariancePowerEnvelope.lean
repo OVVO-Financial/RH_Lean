@@ -135,6 +135,21 @@ theorem postRootCovariancePowerEnvelope_eq_sum_recordExcess
       simpa only [Nat.succ_eq_add_one] using
         postRootCovariancePowerEnvelope_succ_eq_add_recordExcess ε N
 
+/-- **Anchored tail form of the tether.**  Any verified finite prefix can be
+frozen permanently; only the record excesses after the anchor remain to be
+tightened. -/
+theorem postRootCovariancePowerEnvelope_eq_anchor_add_tailRecordExcess
+    (ε : ℝ) {A N : ℕ} (hAN : A ≤ N) :
+    postRootCovariancePowerEnvelope ε N =
+      postRootCovariancePowerEnvelope ε A +
+        ∑ j ∈ Finset.Ico A N, postRootCovariancePowerRecordExcess ε j := by
+  induction N, hAN using Nat.le_induction with
+  | base => simp
+  | succ N hAN ih =>
+      rw [postRootCovariancePowerEnvelope_succ_eq_add_recordExcess, ih,
+        Finset.sum_Ico_succ_top hAN]
+      ring
+
 /-- Any summable finite majorant for the record excesses bounds the running
 envelope.  This is the plug-in interface for later Euler, LCM-wall, covariance,
 or square-wheel inequalities. -/
@@ -150,6 +165,99 @@ theorem postRootCovariancePowerEnvelope_le_of_recordExcess_majorant
         ∑ j ∈ Finset.range N, g j :=
       Finset.sum_le_sum fun j _hj => hexcess j
     _ ≤ D := hpartial N
+
+/-- Every real Möbius pair weight is at most one. -/
+private theorem realMoebiusPairWeight_le_one (m n : ℕ) :
+    realMoebiusStep m * realMoebiusStep n ≤ 1 := by
+  rcases ArithmeticFunction.moebius_eq_or m with hm | hm | hm <;>
+    rcases ArithmeticFunction.moebius_eq_or n with hn | hn | hn <;>
+      simp [realMoebiusStep, hm, hn]
+
+/-- The exact physical remainder carrier is contained in the full endpoint
+square. -/
+private theorem postRootCovarianceRemainderPhysicalPairCarrier_subset_endpointSquare
+    (W : ℕ) :
+    postRootCovarianceRemainderPhysicalPairCarrier W ⊆
+      (Finset.Icc 1 W).product (Finset.Icc 1 W) := by
+  intro mn hmn
+  have hphysical :=
+    (mem_postRootCovarianceRemainderPhysicalPairCarrier.mp hmn).1
+  rcases mem_mertensPositivePhysicalPairCarrier.mp hphysical with
+    ⟨hm1, hmW, hn1, hnW, _hmn⟩
+  exact Finset.mem_product.mpr
+    ⟨Finset.mem_Icc.mpr ⟨hm1, hmW⟩,
+      Finset.mem_Icc.mpr ⟨hn1, hnW⟩⟩
+
+/-- **Coarse unconditional attachment point.**  Before using any cancellation,
+the signed post-root remainder is bounded by the cardinality of its physical
+pair carrier, hence by the endpoint square.  This is deliberately weak but
+fully unconditional: later work only tightens this same tether. -/
+theorem postRootCovarianceRemainder_le_endpoint_sq (W : ℕ) :
+    postRootCovarianceRemainder W ≤ (W : ℝ) ^ 2 := by
+  have hsubset :=
+    postRootCovarianceRemainderPhysicalPairCarrier_subset_endpointSquare W
+  have hcard :
+      (postRootCovarianceRemainderPhysicalPairCarrier W).card ≤ W * W := by
+    have h := Finset.card_le_card hsubset
+    simpa [Nat.card_Icc] using h
+  rw [postRootCovarianceRemainder_eq_physicalPairCarrier]
+  calc
+    (∑ mn ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2) ≤
+      ∑ _mn ∈ postRootCovarianceRemainderPhysicalPairCarrier W, (1 : ℝ) :=
+        Finset.sum_le_sum fun mn _hmn => realMoebiusPairWeight_le_one mn.1 mn.2
+    _ = ((postRootCovarianceRemainderPhysicalPairCarrier W).card : ℝ) := by simp
+    _ ≤ ((W * W : ℕ) : ℝ) := by exact_mod_cast hcard
+    _ = (W : ℝ) ^ 2 := by push_cast; ring
+
+/-- For every positive power loss, the normalized seat is already bounded by
+one physical endpoint.  The remaining task is to replace this growing ceiling
+by a uniform one. -/
+theorem postRootCovariancePowerSeat_le_endpoint
+    (ε : ℝ) (hε : 0 < ε) (W : ℕ) :
+    postRootCovariancePowerSeat ε W ≤ (W : ℝ) := by
+  unfold postRootCovariancePowerSeat
+  by_cases hW : 2 ≤ W
+  · rw [if_pos hW]
+    apply max_le
+    · positivity
+    · have hWpos : (0 : ℝ) < (W : ℝ) := by
+        exact_mod_cast (show 0 < W by omega)
+      have hbase : (1 : ℝ) ≤ (W : ℝ) := by
+        exact_mod_cast (show 1 ≤ W by omega)
+      have hpow :
+          (W : ℝ) ≤ Real.rpow (W : ℝ) (1 + ε) := by
+        have h := Real.rpow_le_rpow_of_exponent_le hbase
+          (by linarith : (1 : ℝ) ≤ 1 + ε)
+        simpa only [Real.rpow_one] using h
+      have hpowpos : 0 < Real.rpow (W : ℝ) (1 + ε) :=
+        Real.rpow_pos_of_pos hWpos _
+      apply (div_le_iff₀ hpowpos).2
+      calc
+        postRootCovarianceRemainder W ≤ (W : ℝ) ^ 2 :=
+          postRootCovarianceRemainder_le_endpoint_sq W
+        _ = (W : ℝ) * (W : ℝ) := by ring
+        _ ≤ (W : ℝ) * Real.rpow (W : ℝ) (1 + ε) :=
+          mul_le_mul_of_nonneg_left hpow (by positivity)
+  · rw [if_neg hW]
+    positivity
+
+/-- The explicit running envelope therefore has an unconditional linear
+finite-horizon ceiling.  This is the initial string: all later synthesis can be
+measured as an improvement from `N` toward a constant. -/
+theorem postRootCovariancePowerEnvelope_le_endpoint
+    (ε : ℝ) (hε : 0 < ε) (N : ℕ) :
+    postRootCovariancePowerEnvelope ε N ≤ (N : ℝ) := by
+  induction N with
+  | zero => simp [postRootCovariancePowerEnvelope]
+  | succ N ih =>
+      rw [postRootCovariancePowerEnvelope]
+      apply max_le
+      · have hcast : (N : ℝ) ≤ ((N + 1 : ℕ) : ℝ) := by
+          exact_mod_cast Nat.le_succ N
+        exact ih.trans hcast
+      · simpa only [Nat.succ_eq_add_one] using
+          postRootCovariancePowerSeat_le_endpoint ε hε (N + 1)
 
 /-- **Finite-horizon tether.** Every signed remainder up to `N` is bounded by
 the explicit running envelope times the target power. No arithmetic estimate is
