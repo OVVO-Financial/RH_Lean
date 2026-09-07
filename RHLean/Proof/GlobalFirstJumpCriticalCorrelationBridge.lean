@@ -110,7 +110,6 @@ theorem roughCorrelationLogBound_of_criticalReciprocalPrefixRootBound
     _ = (2 * C) * (R : ℝ) * L := by
       dsimp [A]
       field_simp [hR0]
-      ring
     _ = (2 * C) * (R : ℝ) * (Real.log (R : ℝ) + 1) := by rfl
 
 /-- **Concrete closure criterion.**  Control the exact reciprocal correlation
@@ -195,7 +194,8 @@ theorem postRootReciprocalBandFamilyCovariance_eq_card_mul_lowerCovariance
           largePrimeFamilyPairSum_postRoot hpPrime hW
         _ = realMertensPositiveLagPairSum (z + 1) := by rw [hdiv]
     _ = ((primeCombPostRootReciprocalBand W z).card : ℝ) *
-        realMertensPositiveLagPairSum (z + 1) := by simp
+        realMertensPositiveLagPairSum (z + 1) := by
+      rw [Finset.sum_const, nsmul_eq_mul]
 
 /-- The multiplicity of a post-root reciprocal band is bounded by the literal
 integer width of the corresponding quotient interval.  This throws away both
@@ -236,8 +236,6 @@ theorem postRootReciprocalBandFamilyCovariance_le_width_mul_positivePart
     le_max_left _ _
   have hcard0 :
       (0 : ℝ) ≤ ((primeCombPostRootReciprocalBand W z).card : ℝ) := by positivity
-  have hwidth0 :
-      (0 : ℝ) ≤ ((W / z - W / (z + 1) : ℕ) : ℝ) := by positivity
   have hmax0 :
       (0 : ℝ) ≤ max (realMertensPositiveLagPairSum (z + 1)) 0 :=
     le_max_right _ _
