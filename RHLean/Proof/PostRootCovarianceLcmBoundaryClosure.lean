@@ -168,4 +168,127 @@ theorem postRootCovarianceBoundaryLcmLinear_iff_remainderLinear :
     have hrem := hremainder W hW
     nlinarith [show (0 : ℝ) ≤ (W : ℝ) by positivity]
 
+/-! ## The owner descent is literally an lcm-wall descent -/
+
+private theorem lcm_prime_mul_left_of_not_dvd
+    {p a b : ℕ} (hp : p.Prime) (hpa : ¬ p ∣ a) (hpb : ¬ p ∣ b) :
+    Nat.lcm (p * a) b = p * Nat.lcm a b := by
+  apply Nat.dvd_antisymm
+  · apply (Nat.lcm_dvd_iff).2
+    constructor
+    · exact Nat.mul_dvd_mul_left p (Nat.dvd_lcm_left a b)
+    · rcases Nat.dvd_lcm_right a b with ⟨k, hk⟩
+      exact ⟨p * k, by omega⟩
+  · have hpTarget : p ∣ Nat.lcm (p * a) b :=
+      (show p ∣ p * a from ⟨a, rfl⟩).trans (Nat.dvd_lcm_left (p * a) b)
+    have haTarget : a ∣ Nat.lcm (p * a) b :=
+      (show a ∣ p * a from ⟨p, by simp [Nat.mul_comm]⟩).trans
+        (Nat.dvd_lcm_left (p * a) b)
+    have hbTarget : b ∣ Nat.lcm (p * a) b := Nat.dvd_lcm_right (p * a) b
+    have hlcmTarget : Nat.lcm a b ∣ Nat.lcm (p * a) b :=
+      (Nat.lcm_dvd_iff).2 ⟨haTarget, hbTarget⟩
+    have hlcmMul : Nat.lcm a b ∣ a * b := by
+      apply (Nat.lcm_dvd_iff).2
+      exact ⟨⟨b, rfl⟩, ⟨a, by simp [Nat.mul_comm]⟩⟩
+    have hpNotLcm : ¬ p ∣ Nat.lcm a b := by
+      intro hpLcm
+      have hpMul : p ∣ a * b := hpLcm.trans hlcmMul
+      rcases hp.dvd_mul.mp hpMul with hpA | hpB
+      · exact hpa hpA
+      · exact hpb hpB
+    have hcop : Nat.Coprime p (Nat.lcm a b) :=
+      hp.coprime_iff_not_dvd.mpr hpNotLcm
+    exact hcop.mul_dvd_of_dvd_of_dvd hpTarget hlcmTarget
+
+/-- Stripping the chronological first separating prime divides the pair lcm by
+exactly that prime. -/
+theorem squarefreePairFreshPrimeOwner_lcm_eq_owner_mul_parentLcm
+    {m n : ℕ} (hm : Squarefree m) (hn : Squarefree n) (hmn : m ≠ n)
+    (hmpos : 0 < m) (hnpos : 0 < n) :
+    let p := squarefreePairFreshPrimeOwner m n
+    let um := squarefreePrimeFamilyParent p m
+    let un := squarefreePrimeFamilyParent p n
+    Nat.lcm m n = p * Nat.lcm um un := by
+  let p := squarefreePairFreshPrimeOwner m n
+  let um := squarefreePrimeFamilyParent p m
+  let un := squarefreePrimeFamilyParent p n
+  have hp : p.Prime := squarefreePairFreshPrimeOwner_prime hm hn hmn
+  have hcube := squarefreePairFreshPrimeOwner_parentCube hm hn hmn hmpos hnpos
+  change (¬ p ∣ um) ∧ (¬ p ∣ un) ∧
+      ((m = p * um ∧ n = un) ∨ (m = um ∧ n = p * un)) at hcube
+  rcases hcube with ⟨hpm, hpn, h | h⟩
+  · rw [h.1, h.2]
+    exact lcm_prime_mul_left_of_not_dvd hp hpm hpn
+  · rw [h.1, h.2, Nat.lcm_comm]
+    simpa [Nat.lcm_comm] using lcm_prime_mul_left_of_not_dvd hp hpn hpm
+
+/-- Reorienting the stripped parent does not change its lcm. -/
+theorem squarefreePairFreshPrimeOrderedParent_lcm (m n : ℕ) :
+    Nat.lcm (squarefreePairFreshPrimeOrderedParent m n).1
+        (squarefreePairFreshPrimeOrderedParent m n).2 =
+      Nat.lcm
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m)
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n) := by
+  unfold squarefreePairFreshPrimeOrderedParent
+  by_cases h :
+      squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m <
+        squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n
+  · simp [h]
+  · simp [h, Nat.lcm_comm]
+
+/-- Ordered-parent form of the exact lcm scaling law. -/
+theorem squarefreePairFreshPrimeOwner_lcm_eq_owner_mul_orderedParentLcm
+    {m n : ℕ} (hm : Squarefree m) (hn : Squarefree n) (hmn : m ≠ n)
+    (hmpos : 0 < m) (hnpos : 0 < n) :
+    Nat.lcm m n =
+      squarefreePairFreshPrimeOwner m n *
+        Nat.lcm (squarefreePairFreshPrimeOrderedParent m n).1
+          (squarefreePairFreshPrimeOrderedParent m n).2 := by
+  rw [squarefreePairFreshPrimeOrderedParent_lcm]
+  exact squarefreePairFreshPrimeOwner_lcm_eq_owner_mul_parentLcm
+    hm hn hmn hmpos hnpos
+
+/-- **First LCM-wall dichotomy.**  On a nonzero boundary pair, stripping the
+chronological owner either stays on the super-endpoint side or crosses the wall
+for the first time.  In the crossing case the child lcm is exactly the owner
+prime times the admitted parent lcm. -/
+theorem postRootCovarianceRemainderBoundary_owner_parent_lcm_dichotomy
+    {W m n : ℕ}
+    (hboundary : (m, n) ∈ postRootCovarianceRemainderBoundaryLcmCarrier W)
+    (hweight : realMoebiusStep m * realMoebiusStep n ≠ 0) :
+    let p := squarefreePairFreshPrimeOwner m n
+    let parent := squarefreePairFreshPrimeOrderedParent m n
+    (W < Nat.lcm parent.1 parent.2) ∨
+      (Nat.lcm parent.1 parent.2 ≤ W ∧
+        W < p * Nat.lcm parent.1 parent.2) := by
+  rcases mem_postRootCovarianceRemainderBoundaryLcmCarrier.mp hboundary with
+    ⟨hremainder, hchildWall⟩
+  have hphysical :=
+    (mem_postRootCovarianceRemainderPhysicalPairCarrier.mp hremainder).1
+  rcases mem_mertensPositivePhysicalPairCarrier.mp hphysical with
+    ⟨hm1, _hmW, hn1, _hnW, hmnlt⟩
+  have hmstep : realMoebiusStep m ≠ 0 := by
+    intro hmzero
+    exact hweight (by rw [hmzero, zero_mul])
+  have hnstep : realMoebiusStep n ≠ 0 := by
+    intro hnzero
+    exact hweight (by rw [hnzero, mul_zero])
+  have hm : Squarefree m := squarefree_of_realMoebiusStep_ne_zero hmstep
+  have hn : Squarefree n := squarefree_of_realMoebiusStep_ne_zero hnstep
+  have hscale :=
+    squarefreePairFreshPrimeOwner_lcm_eq_owner_mul_orderedParentLcm
+      hm hn (Nat.ne_of_lt hmnlt) (by omega) (by omega)
+  let p := squarefreePairFreshPrimeOwner m n
+  let parent := squarefreePairFreshPrimeOrderedParent m n
+  change (W < Nat.lcm parent.1 parent.2) ∨
+    (Nat.lcm parent.1 parent.2 ≤ W ∧
+      W < p * Nat.lcm parent.1 parent.2)
+  by_cases hparent : W < Nat.lcm parent.1 parent.2
+  · exact Or.inl hparent
+  · right
+    have hle : Nat.lcm parent.1 parent.2 ≤ W := Nat.le_of_not_gt hparent
+    refine ⟨hle, ?_⟩
+    rw [← hscale]
+    exact hchildWall
+
 end RHLean.Proof
