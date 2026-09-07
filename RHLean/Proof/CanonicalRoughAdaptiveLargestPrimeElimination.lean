@@ -243,7 +243,7 @@ theorem squareRootCanonicalRoughRawCorrelationSummand_mul_freshPrime_eq_zero_of_
     canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hp hrough
   have hset : squareRootCanonicalRoughPrimePartnerSet R (c * p) = ∅ := by
     ext q
-    simp only [Finset.not_mem_empty, iff_false]
+    simp only [Finset.notMem_empty, iff_false]
     intro hq
     have hdata :=
       (mem_squareRootCanonicalRoughPrimePartnerSet_iff hR hchildPos).mp hq
