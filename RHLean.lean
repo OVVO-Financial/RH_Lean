@@ -542,6 +542,7 @@ import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.OrderedEulerCutProjection
 import RHLean.Proof.OrthogonalResidual
 import RHLean.Proof.PostRootCovarianceLcmBoundary
+import RHLean.Proof.PostRootCovarianceLcmInteriorPacking
 import RHLean.Proof.PrefixCarrierOthelloWalls
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
 import RHLean.Proof.PrimeCombReciprocalBandCancellation
