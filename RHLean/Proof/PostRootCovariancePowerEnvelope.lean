@@ -576,6 +576,63 @@ theorem postRootLowerCovariance_succQuotient_sub (W p : ℕ) :
     rw [if_neg hdvd, hdiv]
     ring
 
+/-- A post-root prime coordinate that appears for the first time at a unit
+endpoint step can only be the new endpoint itself.  No interior post-root
+coordinate is born between `W` and `W+1`. -/
+theorem postRootPrimeFamilySet_succ_new_eq_endpoint
+    {W p : ℕ}
+    (hpNext : p ∈ postRootPrimeFamilySet (W + 1))
+    (hpOld : p ∉ postRootPrimeFamilySet W) :
+    p = W + 1 := by
+  rcases mem_postRootPrimeFamilySet.mp hpNext with
+    ⟨hpRootNext, hpLeNext, hpPrime⟩
+  by_contra hne
+  have hpLeW : p ≤ W := by omega
+  have hrootMono : Nat.sqrt W ≤ Nat.sqrt (W + 1) :=
+    Nat.sqrt_le_sqrt (by omega)
+  have hpRootOld : Nat.sqrt W < p :=
+    lt_of_le_of_lt hrootMono hpRootNext
+  exact hpOld (mem_postRootPrimeFamilySet.mpr
+    ⟨hpRootOld, hpLeW, hpPrime⟩)
+
+/-- A post-root coordinate can leave the family set at a unit endpoint step
+only by hitting the square-root wall exactly.  Thus every deletion is a prime
+square event `p^2 = W+1`. -/
+theorem postRootPrimeFamilySet_succ_removed_eq_square
+    {W p : ℕ}
+    (hpOld : p ∈ postRootPrimeFamilySet W)
+    (hpNext : p ∉ postRootPrimeFamilySet (W + 1)) :
+    p * p = W + 1 := by
+  rcases mem_postRootPrimeFamilySet.mp hpOld with
+    ⟨hpRootOld, hpLeW, hpPrime⟩
+  have hpRootNextNot : ¬ Nat.sqrt (W + 1) < p := by
+    intro hpRootNext
+    exact hpNext (mem_postRootPrimeFamilySet.mpr
+      ⟨hpRootNext, hpLeW.trans (by omega), hpPrime⟩)
+  have hpLeRootNext : p ≤ Nat.sqrt (W + 1) :=
+    Nat.le_of_not_gt hpRootNextNot
+  have hWlt : W < p * p := (Nat.sqrt_lt).1 hpRootOld
+  have hpSqLe : p * p ≤ W + 1 := by
+    simpa [pow_two] using (Nat.le_sqrt).1 hpLeRootNext
+  omega
+
+/-- At a fixed endpoint there is at most one active post-root prime divisor.
+This turns every reciprocal quotient jump in the local innovation into a
+single channel rather than a sum over the whole post-root family. -/
+theorem postRootPrimeFamily_divisor_unique
+    {W p q : ℕ}
+    (hp : p ∈ postRootPrimeFamilySet W)
+    (hq : q ∈ postRootPrimeFamilySet W)
+    (hpdvd : p ∣ W) (hqdvd : q ∣ W) :
+    p = q := by
+  by_contra hpq
+  have hWpos : 0 < W := by
+    rcases mem_postRootPrimeFamilySet.mp hp with
+      ⟨_hpRoot, hpW, hpPrime⟩
+    exact hpPrime.pos.trans_le hpW
+  exact (no_common_distinct_postRootPrime_divisors hp hq hpq
+    hWpos (le_refl W) hpdvd hqdvd).elim
+
 /-- The record budget after the raw remainder increment has been replaced by
 its exact local covariance innovation. -/
 def postRootCovariancePowerLocalInnovationBudget (ε : ℝ) (N : ℕ) : ℝ :=
