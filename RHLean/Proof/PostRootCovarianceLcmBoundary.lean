@@ -184,4 +184,104 @@ theorem moebiusLcmPairMass_eq_moebius (L : ℕ) :
     have hu := hinvMu L hLpos (by simp)
     exact hm.symm.trans hu
 
+/-! ## Complete lcm interior as a Möbius prefix -/
+
+/-- Ordered positive physical pairs whose lcm already fits below `W`.  Because
+`lcm(m,n) ≤ W` forces both coordinates below `W`, this is the union of the
+complete lcm fibres `1 ≤ L ≤ W`. -/
+def moebiusLcmInteriorOrderedCarrier (W : ℕ) : Finset (ℕ × ℕ) :=
+  ((Finset.Icc 1 W).product (Finset.Icc 1 W)).filter fun mn =>
+    Nat.lcm mn.1 mn.2 ≤ W
+
+@[simp] theorem mem_moebiusLcmInteriorOrderedCarrier
+    {W : ℕ} {mn : ℕ × ℕ} :
+    mn ∈ moebiusLcmInteriorOrderedCarrier W ↔
+      mn.1 ∈ Finset.Icc 1 W ∧ mn.2 ∈ Finset.Icc 1 W ∧
+        Nat.lcm mn.1 mn.2 ≤ W := by
+  simp [moebiusLcmInteriorOrderedCarrier, and_assoc]
+
+private theorem moebiusLcmInteriorOrderedCarrier_lcm_mem
+    {W : ℕ} {mn : ℕ × ℕ}
+    (hmn : mn ∈ moebiusLcmInteriorOrderedCarrier W) :
+    Nat.lcm mn.1 mn.2 ∈ Finset.Icc 1 W := by
+  rcases mem_moebiusLcmInteriorOrderedCarrier.mp hmn with
+    ⟨hm, hn, htop⟩
+  have hmpos : 0 < mn.1 := (Finset.mem_Icc.mp hm).1
+  have hnpos : 0 < mn.2 := (Finset.mem_Icc.mp hn).1
+  exact Finset.mem_Icc.mpr ⟨Nat.lcm_pos hmpos hnpos, htop⟩
+
+/-- Inside a fixed interior lcm fibre, the physical ordered carrier is exactly
+the complete divisor-pair fibre used by `moebiusLcmPairMass`. -/
+private theorem sum_moebiusLcmInteriorOrderedCarrier_fiber
+    {W L : ℕ} (hL : L ∈ Finset.Icc 1 W) :
+    (∑ mn ∈ moebiusLcmInteriorOrderedCarrier W with
+        Nat.lcm mn.1 mn.2 = L, μ mn.1 * μ mn.2) =
+      moebiusLcmPairMass L := by
+  have hLpos : 0 < L := (Finset.mem_Icc.mp hL).1
+  have hLtop : L ≤ W := (Finset.mem_Icc.mp hL).2
+  have hcarrier :
+      (moebiusLcmInteriorOrderedCarrier W).filter
+          (fun mn => Nat.lcm mn.1 mn.2 = L) =
+        (L.divisors.product L.divisors).filter
+          (fun mn => L = Nat.lcm mn.1 mn.2) := by
+    ext mn
+    constructor
+    · intro hmn
+      rcases Finset.mem_filter.mp hmn with ⟨hbase, heq⟩
+      rcases mem_moebiusLcmInteriorOrderedCarrier.mp hbase with
+        ⟨hm, hn, _htop⟩
+      have hmdiv : mn.1 ∣ L := by
+        rw [← heq]
+        exact Nat.dvd_lcm_left mn.1 mn.2
+      have hndiv : mn.2 ∣ L := by
+        rw [← heq]
+        exact Nat.dvd_lcm_right mn.1 mn.2
+      exact Finset.mem_filter.mpr ⟨
+        Finset.mem_product.mpr ⟨
+          Finset.mem_divisors.mpr ⟨hmdiv, hLpos.ne'⟩,
+          Finset.mem_divisors.mpr ⟨hndiv, hLpos.ne'⟩⟩,
+        heq.symm⟩
+    · intro hmn
+      rcases Finset.mem_filter.mp hmn with ⟨hprod, heq⟩
+      rcases Finset.mem_product.mp hprod with ⟨hm, hn⟩
+      have hmData := Finset.mem_divisors.mp hm
+      have hnData := Finset.mem_divisors.mp hn
+      have hmpos : 0 < mn.1 := Nat.pos_of_dvd_of_pos hmData.1 hLpos
+      have hnpos : 0 < mn.2 := Nat.pos_of_dvd_of_pos hnData.1 hLpos
+      have hmle : mn.1 ≤ L := Nat.le_of_dvd hLpos hmData.1
+      have hnle : mn.2 ≤ L := Nat.le_of_dvd hLpos hnData.1
+      refine Finset.mem_filter.mpr ⟨?_, heq.symm⟩
+      exact mem_moebiusLcmInteriorOrderedCarrier.mpr ⟨
+        Finset.mem_Icc.mpr ⟨hmpos, hmle.trans hLtop⟩,
+        Finset.mem_Icc.mpr ⟨hnpos, hnle.trans hLtop⟩,
+        by simpa [← heq] using hLtop⟩
+  unfold moebiusLcmPairMass
+  rw [← Finset.sum_product, ← Finset.sum_filter]
+  rw [hcarrier]
+
+/-- **Cumulative complete-cube identity.**  The ordered Möbius mass of every
+physical pair whose lcm is at most `W` is exactly the ordinary Möbius prefix on
+`1,...,W`.  Thus all child multiplicities inside the complete-lcm region have
+already recombined before any estimate is taken. -/
+theorem sum_moebiusLcmInteriorOrderedCarrier_eq_moebiusPrefix (W : ℕ) :
+    (∑ mn ∈ moebiusLcmInteriorOrderedCarrier W, μ mn.1 * μ mn.2) =
+      ∑ L ∈ Finset.Icc 1 W, μ L := by
+  calc
+    (∑ mn ∈ moebiusLcmInteriorOrderedCarrier W, μ mn.1 * μ mn.2) =
+        ∑ L ∈ Finset.Icc 1 W,
+          ∑ mn ∈ moebiusLcmInteriorOrderedCarrier W with
+            Nat.lcm mn.1 mn.2 = L, μ mn.1 * μ mn.2 := by
+      symm
+      exact Finset.sum_fiberwise_of_maps_to
+        (fun mn hmn => moebiusLcmInteriorOrderedCarrier_lcm_mem hmn)
+        (fun mn => μ mn.1 * μ mn.2)
+    _ = ∑ L ∈ Finset.Icc 1 W, moebiusLcmPairMass L := by
+      apply Finset.sum_congr rfl
+      intro L hL
+      exact sum_moebiusLcmInteriorOrderedCarrier_fiber hL
+    _ = ∑ L ∈ Finset.Icc 1 W, μ L := by
+      apply Finset.sum_congr rfl
+      intro L _hL
+      exact moebiusLcmPairMass_eq_moebius L
+
 end RHLean.Proof
