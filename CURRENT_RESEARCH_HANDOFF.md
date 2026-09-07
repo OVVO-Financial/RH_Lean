@@ -8,7 +8,33 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
-## Current continuation: physical LCM cubes after merged #596 and #597
+## Current continuation: the remainder scale sufficient for Mertens
+
+The linear remainder target is stronger than the bootstrap needs. The new
+`PostRootCovariancePowerRemainderStatement` asks only for
+
+```text
+for every eps > 0, there is D_eps >= 0 such that
+E(W) <= D_eps * W^(1+eps) for every W >= 2.
+```
+
+This is a one-sided estimate on the signed remainder; its absolute value need
+not be small. In `EndpointCubeAnalyticClosure.lean`,
+`mertensPositiveLagUpperBounded_of_postRootCovariancePowerRemainder` uses the
+remainder estimate at `eps/2`. The existing post-root product packing bounds
+the inherited covariance by `A * W^(1+eps/2)`, so both contributions can be
+absorbed into `A * W^(1+eps)` after a finite onset. The new theorem
+`mertensEnergyBounded_of_postRootCovariancePowerRemainder` then feeds the
+protected Mertens energy criterion. The earlier linear theorem names remain
+as specializations, via `postRootCovariancePowerRemainder_of_linear`.
+
+**The arithmetic estimate remains open.** This strengthens the conditional
+bootstrap by weakening its input; it does not supply a witness of either the
+linear or positive-power remainder proposition. The complete-cube sign below
+does not control every physical boundary contribution. Consult Hosted Lean CI
+for the compilation status of this head.
+
+## Physical LCM cubes after merged #596 and #597
 
 The complete-LCM remainder interior is already bounded between `-W` and `W`.
 The boundary identity from #597 is

@@ -934,19 +934,19 @@ theorem sum_postRootPrimeFamily_rpow_le_endpoint_halfPower
       mul_le_mul_of_nonneg_left hpack hfactor
     _ = (W : ℝ) * Real.rpow (W : ℝ) (ε / 2) := by ring
 
-/-- **The linear Bessel remainder closes the one-sided RH covariance target.**
+/-- **An arbitrarily small power loss in the signed remainder suffices.**
 For a fixed `ε > 0`, strong induction is run at the same exponent `1+ε`.
 Every post-root family is evaluated at `q = floor(W/p) < W`, while the exact
 product packing above compresses the complete inherited family contribution to
-`W^(1+ε/2)`.  Thus it has a fixed power of slack against the target
-`W^(1+ε)`, and the linear same-scale remainder is absorbed at the same finite
-onset.  No prime-density estimate or independence input occurs. -/
-theorem mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder
-    (hlin : PostRootCovarianceLinearRemainderStatement) :
+`W^(1+ε/2)`. The remainder hypothesis is used at `ε/2`, so both contributions
+have a fixed power of slack against the target `W^(1+ε)` and are absorbed at
+one finite onset. No prime-density estimate or independence input occurs. -/
+theorem mertensPositiveLagUpperBounded_of_postRootCovariancePowerRemainder
+    (hpower : PostRootCovariancePowerRemainderStatement) :
     MertensPositiveLagUpperBoundedStatement := by
   intro ε hε
-  rcases hlin with ⟨D, hD, hrem⟩
   have hhalf : 0 < ε / 2 := by linarith
+  rcases hpower (ε / 2) hhalf with ⟨D, hD, hrem⟩
   have htend :
       Filter.Tendsto (fun W : ℕ => Real.rpow (W : ℝ) (ε / 2))
         Filter.atTop Filter.atTop :=
@@ -1049,14 +1049,24 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder
                   (sum_postRootPrimeFamily_rpow_le_endpoint_halfPower W hε.le) hA
           have hglobal :
               realMertensPositiveLagPairSum (W + 1) ≤
-                postRootPrimeFamilyCovarianceTotal W + D * (W : ℝ) := by
+                postRootPrimeFamilyCovarianceTotal W +
+                  D * Real.rpow (W : ℝ) (1 + ε / 2) := by
             have hr := hrem W hW2
             unfold postRootCovarianceRemainder at hr
             linarith
           let T : ℝ := Real.rpow (W : ℝ) (ε / 2)
           have hTtwo' : 2 ≤ T := by simpa [T] using hTtwo
-          have hTplus : T + 1 ≤ T ^ 2 := by
-            nlinarith [sq_nonneg (T - 1)]
+          have hTplus : 2 * T ≤ T ^ 2 := by
+            nlinarith [sq_nonneg (T - 2)]
+          have hhalfTarget :
+              Real.rpow (W : ℝ) (1 + ε / 2) = (W : ℝ) * T := by
+            have hone : Real.rpow (W : ℝ) (1 : ℝ) = (W : ℝ) :=
+              (Real.rpow_eq_pow (W : ℝ) (1 : ℝ)).trans (Real.rpow_one (W : ℝ))
+            calc
+              Real.rpow (W : ℝ) (1 + ε / 2) =
+                  Real.rpow (W : ℝ) 1 * Real.rpow (W : ℝ) (ε / 2) :=
+                Real.rpow_add (x := (W : ℝ)) hWpos 1 (ε / 2)
+              _ = (W : ℝ) * T := by rw [hone]
           have hdouble : Real.rpow (W : ℝ) ε = T * T := by
             calc
               Real.rpow (W : ℝ) ε =
@@ -1082,17 +1092,21 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder
           have hfamily' :
               postRootPrimeFamilyCovarianceTotal W ≤ A * ((W : ℝ) * T) := by
             simpa [T] using hfamily
-          have hDW : D * (W : ℝ) ≤ A * (W : ℝ) :=
-            mul_le_mul_of_nonneg_right hDA hWnn
+          have hTnn : 0 ≤ T := by linarith
+          have hDW : D * ((W : ℝ) * T) ≤ A * ((W : ℝ) * T) :=
+            mul_le_mul_of_nonneg_right hDA (mul_nonneg hWnn hTnn)
           have hAWnn : 0 ≤ A * (W : ℝ) := mul_nonneg hA hWnn
           calc
             realMertensPositiveLagPairSum (W + 1) ≤
-                postRootPrimeFamilyCovarianceTotal W + D * (W : ℝ) := hglobal
-            _ ≤ A * ((W : ℝ) * T) + D * (W : ℝ) :=
+                postRootPrimeFamilyCovarianceTotal W +
+                  D * Real.rpow (W : ℝ) (1 + ε / 2) := hglobal
+            _ = postRootPrimeFamilyCovarianceTotal W + D * ((W : ℝ) * T) := by
+              rw [hhalfTarget]
+            _ ≤ A * ((W : ℝ) * T) + D * ((W : ℝ) * T) :=
               add_le_add_right hfamily' _
-            _ ≤ A * ((W : ℝ) * T) + A * (W : ℝ) :=
+            _ ≤ A * ((W : ℝ) * T) + A * ((W : ℝ) * T) :=
               add_le_add_left hDW _
-            _ = A * (W : ℝ) * (T + 1) := by ring
+            _ = A * (W : ℝ) * (2 * T) := by ring
             _ ≤ A * (W : ℝ) * T ^ 2 :=
               mul_le_mul_of_nonneg_left hTplus hAWnn
             _ = A * Real.rpow (W : ℝ) (1 + ε) := by
@@ -1113,6 +1127,22 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder
               Real.rpow ((W + 1 : ℕ) : ℝ) (1 + ε) :=
           Real.rpow_le_rpow (by positivity) hbase (by linarith)
         exact hbound.trans (mul_le_mul_of_nonneg_left hpow hA)
+
+/-- The former linear bootstrap remains a specialization of the weaker
+positive-power remainder theorem. -/
+theorem mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder
+    (hlin : PostRootCovarianceLinearRemainderStatement) :
+    MertensPositiveLagUpperBoundedStatement :=
+  mertensPositiveLagUpperBounded_of_postRootCovariancePowerRemainder
+    (postRootCovariancePowerRemainder_of_linear hlin)
+
+/-- The signed remainder upper bound with every positive power loss closes the
+protected Mertens energy criterion. The arithmetic remainder premise is explicit. -/
+theorem mertensEnergyBounded_of_postRootCovariancePowerRemainder
+    (hpower : PostRootCovariancePowerRemainderStatement) :
+    MertensEnergyBoundedStatement :=
+  mertensEnergyBounded_of_positiveLagUpperBounded
+    (mertensPositiveLagUpperBounded_of_postRootCovariancePowerRemainder hpower)
 
 /-- The same single signed remainder proposition therefore closes the protected
 Mertens energy criterion through the already-compiled Green--Kubo bridge. -/
