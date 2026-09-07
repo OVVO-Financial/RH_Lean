@@ -127,7 +127,7 @@ theorem postRootPrimeFamilySet_eq_signedFirstJumpPostRootPrimeSet (W : ℕ) :
     postRootPrimeFamilySet W = signedFirstJumpPostRootPrimeSet W := by
   ext p
   simp [postRootPrimeFamilySet, signedFirstJumpPostRootPrimeSet,
-    mem_frozenPrimeUniverseHighPrimeSet, and_comm, and_left_comm, and_assoc]
+    mem_frozenPrimeUniverseHighPrimeSet, and_comm, and_left_comm]
 
 /-- Hence the exact #588 product packing applies verbatim to the lower scales
 `floor(W/p)` copied by the post-root covariance families. -/
@@ -162,6 +162,8 @@ private theorem rpow_one_add_le_mul_halfPower_of_sq_le
   have hexp : 0 ≤ ε / 2 := by linarith
   have hqpowTwo : Real.rpow (q : ℝ) (2 : ℝ) = (q : ℝ) ^ (2 : ℕ) :=
     Real.rpow_natCast (q : ℝ) 2
+  have hqone : Real.rpow (q : ℝ) (1 : ℝ) = (q : ℝ) := by
+    exact (Real.rpow_eq_pow (q : ℝ) (1 : ℝ)).trans (Real.rpow_one (q : ℝ))
   have hhalf :
       Real.rpow (q : ℝ) ε =
         Real.rpow ((q : ℝ) ^ 2) (ε / 2) := by
@@ -181,7 +183,7 @@ private theorem rpow_one_add_le_mul_halfPower_of_sq_le
     Real.rpow (q : ℝ) (1 + ε) =
         Real.rpow (q : ℝ) 1 * Real.rpow (q : ℝ) ε :=
       Real.rpow_add (x := (q : ℝ)) hqpos 1 ε
-    _ = (q : ℝ) * Real.rpow (q : ℝ) ε := by rw [Real.rpow_one]
+    _ = (q : ℝ) * Real.rpow (q : ℝ) ε := by rw [hqone]
     _ ≤ (q : ℝ) * Real.rpow (W : ℝ) (ε / 2) :=
       mul_le_mul_of_nonneg_left hqeps hqnonneg
 
@@ -206,7 +208,8 @@ theorem sum_postRootPrimeFamily_rpow_le_endpoint_halfPower
   have hpack :
       (∑ p ∈ postRootPrimeFamilySet W, ((W / p : ℕ) : ℝ)) ≤ (W : ℝ) := by
     exact_mod_cast hpackNat
-  have hfactor : 0 ≤ Real.rpow (W : ℝ) (ε / 2) := by positivity
+  have hfactor : 0 ≤ Real.rpow (W : ℝ) (ε / 2) :=
+    Real.rpow_nonneg (Nat.cast_nonneg W) _
   calc
     (∑ p ∈ postRootPrimeFamilySet W,
         Real.rpow ((W / p : ℕ) : ℝ) (1 + ε)) ≤
@@ -288,8 +291,11 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder
           have hexp : (1 : ℝ) ≤ 1 + ε := by linarith
           have hpow :
               (W : ℝ) ≤ Real.rpow (W : ℝ) (1 + ε) := by
-            simpa only [Real.rpow_one] using
-              Real.rpow_le_rpow_of_exponent_le hbase hexp
+            have hone : Real.rpow (W : ℝ) (1 : ℝ) = (W : ℝ) := by
+              exact (Real.rpow_eq_pow (W : ℝ) (1 : ℝ)).trans
+                (Real.rpow_one (W : ℝ))
+            rw [← hone]
+            exact Real.rpow_le_rpow_of_exponent_le hbase hexp
           calc
             realMertensPositiveLagPairSum (W + 1) ≤ (W : ℝ) ^ 2 := hcrude
             _ ≤ A * (W : ℝ) := hquad
@@ -342,17 +348,25 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder
           have hTplus : T + 1 ≤ T ^ 2 := by
             nlinarith [sq_nonneg (T - 1)]
           have hdouble : Real.rpow (W : ℝ) ε = T * T := by
-            dsimp [T]
-            rw [show ε = ε / 2 + ε / 2 by ring]
-            exact Real.rpow_add (x := (W : ℝ)) hWpos (ε / 2) (ε / 2)
+            calc
+              Real.rpow (W : ℝ) ε =
+                  Real.rpow (W : ℝ) (ε / 2 + ε / 2) := by
+                congr 1
+                ring
+              _ = Real.rpow (W : ℝ) (ε / 2) *
+                    Real.rpow (W : ℝ) (ε / 2) :=
+                Real.rpow_add (x := (W : ℝ)) hWpos (ε / 2) (ε / 2)
+              _ = T * T := by rfl
           have htarget :
               Real.rpow (W : ℝ) (1 + ε) = (W : ℝ) * T ^ 2 := by
+            have hone : Real.rpow (W : ℝ) (1 : ℝ) = (W : ℝ) := by
+              exact (Real.rpow_eq_pow (W : ℝ) (1 : ℝ)).trans
+                (Real.rpow_one (W : ℝ))
             calc
               Real.rpow (W : ℝ) (1 + ε) =
                   Real.rpow (W : ℝ) 1 * Real.rpow (W : ℝ) ε :=
                 Real.rpow_add (x := (W : ℝ)) hWpos 1 ε
-              _ = (W : ℝ) * Real.rpow (W : ℝ) ε := by
-                rw [Real.rpow_one]
+              _ = (W : ℝ) * Real.rpow (W : ℝ) ε := by rw [hone]
               _ = (W : ℝ) * (T * T) := by rw [hdouble]
               _ = (W : ℝ) * T ^ 2 := by ring
           have hfamily' :
@@ -380,7 +394,7 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovarianceLinearRemainder
   | succ W =>
       by_cases hWzero : W = 0
       · subst W
-        simp [realMertensPositiveLagPairSum]
+        simpa [realMertensPositiveLagPairSum] using hA
       · have hW1 : 1 ≤ W := by omega
         have hbound := hendpoint W hW1
         have hbase : (W : ℝ) ≤ ((W + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ W
