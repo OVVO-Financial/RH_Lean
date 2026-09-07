@@ -71,7 +71,6 @@ atoms followed by the later adaptive run. -/
         (squareRootCanonicalRoughAdaptiveNextCoefficient p U a) := by
   simp [squareRootCanonicalRoughAdaptiveWeightedLedger,
     squareRootCanonicalRoughAdaptiveWeightedStepCorrection]
-  ring
 
 /-- **Exact iterated weighted adaptive descent.**  Every requested prime acts on
 exactly the carrier and coefficient field left by the earlier primes.  The only
