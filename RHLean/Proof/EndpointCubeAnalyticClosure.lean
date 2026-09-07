@@ -623,6 +623,8 @@ theorem squarefreePairFreshPrimeOwner_pairWeight_eq_neg_orderedParentWeight
 
 /-- Predicate selecting owner cubes whose stripped mixed corner collapses to a
 single parent site. -/
+attribute [local instance] Classical.propDecidable
+
 def SquarefreePairFreshPrimeParentsEqual (mn : ℕ × ℕ) : Prop :=
   squarefreePrimeFamilyParent
       (squarefreePairFreshPrimeOwner mn.1 mn.2) mn.1 =
