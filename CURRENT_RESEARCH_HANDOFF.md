@@ -8,7 +8,45 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
-## Current continuation: PR #593 after merged #592
+## Current continuation: physical LCM cubes after merged #596 and #597
+
+The complete-LCM remainder interior is already bounded between `-W` and `W`.
+The boundary identity from #597 is
+
+```text
+B_rem(W) = B(W) - sum_{sqrt(W) < p <= W} B(floor(W/p)),
+2 B(W) = M(W)^2 - M(W).
+```
+
+The continuation in `PostRootCovarianceLcmBoundaryClosure.lean` retains the
+physical endpoint in the #596 LCM stencil. For fresh `p` and `a <= b <= W`,
+its Boolean four-corner derivative is exactly
+
+```text
+1_{W < lcm(a,b), W < p*a}
+  - 1_{lcm(a,b) <= W < p*lcm(a,b), p*a <= W}.
+```
+
+Both terms matter. At `W=5`, `p=3`, `(a,b)=(2,5)`, the uncut stencil is zero
+but the physical stencil is one. First-wall cancellation alone cannot bound
+all physical cubes.
+
+There is also an unconditional signed gain on the complete lower parent
+carrier. For every post-root prime `p`, put `q = floor(W/p)`. The whole sum
+of physical cubes based on `1 <= a < b <= q` equals `-B(q) <= 0`:
+
+- `realMoebiusPhysicalSuperLcmFourCorner_postRoot_eq_neg_lower`;
+- `sum_realMoebiusPhysicalSuperLcmFourCorner_postRoot_eq_neg_lower`;
+- `sum_realMoebiusPhysicalSuperLcmFourCorner_postRoot_nonpos`.
+
+Nonpositivity uses the integrality of `M(q)`: `M(q)*(M(q)-1) >= 0`.
+This is a theorem about the complete parent-cube sum for each fixed prime.
+It does not assert a disjoint global decomposition into those cubes.
+The physical top escape and cubes outside that complete lower parent carrier
+remain to be recombined and bounded. `PostRootCovarianceLinearRemainderStatement`
+is still open. Consult Hosted Lean CI for the compilation status of this head.
+
+## Earlier continuation: PR #593 after merged #592
 
 The active branch is `agent/post-root-remainder-owner-carrier` in PR #593.
 The older #582 normalization below remains valid background. The new work is
