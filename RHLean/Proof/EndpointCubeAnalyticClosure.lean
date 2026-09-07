@@ -279,6 +279,180 @@ theorem postRootCovarianceRemainderPhysicalPairCarrier_partition
   rw [← sum_postRootPrimePhysicalPairUnion]
   exact Finset.sum_sdiff (postRootPrimePhysicalPairUnion_subset W)
 
+/-- The Möbius-weighted complete physical carrier is exactly the positive-lag
+Mertens covariance.  The lower endpoint is `1` only because the site `0` has
+zero Möbius weight. -/
+theorem sum_mertensPositivePhysicalPairCarrier_eq_positiveLagPairSum
+    (W : ℕ) :
+    (∑ mn ∈ mertensPositivePhysicalPairCarrier W,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      realMertensPositiveLagPairSum (W + 1) := by
+  classical
+  have houter : Finset.Icc 1 W = Finset.Ico 1 (W + 1) := by
+    ext n
+    simp
+    omega
+  calc
+    (∑ mn ∈ mertensPositivePhysicalPairCarrier W,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      ∑ mn ∈ (Finset.Icc 1 W).product (Finset.Icc 1 W),
+        if mn.1 < mn.2 then
+          realMoebiusStep mn.1 * realMoebiusStep mn.2
+        else 0 := by
+      unfold mertensPositivePhysicalPairCarrier
+      rw [Finset.sum_filter]
+    _ = ∑ m ∈ Finset.Icc 1 W,
+        ∑ n ∈ Finset.Icc 1 W,
+          if m < n then realMoebiusStep m * realMoebiusStep n else 0 := by
+      simpa only using
+        (Finset.sum_product
+          (s := Finset.Icc 1 W) (t := Finset.Icc 1 W)
+          (f := fun mn : ℕ × ℕ =>
+            if mn.1 < mn.2 then
+              realMoebiusStep mn.1 * realMoebiusStep mn.2
+            else 0))
+    _ = ∑ n ∈ Finset.Icc 1 W,
+        ∑ m ∈ Finset.Icc 1 W,
+          if m < n then realMoebiusStep m * realMoebiusStep n else 0 := by
+      rw [Finset.sum_comm]
+    _ = ∑ n ∈ Finset.Ico 1 (W + 1),
+        ∑ m ∈ Finset.Ico 1 n,
+          realMoebiusStep m * realMoebiusStep n := by
+      rw [← houter]
+      apply Finset.sum_congr rfl
+      intro n hn
+      have hnW : n ≤ W := (Finset.mem_Icc.mp hn).2
+      have hfilter :
+          (Finset.Icc 1 W).filter (fun m => m < n) =
+            Finset.Ico 1 n := by
+        ext m
+        simp
+        omega
+      rw [← Finset.sum_filter, hfilter]
+    _ = squareRunPhysicalPairCovariance realMoebiusStep 1 (W + 1) := by
+      rfl
+    _ = signedBlockInnerCovariance realMoebiusStep 1 (W + 1) := by
+      symm
+      exact signedBlockInnerCovariance_eq_squareRunPhysicalPairCovariance
+        realMoebiusStep (by omega)
+    _ = realMertensPositiveLagPairSum (W + 1) := by
+      simp [signedBlockInnerCovariance, signedBlockCrossCovariance,
+        signedBlockPrefix, realMertensPositiveLagPairSum,
+        realMertensLength, realMoebiusStep]
+
+private theorem prime_pair_dilation_injective
+    {p : ℕ} (hp : 0 < p) :
+    Function.Injective
+      (fun mn : ℕ × ℕ => (p * mn.1, p * mn.2)) := by
+  intro mn₁ mn₂ hmn
+  have hfirst : p * mn₁.1 = p * mn₂.1 := congrArg Prod.fst hmn
+  have hsecond : p * mn₁.2 = p * mn₂.2 := congrArg Prod.snd hmn
+  exact Prod.ext
+    (Nat.eq_of_mul_eq_mul_left hp hfirst)
+    (Nat.eq_of_mul_eq_mul_left hp hsecond)
+
+/-- A physical pair in one post-root prime family is uniquely the `p`-dilate
+of a positive pair at endpoint `floor(W/p)`. -/
+theorem postRootPrimePhysicalPairCarrier_eq_dilated_image
+    {W p : ℕ} (hp : p.Prime) :
+    postRootPrimePhysicalPairCarrier W p =
+      (mertensPositivePhysicalPairCarrier (W / p)).image
+        (fun mn : ℕ × ℕ => (p * mn.1, p * mn.2)) := by
+  ext mn
+  rcases mn with ⟨m, n⟩
+  constructor
+  · intro hmn
+    rcases mem_postRootPrimePhysicalPairCarrier.mp hmn with
+      ⟨hm1, hmW, hn1, hnW, hmnlt, hpm, hpn⟩
+    have hmpos : 0 < m := by omega
+    have hnpos : 0 < n := by omega
+    have hpmle : p ≤ m := Nat.le_of_dvd hmpos hpm
+    have hpnle : p ≤ n := Nat.le_of_dvd hnpos hpn
+    have hmEq : p * (m / p) = m := Nat.mul_div_cancel' hpm
+    have hnEq : p * (n / p) = n := Nat.mul_div_cancel' hpn
+    apply Finset.mem_image.mpr
+    refine ⟨(m / p, n / p), ?_, Prod.ext hmEq hnEq⟩
+    apply mem_mertensPositivePhysicalPairCarrier.mpr
+    refine ⟨(Nat.one_le_div_iff hp.pos).2 hpmle,
+      Nat.div_le_div_right hmW,
+      (Nat.one_le_div_iff hp.pos).2 hpnle,
+      Nat.div_le_div_right hnW, ?_⟩
+    apply (Nat.mul_lt_mul_left hp.pos).mp
+    simpa only [hmEq, hnEq] using hmnlt
+  · intro hmn
+    rcases Finset.mem_image.mp hmn with ⟨cd, hcd, rfl⟩
+    rcases cd with ⟨c, d⟩
+    rcases mem_mertensPositivePhysicalPairCarrier.mp hcd with
+      ⟨hc1, hcW, hd1, hdW, hcdlt⟩
+    have hcpos : 0 < c := by omega
+    have hdpos : 0 < d := by omega
+    apply mem_postRootPrimePhysicalPairCarrier.mpr
+    refine ⟨by positivity, ?_, by positivity, ?_,
+      (Nat.mul_lt_mul_left hp.pos).2 hcdlt, ⟨c, rfl⟩, ⟨d, rfl⟩⟩
+    · have hmul := (Nat.le_div_iff_mul_le hp.pos).1 hcW
+      simpa [Nat.mul_comm] using hmul
+    · have hmul := (Nat.le_div_iff_mul_le hp.pos).1 hdW
+      simpa [Nat.mul_comm] using hmul
+
+/-- The actual Möbius weight on one post-root family is exactly its lower-scale
+positive-lag covariance.  Both fresh-prime signs reverse, so their product is
+preserved term by term. -/
+theorem sum_postRootPrimePhysicalPairCarrier_eq_positiveLagPairSum
+    {W p : ℕ} (hp : p ∈ postRootPrimeFamilySet W) :
+    (∑ mn ∈ postRootPrimePhysicalPairCarrier W p,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      realMertensPositiveLagPairSum (W / p + 1) := by
+  rcases mem_postRootPrimeFamilySet.mp hp with
+    ⟨hpRoot, _hpW, hpPrime⟩
+  have hWpp : W < p * p := (Nat.sqrt_lt).1 hpRoot
+  have hquot : W / p < p :=
+    (Nat.div_lt_iff_lt_mul hpPrime.pos).2 hWpp
+  rw [postRootPrimePhysicalPairCarrier_eq_dilated_image hpPrime]
+  calc
+    (∑ mn ∈ (mertensPositivePhysicalPairCarrier (W / p)).image
+          (fun cd : ℕ × ℕ => (p * cd.1, p * cd.2)),
+        realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      ∑ cd ∈ mertensPositivePhysicalPairCarrier (W / p),
+        realMoebiusStep (p * cd.1) * realMoebiusStep (p * cd.2) := by
+      apply Finset.sum_image
+      intro a _ha b _hb hab
+      exact prime_pair_dilation_injective hpPrime.pos hab
+    _ = ∑ cd ∈ mertensPositivePhysicalPairCarrier (W / p),
+        realMoebiusStep cd.1 * realMoebiusStep cd.2 := by
+      apply Finset.sum_congr rfl
+      intro cd hcd
+      rcases mem_mertensPositivePhysicalPairCarrier.mp hcd with
+        ⟨_hc1, hcW, _hd1, hdW, _hcd⟩
+      exact realMoebiusStep_prime_mul_pair hpPrime
+        (hcW.trans_lt hquot) (hdW.trans_lt hquot)
+    _ = realMertensPositiveLagPairSum (W / p + 1) :=
+      sum_mertensPositivePhysicalPairCarrier_eq_positiveLagPairSum (W / p)
+
+/-- **Literal form of the post-root Bessel defect.**  The scalar remainder is
+exactly the signed Möbius-pair mass on the complement of the disjoint post-root
+family carriers. -/
+theorem postRootCovarianceRemainder_eq_physicalPairCarrier (W : ℕ) :
+    postRootCovarianceRemainder W =
+      ∑ mn ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2 := by
+  have hpartition :=
+    postRootCovarianceRemainderPhysicalPairCarrier_partition W
+      (fun mn : ℕ × ℕ =>
+        realMoebiusStep mn.1 * realMoebiusStep mn.2)
+  have hfamilies :
+      (∑ p ∈ postRootPrimeFamilySet W,
+          ∑ mn ∈ postRootPrimePhysicalPairCarrier W p,
+            realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+        postRootPrimeFamilyCovarianceTotal W := by
+    unfold postRootPrimeFamilyCovarianceTotal
+    apply Finset.sum_congr rfl
+    intro p hp
+    exact sum_postRootPrimePhysicalPairCarrier_eq_positiveLagPairSum hp
+  rw [hfamilies,
+    sum_mertensPositivePhysicalPairCarrier_eq_positiveLagPairSum] at hpartition
+  unfold postRootCovarianceRemainder
+  linarith
+
 /-- Every post-root quotient lies at square-root scale: its square is at most
 the physical endpoint. -/
 theorem postRootPrimeFamily_quotient_sq_le
