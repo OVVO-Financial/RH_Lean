@@ -387,8 +387,10 @@ theorem postRootPrimePhysicalPairCarrier_eq_dilated_image
       ⟨hc1, hcW, hd1, hdW, hcdlt⟩
     have hcpos : 0 < c := by omega
     have hdpos : 0 < d := by omega
+    have hpcpos : 0 < p * c := Nat.mul_pos hp.pos hcpos
+    have hpdpos : 0 < p * d := Nat.mul_pos hp.pos hdpos
     apply mem_postRootPrimePhysicalPairCarrier.mpr
-    refine ⟨by positivity, ?_, by positivity, ?_,
+    refine ⟨hpcpos, ?_, hpdpos, ?_,
       (Nat.mul_lt_mul_left hp.pos).2 hcdlt, ⟨c, rfl⟩, ⟨d, rfl⟩⟩
     · have hmul := (Nat.le_div_iff_mul_le hp.pos).1 hcW
       simpa [Nat.mul_comm] using hmul
