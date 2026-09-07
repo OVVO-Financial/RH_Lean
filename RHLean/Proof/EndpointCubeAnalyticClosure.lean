@@ -150,6 +150,55 @@ def postRootPrimePhysicalPairCarrier (W p : ℕ) : Finset (ℕ × ℕ) :=
   (mertensPositivePhysicalPairCarrier W).filter fun mn =>
     p ∣ mn.1 ∧ p ∣ mn.2
 
+@[simp] theorem mem_mertensPositivePhysicalPairCarrier
+    {W m n : ℕ} :
+    (m, n) ∈ mertensPositivePhysicalPairCarrier W ↔
+      1 ≤ m ∧ m ≤ W ∧ 1 ≤ n ∧ n ≤ W ∧ m < n := by
+  simp [mertensPositivePhysicalPairCarrier, and_assoc]
+
+@[simp] theorem mem_postRootPrimePhysicalPairCarrier
+    {W p m n : ℕ} :
+    (m, n) ∈ postRootPrimePhysicalPairCarrier W p ↔
+      1 ≤ m ∧ m ≤ W ∧ 1 ≤ n ∧ n ≤ W ∧ m < n ∧
+        p ∣ m ∧ p ∣ n := by
+  simp [postRootPrimePhysicalPairCarrier, and_assoc]
+
+/-- The literal union of all positive physical pairs removed by the post-root
+prime-family subtraction. -/
+def postRootPrimePhysicalPairUnion (W : ℕ) : Finset (ℕ × ℕ) :=
+  (postRootPrimeFamilySet W).biUnion
+    (postRootPrimePhysicalPairCarrier W)
+
+/-- The literal support left after removing every post-root prime-family
+carrier from the full positive-pair carrier. -/
+def postRootCovarianceRemainderPhysicalPairCarrier
+    (W : ℕ) : Finset (ℕ × ℕ) :=
+  mertensPositivePhysicalPairCarrier W \
+    postRootPrimePhysicalPairUnion W
+
+@[simp] theorem mem_postRootPrimePhysicalPairUnion
+    {W : ℕ} {mn : ℕ × ℕ} :
+    mn ∈ postRootPrimePhysicalPairUnion W ↔
+      ∃ p ∈ postRootPrimeFamilySet W,
+        mn ∈ postRootPrimePhysicalPairCarrier W p := by
+  simp [postRootPrimePhysicalPairUnion]
+
+@[simp] theorem mem_postRootCovarianceRemainderPhysicalPairCarrier
+    {W : ℕ} {mn : ℕ × ℕ} :
+    mn ∈ postRootCovarianceRemainderPhysicalPairCarrier W ↔
+      mn ∈ mertensPositivePhysicalPairCarrier W ∧
+        mn ∉ postRootPrimePhysicalPairUnion W := by
+  simp [postRootCovarianceRemainderPhysicalPairCarrier]
+
+/-- The removed post-root family union is literally contained in the complete
+positive-pair carrier. -/
+theorem postRootPrimePhysicalPairUnion_subset (W : ℕ) :
+    postRootPrimePhysicalPairUnion W ⊆
+      mertensPositivePhysicalPairCarrier W := by
+  intro mn hmn
+  rcases mem_postRootPrimePhysicalPairUnion.mp hmn with ⟨p, _hp, hmnp⟩
+  exact (Finset.mem_filter.mp hmnp).1
+
 /-- Two distinct post-root primes cannot divide the same positive physical site
 below `W`: their product already exceeds the endpoint. -/
 theorem no_common_distinct_postRootPrime_divisors
@@ -198,6 +247,37 @@ theorem postRootPrimePhysicalPairCarrier_disjoint
   rcases Finset.mem_Icc.mp hmRange with ⟨hm1, hmW⟩
   exact no_common_distinct_postRootPrime_divisors hp hq hpq
     (by omega) hmW hpDiv.1 hqDiv.1
+
+/-- The complete collection of post-root family pair carriers is pairwise
+disjoint, so its `biUnion` retains every signed weight exactly once. -/
+theorem postRootPrimePhysicalPairCarrier_pairwiseDisjoint (W : ℕ) :
+    Set.PairwiseDisjoint (↑(postRootPrimeFamilySet W))
+      (postRootPrimePhysicalPairCarrier W) := by
+  intro p hp q hq hpq
+  exact postRootPrimePhysicalPairCarrier_disjoint hp hq hpq
+
+/-- A signed sum over the removed pair union is exactly the sum of the
+individual post-root family sums. -/
+theorem sum_postRootPrimePhysicalPairUnion
+    (W : ℕ) (f : ℕ × ℕ → ℝ) :
+    (∑ mn ∈ postRootPrimePhysicalPairUnion W, f mn) =
+      ∑ p ∈ postRootPrimeFamilySet W,
+        ∑ mn ∈ postRootPrimePhysicalPairCarrier W p, f mn := by
+  unfold postRootPrimePhysicalPairUnion
+  exact Finset.sum_biUnion
+    (postRootPrimePhysicalPairCarrier_pairwiseDisjoint W)
+
+/-- **Exact signed carrier partition.**  The complete positive physical-pair
+sum is the sum on the post-root complement plus the disjoint post-root family
+sums.  No triangle inequality or support overcounting enters this identity. -/
+theorem postRootCovarianceRemainderPhysicalPairCarrier_partition
+    (W : ℕ) (f : ℕ × ℕ → ℝ) :
+    (∑ mn ∈ postRootCovarianceRemainderPhysicalPairCarrier W, f mn) +
+        ∑ p ∈ postRootPrimeFamilySet W,
+          ∑ mn ∈ postRootPrimePhysicalPairCarrier W p, f mn =
+      ∑ mn ∈ mertensPositivePhysicalPairCarrier W, f mn := by
+  rw [← sum_postRootPrimePhysicalPairUnion]
+  exact Finset.sum_sdiff (postRootPrimePhysicalPairUnion_subset W)
 
 /-- Every post-root quotient lies at square-root scale: its square is at most
 the physical endpoint. -/
