@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Analysis.BlockCovarianceRefinement
 import RHLean.Analysis.MertensCovarianceDescent
+import RHLean.Analysis.PrimeWheelRunOthelloBoundary
 import RHLean.Proof.GlobalFirstJumpCofactorCompression
 import RHLean.Proof.CanonicalRoughCriticalCorrelationContraction
 import RHLean.Proof.PrimeCombReciprocalBandCancellation
@@ -28,6 +29,7 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Analysis
+open RHLean.Arithmetic
 
 /-- The canonical defect is the lower Mertens value minus the square endpoint
 Mertens value. -/
@@ -380,5 +382,288 @@ theorem globalCovariance_le_postRootFamilies_add_linear
   have h := hrem W hW
   unfold postRootCovarianceRemainder at h
   linarith
+
+/-! ## First-separation owner promotion on the quadratic carrier -/
+
+private theorem prime_dvd_squarefreePrimeFamilyParent_iff_of_ne
+    {p q n : ℕ} (hp : p.Prime) (hq : q.Prime) (hqp : q ≠ p) :
+    q ∣ squarefreePrimeFamilyParent p n ↔ q ∣ n := by
+  unfold squarefreePrimeFamilyParent
+  by_cases hpn : p ∣ n
+  · rw [if_pos hpn]
+    constructor
+    · intro hqd
+      rcases hqd with ⟨k, hk⟩
+      refine ⟨p * k, ?_⟩
+      rw [← Nat.mul_div_cancel' hpn, hk]
+      ring
+    · intro hqn
+      have hprod : q ∣ p * (n / p) := by
+        rw [Nat.mul_div_cancel' hpn]
+        exact hqn
+      rcases hq.dvd_mul.mp hprod with hqdp | hqd
+      · have heq : q = p :=
+          (Nat.prime_dvd_prime_iff_eq hq hp).mp hqdp
+        exact (hqp heq).elim
+      · exact hqd
+  · simp [hpn]
+
+private theorem squarefreePrimeFamilyParent_pos
+    {p n : ℕ} (hp : p.Prime) (hn : 0 < n) :
+    0 < squarefreePrimeFamilyParent p n := by
+  unfold squarefreePrimeFamilyParent
+  by_cases hpn : p ∣ n
+  · rw [if_pos hpn]
+    exact Nat.div_pos (Nat.le_of_dvd hn hpn) hp.pos
+  · simpa [hpn] using hn
+
+private theorem squarefree_squarefreePrimeFamilyParent
+    {p n : ℕ} (hn : Squarefree n) :
+    Squarefree (squarefreePrimeFamilyParent p n) := by
+  unfold squarefreePrimeFamilyParent
+  by_cases hpn : p ∣ n
+  · rw [if_pos hpn]
+    exact hn.squarefree_of_dvd
+      ⟨p, (Nat.div_mul_cancel hpn).symm⟩
+  · simpa [hpn] using hn
+
+private theorem mem_squarefreePrimeFace_parent_iff_of_ne
+    {p q n : ℕ} (hp : p.Prime) (hq : q.Prime) (hqp : q ≠ p)
+    (hn : 0 < n) :
+    q ∈ squarefreePrimeFace (squarefreePrimeFamilyParent p n) ↔
+      q ∈ squarefreePrimeFace n := by
+  have hparentPos := squarefreePrimeFamilyParent_pos hp hn
+  have hdvd : q ∣ squarefreePrimeFamilyParent p n ↔ q ∣ n :=
+    prime_dvd_squarefreePrimeFamilyParent_iff_of_ne (n := n) hp hq hqp
+  constructor
+  · intro hface
+    have hmem : q ∈ (squarefreePrimeFamilyParent p n).primeFactors := by
+      simpa [squarefreePrimeFace] using hface
+    have hqdiv : q ∣ squarefreePrimeFamilyParent p n :=
+      (Nat.mem_primeFactors.mp hmem).2.1
+    have hqdivn : q ∣ n := hdvd.mp hqdiv
+    have hmemn : q ∈ n.primeFactors :=
+      Nat.mem_primeFactors.mpr ⟨hq, hqdivn, hn.ne'⟩
+    simpa [squarefreePrimeFace] using hmemn
+  · intro hface
+    have hmem : q ∈ n.primeFactors := by
+      simpa [squarefreePrimeFace] using hface
+    have hqdiv : q ∣ n := (Nat.mem_primeFactors.mp hmem).2.1
+    have hqdivp : q ∣ squarefreePrimeFamilyParent p n := hdvd.mpr hqdiv
+    have hmemp : q ∈ (squarefreePrimeFamilyParent p n).primeFactors :=
+      Nat.mem_primeFactors.mpr ⟨hq, hqdivp, hparentPos.ne'⟩
+    simpa [squarefreePrimeFace] using hmemp
+
+private theorem owner_not_mem_squarefreePrimeFace_parent
+    {p n : ℕ} (hp : p.Prime) (hn : Squarefree n) :
+    p ∉ squarefreePrimeFace (squarefreePrimeFamilyParent p n) := by
+  intro hface
+  have hmem : p ∈ (squarefreePrimeFamilyParent p n).primeFactors := by
+    simpa [squarefreePrimeFace] using hface
+  exact (squarefreePrimeFamilyParent_not_dvd hp hn)
+    ((Nat.mem_primeFactors.mp hmem).2.1)
+
+/-- **Owner promotion after stripping the first separating prime.**  Let `p` be
+the unique least prime on which two distinct squarefree endpoints differ.  Strip
+`p` from the endpoint that carries it (and leave the other endpoint unchanged).
+If the two stripped parents are still distinct, their next first-separation
+owner is strictly larger than `p`.
+
+This is the triangularity needed by the quadratic four-corner descent: the two
+mixed `p`-corners are the current owner layer, while the old stripped pair lies
+strictly later in the owner order. -/
+theorem squarefreePairFreshPrimeOwner_lt_parentOwner
+    {m n : ℕ} (hm : Squarefree m) (hn : Squarefree n)
+    (hmn : m ≠ n) (hmpos : 0 < m) (hnpos : 0 < n)
+    (hparentNe :
+      squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m ≠
+        squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n) :
+    squarefreePairFreshPrimeOwner m n <
+      squarefreePairFreshPrimeOwner
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m)
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n) := by
+  let p := squarefreePairFreshPrimeOwner m n
+  let um := squarefreePrimeFamilyParent p m
+  let un := squarefreePrimeFamilyParent p n
+  have hp : p.Prime := squarefreePairFreshPrimeOwner_prime hm hn hmn
+  have humsq : Squarefree um := by
+    dsimp [um]
+    exact squarefree_squarefreePrimeFamilyParent hm
+  have hunsq : Squarefree un := by
+    dsimp [un]
+    exact squarefree_squarefreePrimeFamilyParent hn
+  have humpos : 0 < um := by
+    dsimp [um]
+    exact squarefreePrimeFamilyParent_pos hp hmpos
+  have hunpos : 0 < un := by
+    dsimp [un]
+    exact squarefreePrimeFamilyParent_pos hp hnpos
+  have hne : um ≠ un := by
+    simpa [p, um, un] using hparentNe
+  let q := squarefreePairFreshPrimeOwner um un
+  have hqPrime : q.Prime := squarefreePairFreshPrimeOwner_prime humsq hunsq hne
+  have hqXor := squarefreePairFreshPrimeOwner_xor humsq hunsq hne
+  by_contra hnot
+  have hqle : q ≤ p := Nat.le_of_not_gt hnot
+  have hfaceEq : q ∈ squarefreePrimeFace um ↔ q ∈ squarefreePrimeFace un := by
+    by_cases hqp : q = p
+    · have hnotUm : p ∉ squarefreePrimeFace um := by
+        dsimp [um]
+        exact owner_not_mem_squarefreePrimeFace_parent hp hm
+      have hnotUn : p ∉ squarefreePrimeFace un := by
+        dsimp [un]
+        exact owner_not_mem_squarefreePrimeFace_parent hp hn
+      constructor
+      · intro hmem
+        exact (hnotUm (hqp ▸ hmem)).elim
+      · intro hmem
+        exact (hnotUn (hqp ▸ hmem)).elim
+    · have hq_lt_p : q < p := by omega
+      have hchron :
+          q ∈ squarefreePrimeFace m ↔ q ∈ squarefreePrimeFace n :=
+        squarefreePairFreshPrimeOwner_chronology hm hn hmn hq_lt_p
+      have hqm : q ∈ squarefreePrimeFace um ↔ q ∈ squarefreePrimeFace m := by
+        dsimp [um]
+        exact mem_squarefreePrimeFace_parent_iff_of_ne hp hqPrime hqp hmpos
+      have hqn : q ∈ squarefreePrimeFace un ↔ q ∈ squarefreePrimeFace n := by
+        dsimp [un]
+        exact mem_squarefreePrimeFace_parent_iff_of_ne hp hqPrime hqp hnpos
+      exact hqm.trans (hchron.trans hqn.symm)
+  rcases hqXor with h | h
+  · exact h.2 (hfaceEq.mp h.1)
+  · exact h.2 (hfaceEq.mpr h.1)
+
+/-- Membership in a squarefree-face symmetric difference always certifies a
+genuine prime coordinate. -/
+private theorem prime_of_mem_squarefreePairFreshPrimeSet
+    {q m n : ℕ} (hq : q ∈ squarefreePairFreshPrimeSet m n) :
+    q.Prime := by
+  unfold squarefreePairFreshPrimeSet at hq
+  rcases Finset.mem_union.mp hq with hq | hq
+  · have hface : q ∈ squarefreePrimeFace m :=
+      (Finset.mem_sdiff.mp hq).1
+    have hmem : q ∈ m.primeFactors := by
+      simpa [squarefreePrimeFace] using hface
+    exact (Nat.mem_primeFactors.mp hmem).1
+  · have hface : q ∈ squarefreePrimeFace n :=
+      (Finset.mem_sdiff.mp hq).1
+    have hmem : q ∈ n.primeFactors := by
+      simpa [squarefreePrimeFace] using hface
+    exact (Nat.mem_primeFactors.mp hmem).1
+
+/-- **Exact owner-coordinate erasure.**  Stripping the least separating prime
+from both squarefree endpoints removes exactly that coordinate from their
+symmetric-difference face.  Every other prime coordinate is unchanged. -/
+theorem squarefreePairFreshPrimeSet_parent_eq_erase_owner
+    {m n : ℕ} (hm : Squarefree m) (hn : Squarefree n)
+    (hmn : m ≠ n) (hmpos : 0 < m) (hnpos : 0 < n) :
+    squarefreePairFreshPrimeSet
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m)
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n) =
+      (squarefreePairFreshPrimeSet m n).erase
+        (squarefreePairFreshPrimeOwner m n) := by
+  let p := squarefreePairFreshPrimeOwner m n
+  let um := squarefreePrimeFamilyParent p m
+  let un := squarefreePrimeFamilyParent p n
+  change squarefreePairFreshPrimeSet um un =
+    (squarefreePairFreshPrimeSet m n).erase p
+  have hp : p.Prime := squarefreePairFreshPrimeOwner_prime hm hn hmn
+  have hnotUm : p ∉ squarefreePrimeFace um := by
+    dsimp [um]
+    exact owner_not_mem_squarefreePrimeFace_parent hp hm
+  have hnotUn : p ∉ squarefreePrimeFace un := by
+    dsimp [un]
+    exact owner_not_mem_squarefreePrimeFace_parent hp hn
+  ext q
+  by_cases hqp : q = p
+  · subst q
+    constructor
+    · intro hmem
+      unfold squarefreePairFreshPrimeSet at hmem
+      rcases Finset.mem_union.mp hmem with h | h
+      · exact (hnotUm (Finset.mem_sdiff.mp h).1).elim
+      · exact (hnotUn (Finset.mem_sdiff.mp h).1).elim
+    · intro hmem
+      exact ((Finset.mem_erase.mp hmem).1 rfl).elim
+  · constructor
+    · intro hmem
+      have hqPrime : q.Prime :=
+        prime_of_mem_squarefreePairFreshPrimeSet hmem
+      have hqm : q ∈ squarefreePrimeFace um ↔
+          q ∈ squarefreePrimeFace m := by
+        dsimp [um]
+        exact mem_squarefreePrimeFace_parent_iff_of_ne
+          hp hqPrime hqp hmpos
+      have hqn : q ∈ squarefreePrimeFace un ↔
+          q ∈ squarefreePrimeFace n := by
+        dsimp [un]
+        exact mem_squarefreePrimeFace_parent_iff_of_ne
+          hp hqPrime hqp hnpos
+      apply Finset.mem_erase.mpr
+      refine ⟨hqp, ?_⟩
+      unfold squarefreePairFreshPrimeSet at hmem ⊢
+      simpa only [Finset.mem_union, Finset.mem_sdiff, hqm, hqn] using hmem
+    · intro hmem
+      have horig : q ∈ squarefreePairFreshPrimeSet m n :=
+        (Finset.mem_erase.mp hmem).2
+      have hqPrime : q.Prime :=
+        prime_of_mem_squarefreePairFreshPrimeSet horig
+      have hqm : q ∈ squarefreePrimeFace um ↔
+          q ∈ squarefreePrimeFace m := by
+        dsimp [um]
+        exact mem_squarefreePrimeFace_parent_iff_of_ne
+          hp hqPrime hqp hmpos
+      have hqn : q ∈ squarefreePrimeFace un ↔
+          q ∈ squarefreePrimeFace n := by
+        dsimp [un]
+        exact mem_squarefreePrimeFace_parent_iff_of_ne
+          hp hqPrime hqp hnpos
+      unfold squarefreePairFreshPrimeSet at horig ⊢
+      simpa only [Finset.mem_union, Finset.mem_sdiff, hqm, hqn] using horig
+
+/-- Owner stripping is a strict finite descent: the differing-prime face loses
+exactly one coordinate at every step. -/
+theorem squarefreePairFreshPrimeSet_parent_card_add_one
+    {m n : ℕ} (hm : Squarefree m) (hn : Squarefree n)
+    (hmn : m ≠ n) (hmpos : 0 < m) (hnpos : 0 < n) :
+    (squarefreePairFreshPrimeSet
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m)
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n)).card + 1 =
+      (squarefreePairFreshPrimeSet m n).card := by
+  rw [squarefreePairFreshPrimeSet_parent_eq_erase_owner
+    hm hn hmn hmpos hnpos]
+  rw [Finset.card_erase_of_mem
+    (squarefreePairFreshPrimeOwner_mem hm hn hmn)]
+  have hcard :
+      0 < (squarefreePairFreshPrimeSet m n).card :=
+    Finset.card_pos.mpr (squarefreePairFreshPrimeSet_nonempty hm hn hmn)
+  omega
+
+/-- **Signed owner descent.**  A physical pair is one mixed corner of its
+owner's fresh-prime square, so stripping that owner reverses the pair weight
+exactly. -/
+theorem squarefreePairFreshPrimeOwner_pairWeight_eq_neg_parentPairWeight
+    {m n : ℕ} (hm : Squarefree m) (hn : Squarefree n)
+    (hmn : m ≠ n) (hmpos : 0 < m) (hnpos : 0 < n) :
+    realMoebiusStep m * realMoebiusStep n =
+      -(realMoebiusStep
+          (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m) *
+        realMoebiusStep
+          (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n)) := by
+  let p := squarefreePairFreshPrimeOwner m n
+  let um := squarefreePrimeFamilyParent p m
+  let un := squarefreePrimeFamilyParent p n
+  change realMoebiusStep m * realMoebiusStep n =
+    -(realMoebiusStep um * realMoebiusStep un)
+  have hp : p.Prime := squarefreePairFreshPrimeOwner_prime hm hn hmn
+  have hcube :=
+    squarefreePairFreshPrimeOwner_parentCube hm hn hmn hmpos hnpos
+  change (¬ p ∣ um) ∧ (¬ p ∣ un) ∧
+      ((m = p * um ∧ n = un) ∨ (m = um ∧ n = p * un)) at hcube
+  rcases hcube with ⟨hpm, hpn, h | h⟩
+  · rw [h.1, h.2, realMoebiusStep_mul_prime_eq_neg hp hpm]
+    ring
+  · rw [h.1, h.2, realMoebiusStep_mul_prime_eq_neg hp hpn]
+    ring
 
 end RHLean.Proof

@@ -580,7 +580,13 @@ region at once, before any absolute value is taken.
   - retains the proposed column estimate only as a diagnostic conditional, and proves the exact correction instead: the first-jump aggregate must be recombined with the square-root-dense piece before any norm, and the recombined scalar is the canonical defect ledger.
 
 - `RHLean.Proof.GlobalFirstJumpCriticalCorrelationBridge`
-  - proves a uniform reciprocal-prefix bound of size $(\log R + 1)/R$ gives the root-scale bound on the recombined canonical defect, with no first-jump-prime or cofactor-column norm inserted anywhere.
+  - proves a uniform reciprocal-prefix bound of size $(\log R + 1)/R$ gives the root-scale bound on the recombined canonical defect, with no first-jump-prime or cofactor-column norm inserted anywhere;
+  - subtracts the post-root prime families from the global positive-lag pair sum on a reciprocal-band carrier, identifies the total family covariance with an energy difference, and shows the exact remainder is the Bessel defect, so a linear remainder statement and a linear Bessel bound are the same hypothesis;
+  - promotes the first-separation owner on the quadratic carrier: the owner of a pair strictly decreases under stripping, the parent's fresh-prime set is the owner erased from the child's, and a physical pair is one mixed corner of its owner's fresh-prime square, so stripping the owner reverses the pair weight exactly.
+
+- `RHLean.Proof.EndpointCubeAnalyticClosure`
+  - carries the endpoint-cube product packing down to the lower scales verbatim;
+  - realizes the post-root family subtraction on literal pair carriers, proving that two distinct post-root primes cannot divide a common physical site and hence that distinct family pair carriers are disjoint, so the scalar subtraction is a genuine partition rather than an inclusion-exclusion estimate.
 
 - `RHLean.Proof.PrimeCombReciprocalBandCancellation`
   - packages the one-prime post-root score law on the reciprocal quotient bands, on which every prime shares a quotient, a seat set, a signed cofactor channel and a score correction;

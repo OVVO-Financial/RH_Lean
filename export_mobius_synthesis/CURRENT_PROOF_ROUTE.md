@@ -585,6 +585,10 @@ Estimating that ledger one first-jump prime at a time does not work, and the rea
 
 The exact correction is recombination. The first-jump aggregate has to be joined with the square-root-dense piece *before* a critical norm is taken, and the recombined scalar is exactly the canonical defect ledger — through the vertical-line normalization, the signed squarefree shell between $R$ and $R^2$. On that object the canonical rough correlation differs by only the single root Möbius atom, and its reciprocal prefixes are precisely the coordinate on which the Euler factor $1-1/p$ of section 26 acts. A uniform reciprocal-prefix bound of size $(\log R+1)/R$ then gives the root-scale bound on the recombined defect, with no first-jump-prime or cofactor-column norm inserted anywhere in the argument.
 
+The same bridge carries the post-root subtraction. Grouping post-root primes by reciprocal band gives a family covariance that is exactly a band cardinality times a lower-scale covariance, the total family covariance is an energy difference, and what is left over is exactly the Bessel defect — so "the post-root remainder is linear" and "the Bessel defect is linear" are one hypothesis, not two. That subtraction is a genuine partition rather than an inclusion--exclusion estimate: two distinct post-root primes cannot divide a common physical site below the endpoint, so the literal family pair carriers are pairwise disjoint.
+
+Underneath both sits an exact signed descent on the quadratic carrier. Every nonzero physical pair has a unique first differing Euler prime; that owner strictly decreases under stripping, the parent’s fresh-prime set is the child’s with the owner erased, and the pair is one *mixed* corner of the owner’s fresh-prime square. Stripping the owner therefore reverses the pair weight exactly, which is what makes owner promotion a finite signed descent rather than a re-indexing.
+
 ## 29. The forward analytic consumer is unconditional
 
 Two statements about conditionality have to be kept apart, and this section is the one that changed.
