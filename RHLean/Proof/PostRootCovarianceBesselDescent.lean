@@ -1,6 +1,6 @@
 import Mathlib
+import RHLean.Analysis.BlockCovarianceRefinement
 import RHLean.Analysis.MertensCovarianceDescent
-import RHLean.Proof.GlobalFirstJumpCriticalCorrelationBridge
 
 open scoped BigOperators
 
