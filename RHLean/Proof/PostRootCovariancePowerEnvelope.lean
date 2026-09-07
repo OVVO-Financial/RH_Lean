@@ -127,7 +127,7 @@ records, not re-bound every old seat. -/
 theorem postRootCovariancePowerEnvelope_eq_sum_recordExcess
     (ε : ℝ) (N : ℕ) :
     postRootCovariancePowerEnvelope ε N =
-      ∑ j in Finset.range N, postRootCovariancePowerRecordExcess ε j := by
+      ∑ j ∈ Finset.range N, postRootCovariancePowerRecordExcess ε j := by
   induction N with
   | zero => simp [postRootCovariancePowerEnvelope]
   | succ N ih =>
@@ -141,13 +141,13 @@ or square-wheel inequalities. -/
 theorem postRootCovariancePowerEnvelope_le_of_recordExcess_majorant
     (ε : ℝ) (g : ℕ → ℝ) {D : ℝ}
     (hexcess : ∀ j : ℕ, postRootCovariancePowerRecordExcess ε j ≤ g j)
-    (hpartial : ∀ N : ℕ, (∑ j in Finset.range N, g j) ≤ D) :
+    (hpartial : ∀ N : ℕ, (∑ j ∈ Finset.range N, g j) ≤ D) :
     ∀ N : ℕ, postRootCovariancePowerEnvelope ε N ≤ D := by
   intro N
   rw [postRootCovariancePowerEnvelope_eq_sum_recordExcess]
   calc
-    (∑ j in Finset.range N, postRootCovariancePowerRecordExcess ε j) ≤
-        ∑ j in Finset.range N, g j :=
+    (∑ j ∈ Finset.range N, postRootCovariancePowerRecordExcess ε j) ≤
+        ∑ j ∈ Finset.range N, g j :=
       Finset.sum_le_sum fun j _hj => hexcess j
     _ ≤ D := hpartial N
 
@@ -192,7 +192,7 @@ def PostRootCovariancePowerRecordExcessBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ D : ℝ, 0 ≤ D ∧
       ∀ N : ℕ,
-        (∑ j in Finset.range N, postRootCovariancePowerRecordExcess ε j) ≤ D
+        (∑ j ∈ Finset.range N, postRootCovariancePowerRecordExcess ε j) ≤ D
 
 /-- The abstract power-remainder hypothesis bounds the explicit running
 envelope. -/
