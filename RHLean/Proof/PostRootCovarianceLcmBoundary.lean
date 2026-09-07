@@ -405,7 +405,6 @@ theorem sum_moebiusLcmInteriorOrderedCarrier_eq_diagonal_add_two_mul_positive
         ∑ n ∈ Finset.Icc 1 W,
           if n < m ∧ Nat.lcm m n ≤ W then μ m * μ n else 0) := by
         simp_rw [hsplit, Finset.sum_add_distrib]
-        ring
     _ = (∑ n ∈ Finset.Icc 1 W, μ n * μ n) +
         2 * ∑ m ∈ Finset.Icc 1 W,
           ∑ n ∈ Finset.Icc 1 W,
