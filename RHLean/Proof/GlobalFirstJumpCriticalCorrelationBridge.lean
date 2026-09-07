@@ -533,4 +533,137 @@ theorem squarefreePairFreshPrimeOwner_lt_parentOwner
   · exact h.2 (hfaceEq.mp h.1)
   · exact h.2 (hfaceEq.mpr h.1)
 
+/-- Membership in a squarefree-face symmetric difference always certifies a
+genuine prime coordinate. -/
+private theorem prime_of_mem_squarefreePairFreshPrimeSet
+    {q m n : ℕ} (hq : q ∈ squarefreePairFreshPrimeSet m n) :
+    q.Prime := by
+  unfold squarefreePairFreshPrimeSet at hq
+  rcases Finset.mem_union.mp hq with hq | hq
+  · have hface : q ∈ squarefreePrimeFace m :=
+      (Finset.mem_sdiff.mp hq).1
+    have hmem : q ∈ m.primeFactors := by
+      simpa [squarefreePrimeFace] using hface
+    exact (Nat.mem_primeFactors.mp hmem).1
+  · have hface : q ∈ squarefreePrimeFace n :=
+      (Finset.mem_sdiff.mp hq).1
+    have hmem : q ∈ n.primeFactors := by
+      simpa [squarefreePrimeFace] using hface
+    exact (Nat.mem_primeFactors.mp hmem).1
+
+/-- **Exact owner-coordinate erasure.**  Stripping the least separating prime
+from both squarefree endpoints removes exactly that coordinate from their
+symmetric-difference face.  Every other prime coordinate is unchanged. -/
+theorem squarefreePairFreshPrimeSet_parent_eq_erase_owner
+    {m n : ℕ} (hm : Squarefree m) (hn : Squarefree n)
+    (hmn : m ≠ n) (hmpos : 0 < m) (hnpos : 0 < n) :
+    squarefreePairFreshPrimeSet
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m)
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n) =
+      (squarefreePairFreshPrimeSet m n).erase
+        (squarefreePairFreshPrimeOwner m n) := by
+  let p := squarefreePairFreshPrimeOwner m n
+  let um := squarefreePrimeFamilyParent p m
+  let un := squarefreePrimeFamilyParent p n
+  change squarefreePairFreshPrimeSet um un =
+    (squarefreePairFreshPrimeSet m n).erase p
+  have hp : p.Prime := squarefreePairFreshPrimeOwner_prime hm hn hmn
+  have hnotUm : p ∉ squarefreePrimeFace um := by
+    dsimp [um]
+    exact owner_not_mem_squarefreePrimeFace_parent hp hm
+  have hnotUn : p ∉ squarefreePrimeFace un := by
+    dsimp [un]
+    exact owner_not_mem_squarefreePrimeFace_parent hp hn
+  ext q
+  by_cases hqp : q = p
+  · subst q
+    constructor
+    · intro hmem
+      unfold squarefreePairFreshPrimeSet at hmem
+      rcases Finset.mem_union.mp hmem with h | h
+      · exact (hnotUm (Finset.mem_sdiff.mp h).1).elim
+      · exact (hnotUn (Finset.mem_sdiff.mp h).1).elim
+    · intro hmem
+      exact ((Finset.mem_erase.mp hmem).1 rfl).elim
+  · constructor
+    · intro hmem
+      have hqPrime : q.Prime :=
+        prime_of_mem_squarefreePairFreshPrimeSet hmem
+      have hqm : q ∈ squarefreePrimeFace um ↔
+          q ∈ squarefreePrimeFace m := by
+        dsimp [um]
+        exact mem_squarefreePrimeFace_parent_iff_of_ne
+          hp hqPrime hqp hmpos
+      have hqn : q ∈ squarefreePrimeFace un ↔
+          q ∈ squarefreePrimeFace n := by
+        dsimp [un]
+        exact mem_squarefreePrimeFace_parent_iff_of_ne
+          hp hqPrime hqp hnpos
+      apply Finset.mem_erase.mpr
+      refine ⟨hqp, ?_⟩
+      unfold squarefreePairFreshPrimeSet at hmem ⊢
+      simpa only [Finset.mem_union, Finset.mem_sdiff, hqm, hqn] using hmem
+    · intro hmem
+      have horig : q ∈ squarefreePairFreshPrimeSet m n :=
+        (Finset.mem_erase.mp hmem).2
+      have hqPrime : q.Prime :=
+        prime_of_mem_squarefreePairFreshPrimeSet horig
+      have hqm : q ∈ squarefreePrimeFace um ↔
+          q ∈ squarefreePrimeFace m := by
+        dsimp [um]
+        exact mem_squarefreePrimeFace_parent_iff_of_ne
+          hp hqPrime hqp hmpos
+      have hqn : q ∈ squarefreePrimeFace un ↔
+          q ∈ squarefreePrimeFace n := by
+        dsimp [un]
+        exact mem_squarefreePrimeFace_parent_iff_of_ne
+          hp hqPrime hqp hnpos
+      unfold squarefreePairFreshPrimeSet at horig ⊢
+      simpa only [Finset.mem_union, Finset.mem_sdiff, hqm, hqn] using horig
+
+/-- Owner stripping is a strict finite descent: the differing-prime face loses
+exactly one coordinate at every step. -/
+theorem squarefreePairFreshPrimeSet_parent_card_add_one
+    {m n : ℕ} (hm : Squarefree m) (hn : Squarefree n)
+    (hmn : m ≠ n) (hmpos : 0 < m) (hnpos : 0 < n) :
+    (squarefreePairFreshPrimeSet
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m)
+        (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n)).card + 1 =
+      (squarefreePairFreshPrimeSet m n).card := by
+  rw [squarefreePairFreshPrimeSet_parent_eq_erase_owner
+    hm hn hmn hmpos hnpos]
+  rw [Finset.card_erase_of_mem
+    (squarefreePairFreshPrimeOwner_mem hm hn hmn)]
+  have hcard :
+      0 < (squarefreePairFreshPrimeSet m n).card :=
+    Finset.card_pos.mpr (squarefreePairFreshPrimeSet_nonempty hm hn hmn)
+  omega
+
+/-- **Signed owner descent.**  A physical pair is one mixed corner of its
+owner's fresh-prime square, so stripping that owner reverses the pair weight
+exactly. -/
+theorem squarefreePairFreshPrimeOwner_pairWeight_eq_neg_parentPairWeight
+    {m n : ℕ} (hm : Squarefree m) (hn : Squarefree n)
+    (hmn : m ≠ n) (hmpos : 0 < m) (hnpos : 0 < n) :
+    realMoebiusStep m * realMoebiusStep n =
+      -(realMoebiusStep
+          (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m) *
+        realMoebiusStep
+          (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n)) := by
+  let p := squarefreePairFreshPrimeOwner m n
+  let um := squarefreePrimeFamilyParent p m
+  let un := squarefreePrimeFamilyParent p n
+  change realMoebiusStep m * realMoebiusStep n =
+    -(realMoebiusStep um * realMoebiusStep un)
+  have hp : p.Prime := squarefreePairFreshPrimeOwner_prime hm hn hmn
+  have hcube :=
+    squarefreePairFreshPrimeOwner_parentCube hm hn hmn hmpos hnpos
+  change (¬ p ∣ um) ∧ (¬ p ∣ un) ∧
+      ((m = p * um ∧ n = un) ∨ (m = um ∧ n = p * un)) at hcube
+  rcases hcube with ⟨hpm, hpn, h | h⟩
+  · rw [h.1, h.2, realMoebiusStep_mul_prime_eq_neg hp hpm]
+    ring
+  · rw [h.1, h.2, realMoebiusStep_mul_prime_eq_neg hp hpn]
+    ring
+
 end RHLean.Proof
