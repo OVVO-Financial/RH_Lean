@@ -231,15 +231,29 @@ theorem adaptiveRawWeightedMass_eq_next_add_boundary_add_mismatch
     have hpEq := weighted_rawPair_eq_boundary_add_mismatch
       (R := R) a hR hcpos hp hcrough
     simpa [add_comm] using hpEq
-  rw [hpair]
-  have hnext' :
-      squareRootCanonicalRoughAdaptiveRawWeightedMass R
-          (squareRootCanonicalRoughAdaptiveNextCarrier p U)
-          (squareRootCanonicalRoughAdaptiveRawNextCoefficient p U a) =
+  rw [hnext]
+  calc
+    (∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+        a (c * p) * squareRootCanonicalRoughRawCorrelationSummand R (c * p)) +
+        ((∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+            a c * squareRootCanonicalRoughRawCorrelationSummand R c) +
+          ∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
+            a n * squareRootCanonicalRoughRawCorrelationSummand R n) =
+      ((∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+          a (c * p) * squareRootCanonicalRoughRawCorrelationSummand R (c * p)) +
+        ∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+          a c * squareRootCanonicalRoughRawCorrelationSummand R c) +
         ∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
-          a n * squareRootCanonicalRoughRawCorrelationSummand R n := hnext
-  rw [hnext']
-  ring
+          a n * squareRootCanonicalRoughRawCorrelationSummand R n := by ring
+    _ = (squareRootCanonicalRoughAdaptiveRawBoundaryMass R p U a +
+          squareRootCanonicalRoughAdaptiveRawMismatchMass R p U a) +
+        ∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
+          a n * squareRootCanonicalRoughRawCorrelationSummand R n := by
+      rw [hpair]
+    _ = (∑ n ∈ squareRootCanonicalRoughFreshPrimeSurvivorsOn p U,
+          a n * squareRootCanonicalRoughRawCorrelationSummand R n) +
+        squareRootCanonicalRoughAdaptiveRawBoundaryMass R p U a +
+        squareRootCanonicalRoughAdaptiveRawMismatchMass R p U a := by ring
 
 /-- Evolving zero-factor coefficient field along a chronological adaptive run. -/
 def squareRootCanonicalRoughAdaptiveRawCoefficient :
