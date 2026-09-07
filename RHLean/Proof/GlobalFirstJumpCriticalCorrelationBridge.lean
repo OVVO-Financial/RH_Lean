@@ -197,4 +197,58 @@ theorem postRootReciprocalBandFamilyCovariance_eq_card_mul_lowerCovariance
     _ = ((primeCombPostRootReciprocalBand W z).card : ℝ) *
         realMertensPositiveLagPairSum (z + 1) := by simp
 
+/-- The multiplicity of a post-root reciprocal band is bounded by the literal
+integer width of the corresponding quotient interval.  This throws away both
+primality and the post-root restriction, so it needs no PNT input. -/
+theorem card_primeCombPostRootReciprocalBand_le_width
+    (W z : ℕ) :
+    (primeCombPostRootReciprocalBand W z).card ≤
+      W / z - W / (z + 1) := by
+  have hsub :
+      primeCombPostRootReciprocalBand W z ⊆
+        Finset.Ioc (W / (z + 1)) (W / z) := by
+    intro p hp
+    rcases mem_primeCombPostRootReciprocalBand.mp hp with ⟨hpBand, _hpRoot⟩
+    rcases mem_primeCombReciprocalBand.mp hpBand with ⟨hlow, hhigh, _hpPrime⟩
+    exact Finset.mem_Ioc.mpr ⟨hlow, hhigh⟩
+  calc
+    (primeCombPostRootReciprocalBand W z).card ≤
+        (Finset.Ioc (W / (z + 1)) (W / z)).card :=
+      Finset.card_le_card hsub
+    _ = W / z - W / (z + 1) := by simp
+
+/-- Signed band covariance needs only the positive part of the lower-scale
+covariance.  In particular a negative lower covariance helps rather than costs
+anything. -/
+theorem postRootReciprocalBandFamilyCovariance_le_width_mul_positivePart
+    (W z : ℕ) (hz : 0 < z) :
+    postRootReciprocalBandFamilyCovariance W z ≤
+      ((W / z - W / (z + 1) : ℕ) : ℝ) *
+        max (realMertensPositiveLagPairSum (z + 1)) 0 := by
+  rw [postRootReciprocalBandFamilyCovariance_eq_card_mul_lowerCovariance W z hz]
+  have hcard :
+      ((primeCombPostRootReciprocalBand W z).card : ℝ) ≤
+        ((W / z - W / (z + 1) : ℕ) : ℝ) := by
+    exact_mod_cast card_primeCombPostRootReciprocalBand_le_width W z
+  have hcov :
+      realMertensPositiveLagPairSum (z + 1) ≤
+        max (realMertensPositiveLagPairSum (z + 1)) 0 :=
+    le_max_left _ _
+  have hcard0 :
+      (0 : ℝ) ≤ ((primeCombPostRootReciprocalBand W z).card : ℝ) := by positivity
+  have hwidth0 :
+      (0 : ℝ) ≤ ((W / z - W / (z + 1) : ℕ) : ℝ) := by positivity
+  have hmax0 :
+      (0 : ℝ) ≤ max (realMertensPositiveLagPairSum (z + 1)) 0 :=
+    le_max_right _ _
+  calc
+    ((primeCombPostRootReciprocalBand W z).card : ℝ) *
+        realMertensPositiveLagPairSum (z + 1) ≤
+      ((primeCombPostRootReciprocalBand W z).card : ℝ) *
+        max (realMertensPositiveLagPairSum (z + 1)) 0 :=
+      mul_le_mul_of_nonneg_left hcov hcard0
+    _ ≤ ((W / z - W / (z + 1) : ℕ) : ℝ) *
+        max (realMertensPositiveLagPairSum (z + 1)) 0 :=
+      mul_le_mul_of_nonneg_right hcard hmax0
+
 end RHLean.Proof
