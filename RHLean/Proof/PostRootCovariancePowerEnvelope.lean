@@ -37,7 +37,7 @@ theorem postRootCovariancePowerSeat_nonneg (ε : ℝ) (W : ℕ) :
     exact le_max_left _ _
   · rw [if_neg hW]
 
- theorem postRootCovariancePowerEnvelope_nonneg (ε : ℝ) (N : ℕ) :
+theorem postRootCovariancePowerEnvelope_nonneg (ε : ℝ) (N : ℕ) :
     0 ≤ postRootCovariancePowerEnvelope ε N := by
   induction N with
   | zero => simp [postRootCovariancePowerEnvelope]
