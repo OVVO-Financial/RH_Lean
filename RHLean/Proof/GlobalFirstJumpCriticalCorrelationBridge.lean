@@ -29,6 +29,7 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Analysis
+open RHLean.Arithmetic
 
 /-- The canonical defect is the lower Mertens value minus the square endpoint
 Mertens value. -/
