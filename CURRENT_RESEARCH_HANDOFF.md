@@ -8,7 +8,48 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
-## Current continuation: the remainder scale sufficient for Mertens
+## Current continuation: square energy retains every high-prime transport
+
+`PostRootMertensSquareFiniteDifference.lean` restores the square coordinate on
+the existing post-root family set:
+
+```text
+Delta_sq(W) = M(W)^2 - postRootFamilyMertensSquareEnergy(W),
+Delta_lin(W) = M(W) - sum_p M(floor(W/p)),
+Delta_fall(W) = Delta_sq(W) - Delta_lin(W),
+abs(Delta_lin(W)) <= 2W.
+```
+
+The correction uses the already-proved quotient packing.  The square and
+falling positive-power propositions are equivalent, and either feeds #599's
+protected Mertens-energy bootstrap.  The new layer reuses the existing Bessel
+identity and proves a sharper direct comparison:
+
+```text
+Delta_sq(W) = 2 E(W) + postRootComplementDiagonalResidual(W),
+0 <= postRootComplementDiagonalResidual(W) <= W.
+```
+
+The diagonal residual is identified with the literal squarefree mass outside
+the disjoint seat-product union already used for packing.  Therefore a positive
+#600 record at `W = N+1` forces
+
+```text
+envelope_epsilon(N) < Delta_sq(W) / (2 W^(1+epsilon)).
+```
+
+This retains every high square with its favorable sign in the record budget.
+The exact reciprocal-band decomposition uses the existing prime-comb bands.
+Its top-half band transports one square-energy unit per prime, with total
+`pi(W) - pi(floor(W/2))`, including all small-endpoint conventions.
+
+**The positive-power bound remains open.**  A favorable subtraction at each
+fixed endpoint is not a monotonicity theorem for the moving family energy.
+Also distinguish the LCM falling kernel `M^2-M` from ordinary positive-lag
+covariance, whose diagonal correction is `sum mu^2`.  Consult Hosted Lean CI
+for compilation status of the current head.
+
+## Previous continuation: the remainder scale sufficient for Mertens
 
 The linear remainder target is stronger than the bootstrap needs. The new
 `PostRootCovariancePowerRemainderStatement` asks only for
