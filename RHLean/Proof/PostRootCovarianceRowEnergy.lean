@@ -334,6 +334,7 @@ theorem postRootLowerCovarianceRow_eq_zero_of_upperHalf
       apply (Nat.div_lt_iff_lt_mul hpPos).2
       have h := (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 2)).1 hp
       simpa [Nat.mul_comm] using h
+    rw [hdiv] at hsmall
     have hzero : W / p = 0 := by omega
     rw [postRootLowerCovarianceRow_eq_ite, if_pos hdvd, hzero]
     simp [realMertensLength, realMoebiusStep]
