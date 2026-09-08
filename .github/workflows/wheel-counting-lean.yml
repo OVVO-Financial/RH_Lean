@@ -19,6 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: read
 
 concurrency:
@@ -86,6 +87,8 @@ jobs:
         run: lake env lean research/NAT_DIV_INTERVAL_WIDTH_SCRATCH.lean
       - name: Kernel-check 210 wheel staircase
         run: lake build RHLean.Proof.PostRootCovariancePrimeWheel210Scratch
+      - name: Kernel-check promoted wheel counting bounds
+        run: lake build RHLean.Proof.PostRootCovarianceWheelCounting --wfail
       - name: Kernel-check exact two-overlap 2310 identity
         run: lake env lean research/WHEEL_2310_TWO_OVERLAP_IDENTITY.lean
       - name: Kernel-check signed prime-wheel interval aggregate
@@ -98,8 +101,22 @@ jobs:
         run: lake env lean research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean
       - name: Kernel-check frozen rough-seat bridge
         run: lake env lean research/PRIME_WHEEL_ROUGH_SEAT_FROZEN_BRIDGE.lean
+      - name: Drop stale exact RHLean build cache
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CACHE_REF: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/merge', github.event.number) || github.ref }}
+          CACHE_KEY: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+        run: |
+          set -euo pipefail
+          gh api --paginate \
+            "/repos/${GITHUB_REPOSITORY}/actions/caches?ref=${CACHE_REF}&per_page=100" \
+            --jq ".actions_caches[] | select(.key == \"${CACHE_KEY}\") | .id" \
+            | while read -r id; do
+                [ -n "$id" ] || continue
+                echo "deleting stale exact cache ${CACHE_KEY} (${id})"
+                gh api -X DELETE "/repos/${GITHUB_REPOSITORY}/actions/caches/${id}"
+              done
       - name: Save RHLean build cache
-        if: steps.rhleancache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v5
         with:
           path: .lake/build
