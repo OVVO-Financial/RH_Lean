@@ -40,7 +40,10 @@ theorem card_roughWheelInterval_le_periods
         ⟨Nat.div_le_div_right han.le, Nat.div_le_div_right hnb⟩
     · apply Finset.mem_filter.mpr
       exact ⟨Finset.mem_range.mpr (Nat.mod_lt n hW),
-        by simpa only [Nat.coprime_mod_left_iff] using hnW⟩
+        by
+          change Nat.gcd (n % W) W = 1
+          rw [← Nat.gcd_rec W n]
+          exact hnW.symm⟩
   have hinj : Set.InjOn (fun n : ℕ => (n / W, n % W))
       (roughWheelInterval W a b : Set ℕ) := by
     intro m _hm n _hn hmn
@@ -50,7 +53,12 @@ theorem card_roughWheelInterval_le_periods
     nlinarith [Nat.mod_add_div m W, Nat.mod_add_div n W]
   have hcard := Finset.card_le_card_of_injOn
     (fun n : ℕ => (n / W, n % W)) hmaps hinj
-  simpa only [Finset.card_product, Nat.card_Icc] using hcard
+  calc
+    (roughWheelInterval W a b).card ≤
+        ((Finset.Icc (a / W) (b / W)).product (roughWheelResidues W)).card := hcard
+    _ = (Finset.Icc (a / W) (b / W)).card * (roughWheelResidues W).card :=
+      Finset.card_product _ _
+    _ = _ := by rw [Nat.card_Icc]
 
 /-- Actual finite counting: density times interval length plus at most two
 incomplete residue periods.  In particular the error is displayed as a
