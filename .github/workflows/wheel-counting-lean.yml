@@ -7,6 +7,7 @@ on:
       - RHLean/Analysis/RoughWheelFiniteCounting.lean
       - RHLean/Proof/PostRootCovariancePrimeWheel210Scratch.lean
       - RHLean/Proof/PostRootCovarianceWheelCounting.lean
+      - RHLean/Proof/PostRootCovarianceWheel2310Refined.lean
       - research/WHEEL_2310_SECOND_OVERLAP_SCRATCH.lean
       - .github/workflows/wheel-counting-lean.yml
   workflow_dispatch:
@@ -74,7 +75,7 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
       - name: Kernel-check finite interval counting
         run: lake build RHLean.Analysis.RoughWheelFiniteCounting --wfail
-      - name: Kernel-check quantitative wheel proof
-        run: lake build RHLean.Proof.PostRootCovarianceWheelCounting
-      - name: Kernel-check second 2310 overlap scratch
-        run: lake env lean research/WHEEL_2310_SECOND_OVERLAP_SCRATCH.lean
+      - name: Kernel-check 210 wheel staircase
+        run: lake build RHLean.Proof.PostRootCovariancePrimeWheel210Scratch
+      - name: Kernel-check fully cancelled 2310 wheel
+        run: lake build RHLean.Proof.PostRootCovarianceWheel2310Refined
