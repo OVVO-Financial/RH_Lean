@@ -7,6 +7,7 @@ on:
       - RHLean/Analysis/RoughWheelFiniteCounting.lean
       - RHLean/Proof/PostRootCovariancePrimeWheel210Scratch.lean
       - RHLean/Proof/PostRootCovarianceWheelCounting.lean
+      - research/NAT_DIV_INTERVAL_WIDTH_SCRATCH.lean
       - research/WHEEL_2310_SECOND_OVERLAP_SCRATCH.lean
       - research/WHEEL_2310_TWO_OVERLAP_IDENTITY.lean
       - .github/workflows/wheel-counting-lean.yml
@@ -75,6 +76,8 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
       - name: Kernel-check finite interval counting
         run: lake build RHLean.Analysis.RoughWheelFiniteCounting --wfail
+      - name: Kernel-check generic floor-width lemma
+        run: lake env lean research/NAT_DIV_INTERVAL_WIDTH_SCRATCH.lean
       - name: Kernel-check 210 wheel staircase
         run: lake build RHLean.Proof.PostRootCovariancePrimeWheel210Scratch
       - name: Kernel-check exact two-overlap 2310 identity
