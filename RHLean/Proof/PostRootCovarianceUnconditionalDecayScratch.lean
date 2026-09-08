@@ -89,6 +89,7 @@ theorem card_dyadicCofactorBoundary_le_quarter (B : ℕ) :
       rcases hbodd with ⟨kb, hkb⟩
       have hada : a / 2 = ka := by omega
       have hbdb : b / 2 = kb := by omega
+      change a / 2 = b / 2 at hab
       rw [hada, hbdb] at hab
       omega
     have hcard :=
