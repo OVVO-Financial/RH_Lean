@@ -247,6 +247,7 @@ import RHLean.Analysis.QuadraticShiftDichotomy
 import RHLean.Analysis.RamanujanDivisorBoundary
 import RHLean.Analysis.RamanujanDivisorBoundaryBulk
 import RHLean.Analysis.ReducedQuadraticGauss
+import RHLean.Analysis.RoughWheelFiniteCounting
 import RHLean.Analysis.SmallModulusResonance
 import RHLean.Analysis.SquareBlockDeathProcess
 import RHLean.Analysis.SquareBlockSurvivorBridge
