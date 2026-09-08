@@ -149,6 +149,7 @@ jobs:
       # dedicated StrongPNT 4.24 gate. This keeps proof iterations from
       # recompiling the same external boundary before reaching RHLean sources.
       - name: Restore StrongPNT port build cache
+        id: strongpntcache
         uses: actions/cache/restore@v5
         with:
           path: |
@@ -160,6 +161,18 @@ jobs:
 
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
+
+      # A missing port cache otherwise makes every proof-repair commit rebuild
+      # the same upstream dependency, even after it succeeded on the prior run.
+      # Save at this successful boundary so later RHLean errors do not discard it.
+      - name: Save StrongPNT port build cache
+        if: steps.strongpntcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
 
       # Content-addressed project build cache.
       #

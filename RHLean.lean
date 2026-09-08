@@ -247,6 +247,7 @@ import RHLean.Analysis.QuadraticShiftDichotomy
 import RHLean.Analysis.RamanujanDivisorBoundary
 import RHLean.Analysis.RamanujanDivisorBoundaryBulk
 import RHLean.Analysis.ReducedQuadraticGauss
+import RHLean.Analysis.RoughWheelFiniteCounting
 import RHLean.Analysis.SmallModulusResonance
 import RHLean.Analysis.SquareBlockDeathProcess
 import RHLean.Analysis.SquareBlockSurvivorBridge
@@ -552,6 +553,7 @@ import RHLean.Proof.PostRootCovarianceRecordSquareCharge
 import RHLean.Proof.PostRootCovarianceRecordSquareChargeClosure
 import RHLean.Proof.PostRootCovarianceRowEnergy
 import RHLean.Proof.PostRootCovarianceUnconditionalDecayScratch
+import RHLean.Proof.PostRootCovarianceWheelCounting
 import RHLean.Proof.PostRootMertensSquareFiniteDifference
 import RHLean.Proof.PrefixCarrierOthelloWalls
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
@@ -562,6 +564,7 @@ import RHLean.Proof.PrimeCombVisualizationRecurrence
 import RHLean.Proof.PrimeCombWheelBoundary
 import RHLean.Proof.PrimeSievePostSqrtGap
 import RHLean.Proof.PrimeSieveSquareRootTransport
+import RHLean.Proof.PrimeWheelRoughSeatCorrelation
 import RHLean.Proof.RealSquareBlockIncrements
 import RHLean.Proof.RecursivePrimeReplacement
 import RHLean.Proof.ReducedSquareClassMod40

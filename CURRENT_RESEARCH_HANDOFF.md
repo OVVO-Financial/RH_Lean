@@ -8,6 +8,56 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Current finite-wheel continuation: explicit counts and a signed 2310 overlap
+
+PR #604 continues the merged #603 wheel identities on their exact physical
+`roughInterval W a b = T_W(b) - T_W(a)` carrier, with `a < n <= b`.
+Compilation status must be read from Hosted Lean CI at the current head.
+
+`RoughWheelFiniteCounting.lean` injects each interval into its intersecting
+wheel periods and reduced residues.  If `r(W)` is the number of reduced
+residue classes, the finite, wheel-uniform bound is
+
+```text
+card roughWheelInterval(W,a,b) <= r(W)/W * (b-a) + 2*r(W),  a <= b.
+```
+
+`PostRootCovarianceWheelCounting.lean` applies this after the exact signed
+wheel identities. It gives the following explicit Mertens majorants and
+transfers each to `E(W) <= majorant(W)^2/2` by the existing Bessel theorem:
+
+```text
+6:     |M(B)| <= (2/9) B + 9
+30:    |M(B)| <= (16/75) B + 66
+210:   |M(B)| <= (256/1225) B + 770
+2310:  |M(B)| <= (17648/88935) B + 15364
+```
+
+The last estimate uses a new exact signed cancellation. Adjoining `11` to the
+210-wheel creates a negative band `(B/22,B/11]`, overlapping the positive
+15-band `(B/30,B/15]`. Their common interval `(B/22,B/15]` cancels before
+absolute values. This reduces the 2310 leading coefficient from `6144/29645`
+to `17648/88935`, a gain of `16/1815`. The exact overlap-cancelled identity was
+also checked numerically at every integer endpoint from 0 through 100000;
+that finite computation is a sanity check, not a substitute for the kernel.
+
+The elementary factor audit reuses `PrimorialReciprocalMobiusFactorization`:
+separate-band counting has density factor `1-1/p` but gains child interval
+length `1+1/p`. Its leading coefficient is therefore
+
+```text
+c(P) = (1/4) * prod_{p in P} (1 - 1/p^2),  P the selected odd primes.
+```
+
+An elementary finite telescope proves `c(P) >= 1/6` even when all integers
+at least three are allowed as factors. Thus the separate-band estimate alone
+cannot force a power saving by enlarging the wheel. This is NOT a lower bound
+on Mertens and NOT an obstruction to further signed overlap cancellation.
+The new 2310 identity demonstrates exactly where an extra signed gain occurs.
+The displayed errors also grow with the wheel and must remain in any proposed
+iteration with a wheel depending on the physical endpoint. No exponent
+improvement, bounded critical envelope, or RH closure is claimed here.
+
 ## Current continuation: the tower is one proposition, and the exchange rate is exact
 
 `PostRootCovarianceGlobalExponentTransfer.lean` supplies the return path that
