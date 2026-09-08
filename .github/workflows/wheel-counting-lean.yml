@@ -13,6 +13,7 @@ on:
       - research/WHEEL_2310_TWO_OVERLAP_IDENTITY.lean
       - research/PRIME_WHEEL_SIGNED_INTERVAL_AGGREGATE.lean
       - research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean
+      - research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean
       - .github/workflows/wheel-counting-lean.yml
   workflow_dispatch:
 
@@ -91,3 +92,5 @@ jobs:
         run: lake env lean research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean
       - name: Kernel-check promoted rough-seat correlation
         run: lake build RHLean.Proof.PrimeWheelRoughSeatCorrelation --wfail
+      - name: Kernel-check square-root rough-seat specialization
+        run: lake env lean research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean
