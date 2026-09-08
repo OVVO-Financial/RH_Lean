@@ -73,8 +73,10 @@ theorem mertensSummatoryInt_squareRootEndpoint_div_pair_eq_halfRootPrimePairWeig
   by_cases hz1 : z = 1
   · simp [halfRootPrimePairWeight, z, hz1, mertensSummatoryInt_one]
   by_cases hz2 : z = 2
-  · simp [halfRootPrimePairWeight, z, hz2, hz0, hz1, mertensSummatoryInt_two]
-  have hz3 : z = 3 := by omega
+  · simp [halfRootPrimePairWeight, z, hz2, mertensSummatoryInt_two]
+  have hz3 : z = 3 := by
+    clear_value z
+    omega
   simp [halfRootPrimePairWeight, z, hz3, mertensSummatoryInt_three]
 
 /-- The entire two-high-prime correction is now a finite prime-pair weight sum,
