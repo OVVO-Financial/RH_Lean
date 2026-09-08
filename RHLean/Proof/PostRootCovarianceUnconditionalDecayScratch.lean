@@ -100,7 +100,6 @@ theorem roughMertens_one_eq_sixWheel_twoBands (B : ℕ) :
   norm_num at h2 h6B h6half
   have hdiv : B / 2 / 3 = B / 6 := by
     rw [Nat.div_div_eq_div_mul]
-    norm_num
   rw [hdiv] at h6half
   unfold roughInterval
   omega
