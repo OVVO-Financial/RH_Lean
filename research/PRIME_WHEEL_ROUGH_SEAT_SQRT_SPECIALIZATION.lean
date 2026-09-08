@@ -49,7 +49,7 @@ theorem coprime_primorial_iff_avoid_selected_primes
         rw [Nat.coprime_comm]
         exact hp.coprime_iff_not_dvd
       rw [hcop]
-      simp [hpS]
+      simp
 
 /-- The coprimality predicate used by `roughWheelInterval` is exactly the
 low-wheel survivor predicate when the selected set is `primesUpTo R`. -/
@@ -168,10 +168,14 @@ theorem roughWheelInterval_primesUpTo_squareRootEndpoint_eq_one_union_highPrimes
       exact Or.inr ⟨⟨hRn, hnX⟩, hnPrime⟩
   · intro h
     rcases h with rfl | hn
-    · simp [coprime_primorial_primesUpTo_iff_lowWheelHighSurvivor,
-        lowWheelHighSurvivor]
-    · rcases hn with ⟨hnI, hnPrime⟩
-      rcases Finset.mem_Ioc.mp hnI with ⟨hRn, hnX⟩
+    · constructor
+      · unfold squareRootEndpoint
+        have hsq : 1 < R ^ 2 := by nlinarith
+        omega
+      · intro p hp _hpR hp1
+        subst p
+        norm_num at hp
+    · rcases hn with ⟨⟨hRn, hnX⟩, hnPrime⟩
       have hsurv : lowWheelHighSurvivor R n :=
         (lowWheelHighSurvivor_iff_prime hR hRn hnX).mpr hnPrime
       exact ⟨⟨by omega, hnX⟩,
@@ -184,8 +188,11 @@ theorem squareRootEndpoint_div_lt_root_of_root_lt
     squareRootEndpoint R / q < R := by
   have hqpos : 0 < q := by omega
   apply (Nat.div_lt_iff_lt_mul hqpos).2
+  have hsq : R ^ 2 < R * q := by
+    simpa [pow_two] using
+      (Nat.mul_lt_mul_left (by omega : 0 < R)).2 hRq
   unfold squareRootEndpoint
-  nlinarith
+  omega
 
 /-- **Square-root rough-seat transport identity.**  The entire high-prime
 family is a signed sum of *lower Mertens states*, while the remaining low-wheel
@@ -217,8 +224,7 @@ theorem roughMertens_squareRootEndpoint_eq_lowKernel_add_neg_highPrimeLowerMerte
     have hR1 := (Finset.mem_Ioc.mp hI).1
     omega
   rw [Finset.sum_union hdisj, Finset.sum_singleton] at hfull
-  simp only [Nat.div_one, ArithmeticFunction.moebius_apply_one, Int.ofNat_one,
-    one_mul] at hfull
+  simp only [Nat.div_one, ArithmeticFunction.moebius_apply_one, one_mul] at hfull
   rw [hfull]
   congr 1
   apply Finset.sum_congr rfl
@@ -230,11 +236,7 @@ theorem roughMertens_squareRootEndpoint_eq_lowKernel_add_neg_highPrimeLowerMerte
   have hk :=
     primeWheelTruncatedMoebiusKernel_primesUpTo_eq_roughMertens
       R (squareRootEndpoint R / q) hcut
-  unfold roughMoebius
-  have hcop : Nat.Coprime q (RHLean.Arithmetic.primorial (primesUpTo R)) :=
-    (coprime_primorial_primesUpTo_iff_lowWheelHighSurvivor R q).mpr
-      ((lowWheelHighSurvivor_iff_prime hR hRq (Finset.mem_Ioc.mp hqI).2).mpr hqPrime)
-  rw [if_pos hcop, ArithmeticFunction.moebius_apply_prime hqPrime, hk]
+  rw [ArithmeticFunction.moebius_apply_prime hqPrime, hk]
   ring
 
 /-- Subtraction form of the same identity. -/
@@ -245,7 +247,7 @@ theorem roughMertens_squareRootEndpoint_eq_lowKernel_sub_highPrimeLowerMertens
         ∑ q ∈ (Finset.Ioc R (squareRootEndpoint R)).filter Nat.Prime,
           roughMertens 1 (squareRootEndpoint R / q) := by
   rw [roughMertens_squareRootEndpoint_eq_lowKernel_add_neg_highPrimeLowerMertens R hR]
-  rw [← Finset.sum_neg_distrib]
+  rw [Finset.sum_neg_distrib]
   ring
 
 end RHLean.Proof
