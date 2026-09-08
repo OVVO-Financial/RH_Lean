@@ -1,8 +1,8 @@
 name: Finite wheel counting check
 
 on:
-  push:
-    branches: [agent/wheel-counting-bound]
+  pull_request:
+    branches: [main]
     paths:
       - RHLean/Analysis/RoughWheelFiniteCounting.lean
       - RHLean/Proof/PostRootCovariancePrimeWheel210Scratch.lean
