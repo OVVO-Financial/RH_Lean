@@ -11,6 +11,7 @@ on:
       - research/WHEEL_2310_SECOND_OVERLAP_SCRATCH.lean
       - research/WHEEL_2310_TWO_OVERLAP_IDENTITY.lean
       - research/PRIME_WHEEL_SIGNED_INTERVAL_AGGREGATE.lean
+      - research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean
       - .github/workflows/wheel-counting-lean.yml
   workflow_dispatch:
 
@@ -85,3 +86,5 @@ jobs:
         run: lake env lean research/WHEEL_2310_TWO_OVERLAP_IDENTITY.lean
       - name: Kernel-check signed prime-wheel interval aggregate
         run: lake env lean research/PRIME_WHEEL_SIGNED_INTERVAL_AGGREGATE.lean
+      - name: Kernel-check signed truncated wheel kernel
+        run: lake env lean research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean
