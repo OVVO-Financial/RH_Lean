@@ -145,4 +145,27 @@ theorem card_roughWheelInterval_six (a b : ℕ) (hab : a ≤ b) :
   norm_num at h
   linarith
 
+/-- For positive reciprocal denominators, replacing the continuum endpoints by
+integer quotients costs at most one unit of interval width.  Keeping this as a
+small reusable lemma avoids sending large many-band Presburger expressions to
+`omega`. -/
+theorem natDiv_interval_width_le
+    (B a b : ℕ) (ha : 0 < a) (hb : 0 < b) :
+    ((B / b : ℕ) : ℝ) - ((B / a : ℕ) : ℝ) ≤
+      (B : ℝ) / b - (B : ℝ) / a + 1 := by
+  have haR : (0 : ℝ) < a := by exact_mod_cast ha
+  have hbR : (0 : ℝ) < b := by exact_mod_cast hb
+  have hub : ((B / b : ℕ) : ℝ) ≤ (B : ℝ) / b := by
+    apply (le_div_iff₀ hbR).2
+    exact_mod_cast Nat.div_mul_le_self B b
+  have hlowNat : B < B / a * a + a := by
+    nlinarith [Nat.mod_add_div B a, Nat.mod_lt B ha]
+  have hlowCast :
+      (B : ℝ) < ((B / a : ℕ) : ℝ) * (a : ℝ) + (a : ℝ) := by
+    exact_mod_cast hlowNat
+  have hlow : (B : ℝ) / a < ((B / a : ℕ) : ℝ) + 1 := by
+    apply (div_lt_iff₀ haR).2
+    nlinarith
+  linarith
+
 end RHLean.Analysis
