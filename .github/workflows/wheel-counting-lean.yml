@@ -7,6 +7,7 @@ on:
       - RHLean/Analysis/RoughWheelFiniteCounting.lean
       - RHLean/Proof/PostRootCovariancePrimeWheel210Scratch.lean
       - RHLean/Proof/PostRootCovarianceWheelCounting.lean
+      - RHLean/Proof/PrimeWheelRoughSeatCorrelation.lean
       - research/NAT_DIV_INTERVAL_WIDTH_SCRATCH.lean
       - research/WHEEL_2310_SECOND_OVERLAP_SCRATCH.lean
       - research/WHEEL_2310_TWO_OVERLAP_IDENTITY.lean
@@ -88,3 +89,5 @@ jobs:
         run: lake env lean research/PRIME_WHEEL_SIGNED_INTERVAL_AGGREGATE.lean
       - name: Kernel-check signed truncated wheel kernel
         run: lake env lean research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean
+      - name: Kernel-check promoted rough-seat correlation
+        run: lake build RHLean.Proof.PrimeWheelRoughSeatCorrelation --wfail
