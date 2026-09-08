@@ -547,6 +547,7 @@ import RHLean.Proof.PostRootCovarianceLcmInteriorPacking
 import RHLean.Proof.PostRootCovariancePowerEnvelope
 import RHLean.Proof.PostRootCovarianceRecordAbsorption
 import RHLean.Proof.PostRootCovarianceRecordSquareCharge
+import RHLean.Proof.PostRootCovarianceRecordSquareChargeClosure
 import RHLean.Proof.PostRootCovarianceRowEnergy
 import RHLean.Proof.PostRootMertensSquareFiniteDifference
 import RHLean.Proof.PrefixCarrierOthelloWalls
