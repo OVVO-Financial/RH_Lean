@@ -5,6 +5,7 @@ on:
     branches: [agent/wheel-counting-bound]
     paths:
       - RHLean/Analysis/RoughWheelFiniteCounting.lean
+      - RHLean/Proof/PostRootCovariancePrimeWheel210Scratch.lean
       - RHLean/Proof/PostRootCovarianceWheelCounting.lean
       - .github/workflows/wheel-counting-lean.yml
   workflow_dispatch:
