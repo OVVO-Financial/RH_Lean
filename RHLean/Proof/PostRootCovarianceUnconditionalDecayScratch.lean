@@ -18,8 +18,10 @@ The first fact already improves the elementary quadratic constant by a full
 factor of nine over the coarse squarefree-count estimate in the exponent
 transfer file.  The second gives an unconditional *subquadratic* upper envelope
 for the signed post-root remainder, with the full subexponential rate visible.
-Neither statement is a fixed power saving, but both are genuine quantitative
-improvements on the current carrier.
+On the other side, exact quotient packing of the removed post-root families
+gives an elementary lower bound of order `-W^(3/2)`.  These are genuine
+quantitative statements on the current carrier, not merely fixed-power
+reformulations.
 -/
 
 noncomputable section
@@ -118,6 +120,22 @@ theorem abs_realMertensLength_succ_le_dyadicQuarter (B : ℕ) :
     _ ≤ (((B + 3) / 4 : ℕ) : ℝ) := by
       exact_mod_cast card_dyadicCofactorBoundary_le_quarter B
 
+/-- **Bessel transfers arbitrary pointwise Mertens majorants, not only power
+laws.**  This is the rate-free form of the return path: any nonnegative bound
+`A` for the physical Mertens prefix immediately gives `E(W) <= A^2/2`. -/
+theorem postRootCovarianceRemainder_le_of_mertensMajorant
+    {W : ℕ} {A : ℝ} (hA : 0 ≤ A)
+    (hM : |realMertensLength (W + 1)| ≤ A) :
+    postRootCovarianceRemainder W ≤ A ^ 2 / 2 := by
+  have hsqMul := mul_self_le_mul_self (abs_nonneg _) hM
+  have hsq : realMertensLength (W + 1) ^ 2 ≤ A ^ 2 := by
+    calc
+      realMertensLength (W + 1) ^ 2 =
+          |realMertensLength (W + 1)| ^ 2 := (sq_abs _).symm
+      _ ≤ A ^ 2 := by simpa [pow_two] using hsqMul
+  exact (postRootCovarianceRemainder_le_half_mertensSquare W).trans
+    (div_le_div_of_nonneg_right hsq (by norm_num : (0 : ℝ) ≤ 2))
+
 /-- Squaring the exact quarter-prefix estimate in the Bessel inequality gives
 
 `E(W) <= (floor((W+3)/4))^2 / 2`.
@@ -128,17 +146,105 @@ theorem postRootCovarianceRemainder_le_dyadicQuarterSquare (W : ℕ) :
     postRootCovarianceRemainder W ≤
       ((((W + 3) / 4 : ℕ) : ℝ) ^ 2) / 2 := by
   have hM := abs_realMertensLength_succ_le_dyadicQuarter W
+  have hA : 0 ≤ (((W + 3) / 4 : ℕ) : ℝ) := by positivity
+  exact postRootCovarianceRemainder_le_of_mertensMajorant hA hM
+
+/-! ## The opposite side: exact quotient packing gives `W^(3/2)` -/
+
+/-- The complete positive-lag covariance at an endpoint can never lie below
+`-W/2`.  This is just the exact Mertens-square/diagonal identity together with
+`diagonal + zeroCount = W`; no cancellation estimate is used. -/
+theorem neg_half_endpoint_le_realMertensPositiveLagPairSum_succ (W : ℕ) :
+    -(W : ℝ) / 2 ≤ realMertensPositiveLagPairSum (W + 1) := by
+  rw [realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal]
+  have hnorm : 0 ≤ ‖mertensSummatory W‖ ^ 2 := sq_nonneg _
+  have hdiag := realMertensDiagonal_add_zeroCount_eq_endpoint W
+  have hzero : 0 ≤ (realMertensZeroCount W : ℝ) := by positivity
+  nlinarith
+
+/-- At every positive lower endpoint, the complete lower covariance is at most
+half the square of that endpoint.  The proof deliberately uses the exact
+`p=2` dyadic cancellation rather than a raw prefix-length bound. -/
+theorem realMertensPositiveLagPairSum_succ_le_half_endpoint_sq
+    {q : ℕ} (hq : 1 ≤ q) :
+    realMertensPositiveLagPairSum (q + 1) ≤ (q : ℝ) ^ 2 / 2 := by
+  have hcov := realMertensPositiveLagPairSum_le_half_lengthSq (q + 1)
+  have hM0 := abs_realMertensLength_succ_le_dyadicQuarter q
+  have hfloorNat : (q + 3) / 4 ≤ q := by omega
+  have hfloor : (((q + 3) / 4 : ℕ) : ℝ) ≤ (q : ℝ) := by
+    exact_mod_cast hfloorNat
+  have hM : |realMertensLength (q + 1)| ≤ (q : ℝ) := hM0.trans hfloor
   have hsqMul := mul_self_le_mul_self (abs_nonneg _) hM
-  have hsq :
-      realMertensLength (W + 1) ^ 2 ≤
-        ((((W + 3) / 4 : ℕ) : ℝ) ^ 2) := by
+  have hsq : realMertensLength (q + 1) ^ 2 ≤ (q : ℝ) ^ 2 := by
     calc
-      realMertensLength (W + 1) ^ 2 =
-          |realMertensLength (W + 1)| ^ 2 := (sq_abs _).symm
-      _ ≤ (((W + 3) / 4 : ℕ) : ℝ) ^ 2 := by
-        simpa [pow_two] using hsqMul
-  exact (postRootCovarianceRemainder_le_half_mertensSquare W).trans
+      realMertensLength (q + 1) ^ 2 =
+          |realMertensLength (q + 1)| ^ 2 := (sq_abs _).symm
+      _ ≤ (q : ℝ) ^ 2 := by simpa [pow_two] using hsqMul
+  exact hcov.trans
     (div_le_div_of_nonneg_right hsq (by norm_num : (0 : ℝ) ≤ 2))
+
+/-- **All removed post-root family covariance is `O(W^(3/2))` by product
+packing alone.**  Each quotient `q = floor(W/p)` lies below `sqrt W`, while the
+already-compiled product packing says `sum q <= W`. -/
+theorem postRootPrimeFamilyCovarianceTotal_le_half_sqrt_mul_endpoint (W : ℕ) :
+    postRootPrimeFamilyCovarianceTotal W ≤
+      ((Nat.sqrt W : ℝ) * (W : ℝ)) / 2 := by
+  have hpackNat := sum_postRootPrimeFamily_quotients_le_endpoint W
+  have hpack :
+      (∑ p ∈ postRootPrimeFamilySet W, ((W / p : ℕ) : ℝ)) ≤ (W : ℝ) := by
+    exact_mod_cast hpackNat
+  unfold postRootPrimeFamilyCovarianceTotal
+  calc
+    (∑ p ∈ postRootPrimeFamilySet W,
+        realMertensPositiveLagPairSum (W / p + 1)) ≤
+      ∑ p ∈ postRootPrimeFamilySet W,
+        ((Nat.sqrt W : ℝ) * ((W / p : ℕ) : ℝ)) / 2 := by
+      apply Finset.sum_le_sum
+      intro p hp
+      rcases mem_postRootPrimeFamilySet.mp hp with ⟨_hpRoot, hpW, hpPrime⟩
+      have hqpos : 0 < W / p := Nat.div_pos hpW hpPrime.pos
+      have hcov :=
+        realMertensPositiveLagPairSum_succ_le_half_endpoint_sq
+          (q := W / p) (by omega)
+      have hqroot : W / p ≤ Nat.sqrt W := by
+        apply (Nat.le_sqrt).2
+        simpa [pow_two] using postRootPrimeFamily_quotient_sq_le hp
+      have hqrootR : ((W / p : ℕ) : ℝ) ≤ (Nat.sqrt W : ℝ) := by
+        exact_mod_cast hqroot
+      have hqnonneg : 0 ≤ ((W / p : ℕ) : ℝ) := by positivity
+      have hsq : ((W / p : ℕ) : ℝ) ^ 2 ≤
+          (Nat.sqrt W : ℝ) * ((W / p : ℕ) : ℝ) := by
+        nlinarith
+      exact hcov.trans
+        (div_le_div_of_nonneg_right hsq (by norm_num : (0 : ℝ) ≤ 2))
+    _ = ((Nat.sqrt W : ℝ) / 2) *
+        (∑ p ∈ postRootPrimeFamilySet W, ((W / p : ℕ) : ℝ)) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro p _hp
+      ring
+    _ ≤ ((Nat.sqrt W : ℝ) / 2) * (W : ℝ) := by
+      exact mul_le_mul_of_nonneg_left hpack (by positivity)
+    _ = ((Nat.sqrt W : ℝ) * (W : ℝ)) / 2 := by ring
+
+/-- **Unconditional negative-remainder bound.**  Combining the universal
+`-W/2` lower bound for the global covariance with exact product packing of all
+removed post-root quotients gives
+
+`E(W) >= -(W + W*floor(sqrt W))/2`.
+
+Thus the negative side of the signed remainder is already only order
+`W^(3/2)`, with no PNT error term, independence hypothesis, record condition,
+or asymptotic input. -/
+theorem neg_half_endpoint_add_sqrt_mul_endpoint_le_postRootCovarianceRemainder
+    (W : ℕ) :
+    -(W : ℝ) / 2 - ((Nat.sqrt W : ℝ) * (W : ℝ)) / 2 ≤
+      postRootCovarianceRemainder W := by
+  have hglobal := neg_half_endpoint_le_realMertensPositiveLagPairSum_succ W
+  have hfamily :=
+    postRootPrimeFamilyCovarianceTotal_le_half_sqrt_mul_endpoint W
+  unfold postRootCovarianceRemainder
+  linarith
 
 /-- **Unconditional subquadratic remainder envelope.**  The repository's
 finished strong Mertens theorem transfers through the Bessel inequality with
@@ -162,18 +268,10 @@ theorem postRootCovarianceRemainder_le_strongMertensSubexp :
       Real.exp (-c * (Real.log (W : ℝ)) ^ ((1 : ℝ) / 10))
   have hbound : |nativeMertensSummatory W| ≤ R := by
     simpa [R] using hM W hW
-  have hnn : 0 ≤ |nativeMertensSummatory W| := abs_nonneg _
-  have hsqMul := mul_self_le_mul_self hnn hbound
-  have hsq : nativeMertensSummatory W ^ 2 ≤ R ^ 2 := by
-    calc
-      nativeMertensSummatory W ^ 2 = |nativeMertensSummatory W| ^ 2 :=
-        (sq_abs _).symm
-      _ ≤ R ^ 2 := by
-        simpa [pow_two] using hsqMul
-  have hhalf := postRootCovarianceRemainder_le_half_mertensSquare W
-  rw [realMertensLength_succ_eq_nativeMertensSummatory W] at hhalf
-  have hfinal := hhalf.trans
-    (div_le_div_of_nonneg_right hsq (by norm_num : (0 : ℝ) ≤ 2))
-  simpa [R] using hfinal
+  have hR : 0 ≤ R := by
+    dsimp [R]
+    positivity
+  rw [← realMertensLength_succ_eq_nativeMertensSummatory] at hbound
+  exact postRootCovarianceRemainder_le_of_mertensMajorant hR hbound
 
 end RHLean.Proof
