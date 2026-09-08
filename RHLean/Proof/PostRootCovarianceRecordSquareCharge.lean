@@ -14,10 +14,16 @@ of the two discrete Mertens-square increments:
 
 `2 * outerRow = DeltaM2(W+1) - DeltaM2(c)`.
 
-Thus a positive #600 record is not merely controlled by a cumulative family
-sum: its individual Mobius row is paid by a literal difference of cumulative
-Mertens square-energy rows.  The fresh-prime specialization has lower seat
-`c=1`, so `DeltaM2(W+1) = 1 + 2 * innovation`.
+At a positive record the already-proved square-energy record threshold says the
+new cumulative Mertens square strictly dominates every transported lower square.
+Because both Mertens values are integer-valued, the gap between the physical
+and lower cumulative prefixes then has magnitude at least one.  This converts
+the exact row identity into the one-sided per-Mobius charge
+
+`outerRow <= M_new^2 - M_lower^2`,
+
+and hence bounds the record excess by that same cumulative square gap at the
+physical endpoint normalization.
 
 The final section also records the sharp unconditional finite-horizon ceiling
 coming directly from the already-proved `E(W) <= W^2`: for `0 <= eps <= 1`,
@@ -151,6 +157,192 @@ theorem two_mul_envelope_succ_mul_rpow_lt_squareStep_sub_one_of_prime_record
       ε hε hW hrec
   have hs := realMertensSquareStep_eq_one_add_two_mul_localInnovation_of_prime hprime
   nlinarith
+
+/-! ## From one Mobius row to its cumulative square share -/
+
+/-- Two distinct integer-valued Mertens prefixes differ in absolute value by at
+least one.  The strict square inequality is a convenient way to certify their
+distinctness in the record argument below. -/
+private theorem one_le_abs_realMertensLength_sub_of_sq_lt
+    {A B : ℕ}
+    (h : realMertensLength B ^ 2 < realMertensLength A ^ 2) :
+    1 ≤ |realMertensLength A - realMertensLength B| := by
+  let a : ℤ := ∑ n ∈ Finset.range A, μ n
+  let b : ℤ := ∑ n ∈ Finset.range B, μ n
+  have ha : (a : ℝ) = realMertensLength A := by
+    simp [a, realMertensLength, realMoebiusStep]
+  have hb : (b : ℝ) = realMertensLength B := by
+    simp [b, realMertensLength, realMoebiusStep]
+  have hab : a ≠ b := by
+    intro heq
+    have hre : realMertensLength A = realMertensLength B := by
+      rw [← ha, ← hb, heq]
+    rw [hre] at h
+    exact (lt_irrefl _) h
+  have hsplit : a - b ≤ -1 ∨ 1 ≤ a - b := by omega
+  rcases hsplit with hneg | hpos
+  · have hr : realMertensLength A - realMertensLength B ≤ (-1 : ℝ) := by
+      have hz : ((a - b : ℤ) : ℝ) ≤ (-1 : ℝ) := by exact_mod_cast hneg
+      rw [Int.cast_sub, ha, hb] at hz
+      exact hz
+    rw [abs_of_nonpos (by linarith)]
+    linarith
+  · have hr : (1 : ℝ) ≤ realMertensLength A - realMertensLength B := by
+      have hz : (1 : ℝ) ≤ ((a - b : ℤ) : ℝ) := by exact_mod_cast hpos
+      rw [Int.cast_sub, ha, hb] at hz
+      exact hz
+    rw [abs_of_nonneg (by linarith)]
+    exact hr
+
+/-- If a unit-signed linear row points in the same direction as a positive
+integer square gap, the row is no larger than that cumulative square gap. -/
+private theorem signed_sum_le_square_gap
+    {u x y : ℝ}
+    (hu : |u| = 1)
+    (hrow : 0 < -u * (x + y))
+    (hgap : y ^ 2 < x ^ 2)
+    (hdiff : 1 ≤ |x - y|) :
+    -u * (x + y) ≤ x ^ 2 - y ^ 2 := by
+  have hrowAbs : -u * (x + y) = |x + y| := by
+    calc
+      -u * (x + y) = |-u * (x + y)| := (abs_of_pos hrow).symm
+      _ = |-u| * |x + y| := abs_mul _ _
+      _ = |x + y| := by rw [abs_neg, hu, one_mul]
+  have hgapPos : 0 < x ^ 2 - y ^ 2 := sub_pos.mpr hgap
+  calc
+    -u * (x + y) = |x + y| := hrowAbs
+    _ = 1 * |x + y| := by ring
+    _ ≤ |x - y| * |x + y| :=
+      mul_le_mul_of_nonneg_right hdiff (abs_nonneg _)
+    _ = |(x - y) * (x + y)| := (abs_mul _ _).symm
+    _ = |x ^ 2 - y ^ 2| := by congr 1 <;> ring
+    _ = x ^ 2 - y ^ 2 := abs_of_pos hgapPos
+
+/-- **Per-Mobius cumulative charge bound.**  At a positive record with an
+active post-root divisor `p`, the dangerous outer row is no larger than the
+literal cumulative Mertens square gap between the new physical prefix and the
+transported lower prefix.  No family norm or cancellation hypothesis appears. -/
+theorem postRootRecordOuterRowNumerator_le_currentSquare_sub_lowerSquare
+    (ε : ℝ) (hε : 0 ≤ ε) {W p : ℕ} (hW : 2 ≤ W)
+    (hp : p.Prime) (hmem : p ∈ postRootPrimeFamilySet (W + 1))
+    (hdvd : p ∣ W + 1)
+    (hrec : 0 < postRootCovariancePowerRecordExcess ε W) :
+    realMoebiusStep (W + 1) * realMertensLength (W + 1) -
+        postRootPrimeFamilyCovarianceRowTotal W ≤
+      realMertensLength (W + 2) ^ 2 -
+        realMertensLength ((W + 1) / p + 1) ^ 2 := by
+  let c := (W + 1) / p
+  have hpRoot := (mem_postRootPrimeFamilySet.mp hmem).1
+  have hlt : W + 1 < p * p := (Nat.sqrt_lt).1 hpRoot
+  have hc : c < p := by
+    dsimp [c]
+    exact (Nat.div_lt_iff_lt_mul hp.pos).2 hlt
+  have hmul : p * c = W + 1 := by
+    dsimp [c]
+    exact Nat.mul_div_cancel' hdvd
+  have hmu : realMoebiusStep (W + 1) = -realMoebiusStep c := by
+    rw [← hmul, realMoebiusStep_prime_mul_of_lt hp hc]
+  have hsum :
+      realMertensLength (W + 1) + realMertensLength c =
+        realMertensLength (W + 2) + realMertensLength (c + 1) := by
+    rw [show W + 2 = (W + 1) + 1 by omega,
+      realMertensLength_succ, realMertensLength_succ, hmu]
+    ring
+  have houterEq :
+      realMoebiusStep (W + 1) * realMertensLength (W + 1) -
+          postRootPrimeFamilyCovarianceRowTotal W =
+        -realMoebiusStep c *
+          (realMertensLength (W + 2) + realMertensLength (c + 1)) := by
+    have h := postRootRecordOuterRowNumerator_eq_complementaryPrefix hp hmem hdvd
+    dsimp [c] at h ⊢
+    rw [hsum] at h
+    exact h
+  have hlocal :=
+    postRootCovarianceLocalInnovation_eq_outerRow_of_activePostRootDivisor hp hmem hdvd
+  have hthr :=
+    postRootCovariancePowerEnvelope_succ_mul_rpow_lt_localInnovation_of_recordExcess_pos
+      ε hε hW hrec
+  rw [hlocal] at hthr
+  have hleft :
+      0 ≤ postRootCovariancePowerEnvelope ε (W + 1) *
+        Real.rpow ((W + 1 : ℕ) : ℝ) ε :=
+    mul_nonneg (postRootCovariancePowerEnvelope_nonneg ε (W + 1))
+      (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+  have houterPos :
+      0 < realMoebiusStep (W + 1) * realMertensLength (W + 1) -
+        postRootPrimeFamilyCovarianceRowTotal W :=
+    lt_of_le_of_lt hleft hthr
+  have hmunz : realMoebiusStep c ≠ 0 := by
+    intro hz
+    rw [houterEq, hz] at houterPos
+    norm_num at houterPos
+  have hmuabs : |realMoebiusStep c| = 1 := by
+    rcases ArithmeticFunction.moebius_eq_or c with h | h | h <;>
+      simp [realMoebiusStep, h] at hmunz ⊢
+  have hfamilyTerm :
+      realMertensLength (c + 1) ^ 2 ≤ postRootFamilyMertensSquareEnergy (W + 1) := by
+    rw [postRootFamilyMertensSquareEnergy_eq_sum_realMertensLength_sq]
+    dsimp [c]
+    exact Finset.single_le_sum
+      (fun q _ => sq_nonneg (realMertensLength ((W + 1) / q + 1))) hmem
+  have hrecordSq :=
+    postRootFamilySquareEnergy_add_recordThreshold_lt_outerSquare_of_recordExcess_pos
+      ε (show 1 ≤ W by omega) hrec
+  have hthreshold :
+      0 ≤ 2 * Real.rpow ((W + 1 : ℕ) : ℝ) (1 + ε) *
+        postRootCovariancePowerEnvelope ε W :=
+    mul_nonneg
+      (mul_nonneg (by norm_num) (Real.rpow_nonneg (Nat.cast_nonneg _) _))
+      (postRootCovariancePowerEnvelope_nonneg ε W)
+  have hgap :
+      realMertensLength (c + 1) ^ 2 < realMertensLength (W + 2) ^ 2 := by
+    have hW2 : W + 1 + 1 = W + 2 := by omega
+    rw [hW2] at hrecordSq
+    nlinarith
+  have hdiff :
+      1 ≤ |realMertensLength (W + 2) - realMertensLength (c + 1)| :=
+    one_le_abs_realMertensLength_sub_of_sq_lt hgap
+  rw [houterEq]
+  exact signed_sum_le_square_gap hmuabs
+    (by simpa [houterEq] using houterPos) hgap hdiff
+
+/-- **Normalized record-excess bound.**  On an active high-prime record, the
+new #600 record excess is bounded by its literal cumulative Mertens-square gap,
+normalized only once at the physical endpoint. -/
+theorem postRootCovariancePowerRecordExcess_le_currentSquareGap
+    (ε : ℝ) (hε : 0 < ε) {W p : ℕ} (hW : 2 ≤ W)
+    (hp : p.Prime) (hmem : p ∈ postRootPrimeFamilySet (W + 1))
+    (hdvd : p ∣ W + 1)
+    (hrec : 0 < postRootCovariancePowerRecordExcess ε W) :
+    postRootCovariancePowerRecordExcess ε W ≤
+      (realMertensLength (W + 2) ^ 2 -
+        realMertensLength ((W + 1) / p + 1) ^ 2) /
+          Real.rpow ((W + 1 : ℕ) : ℝ) (1 + ε) := by
+  have hlocal :=
+    postRootCovarianceLocalInnovation_eq_outerRow_of_activePostRootDivisor hp hmem hdvd
+  have houter :=
+    postRootRecordOuterRowNumerator_le_currentSquare_sub_lowerSquare
+      ε hε.le hW hp hmem hdvd hrec
+  have hthr :=
+    postRootCovariancePowerEnvelope_succ_mul_rpow_lt_localInnovation_of_recordExcess_pos
+      ε hε.le hW hrec
+  rw [hlocal] at hthr
+  have hleft :
+      0 ≤ postRootCovariancePowerEnvelope ε (W + 1) *
+        Real.rpow ((W + 1 : ℕ) : ℝ) ε :=
+    mul_nonneg (postRootCovariancePowerEnvelope_nonneg ε (W + 1))
+      (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+  have houterPos :
+      0 < realMoebiusStep (W + 1) * realMertensLength (W + 1) -
+        postRootPrimeFamilyCovarianceRowTotal W :=
+    lt_of_le_of_lt hleft hthr
+  have hscale : 0 < Real.rpow ((W + 1 : ℕ) : ℝ) (1 + ε) :=
+    Real.rpow_pos_of_pos (by positivity) _
+  have hbudget := postRootCovariancePowerRecordExcess_le_localInnovationBudget
+    ε hε hW
+  unfold postRootCovariancePowerLocalInnovationBudget at hbudget
+  rw [hlocal, max_eq_right (div_nonneg houterPos.le hscale.le)] at hbudget
+  exact hbudget.trans (div_le_div_of_nonneg_right houter hscale.le)
 
 /-! ## Sharp unconditional finite-horizon ceiling -/
 
