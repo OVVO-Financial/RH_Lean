@@ -8,7 +8,104 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
-## Current continuation: individual inherited rows and cumulative energy
+## Current continuation: the record step is the carrier
+
+`PostRootCovarianceRecordAbsorption.lean` moves the whole remaining problem
+onto the record step of the #600 envelope.  Three things are proved.
+
+### Exact wall split, no triangle inequality
+
+```text
+postRootCovariancePowerLocalInnovationBudget eps N
+  = postRootRecordOuterRowSeat eps N + postRootRecordDepartureSeat eps N.
+```
+
+This is an equality.  The two mechanisms have disjoint support: at a
+prime-square endpoint `W+1 = p^2` the physical Moebius row is zero (`p^2` is
+not squarefree) and the entire active inherited row total is zero (the only
+prime that could divide `W+1` is `p`, which has already left the family set);
+away from a prime square the departure is zero.  So no positive part is split
+across a cancelling pair, and `mu(W+1) M(W)` never has an absolute value taken.
+
+At a post-root quotient jump the outer row numerator is identified exactly:
+
+```text
+mu(W+1) M(W) - activeInheritedRow(W)
+  = -mu(c) * (M(W) + M(c-1)),   c = (W+1)/p,  p > sqrt(W+1),  p | W+1.
+```
+
+### Record threshold: one full endpoint power
+
+A positive record at `N >= 2` forces the old envelope to beat the *increment*
+of the endpoint scale, because the old remainder is already bounded by the old
+envelope at the old scale:
+
+```text
+env(N) * ((N+1)^(1+eps) - N^(1+eps)) < innovation(N),
+env(N)   * N^eps     < innovation(N),
+env(N+1) * (N+1)^eps < innovation(N).
+```
+
+This is one full power stronger than the naive `innovation / (N+1)^(1+eps)`
+localization, and the gain comes from the record hypothesis, not from an
+absolute value.  At a fresh prime the innovation is `-M(N)`, so a record there
+forces `M(N) < -env(N) * N^eps`.
+
+### The square wall is absorbed by its `p^2` sparsity
+
+The departure is supported exactly on prime squares and equals the complete
+lower covariance there:
+
+```text
+departure(W) = 0                                   if no prime p has p*p = W+1,
+departure(p^2 - 1) = C(p) = realMertensPositiveLagPairSum p.
+```
+
+Since `2 C(K) = M(K-1)^2 - diagonal(K)` and the diagonal is nonnegative, the
+normalized wall seat is at most `A^M_eps(X) / (2 p^(1+eps))`, and the whole
+horizon sum is bounded unconditionally:
+
+```text
+sum_{N < X} departureSeat_eps(N)
+  <= (A^M_eps(X) / 2) * sum'_{k} k^-(1+eps).
+```
+
+`A^M_eps` is the #600 Mertens square envelope, and
+`mertensSquarePowerEnvelopeBounded_iff_mertensEnergyBounded` shows it is
+*exactly* the terminal Mertens energy criterion.  So the departure costs one
+fixed constant relative to the target itself and contributes no growth of its
+own.  This is an absorption theorem, not an assumption that the wall is
+harmless.
+
+### What is still open
+
+`postRootRecordAbsorptionEnvelope` is the record-conditioned budget
+
+```text
+g_eps(N) = if env(N) < seat(N+1) then outerRowSeat + departureSeat else 0,
+r_eps(N) <= g_eps(N),
+sup_X sum_{N < X} g_eps(N) < infinity  ==>  MertensEnergyBoundedStatement.
+```
+
+**The record indicator is not cosmetic.**  Dropping it leaves the pointwise
+positive part of `mu(N+1) M(N)`, of size about `N^(-1/2-eps)` on a positive
+density set, whose sum diverges.  Any majorant that re-bounds every step by the
+same worst-case threshold therefore cannot close the seam; record sparsity has
+to be used.  Numerically, for `eps = 0.1` and `X = 20000` the unconditioned
+outer-row seat sum is already `6.36` and growing, while the record-conditioned
+sum is `0.119` with a single record in the whole range.
+
+The remaining arithmetic seam is exactly
+
+```text
+sup_X sum_{N < X} postRootRecordOuterRowRecordSeat eps N < infinity,
+```
+
+the record-breaking physical new row after inherited high transport has been
+removed.  Nothing in this module bounds it.  Consult Hosted Lean CI for the
+compilation status of this head.
+
+## Previous continuation: individual inherited rows and cumulative energy
 
 `PostRootCovarianceRowEnergy.lean` moves the lower-prefix estimate inside the
 unit-step covariance row.  It proves, for all `W,p`,
