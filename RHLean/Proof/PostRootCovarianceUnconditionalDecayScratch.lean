@@ -104,6 +104,50 @@ theorem roughMertens_one_eq_sixWheel_twoBands (B : ℕ) :
   unfold roughInterval
   omega
 
+/-- **The wheel really iterates.**  Adjoining the next fresh prime `5` refines
+both surviving `6`-rough bands by the same finite difference.  Thus the
+physical prefix is already a four-band signed `30`-rough staircase:
+
+`T_1(B) = T_30(B/2,B] - T_30(B/10,B/5]
+          - T_30(B/6,B/3] + T_30(B/30,B/15]`.
+
+Nothing is restarted when the prime is added: every previously processed
+coordinate is retained and the new prime simply differences the existing
+surviving bands. -/
+theorem roughMertens_one_eq_thirtyWheel_fourBands (B : ℕ) :
+    roughMertens 1 B =
+      roughInterval 30 (B / 2) B -
+        roughInterval 30 (B / 10) (B / 5) -
+        roughInterval 30 (B / 6) (B / 3) +
+        roughInterval 30 (B / 30) (B / 15) := by
+  have hsq6 : Squarefree 6 := by
+    simpa using
+      (Nat.squarefree_mul (by norm_num : Nat.Coprime 2 3)).2
+        ⟨Nat.prime_two.squarefree, (show Nat.Prime 3 by norm_num).squarefree⟩
+  have hsq30 : Squarefree 30 := by
+    simpa using
+      (Nat.squarefree_mul (by norm_num : Nat.Coprime 5 6)).2
+        ⟨(show Nat.Prime 5 by norm_num).squarefree, hsq6⟩
+  have htop :=
+    roughInterval_wheel_recursion
+      (W := 30) (p := 5) (by norm_num) (by norm_num) hsq30 (B / 2) B
+  have hlow :=
+    roughInterval_wheel_recursion
+      (W := 30) (p := 5) (by norm_num) (by norm_num) hsq30 (B / 6) (B / 3)
+  norm_num at htop hlow
+  have htop' :
+      roughInterval 6 (B / 2) B =
+        roughInterval 30 (B / 2) B -
+          roughInterval 30 (B / 10) (B / 5) := by
+    simpa [Nat.div_div_eq_div_mul] using htop
+  have hlow' :
+      roughInterval 6 (B / 6) (B / 3) =
+        roughInterval 30 (B / 6) (B / 3) -
+          roughInterval 30 (B / 30) (B / 15) := by
+    simpa [Nat.div_div_eq_div_mul] using hlow
+  rw [roughMertens_one_eq_sixWheel_twoBands B, htop', hlow']
+  ring
+
 private theorem primorial_squarefree_of_primes
     (S : Finset ℕ) (hprime : ∀ p ∈ S, Nat.Prime p) :
     Squarefree (RHLean.Arithmetic.primorial S) := by
