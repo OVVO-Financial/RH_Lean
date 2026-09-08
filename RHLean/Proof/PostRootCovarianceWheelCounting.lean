@@ -19,6 +19,30 @@ namespace RHLean.Proof
 
 open RHLean.Analysis RHLean.Arithmetic
 
+/-- The finite carrier used by the interval count has exactly Euler's
+reduced-residue cardinality; this connects the density calculation to that
+literal carrier. -/
+theorem roughWheelResidues_card_eq_totient (W : ℕ) :
+    (roughWheelResidues W).card = Nat.totient W := by
+  unfold roughWheelResidues Nat.totient
+  congr 1
+  apply Finset.filter_congr
+  intro n _hn
+  exact Nat.coprime_comm
+
+/-- Fresh-prime residue contraction on the same finite counting carrier. -/
+theorem roughWheelResidueDensity_mul_freshPrime
+    {W p : ℕ} (hW : 0 < W) (hp : Nat.Prime p) (hcop : Nat.Coprime W p) :
+    ((roughWheelResidues (W * p)).card : ℝ) / ((W * p : ℕ) : ℝ) =
+      ((roughWheelResidues W).card : ℝ) / W * (1 - 1 / (p : ℝ)) := by
+  rw [roughWheelResidues_card_eq_totient, Nat.totient_mul hcop,
+    Nat.totient_prime hp, roughWheelResidues_card_eq_totient]
+  rw [Nat.cast_mul, Nat.cast_mul, Nat.cast_sub hp.one_lt.le, Nat.cast_one]
+  have hWR : (W : ℝ) ≠ 0 := by exact_mod_cast hW.ne'
+  have hpR : (p : ℝ) ≠ 0 := by exact_mod_cast hp.ne_zero
+  field_simp [hWR, hpR]
+  <;> ring
+
 /-- The covariance prefix and the wheel-one prefix have identical endpoints. -/
 theorem realMertensLength_succ_eq_roughMertens_one (B : ℕ) :
     realMertensLength (B + 1) = (roughMertens 1 B : ℝ) := by
