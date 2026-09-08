@@ -26,7 +26,7 @@ and hence bounds the record excess by that same cumulative square gap at the
 physical endpoint normalization.
 
 The final section also records the sharp unconditional finite-horizon ceiling
-coming directly from the already-proved `E(W) <= W^2`: for `0 <= eps <= 1`,
+coming directly from the already-proved `E(W) <= W^2`: for `eps <= 1`,
 `envelope_eps(X) <= X^(1-eps)`.  This corrects the weaker constant-three
 ceiling inherited from the source branch; it does not claim a subquadratic
 remainder bound.
@@ -77,9 +77,13 @@ theorem two_mul_postRootRecordOuterRowNumerator_eq_squareStep_sub_lower
           realMertensLength ((W + 1) / p) := by
     rw [postRootPrimeFamilyCovarianceRowTotal_eq_single_of_dvd hmem hdvd,
       postRootLowerCovarianceRow_eq_ite, if_pos hdvd, hquot]
+  have hmuMul :
+      realMoebiusStep (p * ((W + 1) / p)) =
+        -realMoebiusStep ((W + 1) / p) :=
+    realMoebiusStep_prime_mul_of_lt hp hc
+  rw [hmul] at hmuMul
   have hmu :
-      realMoebiusStep (W + 1) = -realMoebiusStep ((W + 1) / p) := by
-    rw [← hmul, realMoebiusStep_prime_mul_of_lt hp hc]
+      realMoebiusStep (W + 1) = -realMoebiusStep ((W + 1) / p) := hmuMul
   rw [hrow, realMertensSquareStep_eq_diagonal_add_two_mul_row,
     realMertensSquareStep_eq_diagonal_add_two_mul_row, hmu]
   ring
@@ -215,7 +219,9 @@ private theorem signed_sum_le_square_gap
     _ ≤ |x - y| * |x + y| :=
       mul_le_mul_of_nonneg_right hdiff (abs_nonneg _)
     _ = |(x - y) * (x + y)| := (abs_mul _ _).symm
-    _ = |x ^ 2 - y ^ 2| := by congr 1 <;> ring
+    _ = |x ^ 2 - y ^ 2| := by
+      congr 1
+      ring
     _ = x ^ 2 - y ^ 2 := abs_of_pos hgapPos
 
 /-- **Per-Mobius cumulative charge bound.**  At a positive record with an
@@ -242,11 +248,14 @@ theorem postRootRecordOuterRowNumerator_le_currentSquare_sub_lowerSquare
     exact Nat.mul_div_cancel' hdvd
   have hmu : realMoebiusStep (W + 1) = -realMoebiusStep c := by
     rw [← hmul, realMoebiusStep_prime_mul_of_lt hp hc]
+  have hphys := realMertensLength_succ (W + 1)
+  have hlow := realMertensLength_succ c
+  have hW2 : W + 1 + 1 = W + 2 := by omega
+  rw [hW2] at hphys
   have hsum :
       realMertensLength (W + 1) + realMertensLength c =
         realMertensLength (W + 2) + realMertensLength (c + 1) := by
-    rw [show W + 2 = (W + 1) + 1 by omega,
-      realMertensLength_succ, realMertensLength_succ, hmu]
+    rw [hphys, hlow, hmu]
     ring
   have houterEq :
       realMoebiusStep (W + 1) * realMertensLength (W + 1) -
@@ -277,8 +286,10 @@ theorem postRootRecordOuterRowNumerator_le_currentSquare_sub_lowerSquare
     rw [houterEq, hz] at houterPos
     norm_num at houterPos
   have hmuabs : |realMoebiusStep c| = 1 := by
-    rcases ArithmeticFunction.moebius_eq_or c with h | h | h <;>
-      simp [realMoebiusStep, h] at hmunz ⊢
+    rcases ArithmeticFunction.moebius_eq_or c with h | h | h
+    · simp [realMoebiusStep, h] at hmunz
+    · simp [realMoebiusStep, h]
+    · simp [realMoebiusStep, h]
   have hfamilyTerm :
       realMertensLength (c + 1) ^ 2 ≤ postRootFamilyMertensSquareEnergy (W + 1) := by
     rw [postRootFamilyMertensSquareEnergy_eq_sum_realMertensLength_sq]
@@ -296,15 +307,19 @@ theorem postRootRecordOuterRowNumerator_le_currentSquare_sub_lowerSquare
       (postRootCovariancePowerEnvelope_nonneg ε W)
   have hgap :
       realMertensLength (c + 1) ^ 2 < realMertensLength (W + 2) ^ 2 := by
-    have hW2 : W + 1 + 1 = W + 2 := by omega
-    rw [hW2] at hrecordSq
+    have hW2' : W + 1 + 1 = W + 2 := by omega
+    rw [hW2'] at hrecordSq
     nlinarith
   have hdiff :
       1 ≤ |realMertensLength (W + 2) - realMertensLength (c + 1)| :=
     one_le_abs_realMertensLength_sub_of_sq_lt hgap
+  have houterPos' :
+      0 < -realMoebiusStep c *
+        (realMertensLength (W + 2) + realMertensLength (c + 1)) := by
+    rw [← houterEq]
+    exact houterPos
   rw [houterEq]
-  exact signed_sum_le_square_gap hmuabs
-    (by simpa [houterEq] using houterPos) hgap hdiff
+  exact signed_sum_le_square_gap hmuabs houterPos' hgap hdiff
 
 /-- **Normalized record-excess bound.**  On an active high-prime record, the
 new #600 record excess is bounded by its literal cumulative Mertens-square gap,
@@ -359,7 +374,9 @@ private theorem endpoint_sq_div_postRootPower_eq_rpow_one_sub
           rw [htwo]
     _ = Real.rpow (W : ℝ) ((2 : ℝ) - (1 + ε)) :=
       (Real.rpow_sub hpos (2 : ℝ) (1 + ε)).symm
-    _ = Real.rpow (W : ℝ) (1 - ε) := by congr 1 <;> ring
+    _ = Real.rpow (W : ℝ) (1 - ε) := by
+      congr 1
+      ring
 
 /-- The quadratic physical carrier bound already gives the exact normalized
 ceiling `W^(1-eps)` at one seat. -/
@@ -382,12 +399,12 @@ theorem postRootCovariancePowerSeat_le_rpow_one_sub
       _ = Real.rpow (W : ℝ) (1 - ε) :=
         endpoint_sq_div_postRootPower_eq_rpow_one_sub ε hWpos
 
-/-- **Sharp unconditional envelope ceiling.**  For `0 <= eps <= 1`, the running
+/-- **Sharp unconditional envelope ceiling.**  For `eps <= 1`, the running
 #600 envelope is at most `X^(1-eps)`.  This is stronger than the inherited
 constant-three record ceiling, but it is only a repackaging of `E(W) <= W^2`:
 multiplying back by `W^(1+eps)` still gives the quadratic remainder bound. -/
 theorem postRootCovariancePowerEnvelope_le_rpow_one_sub
-    (ε : ℝ) (hε : 0 ≤ ε) (hε1 : ε ≤ 1) {X : ℕ} (hX : 2 ≤ X) :
+    (ε : ℝ) (hε1 : ε ≤ 1) {X : ℕ} (hX : 2 ≤ X) :
     postRootCovariancePowerEnvelope ε X ≤ Real.rpow (X : ℝ) (1 - ε) := by
   have hexp : 0 ≤ 1 - ε := by linarith
   induction X, hX using Nat.le_induction with
