@@ -553,6 +553,7 @@ import RHLean.Proof.PostRootCovarianceRecordSquareCharge
 import RHLean.Proof.PostRootCovarianceRecordSquareChargeClosure
 import RHLean.Proof.PostRootCovarianceRowEnergy
 import RHLean.Proof.PostRootCovarianceUnconditionalDecayScratch
+import RHLean.Proof.PostRootCovarianceWheelCounting
 import RHLean.Proof.PostRootMertensSquareFiniteDifference
 import RHLean.Proof.PrefixCarrierOthelloWalls
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence

@@ -65,7 +65,12 @@ theorem card_roughWheelInterval_le_density
   have hcard : ((roughWheelInterval W a b).card : ℝ) ≤
       (((b / W : ℕ) : ℝ) + 1 - ((a / W : ℕ) : ℝ)) *
         (roughWheelResidues W).card := by
-    exact_mod_cast card_roughWheelInterval_le_periods (a := a) (b := b) hW
+    have hcast : ((roughWheelInterval W a b).card : ℝ) ≤
+        (((b / W + 1 - a / W) * (roughWheelResidues W).card : ℕ) : ℝ) := by
+      exact_mod_cast card_roughWheelInterval_le_periods (a := a) (b := b) hW
+    rw [Nat.cast_mul, Nat.cast_sub (by omega : a / W ≤ b / W + 1),
+      Nat.cast_add, Nat.cast_one] at hcast
+    exact hcast
   have ha : (a : ℝ) < ((a / W : ℕ) : ℝ) * W + W := by
     exact_mod_cast (show a < a / W * W + W by
       nlinarith [Nat.mod_add_div a W, Nat.mod_lt a hW])
