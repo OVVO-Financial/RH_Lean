@@ -389,12 +389,12 @@ theorem postRootPrimeFamilyCovarianceDeparture_eq_lowerPairSum
       have hqp : q = p := nat_mul_self_inj (by rw [hqsq, hsq])
       simp [hqp]
     · intro q hq
-      rw [Finset.mem_singleton] at hq
-      subst hq
+      have hqp : q = p := Finset.mem_singleton.mp hq
+      rw [hqp]
       refine Finset.mem_sdiff.mpr ⟨?_, ?_⟩
       · refine mem_postRootPrimeFamilySet.mpr ⟨?_, ?_, hp⟩
         · exact (Nat.sqrt_lt).2 (by omega)
-        · have hmul : q * 2 ≤ q * q := Nat.mul_le_mul_left q hp2
+        · have hmul : p * 2 ≤ p * p := Nat.mul_le_mul_left p hp2
           omega
       · intro hmem
         have hroot := (mem_postRootPrimeFamilySet.mp hmem).1
@@ -456,12 +456,13 @@ theorem postRootRecordDepartureSeat_le_of_primeSquare
   apply max_le
   · exact mul_nonneg (by linarith) (inv_nonneg.mpr hP.le)
   · rw [div_le_iff₀ (mul_pos hP hP)]
+    have hPne : Real.rpow (p : ℝ) (1 + ε) ≠ 0 := ne_of_gt hP
     have hrearrange :
         mertensSquarePowerEnvelope ε X / 2 * (Real.rpow (p : ℝ) (1 + ε))⁻¹ *
             (Real.rpow (p : ℝ) (1 + ε) * Real.rpow (p : ℝ) (1 + ε)) =
           mertensSquarePowerEnvelope ε X * Real.rpow (p : ℝ) (1 + ε) / 2 := by
-      field_simp
-      ring
+      rw [mul_assoc, ← mul_assoc (Real.rpow (p : ℝ) (1 + ε))⁻¹,
+        inv_mul_cancel₀ hPne, one_mul, div_mul_eq_mul_div]
     rw [hrearrange]
     exact hbound
 
@@ -520,7 +521,6 @@ theorem sum_postRootRecordDepartureSeat_le_sparsity
     (∑ N ∈ Finset.range X, postRootRecordDepartureSeat ε N) ≤
       mertensSquarePowerEnvelope ε X / 2 *
         postRootDepartureSparsityConstant ε := by
-  classical
   have hA := mertensSquarePowerEnvelope_nonneg ε X
   have hsupport :
       (∑ N ∈ Finset.range X, postRootRecordDepartureSeat ε N) =
@@ -549,7 +549,7 @@ theorem sum_postRootRecordDepartureSeat_le_sparsity
         omega
       · omega
     · show Nat.sqrt (N + 1) * Nat.sqrt (N + 1) - 1 = N
-      rw [hsqeq]
+      simp [hsqeq]
   have hstep1 :
       (∑ N ∈ departureWallIndices X, postRootRecordDepartureSeat ε N) ≤
         ∑ N ∈ (departureWallPrimes X).image (fun p => p * p - 1),
@@ -802,6 +802,71 @@ theorem postRootCovariancePowerEnvelopeBounded_of_recordAbsorptionSummable
         · exact fun j _ _ => postRootRecordAbsorptionEnvelope_nonneg ε j
       have hb := hbound N
       linarith
+
+/-- **The sharpest form of the seam.**  A pointwise `W^ε` bound on the local
+innovation, required only at record steps, already bounds the whole envelope.
+Compare the unconditional statement being replaced, which asks for `W^(1+ε)` at
+every endpoint: the record process has absorbed one full endpoint power. -/
+def PostRootRecordInnovationPowerBoundedStatement : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ D : ℝ, 0 ≤ D ∧
+      ∀ N : ℕ, 2 ≤ N → 0 < postRootCovariancePowerRecordExcess ε N →
+        postRootCovarianceLocalInnovation N ≤
+          D * Real.rpow ((N + 1 : ℕ) : ℝ) ε
+
+/-- **Record innovation closes the envelope.**  Between records the envelope is
+constant, and at a record the record-to-record absorption theorem replaces it by
+the current innovation over `(N+1)^ε`.  So a single pointwise power bound at
+record steps propagates to a uniform bound. -/
+theorem postRootCovariancePowerEnvelopeBounded_of_recordInnovationPowerBounded
+    (hinnovBound : PostRootRecordInnovationPowerBoundedStatement) :
+    PostRootCovariancePowerEnvelopeBoundedStatement := by
+  intro ε hε
+  rcases hinnovBound ε hε with ⟨D, hD, hbound⟩
+  have key : ∀ N : ℕ, 2 ≤ N →
+      postRootCovariancePowerEnvelope ε N ≤
+        max (postRootCovariancePowerEnvelope ε 2) D := by
+    intro N hN
+    induction N, hN using Nat.le_induction with
+    | base => exact le_max_left _ _
+    | succ N h2N ih =>
+        by_cases hrec : 0 < postRootCovariancePowerRecordExcess ε N
+        · have hN1pos : (0 : ℝ) < ((N + 1 : ℕ) : ℝ) := by
+            exact_mod_cast (show 0 < N + 1 by omega)
+          have hpos : (0 : ℝ) < Real.rpow ((N + 1 : ℕ) : ℝ) ε :=
+            Real.rpow_pos_of_pos hN1pos _
+          have hkey :=
+            postRootCovariancePowerEnvelope_succ_mul_rpow_lt_localInnovation_of_recordExcess_pos
+              ε hε.le h2N hrec
+          have hmul :
+              postRootCovariancePowerEnvelope ε (N + 1) *
+                  Real.rpow ((N + 1 : ℕ) : ℝ) ε <
+                D * Real.rpow ((N + 1 : ℕ) : ℝ) ε :=
+            lt_of_lt_of_le hkey (hbound N h2N hrec)
+          exact le_trans (lt_of_mul_lt_mul_right hmul hpos.le).le (le_max_right _ _)
+        · push_neg at hrec
+          have hzero : postRootCovariancePowerRecordExcess ε N = 0 :=
+            le_antisymm hrec (postRootCovariancePowerRecordExcess_nonneg ε N)
+          rw [postRootCovariancePowerEnvelope_succ_eq_add_recordExcess, hzero,
+            add_zero]
+          exact ih
+  refine ⟨max (postRootCovariancePowerEnvelope ε 2) D, ?_, ?_⟩
+  · exact le_trans (postRootCovariancePowerEnvelope_nonneg ε 2) (le_max_left _ _)
+  · intro N
+    by_cases hN : 2 ≤ N
+    · exact key N hN
+    · push_neg at hN
+      exact le_trans (postRootCovariancePowerEnvelope_mono ε (le_of_lt hN))
+        (le_max_left _ _)
+
+/-- The record-step innovation power bound reaches the protected Mertens energy
+criterion. -/
+theorem mertensEnergyBounded_of_postRootRecordInnovationPowerBounded
+    (hinnovBound : PostRootRecordInnovationPowerBoundedStatement) :
+    MertensEnergyBoundedStatement :=
+  mertensEnergyBounded_of_postRootCovariancePowerEnvelopeBounded
+    (postRootCovariancePowerEnvelopeBounded_of_recordInnovationPowerBounded
+      hinnovBound)
 
 /-- The record absorption seam reaches the protected Mertens energy criterion
 through the #599/#600 bootstrap. -/

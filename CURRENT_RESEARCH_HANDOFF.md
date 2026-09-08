@@ -95,14 +95,27 @@ to be used.  Numerically, for `eps = 0.1` and `X = 20000` the unconditioned
 outer-row seat sum is already `6.36` and growing, while the record-conditioned
 sum is `0.119` with a single record in the whole range.
 
-The remaining arithmetic seam is exactly
+There are two equivalent-strength formulations of what is left, both proved
+sufficient for the terminal criterion:
 
 ```text
 sup_X sum_{N < X} postRootRecordOuterRowRecordSeat eps N < infinity,
 ```
 
-the record-breaking physical new row after inherited high transport has been
-removed.  Nothing in this module bounds it.  Consult Hosted Lean CI for the
+and, sharper because it is pointwise rather than a sum,
+
+```text
+PostRootRecordInnovationPowerBoundedStatement:
+  for every eps > 0 there is D with
+  innovation(N) <= D * (N+1)^eps  at every N >= 2 with a positive record.
+```
+
+The second is the cleanest statement of the gain: the unconditional problem
+asks for `W^(1+eps)` at every endpoint, and the record process has absorbed one
+full endpoint power, leaving `W^eps` at record steps only.  By the exact wall
+split and the departure absorption, the only term in that innovation that is
+not already controlled is the record-breaking physical new row after inherited
+high transport has been removed.  Nothing in this module bounds it.  Consult Hosted Lean CI for the
 compilation status of this head.
 
 ## Previous continuation: individual inherited rows and cumulative energy
