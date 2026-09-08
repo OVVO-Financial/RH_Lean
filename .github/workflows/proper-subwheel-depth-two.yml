@@ -85,19 +85,19 @@ jobs:
         run: lake env lean research/PROPER_SUBWHEEL_DEPTH_TWO_REASSEMBLY.lean
 
       - name: Kernel-check sign-visible outer parity reassembly
-        run: lake env lean research/PROPER_SUBWHEEL_OUTER_PARITY_REASSEMBLY.lean
+        run: lake env sh -c 'LEAN_PATH=".:$LEAN_PATH" lean -o research/PROPER_SUBWHEEL_OUTER_PARITY_REASSEMBLY.olean research/PROPER_SUBWHEEL_OUTER_PARITY_REASSEMBLY.lean'
 
       - name: Kernel-check explicit half-root prime-pair shell
-        run: lake env lean research/HALF_ROOT_PRIME_PAIR_WEIGHT.lean
+        run: lake env sh -c 'LEAN_PATH=".:$LEAN_PATH" lean -o research/HALF_ROOT_PRIME_PAIR_WEIGHT.olean research/HALF_ROOT_PRIME_PAIR_WEIGHT.lean'
 
       - name: Kernel-check signed half-root pair discrepancy
-        run: lake env lean research/HALF_ROOT_PRIME_PAIR_DISCREPANCY.lean
+        run: lake env sh -c 'LEAN_PATH=".:$LEAN_PATH" lean -o research/HALF_ROOT_PRIME_PAIR_DISCREPANCY.olean research/HALF_ROOT_PRIME_PAIR_DISCREPANCY.lean'
 
       - name: Kernel-check nonzero pair first-jump carrier bridge
-        run: lake env lean research/HALF_ROOT_PRIME_PAIR_FIRST_JUMP.lean
+        run: lake env sh -c 'LEAN_PATH=".:$LEAN_PATH" lean -o research/HALF_ROOT_PRIME_PAIR_FIRST_JUMP.olean research/HALF_ROOT_PRIME_PAIR_FIRST_JUMP.lean'
 
       - name: Kernel-check weighted first-jump shell realization
-        run: lake env lean research/HALF_ROOT_WEIGHTED_FIRST_JUMP.lean
+        run: lake env sh -c 'LEAN_PATH=".:$LEAN_PATH" lean -o research/HALF_ROOT_WEIGHTED_FIRST_JUMP.olean research/HALF_ROOT_WEIGHTED_FIRST_JUMP.lean'
 
       - name: Kernel-check global weighted first-jump recoupling
-        run: lake env lean research/HALF_ROOT_RECOUPLED_FIRST_JUMP.lean
+        run: lake env sh -c 'LEAN_PATH=".:$LEAN_PATH" lean -o research/HALF_ROOT_RECOUPLED_FIRST_JUMP.olean research/HALF_ROOT_RECOUPLED_FIRST_JUMP.lean'
