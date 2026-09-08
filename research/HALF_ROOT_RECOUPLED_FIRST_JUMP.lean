@@ -41,12 +41,30 @@ theorem halfRoot_pairWeightSum_cast_eq_neg_weightedFirstJumpShell
       -halfRootWeightedFirstJumpShell R := by
   unfold halfRootWeightedFirstJumpShell
   push_cast
-  rw [Finset.neg_sum]
-  apply Finset.sum_congr rfl
-  intro p hp
-  rw [Finset.neg_sum]
-  apply Finset.sum_congr rfl
-  intro q hq
-  exact halfRootPrimePairWeight_eq_neg_weighted_firstJumpSlice hR hp hq
+  calc
+    (∑ p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R),
+        ∑ q ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (p - 1),
+          (((halfRootPrimePairWeight R p q : ℤ) : ℂ))) =
+      ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R),
+        ∑ q ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (p - 1),
+          -((((halfRootPrimePairWeight R p q : ℤ) : ℂ)) *
+            signedFirstJumpPrimeStateSlice R q (1, p)) := by
+      apply Finset.sum_congr rfl
+      intro p hp
+      apply Finset.sum_congr rfl
+      intro q hq
+      exact halfRootPrimePairWeight_eq_neg_weighted_firstJumpSlice hR hp hq
+    _ = ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R),
+        -(∑ q ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (p - 1),
+          (((halfRootPrimePairWeight R p q : ℤ) : ℂ)) *
+            signedFirstJumpPrimeStateSlice R q (1, p)) := by
+      apply Finset.sum_congr rfl
+      intro p _hp
+      rw [Finset.sum_neg_distrib]
+    _ = -(∑ p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R),
+        ∑ q ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (p - 1),
+          (((halfRootPrimePairWeight R p q : ℤ) : ℂ)) *
+            signedFirstJumpPrimeStateSlice R q (1, p)) := by
+      rw [Finset.sum_neg_distrib]
 
 end RHLean.Proof
