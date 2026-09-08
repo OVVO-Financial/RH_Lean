@@ -110,8 +110,8 @@ theorem primeWheelTruncatedMoebiusKernel_insert_sub
 
 private theorem primeWheelPrimorial_pos
     (S : Finset ℕ) (hprime : ∀ p ∈ S, Nat.Prime p) :
-    0 < primorial S := by
-  unfold primorial
+    0 < RHLean.Arithmetic.primorial S := by
+  unfold RHLean.Arithmetic.primorial
   exact Finset.prod_pos fun p hp => (hprime p hp).pos
 
 /-- Once the cutoff contains the complete nontrivial wheel, the signed kernel
@@ -119,19 +119,19 @@ vanishes exactly: all Boolean divisor faces have been admitted and their
 Mobius mass is zero. -/
 theorem primeWheelTruncatedMoebiusKernel_eq_zero_of_primorial_le
     (S : Finset ℕ) (hprime : ∀ p ∈ S, Nat.Prime p)
-    (hWne : primorial S ≠ 1) {X : ℕ}
-    (hWX : primorial S ≤ X) :
+    (hWne : RHLean.Arithmetic.primorial S ≠ 1) {X : ℕ}
+    (hWX : RHLean.Arithmetic.primorial S ≤ X) :
     primeWheelTruncatedMoebiusKernel S X = 0 := by
   have hWpos := primeWheelPrimorial_pos S hprime
   unfold primeWheelTruncatedMoebiusKernel
-  have hcut : ∀ d ∈ (primorial S).divisors, d ≤ X := by
+  have hcut : ∀ d ∈ (RHLean.Arithmetic.primorial S).divisors, d ≤ X := by
     intro d hd
-    have hdvd : d ∣ primorial S := Nat.dvd_of_mem_divisors hd
+    have hdvd : d ∣ RHLean.Arithmetic.primorial S := Nat.dvd_of_mem_divisors hd
     exact (Nat.le_of_dvd hWpos hdvd).trans hWX
   calc
-    (∑ d ∈ (primorial S).divisors,
+    (∑ d ∈ (RHLean.Arithmetic.primorial S).divisors,
         if d ≤ X then (μ d : ℤ) else 0) =
-      ∑ d ∈ (primorial S).divisors, (μ d : ℤ) := by
+      ∑ d ∈ (RHLean.Arithmetic.primorial S).divisors, (μ d : ℤ) := by
         apply Finset.sum_congr rfl
         intro d hd
         simp [hcut d hd]
@@ -182,32 +182,32 @@ theorem roughMertens_one_eq_primeWheel_kernelCorrelation
     (S : Finset ℕ) (hprime : ∀ p ∈ S, Nat.Prime p) (B : ℕ) :
     roughMertens 1 B =
       ∑ n ∈ Finset.Icc 1 B,
-        roughMoebius (primorial S) n *
+        roughMoebius (RHLean.Arithmetic.primorial S) n *
           primeWheelTruncatedMoebiusKernel S (B / n) := by
   rw [roughMertens_one_eq_primeWheel_divisorDifference S hprime B]
   simp_rw [roughMertens_eq_sum_Icc_one]
   calc
-    (∑ d ∈ (primorial S).divisors,
+    (∑ d ∈ (RHLean.Arithmetic.primorial S).divisors,
         (μ d : ℤ) *
-          ∑ n ∈ Finset.Icc 1 (B / d), roughMoebius (primorial S) n) =
-      ∑ d ∈ (primorial S).divisors,
+          ∑ n ∈ Finset.Icc 1 (B / d), roughMoebius (RHLean.Arithmetic.primorial S) n) =
+      ∑ d ∈ (RHLean.Arithmetic.primorial S).divisors,
         ∑ n ∈ Finset.Icc 1 B,
           if n ≤ B / d then
-            (μ d : ℤ) * roughMoebius (primorial S) n
+            (μ d : ℤ) * roughMoebius (RHLean.Arithmetic.primorial S) n
           else 0 := by
       apply Finset.sum_congr rfl
       intro d _hd
       rw [Finset.mul_sum]
       exact sum_Icc_div_eq_full_cutoff B d
-        (fun n => (μ d : ℤ) * roughMoebius (primorial S) n)
+        (fun n => (μ d : ℤ) * roughMoebius (RHLean.Arithmetic.primorial S) n)
     _ = ∑ n ∈ Finset.Icc 1 B,
-        ∑ d ∈ (primorial S).divisors,
+        ∑ d ∈ (RHLean.Arithmetic.primorial S).divisors,
           if n ≤ B / d then
-            (μ d : ℤ) * roughMoebius (primorial S) n
+            (μ d : ℤ) * roughMoebius (RHLean.Arithmetic.primorial S) n
           else 0 := by
       rw [Finset.sum_comm]
     _ = ∑ n ∈ Finset.Icc 1 B,
-        roughMoebius (primorial S) n *
+        roughMoebius (RHLean.Arithmetic.primorial S) n *
           primeWheelTruncatedMoebiusKernel S (B / n) := by
       apply Finset.sum_congr rfl
       intro n hn
@@ -215,21 +215,21 @@ theorem roughMertens_one_eq_primeWheel_kernelCorrelation
         exact (Finset.mem_Icc.mp hn).1
       unfold primeWheelTruncatedMoebiusKernel
       have hinner :
-          (∑ d ∈ (primorial S).divisors,
+          (∑ d ∈ (RHLean.Arithmetic.primorial S).divisors,
               if n ≤ B / d then
-                (μ d : ℤ) * roughMoebius (primorial S) n
+                (μ d : ℤ) * roughMoebius (RHLean.Arithmetic.primorial S) n
               else 0) =
-            (∑ d ∈ (primorial S).divisors,
+            (∑ d ∈ (RHLean.Arithmetic.primorial S).divisors,
               if d ≤ B / n then (μ d : ℤ) else 0) *
-                roughMoebius (primorial S) n := by
+                roughMoebius (RHLean.Arithmetic.primorial S) n := by
         calc
-          (∑ d ∈ (primorial S).divisors,
+          (∑ d ∈ (RHLean.Arithmetic.primorial S).divisors,
               if n ≤ B / d then
-                (μ d : ℤ) * roughMoebius (primorial S) n
+                (μ d : ℤ) * roughMoebius (RHLean.Arithmetic.primorial S) n
               else 0) =
-            ∑ d ∈ (primorial S).divisors,
+            ∑ d ∈ (RHLean.Arithmetic.primorial S).divisors,
               (if d ≤ B / n then (μ d : ℤ) else 0) *
-                roughMoebius (primorial S) n := by
+                roughMoebius (RHLean.Arithmetic.primorial S) n := by
               apply Finset.sum_congr rfl
               intro d hd
               have hdpos : 0 < d := Nat.pos_of_mem_divisors hd
@@ -245,9 +245,9 @@ theorem roughMertens_one_eq_primeWheel_kernelCorrelation
                   intro h
                   exact hdn (hcut.mp h)
                 simp [hdn, hnd]
-          _ = (∑ d ∈ (primorial S).divisors,
+          _ = (∑ d ∈ (RHLean.Arithmetic.primorial S).divisors,
               if d ≤ B / n then (μ d : ℤ) else 0) *
-                roughMoebius (primorial S) n := by
+                roughMoebius (RHLean.Arithmetic.primorial S) n := by
               rw [Finset.sum_mul]
       rw [hinner]
       ring
@@ -256,13 +256,13 @@ theorem roughMertens_one_eq_primeWheel_kernelCorrelation
 theorem roughMertens_one_eq_primeWheel_fullRoughSeatCorrelation
     (S : Finset ℕ) (hprime : ∀ p ∈ S, Nat.Prime p) (B : ℕ) :
     roughMertens 1 B =
-      ∑ n ∈ roughWheelInterval (primorial S) 0 B,
+      ∑ n ∈ roughWheelInterval (RHLean.Arithmetic.primorial S) 0 B,
         (μ n : ℤ) * primeWheelTruncatedMoebiusKernel S (B / n) := by
   rw [roughMertens_one_eq_primeWheel_kernelCorrelation S hprime B]
   have hset :
-      roughWheelInterval (primorial S) 0 B =
+      roughWheelInterval (RHLean.Arithmetic.primorial S) 0 B =
         (Finset.Icc 1 B).filter
-          (fun n => Nat.Coprime n (primorial S)) := by
+          (fun n => Nat.Coprime n (RHLean.Arithmetic.primorial S)) := by
     ext n
     simp only [roughWheelInterval, Finset.mem_filter, Finset.mem_Ioc,
       Finset.mem_Icc]
@@ -275,13 +275,14 @@ theorem roughMertens_one_eq_primeWheel_fullRoughSeatCorrelation
   apply Finset.sum_congr rfl
   intro n _hn
   unfold roughMoebius
-  by_cases hcop : Nat.Coprime n (primorial S) <;> simp [hcop]
+  by_cases hcop : Nat.Coprime n (RHLean.Arithmetic.primorial S) <;> simp [hcop]
 
 /-- The final physical carrier: only rough seats above the common anchor
 `B/W` are retained, because below that anchor the complete divisor cube has
 already entered and its signed kernel is exactly zero. -/
 def primeWheelRoughSeatCorrelation (S : Finset ℕ) (B : ℕ) : ℤ :=
-  ∑ n ∈ roughWheelInterval (primorial S) (B / primorial S) B,
+  ∑ n ∈ roughWheelInterval (RHLean.Arithmetic.primorial S)
+      (B / RHLean.Arithmetic.primorial S) B,
     (μ n : ℤ) * primeWheelTruncatedMoebiusKernel S (B / n)
 
 /-- **Exact rough-seat correlation identity.**  For every nontrivial finite
@@ -295,35 +296,38 @@ all band overlaps have been Fubini-collapsed into `K_S` before any absolute
 value is taken. -/
 theorem roughMertens_one_eq_primeWheel_roughSeatCorrelation
     (S : Finset ℕ) (hprime : ∀ p ∈ S, Nat.Prime p)
-    (hWne : primorial S ≠ 1) (B : ℕ) :
+    (hWne : RHLean.Arithmetic.primorial S ≠ 1) (B : ℕ) :
     roughMertens 1 B = primeWheelRoughSeatCorrelation S B := by
   rw [roughMertens_one_eq_primeWheel_fullRoughSeatCorrelation S hprime B]
   unfold primeWheelRoughSeatCorrelation
   have hWpos := primeWheelPrimorial_pos S hprime
-  let A := roughWheelInterval (primorial S) 0 B
+  let A := roughWheelInterval (RHLean.Arithmetic.primorial S) 0 B
   let f : ℕ → ℤ := fun n =>
     (μ n : ℤ) * primeWheelTruncatedMoebiusKernel S (B / n)
   have hset :
-      roughWheelInterval (primorial S) (B / primorial S) B =
-        A.filter (fun n => B / primorial S < n) := by
+      roughWheelInterval (RHLean.Arithmetic.primorial S)
+          (B / RHLean.Arithmetic.primorial S) B =
+        A.filter (fun n => B / RHLean.Arithmetic.primorial S < n) := by
     ext n
     simp only [A, roughWheelInterval, Finset.mem_filter, Finset.mem_Ioc]
     constructor
     · rintro ⟨⟨hnlow, hnB⟩, hcop⟩
-      exact ⟨⟨⟨by omega, hnB⟩, hcop⟩, hnlow⟩
+      have hnpos : 0 < n :=
+        lt_of_le_of_lt (Nat.zero_le (B / RHLean.Arithmetic.primorial S)) hnlow
+      exact ⟨⟨⟨hnpos, hnB⟩, hcop⟩, hnlow⟩
     · rintro ⟨⟨⟨_hn0, hnB⟩, hcop⟩, hnlow⟩
       exact ⟨⟨hnlow, hnB⟩, hcop⟩
   have hvanish :
-      ∀ n ∈ A, ¬ B / primorial S < n → f n = 0 := by
+      ∀ n ∈ A, ¬ B / RHLean.Arithmetic.primorial S < n → f n = 0 := by
     intro n hn hnot
-    have hnmem : n ∈ roughWheelInterval (primorial S) 0 B := by
+    have hnmem : n ∈ roughWheelInterval (RHLean.Arithmetic.primorial S) 0 B := by
       simpa [A] using hn
     have hnIoc := (Finset.mem_filter.mp hnmem).1
     have hnpos : 0 < n := (Finset.mem_Ioc.mp hnIoc).1
-    have hnle : n ≤ B / primorial S := by omega
-    have hmul : n * primorial S ≤ B :=
+    have hnle : n ≤ B / RHLean.Arithmetic.primorial S := by omega
+    have hmul : n * RHLean.Arithmetic.primorial S ≤ B :=
       (Nat.le_div_iff_mul_le hWpos).1 hnle
-    have hWcut : primorial S ≤ B / n := by
+    have hWcut : RHLean.Arithmetic.primorial S ≤ B / n := by
       apply (Nat.le_div_iff_mul_le hnpos).2
       simpa [Nat.mul_comm] using hmul
     have hkzero :=
@@ -333,17 +337,19 @@ theorem roughMertens_one_eq_primeWheel_roughSeatCorrelation
   change (∑ n ∈ A, f n) = _
   calc
     (∑ n ∈ A, f n) =
-        ∑ n ∈ A, if B / primorial S < n then f n else 0 := by
+        ∑ n ∈ A,
+          if B / RHLean.Arithmetic.primorial S < n then f n else 0 := by
       apply Finset.sum_congr rfl
       intro n hn
-      by_cases h : B / primorial S < n
+      by_cases h : B / RHLean.Arithmetic.primorial S < n
       · simp [h]
       · simp [h, hvanish n hn h]
-    _ = ∑ n ∈ A.filter (fun n => B / primorial S < n), f n := by
+    _ = ∑ n ∈ A.filter
+        (fun n => B / RHLean.Arithmetic.primorial S < n), f n := by
       rw [Finset.sum_filter]
-    _ = ∑ n ∈ roughWheelInterval (primorial S) (B / primorial S) B,
+    _ = ∑ n ∈ roughWheelInterval (RHLean.Arithmetic.primorial S)
+        (B / RHLean.Arithmetic.primorial S) B,
         (μ n : ℤ) * primeWheelTruncatedMoebiusKernel S (B / n) := by
       rw [← hset]
-      rfl
 
 end RHLean.Proof
