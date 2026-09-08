@@ -11,6 +11,7 @@ on:
       - research/HALF_ROOT_PRIME_PAIR_WEIGHT.lean
       - research/HALF_ROOT_PRIME_PAIR_DISCREPANCY.lean
       - research/HALF_ROOT_PRIME_PAIR_FIRST_JUMP.lean
+      - research/HALF_ROOT_WEIGHTED_FIRST_JUMP.lean
       - .github/workflows/proper-subwheel-depth-two.yml
   workflow_dispatch:
 
@@ -93,3 +94,6 @@ jobs:
 
       - name: Kernel-check nonzero pair first-jump carrier bridge
         run: lake env lean research/HALF_ROOT_PRIME_PAIR_FIRST_JUMP.lean
+
+      - name: Kernel-check weighted first-jump shell realization
+        run: lake env lean research/HALF_ROOT_WEIGHTED_FIRST_JUMP.lean
