@@ -7,8 +7,8 @@ on:
       - RHLean/Analysis/RoughWheelFiniteCounting.lean
       - RHLean/Proof/PostRootCovariancePrimeWheel210Scratch.lean
       - RHLean/Proof/PostRootCovarianceWheelCounting.lean
-      - RHLean/Proof/PostRootCovarianceWheel2310Refined.lean
       - research/WHEEL_2310_SECOND_OVERLAP_SCRATCH.lean
+      - research/WHEEL_2310_TWO_OVERLAP_IDENTITY.lean
       - .github/workflows/wheel-counting-lean.yml
   workflow_dispatch:
 
@@ -77,5 +77,5 @@ jobs:
         run: lake build RHLean.Analysis.RoughWheelFiniteCounting --wfail
       - name: Kernel-check 210 wheel staircase
         run: lake build RHLean.Proof.PostRootCovariancePrimeWheel210Scratch
-      - name: Kernel-check fully cancelled 2310 wheel
-        run: lake build RHLean.Proof.PostRootCovarianceWheel2310Refined
+      - name: Kernel-check exact two-overlap 2310 identity
+        run: lake env lean research/WHEEL_2310_TWO_OVERLAP_IDENTITY.lean
