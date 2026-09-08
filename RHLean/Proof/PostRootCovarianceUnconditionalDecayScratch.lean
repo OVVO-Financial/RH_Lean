@@ -1,5 +1,6 @@
 import RHLean.Proof.PostRootCovarianceGlobalExponentTransfer
 import RHLean.Analysis.DyadicTransportCanonicalForm
+import RHLean.Analysis.EulerCRTRoughnessRecursion
 import RHLean.Analysis.NativePNTAxer
 import RHLean.Analysis.StrongMertensLogNineBalance
 
@@ -57,6 +58,50 @@ theorem realMertensLength_succ_eq_oddDyadicAnnulus (B : ℕ) :
   have hre := congrArg Complex.re h
   simpa [RHLean.Analysis.mertensSummatory, dyadicCofactorBoundaryMass,
     canonicalMoebiusWeight, realMertensLength, realMoebiusStep] using hre
+
+/-! ## Iterating the wheel: `2` then `3`
+
+The dyadic annulus is only the first Euler coordinate.  The generic
+`roughMertens_wheel_recursion` already says that removing a prime from a
+squarefree wheel is the multiplicative finite difference at that prime.  Apply
+it first to the wheel `2`, then to `6 = 2*3`, at both dyadic endpoints.  The
+intermediate band cancels before any absolute value is taken.
+-/
+
+/-- **Exact two-prime wheel collapse.**  After adjoining `2` and `3`, the
+ordinary Mertens prefix is the difference of two `6`-rough interval masses:
+
+`T_1(B) = T_6(B/2,B] - T_6(B/6,B/3]`.
+
+In particular the entire middle reciprocal band `(B/3,B/2]` has coefficient
+zero.  This is the first concrete post-dyadic instance of the full iterative
+prime-wheel cancellation; it uses no estimate and no complete-period argument. -/
+theorem roughMertens_one_eq_sixWheel_twoBands (B : ℕ) :
+    roughMertens 1 B =
+      roughInterval 6 (B / 2) B -
+        roughInterval 6 (B / 6) (B / 3) := by
+  have hsq6 : Squarefree 6 := by
+    simpa using
+      (Nat.squarefree_mul (by norm_num : Nat.Coprime 2 3)).2
+        ⟨Nat.prime_two.squarefree, (show Nat.Prime 3 by norm_num).squarefree⟩
+  have h2 :=
+    roughMertens_wheel_recursion
+      (W := 2) (p := 2) Nat.prime_two (by norm_num)
+        Nat.prime_two.squarefree B
+  have h6B :=
+    roughMertens_wheel_recursion
+      (W := 6) (p := 3) (by norm_num) (by norm_num) hsq6 B
+  have h6half :=
+    roughMertens_wheel_recursion
+      (W := 6) (p := 3) (by norm_num) (by norm_num) hsq6 (B / 2)
+  unfold multDiff at h2 h6B h6half
+  norm_num at h2 h6B h6half
+  have hdiv : B / 2 / 3 = B / 6 := by
+    rw [Nat.div_div_eq_div_mul]
+    norm_num
+  rw [hdiv] at h6half
+  unfold roughInterval
+  omega
 
 /-! ## The elementary gain hidden by the coarse squarefree sieve -/
 
