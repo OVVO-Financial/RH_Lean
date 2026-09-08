@@ -649,8 +649,8 @@ theorem postRootCovariancePowerRecordExcess_le_localInnovationBudget
       postRootCovariancePowerLocalInnovationBudget ε N := by
   have hraw :=
     postRootCovariancePowerRecordExcess_le_rawIncrementBudget ε hε hN
-  unfold postRootCovariancePowerRawIncrementBudget
-    postRootCovariancePowerLocalInnovationBudget at hraw ⊢
+  unfold postRootCovariancePowerRawIncrementBudget at hraw
+  unfold postRootCovariancePowerLocalInnovationBudget
   rw [postRootCovarianceRemainder_succ_sub_eq_localInnovation] at hraw
   exact hraw
 
