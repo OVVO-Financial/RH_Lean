@@ -672,11 +672,11 @@ private theorem mem_departureWallIndices {X N : ℕ} :
     N ∈ departureWallIndices X ↔
       N < X ∧ Nat.Prime (Nat.sqrt (N + 1)) ∧
         Nat.sqrt (N + 1) * Nat.sqrt (N + 1) = N + 1 := by
-  simp [departureWallIndices, Finset.mem_filter, Finset.mem_range, and_assoc]
+  simp [departureWallIndices, Finset.mem_filter, Finset.mem_range]
 
 private theorem mem_departureWallPrimes {X p : ℕ} :
     p ∈ departureWallPrimes X ↔ p < X + 1 ∧ Nat.Prime p ∧ p * p ≤ X := by
-  simp [departureWallPrimes, Finset.mem_filter, Finset.mem_range, and_assoc]
+  simp [departureWallPrimes, Finset.mem_filter, Finset.mem_range]
 
 /-- **Square-wall absorption.**  Unconditionally, the total normalized
 square-wall departure over any horizon is at most half the running Mertens
