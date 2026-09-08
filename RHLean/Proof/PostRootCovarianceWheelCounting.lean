@@ -169,11 +169,18 @@ theorem abs_realMertensLength_succ_le_twoTenWheel (B : ℕ) :
   rw [roughWheelResidues_card_twoTen] at h7
   norm_num at h7
   obtain ⟨h7lo, h7hi⟩ := abs_le.mp h7
-  have hwidthNat : 35 * (B + B / 7 + B / 5 + B / 35 + B / 3 + B / 21 + B / 15 + B / 105) ≤
-      32 * B + 35 * (B / 2 + B / 14 + B / 10 + B / 70 + B / 6 + B / 42 + B / 30 + B / 210) + 280 := by omega
+  have hw0 := natDiv_interval_width_le B 2 1 (by norm_num) (by norm_num)
+  have hw1 := natDiv_interval_width_le B 14 7 (by norm_num) (by norm_num)
+  have hw2 := natDiv_interval_width_le B 10 5 (by norm_num) (by norm_num)
+  have hw3 := natDiv_interval_width_le B 70 35 (by norm_num) (by norm_num)
+  have hw4 := natDiv_interval_width_le B 6 3 (by norm_num) (by norm_num)
+  have hw5 := natDiv_interval_width_le B 42 21 (by norm_num) (by norm_num)
+  have hw6 := natDiv_interval_width_le B 30 15 (by norm_num) (by norm_num)
+  have hw7 := natDiv_interval_width_le B 210 105 (by norm_num) (by norm_num)
   have hwidth : (35 : ℝ) * ((B : ℝ) + ((B / 7 : ℕ) : ℝ) + ((B / 5 : ℕ) : ℝ) + ((B / 35 : ℕ) : ℝ) + ((B / 3 : ℕ) : ℝ) + ((B / 21 : ℕ) : ℝ) + ((B / 15 : ℕ) : ℝ) + ((B / 105 : ℕ) : ℝ)) ≤
       32 * (B : ℝ) + 35 * (((B / 2 : ℕ) : ℝ) + ((B / 14 : ℕ) : ℝ) + ((B / 10 : ℕ) : ℝ) + ((B / 70 : ℕ) : ℝ) + ((B / 6 : ℕ) : ℝ) + ((B / 42 : ℕ) : ℝ) + ((B / 30 : ℕ) : ℝ) + ((B / 210 : ℕ) : ℝ)) + 280 := by
-    exact_mod_cast hwidthNat
+    norm_num at hw0 hw1 hw2 hw3 hw4 hw5 hw6 hw7 ⊢
+    linarith
   rw [realMertensLength_succ_eq_roughMertens_one,
     roughMertens_one_eq_twoTenWheel_eightBands]
   push_cast
