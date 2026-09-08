@@ -541,14 +541,17 @@ import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.OrderedEulerCutProjection
 import RHLean.Proof.OrthogonalResidual
+import RHLean.Proof.PostRootCovarianceGlobalExponentTransfer
 import RHLean.Proof.PostRootCovarianceLcmBoundary
 import RHLean.Proof.PostRootCovarianceLcmBoundaryClosure
 import RHLean.Proof.PostRootCovarianceLcmInteriorPacking
 import RHLean.Proof.PostRootCovariancePowerEnvelope
+import RHLean.Proof.PostRootCovariancePrimeWheel210Scratch
 import RHLean.Proof.PostRootCovarianceRecordAbsorption
 import RHLean.Proof.PostRootCovarianceRecordSquareCharge
 import RHLean.Proof.PostRootCovarianceRecordSquareChargeClosure
 import RHLean.Proof.PostRootCovarianceRowEnergy
+import RHLean.Proof.PostRootCovarianceUnconditionalDecayScratch
 import RHLean.Proof.PostRootMertensSquareFiniteDifference
 import RHLean.Proof.PrefixCarrierOthelloWalls
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
