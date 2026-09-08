@@ -172,9 +172,7 @@ theorem roughWheelInterval_primesUpTo_squareRootEndpoint_eq_one_union_highPrimes
       · unfold squareRootEndpoint
         have hsq : 1 < R ^ 2 := by nlinarith
         omega
-      · intro p hp _hpR hp1
-        subst p
-        norm_num at hp
+      · simp
     · rcases hn with ⟨⟨hRn, hnX⟩, hnPrime⟩
       have hsurv : lowWheelHighSurvivor R n :=
         (lowWheelHighSurvivor_iff_prime hR hRn hnX).mpr hnPrime
