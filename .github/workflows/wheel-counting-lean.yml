@@ -5,6 +5,7 @@ on:
     branches: [agent/wheel-counting-bound]
     paths:
       - RHLean/Analysis/RoughWheelFiniteCounting.lean
+      - RHLean/Proof/PostRootCovarianceWheelCounting.lean
       - .github/workflows/wheel-counting-lean.yml
   workflow_dispatch:
 
@@ -18,7 +19,7 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache/restore@v5
@@ -34,3 +35,5 @@ jobs:
           lint: false
       - name: Kernel-check finite interval counting
         run: lake build RHLean.Analysis.RoughWheelFiniteCounting --wfail
+      - name: Kernel-check quantitative wheel proof
+        run: lake build RHLean.Proof.PostRootCovarianceWheelCounting --wfail
