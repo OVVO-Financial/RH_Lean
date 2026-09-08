@@ -8,6 +8,7 @@ on:
       - RHLean/Proof/PrimeWheelProperSubwheelDepthTwo.lean
       - research/PROPER_SUBWHEEL_DEPTH_TWO_REASSEMBLY.lean
       - research/PROPER_SUBWHEEL_OUTER_PARITY_REASSEMBLY.lean
+      - research/HALF_ROOT_PRIME_PAIR_WEIGHT.lean
       - .github/workflows/proper-subwheel-depth-two.yml
   workflow_dispatch:
 
@@ -81,3 +82,6 @@ jobs:
 
       - name: Kernel-check sign-visible outer parity reassembly
         run: lake env lean research/PROPER_SUBWHEEL_OUTER_PARITY_REASSEMBLY.lean
+
+      - name: Kernel-check explicit half-root prime-pair shell
+        run: lake env lean research/HALF_ROOT_PRIME_PAIR_WEIGHT.lean
