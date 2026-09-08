@@ -8,7 +8,94 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
-## Current continuation: the record step is the carrier
+## Current continuation: the tower is one proposition, and the exchange rate is exact
+
+`PostRootCovarianceGlobalExponentTransfer.lean` supplies the return path that
+every reduction from #596 to #602 was missing, and thereby settles what the
+record machinery can and cannot do to the unconditional global exponent.
+
+### The return path is one line
+
+In the compiled Bessel identity
+
+```text
+2*E(W) = M(W)^2 - complementDiagonalResidual(W) - familyMertensSquareEnergy(W)
+```
+
+both subtracted terms are already proved nonnegative.  Hence, unconditionally,
+with no cancellation, no record hypothesis and no sieve,
+
+```text
+E(W) <= M(W)^2 / 2.
+```
+
+### Consequence: every seam in the tower is the same proposition
+
+```text
+MertensPowerSavingStatement                          (|M(x)| << x^((1+eps)/2))
+  <-> MertensEnergyBoundedStatement
+  <-> MertensSquarePowerEnvelopeBoundedStatement
+  <-> PostRootCovariancePowerRemainderStatement
+  <-> PostRootCovariancePowerEnvelopeBoundedStatement
+  <-> PostRootCovariancePowerRecordExcessBoundedStatement
+  <-> PostRootFallingEnergyFiniteDifferencePowerStatement
+```
+
+All of these are now compiled bi-implications.  Nothing in the post-root,
+LCM-wall, envelope, or record layers has cost anything, and nothing in them has
+gained anything either.
+
+### The exchange rate, and the no-go it implies
+
+`postRootCovarianceRemainder_le_of_mertensPowerBound` is pointwise and
+unconditional:
+
+```text
+|M(W)| <= B * W^theta   ==>   E(W) <= (B^2/2) * W^(2*theta).
+```
+
+Together with the equivalence above the rate is exact.  **This is a no-go for
+the current carrier: no post-root, wall, envelope, or record reduction can
+improve the unconditional global exponent without an improvement of the Mertens
+exponent itself, and a Mertens power saving `|M(x)| << x^(1-delta)` is a known
+open problem (a zero-free strip).**  Record it as such; do not re-derive a
+weaker version of it.
+
+### What can move unconditionally: the constant
+
+The exponent cannot move here, but the constant can, and it is moved:
+`|M| <= squarefree count`, and one residue in every block of four is a multiple
+of four and so not squarefree, giving `|M(K)| <= 3*(K+3)/4` and
+
+```text
+E(W) <= 9*(W+4)^2/32,
+```
+
+which improves the compiled `E(W) <= W^2` by a factor `32/9` for every
+`W >= 5`.  The same sieve extends: excluding `9` as well gives `2/3` and
+`E(W) <= (2/9)W^2 + O(W)`; the elementary limit of this route is
+`(6/pi^2)^2/2 = 0.1848...`.  A finite check to `W = 4000` finds
+`max E(W)/W^2 = 0.0059`, so the sieve bound is far from tight and further
+constant work here is cheap but is not exponent progress.
+
+### The record threshold, in closed form
+
+```text
+E(W+1) < innovation(W) * (W+1)                               at every record,
+E(W+1) < (M(W+2)^2 - M((W+1)/p+1)^2) * (W+1)                 on an active
+                                                             post-root divisor.
+```
+
+Both are unconditional and carry no `eps` power on either side.
+
+### Where to go next
+
+The remaining work is the Mertens exponent itself, on whatever coordinate.  The
+record carrier is a legitimate place to attack it -- it is lossless -- but the
+attack has to produce a Mertens power saving, not another reduction.  Consult
+Hosted Lean CI for the compilation status of this head.
+
+## Previous continuation: the record step is the carrier
 
 `PostRootCovarianceRecordAbsorption.lean` moves the whole remaining problem
 onto the record step of the #600 envelope.  Three things are proved.

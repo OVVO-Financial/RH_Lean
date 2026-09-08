@@ -541,6 +541,7 @@ import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.OrderedEulerCutProjection
 import RHLean.Proof.OrthogonalResidual
+import RHLean.Proof.PostRootCovarianceGlobalExponentTransfer
 import RHLean.Proof.PostRootCovarianceLcmBoundary
 import RHLean.Proof.PostRootCovarianceLcmBoundaryClosure
 import RHLean.Proof.PostRootCovarianceLcmInteriorPacking
