@@ -41,6 +41,6 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add RHLean.lean .github/workflows/sync-proper-subwheel-root.yml
+          git add RHLean.lean
           git commit -m 'Repair proper-subwheel root imports'
           git push origin HEAD:${{ github.head_ref }}
