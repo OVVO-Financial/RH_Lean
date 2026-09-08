@@ -72,6 +72,7 @@ jobs:
             .lake/packages/StrongPNT/.lake/build
           key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
       - name: Restore RHLean build cache
+        id: rhleancache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
@@ -97,3 +98,9 @@ jobs:
         run: lake env lean research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean
       - name: Kernel-check frozen rough-seat bridge
         run: lake env lean research/PRIME_WHEEL_ROUGH_SEAT_FROZEN_BRIDGE.lean
+      - name: Save RHLean build cache
+        if: steps.rhleancache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
