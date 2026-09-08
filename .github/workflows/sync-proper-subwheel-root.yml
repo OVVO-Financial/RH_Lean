@@ -1,39 +1,46 @@
-name: Sync proper-subwheel root imports
+name: Repair proper-subwheel root imports
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - RHLean/Proof/PrimeWheelFrozenRoughSeatBridge.lean
-      - RHLean/Proof/PrimeWheelProperSubwheelDepthTwo.lean
       - .github/workflows/sync-proper-subwheel-root.yml
 
 permissions:
   contents: write
 
 jobs:
-  sync:
+  repair:
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
-      - name: Add missing root imports
+      - name: Repair root imports and remove this temporary workflow
         run: |
           set -euo pipefail
-          grep -qxF 'import RHLean.Proof.PrimeWheelFrozenRoughSeatBridge' RHLean.lean || echo 'import RHLean.Proof.PrimeWheelFrozenRoughSeatBridge' >> RHLean.lean
-          grep -qxF 'import RHLean.Proof.PrimeWheelProperSubwheelDepthTwo' RHLean.lean || echo 'import RHLean.Proof.PrimeWheelProperSubwheelDepthTwo' >> RHLean.lean
-          LC_ALL=C sort -u -o RHLean.lean RHLean.lean
-      - name: Commit root manifest update
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('RHLean.lean')
+          text = path.read_text()
+          text = text.replace(
+              'import RHLean.Verification.FiniteRangeCertificatesimport RHLean.Proof.PrimeWheelFrozenRoughSeatBridge',
+              'import RHLean.Verification.FiniteRangeCertificates\nimport RHLean.Proof.PrimeWheelFrozenRoughSeatBridge')
+          wanted = {
+              'import RHLean.Proof.PrimeWheelFrozenRoughSeatBridge',
+              'import RHLean.Proof.PrimeWheelProperSubwheelDepthTwo',
+          }
+          lines = [line for line in text.splitlines() if line.strip()]
+          lines.extend(wanted.difference(lines))
+          path.write_text('\n'.join(sorted(set(lines))) + '\n')
+          PY
+          git rm .github/workflows/sync-proper-subwheel-root.yml
+      - name: Commit repaired root manifest
         run: |
           set -euo pipefail
-          if git diff --quiet -- RHLean.lean; then
-            echo 'RHLean.lean already synchronized'
-            exit 0
-          fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add RHLean.lean
-          git commit -m 'Import proper-subwheel proof modules'
+          git add RHLean.lean .github/workflows/sync-proper-subwheel-root.yml
+          git commit -m 'Repair proper-subwheel root imports'
           git push origin HEAD:${{ github.head_ref }}
