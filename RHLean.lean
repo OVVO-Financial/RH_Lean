@@ -741,4 +741,4 @@ import RHLean.Proof.VanishingTransitionRelevance
 import RHLean.Proof.VanishingTransitionRelevanceBase
 import RHLean.Proof.WheelToLedgerEquivariance
 import RHLean.Proof.WheelToLedgerPushforward
-import RHLean.Verification.FiniteRangeCertificatesimport RHLean.Proof.PrimeWheelFrozenRoughSeatBridge
+import RHLean.Verification.FiniteRangeCertificates
