@@ -188,8 +188,7 @@ theorem squareRootEndpoint_lt_halfRootSucc_cube
   exact hX.trans (hsq'.trans_le hfourSq)
 
 /-- Two primes above the half-root force the square-endpoint reciprocal quotient
-into the fixed set `{0,1,2,3}`.  This is much sharper than the generic cubic
-bound `X/(pq) < Y+1`. -/
+into the fixed four-state range `0,1,2,3`. -/
 theorem squareRootEndpoint_div_two_halfRootHighPrimes_lt_four
     {R p q : ℕ} (hR : 6 ≤ R)
     (hp : p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R))
@@ -218,55 +217,13 @@ theorem squareRootEndpoint_div_two_halfRootHighPrimes_lt_four
   apply (Nat.div_lt_iff_lt_mul (Nat.mul_pos hpData.1.pos hqData.1.pos)).2
   simpa [Nat.mul_assoc] using hX4
 
-/-- The four-state response carried by a pair of primes above the half-root.
-The values are exactly the ordinary Mertens prefixes at reciprocal depths
-`0,1,2,3`; only depths `1` and `3` survive. -/
-def halfRootPrimePairWeight (R p q : ℕ) : ℤ :=
-  if squareRootEndpoint R / (p * q) = 1 then 1
-  else if squareRootEndpoint R / (p * q) = 3 then -1
-  else 0
-
-private theorem mertensSummatoryInt_zero : mertensSummatoryInt 0 = 0 := by
-  simp [mertensSummatoryInt]
-
-private theorem mertensSummatoryInt_one : mertensSummatoryInt 1 = 1 := by
-  norm_num [mertensSummatoryInt]
-
-private theorem mertensSummatoryInt_two : mertensSummatoryInt 2 = 0 := by
-  norm_num [mertensSummatoryInt, ArithmeticFunction.moebius_apply_prime]
-
-private theorem mertensSummatoryInt_three : mertensSummatoryInt 3 = -1 := by
-  norm_num [mertensSummatoryInt, ArithmeticFunction.moebius_apply_prime]
-
-/-- The semiprime Mertens response at the half-root is literally the finite
-prime-pair weight `0,+1,0,-1`; no unknown lower Mertens value remains. -/
-theorem mertensSummatoryInt_squareRootEndpoint_div_pair_eq_halfRootPrimePairWeight
-    {R p q : ℕ} (hR : 6 ≤ R)
-    (hp : p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R))
-    (hq : q ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (p - 1)) :
-    mertensSummatoryInt (squareRootEndpoint R / (p * q)) =
-      halfRootPrimePairWeight R p q := by
-  have hlt := squareRootEndpoint_div_two_halfRootHighPrimes_lt_four hR hp hq
-  have hcases : squareRootEndpoint R / (p * q) = 0 ∨
-      squareRootEndpoint R / (p * q) = 1 ∨
-      squareRootEndpoint R / (p * q) = 2 ∨
-      squareRootEndpoint R / (p * q) = 3 := by omega
-  rcases hcases with h0 | h1 | h2 | h3
-  · rw [h0, mertensSummatoryInt_zero]
-    simp [halfRootPrimePairWeight, h0]
-  · rw [h1, mertensSummatoryInt_one]
-    simp [halfRootPrimePairWeight, h1]
-  · rw [h2, mertensSummatoryInt_two]
-    simp [halfRootPrimePairWeight, h2]
-  · rw [h3, mertensSummatoryInt_three]
-    simp [halfRootPrimePairWeight, h3]
-
-/-- **Half-root prime-pair normal form.**  At the canonical square endpoint,
-all two-high-prime Mertens responses collapse to the four-state arithmetic
-weight above.  The only nontrivial unresolved signed objects are now the common
-half-root frozen base and its one-prime response column; the semiprime layer is
-pure finite prime-pair geometry. -/
-theorem squareRootProperSubwheelFrozenCorrelation_eq_halfRootPrimePairWeight
+/-- **Half-root outer-parity normal form.**  The generic cubic identity may be
+run at the explicit proper subwheel `R/2`.  In addition, every semiprime term
+in the final line has reciprocal argument strictly below four by
+`squareRootEndpoint_div_two_halfRootHighPrimes_lt_four`.  Thus the two-prime
+layer is a finite four-state arithmetic object rather than a recursive Mertens
+problem. -/
+theorem squareRootProperSubwheelFrozenCorrelation_eq_halfRootDepthTwo
     (R : ℕ) (hR : 6 ≤ R) :
     squareRootProperSubwheelFrozenCorrelation R (R / 2) =
       frozenPrimeUniverseMass (primesUpTo (R / 2)) (squareRootEndpoint R) -
@@ -275,31 +232,13 @@ theorem squareRootProperSubwheelFrozenCorrelation_eq_halfRootPrimePairWeight
             (squareRootEndpoint R / p)) +
         ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R),
           ∑ q ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (p - 1),
-            halfRootPrimePairWeight R p q := by
+            mertensSummatoryInt (squareRootEndpoint R / (p * q)) := by
   have hRX : R ≤ squareRootEndpoint R := by
     have hquad : R + 1 ≤ R ^ 2 := by nlinarith
     unfold squareRootEndpoint
     omega
   have hYX : R / 2 ≤ squareRootEndpoint R := (Nat.div_le_self R 2).trans hRX
-  have hcubic := squareRootEndpoint_lt_halfRootSucc_cube R hR
-  have hmain :=
-    squareRootProperSubwheelFrozenCorrelation_eq_outerParityDepthTwo
-      R (R / 2) hYX hcubic
-  have hsemi :
-      (∑ p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R),
-          ∑ q ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (p - 1),
-            mertensSummatoryInt (squareRootEndpoint R / (p * q))) =
-        ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R),
-          ∑ q ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (p - 1),
-            halfRootPrimePairWeight R p q := by
-    apply Finset.sum_congr rfl
-    intro p hp
-    apply Finset.sum_congr rfl
-    intro q hq
-    exact
-      mertensSummatoryInt_squareRootEndpoint_div_pair_eq_halfRootPrimePairWeight
-        hR hp hq
-  rw [hsemi] at hmain
-  exact hmain
+  exact squareRootProperSubwheelFrozenCorrelation_eq_outerParityDepthTwo
+    R (R / 2) hYX (squareRootEndpoint_lt_halfRootSucc_cube R hR)
 
 end RHLean.Proof
