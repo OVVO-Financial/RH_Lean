@@ -81,4 +81,30 @@ theorem roughMertens_one_eq_twoTenWheel_eightBands (B : ℕ) :
     htop', hten', hsix', hthirty']
   ring
 
+/-! ## A second exact overlap already present after adjoining 11
+
+The first 2310 cancellation uses the overlap of the negative 11-band with the
+positive 15-band.  There is another opposite-sign overlap: the positive
+`(B/154,B/77]` band and the negative `(B/210,B/105]` band share
+`(B/154,B/105]`.  Cancelling it before any absolute value is purely algebraic
+and removes another `1/165` of normalized band length.
+-/
+
+/-- The second 2310 opposite-band overlap cancels exactly, independently of any
+ordering or estimate: it is just additivity of the same rough prefix. -/
+theorem roughInterval_2310_secondOppositeOverlap (B : ℕ) :
+    roughInterval 2310 (B / 154) (B / 77) -
+        roughInterval 2310 (B / 210) (B / 105) =
+      roughInterval 2310 (B / 105) (B / 77) -
+        roughInterval 2310 (B / 210) (B / 154) := by
+  unfold roughInterval
+  ring
+
+/-- At the continuum-width level the second exact cancellation removes exactly
+`1/165` from the unsigned band-length majorant. -/
+theorem roughInterval_2310_secondOppositeOverlap_widthGain :
+    (((1 / 77 : ℝ) - 1 / 154) + ((1 / 105 : ℝ) - 1 / 210)) =
+      (((1 / 77 : ℝ) - 1 / 105) + ((1 / 154 : ℝ) - 1 / 210)) + 1 / 165 := by
+  norm_num
+
 end RHLean.Proof
