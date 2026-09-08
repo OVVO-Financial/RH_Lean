@@ -77,6 +77,26 @@ fixed constant relative to the target itself and contributes no growth of its
 own.  This is an absorption theorem, not an assumption that the wall is
 harmless.
 
+### An unconditional ceiling falls out
+
+Feeding only the trivial one-endpoint bounds
+
+```text
+mu(N+1) M(N)            <= N+1,
+-activeInheritedRow(N)  <= N+1,
+departure(N)            <= N+1,
+```
+
+through the record threshold gives, for `0 < eps <= 1` and `X >= 2`,
+
+```text
+env_eps(X) <= max(env_eps(2), 3 * X^(1-eps)).
+```
+
+That improves #600's coarse `env_eps(X) <= X` by a full `X^eps` with no
+arithmetic input at all; the entire gain is the record structure.  It does not
+improve the remainder past the already-proved `E(W) <= W^2`.
+
 ### What is still open
 
 `postRootRecordAbsorptionEnvelope` is the record-conditioned budget

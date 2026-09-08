@@ -359,6 +359,70 @@ theorem realMertensLength_lt_neg_envelope_mul_rpow_of_recordExcess_pos_of_prime
   rw [postRootCovarianceLocalInnovation_eq_neg_prefix_of_prime hprime] at h
   linarith
 
+/-! ## An unconditional ceiling from the record threshold -/
+
+private theorem abs_realMoebiusStep_le_one (n : ℕ) : |realMoebiusStep n| ≤ 1 := by
+  rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
+    simp [realMoebiusStep, h]
+
+/-- The Mertens prefix is bounded by its length, with no cancellation used. -/
+theorem abs_realMertensLength_le (K : ℕ) : |realMertensLength K| ≤ (K : ℝ) := by
+  unfold realMertensLength
+  calc
+    |∑ n ∈ Finset.range K, realMoebiusStep n| ≤
+        ∑ n ∈ Finset.range K, |realMoebiusStep n| :=
+      Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _n ∈ Finset.range K, (1 : ℝ) :=
+      Finset.sum_le_sum fun n _ => abs_realMoebiusStep_le_one n
+    _ = (K : ℝ) := by simp
+
+private theorem row_le_endpoint_of_index {a b : ℕ} (hab : a ≤ b) :
+    realMoebiusStep a * realMertensLength a ≤ ((b : ℕ) : ℝ) := by
+  have hcast : ((a : ℕ) : ℝ) ≤ ((b : ℕ) : ℝ) := by exact_mod_cast hab
+  calc
+    realMoebiusStep a * realMertensLength a ≤
+        |realMoebiusStep a * realMertensLength a| := le_abs_self _
+    _ = |realMoebiusStep a| * |realMertensLength a| := abs_mul _ _
+    _ ≤ 1 * ((a : ℕ) : ℝ) :=
+      mul_le_mul (abs_realMoebiusStep_le_one a) (abs_realMertensLength_le a)
+        (abs_nonneg _) zero_le_one
+    _ = ((a : ℕ) : ℝ) := one_mul _
+    _ ≤ ((b : ℕ) : ℝ) := hcast
+
+private theorem neg_row_le_endpoint_of_index {a b : ℕ} (hab : a ≤ b) :
+    -(realMoebiusStep a * realMertensLength a) ≤ ((b : ℕ) : ℝ) := by
+  have hcast : ((a : ℕ) : ℝ) ≤ ((b : ℕ) : ℝ) := by exact_mod_cast hab
+  calc
+    -(realMoebiusStep a * realMertensLength a) ≤
+        |realMoebiusStep a * realMertensLength a| := neg_le_abs _
+    _ = |realMoebiusStep a| * |realMertensLength a| := abs_mul _ _
+    _ ≤ 1 * ((a : ℕ) : ℝ) :=
+      mul_le_mul (abs_realMoebiusStep_le_one a) (abs_realMertensLength_le a)
+        (abs_nonneg _) zero_le_one
+    _ = ((a : ℕ) : ℝ) := one_mul _
+    _ ≤ ((b : ℕ) : ℝ) := hcast
+
+theorem physicalRow_le_endpoint (N : ℕ) :
+    realMoebiusStep (N + 1) * realMertensLength (N + 1) ≤ ((N + 1 : ℕ) : ℝ) :=
+  row_le_endpoint_of_index (le_refl (N + 1))
+
+theorem neg_postRootPrimeFamilyCovarianceRowTotal_le_endpoint (N : ℕ) :
+    -postRootPrimeFamilyCovarianceRowTotal N ≤ ((N + 1 : ℕ) : ℝ) := by
+  by_cases hex : ∃ p ∈ postRootPrimeFamilySet (N + 1), p ∣ N + 1
+  · obtain ⟨p, hp, hdvd⟩ := hex
+    rw [postRootPrimeFamilyCovarianceRowTotal_eq_single_of_dvd hp hdvd,
+      postRootLowerCovarianceRow_eq_ite, if_pos hdvd]
+    exact neg_row_le_endpoint_of_index
+      (Nat.succ_le_succ (Nat.div_le_self N p))
+  · have hzero : postRootPrimeFamilyCovarianceRowTotal N = 0 := by
+      unfold postRootPrimeFamilyCovarianceRowTotal
+      apply Finset.sum_eq_zero
+      intro p hp
+      have hnd : ¬ (p ∣ N + 1) := fun hdvd => hex ⟨p, hp, hdvd⟩
+      rw [postRootLowerCovarianceRow_eq_ite, if_neg hnd]
+    rw [hzero, neg_zero]
+    exact Nat.cast_nonneg _
+
 /-! ## Square-wall departure: exact support, exact value, `p^2` sparsity -/
 
 private theorem nat_mul_self_inj {a b : ℕ} (h : a * a = b * b) : a = b := by
@@ -465,6 +529,110 @@ theorem postRootRecordDepartureSeat_le_of_primeSquare
         inv_mul_cancel₀ hPne, one_mul, div_mul_eq_mul_div]
     rw [hrearrange]
     exact hbound
+
+/-! ## An unconditional envelope ceiling -/
+
+theorem postRootPrimeFamilyCovarianceDeparture_le_endpoint (N : ℕ) :
+    postRootPrimeFamilyCovarianceDeparture N ≤ ((N + 1 : ℕ) : ℝ) := by
+  by_cases hex : ∃ p : ℕ, p.Prime ∧ p * p = N + 1
+  · obtain ⟨p, hp, hsq⟩ := hex
+    rw [postRootPrimeFamilyCovarianceDeparture_eq_lowerPairSum hp hsq]
+    have hhalf := realMertensPositiveLagPairSum_le_half_lengthSq (N / p + 1)
+    have habs := abs_realMertensLength_le (N / p + 1)
+    have hcof : N / p + 1 ≤ p := (Nat.div_lt_iff_lt_mul hp.pos).2 (by omega)
+    have hcast : ((N / p + 1 : ℕ) : ℝ) ≤ (p : ℝ) := by exact_mod_cast hcof
+    have hle : |realMertensLength (N / p + 1)| ≤ (p : ℝ) := le_trans habs hcast
+    have hsqbound : realMertensLength (N / p + 1) ^ 2 ≤ (p : ℝ) ^ 2 := by
+      have hnn := abs_nonneg (realMertensLength (N / p + 1))
+      have hid := sq_abs (realMertensLength (N / p + 1))
+      nlinarith [hle, hnn, hid]
+    have hpN : (p : ℝ) ^ 2 = ((N + 1 : ℕ) : ℝ) := by
+      rw [← hsq]; push_cast; ring
+    have hnn : (0 : ℝ) ≤ ((N + 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+    rw [hpN] at hsqbound
+    linarith
+  · push_neg at hex
+    rw [postRootPrimeFamilyCovarianceDeparture_eq_zero_of_not_primeSquare hex]
+    exact Nat.cast_nonneg _
+
+/-- **Unconditional innovation ceiling.**  No cancellation is used: the new
+physical row, the single active inherited row, and the square-wall departure are
+each bounded by one endpoint. -/
+theorem postRootCovarianceLocalInnovation_le_three_mul_endpoint (N : ℕ) :
+    postRootCovarianceLocalInnovation N ≤ 3 * ((N + 1 : ℕ) : ℝ) := by
+  rw [postRootCovarianceLocalInnovation_eq_row_sub_inherited_add_departure]
+  have h1 := physicalRow_le_endpoint N
+  have h2 := neg_postRootPrimeFamilyCovarianceRowTotal_le_endpoint N
+  have h3 := postRootPrimeFamilyCovarianceDeparture_le_endpoint N
+  linarith
+
+/-- **Unconditional envelope ceiling.**  Feeding the trivial one-endpoint
+innovation ceiling through the record threshold already improves #600's coarse
+`envelope <= N` by a full `N^ε`.  No arithmetic input is used beyond the
+absolute-value bounds on the three innovation terms; the gain is entirely the
+record structure. -/
+theorem postRootCovariancePowerEnvelope_le_subEndpoint
+    (ε : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1) {X : ℕ} (hX : 2 ≤ X) :
+    postRootCovariancePowerEnvelope ε X ≤
+      max (postRootCovariancePowerEnvelope ε 2)
+        (3 * Real.rpow (X : ℝ) (1 - ε)) := by
+  have key : ∀ N : ℕ, 2 ≤ N → N ≤ X →
+      postRootCovariancePowerEnvelope ε N ≤
+        max (postRootCovariancePowerEnvelope ε 2)
+          (3 * Real.rpow (X : ℝ) (1 - ε)) := by
+    intro N hN
+    induction N, hN using Nat.le_induction with
+    | base =>
+        intro _
+        exact le_max_left _ _
+    | succ N h2N ih =>
+        intro hNX
+        by_cases hrec : 0 < postRootCovariancePowerRecordExcess ε N
+        · have hN1pos : (0 : ℝ) < ((N + 1 : ℕ) : ℝ) := by
+            exact_mod_cast (show 0 < N + 1 by omega)
+          have hEps : 0 < Real.rpow ((N + 1 : ℕ) : ℝ) ε :=
+            Real.rpow_pos_of_pos hN1pos _
+          have hsub :
+              Real.rpow ((N + 1 : ℕ) : ℝ) (1 - ε) *
+                  Real.rpow ((N + 1 : ℕ) : ℝ) ε = ((N + 1 : ℕ) : ℝ) := by
+            calc
+              Real.rpow ((N + 1 : ℕ) : ℝ) (1 - ε) *
+                    Real.rpow ((N + 1 : ℕ) : ℝ) ε =
+                  Real.rpow ((N + 1 : ℕ) : ℝ) (1 - ε + ε) :=
+                (Real.rpow_add hN1pos _ _).symm
+              _ = Real.rpow ((N + 1 : ℕ) : ℝ) 1 :=
+                congrArg (Real.rpow ((N + 1 : ℕ) : ℝ)) (by ring)
+              _ = ((N + 1 : ℕ) : ℝ) := Real.rpow_one _
+          have hkey :=
+            postRootCovariancePowerEnvelope_succ_mul_rpow_lt_localInnovation_of_recordExcess_pos
+              ε hε.le h2N hrec
+          have hceil := postRootCovarianceLocalInnovation_le_three_mul_endpoint N
+          have hmul :
+              postRootCovariancePowerEnvelope ε (N + 1) *
+                  Real.rpow ((N + 1 : ℕ) : ℝ) ε <
+                3 * Real.rpow ((N + 1 : ℕ) : ℝ) (1 - ε) *
+                  Real.rpow ((N + 1 : ℕ) : ℝ) ε := by
+            nlinarith [hkey, hceil, hsub]
+          have hlt :
+              postRootCovariancePowerEnvelope ε (N + 1) <
+                3 * Real.rpow ((N + 1 : ℕ) : ℝ) (1 - ε) :=
+            lt_of_mul_lt_mul_right hmul hEps.le
+          have hmono :
+              Real.rpow ((N + 1 : ℕ) : ℝ) (1 - ε) ≤
+                Real.rpow (X : ℝ) (1 - ε) := by
+            refine Real.rpow_le_rpow (Nat.cast_nonneg _) ?_ (by linarith)
+            exact_mod_cast hNX
+          have hfinal :
+              postRootCovariancePowerEnvelope ε (N + 1) ≤
+                3 * Real.rpow (X : ℝ) (1 - ε) := by linarith
+          exact le_trans hfinal (le_max_right _ _)
+        · push_neg at hrec
+          have hzero : postRootCovariancePowerRecordExcess ε N = 0 :=
+            le_antisymm hrec (postRootCovariancePowerRecordExcess_nonneg ε N)
+          rw [postRootCovariancePowerEnvelope_succ_eq_add_recordExcess, hzero,
+            add_zero]
+          exact ih (by omega)
+  exact key X hX (le_refl X)
 
 /-- The explicit convergent `p`-series constant that absorbs every prime-square
 wall.  It depends only on `ε`. -/
