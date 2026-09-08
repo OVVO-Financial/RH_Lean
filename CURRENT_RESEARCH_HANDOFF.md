@@ -8,7 +8,48 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
-## Current continuation: square energy retains every high-prime transport
+## Current continuation: individual inherited rows and cumulative energy
+
+`PostRootCovarianceRowEnergy.lean` moves the lower-prefix estimate inside the
+unit-step covariance row.  It proves, for all `W,p`,
+
+```text
+row_p(W)^2 <= M(floor(W/p))^2,
+row_p(W) = C(floor((W+1)/p)) - C(floor(W/p)).
+```
+
+With the finite envelope `A_eps(W) = max_{d<=W} M(d)^2/(d+1)^(1+eps)`, every
+post-root coordinate satisfies
+
+```text
+row_p(W)^2 / (W+1)^(1+eps) <= A_eps(W) / (W+1)^((1+eps)/2).
+```
+
+At most one active post-root prime divides `W+1`, so the same estimate holds
+for the square of the entire active inherited-row sum, with no multiplicity
+factor.  The Mertens envelope here is distinct from #600's covariance-remainder
+envelope.  No record hypothesis is needed for this finite estimate.
+
+The complete local innovation is also identified exactly:
+
+```text
+E(W+1)-E(W) = mu(W+1) M(W) - activeInheritedRow(W) + departure(W).
+```
+
+`departure` retains the covariance of families removed at the prime-square
+wall.  The full expression feeds #600's existing record budget.  The small
+inherited-row estimate alone does not bound the physical new row or the
+departures, and does not prove boundedness of either envelope.
+
+**Sign audit:** transporting both the atom and its family prefix preserves the
+covariance product: `(-mu(c)) * (-M(c-1)) = mu(c) M(c-1)`.  Reversing only one
+factor against an unchanged prefix negates the product.  In the remainder the
+inherited row has a minus sign because it is subtracted.  At a new prime the
+inherited row is zero, but the full innovation is `-M(W)`, not necessarily zero;
+the prime's effect is not limited to its diagonal unit.  Consult Hosted Lean CI
+for the compilation status of this head.
+
+## Previous continuation: square energy retains every high-prime transport
 
 `PostRootMertensSquareFiniteDifference.lean` restores the square coordinate on
 the existing post-root family set:
