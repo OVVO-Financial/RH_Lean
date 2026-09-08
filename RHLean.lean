@@ -564,6 +564,8 @@ import RHLean.Proof.PrimeCombVisualizationRecurrence
 import RHLean.Proof.PrimeCombWheelBoundary
 import RHLean.Proof.PrimeSievePostSqrtGap
 import RHLean.Proof.PrimeSieveSquareRootTransport
+import RHLean.Proof.PrimeWheelFrozenRoughSeatBridge
+import RHLean.Proof.PrimeWheelProperSubwheelDepthTwo
 import RHLean.Proof.PrimeWheelRoughSeatCorrelation
 import RHLean.Proof.RealSquareBlockIncrements
 import RHLean.Proof.RecursivePrimeReplacement
