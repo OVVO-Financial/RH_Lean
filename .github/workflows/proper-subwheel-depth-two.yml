@@ -6,6 +6,8 @@ on:
     paths:
       - RHLean/Proof/PrimeWheelFrozenRoughSeatBridge.lean
       - RHLean/Proof/PrimeWheelProperSubwheelDepthTwo.lean
+      - research/PROPER_SUBWHEEL_DEPTH_TWO_REASSEMBLY.lean
+      - research/PROPER_SUBWHEEL_OUTER_PARITY_REASSEMBLY.lean
       - .github/workflows/proper-subwheel-depth-two.yml
   workflow_dispatch:
 
@@ -73,3 +75,9 @@ jobs:
 
       - name: Kernel-check cubic proper-subwheel decomposition
         run: lake build RHLean.Proof.PrimeWheelProperSubwheelDepthTwo --wfail
+
+      - name: Kernel-check all-Mertens depth-two reassembly
+        run: lake env lean research/PROPER_SUBWHEEL_DEPTH_TWO_REASSEMBLY.lean
+
+      - name: Kernel-check sign-visible outer parity reassembly
+        run: lake env lean research/PROPER_SUBWHEEL_OUTER_PARITY_REASSEMBLY.lean
