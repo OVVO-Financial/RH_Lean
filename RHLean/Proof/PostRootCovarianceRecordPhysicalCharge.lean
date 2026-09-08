@@ -48,7 +48,7 @@ private theorem signed_sum_le_physical_square_step
   have hmul :
       (-u * (x + y)) * 1 ≤ (-u * (x + y)) * (u * (y - x)) := by
     simpa only [mul_one, hfactor] using hcharge
-  have hunit : 1 ≤ u * (y - x) := (mul_le_mul_iff_left₀ hrow).mp hmul
+  have hunit : 1 ≤ u * (y - x) := (mul_le_mul_iff_right₀ hrow).mp hmul
   nlinarith
 
 /-- **Physical square-step charge.** At an active high record, the outer row
@@ -207,7 +207,13 @@ theorem postRootRecordOuterRowSeat_le_twice_physicalSquareStepSeat_of_record
     have hraw := postRootRecordOuterRowNumerator_le_physicalSquareStep
       ε hε hW hpPrime hpMem hpDvd hrec
     have hscale := Real.rpow_nonneg (Nat.cast_nonneg (W + 1)) (1 + ε)
-    have hdiv := div_le_div_of_nonneg_right hraw hscale
+    have hdiv :
+        (realMoebiusStep (W + 1) * realMertensLength (W + 1) -
+            postRootPrimeFamilyCovarianceRowTotal W) /
+              Real.rpow ((W + 1 : ℕ) : ℝ) (1 + ε) ≤
+          realMertensSquareStep (W + 1) /
+            Real.rpow ((W + 1 : ℕ) : ℝ) (1 + ε) :=
+      div_le_div_of_nonneg_right hraw hscale
     have hseat :
         (realMertensSquareStep (W + 1) / 2) /
             Real.rpow ((W + 1 : ℕ) : ℝ) (1 + ε) ≤
@@ -215,7 +221,14 @@ theorem postRootRecordOuterRowSeat_le_twice_physicalSquareStepSeat_of_record
     unfold postRootRecordOuterRowSeat
     apply max_le
     · exact mul_nonneg (by norm_num) (postRootRecordPhysicalSquareStepSeat_nonneg ε W)
-    · linarith
+    · refine hdiv.trans ?_
+      calc
+        realMertensSquareStep (W + 1) /
+            Real.rpow ((W + 1 : ℕ) : ℝ) (1 + ε) =
+          2 * ((realMertensSquareStep (W + 1) / 2) /
+            Real.rpow ((W + 1 : ℕ) : ℝ) (1 + ε)) := by ring
+        _ ≤ 2 * postRootRecordPhysicalSquareStepSeat ε W :=
+          mul_le_mul_of_nonneg_left hseat (by norm_num)
   · have hno : ∀ p ∈ postRootPrimeFamilySet (W + 1), ¬ p ∣ W + 1 := by
       intro p hpMem hpDvd
       exact hex ⟨p, hpMem, hpDvd⟩
