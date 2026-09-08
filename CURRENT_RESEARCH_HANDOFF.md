@@ -8,7 +8,89 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
-## Current continuation: the remainder scale sufficient for Mertens
+## Current continuation: individual inherited rows and cumulative energy
+
+`PostRootCovarianceRowEnergy.lean` moves the lower-prefix estimate inside the
+unit-step covariance row.  It proves, for all `W,p`,
+
+```text
+row_p(W)^2 <= M(floor(W/p))^2,
+row_p(W) = C(floor((W+1)/p)) - C(floor(W/p)).
+```
+
+With the finite envelope `A_eps(W) = max_{d<=W} M(d)^2/(d+1)^(1+eps)`, every
+post-root coordinate satisfies
+
+```text
+row_p(W)^2 / (W+1)^(1+eps) <= A_eps(W) / (W+1)^((1+eps)/2).
+```
+
+At most one active post-root prime divides `W+1`, so the same estimate holds
+for the square of the entire active inherited-row sum, with no multiplicity
+factor.  The Mertens envelope here is distinct from #600's covariance-remainder
+envelope.  No record hypothesis is needed for this finite estimate.
+
+The complete local innovation is also identified exactly:
+
+```text
+E(W+1)-E(W) = mu(W+1) M(W) - activeInheritedRow(W) + departure(W).
+```
+
+`departure` retains the covariance of families removed at the prime-square
+wall.  The full expression feeds #600's existing record budget.  The small
+inherited-row estimate alone does not bound the physical new row or the
+departures, and does not prove boundedness of either envelope.
+
+**Sign audit:** transporting both the atom and its family prefix preserves the
+covariance product: `(-mu(c)) * (-M(c-1)) = mu(c) M(c-1)`.  Reversing only one
+factor against an unchanged prefix negates the product.  In the remainder the
+inherited row has a minus sign because it is subtracted.  At a new prime the
+inherited row is zero, but the full innovation is `-M(W)`, not necessarily zero;
+the prime's effect is not limited to its diagonal unit.  Consult Hosted Lean CI
+for the compilation status of this head.
+
+## Previous continuation: square energy retains every high-prime transport
+
+`PostRootMertensSquareFiniteDifference.lean` restores the square coordinate on
+the existing post-root family set:
+
+```text
+Delta_sq(W) = M(W)^2 - postRootFamilyMertensSquareEnergy(W),
+Delta_lin(W) = M(W) - sum_p M(floor(W/p)),
+Delta_fall(W) = Delta_sq(W) - Delta_lin(W),
+abs(Delta_lin(W)) <= 2W.
+```
+
+The correction uses the already-proved quotient packing.  The square and
+falling positive-power propositions are equivalent, and either feeds #599's
+protected Mertens-energy bootstrap.  The new layer reuses the existing Bessel
+identity and proves a sharper direct comparison:
+
+```text
+Delta_sq(W) = 2 E(W) + postRootComplementDiagonalResidual(W),
+0 <= postRootComplementDiagonalResidual(W) <= W.
+```
+
+The diagonal residual is identified with the literal squarefree mass outside
+the disjoint seat-product union already used for packing.  Therefore a positive
+#600 record at `W = N+1` forces
+
+```text
+envelope_epsilon(N) < Delta_sq(W) / (2 W^(1+epsilon)).
+```
+
+This retains every high square with its favorable sign in the record budget.
+The exact reciprocal-band decomposition uses the existing prime-comb bands.
+Its top-half band transports one square-energy unit per prime, with total
+`pi(W) - pi(floor(W/2))`, including all small-endpoint conventions.
+
+**The positive-power bound remains open.**  A favorable subtraction at each
+fixed endpoint is not a monotonicity theorem for the moving family energy.
+Also distinguish the LCM falling kernel `M^2-M` from ordinary positive-lag
+covariance, whose diagonal correction is `sum mu^2`.  Consult Hosted Lean CI
+for compilation status of the current head.
+
+## Previous continuation: the remainder scale sufficient for Mertens
 
 The linear remainder target is stronger than the bootstrap needs. The new
 `PostRootCovariancePowerRemainderStatement` asks only for
