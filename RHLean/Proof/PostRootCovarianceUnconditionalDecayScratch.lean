@@ -107,23 +107,22 @@ theorem roughMertens_one_eq_sixWheel_twoBands (B : ℕ) :
 
 private theorem primorial_squarefree_of_primes
     (S : Finset ℕ) (hprime : ∀ p ∈ S, Nat.Prime p) :
-    Squarefree (primorial S) := by
+    Squarefree (RHLean.Arithmetic.primorial S) := by
   classical
   induction S using Finset.induction_on with
   | empty =>
-      simp [primorial]
+      simp [RHLean.Arithmetic.primorial]
   | @insert p S hpS ih =>
       have hp : Nat.Prime p := hprime p (by simp)
       have hprimeS : ∀ q ∈ S, Nat.Prime q := by
         intro q hq
         exact hprime q (by simp [hq])
-      have hsqS : Squarefree (primorial S) := ih hprimeS
-      have hcop : Nat.Coprime p (primorial S) :=
+      have hsqS : Squarefree (RHLean.Arithmetic.primorial S) := ih hprimeS
+      have hcop : Nat.Coprime p (RHLean.Arithmetic.primorial S) :=
         prime_coprime_primorial S p hp hpS hprimeS
-      have hsq : Squarefree (p * primorial S) :=
+      have hsq : Squarefree (p * RHLean.Arithmetic.primorial S) :=
         (Nat.squarefree_mul hcop).2 ⟨hp.squarefree, hsqS⟩
-      rw [primorial_insert S p hpS]
-      exact hsq
+      simpa [RHLean.Arithmetic.primorial_insert S p hpS] using hsq
 
 /-- **Full finite prime-wheel recovery of ordinary Mertens.**  Every selected
 prime contributes exactly one multiplicative difference, and after all of them
@@ -135,34 +134,35 @@ This is the unordered finite-set form of the iterative cancellation visible in
 the full prime wheel. -/
 theorem finiteDifferenceOperator_roughMertens_primorial
     (S : Finset ℕ) (hprime : ∀ p ∈ S, Nat.Prime p) :
-    finiteDifferenceOperator S (roughMertens (primorial S)) = roughMertens 1 := by
+    finiteDifferenceOperator S (roughMertens (RHLean.Arithmetic.primorial S)) = roughMertens 1 := by
   classical
   induction S using Finset.induction_on with
   | empty =>
-      simp [primorial]
+      simp [RHLean.Arithmetic.primorial]
   | @insert p S hpS ih =>
       have hp : Nat.Prime p := hprime p (by simp)
       have hprimeS : ∀ q ∈ S, Nat.Prime q := by
         intro q hq
         exact hprime q (by simp [hq])
-      have hsqS : Squarefree (primorial S) :=
+      have hsqS : Squarefree (RHLean.Arithmetic.primorial S) :=
         primorial_squarefree_of_primes S hprimeS
-      have hcop : Nat.Coprime p (primorial S) :=
+      have hcop : Nat.Coprime p (RHLean.Arithmetic.primorial S) :=
         prime_coprime_primorial S p hp hpS hprimeS
-      have hsq : Squarefree (p * primorial S) :=
+      have hsq : Squarefree (p * RHLean.Arithmetic.primorial S) :=
         (Nat.squarefree_mul hcop).2 ⟨hp.squarefree, hsqS⟩
       have hrec :
-          freshPrimeDifference p (roughMertens (p * primorial S)) =
-            roughMertens (primorial S) := by
+          freshPrimeDifference p (roughMertens (p * RHLean.Arithmetic.primorial S)) =
+            roughMertens (RHLean.Arithmetic.primorial S) := by
         funext x
         have h := roughMertens_wheel_recursion
-          (W := p * primorial S) (p := p) hp
-          (by exact ⟨primorial S, rfl⟩) hsq x
-        have hdiv : (p * primorial S) / p = primorial S :=
-          Nat.mul_div_cancel_left (primorial S) hp.pos
+          (W := p * RHLean.Arithmetic.primorial S) (p := p) hp
+          (by exact ⟨RHLean.Arithmetic.primorial S, rfl⟩) hsq x
+        have hdiv : (p * RHLean.Arithmetic.primorial S) / p =
+            RHLean.Arithmetic.primorial S :=
+          Nat.mul_div_cancel_left (RHLean.Arithmetic.primorial S) hp.pos
         rw [hdiv] at h
         simpa [freshPrimeDifference, multDiff] using h
-      rw [primorial_insert S p hpS]
+      rw [RHLean.Arithmetic.primorial_insert S p hpS]
       rw [finiteDifferenceOperator_insert_eq_freshPrimeDifference
         S p hp hpS hprimeS]
       rw [hrec]
@@ -178,8 +178,8 @@ Boolean difference, not a special dyadic phenomenon. -/
 theorem roughMertens_one_eq_primeWheel_divisorDifference
     (S : Finset ℕ) (hprime : ∀ p ∈ S, Nat.Prime p) (B : ℕ) :
     roughMertens 1 B =
-      ∑ d ∈ (primorial S).divisors,
-        (μ d : ℤ) * roughMertens (primorial S) (B / d) := by
+      ∑ d ∈ (RHLean.Arithmetic.primorial S).divisors,
+        (μ d : ℤ) * roughMertens (RHLean.Arithmetic.primorial S) (B / d) := by
   have h := congrFun (finiteDifferenceOperator_roughMertens_primorial S hprime) B
   rw [finiteDifferenceOperator_apply] at h
   simpa using h.symm
@@ -193,8 +193,8 @@ theorem primeWheelMertensTransport_invariant_insert
     (hp : Nat.Prime p) (hpS : p ∉ S)
     (hprime : ∀ q ∈ S, Nat.Prime q) :
     finiteDifferenceOperator (insert p S)
-        (roughMertens (primorial (insert p S))) =
-      finiteDifferenceOperator S (roughMertens (primorial S)) := by
+        (roughMertens (RHLean.Arithmetic.primorial (insert p S))) =
+      finiteDifferenceOperator S (roughMertens (RHLean.Arithmetic.primorial S)) := by
   have hprimeInsert : ∀ q ∈ insert p S, Nat.Prime q := by
     intro q hq
     rcases Finset.mem_insert.mp hq with rfl | hqS
