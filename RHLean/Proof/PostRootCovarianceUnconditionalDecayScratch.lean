@@ -130,7 +130,7 @@ theorem postRootCovarianceRemainder_le_dyadicQuarterSquare (W : ℕ) :
   have hsqMul := mul_self_le_mul_self (abs_nonneg _) hM
   have hsq :
       realMertensLength (W + 1) ^ 2 ≤
-        (((W + 3) / 4 : ℕ) ^ 2 := by
+        ((((W + 3) / 4 : ℕ) : ℝ) ^ 2) := by
     calc
       realMertensLength (W + 1) ^ 2 =
           |realMertensLength (W + 1)| ^ 2 := (sq_abs _).symm
