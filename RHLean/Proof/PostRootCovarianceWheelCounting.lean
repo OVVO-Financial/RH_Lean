@@ -47,7 +47,6 @@ theorem roughWheelResidueDensity_mul_freshPrime
   have hWR : (W : ℝ) ≠ 0 := by exact_mod_cast hW.ne'
   have hpR : (p : ℝ) ≠ 0 := by exact_mod_cast hp.ne_zero
   field_simp [hWR, hpR]
-  <;> ring
 
 /-- The covariance prefix and the wheel-one prefix have identical endpoints. -/
 theorem realMertensLength_succ_eq_roughMertens_one (B : ℕ) :
@@ -238,7 +237,7 @@ private theorem squareReciprocalProduct_Icc (N : ℕ) :
       have h2 : (N : ℝ) + 2 ≠ 0 := by positivity
       have h3 : (N : ℝ) + 3 ≠ 0 := by positivity
       field_simp [h2, h3]
-      <;> ring
+      ring
 
 /-- An elementary uniform positive floor for separate-band counting.
 Even allowing *all* integers at least three as factors leaves at least `1/6`.
