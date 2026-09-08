@@ -168,10 +168,10 @@ theorem abs_realMertensLength_succ_le_dyadicQuarter (B : ℕ) :
       exact_mod_cast card_dyadicCofactorBoundary_le_quarter B
 
 /-- **Bessel transfers arbitrary pointwise Mertens majorants, not only power
-laws.**  This is the rate-free form of the return path: any nonnegative bound
-`A` for the physical Mertens prefix immediately gives `E(W) <= A^2/2`. -/
+laws.**  This is the rate-free form of the return path: any bound `A` for the
+physical Mertens prefix immediately gives `E(W) <= A^2/2`. -/
 theorem postRootCovarianceRemainder_le_of_mertensMajorant
-    {W : ℕ} {A : ℝ} (hA : 0 ≤ A)
+    {W : ℕ} {A : ℝ}
     (hM : |realMertensLength (W + 1)| ≤ A) :
     postRootCovarianceRemainder W ≤ A ^ 2 / 2 := by
   have hsqMul := mul_self_le_mul_self (abs_nonneg _) hM
@@ -193,8 +193,7 @@ theorem postRootCovarianceRemainder_le_dyadicQuarterSquare (W : ℕ) :
     postRootCovarianceRemainder W ≤
       ((((W + 3) / 4 : ℕ) : ℝ) ^ 2) / 2 := by
   have hM := abs_realMertensLength_succ_le_dyadicQuarter W
-  have hA : 0 ≤ (((W + 3) / 4 : ℕ) : ℝ) := by positivity
-  exact postRootCovarianceRemainder_le_of_mertensMajorant hA hM
+  exact postRootCovarianceRemainder_le_of_mertensMajorant hM
 
 /-! ## The opposite side: exact quotient packing gives `W^(3/2)` -/
 
@@ -315,11 +314,8 @@ theorem postRootCovarianceRemainder_le_strongMertensSubexp :
       Real.exp (-c * (Real.log (W : ℝ)) ^ ((1 : ℝ) / 10))
   have hbound : |nativeMertensSummatory W| ≤ R := by
     simpa [R] using hM W hW
-  have hR : 0 ≤ R := by
-    dsimp [R]
-    positivity
   rw [← realMertensLength_succ_eq_nativeMertensSummatory] at hbound
-  exact postRootCovarianceRemainder_le_of_mertensMajorant hR hbound
+  exact postRootCovarianceRemainder_le_of_mertensMajorant hbound
 
 /-! ## Normalized consequences -/
 
@@ -336,7 +332,7 @@ theorem postRootCovarianceRemainder_posPart_div_sq_tendsto_zero :
       Tendsto
         (fun W : ℕ => realMertensLength (W + 1) / (W : ℝ))
         atTop (𝓝 0) := by
-    simpa [realMertensLength_succ_eq_nativeMertensSummatory] using
+    simpa only [realMertensLength_succ_eq_nativeMertensSummatory] using
       RHLean.Analysis.nativeMertens_div_atTop_zero
   have hsq :
       Tendsto
@@ -365,7 +361,6 @@ theorem postRootCovarianceRemainder_posPart_div_sq_tendsto_zero :
           ((realMertensLength (W + 1) / (W : ℝ)) ^ 2 / 2) *
             ((W : ℝ) ^ 2) := by
         field_simp
-        ring
 
 /-- Epsilon form: every fixed positive fraction of the quadratic scale is
 eventually excluded on the positive side. -/
