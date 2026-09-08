@@ -8,7 +8,53 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
-## Current continuation: the record step is the carrier
+## Current continuation: records charge only their physical square step
+
+`PostRootCovarianceRecordPhysicalCharge.lean` strengthens #601 on the same
+record carrier. At an active high record, writing `n = W+1`, `c = n/p`,
+`u = mu(c)`, `x = M(n)`, and `y = M(c)`, the compiled #601 charge gives
+
+```text
+0 < outerRow = -u*(x+y) <= x^2-y^2,
+x^2-y^2 = outerRow * u*(y-x),
+u^2 = 1.
+```
+
+Cancelling the positive outer row yields `1 <= u*(y-x)`, hence the sharper
+physical-step charge
+
+```text
+outerRow <= x^2-(x+u)^2 = M(n)^2-M(n-1)^2,
+recordExcess_eps(W) <= (M(n)^2-M(n-1)^2) / n^(1+eps).
+```
+
+The main declarations are
+`postRootRecordOuterRowNumerator_le_physicalSquareStep` and
+`postRootCovariancePowerRecordExcess_le_physicalSquareStep_of_activePostRoot`.
+`realMertensSquareStep_pos_of_record_of_not_primeSquare` also proves that
+every positive record away from a prime-square wall is an outward physical
+square step. The low case keeps #601's sharper half-step estimate.
+
+The finite horizon theorem retains the record filter:
+
+```text
+env_eps(X) <= env_eps(2)
+  + sum_{2 <= W < X, record(W)} max(0, DeltaM2(W+1)/(W+1)^(1+eps))
+  + sum_{2 <= W < X} departureSeat_eps(W).
+```
+
+Each record now charges a distinct physical time step, so there are no
+cofactor-to-endpoint intervals whose overlap must be counted. This is not
+uniform summability: distinct outward steps can revisit square levels after
+intervening decreases. The record-selected positive variation remains open.
+Keep the departure term explicit as well: #601's bound by a fixed multiple of
+the finite Mertens square envelope is relative to the terminal target, and
+does not independently prove that envelope bounded.
+
+No global exponent improvement is claimed. Consult Hosted Lean CI for the
+compilation status of this head.
+
+## Previous continuation: the record step is the carrier
 
 `PostRootCovarianceRecordAbsorption.lean` moves the whole remaining problem
 onto the record step of the #600 envelope.  Three things are proved.
