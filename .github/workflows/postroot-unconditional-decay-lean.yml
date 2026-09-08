@@ -5,6 +5,7 @@ on:
     branches: [claude/wizardly-mayer-lwd8bb]
     paths:
       - RHLean/Proof/PostRootCovarianceUnconditionalDecayScratch.lean
+      - RHLean/Proof/PostRootCovarianceNormalizedDecay.lean
       - .github/workflows/postroot-unconditional-decay-lean.yml
   workflow_dispatch:
 
@@ -57,6 +58,14 @@ jobs:
           set -o pipefail
           lake build RHLean.Proof.PostRootCovarianceUnconditionalDecayScratch --wfail \
             2>&1 | tee postroot-unconditional-decay.log
-      - name: Print log
+      - name: Kernel-check normalized decay
+        shell: bash
+        run: |
+          set -o pipefail
+          lake build RHLean.Proof.PostRootCovarianceNormalizedDecay --wfail \
+            2>&1 | tee postroot-normalized-decay.log
+      - name: Print logs
         if: ${{ always() }}
-        run: cat postroot-unconditional-decay.log
+        run: |
+          cat postroot-unconditional-decay.log || true
+          cat postroot-normalized-decay.log || true
