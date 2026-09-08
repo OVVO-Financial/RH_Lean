@@ -172,7 +172,7 @@ pointwise in `W`, and by the equivalence above the exchange rate is exact, so
 no post-root or record reduction can improve the global exponent without an
 improvement of the Mertens exponent itself. -/
 theorem postRootCovarianceRemainder_le_of_mertensPowerBound
-    {B θ : ℝ} (hB : 0 ≤ B) {W : ℕ} (hW : 1 ≤ W)
+    {B θ : ℝ} {W : ℕ} (hW : 1 ≤ W)
     (hM : |realMertensLength (W + 1)| ≤ B * Real.rpow (W : ℝ) θ) :
     postRootCovarianceRemainder W ≤
       B ^ 2 / 2 * Real.rpow (W : ℝ) (2 * θ) := by
@@ -217,7 +217,7 @@ theorem abs_realMertensLength_le_diagonal (K : ℕ) :
 theorem realMertensDiagonal_mono {K L : ℕ} (h : K ≤ L) :
     realMertensDiagonal K ≤ realMertensDiagonal L := by
   unfold realMertensDiagonal
-  exact Finset.sum_le_sum_of_subset_of_nonneg (Finset.range_subset.mpr h)
+  exact Finset.sum_le_sum_of_subset_of_nonneg (Finset.range_subset_range.mpr h)
     fun n _hn _hnot => sq_nonneg _
 
 private theorem realMoebiusStep_four_mul_eq_zero (m : ℕ) :
@@ -237,7 +237,7 @@ quarters of the length. -/
 theorem realMertensDiagonal_four_mul_le (m : ℕ) :
     realMertensDiagonal (4 * m) ≤ 3 * (m : ℝ) := by
   induction m with
-  | zero => norm_num [realMertensDiagonal]
+  | zero => simp [realMertensDiagonal]
   | succ m ih =>
       have hstep : 4 * (m + 1) = 4 * m + 1 + 1 + 1 + 1 := by ring
       rw [hstep, realMertensDiagonal_succ, realMertensDiagonal_succ,
@@ -348,9 +348,14 @@ theorem mertensPowerSaving_of_mertensEnergyBounded
         rw [hsqrtC, rpow_half_mul_self ε x]
   have hb' := hb x
   rw [norm_mertensSummatory_sq_eq_realMertensLength_sq] at hb'
-  have hnn := abs_nonneg (realMertensLength (x + 1))
-  have habs := sq_abs (realMertensLength (x + 1))
-  nlinarith [hb', habs, hnn, hrhs, hprod]
+  refine abs_le_of_sq_le_sq ?_ hrhs
+  have hpow :
+      (Real.sqrt C * Real.rpow ((x + 1 : ℕ) : ℝ) ((1 + ε) / 2)) ^ 2 =
+        C * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
+    rw [sq]
+    exact hprod
+  rw [hpow]
+  exact hb'
 
 /-- **The seam, named once and for all.**  Every compiled reduction in the
 post-root/record tower is equivalent to a classical Mertens power saving.  There
@@ -410,6 +415,29 @@ theorem postRootCovarianceRemainder_succ_lt_endpoint_mul_squareGap
   have h2 := postRootRecordOuterRowNumerator_le_currentSquare_sub_lowerSquare
     ε hε hW hp hmem hdvd hrec
   have hn : (0 : ℝ) ≤ ((W + 1 : ℕ) : ℝ) := Nat.cast_nonneg _
-  nlinarith [h1, h2, hn]
+  have h3 := mul_le_mul_of_nonneg_right h2 hn
+  linarith
+
+/-- **The record equation.**  Eliminating the covariance coordinate entirely:
+at a record, the physical Mertens square minus its transported post-root family
+squares is below twice one endpoint times one local innovation, plus one
+endpoint.  This is the constraint that a Mertens-exponent attack on the record
+carrier has to contradict, stated with no covariance object left in it. -/
+theorem mertensSquare_sub_familyEnergy_lt_endpoint_charge
+    (ε : ℝ) (hε : 0 ≤ ε) {W : ℕ} (hW : 2 ≤ W)
+    (hrec : 0 < postRootCovariancePowerRecordExcess ε W) :
+    realMertensLength (W + 2) ^ 2 -
+        postRootFamilyMertensSquareEnergy (W + 1) <
+      2 * (postRootCovarianceLocalInnovation W * ((W + 1 : ℕ) : ℝ)) +
+        ((W + 1 : ℕ) : ℝ) := by
+  have hid :=
+    postRootMertensSquareFiniteDifference_eq_two_mul_remainder_add_diagonal (W + 1)
+  have hres := postRootComplementDiagonalResidual_le_endpoint (W + 1)
+  have hrem :=
+    postRootCovarianceRemainder_succ_lt_endpoint_mul_localInnovation ε hε hW hrec
+  unfold postRootMertensSquareFiniteDifference at hid
+  have hcast : W + 1 + 1 = W + 2 := by omega
+  rw [hcast] at hid
+  linarith
 
 end RHLean.Proof
