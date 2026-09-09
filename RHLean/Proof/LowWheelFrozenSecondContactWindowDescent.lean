@@ -87,6 +87,7 @@ theorem orderedEulerCut_mem_frozenCofactor_of_one_lt
     (hy : y ∈ orderedEulerCutCarrier R) (hc : 1 < y.2.1) :
     y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R := by
   rcases y with ⟨t, c, p⟩
+  change 1 < c at hc
   have hs := orderedEulerCutShape_of_mem_carrier hy
   have ho := mem_orderedEulerCutCarrier.mp hy
   have hl := (mem_orderedEulerCutCarrier_iff_shape_lifetime.mp hy).2
@@ -94,7 +95,8 @@ theorem orderedEulerCut_mem_frozenCofactor_of_one_lt
     orderedEulerCutShape_canonicalPivot hs
   have htag : (t, (c, p)) ∈ lowWheelCanonicalTaggedDowncrossCarrier R :=
     mem_lowWheelCanonicalTaggedDowncrossCarrier.mpr
-      ⟨ho.1, (mem_lowWheelCanonicalDowncrossOrientedPart.mp ho.2).1⟩
+      ⟨ho.1, (LowWheelCanonicalDowncrossOwnership.mem_lowWheelCanonicalDowncrossOrientedPart.mp
+        ho.2).1⟩
   have hfrozen : LowWheelDowncrossFrozenShape (t, (c, p)) := by
     constructor
     · exact hpiv.symm
@@ -126,7 +128,8 @@ theorem orderedEulerCut_mem_frozenCofactor_of_one_lt
   have hzo := mem_orderedEulerCutCarrier.mp hz
   have hzTag : (t, (1, p)) ∈ lowWheelCanonicalTaggedDowncrossCarrier R :=
     mem_lowWheelCanonicalTaggedDowncrossCarrier.mpr
-      ⟨hzo.1, (mem_lowWheelCanonicalDowncrossOrientedPart.mp hzo.2).1⟩
+      ⟨hzo.1, (LowWheelCanonicalDowncrossOwnership.mem_lowWheelCanonicalDowncrossOrientedPart.mp
+        hzo.2).1⟩
   have hzPiv : lowWheelCanonicalCofactorQuotientPivot (1, p) = p :=
     orderedEulerCutShape_canonicalPivot hzShape
   have hparent : lowWheelCanonicalDowncrossParent (t, (1, p)) =
@@ -328,6 +331,28 @@ theorem frozenPrimeUniverseWindowMass_eq_neg_smallerOwnerWindows
     frozenPrimeUniverse_upperColumn_telescope A K hA]
   ring
 
+/-- Exact global source ledger after saturation of every owner fibre. -/
+theorem lowWheelFrozenSecondContactSource_sum_eq_highOwnerWindowMass_sum
+    (R : ℕ) :
+    (∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+      canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ)) =
+      ((∑ q ∈ primesUpTo (R - 1),
+        lowWheelFrozenSecondContactHighOwnerWindowMass R q : ℤ) : ℂ) := by
+  have hmaps : ∀ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+      lowWheelFrozenCofactorTopPrime y ∈ primesUpTo (R - 1) := by
+    intro y hy
+    have hd := mem_lowWheelFrozenSecondContactParentCarrier.mp
+      (lowWheelFrozenSecondContactParentMap_mem hy)
+    exact mem_primesUpTo.mpr ⟨hd.2.2.1, (Finset.mem_Icc.mp hd.1).2⟩
+  have hfib := Finset.sum_fiberwise_of_maps_to hmaps
+    (fun y => canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ))
+  rw [← hfib, Int.cast_sum]
+  apply Finset.sum_congr rfl
+  intro q hq
+  have hd := mem_primesUpTo.mp hq
+  have := hd.1.two_le
+  exact lowWheelFrozenSecondContactSource_owner_sum_eq_highOwnerWindowMass hd.1 (by omega)
+
 /-- The high-window endpoints are correctly ordered at every native owner. -/
 theorem lowWheelFrozenSecondContactHighOwnerWindow_endpoints
     {R q : ℕ} (hq : q.Prime) (hqR : q < R) :
@@ -407,5 +432,134 @@ theorem lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_childOwnerColu
     _ = -∑ r ∈ primesUpTo (R - 1), lowWheelFrozenSecondContactChildOwnerColumn R r := by
       simp only [Finset.sum_filter, lowWheelFrozenSecondContactChildOwnerColumn]
       rw [Finset.sum_comm]
+
+/-- Both exact identities composed on the original frozen source ledger. -/
+theorem lowWheelFrozenSecondContactSource_sum_eq_neg_childOwnerColumns
+    (R : ℕ) :
+    (∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+      canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ)) =
+      -((∑ r ∈ primesUpTo (R - 1),
+        lowWheelFrozenSecondContactChildOwnerColumn R r : ℤ) : ℂ) := by
+  rw [lowWheelFrozenSecondContactSource_sum_eq_highOwnerWindowMass_sum,
+    lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_childOwnerColumns,
+    Int.cast_neg]
+
+/-- The exact old-owner fibre above a reassembled parent product `r*d`. -/
+def lowWheelFrozenSecondContactOldOwnerFiber (R r d : ℕ) : Finset ℕ :=
+  (primesUpTo (R - 1)).filter fun q =>
+    r < q ∧ R < r * d ∧ q * (r * d) ≤ squareRootEndpoint R ∧
+      squareRootEndpoint R < q * q * (r * d)
+
+/-- After division by the new owner, window membership is exactly a root
+crossing plus the old owner's two contact inequalities. -/
+theorem mem_lowWheelFrozenSecondContactChildWindow_iff
+    {R q r : ℕ} {V : Finset ℕ} (hq : q.Prime) (hr : r.Prime) :
+    V ∈ frozenPrimeUniverseWindowFaces (primesUpTo (r - 1))
+        (max R (squareRootEndpoint R / (q * q)) / r)
+        (squareRootEndpoint R / q / r) ↔
+      V ∈ (primesUpTo (r - 1)).powerset ∧
+        R < r * primeFaceProduct V ∧
+        q * (r * primeFaceProduct V) ≤ squareRootEndpoint R ∧
+        squareRootEndpoint R < q * q * (r * primeFaceProduct V) := by
+  rw [mem_frozenPrimeUniverseWindowFaces]
+  have hlow : max R (squareRootEndpoint R / (q * q)) / r < primeFaceProduct V ↔
+      R < r * primeFaceProduct V ∧
+        squareRootEndpoint R < q * q * (r * primeFaceProduct V) := by
+    rw [Nat.div_lt_iff_lt_mul hr.pos, max_lt_iff,
+      Nat.div_lt_iff_lt_mul (Nat.mul_pos hq.pos hq.pos)]
+    simp only [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc]
+  have hupp : primeFaceProduct V ≤ squareRootEndpoint R / q / r ↔
+      q * (r * primeFaceProduct V) ≤ squareRootEndpoint R := by
+    rw [Nat.le_div_iff_mul_le hr.pos, Nat.le_div_iff_mul_le hq.pos]
+    simp only [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc]
+  rw [hlow, hupp]
+  tauto
+
+/-- **Exhausted fixed-child-owner reassembly.** Windows for different old
+owners have the same sign at a common face.  Their exact overlap is the old
+owner fibre multiplicity; cancellation can still occur between different
+signed faces.  This is an equality, not an unsigned estimate. -/
+theorem lowWheelFrozenSecondContactChildOwnerColumn_eq_signed_fibers
+    {R r : ℕ} (hr : r.Prime) :
+    lowWheelFrozenSecondContactChildOwnerColumn R r =
+      ∑ V ∈ (primesUpTo (r - 1)).powerset,
+        ((lowWheelFrozenSecondContactOldOwnerFiber R r (primeFaceProduct V)).card : ℤ) *
+          booleanCubeSign V := by
+  unfold lowWheelFrozenSecondContactChildOwnerColumn
+  have hwindow : ∀ q ∈ primesUpTo (R - 1),
+      frozenPrimeUniverseWindowMass (primesUpTo (r - 1))
+        (max R (squareRootEndpoint R / (q * q)) / r)
+        (squareRootEndpoint R / q / r) =
+        ∑ V ∈ (primesUpTo (r - 1)).powerset,
+          if R < r * primeFaceProduct V ∧
+              q * (r * primeFaceProduct V) ≤ squareRootEndpoint R ∧
+              squareRootEndpoint R < q * q * (r * primeFaceProduct V)
+          then booleanCubeSign V else 0 := by
+    intro q hq
+    have hp := (mem_primesUpTo.mp hq).1
+    unfold frozenPrimeUniverseWindowMass frozenPrimeUniverseWindowFaces
+    rw [Finset.sum_filter]
+    apply Finset.sum_congr rfl
+    intro V hV
+    have hw := mem_lowWheelFrozenSecondContactChildWindow_iff (V := V) hp hr
+    simp only [mem_frozenPrimeUniverseWindowFaces, hV, true_and] at hw
+    rw [hw]
+  rw [Finset.sum_filter]
+  calc
+    (∑ q ∈ primesUpTo (R - 1), if r < q then
+        frozenPrimeUniverseWindowMass (primesUpTo (r - 1))
+          (max R (squareRootEndpoint R / (q * q)) / r)
+          (squareRootEndpoint R / q / r) else 0) =
+        ∑ q ∈ primesUpTo (R - 1), ∑ V ∈ (primesUpTo (r - 1)).powerset,
+          if r < q ∧ R < r * primeFaceProduct V ∧
+              q * (r * primeFaceProduct V) ≤ squareRootEndpoint R ∧
+              squareRootEndpoint R < q * q * (r * primeFaceProduct V)
+          then booleanCubeSign V else 0 := by
+      apply Finset.sum_congr rfl
+      intro q hq
+      rw [hwindow q hq]
+      by_cases hqr : r < q <;> simp [hqr]
+    _ = ∑ V ∈ (primesUpTo (r - 1)).powerset,
+        ((lowWheelFrozenSecondContactOldOwnerFiber R r (primeFaceProduct V)).card : ℤ) *
+          booleanCubeSign V := by
+      rw [Finset.sum_comm]
+      apply Finset.sum_congr rfl
+      intro V _hV
+      rw [← Finset.sum_filter]
+      simp only [lowWheelFrozenSecondContactOldOwnerFiber, Finset.sum_const,
+        nsmul_eq_mul]
+
+/-! ## Carrier checks required before using an energy gate -/
+
+/-- The two old-owner windows can overlap on the same signed face.  Thus the
+fixed-child-owner reassembly is not a disjoint interval partition. -/
+theorem lowWheelFrozenSecondContactChildWindows_overlap :
+    {3} ∈ frozenPrimeUniverseWindowFaces (primesUpTo (5 - 1))
+      (max 13 (squareRootEndpoint 13 / (7 * 7)) / 5)
+      (squareRootEndpoint 13 / 7 / 5) ∧
+    {3} ∈ frozenPrimeUniverseWindowFaces (primesUpTo (5 - 1))
+      (max 13 (squareRootEndpoint 13 / (11 * 11)) / 5)
+      (squareRootEndpoint 13 / 11 / 5) := by
+  norm_num [mem_frozenPrimeUniverseWindowFaces, Finset.mem_powerset,
+    Finset.subset_iff, mem_primesUpTo, primeFaceProduct, squareRootEndpoint]
+
+/-- The raw #627 source is not already supported in the fourth-power Go band.
+At `R=122`, the face `{2,3,5,7}` belongs to the owner-11 high window although
+`11^4 <= X_R`.  A later energy gate needs an additional exact defect bridge. -/
+theorem lowWheelFrozenSecondContactSource_exists_outside_fourthPowerGate :
+    ∃ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart 122,
+      lowWheelFrozenCofactorTopPrime y = 11 ∧
+        (lowWheelFrozenCofactorTopPrime y) ^ 4 ≤ squareRootEndpoint 122 := by
+  have hwin : ({2, 3, 5, 7} : Finset ℕ) ∈
+      lowWheelFrozenSecondContactHighOwnerWindow 122 11 := by
+    norm_num [lowWheelFrozenSecondContactHighOwnerWindow,
+      mem_frozenPrimeUniverseWindowFaces, Finset.mem_powerset,
+      Finset.subset_iff, mem_primesUpTo, primeFaceProduct, squareRootEndpoint]
+  rcases lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow
+    (by norm_num : Nat.Prime 11) (by norm_num : 11 < 122) hwin with ⟨y, hy, hm⟩
+  have hq : lowWheelFrozenCofactorTopPrime y = 11 := congrArg Prod.fst hm
+  refine ⟨y, hy, hq, ?_⟩
+  rw [hq]
+  norm_num [squareRootEndpoint]
 
 end RHLean.Proof
