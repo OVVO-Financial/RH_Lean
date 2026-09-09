@@ -250,7 +250,16 @@ theorem lowWheelDoubleCubePrimePrefix_step
   exact lowWheelDoubleCubeSetTransportLedger_insert
     R p (primesUpTo (p - 1)) (freshPrime_not_mem_primesUpTo_pred hp)
 
-/-- Literal increasing-prime recurrence. -/
+/-- Complex-valued shell difference attached to one old physical parent pair. -/
+def lowWheelSequentialShellDifferenceC
+    (p R X q n : ℕ) : ℂ :=
+  ((if R < q ∧ n ≤ X ∧ X < p * n then (1 : ℤ) else 0) -
+    (if R < p * q ∧ p * n ≤ X ∧ X < p * p * n then (1 : ℤ) else 0) : ℤ)
+
+/-- **Sequential state with geometric support already exposed.**  Substituting
+the exact mixed-cell shell identity into the increasing-prime recurrence shows
+that the state created when `p` is admitted has support only on its two adjacent
+multiplicative shells. -/
 theorem lowWheelDoubleCubePrimePrefix_step_eq_shells
     (R p : ℕ) (hp : p.Prime) :
     lowWheelDoubleCubeSetTransportLedger R (primesUpTo p) =
