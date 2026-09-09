@@ -159,4 +159,86 @@ theorem squareRootProperSubwheelFrozenCorrelation_eq_outerParityDepthTwo
   exact primeWheelFrozenFullRoughSeatCorrelation_eq_outerParityDepthTwo
     (squareRootEndpoint R) Y hYX hcubic
 
+/-! ## Half-root specialization: the semiprime response has only four states -/
+
+/-- At the square endpoint, stopping the wheel at `R/2` is already safely past
+the cubic depth-two threshold once `R >= 6`. -/
+theorem squareRootEndpoint_lt_halfRootSucc_cube
+    (R : ℕ) (hR : 6 ≤ R) :
+    squareRootEndpoint R < (R / 2 + 1) ^ 3 := by
+  have hRlt : R < 2 * (R / 2 + 1) := by omega
+  have hsq : R ^ 2 < (2 * (R / 2 + 1)) ^ 2 :=
+    Nat.pow_lt_pow_left hRlt (by omega)
+  have hfour : 4 ≤ R / 2 + 1 := by omega
+  have hfourSq :
+      4 * (R / 2 + 1) ^ 2 ≤ (R / 2 + 1) ^ 3 := by
+    calc
+      4 * (R / 2 + 1) ^ 2 ≤
+          (R / 2 + 1) * (R / 2 + 1) ^ 2 :=
+        Nat.mul_le_mul_right ((R / 2 + 1) ^ 2) hfour
+      _ = (R / 2 + 1) ^ 3 := by ring
+  have hsq' : R ^ 2 < 4 * (R / 2 + 1) ^ 2 := by
+    calc
+      R ^ 2 < (2 * (R / 2 + 1)) ^ 2 := hsq
+      _ = 4 * (R / 2 + 1) ^ 2 := by ring
+  have hX : squareRootEndpoint R < R ^ 2 := by
+    unfold squareRootEndpoint
+    have hpos : 0 < R ^ 2 := by positivity
+    omega
+  exact hX.trans (hsq'.trans_le hfourSq)
+
+/-- Two primes above the half-root force the square-endpoint reciprocal quotient
+into the fixed four-state range `0,1,2,3`. -/
+theorem squareRootEndpoint_div_two_halfRootHighPrimes_lt_four
+    {R p q : ℕ} (hR : 6 ≤ R)
+    (hp : p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R))
+    (hq : q ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (p - 1)) :
+    squareRootEndpoint R / (p * q) < 4 := by
+  have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp hp
+  have hqData := mem_frozenPrimeUniverseHighPrimeSet.mp hq
+  have hpLower : R / 2 + 1 ≤ p := by omega
+  have hqLower : R / 2 + 1 ≤ q := by omega
+  have hRlt : R < 2 * (R / 2 + 1) := by omega
+  have hRsq : R ^ 2 < (2 * (R / 2 + 1)) ^ 2 :=
+    Nat.pow_lt_pow_left hRlt (by omega)
+  have hpqLower : (R / 2 + 1) * (R / 2 + 1) ≤ p * q :=
+    Nat.mul_le_mul hpLower hqLower
+  have hfour : (2 * (R / 2 + 1)) ^ 2 ≤ 4 * (p * q) := by
+    calc
+      (2 * (R / 2 + 1)) ^ 2 =
+          4 * ((R / 2 + 1) * (R / 2 + 1)) := by ring
+      _ ≤ 4 * (p * q) := Nat.mul_le_mul_left 4 hpqLower
+  have hX : squareRootEndpoint R < R ^ 2 := by
+    unfold squareRootEndpoint
+    have hpos : 0 < R ^ 2 := by positivity
+    omega
+  have hX4 : squareRootEndpoint R < 4 * (p * q) :=
+    hX.trans (hRsq.trans_le hfour)
+  apply (Nat.div_lt_iff_lt_mul (Nat.mul_pos hpData.1.pos hqData.1.pos)).2
+  simpa [Nat.mul_assoc] using hX4
+
+/-- **Half-root outer-parity normal form.**  The generic cubic identity may be
+run at the explicit proper subwheel `R/2`.  In addition, every semiprime term
+in the final line has reciprocal argument strictly below four by
+`squareRootEndpoint_div_two_halfRootHighPrimes_lt_four`.  Thus the two-prime
+layer is a finite four-state arithmetic object rather than a recursive Mertens
+problem. -/
+theorem squareRootProperSubwheelFrozenCorrelation_eq_halfRootDepthTwo
+    (R : ℕ) (hR : 6 ≤ R) :
+    squareRootProperSubwheelFrozenCorrelation R (R / 2) =
+      frozenPrimeUniverseMass (primesUpTo (R / 2)) (squareRootEndpoint R) -
+        (∑ p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R),
+          frozenPrimeUniverseMass (primesUpTo (R / 2))
+            (squareRootEndpoint R / p)) +
+        ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (squareRootEndpoint R),
+          ∑ q ∈ frozenPrimeUniverseHighPrimeSet (R / 2) (p - 1),
+            mertensSummatoryInt (squareRootEndpoint R / (p * q)) := by
+  have hRX : R ≤ squareRootEndpoint R := by
+    have hquad : R + 1 ≤ R ^ 2 := by nlinarith
+    unfold squareRootEndpoint
+    omega
+  have hYX : R / 2 ≤ squareRootEndpoint R := (Nat.div_le_self R 2).trans hRX
+  exact squareRootProperSubwheelFrozenCorrelation_eq_outerParityDepthTwo
+    R (R / 2) hYX (squareRootEndpoint_lt_halfRootSucc_cube R hR)
+
 end RHLean.Proof
