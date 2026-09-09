@@ -420,7 +420,8 @@ theorem frozenTopFarResidualEpsilon_of_canonicalOrientedEpsilon
         lowWheelCanonicalDefectLedger R -
           lowWheelCanonicalDowncrossUniqueParentLedger R -
           squareRootNearPrimeTransport R + squareRootERuniq R := by
-    linear_combination hEq
+    rw [hEq]
+    ring
   have hcompDef :
       ‖lowWheelFrozenTopFarResidual R‖ ≤
         ‖lowWheelCanonicalDefectLedger R‖ + 9 * (R : ℝ) := by
