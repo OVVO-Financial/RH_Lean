@@ -250,34 +250,6 @@ theorem lowWheelDoubleCubePrimePrefix_step
   exact lowWheelDoubleCubeSetTransportLedger_insert
     R p (primesUpTo (p - 1)) (freshPrime_not_mem_primesUpTo_pred hp)
 
-/-- Square-residual specialization of the recursive Go law. -/
-theorem squareRootLowPrimeGoWallSquareResidual_eq_mertensPred_sub_smallerOwnerStrips
-    {q X : ℕ} (hq : q.Prime)
-    (hunfinished : q ≤ X / (q * q)) :
-    squareRootLowPrimeGoWallSquareResidual q X =
-      mertensSummatoryInt (q - 1) -
-        ∑ r ∈ primesUpTo (q - 1),
-          (frozenPrimeUniverseMass (primesUpTo (r - 1))
-              ((X / (q * q)) / r) -
-            frozenPrimeUniverseMass (primesUpTo (r - 1)) ((q - 1) / r)) := by
-  rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
-  exact frozenPrimeUniverseMass_eq_mertensPred_sub_smallerOwnerStrips
-    hq hunfinished
-
-/-- Square-residual specialization of the recursive Go law. -/
-theorem squareRootLowPrimeGoWallSquareResidual_eq_mertensPred_sub_smallerOwnerStrips
-    {q X : ℕ} (hq : q.Prime)
-    (hunfinished : q ≤ X / (q * q)) :
-    squareRootLowPrimeGoWallSquareResidual q X =
-      mertensSummatoryInt (q - 1) -
-        ∑ r ∈ primesUpTo (q - 1),
-          (frozenPrimeUniverseMass (primesUpTo (r - 1))
-              ((X / (q * q)) / r) -
-            frozenPrimeUniverseMass (primesUpTo (r - 1)) ((q - 1) / r)) := by
-  rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
-  exact frozenPrimeUniverseMass_eq_mertensPred_sub_smallerOwnerStrips
-    hq hunfinished
-
 /-- Literal increasing-prime recurrence. -/
 theorem lowWheelDoubleCubePrimePrefix_step_eq_shells
     (R p : ℕ) (hp : p.Prime) :
