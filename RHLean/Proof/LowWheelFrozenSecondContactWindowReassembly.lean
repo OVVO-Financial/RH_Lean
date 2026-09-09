@@ -226,6 +226,7 @@ theorem lowWheelFrozenSecondContactParentFaceProduct_gt_root
     {R : ℕ} {y : LowWheelTaggedDowncrossState}
     (hy : y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R) :
     R < primeFaceProduct (lowWheelFrozenSecondContactParentFace y) := by
+  classical
   obtain ⟨hqPrime, hqDvd, _hpq⟩ := lowWheelFrozenCofactorTopPrime_data hy
   have hsource := lowWheelCanonicalRepeatedFrozenCofactor_source_data hy
   have hfrozen := (Finset.mem_filter.mp hy).1
