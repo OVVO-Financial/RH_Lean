@@ -25,6 +25,7 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 open RHLean.Analysis
+open FrozenCofactorTopBottom
 
 attribute [local instance] Classical.propDecidable
 
@@ -243,8 +244,8 @@ theorem lowWheelCanonicalRepeatedTerminalInternalLedger_eq_neg_mateLedger
     (R : ℕ) :
     lowWheelCanonicalRepeatedTerminalInternalLedger R =
       -lowWheelCanonicalRepeatedTerminalInternalMateLedger R := by
+  unfold lowWheelCanonicalRepeatedTerminalInternalLedger
   have h := sum_lowWheelCanonicalRepeatedTerminalInternal_add_mate_eq_zero R
-  unfold lowWheelCanonicalRepeatedTerminalInternalLedger at h
   linear_combination h
 
 /-- **Transport-only normal form of the frozen/top/far residual.**  The old
