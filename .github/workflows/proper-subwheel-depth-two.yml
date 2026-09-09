@@ -15,6 +15,7 @@ on:
       - research/HALF_ROOT_RECOUPLED_FIRST_JUMP.lean
       - research/HALF_ROOT_PAIR_COLUMN_CANCELLATION.lean
       - research/HALF_ROOT_SQUARE_CORRECTION_BOUND.lean
+      - research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean
       - .github/workflows/proper-subwheel-depth-two.yml
   workflow_dispatch:
 
@@ -109,3 +110,9 @@ jobs:
 
       - name: Kernel-check root-scale square correction
         run: lake env lean -o .lake/build/lib/lean/research.HALF_ROOT_SQUARE_CORRECTION_BOUND.olean research/HALF_ROOT_SQUARE_CORRECTION_BOUND.lean
+
+      - name: Build canonical defect bridge
+        run: lake build RHLean.Proof.LowWheelCanonicalDefectReduction --wfail
+
+      - name: Kernel-check signed boundary-base telescope
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.HALF_ROOT_BOUNDARY_BASE_TELESCOPE.olean research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean
