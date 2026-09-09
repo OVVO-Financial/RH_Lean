@@ -519,6 +519,7 @@ import RHLean.Proof.LowWheelFrozenCofactorTopImageHighPrimeObstruction
 import RHLean.Proof.LowWheelFrozenFirstFailureBridge
 import RHLean.Proof.LowWheelFullFaceQuotientOthello
 import RHLean.Proof.LowWheelHighPrimeSurvivor
+import RHLean.Proof.LowWheelLargestDefectSeamEquivalence
 import RHLean.Proof.LowWheelLeastLargestOthello
 import RHLean.Proof.LowWheelLeastLargestStableTransfer
 import RHLean.Proof.LowWheelOthelloDowncrossGeometry
