@@ -8,6 +8,47 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Current continuation after #608: consume the middle boundary with its base
+
+`research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean` continues the signed
+base/boundary coupling left by #608. Read its compilation status from the
+dedicated `Proper subwheel depth-two check` at the current head.
+
+The general finite Euler telescope, for `Y <= K <= X` and `X < (Y+1)^3`, is
+
+```text
+F_Y(X) - sum_{Y<p<=K} F_p(X/p)
+  = F_K(X) + sum_{Y<p<=K} M(floor(X/p^2)).
+```
+
+At `Y=R/2`, `K=R`, the entire middle moving boundary is consumed by the
+base's advance to the physical root. Its residue is exactly the existing
+`halfRootPrimeSquareCorrection R`, already bounded by `R+1` for `R >= 6`.
+Thus the middle coupled difference has root-scale error without taking
+separate norms of its two large terms.
+
+After the top states complete, the exact coupled core is
+
+```text
+halfRootBoundaryCoupledCore(R)
+  = F_R(X_R) - sum_{R<p<=X_R} M(floor(X_R/p)) + squareCorrection(R)
+  = smooth(R) - highTransport(R) + squareCorrection(R)
+  = M(R) - canonicalDefect(R) + squareCorrection(R).
+```
+
+The last two identities are explicit complex-cast bridges to
+`squareRootSmoothMass (R-1)`, `squareRootTransportCofactorFirst R`, and
+`lowWheelCanonicalDefectLedger R`. They preserve the exact root and endpoint
+conventions. The square correction is shared with #608 and cancels when the
+endpoint is reconstructed; these are not two independent additive errors.
+
+This identifies the remaining target with the existing signed smooth/high
+transport coupling, equivalently the canonical root-crossing defect. The
+middle moving chronology is not an additional quantitative seam. No bound on
+the canonical defect, improved global Mertens exponent, or RH closure is
+proved by these identities. In particular, a root-scale correction to an
+unbounded core is not itself a global root-scale bound.
+
 ## Current finite-wheel continuation: explicit counts and a signed 2310 overlap
 
 PR #604 continues the merged #603 wheel identities on their exact physical
