@@ -321,17 +321,22 @@ theorem lowWheelLargestOthelloMate_eq_frozenTopToggle
   have hcarrier := (Finset.mem_filter.mp hrepeated).1
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨_ht, hx⟩
   have hphysical := (mem_lowWheelCanonicalDowncrossPart.mp hx).1
-  have hprod : y.2.1 * y.2.2 ≠ 1 := by
-    intro h
-    have hc : y.2.1 = 1 := (Nat.mul_eq_one.mp h).1
+  have hphysicalData := mem_lowWheelCanonicalPhysicalStateSet.mp hphysical
+  have hkpos : 0 < y.2.2 := by
+    have hk1 := (Finset.mem_Icc.mp hphysicalData.2.1).1
     omega
+  have hprod : y.2.1 * y.2.2 ≠ 1 := by
+    have hle : y.2.1 ≤ y.2.1 * y.2.2 :=
+      Nat.le_mul_of_pos_right y.2.1 hkpos
+    exact ne_of_gt (hcgt.trans_le hle)
   have hmate :
       lowWheelLargestCofactorQuotientToggle y.2 ∈
         lowWheelCanonicalPhysicalStateSet R y.1 := by
     rw [lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy]
     exact lowWheelFrozenCofactorTopToggle_mem_physical hy
-  simp [lowWheelLargestOthelloMate, hprod, hmate,
-    lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy]
+  unfold lowWheelLargestOthelloMate
+  rw [if_neg hprod, if_pos hmate]
+  exact lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy
 
 /-- Consequently a repeated frozen `c > 1` source is not part of the
 largest-prime stable defect.  Its raw largest-prime mate is already physical. -/
@@ -359,10 +364,14 @@ theorem lowWheelCanonicalRepeatedFrozenCofactor_mem_largestMovingPart
   have hcarrier := (Finset.mem_filter.mp hrepeated).1
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨ht, hx⟩
   have hphysical := (mem_lowWheelCanonicalDowncrossPart.mp hx).1
-  have hprod : y.2.1 * y.2.2 ≠ 1 := by
-    intro h
-    have hc : y.2.1 = 1 := (Nat.mul_eq_one.mp h).1
+  have hphysicalData := mem_lowWheelCanonicalPhysicalStateSet.mp hphysical
+  have hkpos : 0 < y.2.2 := by
+    have hk1 := (Finset.mem_Icc.mp hphysicalData.2.1).1
     omega
+  have hprod : y.2.1 * y.2.2 ≠ 1 := by
+    have hle : y.2.1 ≤ y.2.1 * y.2.2 :=
+      Nat.le_mul_of_pos_right y.2.1 hkpos
+    exact ne_of_gt (hcgt.trans_le hle)
   have hrawNe : lowWheelLargestCofactorQuotientToggle y.2 ≠ y.2 :=
     lowWheelLargestRawToggle_ne ht hphysical hprod
   rw [lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy] at hrawNe
