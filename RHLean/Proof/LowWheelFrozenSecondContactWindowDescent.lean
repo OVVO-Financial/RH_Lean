@@ -471,11 +471,11 @@ theorem mem_lowWheelFrozenSecondContactChildWindow_iff
   have hupp : primeFaceProduct V ≤ squareRootEndpoint R / q / r ↔
       q * (r * primeFaceProduct V) ≤ squareRootEndpoint R := by
     rw [Nat.le_div_iff_mul_le hr.pos, Nat.le_div_iff_mul_le hq.pos]
-    simp only [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc]
+    simp only [Nat.mul_comm]
   rw [hlow, hupp]
   tauto
 
-/-- **Exhausted fixed-child-owner reassembly.** Windows for different old
+/-- **Exact fixed-child-owner overlap formula.** Windows for different old
 owners have the same sign at a common face.  Their exact overlap is the old
 owner fibre multiplicity; cancellation can still occur between different
 signed faces.  This is an equality, not an unsigned estimate. -/
@@ -501,7 +501,7 @@ theorem lowWheelFrozenSecondContactChildOwnerColumn_eq_signed_fibers
     rw [Finset.sum_filter]
     apply Finset.sum_congr rfl
     intro V hV
-    have hw := mem_lowWheelFrozenSecondContactChildWindow_iff (V := V) hp hr
+    have hw := mem_lowWheelFrozenSecondContactChildWindow_iff (R := R) (V := V) hp hr
     simp only [mem_frozenPrimeUniverseWindowFaces, hV, true_and] at hw
     rw [hw]
   rw [Finset.sum_filter]
@@ -543,6 +543,7 @@ theorem lowWheelFrozenSecondContactChildWindows_overlap :
   norm_num [mem_frozenPrimeUniverseWindowFaces, Finset.mem_powerset,
     Finset.subset_iff, mem_primesUpTo, primeFaceProduct, squareRootEndpoint]
 
+set_option maxRecDepth 4096 in
 /-- The raw #627 source is not already supported in the fourth-power Go band.
 At `R=122`, the face `{2,3,5,7}` belongs to the owner-11 high window although
 `11^4 <= X_R`.  A later energy gate needs an additional exact defect bridge. -/
