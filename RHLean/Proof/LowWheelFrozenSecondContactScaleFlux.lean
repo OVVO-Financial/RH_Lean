@@ -47,10 +47,12 @@ theorem lowWheelFrozenSecondContact_parentFaceProduct_eq_sourceScale_mul_canonic
           lowWheelCanonicalRepeatedFrozenProductOneFace_product hyFrozen
       _ = lowWheelFrozenCofactorTopPrime y *
           (lowWheelFrozenSecondContactSourceScale y * canonicalCofactor y.2.1) := by
-        rw [← hfactor]
+        conv_lhs => rw [← hfactor]
         unfold lowWheelFrozenSecondContactSourceScale
-        ring
-  exact Nat.mul_left_cancel heq
+        ac_rfl
+  have hqpos : 0 < lowWheelFrozenCofactorTopPrime y :=
+    (lowWheelFrozenCofactorTopPrime_data hyFrozen).1.pos
+  exact Nat.mul_left_cancel hqpos heq
 
 /-- After stripping the second-contact owner, the source sign is exactly the
 product of the source-scale Möbius sign and the stripped-cofactor Möbius sign. -/
