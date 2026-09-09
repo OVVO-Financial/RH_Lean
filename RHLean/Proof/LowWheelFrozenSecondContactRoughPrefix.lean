@@ -53,7 +53,7 @@ private theorem frozenSource_scale_eq_insert
       primeFaceProduct (insert (lowWheelTaggedDowncrossPivot y) y.1) := by
   have hpNot : lowWheelTaggedDowncrossPivot y ∉ y.1 := by
     intro hp
-    exact (Nat.lt_irrefl _) 
+    exact (Nat.lt_irrefl _)
       (lowWheelCanonicalRepeatedFrozenCofactor_facePrime_lt_pivot hy hp)
   simp [lowWheelFrozenSecondContactSourceScale, primeFaceProduct, hpNot]
 
@@ -181,9 +181,11 @@ theorem lowWheelFrozenCofactorSourceScaleFiber_image_eq_roughPrefix
       rw [← hyA]
       exact frozenSource_scale_largestPrime hy
     have hrough : RoughAbove p c := by simpa [hp] using hcrough
+    have hcOne : 1 ≤ c :=
+      (show 1 ≤ 2 by norm_num).trans hc2
     have hzShape : OrderedEulerCutShape z := by
-      refine ⟨hs.2.1, by omega, hcsq, RoughAbove.not_dvd hs.2.1 (by omega) hrough,
-        ?_, hrough⟩
+      refine ⟨hs.2.1, hcOne, hcsq,
+        RoughAbove.not_dvd hs.2.1 hcOne hrough, ?_, hrough⟩
       intro q hq
       exact ⟨(ho.2.2.2.2.1 q hq).1,
         lowWheelCanonicalRepeatedFrozenCofactor_facePrime_lt_pivot hy hq⟩
