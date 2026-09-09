@@ -193,8 +193,7 @@ theorem lowWheelFrozenCofactorTopImage_subset_repeatedExternalTerminal_iff
       mem_lowWheelFrozenCofactorTopImage.mpr ⟨y, hy, rfl⟩
     rw [himageEmpty] at this
     exact absurd this (Finset.notMem_empty _)
-  · intro hempty
-    intro z hz
+  · intro hempty z hz
     rcases mem_lowWheelFrozenCofactorTopImage.mp hz with ⟨y, hy, _⟩
     rw [hempty] at hy
     exact absurd hy (Finset.notMem_empty _)
