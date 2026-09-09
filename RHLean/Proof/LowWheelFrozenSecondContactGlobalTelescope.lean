@@ -302,4 +302,86 @@ theorem reciprocalDepth_mul_divisor_le_strippedDepth
     _ = (X / n) * n := by rw [Nat.div_mul_cancel hrDvd]
     _ ≤ X := Nat.div_mul_le_self X n
 
+/-! ## Intrinsic lower-scale exit carried by every source -/
+
+/-- **Strict source-scale descent.**  A frozen second-contact source already
+contains its own smaller cutoff.  If
+
+`A = p * P(t)`
+
+is its root-crossing/death coordinate and
+
+`B = floor(X_R / A)`,
+
+then the frozen cofactor `c` lies in the exact largest-prime exit shell
+
+`c <= B < P+(c) * c`,
+
+and the new cutoff is strictly below the old root, `B < R`.
+
+Thus the second-contact obstruction at the square endpoint `R^2-1` is
+pointwise a multiplicative endpoint crossing at a genuinely smaller numerical
+scale.  No sum, norm, density input, or analytic estimate is used. -/
+theorem lowWheelFrozenSecondContact_source_lowerScaleExit
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
+    (hy : y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R) :
+    let A := lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1
+    let B := squareRootEndpoint R / A
+    let q := lowWheelFrozenCofactorTopPrime y
+    y.2.1 ≤ B ∧ B < q * y.2.1 ∧ B < R := by
+  rcases Finset.mem_filter.mp hy with ⟨hyFrozen, hsecond⟩
+  let A := lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1
+  let B := squareRootEndpoint R / A
+  let q := lowWheelFrozenCofactorTopPrime y
+  have hAroot : R < A := by
+    simpa [A] using
+      lowWheelCanonicalRepeatedFrozenCofactor_facePivot_crosses_root hyFrozen
+  have hApos : 0 < A := by omega
+  rcases lowWheelCanonicalRepeatedFrozenCofactor_source_data hyFrozen with
+    ⟨_hk, _hpPrime, _hpNotC, _hsq, hcgt, hcR⟩
+  have hRpos : 0 < R := by omega
+  have htop :
+      primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace y) ≤
+        squareRootEndpoint R :=
+    lowWheelFrozenProductOneFace_le_endpoint hyFrozen
+  have hprod := lowWheelCanonicalRepeatedFrozenProductOneFace_product hyFrozen
+  have hcA : y.2.1 * A ≤ squareRootEndpoint R := by
+    calc
+      y.2.1 * A =
+          y.2.1 * lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1 := by
+        simp [A]
+        ring
+      _ = primeFaceProduct
+          (lowWheelCanonicalRepeatedFrozenProductOneFace y) := hprod.symm
+      _ ≤ squareRootEndpoint R := htop
+  have hcB : y.2.1 ≤ B := by
+    unfold B
+    exact (Nat.le_div_iff_mul_le hApos).2 hcA
+  have hqca :
+      squareRootEndpoint R < (q * y.2.1) * A := by
+    calc
+      squareRootEndpoint R <
+          q * primeFaceProduct
+            (lowWheelCanonicalRepeatedFrozenProductOneFace y) := by
+        simpa [q] using hsecond
+      _ = (q * y.2.1) * A := by
+        rw [hprod]
+        simp [A]
+        ring
+  have hBq : B < q * y.2.1 := by
+    unfold B
+    exact (Nat.div_lt_iff_lt_mul hApos).2 hqca
+  have hXltRR : squareRootEndpoint R < R * R := by
+    unfold squareRootEndpoint
+    have hsqPos : 0 < R ^ 2 := by positivity
+    simpa [pow_two] using Nat.pred_lt hsqPos
+  have hRRltRA : R * R < R * A :=
+    Nat.mul_lt_mul_of_pos_left hAroot hRpos
+  have hXltRA : squareRootEndpoint R < R * A :=
+    hXltRR.trans hRRltRA
+  have hBR : B < R := by
+    unfold B
+    exact (Nat.div_lt_iff_lt_mul hApos).2 hXltRA
+  exact ⟨hcB, hBq, hBR⟩
+
 end RHLean.Proof
