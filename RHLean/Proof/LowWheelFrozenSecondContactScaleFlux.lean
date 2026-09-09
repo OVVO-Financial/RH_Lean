@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.LowWheelFrozenSecondContactGlobalTelescope
+import RHLean.Proof.SquareRootLowPrimeTSectorQ2Renormalization
 
 /-!
 # Arithmetic scale and sign of frozen second-contact flux
