@@ -8,6 +8,69 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Current continuation: one Euler level below the endpoint carrier
+
+`RHLean/Proof/EndpointParentPushforward.lean` descends the globally reassembled
+signed carrier from the child `m` to the parent `c = m / P+(m)`.
+
+### Parent contraction
+
+Every child satisfies `P+(m) * m <= X` and `m = c q` with `q = P+(m)`, hence
+
+```text
+q^2 c <= X,   so   c <= X/4,   and   c <= X/9  once c > 1
+```
+
+(the strict case forces `q >= 3`, since the only prefix rough below `2` is the
+unit). The parent carrier `endpointSecondContactParents` therefore sits inside
+`Icc 1 (X/4)`. This is a statement about the whole reassembled population, not
+a sum of ownerwise estimates.
+
+### Exact noninjective parent pushforward
+
+Stripping the owner is not injective. The multiplicity is preserved exactly as
+the signed fresh-prime fibre
+
+```text
+endpointOwnerFibre K X c = { q prime : q <= K, P+(c) < q, q^2 c <= X },
+```
+
+whose image under `q |-> q*c` is proved equal to the population fibre over `c`
+in both directions. Hence, with no norm taken anywhere,
+
+```text
+sum_{m in P(K,X)} mu(m) = - sum_c card(fibre c) * mu(c),
+squareRootLowPrimeLiteralWallSquareResidualMass R K
+  = sum_c card(fibre c) * mu(c).
+```
+
+This trades `+-1` weights on children for prime-count weights on parents, so the
+*trivial* estimate is worse, not better. That is intended: the object is now one
+signed sum on a quarter-scale carrier, and its contraction must come from
+cancellation in `c`.
+
+### Mate frontier
+
+For any prime `p`, `fibre(p c)` is contained in `fibre(c)`. When the mate leaves
+the roughness floor fixed -- `P+(p c) = P+(c)`, proved here for `p = 2` and every
+`c > 1` -- the containment is exact:
+
+```text
+fibre(p c) = fibre(c) \ frontier(c,p),
+frontier(c,p) = { q in fibre(c) : q^2 (p c) > X },
+card fibre(p c) + card frontier(c,p) = card fibre(c).
+```
+
+So a parent and its mate cancel down to exactly the owners the mate pushes past
+the square cutoff.
+
+### What is not proved here
+
+The global involution pairing parents with their mates across the whole
+squarefree range, the sign bookkeeping at parents whose mate leaves the carrier,
+and any bound on the resulting frontier sum are all open. No norm, Mertens
+input, prime-distribution estimate or asymptotic claim is used.
+
 ## Current continuation: the endpoint square-residual mass has no owner index
 
 `RHLean/Proof/EndpointGlobalSquareResidualMass.lean` removes the owner
