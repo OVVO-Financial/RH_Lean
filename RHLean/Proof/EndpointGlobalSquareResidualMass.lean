@@ -254,7 +254,9 @@ theorem endpointSecondContactPopulation_restrictedMass_eq
   have hprime : ∀ q ∈ squareRootLowPrimeWallOldPrimeSet K, q.Prime := by
     intro q hq
     exact (mem_squareRootLowPrimeWallOldPrimeSet.mp hq).1
-  have h := goSecondContact_restrictedMass_eq hprime N
+  have h := goSecondContact_restrictedMass_eq
+    (Q := squareRootLowPrimeWallOldPrimeSet K) (X := squareRootEndpoint R)
+    hprime N
   rw [squareRootLowPrimeGoSecondContactSources_wallSchedule_eq_endpointPopulation]
     at h
   exact h
