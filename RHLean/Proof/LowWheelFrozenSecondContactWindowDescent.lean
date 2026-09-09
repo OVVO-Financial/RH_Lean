@@ -503,7 +503,7 @@ theorem lowWheelFrozenSecondContactChildOwnerColumn_eq_signed_fibers
     intro V hV
     have hw := mem_lowWheelFrozenSecondContactChildWindow_iff (R := R) (V := V) hp hr
     simp only [mem_frozenPrimeUniverseWindowFaces, hV, true_and] at hw
-    rw [hw]
+    simp only [hw]
   rw [Finset.sum_filter]
   calc
     (∑ q ∈ primesUpTo (R - 1), if r < q then
@@ -543,24 +543,33 @@ theorem lowWheelFrozenSecondContactChildWindows_overlap :
   norm_num [mem_frozenPrimeUniverseWindowFaces, Finset.mem_powerset,
     Finset.subset_iff, mem_primesUpTo, primeFaceProduct, squareRootEndpoint]
 
-set_option maxRecDepth 4096 in
+private theorem source_exists_of_highOwnerWindow_of_fourth_le
+    {R q : ℕ} {V : Finset ℕ} (hq : q.Prime) (hqR : q < R)
+    (hwin : V ∈ lowWheelFrozenSecondContactHighOwnerWindow R q)
+    (hfourth : q ^ 4 ≤ squareRootEndpoint R) :
+    ∃ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+      lowWheelFrozenCofactorTopPrime y = q ∧
+        (lowWheelFrozenCofactorTopPrime y) ^ 4 ≤ squareRootEndpoint R := by
+  rcases lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow hq hqR hwin with
+    ⟨y, hy, hm⟩
+  have ho : lowWheelFrozenCofactorTopPrime y = q := congrArg Prod.fst hm
+  exact ⟨y, hy, ho, by simpa only [ho] using hfourth⟩
+
+private theorem highOwnerWindow_122_contains_primorial7 :
+    ({2, 3, 5, 7} : Finset ℕ) ∈ lowWheelFrozenSecondContactHighOwnerWindow 122 11 := by
+  norm_num [lowWheelFrozenSecondContactHighOwnerWindow,
+    mem_frozenPrimeUniverseWindowFaces, Finset.mem_powerset,
+    Finset.subset_iff, mem_primesUpTo, primeFaceProduct, squareRootEndpoint]
+
 /-- The raw #627 source is not already supported in the fourth-power Go band.
 At `R=122`, the face `{2,3,5,7}` belongs to the owner-11 high window although
 `11^4 <= X_R`.  A later energy gate needs an additional exact defect bridge. -/
 theorem lowWheelFrozenSecondContactSource_exists_outside_fourthPowerGate :
     ∃ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart 122,
       lowWheelFrozenCofactorTopPrime y = 11 ∧
-        (lowWheelFrozenCofactorTopPrime y) ^ 4 ≤ squareRootEndpoint 122 := by
-  have hwin : ({2, 3, 5, 7} : Finset ℕ) ∈
-      lowWheelFrozenSecondContactHighOwnerWindow 122 11 := by
-    norm_num [lowWheelFrozenSecondContactHighOwnerWindow,
-      mem_frozenPrimeUniverseWindowFaces, Finset.mem_powerset,
-      Finset.subset_iff, mem_primesUpTo, primeFaceProduct, squareRootEndpoint]
-  rcases lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow
-    (by norm_num : Nat.Prime 11) (by norm_num : 11 < 122) hwin with ⟨y, hy, hm⟩
-  have hq : lowWheelFrozenCofactorTopPrime y = 11 := congrArg Prod.fst hm
-  refine ⟨y, hy, hq, ?_⟩
-  rw [hq]
-  norm_num [squareRootEndpoint]
+        (lowWheelFrozenCofactorTopPrime y) ^ 4 ≤ squareRootEndpoint 122 :=
+  source_exists_of_highOwnerWindow_of_fourth_le
+    (by norm_num) (by norm_num) highOwnerWindow_122_contains_primorial7
+    (by norm_num [squareRootEndpoint])
 
 end RHLean.Proof
