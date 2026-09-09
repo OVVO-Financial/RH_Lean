@@ -603,6 +603,50 @@ theorem signedVerticalIntervalMass_eq_signedPrefixLifetimeResidual
 
 The complex/Fermat coordinate, the ordered Euler coordinate, the oriented/downcross coordinate, the lifetime coordinate, and the canonical defect coordinate are therefore not separate analytic problems.
 
+### Downcross ledger after the frozen top/bottom subtraction
+
+File: `RHLean/Proof/LowWheelFrozenCofactorTopBottomCancellation.lean`
+
+`LowWheelFrozenCofactorTopBottomToggle` supplies, pointwise, the sign-reversing
+move `(t,(c,p)) -> (t,(c/q, q*p))` with `q = P+(c)` on frozen repeated-parent
+states with `c > 1`. That move is injective on the frozen nontrivial-cofactor
+sector, with an explicit inverse (the image pivot recovers `p`, the image
+quotient over that pivot recovers `q`). Hence the exact identity
+
+```lean
+theorem lowWheelFrozenCofactorTopImageLedger_eq_neg
+    (R : ℕ) :
+    lowWheelFrozenCofactorTopImageLedger R =
+      -lowWheelCanonicalFrozenCofactorLedger R
+```
+
+and, composed with the compiled late-parent cancellation,
+
+```lean
+theorem lowWheelCanonicalDowncrossLedger_eq_unique_add_terminal_sub_topImage
+    (R : ℕ) :
+    lowWheelCanonicalDowncrossLedger R =
+      lowWheelCanonicalDowncrossUniqueParentLedger R +
+        lowWheelCanonicalTerminalBoundaryLedger R -
+          lowWheelFrozenCofactorTopImageLedger R
+```
+
+The relocation is not internal bookkeeping: the image is disjoint from the
+whole canonical downcross carrier, because every image state has normalized
+root-side parent strictly above `R` while every downcross state has parent at
+most `R`, and the image still lies on the physical transport carrier. So the
+frozen `c > 1` sector has been moved to the post-root side of the same physical
+carrier, leaving on the downcross side only the unique-parent ledger and the
+literal terminal `c = 1` monotone first-crossing boundary.
+
+The quantitative seam is restated as `SquareRootFrozenTopBottomLinearBound`,
+and `riemannHypothesis_of_frozenTopBottomLinear` discharges RH from it through
+the existing square-prefix energy bridge.
+
+This moves signed mass; it does not bound it. No norm, estimate, or density
+input is used in that file, and nothing is claimed about the size of any of the
+three surviving terms. The power exponent is unchanged.
+
 ## Exact active-child normal form
 
 File: `RHLean/Proof/ComplexVerticalLineSquarefreeDiagonal.lean`
@@ -844,6 +888,13 @@ Any candidate closure must survive all of the following.
 4. **No coordinate-change miracle.** Exact equality among coordinates removes duplicate seams but supplies no quantitative cancellation by itself.
 
 5. **No hidden RH-strength input.** If an intermediate lemma would itself imply the terminal square-run energy estimate by a trivial bridge, recognize it as the hard theorem rather than presenting it as an elementary auxiliary fact.
+
+6. **Frozen-image/high-prime no-go.** `RHLean/Proof/LowWheelFrozenCofactorTopImageHighPrimeObstruction.lean` closes the natural attempt to absorb the post-root image `T_R` into the already-controlled external high-prime population. Every high-prime population here is indexed by a prime strictly above the root (`squareRootHighPrimeCofactorSet R c` filters `Finset.Ioc R (squareRootEndpoint R)`; `lowWheelCanonicalRepeatedExternalTerminalPart` filters on `R < pivot`). The image carries no such prime: writing `y = (t,(c,p))` frozen with `c > 1` and `q = P+(c)`, the image is `(t,(c/q, q*p))` with `p < q <= c < R`, so both its primes lie strictly below the root. Compiled consequences:
+
+   - `lowWheelFrozenCofactorTopImage_quotient_primes_lt_root` — no prime factor of an image quotient reaches `R`;
+   - `lowWheelFrozenCofactorTopImage_subset_repeatedExternalTerminal_iff` — the containment holds *only* when the frozen nontrivial-cofactor sector is empty, i.e. exactly when there is nothing to absorb.
+
+   Independently of containment, `norm_lowWheelFrozenCofactorTopImageLedger_eq` gives `‖T_R‖ = ‖F_R^{c>1}‖`. The relocation is a sign-reversing bijection, so it is norm-preserving: bounding `T_R` *is* bounding the frozen `c > 1` sector. No reindexing of that sector can produce its own bound; the bound must come from new information about the sector. This is item 4 above in concrete form.
 
 ## Numerical research lane
 
