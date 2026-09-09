@@ -255,4 +255,91 @@ theorem abs_squareRootLowPrimeGoWallSquareResidualTotal_le_halfScale
       exact_mod_cast
         squareRootLowPrimeGoSecondContactSources_card_le_halfScale hprime
 
+/-! ## Canonical-parent flux: the second contraction -/
+
+/-- Canonical parents of the globally reassembled second-contact source set. -/
+def squareRootLowPrimeGoSecondContactParentCofactors
+    (Q : Finset ℕ) (X : ℕ) : Finset ℕ :=
+  (squareRootLowPrimeGoSecondContactSources Q X).image canonicalCofactor
+
+/-- **Quarter-scale canonical-parent descent.**  Removing the unique largest
+prime from a globally reassembled second-contact child gains a full factor
+four: `q*m <= X`, `m=q*c`, and `q>=2` give `4*c <= X`. -/
+theorem squareRootLowPrimeGoSecondContactSource_canonicalCofactor_le_quarterScale
+    {Q : Finset ℕ} {X m : ℕ}
+    (hprime : ∀ q ∈ Q, q.Prime)
+    (hm : m ∈ squareRootLowPrimeGoSecondContactSources Q X) :
+    canonicalCofactor m ≤ X / 4 := by
+  rcases Finset.mem_biUnion.mp hm with ⟨q, hqQ, hmq⟩
+  have hqPrime := hprime q hqQ
+  have hcoords :=
+    squareRootLowPrimeGoWallSquareResidualChild_coordinates hqPrime hmq
+  have hcontact :=
+    squareRootLowPrimeGoWallSquareResidualChild_owner_mul_le hqPrime hmq
+  have hq2 : q * (q * canonicalCofactor m) ≤ X := by
+    rw [hcoords.2]
+    exact hcontact
+  have hfourqq : 4 ≤ q * q := by
+    nlinarith [hqPrime.two_le]
+  have hfour :
+      4 * canonicalCofactor m ≤ q * (q * canonicalCofactor m) := by
+    have h := Nat.mul_le_mul_right (canonicalCofactor m) hfourqq
+    simpa [Nat.mul_assoc] using h
+  have h4X : 4 * canonicalCofactor m ≤ X := hfour.trans hq2
+  apply (Nat.le_div_iff_mul_le (by norm_num : 0 < (4 : ℕ))).2
+  simpa [Nat.mul_comm] using h4X
+
+/-- A second-contact child has a positive canonical parent. -/
+theorem squareRootLowPrimeGoSecondContactSource_canonicalCofactor_pos
+    {Q : Finset ℕ} {X m : ℕ}
+    (hprime : ∀ q ∈ Q, q.Prime)
+    (hm : m ∈ squareRootLowPrimeGoSecondContactSources Q X) :
+    0 < canonicalCofactor m := by
+  rcases Finset.mem_biUnion.mp hm with ⟨q, hqQ, hmq⟩
+  have hqPrime := hprime q hqQ
+  have hcoords :=
+    squareRootLowPrimeGoWallSquareResidualChild_coordinates hqPrime hmq
+  rcases mem_squareRootLowPrimeGoWallSquareResidualChildren.mp hmq with
+    ⟨u, hu, hchild⟩
+  have huPos : 0 < primeFaceProduct u :=
+    primeFaceProduct_pos_of_mem_powerset
+      (mem_squareRootLowPrimeGoWallSquareResidualFaces.mp hu).1
+  have hmPos : 0 < m := by
+    rw [← hchild]
+    exact Nat.mul_pos hqPrime.pos huPos
+  by_contra hnot
+  have hc0 : canonicalCofactor m = 0 := Nat.eq_zero_of_not_pos hnot
+  rw [hc0, Nat.mul_zero] at hcoords
+  omega
+
+/-- The whole canonical-parent image therefore lives in one quarter-scale
+interval.  This is a support theorem on the globally reassembled carrier, not a
+sum of bounds over old owners. -/
+theorem squareRootLowPrimeGoSecondContactParentCofactors_subset_quarterScale
+    {Q : Finset ℕ} {X : ℕ}
+    (hprime : ∀ q ∈ Q, q.Prime) :
+    squareRootLowPrimeGoSecondContactParentCofactors Q X ⊆
+      Finset.Icc 1 (X / 4) := by
+  intro c hc
+  rcases Finset.mem_image.mp hc with ⟨m, hm, rfl⟩
+  exact Finset.mem_Icc.mpr
+    ⟨squareRootLowPrimeGoSecondContactSource_canonicalCofactor_pos hprime hm,
+      squareRootLowPrimeGoSecondContactSource_canonicalCofactor_le_quarterScale
+        hprime hm⟩
+
+/-- There are at most `X/4` distinct canonical parents.  The parent map is not
+asserted injective; its exact fresh-owner fibre is retained for the next signed
+cancellation. -/
+theorem squareRootLowPrimeGoSecondContactParentCofactors_card_le_quarterScale
+    {Q : Finset ℕ} {X : ℕ}
+    (hprime : ∀ q ∈ Q, q.Prime) :
+    (squareRootLowPrimeGoSecondContactParentCofactors Q X).card ≤ X / 4 := by
+  calc
+    (squareRootLowPrimeGoSecondContactParentCofactors Q X).card ≤
+        (Finset.Icc 1 (X / 4)).card :=
+      Finset.card_le_card
+        (squareRootLowPrimeGoSecondContactParentCofactors_subset_quarterScale
+          hprime)
+    _ = X / 4 := by simp
+
 end RHLean.Proof
