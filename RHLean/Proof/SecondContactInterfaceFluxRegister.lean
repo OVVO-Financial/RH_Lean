@@ -149,15 +149,17 @@ theorem ledgerCoefficient_image_of_injOn {ι : Type*}
       (S.image φ).filter (fun m => m = n) =
         (S.filter (fun z => φ z = n)).image φ := by
     ext m
-    simp only [Finset.mem_filter, Finset.mem_image]
     constructor
-    · rintro ⟨⟨z, hzS, hzm⟩, hmn⟩
-      refine ⟨z, Finset.mem_filter.mpr ⟨hzS, ?_⟩, hzm⟩
+    · intro hm
+      rcases Finset.mem_filter.mp hm with ⟨hmImg, hmn⟩
+      rcases Finset.mem_image.mp hmImg with ⟨z, hzS, hzm⟩
+      refine Finset.mem_image.mpr ⟨z, Finset.mem_filter.mpr ⟨hzS, ?_⟩, hzm⟩
       rw [hzm]
       exact hmn
-    · rintro ⟨z, hz, hzm⟩
+    · intro hm
+      rcases Finset.mem_image.mp hm with ⟨z, hz, hzm⟩
       rcases Finset.mem_filter.mp hz with ⟨hzS, hzn⟩
-      refine ⟨⟨z, hzS, hzm⟩, ?_⟩
+      refine Finset.mem_filter.mpr ⟨Finset.mem_image.mpr ⟨z, hzS, hzm⟩, ?_⟩
       rw [← hzm]
       exact hzn
   show (∑ m ∈ (S.image φ).filter (fun m => m = n), v m) =
@@ -521,10 +523,7 @@ theorem squareRootLowPrimeGoWallSquareResidualTotal_eq_unitAnchor_add_strict
       (∑ q ∈ Q, (if q * q ≤ X then (1 : ℤ) else 0)) =
         ((goRoughPrefixUnitAnchor Q X).card : ℤ) := by
     unfold goRoughPrefixUnitAnchor
-    first
-      | rw [Finset.sum_boole]
-      | (rw [Finset.sum_ite, Finset.sum_const, Finset.sum_const_zero]; simp)
-      | simp [Finset.sum_ite, Finset.sum_const, Finset.sum_const_zero]
+    rw [Finset.sum_boole]
   unfold squareRootLowPrimeGoWallSquareResidualTotal
   rw [Finset.sum_congr rfl hpoint, Finset.sum_add_distrib, hanchorSum]
 
@@ -565,8 +564,13 @@ theorem goStrictSecondContactChildren_pairwiseDisjoint
     Set.PairwiseDisjoint (↑Q)
       (fun q => goStrictSecondContactChildren q X) := by
   intro q hq r hr hqr
-  have hfull := squareRootLowPrimeGoWallSquareResidualChildren_disjoint
-    (hprime q hq) (hprime r hr) hqr
+  have hfull :
+      Disjoint (squareRootLowPrimeGoWallSquareResidualChildren q X)
+        (squareRootLowPrimeGoWallSquareResidualChildren r X) :=
+    squareRootLowPrimeGoWallSquareResidualChildren_disjoint
+      (hprime q hq) (hprime r hr) hqr
+  show Disjoint (goStrictSecondContactChildren q X)
+    (goStrictSecondContactChildren r X)
   exact Finset.disjoint_of_subset_left
     (goStrictSecondContactChildren_subset (hprime q hq))
     (Finset.disjoint_of_subset_right
