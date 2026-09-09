@@ -304,4 +304,145 @@ theorem lowWheelFrozenSecondContactChildOwnerColumns_eq_crossColumnMobiusSum
     simpa [canonicalMoebiusWeight] using h
   exact_mod_cast hcast
 
+/-! ## Independent arithmetic form of the cross-column carrier -/
+
+/-- The same population with every owner/window coordinate eliminated.
+For `q = P⁺(n)`, the two strict inequalities are exactly the second-contact
+upper wall `X_R < n*q` and the #629 root floor `R*q < n`. -/
+def lowWheelFrozenSecondContactArithmeticChildCarrier (R : ℕ) : Finset ℕ :=
+  (Finset.Icc 2 (squareRootEndpoint R)).filter fun n =>
+    Squarefree n ∧
+      canonicalLargestPrimeFactor n < R ∧
+      squareRootEndpoint R < n * canonicalLargestPrimeFactor n ∧
+      R * canonicalLargestPrimeFactor n < n
+
+/-- **Closed-form carrier identification.**  The multiplicity-free physical
+child image is exactly the squarefree integer population selected only by the
+largest-prime coordinate and the two physical walls. -/
+theorem lowWheelFrozenSecondContactCrossColumnChildCarrier_eq_arithmetic
+    (R : ℕ) :
+    lowWheelFrozenSecondContactCrossColumnChildCarrier R =
+      lowWheelFrozenSecondContactArithmeticChildCarrier R := by
+  ext n
+  constructor
+  · intro hn
+    rcases mem_lowWheelFrozenSecondContactCrossColumnChildCarrier.mp hn with
+      ⟨y, hy, rfl⟩
+    have hyFrozen := (Finset.mem_filter.mp hy).1
+    have hmap := lowWheelFrozenSecondContactParentMap_mem hy
+    rw [mem_lowWheelFrozenSecondContactParentCarrier] at hmap
+    have hqRange : lowWheelFrozenCofactorTopPrime y ∈ Finset.Icc 2 (R - 1) := by
+      simpa [lowWheelFrozenSecondContactParentMap] using hmap.1
+    have hqPrime : (lowWheelFrozenCofactorTopPrime y).Prime := by
+      simpa [lowWheelFrozenSecondContactParentMap] using hmap.2.2.1
+    have hqR : lowWheelFrozenCofactorTopPrime y < R := by omega
+    have hR : 2 ≤ R := by omega
+    have hactive : orderedEulerCutChildInteger y ∈ orderedEulerCutActiveChildren R := by
+      unfold orderedEulerCutActiveChildren
+      exact Finset.mem_image.mpr
+        ⟨y, frozenSecondContact_mem_orderedEulerCutCarrier hy, rfl⟩
+    have hshell :=
+      (mem_orderedEulerCutActiveChildren_iff_squarefreeShell hR).1 hactive
+    have hqLargest := lowWheelFrozenCofactorTopPrime_eq_childLargest hyFrozen
+    have hchild := lowWheelFrozenSecondContact_child_eq_owner_mul_parentProduct hyFrozen
+    have hupper :
+        lowWheelFrozenCofactorTopPrime y *
+            primeFaceProduct (lowWheelFrozenSecondContactParentFace y) ≤
+          squareRootEndpoint R := by
+      simpa [lowWheelFrozenSecondContactParentMap] using hmap.2.2.2.2.1
+    have hhigh :
+        squareRootEndpoint R <
+          lowWheelFrozenCofactorTopPrime y * lowWheelFrozenCofactorTopPrime y *
+            primeFaceProduct (lowWheelFrozenSecondContactParentFace y) := by
+      simpa [lowWheelFrozenSecondContactParentMap] using hmap.2.2.2.2.2
+    have hroot := lowWheelFrozenSecondContactParentFace_root_lt hyFrozen
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_Icc.mpr ⟨by omega, ?_⟩, hshell.2.2, ?_, ?_, ?_⟩
+    · rw [hchild]
+      exact hupper
+    · rw [← hqLargest]
+      exact hqR
+    · rw [← hqLargest, hchild]
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hhigh
+    · rw [← hqLargest, hchild]
+      have hmul := (Nat.mul_lt_mul_left hqPrime.pos).2 hroot
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hmul
+  · intro hn
+    rcases Finset.mem_filter.mp hn with
+      ⟨hnIcc, hsq, hqR0, hsecond0, hrootWall0⟩
+    have hn1 : 1 < n := by omega
+    let q := canonicalLargestPrimeFactor n
+    let c := canonicalCofactor n
+    let V := squarefreePrimeFace c
+    have hdata : CanonicalGapAncestryBridge.CanonicalSourceData q c := by
+      simpa [q, c] using
+        CanonicalGapAncestryBridge.canonicalSourceData_of_squarefree hsq hn1
+    rcases hdata with ⟨hqPrime, hc1, hcsq, _hcop, hdom⟩
+    have hqR : q < R := by simpa [q] using hqR0
+    have hprod : c * q = n := by
+      simpa [c, q] using canonicalCofactor_mul_largestPrimeFactor hn1
+    have hVprod : primeFaceProduct V = c := by
+      simpa [V] using primeFaceProduct_squarefreePrimeFace hcsq
+    have hVpred : V ∈ (primesUpTo (q - 1)).powerset := by
+      apply Finset.mem_powerset.mpr
+      intro p hp
+      have hpFactors : p ∈ c.primeFactors := by
+        simpa [V, squarefreePrimeFace] using hp
+      have hpData := Nat.mem_primeFactors.mp hpFactors
+      exact mem_primesUpTo.mpr
+        ⟨hpData.1, by
+          have hlt := hdom p hpData.1 hpData.2.1
+          omega⟩
+    have hrootWall := hrootWall0
+    change R * q < n at hrootWall
+    rw [← hprod] at hrootWall
+    have hroot : R < c := by
+      apply (Nat.mul_lt_mul_left hqPrime.pos).1
+      simpa [Nat.mul_comm] using hrootWall
+    have hsecond := hsecond0
+    change squareRootEndpoint R < n * q at hsecond
+    rw [← hprod] at hsecond
+    have hann : squareRootEndpoint R / (q * q) < c := by
+      apply (Nat.div_lt_iff_lt_mul (Nat.mul_pos hqPrime.pos hqPrime.pos)).2
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hsecond
+    have hnUpper : c * q ≤ squareRootEndpoint R := by
+      simpa [hprod] using hnIcc.2
+    have hupp : c ≤ squareRootEndpoint R / q :=
+      (Nat.le_div_iff_mul_le hqPrime.pos).2 hnUpper
+    have hVwindow : V ∈ lowWheelFrozenSecondContactHighOwnerWindow R q := by
+      unfold lowWheelFrozenSecondContactHighOwnerWindow
+      apply mem_frozenPrimeUniverseWindowFaces.mpr
+      exact ⟨hVpred, max_lt hroot hann, by simpa [hVprod] using hupp⟩
+    rcases lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow
+        hqPrime hqR hVwindow with ⟨y, hy, hmap⟩
+    apply mem_lowWheelFrozenSecondContactCrossColumnChildCarrier.mpr
+    refine ⟨y, hy, ?_⟩
+    have hyFrozen := (Finset.mem_filter.mp hy).1
+    have howner : lowWheelFrozenCofactorTopPrime y = q := by
+      simpa [lowWheelFrozenSecondContactParentMap] using congrArg Prod.fst hmap
+    have hface : lowWheelFrozenSecondContactParentFace y = V := by
+      simpa [lowWheelFrozenSecondContactParentMap] using congrArg Prod.snd hmap
+    rw [lowWheelFrozenSecondContact_child_eq_owner_mul_parentProduct hyFrozen,
+      howner, hface, hVprod]
+    simpa [Nat.mul_comm] using hprod
+
+/-- The #629 child-owner sum in the independent arithmetic coordinates. -/
+theorem lowWheelFrozenSecondContactChildOwnerColumns_eq_arithmeticMobiusSum
+    (R : ℕ) :
+    (∑ r ∈ primesUpTo (R - 1),
+      lowWheelFrozenSecondContactChildOwnerColumn R r) =
+      ∑ n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R, μ n := by
+  rw [lowWheelFrozenSecondContactChildOwnerColumns_eq_crossColumnMobiusSum,
+    lowWheelFrozenSecondContactCrossColumnChildCarrier_eq_arithmetic]
+
+/-- The complete saturated second-contact ledger itself, with all column and
+window tags removed. -/
+theorem lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_arithmeticMobiusSum
+    (R : ℕ) :
+    (∑ q ∈ primesUpTo (R - 1),
+      lowWheelFrozenSecondContactHighOwnerWindowMass R q) =
+      -∑ n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R, μ n := by
+  rw [lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_childOwnerColumns,
+    lowWheelFrozenSecondContactChildOwnerColumns_eq_arithmeticMobiusSum]
+
 end RHLean.Proof
