@@ -14,6 +14,7 @@ on:
       - research/HALF_ROOT_WEIGHTED_FIRST_JUMP.lean
       - research/HALF_ROOT_RECOUPLED_FIRST_JUMP.lean
       - research/HALF_ROOT_PAIR_COLUMN_CANCELLATION.lean
+      - research/HALF_ROOT_SQUARE_CORRECTION_BOUND.lean
       - .github/workflows/proper-subwheel-depth-two.yml
   workflow_dispatch:
 
@@ -105,3 +106,6 @@ jobs:
 
       - name: Kernel-check half-root pair-column cancellation
         run: lake env lean -o .lake/build/lib/lean/research.HALF_ROOT_PAIR_COLUMN_CANCELLATION.olean research/HALF_ROOT_PAIR_COLUMN_CANCELLATION.lean
+
+      - name: Kernel-check root-scale square correction
+        run: lake env lean -o .lake/build/lib/lean/research.HALF_ROOT_SQUARE_CORRECTION_BOUND.olean research/HALF_ROOT_SQUARE_CORRECTION_BOUND.lean
