@@ -334,9 +334,12 @@ theorem lowWheelLargestOthelloMate_eq_frozenTopToggle
         lowWheelCanonicalPhysicalStateSet R y.1 := by
     rw [lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy]
     exact lowWheelFrozenCofactorTopToggle_mem_physical hy
-  unfold lowWheelLargestOthelloMate
-  rw [if_neg hprod, if_pos hmate]
-  exact lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy
+  calc
+    lowWheelLargestOthelloMate R y.1 y.2 =
+        lowWheelLargestCofactorQuotientToggle y.2 := by
+      simp [lowWheelLargestOthelloMate, hprod, hmate]
+    _ = (lowWheelFrozenCofactorTopToggle y).2 :=
+      lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy
 
 /-- Consequently a repeated frozen `c > 1` source is not part of the
 largest-prime stable defect.  Its raw largest-prime mate is already physical. -/
