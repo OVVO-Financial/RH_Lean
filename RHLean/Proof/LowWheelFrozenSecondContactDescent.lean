@@ -155,8 +155,7 @@ theorem lowWheelFrozenSecondContactParentFace_prime_lt_owner
     · have hfrozen := (Finset.mem_filter.mp hy).1
       have hrepeated := (Finset.mem_filter.mp hfrozen).1
       have htagged := (Finset.mem_filter.mp hrepeated).1
-      have hcarrier := (Finset.mem_filter.mp htagged).1
-      have ht := (mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier).1
+      have ht := (mem_lowWheelCanonicalTaggedDowncrossCarrier.mp htagged).1
       have hrGlobal := (Finset.mem_powerset.mp ht) hface
       have hrPrime := prime_of_mem_primesUpTo hrGlobal
       have hrp :=
@@ -207,8 +206,7 @@ theorem lowWheelCanonicalRepeatedFrozenCofactor_mem_orderedEulerCutCarrier
   have hfrozen := (Finset.mem_filter.mp hy).1
   have hrepeated := (Finset.mem_filter.mp hfrozen).1
   have htagged := (Finset.mem_filter.mp hrepeated).1
-  have hcarrier := (Finset.mem_filter.mp htagged).1
-  rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨ht, hx⟩
+  rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp htagged with ⟨ht, hx⟩
   rw [mem_orderedEulerCutCarrier]
   refine ⟨ht, mem_lowWheelCanonicalDowncrossOrientedPart.mpr ⟨hx, ?_⟩⟩
   intro r hr
@@ -242,12 +240,15 @@ theorem lowWheelFrozenSecondContact_child_eq_owner_mul_parentProduct
     orderedEulerCutChildInteger y =
       lowWheelFrozenCofactorTopPrime y *
         primeFaceProduct (lowWheelFrozenSecondContactParentFace y) := by
+  have hsource := lowWheelCanonicalRepeatedFrozenCofactor_source_data hy
   have hfull := lowWheelCanonicalRepeatedFrozenProductOneFace_product hy
   have herase := lowWheelFrozenSecondContact_owner_mul_parentFaceProduct hy
   calc
     orderedEulerCutChildInteger y =
         y.2.1 * (lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1) := by
-          rfl
+      simp only [orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
+        orderedEulerCutPivot, orderedEulerCutLowProduct]
+      rw [hsource.1]
     _ = y.2.1 * lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1 := by ring
     _ = primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace y) :=
       hfull.symm
@@ -287,8 +288,17 @@ theorem lowWheelFrozenSecondContactParentMap_mem
   have hhigh : squareRootEndpoint R <
       lowWheelFrozenCofactorTopPrime y * lowWheelFrozenCofactorTopPrime y *
         primeFaceProduct (lowWheelFrozenSecondContactParentFace y) := by
-    rw [← Nat.mul_assoc, herase]
-    exact hsecond
+    calc
+      squareRootEndpoint R <
+          lowWheelFrozenCofactorTopPrime y *
+            primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace y) :=
+        hsecond
+      _ = lowWheelFrozenCofactorTopPrime y *
+          (lowWheelFrozenCofactorTopPrime y *
+            primeFaceProduct (lowWheelFrozenSecondContactParentFace y)) := by
+        rw [herase]
+      _ = lowWheelFrozenCofactorTopPrime y * lowWheelFrozenCofactorTopPrime y *
+          primeFaceProduct (lowWheelFrozenSecondContactParentFace y) := by ring
   rw [mem_lowWheelFrozenSecondContactParentCarrier]
   exact ⟨hqRange, hpredR, hqPrime, hpred, hlow, hhigh⟩
 
@@ -364,11 +374,20 @@ theorem lowWheelFrozenSecondContactParentMap_division_annulus
       primeFaceProduct (lowWheelFrozenSecondContactParentFace y) ∧
     primeFaceProduct (lowWheelFrozenSecondContactParentFace y) ≤
       squareRootEndpoint R / lowWheelFrozenCofactorTopPrime y := by
+  rcases Finset.mem_filter.mp hy with ⟨hyFrozen, _hsecond⟩
+  have hqPrime := (lowWheelFrozenCofactorTopPrime_data hyFrozen).1
   have hmem := lowWheelFrozenSecondContactParentMap_mem hy
   rw [mem_lowWheelFrozenSecondContactParentCarrier] at hmem
-  have hqPrime := hmem.2.2.1
-  have hlow := hmem.2.2.2.2.1
-  have hhigh := hmem.2.2.2.2.2
+  have hlow :
+      lowWheelFrozenCofactorTopPrime y *
+          primeFaceProduct (lowWheelFrozenSecondContactParentFace y) ≤
+        squareRootEndpoint R := by
+    simpa [lowWheelFrozenSecondContactParentMap] using hmem.2.2.2.2.1
+  have hhigh :
+      squareRootEndpoint R <
+        lowWheelFrozenCofactorTopPrime y * lowWheelFrozenCofactorTopPrime y *
+          primeFaceProduct (lowWheelFrozenSecondContactParentFace y) := by
+    simpa [lowWheelFrozenSecondContactParentMap] using hmem.2.2.2.2.2
   constructor
   · apply (Nat.div_lt_iff_lt_mul (Nat.mul_pos hqPrime.pos hqPrime.pos)).2
     simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hhigh
