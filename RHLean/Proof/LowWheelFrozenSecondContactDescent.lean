@@ -308,15 +308,22 @@ theorem lowWheelFrozenSecondContactParentMap_weight_eq_source
         -(booleanCubeSign
           (lowWheelCanonicalRepeatedFrozenProductOneFace y) : ℂ) := by
     exact_mod_cast heraseZ
-  have hmate := lowWheelCanonicalRepeatedFrozenProductOneMate_weight_neg hy
-  have hone : canonicalMoebiusWeight 1 = (1 : ℂ) := by
-    simp [canonicalMoebiusWeight]
-  rw [hone, one_mul] at hmate
+  have hmate :
+      (booleanCubeSign
+          (lowWheelCanonicalRepeatedFrozenProductOneFace y) : ℂ) =
+        -(canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ)) := by
+    simpa [canonicalMoebiusWeight] using
+      (lowWheelCanonicalRepeatedFrozenProductOneMate_weight_neg hy)
   unfold lowWheelFrozenSecondContactParentWeight
     lowWheelFrozenSecondContactParentMap
   dsimp
-  rw [heraseC]
-  linarith
+  calc
+    (booleanCubeSign (lowWheelFrozenSecondContactParentFace y) : ℂ) =
+        -(booleanCubeSign
+          (lowWheelCanonicalRepeatedFrozenProductOneFace y) : ℂ) := heraseC
+    _ = canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ) := by
+      rw [hmate]
+      simp
 
 /-- **Non-circular injection into the lower-scale signed carrier.**  The pair
 `(q,V)` reconstructs the physical child `q*P(V)`.  Active ordered Euler cuts are
@@ -360,8 +367,8 @@ theorem lowWheelFrozenSecondContactParentMap_division_annulus
   have hmem := lowWheelFrozenSecondContactParentMap_mem hy
   rw [mem_lowWheelFrozenSecondContactParentCarrier] at hmem
   have hqPrime := hmem.2.2.1
-  have hlow := hmem.2.2.2.2.2.1
-  have hhigh := hmem.2.2.2.2.2.2
+  have hlow := hmem.2.2.2.2.1
+  have hhigh := hmem.2.2.2.2.2
   constructor
   · apply (Nat.div_lt_iff_lt_mul (Nat.mul_pos hqPrime.pos hqPrime.pos)).2
     simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hhigh
