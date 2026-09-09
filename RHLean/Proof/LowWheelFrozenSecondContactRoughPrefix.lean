@@ -392,7 +392,7 @@ theorem lowWheelFrozenCofactorSourceScaleFiber_cofactor_injOn
           lowWheelFrozenSecondContactSourceScale y * y.2.1 :=
         frozenSource_child_eq_scale_mul_cofactor hyd.1
       _ = A * y.2.1 := by rw [hyd.2]
-      _ = A * z.2.1 := by rw [hcofactor]
+      _ = A * z.2.1 := congrArg (fun c : ℕ => A * c) hcofactor
       _ = lowWheelFrozenSecondContactSourceScale z * z.2.1 := by rw [hzd.2]
       _ = orderedEulerCutChildInteger z :=
         (frozenSource_child_eq_scale_mul_cofactor hzd.1).symm
