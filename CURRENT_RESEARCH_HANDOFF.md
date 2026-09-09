@@ -603,6 +603,35 @@ theorem signedVerticalIntervalMass_eq_signedPrefixLifetimeResidual
 
 The complex/Fermat coordinate, the ordered Euler coordinate, the oriented/downcross coordinate, the lifetime coordinate, and the canonical defect coordinate are therefore not separate analytic problems.
 
+### Largest-prime stable defect = the terminal seam itself
+
+File: `RHLean/Proof/LowWheelLargestDefectSeamEquivalence.lean`
+
+`LowWheelLeastLargestStableTransfer` already proves
+`lowWheelCanonicalDowncrossLedger R = lowWheelLargestDefectLedger R`. That is an
+identity of the *same* signed object, so the largest-prime stable defect is not
+a smaller remaining piece. Compiled explicitly:
+
+```lean
+theorem squareRootLargestDefectLinear_iff_canonicalDowncrossLinear :
+    SquareRootLargestDefectLinearBound ↔ SquareRootCanonicalDowncrossLinearBound
+
+theorem riemannHypothesis_of_largestDefectLinear
+    (h : SquareRootLargestDefectLinearBound) : RiemannHypothesis
+```
+
+Anything proving the largest-prime defect bound proves RH; by adversarial check
+5 it is the hard theorem, not an auxiliary step. Two practical consequences:
+
+- the *signed* target is RH-strength, so exhibiting the defect's surviving
+  pieces inside already-root-bounded endpoint populations does not close it
+  unless those pieces carry their signs and their mutual cancellation;
+- the *cardinality* target is dead by a full power of `R`. Direct enumeration of
+  `lowWheelLargestDefectPart` gives `|defect|/R` rising `18.6, 22.7, ..., 140.1`
+  over `R = 8..30` (order `R^2`), while the signed mass over the same range
+  stays in `[-7, 9]`. Numerical observation, recorded only to stop the
+  cardinality route being re-attempted.
+
 ### Downcross ledger after the frozen top/bottom subtraction
 
 File: `RHLean/Proof/LowWheelFrozenCofactorTopBottomCancellation.lean`
