@@ -384,4 +384,60 @@ theorem lowWheelFrozenSecondContact_source_lowerScaleExit
     exact (Nat.div_lt_iff_lt_mul hApos).2 hXltRA
   exact ⟨hcB, hBq, hBR⟩
 
+/-- **Factorized strict source-scale descent.**  The smaller-cutoff exit is
+literally a second-contact shell.  Writing the frozen cofactor as
+`c = q*d`, where `q = P+(c)` and `d` is its canonical cofactor, gives
+
+`q*d <= B < q^2*d`,  with `B < R`.
+
+Moreover `d` is squarefree and has strictly smaller largest-prime owner.  Thus
+this is not merely a smaller numerical cutoff: it is the same descending-owner
+Euler geometry on a strict predecessor coordinate, with no norm or estimate. -/
+theorem lowWheelFrozenSecondContact_source_lowerScaleSecondContact
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
+    (hy : y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R) :
+    let A := lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1
+    let B := squareRootEndpoint R / A
+    let c := y.2.1
+    let q := lowWheelFrozenCofactorTopPrime y
+    let d := canonicalCofactor c
+    q.Prime ∧ Squarefree d ∧ canonicalLargestPrimeFactor d < q ∧
+      q * d = c ∧ q * d ≤ B ∧ B < q * q * d ∧ B < R := by
+  rcases Finset.mem_filter.mp hy with ⟨hyFrozen, _hsecond⟩
+  let A := lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1
+  let B := squareRootEndpoint R / A
+  let c := y.2.1
+  let q := lowWheelFrozenCofactorTopPrime y
+  let d := canonicalCofactor c
+  have hexit : c ≤ B ∧ B < q * c ∧ B < R := by
+    simpa [A, B, c, q] using
+      (lowWheelFrozenSecondContact_source_lowerScaleExit hy)
+  rcases lowWheelCanonicalRepeatedFrozenCofactor_source_data hyFrozen with
+    ⟨_hk, _hpPrime, _hpNotC, hcsqRaw, hcgtRaw, _hcR⟩
+  have hcsq : Squarefree c := by simpa [c] using hcsqRaw
+  have hcgt : 1 < c := by simpa [c] using hcgtRaw
+  have hqPrime : q.Prime := by
+    simpa [q] using (lowWheelFrozenCofactorTopPrime_data hyFrozen).1
+  have hfactor0 : d * q = c := by
+    simpa [d, q, c, lowWheelFrozenCofactorTopPrime] using
+      (canonicalCofactor_mul_largestPrimeFactor hcgt)
+  have hfactor : q * d = c := by
+    simpa [Nat.mul_comm] using hfactor0
+  have hdSq : Squarefree d := by
+    apply hcsq.squarefree_of_dvd
+    exact ⟨q, hfactor0.symm⟩
+  have hrough : canonicalLargestPrimeFactor d < q := by
+    simpa [d, q, c, lowWheelFrozenCofactorTopPrime] using
+      (canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hcgt hcsq)
+  have hqdB : q * d ≤ B := by
+    calc
+      q * d = c := hfactor
+      _ ≤ B := hexit.1
+  have hBqqd : B < q * q * d := by
+    calc
+      B < q * c := hexit.2.1
+      _ = q * (q * d) := by rw [hfactor]
+      _ = q * q * d := by ring
+  exact ⟨hqPrime, hdSq, hrough, hfactor, hqdB, hBqqd, hexit.2.2⟩
+
 end RHLean.Proof
