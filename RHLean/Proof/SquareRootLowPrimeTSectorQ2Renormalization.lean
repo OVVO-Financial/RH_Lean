@@ -60,10 +60,8 @@ theorem reciprocalSquareTerm_le_telescope
         ring]
   rw [div_eq_mul_inv, div_eq_mul_inv]
   simp only [one_mul]
-  apply inv_le_inv₀
-  · exact mul_pos hnm10 hn0
-  · positivity
-  · nlinarith
+  exact (inv_le_inv₀ (by positivity : (0 : ℚ) < (n : ℚ) ^ 2)
+    (mul_pos hnm10 hn0)).2 (by nlinarith)
 
 /-- The finite reciprocal-square prefix is bounded by the elementary telescoping
 majorant `1 - 1/N`. -/
@@ -73,7 +71,7 @@ theorem reciprocalSquarePrefix_le_one_sub_inv
       1 - 1 / ((k + 2 : ℕ) : ℚ) := by
   induction k with
   | zero =>
-      norm_num [reciprocalSquarePrefix]
+      norm_num [reciprocalSquarePrefix, Finset.sum_range_succ]
   | succ k ih =>
       have hterm := reciprocalSquareTerm_le_telescope
         (n := k + 3) (by omega)
@@ -109,7 +107,8 @@ budget at most one. -/
 theorem reciprocalSquarePrefix_le_one (N : ℕ) :
     reciprocalSquarePrefix N ≤ 1 := by
   by_cases hN : N < 2
-  · interval_cases N <;> norm_num [reciprocalSquarePrefix]
+  · interval_cases N <;>
+      norm_num [reciprocalSquarePrefix, Finset.sum_range_succ]
   · obtain ⟨k, rfl⟩ : ∃ k, N = k + 2 := by
       exact ⟨N - 2, by omega⟩
     have h := reciprocalSquarePrefix_le_one_sub_inv k
@@ -175,7 +174,6 @@ theorem sum_primeOwner_squareDilatedCutoffs_le_parent
         push_cast
         rw [pow_two]
         field_simp
-        ring
   calc
     (∑ q ∈ primesUpTo N, ((X / (q * q) : ℕ) : ℚ)) ≤
         ∑ q ∈ primesUpTo N,
