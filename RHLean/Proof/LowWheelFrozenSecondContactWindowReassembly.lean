@@ -331,12 +331,16 @@ theorem lowWheelFrozenSecondContactCrossColumnChildCarrier_eq_arithmetic
     have hyFrozen := (Finset.mem_filter.mp hy).1
     have hmap := lowWheelFrozenSecondContactParentMap_mem hy
     rw [mem_lowWheelFrozenSecondContactParentCarrier] at hmap
-    have hqRange : lowWheelFrozenCofactorTopPrime y ∈ Finset.Icc 2 (R - 1) := by
-      simpa [lowWheelFrozenSecondContactParentMap] using hmap.1
-    have hqPrime : (lowWheelFrozenCofactorTopPrime y).Prime := by
-      simpa [lowWheelFrozenSecondContactParentMap] using hmap.2.2.1
-    have hqR : lowWheelFrozenCofactorTopPrime y < R := by omega
-    have hR : 2 ≤ R := by omega
+    rcases lowWheelFrozenCofactorTopPrime_data hyFrozen with
+      ⟨hqPrime, hqDvd, _hpq⟩
+    rcases lowWheelCanonicalRepeatedFrozenCofactor_source_data hyFrozen with
+      ⟨_hk, _hpPrime, _hpNotC, _hsq, hcgt, hcR⟩
+    have hqLeC : lowWheelFrozenCofactorTopPrime y ≤ y.2.1 :=
+      Nat.le_of_dvd (by omega) hqDvd
+    have hqR : lowWheelFrozenCofactorTopPrime y < R := hqLeC.trans_lt hcR
+    have hR : 2 ≤ R := by
+      have hqTwo := hqPrime.two_le
+      omega
     have hactive : orderedEulerCutChildInteger y ∈ orderedEulerCutActiveChildren R := by
       unfold orderedEulerCutActiveChildren
       exact Finset.mem_image.mpr
@@ -370,6 +374,7 @@ theorem lowWheelFrozenSecondContactCrossColumnChildCarrier_eq_arithmetic
   · intro hn
     rcases Finset.mem_filter.mp hn with
       ⟨hnIcc, hsq, hqR0, hsecond0, hrootWall0⟩
+    rcases Finset.mem_Icc.mp hnIcc with ⟨hn2, hnUpperRaw⟩
     have hn1 : 1 < n := by omega
     let q := canonicalLargestPrimeFactor n
     let c := canonicalCofactor n
@@ -406,13 +411,23 @@ theorem lowWheelFrozenSecondContactCrossColumnChildCarrier_eq_arithmetic
       apply (Nat.div_lt_iff_lt_mul (Nat.mul_pos hqPrime.pos hqPrime.pos)).2
       simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hsecond
     have hnUpper : c * q ≤ squareRootEndpoint R := by
-      simpa [hprod] using hnIcc.2
+      rw [hprod]
+      exact hnUpperRaw
     have hupp : c ≤ squareRootEndpoint R / q :=
       (Nat.le_div_iff_mul_le hqPrime.pos).2 hnUpper
+    have hrootV : R < primeFaceProduct V := by
+      rw [hVprod]
+      exact hroot
+    have hannV : squareRootEndpoint R / (q * q) < primeFaceProduct V := by
+      rw [hVprod]
+      exact hann
+    have huppV : primeFaceProduct V ≤ squareRootEndpoint R / q := by
+      rw [hVprod]
+      exact hupp
     have hVwindow : V ∈ lowWheelFrozenSecondContactHighOwnerWindow R q := by
       unfold lowWheelFrozenSecondContactHighOwnerWindow
       apply mem_frozenPrimeUniverseWindowFaces.mpr
-      exact ⟨hVpred, max_lt hroot hann, by simpa [hVprod] using hupp⟩
+      exact ⟨hVpred, max_lt hrootV hannV, huppV⟩
     rcases lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow
         hqPrime hqR hVwindow with ⟨y, hy, hmap⟩
     apply mem_lowWheelFrozenSecondContactCrossColumnChildCarrier.mpr
