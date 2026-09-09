@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.LowWheelLeastLargestStableTransfer
 import RHLean.Proof.LowWheelTransportTripleCarrier
+import RHLean.Proof.LowWheelCanonicalPrimeSplit
 import RHLean.Proof.SquareRootCanonicalDowncrossFinalSeam
 
 /-!
@@ -351,6 +352,364 @@ theorem lowWheelLargestDefectHigh_geometry
     apply (mem_lowWheelTransport_quotientInterval_iff hcPos ht).2
     exact ⟨hcarrier.2.2.1, hcarrier.2.2.2⟩
   exact ⟨hqPrime, hRq, hqC, hqK, hdown, hcRange, hkInterval⟩
+
+/-! ## Exact transfer of the root sectors between least and largest pivots -/
+
+/-- The common physical region in which the invariant product has a prime
+factor beyond the root.  Both Othello move orders preserve this region because
+both preserve the invariant product `c*k`. -/
+def lowWheelPostRootLargestPivotPhysicalPart
+    (R : ℕ) (t : Finset ℕ) : Finset LowWheelCofactorQuotientState :=
+  (lowWheelCanonicalPhysicalStateSet R t).filter fun x =>
+    R < lowWheelLargestCofactorQuotientPivot x
+
+@[simp] theorem mem_lowWheelPostRootLargestPivotPhysicalPart
+    {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState} :
+    x ∈ lowWheelPostRootLargestPivotPhysicalPart R t ↔
+      x ∈ lowWheelCanonicalPhysicalStateSet R t ∧
+        R < lowWheelLargestCofactorQuotientPivot x := by
+  simp [lowWheelPostRootLargestPivotPhysicalPart]
+
+/-- The completed least-prime mate preserves the invariant product. -/
+theorem lowWheelLeastOthelloMate_product
+    (R : ℕ) (t : Finset ℕ) (x : LowWheelCofactorQuotientState) :
+    (lowWheelLeastOthelloMate R t x).1 *
+        (lowWheelLeastOthelloMate R t x).2 = x.1 * x.2 := by
+  unfold lowWheelLeastOthelloMate
+  split_ifs with hprod hmate
+  · rfl
+  · exact lowWheelCanonicalCofactorQuotientToggle_product x
+  · rfl
+
+/-- The completed largest-prime mate preserves the invariant product. -/
+theorem lowWheelLargestOthelloMate_product
+    (R : ℕ) (t : Finset ℕ) (x : LowWheelCofactorQuotientState) :
+    (lowWheelLargestOthelloMate R t x).1 *
+        (lowWheelLargestOthelloMate R t x).2 = x.1 * x.2 := by
+  unfold lowWheelLargestOthelloMate
+  split_ifs with hprod hmate
+  · rfl
+  · exact lowWheelLargestCofactorQuotientToggle_product x
+  · rfl
+
+/-- The largest invariant prime is unchanged by the completed least move. -/
+theorem lowWheelLargestPivot_leastOthelloMate
+    (R : ℕ) (t : Finset ℕ) (x : LowWheelCofactorQuotientState) :
+    lowWheelLargestCofactorQuotientPivot (lowWheelLeastOthelloMate R t x) =
+      lowWheelLargestCofactorQuotientPivot x := by
+  unfold lowWheelLargestCofactorQuotientPivot
+  rw [lowWheelLeastOthelloMate_product]
+
+/-- The largest invariant prime is unchanged by the completed largest move. -/
+theorem lowWheelLargestPivot_largestOthelloMate
+    (R : ℕ) (t : Finset ℕ) (x : LowWheelCofactorQuotientState) :
+    lowWheelLargestCofactorQuotientPivot (lowWheelLargestOthelloMate R t x) =
+      lowWheelLargestCofactorQuotientPivot x := by
+  unfold lowWheelLargestCofactorQuotientPivot
+  rw [lowWheelLargestOthelloMate_product]
+
+/-- The least-prime Othello mate closes on the post-root-largest-pivot region. -/
+theorem lowWheelLeastOthelloMate_mem_postRootLargestPivot
+    {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
+    (hx : x ∈ lowWheelPostRootLargestPivotPhysicalPart R t) :
+    lowWheelLeastOthelloMate R t x ∈
+      lowWheelPostRootLargestPivotPhysicalPart R t := by
+  rcases mem_lowWheelPostRootLargestPivotPhysicalPart.mp hx with ⟨hphys, hhigh⟩
+  apply mem_lowWheelPostRootLargestPivotPhysicalPart.mpr
+  refine ⟨lowWheelLeastOthelloMate_mem hphys, ?_⟩
+  rw [lowWheelLargestPivot_leastOthelloMate]
+  exact hhigh
+
+/-- The largest-prime Othello mate closes on the same post-root region. -/
+theorem lowWheelLargestOthelloMate_mem_postRootLargestPivot
+    {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
+    (hx : x ∈ lowWheelPostRootLargestPivotPhysicalPart R t) :
+    lowWheelLargestOthelloMate R t x ∈
+      lowWheelPostRootLargestPivotPhysicalPart R t := by
+  rcases mem_lowWheelPostRootLargestPivotPhysicalPart.mp hx with ⟨hphys, hhigh⟩
+  apply mem_lowWheelPostRootLargestPivotPhysicalPart.mpr
+  refine ⟨lowWheelLargestOthelloMate_mem hphys, ?_⟩
+  rw [lowWheelLargestPivot_largestOthelloMate]
+  exact hhigh
+
+/-- A least-prime root downcross whose invariant product has a prime above `R`
+necessarily has its least pivot above `R` as well.  Otherwise the largest prime
+would survive in `k/p`, contradicting the downcross `P(t)*(k/p) <= R`. -/
+theorem lowWheelCanonicalDowncross_postRootLargest_imp_postRootLeast
+    {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
+    (hR : 2 ≤ R) (ht : t ∈ (primesUpTo R).powerset)
+    (hx : x ∈ lowWheelCanonicalDowncrossPart R t)
+    (hhigh : R < lowWheelLargestCofactorQuotientPivot x) :
+    R < lowWheelCanonicalCofactorQuotientPivot x := by
+  rcases x with ⟨c, k⟩
+  let p := lowWheelCanonicalCofactorQuotientPivot (c, k)
+  let q := lowWheelLargestCofactorQuotientPivot (c, k)
+  have hphys := (mem_lowWheelCanonicalDowncrossPart.mp hx).1
+  have hphysData := mem_lowWheelCanonicalPhysicalStateSet.mp hphys
+  have hcRange := Finset.mem_Ico.mp hphysData.1
+  have hkRange := Finset.mem_Icc.mp hphysData.2.1
+  have hcpos : 0 < c := by omega
+  have hkpos : 0 < k := by omega
+  have hprodpos : 0 < c * k := Nat.mul_pos hcpos hkpos
+  have hprodne : c * k ≠ 1 := by
+    intro hone
+    have hbad : R < 1 := by
+      simpa [q, lowWheelLargestCofactorQuotientPivot, hone,
+        canonicalLargestPrimeFactor] using hhigh
+    omega
+  have hprodgt : 1 < c * k := by omega
+  have hqPrime : q.Prime := by
+    simpa [q] using lowWheelLargestCofactorQuotientPivot_prime ht hphys hprodne
+  have hqDvdProd : q ∣ c * k := by
+    simpa [q, lowWheelLargestCofactorQuotientPivot] using
+      canonicalLargestPrimeFactor_dvd hprodgt
+  have hqNotC : ¬ q ∣ c := by
+    intro hqc
+    have hqLeC := Nat.le_of_dvd hcpos hqc
+    have hRq : R < q := by simpa [q] using hhigh
+    omega
+  have hqK : q ∣ k := (hqPrime.dvd_mul.mp hqDvdProd).resolve_left hqNotC
+  rcases lowWheelCanonicalDowncrossPart_adjacent_shell hx with
+    ⟨hp0, _hpc0, hpk0, hdown0, _hup0⟩
+  have hpPrime : p.Prime := by simpa [p] using hp0
+  have hpk : p ∣ k := by simpa [p] using hpk0
+  have hdown : primeFaceProduct t * (k / p) ≤ R := by
+    simpa [p] using hdown0
+  by_contra hnot
+  have hpR : p ≤ R := Nat.le_of_not_gt hnot
+  have hRq : R < q := by simpa [q] using hhigh
+  have hqp : q ≠ p := by omega
+  have hkCancel : p * (k / p) = k := Nat.mul_div_cancel' hpk
+  have hqDvdPJ : q ∣ p * (k / p) := by
+    rw [hkCancel]
+    exact hqK
+  rcases hqPrime.dvd_mul.mp hqDvdPJ with hqP | hqJ
+  · have heq : q = p :=
+      (Nat.prime_dvd_prime_iff_eq hqPrime hpPrime).mp hqP
+    exact hqp heq
+  · have hjpos : 0 < k / p :=
+      Nat.div_pos (Nat.le_of_dvd hkpos hpk) hpPrime.pos
+    have hqLeJ : q ≤ k / p := Nat.le_of_dvd hjpos hqJ
+    have hfacePos : 0 < primeFaceProduct t :=
+      primeFaceProduct_pos_of_mem_powerset ht
+    have hjLeFace : k / p ≤ primeFaceProduct t * (k / p) :=
+      Nat.le_mul_of_pos_left (k / p) hfacePos
+    have hqLeR : q ≤ R := hqLeJ.trans (hjLeFace.trans hdown)
+    omega
+
+/-- Conversely, a post-root least-pivot downcross automatically lies in the
+post-root-largest-pivot physical sector. -/
+theorem lowWheelCanonicalPostRootDowncross_largestPivot_postRoot
+    {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
+    (hR : 2 ≤ R)
+    (hx : x ∈ lowWheelCanonicalPostRootDowncrossPart R t) :
+    R < lowWheelLargestCofactorQuotientPivot x := by
+  rcases mem_lowWheelCanonicalPostRootDowncrossPart.mp hx with ⟨hdown, hpR⟩
+  have hphys := (mem_lowWheelCanonicalDowncrossPart.mp hdown).1
+  have hphysData := mem_lowWheelCanonicalPhysicalStateSet.mp hphys
+  have hcRange := Finset.mem_Ico.mp hphysData.1
+  have hkRange := Finset.mem_Icc.mp hphysData.2.1
+  have hcpos : 0 < x.1 := by omega
+  have hkpos : 0 < x.2 := by omega
+  rcases lowWheelCanonicalDowncrossPart_adjacent_shell hdown with
+    ⟨hpPrime, _hpc, hpk, _hparent, _hchild⟩
+  let p := lowWheelCanonicalCofactorQuotientPivot x
+  have hpPrime' : p.Prime := by simpa [p] using hpPrime
+  have hpk' : p ∣ x.2 := by simpa [p] using hpk
+  have hpLeK : p ≤ x.2 := Nat.le_of_dvd hkpos hpk'
+  have hp2 : 2 ≤ p := hpPrime'.two_le
+  have hprodgt : 1 < x.1 * x.2 := by nlinarith
+  have hpDvdProd : p ∣ x.1 * x.2 := dvd_mul_of_dvd_right hpk' x.1
+  have hpLeTop :=
+    CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
+      hprodgt hpPrime' hpDvdProd
+  have hpLeLargest : p ≤ lowWheelLargestCofactorQuotientPivot x := by
+    simpa [lowWheelLargestCofactorQuotientPivot] using hpLeTop
+  have hRp : R < p := by simpa [p] using hpR
+  exact hRp.trans_le hpLeLargest
+
+/-- On the post-root-largest-pivot region, the stable set of the largest-prime
+move is exactly the high part of the largest-prime defect. -/
+theorem finiteOthelloStablePart_largest_postRoot_eq_highDefect
+    {R : ℕ} {t : Finset ℕ}
+    (ht : t ∈ (primesUpTo R).powerset) :
+    finiteOthelloStablePart
+        (lowWheelPostRootLargestPivotPhysicalPart R t)
+        (lowWheelLargestOthelloMate R t) =
+      lowWheelLargestDefectHighPart R t := by
+  classical
+  ext x
+  constructor
+  · intro hxStable
+    rcases Finset.mem_filter.mp hxStable with ⟨hxSector, hfix⟩
+    rcases mem_lowWheelPostRootLargestPivotPhysicalPart.mp hxSector with
+      ⟨hphys, hhigh⟩
+    have hglobal : x ∈ finiteOthelloStablePart
+        (lowWheelCanonicalPhysicalStateSet R t)
+        (lowWheelLargestOthelloMate R t) :=
+      Finset.mem_filter.mpr ⟨hphys, hfix⟩
+    rw [finiteOthelloStablePart_largest_eq_productOne_union_defect ht] at hglobal
+    rcases Finset.mem_union.mp hglobal with hone | hdefect
+    · have hprod := (Finset.mem_filter.mp hone).2
+      have hbad : R < 1 := by
+        simpa [lowWheelLargestCofactorQuotientPivot, hprod,
+          canonicalLargestPrimeFactor] using hhigh
+      omega
+    · exact mem_lowWheelLargestDefectHighPart.mpr ⟨hdefect, hhigh⟩
+  · intro hxHigh
+    rcases mem_lowWheelLargestDefectHighPart.mp hxHigh with ⟨hdefect, hhigh⟩
+    have hphys := (Finset.mem_filter.mp hdefect).1
+    have hglobal : x ∈ finiteOthelloStablePart
+        (lowWheelCanonicalPhysicalStateSet R t)
+        (lowWheelLargestOthelloMate R t) := by
+      rw [finiteOthelloStablePart_largest_eq_productOne_union_defect ht]
+      exact Finset.mem_union.mpr (Or.inr hdefect)
+    exact Finset.mem_filter.mpr
+      ⟨mem_lowWheelPostRootLargestPivotPhysicalPart.mpr ⟨hphys, hhigh⟩,
+        (Finset.mem_filter.mp hglobal).2⟩
+
+/-- On the same region, the stable set of the least-prime move is exactly the
+old post-root least-pivot downcross sector. -/
+theorem finiteOthelloStablePart_least_postRoot_eq_postRootDowncross
+    {R : ℕ} {t : Finset ℕ}
+    (hR : 2 ≤ R) (ht : t ∈ (primesUpTo R).powerset) :
+    finiteOthelloStablePart
+        (lowWheelPostRootLargestPivotPhysicalPart R t)
+        (lowWheelLeastOthelloMate R t) =
+      lowWheelCanonicalPostRootDowncrossPart R t := by
+  classical
+  ext x
+  constructor
+  · intro hxStable
+    rcases Finset.mem_filter.mp hxStable with ⟨hxSector, hfix⟩
+    rcases mem_lowWheelPostRootLargestPivotPhysicalPart.mp hxSector with
+      ⟨hphys, hhigh⟩
+    have hglobal : x ∈ finiteOthelloStablePart
+        (lowWheelCanonicalPhysicalStateSet R t)
+        (lowWheelLeastOthelloMate R t) :=
+      Finset.mem_filter.mpr ⟨hphys, hfix⟩
+    rw [finiteOthelloStablePart_least_eq_productOne_union_defect] at hglobal
+    rcases Finset.mem_union.mp hglobal with hone | hdefect
+    · have hprod := (Finset.mem_filter.mp hone).2
+      have hbad : R < 1 := by
+        simpa [lowWheelLargestCofactorQuotientPivot, hprod,
+          canonicalLargestPrimeFactor] using hhigh
+      omega
+    · have hdown : x ∈ lowWheelCanonicalDowncrossPart R t := by
+        rw [← lowWheelCanonicalDefectPart_eq_downcrossPart R t]
+        exact hdefect
+      exact mem_lowWheelCanonicalPostRootDowncrossPart.mpr
+        ⟨hdown,
+          lowWheelCanonicalDowncross_postRootLargest_imp_postRootLeast
+            hR ht hdown hhigh⟩
+  · intro hxPost
+    rcases mem_lowWheelCanonicalPostRootDowncrossPart.mp hxPost with
+      ⟨hdown, _hpR⟩
+    have hphys := (mem_lowWheelCanonicalDowncrossPart.mp hdown).1
+    have hdefect : x ∈ lowWheelCanonicalDefectPart
+        (lowWheelCanonicalPhysicalStateSet R t) := by
+      rw [lowWheelCanonicalDefectPart_eq_downcrossPart R t]
+      exact hdown
+    have hglobal : x ∈ finiteOthelloStablePart
+        (lowWheelCanonicalPhysicalStateSet R t)
+        (lowWheelLeastOthelloMate R t) := by
+      rw [finiteOthelloStablePart_least_eq_productOne_union_defect]
+      exact Finset.mem_union.mpr (Or.inr hdefect)
+    have hhigh := lowWheelCanonicalPostRootDowncross_largestPivot_postRoot hR hxPost
+    exact Finset.mem_filter.mpr
+      ⟨mem_lowWheelPostRootLargestPivotPhysicalPart.mpr ⟨hphys, hhigh⟩,
+        (Finset.mem_filter.mp hglobal).2⟩
+
+/-- **Per-face root-sector transfer.**  Restricting both legal Othello orders to
+`P⁺(c*k) > R` identifies the high largest-prime stable defect with the old
+post-root least-pivot downcross, with signs unchanged. -/
+theorem sum_lowWheelCanonicalPostRootDowncross_eq_largestDefectHigh
+    {R : ℕ} {t : Finset ℕ}
+    (hR : 2 ≤ R) (ht : t ∈ (primesUpTo R).powerset) :
+    (∑ x ∈ lowWheelCanonicalPostRootDowncrossPart R t,
+      canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ)) =
+    ∑ x ∈ lowWheelLargestDefectHighPart R t,
+      canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ) := by
+  have hstable := sum_finiteOthelloStablePart_eq_of_two_involutions
+    (lowWheelPostRootLargestPivotPhysicalPart R t)
+    (lowWheelLeastOthelloMate R t)
+    (lowWheelLargestOthelloMate R t)
+    (fun x => canonicalMoebiusWeight x.1 * (booleanCubeSign t : ℂ))
+    (fun x hx => lowWheelLeastOthelloMate_mem_postRootLargestPivot hx)
+    (fun x hx => lowWheelLeastOthelloMate_involutive
+      (mem_lowWheelPostRootLargestPivotPhysicalPart.mp hx).1)
+    (fun x hx hne => lowWheelLeastOthelloMate_weight_neg
+      (mem_lowWheelPostRootLargestPivotPhysicalPart.mp hx).1 hne)
+    (fun x hx => lowWheelLargestOthelloMate_mem_postRootLargestPivot hx)
+    (fun x hx => lowWheelLargestOthelloMate_involutive ht
+      (mem_lowWheelPostRootLargestPivotPhysicalPart.mp hx).1)
+    (fun x hx hne => lowWheelLargestOthelloMate_weight_neg ht
+      (mem_lowWheelPostRootLargestPivotPhysicalPart.mp hx).1 hne)
+  rw [finiteOthelloStablePart_least_postRoot_eq_postRootDowncross hR ht,
+    finiteOthelloStablePart_largest_postRoot_eq_highDefect ht] at hstable
+  exact hstable
+
+/-- **High-sector coordinate closure.**  The `q > R` largest-prime defect is
+exactly the old post-root least-pivot ledger. -/
+theorem lowWheelLargestDefectHighLedger_eq_postRootDowncrossLedger
+    (R : ℕ) (hR : 2 ≤ R) :
+    lowWheelLargestDefectHighLedger R =
+      lowWheelCanonicalPostRootDowncrossLedger R := by
+  unfold lowWheelLargestDefectHighLedger lowWheelCanonicalPostRootDowncrossLedger
+  apply Finset.sum_congr rfl
+  intro t ht
+  exact (sum_lowWheelCanonicalPostRootDowncross_eq_largestDefectHigh hR ht).symm
+
+/-- Hence the high largest-prime defect is not merely contained in the old
+transport carrier: its complete signed ledger is exactly the original
+cofactor-first high transport. -/
+theorem lowWheelLargestDefectHighLedger_eq_transport
+    (R : ℕ) (hR : 2 ≤ R) :
+    lowWheelLargestDefectHighLedger R = squareRootTransportCofactorFirst R := by
+  rw [lowWheelLargestDefectHighLedger_eq_postRootDowncrossLedger R hR,
+    lowWheelCanonicalPostRootDowncrossLedger_eq_transport R hR]
+
+/-- The complementary low largest-prime ledger is exactly the old low-pivot
+least-prime ledger. -/
+theorem lowWheelLargestDefectLowLedger_eq_lowPivotDowncrossLedger
+    (R : ℕ) (hR : 2 ≤ R) :
+    lowWheelLargestDefectLowLedger R =
+      lowWheelCanonicalLowPivotDowncrossLedger R := by
+  have hEq :
+      lowWheelCanonicalLowPivotDowncrossLedger R +
+          lowWheelCanonicalPostRootDowncrossLedger R =
+        lowWheelLargestDefectLowLedger R +
+          lowWheelLargestDefectHighLedger R := by
+    calc
+      lowWheelCanonicalLowPivotDowncrossLedger R +
+          lowWheelCanonicalPostRootDowncrossLedger R =
+        lowWheelCanonicalDowncrossLedger R :=
+          (lowWheelCanonicalDowncrossLedger_eq_lowPivot_add_postRoot R).symm
+      _ = lowWheelLargestDefectLedger R :=
+        lowWheelCanonicalDowncrossLedger_eq_largestDefectLedger R
+      _ = lowWheelLargestDefectLowLedger R +
+          lowWheelLargestDefectHighLedger R :=
+        lowWheelLargestDefectLedger_eq_low_add_high R
+  rw [lowWheelLargestDefectHighLedger_eq_postRootDowncrossLedger R hR] at hEq
+  exact (add_right_cancel hEq).symm
+
+/-- The low largest-prime sector is therefore the already-compiled
+fresh-prime-free remainder. -/
+theorem lowWheelLargestDefectLowLedger_eq_freshPrimeFree
+    (R : ℕ) (hR : 2 ≤ R) :
+    lowWheelLargestDefectLowLedger R =
+      lowWheelCanonicalFreshPrimeFreeLedger R := by
+  rw [lowWheelLargestDefectLowLedger_eq_lowPivotDowncrossLedger R hR,
+    lowWheelCanonicalLowPivotDowncrossLedger_eq_freshPrimeFree R hR]
+
+/-- In ordinary endpoint coordinates, the low sector is exactly lower Mertens
+minus the frozen smooth mass. -/
+theorem lowWheelLargestDefectLowLedger_eq_mertens_sub_smooth
+    (R : ℕ) (hR : 3 ≤ R) :
+    lowWheelLargestDefectLowLedger R =
+      mertensSummatory R - squareRootSmoothMass (R - 1) := by
+  rw [lowWheelLargestDefectLowLedger_eq_lowPivotDowncrossLedger R (by omega),
+    lowWheelCanonicalLowPivotDowncrossLedger_eq_mertens_sub_smooth R hR]
 
 /-- Open RH-scale target for the smooth (`q <= R`) side. -/
 def LargestDefectLowEpsilonBound : Prop :=
