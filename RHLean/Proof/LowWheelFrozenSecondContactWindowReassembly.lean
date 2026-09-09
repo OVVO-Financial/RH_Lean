@@ -35,14 +35,20 @@ inside that gate cancel both anchors; outside it
 Mertens gap `M(q-1) - M(X_R/q^2)`, a terminal leaf of the original open problem
 rather than a descended one.
 
-The final section removes that defect at its source.  The `X_R/q^2` carrier is
-not tight: `..._ParentFaceProduct_gt_root` proves the second-contact image lies
-strictly above `R`, so the lower endpoint may be raised to
-`max R (X_R/q^2)`.  On the resulting rooted window the owner is below the lower
-cutoff for free, the cube gate disappears, and
-`..._RootedOwnerWindowMass_eq_neg_childOwnerWindowSum` cancels both anchors at
-*every* prime owner below the root.  The gate was a defect of the carrier, not
-of the object.
+That defect is a property of the carrier, not of the object.
+`LowWheelFrozenSecondContactWindowDescent` (#629) raises the lower endpoint to
+`max R (X_R/q^2)` -- the image really does lie above the root -- and on that
+`lowWheelFrozenSecondContactHighOwnerWindow` the owner sits below the lower
+cutoff for free, so the cube gate disappears and both anchors cancel at every
+prime owner below the root.
+
+The theorems kept here are therefore about the *superseded* `X_R/q^2` carrier.
+They are retained as the recorded no-go: they say exactly what the loose
+endpoint costs, and
+`scripts/FrozenSecondContactReassembly/second_contact_window_scale.py` measures
+it -- `~0.3 R^2/(log R)^2` with constant sign on the loose carrier against a
+sign-changing `~R` on the saturated one.  Do not reintroduce the `X_R/q^2`
+endpoint.
 
 No norm, cardinality estimate, density input, PNT input, Mertens hypothesis, or
 RH-scale bound is introduced here.  Every statement is a finite identity.
@@ -194,216 +200,6 @@ theorem lowWheelFrozenSecondContactGatedLedger_eq_neg_childOwnerReassembly
     rw [lowWheelFrozenSecondContactOwnerWindowMass_eq_neg_childOwnerWindowSum
         hqPrime hgate,
       primesUpTo_pred_eq_primesUpTo_root_filter_lt hqPrime hqR,
-      Finset.sum_filter]
-  rw [Finset.sum_congr rfl hstep, Finset.sum_neg_distrib, Finset.sum_comm]
-  congr 1
-  refine Finset.sum_congr rfl ?_
-  intro r _hr
-  rw [← Finset.sum_filter]
-
-/-! ## The second-contact image lies strictly above the root
-
-The window carrier of #627/#628 has lower endpoint `X_R/q^2`.  That is not
-tight.  A frozen downcross state carries a lower wall of its own,
-
-`R < primeFaceProduct y.1 * y.2.2`,
-
-from `LowWheelTransportPairCarrier`, and on a frozen repeated-cofactor state the
-high quotient `y.2.2` is the pivot `p`.  Erasing the top cofactor prime `q` from
-the product-one face leaves
-
-`P(V) = (c/q) * p * P(t) >= p * P(t) > R`,
-
-because `q ∣ c`.  So the whole image sits above `R`, the lower endpoint may be
-raised to `max R (X_R/q^2)`, and — the consequence that matters — the owner is
-then below the lower cutoff automatically.  The cube gate of the previous
-section is a defect of the loose carrier, not of the object. -/
-
-/-- **The parent face product exceeds the root.**  The downcross lower wall
-survives the erasure of the top cofactor prime, because the erased prime divides
-the cofactor and the wall is carried by the pivot and the Boolean face. -/
-theorem lowWheelFrozenSecondContactParentFaceProduct_gt_root
-    {R : ℕ} {y : LowWheelTaggedDowncrossState}
-    (hy : y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R) :
-    R < primeFaceProduct (lowWheelFrozenSecondContactParentFace y) := by
-  classical
-  obtain ⟨hqPrime, hqDvd, _hpq⟩ := lowWheelFrozenCofactorTopPrime_data hy
-  have hsource := lowWheelCanonicalRepeatedFrozenCofactor_source_data hy
-  have hfrozen := (Finset.mem_filter.mp hy).1
-  have hrepeated := (Finset.mem_filter.mp hfrozen).1
-  have htagged := (Finset.mem_filter.mp hrepeated).1
-  have htag := mem_lowWheelCanonicalTaggedDowncrossCarrier.mp htagged
-  have hdown := mem_lowWheelCanonicalDowncrossPart.mp htag.2
-  have hphys := mem_lowWheelCanonicalPhysicalStateSet.mp hdown.1
-  have hpair : LowWheelTransportPairCarrier R y.1 y.2 := hphys.2.2.2
-  have hwall : R < primeFaceProduct y.1 * y.2.2 := hpair.2.2.1
-  have hwallPivot :
-      R < primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y := by
-    rw [← hsource.1]
-    exact hwall
-  obtain ⟨d, hd⟩ := hqDvd
-  have hc1 : 1 < y.2.1 := hsource.2.2.2.2.1
-  have hdpos : 0 < d := by
-    rcases Nat.eq_zero_or_pos d with h0 | hpos
-    · rw [h0, Nat.mul_zero] at hd
-      omega
-    · exact hpos
-  have hfull := lowWheelCanonicalRepeatedFrozenProductOneFace_product hy
-  have herase := lowWheelFrozenSecondContact_owner_mul_parentFaceProduct hy
-  have hkey :
-      lowWheelFrozenCofactorTopPrime y *
-          primeFaceProduct (lowWheelFrozenSecondContactParentFace y) =
-        lowWheelFrozenCofactorTopPrime y *
-          (d * (primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y)) := by
-    rw [herase, hfull, hd]
-    ring
-  have hPV :
-      primeFaceProduct (lowWheelFrozenSecondContactParentFace y) =
-        d * (primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y) :=
-    Nat.eq_of_mul_eq_mul_left hqPrime.pos hkey
-  calc
-    R < primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y := hwallPivot
-    _ ≤ d * (primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y) :=
-        Nat.le_mul_of_pos_left _ hdpos
-    _ = primeFaceProduct (lowWheelFrozenSecondContactParentFace y) := hPV.symm
-
-/-- **Rooted annulus.**  The genuine second-contact target is confined to the
-window with lower endpoint raised to the root. -/
-theorem lowWheelFrozenSecondContactParentMap_rooted_annulus
-    {R : ℕ} {y : LowWheelTaggedDowncrossState}
-    (hy : y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R) :
-    max R (squareRootEndpoint R /
-        (lowWheelFrozenCofactorTopPrime y * lowWheelFrozenCofactorTopPrime y)) <
-      primeFaceProduct (lowWheelFrozenSecondContactParentFace y) ∧
-    primeFaceProduct (lowWheelFrozenSecondContactParentFace y) ≤
-      squareRootEndpoint R / lowWheelFrozenCofactorTopPrime y := by
-  have hyFrozen := (Finset.mem_filter.mp hy).1
-  obtain ⟨hlower, hupper⟩ :=
-    lowWheelFrozenSecondContactParentMap_division_annulus hy
-  exact ⟨max_lt (lowWheelFrozenSecondContactParentFaceProduct_gt_root hyFrozen)
-    hlower, hupper⟩
-
-/-- The tightened native owner window: the #628 window with its lower endpoint
-raised to the root. -/
-def lowWheelFrozenSecondContactRootedOwnerWindow (R q : ℕ) : Finset (Finset ℕ) :=
-  frozenPrimeUniverseWindowFaces
-    (primesUpTo (q - 1))
-    (max R (squareRootEndpoint R / (q * q)))
-    (squareRootEndpoint R / q)
-
-/-- Every genuine frozen second-contact source lands in the rooted window. -/
-theorem lowWheelFrozenSecondContactParentFace_mem_rootedOwnerWindow
-    {R : ℕ} {y : LowWheelTaggedDowncrossState}
-    (hy : y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R) :
-    lowWheelFrozenSecondContactParentFace y ∈
-      lowWheelFrozenSecondContactRootedOwnerWindow R
-        (lowWheelFrozenCofactorTopPrime y) := by
-  have hyFrozen := (Finset.mem_filter.mp hy).1
-  obtain ⟨hlower, hupper⟩ :=
-    lowWheelFrozenSecondContactParentMap_rooted_annulus hy
-  exact mem_frozenPrimeUniverseWindowFaces.mpr
-    ⟨lowWheelFrozenSecondContactParentFace_mem_predecessor hyFrozen,
-      hlower, hupper⟩
-
-/-- Signed mass of one rooted owner window. -/
-def lowWheelFrozenSecondContactRootedOwnerWindowMass (R q : ℕ) : ℤ :=
-  frozenPrimeUniverseWindowMass
-    (primesUpTo (q - 1))
-    (max R (squareRootEndpoint R / (q * q)))
-    (squareRootEndpoint R / q)
-
-/-- Below the root the physical endpoint still admits `R` copies of the owner. -/
-theorem lowWheelFrozenSecondContactRootedOwner_root_le_upperCutoff
-    {R q : ℕ} (hq : q.Prime) (hqR : q < R) :
-    R ≤ squareRootEndpoint R / q := by
-  have hsucc : q + 1 ≤ R := hqR
-  have hR2 : 2 ≤ q := hq.two_le
-  have hstep : R * (q + 1) ≤ R * R := mul_le_mul_left' hsucc R
-  have hexpand : R * (q + 1) = R * q + R := by ring
-  rw [hexpand] at hstep
-  have hRq : R * q + 1 ≤ R * R := by linarith
-  have hpow : squareRootEndpoint R = R * R - 1 := by
-    unfold squareRootEndpoint
-    rw [pow_two]
-  apply (Nat.le_div_iff_mul_le hq.pos).2
-  rw [hpow]
-  exact Nat.le_sub_of_add_le hRq
-
-/-- The rooted window is a genuine window: its raised lower endpoint is still
-below its upper endpoint. -/
-theorem lowWheelFrozenSecondContactRootedOwner_lower_le_upper
-    {R q : ℕ} (hq : q.Prime) (hqR : q < R) :
-    max R (squareRootEndpoint R / (q * q)) ≤ squareRootEndpoint R / q :=
-  max_le (lowWheelFrozenSecondContactRootedOwner_root_le_upperCutoff hq hqR)
-    (Nat.div_le_div_left (by nlinarith [hq.two_le]) hq.pos)
-
-/-- **The rooted window is an exact frozen difference.** -/
-theorem lowWheelFrozenSecondContactRootedOwnerWindowMass_eq_frozenDifference
-    {R q : ℕ} (hq : q.Prime) (hqR : q < R) :
-    lowWheelFrozenSecondContactRootedOwnerWindowMass R q =
-      frozenPrimeUniverseMass (primesUpTo (q - 1)) (squareRootEndpoint R / q) -
-        frozenPrimeUniverseMass (primesUpTo (q - 1))
-          (max R (squareRootEndpoint R / (q * q))) := by
-  unfold lowWheelFrozenSecondContactRootedOwnerWindowMass
-  exact frozenPrimeUniverseWindowMass_eq_sub
-    (lowWheelFrozenSecondContactRootedOwner_lower_le_upper hq hqR)
-
-/-- **The cube gate is free on the rooted window.**  Raising the lower endpoint
-to the root puts it above every owner below the root, so the base-cancelling
-form of the Go law applies at every owner, with no condition on `q^3`. -/
-theorem lowWheelFrozenSecondContactRootedOwner_gate
-    {R q : ℕ} (hqR : q < R) :
-    q ≤ max R (squareRootEndpoint R / (q * q)) :=
-  le_max_of_le_left hqR.le
-
-/-- **Ungated window-difference Go recurrence.**  On the rooted window both
-copies of `M(q-1)` and both fixed lower-prefix columns cancel at every prime
-owner below the root.  No unrestricted Mertens leaf survives. -/
-theorem lowWheelFrozenSecondContactRootedOwnerWindowMass_eq_neg_childOwnerWindowSum
-    {R q : ℕ} (hq : q.Prime) (hqR : q < R) :
-    lowWheelFrozenSecondContactRootedOwnerWindowMass R q =
-      -∑ r ∈ primesUpTo (q - 1),
-        (frozenPrimeUniverseMass (primesUpTo (r - 1))
-            (squareRootEndpoint R / (q * r)) -
-          frozenPrimeUniverseMass (primesUpTo (r - 1))
-            (max R (squareRootEndpoint R / (q * q)) / r)) := by
-  have hL : q ≤ max R (squareRootEndpoint R / (q * q)) :=
-    lowWheelFrozenSecondContactRootedOwner_gate hqR
-  have hU : q ≤ squareRootEndpoint R / q :=
-    hqR.le.trans (lowWheelFrozenSecondContactRootedOwner_root_le_upperCutoff hq hqR)
-  rw [lowWheelFrozenSecondContactRootedOwnerWindowMass_eq_frozenDifference hq hqR,
-    frozenPrimeUniverseMass_sub_eq_neg_smallerOwnerStripSum hq hU hL]
-  simp only [Nat.div_div_eq_div_mul]
-
-/-- **Ungated global reassembly by the child owner.**  Every prime owner below
-the root contributes, and the child owner indexes the outer column. -/
-theorem lowWheelFrozenSecondContactRootedLedger_eq_neg_childOwnerReassembly
-    (R : ℕ) :
-    ∑ q ∈ primesUpTo (R - 1),
-        lowWheelFrozenSecondContactRootedOwnerWindowMass R q =
-      -∑ r ∈ primesUpTo (R - 1),
-          ∑ q ∈ (primesUpTo (R - 1)).filter fun q => r < q,
-            (frozenPrimeUniverseMass (primesUpTo (r - 1))
-                (squareRootEndpoint R / (q * r)) -
-              frozenPrimeUniverseMass (primesUpTo (r - 1))
-                (max R (squareRootEndpoint R / (q * q)) / r)) := by
-  have hstep :
-      ∀ q ∈ primesUpTo (R - 1),
-        lowWheelFrozenSecondContactRootedOwnerWindowMass R q =
-          -∑ r ∈ primesUpTo (R - 1),
-            (if r < q then
-              frozenPrimeUniverseMass (primesUpTo (r - 1))
-                  (squareRootEndpoint R / (q * r)) -
-                frozenPrimeUniverseMass (primesUpTo (r - 1))
-                  (max R (squareRootEndpoint R / (q * q)) / r)
-             else 0) := by
-    intro q hqMem
-    obtain ⟨hqPrime, hqLe⟩ := mem_primesUpTo.mp hqMem
-    have h2 := hqPrime.two_le
-    have hqR : q < R := by omega
-    rw [lowWheelFrozenSecondContactRootedOwnerWindowMass_eq_neg_childOwnerWindowSum
-        hqPrime hqR,
-      primesUpTo_pred_eq_primesUpTo_root_filter_lt hqPrime hqLe,
       Finset.sum_filter]
   rw [Finset.sum_congr rfl hstep, Finset.sum_neg_distrib, Finset.sum_comm]
   congr 1

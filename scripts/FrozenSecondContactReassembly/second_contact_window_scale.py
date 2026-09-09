@@ -1,32 +1,33 @@
 #!/usr/bin/env python3
-"""Finite diagnostic for the frozen second-contact window ledger.
+"""Finite diagnostics for the frozen second-contact ledger.
 
-Diagnostic only.  Numerical evidence is a filter, never proof; the compiled
-identities live in
-`RHLean/Proof/LowWheelFrozenSecondContactWindowReassembly.lean`.
+Diagnostic only.  Numerical evidence is a filter, never proof.  The compiled
+identities live in `RHLean/Proof/LowWheelFrozenSecondContactWindowDescent.lean`
+(#629, the saturated carrier) and
+`RHLean/Proof/LowWheelFrozenSecondContactWindowReassembly.lean` (the superseded
+`X_R/q^2` carrier, kept as a recorded no-go).
 
-Objects, with `X = squareRootEndpoint R = R^2 - 1` and
+With `X = squareRootEndpoint R = R^2 - 1` and
 
-    F_{q^-}(y) = sum over squarefree m <= y with P+(m) < q of mu(m):
+    F_{q^-}(y) = sum over squarefree m <= y with P+(m) < q of mu(m),
 
-  * repo window   D_q = F_{q^-}(X/q) - F_{q^-}(X/q^2)          -- #628 as compiled
-  * plan window   D_q = F_{q^-}(X/q) - F_{q^-}(max(R, X/q^2))  -- with an added
-                                                                  floor at R
+two carriers are compared:
 
-What this script checks:
+  * loose (#628)     D_q = F_{q^-}(X/q) - F_{q^-}(X/q^2)
+  * saturated (#629) D_q = F_{q^-}(X/q) - F_{q^-}(max(R, X/q^2))
 
-1. The child-owner reassembly identity is exact (it agrees with the direct
-   ledger sum term by term).
-2. The reassembled double sum has an exact closed form: it is a single signed
-   sum over the largest-prime-factor region
+Section 1 verifies the closed forms.  Reindexing each ledger by `n = q * m`,
+the loose ledger is a largest-prime-factor sum and the saturated one adds the
+root floor `n / P+(n) > R`:
 
-       sum_q D_q = - sum over squarefree n <= X with P+(n) < R
-                     and n * P+(n) > X of mu(n),
+    loose      = - sum mu(n) over squarefree n <= X, P+(n) < R, n*P+(n) > X
+    saturated  = - sum of the same terms with additionally n/P+(n) > R
 
-   i.e. the reassembly is an exact re-partition of the same family by top
-   prime.  It reorganizes the ledger; it does not cancel any part of it.
-3. The two windows live at different scales.  The compiled #628 window grows
-   like c * R^2 / (log R)^2; the floored window stays near R and changes sign.
+Section 2 measures both.  Section 3 sweeps the saturated ledger densely for its
+envelope.  Section 4 splits the saturated ledger into the child-owner columns of
+`lowWheelFrozenSecondContactChildOwnerColumn` (group by `r = P+(n/P+(n))`) and
+compares `sum_r |col_r|` against `|sum_r col_r|` -- i.e. asks whether a triangle
+inequality at the column level is affordable.
 
 Run: python3 scripts/FrozenSecondContactReassembly/second_contact_window_scale.py
 """
@@ -57,103 +58,125 @@ def sieve(n_max: int) -> tuple[list[int], bytearray, list[int]]:
     return mu, squarefree, largest
 
 
-def frozen_window(a: int, b: int, q: int, mu, squarefree, largest) -> int:
-    """F_{q^-}(b) - F_{q^-}(a) over the half-open window (a, b]."""
-    total = 0
-    for m in range(a + 1, b + 1):
-        if m == 1:
-            total += 1
-        elif squarefree[m] and largest[m] < q:
-            total += mu[m]
-    return total
-
-
-def ledger_direct(R: int, primes, mu, squarefree, largest, floor_at_R: bool) -> int:
+def ledger_direct(R, mu, squarefree, largest, *, floored: bool) -> int:
+    """sum over prime owners q < R of the owner window mass."""
     X = R * R - 1
     total = 0
-    for q in primes:
-        if q >= R:
-            break
+    for q in range(2, R):
+        if largest[q] != q:
+            continue
         lower = X // (q * q)
-        if floor_at_R:
+        if floored:
             lower = max(R, lower)
-        total += frozen_window(lower, X // q, q, mu, squarefree, largest)
+        for m in range(lower + 1, X // q + 1):
+            if m == 1:
+                total += 1
+            elif squarefree[m] and largest[m] < q:
+                total += mu[m]
     return total
 
 
-def ledger_reassembled(R: int, primes, mu, squarefree, largest) -> int:
-    """-sum_r sum_{q>r} (F_{r^-}(X/(q r)) - F_{r^-}(X/(q^2 r)))."""
+def ledger_closed(R, mu, squarefree, largest, *, floored: bool) -> int:
     X = R * R - 1
-    live = [q for q in primes if q < R]
     total = 0
-    for r in live:
-        for q in live:
-            if q > r:
-                total -= frozen_window(
-                    X // (q * q * r), X // (q * r), r, mu, squarefree, largest
-                )
-    return total
+    for n in range(2, X + 1):
+        if not squarefree[n]:
+            continue
+        q = largest[n]
+        if q < R and n * q > X and (not floored or n > R * q):
+            total += mu[n]
+    return -total
 
 
-def ledger_closed_form(R: int, mu, squarefree, largest) -> int:
-    """-sum over squarefree n <= X, P+(n) < R, n * P+(n) > X of mu(n)."""
+def child_owner_columns(R, mu, squarefree, largest) -> dict[int, int]:
+    """Saturated ledger split by child owner r = P+(n / P+(n))."""
     X = R * R - 1
-    return -sum(
-        mu[n]
-        for n in range(2, X + 1)
-        if squarefree[n] and largest[n] < R and n * largest[n] > X
-    )
+    columns: dict[int, int] = {}
+    for n in range(R + 1, X + 1):
+        if not squarefree[n]:
+            continue
+        q = largest[n]
+        if q < R and n * q > X and n > R * q:
+            m = n // q
+            r = largest[m] if m > 1 else 1
+            columns[r] = columns.get(r, 0) - mu[n]
+    return columns
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--identity-max", type=int, default=210)
-    parser.add_argument("--scale-max", type=int, default=1600)
+    parser.add_argument("--identity-max", type=int, default=200)
+    parser.add_argument("--scale-max", type=int, default=800)
+    parser.add_argument("--sweep-max", type=int, default=800)
+    parser.add_argument("--sweep-step", type=int, default=10)
     args = parser.parse_args()
 
-    n_max = max(args.identity_max, args.scale_max) ** 2
+    n_max = max(args.identity_max, args.scale_max, args.sweep_max) ** 2
     mu, squarefree, largest = sieve(n_max)
-    primes = [p for p in range(2, args.scale_max) if largest[p] == p]
-
-    print("== 1/2. reassembly identity and closed form (#628 window) ==")
-    print(f"{'R':>6} {'direct':>10} {'reassembled':>12} {'closed form':>12} {'agree':>6}")
     failures = 0
-    checks = [R for R in (5, 7, 10, 13, 20, 31, 50, 64, 100, 137, 200, 210)
-              if R <= args.identity_max]
-    for R in checks:
-        direct = ledger_direct(R, primes, mu, squarefree, largest, floor_at_R=False)
-        reassembled = ledger_reassembled(R, primes, mu, squarefree, largest)
-        closed = ledger_closed_form(R, mu, squarefree, largest)
-        agree = direct == reassembled == closed
-        failures += 0 if agree else 1
-        print(f"{R:>6} {direct:>10} {reassembled:>12} {closed:>12} {str(agree):>6}")
+
+    print("== 1. closed forms ==")
+    print(f"{'R':>6} {'loose':>9} {'closed':>9} {'saturated':>11} {'closed':>9} {'ok':>5}")
+    for R in (50, 100, 200, 400):
+        if R > args.identity_max:
+            continue
+        a = ledger_direct(R, mu, squarefree, largest, floored=False)
+        b = ledger_closed(R, mu, squarefree, largest, floored=False)
+        c = ledger_direct(R, mu, squarefree, largest, floored=True)
+        d = ledger_closed(R, mu, squarefree, largest, floored=True)
+        ok = a == b and c == d
+        failures += 0 if ok else 1
+        print(f"{R:>6} {a:>9} {b:>9} {c:>11} {d:>9} {str(ok):>5}")
 
     print()
-    print("== 3. scale of the two windows ==")
-    print(
-        f"{'R':>6} {'#628 window':>12} {'/(R^2/log^2 R)':>15} "
-        f"{'floored window':>15} {'/R':>8}"
-    )
-    scales = [R for R in (100, 200, 400, 800, 1600) if R <= args.scale_max]
-    for R in scales:
-        repo = ledger_closed_form(R, mu, squarefree, largest)
-        floored = ledger_direct(R, primes, mu, squarefree, largest, floor_at_R=True)
-        norm = R * R / math.log(R) ** 2
+    print("== 2. what the root floor of #629 buys ==")
+    print(f"{'R':>6} {'loose':>10} {'/(R^2/log^2R)':>14} {'saturated':>11} {'/(R log R)':>11}")
+    for R in (100, 200, 400, 800):
+        if R > args.scale_max:
+            continue
+        loose = ledger_closed(R, mu, squarefree, largest, floored=False)
+        sat = ledger_closed(R, mu, squarefree, largest, floored=True)
         print(
-            f"{R:>6} {repo:>12} {repo / norm:>15.4f} {floored:>15} "
-            f"{floored / R:>8.3f}"
+            f"{R:>6} {loose:>10} {loose / (R * R / math.log(R) ** 2):>14.4f} "
+            f"{sat:>11} {sat / (R * math.log(R)):>11.4f}"
         )
 
     print()
-    if failures:
-        print(f"FAIL: {failures} identity check(s) disagreed.")
-        return 1
-    print("All identity checks agree.")
+    print("== 3. envelope of the saturated ledger ==")
+    values = []
+    for R in range(100, args.sweep_max + 1, args.sweep_step):
+        values.append((R, ledger_closed(R, mu, squarefree, largest, floored=True)))
+    changes = sum(1 for i in range(1, len(values)) if values[i][1] * values[i - 1][1] < 0)
+    worst = max(values, key=lambda t: abs(t[1]) / (t[0] * math.log(t[0])))
+    print(f"  {len(values)} samples, {changes} sign changes")
     print(
-        "Reading: the compiled #628 window tracks c*R^2/(log R)^2 with c ~ 0.3 and "
-        "never changes sign; the floored window stays near R and oscillates.  The "
-        "floor at R is therefore load-bearing, and it is not supplied by the "
-        "second-contact geometry."
+        f"  max |L|/(R log R) = "
+        f"{abs(worst[1]) / (worst[0] * math.log(worst[0])):.4f} at R={worst[0]}"
+    )
+
+    print()
+    print("== 4. is a triangle inequality on the child-owner columns affordable? ==")
+    print(f"{'R':>6} {'|ledger|':>9} {'sum|col_r|':>11} {'cols':>5} {'loss factor':>12}")
+    for R in (200, 400, 800):
+        if R > args.scale_max:
+            continue
+        columns = child_owner_columns(R, mu, squarefree, largest)
+        total = sum(columns.values())
+        abs_sum = sum(abs(v) for v in columns.values())
+        loss = abs_sum / abs(total) if total else float("inf")
+        print(f"{R:>6} {abs(total):>9} {abs_sum:>11} {len(columns):>5} {loss:>11.1f}x")
+
+    print()
+    if failures:
+        print(f"FAIL: {failures} closed-form check(s) disagreed.")
+        return 1
+    print("All closed-form checks agree.")
+    print(
+        "Reading: the root floor of #629 moves the ledger from ~0.3 R^2/(log R)^2 "
+        "with constant sign to a sign-changing ~0.2 R log R -- a full power.  But "
+        "the child-owner columns must NOT be normed: sum_r |col_r| grows back to "
+        "~R^2/(log R)^2, so the entire remaining gain is cancellation BETWEEN "
+        "columns, not inside them."
     )
     return 0
 
