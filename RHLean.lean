@@ -712,6 +712,7 @@ import RHLean.Proof.SquareRootLowPrimeSquareDefect
 import RHLean.Proof.SquareRootLowPrimeSquareDefectCarrierCause
 import RHLean.Proof.SquareRootLowPrimeStructuralEndpointNormalization
 import RHLean.Proof.SquareRootLowPrimeStructuralKey
+import RHLean.Proof.SquareRootLowPrimeTSectorQ2Renormalization
 import RHLean.Proof.SquareRootLowPrimeTerminalHighPrimeIntegration
 import RHLean.Proof.SquareRootLowPrimeUpperDisplacement
 import RHLean.Proof.SquareRootMertensAncestralTracking
