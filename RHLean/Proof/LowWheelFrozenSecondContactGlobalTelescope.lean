@@ -28,6 +28,15 @@ physical endpoint, while deleting the canonical owner destroys the
 second-contact inequality.  Thus any surviving local toggle edge is necessarily
 below the old owner; cancellation which changes the old owner must come from a
 different global reassembly, not from another pass of the same local matching.
+
+The last section adds the reciprocal-depth coordinate exposed by the two #630
+walls.  For a child `n` with owner `q = P+(n)`, put `k = floor(X_R/n)`.
+Then `k < q` and, much more importantly, `q*k < R`; hence `k^2 < R`.
+Thus every saturated second-contact child starts in a genuinely sub-square-root
+reciprocal layer.  Removing a divisor from the child can only increase this
+reciprocal depth multiplicatively.  This is the monotone coordinate needed by
+the descending-owner Euler descent: owner depth decreases while reciprocal
+depth climbs toward the root.
 -/
 
 noncomputable section
@@ -166,5 +175,131 @@ theorem lowWheelFrozenSecondContactArithmeticChild_fresh_mul_mem_forces_lt_owner
     canonicalLargestPrimeFactor_dvd hn1
   apply hfresh
   simpa [heq] using hdiv
+
+/-! ## Reciprocal-depth descent coordinate -/
+
+/-- The reciprocal depth `floor(X_R/n)` is strictly below the canonical owner.
+This is the quotient form of the #630 second-contact wall `X_R < n*P+(n)`. -/
+theorem lowWheelFrozenSecondContactArithmeticChild_reciprocalDepth_lt_owner
+    {R n : ℕ}
+    (hn : n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R) :
+    squareRootEndpoint R / n < canonicalLargestPrimeFactor n := by
+  rcases Finset.mem_filter.mp hn with
+    ⟨hnIcc, _hsq, _hqR, hsecond, _hroot⟩
+  have hnPos : 0 < n := by
+    have hnLower := (Finset.mem_Icc.mp hnIcc).1
+    omega
+  apply (Nat.div_lt_iff_lt_mul hnPos).2
+  simpa [Nat.mul_comm] using hsecond
+
+/-- The stronger hyperbolic localization: owner times reciprocal depth is still
+strictly below the root.  This combines the post-root cofactor wall
+`R*P+(n) < n` with `n*floor(X_R/n) <= X_R < R^2`. -/
+theorem lowWheelFrozenSecondContactArithmeticChild_owner_mul_reciprocalDepth_lt_root
+    {R n : ℕ}
+    (hn : n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R) :
+    canonicalLargestPrimeFactor n * (squareRootEndpoint R / n) < R := by
+  rcases Finset.mem_filter.mp hn with
+    ⟨hnIcc, _hsq, hqR, _hsecond, hroot⟩
+  have hnPos : 0 < n := by
+    have hnLower := (Finset.mem_Icc.mp hnIcc).1
+    omega
+  have hn1 : 1 < n := by
+    have hnLower := (Finset.mem_Icc.mp hnIcc).1
+    omega
+  have hqPrime := canonicalLargestPrimeFactor_prime hn1
+  have hRPos : 0 < R := hqPrime.pos.trans hqR
+  let k := squareRootEndpoint R / n
+  by_cases hk : k = 0
+  · simp [k, hk, hRPos]
+  · have hkPos : 0 < k := Nat.pos_of_ne_zero hk
+    have hleft :
+        (R * canonicalLargestPrimeFactor n) * k < n * k :=
+      Nat.mul_lt_mul_of_pos_right hroot hkPos
+    have hnk : n * k ≤ squareRootEndpoint R := by
+      simpa [k, Nat.mul_comm] using Nat.div_mul_le_self (squareRootEndpoint R) n
+    have hXlt : squareRootEndpoint R < R * R := by
+      unfold squareRootEndpoint
+      have hsqPos : 0 < R ^ 2 := by positivity
+      omega
+    have hmul :
+        R * (canonicalLargestPrimeFactor n * k) < R * R := by
+      calc
+        R * (canonicalLargestPrimeFactor n * k) =
+            (R * canonicalLargestPrimeFactor n) * k := by ring
+        _ < n * k := hleft
+        _ ≤ squareRootEndpoint R := hnk
+        _ < R * R := hXlt
+    have hkRoot : canonicalLargestPrimeFactor n * k < R :=
+      Nat.lt_of_mul_lt_mul_left hmul
+    simpa [k] using hkRoot
+
+/-- The child itself lies beyond the geometric mean of the root and square
+endpoint: `R*X_R < n^2`.  This is the product form of the two #630 walls. -/
+theorem lowWheelFrozenSecondContactArithmeticChild_root_mul_endpoint_lt_sq
+    {R n : ℕ}
+    (hn : n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R) :
+    R * squareRootEndpoint R < n * n := by
+  rcases Finset.mem_filter.mp hn with
+    ⟨hnIcc, _hsq, hqR, hsecond, hroot⟩
+  have hnPos : 0 < n := by
+    have hnLower := (Finset.mem_Icc.mp hnIcc).1
+    omega
+  have hn1 : 1 < n := by
+    have hnLower := (Finset.mem_Icc.mp hnIcc).1
+    omega
+  have hqPrime := canonicalLargestPrimeFactor_prime hn1
+  have hRPos : 0 < R := hqPrime.pos.trans hqR
+  calc
+    R * squareRootEndpoint R <
+        R * (n * canonicalLargestPrimeFactor n) :=
+      Nat.mul_lt_mul_of_pos_left hsecond hRPos
+    _ = n * (R * canonicalLargestPrimeFactor n) := by ring
+    _ < n * n := Nat.mul_lt_mul_of_pos_left hroot hnPos
+
+/-- **Sub-square-root reciprocal depth.**  Every #630 child belongs to a
+reciprocal layer `k` with `k^2 < R`.  This is the exponent-changing support
+localization: the saturated second-contact population begins in only the first
+square-root many reciprocal depths. -/
+theorem lowWheelFrozenSecondContactArithmeticChild_reciprocalDepth_sq_lt_root
+    {R n : ℕ}
+    (hn : n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R) :
+    (squareRootEndpoint R / n) * (squareRootEndpoint R / n) < R := by
+  let k := squareRootEndpoint R / n
+  have hkq : k < canonicalLargestPrimeFactor n := by
+    simpa [k] using
+      lowWheelFrozenSecondContactArithmeticChild_reciprocalDepth_lt_owner hn
+  have hqk : canonicalLargestPrimeFactor n * k < R := by
+    simpa [k] using
+      lowWheelFrozenSecondContactArithmeticChild_owner_mul_reciprocalDepth_lt_root hn
+  by_cases hk : k = 0
+  · subst k
+    have hn1 : 1 < n := by
+      have hnLower :=
+        (Finset.mem_Icc.mp (Finset.mem_filter.mp hn).1).1
+      omega
+    have hqR := (Finset.mem_filter.mp hn).2.2.1
+    have hqPrime := canonicalLargestPrimeFactor_prime hn1
+    have hRPos : 0 < R := hqPrime.pos.trans hqR
+    simpa using hRPos
+  · have hkPos : 0 < k := Nat.pos_of_ne_zero hk
+    have hkk : k * k < canonicalLargestPrimeFactor n * k :=
+      Nat.mul_lt_mul_of_pos_right hkq hkPos
+    exact hkk.trans hqk
+
+/-- Removing a positive divisor from an integer can only increase reciprocal
+depth by at least that divisor.  This generic floor inequality is the monotone
+engine for descending-owner induction. -/
+theorem reciprocalDepth_mul_divisor_le_strippedDepth
+    {X n r : ℕ} (hn : 0 < n) (hr : 0 < r) (hrDvd : r ∣ n) :
+    r * (X / n) ≤ X / (n / r) := by
+  have hrLe : r ≤ n := Nat.le_of_dvd hn hrDvd
+  have hquotPos : 0 < n / r := Nat.div_pos hrLe hr
+  apply (Nat.le_div_iff_mul_le hquotPos).2
+  calc
+    r * (X / n) * (n / r) =
+        (X / n) * ((n / r) * r) := by ring
+    _ = (X / n) * n := by rw [Nat.div_mul_cancel hrDvd]
+    _ ≤ X := Nat.div_mul_le_self X n
 
 end RHLean.Proof
