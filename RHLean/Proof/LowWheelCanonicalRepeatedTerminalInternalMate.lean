@@ -372,7 +372,9 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMateImage_eq_near_union_far
       lowWheelCanonicalRepeatedTerminalInternalMateNearImage R ∪
         lowWheelCanonicalRepeatedTerminalInternalMateFarImage R := by
   ext z
-  simp only [Finset.mem_union, Finset.mem_filter]
+  simp only [lowWheelCanonicalRepeatedTerminalInternalMateNearImage,
+    lowWheelCanonicalRepeatedTerminalInternalMateFarImage,
+    Finset.mem_union, Finset.mem_filter]
   constructor
   · intro hz
     by_cases hfar : R + 8 ≤ lowWheelTaggedHighProduct z
@@ -457,8 +459,11 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMateFarImage_disjoint_topImage
       (lowWheelFrozenCofactorTopImage R) := by
   rw [Finset.disjoint_left]
   intro z hfar htop
-  exact Finset.disjoint_left.mp
-    (lowWheelCanonicalRepeatedTerminalInternalMateImage_disjoint_topImage R)
-    z (Finset.mem_filter.mp hfar).1 htop
+  have himage : z ∈ lowWheelCanonicalRepeatedTerminalInternalMateImage R :=
+    (Finset.mem_filter.mp hfar).1
+  have hone := lowWheelCanonicalRepeatedTerminalInternalMateImage_state_eq_one himage
+  have htwo := lowWheelFrozenCofactorTopImage_quotient_two_le htop
+  have hquot : z.2.2 = 1 := congrArg Prod.snd hone
+  omega
 
 end RHLean.Proof
