@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.LowWheelFrozenSecondContactWindowReassembly
+import RHLean.Proof.LowWheelCanonicalRepeatedFrozenCofactorMate
 
 /-!
 # Global telescope for the saturated frozen second-contact ledger
@@ -220,8 +221,8 @@ theorem lowWheelFrozenSecondContactArithmeticChild_owner_mul_reciprocalDepth_lt_
       simpa [k, Nat.mul_comm] using Nat.div_mul_le_self (squareRootEndpoint R) n
     have hXlt : squareRootEndpoint R < R * R := by
       unfold squareRootEndpoint
-      have hsqPos : 0 < R ^ 2 := by positivity
-      omega
+      have hsqNe : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRPos)
+      simpa [pow_two] using Nat.pred_lt hsqNe
     have hmul :
         R * (canonicalLargestPrimeFactor n * k) < R * R := by
       calc
@@ -273,7 +274,9 @@ theorem lowWheelFrozenSecondContactArithmeticChild_reciprocalDepth_sq_lt_root
     simpa [k] using
       lowWheelFrozenSecondContactArithmeticChild_owner_mul_reciprocalDepth_lt_root hn
   by_cases hk : k = 0
-  · subst k
+  · have hkZero : squareRootEndpoint R / n = 0 := by
+      simpa [k] using hk
+    rw [hkZero]
     have hn1 : 1 < n := by
       have hnLower :=
         (Finset.mem_Icc.mp (Finset.mem_filter.mp hn).1).1
@@ -373,8 +376,8 @@ theorem lowWheelFrozenSecondContact_source_lowerScaleExit
     exact (Nat.div_lt_iff_lt_mul hApos).2 hqca
   have hXltRR : squareRootEndpoint R < R * R := by
     unfold squareRootEndpoint
-    have hsqPos : 0 < R ^ 2 := by positivity
-    simpa [pow_two] using Nat.pred_lt hsqPos
+    have hsqNe : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
+    simpa [pow_two] using Nat.pred_lt hsqNe
   have hRRltRA : R * R < R * A :=
     Nat.mul_lt_mul_of_pos_left hAroot hRpos
   have hXltRA : squareRootEndpoint R < R * A :=
