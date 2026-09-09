@@ -8,6 +8,58 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Current continuation: the endpoint square-residual mass has no owner index
+
+`RHLean/Proof/EndpointGlobalSquareResidualMass.lean` removes the owner
+schedule from the square-residual mass the #481 wall identity leaves in the
+endpoint.
+
+Do not estimate that mass owner by owner, or source scale by source scale. Each
+owner term is a signed state at its own cutoff `B_q`; a separate `B_q/2`
+estimate for each, summed, is `sum_q X/(2 q^2)`, a constant multiple of `X` --
+strictly worse than the single global support bound the recombined population
+satisfies, and it discards every cancellation between owners.
+
+`endpointSecondContactPopulation K X` is defined intrinsically:
+
+```text
+m squarefree,  P+(m) <= K,  P+(m) * m <= X,
+```
+
+with no owner index anywhere in the definition, and
+`squareRootLowPrimeGoSecondContactSources_wallSchedule_eq_endpointPopulation`
+proves it is the *same finite set* as the owner-indexed Go source population on
+the literal wall schedule. Hence
+
+```text
+squareRootLowPrimeLiteralWallSquareResidualMass R K
+  = - sum_{m in P(K, X_R)} mu(m),
+```
+
+one globally signed Mobius mass, and the compiled wall identity carries exactly
+that one mass
+(`squareRootLowPrimeLiteralWallPartnerLedgerMass_eq_endpoint_add_populationMass`).
+
+### The structure the single object actually has
+
+* The sign is not free: `mu(m) = (-1)^omega(m)` on this population, so the mass
+  is an alternating sum of level cardinalities graded by the number of distinct
+  primes.
+* The levels are separated by scale: a source at level `k` satisfies
+  `m^(k+1) <= X^k`, i.e. it lies at scale `X^(k/(k+1))`. Level one is exactly
+  the primes with `m^2 <= X` -- the root-scale anchor. Only levels of unbounded
+  `k` reach the top scale.
+* One global estimate applies once to the whole population:
+  `|mass| <= sqrt X + X/3`.
+
+### What is not proved here
+
+The graded scale law is exact and elementary; it is not a cancellation
+statement. Bounding the alternating sum of level cardinalities by anything
+smaller than their total is open, and that is where the next contraction has to
+occur. No Mertens input, prime-distribution estimate, or asymptotic claim is
+used or implied.
+
 ## Current continuation: the second-contact seam carries a vanishing flux register
 
 `RHLean/Proof/SecondContactInterfaceFluxRegister.lean` replaces the #632 total

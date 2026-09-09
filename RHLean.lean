@@ -445,6 +445,7 @@ import RHLean.Proof.DeathShellSubpolynomial
 import RHLean.Proof.DegreeShellTransfer
 import RHLean.Proof.DyadicCompressedPacketGram
 import RHLean.Proof.EndpointCubeAnalyticClosure
+import RHLean.Proof.EndpointGlobalSquareResidualMass
 import RHLean.Proof.EndpointProjectionBridge
 import RHLean.Proof.ExactPrefixPopulationIdentity
 import RHLean.Proof.FarSurvivorRenewal_is_LowerMertens
