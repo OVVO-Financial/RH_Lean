@@ -373,4 +373,214 @@ theorem lowWheelFrozenSourceSquareResidual_subset_halfScale (p B : ℕ) :
     (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).2
       (by simpa [Nat.mul_comm] using htwo)⟩
 
+/-! ## Signed rough-prefix cancellation inside the endpoint identity -/
+
+/-- At fixed source scale, the cofactor itself still determines the source.
+This extends the no-multiplicity statement from the second-contact subfibre to
+the complete frozen rough-prefix fibre. -/
+theorem lowWheelFrozenCofactorSourceScaleFiber_cofactor_injOn
+    (R A : ℕ) :
+    Set.InjOn (fun y : LowWheelTaggedDowncrossState => y.2.1)
+      (lowWheelFrozenCofactorSourceScaleFiber R A :
+        Set LowWheelTaggedDowncrossState) := by
+  intro y hy z hz hcofactor
+  have hyd := Finset.mem_filter.mp hy
+  have hzd := Finset.mem_filter.mp hz
+  have hchild : orderedEulerCutChildInteger y = orderedEulerCutChildInteger z := by
+    calc
+      orderedEulerCutChildInteger y =
+          lowWheelFrozenSecondContactSourceScale y * y.2.1 :=
+        frozenSource_child_eq_scale_mul_cofactor hyd.1
+      _ = A * y.2.1 := by rw [hyd.2]
+      _ = A * z.2.1 := by rw [hcofactor]
+      _ = lowWheelFrozenSecondContactSourceScale z * z.2.1 := by rw [hzd.2]
+      _ = orderedEulerCutChildInteger z :=
+        (frozenSource_child_eq_scale_mul_cofactor hzd.1).symm
+  exact orderedEulerCutChildInteger_injective_on_carrier
+    (lowWheelCanonicalRepeatedFrozenCofactor_mem_orderedEulerCutCarrier hyd.1)
+    (lowWheelCanonicalRepeatedFrozenCofactor_mem_orderedEulerCutCarrier hzd.1)
+    hchild
+
+/-- The complete fixed-`A` frozen source is exactly `-mu(A)` times the signed
+Möbius mass of its rough prefix. -/
+theorem lowWheelFrozenCofactorSourceScaleFiber_sum_eq_roughPrefix
+    {R A : ℕ} (hA : A ∈ lowWheelFrozenSecondContactSourceScaleSet R) :
+    (∑ y ∈ lowWheelFrozenCofactorSourceScaleFiber R A,
+        lowWheelTaggedDowncrossWeight y) =
+      -(canonicalMoebiusWeight A *
+        ∑ c ∈ lowWheelFrozenSourceRoughPrefix (canonicalLargestPrimeFactor A)
+          (squareRootEndpoint R / A), canonicalMoebiusWeight c) := by
+  have hcofactorSum :
+      (∑ y ∈ lowWheelFrozenCofactorSourceScaleFiber R A,
+          canonicalMoebiusWeight y.2.1) =
+        ∑ c ∈ lowWheelFrozenSourceRoughPrefix (canonicalLargestPrimeFactor A)
+          (squareRootEndpoint R / A), canonicalMoebiusWeight c := by
+    rw [← lowWheelFrozenCofactorSourceScaleFiber_image_eq_roughPrefix hA]
+    rw [Finset.sum_image]
+    intro y hy z hz heq
+    exact lowWheelFrozenCofactorSourceScaleFiber_cofactor_injOn R A hy hz heq
+  calc
+    (∑ y ∈ lowWheelFrozenCofactorSourceScaleFiber R A,
+        lowWheelTaggedDowncrossWeight y) =
+      ∑ y ∈ lowWheelFrozenCofactorSourceScaleFiber R A,
+        -(canonicalMoebiusWeight A * canonicalMoebiusWeight y.2.1) := by
+      apply Finset.sum_congr rfl
+      intro y hy
+      have hyd := Finset.mem_filter.mp hy
+      calc
+        lowWheelTaggedDowncrossWeight y =
+            -(canonicalMoebiusWeight
+                (lowWheelFrozenSecondContactSourceScale y) *
+              canonicalMoebiusWeight y.2.1) :=
+          frozenSource_weight_eq hyd.1
+        _ = -(canonicalMoebiusWeight A * canonicalMoebiusWeight y.2.1) := by
+          rw [hyd.2]
+    _ = -(canonicalMoebiusWeight A *
+        ∑ y ∈ lowWheelFrozenCofactorSourceScaleFiber R A,
+          canonicalMoebiusWeight y.2.1) := by
+      rw [Finset.sum_neg_distrib, ← Finset.mul_sum]
+    _ = -(canonicalMoebiusWeight A *
+        ∑ c ∈ lowWheelFrozenSourceRoughPrefix (canonicalLargestPrimeFactor A)
+          (squareRootEndpoint R / A), canonicalMoebiusWeight c) := by
+      rw [hcofactorSum]
+
+/-- Signed mass of the actual product-one transport partners at one source
+scale. Every term is already proved to lie in the historical fixed part. -/
+def lowWheelFrozenSourceScaleTransportMass (R A : ℕ) : ℂ :=
+  ∑ z ∈ lowWheelFrozenSourceScaleTransportCarrier R A,
+    lowWheelTaggedCanonicalWeight z
+
+/-- The fixed transport mass at scale `A` is `mu(A)` times the complete rough
+prefix. This is the opposite charge to the full frozen source fibre. -/
+theorem lowWheelFrozenSourceScaleTransportMass_eq_roughPrefix
+    {R A : ℕ} (hA : A ∈ lowWheelFrozenSecondContactSourceScaleSet R) :
+    lowWheelFrozenSourceScaleTransportMass R A =
+      canonicalMoebiusWeight A *
+        ∑ c ∈ lowWheelFrozenSourceRoughPrefix (canonicalLargestPrimeFactor A)
+          (squareRootEndpoint R / A), canonicalMoebiusWeight c := by
+  unfold lowWheelFrozenSourceScaleTransportMass
+  rw [lowWheelFrozenSourceScaleTransportCarrier_sum_image R A
+    lowWheelTaggedCanonicalWeight]
+  calc
+    (∑ y ∈ lowWheelFrozenCofactorSourceScaleFiber R A,
+        lowWheelTaggedCanonicalWeight
+          (lowWheelCanonicalRepeatedFrozenProductOneMate y)) =
+      ∑ y ∈ lowWheelFrozenCofactorSourceScaleFiber R A,
+        -lowWheelTaggedDowncrossWeight y := by
+      apply Finset.sum_congr rfl
+      intro y hy
+      exact lowWheelCanonicalRepeatedFrozenProductOneMate_taggedWeight_neg
+        (Finset.mem_filter.mp hy).1
+    _ = -(∑ y ∈ lowWheelFrozenCofactorSourceScaleFiber R A,
+        lowWheelTaggedDowncrossWeight y) := by
+      rw [Finset.sum_neg_distrib]
+    _ = canonicalMoebiusWeight A *
+        ∑ c ∈ lowWheelFrozenSourceRoughPrefix (canonicalLargestPrimeFactor A)
+          (squareRootEndpoint R / A), canonicalMoebiusWeight c := by
+      rw [lowWheelFrozenCofactorSourceScaleFiber_sum_eq_roughPrefix hA]
+      ring
+
+/-- Signed square-residual charge left at one source scale after the historical
+fixed transport cancels the entire rough prefix against the second-contact
+source. -/
+def lowWheelFrozenSecondContactSquareResidualMassAtScale (R A : ℕ) : ℂ :=
+  canonicalMoebiusWeight A *
+    ∑ c ∈ lowWheelFrozenSourceSquareResidual (canonicalLargestPrimeFactor A)
+      (squareRootEndpoint R / A), canonicalMoebiusWeight c
+
+/-- **Fixed-scale cancellation identity.** The genuine second-contact source
+plus its existing fixed transport partners is exactly the signed square
+residual. No norm has been taken; the outer `mu(A)` sign is retained. -/
+theorem lowWheelFrozenSecondContactSourceScale_add_transport_eq_squareResidual
+    {R A : ℕ} (hA : A ∈ lowWheelFrozenSecondContactSourceScaleSet R) :
+    (∑ y ∈ lowWheelFrozenSecondContactSourceScaleFiber R A,
+        lowWheelTaggedDowncrossWeight y) +
+      lowWheelFrozenSourceScaleTransportMass R A =
+        lowWheelFrozenSecondContactSquareResidualMassAtScale R A := by
+  have hsource :
+      (∑ y ∈ lowWheelFrozenSecondContactSourceScaleFiber R A,
+          lowWheelTaggedDowncrossWeight y) =
+        -(canonicalMoebiusWeight A *
+          lowWheelFrozenSecondContactSourceScaleCofactorMass R A) := by
+    simpa [lowWheelTaggedDowncrossWeight] using
+      (lowWheelFrozenSecondContactSourceScaleFiber_sum_eq R A)
+  have htransport := lowWheelFrozenSourceScaleTransportMass_eq_roughPrefix hA
+  have hpartition :
+      (∑ c ∈ lowWheelFrozenSourceRoughPrefix (canonicalLargestPrimeFactor A)
+          (squareRootEndpoint R / A), canonicalMoebiusWeight c) =
+        lowWheelFrozenSecondContactSourceScaleCofactorMass R A +
+          ∑ c ∈ lowWheelFrozenSourceSquareResidual (canonicalLargestPrimeFactor A)
+            (squareRootEndpoint R / A), canonicalMoebiusWeight c := by
+    simpa [lowWheelFrozenSecondContactSourceScaleCofactorMass] using
+      (lowWheelFrozenSourceRoughPrefix_sum_eq_secondContact_add_residual
+        hA canonicalMoebiusWeight)
+  rw [hsource, htransport, hpartition]
+  unfold lowWheelFrozenSecondContactSquareResidualMassAtScale
+  ring
+
+/-- Matching historical fixed transport mass, with the outer source-scale sum
+left signed. -/
+def lowWheelFrozenSecondContactMatchingFixedTransportMass (R : ℕ) : ℂ :=
+  ∑ A ∈ lowWheelFrozenSecondContactSourceScaleSet R,
+    lowWheelFrozenSourceScaleTransportMass R A
+
+/-- Global signed square-residual mass. Each inner residual is supported below
+half of its strict lower cutoff, but no separate absolute values are taken. -/
+def lowWheelFrozenSecondContactSquareResidualMass (R : ℕ) : ℂ :=
+  ∑ A ∈ lowWheelFrozenSecondContactSourceScaleSet R,
+    lowWheelFrozenSecondContactSquareResidualMassAtScale R A
+
+/-- **Common signed carrier identity.** Globally, second-contact source charge
+plus its already-existing fixed transport charge collapses exactly to the
+half-scale square residual, while the source-scale sum stays signed. -/
+theorem lowWheelFrozenSecondContactSource_add_matchingFixedTransport_eq_squareResidual
+    (R : ℕ) :
+    (∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+        lowWheelTaggedDowncrossWeight y) +
+      lowWheelFrozenSecondContactMatchingFixedTransportMass R =
+        lowWheelFrozenSecondContactSquareResidualMass R := by
+  have hsource :
+      (∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+          lowWheelTaggedDowncrossWeight y) =
+        ∑ A ∈ lowWheelFrozenSecondContactSourceScaleSet R,
+          ∑ y ∈ lowWheelFrozenSecondContactSourceScaleFiber R A,
+            lowWheelTaggedDowncrossWeight y := by
+    simpa [lowWheelTaggedDowncrossWeight] using
+      (lowWheelFrozenSecondContactSource_sum_eq_sourceScaleFibers R)
+  rw [hsource]
+  unfold lowWheelFrozenSecondContactMatchingFixedTransportMass
+    lowWheelFrozenSecondContactSquareResidualMass
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro A hA
+  exact lowWheelFrozenSecondContactSourceScale_add_transport_eq_squareResidual hA
+
+/-- Algebraic remainder of the historical endpoint transport after isolating
+the matching fixed transport mass and the frozen second-contact source charge. -/
+def lowWheelFrozenSecondContactEndpointRest (R : ℕ) : ℂ :=
+  (lowWheelCanonicalFixedLedger R -
+      lowWheelFrozenSecondContactMatchingFixedTransportMass R) +
+    (lowWheelCanonicalDefectLedger R -
+      ∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+        lowWheelTaggedDowncrossWeight y)
+
+/-- **Endpoint insertion of the new cancellation.** The original exact
+`smooth - transport` endpoint can be rewritten as the algebraic rest plus the
+new globally signed square residual. Thus the cancellation is now connected to
+the same endpoint identity used by `S = A - T`, rather than living on a
+separate coordinate system. -/
+theorem squarePrefixMertens_eq_smooth_sub_secondContactEndpointRest_add_residual
+    (R : ℕ) (hR : 3 ≤ R) :
+    squarePrefixMertens (R - 1) =
+      squareRootSmoothMass (R - 1) -
+        (lowWheelFrozenSecondContactEndpointRest R +
+          lowWheelFrozenSecondContactSquareResidualMass R) := by
+  rw [squarePrefixMertens_eq_squareRootSmooth_sub_transport,
+    squareRootTransportMass_pred_eq_cofactorFirst R (by omega),
+    squareRootTransportCofactorFirst_eq_canonicalPhysicalLedger R (by omega),
+    lowWheelCanonicalPhysicalLedger_eq_fixed_add_defect R]
+  unfold lowWheelFrozenSecondContactEndpointRest
+  rw [← lowWheelFrozenSecondContactSource_add_matchingFixedTransport_eq_squareResidual R]
+  ring
+
 end RHLean.Proof
