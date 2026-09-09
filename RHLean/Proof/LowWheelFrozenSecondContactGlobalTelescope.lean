@@ -578,6 +578,7 @@ theorem lowWheelFrozenSecondContactSourceScaleFiber_cofactor_injOn
       (lowWheelFrozenSecondContactSourceScaleFiber R A :
         Set LowWheelTaggedDowncrossState) := by
   intro y hy z hz hcofactor
+  have hcofactor' : y.2.1 = z.2.1 := by simpa using hcofactor
   have hyd := mem_lowWheelFrozenSecondContactSourceScaleFiber.mp hy
   have hzd := mem_lowWheelFrozenSecondContactSourceScaleFiber.mp hz
   have hchild : orderedEulerCutChildInteger y = orderedEulerCutChildInteger z := by
@@ -586,7 +587,7 @@ theorem lowWheelFrozenSecondContactSourceScaleFiber_cofactor_injOn
           y.2.1 * lowWheelFrozenSecondContactSourceScale y :=
         lowWheelFrozenSecondContact_child_eq_cofactor_mul_sourceScale hyd.1
       _ = y.2.1 * A := by rw [hyd.2]
-      _ = z.2.1 * A := by rw [hcofactor]
+      _ = z.2.1 * A := by rw [hcofactor']
       _ = z.2.1 * lowWheelFrozenSecondContactSourceScale z := by rw [hzd.2]
       _ = orderedEulerCutChildInteger z :=
         (lowWheelFrozenSecondContact_child_eq_cofactor_mul_sourceScale hzd.1).symm
