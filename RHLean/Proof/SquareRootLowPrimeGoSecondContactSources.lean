@@ -227,7 +227,7 @@ theorem squareRootLowPrimeGoWallSquareResidualTotal_eq_neg_sourceMobiusSum
     squareRootLowPrimeGoWallSquareResidualTotal Q X =
       -∑ m ∈ squareRootLowPrimeGoSecondContactSources Q X, μ m := by
   have h :=
-    squareRootLowPrimeGoWallSquareResidualTotal_cast_eq_neg_sourceMass hprime
+    squareRootLowPrimeGoWallSquareResidualTotal_cast_eq_neg_sourceMass (X := X) hprime
   have hcast :
       ((squareRootLowPrimeGoWallSquareResidualTotal Q X : ℤ) : ℂ) =
         (((-∑ m ∈ squareRootLowPrimeGoSecondContactSources Q X, μ m : ℤ) : ℤ) : ℂ) := by
@@ -244,8 +244,13 @@ theorem abs_squareRootLowPrimeGoWallSquareResidualTotal_le_halfScale
     abs_neg]
   calc
     |∑ m ∈ squareRootLowPrimeGoSecondContactSources Q X, μ m| ≤
-        ((squareRootLowPrimeGoSecondContactSources Q X).card : ℤ) :=
-      abs_moebiusSum_le_card (squareRootLowPrimeGoSecondContactSources Q X)
+        ∑ m ∈ squareRootLowPrimeGoSecondContactSources Q X, |μ m| :=
+      Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _m ∈ squareRootLowPrimeGoSecondContactSources Q X, (1 : ℤ) := by
+      apply Finset.sum_le_sum
+      intro m _hm
+      rcases ArithmeticFunction.moebius_eq_or m with h | h | h <;> simp [h]
+    _ = ((squareRootLowPrimeGoSecondContactSources Q X).card : ℤ) := by simp
     _ ≤ (X / 2 : ℤ) := by
       exact_mod_cast
         squareRootLowPrimeGoSecondContactSources_card_le_halfScale hprime
