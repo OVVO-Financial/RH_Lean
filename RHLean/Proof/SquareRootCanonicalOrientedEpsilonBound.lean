@@ -410,8 +410,48 @@ theorem frozenTopFarResidualEpsilon_of_canonicalOrientedEpsilon
   obtain ⟨C, hC, hO⟩ := h ε hε
   refine ⟨C + 9, by linarith, ?_⟩
   intro R hR
-  have hcomp :=
-    norm_lowWheelFrozenTopFarResidual_le_canonicalDowncross_add_nine_root R hR
+  have hU := norm_lowWheelCanonicalDowncrossUniqueParentLedger_le_root R
+  have hN := norm_squareRootNearPrimeTransport_le R hR
+  have hE := norm_squareRootERuniq_le_root R
+  have hEq :=
+    lowWheelCanonicalDefectLedger_eq_frozenTopFarResidual_add_rootTerms R hR
+  have hF :
+      lowWheelFrozenTopFarResidual R =
+        lowWheelCanonicalDefectLedger R -
+          lowWheelCanonicalDowncrossUniqueParentLedger R -
+          squareRootNearPrimeTransport R + squareRootERuniq R := by
+    linear_combination hEq
+  have hcompDef :
+      ‖lowWheelFrozenTopFarResidual R‖ ≤
+        ‖lowWheelCanonicalDefectLedger R‖ + 9 * (R : ℝ) := by
+    rw [hF]
+    calc
+      ‖lowWheelCanonicalDefectLedger R -
+          lowWheelCanonicalDowncrossUniqueParentLedger R -
+          squareRootNearPrimeTransport R + squareRootERuniq R‖ ≤
+        ‖lowWheelCanonicalDefectLedger R -
+            lowWheelCanonicalDowncrossUniqueParentLedger R -
+            squareRootNearPrimeTransport R‖ + ‖squareRootERuniq R‖ :=
+          norm_add_le _ _
+      _ ≤ (‖lowWheelCanonicalDefectLedger R -
+              lowWheelCanonicalDowncrossUniqueParentLedger R‖ +
+            ‖squareRootNearPrimeTransport R‖) + ‖squareRootERuniq R‖ := by
+          gcongr
+          exact norm_sub_le _ _
+      _ ≤ ((‖lowWheelCanonicalDefectLedger R‖ +
+              ‖lowWheelCanonicalDowncrossUniqueParentLedger R‖) +
+            ‖squareRootNearPrimeTransport R‖) + ‖squareRootERuniq R‖ := by
+          gcongr
+          exact norm_sub_le _ _
+      _ ≤ ((‖lowWheelCanonicalDefectLedger R‖ + (R : ℝ)) +
+            7 * (R : ℝ)) + (R : ℝ) := by
+          gcongr
+      _ = ‖lowWheelCanonicalDefectLedger R‖ + 9 * (R : ℝ) := by ring
+  have hcomp :
+      ‖lowWheelFrozenTopFarResidual R‖ ≤
+        ‖lowWheelCanonicalDowncrossLedger R‖ + 9 * (R : ℝ) := by
+    rw [← lowWheelCanonicalDefectLedger_eq_downcrossLedger R]
+    exact hcompDef
   have hD :
       ‖lowWheelCanonicalDowncrossLedger R‖ ≤
         C * Real.rpow (R : ℝ) (1 + ε) := by
@@ -456,7 +496,7 @@ theorem canonicalOrientedEpsilon_of_frozenTopFarResidualEpsilon
       mul_le_mul_of_nonneg_left hroot (by norm_num)
     have hcoeff : C + 9 ≤ C' := by
       dsimp [C']
-      positivity
+      norm_num
     calc
       ‖lowWheelCanonicalDowncrossLedger R‖ ≤
           ‖lowWheelFrozenTopFarResidual R‖ + 9 * (R : ℝ) := hcomp
@@ -471,7 +511,7 @@ theorem canonicalOrientedEpsilon_of_frozenTopFarResidualEpsilon
     have hquart := norm_lowWheelCanonicalDowncrossLedger_le_quartic R
     have hcast : (R : ℝ) ≤ (55 : ℝ) := by exact_mod_cast hRle
     have hpow : (R : ℝ) ^ 4 ≤ (55 : ℝ) ^ 4 := by
-      exact pow_le_pow_left₀ (by positivity) hcast
+      exact pow_le_pow_left₀ (by positivity) hcast 4
     have hbase : (1 : ℝ) ≤ (R : ℝ) := by exact_mod_cast (show 1 ≤ R by omega)
     have hone :
         (1 : ℝ) ≤ Real.rpow (R : ℝ) (1 + ε) := by
