@@ -513,6 +513,7 @@ import RHLean.Proof.LowWheelExternalTerminalFaceLedger
 import RHLean.Proof.LowWheelExternalTerminalParentSplit
 import RHLean.Proof.LowWheelFaceTailActiveSupport
 import RHLean.Proof.LowWheelFaceTailToggle
+import RHLean.Proof.LowWheelFrozenCofactorTopBottomCancellation
 import RHLean.Proof.LowWheelFrozenCofactorTopBottomToggle
 import RHLean.Proof.LowWheelFrozenFirstFailureBridge
 import RHLean.Proof.LowWheelFullFaceQuotientOthello
