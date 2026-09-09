@@ -3,6 +3,7 @@ import RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
 import RHLean.Proof.SquareRootLowPrimeGoCrossingMateLedger
 import RHLean.Proof.LowWheelCanonicalFrozenReduction
 import RHLean.Proof.LowWheelFullFaceQuotientOthello
+import RHLean.Proof.LowWheelHighPrimeSurvivor
 
 /-!
 # Existing physical mate for the internal repeated-parent terminal boundary
@@ -465,5 +466,145 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMateFarImage_disjoint_topImage
   have htwo := lowWheelFrozenCofactorTopImage_quotient_two_le htop
   have hquot : z.2.2 = 1 := congrArg Prod.snd hone
   omega
+
+/-! ## Far physical Othello reduction -/
+
+/-- Signed mass of the literal far physical carrier. -/
+def lowWheelFarTaggedPhysicalLedger (R : ℕ) : ℂ :=
+  ∑ z ∈ lowWheelFarTaggedPhysicalCarrier R,
+    lowWheelFullTaggedPhysicalWeight z
+
+/-- Stable part of the far carrier under the existing face/quotient Othello
+move. -/
+def lowWheelFarTaggedPhysicalStableCarrier (R : ℕ) :
+    Finset LowWheelFullTaggedPhysicalState :=
+  finiteOthelloStablePart (lowWheelFarTaggedPhysicalCarrier R)
+    (lowWheelFullFaceQuotientMate R)
+
+@[simp] theorem mem_lowWheelFarTaggedPhysicalStableCarrier
+    {R : ℕ} {z : LowWheelFullTaggedPhysicalState} :
+    z ∈ lowWheelFarTaggedPhysicalStableCarrier R ↔
+      z ∈ lowWheelFarTaggedPhysicalCarrier R ∧
+        lowWheelFullFaceQuotientMate R z = z := by
+  simp [lowWheelFarTaggedPhysicalStableCarrier, finiteOthelloStablePart]
+
+/-- The state-dependent face/quotient mate preserves the high product exactly. -/
+theorem lowWheelFullFaceQuotientMate_highProduct
+    (R : ℕ) (z : LowWheelFullTaggedPhysicalState) :
+    lowWheelTaggedHighProduct (lowWheelFullFaceQuotientMate R z) =
+      lowWheelTaggedHighProduct z := by
+  unfold lowWheelFullFaceQuotientMate
+  by_cases h : (lowWheelFullActivePrimeSet R z).Nonempty
+  · rw [dif_pos h]
+    simpa [lowWheelTaggedHighProduct] using
+      (lowWheelFullFaceQuotientToggleAt_highProduct
+        (lowWheelFullOppositePrime R z) z)
+  · rw [dif_neg h]
+
+/-- Hence the existing Othello mate preserves the far filtered physical
+region, not only the complete unfiltered carrier. -/
+theorem lowWheelFullFaceQuotientMate_mem_far
+    {R : ℕ} {z : LowWheelFullTaggedPhysicalState}
+    (hz : z ∈ lowWheelFarTaggedPhysicalCarrier R) :
+    lowWheelFullFaceQuotientMate R z ∈ lowWheelFarTaggedPhysicalCarrier R := by
+  rcases mem_lowWheelFarTaggedPhysicalCarrier.mp hz with ⟨hzFull, hfar⟩
+  apply mem_lowWheelFarTaggedPhysicalCarrier.mpr
+  refine ⟨lowWheelFullFaceQuotientMate_mem hzFull, ?_⟩
+  rw [lowWheelFullFaceQuotientMate_highProduct R z]
+  exact hfar
+
+/-- **Exact far Othello cancellation.**  Every moving state of the literal far
+physical carrier cancels before any norm; its total signed mass is exactly the
+mass of the stable far states. -/
+theorem lowWheelFarTaggedPhysicalLedger_eq_stable
+    (R : ℕ) :
+    lowWheelFarTaggedPhysicalLedger R =
+      ∑ z ∈ lowWheelFarTaggedPhysicalStableCarrier R,
+        lowWheelFullTaggedPhysicalWeight z := by
+  unfold lowWheelFarTaggedPhysicalLedger
+    lowWheelFarTaggedPhysicalStableCarrier
+  exact sum_finiteOthelloRegion_eq_stable
+    (lowWheelFarTaggedPhysicalCarrier R)
+    (lowWheelFullFaceQuotientMate R)
+    lowWheelFullTaggedPhysicalWeight
+    (fun z hz => lowWheelFullFaceQuotientMate_mem_far hz)
+    (fun z hz =>
+      lowWheelFullFaceQuotientMate_involutive
+        (mem_lowWheelFarTaggedPhysicalCarrier.mp hz).1)
+    (fun z _hz hne => lowWheelFullFaceQuotientMate_weight_neg hne)
+
+/-- **Stable far geometry.**  A survivor of the second Othello direction has
+empty Boolean face and its high quotient is literally a prime in the far
+interval.  The low cofactor remains squarefree and satisfies the original
+product cutoff. -/
+theorem lowWheelFarTaggedPhysicalStable_geometry
+    {R : ℕ} (hR : 2 ≤ R) {z : LowWheelFullTaggedPhysicalState}
+    (hz : z ∈ lowWheelFarTaggedPhysicalStableCarrier R) :
+    z.1 = ∅ ∧ z.2.2.Prime ∧
+      R + 8 ≤ z.2.2 ∧ z.2.2 ≤ squareRootEndpoint R ∧
+      z.2.1 ∈ Finset.Ico 1 R ∧ Squarefree z.2.1 ∧
+      z.2.1 * z.2.2 ≤ squareRootEndpoint R := by
+  rcases mem_lowWheelFarTaggedPhysicalStableCarrier.mp hz with
+    ⟨hzFar, hstable⟩
+  rcases mem_lowWheelFarTaggedPhysicalCarrier.mp hzFar with
+    ⟨hzFull, hfar⟩
+  have hgeom := lowWheelFullStable_geometry hzFull hstable
+  have hprime : z.2.2.Prime :=
+    (lowWheelHighSurvivor_iff_prime hR hgeom.2.1 hgeom.2.2.1).mp
+      hgeom.2.2.2
+  have hfarQ : R + 8 ≤ z.2.2 := by
+    simpa [lowWheelTaggedHighProduct, hgeom.1, primeFaceProduct] using hfar
+  have hphys := (mem_lowWheelFullTaggedPhysicalCarrier.mp hzFull).2
+  have hdata := mem_lowWheelCanonicalPhysicalStateSet.mp hphys
+  have hcarrier := hdata.2.2.2
+  have htop : z.2.1 * z.2.2 ≤ squareRootEndpoint R := by
+    have h := hcarrier.2.2.2
+    rw [hgeom.1] at h
+    simpa [primeFaceProduct] using h
+  exact ⟨hgeom.1, hprime, hfarQ, hgeom.2.2.1,
+    hdata.1, hdata.2.2.1, htop⟩
+
+/-- Conversely every squarefree low cofactor paired with a far prime under the
+physical product cutoff is a stable state of the same far carrier. -/
+theorem lowWheelFarTaggedPhysicalStable_of_prime
+    {R c q : ℕ} (hR : 2 ≤ R)
+    (hc : c ∈ Finset.Ico 1 R) (hsq : Squarefree c)
+    (hq : q.Prime) (hqFar : R + 8 ≤ q)
+    (hqX : q ≤ squareRootEndpoint R)
+    (hcq : c * q ≤ squareRootEndpoint R) :
+    ((∅ : Finset ℕ), (c, q)) ∈ lowWheelFarTaggedPhysicalStableCarrier R := by
+  have hRq : R < q := by omega
+  have hsurv : lowWheelHighSurvivor R q :=
+    (lowWheelHighSurvivor_iff_prime hR hRq hqX).mpr hq
+  have hface : (∅ : Finset ℕ) ∈ (primesUpTo R).powerset := by simp
+  have hqI : q ∈ Finset.Icc 1 (squareRootEndpoint R) := by
+    exact Finset.mem_Icc.mpr ⟨by omega, hqX⟩
+  have hcData := Finset.mem_Ico.mp hc
+  have hpair : LowWheelTransportPairCarrier R (∅ : Finset ℕ) (c, q) := by
+    refine ⟨hcData.1, hcData.2, ?_, ?_⟩
+    · simpa [primeFaceProduct] using hRq
+    · simpa [primeFaceProduct] using hcq
+  have hphys : (c, q) ∈ lowWheelCanonicalPhysicalStateSet R (∅ : Finset ℕ) :=
+    mem_lowWheelCanonicalPhysicalStateSet.mpr ⟨hc, hqI, hsq, hpair⟩
+  have hfull : ((∅ : Finset ℕ), (c, q)) ∈ lowWheelFullTaggedPhysicalCarrier R :=
+    mem_lowWheelFullTaggedPhysicalCarrier.mpr ⟨hface, hphys⟩
+  have hfar : ((∅ : Finset ℕ), (c, q)) ∈ lowWheelFarTaggedPhysicalCarrier R := by
+    apply mem_lowWheelFarTaggedPhysicalCarrier.mpr
+    refine ⟨hfull, ?_⟩
+    simpa [lowWheelTaggedHighProduct, primeFaceProduct] using hqFar
+  have hactiveEmpty :
+      ¬ (lowWheelFullActivePrimeSet R ((∅ : Finset ℕ), (c, q))).Nonempty := by
+    intro hne
+    rcases hne with ⟨p, hp⟩
+    rcases mem_lowWheelFullActivePrimeSet.mp hp with ⟨hpR, hpActive⟩
+    rcases hpActive with hpFace | hpDvd
+    · simp at hpFace
+    · exact hsurv p hpR hpDvd
+  have hstable :
+      lowWheelFullFaceQuotientMate R ((∅ : Finset ℕ), (c, q)) =
+        ((∅ : Finset ℕ), (c, q)) := by
+    unfold lowWheelFullFaceQuotientMate
+    rw [dif_neg hactiveEmpty]
+  exact mem_lowWheelFarTaggedPhysicalStableCarrier.mpr ⟨hfar, hstable⟩
 
 end RHLean.Proof
