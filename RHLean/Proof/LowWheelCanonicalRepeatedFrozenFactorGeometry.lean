@@ -239,25 +239,31 @@ theorem lowWheelCanonicalRepeatedFrozenProductOneMate_mem_physical
   have hcarrier :=
     (mem_lowWheelCanonicalPhysicalStateSet.mp hphysSource).2.2.2
   have hRgt : 1 < R := by omega
-  have hrootOld : R < primeFaceProduct y.1 * y.2.2 := hcarrier.2.1
+  have hrootOld : R < primeFaceProduct y.1 * y.2.2 := hcarrier.2.2.1
   have htopOld :
       (y.2.1 * primeFaceProduct y.1) * y.2.2 ≤ squareRootEndpoint R :=
-    hcarrier.2.2
+    hcarrier.2.2.2
+  have hrootOld' :
+      R < primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y := by
+    simpa [hk] using hrootOld
+  have htopOld' :
+      (y.2.1 * primeFaceProduct y.1) * lowWheelTaggedDowncrossPivot y ≤
+        squareRootEndpoint R := by
+    simpa [hk] using htopOld
   have hprod := lowWheelCanonicalRepeatedFrozenProductOneFace_product hy
   have hrootFinal :
       R < primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace y) := by
-    rw [hprod, hk] at ⊢
+    rw [hprod]
     have hle :
         primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y ≤
           y.2.1 * lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1 := by
       nlinarith
-    exact hrootOld.trans_le (by simpa [hk, Nat.mul_comm, Nat.mul_left_comm,
-      Nat.mul_assoc] using hle)
+    exact hrootOld'.trans_le hle
   have htopFinal :
       primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace y) ≤
         squareRootEndpoint R := by
-    rw [hprod, hk]
-    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using htopOld
+    rw [hprod]
+    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using htopOld'
   have hXOne : 1 ≤ squareRootEndpoint R := by
     have hR2 : 2 ≤ R := by omega
     have hsq : 4 ≤ R ^ 2 := by nlinarith
@@ -310,6 +316,5 @@ theorem lowWheelCanonicalRepeatedFrozenProductOneMate_weight_neg
   rw [hmuU]
   push_cast
   simp
-  ring
 
 end RHLean.Proof
