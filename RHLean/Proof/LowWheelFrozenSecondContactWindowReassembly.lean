@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.LowWheelFrozenSecondContactDescent
 import RHLean.Proof.LowWheelFrozenSecondContactWindowDescent
+import RHLean.Proof.SquareRootLowPrimeBornSquareBoundary
 import RHLean.Proof.SquareRootLowPrimeGoHyperbolicStripRecursion
 import RHLean.Proof.SquareRootLowPrimeMatchingFrontierSaturation
 
@@ -460,6 +461,67 @@ theorem lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_arithmeticMobi
       -∑ n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R, μ n := by
   rw [lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_childOwnerColumns,
     lowWheelFrozenSecondContactChildOwnerColumns_eq_arithmeticMobiusSum]
+
+/-- **Born-fibre second-contact tail.**  Every atom of the global arithmetic
+carrier has the unique canonical factorization `n = c*q`, with `q = P+(n)` a
+literal born partner of `c`.  The #629 root floor makes the cofactor itself
+post-root, and the remaining wall is exactly the repeated-owner second contact
+`X_R < q^2*c`.
+
+This places the complete cross-column population inside the repository's native
+born-response coordinate before any processed-seat lift or norm is attempted. -/
+theorem lowWheelFrozenSecondContactArithmeticChild_bornTail_data
+    {R n : ℕ}
+    (hn : n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R) :
+    let q := canonicalLargestPrimeFactor n
+    let c := canonicalCofactor n
+    q ∈ squareRootBornPartnerSet R c ∧
+      R < c ∧
+      squareRootEndpoint R < q * q * c ∧
+      c * q = n := by
+  rcases Finset.mem_filter.mp hn with
+    ⟨hnIcc, hsq, hqR0, hsecond0, hrootWall0⟩
+  rcases Finset.mem_Icc.mp hnIcc with ⟨hn2, hnUpperRaw⟩
+  have hn1 : 1 < n := by omega
+  let q := canonicalLargestPrimeFactor n
+  let c := canonicalCofactor n
+  have hdata : CanonicalGapAncestryBridge.CanonicalSourceData q c := by
+    simpa [q, c] using
+      CanonicalGapAncestryBridge.canonicalSourceData_of_squarefree hsq hn1
+  rcases hdata with ⟨hqPrime, _hc1, _hcsq, _hcop, hdom⟩
+  have hqR : q < R := by simpa [q] using hqR0
+  have hprod : c * q = n := by
+    simpa [c, q] using canonicalCofactor_mul_largestPrimeFactor hn1
+  have hrootWall := hrootWall0
+  change R * q < n at hrootWall
+  rw [← hprod] at hrootWall
+  have hroot : R < c := by
+    apply (Nat.mul_lt_mul_left hqPrime.pos).1
+    simpa [Nat.mul_comm] using hrootWall
+  have hcgt : 1 < c := by
+    have hqTwo := hqPrime.two_le
+    omega
+  have hrough : canonicalLargestPrimeFactor c < q := by
+    have hpPrime : (canonicalLargestPrimeFactor c).Prime :=
+      canonicalLargestPrimeFactor_prime hcgt
+    have hpDvd : canonicalLargestPrimeFactor c ∣ c :=
+      canonicalLargestPrimeFactor_dvd hcgt
+    exact hdom (canonicalLargestPrimeFactor c) hpPrime hpDvd
+  have hqLeC : q ≤ c := by omega
+  have hupper : c * q ≤ squareRootEndpoint R := by
+    rw [hprod]
+    exact hnUpperRaw
+  have hborn : q ∈ squareRootBornPartnerSet R c := by
+    unfold squareRootBornPartnerSet
+    apply Finset.mem_filter.mpr
+    exact ⟨Finset.mem_Icc.mpr ⟨hqPrime.two_le, hqR.le⟩,
+      hqPrime, hrough, hqLeC, hupper⟩
+  have hsecond := hsecond0
+  change squareRootEndpoint R < n * q at hsecond
+  rw [← hprod] at hsecond
+  have hsecond' : squareRootEndpoint R < q * q * c := by
+    simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hsecond
+  exact ⟨hborn, hroot, hsecond', hprod⟩
 
 /-! ## Whole-carrier Othello pairing and terminal boundary -/
 
