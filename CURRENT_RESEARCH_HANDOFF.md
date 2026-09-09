@@ -889,6 +889,13 @@ Any candidate closure must survive all of the following.
 
 5. **No hidden RH-strength input.** If an intermediate lemma would itself imply the terminal square-run energy estimate by a trivial bridge, recognize it as the hard theorem rather than presenting it as an elementary auxiliary fact.
 
+6. **Frozen-image/high-prime no-go.** `RHLean/Proof/LowWheelFrozenCofactorTopImageHighPrimeObstruction.lean` closes the natural attempt to absorb the post-root image `T_R` into the already-controlled external high-prime population. Every high-prime population here is indexed by a prime strictly above the root (`squareRootHighPrimeCofactorSet R c` filters `Finset.Ioc R (squareRootEndpoint R)`; `lowWheelCanonicalRepeatedExternalTerminalPart` filters on `R < pivot`). The image carries no such prime: writing `y = (t,(c,p))` frozen with `c > 1` and `q = P+(c)`, the image is `(t,(c/q, q*p))` with `p < q <= c < R`, so both its primes lie strictly below the root. Compiled consequences:
+
+   - `lowWheelFrozenCofactorTopImage_quotient_primes_lt_root` — no prime factor of an image quotient reaches `R`;
+   - `lowWheelFrozenCofactorTopImage_subset_repeatedExternalTerminal_iff` — the containment holds *only* when the frozen nontrivial-cofactor sector is empty, i.e. exactly when there is nothing to absorb.
+
+   Independently of containment, `norm_lowWheelFrozenCofactorTopImageLedger_eq` gives `‖T_R‖ = ‖F_R^{c>1}‖`. The relocation is a sign-reversing bijection, so it is norm-preserving: bounding `T_R` *is* bounding the frozen `c > 1` sector. No reindexing of that sector can produce its own bound; the bound must come from new information about the sector. This is item 4 above in concrete form.
+
 ## Numerical research lane
 
 Before investing heavily in Lean formalization, candidate exact recursions may be tested on finite ranges. This is especially cheap after the squarefree-shell normalization:

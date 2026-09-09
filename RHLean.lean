@@ -515,6 +515,7 @@ import RHLean.Proof.LowWheelFaceTailActiveSupport
 import RHLean.Proof.LowWheelFaceTailToggle
 import RHLean.Proof.LowWheelFrozenCofactorTopBottomCancellation
 import RHLean.Proof.LowWheelFrozenCofactorTopBottomToggle
+import RHLean.Proof.LowWheelFrozenCofactorTopImageHighPrimeObstruction
 import RHLean.Proof.LowWheelFrozenFirstFailureBridge
 import RHLean.Proof.LowWheelFullFaceQuotientOthello
 import RHLean.Proof.LowWheelHighPrimeSurvivor
