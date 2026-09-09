@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
 import RHLean.Proof.SquareRootLowPrimeGoCrossingMateLedger
+import RHLean.Proof.LowWheelCanonicalFrozenReduction
 
 /-!
 # Existing physical mate for the internal repeated-parent terminal boundary
@@ -23,6 +24,8 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Arithmetic
+open RHLean.Analysis
+open FrozenCofactorTopBottom
 
 attribute [local instance] Classical.propDecidable
 
@@ -124,5 +127,142 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMate_ne
   have hpInsert : p ∈ insert p y.1 := Finset.mem_insert_self p y.1
   rw [hface] at hpInsert
   exact hpNotFace hpInsert
+
+/-! ## Global reassembly of the internal terminal mates -/
+
+/-- The pointwise internal-terminal mate loses no multiplicity.  The fresh
+pivot is the unique largest prime in the inserted face, so equality of mate
+faces recovers both the pivot and the old face. -/
+theorem lowWheelCanonicalRepeatedTerminalInternalMate_injOn
+    (R : ℕ) :
+    Set.InjOn lowWheelCanonicalRepeatedTerminalInternalMate
+      (lowWheelCanonicalRepeatedTerminalInternalPart R) := by
+  intro y hy z hz heq
+  let p := lowWheelTaggedDowncrossPivot y
+  let q := lowWheelTaggedDowncrossPivot z
+  have hyTerminal := (Finset.mem_filter.mp hy).1
+  have hzTerminal := (Finset.mem_filter.mp hz).1
+  have hyGeom := lowWheelCanonicalRepeatedTerminalBoundary_geometry hyTerminal
+  have hzGeom := lowWheelCanonicalRepeatedTerminalBoundary_geometry hzTerminal
+  have hpNot : p ∉ y.1 := by
+    simpa [p] using lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hy
+  have hqNot : q ∉ z.1 := by
+    simpa [q] using lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hz
+  have hface : insert p y.1 = insert q z.1 := by
+    simpa [lowWheelCanonicalRepeatedTerminalInternalMate, p, q] using
+      congrArg Prod.fst heq
+  have hpRight : p ∈ insert q z.1 := by
+    rw [← hface]
+    exact Finset.mem_insert_self p y.1
+  have hqLeft : q ∈ insert p y.1 := by
+    rw [hface]
+    exact Finset.mem_insert_self q z.1
+  have hpq : p = q := by
+    rcases Finset.mem_insert.mp hpRight with hpq | hpz
+    · exact hpq
+    · rcases Finset.mem_insert.mp hqLeft with hqp | hqy
+      · exact hqp.symm
+      · have hpLtQ : p < q := by
+          simpa [q] using hzGeom.2.2.2.1 p hpz
+        have hqLtP : q < p := by
+          simpa [p] using hyGeom.2.2.2.1 q hqy
+        omega
+  have hfaceSame : insert p y.1 = insert p z.1 := by
+    simpa [hpq] using hface
+  have hbase : y.1 = z.1 := by
+    have herase := congrArg (fun s : Finset ℕ => s.erase p) hfaceSame
+    have hpNotZ : p ∉ z.1 := by simpa [hpq] using hqNot
+    simpa [hpNot, hpNotZ] using herase
+  have hstate : y.2 = z.2 := by
+    apply Prod.ext
+    · exact hyGeom.1.trans hzGeom.1.symm
+    · calc
+        y.2.2 = p := by simpa [p] using hyGeom.2.1
+        _ = q := hpq
+        _ = z.2.2 := by simpa [q] using hzGeom.2.1.symm
+  exact Prod.ext hbase hstate
+
+/-- Image of the internal repeated terminal boundary inside the existing tagged
+physical transport carrier. -/
+def lowWheelCanonicalRepeatedTerminalInternalMateImage
+    (R : ℕ) : Finset LowWheelTaggedCofactorQuotientState :=
+  (lowWheelCanonicalRepeatedTerminalInternalPart R).image
+    lowWheelCanonicalRepeatedTerminalInternalMate
+
+/-- Every image occurrence is a literal pre-existing transport occurrence. -/
+theorem lowWheelCanonicalRepeatedTerminalInternalMateImage_subset_transport
+    (R : ℕ) :
+    lowWheelCanonicalRepeatedTerminalInternalMateImage R ⊆
+      lowWheelCanonicalTaggedPhysicalCarrier R := by
+  intro z hz
+  rcases Finset.mem_image.mp hz with ⟨y, hy, rfl⟩
+  exact lowWheelCanonicalRepeatedTerminalInternalMate_mem_transport hy
+
+/-- Signed mate ledger, kept on the source indexing until injectivity is used. -/
+def lowWheelCanonicalRepeatedTerminalInternalMateLedger
+    (R : ℕ) : ℂ :=
+  ∑ y ∈ lowWheelCanonicalRepeatedTerminalInternalPart R,
+    lowWheelTaggedCanonicalWeight
+      (lowWheelCanonicalRepeatedTerminalInternalMate y)
+
+/-- Injectivity turns the source-indexed mate ledger into the literal image
+subledger of the global physical transport carrier. -/
+theorem lowWheelCanonicalRepeatedTerminalInternalMateLedger_eq_imageSum
+    (R : ℕ) :
+    lowWheelCanonicalRepeatedTerminalInternalMateLedger R =
+      ∑ z ∈ lowWheelCanonicalRepeatedTerminalInternalMateImage R,
+        lowWheelTaggedCanonicalWeight z := by
+  unfold lowWheelCanonicalRepeatedTerminalInternalMateLedger
+    lowWheelCanonicalRepeatedTerminalInternalMateImage
+  rw [Finset.sum_image]
+  intro a ha b hb hab
+  exact lowWheelCanonicalRepeatedTerminalInternalMate_injOn R ha hb hab
+
+/-- **Exact signed reassembly.**  The complete internal repeated-terminal
+ledger cancels against its already-present transport mate subledger before any
+norm is taken. -/
+theorem sum_lowWheelCanonicalRepeatedTerminalInternal_add_mate_eq_zero
+    (R : ℕ) :
+    (∑ y ∈ lowWheelCanonicalRepeatedTerminalInternalPart R,
+        lowWheelTaggedDowncrossWeight y) +
+      lowWheelCanonicalRepeatedTerminalInternalMateLedger R = 0 := by
+  unfold lowWheelCanonicalRepeatedTerminalInternalMateLedger
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_eq_zero
+  intro y hy
+  have hneg := lowWheelCanonicalRepeatedTerminalInternalMate_weight_neg hy
+  have hsame :
+      lowWheelTaggedCanonicalWeight (y.1, y.2) =
+        lowWheelTaggedDowncrossWeight y := by
+    rfl
+  rw [hneg, hsame]
+  ring
+
+/-- Existing frozen-reduction notation for the internal ledger, rewritten as
+the negative of its concrete transport mate subledger. -/
+theorem lowWheelCanonicalRepeatedTerminalInternalLedger_eq_neg_mateLedger
+    (R : ℕ) :
+    lowWheelCanonicalRepeatedTerminalInternalLedger R =
+      -lowWheelCanonicalRepeatedTerminalInternalMateLedger R := by
+  unfold lowWheelCanonicalRepeatedTerminalInternalLedger
+  have h := sum_lowWheelCanonicalRepeatedTerminalInternal_add_mate_eq_zero R
+  linear_combination h
+
+/-- **Transport-only normal form of the frozen/top/far residual.**  The old
+internal terminal term is absorbed by its already-present transport mates, and
+the far survivor is restored to the equivalent far-prime transport coordinate.
+No norm is taken:
+
+`FrozenTopFarResidual = FarTransport - InternalMate - TopImage`. -/
+theorem lowWheelFrozenTopFarResidual_eq_farTransport_sub_internalMate_sub_topImage
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      squareRootFarPrimeTransport R -
+        lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
+        lowWheelFrozenCofactorTopImageLedger R := by
+  unfold lowWheelFrozenTopFarResidual
+  rw [lowWheelCanonicalRepeatedTerminalInternalLedger_eq_neg_mateLedger R,
+    survivorSixteenFarUpperPrimeMass_pred_eq_neg_farTransport R hR]
+  ring
 
 end RHLean.Proof
