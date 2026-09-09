@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Proof.LowWheelFrozenSecondContactDescent
 import RHLean.Proof.LowWheelFrozenSecondContactWindowDescent
 import RHLean.Proof.SquareRootLowPrimeGoHyperbolicStripRecursion
+import RHLean.Proof.SquareRootLowPrimeMatchingFrontierSaturation
 
 /-!
 # Window-difference recurrence and child-owner reassembly of the frozen
@@ -459,5 +460,115 @@ theorem lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_arithmeticMobi
       -∑ n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R, μ n := by
   rw [lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_childOwnerColumns,
     lowWheelFrozenSecondContactChildOwnerColumns_eq_arithmeticMobiusSum]
+
+/-! ## Whole-carrier Othello pairing and terminal boundary -/
+
+/-- Every prime below the root is processed as one global matching coordinate.
+The matching is performed on the complete arithmetic carrier, not separately in
+source-owner or child-owner columns. -/
+def lowWheelFrozenSecondContactCrossColumnPrimeList (R : ℕ) : List ℕ :=
+  squareRootLowPrimeFreshPrimeList 1 (R - 1)
+
+theorem prime_of_mem_lowWheelFrozenSecondContactCrossColumnPrimeList
+    {R p : ℕ} (hp : p ∈ lowWheelFrozenSecondContactCrossColumnPrimeList R) :
+    p.Prime := by
+  exact prime_of_mem_squareRootLowPrimeFreshPrimeList hp
+
+/-- The literal terminal population after every prime below `R` has been given
+a chance to pair opposite Möbius signs on the full cross-column carrier. -/
+def lowWheelFrozenSecondContactCrossColumnTerminalBoundary (R : ℕ) : Finset ℕ :=
+  squareRootLowPrimeResponseMatchingFrontier
+    (lowWheelFrozenSecondContactCrossColumnPrimeList R)
+    (lowWheelFrozenSecondContactArithmeticChildCarrier R)
+
+/-- Matching only removes states; the terminal boundary is a subcarrier of the
+exact #629 arithmetic population. -/
+theorem lowWheelFrozenSecondContactCrossColumnTerminalBoundary_subset
+    (R : ℕ) :
+    lowWheelFrozenSecondContactCrossColumnTerminalBoundary R ⊆
+      lowWheelFrozenSecondContactArithmeticChildCarrier R := by
+  unfold lowWheelFrozenSecondContactCrossColumnTerminalBoundary
+  exact squareRootLowPrimeResponseMatchingFrontier_subset _ _
+
+/-- **True terminality in every processed prime direction.**  No complete
+`p`-edge survives in the terminal boundary for any prime below the root that was
+processed by the global matching. -/
+theorem lowWheelFrozenSecondContactCrossColumnTerminalBoundary_pair_free
+    {R p n : ℕ}
+    (hp : p ∈ lowWheelFrozenSecondContactCrossColumnPrimeList R)
+    (hn : n ∈ lowWheelFrozenSecondContactCrossColumnTerminalBoundary R)
+    (hnot : ¬ p ∣ n) :
+    p * n ∉ lowWheelFrozenSecondContactCrossColumnTerminalBoundary R := by
+  unfold lowWheelFrozenSecondContactCrossColumnTerminalBoundary at hn ⊢
+  exact squareRootLowPrimeResponseMatchingFrontier_pair_free
+    (lowWheelFrozenSecondContactCrossColumnPrimeList R)
+    (lowWheelFrozenSecondContactArithmeticChildCarrier R) hp hn hnot
+
+/-- **Global terminal-boundary reassembly.**  All matched cross-column pairs
+cancel before any absolute value is taken.  The complete arithmetic Möbius mass
+is exactly the signed mass of the terminal frontier after all primes below the
+root have been processed. -/
+theorem lowWheelFrozenSecondContactArithmeticMobiusSum_eq_terminalBoundary
+    (R : ℕ) :
+    (∑ n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R, μ n) =
+      ∑ n ∈ lowWheelFrozenSecondContactCrossColumnTerminalBoundary R, μ n := by
+  unfold lowWheelFrozenSecondContactCrossColumnTerminalBoundary
+  apply squareRootLowPrimeResponse_moebiusSum_eq_matchingFrontier
+  intro p hp
+  exact prime_of_mem_lowWheelFrozenSecondContactCrossColumnPrimeList hp
+
+/-- The exact population removed in opposite-sign pairs by the global matching. -/
+def lowWheelFrozenSecondContactCrossColumnPairedPopulation (R : ℕ) : Finset ℕ :=
+  lowWheelFrozenSecondContactArithmeticChildCarrier R \
+    lowWheelFrozenSecondContactCrossColumnTerminalBoundary R
+
+/-- The complete paired population has zero signed Möbius mass.  This is the
+literal cross-column cancellation population requested before any norm. -/
+theorem lowWheelFrozenSecondContactCrossColumnPairedPopulation_moebiusSum_eq_zero
+    (R : ℕ) :
+    (∑ n ∈ lowWheelFrozenSecondContactCrossColumnPairedPopulation R, μ n) = 0 := by
+  have hsub := lowWheelFrozenSecondContactCrossColumnTerminalBoundary_subset R
+  have hsplit :
+      (∑ n ∈ lowWheelFrozenSecondContactCrossColumnPairedPopulation R, μ n) +
+          (∑ n ∈ lowWheelFrozenSecondContactCrossColumnTerminalBoundary R, μ n) =
+        ∑ n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R, μ n := by
+    unfold lowWheelFrozenSecondContactCrossColumnPairedPopulation
+    exact Finset.sum_sdiff hsub
+  calc
+    (∑ n ∈ lowWheelFrozenSecondContactCrossColumnPairedPopulation R, μ n) =
+        ((∑ n ∈ lowWheelFrozenSecondContactCrossColumnPairedPopulation R, μ n) +
+          ∑ n ∈ lowWheelFrozenSecondContactCrossColumnTerminalBoundary R, μ n) -
+            ∑ n ∈ lowWheelFrozenSecondContactCrossColumnTerminalBoundary R, μ n := by
+              ring
+    _ = (∑ n ∈ lowWheelFrozenSecondContactArithmeticChildCarrier R, μ n) -
+          ∑ n ∈ lowWheelFrozenSecondContactCrossColumnTerminalBoundary R, μ n := by
+            rw [hsplit]
+    _ = 0 := by
+      rw [lowWheelFrozenSecondContactArithmeticMobiusSum_eq_terminalBoundary]
+      ring
+
+/-- **Requested signed reassembly.**  The entire #629 saturated ledger is the
+negative signed Möbius mass of one terminal cross-column boundary.  No
+per-column absolute value appears anywhere in the derivation. -/
+theorem lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_terminalBoundary
+    (R : ℕ) :
+    (∑ q ∈ primesUpTo (R - 1),
+      lowWheelFrozenSecondContactHighOwnerWindowMass R q) =
+      -∑ n ∈ lowWheelFrozenSecondContactCrossColumnTerminalBoundary R, μ n := by
+  rw [lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_arithmeticMobiusSum,
+    lowWheelFrozenSecondContactArithmeticMobiusSum_eq_terminalBoundary]
+
+/-- Only after the exact global pairing is complete do we take an absolute
+value.  Therefore an `R polylog R` cardinality bound on this terminal frontier
+is sufficient for the desired epsilon-scale bound. -/
+theorem abs_lowWheelFrozenSecondContactHighOwnerWindowMass_sum_le_terminalBoundaryCard
+    (R : ℕ) :
+    |∑ q ∈ primesUpTo (R - 1),
+      lowWheelFrozenSecondContactHighOwnerWindowMass R q| ≤
+      ((lowWheelFrozenSecondContactCrossColumnTerminalBoundary R).card : ℤ) := by
+  rw [lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_neg_terminalBoundary,
+    abs_neg]
+  exact abs_moebiusSum_le_card
+    (lowWheelFrozenSecondContactCrossColumnTerminalBoundary R)
 
 end RHLean.Proof
