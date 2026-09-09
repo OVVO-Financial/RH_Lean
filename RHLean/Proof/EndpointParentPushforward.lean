@@ -63,7 +63,7 @@ exact:
 ```text
 fibre(p c) = fibre(c) \ frontier(c,p),
 frontier(c,p) = { q in fibre(c) : q^2 (p c) > X },
-card fibre(c) = card fibre(p c) + card frontier(c,p).
+card fibre(p c) + card frontier(c,p) = card fibre(c).
 ```
 
 So pairing a parent with its mate cancels the two fibres against each other down
@@ -453,23 +453,31 @@ theorem endpointOwnerFibre_mul_prime_eq_sdiff_frontier
     rw [htop]
     exact hrough
 
-/-- Cardinal form of the mate cancellation. -/
-theorem endpointOwnerFibre_card_eq_mate_add_frontier
+/-- Cardinal form of the mate cancellation: the parent fibre splits exactly
+into the mate fibre and the frontier. -/
+theorem endpointOwnerFibre_card_mate_add_frontier
     {K X c p : ℕ} (hcPos : 0 < c) (hp : p.Prime)
     (htop : canonicalLargestPrimeFactor (p * c) =
       canonicalLargestPrimeFactor c) :
-    (endpointOwnerFibre K X c).card =
-      (endpointOwnerFibre K X (p * c)).card +
-        (endpointMateFrontier K X c p).card := by
+    (endpointOwnerFibre K X (p * c)).card +
+        (endpointMateFrontier K X c p).card =
+      (endpointOwnerFibre K X c).card := by
   have hsub : endpointMateFrontier K X c p ⊆ endpointOwnerFibre K X c := by
     unfold endpointMateFrontier
     exact Finset.filter_subset _ _
-  have hcard : (endpointOwnerFibre K X (p * c)).card =
-      (endpointOwnerFibre K X c).card - (endpointMateFrontier K X c p).card := by
-    rw [endpointOwnerFibre_mul_prime_eq_sdiff_frontier hcPos hp htop]
-    exact Finset.card_sdiff hsub
-  have hle : (endpointMateFrontier K X c p).card ≤
-      (endpointOwnerFibre K X c).card := Finset.card_le_card hsub
-  omega
+  have hinter : endpointOwnerFibre K X c ∩ endpointMateFrontier K X c p =
+      endpointMateFrontier K X c p := by
+    ext q
+    rw [Finset.mem_inter]
+    constructor
+    · intro h
+      exact h.2
+    · intro h
+      exact ⟨hsub h, h⟩
+  have hsplit := Finset.card_sdiff_add_card_inter
+    (endpointOwnerFibre K X c) (endpointMateFrontier K X c p)
+  rw [hinter] at hsplit
+  rw [endpointOwnerFibre_mul_prime_eq_sdiff_frontier hcPos hp htop]
+  exact hsplit
 
 end RHLean.Proof
