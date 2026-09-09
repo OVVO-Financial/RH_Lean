@@ -148,6 +148,33 @@ theorem lowWheelDoubleCube_fourCorners_eq_mixedPrimeCell
   push_cast
   ring
 
+/-- **Three-live-corners collapse.**  If the parent corner, the cofactor-child,
+and the transport-child are all physically present, then the mixed double-cube
+cell has only one possible defect left: the doubly-adjoined endpoint `p^2*n`.
+Thus the four-corner value is exactly `-1` when that second contact crosses the
+endpoint, and `0` otherwise.
+
+This is the generic cell identity used by frozen states: after stripping their
+largest cofactor prime `p`, the original frozen occurrence and the occurrence
+obtained by moving `p` onto the transport face are the two live single-child
+corners. -/
+theorem lowWheelMixedPrimeCell_eq_neg_secondContact_of_three_live
+    (p R X q n : ℕ)
+    (hp : 1 ≤ p) (hq : R < q)
+    (hn : n ≤ X) (hpn : p * n ≤ X) :
+    lowWheelMixedPrimeCell p R X q n =
+      if X < p * p * n then -1 else 0 := by
+  have hpq : q ≤ p * q := by
+    simpa [one_mul] using Nat.mul_le_mul_right q hp
+  have hrootChild : R < p * q := hq.trans_le hpq
+  unfold lowWheelMixedPrimeCell lowWheelTransportIndicator
+    lowWheelRootHighIndicator lowWheelEndpointIndicator
+  by_cases hsecond : p * p * n ≤ X
+  · have hnot : ¬ X < p * p * n := Nat.not_lt.mpr hsecond
+    simp [hq, hrootChild, hn, hpn, hsecond, hnot]
+  · have hcross : X < p * p * n := Nat.lt_of_not_ge hsecond
+    simp [hq, hrootChild, hn, hpn, hsecond, hcross]
+
 /-- **Fresh-prime double-cube recurrence.**  Adjoining one new coordinate to
 both signed low-wheel copies replaces the whole new state by the mixed
 four-corner derivative evaluated on the old parent cube. -/
@@ -223,16 +250,35 @@ theorem lowWheelDoubleCubePrimePrefix_step
   exact lowWheelDoubleCubeSetTransportLedger_insert
     R p (primesUpTo (p - 1)) (freshPrime_not_mem_primesUpTo_pred hp)
 
-/-- Complex-valued shell difference attached to one old physical parent pair. -/
-def lowWheelSequentialShellDifferenceC
-    (p R X q n : ℕ) : ℂ :=
-  ((if R < q ∧ n ≤ X ∧ X < p * n then (1 : ℤ) else 0) -
-    (if R < p * q ∧ p * n ≤ X ∧ X < p * p * n then (1 : ℤ) else 0) : ℤ)
+/-- Square-residual specialization of the recursive Go law. -/
+theorem squareRootLowPrimeGoWallSquareResidual_eq_mertensPred_sub_smallerOwnerStrips
+    {q X : ℕ} (hq : q.Prime)
+    (hunfinished : q ≤ X / (q * q)) :
+    squareRootLowPrimeGoWallSquareResidual q X =
+      mertensSummatoryInt (q - 1) -
+        ∑ r ∈ primesUpTo (q - 1),
+          (frozenPrimeUniverseMass (primesUpTo (r - 1))
+              ((X / (q * q)) / r) -
+            frozenPrimeUniverseMass (primesUpTo (r - 1)) ((q - 1) / r)) := by
+  rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
+  exact frozenPrimeUniverseMass_eq_mertensPred_sub_smallerOwnerStrips
+    hq hunfinished
 
-/-- **Sequential state with geometric support already exposed.**  Substituting
-the exact mixed-cell shell identity into the increasing-prime recurrence shows
-that the state created when `p` is admitted has support only on its two adjacent
-multiplicative shells. -/
+/-- Square-residual specialization of the recursive Go law. -/
+theorem squareRootLowPrimeGoWallSquareResidual_eq_mertensPred_sub_smallerOwnerStrips
+    {q X : ℕ} (hq : q.Prime)
+    (hunfinished : q ≤ X / (q * q)) :
+    squareRootLowPrimeGoWallSquareResidual q X =
+      mertensSummatoryInt (q - 1) -
+        ∑ r ∈ primesUpTo (q - 1),
+          (frozenPrimeUniverseMass (primesUpTo (r - 1))
+              ((X / (q * q)) / r) -
+            frozenPrimeUniverseMass (primesUpTo (r - 1)) ((q - 1) / r)) := by
+  rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
+  exact frozenPrimeUniverseMass_eq_mertensPred_sub_smallerOwnerStrips
+    hq hunfinished
+
+/-- Literal increasing-prime recurrence. -/
 theorem lowWheelDoubleCubePrimePrefix_step_eq_shells
     (R p : ℕ) (hp : p.Prime) :
     lowWheelDoubleCubeSetTransportLedger R (primesUpTo p) =
