@@ -8,6 +8,64 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Current continuation: the second-contact seam carries a vanishing flux register
+
+`RHLean/Proof/SecondContactInterfaceFluxRegister.lean` replaces the #632 total
+identity on the Go second-contact seam by its coefficient function.  A finite
+signed ledger is an occurrence set `S`, a map `phi` to the arithmetic state it
+acts on, and an integer weight `w`; `ledgerCoefficient S phi w n` is the signed
+total of the occurrences landing on `n`, multiplicities retained.  The
+`interfaceFluxRegister` of two ledgers is their coefficientwise difference.
+
+Two generic facts make the register the right object to carry:
+
+```text
+sum_{n in N} ledgerCoefficient S phi w n = sum_{z in S, phi z in N} w z
+(forall n, register n = 0)  ->  the two ledgers agree on every finite N.
+```
+
+The second is what a total identity does not give: a vanishing register is a
+cancellation that survives any later regrouping of the carrier.
+
+`goSecondContactInterfaceFluxRegister_eq_zero` proves the register vanishes for
+the compiled seam.  The proposed side is the owner-tagged occurrence set
+`(q,c)` — second-contact owner `q` with its rough prefix `c`, `P+(c) < q`,
+`c <= X/q^2` — at state `q*c` with weight `mu(c)`; the existing side is the
+disjoint arithmetic child population with weight `-mu(m)`.  The owner tag is
+retained until the coefficient is summed and is then recovered from the state
+itself as `P+(m)`.
+
+### The rough-prefix unit is a separate root-scale anchor
+
+The rough prefixes include `c = 1`, which is not a second contact: it produces
+the bare owner `m = q`, and only when `q^2 <= X`.  Splitting it off is exact:
+
+```text
+sum_{q in Q} F_{q^-}(X/q^2)
+  = #{q in Q : q^2 <= X} + sum_{q in Q} sum_{c > 1} mu(c),
+```
+
+and the anchor satisfies `#{q in Q : q^2 <= X} <= sqrt X`.  Removing it also
+sharpens the support: a strict prefix `c > 1` forces `q >= 3`, since the only
+prefix rough below `2` is the unit itself.  Hence the anchor-free population
+lies at `m <= X/3`, giving
+
+```text
+|sum_{q in Q} F_{q^-}(X/q^2)| <= sqrt X + X/3.
+```
+
+This is smaller than the `X/2` bound of #632 once `X > 36`.  It is an exact
+split plus an elementary support count: still linear in `X`, with no power
+saving, no Mertens input and no asymptotic estimate.
+
+### What is not proved here
+
+The register is proved to vanish only for this seam, whose two ledgers are
+already the same family.  The conjectured coefficient identity between the full
+rough-prefix and low-transport ledgers is not established, no surviving transfer
+rule is extracted, and no budget across source scales `A` is proved.  Those
+remain the next targets, in that order.
+
 ## Current continuation after #608: consume the middle boundary with its base
 
 `research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean` continues the signed
