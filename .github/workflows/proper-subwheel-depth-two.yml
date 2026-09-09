@@ -13,6 +13,7 @@ on:
       - research/HALF_ROOT_PRIME_PAIR_FIRST_JUMP.lean
       - research/HALF_ROOT_WEIGHTED_FIRST_JUMP.lean
       - research/HALF_ROOT_RECOUPLED_FIRST_JUMP.lean
+      - research/HALF_ROOT_PAIR_COLUMN_CANCELLATION.lean
       - .github/workflows/proper-subwheel-depth-two.yml
   workflow_dispatch:
 
@@ -101,3 +102,6 @@ jobs:
 
       - name: Kernel-check global weighted first-jump recoupling
         run: lake env lean -o .lake/build/lib/lean/research.HALF_ROOT_RECOUPLED_FIRST_JUMP.olean research/HALF_ROOT_RECOUPLED_FIRST_JUMP.lean
+
+      - name: Kernel-check half-root pair-column cancellation
+        run: lake env lean -o .lake/build/lib/lean/research.HALF_ROOT_PAIR_COLUMN_CANCELLATION.olean research/HALF_ROOT_PAIR_COLUMN_CANCELLATION.lean
