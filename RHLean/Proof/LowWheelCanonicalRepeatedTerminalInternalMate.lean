@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
 import RHLean.Proof.SquareRootLowPrimeGoCrossingMateLedger
+import RHLean.Proof.LowWheelCanonicalFrozenReduction
 
 /-!
 # Existing physical mate for the internal repeated-parent terminal boundary
@@ -23,6 +24,7 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Arithmetic
+open RHLean.Analysis
 
 attribute [local instance] Classical.propDecidable
 
@@ -233,6 +235,33 @@ theorem sum_lowWheelCanonicalRepeatedTerminalInternal_add_mate_eq_zero
         lowWheelTaggedDowncrossWeight y := by
     rfl
   rw [hneg, hsame]
+  ring
+
+/-- Existing frozen-reduction notation for the internal ledger, rewritten as
+the negative of its concrete transport mate subledger. -/
+theorem lowWheelCanonicalRepeatedTerminalInternalLedger_eq_neg_mateLedger
+    (R : ℕ) :
+    lowWheelCanonicalRepeatedTerminalInternalLedger R =
+      -lowWheelCanonicalRepeatedTerminalInternalMateLedger R := by
+  have h := sum_lowWheelCanonicalRepeatedTerminalInternal_add_mate_eq_zero R
+  unfold lowWheelCanonicalRepeatedTerminalInternalLedger at h
+  linear_combination h
+
+/-- **Transport-only normal form of the frozen/top/far residual.**  The old
+internal terminal term is absorbed by its already-present transport mates, and
+the far survivor is restored to the equivalent far-prime transport coordinate.
+No norm is taken:
+
+`FrozenTopFarResidual = FarTransport - InternalMate - TopImage`. -/
+theorem lowWheelFrozenTopFarResidual_eq_farTransport_sub_internalMate_sub_topImage
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      squareRootFarPrimeTransport R -
+        lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
+        lowWheelFrozenCofactorTopImageLedger R := by
+  unfold lowWheelFrozenTopFarResidual
+  rw [lowWheelCanonicalRepeatedTerminalInternalLedger_eq_neg_mateLedger R,
+    survivorSixteenFarUpperPrimeMass_pred_eq_neg_farTransport R hR]
   ring
 
 end RHLean.Proof
