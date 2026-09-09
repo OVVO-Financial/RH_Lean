@@ -553,8 +553,7 @@ theorem lowWheelFarTaggedPhysicalStable_geometry
     (lowWheelHighSurvivor_iff_prime hR hgeom.2.1 hgeom.2.2.1).mp
       hgeom.2.2.2
   have hfarQ : R + 8 ≤ z.2.2 := by
-    rw [hgeom.1] at hfar
-    simpa [lowWheelTaggedHighProduct, primeFaceProduct] using hfar
+    simpa [lowWheelTaggedHighProduct, hgeom.1, primeFaceProduct] using hfar
   have hphys := (mem_lowWheelFullTaggedPhysicalCarrier.mp hzFull).2
   have hdata := mem_lowWheelCanonicalPhysicalStateSet.mp hphys
   have hcarrier := hdata.2.2.2
@@ -599,7 +598,7 @@ theorem lowWheelFarTaggedPhysicalStable_of_prime
     rcases hne with ⟨p, hp⟩
     rcases mem_lowWheelFullActivePrimeSet.mp hp with ⟨hpR, hpActive⟩
     rcases hpActive with hpFace | hpDvd
-    · simpa using hpFace
+    · simp at hpFace
     · exact hsurv p hpR hpDvd
   have hstable :
       lowWheelFullFaceQuotientMate R ((∅ : Finset ℕ), (c, q)) =
