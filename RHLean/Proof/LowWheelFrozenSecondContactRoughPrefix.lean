@@ -162,8 +162,9 @@ theorem lowWheelFrozenProductOneMate_physicalInteger_eq_child
     lowWheelTaggedPhysicalInteger
         (lowWheelCanonicalRepeatedFrozenProductOneMate y) =
       orderedEulerCutChildInteger y := by
-  change primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace y) =
-    orderedEulerCutChildInteger y
+  unfold lowWheelTaggedPhysicalInteger lowWheelCanonicalRepeatedFrozenProductOneMate
+  dsimp
+  simp only [Nat.one_mul, Nat.mul_one]
   rw [frozenSource_productOne_eq_scale_mul_cofactor hy,
     frozenSource_child_eq_scale_mul_cofactor hy]
 
