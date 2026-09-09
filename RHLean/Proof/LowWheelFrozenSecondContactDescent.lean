@@ -143,7 +143,6 @@ theorem lowWheelFrozenSecondContactParentFace_prime_lt_owner
     {r : ℕ} (hr : r ∈ lowWheelFrozenSecondContactParentFace y) :
     r.Prime ∧ r < lowWheelFrozenCofactorTopPrime y := by
   have hrErase := Finset.mem_erase.mp hr
-  have hrNe : r ≠ lowWheelFrozenCofactorTopPrime y := hrErase.1
   have hrFull := hrErase.2
   unfold lowWheelCanonicalRepeatedFrozenProductOneFace at hrFull
   rcases Finset.mem_insert.mp hrFull with hpivot | hrest
@@ -216,8 +215,9 @@ theorem lowWheelCanonicalRepeatedFrozenCofactor_mem_orderedEulerCutCarrier
     rw [hsource.1]
     exact Nat.div_self hsource.2.1.pos
   have hparent :
-      lowWheelCanonicalDowncrossParent y.1 y.2 = primeFaceProduct y.1 := by
-    unfold lowWheelCanonicalDowncrossParent
+      LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossParent y.1 y.2 =
+        primeFaceProduct y.1 := by
+    unfold LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossParent
     rw [hquot, Nat.mul_one]
   rw [hparent] at hr
   have hrData := Nat.mem_primeFactors.mp hr
@@ -406,12 +406,18 @@ theorem lowWheelFrozenSecondContactParentMap_strict_endpoint_descent
     squareRootEndpoint R / lowWheelFrozenCofactorTopPrime y <
       squareRootEndpoint R := by
   rcases Finset.mem_filter.mp hy with ⟨hyFrozen, _hsecond⟩
-  have hsource := lowWheelCanonicalRepeatedFrozenCofactor_source_data hyFrozen
-  have hR2 : 2 ≤ R := by omega
   have hXpos : 0 < squareRootEndpoint R := by
-    have hsq : 4 ≤ R ^ 2 := by nlinarith
-    unfold squareRootEndpoint
-    omega
+    have hqPrime := (lowWheelFrozenCofactorTopPrime_data hyFrozen).1
+    have hmem := lowWheelFrozenSecondContactParentMap_mem hy
+    rw [mem_lowWheelFrozenSecondContactParentCarrier] at hmem
+    have hlow : lowWheelFrozenCofactorTopPrime y *
+        primeFaceProduct (lowWheelFrozenSecondContactParentFace y) ≤
+        squareRootEndpoint R := by
+      simpa [lowWheelFrozenSecondContactParentMap] using hmem.2.2.2.2.1
+    have hfacePos :=
+      primeFaceProduct_pos_of_mem_powerset
+        (lowWheelFrozenSecondContactParentFace_mem_predecessor hyFrozen)
+    exact lt_of_lt_of_le (Nat.mul_pos hqPrime.pos hfacePos) hlow
   have hqPrime := (lowWheelFrozenCofactorTopPrime_data hyFrozen).1
   have hdivlt : squareRootEndpoint R / lowWheelFrozenCofactorTopPrime y <
       squareRootEndpoint R :=
