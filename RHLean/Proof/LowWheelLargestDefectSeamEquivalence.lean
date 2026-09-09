@@ -59,6 +59,7 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Arithmetic
+open RHLean.Analysis
 
 attribute [local instance] Classical.propDecidable
 
@@ -532,7 +533,7 @@ theorem lowWheelCanonicalPostRootDowncross_largestPivot_postRoot
 move is exactly the high part of the largest-prime defect. -/
 theorem finiteOthelloStablePart_largest_postRoot_eq_highDefect
     {R : ℕ} {t : Finset ℕ}
-    (ht : t ∈ (primesUpTo R).powerset) :
+    (hR : 2 ≤ R) (ht : t ∈ (primesUpTo R).powerset) :
     finiteOthelloStablePart
         (lowWheelPostRootLargestPivotPhysicalPart R t)
         (lowWheelLargestOthelloMate R t) =
@@ -646,7 +647,7 @@ theorem sum_lowWheelCanonicalPostRootDowncross_eq_largestDefectHigh
     (fun x hx hne => lowWheelLargestOthelloMate_weight_neg ht
       (mem_lowWheelPostRootLargestPivotPhysicalPart.mp hx).1 hne)
   rw [finiteOthelloStablePart_least_postRoot_eq_postRootDowncross hR ht,
-    finiteOthelloStablePart_largest_postRoot_eq_highDefect ht] at hstable
+    finiteOthelloStablePart_largest_postRoot_eq_highDefect hR ht] at hstable
   exact hstable
 
 /-- **High-sector coordinate closure.**  The `q > R` largest-prime defect is
