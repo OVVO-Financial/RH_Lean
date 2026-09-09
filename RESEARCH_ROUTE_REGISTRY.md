@@ -960,78 +960,85 @@ already linear, so the whole difficulty is the cross term.
 - reporting a frontier capacity bound as progress on the global covariance
   without the domination arrow. They are different objects.
 
-## Exact but exponent-neutral: child-owner reassembly of the #628 window
+## Corrected: the #628 window carrier was loose, and the floor at `R` is a theorem
 
 `RHLean/Proof/LowWheelFrozenSecondContactWindowReassembly.lean` compiles the two
-exact moves that were requested before any estimate of the frozen
-second-contact ledger, and the finite diagnostic
-`scripts/FrozenSecondContactReassembly/second_contact_window_scale.py` records
-what they land on.
+exact moves requested before any estimate of the frozen second-contact ledger,
+and then removes the obstruction they exposed. The finite diagnostic is
+`scripts/FrozenSecondContactReassembly/second_contact_window_scale.py`.
 
-### What is exact
+### What the loose carrier does
 
-With `X = squareRootEndpoint R` and `D_q = F_{q^-}(X/q) - F_{q^-}(X/q^2)` the
-native Go window of #627/#628:
+With `X = squareRootEndpoint R` and the #628 window
+`D_q = F_{q^-}(X/q) - F_{q^-}(X/q^2)`:
 
 1. `..._eq_neg_childOwnerWindowSum`: subtracting the recursive Go law at the two
    endpoints cancels both copies of `M(q-1)` and both fixed lower-prefix
    columns, giving `D_q = -sum_{r<q} (F_{r^-}(X/(q*r)) - F_{r^-}(X/(q^2*r)))`.
-2. `..._eq_neg_childOwnerReassembly`: the finite double sum interchanges, so the
-   child owner `r` indexes the outer column.
+2. `..._eq_neg_childOwnerReassembly`: the double sum interchanges, so the child
+   owner indexes the outer column.
 
-Both are identities. Neither introduces a norm.
-
-### The gate is where the mass is not
-
-The endpoint form of the Go law needs the lower cutoff unfinished at its own
-owner. `..._gate_iff_cube_le` proves this is exactly `q^3 <= X`. Outside the
-gate the anchors do not cancel and
-`..._eq_mertensGap_sub_childOwnerWindowSum` exhibits the surviving leaf as an
-*unrestricted* `M(q-1) - M(X/q^2)`.
-
-Measured at `R = 1600`: of the 245 live owners, 26 satisfy `q^3 <= X` and
-contribute `+1261`; the 219 owners with `q^3 > X` contribute `-15556` of the
-total `-14295`. The base-cancelling recurrence therefore applies to a part of
-the ledger that carries essentially none of its mass.
-
-### The reassembly is a re-partition, not a cancellation
-
-The reassembled double sum has an exact closed form, verified against the direct
-ledger for every `R <= 210`:
+Both are identities. But `..._gate_iff_cube_le` shows the first needs
+`q^3 <= X`, and the mass is not there: at `R = 1600`, the 26 owners with
+`q^3 <= X` contribute `+1261` while the 219 owners with `q^3 > X` contribute
+`-15556` of the total `-14295`. Outside the gate
+`..._eq_mertensGap_sub_childOwnerWindowSum` exhibits an unrestricted
+`M(q-1) - M(X/q^2)` leaf. Summed over the loose carrier the ledger measures
+`0.265, 0.292, 0.308, 0.310` times `R^2/log^2 R` at `R = 100, 200, 400, 800`,
+with constant sign: no cancellation, a full power above an `R polylog R` target.
+Its exact closed form, verified against the direct ledger for every `R <= 210`,
+is a single largest-prime-factor sum,
 
 ```text
-sum_q D_q = - sum over squarefree n <= X with P+(n) < R and n*P+(n) > X of mu(n).
+sum_q D_q = - sum over squarefree n <= X with P+(n) < R and n*P+(n) > X of mu(n),
 ```
 
-Grouping by child owner is exactly grouping the same family by top prime. No
-term cancels against another, and the term count is unchanged. Measured scale:
-`sum_q D_q / (R^2 / log^2 R)` is `0.265, 0.292, 0.308, 0.310` at
-`R = 100, 200, 400, 800`, with constant sign. The compiled #628 ledger is
-therefore of order `R^2 / (log R)^2`, a full power above an `R polylog R`
-target.
+so the child-owner reassembly on this carrier is an exact re-partition of the
+same family by top prime and cannot itself gain anything.
 
-### The floor at `R` is load-bearing and is not supplied
+### The carrier was the defect
 
-A proposal to read the #628 image as the window with lower endpoint
-`max(R, X/q^2)` rather than `X/q^2` is a different and much smaller object: the
-floored sum measures `-24, 190, -61, -309` at the same four roots, near `R` and
-changing sign. The floor also makes the gate hypothesis free, since
-`max(R, X/q^2) >= R > q`. But the second-contact geometry does not supply it.
-The window constraints give only `P(V) > X/q^2`, and `X/q^2 < R` exactly when
-`q^2 > X/R`, i.e. for all but the smallest owners; for `q` near `R` one has
-`X/q < R + 2`, so `P(V) > R` is impossible there. Saturation of the #628 window
-and saturation of the floored window are different claims, and only the
-unfloored one is about the compiled carrier.
+`..._ParentFaceProduct_gt_root` proves the whole second-contact image lies
+strictly above `R`. The `LowWheelTransportPairCarrier` downcross wall gives
+`R < P(t) * y.2.2`, on a frozen repeated-cofactor state `y.2.2` is the pivot
+`p`, and erasing the top cofactor prime `q` leaves
+`P(V) = (c/q) * p * P(t) >= p * P(t) > R` since `q ∣ c`. So the #628 lower
+endpoint `X/q^2` is not tight and may be raised to `max R (X/q^2)`.
+
+Consequences, all compiled:
+
+* `..._RootedOwnerWindow` / `..._mem_rootedOwnerWindow`: the image lands in the
+  rooted window.
+* `..._RootedOwner_gate`: `q <= max R (X/q^2)` for every owner below the root,
+  so the cube gate is discharged unconditionally.
+* `..._RootedOwnerWindowMass_eq_neg_childOwnerWindowSum`: the base-cancelling
+  recurrence now holds at *every* prime owner below the root, with no
+  unrestricted Mertens leaf anywhere.
+* `..._RootedLedger_eq_neg_childOwnerReassembly`: the ungated child-owner
+  reassembly over all owners below the root.
+
+Measured, the rooted ledger is a different object from the loose one:
+`-24, 190, -61, -309` at `R = 100, 200, 400, 800` against `125, 416, 1373, 4437`
+— near `R` and changing sign, rather than `~0.3 R^2/log^2 R` with constant sign.
+
+### What is still open
+
+Saturation is not proved. `..._mem_rootedOwnerWindow` is one inclusion; the
+converse — that every rooted-window face is realized by a genuine second-contact
+source — is what would turn the ledger into exactly the rooted window sum. Until
+it is proved the rooted window is an over-approximation of the image, and the
+measured `~R` scale is a diagnostic, not a theorem.
 
 ### Do not repeat this route by
 
 - restating the window-difference recurrence: it was already available in
   general form as `frozenPrimeUniverseMass_sub_eq_neg_smallerOwnerStripSum`;
-- reassembling by child owner again in the hope of cancellation: the closed form
-  above shows the reassembly is the identity map on the family, re-indexed;
-- adding the floor at `R` without a proof that the second-contact image lies
-  above `R`. That floor changes the object by a full power and is where the
-  difficulty was silently discarded.
+- reassembling the *loose* `X/q^2` carrier by child owner in the hope of
+  cancellation: the closed form above shows that reassembly is the identity map
+  on the family, re-indexed;
+- reading a bound on the rooted ledger as a bound on the #628 ledger without
+  saturation. They differ by the faces below `R`, which carry the whole
+  `R^2/log^2 R`.
 
 ## Acceptance rule for future routes
 
