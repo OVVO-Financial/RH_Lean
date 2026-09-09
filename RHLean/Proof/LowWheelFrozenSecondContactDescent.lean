@@ -16,7 +16,7 @@ changing its represented integer, to the product-one Boolean face
 
 This file does not stop at that same-scale realization.  Let `q = P+(c)` be the
 largest prime of the frozen cofactor and erase `q` from `U`.  The resulting
-predecessor face `V = U \ {q}` satisfies
+predecessor face `V = U \\ {q}` satisfies
 
 `q * P(V) = P(U)`.
 
@@ -503,6 +503,8 @@ theorem lowWheelFrozenSecondContactParentFace_mem_ownerWindow
   have hqPrime : (lowWheelFrozenCofactorTopPrime y).Prime := hdata.2.2.1
   have hqR : lowWheelFrozenCofactorTopPrime y < R := by
     have hqRange := Finset.mem_Icc.mp hdata.1
+    have hqLe : lowWheelFrozenCofactorTopPrime y ≤ R - 1 := by
+      simpa [lowWheelFrozenSecondContactParentMap] using hqRange.2
     omega
   apply (mem_lowWheelFrozenSecondContactParentCarrier_iff_ownerWindow
     hqPrime hqR).mp
