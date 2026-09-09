@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.LowWheelCanonicalRepeatedParentClassification
+import RHLean.Proof.LowWheelCanonicalRepeatedFrozenFactorGeometry
 import RHLean.Proof.LowWheelFrozenCofactorTopBottomCancellation
 import RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff
 import RHLean.Proof.LowWheelCanonicalRepeatedTerminalHighPrimeBridge
@@ -121,7 +122,8 @@ private theorem externalTerminalTag_mem_repeatedExternal
     intro q hq
     have hqR := (mem_primesUpTo.mp (htSub hq)).2
     have hRp := (Finset.mem_Ioc.mp hpRange).1
-    simpa [squareRootExternalTerminalTag, hpivot] using (show q < z.2 by omega)
+    rw [hpivot]
+    omega
   have hfrozen : squareRootExternalTerminalTag z ∈
       lowWheelCanonicalRepeatedFrozenPart R := by
     apply Finset.mem_filter.mpr
@@ -153,7 +155,7 @@ private theorem repeatedExternal_to_faceCarrier
     exact (Finset.mem_filter.mp hrepeated).1
   have htagData := mem_lowWheelCanonicalTaggedDowncrossCarrier.mp htagged
   have hhigh := lowWheelCanonicalRepeatedExternalTerminal_highPrime_data
-    (show y ∈ lowWheelCanonicalRepeatedExternalTerminalPart R from hy)
+    (show y ∈ lowWheelCanonicalRepeatedTerminalExternalPart R from hy)
   have htFiltered :
       y.1 ∈ (primesUpTo R).powerset.filter
         (fun t => primeFaceProduct t < R) := by
