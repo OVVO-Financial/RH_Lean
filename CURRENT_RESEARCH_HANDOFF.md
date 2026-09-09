@@ -603,6 +603,50 @@ theorem signedVerticalIntervalMass_eq_signedPrefixLifetimeResidual
 
 The complex/Fermat coordinate, the ordered Euler coordinate, the oriented/downcross coordinate, the lifetime coordinate, and the canonical defect coordinate are therefore not separate analytic problems.
 
+### Downcross ledger after the frozen top/bottom subtraction
+
+File: `RHLean/Proof/LowWheelFrozenCofactorTopBottomCancellation.lean`
+
+`LowWheelFrozenCofactorTopBottomToggle` supplies, pointwise, the sign-reversing
+move `(t,(c,p)) -> (t,(c/q, q*p))` with `q = P+(c)` on frozen repeated-parent
+states with `c > 1`. That move is injective on the frozen nontrivial-cofactor
+sector, with an explicit inverse (the image pivot recovers `p`, the image
+quotient over that pivot recovers `q`). Hence the exact identity
+
+```lean
+theorem lowWheelFrozenCofactorTopImageLedger_eq_neg
+    (R : ℕ) :
+    lowWheelFrozenCofactorTopImageLedger R =
+      -lowWheelCanonicalFrozenCofactorLedger R
+```
+
+and, composed with the compiled late-parent cancellation,
+
+```lean
+theorem lowWheelCanonicalDowncrossLedger_eq_unique_add_terminal_sub_topImage
+    (R : ℕ) :
+    lowWheelCanonicalDowncrossLedger R =
+      lowWheelCanonicalDowncrossUniqueParentLedger R +
+        lowWheelCanonicalTerminalBoundaryLedger R -
+          lowWheelFrozenCofactorTopImageLedger R
+```
+
+The relocation is not internal bookkeeping: the image is disjoint from the
+whole canonical downcross carrier, because every image state has normalized
+root-side parent strictly above `R` while every downcross state has parent at
+most `R`, and the image still lies on the physical transport carrier. So the
+frozen `c > 1` sector has been moved to the post-root side of the same physical
+carrier, leaving on the downcross side only the unique-parent ledger and the
+literal terminal `c = 1` monotone first-crossing boundary.
+
+The quantitative seam is restated as `SquareRootFrozenTopBottomLinearBound`,
+and `riemannHypothesis_of_frozenTopBottomLinear` discharges RH from it through
+the existing square-prefix energy bridge.
+
+This moves signed mass; it does not bound it. No norm, estimate, or density
+input is used in that file, and nothing is claimed about the size of any of the
+three surviving terms. The power exponent is unchanged.
+
 ## Exact active-child normal form
 
 File: `RHLean/Proof/ComplexVerticalLineSquarefreeDiagonal.lean`
