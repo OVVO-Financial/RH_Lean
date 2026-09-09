@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.LowWheelCanonicalRepeatedParentClassification
+import RHLean.Proof.LowWheelFrozenTopExternalReassembly
 
 /-!
 # Frozen canonical downcross carrier
