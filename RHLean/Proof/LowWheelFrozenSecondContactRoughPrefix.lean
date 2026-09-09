@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.LowWheelFrozenSecondContactScaleFlux
+import RHLean.Proof.LowWheelCanonicalDefectReduction
 
 /-!
 # Exact rough-prefix fibre of the existing physical transport
@@ -45,6 +46,12 @@ def lowWheelFrozenSourceScaleTransportCarrier (R A : ℕ) :
     Finset LowWheelTaggedCofactorQuotientState :=
   (lowWheelFrozenCofactorSourceScaleFiber R A).image
     lowWheelCanonicalRepeatedFrozenProductOneMate
+
+/-- Physical integer represented by one tagged cofactor/quotient transport
+state. This is the invariant product `c * P(t) * k`. -/
+def lowWheelTaggedPhysicalInteger
+    (z : LowWheelTaggedCofactorQuotientState) : ℕ :=
+  z.2.1 * primeFaceProduct z.1 * z.2.2
 
 private theorem frozenSource_scale_eq_insert
     {R : ℕ} {y : LowWheelTaggedDowncrossState}
@@ -117,6 +124,84 @@ private theorem frozenSource_weight_eq
     simp [booleanCubeSign, Finset.card_insert_of_notMem hpNot, pow_succ]
   simp only [lowWheelTaggedDowncrossWeight, canonicalMoebiusWeight, hmu,
     Int.cast_neg]
+  ring
+
+/-- Every fixed-`A` product-one mate is an actual state of the historical
+physical transport carrier. -/
+theorem lowWheelFrozenSourceScaleTransportCarrier_subset_transport
+    (R A : ℕ) :
+    lowWheelFrozenSourceScaleTransportCarrier R A ⊆
+      lowWheelCanonicalTaggedPhysicalCarrier R := by
+  intro z hz
+  rcases Finset.mem_image.mp hz with ⟨y, hyFiber, rfl⟩
+  have hy := (Finset.mem_filter.mp hyFiber).1
+  exact lowWheelCanonicalRepeatedFrozenProductOneMateImage_subset_transport R
+    (Finset.mem_image.mpr ⟨y, hy, rfl⟩)
+
+/-- More precisely, those matching transport states lie in the old fixed part:
+the cofactor/quotient coordinate is literally `(1,1)`. -/
+theorem lowWheelFrozenSourceScaleTransportCarrier_mem_fixedPart
+    {R A : ℕ} {z : LowWheelTaggedCofactorQuotientState}
+    (hz : z ∈ lowWheelFrozenSourceScaleTransportCarrier R A) :
+    z.2 ∈ lowWheelCanonicalFixedPart
+      (lowWheelCanonicalPhysicalStateSet R z.1) := by
+  rcases Finset.mem_image.mp hz with ⟨y, hyFiber, rfl⟩
+  have hy := (Finset.mem_filter.mp hyFiber).1
+  change (1, 1) ∈ lowWheelCanonicalFixedPart
+    (lowWheelCanonicalPhysicalStateSet R
+      (lowWheelCanonicalRepeatedFrozenProductOneFace y))
+  apply Finset.mem_filter.mpr
+  constructor
+  · exact lowWheelCanonicalRepeatedFrozenProductOneMate_mem_physical hy
+  · exact lowWheelCanonicalToggle_eq_self_of_product_eq_one (by norm_num)
+
+/-- The product-one mate preserves the represented arithmetic integer exactly. -/
+theorem lowWheelFrozenProductOneMate_physicalInteger_eq_child
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
+    (hy : y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R) :
+    lowWheelTaggedPhysicalInteger
+        (lowWheelCanonicalRepeatedFrozenProductOneMate y) =
+      orderedEulerCutChildInteger y := by
+  change primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace y) =
+    orderedEulerCutChildInteger y
+  rw [frozenSource_productOne_eq_scale_mul_cofactor hy,
+    frozenSource_child_eq_scale_mul_cofactor hy]
+
+/-- Reindex a fixed-scale transport subcarrier by the frozen source which
+created its product-one mate. The global whole-cofactor mate is injective, so
+no multiplicity is lost. -/
+theorem lowWheelFrozenSourceScaleTransportCarrier_sum_image
+    (R A : ℕ) (F : LowWheelTaggedCofactorQuotientState → ℂ) :
+    (∑ z ∈ lowWheelFrozenSourceScaleTransportCarrier R A, F z) =
+      ∑ y ∈ lowWheelFrozenCofactorSourceScaleFiber R A,
+        F (lowWheelCanonicalRepeatedFrozenProductOneMate y) := by
+  unfold lowWheelFrozenSourceScaleTransportCarrier
+  rw [Finset.sum_image]
+  intro y hy z hz heq
+  exact lowWheelCanonicalRepeatedFrozenProductOneMate_injOn R
+    (Finset.mem_filter.mp hy).1 (Finset.mem_filter.mp hz).1 heq
+
+/-- **Physical-fibre cancellation.** At fixed source scale `A`, the entire
+frozen rough-prefix source and its actual historical transport mates cancel
+before any norm is taken. An arbitrary test function of the represented
+integer may be retained, so the identity preserves every arithmetic fibre and
+all multiplicities. -/
+theorem lowWheelFrozenSourceScale_source_add_transport_test_eq_zero
+    (R A : ℕ) (φ : ℕ → ℂ) :
+    (∑ y ∈ lowWheelFrozenCofactorSourceScaleFiber R A,
+        lowWheelTaggedDowncrossWeight y * φ (orderedEulerCutChildInteger y)) +
+      (∑ z ∈ lowWheelFrozenSourceScaleTransportCarrier R A,
+        lowWheelTaggedCanonicalWeight z * φ (lowWheelTaggedPhysicalInteger z)) =
+      0 := by
+  rw [lowWheelFrozenSourceScaleTransportCarrier_sum_image R A
+    (fun z => lowWheelTaggedCanonicalWeight z *
+      φ (lowWheelTaggedPhysicalInteger z))]
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_eq_zero
+  intro y hy
+  have hyFrozen := (Finset.mem_filter.mp hy).1
+  rw [lowWheelCanonicalRepeatedFrozenProductOneMate_taggedWeight_neg hyFrozen,
+    lowWheelFrozenProductOneMate_physicalInteger_eq_child hyFrozen]
   ring
 
 /-- A represented source scale is above the old root. -/
