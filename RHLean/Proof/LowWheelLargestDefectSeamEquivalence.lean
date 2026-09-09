@@ -20,7 +20,9 @@ Concretely:
 * `SquareRootLargestDefectLinearBound` is proved equivalent to
   `SquareRootCanonicalDowncrossLinearBound`, in both directions;
 * consequently `riemannHypothesis_of_largestDefectLinear` derives the Riemann
-  hypothesis from it through the existing square-prefix energy bridge.
+  hypothesis from it through the existing square-prefix energy bridge;
+* `lowWheelLargestDefect_geometry` classifies the exact pointwise carrier of
+  the largest-prime stable defect before any norm or cardinality estimate.
 
 Anything that proves the largest-prime defect bound therefore proves RH, and by
 the handoff's own adversarial check 5 it must be treated as the hard theorem
@@ -41,8 +43,8 @@ Two consequences worth stating for whoever picks this up next.
     is a numerical observation, not a compiled claim; it is recorded only to
     stop the cardinality route being re-attempted.)
 
-No norm, estimate, or density input is introduced here.  The file contains one
-finite identity transported through an already-compiled equality.
+No norm, estimate, or density input is introduced in the geometric
+classification below.
 -/
 
 noncomputable section
@@ -52,6 +54,8 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Arithmetic
+
+attribute [local instance] Classical.propDecidable
 
 /-- Linear-mass proposition stated on the largest-prime stable defect. -/
 def SquareRootLargestDefectLinearBound : Prop :=
@@ -83,5 +87,101 @@ theorem riemannHypothesis_of_largestDefectLinear
     RiemannHypothesis :=
   riemannHypothesis_of_canonicalDowncrossLinear
     (squareRootLargestDefectLinear_iff_canonicalDowncrossLinear.mp h)
+
+/-! ## Exact pointwise geometry -/
+
+/-- If an active fixed-prime cofactor/quotient toggle still satisfies the
+physical carrier inequalities, then it belongs to the actual finite physical
+state set.  This fixed-prime closure is used below in both the removal and
+insertion directions. -/
+private theorem lowWheelCofactorQuotientToggleAt_mem_physical_of_carrier
+    {R p : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
+    (hp : p.Prime)
+    (hx : x ∈ lowWheelCanonicalPhysicalStateSet R t)
+    (hactive : p ∣ x.1 ∨ p ∣ x.2)
+    (hmate : LowWheelTransportPairCarrier R t
+      (lowWheelCofactorQuotientToggleAt p x)) :
+    lowWheelCofactorQuotientToggleAt p x ∈
+      lowWheelCanonicalPhysicalStateSet R t := by
+  rcases x with ⟨c, k⟩
+  have hsq : Squarefree c :=
+    lowWheelCanonicalPhysicalStateSet_squarefree (c, k) hx
+  have hsquare :
+      Squarefree (lowWheelCofactorQuotientToggleAt p (c, k)).1 := by
+    by_cases hpc : p ∣ c
+    · have hd : c / p ∣ c :=
+        ⟨p, (Nat.div_mul_cancel hpc).symm⟩
+      have hsqd : Squarefree (c / p) := hsq.squarefree_of_dvd hd
+      unfold lowWheelCofactorQuotientToggleAt
+      rw [if_pos hpc]
+      exact hsqd
+    · have hpk : p ∣ k := hactive.resolve_left hpc
+      have hmuC : μ c ≠ 0 :=
+        ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsq
+      have hmu := moebius_prime_mul hp hpc
+      have hmuNe : μ (p * c) ≠ 0 := by
+        rw [hmu]
+        exact neg_ne_zero.mpr hmuC
+      have hsqp : Squarefree (p * c) :=
+        ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuNe
+      unfold lowWheelCofactorQuotientToggleAt
+      rw [if_neg hpc, if_pos hpk]
+      simpa [Nat.mul_comm] using hsqp
+  have hrange := lowWheelTransportPairCarrier_mem_ranges hmate
+  apply mem_lowWheelCanonicalPhysicalStateSet.mpr
+  exact ⟨hrange.1, hrange.2, hsquare, hmate⟩
+
+/-- **Exact largest-prime defect geometry.**
+
+If a state survives under the completed largest-prime Othello mate only because
+its raw mate leaves the physical carrier, then the largest prime
+`q = P⁺(c*k)` can only be moving from the quotient into the cofactor.  It is
+prime, is absent from the cofactor, divides the quotient, and the failed
+insertion is exactly the root-downcross `P(t) * (k/q) ≤ R`. -/
+theorem lowWheelLargestDefect_geometry
+    {R : ℕ} {t : Finset ℕ} {x : LowWheelCofactorQuotientState}
+    (ht : t ∈ (primesUpTo R).powerset)
+    (hx : x ∈ lowWheelLargestDefectPart R t) :
+    let q := lowWheelLargestCofactorQuotientPivot x
+    q.Prime ∧
+      ¬ q ∣ x.1 ∧
+      q ∣ x.2 ∧
+      primeFaceProduct t * (x.2 / q) ≤ R := by
+  rcases x with ⟨c, k⟩
+  dsimp
+  have hdata := Finset.mem_filter.mp hx
+  have hxF : (c, k) ∈ lowWheelCanonicalPhysicalStateSet R t := hdata.1
+  have hprod : c * k ≠ 1 := hdata.2.1
+  have hnotMate :
+      lowWheelLargestCofactorQuotientToggle (c, k) ∉
+        lowWheelCanonicalPhysicalStateSet R t := hdata.2.2
+  have hqPrime :
+      (lowWheelLargestCofactorQuotientPivot (c, k)).Prime :=
+    lowWheelLargestCofactorQuotientPivot_prime ht hxF hprod
+  have hactive :
+      lowWheelLargestCofactorQuotientPivot (c, k) ∣ c ∨
+        lowWheelLargestCofactorQuotientPivot (c, k) ∣ k :=
+    lowWheelLargestCofactorQuotientPivot_active ht hxF hprod
+  have hcarrier : LowWheelTransportPairCarrier R t (c, k) :=
+    (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.2.2
+  have hnotC : ¬ lowWheelLargestCofactorQuotientPivot (c, k) ∣ c := by
+    intro hqc
+    apply hnotMate
+    unfold lowWheelLargestCofactorQuotientToggle
+    exact lowWheelCofactorQuotientToggleAt_mem_physical_of_carrier
+      hqPrime hxF hactive
+      (lowWheelCofactorQuotientToggleAt_preserves_of_dvd_cofactor
+        hqPrime hcarrier hqc)
+  have hqK : lowWheelLargestCofactorQuotientPivot (c, k) ∣ k :=
+    hactive.resolve_left hnotC
+  refine ⟨hqPrime, hnotC, hqK, ?_⟩
+  rcases lowWheelCofactorQuotientToggleAt_preserves_or_downcross_of_dvd_quotient
+      hqPrime hcarrier hnotC hqK with hmate | hdown
+  · exfalso
+    apply hnotMate
+    unfold lowWheelLargestCofactorQuotientToggle
+    exact lowWheelCofactorQuotientToggleAt_mem_physical_of_carrier
+      hqPrime hxF hactive hmate
+  · exact hdown
 
 end RHLean.Proof
