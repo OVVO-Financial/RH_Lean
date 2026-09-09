@@ -336,6 +336,7 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMateNearImage_card_le_seven
   have himage : N.image encode ⊆ Finset.Icc (R + 1) (R + 7) := by
     intro n hn
     rcases Finset.mem_image.mp hn with ⟨z, hz, rfl⟩
+    change lowWheelTaggedHighProduct z ∈ Finset.Icc (R + 1) (R + 7)
     have hzImage := (Finset.mem_filter.mp hz).1
     have hroot :=
       lowWheelCanonicalRepeatedTerminalInternalMateImage_root_lt_highProduct hzImage
@@ -346,7 +347,7 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMateNearImage_card_le_seven
   have hle := Finset.card_le_card himage
   rw [hcardImage] at hle
   have hI : (Finset.Icc (R + 1) (R + 7)).card = 7 := by
-    rw [Finset.card_Icc]
+    rw [Nat.card_Icc]
     omega
   calc
     N.card ≤ (Finset.Icc (R + 1) (R + 7)).card := hle
