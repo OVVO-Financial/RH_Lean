@@ -46,9 +46,13 @@ theorem sum_oddReciprocalSquares_le_quarter_sub (N : ℕ) :
   | zero => norm_num
   | succ N ih =>
     rw [Finset.sum_range_succ]
-    have ht := oddReciprocalSquareTerm_le_telescope N
-    push_cast at ih ht ⊢
-    linarith
+    calc
+      _ ≤ (1 / 4 - 1 / (4 * ((N : ℚ) + 1))) +
+          (1 / (4 * ((N : ℚ) + 1)) - 1 / (4 * ((N : ℚ) + 2))) :=
+        add_le_add ih (oddReciprocalSquareTerm_le_telescope N)
+      _ = 1 / 4 - 1 / (4 * ((((N + 1 : ℕ) : ℚ)) + 1)) := by
+        push_cast
+        ring
 
 private theorem oddPrimes_subset_oddImage (N : ℕ) :
     (primesUpTo N).erase 2 ⊆
@@ -78,7 +82,7 @@ theorem oddPrimeOwnerReciprocalSquareBudget_le_quarter (N : ℕ) :
     have hp : (0 : ℚ) ≤ 1 / (4 * ((N : ℚ) + 1)) := by positivity
     linarith
   · intro a _ha b _hb hab
-    omega
+    exact Nat.mul_left_cancel (Nat.add_right_cancel hab)
 
 /-- Prime `2` costs one quarter; all odd primes together cost at most another. -/
 theorem primeOwnerReciprocalSquareBudget_le_half (N : ℕ) :
