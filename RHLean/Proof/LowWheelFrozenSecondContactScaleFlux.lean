@@ -110,6 +110,38 @@ theorem lowWheelFrozenSecondContact_sourceScale_largestPrime
   rw [lowWheelFrozenSecondContactSourceScale_eq_insertPivotFaceProduct hy]
   exact hmax
 
+/-- **Physical/Go second-contact intertwining certificate.**  All three pieces
+that had previously lived in separate coordinate systems are the same source:
+
+* the physical predecessor face is `A*d`;
+* its signed weight is exactly `mu(A)*mu(d)`;
+* after dividing the parent endpoint by `A`, the stripped cofactor is the
+  genuine Go boundary `q*d <= B < q^2*d` on a strict lower scale `B<R`.
+
+No norm, inequality estimate, or probabilistic identification enters this
+statement.  It is the exact arithmetic carrier/sign/scale dictionary needed to
+transport the physical least-square boundary into the Go recursion. -/
+theorem lowWheelFrozenSecondContact_physicalGo_intertwining
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
+    (hy : y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R) :
+    let A := lowWheelFrozenSecondContactSourceScale y
+    let B := squareRootEndpoint R / A
+    let c := y.2.1
+    let q := lowWheelFrozenCofactorTopPrime y
+    let d := canonicalCofactor c
+    primeFaceProduct (lowWheelFrozenSecondContactParentFace y) = A * d ∧
+      canonicalMoebiusWeight c * (booleanCubeSign y.1 : ℂ) =
+        canonicalMoebiusWeight A * canonicalMoebiusWeight d ∧
+      q.Prime ∧ Squarefree d ∧ canonicalLargestPrimeFactor d < q ∧
+        q * d = c ∧ q * d ≤ B ∧ B < q * q * d ∧ B < R := by
+  dsimp only
+  refine ⟨
+    lowWheelFrozenSecondContact_parentFaceProduct_eq_sourceScale_mul_canonicalCofactor hy,
+    lowWheelFrozenSecondContact_sourceWeight_eq_scale_mul_canonicalCofactor hy,
+    ?_⟩
+  have h := lowWheelFrozenSecondContact_source_lowerScaleSecondContact hy
+  simpa [lowWheelFrozenSecondContactSourceScale] using h
+
 /-- Square-dilated daughter cutoff attached to one second-contact owner. -/
 def lowWheelFrozenSecondContactFluxChildCutoff (B q : ℕ) : ℕ :=
   B / (q * q)
