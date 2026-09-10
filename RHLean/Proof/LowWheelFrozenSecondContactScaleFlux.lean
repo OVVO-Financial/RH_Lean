@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
 import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.LowWheelFrozenSecondContactGlobalTelescope
 import RHLean.Proof.SquareRootLowPrimeTSectorQ2Renormalization
@@ -119,6 +120,39 @@ theorem lowWheelFrozenSecondContactFluxChildCutoff_le
     lowWheelFrozenSecondContactFluxChildCutoff B q ≤ B := by
   unfold lowWheelFrozenSecondContactFluxChildCutoff
   exact Nat.div_le_self _ _
+
+/-! ## Exact reciprocal-coordinate / Go-daughter intertwining
+
+The unified reciprocal form uses `roughCofactorMobiusPrefixMass q B`.  The Go
+wall was developed independently as a frozen predecessor-cube residual.  At the
+square-dilated cutoff these are not merely analogous: they are exactly the same
+Möbius population.  This is the missing coordinate splice between the
+reciprocal transform and the `q^2` daughter carrier.
+-/
+
+/-- **Exact q² daughter identification.**  The complex cast of the literal Go
+square residual is the rough lower-scale Möbius prefix at the identical
+`X/q²` cutoff used by the unified reciprocal transform.  Nonsquarefree
+cofactors may be omitted on the Go side because their Möbius weight is zero. -/
+theorem squareRootLowPrimeGoWallSquareResidual_cast_eq_roughCofactorMobiusPrefixMass
+    {q X : ℕ} (hq : q.Prime) :
+    (((squareRootLowPrimeGoWallSquareResidual q X : ℤ) : ℂ)) =
+      roughCofactorMobiusPrefixMass q (X / (q * q)) := by
+  rw [squareRootLowPrimeGoWallSquareResidual_eq_smoothCofactorSum hq]
+  push_cast
+  unfold squareRootLowPrimeGoSmoothCofactors
+    roughCofactorMobiusPrefixMass
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro c hc
+  by_cases hrough : canonicalLargestPrimeFactor c < q
+  · rw [if_pos hrough]
+    by_cases hsq : Squarefree c
+    · simp [hsq, hrough, canonicalMoebiusWeight]
+    · have hmu : μ c = 0 :=
+        ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
+      simp [hsq, hrough, canonicalMoebiusWeight, hmu]
+  · simp [hrough, canonicalMoebiusWeight]
 
 /-! ## The #629 collision fibre becomes bounded after q^-2 scaling
 
