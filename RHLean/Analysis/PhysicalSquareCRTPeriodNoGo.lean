@@ -402,12 +402,12 @@ theorem physicalLeastOddSquarePrime_eq_some_three_iff (k : ℕ) :
         subst p
         rfl
 
-/-- The computable population above is literally the repository's least-owner
-q=3 deletion carrier for `{11}` on the same complete prefix. -/
-theorem outsidePrimeLeastDeletionChannelCells_eleven_three_4356 :
+/-- Exact q=3 selected deletion carrier at every prefix, including all of the
+least-owner and actual-deletion conditions. -/
+theorem outsidePrimeLeastDeletionChannelCells_eleven_three (K : ℕ) :
     outsidePrimeLeastDeletionChannelCells
-        ({11} : Finset ℕ) (Finset.range 4356) 3 =
-      elevenThreeCompleteSelectedDeletionCells := by
+        ({11} : Finset ℕ) (Finset.range K) 3 =
+      (physicalSquareHitCells K 3).filter (tSquareZeroFreeAt 11) := by
   ext k
   constructor
   · intro hk
@@ -425,13 +425,13 @@ theorem outsidePrimeLeastDeletionChannelCells_eleven_three_4356 :
           physicalLeastOddSquarePrime_some_spec hleast
         apply Finset.mem_filter.mpr
         constructor
-        · exact (mem_physicalSquareHitCells_iff (K := 4356)
+        · exact (mem_physicalSquareHitCells_iff (K := K)
             (q := 3) (k := k) (by norm_num)).2
               ⟨Finset.mem_range.mp hkRange, hhit⟩
         · simpa [outsidePrimeSelectedZeroFreeAt] using hselected
   · intro hk
     rcases Finset.mem_filter.mp hk with ⟨hkSquare, h11zero⟩
-    rcases (mem_physicalSquareHitCells_iff (K := 4356)
+    rcases (mem_physicalSquareHitCells_iff (K := K)
         (q := 3) (k := k) (by norm_num)).1 hkSquare with
       ⟨hklt, hthree⟩
     have hleast : physicalLeastOddSquarePrime k = some 3 :=
@@ -458,6 +458,13 @@ theorem outsidePrimeLeastDeletionChannelCells_eleven_three_4356 :
     · exact mem_outsidePrimeDeletionCells_iff.mpr
         ⟨Finset.mem_range.mpr hklt, hselected, hnotActual⟩
     · simp [hleast]
+
+/-- The complete-period certificate is an instance of the exact prefix carrier. -/
+theorem outsidePrimeLeastDeletionChannelCells_eleven_three_4356 :
+    outsidePrimeLeastDeletionChannelCells
+        ({11} : Finset ℕ) (Finset.range 4356) 3 =
+      elevenThreeCompleteSelectedDeletionCells := by
+  exact outsidePrimeLeastDeletionChannelCells_eleven_three 4356
 
 /-- The ordinary q=3 rough daughter at cutoff 2 is `mu(1)+mu(2)=0`. -/
 theorem roughCofactorMobiusPrefixMass_three_two_eq_zero :

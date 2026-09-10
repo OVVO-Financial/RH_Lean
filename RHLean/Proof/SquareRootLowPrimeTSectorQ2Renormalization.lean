@@ -234,18 +234,14 @@ def ElevenQ2EnergyStep (E : ℕ → ℚ) (C : ℚ) : Prop :=
       elevenWeightOneEnergyFactor *
         ∑ q ∈ primesUpTo X, E (X / (q * q))
 
-/-- **Subcritical energy induction.**  Once the physical arithmetic supplies
-the preceding one-step recurrence, the endpoint energy is automatically linear
-in scale.  The factor `4` is deliberately coarse: `11` contributes less than
-`3/4`, while all `q^2` daughters together consume at most one parent scale.
-
-This is the quantitative closure that the old growing-CRT route lacked: a fixed
-finite spectral contraction can now be reused at every strict multiplicative
-scale descent. -/
-theorem elevenQ2EnergyStep_implies_linear
-    {E : ℕ → ℚ} {C : ℚ}
-    (hC : 0 ≤ C)
-    (hstep : ElevenQ2EnergyStep E C) :
+/-- The same induction permits any nonnegative coefficient at most `3/4`.
+This retains the available margin for a bulk-boundary cross term. -/
+theorem q2EnergyStep_implies_linear
+    {E : ℕ → ℚ} {C lambda : ℚ}
+    (hC : 0 ≤ C) (hlambda0 : 0 ≤ lambda)
+    (hlambda : lambda ≤ (3 : ℚ) / 4)
+    (hstep : ∀ X : ℕ, E X ≤ C * (X : ℚ) +
+      lambda * ∑ q ∈ primesUpTo X, E (X / (q * q))) :
     ∀ X : ℕ, E X ≤ 4 * C * (X : ℚ) := by
   intro X
   induction X using Nat.strong_induction_on with
@@ -253,7 +249,7 @@ theorem elevenQ2EnergyStep_implies_linear
       by_cases hX : X = 0
       · subst X
         have hs := hstep 0
-        simpa [ElevenQ2EnergyStep] using hs
+        simpa using hs
       · have hXpos : 0 < X := Nat.pos_of_ne_zero hX
         have hchildren :
             (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤
@@ -280,28 +276,76 @@ theorem elevenQ2EnergyStep_implies_linear
           exact hchildren.trans
             (mul_le_mul_of_nonneg_left hscale (by positivity))
         have hs := hstep X
-        have hlambda :
-            elevenWeightOneEnergyFactor ≤ (3 : ℚ) / 4 :=
-          le_of_lt elevenWeightOneEnergyFactor_lt_three_quarters
         have hweighted :
-            elevenWeightOneEnergyFactor *
+            lambda *
                 (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤
               ((3 : ℚ) / 4) * (4 * C * (X : ℚ)) := by
           calc
-            elevenWeightOneEnergyFactor *
+            lambda *
                 (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤
-              elevenWeightOneEnergyFactor * (4 * C * (X : ℚ)) := by
+              lambda * (4 * C * (X : ℚ)) := by
                 exact mul_le_mul_of_nonneg_left hchildrenParent
-                  elevenWeightOneEnergyFactor_nonneg
+                  hlambda0
             _ ≤ ((3 : ℚ) / 4) * (4 * C * (X : ℚ)) := by
                 exact mul_le_mul_of_nonneg_right hlambda (by positivity)
         calc
           E X ≤ C * (X : ℚ) +
-              elevenWeightOneEnergyFactor *
+              lambda *
                 ∑ q ∈ primesUpTo X, E (X / (q * q)) := hs
           _ ≤ C * (X : ℚ) +
               ((3 : ℚ) / 4) * (4 * C * (X : ℚ)) :=
                 add_le_add_left hweighted _
           _ = 4 * C * (X : ℚ) := by ring
+
+/-- **Subcritical energy induction with the exact prime-11 factor.** -/
+theorem elevenQ2EnergyStep_implies_linear
+    {E : ℕ → ℚ} {C : ℚ}
+    (hC : 0 ≤ C)
+    (hstep : ElevenQ2EnergyStep E C) :
+    ∀ X : ℕ, E X ≤ 4 * C * (X : ℚ) := by
+  exact q2EnergyStep_implies_linear hC
+    elevenWeightOneEnergyFactor_nonneg
+    (le_of_lt elevenWeightOneEnergyFactor_lt_three_quarters) hstep
+
+/-- Absorb the bulk-boundary cross term while spending only `1/12` of the
+bulk coefficient.  No sign of the boundary is assumed. -/
+theorem elevenQ2_bulk_boundary_sq_le (u b : ℚ) :
+    (u + b) ^ 2 ≤ (13 : ℚ) / 12 * u ^ 2 + 13 * b ^ 2 := by
+  nlinarith [sq_nonneg (u - 12 * b)]
+
+/-- The exact prime-11 factor has enough margin for that absorption. -/
+theorem elevenQ2_boundary_inflated_factor_le_three_quarters :
+    (13 : ℚ) / 12 * elevenWeightOneEnergyFactor ≤ 3 / 4 := by
+  rw [elevenWeightOneEnergyFactor_eq]
+  norm_num
+
+/-- **Complete bulk-boundary energy induction.**  A square-root-size global
+boundary and the desired interior estimate suffice even though squaring their
+sum creates a cross term.  The resulting recurrence uses coefficient
+`(13/12)*(19/23)^2`, still below `3/4`, and yields `E(X) <= 52*B*X`.
+The physical decomposition and interior estimate remain explicit hypotheses. -/
+theorem elevenQ2_bulk_boundary_implies_linear
+    {E I b : ℕ → ℚ} {B : ℚ}
+    (hB : 0 ≤ B)
+    (hdecomp : ∀ X, E X ≤ (I X + b X) ^ 2)
+    (hinterior : ∀ X, (I X) ^ 2 ≤ elevenWeightOneEnergyFactor *
+      ∑ q ∈ primesUpTo X, E (X / (q * q)))
+    (hboundary : ∀ X, (b X) ^ 2 ≤ B * (X : ℚ)) :
+    ∀ X : ℕ, E X ≤ 52 * B * (X : ℚ) := by
+  have hstep : ∀ X : ℕ, E X ≤ (13 * B) * (X : ℚ) +
+      ((13 : ℚ) / 12 * elevenWeightOneEnergyFactor) *
+        ∑ q ∈ primesUpTo X, E (X / (q * q)) := by
+    intro X
+    have hsplit := elevenQ2_bulk_boundary_sq_le (I X) (b X)
+    have hi := hinterior X
+    have hb := hboundary X
+    have hd := hdecomp X
+    nlinarith
+  have h := q2EnergyStep_implies_linear
+    (by positivity : 0 ≤ 13 * B)
+    (mul_nonneg (by norm_num) elevenWeightOneEnergyFactor_nonneg)
+    elevenQ2_boundary_inflated_factor_le_three_quarters hstep
+  intro X
+  simpa only [show (4 : ℚ) * (13 * B) = 52 * B by ring] using h X
 
 end RHLean.Proof

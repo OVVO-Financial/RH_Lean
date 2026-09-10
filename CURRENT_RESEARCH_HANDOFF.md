@@ -8,6 +8,44 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Continuation after #639: audit the admissible energy before closing it
+
+`PhysicalDaughterEnergyObstructions.lean` extends the corrected six-offset
+transport on its exact carrier. Read compilation status from Hosted Lean CI.
+
+The selected `{11}` least-owner `3` deletion mass over `4356*m` source cells is
+exactly `2280*m`. The proof preserves the six-offset assembly, the selected
+zero-free mask, and the least-owner condition. Consequently no energy envelope
+that dominates all these raw selected prefixes can satisfy `ElevenQ2EnergyStep`.
+This does not concern the fully reconstructed Mobius field: the selected term
+must remain signed-coupled to the rest of that reconstruction. Merely retaining
+the affine pullback or restricting to actual deletion carriers is insufficient.
+
+The exact #638 Go-or-root column is also not the existing endpoint object of
+one square block. At `R=1000`, the shallow root column is `7041`. Subtracting the
+shallow Go daughters leaves `7002`. Each exceeds the single-block endpoint
+bound `3*(2R+1)=6003`, so neither quantity can literally equal that endpoint for
+any selected prime set. These are finite nonidentification certificates, not
+proofs of an asymptotic lower bound or impossibility of signed cancellation with
+the root anchor. The all-daughter decomposition now retains the exact signed
+correction explicitly.
+
+There is a positive closure refinement in
+`SquareRootLowPrimeTSectorQ2Renormalization.lean`: the subcritical induction now
+accepts any nonnegative coefficient at most `3/4`, preserving the old theorem.
+Young absorption gives
+
+```text
+(I+b)^2 <= (13/12)*I^2 + 13*b^2,
+(13/12)*(19/23)^2 < 3/4.
+```
+
+Thus a genuinely global boundary with `b(X)^2 <= B*X`, together with the desired
+interior inequality, yields `E(X) <= 52*B*X`. It is unnecessary to preserve the
+exact original coefficient when adding the boundary. The physical signed
+interior inequality and a uniform admissible state preserving full Mobius
+reconstruction are still open; no RH or Mertens exponent improvement is claimed.
+
 ## Current continuation after #608: consume the middle boundary with its base
 
 `research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean` continues the signed
