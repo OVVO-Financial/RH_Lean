@@ -144,6 +144,61 @@ theorem lowWheelFrozenSecondContact_physicalGo_intertwining
   have h := lowWheelFrozenSecondContact_source_lowerScaleSecondContact hy
   simpa [lowWheelFrozenSecondContactSourceScale] using h
 
+/-- **Fixed-owner carrier equivalence.**  On the genuine saturated
+second-contact population, erasing the owner is not merely an injection into a
+Go-like window.  For every prime owner `q<R` it is a bijection onto the complete
+native high-owner predecessor window.  Together with
+`lowWheelFrozenSecondContactParentMap_weight_eq_source`, this is the exact
+carrier-level equivalence behind the signed owner-mass identity. -/
+theorem lowWheelFrozenSecondContactParentFace_bijOn_highOwnerWindow
+    {R q : ℕ} (hq : q.Prime) (hqR : q < R) :
+    Set.BijOn
+      (fun y : LowWheelTaggedDowncrossState =>
+        lowWheelFrozenSecondContactParentFace y)
+      (↑((lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
+          (fun y => lowWheelFrozenCofactorTopPrime y = q)) :
+        Set LowWheelTaggedDowncrossState)
+      (↑(lowWheelFrozenSecondContactHighOwnerWindow R q) : Set (Finset ℕ)) := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro y hy
+    change y ∈ (lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
+      (fun y => lowWheelFrozenCofactorTopPrime y = q) at hy
+    have hySource := (Finset.mem_filter.mp hy).1
+    have hyOwner := (Finset.mem_filter.mp hy).2
+    change lowWheelFrozenSecondContactParentFace y ∈
+      lowWheelFrozenSecondContactHighOwnerWindow R q
+    simpa [hyOwner] using
+      lowWheelFrozenSecondContactParentFace_mem_highOwnerWindow hySource
+  · intro y hy z hz hface
+    change y ∈ (lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
+      (fun y => lowWheelFrozenCofactorTopPrime y = q) at hy
+    change z ∈ (lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
+      (fun y => lowWheelFrozenCofactorTopPrime y = q) at hz
+    have hySource := (Finset.mem_filter.mp hy).1
+    have hzSource := (Finset.mem_filter.mp hz).1
+    have hyOwner := (Finset.mem_filter.mp hy).2
+    have hzOwner := (Finset.mem_filter.mp hz).2
+    have hmap :
+        lowWheelFrozenSecondContactParentMap y =
+          lowWheelFrozenSecondContactParentMap z := by
+      apply Prod.ext
+      · exact hyOwner.trans hzOwner.symm
+      · exact hface
+    exact (lowWheelFrozenSecondContactParentMap_injOn R)
+      hySource hzSource hmap
+  · intro V hV
+    change V ∈ lowWheelFrozenSecondContactHighOwnerWindow R q at hV
+    obtain ⟨y, hySource, hmap⟩ :=
+      lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow hq hqR hV
+    have howner := congrArg Prod.fst hmap
+    have hface := congrArg Prod.snd hmap
+    change lowWheelFrozenCofactorTopPrime y = q at howner
+    change lowWheelFrozenSecondContactParentFace y = V at hface
+    refine ⟨y, ?_, hface⟩
+    change y ∈ (lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
+      (fun y => lowWheelFrozenCofactorTopPrime y = q)
+    exact Finset.mem_filter.mpr ⟨hySource, howner⟩
+
 /-! ## Complete q-square contact fibres and the 11 layer
 
 A fixed physical active affine form is `4*k+a`.  For an odd prime owner `q`,
@@ -417,6 +472,50 @@ theorem squareRootLowPrimeGoWallStripMass_cast_eq_boundaryDiff_add_roughDaughter
     hq hpred]
   push_cast
   rw [squareRootLowPrimeGoWallSquareResidual_cast_eq_roughCofactorMobiusPrefixMass hq]
+
+/-- **Root-floored q² column = Go daughters plus explicit root boundary.**
+The `max R (X_R/q²)` left by the saturated global telescope is split without
+any estimate.  When `X_R/q² >= R` the term is literally the Go square residual;
+otherwise it is exactly the predecessor mass frozen at the root `R`. -/
+theorem lowWheelFrozenSecondContactRootFlooredColumn_eq_goOrRoot
+    (R : ℕ) :
+    (∑ q ∈ primesUpTo (R - 1),
+      frozenPrimeUniverseMass (primesUpTo (q - 1))
+        (max R (squareRootEndpoint R / (q * q)))) =
+      ∑ q ∈ primesUpTo (R - 1),
+        if R ≤ squareRootEndpoint R / (q * q) then
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)
+        else
+          frozenPrimeUniverseMass (primesUpTo (q - 1)) R := by
+  apply Finset.sum_congr rfl
+  intro q hq
+  by_cases hdeep : R ≤ squareRootEndpoint R / (q * q)
+  · rw [if_pos hdeep, max_eq_right hdeep,
+      squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
+  · have hle : squareRootEndpoint R / (q * q) ≤ R :=
+      Nat.le_of_lt (Nat.lt_of_not_ge hdeep)
+    rw [if_neg hdeep, max_eq_left hle]
+
+/-- **Global signed physical/Go equivalence with boundary bookkeeping.**  The
+entire saturated physical second-contact source ledger is exactly one root
+anchor minus a finite sum whose deep terms are the literal Go `q²` daughters
+and whose complementary terms are the explicit root-floor boundary.  This is
+the global form required by #637: no q-owner absolute value and no omitted
+incomplete-period charge. -/
+theorem lowWheelFrozenSecondContactSource_sum_eq_rootBoundary_sub_goOrRoot
+    (R : ℕ) (hR : 2 ≤ R) :
+    (∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+      canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ)) =
+      (((1 - frozenPrimeUniverseMass (primesUpTo (R - 1))
+            (squareRootEndpoint R)) -
+          ∑ q ∈ primesUpTo (R - 1),
+            if R ≤ squareRootEndpoint R / (q * q) then
+              squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)
+            else
+              frozenPrimeUniverseMass (primesUpTo (q - 1)) R : ℤ) : ℂ) := by
+  rw [lowWheelFrozenSecondContactSource_sum_eq_highOwnerWindowMass_sum,
+    lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_rootFlooredLowerColumn R hR,
+    lowWheelFrozenSecondContactRootFlooredColumn_eq_goOrRoot R]
 
 /-! ## The #629 collision fibre becomes bounded after q^-2 scaling
 
