@@ -649,6 +649,7 @@ import RHLean.Proof.SquareRootLowPrimeGoCrossingMateLedger
 import RHLean.Proof.SquareRootLowPrimeGoDivisorFibers
 import RHLean.Proof.SquareRootLowPrimeGoDivisorSubpolynomial
 import RHLean.Proof.SquareRootLowPrimeGoFourthPowerCutoff
+import RHLean.Proof.SquareRootLowPrimeGoFullFacePartner
 import RHLean.Proof.SquareRootLowPrimeGoGlobalPartner
 import RHLean.Proof.SquareRootLowPrimeGoHyperbolicStripRecursion
 import RHLean.Proof.SquareRootLowPrimeGoOwnerFibers
