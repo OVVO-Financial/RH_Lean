@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.LowWheelFullFaceQuotientOthello
+import RHLean.Proof.SquareRootLowPrimeGoAncestryClock
 import RHLean.Proof.SquareRootLowPrimeGoGlobalPartner
 
 /-!
@@ -204,8 +205,6 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
         hR hq hr hrq hcube hd
   have hfull :=
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
-  have hchild :=
-    squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth hq hr hrq hfull
   have hdPos : 0 < d := by
     have hd1 := (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull).1
     omega
