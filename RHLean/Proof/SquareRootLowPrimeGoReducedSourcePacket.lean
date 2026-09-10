@@ -20,8 +20,10 @@ This distinction matters for the quantitative frame problem.  The source packet
 may not be silently discarded with its mate, and it may not be charged as a
 physical square-contact packet without a further scalar pushforward.  The final
 identities below split the #643 reduced ledger exactly into this one surviving
-source packet plus its literal set-theoretic complement.  No norm or estimate is
-taken.
+source packet plus its literal set-theoretic complement.  The complement is then
+identified exactly with the old hard physical residual, so mate deletion has
+relocated the explicit defect packet rather than creating a second mysterious
+remainder.  No norm or estimate is taken.
 -/
 
 noncomputable section
@@ -383,5 +385,36 @@ theorem squareRootLowPrimeGoReducedPhysicalResidualLedger_eq_defectMass_add_rema
         squareRootLowPrimeGoReducedPhysicalResidualRemainderLedger R := by
   rw [squareRootLowPrimeGoReducedPhysicalResidualLedger_eq_source_add_remainder hR,
     squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_mass]
+
+/-- **The complement is exactly the old hard physical residual.**  #643 says
+`old + defect = reduced`; the preceding source-image decomposition says
+`reduced = defect + remainder`.  Cancelling the same signed source packet on
+both sides leaves no new mysterious residual and no estimate: the literal
+remainder ledger is exactly the pre-#643 hard physical residual ledger. -/
+theorem squareRootLowPrimeGoReducedPhysicalResidualRemainderLedger_eq_oldResidual
+    {R : ℕ} (hR : 6 ≤ R) :
+    squareRootLowPrimeGoReducedPhysicalResidualRemainderLedger R =
+      lowWheelFrozenTopFarPhysicalResidualLedger R := by
+  let D : ℂ := ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ)
+  have h643 :
+      lowWheelFrozenTopFarPhysicalResidualLedger R + D =
+        squareRootLowPrimeGoReducedPhysicalResidualLedger R := by
+    simpa [D] using squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced
+      (R := R) hR
+  have hsplit :
+      squareRootLowPrimeGoReducedPhysicalResidualLedger R =
+        D + squareRootLowPrimeGoReducedPhysicalResidualRemainderLedger R := by
+    simpa [D] using
+      squareRootLowPrimeGoReducedPhysicalResidualLedger_eq_defectMass_add_remainder
+        (R := R) hR
+  calc
+    squareRootLowPrimeGoReducedPhysicalResidualRemainderLedger R =
+        (D + squareRootLowPrimeGoReducedPhysicalResidualRemainderLedger R) - D := by
+      ring
+    _ = squareRootLowPrimeGoReducedPhysicalResidualLedger R - D := by
+      rw [← hsplit]
+    _ = (lowWheelFrozenTopFarPhysicalResidualLedger R + D) - D := by
+      rw [← h643]
+    _ = lowWheelFrozenTopFarPhysicalResidualLedger R := by ring
 
 end RHLean.Proof
