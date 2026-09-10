@@ -270,6 +270,55 @@ theorem goRootFloorCorrection_ne_squareBlockEndpoint (P : Finset ℕ) :
   rw [← h, goRootFloorCorrection_1000] at hb
   norm_num at hb
 
+/-! ## The root-floor term must stay coupled to its root anchor -/
+
+/-- The boundary left after restoring every `q^2` daughter is not the raw
+root-floor correction from above.  It is the signed coupling of that correction
+with the frozen root anchor already present in the saturated physical source
+identity. -/
+noncomputable def goCompensatedRootBoundary (R : ℕ) : ℤ :=
+  1 - frozenPrimeUniverseMass (primesUpTo (R - 1)) (squareRootEndpoint R) -
+    goRootFloorCorrection R
+
+/-- **Exact globally compensated daughter decomposition.**  The complete
+saturated physical second-contact source ledger is one compensated root
+boundary minus *all* literal Go `q^2` daughters.  Thus neither the raw deletion
+field nor the raw root-floor correction is an admissible standalone state; both
+must remain inside the full signed reconstruction before any norm is taken. -/
+theorem lowWheelFrozenSecondContactSource_sum_eq_compensatedRootBoundary_sub_allDaughters
+    (R : ℕ) (hR : 2 ≤ R) :
+    (∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+      canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ)) =
+      (((goCompensatedRootBoundary R -
+        ∑ q ∈ primesUpTo (R - 1),
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R) : ℤ) : ℂ)) := by
+  have hcolumn :
+      (∑ q ∈ primesUpTo (R - 1),
+        if R ≤ squareRootEndpoint R / (q * q) then
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)
+        else frozenPrimeUniverseMass (primesUpTo (q - 1)) R) =
+        (∑ q ∈ primesUpTo (R - 1),
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)) +
+            goRootFloorCorrection R := by
+    calc
+      (∑ q ∈ primesUpTo (R - 1),
+        if R ≤ squareRootEndpoint R / (q * q) then
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)
+        else frozenPrimeUniverseMass (primesUpTo (q - 1)) R) =
+          ∑ q ∈ primesUpTo (R - 1),
+            frozenPrimeUniverseMass (primesUpTo (q - 1))
+              (max R (squareRootEndpoint R / (q * q))) :=
+        (lowWheelFrozenSecondContactRootFlooredColumn_eq_goOrRoot R).symm
+      _ = (∑ q ∈ primesUpTo (R - 1),
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)) +
+            goRootFloorCorrection R :=
+        goRootFlooredColumn_eq_all_daughters_add_correction R
+  rw [lowWheelFrozenSecondContactSource_sum_eq_rootBoundary_sub_goOrRoot R hR,
+    hcolumn]
+  unfold goCompensatedRootBoundary
+  push_cast
+  ring
+
 /-! ## The fully reconstructed signed packet is q-square closed
 
 The raw selected deletion prefix above is not an admissible energy state.  The
