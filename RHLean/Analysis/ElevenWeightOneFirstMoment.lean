@@ -20,6 +20,13 @@ any complementary weight field on a modulus coprime to `11^2` may vary
 arbitrarily, and the complete product orbit still sees exactly the same
 `19/23` first-moment scalar.  No independence assumption is used.
 
+The complete-contact section proves the missing least-square local mechanism:
+for an odd prime owner `q`, each fixed physical affine offset has exactly one
+`q^2` root.  Therefore, on a complete coprime super-orbit, restricting to that
+`q^2` contact is exactly one copy of the complementary first moment.  This is a
+finite equivalence, not a density estimate; the complementary field is arbitrary
+and can carry all earlier-square masks, selected-prime signs, and Schur weights.
+
 The final section proves the exact operator-level intertwining with the
 square-dilated Go scale on the actual recovered prime-wheel field `raw-2*smooth`.
 -/
@@ -200,6 +207,118 @@ theorem eleven_coprimeTensor_firstMoment_sq
             g ((ZMod.chineseRemainder hcop) z).2) ^ 2 := by
   rw [eleven_coprimeTensor_firstMoment M hcop i g]
   ring
+
+/-! ## Complete q-square contact fibres are exact daughters -/
+
+/-- Multiplication by a residue coprime to the modulus, followed by translation,
+is a permutation of the complete residue population. -/
+def zmodAffineEquivOfCoprime
+    (m a : ℕ) [NeZero m] (hcop : Nat.Coprime a m) (b : ZMod m) :
+    ZMod m ≃ ZMod m where
+  toFun z := (a : ZMod m) * z + b
+  invFun y := (a : ZMod m)⁻¹ * (y - b)
+  left_inv := by
+    intro z
+    have hu : IsUnit (a : ZMod m) :=
+      (ZMod.isUnit_iff_coprime a m).2 hcop
+    dsimp
+    calc
+      (a : ZMod m)⁻¹ * ((a : ZMod m) * z + b - b) =
+          ((a : ZMod m)⁻¹ * (a : ZMod m)) * z := by ring
+      _ = z := by rw [ZMod.inv_mul_of_unit _ hu, one_mul]
+  right_inv := by
+    intro y
+    have hu : IsUnit (a : ZMod m) :=
+      (ZMod.isUnit_iff_coprime a m).2 hcop
+    dsimp
+    calc
+      (a : ZMod m) * ((a : ZMod m)⁻¹ * (y - b)) + b =
+          ((a : ZMod m) * (a : ZMod m)⁻¹) * (y - b) + b := by ring
+      _ = y := by
+        rw [ZMod.mul_inv_of_unit _ hu]
+        ring
+
+/-- Local indicator that the physical affine site `4*k+a` is hit by `q^2`.
+Writing the condition in `ZMod (q^2)` makes the one-root geometry explicit. -/
+def qSquareOffsetHitIndicator (q a : ℕ) (z : ZMod (q ^ 2)) : ℚ :=
+  if (4 : ZMod (q ^ 2)) * z + (a : ZMod (q ^ 2)) = 0 then 1 else 0
+
+/-- For every odd prime owner and every fixed physical offset, the `q^2` contact
+has exactly one residue in a complete local period. -/
+theorem sum_qSquareOffsetHitIndicator_eq_one
+    {q a : ℕ} (hq : q.Prime) (hq2 : q ≠ 2) :
+    (∑ z : ZMod (q ^ 2), qSquareOffsetHitIndicator q a z) = 1 := by
+  letI : NeZero (q ^ 2) := ⟨pow_ne_zero 2 hq.ne_zero⟩
+  have hcop : Nat.Coprime (q ^ 2) 4 := by
+    simpa using
+      (Nat.coprime_pow_primes (p := q) (q := 2) 2 2
+        hq Nat.prime_two hq2)
+  let e : ZMod (q ^ 2) ≃ ZMod (q ^ 2) :=
+    zmodAffineEquivOfCoprime (q ^ 2) 4 hcop.symm (a : ZMod (q ^ 2))
+  calc
+    (∑ z : ZMod (q ^ 2), qSquareOffsetHitIndicator q a z) =
+        ∑ y : ZMod (q ^ 2), if y = 0 then (1 : ℚ) else 0 := by
+      exact Fintype.sum_equiv e
+        (fun z : ZMod (q ^ 2) => qSquareOffsetHitIndicator q a z)
+        (fun y : ZMod (q ^ 2) => if y = 0 then (1 : ℚ) else 0)
+        (by
+          intro z
+          simp [e, qSquareOffsetHitIndicator, zmodAffineEquivOfCoprime])
+    _ = 1 := by simp
+
+/-- The modular contact indicator is literally the natural divisibility
+condition used by the physical least-square carrier. -/
+theorem qSquareOffsetHitIndicator_natCast
+    {q a k : ℕ} (hq : q.Prime) :
+    qSquareOffsetHitIndicator q a (k : ZMod (q ^ 2)) =
+      (if q ^ 2 ∣ 4 * k + a then 1 else 0) := by
+  letI : NeZero (q ^ 2) := ⟨pow_ne_zero 2 hq.ne_zero⟩
+  unfold qSquareOffsetHitIndicator
+  have hcast :
+      (4 : ZMod (q ^ 2)) * (k : ZMod (q ^ 2)) +
+          (a : ZMod (q ^ 2)) =
+        ((4 * k + a : ℕ) : ZMod (q ^ 2)) := by
+    push_cast
+    rfl
+  rw [hcast, ZMod.natCast_eq_zero_iff]
+
+/-- **Complete least-square contact / daughter equivalence.**  Let `g` be any
+complementary arithmetic first-moment field on a modulus coprime to `q^2`.
+Restricting a complete product orbit to one physical `q^2` contact leaves
+*exactly one copy* of the complementary first moment.  Thus every earlier-square
+mask, selected-prime sign, or rank-one Schur weight may be carried inside `g`
+without loss: the q-square coordinate is removed by a finite bijection, not by
+an estimate or an independence assumption. -/
+theorem qSquareOffset_coprimeTensor_firstMoment
+    (q M a : ℕ) [NeZero M]
+    (hq : q.Prime) (hq2 : q ≠ 2)
+    (hcop : Nat.Coprime (q ^ 2) M)
+    (g : ZMod M → ℚ) :
+    (∑ z : ZMod ((q ^ 2) * M),
+      qSquareOffsetHitIndicator q a
+          ((ZMod.chineseRemainder hcop) z).1 *
+        g ((ZMod.chineseRemainder hcop) z).2) =
+      ∑ b : ZMod M, g b := by
+  letI : NeZero (q ^ 2) := ⟨pow_ne_zero 2 hq.ne_zero⟩
+  have htensor := coprimeZMod_sum_tensor (q ^ 2) M hcop
+    (qSquareOffsetHitIndicator q a) g
+  rw [sum_qSquareOffsetHitIndicator_eq_one hq hq2] at htensor
+  simpa using htensor
+
+/-- The rank-one energy carried by a complete q-square contact is therefore
+identical to the daughter rank-one energy before the independent 11-layer is
+applied. -/
+theorem qSquareOffset_coprimeTensor_firstMoment_sq
+    (q M a : ℕ) [NeZero M]
+    (hq : q.Prime) (hq2 : q ≠ 2)
+    (hcop : Nat.Coprime (q ^ 2) M)
+    (g : ZMod M → ℚ) :
+    (∑ z : ZMod ((q ^ 2) * M),
+      qSquareOffsetHitIndicator q a
+          ((ZMod.chineseRemainder hcop) z).1 *
+        g ((ZMod.chineseRemainder hcop) z).2) ^ 2 =
+      (∑ b : ZMod M, g b) ^ 2 := by
+  rw [qSquareOffset_coprimeTensor_firstMoment q M a hq hq2 hcop g]
 
 /-! ## Exact all-prime Euler / q-square intertwining -/
 
