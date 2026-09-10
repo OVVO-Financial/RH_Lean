@@ -152,7 +152,7 @@ theorem squareRootLowPrimeGoWallSquareResidual_cast_eq_roughCofactorMobiusPrefix
     · have hmu : μ c = 0 :=
         ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
       simp [hsq, hrough, canonicalMoebiusWeight, hmu]
-  · simp [hrough, canonicalMoebiusWeight]
+  · simp [hrough]
 
 /-- **One-strip reciprocal/Go intertwining.**  After casting the exact Go strip
 to the common complex carrier, its only non-boundary term is literally the
