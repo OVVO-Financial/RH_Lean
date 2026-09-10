@@ -153,6 +153,7 @@ import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.NearestSquareEndpointDomination
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
+import RHLean.Analysis.OutsidePrimeCompleteDeletionFirstMoment
 import RHLean.Analysis.OutsidePrimeDeletionMask
 import RHLean.Analysis.OutsidePrimeLeastSquareEndpoint
 import RHLean.Analysis.PRoughSquarePrefixEnergy
