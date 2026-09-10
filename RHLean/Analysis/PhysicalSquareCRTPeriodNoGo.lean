@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.PhysicalSquareCRTTransfer
+import RHLean.Analysis.OutsidePrimeSixOffsetQ2Transport
 
 /-!
 # The complete-CRT core is empty once the period exceeds the square block
