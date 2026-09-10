@@ -120,6 +120,71 @@ theorem lowWheelFrozenSecondContactFluxChildCutoff_le
   unfold lowWheelFrozenSecondContactFluxChildCutoff
   exact Nat.div_le_self _ _
 
+/-! ## The #629 collision fibre becomes bounded after q^-2 scaling
+
+`lowWheelFrozenSecondContactChildOwnerColumn_eq_signed_fibers` shows that the
+raw coefficient of a reassembled face is the cardinality of
+`lowWheelFrozenSecondContactOldOwnerFiber`.  All old owners in that fibre have
+the same sign, so the cardinality itself cannot be cancelled locally.
+
+The q-square descent changes the correct coefficient.  Retaining the intrinsic
+owner weight `q^-2` turns the same fibre into a sub-sum of the already compiled
+prime-owner reciprocal-square budget.  Consequently every collision fibre has
+weighted mass at most one, regardless of its raw cardinality.
+-/
+
+/-- Reciprocal-square mass of the exact old-owner collision fibre from #629. -/
+def lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass
+    (R r d : ℕ) : ℚ :=
+  ∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+    (1 : ℚ) / (q : ℚ) ^ 2
+
+/-- Every old-owner collision fibre is literally a subfamily of the ambient
+prime-owner schedule. -/
+theorem lowWheelFrozenSecondContactOldOwnerFiber_subset_primesUpTo
+    (R r d : ℕ) :
+    lowWheelFrozenSecondContactOldOwnerFiber R r d ⊆ primesUpTo (R - 1) := by
+  intro q hq
+  exact (Finset.mem_filter.mp hq).1
+
+/-- The reciprocal-square mass of one collision fibre is no larger than the
+complete prime-owner reciprocal-square budget. -/
+theorem lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass_le_budget
+    (R r d : ℕ) :
+    lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass R r d ≤
+      primeOwnerReciprocalSquareBudget (R - 1) := by
+  unfold lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass
+  apply Finset.sum_le_sum_of_subset_of_nonneg
+    (lowWheelFrozenSecondContactOldOwnerFiber_subset_primesUpTo R r d)
+  intro q _hq hnot
+  positivity
+
+/-- **Weighted collision-fibre contraction.**  Arbitrarily large raw old-owner
+multiplicity costs at most unit mass after the natural `q^-2` scale is retained.
+This is finite and elementary; no prime density estimate is used. -/
+theorem lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass_le_one
+    (R r d : ℕ) :
+    lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass R r d ≤ 1 := by
+  exact (lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass_le_budget R r d).trans
+    (primeOwnerReciprocalSquareBudget_le_one (R - 1))
+
+/-- The same fact in the literal daughter-cutoff units used by the q-square
+renormalization: restricting to any one collision fibre cannot exceed one
+parent-scale budget. -/
+theorem sum_oldOwnerFiber_squareDilatedCutoffs_le_parent
+    (R r d X : ℕ) :
+    (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+      ((X / (q * q) : ℕ) : ℚ)) ≤ (X : ℚ) := by
+  calc
+    (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+        ((X / (q * q) : ℕ) : ℚ)) ≤
+      ∑ q ∈ primesUpTo (R - 1), ((X / (q * q) : ℕ) : ℚ) := by
+        apply Finset.sum_le_sum_of_subset_of_nonneg
+          (lowWheelFrozenSecondContactOldOwnerFiber_subset_primesUpTo R r d)
+        intro q _hq hnot
+        positivity
+    _ ≤ (X : ℚ) := sum_primeOwner_squareDilatedCutoffs_le_parent (R - 1) X
+
 /-! ## Canonical ancestry congestion on the saturated #629 window
 
 The original collision-defect-chain interface bounded the number of charged
