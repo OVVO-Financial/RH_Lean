@@ -234,6 +234,59 @@ def ElevenQ2EnergyStep (E : ℕ → ℚ) (C : ℚ) : Prop :=
       elevenWeightOneEnergyFactor *
         ∑ q ∈ primesUpTo X, E (X / (q * q))
 
+/-- **Fixed-point form of the q-square energy induction.**  The earlier
+`3/4` lemma is only one convenient specialization.  If `K` is any nonnegative
+linear envelope satisfying `C + lambda*K <= K`, then the same strong induction
+closes at `E(X) <= K*X`.  This exposes all of the spectral margin below one. -/
+theorem q2EnergyStep_implies_linear_of_fixedPointBudget
+    {E : ℕ → ℚ} {C lambda K : ℚ}
+    (hK : 0 ≤ K) (hlambda0 : 0 ≤ lambda)
+    (hfixed : C + lambda * K ≤ K)
+    (hstep : ∀ X : ℕ, E X ≤ C * (X : ℚ) +
+      lambda * ∑ q ∈ primesUpTo X, E (X / (q * q))) :
+    ∀ X : ℕ, E X ≤ K * (X : ℚ) := by
+  intro X
+  induction X using Nat.strong_induction_on with
+  | h X ih =>
+      by_cases hX : X = 0
+      · subst X
+        have hs := hstep 0
+        simpa using hs
+      · have hXpos : 0 < X := Nat.pos_of_ne_zero hX
+        have hchildren :
+            (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤
+              K * (∑ q ∈ primesUpTo X, ((X / (q * q) : ℕ) : ℚ)) := by
+          calc
+            (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤
+                ∑ q ∈ primesUpTo X,
+                  K * ((X / (q * q) : ℕ) : ℚ) := by
+              apply Finset.sum_le_sum
+              intro q hq
+              have hqPrime := (mem_primesUpTo.mp hq).1
+              have hqq : 1 < q * q := by nlinarith [hqPrime.two_le]
+              have hchild : X / (q * q) < X :=
+                Nat.div_lt_self hXpos hqq
+              exact ih (X / (q * q)) hchild
+            _ = K *
+                (∑ q ∈ primesUpTo X, ((X / (q * q) : ℕ) : ℚ)) := by
+              rw [Finset.mul_sum]
+        have hscale := sum_primeOwner_squareDilatedCutoffs_le_parent X X
+        have hchildrenParent :
+            (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤ K * (X : ℚ) := by
+          exact hchildren.trans (mul_le_mul_of_nonneg_left hscale hK)
+        have hweighted :
+            lambda * (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤
+              lambda * (K * (X : ℚ)) :=
+          mul_le_mul_of_nonneg_left hchildrenParent hlambda0
+        calc
+          E X ≤ C * (X : ℚ) +
+              lambda * ∑ q ∈ primesUpTo X, E (X / (q * q)) := hstep X
+          _ ≤ C * (X : ℚ) + lambda * (K * (X : ℚ)) :=
+            add_le_add_left hweighted _
+          _ = (C + lambda * K) * (X : ℚ) := by ring
+          _ ≤ K * (X : ℚ) :=
+            mul_le_mul_of_nonneg_right hfixed (by positivity)
+
 /-- The same induction permits any nonnegative coefficient at most `3/4`.
 This retains the available margin for a bulk-boundary cross term. -/
 theorem q2EnergyStep_implies_linear
@@ -347,5 +400,133 @@ theorem elevenQ2_bulk_boundary_implies_linear
     elevenQ2_boundary_inflated_factor_le_three_quarters hstep
   intro X
   simpa only [show (4 : ℚ) * (13 * B) = 52 * B by ring] using h X
+
+/-- Optimized Young absorption for the exact `19/23` daughter amplitude.  This
+spends the entire strict subunit margin rather than rounding the recurrence down
+to `3/4`. -/
+theorem elevenQ2_bulk_boundary_sq_le_optimal (u b : ℚ) :
+    (u + b) ^ 2 ≤ (23 : ℚ) / 19 * u ^ 2 + (23 : ℚ) / 4 * b ^ 2 := by
+  nlinarith [sq_nonneg (4 * u - 19 * b)]
+
+/-- **Full-margin bulk-boundary induction.**  Under the exact interior estimate,
+the optimized Young split leaves daughter coefficient `19/23`.  The fixed-point
+linear envelope is therefore `(529/16)*B*X`, improving the coarse `52*B*X`
+constant and, more importantly, exposing the whole margin below one. -/
+theorem elevenQ2_bulk_boundary_implies_linear_fullMargin
+    {E I b : ℕ → ℚ} {B : ℚ}
+    (hB : 0 ≤ B)
+    (hdecomp : ∀ X, E X ≤ (I X + b X) ^ 2)
+    (hinterior : ∀ X, (I X) ^ 2 ≤ elevenWeightOneEnergyFactor *
+      ∑ q ∈ primesUpTo X, E (X / (q * q)))
+    (hboundary : ∀ X, (b X) ^ 2 ≤ B * (X : ℚ)) :
+    ∀ X : ℕ, E X ≤ ((529 : ℚ) / 16 * B) * (X : ℚ) := by
+  have hfactor :
+      (23 : ℚ) / 19 * elevenWeightOneEnergyFactor = (19 : ℚ) / 23 := by
+    rw [elevenWeightOneEnergyFactor_eq]
+    norm_num
+  have hstep : ∀ X : ℕ,
+      E X ≤ ((23 : ℚ) / 4 * B) * (X : ℚ) +
+        ((19 : ℚ) / 23) * ∑ q ∈ primesUpTo X, E (X / (q * q)) := by
+    intro X
+    have hsplit := elevenQ2_bulk_boundary_sq_le_optimal (I X) (b X)
+    have hiScaled :
+        (23 : ℚ) / 19 * (I X) ^ 2 ≤
+          (19 : ℚ) / 23 * ∑ q ∈ primesUpTo X, E (X / (q * q)) := by
+      calc
+        (23 : ℚ) / 19 * (I X) ^ 2 ≤
+            (23 : ℚ) / 19 *
+              (elevenWeightOneEnergyFactor *
+                ∑ q ∈ primesUpTo X, E (X / (q * q))) :=
+          mul_le_mul_of_nonneg_left (hinterior X) (by norm_num)
+        _ = (19 : ℚ) / 23 *
+              ∑ q ∈ primesUpTo X, E (X / (q * q)) := by
+          rw [← mul_assoc, hfactor]
+    have hbScaled :
+        (23 : ℚ) / 4 * (b X) ^ 2 ≤
+          (23 : ℚ) / 4 * (B * (X : ℚ)) :=
+      mul_le_mul_of_nonneg_left (hboundary X) (by norm_num)
+    calc
+      E X ≤ (I X + b X) ^ 2 := hdecomp X
+      _ ≤ (23 : ℚ) / 19 * (I X) ^ 2 +
+          (23 : ℚ) / 4 * (b X) ^ 2 := hsplit
+      _ ≤ (19 : ℚ) / 23 *
+            (∑ q ∈ primesUpTo X, E (X / (q * q))) +
+          (23 : ℚ) / 4 * (B * (X : ℚ)) :=
+        add_le_add hiScaled hbScaled
+      _ = ((23 : ℚ) / 4 * B) * (X : ℚ) +
+          ((19 : ℚ) / 23) *
+            ∑ q ∈ primesUpTo X, E (X / (q * q)) := by ring
+  have hfixed :
+      (23 : ℚ) / 4 * B +
+          (19 : ℚ) / 23 * ((529 : ℚ) / 16 * B) ≤
+        (529 : ℚ) / 16 * B := by
+    ring_nf
+  exact q2EnergyStep_implies_linear_of_fixedPointBudget
+    (by positivity : 0 ≤ (529 : ℚ) / 16 * B)
+    (by norm_num : (0 : ℚ) ≤ 19 / 23)
+    hfixed hstep
+
+/-- A deliberately non-sharp Young split leaving room for cross-owner frame
+loss. -/
+theorem elevenQ2_bulk_boundary_sq_le_fourThirdsFrame (u b : ℚ) :
+    (u + b) ^ 2 ≤ (23 : ℚ) / 22 * u ^ 2 + 23 * b ^ 2 := by
+  nlinarith [sq_nonneg (u - 22 * b)]
+
+/-- **A `4/3` cross-owner frame bound is already enough.**  Exact orthogonality
+of owner daughters is unnecessary.  If the physical interior loses as much as
+a factor `4/3` before the prime-11 energy contraction, the resulting daughter
+coefficient is still `722/759 < 1`, and the full recurrence remains linear. -/
+theorem elevenQ2_bulk_boundary_fourThirdsFrame_implies_linear
+    {E I b : ℕ → ℚ} {B : ℚ}
+    (hB : 0 ≤ B)
+    (hdecomp : ∀ X, E X ≤ (I X + b X) ^ 2)
+    (hinterior : ∀ X, (I X) ^ 2 ≤
+      (4 : ℚ) / 3 * elevenWeightOneEnergyFactor *
+        ∑ q ∈ primesUpTo X, E (X / (q * q)))
+    (hboundary : ∀ X, (b X) ^ 2 ≤ B * (X : ℚ)) :
+    ∀ X : ℕ, E X ≤ ((17457 : ℚ) / 37 * B) * (X : ℚ) := by
+  have hfactor :
+      (23 : ℚ) / 22 * ((4 : ℚ) / 3 * elevenWeightOneEnergyFactor) =
+        (722 : ℚ) / 759 := by
+    rw [elevenWeightOneEnergyFactor_eq]
+    norm_num
+  have hstep : ∀ X : ℕ,
+      E X ≤ (23 * B) * (X : ℚ) +
+        ((722 : ℚ) / 759) *
+          ∑ q ∈ primesUpTo X, E (X / (q * q)) := by
+    intro X
+    have hsplit := elevenQ2_bulk_boundary_sq_le_fourThirdsFrame (I X) (b X)
+    have hiScaled :
+        (23 : ℚ) / 22 * (I X) ^ 2 ≤
+          (722 : ℚ) / 759 *
+            ∑ q ∈ primesUpTo X, E (X / (q * q)) := by
+      calc
+        (23 : ℚ) / 22 * (I X) ^ 2 ≤
+            (23 : ℚ) / 22 *
+              (((4 : ℚ) / 3 * elevenWeightOneEnergyFactor) *
+                ∑ q ∈ primesUpTo X, E (X / (q * q))) :=
+          mul_le_mul_of_nonneg_left (hinterior X) (by norm_num)
+        _ = (722 : ℚ) / 759 *
+              ∑ q ∈ primesUpTo X, E (X / (q * q)) := by
+          rw [← mul_assoc, hfactor]
+    have hbScaled : 23 * (b X) ^ 2 ≤ 23 * (B * (X : ℚ)) :=
+      mul_le_mul_of_nonneg_left (hboundary X) (by norm_num)
+    calc
+      E X ≤ (I X + b X) ^ 2 := hdecomp X
+      _ ≤ (23 : ℚ) / 22 * (I X) ^ 2 + 23 * (b X) ^ 2 := hsplit
+      _ ≤ (722 : ℚ) / 759 *
+            (∑ q ∈ primesUpTo X, E (X / (q * q))) +
+          23 * (B * (X : ℚ)) := add_le_add hiScaled hbScaled
+      _ = (23 * B) * (X : ℚ) +
+          (722 : ℚ) / 759 *
+            ∑ q ∈ primesUpTo X, E (X / (q * q)) := by ring
+  have hfixed :
+      23 * B + (722 : ℚ) / 759 * ((17457 : ℚ) / 37 * B) ≤
+        (17457 : ℚ) / 37 * B := by
+    ring_nf
+  exact q2EnergyStep_implies_linear_of_fixedPointBudget
+    (by positivity : 0 ≤ (17457 : ℚ) / 37 * B)
+    (by norm_num : (0 : ℚ) ≤ 722 / 759)
+    hfixed hstep
 
 end RHLean.Proof
