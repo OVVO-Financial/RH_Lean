@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeTSectorQ2Renormalization
+import RHLean.Proof.LowWheelFrozenSecondContactScaleFlux
 
 /-!
 # Sharper finite daughter budgets and admissible frame losses
@@ -10,8 +11,9 @@ absent. Consequently frame loss `2` on all primes, or `4` on odd primes, still
 closes the same linear-energy induction, including a global boundary term.
 
 These are conditional induction theorems. They do not prove the physical frame
-estimate, identify the reduced residual with the full degree-one packet, or
-assert that the physical owner schedule excludes `2`.
+estimate or identify the reduced residual with the full degree-one packet.
+The final packing lemmas below do prove that the actual saturated second-contact
+old-owner fibres exclude `2` once the reassembled child owner is prime.
 -/
 
 noncomputable section
@@ -70,6 +72,57 @@ theorem oddPrimeOwnerReciprocalSquareBudget_le_quarter (N : ℕ) :
     linarith
   · intro a _ha b _hb hab
     omega
+
+/-- In the actual #629 reassembly an old owner is strictly above the prime child
+owner. Hence prime `2` is absent from every genuine old-owner collision fibre. -/
+theorem lowWheelFrozenSecondContactOldOwnerFiber_subset_oddPrimeOwners
+    {R r d : ℕ} (hr : r.Prime) :
+    lowWheelFrozenSecondContactOldOwnerFiber R r d ⊆
+      (primesUpTo (R - 1)).erase 2 := by
+  intro q hq
+  have hdata := Finset.mem_filter.mp hq
+  have hrq : r < q := hdata.2.1
+  apply Finset.mem_erase.mpr
+  refine ⟨?_, hdata.1⟩
+  intro hq2
+  subst q
+  have hr2 := hr.two_le
+  omega
+
+/-- The intrinsic `q^-2` mass of every genuine fixed-child-owner collision fibre
+is at most `1/4`, not merely the coarse unit bound. -/
+theorem lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass_le_quarter
+    {R r d : ℕ} (hr : r.Prime) :
+    lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass R r d ≤ 1 / 4 := by
+  unfold lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass
+  have hsum :
+      (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+          (1 : ℚ) / (q : ℚ) ^ 2) ≤
+        ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+          (1 : ℚ) / (q : ℚ) ^ 2 := by
+    apply Finset.sum_le_sum_of_subset_of_nonneg
+      (lowWheelFrozenSecondContactOldOwnerFiber_subset_oddPrimeOwners hr)
+    intro q _hq hnot
+    positivity
+  exact hsum.trans (oddPrimeOwnerReciprocalSquareBudget_le_quarter (R - 1))
+
+/-- The same quarter budget in the literal daughter-cutoff units used by the
+q-square renormalization engine. -/
+theorem sum_oldOwnerFiber_squareDilatedCutoffs_le_quarter_parent
+    {R r d X : ℕ} (hr : r.Prime) :
+    (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+      ((X / (q * q) : ℕ) : ℚ)) ≤ (X : ℚ) / 4 := by
+  calc
+    (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+        ((X / (q * q) : ℕ) : ℚ)) ≤
+      ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+        ((X / (q * q) : ℕ) : ℚ) := by
+          apply Finset.sum_le_sum_of_subset_of_nonneg
+            (lowWheelFrozenSecondContactOldOwnerFiber_subset_oddPrimeOwners hr)
+          intro q _hq hnot
+          positivity
+    _ ≤ (X : ℚ) / 4 :=
+      sum_oddPrimeOwner_squareDilatedCutoffs_le_quarter_parent (R - 1) X
 
 /-- Prime `2` costs one quarter; all odd primes together cost at most another. -/
 theorem primeOwnerReciprocalSquareBudget_le_half (N : ℕ) :
