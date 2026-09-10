@@ -407,7 +407,9 @@ theorem squareRootLowPrimeGoSecondContactSources_primesUpTo_eq_canonical
       hsq, howner.2⟩
   · intro hm
     rcases Finset.mem_filter.mp hm with ⟨hmIcc, hsq, hcontact⟩
-    have hmgt : 1 < m := by omega
+    have hmTwo : 2 ≤ m := (Finset.mem_Icc.mp hmIcc).1
+    have hmgt : 1 < m :=
+      lt_of_lt_of_le (by norm_num : 1 < (2 : ℕ)) hmTwo
     let q := canonicalLargestPrimeFactor m
     let c := canonicalCofactor m
     have hdata : CanonicalSourceData q c := by
