@@ -26,6 +26,9 @@ for an odd prime owner `q`, each fixed physical affine offset has exactly one
 `q^2` contact is exactly one copy of the complementary first moment.  This is a
 finite equivalence, not a density estimate; the complementary field is arbitrary
 and can carry all earlier-square masks, selected-prime signs, and Schur weights.
+The combined theorem then shows that this exact q-square transport commutes with
+the selected-11 layer, so the transported weight-one energy receives precisely
+the same `(19/23)^2` factor.
 
 The final section proves the exact operator-level intertwining with the
 square-dilated Go scale on the actual recovered prime-wheel field `raw-2*smooth`.
@@ -319,6 +322,106 @@ theorem qSquareOffset_coprimeTensor_firstMoment_sq
         g ((ZMod.chineseRemainder hcop) z).2) ^ 2 =
       (∑ b : ZMod M, g b) ^ 2 := by
   rw [qSquareOffset_coprimeTensor_firstMoment q M a hq hq2 hcop g]
+
+/-- **Full complete-fibre intertwining of q² contact and the 11 layer.**  The
+q-square coordinate may be removed first, or the selected-11 weight-one action
+may be applied first: the resulting first moment is identical.  The field on all
+remaining prime coordinates is arbitrary.  Hence least-owner masks, selected
+signs, and the rank-one Schur first moment survive the q² descent without an
+independence hypothesis. -/
+theorem qSquareOffset_eleven_coprimeTensor_firstMoment
+    (q M a : ℕ) [NeZero M]
+    (hq : q.Prime) (hq2 : q ≠ 2)
+    (hqcop : Nat.Coprime (q ^ 2) (121 * M))
+    (h11cop : Nat.Coprime 121 M)
+    (i : Fin 6) (g : ZMod M → ℚ) :
+    (∑ z : ZMod ((q ^ 2) * (121 * M)),
+      qSquareOffsetHitIndicator q a
+          ((ZMod.chineseRemainder hqcop) z).1 *
+        (elevenZeroFreeCoordinateMultiplierZMod i
+            ((ZMod.chineseRemainder h11cop)
+              ((ZMod.chineseRemainder hqcop) z).2).1 *
+          g ((ZMod.chineseRemainder h11cop)
+              ((ZMod.chineseRemainder hqcop) z).2).2)) =
+      onePrimeWalshFactor 11 1 *
+        (∑ z : ZMod ((q ^ 2) * (121 * M)),
+          qSquareOffsetHitIndicator q a
+              ((ZMod.chineseRemainder hqcop) z).1 *
+            (elevenZeroFreeIndicatorZMod
+                ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).1 *
+              g ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).2)) := by
+  let Gsigned : ZMod (121 * M) → ℚ := fun w =>
+    elevenZeroFreeCoordinateMultiplierZMod i
+        ((ZMod.chineseRemainder h11cop) w).1 *
+      g ((ZMod.chineseRemainder h11cop) w).2
+  let Gzero : ZMod (121 * M) → ℚ := fun w =>
+    elevenZeroFreeIndicatorZMod
+        ((ZMod.chineseRemainder h11cop) w).1 *
+      g ((ZMod.chineseRemainder h11cop) w).2
+  have hqSigned := qSquareOffset_coprimeTensor_firstMoment
+    q (121 * M) a hq hq2 hqcop Gsigned
+  have hqZero := qSquareOffset_coprimeTensor_firstMoment
+    q (121 * M) a hq hq2 hqcop Gzero
+  have h11 := eleven_coprimeTensor_firstMoment M h11cop i g
+  have h11' :
+      (∑ w : ZMod (121 * M), Gsigned w) =
+        onePrimeWalshFactor 11 1 *
+          (∑ w : ZMod (121 * M), Gzero w) := by
+    simpa [Gsigned, Gzero] using h11
+  calc
+    (∑ z : ZMod ((q ^ 2) * (121 * M)),
+        qSquareOffsetHitIndicator q a
+            ((ZMod.chineseRemainder hqcop) z).1 *
+          (elevenZeroFreeCoordinateMultiplierZMod i
+              ((ZMod.chineseRemainder h11cop)
+                ((ZMod.chineseRemainder hqcop) z).2).1 *
+            g ((ZMod.chineseRemainder h11cop)
+                ((ZMod.chineseRemainder hqcop) z).2).2)) =
+      ∑ w : ZMod (121 * M), Gsigned w := by
+        simpa [Gsigned] using hqSigned
+    _ = onePrimeWalshFactor 11 1 *
+        (∑ w : ZMod (121 * M), Gzero w) := h11'
+    _ = onePrimeWalshFactor 11 1 *
+        (∑ z : ZMod ((q ^ 2) * (121 * M)),
+          qSquareOffsetHitIndicator q a
+              ((ZMod.chineseRemainder hqcop) z).1 *
+            (elevenZeroFreeIndicatorZMod
+                ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).1 *
+              g ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).2)) := by
+        rw [hqZero]
+
+/-- Squaring the commuting first-moment diagram gives the exact `(19/23)^2`
+energy multiplier on every complete q-square contact fibre. -/
+theorem qSquareOffset_eleven_coprimeTensor_firstMoment_sq
+    (q M a : ℕ) [NeZero M]
+    (hq : q.Prime) (hq2 : q ≠ 2)
+    (hqcop : Nat.Coprime (q ^ 2) (121 * M))
+    (h11cop : Nat.Coprime 121 M)
+    (i : Fin 6) (g : ZMod M → ℚ) :
+    (∑ z : ZMod ((q ^ 2) * (121 * M)),
+      qSquareOffsetHitIndicator q a
+          ((ZMod.chineseRemainder hqcop) z).1 *
+        (elevenZeroFreeCoordinateMultiplierZMod i
+            ((ZMod.chineseRemainder h11cop)
+              ((ZMod.chineseRemainder hqcop) z).2).1 *
+          g ((ZMod.chineseRemainder h11cop)
+              ((ZMod.chineseRemainder hqcop) z).2).2)) ^ 2 =
+      (onePrimeWalshFactor 11 1) ^ 2 *
+        (∑ z : ZMod ((q ^ 2) * (121 * M)),
+          qSquareOffsetHitIndicator q a
+              ((ZMod.chineseRemainder hqcop) z).1 *
+            (elevenZeroFreeIndicatorZMod
+                ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).1 *
+              g ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).2)) ^ 2 := by
+  rw [qSquareOffset_eleven_coprimeTensor_firstMoment
+    q M a hq hq2 hqcop h11cop i g]
+  ring
 
 /-! ## Exact all-prime Euler / q-square intertwining -/
 
