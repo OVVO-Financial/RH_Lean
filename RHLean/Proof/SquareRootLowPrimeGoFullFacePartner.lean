@@ -137,7 +137,7 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_mem_transport
   have hranges := lowWheelTransportPairCarrier_mem_ranges hcarrier
   apply mem_lowWheelFullTaggedPhysicalCarrier.mpr
   refine ⟨hface, mem_lowWheelCanonicalPhysicalStateSet.mpr ?_⟩
-  exact ⟨hranges.1, hranges.2, by simp [y], hcarrier⟩
+  exact ⟨hranges.1, hranges.2, squarefree_one, hcarrier⟩
 
 /-- The full-face occurrence has exactly the raw Go defect source sign. -/
 theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_weight_eq
@@ -154,8 +154,9 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_weight_eq
     primeFaceProduct_squarefreePrimeFace hsqChild
   have hfacePrime : ∀ p ∈ squarefreePrimeFace (r * d), p.Prime := by
     intro p hp
-    exact (Nat.mem_primeFactors.mp (by
-      simpa [squarefreePrimeFace] using hp)).1
+    have hpFactors : p ∈ (r * d).primeFactors := by
+      simpa only [squarefreePrimeFace] using hp
+    exact (Nat.mem_primeFactors.mp hpFactors).1
   have hfaceMu :=
     moebius_primeFaceProduct_eq_booleanCubeSign
       (squarefreePrimeFace (r * d)) hfacePrime
@@ -164,7 +165,9 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_weight_eq
     (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hd).2.2.2.1
   have hrNotDvd : ¬ r ∣ d := by
     intro hrd
-    have hle := prime_dvd_le_canonicalLargestPrimeFactor hdgt hr hrd
+    have hle :=
+      CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
+        hdgt hr hrd
     omega
   have hmuR : μ (r * d) = -μ d := by
     exact moebius_prime_mul hr hrNotDvd
@@ -180,7 +183,6 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_weight_eq
       _ = μ (q * d) := hmuQ.symm
   unfold squareRootLowPrimeGoSecondBoundaryFullFaceSource
     lowWheelFullTaggedPhysicalWeight canonicalMoebiusWeight
-  simp only [Prod.fst, Prod.snd]
   norm_num
   exact_mod_cast hsign
 
