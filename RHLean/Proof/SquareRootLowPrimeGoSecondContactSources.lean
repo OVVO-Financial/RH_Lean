@@ -417,9 +417,12 @@ theorem squareRootLowPrimeGoSecondContactSources_primesUpTo_eq_canonical
       simpa [q, c, Nat.mul_comm] using
         canonicalCofactor_mul_largestPrimeFactor hmgt
     have hqX : q ≤ X := by
+      have hmOne : 1 ≤ m := Nat.le_of_lt hmgt
       have hqm : q ≤ q * m := by
-        exact Nat.le_mul_of_pos_right q (by omega)
-      exact hqm.trans hcontact
+        simpa using Nat.mul_le_mul_left q hmOne
+      have hcontact' : q * m ≤ X := by
+        simpa [q] using hcontact
+      exact hqm.trans hcontact'
     have hqMem : q ∈ primesUpTo X := mem_primesUpTo.mpr ⟨hq, hqX⟩
     apply Finset.mem_biUnion.mpr
     refine ⟨q, hqMem, ?_⟩
@@ -432,8 +435,9 @@ theorem squareRootLowPrimeGoSecondContactSources_primesUpTo_eq_canonical
       rw [show c * (q * q) = q * (q * c) by ring, hprod]
       exact hcontact
     · by_cases hcEq : c = 1
-      · subst c
-        simp [canonicalLargestPrimeFactor, hq.one_lt]
+      · have hcEq' : canonicalCofactor m = 1 := by
+          simpa [c] using hcEq
+        simpa [c, hcEq', canonicalLargestPrimeFactor] using hq.one_lt
       · have hcgt : 1 < c := by omega
         exact hdom _ (canonicalLargestPrimeFactor_prime hcgt)
           (canonicalLargestPrimeFactor_dvd hcgt)
