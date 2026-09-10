@@ -107,16 +107,13 @@ theorem elevenWeightOneFirstMoment_squareFactor_lt_one :
 /-- A finite sum of a pure tensor on coprime residue coordinates factors
 exactly.  This is just the Chinese remainder equivalence followed by Fubini. -/
 theorem coprimeZMod_sum_tensor
-    (m n : ℕ) (hm : 0 < m) (hn : 0 < n)
+    (m n : ℕ) [NeZero m] [NeZero n]
     (hcop : Nat.Coprime m n)
     (f : ZMod m → ℚ) (g : ZMod n → ℚ) :
     (∑ z : ZMod (m * n),
       f ((ZMod.chineseRemainder hcop) z).1 *
         g ((ZMod.chineseRemainder hcop) z).2) =
       (∑ a : ZMod m, f a) * (∑ b : ZMod n, g b) := by
-  letI : NeZero m := ⟨Nat.ne_of_gt hm⟩
-  letI : NeZero n := ⟨Nat.ne_of_gt hn⟩
-  letI : NeZero (m * n) := ⟨Nat.ne_of_gt (Nat.mul_pos hm hn)⟩
   calc
     (∑ z : ZMod (m * n),
         f ((ZMod.chineseRemainder hcop) z).1 *
@@ -167,7 +164,7 @@ complete product orbit, the selected-11 coordinate acts by exactly `19/23` on
 the first moment.  No constancy, randomness, or decorrelation of `g` is assumed;
 CRT makes the two finite coordinates a literal product. -/
 theorem eleven_coprimeTensor_firstMoment
-    (M : ℕ) (hM : 0 < M) (hcop : Nat.Coprime 121 M)
+    (M : ℕ) [NeZero M] (hcop : Nat.Coprime 121 M)
     (i : Fin 6) (g : ZMod M → ℚ) :
     (∑ z : ZMod (121 * M),
       elevenZeroFreeCoordinateMultiplierZMod i
@@ -178,9 +175,9 @@ theorem eleven_coprimeTensor_firstMoment
           elevenZeroFreeIndicatorZMod
               ((ZMod.chineseRemainder hcop) z).1 *
             g ((ZMod.chineseRemainder hcop) z).2) := by
-  have hsigned := coprimeZMod_sum_tensor 121 M (by norm_num) hM hcop
+  have hsigned := coprimeZMod_sum_tensor 121 M hcop
     (elevenZeroFreeCoordinateMultiplierZMod i) g
-  have hzero := coprimeZMod_sum_tensor 121 M (by norm_num) hM hcop
+  have hzero := coprimeZMod_sum_tensor 121 M hcop
     elevenZeroFreeIndicatorZMod g
   rw [sum_elevenZeroFreeCoordinateMultiplierZMod] at hsigned
   rw [sum_elevenZeroFreeIndicatorZMod] at hzero
@@ -190,7 +187,7 @@ theorem eleven_coprimeTensor_firstMoment
 /-- Squaring the exact complete-fibre identity gives the same energy factor
 used in the `ElevenQ2EnergyStep` engine. -/
 theorem eleven_coprimeTensor_firstMoment_sq
-    (M : ℕ) (hM : 0 < M) (hcop : Nat.Coprime 121 M)
+    (M : ℕ) [NeZero M] (hcop : Nat.Coprime 121 M)
     (i : Fin 6) (g : ZMod M → ℚ) :
     (∑ z : ZMod (121 * M),
       elevenZeroFreeCoordinateMultiplierZMod i
@@ -201,7 +198,7 @@ theorem eleven_coprimeTensor_firstMoment_sq
           elevenZeroFreeIndicatorZMod
               ((ZMod.chineseRemainder hcop) z).1 *
             g ((ZMod.chineseRemainder hcop) z).2) ^ 2 := by
-  rw [eleven_coprimeTensor_firstMoment M hM hcop i g]
+  rw [eleven_coprimeTensor_firstMoment M hcop i g]
   ring
 
 /-! ## Exact all-prime Euler / q-square intertwining -/
@@ -279,7 +276,6 @@ theorem finiteDifferenceOperator_primeWheelRecovery_freshDifference
   have hchild :=
     finiteDifferenceOperator_primeWheelRecovery_general
       P T upper (x / p) hprime hcover hpchild
-  simp only [shift]
   rw [hbase, hchild]
 
 /-- **Actual Möbius prime-11 / q² intertwining.** -/
