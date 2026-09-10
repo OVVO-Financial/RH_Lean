@@ -32,7 +32,7 @@ theorem oddReciprocalSquareTerm_le_telescope (k : ℕ) :
       1 / (4 * ((k : ℚ) + 2)) =
       1 / (4 * ((k : ℚ) + 1) * ((k : ℚ) + 2)) by
     field_simp
-    <;> ring]
+    ring]
   apply (div_le_div_iff₀ (by positivity)
     (by positivity : (0 : ℚ) < 4 * ((k : ℚ) + 1) * ((k : ℚ) + 2))).2
   push_cast
@@ -48,81 +48,35 @@ theorem sum_oddReciprocalSquares_le_quarter_sub (N : ℕ) :
     rw [Finset.sum_range_succ]
     have h := add_le_add ih (oddReciprocalSquareTerm_le_telescope N)
     push_cast at h ⊢
-    linarith
+    convert h using 1 <;> ring
 
 private theorem oddPrimes_subset_oddImage (N : ℕ) :
     (primesUpTo N).erase 2 ⊆ (Finset.range N).image (fun k => 2 * k + 3) := by
   intro q hq
   have hdata := mem_primesUpTo.mp (Finset.mem_erase.mp hq).2
+  have hqN := hdata.2
   have hne := (Finset.mem_erase.mp hq).1
   obtain ⟨k, hk⟩ := hdata.1.odd_of_ne_two hne
+  have hk1 : 1 ≤ k := by omega
   refine Finset.mem_image.mpr ⟨k - 1, Finset.mem_range.mpr (by omega), ?_⟩
   omega
 
 /-- The actual odd-prime schedule costs at most a quarter of its parent scale. -/
 theorem oddPrimeOwnerReciprocalSquareBudget_le_quarter (N : ℕ) :
     (∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2) ≤ 1 / 4 := by
-  have hsum := Finset.sum_le_sum_of_subset_of_nonneg
-    (oddPrimes_subset_oddImage N)
-    (f := fun q => (1 : ℚ) / (q : ℚ) ^ 2)
-    (by intros; positivity)
+  have hsum :
+      (∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2) ≤
+        ∑ q ∈ (Finset.range N).image (fun k => 2 * k + 3),
+          (1 : ℚ) / (q : ℚ) ^ 2 := by
+    refine Finset.sum_le_sum_of_subset_of_nonneg (oddPrimes_subset_oddImage N) ?_
+    intro q _hqImage _hqOld
+    positivity
   rw [Finset.sum_image] at hsum
   · have h := sum_oddReciprocalSquares_le_quarter_sub N
     have hp : (0 : ℚ) ≤ 1 / (4 * ((N : ℚ) + 1)) := by positivity
     linarith
   · intro a _ha b _hb hab
     omega
-
-/-- In the actual #629 reassembly an old owner is strictly above the prime child
-owner. Hence prime `2` is absent from every genuine old-owner collision fibre. -/
-theorem lowWheelFrozenSecondContactOldOwnerFiber_subset_oddPrimeOwners
-    {R r d : ℕ} (hr : r.Prime) :
-    lowWheelFrozenSecondContactOldOwnerFiber R r d ⊆
-      (primesUpTo (R - 1)).erase 2 := by
-  intro q hq
-  have hdata := Finset.mem_filter.mp hq
-  have hrq : r < q := hdata.2.1
-  apply Finset.mem_erase.mpr
-  refine ⟨?_, hdata.1⟩
-  intro hq2
-  subst q
-  have hr2 := hr.two_le
-  omega
-
-/-- The intrinsic `q^-2` mass of every genuine fixed-child-owner collision fibre
-is at most `1/4`, not merely the coarse unit bound. -/
-theorem lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass_le_quarter
-    {R r d : ℕ} (hr : r.Prime) :
-    lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass R r d ≤ 1 / 4 := by
-  unfold lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass
-  have hsum :
-      (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
-          (1 : ℚ) / (q : ℚ) ^ 2) ≤
-        ∑ q ∈ (primesUpTo (R - 1)).erase 2,
-          (1 : ℚ) / (q : ℚ) ^ 2 := by
-    apply Finset.sum_le_sum_of_subset_of_nonneg
-      (lowWheelFrozenSecondContactOldOwnerFiber_subset_oddPrimeOwners hr)
-    intro q _hq hnot
-    positivity
-  exact hsum.trans (oddPrimeOwnerReciprocalSquareBudget_le_quarter (R - 1))
-
-/-- The same quarter budget in the literal daughter-cutoff units used by the
-q-square renormalization engine. -/
-theorem sum_oldOwnerFiber_squareDilatedCutoffs_le_quarter_parent
-    {R r d X : ℕ} (hr : r.Prime) :
-    (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
-      ((X / (q * q) : ℕ) : ℚ)) ≤ (X : ℚ) / 4 := by
-  calc
-    (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
-        ((X / (q * q) : ℕ) : ℚ)) ≤
-      ∑ q ∈ (primesUpTo (R - 1)).erase 2,
-        ((X / (q * q) : ℕ) : ℚ) := by
-          apply Finset.sum_le_sum_of_subset_of_nonneg
-            (lowWheelFrozenSecondContactOldOwnerFiber_subset_oddPrimeOwners hr)
-          intro q _hq hnot
-          positivity
-    _ ≤ (X : ℚ) / 4 :=
-      sum_oddPrimeOwner_squareDilatedCutoffs_le_quarter_parent (R - 1) X
 
 /-- Prime `2` costs one quarter; all odd primes together cost at most another. -/
 theorem primeOwnerReciprocalSquareBudget_le_half (N : ℕ) :
@@ -132,10 +86,23 @@ theorem primeOwnerReciprocalSquareBudget_le_half (N : ℕ) :
   by_cases htwo : 2 ∈ primesUpTo N
   · have hs := Finset.sum_erase_add (s := primesUpTo N)
       (f := fun q => (1 : ℚ) / (q : ℚ) ^ 2) htwo
-    norm_num at hs
-    linarith
-  · rw [Finset.erase_eq_of_not_mem htwo] at h
-    linarith
+    have hs' :
+        (∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 =
+          ∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2 := by
+      norm_num at hs ⊢
+      exact hs
+    calc
+      (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) =
+          (∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 := hs'.symm
+      _ ≤ 1 / 4 + 1 / 4 := add_le_add_right h _
+      _ = 1 / 2 := by norm_num
+  · have heq : (primesUpTo N).erase 2 = primesUpTo N :=
+      Finset.erase_eq_of_notMem htwo
+    calc
+      (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) =
+          ∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2 := by rw [heq]
+      _ ≤ 1 / 4 := h
+      _ ≤ 1 / 2 := by norm_num
 
 /-- The daughter estimate with the reciprocal-square budget kept explicit. -/
 theorem sum_squareDilatedCutoffs_le_scale_mul_budget
@@ -173,6 +140,57 @@ theorem sum_oddPrimeOwner_squareDilatedCutoffs_le_quarter_parent (N X : ℕ) :
     (by positivity : (0 : ℚ) ≤ X)
   nlinarith
 
+/-- In the actual #629 reassembly an old owner is strictly above the prime child
+owner. Hence prime `2` is absent from every genuine old-owner collision fibre. -/
+theorem lowWheelFrozenSecondContactOldOwnerFiber_subset_oddPrimeOwners
+    {R r d : ℕ} (hr : r.Prime) :
+    lowWheelFrozenSecondContactOldOwnerFiber R r d ⊆
+      (primesUpTo (R - 1)).erase 2 := by
+  intro q hq
+  have hdata := Finset.mem_filter.mp hq
+  have hrq : r < q := hdata.2.1
+  apply Finset.mem_erase.mpr
+  refine ⟨?_, hdata.1⟩
+  intro hq2
+  subst q
+  have hr2 := hr.two_le
+  omega
+
+/-- The intrinsic `q^-2` mass of every genuine fixed-child-owner collision fibre
+is at most `1/4`, not merely the coarse unit bound. -/
+theorem lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass_le_quarter
+    {R r d : ℕ} (hr : r.Prime) :
+    lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass R r d ≤ 1 / 4 := by
+  unfold lowWheelFrozenSecondContactOldOwnerReciprocalSquareMass
+  have hsum :
+      (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+          (1 : ℚ) / (q : ℚ) ^ 2) ≤
+        ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+          (1 : ℚ) / (q : ℚ) ^ 2 := by
+    refine Finset.sum_le_sum_of_subset_of_nonneg
+      (lowWheelFrozenSecondContactOldOwnerFiber_subset_oddPrimeOwners hr) ?_
+    intro q _hqNew _hqOld
+    positivity
+  exact hsum.trans (oddPrimeOwnerReciprocalSquareBudget_le_quarter (R - 1))
+
+/-- The same quarter budget in the literal daughter-cutoff units used by the
+q-square renormalization engine. -/
+theorem sum_oldOwnerFiber_squareDilatedCutoffs_le_quarter_parent
+    {R r d X : ℕ} (hr : r.Prime) :
+    (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+      ((X / (q * q) : ℕ) : ℚ)) ≤ (X : ℚ) / 4 := by
+  calc
+    (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+        ((X / (q * q) : ℕ) : ℚ)) ≤
+      ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+        ((X / (q * q) : ℕ) : ℚ) := by
+          refine Finset.sum_le_sum_of_subset_of_nonneg
+            (lowWheelFrozenSecondContactOldOwnerFiber_subset_oddPrimeOwners hr) ?_
+          intro q _hqNew _hqOld
+          positivity
+    _ ≤ (X : ℚ) / 4 :=
+      sum_oddPrimeOwner_squareDilatedCutoffs_le_quarter_parent (R - 1) X
+
 /-- The induction depends on `lambda * rho`, not on `lambda` alone. -/
 theorem q2EnergyStep_implies_linear_of_ownerScaleBudget
     {E : ℕ → ℚ} {owners : ℕ → Finset ℕ} {C lambda rho K : ℚ}
@@ -188,7 +206,7 @@ theorem q2EnergyStep_implies_linear_of_ownerScaleBudget
     by_cases hX : X = 0
     · subst X
       have hempty : owners 0 = ∅ := by
-        apply Finset.eq_empty_iff_forall_not_mem.mpr
+        apply Finset.eq_empty_iff_forall_notMem.mpr
         intro q hq
         have hp := mem_primesUpTo.mp (howners 0 hq)
         have := hp.1.two_le
@@ -220,7 +238,7 @@ theorem elevenQ2_bulk_boundary_twoFrame_implies_linear
   apply q2EnergyStep_implies_linear_of_ownerScaleBudget
     (owners := primesUpTo) (C := 4 * B)
     (lambda := (8 : ℚ) / 3 * elevenWeightOneEnergyFactor) (rho := 1 / 2)
-    (fun _ => Finset.Subset.refl _) (by positivity) (by positivity)
+    (fun _ => Finset.Subset.refl _) (by nlinarith [hB]) (by positivity)
   · intro X
     simpa [div_eq_mul_inv, mul_comm] using
       sum_primeOwner_squareDilatedCutoffs_le_half_parent X X
@@ -235,7 +253,7 @@ theorem elevenQ2_bulk_boundary_twoFrame_implies_linear
     nlinarith
 
 /-- A factor-four frame loss is sufficient if the physical schedule has no
-owner `2`. The exclusion is an explicit hypothesis of the interior estimate. -/
+owner `2`. -/
 theorem elevenQ2_bulk_boundary_fourFrame_oddOwners_implies_linear
     {E I b : ℕ → ℚ} {B : ℚ}
     (hB : 0 ≤ B)
@@ -248,7 +266,7 @@ theorem elevenQ2_bulk_boundary_fourFrame_oddOwners_implies_linear
   apply q2EnergyStep_implies_linear_of_ownerScaleBudget
     (owners := fun X => (primesUpTo X).erase 2) (C := 4 * B)
     (lambda := (16 : ℚ) / 3 * elevenWeightOneEnergyFactor) (rho := 1 / 4)
-    (fun _ => Finset.erase_subset _ _) (by positivity) (by positivity)
+    (fun _ => Finset.erase_subset _ _) (by nlinarith [hB]) (by positivity)
   · intro X
     simpa [div_eq_mul_inv, mul_comm] using
       sum_oddPrimeOwner_squareDilatedCutoffs_le_quarter_parent X X
