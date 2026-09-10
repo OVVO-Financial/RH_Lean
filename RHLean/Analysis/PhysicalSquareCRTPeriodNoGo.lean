@@ -36,7 +36,7 @@ Walsh contraction for `p >= 11`.  Taking the selected primes from `11` upward:
 P = {11}              period          121   needs R >=            60
 P = {11,13}           period       20 449   needs R >=        10 224
 P = {11,13,17}        period    5 909 761   needs R >=     2 954 880
-P = {11,13,17,19}     period 2 133 423 721  needs R >= 1 066 711 860
+P = {11,13,17,19}     period 2 133 423 721   needs R >= 1 066 711 860
 ```
 
 The period is a product of squares, so it grows doubly exponentially in the
@@ -400,7 +400,7 @@ theorem physicalLeastOddSquarePrime_eq_some_three_iff (k : ℕ) :
           omega
         have hp : p = 3 := by omega
         subst p
-        exact hleast
+        rfl
 
 /-- The computable population above is literally the repository's least-owner
 q=3 deletion carrier for `{11}` on the same complete prefix. -/
@@ -464,8 +464,11 @@ theorem roughCofactorMobiusPrefixMass_three_two_eq_zero :
     RHLean.Proof.roughCofactorMobiusPrefixMass 3 2 = 0 := by
   rw [RHLean.Proof.roughCofactorMobiusPrefixMass_eq_cofactorMobiusPrefixMass
     (by norm_num : 2 < 3)]
-  norm_num [RHLean.Proof.cofactorMobiusPrefixMass,
-    RHLean.Proof.canonicalMoebiusWeight,
+  unfold RHLean.Proof.cofactorMobiusPrefixMass
+  have hIcc : Finset.Icc 1 2 = ({1, 2} : Finset ℕ) := by
+    native_decide
+  rw [hIcc]
+  simp [RHLean.Proof.canonicalMoebiusWeight,
     ArithmeticFunction.moebius_apply_prime Nat.prime_two]
 
 /-- Consequently the actual q=3 selected-sign source cannot be identified with
