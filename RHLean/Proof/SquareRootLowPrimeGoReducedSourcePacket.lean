@@ -174,10 +174,13 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceImage_disjoint_mateImage
     squareRootLowPrimeGoFullFaceDefectMateTag_quotient_eq hR he
   have hquot := congrArg
     (fun w : LowWheelFullTaggedPhysicalState => w.2.2) hmate
-  have hprod : p * t = q := by
-    rw [hmateQuot] at hquot
+  have hquot' :
+      (squareRootLowPrimeGoFullFaceDefectMateTag R ((s, t), e)).2.2 = q := by
     simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
       squareRootLowPrimeGoSecondBoundaryFullFaceSource] using hquot
+  have hprod : p * t = q := by
+    rw [hmateQuot] at hquot'
+    simpa [p] using hquot'
   have hpDvd : p ∣ q := ⟨t, hprod.symm⟩
   have hpEq : p = q :=
     (Nat.prime_dvd_prime_iff_eq hpPrime hqPrime).mp hpDvd
