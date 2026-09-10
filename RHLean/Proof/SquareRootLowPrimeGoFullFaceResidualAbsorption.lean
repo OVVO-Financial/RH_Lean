@@ -283,4 +283,74 @@ theorem squareRootLowPrimeGoFullFaceDefectMateFarImage_subset_physicalResidual
     (squareRootLowPrimeGoFullFaceDefectMateFarImage_disjoint_owned
       (R := R) (by omega))) hz hzOwned
 
+/-- The actual physical residual after deleting the far defect mates. -/
+def squareRootLowPrimeGoReducedPhysicalResidualCarrier (R : ℕ) :
+    Finset LowWheelFullTaggedPhysicalState :=
+  lowWheelFrozenTopFarPhysicalResidualCarrier R \
+    squareRootLowPrimeGoFullFaceDefectMateFarImage R
+
+/-- Signed mass is taken only after the mate subcarrier has been deleted. -/
+def squareRootLowPrimeGoReducedPhysicalResidualLedger (R : ℕ) : ℂ :=
+  ∑ z ∈ squareRootLowPrimeGoReducedPhysicalResidualCarrier R,
+    lowWheelFullTaggedPhysicalWeight z
+
+/-- The remaining mate occurrences, below the far cutoff. -/
+def squareRootLowPrimeGoFullFaceDefectMateNearLedger (R : ℕ) : ℂ :=
+  ∑ z ∈ squareRootLowPrimeGoFullFaceDefectMateImage R \
+      squareRootLowPrimeGoFullFaceDefectMateFarImage R,
+    lowWheelFullTaggedPhysicalWeight z
+
+/-- Exact deletion identity on the physical carrier.  No norm is taken. -/
+theorem squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced_sub_near
+    {R : ℕ} (hR : 6 ≤ R) :
+    lowWheelFrozenTopFarPhysicalResidualLedger R +
+        ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ) =
+      squareRootLowPrimeGoReducedPhysicalResidualLedger R -
+        squareRootLowPrimeGoFullFaceDefectMateNearLedger R := by
+  have hphysical := Finset.sum_sdiff
+    (squareRootLowPrimeGoFullFaceDefectMateFarImage_subset_physicalResidual hR)
+    (f := lowWheelFullTaggedPhysicalWeight)
+  have hfar : squareRootLowPrimeGoFullFaceDefectMateFarImage R ⊆
+      squareRootLowPrimeGoFullFaceDefectMateImage R := Finset.filter_subset _ _
+  have hmates := Finset.sum_sdiff hfar (f := lowWheelFullTaggedPhysicalWeight)
+  have hcancel := squareRootLowPrimeGoFullFaceDefectMass_add_existingMate_eq_zero
+    (R := R) (by omega : 2 ≤ R)
+  rw [squareRootLowPrimeGoFullFaceDefectMateLedger_eq_imageSum (by omega)] at hcancel
+  change squareRootLowPrimeGoReducedPhysicalResidualLedger R +
+      (∑ z ∈ squareRootLowPrimeGoFullFaceDefectMateFarImage R,
+        lowWheelFullTaggedPhysicalWeight z) =
+      lowWheelFrozenTopFarPhysicalResidualLedger R at hphysical
+  change squareRootLowPrimeGoFullFaceDefectMateNearLedger R +
+      (∑ z ∈ squareRootLowPrimeGoFullFaceDefectMateFarImage R,
+        lowWheelFullTaggedPhysicalWeight z) = _ at hmates
+  linear_combination -hphysical + hmates + hcancel
+
+/-- Retain both near corrections in the compensated signed reconstruction. -/
+theorem squareRootLowPrimeGo_frozenResidual_add_defect_eq_reduced_compensated
+    {R : ℕ} (hR : 6 ≤ R) :
+    lowWheelFrozenTopFarResidual R +
+        ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ) =
+      squareRootLowPrimeGoReducedPhysicalResidualLedger R -
+        squareRootLowPrimeGoFullFaceDefectMateNearLedger R -
+        lowWheelCanonicalRepeatedTerminalInternalMateNearLedger R := by
+  rw [lowWheelFrozenTopFarResidual_eq_physicalResidual_sub_near R hR]
+  have h := squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced_sub_near hR
+  linear_combination h
+
+/-- Energy of this compensated residual component.  This definition does not
+assert a frame estimate or identify it with the recovered Mertens energy. -/
+def squareRootLowPrimeGoReducedCompensatedResidualEnergy (R : ℕ) : ℝ :=
+  ‖squareRootLowPrimeGoReducedPhysicalResidualLedger R -
+    squareRootLowPrimeGoFullFaceDefectMateNearLedger R -
+    lowWheelCanonicalRepeatedTerminalInternalMateNearLedger R‖ ^ 2
+
+/-- Compensation and deletion preserve the exact residual energy. -/
+theorem squareRootLowPrimeGoReducedCompensatedResidualEnergy_eq
+    {R : ℕ} (hR : 6 ≤ R) :
+    squareRootLowPrimeGoReducedCompensatedResidualEnergy R =
+      ‖lowWheelFrozenTopFarResidual R +
+        ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ)‖ ^ 2 := by
+  unfold squareRootLowPrimeGoReducedCompensatedResidualEnergy
+  rw [squareRootLowPrimeGo_frozenResidual_add_defect_eq_reduced_compensated hR]
+
 end RHLean.Proof
