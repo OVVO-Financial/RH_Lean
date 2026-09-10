@@ -15,10 +15,13 @@ prime-11 Euler sign has average `19/23` on the `115` zero-free residue classes.
 Consequently *every* weight-one linear combination is multiplied by `19/23`,
 and its square is multiplied by `(19/23)^2`.
 
+The CRT section upgrades that finite average to a deterministic tensor theorem:
+any complementary weight field on a modulus coprime to `11^2` may vary
+arbitrarily, and the complete product orbit still sees exactly the same
+`19/23` first-moment scalar.  No independence assumption is used.
+
 The final section proves the exact operator-level intertwining with the
 square-dilated Go scale on the actual recovered prime-wheel field `raw-2*smooth`.
-It does not identify the residue-average scalar action with the all-prime
-physical population; that last tensorization is kept explicit.
 -/
 
 open scoped BigOperators
@@ -41,8 +44,7 @@ def elevenCoordinateMultiplierSum (i : Fin 6) : ℚ :=
   ∑ k ∈ elevenZeroFreeResidues, elevenCoordinateMultiplier i k
 
 /-- Every coordinate has signed mass `105 - 10 = 95`: ten zero-free residues
-flip that coordinate and the other 105 do not.  We certify the six finite cases
-directly from the arithmetic predicates. -/
+flip that coordinate and the other 105 do not. -/
 theorem elevenCoordinateMultiplierSum_eq_ninety_five (i : Fin 6) :
     elevenCoordinateMultiplierSum i = 95 := by
   fin_cases i <;>
@@ -65,8 +67,7 @@ theorem elevenCoordinateMeanMultiplier_eq_walsh_one (i : Fin 6) :
 def elevenWeightOneFirstMomentAction (z : Fin 6 → ℚ) : Fin 6 → ℚ :=
   fun i => elevenCoordinateMeanMultiplier i * z i
 
-/-- **Exact scalar action on the whole weight-one sector.**  The six-coordinate
-first-moment vector is multiplied coordinatewise by the same `19/23` scalar. -/
+/-- **Exact scalar action on the whole weight-one sector.** -/
 theorem elevenWeightOneFirstMomentAction_apply
     (z : Fin 6 → ℚ) (i : Fin 6) :
     elevenWeightOneFirstMomentAction z i =
@@ -74,9 +75,8 @@ theorem elevenWeightOneFirstMomentAction_apply
   rw [elevenWeightOneFirstMomentAction,
     elevenCoordinateMeanMultiplier_eq_walsh_one]
 
-/-- Therefore every linear functional of the six weight-one coordinates,
-including the Mertens-visible source or destination degree-one combination,
-is multiplied by exactly the same scalar. -/
+/-- Therefore every linear functional of the six weight-one coordinates is
+multiplied by exactly the same scalar. -/
 theorem elevenWeightOneFirstMomentAction_linearFunctional
     (a z : Fin 6 → ℚ) :
     (∑ i : Fin 6, a i * elevenWeightOneFirstMomentAction z i) =
@@ -87,9 +87,7 @@ theorem elevenWeightOneFirstMomentAction_linearFunctional
   intro i hi
   ring
 
-/-- **Exact rank-one energy contraction.**  Squaring any weight-one first-moment
-linear functional multiplies it by `(19/23)^2`.  This is the factor used by the
-`q^2` energy renormalization layer. -/
+/-- **Exact rank-one energy contraction.** -/
 theorem elevenWeightOneFirstMomentAction_linearFunctional_sq
     (a z : Fin 6 → ℚ) :
     (∑ i : Fin 6, a i * elevenWeightOneFirstMomentAction z i) ^ 2 =
@@ -104,11 +102,112 @@ theorem elevenWeightOneFirstMoment_squareFactor_lt_one :
   rw [onePrimeWalshFactor_eleven_one]
   norm_num
 
+/-! ## Deterministic CRT tensorization of the 11 first moment -/
+
+/-- A finite sum of a pure tensor on coprime residue coordinates factors
+exactly.  This is just the Chinese remainder equivalence followed by Fubini. -/
+theorem coprimeZMod_sum_tensor
+    (m n : ℕ) (hm : 0 < m) (hn : 0 < n)
+    (hcop : Nat.Coprime m n)
+    (f : ZMod m → ℚ) (g : ZMod n → ℚ) :
+    (∑ z : ZMod (m * n),
+      f ((ZMod.chineseRemainder hcop) z).1 *
+        g ((ZMod.chineseRemainder hcop) z).2) =
+      (∑ a : ZMod m, f a) * (∑ b : ZMod n, g b) := by
+  letI : NeZero m := ⟨Nat.ne_of_gt hm⟩
+  letI : NeZero n := ⟨Nat.ne_of_gt hn⟩
+  letI : NeZero (m * n) := ⟨Nat.ne_of_gt (Nat.mul_pos hm hn)⟩
+  calc
+    (∑ z : ZMod (m * n),
+        f ((ZMod.chineseRemainder hcop) z).1 *
+          g ((ZMod.chineseRemainder hcop) z).2) =
+      ∑ ab : ZMod m × ZMod n, f ab.1 * g ab.2 := by
+        exact Fintype.sum_equiv
+          (ZMod.chineseRemainder hcop).toEquiv
+          (fun z : ZMod (m * n) =>
+            f ((ZMod.chineseRemainder hcop) z).1 *
+              g ((ZMod.chineseRemainder hcop) z).2)
+          (fun ab : ZMod m × ZMod n => f ab.1 * g ab.2)
+          (by intro z; rfl)
+    _ = (∑ a : ZMod m, f a) * (∑ b : ZMod n, g b) := by
+      rw [Fintype.sum_prod_type]
+      calc
+        (∑ a : ZMod m, ∑ b : ZMod n, f a * g b) =
+            ∑ a : ZMod m, f a * (∑ b : ZMod n, g b) := by
+          apply Fintype.sum_congr
+          intro a
+          rw [Finset.mul_sum]
+        _ = (∑ a : ZMod m, f a) * (∑ b : ZMod n, g b) := by
+          rw [Finset.sum_mul]
+
+/-- Zero-free indicator of the local prime-11 transition residue. -/
+def elevenZeroFreeIndicatorZMod (z : ZMod 121) : ℚ :=
+  if tSquareZeroFreeAt 11 z.val then 1 else 0
+
+/-- Signed prime-11 multiplier, with square-zero residues killed. -/
+def elevenZeroFreeCoordinateMultiplierZMod
+    (i : Fin 6) (z : ZMod 121) : ℚ :=
+  if tSquareZeroFreeAt 11 z.val then
+    if 11 ∣ tTransitionForm i z.val then -1 else 1
+  else 0
+
+/-- The local zero-free indicator has total mass `115`. -/
+theorem sum_elevenZeroFreeIndicatorZMod :
+    (∑ z : ZMod 121, elevenZeroFreeIndicatorZMod z) = 115 := by
+  native_decide
+
+/-- Every weight-one coordinate has local signed mass `95`. -/
+theorem sum_elevenZeroFreeCoordinateMultiplierZMod (i : Fin 6) :
+    (∑ z : ZMod 121, elevenZeroFreeCoordinateMultiplierZMod i z) = 95 := by
+  fin_cases i <;> native_decide
+
+/-- **Deterministic complete-fibre 11 intertwining.**  Let `g` be an arbitrary
+complementary arithmetic field on any modulus `M` coprime to `121`.  On the
+complete product orbit, the selected-11 coordinate acts by exactly `19/23` on
+the first moment.  No constancy, randomness, or decorrelation of `g` is assumed;
+CRT makes the two finite coordinates a literal product. -/
+theorem eleven_coprimeTensor_firstMoment
+    (M : ℕ) (hM : 0 < M) (hcop : Nat.Coprime 121 M)
+    (i : Fin 6) (g : ZMod M → ℚ) :
+    (∑ z : ZMod (121 * M),
+      elevenZeroFreeCoordinateMultiplierZMod i
+          ((ZMod.chineseRemainder hcop) z).1 *
+        g ((ZMod.chineseRemainder hcop) z).2) =
+      onePrimeWalshFactor 11 1 *
+        (∑ z : ZMod (121 * M),
+          elevenZeroFreeIndicatorZMod
+              ((ZMod.chineseRemainder hcop) z).1 *
+            g ((ZMod.chineseRemainder hcop) z).2) := by
+  have hsigned := coprimeZMod_sum_tensor 121 M (by norm_num) hM hcop
+    (elevenZeroFreeCoordinateMultiplierZMod i) g
+  have hzero := coprimeZMod_sum_tensor 121 M (by norm_num) hM hcop
+    elevenZeroFreeIndicatorZMod g
+  rw [sum_elevenZeroFreeCoordinateMultiplierZMod] at hsigned
+  rw [sum_elevenZeroFreeIndicatorZMod] at hzero
+  rw [hsigned, hzero, onePrimeWalshFactor_eleven_one]
+  ring
+
+/-- Squaring the exact complete-fibre identity gives the same energy factor
+used in the `ElevenQ2EnergyStep` engine. -/
+theorem eleven_coprimeTensor_firstMoment_sq
+    (M : ℕ) (hM : 0 < M) (hcop : Nat.Coprime 121 M)
+    (i : Fin 6) (g : ZMod M → ℚ) :
+    (∑ z : ZMod (121 * M),
+      elevenZeroFreeCoordinateMultiplierZMod i
+          ((ZMod.chineseRemainder hcop) z).1 *
+        g ((ZMod.chineseRemainder hcop) z).2) ^ 2 =
+      (onePrimeWalshFactor 11 1) ^ 2 *
+        (∑ z : ZMod (121 * M),
+          elevenZeroFreeIndicatorZMod
+              ((ZMod.chineseRemainder hcop) z).1 *
+            g ((ZMod.chineseRemainder hcop) z).2) ^ 2 := by
+  rw [eleven_coprimeTensor_firstMoment M hM hcop i g]
+  ring
+
 /-! ## Exact all-prime Euler / q-square intertwining -/
 
 /-- Square-root prime-wheel recovery is respected by an arbitrary independent
-finite Möbius difference operator `D_T`; the recovery prime set `P` and the
-operator prime set `T` are deliberately separate. -/
+finite Möbius difference operator `D_T`. -/
 theorem finiteDifferenceOperator_primeWheelRecovery_general
     (P T : Finset ℕ) (upper x : ℕ)
     (hprime : ∀ p ∈ P, Nat.Prime p)
@@ -183,11 +282,7 @@ theorem finiteDifferenceOperator_primeWheelRecovery_freshDifference
   simp only [shift]
   rw [hbase, hchild]
 
-/-- **Actual Möbius prime-11 / q² intertwining.**  Form the prime-11 Euler
-finite difference before owner separation and then descend by the square owner
-scale.  On the exact square-root recovered field `raw - 2*smooth`, every old
-Euler fibre `D_T` gives exactly the same result as on the true Möbius prefix.
-No selected-prime surrogate occurs in this theorem. -/
+/-- **Actual Möbius prime-11 / q² intertwining.** -/
 theorem finiteDifferenceOperator_recoveredMobius_eleven_q2_intertwining
     (P T : Finset ℕ) (upper x q : ℕ)
     (hprime : ∀ p ∈ P, Nat.Prime p)
