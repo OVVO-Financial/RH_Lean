@@ -655,6 +655,7 @@ import RHLean.Proof.SquareRootLowPrimeGoGlobalPartner
 import RHLean.Proof.SquareRootLowPrimeGoHyperbolicStripRecursion
 import RHLean.Proof.SquareRootLowPrimeGoOwnerFibers
 import RHLean.Proof.SquareRootLowPrimeGoRecursiveDescent
+import RHLean.Proof.SquareRootLowPrimeGoReducedSourcePacket
 import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
 import RHLean.Proof.SquareRootLowPrimeGoSecondContactSources
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
