@@ -134,7 +134,7 @@ theorem physicalSquareHitCells_card_le_six_completePeriods
 
 /-- A cell in the q-owned deletion channel is genuinely a q-square-hit cell. -/
 theorem outsidePrimeLeastDeletionChannelCells_subset_squareHit
-    {P : Finset ℕ} {K q : ℕ} (hqpos : 0 < q) :
+    {P : Finset ℕ} {K q : ℕ} :
     outsidePrimeLeastDeletionChannelCells P (Finset.range K) q ⊆
       physicalSquareHitCells K q := by
   intro k hk
@@ -163,7 +163,8 @@ theorem outsidePrimeLeastDeletionChannelCells_card_le_six_completePeriods
     (outsidePrimeLeastDeletionChannelCells P (Finset.range K) q).card ≤
         (physicalSquareHitCells K q).card :=
       Finset.card_le_card
-        (outsidePrimeLeastDeletionChannelCells_subset_squareHit hq.pos)
+        (outsidePrimeLeastDeletionChannelCells_subset_squareHit
+          (P := P) (K := K) (q := q))
     _ ≤ 6 * (K / q ^ 2) :=
       physicalSquareHitCells_card_le_six_completePeriods hq hq2 hcomplete
 
