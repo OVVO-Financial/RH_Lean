@@ -89,6 +89,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceImage_disjoint_internalMate
     lowWheelCanonicalRepeatedTerminalInternalMateImage_state_eq_one hzInternal
   have hquot := congrArg Prod.snd hone
   change q = 1 at hquot
+  have hqTwo : 2 ≤ q := hq.two_le
   omega
 
 /-- A full-face Go source cannot be a frozen-top owned image.  The source
@@ -122,7 +123,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceImage_disjoint_topImage
     rw [hshape]
     exact hpPrime.two_le
   rw [htopEq] at hquotEq
-  nlinarith [hqPrime.pos]
+  nlinarith [hqPrime.pos, htwo]
 
 /-- Exact quotient shape of a defect mate.  Its quotient acquires the least
 active face prime as a second nonunit prime factor beside the outer owner. -/
@@ -174,7 +175,6 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceImage_disjoint_mateImage
   have hquot := congrArg
     (fun w : LowWheelFullTaggedPhysicalState => w.2.2) hmate
   have hprod : p * t = q := by
-    dsimp only [p] at hmateQuot
     rw [hmateQuot] at hquot
     simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
       squareRootLowPrimeGoSecondBoundaryFullFaceSource] using hquot
