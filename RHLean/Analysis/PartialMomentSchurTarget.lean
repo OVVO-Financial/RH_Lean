@@ -233,13 +233,12 @@ theorem finiteTargetSecondMoment_eq_centered_add_rankOne
     (s t : ι → ℝ)
     (hs : ∀ i, finiteTargetFirstMoment S w x s i = 0) :
     finiteTargetSecondMoment S w x t =
-      finiteTargetSecondMoment S w x s +
-        (fun i j => finiteTotalWeight S w * (s i - t i) * (s j - t j) :
-          Matrix ι ι ℝ) := by
-  ext i j
+      fun i j => finiteTargetSecondMoment S w x s i j +
+        finiteTotalWeight S w * (s i - t i) * (s j - t j) := by
+  funext i j
   rw [finiteTargetSecondMoment_target_shift S w x s t i j,
     hs i, hs j]
-  simp [Matrix.add_apply]
+  ring
 
 end FiniteWeighted
 
