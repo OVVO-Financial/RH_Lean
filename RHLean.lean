@@ -19,6 +19,7 @@ import RHLean.Analysis.DivisorUpperMobius
 import RHLean.Analysis.DyadicTransportCanonicalForm
 import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Analysis.DynamicVioleBaseline
+import RHLean.Analysis.ElevenWeightOneFirstMoment
 import RHLean.Analysis.EulerCRTRoughnessRecursion
 import RHLean.Analysis.ExactActivityPrimeIntervals
 import RHLean.Analysis.FinitePrimeTMixing
@@ -92,7 +93,7 @@ import RHLean.Analysis.NativePNTMobiusMoments
 import RHLean.Analysis.NativePNTMobiusSecondMoment
 import RHLean.Analysis.NativePNTNormalizedContinuity
 import RHLean.Analysis.NativePNTNormalizedReciprocal
-import RHLean.Analysis.NativePNTNormalizedSignedRecurrence
+import RHLean.Analysis.NativePNTSignedRecurrence
 import RHLean.Analysis.NativePNTOptimalInterceptCore
 import RHLean.Analysis.NativePNTOptimalInterceptGrowth
 import RHLean.Analysis.NativePNTOptimalInterceptStep
@@ -753,4 +754,3 @@ import RHLean.Proof.VanishingTransitionRelevance
 import RHLean.Proof.VanishingTransitionRelevanceBase
 import RHLean.Proof.WheelToLedgerEquivariance
 import RHLean.Proof.WheelToLedgerPushforward
-import RHLean.Verification.FiniteRangeCertificates
