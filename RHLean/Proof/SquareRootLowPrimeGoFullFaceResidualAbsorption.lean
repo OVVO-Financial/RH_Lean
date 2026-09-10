@@ -403,14 +403,15 @@ theorem squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced
 
 /-- Retain both near corrections in the compensated signed reconstruction. -/
 theorem squareRootLowPrimeGo_frozenResidual_add_defect_eq_reduced_compensated
-    {R : ℕ} (hR : 6 ≤ R) :
+    {R : ℕ} (hR : 56 ≤ R) :
     lowWheelFrozenTopFarResidual R +
         ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ) =
       squareRootLowPrimeGoReducedPhysicalResidualLedger R -
         squareRootLowPrimeGoFullFaceDefectMateNearLedger R -
         lowWheelCanonicalRepeatedTerminalInternalMateNearLedger R := by
   rw [lowWheelFrozenTopFarResidual_eq_physicalResidual_sub_near R hR]
-  have h := squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced_sub_near hR
+  have h := squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced_sub_near
+    (R := R) (by omega : 6 ≤ R)
   linear_combination h
 
 /-- Energy of this compensated residual component.  This definition does not
@@ -422,7 +423,7 @@ def squareRootLowPrimeGoReducedCompensatedResidualEnergy (R : ℕ) : ℝ :=
 
 /-- Compensation and deletion preserve the exact residual energy. -/
 theorem squareRootLowPrimeGoReducedCompensatedResidualEnergy_eq
-    {R : ℕ} (hR : 6 ≤ R) :
+    {R : ℕ} (hR : 56 ≤ R) :
     squareRootLowPrimeGoReducedCompensatedResidualEnergy R =
       ‖lowWheelFrozenTopFarResidual R +
         ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ)‖ ^ 2 := by
