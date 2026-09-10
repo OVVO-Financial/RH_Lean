@@ -19,6 +19,7 @@ import RHLean.Analysis.DivisorUpperMobius
 import RHLean.Analysis.DyadicTransportCanonicalForm
 import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Analysis.DynamicVioleBaseline
+import RHLean.Analysis.ElevenWeightOneFirstMoment
 import RHLean.Analysis.EulerCRTRoughnessRecursion
 import RHLean.Analysis.ExactActivityPrimeIntervals
 import RHLean.Analysis.FinitePrimeTMixing
@@ -155,11 +156,13 @@ import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.OutsidePrimeDeletionMask
 import RHLean.Analysis.OutsidePrimeLeastSquareEndpoint
 import RHLean.Analysis.PRoughSquarePrefixEnergy
+import RHLean.Analysis.PartialMomentSchurTarget
 import RHLean.Analysis.PhysicalCenteredDistinguishedPrimeOperator
 import RHLean.Analysis.PhysicalDegreeOneHigherSquareRecurrences
 import RHLean.Analysis.PhysicalDegreeOneLeastSquareChannels
 import RHLean.Analysis.PhysicalDegreeOneMixingConjecture
 import RHLean.Analysis.PhysicalDegreeOneTransitionEstimate
+import RHLean.Analysis.PhysicalPartialMomentSchur
 import RHLean.Analysis.PhysicalSquareCRTPeriodNoGo
 import RHLean.Analysis.PhysicalSquareCRTTransfer
 import RHLean.Analysis.PrimeAveragedCubeEnergy
