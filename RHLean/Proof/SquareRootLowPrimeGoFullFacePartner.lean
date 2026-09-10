@@ -226,4 +226,269 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
   rw [hneg]
   ring
 
+/-! ## Global all-defect transport subledger
+
+The pointwise full-face construction loses no incidence multiplicity.  The
+source occurrence recovers `q` from its retained quotient and recovers `r` as
+the canonical largest prime of the squarefree face product `r*d`; `d` then
+follows by cancellation.  Since the full-face mate is involutive on the
+physical carrier, the mate map is injective on the same incidence set.
+
+Thus the complete unfinished second-boundary defect census cancels against one
+literal subledger of the already-existing full physical transport carrier.
+-/
+
+abbrev SquareRootLowPrimeGoFullFaceDefectIncidence := (ℕ × ℕ) × ℕ
+
+/-- Every live second-boundary incidence at the physical square endpoint. -/
+def squareRootLowPrimeGoFullFaceDefectCarrier
+    (R : ℕ) : Finset SquareRootLowPrimeGoFullFaceDefectIncidence :=
+  (((Finset.range R).product (Finset.range R)).product (Finset.range R)).filter
+    fun z =>
+      z.1.1.Prime ∧ z.1.2.Prime ∧ z.1.1 < z.1.2 ∧
+        z.1.2 ^ 3 ≤ squareRootEndpoint R ∧
+        z.2 ∈ squareRootLowPrimeGoSecondBoundaryDefectParents
+          z.1.2 (squareRootEndpoint R) z.1.1
+
+@[simp] theorem mem_squareRootLowPrimeGoFullFaceDefectCarrier
+    {R r q d : ℕ} :
+    ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R ↔
+      r < R ∧ q < R ∧ d < R ∧
+        r.Prime ∧ q.Prime ∧ r < q ∧
+        q ^ 3 ≤ squareRootEndpoint R ∧
+        d ∈ squareRootLowPrimeGoSecondBoundaryDefectParents
+          q (squareRootEndpoint R) r := by
+  simp [squareRootLowPrimeGoFullFaceDefectCarrier, and_assoc]
+
+/-- Source occurrence of a global defect incidence. -/
+def squareRootLowPrimeGoFullFaceDefectSourceTag
+    (z : SquareRootLowPrimeGoFullFaceDefectIncidence) :
+    LowWheelFullTaggedPhysicalState :=
+  squareRootLowPrimeGoSecondBoundaryFullFaceSource z.1.1 z.1.2 z.2
+
+/-- Existing transport mate occurrence of the same defect incidence. -/
+def squareRootLowPrimeGoFullFaceDefectMateTag
+    (R : ℕ) (z : SquareRootLowPrimeGoFullFaceDefectIncidence) :
+    LowWheelFullTaggedPhysicalState :=
+  lowWheelFullFaceQuotientMate R
+    (squareRootLowPrimeGoFullFaceDefectSourceTag z)
+
+/-- Every source tag is a literal physical transport occurrence. -/
+theorem squareRootLowPrimeGoFullFaceDefectSourceTag_mem_transport
+    {R : ℕ} (hR : 2 ≤ R)
+    {z : SquareRootLowPrimeGoFullFaceDefectIncidence}
+    (hz : z ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
+    squareRootLowPrimeGoFullFaceDefectSourceTag z ∈
+      lowWheelFullTaggedPhysicalCarrier R := by
+  rcases z with ⟨⟨r, q⟩, d⟩
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, hcube, hd⟩
+  exact squareRootLowPrimeGoSecondBoundaryFullFaceSource_mem_transport
+    hR hq hr hrq hcube hd
+
+/-- The full-face source encoding is injective on the defect carrier. -/
+theorem squareRootLowPrimeGoFullFaceDefectSourceTag_injOn
+    (R : ℕ) :
+    Set.InjOn squareRootLowPrimeGoFullFaceDefectSourceTag
+      (squareRootLowPrimeGoFullFaceDefectCarrier R) := by
+  intro a ha b hb hab
+  rcases a with ⟨⟨r, q⟩, d⟩
+  rcases b with ⟨⟨s, t⟩, e⟩
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp ha with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _hcube, hd⟩
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hb with
+    ⟨_hsR, _htR, _heR, hs, ht, hst, _hcube', he⟩
+  have hfullD :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  have hfullE :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp he).1
+  have hqEq : q = t := by
+    have h := congrArg
+      (fun y : LowWheelFullTaggedPhysicalState => y.2.2) hab
+    simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
+      squareRootLowPrimeGoSecondBoundaryFullFaceSource] using h
+  have hface :
+      squarefreePrimeFace (r * d) = squarefreePrimeFace (s * e) := by
+    have h := congrArg
+      (fun y : LowWheelFullTaggedPhysicalState => y.1) hab
+    simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
+      squareRootLowPrimeGoSecondBoundaryFullFaceSource] using h
+  have hsqD : Squarefree (r * d) :=
+    (squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth
+      hq hr hrq hfullD).1.2.2.1
+  have hsqE : Squarefree (s * e) :=
+    (squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth
+      ht hs hst hfullE).1.2.2.1
+  have hprod : r * d = s * e := by
+    have hp := congrArg primeFaceProduct hface
+    simpa [primeFaceProduct_squarefreePrimeFace hsqD,
+      primeFaceProduct_squarefreePrimeFace hsqE] using hp
+  have hdPos : 0 < d := by
+    have hd1 := (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfullD).1
+    omega
+  have hePos : 0 < e := by
+    have he1 := (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfullE).1
+    omega
+  have hroughD :=
+    (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfullD).2.2.2.1
+  have hroughE :=
+    (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfullE).2.2.2.1
+  have htopD : canonicalLargestPrimeFactor (r * d) = r := by
+    have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
+      hdPos hr hroughD
+    simpa [Nat.mul_comm] using h
+  have htopE : canonicalLargestPrimeFactor (s * e) = s := by
+    have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
+      hePos hs hroughE
+    simpa [Nat.mul_comm] using h
+  have hrs : r = s := by
+    calc
+      r = canonicalLargestPrimeFactor (r * d) := htopD.symm
+      _ = canonicalLargestPrimeFactor (s * e) := congrArg _ hprod
+      _ = s := htopE
+  subst s
+  have hde : d = e := Nat.eq_of_mul_eq_mul_left hr.pos hprod
+  subst e
+  subst t
+  rfl
+
+/-- The mate encoding is also injective: apply the same global involution once
+more to recover the unique source occurrence. -/
+theorem squareRootLowPrimeGoFullFaceDefectMateTag_injOn
+    {R : ℕ} (hR : 2 ≤ R) :
+    Set.InjOn (squareRootLowPrimeGoFullFaceDefectMateTag R)
+      (squareRootLowPrimeGoFullFaceDefectCarrier R) := by
+  intro a ha b hb hab
+  have hsa := squareRootLowPrimeGoFullFaceDefectSourceTag_mem_transport hR ha
+  have hsb := squareRootLowPrimeGoFullFaceDefectSourceTag_mem_transport hR hb
+  have hinvA := lowWheelFullFaceQuotientMate_involutive hsa
+  have hinvB := lowWheelFullFaceQuotientMate_involutive hsb
+  have hmate :
+      lowWheelFullFaceQuotientMate R
+          (squareRootLowPrimeGoFullFaceDefectSourceTag a) =
+        lowWheelFullFaceQuotientMate R
+          (squareRootLowPrimeGoFullFaceDefectSourceTag b) := by
+    simpa [squareRootLowPrimeGoFullFaceDefectMateTag] using hab
+  have hsource :
+      squareRootLowPrimeGoFullFaceDefectSourceTag a =
+        squareRootLowPrimeGoFullFaceDefectSourceTag b := by
+    calc
+      squareRootLowPrimeGoFullFaceDefectSourceTag a =
+          lowWheelFullFaceQuotientMate R
+            (lowWheelFullFaceQuotientMate R
+              (squareRootLowPrimeGoFullFaceDefectSourceTag a)) := hinvA.symm
+      _ = lowWheelFullFaceQuotientMate R
+            (lowWheelFullFaceQuotientMate R
+              (squareRootLowPrimeGoFullFaceDefectSourceTag b)) := by
+          rw [hmate]
+      _ = squareRootLowPrimeGoFullFaceDefectSourceTag b := hinvB
+  exact squareRootLowPrimeGoFullFaceDefectSourceTag_injOn R ha hb hsource
+
+/-- Mate occurrences remain inside the pre-existing full physical transport
+carrier. -/
+theorem squareRootLowPrimeGoFullFaceDefectMateTag_mem_transport
+    {R : ℕ} (hR : 2 ≤ R)
+    {z : SquareRootLowPrimeGoFullFaceDefectIncidence}
+    (hz : z ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
+    squareRootLowPrimeGoFullFaceDefectMateTag R z ∈
+      lowWheelFullTaggedPhysicalCarrier R := by
+  unfold squareRootLowPrimeGoFullFaceDefectMateTag
+  exact lowWheelFullFaceQuotientMate_mem
+    (squareRootLowPrimeGoFullFaceDefectSourceTag_mem_transport hR hz)
+
+/-- Integer mass of the complete live second-boundary defect census. -/
+def squareRootLowPrimeGoFullFaceDefectSourceMass (R : ℕ) : ℤ :=
+  ∑ z ∈ squareRootLowPrimeGoFullFaceDefectCarrier R,
+    μ (z.1.2 * z.2)
+
+/-- The same source census in its literal full-face transport coordinates. -/
+def squareRootLowPrimeGoFullFaceDefectSourceLedger (R : ℕ) : ℂ :=
+  ∑ z ∈ squareRootLowPrimeGoFullFaceDefectCarrier R,
+    lowWheelFullTaggedPhysicalWeight
+      (squareRootLowPrimeGoFullFaceDefectSourceTag z)
+
+/-- The corresponding existing physical mate ledger. -/
+def squareRootLowPrimeGoFullFaceDefectMateLedger (R : ℕ) : ℂ :=
+  ∑ z ∈ squareRootLowPrimeGoFullFaceDefectCarrier R,
+    lowWheelFullTaggedPhysicalWeight
+      (squareRootLowPrimeGoFullFaceDefectMateTag R z)
+
+/-- The source ledger is exactly the cast of the external raw defect mass. -/
+theorem squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_mass
+    (R : ℕ) :
+    squareRootLowPrimeGoFullFaceDefectSourceLedger R =
+      ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ) := by
+  unfold squareRootLowPrimeGoFullFaceDefectSourceLedger
+    squareRootLowPrimeGoFullFaceDefectSourceMass
+  push_cast
+  apply Finset.sum_congr rfl
+  intro z hz
+  rcases z with ⟨⟨r, q⟩, d⟩
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _hcube, hd⟩
+  have hfull :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
+      canonicalMoebiusWeight] using
+    squareRootLowPrimeGoSecondBoundaryFullFaceSource_weight_eq
+      hq hr hrq hfull
+
+/-- Pointwise full-face Othello cancellation sums over the exact same defect
+incidences. -/
+theorem squareRootLowPrimeGoFullFaceDefectSource_add_mate_eq_zero
+    {R : ℕ} (hR : 2 ≤ R) :
+    squareRootLowPrimeGoFullFaceDefectSourceLedger R +
+      squareRootLowPrimeGoFullFaceDefectMateLedger R = 0 := by
+  unfold squareRootLowPrimeGoFullFaceDefectSourceLedger
+    squareRootLowPrimeGoFullFaceDefectMateLedger
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_eq_zero
+  intro z hz
+  rcases z with ⟨⟨r, q⟩, d⟩
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, hcube, hd⟩
+  simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
+      squareRootLowPrimeGoFullFaceDefectMateTag] using
+    squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
+      hR hq hr hrq hcube hd
+
+/-- The mate image is a genuine finite subcarrier of the existing transport
+support. -/
+def squareRootLowPrimeGoFullFaceDefectMateImage
+    (R : ℕ) : Finset LowWheelFullTaggedPhysicalState :=
+  (squareRootLowPrimeGoFullFaceDefectCarrier R).image
+    (squareRootLowPrimeGoFullFaceDefectMateTag R)
+
+theorem squareRootLowPrimeGoFullFaceDefectMateImage_subset_transport
+    {R : ℕ} (hR : 2 ≤ R) :
+    squareRootLowPrimeGoFullFaceDefectMateImage R ⊆
+      lowWheelFullTaggedPhysicalCarrier R := by
+  intro y hy
+  rcases Finset.mem_image.mp hy with ⟨z, hz, rfl⟩
+  exact squareRootLowPrimeGoFullFaceDefectMateTag_mem_transport hR hz
+
+/-- Injectivity proves that the indexed mate ledger is literally the signed sum
+over its image subcarrier; no transport occurrence is charged twice. -/
+theorem squareRootLowPrimeGoFullFaceDefectMateLedger_eq_imageSum
+    {R : ℕ} (hR : 2 ≤ R) :
+    squareRootLowPrimeGoFullFaceDefectMateLedger R =
+      ∑ y ∈ squareRootLowPrimeGoFullFaceDefectMateImage R,
+        lowWheelFullTaggedPhysicalWeight y := by
+  unfold squareRootLowPrimeGoFullFaceDefectMateLedger
+    squareRootLowPrimeGoFullFaceDefectMateImage
+  rw [Finset.sum_image]
+  intro a ha b hb hab
+  exact squareRootLowPrimeGoFullFaceDefectMateTag_injOn hR ha hb hab
+
+/-- **Global full-face defect cancellation.**  The complete unfinished Go
+second-boundary defect mass cancels exactly against one injectively embedded
+subledger of the existing physical transport carrier.  There is no singleton
+crossing restriction and no root-equality remainder in this formulation. -/
+theorem squareRootLowPrimeGoFullFaceDefectMass_add_existingMate_eq_zero
+    {R : ℕ} (hR : 2 ≤ R) :
+    ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ) +
+      squareRootLowPrimeGoFullFaceDefectMateLedger R = 0 := by
+  rw [← squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_mass]
+  exact squareRootLowPrimeGoFullFaceDefectSource_add_mate_eq_zero hR
+
 end RHLean.Proof
