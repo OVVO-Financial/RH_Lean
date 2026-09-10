@@ -93,7 +93,7 @@ import RHLean.Analysis.NativePNTMobiusMoments
 import RHLean.Analysis.NativePNTMobiusSecondMoment
 import RHLean.Analysis.NativePNTNormalizedContinuity
 import RHLean.Analysis.NativePNTNormalizedReciprocal
-import RHLean.Analysis.NativePNTSignedRecurrence
+import RHLean.Analysis.NativePNTNormalizedSignedRecurrence
 import RHLean.Analysis.NativePNTOptimalInterceptCore
 import RHLean.Analysis.NativePNTOptimalInterceptGrowth
 import RHLean.Analysis.NativePNTOptimalInterceptStep
@@ -754,3 +754,4 @@ import RHLean.Proof.VanishingTransitionRelevance
 import RHLean.Proof.VanishingTransitionRelevanceBase
 import RHLean.Proof.WheelToLedgerEquivariance
 import RHLean.Proof.WheelToLedgerPushforward
+import RHLean.Verification.FiniteRangeCertificates
