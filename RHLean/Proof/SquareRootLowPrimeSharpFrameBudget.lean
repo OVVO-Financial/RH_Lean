@@ -82,7 +82,8 @@ theorem oddPrimeOwnerReciprocalSquareBudget_le_quarter (N : ℕ) :
     have hp : (0 : ℚ) ≤ 1 / (4 * ((N : ℚ) + 1)) := by positivity
     linarith
   · intro a _ha b _hb hab
-    exact Nat.mul_left_cancel (Nat.add_right_cancel hab)
+    have hmul : 2 * a = 2 * b := Nat.add_right_cancel hab
+    omega
 
 /-- Prime `2` costs one quarter; all odd primes together cost at most another. -/
 theorem primeOwnerReciprocalSquareBudget_le_half (N : ℕ) :
