@@ -46,15 +46,17 @@ theorem sum_oddReciprocalSquares_le_quarter_sub (N : ℕ) :
   | zero => norm_num
   | succ N ih =>
     rw [Finset.sum_range_succ]
-    have h := add_le_add ih (oddReciprocalSquareTerm_le_telescope N)
-    push_cast at h ⊢
-    convert h using 1 <;> ring
+    have ht := oddReciprocalSquareTerm_le_telescope N
+    push_cast at ih ht ⊢
+    linarith
 
 private theorem oddPrimes_subset_oddImage (N : ℕ) :
-    (primesUpTo N).erase 2 ⊆ (Finset.range N).image (fun k => 2 * k + 3) := by
+    (primesUpTo N).erase 2 ⊆
+      (Finset.range N).image (fun k : ℕ => (2 * k + 3 : ℕ)) := by
   intro q hq
   have hdata := mem_primesUpTo.mp (Finset.mem_erase.mp hq).2
   have hqN := hdata.2
+  have hq2 := hdata.1.two_le
   have hne := (Finset.mem_erase.mp hq).1
   obtain ⟨k, hk⟩ := hdata.1.odd_of_ne_two hne
   have hk1 : 1 ≤ k := by omega
@@ -66,7 +68,7 @@ theorem oddPrimeOwnerReciprocalSquareBudget_le_quarter (N : ℕ) :
     (∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2) ≤ 1 / 4 := by
   have hsum :
       (∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2) ≤
-        ∑ q ∈ (Finset.range N).image (fun k => 2 * k + 3),
+        ∑ q ∈ (Finset.range N).image (fun k : ℕ => (2 * k + 3 : ℕ)),
           (1 : ℚ) / (q : ℚ) ^ 2 := by
     refine Finset.sum_le_sum_of_subset_of_nonneg (oddPrimes_subset_oddImage N) ?_
     intro q _hqImage _hqOld
@@ -238,7 +240,8 @@ theorem elevenQ2_bulk_boundary_twoFrame_implies_linear
   apply q2EnergyStep_implies_linear_of_ownerScaleBudget
     (owners := primesUpTo) (C := 4 * B)
     (lambda := (8 : ℚ) / 3 * elevenWeightOneEnergyFactor) (rho := 1 / 2)
-    (fun _ => Finset.Subset.refl _) (by nlinarith [hB]) (by positivity)
+    (fun _ => Finset.Subset.refl _) (by nlinarith [hB])
+      (mul_nonneg (by norm_num) elevenWeightOneEnergyFactor_nonneg)
   · intro X
     simpa [div_eq_mul_inv, mul_comm] using
       sum_primeOwner_squareDilatedCutoffs_le_half_parent X X
@@ -266,7 +269,8 @@ theorem elevenQ2_bulk_boundary_fourFrame_oddOwners_implies_linear
   apply q2EnergyStep_implies_linear_of_ownerScaleBudget
     (owners := fun X => (primesUpTo X).erase 2) (C := 4 * B)
     (lambda := (16 : ℚ) / 3 * elevenWeightOneEnergyFactor) (rho := 1 / 4)
-    (fun _ => Finset.erase_subset _ _) (by nlinarith [hB]) (by positivity)
+    (fun _ => Finset.erase_subset _ _) (by nlinarith [hB])
+      (mul_nonneg (by norm_num) elevenWeightOneEnergyFactor_nonneg)
   · intro X
     simpa [div_eq_mul_inv, mul_comm] using
       sum_oddPrimeOwner_squareDilatedCutoffs_le_quarter_parent X X
