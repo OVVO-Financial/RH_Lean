@@ -154,6 +154,23 @@ theorem squareRootLowPrimeGoWallSquareResidual_cast_eq_roughCofactorMobiusPrefix
       simp [hsq, hrough, canonicalMoebiusWeight, hmu]
   · simp [hrough, canonicalMoebiusWeight]
 
+/-- **One-strip reciprocal/Go intertwining.**  After casting the exact Go strip
+to the common complex carrier, its only non-boundary term is literally the
+rough Möbius daughter at `X/q²`.  Hence consecutive strips telescope their two
+moving boundary states while all surviving arithmetic content is already on
+the lower-scale coordinate used by the reciprocal transform. -/
+theorem squareRootLowPrimeGoWallStripMass_cast_eq_boundaryDiff_add_roughDaughter
+    {ell q X : ℕ} (hq : q.Prime)
+    (hpred : primesUpTo (q - 1) = primesUpTo ell) :
+    (((squareRootLowPrimeGoWallStripMass ell q X : ℤ) : ℂ)) =
+      (((squareRootLowPrimeGoWallBoundaryState q X : ℤ) : ℂ)) -
+        (((squareRootLowPrimeGoWallBoundaryState ell X : ℤ) : ℂ)) +
+          roughCofactorMobiusPrefixMass q (X / (q * q)) := by
+  rw [squareRootLowPrimeGoWallStripMass_eq_boundaryDiff_add_squareResidual
+    hq hpred]
+  push_cast
+  rw [squareRootLowPrimeGoWallSquareResidual_cast_eq_roughCofactorMobiusPrefixMass hq]
+
 /-! ## The #629 collision fibre becomes bounded after q^-2 scaling
 
 `lowWheelFrozenSecondContactChildOwnerColumn_eq_signed_fibers` shows that the
