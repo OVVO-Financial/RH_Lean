@@ -159,6 +159,7 @@ import RHLean.Analysis.OutsidePrimeLeastSquareEndpoint
 import RHLean.Analysis.PRoughSquarePrefixEnergy
 import RHLean.Analysis.PartialMomentSchurTarget
 import RHLean.Analysis.PhysicalCenteredDistinguishedPrimeOperator
+import RHLean.Analysis.PhysicalDaughterEnergyObstructions
 import RHLean.Analysis.PhysicalDegreeOneHigherSquareRecurrences
 import RHLean.Analysis.PhysicalDegreeOneLeastSquareChannels
 import RHLean.Analysis.PhysicalDegreeOneMixingConjecture
