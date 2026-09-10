@@ -137,10 +137,6 @@ theorem physicalTRowTargetDegreeOneFirstMoment_zero
     physicalThreeCoordinateVector_one, physicalThreeCoordinateVector_two,
     sub_zero]
   rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
-  change
-    (∑ v ∈ physicalThreeSlotNonzeroStates,
-      (physicalTransitionN K u v : ℝ) *
-        (((chiA v : ℤ) : ℝ) + ((chiB v : ℤ) : ℝ) + ((chiC v : ℤ) : ℝ))) = _
   have hstates :
       physicalThreeSlotNonzeroStates = {0, 2, 6, 8, 18, 20, 24, 26} := by
     rfl
