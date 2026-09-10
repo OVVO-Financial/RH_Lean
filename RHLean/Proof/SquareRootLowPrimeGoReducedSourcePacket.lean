@@ -10,11 +10,18 @@ complementary carrier fact: the corresponding full-face source occurrence is
 itself a far physical state, but it is neither one of the old owned images nor a
 defect mate.  Hence exactly one source copy survives on the reduced carrier.
 
+The source packet is also classified at its exact `q^2` boundary.  It is not
+itself a physical square-deletion cell: its represented high product contains
+the live outer owner `q` exactly once.  Instead it is the pre-contact state whose
+next `q`-move crosses the physical endpoint.  The owner is automatically odd
+because every defect incidence has a smaller prime `r < q`.
+
 This distinction matters for the quantitative frame problem.  The source packet
 may not be silently discarded with its mate, and it may not be charged as a
-second independent daughter packet.  The final identities below split the
-#643 reduced ledger exactly into this one surviving source packet plus its
-literal set-theoretic complement.  No norm or estimate is taken.
+physical square-contact packet without a further scalar pushforward.  The final
+identities below split the #643 reduced ledger exactly into this one surviving
+source packet plus its literal set-theoretic complement.  No norm or estimate is
+taken.
 -/
 
 noncomputable section
@@ -47,6 +54,103 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_imageSum
   rw [Finset.sum_image]
   intro a ha b hb hab
   exact squareRootLowPrimeGoFullFaceDefectSourceTag_injOn R ha hb hab
+
+/-! ## Exact source-side dictionary
+
+These are deliberately source-side facts.  They do not identify a surviving
+state with a six-offset physical square-deletion cell.  They record the exact
+Go second-boundary geometry: an odd outer owner, no `q^2` hit in the current
+represented product, and a `q^2` hit at the next failed boundary.
+-/
+
+/-- Every live full-face defect source already lies on the odd-prime owner
+schedule.  Excluding `2` uses only the smaller prime `r < q` carried by the
+incidence; it does not assume a square-contact pushforward. -/
+theorem squareRootLowPrimeGoFullFaceDefectSource_owner_mem_oddPrimeSchedule
+    {R r q d : ℕ}
+    (hz : ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
+    q ∈ (primesUpTo R).erase 2 := by
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz with
+    ⟨_hrR, hqR, _hdR, hr, hq, hrq, _hcube, _hd⟩
+  apply Finset.mem_erase.mpr
+  refine ⟨?_, mem_primesUpTo.mpr ⟨hq, by omega⟩⟩
+  intro hq2
+  subst q
+  have hrTwo : 2 ≤ r := hr.two_le
+  omega
+
+/-- The surviving source is genuinely pre-contact for its outer owner: the
+current represented high product contains only one copy of `q`, hence is not a
+`q^2` square-hit state. -/
+theorem squareRootLowPrimeGoFullFaceDefectSource_not_qSquareContact
+    {R r q d : ℕ}
+    (hz : ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
+    ¬ q ^ 2 ∣ lowWheelTaggedHighProduct
+      (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)) := by
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _hcube, hd⟩
+  have hfull :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  have hchild :=
+    squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth hq hr hrq hfull
+  have hface :=
+    squareRootLowPrimeGoSecondBoundaryFullFaceSource_faceProduct
+      hq hr hrq hfull
+  have hnot :
+      ¬ q ∣ primeFaceProduct
+        (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 := by
+    intro hdiv
+    have hdiv' : q ∣ r * d := by
+      rw [hface] at hdiv
+      exact hdiv
+    have hlt : q < q := hchild.1.2.2.2.2 q hq hdiv'
+    exact (Nat.lt_irrefl q) hlt
+  have hsq :
+      ¬ q ^ 2 ∣
+        primeFaceProduct
+          (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 * q := by
+    intro h
+    obtain ⟨c, hc⟩ := h
+    apply hnot
+    refine ⟨c, ?_⟩
+    have hcancel :
+        primeFaceProduct
+            (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 * q =
+          (q * c) * q := by
+      rw [hc]
+      ring
+    exact Nat.eq_of_mul_eq_mul_right hq.pos hcancel
+  simpa [lowWheelTaggedHighProduct,
+    squareRootLowPrimeGoFullFaceDefectSourceTag,
+    squareRootLowPrimeGoSecondBoundaryFullFaceSource] using hsq
+
+/-- The missing second copy of `q` is exactly the next failed boundary:
+multiplying the surviving represented high product once more by `q` crosses the
+square endpoint. -/
+theorem squareRootLowPrimeGoFullFaceDefectSource_next_q_crosses
+    {R r q d : ℕ}
+    (hz : ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
+    squareRootEndpoint R < q * lowWheelTaggedHighProduct
+      (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)) := by
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _hcube, hd⟩
+  have hfull :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  have hface :=
+    squareRootLowPrimeGoSecondBoundaryFullFaceSource_faceProduct
+      hq hr hrq hfull
+  have hsecond :=
+    squareRootLowPrimeGoSecondBoundaryDefect_secondContact_gt hq hr hd
+  calc
+    squareRootEndpoint R < q * q * (r * d) := hsecond
+    _ = q *
+        (primeFaceProduct
+          (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 * q) := by
+      rw [hface]
+      ring
+    _ = q * lowWheelTaggedHighProduct
+        (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)) := by
+      rfl
 
 /-- The source and its full-face mate have the same represented high product,
 so the already-proved far estimate for the mate is also a far estimate for the
