@@ -276,6 +276,7 @@ theorem finiteDifferenceOperator_primeWheelRecovery_freshDifference
   have hchild :=
     finiteDifferenceOperator_primeWheelRecovery_general
       P T upper (x / p) hprime hcover hpchild
+  simp only [Pi.sub_apply, shift]
   rw [hbase, hchild]
 
 /-- **Actual Möbius prime-11 / q² intertwining.** -/
