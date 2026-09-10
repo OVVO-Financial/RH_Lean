@@ -93,9 +93,13 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_not_qSquareContact
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
   have hchild :=
     squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth hq hr hrq hfull
-  have hface :=
-    squareRootLowPrimeGoSecondBoundaryFullFaceSource_faceProduct
-      hq hr hrq hfull
+  have hface :
+      primeFaceProduct
+          (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 =
+        r * d := by
+    simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using
+      (squareRootLowPrimeGoSecondBoundaryFullFaceSource_faceProduct
+        hq hr hrq hfull)
   have hnot :
       ¬ q ∣ primeFaceProduct
         (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 := by
@@ -136,9 +140,13 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_next_q_crosses
     ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _hcube, hd⟩
   have hfull :=
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
-  have hface :=
-    squareRootLowPrimeGoSecondBoundaryFullFaceSource_faceProduct
-      hq hr hrq hfull
+  have hface :
+      primeFaceProduct
+          (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 =
+        r * d := by
+    simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using
+      (squareRootLowPrimeGoSecondBoundaryFullFaceSource_faceProduct
+        hq hr hrq hfull)
   have hsecond :=
     squareRootLowPrimeGoSecondBoundaryDefect_secondContact_gt hq hr hd
   calc
