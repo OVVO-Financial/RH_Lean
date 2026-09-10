@@ -727,31 +727,31 @@ theorem sum_weighted_squareDilatedCutoffs_le_harmonic
 /-- **Elementary diagonal criterion.**  Assume only that the interior is the sum
 of its owner columns and that each column separately is dominated by its own
 prime-`11` contracted daughter energy — no cross-owner cancellation, no frame
-inequality of any kind.  Then the linear envelope already closes whenever the
-owner harmonic sum stays at most one.
-
-On the physical live owner schedule that sum is bounded away from the divergent
-full prime harmonic sum by the primorial threshold above, and it grows only like
-a double logarithm of the root.  This is the exact elementary distance still
-separating the compiled recursion from the linear energy envelope. -/
-theorem elevenQ2_harmonicOwnerColumns_implies_linear
-    {E I b : ℕ → ℚ} {column : ℕ → ℕ → ℚ} {owners : ℕ → Finset ℕ} {B : ℚ}
-    (hB : 0 ≤ B)
+inequality of any kind.  Then the whole recurrence is controlled by one number:
+the owner harmonic sum.  The weighted Cauchy–Schwarz step spends `c` and the
+weighted daughter budget spends `c` again, so the branching coefficient is
+`(4/3) * (19/23)^2 * c^2` and closure needs only `c < 23/(19*sqrt(4/3))`, i.e.
+`c` up to about `1.048`. -/
+theorem elevenQ2_harmonicOwnerColumns_implies_linear_of_bound
+    {E I b : ℕ → ℚ} {column : ℕ → ℕ → ℚ} {owners : ℕ → Finset ℕ} {c B K : ℚ}
+    (hB : 0 ≤ B) (hc : 0 ≤ c) (hK : 0 ≤ K)
+    (hfixed : 4 * B +
+      (4 : ℚ) / 3 * elevenWeightOneEnergyFactor * c ^ 2 * K ≤ K)
     (howners : ∀ X, owners X ⊆ primesUpTo X)
-    (hharmonic : ∀ X, (∑ q ∈ owners X, (1 : ℚ) / (q : ℚ)) ≤ 1)
+    (hharmonic : ∀ X, (∑ q ∈ owners X, (1 : ℚ) / (q : ℚ)) ≤ c)
     (hdecomp : ∀ X, E X ≤ (I X + b X) ^ 2)
     (hcolumns : ∀ X, I X = ∑ q ∈ owners X, column X q)
     (hdiagonal : ∀ X, ∀ q ∈ owners X, (column X q) ^ 2 ≤
       elevenWeightOneEnergyFactor * E (X / (q * q)))
     (hboundary : ∀ X, (b X) ^ 2 ≤ B * (X : ℚ)) :
-    ∀ X, E X ≤ ((6348 : ℚ) / 143 * B) * (X : ℚ) := by
+    ∀ X, E X ≤ K * (X : ℚ) := by
   have hfac : (0 : ℚ) ≤ elevenWeightOneEnergyFactor :=
     elevenWeightOneEnergyFactor_nonneg
-  have hK : (0 : ℚ) ≤ (6348 : ℚ) / 143 * B := mul_nonneg (by norm_num) hB
   apply q2EnergyStep_implies_linear_of_weightedOwnerScheduleBudget
     (owners := owners) (theta := fun q => (q : ℚ)) (C := 4 * B)
-    (lambda := (4 : ℚ) / 3 * elevenWeightOneEnergyFactor) (rho := 1)
-    howners (fun q => Nat.cast_nonneg q) hK (mul_nonneg (by norm_num) hfac)
+    (lambda := (4 : ℚ) / 3 * c * elevenWeightOneEnergyFactor) (rho := c)
+    howners (fun q => Nat.cast_nonneg q) hK
+    (mul_nonneg (mul_nonneg (by norm_num) hc) hfac)
   · intro X
     have h := sum_weighted_squareDilatedCutoffs_le_harmonic (owners X) X
       (fun q hq => (mem_primesUpTo.mp (howners X hq)).1)
@@ -759,13 +759,12 @@ theorem elevenQ2_harmonicOwnerColumns_implies_linear
     calc
       (∑ q ∈ owners X, (q : ℚ) * ((X / (q * q) : ℕ) : ℚ)) ≤
           (X : ℚ) * ∑ q ∈ owners X, (1 : ℚ) / (q : ℚ) := h
-      _ ≤ (X : ℚ) * 1 := mul_le_mul_of_nonneg_left (hharmonic X) hX
-      _ = 1 * (X : ℚ) := by ring
-  · have hval : (4 : ℚ) / 3 * elevenWeightOneEnergyFactor * 1 *
-        ((6348 : ℚ) / 143 * B) = (5776 : ℚ) / 143 * B := by
-      rw [elevenWeightOneEnergyFactor_eq]
-      ring
-    linarith
+      _ ≤ (X : ℚ) * c := mul_le_mul_of_nonneg_left (hharmonic X) hX
+      _ = c * (X : ℚ) := by ring
+  · have hEq : ((4 : ℚ) / 3 * c * elevenWeightOneEnergyFactor) * c * K =
+        (4 : ℚ) / 3 * elevenWeightOneEnergyFactor * c ^ 2 * K := by ring
+    rw [hEq]
+    exact hfixed
   · intro X
     have hpos : ∀ q ∈ owners X, (0 : ℚ) < (q : ℚ) := by
       intro q hq
@@ -788,37 +787,93 @@ theorem elevenQ2_harmonicOwnerColumns_implies_linear
             ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q)) := by
       rw [Finset.mul_sum]
       exact Finset.sum_congr rfl (fun q _ => by ring)
-    have hIsq : (I X) ^ 2 ≤ elevenWeightOneEnergyFactor *
-        ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q)) := by
+    have hIsq : (I X) ^ 2 ≤ c * (elevenWeightOneEnergyFactor *
+        ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q))) := by
       rw [hcolumns X]
       calc
         (∑ q ∈ owners X, column X q) ^ 2 ≤
             (∑ q ∈ owners X, 1 / (q : ℚ)) *
               ∑ q ∈ owners X, (q : ℚ) * (column X q) ^ 2 := hcs
-        _ ≤ 1 * ∑ q ∈ owners X, (q : ℚ) * (column X q) ^ 2 :=
+        _ ≤ c * ∑ q ∈ owners X, (q : ℚ) * (column X q) ^ 2 :=
           mul_le_mul_of_nonneg_right (hharmonic X) hVnonneg
-        _ = ∑ q ∈ owners X, (q : ℚ) * (column X q) ^ 2 := by ring
-        _ ≤ ∑ q ∈ owners X, (q : ℚ) *
-              (elevenWeightOneEnergyFactor * E (X / (q * q))) := hdiag
-        _ = elevenWeightOneEnergyFactor *
-              ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q)) := hpull
+        _ ≤ c * ∑ q ∈ owners X, (q : ℚ) *
+              (elevenWeightOneEnergyFactor * E (X / (q * q))) :=
+          mul_le_mul_of_nonneg_left hdiag hc
+        _ = c * (elevenWeightOneEnergyFactor *
+              ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q))) := by rw [hpull]
     have hbX := hboundary X
     have he := hdecomp X
     have hy : (I X + b X) ^ 2 ≤ (4 : ℚ) / 3 * (I X) ^ 2 + 4 * (b X) ^ 2 := by
       nlinarith [sq_nonneg (I X - 3 * b X)]
     have h1 : (4 : ℚ) / 3 * (I X) ^ 2 ≤
-        (4 : ℚ) / 3 * (elevenWeightOneEnergyFactor *
-          ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q))) :=
+        (4 : ℚ) / 3 * (c * (elevenWeightOneEnergyFactor *
+          ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q)))) :=
       mul_le_mul_of_nonneg_left hIsq (by norm_num)
     have h2 : (4 : ℚ) * (b X) ^ 2 ≤ 4 * (B * (X : ℚ)) :=
       mul_le_mul_of_nonneg_left hbX (by norm_num)
     calc
       E X ≤ (I X + b X) ^ 2 := he
       _ ≤ (4 : ℚ) / 3 * (I X) ^ 2 + 4 * (b X) ^ 2 := hy
-      _ ≤ (4 : ℚ) / 3 * (elevenWeightOneEnergyFactor *
-            ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q))) +
+      _ ≤ (4 : ℚ) / 3 * (c * (elevenWeightOneEnergyFactor *
+            ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q)))) +
           4 * (B * (X : ℚ)) := by linarith
-      _ = 4 * B * (X : ℚ) + ((4 : ℚ) / 3 * elevenWeightOneEnergyFactor) *
-            ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q)) := by ring
+      _ = 4 * B * (X : ℚ) +
+            ((4 : ℚ) / 3 * c * elevenWeightOneEnergyFactor) *
+              ∑ q ∈ owners X, (q : ℚ) * E (X / (q * q)) := by ring
+
+/-- The criterion at harmonic sum one, with the same envelope as every frame
+statement above. -/
+theorem elevenQ2_harmonicOwnerColumns_implies_linear
+    {E I b : ℕ → ℚ} {column : ℕ → ℕ → ℚ} {owners : ℕ → Finset ℕ} {B : ℚ}
+    (hB : 0 ≤ B)
+    (howners : ∀ X, owners X ⊆ primesUpTo X)
+    (hharmonic : ∀ X, (∑ q ∈ owners X, (1 : ℚ) / (q : ℚ)) ≤ 1)
+    (hdecomp : ∀ X, E X ≤ (I X + b X) ^ 2)
+    (hcolumns : ∀ X, I X = ∑ q ∈ owners X, column X q)
+    (hdiagonal : ∀ X, ∀ q ∈ owners X, (column X q) ^ 2 ≤
+      elevenWeightOneEnergyFactor * E (X / (q * q)))
+    (hboundary : ∀ X, (b X) ^ 2 ≤ B * (X : ℚ)) :
+    ∀ X, E X ≤ ((6348 : ℚ) / 143 * B) * (X : ℚ) := by
+  refine elevenQ2_harmonicOwnerColumns_implies_linear_of_bound (c := 1)
+    hB (by norm_num) (mul_nonneg (by norm_num) hB) ?_ howners hharmonic
+    hdecomp hcolumns hdiagonal hboundary
+  have hval : (4 : ℚ) / 3 * elevenWeightOneEnergyFactor * (1 : ℚ) ^ 2 *
+      ((6348 : ℚ) / 143 * B) = (5776 : ℚ) / 143 * B := by
+    rw [elevenWeightOneEnergyFactor_eq]
+    ring
+  linarith
+
+/-- **The elementary criterion survives a harmonic sum above one.**  At
+`c = 26/25 = 1.04` the branching coefficient is still `976144/991875 < 1`, so
+the cancellation-free diagonal route closes with envelope
+`(3967500/15731)*B*X`.  The exact elementary ceiling is `c^2 < 1587/1444`, that
+is `c < 1.0483...`; the live owner harmonic sum first crosses it just past root
+`10^4`. -/
+theorem elevenQ2_harmonicOwnerColumns_implies_linear_at_twentySixFifths
+    {E I b : ℕ → ℚ} {column : ℕ → ℕ → ℚ} {owners : ℕ → Finset ℕ} {B : ℚ}
+    (hB : 0 ≤ B)
+    (howners : ∀ X, owners X ⊆ primesUpTo X)
+    (hharmonic : ∀ X, (∑ q ∈ owners X, (1 : ℚ) / (q : ℚ)) ≤ 26 / 25)
+    (hdecomp : ∀ X, E X ≤ (I X + b X) ^ 2)
+    (hcolumns : ∀ X, I X = ∑ q ∈ owners X, column X q)
+    (hdiagonal : ∀ X, ∀ q ∈ owners X, (column X q) ^ 2 ≤
+      elevenWeightOneEnergyFactor * E (X / (q * q)))
+    (hboundary : ∀ X, (b X) ^ 2 ≤ B * (X : ℚ)) :
+    ∀ X, E X ≤ ((3967500 : ℚ) / 15731 * B) * (X : ℚ) := by
+  refine elevenQ2_harmonicOwnerColumns_implies_linear_of_bound (c := 26 / 25)
+    hB (by norm_num) (mul_nonneg (by norm_num) hB) ?_ howners hharmonic
+    hdecomp hcolumns hdiagonal hboundary
+  have hval : (4 : ℚ) / 3 * elevenWeightOneEnergyFactor * ((26 : ℚ) / 25) ^ 2 *
+      ((3967500 : ℚ) / 15731 * B) = (3904576 : ℚ) / 15731 * B := by
+    rw [elevenWeightOneEnergyFactor_eq]
+    ring
+  linarith
+
+/-- The exact elementary ceiling on the owner harmonic sum: the branching
+coefficient stays below one precisely while `c^2 < 1587/1444`. -/
+theorem elevenQ2_harmonicOwner_branchingCoefficient_lt_one :
+    (4 : ℚ) / 3 * elevenWeightOneEnergyFactor * ((26 : ℚ) / 25) ^ 2 < 1 := by
+  rw [elevenWeightOneEnergyFactor_eq]
+  norm_num
 
 end RHLean.Proof

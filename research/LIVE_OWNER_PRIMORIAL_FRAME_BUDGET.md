@@ -130,6 +130,12 @@ sum_{q in owners X} 1/q <= 1
 
 to close with the same envelope (`elevenQ2_harmonicOwnerColumns_implies_linear`).
 
+These columns are the exact `q`-daughters of the compiled saturated-source
+identity, and the per-column bound is the *inductive* daughter energy, not a
+trivial or cardinality bound.  That distinction matters: norming the
+child-owner `r`-columns of the same reassembly costs a full power, as measured
+in `RESEARCH_ROUTE_REGISTRY.md`.  Here the cost is only the harmonic sum.
+
 The last column of the table is exactly this quantity.  It is `0.63` at
 `R = 100`, `0.85` at `R = 1000`, `0.94` at `R = 3000`, and first exceeds `1`
 between `R = 3000` and `R = 10000`; asymptotically it grows like

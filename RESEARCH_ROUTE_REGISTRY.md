@@ -1045,6 +1045,57 @@ treated as orthogonal packets.
 - bounding `sum_r |col_r|`, `card` of any owner fibre, or any per-column norm and
   reporting it as progress on the ledger. The table above is the measured cost.
 
+## Exact result retained: the owner schedule is primorial-thresholded
+
+`RHLean/Proof/SquareRootLowPrimeLiveOwnerPrimorialFrame.lean`.
+
+A saturated #629 second-contact seed at root `R` carries a squarefree core
+`c > R` all of whose prime factors lie below its owner `q`.  Such a core divides
+`prod_{p<q} p`, so a live owner forces `R < prod_{p<q} p`.  Dually the Go
+`q`-square daughter is *exactly* zero once `prod_{p<q} p <= X/q^2`, by
+completeness of the truncated Boolean cube.
+
+Retained consequences, all exact:
+
+- owners `2`, `3`, `5` are dead for `R >= 6`, `7` is dead for `R >= 30`, `11` is
+  dead for `R >= 210`, and the threshold grows without bound;
+- the owner reciprocal-square budget is at most `1/12` uniformly and `1/20`
+  beyond root `30`, against the unit budget of the complete prime schedule;
+- since only the product of frame loss and owner budget enters the prime-`11`
+  recurrence, the admissible cross-owner frame loss is at least `12` uniformly,
+  at least `20` beyond root `30`, and unbounded in the root.
+
+The `4/3` frame figure was therefore an artefact of the crude global budget, not
+a property of this carrier.  A Schur, Cotlar or Carleson argument on the owner
+columns now has more than an order of magnitude more room, and may lose a factor
+growing with the root.
+
+### Measured: the cancellation-free route is off by a double logarithm, not a power
+
+This is *not* a licence to norm columns termwise.  The measurement recorded
+above still stands for the child-owner `r`-columns: bounding them individually,
+or by any cardinality, costs a full power.
+
+The `q`-daughter columns of the compiled identity behave differently, and only
+under the inductive daughter bound.  Weighted Cauchy-Schwarz with owner weight
+`q` — no sign information at all — closes the induction precisely when
+
+```text
+sum_{q live at R} 1/q  <  23 / (19 * sqrt(4/3))  =  1.0483...
+```
+
+Exact computation on the #629 window gives `0.63` at `R = 100`, `0.85` at
+`R = 1000`, `0.94` at `R = 3000` and `1.08` at `R = 10^4`, so the criterion holds
+on a genuine initial range and then fails, growing like `log log R`.
+
+**Do not restart this route by increasing the finite range.**  It is closed as a
+route: the quantity diverges.  What it establishes is the size of the remaining
+seam.  Under the inductive daughter bound the elementary loss on this carrier is
+`(sum_{q live} 1/q)^2`, i.e. `(log log R)^2` — a double logarithm, not the full
+power that per-column norming costs on the `r`-columns.  Any mechanism that
+saves a double logarithm, or any genuine cross-owner cancellation at all, closes
+the induction.
+
 ## Acceptance rule for future routes
 
 A proposed route must state:
