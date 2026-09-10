@@ -51,7 +51,7 @@ theorem lowWheelFrozenCofactorTopImage_facePrime_lt_pivot
 below the interior owner `r` and lies on the Boolean face rather than in the
 outer quotient. -/
 theorem squareRootLowPrimeGoFullFaceDefect_oppositePrime_lt_interior
-    {R r q d : ℕ} (hR : 2 ≤ R)
+    {R r q d : ℕ} (_hR : 2 ≤ R)
     (hz : ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
     let s := squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)
     let p := lowWheelFullOppositePrime R s
@@ -142,9 +142,12 @@ theorem squareRootLowPrimeGoFullFaceDefectMateTag_exists_facePrime_gt_pivot
     change r ∈ (lowWheelFullFaceQuotientMate R s).1
     unfold lowWheelFullFaceQuotientMate
     rw [dif_pos hnonempty]
+    change r ∈ (lowWheelFullFaceQuotientToggleAt p s).1
     unfold lowWheelFullFaceQuotientToggleAt
     dsimp only
-    simp [lowWheelFaceTailToggleAt, hpFace, hrFace, hprNe]
+    unfold lowWheelFaceTailToggleAt
+    rw [if_pos hpFace]
+    exact Finset.mem_erase.mpr ⟨hprNe.symm, hrFace⟩
   have hpDvdMate :
       p ∣ (squareRootLowPrimeGoFullFaceDefectMateTag R ((r, q), d)).2.1 *
         (squareRootLowPrimeGoFullFaceDefectMateTag R ((r, q), d)).2.2 := by
@@ -152,9 +155,13 @@ theorem squareRootLowPrimeGoFullFaceDefectMateTag_exists_facePrime_gt_pivot
       (lowWheelFullFaceQuotientMate R s).2.2
     unfold lowWheelFullFaceQuotientMate
     rw [dif_pos hnonempty]
+    change p ∣ (lowWheelFullFaceQuotientToggleAt p s).2.1 *
+      (lowWheelFullFaceQuotientToggleAt p s).2.2
     unfold lowWheelFullFaceQuotientToggleAt
     dsimp only
-    simp [lowWheelFaceTailToggleAt, hpFace]
+    unfold lowWheelFaceTailToggleAt
+    rw [if_pos hpFace]
+    exact ⟨s.2.1 * s.2.2, by ring⟩
   have hpivotLe :
       lowWheelCanonicalCofactorQuotientPivot
           (squareRootLowPrimeGoFullFaceDefectMateTag R ((r, q), d)).2 ≤ p := by
@@ -181,11 +188,12 @@ theorem squareRootLowPrimeGoFullFaceDefectMateTag_quotient_two_le
     change (lowWheelFullFaceQuotientMate R s).2.2 = p * q
     unfold lowWheelFullFaceQuotientMate
     rw [dif_pos hnonempty]
+    change (lowWheelFullFaceQuotientToggleAt p s).2.2 = p * q
     unfold lowWheelFullFaceQuotientToggleAt
     dsimp only
-    simp [lowWheelFaceTailToggleAt, hpFace, s,
-      squareRootLowPrimeGoFullFaceDefectSourceTag,
-      squareRootLowPrimeGoSecondBoundaryFullFaceSource]
+    unfold lowWheelFaceTailToggleAt
+    rw [if_pos hpFace]
+    rfl
   rw [hquot]
   exact hpPrime.two_le.trans (Nat.le_mul_of_pos_right p hq.pos)
 
