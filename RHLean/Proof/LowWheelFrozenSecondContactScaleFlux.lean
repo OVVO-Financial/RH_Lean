@@ -185,6 +185,29 @@ theorem sum_oldOwnerFiber_squareDilatedCutoffs_le_parent
         positivity
     _ ≤ (X : ℚ) := sum_primeOwner_squareDilatedCutoffs_le_parent (R - 1) X
 
+/-- **Collision-safe subcriticality.**  Even if arbitrarily many old owners
+coalesce onto one #629 reassembled face, retaining their `q^-2` daughter scales
+before applying the exact prime-11 weight-one energy factor leaves a strict
+contraction for every positive parent scale. -/
+theorem elevenWeighted_sum_oldOwnerFiber_squareDilatedCutoffs_lt_parent
+    (R r d X : ℕ) (hX : 0 < X) :
+    elevenWeightOneEnergyFactor *
+        (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+          ((X / (q * q) : ℕ) : ℚ)) <
+      (X : ℚ) := by
+  have hsum := sum_oldOwnerFiber_squareDilatedCutoffs_le_parent R r d X
+  have hXq : (0 : ℚ) < (X : ℚ) := by exact_mod_cast hX
+  calc
+    elevenWeightOneEnergyFactor *
+          (∑ q ∈ lowWheelFrozenSecondContactOldOwnerFiber R r d,
+            ((X / (q * q) : ℕ) : ℚ)) ≤
+        elevenWeightOneEnergyFactor * (X : ℚ) :=
+      mul_le_mul_of_nonneg_left hsum elevenWeightOneEnergyFactor_nonneg
+    _ < 1 * (X : ℚ) :=
+      mul_lt_mul_of_pos_right
+        (elevenWeightOneEnergyFactor_lt_three_quarters.trans (by norm_num)) hXq
+    _ = (X : ℚ) := by ring
+
 /-! ## Canonical ancestry congestion on the saturated #629 window
 
 The original collision-defect-chain interface bounded the number of charged
