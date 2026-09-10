@@ -46,6 +46,44 @@ exact original coefficient when adding the boundary. The physical signed
 interior inequality and a uniform admissible state preserving full Mobius
 reconstruction are still open; no RH or Mertens exponent improvement is claimed.
 
+## Current continuation: the owner schedule is primorial-thresholded
+
+`RHLean/Proof/SquareRootLowPrimeLiveOwnerPrimorialFrame.lean` settles how much
+quantitative room the cross-owner frame estimate actually has on the physical
+carrier, and the answer is much more than the `4/3` figure suggests.
+
+A saturated #629 second-contact seed at root `R` carries a squarefree core
+`c > R` whose prime factors all lie below its owner `q`.  Such a core divides
+the predecessor primorial, so
+
+```text
+live owner q at root R  ==>  R < prod_{p<q} p.
+```
+
+Owners `2`, `3`, `5` are therefore dead for `R >= 6`, owner `7` is dead for
+`R >= 30`, owner `11` is dead for `R >= 210`, and the threshold grows without
+bound.  Dually, a Go `q`-square daughter is *exactly* zero once
+`prod_{p<q} p <= X/q^2`, because the Boolean cube of `q`-smooth faces is then
+complete.
+
+Since only the product of frame loss and owner scale budget enters the compiled
+prime-`11` recurrence, and the odd telescope turns the threshold into the
+budgets `1/12` uniformly and `1/20` beyond root `30`, a frame loss of `12`
+uniformly, `20` beyond root `30`, and any prescribed loss beyond an explicit
+primorial threshold, all close the same induction with envelope
+`E(X) <= (6348/143)*B*X`.
+
+Dropping the frame hypothesis entirely and retaining the owner weight `q`
+through the descent, the purely diagonal column bound closes as soon as
+`sum_{q live} 1/q <= 1`.  Exact computation on the #629 window gives `0.63` at
+`R = 100`, `0.94` at `R = 3000`, and first exceeds one before `R = 10000`; the
+quantity grows like a double logarithm.  The remaining elementary gap on this
+carrier is therefore a double logarithm, not a power.
+
+See `research/LIVE_OWNER_PRIMORIAL_FRAME_BUDGET.md`.  No frame inequality on the
+reduced #643 packet, no identification with the recovered Mertens degree-one
+energy, and no RH closure is claimed.
+
 ## Current continuation after #608: consume the middle boundary with its base
 
 `research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean` continues the signed
