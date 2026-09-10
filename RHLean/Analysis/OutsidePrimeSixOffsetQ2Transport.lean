@@ -20,6 +20,10 @@ replacement.  On one complete `{11}` / `3^2` super-period the actual least-owner
 `q=3` selected-sign channel has signed mass `2280`, whereas the corresponding
 plain rough Mobius daughter through `2` has mass `0`.
 
+At the same time, `2280 / 2760 = 19 / 23`, so this counterexample does not destroy
+the prime-11 weight-one contraction.  It destroys only the literal identification
+of the transported complementary field with the rough Go daughter.
+
 Thus the local contact bijection and the complementary CRT tensor theorem from
 #638 survive, but a physical q-owner channel is not itself a Go daughter.  Any
 energy recurrence has to retain this affine pullback field (or reassemble the
@@ -94,7 +98,7 @@ complementary field. -/
 theorem outsidePrimeLeastDeletionChannel_no_earlier_square
     {P O : Finset ℕ} {q k p : ℕ}
     (hk : k ∈ outsidePrimeLeastDeletionChannelCells P O q)
-    (hp : p.Prime) (hpq : p < q) :
+    (hpq : p < q) :
     ¬ physicalSquarePrimeAtEdge k p := by
   intro hpHit
   rcases Finset.mem_filter.mp hk with ⟨hkDel, howner⟩
@@ -166,6 +170,25 @@ theorem elevenThreeCompleteSelectedDeletionMass_eq_2280 :
     elevenThreeCompleteSelectedDeletionMass = 2280 := by
   native_decide
 
+/-- The same complete population still carries the exact prime-11 weight-one
+factor: `2280 / 2760 = 19 / 23`.  This separates the surviving spectral law from
+the failed rough-daughter identification. -/
+theorem elevenThreeCompleteSelectedDeletionMass_has_eleven_factor :
+    (23 : ℤ) * elevenThreeCompleteSelectedDeletionMass =
+      19 * (elevenThreeCompleteSelectedDeletionCells.card : ℤ) := by
+  rw [elevenThreeCompleteSelectedDeletionMass_eq_2280,
+    elevenThreeCompleteSelectedDeletionCells_card]
+  norm_num
+
+/-- The corresponding square-energy identity is exactly `(19/23)^2`. -/
+theorem elevenThreeCompleteSelectedDeletionMass_has_eleven_energy_factor :
+    (23 : ℤ) ^ 2 * elevenThreeCompleteSelectedDeletionMass ^ 2 =
+      (19 : ℤ) ^ 2 *
+        (elevenThreeCompleteSelectedDeletionCells.card : ℤ) ^ 2 := by
+  rw [elevenThreeCompleteSelectedDeletionMass_eq_2280,
+    elevenThreeCompleteSelectedDeletionCells_card]
+  norm_num
+
 /-- For q=3, a 3-square hit is automatically the least odd square-prime owner. -/
 theorem physicalLeastOddSquarePrime_eq_some_three_iff (k : ℕ) :
     physicalLeastOddSquarePrime k = some 3 ↔
@@ -188,7 +211,8 @@ theorem physicalLeastOddSquarePrime_eq_some_three_iff (k : ℕ) :
           have hpTwo : 2 ≤ p := hpPrime.two_le
           omega
         have hp : p = 3 := by omega
-        simpa [hp] using hleast
+        subst p
+        exact hleast
 
 /-- The computable population above is literally the repository's least-owner
 q=3 deletion carrier for `{11}` on the same complete prefix. -/
