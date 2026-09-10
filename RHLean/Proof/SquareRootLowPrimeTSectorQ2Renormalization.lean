@@ -461,6 +461,7 @@ theorem elevenQ2_bulk_boundary_implies_linear_fullMargin
           (19 : ℚ) / 23 * ((529 : ℚ) / 16 * B) ≤
         (529 : ℚ) / 16 * B := by
     ring_nf
+    exact le_rfl
   exact q2EnergyStep_implies_linear_of_fixedPointBudget
     (by positivity : 0 ≤ (529 : ℚ) / 16 * B)
     (by norm_num : (0 : ℚ) ≤ 19 / 23)
@@ -524,6 +525,7 @@ theorem elevenQ2_bulk_boundary_fourThirdsFrame_implies_linear
       23 * B + (722 : ℚ) / 759 * ((17457 : ℚ) / 37 * B) ≤
         (17457 : ℚ) / 37 * B := by
     ring_nf
+    exact le_rfl
   exact q2EnergyStep_implies_linear_of_fixedPointBudget
     (by positivity : 0 ≤ (17457 : ℚ) / 37 * B)
     (by norm_num : (0 : ℚ) ≤ 722 / 759)
