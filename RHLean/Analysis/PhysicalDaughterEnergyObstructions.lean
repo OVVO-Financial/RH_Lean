@@ -270,4 +270,119 @@ theorem goRootFloorCorrection_ne_squareBlockEndpoint (P : Finset ℕ) :
   rw [← h, goRootFloorCorrection_1000] at hb
   norm_num at hb
 
+/-! ## The root-floor term must stay coupled to its root anchor -/
+
+/-- The boundary left after restoring every `q^2` daughter is not the raw
+root-floor correction from above.  It is the signed coupling of that correction
+with the frozen root anchor already present in the saturated physical source
+identity. -/
+noncomputable def goCompensatedRootBoundary (R : ℕ) : ℤ :=
+  1 - frozenPrimeUniverseMass (primesUpTo (R - 1)) (squareRootEndpoint R) -
+    goRootFloorCorrection R
+
+/-- **Exact globally compensated daughter decomposition.**  The complete
+saturated physical second-contact source ledger is one compensated root
+boundary minus *all* literal Go `q^2` daughters.  Thus neither the raw deletion
+field nor the raw root-floor correction is an admissible standalone state; both
+must remain inside the full signed reconstruction before any norm is taken. -/
+theorem lowWheelFrozenSecondContactSource_sum_eq_compensatedRootBoundary_sub_allDaughters
+    (R : ℕ) (hR : 2 ≤ R) :
+    (∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+      canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ)) =
+      (((goCompensatedRootBoundary R -
+        ∑ q ∈ primesUpTo (R - 1),
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R) : ℤ) : ℂ)) := by
+  have hcolumn :
+      (∑ q ∈ primesUpTo (R - 1),
+        if R ≤ squareRootEndpoint R / (q * q) then
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)
+        else frozenPrimeUniverseMass (primesUpTo (q - 1)) R) =
+        (∑ q ∈ primesUpTo (R - 1),
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)) +
+            goRootFloorCorrection R := by
+    calc
+      (∑ q ∈ primesUpTo (R - 1),
+        if R ≤ squareRootEndpoint R / (q * q) then
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)
+        else frozenPrimeUniverseMass (primesUpTo (q - 1)) R) =
+          ∑ q ∈ primesUpTo (R - 1),
+            frozenPrimeUniverseMass (primesUpTo (q - 1))
+              (max R (squareRootEndpoint R / (q * q))) :=
+        (lowWheelFrozenSecondContactRootFlooredColumn_eq_goOrRoot R).symm
+      _ = (∑ q ∈ primesUpTo (R - 1),
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)) +
+            goRootFloorCorrection R :=
+        goRootFlooredColumn_eq_all_daughters_add_correction R
+  rw [lowWheelFrozenSecondContactSource_sum_eq_rootBoundary_sub_goOrRoot R hR,
+    hcolumn]
+  unfold goCompensatedRootBoundary
+  push_cast
+  ring
+
+/-! ## The fully reconstructed signed packet is q-square closed
+
+The raw selected deletion prefix above is not an admissible energy state.  The
+correct linear state keeps the complete `raw - 2*smooth` Möbius reconstruction,
+the prime-11 finite difference, and every already-selected finite-difference
+coordinate together.  On that state the `q^2` daughter map is exactly closed:
+it is just evaluation of the same packet at the lower cutoff. -/
+
+/-- The recovered prime-11 finite-difference packet commutes with `q^2` descent
+pointwise.  No complete period, owner separation, or norm enters this identity. -/
+theorem elevenRecoveredMobiusPacket_q2_closed
+    (T : Finset ℕ) (q x : ℕ) :
+    finiteDifferenceOperator T
+        (freshPrimeDifference 11 (shift (q * q) moebiusPositivePrefix)) x =
+      finiteDifferenceOperator T
+        (freshPrimeDifference 11 moebiusPositivePrefix) (x / (q * q)) := by
+  have h := finiteDifferenceOperator_eleven_squareShift_intertwining
+    T q moebiusPositivePrefix
+  have hx := congrArg (fun f : ℕ → ℤ => f x) h
+  simpa [shift] using hx
+
+/-- **Full signed-reconstruction closure.**  Under square-root prime coverage,
+start with the actual recovered field `raw - 2*smooth`, apply the prime-11 Euler
+difference and any existing finite Möbius difference fibre, and then descend by
+`q^2`.  The result is exactly the *same recovered packet species* evaluated at
+`x/q^2`.  Thus the linear admissible state can be chosen self-similarly without
+admitting the false raw selected prefixes proved above. -/
+theorem recoveredPrimeWheelElevenPacket_q2_selfSimilar
+    (P T : Finset ℕ) (upper x q : ℕ)
+    (hprime : ∀ p ∈ P, Nat.Prime p)
+    (hcover : PrimeWheelSqrtCoverage P upper)
+    (hx : x ≤ upper) :
+    finiteDifferenceOperator T
+        (freshPrimeDifference 11
+          (shift (q * q) (fun y =>
+            primeWheelRawPositivePrefix P y -
+              2 * primeWheelSmoothPositivePrefix P upper y))) x =
+      finiteDifferenceOperator T
+        (freshPrimeDifference 11 (fun y =>
+          primeWheelRawPositivePrefix P y -
+            2 * primeWheelSmoothPositivePrefix P upper y))
+        (x / (q * q)) := by
+  have hchild : x / (q * q) ≤ upper :=
+    (Nat.div_le_self x (q * q)).trans hx
+  calc
+    finiteDifferenceOperator T
+        (freshPrimeDifference 11
+          (shift (q * q) (fun y =>
+            primeWheelRawPositivePrefix P y -
+              2 * primeWheelSmoothPositivePrefix P upper y))) x =
+      finiteDifferenceOperator T
+        (freshPrimeDifference 11 (shift (q * q) moebiusPositivePrefix)) x :=
+      finiteDifferenceOperator_recoveredMobius_eleven_q2_intertwining
+        P T upper x q hprime hcover hx
+    _ = finiteDifferenceOperator T
+        (freshPrimeDifference 11 moebiusPositivePrefix) (x / (q * q)) :=
+      elevenRecoveredMobiusPacket_q2_closed T q x
+    _ = finiteDifferenceOperator T
+        (freshPrimeDifference 11 (fun y =>
+          primeWheelRawPositivePrefix P y -
+            2 * primeWheelSmoothPositivePrefix P upper y))
+        (x / (q * q)) := by
+      symm
+      exact finiteDifferenceOperator_primeWheelRecovery_freshDifference
+        P T upper (x / (q * q)) 11 hprime hcover hchild
+
 end RHLean.Analysis
