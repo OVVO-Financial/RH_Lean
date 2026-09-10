@@ -270,4 +270,70 @@ theorem goRootFloorCorrection_ne_squareBlockEndpoint (P : Finset ℕ) :
   rw [← h, goRootFloorCorrection_1000] at hb
   norm_num at hb
 
+/-! ## The fully reconstructed signed packet is q-square closed
+
+The raw selected deletion prefix above is not an admissible energy state.  The
+correct linear state keeps the complete `raw - 2*smooth` Möbius reconstruction,
+the prime-11 finite difference, and every already-selected finite-difference
+coordinate together.  On that state the `q^2` daughter map is exactly closed:
+it is just evaluation of the same packet at the lower cutoff. -/
+
+/-- The recovered prime-11 finite-difference packet commutes with `q^2` descent
+pointwise.  No complete period, owner separation, or norm enters this identity. -/
+theorem elevenRecoveredMobiusPacket_q2_closed
+    (T : Finset ℕ) (q x : ℕ) :
+    finiteDifferenceOperator T
+        (freshPrimeDifference 11 (shift (q * q) moebiusPositivePrefix)) x =
+      finiteDifferenceOperator T
+        (freshPrimeDifference 11 moebiusPositivePrefix) (x / (q * q)) := by
+  have h := finiteDifferenceOperator_eleven_squareShift_intertwining
+    T q moebiusPositivePrefix
+  have hx := congrArg (fun f : ℕ → ℤ => f x) h
+  simpa [shift] using hx
+
+/-- **Full signed-reconstruction closure.**  Under square-root prime coverage,
+start with the actual recovered field `raw - 2*smooth`, apply the prime-11 Euler
+difference and any existing finite Möbius difference fibre, and then descend by
+`q^2`.  The result is exactly the *same recovered packet species* evaluated at
+`x/q^2`.  Thus the linear admissible state can be chosen self-similarly without
+admitting the false raw selected prefixes proved above. -/
+theorem recoveredPrimeWheelElevenPacket_q2_selfSimilar
+    (P T : Finset ℕ) (upper x q : ℕ)
+    (hprime : ∀ p ∈ P, Nat.Prime p)
+    (hcover : PrimeWheelSqrtCoverage P upper)
+    (hx : x ≤ upper) :
+    finiteDifferenceOperator T
+        (freshPrimeDifference 11
+          (shift (q * q) (fun y =>
+            primeWheelRawPositivePrefix P y -
+              2 * primeWheelSmoothPositivePrefix P upper y))) x =
+      finiteDifferenceOperator T
+        (freshPrimeDifference 11 (fun y =>
+          primeWheelRawPositivePrefix P y -
+            2 * primeWheelSmoothPositivePrefix P upper y))
+        (x / (q * q)) := by
+  have hchild : x / (q * q) ≤ upper :=
+    (Nat.div_le_self x (q * q)).trans hx
+  calc
+    finiteDifferenceOperator T
+        (freshPrimeDifference 11
+          (shift (q * q) (fun y =>
+            primeWheelRawPositivePrefix P y -
+              2 * primeWheelSmoothPositivePrefix P upper y))) x =
+      finiteDifferenceOperator T
+        (freshPrimeDifference 11 (shift (q * q) moebiusPositivePrefix)) x :=
+      finiteDifferenceOperator_recoveredMobius_eleven_q2_intertwining
+        P T upper x q hprime hcover hx
+    _ = finiteDifferenceOperator T
+        (freshPrimeDifference 11 moebiusPositivePrefix) (x / (q * q)) :=
+      elevenRecoveredMobiusPacket_q2_closed T q x
+    _ = finiteDifferenceOperator T
+        (freshPrimeDifference 11 (fun y =>
+          primeWheelRawPositivePrefix P y -
+            2 * primeWheelSmoothPositivePrefix P upper y))
+        (x / (q * q)) := by
+      symm
+      exact finiteDifferenceOperator_primeWheelRecovery_freshDifference
+        P T upper (x / (q * q)) 11 hprime hcover hchild
+
 end RHLean.Analysis
