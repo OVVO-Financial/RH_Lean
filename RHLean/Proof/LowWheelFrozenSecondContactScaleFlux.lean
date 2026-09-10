@@ -1,4 +1,6 @@
 import Mathlib
+import RHLean.Analysis.ElevenWeightOneFirstMoment
+import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
 import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.LowWheelFrozenSecondContactGlobalTelescope
 import RHLean.Proof.SquareRootLowPrimeTSectorQ2Renormalization
@@ -17,6 +19,7 @@ open scoped BigOperators ArithmeticFunction.Moebius
 
 namespace RHLean.Proof
 
+open RHLean.Analysis
 open RHLean.Arithmetic
 open CanonicalGapAncestryBridge
 
@@ -109,6 +112,306 @@ theorem lowWheelFrozenSecondContact_sourceScale_largestPrime
   rw [lowWheelFrozenSecondContactSourceScale_eq_insertPivotFaceProduct hy]
   exact hmax
 
+/-- **Physical/Go second-contact intertwining certificate.**  All three pieces
+that had previously lived in separate coordinate systems are the same source:
+
+* the physical predecessor face is `A*d`;
+* its signed weight is exactly `mu(A)*mu(d)`;
+* after dividing the parent endpoint by `A`, the stripped cofactor is the
+  genuine Go boundary `q*d <= B < q^2*d` on a strict lower scale `B<R`.
+
+No norm, inequality estimate, or probabilistic identification enters this
+statement.  It is the exact arithmetic carrier/sign/scale dictionary needed to
+transport the physical least-square boundary into the Go recursion. -/
+theorem lowWheelFrozenSecondContact_physicalGo_intertwining
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
+    (hy : y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R) :
+    let A := lowWheelFrozenSecondContactSourceScale y
+    let B := squareRootEndpoint R / A
+    let c := y.2.1
+    let q := lowWheelFrozenCofactorTopPrime y
+    let d := canonicalCofactor c
+    primeFaceProduct (lowWheelFrozenSecondContactParentFace y) = A * d ∧
+      canonicalMoebiusWeight c * (booleanCubeSign y.1 : ℂ) =
+        canonicalMoebiusWeight A * canonicalMoebiusWeight d ∧
+      q.Prime ∧ Squarefree d ∧ canonicalLargestPrimeFactor d < q ∧
+        q * d = c ∧ q * d ≤ B ∧ B < q * q * d ∧ B < R := by
+  dsimp only
+  refine ⟨
+    lowWheelFrozenSecondContact_parentFaceProduct_eq_sourceScale_mul_canonicalCofactor hy,
+    lowWheelFrozenSecondContact_sourceWeight_eq_scale_mul_canonicalCofactor hy,
+    ?_⟩
+  have h := lowWheelFrozenSecondContact_source_lowerScaleSecondContact hy
+  simpa [lowWheelFrozenSecondContactSourceScale] using h
+
+/-- **Fixed-owner carrier equivalence.**  On the genuine saturated
+second-contact population, erasing the owner is not merely an injection into a
+Go-like window.  For every prime owner `q<R` it is a bijection onto the complete
+native high-owner predecessor window.  Together with
+`lowWheelFrozenSecondContactParentMap_weight_eq_source`, this is the exact
+carrier-level equivalence behind the signed owner-mass identity. -/
+theorem lowWheelFrozenSecondContactParentFace_bijOn_highOwnerWindow
+    {R q : ℕ} (hq : q.Prime) (hqR : q < R) :
+    Set.BijOn
+      (fun y : LowWheelTaggedDowncrossState =>
+        lowWheelFrozenSecondContactParentFace y)
+      (↑((lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
+          (fun y => lowWheelFrozenCofactorTopPrime y = q)) :
+        Set LowWheelTaggedDowncrossState)
+      (↑(lowWheelFrozenSecondContactHighOwnerWindow R q) : Set (Finset ℕ)) := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro y hy
+    change y ∈ (lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
+      (fun y => lowWheelFrozenCofactorTopPrime y = q) at hy
+    have hySource := (Finset.mem_filter.mp hy).1
+    have hyOwner := (Finset.mem_filter.mp hy).2
+    change lowWheelFrozenSecondContactParentFace y ∈
+      lowWheelFrozenSecondContactHighOwnerWindow R q
+    simpa [hyOwner] using
+      lowWheelFrozenSecondContactParentFace_mem_highOwnerWindow hySource
+  · intro y hy z hz hface
+    change y ∈ (lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
+      (fun y => lowWheelFrozenCofactorTopPrime y = q) at hy
+    change z ∈ (lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
+      (fun y => lowWheelFrozenCofactorTopPrime y = q) at hz
+    have hySource := (Finset.mem_filter.mp hy).1
+    have hzSource := (Finset.mem_filter.mp hz).1
+    have hyOwner := (Finset.mem_filter.mp hy).2
+    have hzOwner := (Finset.mem_filter.mp hz).2
+    have hmap :
+        lowWheelFrozenSecondContactParentMap y =
+          lowWheelFrozenSecondContactParentMap z := by
+      apply Prod.ext
+      · exact hyOwner.trans hzOwner.symm
+      · exact hface
+    exact (lowWheelFrozenSecondContactParentMap_injOn R)
+      hySource hzSource hmap
+  · intro V hV
+    change V ∈ lowWheelFrozenSecondContactHighOwnerWindow R q at hV
+    obtain ⟨y, hySource, hmap⟩ :=
+      lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow hq hqR hV
+    have howner := congrArg Prod.fst hmap
+    have hface := congrArg Prod.snd hmap
+    change lowWheelFrozenCofactorTopPrime y = q at howner
+    change lowWheelFrozenSecondContactParentFace y = V at hface
+    refine ⟨y, ?_, hface⟩
+    change y ∈ (lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
+      (fun y => lowWheelFrozenCofactorTopPrime y = q)
+    exact Finset.mem_filter.mpr ⟨hySource, howner⟩
+
+/-! ## Complete q-square contact fibres and the 11 layer
+
+A fixed physical active affine form is `4*k+a`.  For an odd prime owner `q`,
+`4` is invertible modulo `q^2`, so the contact equation `q^2 | 4*k+a` has one
+and only one local residue.  On a complete product orbit this removes the q-square
+coordinate by an exact CRT bijection.  Everything on the complementary prime
+coordinates is left arbitrary, so the theorem preserves earlier-square masks,
+selected-prime signs and rank-one Schur first-moment weights without an
+independence assumption.
+-/
+
+/-- Affine permutation of a finite residue ring when its linear coefficient is
+a unit. -/
+def qSquareContactAffineEquiv
+    (m a : ℕ) [NeZero m] (hcop : Nat.Coprime a m) (b : ZMod m) :
+    ZMod m ≃ ZMod m where
+  toFun z := (a : ZMod m) * z + b
+  invFun y := (a : ZMod m)⁻¹ * (y - b)
+  left_inv := by
+    intro z
+    have hu : IsUnit (a : ZMod m) :=
+      (ZMod.isUnit_iff_coprime a m).2 hcop
+    dsimp
+    calc
+      (a : ZMod m)⁻¹ * ((a : ZMod m) * z + b - b) =
+          ((a : ZMod m)⁻¹ * (a : ZMod m)) * z := by ring
+      _ = z := by rw [ZMod.inv_mul_of_unit _ hu, one_mul]
+  right_inv := by
+    intro y
+    have hu : IsUnit (a : ZMod m) :=
+      (ZMod.isUnit_iff_coprime a m).2 hcop
+    dsimp
+    calc
+      (a : ZMod m) * ((a : ZMod m)⁻¹ * (y - b)) + b =
+          ((a : ZMod m) * (a : ZMod m)⁻¹) * (y - b) + b := by ring
+      _ = y := by
+        rw [ZMod.mul_inv_of_unit _ hu]
+        ring
+
+/-- Indicator of the local q-square collision on one physical affine offset. -/
+def qSquareContactIndicator (q a : ℕ) (z : ZMod (q ^ 2)) : ℚ :=
+  if (4 : ZMod (q ^ 2)) * z + (a : ZMod (q ^ 2)) = 0 then 1 else 0
+
+/-- Each fixed physical offset has exactly one q-square contact in a complete
+`q^2` period.  `NeZero (q^2)` is exposed in the signature because `ZMod`'s
+finite instance is required while elaborating the result type. -/
+theorem sum_qSquareContactIndicator_eq_one
+    {q a : ℕ} [NeZero (q ^ 2)] (hq : q.Prime) (hq2 : q ≠ 2) :
+    (∑ z : ZMod (q ^ 2), qSquareContactIndicator q a z) = 1 := by
+  have hcop : Nat.Coprime (q ^ 2) 4 := by
+    simpa using
+      (Nat.coprime_pow_primes (p := q) (q := 2) 2 2
+        hq Nat.prime_two hq2)
+  let e : ZMod (q ^ 2) ≃ ZMod (q ^ 2) :=
+    qSquareContactAffineEquiv (q ^ 2) 4 hcop.symm (a : ZMod (q ^ 2))
+  calc
+    (∑ z : ZMod (q ^ 2), qSquareContactIndicator q a z) =
+        ∑ y : ZMod (q ^ 2), if y = 0 then (1 : ℚ) else 0 := by
+      exact Fintype.sum_equiv e
+        (fun z : ZMod (q ^ 2) => qSquareContactIndicator q a z)
+        (fun y : ZMod (q ^ 2) => if y = 0 then (1 : ℚ) else 0)
+        (by
+          intro z
+          simp [e, qSquareContactIndicator, qSquareContactAffineEquiv])
+    _ = 1 := by simp
+
+/-- The modular contact predicate is literally the divisibility predicate used
+by the physical least-square channel. -/
+theorem qSquareContactIndicator_natCast
+    {q a k : ℕ} [NeZero (q ^ 2)] :
+    qSquareContactIndicator q a (k : ZMod (q ^ 2)) =
+      (if q ^ 2 ∣ 4 * k + a then 1 else 0) := by
+  unfold qSquareContactIndicator
+  have hcast :
+      (4 : ZMod (q ^ 2)) * (k : ZMod (q ^ 2)) +
+          (a : ZMod (q ^ 2)) =
+        ((4 * k + a : ℕ) : ZMod (q ^ 2)) := by
+    push_cast
+    rfl
+  rw [hcast]
+  simp only [ZMod.natCast_eq_zero_iff]
+
+/-- **Complete q-square contact / daughter equivalence.**  On a complete
+coprime super-orbit, restricting to one physical q-square contact leaves exactly
+one copy of an arbitrary complementary first-moment field.  This is equality,
+not the `18*K/q^2` magnitude estimate from the old q-owner argument. -/
+theorem qSquareContact_coprimeTensor_firstMoment
+    (q M a : ℕ) [NeZero (q ^ 2)] [NeZero M]
+    (hq : q.Prime) (hq2 : q ≠ 2)
+    (hcop : Nat.Coprime (q ^ 2) M)
+    (g : ZMod M → ℚ) :
+    (∑ z : ZMod ((q ^ 2) * M),
+      qSquareContactIndicator q a
+          ((ZMod.chineseRemainder hcop) z).1 *
+        g ((ZMod.chineseRemainder hcop) z).2) =
+      ∑ b : ZMod M, g b := by
+  have htensor := coprimeZMod_sum_tensor (q ^ 2) M hcop
+    (qSquareContactIndicator q a) g
+  rw [sum_qSquareContactIndicator_eq_one hq hq2] at htensor
+  simpa using htensor
+
+/-- Rank-one energy is exactly preserved by the q-square contact/daughter
+bijection before the independent 11 layer is applied. -/
+theorem qSquareContact_coprimeTensor_firstMoment_sq
+    (q M a : ℕ) [NeZero (q ^ 2)] [NeZero M]
+    (hq : q.Prime) (hq2 : q ≠ 2)
+    (hcop : Nat.Coprime (q ^ 2) M)
+    (g : ZMod M → ℚ) :
+    (∑ z : ZMod ((q ^ 2) * M),
+      qSquareContactIndicator q a
+          ((ZMod.chineseRemainder hcop) z).1 *
+        g ((ZMod.chineseRemainder hcop) z).2) ^ 2 =
+      (∑ b : ZMod M, g b) ^ 2 := by
+  rw [qSquareContact_coprimeTensor_firstMoment q M a hq hq2 hcop g]
+
+/-- **11/q² complete-fibre intertwining.**  Applying the selected-11 weight-one
+operator before q-square deletion or after the exact q-square daughter transport
+gives the same first moment.  The surviving scalar is exactly `19/23`; all
+other prime coordinates remain inside the arbitrary field `g`. -/
+theorem qSquareContact_eleven_coprimeTensor_firstMoment
+    (q M a : ℕ) [NeZero (q ^ 2)] [NeZero M]
+    (hq : q.Prime) (hq2 : q ≠ 2)
+    (hqcop : Nat.Coprime (q ^ 2) (121 * M))
+    (h11cop : Nat.Coprime 121 M)
+    (i : Fin 6) (g : ZMod M → ℚ) :
+    (∑ z : ZMod ((q ^ 2) * (121 * M)),
+      qSquareContactIndicator q a
+          ((ZMod.chineseRemainder hqcop) z).1 *
+        (elevenZeroFreeCoordinateMultiplierZMod i
+            ((ZMod.chineseRemainder h11cop)
+              ((ZMod.chineseRemainder hqcop) z).2).1 *
+          g ((ZMod.chineseRemainder h11cop)
+              ((ZMod.chineseRemainder hqcop) z).2).2)) =
+      onePrimeWalshFactor 11 1 *
+        (∑ z : ZMod ((q ^ 2) * (121 * M)),
+          qSquareContactIndicator q a
+              ((ZMod.chineseRemainder hqcop) z).1 *
+            (elevenZeroFreeIndicatorZMod
+                ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).1 *
+              g ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).2)) := by
+  let Gsigned : ZMod (121 * M) → ℚ := fun w =>
+    elevenZeroFreeCoordinateMultiplierZMod i
+        ((ZMod.chineseRemainder h11cop) w).1 *
+      g ((ZMod.chineseRemainder h11cop) w).2
+  let Gzero : ZMod (121 * M) → ℚ := fun w =>
+    elevenZeroFreeIndicatorZMod
+        ((ZMod.chineseRemainder h11cop) w).1 *
+      g ((ZMod.chineseRemainder h11cop) w).2
+  have hqSigned := qSquareContact_coprimeTensor_firstMoment
+    q (121 * M) a hq hq2 hqcop Gsigned
+  have hqZero := qSquareContact_coprimeTensor_firstMoment
+    q (121 * M) a hq hq2 hqcop Gzero
+  have h11 := eleven_coprimeTensor_firstMoment M h11cop i g
+  have h11' :
+      (∑ w : ZMod (121 * M), Gsigned w) =
+        onePrimeWalshFactor 11 1 *
+          (∑ w : ZMod (121 * M), Gzero w) := by
+    simpa [Gsigned, Gzero] using h11
+  calc
+    (∑ z : ZMod ((q ^ 2) * (121 * M)),
+        qSquareContactIndicator q a
+            ((ZMod.chineseRemainder hqcop) z).1 *
+          (elevenZeroFreeCoordinateMultiplierZMod i
+              ((ZMod.chineseRemainder h11cop)
+                ((ZMod.chineseRemainder hqcop) z).2).1 *
+            g ((ZMod.chineseRemainder h11cop)
+                ((ZMod.chineseRemainder hqcop) z).2).2)) =
+      ∑ w : ZMod (121 * M), Gsigned w := by
+        simpa [Gsigned] using hqSigned
+    _ = onePrimeWalshFactor 11 1 *
+        (∑ w : ZMod (121 * M), Gzero w) := h11'
+    _ = onePrimeWalshFactor 11 1 *
+        (∑ z : ZMod ((q ^ 2) * (121 * M)),
+          qSquareContactIndicator q a
+              ((ZMod.chineseRemainder hqcop) z).1 *
+            (elevenZeroFreeIndicatorZMod
+                ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).1 *
+              g ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).2)) := by
+        rw [hqZero]
+
+/-- Squaring the commuting diagram gives exactly the `(19/23)^2` energy factor
+used by the q-square renormalization engine. -/
+theorem qSquareContact_eleven_coprimeTensor_firstMoment_sq
+    (q M a : ℕ) [NeZero (q ^ 2)] [NeZero M]
+    (hq : q.Prime) (hq2 : q ≠ 2)
+    (hqcop : Nat.Coprime (q ^ 2) (121 * M))
+    (h11cop : Nat.Coprime 121 M)
+    (i : Fin 6) (g : ZMod M → ℚ) :
+    (∑ z : ZMod ((q ^ 2) * (121 * M)),
+      qSquareContactIndicator q a
+          ((ZMod.chineseRemainder hqcop) z).1 *
+        (elevenZeroFreeCoordinateMultiplierZMod i
+            ((ZMod.chineseRemainder h11cop)
+              ((ZMod.chineseRemainder hqcop) z).2).1 *
+          g ((ZMod.chineseRemainder h11cop)
+              ((ZMod.chineseRemainder hqcop) z).2).2)) ^ 2 =
+      (onePrimeWalshFactor 11 1) ^ 2 *
+        (∑ z : ZMod ((q ^ 2) * (121 * M)),
+          qSquareContactIndicator q a
+              ((ZMod.chineseRemainder hqcop) z).1 *
+            (elevenZeroFreeIndicatorZMod
+                ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).1 *
+              g ((ZMod.chineseRemainder h11cop)
+                  ((ZMod.chineseRemainder hqcop) z).2).2)) ^ 2 := by
+  rw [qSquareContact_eleven_coprimeTensor_firstMoment
+    q M a hq hq2 hqcop h11cop i g]
+  ring
+
 /-- Square-dilated daughter cutoff attached to one second-contact owner. -/
 def lowWheelFrozenSecondContactFluxChildCutoff (B q : ℕ) : ℕ :=
   B / (q * q)
@@ -119,6 +422,100 @@ theorem lowWheelFrozenSecondContactFluxChildCutoff_le
     lowWheelFrozenSecondContactFluxChildCutoff B q ≤ B := by
   unfold lowWheelFrozenSecondContactFluxChildCutoff
   exact Nat.div_le_self _ _
+
+/-! ## Exact reciprocal-coordinate / Go-daughter intertwining
+
+The unified reciprocal form uses `roughCofactorMobiusPrefixMass q B`.  The Go
+wall was developed independently as a frozen predecessor-cube residual.  At the
+square-dilated cutoff these are not merely analogous: they are exactly the same
+Möbius population.  This is the missing coordinate splice between the
+reciprocal transform and the `q^2` daughter carrier.
+-/
+
+/-- **Exact q² daughter identification.**  The complex cast of the literal Go
+square residual is the rough lower-scale Möbius prefix at the identical
+`X/q²` cutoff used by the unified reciprocal transform.  Nonsquarefree
+cofactors may be omitted on the Go side because their Möbius weight is zero. -/
+theorem squareRootLowPrimeGoWallSquareResidual_cast_eq_roughCofactorMobiusPrefixMass
+    {q X : ℕ} (hq : q.Prime) :
+    (((squareRootLowPrimeGoWallSquareResidual q X : ℤ) : ℂ)) =
+      roughCofactorMobiusPrefixMass q (X / (q * q)) := by
+  rw [squareRootLowPrimeGoWallSquareResidual_eq_smoothCofactorSum hq]
+  push_cast
+  unfold squareRootLowPrimeGoSmoothCofactors
+    roughCofactorMobiusPrefixMass
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro c hc
+  by_cases hrough : canonicalLargestPrimeFactor c < q
+  · rw [if_pos hrough]
+    by_cases hsq : Squarefree c
+    · simp [hsq, hrough, canonicalMoebiusWeight]
+    · have hmu : μ c = 0 :=
+        ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
+      simp [hsq, hrough, canonicalMoebiusWeight, hmu]
+  · simp [hrough]
+
+/-- **One-strip reciprocal/Go intertwining.**  After casting the exact Go strip
+to the common complex carrier, its only non-boundary term is literally the
+rough Möbius daughter at `X/q²`.  Hence consecutive strips telescope their two
+moving boundary states while all surviving arithmetic content is already on
+the lower-scale coordinate used by the reciprocal transform. -/
+theorem squareRootLowPrimeGoWallStripMass_cast_eq_boundaryDiff_add_roughDaughter
+    {ell q X : ℕ} (hq : q.Prime)
+    (hpred : primesUpTo (q - 1) = primesUpTo ell) :
+    (((squareRootLowPrimeGoWallStripMass ell q X : ℤ) : ℂ)) =
+      (((squareRootLowPrimeGoWallBoundaryState q X : ℤ) : ℂ)) -
+        (((squareRootLowPrimeGoWallBoundaryState ell X : ℤ) : ℂ)) +
+          roughCofactorMobiusPrefixMass q (X / (q * q)) := by
+  rw [squareRootLowPrimeGoWallStripMass_eq_boundaryDiff_add_squareResidual
+    hq hpred]
+  push_cast
+  rw [squareRootLowPrimeGoWallSquareResidual_cast_eq_roughCofactorMobiusPrefixMass hq]
+
+/-- **Root-floored q² column = Go daughters plus explicit root boundary.**
+The `max R (X_R/q²)` left by the saturated global telescope is split without
+any estimate.  When `X_R/q² >= R` the term is literally the Go square residual;
+otherwise it is exactly the predecessor mass frozen at the root `R`. -/
+theorem lowWheelFrozenSecondContactRootFlooredColumn_eq_goOrRoot
+    (R : ℕ) :
+    (∑ q ∈ primesUpTo (R - 1),
+      frozenPrimeUniverseMass (primesUpTo (q - 1))
+        (max R (squareRootEndpoint R / (q * q)))) =
+      ∑ q ∈ primesUpTo (R - 1),
+        if R ≤ squareRootEndpoint R / (q * q) then
+          squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)
+        else
+          frozenPrimeUniverseMass (primesUpTo (q - 1)) R := by
+  apply Finset.sum_congr rfl
+  intro q hq
+  by_cases hdeep : R ≤ squareRootEndpoint R / (q * q)
+  · rw [if_pos hdeep, max_eq_right hdeep,
+      squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
+  · have hle : squareRootEndpoint R / (q * q) ≤ R :=
+      Nat.le_of_lt (Nat.lt_of_not_ge hdeep)
+    rw [if_neg hdeep, max_eq_left hle]
+
+/-- **Global signed physical/Go equivalence with boundary bookkeeping.**  The
+entire saturated physical second-contact source ledger is exactly one root
+anchor minus a finite sum whose deep terms are the literal Go `q²` daughters
+and whose complementary terms are the explicit root-floor boundary.  This is
+the global form required by #637: no q-owner absolute value and no omitted
+incomplete-period charge. -/
+theorem lowWheelFrozenSecondContactSource_sum_eq_rootBoundary_sub_goOrRoot
+    (R : ℕ) (hR : 2 ≤ R) :
+    (∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+      canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ)) =
+      (((1 - frozenPrimeUniverseMass (primesUpTo (R - 1))
+            (squareRootEndpoint R)) -
+          ∑ q ∈ primesUpTo (R - 1),
+            if R ≤ squareRootEndpoint R / (q * q) then
+              squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)
+            else
+              frozenPrimeUniverseMass (primesUpTo (q - 1)) R : ℤ) : ℂ) := by
+  rw [lowWheelFrozenSecondContactSource_sum_eq_highOwnerWindowMass_sum,
+    lowWheelFrozenSecondContactHighOwnerWindowMass_sum_eq_rootFlooredLowerColumn R hR,
+    lowWheelFrozenSecondContactRootFlooredColumn_eq_goOrRoot R]
 
 /-! ## The #629 collision fibre becomes bounded after q^-2 scaling
 
