@@ -129,8 +129,20 @@ theorem finiteTargetSecondMoment_eq_partial_reassembly
   rw [← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro a ha
-  rw [deviation_product_eq_partial_reassembly]
-  ring
+  have h := deviation_product_eq_partial_reassembly
+    (x a i) (x a j) (t i) (t j)
+  calc
+    w a * (x a i - t i) * (x a j - t j) =
+        w a * ((x a i - t i) * (x a j - t j)) := by ring
+    _ = w a *
+        (partialLower (x a i) (t i) * partialLower (x a j) (t j) +
+          partialUpper (x a i) (t i) * partialUpper (x a j) (t j) -
+          partialLower (x a i) (t i) * partialUpper (x a j) (t j) -
+          partialUpper (x a i) (t i) * partialLower (x a j) (t j)) := by rw [h]
+    _ = w a * partialLower (x a i) (t i) * partialLower (x a j) (t j) +
+          w a * partialUpper (x a i) (t i) * partialUpper (x a j) (t j) -
+          w a * partialLower (x a i) (t i) * partialUpper (x a j) (t j) -
+          w a * partialUpper (x a i) (t i) * partialLower (x a j) (t j) := by ring
 
 /-- Exact change-of-target law for the first moment. -/
 theorem finiteTargetFirstMoment_target_shift
@@ -222,7 +234,8 @@ theorem finiteTargetSecondMoment_eq_centered_add_rankOne
     (hs : ∀ i, finiteTargetFirstMoment S w x s i = 0) :
     finiteTargetSecondMoment S w x t =
       finiteTargetSecondMoment S w x s +
-        fun i j => finiteTotalWeight S w * (s i - t i) * (s j - t j) := by
+        (fun i j => finiteTotalWeight S w * (s i - t i) * (s j - t j) :
+          Matrix ι ι ℝ) := by
   ext i j
   rw [finiteTargetSecondMoment_target_shift S w x s t i j,
     hs i, hs j]
