@@ -283,6 +283,65 @@ theorem squareRootLowPrimeGoFullFaceDefectMateFarImage_subset_physicalResidual
     (squareRootLowPrimeGoFullFaceDefectMateFarImage_disjoint_owned
       (R := R) (by omega))) hz hzOwned
 
+/-- The second-contact defect is automatically far: its square contact lies
+above `R²-1`, whereas its outer prime is at most half the root. -/
+theorem squareRootLowPrimeGoFullFaceDefectMateTag_far
+    {R r q d : ℕ} (hR : 6 ≤ R)
+    (hz : ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
+    R + 8 ≤ lowWheelTaggedHighProduct
+      (squareRootLowPrimeGoFullFaceDefectMateTag R ((r, q), d)) := by
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, hcube, hd⟩
+  have hp := squareRootLowPrimeGoFullFaceDefect_oppositePrime_lt_interior
+    (by omega : 2 ≤ R) hz
+  dsimp only at hp
+  have hr3 : 3 ≤ r := by have := hp.2.1.two_le; omega
+  have hq5 : 5 ≤ q := by
+    have hq4 : q ≠ 4 := by intro h; subst q; norm_num at hq
+    omega
+  have h125 : 125 ≤ q ^ 3 := by
+    have := Nat.pow_le_pow_left hq5 3
+    norm_num at this
+    exact this
+  have hR12 : 12 ≤ R := by
+    unfold squareRootEndpoint at hcube
+    have hsq : 125 ≤ R ^ 2 := le_trans h125 (hcube.trans (Nat.sub_le _ _))
+    nlinarith
+  have hfour : 4 * (q * q) ≤ q * (q * q) :=
+    Nat.mul_le_mul_right (q * q) (by omega : 4 ≤ q)
+  have hhalf : 2 * q ≤ R := by
+    have hsq := hcube.trans (Nat.sub_le (R ^ 2) 1)
+    nlinarith
+  have hsecond :=
+    squareRootLowPrimeGoSecondBoundaryDefect_secondContact_gt hq hr hd
+  have hfull := (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  have hprod : lowWheelTaggedHighProduct
+      (squareRootLowPrimeGoFullFaceDefectMateTag R ((r, q), d)) = (r * d) * q := by
+    unfold squareRootLowPrimeGoFullFaceDefectMateTag lowWheelFullFaceQuotientMate
+    rw [dif_pos hp.1]
+    unfold lowWheelTaggedHighProduct
+    rw [lowWheelFullFaceQuotientToggleAt_highProduct]
+    change primeFaceProduct
+      (squareRootLowPrimeGoSecondBoundaryFullFaceSource r q d).1 * q = _
+    rw [squareRootLowPrimeGoSecondBoundaryFullFaceSource_faceProduct hq hr hrq hfull]
+  rw [hprod]
+  by_contra hnot
+  have hsmall : (r * d) * q ≤ R + 7 := by omega
+  have hmul := Nat.mul_le_mul hhalf hsmall
+  unfold squareRootEndpoint at hsecond
+  have hlarge : R ^ 2 ≤ q * q * (r * d) := by omega
+  nlinarith
+
+/-- There is no near Go mate remainder: every live defect mate is far. -/
+theorem squareRootLowPrimeGoFullFaceDefectMateFarImage_eq_image
+    {R : ℕ} (hR : 6 ≤ R) :
+    squareRootLowPrimeGoFullFaceDefectMateFarImage R =
+      squareRootLowPrimeGoFullFaceDefectMateImage R := by
+  apply Finset.filter_eq_self.mpr
+  intro z hz
+  rcases Finset.mem_image.mp hz with ⟨⟨⟨r, q⟩, d⟩, hd, rfl⟩
+  exact squareRootLowPrimeGoFullFaceDefectMateTag_far hR hd
+
 /-- The actual physical residual after deleting the far defect mates. -/
 def squareRootLowPrimeGoReducedPhysicalResidualCarrier (R : ℕ) :
     Finset LowWheelFullTaggedPhysicalState :=
@@ -324,6 +383,23 @@ theorem squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced_sub_near
       (∑ z ∈ squareRootLowPrimeGoFullFaceDefectMateFarImage R,
         lowWheelFullTaggedPhysicalWeight z) = _ at hmates
   linear_combination -hphysical + hmates + hcancel
+
+/-- The apparent near correction vanishes on the physical defect schedule. -/
+theorem squareRootLowPrimeGoFullFaceDefectMateNearLedger_eq_zero
+    {R : ℕ} (hR : 6 ≤ R) :
+    squareRootLowPrimeGoFullFaceDefectMateNearLedger R = 0 := by
+  unfold squareRootLowPrimeGoFullFaceDefectMateNearLedger
+  rw [squareRootLowPrimeGoFullFaceDefectMateFarImage_eq_image hR]
+  simp
+
+/-- The complete Go defect is absorbed, with no new near boundary charge. -/
+theorem squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced
+    {R : ℕ} (hR : 6 ≤ R) :
+    lowWheelFrozenTopFarPhysicalResidualLedger R +
+        ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ) =
+      squareRootLowPrimeGoReducedPhysicalResidualLedger R := by
+  rw [squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced_sub_near hR,
+    squareRootLowPrimeGoFullFaceDefectMateNearLedger_eq_zero hR, sub_zero]
 
 /-- Retain both near corrections in the compensated signed reconstruction. -/
 theorem squareRootLowPrimeGo_frozenResidual_add_defect_eq_reduced_compensated
