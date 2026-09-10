@@ -137,12 +137,10 @@ theorem physicalTRowTargetDegreeOneFirstMoment_zero
     physicalThreeCoordinateVector_one, physicalThreeCoordinateVector_two,
     sub_zero]
   rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
-  have hstates :
-      physicalThreeSlotNonzeroStates = {0, 2, 6, 8, 18, 20, 24, 26} := by
-    rfl
-  rw [hstates]
-  norm_num [physicalTransitionN, threeSlotTransitionCount,
-    threeSlotTransitionMomentOn, threeSlotDegreeOneValue]
+  simp [physicalThreeSlotNonzeroStates, physicalTransitionN,
+    threeSlotTransitionCount, threeSlotTransitionMomentOn,
+    threeSlotDegreeOneValue]
+  ring
 
 /-- **Exact target-shift law for the hard degree-one row mass.**  The Schur
  covariance is target invariant, but the Mertens-visible first moment is not
