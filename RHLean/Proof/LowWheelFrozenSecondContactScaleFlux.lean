@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Proof.CanonicalGapAncestryBridge
 import RHLean.Proof.LowWheelFrozenSecondContactGlobalTelescope
 import RHLean.Proof.SquareRootLowPrimeTSectorQ2Renormalization
 
@@ -17,6 +18,7 @@ open scoped BigOperators ArithmeticFunction.Moebius
 namespace RHLean.Proof
 
 open RHLean.Arithmetic
+open CanonicalGapAncestryBridge
 
 attribute [local instance] Classical.propDecidable
 
@@ -117,5 +119,103 @@ theorem lowWheelFrozenSecondContactFluxChildCutoff_le
     lowWheelFrozenSecondContactFluxChildCutoff B q ≤ B := by
   unfold lowWheelFrozenSecondContactFluxChildCutoff
   exact Nat.div_le_self _ _
+
+/-! ## Canonical ancestry congestion on the saturated #629 window
+
+The original collision-defect-chain interface bounded the number of charged
+steps pointwise.  That is too strong.  The canonical parent is unique, but many
+higher sources can coalesce onto the same lower parent edge.  The scale carried
+by a second-contact owner is nevertheless intrinsically `q^-2`, exactly the
+weight used by `sum_primeOwner_squareDilatedCutoffs_le_parent` and by the
+physical complete-period first-moment bound.
+
+The declarations below therefore expose raw edge multiplicity for diagnostics
+but make the weighted aggregate the arithmetic proof target.  No Mertens or RH
+conclusion is asserted here.
+-/
+
+/-- Iterate the deterministic canonical ancestry parent.  `none` is absorbing. -/
+noncomputable def canonicalAncestryParentIterate {B : ℕ} :
+    ℕ → SourceIndex B → Option (SourceIndex B)
+  | 0, s => some s
+  | d + 1, s => (canonicalAncestryParentIterate d s).bind sourceParent
+
+@[simp] theorem canonicalAncestryParentIterate_zero {B : ℕ}
+    (s : SourceIndex B) :
+    canonicalAncestryParentIterate 0 s = some s := rfl
+
+/-- The saturated #629 owner window written directly on the canonical `(q,c)`
+carrier.  It is the arithmetic form
+
+`max R (X_R/q^2) < c <= X_R/q`, with `q<R` and `P+(c)<q` supplied by
+`SourceAdmissible`. -/
+noncomputable def lowWheelFrozenSecondContactCanonicalSeeds (R : ℕ) :
+    Finset (SourceIndex (squareRootEndpoint R)) :=
+  Finset.univ.filter fun s =>
+    SourceAdmissible s ∧
+      sourcePrime s < R ∧
+      max R
+          (squareRootEndpoint R /
+            (sourcePrime s * sourcePrime s)) < sourceCore s ∧
+      sourceCore s ≤ squareRootEndpoint R / sourcePrime s
+
+/-- Literal membership criterion for the canonical saturated seed carrier. -/
+theorem mem_lowWheelFrozenSecondContactCanonicalSeeds_iff
+    {R : ℕ} {s : SourceIndex (squareRootEndpoint R)} :
+    s ∈ lowWheelFrozenSecondContactCanonicalSeeds R ↔
+      SourceAdmissible s ∧
+        sourcePrime s < R ∧
+        max R
+            (squareRootEndpoint R /
+              (sourcePrime s * sourcePrime s)) < sourceCore s ∧
+        sourceCore s ≤ squareRootEndpoint R / sourcePrime s := by
+  simp [lowWheelFrozenSecondContactCanonicalSeeds]
+
+/-- Number of saturated seeds whose canonical trajectory visits one smooth child.
+Because `sourceParent` is a function, the child uniquely determines the edge.
+The depth range `B+1` is the certified nilpotence height of the bounded source
+flow. -/
+noncomputable def canonicalAncestryChargeMultiplicity {B : ℕ}
+    (seeds : Finset (SourceIndex B)) (child : SourceIndex B) : ℕ :=
+  ∑ d ∈ Finset.range (B + 1),
+    (seeds.filter fun seed =>
+      canonicalAncestryParentIterate d seed = some child).card
+
+/-- Natural square-scale weight of a canonical edge with owner `q`. -/
+def canonicalAncestryOwnerSquareWeight {B : ℕ}
+    (child : SourceIndex B) : ℚ :=
+  (1 : ℚ) / (sourcePrime child : ℚ) ^ 2
+
+/-- Global ancestry congestion after applying the intrinsic `q^-2` owner scale.
+Roots contribute zero because they do not carry a parent edge. -/
+noncomputable def canonicalAncestryWeightedCongestion {B : ℕ}
+    (seeds : Finset (SourceIndex B)) : ℚ :=
+  ∑ child : SourceIndex B,
+    if sourceParent child = none then 0
+    else
+      (canonicalAncestryChargeMultiplicity seeds child : ℚ) *
+        canonicalAncestryOwnerSquareWeight child
+
+/-- The weighted congestion specialized to the actual saturated second-contact
+seed window. -/
+noncomputable def lowWheelFrozenSecondContactCanonicalWeightedCongestion
+    (R : ℕ) : ℚ :=
+  canonicalAncestryWeightedCongestion
+    (lowWheelFrozenSecondContactCanonicalSeeds R)
+
+/-- Strong form suggested by the finite diagnostic.  This is deliberately a
+named statement, not a theorem: proving it is the new arithmetic packing seam. -/
+def LowWheelFrozenSecondContactCanonicalWeightedLinearBoundStatement : Prop :=
+  ∃ C : ℚ, 0 ≤ C ∧ ∀ R : ℕ,
+    lowWheelFrozenSecondContactCanonicalWeightedCongestion R ≤ C * (R : ℚ)
+
+/-- RH-scale form allowing the polylogarithmic loss that the proof program can
+afford.  Unlike the discarded maximum-multiplicity target, this controls the
+aggregate only after the intrinsic `q^-2` scale weight has been applied. -/
+def LowWheelFrozenSecondContactCanonicalWeightedPolylogBoundStatement : Prop :=
+  ∃ C : ℝ, 0 < C ∧ ∃ k : ℕ, ∀ R : ℕ,
+    ((lowWheelFrozenSecondContactCanonicalWeightedCongestion R : ℚ) : ℝ) ≤
+      C * (R : ℝ) *
+        (Real.log (((R + 2 : ℕ) : ℝ)) + 1) ^ k
 
 end RHLean.Proof
