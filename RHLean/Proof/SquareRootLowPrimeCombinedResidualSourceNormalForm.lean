@@ -518,7 +518,9 @@ theorem farPrime_not_mem_combinedAccountedHighProducts
           hseed.2.2.1
       omega
     apply combined_nonprime_mul hprime.one_lt hcore
-    simpa only [sourceProduct] using (hsq.symm ▸ hq)
+    change (sourceProduct s).Prime
+    rw [hsq]
+    exact hq
   · rcases Finset.mem_image.mp hp with ⟨z, hz, hzq⟩
     rcases Finset.mem_biUnion.mp hz with ⟨A, hA, hzA⟩
     rcases Finset.mem_image.mp hzA with ⟨y, hy, rfl⟩
@@ -644,5 +646,43 @@ theorem stableFarAccountedCarrier_eq_empty (R : ℕ) :
   have h := Finset.mem_filter.mp hz
   have hg := stableFar_highProduct_geometry h.1
   exact farPrime_not_mem_combinedAccountedHighProducts hg.1 hg.2.2 hg.2.1 h.2
+
+/-- **The stopping identity for #646.**  The combined interior is the signed
+sum of its existing source terms, its existing root/near terms, and the entire
+stable far-prime wall.  The deep defect is on the saturated seed subcarrier;
+the frozen source ledger retains the signs and multiplicities used by its
+RoughPrefix partners.  Equal source coordinates do not delete an additive
+same-sign occurrence.  No energy estimate for any block is asserted. -/
+theorem oldResidual_add_fullFaceDefect_eq_sourceAssembly_add_rootTerms_add_farWall
+    {R : ℕ} (hR : 6 ≤ R) :
+    lowWheelFrozenTopFarPhysicalResidualLedger R +
+        ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ) =
+      (lowWheelCanonicalFrozenCofactorLedger R +
+        squareRootLowPrimeGoFullFaceDefectSaturatedSourceLedger R) +
+      (lowWheelCanonicalRepeatedTerminalInternalLedger R +
+        lowWheelCanonicalRepeatedTerminalInternalMateNearLedger R +
+        (∑ z ∈ squareRootLowPrimeGoRootFloorUniqueIncidences R,
+          lowWheelFullTaggedPhysicalWeight
+            (squareRootLowPrimeGoFullFaceDefectSourceTag z)) +
+        (∑ z ∈ squareRootLowPrimeGoRootFloorRepeatedTerminalIncidences R,
+          lowWheelFullTaggedPhysicalWeight
+            (squareRootLowPrimeGoFullFaceDefectSourceTag z))) +
+      (∑ z ∈ stableFarWallCarrier R, lowWheelFullTaggedPhysicalWeight z) := by
+  have hroot : squareRootLowPrimeGoFullFaceDefectRootFloorSourceLedger R =
+      (∑ z ∈ squareRootLowPrimeGoRootFloorUniqueIncidences R,
+        lowWheelFullTaggedPhysicalWeight
+          (squareRootLowPrimeGoFullFaceDefectSourceTag z)) +
+      (∑ z ∈ squareRootLowPrimeGoRootFloorRepeatedTerminalIncidences R,
+        lowWheelFullTaggedPhysicalWeight
+          (squareRootLowPrimeGoFullFaceDefectSourceTag z)) := by
+    unfold squareRootLowPrimeGoFullFaceDefectRootFloorSourceLedger
+    rw [(rootFloor_population_eq_unique_union_repeated_and_disjoint_seed
+      (by omega : 2 ≤ R)).1,
+      Finset.sum_union (rootFloorUnique_disjoint_repeatedTerminal R)]
+  rw [lowWheelFrozenTopFarPhysicalResidualLedger_eq_sourceNormalForm hR,
+    ← squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_mass,
+    squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_saturated_add_rootFloor,
+    hroot, stableFarWallCarrier_eq_stableCarrier]
+  ring
 
 end RHLean.Proof
