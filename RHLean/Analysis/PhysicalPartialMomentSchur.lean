@@ -576,4 +576,346 @@ theorem q2GenericAlignedThirteenSeventeen_not_halfFrame :
           (((1 : ℚ) / 13 ^ 4) + ((1 : ℚ) / 17 ^ 4))) := by
   norm_num
 
+/-! ## Split selected-11 outside-owner budget
+
+The selected prime `11` is not a legal outside q-square owner on the same CRT
+factor.  The legal owner schedule splits into `{3,5,7}` and primes `q >= 13`.
+The finite exceptional block has reciprocal-square budget `1891/11025`; the
+entire generic odd-integer tail from `13` onward has budget at most `1/24`.
+
+This section is intentionally self-contained in the analysis layer.  Its final
+strong-induction lemma records the quantitative fact that exceptional frame `3`
+and generic frame `5` are already subcritical after the exact prime-11
+weight-one factor.  It does not assert either physical frame or the compensated
+intertwining.
+-/
+
+open RHLean.Arithmetic
+
+/-- Exact prime-11 weight-one energy factor, named locally to avoid importing a
+proof-layer induction module into `Analysis`. -/
+def q2SplitElevenEnergyFactor : ℚ :=
+  (onePrimeWalshFactor 11 1) ^ 2
+
+@[simp] theorem q2SplitElevenEnergyFactor_eq :
+    q2SplitElevenEnergyFactor = (361 : ℚ) / 529 := by
+  rw [q2SplitElevenEnergyFactor, onePrimeWalshFactor_eleven_one]
+  norm_num
+
+/-- The three exceptional outside owners below the selected prime `11`. -/
+def q2ExceptionalOutsideOwners (N : ℕ) : Finset ℕ :=
+  (primesUpTo N).filter fun q => q = 3 ∨ q = 5 ∨ q = 7
+
+/-- Legal generic outside owners beyond the selected prime `11`. -/
+def q2GenericOutsideOwners (N : ℕ) : Finset ℕ :=
+  (primesUpTo N).filter fun q => 13 ≤ q
+
+/-- The exceptional schedule is contained in the ambient prime schedule. -/
+theorem q2ExceptionalOutsideOwners_subset_primesUpTo (N : ℕ) :
+    q2ExceptionalOutsideOwners N ⊆ primesUpTo N :=
+  Finset.filter_subset _ _
+
+/-- The generic schedule is contained in the ambient prime schedule. -/
+theorem q2GenericOutsideOwners_subset_primesUpTo (N : ℕ) :
+    q2GenericOutsideOwners N ⊆ primesUpTo N :=
+  Finset.filter_subset _ _
+
+/-- Exact elementary reciprocal-square budget of the finite exceptional block. -/
+theorem q2ExceptionalOutsideOwnerReciprocalSquareBudget_le (N : ℕ) :
+    (∑ q ∈ q2ExceptionalOutsideOwners N, (1 : ℚ) / (q : ℚ) ^ 2) ≤
+      (1891 : ℚ) / 11025 := by
+  have hsub : q2ExceptionalOutsideOwners N ⊆ ({3, 5, 7} : Finset ℕ) := by
+    intro q hq
+    rcases (Finset.mem_filter.mp hq).2 with h | h | h <;> simp [h]
+  calc
+    (∑ q ∈ q2ExceptionalOutsideOwners N, (1 : ℚ) / (q : ℚ) ^ 2) ≤
+        ∑ q ∈ ({3, 5, 7} : Finset ℕ), (1 : ℚ) / (q : ℚ) ^ 2 := by
+      refine Finset.sum_le_sum_of_subset_of_nonneg hsub ?_
+      intro q _hqNew _hqOld
+      positivity
+    _ = (1891 : ℚ) / 11025 := by norm_num
+
+/-- One reciprocal-square term of the odd tail from `13` has a telescoping
+majorant with unit numerator slack. -/
+theorem q2OddThirteenTailTerm_le_telescope (k : ℕ) :
+    (1 : ℚ) / ((2 * k + 13 : ℕ) : ℚ) ^ 2 ≤
+      1 / (4 * ((k : ℚ) + 6)) - 1 / (4 * ((k : ℚ) + 7)) := by
+  rw [show (1 : ℚ) / (4 * ((k : ℚ) + 6)) -
+      1 / (4 * ((k : ℚ) + 7)) =
+      1 / (4 * ((k : ℚ) + 6) * ((k : ℚ) + 7)) by
+    field_simp
+    ring]
+  apply (div_le_div_iff₀
+    (by positivity : (0 : ℚ) < ((2 * k + 13 : ℕ) : ℚ) ^ 2)
+    (by positivity : (0 : ℚ) < 4 * ((k : ℚ) + 6) * ((k : ℚ) + 7))).2
+  push_cast
+  nlinarith
+
+/-- Finite telescope for all odd integers starting at `13`. -/
+theorem q2OddThirteenTailSum_le_sub (N : ℕ) :
+    (∑ k ∈ Finset.range N,
+      (1 : ℚ) / ((2 * k + 13 : ℕ) : ℚ) ^ 2) ≤
+        1 / 24 - 1 / (4 * ((N : ℚ) + 6)) := by
+  induction N with
+  | zero => norm_num
+  | succ N ih =>
+    rw [Finset.sum_range_succ]
+    calc
+      _ ≤ (1 / 24 - 1 / (4 * ((N : ℚ) + 6))) +
+          (1 / (4 * ((N : ℚ) + 6)) -
+            1 / (4 * ((N : ℚ) + 7))) :=
+        add_le_add ih (q2OddThirteenTailTerm_le_telescope N)
+      _ = 1 / 24 - 1 / (4 * ((((N + 1 : ℕ) : ℚ)) + 6)) := by
+        push_cast
+        ring
+
+/-- The entire finite odd-integer reciprocal-square tail from `13` costs at
+most `1/24`. -/
+theorem q2OddThirteenTailSum_le (N : ℕ) :
+    (∑ k ∈ Finset.range N,
+      (1 : ℚ) / ((2 * k + 13 : ℕ) : ℚ) ^ 2) ≤ 1 / 24 := by
+  have h := q2OddThirteenTailSum_le_sub N
+  have hp : (0 : ℚ) ≤ 1 / (4 * ((N : ℚ) + 6)) := by positivity
+  linarith
+
+private theorem q2GenericOutsideOwners_subset_oddTailImage (N : ℕ) :
+    q2GenericOutsideOwners N ⊆
+      (Finset.range N).image (fun k : ℕ => 2 * k + 13) := by
+  intro q hq
+  rcases Finset.mem_filter.mp hq with ⟨hqUp, hq13⟩
+  have hdata := mem_primesUpTo.mp hqUp
+  have hne : q ≠ 2 := by omega
+  obtain ⟨k, hk⟩ := hdata.1.odd_of_ne_two hne
+  have hk6 : 6 ≤ k := by omega
+  refine Finset.mem_image.mpr ⟨k - 6, Finset.mem_range.mpr (by omega), ?_⟩
+  omega
+
+/-- Generic outside owners have reciprocal-square mass at most `1/24`. -/
+theorem q2GenericOutsideOwnerReciprocalSquareBudget_le_one_over_twentyfour
+    (N : ℕ) :
+    (∑ q ∈ q2GenericOutsideOwners N, (1 : ℚ) / (q : ℚ) ^ 2) ≤ 1 / 24 := by
+  have hsum :
+      (∑ q ∈ q2GenericOutsideOwners N, (1 : ℚ) / (q : ℚ) ^ 2) ≤
+        ∑ q ∈ (Finset.range N).image (fun k : ℕ => 2 * k + 13),
+          (1 : ℚ) / (q : ℚ) ^ 2 := by
+    refine Finset.sum_le_sum_of_subset_of_nonneg
+      (q2GenericOutsideOwners_subset_oddTailImage N) ?_
+    intro q _hqNew _hqOld
+    positivity
+  rw [Finset.sum_image] at hsum
+  · exact hsum.trans (q2OddThirteenTailSum_le N)
+  · intro a _ha b _hb hab
+    omega
+
+/-- Generic finite square-dilated cutoff estimate used in the split induction. -/
+theorem q2Split_sum_squareDilatedCutoffs_le_scale_mul_budget
+    (S : Finset ℕ) (X : ℕ) (hS : ∀ q ∈ S, q.Prime) :
+    (∑ q ∈ S, ((X / (q * q) : ℕ) : ℚ)) ≤
+      (X : ℚ) * ∑ q ∈ S, (1 : ℚ) / (q : ℚ) ^ 2 := by
+  rw [Finset.mul_sum]
+  apply Finset.sum_le_sum
+  intro q hq
+  have hp := hS q hq
+  have hmul : (((X / (q * q) : ℕ) : ℚ) * ((q * q : ℕ) : ℚ)) ≤ (X : ℚ) := by
+    exact_mod_cast Nat.div_mul_le_self X (q * q)
+  have hpos : (0 : ℚ) < ((q * q : ℕ) : ℚ) := by
+    exact_mod_cast Nat.mul_pos hp.pos hp.pos
+  have hdiv := (le_div_iff₀ hpos).2 hmul
+  simpa [Nat.cast_mul, pow_two, div_eq_mul_inv] using hdiv
+
+/-- Exceptional daughter cutoffs cost at most `1891/11025` of parent scale. -/
+theorem q2ExceptionalOutsideOwner_squareDilatedCutoffs_le
+    (N X : ℕ) :
+    (∑ q ∈ q2ExceptionalOutsideOwners N, ((X / (q * q) : ℕ) : ℚ)) ≤
+      ((1891 : ℚ) / 11025) * (X : ℚ) := by
+  have h := q2Split_sum_squareDilatedCutoffs_le_scale_mul_budget
+    (q2ExceptionalOutsideOwners N) X
+    (fun q hq => (mem_primesUpTo.mp
+      (q2ExceptionalOutsideOwners_subset_primesUpTo N hq)).1)
+  have hb := mul_le_mul_of_nonneg_left
+    (q2ExceptionalOutsideOwnerReciprocalSquareBudget_le N)
+    (by positivity : (0 : ℚ) ≤ X)
+  nlinarith
+
+/-- Generic daughter cutoffs cost at most `1/24` of parent scale. -/
+theorem q2GenericOutsideOwner_squareDilatedCutoffs_le_one_over_twentyfour
+    (N X : ℕ) :
+    (∑ q ∈ q2GenericOutsideOwners N, ((X / (q * q) : ℕ) : ℚ)) ≤
+      (1 / 24 : ℚ) * (X : ℚ) := by
+  have h := q2Split_sum_squareDilatedCutoffs_le_scale_mul_budget
+    (q2GenericOutsideOwners N) X
+    (fun q hq => (mem_primesUpTo.mp
+      (q2GenericOutsideOwners_subset_primesUpTo N hq)).1)
+  have hb := mul_le_mul_of_nonneg_left
+    (q2GenericOutsideOwnerReciprocalSquareBudget_le_one_over_twentyfour N)
+    (by positivity : (0 : ℚ) ≤ X)
+  nlinarith
+
+/-- **Split-owner fixed point.**  Exceptional frame `3` and generic frame `5`
+are quantitatively sufficient after the exact prime-11 factor.  The two signed
+blocks use `(a+b)^2 <= (5/3)a^2 + (5/2)b^2`; the final boundary uses the same
+`60/59,60` absorption already used by the proof-layer six-frame theorem.
+
+This is a conditional arithmetic engine only.  It does not assert the two
+physical frame hypotheses or the forward compensated intertwining. -/
+theorem q2SplitExceptionalThreeGenericFive_implies_linear
+    {E Iexc Igen b : ℕ → ℚ} {B : ℚ}
+    (hB : 0 ≤ B)
+    (hdecomp : ∀ X, E X ≤ (Iexc X + Igen X + b X) ^ 2)
+    (hexceptional : ∀ X, (Iexc X) ^ 2 ≤
+      3 * q2SplitElevenEnergyFactor *
+        ∑ q ∈ q2ExceptionalOutsideOwners X, E (X / (q * q)))
+    (hgeneric : ∀ X, (Igen X) ^ 2 ≤
+      5 * q2SplitElevenEnergyFactor *
+        ∑ q ∈ q2GenericOutsideOwners X, E (X / (q * q)))
+    (hboundary : ∀ X, (b X) ^ 2 ≤ B * (X : ℚ)) :
+    ∀ X, E X ≤ (1400 * B) * (X : ℚ) := by
+  intro X
+  induction X using Nat.strong_induction_on with
+  | h X ih =>
+      by_cases hX : X = 0
+      · subst X
+        have hexcEmpty : q2ExceptionalOutsideOwners 0 = ∅ := by
+          apply Finset.eq_empty_iff_forall_notMem.mpr
+          intro q hq
+          have hp := mem_primesUpTo.mp
+            (q2ExceptionalOutsideOwners_subset_primesUpTo 0 hq)
+          omega
+        have hgenEmpty : q2GenericOutsideOwners 0 = ∅ := by
+          apply Finset.eq_empty_iff_forall_notMem.mpr
+          intro q hq
+          have hp := mem_primesUpTo.mp
+            (q2GenericOutsideOwners_subset_primesUpTo 0 hq)
+          omega
+        have he := hexceptional 0
+        have hg := hgeneric 0
+        have hb := hboundary 0
+        have hd := hdecomp 0
+        rw [hexcEmpty] at he
+        rw [hgenEmpty] at hg
+        simp at he hg hb ⊢
+        nlinarith
+      · have hK : 0 ≤ 1400 * B := by positivity
+        have hexcChildren :
+            (∑ q ∈ q2ExceptionalOutsideOwners X, E (X / (q * q))) ≤
+              (1400 * B) *
+                ∑ q ∈ q2ExceptionalOutsideOwners X,
+                  ((X / (q * q) : ℕ) : ℚ) := by
+          rw [Finset.mul_sum]
+          apply Finset.sum_le_sum
+          intro q hq
+          have hp := (mem_primesUpTo.mp
+            (q2ExceptionalOutsideOwners_subset_primesUpTo X hq)).1
+          exact ih (X / (q * q))
+            (Nat.div_lt_self (Nat.pos_of_ne_zero hX)
+              (by nlinarith [hp.two_le]))
+        have hgenChildren :
+            (∑ q ∈ q2GenericOutsideOwners X, E (X / (q * q))) ≤
+              (1400 * B) *
+                ∑ q ∈ q2GenericOutsideOwners X,
+                  ((X / (q * q) : ℕ) : ℚ) := by
+          rw [Finset.mul_sum]
+          apply Finset.sum_le_sum
+          intro q hq
+          have hp := (mem_primesUpTo.mp
+            (q2GenericOutsideOwners_subset_primesUpTo X hq)).1
+          exact ih (X / (q * q))
+            (Nat.div_lt_self (Nat.pos_of_ne_zero hX)
+              (by nlinarith [hp.two_le]))
+        have hexcScale := q2ExceptionalOutsideOwner_squareDilatedCutoffs_le X X
+        have hgenScale :=
+          q2GenericOutsideOwner_squareDilatedCutoffs_le_one_over_twentyfour X X
+        have hexcChildren' :
+            (∑ q ∈ q2ExceptionalOutsideOwners X, E (X / (q * q))) ≤
+              (1400 * B) * (((1891 : ℚ) / 11025) * (X : ℚ)) :=
+          hexcChildren.trans (mul_le_mul_of_nonneg_left hexcScale hK)
+        have hgenChildren' :
+            (∑ q ∈ q2GenericOutsideOwners X, E (X / (q * q))) ≤
+              (1400 * B) * ((1 / 24 : ℚ) * (X : ℚ)) :=
+          hgenChildren.trans (mul_le_mul_of_nonneg_left hgenScale hK)
+        have he := hexceptional X
+        have hg := hgeneric X
+        have hpair :
+            (Iexc X + Igen X) ^ 2 ≤
+              (5 : ℚ) / 3 * (Iexc X) ^ 2 +
+                (5 : ℚ) / 2 * (Igen X) ^ 2 := by
+          nlinarith [sq_nonneg (2 * Iexc X - 3 * Igen X)]
+        have hinner :
+            (Iexc X + Igen X) ^ 2 ≤
+              5 * q2SplitElevenEnergyFactor *
+                  (∑ q ∈ q2ExceptionalOutsideOwners X, E (X / (q * q))) +
+                (25 : ℚ) / 2 * q2SplitElevenEnergyFactor *
+                  (∑ q ∈ q2GenericOutsideOwners X, E (X / (q * q))) := by
+          calc
+            (Iexc X + Igen X) ^ 2 ≤
+                (5 : ℚ) / 3 * (Iexc X) ^ 2 +
+                  (5 : ℚ) / 2 * (Igen X) ^ 2 := hpair
+            _ ≤ (5 : ℚ) / 3 *
+                    (3 * q2SplitElevenEnergyFactor *
+                      ∑ q ∈ q2ExceptionalOutsideOwners X, E (X / (q * q))) +
+                  (5 : ℚ) / 2 *
+                    (5 * q2SplitElevenEnergyFactor *
+                      ∑ q ∈ q2GenericOutsideOwners X, E (X / (q * q))) := by
+              exact add_le_add
+                (mul_le_mul_of_nonneg_left he (by norm_num))
+                (mul_le_mul_of_nonneg_left hg (by norm_num))
+            _ = 5 * q2SplitElevenEnergyFactor *
+                    (∑ q ∈ q2ExceptionalOutsideOwners X, E (X / (q * q))) +
+                  (25 : ℚ) / 2 * q2SplitElevenEnergyFactor *
+                    (∑ q ∈ q2GenericOutsideOwners X, E (X / (q * q))) := by ring
+        have hcoefExc : 0 ≤ 5 * q2SplitElevenEnergyFactor := by
+          unfold q2SplitElevenEnergyFactor
+          positivity
+        have hcoefGen : 0 ≤ (25 : ℚ) / 2 * q2SplitElevenEnergyFactor := by
+          unfold q2SplitElevenEnergyFactor
+          positivity
+        have hinner' :
+            (Iexc X + Igen X) ^ 2 ≤
+              5 * q2SplitElevenEnergyFactor *
+                  ((1400 * B) * (((1891 : ℚ) / 11025) * (X : ℚ))) +
+                (25 : ℚ) / 2 * q2SplitElevenEnergyFactor *
+                  ((1400 * B) * ((1 / 24 : ℚ) * (X : ℚ))) :=
+          hinner.trans (add_le_add
+            (mul_le_mul_of_nonneg_left hexcChildren' hcoefExc)
+            (mul_le_mul_of_nonneg_left hgenChildren' hcoefGen))
+        have hb := hboundary X
+        have hd := hdecomp X
+        have hy :
+            (Iexc X + Igen X + b X) ^ 2 ≤
+              (60 : ℚ) / 59 * (Iexc X + Igen X) ^ 2 +
+                60 * (b X) ^ 2 := by
+          nlinarith [sq_nonneg ((Iexc X + Igen X) - 59 * b X)]
+        have hinnerWeighted :=
+          mul_le_mul_of_nonneg_left hinner' (by norm_num : (0 : ℚ) ≤ 60 / 59)
+        have hbWeighted :=
+          mul_le_mul_of_nonneg_left hb (by norm_num : (0 : ℚ) ≤ 60)
+        have hcoef :
+            (60 : ℚ) +
+                (60 : ℚ) / 59 * (361 / 529 : ℚ) * 1400 *
+                  (5 * ((1891 : ℚ) / 11025) +
+                    (25 : ℚ) / 2 * (1 / 24 : ℚ)) ≤ 1400 := by
+          norm_num
+        have hBX : 0 ≤ B * (X : ℚ) := mul_nonneg hB (by positivity)
+        calc
+          E X ≤ (Iexc X + Igen X + b X) ^ 2 := hd
+          _ ≤ (60 : ℚ) / 59 * (Iexc X + Igen X) ^ 2 +
+                60 * (b X) ^ 2 := hy
+          _ ≤ (60 : ℚ) / 59 *
+                (5 * q2SplitElevenEnergyFactor *
+                    ((1400 * B) * (((1891 : ℚ) / 11025) * (X : ℚ))) +
+                  (25 : ℚ) / 2 * q2SplitElevenEnergyFactor *
+                    ((1400 * B) * ((1 / 24 : ℚ) * (X : ℚ)))) +
+                60 * (B * (X : ℚ)) :=
+            add_le_add hinnerWeighted hbWeighted
+          _ = ((60 : ℚ) +
+                (60 : ℚ) / 59 * (361 / 529 : ℚ) * 1400 *
+                  (5 * ((1891 : ℚ) / 11025) +
+                    (25 : ℚ) / 2 * (1 / 24 : ℚ))) *
+                (B * (X : ℚ)) := by
+            rw [q2SplitElevenEnergyFactor_eq]
+            ring
+          _ ≤ 1400 * (B * (X : ℚ)) :=
+            mul_le_mul_of_nonneg_right hcoef hBX
+          _ = (1400 * B) * (X : ℚ) := by ring
+
 end RHLean.Analysis
