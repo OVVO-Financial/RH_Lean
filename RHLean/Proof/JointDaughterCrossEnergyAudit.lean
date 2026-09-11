@@ -1,6 +1,7 @@
+import RHLean.Analysis.TwoWheelQ2Compensation
+import RHLean.Proof.ExceptionalSignedPacketIdentification
 import RHLean.Proof.ExceptionalTransportCoboundary
 import RHLean.Proof.ExceptionalOwnerEnergyClosure
-import RHLean.Proof.PhysicalExceptionalCompensatedCellIntertwine
 
 /-!
 # What a joint-daughter contraction actually requires
@@ -25,6 +26,8 @@ explicit hypothesis below, not a result proved by this audit.
 noncomputable section
 
 namespace RHLean.Proof
+
+open RHLean.Analysis RHLean.Arithmetic
 
 section InnerProduct
 
@@ -156,5 +159,94 @@ theorem normalizedJointDaughter_bounds_imply_linear
   have hsum := add_le_add (add_le_add (h3 X) (h5 X)) (h7 X)
   change E X ≤ C * (X : ℚ) + 3 * E (X / 9) + 3 * E (X / 25) + 3 * E (X / 49)
   linarith
+
+/-! ## Coefficient-level q-square compensation
+
+The scalar predecessor/high-transport compatibility identity is not itself an
+unsummed physical field.  The following construction takes the physical
+four-cell increment first and only then applies the exact two-step Euler
+identity.  This produces a literal unsummed q-square daughter without any
+selected-prime parity or independence assumption.
+-/
+
+/-- Increment of an arithmetic prefix across one complete physical four-cell. -/
+def physicalFourCellPrefixIncrement {A : Type*} [AddGroup A]
+    (g : ℕ → A) (k : ℕ) : A :=
+  g (4 * (k + 1)) - g (4 * k)
+
+/-- **Coefficient-level two-step q-square compensation.** Parent minus the
+current-q response minus its first-power mate is the same four-cell increment
+of the square-shifted field. -/
+theorem physicalFourCellPrefixIncrement_twoStep_q2_remainder
+    {A : Type*} [CommRing A]
+    (q k : ℕ) (g : ℕ → A) :
+    physicalFourCellPrefixIncrement g k -
+        physicalFourCellPrefixIncrement (freshPrimeDifference q g) k -
+        physicalFourCellPrefixIncrement (shift q (freshPrimeDifference q g)) k =
+      physicalFourCellPrefixIncrement (shift (q * q) g) k := by
+  have hhi := RHLean.Analysis.freshPrimeDifference_twoStep_q2_remainder
+    q (4 * (k + 1)) g
+  have hlo := RHLean.Analysis.freshPrimeDifference_twoStep_q2_remainder
+    q (4 * k) g
+  unfold physicalFourCellPrefixIncrement
+  simp only [shift]
+  calc
+    (g (4 * (k + 1)) - g (4 * k)) -
+          (freshPrimeDifference q g (4 * (k + 1)) -
+            freshPrimeDifference q g (4 * k)) -
+          (freshPrimeDifference q g (4 * (k + 1) / q) -
+            freshPrimeDifference q g (4 * k / q)) =
+        (g (4 * (k + 1)) -
+            freshPrimeDifference q g (4 * (k + 1)) -
+            freshPrimeDifference q g (4 * (k + 1) / q)) -
+          (g (4 * k) - freshPrimeDifference q g (4 * k) -
+            freshPrimeDifference q g (4 * k / q)) := by ring
+    _ = g (4 * (k + 1) / (q * q)) - g (4 * k / (q * q)) := by
+      rw [hhi, hlo]
+    _ = (shift (q * q) g) (4 * (k + 1)) -
+          (shift (q * q) g) (4 * k) := by
+      rfl
+
+/-- The Mobius prefix increment across one four-cell is its exact physical
+three-slot cell value. -/
+theorem physicalFourCellPrefixIncrement_moebius_eq_fourSlotCellSum (k : ℕ) :
+    physicalFourCellPrefixIncrement moebiusPositivePrefix k = fourSlotCellSum k := by
+  unfold physicalFourCellPrefixIncrement
+  rw [moebiusPositivePrefix_four_mul_eq_fourSlotCellSum,
+    moebiusPositivePrefix_four_mul_eq_fourSlotCellSum,
+    Finset.sum_range_succ]
+  ring
+
+/-- Current-q response on one physical cell. -/
+def physicalEulerResponseCellIncrement (q k : ℕ) : ℤ :=
+  physicalFourCellPrefixIncrement (freshPrimeDifference q moebiusPositivePrefix) k
+
+/-- First-power mate of the current-q response on the same physical endpoints. -/
+def physicalEulerMateCellIncrement (q k : ℕ) : ℤ :=
+  physicalFourCellPrefixIncrement
+    (shift q (freshPrimeDifference q moebiusPositivePrefix)) k
+
+/-- Genuine coefficient-level q-square daughter. -/
+def physicalQ2DaughterCellIncrement (q k : ℕ) : ℤ :=
+  physicalFourCellPrefixIncrement (shift (q * q) moebiusPositivePrefix) k
+
+/-- **Physical compensated cell identity.**  No scalar frozen cube is lifted to
+an unspecified field: the daughter is produced directly from the two physical
+prefix endpoints. -/
+theorem fourSlotCellSum_sub_response_sub_mate_eq_q2Daughter
+    (q k : ℕ) :
+    fourSlotCellSum k - physicalEulerResponseCellIncrement q k -
+        physicalEulerMateCellIncrement q k =
+      physicalQ2DaughterCellIncrement q k := by
+  rw [← physicalFourCellPrefixIncrement_moebius_eq_fourSlotCellSum]
+  exact physicalFourCellPrefixIncrement_twoStep_q2_remainder
+    q k moebiusPositivePrefix
+
+/-- Expanded endpoint form of the genuine coefficient-level daughter. -/
+theorem physicalQ2DaughterCellIncrement_eq (q k : ℕ) :
+    physicalQ2DaughterCellIncrement q k =
+      moebiusPositivePrefix (4 * (k + 1) / (q * q)) -
+        moebiusPositivePrefix (4 * k / (q * q)) := by
+  rfl
 
 end RHLean.Proof
