@@ -405,4 +405,49 @@ theorem q2AffineTwoTapFrame_le_four
   rw [hf, hg] at hpair
   nlinarith
 
+/-- Cyclic predecessor translation on a complete finite residue coordinate. -/
+def q2ZModPredEquiv (M : ℕ) : ZMod M ≃ ZMod M where
+  toFun z := z - 1
+  invFun z := z + 1
+  left_inv z := by simp
+  right_inv z := by simp
+
+/-- Predecessor translation preserves square energy exactly on a complete
+finite CRT coordinate. -/
+theorem q2ZModPred_energy_eq
+    (M : ℕ) [NeZero M] (f : ZMod M → ℚ) :
+    (∑ z : ZMod M, (f (z - 1)) ^ 2) =
+      ∑ z : ZMod M, (f z) ^ 2 := by
+  exact Fintype.sum_equiv
+    (q2ZModPredEquiv M)
+    (fun z : ZMod M => (f (z - 1)) ^ 2)
+    (fun z : ZMod M => (f z) ^ 2)
+    (by intro z; rfl)
+
+/-- The actual paired affine source translation has the required factor-four
+frame on every complete cyclic complementary coordinate. -/
+theorem q2ZModTwoTapFrame_le_four
+    (M : ℕ) [NeZero M] (f : ZMod M → ℚ) :
+    (∑ z : ZMod M, (f z + f (z - 1)) ^ 2) ≤
+      4 * ∑ z : ZMod M, (f z) ^ 2 := by
+  apply q2AffineTwoTapFrame_le_four f (fun z => f (z - 1))
+  rw [q2ZModPred_energy_eq M f]
+
+/-- The three physical offset pairs share the same factor-four constant; summing
+the three channels does not enlarge it. -/
+theorem q2ZModThreePairFrame_le_four
+    (M : ℕ) [NeZero M] (f : Fin 3 → ZMod M → ℚ) :
+    (∑ i : Fin 3, ∑ z : ZMod M,
+        (f i z + f i (z - 1)) ^ 2) ≤
+      4 * ∑ i : Fin 3, ∑ z : ZMod M, (f i z) ^ 2 := by
+  calc
+    (∑ i : Fin 3, ∑ z : ZMod M,
+        (f i z + f i (z - 1)) ^ 2) ≤
+      ∑ i : Fin 3, 4 * ∑ z : ZMod M, (f i z) ^ 2 := by
+        apply Finset.sum_le_sum
+        intro i hi
+        exact q2ZModTwoTapFrame_le_four M (f i)
+    _ = 4 * ∑ i : Fin 3, ∑ z : ZMod M, (f i z) ^ 2 := by
+      rw [Finset.mul_sum]
+
 end RHLean.Analysis
