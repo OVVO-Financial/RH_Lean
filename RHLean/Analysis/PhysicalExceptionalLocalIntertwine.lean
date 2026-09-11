@@ -97,8 +97,9 @@ theorem physicalD25_225_step_eq_recoveredIncidence
   intro r hr
   have hrlt : r < 225 := by
     exact Finset.mem_range.mp (Finset.filter_subset _ _ hr)
-  apply (recoveredThreeSlotCellIncrement_eq_fourSlotCellSum
-    S upper (225 * L + r + 1) hprime hcover)
+  symm
+  apply recoveredThreeSlotCellIncrement_eq_fourSlotCellSum
+    S upper (225 * L + r + 1) hprime hcover
   have hindex : 225 * L + r + 2 ≤ 225 * (L + 1) + 1 := by omega
   exact (Nat.mul_le_mul_left 4 hindex).trans hupper
 
@@ -118,8 +119,9 @@ theorem physicalD49_11025_step_eq_recoveredIncidence
   intro r hr
   have hrlt : r < 11025 := by
     exact Finset.mem_range.mp (Finset.filter_subset _ _ hr)
-  apply (recoveredThreeSlotCellIncrement_eq_fourSlotCellSum
-    S upper (11025 * L + r + 1) hprime hcover)
+  symm
+  apply recoveredThreeSlotCellIncrement_eq_fourSlotCellSum
+    S upper (11025 * L + r + 1) hprime hcover
   have hindex : 11025 * L + r + 2 ≤ 11025 * (L + 1) + 1 := by omega
   exact (Nat.mul_le_mul_left 4 hindex).trans hupper
 
