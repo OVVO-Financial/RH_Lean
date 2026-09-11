@@ -87,6 +87,5 @@ theorem oldResidual_add_fullFaceDefect_eq_sourceNormalForm_add_defect
       lowWheelCanonicalRepeatedTerminalInternalMateNearLedger R +
       ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ) := by
   rw [lowWheelFrozenTopFarPhysicalResidualLedger_eq_sourceNormalForm hR]
-  ring
 
 end RHLean.Proof
