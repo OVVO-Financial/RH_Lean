@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Analysis.PartialMomentSchurTarget
 import RHLean.Analysis.PhysicalDegreeOneTransitionEstimate
 import RHLean.Analysis.PhysicalSquareCRTPeriodNoGo
+import RHLean.Analysis.ThreeSlotMertensDegreeOneProjection
 
 /-!
 # Physical T-row partial moments and Schur target invariance
@@ -256,5 +257,116 @@ theorem q2AffineTagEnergy_le_four_residueEnergy
     unfold q2AffineResidueEnergy
     positivity
   nlinarith
+
+/-! ## Explicit synthesis span of the nonzero residue sector -/
+
+/-- Synthesis from the six physical affine tags back to the four residue
+coordinates.  This is the transpose of the incidence analysis map above. -/
+def q2AffineSynthesis (c : ℕ → ℚ) (r : Q2AffineResidue) : ℚ :=
+  ∑ a ∈ physicalTransitionActiveOffsets,
+    if q2AffineContactResidue a = r then c a else 0
+
+/-- Squared coefficient norm on the six active tags. -/
+def q2AffineCoefficientEnergy (c : ℕ → ℚ) : ℚ :=
+  ∑ a ∈ physicalTransitionActiveOffsets, (c a) ^ 2
+
+/-- The canonical coefficient vector for a residue field.  Each nonzero residue
+has two physical tags, so its mass is split evenly between them. -/
+def q2AffineCanonicalCoefficients
+    (x : Q2AffineResidue → ℚ) (a : ℕ) : ℚ :=
+  x (q2AffineContactResidue a) / 2
+
+@[simp] theorem q2AffineSynthesis_zero (c : ℕ → ℚ) :
+    q2AffineSynthesis c (0 : Q2AffineResidue) = 0 := by
+  simp [q2AffineSynthesis, q2AffineContactResidue,
+    physicalTransitionActiveOffsets]
+
+@[simp] theorem q2AffineSynthesis_one (c : ℕ → ℚ) :
+    q2AffineSynthesis c (1 : Q2AffineResidue) = c 1 + c 5 := by
+  simp [q2AffineSynthesis, q2AffineContactResidue,
+    physicalTransitionActiveOffsets]
+  ring
+
+@[simp] theorem q2AffineSynthesis_two (c : ℕ → ℚ) :
+    q2AffineSynthesis c (2 : Q2AffineResidue) = c 2 + c 6 := by
+  simp [q2AffineSynthesis, q2AffineContactResidue,
+    physicalTransitionActiveOffsets]
+  ring
+
+@[simp] theorem q2AffineSynthesis_three (c : ℕ → ℚ) :
+    q2AffineSynthesis c (3 : Q2AffineResidue) = c 3 + c 7 := by
+  simp [q2AffineSynthesis, q2AffineContactResidue,
+    physicalTransitionActiveOffsets]
+  ring
+
+/-- **Span theorem.** Every four-residue field with zero residue-zero component
+lies in the six-tag synthesis range, with explicit rational coefficients. -/
+theorem q2AffineSynthesis_canonicalCoefficients
+    (x : Q2AffineResidue → ℚ)
+    (h0 : x (0 : Q2AffineResidue) = 0) :
+    q2AffineSynthesis (q2AffineCanonicalCoefficients x) = x := by
+  funext r
+  fin_cases r <;>
+    simp [q2AffineCanonicalCoefficients, q2AffineContactResidue, h0] <;>
+    ring
+
+/-- The canonical coefficient vector costs exactly half of the residue energy
+on the nonzero sector. -/
+theorem q2AffineCanonicalCoefficientEnergy_eq_half
+    (x : Q2AffineResidue → ℚ)
+    (h0 : x (0 : Q2AffineResidue) = 0) :
+    q2AffineCoefficientEnergy (q2AffineCanonicalCoefficients x) =
+      (1 / 2 : ℚ) * q2AffineResidueEnergy x := by
+  rw [q2AffineResidueEnergy_eq]
+  simp [q2AffineCoefficientEnergy, q2AffineCanonicalCoefficients,
+    q2AffineContactResidue, physicalTransitionActiveOffsets, h0]
+  ring
+
+/-- The synthesis operator itself has squared norm at most two.  The estimate is
+just the three pairwise inequalities `(u+v)^2 <= 2(u^2+v^2)`. -/
+theorem q2AffineSynthesis_energy_le_two
+    (c : ℕ → ℚ) :
+    q2AffineResidueEnergy (q2AffineSynthesis c) ≤
+      2 * q2AffineCoefficientEnergy c := by
+  rw [q2AffineResidueEnergy_eq]
+  simp [q2AffineCoefficientEnergy, physicalTransitionActiveOffsets]
+  nlinarith [sq_nonneg (c 1 - c 5), sq_nonneg (c 2 - c 6),
+    sq_nonneg (c 3 - c 7)]
+
+/-- The complete four-cell recovered `raw - 2*smooth` degree-one field occupies
+exactly the three nonzero residue coordinates. -/
+def q2RecoveredDegreeOneBulk (K : ℕ) : Q2AffineResidue → ℚ := fun r =>
+  if r = (1 : Q2AffineResidue) then
+    (threeSlotSignedFieldPrefix 1 K : ℚ)
+  else if r = (2 : Q2AffineResidue) then
+    (threeSlotSignedFieldPrefix 2 K : ℚ)
+  else if r = (3 : Q2AffineResidue) then
+    (threeSlotSignedFieldPrefix 3 K : ℚ)
+  else 0
+
+@[simp] theorem q2RecoveredDegreeOneBulk_zero (K : ℕ) :
+    q2RecoveredDegreeOneBulk K (0 : Q2AffineResidue) = 0 := by
+  simp [q2RecoveredDegreeOneBulk]
+
+/-- **Recovered-bulk span certificate.**  At every complete four-cell endpoint,
+the exact physical `raw - 2*smooth` degree-one packet lies in the affine-tag
+synthesis range.  The coefficients are the universal half-split above and do
+not depend on the owner prime. -/
+theorem q2RecoveredDegreeOneBulk_in_affineSynthesisRange (K : ℕ) :
+    q2AffineSynthesis
+        (q2AffineCanonicalCoefficients (q2RecoveredDegreeOneBulk K)) =
+      q2RecoveredDegreeOneBulk K := by
+  exact q2AffineSynthesis_canonicalCoefficients
+    (q2RecoveredDegreeOneBulk K) (q2RecoveredDegreeOneBulk_zero K)
+
+/-- The recovered bulk therefore has an explicit coefficient representation
+whose coefficient energy is one half of its residue energy. -/
+theorem q2RecoveredDegreeOneBulk_coefficientEnergy
+    (K : ℕ) :
+    q2AffineCoefficientEnergy
+        (q2AffineCanonicalCoefficients (q2RecoveredDegreeOneBulk K)) =
+      (1 / 2 : ℚ) * q2AffineResidueEnergy (q2RecoveredDegreeOneBulk K) := by
+  exact q2AffineCanonicalCoefficientEnergy_eq_half
+    (q2RecoveredDegreeOneBulk K) (q2RecoveredDegreeOneBulk_zero K)
 
 end RHLean.Analysis
