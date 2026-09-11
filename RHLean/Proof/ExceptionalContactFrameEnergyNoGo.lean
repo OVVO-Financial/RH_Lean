@@ -200,8 +200,8 @@ theorem contact_frame_three (q d : ℕ) (w : ℕ → ℤ) :
 smaller.  The gap between the proposed three and the observed value near one is
 not arithmetic content; it is an assumption about Mobius signs. -/
 theorem contact_frame_two_sharp :
-    (∑ a ∈ activeOffsetsOfResidue 1, (1 : ℤ)) ^ 2 =
-      2 * ∑ a ∈ activeOffsetsOfResidue 1, (1 : ℤ) ^ 2 := by
+    (∑ _a ∈ activeOffsetsOfResidue 1, (1 : ℤ)) ^ 2 =
+      2 * ∑ _a ∈ activeOffsetsOfResidue 1, (1 : ℤ) ^ 2 := by
   rw [activeOffsetsOfResidue_one, sum_pair_int 1 5 (by norm_num),
     sum_pair_int 1 5 (by norm_num)]
   norm_num
