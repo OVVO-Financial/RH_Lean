@@ -74,7 +74,7 @@ theorem squareRootLowPrimeGoFullFaceDefectRootFloorSource_mem_downcross
     change primeFaceProduct
         (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 *
         (q / q) ≤ R
-    rw [Nat.div_self hq.ne_zero, Nat.mul_one, hfaceProd]
+    rw [Nat.div_self hq.pos, Nat.mul_one, hfaceProd]
     exact hroot
 
 /-- The same occurrence has the literal frozen terminal shape: quotient equals
@@ -102,6 +102,8 @@ theorem squareRootLowPrimeGoFullFaceDefectRootFloorSource_frozenShape
   · change q = _
     exact hpivot.symm
   · intro p hp
+    change p < lowWheelCanonicalCofactorQuotientPivot
+      (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).2
     rw [hpivot]
     have hpFactors : p ∈ (r * d).primeFactors := by
       simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
