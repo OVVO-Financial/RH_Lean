@@ -285,33 +285,30 @@ def q2AffineCanonicalCoefficients
     q2AffineSynthesis c (1 : Q2AffineResidue) = c 1 + c 5 := by
   simp [q2AffineSynthesis, q2AffineContactResidue,
     physicalTransitionActiveOffsets]
-  ring
 
 @[simp] theorem q2AffineSynthesis_two (c : ℕ → ℚ) :
     q2AffineSynthesis c (2 : Q2AffineResidue) = c 2 + c 6 := by
   simp [q2AffineSynthesis, q2AffineContactResidue,
     physicalTransitionActiveOffsets]
-  ring
 
 @[simp] theorem q2AffineSynthesis_three (c : ℕ → ℚ) :
     q2AffineSynthesis c (3 : Q2AffineResidue) = c 3 + c 7 := by
   simp [q2AffineSynthesis, q2AffineContactResidue,
     physicalTransitionActiveOffsets]
-  ring
 
-/-- **Span theorem.** Every four-residue field with zero residue-zero component
-lies in the six-tag synthesis range, with explicit rational coefficients. -/
+/-- **Incidence span theorem.** Every four-residue field with zero residue-zero
+component lies in the six-tag residue-incidence synthesis range.  This statement
+does not yet identify the two tags in a pair with the same physical source cell. -/
 theorem q2AffineSynthesis_canonicalCoefficients
     (x : Q2AffineResidue → ℚ)
     (h0 : x (0 : Q2AffineResidue) = 0) :
     q2AffineSynthesis (q2AffineCanonicalCoefficients x) = x := by
   funext r
   fin_cases r <;>
-    simp [q2AffineCanonicalCoefficients, q2AffineContactResidue, h0] <;>
-    ring
+    simp [q2AffineCanonicalCoefficients, q2AffineContactResidue, h0]
 
-/-- The canonical coefficient vector costs exactly half of the residue energy
-on the nonzero sector. -/
+/-- The canonical residue-incidence coefficient vector costs exactly half of
+the residue energy on the nonzero sector. -/
 theorem q2AffineCanonicalCoefficientEnergy_eq_half
     (x : Q2AffineResidue → ℚ)
     (h0 : x (0 : Q2AffineResidue) = 0) :
@@ -322,8 +319,7 @@ theorem q2AffineCanonicalCoefficientEnergy_eq_half
     q2AffineContactResidue, physicalTransitionActiveOffsets, h0]
   ring
 
-/-- The synthesis operator itself has squared norm at most two.  The estimate is
-just the three pairwise inequalities `(u+v)^2 <= 2(u^2+v^2)`. -/
+/-- The residue-incidence synthesis operator itself has squared norm at most two. -/
 theorem q2AffineSynthesis_energy_le_two
     (c : ℕ → ℚ) :
     q2AffineResidueEnergy (q2AffineSynthesis c) ≤
@@ -348,10 +344,10 @@ def q2RecoveredDegreeOneBulk (K : ℕ) : Q2AffineResidue → ℚ := fun r =>
     q2RecoveredDegreeOneBulk K (0 : Q2AffineResidue) = 0 := by
   simp [q2RecoveredDegreeOneBulk]
 
-/-- **Recovered-bulk span certificate.**  At every complete four-cell endpoint,
-the exact physical `raw - 2*smooth` degree-one packet lies in the affine-tag
-synthesis range.  The coefficients are the universal half-split above and do
-not depend on the owner prime. -/
+/-- **Recovered-bulk residue span certificate.** At every complete four-cell
+endpoint, the exact `raw - 2*smooth` degree-one residue vector lies in the
+incidence synthesis range.  The physical source-cell translation is handled by
+the separate two-tap frame below. -/
 theorem q2RecoveredDegreeOneBulk_in_affineSynthesisRange (K : ℕ) :
     q2AffineSynthesis
         (q2AffineCanonicalCoefficients (q2RecoveredDegreeOneBulk K)) =
@@ -359,8 +355,7 @@ theorem q2RecoveredDegreeOneBulk_in_affineSynthesisRange (K : ℕ) :
   exact q2AffineSynthesis_canonicalCoefficients
     (q2RecoveredDegreeOneBulk K) (q2RecoveredDegreeOneBulk_zero K)
 
-/-- The recovered bulk therefore has an explicit coefficient representation
-whose coefficient energy is one half of its residue energy. -/
+/-- The recovered bulk has the universal half-split incidence coefficients. -/
 theorem q2RecoveredDegreeOneBulk_coefficientEnergy
     (K : ℕ) :
     q2AffineCoefficientEnergy
@@ -368,5 +363,46 @@ theorem q2RecoveredDegreeOneBulk_coefficientEnergy
       (1 / 2 : ℚ) * q2AffineResidueEnergy (q2RecoveredDegreeOneBulk K) := by
   exact q2AffineCanonicalCoefficientEnergy_eq_half
     (q2RecoveredDegreeOneBulk K) (q2RecoveredDegreeOneBulk_zero K)
+
+/-! ## Physical affine source-cell translation and the true pair frame -/
+
+/-- Offsets paired modulo four differ by exactly one predecessor source cell.
+This is the finite-cutoff feature suppressed by the residue-only Gram. -/
+theorem qSquareOffsetSourceCell_add_four
+    (q a d : ℕ) (h : a + 4 ≤ q * q * d) :
+    qSquareOffsetSourceCell q (a + 4) d + 1 =
+      qSquareOffsetSourceCell q a d := by
+  unfold qSquareOffsetSourceCell
+  omega
+
+/-- Pointwise two-tap estimate.  It is sharp at aligned inputs. -/
+theorem q2AffineTwoTap_sq_le
+    (x y : ℚ) :
+    (x + y) ^ 2 ≤ 2 * x ^ 2 + 2 * y ^ 2 := by
+  nlinarith [sq_nonneg (x - y)]
+
+/-- **True affine-pair frame bound.**  If the second tag in a pair is an
+energy-nonexpanding translate of the first, the `I + S` synthesis has squared
+operator norm at most four.  Complete cyclic super-orbits satisfy the premise by
+translation invariance; incomplete pieces are to be charged to the endpoint
+boundary before applying this theorem. -/
+theorem q2AffineTwoTapFrame_le_four
+    {ι : Type*} [Fintype ι]
+    (f g : ι → ℚ)
+    (hshift : (∑ i, (g i) ^ 2) ≤ ∑ i, (f i) ^ 2) :
+    (∑ i, (f i + g i) ^ 2) ≤ 4 * ∑ i, (f i) ^ 2 := by
+  have hpair :
+      (∑ i, (f i + g i) ^ 2) ≤
+        ∑ i, (2 * (f i) ^ 2 + 2 * (g i) ^ 2) := by
+    apply Finset.sum_le_sum
+    intro i hi
+    exact q2AffineTwoTap_sq_le (f i) (g i)
+  rw [Finset.sum_add_distrib] at hpair
+  have hf : (∑ i, 2 * (f i) ^ 2) = 2 * ∑ i, (f i) ^ 2 := by
+    rw [Finset.mul_sum]
+  have hg : (∑ i, 2 * (g i) ^ 2) = 2 * ∑ i, (g i) ^ 2 := by
+    rw [Finset.mul_sum]
+  rw [hf, hg] at hpair
+  nlinarith
 
 end RHLean.Analysis
