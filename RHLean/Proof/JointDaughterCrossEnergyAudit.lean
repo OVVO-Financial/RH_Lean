@@ -1,5 +1,6 @@
 import RHLean.Proof.ExceptionalTransportCoboundary
 import RHLean.Proof.ExceptionalOwnerEnergyClosure
+import RHLean.Proof.PhysicalExceptionalCompensatedCellIntertwine
 
 /-!
 # What a joint-daughter contraction actually requires
