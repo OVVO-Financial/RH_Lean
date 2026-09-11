@@ -1,5 +1,9 @@
+import RHLean.Analysis.TwoWheelQ2Compensation
+import RHLean.Proof.ExceptionalSignedPacketIdentification
 import RHLean.Proof.ExceptionalTransportCoboundary
 import RHLean.Proof.ExceptionalOwnerEnergyClosure
+
+open scoped ArithmeticFunction.Moebius BigOperators
 
 /-!
 # What a joint-daughter contraction actually requires
@@ -24,6 +28,8 @@ explicit hypothesis below, not a result proved by this audit.
 noncomputable section
 
 namespace RHLean.Proof
+
+open RHLean.Analysis RHLean.Arithmetic
 
 section InnerProduct
 
@@ -155,5 +161,217 @@ theorem normalizedJointDaughter_bounds_imply_linear
   have hsum := add_le_add (add_le_add (h3 X) (h5 X)) (h7 X)
   change E X ≤ C * (X : ℚ) + 3 * E (X / 9) + 3 * E (X / 25) + 3 * E (X / 49)
   linarith
+
+/-! ## Coefficient-level q-square compensation
+
+The scalar predecessor/high-transport compatibility identity is not itself an
+unsummed physical field.  The following construction takes the physical
+four-cell increment first and only then applies the exact two-step Euler
+identity.  This produces a literal unsummed q-square daughter without any
+selected-prime parity or independence assumption.
+-/
+
+/-- Increment of an arithmetic prefix across one complete physical four-cell. -/
+def physicalFourCellPrefixIncrement {A : Type*} [AddGroup A]
+    (g : ℕ → A) (k : ℕ) : A :=
+  g (4 * (k + 1)) - g (4 * k)
+
+/-- **Coefficient-level two-step q-square compensation.** Parent minus the
+current-q response minus its first-power mate is the same four-cell increment
+of the square-shifted field. -/
+theorem physicalFourCellPrefixIncrement_twoStep_q2_remainder
+    {A : Type*} [CommRing A]
+    (q k : ℕ) (g : ℕ → A) :
+    physicalFourCellPrefixIncrement g k -
+        physicalFourCellPrefixIncrement (freshPrimeDifference q g) k -
+        physicalFourCellPrefixIncrement (shift q (freshPrimeDifference q g)) k =
+      physicalFourCellPrefixIncrement (shift (q * q) g) k := by
+  have hhi := RHLean.Analysis.freshPrimeDifference_twoStep_q2_remainder
+    q (4 * (k + 1)) g
+  have hlo := RHLean.Analysis.freshPrimeDifference_twoStep_q2_remainder
+    q (4 * k) g
+  unfold physicalFourCellPrefixIncrement
+  simp only [shift]
+  calc
+    (g (4 * (k + 1)) - g (4 * k)) -
+          (freshPrimeDifference q g (4 * (k + 1)) -
+            freshPrimeDifference q g (4 * k)) -
+          (freshPrimeDifference q g (4 * (k + 1) / q) -
+            freshPrimeDifference q g (4 * k / q)) =
+        (g (4 * (k + 1)) -
+            freshPrimeDifference q g (4 * (k + 1)) -
+            freshPrimeDifference q g (4 * (k + 1) / q)) -
+          (g (4 * k) - freshPrimeDifference q g (4 * k) -
+            freshPrimeDifference q g (4 * k / q)) := by ring
+    _ = g (4 * (k + 1) / (q * q)) - g (4 * k / (q * q)) := by
+      rw [hhi, hlo]
+    _ = (shift (q * q) g) (4 * (k + 1)) -
+          (shift (q * q) g) (4 * k) := by
+      rfl
+
+/-- The Mobius prefix increment across one four-cell is its exact physical
+three-slot cell value. -/
+theorem physicalFourCellPrefixIncrement_moebius_eq_fourSlotCellSum (k : ℕ) :
+    physicalFourCellPrefixIncrement moebiusPositivePrefix k = fourSlotCellSum k := by
+  unfold physicalFourCellPrefixIncrement
+  rw [moebiusPositivePrefix_four_mul_eq_fourSlotCellSum,
+    moebiusPositivePrefix_four_mul_eq_fourSlotCellSum,
+    Finset.sum_range_succ]
+  ring
+
+/-- Current-q response on one physical cell. -/
+def physicalEulerResponseCellIncrement (q k : ℕ) : ℤ :=
+  physicalFourCellPrefixIncrement (freshPrimeDifference q moebiusPositivePrefix) k
+
+/-- First-power mate of the current-q response on the same physical endpoints. -/
+def physicalEulerMateCellIncrement (q k : ℕ) : ℤ :=
+  physicalFourCellPrefixIncrement
+    (shift q (freshPrimeDifference q moebiusPositivePrefix)) k
+
+/-- Genuine coefficient-level q-square daughter. -/
+def physicalQ2DaughterCellIncrement (q k : ℕ) : ℤ :=
+  physicalFourCellPrefixIncrement (shift (q * q) moebiusPositivePrefix) k
+
+/-- **Physical compensated cell identity.**  No scalar frozen cube is lifted to
+an unspecified field: the daughter is produced directly from the two physical
+prefix endpoints. -/
+theorem fourSlotCellSum_sub_response_sub_mate_eq_q2Daughter
+    (q k : ℕ) :
+    fourSlotCellSum k - physicalEulerResponseCellIncrement q k -
+        physicalEulerMateCellIncrement q k =
+      physicalQ2DaughterCellIncrement q k := by
+  rw [← physicalFourCellPrefixIncrement_moebius_eq_fourSlotCellSum]
+  exact physicalFourCellPrefixIncrement_twoStep_q2_remainder
+    q k moebiusPositivePrefix
+
+/-- Expanded endpoint form of the genuine coefficient-level daughter. -/
+theorem physicalQ2DaughterCellIncrement_eq (q k : ℕ) :
+    physicalQ2DaughterCellIncrement q k =
+      moebiusPositivePrefix (4 * (k + 1) / (q * q)) -
+        moebiusPositivePrefix (4 * k / (q * q)) := by
+  rfl
+
+/-! ## Exact compensation on a complete least-owner source packet -/
+
+/-- Current-q response summed on the literal complete owner carrier. -/
+def exceptionalCompleteOwnerResponsePacket
+    (P : Finset ℕ) (R q : ℕ) : ℤ :=
+  ∑ k ∈ exceptionalCompleteOwnerCells P R q,
+    physicalEulerResponseCellIncrement q k
+
+/-- First-power response mate on the same carrier. -/
+def exceptionalCompleteOwnerMatePacket
+    (P : Finset ℕ) (R q : ℕ) : ℤ :=
+  ∑ k ∈ exceptionalCompleteOwnerCells P R q,
+    physicalEulerMateCellIncrement q k
+
+/-- Literal coefficient-level q-square daughter on the complete owner carrier. -/
+def exceptionalCompleteOwnerQ2DaughterPacket
+    (P : Finset ℕ) (R q : ℕ) : ℤ :=
+  ∑ k ∈ exceptionalCompleteOwnerCells P R q,
+    physicalQ2DaughterCellIncrement q k
+
+/-- **Packet-level physical q-square compensation.**  On the actual complete
+least-owner carrier, the true Mobius source packet minus its current-q response
+and first-power mate is exactly the sum of the genuine coefficient-level
+q-square daughters.  This is finite reindex-free algebra: no scalar frozen cube
+is substituted for an unsummed field and no estimate is used. -/
+theorem exceptionalCompleteOwnerSourcePacket_sub_response_sub_mate_eq_q2Daughter
+    (P : Finset ℕ) (R q : ℕ) :
+    exceptionalCompleteOwnerSourcePacket P R q -
+        exceptionalCompleteOwnerResponsePacket P R q -
+        exceptionalCompleteOwnerMatePacket P R q =
+      exceptionalCompleteOwnerQ2DaughterPacket P R q := by
+  unfold exceptionalCompleteOwnerSourcePacket
+    exceptionalCompleteOwnerResponsePacket exceptionalCompleteOwnerMatePacket
+    exceptionalCompleteOwnerQ2DaughterPacket
+  rw [← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro k hk
+  have hsource : threeSlotDegreeOneValue (threeSlotState k) = fourSlotCellSum k := by
+    simp [threeSlotDegreeOneValue_threeSlotState, fourSlotCellSum,
+      moebius_four_mul_add_four]
+  rw [hsource]
+  exact fourSlotCellSum_sub_response_sub_mate_eq_q2Daughter q k
+
+/-! ## Exact unit descent for the least-three channel -/
+
+/-- One-step increment of the positive Mobius prefix. -/
+theorem moebiusPositivePrefix_succ_sub_self (n : ℕ) :
+    moebiusPositivePrefix (n + 1) - moebiusPositivePrefix n = μ (n + 1) := by
+  unfold moebiusPositivePrefix positivePrefix
+  rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ n + 1)]
+  ring
+
+private theorem q3Daughter_residue_one (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 1) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 1) / 9 = 4 * L := by omega
+  have hhi : 4 * (9 * L + 1 + 1) / 9 = 4 * L := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q3Daughter_residue_two (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 2) = μ (4 * L + 1) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 2) / 9 = 4 * L := by omega
+  have hhi : 4 * (9 * L + 2 + 1) / 9 = 4 * L + 1 := by omega
+  rw [hlo, hhi]
+  exact moebiusPositivePrefix_succ_sub_self (4 * L)
+
+private theorem q3Daughter_residue_three (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 3) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 3) / 9 = 4 * L + 1 := by omega
+  have hhi : 4 * (9 * L + 3 + 1) / 9 = 4 * L + 1 := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q3Daughter_residue_four (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 4) = μ (4 * L + 2) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 4) / 9 = 4 * L + 1 := by omega
+  have hhi : 4 * (9 * L + 4 + 1) / 9 = 4 * L + 2 := by omega
+  rw [hlo, hhi]
+  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 1)
+
+private theorem q3Daughter_residue_five (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 5) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 5) / 9 = 4 * L + 2 := by omega
+  have hhi : 4 * (9 * L + 5 + 1) / 9 = 4 * L + 2 := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q3Daughter_residue_six (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 6) = μ (4 * L + 3) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 6) / 9 = 4 * L + 2 := by omega
+  have hhi : 4 * (9 * L + 6 + 1) / 9 = 4 * L + 3 := by omega
+  rw [hlo, hhi]
+  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 2)
+
+/-- **Unit q=3 daughter normalization on one complete least-three period.**
+The six owner residues contain three zero square-shift increments and the three
+true child Mobius coefficients.  Their compensated q-square daughter is exactly
+one lower physical four-cell value, with no frame or multiplicity loss. -/
+theorem q3_completePeriod_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 1) +
+      physicalQ2DaughterCellIncrement 3 (9 * L + 2) +
+      physicalQ2DaughterCellIncrement 3 (9 * L + 3) +
+      physicalQ2DaughterCellIncrement 3 (9 * L + 4) +
+      physicalQ2DaughterCellIncrement 3 (9 * L + 5) +
+      physicalQ2DaughterCellIncrement 3 (9 * L + 6) =
+        fourSlotCellSum L := by
+  rw [q3Daughter_residue_one, q3Daughter_residue_two,
+    q3Daughter_residue_three, q3Daughter_residue_four,
+    q3Daughter_residue_five, q3Daughter_residue_six]
+  simp [fourSlotCellSum, moebius_four_mul_add_four]
 
 end RHLean.Proof
