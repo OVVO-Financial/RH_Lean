@@ -123,7 +123,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_highProduct_eq_child
   have hsqRD : Squarefree (r * d) := hchild.1.2.2.1
   change primeFaceProduct (squarefreePrimeFace (r * d)) * q = q * (r * d)
   rw [primeFaceProduct_squarefreePrimeFace hsqRD]
-  omega
+  ring
 
 /-- The distinguished outer owner is the canonical largest prime of the
 arithmetic child. -/
