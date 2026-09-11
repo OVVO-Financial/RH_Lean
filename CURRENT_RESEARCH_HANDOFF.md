@@ -8,6 +8,42 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Continuation after #646: the stable far-prime wall is inhabited
+
+`SquareRootLowPrimeCombinedResidualSourceNormalForm.lean` now constructs the
+explicit empty-face, unit-cofactor wall state `(empty, (1,q))`.  For every
+`R >= 56`, Bertrand gives `R+7 < q <= 2*(R+7) <= X_R`.  Read compilation status
+from Hosted Lean CI at the current head.
+
+The actual wall filter excludes six high-product images, including the
+RoughPrefix square-residual integer image.  Every non-near image has composite
+high products, while the near image is below `R+8`.  Thus the stronger exact
+conclusion is
+
+```text
+stableFarWallCarrier R = lowWheelFarTaggedPhysicalStableCarrier R,
+stableFarAccountedCarrier R = empty,
+R >= 56 ==> stableFarWallCarrier R != empty.
+```
+
+Outcome 6c is therefore the surviving branch of Lemma 6.  The membership
+characterization uses the real invariant: `lowWheelTaggedHighProduct` is
+`P(t)*q`, excluding the cofactor.  On stable states `t=empty`, so this is `q`
+itself, not `q/c`.
+
+The final theorem
+`oldResidual_add_fullFaceDefect_eq_sourceAssembly_add_rootTerms_add_farWall`
+keeps the exact signed source, root/near, and wall blocks.  It preserves every
+additive occurrence; identifying a deep defect with a canonical seed does not
+erase a same-sign copy from a sum.  The stable wall is not put into the
+incomplete boundary or the tagged-11/q^2 daughter schedule.  No frame inequality
+or root-scale estimate is supplied for it, and #644 is unchanged.
+
+The subsequent research target is the wall packet alone.  Its stable prime
+quotient is `q >= R+8`, so `X_R/q^2=0`; its physical integer is the single
+insertion `c*q`.  The existing #622 far transport identity must retain its
+original signed weight and endpoint convention in any continuation.
+
 ## Continuation after #639: audit the admissible energy before closing it
 
 `PhysicalDaughterEnergyObstructions.lean` extends the corrected six-offset
