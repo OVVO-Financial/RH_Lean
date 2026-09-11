@@ -125,9 +125,8 @@ theorem squareRootLowPrimeGoFullFaceDefect_depthOneAncestry
   simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
     canonicalMoebiusWeight] using hsource
 
-/-- The same statement with the Möbius sign reversal made explicit: the
-physical Go source is generation one, while the actual child source weight is
-its negative. -/
+/-- The same statement with the sign reversal exposed.  Generation one is the
+root-parent weight; the actual smooth child source has the opposite weight. -/
 theorem squareRootLowPrimeGoFullFaceDefect_generationOne_eq_neg_childWeight
     {R r q d : ℕ}
     (hz : ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
@@ -136,37 +135,16 @@ theorem squareRootLowPrimeGoFullFaceDefect_generationOne_eq_neg_childWeight
       SmoothOriented child ∧
       sourceGeneration (squareRootEndpoint R) 1 child = -sourceWeight child := by
   rcases squareRootLowPrimeGoFullFaceDefect_depthOneAncestry hz with
-    ⟨parent, child, _hp, _hc, hcq, hcc, _htrans, hsmooth, hparent, _hweight⟩
-  have hsign := sourceWeight_signReversal child parent hparent
+    ⟨parent, child, _hp, _hc, hcq, hcc, htrans, hsmooth, hparent, _hweight⟩
+  have hparentNone : sourceParent parent = none :=
+    (sourceParent_eq_none_iff_transport parent htrans.1).2 htrans
   have hgen :
       sourceGeneration (squareRootEndpoint R) 1 child = sourceWeight parent := by
-    have hparentAdm : SourceAdmissible parent :=
-      (sourceParent_eq_none_iff_transport parent hsmooth.1).1 rfl
-    -- Do not recover generation one through the preceding existential proof;
-    -- use the parent edge directly and the fact that the parent is a root.
-    have hroot : sourceParent parent = none := by
-      by_contra hne
-      rcases Option.ne_none_iff_exists'.mp hne with ⟨u, hu⟩
-      have hsm : SmoothOriented parent :=
-        (sourceParent_isSome_iff parent).1 (by rw [hu]; simp)
-      have hchildCore : q < r * d := hsmooth.2
-      have hpCore : sourceCore parent < q := by
-        have hfull :=
-          (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp
-            (mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz).2.2.2.2.2.2.2).1
-        exact (squareRootLowPrimeGoFullBirthBoundary_parent_canonicalRoot
-          (mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz).2.2.2.2.1
-          (mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz).2.2.2.1
-          (mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz).2.2.2.2.2.1
-          hfull).2
-      change sourcePrime parent < sourceCore parent at hsm
-      rw [show sourcePrime parent = q by
-        simpa [hcq] using congrArg sourcePrime hparentIndex] at hsm
-      omega
     rw [show 1 = 0 + 1 by norm_num,
       sourceGeneration_succ, sourceGeneration_zero]
     simp [boundedSourceFlow, ParentFlow.successorOperator, hparent,
-      ParentFlow.rootField, hroot]
+      ParentFlow.rootField, hparentNone]
+  have hsign := sourceWeight_signReversal child parent hparent
   refine ⟨child, hcq, hcc, hsmooth, ?_⟩
   rw [hgen]
   linarith
