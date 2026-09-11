@@ -162,23 +162,15 @@ theorem normalizedJointDaughter_bounds_imply_linear
   change E X ≤ C * (X : ℚ) + 3 * E (X / 9) + 3 * E (X / 25) + 3 * E (X / 49)
   linarith
 
-/-! ## Coefficient-level q-square compensation
-
-The scalar predecessor/high-transport compatibility identity is not itself an
-unsummed physical field.  The following construction takes the physical
-four-cell increment first and only then applies the exact two-step Euler
-identity.  This produces a literal unsummed q-square daughter without any
-selected-prime parity or independence assumption.
--/
+/-! ## Coefficient-level q-square compensation -/
 
 /-- Increment of an arithmetic prefix across one complete physical four-cell. -/
 def physicalFourCellPrefixIncrement {A : Type*} [AddGroup A]
     (g : ℕ → A) (k : ℕ) : A :=
   g (4 * (k + 1)) - g (4 * k)
 
-/-- **Coefficient-level two-step q-square compensation.** Parent minus the
-current-q response minus its first-power mate is the same four-cell increment
-of the square-shifted field. -/
+/-- Parent minus the current-q response minus its first-power mate is the same
+four-cell increment of the square-shifted field. -/
 theorem physicalFourCellPrefixIncrement_twoStep_q2_remainder
     {A : Type*} [CommRing A]
     (q k : ℕ) (g : ℕ → A) :
@@ -232,9 +224,8 @@ def physicalEulerMateCellIncrement (q k : ℕ) : ℤ :=
 def physicalQ2DaughterCellIncrement (q k : ℕ) : ℤ :=
   physicalFourCellPrefixIncrement (shift (q * q) moebiusPositivePrefix) k
 
-/-- **Physical compensated cell identity.**  No scalar frozen cube is lifted to
-an unspecified field: the daughter is produced directly from the two physical
-prefix endpoints. -/
+/-- No scalar frozen cube is lifted to an unspecified field: the daughter is
+produced directly from the two physical prefix endpoints. -/
 theorem fourSlotCellSum_sub_response_sub_mate_eq_q2Daughter
     (q k : ℕ) :
     fourSlotCellSum k - physicalEulerResponseCellIncrement q k -
@@ -271,11 +262,9 @@ def exceptionalCompleteOwnerQ2DaughterPacket
   ∑ k ∈ exceptionalCompleteOwnerCells P R q,
     physicalQ2DaughterCellIncrement q k
 
-/-- **Packet-level physical q-square compensation.**  On the actual complete
-least-owner carrier, the true Mobius source packet minus its current-q response
-and first-power mate is exactly the sum of the genuine coefficient-level
-q-square daughters.  This is finite reindex-free algebra: no scalar frozen cube
-is substituted for an unsummed field and no estimate is used. -/
+/-- On the actual complete least-owner carrier, the true Mobius source packet
+minus its current-q response and first-power mate is exactly the sum of the
+genuine coefficient-level q-square daughters. -/
 theorem exceptionalCompleteOwnerSourcePacket_sub_response_sub_mate_eq_q2Daughter
     (P : Finset ℕ) (R q : ℕ) :
     exceptionalCompleteOwnerSourcePacket P R q -
@@ -294,7 +283,7 @@ theorem exceptionalCompleteOwnerSourcePacket_sub_response_sub_mate_eq_q2Daughter
   rw [hsource]
   exact fourSlotCellSum_sub_response_sub_mate_eq_q2Daughter q k
 
-/-! ## Exact unit descent for the least-three channel -/
+/-! ## Exact unit descent for square contacts -/
 
 /-- One-step increment of the positive Mobius prefix. -/
 theorem moebiusPositivePrefix_succ_sub_self (n : ℕ) :
@@ -357,10 +346,7 @@ private theorem q3Daughter_residue_six (L : ℕ) :
   rw [hlo, hhi]
   simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 2)
 
-/-- **Unit q=3 daughter normalization on one complete least-three period.**
-The six owner residues contain three zero square-shift increments and the three
-true child Mobius coefficients.  Their compensated q-square daughter is exactly
-one lower physical four-cell value, with no frame or multiplicity loss. -/
+/-- Unit q=3 daughter normalization on one complete least-three period. -/
 theorem q3_completePeriod_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
     physicalQ2DaughterCellIncrement 3 (9 * L + 1) +
       physicalQ2DaughterCellIncrement 3 (9 * L + 2) +
@@ -373,5 +359,160 @@ theorem q3_completePeriod_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
     q3Daughter_residue_three, q3Daughter_residue_four,
     q3Daughter_residue_five, q3Daughter_residue_six]
   simp [fourSlotCellSum, moebius_four_mul_add_four]
+
+private theorem q5Daughter_residue_five (L : ℕ) :
+    physicalQ2DaughterCellIncrement 5 (25 * L + 5) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (25 * L + 5) / 25 = 4 * L := by omega
+  have hhi : 4 * (25 * L + 5 + 1) / 25 = 4 * L := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q5Daughter_residue_six (L : ℕ) :
+    physicalQ2DaughterCellIncrement 5 (25 * L + 6) = μ (4 * L + 1) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (25 * L + 6) / 25 = 4 * L := by omega
+  have hhi : 4 * (25 * L + 6 + 1) / 25 = 4 * L + 1 := by omega
+  rw [hlo, hhi]
+  exact moebiusPositivePrefix_succ_sub_self (4 * L)
+
+private theorem q5Daughter_residue_eleven (L : ℕ) :
+    physicalQ2DaughterCellIncrement 5 (25 * L + 11) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (25 * L + 11) / 25 = 4 * L + 1 := by omega
+  have hhi : 4 * (25 * L + 11 + 1) / 25 = 4 * L + 1 := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q5Daughter_residue_twelve (L : ℕ) :
+    physicalQ2DaughterCellIncrement 5 (25 * L + 12) = μ (4 * L + 2) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (25 * L + 12) / 25 = 4 * L + 1 := by omega
+  have hhi : 4 * (25 * L + 12 + 1) / 25 = 4 * L + 2 := by omega
+  rw [hlo, hhi]
+  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 1)
+
+private theorem q5Daughter_residue_seventeen (L : ℕ) :
+    physicalQ2DaughterCellIncrement 5 (25 * L + 17) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (25 * L + 17) / 25 = 4 * L + 2 := by omega
+  have hhi : 4 * (25 * L + 17 + 1) / 25 = 4 * L + 2 := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q5Daughter_residue_eighteen (L : ℕ) :
+    physicalQ2DaughterCellIncrement 5 (25 * L + 18) = μ (4 * L + 3) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (25 * L + 18) / 25 = 4 * L + 2 := by omega
+  have hhi : 4 * (25 * L + 18 + 1) / 25 = 4 * L + 3 := by omega
+  rw [hlo, hhi]
+  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 2)
+
+/-- Before least-owner deletion, one complete 5^2 contact period descends with
+exactly unit multiplicity to one ordinary lower four-cell. -/
+theorem q5_fullContactPeriod_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
+    (∑ r ∈ physicalTwentyFiveHitResidues,
+      physicalQ2DaughterCellIncrement 5 (25 * L + r)) = fourSlotCellSum L := by
+  simp [physicalTwentyFiveHitResidues, q5Daughter_residue_five,
+    q5Daughter_residue_six, q5Daughter_residue_eleven,
+    q5Daughter_residue_twelve, q5Daughter_residue_seventeen,
+    q5Daughter_residue_eighteen, fourSlotCellSum, moebius_four_mul_add_four]; ring
+
+private theorem q7Daughter_residue_eleven (L : ℕ) :
+    physicalQ2DaughterCellIncrement 7 (49 * L + 11) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (49 * L + 11) / 49 = 4 * L := by omega
+  have hhi : 4 * (49 * L + 11 + 1) / 49 = 4 * L := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q7Daughter_residue_twelve (L : ℕ) :
+    physicalQ2DaughterCellIncrement 7 (49 * L + 12) = μ (4 * L + 1) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (49 * L + 12) / 49 = 4 * L := by omega
+  have hhi : 4 * (49 * L + 12 + 1) / 49 = 4 * L + 1 := by omega
+  rw [hlo, hhi]
+  exact moebiusPositivePrefix_succ_sub_self (4 * L)
+
+private theorem q7Daughter_residue_twentythree (L : ℕ) :
+    physicalQ2DaughterCellIncrement 7 (49 * L + 23) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (49 * L + 23) / 49 = 4 * L + 1 := by omega
+  have hhi : 4 * (49 * L + 23 + 1) / 49 = 4 * L + 1 := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q7Daughter_residue_twentyfour (L : ℕ) :
+    physicalQ2DaughterCellIncrement 7 (49 * L + 24) = μ (4 * L + 2) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (49 * L + 24) / 49 = 4 * L + 1 := by omega
+  have hhi : 4 * (49 * L + 24 + 1) / 49 = 4 * L + 2 := by omega
+  rw [hlo, hhi]
+  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 1)
+
+private theorem q7Daughter_residue_thirtyfive (L : ℕ) :
+    physicalQ2DaughterCellIncrement 7 (49 * L + 35) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (49 * L + 35) / 49 = 4 * L + 2 := by omega
+  have hhi : 4 * (49 * L + 35 + 1) / 49 = 4 * L + 2 := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q7Daughter_residue_thirtysix (L : ℕ) :
+    physicalQ2DaughterCellIncrement 7 (49 * L + 36) = μ (4 * L + 3) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (49 * L + 36) / 49 = 4 * L + 2 := by omega
+  have hhi : 4 * (49 * L + 36 + 1) / 49 = 4 * L + 3 := by omega
+  rw [hlo, hhi]
+  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 2)
+
+/-- Before least-owner deletion, one complete 7^2 contact period descends with
+exactly unit multiplicity to one ordinary lower four-cell. -/
+theorem q7_fullContactPeriod_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
+    (∑ r ∈ physicalFortyNineHitResidues,
+      physicalQ2DaughterCellIncrement 7 (49 * L + r)) = fourSlotCellSum L := by
+  simp [physicalFortyNineHitResidues, q7Daughter_residue_eleven,
+    q7Daughter_residue_twelve, q7Daughter_residue_twentythree,
+    q7Daughter_residue_twentyfour, q7Daughter_residue_thirtyfive,
+    q7Daughter_residue_thirtysix, fourSlotCellSum, moebius_four_mul_add_four]; ring
+
+/-! ## Earlier-owner contacts are exactly the missing full-contact pieces -/
+
+/-- A 5^2 contact that is not least-owned by 5 is necessarily already owned by 3. -/
+theorem fiveContact_not_fiveOwner_implies_threeOwner
+    {k : ℕ} (h5 : physicalSquarePrimeAtEdge k 5)
+    (hnot5 : physicalLeastOddSquarePrime k ≠ some 5) :
+    physicalLeastOddSquarePrime k = some 3 := by
+  have h3 : physicalSquarePrimeAtEdge k 3 := by
+    by_contra hnot3
+    exact hnot5 ((physicalLeastOddSquarePrime_eq_five_iff k).2 ⟨h5, hnot3⟩)
+  exact (physicalLeastOddSquarePrime_eq_three_iff k).2 h3
+
+/-- A 7^2 contact that is not least-owned by 7 is necessarily already owned by
+3 or 5.  Thus exceptional overlap transfer is lower triangular in owner. -/
+theorem sevenContact_not_sevenOwner_implies_threeOrFiveOwner
+    {k : ℕ} (h7 : physicalSquarePrimeAtEdge k 7)
+    (hnot7 : physicalLeastOddSquarePrime k ≠ some 7) :
+    physicalLeastOddSquarePrime k = some 3 ∨
+      physicalLeastOddSquarePrime k = some 5 := by
+  by_cases h3 : physicalSquarePrimeAtEdge k 3
+  · exact Or.inl ((physicalLeastOddSquarePrime_eq_three_iff k).2 h3)
+  · have h5 : physicalSquarePrimeAtEdge k 5 := by
+      by_contra hnot5
+      exact hnot7 ((physicalLeastOddSquarePrime_eq_seven_iff k).2
+        ⟨h7, hnot5, h3⟩)
+    exact Or.inr ((physicalLeastOddSquarePrime_eq_five_iff k).2 ⟨h5, h3⟩)
 
 end RHLean.Proof
