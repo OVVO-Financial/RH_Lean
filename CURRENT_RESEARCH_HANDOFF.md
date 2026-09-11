@@ -8,6 +8,61 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Contact-frame no-go: counting is not cancellation
+
+`ExceptionalContactFrameEnergyNoGo.lean` closes off a recurring proposal: compute
+a frame constant `alpha_q` for the six-contact `q^2` pullback on the finite
+super-orbit `Z/q^2 x Z/11^2`, prove `alpha_q <= 3`, and feed it to
+`ExceptionalOwnerEnergyStep` through `3*(1/9+1/25+1/49)=1891/3675<1`.  Read
+compilation status from Hosted Lean at the PR head.  Three exact finite facts
+are certified.
+
+1. The contact classes are the active offsets pulled back by `4`, not the offset
+   set.  `physicalTransitionActiveOffsets={1,2,3,5,6,7}` are offsets `a` inside
+   the site `4*k+a`; the cell classes are their images `2*a mod 9`,
+   `6*a mod 25`, `12*a mod 49`, that is the already compiled
+   `physicalNineChannelResidues`, `physicalTwentyFiveHitResidues`,
+   `physicalFortyNineHitResidues`.  The module proves both the image identities
+   and the disequalities, so the two six-element sets cannot be conflated again.
+
+2. The frame constant is exactly two, for EVERY field.  `q` is odd, so `q^2*d`
+   and `d` agree mod four and the six offsets split into the mod-four pairs
+   `{1,5}`, `{2,6}`, `{3,7}`; a daughter has two tagged preimages off the zero
+   class and none on it.  `contact_frame_two` is stated for an arbitrary
+   `w : ℕ → ℤ`, and `contact_frame_three` derives the proposed `alpha_q <= 3`
+   from it.  So that estimate is a corollary of fibre counting and carries no
+   Mobius input.  `contact_frame_two_sharp` shows two is attained on the
+   all-ones field, so no field-independent constant is smaller; the gap between
+   three and the numerically observed value near one is an assumption about
+   Mobius signs, not arithmetic content.  A least-owner restriction only deletes
+   preimages, so `<= 2` persists and the route is not helped there.
+
+3. Assembled coefficient norm and recursive Mertens energy are different
+   objects.  `contactDaughterCoefficientNorm q Y` is the squared mass of the
+   assembled `q^2` children over the daughter range, which is what a frame
+   estimate bounds; the induction consumes `E (X / q^2)`.  With the recursive
+   Mertens energy the separation is an exact finite witness:
+   `mertensSummatoryInt 2 = 0`, while the assembled norm at `Y=2` is `2`, `5`,
+   `5` for owners `3`, `5`, `7`.  Hence
+   `no_contactDaughterCoefficientNorm_mertensEnergy_constant`: no constant
+   compares them, at any scale.  This is a type mismatch, not a bad constant.
+
+What the module does not claim.  The finite mask operator exists and is well
+defined; only its norm is trivial.  What does not exist is a fixed finite Mobius
+vector on the residue torus whose spectral data could be computed once and
+reused at every period: the masks are periodic, the Mobius observable is not,
+and the compiled transported field reconstructs its value by pulling back to the
+physical source cell (`selectedDegreeOneOffsetDaughterField`) rather than
+assigning a value to a residue class.  Nothing here refutes the coefficient-level
+compensation of #655, the `q^2` transport, or RH.
+
+Operative rule for continuations.  Never square the coefficient daughters before
+their physical signed reassembly.  The `q^2` budget and any frame estimate may
+be applied only after the compensated children, with their second-contact and
+earlier-owner mates, have been reassembled into a signed packet; the viable
+target is that reassembled packet being the lower-scale Mertens-visible packet
+up to the already-controlled endpoint carrier, not an ownerwise `L^2` mass.
+
 ## Joint-daughter frame clarification after #655
 
 `JointDaughterCrossEnergyAudit.lean` distinguishes the proposed subunit joint
