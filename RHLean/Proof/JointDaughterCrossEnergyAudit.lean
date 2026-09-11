@@ -422,7 +422,7 @@ theorem q5_fullContactPeriod_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
   simp [physicalTwentyFiveHitResidues, q5Daughter_residue_five,
     q5Daughter_residue_six, q5Daughter_residue_eleven,
     q5Daughter_residue_twelve, q5Daughter_residue_seventeen,
-    q5Daughter_residue_eighteen, fourSlotCellSum, moebius_four_mul_add_four] <;> ring
+    q5Daughter_residue_eighteen, fourSlotCellSum, moebius_four_mul_add_four]; ring
 
 private theorem q7Daughter_residue_eleven (L : ℕ) :
     physicalQ2DaughterCellIncrement 7 (49 * L + 11) = 0 := by
@@ -486,7 +486,7 @@ theorem q7_fullContactPeriod_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
   simp [physicalFortyNineHitResidues, q7Daughter_residue_eleven,
     q7Daughter_residue_twelve, q7Daughter_residue_twentythree,
     q7Daughter_residue_twentyfour, q7Daughter_residue_thirtyfive,
-    q7Daughter_residue_thirtysix, fourSlotCellSum, moebius_four_mul_add_four] <;> ring
+    q7Daughter_residue_thirtysix, fourSlotCellSum, moebius_four_mul_add_four]; ring
 
 /-! ## Earlier-owner contacts are exactly the missing full-contact pieces -/
 
