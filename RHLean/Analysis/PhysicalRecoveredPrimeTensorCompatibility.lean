@@ -41,13 +41,13 @@ def elevenStrippedMobiusCoordinateMass : ℤ :=
     else 0
 
 /-- Direct finite arithmetic certificate. -/
-theorem elevenActualMobiusCoordinateMass_eq_neg_nine :
-    elevenActualMobiusCoordinateMass = -9 := by
+theorem elevenActualMobiusCoordinateMass_eq_neg_eight :
+    elevenActualMobiusCoordinateMass = -8 := by
   native_decide
 
 /-- Direct finite arithmetic certificate for the stripped complementary mass. -/
-theorem elevenStrippedMobiusCoordinateMass_eq_neg_fifteen :
-    elevenStrippedMobiusCoordinateMass = -15 := by
+theorem elevenStrippedMobiusCoordinateMass_eq_neg_fourteen :
+    elevenStrippedMobiusCoordinateMass = -14 := by
   native_decide
 
 /-- **Naive physical tensorization is false.**  On one complete 11^2 residue
@@ -59,19 +59,19 @@ theorem elevenActualMobius_not_weightOneTensor :
     (elevenActualMobiusCoordinateMass : ℚ) ≠
       onePrimeWalshFactor 11 1 *
         (elevenStrippedMobiusCoordinateMass : ℚ) := by
-  rw [elevenActualMobiusCoordinateMass_eq_neg_nine,
-    elevenStrippedMobiusCoordinateMass_eq_neg_fifteen,
+  rw [elevenActualMobiusCoordinateMass_eq_neg_eight,
+    elevenStrippedMobiusCoordinateMass_eq_neg_fourteen,
     onePrimeWalshFactor_eleven_one]
   norm_num
 
-/-- The observed one-period multiplier of the actual arithmetic field is 3/5,
+/-- The observed one-period multiplier of the actual arithmetic field is 4/7,
 not 19/23.  The statement is only a finite diagnostic equality; no limiting
 claim is made. -/
 theorem elevenActualMobius_onePeriod_ratio :
     (elevenActualMobiusCoordinateMass : ℚ) /
-        (elevenStrippedMobiusCoordinateMass : ℚ) = (3 : ℚ) / 5 := by
-  rw [elevenActualMobiusCoordinateMass_eq_neg_nine,
-    elevenStrippedMobiusCoordinateMass_eq_neg_fifteen]
+        (elevenStrippedMobiusCoordinateMass : ℚ) = (4 : ℚ) / 7 := by
+  rw [elevenActualMobiusCoordinateMass_eq_neg_eight,
+    elevenStrippedMobiusCoordinateMass_eq_neg_fourteen]
   norm_num
 
 end RHLean.Analysis
