@@ -14,9 +14,9 @@ The recursive energy used by the induction must be the energy of the genuine low
 
 ## Current repository state
 
-Main contains merged PR #657 at commit `6c0a1cca55b2450417863e640c0da33f0e949918`. That work constructs genuine coefficient-level `q^2` daughters from actual Mobius-prefix increments, proves parent/current-response/first-power-mate compensation on the physical four-cell, lifts the identity to complete least-owner packets, and proves exact unit descent for the complete `q=3` period.
+Main contains merged PR #657 and merged PR #658. PR #657 constructs genuine coefficient-level `q^2` daughters from actual Mobius-prefix increments, proves parent/current-response/first-power-mate compensation on the physical four-cell, lifts the identity to complete least-owner packets, and proves exact unit descent for the complete `q=3` period.
 
-PR #658, branch `agent/physical-exceptional-normalization-v3`, extends the same exact descent to the full-contact `q=5` and `q=7` periods and proves that contacts removed by least-owner restriction transfer only to earlier exceptional owners: a missing `q=5` contact is owner `3`; a missing `q=7` contact is owner `3` or `5`. This makes the exceptional overlap graph lower triangular in owner. The intended next step is signed transfer of those omitted contacts into the already-existing second-contact/earlier-owner reconstruction before any norm is taken.
+PR #658 extends the same exact descent to the full-contact `q=5` and `q=7` periods and proves that contacts removed by least-owner restriction transfer only to earlier exceptional owners: a missing `q=5` contact is owner `3`; a missing `q=7` contact is owner `3` or `5`. This makes the exceptional overlap graph lower triangular in owner. The merge commit is `f47e118dfdd4c8c018b7b196599d6d9cb1f4575e`. The intended next step is signed transfer of those omitted contacts into the already-existing second-contact/earlier-owner reconstruction before any norm is taken.
 
 No theorem in #657 or #658 supplies an RH-scale energy bound by itself.
 
@@ -55,7 +55,9 @@ Read these before proposing a new normalization or frame argument.
 - `RHLean/Proof/JointDaughterCrossEnergyAudit.lean`
   - a subunit joint frame requires genuine cross-owner energy, not merely within-owner `F/T` bookkeeping;
   - the universal factor-three synthesis already fits the restricted `3,5,7` `q^{-2}` budget if the physical daughter energy dictionary is valid;
-  - coefficient-level parent/response/mate `q^2` compensation and the unit `q=3` descent.
+  - coefficient-level parent/response/mate `q^2` compensation;
+  - exact full-contact unit descent for `q=3,5,7`;
+  - lower-triangular exceptional-owner overlap for the least-owner deletions at `q=5,7`.
 
 ## The next RH-critical theorem
 
