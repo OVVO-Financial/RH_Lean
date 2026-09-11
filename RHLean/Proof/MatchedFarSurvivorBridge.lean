@@ -226,7 +226,7 @@ theorem squareRootFarPrimeTransport_eq_pntBulk_add_pntError_sub_near
   have hRpos : 0 < R := by omega
   have htransport :
       squareRootTransportPrimeFirst R =
-        RHLean.Analysis.primeSieveMertensPrimeTail R (squareRootEndpoint R) := by
+        primeSieveMertensPrimeTail R (squareRootEndpoint R) := by
     rw [squareRootTransportPrimeFirst_eq_mertensTransform R hRpos]
     rfl
   have hpnt := RHLean.Analysis.primeSieveMertensPrimeTail_eq_pntBulk_add_error
