@@ -21,6 +21,8 @@ noncomputable section
 
 namespace RHLean.Analysis
 
+open RHLean.Arithmetic
+
 /-- Generic primes that could conceivably be needed by the blocker at stage R. -/
 def outsidePrimeGenericWheelPool (R : ℕ) : Finset ℕ :=
   (primesUpTo (2 * R + 2)).filter fun p => 11 ≤ p
@@ -35,7 +37,9 @@ theorem outsidePrimeFeasibleGenericWheels_nonempty
     {R : ℕ} (hbase : 210 ^ 2 ≤ 2 * R + 2) :
     (outsidePrimeFeasibleGenericWheels R).Nonempty := by
   refine ⟨∅, ?_⟩
-  simp [outsidePrimeFeasibleGenericWheels, hbase]
+  apply Finset.mem_filter.mpr
+  refine ⟨by simp, ?_⟩
+  simpa using hbase
 
 /-- Every member of a feasible wheel is a generic prime. -/
 theorem outsidePrimeFeasibleGenericWheel_generic
@@ -46,8 +50,9 @@ theorem outsidePrimeFeasibleGenericWheel_generic
   have hsub : P ⊆ outsidePrimeGenericWheelPool R :=
     Finset.mem_powerset.mp (Finset.mem_filter.mp hP).1
   have hpPool := hsub hp
-  rcases Finset.mem_filter.mp hpPool with ⟨hpUp, hp11⟩
-  exact ⟨(mem_primesUpTo.mp hpUp).1, hp11⟩
+  have hpData : p ∈ primesUpTo (2 * R + 2) ∧ 11 ≤ p := by
+    simpa [outsidePrimeGenericWheelPool] using hpPool
+  exact ⟨(mem_primesUpTo.mp hpData.1).1, hpData.2⟩
 
 /-- Every feasible wheel obeys the reserved-period bound. -/
 theorem outsidePrimeFeasibleGenericWheel_period
@@ -78,6 +83,7 @@ theorem exists_outsidePrimeGenericBlockerCertificate
   intro q hq hq11 hqP
   by_cases hqBound : q ≤ 2 * R + 2
   · have hqPool : q ∈ outsidePrimeGenericWheelPool R := by
+      unfold outsidePrimeGenericWheelPool
       apply Finset.mem_filter.mpr
       exact ⟨mem_primesUpTo.mpr ⟨hq, hqBound⟩, hq11⟩
     by_contra hnot
@@ -101,11 +107,11 @@ theorem exists_outsidePrimeGenericBlockerCertificate
       apply Finset.mem_filter.mpr
       refine ⟨Finset.mem_powerset.mpr hInsertSub, ?_⟩
       rw [hprodInsert]
-      exact hfeas
+      simpa [Nat.mul_assoc] using hfeas
     have hInsertCardMem : (insert q P).card ∈ cards := by
       exact Finset.mem_image.mpr ⟨insert q P, hInsertC, rfl⟩
     have hle : (insert q P).card ≤ m := Finset.le_max' cards _ hInsertCardMem
-    have hmEq : m = P.card := hcardP
+    have hmEq : m = P.card := hcardP.symm
     rw [Finset.card_insert_of_notMem hqP, hmEq] at hle
     omega
   · have hqLarge : 2 * R + 2 < q := Nat.lt_of_not_ge hqBound
@@ -114,13 +120,13 @@ theorem exists_outsidePrimeGenericBlockerCertificate
       apply Finset.prod_pos
       intro p hp
       have hpPrime := (hPgen p hp).1
-      positivity
+      exact pow_pos hpPrime.pos 2
     have hqPos : 0 < q := hq.pos
     have hqLeSq : q ≤ q ^ 2 := by nlinarith
     have hmult : q ^ 2 ≤ 210 ^ 2 * (∏ p ∈ P, p ^ 2) * q ^ 2 := by
       have hone : 1 ≤ 210 ^ 2 * (∏ p ∈ P, p ^ 2) := by
         nlinarith
-      exact Nat.le_mul_of_pos_left (q ^ 2) (by nlinarith)
+      nlinarith
     exact hqLarge.trans_le (hqLeSq.trans hmult)
 
 /-- Consequently the maximal-wheel blocker is not a conditional bookkeeping
