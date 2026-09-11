@@ -460,6 +460,7 @@ import RHLean.Proof.DyadicCompressedPacketGram
 import RHLean.Proof.EndpointCubeAnalyticClosure
 import RHLean.Proof.EndpointProjectionBridge
 import RHLean.Proof.ExactPrefixPopulationIdentity
+import RHLean.Proof.ExceptionalContactFrameEnergyNoGo
 import RHLean.Proof.ExceptionalOwnerEnergyClosure
 import RHLean.Proof.ExceptionalSignedPacketIdentification
 import RHLean.Proof.ExceptionalTransportCoboundary
