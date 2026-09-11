@@ -292,4 +292,84 @@ theorem exceptionalCompleteOwnerSourcePacket_sub_response_sub_mate_eq_q2Daughter
   rw [hsource]
   exact fourSlotCellSum_sub_response_sub_mate_eq_q2Daughter q k
 
+/-! ## Exact unit descent for the least-three channel -/
+
+/-- One-step increment of the positive Mobius prefix. -/
+theorem moebiusPositivePrefix_succ_sub_self (n : ℕ) :
+    moebiusPositivePrefix (n + 1) - moebiusPositivePrefix n = μ (n + 1) := by
+  unfold moebiusPositivePrefix positivePrefix
+  rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ n + 1)]
+  ring
+
+private theorem q3Daughter_residue_one (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 1) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 1) / 9 = 4 * L := by omega
+  have hhi : 4 * (9 * L + 1 + 1) / 9 = 4 * L := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q3Daughter_residue_two (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 2) = μ (4 * L + 1) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 2) / 9 = 4 * L := by omega
+  have hhi : 4 * (9 * L + 2 + 1) / 9 = 4 * L + 1 := by omega
+  rw [hlo, hhi]
+  exact moebiusPositivePrefix_succ_sub_self (4 * L)
+
+private theorem q3Daughter_residue_three (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 3) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 3) / 9 = 4 * L + 1 := by omega
+  have hhi : 4 * (9 * L + 3 + 1) / 9 = 4 * L + 1 := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q3Daughter_residue_four (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 4) = μ (4 * L + 2) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 4) / 9 = 4 * L + 1 := by omega
+  have hhi : 4 * (9 * L + 4 + 1) / 9 = 4 * L + 2 := by omega
+  rw [hlo, hhi]
+  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 1)
+
+private theorem q3Daughter_residue_five (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 5) = 0 := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 5) / 9 = 4 * L + 2 := by omega
+  have hhi : 4 * (9 * L + 5 + 1) / 9 = 4 * L + 2 := by omega
+  rw [hlo, hhi]
+  ring
+
+private theorem q3Daughter_residue_six (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 6) = μ (4 * L + 3) := by
+  rw [physicalQ2DaughterCellIncrement_eq]
+  norm_num
+  have hlo : 4 * (9 * L + 6) / 9 = 4 * L + 2 := by omega
+  have hhi : 4 * (9 * L + 6 + 1) / 9 = 4 * L + 3 := by omega
+  rw [hlo, hhi]
+  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 2)
+
+/-- **Unit q=3 daughter normalization on one complete least-three period.**
+The six owner residues contain three zero square-shift increments and the three
+true child Mobius coefficients.  Their compensated q-square daughter is exactly
+one lower physical four-cell value, with no frame or multiplicity loss. -/
+theorem q3_completePeriod_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
+    physicalQ2DaughterCellIncrement 3 (9 * L + 1) +
+      physicalQ2DaughterCellIncrement 3 (9 * L + 2) +
+      physicalQ2DaughterCellIncrement 3 (9 * L + 3) +
+      physicalQ2DaughterCellIncrement 3 (9 * L + 4) +
+      physicalQ2DaughterCellIncrement 3 (9 * L + 5) +
+      physicalQ2DaughterCellIncrement 3 (9 * L + 6) =
+        fourSlotCellSum L := by
+  rw [q3Daughter_residue_one, q3Daughter_residue_two,
+    q3Daughter_residue_three, q3Daughter_residue_four,
+    q3Daughter_residue_five, q3Daughter_residue_six]
+  simp [fourSlotCellSum, moebius_four_mul_add_four]
+
 end RHLean.Proof
