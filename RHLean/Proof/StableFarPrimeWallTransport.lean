@@ -277,10 +277,14 @@ theorem farPrimeTransport_add_allIntegerComplement_eq_one
     squareRootFarPrimeTransport R + stableFarWallComplementMertens R = 1 := by
   classical
   let X := squareRootEndpoint R
+  have hfour : 4 ≤ R ^ 2 := by
+    calc
+      4 = 2 * 2 := by norm_num
+      _ ≤ R * R := Nat.mul_le_mul hR hR
+      _ = R ^ 2 := by ring
   have hX : 1 ≤ X := by
     dsimp [X]
     unfold squareRootEndpoint
-    have hpos : 0 < R ^ 2 := pow_pos (by omega : 0 < R) 2
     omega
   have hfilter :
       (Finset.Icc 1 X).filter (fun n => n.Prime ∧ R + 8 ≤ n) =
@@ -352,10 +356,14 @@ theorem stableFarWallComplementMertens_eq_fullMertens_add_nonUnit
         stableFarWallNonUnitComplementMertens R := by
   classical
   let X := squareRootEndpoint R
+  have hfour : 4 ≤ R ^ 2 := by
+    calc
+      4 = 2 * 2 := by norm_num
+      _ ≤ R * R := Nat.mul_le_mul hR hR
+      _ = R ^ 2 := by ring
   have hX : 1 ≤ X := by
     dsimp [X]
     unfold squareRootEndpoint
-    have hpos : 0 < R ^ 2 := pow_pos (by omega : 0 < R) 2
     omega
   have hset : Finset.Icc 1 X = ({1} : Finset ℕ) ∪ Finset.Icc 2 X := by
     ext n
@@ -410,7 +418,8 @@ theorem farPrimeTransport_eq_smoothMobiusMass_sub_fullMertens
     (R + 7) (squareRootEndpoint R) hroot
   rw [primeSieveReciprocalMertensSignedSum_eq_mertensPrimeTail,
     ← squareRootFarPrimeTransport_eq_primeSieveMertensPrimeTail R] at hsmooth
-  linear_combination hsmooth
+  rw [eq_sub_iff_add_eq]
+  simpa [add_comm] using hsmooth.symm
 
 /-- The literal physical wall carries the same stopping identity. -/
 theorem stableFarWallLedger_eq_smoothMobiusMass_sub_fullMertens
