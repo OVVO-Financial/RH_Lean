@@ -3,6 +3,8 @@ import RHLean.Proof.ExceptionalSignedPacketIdentification
 import RHLean.Proof.ExceptionalTransportCoboundary
 import RHLean.Proof.ExceptionalOwnerEnergyClosure
 
+open scoped ArithmeticFunction.Moebius BigOperators
+
 /-!
 # What a joint-daughter contraction actually requires
 
