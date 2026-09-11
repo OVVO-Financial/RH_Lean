@@ -511,3 +511,235 @@ theorem q7_completePeriod_q2Daughter_reassembled_by_owner (L : ℕ) :
         (physicalQ2DaughterCellIncrement 7)).symm
     _ = fourSlotCellSum L :=
       q7_fullContactPeriodCells_q2Daughter_eq_lowerFourSlotCell L
+
+/-! ## 5. Exact q² support and telescope onto the recursive signed packet -/
+
+/-- The coefficient-level `q²` daughter is a discrete derivative, so its sum
+across *all* physical cells telescopes exactly to the lower positive Möbius
+prefix.  No contact geometry or estimate is used in this step. -/
+theorem physicalQ2Daughter_range_sum_eq_moebiusPositivePrefix
+    (q K : ℕ) :
+    (∑ k ∈ Finset.range K, physicalQ2DaughterCellIncrement q k) =
+      moebiusPositivePrefix (4 * K / (q * q)) := by
+  induction K with
+  | zero =>
+      simp [physicalQ2DaughterCellIncrement_eq, moebiusPositivePrefix,
+        positivePrefix]
+  | succ K ih =>
+      rw [Finset.sum_range_succ, ih, physicalQ2DaughterCellIncrement_eq]
+      ring
+
+/-- **Exact support lemma.**  For an odd prime `q`, a nonzero `q²` daughter
+increment can occur only on one of the six physical `q²` contact sites.  The
+only extra floor-crossing position would be offset four; at that position the
+crossed integer is divisible by `4`, hence is not squarefree and has zero
+Möbius weight. -/
+theorem physicalQ2Daughter_nonzero_implies_squarePrimeAtEdge
+    {q k : ℕ} (hq : q.Prime) (hq3 : 3 ≤ q)
+    (hD : physicalQ2DaughterCellIncrement q k ≠ 0) :
+    physicalSquarePrimeAtEdge k q := by
+  let Q : ℕ := q * q
+  let lo : ℕ := 4 * k / Q
+  let hi : ℕ := 4 * (k + 1) / Q
+  have hQpos : 0 < Q := by
+    dsimp [Q]
+    positivity
+  have hQgt4 : 4 < Q := by
+    dsimp [Q]
+    nlinarith
+  have hlo_le_hi : lo ≤ hi := by
+    dsimp [lo, hi]
+    exact Nat.div_le_div_right (by omega)
+  have hhi_le : hi ≤ lo + 1 := by
+    dsimp [lo, hi]
+    rw [show 4 * (k + 1) = 4 * k + 4 by omega]
+    calc
+      (4 * k + 4) / Q ≤ 4 * k / Q + 4 / Q + 1 :=
+        Nat.add_div_le_div_add_div_add_one _ _ _
+      _ = 4 * k / Q + 1 := by
+        rw [Nat.div_eq_of_lt hQgt4]
+        omega
+  have hne : hi ≠ lo := by
+    intro heq
+    apply hD
+    rw [physicalQ2DaughterCellIncrement_eq]
+    change moebiusPositivePrefix hi - moebiusPositivePrefix lo = 0
+    rw [heq]
+    ring
+  have hstep : hi = lo + 1 := by
+    omega
+  have hD' : moebiusPositivePrefix hi - moebiusPositivePrefix lo ≠ 0 := by
+    simpa [physicalQ2DaughterCellIncrement_eq, hi, lo] using hD
+  rw [hstep, moebiusPositivePrefix_succ_sub_self] at hD'
+  have hsf : Squarefree hi :=
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hD'
+  have hloSpec : lo * Q ≤ 4 * k ∧ 4 * k ≤ lo * Q + Q - 1 := by
+    exact (Nat.div_eq_iff hQpos).mp (by rfl)
+  have hhiSpec : hi * Q ≤ 4 * (k + 1) ∧
+      4 * (k + 1) ≤ hi * Q + Q - 1 := by
+    exact (Nat.div_eq_iff hQpos).mp (by rfl)
+  have hhiProd : hi * Q = lo * Q + Q := by
+    rw [hstep]
+    ring
+  have hcrossLo : 4 * k < hi * Q := by
+    rw [hhiProd]
+    omega
+  have hcrossHi : hi * Q ≤ 4 * k + 4 := by
+    have := hhiSpec.1
+    omega
+  let a : ℕ := hi * Q - 4 * k
+  have ha1 : 1 ≤ a := by
+    dsimp [a]
+    omega
+  have ha4 : a ≤ 4 := by
+    dsimp [a]
+    omega
+  have hsum : 4 * k + a = hi * Q := by
+    dsimp [a]
+    omega
+  have hqodd : Odd q := by
+    rcases hq.eq_two_or_odd' with hq2 | hodd
+    · omega
+    · exact hodd
+  have hcop2q : Nat.Coprime 2 q := hqodd.coprime_two_left
+  have hcop4Q : Nat.Coprime 4 Q := by
+    dsimp [Q]
+    simpa [pow_two] using hcop2q.pow 2 2
+  have hane4 : a ≠ 4 := by
+    intro haeq
+    have h4prod : 4 ∣ Q * hi := by
+      refine ⟨k + 1, ?_⟩
+      rw [Nat.mul_comm Q hi, ← hsum, haeq]
+      omega
+    have h4hi : 4 ∣ hi := hcop4Q.dvd_of_dvd_mul_left h4prod
+    have h22 : 2 * 2 ∣ hi := by simpa using h4hi
+    have hunit : IsUnit (2 : ℕ) := hsf 2 h22
+    norm_num at hunit
+  have ha3 : a ≤ 3 := by omega
+  have haActive : a ∈ physicalTransitionActiveOffsets := by
+    simp [physicalTransitionActiveOffsets]
+    omega
+  refine ⟨hq, a, haActive, ?_⟩
+  refine ⟨hi, ?_⟩
+  rw [← hsum]
+  dsimp [Q]
+  ring
+
+/-- Summing only over the genuine physical `q²` contact carrier loses nothing:
+every omitted cell has zero daughter increment. -/
+theorem physicalQ2Daughter_squareHit_sum_eq_range
+    {q K : ℕ} (hq : q.Prime) (hq3 : 3 ≤ q) :
+    (∑ k ∈ physicalSquareHitCells K q,
+      physicalQ2DaughterCellIncrement q k) =
+      ∑ k ∈ Finset.range K, physicalQ2DaughterCellIncrement q k := by
+  have hsub : physicalSquareHitCells K q ⊆ Finset.range K := by
+    intro k hk
+    exact Finset.mem_range.mpr ((mem_physicalSquareHitCells_iff hq).mp hk).1
+  apply Finset.sum_subset hsub
+  intro k hkRange hkNotHit
+  by_contra hne
+  apply hkNotHit
+  exact (mem_physicalSquareHitCells_iff hq).mpr
+    ⟨Finset.mem_range.mp hkRange,
+      physicalQ2Daughter_nonzero_implies_squarePrimeAtEdge hq hq3 hne⟩
+
+/-- **Exact recursive Mertens daughter.**  After signed physical reassembly,
+the complete `q²` contact packet is literally the same lower-scale Mertens
+prefix required by the recursive energy.  There is no incomplete-period error. -/
+theorem physicalQ2Daughter_squareHit_sum_eq_mertens
+    {q K : ℕ} (hq : q.Prime) (hq3 : 3 ≤ q) :
+    (∑ k ∈ physicalSquareHitCells K q,
+      physicalQ2DaughterCellIncrement q k) =
+      mertensSummatoryInt (4 * K / (q * q)) := by
+  rw [physicalQ2Daughter_squareHit_sum_eq_range hq hq3,
+    physicalQ2Daughter_range_sum_eq_moebiusPositivePrefix]
+  rw [mertensSummatoryInt_eq_Icc]
+  rfl
+
+/-- The same exact packet is the already-compiled intact signed predecessor
+state `F_{q^-}-T_{q^-}`.  This makes the no-norm-before-reassembly dictionary
+literal at arbitrary cutoffs. -/
+theorem physicalQ2Daughter_squareHit_sum_eq_signedPredecessorState
+    {q K : ℕ} (hq : q.Prime) (hq3 : 3 ≤ q) :
+    (∑ k ∈ physicalSquareHitCells K q,
+      physicalQ2DaughterCellIncrement q k) =
+      exceptionalSignedPredecessorState q (4 * K / (q * q)) := by
+  rw [physicalQ2Daughter_squareHit_sum_eq_mertens hq hq3,
+    exceptionalSignedPredecessorState_eq_mertens hq]
+
+/-- The `3²` hit carrier is already exactly the least-owner-3 carrier. -/
+theorem q3_squareHitCells_eq_ownerThree (K : ℕ) :
+    physicalCellsOwnedBy (physicalSquareHitCells K 3) 3 =
+      physicalSquareHitCells K 3 := by
+  ext k
+  simp only [mem_physicalCellsOwnedBy]
+  constructor
+  · exact And.left
+  · intro hk
+    refine ⟨hk, ?_⟩
+    have hcontact :=
+      ((mem_physicalSquareHitCells_iff (by norm_num : Nat.Prime 3)).mp hk).2
+    exact (physicalLeastOddSquarePrime_eq_three_iff k).2 hcontact
+
+/-- Exact owner-3 recursive daughter at an arbitrary physical cutoff. -/
+theorem q3_ownedPrefix_q2Daughter_eq_mertens (K : ℕ) :
+    (∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 3) 3,
+      physicalQ2DaughterCellIncrement 3 k) =
+      mertensSummatoryInt (4 * K / 9) := by
+  rw [q3_squareHitCells_eq_ownerThree]
+  simpa using physicalQ2Daughter_squareHit_sum_eq_mertens
+    (q := 3) (K := K) (by norm_num) (by norm_num)
+
+/-- **Exact owner-5 reassembly at arbitrary cutoff.**  The least-owner-5 packet
+plus its earlier-owner-3 overlap is exactly the recursive Mertens daughter. -/
+theorem q5_reassembledPrefix_q2Daughter_eq_mertens (K : ℕ) :
+    (∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 5) 5,
+        physicalQ2DaughterCellIncrement 5 k) +
+      (∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 5) 3,
+        physicalQ2DaughterCellIncrement 5 k) =
+      mertensSummatoryInt (4 * K / 25) := by
+  have hcontact : ∀ k ∈ physicalSquareHitCells K 5,
+      physicalSquarePrimeAtEdge k 5 := by
+    intro k hk
+    exact ((mem_physicalSquareHitCells_iff (by norm_num : Nat.Prime 5)).mp hk).2
+  calc
+    (∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 5) 5,
+        physicalQ2DaughterCellIncrement 5 k) +
+      (∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 5) 3,
+        physicalQ2DaughterCellIncrement 5 k) =
+        ∑ k ∈ physicalSquareHitCells K 5,
+          physicalQ2DaughterCellIncrement 5 k :=
+      (fiveHitCarrier_sum_reassemble (physicalSquareHitCells K 5) hcontact
+        (physicalQ2DaughterCellIncrement 5)).symm
+    _ = mertensSummatoryInt (4 * K / 25) := by
+      simpa using physicalQ2Daughter_squareHit_sum_eq_mertens
+        (q := 5) (K := K) (by norm_num) (by norm_num)
+
+/-- **Exact owner-7 reassembly at arbitrary cutoff.**  The least-owner-7 packet
+plus its owner-3 and owner-5 overlaps is exactly the recursive Mertens daughter. -/
+theorem q7_reassembledPrefix_q2Daughter_eq_mertens (K : ℕ) :
+    ((∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 7) 7,
+        physicalQ2DaughterCellIncrement 7 k) +
+      (∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 7) 3,
+        physicalQ2DaughterCellIncrement 7 k)) +
+      (∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 7) 5,
+        physicalQ2DaughterCellIncrement 7 k) =
+      mertensSummatoryInt (4 * K / 49) := by
+  have hcontact : ∀ k ∈ physicalSquareHitCells K 7,
+      physicalSquarePrimeAtEdge k 7 := by
+    intro k hk
+    exact ((mem_physicalSquareHitCells_iff (by norm_num : Nat.Prime 7)).mp hk).2
+  calc
+    ((∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 7) 7,
+        physicalQ2DaughterCellIncrement 7 k) +
+      (∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 7) 3,
+        physicalQ2DaughterCellIncrement 7 k)) +
+      (∑ k ∈ physicalCellsOwnedBy (physicalSquareHitCells K 7) 5,
+        physicalQ2DaughterCellIncrement 7 k) =
+        ∑ k ∈ physicalSquareHitCells K 7,
+          physicalQ2DaughterCellIncrement 7 k :=
+      (sevenHitCarrier_sum_reassemble (physicalSquareHitCells K 7) hcontact
+        (physicalQ2DaughterCellIncrement 7)).symm
+    _ = mertensSummatoryInt (4 * K / 49) := by
+      simpa using physicalQ2Daughter_squareHit_sum_eq_mertens
+        (q := 7) (K := K) (by norm_num) (by norm_num)
