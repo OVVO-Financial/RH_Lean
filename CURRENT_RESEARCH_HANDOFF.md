@@ -8,6 +8,76 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Continuation after #654: preserve the physical carrier before q-square closure
+
+PR #655 audits the requested exceptional-owner continuation. Read compilation
+status from Hosted Lean at the PR head; none of the new modules proves RH or
+the missing physical arithmetic estimate.
+
+`ExceptionalSignedPacketIdentification.lean` supplies a coefficient-level
+dictionary on the actual complete least-owner carrier. Its source packet is
+defined from the true physical observable, with blocker `P` and recovery `S`
+separate. It is exactly the sum of signed predecessor `F-T` increments at
+`4*k` and `4*(k+1)`. The existing `physicalD9`, `physicalD25`, and `physicalD49`
+LOCAL-BLOCK identities instead use the destination increments at `4*(k+1)`
+and `4*(k+2)`. Neither dictionary divides those endpoints by `q^2`.
+
+Two distinctions still prevent the advertised physical q-square identity:
+
+1. The blocker mass `squareBlockOutsidePrimeLeastCompleteT` uses the selected
+   observable `selectedDegreeOneProjection P`; the recovered incidence uses
+   the true Mobius observable. The selected-to-Mobius parity compensation
+   remains necessary, exactly as the #654 finite certificates require.
+2. The algebraic two-step identity in `TwoWheelQ2Compensation` does not yet
+   identify its parent, current response, and first-power mate with those
+   physical occurrences. The uncompensated LOCAL-BLOCK alone cannot supply
+   this identification: at `L=39` its owner-three value is `-5`, whereas the
+   scalar daughter `M(1440/9)` is zero. The new module certifies this finite
+   mismatch. It does not rule out a correctly constructed compensated packet.
+
+`ExceptionalOwnerEnergyClosure.lean` proves the conditional unequal-coefficient
+induction with exact budget
+
+```text
+beta = alpha3/9 + alpha5/25 + alpha7/49 < 1,
+E(0)=0, E(X) <= C*X + sum alphaq*E(X/q^2)
+  ==> E(X) <= C/(1-beta)*X.
+```
+
+For a common coefficient the threshold is `11025/1891`, not one. Eight times
+the selected-11 energy factor fits; twelve times does not. Optimal weighted
+Cauchy has amplitude budget `a3/3+a5/5+a7/7`; local factor four combined with
+unrestricted owner alignment still fails. An aggregate signed correlation
+comparison with coefficient `2/3` would numerically fit, **provided the actual
+physical dictionary and selected-11 transfer were proved**. This comparison
+is not supplied by the closure theorem.
+
+`ExceptionalTransportCoboundary.lean` makes a further arithmetic obstruction
+explicit. The predecessor-cube products for `3,5,7` are `2,6,30`. For
+`X >= 1470` all three scalar Go daughters vanish, so `F-T=-T=M(X/q^2)` and
+their scalar Gram is purely `TT`. The prime-insertion coboundary therefore
+retains the complete Mertens daughter as its terminal potential. There are no
+nonzero scalar `FF`, `FT`, or `TF` pieces to cancel in this regime.
+
+At the actual square endpoint `X=41^2-1=1680`, the scalar daughters are
+`(-4,-2,-2)`. They violate the universal `2/3` comparison; at this endpoint
+the interpolated scalar comparison requires coefficient at least `175/179`.
+This is a finite counterexample to that uniform scalar claim, not a proof
+against an eventual bound, a compensated physical Gram estimate, or RH.
+
+`SignedTransportAmplificationAudit.lean` retains the exact amplification
+numerator `norm(matched-H-1)^2 = (M(R^2-1)-1)^2`. Any fixed amplification
+constant in the existing all-root formulation is at least one, already at
+`R=2`. The existing closure accepts any finite constant; the uniform bound
+itself remains unproved.
+
+The immediate missing theorem is the physical parent/response/mate
+compensation and parity transfer on the complete selected carrier, with the
+literal signed recovered daughter and all endpoints recorded. After that,
+an arithmetic energy estimate must still instantiate the restricted induction
+or the amplification theorem. Do not promote the local incidence dictionary,
+the scalar telescope, or the conditional constant audit into that estimate.
+
 ## Matched-channel recovery audit after #649
 
 `SquareRootMatchedDegreeOneRecovery.lean` makes the terminal-to-three-slot

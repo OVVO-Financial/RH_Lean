@@ -17,6 +17,10 @@ These statements concern the scalar Go/high-column dictionary. They do not
 identify the complete physical incidence packet with a scalar daughter, and
 they do not assert an energy estimate or a failure of possible cancellation
 inside the high-transport Gram.
+
+The actual scalar daughters at `41^2-1` also give a finite obstruction to the
+uniform two-thirds interpolated correlation comparison. This distinguishes a
+numerically sufficient closure budget from an arithmetic Gram theorem.
 -/
 
 open scoped ArithmeticFunction.Moebius BigOperators
