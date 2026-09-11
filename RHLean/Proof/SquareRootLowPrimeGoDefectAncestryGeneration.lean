@@ -66,7 +66,13 @@ theorem squareRootLowPrimeGoFullFaceDefect_depthOneAncestry
     squareRootLowPrimeGoFullBirthBoundary_firstContact_le
       hq hrq hcube hfull
   have hqX : q ≤ squareRootEndpoint R := by
-    have hq3 : q ≤ q ^ 3 := by nlinarith [hq.two_le]
+    have hq3 : q ≤ q ^ 3 := by
+      calc
+        q = q * 1 := by simp
+        _ ≤ q * q := Nat.mul_le_mul_left q hq.one_le
+        _ ≤ q * (q * q) := by
+          exact Nat.mul_le_mul_left q (Nat.le_mul_of_pos_right q hq.pos)
+        _ = q ^ 3 := by ring
     exact hq3.trans hcube
   have hdX : d ≤ squareRootEndpoint R :=
     (Nat.le_of_lt hparentData.2).trans hqX
