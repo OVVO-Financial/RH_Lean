@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Analysis.PartialMomentSchurTarget
 import RHLean.Analysis.PhysicalDegreeOneTransitionEstimate
 import RHLean.Analysis.PhysicalSquareCRTPeriodNoGo
+import RHLean.Analysis.ThreeSlotMertensDegreeOneProjection
 
 /-!
 # Physical T-row partial moments and Schur target invariance
@@ -256,5 +257,197 @@ theorem q2AffineTagEnergy_le_four_residueEnergy
     unfold q2AffineResidueEnergy
     positivity
   nlinarith
+
+/-! ## Explicit synthesis span of the nonzero residue sector -/
+
+/-- Synthesis from the six physical affine tags back to the four residue
+coordinates.  This is the transpose of the incidence analysis map above. -/
+def q2AffineSynthesis (c : ℕ → ℚ) (r : Q2AffineResidue) : ℚ :=
+  ∑ a ∈ physicalTransitionActiveOffsets,
+    if q2AffineContactResidue a = r then c a else 0
+
+/-- Squared coefficient norm on the six active tags. -/
+def q2AffineCoefficientEnergy (c : ℕ → ℚ) : ℚ :=
+  ∑ a ∈ physicalTransitionActiveOffsets, (c a) ^ 2
+
+/-- The canonical coefficient vector for a residue field.  Each nonzero residue
+has two physical tags, so its mass is split evenly between them. -/
+def q2AffineCanonicalCoefficients
+    (x : Q2AffineResidue → ℚ) (a : ℕ) : ℚ :=
+  x (q2AffineContactResidue a) / 2
+
+@[simp] theorem q2AffineSynthesis_zero (c : ℕ → ℚ) :
+    q2AffineSynthesis c (0 : Q2AffineResidue) = 0 := by
+  simp [q2AffineSynthesis, q2AffineContactResidue,
+    physicalTransitionActiveOffsets]
+
+@[simp] theorem q2AffineSynthesis_one (c : ℕ → ℚ) :
+    q2AffineSynthesis c (1 : Q2AffineResidue) = c 1 + c 5 := by
+  simp [q2AffineSynthesis, q2AffineContactResidue,
+    physicalTransitionActiveOffsets]
+
+@[simp] theorem q2AffineSynthesis_two (c : ℕ → ℚ) :
+    q2AffineSynthesis c (2 : Q2AffineResidue) = c 2 + c 6 := by
+  simp [q2AffineSynthesis, q2AffineContactResidue,
+    physicalTransitionActiveOffsets]
+
+@[simp] theorem q2AffineSynthesis_three (c : ℕ → ℚ) :
+    q2AffineSynthesis c (3 : Q2AffineResidue) = c 3 + c 7 := by
+  simp [q2AffineSynthesis, q2AffineContactResidue,
+    physicalTransitionActiveOffsets]
+
+/-- **Incidence span theorem.** Every four-residue field with zero residue-zero
+component lies in the six-tag residue-incidence synthesis range.  This statement
+does not yet identify the two tags in a pair with the same physical source cell. -/
+theorem q2AffineSynthesis_canonicalCoefficients
+    (x : Q2AffineResidue → ℚ)
+    (h0 : x (0 : Q2AffineResidue) = 0) :
+    q2AffineSynthesis (q2AffineCanonicalCoefficients x) = x := by
+  funext r
+  fin_cases r <;>
+    simp [q2AffineCanonicalCoefficients, q2AffineContactResidue, h0]
+
+/-- The canonical residue-incidence coefficient vector costs exactly half of
+the residue energy on the nonzero sector. -/
+theorem q2AffineCanonicalCoefficientEnergy_eq_half
+    (x : Q2AffineResidue → ℚ)
+    (h0 : x (0 : Q2AffineResidue) = 0) :
+    q2AffineCoefficientEnergy (q2AffineCanonicalCoefficients x) =
+      (1 / 2 : ℚ) * q2AffineResidueEnergy x := by
+  rw [q2AffineResidueEnergy_eq]
+  simp [q2AffineCoefficientEnergy, q2AffineCanonicalCoefficients,
+    q2AffineContactResidue, physicalTransitionActiveOffsets, h0]
+  ring
+
+/-- The residue-incidence synthesis operator itself has squared norm at most two. -/
+theorem q2AffineSynthesis_energy_le_two
+    (c : ℕ → ℚ) :
+    q2AffineResidueEnergy (q2AffineSynthesis c) ≤
+      2 * q2AffineCoefficientEnergy c := by
+  rw [q2AffineResidueEnergy_eq]
+  simp [q2AffineCoefficientEnergy, physicalTransitionActiveOffsets]
+  nlinarith [sq_nonneg (c 1 - c 5), sq_nonneg (c 2 - c 6),
+    sq_nonneg (c 3 - c 7)]
+
+/-- The complete four-cell recovered `raw - 2*smooth` degree-one field occupies
+exactly the three nonzero residue coordinates. -/
+def q2RecoveredDegreeOneBulk (K : ℕ) : Q2AffineResidue → ℚ := fun r =>
+  if r = (1 : Q2AffineResidue) then
+    (threeSlotSignedFieldPrefix 1 K : ℚ)
+  else if r = (2 : Q2AffineResidue) then
+    (threeSlotSignedFieldPrefix 2 K : ℚ)
+  else if r = (3 : Q2AffineResidue) then
+    (threeSlotSignedFieldPrefix 3 K : ℚ)
+  else 0
+
+@[simp] theorem q2RecoveredDegreeOneBulk_zero (K : ℕ) :
+    q2RecoveredDegreeOneBulk K (0 : Q2AffineResidue) = 0 := by
+  simp [q2RecoveredDegreeOneBulk]
+
+/-- **Recovered-bulk residue span certificate.** At every complete four-cell
+endpoint, the exact `raw - 2*smooth` degree-one residue vector lies in the
+incidence synthesis range.  The physical source-cell translation is handled by
+the separate two-tap frame below. -/
+theorem q2RecoveredDegreeOneBulk_in_affineSynthesisRange (K : ℕ) :
+    q2AffineSynthesis
+        (q2AffineCanonicalCoefficients (q2RecoveredDegreeOneBulk K)) =
+      q2RecoveredDegreeOneBulk K := by
+  exact q2AffineSynthesis_canonicalCoefficients
+    (q2RecoveredDegreeOneBulk K) (q2RecoveredDegreeOneBulk_zero K)
+
+/-- The recovered bulk has the universal half-split incidence coefficients. -/
+theorem q2RecoveredDegreeOneBulk_coefficientEnergy
+    (K : ℕ) :
+    q2AffineCoefficientEnergy
+        (q2AffineCanonicalCoefficients (q2RecoveredDegreeOneBulk K)) =
+      (1 / 2 : ℚ) * q2AffineResidueEnergy (q2RecoveredDegreeOneBulk K) := by
+  exact q2AffineCanonicalCoefficientEnergy_eq_half
+    (q2RecoveredDegreeOneBulk K) (q2RecoveredDegreeOneBulk_zero K)
+
+/-! ## Physical affine source-cell translation and the true pair frame -/
+
+/-- Offsets paired modulo four differ by exactly one predecessor source cell.
+This is the finite-cutoff feature suppressed by the residue-only Gram. -/
+theorem qSquareOffsetSourceCell_add_four
+    (q a d : ℕ) (h : a + 4 ≤ q * q * d) :
+    qSquareOffsetSourceCell q (a + 4) d + 1 =
+      qSquareOffsetSourceCell q a d := by
+  unfold qSquareOffsetSourceCell
+  omega
+
+/-- Pointwise two-tap estimate.  It is sharp at aligned inputs. -/
+theorem q2AffineTwoTap_sq_le
+    (x y : ℚ) :
+    (x + y) ^ 2 ≤ 2 * x ^ 2 + 2 * y ^ 2 := by
+  nlinarith [sq_nonneg (x - y)]
+
+/-- **True affine-pair frame bound.**  If the second tag in a pair is an
+energy-nonexpanding translate of the first, the `I + S` synthesis has squared
+operator norm at most four.  Complete cyclic super-orbits satisfy the premise by
+translation invariance; incomplete pieces are to be charged to the endpoint
+boundary before applying this theorem. -/
+theorem q2AffineTwoTapFrame_le_four
+    {ι : Type*} [Fintype ι]
+    (f g : ι → ℚ)
+    (hshift : (∑ i, (g i) ^ 2) ≤ ∑ i, (f i) ^ 2) :
+    (∑ i, (f i + g i) ^ 2) ≤ 4 * ∑ i, (f i) ^ 2 := by
+  have hpair :
+      (∑ i, (f i + g i) ^ 2) ≤
+        ∑ i, (2 * (f i) ^ 2 + 2 * (g i) ^ 2) := by
+    apply Finset.sum_le_sum
+    intro i hi
+    exact q2AffineTwoTap_sq_le (f i) (g i)
+  rw [Finset.sum_add_distrib] at hpair
+  have hf : (∑ i, 2 * (f i) ^ 2) = 2 * ∑ i, (f i) ^ 2 := by
+    rw [Finset.mul_sum]
+  have hg : (∑ i, 2 * (g i) ^ 2) = 2 * ∑ i, (g i) ^ 2 := by
+    rw [Finset.mul_sum]
+  rw [hf, hg] at hpair
+  nlinarith
+
+/-- Cyclic predecessor translation on a complete finite residue coordinate. -/
+def q2ZModPredEquiv (M : ℕ) : ZMod M ≃ ZMod M where
+  toFun z := z - 1
+  invFun z := z + 1
+  left_inv z := by simp
+  right_inv z := by simp
+
+/-- Predecessor translation preserves square energy exactly on a complete
+finite CRT coordinate. -/
+theorem q2ZModPred_energy_eq
+    (M : ℕ) [NeZero M] (f : ZMod M → ℚ) :
+    (∑ z : ZMod M, (f (z - 1)) ^ 2) =
+      ∑ z : ZMod M, (f z) ^ 2 := by
+  exact Fintype.sum_equiv
+    (q2ZModPredEquiv M)
+    (fun z : ZMod M => (f (z - 1)) ^ 2)
+    (fun z : ZMod M => (f z) ^ 2)
+    (by intro z; rfl)
+
+/-- The actual paired affine source translation has the required factor-four
+frame on every complete cyclic complementary coordinate. -/
+theorem q2ZModTwoTapFrame_le_four
+    (M : ℕ) [NeZero M] (f : ZMod M → ℚ) :
+    (∑ z : ZMod M, (f z + f (z - 1)) ^ 2) ≤
+      4 * ∑ z : ZMod M, (f z) ^ 2 := by
+  apply q2AffineTwoTapFrame_le_four f (fun z => f (z - 1))
+  rw [q2ZModPred_energy_eq M f]
+
+/-- The three physical offset pairs share the same factor-four constant; summing
+the three channels does not enlarge it. -/
+theorem q2ZModThreePairFrame_le_four
+    (M : ℕ) [NeZero M] (f : Fin 3 → ZMod M → ℚ) :
+    (∑ i : Fin 3, ∑ z : ZMod M,
+        (f i z + f i (z - 1)) ^ 2) ≤
+      4 * ∑ i : Fin 3, ∑ z : ZMod M, (f i z) ^ 2 := by
+  calc
+    (∑ i : Fin 3, ∑ z : ZMod M,
+        (f i z + f i (z - 1)) ^ 2) ≤
+      ∑ i : Fin 3, 4 * ∑ z : ZMod M, (f i z) ^ 2 := by
+        apply Finset.sum_le_sum
+        intro i hi
+        exact q2ZModTwoTapFrame_le_four M (f i)
+    _ = 4 * ∑ i : Fin 3, ∑ z : ZMod M, (f i z) ^ 2 := by
+      rw [Finset.mul_sum]
 
 end RHLean.Analysis
