@@ -195,4 +195,21 @@ theorem norm_matched_sub_bornSmooth_add_farSurvivor_le
     _ = ‖squareRootNearPrimeTransport R‖ := by simp
     _ ≤ 7 * (R : ℝ) := norm_squareRootNearPrimeTransport_le R hR
 
+/-! ## Exact PNT centering of the stable far wall -/
+
+/-- The far wall is the smooth logarithmic-integral transport main term plus
+its floor and prime-distribution residuals, minus only the seven-coordinate
+root strip.  This is the exact signed decomposition that must be normalized
+before any asymptotic estimate is taken. -/
+theorem squareRootFarPrimeTransport_eq_smoothLi_add_floor_add_pntError_sub_near
+    (R : ℕ) (hR : 56 ≤ R) :
+    squareRootFarPrimeTransport R =
+      squareRootTransportSmoothMain R +
+        squareRootTransportFloorCorrection R +
+          squareRootTransportPNTError R - squareRootNearPrimeTransport R := by
+  have hfull := squareRootTransportCofactorFirst_eq_smooth_add_floor_add_error R
+  rw [squareRootTransportCofactorFirst_eq_primeFirst,
+    squareRootTransportPrimeFirst_eq_near_add_far R hR] at hfull
+  linear_combination hfull
+
 end RHLean.Proof
