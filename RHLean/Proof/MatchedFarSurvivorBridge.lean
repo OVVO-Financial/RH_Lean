@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Analysis.SquarePrefixMertensBridge
 import RHLean.Analysis.SquareRootMatchedTransport
+import RHLean.Analysis.PrimeSieveQuotientPNTError
 import RHLean.Proof.SurvivorFarUpperRigidity
 
 /-!
@@ -211,5 +212,27 @@ theorem squareRootFarPrimeTransport_eq_smoothLi_add_floor_add_pntError_sub_near
   rw [squareRootTransportCofactorFirst_eq_primeFirst,
     squareRootTransportPrimeFirst_eq_near_add_far R hR] at hfull
   linear_combination hfull
+
+/-- The same exact decomposition in the generic prime-sieve coordinates.  This
+is the useful asymptotic form: the deterministic part is already reindexable by
+reciprocal quotient fibres, and the actual-prime discrepancy remains one signed
+error term. -/
+theorem squareRootFarPrimeTransport_eq_pntBulk_add_pntError_sub_near
+    (R : ℕ) (hR : 56 ≤ R) :
+    squareRootFarPrimeTransport R =
+      RHLean.Analysis.primeSievePNTBulk R (squareRootEndpoint R) +
+        RHLean.Analysis.primeSievePNTError R (squareRootEndpoint R) -
+          squareRootNearPrimeTransport R := by
+  have hRpos : 0 < R := by omega
+  have htransport :
+      squareRootTransportPrimeFirst R =
+        RHLean.Analysis.primeSieveMertensPrimeTail R (squareRootEndpoint R) := by
+    rw [squareRootTransportPrimeFirst_eq_mertensTransform R hRpos]
+    rfl
+  have hpnt := RHLean.Analysis.primeSieveMertensPrimeTail_eq_pntBulk_add_error
+    R (squareRootEndpoint R)
+  rw [squareRootTransportPrimeFirst_eq_near_add_far R hR] at htransport
+  rw [hpnt] at htransport
+  linear_combination htransport
 
 end RHLean.Proof
