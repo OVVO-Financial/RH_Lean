@@ -111,8 +111,13 @@ theorem squareRootLowPrimeGoFullFaceDefectSaturated_frozenSource_weight_eq
       canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ) =
         lowWheelFullTaggedPhysicalWeight
           (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)) := by
-    rw [← hgoWeight, ← hparentWeight]
-    exact hweight.symm
+    calc
+      canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ) =
+          lowWheelFrozenSecondContactParentWeight
+            (lowWheelFrozenSecondContactParentMap y) := hweight.symm
+      _ = (booleanCubeSign (squarefreePrimeFace (r * d)) : ℂ) := hparentWeight
+      _ = lowWheelFullTaggedPhysicalWeight
+          (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)) := hgoWeight.symm
   refine ⟨y, ⟨hy.1, hy.2, heq⟩, ?_⟩
   intro z hz'
   apply hyUnique
