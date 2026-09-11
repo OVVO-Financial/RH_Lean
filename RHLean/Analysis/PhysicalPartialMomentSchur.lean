@@ -241,7 +241,8 @@ theorem q2AffineResidueEnergy_eq
       (x (1 : Q2AffineResidue)) ^ 2 +
       (x (2 : Q2AffineResidue)) ^ 2 +
       (x (3 : Q2AffineResidue)) ^ 2 := by
-  fin_cases x <;> simp [q2AffineResidueEnergy]
+  simp [q2AffineResidueEnergy, Fin.sum_univ_succ]
+  ring
 
 /-- **Finite affine frame bound.** The squared norm of the six-tag analysis
 operator is at most `2`, hence in particular below the factor `4` accepted by
@@ -249,10 +250,8 @@ the odd-owner energy induction. -/
 theorem q2AffineTagEnergy_le_two_residueEnergy
     (x : Q2AffineResidue → ℚ) :
     q2AffineTagEnergy x ≤ 2 * q2AffineResidueEnergy x := by
-  rw [q2AffineTagEnergy_eq]
-  unfold q2AffineResidueEnergy
-  fin_cases x
-  all_goals simp
+  rw [q2AffineTagEnergy_eq, q2AffineResidueEnergy_eq]
+  nlinarith [sq_nonneg (x (0 : Q2AffineResidue))]
 
 /-- The weaker factor-four estimate needed by the current sharp-frame consumer. -/
 theorem q2AffineTagEnergy_le_four_residueEnergy
@@ -268,10 +267,10 @@ theorem q2AffineTagEnergy_le_four_residueEnergy
 theorem oddPrime_square_mod_four
     {q : ℕ} (hq : q.Prime) (hq2 : q ≠ 2) :
     (q * q) % 4 = 1 := by
-  have hodd : q % 2 = 1 := (hq.eq_two_or_odd).resolve_left hq2
-  have hmod : q % 4 = 1 ∨ q % 4 = 3 := by omega
-  rw [Nat.mul_mod]
-  rcases hmod with h | h <;> omega
+  have hodd : Odd q := hq.odd_of_ne_two hq2
+  rcases hodd with ⟨m, hm⟩
+  rw [hm, Nat.add_mul_mod_self_left, Nat.mul_add_mod_self_right]
+  omega
 
 /-- On an actual odd-prime square contact, the arithmetic daughter has the
 residue coordinate predicted by its affine tag. -/
@@ -289,6 +288,41 @@ theorem qSquareOffsetDaughter_mod_four_eq_contactResidue
   have hright : (4 * k + a) % 4 = a % 4 := by omega
   have hmod := congrArg (fun n : ℕ => n % 4) hexact
   rwa [hleft, hright] at hmod
+
+/-- Every actual odd-square contact daughter is literally one of the three
+physical active sites of its daughter four-cell.  This upgrades the residue
+calculation to the actual three-slot geometry. -/
+theorem qSquareOffsetDaughter_eq_threeSlotValue
+    {q a k : ℕ} (hq : q.Prime) (hq2 : q ≠ 2)
+    (ha : a ∈ physicalTransitionActiveOffsets)
+    (hdiv : q * q ∣ 4 * k + a) :
+    ∃ j : ℕ, j < 3 ∧
+      qSquareOffsetDaughter q a k =
+        threeSlotValue (qSquareOffsetDaughter q a k / 4) j := by
+  let d := qSquareOffsetDaughter q a k
+  have hmod : d % 4 = a % 4 := by
+    simpa [d] using qSquareOffsetDaughter_mod_four_eq_contactResidue hq hq2 hdiv
+  have hdecomp : d % 4 + 4 * (d / 4) = d := Nat.mod_add_div d 4
+  simp [physicalTransitionActiveOffsets] at ha
+  rcases ha with rfl | rfl | rfl | rfl | rfl | rfl
+  · refine ⟨0, by omega, ?_⟩
+    unfold threeSlotValue
+    omega
+  · refine ⟨1, by omega, ?_⟩
+    unfold threeSlotValue
+    omega
+  · refine ⟨2, by omega, ?_⟩
+    unfold threeSlotValue
+    omega
+  · refine ⟨0, by omega, ?_⟩
+    unfold threeSlotValue
+    omega
+  · refine ⟨1, by omega, ?_⟩
+    unfold threeSlotValue
+    omega
+  · refine ⟨2, by omega, ?_⟩
+    unfold threeSlotValue
+    omega
 
 /-- For one odd square owner and one physical edge there is at most one active
 offset hit. Thus the six tags are a bounded finite geometry, not a multiplicity
