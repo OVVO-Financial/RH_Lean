@@ -8,6 +8,32 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Joint-daughter frame clarification after #655
+
+`JointDaughterCrossEnergyAudit.lean` distinguishes the proposed subunit joint
+frame from cancellation inside one daughter. For three intact daughters,
+write `D=sum norm(Phi_q)^2` and `C=sum_{q<r} inner(Phi_q,Phi_r)`. Exactly,
+
+```text
+norm(sum Phi_q)^2 <= c*D+B  <->  2*C <= B-(1-c)*D.
+```
+
+The negative term required here is cross-OWNER energy. Internal `F/T`
+alignment does not itself prove it. With the compiled scalar predecessor
+cubes, every additive incidence image of `F` is actually zero for `X>=1470`;
+the within-owner `F/T` inner product is then exactly zero too. If an unsummed
+field is intended instead, it needs its own physical operator and coefficient
+dictionary; the scalar prefix identity does not establish that field identity.
+
+The same module records that the universal three-vector synthesis factor
+already has budget `3*(1/9+1/25+1/49)=1891/3675<1`. Consequently, a unit-normalized
+physical daughter comparison and parent reconstruction with a linear error
+would imply `E(X)<=3675*C*X/1784` without a subunit frame. Both physical
+comparisons remain explicit hypotheses. This exposes the missing energy
+normalization rather than proving it. No bound for the proposed arithmetic
+boundary `B(X)` or an RH-scale physical Gram is claimed. Consult Hosted Lean
+for compilation status at the current PR head.
+
 ## Continuation after #654: preserve the physical carrier before q-square closure
 
 PR #655 audits the requested exceptional-owner continuation. Read compilation

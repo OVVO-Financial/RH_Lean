@@ -477,6 +477,7 @@ import RHLean.Proof.GlobalPrefixCarrierOthello
 import RHLean.Proof.HeightShellGram
 import RHLean.Proof.HeightShellReconstruction
 import RHLean.Proof.InternalBlockLifetimeGram
+import RHLean.Proof.JointDaughterCrossEnergyAudit
 import RHLean.Proof.JointGramControl
 import RHLean.Proof.LargePrimeTerminalFlipLayers
 import RHLean.Proof.LifetimeActiveSet
