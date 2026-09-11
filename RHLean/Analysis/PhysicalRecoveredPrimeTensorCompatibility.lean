@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.ElevenWeightOneFirstMoment
+import RHLean.Analysis.OutsidePrimeDeletionMask
 
 /-!
 # Actual Möbius / finite-prime tensor compatibility
@@ -10,10 +11,17 @@ same 11^2 coordinate.  The full Möbius/recovered field contains arithmetic from
 all other primes, and on a lone 11^2 period that complementary arithmetic is in
 general correlated with the 11 residue.
 
-This file gives a direct finite certificate of that distinction on the first
-active transition coordinate.  It is a no-go only for the naive substitution of
-the full Möbius field into the complementary slot of the 11 tensor theorem; it
-does not contradict the tensor theorem itself.
+There are therefore two logically distinct transfer issues:
+
+* the actual all-prime zero-free population is obtained from the selected-prime
+  zero-free population by outside-square deletion;
+* even on an actually retained cell, `selectedDegreeOneProjection` contains
+  only the selected-prime sign, while the Mertens-visible physical observable
+  contains the parity of every prime factor.
+
+The finite certificates below make both distinctions impossible to hide inside
+a later norm estimate.  They do not contradict the exact finite-prime tensor
+theorem itself.
 -/
 
 open scoped ArithmeticFunction.Moebius BigOperators
@@ -21,6 +29,37 @@ open scoped ArithmeticFunction.Moebius BigOperators
 noncomputable section
 
 namespace RHLean.Analysis
+
+/-- The first physical transition cell is genuinely all-prime zero-free: its
+six sites are `1,2,3,5,6,7`, all squarefree. -/
+theorem zero_is_actual_zeroFree_transition :
+    outsidePrimeActualZeroFreeAt 0 := by
+  native_decide
+
+/-- On that retained physical cell, the selected `{11}` degree-one observable
+sees no 11-divisibility and therefore equals `+1`. -/
+theorem elevenSelectedDegreeOne_zero_eq_one :
+    selectedDegreeOneProjection ({11} : Finset ℕ) 0 = 1 := by
+  norm_num [selectedDegreeOneProjection, selectedPrimeSign, tActiveForm]
+
+/-- The true Mertens-visible source degree-one value at the same cell is `-1`,
+coming from the actual Möbius values of `1,2,3`. -/
+theorem physicalDegreeOne_zero_eq_neg_one :
+    threeSlotDegreeOneValue (threeSlotState 0) = -1 := by
+  native_decide
+
+/-- **Observable-transfer no-go.**  Even after the actual all-prime zero-free
+mask has retained a cell, the selected-prime observable need not equal the true
+Möbius observable.  Thus eliminating outside-prime square owners does not by
+itself transfer a selected-prime Walsh contraction to the Mertens-visible
+physical field; outside-prime first-power parity must also be reconstructed. -/
+theorem elevenSelectedDegreeOne_ne_physical_on_actual_retained_cell :
+    outsidePrimeActualZeroFreeAt 0 ∧
+      selectedDegreeOneProjection ({11} : Finset ℕ) 0 ≠
+        ((threeSlotDegreeOneValue (threeSlotState 0) : ℤ) : ℝ) := by
+  refine ⟨zero_is_actual_zeroFree_transition, ?_⟩
+  rw [elevenSelectedDegreeOne_zero_eq_one, physicalDegreeOne_zero_eq_neg_one]
+  norm_num
 
 /-- Actual Möbius mass on the first active affine coordinate over one complete
 11^2 cell residue period, with 11-square-zero residues removed. -/
