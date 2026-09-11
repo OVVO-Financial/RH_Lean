@@ -108,6 +108,7 @@ requires.
 | 1,000 | 17 | 13 | 0.0164 | 0.854 | 162 |
 | 3,000 | 19 | 17 | 0.0131 | 0.941 | 422 |
 | 10,000 | 19 | 17 | 0.0131 | 1.080 | 1,222 |
+| 30,000 | 23 | 17 | 0.0103 | 1.139 | 3,237 |
 
 The observed reciprocal-square budget never exceeds `0.043`, comfortably inside
 the proved `1/12`, and it decreases as the root grows.
@@ -137,10 +138,12 @@ child-owner `r`-columns of the same reassembly costs a full power, as measured
 in `RESEARCH_ROUTE_REGISTRY.md`.  Here the cost is only the harmonic sum.
 
 The last column of the table is exactly this quantity.  It is `0.63` at
-`R = 100`, `0.85` at `R = 1000`, `0.94` at `R = 3000`, and first exceeds `1`
-between `R = 3000` and `R = 10000`; asymptotically it grows like
-`log log R - log log log R`, since the live owners run from about `log R` up to
-the second-contact cutoff.
+`R = 100`, `0.85` at `R = 1000`, `0.94` at `R = 3000`, `1.08` at `R = 10^4` and
+`1.14` at `R = 3*10^4`; asymptotically it grows like `log log R - log log log R`,
+since the live owners run from about `log R` up to the second-contact cutoff.
+It therefore crosses the `1.048` ceiling of the `(4/3, 4)` split just past
+`R = 10^4`, and is still inside the `1.2105` ceiling available to a sharper
+bulk/boundary split at `R = 3*10^4`.
 
 So on this carrier the elementary, cancellation-free route is not off by a power
 and not off by a logarithm: it is off by a double logarithm.  Any of the

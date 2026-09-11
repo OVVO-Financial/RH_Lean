@@ -28,7 +28,8 @@ that daughter is *exactly* zero rather than merely small.
 What is proved here, on the exact repository carriers:
 
 * the daughter `squareRootLowPrimeGoWallSquareResidual q X` vanishes identically
-  as soon as `∏_{p<q} p ≤ X / q^2`;
+  as soon as `∏_{p<q} p ≤ X / q^2`, so the compiled daughter column is supported
+  on the effective owners and has no small-owner tail at all;
 * every owner of a saturated #629 second-contact seed satisfies
   `R < ∏_{p<q} p`, hence `q ≥ 7` for `R ≥ 6`, `q ≥ 11` for `R ≥ 30`, and
   `q ≥ 13` for `R ≥ 210`;
@@ -247,6 +248,7 @@ theorem sum_goWallSquareResidual_eq_sum_effective (N X : ℕ) :
     (∑ q ∈ primesUpTo N, squareRootLowPrimeGoWallSquareResidual q X) =
       ∑ q ∈ effectiveGoOwners N X,
         squareRootLowPrimeGoWallSquareResidual q X := by
+  unfold effectiveGoOwners
   refine (Finset.sum_subset (Finset.filter_subset _ _) ?_).symm
   intro q hq hnot
   have hprime := (mem_primesUpTo.mp hq).1
@@ -768,7 +770,7 @@ the margin on the boundary raises the ceiling towards `23/19 = 1.2105...` at the
 cost of the boundary constant. -/
 theorem elevenQ2_harmonicOwnerColumns_implies_linear_of_bound
     {E I b : ℕ → ℚ} {column : ℕ → ℕ → ℚ} {owners : ℕ → Finset ℕ} {c B K : ℚ}
-    (hB : 0 ≤ B) (hc : 0 ≤ c) (hK : 0 ≤ K)
+    (hc : 0 ≤ c) (hK : 0 ≤ K)
     (hfixed : 4 * B +
       (4 : ℚ) / 3 * elevenWeightOneEnergyFactor * c ^ 2 * K ≤ K)
     (howners : ∀ X, owners X ⊆ primesUpTo X)
@@ -869,7 +871,7 @@ theorem elevenQ2_harmonicOwnerColumns_implies_linear
     (hboundary : ∀ X, (b X) ^ 2 ≤ B * (X : ℚ)) :
     ∀ X, E X ≤ ((6348 : ℚ) / 143 * B) * (X : ℚ) := by
   refine elevenQ2_harmonicOwnerColumns_implies_linear_of_bound (c := 1)
-    hB (by norm_num) (mul_nonneg (by norm_num) hB) ?_ howners hharmonic
+    (by norm_num) (mul_nonneg (by norm_num) hB) ?_ howners hharmonic
     hdecomp hcolumns hdiagonal hboundary
   have hval : (4 : ℚ) / 3 * elevenWeightOneEnergyFactor * (1 : ℚ) ^ 2 *
       ((6348 : ℚ) / 143 * B) = (5776 : ℚ) / 143 * B := by
@@ -895,7 +897,7 @@ theorem elevenQ2_harmonicOwnerColumns_implies_linear_at_twentySixFifths
     (hboundary : ∀ X, (b X) ^ 2 ≤ B * (X : ℚ)) :
     ∀ X, E X ≤ ((3967500 : ℚ) / 15731 * B) * (X : ℚ) := by
   refine elevenQ2_harmonicOwnerColumns_implies_linear_of_bound (c := 26 / 25)
-    hB (by norm_num) (mul_nonneg (by norm_num) hB) ?_ howners hharmonic
+    (by norm_num) (mul_nonneg (by norm_num) hB) ?_ howners hharmonic
     hdecomp hcolumns hdiagonal hboundary
   have hval : (4 : ℚ) / 3 * elevenWeightOneEnergyFactor * ((26 : ℚ) / 25) ^ 2 *
       ((3967500 : ℚ) / 15731 * B) = (3904576 : ℚ) / 15731 * B := by
