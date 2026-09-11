@@ -268,7 +268,12 @@ theorem omittedFiveContact_q2Daughter_eq_ownerThreeSignedIncidence
       physicalQ2DaughterCellIncrement 5 k =
         exceptionalSignedPredecessorState 3 (4 * (k + 1) / 25) -
           exceptionalSignedPredecessorState 3 (4 * k / 25) := by
-  refine ⟨fiveContact_not_fiveOwner_implies_threeOwner h5 hnot5, ?_⟩
+  have howner : physicalLeastOddSquarePrime k = some 3 := by
+    have h3 : physicalSquarePrimeAtEdge k 3 := by
+      by_contra hnot3
+      exact hnot5 ((physicalLeastOddSquarePrime_eq_five_iff k).2 ⟨h5, hnot3⟩)
+    exact (physicalLeastOddSquarePrime_eq_three_iff k).2 h3
+  refine ⟨howner, ?_⟩
   simpa using physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
     (by norm_num : Nat.Prime 3) 5 k
 
@@ -283,11 +288,19 @@ theorem omittedSevenContact_q2Daughter_eq_earlierOwnerSignedIncidence
       physicalQ2DaughterCellIncrement 7 k =
         exceptionalSignedPredecessorState p (4 * (k + 1) / 49) -
           exceptionalSignedPredecessorState p (4 * k / 49) := by
-  rcases sevenContact_not_sevenOwner_implies_threeOrFiveOwner h7 hnot7 with h3 | h5
-  · refine ⟨3, Or.inl rfl, h3, ?_⟩
+  by_cases h3 : physicalSquarePrimeAtEdge k 3
+  · have howner : physicalLeastOddSquarePrime k = some 3 :=
+      (physicalLeastOddSquarePrime_eq_three_iff k).2 h3
+    refine ⟨3, Or.inl rfl, howner, ?_⟩
     simpa using physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
       (by norm_num : Nat.Prime 3) 7 k
-  · refine ⟨5, Or.inr rfl, h5, ?_⟩
+  · have h5 : physicalSquarePrimeAtEdge k 5 := by
+      by_contra hnot5
+      exact hnot7 ((physicalLeastOddSquarePrime_eq_seven_iff k).2
+        ⟨h7, hnot5, h3⟩)
+    have howner : physicalLeastOddSquarePrime k = some 5 :=
+      (physicalLeastOddSquarePrime_eq_five_iff k).2 ⟨h5, h3⟩
+    refine ⟨5, Or.inr rfl, howner, ?_⟩
     simpa using physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
       (by norm_num : Nat.Prime 5) 7 k
 
