@@ -44,7 +44,9 @@ theorem lowerMertensCriticalEnvelope_two_one :
   have hyCases : y = 0 ∨ y = 1 := by omega
   rcases hyCases with rfl | rfl
   · norm_num [mertensSummatoryInt]
-  · norm_num [mertensSummatoryInt]
+  · have hM : mertensSummatoryInt 1 = 1 := by native_decide
+    rw [hM]
+    norm_num
 
 /-- An amplification constant below one cannot satisfy the exact all-root
 statement: its first square endpoint already forces `1 <= A`. -/

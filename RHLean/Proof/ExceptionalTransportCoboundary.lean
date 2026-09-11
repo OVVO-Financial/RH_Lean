@@ -118,4 +118,42 @@ theorem exceptionalScalarDaughterGram_eq_highTransportGram
   rw [exceptionalGoDaughter_eq_zero hq hX, exceptionalGoDaughter_eq_zero hr hX]
   ring
 
+/-- Actual scalar daughters at the square endpoint `41²-1`, after all three
+predecessor cubes have completed. -/
+theorem exceptionalScalarDaughters_at_1680 :
+    mertensSummatoryInt (1680 / 9) = -4 ∧
+      mertensSummatoryInt (1680 / 25) = -2 ∧
+      mertensSummatoryInt (1680 / 49) = -2 := by
+  native_decide
+
+/-- The aggregate two-thirds correlation comparison that would suffice for
+the restricted numerical budget fails on actual scalar Mertens daughters.
+Any successful physical Gram comparison must therefore use more than their
+three scalar values. No physical incidence operator is replaced here. -/
+theorem exceptionalScalarDaughters_twoThirdsComparison_fails :
+    let u3 : ℚ := mertensSummatoryInt (1680 / 9)
+    let u5 : ℚ := mertensSummatoryInt (1680 / 25)
+    let u7 : ℚ := mertensSummatoryInt (1680 / 49)
+    (1 / 3 : ℚ) * (u3 ^ 2 + u5 ^ 2 + u7 ^ 2) +
+        (2 / 3 : ℚ) * (1 / 3 + 1 / 5 + 1 / 7) *
+          (3 * u3 ^ 2 + 5 * u5 ^ 2 + 7 * u7 ^ 2) <
+      (u3 + u5 + u7) ^ 2 := by
+  rcases exceptionalScalarDaughters_at_1680 with ⟨h3, h5, h7⟩
+  norm_num [h3, h5, h7]
+
+/-- At this actual endpoint, the interpolated scalar Gram comparison requires
+correlation allowance at least `175/179`, much larger than two thirds. -/
+theorem exceptionalScalarDaughters_at_1680_correlation_threshold (rho : ℚ) :
+    let u3 : ℚ := mertensSummatoryInt (1680 / 9)
+    let u5 : ℚ := mertensSummatoryInt (1680 / 25)
+    let u7 : ℚ := mertensSummatoryInt (1680 / 49)
+    ((u3 + u5 + u7) ^ 2 ≤
+      (1 - rho) * (u3 ^ 2 + u5 ^ 2 + u7 ^ 2) +
+        rho * (1 / 3 + 1 / 5 + 1 / 7) *
+          (3 * u3 ^ 2 + 5 * u5 ^ 2 + 7 * u7 ^ 2)) ↔
+      (175 : ℚ) / 179 ≤ rho := by
+  rcases exceptionalScalarDaughters_at_1680 with ⟨h3, h5, h7⟩
+  norm_num [h3, h5, h7]
+  constructor <;> intro h <;> linarith
+
 end RHLean.Proof
