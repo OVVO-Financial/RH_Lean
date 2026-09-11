@@ -73,6 +73,41 @@ theorem elevenSelectedDegreeOne_ne_physical_on_actual_retained_cell :
   rw [elevenSelectedDegreeOne_zero_eq_one, physicalDegreeOne_zero_eq_neg_one]
   norm_num
 
+/-- Integer selected-11 degree-one mass on the actually retained cells of the
+complete aligned residue period `[0,121)`. -/
+def elevenCompleteActualRetainedSelectedMass : ℤ :=
+  ∑ k ∈ outsidePrimeActualRetainedCells (Finset.range 121),
+    selectedPrimeSign ({11} : Finset ℕ) (tActiveForm (0 : Fin 3) k) -
+      selectedPrimeSign ({11} : Finset ℕ) (tActiveForm (1 : Fin 3) k) +
+        selectedPrimeSign ({11} : Finset ℕ) (tActiveForm (2 : Fin 3) k)
+
+/-- True Möbius degree-one mass on exactly the same retained cells. -/
+def elevenCompleteActualRetainedMobiusMass : ℤ :=
+  ∑ k ∈ outsidePrimeActualRetainedCells (Finset.range 121),
+    threeSlotDegreeOneValue (threeSlotState k)
+
+/-- Direct complete-orbit certificate for the selected observable. -/
+theorem elevenCompleteActualRetainedSelectedMass_eq_twenty_one :
+    elevenCompleteActualRetainedSelectedMass = 21 := by
+  native_decide
+
+/-- Direct complete-orbit certificate for the true Möbius observable. -/
+theorem elevenCompleteActualRetainedMobiusMass_eq_neg_eleven :
+    elevenCompleteActualRetainedMobiusMass = -11 := by
+  native_decide
+
+/-- **Complete-CRT parity-transfer no-go.**  Even over one entire aligned
+`11^2` residue orbit, and even after imposing the actual all-prime zero-free
+mask, the selected-prime signed degree-one mass is not the Mertens-visible
+Möbius mass.  Complete selected-prime CRT geometry therefore cannot by itself
+supply the missing first-power parity transfer. -/
+theorem elevenCompleteActualRetained_selected_ne_mobius :
+    elevenCompleteActualRetainedSelectedMass ≠
+      elevenCompleteActualRetainedMobiusMass := by
+  rw [elevenCompleteActualRetainedSelectedMass_eq_twenty_one,
+    elevenCompleteActualRetainedMobiusMass_eq_neg_eleven]
+  norm_num
+
 /-- Actual Möbius mass on the first active affine coordinate over one complete
 11^2 cell residue period, with 11-square-zero residues removed. -/
 def elevenActualMobiusCoordinateMass : ℤ :=
