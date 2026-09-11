@@ -200,4 +200,38 @@ theorem outsidePrimeLeastDeletionChannel_no_selected_owner
       have hhit := physicalLeastOddSquarePrime_some_spec hleast
       exact (physicalSquarePrimeAtEdge_iff_not_tSquareZeroFreeAt hq hq2).mp hhit hselected
 
+/-- A finite certificate for the geometric blocker.  It deliberately separates
+existence/construction of a wheel from the theorem that consumes one: selected
+owners are excluded by zero-freeness, while every unselected generic prime is
+forced to have an overlong super-period. -/
+structure OutsidePrimeGenericBlockerCertificate (R : ℕ) (P : Finset ℕ) : Prop where
+  generic : IsSelectedGenericBlockerWheel P
+  unselected_large : ∀ q : ℕ, q.Prime → 11 ≤ q → q ∉ P →
+    2 * R + 2 < 210 ^ 2 * (∏ p ∈ P, p ^ 2) * q ^ 2
+
+/-- **No generic complete owner.**  Under a blocker certificate, every complete
+least-owner deletion cell has owner strictly below `11`; generic owners are
+absent before any norm is taken. -/
+theorem outsidePrimeLeastComplete_owner_lt_eleven_of_certificate
+    {P : Finset ℕ} {R q k : ℕ}
+    (hcert : OutsidePrimeGenericBlockerCertificate R P)
+    (hk : k ∈ squareBlockOutsidePrimeLeastCompleteCells P R)
+    (howner : physicalLeastOddSquarePrime k = some q) :
+    q < 11 := by
+  by_contra hnot
+  have hq11 : 11 ≤ q := by omega
+  have hqPrime := (physicalLeastOddSquarePrime_some_spec howner).1
+  by_cases hqP : q ∈ P
+  · have hkDel : k ∈ outsidePrimeLeastDeletionChannelCells P
+        (threeSlotSquareBlockTransitionCells R) q := by
+      apply Finset.mem_filter.mpr
+      refine ⟨?_, ?_⟩
+      · exact (Finset.mem_filter.mp hk).1
+      · simp [howner]
+    exact outsidePrimeLeastDeletionChannel_no_selected_owner
+      hcert.generic hqP hkDel
+  · have hlarge := hcert.unselected_large q hqPrime hq11 hqP
+    exact (outsidePrimeLeastComplete_no_generic_owner_of_blocker
+      hcert.generic hqPrime hq11 hqP hlarge hk) howner
+
 end RHLean.Analysis
