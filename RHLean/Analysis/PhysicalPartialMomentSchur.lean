@@ -450,4 +450,130 @@ theorem q2ZModThreePairFrame_le_four
     _ = 4 * ∑ i : Fin 3, ∑ z : ZMod M, (f i z) ^ 2 := by
       rw [Finset.mul_sum]
 
+/-! ## Cross-owner Gram checkpoint
+
+The least-square owner split is disjoint on the parent carrier, but after each
+owner is transported to its own daughter coordinate the scalar first moments
+live in a common target space.  This section records two finite facts needed
+before using CRT as a frame argument.
+
+First, a completely unconstrained block of the three exceptional owners
+`{3,5,7}` has the all-ones synthesis Gram.  Its sharp frame constant is `3`.
+Any smaller constant therefore has to use arithmetic information about the
+recovered daughter fields; it cannot follow merely from there being three
+owners.
+
+Second, independent CRT coordinates alone do not force transported owner
+cross-terms to vanish.  If the complementary field for one owner is allowed to
+depend on the other owner's coordinate, the cross term factors into two local
+responses.  Even centered local kernels can then have a positive cross term.
+Thus the desired generic `epsilon`-frame requires the forward recovered-packet
+intertwining (or an equivalent conditional-centering statement); it is not a
+formal consequence of coprime moduli alone.
+-/
+
+/-- Owner labels for the finite exceptional block. -/
+def q2ExceptionalOwner (i : Fin 3) : ℕ :=
+  if i = 0 then 3 else if i = 1 then 5 else 7
+
+@[simp] theorem q2ExceptionalOwner_zero : q2ExceptionalOwner 0 = 3 := by
+  simp [q2ExceptionalOwner]
+
+@[simp] theorem q2ExceptionalOwner_one : q2ExceptionalOwner 1 = 5 := by
+  simp [q2ExceptionalOwner]
+
+@[simp] theorem q2ExceptionalOwner_two : q2ExceptionalOwner 2 = 7 := by
+  simp [q2ExceptionalOwner]
+
+/-- The synthesis Gram for three unconstrained owner amplitudes. -/
+def q2ExceptionalOwnerGram : Matrix (Fin 3) (Fin 3) ℚ := fun _ _ => 1
+
+@[simp] theorem q2ExceptionalOwnerGram_entry (i j : Fin 3) :
+    q2ExceptionalOwnerGram i j = 1 := rfl
+
+/-- The exceptional Gram quadratic form is the square of the three-owner sum. -/
+theorem q2ExceptionalOwnerGram_quadratic
+    (x : Fin 3 → ℚ) :
+    (∑ i : Fin 3, ∑ j : Fin 3,
+      x i * q2ExceptionalOwnerGram i j * x j) =
+      (x 0 + x 1 + x 2) ^ 2 := by
+  simp [q2ExceptionalOwnerGram, Fin.sum_univ_succ]
+  ring
+
+/-- **Sharp universal exceptional frame.**  The largest quadratic-form
+constant of the unconstrained three-owner synthesis Gram is at most `3`. -/
+theorem q2ExceptionalOwnerGram_le_three
+    (x : Fin 3 → ℚ) :
+    (∑ i : Fin 3, ∑ j : Fin 3,
+      x i * q2ExceptionalOwnerGram i j * x j) ≤
+      3 * ∑ i : Fin 3, (x i) ^ 2 := by
+  rw [q2ExceptionalOwnerGram_quadratic]
+  simp [Fin.sum_univ_succ]
+  nlinarith [sq_nonneg (x 0 - x 1), sq_nonneg (x 0 - x 2),
+    sq_nonneg (x 1 - x 2)]
+
+/-- The constant `3` is attained by the constant owner vector, so no smaller
+field-independent exceptional frame constant is possible. -/
+theorem q2ExceptionalOwnerGram_three_sharp :
+    (∑ i : Fin 3, ∑ j : Fin 3,
+      (1 : ℚ) * q2ExceptionalOwnerGram i j * 1) =
+      3 * ∑ _i : Fin 3, (1 : ℚ) ^ 2 := by
+  norm_num [q2ExceptionalOwnerGram, Fin.sum_univ_succ]
+
+/-- On a product of two finite CRT coordinates, a cross-owner term whose
+complementary fields may depend on the opposite coordinate factors into the two
+local responses.  Coprimeness is what realizes the arithmetic orbit as such a
+product; the factorization itself is finite Fubini. -/
+theorem q2TwoOwnerTensorCross_factorization
+    {α β : Type*} [Fintype α] [Fintype β]
+    (u h : α → ℚ) (v g : β → ℚ) :
+    (∑ a : α, ∑ b : β, (u a * g b) * (v b * h a)) =
+      (∑ a : α, u a * h a) * (∑ b : β, v b * g b) := by
+  rw [Finset.sum_mul]
+  apply Finset.sum_congr rfl
+  intro a ha
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro b hb
+  ring
+
+/-- A two-point centered local kernel used to show that local zero mean is not
+sufficient once the complementary fields cross-depend on the other owner. -/
+def q2CenteredToy (i : Fin 2) : ℚ := if i = 0 then 1 else -1
+
+@[simp] theorem q2CenteredToy_sum_eq_zero :
+    (∑ i : Fin 2, q2CenteredToy i) = 0 := by
+  norm_num [q2CenteredToy, Fin.sum_univ_succ]
+
+/-- **CRT-centering no-go.**  Both local kernels have zero mean, but taking each
+complementary field to be the other owner's centered kernel gives cross energy
+`4`, not `0`.  Therefore pairwise coprime CRT coordinates plus local centering
+do not imply the desired generic-owner orthogonality for arbitrary transported
+fields. -/
+theorem q2CenteredToy_cross_eq_four :
+    (∑ a : Fin 2, ∑ b : Fin 2,
+      (q2CenteredToy a * q2CenteredToy b) *
+        (q2CenteredToy b * q2CenteredToy a)) = 4 := by
+  norm_num [q2CenteredToy, Fin.sum_univ_succ]
+
+/-- The exact weighted two-owner ratio for aligned generic owner fields at
+`q=13` and `q'=17`.  This is a finite numerical obstruction to deriving an
+arbitrarily small `epsilon` cross-frame from the reciprocal-square weights
+alone: the ratio is about `0.8715`. -/
+theorem q2GenericAlignedThirteenSeventeen_ratio :
+    (2 * ((1 : ℚ) / 13 ^ 2) * ((1 : ℚ) / 17 ^ 2)) /
+        (((1 : ℚ) / 13 ^ 4) + ((1 : ℚ) / 17 ^ 4)) =
+      (48841 : ℚ) / 56041 := by
+  norm_num
+
+/-- In particular the proposed generic cross-frame with `epsilon = 1/2` is
+false for arbitrary aligned daughter fields, even though both owners are in the
+generic `q >= 11` range.  A proof for the physical recovered daughters must use
+their additional arithmetic structure. -/
+theorem q2GenericAlignedThirteenSeventeen_not_halfFrame :
+    ¬ (2 * ((1 : ℚ) / 13 ^ 2) * ((1 : ℚ) / 17 ^ 2) ≤
+        (1 / 2 : ℚ) *
+          (((1 : ℚ) / 13 ^ 4) + ((1 : ℚ) / 17 ^ 4))) := by
+  norm_num
+
 end RHLean.Analysis
