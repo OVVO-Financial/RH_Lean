@@ -209,7 +209,8 @@ theorem frozenPrimeUniverseMass_predecessorPrimorial_saturated
     mem_primesUpTo_pred_iff.mpr ⟨Nat.prime_two, by omega⟩
   unfold frozenPrimeUniverseMass
   refine truncatedCubeAlternatingSum_eq_zero_of_no_firstFailure h2
-    primeProductAdmissible_downward ?_
+    (primeProductAdmissible_downward
+      (fun p hp => (mem_primesUpTo_pred_iff.mp hp).1)) ?_
   intro t _ht hadm
   have hsub : insert 2 t ⊆ primesUpTo (q - 1) := by
     intro p hp
@@ -232,6 +233,32 @@ theorem squareRootLowPrimeGoWallSquareResidual_eq_zero_of_saturated
     squareRootLowPrimeGoWallSquareResidual q X = 0 := by
   rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
   exact frozenPrimeUniverseMass_predecessorPrimorial_saturated hq hX
+
+/-- Owners that can still carry a nonzero Go daughter at scale `X`: owner `2`,
+whose daughter is the empty face, and those whose predecessor primorial is still
+above the square-dilated cutoff. -/
+def effectiveGoOwners (N X : ℕ) : Finset ℕ :=
+  (primesUpTo N).filter fun q => q = 2 ∨ X / (q * q) < predecessorPrimorial q
+
+/-- **The Go daughter column is supported on the effective owners.**  Every
+other owner contributes exactly zero to the compiled daughter sum, so the column
+has no small-owner tail at all. -/
+theorem sum_goWallSquareResidual_eq_sum_effective (N X : ℕ) :
+    (∑ q ∈ primesUpTo N, squareRootLowPrimeGoWallSquareResidual q X) =
+      ∑ q ∈ effectiveGoOwners N X,
+        squareRootLowPrimeGoWallSquareResidual q X := by
+  refine (Finset.sum_subset (Finset.filter_subset _ _) ?_).symm
+  intro q hq hnot
+  have hprime := (mem_primesUpTo.mp hq).1
+  have hdata : ¬ (q = 2 ∨ X / (q * q) < predecessorPrimorial q) := by
+    intro hcase
+    exact hnot (Finset.mem_filter.mpr ⟨hq, hcase⟩)
+  push_neg at hdata
+  have hq3 : 3 ≤ q := by
+    have h2 := hprime.two_le
+    have := hdata.1
+    omega
+  exact squareRootLowPrimeGoWallSquareResidual_eq_zero_of_saturated hq3 hdata.2
 
 /-! ## The live owner schedule of the saturated second-contact seeds -/
 
@@ -325,7 +352,8 @@ private theorem oddReciprocalSquareShiftedTerm_le_telescope
   have hane : a ≠ 0 := ne_of_gt ha
   have ha1ne : a + 1 ≠ 0 := ne_of_gt ha1
   have hrw : (1 : ℚ) / (4 * a) - 1 / (4 * (a + 1)) = 1 / (4 * a * (a + 1)) := by
-    field_simp [hane, ha1ne] <;> ring
+    field_simp [hane, ha1ne]
+    ring
   rw [hrw]
   apply one_div_le_one_div_of_le
   · exact mul_pos (by linarith) ha1
@@ -377,7 +405,11 @@ theorem oddOwnerReciprocalSquareBudget_le
   have hle := Finset.sum_le_sum_of_subset_of_nonneg hsub
     (f := fun q : ℕ => (1 : ℚ) / (q : ℚ) ^ 2)
     (by intro q _ _; positivity)
-  rw [Finset.sum_image (by intro c _ d _ hcd; omega)] at hle
+  have hinj : Set.InjOn (fun j => 2 * (k₀ + j) + 3) (Finset.range N) := by
+    intro c _ d _ hcd
+    have hcd' : 2 * (k₀ + c) + 3 = 2 * (k₀ + d) + 3 := hcd
+    omega
+  rw [Finset.sum_image hinj] at hle
   have hcast : ∀ j ∈ Finset.range N,
       (1 : ℚ) / ((2 * (k₀ + j) + 3 : ℕ) : ℚ) ^ 2 =
         1 / (2 * (((k₀ : ℚ) + 1) + (j : ℚ)) + 1) ^ 2 := by
@@ -731,7 +763,9 @@ inequality of any kind.  Then the whole recurrence is controlled by one number:
 the owner harmonic sum.  The weighted Cauchy–Schwarz step spends `c` and the
 weighted daughter budget spends `c` again, so the branching coefficient is
 `(4/3) * (19/23)^2 * c^2` and closure needs only `c < 23/(19*sqrt(4/3))`, i.e.
-`c` up to about `1.048`. -/
+`c` up to about `1.048` with this bulk/boundary Young split.  Spending less of
+the margin on the boundary raises the ceiling towards `23/19 = 1.2105...` at the
+cost of the boundary constant. -/
 theorem elevenQ2_harmonicOwnerColumns_implies_linear_of_bound
     {E I b : ℕ → ℚ} {column : ℕ → ℕ → ℚ} {owners : ℕ → Finset ℕ} {c B K : ℚ}
     (hB : 0 ≤ B) (hc : 0 ≤ c) (hK : 0 ≤ K)
@@ -846,9 +880,9 @@ theorem elevenQ2_harmonicOwnerColumns_implies_linear
 /-- **The elementary criterion survives a harmonic sum above one.**  At
 `c = 26/25 = 1.04` the branching coefficient is still `976144/991875 < 1`, so
 the cancellation-free diagonal route closes with envelope
-`(3967500/15731)*B*X`.  The exact elementary ceiling is `c^2 < 1587/1444`, that
-is `c < 1.0483...`; the live owner harmonic sum first crosses it just past root
-`10^4`. -/
+`(3967500/15731)*B*X`.  With this Young split the exact ceiling is
+`c^2 < 1587/1444`, that is `c < 1.0483...`; the live owner harmonic sum first
+crosses it just past root `10^4`. -/
 theorem elevenQ2_harmonicOwnerColumns_implies_linear_at_twentySixFifths
     {E I b : ℕ → ℚ} {column : ℕ → ℕ → ℚ} {owners : ℕ → Finset ℕ} {B : ℚ}
     (hB : 0 ≤ B)

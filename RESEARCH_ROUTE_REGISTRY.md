@@ -1084,6 +1084,9 @@ under the inductive daughter bound.  Weighted Cauchy-Schwarz with owner weight
 sum_{q live at R} 1/q  <  23 / (19 * sqrt(4/3))  =  1.0483...
 ```
 
+(that ceiling is for the `(4/3, 4)` bulk/boundary split; spending less of the
+margin on the boundary raises it towards `23/19 = 1.2105...`)
+
 Exact computation on the #629 window gives `0.63` at `R = 100`, `0.85` at
 `R = 1000`, `0.94` at `R = 3000` and `1.08` at `R = 10^4`, so the criterion holds
 on a genuine initial range and then fails, growing like `log log R`.

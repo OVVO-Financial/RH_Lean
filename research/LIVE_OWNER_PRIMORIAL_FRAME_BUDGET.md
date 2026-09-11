@@ -163,5 +163,12 @@ following would close the gap and is the natural next target:
 * The harmonic criterion is a *sufficient* condition that the physical schedule
   does not satisfy uniformly; the table above is evidence about its size, not a
   proof of any bound.
+* The frame and diagonal theorems quantify over every scale, so applying them
+  to the physical schedule still requires supplying the owner hypotheses at the
+  smallest scales as well.  The candidate set `liveOwnerCandidates R` is an
+  over-approximation of the live owners — at `R = 5` it already contains `5`
+  while no seed is live — so the threshold statements are stated from `R >= 6`
+  onwards and the identification at the bottom of the recursion is part of the
+  work still to be done.
 * No improved Mertens exponent and no RH closure follows from anything in this
   note.
