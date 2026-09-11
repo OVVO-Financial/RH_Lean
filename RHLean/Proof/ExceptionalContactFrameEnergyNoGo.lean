@@ -551,14 +551,24 @@ theorem physicalQ2Daughter_nonzero_implies_squarePrimeAtEdge
     dsimp [lo, hi]
     exact Nat.div_le_div_right (by omega)
   have hhi_le : hi ≤ lo + 1 := by
-    dsimp [lo, hi]
-    rw [show 4 * (k + 1) = 4 * k + 4 by omega]
-    calc
-      (4 * k + 4) / Q ≤ 4 * k / Q + 4 / Q + 1 :=
-        Nat.add_div_le_div_add_div_add_one _ _ _
-      _ = 4 * k / Q + 1 := by
-        rw [Nat.div_eq_of_lt hQgt4]
+    have hxlt : 4 * k < Q * (lo + 1) := by
+      have hdiv : 4 * k / Q < lo + 1 := by
+        dsimp [lo]
         omega
+      have h := (Nat.div_lt_iff_lt_mul hQpos).1 hdiv
+      simpa [Nat.mul_comm] using h
+    have hsumlt : 4 * (k + 1) < Q * (lo + 2) := by
+      calc
+        4 * (k + 1) = 4 * k + 4 := by omega
+        _ < Q * (lo + 1) + Q := Nat.add_lt_add hxlt hQgt4
+        _ = Q * (lo + 2) := by ring
+    have hdivHi : hi < lo + 2 := by
+      dsimp [hi]
+      have hsumlt' : 4 * (k + 1) < (lo + 2) * Q := by
+        rw [Nat.mul_comm (lo + 2) Q]
+        exact hsumlt
+      exact (Nat.div_lt_iff_lt_mul hQpos).2 hsumlt'
+    omega
   have hne : hi ≠ lo := by
     intro heq
     apply hD
@@ -571,8 +581,11 @@ theorem physicalQ2Daughter_nonzero_implies_squarePrimeAtEdge
   have hD' : moebiusPositivePrefix hi - moebiusPositivePrefix lo ≠ 0 := by
     simpa [physicalQ2DaughterCellIncrement_eq, hi, lo] using hD
   rw [hstep, moebiusPositivePrefix_succ_sub_self] at hD'
-  have hsf : Squarefree hi :=
+  have hsfStep : Squarefree (lo + 1) :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hD'
+  have hsf : Squarefree hi := by
+    rw [hstep]
+    exact hsfStep
   have hloSpec : lo * Q ≤ 4 * k ∧ 4 * k ≤ lo * Q + Q - 1 := by
     exact (Nat.div_eq_iff hQpos).mp (by rfl)
   have hhiSpec : hi * Q ≤ 4 * (k + 1) ∧
@@ -621,9 +634,11 @@ theorem physicalQ2Daughter_nonzero_implies_squarePrimeAtEdge
     omega
   refine ⟨hq, a, haActive, ?_⟩
   refine ⟨hi, ?_⟩
-  rw [← hsum]
-  dsimp [Q]
-  ring
+  calc
+    4 * k + a = hi * Q := hsum
+    _ = q * q * hi := by
+      dsimp [Q]
+      ring
 
 /-- Summing only over the genuine physical `q²` contact carrier loses nothing:
 every omitted cell has zero daughter increment. -/
