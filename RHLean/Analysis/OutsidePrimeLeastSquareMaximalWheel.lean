@@ -34,9 +34,17 @@ theorem outsidePrimeReservedBlockerPrimes_subset_earlier
     {q : ℕ} (hq : 11 ≤ q) :
     outsidePrimeReservedBlockerPrimes ⊆ outsidePrimeEarlierPrimes q := by
   intro p hp
-  simp [outsidePrimeReservedBlockerPrimes] at hp
-  rcases hp with rfl | rfl | rfl | rfl
-  all_goals simp [outsidePrimeEarlierPrimes] <;> omega
+  have hpCases : p = 2 ∨ p = 3 ∨ p = 5 ∨ p = 7 := by
+    simpa [outsidePrimeReservedBlockerPrimes] using hp
+  rcases hpCases with rfl | rfl | rfl | rfl
+  · exact Finset.mem_filter.mpr
+      ⟨Finset.mem_range.mpr (by omega), Nat.prime_two⟩
+  · exact Finset.mem_filter.mpr
+      ⟨Finset.mem_range.mpr (by omega), by norm_num⟩
+  · exact Finset.mem_filter.mpr
+      ⟨Finset.mem_range.mpr (by omega), by norm_num⟩
+  · exact Finset.mem_filter.mpr
+      ⟨Finset.mem_range.mpr (by omega), by norm_num⟩
 
 /-- A finite seed whose square-product is the reserved `210^2` factor, the
 selected generic wheel, and the current outside owner. -/
@@ -50,8 +58,9 @@ theorem outsidePrimeBlockerSeed_subset_super
   intro p hp
   rw [outsidePrimeBlockerSeed, Finset.mem_insert] at hp
   unfold outsidePrimeLeastSuperPrimeSet outsidePrimeLeastStagePrimes
-  rcases hp with rfl | hp
-  · exact Finset.mem_insert_self q _
+  rcases hp with hpq | hp
+  · subst p
+    exact Finset.mem_insert_self _ _
   · rw [Finset.mem_union] at hp
     apply Finset.mem_insert_of_mem
     rcases hp with hpSmall | hpP
@@ -150,31 +159,32 @@ theorem physicalSquarePrimeAtEdge_iff_not_tSquareZeroFreeAt
     rcases ha with rfl | rfl | rfl | rfl | rfl | rfl
     · exact (hzero (0 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
     · have hdiv' : q ^ 2 ∣ 2 * (2 * k + 1) := by
-        simpa [pow_two] using hdiv
+        convert hdiv using 1 <;> ring
       have hsmall : q ^ 2 ∣ 2 * k + 1 :=
         hcop2.dvd_of_dvd_mul_left hdiv'
       exact (hzero (1 : Fin 6)) (by simpa [tTransitionForm] using hsmall)
     · exact (hzero (2 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
     · exact (hzero (3 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
     · have hdiv' : q ^ 2 ∣ 2 * (2 * k + 3) := by
-        simpa [pow_two] using hdiv
+        convert hdiv using 1 <;> ring
       have hsmall : q ^ 2 ∣ 2 * k + 3 :=
         hcop2.dvd_of_dvd_mul_left hdiv'
       exact (hzero (4 : Fin 6)) (by simpa [tTransitionForm] using hsmall)
     · exact (hzero (5 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
   · intro hnot
+    unfold tSquareZeroFreeAt at hnot
     push_neg at hnot
     rcases hnot with ⟨i, hi⟩
     fin_cases i
     · exact ⟨hq, 1, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
     · refine ⟨hq, 2, by simp [physicalTransitionActiveOffsets], ?_⟩
-      have : q ^ 2 ∣ 2 * (2 * k + 1) := dvd_mul_of_dvd_right hi 2
-      simpa [tTransitionForm, pow_two] using this
+      have hmul : q ^ 2 ∣ 2 * (2 * k + 1) := dvd_mul_of_dvd_right hi 2
+      convert hmul using 1 <;> ring
     · exact ⟨hq, 3, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
     · exact ⟨hq, 5, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
     · refine ⟨hq, 6, by simp [physicalTransitionActiveOffsets], ?_⟩
-      have : q ^ 2 ∣ 2 * (2 * k + 3) := dvd_mul_of_dvd_right hi 2
-      simpa [tTransitionForm, pow_two] using this
+      have hmul : q ^ 2 ∣ 2 * (2 * k + 3) := dvd_mul_of_dvd_right hi 2
+      convert hmul using 1 <;> ring
     · exact ⟨hq, 7, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
 
 /-- A prime already selected into the zero-free CRT wheel cannot simultaneously
