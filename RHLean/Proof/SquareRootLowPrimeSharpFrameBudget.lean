@@ -289,4 +289,113 @@ theorem elevenQ2_bulk_boundary_fourFrame_oddOwners_implies_linear
       nlinarith [sq_nonneg (I X - 3 * b X)]
     nlinarith
 
+/-! ## A one-term sharpening admits a six-frame interior
+
+The `1/4` odd-owner budget above spends the telescoping majorant already at the
+first odd integer.  Keeping the exact `1/3^2 = 1/9` term and telescoping only
+from `5` onward saves exactly `1/72`, giving the elementary finite bound
+`17/72`.  This small improvement is enough to admit a frame loss of `6` after
+the exact `(19/23)^2` prime-11 factor.
+-/
+
+/-- Exact first-term refinement of the odd reciprocal-square telescope. -/
+theorem sum_oddReciprocalSquares_le_seventeen_over_seventy_two_sub (N : ℕ) :
+    (∑ k ∈ Finset.range (N + 1),
+      (1 : ℚ) / ((2 * k + 3 : ℕ) : ℚ) ^ 2) ≤
+        17 / 72 - 1 / (4 * ((N : ℚ) + 2)) := by
+  induction N with
+  | zero => norm_num
+  | succ N ih =>
+    rw [Finset.sum_range_succ]
+    calc
+      _ ≤ (17 / 72 - 1 / (4 * ((N : ℚ) + 2))) +
+          (1 / (4 * ((((N + 1 : ℕ) : ℚ)) + 1)) -
+            1 / (4 * ((((N + 1 : ℕ) : ℚ)) + 2))) :=
+        add_le_add ih (oddReciprocalSquareTerm_le_telescope (N + 1))
+      _ = 17 / 72 - 1 / (4 * ((((N + 1 : ℕ) : ℚ)) + 2)) := by
+        push_cast
+        ring
+
+/-- Every finite odd-integer reciprocal-square prefix from `3` onward is at
+most `17/72`; no infinite series evaluation is used. -/
+theorem sum_oddReciprocalSquares_le_seventeen_over_seventy_two (N : ℕ) :
+    (∑ k ∈ Finset.range N,
+      (1 : ℚ) / ((2 * k + 3 : ℕ) : ℚ) ^ 2) ≤ 17 / 72 := by
+  cases N with
+  | zero => norm_num
+  | succ N =>
+      have h := sum_oddReciprocalSquares_le_seventeen_over_seventy_two_sub N
+      have hp : (0 : ℚ) ≤ 1 / (4 * ((N : ℚ) + 2)) := by positivity
+      nlinarith
+
+/-- Sharpened finite odd-prime owner budget. -/
+theorem oddPrimeOwnerReciprocalSquareBudget_le_seventeen_over_seventy_two
+    (N : ℕ) :
+    (∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2) ≤ 17 / 72 := by
+  have hsum :
+      (∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2) ≤
+        ∑ q ∈ (Finset.range N).image (fun k : ℕ => (2 * k + 3 : ℕ)),
+          (1 : ℚ) / (q : ℚ) ^ 2 := by
+    refine Finset.sum_le_sum_of_subset_of_nonneg (oddPrimes_subset_oddImage N) ?_
+    intro q _hqImage _hqOld
+    positivity
+  rw [Finset.sum_image] at hsum
+  · exact hsum.trans (sum_oddReciprocalSquares_le_seventeen_over_seventy_two N)
+  · intro a _ha b _hb hab
+    have hmul : 2 * a = 2 * b := Nat.add_right_cancel hab
+    omega
+
+/-- The literal odd-prime daughter cutoffs consume at most `17/72` of the
+parent scale. -/
+theorem sum_oddPrimeOwner_squareDilatedCutoffs_le_seventeen_over_seventy_two_parent
+    (N X : ℕ) :
+    (∑ q ∈ (primesUpTo N).erase 2, ((X / (q * q) : ℕ) : ℚ)) ≤
+      (17 / 72 : ℚ) * (X : ℚ) := by
+  have h := sum_squareDilatedCutoffs_le_scale_mul_budget ((primesUpTo N).erase 2) X
+    (fun q hq => (mem_primesUpTo.mp (Finset.mem_erase.mp hq).2).1)
+  have hb := mul_le_mul_of_nonneg_left
+    (oddPrimeOwnerReciprocalSquareBudget_le_seventeen_over_seventy_two N)
+    (by positivity : (0 : ℚ) ≤ X)
+  nlinarith
+
+/-- **Frame six is sufficient on the odd-owner schedule.**  The stronger
+`17/72` scale budget leaves enough margin after the exact prime-11 factor even
+when the globally compensated signed interior loses a factor `6`.  A `60/59`
+Young split keeps the boundary inside the recurrence, and `3600 * B * X` is an
+explicit (deliberately non-sharp) linear envelope.
+
+This remains a conditional induction theorem: it does not assert the missing
+physical frame-six inequality. -/
+theorem elevenQ2_bulk_boundary_sixFrame_oddOwners_implies_linear
+    {E I b : ℕ → ℚ} {B : ℚ}
+    (hB : 0 ≤ B)
+    (hdecomp : ∀ X, E X ≤ (I X + b X) ^ 2)
+    (hinterior : ∀ X, (I X) ^ 2 ≤
+      6 * elevenWeightOneEnergyFactor *
+        ∑ q ∈ (primesUpTo X).erase 2, E (X / (q * q)))
+    (hboundary : ∀ X, (b X) ^ 2 ≤ B * (X : ℚ)) :
+    ∀ X, E X ≤ (3600 * B) * (X : ℚ) := by
+  apply q2EnergyStep_implies_linear_of_ownerScaleBudget
+    (owners := fun X => (primesUpTo X).erase 2)
+    (C := 60 * B)
+    (lambda := (360 : ℚ) / 59 * elevenWeightOneEnergyFactor)
+    (rho := 17 / 72)
+    (K := 3600 * B)
+    (fun _ => Finset.erase_subset _ _)
+    (by nlinarith [hB])
+    (mul_nonneg (by norm_num) elevenWeightOneEnergyFactor_nonneg)
+  · intro X
+    exact sum_oddPrimeOwner_squareDilatedCutoffs_le_seventeen_over_seventy_two_parent X X
+  · rw [elevenWeightOneEnergyFactor_eq]
+    nlinarith [hB]
+  · intro X
+    have hi := hinterior X
+    have hb := hboundary X
+    have he := hdecomp X
+    have hy :
+        (I X + b X) ^ 2 ≤
+          (60 : ℚ) / 59 * (I X) ^ 2 + 60 * (b X) ^ 2 := by
+      nlinarith [sq_nonneg (I X - 59 * b X)]
+    nlinarith
+
 end RHLean.Proof

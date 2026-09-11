@@ -8,6 +8,32 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Matched-channel recovery audit after #649
+
+`SquareRootMatchedDegreeOneRecovery.lean` makes the terminal-to-three-slot
+correction explicit. Read its compilation status from Hosted Lean at the
+current head. With `H_R = sum_{p <= R, p prime} M(p-1)`, the exact identities are
+
+```text
+matched R - H_R = M(R^2-1),
+unifiedReciprocal R = 1 - M(R^2-1),
+terminal R K j - H_R = M(R^2-1) - shallowBoundary R K j.
+```
+
+The recovered terminal has error at most `R+K` from Mertens and `R+K+3` from
+the complete four-cell degree-one sample. The new energy equivalence and RH
+implication keep `-H_R` inside the norm. They prove no bound on that quantity.
+Do not identify the matched-only bound or its terminal energy telescope with
+the three-slot criterion. The older `SquareRootSmoothParityClasses` implication
+requires both matched and positive-smooth estimates; neither is discharged by
+the exact telescope. This audit does not prove that a matched-only implication
+is impossible, or that the matched-only estimate is false.
+
+The born-smooth reciprocal reindexing already existed before this audit.
+PR #649 proves the exact Li/floor/PNT decomposition and negligibility of the
+seven-coordinate strip; its final code does not prove the wall's proposed
+normalized limit `-1`. Neither that asymptotic nor RH is claimed here.
+
 ## Continuation after #646: the stable far-prime wall is inhabited
 
 `SquareRootLowPrimeCombinedResidualSourceNormalForm.lean` now constructs the

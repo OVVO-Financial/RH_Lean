@@ -262,6 +262,7 @@ import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
 import RHLean.Analysis.SquareRootCanonicalRoughCovariance
 import RHLean.Analysis.SquareRootCombinedSignedResidual
 import RHLean.Analysis.SquareRootFixedCrossing18349
+import RHLean.Analysis.SquareRootMatchedDegreeOneRecovery
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootMiddleSequentialCoherence
 import RHLean.Analysis.SquareRootPositiveSmoothCollapse
