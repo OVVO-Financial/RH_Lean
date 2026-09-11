@@ -214,36 +214,16 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_weight_eq_neg_child
     ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _hcube, hd⟩
   have hfull :=
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
-  have hdgt := squareRootLowPrimeGoFullBirthBoundary_parent_one_lt hr hrq hfull
-  have hrough :=
-    (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfull).2.2.2.1
-  have hrNotDvdD : ¬ r ∣ d := by
-    intro hrd
-    have hle :=
-      CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
-        hdgt hr hrd
-    omega
-  have hrNotDvdQ : ¬ r ∣ q := by
-    intro hrqDvd
-    have heq := (Nat.prime_dvd_prime_iff_eq hr hq).mp hrqDvd
-    omega
-  have hrNotDvdQD : ¬ r ∣ q * d := by
-    intro hdiv
-    rcases hr.dvd_mul.mp hdiv with hqdiv | hddiv
-    · exact hrNotDvdQ hqdiv
-    · exact hrNotDvdD hddiv
-  have hmu :
-      μ (squareRootLowPrimeGoFullFaceDefectArithmeticChild ((r, q), d)) =
-        -μ (q * d) := by
-    change μ (q * (r * d)) = -μ (q * d)
-    rw [show q * (r * d) = r * (q * d) by ring]
-    exact moebius_prime_mul hr hrNotDvdQD
-  rw [squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_mass] at *
   have hsource :=
     squareRootLowPrimeGoSecondBoundaryFullFaceSource_weight_eq
       hq hr hrq hfull
+  have hmu :=
+    squareRootLowPrimeGoFullBirthBoundary_source_moebius_cancel
+      hq hr hrq hfull
   simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
-    canonicalMoebiusWeight, hmu] using hsource
+    squareRootLowPrimeGoFullFaceDefectArithmeticChild,
+    canonicalMoebiusWeight] using hsource.trans (by
+      exact_mod_cast hmu.symm)
 
 /-- The full-face source is not literally one of the frozen nontrivial-cofactor
 second-contact source states: its low cofactor is `1`.  This records the
@@ -278,5 +258,146 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_not_literal_matchingFixedTransp
     squareRootLowPrimeGoSecondBoundaryFullFaceSource,
     lowWheelCanonicalRepeatedFrozenProductOneMate] at hstate
   omega
+
+/-! ## Multiplicity-free deep image and exact signed reassembly -/
+
+/-- The saturated arithmetic child remembers the entire defect incidence.
+First recover `q` as the largest prime of the child; then recover `r*d` by
+cancelling `q`; finally `r` is the largest prime of `r*d`, and `d` follows by
+cancellation. -/
+theorem squareRootLowPrimeGoFullFaceDefectArithmeticChild_injOn_saturated
+    (R : ℕ) :
+    Set.InjOn squareRootLowPrimeGoFullFaceDefectArithmeticChild
+      (squareRootLowPrimeGoFullFaceDefectSaturatedIncidences R) := by
+  intro a ha b hb hab
+  rcases a with ⟨⟨r, q⟩, d⟩
+  rcases b with ⟨⟨s, t⟩, e⟩
+  have haFull :=
+    (mem_squareRootLowPrimeGoFullFaceDefectSaturatedIncidences.mp ha).1
+  have hbFull :=
+    (mem_squareRootLowPrimeGoFullFaceDefectSaturatedIncidences.mp hb).1
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp haFull with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _hcube, hd⟩
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hbFull with
+    ⟨_hsR, _htR, _heR, hs, ht, hst, _hcube', he⟩
+  have hqt : q = t := by
+    calc
+      q = canonicalLargestPrimeFactor
+          (squareRootLowPrimeGoFullFaceDefectArithmeticChild ((r, q), d)) :=
+        (squareRootLowPrimeGoFullFaceDefectArithmeticChild_largestPrime haFull).symm
+      _ = canonicalLargestPrimeFactor
+          (squareRootLowPrimeGoFullFaceDefectArithmeticChild ((s, t), e)) :=
+        congrArg canonicalLargestPrimeFactor hab
+      _ = t :=
+        squareRootLowPrimeGoFullFaceDefectArithmeticChild_largestPrime hbFull
+  subst t
+  have hrd : r * d = s * e := by
+    have hqpos : 0 < q := hq.pos
+    apply Nat.eq_of_mul_eq_mul_left hqpos
+    simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild] using hab
+  have hfullD :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  have hfullE :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp he).1
+  have hdData := mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfullD
+  have heData := mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfullE
+  have hdPos : 0 < d := by omega
+  have hePos : 0 < e := by omega
+  have hrTop : canonicalLargestPrimeFactor (r * d) = r := by
+    have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
+      hdPos hr hdData.2.2.2.1
+    simpa [Nat.mul_comm] using h
+  have hsTop : canonicalLargestPrimeFactor (s * e) = s := by
+    have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
+      hePos hs heData.2.2.2.1
+    simpa [Nat.mul_comm] using h
+  have hrs : r = s := by
+    calc
+      r = canonicalLargestPrimeFactor (r * d) := hrTop.symm
+      _ = canonicalLargestPrimeFactor (s * e) := congrArg _ hrd
+      _ = s := hsTop
+  subst s
+  have hde : d = e := Nat.eq_of_mul_eq_mul_left hr.pos hrd
+  subst e
+  rfl
+
+/-- Literal multiplicity-free arithmetic image of the deep full-face defect. -/
+def squareRootLowPrimeGoFullFaceDefectSaturatedChildCarrier (R : ℕ) : Finset ℕ :=
+  (squareRootLowPrimeGoFullFaceDefectSaturatedIncidences R).image
+    squareRootLowPrimeGoFullFaceDefectArithmeticChild
+
+/-- The entire deep image is a subcarrier of the already-existing saturated
+second-contact arithmetic population. -/
+theorem squareRootLowPrimeGoFullFaceDefectSaturatedChildCarrier_subset
+    (R : ℕ) :
+    squareRootLowPrimeGoFullFaceDefectSaturatedChildCarrier R ⊆
+      lowWheelFrozenSecondContactArithmeticChildCarrier R := by
+  intro n hn
+  rcases Finset.mem_image.mp hn with ⟨z, hz, rfl⟩
+  rcases z with ⟨⟨r, q⟩, d⟩
+  exact squareRootLowPrimeGoFullFaceDefectArithmeticChild_mem_saturatedCarrier hz
+
+/-- Deep source ledger, still in the literal #645 physical source coordinates. -/
+def squareRootLowPrimeGoFullFaceDefectSaturatedSourceLedger (R : ℕ) : ℂ :=
+  ∑ z ∈ squareRootLowPrimeGoFullFaceDefectSaturatedIncidences R,
+    lowWheelFullTaggedPhysicalWeight
+      (squareRootLowPrimeGoFullFaceDefectSourceTag z)
+
+/-- Explicit root-floor source ledger.  This is a named boundary carrier, not a
+catch-all remainder. -/
+def squareRootLowPrimeGoFullFaceDefectRootFloorSourceLedger (R : ℕ) : ℂ :=
+  ∑ z ∈ squareRootLowPrimeGoFullFaceDefectRootFloorIncidences R,
+    lowWheelFullTaggedPhysicalWeight
+      (squareRootLowPrimeGoFullFaceDefectSourceTag z)
+
+/-- Exact defect partition at ledger level. -/
+theorem squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_saturated_add_rootFloor
+    (R : ℕ) :
+    squareRootLowPrimeGoFullFaceDefectSourceLedger R =
+      squareRootLowPrimeGoFullFaceDefectSaturatedSourceLedger R +
+        squareRootLowPrimeGoFullFaceDefectRootFloorSourceLedger R := by
+  unfold squareRootLowPrimeGoFullFaceDefectSourceLedger
+    squareRootLowPrimeGoFullFaceDefectSaturatedSourceLedger
+    squareRootLowPrimeGoFullFaceDefectRootFloorSourceLedger
+  rw [squareRootLowPrimeGoFullFaceDefectCarrier_eq_saturated_union_rootFloor R,
+    Finset.sum_union
+      (squareRootLowPrimeGoFullFaceDefectSaturated_disjoint_rootFloor R)]
+
+/-- **Exact deep signed pushforward.**  No incidence multiplicity survives: the
+deep full-face defect source is exactly the negative Mobius mass of one literal
+subcarrier of the saturated second-contact arithmetic population. -/
+theorem squareRootLowPrimeGoFullFaceDefectSaturatedSourceLedger_eq_neg_childMass
+    (R : ℕ) :
+    squareRootLowPrimeGoFullFaceDefectSaturatedSourceLedger R =
+      -∑ n ∈ squareRootLowPrimeGoFullFaceDefectSaturatedChildCarrier R,
+        canonicalMoebiusWeight n := by
+  unfold squareRootLowPrimeGoFullFaceDefectSaturatedSourceLedger
+    squareRootLowPrimeGoFullFaceDefectSaturatedChildCarrier
+  rw [Finset.sum_image
+    (squareRootLowPrimeGoFullFaceDefectArithmeticChild_injOn_saturated R),
+    Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro z hz
+  rcases z with ⟨⟨r, q⟩, d⟩
+  exact squareRootLowPrimeGoFullFaceDefectSource_weight_eq_neg_child
+    ((mem_squareRootLowPrimeGoFullFaceDefectSaturatedIncidences.mp hz).1)
+
+/-- #643/#645 combined with the multiplicity-free deep pushforward.  The old
+hard physical residual is deliberately retained rather than renamed as a
+boundary.  Therefore this is an exact diagnostic normal form: any completion of
+#646 must identify that old-residual summand with the complementary saturated
+11/`q^2` assembly, or else the architecture has reached the old wall. -/
+theorem oldResidual_add_fullFaceDefect_eq_oldResidual_sub_deepChild_add_rootFloor
+    {R : ℕ} (hR : 6 ≤ R) :
+    lowWheelFrozenTopFarPhysicalResidualLedger R +
+        ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ) =
+      lowWheelFrozenTopFarPhysicalResidualLedger R -
+          (∑ n ∈ squareRootLowPrimeGoFullFaceDefectSaturatedChildCarrier R,
+            canonicalMoebiusWeight n) +
+        squareRootLowPrimeGoFullFaceDefectRootFloorSourceLedger R := by
+  rw [← squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_mass,
+    squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_saturated_add_rootFloor,
+    squareRootLowPrimeGoFullFaceDefectSaturatedSourceLedger_eq_neg_childMass]
+  ring
 
 end RHLean.Proof
