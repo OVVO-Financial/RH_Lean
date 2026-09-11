@@ -249,4 +249,47 @@ theorem physicalQ2DaughterCellIncrement_eq (q k : ℕ) :
         moebiusPositivePrefix (4 * k / (q * q)) := by
   rfl
 
+/-! ## Exact compensation on a complete least-owner source packet -/
+
+/-- Current-q response summed on the literal complete owner carrier. -/
+def exceptionalCompleteOwnerResponsePacket
+    (P : Finset ℕ) (R q : ℕ) : ℤ :=
+  ∑ k ∈ exceptionalCompleteOwnerCells P R q,
+    physicalEulerResponseCellIncrement q k
+
+/-- First-power response mate on the same carrier. -/
+def exceptionalCompleteOwnerMatePacket
+    (P : Finset ℕ) (R q : ℕ) : ℤ :=
+  ∑ k ∈ exceptionalCompleteOwnerCells P R q,
+    physicalEulerMateCellIncrement q k
+
+/-- Literal coefficient-level q-square daughter on the complete owner carrier. -/
+def exceptionalCompleteOwnerQ2DaughterPacket
+    (P : Finset ℕ) (R q : ℕ) : ℤ :=
+  ∑ k ∈ exceptionalCompleteOwnerCells P R q,
+    physicalQ2DaughterCellIncrement q k
+
+/-- **Packet-level physical q-square compensation.**  On the actual complete
+least-owner carrier, the true Mobius source packet minus its current-q response
+and first-power mate is exactly the sum of the genuine coefficient-level
+q-square daughters.  This is finite reindex-free algebra: no scalar frozen cube
+is substituted for an unsummed field and no estimate is used. -/
+theorem exceptionalCompleteOwnerSourcePacket_sub_response_sub_mate_eq_q2Daughter
+    (P : Finset ℕ) (R q : ℕ) :
+    exceptionalCompleteOwnerSourcePacket P R q -
+        exceptionalCompleteOwnerResponsePacket P R q -
+        exceptionalCompleteOwnerMatePacket P R q =
+      exceptionalCompleteOwnerQ2DaughterPacket P R q := by
+  unfold exceptionalCompleteOwnerSourcePacket
+    exceptionalCompleteOwnerResponsePacket exceptionalCompleteOwnerMatePacket
+    exceptionalCompleteOwnerQ2DaughterPacket
+  rw [← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro k hk
+  have hsource : threeSlotDegreeOneValue (threeSlotState k) = fourSlotCellSum k := by
+    simp [threeSlotDegreeOneValue_threeSlotState, fourSlotCellSum,
+      moebius_four_mul_add_four]
+  rw [hsource]
+  exact fourSlotCellSum_sub_response_sub_mate_eq_q2Daughter q k
+
 end RHLean.Proof
