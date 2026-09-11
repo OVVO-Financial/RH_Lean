@@ -225,6 +225,57 @@ theorem squareRootRecoveredMatchedTransport_eq_lowerMertens_sub_canonicalDefect
     R (by omega),
     squarePrefixMertens_eq_mertens_sub_canonicalDefect R hR]
 
+/-- Exact sign-correct comparison with the q²-era hard residual.  After the
+canonical frozen reduction, the recovered endpoint plus `FrozenTopFarResidual`
+contains only the four pre-existing root-scale terms. -/
+theorem squareRootRecoveredMatchedTransport_add_frozenTopFar_eq_rootTerms
+    (R : ℕ) (hR : 56 ≤ R) :
+    (squareRootMatchedBornSmoothTransport R -
+        squareRootPositiveSmoothPrimeMertensTransform R) +
+      lowWheelFrozenTopFarResidual R =
+        mertensSummatory R -
+          lowWheelCanonicalDowncrossUniqueParentLedger R -
+          squareRootNearPrimeTransport R + squareRootERuniq R := by
+  rw [squareRootRecoveredMatchedTransport_eq_lowerMertens_sub_canonicalDefect
+      R (by omega),
+    lowWheelCanonicalDefectLedger_eq_frozenTopFarResidual_add_rootTerms R hR]
+  ring
+
+/-- Quantitative version of the exact comparison: the corrected recovered
+endpoint is the negative frozen/top/far residual up to at most `10R`.  The
+constant is `1 + 1 + 7 + 1`, from lower-root Mertens, unique-parent, near-prime,
+and unique-external root-scale terms respectively. -/
+theorem norm_squareRootRecoveredMatchedTransport_add_frozenTopFar_le_ten_root
+    (R : ℕ) (hR : 56 ≤ R) :
+    ‖(squareRootMatchedBornSmoothTransport R -
+        squareRootPositiveSmoothPrimeMertensTransform R) +
+      lowWheelFrozenTopFarResidual R‖ ≤ 10 * (R : ℝ) := by
+  rw [squareRootRecoveredMatchedTransport_add_frozenTopFar_eq_rootTerms R hR]
+  have hMstep := norm_mertensSummatory_sub_le 0 R (Nat.zero_le R)
+  have hM : ‖mertensSummatory R‖ ≤ (R : ℝ) := by
+    simpa using hMstep
+  have hU := norm_lowWheelCanonicalDowncrossUniqueParentLedger_le_root R
+  have hN := norm_squareRootNearPrimeTransport_le R hR
+  have hE := norm_squareRootERuniq_le_root R
+  calc
+    ‖mertensSummatory R - lowWheelCanonicalDowncrossUniqueParentLedger R -
+        squareRootNearPrimeTransport R + squareRootERuniq R‖ ≤
+      ‖mertensSummatory R - lowWheelCanonicalDowncrossUniqueParentLedger R -
+          squareRootNearPrimeTransport R‖ + ‖squareRootERuniq R‖ :=
+        norm_add_le _ _
+    _ ≤ (‖mertensSummatory R - lowWheelCanonicalDowncrossUniqueParentLedger R‖ +
+          ‖squareRootNearPrimeTransport R‖) + ‖squareRootERuniq R‖ := by
+        gcongr
+        exact norm_sub_le _ _
+    _ ≤ ((‖mertensSummatory R‖ +
+            ‖lowWheelCanonicalDowncrossUniqueParentLedger R‖) +
+          ‖squareRootNearPrimeTransport R‖) + ‖squareRootERuniq R‖ := by
+        gcongr
+        exact norm_sub_le _ _
+    _ ≤ (((R : ℝ) + (R : ℝ)) + 7 * (R : ℝ)) + (R : ℝ) := by
+        gcongr
+    _ = 10 * (R : ℝ) := by ring
+
 /-- The frozen/top/far `R^(1+eps)` target already present in the repository
 supplies the corrected recovered bound.  This routes through the canonical
 oriented seam and never estimates the ancestral transform separately. -/
