@@ -476,4 +476,173 @@ theorem stableFar_empty_or_accounted_or_wall (R : ℕ) :
       rcases hne with ⟨z, hz⟩
       exact ⟨z, (Finset.mem_filter.mp hz).1, hz, (Finset.mem_filter.mp hz).2⟩
 
+/-! ## The explicit witness selects outcome 6c -/
+
+private theorem combined_nonprime_mul {a b : ℕ}
+    (ha : 1 < a) (hb : 1 < b) : ¬ (a * b).Prime := by
+  intro hp
+  rcases hp.eq_one_or_self_of_dvd a ⟨b, rfl⟩ with h | h
+  · omega
+  · nlinarith
+
+private theorem combinedGoSource_highProduct_not_prime
+    {R r q d : ℕ}
+    (hz : ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
+    ¬ (lowWheelTaggedHighProduct
+      (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d))).Prime := by
+  rw [squareRootLowPrimeGoFullFaceDefectSource_highProduct_eq_child hz]
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _hcube, hd⟩
+  have hfull :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  have hchild :=
+    squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth hq hr hrq hfull
+  exact combined_nonprime_mul hq.one_lt (lt_trans hq.one_lt hchild.2)
+
+/-- A far prime escapes all six high-product images in the actual wall
+filter.  Seeds, product-one partners, both Go root-floor classes, and the
+RoughPrefix square residual have composite high products; the near image is
+strictly below the far cutoff.  This argument preserves the prime itself. -/
+theorem farPrime_not_mem_combinedAccountedHighProducts
+    {R q : ℕ} (hR : 2 ≤ R) (hq : q.Prime) (hfar : R + 8 ≤ q) :
+    q ∉ combinedAccountedHighProducts R := by
+  intro hmem
+  simp only [combinedAccountedHighProducts, Finset.mem_union] at hmem
+  rcases hmem with ((((hs | hp) | hu) | ht) | hn) | hr
+  · rcases Finset.mem_image.mp hs with ⟨s, hs, hsq⟩
+    have hseed := mem_lowWheelFrozenSecondContactCanonicalSeeds_iff.mp hs
+    have hprime : (sourcePrime s).Prime := hseed.1.1
+    have hcore : 1 < sourceCore s := by
+      have hroot := (le_max_left R
+        (squareRootEndpoint R / (sourcePrime s * sourcePrime s))).trans_lt
+          hseed.2.2.1
+      omega
+    apply combined_nonprime_mul hprime.one_lt hcore
+    simpa only [sourceProduct] using (hsq.symm ▸ hq)
+  · rcases Finset.mem_image.mp hp with ⟨z, hz, hzq⟩
+    rcases Finset.mem_biUnion.mp hz with ⟨A, hA, hzA⟩
+    rcases Finset.mem_image.mp hzA with ⟨y, hy, rfl⟩
+    have hyF := (Finset.mem_filter.mp hy).1
+    have hyA := (Finset.mem_filter.mp hy).2
+    have hc := (lowWheelCanonicalRepeatedFrozenCofactor_source_data hyF).2.2.2.2.1
+    have hAr := lowWheelFrozenSourceScale_root_lt hA
+    have hprod : lowWheelTaggedHighProduct
+        (lowWheelCanonicalRepeatedFrozenProductOneMate y) = y.2.1 * A := by
+      simp only [lowWheelTaggedHighProduct,
+        lowWheelCanonicalRepeatedFrozenProductOneMate, Nat.mul_one]
+      rw [lowWheelCanonicalRepeatedFrozenProductOneFace_product hyF, ← hyA]
+      simp only [lowWheelFrozenSecondContactSourceScale, Nat.mul_assoc]
+    apply combined_nonprime_mul hc (by omega : 1 < A)
+    rw [← hprod, hzq]
+    exact hq
+  · rcases Finset.mem_image.mp hu with ⟨⟨⟨r, p⟩, d⟩, hz, hzq⟩
+    have hzFull := (mem_squareRootLowPrimeGoFullFaceDefectRootFloorIncidences.mp
+      (Finset.mem_filter.mp hz).1).1
+    exact combinedGoSource_highProduct_not_prime hzFull (hzq.symm ▸ hq)
+  · rcases Finset.mem_image.mp ht with ⟨⟨⟨r, p⟩, d⟩, hz, hzq⟩
+    have hzFull := (mem_squareRootLowPrimeGoFullFaceDefectRootFloorIncidences.mp
+      (Finset.mem_filter.mp hz).1).1
+    exact combinedGoSource_highProduct_not_prime hzFull (hzq.symm ▸ hq)
+  · rcases Finset.mem_image.mp hn with ⟨z, hz, hzq⟩
+    have hnear := (Finset.mem_filter.mp hz).2
+    omega
+  · rcases Finset.mem_biUnion.mp hr with ⟨A, hA, hc⟩
+    rcases Finset.mem_image.mp hc with ⟨c, hc, hcq⟩
+    have hcPrefix := (Finset.mem_filter.mp hc).1
+    have hcI := (Finset.mem_filter.mp hcPrefix).1
+    have hcTwo := (Finset.mem_Icc.mp hcI).1
+    have hAr := lowWheelFrozenSourceScale_root_lt hA
+    apply combined_nonprime_mul (by omega : 1 < A) (by omega : 1 < c)
+    exact hcq.symm ▸ hq
+
+/-- The minimal legal cofactor is `1`.  Every far prime below the endpoint
+gives this literal wall state; no change of source coordinates is involved. -/
+theorem prime_unit_mem_stableFarWallCarrier
+    {R q : ℕ} (hR : 2 ≤ R) (hq : q.Prime)
+    (hfar : R + 8 ≤ q) (hqX : q ≤ squareRootEndpoint R) :
+    ((∅ : Finset ℕ), (1, q)) ∈ stableFarWallCarrier R := by
+  apply Finset.mem_filter.mpr
+  constructor
+  · exact lowWheelFarTaggedPhysicalStable_of_prime hR
+      (Finset.mem_Ico.mpr ⟨by omega, by omega⟩) (by simp)
+      hq hfar hqX (by simpa using hqX)
+  · simpa [lowWheelTaggedHighProduct, primeFaceProduct] using
+      farPrime_not_mem_combinedAccountedHighProducts hR hq hfar
+
+/-- **Outcome 6c is inhabited for every `R ≥ 56`.**  Bertrand supplies one
+prime `R + 7 < q ≤ 2 * (R + 7) ≤ X_R`; its empty-face, unit-cofactor state is
+the witness.  Infinitely many primes alone would not give the needed upper
+cutoff, so the finite Bertrand bound is retained explicitly. -/
+theorem exists_mem_stableFarWallCarrier
+    {R : ℕ} (hR : 56 ≤ R) :
+    stableFarWallCarrier R ≠ ∅ := by
+  obtain ⟨q, hq, hqLo, hqHi⟩ :=
+    Nat.exists_prime_lt_and_le_two_mul (R + 7) (by omega)
+  have hqX : q ≤ squareRootEndpoint R := by
+    have hmul : 56 * R ≤ R * R := Nat.mul_le_mul_right R hR
+    have hsq : 2 * (R + 7) + 1 ≤ R ^ 2 := by nlinarith
+    unfold squareRootEndpoint
+    omega
+  exact Finset.nonempty_iff_ne_empty.mp ⟨((∅ : Finset ℕ), (1, q)),
+    prime_unit_mem_stableFarWallCarrier (by omega) hq (by omega) hqX⟩
+
+private theorem stableFar_highProduct_geometry
+    {R : ℕ} {z : LowWheelFullTaggedPhysicalState}
+    (hz : z ∈ lowWheelFarTaggedPhysicalStableCarrier R) :
+    2 ≤ R ∧ R + 8 ≤ lowWheelTaggedHighProduct z ∧
+      (lowWheelTaggedHighProduct z).Prime := by
+  have hfull := (mem_lowWheelFarTaggedPhysicalCarrier.mp
+    (mem_lowWheelFarTaggedPhysicalStableCarrier.mp hz).1).1
+  have hc := Finset.mem_Ico.mp (mem_lowWheelCanonicalPhysicalStateSet.mp
+    (mem_lowWheelFullTaggedPhysicalCarrier.mp hfull).2).1
+  have hR : 2 ≤ R := by omega
+  have hgeom := lowWheelFarTaggedPhysicalStable_geometry hR hz
+  exact ⟨hR, by simpa [lowWheelTaggedHighProduct, hgeom.1, primeFaceProduct]
+    using hgeom.2.2.1, by
+      simpa [lowWheelTaggedHighProduct, hgeom.1, primeFaceProduct] using hgeom.2.1⟩
+
+/-- Exact membership in the existing filter, with its far-prime geometry
+made explicit.  `lowWheelTaggedHighProduct` omits the low cofactor and equals
+the prime quotient on stable states; dividing it by that cofactor would be
+incorrect.  All six original exclusions, including the square-residual image,
+remain in `combinedAccountedHighProducts`. -/
+theorem mem_stableFarWallCarrier_iff_unaccountedFarPrime
+    {R : ℕ} {z : LowWheelFullTaggedPhysicalState} :
+    z ∈ stableFarWallCarrier R ↔
+      z ∈ lowWheelFarTaggedPhysicalStableCarrier R ∧
+      R + 8 ≤ lowWheelTaggedHighProduct z ∧
+      (lowWheelTaggedHighProduct z).Prime ∧
+      lowWheelTaggedHighProduct z ∉ combinedAccountedHighProducts R := by
+  constructor
+  · intro hz
+    have h := Finset.mem_filter.mp hz
+    have hg := stableFar_highProduct_geometry h.1
+    exact ⟨h.1, hg.2.1, hg.2.2, h.2⟩
+  · rintro ⟨hz, _hfar, _hprime, hnot⟩
+    exact Finset.mem_filter.mpr ⟨hz, hnot⟩
+
+/-- In fact every stable-far state is on the wall: the accounted high-product
+images contain no far prime.  This strengthens the single explicit witness
+without identifying the far owner with any below-root source prime. -/
+theorem stableFarWallCarrier_eq_stableCarrier (R : ℕ) :
+    stableFarWallCarrier R = lowWheelFarTaggedPhysicalStableCarrier R := by
+  ext z
+  constructor
+  · intro hz
+    exact (Finset.mem_filter.mp hz).1
+  · intro hz
+    have hg := stableFar_highProduct_geometry hz
+    exact Finset.mem_filter.mpr ⟨hz,
+      farPrime_not_mem_combinedAccountedHighProducts hg.1 hg.2.2 hg.2.1⟩
+
+/-- Outcome 6b accounts for no stable state under the actual high-product
+filter.  Nonemptiness above rules out both 6a and 6b for `R ≥ 56`. -/
+theorem stableFarAccountedCarrier_eq_empty (R : ℕ) :
+    stableFarAccountedCarrier R = ∅ := by
+  apply Finset.eq_empty_iff_forall_notMem.mpr
+  intro z hz
+  have h := Finset.mem_filter.mp hz
+  have hg := stableFar_highProduct_geometry h.1
+  exact farPrime_not_mem_combinedAccountedHighProducts hg.1 hg.2.2 hg.2.1 h.2
+
 end RHLean.Proof
