@@ -107,7 +107,7 @@ theorem physicalLeastOddSquarePrime_exists_of_squareHit
       have hnone := (physicalLeastOddSquarePrime_eq_none_iff k).mp howner
       exact (hnone ⟨q, hqhit⟩).elim
   | some r =>
-      exact ⟨r, howner⟩
+      exact ⟨r, rfl⟩
 
 /-- If a cell is hit by `q^2`, its least owner is an odd prime no larger than
 `q`.  This is the generic version of the special `5 -> {3,5}` and
@@ -194,7 +194,8 @@ theorem physicalSquareHit_sum_eq_sum_oddPrimeOwners
     have hr :=
       physicalLeastOwner_mem_oddPrimeOwnersUpTo_of_squareHit hdata.2 howner
     change (physicalLeastOddSquarePrime k).getD 0 ∈ physicalOddPrimeOwnersUpTo q
-    simpa [howner] using hr
+    rw [howner]
+    exact hr
   have hfiber := Finset.sum_fiberwise_of_maps_to
     (s := S) (t := physicalOddPrimeOwnersUpTo q) (g := owner) hmaps f
   have hraw :
@@ -260,9 +261,9 @@ theorem sum_physicalReassembledQ2Daughters_eq_sum_mertens
   apply Finset.sum_congr rfl
   intro q hqmem
   have hqPrime := (mem_primesUpTo.mp (Finset.mem_erase.mp hqmem).2).1
-  have hqNe2 := (Finset.mem_erase.mp hqmem).1
   have hq3 : 3 ≤ q := by
     have hq2 := hqPrime.two_le
+    have hqNe2 := (Finset.mem_erase.mp hqmem).1
     omega
   exact physicalReassembledQ2Daughter_eq_mertens hqPrime hq3
 
@@ -278,9 +279,9 @@ theorem sum_physicalReassembledQ2DaughterEnergy_eq_sum_mertensEnergy
   apply Finset.sum_congr rfl
   intro q hqmem
   have hqPrime := (mem_primesUpTo.mp (Finset.mem_erase.mp hqmem).2).1
-  have hqNe2 := (Finset.mem_erase.mp hqmem).1
   have hq3 : 3 ≤ q := by
     have hq2 := hqPrime.two_le
+    have hqNe2 := (Finset.mem_erase.mp hqmem).1
     omega
   exact physicalReassembledQ2Daughter_sq_eq_mertensEnergy hqPrime hq3
 
