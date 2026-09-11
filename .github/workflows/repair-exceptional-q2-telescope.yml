@@ -1,0 +1,143 @@
+name: Repair exceptional q2 telescope
+
+on:
+  push:
+    branches: [agent/exceptional-q2-exact-telescope]
+    paths:
+      - .github/workflows/repair-exceptional-q2-telescope.yml
+      - RHLean/Proof/ExceptionalContactFrameEnergyNoGo.lean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repair-exceptional-q2-telescope-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Apply local Lean API repairs
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('RHLean/Proof/ExceptionalContactFrameEnergyNoGo.lean')
+          s = p.read_text()
+
+          old = '''  have hhi_le : hi ≤ lo + 1 := by
+    dsimp [lo, hi]
+    rw [show 4 * (k + 1) = 4 * k + 4 by omega]
+    calc
+      (4 * k + 4) / Q ≤ 4 * k / Q + 4 / Q + 1 :=
+        Nat.add_div_le_div_add_div_add_one _ _ _
+      _ = 4 * k / Q + 1 := by
+        rw [Nat.div_eq_of_lt hQgt4]
+        omega
+'''
+          new = '''  have hhi_le : hi ≤ lo + 1 := by
+    have hxlt : 4 * k < Q * (lo + 1) := by
+      have hdiv : 4 * k / Q < lo + 1 := by
+        dsimp [lo]
+        omega
+      exact (Nat.div_lt_iff_lt_mul hQpos).1 hdiv
+    have hsumlt : 4 * (k + 1) < Q * (lo + 2) := by
+      calc
+        4 * (k + 1) = 4 * k + 4 := by omega
+        _ < Q * (lo + 1) + Q := Nat.add_lt_add hxlt hQgt4
+        _ = Q * (lo + 2) := by ring
+    have hdivHi : hi < lo + 2 := by
+      dsimp [hi]
+      exact (Nat.div_lt_iff_lt_mul hQpos).2 hsumlt
+    omega
+'''
+          if old not in s:
+              raise SystemExit('hhi_le block not found')
+          s = s.replace(old, new, 1)
+
+          old = '''  rw [hstep, moebiusPositivePrefix_succ_sub_self] at hD'
+  have hsf : Squarefree hi :=
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hD'
+'''
+          new = '''  rw [hstep, moebiusPositivePrefix_succ_sub_self] at hD'
+  have hsfStep : Squarefree (lo + 1) :=
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hD'
+  have hsf : Squarefree hi := by
+    rw [hstep]
+    exact hsfStep
+'''
+          if old not in s:
+              raise SystemExit('squarefree block not found')
+          s = s.replace(old, new, 1)
+
+          old = '''  refine ⟨hi, ?_⟩
+  rw [← hsum]
+  dsimp [Q]
+  ring
+'''
+          new = '''  refine ⟨hi, ?_⟩
+  calc
+    4 * k + a = hi * Q := hsum
+    _ = q * q * hi := by
+      dsimp [Q]
+      ring
+'''
+          if old not in s:
+              raise SystemExit('final witness block not found')
+          s = s.replace(old, new, 1)
+
+          p.write_text(s)
+          PY
+
+      - name: Restore Mathlib packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Set up Lean and Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Apply StrongPNT compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+
+      - name: Restore StrongPNT build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+
+      - name: Compile repaired telescope
+        run: lake build RHLean.Proof.ExceptionalContactFrameEnergyNoGo
+
+      - name: Commit compiled repair and remove helper workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add RHLean/Proof/ExceptionalContactFrameEnergyNoGo.lean
+          git rm .github/workflows/repair-exceptional-q2-telescope.yml
+          git commit -m "Repair exact q2 telescope support proof"
+          git push
