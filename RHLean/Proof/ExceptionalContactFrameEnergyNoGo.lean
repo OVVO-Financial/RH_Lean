@@ -60,6 +60,8 @@ taken, never squared first.
 
 open scoped BigOperators ArithmeticFunction.Moebius
 
+noncomputable section
+
 namespace RHLean.Proof
 
 open RHLean.Analysis
@@ -355,8 +357,13 @@ theorem fiveHitCarrier_sum_reassemble
     (∑ k ∈ S, f k) =
       (∑ k ∈ physicalCellsOwnedBy S 5, f k) +
         ∑ k ∈ physicalCellsOwnedBy S 3, f k := by
-  rw [fiveHitCarrier_eq_ownerPartition S h5,
-    Finset.sum_union (physicalCellsOwnedBy_disjoint_of_ne S (by norm_num : 5 ≠ 3))]
+  have hpart := fiveHitCarrier_eq_ownerPartition S h5
+  have hsum :
+      (∑ k ∈ S, f k) =
+        ∑ k ∈ physicalCellsOwnedBy S 5 ∪ physicalCellsOwnedBy S 3, f k :=
+    congrArg (fun T : Finset ℕ => ∑ k ∈ T, f k) hpart
+  exact hsum.trans
+    (Finset.sum_union (physicalCellsOwnedBy_disjoint_of_ne S (by norm_num : 5 ≠ 3)))
 
 /-- Owner-7 Buchstab partition: every `7^2` contact is owned by 7, 3, or 5. -/
 theorem sevenHitCarrier_eq_ownerPartition
@@ -394,8 +401,22 @@ theorem sevenHitCarrier_sum_reassemble
     exact ⟨
       physicalCellsOwnedBy_disjoint_of_ne S (by norm_num : 7 ≠ 5),
       physicalCellsOwnedBy_disjoint_of_ne S (by norm_num : 3 ≠ 5)⟩
-  rw [sevenHitCarrier_eq_ownerPartition S h7,
-    Finset.sum_union hUnion5, Finset.sum_union h73]
+  have hpart := sevenHitCarrier_eq_ownerPartition S h7
+  have hsum :
+      (∑ k ∈ S, f k) =
+        ∑ k ∈ (physicalCellsOwnedBy S 7 ∪ physicalCellsOwnedBy S 3) ∪
+          physicalCellsOwnedBy S 5, f k :=
+    congrArg (fun T : Finset ℕ => ∑ k ∈ T, f k) hpart
+  calc
+    (∑ k ∈ S, f k) =
+        ∑ k ∈ (physicalCellsOwnedBy S 7 ∪ physicalCellsOwnedBy S 3) ∪
+          physicalCellsOwnedBy S 5, f k := hsum
+    _ = (∑ k ∈ physicalCellsOwnedBy S 7 ∪ physicalCellsOwnedBy S 3, f k) +
+          ∑ k ∈ physicalCellsOwnedBy S 5, f k := Finset.sum_union hUnion5
+    _ = ((∑ k ∈ physicalCellsOwnedBy S 7, f k) +
+          ∑ k ∈ physicalCellsOwnedBy S 3, f k) +
+          ∑ k ∈ physicalCellsOwnedBy S 5, f k := by
+      rw [Finset.sum_union h73]
 
 /-- The six physical `5^2` contact cells in period `L`. -/
 def q5FullContactPeriodCells (L : ℕ) : Finset ℕ :=
@@ -435,7 +456,7 @@ theorem q5_fullContactPeriodCells_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
   rw [Finset.sum_image]
   · exact q5_fullContactPeriod_q2Daughter_eq_lowerFourSlotCell L
   · intro a _ha b _hb hab
-    omega
+    exact Nat.add_left_cancel hab
 
 /-- Reindex the existing owner-7 full-contact unit descent onto physical cells. -/
 theorem q7_fullContactPeriodCells_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
@@ -445,7 +466,7 @@ theorem q7_fullContactPeriodCells_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
   rw [Finset.sum_image]
   · exact q7_fullContactPeriod_q2Daughter_eq_lowerFourSlotCell L
   · intro a _ha b _hb hab
-    omega
+    exact Nat.add_left_cancel hab
 
 /-- The `5^2` full daughter is restored exactly by adding owner-3 overlap cells. -/
 theorem q5_completePeriod_q2Daughter_reassembled_by_owner (L : ℕ) :
