@@ -27,9 +27,10 @@ new = '''  have hhi_le : hi ≤ lo + 1 := by
         _ = Q * (lo + 2) := by ring
     have hdivHi : hi < lo + 2 := by
       dsimp [hi]
-      have h := (Nat.div_lt_iff_lt_mul hQpos).2 (by
-        simpa [Nat.mul_comm] using hsumlt)
-      exact h
+      have hsumlt' : 4 * (k + 1) < (lo + 2) * Q := by
+        rw [Nat.mul_comm (lo + 2) Q]
+        exact hsumlt
+      exact (Nat.div_lt_iff_lt_mul hQpos).2 hsumlt'
     omega
 '''
 if old not in s:
