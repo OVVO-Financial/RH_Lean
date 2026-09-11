@@ -138,6 +138,24 @@ theorem q2GoRecoveredCompatibilityDefect_three_eq_mertens
   rw [squareRootLowPrimeGoWallSquareResidual_three_eq_zero hcut]
   ring
 
+/-- **Prime-three stress test.**  Once `Y=X/9` is at least two, the entire full
+Mertens daughter is the negative high-prime transport above the predecessor
+cutoff `2`.  Thus a correct q=3 LOCAL-BLOCK must carry this whole transport
+inside its compensation; the square-contact Go residual itself contributes
+zero. -/
+theorem q2HighOwnerColumn_three_eq_neg_mertens
+    {X : ℕ} (hcut : 2 ≤ X / (3 * 3)) :
+    (∑ p ∈ frozenPrimeUniverseHighPrimeSet 2 (X / (3 * 3)),
+        frozenPrimeUniverseMass (primesUpTo (p - 1))
+          ((X / (3 * 3)) / p)) =
+      -mertensSummatoryInt (X / (3 * 3)) := by
+  have hcompat :=
+    q2GoRecoveredCompatibilityDefect_eq_neg_highOwnerColumn
+      (q := 3) (X := X) hcut
+  have hmertens := q2GoRecoveredCompatibilityDefect_three_eq_mertens hcut
+  rw [hmertens] at hcompat
+  linarith
+
 /-- Concrete certificate at the first square stage where this distinction is
 visible: at `X = 35 = 6^2-1`, the literal q=3 Go daughter is zero while the full
 Mertens daughter at cutoff 3 is `-1`. -/
