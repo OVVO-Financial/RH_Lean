@@ -132,4 +132,72 @@ theorem outsidePrimeLeastComplete_no_generic_owner_of_blocker
     (outsidePrimeLeastSuperPeriod_ge_blocker hP hq hq11 hqP)
   exact hk
 
+/-- For an odd prime, a physical six-offset `q^2` hit is exactly failure of the
+selected `q^2` zero-free predicate.  The two compressed middle coordinates use
+that `q^2` is coprime to `2`. -/
+theorem physicalSquarePrimeAtEdge_iff_not_tSquareZeroFreeAt
+    {k q : ℕ} (hq : q.Prime) (hq2 : q ≠ 2) :
+    physicalSquarePrimeAtEdge k q ↔ ¬ tSquareZeroFreeAt q k := by
+  have hcop4 : Nat.Coprime (q ^ 2) 4 := by
+    simpa using
+      (Nat.coprime_pow_primes (p := q) (q := 2) 2 2
+        hq Nat.prime_two hq2)
+  have hcop2 : Nat.Coprime (q ^ 2) 2 :=
+    hcop4.coprime_dvd_right (by norm_num : 2 ∣ 4)
+  constructor
+  · rintro ⟨_hq, a, ha, hdiv⟩ hzero
+    simp [physicalTransitionActiveOffsets] at ha
+    rcases ha with rfl | rfl | rfl | rfl | rfl | rfl
+    · exact (hzero (0 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
+    · have hdiv' : q ^ 2 ∣ 2 * (2 * k + 1) := by
+        simpa [pow_two] using hdiv
+      have hsmall : q ^ 2 ∣ 2 * k + 1 :=
+        hcop2.dvd_of_dvd_mul_left hdiv'
+      exact (hzero (1 : Fin 6)) (by simpa [tTransitionForm] using hsmall)
+    · exact (hzero (2 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
+    · exact (hzero (3 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
+    · have hdiv' : q ^ 2 ∣ 2 * (2 * k + 3) := by
+        simpa [pow_two] using hdiv
+      have hsmall : q ^ 2 ∣ 2 * k + 3 :=
+        hcop2.dvd_of_dvd_mul_left hdiv'
+      exact (hzero (4 : Fin 6)) (by simpa [tTransitionForm] using hsmall)
+    · exact (hzero (5 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
+  · intro hnot
+    push_neg at hnot
+    rcases hnot with ⟨i, hi⟩
+    fin_cases i
+    · exact ⟨hq, 1, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
+    · refine ⟨hq, 2, by simp [physicalTransitionActiveOffsets], ?_⟩
+      have : q ^ 2 ∣ 2 * (2 * k + 1) := dvd_mul_of_dvd_right hi 2
+      simpa [tTransitionForm, pow_two] using this
+    · exact ⟨hq, 3, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
+    · exact ⟨hq, 5, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
+    · refine ⟨hq, 6, by simp [physicalTransitionActiveOffsets], ?_⟩
+      have : q ^ 2 ∣ 2 * (2 * k + 3) := dvd_mul_of_dvd_right hi 2
+      simpa [tTransitionForm, pow_two] using this
+    · exact ⟨hq, 7, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
+
+/-- A prime already selected into the zero-free CRT wheel cannot simultaneously
+be the least outside-square owner of a deletion cell. -/
+theorem outsidePrimeLeastDeletionChannel_no_selected_owner
+    {P O : Finset ℕ} {q k : ℕ}
+    (hP : IsSelectedGenericBlockerWheel P)
+    (hqP : q ∈ P)
+    (hk : k ∈ outsidePrimeLeastDeletionChannelCells P O q) : False := by
+  have hq := (hP q hqP).1
+  have hq2 : q ≠ 2 := by
+    have hq11 := (hP q hqP).2
+    omega
+  have hkDel := (Finset.mem_filter.mp hk).1
+  have hselected := (mem_outsidePrimeDeletionCells_iff.mp hkDel).2.1 q hqP
+  have hownerGet := (Finset.mem_filter.mp hk).2
+  have hne := outsidePrimeDeletion_leastSquare_ne_none hkDel
+  cases hleast : physicalLeastOddSquarePrime k with
+  | none => exact (hne hleast).elim
+  | some r =>
+      have hrq : r = q := by simpa [hleast] using hownerGet
+      subst r
+      have hhit := physicalLeastOddSquarePrime_some_spec hleast
+      exact (physicalSquarePrimeAtEdge_iff_not_tSquareZeroFreeAt hq hq2).mp hhit hselected
+
 end RHLean.Analysis
