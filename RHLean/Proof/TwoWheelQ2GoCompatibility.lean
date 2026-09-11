@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Analysis.TwoWheelQ2Compensation
 import RHLean.Proof.SquareRootLowPrimeGoRecursiveDescent
+import RHLean.Proof.PrimeWheelProperSubwheelDepthTwo
 
 /-!
 # Go / recovered q-square compatibility
@@ -14,8 +15,14 @@ There are two regimes.
 * If `X/q^2 < q`, the predecessor cube is already complete at the daughter
   cutoff and the Go daughter is ordinary Mertens exactly.
 * If `q <= X/q^2`, the difference from ordinary Mertens is an explicit Mertens
-  increment plus the already-compiled smaller-owner Go strips.  Nothing may be
-  discarded or renamed as endpoint error.
+  increment plus the already-compiled smaller-owner Go strips.  Equivalently,
+  and more usefully for the two-wheel bookkeeping, it is exactly the negative
+  high-prime transport column above `q-1` at the daughter scale.
+
+Thus the compatibility term predicted at the boundary between the CRT blocker
+wheel and the full recovery wheel is not a new probabilistic or analytic error:
+it is the existing signed high-transport coordinate.  It must stay attached to
+the local block before a norm is taken.
 
 This is finite exact bookkeeping; no estimate is introduced.
 -/
@@ -48,8 +55,7 @@ theorem q2GoRecoveredCompatibilityDefect_eq_zero_of_complete
 /-- **Unfinished daughter compatibility formula.**  When the daughter cutoff
 has not yet fallen below `q`, the exact obstruction to replacing the literal Go
 daughter by full Mertens is a Mertens increment plus the smaller-owner frozen
-strips.  This is the two-wheel boundary term which a LOCAL-BLOCK theorem must
-carry or cancel. -/
+strips.  Nothing is discarded or renamed as endpoint error. -/
 theorem q2GoRecoveredCompatibilityDefect_eq_increment_add_smallerOwnerStrips
     {q X : ℕ} (hq : q.Prime) (hunfinished : q ≤ X / (q * q)) :
     q2GoRecoveredCompatibilityDefect q X =
@@ -62,6 +68,47 @@ theorem q2GoRecoveredCompatibilityDefect_eq_increment_add_smallerOwnerStrips
   rw [squareRootLowPrimeGoWallSquareResidual_eq_mertensPred_sub_smallerOwnerStrips
     hq hunfinished]
   ring
+
+/-- **The predicted two-wheel compatibility term is exactly high transport.**
+At daughter scale `Y=X/q^2`, the proper-subwheel identity stopped at `q-1`
+says
+
+`M(Y) = F_{q^-}(Y) - highTransport_{q..Y}(Y)`.
+
+Since the literal Go square residual is precisely `F_{q^-}(Y)`, their difference
+is the negative high-prime column.  This is the daughter-scale `S = A - T`
+identity in the exact coordinates already present in the repository. -/
+theorem q2GoRecoveredCompatibilityDefect_eq_neg_highOwnerColumn
+    {q X : ℕ} (hcut : q - 1 ≤ X / (q * q)) :
+    q2GoRecoveredCompatibilityDefect q X =
+      -∑ p ∈ frozenPrimeUniverseHighPrimeSet (q - 1) (X / (q * q)),
+        frozenPrimeUniverseMass (primesUpTo (p - 1))
+          ((X / (q * q)) / p) := by
+  let Y := X / (q * q)
+  have hproper :=
+    mertensSummatoryInt_eq_properSubwheel_sub_highOwnerColumn Y (q - 1) hcut
+  unfold q2GoRecoveredCompatibilityDefect
+  rw [squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
+  change
+    mertensSummatoryInt Y -
+        frozenPrimeUniverseMass (primesUpTo (q - 1)) Y = _
+  rw [hproper]
+  ring
+
+/-- Rearranged local form: a literal Go daughter becomes the full recovered
+Mertens daughter only after its high-prime transport is retained with the same
+sign.  This is the exact compatibility lemma needed by LOCAL-BLOCK. -/
+theorem mertensDaughter_eq_goDaughter_sub_highOwnerColumn
+    {q X : ℕ} (hcut : q - 1 ≤ X / (q * q)) :
+    mertensSummatoryInt (X / (q * q)) =
+      squareRootLowPrimeGoWallSquareResidual q X -
+        ∑ p ∈ frozenPrimeUniverseHighPrimeSet (q - 1) (X / (q * q)),
+          frozenPrimeUniverseMass (primesUpTo (p - 1))
+            ((X / (q * q)) / p) := by
+  have h := q2GoRecoveredCompatibilityDefect_eq_neg_highOwnerColumn
+    (q := q) (X := X) hcut
+  unfold q2GoRecoveredCompatibilityDefect at h
+  linarith
 
 /-- For owner 3 the predecessor cube is already a complete nonempty Boolean
 cube as soon as the q-square daughter cutoff is at least 2, hence the literal
