@@ -59,11 +59,13 @@ theorem sum_seventeenZeroFreeCoordinateMultiplierZMod (i : Fin 6) :
 
 @[simp] theorem onePrimeWalshFactor_thirteen_one :
     onePrimeWalshFactor 13 1 = (139 : ℚ) / 163 := by
-  norm_num [onePrimeWalshFactor]
+  norm_num [onePrimeWalshFactor, onePrimeNoFlipProb, onePrimeSingleFlipProb,
+    onePrimeNoFlipWeight, onePrimeSingleFlipWeight, onePrimeZeroFreeWeight]
 
 @[simp] theorem onePrimeWalshFactor_seventeen_one :
     onePrimeWalshFactor 17 1 = (251 : ℚ) / 283 := by
-  norm_num [onePrimeWalshFactor]
+  norm_num [onePrimeWalshFactor, onePrimeNoFlipProb, onePrimeSingleFlipProb,
+    onePrimeNoFlipWeight, onePrimeSingleFlipWeight, onePrimeZeroFreeWeight]
 
 /-- **Deterministic complete-fibre prime-13 first moment.**  Any complementary
 field on a modulus coprime to `13^2` is multiplied by exactly `139/163`. -/
