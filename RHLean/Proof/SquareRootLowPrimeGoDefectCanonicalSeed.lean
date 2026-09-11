@@ -41,22 +41,19 @@ theorem squareRootLowPrimeGoFullFaceDefectSaturated_exists_canonicalSeed
   have hroot :=
     (mem_squareRootLowPrimeGoFullFaceDefectSaturatedIncidences.mp hz).2
   rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hzFull with
-    ⟨_hrR, hqR, _hdR, hr, hq, hrq, _hcube, hd⟩
+    ⟨_hrR, hqR, _hdR, hr, hq, hrq, hcube, hd⟩
   have hfull :=
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
   have hphysical :=
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).2
   have hfirst :=
-    squareRootLowPrimeGoFullBirthBoundary_firstContact_le
-      hq hrq
-      (mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hzFull).2.2.2.2.2.2.1
-      hfull
+    squareRootLowPrimeGoFullBirthBoundary_firstContact_le hq hrq hcube hfull
   rcases squareRootLowPrimeGoFullFaceDefect_generationOne_eq_neg_childWeight hzFull with
     ⟨child, hcq, hcc, hsmooth, hgen⟩
   have hdeep : squareRootEndpoint R / (q * q) < r * d := by
-    apply (Nat.div_lt_iff_lt_mul hr.pos).1
+    have h := (Nat.div_lt_iff_lt_mul hr.pos).1 hphysical
     simpa [Nat.div_div_eq_div_mul, Nat.mul_assoc, Nat.mul_comm,
-      Nat.mul_left_comm] using hphysical
+      Nat.mul_left_comm] using h
   have hupper : r * d ≤ squareRootEndpoint R / q := by
     apply (Nat.le_div_iff_mul_le hq.pos).2
     simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hfirst
@@ -80,12 +77,14 @@ theorem squareRootLowPrimeGoFullFaceDefectRootFloor_no_matching_canonicalSeed
       child ∈ lowWheelFrozenSecondContactCanonicalSeeds R ∧
       sourcePrime child = q ∧ sourceCore child = r * d := by
   intro hex
-  rcases hex with ⟨child, hseed, hcq, hcc⟩
+  rcases hex with ⟨child, hseed, _hcq, hcc⟩
   have hroot :=
     (mem_squareRootLowPrimeGoFullFaceDefectRootFloorIncidences.mp hz).2
   have hdata := mem_lowWheelFrozenSecondContactCanonicalSeeds_iff.mp hseed
   have hgt : R < sourceCore child :=
-    lt_of_lt_of_le (lt_max_left _ _ ) hdata.2.2.1
+    lt_of_le_of_lt (le_max_left R
+      (squareRootEndpoint R /
+        (sourcePrime child * sourcePrime child))) hdata.2.2.1
   rw [hcc] at hgt
   omega
 
