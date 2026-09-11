@@ -44,8 +44,8 @@ theorem jointDaughter_energy_identity (u v w : V) :
       2 * jointDaughterCrossOwnerEnergy u v w := by
   rw [norm_add_sq (𝕜 := ℝ), norm_add_sq (𝕜 := ℝ)]
   simp only [inner_add_left]
-  change (‖u‖ ^ 2 + ‖v‖ ^ 2 + 2 * inner ℝ u v) + ‖w‖ ^ 2 +
-    2 * (inner ℝ u w + inner ℝ v w) = _
+  change ‖u‖ ^ 2 + 2 * inner ℝ u v + ‖v‖ ^ 2 +
+    2 * (inner ℝ u w + inner ℝ v w) + ‖w‖ ^ 2 = _
   unfold jointDaughterDiagonalEnergy jointDaughterCrossOwnerEnergy
   ring
 
@@ -70,6 +70,7 @@ theorem jointDaughter_bound_iff_error_absorbs_diagonal_of_cross_zero
   rw [jointDaughter_bound_iff_crossOwner_bound, hcross]
   constructor <;> intro h <;> nlinarith
 
+omit [InnerProductSpace ℝ V] in
 /-- The universal synthesis bound is applied only to intact signed daughters.
 It supplies no physical source-to-daughter comparison. -/
 theorem jointDaughter_norm_sq_le_three (u v w : V) :
@@ -82,6 +83,7 @@ theorem jointDaughter_norm_sq_le_three (u v w : V) :
   nlinarith [sq_nonneg (‖u‖ - ‖v‖), sq_nonneg (‖u‖ - ‖w‖),
     sq_nonneg (‖v‖ - ‖w‖)]
 
+omit [InnerProductSpace ℝ V] in
 /-- An additive incidence map of the literal scalar frozen daughter is zero
 after predecessor-cube completion. No unsummed field identity is asserted. -/
 theorem exceptionalScalarIncidence_frozen_eq_zero
@@ -90,6 +92,7 @@ theorem exceptionalScalarIncidence_frozen_eq_zero
     A (squareRootLowPrimeGoWallSquareResidual q X) = 0 := by
   rw [exceptionalGoDaughter_eq_zero hq hX, map_zero]
 
+omit [InnerProductSpace ℝ V] in
 /-- The signed scalar incidence lift is entirely transported high mass in
 this regime, regardless of the particular additive incidence map. -/
 theorem exceptionalScalarIncidence_joint_eq_neg_transport
