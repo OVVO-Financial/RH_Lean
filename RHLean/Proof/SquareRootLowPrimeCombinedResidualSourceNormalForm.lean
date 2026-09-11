@@ -23,6 +23,7 @@ namespace RHLean.Proof
 open RHLean.Arithmetic RHLean.Analysis
 open FrozenCofactorTopBottom
 open CanonicalGapAncestryBridge
+open CanonicalGapAncestryEnergyBridge
 
 attribute [local instance] Classical.propDecidable
 
