@@ -28,7 +28,7 @@ namespace RHLean.Analysis
 owner of edge `k` iff it actually hits one active form and every smaller prime
 fails to hit every active form. The criterion contains no prefix parameter. -/
 theorem physicalLeastOddSquarePrime_eq_some_iff_local
-    {k q : ℕ} (hq : q.Prime) :
+    {k q : ℕ} (_hq : q.Prime) :
     physicalLeastOddSquarePrime k = some q ↔
       physicalSquarePrimeAtEdge k q ∧
         ∀ p : ℕ, p.Prime → p < q → ¬ physicalSquarePrimeAtEdge k p := by
