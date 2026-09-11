@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Analysis.PartialMomentSchurTarget
 import RHLean.Analysis.PhysicalDegreeOneTransitionEstimate
+import RHLean.Analysis.PhysicalSquareCRTPeriodNoGo
 
 /-!
 # Physical T-row partial moments and Schur target invariance
@@ -162,5 +163,98 @@ theorem physicalTRowTargetDegreeOneFirstMoment_eq_zeroTarget_sub
   have htwo := h0 (2 : Fin 3)
   simp at hzero hone htwo
   linarith
+
+/-! ## Finite q^2 affine-contact incidence frame
+
+This section deliberately proves only the finite tag geometry.  It does not
+identify the tag-dependent affine pullback field with the recovered Mobius
+daughter.  That reconstruction is the separate arithmetic seam exposed by the
+q=3 no-go result.
+-/
+
+/-- The four residue labels seen by the six affine offsets modulo four. -/
+abbrev Q2AffineResidue := Fin 4
+
+/-- Residue label attached to one of the six physical contact offsets. -/
+def q2AffineContactResidue (a : ℕ) : Q2AffineResidue :=
+  ⟨a % 4, Nat.mod_lt _ (by norm_num)⟩
+
+/-- Incidence pullback of a four-coordinate test field by one affine tag. -/
+def q2AffineTagPullback (a : ℕ) (x : Q2AffineResidue → ℚ) : ℚ :=
+  x (q2AffineContactResidue a)
+
+/-- Energy after all six affine tags read the finite incidence field. -/
+def q2AffineTagEnergy (x : Q2AffineResidue → ℚ) : ℚ :=
+  ∑ a ∈ physicalTransitionActiveOffsets, (q2AffineTagPullback a x) ^ 2
+
+/-- Ambient energy on the four residue labels. -/
+def q2AffineResidueEnergy (x : Q2AffineResidue → ℚ) : ℚ :=
+  ∑ r : Q2AffineResidue, (x r) ^ 2
+
+/-- Finite incidence Gram of the six affine tags. -/
+def q2AffineGram : Matrix Q2AffineResidue Q2AffineResidue ℚ := fun r s =>
+  ∑ a ∈ physicalTransitionActiveOffsets,
+    (if q2AffineContactResidue a = r then (1 : ℚ) else 0) *
+      (if q2AffineContactResidue a = s then (1 : ℚ) else 0)
+
+/-- The six offsets occupy exactly the three nonzero residue labels. -/
+theorem physicalTransitionActiveOffsets_contactResidues :
+    physicalTransitionActiveOffsets.image q2AffineContactResidue =
+      ({(1 : Q2AffineResidue), (2 : Q2AffineResidue), (3 : Q2AffineResidue)} :
+        Finset Q2AffineResidue) := by
+  native_decide
+
+/-- Every finite residue label is represented by at most two of the six tags. -/
+theorem physicalTransitionActiveOffsets_residueFiber_card_le_two
+    (r : Q2AffineResidue) :
+    (physicalTransitionActiveOffsets.filter fun a =>
+      q2AffineContactResidue a = r).card ≤ 2 := by
+  fin_cases r <;> native_decide
+
+/-- Explicit finite Gram: zero residue is absent and each nonzero residue occurs twice. -/
+theorem q2AffineGram_entries (r s : Q2AffineResidue) :
+    q2AffineGram r s =
+      if r = s then (if r = (0 : Q2AffineResidue) then 0 else 2) else 0 := by
+  fin_cases r <;> fin_cases s <;> native_decide
+
+/-- The six-tag incidence energy is exactly twice the energy on residues 1,2,3. -/
+theorem q2AffineTagEnergy_eq
+    (x : Q2AffineResidue → ℚ) :
+    q2AffineTagEnergy x =
+      2 * ((x (1 : Q2AffineResidue)) ^ 2 +
+        (x (2 : Q2AffineResidue)) ^ 2 +
+        (x (3 : Q2AffineResidue)) ^ 2) := by
+  simp [q2AffineTagEnergy, q2AffineTagPullback,
+    q2AffineContactResidue, physicalTransitionActiveOffsets]
+  ring
+
+/-- The ambient four-residue energy is the sum of four coordinate squares. -/
+theorem q2AffineResidueEnergy_eq
+    (x : Q2AffineResidue → ℚ) :
+    q2AffineResidueEnergy x =
+      (x (0 : Q2AffineResidue)) ^ 2 +
+      (x (1 : Q2AffineResidue)) ^ 2 +
+      (x (2 : Q2AffineResidue)) ^ 2 +
+      (x (3 : Q2AffineResidue)) ^ 2 := by
+  simp [q2AffineResidueEnergy, Fin.sum_univ_succ]
+  ring
+
+/-- The pure six-tag incidence Gram has squared operator norm at most two. -/
+theorem q2AffineTagEnergy_le_two_residueEnergy
+    (x : Q2AffineResidue → ℚ) :
+    q2AffineTagEnergy x ≤ 2 * q2AffineResidueEnergy x := by
+  rw [q2AffineTagEnergy_eq, q2AffineResidueEnergy_eq]
+  nlinarith [sq_nonneg (x (0 : Q2AffineResidue))]
+
+/-- In particular the finite incidence geometry lies below the factor four
+accepted by the odd-owner energy induction. -/
+theorem q2AffineTagEnergy_le_four_residueEnergy
+    (x : Q2AffineResidue → ℚ) :
+    q2AffineTagEnergy x ≤ 4 * q2AffineResidueEnergy x := by
+  have h2 := q2AffineTagEnergy_le_two_residueEnergy x
+  have hE : 0 ≤ q2AffineResidueEnergy x := by
+    unfold q2AffineResidueEnergy
+    positivity
+  nlinarith
 
 end RHLean.Analysis
