@@ -24,6 +24,7 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 open CanonicalGapAncestryBridge
+open CanonicalGapAncestryEnergyBridge
 
 attribute [local instance] Classical.propDecidable
 
