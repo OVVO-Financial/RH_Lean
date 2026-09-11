@@ -77,9 +77,9 @@ theorem elevenSelectedDegreeOne_ne_physical_on_actual_retained_cell :
 complete aligned residue period `[0,121)`. -/
 def elevenCompleteActualRetainedSelectedMass : ℤ :=
   ∑ k ∈ outsidePrimeActualRetainedCells (Finset.range 121),
-    selectedPrimeSign ({11} : Finset ℕ) (tActiveForm (0 : Fin 3) k) -
+    (selectedPrimeSign ({11} : Finset ℕ) (tActiveForm (0 : Fin 3) k) -
       selectedPrimeSign ({11} : Finset ℕ) (tActiveForm (1 : Fin 3) k) +
-        selectedPrimeSign ({11} : Finset ℕ) (tActiveForm (2 : Fin 3) k)
+        selectedPrimeSign ({11} : Finset ℕ) (tActiveForm (2 : Fin 3) k))
 
 /-- True Möbius degree-one mass on exactly the same retained cells. -/
 def elevenCompleteActualRetainedMobiusMass : ℤ :=
