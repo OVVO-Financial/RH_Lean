@@ -292,6 +292,5 @@ theorem squareRootNearPrimeTransport_logSq_div_RSq_tendsto_zero :
           gcongr
       _ = 7 * ((Real.log (R : ℝ)) ^ 2 / (R : ℝ)) := by
         field_simp [hRpos.ne']
-        ring
 
 end RHLean.Proof
