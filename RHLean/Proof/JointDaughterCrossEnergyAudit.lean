@@ -242,6 +242,55 @@ theorem physicalQ2DaughterCellIncrement_eq (q k : ℕ) :
         moebiusPositivePrefix (4 * k / (q * q)) := by
   rfl
 
+/-- **Signed q² daughter dictionary.**  The coefficient-level daughter on one
+physical cell is exactly the increment of the intact predecessor/high-transport
+state of any prime owner `p`, evaluated at the two square-dilated endpoints.
+In particular, when a `q=5,7` contact is deleted by least-owner selection, taking
+`p` to be that earlier owner places the omitted child on an already compiled
+`F_{p^-}-T_{p^-}` signed carrier before any norm is formed. -/
+theorem physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
+    {p : ℕ} (hp : p.Prime) (q k : ℕ) :
+    physicalQ2DaughterCellIncrement q k =
+      exceptionalSignedPredecessorState p (4 * (k + 1) / (q * q)) -
+        exceptionalSignedPredecessorState p (4 * k / (q * q)) := by
+  rw [physicalQ2DaughterCellIncrement_eq,
+    exceptionalSignedPredecessorState_eq_mertens hp,
+    exceptionalSignedPredecessorState_eq_mertens hp,
+    mertensSummatoryInt_eq_Icc, mertensSummatoryInt_eq_Icc]
+  rfl
+
+/-- A deleted `5²` contact is simultaneously certified as owner `3` and as an
+exact incidence of the owner-3 intact signed predecessor state. -/
+theorem omittedFiveContact_q2Daughter_eq_ownerThreeSignedIncidence
+    {k : ℕ} (h5 : physicalSquarePrimeAtEdge k 5)
+    (hnot5 : physicalLeastOddSquarePrime k ≠ some 5) :
+    physicalLeastOddSquarePrime k = some 3 ∧
+      physicalQ2DaughterCellIncrement 5 k =
+        exceptionalSignedPredecessorState 3 (4 * (k + 1) / 25) -
+          exceptionalSignedPredecessorState 3 (4 * k / 25) := by
+  refine ⟨fiveContact_not_fiveOwner_implies_threeOwner h5 hnot5, ?_⟩
+  simpa using physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
+    (by norm_num : Nat.Prime 3) 5 k
+
+/-- A deleted `7²` contact has owner `3` or `5`; in either case its coefficient
+child is exactly an incidence of that earlier owner's intact signed predecessor
+state, with the same physical endpoints divided by `49`. -/
+theorem omittedSevenContact_q2Daughter_eq_earlierOwnerSignedIncidence
+    {k : ℕ} (h7 : physicalSquarePrimeAtEdge k 7)
+    (hnot7 : physicalLeastOddSquarePrime k ≠ some 7) :
+    ∃ p : ℕ, (p = 3 ∨ p = 5) ∧
+      physicalLeastOddSquarePrime k = some p ∧
+      physicalQ2DaughterCellIncrement 7 k =
+        exceptionalSignedPredecessorState p (4 * (k + 1) / 49) -
+          exceptionalSignedPredecessorState p (4 * k / 49) := by
+  rcases sevenContact_not_sevenOwner_implies_threeOrFiveOwner h7 hnot7 with h3 | h5
+  · refine ⟨3, Or.inl rfl, h3, ?_⟩
+    simpa using physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
+      (by norm_num : Nat.Prime 3) 7 k
+  · refine ⟨5, Or.inr rfl, h5, ?_⟩
+    simpa using physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
+      (by norm_num : Nat.Prime 5) 7 k
+
 /-! ## Exact compensation on a complete least-owner source packet -/
 
 /-- Current-q response summed on the literal complete owner carrier. -/
