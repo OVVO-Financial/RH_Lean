@@ -105,13 +105,25 @@ theorem squareRootLowPrimeGoFullFaceDefectSaturated_disjoint_rootFloor
     (mem_squareRootLowPrimeGoFullFaceDefectRootFloorIncidences.mp hroot).2
   omega
 
-/-- The source high product is exactly the independent arithmetic child. -/
+/-- On a live defect incidence the source high product is exactly the
+independent arithmetic child.  Squarefreeness of `r*d` is essential here; it is
+not a definitional equality for an arbitrary triple. -/
 theorem squareRootLowPrimeGoFullFaceDefectSource_highProduct_eq_child
-    {r q d : ℕ} :
+    {R r q d : ℕ}
+    (hz : ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
     lowWheelTaggedHighProduct
         (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)) =
       squareRootLowPrimeGoFullFaceDefectArithmeticChild ((r, q), d) := by
-  rfl
+  rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _hcube, hd⟩
+  have hfull :=
+    (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
+  have hchild :=
+    squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth hq hr hrq hfull
+  have hsqRD : Squarefree (r * d) := hchild.1.2.2.1
+  change primeFaceProduct (squarefreePrimeFace (r * d)) * q = q * (r * d)
+  rw [primeFaceProduct_squarefreePrimeFace hsqRD]
+  omega
 
 /-- The distinguished outer owner is the canonical largest prime of the
 arithmetic child. -/
@@ -165,9 +177,9 @@ theorem squareRootLowPrimeGoFullFaceDefectArithmeticChild_mem_saturatedCarrier
   unfold lowWheelFrozenSecondContactArithmeticChildCarrier
   apply Finset.mem_filter.mpr
   refine ⟨Finset.mem_Icc.mpr ⟨?_, ?_⟩, hsq, ?_, ?_, ?_⟩
-  · have htwo := hq.two_le
-    have hone : 1 <= r * d := hrd1
-    nlinarith
+  · have hqle : q ≤ q * (r * d) :=
+      Nat.le_mul_of_pos_right q (by omega)
+    exact hq.two_le.trans hqle
   · simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild] using hfirst
   · simpa [hlpf] using hqR
   · rw [hlpf]
@@ -220,25 +232,34 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_weight_eq_neg_child
   have hmu :=
     squareRootLowPrimeGoFullBirthBoundary_source_moebius_cancel
       hq hr hrq hfull
-  simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
-    squareRootLowPrimeGoFullFaceDefectArithmeticChild,
-    canonicalMoebiusWeight] using hsource.trans (by
-      exact_mod_cast hmu.symm)
+  have hmu' : (μ (q * d) : ℤ) = -(μ (q * (r * d)) : ℤ) := by
+    linarith
+  calc
+    lowWheelFullTaggedPhysicalWeight
+        (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)) =
+      canonicalMoebiusWeight (q * d) := by
+        simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using hsource
+    _ = -canonicalMoebiusWeight (q * (r * d)) := by
+      unfold canonicalMoebiusWeight
+      exact_mod_cast hmu'
+    _ = -canonicalMoebiusWeight
+        (squareRootLowPrimeGoFullFaceDefectArithmeticChild ((r, q), d)) := by
+      rfl
 
 /-- The full-face source is not literally one of the frozen nontrivial-cofactor
 second-contact source states: its low cofactor is `1`.  This records the
 coordinate change that the arithmetic-child map above performs. -/
 theorem squareRootLowPrimeGoFullFaceDefectSource_not_literal_frozenSource
     {R r q d : ℕ}
-    (hz : ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
+    (_hz : ((r, q), d) ∈ squareRootLowPrimeGoFullFaceDefectCarrier R) :
     squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d) ∉
       lowWheelCanonicalRepeatedFrozenSecondContactPart R := by
   intro hmem
   have hfrozen := (Finset.mem_filter.mp hmem).1
   have hdata := lowWheelCanonicalRepeatedFrozenCofactor_source_data hfrozen
   have hcgt := hdata.2.2.2.2.1
-  simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
-    squareRootLowPrimeGoSecondBoundaryFullFaceSource] using hcgt
+  change 1 < (1 : ℕ) at hcgt
+  omega
 
 /-- Nor is the full-face source literally a RoughPrefix historical fixed
 transport mate: every such mate has cofactor/quotient state `(1,1)`, while the
@@ -374,8 +395,8 @@ theorem squareRootLowPrimeGoFullFaceDefectSaturatedSourceLedger_eq_neg_childMass
   unfold squareRootLowPrimeGoFullFaceDefectSaturatedSourceLedger
     squareRootLowPrimeGoFullFaceDefectSaturatedChildCarrier
   rw [Finset.sum_image
-    (squareRootLowPrimeGoFullFaceDefectArithmeticChild_injOn_saturated R),
-    Finset.sum_neg_distrib]
+    (squareRootLowPrimeGoFullFaceDefectArithmeticChild_injOn_saturated R)]
+  rw [← Finset.sum_neg_distrib]
   apply Finset.sum_congr rfl
   intro z hz
   rcases z with ⟨⟨r, q⟩, d⟩
@@ -388,7 +409,7 @@ boundary.  Therefore this is an exact diagnostic normal form: any completion of
 #646 must identify that old-residual summand with the complementary saturated
 11/`q^2` assembly, or else the architecture has reached the old wall. -/
 theorem oldResidual_add_fullFaceDefect_eq_oldResidual_sub_deepChild_add_rootFloor
-    {R : ℕ} (hR : 6 ≤ R) :
+    {R : ℕ} (_hR : 6 ≤ R) :
     lowWheelFrozenTopFarPhysicalResidualLedger R +
         ((squareRootLowPrimeGoFullFaceDefectSourceMass R : ℤ) : ℂ) =
       lowWheelFrozenTopFarPhysicalResidualLedger R -
