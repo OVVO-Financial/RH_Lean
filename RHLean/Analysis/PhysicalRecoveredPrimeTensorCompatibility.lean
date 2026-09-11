@@ -30,6 +30,18 @@ noncomputable section
 
 namespace RHLean.Analysis
 
+/-- The exact remaining bridge after the square-owner blocker has been applied:
+a selected finite-prime degree-one observable must be transferred to the true
+Möbius degree-one observable on the actual all-prime retained population.  This
+is intentionally a proposition, not an assumption consumed by any theorem in
+this file.  The finite counterexamples below show that it cannot be discharged
+by pointwise equality or by the existing coprime tensor theorem alone. -/
+def SelectedPrimeMobiusParityTransfer (P O : Finset ℕ) : Prop :=
+  (∑ k ∈ outsidePrimeActualRetainedCells O,
+      selectedDegreeOneProjection P k) =
+    ∑ k ∈ outsidePrimeActualRetainedCells O,
+      ((threeSlotDegreeOneValue (threeSlotState k) : ℤ) : ℝ)
+
 /-- The first physical transition cell is genuinely all-prime zero-free: its
 six sites are `1,2,3,5,6,7`, all squarefree. -/
 theorem zero_is_actual_zeroFree_transition :
