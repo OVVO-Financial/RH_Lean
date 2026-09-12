@@ -771,6 +771,7 @@ import RHLean.Proof.StableFarPrimeWallTransport
 import RHLean.Proof.StableFarWallExactQ2Split
 import RHLean.Proof.StableFarWallLowCofactorQ2Descent
 import RHLean.Proof.StableFarWallQ2ChildFarSlice
+import RHLean.Proof.StableFarWallSignedReassembly
 import RHLean.Proof.SurvivorDyadicActivityMismatch
 import RHLean.Proof.SurvivorDyadicStaticCancellation
 import RHLean.Proof.SurvivorFarUpperRigidity
