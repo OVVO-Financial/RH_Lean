@@ -43,7 +43,9 @@ private theorem rawOddQ2Owner_card_le_root (R : ℕ) :
   have hsub : S ⊆ Finset.range R := by
     intro q hq
     have hq' : q ∈ primesUpTo (R - 1) := (Finset.mem_erase.mp hq).2
+    have hqPrime := (mem_primesUpTo.mp hq').1
     have hqle := (mem_primesUpTo.mp hq').2
+    have hq2 : 2 ≤ q := hqPrime.two_le
     exact Finset.mem_range.mpr (by omega)
   simpa [S] using Finset.card_le_card hsub
 
