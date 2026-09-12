@@ -1,6 +1,7 @@
 import RHLean.Proof.LowWheelFrozenSquareResidualTransportClosure
 import RHLean.Proof.LowWheelCanonicalFrozenReduction
 import RHLean.Proof.StableFarWallCrossingRenewal
+import RHLean.Proof.ExceptionalTransportCoboundary
 import RHLean.Analysis.PhysicalDaughterEnergyObstructions
 import RHLean.Analysis.SquareRootMatchedDegreeOneRecovery
 
@@ -148,6 +149,47 @@ Mertens daughter column. -/
 def squareEndpointQ2HighTransportDefect (R : ℕ) : ℤ :=
   squareEndpointQ2GoColumn R - squareEndpointQ2MertensColumn R
 
+/-- The prime coboundary identity in `ExceptionalTransportCoboundary` extends
+to every prime and every cutoff.  Below the owner the high-prime set is empty
+and the frozen predecessor is already the full Mertens prefix; above the owner
+this is the existing proper-subwheel telescope. -/
+theorem q2DaughterHighTransport_eq_go_sub_mertens_all
+    {q X : ℕ} (hq : q.Prime) :
+    q2DaughterHighTransport q X =
+      squareRootLowPrimeGoWallSquareResidual q X -
+        mertensSummatoryInt (X / (q * q)) := by
+  by_cases hcut : q - 1 ≤ X / (q * q)
+  · exact q2DaughterHighTransport_eq_go_sub_mertens hcut
+  · have hYq : X / (q * q) < q := by omega
+    have hempty :
+        frozenPrimeUniverseHighPrimeSet (q - 1) (X / (q * q)) = ∅ := by
+      apply Finset.eq_empty_iff_forall_notMem.mpr
+      intro p hp
+      have hdata := mem_frozenPrimeUniverseHighPrimeSet.mp hp
+      omega
+    unfold q2DaughterHighTransport
+    rw [hempty, Finset.sum_empty,
+      squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff,
+      frozenPrimeUniverseMass_eq_mertensSummatoryInt_of_lt_owner hq hYq]
+    ring
+
+/-- The algebraic transport defect is therefore literally the sum of the actual
+high-prime transport columns on the same owner schedule. -/
+def squareEndpointQ2HighTransportColumn (R : ℕ) : ℤ :=
+  ∑ q ∈ primesUpTo (R - 1),
+    q2DaughterHighTransport q (squareRootEndpoint R)
+
+theorem squareEndpointQ2HighTransportDefect_eq_actualColumn (R : ℕ) :
+    squareEndpointQ2HighTransportDefect R =
+      squareEndpointQ2HighTransportColumn R := by
+  unfold squareEndpointQ2HighTransportDefect squareEndpointQ2GoColumn
+    squareEndpointQ2MertensColumn squareEndpointQ2HighTransportColumn
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro q hq
+  exact (q2DaughterHighTransport_eq_go_sub_mertens_all
+    (mem_primesUpTo.mp hq).1).symm
+
 /-- Root-anchor compensation already present in the saturated source together
 with its actual historical matching fixed-transport population. -/
 def finalQ2RootReassemblyBoundary (R : ℕ) : ℂ :=
@@ -200,15 +242,16 @@ theorem lowWheelFrozenSecondContactSquareResidualMass_eq_rootReassembly_sub_goCo
           lowWheelFrozenSecondContactMatchingFixedTransportMass R -
           ((squareEndpointQ2GoColumn R : ℤ) : ℂ) := by ring
 
-/-- Inserting `Go = M + transportDefect` exposes the whole lower-scale Mertens
-column while the transport correction remains signed. -/
+/-- Inserting `Go = M + highTransport` exposes the whole lower-scale Mertens
+column while the actual transport correction remains signed. -/
 theorem lowWheelFrozenSecondContactSquareResidualMass_eq_neg_mertensColumn_add_rootTransport
     (R : ℕ) (hR : 2 ≤ R) :
     lowWheelFrozenSecondContactSquareResidualMass R =
       -(((squareEndpointQ2MertensColumn R : ℤ) : ℂ)) +
         (finalQ2RootReassemblyBoundary R -
-          ((squareEndpointQ2HighTransportDefect R : ℤ) : ℂ)) := by
+          ((squareEndpointQ2HighTransportColumn R : ℤ) : ℂ)) := by
   rw [lowWheelFrozenSecondContactSquareResidualMass_eq_rootReassembly_sub_goColumn R hR]
+  rw [← squareEndpointQ2HighTransportDefect_eq_actualColumn R]
   unfold squareEndpointQ2HighTransportDefect
   push_cast
   ring
@@ -234,10 +277,10 @@ def stableFarTerminalProductColumn (R : ℕ) : ℂ :=
 
 /-- Everything left after the whole q^2 Mertens daughter column is pulled out of
 the exact low/high comparison.  The child-far slice stays signed together with
-the high-transport defect. -/
+the literal high-prime transport column. -/
 def finalQ2SurvivorCorrection (R : ℕ) : ℂ :=
   finalQ2RootReassemblyBoundary R -
-      ((squareEndpointQ2HighTransportDefect R : ℤ) : ℂ) +
+      ((squareEndpointQ2HighTransportColumn R : ℤ) : ℂ) +
     squareEndpointQ2ChildFarSliceColumn R +
     stableFarRenewalColumn R +
     stableFarTerminalProductColumn R
