@@ -1,6 +1,8 @@
 import Mathlib
 import RHLean.Proof.SurvivorFarUpperRigidity
 import RHLean.Proof.SurvivorPrimeFaceFiniteDifference
+import RHLean.Proof.StableFarWallUnitRenewalCentering
+import RHLean.Proof.StableFarWallCrossingOwnerWindow
 
 /-!
 # Far survivor renewal is lower-scale Mertens
