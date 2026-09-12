@@ -540,6 +540,7 @@ import RHLean.Proof.LowWheelFrozenSecondContactDescent
 import RHLean.Proof.LowWheelFrozenSecondContactGlobalTelescope
 import RHLean.Proof.LowWheelFrozenSecondContactRoughPrefix
 import RHLean.Proof.LowWheelFrozenSecondContactScaleFlux
+import RHLean.Proof.LowWheelFrozenSquareResidualQ2Reindex
 import RHLean.Proof.LowWheelFrozenSecondContactWindowDescent
 import RHLean.Proof.LowWheelFrozenSecondContactWindowReassembly
 import RHLean.Proof.LowWheelFullFaceQuotientOthello
