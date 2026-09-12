@@ -1,5 +1,6 @@
 import RHLean.Proof.PhysicalQ2TerminalSynthesis
 import RHLean.Proof.PhysicalQ2FourFrameTerminalSynthesis
+import RHLean.Proof.SquareEndpointRawQ2Amplification
 
 /-!
 # Exceptional-owner terminal synthesis
