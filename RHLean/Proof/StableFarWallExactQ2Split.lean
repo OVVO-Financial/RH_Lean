@@ -26,6 +26,7 @@ noncomputable section
 namespace RHLean.Proof
 
 open RHLean.Arithmetic RHLean.Analysis
+open FrozenCofactorTopBottom
 
 attribute [local instance] Classical.propDecidable
 
@@ -124,15 +125,15 @@ explicit census.  This is the exact target for the final crossing compensation:
 the only nonrecursive terms are the unit face, crossing mass, internal-mate
 ledger, and frozen-top image ledger. -/
 theorem lowWheelFrozenTopFarResidual_eq_unit_sub_descended_sub_crossing_sub_owned
-    (R : ℕ) (hR : 2 ≤ R) :
+    (R : ℕ) (hR : 56 ≤ R) :
     lowWheelFrozenTopFarResidual R =
       lowWheelFarPrimeUnitFaceMass R -
         lowWheelFarPrimeQ2DescendedMass R -
         lowWheelFarPrimeQ2CrossingMass R -
         lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
         lowWheelFrozenCofactorTopImageLedger R := by
-  rw [lowWheelFrozenTopFarResidual_eq_farTransport_sub_internalMate_sub_topImage,
-    squareRootFarPrimeTransport_eq_unit_sub_descended_sub_crossing R hR]
+  rw [lowWheelFrozenTopFarResidual_eq_farTransport_sub_internalMate_sub_topImage R hR,
+    squareRootFarPrimeTransport_eq_unit_sub_descended_sub_crossing R (by omega)]
   ring
 
 end RHLean.Proof
