@@ -62,7 +62,7 @@ def lowWheelFrozenSquareResidualTriples
         (canonicalLargestPrimeFactor A) (squareRootEndpoint R / A) q := by
   simp [lowWheelFrozenSquareResidualTriples,
     lowWheelFrozenSquareResidualTriplesAtScale,
-    lowWheelFrozenSquareResidualTripleFiber, and_assoc]
+    lowWheelFrozenSquareResidualTripleFiber]
 
 private theorem lowWheelFrozenSquareResidualTripleFiber_pairwise
     (R A : ℕ) :
@@ -71,6 +71,9 @@ private theorem lowWheelFrozenSquareResidualTripleFiber_pairwise
         (canonicalLargestPrimeFactor A) (squareRootEndpoint R / A)))
       (fun q => lowWheelFrozenSquareResidualTripleFiber R A q) := by
   intro q _hq r _hr hqr
+  change Disjoint
+    (lowWheelFrozenSquareResidualTripleFiber R A q)
+    (lowWheelFrozenSquareResidualTripleFiber R A r)
   rw [Finset.disjoint_left]
   intro t htq htr
   rcases Finset.mem_image.mp htq with ⟨d, _hd, hdt⟩
@@ -95,6 +98,9 @@ private theorem lowWheelFrozenSquareResidualTriplesAtScale_pairwise
     Set.PairwiseDisjoint (↑(lowWheelFrozenSecondContactSourceScaleSet R))
       (fun A => lowWheelFrozenSquareResidualTriplesAtScale R A) := by
   intro A _hA B _hB hAB
+  change Disjoint
+    (lowWheelFrozenSquareResidualTriplesAtScale R A)
+    (lowWheelFrozenSquareResidualTriplesAtScale R B)
   rw [Finset.disjoint_left]
   intro t htA htB
   have hfstA := lowWheelFrozenSquareResidualTriplesAtScale_fst htA
