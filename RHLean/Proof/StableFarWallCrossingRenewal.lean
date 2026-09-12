@@ -191,7 +191,8 @@ theorem lowWheelFarPrimeDescendedProductMass_eq_neg_sum_childFarSlices
   have hprod := lowWheelFarPrimeQ2DescendedMass_eq_neg_productMass R
   have hchild := lowWheelFarPrimeQ2DescendedMass_eq_sum_childFarSlices R
   rw [hchild] at hprod
-  linear_combination -hprod
+  have hneg := congrArg Neg.neg hprod
+  simpa using hneg.symm
 
 /-- The four-term #672 boundary in renewal form: all strict crossing mass is now
 shown on the literal stable far wall, while the already-owned terminal product
