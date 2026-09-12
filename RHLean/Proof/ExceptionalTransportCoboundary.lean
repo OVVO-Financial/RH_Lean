@@ -1,6 +1,7 @@
 import RHLean.Proof.TwoWheelQ2GoCompatibility
 import RHLean.Proof.StableFarWallRenewalTerminalPrimeCount
 import RHLean.Proof.StableFarWallAdaptiveFourCornerBridge
+import RHLean.Proof.StableFarWallPostRootBoundaryTransposition
 
 /-!
 # Exceptional scalar daughters and the prime-insertion coboundary
