@@ -110,9 +110,10 @@ private theorem roundedQ2ChildRoot_lt_parent
   apply (Nat.sqrt_lt').2
   have hle : squareRootEndpoint R / (q * q) ≤ squareRootEndpoint R :=
     Nat.div_le_self _ _
+  have hsqPos : 0 < R ^ 2 := by positivity
   have hend : squareRootEndpoint R < R ^ 2 := by
     unfold squareRootEndpoint
-    omega
+    exact Nat.sub_lt hsqPos (by norm_num)
   exact hle.trans_lt hend
 
 private theorem lowerEnvelope_mono_root
@@ -146,17 +147,23 @@ theorem sum_roundedQ2ChildRoot_sq_le_seventeen_over_seventy_two
       (R - 1) (squareRootEndpoint R)
   change (∑ q ∈ S, (((squareRootEndpoint R) / (q * q) : ℕ) : ℚ)) ≤
       (17 / 72 : ℚ) * ((squareRootEndpoint R : ℕ) : ℚ) at hscale
-  have hend : ((squareRootEndpoint R : ℕ) : ℚ) ≤ (R : ℚ) ^ 2 := by
+  have hendNat : squareRootEndpoint R ≤ R ^ 2 := by
     unfold squareRootEndpoint
-    push_cast
-    nlinarith
+    exact Nat.sub_le _ _
+  have hend : ((squareRootEndpoint R : ℕ) : ℚ) ≤ (R : ℚ) ^ 2 := by
+    exact_mod_cast hendNat
   have hQ :
       (∑ q ∈ S, ((roundedQ2ChildRoot R q : ℕ) : ℚ) ^ 2) ≤
         (17 / 72 : ℚ) * (R : ℚ) ^ 2 := by
     have hcoef : (0 : ℚ) ≤ 17 / 72 := by norm_num
     exact hterm.trans (hscale.trans
       (mul_le_mul_of_nonneg_left hend hcoef))
-  exact_mod_cast hQ
+  have hQreal :
+      ((↑(∑ q ∈ S, ((roundedQ2ChildRoot R q : ℕ) : ℚ) ^ 2) : ℝ)) ≤
+        (↑((17 / 72 : ℚ) * (R : ℚ) ^ 2) : ℝ) := by
+    exact (Rat.cast_le (K := ℝ)).2 hQ
+  push_cast at hQreal
+  simpa [S] using hQreal
 
 /-- **Square-endpoint factor four closes at fixed amplification.**
 
@@ -269,7 +276,12 @@ theorem squareEndpointRoundedOddQ2EnergyStep_implies_endpointAmplification
   have hscale : 2 ≤ (R : ℝ) ^ 2 * K := by
     have hRreal : (2 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
     nlinarith [mul_le_mul_of_nonneg_left hK1 (sq_nonneg (R : ℝ))]
-  change (m - 1) ^ 2 ≤ (2 * A + 1) * (R : ℝ) ^ 2 * K
+  have hmshift :
+      (((mertensSummatoryInt (squareRootEndpoint R) - 1 : ℤ) : ℝ)) = m - 1 := by
+    dsimp [m]
+    push_cast
+    ring
+  rw [hmshift]
   calc
     (m - 1) ^ 2 ≤ 2 * m ^ 2 + 2 := hshift
     _ ≤ 2 * (A * (R : ℝ) ^ 2 * K) + 2 := by nlinarith
