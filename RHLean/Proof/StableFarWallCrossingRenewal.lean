@@ -387,4 +387,170 @@ theorem lowWheelFarPrimeQ2Crossing_returnedWeight_eq_neg_nextChildWeight
   push_cast
   ring
 
+/-! ## One-generation multiplicity reindex
+
+The preceding depth-one theorem allows every nonunit renewal occurrence to be
+reindexed onto an actual descended child state.  Repeated outer owners are not
+discarded: they become an explicit integer multiplicity on that child. -/
+
+/-- Strict crossing triples whose returned cofactor has another canonical owner. -/
+def lowWheelFarPrimeQ2NonUnitCrossingTriples (R : ℕ) :
+    Finset (ℕ × (ℕ × ℕ)) :=
+  (lowWheelFarPrimeQ2CrossingTriples R).filter fun t => 1 < t.2.1
+
+/-- The unique next-owner child reached from a nonunit crossing return. -/
+def lowWheelFarPrimeQ2CrossingNextChild
+    (t : ℕ × (ℕ × ℕ)) : ℕ × (ℕ × ℕ) :=
+  (canonicalLargestPrimeFactor t.2.1,
+    (canonicalCofactor t.2.1, t.2.2))
+
+/-- The next child of every nonunit crossing is a literal descended state. -/
+theorem lowWheelFarPrimeQ2CrossingNextChild_mem_descended
+    {R : ℕ} {t : ℕ × (ℕ × ℕ)}
+    (ht : t ∈ lowWheelFarPrimeQ2NonUnitCrossingTriples R) :
+    lowWheelFarPrimeQ2CrossingNextChild t ∈
+      lowWheelFarPrimeQ2DescendedTriples R := by
+  rcases t with ⟨q, ⟨d, p⟩⟩
+  rcases Finset.mem_filter.mp ht with ⟨hcross, hd⟩
+  simpa [lowWheelFarPrimeQ2CrossingNextChild] using
+    lowWheelFarPrimeQ2Crossing_returned_nonUnit_descends hcross hd
+
+/-- Number of outer crossing owners returning to one descended child state. -/
+def lowWheelFarPrimeQ2CrossingNextMultiplicity
+    (R : ℕ) (y : ℕ × (ℕ × ℕ)) : ℕ :=
+  ((lowWheelFarPrimeQ2NonUnitCrossingTriples R).filter fun t =>
+    lowWheelFarPrimeQ2CrossingNextChild t = y).card
+
+/-- Nonunit returned stable-wall mass, still indexed by every crossing occurrence. -/
+def lowWheelFarPrimeQ2NonUnitReturnedRenewalMass (R : ℕ) : ℂ :=
+  ∑ t ∈ lowWheelFarPrimeQ2NonUnitCrossingTriples R,
+    lowWheelFullTaggedPhysicalWeight ((∅ : Finset ℕ), (t.2.1, t.2.2))
+
+/-- The same occurrences read in their next-child cofactor coordinate. -/
+def lowWheelFarPrimeQ2NextChildIncidenceMass (R : ℕ) : ℂ :=
+  ∑ t ∈ lowWheelFarPrimeQ2NonUnitCrossingTriples R,
+    canonicalMoebiusWeight (canonicalCofactor t.2.1)
+
+/-- Pointwise sign reversal turns the nonunit renewal mass into the negative
+next-child incidence mass. -/
+theorem lowWheelFarPrimeQ2NonUnitReturnedRenewalMass_eq_neg_nextChildIncidence
+    (R : ℕ) :
+    lowWheelFarPrimeQ2NonUnitReturnedRenewalMass R =
+      -lowWheelFarPrimeQ2NextChildIncidenceMass R := by
+  unfold lowWheelFarPrimeQ2NonUnitReturnedRenewalMass
+    lowWheelFarPrimeQ2NextChildIncidenceMass
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro t ht
+  rcases t with ⟨q, ⟨d, p⟩⟩
+  rcases Finset.mem_filter.mp ht with ⟨hcross, hd⟩
+  simpa using
+    lowWheelFarPrimeQ2Crossing_returnedWeight_eq_neg_nextChildWeight hcross hd
+
+/-- **Finite Fubini onto the descended carrier.**  The only price of forgetting
+outer crossing owners is their exact multiplicity at each next child. -/
+theorem lowWheelFarPrimeQ2NextChildIncidenceMass_eq_multiplicity
+    (R : ℕ) :
+    lowWheelFarPrimeQ2NextChildIncidenceMass R =
+      ∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+        (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ) *
+          canonicalMoebiusWeight y.2.1 := by
+  have hmaps : ∀ t ∈ lowWheelFarPrimeQ2NonUnitCrossingTriples R,
+      lowWheelFarPrimeQ2CrossingNextChild t ∈
+        lowWheelFarPrimeQ2DescendedTriples R := by
+    intro t ht
+    exact lowWheelFarPrimeQ2CrossingNextChild_mem_descended ht
+  have hfiber := Finset.sum_fiberwise_of_maps_to
+    (s := lowWheelFarPrimeQ2NonUnitCrossingTriples R)
+    (t := lowWheelFarPrimeQ2DescendedTriples R)
+    (g := lowWheelFarPrimeQ2CrossingNextChild) hmaps
+    (fun t => canonicalMoebiusWeight (canonicalCofactor t.2.1))
+  have hraw :
+      (∑ t ∈ lowWheelFarPrimeQ2NonUnitCrossingTriples R,
+          canonicalMoebiusWeight (canonicalCofactor t.2.1)) =
+        ∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+          ∑ t ∈ lowWheelFarPrimeQ2NonUnitCrossingTriples R with
+              lowWheelFarPrimeQ2CrossingNextChild t = y,
+            canonicalMoebiusWeight (canonicalCofactor t.2.1) := hfiber.symm
+  unfold lowWheelFarPrimeQ2NextChildIncidenceMass
+  rw [hraw]
+  apply Finset.sum_congr rfl
+  intro y hy
+  calc
+    (∑ t ∈ lowWheelFarPrimeQ2NonUnitCrossingTriples R with
+        lowWheelFarPrimeQ2CrossingNextChild t = y,
+        canonicalMoebiusWeight (canonicalCofactor t.2.1)) =
+      ∑ _t ∈ (lowWheelFarPrimeQ2NonUnitCrossingTriples R).filter
+          (fun t => lowWheelFarPrimeQ2CrossingNextChild t = y),
+        canonicalMoebiusWeight y.2.1 := by
+          apply Finset.sum_congr rfl
+          intro t ht
+          have heq := (Finset.mem_filter.mp ht).2
+          have hc := congrArg (fun z : ℕ × (ℕ × ℕ) => z.2.1) heq
+          simpa [lowWheelFarPrimeQ2CrossingNextChild] using
+            congrArg canonicalMoebiusWeight hc
+    _ = (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ) *
+        canonicalMoebiusWeight y.2.1 := by
+          simp [lowWheelFarPrimeQ2CrossingNextMultiplicity]
+
+/-- The nonunit renewal is therefore an explicit negative multiplicity-weighted
+copy of the existing descended child carrier. -/
+theorem lowWheelFarPrimeQ2NonUnitReturnedRenewalMass_eq_neg_multiplicityChildMass
+    (R : ℕ) :
+    lowWheelFarPrimeQ2NonUnitReturnedRenewalMass R =
+      -∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+        (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ) *
+          canonicalMoebiusWeight y.2.1 := by
+  rw [lowWheelFarPrimeQ2NonUnitReturnedRenewalMass_eq_neg_nextChildIncidence,
+    lowWheelFarPrimeQ2NextChildIncidenceMass_eq_multiplicity]
+
+/-- **Centered one-generation incidence identity.**  Adding the genuine
+q-square descended child packet to all nonunit renewal returns leaves exactly
+the coefficient `1 - multiplicity` on each descended child.  No recursive
+renewal remains. -/
+theorem lowWheelFarPrimeQ2DescendedMass_add_nonUnitRenewal_eq_centeredMultiplicity
+    (R : ℕ) :
+    lowWheelFarPrimeQ2DescendedMass R +
+        lowWheelFarPrimeQ2NonUnitReturnedRenewalMass R =
+      ∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+        (1 - (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ)) *
+          canonicalMoebiusWeight y.2.1 := by
+  rw [lowWheelFarPrimeQ2NonUnitReturnedRenewalMass_eq_neg_multiplicityChildMass]
+  unfold lowWheelFarPrimeQ2DescendedMass
+  calc
+    (∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+        canonicalMoebiusWeight y.2.1) +
+        -(∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+          (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ) *
+            canonicalMoebiusWeight y.2.1) =
+      (∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+        canonicalMoebiusWeight y.2.1) -
+        ∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+          (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ) *
+            canonicalMoebiusWeight y.2.1 := by ring
+    _ = ∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+        (canonicalMoebiusWeight y.2.1 -
+          (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ) *
+            canonicalMoebiusWeight y.2.1) := by
+          rw [Finset.sum_sub_distrib]
+    _ = ∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+        (1 - (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ)) *
+          canonicalMoebiusWeight y.2.1 := by
+          apply Finset.sum_congr rfl
+          intro y hy
+          ring
+
+/-- Child-far-slice form of the same centered identity. -/
+theorem lowWheelFarPrimeChildFarSlices_add_nonUnitRenewal_eq_centeredMultiplicity
+    (R : ℕ) :
+    (∑ q ∈ primesUpTo (R - 1),
+        ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+          canonicalMoebiusWeight dp.1) +
+        lowWheelFarPrimeQ2NonUnitReturnedRenewalMass R =
+      ∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+        (1 - (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ)) *
+          canonicalMoebiusWeight y.2.1 := by
+  rw [← lowWheelFarPrimeQ2DescendedMass_eq_sum_childFarSlices R]
+  exact lowWheelFarPrimeQ2DescendedMass_add_nonUnitRenewal_eq_centeredMultiplicity R
+
 end RHLean.Proof
