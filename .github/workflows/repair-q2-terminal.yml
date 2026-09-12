@@ -1,0 +1,141 @@
+name: Repair q2 terminal synthesis
+
+on:
+  push:
+    branches:
+      - agent/q2-bookkeeping-synthesis
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/q2-bookkeeping-synthesis
+      - name: Apply terminal synthesis repairs
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('RHLean/Proof/PhysicalQ2TerminalSynthesis.lean')
+          s = p.read_text()
+
+          old = '''  have hb : b ^ 2 ≤ 9 := by
+    dsimp [b]
+    rw [mertensSummatoryInt_eq_moebiusPrefix_local,
+      mertensSummatoryInt_eq_moebiusPrefix_local]
+    push_cast
+    nlinarith
+'''
+          new = '''  have hb_lo : (-3 : ℚ) ≤ b := by
+    dsimp [b]
+    rw [mertensSummatoryInt_eq_moebiusPrefix_local,
+      mertensSummatoryInt_eq_moebiusPrefix_local]
+    exact hzloQ
+  have hb_hi : b ≤ (3 : ℚ) := by
+    dsimp [b]
+    rw [mertensSummatoryInt_eq_moebiusPrefix_local,
+      mertensSummatoryInt_eq_moebiusPrefix_local]
+    exact hzhiQ
+  have hb : b ^ 2 ≤ 9 := by
+    have hprod : 0 ≤ (3 - b) * (b + 3) :=
+      mul_nonneg (sub_nonneg.mpr hb_hi) (by linarith)
+    nlinarith
+'''
+          assert old in s
+          s = s.replace(old, new, 1)
+
+          old = '''  have hA : 0 ≤ A := by
+    dsimp [A]
+    positivity
+  have hfixed : C + 225 * lambda + ((5 : ℚ) / 16) * lambda * A ≤ A := by
+'''
+          new = '''  have hA : 0 ≤ A := by
+    dsimp [A]
+    nlinarith [hC, hlambda]
+  have hfixed : C + 225 * lambda + ((5 : ℚ) / 16) * lambda * A ≤ A := by
+'''
+          assert old in s
+          s = s.replace(old, new, 1)
+
+          old = '''      · subst K
+        simp [mertensEnergy, mertensSummatoryInt_eq_moebiusPrefix_local]
+'''
+          new = '''      · subst K
+        have hM0 : mertensSummatoryInt 0 = 0 := by
+          simp [mertensSummatoryInt]
+        simp [mertensEnergy, hM0]
+'''
+          assert old in s
+          s = s.replace(old, new, 1)
+
+          old = '''    _ = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by
+      push_cast
+      ring
+'''
+          new = '''    _ = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by
+      norm_num [pow_two]
+'''
+          assert old in s
+          s = s.replace(old, new, 1)
+
+          start = s.index('  have hscale :\n      (K : ℝ) ≤ Real.rpow')
+          end = s.index('  rw [← mertensSummatory_four_mul_eq_degreeOne]', start)
+          old = s[start:end]
+          new = '''  have hscale :
+      (K : ℝ) ≤ Real.rpow ((K + 1 : ℕ) : ℝ) (1 + ε) := by
+    have hbase : (1 : ℝ) ≤ (((K + 1 : ℕ) : ℝ)) := by
+      exact_mod_cast Nat.succ_le_succ (Nat.zero_le K)
+    have hmono :
+        (((K + 1 : ℕ) : ℝ)) ≤
+          Real.rpow ((K + 1 : ℕ) : ℝ) (1 + ε) := by
+      simpa only [Real.rpow_one] using
+        Real.rpow_le_rpow_of_exponent_le hbase
+          (by linarith : (1 : ℝ) ≤ 1 + ε)
+    have hKle : (K : ℝ) ≤ (((K + 1 : ℕ) : ℝ)) := by
+      exact_mod_cast Nat.le_succ K
+    exact hKle.trans hmono
+'''
+          s = s[:start] + new + s[end:]
+
+          old = '''  have hA : 0 ≤ A := by
+    dsimp [A]
+    positivity
+  have hlinear : ∀ K : ℕ, mertensEnergy (4 * K) ≤ A * (K : ℚ) := by
+'''
+          new = '''  have hA : 0 ≤ A := by
+    dsimp [A]
+    nlinarith [hC, elevenWeightOneEnergyFactor_nonneg]
+  have hlinear : ∀ K : ℕ, mertensEnergy (4 * K) ≤ A * (K : ℚ) := by
+'''
+          assert old in s
+          s = s.replace(old, new, 1)
+          p.write_text(s)
+
+          p = Path('RHLean/Proof/PhysicalQ2BookkeepingSynthesis.lean')
+          s = p.read_text()
+          old = '''    | some p =>
+        have hpr : p = r := by simpa [ho] using h
+        simpa [ho, hpr]
+'''
+          new = '''    | some p =>
+        simp [ho] at h
+        subst p
+        exact ho
+'''
+          assert old in s
+          p.write_text(s.replace(old, new, 1))
+          PY
+      - name: Commit repair
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add RHLean/Proof/PhysicalQ2TerminalSynthesis.lean RHLean/Proof/PhysicalQ2BookkeepingSynthesis.lean
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m 'Repair q2 terminal synthesis elaboration'
+          git push origin HEAD:agent/q2-bookkeeping-synthesis
