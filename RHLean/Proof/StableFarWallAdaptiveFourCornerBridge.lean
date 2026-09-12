@@ -104,4 +104,77 @@ theorem lowWheelFarPrimeQ2CrossingTriple_has_larger_extension
   · omega
   · simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hcut
 
+/-- **The actual lower-owner raw pair has zero evolved amplitude after the far
+prime is processed.**  This is stronger than killing only the mismatch term:
+both weighted endpoints of the `d -> d*q` pair vanish before the `q` step. -/
+theorem lowWheelFarPrimeLowCofactorTriple_weightedRawPair_eq_zero_at_farPrime
+    {R : ℕ} {t : ℕ × (ℕ × ℕ)}
+    (ht : t ∈ lowWheelFarPrimeLowCofactorTriples R)
+    (pre post : List ℕ)
+    (hprePrime : ∀ r ∈ pre, r.Prime)
+    (hpreLarger : ∀ r ∈ pre, t.2.2 < r) :
+    let a := squareRootCanonicalRoughAdaptiveRawCoefficient
+      (pre ++ t.2.2 :: post)
+      (Finset.Icc 1 (squareRootEndpoint R))
+      (fun _ => (1 : ℂ))
+    a t.2.1 * squareRootCanonicalRoughRawCorrelationSummand R t.2.1 +
+        a (t.2.1 * t.1) *
+          squareRootCanonicalRoughRawCorrelationSummand R (t.2.1 * t.1) = 0 := by
+  dsimp
+  have hzero :=
+    lowWheelFarPrimeLowCofactorTriple_rawCoefficient_pair_eq_zero_at_farPrime
+      ht pre post hprePrime hpreLarger
+  rw [hzero.1, hzero.2]
+  simp
+
+/-- **Pointwise annihilation of the entire adaptive raw correction at the lower
+owner.**  After the far-prime four-corner kill, neither the signed physical
+`Loss-Birth` boundary term nor the coefficient-mismatch term survives at `q`.
+Thus a stable-far state cannot contribute a new error when the lower owner is
+processed; its amplitude has already been transported to the earlier/larger
+prime layer. -/
+theorem lowWheelFarPrimeLowCofactorTriple_rawStepCorrection_eq_zero_at_farPrime
+    {R : ℕ} {t : ℕ × (ℕ × ℕ)}
+    (ht : t ∈ lowWheelFarPrimeLowCofactorTriples R)
+    (pre post : List ℕ)
+    (hprePrime : ∀ r ∈ pre, r.Prime)
+    (hpreLarger : ∀ r ∈ pre, t.2.2 < r) :
+    let a := squareRootCanonicalRoughAdaptiveRawCoefficient
+      (pre ++ t.2.2 :: post)
+      (Finset.Icc 1 (squareRootEndpoint R))
+      (fun _ => (1 : ℂ))
+    a t.2.1 * canonicalMoebiusWeight t.2.1 *
+        (((squareRootCanonicalRoughFreshLossBoundary R t.2.1 t.1).card : ℂ) -
+          ((squareRootCanonicalRoughFreshBirthBoundary R t.2.1 t.1).card : ℂ)) +
+      (a (t.2.1 * t.1) - a t.2.1) *
+        squareRootCanonicalRoughRawCorrelationSummand R (t.2.1 * t.1) = 0 := by
+  dsimp
+  have hzero :=
+    lowWheelFarPrimeLowCofactorTriple_rawCoefficient_pair_eq_zero_at_farPrime
+      ht pre post hprePrime hpreLarger
+  rw [hzero.1, hzero.2]
+  simp
+
+/-- In particular the strict q^2-crossing sector contributes **zero** to the
+later low-owner adaptive raw correction once its own far prime has occurred in
+the descending chronology.  No estimate of the crossing population is needed. -/
+theorem lowWheelFarPrimeQ2CrossingTriple_rawStepCorrection_eq_zero_at_farPrime
+    {R : ℕ} {t : ℕ × (ℕ × ℕ)}
+    (ht : t ∈ lowWheelFarPrimeQ2CrossingTriples R)
+    (pre post : List ℕ)
+    (hprePrime : ∀ r ∈ pre, r.Prime)
+    (hpreLarger : ∀ r ∈ pre, t.2.2 < r) :
+    let a := squareRootCanonicalRoughAdaptiveRawCoefficient
+      (pre ++ t.2.2 :: post)
+      (Finset.Icc 1 (squareRootEndpoint R))
+      (fun _ => (1 : ℂ))
+    a t.2.1 * canonicalMoebiusWeight t.2.1 *
+        (((squareRootCanonicalRoughFreshLossBoundary R t.2.1 t.1).card : ℂ) -
+          ((squareRootCanonicalRoughFreshBirthBoundary R t.2.1 t.1).card : ℂ)) +
+      (a (t.2.1 * t.1) - a t.2.1) *
+        squareRootCanonicalRoughRawCorrelationSummand R (t.2.1 * t.1) = 0 := by
+  exact
+    lowWheelFarPrimeLowCofactorTriple_rawStepCorrection_eq_zero_at_farPrime
+      (Finset.mem_filter.mp ht).1 pre post hprePrime hpreLarger
+
 end RHLean.Proof
