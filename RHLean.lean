@@ -769,6 +769,7 @@ import RHLean.Proof.SquareWheelSurvivorOwnerResidual
 import RHLean.Proof.SquareWheelSurvivorProcessedResponseBridge
 import RHLean.Proof.SquareWheelSurvivorShallowBridge
 import RHLean.Proof.StableFarPrimeWallTransport
+import RHLean.Proof.StableFarWallCrossingRenewal
 import RHLean.Proof.StableFarWallExactQ2Split
 import RHLean.Proof.StableFarWallLowCofactorQ2Descent
 import RHLean.Proof.StableFarWallOwnedCensus
