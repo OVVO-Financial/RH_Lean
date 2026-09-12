@@ -127,6 +127,72 @@ theorem lowWheelFarPrimeCrossingProductMass_eq_neg_stableRenewalMass
   rw [lowWheelFarPrimeCrossingStableState_weight_eq_neg_product hR hx]
   ring
 
+/-- The descended triples may be regrouped by every possible prime owner below
+`R` without losing an occurrence.  This is finite Fubini only. -/
+theorem lowWheelFarPrimeQ2DescendedMass_eq_ownerFibers (R : ℕ) :
+    lowWheelFarPrimeQ2DescendedMass R =
+      ∑ q ∈ primesUpTo (R - 1),
+        ∑ t ∈ lowWheelFarPrimeQ2DescendedOwnerTriples R q,
+          canonicalMoebiusWeight t.2.1 := by
+  let S := lowWheelFarPrimeQ2DescendedTriples R
+  let O := primesUpTo (R - 1)
+  let owner : ℕ × (ℕ × ℕ) → ℕ := Prod.fst
+  have hmaps : ∀ t ∈ S, owner t ∈ O := by
+    intro t ht
+    have hdata := lowWheelFarPrimeLowCofactorTriple_data
+      (Finset.mem_filter.mp ht).1
+    exact mem_primesUpTo.mpr ⟨hdata.1, Nat.le_pred_of_lt hdata.2.1⟩
+  have hfiber := Finset.sum_fiberwise_of_maps_to
+    (s := S) (t := O) (g := owner) hmaps
+    (fun t => canonicalMoebiusWeight t.2.1)
+  have hraw :
+      (∑ t ∈ S, canonicalMoebiusWeight t.2.1) =
+        ∑ q ∈ O,
+          ∑ t ∈ S with owner t = q,
+            canonicalMoebiusWeight t.2.1 := hfiber.symm
+  unfold lowWheelFarPrimeQ2DescendedMass
+  change (∑ t ∈ S, canonicalMoebiusWeight t.2.1) =
+    ∑ q ∈ O,
+      ∑ t ∈ lowWheelFarPrimeQ2DescendedOwnerTriples R q,
+        canonicalMoebiusWeight t.2.1
+  rw [hraw]
+  apply Finset.sum_congr rfl
+  intro q hq
+  rfl
+
+/-- **Global descended-child identification.**  The complete stripped descended
+mass is exactly the sum of the literal far-prime high-transport slices at every
+q² child cutoff. -/
+theorem lowWheelFarPrimeQ2DescendedMass_eq_sum_childFarSlices (R : ℕ) :
+    lowWheelFarPrimeQ2DescendedMass R =
+      ∑ q ∈ primesUpTo (R - 1),
+        ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+          canonicalMoebiusWeight dp.1 := by
+  rw [lowWheelFarPrimeQ2DescendedMass_eq_ownerFibers R]
+  apply Finset.sum_congr rfl
+  intro q hq
+  have hdata := mem_primesUpTo.mp hq
+  have hRpos : 0 < R := by
+    have := hdata.1.two_le
+    omega
+  have hqR : q < R := Nat.lt_of_le_pred hRpos hdata.2
+  exact lowWheelFarPrimeQ2DescendedOwner_mass_eq_childFarSlice hdata.1 hqR
+
+/-- Reattaching the original far prime reverses the child-far sign, so the true
+descended product packet is the negative of the global child high-transport
+slice sum. -/
+theorem lowWheelFarPrimeDescendedProductMass_eq_neg_sum_childFarSlices
+    (R : ℕ) :
+    (∑ x ∈ lowWheelFarPrimeDescendedProductCarrier R,
+        canonicalMoebiusWeight x.2) =
+      -∑ q ∈ primesUpTo (R - 1),
+        ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+          canonicalMoebiusWeight dp.1 := by
+  have hprod := lowWheelFarPrimeQ2DescendedMass_eq_neg_productMass R
+  have hchild := lowWheelFarPrimeQ2DescendedMass_eq_sum_childFarSlices R
+  rw [hchild] at hprod
+  linear_combination -hprod
+
 /-- The four-term #672 boundary in renewal form: all strict crossing mass is now
 shown on the literal stable far wall, while the already-owned terminal product
 population remains explicit.  This is still a signed identity, not an estimate. -/
@@ -161,5 +227,21 @@ theorem lowWheelFrozenTopFarResidual_eq_descended_sub_stableRenewal_sub_terminal
   rw [lowWheelFrozenTopFarResidual_eq_descended_add_crossing_sub_terminal R hR,
     lowWheelFarPrimeCrossingProductMass_eq_neg_stableRenewalMass (by omega)]
   ring
+
+/-- The same hard residual with its descended term rewritten ownerwise as the
+literal lower-scale child far-transport slices from #671. -/
+theorem lowWheelFrozenTopFarResidual_eq_neg_childFarSlices_sub_stableRenewal_sub_terminal
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      -(∑ q ∈ primesUpTo (R - 1),
+        ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+          canonicalMoebiusWeight dp.1) -
+      (∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R,
+        lowWheelFullTaggedPhysicalWeight
+          (lowWheelFarPrimeCrossingStableState x)) -
+      ∑ n ∈ lowWheelFarWallTerminalProducts R,
+        canonicalMoebiusWeight n := by
+  rw [lowWheelFrozenTopFarResidual_eq_descended_sub_stableRenewal_sub_terminal R hR,
+    lowWheelFarPrimeDescendedProductMass_eq_neg_sum_childFarSlices R]
 
 end RHLean.Proof
