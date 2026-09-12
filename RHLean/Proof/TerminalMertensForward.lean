@@ -427,6 +427,70 @@ theorem squareEndpointRawOddQ2EnergyStep_implies_endpointAmplification
     _ ≤ 2 * (A * (R : ℝ) ^ 2 * K) + 2 := by nlinarith [hM']
     _ ≤ (2 * A + 1) * (R : ℝ) ^ 2 * K := by nlinarith
 
+/-- Fixed endpoint amplification already implies the existence of a raw q²
+recurrence constant.  This converse is deliberately elementary: the lower
+envelope forces `K >= 1`, the unshifted endpoint costs only a factor two plus a
+constant, and the q² child energy is nonnegative.  Thus the raw recurrence is
+not a weaker local bookkeeping target; up to absolute constants it is the
+endpoint amplification theorem itself. -/
+theorem squareRootEndpointAmplification_implies_exists_rawOddQ2EnergyStep
+    (hamp : SquareRootMertensEndpointAmplificationStatement) :
+    ∃ C : ℝ, 0 ≤ C ∧ SquareEndpointRawOddQ2EnergyStep C := by
+  rcases hamp with ⟨A, hA, hbound⟩
+  refine ⟨2 * A + 1, by positivity, ?_⟩
+  intro R K hR hK
+  have hK1 : 1 ≤ K := by
+    have h0 := hK.2 0 (by omega)
+    have hm0 : mertensSummatoryInt 0 = 0 := by
+      simp [mertensSummatoryInt]
+    rw [hm0] at h0
+    norm_num at h0
+    exact h0
+  let m : ℝ := ((mertensSummatoryInt (squareRootEndpoint R) : ℤ) : ℝ)
+  have hmshift :
+      (((mertensSummatoryInt (squareRootEndpoint R) - 1 : ℤ) : ℝ)) = m - 1 := by
+    dsimp [m]
+    push_cast
+    ring
+  have hshifted := hbound R K hR hK
+  rw [hmshift] at hshifted
+  have hm : m ^ 2 ≤ 2 * (m - 1) ^ 2 + 2 := by
+    nlinarith [sq_nonneg (m - 2)]
+  have hscale : 2 ≤ (R : ℝ) ^ 2 * K := by
+    have hRreal : (2 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+    nlinarith [mul_le_mul_of_nonneg_left hK1 (sq_nonneg (R : ℝ))]
+  have hmBound : m ^ 2 ≤ (2 * A + 1) * (R : ℝ) ^ 2 * K := by
+    calc
+      m ^ 2 ≤ 2 * (m - 1) ^ 2 + 2 := hm
+      _ ≤ 2 * (A * (R : ℝ) ^ 2 * K) + 2 := by nlinarith [hshifted]
+      _ ≤ (2 * A + 1) * (R : ℝ) ^ 2 * K := by nlinarith
+  have hparent :
+      squareEndpointMertensEnergyReal R ≤
+        (2 * A + 1) * (R : ℝ) ^ 2 * K := by
+    simpa [m, squareEndpointMertensEnergyReal] using hmBound
+  have hchildren0 :
+      0 ≤ ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+        rawQ2ChildEnergyReal R q := by
+    apply Finset.sum_nonneg
+    intro q hq
+    unfold rawQ2ChildEnergyReal
+    positivity
+  exact hparent.trans (by nlinarith)
+
+/-- Existence of a nonnegative literal factor-four q² recurrence constant is
+**equivalent** to fixed square-root endpoint amplification.  The forward
+implication is the genuine shell/induction theorem; the reverse implication is
+the elementary padding theorem above.  This prevents the raw recurrence from
+being mistaken for an independent weaker seam. -/
+theorem exists_nonneg_squareEndpointRawOddQ2EnergyStep_iff_endpointAmplification :
+    (∃ C : ℝ, 0 ≤ C ∧ SquareEndpointRawOddQ2EnergyStep C) ↔
+      SquareRootMertensEndpointAmplificationStatement := by
+  constructor
+  · rintro ⟨C, hC, hstep⟩
+    exact squareEndpointRawOddQ2EnergyStep_implies_endpointAmplification hC hstep
+  · intro hamp
+    exact squareRootEndpointAmplification_implies_exists_rawOddQ2EnergyStep hamp
+
 /-- Consequently the literal signed factor-four recurrence is already an RH
 criterion; no further square-shell or endpoint theorem remains after it. -/
 theorem riemannHypothesis_of_squareEndpointRawOddQ2EnergyStep
