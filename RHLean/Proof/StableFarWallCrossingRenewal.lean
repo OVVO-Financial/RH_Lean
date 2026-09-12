@@ -319,7 +319,7 @@ theorem lowWheelMellinFrequency_mul (s : ℂ) (a b : ℕ) :
     simp [lowWheelMellinFrequency]
   have hab : a * b ≠ 0 := Nat.mul_ne_zero ha hb
   simp only [lowWheelMellinFrequency, ha, hb, hab, if_false]
-  have hcp := @mul_cpow_ofReal_nonneg
+  have hcp := @Complex.mul_cpow_ofReal_nonneg
     (a := (a : ℝ)) (b := (b : ℝ)) (r := -s)
     (Nat.cast_nonneg a) (Nat.cast_nonneg b)
   push_cast at hcp ⊢
@@ -375,12 +375,12 @@ theorem lowWheelMellinFrequency_sq_norm_critical
   calc
     (Real.rpow (q : ℝ) (-(1 / 2 : ℝ))) ^ 2 =
         Real.rpow (Real.rpow (q : ℝ) (-(1 / 2 : ℝ))) (2 : ℝ) := by
-          simpa using
+          exact
             (Real.rpow_natCast (Real.rpow (q : ℝ) (-(1 / 2 : ℝ))) 2).symm
     _ = Real.rpow (q : ℝ) ((-(1 / 2 : ℝ)) * 2) :=
       (Real.rpow_mul hq0 (-(1 / 2 : ℝ)) (2 : ℝ)).symm
     _ = Real.rpow (q : ℝ) (-1) := by ring_nf
-    _ = ((q : ℝ))⁻¹ := by rw [Real.rpow_neg_one]
+    _ = ((q : ℝ))⁻¹ := by rw [Real.rpow_neg hq0, Real.rpow_one]
     _ = 1 / (q : ℝ) := by rw [one_div]
 
 /-- The phase-normalized critical-line renewal symbol.  Multiplying the raw
