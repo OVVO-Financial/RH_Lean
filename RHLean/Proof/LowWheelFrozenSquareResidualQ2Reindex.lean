@@ -127,8 +127,11 @@ theorem lowWheelFrozenSourceSquareResidualOwnerFiber_data
       canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hcgt hsq
     simpa [howner] using hlt
   have hq2 : q * q * canonicalCofactor c ≤ B := by
+    have hqmul : q * (q * canonicalCofactor c) = q * c :=
+      congrArg (fun n : ℕ => q * n) hfactor
     calc
-      q * q * canonicalCofactor c = q * c := by rw [← hfactor]; ring
+      q * q * canonicalCofactor c = q * (q * canonicalCofactor c) := by ring
+      _ = q * c := hqmul
       _ = canonicalLargestPrimeFactor c * c := by rw [howner]
       _ ≤ B := hcontact
   have hweightD :
@@ -159,12 +162,13 @@ theorem canonicalCofactor_mem_lowWheelFrozenSourceSquareResidualDaughterWindow
       lowWheelFrozenSourceSquareResidualDaughterWindow p B q := by
   rcases lowWheelFrozenSourceSquareResidualOwnerFiber_data hc with
     ⟨hqPrime, _hpq, hdSq, hdRough, hdLt, _hfactor, hq2, _hweight⟩
-  have hdPos : 1 ≤ canonicalCofactor c :=
-    canonicalCofactor_pos (by
-      have hres := (mem_lowWheelFrozenSourceSquareResidualOwnerFiber.mp hc).1
-      have hrough := (Finset.mem_filter.mp hres).1
-      have hIcc := (Finset.mem_filter.mp hrough).1
-      omega)
+  have hcgt : 1 < c := by
+    have hres := (mem_lowWheelFrozenSourceSquareResidualOwnerFiber.mp hc).1
+    have hrough := (Finset.mem_filter.mp hres).1
+    have hIcc := (Finset.mem_filter.mp hrough).1
+    have hbounds := Finset.mem_Icc.mp hIcc
+    omega
+  have hdPos : 1 ≤ canonicalCofactor c := canonicalCofactor_pos hcgt
   have hqqPos : 0 < q * q := Nat.mul_pos hqPrime.pos hqPrime.pos
   have hdUpper : canonicalCofactor c ≤ B / (q * q) := by
     apply (Nat.le_div_iff_mul_le hqqPos).2
