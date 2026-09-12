@@ -1,0 +1,36 @@
+name: Add square residual q2 import
+
+on:
+  push:
+    branches:
+      - agent/square-residual-q2-reindex
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/square-residual-q2-reindex
+      - name: Add sorted root import
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('RHLean.lean')
+          s = p.read_text()
+          old = 'import RHLean.Proof.LowWheelFrozenSecondContactRoughPrefix\nimport RHLean.Proof.LowWheelFrozenSecondContactScaleFlux\n'
+          new = 'import RHLean.Proof.LowWheelFrozenSecondContactRoughPrefix\nimport RHLean.Proof.LowWheelFrozenSecondContactScaleFlux\nimport RHLean.Proof.LowWheelFrozenSquareResidualQ2Reindex\n'
+          assert old in s
+          p.write_text(s.replace(old, new, 1))
+          PY
+      - name: Commit import
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add RHLean.lean
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Export square residual q2 reindex'
+          git push origin HEAD:agent/square-residual-q2-reindex
