@@ -316,4 +316,136 @@ theorem finalCompensatedParentCore_eq_neg_mertensColumn_add_survivor_add_rootBou
   rw [finalCompensatedParentCore_eq_lowHighDifference_add_rootBoundary R hR,
     finalCompensatedLowHighDifference_eq_neg_mertensColumn_add_survivor R hR]
 
+/-! ## Recover the Mertens endpoint before forming its energy
+
+The parent core is `M + lowResidual`, not `M`.  Consequently the post-#674
+low/high estimate cannot be substituted directly for the parent energy in
+`SquareEndpointRawOddQ2EnergyStep`.  The low residual must still be subtracted
+with its sign.  The all-prime column also contains the algebraic owner two,
+whereas the physical energy recurrence uses only odd owners.
+-/
+
+/-- Exact endpoint recovery, retaining the low residual that was added when
+the parent core was formed. -/
+theorem squarePrefixMertens_eq_signedQ2Splice_sub_lowResidual_add_rootBoundary
+    (R : ℕ) (hR : 56 ≤ R) :
+    squarePrefixMertens (R - 1) =
+      -(((squareEndpointQ2MertensColumn R : ℤ) : ℂ)) +
+        finalQ2SurvivorCorrection R -
+        lowWheelFrozenSecondContactSquareResidualMass R +
+        finalCompensatedRootBoundary R := by
+  have hcore :=
+    finalCompensatedParentCore_eq_squarePrefix_add_q2Residual R (by omega)
+  have hsplice :=
+    finalCompensatedParentCore_eq_neg_mertensColumn_add_survivor_add_rootBoundary R hR
+  linear_combination hsplice - hcore
+
+/-- Removing the low residual cancels the extracted whole-Mertens column
+exactly.  This is a signed equality, not an estimate for the far populations. -/
+theorem finalQ2Survivor_sub_lowResidual_eq_mertensColumn_add_farPopulations
+    (R : ℕ) (hR : 2 ≤ R) :
+    finalQ2SurvivorCorrection R -
+        lowWheelFrozenSecondContactSquareResidualMass R =
+      (((squareEndpointQ2MertensColumn R : ℤ) : ℂ)) +
+        squareEndpointQ2ChildFarSliceColumn R +
+        stableFarRenewalColumn R + stableFarTerminalProductColumn R := by
+  rw [lowWheelFrozenSecondContactSquareResidualMass_eq_neg_mertensColumn_add_rootTransport
+    R hR]
+  unfold finalQ2SurvivorCorrection
+  ring
+
+/-- The actual Mertens endpoint after the complete signed subtraction.  The
+far slices, renewal occurrences and terminal products remain coupled. -/
+theorem squarePrefixMertens_eq_farPopulations_add_rootBoundary
+    (R : ℕ) (hR : 56 ≤ R) :
+    squarePrefixMertens (R - 1) =
+      squareEndpointQ2ChildFarSliceColumn R + stableFarRenewalColumn R +
+        stableFarTerminalProductColumn R + finalCompensatedRootBoundary R := by
+  have hendpoint :=
+    squarePrefixMertens_eq_signedQ2Splice_sub_lowResidual_add_rootBoundary R hR
+  have hcancel :=
+    finalQ2Survivor_sub_lowResidual_eq_mertensColumn_add_farPopulations R (by omega)
+  linear_combination hendpoint + hcancel
+
+/-- The all-prime scalar column in #674 contains owner two. -/
+theorem squareEndpointQ2MertensColumn_eq_oddColumn_add_two
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareEndpointQ2MertensColumn R =
+      (∑ q ∈ (primesUpTo (R - 1)).erase 2,
+        mertensSummatoryInt (squareRootEndpoint R / (q * q))) +
+      mertensSummatoryInt (squareRootEndpoint R / 4) := by
+  have htwo : 2 ∈ primesUpTo (R - 1) :=
+    mem_primesUpTo.mpr ⟨Nat.prime_two, by omega⟩
+  simpa only [squareEndpointQ2MertensColumn] using
+    (Finset.sum_erase_add (s := primesUpTo (R - 1))
+      (f := fun q => mertensSummatoryInt (squareRootEndpoint R / (q * q))) htwo).symm
+
+/-- Exact odd-owner normalization of the endpoint.  Both the low residual and
+the owner-two packet belong inside the signed survivor before any norm. -/
+theorem squarePrefixMertens_eq_oddColumn_add_correctedSurvivor_add_rootBoundary
+    (R : ℕ) (hR : 56 ≤ R) :
+    squarePrefixMertens (R - 1) =
+      -(((∑ q ∈ (primesUpTo (R - 1)).erase 2,
+          mertensSummatoryInt (squareRootEndpoint R / (q * q)) : ℤ) : ℂ)) +
+        (finalQ2SurvivorCorrection R -
+          lowWheelFrozenSecondContactSquareResidualMass R -
+          ((mertensSummatoryInt (squareRootEndpoint R / 4) : ℤ) : ℂ)) +
+        finalCompensatedRootBoundary R := by
+  rw [squarePrefixMertens_eq_signedQ2Splice_sub_lowResidual_add_rootBoundary R hR,
+    squareEndpointQ2MertensColumn_eq_oddColumn_add_two R (by omega)]
+  push_cast
+  ring
+
+private def finalQ2LowResidualEval (R : ℕ) : ℤ :=
+  ∑ q ∈ primesUpTo (R - 1),
+    frozenPredecessorMobiusEval q R -
+      frozenPredecessorMobiusEval q (max R (squareRootEndpoint R / (q * q)))
+
+private theorem lowWheelFrozenSecondContactSquareResidualMass_eq_eval (R : ℕ) :
+    lowWheelFrozenSecondContactSquareResidualMass R =
+      ((finalQ2LowResidualEval R : ℤ) : ℂ) := by
+  have hcolumns :
+      lowWheelFrozenSquareResidualRootAnchorColumn R -
+          lowWheelFrozenSquareResidualRootFlooredColumn R =
+        finalQ2LowResidualEval R := by
+    unfold lowWheelFrozenSquareResidualRootAnchorColumn
+      lowWheelFrozenSquareResidualRootFlooredColumn finalQ2LowResidualEval
+    rw [← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro q hq
+    rw [frozenPrimeUniverseMass_eq_frozenPredecessorMobiusEval
+        (mem_primesUpTo.mp hq).1,
+      frozenPrimeUniverseMass_eq_frozenPredecessorMobiusEval
+        (mem_primesUpTo.mp hq).1]
+  rw [lowWheelFrozenSecondContactSquareResidualMass_eq_anchor_sub_rootFloored, hcolumns]
+
+/-- Finite certificate on the actual low residual, via the existing proved
+frozen-cube evaluator. -/
+theorem lowWheelFrozenSecondContactSquareResidualMass_212 :
+    lowWheelFrozenSecondContactSquareResidualMass 212 = 1 := by
+  have h : finalQ2LowResidualEval 212 = 1 := by native_decide
+  rw [lowWheelFrozenSecondContactSquareResidualMass_eq_eval, h]
+  norm_num
+
+theorem squarePrefixMertens_211 : squarePrefixMertens 211 = -1 := by
+  have h : mertensSummatoryInt 44943 = -1 := by native_decide
+  change mertensSummatory 44943 = -1
+  rw [← mertensSummatoryInt_cast 44943, h]
+  norm_num
+
+/-- The parent core can vanish while the genuine Mertens packet is nonzero. -/
+theorem finalCompensatedParentCore_212 : finalCompensatedParentCore 212 = 0 := by
+  rw [finalCompensatedParentCore_eq_squarePrefix_add_q2Residual 212 (by norm_num)]
+  norm_num [squarePrefixMertens_211, lowWheelFrozenSecondContactSquareResidualMass_212]
+
+/-- In particular, parent-core energy does not automatically dominate the
+energy required by the raw q² recurrence.  No recurrence with an additive
+root-scale error is refuted by this certificate. -/
+theorem not_squarePrefixMertens_energy_le_parentCore_energy :
+    ¬ ∀ R : ℕ, 56 ≤ R →
+      ‖squarePrefixMertens (R - 1)‖ ^ 2 ≤ ‖finalCompensatedParentCore R‖ ^ 2 := by
+  intro h
+  have h212 := h 212 (by norm_num)
+  norm_num [squarePrefixMertens_211, finalCompensatedParentCore_212] at h212
+
 end RHLean.Proof
