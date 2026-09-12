@@ -278,7 +278,8 @@ private theorem norm_intCast_complex_sq_eq_ratCast (z : ℤ) :
       rw [Complex.sq_norm]
       norm_num [Complex.normSq_apply]
     _ = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by
-      norm_cast
+      push_cast
+      ring
 
 /-- A linear bound on `mertensEnergy (4*K)` implies the exact three-slot energy
 criterion, with arbitrarily much exponent slack. -/
