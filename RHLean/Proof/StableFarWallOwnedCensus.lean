@@ -428,8 +428,18 @@ theorem lowWheelFarPrimeUnitProducts_eq_paired_union_top (R : ℕ) :
     lowWheelFarPrimeUnitProducts R =
       lowWheelFarPrimePairedUnitProducts R ∪ lowWheelFarPrimeTopUnitProducts R := by
   ext p
-  simp [lowWheelFarPrimePairedUnitProducts, lowWheelFarPrimeTopUnitProducts]
-  omega
+  constructor
+  · intro hp
+    by_cases hlow : 2 * p ≤ squareRootEndpoint R
+    · exact Finset.mem_union_left _
+        (Finset.mem_filter.mpr ⟨hp, hlow⟩)
+    · have htop : squareRootEndpoint R < 2 * p := Nat.lt_of_not_ge hlow
+      exact Finset.mem_union_right _
+        (Finset.mem_filter.mpr ⟨hp, htop⟩)
+  · intro hp
+    rcases Finset.mem_union.mp hp with hpaired | htop
+    · exact (Finset.mem_filter.mp hpaired).1
+    · exact (Finset.mem_filter.mp htop).1
 
 /-- There is no crossing occurrence at a top-half unit prime: every crossing
 owner is a prime at least two, so its base product would already exceed `X_R`. -/
