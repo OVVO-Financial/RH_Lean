@@ -292,6 +292,7 @@ theorem threeSlotDegreeOneEnergy_of_completeCellMertensLinear
       norm_intCast_complex_sq_eq_intCast]
     unfold mertensEnergy at hlin
     rw [mertensSummatoryInt_eq_moebiusPrefix_local] at hlin
+    rw [pow_two] at hlin
     exact_mod_cast hlin
   have hscale :
       (K : ℝ) ≤ Real.rpow ((K + 1 : ℕ) : ℝ) (1 + ε) := by
