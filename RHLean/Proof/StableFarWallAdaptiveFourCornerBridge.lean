@@ -256,11 +256,24 @@ theorem weighted_squareRootCanonicalRoughFreshPrimeRawBoundary_eq_partnerInciden
           ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ)) =
       ∑ _q ∈ squareRootCanonicalRoughPrimePartnerSet R c,
         a c * canonicalMoebiusWeight c := by
-  rw [← Finset.mul_sum]
-  rw [← squareRootCanonicalRoughRawCorrelationSummand_eq_partnerIncidenceSum R c hR]
-  rw [squareRootCanonicalRoughFreshPrimeRawBoundary_eq_parentRaw_of_rootPrime
-    hR hc hp hfresh hRp]
-  ring
+  calc
+    a c * canonicalMoebiusWeight c *
+        (((squareRootCanonicalRoughFreshLossBoundary R c p).card : ℂ) -
+          ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ)) =
+      a c *
+        (canonicalMoebiusWeight c *
+          (((squareRootCanonicalRoughFreshLossBoundary R c p).card : ℂ) -
+            ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ))) := by ring
+    _ = a c * squareRootCanonicalRoughRawCorrelationSummand R c := by
+      rw [squareRootCanonicalRoughFreshPrimeRawBoundary_eq_parentRaw_of_rootPrime
+        hR hc hp hfresh hRp]
+    _ = a c *
+        (∑ _q ∈ squareRootCanonicalRoughPrimePartnerSet R c,
+          canonicalMoebiusWeight c) := by
+      rw [squareRootCanonicalRoughRawCorrelationSummand_eq_partnerIncidenceSum R c hR]
+    _ = ∑ _q ∈ squareRootCanonicalRoughPrimePartnerSet R c,
+        a c * canonicalMoebiusWeight c := by
+      rw [Finset.mul_sum]
 
 /-- Every actual stable-far triple's far prime is itself a literal partner of
 its original low cofactor `q*d`. -/
