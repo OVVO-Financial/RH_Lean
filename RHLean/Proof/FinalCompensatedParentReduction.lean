@@ -59,7 +59,14 @@ theorem finalCompensatedParentCore_eq_squarePrefix_add_q2Residual
   have h :=
     squarePrefixMertens_eq_smooth_sub_secondContactEndpointRest_add_residual R hR
   unfold finalCompensatedParentCore
-  linear_combination h
+  calc
+    squareRootSmoothMass (R - 1) - lowWheelFrozenSecondContactEndpointRest R =
+        (squareRootSmoothMass (R - 1) -
+          (lowWheelFrozenSecondContactEndpointRest R +
+            lowWheelFrozenSecondContactSquareResidualMass R)) +
+          lowWheelFrozenSecondContactSquareResidualMass R := by ring
+    _ = squarePrefixMertens (R - 1) +
+          lowWheelFrozenSecondContactSquareResidualMass R := by rw [← h]
 
 /-- Independently, the square Mertens sample plus the frozen/top/far residual is
 exactly the pre-existing root-scale boundary. -/
