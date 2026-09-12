@@ -208,5 +208,7 @@ theorem lowWheelFarPrimeLowCofactorTriples_sum_eq_descended_add_crossing
       apply Finset.sum_congr
       · ext t
         simp
+      · intro t ht
+        rfl
 
 end RHLean.Proof
