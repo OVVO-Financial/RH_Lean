@@ -365,7 +365,7 @@ theorem lowWheelFarPrimeQ2Crossing_returned_terminal_or_nextChild
     have hbase : (q, (d, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
       (Finset.mem_filter.mp ht).1
     have hd1 := (lowWheelFarPrimeLowCofactorTriple_data hbase).2.2.1
-    have hdgt : 1 < d := by omega
+    have hdgt : 1 < d := lt_of_le_of_ne hd1 (Ne.symm hdone)
     exact lowWheelFarPrimeQ2Crossing_returned_nonUnit_mem_nextChildFarSlice ht hdgt
 
 /-- **Pointwise signed cancellation currency.**  On a nonunit return, the
