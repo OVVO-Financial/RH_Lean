@@ -32,6 +32,7 @@ noncomputable section
 namespace RHLean.Proof
 
 open RHLean.Arithmetic RHLean.Analysis
+open CanonicalRoughPrimeAdditionDescent
 
 attribute [local instance] Classical.propDecidable
 
