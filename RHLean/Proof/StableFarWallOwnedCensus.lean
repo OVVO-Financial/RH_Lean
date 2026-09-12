@@ -393,7 +393,7 @@ theorem lowWheelFarPrimeUnitProduct_has_crossingOwner
     · exact hpPrime
     · exact hpFar
     · norm_num
-    · norm_num [canonicalLargestPrimeFactor]
+    · simpa [canonicalLargestPrimeFactor] using hqPrime.one_lt
     · simpa using hqXp
   have hcrossTriple : (q,(1,p)) ∈ lowWheelFarPrimeQ2CrossingTriples R := by
     apply Finset.mem_filter.mpr
