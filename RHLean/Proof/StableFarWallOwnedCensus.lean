@@ -30,7 +30,7 @@ theorem lowWheelCanonicalRepeatedFrozen_mem_orderedEulerCutCarrier
     (hy : y ∈ lowWheelCanonicalRepeatedFrozenPart R) :
     y ∈ orderedEulerCutCarrier R := by
   have hrepeated := (Finset.mem_filter.mp hy).1
-  have hshape := (Finset.mem_filter.mp hrepeated).2
+  have hshape := (Finset.mem_filter.mp hy).2
   have htagged := (Finset.mem_filter.mp hrepeated).1
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp htagged with ⟨ht, hx⟩
   have hp := (lowWheelCanonicalDowncrossPart_adjacent_shell hx).1
