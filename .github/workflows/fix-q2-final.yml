@@ -19,42 +19,21 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
-
           p = Path('RHLean/Proof/PhysicalQ2TerminalSynthesis.lean')
           s = p.read_text()
-          old = '''  have hlambda : 0 ≤ lambda := by
-    dsimp [lambda]
-    positivity
-'''
-          new = '''  have hlambda : 0 ≤ lambda := by
-    dsimp [lambda]
-    exact mul_nonneg (by norm_num) elevenWeightOneEnergyFactor_nonneg
-'''
+          old = "  have hlambda : 0 ≤ lambda := by\n    dsimp [lambda]\n    positivity\n"
+          new = "  have hlambda : 0 ≤ lambda := by\n    dsimp [lambda]\n    exact mul_nonneg (by norm_num) elevenWeightOneEnergyFactor_nonneg\n"
           assert old in s
           s = s.replace(old, new, 1)
-
-          old = '''    _ = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by
-      norm_num [pow_two]
-'''
-          new = '''    _ = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by
-      push_cast
-      rw [pow_two]
-'''
+          old = "    _ = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by\n      norm_num [pow_two]\n"
+          new = "    _ = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by\n      push_cast\n      rw [pow_two]\n"
           assert old in s
           s = s.replace(old, new, 1)
           p.write_text(s)
-
           p = Path('RHLean/Proof/PhysicalQ2BookkeepingSynthesis.lean')
           s = p.read_text()
-          old = '''    | some p =>
-        have hpr : p = r := by simpa [ho] using h
-        simpa [ho, hpr]
-'''
-          new = '''    | some p =>
-        simp [ho] at h
-        subst p
-        exact ho
-'''
+          old = "    | some p =>\n        have hpr : p = r := by simpa [ho] using h\n        simpa [ho, hpr]\n"
+          new = "    | some p =>\n        simp [ho] at h\n        subst p\n        exact ho\n"
           assert old in s
           p.write_text(s.replace(old, new, 1))
           PY
