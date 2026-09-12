@@ -543,6 +543,7 @@ import RHLean.Proof.LowWheelFrozenSecondContactScaleFlux
 import RHLean.Proof.LowWheelFrozenSecondContactWindowDescent
 import RHLean.Proof.LowWheelFrozenSecondContactWindowReassembly
 import RHLean.Proof.LowWheelFrozenSquareResidualQ2Reindex
+import RHLean.Proof.LowWheelFrozenSquareResidualQ2Telescope
 import RHLean.Proof.LowWheelFullFaceQuotientOthello
 import RHLean.Proof.LowWheelHighPrimeSurvivor
 import RHLean.Proof.LowWheelLargestDefectSeamEquivalence
