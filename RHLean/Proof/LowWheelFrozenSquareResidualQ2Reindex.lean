@@ -147,8 +147,7 @@ theorem lowWheelFrozenSourceSquareResidualOwnerFiber_data
   exact ⟨hqPrime, hpq, hdSq, hdRough, hdLt, hfactor, hq2, hweight⟩
 
 /-- Canonical stripped daughters live in the expected interval-prime q^2
-window.  Surjectivity onto this window is intentionally deferred to the next
-carrier theorem. -/
+window. -/
 def lowWheelFrozenSourceSquareResidualDaughterWindow
     (p B q : ℕ) : Finset ℕ :=
   (Finset.Icc 1 (B / (q * q))).filter fun d =>
@@ -175,5 +174,141 @@ theorem canonicalCofactor_mem_lowWheelFrozenSourceSquareResidualDaughterWindow
     simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2
   apply Finset.mem_filter.mpr
   exact ⟨Finset.mem_Icc.mpr ⟨hdPos, hdUpper⟩, hdSq, hdRough, hdLt⟩
+
+/-- Conversely, every interval-prime daughter reconstructs a unique square
+residual child `q*d` with owner `q`. -/
+theorem lowWheelFrozenSourceSquareResidualDaughter_child_mem
+    {p B q d : ℕ} (hq : q.Prime) (hpq : p < q)
+    (hd : d ∈ lowWheelFrozenSourceSquareResidualDaughterWindow p B q) :
+    q * d ∈ lowWheelFrozenSourceSquareResidualOwnerFiber p B q := by
+  rcases Finset.mem_filter.mp hd with ⟨hdIcc, hdSq, hdRough, hdLt⟩
+  rcases Finset.mem_Icc.mp hdIcc with ⟨hd1, hdUpper⟩
+  have hdPos : 0 < d := by omega
+  have hd0 : d ≠ 0 := Nat.ne_of_gt hdPos
+  have howner : canonicalLargestPrimeFactor (q * d) = q := by
+    have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough hdPos hq hdLt
+    simpa [Nat.mul_comm] using h
+  have hqNotDvd : ¬ q ∣ d := by
+    intro hdiv
+    by_cases hdOne : d = 1
+    · subst d
+      exact hq.not_dvd_one hdiv
+    · have hdgt : 1 < d := by omega
+      have hle := prime_dvd_le_canonicalLargestPrimeFactor hdgt hq hdiv
+      omega
+  have hcop : Nat.Coprime q d := (hq.coprime_iff_not_dvd).2 hqNotDvd
+  have hsqChild : Squarefree (q * d) :=
+    (Nat.squarefree_mul hcop).2 ⟨hq.squarefree, hdSq⟩
+  have hroughChild : RoughAbove p (q * d) := by
+    intro r hr
+    rcases Nat.mem_primeFactors.mp hr with ⟨hrPrime, hrDvd, _hr0⟩
+    rcases hrPrime.dvd_mul.mp hrDvd with hrq | hrd
+    · have hrEq : r = q :=
+        (Nat.prime_dvd_prime_iff_eq hrPrime hq).mp hrq
+      simpa [hrEq] using hpq
+    · have hrMem : r ∈ d.primeFactors :=
+        Nat.mem_primeFactors.mpr ⟨hrPrime, hrd, hd0⟩
+      exact hdRough r hrMem
+  have hqqPos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
+  have hq2 : q * q * d ≤ B := by
+    have h := (Nat.le_div_iff_mul_le hqqPos).1 hdUpper
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+  have hchildLower : 2 ≤ q * d := by
+    simpa using Nat.mul_le_mul hq.two_le hd1
+  have hqLeQ2 : q ≤ q * q := by
+    nlinarith [hq.two_le]
+  have hchildB : q * d ≤ B := by
+    have hmul : q * d ≤ (q * q) * d := Nat.mul_le_mul_right d hqLeQ2
+    exact hmul.trans (by simpa [Nat.mul_assoc] using hq2)
+  apply mem_lowWheelFrozenSourceSquareResidualOwnerFiber.mpr
+  refine ⟨?_, howner⟩
+  apply Finset.mem_filter.mpr
+  refine ⟨?_, ?_⟩
+  · apply Finset.mem_filter.mpr
+    exact ⟨Finset.mem_Icc.mpr ⟨hchildLower, hchildB⟩,
+      hsqChild, hroughChild⟩
+  · calc
+      canonicalLargestPrimeFactor (q * d) * (q * d) = q * q * d := by
+        rw [howner]
+        ring
+      _ ≤ B := hq2
+
+/-- Reconstructing an interval-prime daughter and stripping its owner returns
+the same daughter. -/
+theorem lowWheelFrozenSourceSquareResidualDaughter_child_cofactor
+    {p B q d : ℕ} (hq : q.Prime) (_hpq : p < q)
+    (hd : d ∈ lowWheelFrozenSourceSquareResidualDaughterWindow p B q) :
+    canonicalCofactor (q * d) = d := by
+  rcases Finset.mem_filter.mp hd with ⟨hdIcc, _hdSq, _hdRough, hdLt⟩
+  have hdPos : 0 < d := by
+    have h := (Finset.mem_Icc.mp hdIcc).1
+    omega
+  have h := canonicalCofactor_mul_prime_eq_of_rough hdPos hq hdLt
+  simpa [Nat.mul_comm] using h
+
+/-- The canonical cofactor map gives the exact fixed-owner carrier bijection. -/
+theorem lowWheelFrozenSourceSquareResidualOwnerFiber_image_cofactor
+    {p B q : ℕ} (hq : q.Prime) (hpq : p < q) :
+    (lowWheelFrozenSourceSquareResidualOwnerFiber p B q).image
+        canonicalCofactor =
+      lowWheelFrozenSourceSquareResidualDaughterWindow p B q := by
+  ext d
+  constructor
+  · intro hd
+    rcases Finset.mem_image.mp hd with ⟨c, hc, rfl⟩
+    exact canonicalCofactor_mem_lowWheelFrozenSourceSquareResidualDaughterWindow hc
+  · intro hd
+    have hc := lowWheelFrozenSourceSquareResidualDaughter_child_mem hq hpq hd
+    have hco :=
+      lowWheelFrozenSourceSquareResidualDaughter_child_cofactor hq hpq hd
+    exact Finset.mem_image.mpr ⟨q * d, hc, hco⟩
+
+/-- Canonical cofactor stripping is injective on one fixed owner fibre. -/
+theorem lowWheelFrozenSourceSquareResidualOwnerFiber_cofactor_injective
+    {p B q c z : ℕ}
+    (hc : c ∈ lowWheelFrozenSourceSquareResidualOwnerFiber p B q)
+    (hz : z ∈ lowWheelFrozenSourceSquareResidualOwnerFiber p B q)
+    (hco : canonicalCofactor c = canonicalCofactor z) : c = z := by
+  rcases lowWheelFrozenSourceSquareResidualOwnerFiber_data hc with
+    ⟨_hcPrime, _hcp, _hcSq, _hcRough, _hcLt, hcfactor, _hcq2, _hcweight⟩
+  rcases lowWheelFrozenSourceSquareResidualOwnerFiber_data hz with
+    ⟨_hzPrime, _hzp, _hzSq, _hzRough, _hzLt, hzfactor, _hzq2, _hzweight⟩
+  calc
+    c = q * canonicalCofactor c := hcfactor.symm
+    _ = q * canonicalCofactor z := by rw [hco]
+    _ = z := hzfactor
+
+/-- **Exact fixed-owner signed q^2 descent.**  Only after the whole owner fibre
+is reassembled do we strip `q`; the result is the negative Möbius mass of the
+entire interval-prime daughter window. -/
+theorem lowWheelFrozenSourceSquareResidualOwnerFiber_mass_eq_neg_daughterMass
+    {p B q : ℕ} (hq : q.Prime) (hpq : p < q) :
+    (∑ c ∈ lowWheelFrozenSourceSquareResidualOwnerFiber p B q,
+        canonicalMoebiusWeight c) =
+      -∑ d ∈ lowWheelFrozenSourceSquareResidualDaughterWindow p B q,
+        canonicalMoebiusWeight d := by
+  let S := lowWheelFrozenSourceSquareResidualOwnerFiber p B q
+  let D := lowWheelFrozenSourceSquareResidualDaughterWindow p B q
+  have himage : S.image canonicalCofactor = D := by
+    simpa [S, D] using
+      lowWheelFrozenSourceSquareResidualOwnerFiber_image_cofactor hq hpq
+  have hsumImage :
+      (∑ d ∈ S.image canonicalCofactor, canonicalMoebiusWeight d) =
+        ∑ c ∈ S, canonicalMoebiusWeight (canonicalCofactor c) := by
+    apply Finset.sum_image
+    intro c hc z hz hco
+    exact lowWheelFrozenSourceSquareResidualOwnerFiber_cofactor_injective
+      hc hz hco
+  calc
+    (∑ c ∈ S, canonicalMoebiusWeight c) =
+        ∑ c ∈ S, -canonicalMoebiusWeight (canonicalCofactor c) := by
+      apply Finset.sum_congr rfl
+      intro c hc
+      exact (lowWheelFrozenSourceSquareResidualOwnerFiber_data hc).2.2.2.2.2.2.2
+    _ = -(∑ c ∈ S, canonicalMoebiusWeight (canonicalCofactor c)) := by
+      rw [Finset.sum_neg_distrib]
+    _ = -(∑ d ∈ S.image canonicalCofactor, canonicalMoebiusWeight d) := by
+      rw [← hsumImage]
+    _ = -(∑ d ∈ D, canonicalMoebiusWeight d) := by rw [himage]
 
 end RHLean.Proof
