@@ -225,9 +225,13 @@ theorem lowWheelFrozenSquareResidualParentCarrier_mass_eq_rootFloored_sub_anchor
   apply Finset.sum_congr rfl
   intro q hq
   have hqd := mem_primesUpTo.mp hq
+  have hqR : q < R := by
+    have hqle : q ≤ R - 1 := hqd.2
+    omega
   rw [lowWheelFrozenSquareResidualParentOwnerCarrier_mass_eq_postRootSmooth
-      hqd.1 (by omega),
+      hqd.1 hqR,
     lowWheelFrozenSquareResidualPostRootSmooth_mass_eq_rootFlooredDiff hqd.1]
+  push_cast
 
 /-- **Square-residual normal form after #668.**  All source-scale parity and
 interval-prime bookkeeping have disappeared.  The residual is one explicit
