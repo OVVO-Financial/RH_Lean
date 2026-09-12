@@ -30,7 +30,7 @@ theorem lowWheelCanonicalRepeatedFrozen_mem_orderedEulerCutCarrier
     (hy : y ∈ lowWheelCanonicalRepeatedFrozenPart R) :
     y ∈ orderedEulerCutCarrier R := by
   have hrepeated := (Finset.mem_filter.mp hy).1
-  have hshape := (Finset.mem_filter.mp hy).2
+  have hshape := (Finset.mem_filter.mp hrepeated).2
   have htagged := (Finset.mem_filter.mp hrepeated).1
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp htagged with ⟨ht, hx⟩
   have hp := (lowWheelCanonicalDowncrossPart_adjacent_shell hx).1
@@ -275,7 +275,12 @@ private theorem terminalProducts_sum_eq_indicator (R : ℕ) :
   rw [← Finset.sum_filter]
   apply Finset.sum_congr
   · ext n
-    simp [lowWheelFarWallBoundaryProductHomes]
+    constructor
+    · intro hn
+      refine Finset.mem_filter.mpr ⟨?_, hn⟩
+      exact Finset.mem_union_right _ hn
+    · intro hn
+      exact (Finset.mem_filter.mp hn).2
   · intro n _hn
     rfl
 
