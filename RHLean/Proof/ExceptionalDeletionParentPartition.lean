@@ -135,7 +135,7 @@ theorem squareBlockOutsidePrimeLeastCompleteT_eq_exceptionalSelectedPackets
   rw [squareBlockOutsidePrimeLeastCompleteCells_eq_exceptionalOwners hcert]
   change (∑ k ∈ A ∪ (B ∪ C), selectedDegreeOneProjection P k) = _
   rw [Finset.sum_union hA_BC, Finset.sum_union hBC]
-  rfl
+  ring
 
 /-- **Exact selected deletion-parent normal form.**  One square block's entire
 outside-square deletion term is the three exceptional complete owner packets
@@ -151,6 +151,5 @@ theorem squareBlockOutsidePrimeDeletionT_eq_exceptionalSelected_add_endpoint
             squareBlockOutsidePrimeLeastEndpointT P R := by
   rw [squareBlockOutsidePrimeDeletionT_eq_complete_add_endpoint,
     squareBlockOutsidePrimeLeastCompleteT_eq_exceptionalSelectedPackets hcert]
-  ring
 
 end RHLean.Proof
