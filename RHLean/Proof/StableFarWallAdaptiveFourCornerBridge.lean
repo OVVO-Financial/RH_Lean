@@ -1,5 +1,6 @@
 import RHLean.Proof.StableFarWallRenewalDescent
 import RHLean.Proof.CanonicalRoughAdaptiveWeightedIteration
+import RHLean.Proof.CanonicalRoughCriticalDefectWindows
 
 /-!
 # Stable-far crossings are adaptive four-corner cancellations
@@ -37,6 +38,9 @@ noncomputable section
 namespace RHLean.Proof
 
 open RHLean.Arithmetic RHLean.Analysis
+open CanonicalRoughPrimeAdditionDescent
+
+attribute [local instance] Classical.propDecidable
 
 /-- **Far-wall four-corner coefficient kill.**
 
@@ -176,5 +180,147 @@ theorem lowWheelFarPrimeQ2CrossingTriple_rawStepCorrection_eq_zero_at_farPrime
   exact
     lowWheelFarPrimeLowCofactorTriple_rawStepCorrection_eq_zero_at_farPrime
       (Finset.mem_filter.mp ht).1 pre post hprePrime hpreLarger
+
+/-! ## Post-root far-prime boundary transposition -/
+
+/-- Once a fresh prime is strictly above the root, its child has no rough-prime
+response at all, so the loss boundary is the complete parent partner set. -/
+theorem squareRootCanonicalRoughFreshLossBoundary_eq_partnerSet_of_rootPrime
+    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p) (hRp : R < p) :
+    squareRootCanonicalRoughFreshLossBoundary R c p =
+      squareRootCanonicalRoughPrimePartnerSet R c := by
+  unfold squareRootCanonicalRoughFreshLossBoundary
+  rw [Nat.mul_comm p c,
+    squareRootCanonicalRoughPrimePartnerSet_mul_freshPrime_eq_empty_of_rootPrime
+      hR hc hp hfresh hRp]
+  simp
+
+/-- A post-root fresh prime also creates no birth population. -/
+theorem squareRootCanonicalRoughFreshBirthBoundary_eq_empty_of_rootPrime
+    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p) (hRp : R < p) :
+    squareRootCanonicalRoughFreshBirthBoundary R c p = ∅ := by
+  unfold squareRootCanonicalRoughFreshBirthBoundary
+  rw [Nat.mul_comm p c,
+    squareRootCanonicalRoughPrimePartnerSet_mul_freshPrime_eq_empty_of_rootPrime
+      hR hc hp hfresh hRp]
+  simp
+
+/-- The unweighted raw child atom itself vanishes at a post-root fresh prime. -/
+theorem squareRootCanonicalRoughRawCorrelationSummand_mul_freshPrime_eq_zero_of_rootPrime
+    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p) (hRp : R < p) :
+    squareRootCanonicalRoughRawCorrelationSummand R (c * p) = 0 := by
+  unfold squareRootCanonicalRoughRawCorrelationSummand
+  rw [squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount R (c * p) hR,
+    squareRootCanonicalRoughPrimePartnerCount_mul_freshPrime_eq_zero_of_rootPrime
+      hR hc hp hfresh hRp]
+  simp
+
+/-- **Post-root raw boundary = parent raw correlation.** -/
+theorem squareRootCanonicalRoughFreshPrimeRawBoundary_eq_parentRaw_of_rootPrime
+    {R c p : ℕ} (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p) (hRp : R < p) :
+    canonicalMoebiusWeight c *
+        (((squareRootCanonicalRoughFreshLossBoundary R c p).card : ℂ) -
+          ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ)) =
+      squareRootCanonicalRoughRawCorrelationSummand R c := by
+  rw [squareRootCanonicalRoughFreshLossBoundary_eq_partnerSet_of_rootPrime
+      hR hc hp hfresh hRp,
+    squareRootCanonicalRoughFreshBirthBoundary_eq_empty_of_rootPrime
+      hR hc hp hfresh hRp]
+  simp only [Finset.card_empty, Nat.cast_zero, sub_zero]
+  unfold squareRootCanonicalRoughRawCorrelationSummand
+  rw [squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount R c hR,
+    squareRootCanonicalRoughPrimePartnerCount_eq_partnerSet_card R c]
+
+/-- The parent raw correlation is literally a signed incidence column over its
+canonical rough-prime partners. -/
+theorem squareRootCanonicalRoughRawCorrelationSummand_eq_partnerIncidenceSum
+    (R c : ℕ) (hR : 2 ≤ R) :
+    squareRootCanonicalRoughRawCorrelationSummand R c =
+      ∑ _q ∈ squareRootCanonicalRoughPrimePartnerSet R c,
+        canonicalMoebiusWeight c := by
+  unfold squareRootCanonicalRoughRawCorrelationSummand
+  rw [squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount R c hR,
+    squareRootCanonicalRoughPrimePartnerCount_eq_partnerSet_card R c]
+  simp [mul_comm]
+
+/-- Coefficient-weighted form used by the actual adaptive boundary mass. -/
+theorem weighted_squareRootCanonicalRoughFreshPrimeRawBoundary_eq_partnerIncidenceSum_of_rootPrime
+    {R c p : ℕ} (a : ℕ → ℂ) (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p) (hRp : R < p) :
+    a c * canonicalMoebiusWeight c *
+        (((squareRootCanonicalRoughFreshLossBoundary R c p).card : ℂ) -
+          ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ)) =
+      ∑ _q ∈ squareRootCanonicalRoughPrimePartnerSet R c,
+        a c * canonicalMoebiusWeight c := by
+  rw [← Finset.mul_sum]
+  rw [← squareRootCanonicalRoughRawCorrelationSummand_eq_partnerIncidenceSum R c hR]
+  rw [squareRootCanonicalRoughFreshPrimeRawBoundary_eq_parentRaw_of_rootPrime
+    hR hc hp hfresh hRp]
+  ring
+
+/-- Every actual stable-far triple's far prime is itself a literal partner of
+its original low cofactor `q*d`. -/
+theorem lowWheelFarPrimeLowCofactorTriple_farPrime_mem_partnerSet
+    {R : ℕ} {t : ℕ × (ℕ × ℕ)} (hR : 2 ≤ R)
+    (ht : t ∈ lowWheelFarPrimeLowCofactorTriples R) :
+    t.2.2 ∈ squareRootCanonicalRoughPrimePartnerSet R (t.1 * t.2.1) := by
+  rcases lowWheelFarPrimeLowCofactorTriple_data ht with
+    ⟨hqPrime, hqR, hd1, hpPrime, hpR, _hdsq, hdq, hcut⟩
+  have hcpos : 0 < t.1 * t.2.1 := Nat.mul_pos hqPrime.pos (by omega)
+  have hlpf : canonicalLargestPrimeFactor (t.1 * t.2.1) = t.1 := by
+    simpa [Nat.mul_comm] using
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough hd1 hqPrime hdq
+  apply (mem_squareRootCanonicalRoughPrimePartnerSet_iff hR hcpos).2
+  refine ⟨hpPrime, ?_, ?_, ?_⟩
+  · rw [hlpf]
+    omega
+  · have hpR' : R ≤ t.2.2 := by omega
+    have hc1 : 1 ≤ t.1 * t.2.1 := Nat.succ_le_iff.mpr hcpos
+    calc
+      R ≤ t.2.2 := hpR'
+      _ = 1 * t.2.2 := by simp
+      _ ≤ (t.1 * t.2.1) * t.2.2 := Nat.mul_le_mul_right t.2.2 hc1
+  · simpa [Nat.mul_assoc] using hcut
+
+/-- **Stable-far post-root boundary transposition.**  On every actual stripped
+stable-far triple, the complete physical raw boundary generated at its far prime
+is exactly the intact signed partner column of the original low cofactor. -/
+theorem lowWheelFarPrimeLowCofactorTriple_farPrimeRawBoundary_eq_partnerIncidenceSum
+    {R : ℕ} {t : ℕ × (ℕ × ℕ)} (hR : 2 ≤ R)
+    (ht : t ∈ lowWheelFarPrimeLowCofactorTriples R) :
+    canonicalMoebiusWeight (t.1 * t.2.1) *
+        (((squareRootCanonicalRoughFreshLossBoundary
+            R (t.1 * t.2.1) t.2.2).card : ℂ) -
+          ((squareRootCanonicalRoughFreshBirthBoundary
+            R (t.1 * t.2.1) t.2.2).card : ℂ)) =
+      ∑ _r ∈ squareRootCanonicalRoughPrimePartnerSet R (t.1 * t.2.1),
+        canonicalMoebiusWeight (t.1 * t.2.1) := by
+  rcases lowWheelFarPrimeLowCofactorTriple_data ht with
+    ⟨hqPrime, hqR, hd1, hpPrime, hpR, _hdsq, hdq, _hcut⟩
+  have hcpos : 0 < t.1 * t.2.1 := Nat.mul_pos hqPrime.pos (by omega)
+  have hlpf : canonicalLargestPrimeFactor (t.1 * t.2.1) = t.1 := by
+    simpa [Nat.mul_comm] using
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough hd1 hqPrime hdq
+  have hfresh : canonicalLargestPrimeFactor (t.1 * t.2.1) < t.2.2 := by
+    rw [hlpf]
+    omega
+  have hRp : R < t.2.2 := by omega
+  calc
+    canonicalMoebiusWeight (t.1 * t.2.1) *
+        (((squareRootCanonicalRoughFreshLossBoundary
+            R (t.1 * t.2.1) t.2.2).card : ℂ) -
+          ((squareRootCanonicalRoughFreshBirthBoundary
+            R (t.1 * t.2.1) t.2.2).card : ℂ)) =
+      squareRootCanonicalRoughRawCorrelationSummand R (t.1 * t.2.1) :=
+        squareRootCanonicalRoughFreshPrimeRawBoundary_eq_parentRaw_of_rootPrime
+          hR hcpos hpPrime hfresh hRp
+    _ = ∑ _r ∈ squareRootCanonicalRoughPrimePartnerSet R (t.1 * t.2.1),
+          canonicalMoebiusWeight (t.1 * t.2.1) :=
+        squareRootCanonicalRoughRawCorrelationSummand_eq_partnerIncidenceSum
+          R (t.1 * t.2.1) hR
 
 end RHLean.Proof
