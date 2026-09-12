@@ -271,15 +271,10 @@ theorem physicalCompleteCell_fourFrame_elevenStep_implies_linear
 
 /-! ## 4. Linear complete-cell energy is already enough for the protected RH chain -/
 
-private theorem norm_intCast_complex_sq_eq_ratCast (z : ℤ) :
-    ‖((z : ℤ) : ℂ)‖ ^ 2 = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by
-  calc
-    ‖((z : ℤ) : ℂ)‖ ^ 2 = ((z : ℝ) ^ 2) := by
-      rw [Complex.sq_norm]
-      norm_num [Complex.normSq_apply]
-    _ = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by
-      push_cast
-      ring
+private theorem norm_intCast_complex_sq_eq_intCast (z : ℤ) :
+    ‖((z : ℤ) : ℂ)‖ ^ 2 = ((z * z : ℤ) : ℝ) := by
+  rw [Complex.sq_norm]
+  norm_num [Complex.normSq_apply]
 
 /-- A linear bound on `mertensEnergy (4*K)` implies the exact three-slot energy
 criterion, with arbitrarily much exponent slack. -/
@@ -294,7 +289,7 @@ theorem threeSlotDegreeOneEnergy_of_completeCellMertensLinear
   have hnorm :
       ‖mertensSummatory (4 * K)‖ ^ 2 ≤ (A : ℝ) * (K : ℝ) := by
     rw [mertensSummatory_eq_moebiusPrefix_cast,
-      norm_intCast_complex_sq_eq_ratCast]
+      norm_intCast_complex_sq_eq_intCast]
     unfold mertensEnergy at hlin
     rw [mertensSummatoryInt_eq_moebiusPrefix_local] at hlin
     exact_mod_cast hlin
