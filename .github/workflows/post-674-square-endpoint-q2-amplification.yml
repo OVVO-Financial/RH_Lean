@@ -1,0 +1,19 @@
+name: post-674-square-endpoint-q2-amplification
+
+on:
+  pull_request:
+    paths:
+      - 'RHLean/Proof/SquareEndpointQ2Amplification.lean'
+      - '.github/workflows/post-674-square-endpoint-q2-amplification.yml'
+  workflow_dispatch:
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          build: false
+      - name: Compile square-endpoint q2 amplification
+        run: lake env lean RHLean/Proof/SquareEndpointQ2Amplification.lean
