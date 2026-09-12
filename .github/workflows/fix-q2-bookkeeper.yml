@@ -1,0 +1,35 @@
+name: Fix q2 bookkeeper
+
+on:
+  push:
+    branches:
+      - agent/q2-bookkeeping-synthesis
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/q2-bookkeeping-synthesis
+      - name: Apply exact repair
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('RHLean/Proof/PhysicalQ2BookkeepingSynthesis.lean')
+          s = p.read_text()
+          old = "    | some p =>\n        simp [ho] at h\n        subst p\n        exact ho\n"
+          new = "    | some p =>\n        simp [ho] at h\n        subst p\n        rfl\n"
+          assert old in s
+          p.write_text(s.replace(old, new, 1))
+          PY
+      - name: Commit repair
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add RHLean/Proof/PhysicalQ2BookkeepingSynthesis.lean
+          git commit -m 'Close generic q2 owner option branch'
+          git push origin HEAD:agent/q2-bookkeeping-synthesis
