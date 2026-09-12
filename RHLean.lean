@@ -549,6 +549,7 @@ import RHLean.Proof.LowWheelFrozenSquareResidualParentSurjectivity
 import RHLean.Proof.LowWheelFrozenSquareResidualQ2Reindex
 import RHLean.Proof.LowWheelFrozenSquareResidualQ2Telescope
 import RHLean.Proof.LowWheelFrozenSquareResidualRootFloored
+import RHLean.Proof.LowWheelFrozenSquareResidualTransportClosure
 import RHLean.Proof.LowWheelFullFaceQuotientOthello
 import RHLean.Proof.LowWheelHighPrimeSurvivor
 import RHLean.Proof.LowWheelLargestDefectSeamEquivalence
