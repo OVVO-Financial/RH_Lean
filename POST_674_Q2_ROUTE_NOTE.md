@@ -1,1 +1,0 @@
-This branch deliberately does not import the older all-complete-cell four-frame theorem. Its purpose is to consume the physical square-endpoint geometry produced by #674 without upgrading the target to an epsilon-free global Mertens bound.
