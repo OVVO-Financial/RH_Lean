@@ -1,0 +1,35 @@
+name: Fix q2 exceptional zero base
+
+on:
+  push:
+    branches:
+      - agent/q2-bookkeeping-synthesis
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/q2-bookkeeping-synthesis
+      - name: Close zero base case
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean')
+          s = p.read_text()
+          old = "      · subst K\n        simp [mertensEnergy]\n"
+          new = "      · subst K\n        simp [mertensEnergy, mertensSummatoryInt]\n"
+          assert old in s
+          p.write_text(s.replace(old, new, 1))
+          PY
+      - name: Commit repair
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean
+          git commit -m 'Close exceptional q2 zero base case'
+          git push origin HEAD:agent/q2-bookkeeping-synthesis
