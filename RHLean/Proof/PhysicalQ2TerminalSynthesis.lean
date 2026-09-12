@@ -70,11 +70,19 @@ theorem mertensEnergy_le_five_fourths_completeCell_add_fortyFive (Y : ℕ) :
   let b : ℚ :=
     ((mertensSummatoryInt Y -
       mertensSummatoryInt (4 * (Y / 4)) : ℤ) : ℚ)
-  have hb : b ^ 2 ≤ 9 := by
+  have hb_lo : (-3 : ℚ) ≤ b := by
     dsimp [b]
     rw [mertensSummatoryInt_eq_moebiusPrefix_local,
       mertensSummatoryInt_eq_moebiusPrefix_local]
-    push_cast
+    exact hzloQ
+  have hb_hi : b ≤ (3 : ℚ) := by
+    dsimp [b]
+    rw [mertensSummatoryInt_eq_moebiusPrefix_local,
+      mertensSummatoryInt_eq_moebiusPrefix_local]
+    exact hzhiQ
+  have hb : b ^ 2 ≤ 9 := by
+    have hprod : 0 ≤ (3 - b) * (b + 3) :=
+      mul_nonneg (sub_nonneg.mpr hb_hi) (by linarith)
     nlinarith
   have hsplit : (mertensSummatoryInt Y : ℚ) = a + b := by
     dsimp [a, b]
@@ -172,7 +180,7 @@ theorem physicalCompleteCell_fourFrame_elevenStep_implies_linear
     positivity
   have hA : 0 ≤ A := by
     dsimp [A]
-    positivity
+    nlinarith [hC, hlambda]
   have hfixed : C + 225 * lambda + ((5 : ℚ) / 16) * lambda * A ≤ A := by
     dsimp [lambda, A]
     rw [elevenWeightOneEnergyFactor_eq]
@@ -182,7 +190,7 @@ theorem physicalCompleteCell_fourFrame_elevenStep_implies_linear
   | h K ih =>
       by_cases hK0 : K = 0
       · subst K
-        simp [mertensEnergy, mertensSummatoryInt_eq_moebiusPrefix_local]
+        simp [mertensEnergy, mertensSummatoryInt]
       · have hKpos : 0 < K := Nat.pos_of_ne_zero hK0
         let S : Finset ℕ := (primesUpTo (4 * K)).erase 2
         have hchild : ∀ q ∈ S,
@@ -270,8 +278,7 @@ private theorem norm_intCast_complex_sq_eq_ratCast (z : ℤ) :
       rw [Complex.sq_norm]
       norm_num [Complex.normSq_apply]
     _ = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by
-      push_cast
-      ring
+      norm_num [pow_two]
 
 /-- A linear bound on `mertensEnergy (4*K)` implies the exact three-slot energy
 criterion, with arbitrarily much exponent slack. -/
@@ -292,26 +299,17 @@ theorem threeSlotDegreeOneEnergy_of_completeCellMertensLinear
     exact_mod_cast hlin
   have hscale :
       (K : ℝ) ≤ Real.rpow ((K + 1 : ℕ) : ℝ) (1 + ε) := by
-    let b : ℝ := ((K + 1 : ℕ) : ℝ)
-    have hb1 : 1 ≤ b := by
-      dsimp [b]
+    have hbase : (1 : ℝ) ≤ (((K + 1 : ℕ) : ℝ)) := by
       exact_mod_cast Nat.succ_le_succ (Nat.zero_le K)
-    have he0 : 0 ≤ ε := le_of_lt hε
-    have hr : 1 ≤ Real.rpow b ε := by
-      have := Real.rpow_le_rpow zero_le_one hb1 he0
-      simpa [Real.one_rpow] using this
-    have hbpos : 0 < b := lt_of_lt_of_le zero_lt_one hb1
-    have hadd := Real.rpow_add hbpos 1 ε
-    have hKle : (K : ℝ) ≤ b := by
-      dsimp [b]
+    have hmono :
+        (((K + 1 : ℕ) : ℝ)) ≤
+          Real.rpow ((K + 1 : ℕ) : ℝ) (1 + ε) := by
+      simpa only [Real.rpow_one] using
+        Real.rpow_le_rpow_of_exponent_le hbase
+          (by linarith : (1 : ℝ) ≤ 1 + ε)
+    have hKle : (K : ℝ) ≤ (((K + 1 : ℕ) : ℝ)) := by
       exact_mod_cast Nat.le_succ K
-    calc
-      (K : ℝ) ≤ b := hKle
-      _ ≤ b * Real.rpow b ε := by nlinarith
-      _ = Real.rpow b (1 + ε) := by
-            rw [hadd]
-            simp
-      _ = Real.rpow ((K + 1 : ℕ) : ℝ) (1 + ε) := by rfl
+    exact hKle.trans hmono
   rw [← mertensSummatory_four_mul_eq_degreeOne]
   exact hnorm.trans (mul_le_mul_of_nonneg_left hscale (by exact_mod_cast hA))
 
@@ -326,7 +324,7 @@ theorem riemannHypothesis_of_physicalCompleteCell_fourFrame_elevenStep
   let A : ℚ := 7 * (C + 225 * (4 * elevenWeightOneEnergyFactor))
   have hA : 0 ≤ A := by
     dsimp [A]
-    positivity
+    nlinarith [hC, elevenWeightOneEnergyFactor_nonneg]
   have hlinear : ∀ K : ℕ, mertensEnergy (4 * K) ≤ A * (K : ℚ) := by
     simpa [A] using
       physicalCompleteCell_fourFrame_elevenStep_implies_linear hC hstep
