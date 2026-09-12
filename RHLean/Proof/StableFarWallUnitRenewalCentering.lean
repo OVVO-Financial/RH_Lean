@@ -92,8 +92,13 @@ theorem lowWheelFarPrimeCrossingStableMass_eq_returnedRenewalMass (R : ℕ) :
     have hbase : t ∈ lowWheelFarPrimeLowCofactorTriples R :=
       (Finset.mem_filter.mp ht).1
     have hcoords := lowWheelFarPrimeProduct_coordinates hbase
+    have hlpf :
+        canonicalLargestPrimeFactor (t.2.1 * t.2.2) = t.2.2 := by
+      simpa [lowWheelFarPrimeProductKey] using hcoords.1
+    have hcof : canonicalCofactor (t.2.1 * t.2.2) = t.2.1 := by
+      simpa [lowWheelFarPrimeProductKey] using hcoords.2
     unfold lowWheelFarPrimeCrossingStableState lowWheelFarPrimeProductKey
-    rw [hcoords.1, hcoords.2]
+    rw [hlpf, hcof]
   · intro a ha b hb hab
     exact lowWheelFarPrimeProductKey_injOn R
       (Finset.mem_filter.mp ha).1 (Finset.mem_filter.mp hb).1 hab
@@ -132,7 +137,7 @@ theorem lowWheelFarPrimeQ2UnitCrossing_prime_mem_unitProducts
     (Finset.mem_filter.mp hcross).1
   rcases lowWheelFarPrimeLowCofactorTriple_data hbase with
     ⟨hq, hqR, _hd1, hp, hpR, _hsq, _hrough, hcut⟩
-  have hR1 : 1 < R := hq.two_le.trans_lt hqR
+  have hR1 : 1 < R := by omega
   have hpX : t.2.2 ≤ squareRootEndpoint R := by
     have hq1 : 1 ≤ t.1 := hq.one_le
     have hle : t.2.2 ≤ t.1 * t.2.2 := by
