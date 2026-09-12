@@ -113,8 +113,6 @@ theorem lowWheelFarPrimeLowCofactorTag_injOn (R : ℕ) :
   intro a ha b hb hab
   rcases a with ⟨c,p⟩
   rcases b with ⟨e,r⟩
-  have hcData := lowWheelFarPrimeNonUnitPair_data ha
-  have heData := lowWheelFarPrimeNonUnitPair_data hb
   change
     (canonicalLargestPrimeFactor c, (canonicalCofactor c, p)) =
       (canonicalLargestPrimeFactor e, (canonicalCofactor e, r)) at hab
@@ -158,13 +156,20 @@ theorem lowWheelFarPrimeNonUnitPairMass_eq_neg_strippedMass (R : ℕ) :
         canonicalMoebiusWeight t.2.1 := by
   rw [lowWheelFarPrimeLowCofactorTriples_sum R
     (fun t => canonicalMoebiusWeight t.2.1)]
-  rw [Finset.sum_neg_distrib]
-  apply Finset.sum_congr rfl
-  intro cp hcp
-  rcases cp with ⟨c,p⟩
-  have hdata := lowWheelFarPrimeNonUnitPair_data hcp
-  dsimp [lowWheelFarPrimeLowCofactorTag]
-  exact hdata.2.2.2.2.2.2.2.2.2
+  calc
+    (∑ cp ∈ lowWheelFarPrimeNonUnitPairSet R,
+        canonicalMoebiusWeight cp.1) =
+      ∑ cp ∈ lowWheelFarPrimeNonUnitPairSet R,
+        -canonicalMoebiusWeight (lowWheelFarPrimeLowCofactorTag cp).2.1 := by
+          apply Finset.sum_congr rfl
+          intro cp hcp
+          rcases cp with ⟨c,p⟩
+          have hdata := lowWheelFarPrimeNonUnitPair_data hcp
+          dsimp [lowWheelFarPrimeLowCofactorTag]
+          exact hdata.2.2.2.2.2.2.2.2.2
+    _ = -∑ cp ∈ lowWheelFarPrimeNonUnitPairSet R,
+        canonicalMoebiusWeight (lowWheelFarPrimeLowCofactorTag cp).2.1 := by
+          rw [Finset.sum_neg_distrib]
 
 /-- Triples whose second insertion of the canonical low prime still fits below
 the old square endpoint. -/
@@ -188,15 +193,23 @@ theorem lowWheelFarPrimeLowCofactorTriples_sum_eq_descended_add_crossing
   have h := Finset.sum_filter_add_sum_filter_not
     (lowWheelFarPrimeLowCofactorTriples R)
     (fun t => t.1 * t.1 * t.2.1 * t.2.2 ≤ squareRootEndpoint R) f
-  rw [h]
-  apply congrArg (fun z : ℂ =>
-    (∑ t ∈ (lowWheelFarPrimeLowCofactorTriples R).filter
-      (fun t => t.1 * t.1 * t.2.1 * t.2.2 ≤ squareRootEndpoint R), f t) + z)
-  apply Finset.sum_congr
-  · ext t
-    simp
-    omega
-  · intro t ht
-    rfl
+  calc
+    (∑ t ∈ lowWheelFarPrimeLowCofactorTriples R, f t) =
+        (∑ t ∈ (lowWheelFarPrimeLowCofactorTriples R).filter
+            (fun t => t.1 * t.1 * t.2.1 * t.2.2 ≤ squareRootEndpoint R), f t) +
+          ∑ t ∈ (lowWheelFarPrimeLowCofactorTriples R).filter
+            (fun t => ¬ t.1 * t.1 * t.2.1 * t.2.2 ≤ squareRootEndpoint R), f t :=
+      h.symm
+    _ = (∑ t ∈ (lowWheelFarPrimeLowCofactorTriples R).filter
+            (fun t => t.1 * t.1 * t.2.1 * t.2.2 ≤ squareRootEndpoint R), f t) +
+          ∑ t ∈ (lowWheelFarPrimeLowCofactorTriples R).filter
+            (fun t => squareRootEndpoint R < t.1 * t.1 * t.2.1 * t.2.2), f t := by
+      congr 1
+      apply Finset.sum_congr
+      · ext t
+        simp
+        omega
+      · intro t ht
+        rfl
 
 end RHLean.Proof
