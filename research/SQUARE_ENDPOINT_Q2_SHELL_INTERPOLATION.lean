@@ -1,4 +1,4 @@
-import RHLean.Proof.SquareEndpointQ2Amplification
+import RHLean.Proof.SignedTransportAmplificationAudit
 import RHLean.Analysis.SquareWheelNesting
 
 /-!
