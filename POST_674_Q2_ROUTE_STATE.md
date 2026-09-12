@@ -1,0 +1,1 @@
+State: terminal square-endpoint q2 amplification theorem added; focused CI compiles that file. Remaining seam is the signed arithmetic bridge from #674's literal daughter/survivor normal form to the rounded square-endpoint recurrence.
