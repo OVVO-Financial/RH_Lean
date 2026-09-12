@@ -176,14 +176,18 @@ theorem physicalCompleteCell_fourFrameStep_implies_linear
           let Y : ℕ := (4 * K) / (q * q)
           let J : ℕ := Y / 4
           have hden : 0 < q * q := Nat.mul_pos hqPrime.pos hqPrime.pos
+          have hq3 : 3 <= q := by
+            have hqNe2 := (Finset.mem_erase.mp hq).1
+            have hq2 := hqPrime.two_le
+            omega
+          have hqSq : 4 < q * q := by
+            nlinarith
           have hYlt : Y < K := by
             dsimp [Y]
             apply (Nat.div_lt_iff_lt_mul hden).2
-            have hq3 : 3 <= q := by
-              have hqNe2 := (Finset.mem_erase.mp hq).1
-              have hq2 := hqPrime.two_le
-              omega
-            nlinarith
+            have hmul : 4 * K < (q * q) * K :=
+              Nat.mul_lt_mul_of_pos_right hqSq hKpos
+            simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hmul
           have hJlt : J < K :=
             (Nat.div_le_self Y 4).trans_lt hYlt
           have hcomplete := ih J hJlt
