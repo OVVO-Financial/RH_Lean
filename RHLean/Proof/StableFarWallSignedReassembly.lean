@@ -42,6 +42,58 @@ theorem lowWheelFarPrimeLowCofactorTriple_data
     (Finset.mem_Icc.mp hpRange).1, h.2.2.2.2.1, h.2.2.2.2.2.1,
     h.2.2.2.2.2.2.2.2.1⟩
 
+/-- Converse census from independent arithmetic data.  In particular the old
+cofactor root restriction follows from the product cutoff and the far prime. -/
+theorem lowWheelFarPrimeLowCofactorTriple_mem_of_data
+    {R q d p : ℕ} (hq : q.Prime) (hqR : q < R) (hd1 : 1 ≤ d)
+    (hp : p.Prime) (hpR : R + 8 ≤ p) (hdsq : Squarefree d)
+    (hdq : canonicalLargestPrimeFactor d < q)
+    (hcut : q * d * p ≤ squareRootEndpoint R) :
+    (q,(d,p)) ∈ lowWheelFarPrimeLowCofactorTriples R := by
+  have hnot := squareRootLowPrimePrime_fresh_of_lpf_lt hd1 hq hdq
+  have hcop : Nat.Coprime q d := (hq.coprime_iff_not_dvd).2 hnot
+  have hcsq : Squarefree (q * d) := (Nat.squarefree_mul hcop).2 ⟨hq.squarefree, hdsq⟩
+  have hcgt : 1 < q * d := by nlinarith [hq.two_le]
+  have hRpos : 0 < R := hq.pos.trans hqR
+  have hXlt : squareRootEndpoint R < R * R := by
+    unfold squareRootEndpoint
+    have hne : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
+    simpa [pow_two] using Nat.pred_lt hne
+  have hcR : q * d < R := by
+    by_contra hnot
+    have hRc : R ≤ q * d := Nat.le_of_not_gt hnot
+    have hRp : R ≤ p := by omega
+    exact (Nat.not_lt_of_ge ((Nat.mul_le_mul hRc hRp).trans hcut)) hXlt
+  have hpX : p ≤ squareRootEndpoint R := by
+    have hle : p ≤ (q * d) * p := by
+      simpa using Nat.mul_le_mul_right p (show 1 ≤ q * d by omega)
+    exact hle.trans hcut
+  have hpair : (q * d,p) ∈ lowWheelFarPrimeNonUnitPairSet R := by
+    apply Finset.mem_filter.mpr
+    refine ⟨mem_lowWheelFarPrimeSquarefreePairSet.mpr ⟨?_, hcsq⟩, hcgt⟩
+    exact mem_lowWheelFarPrimePairSet.mpr
+      ⟨Finset.mem_Ico.mpr ⟨by omega, hcR⟩,
+        Finset.mem_Icc.mpr ⟨hpR, hpX⟩, hp, hcut⟩
+  have hqEq : canonicalLargestPrimeFactor (q * d) = q := by
+    simpa [Nat.mul_comm] using
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough hd1 hq hdq
+  have hdEq : canonicalCofactor (q * d) = d := by
+    simpa [Nat.mul_comm] using canonicalCofactor_mul_prime_eq_of_rough hd1 hq hdq
+  exact Finset.mem_image.mpr ⟨(q * d,p), hpair, by
+    simp [lowWheelFarPrimeLowCofactorTag, hqEq, hdEq]⟩
+
+/-- The carrier is exactly its arithmetic census, rather than merely a map
+into a larger candidate set. -/
+theorem mem_lowWheelFarPrimeLowCofactorTriples_iff_data {R q d p : ℕ} :
+    (q,(d,p)) ∈ lowWheelFarPrimeLowCofactorTriples R ↔
+      q.Prime ∧ q < R ∧ 1 ≤ d ∧ p.Prime ∧ R + 8 ≤ p ∧
+        Squarefree d ∧ canonicalLargestPrimeFactor d < q ∧
+          q * d * p ≤ squareRootEndpoint R := by
+  constructor
+  · exact lowWheelFarPrimeLowCofactorTriple_data
+  · rintro ⟨hq, hqR, hd1, hp, hpR, hsq, hdq, hcut⟩
+    exact lowWheelFarPrimeLowCofactorTriple_mem_of_data hq hqR hd1 hp hpR hsq hdq hcut
+
 /-- The far prime is included in the arithmetic daughter product. -/
 def lowWheelFarPrimeProductKey (t : ℕ × (ℕ × ℕ)) : ℕ × ℕ :=
   (t.1, t.2.1 * t.2.2)

@@ -184,7 +184,7 @@ theorem lowWheelFarPrimeUnitProducts_disjoint_owned (R : ℕ) :
   have hfac : canonicalLargestPrimeFactor p = p := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
       (by norm_num : 0 < (1 : ℕ)) hd.1 (by
-        simpa [canonicalLargestPrimeFactor] using hd.1.pos)
+        simpa [canonicalLargestPrimeFactor] using hd.1.one_lt)
     simpa using h
   rw [hfac] at hl
   omega
@@ -229,5 +229,119 @@ theorem lowWheelFrozenTopFarResidual_eq_descended_add_crossing_sub_terminal
   rw [lowWheelFrozenTopFarResidual_eq_unit_sub_descended_sub_crossing_sub_owned R hR,
     lowWheelFarPrimeQ2DescendedMass_eq_neg_productMass]
   linear_combination h
+
+/-- The integer homes on which the remaining four populations can interact. -/
+def lowWheelFarWallBoundaryProductHomes (R : ℕ) : Finset ℕ :=
+  (lowWheelFarPrimeCrossingProductCarrier R).image Prod.snd ∪
+    lowWheelFarWallTerminalProducts R
+
+/-- All crossing owners at a fixed integer, with their exact multiplicity. -/
+def lowWheelFarWallCrossingMultiplicity (R n : ℕ) : ℕ :=
+  ((lowWheelFarPrimeCrossingProductCarrier R).filter fun x => x.2 = n).card
+
+/-- Signed incidence after reassembling the crossing and terminal occurrences.
+This is an integer difference, not truncated natural subtraction. -/
+def lowWheelFarWallBoundaryCoefficient (R n : ℕ) : ℤ :=
+  (lowWheelFarWallCrossingMultiplicity R n : ℤ) -
+    if n ∈ lowWheelFarWallTerminalProducts R then 1 else 0
+
+/-- Finite Fubini at the integer homes retains every crossing owner. -/
+theorem lowWheelFarPrimeCrossingProduct_sum_eq_multiplicity (R : ℕ) :
+    (∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R, canonicalMoebiusWeight x.2) =
+      ∑ n ∈ lowWheelFarWallBoundaryProductHomes R,
+        (lowWheelFarWallCrossingMultiplicity R n : ℂ) * canonicalMoebiusWeight n := by
+  have hf := Finset.sum_fiberwise_of_maps_to
+    (s := lowWheelFarPrimeCrossingProductCarrier R)
+    (t := lowWheelFarWallBoundaryProductHomes R) (g := Prod.snd)
+    (fun x hx => Finset.mem_union_left _ (Finset.mem_image.mpr ⟨x, hx, rfl⟩))
+    (fun x => canonicalMoebiusWeight x.2)
+  rw [← hf]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  calc
+    (∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R with x.2 = n,
+        canonicalMoebiusWeight x.2) =
+      ∑ _x ∈ (lowWheelFarPrimeCrossingProductCarrier R).filter (fun x => x.2 = n),
+        canonicalMoebiusWeight n := by
+          apply Finset.sum_congr rfl
+          intro x hx
+          rw [(Finset.mem_filter.mp hx).2]
+    _ = _ := by simp [lowWheelFarWallCrossingMultiplicity]
+
+private theorem terminalProducts_sum_eq_indicator (R : ℕ) :
+    (∑ n ∈ lowWheelFarWallTerminalProducts R, canonicalMoebiusWeight n) =
+      ∑ n ∈ lowWheelFarWallBoundaryProductHomes R,
+        if n ∈ lowWheelFarWallTerminalProducts R then canonicalMoebiusWeight n else 0 := by
+  rw [← Finset.sum_filter]
+  apply Finset.sum_congr
+  · ext n
+    simp [lowWheelFarWallBoundaryProductHomes]
+  · intro n _hn
+    rfl
+
+/-- **Signed reassembly before energy.**  The four-term boundary is one
+Möbius sum whose integer coefficient has already subtracted every terminal
+occurrence from its full crossing-owner fibre.  No norm, sign assumption,
+unproved multiplicity-one substitution, or boundary estimate is used. -/
+theorem lowWheelFarWall_remainingBoundary_eq_coefficient_sum (R : ℕ) :
+    lowWheelFarPrimeUnitFaceMass R - lowWheelFarPrimeQ2CrossingMass R -
+        lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
+        lowWheelFrozenCofactorTopImageLedger R =
+      ∑ n ∈ lowWheelFarWallBoundaryProductHomes R,
+        (lowWheelFarWallBoundaryCoefficient R n : ℂ) * canonicalMoebiusWeight n := by
+  rw [lowWheelFarWall_remainingBoundary_eq_signed_products,
+    lowWheelFarPrimeCrossingProduct_sum_eq_multiplicity, terminalProducts_sum_eq_indicator,
+    ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  by_cases hn : n ∈ lowWheelFarWallTerminalProducts R
+  · simp [lowWheelFarWallBoundaryCoefficient, hn, sub_mul]
+  · simp [lowWheelFarWallBoundaryCoefficient, hn]
+
+/-- Crossing products cannot also be either old owned image: they retain a
+prime strictly beyond the inclusive root wheel. -/
+theorem lowWheelFarPrimeCrossingProduct_not_owned
+    {R : ℕ} {x : ℕ × ℕ}
+    (hx : x ∈ lowWheelFarPrimeCrossingProductCarrier R) :
+    x.2 ∉ lowWheelFrozenTopFarOwnedProducts R := by
+  rcases Finset.mem_image.mp hx with ⟨t, ht, rfl⟩
+  intro ho
+  have hfar := (lowWheelFarPrimeProduct_geometry (Finset.mem_filter.mp ht).1).2.2.2
+  have hlow := lowWheelFrozenTopFarOwnedProduct_largestPrime_le_root ho
+  omega
+
+/-- The exact complement census: on a crossing fibre the subtracted terminal
+occurrence is a unit far prime, and never an internal or top-image occurrence. -/
+theorem lowWheelFarPrimeCrossingProduct_mem_terminal_iff_unit
+    {R : ℕ} {x : ℕ × ℕ}
+    (hx : x ∈ lowWheelFarPrimeCrossingProductCarrier R) :
+    x.2 ∈ lowWheelFarWallTerminalProducts R ↔ x.2 ∈ lowWheelFarPrimeUnitProducts R := by
+  change x.2 ∈ lowWheelFarPrimeUnitProducts R ∪ lowWheelFrozenTopFarOwnedProducts R ↔ _
+  simp only [Finset.mem_union, lowWheelFarPrimeCrossingProduct_not_owned hx, or_false]
+
+/-- A concrete regression against silently replacing a crossing-owner fibre
+by one occurrence: owners 3 and 5 both represent the same far prime 23. -/
+theorem lowWheelFarWallCrossingMultiplicity_twelve_twentyThree_ge_two :
+    2 ≤ lowWheelFarWallCrossingMultiplicity 12 23 := by
+  have hmem (q : ℕ) (hq : q = 3 ∨ q = 5) :
+      (q,23) ∈ lowWheelFarPrimeCrossingProductCarrier 12 := by
+    have htr : (q,(1,23)) ∈ lowWheelFarPrimeLowCofactorTriples 12 := by
+      apply lowWheelFarPrimeLowCofactorTriple_mem_of_data
+      all_goals rcases hq with rfl | rfl <;>
+        norm_num [canonicalLargestPrimeFactor, squareRootEndpoint]
+    apply Finset.mem_image.mpr
+    refine ⟨(q,(1,23)), Finset.mem_filter.mpr ⟨htr, ?_⟩, rfl⟩
+    rcases hq with rfl | rfl <;> norm_num [squareRootEndpoint]
+  have hsub : ({(3,23),(5,23)} : Finset (ℕ × ℕ)) ⊆
+      (lowWheelFarPrimeCrossingProductCarrier 12).filter (fun x => x.2 = 23) := by
+    intro x hx
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hx
+    rcases hx with rfl | rfl
+    · exact Finset.mem_filter.mpr ⟨hmem 3 (Or.inl rfl), rfl⟩
+    · exact Finset.mem_filter.mpr ⟨hmem 5 (Or.inr rfl), rfl⟩
+  have hcard := Finset.card_le_card hsub
+  norm_num only [Finset.card_insert_of_notMem (by decide : (3,23) ∉ ({(5,23)} : Finset (ℕ × ℕ))),
+    Finset.card_singleton] at hcard
+  exact hcard
 
 end RHLean.Proof
