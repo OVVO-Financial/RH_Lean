@@ -467,6 +467,7 @@ import RHLean.Proof.ExceptionalSignedPacketIdentification
 import RHLean.Proof.ExceptionalTransportCoboundary
 import RHLean.Proof.FarSurvivorRenewal_is_LowerMertens
 import RHLean.Proof.FareyModesAndTransportWindows
+import RHLean.Proof.FinalCompensatedParentReduction
 import RHLean.Proof.FiniteLeastToggleDuality
 import RHLean.Proof.FiniteOthelloMatching
 import RHLean.Proof.FinitePartialMoments
