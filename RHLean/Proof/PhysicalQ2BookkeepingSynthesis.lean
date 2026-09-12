@@ -159,7 +159,7 @@ private theorem option_getD_zero_eq_prime_iff
     | some p =>
         simp [ho] at h
         subst p
-        exact ho
+        rfl
   · intro h
     rw [h]
     simp
