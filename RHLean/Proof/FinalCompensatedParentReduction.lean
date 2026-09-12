@@ -398,8 +398,8 @@ theorem squarePrefixMertens_eq_oddColumn_add_correctedSurvivor_add_rootBoundary
 
 private def finalQ2LowResidualEval (R : ℕ) : ℤ :=
   ∑ q ∈ primesUpTo (R - 1),
-    frozenPredecessorMobiusEval q R -
-      frozenPredecessorMobiusEval q (max R (squareRootEndpoint R / (q * q)))
+    (frozenPredecessorMobiusEval q R -
+      frozenPredecessorMobiusEval q (max R (squareRootEndpoint R / (q * q))))
 
 private theorem lowWheelFrozenSecondContactSquareResidualMass_eq_eval (R : ℕ) :
     lowWheelFrozenSecondContactSquareResidualMass R =
