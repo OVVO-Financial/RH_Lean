@@ -69,8 +69,7 @@ theorem lowWheelFarPrimeCrossingRenewalLowCofactor_lt_parent
   have hcof : canonicalCofactor (t.2.1 * t.2.2) = t.2.1 := by
     simpa [lowWheelFarPrimeProductKey] using hcoords.2
   simp only [lowWheelFarPrimeCrossingRenewalLowCofactor,
-    lowWheelFarPrimeCrossingParentLowCofactor, lowWheelFarPrimeProductKey,
-    Prod.fst, Prod.snd]
+    lowWheelFarPrimeCrossingParentLowCofactor, lowWheelFarPrimeProductKey]
   rw [hcof]
   have hq2 : 2 ≤ t.1 := hq.two_le
   nlinarith
@@ -117,7 +116,8 @@ theorem lowWheelFarPrimeCrossing_nested_owner_lt
   have hlt : ty.1 < tx.1 := by
     rw [hownerEq]
     exact hdxq
-  simpa [lowWheelFarPrimeProductKey, htxEq, htyEq] using hlt
+  rw [← htxEq, ← htyEq]
+  simpa [lowWheelFarPrimeProductKey] using hlt
 
 /-- A crossing product has positive renewal cofactor and positive far-prime
 coordinate. -/
@@ -138,7 +138,7 @@ private theorem crossingProduct_positive_coordinates
     simpa [lowWheelFarPrimeProductKey] using hcoords.1
   rw [← htx]
   simp only [lowWheelFarPrimeCrossingRenewalLowCofactor,
-    lowWheelFarPrimeProductKey, Prod.fst, Prod.snd]
+    lowWheelFarPrimeProductKey]
   rw [hcof, hfar]
   exact ⟨by omega, hp.pos, hq.two_le⟩
 
