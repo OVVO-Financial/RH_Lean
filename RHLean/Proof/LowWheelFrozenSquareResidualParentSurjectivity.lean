@@ -140,7 +140,8 @@ private theorem postRootSmooth_sourceScale_represented
     have hRpos : 0 < R := by omega
     have hXltR2 : squareRootEndpoint R < R * R := by
       unfold squareRootEndpoint
-      exact Nat.sub_lt (Nat.mul_pos hRpos hRpos) (by norm_num)
+      have hsqNe : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
+      simpa [pow_two] using Nat.pred_lt hsqNe
     have hR2ltRA : R * R < R * A :=
       Nat.mul_lt_mul_of_pos_left hAR hRpos
     exact hXltR2.trans hR2ltRA
