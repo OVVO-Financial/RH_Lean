@@ -143,4 +143,23 @@ theorem lowWheelFarWall_remainingBoundary_eq_neg_stableRenewal_sub_terminal
   rw [lowWheelFarWall_remainingBoundary_eq_signed_products R,
     lowWheelFarPrimeCrossingProductMass_eq_neg_stableRenewalMass hR]
 
+/-- **Complete post-#672 residual in renewal normal form.**  The old hard far
+residual is now the genuine descended q² product packet minus the literal
+stable-wall renewal occurrences minus the terminal product carrier.  Every
+crossing-owner multiplicity is still present in the middle sum, and no norm has
+been taken. -/
+theorem lowWheelFrozenTopFarResidual_eq_descended_sub_stableRenewal_sub_terminal
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      (∑ x ∈ lowWheelFarPrimeDescendedProductCarrier R,
+        canonicalMoebiusWeight x.2) -
+      (∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R,
+        lowWheelFullTaggedPhysicalWeight
+          (lowWheelFarPrimeCrossingStableState x)) -
+      ∑ n ∈ lowWheelFarWallTerminalProducts R,
+        canonicalMoebiusWeight n := by
+  rw [lowWheelFrozenTopFarResidual_eq_descended_add_crossing_sub_terminal R hR,
+    lowWheelFarPrimeCrossingProductMass_eq_neg_stableRenewalMass (by omega)]
+  ring
+
 end RHLean.Proof
