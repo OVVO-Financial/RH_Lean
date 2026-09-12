@@ -15,15 +15,16 @@ historical second-contact source-scale set.  We certify this constructively.
 
 Recover the unique ordered Euler cut for `m`, write `m=A*d`, and let `p=P+(A)`
 be its crossing prime.  Since `P+(m)<q`, we have `p<q`; since `q^2*d<=X_R/A`,
-the reciprocal source cutoff `B=X_R/A` satisfies `q^2<=B`.  Bertrand applied
-above `sqrt B` supplies a prime `r` with
+the reciprocal source cutoff `B=X_R/A` satisfies `q^2<=B`.  Hence `q<=B/2`.
+Bertrand applied to `B/2` supplies a prime `r` with
 
-`sqrt B < r <= 2 sqrt B <= B < R`.
+`B/2 < r <= 2*(B/2) <= B < R`.
 
-Replacing the old high cofactor by this single prime `r` produces an actual
-frozen repeated source at the *same* scale `A`, and `r^2>B` makes it a genuine
-second contact.  Hence `A` is represented.  The original `d` then lies in the
-#667 daughter window at owner `q`, so `(q,m)` belongs to the flattened parent
+Since `r>=2`, the strict inequality `B<2*r` implies `B<r^2`.  Replacing the
+old high cofactor by this single prime `r` therefore produces an actual frozen
+repeated source at the *same* scale `A`, and `r^2>B` makes it a genuine second
+contact.  Hence `A` is represented.  The original `d` then lies in the #667
+daughter window at owner `q`, so `(q,m)` belongs to the flattened parent
 carrier.
 
 No norm or analytic estimate is used; Bertrand is only a finite carrier
@@ -71,8 +72,6 @@ private theorem postRootSmooth_sourceScale_represented
   have hpPrime : p.Prime := by simpa [p] using hs.1
   have hpivot : lowWheelTaggedDowncrossPivot y = p := by
     simpa [p] using orderedEulerCutShape_canonicalPivot hs
-  have hsourceY : lowWheelFrozenSecondContactSourceScale y = A := by
-    simp [lowWheelFrozenSecondContactSourceScale, A, p, hpivot]
   have hAd : A * d = m := by
     rw [← hchild]
     simp [orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
@@ -112,8 +111,8 @@ private theorem postRootSmooth_sourceScale_represented
   have hdRough : RoughAbove p d := by simpa [d, p] using hs.2.2.2.2.2
   have hdTop : canonicalLargestPrimeFactor d < q := by
     by_cases hdOne : d = 1
-    · subst d
-      simp [canonicalLargestPrimeFactor, hq.one_lt]
+    · rw [hdOne]
+      simpa [canonicalLargestPrimeFactor] using hq.one_lt
     · have hdgt : 1 < d := by omega
       have hrPrime := canonicalLargestPrimeFactor_prime hdgt
       have hrDvdD := canonicalLargestPrimeFactor_dvd hdgt
@@ -128,40 +127,40 @@ private theorem postRootSmooth_sourceScale_represented
   let B : ℕ := squareRootEndpoint R / A
   have hq2d : q * q * d ≤ B := by
     apply (Nat.le_div_iff_mul_le hApos).2
-    rw [hAd] at hq2m
-    simpa [B, Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2m
+    calc
+      (q * q * d) * A = q * q * (A * d) := by ring
+      _ = q * q * m := by rw [hAd]
+      _ ≤ squareRootEndpoint R := hq2m
   have hq2B : q * q ≤ B := by
     have h := Nat.mul_le_mul_left (q * q) hd1
     simpa using h.trans hq2d
   have hBltR : B < R := by
+    dsimp [B]
     apply (Nat.div_lt_iff_lt_mul hApos).2
-    unfold squareRootEndpoint
     have hRpos : 0 < R := by omega
-    have hRR : R * R < R * A := Nat.mul_lt_mul_of_pos_left hAR hRpos
-    nlinarith
-  let s : ℕ := Nat.sqrt B
-  have hqS : q ≤ s := by
-    apply Nat.le_sqrt.mpr
-    simpa [s, pow_two] using hq2B
-  have hs2 : 2 ≤ s := hq.two_le.trans hqS
-  obtain ⟨r, hrPrime, hsr, hr2s⟩ :=
-    Nat.exists_prime_lt_and_le_two_mul s (by omega)
-  have hsSq : s * s ≤ B := by
-    simpa [s, pow_two] using Nat.sqrt_le' B
-  have h2sB : 2 * s ≤ B := by
-    have h2sSq : 2 * s ≤ s * s := by nlinarith
-    exact h2sSq.trans hsSq
-  have hrB : r ≤ B := hr2s.trans h2sB
+    have hXltR2 : squareRootEndpoint R < R * R := by
+      unfold squareRootEndpoint
+      omega
+    have hR2ltRA : R * R < R * A :=
+      Nat.mul_lt_mul_of_pos_left hAR hRpos
+    exact hXltR2.trans hR2ltRA
+  have hqHalf : q ≤ B / 2 := by
+    apply (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).2
+    have h2q : q * 2 ≤ q * q := Nat.mul_le_mul_left q hq.two_le
+    exact h2q.trans hq2B
+  have hhalf2 : 2 ≤ B / 2 := hq.two_le.trans hqHalf
+  obtain ⟨r, hrPrime, hhalfR, hr2half⟩ :=
+    Nat.exists_prime_lt_and_le_two_mul (B / 2) hhalf2
+  have h2halfB : 2 * (B / 2) ≤ B := by
+    simpa [Nat.mul_comm] using Nat.div_mul_le_self B 2
+  have hrB : r ≤ B := hr2half.trans h2halfB
   have hrR : r < R := hrB.trans_lt hBltR
   have hBr2 : B < r * r := by
-    have hnext : B < (s + 1) ^ 2 := by
-      simpa [s] using Nat.lt_succ_sqrt' B
-    have hsr1 : s + 1 ≤ r := by omega
-    have hsqle : (s + 1) * (s + 1) ≤ r * r :=
-      Nat.mul_le_mul hsr1 hsr1
-    rw [pow_two] at hnext
-    exact hnext.trans_le hsqle
-  have hpr : p < r := by omega
+    have hB2r : B < r * 2 :=
+      (Nat.div_lt_iff_lt_mul (by norm_num : 0 < (2 : ℕ))).1 hhalfR
+    have h2rle : r * 2 ≤ r * r := Nat.mul_le_mul_left r hrPrime.two_le
+    exact hB2r.trans_le h2rle
+  have hpr : p < r := hpq.trans (hqHalf.trans_lt hhalfR)
   let z : LowWheelTaggedDowncrossState := (y.1, (r, p))
   have hzRough : RoughAbove p r := by
     intro a ha
@@ -233,9 +232,10 @@ private theorem postRootSmooth_sourceScale_represented
     rw [htopA]
     exact ⟨Finset.mem_Icc.mpr ⟨hd1, by simpa [B] using hdB⟩,
       hdSq, hdRough, hdTop⟩
+  have hpqA : canonicalLargestPrimeFactor A < q := by
+    simpa [htopA] using hpq
   have hchildResidual :=
-    lowWheelFrozenSourceSquareResidualDaughter_child_mem hq hpq
-      (by simpa [htopA, B] using hdWindow)
+    lowWheelFrozenSourceSquareResidualDaughter_child_mem hq hpqA hdWindow
   have hqOwner : q ∈ lowWheelFrozenSourceSquareResidualOwners
       (canonicalLargestPrimeFactor A) (squareRootEndpoint R / A) := by
     unfold lowWheelFrozenSourceSquareResidualOwners
@@ -261,7 +261,7 @@ theorem lowWheelFrozenSquareResidualPostRootSmooth_subset_parentOwner
     Finset.mem_image.mpr ⟨(A, (q, d)), htriple, rfl⟩
   apply Finset.mem_image.mpr
   refine ⟨(q, A * d), Finset.mem_filter.mpr ⟨hparent, rfl⟩, ?_⟩
-  simpa [hAd]
+  exact hAd
 
 /-- **Exact post-root carrier identification.**  After the global A/q Fubini
 reassembly, the q^2 residual is not merely a subpacket: for every prime owner
