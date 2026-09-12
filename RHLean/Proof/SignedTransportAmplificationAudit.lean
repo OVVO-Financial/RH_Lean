@@ -271,6 +271,8 @@ theorem squareEndpointRoundedOddQ2EnergyStep_implies_endpointAmplification
     norm_num at h0
     exact h0
   let m : ℝ := ((mertensSummatoryInt (squareRootEndpoint R) : ℤ) : ℝ)
+  have hM' : m ^ 2 ≤ A * (R : ℝ) ^ 2 * K := by
+    simpa [m, squareEndpointMertensEnergyReal] using hM
   have hshift : (m - 1) ^ 2 ≤ 2 * m ^ 2 + 2 := by
     nlinarith [sq_nonneg (m + 1)]
   have hscale : 2 ≤ (R : ℝ) ^ 2 * K := by
@@ -284,7 +286,7 @@ theorem squareEndpointRoundedOddQ2EnergyStep_implies_endpointAmplification
   rw [hmshift]
   calc
     (m - 1) ^ 2 ≤ 2 * m ^ 2 + 2 := hshift
-    _ ≤ 2 * (A * (R : ℝ) ^ 2 * K) + 2 := by nlinarith
+    _ ≤ 2 * (A * (R : ℝ) ^ 2 * K) + 2 := by nlinarith [hM']
     _ ≤ (2 * A + 1) * (R : ℝ) ^ 2 * K := by nlinarith
 
 end RHLean.Proof
