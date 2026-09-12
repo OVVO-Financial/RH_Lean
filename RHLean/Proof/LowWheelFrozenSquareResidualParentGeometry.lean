@@ -165,7 +165,7 @@ theorem lowWheelFrozenSquareResidualParentOwner_subset_postRootSmooth
   have hqqPos : 0 < q * q := Nat.mul_pos hbasic.1.pos hbasic.1.pos
   have hnUpper : n ≤ squareRootEndpoint R / (q * q) := by
     apply (Nat.le_div_iff_mul_le hqqPos).2
-    simpa [Nat.mul_assoc] using hbasic.2.2.2
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hbasic.2.2.2
   apply Finset.mem_filter.mpr
   refine ⟨mem_squareRootLowPrimeGoSmoothCofactors.mpr
       ⟨by omega, hnUpper, hsq, hlt⟩, hbasic.2.2.1⟩
