@@ -93,7 +93,10 @@ theorem lowWheelFrozenSquareResidualDaughter_realizedCut
   have hzDeath : R < orderedEulerCutDeathRoot z := by
     change R < p * primeFaceProduct y.1
     have hroot := lowWheelFrozenSourceScale_root_lt hA
-    simpa [p, lowWheelFrozenSecondContactSourceScale, hyA] using hroot
+    have hbase : p * primeFaceProduct y.1 = A := by
+      simpa [p, lowWheelFrozenSecondContactSourceScale] using hyA
+    rw [hbase]
+    exact hroot
   have hzCarrier : z ∈ orderedEulerCutCarrier R :=
     mem_orderedEulerCutCarrier_iff_shape_lifetime.mpr
       ⟨hzShape, hzBirth, hzDeath⟩
@@ -176,15 +179,15 @@ theorem lowWheelFrozenSquareResidualDaughter_ownerSquare_mul_product_le_endpoint
     (hd : d ∈ lowWheelFrozenSourceSquareResidualDaughterWindow
       (canonicalLargestPrimeFactor A) (squareRootEndpoint R / A) q) :
     q * q * (A * d) ≤ squareRootEndpoint R := by
-  rcases Finset.mem_filter.mp hd with ⟨hdIcc, _hdSq, _hdRough, _hdLt⟩
+  rcases Finset.mem_filter.mp hd with ⟨hdIcc, _hdSq, _hdRough, hdLt⟩
   have hdUpper := (Finset.mem_Icc.mp hdIcc).2
   have hApos : 0 < A :=
     (Nat.zero_le R).trans_lt (lowWheelFrozenSourceScale_root_lt hA)
+  have hqPos : 0 < q := by omega
+  have hqqPos : 0 < q * q := Nat.mul_pos hqPos hqPos
   have hq2d : q * q * d ≤ squareRootEndpoint R / A := by
-    by_cases hqq : 0 < q * q
-    · exact (Nat.le_div_iff_mul_le hqq).1 hdUpper
-    · have hq0 : q = 0 := by omega
-      simp [hq0]
+    have h := (Nat.le_div_iff_mul_le hqqPos).1 hdUpper
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
   have hmul : A * (q * q * d) ≤ squareRootEndpoint R := by
     have hdiv := Nat.div_mul_le_self (squareRootEndpoint R) A
     have hscaled := Nat.mul_le_mul_left A hq2d
