@@ -154,6 +154,22 @@ def finalQ2RootReassemblyBoundary (R : ℕ) : ℂ :=
   ((RHLean.Analysis.goCompensatedRootBoundary R : ℤ) : ℂ) +
     lowWheelFrozenSecondContactMatchingFixedTransportMass R
 
+/-- The root reassembly boundary has no hidden full-scale smooth term: the
+common frozen root cube and empty Euler face cancel exactly, leaving the old
+root-anchor column minus the already-named root-floor correction. -/
+theorem finalQ2RootReassemblyBoundary_eq_anchor_sub_rootFloorCorrection
+    (R : ℕ) (hR : 2 ≤ R) :
+    finalQ2RootReassemblyBoundary R =
+      (((lowWheelFrozenSquareResidualRootAnchorColumn R -
+        RHLean.Analysis.goRootFloorCorrection R : ℤ) : ℂ)) := by
+  have hmatch :=
+    lowWheelFrozenSecondContactMatchingFixedTransportMass_eq_smooth_add_anchor_sub_one
+      R hR
+  unfold finalQ2RootReassemblyBoundary RHLean.Analysis.goCompensatedRootBoundary
+  rw [hmatch]
+  push_cast
+  ring
+
 /-- The complete low-side square residual is the compensated root boundary minus
 all literal Go q^2 daughters.  No norm is taken. -/
 theorem lowWheelFrozenSecondContactSquareResidualMass_eq_rootReassembly_sub_goColumn
@@ -175,7 +191,14 @@ theorem lowWheelFrozenSecondContactSquareResidualMass_eq_rootReassembly_sub_goCo
   rw [hsource'] at hcomp
   unfold finalQ2RootReassemblyBoundary
   push_cast at hcomp ⊢
-  linear_combination hcomp
+  calc
+    lowWheelFrozenSecondContactSquareResidualMass R =
+        ((RHLean.Analysis.goCompensatedRootBoundary R : ℤ) : ℂ) -
+          ((squareEndpointQ2GoColumn R : ℤ) : ℂ) +
+          lowWheelFrozenSecondContactMatchingFixedTransportMass R := hcomp.symm
+    _ = ((RHLean.Analysis.goCompensatedRootBoundary R : ℤ) : ℂ) +
+          lowWheelFrozenSecondContactMatchingFixedTransportMass R -
+          ((squareEndpointQ2GoColumn R : ℤ) : ℂ) := by ring
 
 /-- Inserting `Go = M + transportDefect` exposes the whole lower-scale Mertens
 column while the transport correction remains signed. -/
@@ -249,19 +272,5 @@ theorem finalCompensatedParentCore_eq_neg_mertensColumn_add_survivor_add_rootBou
         finalQ2SurvivorCorrection R + finalCompensatedRootBoundary R := by
   rw [finalCompensatedParentCore_eq_lowHighDifference_add_rootBoundary R hR,
     finalCompensatedLowHighDifference_eq_neg_mertensColumn_add_survivor R hR]
-  ring
-
-/-- The extracted daughter column retains the intact predecessor/high-transport
-meaning owner by owner. -/
-theorem squareEndpointQ2MertensColumn_eq_signedPredecessorColumn (R : ℕ) :
-    squareEndpointQ2MertensColumn R =
-      ∑ q ∈ primesUpTo (R - 1),
-        exceptionalSignedPredecessorState q
-          (squareRootEndpoint R / (q * q)) := by
-  unfold squareEndpointQ2MertensColumn
-  apply Finset.sum_congr rfl
-  intro q hq
-  exact (exceptionalSignedPredecessorState_eq_mertens
-    (mem_primesUpTo.mp hq).1 _).symm
 
 end RHLean.Proof
