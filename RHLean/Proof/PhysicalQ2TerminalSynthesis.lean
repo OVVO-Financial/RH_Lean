@@ -177,7 +177,7 @@ theorem physicalCompleteCell_fourFrame_elevenStep_implies_linear
   let A : ℚ := 7 * (C + 225 * lambda)
   have hlambda : 0 ≤ lambda := by
     dsimp [lambda]
-    positivity
+    exact mul_nonneg (by norm_num) elevenWeightOneEnergyFactor_nonneg
   have hA : 0 ≤ A := by
     dsimp [A]
     nlinarith [hC, hlambda]
@@ -278,7 +278,8 @@ private theorem norm_intCast_complex_sq_eq_ratCast (z : ℤ) :
       rw [Complex.sq_norm]
       norm_num [Complex.normSq_apply]
     _ = (((z : ℚ) ^ 2 : ℚ) : ℝ) := by
-      norm_num [pow_two]
+      push_cast
+      rw [pow_two]
 
 /-- A linear bound on `mertensEnergy (4*K)` implies the exact three-slot energy
 criterion, with arbitrarily much exponent slack. -/

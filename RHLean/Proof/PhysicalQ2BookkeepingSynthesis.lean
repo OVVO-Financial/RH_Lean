@@ -157,8 +157,9 @@ private theorem option_getD_zero_eq_prime_iff
         simp [ho] at h
         exact (hr.ne_zero h.symm).elim
     | some p =>
-        have hpr : p = r := by simpa [ho] using h
-        simpa [ho, hpr]
+        simp [ho] at h
+        subst p
+        exact ho
   · intro h
     rw [h]
     simp
