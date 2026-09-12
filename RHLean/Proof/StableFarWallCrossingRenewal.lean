@@ -28,6 +28,7 @@ noncomputable section
 namespace RHLean.Proof
 
 open RHLean.Arithmetic RHLean.Analysis
+open FrozenCofactorTopBottom LowWheelCanonicalDowncrossOwnership
 
 attribute [local instance] Classical.propDecidable
 
@@ -49,10 +50,16 @@ theorem lowWheelFarPrimeCrossingStableState_mem
   rcases lowWheelFarPrimeLowCofactorTriple_data ht with
     ⟨hq, hqR, hd1, hp, hpR, hdsq, hdq, hcut⟩
   have hcoords := lowWheelFarPrimeProduct_coordinates ht
+  have hlpf :
+      canonicalLargestPrimeFactor (t.2.1 * t.2.2) = t.2.2 := by
+    simpa [lowWheelFarPrimeProductKey] using hcoords.1
+  have hcofactor :
+      canonicalCofactor (t.2.1 * t.2.2) = t.2.1 := by
+    simpa [lowWheelFarPrimeProductKey] using hcoords.2
   have hq1 : 1 ≤ t.1 := hq.one_le
   have hdpCut : t.2.1 * t.2.2 ≤ squareRootEndpoint R := by
-    have hle : t.2.1 * t.2.2 ≤ t.1 * (t.2.1 * t.2.2) :=
-      Nat.mul_le_mul_right (t.2.1 * t.2.2) hq1
+    have hle : t.2.1 * t.2.2 ≤ t.1 * (t.2.1 * t.2.2) := by
+      simpa using Nat.mul_le_mul_right (t.2.1 * t.2.2) hq1
     exact hle.trans (by simpa [Nat.mul_assoc] using hcut)
   have hRpos : 0 < R := by omega
   have hXlt : squareRootEndpoint R < R * R := by
@@ -75,12 +82,11 @@ theorem lowWheelFarPrimeCrossingStableState_mem
       Squarefree (canonicalCofactor (t.2.1 * t.2.2)) ∧
       canonicalCofactor (t.2.1 * t.2.2) *
           canonicalLargestPrimeFactor (t.2.1 * t.2.2) ≤ squareRootEndpoint R
-  rw [hcoords.1, hcoords.2]
+  rw [hlpf, hcofactor]
   refine ⟨rfl, hp, hpR, ?_, Finset.mem_Ico.mpr ⟨hd1, hdR⟩, hdsq, hdpCut⟩
-  exact hpR.trans (by
-    have hle : t.2.2 ≤ t.2.1 * t.2.2 := by
-      simpa using Nat.mul_le_mul_right t.2.2 hd1
-    exact hle.trans hdpCut)
+  have hle : t.2.2 ≤ t.2.1 * t.2.2 := by
+    simpa using Nat.mul_le_mul_right t.2.2 hd1
+  exact hle.trans hdpCut
 
 /-- Pointwise renewal sign: the returned stable-wall occurrence has exactly the
 opposite weight of the crossing product. -/
@@ -92,8 +98,17 @@ theorem lowWheelFarPrimeCrossingStableState_weight_eq_neg_product
       -canonicalMoebiusWeight x.2 := by
   have hmem := lowWheelFarPrimeCrossingStableState_mem hR hx
   have hweight := stableFarWall_singleInsertion_weight hR hmem
+  have hxgt : 1 < x.2 := by
+    rcases Finset.mem_image.mp hx with ⟨t, htCross, htx⟩
+    have ht := (Finset.mem_filter.mp htCross).1
+    have hfar := (lowWheelFarPrimeProduct_geometry ht).2.1
+    have hfarx : R + 8 ≤ x.2 := by
+      simpa [htx] using hfar
+    omega
+  have hprod := canonicalCofactor_mul_largestPrimeFactor hxgt
   unfold lowWheelFarPrimeCrossingStableState at hweight
-  simpa using hweight
+  rw [hprod] at hweight
+  exact hweight
 
 /-- **Exact crossing-renewal mass identity.**  Every crossing survivor is the
 negative of a genuine lower stable-wall occurrence.  The sum is still indexed
@@ -109,8 +124,8 @@ theorem lowWheelFarPrimeCrossingProductMass_eq_neg_stableRenewalMass
   rw [← Finset.sum_neg_distrib]
   apply Finset.sum_congr rfl
   intro x hx
-  have h := lowWheelFarPrimeCrossingStableState_weight_eq_neg_product hR hx
-  linear_combination -h
+  rw [lowWheelFarPrimeCrossingStableState_weight_eq_neg_product hR hx]
+  ring
 
 /-- The four-term #672 boundary in renewal form: all strict crossing mass is now
 shown on the literal stable far wall, while the already-owned terminal product
