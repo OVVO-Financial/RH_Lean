@@ -542,6 +542,7 @@ import RHLean.Proof.LowWheelFrozenSecondContactRoughPrefix
 import RHLean.Proof.LowWheelFrozenSecondContactScaleFlux
 import RHLean.Proof.LowWheelFrozenSecondContactWindowDescent
 import RHLean.Proof.LowWheelFrozenSecondContactWindowReassembly
+import RHLean.Proof.LowWheelFrozenSourceScaleDaughterProduct
 import RHLean.Proof.LowWheelFrozenSquareResidualQ2Reindex
 import RHLean.Proof.LowWheelFrozenSquareResidualQ2Telescope
 import RHLean.Proof.LowWheelFullFaceQuotientOthello
