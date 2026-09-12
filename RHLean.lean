@@ -581,6 +581,7 @@ import RHLean.Proof.OrderedEulerCutProjection
 import RHLean.Proof.OrthogonalResidual
 import RHLean.Proof.PhysicalQ2BookkeepingSynthesis
 import RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
+import RHLean.Proof.PhysicalQ2FourFrameTerminalSynthesis
 import RHLean.Proof.PhysicalQ2TerminalSynthesis
 import RHLean.Proof.PostRootCovarianceGlobalExponentTransfer
 import RHLean.Proof.PostRootCovarianceLcmBoundary
@@ -768,6 +769,7 @@ import RHLean.Proof.SquareWheelSurvivorOwnerResidual
 import RHLean.Proof.SquareWheelSurvivorProcessedResponseBridge
 import RHLean.Proof.SquareWheelSurvivorShallowBridge
 import RHLean.Proof.StableFarPrimeWallTransport
+import RHLean.Proof.StableFarWallCrossingRenewal
 import RHLean.Proof.StableFarWallExactQ2Split
 import RHLean.Proof.StableFarWallLowCofactorQ2Descent
 import RHLean.Proof.StableFarWallOwnedCensus
