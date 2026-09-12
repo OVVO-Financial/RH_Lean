@@ -15,6 +15,12 @@ cofactor.  More importantly, if a returned state is itself the parent of a
 second crossing, then the second stripped owner is the canonical largest prime
 of `d`, hence is strictly smaller than the previous owner `q`.
 
+The full renewal key retains both the low cofactor and the genuine far prime.
+Along compatible successive renewal steps the second-contact load
+`q^2*d*p` therefore decreases strictly as well.  Hence the crossing predicate
+`X_R < q^2*d*p` can change to the descended predicate
+`q^2*d*p <= X_R` at most once while owners are stripped in descending order.
+
 Consequently a chain of strict crossing renewals has strictly decreasing prime
 owners and cannot cycle.  This is the well-foundedness needed to iterate the
 exact signed renewal before taking a norm: every path must terminate either in
@@ -40,6 +46,23 @@ def lowWheelFarPrimeCrossingParentLowCofactor (x : ℕ × ℕ) : ℕ :=
 product `(q,d*p)` this is `d`. -/
 def lowWheelFarPrimeCrossingRenewalLowCofactor (x : ℕ × ℕ) : ℕ :=
   canonicalCofactor x.2
+
+/-- Parent arithmetic key: old low cofactor together with the unchanged far
+prime. -/
+def lowWheelFarPrimeCrossingParentKey (x : ℕ × ℕ) : ℕ × ℕ :=
+  (lowWheelFarPrimeCrossingParentLowCofactor x,
+    canonicalLargestPrimeFactor x.2)
+
+/-- Renewal arithmetic key: stripped low cofactor together with the unchanged
+far prime. -/
+def lowWheelFarPrimeCrossingRenewalKey (x : ℕ × ℕ) : ℕ × ℕ :=
+  (lowWheelFarPrimeCrossingRenewalLowCofactor x,
+    canonicalLargestPrimeFactor x.2)
+
+/-- The second-contact quantity whose comparison with `X_R` defines the exact
+q^2 descended/crossing split. -/
+def lowWheelFarPrimeCrossingSecondContactLoad (x : ℕ × ℕ) : ℕ :=
+  x.1 * x.1 * canonicalCofactor x.2 * canonicalLargestPrimeFactor x.2
 
 /-- **One renewal step strictly decreases the low cofactor.** -/
 theorem lowWheelFarPrimeCrossingRenewalLowCofactor_lt_parent
@@ -102,6 +125,76 @@ theorem lowWheelFarPrimeCrossing_nested_owner_lt
     exact h
   rw [hownerEq]
   exact hdxq
+
+/-- A full compatible renewal step preserves the far prime and strictly lowers
+the second-contact load.  This is the monotonicity behind the unique stopping
+layer of an iterated renewal chain. -/
+theorem lowWheelFarPrimeCrossing_nested_secondContactLoad_lt
+    {R : ℕ} {x y : ℕ × ℕ}
+    (hx : x ∈ lowWheelFarPrimeCrossingProductCarrier R)
+    (hy : y ∈ lowWheelFarPrimeCrossingProductCarrier R)
+    (hchain : lowWheelFarPrimeCrossingParentKey y =
+      lowWheelFarPrimeCrossingRenewalKey x) :
+    lowWheelFarPrimeCrossingSecondContactLoad y <
+      lowWheelFarPrimeCrossingSecondContactLoad x := by
+  have hcofactor : lowWheelFarPrimeCrossingParentLowCofactor y =
+      lowWheelFarPrimeCrossingRenewalLowCofactor x :=
+    congrArg Prod.fst hchain
+  have hfar : canonicalLargestPrimeFactor y.2 =
+      canonicalLargestPrimeFactor x.2 := congrArg Prod.snd hchain
+  have howner := lowWheelFarPrimeCrossing_nested_owner_lt hx hy hcofactor
+  rcases Finset.mem_image.mp hx with ⟨tx, htxCross, htxEq⟩
+  have htx : tx ∈ lowWheelFarPrimeLowCofactorTriples R :=
+    (Finset.mem_filter.mp htxCross).1
+  rcases lowWheelFarPrimeLowCofactorTriple_data htx with
+    ⟨hqx, _hqxR, hdx1, hpx, _hpxR, _hdxsq, _hdxq, _hcutx⟩
+  have hcoordsX := lowWheelFarPrimeProduct_coordinates htx
+  have hxCofPos : 0 < lowWheelFarPrimeCrossingRenewalLowCofactor x := by
+    rw [← htxEq]
+    simp [lowWheelFarPrimeCrossingRenewalLowCofactor,
+      lowWheelFarPrimeProductKey, hcoordsX.2]
+    omega
+  have hxFarPos : 0 < canonicalLargestPrimeFactor x.2 := by
+    rw [← htxEq]
+    simp [lowWheelFarPrimeProductKey, hcoordsX.1]
+    exact hpx.pos
+  have hownerSq : y.1 < x.1 * x.1 := by
+    have hxTwo : 2 ≤ x.1 := by
+      rw [← htxEq]
+      simpa [lowWheelFarPrimeProductKey] using hqx.two_le
+    have hxLeSq : x.1 ≤ x.1 * x.1 := by nlinarith
+    exact howner.trans_le hxLeSq
+  have hmul := Nat.mul_lt_mul_of_pos_right hownerSq
+    (Nat.mul_pos hxCofPos hxFarPos)
+  unfold lowWheelFarPrimeCrossingSecondContactLoad
+  have hparentExpand :
+      y.1 * canonicalCofactor y.2 =
+        canonicalCofactor x.2 := hcofactor
+  rw [← hfar]
+  calc
+    y.1 * y.1 * canonicalCofactor y.2 * canonicalLargestPrimeFactor y.2 =
+        y.1 * (y.1 * canonicalCofactor y.2) *
+          canonicalLargestPrimeFactor y.2 := by ring
+    _ = y.1 * canonicalCofactor x.2 *
+          canonicalLargestPrimeFactor y.2 := by rw [hparentExpand]
+    _ < (x.1 * x.1) * canonicalCofactor x.2 *
+          canonicalLargestPrimeFactor y.2 := by
+            simpa [Nat.mul_assoc] using hmul
+    _ = x.1 * x.1 * canonicalCofactor x.2 *
+          canonicalLargestPrimeFactor x.2 := by rw [hfar]
+
+/-- Once a compatible lower renewal step fits below a cutoff, every still lower
+compatible step also fits.  Equivalently, along a renewal chain the strict
+crossing predicate can change to the descended predicate only once. -/
+theorem lowWheelFarPrimeCrossing_nested_descended_monotone
+    {R X : ℕ} {x y : ℕ × ℕ}
+    (hx : x ∈ lowWheelFarPrimeCrossingProductCarrier R)
+    (hy : y ∈ lowWheelFarPrimeCrossingProductCarrier R)
+    (hchain : lowWheelFarPrimeCrossingParentKey y =
+      lowWheelFarPrimeCrossingRenewalKey x)
+    (hdesc : lowWheelFarPrimeCrossingSecondContactLoad x ≤ X) :
+    lowWheelFarPrimeCrossingSecondContactLoad y ≤ X := by
+  exact (lowWheelFarPrimeCrossing_nested_secondContactLoad_lt hx hy hchain).le.trans hdesc
 
 /-- In particular, two strict crossing renewals cannot form a two-cycle. -/
 theorem lowWheelFarPrimeCrossing_no_twoCycle
