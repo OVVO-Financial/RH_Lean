@@ -109,7 +109,6 @@ theorem lowWheelFrozenTopFarResidual_eq_adaptiveRawFinal_add_ledger_add_rootCorr
   rw [← hcorr] at hadapt
   rw [lowWheelFrozenTopFarResidual_eq_roughCorrelation_add_rootCorrection R hR,
     hadapt]
-  ring
 
 /-- Quantitative consequence of the exact splice: after all fresh-prime
 reassembly, the only extra cost outside the coupled adaptive raw packet is ten
