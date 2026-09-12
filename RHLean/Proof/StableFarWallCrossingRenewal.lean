@@ -379,8 +379,9 @@ theorem lowWheelMellinFrequency_sq_norm_critical
             (Real.rpow_natCast (Real.rpow (q : ℝ) (-(1 / 2 : ℝ))) 2).symm
     _ = Real.rpow (q : ℝ) ((-(1 / 2 : ℝ)) * 2) :=
       (Real.rpow_mul hq0 (-(1 / 2 : ℝ)) (2 : ℝ)).symm
-    _ = ((q : ℝ))⁻¹ := by
-      simpa only using (Real.rpow_neg_one (q : ℝ))
+    _ = Real.rpow (q : ℝ) (-1 : ℝ) := by
+      rw [show (-(1 / 2 : ℝ)) * 2 = -1 by norm_num]
+    _ = ((q : ℝ))⁻¹ := Real.rpow_neg_one (q : ℝ)
     _ = 1 / (q : ℝ) := by rw [one_div]
 
 /-- The phase-normalized critical-line renewal symbol.  Multiplying the raw
