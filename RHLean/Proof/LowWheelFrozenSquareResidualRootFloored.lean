@@ -225,7 +225,11 @@ theorem lowWheelFrozenSquareResidualParentCarrier_mass_eq_rootFloored_sub_anchor
   apply Finset.sum_congr rfl
   intro q hq
   have hqd := mem_primesUpTo.mp hq
-  have hqR : q < R := Nat.lt_of_le_pred hqd.2
+  have hRpos : 0 < R := by
+    have hqpos := hqd.1.pos
+    have hqle := hqd.2
+    omega
+  have hqR : q < R := Nat.lt_of_le_pred hRpos hqd.2
   rw [lowWheelFrozenSquareResidualParentOwnerCarrier_mass_eq_postRootSmooth
       hqd.1 hqR,
     lowWheelFrozenSquareResidualPostRootSmooth_mass_eq_rootFlooredDiff hqd.1]
