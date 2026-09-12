@@ -245,4 +245,59 @@ theorem lowWheelFrozenTopFarResidual_eq_neg_childFarSlices_sub_stableRenewal_sub
   rw [lowWheelFrozenTopFarResidual_eq_descended_sub_stableRenewal_sub_terminal R hR,
     lowWheelFarPrimeDescendedProductMass_eq_neg_sum_childFarSlices R]
 
+/-! ## Frequency-weighted crossing renewal -/
+
+/-- **Pointwise q² transfer symbol.**  For any completely multiplicative
+complex frequency `χ`, a strict crossing at owner `q=x.1` and lower product
+`n=x.2` carries the second-contact frequency `χ(q² n)`.  Renewal returns to the
+same lower state with the opposite Möbius weight, so the parent contribution is
+exactly the renewed lower contribution multiplied by `-χ(q)^2`.
+
+This theorem is deliberately abstract in `χ`: it applies to Mellin/Perron
+characters once their multiplicativity is supplied, but it uses only the exact
+physical crossing carrier and the already-proved renewal sign. -/
+theorem lowWheelFarPrimeCrossing_frequency_q2_factor
+    {R : ℕ} (hR : 2 ≤ R) {x : ℕ × ℕ}
+    (hx : x ∈ lowWheelFarPrimeCrossingProductCarrier R)
+    (χ : ℕ → ℂ)
+    (hmul : ∀ a b : ℕ, χ (a * b) = χ a * χ b) :
+    canonicalMoebiusWeight x.2 * χ (x.1 * x.1 * x.2) =
+      -(χ x.1) ^ 2 *
+        (lowWheelFullTaggedPhysicalWeight
+            (lowWheelFarPrimeCrossingStableState x) * χ x.2) := by
+  have hsign :=
+    lowWheelFarPrimeCrossingStableState_weight_eq_neg_product hR hx
+  have hfreq1 := hmul (x.1 * x.1) x.2
+  have hfreq2 := hmul x.1 x.1
+  rw [hfreq1, hfreq2, hsign]
+  ring
+
+/-- **Global frequency-weighted crossing-renewal identity.**  The owner tag is
+kept in the summation, hence every crossing multiplicity survives exactly.
+The only spectral multiplier introduced by a second `q` insertion is the
+explicit square `χ(q)^2`; no norm, triangle inequality, or owner collapse is
+used. -/
+theorem lowWheelFarPrimeCrossing_frequency_q2_sum
+    {R : ℕ} (hR : 2 ≤ R)
+    (χ : ℕ → ℂ)
+    (hmul : ∀ a b : ℕ, χ (a * b) = χ a * χ b) :
+    (∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R,
+        canonicalMoebiusWeight x.2 * χ (x.1 * x.1 * x.2)) =
+      -∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R,
+        (χ x.1) ^ 2 *
+          (lowWheelFullTaggedPhysicalWeight
+              (lowWheelFarPrimeCrossingStableState x) * χ x.2) := by
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro x hx
+  have h := lowWheelFarPrimeCrossing_frequency_q2_factor hR hx χ hmul
+  calc
+    canonicalMoebiusWeight x.2 * χ (x.1 * x.1 * x.2) =
+        -(χ x.1) ^ 2 *
+          (lowWheelFullTaggedPhysicalWeight
+              (lowWheelFarPrimeCrossingStableState x) * χ x.2) := h
+    _ = -((χ x.1) ^ 2 *
+          (lowWheelFullTaggedPhysicalWeight
+              (lowWheelFarPrimeCrossingStableState x) * χ x.2)) := by ring
+
 end RHLean.Proof
