@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'RHLean/Proof/SquareEndpointQ2Amplification.lean'
+      - 'research/SQUARE_ENDPOINT_Q2_SHELL_INTERPOLATION.lean'
       - '.github/workflows/post-674-square-endpoint-q2-amplification.yml'
   workflow_dispatch:
 
@@ -17,3 +18,5 @@ jobs:
           build: false
       - name: Compile square-endpoint q2 amplification
         run: lake build RHLean.Proof.SquareEndpointQ2Amplification --wfail
+      - name: Compile unsigned q2 shell interpolation
+        run: lake env lean research/SQUARE_ENDPOINT_Q2_SHELL_INTERPOLATION.lean
