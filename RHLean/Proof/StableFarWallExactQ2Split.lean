@@ -134,6 +134,5 @@ theorem lowWheelFrozenTopFarResidual_eq_unit_sub_descended_sub_crossing_sub_owne
         lowWheelFrozenCofactorTopImageLedger R := by
   rw [lowWheelFrozenTopFarResidual_eq_farTransport_sub_internalMate_sub_topImage R hR,
     squareRootFarPrimeTransport_eq_unit_sub_descended_sub_crossing R (by omega)]
-  ring
 
 end RHLean.Proof
