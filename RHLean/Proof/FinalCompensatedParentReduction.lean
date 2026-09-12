@@ -1,5 +1,8 @@
 import RHLean.Proof.LowWheelFrozenSquareResidualTransportClosure
 import RHLean.Proof.LowWheelCanonicalFrozenReduction
+import RHLean.Proof.StableFarWallCrossingRenewal
+import RHLean.Proof.ExceptionalTransportCoboundary
+import RHLean.Analysis.PhysicalDaughterEnergyObstructions
 import RHLean.Analysis.SquareRootMatchedDegreeOneRecovery
 
 /-!
@@ -127,5 +130,190 @@ theorem squarePrefixMertens_eq_rootBoundary_sub_frozenTopFar
       finalCompensatedRootBoundary R - lowWheelFrozenTopFarResidual R := by
   have h := squarePrefixMertens_add_frozenTopFar_eq_finalRootBoundary R hR
   linear_combination h
+
+/-! ## Post-#673 exact splice onto whole q^2 Mertens daughters -/
+
+/-- The complete square-endpoint Go q^2 column over all old prime owners. -/
+def squareEndpointQ2GoColumn (R : ℕ) : ℤ :=
+  ∑ q ∈ primesUpTo (R - 1),
+    squareRootLowPrimeGoWallSquareResidual q (squareRootEndpoint R)
+
+/-- The same owner schedule after high-prime transport is retained.  Each
+summand is the genuine lower-scale Mertens packet. -/
+def squareEndpointQ2MertensColumn (R : ℕ) : ℤ :=
+  ∑ q ∈ primesUpTo (R - 1),
+    mertensSummatoryInt (squareRootEndpoint R / (q * q))
+
+/-- Signed transport amount separating the frozen Go column from the whole
+Mertens daughter column. -/
+def squareEndpointQ2HighTransportDefect (R : ℕ) : ℤ :=
+  squareEndpointQ2GoColumn R - squareEndpointQ2MertensColumn R
+
+/-- The prime coboundary identity in `ExceptionalTransportCoboundary` extends
+to every prime and every cutoff.  Below the owner the high-prime set is empty
+and the frozen predecessor is already the full Mertens prefix; above the owner
+this is the existing proper-subwheel telescope. -/
+theorem q2DaughterHighTransport_eq_go_sub_mertens_all
+    {q X : ℕ} (hq : q.Prime) :
+    q2DaughterHighTransport q X =
+      squareRootLowPrimeGoWallSquareResidual q X -
+        mertensSummatoryInt (X / (q * q)) := by
+  by_cases hcut : q - 1 ≤ X / (q * q)
+  · exact q2DaughterHighTransport_eq_go_sub_mertens hcut
+  · have hYq : X / (q * q) < q := by omega
+    have hempty :
+        frozenPrimeUniverseHighPrimeSet (q - 1) (X / (q * q)) = ∅ := by
+      apply Finset.eq_empty_iff_forall_notMem.mpr
+      intro p hp
+      have hdata := mem_frozenPrimeUniverseHighPrimeSet.mp hp
+      omega
+    unfold q2DaughterHighTransport
+    rw [hempty, Finset.sum_empty,
+      squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff,
+      frozenPrimeUniverseMass_eq_mertensSummatoryInt_of_lt_owner hq hYq]
+    ring
+
+/-- The algebraic transport defect is therefore literally the sum of the actual
+high-prime transport columns on the same owner schedule. -/
+def squareEndpointQ2HighTransportColumn (R : ℕ) : ℤ :=
+  ∑ q ∈ primesUpTo (R - 1),
+    q2DaughterHighTransport q (squareRootEndpoint R)
+
+theorem squareEndpointQ2HighTransportDefect_eq_actualColumn (R : ℕ) :
+    squareEndpointQ2HighTransportDefect R =
+      squareEndpointQ2HighTransportColumn R := by
+  unfold squareEndpointQ2HighTransportDefect squareEndpointQ2GoColumn
+    squareEndpointQ2MertensColumn squareEndpointQ2HighTransportColumn
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro q hq
+  exact (q2DaughterHighTransport_eq_go_sub_mertens_all
+    (mem_primesUpTo.mp hq).1).symm
+
+/-- Root-anchor compensation already present in the saturated source together
+with its actual historical matching fixed-transport population. -/
+def finalQ2RootReassemblyBoundary (R : ℕ) : ℂ :=
+  ((RHLean.Analysis.goCompensatedRootBoundary R : ℤ) : ℂ) +
+    lowWheelFrozenSecondContactMatchingFixedTransportMass R
+
+/-- The root reassembly boundary has no hidden full-scale smooth term: the
+common frozen root cube and empty Euler face cancel exactly, leaving the old
+root-anchor column minus the already-named root-floor correction. -/
+theorem finalQ2RootReassemblyBoundary_eq_anchor_sub_rootFloorCorrection
+    (R : ℕ) (hR : 2 ≤ R) :
+    finalQ2RootReassemblyBoundary R =
+      (((lowWheelFrozenSquareResidualRootAnchorColumn R -
+        RHLean.Analysis.goRootFloorCorrection R : ℤ) : ℂ)) := by
+  have hmatch :=
+    lowWheelFrozenSecondContactMatchingFixedTransportMass_eq_smooth_add_anchor_sub_one
+      R hR
+  unfold finalQ2RootReassemblyBoundary RHLean.Analysis.goCompensatedRootBoundary
+  rw [hmatch]
+  push_cast
+  ring
+
+/-- The complete low-side square residual is the compensated root boundary minus
+all literal Go q^2 daughters.  No norm is taken. -/
+theorem lowWheelFrozenSecondContactSquareResidualMass_eq_rootReassembly_sub_goColumn
+    (R : ℕ) (hR : 2 ≤ R) :
+    lowWheelFrozenSecondContactSquareResidualMass R =
+      finalQ2RootReassemblyBoundary R -
+        ((squareEndpointQ2GoColumn R : ℤ) : ℂ) := by
+  have hsource :=
+    RHLean.Analysis.lowWheelFrozenSecondContactSource_sum_eq_compensatedRootBoundary_sub_allDaughters
+      R hR
+  have hsource' :
+      (∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
+          lowWheelTaggedDowncrossWeight y) =
+        (((RHLean.Analysis.goCompensatedRootBoundary R -
+          squareEndpointQ2GoColumn R : ℤ) : ℂ)) := by
+    simpa [lowWheelTaggedDowncrossWeight, squareEndpointQ2GoColumn] using hsource
+  have hcomp :=
+    lowWheelFrozenSecondContactSource_add_matchingFixedTransport_eq_squareResidual R
+  rw [hsource'] at hcomp
+  unfold finalQ2RootReassemblyBoundary
+  push_cast at hcomp ⊢
+  calc
+    lowWheelFrozenSecondContactSquareResidualMass R =
+        ((RHLean.Analysis.goCompensatedRootBoundary R : ℤ) : ℂ) -
+          ((squareEndpointQ2GoColumn R : ℤ) : ℂ) +
+          lowWheelFrozenSecondContactMatchingFixedTransportMass R := hcomp.symm
+    _ = ((RHLean.Analysis.goCompensatedRootBoundary R : ℤ) : ℂ) +
+          lowWheelFrozenSecondContactMatchingFixedTransportMass R -
+          ((squareEndpointQ2GoColumn R : ℤ) : ℂ) := by ring
+
+/-- Inserting `Go = M + highTransport` exposes the whole lower-scale Mertens
+column while the actual transport correction remains signed. -/
+theorem lowWheelFrozenSecondContactSquareResidualMass_eq_neg_mertensColumn_add_rootTransport
+    (R : ℕ) (hR : 2 ≤ R) :
+    lowWheelFrozenSecondContactSquareResidualMass R =
+      -(((squareEndpointQ2MertensColumn R : ℤ) : ℂ)) +
+        (finalQ2RootReassemblyBoundary R -
+          ((squareEndpointQ2HighTransportColumn R : ℤ) : ℂ)) := by
+  rw [lowWheelFrozenSecondContactSquareResidualMass_eq_rootReassembly_sub_goColumn R hR]
+  rw [← squareEndpointQ2HighTransportDefect_eq_actualColumn R]
+  unfold squareEndpointQ2HighTransportDefect
+  push_cast
+  ring
+
+/-- Descended far-prime part already recognized by #671/#673. -/
+def squareEndpointQ2ChildFarSliceColumn (R : ℕ) : ℂ :=
+  ∑ q ∈ primesUpTo (R - 1),
+    ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+      canonicalMoebiusWeight dp.1
+
+/-- Strict-crossing survivors after forgetting only their stripped owner tag.
+The crossing carrier remains the index, so multiplicity is retained exactly. -/
+def stableFarRenewalColumn (R : ℕ) : ℂ :=
+  ∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R,
+    lowWheelFullTaggedPhysicalWeight
+      (lowWheelFarPrimeCrossingStableState x)
+
+/-- Unit-face and the two already-owned terminal populations in the common true
+Möbius product currency. -/
+def stableFarTerminalProductColumn (R : ℕ) : ℂ :=
+  ∑ n ∈ lowWheelFarWallTerminalProducts R,
+    canonicalMoebiusWeight n
+
+/-- Everything left after the whole q^2 Mertens daughter column is pulled out of
+the exact low/high comparison.  The child-far slice stays signed together with
+the literal high-prime transport column. -/
+def finalQ2SurvivorCorrection (R : ℕ) : ℂ :=
+  finalQ2RootReassemblyBoundary R -
+      ((squareEndpointQ2HighTransportColumn R : ℤ) : ℂ) +
+    squareEndpointQ2ChildFarSliceColumn R +
+    stableFarRenewalColumn R +
+    stableFarTerminalProductColumn R
+
+/-- **Exact post-#673 low/high splice.**  The hard compensated low/high
+comparison is a column of genuine lower-scale Mertens daughters plus one
+explicit signed survivor correction. -/
+theorem finalCompensatedLowHighDifference_eq_neg_mertensColumn_add_survivor
+    (R : ℕ) (hR : 56 ≤ R) :
+    finalCompensatedLowHighDifference R =
+      -(((squareEndpointQ2MertensColumn R : ℤ) : ℂ)) +
+        finalQ2SurvivorCorrection R := by
+  have hlow :=
+    lowWheelFrozenSecondContactSquareResidualMass_eq_neg_mertensColumn_add_rootTransport
+      R (by omega)
+  have hfar :=
+    lowWheelFrozenTopFarResidual_eq_neg_childFarSlices_sub_stableRenewal_sub_terminal
+      R hR
+  unfold finalCompensatedLowHighDifference
+  rw [hlow, hfar]
+  unfold finalQ2SurvivorCorrection squareEndpointQ2ChildFarSliceColumn
+    stableFarRenewalColumn stableFarTerminalProductColumn
+  ring
+
+/-- Substitution into the exact final parent normal form.  The only non-root
+term not displayed as a whole recursive Mertens daughter is now the explicit
+survivor correction. -/
+theorem finalCompensatedParentCore_eq_neg_mertensColumn_add_survivor_add_rootBoundary
+    (R : ℕ) (hR : 56 ≤ R) :
+    finalCompensatedParentCore R =
+      -(((squareEndpointQ2MertensColumn R : ℤ) : ℂ)) +
+        finalQ2SurvivorCorrection R + finalCompensatedRootBoundary R := by
+  rw [finalCompensatedParentCore_eq_lowHighDifference_add_rootBoundary R hR,
+    finalCompensatedLowHighDifference_eq_neg_mertensColumn_add_survivor R hR]
 
 end RHLean.Proof
