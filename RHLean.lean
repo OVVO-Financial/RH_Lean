@@ -461,6 +461,7 @@ import RHLean.Proof.EndpointCubeAnalyticClosure
 import RHLean.Proof.EndpointProjectionBridge
 import RHLean.Proof.ExactPrefixPopulationIdentity
 import RHLean.Proof.ExceptionalContactFrameEnergyNoGo
+import RHLean.Proof.ExceptionalDeletionParentPartition
 import RHLean.Proof.ExceptionalOwnerEnergyClosure
 import RHLean.Proof.ExceptionalSignedPacketIdentification
 import RHLean.Proof.ExceptionalTransportCoboundary
@@ -569,6 +570,9 @@ import RHLean.Proof.NormalizedCofactorTripling
 import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.OrderedEulerCutProjection
 import RHLean.Proof.OrthogonalResidual
+import RHLean.Proof.PhysicalQ2BookkeepingSynthesis
+import RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
+import RHLean.Proof.PhysicalQ2TerminalSynthesis
 import RHLean.Proof.PostRootCovarianceGlobalExponentTransfer
 import RHLean.Proof.PostRootCovarianceLcmBoundary
 import RHLean.Proof.PostRootCovarianceLcmBoundaryClosure
