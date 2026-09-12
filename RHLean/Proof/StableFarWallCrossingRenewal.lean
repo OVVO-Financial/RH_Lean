@@ -1,5 +1,6 @@
 import RHLean.Proof.StableFarWallOwnedCensus
 import RHLean.Proof.StableFarPrimeWallTransport
+import RHLean.Proof.CanonicalGapAncestryBridge
 
 /-!
 # Crossing survivors are genuine lower-cofactor stable-wall occurrences
@@ -29,6 +30,7 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic RHLean.Analysis
 open FrozenCofactorTopBottom LowWheelCanonicalDowncrossOwnership
+open CanonicalGapAncestryBridge
 
 attribute [local instance] Classical.propDecidable
 
@@ -244,5 +246,145 @@ theorem lowWheelFrozenTopFarResidual_eq_neg_childFarSlices_sub_stableRenewal_sub
         canonicalMoebiusWeight n := by
   rw [lowWheelFrozenTopFarResidual_eq_descended_sub_stableRenewal_sub_terminal R hR,
     lowWheelFarPrimeDescendedProductMass_eq_neg_sum_childFarSlices R]
+
+/-! ## Strict crossing renewal has depth one
+
+A strict `q^2` crossing has already stripped the largest prime `q` from a
+nonunit low cofactor `q*d`.  If the returned cofactor `d` is nonunit, write
+`d = r*e` with `r = P⁺(d)`.  Since `r < q`, the original inequality
+`q*d*p ≤ X_R` implies `r^2*e*p ≤ X_R`.  Thus the return is descended at its
+next canonical owner and cannot cross again. -/
+
+/-- **Depth-one renewal.**  A nonunit strict crossing, after forgetting its
+outer owner, is automatically descended at the returned cofactor's own
+canonical largest-prime owner. -/
+theorem lowWheelFarPrimeQ2Crossing_returned_nonUnit_descends
+    {R q d p : ℕ}
+    (ht : (q, (d, p)) ∈ lowWheelFarPrimeQ2CrossingTriples R)
+    (hd : 1 < d) :
+    (canonicalLargestPrimeFactor d, (canonicalCofactor d, p)) ∈
+      lowWheelFarPrimeQ2DescendedTriples R := by
+  have hbase : (q, (d, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
+    (Finset.mem_filter.mp ht).1
+  rcases lowWheelFarPrimeLowCofactorTriple_data hbase with
+    ⟨hqPrime, hqR, _hd1, hpPrime, hpR, hdsq, hdq, hcut⟩
+  let r := canonicalLargestPrimeFactor d
+  let e := canonicalCofactor d
+  have hrPrime : r.Prime := by
+    dsimp [r]
+    exact canonicalLargestPrimeFactor_prime hd
+  have he1 : 1 ≤ e := by
+    dsimp [e]
+    exact canonicalCofactor_pos hd
+  have hesq : Squarefree e := by
+    dsimp [e]
+    exact squarefree_canonicalCofactor hdsq hd
+  have hrq : r < q := by
+    simpa [r] using hdq
+  have hrR : r < R := hrq.trans hqR
+  have her : canonicalLargestPrimeFactor e < r := by
+    dsimp [r, e]
+    exact canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hd hdsq
+  have hprod : r * e = d := by
+    dsimp [r, e]
+    simpa [Nat.mul_comm] using canonicalCofactor_mul_largestPrimeFactor hd
+  have hnextCut : r * e * p ≤ squareRootEndpoint R := by
+    rw [hprod]
+    have hq1 : 1 ≤ q := hqPrime.one_le
+    have hle : d * p ≤ q * (d * p) := by
+      simpa using Nat.mul_le_mul_right (d * p) hq1
+    exact hle.trans (by simpa [Nat.mul_assoc] using hcut)
+  have hnextBase :
+      (r, (e, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
+    lowWheelFarPrimeLowCofactorTriple_mem_of_data
+      hrPrime hrR he1 hpPrime hpR hesq her hnextCut
+  apply Finset.mem_filter.mpr
+  refine ⟨hnextBase, ?_⟩
+  have hrleq : r ≤ q := Nat.le_of_lt hrq
+  calc
+    r * r * e * p = r * (r * e) * p := by ring
+    _ = r * d * p := by rw [hprod]
+    _ ≤ q * d * p := by
+      simpa [Nat.mul_assoc] using Nat.mul_le_mul_right (d * p) hrleq
+    _ ≤ squareRootEndpoint R := hcut
+
+/-- The returned nonunit state therefore lands in the literal next-owner
+child-far slice consumed by the q-square recursion. -/
+theorem lowWheelFarPrimeQ2Crossing_returned_nonUnit_mem_nextChildFarSlice
+    {R q d p : ℕ}
+    (ht : (q, (d, p)) ∈ lowWheelFarPrimeQ2CrossingTriples R)
+    (hd : 1 < d) :
+    (canonicalCofactor d, p) ∈
+      lowWheelFarPrimeQ2ChildFarSlice R (canonicalLargestPrimeFactor d) := by
+  have hdesc := lowWheelFarPrimeQ2Crossing_returned_nonUnit_descends ht hd
+  have hbase : (q, (d, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
+    (Finset.mem_filter.mp ht).1
+  rcases lowWheelFarPrimeLowCofactorTriple_data hbase with
+    ⟨_hqPrime, hqR, _hd1, _hpPrime, _hpR, _hdsq, hdq, _hcut⟩
+  have hrPrime : (canonicalLargestPrimeFactor d).Prime :=
+    canonicalLargestPrimeFactor_prime hd
+  have hrR : canonicalLargestPrimeFactor d < R := hdq.trans hqR
+  have howner :
+      (canonicalLargestPrimeFactor d, (canonicalCofactor d, p)) ∈
+        lowWheelFarPrimeQ2DescendedOwnerTriples R (canonicalLargestPrimeFactor d) :=
+    Finset.mem_filter.mpr ⟨hdesc, rfl⟩
+  have himage :
+      (canonicalCofactor d, p) ∈
+        (lowWheelFarPrimeQ2DescendedOwnerTriples R
+          (canonicalLargestPrimeFactor d)).image Prod.snd :=
+    Finset.mem_image.mpr
+      ⟨(canonicalLargestPrimeFactor d, (canonicalCofactor d, p)), howner, rfl⟩
+  rw [lowWheelFarPrimeQ2DescendedOwner_image_eq_childFarSlice hrPrime hrR] at himage
+  exact himage
+
+/-- A returned strict crossing has no second strict crossing at its next
+canonical owner. -/
+theorem lowWheelFarPrimeQ2Crossing_returned_nonUnit_not_crossing
+    {R q d p : ℕ}
+    (ht : (q, (d, p)) ∈ lowWheelFarPrimeQ2CrossingTriples R)
+    (hd : 1 < d) :
+    (canonicalLargestPrimeFactor d, (canonicalCofactor d, p)) ∉
+      lowWheelFarPrimeQ2CrossingTriples R := by
+  have hdesc := lowWheelFarPrimeQ2Crossing_returned_nonUnit_descends ht hd
+  intro hcross
+  have hle := (Finset.mem_filter.mp hdesc).2
+  have hgt := (Finset.mem_filter.mp hcross).2
+  omega
+
+/-- Every strict crossing return is therefore either the unit terminal state or
+one literal next-owner child-far state. -/
+theorem lowWheelFarPrimeQ2Crossing_returned_terminal_or_nextChild
+    {R q d p : ℕ}
+    (ht : (q, (d, p)) ∈ lowWheelFarPrimeQ2CrossingTriples R) :
+    d = 1 ∨
+      (canonicalCofactor d, p) ∈
+        lowWheelFarPrimeQ2ChildFarSlice R (canonicalLargestPrimeFactor d) := by
+  by_cases hdone : d = 1
+  · exact Or.inl hdone
+  · right
+    have hbase : (q, (d, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
+      (Finset.mem_filter.mp ht).1
+    have hd1 := (lowWheelFarPrimeLowCofactorTriple_data hbase).2.2.1
+    have hdgt : 1 < d := by omega
+    exact lowWheelFarPrimeQ2Crossing_returned_nonUnit_mem_nextChildFarSlice ht hdgt
+
+/-- **Pointwise signed cancellation currency.**  On a nonunit return, the
+stable-wall cofactor weight is exactly the negative of the next child-far
+cofactor weight. -/
+theorem lowWheelFarPrimeQ2Crossing_returnedWeight_eq_neg_nextChildWeight
+    {R q d p : ℕ}
+    (ht : (q, (d, p)) ∈ lowWheelFarPrimeQ2CrossingTriples R)
+    (hd : 1 < d) :
+    lowWheelFullTaggedPhysicalWeight ((∅ : Finset ℕ), (d, p)) =
+      -canonicalMoebiusWeight (canonicalCofactor d) := by
+  have hbase : (q, (d, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
+    (Finset.mem_filter.mp ht).1
+  have hsq := (lowWheelFarPrimeLowCofactorTriple_data hbase).2.2.2.2.2.1
+  have hmu := canonicalSignedParent_moebius hsq hd
+  unfold lowWheelFullTaggedPhysicalWeight canonicalMoebiusWeight
+  simp only [booleanCubeSign, Finset.card_empty, pow_zero, Int.cast_one, mul_one]
+  rw [hmu]
+  push_cast
+  ring
 
 end RHLean.Proof
