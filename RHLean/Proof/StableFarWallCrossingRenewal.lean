@@ -245,4 +245,182 @@ theorem lowWheelFrozenTopFarResidual_eq_neg_childFarSlices_sub_stableRenewal_sub
   rw [lowWheelFrozenTopFarResidual_eq_descended_sub_stableRenewal_sub_terminal R hR,
     lowWheelFarPrimeDescendedProductMass_eq_neg_sum_childFarSlices R]
 
+/-! ## Frequency-weighted crossing renewal -/
+
+/-- **Pointwise q² transfer symbol.**  For any completely multiplicative
+complex frequency `χ`, a strict crossing at owner `q=x.1` and lower product
+`n=x.2` carries the second-contact frequency `χ(q² n)`.  Renewal returns to the
+same lower state with the opposite Möbius weight, so the parent contribution is
+exactly the renewed lower contribution multiplied by `-χ(q)^2`.
+
+This theorem is deliberately abstract in `χ`: it applies to Mellin/Perron
+characters once their multiplicativity is supplied, but it uses only the exact
+physical crossing carrier and the already-proved renewal sign. -/
+theorem lowWheelFarPrimeCrossing_frequency_q2_factor
+    {R : ℕ} (hR : 2 ≤ R) {x : ℕ × ℕ}
+    (hx : x ∈ lowWheelFarPrimeCrossingProductCarrier R)
+    (χ : ℕ → ℂ)
+    (hmul : ∀ a b : ℕ, χ (a * b) = χ a * χ b) :
+    canonicalMoebiusWeight x.2 * χ (x.1 * x.1 * x.2) =
+      -(χ x.1) ^ 2 *
+        (lowWheelFullTaggedPhysicalWeight
+            (lowWheelFarPrimeCrossingStableState x) * χ x.2) := by
+  have hsign :=
+    lowWheelFarPrimeCrossingStableState_weight_eq_neg_product hR hx
+  have hfreq1 := hmul (x.1 * x.1) x.2
+  have hfreq2 := hmul x.1 x.1
+  rw [hfreq1, hfreq2, hsign]
+  ring
+
+/-- **Global frequency-weighted crossing-renewal identity.**  The owner tag is
+kept in the summation, hence every crossing multiplicity survives exactly.
+The only spectral multiplier introduced by a second `q` insertion is the
+explicit square `χ(q)^2`; no norm, triangle inequality, or owner collapse is
+used. -/
+theorem lowWheelFarPrimeCrossing_frequency_q2_sum
+    {R : ℕ} (hR : 2 ≤ R)
+    (χ : ℕ → ℂ)
+    (hmul : ∀ a b : ℕ, χ (a * b) = χ a * χ b) :
+    (∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R,
+        canonicalMoebiusWeight x.2 * χ (x.1 * x.1 * x.2)) =
+      -∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R,
+        (χ x.1) ^ 2 *
+          (lowWheelFullTaggedPhysicalWeight
+              (lowWheelFarPrimeCrossingStableState x) * χ x.2) := by
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro x hx
+  have h := lowWheelFarPrimeCrossing_frequency_q2_factor hR hx χ hmul
+  calc
+    canonicalMoebiusWeight x.2 * χ (x.1 * x.1 * x.2) =
+        -(χ x.1) ^ 2 *
+          (lowWheelFullTaggedPhysicalWeight
+              (lowWheelFarPrimeCrossingStableState x) * χ x.2) := h
+    _ = -((χ x.1) ^ 2 *
+          (lowWheelFullTaggedPhysicalWeight
+              (lowWheelFarPrimeCrossingStableState x) * χ x.2)) := by ring
+
+/-! ### Mellin/Perron specialization -/
+
+/-- The finite Mellin character `n ↦ n^{-s}`, extended by zero at `n=0` so it
+is a total function on naturals. -/
+noncomputable def lowWheelMellinFrequency (s : ℂ) (n : ℕ) : ℂ :=
+  if n = 0 then 0 else (n : ℂ) ^ (-s)
+
+/-- The zero-extended Mellin character remains completely multiplicative. -/
+theorem lowWheelMellinFrequency_mul (s : ℂ) (a b : ℕ) :
+    lowWheelMellinFrequency s (a * b) =
+      lowWheelMellinFrequency s a * lowWheelMellinFrequency s b := by
+  by_cases ha : a = 0
+  · subst a
+    simp [lowWheelMellinFrequency]
+  by_cases hb : b = 0
+  · subst b
+    simp [lowWheelMellinFrequency]
+  have hab : a * b ≠ 0 := Nat.mul_ne_zero ha hb
+  simp only [lowWheelMellinFrequency, ha, hb, hab, if_false]
+  have hcp := @Complex.mul_cpow_ofReal_nonneg
+    (a := (a : ℝ)) (b := (b : ℝ)) (r := -s)
+    (Nat.cast_nonneg a) (Nat.cast_nonneg b)
+  push_cast at hcp ⊢
+  simpa [Nat.cast_mul] using hcp
+
+/-- Pointwise crossing-renewal identity for the literal Mellin/Perron
+character `n^{-s}`. -/
+theorem lowWheelFarPrimeCrossing_mellin_q2_factor
+    {R : ℕ} (hR : 2 ≤ R) {x : ℕ × ℕ}
+    (hx : x ∈ lowWheelFarPrimeCrossingProductCarrier R) (s : ℂ) :
+    canonicalMoebiusWeight x.2 *
+        lowWheelMellinFrequency s (x.1 * x.1 * x.2) =
+      -(lowWheelMellinFrequency s x.1) ^ 2 *
+        (lowWheelFullTaggedPhysicalWeight
+            (lowWheelFarPrimeCrossingStableState x) *
+          lowWheelMellinFrequency s x.2) := by
+  exact lowWheelFarPrimeCrossing_frequency_q2_factor hR hx
+    (lowWheelMellinFrequency s) (lowWheelMellinFrequency_mul s)
+
+/-- Global crossing-renewal identity on the Mellin/Perron character. -/
+theorem lowWheelFarPrimeCrossing_mellin_q2_sum
+    {R : ℕ} (hR : 2 ≤ R) (s : ℂ) :
+    (∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R,
+        canonicalMoebiusWeight x.2 *
+          lowWheelMellinFrequency s (x.1 * x.1 * x.2)) =
+      -∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R,
+        (lowWheelMellinFrequency s x.1) ^ 2 *
+          (lowWheelFullTaggedPhysicalWeight
+              (lowWheelFarPrimeCrossingStableState x) *
+            lowWheelMellinFrequency s x.2) := by
+  exact lowWheelFarPrimeCrossing_frequency_q2_sum hR
+    (lowWheelMellinFrequency s) (lowWheelMellinFrequency_mul s)
+
+/-- Standard critical-line Mellin parameter `1/2 + it`. -/
+noncomputable def lowWheelCriticalMellinParameter (t : ℝ) : ℂ :=
+  ((1 / 2 : ℝ) : ℂ) + (t : ℂ) * Complex.I
+
+/-- On the critical line, one Mellin insertion has radial size `q^{-1/2}`. -/
+theorem lowWheelMellinFrequency_norm_critical
+    {q : ℕ} (hq : 0 < q) (t : ℝ) :
+    ‖lowWheelMellinFrequency (lowWheelCriticalMellinParameter t) q‖ =
+      Real.rpow (q : ℝ) (-(1 / 2 : ℝ)) := by
+  simp [lowWheelMellinFrequency, hq.ne',
+    Complex.norm_natCast_cpow_of_pos hq, lowWheelCriticalMellinParameter]
+
+/-- Therefore the exact second-contact multiplier has radial size `1/q`. -/
+theorem lowWheelMellinFrequency_sq_norm_critical
+    {q : ℕ} (hq : 0 < q) (t : ℝ) :
+    ‖(lowWheelMellinFrequency (lowWheelCriticalMellinParameter t) q) ^ 2‖ =
+      1 / (q : ℝ) := by
+  rw [norm_pow, lowWheelMellinFrequency_norm_critical hq t]
+  have hq0 : (0 : ℝ) ≤ (q : ℝ) := Nat.cast_nonneg q
+  calc
+    (Real.rpow (q : ℝ) (-(1 / 2 : ℝ))) ^ 2 =
+        Real.rpow (Real.rpow (q : ℝ) (-(1 / 2 : ℝ))) (2 : ℝ) := by
+          exact
+            (Real.rpow_natCast (Real.rpow (q : ℝ) (-(1 / 2 : ℝ))) 2).symm
+    _ = Real.rpow (q : ℝ) ((-(1 / 2 : ℝ)) * 2) :=
+      (Real.rpow_mul hq0 (-(1 / 2 : ℝ)) (2 : ℝ)).symm
+    _ = Real.rpow (q : ℝ) (-1 : ℝ) := by
+      rw [show (-(1 / 2 : ℝ)) * 2 = -1 by norm_num]
+    _ = ((q : ℝ))⁻¹ := Real.rpow_neg_one (q : ℝ)
+    _ = 1 / (q : ℝ) := by rw [one_div]
+
+/-- The phase-normalized critical-line renewal symbol.  Multiplying the raw
+`-q^{-2s}` symbol by `q` strips its radial `1/q` factor and leaves a unit
+complex phase. -/
+noncomputable def lowWheelCriticalRenewalPhase (q : ℕ) (t : ℝ) : ℂ :=
+  -((q : ℂ) *
+    (lowWheelMellinFrequency (lowWheelCriticalMellinParameter t) q) ^ 2)
+
+/-- The normalized renewal symbol lies exactly on the unit circle. -/
+theorem lowWheelCriticalRenewalPhase_norm
+    {q : ℕ} (hq : 0 < q) (t : ℝ) :
+    ‖lowWheelCriticalRenewalPhase q t‖ = 1 := by
+  rw [lowWheelCriticalRenewalPhase, norm_neg, norm_mul,
+    Complex.norm_natCast, lowWheelMellinFrequency_sq_norm_critical hq t]
+  have hqR : (q : ℝ) ≠ 0 := by exact_mod_cast hq.ne'
+  field_simp
+
+/-- Exact radial-phase decomposition of the critical-line second-contact
+multiplier: `-q^{-2s} = q^{-1} * phase_q(t)`, with the phase normalized above. -/
+theorem lowWheelCriticalRenewalMultiplier_eq_inv_mul_phase
+    {q : ℕ} (hq : 0 < q) (t : ℝ) :
+    -(lowWheelMellinFrequency (lowWheelCriticalMellinParameter t) q) ^ 2 =
+      ((q : ℂ)⁻¹) * lowWheelCriticalRenewalPhase q t := by
+  unfold lowWheelCriticalRenewalPhase
+  have hqC : (q : ℂ) ≠ 0 := by exact_mod_cast hq.ne'
+  field_simp [hqC]
+
+/-- Every actual crossing owner has the critical-line radial factor `1/q`.
+This specializes the abstract symbol to the physical carrier itself. -/
+theorem lowWheelFarPrimeCrossing_critical_multiplier_norm
+    {R : ℕ} {x : ℕ × ℕ}
+    (hx : x ∈ lowWheelFarPrimeCrossingProductCarrier R) (t : ℝ) :
+    ‖(lowWheelMellinFrequency (lowWheelCriticalMellinParameter t) x.1) ^ 2‖ =
+      1 / (x.1 : ℝ) := by
+  rcases Finset.mem_image.mp hx with ⟨u, hu, rfl⟩
+  have hu0 : u ∈ lowWheelFarPrimeLowCofactorTriples R :=
+    (Finset.mem_filter.mp hu).1
+  have hqpos : 0 < u.1 := (lowWheelFarPrimeLowCofactorTriple_data hu0).1.pos
+  exact lowWheelMellinFrequency_sq_norm_critical hqpos t
+
 end RHLean.Proof
