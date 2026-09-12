@@ -78,32 +78,23 @@ theorem unitTriple_mem_q2Crossing_iff_owner
 The returned state no longer depends on the incoming owner `q`; this isolates
 precisely where crossing-owner multiplicity accumulates. -/
 theorem unitCrossing_stableState_eq
-    {R p q : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hpFar : R + 8 ≤ p)
-    (hq : q ∈ lowWheelFarPrimeUnitCrossingOwners R p) :
+    {R p q : ℕ} (_hR : 2 ≤ R) (hp : p.Prime) (_hpFar : R + 8 ≤ p)
+    (_hq : q ∈ lowWheelFarPrimeUnitCrossingOwners R p) :
     lowWheelFarPrimeCrossingStableState (q,p) =
       ((∅ : Finset ℕ), (1,p)) := by
-  have hcross := (unitTriple_mem_q2Crossing_iff_owner hR hp hpFar).2 hq
-  have hx : (q,p) ∈ lowWheelFarPrimeCrossingProductCarrier R := by
-    unfold lowWheelFarPrimeCrossingProductCarrier
-    apply Finset.mem_image.mpr
-    refine ⟨(q,(1,p)), hcross, ?_⟩
-    simp [lowWheelFarPrimeProductKey]
-  rcases Finset.mem_image.mp hx with ⟨t, ht, heq⟩
-  have hbase : t = (q,(1,p)) := by
-    apply lowWheelFarPrimeProductKey_injOn R
-      (Finset.mem_filter.mp ht).1
-      (Finset.mem_filter.mp hcross).1
-    simpa [heq, lowWheelFarPrimeProductKey]
-  subst t
-  unfold lowWheelFarPrimeCrossingStableState lowWheelFarPrimeProductKey
-  have hpgt : 1 < p := hp.one_lt
-  rw [canonicalLargestPrimeFactor_mul_prime_eq_of_rough
-      (by norm_num : 0 < (1 : ℕ)) hp (by
-        simpa [canonicalLargestPrimeFactor] using hp.one_lt),
-    canonicalCofactor_mul_prime_eq_of_rough
-      (by norm_num : 0 < (1 : ℕ)) hp (by
-        simpa [canonicalLargestPrimeFactor] using hp.one_lt)]
-  simp
+  -- The returned state reads the far-prime coordinate only, and a prime carries
+  -- canonical cofactor `1` while being its own largest prime factor.  That the
+  -- crossing hypotheses are never consumed is exactly the content of this
+  -- theorem: the returned state does not depend on the incoming owner `q`.  They
+  -- are retained so the statement stays pinned to the unit-owner terminal
+  -- carrier instead of becoming a bare arithmetic identity about primes.
+  have htop : canonicalLargestPrimeFactor p = p := by
+    simpa using canonicalLargestPrimeFactor_mul_prime_eq
+      (c := 1) (q := p) (by decide) hp.one_lt hp
+  have hcore : canonicalCofactor p = 1 := by
+    simpa using canonicalCofactor_mul_prime_eq
+      (c := 1) (q := p) (by decide) hp.one_lt hp
+  simp [lowWheelFarPrimeCrossingStableState, htop, hcore]
 
 /-- Every incoming unit-terminal owner contributes the same returned physical
 weight `+1`.  Hence this terminal is exactly the place where multiplicity, not
