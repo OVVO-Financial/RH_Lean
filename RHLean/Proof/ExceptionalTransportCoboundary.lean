@@ -32,6 +32,70 @@ noncomputable section
 namespace RHLean.Proof
 
 open RHLean.Arithmetic RHLean.Analysis
+open CanonicalRoughPrimeAdditionDescent
+
+attribute [local instance] Classical.propDecidable
+
+/-! ## Post-root adaptive boundary Fubini -/
+
+/-- **The complete adaptive post-root boundary is an intact partner-incidence
+column.**  This is the coefficient-weighted finite Fubini form needed after the
+pointwise stable-far annihilation: the outer fresh prime `p > R` disappears
+from the value, while every parent coefficient and every literal rough partner
+is retained. -/
+theorem squareRootCanonicalRoughAdaptiveRawBoundaryMass_eq_partnerIncidenceSum_of_rootPrime
+    (R : ℕ) {p : ℕ} (U : Finset ℕ) (a : ℕ → ℂ)
+    (hR : 2 ≤ R) (hp : p.Prime) (hRp : R < p) :
+    squareRootCanonicalRoughAdaptiveRawBoundaryMass R p U a =
+      ∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+        ∑ _q ∈ squareRootCanonicalRoughPrimePartnerSet R c,
+          a c * canonicalMoebiusWeight c := by
+  unfold squareRootCanonicalRoughAdaptiveRawBoundaryMass
+  apply Finset.sum_congr rfl
+  intro c hcParent
+  rcases mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hcParent with
+    ⟨_hcU, hcpos, hcrough, _hcchild⟩
+  exact
+    weighted_squareRootCanonicalRoughFreshPrimeRawBoundary_eq_partnerIncidenceSum_of_rootPrime
+      a hR hcpos hp hcrough hRp
+
+/-- **There is no coefficient-mismatch cost at a post-root fresh prime.**  The
+child raw response is identically zero for every legal parent, so the mismatch
+ledger vanishes for arbitrary inherited coefficients, not just the special
+stable-far coefficient field. -/
+theorem squareRootCanonicalRoughAdaptiveRawMismatchMass_eq_zero_of_rootPrime
+    (R : ℕ) {p : ℕ} (U : Finset ℕ) (a : ℕ → ℂ)
+    (hR : 2 ≤ R) (hp : p.Prime) (hRp : R < p) :
+    squareRootCanonicalRoughAdaptiveRawMismatchMass R p U a = 0 := by
+  unfold squareRootCanonicalRoughAdaptiveRawMismatchMass
+  apply Finset.sum_eq_zero
+  intro c hcParent
+  rcases mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hcParent with
+    ⟨_hcU, hcpos, hcrough, _hcchild⟩
+  rw [squareRootCanonicalRoughRawCorrelationSummand_mul_freshPrime_eq_zero_of_rootPrime
+    hR hcpos hp hcrough hRp]
+  simp
+
+/-- **Exact post-root adaptive transposition.**  One post-root prime step is
+therefore the next adaptive carrier plus the intact partner-incidence column;
+there is no additional mismatch population to estimate. -/
+theorem adaptiveRawWeightedMass_eq_next_add_partnerIncidence_of_rootPrime
+    (R : ℕ) {p : ℕ} (U : Finset ℕ) (a : ℕ → ℂ)
+    (hR : 2 ≤ R) (hp : p.Prime) (hRp : R < p) :
+    squareRootCanonicalRoughAdaptiveRawWeightedMass R U a =
+      squareRootCanonicalRoughAdaptiveRawWeightedMass R
+        (squareRootCanonicalRoughAdaptiveNextCarrier p U)
+        (squareRootCanonicalRoughAdaptiveRawNextCoefficient p U a) +
+      ∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+        ∑ _q ∈ squareRootCanonicalRoughPrimePartnerSet R c,
+          a c * canonicalMoebiusWeight c := by
+  rw [adaptiveRawWeightedMass_eq_next_add_boundary_add_mismatch
+      R U a hR hp,
+    squareRootCanonicalRoughAdaptiveRawBoundaryMass_eq_partnerIncidenceSum_of_rootPrime
+      R U a hR hp hRp,
+    squareRootCanonicalRoughAdaptiveRawMismatchMass_eq_zero_of_rootPrime
+      R U a hR hp hRp,
+    add_zero]
 
 /-- The high-prime column in the exact recovered q-square daughter identity. -/
 def q2DaughterHighTransport (q X : ℕ) : ℤ :=
