@@ -21,7 +21,7 @@ noncomputable section
 namespace RHLean.Proof
 
 open RHLean.Arithmetic RHLean.Analysis
-open FrozenCofactorTopBottom
+open FrozenCofactorTopBottom CanonicalGapAncestryBridge
 
 attribute [local instance] Classical.propDecidable
 
