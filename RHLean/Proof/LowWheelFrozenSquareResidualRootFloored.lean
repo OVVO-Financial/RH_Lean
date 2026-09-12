@@ -179,7 +179,7 @@ theorem lowWheelFrozenSquareResidualParentCarrier_sum_eq_ownerFibers
     intro x hx
     rcases x with ⟨q, m⟩
     have hdata := lowWheelFrozenSquareResidualParentCarrier_basicData hx
-    exact mem_primesUpTo.mpr ⟨hdata.1, by omega⟩
+    exact mem_primesUpTo.mpr ⟨hdata.1, Nat.le_pred_of_lt hdata.2.1⟩
   have hfiber := Finset.sum_fiberwise_of_maps_to
     (s := S) (t := O) (g := owner) hmaps
     (fun x => canonicalMoebiusWeight x.2)
@@ -221,7 +221,7 @@ theorem lowWheelFrozenSquareResidualParentCarrier_mass_eq_rootFloored_sub_anchor
   unfold lowWheelFrozenSquareResidualRootFlooredColumn
     lowWheelFrozenSquareResidualRootAnchorColumn
   push_cast
-  rw [Finset.sum_sub_distrib]
+  rw [← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro q hq
   have hqd := mem_primesUpTo.mp hq
