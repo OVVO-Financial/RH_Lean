@@ -324,6 +324,95 @@ theorem lowWheelFarPrimeCrossingProduct_mem_terminal_iff_unit
   change x.2 ∈ lowWheelFarPrimeUnitProducts R ∪ lowWheelFrozenTopFarOwnedProducts R ↔ _
   simp only [Finset.mem_union, lowWheelFarPrimeCrossingProduct_not_owned hx, or_false]
 
+/-- A unit far prime retains its full endpoint range after its redundant
+cofactor-one coordinate is forgotten. -/
+theorem lowWheelFarPrimeUnitProduct_data
+    {R p : ℕ} (hp : p ∈ lowWheelFarPrimeUnitProducts R) :
+    p.Prime ∧ R + 8 ≤ p ∧ p ≤ squareRootEndpoint R := by
+  rcases Finset.mem_image.mp hp with ⟨⟨c,p⟩, hcp, rfl⟩
+  have hpair := mem_lowWheelFarPrimePairSet.mp
+    (mem_lowWheelFarPrimeSquarefreePairSet.mp (Finset.mem_filter.mp hcp).1).1
+  have hpRange := Finset.mem_Icc.mp hpair.2.1
+  exact ⟨hpair.2.2.1, hpRange.1, hpRange.2⟩
+
+/-- **Every non-top unit prime has a genuine strict crossing owner.**
+If `2*p ≤ X_R`, Bertrand applied to `floor(X_R/p)/2` supplies a prime `q`
+with `q*p ≤ X_R < q^2*p`.  The resulting `(q,1,p)` is therefore an actual
+member of the strict crossing carrier, not an auxiliary prime substitution. -/
+theorem lowWheelFarPrimeUnitProduct_has_crossingOwner
+    {R p : ℕ} (hp : p ∈ lowWheelFarPrimeUnitProducts R)
+    (h2p : 2 * p ≤ squareRootEndpoint R) :
+    ∃ q : ℕ, (q,p) ∈ lowWheelFarPrimeCrossingProductCarrier R := by
+  rcases lowWheelFarPrimeUnitProduct_data hp with ⟨hpPrime, hpFar, _hpX⟩
+  let n := squareRootEndpoint R / p
+  let m := n / 2
+  have hn2 : 2 ≤ n := by
+    dsimp [n]
+    exact (Nat.le_div_iff_mul_le hpPrime.pos).2 h2p
+  have hm0 : m ≠ 0 := by
+    dsimp [m]
+    omega
+  rcases Nat.bertrand m hm0 with ⟨q, hqPrime, hmq, hq2m⟩
+  have hqN : q ≤ n := by
+    dsimp [m] at hmq hq2m
+    omega
+  have hqXp : q * p ≤ squareRootEndpoint R := by
+    apply (Nat.le_div_iff_mul_le hpPrime.pos).1
+    simpa [n] using hqN
+  have hRpos : 0 < R := by
+    by_contra hnot
+    have hR0 : R = 0 := by omega
+    subst R
+    simp [squareRootEndpoint] at h2p
+    omega
+  have hXltR2 : squareRootEndpoint R < R * R := by
+    unfold squareRootEndpoint
+    have hne : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
+    simpa [pow_two] using Nat.pred_lt hne
+  have hRp : R ≤ p := by omega
+  have hXltRp : squareRootEndpoint R < R * p :=
+    hXltR2.trans_le (Nat.mul_le_mul_left R hRp)
+  have hnR : n < R := by
+    dsimp [n]
+    exact (Nat.div_lt_iff_lt_mul hpPrime.pos).2 hXltRp
+  have hqR : q < R := hqN.trans_lt hnR
+  have hnlt2q : n < 2 * q := by
+    dsimp [m] at hmq
+    omega
+  have h2qleqq : 2 * q ≤ q * q :=
+    Nat.mul_le_mul_right q hqPrime.two_le
+  have hnltqq : n < q * q := hnlt2q.trans_le h2qleqq
+  have hcross : squareRootEndpoint R < (q * q) * p := by
+    apply (Nat.div_lt_iff_lt_mul hpPrime.pos).1
+    simpa [n] using hnltqq
+  have htriple : (q,(1,p)) ∈ lowWheelFarPrimeLowCofactorTriples R := by
+    apply lowWheelFarPrimeLowCofactorTriple_mem_of_data
+    · exact hqPrime
+    · exact hqR
+    · norm_num
+    · exact hpPrime
+    · exact hpFar
+    · norm_num
+    · norm_num [canonicalLargestPrimeFactor]
+    · simpa using hqXp
+  have hcrossTriple : (q,(1,p)) ∈ lowWheelFarPrimeQ2CrossingTriples R := by
+    apply Finset.mem_filter.mpr
+    refine ⟨htriple, ?_⟩
+    simpa [Nat.mul_assoc] using hcross
+  refine ⟨q, Finset.mem_image.mpr ⟨(q,(1,p)), hcrossTriple, ?_⟩⟩
+  simp [lowWheelFarPrimeProductKey]
+
+/-- Hence deleting one crossing occurrence for every unit prime below the top
+half is multiplicity-safe: the crossing fibre is provably nonempty. -/
+theorem lowWheelFarWallCrossingMultiplicity_pos_of_unit_two_mul_le
+    {R p : ℕ} (hp : p ∈ lowWheelFarPrimeUnitProducts R)
+    (h2p : 2 * p ≤ squareRootEndpoint R) :
+    0 < lowWheelFarWallCrossingMultiplicity R p := by
+  rcases lowWheelFarPrimeUnitProduct_has_crossingOwner hp h2p with ⟨q, hq⟩
+  unfold lowWheelFarWallCrossingMultiplicity
+  apply Finset.card_pos.mpr
+  exact ⟨(q,p), Finset.mem_filter.mpr ⟨hq, rfl⟩⟩
+
 /-- A concrete regression against silently replacing a crossing-owner fibre
 by one occurrence: owners 3 and 5 both represent the same far prime 23. -/
 theorem lowWheelFarWallCrossingMultiplicity_twelve_twentyThree_ge_two :
