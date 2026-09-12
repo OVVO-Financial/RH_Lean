@@ -43,13 +43,12 @@ theorem lowWheelFrozenSecondContactSourceMass_eq_one_sub_smooth_sub_rootFloored
   rw [hcolumn]
   simpa [lowWheelTaggedDowncrossWeight] using hsource
 
-/-- **Historical transport closure.**  The actual fixed-transport mate
-population attached to represented source scales is exactly the old-root smooth
-mass plus the common predecessor root anchor, minus the empty Euler face. -/
+/-- **Historical transport closure.**  The actual matching fixed-transport mass
+attached to represented source scales is exactly the old-root smooth mass plus
+the common predecessor root anchor, minus the empty Euler face. -/
 theorem lowWheelFrozenSecondContactMatchingFixedTransportMass_eq_smooth_add_anchor_sub_one
     (R : ℕ) (hR : 2 ≤ R) :
-    (∑ z ∈ lowWheelFrozenSecondContactMatchingFixedTransport R,
-        lowWheelTaggedCanonicalWeight z) =
+    lowWheelFrozenSecondContactMatchingFixedTransportMass R =
       (((frozenPrimeUniverseMass (primesUpTo (R - 1))
           (squareRootEndpoint R) +
         lowWheelFrozenSquareResidualRootAnchorColumn R - 1 : ℤ) : ℂ)) := by
@@ -60,8 +59,7 @@ theorem lowWheelFrozenSecondContactMatchingFixedTransportMass_eq_smooth_add_anch
   have hresidual :=
     lowWheelFrozenSecondContactSquareResidualMass_eq_anchor_sub_rootFloored R
   calc
-    (∑ z ∈ lowWheelFrozenSecondContactMatchingFixedTransport R,
-        lowWheelTaggedCanonicalWeight z) =
+    lowWheelFrozenSecondContactMatchingFixedTransportMass R =
       lowWheelFrozenSecondContactSquareResidualMass R -
         (∑ y ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R,
           lowWheelTaggedDowncrossWeight y) := by
