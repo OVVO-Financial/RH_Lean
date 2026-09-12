@@ -16,4 +16,4 @@ jobs:
         with:
           build: false
       - name: Compile square-endpoint q2 amplification
-        run: lake env lean RHLean/Proof/SquareEndpointQ2Amplification.lean
+        run: lake build RHLean.Proof.SquareEndpointQ2Amplification --wfail
