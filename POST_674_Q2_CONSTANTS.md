@@ -1,0 +1,1 @@
+Terminal constants: rounded child roots satisfy sum s_q^2 <= (17/72) R^2. A factor-four recurrence therefore has coefficient 17/18. The unshifted fixed point A=18*C closes; converting from M^2 to (M-1)^2 costs only another fixed factor because every LowerMertensCriticalEnvelope at R>=1 has K>=1.
