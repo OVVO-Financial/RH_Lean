@@ -239,7 +239,7 @@ theorem sum_roundedQ2ChildRoot_succ_sq_le_two_root_sq
     (∑ q ∈ (primesUpTo (R - 1)).erase 2,
       (((roundedQ2ChildRoot R q : ℕ) : ℝ) + 1) ^ 2) ≤
         2 * (R : ℝ) ^ 2 := by
-  let S : Finset ℕ := (primesUpTo (R - 1)).erase 2
+  let S := (primesUpTo (R - 1)).erase 2
   have hpoint : ∀ q ∈ S,
       (((roundedQ2ChildRoot R q : ℕ) : ℝ) + 1) ^ 2 ≤
         2 * ((roundedQ2ChildRoot R q : ℕ) : ℝ) ^ 2 + 2 := by
@@ -544,7 +544,7 @@ theorem farPopulations_eq_neg_frozenTopFar
       -lowWheelFrozenTopFarResidual R := by
   have hfar := squarePrefixMertens_eq_farPopulations_add_rootBoundary R hR
   have hfrozen := squarePrefixMertens_eq_rootBoundary_sub_frozenTopFar R hR
-  linear_combination hfar - hfrozen
+  linear_combination hfrozen - hfar
 
 /-- FAR-3 in its exact current form: the frozen/top/far packet is controlled by
 three times the genuine odd-owner q² daughter energy plus an RH-scale root
@@ -574,6 +574,7 @@ private theorem norm_mertensSummatory_sq_eq_realInt_sq_local (x : ℕ) :
     ‖RHLean.Analysis.mertensSummatory x‖ ^ 2 =
       ((mertensSummatoryInt x : ℤ) : ℝ) ^ 2 := by
   rw [← mertensSummatoryInt_cast x, Complex.norm_intCast]
+  exact sq_abs (((mertensSummatoryInt x : ℤ) : ℝ))
 
 private theorem squareEndpointMertensEnergyReal_eq_squarePrefix_norm_sq
     {R : ℕ} (hR : 1 ≤ R) :
