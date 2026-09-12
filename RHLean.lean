@@ -472,6 +472,7 @@ import RHLean.Proof.FiniteLeastToggleDuality
 import RHLean.Proof.FiniteOthelloMatching
 import RHLean.Proof.FinitePartialMoments
 import RHLean.Proof.FirstJumpPrimeSliceObstruction
+import RHLean.Proof.FrozenTopFarAdaptiveRawBridge
 import RHLean.Proof.FullFactorizationBridge
 import RHLean.Proof.GeometricRHReduction
 import RHLean.Proof.GlobalFirstJumpCofactorCompression
