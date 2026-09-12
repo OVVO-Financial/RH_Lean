@@ -55,8 +55,8 @@ theorem lowWheelFarPrimeQ2CrossingNextFiber_coordinates
     congrArg (fun z : ℕ × (ℕ × ℕ) => z.1) hnext
   have hcof : canonicalCofactor t.2.1 = y.2.1 :=
     congrArg (fun z : ℕ × (ℕ × ℕ) => z.2.1) hnext
-  have hp : t.2.2 = y.2.2 :=
-    congrArg (fun z : ℕ × (ℕ × ℕ) => z.2.2) hnext
+  have hpNext := congrArg (fun z : ℕ × (ℕ × ℕ) => z.2.2) hnext
+  have hp : t.2.2 = y.2.2 := hpNext
   have hprod := canonicalCofactor_mul_largestPrimeFactor hdgt
   constructor
   · calc
