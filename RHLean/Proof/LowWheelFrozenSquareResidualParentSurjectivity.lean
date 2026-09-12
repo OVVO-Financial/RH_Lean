@@ -140,7 +140,7 @@ private theorem postRootSmooth_sourceScale_represented
     have hRpos : 0 < R := by omega
     have hXltR2 : squareRootEndpoint R < R * R := by
       unfold squareRootEndpoint
-      omega
+      exact Nat.sub_lt (Nat.mul_pos hRpos hRpos) (by norm_num)
     have hR2ltRA : R * R < R * A :=
       Nat.mul_lt_mul_of_pos_left hAR hRpos
     exact hXltR2.trans hR2ltRA
@@ -149,8 +149,9 @@ private theorem postRootSmooth_sourceScale_represented
     have h2q : q * 2 ≤ q * q := Nat.mul_le_mul_left q hq.two_le
     exact h2q.trans hq2B
   have hhalf2 : 2 ≤ B / 2 := hq.two_le.trans hqHalf
+  have hhalfNZ : B / 2 ≠ 0 := by omega
   obtain ⟨r, hrPrime, hhalfR, hr2half⟩ :=
-    Nat.exists_prime_lt_and_le_two_mul (B / 2) hhalf2
+    Nat.exists_prime_lt_and_le_two_mul (B / 2) hhalfNZ
   have h2halfB : 2 * (B / 2) ≤ B := by
     simpa [Nat.mul_comm] using Nat.div_mul_le_self B 2
   have hrB : r ≤ B := hr2half.trans h2halfB
@@ -182,7 +183,6 @@ private theorem postRootSmooth_sourceScale_represented
   have hzSource : lowWheelFrozenSecondContactSourceScale z = A := by
     change lowWheelTaggedDowncrossPivot z * primeFaceProduct y.1 = A
     rw [hzPivot]
-    rfl
   have hzChildLe : orderedEulerCutChildInteger z ≤ squareRootEndpoint R := by
     change r * (p * primeFaceProduct y.1) ≤ squareRootEndpoint R
     change r * A ≤ squareRootEndpoint R
@@ -217,7 +217,8 @@ private theorem postRootSmooth_sourceScale_represented
       lowWheelFrozenCofactorTopPrime z *
         primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace z)
     rw [htopZ, lowWheelCanonicalRepeatedFrozenProductOneFace_product hzFrozen]
-    change squareRootEndpoint R < r * (r * (p * primeFaceProduct y.1))
+    rw [hzPivot]
+    dsimp [z]
     simpa [A, Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hwallX
   have hAset : A ∈ lowWheelFrozenSecondContactSourceScaleSet R := by
     unfold lowWheelFrozenSecondContactSourceScaleSet
