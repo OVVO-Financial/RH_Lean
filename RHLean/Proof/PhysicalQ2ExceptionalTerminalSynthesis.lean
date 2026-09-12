@@ -117,7 +117,7 @@ theorem physicalCompleteCell_exceptionalFactorThreeStep_implies_linear
   | h K ih =>
       by_cases hK0 : K = 0
       · subst K
-        simp [mertensEnergy]
+        simp [mertensEnergy, mertensSummatoryInt]
       · have hKpos : 0 < K := Nat.pos_of_ne_zero hK0
         have child_bound (d : ℕ) (hd : 0 < d) (hd4 : 4 < d) :
             mertensEnergy (4 * K / d) ≤
