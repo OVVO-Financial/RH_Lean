@@ -1,1 +1,0 @@
-Next seam: prove the post-674 signed physical parent dominates the rounded square-endpoint q2 daughter family with factor four and an additive O(R^2 K) term. Do not take norms before high transport, child-far, stable renewal, terminal products, and the short nonsquare daughter shells have been reassembled.
