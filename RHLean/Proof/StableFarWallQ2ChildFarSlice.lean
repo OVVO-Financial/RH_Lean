@@ -114,9 +114,17 @@ theorem lowWheelFarPrimeQ2DescendedOwner_image_eq_childFarSlice
     have hpEq : u = p :=
       congrArg (fun z : ℕ × (ℕ × ℕ) => z.2.2) htag
     have hdata := lowWheelFarPrimeNonUnitPair_data hcp
+    have hprod : canonicalLargestPrimeFactor c * canonicalCofactor c = c :=
+      hdata.2.2.2.2.2.2.1
+    have hdcPos : 0 < canonicalCofactor c := by
+      by_contra hnot
+      have hzero : canonicalCofactor c = 0 := by omega
+      rw [hzero, mul_zero] at hprod
+      have hcgt : 1 < c := (Finset.mem_filter.mp hcp).2
+      omega
     have hd1 : 1 ≤ d := by
       rw [← hdEq]
-      exact canonicalCofactor_pos (Finset.mem_filter.mp hcp).2
+      exact hdcPos
     have hdsq : Squarefree d := by
       simpa [hqEq, hdEq, hpEq] using hdata.2.2.2.2.1
     have hrough : canonicalLargestPrimeFactor d < q := by
@@ -133,8 +141,10 @@ theorem lowWheelFarPrimeQ2DescendedOwner_image_eq_childFarSlice
       apply (Nat.le_div_iff_mul_le hqqpos).2
       simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2
     have hdCut : d ≤ squareRootEndpoint R / (q * q) := by
-      have hp1 : 1 ≤ p := hpPrime.one_le
-      exact (Nat.le_mul_of_pos_right d hpPrime.pos).trans hdpCut
+      have hdpGe : d ≤ d * p := by
+        have h := Nat.mul_le_mul_left d hpPrime.one_le
+        simpa using h
+      exact hdpGe.trans hdpCut
     exact mem_lowWheelFarPrimeQ2ChildFarSlice.mpr
       ⟨mem_squareRootLowPrimeGoSmoothCofactors.mpr
           ⟨hd1, hdCut, hdsq, hrough⟩,
@@ -151,7 +161,7 @@ theorem lowWheelFarPrimeQ2DescendedOwner_image_eq_childFarSlice
     have hq2 : q * q * d * p ≤ squareRootEndpoint R := by
       have h := (Nat.le_div_iff_mul_le hqqpos).1 hdpCut
       simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
-    have hRpos : 0 < R := hq.pos.trans_le hqR.le
+    have hRpos : 0 < R := by omega
     have hcR : q * d < R := by
       by_contra hnot
       have hRc : R ≤ q * d := Nat.le_of_not_gt hnot
