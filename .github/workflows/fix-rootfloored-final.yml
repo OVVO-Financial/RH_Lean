@@ -1,0 +1,28 @@
+name: Fix final root-floored splice
+
+on:
+  push:
+    branches:
+      - agent/q2-parent-product-reassembly
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/q2-parent-product-reassembly
+      - name: Patch RootFloored
+        run: |
+          python3 -c "from pathlib import Path; p=Path('RHLean/Proof/LowWheelFrozenSquareResidualRootFloored.lean'); s=p.read_text(); s=s.replace('  have hqd := mem_primesUpTo.mp hq\\n  rw [lowWheelFrozenSquareResidualParentOwnerCarrier_mass_eq_postRootSmooth\\n      hqd.1 (by omega),\\n    lowWheelFrozenSquareResidualPostRootSmooth_mass_eq_rootFlooredDiff hqd.1]','  have hqd := mem_primesUpTo.mp hq\\n  have hqR : q < R := by\\n    have hqle : q ≤ R - 1 := hqd.2\\n    omega\\n  rw [lowWheelFrozenSquareResidualParentOwnerCarrier_mass_eq_postRootSmooth\\n      hqd.1 hqR,\\n    lowWheelFrozenSquareResidualPostRootSmooth_mass_eq_rootFlooredDiff hqd.1]\\n  push_cast'); p.write_text(s)"
+          rm .github/workflows/fix-rootfloored-final.yml
+      - name: Commit patch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add RHLean/Proof/LowWheelFrozenSquareResidualRootFloored.lean .github/workflows/fix-rootfloored-final.yml
+          git commit -m 'Finish root-floored q2 column splice'
+          git push origin HEAD:agent/q2-parent-product-reassembly
