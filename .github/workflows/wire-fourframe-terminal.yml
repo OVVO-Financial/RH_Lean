@@ -1,4 +1,4 @@
-name: Wire factor-four terminal synthesis
+name: Wire post-672 synthesis modules
 
 on:
   push:
@@ -15,15 +15,19 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: agent/post-672-recursive-energy-handoff
-      - name: Add and sort root import
+      - name: Add and sort root imports
         run: |
           python3 - <<'PY'
           from pathlib import Path
           p = Path('RHLean.lean')
           lines = p.read_text().splitlines()
-          target = 'import RHLean.Proof.PhysicalQ2FourFrameTerminalSynthesis'
-          if target not in lines:
-              lines.append(target)
+          targets = {
+              'import RHLean.Proof.PhysicalQ2FourFrameTerminalSynthesis',
+              'import RHLean.Proof.StableFarWallCrossingRenewal',
+          }
+          for target in targets:
+              if target not in lines:
+                  lines.append(target)
           imports = sorted(x for x in lines if x.startswith('import '))
           other = [x for x in lines if not x.startswith('import ')]
           if any(x.strip() for x in other):
@@ -34,5 +38,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           if git diff --quiet -- RHLean.lean; then exit 0; fi
           git add RHLean.lean
-          git commit -m 'Import factor-four terminal synthesis'
+          git commit -m 'Import post-672 q2 synthesis modules'
           git push origin HEAD:agent/post-672-recursive-energy-handoff
