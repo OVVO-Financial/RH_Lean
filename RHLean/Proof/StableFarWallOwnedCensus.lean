@@ -413,6 +413,139 @@ theorem lowWheelFarWallCrossingMultiplicity_pos_of_unit_two_mul_le
   apply Finset.card_pos.mpr
   exact ⟨(q,p), Finset.mem_filter.mpr ⟨hq, rfl⟩⟩
 
+/-- Unit primes that have at least the dyadic room required for one crossing. -/
+def lowWheelFarPrimePairedUnitProducts (R : ℕ) : Finset ℕ :=
+  (lowWheelFarPrimeUnitProducts R).filter fun p =>
+    2 * p ≤ squareRootEndpoint R
+
+/-- The complementary unmatched unit face: primes strictly above half the endpoint. -/
+def lowWheelFarPrimeTopUnitProducts (R : ℕ) : Finset ℕ :=
+  (lowWheelFarPrimeUnitProducts R).filter fun p =>
+    squareRootEndpoint R < 2 * p
+
+/-- The unit face splits exactly into cancellable and top-half populations. -/
+theorem lowWheelFarPrimeUnitProducts_eq_paired_union_top (R : ℕ) :
+    lowWheelFarPrimeUnitProducts R =
+      lowWheelFarPrimePairedUnitProducts R ∪ lowWheelFarPrimeTopUnitProducts R := by
+  ext p
+  simp [lowWheelFarPrimePairedUnitProducts, lowWheelFarPrimeTopUnitProducts]
+  omega
+
+/-- There is no crossing occurrence at a top-half unit prime: every crossing
+owner is a prime at least two, so its base product would already exceed `X_R`. -/
+theorem lowWheelFarWallCrossingMultiplicity_eq_zero_of_topUnit
+    {R p : ℕ} (hp : p ∈ lowWheelFarPrimeTopUnitProducts R) :
+    lowWheelFarWallCrossingMultiplicity R p = 0 := by
+  have htop := (Finset.mem_filter.mp hp).2
+  unfold lowWheelFarWallCrossingMultiplicity
+  apply Finset.card_eq_zero.mpr
+  rw [Finset.eq_empty_iff_forall_notMem]
+  intro x hx
+  rcases Finset.mem_filter.mp hx with ⟨hxCross, hxp⟩
+  rcases Finset.mem_image.mp hxCross with ⟨t, ht, htx⟩
+  have hbase := (Finset.mem_filter.mp ht).1
+  have hcut := (lowWheelFarPrimeProduct_geometry hbase).2.2.1
+  have hq2 := (lowWheelFarPrimeLowCofactorTriple_data hbase).1.two_le
+  have hprodEq : (lowWheelFarPrimeProductKey t).2 = p := by
+    exact (congrArg Prod.snd htx).trans hxp
+  rw [hprodEq] at hcut
+  have h2ple : 2 * p ≤ t.1 * p := Nat.mul_le_mul_right p hq2
+  omega
+
+/-- Likewise an old owned product can carry no crossing occurrence. -/
+theorem lowWheelFarWallCrossingMultiplicity_eq_zero_of_owned
+    {R n : ℕ} (hn : n ∈ lowWheelFrozenTopFarOwnedProducts R) :
+    lowWheelFarWallCrossingMultiplicity R n = 0 := by
+  unfold lowWheelFarWallCrossingMultiplicity
+  apply Finset.card_eq_zero.mpr
+  rw [Finset.eq_empty_iff_forall_notMem]
+  intro x hx
+  rcases Finset.mem_filter.mp hx with ⟨hxCross, hxn⟩
+  have hnot := lowWheelFarPrimeCrossingProduct_not_owned hxCross
+  apply hnot
+  simpa [hxn] using hn
+
+/-- Integer multiplicity left after deleting one genuine crossing occurrence
+for every cancellable unit prime.  The preceding existence theorem guarantees
+that this formal subtraction never asks for an occurrence that is absent. -/
+def lowWheelFarWallExtraCrossingCoefficient (R n : ℕ) : ℤ :=
+  (lowWheelFarWallCrossingMultiplicity R n : ℤ) -
+    if n ∈ lowWheelFarPrimePairedUnitProducts R then 1 else 0
+
+theorem lowWheelFarWallExtraCrossingCoefficient_nonneg (R n : ℕ) :
+    0 ≤ lowWheelFarWallExtraCrossingCoefficient R n := by
+  unfold lowWheelFarWallExtraCrossingCoefficient
+  by_cases hn : n ∈ lowWheelFarPrimePairedUnitProducts R
+  · rcases Finset.mem_filter.mp hn with ⟨hunit, h2n⟩
+    have hpos := lowWheelFarWallCrossingMultiplicity_pos_of_unit_two_mul_le hunit h2n
+    simp [hn]
+    omega
+  · simp [hn]
+
+/-- The exact signed complement after unit/crossing cancellation: extra
+crossing owners, unmatched top-half unit primes, and the two old owned images. -/
+def lowWheelFarWallCancelledBoundaryCoefficient (R n : ℕ) : ℤ :=
+  lowWheelFarWallExtraCrossingCoefficient R n -
+    (if n ∈ lowWheelFarPrimeTopUnitProducts R then 1 else 0) -
+    (if n ∈ lowWheelFrozenTopFarOwnedProducts R then 1 else 0)
+
+/-- Pointwise exact cancellation census.  This is the formal version of
+choosing one crossing occurrence for every `2*p ≤ X_R` unit prime and deleting
+the equal signed pair before any norm is taken. -/
+theorem lowWheelFarWallBoundaryCoefficient_eq_cancelled (R n : ℕ) :
+    lowWheelFarWallBoundaryCoefficient R n =
+      lowWheelFarWallCancelledBoundaryCoefficient R n := by
+  unfold lowWheelFarWallBoundaryCoefficient lowWheelFarWallCancelledBoundaryCoefficient
+    lowWheelFarWallExtraCrossingCoefficient
+  by_cases hu : n ∈ lowWheelFarPrimeUnitProducts R
+  · have hno : n ∉ lowWheelFrozenTopFarOwnedProducts R := by
+      intro ho
+      exact (Finset.disjoint_left.mp (lowWheelFarPrimeUnitProducts_disjoint_owned R)) hu ho
+    by_cases hlow : 2 * n ≤ squareRootEndpoint R
+    · have hnotTop : ¬ squareRootEndpoint R < 2 * n := by omega
+      simp [lowWheelFarWallTerminalProducts, lowWheelFarPrimePairedUnitProducts,
+        lowWheelFarPrimeTopUnitProducts, hu, hno, hlow, hnotTop]
+    · have htop : squareRootEndpoint R < 2 * n := by omega
+      simp [lowWheelFarWallTerminalProducts, lowWheelFarPrimePairedUnitProducts,
+        lowWheelFarPrimeTopUnitProducts, hu, hno, hlow, htop]
+  · by_cases ho : n ∈ lowWheelFrozenTopFarOwnedProducts R
+    · simp [lowWheelFarWallTerminalProducts, lowWheelFarPrimePairedUnitProducts,
+        lowWheelFarPrimeTopUnitProducts, hu, ho]
+    · simp [lowWheelFarWallTerminalProducts, lowWheelFarPrimePairedUnitProducts,
+        lowWheelFarPrimeTopUnitProducts, hu, ho]
+
+/-- **Final signed boundary reassembly.**  After one legitimate crossing/unit
+pair has been removed on every eligible unit fibre, the remaining four-term
+boundary is literally one Möbius carrier with the exact complement coefficient.
+No absolute value or energy estimate has yet been taken. -/
+theorem lowWheelFarWall_remainingBoundary_eq_cancelledCoefficient_sum (R : ℕ) :
+    lowWheelFarPrimeUnitFaceMass R - lowWheelFarPrimeQ2CrossingMass R -
+        lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
+        lowWheelFrozenCofactorTopImageLedger R =
+      ∑ n ∈ lowWheelFarWallBoundaryProductHomes R,
+        (lowWheelFarWallCancelledBoundaryCoefficient R n : ℂ) *
+          canonicalMoebiusWeight n := by
+  rw [lowWheelFarWall_remainingBoundary_eq_coefficient_sum]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  rw [lowWheelFarWallBoundaryCoefficient_eq_cancelled]
+
+/-- The complete hard physical residual is now the literal q²-descended child
+packet plus the fully reassembled signed complement.  This is the desired
+signed-reassembly-first interface for the subsequent energy step. -/
+theorem lowWheelFrozenTopFarResidual_eq_descended_add_cancelledBoundary
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      (∑ x ∈ lowWheelFarPrimeDescendedProductCarrier R,
+        canonicalMoebiusWeight x.2) +
+      ∑ n ∈ lowWheelFarWallBoundaryProductHomes R,
+        (lowWheelFarWallCancelledBoundaryCoefficient R n : ℂ) *
+          canonicalMoebiusWeight n := by
+  have hb := lowWheelFarWall_remainingBoundary_eq_cancelledCoefficient_sum R
+  rw [lowWheelFrozenTopFarResidual_eq_unit_sub_descended_sub_crossing_sub_owned R hR,
+    lowWheelFarPrimeQ2DescendedMass_eq_neg_productMass]
+  linear_combination hb
+
 /-- A concrete regression against silently replacing a crossing-owner fibre
 by one occurrence: owners 3 and 5 both represent the same far prime 23. -/
 theorem lowWheelFarWallCrossingMultiplicity_twelve_twentyThree_ge_two :
