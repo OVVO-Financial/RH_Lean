@@ -205,6 +205,53 @@ theorem frozenTopFarFourEnergy_iff_exists_nonneg_farFourSplice :
       ∃ C : ℝ, 0 ≤ C ∧ FarFourSplice C := by
   rfl
 
+/-! ## Corrected post-diagnostic transport/far seam -/
+
+/-- The exact signed mismatch between the q² daughter high-transport column and
+the stable-far destination census.  The diagnostic after #685 shows that this
+quantity is not identically zero; it is therefore kept as the genuine next
+signed seam rather than hidden in a false support equality. -/
+def q2TransportFarMismatch (R : ℕ) : ℂ :=
+  (((squareEndpointQ2HighTransportColumn R : ℤ) : ℂ)) +
+    lowWheelFrozenTopFarResidual R
+
+/-- Equivalent source/destination form of the mismatch.  The three routed far
+populations are exactly the negative frozen/top/far residual, so the mismatch
+is `HighTransport - (ChildFar + Renewal + Terminal)`. -/
+theorem q2TransportFarMismatch_eq_highTransport_sub_farPopulations
+    (R : ℕ) (hR : 56 ≤ R) :
+    q2TransportFarMismatch R =
+      (((squareEndpointQ2HighTransportColumn R : ℤ) : ℂ)) -
+        (squareEndpointQ2ChildFarSliceColumn R +
+          stableFarRenewalColumn R + stableFarTerminalProductColumn R) := by
+  have hfar := farPopulations_eq_neg_frozenTopFar R hR
+  unfold q2TransportFarMismatch
+  rw [hfar]
+  ring
+
+/-- **Exact corrected survivor seam.**  No cancellation is assumed: the #674
+survivor is the root reassembly boundary minus the literal transport/far
+mismatch. -/
+theorem finalQ2SurvivorCorrection_eq_root_sub_q2TransportFarMismatch
+    (R : ℕ) (hR : 56 ≤ R) :
+    finalQ2SurvivorCorrection R =
+      finalQ2RootReassemblyBoundary R - q2TransportFarMismatch R := by
+  have hfar := farPopulations_eq_neg_frozenTopFar R hR
+  unfold finalQ2SurvivorCorrection q2TransportFarMismatch
+  rw [hfar]
+  ring
+
+/-- **Exact corrected low/high normal form.**  The genuine lower-scale q²
+Mertens column is exposed, while the only remaining signed seam is the explicit
+transport/far mismatch.  No norm or estimate enters this identity. -/
+theorem finalCompensatedLowHighDifference_eq_neg_mertensColumn_add_root_sub_mismatch
+    (R : ℕ) (hR : 56 ≤ R) :
+    finalCompensatedLowHighDifference R =
+      -(((squareEndpointQ2MertensColumn R : ℤ) : ℂ)) +
+        (finalQ2RootReassemblyBoundary R - q2TransportFarMismatch R) := by
+  rw [finalCompensatedLowHighDifference_eq_neg_mertensColumn_add_survivor R hR,
+    finalQ2SurvivorCorrection_eq_root_sub_q2TransportFarMismatch R hR]
+
 /-- **Candidate signed q²-tower support statement.**
 
 The exact integer diagnostic `scripts/far_four_diagnostic.py --q2-support`
