@@ -221,6 +221,16 @@ def SquareEndpointRawOddQ2EnergyStep (C : ℝ) : Prop :=
         4 * ∑ q ∈ (primesUpTo (R - 1)).erase 2,
           rawQ2ChildEnergyReal R q
 
+/-- The same literal recurrence with an explicit daughter coefficient. -/
+def SquareEndpointRawOddQ2EnergyStepWith (a C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    2 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    squareEndpointMertensEnergyReal R ≤
+      C * (R : ℝ) ^ 2 * K +
+        a * ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+          rawQ2ChildEnergyReal R q
+
 private theorem rawOddQ2Owner_card_le_root (R : ℕ) :
     ((primesUpTo (R - 1)).erase 2).card ≤ R := by
   let S : Finset ℕ := (primesUpTo (R - 1)).erase 2
@@ -304,19 +314,22 @@ private theorem rawSquareEndpointEnergy_eq_zero_of_lt_two
     simp [squareEndpointMertensEnergyReal, squareRootEndpoint,
       mertensSummatoryInt]
 
-/-- A literal factor-four q² recurrence already gives a fixed square-root
-amplification.  The shell changes the recursive coefficient from `17/18` to
-`629/648 < 1`; its entire unsigned remainder is absorbed into the additive
-root-energy term. -/
-theorem squareEndpointRawOddQ2EnergyStep_implies_unshifted_amplification
-    {C : ℝ} (hC : 0 ≤ C)
-    (hstep : SquareEndpointRawOddQ2EnergyStep C) :
+/-- Every subcritical literal coefficient closes by strong induction.  The
+rounded shell contributes `296*a*R^2` additively.  Its only multiplicative
+cost is the explicit `37/36`, already present in `hcontract`. -/
+theorem squareEndpointRawOddQ2EnergyStepWith_implies_unshifted_amplification
+    {a C : ℝ} (hC : 0 ≤ C) (ha : 0 ≤ a)
+    (hcontract : a * ((37 : ℝ) / 36) * ((17 : ℝ) / 72) < 1)
+    (hstep : SquareEndpointRawOddQ2EnergyStepWith a C) :
     ∃ A : ℝ, 0 ≤ A ∧
       ∀ R : ℕ, ∀ K : ℝ,
         2 ≤ R →
         LowerMertensCriticalEnvelope R K →
         squareEndpointMertensEnergyReal R ≤ A * (R : ℝ) ^ 2 * K := by
-  let A : ℝ := (648 : ℝ) / 19 * (C + 1184)
+  have hden : 0 < 1 - a * ((37 : ℝ) / 36) * ((17 : ℝ) / 72) :=
+    sub_pos.mpr hcontract
+  let A : ℝ := (C + 296 * a) /
+    (1 - a * ((37 : ℝ) / 36) * ((17 : ℝ) / 72))
   have hA : 0 ≤ A := by
     dsimp [A]
     positivity
@@ -408,36 +421,57 @@ theorem squareEndpointRawOddQ2EnergyStep_implies_unshifted_amplification
       have hs := hstep R K hR hK
       change squareEndpointMertensEnergyReal R ≤
         C * (R : ℝ) ^ 2 * K +
-          4 * ∑ q ∈ S, rawQ2ChildEnergyReal R q at hs
+          a * ∑ q ∈ S, rawQ2ChildEnergyReal R q at hs
       have hweighted := mul_le_mul_of_nonneg_left hrawSum'
-        (by norm_num : (0 : ℝ) ≤ 4)
-      have hfixed : C + 1184 + (629 : ℝ) / 648 * A = A := by
-        dsimp [A]
-        ring
+        ha
+      have hfixed :
+          C + 296 * a + (a * ((37 : ℝ) / 36) * ((17 : ℝ) / 72)) * A = A := by
+        have hmul : A * (1 - a * ((37 : ℝ) / 36) * ((17 : ℝ) / 72)) =
+            C + 296 * a := by
+          dsimp [A]
+          exact div_mul_cancel₀ _ (ne_of_gt hden)
+        nlinarith
       calc
         squareEndpointMertensEnergyReal R ≤
             C * (R : ℝ) ^ 2 * K +
-              4 * ∑ q ∈ S, rawQ2ChildEnergyReal R q := hs
+              a * ∑ q ∈ S, rawQ2ChildEnergyReal R q := hs
         _ ≤ C * (R : ℝ) ^ 2 * K +
-              4 * (((37 : ℝ) / 36 * A * K) *
+              a * (((37 : ℝ) / 36 * A * K) *
                   ((17 : ℝ) / 72 * (R : ℝ) ^ 2) +
                 148 * (2 * (R : ℝ) ^ 2)) := add_le_add_left hweighted _
-        _ = (C + (629 : ℝ) / 648 * A) * ((R : ℝ) ^ 2 * K) +
-              1184 * (R : ℝ) ^ 2 := by ring
-        _ ≤ (C + 1184 + (629 : ℝ) / 648 * A) *
+        _ = (C + (a * ((37 : ℝ) / 36) * ((17 : ℝ) / 72)) * A) * ((R : ℝ) ^ 2 * K) +
+              296 * a * (R : ℝ) ^ 2 := by ring
+        _ ≤ (C + 296 * a + (a * ((37 : ℝ) / 36) * ((17 : ℝ) / 72)) * A) *
               ((R : ℝ) ^ 2 * K) := by
-                have hRreal : (2 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
-                nlinarith [mul_nonneg (sq_nonneg (R : ℝ)) hK0]
+                have hrem : 296 * a * (R : ℝ) ^ 2 ≤
+                    296 * a * (R : ℝ) ^ 2 * K := by
+                  have hnonneg : 0 ≤ 296 * a * (R : ℝ) ^ 2 := by positivity
+                  simpa only [mul_one] using
+                    mul_le_mul_of_nonneg_left hK1 hnonneg
+                nlinarith
         _ = A * (R : ℝ) ^ 2 * K := by rw [hfixed]; ring
+
+/-- The original factor-four interface is preserved as a specialization. -/
+theorem squareEndpointRawOddQ2EnergyStep_implies_unshifted_amplification
+    {C : ℝ} (hC : 0 ≤ C)
+    (hstep : SquareEndpointRawOddQ2EnergyStep C) :
+    ∃ A : ℝ, 0 ≤ A ∧
+      ∀ R : ℕ, ∀ K : ℝ,
+        2 ≤ R →
+        LowerMertensCriticalEnvelope R K →
+        squareEndpointMertensEnergyReal R ≤ A * (R : ℝ) ^ 2 * K := by
+  exact squareEndpointRawOddQ2EnergyStepWith_implies_unshifted_amplification
+    (a := 4) hC (by norm_num) (by norm_num) hstep
 
 /-- The literal q² recurrence therefore supplies exactly the endpoint
 amplification interface consumed by the unconditional Mertens closure. -/
-theorem squareEndpointRawOddQ2EnergyStep_implies_endpointAmplification
-    {C : ℝ} (hC : 0 ≤ C)
-    (hstep : SquareEndpointRawOddQ2EnergyStep C) :
+theorem squareEndpointRawOddQ2EnergyStepWith_implies_endpointAmplification
+    {a C : ℝ} (hC : 0 ≤ C) (ha : 0 ≤ a)
+    (hcontract : a * ((37 : ℝ) / 36) * ((17 : ℝ) / 72) < 1)
+    (hstep : SquareEndpointRawOddQ2EnergyStepWith a C) :
     SquareRootMertensEndpointAmplificationStatement := by
-  rcases squareEndpointRawOddQ2EnergyStep_implies_unshifted_amplification
-      hC hstep with ⟨A, hA, hbound⟩
+  rcases squareEndpointRawOddQ2EnergyStepWith_implies_unshifted_amplification
+      hC ha hcontract hstep with ⟨A, hA, hbound⟩
   refine ⟨2 * A + 1, by positivity, ?_⟩
   intro R K hR hK
   have hM := hbound R K hR hK
@@ -466,6 +500,28 @@ theorem squareEndpointRawOddQ2EnergyStep_implies_endpointAmplification
       have hK1' : 1 ≤ K := hK1
       have hRreal : (2 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
       nlinarith
+
+/-- Backwards-compatible factor-four terminal interface. -/
+theorem squareEndpointRawOddQ2EnergyStep_implies_endpointAmplification
+    {C : ℝ} (hC : 0 ≤ C)
+    (hstep : SquareEndpointRawOddQ2EnergyStep C) :
+    SquareRootMertensEndpointAmplificationStatement := by
+  exact squareEndpointRawOddQ2EnergyStepWith_implies_endpointAmplification
+    (a := 4) hC (by norm_num) (by norm_num) hstep
+
+/-- The exact FAR-4 terminal budget, including shell rounding. -/
+theorem rawOddQ2FortyOneTen_budget :
+    ((41 : ℝ) / 10) * ((37 : ℝ) / 36) * ((17 : ℝ) / 72) =
+      (25789 : ℝ) / 25920 ∧
+    (25789 : ℝ) / 25920 < 1 := by
+  norm_num
+
+/-- The shell has a finite fixed point at coefficient `41/10`. -/
+theorem rawOddQ2FortyOneTen_fixedPoint (C : ℝ) :
+    (C + 296 * ((41 : ℝ) / 10)) /
+        (1 - ((41 : ℝ) / 10) * ((37 : ℝ) / 36) * ((17 : ℝ) / 72)) =
+      ((25920 : ℝ) / 131) * (C + (6068 : ℝ) / 5) := by
+  ring
 
 /-- Fixed endpoint amplification already implies the existence of a raw q²
 recurrence constant. -/
@@ -766,5 +822,95 @@ theorem frozenTopFarThreeEnergy_iff_endpointAmplification :
           0 ≤ 3 * ∑ q ∈ (primesUpTo (R - 1)).erase 2,
             rawQ2ChildEnergyReal R q := by positivity
       linarith)
+
+/-- FAR-4 retains each complete signed Mertens daughter before squaring. -/
+def FrozenTopFarFourEnergyStatement : Prop :=
+  ∃ CF : ℝ, 0 ≤ CF ∧
+    ∀ R : ℕ, ∀ K : ℝ,
+      56 ≤ R →
+      LowerMertensCriticalEnvelope R K →
+      ‖lowWheelFrozenTopFarResidual R‖ ^ 2 ≤
+        4 * ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+          rawQ2ChildEnergyReal R q +
+        CF * (R : ℝ) ^ 2 * K
+
+private theorem norm_sub_sq_le_fortyOne_fortyOneFortieths (u v : ℂ) :
+    ‖u - v‖ ^ 2 ≤ 41 * ‖u‖ ^ 2 + (41 : ℝ) / 40 * ‖v‖ ^ 2 := by
+  have hnorm := norm_sub_le u v
+  have hu : 0 ≤ ‖u‖ := norm_nonneg _
+  have hv : 0 ≤ ‖v‖ := norm_nonneg _
+  have huv : 0 ≤ ‖u - v‖ := norm_nonneg _
+  nlinarith [sq_nonneg (40 * ‖u‖ - ‖v‖)]
+
+/-- FAR-4 supplies a literal `41/10` recurrence, including every small root.
+The `10 R` root boundary and `37/36` daughter shell have separate additive
+allowances; no rounding error is omitted from the terminal induction. -/
+theorem frozenTopFarFourEnergy_implies_rawFortyOneTen
+    (hfar : FrozenTopFarFourEnergyStatement) :
+    ∃ C : ℝ, 0 ≤ C ∧ SquareEndpointRawOddQ2EnergyStepWith ((41 : ℝ) / 10) C := by
+  rcases hfar with ⟨CF, hCF, hfar⟩
+  let C : ℝ := 4100 + (41 : ℝ) / 40 * CF
+  have hC : 0 ≤ C := by dsimp [C]; positivity
+  refine ⟨C, hC, ?_⟩
+  intro R K hR hK
+  let Q : ℝ := ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+    rawQ2ChildEnergyReal R q
+  have hQ : 0 ≤ Q := rawQ2ChildEnergy_sum_nonneg R
+  have hK1 : 1 ≤ K := one_le_lowerMertensCriticalEnvelope (by omega) hK
+  by_cases hlarge : 56 ≤ R
+  · have hF := hfar R K hlarge hK
+    change ‖lowWheelFrozenTopFarResidual R‖ ^ 2 ≤
+      4 * Q + CF * (R : ℝ) ^ 2 * K at hF
+    have hB := norm_finalCompensatedRootBoundary_le_ten_root R hlarge
+    have hBsq :
+        ‖finalCompensatedRootBoundary R‖ ^ 2 ≤ 100 * (R : ℝ) ^ 2 := by
+      have hbn : 0 ≤ ‖finalCompensatedRootBoundary R‖ := norm_nonneg _
+      have hR0 : 0 ≤ (R : ℝ) := by positivity
+      nlinarith
+    have hsplit := norm_sub_sq_le_fortyOne_fortyOneFortieths
+      (finalCompensatedRootBoundary R) (lowWheelFrozenTopFarResidual R)
+    rw [← squarePrefixMertens_eq_rootBoundary_sub_frozenTopFar R hlarge] at hsplit
+    have henergy := squareEndpointMertensEnergyReal_eq_squarePrefix_norm_sq
+      (R := R) (by omega)
+    rw [← henergy] at hsplit
+    change squareEndpointMertensEnergyReal R ≤
+      C * (R : ℝ) ^ 2 * K + (41 : ℝ) / 10 * Q
+    dsimp [C]
+    nlinarith [sq_nonneg (R : ℝ)]
+  · have hsmall := smallRoot_squareEndpointMertensEnergyReal_le hR
+      (show R < 56 by omega) hK
+    change squareEndpointMertensEnergyReal R ≤
+      C * (R : ℝ) ^ 2 * K + (41 : ℝ) / 10 * Q
+    dsimp [C]
+    have hscale : 0 ≤ (R : ℝ) ^ 2 * K := by
+      have hK0 := hK.1
+      positivity
+    nlinarith [mul_nonneg hCF hscale]
+
+/-- FAR-4 closes through the exact subcritical terminal engine.  The signed
+FAR-4 estimate itself is an explicit hypothesis, not an established Gram bound. -/
+theorem frozenTopFarFourEnergy_iff_endpointAmplification :
+    FrozenTopFarFourEnergyStatement ↔
+      SquareRootMertensEndpointAmplificationStatement := by
+  constructor
+  · intro hfar
+    rcases frozenTopFarFourEnergy_implies_rawFortyOneTen hfar with ⟨C, hC, hstep⟩
+    exact squareEndpointRawOddQ2EnergyStepWith_implies_endpointAmplification
+      hC (by norm_num) (by norm_num) hstep
+  · intro hamp
+    rcases frozenTopFarThreeEnergy_iff_endpointAmplification.mpr hamp with
+      ⟨CF, hCF, hfar⟩
+    refine ⟨CF, hCF, ?_⟩
+    intro R K hR hK
+    have hF := hfar R K hR hK
+    have hQ := rawQ2ChildEnergy_sum_nonneg R
+    linarith
+
+/-- Conditional FAR-4 terminal theorem.  No proof of FAR-4 is asserted. -/
+theorem riemannHypothesis_of_frozenTopFarFourEnergy
+    (hfar : FrozenTopFarFourEnergyStatement) : RiemannHypothesis := by
+  apply RHLean.Analysis.riemannHypothesis_of_mertensEnergy
+  exact mertensEnergyBounded_of_squareRootEndpointAmplification
+    (frozenTopFarFourEnergy_iff_endpointAmplification.mp hfar)
 
 end RHLean.Proof
