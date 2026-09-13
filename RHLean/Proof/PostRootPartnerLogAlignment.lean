@@ -3,6 +3,7 @@ import RHLean.Proof.PostRootPartnerEulerMemory
 import RHLean.Proof.CanonicalRoughTruncatedWheelManyPrimeTelescope
 import RHLean.Proof.CanonicalRoughColumnAbelBridge
 import RHLean.Analysis.SquareRootMatchedTransport
+import RHLean.Proof.FarFourSplice
 
 /-!
 # Exact Euler-hazard alignment of the post-root partner ledger
