@@ -1,4 +1,5 @@
 import RHLean.Proof.StableFarWallRenewalTerminal
+import RHLean.Proof.StableFarWallOwnedCensus
 
 /-!
 # Prime-count form of terminal stable-far renewal multiplicity
@@ -41,15 +42,13 @@ theorem farPrime_reciprocalCutoff_lt_root
   have hRRp : R * R < R * p := Nat.mul_lt_mul_of_pos_left hRp (by omega)
   exact hXlt.trans hRRp
 
-/-- **Terminal-owner interval.**  The incoming owners of the unit renewal state
-at a fixed far prime are exactly the primes in `(sqrt(X_R/p), X_R/p]`. -/
-theorem lowWheelFarPrimeUnitCrossingOwners_eq_reciprocalPrimeInterval
-    {R p : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hpFar : R + 8 ≤ p) :
-    lowWheelFarPrimeUnitCrossingOwners R p =
-      (Finset.Ioc
+/-- Pointwise form of the terminal-owner interval. -/
+theorem mem_lowWheelFarPrimeUnitCrossingOwners_iff_reciprocalPrimeInterval
+    {R p q : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hpFar : R + 8 ≤ p) :
+    q ∈ lowWheelFarPrimeUnitCrossingOwners R p ↔
+      q ∈ (Finset.Ioc
         (Nat.sqrt (squareRootEndpoint R / p))
         (squareRootEndpoint R / p)).filter Nat.Prime := by
-  ext q
   have hpPos : 0 < p := hp.pos
   have hAlt : squareRootEndpoint R / p < R :=
     farPrime_reciprocalCutoff_lt_root hR hpFar
@@ -81,6 +80,18 @@ theorem lowWheelFarPrimeUnitCrossingOwners_eq_reciprocalPrimeInterval
     exact mem_lowWheelFarPrimeUnitCrossingOwners.mpr
       ⟨hqPrime, hqR, hqp, hq2p⟩
 
+/-- **Terminal-owner interval.**  The incoming owners of the unit renewal state
+at a fixed far prime are exactly the primes in `(sqrt(X_R/p), X_R/p]`. -/
+theorem lowWheelFarPrimeUnitCrossingOwners_eq_reciprocalPrimeInterval
+    {R p : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hpFar : R + 8 ≤ p) :
+    lowWheelFarPrimeUnitCrossingOwners R p =
+      (Finset.Ioc
+        (Nat.sqrt (squareRootEndpoint R / p))
+        (squareRootEndpoint R / p)).filter Nat.Prime := by
+  ext q
+  exact mem_lowWheelFarPrimeUnitCrossingOwners_iff_reciprocalPrimeInterval
+    hR hp hpFar
+
 /-- The terminal renewal multiplicity is exactly a prime-count gap.  The
 additive form avoids any natural-subtraction truncation. -/
 theorem unitCrossingOwner_card_add_primeCounting_sqrt_eq
@@ -90,5 +101,124 @@ theorem unitCrossingOwner_card_add_primeCounting_sqrt_eq
       Nat.primeCounting (squareRootEndpoint R / p) := by
   rw [lowWheelFarPrimeUnitCrossingOwners_eq_reciprocalPrimeInterval hR hp hpFar]
   exact primeCard_Ioc_add_primeCounting_eq (Nat.sqrt_le_self _)
+
+/-! ## Sign structure of the fully cancelled far-wall coefficient
+
+The owned-census layer has already removed one genuine strict-crossing
+occurrence against every eligible unit far prime.  What remains is the integer
+coefficient `lowWheelFarWallCancelledBoundaryCoefficient`.  Its negative part
+is completely rigid: it is exactly one copy on either an unmatched top-half
+unit prime or an old owned terminal product.  Everywhere else the coefficient
+is the nonnegative extra-crossing multiplicity.
+
+This is still before any norm or absolute value.  It rules out hidden negative
+multiplicity in the final signed complement and gives the energy step a literal
+"positive extra crossings minus multiplicity-one terminal boundary" normal
+form.
+-/
+
+/-- A top-half unit prime cannot simultaneously be an old owned product. -/
+theorem lowWheelFarPrimeTopUnitProduct_not_owned
+    {R n : ℕ} (hn : n ∈ lowWheelFarPrimeTopUnitProducts R) :
+    n ∉ lowWheelFrozenTopFarOwnedProducts R := by
+  have hu : n ∈ lowWheelFarPrimeUnitProducts R :=
+    (Finset.mem_filter.mp hn).1
+  intro ho
+  exact (Finset.disjoint_left.mp
+    (lowWheelFarPrimeUnitProducts_disjoint_owned R)) hu ho
+
+/-- On an unmatched top-half unit prime the cancelled coefficient is exactly
+`-1`: no crossing can reach it and the single terminal copy remains. -/
+theorem lowWheelFarWallCancelledBoundaryCoefficient_eq_neg_one_of_topUnit
+    {R n : ℕ} (hn : n ∈ lowWheelFarPrimeTopUnitProducts R) :
+    lowWheelFarWallCancelledBoundaryCoefficient R n = -1 := by
+  have hcross := lowWheelFarWallCrossingMultiplicity_eq_zero_of_topUnit hn
+  have howned := lowWheelFarPrimeTopUnitProduct_not_owned hn
+  have hnotPaired : n ∉ lowWheelFarPrimePairedUnitProducts R := by
+    intro hp
+    have hlow := (Finset.mem_filter.mp hp).2
+    have htop := (Finset.mem_filter.mp hn).2
+    omega
+  unfold lowWheelFarWallCancelledBoundaryCoefficient
+    lowWheelFarWallExtraCrossingCoefficient
+  simp [hcross, hn, howned, hnotPaired]
+
+/-- On an old owned product the cancelled coefficient is exactly `-1`: owned
+products have no strict-crossing occurrence and are disjoint from all unit
+prime products. -/
+theorem lowWheelFarWallCancelledBoundaryCoefficient_eq_neg_one_of_owned
+    {R n : ℕ} (hn : n ∈ lowWheelFrozenTopFarOwnedProducts R) :
+    lowWheelFarWallCancelledBoundaryCoefficient R n = -1 := by
+  have hcross := lowWheelFarWallCrossingMultiplicity_eq_zero_of_owned hn
+  have hnotUnit : n ∉ lowWheelFarPrimeUnitProducts R := by
+    intro hu
+    exact (Finset.disjoint_left.mp
+      (lowWheelFarPrimeUnitProducts_disjoint_owned R)) hu hn
+  have hnotPaired : n ∉ lowWheelFarPrimePairedUnitProducts R := by
+    intro hp
+    exact hnotUnit (Finset.mem_filter.mp hp).1
+  have hnotTop : n ∉ lowWheelFarPrimeTopUnitProducts R := by
+    intro ht
+    exact hnotUnit (Finset.mem_filter.mp ht).1
+  unfold lowWheelFarWallCancelledBoundaryCoefficient
+    lowWheelFarWallExtraCrossingCoefficient
+  simp [hcross, hn, hnotPaired, hnotTop]
+
+/-- Away from the two terminal populations the cancelled coefficient is exactly
+the nonnegative extra-crossing coefficient. -/
+theorem lowWheelFarWallCancelledBoundaryCoefficient_eq_extra_of_not_terminal
+    {R n : ℕ}
+    (htop : n ∉ lowWheelFarPrimeTopUnitProducts R)
+    (howned : n ∉ lowWheelFrozenTopFarOwnedProducts R) :
+    lowWheelFarWallCancelledBoundaryCoefficient R n =
+      lowWheelFarWallExtraCrossingCoefficient R n := by
+  simp [lowWheelFarWallCancelledBoundaryCoefficient, htop, howned]
+
+/-- Hence the cancelled coefficient is nonnegative everywhere off the exact
+terminal support. -/
+theorem lowWheelFarWallCancelledBoundaryCoefficient_nonneg_of_not_terminal
+    {R n : ℕ}
+    (htop : n ∉ lowWheelFarPrimeTopUnitProducts R)
+    (howned : n ∉ lowWheelFrozenTopFarOwnedProducts R) :
+    0 ≤ lowWheelFarWallCancelledBoundaryCoefficient R n := by
+  rw [lowWheelFarWallCancelledBoundaryCoefficient_eq_extra_of_not_terminal
+    htop howned]
+  exact lowWheelFarWallExtraCrossingCoefficient_nonneg R n
+
+/-- Globally, the fully cancelled coefficient can never be less than `-1`. -/
+theorem lowWheelFarWallCancelledBoundaryCoefficient_neg_one_le
+    (R n : ℕ) :
+    (-1 : ℤ) ≤ lowWheelFarWallCancelledBoundaryCoefficient R n := by
+  by_cases htop : n ∈ lowWheelFarPrimeTopUnitProducts R
+  · rw [lowWheelFarWallCancelledBoundaryCoefficient_eq_neg_one_of_topUnit htop]
+  · by_cases howned : n ∈ lowWheelFrozenTopFarOwnedProducts R
+    · rw [lowWheelFarWallCancelledBoundaryCoefficient_eq_neg_one_of_owned howned]
+    · have hnonneg :=
+        lowWheelFarWallCancelledBoundaryCoefficient_nonneg_of_not_terminal
+          htop howned
+      omega
+
+/-- Exact negative-support classification: negativity occurs if and only if the
+integer is one of the two multiplicity-one terminal populations. -/
+theorem lowWheelFarWallCancelledBoundaryCoefficient_lt_zero_iff
+    {R n : ℕ} :
+    lowWheelFarWallCancelledBoundaryCoefficient R n < 0 ↔
+      n ∈ lowWheelFarPrimeTopUnitProducts R ∨
+        n ∈ lowWheelFrozenTopFarOwnedProducts R := by
+  constructor
+  · intro hneg
+    by_cases htop : n ∈ lowWheelFarPrimeTopUnitProducts R
+    · exact Or.inl htop
+    · by_cases howned : n ∈ lowWheelFrozenTopFarOwnedProducts R
+      · exact Or.inr howned
+      · have hnonneg :=
+          lowWheelFarWallCancelledBoundaryCoefficient_nonneg_of_not_terminal
+            htop howned
+        omega
+  · rintro (htop | howned)
+    · rw [lowWheelFarWallCancelledBoundaryCoefficient_eq_neg_one_of_topUnit htop]
+      norm_num
+    · rw [lowWheelFarWallCancelledBoundaryCoefficient_eq_neg_one_of_owned howned]
+      norm_num
 
 end RHLean.Proof
