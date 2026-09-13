@@ -258,7 +258,7 @@ theorem squareRootCanonicalRoughAdaptiveRawCoefficient_pair_eq_zero_of_larger_ex
     exact hlarger r hr
   have hcpqV : (c * p) * q ∈ V := by
     dsimp [V]
-    apply mem_adaptiveCarrier_of_all_larger_primes pre hcpqU0 hprePrime
+    apply mem_adaptiveCarrier_of_all_larger_primes pre hcpqU0 hprime
     intro r hr
     rw [hlpfCPQ]
     exact hlarger r hr
