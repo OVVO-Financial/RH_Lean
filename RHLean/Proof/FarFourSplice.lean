@@ -91,7 +91,8 @@ theorem lowWheelFrozenTopFarResidual_eq_neg_q2CenteredTower_sub_terminal
   have hterminal := lowWheelFarWallTerminalProducts_mass_eq_unit_add_owned R
   unfold farFourQ2CenteredTower farFourTerminalRemainder
   rw [hterminal] at hfar
-  linear_combination hfar + hcenter
+  rw [hfar]
+  linear_combination -hcenter
 
 /-- Literal FAR-4 splice with the root-envelope constant exposed as a parameter.
 This is the exact shape requested by the terminal consumer. -/
@@ -138,8 +139,7 @@ energy support and the terminal complement is root-scale, the literal FAR-4
 splice follows immediately.  The factor four comes only from the final
 2-vector synthesis after signed reassembly. -/
 theorem farFourQ2TowerEnergySupport_implies_splice
-    {C : ℝ} (hC : 0 ≤ C)
-    (hsupport : FarFourQ2TowerEnergySupport C) :
+    {C : ℝ} (hsupport : FarFourQ2TowerEnergySupport C) :
     FarFourSplice (2 * C) := by
   intro R K hR hK
   rcases hsupport R K hR hK with ⟨hTower, hTerminal⟩
@@ -177,7 +177,7 @@ theorem farFourQ2TowerEnergySupport_implies_frozenTopFarFourEnergy
     (hsupport : FarFourQ2TowerEnergySupport C) :
     FrozenTopFarFourEnergyStatement := by
   refine ⟨2 * C, by positivity, ?_⟩
-  exact farFourQ2TowerEnergySupport_implies_splice hC hsupport
+  exact farFourQ2TowerEnergySupport_implies_splice hsupport
 
 /-- And the already-compiled terminal engine closes RH from that support
 interface.  No additional analytic theorem is inserted here. -/
