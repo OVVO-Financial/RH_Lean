@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.CanonicalRoughAdaptiveWeightedIteration
+import RHLean.Proof.StableFarWallUnitRenewalCentering
 
 /-!
 # Mellin interpolation of the raw and reciprocal fresh-prime laws
@@ -47,10 +48,20 @@ Euler law.  Thus the #685 memory factor is the endpoint difference of one
 multiplicative interpolation, and differentiation in `s` necessarily produces
 the logarithmic prime weight `log p`.
 
-The final theorem below checks the important physical compatibility: on the
-actual evolved raw chronology after a complete descending prefix, multiplying
-by an arbitrary extra coordinate weight does not recreate the coefficient
-mismatch.  The same four-corner argument works for every Mellin parameter.
+The final theorem of the first section checks the important physical
+compatibility: on the actual evolved raw chronology after a complete descending
+prefix, multiplying by an arbitrary extra coordinate weight does not recreate
+the coefficient mismatch.  The same four-corner argument works for every
+Mellin parameter.
+
+The second section states the remaining physical seam as `LOG_MATCH`.  On the
+stable-far carrier, the Mellin kernel is the native reciprocal outer-prime
+weight `1/p`.  The q-square projection strips only the low owner `q`; both a
+completed q-square descent and a strict-crossing renewal preserve the returned
+physical state `(d,p)`.  Therefore the outer-prime Mellin kernel commutes with
+the physical q-projection.  We state this as equality against an arbitrary test
+observable on `(d,p)`, so it is an equality of finite signed pushforward
+measures rather than one scalar checksum.
 
 No Perron inversion, prime-number-theorem estimate, norm, or RH-scale
 hypothesis is used.
@@ -206,5 +217,86 @@ retained-parent coordinate. -/
 theorem one_sub_ratio_add_ratio (z : ℂ) :
     (1 - z) + z = 1 := by
   ring
+
+/-! ## LOG-MATCH: the physical q-square projection commutes with the Mellin kernel -/
+
+/-- Native reciprocal outer-prime Mellin kernel on the stable-far chronology. -/
+def lowWheelFarPrimeMellinKernel (p : ℕ) : ℂ :=
+  1 / (p : ℂ)
+
+/-- Mellin-weighted physical mass before the low-owner q-square projection.
+The test observable sees only the returned physical state `(d,p)`, while the
+outer low owner `q` remains an occurrence tag. -/
+def lowWheelFarPrimeMellinBeforeQ2Projection
+    (R : ℕ) (test : ℕ × ℕ → ℂ) : ℂ :=
+  ∑ t ∈ lowWheelFarPrimeLowCofactorTriples R,
+    lowWheelFarPrimeMellinKernel t.2.2 *
+      canonicalMoebiusWeight t.2.1 * test t.2
+
+/-- The same Mellin-weighted mass after the physical q-square step.  Completed
+second contacts land directly in the descended carrier.  Strict crossings are
+not discarded: they return to the literal stable-far state `(d,p)` with its
+native physical sign. -/
+def lowWheelFarPrimeMellinAfterQ2Projection
+    (R : ℕ) (test : ℕ × ℕ → ℂ) : ℂ :=
+  (∑ t ∈ lowWheelFarPrimeQ2DescendedTriples R,
+    lowWheelFarPrimeMellinKernel t.2.2 *
+      canonicalMoebiusWeight t.2.1 * test t.2) +
+  ∑ t ∈ lowWheelFarPrimeQ2CrossingTriples R,
+    lowWheelFarPrimeMellinKernel t.2.2 *
+      lowWheelFullTaggedPhysicalWeight
+        ((∅ : Finset ℕ), (t.2.1, t.2.2)) * test t.2
+
+/-- **LOG-MATCH.**  This is the single physical arithmetic seam in operator
+form.  For every square-root scale and every test observable on the returned
+`(d,p)` state, applying the reciprocal outer-prime Mellin kernel before the
+q-square projection gives the same signed pushforward as applying it after the
+projection, with strict crossings routed through their actual stable-far
+renewal state rather than dropped.
+
+Because the equality is quantified over every test observable, this is the
+finite signed-measure statement `P_q K_Mellin = K_Mellin P_q` on the physical
+chronology, not merely equality of total masses. -/
+def LOG_MATCH : Prop :=
+  ∀ R : ℕ, 56 ≤ R → ∀ test : ℕ × ℕ → ℂ,
+    lowWheelFarPrimeMellinBeforeQ2Projection R test =
+      lowWheelFarPrimeMellinAfterQ2Projection R test
+
+/-- The returned stable-far occurrence keeps both coordinates `(d,p)` and has
+exactly the stripped Möbius weight.  In particular the Mellin denominator `p`
+is unchanged by a strict crossing. -/
+theorem lowWheelFarPrimeCrossing_returnedWeight_eq_strippedWeight
+    (d p : ℕ) :
+    lowWheelFullTaggedPhysicalWeight
+        ((∅ : Finset ℕ), (d, p)) = canonicalMoebiusWeight d := by
+  simp [lowWheelFullTaggedPhysicalWeight, booleanCubeSign]
+
+/-- **Physical Mellin/q-square commutation.**  The only apparent commutator of
+the naive descended projection is the strict-crossing carrier.  Once that
+carrier is routed to the literal renewal state already compiled in the repo,
+the outer prime `p` and hence its `1/p` Mellin factor are unchanged pointwise.
+The statement is proved against an arbitrary test observable, so no incidence
+multiplicity or signed cancellation is lost. -/
+theorem lowWheelFarPrimeMellinKernel_commutes_q2Projection
+    (R : ℕ) (test : ℕ × ℕ → ℂ) :
+    lowWheelFarPrimeMellinBeforeQ2Projection R test =
+      lowWheelFarPrimeMellinAfterQ2Projection R test := by
+  unfold lowWheelFarPrimeMellinBeforeQ2Projection
+    lowWheelFarPrimeMellinAfterQ2Projection
+  rw [lowWheelFarPrimeLowCofactorTriples_sum_eq_descended_add_crossing
+    R (fun t =>
+      lowWheelFarPrimeMellinKernel t.2.2 *
+        canonicalMoebiusWeight t.2.1 * test t.2)]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro t ht
+  rw [lowWheelFarPrimeCrossing_returnedWeight_eq_strippedWeight]
+
+/-- LOG-MATCH is therefore discharged on the physical stable-far chronology.
+No PNT or norm estimate enters: the commutation is the exact invariance of the
+outer prime coordinate under q-square descent plus strict-crossing renewal. -/
+theorem log_match : LOG_MATCH := by
+  intro R _hR test
+  exact lowWheelFarPrimeMellinKernel_commutes_q2Projection R test
 
 end RHLean.Proof
