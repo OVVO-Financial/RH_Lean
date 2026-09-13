@@ -3,6 +3,7 @@ import RHLean.Proof.SurvivorFarUpperRigidity
 import RHLean.Proof.SurvivorPrimeFaceFiniteDifference
 import RHLean.Proof.StableFarWallUnitRenewalCentering
 import RHLean.Proof.StableFarWallCrossingOwnerWindow
+import RHLean.Proof.StableFarWallRenewalTerminalPrimeCount
 import RHLean.Proof.PostRootPartnerLogAlignment
 
 /-!
@@ -70,15 +71,20 @@ theorem farSurvivorRenewal_is_LowerMertens
           (RHLean.Analysis.squarePrefixEndpoint t / q) := hfar
   exact neg_inj.mp hneg
 
-/-! ## FAR-4 on the fully cancelled stable-far carrier
+/-! ## FAR-4 on the explicit post-#688 stable-far carrier
 
-The stable-far routing is already exact before energy:
+The stable-far routing is exact before energy.  After the #688 pointwise sign
+classification, the former opaque cancelled boundary packet has the literal
+normal form
 
-`frozenTopFar = descended q^2 packet + cancelled boundary packet`.
+`cancelled boundary = extra crossings - terminal boundary`.
 
-The declarations below keep those two signed packets together and rewrite
-FAR-4 as the single off-diagonal cancellation inequality between them.  No
-triangle inequality or separate packet estimate is introduced.
+Thus the final carrier is
+
+`frozenTopFar = descended q^2 packet + extra crossings - terminal boundary`.
+
+The declarations below keep that full signed synthesis intact.  No triangle
+inequality or separate packet estimate is introduced.
 -/
 
 /-- Literal true-product q^2-descended packet from the stable-far census. -/
@@ -93,14 +99,58 @@ def farFourCancelledBoundaryPacket (R : ℕ) : ℂ :=
     (lowWheelFarWallCancelledBoundaryCoefficient R n : ℂ) *
       canonicalMoebiusWeight n
 
+/-- The nonnegative extra-crossing packet left after deleting one genuine
+crossing occurrence against each cancellable unit prime. -/
+def farFourExtraCrossingPacket (R : ℕ) : ℂ :=
+  ∑ n ∈ lowWheelFarWallBoundaryProductHomes R,
+    (lowWheelFarWallExtraCrossingCoefficient R n : ℂ) *
+      canonicalMoebiusWeight n
+
+/-- Multiplicity-one terminal coefficient.  #688 proves that the top-unit and
+owned-terminal supports are disjoint, and that these are exactly the negative
+support of the cancelled coefficient. -/
+def farFourTerminalCoefficient (R n : ℕ) : ℤ :=
+  (if n ∈ lowWheelFarPrimeTopUnitProducts R then 1 else 0) +
+    (if n ∈ lowWheelFrozenTopFarOwnedProducts R then 1 else 0)
+
+/-- The multiplicity-one top-unit plus owned-terminal packet, kept on the same
+integer homes as the crossing packet so the signed subtraction is literal. -/
+def farFourTerminalPacket (R : ℕ) : ℂ :=
+  ∑ n ∈ lowWheelFarWallBoundaryProductHomes R,
+    (farFourTerminalCoefficient R n : ℂ) * canonicalMoebiusWeight n
+
+/-- Pointwise coefficient normal form behind `B_R = P_R - T_R`.  This is still
+an exact signed identity, before any norm. -/
+theorem lowWheelFarWallCancelledBoundaryCoefficient_eq_extra_sub_terminal
+    (R n : ℕ) :
+    lowWheelFarWallCancelledBoundaryCoefficient R n =
+      lowWheelFarWallExtraCrossingCoefficient R n -
+        farFourTerminalCoefficient R n := by
+  unfold lowWheelFarWallCancelledBoundaryCoefficient farFourTerminalCoefficient
+  ring
+
+/-- **Post-#688 boundary normal form.**  The old cancelled packet is exactly the
+nonnegative extra-crossing packet minus the multiplicity-one terminal packet. -/
+theorem farFourCancelledBoundaryPacket_eq_extraCrossing_sub_terminal
+    (R : ℕ) :
+    farFourCancelledBoundaryPacket R =
+      farFourExtraCrossingPacket R - farFourTerminalPacket R := by
+  unfold farFourCancelledBoundaryPacket farFourExtraCrossingPacket
+    farFourTerminalPacket
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  rw [lowWheelFarWallCancelledBoundaryCoefficient_eq_extra_sub_terminal]
+  push_cast
+  ring
+
 /-- The genuine whole-daughter energy used by the existing FAR-4 terminal
 consumer.  The owner `2` is erased exactly as in the terminal statement. -/
 def farFourOddQ2DaughterEnergy (R : ℕ) : ℝ :=
   ∑ q ∈ (primesUpTo (R - 1)).erase 2,
     rawQ2ChildEnergyReal R q
 
-/-- The merged signed census, written only in the two packets on which the
-remaining energy cancellation acts. -/
+/-- The merged signed census, first in the historical two-packet form. -/
 theorem lowWheelFrozenTopFarResidual_eq_farFourDescended_add_cancelled
     (R : ℕ) (hR : 56 ≤ R) :
     lowWheelFrozenTopFarResidual R =
@@ -108,26 +158,38 @@ theorem lowWheelFrozenTopFarResidual_eq_farFourDescended_add_cancelled
   simpa [farFourDescendedPacket, farFourCancelledBoundaryPacket] using
     lowWheelFrozenTopFarResidual_eq_descended_add_cancelledBoundary R hR
 
-/-- Off-diagonal energy of the exact two-packet synthesis.  It is defined by
-polarization at the already-assembled scalar level, so no coordinatewise
-absolute value is taken. -/
-def farFourCancelledCrossEnergy (R : ℕ) : ℝ :=
-  ‖farFourDescendedPacket R + farFourCancelledBoundaryPacket R‖ ^ 2 -
-    ‖farFourDescendedPacket R‖ ^ 2 -
-    ‖farFourCancelledBoundaryPacket R‖ ^ 2
+/-- **Canonical final carrier.**  After #688 there is no opaque boundary packet:
+`F_R = D_R + P_R - T_R` exactly. -/
+theorem lowWheelFrozenTopFarResidual_eq_farFourDescended_add_extra_sub_terminal
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      farFourDescendedPacket R + farFourExtraCrossingPacket R -
+        farFourTerminalPacket R := by
+  rw [lowWheelFrozenTopFarResidual_eq_farFourDescended_add_cancelled R hR,
+    farFourCancelledBoundaryPacket_eq_extraCrossing_sub_terminal]
+  ring
 
-/-- Exact Gram expansion for the two signed packets. -/
+/-- Off-diagonal energy of the exact final synthesis.  The boundary side is
+kept as the signed packet `P_R - T_R`; no coordinatewise absolute value is
+taken. -/
+def farFourCancelledCrossEnergy (R : ℕ) : ℝ :=
+  ‖farFourDescendedPacket R + farFourExtraCrossingPacket R -
+      farFourTerminalPacket R‖ ^ 2 -
+    ‖farFourDescendedPacket R‖ ^ 2 -
+    ‖farFourExtraCrossingPacket R - farFourTerminalPacket R‖ ^ 2
+
+/-- Exact Gram expansion for the explicit `D_R + P_R - T_R` synthesis. -/
 theorem farFour_jointEnergy_eq_diagonal_add_cross (R : ℕ) :
-    ‖farFourDescendedPacket R + farFourCancelledBoundaryPacket R‖ ^ 2 =
+    ‖farFourDescendedPacket R + farFourExtraCrossingPacket R -
+        farFourTerminalPacket R‖ ^ 2 =
       ‖farFourDescendedPacket R‖ ^ 2 +
-      ‖farFourCancelledBoundaryPacket R‖ ^ 2 +
+      ‖farFourExtraCrossingPacket R - farFourTerminalPacket R‖ ^ 2 +
       farFourCancelledCrossEnergy R := by
   unfold farFourCancelledCrossEnergy
   ring
 
 /-- The remaining quantitative statement with the cancellation isolated in the
-single cross-energy term.  The following theorem proves that this is literally
-FAR-4 on the merged carriers, not a new hypothesis. -/
+single cross-energy term, now on the explicit post-#688 packets. -/
 def FarFourCancelledCrossEnergyStatement : Prop :=
   ∃ CF : ℝ, 0 ≤ CF ∧
     ∀ R : ℕ, ∀ K : ℝ,
@@ -137,34 +199,68 @@ def FarFourCancelledCrossEnergyStatement : Prop :=
         4 * farFourOddQ2DaughterEnergy R +
           CF * (R : ℝ) ^ 2 * K -
           ‖farFourDescendedPacket R‖ ^ 2 -
-          ‖farFourCancelledBoundaryPacket R‖ ^ 2
+          ‖farFourExtraCrossingPacket R - farFourTerminalPacket R‖ ^ 2
 
-/-- **Exact localization of FAR-4.**  After the signed reassembly, FAR-4 is
-exactly one off-diagonal cancellation inequality between the literal q^2
-packet and the fully cancelled boundary packet. -/
-theorem farFourCancelledCrossEnergy_iff_frozenTopFarFourEnergy :
+/-- The same remaining theorem in its direct final-energy form.  This is the
+canonical next target after #688:
+
+`||D_R + P_R - T_R||^2 <= 4 Q_R + C R^2 K`. -/
+def FarFourExplicitEnergyStatement : Prop :=
+  ∃ CF : ℝ, 0 ≤ CF ∧
+    ∀ R : ℕ, ∀ K : ℝ,
+      56 ≤ R →
+      LowerMertensCriticalEnvelope R K →
+      ‖farFourDescendedPacket R + farFourExtraCrossingPacket R -
+          farFourTerminalPacket R‖ ^ 2 ≤
+        4 * farFourOddQ2DaughterEnergy R + CF * (R : ℝ) ^ 2 * K
+
+/-- Polarization introduces no new hypothesis: the cross-energy version and the
+explicit final-energy version are equivalent. -/
+theorem farFourCancelledCrossEnergy_iff_explicitEnergy :
     FarFourCancelledCrossEnergyStatement ↔
-      FrozenTopFarFourEnergyStatement := by
+      FarFourExplicitEnergyStatement := by
   constructor
   · rintro ⟨CF, hCF, hcross⟩
     refine ⟨CF, hCF, ?_⟩
     intro R K hR hK
     have hc := hcross R K hR hK
-    rw [lowWheelFrozenTopFarResidual_eq_farFourDescended_add_cancelled R hR]
-    change
-      ‖farFourDescendedPacket R + farFourCancelledBoundaryPacket R‖ ^ 2 ≤
-        4 * farFourOddQ2DaughterEnergy R + CF * (R : ℝ) ^ 2 * K
     unfold farFourCancelledCrossEnergy at hc
     linarith
+  · rintro ⟨CF, hCF, henergy⟩
+    refine ⟨CF, hCF, ?_⟩
+    intro R K hR hK
+    have he := henergy R K hR hK
+    unfold farFourCancelledCrossEnergy
+    linarith
+
+/-- **Exact localization of FAR-4.**  After signed reassembly and #688's exact
+coefficient classification, FAR-4 is exactly the explicit energy inequality on
+`D_R + P_R - T_R`. -/
+theorem farFourExplicitEnergy_iff_frozenTopFarFourEnergy :
+    FarFourExplicitEnergyStatement ↔
+      FrozenTopFarFourEnergyStatement := by
+  constructor
+  · rintro ⟨CF, hCF, henergy⟩
+    refine ⟨CF, hCF, ?_⟩
+    intro R K hR hK
+    have he := henergy R K hR hK
+    rw [lowWheelFrozenTopFarResidual_eq_farFourDescended_add_extra_sub_terminal
+      R hR]
+    exact he
   · rintro ⟨CF, hCF, hfar⟩
     refine ⟨CF, hCF, ?_⟩
     intro R K hR hK
     have hf := hfar R K hR hK
-    rw [lowWheelFrozenTopFarResidual_eq_farFourDescended_add_cancelled R hR] at hf
-    change
-      ‖farFourDescendedPacket R + farFourCancelledBoundaryPacket R‖ ^ 2 ≤
-        4 * farFourOddQ2DaughterEnergy R + CF * (R : ℝ) ^ 2 * K at hf
-    unfold farFourCancelledCrossEnergy
-    linarith
+    rw [lowWheelFrozenTopFarResidual_eq_farFourDescended_add_extra_sub_terminal
+      R hR] at hf
+    exact hf
+
+/-- Backward-compatible cross-energy localization, now factored through the
+canonical explicit carrier. -/
+theorem farFourCancelledCrossEnergy_iff_frozenTopFarFourEnergy :
+    FarFourCancelledCrossEnergyStatement ↔
+      FrozenTopFarFourEnergyStatement :=
+  farFourCancelledCrossEnergy_iff_explicitEnergy.trans
+    farFourExplicitEnergy_iff_frozenTopFarFourEnergy
 
 end RHLean.Proof
