@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Proof.PostRootPartnerEulerMemory
 import RHLean.Proof.CanonicalRoughTruncatedWheelManyPrimeTelescope
 import RHLean.Proof.CanonicalRoughColumnAbelBridge
+import RHLean.Proof.LowWheelCanonicalSqrtDenseContraction
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Proof.StableFarWallUnitRenewalCentering
 import RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
@@ -205,6 +206,104 @@ theorem frozenTopFarFourEnergy_iff_exists_nonneg_farFourSplice :
       ∃ C : ℝ, 0 ≤ C ∧ FarFourSplice C := by
   rfl
 
+/-! ## Exact far high-transport predecessor telescope -/
+
+/-- Portion of one q² high-transport daughter with outer prime in the same
+far-prime range used by the stable-far chronology. -/
+def q2DaughterFarHighTransport (R q : ℕ) : ℤ :=
+  ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R + 7)
+      (squareRootEndpoint R / (q * q)),
+    frozenPrimeUniverseMass (primesUpTo (p - 1))
+      ((squareRootEndpoint R / (q * q)) / p)
+
+/-- The same far-prime schedule, but with every predecessor cube moved back to
+the common q-predecessor universe.  This is the source shape expected by the
+literal q² child-far slice. -/
+def q2DaughterFarBaseColumn (R q : ℕ) : ℤ :=
+  ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R + 7)
+      (squareRootEndpoint R / (q * q)),
+    frozenPrimeUniverseMass (primesUpTo (q - 1))
+      ((squareRootEndpoint R / (q * q)) / p)
+
+/-- Ordered intermediate-prime population created when the moving predecessor
+cube `p^-` is telescoped back to `q^-`.  Every atom has parent denominator
+`q²*p*r`, so this object is q²-or-deeper before any norm is taken. -/
+def q2DaughterFarIntermediatePrimeTower (R q : ℕ) : ℤ :=
+  ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R + 7)
+      (squareRootEndpoint R / (q * q)),
+    ∑ r ∈ frozenPrimeUniverseHighPrimeSet (q - 1) (p - 1),
+      frozenPrimeUniverseMass (primesUpTo (r - 1))
+        (((squareRootEndpoint R / (q * q)) / p) / r)
+
+/-- **Ownerwise exact predecessor-cube correction.**  This is the precise
+repair of the false `P⁺(d)<p` versus `P⁺(d)<q` identification: moving the cube
+from `p^-` back to `q^-` produces exactly the intermediate-prime tower. -/
+theorem q2DaughterFarHighTransport_eq_base_sub_intermediatePrimeTower
+    {R q : ℕ} (hqR : q < R) :
+    q2DaughterFarHighTransport R q =
+      q2DaughterFarBaseColumn R q -
+        q2DaughterFarIntermediatePrimeTower R q := by
+  unfold q2DaughterFarHighTransport q2DaughterFarBaseColumn
+    q2DaughterFarIntermediatePrimeTower
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro p hp
+  have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp hp
+  have hqp : q - 1 ≤ p - 1 := by
+    have hpLower : R + 7 < p := hpData.2.1
+    omega
+  have htel :=
+    frozenPrimeUniverse_highUpperColumn_telescope
+      ((squareRootEndpoint R / (q * q)) / p) (q - 1) (p - 1) hqp
+  linear_combination htel
+
+/-- The complementary near-prime part is defined by exact signed subtraction,
+so no prime-range mass is lost while the far portion is isolated. -/
+def q2DaughterNearHighTransport (R q : ℕ) : ℤ :=
+  q2DaughterHighTransport q (squareRootEndpoint R) -
+    q2DaughterFarHighTransport R q
+
+def squareEndpointQ2NearHighTransportColumn (R : ℕ) : ℤ :=
+  ∑ q ∈ primesUpTo (R - 1), q2DaughterNearHighTransport R q
+
+def squareEndpointQ2FarHighTransportColumn (R : ℕ) : ℤ :=
+  ∑ q ∈ primesUpTo (R - 1), q2DaughterFarHighTransport R q
+
+def squareEndpointQ2FarBaseColumn (R : ℕ) : ℤ :=
+  ∑ q ∈ primesUpTo (R - 1), q2DaughterFarBaseColumn R q
+
+def squareEndpointQ2IntermediatePrimeTower (R : ℕ) : ℤ :=
+  ∑ q ∈ primesUpTo (R - 1), q2DaughterFarIntermediatePrimeTower R q
+
+/-- Exact near/far split of the actual q² high-transport source. -/
+theorem squareEndpointQ2HighTransportColumn_eq_near_add_far (R : ℕ) :
+    squareEndpointQ2HighTransportColumn R =
+      squareEndpointQ2NearHighTransportColumn R +
+        squareEndpointQ2FarHighTransportColumn R := by
+  unfold squareEndpointQ2HighTransportColumn
+    squareEndpointQ2NearHighTransportColumn squareEndpointQ2FarHighTransportColumn
+    q2DaughterNearHighTransport
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro q _hq
+  ring
+
+/-- Summing the ownerwise predecessor telescope leaves one common-base far
+column minus one explicit q²-or-deeper intermediate-prime tower. -/
+theorem squareEndpointQ2FarHighTransportColumn_eq_base_sub_intermediatePrimeTower
+    (R : ℕ) :
+    squareEndpointQ2FarHighTransportColumn R =
+      squareEndpointQ2FarBaseColumn R -
+        squareEndpointQ2IntermediatePrimeTower R := by
+  unfold squareEndpointQ2FarHighTransportColumn squareEndpointQ2FarBaseColumn
+    squareEndpointQ2IntermediatePrimeTower
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro q hq
+  have hqle := (mem_primesUpTo.mp hq).2
+  exact q2DaughterFarHighTransport_eq_base_sub_intermediatePrimeTower
+    (by omega : q < R)
+
 /-! ## Corrected post-diagnostic transport/far seam -/
 
 /-- The exact signed mismatch between the q² daughter high-transport column and
@@ -228,6 +327,48 @@ theorem q2TransportFarMismatch_eq_highTransport_sub_farPopulations
   unfold q2TransportFarMismatch
   rw [hfar]
   ring
+
+/-- The mismatch after the exact predecessor telescope.  The only difference
+between the actual high-transport source and the stable-far side is now exposed
+as a near column, a common-q far base, the q²-or-deeper intermediate tower, and
+the original signed frozen/top/far residual. -/
+theorem q2TransportFarMismatch_eq_near_add_base_sub_tower_add_frozenTopFar
+    (R : ℕ) :
+    q2TransportFarMismatch R =
+      (((squareEndpointQ2NearHighTransportColumn R : ℤ) : ℂ)) +
+        (((squareEndpointQ2FarBaseColumn R : ℤ) : ℂ)) -
+        (((squareEndpointQ2IntermediatePrimeTower R : ℤ) : ℂ)) +
+        lowWheelFrozenTopFarResidual R := by
+  unfold q2TransportFarMismatch
+  rw [squareEndpointQ2HighTransportColumn_eq_near_add_far R,
+    squareEndpointQ2FarHighTransportColumn_eq_base_sub_intermediatePrimeTower R]
+  push_cast
+  ring
+
+/-- The remaining local carrier bridge is now named separately: the common-q
+far predecessor column should be identified with the already-compiled child-far
+slice.  Unlike the refuted high-transport support equality, these two objects
+have the same `P⁺(d)<q`, `p≥R+8`, and `q²*d*p≤X_R` support. -/
+def FarBaseChildSliceMatch : Prop :=
+  ∀ R : ℕ, 56 ≤ R →
+    (((squareEndpointQ2FarBaseColumn R : ℤ) : ℂ)) =
+      squareEndpointQ2ChildFarSliceColumn R
+
+/-- Conditional exact normal form after only the *local* common-base/child-far
+carrier bridge.  No zero-mismatch claim is made: the surviving signed seam is
+near transport minus the q²-or-deeper intermediate tower minus renewal and
+terminal populations. -/
+theorem q2TransportFarMismatch_eq_near_sub_tower_sub_renewal_sub_terminal
+    (hmatch : FarBaseChildSliceMatch)
+    (R : ℕ) (hR : 56 ≤ R) :
+    q2TransportFarMismatch R =
+      (((squareEndpointQ2NearHighTransportColumn R : ℤ) : ℂ)) -
+        (((squareEndpointQ2IntermediatePrimeTower R : ℤ) : ℂ)) -
+        stableFarRenewalColumn R - stableFarTerminalProductColumn R := by
+  rw [q2TransportFarMismatch_eq_near_add_base_sub_tower_add_frozenTopFar R,
+    hmatch R hR]
+  have hfar := farPopulations_eq_neg_frozenTopFar R hR
+  linear_combination hfar
 
 /-- **Exact corrected survivor seam.**  No cancellation is assumed: the #674
 survivor is the root reassembly boundary minus the literal transport/far
