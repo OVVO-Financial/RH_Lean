@@ -81,11 +81,13 @@ private theorem logPrimeExtension_cofactor_filter_eq_scaleInterval
     · exact (Nat.le_div_iff_mul_le hpPos).2 hupp
   · intro hc
     rcases Finset.mem_Ioc.mp hc with ⟨hlow, hupp⟩
-    have hcPos : 0 < c := by omega
+    have hcPos : 0 < c :=
+      lt_of_le_of_lt (Nat.zero_le (N / p)) hlow
+    have hcOne : 1 ≤ c := Nat.succ_le_iff.mpr hcPos
     have hcUpper : c ≤ 2 * N :=
       hupp.trans (Nat.div_le_self (2 * N) p)
     apply Finset.mem_filter.mpr
-    refine ⟨Finset.mem_Icc.mpr ⟨by omega, hcUpper⟩, ?_, ?_⟩
+    refine ⟨Finset.mem_Icc.mpr ⟨hcOne, hcUpper⟩, ?_, ?_⟩
     · exact (Nat.div_lt_iff_lt_mul hpPos).1 hlow
     · exact (Nat.le_div_iff_mul_le hpPos).1 hupp
 
