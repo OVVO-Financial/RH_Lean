@@ -162,15 +162,28 @@ theorem natCast_mul_cofactorWeightedReciprocalDefect_eq_rawBoundary
   have hscaled :=
     natCast_mul_squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect
       (R := R) hc hp
-  rw [mul_assoc, hscaled]
-  unfold squareRootCanonicalRoughParityReciprocalSummand
-    squareRootCanonicalRoughFreshPrimeSignedBoundaryScalar
-  rw [squareRootCanonicalRoughFreshLossBoundary_card_eq_threshold_add_topEscape]
-  push_cast
   have hc0 : (c : ℂ) ≠ 0 := by
     exact_mod_cast (Nat.ne_of_gt hc)
-  field_simp [hc0]
-  ring
+  calc
+    (p : ℂ) *
+        (((c : ℂ) * a c) *
+          squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c p) =
+      ((c : ℂ) * a c) *
+        ((p : ℂ) * squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect R c p) := by
+          ring
+    _ = ((c : ℂ) * a c) *
+        (squareRootCanonicalRoughParityReciprocalSummand c *
+          squareRootCanonicalRoughFreshPrimeSignedBoundaryScalar R c p) := by
+          rw [hscaled]
+    _ = a c * canonicalMoebiusWeight c *
+        (((squareRootCanonicalRoughFreshLossBoundary R c p).card : ℂ) -
+          ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ)) := by
+      unfold squareRootCanonicalRoughParityReciprocalSummand
+        squareRootCanonicalRoughFreshPrimeSignedBoundaryScalar
+      rw [squareRootCanonicalRoughFreshLossBoundary_card_eq_threshold_add_topEscape]
+      push_cast
+      field_simp [hc0]
+      ring
 
 /-- Carrier-level form of the exact exchange rate. -/
 theorem natCast_mul_adaptiveCofactorWeightedPhysicalDefectMass_eq_rawBoundaryMass
@@ -231,8 +244,7 @@ theorem cofactorWeighted_evolvedMismatch_eq_zero_of_completeDescendingPrefix
       squareRootCanonicalRoughAdaptiveRawCoefficient_pair_eq_zero_of_larger_extension_split
         pre post hcpos hp hqPrime hrough hpq hupper hprePrime hpreLarger
     rw [← hsplit] at hzero
-    rw [hzero.1, hzero.2]
-    simp
+    simp [hzero.1, hzero.2]
   · have hcpPos : 0 < c * p := Nat.mul_pos hcpos hp.pos
     have hraw :=
       squareRootCanonicalRoughRawCorrelationSummand_mul_freshPrime_eq_zero_of_no_extension
@@ -257,7 +269,7 @@ theorem cofactorWeighted_evolvedMass_eq_next_add_physicalDefect_of_completeDesce
       (Finset.Icc 1 (squareRootEndpoint R))
     let a := squareRootCanonicalRoughAdaptiveRawCoefficient qs
       (Finset.Icc 1 (squareRootEndpoint R)) (fun _ => (1 : ℂ))
-    let b := fun n => (n : ℂ) * a n
+    let b := fun n : ℕ => (n : ℂ) * a n
     squareRootCanonicalRoughAdaptiveWeightedMass R U b =
       squareRootCanonicalRoughAdaptiveWeightedMass R
         (squareRootCanonicalRoughAdaptiveNextCarrier p U)
@@ -269,7 +281,7 @@ theorem cofactorWeighted_evolvedMass_eq_next_add_physicalDefect_of_completeDesce
       R
       (squareRootCanonicalRoughAdaptiveCarrier qs
         (Finset.Icc 1 (squareRootEndpoint R)))
-      (fun n => (n : ℂ) *
+      (fun n : ℕ => (n : ℂ) *
         squareRootCanonicalRoughAdaptiveRawCoefficient qs
           (Finset.Icc 1 (squareRootEndpoint R))
           (fun _ => (1 : ℂ)) n)
@@ -290,7 +302,7 @@ theorem evolvedRawBoundary_eq_scaledReciprocalDrop_of_completeDescendingPrefix
     let U := squareRootCanonicalRoughAdaptiveCarrier qs U0
     let a := squareRootCanonicalRoughAdaptiveRawCoefficient qs U0
       (fun _ => (1 : ℂ))
-    let b := fun n => (n : ℂ) * a n
+    let b := fun n : ℕ => (n : ℂ) * a n
     squareRootCanonicalRoughAdaptiveRawBoundaryMass R p U a =
       (p : ℂ) *
         (squareRootCanonicalRoughAdaptiveRawWeightedMass R U a -
@@ -307,7 +319,7 @@ theorem evolvedRawBoundary_eq_scaledReciprocalDrop_of_completeDescendingPrefix
     intro n hn
     have hn0 : n ∈ U0 :=
       squareRootCanonicalRoughAdaptiveCarrier_subset qs U0 hn
-    exact Nat.zero_lt_of_lt (Finset.mem_Icc.mp hn0).1
+    omega
   have hcoord :
       squareRootCanonicalRoughAdaptiveRawWeightedMass R U a =
         squareRootCanonicalRoughAdaptiveWeightedMass R U b := by
