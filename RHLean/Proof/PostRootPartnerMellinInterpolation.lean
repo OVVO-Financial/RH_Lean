@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Proof.CanonicalRoughAdaptiveRawAnnihilation
+import RHLean.Proof.CanonicalRoughAdaptiveWeightedIteration
 
 /-!
 # Mellin interpolation of the raw and reciprocal fresh-prime laws
@@ -47,8 +47,13 @@ Euler law.  Thus the #685 memory factor is the endpoint difference of one
 multiplicative interpolation, and differentiation in `s` necessarily produces
 the logarithmic prime weight `log p`.
 
-Only the abstract finite algebra is formalized here.  No Perron inversion,
-prime-number-theorem estimate, norm, or RH-scale hypothesis is used.
+The final theorem below checks the important physical compatibility: on the
+actual evolved raw chronology after a complete descending prefix, multiplying
+by an arbitrary extra coordinate weight does not recreate the coefficient
+mismatch.  The same four-corner argument works for every Mellin parameter.
+
+No Perron inversion, prime-number-theorem estimate, norm, or RH-scale
+hypothesis is used.
 -/
 
 noncomputable section
@@ -105,6 +110,26 @@ theorem weightedRawPair_eq_one_sub_ratio_parent_add_ratio_boundary
   rw [hscale]
   linear_combination z * w c * hpair
 
+/-- Coefficient-weighted version of the same interpolation.  The final term is
+exactly the inherited-coefficient mismatch. -/
+theorem coefficientWeightedRawPair_eq_mellin_parent_add_boundary_add_mismatch
+    {R c p : ℕ} (a w : ℕ → ℂ) (z : ℂ)
+    (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hfresh : canonicalLargestPrimeFactor c < p)
+    (hscale : w (c * p) = z * w c) :
+    a c * w c * squareRootCanonicalRoughRawCorrelationSummand R c +
+        a (c * p) * w (c * p) *
+          squareRootCanonicalRoughRawCorrelationSummand R (c * p) =
+      (1 - z) *
+          (a c * w c * squareRootCanonicalRoughRawCorrelationSummand R c) +
+        z * a c * w c * squareRootCanonicalRoughRawPairBoundaryCharge R c p +
+        (a (c * p) - a c) * w (c * p) *
+          squareRootCanonicalRoughRawCorrelationSummand R (c * p) := by
+  have hpair :=
+    squareRootCanonicalRoughRawPair_add_eq_boundaryCharge hR hc hp hfresh
+  rw [hscale]
+  linear_combination z * a c * w c * hpair
+
 /-- The raw/Othello endpoint of the interpolation: unit multiplicative ratio
 kills the retained parent completely and leaves the signed boundary charge. -/
 theorem weightedRawPair_ratio_one_eq_boundary
@@ -121,10 +146,63 @@ theorem weightedRawPair_ratio_one_eq_boundary
       w (1 : ℂ) hR hc hp hfresh (by simpa using hscale)
   simpa using h
 
+/-- Mellin-weighted form of the evolved coefficient-mismatch ledger. -/
+def squareRootCanonicalRoughEvolvedMellinMismatchMass
+    (R p : ℕ) (U : Finset ℕ) (a w : ℕ → ℂ) : ℂ :=
+  ∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
+    (a (c * p) - a c) * w (c * p) *
+      squareRootCanonicalRoughRawCorrelationSummand R (c * p)
+
+/-- **Actual-carrier Mellin compatibility.**  A complete descending prefix
+kills the Mellin-weighted coefficient mismatch for *every* extra coordinate
+weight `w`.
+
+If the current child still has a larger prime extension, the existing
+four-corner theorem has already zeroed both evolved raw coefficients.  If it
+has no such extension, the child raw atom is itself zero.  Multiplying by an
+arbitrary `w(c*p)` therefore cannot recreate a mismatch.  This is the key fact
+needed to carry the full `p^{-s}` interpolation on the physical chronology,
+not merely on a complete canonical cube. -/
+theorem squareRootCanonicalRoughEvolvedMellinMismatchMass_eq_zero_of_completeDescendingPrefix
+    (R : ℕ) {p : ℕ} (qs : List ℕ) (w : ℕ → ℂ)
+    (hR : 2 ≤ R) (hp : p.Prime)
+    (hcomplete : SquareRootCanonicalRoughCompleteDescendingPrefix R p qs) :
+    squareRootCanonicalRoughEvolvedMellinMismatchMass R p
+        (squareRootCanonicalRoughAdaptiveCarrier qs
+          (Finset.Icc 1 (squareRootEndpoint R)))
+        (squareRootCanonicalRoughAdaptiveRawCoefficient qs
+          (Finset.Icc 1 (squareRootEndpoint R)) (fun _ => (1 : ℂ))) w = 0 := by
+  unfold squareRootCanonicalRoughEvolvedMellinMismatchMass
+  apply Finset.sum_eq_zero
+  intro c hcParent
+  rcases mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hcParent with
+    ⟨_hcV, hcpos, hrough, _hcpV⟩
+  by_cases hchild :
+      squareRootCanonicalRoughHasPrimeExtensionAbove R p (c * p)
+  · rcases hchild with ⟨q, hqPrime, hpq, hupper⟩
+    have hcpPos : 0 < c * p := Nat.mul_pos hcpos hp.pos
+    have hqProd : q ≤ q * (c * p) := Nat.le_mul_of_pos_right q hcpPos
+    have hqUpper : q ≤ squareRootEndpoint R := by
+      have hqProd' : q ≤ (c * p) * q := by
+        simpa [Nat.mul_comm] using hqProd
+      exact hqProd'.trans hupper
+    rcases hcomplete.2 q hqPrime hpq hqUpper with
+      ⟨pre, post, hsplit, hprePrime, hpreLarger⟩
+    have hzero :=
+      squareRootCanonicalRoughAdaptiveRawCoefficient_pair_eq_zero_of_larger_extension_split
+        pre post hcpos hp hqPrime hrough hpq hupper hprePrime hpreLarger
+    rw [← hsplit] at hzero
+    rw [hzero.1, hzero.2]
+    simp
+  · have hraw :=
+      squareRootCanonicalRoughRawCorrelationSummand_mul_freshPrime_eq_zero_of_no_extension
+        hR hcpos hp hrough hchild
+    rw [hraw]
+    simp
+
 /-- Pure scalar identity behind the logarithmic interpolation:
 `1 - z` is exactly the amount lost between the `z=1` raw endpoint and the
-retained-parent coordinate.  This small lemma is useful when the ratio is later
-specialized to `p^{-s}`. -/
+retained-parent coordinate. -/
 theorem one_sub_ratio_add_ratio (z : ℂ) :
     (1 - z) + z = 1 := by
   ring
