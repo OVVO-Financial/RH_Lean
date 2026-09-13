@@ -90,9 +90,9 @@ theorem canonicalPrimeFreeMobiusBlockMass_eq_mertensBlock_add_deeper
     canonicalPrimeFreeMobiusBlockMass p A B =
       canonicalMobiusBlockMass A B +
         canonicalPrimeFreeMobiusBlockMass p (A / p) (B / p) := by
+  unfold canonicalPrimeFreeMobiusBlockMass canonicalMobiusBlockMass
   rw [canonicalPrimeFreeMobiusPrefixMass_eq_mertens_add_div p B hp,
     canonicalPrimeFreeMobiusPrefixMass_eq_mertens_add_div p A hp]
-  unfold canonicalPrimeFreeMobiusBlockMass canonicalMobiusBlockMass
   ring
 
 /-- The first square-dilated specialization: a `p`-free block at scale `p^2`
