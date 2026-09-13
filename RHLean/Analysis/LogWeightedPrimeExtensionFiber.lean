@@ -57,7 +57,7 @@ theorem sum_log_primeFactors_eq_log
   rw [← log_nat_finset_prod n.primeFactors hpos]
   rw [prod_primeFactors_eq_self_of_squarefree hs]
 
-theorem prime_not_dvd_div_of_squarefree
+private theorem prime_not_dvd_div_of_squarefree
     {n p : ℕ} (hs : Squarefree n) (hp : p ∈ n.primeFactors) :
     ¬ p ∣ n / p := by
   have hpPrime : p.Prime := Nat.prime_of_mem_primeFactors hp
@@ -319,7 +319,7 @@ private theorem sourcePair_to_childPair_mem
 private theorem sourcePair_map_injective
     {N : ℕ} {a b : ℕ × ℕ}
     (ha : a ∈ logFreshExtensionPairSet N)
-    (hb : b ∈ logFreshExtensionPairSet N)
+    (_hb : b ∈ logFreshExtensionPairSet N)
     (hab : (a.1 * a.2, a.2) = (b.1 * b.2, b.2)) :
     a = b := by
   have hpEq : a.2 = b.2 := by
