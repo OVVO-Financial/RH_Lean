@@ -228,11 +228,11 @@ theorem farFourSignedQ2TowerSupport_iff_survivor_eq_root :
   · intro h R hR
     have hs := h R hR
     unfold finalQ2SurvivorCorrection
-    linear_combination hs
+    linear_combination -hs
   · intro h R hR
     have hs := h R hR
     unfold finalQ2SurvivorCorrection at hs
-    linear_combination hs
+    linear_combination -hs
 
 /-- Once the signed support identity is proved, the exact low/high packet is a
 column of genuine q² Mertens daughters plus only the root reassembly boundary.
