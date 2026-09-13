@@ -51,7 +51,7 @@ theorem evolvedEulerNext_sub_rawNext_scaled_eq_boundaryMemory
     let U := squareRootCanonicalRoughAdaptiveCarrier qs U0
     let a := squareRootCanonicalRoughAdaptiveRawCoefficient qs U0
       (fun _ => (1 : ℂ))
-    let b := fun n => (n : ℂ) * a n
+    let b := fun n : ℕ => (n : ℂ) * a n
     let nextU := squareRootCanonicalRoughAdaptiveNextCarrier p U
     (p : ℂ) *
         (squareRootCanonicalRoughAdaptiveWeightedMass R nextU
@@ -125,7 +125,7 @@ theorem evolvedEulerNext_sub_rawNext_eq_one_sub_inv_mul_boundary
     let U := squareRootCanonicalRoughAdaptiveCarrier qs U0
     let a := squareRootCanonicalRoughAdaptiveRawCoefficient qs U0
       (fun _ => (1 : ℂ))
-    let b := fun n => (n : ℂ) * a n
+    let b := fun n : ℕ => (n : ℂ) * a n
     let nextU := squareRootCanonicalRoughAdaptiveNextCarrier p U
     squareRootCanonicalRoughAdaptiveWeightedMass R nextU
           (squareRootCanonicalRoughAdaptiveNextCoefficient p U b) -
