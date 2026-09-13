@@ -300,7 +300,8 @@ theorem squareEndpointQ2FarHighTransportColumn_eq_base_sub_intermediatePrimeTowe
   rw [← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro q hq
-  have hqle := (mem_primesUpTo.mp hq).2
+  have hqData := mem_primesUpTo.mp hq
+  have hq2 : 2 ≤ q := hqData.1.two_le
   exact q2DaughterFarHighTransport_eq_base_sub_intermediatePrimeTower
     (by omega : q < R)
 
@@ -385,10 +386,11 @@ private theorem q2FarBasePairCarrier_eq_childFarSlice
     q2FarBasePairCarrier R q = lowWheelFarPrimeQ2ChildFarSlice R q := by
   ext dp
   rcases dp with ⟨d, p⟩
-  simp only [q2FarBasePairCarrier, Finset.mem_filter, Finset.mem_product,
-    mem_lowWheelFarPrimeQ2ChildFarSlice]
+  unfold q2FarBasePairCarrier
   constructor
-  · rintro ⟨hd, hpHigh, hdp⟩
+  · intro hdp
+    rcases Finset.mem_filter.mp hdp with ⟨hprod, hdpCut⟩
+    rcases Finset.mem_product.mp hprod with ⟨hd, hpHigh⟩
     rcases mem_frozenPrimeUniverseHighPrimeSet.mp hpHigh with
       ⟨hpPrime, hpLower, hpUpper⟩
     have hpRange : p ∈ Finset.Icc (R + 8) (squareRootEndpoint R) := by
@@ -397,21 +399,25 @@ private theorem q2FarBasePairCarrier_eq_childFarSlice
       · omega
       · exact hpUpper.trans
           (Nat.div_le_self (squareRootEndpoint R) (q * q))
-    exact ⟨hd, hpRange, hpPrime, hdp⟩
-  · rintro ⟨hd, hpRange, hpPrime, hdp⟩
+    exact mem_lowWheelFarPrimeQ2ChildFarSlice.mpr
+      ⟨hd, hpRange, hpPrime, hdpCut⟩
+  · intro hdp
+    rcases mem_lowWheelFarPrimeQ2ChildFarSlice.mp hdp with
+      ⟨hd, hpRange, hpPrime, hdpCut⟩
     have hd1 : 1 ≤ d :=
       (mem_squareRootLowPrimeGoSmoothCofactors.mp hd).1
     have hpLeDp : p ≤ d * p := by
       simpa using Nat.mul_le_mul_right p hd1
     have hpUpper : p ≤ squareRootEndpoint R / (q * q) :=
-      hpLeDp.trans hdp
+      hpLeDp.trans hdpCut
     have hpLower : R + 8 ≤ p := (Finset.mem_Icc.mp hpRange).1
     have hpHigh :
         p ∈ frozenPrimeUniverseHighPrimeSet
           (R + 7) (squareRootEndpoint R / (q * q)) :=
       mem_frozenPrimeUniverseHighPrimeSet.mpr
         ⟨hpPrime, by omega, hpUpper⟩
-    exact ⟨hd, hpHigh, hdp⟩
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_product.mpr ⟨hd, hpHigh⟩, hdpCut⟩
 
 /-- The common-q far-base column is the integer Möbius mass of the exact pair
 carrier.  This is finite Fubini only. -/
@@ -528,8 +534,7 @@ theorem finalQ2SurvivorCorrection_eq_root_sub_q2TransportFarMismatch
       finalQ2RootReassemblyBoundary R - q2TransportFarMismatch R := by
   have hfar := farPopulations_eq_neg_frozenTopFar R hR
   unfold finalQ2SurvivorCorrection q2TransportFarMismatch
-  rw [hfar]
-  ring
+  linear_combination hfar
 
 /-- **Exact corrected low/high normal form.**  The genuine lower-scale q²
 Mertens column is exposed, while the only remaining signed seam is the explicit
