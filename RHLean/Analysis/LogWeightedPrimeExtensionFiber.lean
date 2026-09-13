@@ -322,14 +322,17 @@ private theorem sourcePair_map_injective
     (hb : b ∈ logFreshExtensionPairSet N)
     (hab : (a.1 * a.2, a.2) = (b.1 * b.2, b.2)) :
     a = b := by
-  rcases a with ⟨a1, a2⟩
-  rcases b with ⟨b1, b2⟩
-  injection hab with hprod hpEq
-  subst b2
-  have hpPrime : a2.Prime := (mem_logFreshExtensionPairSet.mp ha).2.2.1
-  have hcEq : a1 = b1 := Nat.mul_right_cancel hpPrime.pos hprod
-  subst b1
-  rfl
+  have hpEq : a.2 = b.2 := by
+    simpa using congrArg (fun z : ℕ × ℕ => z.2) hab
+  have hprod : a.1 * a.2 = b.1 * b.2 := by
+    simpa using congrArg (fun z : ℕ × ℕ => z.1) hab
+  have hpPrime : a.2.Prime := (mem_logFreshExtensionPairSet.mp ha).2.2.1
+  have hprod' : a.1 * a.2 = b.1 * a.2 := by
+    calc
+      a.1 * a.2 = b.1 * b.2 := hprod
+      _ = b.1 * a.2 := by rw [← hpEq]
+  have hcEq : a.1 = b.1 := Nat.mul_right_cancel hpPrime.pos hprod'
+  exact Prod.ext hcEq hpEq
 
 private theorem childPair_surjective
     {N : ℕ} (np : ℕ × ℕ) (hnp : np ∈ logFreshChildPairSet N) :
