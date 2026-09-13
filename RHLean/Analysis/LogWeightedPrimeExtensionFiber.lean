@@ -163,12 +163,14 @@ theorem logFreshChildFiberMass_eq_neg_logWeightedBlock (N : ℕ) :
           apply Finset.sum_congr rfl
           intro n hn
           exact sum_freshPrimeDivisors_mu_parent_log_eq_neg_mu_log n
-    _ = -∑ n ∈ Finset.Ioc N (2 * N),
-        moebiusReal n * Real.log n := by
-          rw [Finset.sum_neg_distrib]
+    _ = ∑ n ∈ Finset.Ioc N (2 * N),
+        -(moebiusReal n * Real.log n) := by
           apply Finset.sum_congr rfl
           intro n hn
           ring
+    _ = -∑ n ∈ Finset.Ioc N (2 * N),
+        moebiusReal n * Real.log n := by
+          rw [Finset.sum_neg_distrib]
 
 /-! ## Exact rectangular reindex `(c,p) -> (c*p,p)` -/
 
@@ -182,19 +184,54 @@ def logFreshChildPairSet (N : ℕ) : Finset (ℕ × ℕ) :=
   ((Finset.Ioc N (2 * N)).product (Finset.Icc 2 (2 * N))).filter fun np =>
     np.2 ∈ freshPrimeDivisors np.1
 
+private theorem mem_logFreshExtensionPairSet
+    {N : ℕ} {cp : ℕ × ℕ} :
+    cp ∈ logFreshExtensionPairSet N ↔
+      cp.1 ∈ Finset.Icc 1 (2 * N) ∧
+      cp.2 ∈ Finset.Icc 2 (2 * N) ∧
+      cp.2.Prime ∧ N < cp.1 * cp.2 ∧
+        cp.1 * cp.2 ≤ 2 * N ∧ ¬cp.2 ∣ cp.1 := by
+  simp [logFreshExtensionPairSet]
+
+private theorem mem_logFreshChildPairSet
+    {N : ℕ} {np : ℕ × ℕ} :
+    np ∈ logFreshChildPairSet N ↔
+      np.1 ∈ Finset.Ioc N (2 * N) ∧
+      np.2 ∈ Finset.Icc 2 (2 * N) ∧
+      np.2 ∈ freshPrimeDivisors np.1 := by
+  simp [logFreshChildPairSet]
+
 theorem logFreshPrimeExtensionMass_eq_sourcePairSum (N : ℕ) :
     logFreshPrimeExtensionMass N =
       ∑ cp ∈ logFreshExtensionPairSet N,
         moebiusReal cp.1 * Real.log cp.2 := by
   unfold logFreshPrimeExtensionMass logFreshExtensionPairSet
-  rw [Finset.sum_filter, Finset.sum_product]
-  apply Finset.sum_congr rfl
-  intro c hc
-  apply Finset.sum_congr rfl
-  intro p hp
-  unfold logFreshPrimeExtensionTerm
-  by_cases h : p.Prime ∧ N < c * p ∧ c * p ≤ 2 * N ∧ ¬p ∣ c <;>
-    simp [h]
+  rw [Finset.sum_filter]
+  calc
+    (∑ c ∈ Finset.Icc 1 (2 * N),
+        ∑ p ∈ Finset.Icc 2 (2 * N), logFreshPrimeExtensionTerm N c p) =
+      ∑ c ∈ Finset.Icc 1 (2 * N),
+        ∑ p ∈ Finset.Icc 2 (2 * N),
+          if p.Prime ∧ N < c * p ∧ c * p ≤ 2 * N ∧ ¬p ∣ c then
+            moebiusReal c * Real.log p else 0 := by
+              apply Finset.sum_congr rfl
+              intro c hc
+              apply Finset.sum_congr rfl
+              intro p hp
+              rfl
+    _ = ∑ cp ∈ (Finset.Icc 1 (2 * N)).product (Finset.Icc 2 (2 * N)),
+          if cp.2.Prime ∧ N < cp.1 * cp.2 ∧
+              cp.1 * cp.2 ≤ 2 * N ∧ ¬cp.2 ∣ cp.1 then
+            moebiusReal cp.1 * Real.log cp.2 else 0 := by
+              symm
+              simpa only using
+                (Finset.sum_product
+                  (s := Finset.Icc 1 (2 * N))
+                  (t := Finset.Icc 2 (2 * N))
+                  (f := fun cp : ℕ × ℕ =>
+                    if cp.2.Prime ∧ N < cp.1 * cp.2 ∧
+                        cp.1 * cp.2 ≤ 2 * N ∧ ¬cp.2 ∣ cp.1 then
+                      moebiusReal cp.1 * Real.log cp.2 else 0))
 
 private theorem freshPrimeDivisors_subset_blockPrimeRange
     {N n : ℕ} (hn : n ∈ Finset.Ioc N (2 * N)) :
@@ -212,21 +249,105 @@ theorem childPairSum_eq_logFreshChildFiberMass (N : ℕ) :
       moebiusReal (np.1 / np.2) * Real.log np.2) =
       logFreshChildFiberMass N := by
   unfold logFreshChildPairSet logFreshChildFiberMass
-  rw [Finset.sum_filter, Finset.sum_product]
-  apply Finset.sum_congr rfl
-  intro n hn
-  have hsub := freshPrimeDivisors_subset_blockPrimeRange hn
-  have hfilter :
-      (Finset.Icc 2 (2 * N)).filter (fun p => p ∈ freshPrimeDivisors n) =
-        freshPrimeDivisors n := by
-    ext p
-    simp only [Finset.mem_filter]
-    constructor
-    · rintro ⟨_hpRange, hpFresh⟩
-      exact hpFresh
-    · intro hpFresh
-      exact ⟨hsub hpFresh, hpFresh⟩
-  rw [← Finset.sum_filter, hfilter]
+  rw [Finset.sum_filter]
+  calc
+    (∑ np ∈ (Finset.Ioc N (2 * N)).product (Finset.Icc 2 (2 * N)),
+        if np.2 ∈ freshPrimeDivisors np.1 then
+          moebiusReal (np.1 / np.2) * Real.log np.2 else 0) =
+      ∑ n ∈ Finset.Ioc N (2 * N),
+        ∑ p ∈ Finset.Icc 2 (2 * N),
+          if p ∈ freshPrimeDivisors n then
+            moebiusReal (n / p) * Real.log p else 0 := by
+              simpa only using
+                (Finset.sum_product
+                  (s := Finset.Ioc N (2 * N))
+                  (t := Finset.Icc 2 (2 * N))
+                  (f := fun np : ℕ × ℕ =>
+                    if np.2 ∈ freshPrimeDivisors np.1 then
+                      moebiusReal (np.1 / np.2) * Real.log np.2 else 0))
+    _ = ∑ n ∈ Finset.Ioc N (2 * N),
+        ∑ p ∈ freshPrimeDivisors n,
+          moebiusReal (n / p) * Real.log p := by
+              apply Finset.sum_congr rfl
+              intro n hn
+              have hsub := freshPrimeDivisors_subset_blockPrimeRange hn
+              have hfilter :
+                  (Finset.Icc 2 (2 * N)).filter
+                      (fun p => p ∈ freshPrimeDivisors n) =
+                    freshPrimeDivisors n := by
+                ext p
+                simp only [Finset.mem_filter]
+                constructor
+                · rintro ⟨_hpRange, hpFresh⟩
+                  exact hpFresh
+                · intro hpFresh
+                  exact ⟨hsub hpFresh, hpFresh⟩
+              rw [← Finset.sum_filter, hfilter]
+
+private theorem sourcePair_to_childPair_mem
+    {N : ℕ} {cp : ℕ × ℕ}
+    (hcp : cp ∈ logFreshExtensionPairSet N) :
+    (cp.1 * cp.2, cp.2) ∈ logFreshChildPairSet N := by
+  rcases mem_logFreshExtensionPairSet.mp hcp with
+    ⟨hcRange, hpRange, hpPrime, hlower, hupper, hfresh⟩
+  apply mem_logFreshChildPairSet.mpr
+  refine ⟨Finset.mem_Ioc.mpr ⟨hlower, hupper⟩, hpRange, ?_⟩
+  unfold freshPrimeDivisors
+  rw [Finset.mem_filter]
+  refine ⟨?_, ?_⟩
+  · apply Nat.mem_primeFactors.mpr
+    refine ⟨hpPrime, ?_, ?_⟩
+    · exact ⟨cp.1, by simp [Nat.mul_comm]⟩
+    · omega
+  · simpa using hfresh
+
+private theorem sourcePair_map_injective
+    {N : ℕ} {a b : ℕ × ℕ}
+    (ha : a ∈ logFreshExtensionPairSet N)
+    (hb : b ∈ logFreshExtensionPairSet N)
+    (hab : (a.1 * a.2, a.2) = (b.1 * b.2, b.2)) :
+    a = b := by
+  have hpEq : a.2 = b.2 := congrArg Prod.snd hab
+  have hprod : a.1 * a.2 = b.1 * b.2 := congrArg Prod.fst hab
+  have hpPrime : a.2.Prime := (mem_logFreshExtensionPairSet.mp ha).2.2.1
+  have hprod' : a.1 * a.2 = b.1 * a.2 := by
+    simpa [hpEq] using hprod
+  have hcEq : a.1 = b.1 := Nat.mul_right_cancel hpPrime.pos hprod'
+  exact Prod.ext hcEq hpEq
+
+private theorem childPair_surjective
+    {N : ℕ} (np : ℕ × ℕ) (hnp : np ∈ logFreshChildPairSet N) :
+    ∃ cp ∈ logFreshExtensionPairSet N,
+      (cp.1 * cp.2, cp.2) = np := by
+  rcases mem_logFreshChildPairSet.mp hnp with ⟨hnRange, hpRange, hpFresh⟩
+  rw [freshPrimeDivisors, Finset.mem_filter] at hpFresh
+  rcases hpFresh with ⟨hpPF, hfresh⟩
+  rcases Nat.mem_primeFactors.mp hpPF with ⟨hpPrime, hpDvd, hn0⟩
+  let c := np.1 / np.2
+  have hmul : c * np.2 = np.1 := by
+    simpa [c] using Nat.div_mul_cancel hpDvd
+  have hcPos : 0 < c := by
+    exact Nat.div_pos (Nat.le_of_dvd (Nat.pos_of_ne_zero hn0) hpDvd) hpPrime.pos
+  have hcUpper : c ≤ 2 * N := by
+    exact (Nat.div_le_self np.1 np.2).trans (Finset.mem_Ioc.mp hnRange).2
+  refine ⟨(c, np.2), ?_, ?_⟩
+  · apply mem_logFreshExtensionPairSet.mpr
+    refine ⟨Finset.mem_Icc.mpr ⟨by omega, hcUpper⟩, hpRange,
+      hpPrime, ?_, ?_, ?_⟩
+    · simpa [hmul] using (Finset.mem_Ioc.mp hnRange).1
+    · simpa [hmul] using (Finset.mem_Ioc.mp hnRange).2
+    · simpa [c] using hfresh
+  · apply Prod.ext
+    · exact hmul
+    · rfl
+
+private theorem sourcePair_weight_eq_childWeight
+    {N : ℕ} {cp : ℕ × ℕ}
+    (hcp : cp ∈ logFreshExtensionPairSet N) :
+    moebiusReal cp.1 * Real.log cp.2 =
+      moebiusReal ((cp.1 * cp.2) / cp.2) * Real.log cp.2 := by
+  have hpPrime : cp.2.Prime := (mem_logFreshExtensionPairSet.mp hcp).2.2.1
+  rw [Nat.mul_div_right cp.1 hpPrime.pos]
 
 /-- The multiplication map is a literal finite bijection between the two fresh
 pair carriers. -/
@@ -237,60 +358,17 @@ theorem logFreshExtensionPairSet_sum_eq_childPairSet_sum (N : ℕ) :
       moebiusReal (np.1 / np.2) * Real.log np.2 := by
   classical
   refine Finset.sum_bij
-    (fun cp _hcp => (cp.1 * cp.2, cp.2)) ?_ ?_ ?_ ?_
-  · intro cp hcp
-    rw [logFreshExtensionPairSet, Finset.mem_filter,
-      Finset.mem_product] at hcp
-    rcases hcp with ⟨⟨hcRange, hpRange⟩, hpPrime, hlower, hupper, hfresh⟩
-    rw [logFreshChildPairSet, Finset.mem_filter, Finset.mem_product]
-    refine ⟨⟨Finset.mem_Ioc.mpr ⟨hlower, hupper⟩, hpRange⟩, ?_⟩
-    unfold freshPrimeDivisors
-    rw [Finset.mem_filter]
-    refine ⟨?_, ?_⟩
-    · apply Nat.mem_primeFactors.mpr
-      refine ⟨hpPrime, ?_, ?_⟩
-      · exact ⟨cp.1, by simp [Nat.mul_comm]⟩
-      · omega
-    · simpa using hfresh
-  · intro a ha b hb hab
-    have hpEq : a.2 = b.2 := congrArg Prod.snd hab
-    have hprod : a.1 * a.2 = b.1 * b.2 := congrArg Prod.fst hab
-    have hcEq : a.1 = b.1 := by
-      rw [hpEq] at hprod
-      exact Nat.mul_right_cancel hprod
-    exact Prod.ext hcEq hpEq
-  · intro np hnp
-    rw [logFreshChildPairSet, Finset.mem_filter,
-      Finset.mem_product] at hnp
-    rcases hnp with ⟨⟨hnRange, hpRange⟩, hpFresh⟩
-    rw [freshPrimeDivisors, Finset.mem_filter] at hpFresh
-    rcases hpFresh with ⟨hpPF, hfresh⟩
-    rcases Nat.mem_primeFactors.mp hpPF with ⟨hpPrime, hpDvd, hn0⟩
-    let c := np.1 / np.2
-    have hmul : c * np.2 = np.1 := by
-      simpa [c] using Nat.div_mul_cancel hpDvd
-    have hcPos : 0 < c := by
-      exact Nat.div_pos (Nat.le_of_dvd (Nat.pos_of_ne_zero hn0) hpDvd) hpPrime.pos
-    have hcUpper : c ≤ 2 * N := by
-      exact (Nat.div_le_self np.1 np.2).trans (Finset.mem_Ioc.mp hnRange).2
-    refine ⟨(c, np.2), ?_, ?_⟩
-    · rw [logFreshExtensionPairSet, Finset.mem_filter, Finset.mem_product]
-      refine ⟨⟨Finset.mem_Icc.mpr ⟨hcPos, hcUpper⟩, hpRange⟩,
-        hpPrime, ?_, ?_, ?_⟩
-      · simpa [hmul] using (Finset.mem_Ioc.mp hnRange).1
-      · simpa [hmul] using (Finset.mem_Ioc.mp hnRange).2
-      · simpa [c] using hfresh
-    · apply Prod.ext
-      · exact hmul
-      · rfl
-  · intro cp hcp
-    rw [logFreshExtensionPairSet, Finset.mem_filter,
-      Finset.mem_product] at hcp
-    rcases hcp with ⟨⟨_hcRange, _hpRange⟩, hpPrime, _hlower, _hupper, _hfresh⟩
-    rw [Nat.mul_div_right cp.1 hpPrime.pos]
+    (fun cp _hcp => (cp.1 * cp.2, cp.2))
+    (fun cp hcp => sourcePair_to_childPair_mem hcp)
+    (fun a ha b hb hab => by
+      apply sourcePair_map_injective ha hb
+      simpa only using hab)
+    (fun np hnp => childPair_surjective np hnp)
+    ?_
+  intro cp hcp
+  exact sourcePair_weight_eq_childWeight hcp
 
-/-- **Global fresh child-fiber identity.**  This discharges the typed arithmetic
-statement left open in `LogWeightedPrimeExtension`: the rectangular fresh-prime
+/-- **Global fresh child-fiber identity.**  The rectangular fresh-prime
 extension mass is exactly the negative logarithmic Möbius block. -/
 theorem logWeightedChildFiberIdentity : LogWeightedChildFiberIdentityStatement := by
   intro N
