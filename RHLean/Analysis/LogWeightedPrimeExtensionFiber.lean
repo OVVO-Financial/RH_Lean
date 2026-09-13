@@ -170,7 +170,10 @@ theorem logFreshChildFiberMass_eq_neg_logWeightedBlock (N : ℕ) :
           ring
     _ = -∑ n ∈ Finset.Ioc N (2 * N),
         moebiusReal n * Real.log n := by
-          rw [Finset.sum_neg_distrib]
+          rw [← Finset.sum_neg_distrib]
+          apply Finset.sum_congr rfl
+          intro n hn
+          ring
 
 /-! ## Exact rectangular reindex `(c,p) -> (c*p,p)` -/
 
