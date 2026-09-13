@@ -42,9 +42,8 @@ theorem farPrime_reciprocalCutoff_lt_root
   have hRRp : R * R < R * p := Nat.mul_lt_mul_of_pos_left hRp (by omega)
   exact hXlt.trans hRRp
 
-/-- **Terminal-owner interval.**  The incoming owners of the unit renewal state
-at a fixed far prime are exactly the primes in `(sqrt(X_R/p), X_R/p]`. -/
-theorem lowWheelFarPrimeUnitCrossingOwners_eq_reciprocalPrimeInterval
+/-- Pointwise form of the terminal-owner interval. -/
+theorem mem_lowWheelFarPrimeUnitCrossingOwners_iff_reciprocalPrimeInterval
     {R p q : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hpFar : R + 8 ≤ p) :
     q ∈ lowWheelFarPrimeUnitCrossingOwners R p ↔
       q ∈ (Finset.Ioc
@@ -81,7 +80,8 @@ theorem lowWheelFarPrimeUnitCrossingOwners_eq_reciprocalPrimeInterval
     exact mem_lowWheelFarPrimeUnitCrossingOwners.mpr
       ⟨hqPrime, hqR, hqp, hq2p⟩
 
-/-- Set form of the terminal-owner interval. -/
+/-- **Terminal-owner interval.**  The incoming owners of the unit renewal state
+at a fixed far prime are exactly the primes in `(sqrt(X_R/p), X_R/p]`. -/
 theorem lowWheelFarPrimeUnitCrossingOwners_eq_reciprocalPrimeInterval
     {R p : ℕ} (hR : 2 ≤ R) (hp : p.Prime) (hpFar : R + 8 ≤ p) :
     lowWheelFarPrimeUnitCrossingOwners R p =
@@ -89,7 +89,7 @@ theorem lowWheelFarPrimeUnitCrossingOwners_eq_reciprocalPrimeInterval
         (Nat.sqrt (squareRootEndpoint R / p))
         (squareRootEndpoint R / p)).filter Nat.Prime := by
   ext q
-  exact lowWheelFarPrimeUnitCrossingOwners_eq_reciprocalPrimeInterval
+  exact mem_lowWheelFarPrimeUnitCrossingOwners_iff_reciprocalPrimeInterval
     hR hp hpFar
 
 /-- The terminal renewal multiplicity is exactly a prime-count gap.  The
@@ -134,10 +134,10 @@ theorem lowWheelFarWallCancelledBoundaryCoefficient_eq_neg_one_of_topUnit
     lowWheelFarWallCancelledBoundaryCoefficient R n = -1 := by
   have hcross := lowWheelFarWallCrossingMultiplicity_eq_zero_of_topUnit hn
   have howned := lowWheelFarPrimeTopUnitProduct_not_owned hn
-  have htop := (Finset.mem_filter.mp hn).2
   have hnotPaired : n ∉ lowWheelFarPrimePairedUnitProducts R := by
     intro hp
     have hlow := (Finset.mem_filter.mp hp).2
+    have htop := (Finset.mem_filter.mp hn).2
     omega
   unfold lowWheelFarWallCancelledBoundaryCoefficient
     lowWheelFarWallExtraCrossingCoefficient
