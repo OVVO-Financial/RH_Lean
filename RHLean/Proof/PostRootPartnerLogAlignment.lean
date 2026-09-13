@@ -205,13 +205,18 @@ theorem frozenTopFarFourEnergy_iff_exists_nonneg_farFourSplice :
       ∃ C : ℝ, 0 ≤ C ∧ FarFourSplice C := by
   rfl
 
-/-- **Exact signed q²-tower support statement.**
+/-- **Candidate signed q²-tower support statement.**
 
-This is the actual remaining carrier equality.  The stable-far child slice,
-strict-crossing renewal, and terminal product column must cancel the literal
-high-prime transport column inside the q² daughters *before any norm is taken*.
-Equivalently, the explicit #674 survivor correction contains no first-power
-carrier and collapses to the already-compiled root reassembly boundary. -/
+The exact integer diagnostic `scripts/far_four_diagnostic.py --q2-support`
+refutes this candidate at `R = 56`: high transport is `8`, while the three
+destination columns total `160 + 309 - 466 = 3`. This diagnostic has not been
+formalized as a Lean certificate. The proposition is retained to name the
+failed target; the implications below remain conditional algebra only.
+
+The existing routing theorems classify the stable-far source, whose cofactor
+cube is below `q` and whose original cutoff is `q*d*p <= X_R`. High transport
+instead uses the predecessor cube below `p` at `q^2*d*p <= X_R`. LOG-MATCH
+preserves the former carrier and does not identify these two sources. -/
 def FarFourSignedQ2TowerSupport : Prop :=
   ∀ R : ℕ, 56 ≤ R →
     (((squareEndpointQ2HighTransportColumn R : ℤ) : ℂ)) =

@@ -15,6 +15,12 @@ strict-crossing population.  The already-compiled physical renewal sends every
 crossing back to the same ``(d,p)`` state, so the outer-prime ``1/p`` factor is
 unchanged.  The diagnostic reports both the raw crossing defect and its
 unsigned reciprocal mass; it does not infer a bound from the observed ratios.
+
+The optional ``--q2-support`` mode tests the literal signed support proposition
+in PostRootPartnerLogAlignment.lean. It evaluates the high-transport source
+directly, checks the proved Go-minus-Mertens identity owner by owner, and compares
+it with the existing occurrence-preserving far census. All arithmetic in that
+mode is integral. This is an executable diagnostic, not a Lean certificate.
 """
 
 import argparse
@@ -239,6 +245,17 @@ def diagnose(root, data, output_dir=None):
     descended_mass = sum(mu[d] for _q, d, _p in descended)
     crossing_mass = sum(mu[d] for _q, d, _p in crossings)
     unit_mass = sum(c == 1 for c, _p in stable_pairs)
+
+    # StableFarWallOwnedCensus retains these true child products only after
+    # proving injectivity across both original frozen source populations.
+    owned_sources = internal | frozen_cofactor
+    owned_products = {face * c * p for face, c, p in owned_sources}
+    unit_products = {p for c, p in stable_pairs if c == 1}
+    assert len(owned_products) == len(owned_sources)
+    assert all(mu[n] and largest[n] <= root for n in owned_products)
+    assert not owned_products & unit_products
+    terminal_mass = sum(mu[n] for n in owned_products | unit_products)
+    assert terminal_mass == mass(mates) + mass(top) - unit_mass
     assert far_transport == sum(mu[c] for c, _p in stable_pairs)
     assert far_transport == unit_mass - descended_mass - crossing_mass
     assert frozen_top_far == (unit_mass - descended_mass - crossing_mass
@@ -291,6 +308,7 @@ def diagnose(root, data, output_dir=None):
                   descended_mass=descended_mass, crossing_count=len(crossings),
                   crossing_mass=crossing_mass, partner_checks=len(incidence)
                     if output_dir else len(triples),
+                  terminal_product_mass=terminal_mass,
                   two_boundary_gram_verified=False, daughters=daughters)
     if output_dir:
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -306,12 +324,76 @@ def diagnose(root, data, output_dir=None):
     return result
 
 
+def diagnose_q2_support(root, data, output_dir=None):
+    """Evaluate the exact candidate support identity, preserving owner tags.
+
+    q2DaughterHighTransport uses p >= q and the predecessor cube below p.
+    ChildFar instead uses p >= R+8 and the predecessor cube below q.
+    The direct source evaluation deliberately does not identify these cubes.
+    """
+    mu, _smallest, largest, primes, mertens = data
+    endpoint = root * root - 1
+    far = diagnose(root, data)
+
+    @cache
+    def frozen_predecessor(owner, cutoff):
+        # frozenPrimeUniverseMass_eq_frozenPredecessorMobiusEval.
+        return sum(mu[d] for d in range(1, cutoff + 1)
+                   if largest[d] < owner)
+
+    owner_columns = []
+    for q in primes[:bisect_left(primes, root)]:
+        cutoff = endpoint // (q * q)
+        source = sum(frozen_predecessor(p, cutoff // p)
+                     for p in primes[bisect_left(primes, q):
+                                     bisect_right(primes, cutoff)])
+        go = frozen_predecessor(q, cutoff)
+        assert source == go - mertens[cutoff]
+        owner_columns.append(dict(q=q, cutoff=cutoff, go=go,
+                                  mertens=mertens[cutoff], high_transport=source))
+
+    high = sum(row['high_transport'] for row in owner_columns)
+    child = far['descended_mass']
+    renewal = far['crossing_mass']
+    terminal = far['terminal_product_mass']
+    destinations = child + renewal + terminal
+    assert destinations == -far['F']
+
+    # A terminal prime above X/2 has no incoming crossing or child occurrence.
+    # Its coefficient is -1, while every high-transport prime is <= X/4.
+    p = primes[bisect_right(primes, endpoint // 2)]
+    assert root + 8 <= p <= endpoint
+    assert endpoint < 2 * p and endpoint < 4 * p
+    result = dict(
+        R=root, X=endpoint, high_transport=high, child_far=child,
+        renewal=renewal, terminal_products=terminal,
+        destination_sum=destinations,
+        high_minus_destinations=high - destinations,
+        survivor_minus_root=destinations - high,
+        support_holds=(high == destinations),
+        owner_columns=owner_columns,
+        unmatched_terminal_prime=dict(
+            p=p, high_transport_occurrences=0, child_occurrences=0,
+            crossing_occurrences=0, owned_product_occurrences=0,
+            terminal_coefficient=-1),
+        validation='Exact integer census and signed identities; not kernel-checked Lean.',
+    )
+    if output_dir:
+        output_dir.mkdir(parents=True, exist_ok=True)
+        (output_dir / f'q2_support_R{root}.json').write_text(
+            json.dumps(result, indent=2) + '\n')
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--roots', nargs='+', type=int, default=[56, 100])
     parser.add_argument('--output-dir', type=Path)
-    parser.add_argument('--pinv-only', action='store_true',
-                        help='run only the fast stable-far p^{-1} LOG-MATCH diagnostic')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--pinv-only', action='store_true',
+                      help='run only the fast stable-far p^{-1} LOG-MATCH diagnostic')
+    mode.add_argument('--q2-support', action='store_true',
+                      help='test the exact high-transport versus three-destination equality')
     parser.add_argument('--include-pinv', action='store_true',
                         help='attach the p^{-1} diagnostic to each ordinary FAR result')
     args = parser.parse_args()
@@ -319,7 +401,10 @@ def main():
         parser.error('Frozen/top/far reconstruction requires R >= 56.')
     data = sieve(max(args.roots) ** 2 - 1)
     reciprocal_prefix = reciprocal_prime_prefix(data[3])
-    if args.pinv_only:
+    if args.q2_support:
+        results = [diagnose_q2_support(root, data, args.output_dir)
+                   for root in args.roots]
+    elif args.pinv_only:
         results = [diagnose_pinv(root, data, reciprocal_prefix, args.output_dir)
                    for root in args.roots]
     else:
