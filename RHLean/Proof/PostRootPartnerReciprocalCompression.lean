@@ -183,7 +183,6 @@ theorem natCast_mul_cofactorWeightedReciprocalDefect_eq_rawBoundary
       rw [squareRootCanonicalRoughFreshLossBoundary_card_eq_threshold_add_topEscape]
       push_cast
       field_simp [hc0]
-      ring
 
 /-- Carrier-level form of the exact exchange rate. -/
 theorem natCast_mul_adaptiveCofactorWeightedPhysicalDefectMass_eq_rawBoundaryMass
@@ -319,6 +318,7 @@ theorem evolvedRawBoundary_eq_scaledReciprocalDrop_of_completeDescendingPrefix
     intro n hn
     have hn0 : n ∈ U0 :=
       squareRootCanonicalRoughAdaptiveCarrier_subset qs U0 hn
+    have hnRange := Finset.mem_Icc.mp hn0
     omega
   have hcoord :
       squareRootCanonicalRoughAdaptiveRawWeightedMass R U a =
