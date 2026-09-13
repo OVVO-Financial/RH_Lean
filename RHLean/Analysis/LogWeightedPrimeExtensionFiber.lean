@@ -171,9 +171,6 @@ theorem logFreshChildFiberMass_eq_neg_logWeightedBlock (N : ℕ) :
     _ = -∑ n ∈ Finset.Ioc N (2 * N),
         moebiusReal n * Real.log n := by
           rw [← Finset.sum_neg_distrib]
-          apply Finset.sum_congr rfl
-          intro n hn
-          ring
 
 /-! ## Exact rectangular reindex `(c,p) -> (c*p,p)` -/
 
@@ -327,7 +324,6 @@ private theorem sourcePair_map_injective
     a = b := by
   rcases a with ⟨a1, a2⟩
   rcases b with ⟨b1, b2⟩
-  simp only [Prod.fst, Prod.snd] at ha hb hab ⊢
   injection hab with hprod hpEq
   subst b2
   have hpPrime : a2.Prime := (mem_logFreshExtensionPairSet.mp ha).2.2.1
