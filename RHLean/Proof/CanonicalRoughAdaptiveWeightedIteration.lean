@@ -258,7 +258,7 @@ theorem squareRootCanonicalRoughAdaptiveRawCoefficient_pair_eq_zero_of_larger_ex
     exact hlarger r hr
   have hcpqV : (c * p) * q ∈ V := by
     dsimp [V]
-    apply mem_adaptiveCarrier_of_all_larger_primes pre hcpqU0 hprime
+    apply mem_adaptiveCarrier_of_all_larger_primes pre hcpqU0 hprePrime
     intro r hr
     rw [hlpfCPQ]
     exact hlarger r hr
@@ -410,8 +410,6 @@ theorem evolvedRawBoundary_eq_parentMass_of_completeDescendingPrefix
       ring
     _ = _ := by
       rw [mul_add]
-      change a c * squareRootCanonicalRoughRawCorrelationSummand R c +
-          a c * squareRootCanonicalRoughRawCorrelationSummand R (c * p) = _
       rw [show a c * squareRootCanonicalRoughRawCorrelationSummand R (c * p) = 0
         from hzero.1, add_zero]
 
