@@ -6,6 +6,15 @@ the actual Boolean face, not an identification of different physical periods.
 The carrier predicates and signs follow LowWheelCanonicalPairingFrontier,
 LowWheelCanonicalDowncrossParentFibers, LowWheelFrozenFirstFailureBridge,
 StableFarWallLowCofactorQ2Descent, and TerminalMertensReduction.
+
+The optional ``--pinv-only`` mode tests the physical LOG-MATCH seam without
+constructing the full physical-state cube.  On each stable-far triple
+``(q,d,p)`` it places the native Mellin weight ``mu(d)/p``.  The naive q-square
+projection keeps only ``q^2*d*p <= X_R``; its exact commutator is therefore the
+strict-crossing population.  The already-compiled physical renewal sends every
+crossing back to the same ``(d,p)`` state, so the outer-prime ``1/p`` factor is
+unchanged.  The diagnostic reports both the raw crossing defect and its
+unsigned reciprocal mass; it does not infer a bound from the observed ratios.
 """
 
 import argparse
@@ -39,6 +48,108 @@ def sieve(limit):
     for n in range(1, limit + 1):
         mertens[n] = mertens[n - 1] + mu[n]
     return mu, smallest, largest, primes, mertens
+
+
+def reciprocal_prime_prefix(primes):
+    prefix = [0.0]
+    for p in primes:
+        prefix.append(prefix[-1] + 1.0 / p)
+    return prefix
+
+
+def prime_reciprocal_interval(primes, prefix, lower, upper):
+    """Return (sum 1/p, count) over primes lower <= p <= upper."""
+    if upper < lower:
+        return 0.0, 0
+    left = bisect_left(primes, lower)
+    right = bisect_right(primes, upper)
+    return prefix[right] - prefix[left], right - left
+
+
+def diagnose_pinv(root, data, reciprocal_prefix, output_dir=None):
+    """Fast reciprocal-prime LOG-MATCH diagnostic on the stable-far carrier.
+
+    The triple carrier is exactly the arithmetic census already used by
+    ``lowWheelFarPrimeLowCofactorTriples``: for every nonunit squarefree
+    cofactor ``c=q*d<R`` and every far prime ``p>=R+8`` with ``c*p<=X_R``.
+    The stripped sign is ``mu(d)``.  The q-square descended subcarrier adds
+    ``q*c*p=q^2*d*p<=X_R``.  Hence ``before-descended`` is literally the strict
+    crossing carrier, with no model or sampling involved.
+    """
+    mu, _smallest, largest, primes, _mertens = data
+    endpoint = root * root - 1
+    far_lower = root + 8
+
+    before = 0.0
+    descended = 0.0
+    crossing = 0.0
+    crossing_l1 = 0.0
+    all_count = 0
+    descended_count = 0
+    crossing_count = 0
+    all_signed_count = 0
+    descended_signed_count = 0
+    crossing_signed_count = 0
+
+    for c in range(2, root):
+        if not mu[c]:
+            continue
+        q = largest[c]
+        d = c // q
+        sign = mu[d]
+        upper = endpoint // c
+        if upper < far_lower:
+            continue
+
+        all_recip, n_all = prime_reciprocal_interval(
+            primes, reciprocal_prefix, far_lower, upper)
+        descended_upper = min(upper, endpoint // (q * c))
+        descended_recip, n_descended = prime_reciprocal_interval(
+            primes, reciprocal_prefix, far_lower, descended_upper)
+        crossing_recip = all_recip - descended_recip
+        n_crossing = n_all - n_descended
+
+        before += sign * all_recip
+        descended += sign * descended_recip
+        crossing += sign * crossing_recip
+        crossing_l1 += crossing_recip
+        all_count += n_all
+        descended_count += n_descended
+        crossing_count += n_crossing
+        all_signed_count += sign * n_all
+        descended_signed_count += sign * n_descended
+        crossing_signed_count += sign * n_crossing
+
+    naive_commutator = before - descended
+    renewal_corrected_commutator = before - descended - crossing
+    result = dict(
+        R=root,
+        X=endpoint,
+        stable_far_lower=far_lower,
+        p_inv_before=before,
+        p_inv_descended=descended,
+        p_inv_crossing=crossing,
+        naive_commutator=naive_commutator,
+        crossing_l1_reciprocal_mass=crossing_l1,
+        signed_to_l1_ratio=(abs(crossing) / crossing_l1 if crossing_l1 else 0.0),
+        renewal_corrected_commutator=renewal_corrected_commutator,
+        all_triples=all_count,
+        descended_triples=descended_count,
+        crossing_triples=crossing_count,
+        unweighted_signed_all=all_signed_count,
+        unweighted_signed_descended=descended_signed_count,
+        unweighted_signed_crossing=crossing_signed_count,
+        caveat=(
+            'Exact carrier census with floating evaluation of reciprocal-prime sums. '
+            'A small signed/L1 ratio is diagnostic only; the exact Lean LOG-MATCH '
+            'theorem uses pointwise preservation of the far-prime coordinate.'
+        ),
+    )
+    if output_dir:
+        output_dir.mkdir(parents=True, exist_ok=True)
+        (output_dir / f'pinv_R{root}.json').write_text(
+            json.dumps(result, separators=(',', ':')) + '\n')
+    return result
 
 
 def diagnose(root, data, output_dir=None):
@@ -199,11 +310,24 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--roots', nargs='+', type=int, default=[56, 100])
     parser.add_argument('--output-dir', type=Path)
+    parser.add_argument('--pinv-only', action='store_true',
+                        help='run only the fast stable-far p^{-1} LOG-MATCH diagnostic')
+    parser.add_argument('--include-pinv', action='store_true',
+                        help='attach the p^{-1} diagnostic to each ordinary FAR result')
     args = parser.parse_args()
     if min(args.roots) < 56:
         parser.error('Frozen/top/far reconstruction requires R >= 56.')
     data = sieve(max(args.roots) ** 2 - 1)
-    results = [diagnose(root, data, args.output_dir) for root in args.roots]
+    reciprocal_prefix = reciprocal_prime_prefix(data[3])
+    if args.pinv_only:
+        results = [diagnose_pinv(root, data, reciprocal_prefix, args.output_dir)
+                   for root in args.roots]
+    else:
+        results = [diagnose(root, data, args.output_dir) for root in args.roots]
+        if args.include_pinv:
+            for result, root in zip(results, args.roots):
+                result['p_inv_diagnostic'] = diagnose_pinv(
+                    root, data, reciprocal_prefix, args.output_dir)
     print(json.dumps(results, indent=2))
 
 
