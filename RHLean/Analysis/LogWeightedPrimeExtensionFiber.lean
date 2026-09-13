@@ -4,9 +4,9 @@ import RHLean.Analysis.LogWeightedPrimeExtension
 /-!
 # Log-weighted squarefree child fibers
 
-This module proves the local logarithmic child-fiber identity and then extends
-it to every child in the finite doubling block.  Nonsquarefree children vanish
-fiberwise because every genuinely fresh prime leaves a nonsquarefree cofactor.
+This module proves the local logarithmic child-fiber identity, extends it to all
+children, and performs the exact finite reindex from fresh `(cofactor, prime)`
+pairs to `(child product, prime)` pairs.
 -/
 
 noncomputable section
@@ -15,8 +15,6 @@ open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Analysis
 
-/-- A squarefree positive natural is the product of its distinct prime
-factors. -/
 theorem prod_primeFactors_eq_self_of_squarefree
     {n : ℕ} (hs : Squarefree n) :
     ∏ p ∈ n.primeFactors, p = n := by
@@ -32,8 +30,6 @@ theorem prod_primeFactors_eq_self_of_squarefree
           rw [Nat.prod_factorization_eq_prod_primeFactors]
     _ = n := Nat.factorization_prod_pow_eq_self hs.ne_zero
 
-/-- The logarithm of a finite product of positive naturals is the sum of their
-logarithms. -/
 theorem log_nat_finset_prod
     (s : Finset ℕ) (hpos : ∀ x ∈ s, 0 < x) :
     Real.log (((∏ x ∈ s, x : ℕ) : ℝ)) =
@@ -52,8 +48,6 @@ theorem log_nat_finset_prod
       rw [Finset.prod_insert ha, Finset.sum_insert ha, Nat.cast_mul,
         Real.log_mul ha0 hs0, ih hsPos]
 
-/-- On squarefree support, the logarithms of the distinct prime factors sum to
-`log n`. -/
 theorem sum_log_primeFactors_eq_log
     {n : ℕ} (hs : Squarefree n) :
     ∑ p ∈ n.primeFactors, Real.log p = Real.log n := by
@@ -63,8 +57,6 @@ theorem sum_log_primeFactors_eq_log
   rw [← log_nat_finset_prod n.primeFactors hpos]
   rw [prod_primeFactors_eq_self_of_squarefree hs]
 
-/-- A prime factor of a squarefree integer does not divide the complementary
-cofactor. -/
 theorem prime_not_dvd_div_of_squarefree
     {n p : ℕ} (hs : Squarefree n) (hp : p ∈ n.primeFactors) :
     ¬ p ∣ n / p := by
@@ -77,7 +69,6 @@ theorem prime_not_dvd_div_of_squarefree
     exact Nat.mul_dvd_mul_left p hpd
   exact hpPrime.not_isUnit (hs p hsq)
 
-/-- Removing a prime factor from a squarefree number reverses its Möbius sign. -/
 theorem moebiusReal_div_prime_eq_neg
     {n p : ℕ} (hs : Squarefree n) (hp : p ∈ n.primeFactors) :
     moebiusReal (n / p) = -moebiusReal n := by
@@ -89,7 +80,6 @@ theorem moebiusReal_div_prime_eq_neg
   rw [hmul] at hflip
   linarith
 
-/-- Local logarithmic child-fiber identity on squarefree support. -/
 theorem sum_log_p_mu_parent_eq_neg_mu_log
     (n : ℕ) (hs : Squarefree n) :
     (∑ p ∈ n.primeFactors,
@@ -109,7 +99,6 @@ theorem sum_log_p_mu_parent_eq_neg_mu_log
     _ = -moebiusReal n * Real.log n := by
           rw [sum_log_primeFactors_eq_log hs]
 
-/-- On squarefree support every prime divisor is fresh. -/
 theorem freshPrimeDivisors_eq_primeFactors_of_squarefree
     {n : ℕ} (hs : Squarefree n) :
     freshPrimeDivisors n = n.primeFactors := by
@@ -118,8 +107,6 @@ theorem freshPrimeDivisors_eq_primeFactors_of_squarefree
   intro p hp
   exact prime_not_dvd_div_of_squarefree hs hp
 
-/-- If `n` is not squarefree, removing a genuinely fresh prime cannot make it
-squarefree: the repeated prime factor lies elsewhere. -/
 theorem not_squarefree_div_of_fresh_prime
     {n p : ℕ} (hns : ¬Squarefree n)
     (hp : p ∈ freshPrimeDivisors n) :
@@ -136,9 +123,6 @@ theorem not_squarefree_div_of_fresh_prime
     (Nat.squarefree_mul hcop).2 ⟨hpPrime.squarefree, hco⟩
   exact hns (by simpa [hmul] using hsq)
 
-/-- **Complete fresh child fiber.**  The logarithmic identity holds for every
-child, not only squarefree children.  Nonsquarefree children vanish termwise on
-the fresh fiber. -/
 theorem sum_freshPrimeDivisors_mu_parent_log_eq_neg_mu_log (n : ℕ) :
     (∑ p ∈ freshPrimeDivisors n,
       moebiusReal (n / p) * Real.log p) =
@@ -161,14 +145,12 @@ theorem sum_freshPrimeDivisors_mu_parent_log_eq_neg_mu_log (n : ℕ) :
       norm_num
     rw [hmuParent, zero_mul]
 
-/-- The child-first fresh logarithmic mass on the doubling block. -/
+/-- Child-first fresh logarithmic mass on the doubling block. -/
 def logFreshChildFiberMass (N : ℕ) : ℝ :=
   ∑ n ∈ Finset.Ioc N (2 * N),
     ∑ p ∈ freshPrimeDivisors n,
       moebiusReal (n / p) * Real.log p
 
-/-- **Global child-first collapse.**  After grouping by the child product, the
-entire fresh fiber is exactly the negative log-weighted Möbius block. -/
 theorem logFreshChildFiberMass_eq_neg_logWeightedBlock (N : ℕ) :
     logFreshChildFiberMass N = -logWeightedBlock N := by
   unfold logFreshChildFiberMass logWeightedBlock
@@ -187,5 +169,134 @@ theorem logFreshChildFiberMass_eq_neg_logWeightedBlock (N : ℕ) :
           apply Finset.sum_congr rfl
           intro n hn
           ring
+
+/-! ## Exact rectangular reindex `(c,p) -> (c*p,p)` -/
+
+/-- Active fresh cofactor/prime pairs in the original rectangular definition. -/
+def logFreshExtensionPairSet (N : ℕ) : Finset (ℕ × ℕ) :=
+  ((Finset.Icc 1 (2 * N)).product (Finset.Icc 2 (2 * N))).filter fun cp =>
+    cp.2.Prime ∧ N < cp.1 * cp.2 ∧ cp.1 * cp.2 ≤ 2 * N ∧ ¬ cp.2 ∣ cp.1
+
+/-- The same active pairs indexed by their child product. -/
+def logFreshChildPairSet (N : ℕ) : Finset (ℕ × ℕ) :=
+  ((Finset.Ioc N (2 * N)).product (Finset.Icc 2 (2 * N))).filter fun np =>
+    np.2 ∈ freshPrimeDivisors np.1
+
+theorem logFreshPrimeExtensionMass_eq_sourcePairSum (N : ℕ) :
+    logFreshPrimeExtensionMass N =
+      ∑ cp ∈ logFreshExtensionPairSet N,
+        moebiusReal cp.1 * Real.log cp.2 := by
+  unfold logFreshPrimeExtensionMass logFreshExtensionPairSet
+  rw [Finset.sum_filter, Finset.sum_product]
+  apply Finset.sum_congr rfl
+  intro c hc
+  apply Finset.sum_congr rfl
+  intro p hp
+  unfold logFreshPrimeExtensionTerm
+  by_cases h : p.Prime ∧ N < c * p ∧ c * p ≤ 2 * N ∧ ¬p ∣ c <;>
+    simp [h]
+
+private theorem freshPrimeDivisors_subset_blockPrimeRange
+    {N n : ℕ} (hn : n ∈ Finset.Ioc N (2 * N)) :
+    freshPrimeDivisors n ⊆ Finset.Icc 2 (2 * N) := by
+  intro p hp
+  rw [freshPrimeDivisors, Finset.mem_filter] at hp
+  rcases hp with ⟨hpPF, _hnot⟩
+  rcases Nat.mem_primeFactors.mp hpPF with ⟨hpPrime, hpDvd, hn0⟩
+  have hpLeN : p ≤ n := Nat.le_of_dvd (Nat.pos_of_ne_zero hn0) hpDvd
+  exact Finset.mem_Icc.mpr
+    ⟨hpPrime.two_le, hpLeN.trans (Finset.mem_Ioc.mp hn).2⟩
+
+theorem childPairSum_eq_logFreshChildFiberMass (N : ℕ) :
+    (∑ np ∈ logFreshChildPairSet N,
+      moebiusReal (np.1 / np.2) * Real.log np.2) =
+      logFreshChildFiberMass N := by
+  unfold logFreshChildPairSet logFreshChildFiberMass
+  rw [Finset.sum_filter, Finset.sum_product]
+  apply Finset.sum_congr rfl
+  intro n hn
+  have hsub := freshPrimeDivisors_subset_blockPrimeRange hn
+  have hfilter :
+      (Finset.Icc 2 (2 * N)).filter (fun p => p ∈ freshPrimeDivisors n) =
+        freshPrimeDivisors n := by
+    ext p
+    simp only [Finset.mem_filter]
+    constructor
+    · rintro ⟨_hpRange, hpFresh⟩
+      exact hpFresh
+    · intro hpFresh
+      exact ⟨hsub hpFresh, hpFresh⟩
+  rw [← Finset.sum_filter, hfilter]
+
+/-- The multiplication map is a literal finite bijection between the two fresh
+pair carriers. -/
+theorem logFreshExtensionPairSet_sum_eq_childPairSet_sum (N : ℕ) :
+    (∑ cp ∈ logFreshExtensionPairSet N,
+      moebiusReal cp.1 * Real.log cp.2) =
+    ∑ np ∈ logFreshChildPairSet N,
+      moebiusReal (np.1 / np.2) * Real.log np.2 := by
+  classical
+  refine Finset.sum_bij
+    (fun cp _hcp => (cp.1 * cp.2, cp.2)) ?_ ?_ ?_ ?_
+  · intro cp hcp
+    rw [logFreshExtensionPairSet, Finset.mem_filter,
+      Finset.mem_product] at hcp
+    rcases hcp with ⟨⟨hcRange, hpRange⟩, hpPrime, hlower, hupper, hfresh⟩
+    rw [logFreshChildPairSet, Finset.mem_filter, Finset.mem_product]
+    refine ⟨⟨Finset.mem_Ioc.mpr ⟨hlower, hupper⟩, hpRange⟩, ?_⟩
+    unfold freshPrimeDivisors
+    rw [Finset.mem_filter]
+    refine ⟨?_, ?_⟩
+    · apply Nat.mem_primeFactors.mpr
+      refine ⟨hpPrime, ?_, ?_⟩
+      · exact ⟨cp.1, by simp [Nat.mul_comm]⟩
+      · omega
+    · simpa using hfresh
+  · intro a ha b hb hab
+    have hpEq : a.2 = b.2 := congrArg Prod.snd hab
+    have hprod : a.1 * a.2 = b.1 * b.2 := congrArg Prod.fst hab
+    have hcEq : a.1 = b.1 := by
+      rw [hpEq] at hprod
+      exact Nat.mul_right_cancel hprod
+    exact Prod.ext hcEq hpEq
+  · intro np hnp
+    rw [logFreshChildPairSet, Finset.mem_filter,
+      Finset.mem_product] at hnp
+    rcases hnp with ⟨⟨hnRange, hpRange⟩, hpFresh⟩
+    rw [freshPrimeDivisors, Finset.mem_filter] at hpFresh
+    rcases hpFresh with ⟨hpPF, hfresh⟩
+    rcases Nat.mem_primeFactors.mp hpPF with ⟨hpPrime, hpDvd, hn0⟩
+    let c := np.1 / np.2
+    have hmul : c * np.2 = np.1 := by
+      simpa [c] using Nat.div_mul_cancel hpDvd
+    have hcPos : 0 < c := by
+      exact Nat.div_pos (Nat.le_of_dvd (Nat.pos_of_ne_zero hn0) hpDvd) hpPrime.pos
+    have hcUpper : c ≤ 2 * N := by
+      exact (Nat.div_le_self np.1 np.2).trans (Finset.mem_Ioc.mp hnRange).2
+    refine ⟨(c, np.2), ?_, ?_⟩
+    · rw [logFreshExtensionPairSet, Finset.mem_filter, Finset.mem_product]
+      refine ⟨⟨Finset.mem_Icc.mpr ⟨hcPos, hcUpper⟩, hpRange⟩,
+        hpPrime, ?_, ?_, ?_⟩
+      · simpa [hmul] using (Finset.mem_Ioc.mp hnRange).1
+      · simpa [hmul] using (Finset.mem_Ioc.mp hnRange).2
+      · simpa [c] using hfresh
+    · apply Prod.ext
+      · exact hmul
+      · rfl
+  · intro cp hcp
+    rw [logFreshExtensionPairSet, Finset.mem_filter,
+      Finset.mem_product] at hcp
+    rcases hcp with ⟨⟨_hcRange, _hpRange⟩, hpPrime, _hlower, _hupper, _hfresh⟩
+    rw [Nat.mul_div_right cp.1 hpPrime.pos]
+
+/-- **Global fresh child-fiber identity.**  This discharges the typed arithmetic
+statement left open in `LogWeightedPrimeExtension`: the rectangular fresh-prime
+extension mass is exactly the negative logarithmic Möbius block. -/
+theorem logWeightedChildFiberIdentity : LogWeightedChildFiberIdentityStatement := by
+  intro N
+  rw [logFreshPrimeExtensionMass_eq_sourcePairSum,
+    logFreshExtensionPairSet_sum_eq_childPairSet_sum,
+    childPairSum_eq_logFreshChildFiberMass,
+    logFreshChildFiberMass_eq_neg_logWeightedBlock]
 
 end RHLean.Analysis
