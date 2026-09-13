@@ -3,7 +3,10 @@ import RHLean.Proof.PostRootPartnerEulerMemory
 import RHLean.Proof.CanonicalRoughTruncatedWheelManyPrimeTelescope
 import RHLean.Proof.CanonicalRoughColumnAbelBridge
 import RHLean.Analysis.SquareRootMatchedTransport
-import RHLean.Proof.FarFourSplice
+import RHLean.Proof.StableFarWallUnitRenewalCentering
+import RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
+import RHLean.Proof.PostRootPartnerMellinInterpolation
+import RHLean.Proof.LogSquareCorrectionQ2Tower
 
 /-!
 # Exact Euler-hazard alignment of the post-root partner ledger
@@ -189,5 +192,145 @@ theorem postRootCanonicalColumn_logAlignmentTarget (X K : ℕ) :
         primorialSignedContractionFactor (primesUpTo (q - 1)))) =
       primorialTruncatedWheelAbelPrimitive X K := by
   exact canonicalUnweightedColumn_eq_abelPrimitive X K
+
+/-! ## FAR-4 splice: exact q² carrier first, energy second -/
+
+/-- The centered q²-descended carrier left after every nonunit strict crossing
+is routed to its unique next child. Every occurrence multiplicity is retained. -/
+def farFourQ2CenteredTower (R : ℕ) : ℂ :=
+  ∑ y ∈ lowWheelFarPrimeQ2DescendedTriples R,
+    (1 - (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ)) *
+      canonicalMoebiusWeight y.2.1
+
+/-- The part of the old stable-far census not yet on the q²-descended carrier:
+centered unit returns plus the already-owned terminal products. This term is
+kept explicit; it must be eliminated or charged only after the newer post-root
+partner chronology is used. -/
+def farFourTerminalRemainder (R : ℕ) : ℂ :=
+  (∑ p ∈ lowWheelFarPrimeUnitProducts R,
+      ((lowWheelFarPrimeQ2UnitCrossingMultiplicity R p : ℂ) - 1)) +
+    ∑ n ∈ lowWheelFrozenTopFarOwnedProducts R,
+      canonicalMoebiusWeight n
+
+/-- Terminal products split into their far-unit baseline and the disjoint old
+owned products. -/
+theorem lowWheelFarWallTerminalProducts_mass_eq_unit_add_owned (R : ℕ) :
+    (∑ n ∈ lowWheelFarWallTerminalProducts R,
+        canonicalMoebiusWeight n) =
+      (∑ p ∈ lowWheelFarPrimeUnitProducts R,
+        canonicalMoebiusWeight p) +
+      ∑ n ∈ lowWheelFrozenTopFarOwnedProducts R,
+        canonicalMoebiusWeight n := by
+  unfold lowWheelFarWallTerminalProducts
+  rw [Finset.sum_union (lowWheelFarPrimeUnitProducts_disjoint_owned R)]
+
+/-- **Signed q² carrier normal form.** Before any norm, every nonunit renewal
+has landed on the existing q²-descended carrier. The only leftover from the old
+stable-far census is displayed explicitly as `farFourTerminalRemainder`; it is
+not silently declared an error term. -/
+theorem lowWheelFrozenTopFarResidual_eq_neg_q2CenteredTower_sub_terminal
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      -farFourQ2CenteredTower R - farFourTerminalRemainder R := by
+  have hfar :=
+    lowWheelFrozenTopFarResidual_eq_neg_childFarSlices_sub_stableRenewal_sub_terminal
+      R hR
+  have hcenter :=
+    lowWheelFarPrimeChildFar_add_crossingRenewal_add_unitTerminal_eq_centered R
+  have hterminal := lowWheelFarWallTerminalProducts_mass_eq_unit_add_owned R
+  unfold farFourQ2CenteredTower farFourTerminalRemainder
+  rw [hterminal] at hfar
+  rw [hfar]
+  linear_combination -hcenter
+
+/-- Literal factor-four FAR splice with the root-envelope constant exposed. -/
+def FarFourSplice (C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    56 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    ‖lowWheelFrozenTopFarResidual R‖ ^ 2 ≤
+      4 * ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+        rawQ2ChildEnergyReal R q +
+      C * (R : ℝ) ^ 2 * K
+
+/-- The named splice is exactly the body of the pre-existing FAR-4 terminal
+criterion, not a new analytic hypothesis in another coordinate. -/
+theorem frozenTopFarFourEnergy_iff_exists_nonneg_farFourSplice :
+    FrozenTopFarFourEnergyStatement ↔
+      ∃ C : ℝ, 0 ≤ C ∧ FarFourSplice C := by
+  rfl
+
+/-- Quantitative support interface after the exact signed reassembly. This is
+where any genuinely remaining arithmetic estimate must live. -/
+def FarFourQ2TowerEnergySupport (C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    56 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    ‖farFourQ2CenteredTower R‖ ^ 2 ≤
+      2 * ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+        rawQ2ChildEnergyReal R q ∧
+    ‖farFourTerminalRemainder R‖ ^ 2 ≤
+      C * (R : ℝ) ^ 2 * K
+
+private theorem norm_add_sq_le_two (u v : ℂ) :
+    ‖u + v‖ ^ 2 ≤ 2 * ‖u‖ ^ 2 + 2 * ‖v‖ ^ 2 := by
+  have hnorm := norm_add_le u v
+  have hu : 0 ≤ ‖u‖ := norm_nonneg _
+  have hv : 0 ≤ ‖v‖ := norm_nonneg _
+  have huv : 0 ≤ ‖u + v‖ := norm_nonneg _
+  nlinarith [sq_nonneg (‖u‖ - ‖v‖)]
+
+/-- Once q² energy support and root-scale terminal support are supplied, the
+literal FAR-4 inequality follows by one final two-vector synthesis. -/
+theorem farFourQ2TowerEnergySupport_implies_splice
+    {C : ℝ} (hsupport : FarFourQ2TowerEnergySupport C) :
+    FarFourSplice (2 * C) := by
+  intro R K hR hK
+  rcases hsupport R K hR hK with ⟨hTower, hTerminal⟩
+  have hdecomp :=
+    lowWheelFrozenTopFarResidual_eq_neg_q2CenteredTower_sub_terminal R hR
+  have hnorm := norm_add_sq_le_two
+    (farFourQ2CenteredTower R) (farFourTerminalRemainder R)
+  have hnorm' :
+      ‖lowWheelFrozenTopFarResidual R‖ ^ 2 ≤
+        2 * ‖farFourQ2CenteredTower R‖ ^ 2 +
+          2 * ‖farFourTerminalRemainder R‖ ^ 2 := by
+    rw [hdecomp]
+    have heq :
+        -farFourQ2CenteredTower R - farFourTerminalRemainder R =
+          -(farFourQ2CenteredTower R + farFourTerminalRemainder R) := by ring
+    rw [heq, norm_neg]
+    exact hnorm
+  calc
+    ‖lowWheelFrozenTopFarResidual R‖ ^ 2 ≤
+        2 * ‖farFourQ2CenteredTower R‖ ^ 2 +
+          2 * ‖farFourTerminalRemainder R‖ ^ 2 := hnorm'
+    _ ≤ 2 *
+          (2 * ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+            rawQ2ChildEnergyReal R q) +
+        2 * (C * (R : ℝ) ^ 2 * K) := by
+          gcongr
+    _ = 4 * ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+          rawQ2ChildEnergyReal R q +
+        (2 * C) * (R : ℝ) ^ 2 * K := by ring
+
+/-- The support interface instantiates the pre-existing FAR-4 terminal theorem. -/
+theorem farFourQ2TowerEnergySupport_implies_frozenTopFarFourEnergy
+    {C : ℝ} (hC : 0 ≤ C)
+    (hsupport : FarFourQ2TowerEnergySupport C) :
+    FrozenTopFarFourEnergyStatement := by
+  refine ⟨2 * C, by positivity, ?_⟩
+  exact farFourQ2TowerEnergySupport_implies_splice hsupport
+
+/-- The already-compiled terminal engine then closes RH. -/
+theorem riemannHypothesis_of_farFourQ2TowerEnergySupport
+    {C : ℝ} (hC : 0 ≤ C)
+    (hsupport : FarFourQ2TowerEnergySupport C) :
+    RiemannHypothesis := by
+  exact riemannHypothesis_of_frozenTopFarFourEnergy
+    (farFourQ2TowerEnergySupport_implies_frozenTopFarFourEnergy hC hsupport)
+
+/-- Pin the exact arithmetic commutator next to the splice. -/
+theorem farFour_logMatch : LOG_MATCH := log_match
 
 end RHLean.Proof
