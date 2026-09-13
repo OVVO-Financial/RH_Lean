@@ -1,4 +1,5 @@
 import RHLean.Proof.StableFarWallUnitRenewalCentering
+import RHLean.Analysis.SquareRootPrimeCountGap
 
 /-!
 # Exact outer-owner window of the centered stable-far renewal
@@ -185,5 +186,125 @@ theorem lowWheelFarPrimeQ2CrossingNextMultiplicity_eq_ownerSet_card
       symm
       exact Finset.card_image_iff.mpr hinj
     _ = (lowWheelFarPrimeQ2CrossingOuterOwnerSet R y).card := by rw [himage]
+
+/-! ## Reciprocal-depth normal form of the owner window
+
+The two inequalities in the physical owner window can be solved exactly for
+`q`.  If `A = r*e*p` and `T = floor(X_R/A)`, then
+
+`q*A <= X_R < q^2*A`
+
+is equivalent to
+
+`sqrt(T) < q <= T`.
+
+Thus the many-to-one renewal coefficient is a prime-count finite difference on
+one literal multiplicative interval.  This is the interface needed by a signed
+Buchstab/Abel argument; no estimate is introduced here.
+-/
+
+/-- Reciprocal depth attached to one descended child. -/
+def lowWheelFarPrimeQ2CrossingOwnerDepth
+    (R : ℕ) (y : ℕ × (ℕ × ℕ)) : ℕ :=
+  squareRootEndpoint R / (y.1 * y.2.1 * y.2.2)
+
+/-- Lower endpoint of the solved owner window. -/
+def lowWheelFarPrimeQ2CrossingOwnerLower
+    (R : ℕ) (y : ℕ × (ℕ × ℕ)) : ℕ :=
+  max y.1 (Nat.sqrt (lowWheelFarPrimeQ2CrossingOwnerDepth R y))
+
+/-- Upper endpoint of the solved owner window. -/
+def lowWheelFarPrimeQ2CrossingOwnerUpper
+    (R : ℕ) (y : ℕ × (ℕ × ℕ)) : ℕ :=
+  min (R - 1) (lowWheelFarPrimeQ2CrossingOwnerDepth R y)
+
+/-- **Solved owner window.**  On every actual descended child, the old owners
+are exactly the primes in one interval `(max(r,sqrt T), min(R-1,T)]`. -/
+theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_primeInterval
+    {R : ℕ} {y : ℕ × (ℕ × ℕ)}
+    (hy : y ∈ lowWheelFarPrimeQ2DescendedTriples R) :
+    lowWheelFarPrimeQ2CrossingOuterOwnerSet R y =
+      (Finset.Ioc (lowWheelFarPrimeQ2CrossingOwnerLower R y)
+        (lowWheelFarPrimeQ2CrossingOwnerUpper R y)).filter Nat.Prime := by
+  have hyBase : y ∈ lowWheelFarPrimeLowCofactorTriples R :=
+    (Finset.mem_filter.mp hy).1
+  rcases lowWheelFarPrimeLowCofactorTriple_data hyBase with
+    ⟨hrPrime, _hrR, he1, hpPrime, _hpR, _heSq, _her, _hyCut⟩
+  let A : ℕ := y.1 * y.2.1 * y.2.2
+  have hApos : 0 < A := by
+    dsimp [A]
+    exact Nat.mul_pos (Nat.mul_pos hrPrime.pos (by omega)) hpPrime.pos
+  ext q
+  constructor
+  · intro hq
+    rcases Finset.mem_filter.mp hq with ⟨hqOld, hrq, hcut, hcross⟩
+    rcases mem_primesUpTo.mp hqOld with ⟨hqPrime, hqR⟩
+    have hqDepth : q ≤ lowWheelFarPrimeQ2CrossingOwnerDepth R y := by
+      unfold lowWheelFarPrimeQ2CrossingOwnerDepth
+      apply (Nat.le_div_iff_mul_le hApos).2
+      simpa [A, Nat.mul_assoc] using hcut
+    have hdepthSq :
+        lowWheelFarPrimeQ2CrossingOwnerDepth R y < q * q := by
+      unfold lowWheelFarPrimeQ2CrossingOwnerDepth
+      apply (Nat.div_lt_iff_lt_mul hApos).2
+      simpa [A, Nat.mul_assoc] using hcross
+    have hsqrt :
+        Nat.sqrt (lowWheelFarPrimeQ2CrossingOwnerDepth R y) < q := by
+      apply (Nat.sqrt_lt').2
+      simpa [pow_two] using hdepthSq
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_Ioc.mpr ⟨?_, ?_⟩, hqPrime⟩
+    · unfold lowWheelFarPrimeQ2CrossingOwnerLower
+      exact max_lt hrq hsqrt
+    · unfold lowWheelFarPrimeQ2CrossingOwnerUpper
+      exact le_min hqR hqDepth
+  · intro hq
+    rcases Finset.mem_filter.mp hq with ⟨hqInterval, hqPrime⟩
+    rcases Finset.mem_Ioc.mp hqInterval with ⟨hlower, hupper⟩
+    have hrq : y.1 < q := by
+      exact lt_of_le_of_lt (le_max_left _ _) hlower
+    have hsqrt :
+        Nat.sqrt (lowWheelFarPrimeQ2CrossingOwnerDepth R y) < q := by
+      exact lt_of_le_of_lt (le_max_right _ _) hlower
+    have hqBounds := le_min_iff.mp hupper
+    have hqR : q ≤ R - 1 := hqBounds.1
+    have hqDepth : q ≤ lowWheelFarPrimeQ2CrossingOwnerDepth R y := hqBounds.2
+    have hcut : q * y.1 * y.2.1 * y.2.2 ≤ squareRootEndpoint R := by
+      have hmul := (Nat.le_div_iff_mul_le hApos).1 hqDepth
+      simpa [lowWheelFarPrimeQ2CrossingOwnerDepth, A, Nat.mul_assoc] using hmul
+    have hdepthSq :
+        lowWheelFarPrimeQ2CrossingOwnerDepth R y < q * q := by
+      have hs := (Nat.sqrt_lt').1 hsqrt
+      simpa [pow_two] using hs
+    have hcross : squareRootEndpoint R < q * q * y.1 * y.2.1 * y.2.2 := by
+      have hmul := (Nat.div_lt_iff_lt_mul hApos).1 hdepthSq
+      simpa [lowWheelFarPrimeQ2CrossingOwnerDepth, A, Nat.mul_assoc] using hmul
+    apply Finset.mem_filter.mpr
+    exact ⟨mem_primesUpTo.mpr ⟨hqPrime, hqR⟩, hrq, hcut, hcross⟩
+
+/-- The renewal multiplicity is therefore the cardinality of that solved prime
+interval. -/
+theorem lowWheelFarPrimeQ2CrossingNextMultiplicity_eq_primeInterval_card
+    {R : ℕ} {y : ℕ × (ℕ × ℕ)}
+    (hy : y ∈ lowWheelFarPrimeQ2DescendedTriples R) :
+    lowWheelFarPrimeQ2CrossingNextMultiplicity R y =
+      ((Finset.Ioc (lowWheelFarPrimeQ2CrossingOwnerLower R y)
+        (lowWheelFarPrimeQ2CrossingOwnerUpper R y)).filter Nat.Prime).card := by
+  rw [lowWheelFarPrimeQ2CrossingNextMultiplicity_eq_ownerSet_card hy,
+    lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_primeInterval hy]
+
+/-- Whenever the solved interval is ordered, the exact multiplicity is the
+corresponding prime-count finite difference, written additively to avoid
+truncated subtraction. -/
+theorem lowWheelFarPrimeQ2CrossingNextMultiplicity_add_primeCounting_lower_eq_upper
+    {R : ℕ} {y : ℕ × (ℕ × ℕ)}
+    (hy : y ∈ lowWheelFarPrimeQ2DescendedTriples R)
+    (hLU : lowWheelFarPrimeQ2CrossingOwnerLower R y ≤
+      lowWheelFarPrimeQ2CrossingOwnerUpper R y) :
+    lowWheelFarPrimeQ2CrossingNextMultiplicity R y +
+        Nat.primeCounting (lowWheelFarPrimeQ2CrossingOwnerLower R y) =
+      Nat.primeCounting (lowWheelFarPrimeQ2CrossingOwnerUpper R y) := by
+  rw [lowWheelFarPrimeQ2CrossingNextMultiplicity_eq_primeInterval_card hy]
+  exact primeCard_Ioc_add_primeCounting_eq hLU
 
 end RHLean.Proof
