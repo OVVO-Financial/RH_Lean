@@ -263,4 +263,122 @@ theorem farFourCancelledCrossEnergy_iff_frozenTopFarFourEnergy :
   farFourCancelledCrossEnergy_iff_explicitEnergy.trans
     farFourExplicitEnergy_iff_frozenTopFarFourEnergy
 
+/-! ## Restore the owner coordinate before the final energy theorem
+
+The nonnegative coefficients of `farFourExtraCrossingPacket` are multiplicity
+counts multiplying Möbius signs; they are not positivity.  For the final
+synthesis the crossing occurrence must therefore be returned to its original
+owner-tagged chronology before any norm is taken.
+-/
+
+/-- **Owner coordinate restored.**  The compressed `D_R + P_R - T_R` carrier
+is exactly the pre-compression chronology: ownerwise child-far slices, every
+owner-tagged stable renewal occurrence, and the terminal product population.
+No crossing multiplicity is replaced by an absolute value. -/
+theorem farFourExplicitCarrier_eq_ownerwiseChronology
+    (R : ℕ) (hR : 56 ≤ R) :
+    farFourDescendedPacket R + farFourExtraCrossingPacket R -
+        farFourTerminalPacket R =
+      -(∑ q ∈ primesUpTo (R - 1),
+        ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+          canonicalMoebiusWeight dp.1) -
+      (∑ x ∈ lowWheelFarPrimeCrossingProductCarrier R,
+        lowWheelFullTaggedPhysicalWeight
+          (lowWheelFarPrimeCrossingStableState x)) -
+      ∑ n ∈ lowWheelFarWallTerminalProducts R,
+        canonicalMoebiusWeight n := by
+  rw [← lowWheelFrozenTopFarResidual_eq_farFourDescended_add_extra_sub_terminal
+    R hR]
+  exact lowWheelFrozenTopFarResidual_eq_neg_childFarSlices_sub_stableRenewal_sub_terminal
+    R hR
+
+/-- Exact signed remainder after the full all-prime q² Mertens column is
+extracted ownerwise.  Every term is still a signed chronology term: near
+high-transport, the q²-or-deeper intermediate-prime tower, stable renewal,
+terminal products, and the original Go column. -/
+def farFourAllPrimeOwnerwiseSynthesisError (R : ℕ) : ℂ :=
+  (((squareEndpointQ2NearHighTransportColumn R : ℤ) : ℂ)) -
+    (((squareEndpointQ2IntermediatePrimeTower R : ℤ) : ℂ)) -
+    stableFarRenewalColumn R - stableFarTerminalProductColumn R -
+    (((squareEndpointQ2GoColumn R : ℤ) : ℂ))
+
+/-- **Exact all-prime Mertens synthesis.**  The stable-far residual is a column
+of genuine q² Mertens daughters plus the explicit ownerwise signed remainder.
+This is an equality before energy. -/
+theorem lowWheelFrozenTopFarResidual_eq_mertensColumn_add_ownerwiseError
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      (((squareEndpointQ2MertensColumn R : ℤ) : ℂ)) +
+        farFourAllPrimeOwnerwiseSynthesisError R := by
+  have hmismatch :=
+    q2TransportFarMismatch_eq_compiled_near_sub_tower_sub_renewal_sub_terminal
+      R hR
+  unfold q2TransportFarMismatch at hmismatch
+  rw [← squareEndpointQ2HighTransportDefect_eq_actualColumn R] at hmismatch
+  unfold squareEndpointQ2HighTransportDefect at hmismatch
+  push_cast at hmismatch
+  unfold farFourAllPrimeOwnerwiseSynthesisError
+  linear_combination hmismatch
+
+/-- Odd-owner q² Mertens column in the exact complex currency of FAR-4. -/
+def farFourOddMertensColumn (R : ℕ) : ℂ :=
+  (((∑ q ∈ (primesUpTo (R - 1)).erase 2,
+      mertensSummatoryInt (squareRootEndpoint R / (q * q)) : ℤ) : ℂ))
+
+/-- The owner-two daughter is not part of the physical odd-owner energy budget,
+so it remains signed inside the synthesis error rather than being normed on its
+own. -/
+def farFourOwnerwiseSynthesisError (R : ℕ) : ℂ :=
+  (((mertensSummatoryInt (squareRootEndpoint R / 4) : ℤ) : ℂ)) +
+    farFourAllPrimeOwnerwiseSynthesisError R
+
+/-- **Exact odd-owner synthesis.**  This is the requested pre-energy normal
+form: the physical FAR-4 carrier equals the odd q² Mertens column plus one
+explicit signed chronology error.  The straight extraction has coefficient
+`+1` on every odd owner; any factor-four gain must therefore come from the
+signed synthesis itself (or from a genuinely sharper change of basis), not from
+pretending these scalar coefficients have bounded ℓ² norm. -/
+theorem lowWheelFrozenTopFarResidual_eq_oddMertensColumn_add_ownerwiseError
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      farFourOddMertensColumn R + farFourOwnerwiseSynthesisError R := by
+  rw [lowWheelFrozenTopFarResidual_eq_mertensColumn_add_ownerwiseError R hR,
+    squareEndpointQ2MertensColumn_eq_oddColumn_add_two R (by omega)]
+  unfold farFourOddMertensColumn farFourOwnerwiseSynthesisError
+  push_cast
+  ring
+
+/-- **The one remaining ownerwise signed synthesis theorem.**  This formulation
+keeps the genuine odd q² daughters and the complete signed chronology error in
+one norm.  It is deliberately not split into a norm of `P_R` or of the error. -/
+def FarFourOwnerwiseSignedSynthesisStatement : Prop :=
+  ∃ CF : ℝ, 0 ≤ CF ∧
+    ∀ R : ℕ, ∀ K : ℝ,
+      56 ≤ R →
+      LowerMertensCriticalEnvelope R K →
+      ‖farFourOddMertensColumn R + farFourOwnerwiseSynthesisError R‖ ^ 2 ≤
+        4 * farFourOddQ2DaughterEnergy R + CF * (R : ℝ) ^ 2 * K
+
+/-- The ownerwise signed synthesis statement is exactly FAR-4, now with the
+recursive Mertens daughters exposed.  Compiling this equivalence leaves one
+quantitative theorem rather than parallel carrier formulations. -/
+theorem farFourOwnerwiseSignedSynthesis_iff_frozenTopFarFourEnergy :
+    FarFourOwnerwiseSignedSynthesisStatement ↔
+      FrozenTopFarFourEnergyStatement := by
+  constructor
+  · rintro ⟨CF, hCF, hsynth⟩
+    refine ⟨CF, hCF, ?_⟩
+    intro R K hR hK
+    have hs := hsynth R K hR hK
+    rw [lowWheelFrozenTopFarResidual_eq_oddMertensColumn_add_ownerwiseError
+      R hR]
+    simpa [farFourOddQ2DaughterEnergy] using hs
+  · rintro ⟨CF, hCF, hfar⟩
+    refine ⟨CF, hCF, ?_⟩
+    intro R K hR hK
+    have hf := hfar R K hR hK
+    rw [lowWheelFrozenTopFarResidual_eq_oddMertensColumn_add_ownerwiseError
+      R hR] at hf
+    simpa [farFourOddQ2DaughterEnergy] using hf
+
 end RHLean.Proof
