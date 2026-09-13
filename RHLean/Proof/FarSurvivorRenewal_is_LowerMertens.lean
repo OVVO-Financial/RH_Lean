@@ -381,4 +381,28 @@ theorem farFourOwnerwiseSignedSynthesis_iff_frozenTopFarFourEnergy :
       R hR] at hf
     simpa [farFourOddQ2DaughterEnergy] using hf
 
+/-! ## Euler chronology / q² owner correspondence
+
+The two exact descriptions of the frozen/top/far residual are now put in one
+commuting diagram.  On any complete descending prime schedule, the full signed
+raw Euler boundary ledger plus the explicit root correction is exactly the odd
+q² Mertens owner column plus the ownerwise chronology error.  This is an
+identity of the whole signed objects before any norm; it does not estimate either
+side or replace a physical daughter by an incidence coefficient norm. -/
+
+/-- **Exact global Euler-to-q² bridge.**  The descending zero-factor chronology
+and the ownerwise q² synthesis are two representations of the same signed
+frozen/top/far state. -/
+theorem adaptiveRawLedger_add_rootCorrection_eq_oddMertensColumn_add_ownerwiseError_of_completeSchedule
+    (R : ℕ) (hR : 56 ≤ R) (ps : List ℕ)
+    (hsched : SquareRootCanonicalRoughCompleteDescendingSchedule R ps) :
+    squareRootCanonicalRoughAdaptiveRawLedger R ps
+          (Finset.Icc 1 (squareRootEndpoint R))
+          (fun _ => (1 : ℂ)) +
+        frozenTopFarRoughRootCorrection R =
+      farFourOddMertensColumn R + farFourOwnerwiseSynthesisError R := by
+  rw [← lowWheelFrozenTopFarResidual_eq_rawLedger_add_rootCorrection_of_completeSchedule
+      R hR ps hsched,
+    lowWheelFrozenTopFarResidual_eq_oddMertensColumn_add_ownerwiseError R hR]
+
 end RHLean.Proof
