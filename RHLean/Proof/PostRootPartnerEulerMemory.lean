@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.PostRootPartnerReciprocalCompression
+import RHLean.Proof.PostRootPartnerCompleteSchedule
 
 /-!
 # Euler retention of the post-root signed boundary
