@@ -218,6 +218,7 @@ theorem evolvedEulerNext_sub_rawNext_scaled_eq_boundaryMemory
     intro n hn
     have hn0 : n ∈ U0 :=
       squareRootCanonicalRoughAdaptiveCarrier_subset qs U0 hn
+    have hnRange := Finset.mem_Icc.mp hn0
     omega
 
   have hcoord :
