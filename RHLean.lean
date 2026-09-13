@@ -492,6 +492,7 @@ import RHLean.Proof.LifetimeLocalEnergyCriterion
 import RHLean.Proof.LifetimeOverlapGramCriterion
 import RHLean.Proof.LifetimeOverlapKernel
 import RHLean.Proof.LifetimeRunCancellation
+import RHLean.Proof.LogSquareCorrectionQ2Tower
 import RHLean.Proof.LowOmegaHighOrientation
 import RHLean.Proof.LowPrimeCombinedBornHighFirstFailure
 import RHLean.Proof.LowPrimeCombinedBornHighTransition
@@ -598,6 +599,8 @@ import RHLean.Proof.PostRootCovarianceUnconditionalDecayScratch
 import RHLean.Proof.PostRootCovarianceWheelCounting
 import RHLean.Proof.PostRootMertensSquareFiniteDifference
 import RHLean.Proof.PostRootPartnerEulerMemory
+import RHLean.Proof.PostRootPartnerLogAlignment
+import RHLean.Proof.PostRootPartnerMellinInterpolation
 import RHLean.Proof.PostRootPartnerReciprocalCompression
 import RHLean.Proof.PrefixCarrierOthelloWalls
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
