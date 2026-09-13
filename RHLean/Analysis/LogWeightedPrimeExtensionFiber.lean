@@ -174,12 +174,10 @@ theorem logFreshChildFiberMass_eq_neg_logWeightedBlock (N : ℕ) :
 
 /-! ## Exact rectangular reindex `(c,p) -> (c*p,p)` -/
 
-/-- Active fresh cofactor/prime pairs in the original rectangular definition. -/
 def logFreshExtensionPairSet (N : ℕ) : Finset (ℕ × ℕ) :=
   ((Finset.Icc 1 (2 * N)).product (Finset.Icc 2 (2 * N))).filter fun cp =>
     cp.2.Prime ∧ N < cp.1 * cp.2 ∧ cp.1 * cp.2 ≤ 2 * N ∧ ¬ cp.2 ∣ cp.1
 
-/-- The same active pairs indexed by their child product. -/
 def logFreshChildPairSet (N : ℕ) : Finset (ℕ × ℕ) :=
   ((Finset.Ioc N (2 * N)).product (Finset.Icc 2 (2 * N))).filter fun np =>
     np.2 ∈ freshPrimeDivisors np.1
@@ -191,12 +189,14 @@ private theorem mem_logFreshExtensionPairSet
       cp.2 ∈ Finset.Icc 2 (2 * N) ∧
       cp.2.Prime ∧ N < cp.1 * cp.2 ∧
         cp.1 * cp.2 ≤ 2 * N ∧ ¬cp.2 ∣ cp.1 := by
-  simp only [logFreshExtensionPairSet, Finset.mem_filter, Finset.mem_product]
   constructor
-  · rintro ⟨⟨hc, hp⟩, hprime, hlower, hupper, hfresh⟩
+  · intro h
+    rcases Finset.mem_filter.mp h with ⟨hprod, hprime, hlower, hupper, hfresh⟩
+    rcases Finset.mem_product.mp hprod with ⟨hc, hp⟩
     exact ⟨hc, hp, hprime, hlower, hupper, hfresh⟩
   · rintro ⟨hc, hp, hprime, hlower, hupper, hfresh⟩
-    exact ⟨⟨hc, hp⟩, hprime, hlower, hupper, hfresh⟩
+    apply Finset.mem_filter.mpr
+    exact ⟨Finset.mem_product.mpr ⟨hc, hp⟩, hprime, hlower, hupper, hfresh⟩
 
 private theorem mem_logFreshChildPairSet
     {N : ℕ} {np : ℕ × ℕ} :
@@ -204,12 +204,14 @@ private theorem mem_logFreshChildPairSet
       np.1 ∈ Finset.Ioc N (2 * N) ∧
       np.2 ∈ Finset.Icc 2 (2 * N) ∧
       np.2 ∈ freshPrimeDivisors np.1 := by
-  simp only [logFreshChildPairSet, Finset.mem_filter, Finset.mem_product]
   constructor
-  · rintro ⟨⟨hn, hp⟩, hfresh⟩
+  · intro h
+    rcases Finset.mem_filter.mp h with ⟨hprod, hfresh⟩
+    rcases Finset.mem_product.mp hprod with ⟨hn, hp⟩
     exact ⟨hn, hp, hfresh⟩
   · rintro ⟨hn, hp, hfresh⟩
-    exact ⟨⟨hn, hp⟩, hfresh⟩
+    apply Finset.mem_filter.mpr
+    exact ⟨Finset.mem_product.mpr ⟨hn, hp⟩, hfresh⟩
 
 theorem logFreshPrimeExtensionMass_eq_sourcePairSum (N : ℕ) :
     logFreshPrimeExtensionMass N =
@@ -320,15 +322,15 @@ private theorem sourcePair_map_injective
     (hb : b ∈ logFreshExtensionPairSet N)
     (hab : (a.1 * a.2, a.2) = (b.1 * b.2, b.2)) :
     a = b := by
-  have hpEq : a.2 = b.2 :=
-    congrArg (fun z : ℕ × ℕ => z.2) hab
-  have hprod : a.1 * a.2 = b.1 * b.2 :=
-    congrArg (fun z : ℕ × ℕ => z.1) hab
-  have hpPrime : a.2.Prime := (mem_logFreshExtensionPairSet.mp ha).2.2.1
-  have hprod' : a.1 * a.2 = b.1 * a.2 := by
-    simpa [hpEq] using hprod
-  have hcEq : a.1 = b.1 := Nat.mul_right_cancel hpPrime.pos hprod'
-  exact Prod.ext hcEq hpEq
+  rcases a with ⟨a1, a2⟩
+  rcases b with ⟨b1, b2⟩
+  simp only [Prod.fst, Prod.snd] at ha hb hab ⊢
+  injection hab with hprod hpEq
+  subst b2
+  have hpPrime : a2.Prime := (mem_logFreshExtensionPairSet.mp ha).2.2.1
+  have hcEq : a1 = b1 := Nat.mul_right_cancel hpPrime.pos hprod
+  subst b1
+  rfl
 
 private theorem childPair_surjective
     {N : ℕ} (np : ℕ × ℕ) (hnp : np ∈ logFreshChildPairSet N) :
@@ -366,8 +368,6 @@ private theorem sourcePair_weight_eq_childWeight
     simpa [Nat.mul_comm] using Nat.mul_div_right cp.1 hpPrime.pos
   rw [hdiv]
 
-/-- The multiplication map is a literal finite bijection between the two fresh
-pair carriers. -/
 theorem logFreshExtensionPairSet_sum_eq_childPairSet_sum (N : ℕ) :
     (∑ cp ∈ logFreshExtensionPairSet N,
       moebiusReal cp.1 * Real.log cp.2) =
@@ -389,8 +389,6 @@ theorem logFreshExtensionPairSet_sum_eq_childPairSet_sum (N : ℕ) :
   intro cp hcp
   exact sourcePair_weight_eq_childWeight hcp
 
-/-- **Global fresh child-fiber identity.**  The rectangular fresh-prime
-extension mass is exactly the negative logarithmic Möbius block. -/
 theorem logWeightedChildFiberIdentity : LogWeightedChildFiberIdentityStatement := by
   intro N
   rw [logFreshPrimeExtensionMass_eq_sourcePairSum,
