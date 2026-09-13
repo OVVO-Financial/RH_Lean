@@ -597,6 +597,7 @@ import RHLean.Proof.PostRootCovarianceRowEnergy
 import RHLean.Proof.PostRootCovarianceUnconditionalDecayScratch
 import RHLean.Proof.PostRootCovarianceWheelCounting
 import RHLean.Proof.PostRootMertensSquareFiniteDifference
+import RHLean.Proof.PostRootPartnerReciprocalCompression
 import RHLean.Proof.PrefixCarrierOthelloWalls
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
 import RHLean.Proof.PrimeCombReciprocalBandCancellation
