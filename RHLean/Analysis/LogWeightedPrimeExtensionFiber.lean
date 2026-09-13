@@ -191,7 +191,12 @@ private theorem mem_logFreshExtensionPairSet
       cp.2 ∈ Finset.Icc 2 (2 * N) ∧
       cp.2.Prime ∧ N < cp.1 * cp.2 ∧
         cp.1 * cp.2 ≤ 2 * N ∧ ¬cp.2 ∣ cp.1 := by
-  simp [logFreshExtensionPairSet]
+  simp only [logFreshExtensionPairSet, Finset.mem_filter, Finset.mem_product]
+  constructor
+  · rintro ⟨⟨hc, hp⟩, hprime, hlower, hupper, hfresh⟩
+    exact ⟨hc, hp, hprime, hlower, hupper, hfresh⟩
+  · rintro ⟨hc, hp, hprime, hlower, hupper, hfresh⟩
+    exact ⟨⟨hc, hp⟩, hprime, hlower, hupper, hfresh⟩
 
 private theorem mem_logFreshChildPairSet
     {N : ℕ} {np : ℕ × ℕ} :
@@ -199,7 +204,12 @@ private theorem mem_logFreshChildPairSet
       np.1 ∈ Finset.Ioc N (2 * N) ∧
       np.2 ∈ Finset.Icc 2 (2 * N) ∧
       np.2 ∈ freshPrimeDivisors np.1 := by
-  simp [logFreshChildPairSet]
+  simp only [logFreshChildPairSet, Finset.mem_filter, Finset.mem_product]
+  constructor
+  · rintro ⟨⟨hn, hp⟩, hfresh⟩
+    exact ⟨hn, hp, hfresh⟩
+  · rintro ⟨hn, hp, hfresh⟩
+    exact ⟨⟨hn, hp⟩, hfresh⟩
 
 theorem logFreshPrimeExtensionMass_eq_sourcePairSum (N : ℕ) :
     logFreshPrimeExtensionMass N =
@@ -299,7 +309,10 @@ private theorem sourcePair_to_childPair_mem
     refine ⟨hpPrime, ?_, ?_⟩
     · exact ⟨cp.1, by simp [Nat.mul_comm]⟩
     · omega
-  · simpa using hfresh
+  · have hdiv : cp.1 * cp.2 / cp.2 = cp.1 := by
+      simpa [Nat.mul_comm] using Nat.mul_div_right cp.1 hpPrime.pos
+    rw [hdiv]
+    exact hfresh
 
 private theorem sourcePair_map_injective
     {N : ℕ} {a b : ℕ × ℕ}
@@ -307,8 +320,10 @@ private theorem sourcePair_map_injective
     (hb : b ∈ logFreshExtensionPairSet N)
     (hab : (a.1 * a.2, a.2) = (b.1 * b.2, b.2)) :
     a = b := by
-  have hpEq : a.2 = b.2 := congrArg Prod.snd hab
-  have hprod : a.1 * a.2 = b.1 * b.2 := congrArg Prod.fst hab
+  have hpEq : a.2 = b.2 :=
+    congrArg (fun z : ℕ × ℕ => z.2) hab
+  have hprod : a.1 * a.2 = b.1 * b.2 :=
+    congrArg (fun z : ℕ × ℕ => z.1) hab
   have hpPrime : a.2.Prime := (mem_logFreshExtensionPairSet.mp ha).2.2.1
   have hprod' : a.1 * a.2 = b.1 * a.2 := by
     simpa [hpEq] using hprod
@@ -347,7 +362,9 @@ private theorem sourcePair_weight_eq_childWeight
     moebiusReal cp.1 * Real.log cp.2 =
       moebiusReal ((cp.1 * cp.2) / cp.2) * Real.log cp.2 := by
   have hpPrime : cp.2.Prime := (mem_logFreshExtensionPairSet.mp hcp).2.2.1
-  rw [Nat.mul_div_right cp.1 hpPrime.pos]
+  have hdiv : cp.1 * cp.2 / cp.2 = cp.1 := by
+    simpa [Nat.mul_comm] using Nat.mul_div_right cp.1 hpPrime.pos
+  rw [hdiv]
 
 /-- The multiplication map is a literal finite bijection between the two fresh
 pair carriers. -/
@@ -362,8 +379,12 @@ theorem logFreshExtensionPairSet_sum_eq_childPairSet_sum (N : ℕ) :
     (fun cp hcp => sourcePair_to_childPair_mem hcp)
     (fun a ha b hb hab => by
       apply sourcePair_map_injective ha hb
-      simpa only using hab)
-    (fun np hnp => childPair_surjective np hnp)
+      change (a.1 * a.2, a.2) = (b.1 * b.2, b.2) at hab
+      exact hab)
+    (fun np hnp => by
+      rcases childPair_surjective np hnp with ⟨cp, hcp, hmap⟩
+      refine ⟨cp, hcp, ?_⟩
+      simpa only using hmap)
     ?_
   intro cp hcp
   exact sourcePair_weight_eq_childWeight hcp
