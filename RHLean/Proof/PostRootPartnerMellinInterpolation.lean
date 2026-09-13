@@ -269,7 +269,7 @@ theorem lowWheelFarPrimeCrossing_returnedWeight_eq_strippedWeight
     (d p : ℕ) :
     lowWheelFullTaggedPhysicalWeight
         ((∅ : Finset ℕ), (d, p)) = canonicalMoebiusWeight d := by
-  simp [lowWheelFullTaggedPhysicalWeight, booleanCubeSign]
+  simp [lowWheelFullTaggedPhysicalWeight, RHLean.Arithmetic.booleanCubeSign]
 
 /-- **Physical Mellin/q-square commutation.**  The only apparent commutator of
 the naive descended projection is the strict-crossing carrier.  Once that
