@@ -73,8 +73,8 @@ jobs:
           mkdir -p .lake/build/lib/lean/research
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research/STABLE_FAR_OWNED_SMOOTH_SHELL.olean research/STABLE_FAR_OWNED_SMOOTH_SHELL.lean
 
-      - name: Kernel-check owned smooth-shell completion
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_OWNED_SMOOTH_SHELL_COMPLETION.lean
+      - name: Build scratch owned smooth-shell completion
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research/STABLE_FAR_OWNED_SMOOTH_SHELL_COMPLETION.olean research/STABLE_FAR_OWNED_SMOOTH_SHELL_COMPLETION.lean
 
       - name: Kernel-check coordinate overlap synthesis
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_COORDINATE_OVERLAP.lean
