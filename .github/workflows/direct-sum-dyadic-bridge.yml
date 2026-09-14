@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean
+      - research/DIRECT_SUM_LOW_FRESHNESS_ABEL.lean
       - .github/workflows/direct-sum-dyadic-bridge.yml
   workflow_dispatch:
 
@@ -64,3 +65,6 @@ jobs:
 
       - name: Kernel-check direct-sum deterministic bridge
         run: lake env lean -DwarningAsError=true research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean
+
+      - name: Kernel-check low freshness boundary-free Abel layer
+        run: lake env lean -DwarningAsError=true research/DIRECT_SUM_LOW_FRESHNESS_ABEL.lean
