@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
       - research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
       - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
       - .github/workflows/stable-far-log-frequency.yml
@@ -63,8 +64,17 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Kernel-check exact log-frequency diagonalization
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
+      - name: Emit returned-fibre production olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_RETURNED_FIBER_PRODUCTION.olean \
+            research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+
+      - name: Emit exact log-frequency diagonalization olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.olean \
+            research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
 
       - name: Kernel-check Perron returned-fibre interface
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
