@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - research/STABLE_FAR_OWNER_FIRST_COLLAPSE.lean
+      - research/STABLE_FAR_OWNED_SMOOTH_SHELL.lean
       - .github/workflows/stable-far-owner-first-collapse.yml
   workflow_dispatch:
 
@@ -64,3 +65,6 @@ jobs:
 
       - name: Kernel-check stable-far owner-first collapse
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_OWNER_FIRST_COLLAPSE.lean
+
+      - name: Kernel-check owned smooth-shell saturation
+        run: lake env lean -DwarningAsError=true research/STABLE_FAR_OWNED_SMOOTH_SHELL.lean
