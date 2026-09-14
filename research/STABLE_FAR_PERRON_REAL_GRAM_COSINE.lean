@@ -57,7 +57,8 @@ theorem stableFarQ2LogFrequencyMultiplier_re
     (stableFarQ2LogFrequencyMultiplier tau q).re =
       Real.cos (stableFarCriticalQ2RealAngle tau q) := by
   rw [stableFarQ2LogFrequencyMultiplier_eq_cos_sin]
-  simp
+  simp only [Complex.add_re, Complex.ofReal_re, Complex.mul_re,
+    Complex.I_re, Complex.I_im, mul_zero, mul_one, sub_zero]
 
 /-- The q^2 phase has the expected sine imaginary coordinate. -/
 theorem stableFarQ2LogFrequencyMultiplier_im
@@ -65,14 +66,16 @@ theorem stableFarQ2LogFrequencyMultiplier_im
     (stableFarQ2LogFrequencyMultiplier tau q).im =
       Real.sin (stableFarCriticalQ2RealAngle tau q) := by
   rw [stableFarQ2LogFrequencyMultiplier_eq_cos_sin]
-  simp
+  simp only [Complex.add_im, Complex.ofReal_im, Complex.mul_im,
+    Complex.ofReal_re, Complex.I_re, Complex.I_im,
+    zero_add, zero_mul, mul_zero, mul_one, add_zero]
 
 /-- The complex reciprocal of a natural owner is the real-axis embedding of
 its real reciprocal.  Stating this explicitly avoids any denominator case
 split later in the coordinate proofs. -/
 theorem stableFar_complexReciprocal_nat_eq_ofReal (q : ℕ) :
     (1 / (q : ℂ)) = ((1 / (q : ℝ) : ℝ) : ℂ) := by
-  simpa [one_div] using (Complex.ofReal_inv (q : ℝ)).symm
+  simp [one_div, ← Complex.ofReal_inv]
 
 /-- The critical q^2 multiplier has the expected real cosine coordinate. -/
 theorem stableFarCriticalQ2LogMultiplier_re
