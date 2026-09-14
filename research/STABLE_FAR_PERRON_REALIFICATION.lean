@@ -79,15 +79,15 @@ theorem stableFarRealPairToComplex_factorPair (c q : ℝ) :
   simp [stableFarComplexToRealPair]
 
 /-- Conjugation swaps the two realified coordinates. -/
-@[simp] theorem stableFarComplexToRealPair_conj (z : ℂ) :
-    stableFarComplexToRealPair (Complex.conj z) =
+@[simp] theorem stableFarComplexToRealPair_star (z : ℂ) :
+    stableFarComplexToRealPair (star z) =
       ((stableFarComplexToRealPair z).2,
         (stableFarComplexToRealPair z).1) := by
   simp [stableFarComplexToRealPair]
 
 /-- A conjugate pair lands exactly back on the diagonal. -/
-theorem stableFarComplexToRealPair_add_conj (z : ℂ) :
-    stableFarComplexToRealPair (z + Complex.conj z) =
+theorem stableFarComplexToRealPair_add_star (z : ℂ) :
+    stableFarComplexToRealPair (z + star z) =
       (2 * z.re, 2 * z.re) := by
   apply Prod.ext <;> simp [stableFarComplexToRealPair] <;> ring
 
@@ -130,13 +130,12 @@ normalized real-pair energy. -/
 @[simp] theorem stableFarRealPairNormalizedEnergy_diagonal (r : ℝ) :
     stableFarRealPairNormalizedEnergy (r, r) = r ^ 2 := by
   simp [stableFarRealPairNormalizedEnergy, stableFarRealPairEnergy]
-  ring
 
 /-- The raw real dot product is twice the Hermitian real part. -/
 theorem stableFarRealPairDot_complexToRealPair (z w : ℂ) :
     stableFarRealPairDot (stableFarComplexToRealPair z)
         (stableFarComplexToRealPair w) =
-      2 * (z * Complex.conj w).re := by
+      2 * (z * star w).re := by
   simp [stableFarRealPairDot, stableFarComplexToRealPair,
     Complex.mul_re]
   ring
@@ -145,7 +144,7 @@ theorem stableFarRealPairDot_complexToRealPair (z w : ℂ) :
 theorem stableFarRealPairNormalizedDot_complexToRealPair (z w : ℂ) :
     stableFarRealPairNormalizedDot (stableFarComplexToRealPair z)
         (stableFarComplexToRealPair w) =
-      (z * Complex.conj w).re := by
+      (z * star w).re := by
   rw [stableFarRealPairNormalizedDot,
     stableFarRealPairDot_complexToRealPair]
   ring
@@ -184,8 +183,8 @@ theorem stableFarRealPairNormalizedEnergy_realComplexMul
     (m : ℂ) (v : ℝ × ℝ) :
     stableFarRealPairNormalizedEnergy (stableFarRealComplexMul m v) =
       Complex.normSq m * stableFarRealPairNormalizedEnergy v := by
-  simp [stableFarRealPairNormalizedEnergy,
-    stableFarRealPairEnergy_realComplexMul]
+  unfold stableFarRealPairNormalizedEnergy
+  rw [stableFarRealPairEnergy_realComplexMul]
   ring
 
 /-- Real-pair version of the #708 critical q^2 multiplier. -/
@@ -223,8 +222,9 @@ theorem stableFarCriticalQ2RealAction_normalizedEnergy
     (tau : ℝ) {q : ℕ} (hq : 0 < q) (v : ℝ × ℝ) :
     stableFarRealPairNormalizedEnergy (stableFarCriticalQ2RealAction tau q v) =
       (1 / (q : ℝ) ^ 2) * stableFarRealPairNormalizedEnergy v := by
-  simp [stableFarRealPairNormalizedEnergy,
-    stableFarCriticalQ2RealAction_energy tau hq]
+  unfold stableFarRealPairNormalizedEnergy
+  rw [stableFarCriticalQ2RealAction_energy tau hq]
+  ring
 
 /-- Acting on a real arithmetic scalar `(a,a)` resolves its Perron phase into
 two real coordinates. -/
@@ -239,10 +239,10 @@ theorem stableFarCriticalQ2RealAction_diagonal
 
 /-- Conjugate multipliers acting on one real diagonal scalar cancel their
 anti-diagonal components exactly and return to the arithmetic diagonal. -/
-theorem stableFarRealComplexMul_conj_add_on_diagonal
+theorem stableFarRealComplexMul_star_add_on_diagonal
     (m : ℂ) (a : ℝ) :
     let u := stableFarRealComplexMul m (a, a)
-    let v := stableFarRealComplexMul (Complex.conj m) (a, a)
+    let v := stableFarRealComplexMul (star m) (a, a)
     (u.1 + v.1, u.2 + v.2) =
       (2 * m.re * a, 2 * m.re * a) := by
   simp [stableFarRealComplexMul]
@@ -260,11 +260,11 @@ def stableFarCriticalQ2RealGramKernel
 
 /-- The real kernel is exactly the Hermitian real part, but is now expressed as
 one ordinary real scalar. -/
-theorem stableFarCriticalQ2RealGramKernel_eq_re_mul_conj
+theorem stableFarCriticalQ2RealGramKernel_eq_re_mul_star
     (tau : ℝ) (q r : ℕ) :
     stableFarCriticalQ2RealGramKernel tau q r =
       (stableFarCriticalQ2LogMultiplier tau q *
-        Complex.conj (stableFarCriticalQ2LogMultiplier tau r)).re := by
+        star (stableFarCriticalQ2LogMultiplier tau r)).re := by
   simp [stableFarCriticalQ2RealGramKernel, Complex.mul_re]
   ring
 
@@ -294,28 +294,6 @@ theorem stableFarCriticalQ2RealGramKernel_self
     exact norm_sq_stableFarCriticalQ2LogMultiplier tau hq
   simpa [stableFarCriticalQ2RealGramKernel, Complex.normSq_apply,
     pow_two] using hm
-
-/-- Off-diagonal entries obey the sharp product envelope `1/(q*r)`.  This is
-only the pointwise envelope; the still-open gain must come from signed global
-assembly of these real Gram entries. -/
-theorem abs_stableFarCriticalQ2RealGramKernel_le
-    (tau : ℝ) {q r : ℕ} (hq : 0 < q) (hr : 0 < r) :
-    |stableFarCriticalQ2RealGramKernel tau q r| ≤
-      (1 / (q : ℝ)) * (1 / (r : ℝ)) := by
-  rw [stableFarCriticalQ2RealGramKernel_eq_re_mul_conj]
-  calc
-    |(stableFarCriticalQ2LogMultiplier tau q *
-        Complex.conj (stableFarCriticalQ2LogMultiplier tau r)).re| ≤
-      ‖stableFarCriticalQ2LogMultiplier tau q *
-        Complex.conj (stableFarCriticalQ2LogMultiplier tau r)‖ :=
-      Complex.abs_re_le_norm _
-    _ = ‖stableFarCriticalQ2LogMultiplier tau q‖ *
-        ‖Complex.conj (stableFarCriticalQ2LogMultiplier tau r)‖ := by
-      rw [norm_mul]
-    _ = (1 / (q : ℝ)) * (1 / (r : ℝ)) := by
-      rw [RCLike.norm_conj,
-        norm_stableFarCriticalQ2LogMultiplier tau hq,
-        norm_stableFarCriticalQ2LogMultiplier tau hr]
 
 /-- The realified returned-fibre Perron projection. -/
 def stableFarReturnedLogFrequencyCenteredRealPair
