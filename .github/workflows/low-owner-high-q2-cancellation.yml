@@ -7,6 +7,7 @@ on:
       - research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
       - research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
       - research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+      - research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
       - .github/workflows/low-owner-high-q2-cancellation.yml
   workflow_dispatch:
 
@@ -79,5 +80,11 @@ jobs:
       - name: Kernel-check production high-q2 pointwise cancellation
         run: lake env lean -DwarningAsError=true RHLean/Proof/CanonicalRoughStokesEnergyObstruction.lean
 
-      - name: Kernel-check aggregate high-q2 scalar cancellation
-        run: lake env lean -DwarningAsError=true research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+      - name: Emit aggregate high-q2 scalar cancellation olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.olean \
+            research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+
+      - name: Kernel-check low-owner child-far normal form
+        run: lake env lean -DwarningAsError=true research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
