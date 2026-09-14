@@ -50,6 +50,7 @@ private theorem one_le_lowerEnvelope_corrFour
     simp [mertensSummatoryInt]
   rw [hm0] at h0
   norm_num at h0
+  exact h0
 
 private theorem rawQ2_sum_nonneg_corrFour (R : ℕ) :
     0 ≤ ∑ q ∈ (primesUpTo (R - 1)).erase 2,
