@@ -12,6 +12,7 @@ on:
       - research/DIRECT_SUM_FRESH_PRIME_GLOBAL_COLLAPSE.lean
       - research/DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.lean
       - research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
+      - research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
       - .github/workflows/direct-sum-dyadic-bridge.yml
   workflow_dispatch:
 
@@ -113,3 +114,18 @@ jobs:
 
       - name: Kernel-check canonical descending prime chronology
         run: lake env lean -DwarningAsError=true research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
+
+      - name: Emit global correlation bounds interface
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.CANONICAL_ROUGH_GLOBAL_BOUNDS.olean \
+            research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+
+      - name: Emit merged q2-tail interface for CORR-4
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.CANONICAL_ROUGH_Q2_TAIL_REDUCTION.olean \
+            research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+
+      - name: Kernel-check CORR-4 terminal bridge
+        run: lake env lean -DwarningAsError=true research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
