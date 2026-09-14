@@ -8,6 +8,7 @@ on:
       - research/DIRECT_SUM_LOW_FRESHNESS_ABEL.lean
       - research/DIRECT_SUM_COUPLED_PACKET.lean
       - research/DIRECT_SUM_COUPLED_FRESH_PRIME_RANGE_EXIT.lean
+      - research/DIRECT_SUM_COUPLED_RANGE_EXIT_COLLAPSE.lean
       - .github/workflows/direct-sum-dyadic-bridge.yml
   workflow_dispatch:
 
@@ -83,5 +84,11 @@ jobs:
             -o .lake/build/lib/lean/research.DIRECT_SUM_COUPLED_PACKET.olean \
             research/DIRECT_SUM_COUPLED_PACKET.lean
 
-      - name: Kernel-check coupled fresh-prime range-exit layer
-        run: lake env lean -DwarningAsError=true research/DIRECT_SUM_COUPLED_FRESH_PRIME_RANGE_EXIT.lean
+      - name: Kernel-check coupled fresh-prime range-exit layer and emit importable olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.DIRECT_SUM_COUPLED_FRESH_PRIME_RANGE_EXIT.olean \
+            research/DIRECT_SUM_COUPLED_FRESH_PRIME_RANGE_EXIT.lean
+
+      - name: Kernel-check evolved range-exit collapse layer
+        run: lake env lean -DwarningAsError=true research/DIRECT_SUM_COUPLED_RANGE_EXIT_COLLAPSE.lean
