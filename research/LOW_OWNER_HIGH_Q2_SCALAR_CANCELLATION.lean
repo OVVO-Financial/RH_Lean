@@ -136,8 +136,7 @@ theorem farFourQ2OwnerSynthesisAtom_eq_zero_of_mem_highQ2Owners
     q2DaughterFarIntermediatePrimeTower_eq_zero_of_mem_highQ2Owners hR hq
   unfold farFourQ2OwnerSynthesisAtom
   rw [htower]
-  norm_num
-  exact hmain
+  simpa only [Int.cast_zero, sub_zero] using hmain
 
 /-- The complete nonrecursive odd-owner scalar tail is therefore zero before
 energy. -/
@@ -200,7 +199,7 @@ theorem lowWheelFrozenTopFarResidual_eq_lowQ2Atoms_add_two_sub_renewal_sub_termi
     (f := fun q => farFourQ2OwnerSynthesisAtom R q) htwo
   have hsplit := sum_odd_q2OwnerAtoms_eq_low_add_high R
   have hhigh := sum_highQ2Owner_synthesisAtom_eq_zero R (by omega)
-  rw [herase, hsplit, hhigh, add_zero] at hall
+  rw [← herase, hsplit, hhigh, add_zero] at hall
   exact hall
 
 end RHLean.Proof
