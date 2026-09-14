@@ -6,8 +6,8 @@ import «research.DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE»
 
 The adaptive/fresh-prime normal forms are stated for any complete descending
 prime schedule.  This file constructs the canonical one: all primes up to the
-square endpoint, sorted in strictly descending order.  Thus the chronological
-identities require no external schedule witness.
+square endpoint, sorted in descending order.  Thus the chronological identities
+require no external schedule witness.
 
 This is finite list bookkeeping only.  No norm or analytic estimate is used.
 -/
@@ -22,8 +22,7 @@ open RHLean.Analysis RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
 
-/-- All primes that can act below the square endpoint, in strictly descending
-order. -/
+/-- All primes that can act below the square endpoint, in descending order. -/
 def squareRootCanonicalRoughDescendingPrimeSchedule (R : ℕ) : List ℕ :=
   (primesUpTo (squareRootEndpoint R)).sort (fun a b : ℕ => a ≥ b)
 
@@ -39,24 +38,19 @@ private theorem exists_split_of_mem {a : ℕ} {l : List ℕ} (ha : a ∈ l) :
         refine ⟨b :: pre, post, ?_⟩
         simp [hsplit]
 
-private theorem pairwise_gt_prefix_before_current
+/-- In a duplicate-free list sorted by `≥`, every element before the marked
+current coordinate is strictly larger than it. -/
+private theorem sorted_ge_nodup_prefix_before_current
     {pre post : List ℕ} {q : ℕ}
-    (hpair : List.Pairwise (fun a b : ℕ => a > b) (pre ++ q :: post)) :
+    (hsorted : List.Sorted (fun a b : ℕ => a ≥ b) (pre ++ q :: post))
+    (hnodup : (pre ++ q :: post).Nodup) :
     ∀ r ∈ pre, q < r := by
-  induction pre with
-  | nil => simp
-  | cons a pre ih =>
-      have hcons : List.Pairwise (fun a b : ℕ => a > b)
-          (a :: (pre ++ q :: post)) := by
-        simpa using hpair
-      have hhead : ∀ b ∈ pre ++ q :: post, a > b :=
-        (List.pairwise_cons.mp hcons).1
-      have htail : List.Pairwise (fun a b : ℕ => a > b)
-          (pre ++ q :: post) := (List.pairwise_cons.mp hcons).2
-      intro r hr
-      rcases List.mem_cons.mp hr with rfl | hr
-      · exact hhead q (by simp)
-      · exact ih htail r hr
+  have hge := (List.pairwise_append.mp hsorted).2.2
+  have hne := (List.pairwise_append.mp hnodup).2.2
+  intro r hr
+  have hqr : q ≤ r := hge r hr q (by simp)
+  have hrq : r ≠ q := hne r hr q (by simp)
+  omega
 
 /-- The sorted prime list satisfies the repository's exact complete-descending
 schedule predicate. -/
@@ -66,9 +60,13 @@ theorem squareRootCanonicalRoughDescendingPrimeSchedule_complete
       (squareRootCanonicalRoughDescendingPrimeSchedule R) := by
   let S := primesUpTo (squareRootEndpoint R)
   let ps := S.sort (fun a b : ℕ => a ≥ b)
-  have hsorted : ps.SortedGT := by
+  change SquareRootCanonicalRoughCompleteDescendingSchedule R ps
+  have hsorted : List.Sorted (fun a b : ℕ => a ≥ b) ps := by
     dsimp [ps]
-    exact Finset.sortedGT_sort S
+    exact Finset.sort_sorted (· ≥ ·) _
+  have hnodup : ps.Nodup := by
+    dsimp [ps]
+    exact Finset.sort_nodup _ _
   constructor
   · intro p hp
     have hpS : p ∈ S := by
@@ -84,8 +82,7 @@ theorem squareRootCanonicalRoughDescendingPrimeSchedule_complete
       dsimp [ps]
       exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 hqS
     rcases exists_split_of_mem hqps with ⟨pre, post, hsplit⟩
-    refine ⟨pre, post, ?_, ?_, ?_⟩
-    · simpa [squareRootCanonicalRoughDescendingPrimeSchedule, ps, S] using hsplit
+    refine ⟨pre, post, hsplit, ?_, ?_⟩
     · intro r hr
       apply prime_of_mem_primesUpTo
       have hrps : r ∈ ps := by
@@ -96,11 +93,8 @@ theorem squareRootCanonicalRoughDescendingPrimeSchedule_complete
         exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).mp hrps
       simpa [S] using hrS
     · intro r hr
-      have hpair : List.Pairwise (fun a b : ℕ => a > b)
-          (pre ++ q :: post) := by
-        rw [← hsplit]
-        exact hsorted.pairwise
-      exact pairwise_gt_prefix_before_current hpair r hr
+      rw [hsplit] at hsorted hnodup
+      exact sorted_ge_nodup_prefix_before_current hsorted hnodup r hr
 
 /-- The fresh-prime packet normal form is unconditional when evaluated on the
 canonical descending schedule. -/
