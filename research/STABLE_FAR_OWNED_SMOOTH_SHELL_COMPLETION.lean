@@ -1,4 +1,4 @@
-import «research.STABLE_FAR_OWNED_SMOOTH_SHELL»
+import RHLean.Proof.StableFarOwnedSmoothShell
 import RHLean.Proof.CanonicalGapAncestryBridge
 
 /-!
