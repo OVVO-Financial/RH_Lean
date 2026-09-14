@@ -154,7 +154,6 @@ theorem directSumCoupledRangeExitStepMass_evolved_eq_zero_of_completeDescendingP
   have hmismatch :=
     squareRootCanonicalRoughAdaptiveRawMismatchMass_evolved_eq_zero_of_completeDescendingPrefix
       R qs hR hp hcomplete
-  dsimp at hmismatch
   rw [hmismatch]
   simp
 
