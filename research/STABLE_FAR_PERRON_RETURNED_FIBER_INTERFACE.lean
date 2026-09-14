@@ -88,6 +88,7 @@ theorem stableFarReturnedWeightedCrossingColumn_eq_multiplicity
               intro e _he
               rw [← Finset.sum_filter]
               simp [stableFarReturnedCrossingMultiplicity]
+              ring
 
 /-- **Weighted centered multiplicity normal form.**  The exact coefficient of a
 returned cofactor is `1 - multiplicity`, now valid against every complex test
