@@ -50,9 +50,10 @@ theorem stableFar_ownerFirst_returnedWindows_eq_unitWindow_sub_parent
   have h1q : 1 ≤ q - 1 := by omega
   let A : ℕ := X / (q * q * p)
   let B : ℕ := X / (q * p)
+  have hqq : q ≤ q * q := by
+    simpa using Nat.mul_le_mul_left q hq.one_le
   have hden : q * p ≤ q * q * p := by
-    have hq1 : 1 ≤ q := hq.one_le
-    nlinarith [hp.pos]
+    exact Nat.mul_le_mul_right p hqq
   have hdenPos : 0 < q * p := Nat.mul_pos hq.pos hp.pos
   have hAB : A ≤ B := by
     dsimp [A, B]
