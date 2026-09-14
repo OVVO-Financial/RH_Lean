@@ -11,6 +11,7 @@ on:
       - research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
       - research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
       - research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean
+      - research/LOW_OWNER_PHYSICAL_CENSUS_STRONG_GLOBAL_BOUND.lean
       - .github/workflows/low-owner-high-q2-cancellation.yml
   workflow_dispatch:
 
@@ -74,8 +75,11 @@ jobs:
             -o .lake/build/lib/lean/research.CANONICAL_ROUGH_GLOBAL_BOUNDS.olean \
             research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
 
-      - name: Kernel-check unconditional strong global correlation bound
-        run: lake env lean -DwarningAsError=true research/CANONICAL_ROUGH_CORRELATION_STRONG_GLOBAL_BOUND.lean
+      - name: Emit unconditional strong global correlation bound olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.CANONICAL_ROUGH_CORRELATION_STRONG_GLOBAL_BOUND.olean \
+            research/CANONICAL_ROUGH_CORRELATION_STRONG_GLOBAL_BOUND.lean
 
       - name: Emit milestone-2 q2-tail reduction olean
         run: |
@@ -106,3 +110,6 @@ jobs:
 
       - name: Kernel-check finite-A physical census transfer
         run: lake env lean -DwarningAsError=true research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean
+
+      - name: Kernel-check unconditional strong global physical census bound
+        run: lake env lean -DwarningAsError=true research/LOW_OWNER_PHYSICAL_CENSUS_STRONG_GLOBAL_BOUND.lean
