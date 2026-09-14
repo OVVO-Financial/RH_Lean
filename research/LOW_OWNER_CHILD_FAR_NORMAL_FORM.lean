@@ -70,12 +70,21 @@ theorem sum_lowQ2OwnerSynthesisAtoms_eq_neg_childFarSlices
       -(∑ q ∈ canonicalRoughLowQ2Owners R,
           ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
             canonicalMoebiusWeight dp.1) := by
-  rw [Finset.sum_neg_distrib]
-  apply Finset.sum_congr rfl
-  intro q hq
-  have hodd : q ∈ (primesUpTo (R - 1)).erase 2 := by
-    exact (Finset.mem_sdiff.mp hq).1
-  exact farFourQ2OwnerSynthesisAtom_eq_neg_childFarSlice
-    (Finset.mem_erase.mp hodd).2
+  calc
+    (∑ q ∈ canonicalRoughLowQ2Owners R,
+        farFourQ2OwnerSynthesisAtom R q) =
+      ∑ q ∈ canonicalRoughLowQ2Owners R,
+        -(∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+            canonicalMoebiusWeight dp.1) := by
+          apply Finset.sum_congr rfl
+          intro q hq
+          have hodd : q ∈ (primesUpTo (R - 1)).erase 2 := by
+            exact (Finset.mem_sdiff.mp hq).1
+          exact farFourQ2OwnerSynthesisAtom_eq_neg_childFarSlice
+            (Finset.mem_erase.mp hodd).2
+    _ = -(∑ q ∈ canonicalRoughLowQ2Owners R,
+          ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+            canonicalMoebiusWeight dp.1) := by
+          rw [Finset.sum_neg_distrib]
 
 end RHLean.Proof
