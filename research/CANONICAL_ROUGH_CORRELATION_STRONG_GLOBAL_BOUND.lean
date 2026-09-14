@@ -50,12 +50,22 @@ theorem squareRootCanonicalRoughCorrelation_strongSubexp_global :
   refine ⟨c, C, hc, hC, ?_⟩
   intro R hR
   have hpred : 3 ≤ R - 1 := by omega
+  have hsq : 16 ≤ R ^ 2 := by nlinarith
   have hend : 3 ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
-    nlinarith
-  have hp := hM (R - 1) hpred
-  have hx := hM (squareRootEndpoint R) hend
-  rw [← norm_mertensSummatory_eq_abs_nativeMertensSummatory] at hp hx
+    omega
+  have hp :
+      ‖mertensSummatory (R - 1)‖ ≤
+        C * (((R - 1 : ℕ) : ℝ) *
+          Real.exp (-c * strongMertensScale (((R - 1 : ℕ) : ℝ)))) := by
+    rw [norm_mertensSummatory_eq_abs_nativeMertensSummatory]
+    simpa [strongMertensScale, mul_assoc] using hM (R - 1) hpred
+  have hx :
+      ‖mertensSummatory (squareRootEndpoint R)‖ ≤
+        C * ((squareRootEndpoint R : ℝ) *
+          Real.exp (-c * strongMertensScale (squareRootEndpoint R : ℝ))) := by
+    rw [norm_mertensSummatory_eq_abs_nativeMertensSummatory]
+    simpa [strongMertensScale, mul_assoc] using hM (squareRootEndpoint R) hend
   rw [squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint R (by omega)]
   unfold canonicalRoughCorrelationStrongEnvelope
   calc
