@@ -81,7 +81,7 @@ private theorem list_two_marked_splits_order
           have hab : a = b := (List.cons.inj h).1
           have htail : pre ++ p :: post = pre' ++ q :: post' :=
             (List.cons.inj h).2
-          rcases ih (pre' := pre') hpq htail with ⟨mid, hm⟩ | ⟨mid, hm⟩
+          rcases ih (pre' := pre') htail with ⟨mid, hm⟩ | ⟨mid, hm⟩
           · left
             refine ⟨mid, ?_⟩
             simp [hab, hm]
