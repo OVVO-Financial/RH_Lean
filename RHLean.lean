@@ -428,6 +428,7 @@ import RHLean.Proof.CanonicalRoughFiniteAbelReturn
 import RHLean.Proof.CanonicalRoughManyPrimeContraction
 import RHLean.Proof.CanonicalRoughQuantitativeContraction
 import RHLean.Proof.CanonicalRoughReciprocalCompression
+import RHLean.Proof.CanonicalRoughStokesEnergyObstruction
 import RHLean.Proof.CanonicalRoughTruncatedWheelDefectTelescope
 import RHLean.Proof.CanonicalRoughTruncatedWheelManyPrimeTelescope
 import RHLean.Proof.CanonicalSignedParent
