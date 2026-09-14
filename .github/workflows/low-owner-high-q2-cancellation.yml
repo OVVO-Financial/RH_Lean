@@ -9,6 +9,7 @@ on:
       - research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
       - research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
       - research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+      - research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean
       - .github/workflows/low-owner-high-q2-cancellation.yml
   workflow_dispatch:
 
@@ -93,5 +94,11 @@ jobs:
             -o .lake/build/lib/lean/research.LOW_OWNER_CHILD_FAR_NORMAL_FORM.olean \
             research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
 
-      - name: Kernel-check correlation-level physical census normal form
-        run: lake env lean -DwarningAsError=true research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+      - name: Emit correlation-level physical census olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.olean \
+            research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+
+      - name: Kernel-check finite-A physical census transfer
+        run: lake env lean -DwarningAsError=true research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean
