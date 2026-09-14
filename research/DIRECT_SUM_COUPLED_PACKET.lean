@@ -49,7 +49,6 @@ theorem directSumCoupledFarPacket_eq_frozenTopFarResidual (R : ℕ) :
     directSumCoupledFarPacket R = lowWheelFrozenTopFarResidual R := by
   unfold directSumCoupledFarPacket directSumCoupledPNTPacket
   rw [directSumDyadicFar_reconstruction]
-  ring
 
 /-- **Open coupled dispersion target.**
 
