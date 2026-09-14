@@ -6,6 +6,7 @@ on:
     paths:
       - research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
       - research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+      - research/STABLE_FAR_OWNER_WINDOW_ZERO_Q2.lean
       - .github/workflows/global-corr-bounds.yml
   workflow_dispatch:
 
@@ -69,5 +70,8 @@ jobs:
             -o .lake/build/lib/lean/research.CANONICAL_ROUGH_GLOBAL_BOUNDS.olean \
             research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
 
-      - name: Kernel-check q2 high-owner tail reduction
+      - name: Kernel-check q2 tail and fixed-A localization
         run: lake env lean -DwarningAsError=true research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+
+      - name: Kernel-check stable-far returned-owner zero q2 column
+        run: lake env lean -DwarningAsError=true research/STABLE_FAR_OWNER_WINDOW_ZERO_Q2.lean
