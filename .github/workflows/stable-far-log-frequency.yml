@@ -9,6 +9,7 @@ on:
       - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
       - research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
       - research/STABLE_FAR_PERRON_REALIFICATION.lean
+      - research/STABLE_FAR_PERRON_REAL_GRAM_COSINE.lean
       - .github/workflows/stable-far-log-frequency.yml
   workflow_dispatch:
 
@@ -90,5 +91,11 @@ jobs:
             -o .lake/build/lib/lean/research.STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.olean \
             research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
 
-      - name: Kernel-check Perron realification
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_REALIFICATION.lean
+      - name: Emit Perron realification olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_REALIFICATION.olean \
+            research/STABLE_FAR_PERRON_REALIFICATION.lean
+
+      - name: Kernel-check real Perron cosine Gram form
+        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_REAL_GRAM_COSINE.lean
