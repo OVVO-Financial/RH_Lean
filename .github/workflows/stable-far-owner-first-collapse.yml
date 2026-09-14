@@ -7,6 +7,7 @@ on:
       - research/STABLE_FAR_OWNER_FIRST_COLLAPSE.lean
       - research/STABLE_FAR_OWNED_SMOOTH_SHELL.lean
       - research/STABLE_FAR_OWNED_SMOOTH_SHELL_COMPLETION.lean
+      - research/STABLE_FAR_COORDINATE_OVERLAP.lean
       - .github/workflows/stable-far-owner-first-collapse.yml
   workflow_dispatch:
 
@@ -67,8 +68,13 @@ jobs:
       - name: Kernel-check stable-far owner-first collapse
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_OWNER_FIRST_COLLAPSE.lean
 
-      - name: Kernel-check owned smooth-shell saturation
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_OWNED_SMOOTH_SHELL.lean
+      - name: Build scratch owned smooth-shell module
+        run: |
+          mkdir -p .lake/build/lib/lean/research
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research/STABLE_FAR_OWNED_SMOOTH_SHELL.olean research/STABLE_FAR_OWNED_SMOOTH_SHELL.lean
 
       - name: Kernel-check owned smooth-shell completion
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_OWNED_SMOOTH_SHELL_COMPLETION.lean
+
+      - name: Kernel-check coordinate overlap synthesis
+        run: lake env lean -DwarningAsError=true research/STABLE_FAR_COORDINATE_OVERLAP.lean
