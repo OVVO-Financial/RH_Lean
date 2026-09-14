@@ -1,5 +1,6 @@
 import RHLean.Proof.StableFarCoordinateOverlap
 import RHLean.Proof.PostRootPartnerEulerMemory
+import RHLean.Proof.FarSurvivorRenewal_is_LowerMertens
 
 /-!
 # Stable-far adaptive ledger collapse
@@ -67,7 +68,8 @@ theorem adaptiveRawLedger_eq_roughCorrelation_of_completeSchedule
       R hR ps hsched
   have hcorr :=
     lowWheelFrozenTopFarResidual_eq_roughCorrelation_add_rootCorrection R hR
-  linear_combination hfar - hcorr
+  rw [hfar] at hcorr
+  exact add_right_cancel hcorr
 
 /-- Equivalent global q2/Euler normal form with the root bookkeeping removed.
 The rough critical correlation is exactly the odd q2 Mertens owner column plus
