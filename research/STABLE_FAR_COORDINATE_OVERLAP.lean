@@ -1,6 +1,7 @@
 import «research.STABLE_FAR_OWNED_SMOOTH_SHELL_COMPLETION»
 import RHLean.Proof.LowWheelCanonicalDefectReduction
 import RHLean.Proof.SquareRootLowPrimeFirstOwnerWallRecurrence
+import RHLean.Proof.MatchedFarSurvivorBridge
 import RHLean.Analysis.PrimeSieveCollapseIdentity
 import RHLean.Arithmetic.SquarefreePrimeFaceSurjectivity
 
@@ -171,6 +172,51 @@ theorem lowWheelFrozenTopFarOwnedProducts_mass_eq_transport_sub_defect
   rw [lowWheelFrozenTopFarOwnedProducts_mass_eq_fixedLedger R hR,
     squareRootTransportCofactorFirst_eq_canonicalPhysicalLedger R (by omega),
     lowWheelCanonicalPhysicalLedger_eq_fixed_add_defect]
+  ring
+
+/-- **FAR and canonical-defect coordinates collapse.**  Once #694's terminal
+carrier is recognized as the canonical fixed sector, the far transport cancels
+against the far part of the full transport.  The hard FAR residual is simply
+the canonical defect minus the seven-coordinate near strip. -/
+theorem lowWheelFrozenTopFarResidual_eq_canonicalDefect_sub_nearTransport
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      lowWheelCanonicalDefectLedger R - squareRootNearPrimeTransport R := by
+  have hfar :=
+    lowWheelFrozenTopFarResidual_eq_farTransport_sub_internalMate_sub_topImage
+      R hR
+  have howned := lowWheelInternalMate_add_topImage_eq_fixedLedger R hR
+  have htransport :
+      squareRootTransportCofactorFirst R =
+        lowWheelCanonicalFixedLedger R + lowWheelCanonicalDefectLedger R := by
+    rw [squareRootTransportCofactorFirst_eq_canonicalPhysicalLedger R (by omega),
+      lowWheelCanonicalPhysicalLedger_eq_fixed_add_defect]
+  have hsplit :
+      squareRootTransportCofactorFirst R =
+        squareRootNearPrimeTransport R + squareRootFarPrimeTransport R := by
+    rw [squareRootTransportCofactorFirst_eq_primeFirst,
+      squareRootTransportPrimeFirst_eq_near_add_far R hR]
+  linear_combination hfar - howned + htransport - hsplit
+
+/-- **Previously separate root coordinates have the same signed mass.**  The
+canonical frozen reduction carried the all-unique downcross ledger and the
+external unique grid separately.  Comparing it with the #694 shell collapse
+shows their difference vanishes identically. -/
+theorem lowWheelCanonicalDowncrossUniqueParentLedger_eq_squareRootERuniq
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelCanonicalDowncrossUniqueParentLedger R = squareRootERuniq R := by
+  have hdef := lowWheelCanonicalDefectLedger_eq_frozenTopFarResidual_add_rootTerms R hR
+  have hfar := lowWheelFrozenTopFarResidual_eq_canonicalDefect_sub_nearTransport R hR
+  linear_combination hdef + hfar
+
+/-- Consequently the final root boundary loses two previously independent
+root-scale bookkeeping terms. -/
+theorem finalRootBoundary_eq_mertens_sub_nearTransport
+    (R : ℕ) (hR : 56 ≤ R) :
+    finalCompensatedRootBoundary R =
+      mertensSummatory R - squareRootNearPrimeTransport R := by
+  unfold finalCompensatedRootBoundary
+  rw [lowWheelCanonicalDowncrossUniqueParentLedger_eq_squareRootERuniq R hR]
   ring
 
 end RHLean.Proof
