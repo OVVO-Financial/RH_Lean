@@ -198,11 +198,9 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
       have hqp' := congrArg (fun z : LowWheelTaggedDowncrossState => z.2.2) heq
       exact (Nat.ne_of_gt hpq) hqp'
   have hfrozenShape : LowWheelDowncrossFrozenShape (t, (1, p)) := by
-    refine ⟨?_, ?_⟩
-    · exact hpivot.symm
-    · intro q hqt
-      change q < lowWheelTaggedDowncrossPivot (t, (1, p))
-      simpa [lowWheelTaggedDowncrossPivot, hpivot] using (hshape.2.2.2.2.1 q hqt).2
+    refine ⟨hpivot.symm, ?_⟩
+    intro q hqt
+    simpa [lowWheelTaggedDowncrossPivot, hpivot] using (hshape.2.2.2.2.1 q hqt).2
   have hfrozen :
       (t, (1, p)) ∈ lowWheelCanonicalRepeatedFrozenPart R :=
     Finset.mem_filter.mpr ⟨hrep, hfrozenShape⟩
