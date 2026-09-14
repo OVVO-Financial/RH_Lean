@@ -107,11 +107,10 @@ theorem directSumFreshPrimeScaledReciprocalDropLedger_eq_freshLedger
         directSumCoupledFreshPrimeLedger]
       rw [← hhead, htailEq]
       congr 1
-      · rfl
-      · simpa [squareRootCanonicalRoughAdaptiveCarrier_append,
-          squareRootCanonicalRoughAdaptiveRawCoefficient_append,
-          squareRootCanonicalRoughAdaptiveCarrier,
-          squareRootCanonicalRoughAdaptiveRawCoefficient]
+      simpa [squareRootCanonicalRoughAdaptiveCarrier_append,
+        squareRootCanonicalRoughAdaptiveRawCoefficient_append,
+        squareRootCanonicalRoughAdaptiveCarrier,
+        squareRootCanonicalRoughAdaptiveRawCoefficient]
 
 /-- On every repository-complete descending schedule the fresh packet is
 literally the prime-weighted reciprocal Stokes ledger. -/
