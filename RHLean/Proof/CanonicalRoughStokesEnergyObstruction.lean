@@ -1,6 +1,7 @@
 import RHLean.Proof.PostRootPartnerEulerMemory
 import RHLean.Proof.SignedTransportAmplificationAudit
 import RHLean.Proof.PostRootPartnerLogAlignment
+import RHLean.Proof.SquareRootLowPrimeGoFourthPowerCutoff
 
 /-!
 # The reciprocal Stokes step need not decrease physical energy
@@ -234,5 +235,41 @@ theorem highQ2Owner_mertens_add_near_sub_go_eq_zero
       (q := q) (X := squareRootEndpoint R) hq]
   push_cast
   ring
+
+/-! ## The Go second-boundary field is absent on the LOW-A owner sector
+
+A surviving Go second-boundary defect forces `X < q^4`.  At the square endpoint
+`X = R^2-1`, every LOW-A owner satisfies `q^2 < R`, hence `q^4 < R^2` and
+therefore `q^4 <= X`.  The defect carrier is consequently empty.  This explains
+why low chronological Stokes charges need not mirror the nonzero q^2 Mertens
+daughters: the latter are not stored in this second-boundary liberty field.
+-/
+
+/-- **Low-q² square-endpoint emptiness.**  No Go second-boundary defect can
+survive at an owner satisfying `q² < R`. -/
+theorem squareRootLowPrimeGoSecondBoundaryDefectParents_eq_empty_of_square_lt_root
+    {R q r : ℕ} (hq : q.Prime) (hr : r.Prime) (hrq : r < q)
+    (hqlow : q * q < R) :
+    squareRootLowPrimeGoSecondBoundaryDefectParents q (squareRootEndpoint R) r = ∅ := by
+  apply Finset.eq_empty_iff_forall_notMem.mpr
+  intro d hd
+  have hfour :=
+    squareRootLowPrimeGoSecondBoundaryDefect_ownerFourth_gt hq hr hrq hd
+  have hq2pos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
+  have hRpos : 0 < R := hq2pos.trans hqlow
+  have hleft : (q * q) * (q * q) < R * (q * q) :=
+    Nat.mul_lt_mul_of_pos_right hqlow hq2pos
+  have hright : R * (q * q) < R * R :=
+    Nat.mul_lt_mul_of_pos_left hqlow hRpos
+  have hq4lt : q ^ 4 < R ^ 2 := by
+    calc
+      q ^ 4 = (q * q) * (q * q) := by ring
+      _ < R * (q * q) := hleft
+      _ < R * R := hright
+      _ = R ^ 2 := by ring
+  have hq4leX : q ^ 4 ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    omega
+  exact (Nat.not_lt_of_ge hq4leX) hfour
 
 end RHLean.Proof
