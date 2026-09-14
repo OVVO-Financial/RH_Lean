@@ -30,7 +30,7 @@ attribute [local instance] Classical.propDecidable
 of its reciprocal depth, so its q^2 daughter cutoff is zero. -/
 theorem lowWheelFarPrimeQ2CrossingOwner_div_square_eq_zero
     {R : ℕ} {y : ℕ × (ℕ × ℕ)}
-    (hy : y ∈ lowWheelFarPrimeQ2DescendedTriples R)
+    (_hy : y ∈ lowWheelFarPrimeQ2DescendedTriples R)
     {q : ℕ}
     (hq : q ∈ frozenPrimeUniverseHighPrimeSet
       (lowWheelFarPrimeQ2CrossingOwnerLower R y)
