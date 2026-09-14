@@ -51,14 +51,39 @@ theorem stableFarQ2LogFrequencyMultiplier_eq_cos_sin
   rw [harg, Complex.exp_mul_I]
   simp
 
+/-- The q^2 phase has the expected cosine real coordinate. -/
+theorem stableFarQ2LogFrequencyMultiplier_re
+    (tau : ℝ) (q : ℕ) :
+    (stableFarQ2LogFrequencyMultiplier tau q).re =
+      Real.cos (stableFarCriticalQ2RealAngle tau q) := by
+  rw [stableFarQ2LogFrequencyMultiplier_eq_cos_sin]
+  simp
+
+/-- The q^2 phase has the expected sine imaginary coordinate. -/
+theorem stableFarQ2LogFrequencyMultiplier_im
+    (tau : ℝ) (q : ℕ) :
+    (stableFarQ2LogFrequencyMultiplier tau q).im =
+      Real.sin (stableFarCriticalQ2RealAngle tau q) := by
+  rw [stableFarQ2LogFrequencyMultiplier_eq_cos_sin]
+  simp
+
+/-- The complex reciprocal of a natural owner is the real-axis embedding of
+its real reciprocal.  Stating this explicitly avoids any denominator case
+split later in the coordinate proofs. -/
+theorem stableFar_complexReciprocal_nat_eq_ofReal (q : ℕ) :
+    (1 / (q : ℂ)) = ((1 / (q : ℝ) : ℝ) : ℂ) := by
+  simpa [one_div] using (Complex.ofReal_inv (q : ℝ)).symm
+
 /-- The critical q^2 multiplier has the expected real cosine coordinate. -/
 theorem stableFarCriticalQ2LogMultiplier_re
     (tau : ℝ) {q : ℕ} (hq : 0 < q) :
     (stableFarCriticalQ2LogMultiplier tau q).re =
       (1 / (q : ℝ)) * Real.cos (stableFarCriticalQ2RealAngle tau q) := by
   rw [stableFarCriticalQ2LogMultiplier_eq_reciprocal_phase tau hq,
-    stableFarQ2LogFrequencyMultiplier_eq_cos_sin]
-  simp [one_div]
+    stableFar_complexReciprocal_nat_eq_ofReal,
+    Complex.mul_re,
+    stableFarQ2LogFrequencyMultiplier_re]
+  simp
 
 /-- The critical q^2 multiplier has the expected real sine coordinate. -/
 theorem stableFarCriticalQ2LogMultiplier_im
@@ -66,8 +91,10 @@ theorem stableFarCriticalQ2LogMultiplier_im
     (stableFarCriticalQ2LogMultiplier tau q).im =
       (1 / (q : ℝ)) * Real.sin (stableFarCriticalQ2RealAngle tau q) := by
   rw [stableFarCriticalQ2LogMultiplier_eq_reciprocal_phase tau hq,
-    stableFarQ2LogFrequencyMultiplier_eq_cos_sin]
-  simp [one_div]
+    stableFar_complexReciprocal_nat_eq_ofReal,
+    Complex.mul_im,
+    stableFarQ2LogFrequencyMultiplier_im]
+  simp
 
 /-- **Exact cosine Gram kernel.**  Cross-owner interaction is reciprocal
 amplitude times cosine of the relative logarithmic phase. -/
