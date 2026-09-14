@@ -1,5 +1,7 @@
 import «research.HALF_ROOT_SQUARE_CORRECTION_BOUND»
 import RHLean.Proof.LowWheelCanonicalDefectReduction
+import RHLean.Proof.PrimeWheelProperSubwheelDepthTwo
+import RHLean.Proof.StableFarWallCrossingOwnerWindow
 
 /-!
 # Consume the middle moving boundary inside the frozen base
@@ -10,6 +12,11 @@ For `Y <= K <= X` and `X < (Y+1)^3`,
 
 `F_Y(X) - sum_{Y<p<=K} F_p(X/p)
    = F_K(X) + sum_{Y<p<=K} M(X/p^2)`.
+
+The general telescope is now production theorem
+`properSubwheel_base_sub_boundaryPrefix_eq_advancedBase_add_squares` in
+`PrimeWheelProperSubwheelDepthTwo`; this research check consumes that theorem
+instead of redeclaring it.
 
 At `Y=R/2`, `K=R`, the entire middle moving boundary is therefore consumed
 by advancing the base to the physical root.  The residual is exactly the
@@ -33,36 +40,6 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Analysis RHLean.Arithmetic
-
-/-- Telescope the base and a complete prefix of its moving boundary together.
-The only failure of exact cutoff invariance is the completed square column. -/
-theorem properSubwheel_base_sub_boundaryPrefix_eq_advancedBase_add_squares
-    (X Y K : ℕ) (hYK : Y ≤ K) (hKX : K ≤ X)
-    (hcubic : X < (Y + 1) ^ 3) :
-    frozenPrimeUniverseMass (primesUpTo Y) X -
-        (∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
-          frozenPrimeUniverseMass (primesUpTo p) (X / p)) =
-      frozenPrimeUniverseMass (primesUpTo K) X +
-        ∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
-          mertensSummatoryInt (X / (p * p)) := by
-  have htel := frozenPrimeUniverse_highUpperColumn_telescope X Y K hYK
-  have hsplit :
-      (∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
-        frozenPrimeUniverseMass (primesUpTo (p - 1)) (X / p)) =
-      (∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
-        frozenPrimeUniverseMass (primesUpTo p) (X / p)) +
-      ∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
-        mertensSummatoryInt (X / (p * p)) := by
-    rw [← Finset.sum_add_distrib]
-    apply Finset.sum_congr rfl
-    intro p hp
-    have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp hp
-    have hpFull : p ∈ frozenPrimeUniverseHighPrimeSet Y X :=
-      mem_frozenPrimeUniverseHighPrimeSet.mpr
-        ⟨hpData.1, hpData.2.1, hpData.2.2.trans hKX⟩
-    exact properSubwheel_highOwnerMovingTerm_eq_boundary_add_mertensSquare
-      hpFull hcubic
-  omega
 
 private theorem halfRootBoundary_root_le_endpoint (R : ℕ) (hR : 6 ≤ R) :
     R ≤ squareRootEndpoint R := by
@@ -182,5 +159,62 @@ theorem halfRootBoundaryCoupledCore_cast_eq_lowerMertens_sub_canonicalDefect_add
   rw [halfRootBoundaryCoupledCore_cast_eq_smooth_sub_transport_add_squareCorrection R hR,
     squareRootTransportCofactorFirst_eq_smooth_sub_mertens_add_defect R (by omega)]
   ring
+
+/-! ## Stable-far owner-window specialization
+
+For one returned stable-far child, write `T` for its reciprocal depth and
+`Y,K` for the solved old-owner window endpoints.  Since `Y >= sqrt T`, the
+cubic proper-subwheel hypothesis is automatic.  The entire old-owner moving
+column can therefore be telescoped before any norm into an advanced frozen
+base plus literal square-scale Mertens daughters. -/
+
+/-- **Fiberwise Euler-to-square telescope on the actual solved owner window.** -/
+theorem stableFar_ownerWindow_base_sub_boundary_eq_advanced_add_squares
+    (R : ℕ) (y : ℕ × (ℕ × ℕ))
+    (hLU : lowWheelFarPrimeQ2CrossingOwnerLower R y ≤
+      lowWheelFarPrimeQ2CrossingOwnerUpper R y) :
+    frozenPrimeUniverseMass
+        (primesUpTo (lowWheelFarPrimeQ2CrossingOwnerLower R y))
+        (lowWheelFarPrimeQ2CrossingOwnerDepth R y) -
+      (∑ q ∈ frozenPrimeUniverseHighPrimeSet
+          (lowWheelFarPrimeQ2CrossingOwnerLower R y)
+          (lowWheelFarPrimeQ2CrossingOwnerUpper R y),
+        frozenPrimeUniverseMass (primesUpTo q)
+          (lowWheelFarPrimeQ2CrossingOwnerDepth R y / q)) =
+      frozenPrimeUniverseMass
+        (primesUpTo (lowWheelFarPrimeQ2CrossingOwnerUpper R y))
+        (lowWheelFarPrimeQ2CrossingOwnerDepth R y) +
+      ∑ q ∈ frozenPrimeUniverseHighPrimeSet
+          (lowWheelFarPrimeQ2CrossingOwnerLower R y)
+          (lowWheelFarPrimeQ2CrossingOwnerUpper R y),
+        mertensSummatoryInt
+          (lowWheelFarPrimeQ2CrossingOwnerDepth R y / (q * q)) := by
+  let T := lowWheelFarPrimeQ2CrossingOwnerDepth R y
+  let Y := lowWheelFarPrimeQ2CrossingOwnerLower R y
+  let K := lowWheelFarPrimeQ2CrossingOwnerUpper R y
+  have hYK : Y ≤ K := by simpa [Y, K] using hLU
+  have hKX : K ≤ T := by
+    dsimp [K, T]
+    unfold lowWheelFarPrimeQ2CrossingOwnerUpper
+    exact min_le_right _ _
+  have hsqrt : Nat.sqrt T ≤ Y := by
+    dsimp [Y, T]
+    unfold lowWheelFarPrimeQ2CrossingOwnerLower
+    exact le_max_right _ _
+  have hrootSquare : T < (Nat.sqrt T + 1) ^ 2 := by
+    exact (Nat.sqrt_lt').1 (Nat.lt_succ_self (Nat.sqrt T))
+  have hsquareMono : (Nat.sqrt T + 1) ^ 2 ≤ (Y + 1) ^ 2 := by
+    exact Nat.pow_le_pow_left (by omega) 2
+  have hsquareCube : (Y + 1) ^ 2 ≤ (Y + 1) ^ 3 := by
+    calc
+      (Y + 1) ^ 2 = (Y + 1) ^ 2 * 1 := by ring
+      _ ≤ (Y + 1) ^ 2 * (Y + 1) := by
+        exact Nat.mul_le_mul_left ((Y + 1) ^ 2) (by omega)
+      _ = (Y + 1) ^ 3 := by ring
+  have hcubic : T < (Y + 1) ^ 3 :=
+    hrootSquare.trans_le (hsquareMono.trans hsquareCube)
+  have htel := properSubwheel_base_sub_boundaryPrefix_eq_advancedBase_add_squares
+    T Y K hYK hKX hcubic
+  simpa [T, Y, K] using htel
 
 end RHLean.Proof

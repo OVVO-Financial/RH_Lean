@@ -358,4 +358,49 @@ theorem squareRootProperSubwheelFrozenCorrelation_eq_middleBoundary_sub_topBand_
               mertensSummatoryInt (squareRootEndpoint R / (p * p))) + 0) := hnormal
     _ = _ := by ring
 
+/-! ## Base-plus-boundary telescope: first-power chronology -> square column
+
+The cubic decomposition above can be read one step more structurally.  Advance
+the frozen base from a lower cutoff `Y` only through a finite owner prefix `K`,
+and move that same prefix of the boundary at the same time.  The first-power
+Euler chronology then cancels exactly.  Its only failure of cutoff invariance is
+the completed `p^2` Mertens column.
+
+This theorem was previously present only in the research scratch layer.  It is
+promoted here because it is the exact production bridge needed to compare the
+stable-far Euler chronology with the q-square daughter coordinate before any
+energy estimate is taken.
+-/
+
+/-- **Exact moving-boundary bridge.**  Under the cubic proper-subwheel
+condition, base advance plus the matching moving-boundary prefix leaves only
+completed square daughters. -/
+theorem properSubwheel_base_sub_boundaryPrefix_eq_advancedBase_add_squares
+    (X Y K : ℕ) (hYK : Y ≤ K) (hKX : K ≤ X)
+    (hcubic : X < (Y + 1) ^ 3) :
+    frozenPrimeUniverseMass (primesUpTo Y) X -
+        (∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
+          frozenPrimeUniverseMass (primesUpTo p) (X / p)) =
+      frozenPrimeUniverseMass (primesUpTo K) X +
+        ∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
+          mertensSummatoryInt (X / (p * p)) := by
+  have htel := frozenPrimeUniverse_highUpperColumn_telescope X Y K hYK
+  have hsplit :
+      (∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
+        frozenPrimeUniverseMass (primesUpTo (p - 1)) (X / p)) =
+      (∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
+        frozenPrimeUniverseMass (primesUpTo p) (X / p)) +
+      ∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
+        mertensSummatoryInt (X / (p * p)) := by
+    rw [← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro p hp
+    have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp hp
+    have hpFull : p ∈ frozenPrimeUniverseHighPrimeSet Y X :=
+      mem_frozenPrimeUniverseHighPrimeSet.mpr
+        ⟨hpData.1, hpData.2.1, hpData.2.2.trans hKX⟩
+    exact properSubwheel_highOwnerMovingTerm_eq_boundary_add_mertensSquare
+      hpFull hcubic
+  omega
+
 end RHLean.Proof
