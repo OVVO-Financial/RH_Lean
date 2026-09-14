@@ -76,7 +76,7 @@ def directSumLowMaskedAbelPotential (R j n : ℕ) : ℂ :=
 
 /-- The masked potential agrees with the potential already used by the direct-sum energy. -/
 theorem directSumLowMaskedAbelPotential_eq_energyPotential
-    {R j n : ℕ} (hn : n ∈ Finset.Icc 2 R) :
+    {R j n : ℕ} (_hn : n ∈ Finset.Icc 2 R) :
     directSumLowMaskedAbelPotential R j n = directSumLowBlockAbelPotential R j n := by
   classical
   have hset :
@@ -106,6 +106,7 @@ theorem directSumLowMaskedAbelPotential_forwardDifference
     directSumLowMaskedAbelPotential R j n -
         directSumLowMaskedAbelPotential R j (n + 1) =
       directSumLowBlockWaveletMask R j n := by
+  have hn2 : 2 ≤ n := (Finset.mem_Icc.mp hn).1
   have hpred : n - 1 + 1 = n := Nat.sub_add_cancel (by omega : 1 ≤ n)
   have hsum :
       (∑ t ∈ Finset.Icc 2 n, directSumLowBlockWaveletMask R j t) =
@@ -142,6 +143,8 @@ private theorem sum_Icc_two_add_mul_forwardDifference
   | succ k ih =>
       rw [Finset.sum_Icc_succ_top (by omega : 2 ≤ k + 3),
         Finset.sum_Icc_succ_top (by omega : 3 ≤ k + 3), ih]
+      have hidx : 3 + k - 1 = 2 + k := by omega
+      rw [hidx]
       ring
 
 /-- One occupied low dyadic block has a boundary-free Abel identity against the
