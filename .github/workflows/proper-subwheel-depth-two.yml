@@ -6,6 +6,7 @@ on:
     paths:
       - RHLean/Proof/PrimeWheelFrozenRoughSeatBridge.lean
       - RHLean/Proof/PrimeWheelProperSubwheelDepthTwo.lean
+      - RHLean/Proof/StableFarWallCrossingOwnerWindow.lean
       - research/PROPER_SUBWHEEL_DEPTH_TWO_REASSEMBLY.lean
       - research/PROPER_SUBWHEEL_OUTER_PARITY_REASSEMBLY.lean
       - research/HALF_ROOT_PRIME_PAIR_WEIGHT.lean
@@ -84,6 +85,9 @@ jobs:
 
       - name: Kernel-check cubic proper-subwheel decomposition
         run: lake build RHLean.Proof.PrimeWheelProperSubwheelDepthTwo --wfail
+
+      - name: Kernel-check stable-far owner-window Euler telescope
+        run: lake build RHLean.Proof.StableFarWallCrossingOwnerWindow --wfail
 
       - name: Kernel-check all-Mertens depth-two reassembly
         run: lake env lean research/PROPER_SUBWHEEL_DEPTH_TWO_REASSEMBLY.lean
