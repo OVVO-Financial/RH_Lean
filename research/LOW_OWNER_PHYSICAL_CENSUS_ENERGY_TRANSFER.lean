@@ -60,7 +60,7 @@ private theorem norm_add_sq_le_two_sum_sq (a b : ℂ) :
 `2` is deliberately coarse; the point here is exact finite-A equivalence, not
 the final factor-four optimization. -/
 theorem physicalCensusQ2Energy_implies_correlationLowQ2Energy
-    {A C : ℝ} (hA : 0 ≤ A) (hC : 0 ≤ C)
+    {A C : ℝ}
     (hphys : LowOwnerPhysicalCensusQ2EnergyStatementWith A C) :
     CanonicalRoughCorrelationLowQ2EnergyStatementWith
       (2 * A) (2 * C + 128) := by
@@ -98,7 +98,7 @@ theorem physicalCensusQ2Energy_implies_correlationLowQ2Energy
 /-- Conversely, a correlation LOW-A estimate controls the same physical census
 with the same universal factor-two loss. -/
 theorem correlationLowQ2Energy_implies_physicalCensusQ2Energy
-    {A C : ℝ} (hA : 0 ≤ A) (hC : 0 ≤ C)
+    {A C : ℝ}
     (hcorr : CanonicalRoughCorrelationLowQ2EnergyStatementWith A C) :
     LowOwnerPhysicalCensusQ2EnergyStatementWith
       (2 * A) (2 * C + 128) := by
@@ -122,7 +122,7 @@ theorem correlationLowQ2Energy_implies_physicalCensusQ2Energy
       lowOwnerPhysicalFarCensus R =
         squareRootCanonicalRoughCorrelation R +
           frozenTopFarRoughRootCorrection R := by
-    linear_combination hrepr
+    linear_combination -hrepr
   rw [hsum]
   have htwo := norm_add_sq_le_two_sum_sq
     (squareRootCanonicalRoughCorrelation R)
@@ -149,9 +149,9 @@ theorem exists_correlationLowQ2Energy_iff_exists_physicalCensusQ2Energy :
   constructor
   · rintro ⟨A, C, hA, hC, hcorr⟩
     refine ⟨2 * A, 2 * C + 128, by positivity, by positivity, ?_⟩
-    exact correlationLowQ2Energy_implies_physicalCensusQ2Energy hA hC hcorr
+    exact correlationLowQ2Energy_implies_physicalCensusQ2Energy hcorr
   · rintro ⟨A, C, hA, hC, hphys⟩
     refine ⟨2 * A, 2 * C + 128, by positivity, by positivity, ?_⟩
-    exact physicalCensusQ2Energy_implies_correlationLowQ2Energy hA hC hphys
+    exact physicalCensusQ2Energy_implies_correlationLowQ2Energy hphys
 
 end RHLean.Proof
