@@ -1,5 +1,6 @@
 import «research.HALF_ROOT_SQUARE_CORRECTION_BOUND»
 import RHLean.Proof.LowWheelCanonicalDefectReduction
+import RHLean.Proof.PrimeWheelProperSubwheelDepthTwo
 
 /-!
 # Consume the middle moving boundary inside the frozen base
@@ -10,6 +11,11 @@ For `Y <= K <= X` and `X < (Y+1)^3`,
 
 `F_Y(X) - sum_{Y<p<=K} F_p(X/p)
    = F_K(X) + sum_{Y<p<=K} M(X/p^2)`.
+
+The general telescope is now production theorem
+`properSubwheel_base_sub_boundaryPrefix_eq_advancedBase_add_squares` in
+`PrimeWheelProperSubwheelDepthTwo`; this research check consumes that theorem
+instead of redeclaring it.
 
 At `Y=R/2`, `K=R`, the entire middle moving boundary is therefore consumed
 by advancing the base to the physical root.  The residual is exactly the
@@ -33,36 +39,6 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Analysis RHLean.Arithmetic
-
-/-- Telescope the base and a complete prefix of its moving boundary together.
-The only failure of exact cutoff invariance is the completed square column. -/
-theorem properSubwheel_base_sub_boundaryPrefix_eq_advancedBase_add_squares
-    (X Y K : ℕ) (hYK : Y ≤ K) (hKX : K ≤ X)
-    (hcubic : X < (Y + 1) ^ 3) :
-    frozenPrimeUniverseMass (primesUpTo Y) X -
-        (∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
-          frozenPrimeUniverseMass (primesUpTo p) (X / p)) =
-      frozenPrimeUniverseMass (primesUpTo K) X +
-        ∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
-          mertensSummatoryInt (X / (p * p)) := by
-  have htel := frozenPrimeUniverse_highUpperColumn_telescope X Y K hYK
-  have hsplit :
-      (∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
-        frozenPrimeUniverseMass (primesUpTo (p - 1)) (X / p)) =
-      (∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
-        frozenPrimeUniverseMass (primesUpTo p) (X / p)) +
-      ∑ p ∈ frozenPrimeUniverseHighPrimeSet Y K,
-        mertensSummatoryInt (X / (p * p)) := by
-    rw [← Finset.sum_add_distrib]
-    apply Finset.sum_congr rfl
-    intro p hp
-    have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp hp
-    have hpFull : p ∈ frozenPrimeUniverseHighPrimeSet Y X :=
-      mem_frozenPrimeUniverseHighPrimeSet.mpr
-        ⟨hpData.1, hpData.2.1, hpData.2.2.trans hKX⟩
-    exact properSubwheel_highOwnerMovingTerm_eq_boundary_add_mertensSquare
-      hpFull hcubic
-  omega
 
 private theorem halfRootBoundary_root_le_endpoint (R : ℕ) (hR : 6 ≤ R) :
     R ≤ squareRootEndpoint R := by
