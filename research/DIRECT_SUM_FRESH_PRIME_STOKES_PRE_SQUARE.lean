@@ -107,7 +107,7 @@ theorem directSumFreshPrimeScaledReciprocalDropLedger_eq_freshLedger
         directSumCoupledFreshPrimeLedger]
       rw [← hhead, htailEq]
       congr 1
-      simpa [squareRootCanonicalRoughAdaptiveCarrier_append,
+      simp [squareRootCanonicalRoughAdaptiveCarrier_append,
         squareRootCanonicalRoughAdaptiveRawCoefficient_append,
         squareRootCanonicalRoughAdaptiveCarrier,
         squareRootCanonicalRoughAdaptiveRawCoefficient]
