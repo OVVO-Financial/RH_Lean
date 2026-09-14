@@ -24,7 +24,7 @@ attribute [local instance] Classical.propDecidable
 had its raw coefficient killed when that larger prime was processed. -/
 theorem evolvedRawCoefficient_eq_zero_of_larger_partner_of_completeDescendingPrefix
     {R c p q : ℕ} (qs : List ℕ)
-    (hc : 0 < c) (hp : p.Prime) (hq : q.Prime)
+    (hc : 0 < c) (_hp : p.Prime) (hq : q.Prime)
     (hrough : canonicalLargestPrimeFactor c < p)
     (hpq : p < q)
     (hcqUpper : c * q ≤ squareRootEndpoint R)
