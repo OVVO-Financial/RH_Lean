@@ -1,13 +1,12 @@
-import «research.STABLE_FAR_RETURNED_FIBER_PRODUCTION»
+import RHLean.Proof.LowWheelCanonicalSqrtDenseContraction
 import RHLean.Proof.SquareRootPredecessorPrimeCells
 
 /-!
 # Stable-far owner-first returned-window collapse
 
-The returned-fibre Fubini developed in `STABLE_FAR_RETURNED_FIBER_PRODUCTION`
-organizes strict crossings by the returned owner.  Here we reverse that Fubini
-order and keep one old crossing owner `q` and one far-prime coordinate `p`
-fixed.
+The returned-fibre Fubini developed after #691-#693 organizes strict crossings
+by the returned owner. Here we reverse that Fubini order and keep one old
+crossing owner `q` and one far-prime coordinate `p` fixed.
 
 For every returned prime `r < q`, the crossing cofactors occupy the frozen
 window
@@ -15,8 +14,8 @@ window
 `F_{r^-}(X/(q^2*p*r), X/(q*p*r)]`.
 
 Summing these windows over all returned owners is not a new multiplicity
-problem.  The existing high-window Euler telescope consumes the complete
-`r < q` chronology exactly.  The residue is the empty-prime unit window minus
+problem. The existing high-window Euler telescope consumes the complete
+`r < q` chronology exactly. The residue is the empty-prime unit window minus
 the single moving parent state `F_q(X/(q*p))`.
 
 No norm, absolute value, asymptotic input, or Mertens estimate is used.
@@ -36,7 +35,7 @@ attribute [local instance] Classical.propDecidable
 
 At fixed old owner `q` and far-prime coordinate `p`, summing all returned-owner
 windows `r < q` telescopes exactly to the unit window minus the moving
-`q`-boundary.  This is the arithmetic identity behind the occurrence-level
+`q`-boundary. This is the arithmetic identity behind the occurrence-level
 statement that the unit return and all nonunit returns recombine before any
 energy is taken. -/
 theorem stableFar_ownerFirst_returnedWindows_eq_unitWindow_sub_parent
