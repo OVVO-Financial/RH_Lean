@@ -66,15 +66,14 @@ jobs:
 
       - name: Kernel-check direct-sum deterministic bridge and emit importable olean
         run: |
-          mkdir -p .lake/build/lib/lean/research
           lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.olean \
+            -o .lake/build/lib/lean/research.DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.olean \
             research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean
 
       - name: Kernel-check low freshness boundary-free Abel layer and emit importable olean
         run: |
           lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research/DIRECT_SUM_LOW_FRESHNESS_ABEL.olean \
+            -o .lake/build/lib/lean/research.DIRECT_SUM_LOW_FRESHNESS_ABEL.olean \
             research/DIRECT_SUM_LOW_FRESHNESS_ABEL.lean
 
       - name: Kernel-check coupled scalar packet layer
