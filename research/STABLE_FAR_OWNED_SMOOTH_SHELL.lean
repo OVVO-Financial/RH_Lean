@@ -130,7 +130,7 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
               lowWheelCanonicalDowncrossParent (t, (1, p)) := by
           rw [lowWheelCanonicalDowncrossParent, lowWheelCanonicalDowncrossParent,
             hzPivot, hpivot, Nat.div_self (by norm_num : 0 < (3 : ℕ)),
-            Nat.div_self hp.pos, Nat.mul_one, Nat.mul_one]
+            Nat.div_self hp.pos]
         have heq := hunique (t, (1, 3)) hz hparent
         have hqp := congrArg (fun z : LowWheelTaggedDowncrossState => z.2.2) heq
         simp [hp2] at hqp
@@ -151,7 +151,7 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
               lowWheelCanonicalDowncrossParent (t, (1, p)) := by
           rw [lowWheelCanonicalDowncrossParent, lowWheelCanonicalDowncrossParent,
             hzPivot, hpivot, Nat.div_self (by norm_num : 0 < (2 : ℕ)),
-            Nat.div_self hp.pos, Nat.mul_one, Nat.mul_one]
+            Nat.div_self hp.pos]
         have heq := hunique (t, (1, 2)) hz hparent
         have hqp := congrArg (fun z : LowWheelTaggedDowncrossState => z.2.2) heq
         simp at hqp
@@ -193,8 +193,7 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
           lowWheelCanonicalDowncrossParent (t, (1, q)) =
             lowWheelCanonicalDowncrossParent (t, (1, p)) := by
         rw [lowWheelCanonicalDowncrossParent, lowWheelCanonicalDowncrossParent,
-          hzPivot, hpivot, Nat.div_self hqPrime.pos, Nat.div_self hp.pos,
-          Nat.mul_one, Nat.mul_one]
+          hzPivot, hpivot, Nat.div_self hqPrime.pos, Nat.div_self hp.pos]
       have heq := hunique (t, (1, q)) hz hparent
       have hqp' := congrArg (fun z : LowWheelTaggedDowncrossState => z.2.2) heq
       exact (Nat.ne_of_gt hpq) hqp'
