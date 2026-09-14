@@ -89,6 +89,18 @@ theorem squareRootCanonicalRoughCorrelation_eq_physicalFarCensus_sub_root
     ownerTwoChildFarCensus
   exact h
 
+/-- The localized census is not a new analytic surrogate: it is literally the
+existing frozen/top/far residual, rewritten after the exact high-owner
+cancellations and ownerwise child-far identification. -/
+theorem lowOwnerPhysicalFarCensus_eq_frozenTopFarResidual
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowOwnerPhysicalFarCensus R = lowWheelFrozenTopFarResidual R := by
+  have hcorr :=
+    squareRootCanonicalRoughCorrelation_eq_physicalFarCensus_sub_root R hR
+  have hfar :=
+    lowWheelFrozenTopFarResidual_eq_roughCorrelation_add_rootCorrection R hR
+  linear_combination -hfar - hcorr
+
 /-- The physical census and the critical correlation differ by only the already
 compiled root-scale correction. -/
 theorem norm_squareRootCanonicalRoughCorrelation_sub_physicalFarCensus_le_eight_root
