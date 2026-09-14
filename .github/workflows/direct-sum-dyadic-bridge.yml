@@ -11,6 +11,7 @@ on:
       - research/DIRECT_SUM_COUPLED_RANGE_EXIT_COLLAPSE.lean
       - research/DIRECT_SUM_FRESH_PRIME_GLOBAL_COLLAPSE.lean
       - research/DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.lean
+      - research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
       - .github/workflows/direct-sum-dyadic-bridge.yml
   workflow_dispatch:
 
@@ -104,5 +105,11 @@ jobs:
             -o .lake/build/lib/lean/research.DIRECT_SUM_FRESH_PRIME_GLOBAL_COLLAPSE.olean \
             research/DIRECT_SUM_FRESH_PRIME_GLOBAL_COLLAPSE.lean
 
-      - name: Kernel-check fresh-prime Stokes pre-square layer
-        run: lake env lean -DwarningAsError=true research/DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.lean
+      - name: Kernel-check fresh-prime Stokes pre-square layer and emit importable olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.olean \
+            research/DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.lean
+
+      - name: Kernel-check canonical descending prime chronology
+        run: lake env lean -DwarningAsError=true research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
