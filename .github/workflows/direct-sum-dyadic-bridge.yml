@@ -115,7 +115,13 @@ jobs:
       - name: Kernel-check canonical descending prime chronology
         run: lake env lean -DwarningAsError=true research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
 
-      - name: Emit #706 q2-tail interface for CORR-4
+      - name: Emit global correlation bounds interface
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.CANONICAL_ROUGH_GLOBAL_BOUNDS.olean \
+            research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+
+      - name: Emit merged q2-tail interface for CORR-4
         run: |
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.CANONICAL_ROUGH_Q2_TAIL_REDUCTION.olean \
