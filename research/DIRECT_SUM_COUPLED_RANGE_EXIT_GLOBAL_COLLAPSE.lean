@@ -10,6 +10,7 @@ non-threshold range-exit contribution is already zero.  This file packages that
 local statement over a complete descending schedule while keeping track of the
 literal processed prefix.  The result identifies the surviving fresh-prime
 threshold ledger with the canonical rough correlation exactly, before norms.
+The final two theorems are the deterministic normal form used by FRESH-4.
 -/
 
 noncomputable section
