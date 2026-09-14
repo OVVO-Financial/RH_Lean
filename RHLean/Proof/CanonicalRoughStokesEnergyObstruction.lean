@@ -1,5 +1,6 @@
 import RHLean.Proof.PostRootPartnerEulerMemory
 import RHLean.Proof.SignedTransportAmplificationAudit
+import RHLean.Proof.PostRootPartnerLogAlignment
 
 /-!
 # The reciprocal Stokes step need not decrease physical energy
@@ -167,5 +168,71 @@ theorem canonicalRoughInitialReciprocalEulerNext_energy_increases :
   rw [canonicalRoughCorrelation_56_eq_neg_eight,
     canonicalRoughInitialReciprocalEulerNext_56_3121]
   norm_num [norm_div]
+
+/-! ## Exact cancellation of the nonrecursive q² scalar owner tail
+
+This is the positive counterpart to the Stokes obstruction above.  The q²
+Mertens owner index must not be identified with the chronological Stokes prime.
+Nevertheless, on the actual ownerwise q² synthesis an owner satisfying
+`R ≤ q²` has cutoff `Y_q < R`, so its far-prime high-transport range is empty.
+The remaining scalar daughter cancels exactly against `NearHigh - Go` before
+any norm is taken.  The stable-far crossing-renewal/terminal seam is deliberately
+not included in this pointwise statement.
+-/
+
+/-- A q² owner at or beyond the square-root owner threshold has no far-prime
+high-transport population. -/
+theorem q2DaughterFarHighTransport_eq_zero_of_root_le_square
+    {R q : ℕ} (hR : 2 ≤ R) (hq : q.Prime) (hRq2 : R ≤ q * q) :
+    q2DaughterFarHighTransport R q = 0 := by
+  have hden : 0 < q * q := Nat.mul_pos hq.pos hq.pos
+  have hXlt : squareRootEndpoint R < R * R := by
+    unfold squareRootEndpoint
+    rw [pow_two]
+    have hpos : 0 < R * R := Nat.mul_pos (by omega) (by omega)
+    exact Nat.sub_lt hpos (by norm_num)
+  have hmul : R * R ≤ R * (q * q) :=
+    Nat.mul_le_mul_left R hRq2
+  have hYlt : squareRootEndpoint R / (q * q) < R := by
+    apply (Nat.div_lt_iff_lt_mul hden).2
+    exact hXlt.trans_le hmul
+  have hempty :
+      frozenPrimeUniverseHighPrimeSet (R + 7)
+          (squareRootEndpoint R / (q * q)) = ∅ := by
+    apply Finset.eq_empty_iff_forall_notMem.mpr
+    intro p hp
+    have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp hp
+    have hpLower : R + 7 < p := hpData.2.1
+    have hpUpper : p ≤ squareRootEndpoint R / (q * q) := hpData.2.2
+    omega
+  unfold q2DaughterFarHighTransport
+  rw [hempty]
+  simp
+
+/-- Hence `NearHigh` is the complete high-transport column on such an owner. -/
+theorem q2DaughterNearHighTransport_eq_highTransport_of_root_le_square
+    {R q : ℕ} (hR : 2 ≤ R) (hq : q.Prime) (hRq2 : R ≤ q * q) :
+    q2DaughterNearHighTransport R q =
+      q2DaughterHighTransport q (squareRootEndpoint R) := by
+  unfold q2DaughterNearHighTransport
+  rw [q2DaughterFarHighTransport_eq_zero_of_root_le_square hR hq hRq2]
+  ring
+
+/-- **Exact high-q² scalar cancellation.**  The Mertens daughter plus its
+matching near-high transport minus the Go source is identically zero whenever
+`R ≤ q²`.  No lower-envelope estimate, Stokes diagonal estimate, or norm is
+used. -/
+theorem highQ2Owner_mertens_add_near_sub_go_eq_zero
+    {R q : ℕ} (hR : 2 ≤ R) (hq : q.Prime) (hRq2 : R ≤ q * q) :
+    (((mertensSummatoryInt (squareRootEndpoint R / (q * q)) : ℤ) : ℂ)) +
+        (((q2DaughterNearHighTransport R q : ℤ) : ℂ)) -
+        (((squareRootLowPrimeGoWallSquareResidual q
+          (squareRootEndpoint R) : ℤ) : ℂ)) = 0 := by
+  rw [q2DaughterNearHighTransport_eq_highTransport_of_root_le_square
+    hR hq hRq2,
+    q2DaughterHighTransport_eq_go_sub_mertens_all
+      (q := q) (X := squareRootEndpoint R) hq]
+  push_cast
+  ring
 
 end RHLean.Proof
