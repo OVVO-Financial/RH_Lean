@@ -25,6 +25,8 @@ theorem norm_stableFarQ2LogFrequencyMultiplier
     (tau : ℝ) (q : ℕ) :
     ‖stableFarQ2LogFrequencyMultiplier tau q‖ = 1 := by
   unfold stableFarQ2LogFrequencyMultiplier stableFarLogFrequencyMode
+  let u : ℝ := tau * (-(2 * Real.log (q : ℝ)))
+  change ‖Complex.exp (Complex.I * (u : ℂ))‖ = 1
   rw [Complex.norm_exp]
   simp
 
@@ -41,6 +43,7 @@ theorem stableFarCriticalQ2LogMultiplier_eq_reciprocal_phase
   have hqR : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hq
   rw [Real.exp_neg, Real.exp_log hqR]
   push_cast
+  simp [one_div]
 
 /-- The critical q² multiplier contracts amplitude by exactly `1/q`. -/
 theorem norm_stableFarCriticalQ2LogMultiplier
