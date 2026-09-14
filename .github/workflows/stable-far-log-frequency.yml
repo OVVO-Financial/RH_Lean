@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
+      - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
       - .github/workflows/stable-far-log-frequency.yml
   workflow_dispatch:
 
@@ -27,7 +28,7 @@ jobs:
       - uses: leanprover/lean-action@v1
         with:
           use-github-cache: false
-          use-mathlib-cache: true
+          use_mathlib_cache: true
           build: false
           test: false
           lint: false
@@ -64,3 +65,6 @@ jobs:
 
       - name: Kernel-check exact log-frequency diagonalization
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
+
+      - name: Kernel-check Perron returned-fibre interface
+        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
