@@ -17,6 +17,7 @@ on:
       - research/HALF_ROOT_PAIR_COLUMN_CANCELLATION.lean
       - research/HALF_ROOT_SQUARE_CORRECTION_BOUND.lean
       - research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean
+      - research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
       - research/STABLE_FAR_RETURNED_FIBER_FUBINI.lean
       - .github/workflows/proper-subwheel-depth-two.yml
   workflow_dispatch:
@@ -122,5 +123,8 @@ jobs:
       - name: Kernel-check signed boundary-base telescope
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.HALF_ROOT_BOUNDARY_BASE_TELESCOPE.olean research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean
 
-      - name: Kernel-check stable-far returned-fiber Fubini
+      - name: Kernel-check stable-far returned-fiber core
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.STABLE_FAR_RETURNED_FIBER_PRODUCTION.olean research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+
+      - name: Kernel-check stable-far physical multiplicity bridge
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.STABLE_FAR_RETURNED_FIBER_FUBINI.olean research/STABLE_FAR_RETURNED_FIBER_FUBINI.lean
