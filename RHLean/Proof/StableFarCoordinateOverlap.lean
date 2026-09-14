@@ -2,6 +2,7 @@ import RHLean.Proof.StableFarOwnedSmoothShellCompletion
 import RHLean.Proof.LowWheelCanonicalDefectReduction
 import RHLean.Proof.SquareRootLowPrimeFirstOwnerWallRecurrence
 import RHLean.Proof.MatchedFarSurvivorBridge
+import RHLean.Proof.FinalCompensatedParentReduction
 import RHLean.Analysis.PrimeSieveCollapseIdentity
 import RHLean.Arithmetic.SquarefreePrimeFaceSurjectivity
 
@@ -139,6 +140,7 @@ theorem lowWheelFrozenTopFarSmoothShell_mass_eq_fixedLedger
   rw [frozenPrimeUniverseWindowMass_eq_sub]
   · rw [lowWheelCanonicalFixedLedger_eq_frozenDifference R hR]
     push_cast
+    rfl
   · have hquad : R + 1 ≤ R ^ 2 := by nlinarith
     unfold squareRootEndpoint
     omega
@@ -157,7 +159,7 @@ involution. -/
 theorem lowWheelInternalMate_add_topImage_eq_fixedLedger
     (R : ℕ) (hR : 56 ≤ R) :
     lowWheelCanonicalRepeatedTerminalInternalMateLedger R +
-        lowWheelFrozenCofactorTopImageLedger R =
+        FrozenCofactorTopBottom.lowWheelFrozenCofactorTopImageLedger R =
       lowWheelCanonicalFixedLedger R := by
   rw [lowWheelInternalMate_add_topImage_eq_ownedProductMass R,
     lowWheelFrozenTopFarOwnedProducts_mass_eq_fixedLedger R hR]
@@ -202,7 +204,7 @@ theorem lowWheelCanonicalDowncrossUniqueParentLedger_eq_squareRootERuniq
     lowWheelCanonicalDowncrossUniqueParentLedger R = squareRootERuniq R := by
   have hdef := lowWheelCanonicalDefectLedger_eq_frozenTopFarResidual_add_rootTerms R hR
   have hfar := lowWheelFrozenTopFarResidual_eq_canonicalDefect_sub_nearTransport R hR
-  linear_combination hdef + hfar
+  linear_combination -hdef - hfar
 
 /-- Consequently the final root boundary loses two previously independent
 root-scale bookkeeping terms. -/
