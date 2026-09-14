@@ -8,6 +8,7 @@ on:
       - RHLean/Proof/StableFarOwnedSmoothShell.lean
       - RHLean/Proof/StableFarOwnedSmoothShellCompletion.lean
       - RHLean/Proof/StableFarCoordinateOverlap.lean
+      - RHLean/Proof/StableFarAdaptiveLedgerCollapse.lean
       - .github/workflows/stable-far-owner-first-collapse.yml
   workflow_dispatch:
 
@@ -69,4 +70,4 @@ jobs:
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_OWNER_FIRST_COLLAPSE.lean
 
       - name: Build promoted stable-far coordinate synthesis
-        run: lake build RHLean.Proof.StableFarCoordinateOverlap
+        run: lake build RHLean.Proof.StableFarAdaptiveLedgerCollapse
