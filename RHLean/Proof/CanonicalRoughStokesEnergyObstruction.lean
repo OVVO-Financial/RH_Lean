@@ -63,8 +63,7 @@ theorem roughPrimePartnerSet_one_eq_primeInterval
   ext q
   rw [mem_squareRootCanonicalRoughPrimePartnerSet_iff hR (by omega),
     Finset.mem_filter, Finset.mem_Icc]
-  simp only [canonicalLargestPrimeFactor, lt_self_iff_false, dif_neg,
-    one_mul]
+  simp only [canonicalLargestPrimeFactor, lt_self_iff_false, one_mul]
   constructor
   · rintro ⟨hq, _hrough, hlow, hhigh⟩
     exact ⟨⟨hlow, hhigh⟩, hq⟩
@@ -122,7 +121,10 @@ theorem canonicalRoughCorrelation_56_eq_neg_eight :
   have hsmall : mertensSummatoryInt 55 = -2 := by native_decide
   have hlarge : mertensSummatoryInt 3135 = 6 := by native_decide
   rw [squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint 56 (by omega)]
-  norm_num [squareRootEndpoint, ← mertensSummatoryInt_cast, hsmall, hlarge]
+  change mertensSummatory 55 - mertensSummatory 3135 = (-8 : ℂ)
+  rw [← mertensSummatoryInt_cast 55, ← mertensSummatoryInt_cast 3135,
+    hsmall, hlarge]
+  norm_num
 
 /-- The first boundary is a positive prime count, despite the negative parent. -/
 theorem initialRawBoundary_56_3121_eq_429 :
