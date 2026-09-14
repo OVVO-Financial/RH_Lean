@@ -6,6 +6,7 @@ on:
       - RHLean/Proof/CanonicalRoughStokesEnergyObstruction.lean
       - research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
       - research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+      - research/CANONICAL_ROUGH_CORRELATION_STRONG_GLOBAL_BOUND.lean
       - research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
       - research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
       - research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
@@ -72,6 +73,9 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.CANONICAL_ROUGH_GLOBAL_BOUNDS.olean \
             research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+
+      - name: Kernel-check unconditional strong global correlation bound
+        run: lake env lean -DwarningAsError=true research/CANONICAL_ROUGH_CORRELATION_STRONG_GLOBAL_BOUND.lean
 
       - name: Emit milestone-2 q2-tail reduction olean
         run: |
