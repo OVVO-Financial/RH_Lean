@@ -52,7 +52,6 @@ theorem lowWheelFarPrimeQ2CrossingOwner_div_square_eq_zero
   have hTq : T < q * q := by
     rw [← pow_two]
     exact hTlt.trans_le hsqle
-  dsimp [T]
   exact Nat.div_eq_of_lt hTq
 
 /-- The entire local q^2 daughter column in the returned-owner telescope
