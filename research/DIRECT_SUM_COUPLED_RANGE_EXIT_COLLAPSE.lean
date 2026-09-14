@@ -41,7 +41,8 @@ theorem evolvedRawCoefficient_eq_zero_of_larger_partner_of_completeDescendingPre
   let U0 : Finset ℕ := Finset.Icc 1 (squareRootEndpoint R)
   let V : Finset ℕ := squareRootCanonicalRoughAdaptiveCarrier pre U0
   have hroughQ : canonicalLargestPrimeFactor c < q := hrough.trans hpq
-  have hc_le_cq : c ≤ c * q := Nat.le_mul_of_pos_right c hq.pos
+  have hc_le_cq : c ≤ c * q := by
+    simpa [Nat.mul_comm] using Nat.le_mul_of_pos_right c hq.pos
   have hcU0 : c ∈ U0 := by
     apply Finset.mem_Icc.mpr
     exact ⟨by omega, hc_le_cq.trans hcqUpper⟩
