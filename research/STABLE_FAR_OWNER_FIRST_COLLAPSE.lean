@@ -49,6 +49,7 @@ theorem stableFar_ownerFirst_returnedWindows_eq_unitWindow_sub_parent
       frozenPrimeUniverseWindowMass (primesUpTo 1)
         (X / (q * q * p)) (X / (q * p)) -
       frozenPrimeUniverseMass (primesUpTo q) (X / (q * p)) := by
+  have hq2 : 2 ≤ q := hq.two_le
   have h1q : 1 ≤ q - 1 := by omega
   let A : ℕ := X / (q * q * p)
   let B : ℕ := X / (q * p)
@@ -212,7 +213,6 @@ theorem stableFarOldOwnerCrossingCofactorMass_eq_parent
   rw [hBdiv] at hstep
   unfold stableFarOldOwnerCrossingCofactorMass
     stableFarOldOwnerCrossingCofactors
-  rw [hUpper, hLower]
   have hdiff :
       (∑ d ∈ squareRootLowPrimeGoSmoothCofactors q
           (squareRootEndpoint R / (q * p)) \
@@ -222,6 +222,7 @@ theorem stableFarOldOwnerCrossingCofactorMass_eq_parent
             (squareRootEndpoint R / (q * p)) -
           frozenPrimeUniverseMass (primesUpTo (q - 1))
             (squareRootEndpoint R / (q * q * p)) := by
+    rw [hUpper, hLower]
     exact (eq_sub_iff_add_eq).2 hsum
   rw [hdiff]
   exact hstep.symm
