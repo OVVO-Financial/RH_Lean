@@ -63,8 +63,12 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Kernel-check direct-sum deterministic bridge
-        run: lake env lean -DwarningAsError=true research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean
+      - name: Kernel-check direct-sum deterministic bridge and emit importable olean
+        run: |
+          mkdir -p .lake/build/lib/lean/research
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.olean \
+            research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean
 
       - name: Kernel-check low freshness boundary-free Abel layer
         run: lake env lean -DwarningAsError=true research/DIRECT_SUM_LOW_FRESHNESS_ABEL.lean
