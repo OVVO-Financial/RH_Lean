@@ -14,9 +14,10 @@ critical envelope at the parent root and is therefore not a genuinely recursive
 obstruction.  This file proves that the entire `q^2 >= R` owner tail costs only
 `3 R^2 K` in the native raw daughter energy.
 
-Consequently any fixed-coefficient global parent estimate only needs new
-arithmetic input on the low-owner sector `q^2 < R`; the complementary owner tail
-is an admissible root-scale boundary.
+Consequently, for every fixed nonnegative coefficient `A`, existence of a global
+`A * Q_R + C R^2 K` correlation bound is equivalent to existence of the same
+`A` bound using only the low-owner sector `q^2 < R`; only the boundary constant
+changes, by at most `3*A`.
 -/
 
 noncomputable section
@@ -154,5 +155,115 @@ theorem canonicalRoughHighQ2DaughterEnergy_le_three_root_sq_K
     _ ≤ (R : ℝ) * (3 * K * (R : ℝ)) := by
       exact mul_le_mul_of_nonneg_right hcard hfactor
     _ = 3 * (R : ℝ) ^ 2 * K := by ring
+
+/-- The high-owner set is literally a subset of the full odd-owner schedule. -/
+theorem canonicalRoughHighQ2Owners_subset_oddOwners (R : ℕ) :
+    canonicalRoughHighQ2Owners R ⊆ (primesUpTo (R - 1)).erase 2 := by
+  intro q hq
+  exact (Finset.mem_filter.mp hq).1
+
+/-- **Exact q² energy split.**  The native FAR daughter energy is the sum of the
+genuinely recursive `q² < R` sector and the lower-envelope `q² >= R` tail. -/
+theorem canonicalRoughLow_add_high_Q2Energy_eq_full (R : ℕ) :
+    canonicalRoughLowQ2DaughterEnergy R +
+        canonicalRoughHighQ2DaughterEnergy R =
+      farFourOddQ2DaughterEnergy R := by
+  have hsub := canonicalRoughHighQ2Owners_subset_oddOwners R
+  have hs := Finset.sum_sdiff hsub
+    (f := fun q => rawQ2ChildEnergyReal R q)
+  simpa [canonicalRoughLowQ2DaughterEnergy,
+    canonicalRoughHighQ2DaughterEnergy, canonicalRoughLowQ2Owners,
+    farFourOddQ2DaughterEnergy] using hs
+
+/-- Both sectors carry nonnegative energy. -/
+theorem canonicalRoughHighQ2DaughterEnergy_nonneg (R : ℕ) :
+    0 ≤ canonicalRoughHighQ2DaughterEnergy R := by
+  unfold canonicalRoughHighQ2DaughterEnergy
+  apply Finset.sum_nonneg
+  intro q hq
+  unfold rawQ2ChildEnergyReal
+  positivity
+
+theorem canonicalRoughLowQ2DaughterEnergy_nonneg (R : ℕ) :
+    0 ≤ canonicalRoughLowQ2DaughterEnergy R := by
+  unfold canonicalRoughLowQ2DaughterEnergy
+  apply Finset.sum_nonneg
+  intro q hq
+  unfold rawQ2ChildEnergyReal
+  positivity
+
+/-- Full all-owner fixed-coefficient correlation estimate. -/
+def CanonicalRoughCorrelationQ2EnergyStatementWith (A C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    56 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 ≤
+      A * farFourOddQ2DaughterEnergy R + C * (R : ℝ) ^ 2 * K
+
+/-- The same estimate with only the genuinely recursive owners `q² < R`. -/
+def CanonicalRoughCorrelationLowQ2EnergyStatementWith (A C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    56 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 ≤
+      A * canonicalRoughLowQ2DaughterEnergy R + C * (R : ℝ) ^ 2 * K
+
+/-- A low-owner estimate immediately gives the full estimate with the same
+constants, because the discarded high-owner energy is nonnegative. -/
+theorem correlationLowQ2Energy_implies_full
+    {A C : ℝ} (hA : 0 ≤ A)
+    (hlow : CanonicalRoughCorrelationLowQ2EnergyStatementWith A C) :
+    CanonicalRoughCorrelationQ2EnergyStatementWith A C := by
+  intro R K hR hK
+  have h := hlow R K hR hK
+  have hsplit := canonicalRoughLow_add_high_Q2Energy_eq_full R
+  have hhigh0 := canonicalRoughHighQ2DaughterEnergy_nonneg R
+  have hmono :
+      A * canonicalRoughLowQ2DaughterEnergy R ≤
+        A * farFourOddQ2DaughterEnergy R := by
+    apply mul_le_mul_of_nonneg_left _ hA
+    linarith
+  exact h.trans (add_le_add_right hmono _)
+
+/-- Conversely, a full estimate with coefficient `A` localizes to the low-owner
+sector with the *same A*; the entire high-owner tail merely adds `3*A` to the
+root-scale boundary constant. -/
+theorem correlationFullQ2Energy_implies_low
+    {A C : ℝ} (hA : 0 ≤ A)
+    (hfull : CanonicalRoughCorrelationQ2EnergyStatementWith A C) :
+    CanonicalRoughCorrelationLowQ2EnergyStatementWith A (C + 3 * A) := by
+  intro R K hR hK
+  have h := hfull R K hR hK
+  have hsplit := canonicalRoughLow_add_high_Q2Energy_eq_full R
+  have htail := canonicalRoughHighQ2DaughterEnergy_le_three_root_sq_K
+    (R := R) (K := K) (by omega) hK
+  have hweighted := mul_le_mul_of_nonneg_left htail hA
+  calc
+    ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 ≤
+        A * farFourOddQ2DaughterEnergy R + C * (R : ℝ) ^ 2 * K := h
+    _ = A * canonicalRoughLowQ2DaughterEnergy R +
+          A * canonicalRoughHighQ2DaughterEnergy R +
+          C * (R : ℝ) ^ 2 * K := by rw [← hsplit]; ring
+    _ ≤ A * canonicalRoughLowQ2DaughterEnergy R +
+          A * (3 * (R : ℝ) ^ 2 * K) +
+          C * (R : ℝ) ^ 2 * K := by
+            exact add_le_add_right (add_le_add_left hweighted _) _
+    _ = A * canonicalRoughLowQ2DaughterEnergy R +
+          (C + 3 * A) * (R : ℝ) ^ 2 * K := by ring
+
+/-- **Fixed-A localization theorem.**  For every nonnegative coefficient `A`,
+there is a global all-owner `A` bound iff there is a global low-owner `A` bound.
+The nonrecursive owner tail cannot be the obstruction to any fixed constant. -/
+theorem exists_fullQ2Energy_iff_exists_lowQ2Energy
+    {A : ℝ} (hA : 0 ≤ A) :
+    (∃ C : ℝ, 0 ≤ C ∧ CanonicalRoughCorrelationQ2EnergyStatementWith A C) ↔
+      (∃ C : ℝ, 0 ≤ C ∧
+        CanonicalRoughCorrelationLowQ2EnergyStatementWith A C) := by
+  constructor
+  · rintro ⟨C, hC, hfull⟩
+    refine ⟨C + 3 * A, by positivity, ?_⟩
+    exact correlationFullQ2Energy_implies_low hA hfull
+  · rintro ⟨C, hC, hlow⟩
+    exact ⟨C, hC, correlationLowQ2Energy_implies_full hA hlow⟩
 
 end RHLean.Proof
