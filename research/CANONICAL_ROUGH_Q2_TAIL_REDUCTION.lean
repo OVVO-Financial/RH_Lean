@@ -115,8 +115,12 @@ theorem card_canonicalRoughHighQ2Owners_le_root (R : ℕ) :
   have hsub : canonicalRoughHighQ2Owners R ⊆ Finset.range R := by
     intro q hq
     have hbase := (Finset.mem_filter.mp hq).1
-    have hqle := (mem_primesUpTo.mp (Finset.mem_erase.mp hbase).2).2
-    exact Finset.mem_range.mpr (by omega)
+    rcases mem_primesUpTo.mp (Finset.mem_erase.mp hbase).2 with
+      ⟨hqPrime, hqle⟩
+    have hqR : q < R := by
+      have hqpos : 0 < q := hqPrime.pos
+      omega
+    exact Finset.mem_range.mpr hqR
   simpa using Finset.card_le_card hsub
 
 /-- **Milestone-2 tail theorem.**  The entire q^2 owner tail with `q^2 >= R`
@@ -134,6 +138,10 @@ theorem canonicalRoughHighQ2DaughterEnergy_le_three_root_sq_K
   have hcardNat := card_canonicalRoughHighQ2Owners_le_root R
   have hcard : ((canonicalRoughHighQ2Owners R).card : ℝ) ≤ (R : ℝ) := by
     exact_mod_cast hcardNat
+  have hfactor : 0 ≤ 3 * K * (R : ℝ) := by
+    have hK0 : 0 ≤ K := hK.1
+    have hR0 : 0 ≤ (R : ℝ) := by positivity
+    exact mul_nonneg (mul_nonneg (by norm_num) hK0) hR0
   unfold canonicalRoughHighQ2DaughterEnergy
   calc
     (∑ q ∈ canonicalRoughHighQ2Owners R, rawQ2ChildEnergyReal R q) ≤
@@ -144,7 +152,7 @@ theorem canonicalRoughHighQ2DaughterEnergy_le_three_root_sq_K
     _ = ((canonicalRoughHighQ2Owners R).card : ℝ) *
           (3 * K * (R : ℝ)) := by simp
     _ ≤ (R : ℝ) * (3 * K * (R : ℝ)) := by
-      exact mul_le_mul_of_nonneg_right hcard (by positivity)
+      exact mul_le_mul_of_nonneg_right hcard hfactor
     _ = 3 * (R : ℝ) ^ 2 * K := by ring
 
 end RHLean.Proof
