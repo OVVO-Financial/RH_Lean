@@ -143,7 +143,7 @@ private theorem sum_Icc_two_add_mul_forwardDifference
   | succ k ih =>
       rw [Finset.sum_Icc_succ_top (by omega : 2 ≤ k + 3),
         Finset.sum_Icc_succ_top (by omega : 3 ≤ k + 3), ih]
-      have hidx : 3 + k - 1 = 2 + k := by omega
+      have hidx : k + 2 + 1 - 1 = k + 2 := by omega
       rw [hidx]
       ring
 
