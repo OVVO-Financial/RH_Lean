@@ -774,6 +774,9 @@ import RHLean.Proof.SquareRootTruncatedPacketEquivalences
 import RHLean.Proof.SquareWheelSurvivorOwnerResidual
 import RHLean.Proof.SquareWheelSurvivorProcessedResponseBridge
 import RHLean.Proof.SquareWheelSurvivorShallowBridge
+import RHLean.Proof.StableFarCoordinateOverlap
+import RHLean.Proof.StableFarOwnedSmoothShell
+import RHLean.Proof.StableFarOwnedSmoothShellCompletion
 import RHLean.Proof.StableFarPrimeWallTransport
 import RHLean.Proof.StableFarWallAdaptiveFourCornerBridge
 import RHLean.Proof.StableFarWallCrossingOwnerWindow
