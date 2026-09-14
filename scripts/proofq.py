@@ -878,6 +878,18 @@ def cmd_frontier(g: KnowledgeGraph, args) -> int:
     for target in targets:
         carriers = g.carriers(target)
         if not carriers:
+            # Silently skipping here is the worst thing this command can do: an
+            # empty report reads as "nothing to find" when it actually means the
+            # facet vocabulary has no word for this proposition yet. Say so.
+            print(f"OPEN  {target}")
+            print( "      no carrier tag: the semantic vocabulary in "
+                   "scripts/semantic_facets.json does not cover this")
+            print( "      proposition's terminology, so no carrier search is "
+                   "possible. Add a carrier")
+            print( "      value for it there to enable this query. This is not "
+                   "a statement that no")
+            print( "      related machinery exists.")
+            print()
             continue
         cone = g.ancestors(target) | {target}
         cands = []

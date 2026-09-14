@@ -270,6 +270,218 @@
             "fibre"
           ]
         ]
+      },
+      "post-root-covariance": {
+        "tokens": [
+          [
+            "post",
+            "covariance"
+          ],
+          [
+            "post",
+            "root",
+            "covariance"
+          ]
+        ]
+      },
+      "post-root-partner": {
+        "tokens": [
+          [
+            "post",
+            "partner"
+          ]
+        ]
+      },
+      "stable-far-wall": {
+        "tokens": [
+          [
+            "stable",
+            "far"
+          ],
+          [
+            "far",
+            "wall"
+          ],
+          [
+            "wall",
+            "crossing"
+          ]
+        ]
+      },
+      "frozen-cofactor": {
+        "tokens": [
+          [
+            "frozen",
+            "cofactor"
+          ]
+        ]
+      },
+      "frozen-contact": {
+        "tokens": [
+          [
+            "frozen",
+            "contact"
+          ],
+          [
+            "second",
+            "contact"
+          ]
+        ]
+      },
+      "frozen-square-residual": {
+        "tokens": [
+          [
+            "frozen",
+            "square"
+          ],
+          [
+            "frozen",
+            "residual"
+          ]
+        ]
+      },
+      "exceptional-frame": {
+        "tokens": [
+          [
+            "exceptional"
+          ]
+        ]
+      },
+      "adaptive-rough": {
+        "tokens": [
+          [
+            "adaptive"
+          ]
+        ]
+      },
+      "first-jump": {
+        "tokens": [
+          [
+            "first",
+            "jump"
+          ]
+        ]
+      },
+      "q2-tower": {
+        "tokens": [
+          [
+            "q2"
+          ]
+        ]
+      },
+      "outside-prime": {
+        "tokens": [
+          [
+            "outside",
+            "prime"
+          ]
+        ]
+      },
+      "rough-seat": {
+        "tokens": [
+          [
+            "rough",
+            "seat"
+          ]
+        ]
+      },
+      "partial-moment": {
+        "tokens": [
+          [
+            "partial",
+            "moment"
+          ],
+          [
+            "schur"
+          ]
+        ]
+      },
+      "record-absorption": {
+        "tokens": [
+          [
+            "record"
+          ]
+        ]
+      },
+      "renewal": {
+        "tokens": [
+          [
+            "renewal"
+          ]
+        ]
+      },
+      "log-weighted": {
+        "tokens": [
+          [
+            "log",
+            "weighted"
+          ],
+          [
+            "log",
+            "alignment"
+          ],
+          [
+            "log",
+            "square"
+          ]
+        ]
+      },
+      "compression": {
+        "tokens": [
+          [
+            "compression"
+          ]
+        ]
+      },
+      "owner-census": {
+        "tokens": [
+          [
+            "owner"
+          ],
+          [
+            "owned"
+          ]
+        ]
+      },
+      "native-pnt": {
+        "tokens": [
+          [
+            "native",
+            "pnt"
+          ],
+          [
+            "pnt"
+          ]
+        ]
+      },
+      "k2-centered": {
+        "tokens": [
+          [
+            "k2"
+          ]
+        ]
+      },
+      "physical-degree-one": {
+        "tokens": [
+          [
+            "physical",
+            "degree"
+          ],
+          [
+            "degree",
+            "one"
+          ]
+        ]
+      },
+      "prime-spacing": {
+        "tokens": [
+          [
+            "spacing"
+          ],
+          [
+            "spaced"
+          ]
+        ]
       }
     },
     "weight": {
@@ -356,6 +568,34 @@
         "tokens": [
           [
             "density"
+          ]
+        ]
+      },
+      "charge": {
+        "tokens": [
+          [
+            "charge"
+          ]
+        ]
+      },
+      "innovation": {
+        "tokens": [
+          [
+            "innovation"
+          ]
+        ]
+      },
+      "flux": {
+        "tokens": [
+          [
+            "flux"
+          ]
+        ]
+      },
+      "envelope": {
+        "tokens": [
+          [
+            "envelope"
           ]
         ]
       }
@@ -618,5 +858,8 @@
         "inductive"
       ]
     }
-  }
+  },
+  "provenance": [
+    "Carrier and weight values were extended after PR #705 from the 103 modules added to RHLean/ since PR #585; token groups come from those module names."
+  ]
 }
