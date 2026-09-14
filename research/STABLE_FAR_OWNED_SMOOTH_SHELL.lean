@@ -75,6 +75,7 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
     (hy : (t, (1, p)) ∈ orderedEulerCutCarrier R)
     (hpR : p ≤ R) :
     (t, (1, p)) ∈ lowWheelCanonicalRepeatedTerminalInternalPart R := by
+  have hR2 : 2 ≤ R := by omega
   have hshape := orderedEulerCutShape_of_mem_carrier hy
   have hocc := mem_orderedEulerCutCarrier.mp hy
   have hp : p.Prime := hshape.1
@@ -117,16 +118,19 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
         have h3top : 3 * primeFaceProduct t ≤ squareRootEndpoint R := by
           have h3R : 3 * R ≤ squareRootEndpoint R := by
             unfold squareRootEndpoint
-            nlinarith
+            have hs : 3 * R + 1 ≤ R ^ 2 := by nlinarith
+            exact Nat.le_sub_of_add_le hs
           exact (Nat.mul_le_mul_left 3 hmR).trans h3R
         have hz := terminal_altPivot_mem_taggedDowncross
-          (R := R) (q := 3) hR.le ht hmR (by norm_num) h3root h3top
+          (R := R) (q := 3) hR2 ht hmR (by norm_num) h3root h3top
         have hzPivot : lowWheelCanonicalCofactorQuotientPivot (1, 3) = 3 := by
           norm_num [lowWheelCanonicalCofactorQuotientPivot]
         have hparent :
             lowWheelCanonicalDowncrossParent (t, (1, 3)) =
               lowWheelCanonicalDowncrossParent (t, (1, p)) := by
-          simp [lowWheelCanonicalDowncrossParent, hzPivot, hpivot]
+          rw [lowWheelCanonicalDowncrossParent, lowWheelCanonicalDowncrossParent,
+            hzPivot, hpivot, Nat.div_self (by norm_num : 0 < (3 : ℕ)),
+            Nat.div_self hp.pos, Nat.mul_one, Nat.mul_one]
         have heq := hunique (t, (1, 3)) hz hparent
         have hqp := congrArg (fun z : LowWheelTaggedDowncrossState => z.2.2) heq
         simp [hp2] at hqp
@@ -139,13 +143,15 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
             Nat.mul_le_mul_right (primeFaceProduct t) hp.two_le
           exact hle.trans hchildTop
         have hz := terminal_altPivot_mem_taggedDowncross
-          (R := R) (q := 2) hR.le ht hmR (by norm_num) h2root h2top
+          (R := R) (q := 2) hR2 ht hmR (by norm_num) h2root h2top
         have hzPivot : lowWheelCanonicalCofactorQuotientPivot (1, 2) = 2 := by
           norm_num [lowWheelCanonicalCofactorQuotientPivot]
         have hparent :
             lowWheelCanonicalDowncrossParent (t, (1, 2)) =
               lowWheelCanonicalDowncrossParent (t, (1, p)) := by
-          simp [lowWheelCanonicalDowncrossParent, hzPivot, hpivot]
+          rw [lowWheelCanonicalDowncrossParent, lowWheelCanonicalDowncrossParent,
+            hzPivot, hpivot, Nat.div_self (by norm_num : 0 < (2 : ℕ)),
+            Nat.div_self hp.pos, Nat.mul_one, Nat.mul_one]
         have heq := hunique (t, (1, 2)) hz hparent
         have hqp := congrArg (fun z : LowWheelTaggedDowncrossState => z.2.2) heq
         simp at hqp
@@ -156,23 +162,39 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
         have hpmul : p * primeFaceProduct t < q * primeFaceProduct t :=
           Nat.mul_lt_mul_of_pos_right hpq hmpos
         exact hroot.trans hpmul
+      have hqne : q ≠ 2 * p := by
+        intro heq
+        have h2dvd : 2 ∣ q := by
+          rw [heq]
+          exact dvd_mul_right 2 p
+        have h2q : 2 = q :=
+          (Nat.prime_dvd_prime_iff_eq Nat.prime_two hqPrime).mp h2dvd
+        have hp1 : p = 1 := by omega
+        exact hp.ne_one hp1
+      have hq2pLt : q < 2 * p := by omega
       have hqtop : q * primeFaceProduct t ≤ squareRootEndpoint R := by
         have hqmul : q * primeFaceProduct t <
             (2 * p) * primeFaceProduct t :=
-          Nat.mul_lt_mul_of_pos_right hq2p hmpos
+          Nat.mul_lt_mul_of_pos_right hq2pLt hmpos
         have h2pmul : (2 * p) * primeFaceProduct t ≤ R ^ 2 := by
-          nlinarith
+          calc
+            (2 * p) * primeFaceProduct t = p * (2 * primeFaceProduct t) := by ring
+            _ ≤ p * R := Nat.mul_le_mul_left p hsmall
+            _ ≤ R * R := Nat.mul_le_mul_right R hpR
+            _ = R ^ 2 := by ring
         have hlt : q * primeFaceProduct t < R ^ 2 := hqmul.trans_le h2pmul
         unfold squareRootEndpoint
-        omega
+        exact Nat.le_sub_of_add_le (Nat.succ_le_iff.mpr hlt)
       have hz := terminal_altPivot_mem_taggedDowncross
-        (R := R) (q := q) hR.le ht hmR hqPrime hqroot hqtop
+        (R := R) (q := q) hR2 ht hmR hqPrime hqroot hqtop
       have hzPivot : lowWheelCanonicalCofactorQuotientPivot (1, q) = q := by
         simp [lowWheelCanonicalCofactorQuotientPivot, hqPrime.minFac_eq]
       have hparent :
           lowWheelCanonicalDowncrossParent (t, (1, q)) =
             lowWheelCanonicalDowncrossParent (t, (1, p)) := by
-        simp [lowWheelCanonicalDowncrossParent, hzPivot, hpivot]
+        rw [lowWheelCanonicalDowncrossParent, lowWheelCanonicalDowncrossParent,
+          hzPivot, hpivot, Nat.div_self hqPrime.pos, Nat.div_self hp.pos,
+          Nat.mul_one, Nat.mul_one]
       have heq := hunique (t, (1, q)) hz hparent
       have hqp' := congrArg (fun z : LowWheelTaggedDowncrossState => z.2.2) heq
       exact (Nat.ne_of_gt hpq) hqp'
