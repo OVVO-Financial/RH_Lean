@@ -1,5 +1,5 @@
 import Mathlib
-import research.DIRECT_SUM_DYADIC_DISPERSION_BRIDGE
+import «research.DIRECT_SUM_DYADIC_DISPERSION_BRIDGE»
 
 /-!
 # Low-freshness dyadic Abel transform
@@ -79,17 +79,25 @@ theorem directSumLowMaskedAbelPotential_eq_energyPotential
     {R j n : ℕ} (hn : n ∈ Finset.Icc 2 R) :
     directSumLowMaskedAbelPotential R j n = directSumLowBlockAbelPotential R j n := by
   classical
-  unfold directSumLowMaskedAbelPotential directSumLowBlockAbelPotential
-    directSumLowBlockWaveletMask
-  rw [← Finset.sum_filter]
-  apply congrArg Neg.neg
-  apply Finset.sum_congr
-  · ext t
+  have hset :
+      (Finset.Icc 2 (n - 1)).filter (fun t => t ∈ directSumLowDyadicBlock R j) =
+        (directSumLowDyadicBlock R j).filter (fun t => t < n) := by
+    ext t
     simp [directSumLowDyadicBlock]
     omega
-  · intro t ht
-    simp only [Finset.mem_filter] at ht
-    simp [ht.2]
+  unfold directSumLowMaskedAbelPotential directSumLowBlockAbelPotential
+    directSumLowBlockWaveletMask
+  calc
+    -(∑ t ∈ Finset.Icc 2 (n - 1),
+        if t ∈ directSumLowDyadicBlock R j then directSumLowWaveletAtom R t else 0) =
+      -(∑ t ∈ (Finset.Icc 2 (n - 1)).filter
+          (fun t => t ∈ directSumLowDyadicBlock R j), directSumLowWaveletAtom R t) := by
+        rw [Finset.sum_filter]
+    _ = -(∑ t ∈ (directSumLowDyadicBlock R j).filter (fun t => t < n),
+          directSumLowWaveletAtom R t) := by rw [hset]
+    _ = -(∑ t ∈ directSumLowDyadicBlock R j,
+          if t < n then directSumLowWaveletAtom R t else 0) := by
+        rw [Finset.sum_filter]
 
 /-- On the complete physical support, the low Abel potential has the masked
 wavelet as its forward difference. -/
@@ -98,7 +106,6 @@ theorem directSumLowMaskedAbelPotential_forwardDifference
     directSumLowMaskedAbelPotential R j n -
         directSumLowMaskedAbelPotential R j (n + 1) =
       directSumLowBlockWaveletMask R j n := by
-  have hn2 : 2 ≤ n := (Finset.mem_Icc.mp hn).1
   have hpred : n - 1 + 1 = n := Nat.sub_add_cancel (by omega : 1 ≤ n)
   have hsum :
       (∑ t ∈ Finset.Icc 2 n, directSumLowBlockWaveletMask R j t) =
@@ -146,7 +153,9 @@ theorem directSumLowBlockWaveletContribution_eq_boundaryFreeAbel
       ∑ n ∈ Finset.Icc 3 R,
         directSumLowMaskedAbelPotential R j n *
           (directSumLowFreshnessShell R n - directSumLowFreshnessShell R (n - 1)) := by
-  obtain ⟨k, rfl⟩ := Nat.exists_eq_add_of_le hR
+  obtain ⟨k, hk⟩ : ∃ k : ℕ, R = k + 2 := by
+    exact ⟨R - 2, by omega⟩
+  subst R
   have htop := directSumLowMaskedAbelPotential_top_eq_zero (R := k + 2) (j := j) hj
   have hbot : directSumLowMaskedAbelPotential (k + 2) j 2 = 0 := by
     unfold directSumLowMaskedAbelPotential
