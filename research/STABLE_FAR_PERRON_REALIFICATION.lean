@@ -83,13 +83,15 @@ theorem stableFarRealPairToComplex_factorPair (c q : ℝ) :
     stableFarComplexToRealPair (star z) =
       ((stableFarComplexToRealPair z).2,
         (stableFarComplexToRealPair z).1) := by
-  simp [stableFarComplexToRealPair]
+  apply Prod.ext <;>
+    simp [stableFarComplexToRealPair, sub_eq_add_neg]
 
 /-- A conjugate pair lands exactly back on the diagonal. -/
 theorem stableFarComplexToRealPair_add_star (z : ℂ) :
     stableFarComplexToRealPair (z + star z) =
       (2 * z.re, 2 * z.re) := by
-  apply Prod.ext <;> simp [stableFarComplexToRealPair] <;> ring
+  apply Prod.ext <;>
+    simp [stableFarComplexToRealPair, sub_eq_add_neg] <;> ring
 
 /-- Euclidean squared energy on the real pair. -/
 def stableFarRealPairEnergy (v : ℝ × ℝ) : ℝ :=
@@ -245,8 +247,9 @@ theorem stableFarRealComplexMul_star_add_on_diagonal
     let v := stableFarRealComplexMul (star m) (a, a)
     (u.1 + v.1, u.2 + v.2) =
       (2 * m.re * a, 2 * m.re * a) := by
-  simp [stableFarRealComplexMul]
-  ring
+  dsimp
+  apply Prod.ext <;>
+    simp [stableFarRealComplexMul] <;> ring
 
 /-! ## The remaining cross-owner interaction is a real Gram kernel -/
 
@@ -266,7 +269,6 @@ theorem stableFarCriticalQ2RealGramKernel_eq_re_mul_star
       (stableFarCriticalQ2LogMultiplier tau q *
         star (stableFarCriticalQ2LogMultiplier tau r)).re := by
   simp [stableFarCriticalQ2RealGramKernel, Complex.mul_re]
-  ring
 
 /-- Cross-owner Perron interaction of real arithmetic amplitudes is exactly the
 real Gram kernel; no complex norm or triangle inequality has been taken. -/
