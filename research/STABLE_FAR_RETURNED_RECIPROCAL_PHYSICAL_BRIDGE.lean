@@ -58,7 +58,7 @@ private theorem stableFarReturnedReciprocalCrossingColumn_eq_cofactorWeights
       apply Finset.sum_congr rfl
       intro e _he
       by_cases hmem : e ∈ stableFarReturnedCrossingCofactors R r p q
-      · simp [hmem, canonicalMoebiusWeight]
+      · simp [hmem, canonicalMoebiusWeight, _he]
       · simp [hmem]
     _ = ∑ e ∈ stableFarReturnedDescendedCofactors R r p,
         ∑ q ∈ stableFarReturnedOldOwners R r p,
@@ -73,9 +73,6 @@ private theorem stableFarReturnedReciprocalCrossingColumn_eq_cofactorWeights
       rw [lowWheelFarPrimeQ2CrossingNextReciprocalWeight_eq_returnedFilter
         hr hrR hp hpR he]
       rw [← Finset.sum_filter, Finset.sum_mul]
-      apply Finset.sum_congr rfl
-      intro q _hq
-      rfl
 
 /-- **Physical/arithmetic reciprocal returned-fibre bridge.** -/
 theorem stableFarReturnedPhysicalReciprocalCenteredMass_eq_reciprocalCentered
@@ -93,7 +90,7 @@ theorem stableFarReturnedPhysicalReciprocalCenteredMass_eq_reciprocalCentered
   rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro e _he
-  ring
+  simp [canonicalMoebiusWeight]
 
 /-- Raw physical returned centered mass in complex currency. -/
 def stableFarReturnedPhysicalUnitCenteredMass
