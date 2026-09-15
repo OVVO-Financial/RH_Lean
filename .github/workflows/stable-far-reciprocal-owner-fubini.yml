@@ -6,7 +6,7 @@ on:
     paths:
       - research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
       - RHLean/Proof/StableFarWallCrossingOwnerWindow.lean
-      - RHLean/Proof/StableFarWallCrossingRenewal.lean
+      - RHLean/Proof/StableFarWallQ2ChildFarSlice.lean
       - .github/workflows/stable-far-reciprocal-owner-fubini.yml
   workflow_dispatch:
 
@@ -26,5 +26,9 @@ jobs:
           build: false
           test: false
           lint: false
+      - name: Build reciprocal Fubini dependencies
+        run: |
+          lake build RHLean.Proof.StableFarWallCrossingOwnerWindow
+          lake build RHLean.Proof.StableFarWallQ2ChildFarSlice
       - name: Kernel-check reciprocal stable-far Fubini
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
