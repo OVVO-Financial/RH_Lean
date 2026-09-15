@@ -62,8 +62,8 @@ theorem lowOwnerFirstOwnerAdmittedPair_freshPrime_gt_owner
   by_cases hrp : r = p
   · subst r
     rcases hxor with h | h
-    · exact h.1.elim haData.2
-    · exact h.1.elim hbData.2
+    · exact haData.2 h.1
+    · exact hbData.2 h.1
   · have hrlt : r < p := lt_of_le_of_ne hrle hrp
     have hsigEq : squarefreeLowerPrimeSignature p a =
         squarefreeLowerPrimeSignature p b := by
@@ -112,34 +112,41 @@ theorem lowOwnerFirstOwner_primeParent_mem_same_admitted
   have huX : u ≤ squareRootEndpoint R :=
     hua.trans (Finset.mem_Icc.mp haIcc).2
   have hmuU : realMoebiusStep u ≠ 0 := by
-    unfold squarefreePrimeFamilyParent at u
     by_cases hra : r ∣ a
-    · rw [if_pos hra] at u
+    · have huEq : u = a / r := by
+        simp [u, squarefreePrimeFamilyParent, hra]
       have hrnot : ¬ r ∣ a / r :=
         prime_not_dvd_div_of_squarefree hr haSq hra
       have hsign := realMoebiusStep_mul_prime_eq_neg hr hrnot
       have heq : r * (a / r) = a := Nat.mul_div_cancel' hra
       intro hz
+      have hzdiv : realMoebiusStep (a / r) = 0 := by
+        simpa [huEq] using hz
       apply hmuA
-      rw [← heq, hsign, hz, neg_zero]
-    · rw [if_neg hra] at u
-      simpa [u] using hmuA
+      rw [← heq, hsign, hzdiv, neg_zero]
+    · have huEq : u = a := by
+        simp [u, squarefreePrimeFamilyParent, hra]
+      simpa [huEq] using hmuA
   have huCar : u ∈ lowOwnerNonzeroMobiusCarrier R :=
     Finset.mem_filter.mpr
       ⟨Finset.mem_Icc.mpr ⟨by omega, huX⟩, hmuU⟩
   have hsigU : squarefreeLowerPrimeSignature p u = sig := by
-    unfold squarefreePrimeFamilyParent at u
     by_cases hra : r ∣ a
-    · rw [if_pos hra] at u
+    · have huEq : u = a / r := by
+        simp [u, squarefreePrimeFamilyParent, hra]
       have heq : r * u = a := by
-        dsimp [u]
+        rw [huEq]
         exact Nat.mul_div_cancel' hra
       have hlower := squarefreeLowerPrimeSignature_mul_larger_prime
-        hr hpr huPos
-      rw [heq] at hlower
-      rw [← hlower, haData.1]
-    · rw [if_neg hra] at u
-      simpa [u] using haData.1
+        (p := p) (r := r) (a := u) hr hpr huPos
+      calc
+        squarefreeLowerPrimeSignature p u =
+            squarefreeLowerPrimeSignature p (r * u) := hlower.symm
+        _ = squarefreeLowerPrimeSignature p a := by rw [heq]
+        _ = sig := haData.1
+    · have huEq : u = a := by
+        simp [u, squarefreePrimeFamilyParent, hra]
+      simpa [huEq] using haData.1
   have hpne : p ≠ r := by omega
   have hpFreeU : ¬ p ∣ u := by
     intro hpu
