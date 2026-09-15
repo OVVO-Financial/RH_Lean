@@ -6,6 +6,7 @@ on:
     paths:
       - research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
       - research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
+      - research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
       - research/STABLE_FAR_PERRON_REALIFICATION.lean
       - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
       - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
@@ -122,5 +123,11 @@ jobs:
             -o .lake/build/lib/lean/research.ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.olean \
             research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
 
-      - name: Kernel-check clipped zero-target Mellin LCM stencil
-        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
+      - name: Emit clipped zero-target Mellin LCM stencil olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.olean \
+            research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
+
+      - name: Kernel-check complete post-root Mellin cubes
+        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
