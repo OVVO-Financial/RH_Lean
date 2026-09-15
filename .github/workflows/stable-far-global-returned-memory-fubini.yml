@@ -7,6 +7,7 @@ on:
       - research/STABLE_FAR_GLOBAL_RETURNED_MEMORY_FUBINI.lean
       - research/STABLE_FAR_RETURNED_RECIPROCAL_PHYSICAL_BRIDGE.lean
       - research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean
+      - research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
       - .github/workflows/stable-far-global-returned-memory-fubini.yml
   workflow_dispatch:
 
@@ -87,6 +88,7 @@ jobs:
           emit research/DIRECT_SUM_FRESH_PRIME_GLOBAL_COLLAPSE.lean
           emit research/DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.lean
           emit research/AMPLITUDE_GLOBAL_PHYSICAL_DEFECT_LEDGER.lean
+          emit research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
           emit research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean
           emit research/STABLE_FAR_RETURNED_RECIPROCAL_PHYSICAL_BRIDGE.lean
       - name: Kernel-check global returned memory Fubini
