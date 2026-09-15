@@ -13,7 +13,10 @@ On the literal fixed-owner covariance fibre this also removes one of the two
 possible mixed children: the candidate containing `p*b` cannot lie in the
 physical prefix.  Hence the clipped fibre has multiplicity at most one.
 
-These are carrier facts only; no norm or cancellation estimate is used.
+Consequently the clipped reciprocal-energy budget improves from the generic
+two-child `79/81` owner congestion to the one-child prime-square budget
+`79/162`.  This extra factor of two is useful when the actual AMP crossing
+product is split by one elementary `2xy <= x^2 + y^2` step.
 -/
 
 noncomputable section
@@ -97,5 +100,90 @@ theorem postRootCovarianceFixedOwnerChildMultiplicity_le_one_of_clipped
     postRootCovarianceFixedOwnerChildMultiplicity W parent p ≤ 1 := by
   unfold postRootCovarianceFixedOwnerChildMultiplicity
   exact postRootCovarianceFixedOwnerChildFiber_card_le_one_of_clipped hclip
+
+/-- One clipped owner contributes at most one reciprocal-square child unit. -/
+theorem criticalClippedOwnerFactor_mul_fixedOwnerEnergy_le_one_over_p_sq
+    {W p : ℕ} {parent : ℕ × ℕ}
+    (hpMem : p ∈ primesUpTo W) :
+    postRootCovarianceCriticalClippedOwnerFactor W parent p *
+        (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+          postRootCovarianceReciprocalPairEnergy mn) ≤
+      (1 / (p : ℝ) ^ 2) * postRootCovarianceReciprocalPairEnergy parent := by
+  rw [sum_postRootCovarianceFixedOwnerChild_energy_eq]
+  let E := postRootCovarianceReciprocalPairEnergy parent
+  let M := postRootCovarianceFixedOwnerChildMultiplicity W parent p
+  have hE : 0 ≤ E := postRootCovarianceReciprocalPairEnergy_nonneg parent
+  have hscale : 0 ≤ (1 / (p : ℝ) ^ 2) * E := by positivity
+  by_cases hclip : W < p * parent.2
+  · have hMnat :=
+      postRootCovarianceFixedOwnerChildMultiplicity_le_one_of_clipped hclip
+    have hM : (M : ℝ) ≤ 1 := by exact_mod_cast hMnat
+    have hM0 : (0 : ℝ) ≤ M := by positivity
+    have hfac := criticalClippedOwnerFactor_le_one
+      (W := W) (p := p) (parent := parent) hpMem
+    have hfac0 :
+        0 ≤ postRootCovarianceCriticalClippedOwnerFactor W parent p := by
+      unfold postRootCovarianceCriticalClippedOwnerFactor
+      rw [if_pos hclip]
+      positivity
+    have hfm :
+        postRootCovarianceCriticalClippedOwnerFactor W parent p * (M : ℝ) ≤ 1 := by
+      calc
+        postRootCovarianceCriticalClippedOwnerFactor W parent p * (M : ℝ) ≤
+            1 * (M : ℝ) := mul_le_mul_of_nonneg_right hfac hM0
+        _ ≤ 1 := by simpa using hM
+    change
+      postRootCovarianceCriticalClippedOwnerFactor W parent p *
+          ((M : ℝ) / (p : ℝ) ^ 2 * E) ≤
+        (1 / (p : ℝ) ^ 2) * E
+    calc
+      postRootCovarianceCriticalClippedOwnerFactor W parent p *
+          ((M : ℝ) / (p : ℝ) ^ 2 * E) =
+        (postRootCovarianceCriticalClippedOwnerFactor W parent p * (M : ℝ)) *
+          ((1 / (p : ℝ) ^ 2) * E) := by ring
+      _ ≤ 1 * ((1 / (p : ℝ) ^ 2) * E) :=
+        mul_le_mul_of_nonneg_right hfm hscale
+      _ = (1 / (p : ℝ) ^ 2) * E := by ring
+  · have hfac0 : postRootCovarianceCriticalClippedOwnerFactor W parent p = 0 := by
+      simp [postRootCovarianceCriticalClippedOwnerFactor, hclip]
+    rw [hfac0]
+    exact hscale
+
+/-- **Sharpened clipped contraction.**  Companion clipping deletes one of the
+two generic mixed children, so the exact prime reciprocal-square budget is
+`79/162` rather than `79/81`. -/
+theorem postRootCovarianceCriticalClippedOutgoingEnergy_le_79_over_162
+    (W : ℕ) (parent : ℕ × ℕ) :
+    postRootCovarianceCriticalClippedOutgoingEnergy W parent ≤
+      (79 / 162 : ℝ) * postRootCovarianceReciprocalPairEnergy parent := by
+  unfold postRootCovarianceCriticalClippedOutgoingEnergy
+  calc
+    (∑ p ∈ primesUpTo W,
+      postRootCovarianceCriticalClippedOwnerFactor W parent p *
+        (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+          postRootCovarianceReciprocalPairEnergy mn)) ≤
+      ∑ p ∈ primesUpTo W,
+        (1 / (p : ℝ) ^ 2) * postRootCovarianceReciprocalPairEnergy parent := by
+          apply Finset.sum_le_sum
+          intro p hp
+          exact criticalClippedOwnerFactor_mul_fixedOwnerEnergy_le_one_over_p_sq hp
+    _ = (∑ p ∈ primesUpTo W, (1 : ℝ) / (p : ℝ) ^ 2) *
+          postRootCovarianceReciprocalPairEnergy parent := by
+          rw [Finset.sum_mul]
+    _ ≤ (79 / 162 : ℝ) * postRootCovarianceReciprocalPairEnergy parent := by
+      have hbudgetQ := primeOwnerReciprocalSquareBudget_le_79_over_162 W
+      have hbudgetCast :
+          (((∑ p ∈ primesUpTo W,
+              (1 : ℚ) / (p : ℚ) ^ 2 : ℚ)) : ℝ) ≤
+            (((79 / 162 : ℚ)) : ℝ) := by
+        unfold primeOwnerReciprocalSquareBudget at hbudgetQ
+        exact_mod_cast hbudgetQ
+      push_cast at hbudgetCast
+      norm_num at hbudgetCast ⊢
+      have hbudgetR :
+          (∑ p ∈ primesUpTo W, (1 : ℝ) / (p : ℝ) ^ 2) ≤ 79 / 162 := by
+        simpa [Nat.cast_pow] using hbudgetCast
+      exact mul_le_mul_of_nonneg_right hbudgetR
+        (postRootCovarianceReciprocalPairEnergy_nonneg parent)
 
 end RHLean.Proof
