@@ -8,6 +8,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_CONTINUATION_CARRIER.lean
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean
+      - research/GLOBAL_RETURNED_CORE_ONE_AMPLITUDE.lean
       - research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
       - research/LOW_OWNER_RETURNED_AMPLITUDE_CORE.lean
       - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
@@ -116,5 +117,6 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_ZERO_TARGET_COVARIANCE.lean
           emit research/GLOBAL_RETURNED_CORE_CONTINUATION_CARRIER.lean
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean
-      - name: Kernel-check global weighted Gram factorization
-        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean
+          emit research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean
+      - name: Kernel-check one-amplitude identification
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_ONE_AMPLITUDE.lean
