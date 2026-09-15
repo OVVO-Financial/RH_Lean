@@ -223,7 +223,6 @@ theorem lowOwnerFirstOwnerSplitCellEnergy_eq_sameBranchPairSum
           lowOwnerZeroFrequencyMobiusSite R mn.2 := by
   have hdisj := lowOwnerFirstOwner_baseProduct_disjoint_childProduct R p sig
   rw [Finset.sum_union hdisj]
-  constructor <;> skip
   unfold lowOwnerFirstOwnerBaseAmplitude lowOwnerFirstOwnerChildAmplitude
   have hbase :
       (∑ n ∈ lowOwnerFirstOwnerBaseFiber R p sig,
