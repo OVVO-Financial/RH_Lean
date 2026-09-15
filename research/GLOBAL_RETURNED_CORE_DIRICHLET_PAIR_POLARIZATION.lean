@@ -1,6 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE»
-import «research.GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE»
+import «research.GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE»
 
 /-!
 # Pointwise Dirichlet polarization of one first-owner cell
@@ -20,15 +20,9 @@ The signed polarization atom is
   Pi_p(a,b) = d_p(a)d_p(b) - ell(a)ell(b) - j_p(a)j_p(b).
 
 Summed over the full p-free base fibre it is exactly the signed cell telescope.
-Pointwise:
-
-* admitted/admitted: `Pi = -ell(a)j(b) - j(a)ell(b)`;
-* clipped/admitted: only the mixed clipped/child term remains;
-* clipped/clipped: `Pi = 0` exactly.
-
-Thus no `C^2` term exists in the pair ledger.  Greatest-owner recursion may be
-applied only to the admitted/admitted sector; clipped atoms remain in the
-polarization until they become inherited reciprocal exits.
+Pointwise, clipped/clipped atoms vanish identically and mixed clipped/admitted
+atoms are exactly the existing mixed polarization term.  There is no `C^2`
+object to estimate.
 -/
 
 noncomputable section
@@ -120,8 +114,7 @@ theorem lowOwnerFirstOwnerDirichletReturnedChildSite_eq_zero_of_clipped
   rw [lowOwnerPhysicalDirichletWeight_eq_zero_of_lt hclip]
   ring
 
-/-- **Clipped/clipped atoms vanish pointwise.**  This is the strongest form of
-"no standalone C^2 estimate": there is no such atom in the signed ledger. -/
+/-- **Clipped/clipped atoms vanish pointwise.** -/
 theorem lowOwnerFirstOwnerDirichletPolarizationAtom_eq_zero_of_both_clipped
     {R p a b : ℕ} {sig : Finset ℕ}
     (ha : a ∈ lowOwnerFirstOwnerClippedBaseFiber R p sig)
@@ -163,31 +156,58 @@ theorem lowOwnerFirstOwnerDirichletPolarizationAtom_eq_clipped_right
   ring
 
 /-- The pulled-back Dirichlet child sites sum to the existing returned-child
-parent amplitude. -/
+parent amplitude.  This is proved directly from the filter definition, with no
+separate carrier-partition theorem. -/
 theorem sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
     {R p : ℕ} {sig : Finset ℕ} :
     (∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,
       lowOwnerFirstOwnerDirichletReturnedChildSite R p a) =
       lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
-  rw [← lowOwnerFirstOwnerBaseFiber_partition_admitted_clipped R p sig,
-    Finset.sum_union
-      (lowOwnerFirstOwnerAdmittedBase_disjoint_clipped R p sig)]
   unfold lowOwnerFirstOwnerReturnedChildParentAmplitude
-  have hadmitted :
-      (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
-        lowOwnerFirstOwnerDirichletReturnedChildSite R p a) =
-      ∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
-        lowOwnerZeroFrequencyMobiusWeight R (p * a) * realMoebiusStep a := by
-    apply Finset.sum_congr rfl
-    intro a ha
-    exact lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned_of_admitted ha
-  have hclipped :
-      (∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber R p sig,
-        lowOwnerFirstOwnerDirichletReturnedChildSite R p a) = 0 := by
-    apply Finset.sum_eq_zero
-    intro a ha
-    exact lowOwnerFirstOwnerDirichletReturnedChildSite_eq_zero_of_clipped ha
-  rw [hadmitted, hclipped, add_zero]
+    lowOwnerFirstOwnerAdmittedBaseFiber
+    lowOwnerFirstOwnerDirichletReturnedChildSite
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro a _ha
+  by_cases hpa : p * a ≤ squareRootEndpoint R
+  · simp [hpa, lowOwnerPhysicalDirichletWeight]
+  · have hclip : squareRootEndpoint R < p * a := Nat.lt_of_not_ge hpa
+    simp [hpa, lowOwnerPhysicalDirichletWeight, hclip]
+
+/-- Cartesian-product factorization for real pair products. -/
+private theorem sum_product_mul_factor
+    (s : Finset ℕ) (f g : ℕ → ℝ) :
+    (∑ ab ∈ s.product s, f ab.1 * g ab.2) =
+      (∑ a ∈ s, f a) * (∑ b ∈ s, g b) := by
+  calc
+    (∑ ab ∈ s.product s, f ab.1 * g ab.2) =
+      ∑ a ∈ s, ∑ b ∈ s, f a * g b := by
+        simpa only using
+          (Finset.sum_product
+            (s := s) (t := s)
+            (f := fun ab : ℕ × ℕ => f ab.1 * g ab.2))
+    _ = ∑ a ∈ s, f a * (∑ b ∈ s, g b) := by
+      apply Finset.sum_congr rfl
+      intro a _ha
+      rw [Finset.mul_sum]
+    _ = (∑ a ∈ s, f a) * (∑ b ∈ s, g b) := by
+      rw [Finset.sum_mul]
+
+/-- Sum of incidence sites is the existing Dirichlet incidence amplitude. -/
+theorem sum_lowOwnerFirstOwnerDirichletIncidenceSite_eq_amplitude
+    (R p : ℕ) (sig : Finset ℕ) :
+    (∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,
+      lowOwnerFirstOwnerDirichletIncidenceSite R p a) =
+      lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig := by
+  rfl
+
+/-- Sum of base sites is the existing base amplitude. -/
+theorem sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude
+    (R p : ℕ) (sig : Finset ℕ) :
+    (∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,
+      lowOwnerFirstOwnerDirichletBaseSite R a) =
+      lowOwnerFirstOwnerBaseAmplitude R p sig := by
+  rfl
 
 /-- **Exact pair-level Dirichlet polarization.**  The full signed cell telescope
 is the ordered sum of pointwise polarization atoms over the p-free base fibre. -/
@@ -197,75 +217,42 @@ theorem lowOwnerFirstOwnerSignedCellTelescope_eq_sum_dirichletPolarizationAtoms
       ∑ ab ∈ (lowOwnerFirstOwnerBaseFiber R p sig).product
           (lowOwnerFirstOwnerBaseFiber R p sig),
         lowOwnerFirstOwnerDirichletPolarizationAtom R p ab := by
-  have hD := lowOwnerFirstOwnerDirichletIncidenceAmplitude_eq_base_add_child
-    (R := R) (p := p) (sig := sig) hp
-  have hJ := sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
+  let s := lowOwnerFirstOwnerBaseFiber R p sig
+  have hinc := sum_lowOwnerFirstOwnerDirichletIncidenceSite_eq_amplitude R p sig
+  have hbase := sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude R p sig
+  have hchild := sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
     (R := R) (p := p) (sig := sig)
-  unfold lowOwnerFirstOwnerSignedCellTelescope
-  rw [lowOwnerFirstOwnerCompensatedInterior_eq_admitted_sub_returned hp]
-  rw [lowOwnerFirstOwnerBaseAmplitude_eq_admittedBase_add_clipped]
-  have hcomp :
-      lowOwnerFirstOwnerAdmittedBaseAmplitude R p sig -
-          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig =
-        lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig -
-          lowOwnerFirstOwnerClippedAmplitude R p sig := by
-    rw [lowOwnerFirstOwnerDirichletIncidenceAmplitude_eq_compensated_add_clipped hp]
-    ring
-  rw [hcomp]
-  have hAtomSum :
-      (∑ ab ∈ (lowOwnerFirstOwnerBaseFiber R p sig).product
-          (lowOwnerFirstOwnerBaseFiber R p sig),
+  have hatoms :
+      (∑ ab ∈ s.product s,
         lowOwnerFirstOwnerDirichletPolarizationAtom R p ab) =
       lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig ^ 2 -
         lowOwnerFirstOwnerBaseAmplitude R p sig ^ 2 -
         lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig ^ 2 := by
     unfold lowOwnerFirstOwnerDirichletPolarizationAtom
     rw [Finset.sum_sub_distrib, Finset.sum_sub_distrib]
-    have hinc :
-        (∑ ab ∈ (lowOwnerFirstOwnerBaseFiber R p sig).product
-            (lowOwnerFirstOwnerBaseFiber R p sig),
-          lowOwnerFirstOwnerDirichletIncidenceSite R p ab.1 *
-            lowOwnerFirstOwnerDirichletIncidenceSite R p ab.2) =
-          lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig ^ 2 := by
-      rw [Finset.sum_product]
-      unfold lowOwnerFirstOwnerDirichletIncidenceAmplitude
-        lowOwnerFirstOwnerDirichletIncidenceSite
-      rw [Finset.sum_mul]
-      apply Finset.sum_congr rfl
-      intro a _ha
-      rw [Finset.mul_sum]
-      ring
-    have hbase :
-        (∑ ab ∈ (lowOwnerFirstOwnerBaseFiber R p sig).product
-            (lowOwnerFirstOwnerBaseFiber R p sig),
-          lowOwnerFirstOwnerDirichletBaseSite R ab.1 *
-            lowOwnerFirstOwnerDirichletBaseSite R ab.2) =
-          lowOwnerFirstOwnerBaseAmplitude R p sig ^ 2 := by
-      rw [Finset.sum_product]
-      unfold lowOwnerFirstOwnerBaseAmplitude
-        lowOwnerFirstOwnerDirichletBaseSite
-      rw [Finset.sum_mul]
-      apply Finset.sum_congr rfl
-      intro a _ha
-      rw [Finset.mul_sum]
-      ring
-    have hchild :
-        (∑ ab ∈ (lowOwnerFirstOwnerBaseFiber R p sig).product
-            (lowOwnerFirstOwnerBaseFiber R p sig),
-          lowOwnerFirstOwnerDirichletReturnedChildSite R p ab.1 *
-            lowOwnerFirstOwnerDirichletReturnedChildSite R p ab.2) =
-          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig ^ 2 := by
-      rw [Finset.sum_product]
-      rw [Finset.sum_mul]
-      apply Finset.sum_congr rfl
-      intro a _ha
-      rw [Finset.mul_sum]
-      rw [hJ]
-      ring
+    rw [sum_product_mul_factor, sum_product_mul_factor, sum_product_mul_factor]
+    dsimp [s] at hinc hbase hchild ⊢
     rw [hinc, hbase, hchild]
-  rw [hAtomSum]
-  rw [hD, lowOwnerFirstOwnerChildAmplitude_eq_neg_returnedParent hp]
-  rw [lowOwnerFirstOwnerBaseAmplitude_eq_admittedBase_add_clipped]
+    ring
+  have htel := two_mul_lowOwnerFirstOwnerCellGram_eq_completeTelescope_sub_clippedCross
+    (R := R) (p := p) (sig := sig) hp
+  have hdir := two_mul_lowOwnerFirstOwnerCellGram_eq_dirichletIncidence_sq_sub_branches
+    (R := R) (p := p) (sig := sig) hp
+  have hchildAmp := lowOwnerFirstOwnerChildAmplitude_eq_neg_returnedParent
+    (R := R) (p := p) (sig := sig) hp
+  have htelEq :
+      lowOwnerFirstOwnerSignedCellTelescope R p sig =
+        2 * lowOwnerFirstOwnerCellGram R p sig := by
+    unfold lowOwnerFirstOwnerSignedCellTelescope
+    exact htel.symm
+  rw [htelEq, hdir, hchildAmp]
+  rw [show (∑ ab ∈ (lowOwnerFirstOwnerBaseFiber R p sig).product
+      (lowOwnerFirstOwnerBaseFiber R p sig),
+        lowOwnerFirstOwnerDirichletPolarizationAtom R p ab) =
+      lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig ^ 2 -
+        lowOwnerFirstOwnerBaseAmplitude R p sig ^ 2 -
+        lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig ^ 2 by
+    simpa [s] using hatoms]
   ring
 
 end RHLean.Proof
