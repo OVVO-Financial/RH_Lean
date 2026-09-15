@@ -61,10 +61,10 @@ theorem squarefreeLowerPrimeSignature_eq_of_firstOwner
     simp [squarefreeLowerPrimeSignature, hqp, hchron]
   · simp [squarefreeLowerPrimeSignature, hqp]
 
-/-- Conversely, for squarefree sites, equality below `p` together with an xor
-at `p` says exactly that `p` is the first separating owner. -/
+/-- Equality below `p` together with an xor at `p` says exactly that `p` is the
+first separating owner. -/
 theorem firstOwner_of_lowerSignature_eq_and_dvd_xor
-    {p m n : ℕ} (hp : p.Prime) (hm : Squarefree m) (hn : Squarefree n)
+    {p m n : ℕ} (hp : p.Prime)
     (hmpos : 0 < m) (hnpos : 0 < n)
     (hsig : squarefreeLowerPrimeSignature p m =
       squarefreeLowerPrimeSignature p n)
@@ -133,7 +133,7 @@ def lowOwnerFirstOwnerBaseAmplitude
   ∑ n ∈ lowOwnerFirstOwnerBaseFiber R p sig,
     lowOwnerZeroFrequencyMobiusSite R n
 
-/-- Actual AMP amplitude on the p-divisible side of one first-owner cell. -/
+/-- Actual AMP amplitude on the p-divisible side of the same first-owner cell. -/
 def lowOwnerFirstOwnerChildAmplitude
     (R p : ℕ) (sig : Finset ℕ) : ℝ :=
   ∑ n ∈ lowOwnerFirstOwnerChildFiber R p sig,
