@@ -133,6 +133,55 @@ theorem zeroTargetMellinPhysicalSuperLcmFourCorner_critical_eq_threeTerm
       rw [hEdge]
       ring
 
+/-! ## The continuation is literally a smaller-endpoint wall -/
+
+/-- The quadratic continuation is not a same-scale error.  Dividing the
+endpoint by its current owner turns it exactly into the ordinary super-LCM wall
+of the stripped parent. -/
+theorem zeroTargetCriticalContinuationIndicator_eq_superLcmIndicator_div
+    {W p a b : ℕ} (hp : 0 < p) :
+    zeroTargetCriticalContinuationIndicator W p a b =
+      superLcmIndicator (W / p) a b := by
+  have hcross :
+      W < p * Nat.lcm a b ↔ W / p < Nat.lcm a b := by
+    simpa [Nat.mul_comm] using
+      (Nat.div_lt_iff_lt_mul hp :
+        W / p < Nat.lcm a b ↔ W < Nat.lcm a b * p).symm
+  unfold zeroTargetCriticalContinuationIndicator superLcmIndicator
+  by_cases h : W / p < Nat.lcm a b
+  · simp [h, hcross.mpr h]
+  · have hnot : ¬ W < p * Nat.lcm a b := by
+      intro hW
+      exact h (hcross.mp hW)
+    simp [h, hnot]
+
+/-- The clipped companion condition is likewise a lower-endpoint escape.  This
+makes the complete/exit partition literal on the same descendant scale. -/
+theorem zeroTargetCriticalClippedExitIndicator_eq_lowerEndpointEscape
+    {W p a b : ℕ} (hp : 0 < p) :
+    zeroTargetCriticalClippedExitIndicator W p a b =
+      if W / p < Nat.lcm a b ∧ W / p < b then 1 else 0 := by
+  have hL :
+      W < p * Nat.lcm a b ↔ W / p < Nat.lcm a b := by
+    simpa [Nat.mul_comm] using
+      (Nat.div_lt_iff_lt_mul hp :
+        W / p < Nat.lcm a b ↔ W < Nat.lcm a b * p).symm
+  have hb : W < p * b ↔ W / p < b := by
+    simpa [Nat.mul_comm] using
+      (Nat.div_lt_iff_lt_mul hp : W / p < b ↔ W < b * p).symm
+  unfold zeroTargetCriticalClippedExitIndicator
+  simp only [hL, hb]
+
+/-- If the companion is not clipped, both stripped-parent coordinates really
+lie in the smaller endpoint. -/
+theorem zeroTargetCriticalCompleteParent_le_lowerEndpoint
+    {W p a b : ℕ} (hp : 0 < p) (hab : a ≤ b) (hpbW : p * b ≤ W) :
+    a ≤ W / p ∧ b ≤ W / p := by
+  have hb : b ≤ W / p := by
+    apply (Nat.le_div_iff_mul_le hp).2
+    simpa [Nat.mul_comm] using hpbW
+  exact ⟨hab.trans hb, hb⟩
+
 /-- The clipped coefficient in the exact trichotomy already contains one
 reciprocal owner factor before squaring. -/
 theorem zeroTargetCriticalClippedCoefficient_sq
