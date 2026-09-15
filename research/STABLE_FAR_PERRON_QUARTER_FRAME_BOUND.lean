@@ -155,7 +155,7 @@ theorem stableFarCriticalQ2LogMultiplier_mul_owner_amplitude
       stableFarQ2LogFrequencyMultiplier tau q * a := by
   rw [stableFarCriticalQ2LogMultiplier_eq_reciprocal_phase tau hq]
   have hqC : (q : ℂ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hq)
-  field_simp [hqC] <;> ring
+  field_simp [hqC]
 
 /-- Exact forward synthesis of a raw phase-weighted family. -/
 theorem stableFarCriticalQ2Synthesis_owner_scaled_eq_phase_sum
