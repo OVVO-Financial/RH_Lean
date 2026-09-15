@@ -1,6 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE»
-import «research.GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE»
+import «research.GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE»
 
 /-!
 # Pointwise Dirichlet polarization of one first-owner cell
@@ -156,8 +156,7 @@ theorem lowOwnerFirstOwnerDirichletPolarizationAtom_eq_clipped_right
   ring
 
 /-- The pulled-back Dirichlet child sites sum to the existing returned-child
-parent amplitude.  This is proved directly from the filter definition, with no
-separate carrier-partition theorem. -/
+parent amplitude. -/
 theorem sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
     {R p : ℕ} {sig : Finset ℕ} :
     (∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,
@@ -209,8 +208,7 @@ theorem sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude
       lowOwnerFirstOwnerBaseAmplitude R p sig := by
   rfl
 
-/-- **Exact pair-level Dirichlet polarization.**  The full signed cell telescope
-is the ordered sum of pointwise polarization atoms over the p-free base fibre. -/
+/-- **Exact pair-level Dirichlet polarization.** -/
 theorem lowOwnerFirstOwnerSignedCellTelescope_eq_sum_dirichletPolarizationAtoms
     {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
     lowOwnerFirstOwnerSignedCellTelescope R p sig =
@@ -242,9 +240,7 @@ theorem lowOwnerFirstOwnerSignedCellTelescope_eq_sum_dirichletPolarizationAtoms
     (R := R) (p := p) (sig := sig) hp
   have htelEq :
       lowOwnerFirstOwnerSignedCellTelescope R p sig =
-        2 * lowOwnerFirstOwnerCellGram R p sig := by
-    unfold lowOwnerFirstOwnerSignedCellTelescope
-    exact htel.symm
+        2 * lowOwnerFirstOwnerCellGram R p sig := htel.symm
   rw [htelEq, hdir, hchildAmp]
   rw [show (∑ ab ∈ (lowOwnerFirstOwnerBaseFiber R p sig).product
       (lowOwnerFirstOwnerBaseFiber R p sig),
