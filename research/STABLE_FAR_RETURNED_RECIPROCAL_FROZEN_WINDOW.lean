@@ -70,6 +70,7 @@ theorem stableFarReturnedReciprocalCrossingColumn_eq_frozenWindows
   have hqPrime : q.Prime := (mem_frozenPrimeUniverseHighPrimeSet.mp hq).1
   rw [stableFarReturnedCrossingCofactors_mass_eq_frozenWindow hr hp hqPrime]
   push_cast
+  rfl
 
 /-- The reciprocal descended baseline is the reciprocal-weighted predecessor
 prefix. -/
@@ -132,6 +133,7 @@ theorem stableFarReturnedOwnerWeightedCenteredMass_eq_frozenPrefix_sub_windows
   have hqPrime : q.Prime := (mem_frozenPrimeUniverseHighPrimeSet.mp hq).1
   rw [stableFarReturnedCrossingCofactors_mass_eq_frozenWindow hr hp hqPrime]
   push_cast
+  rfl
 
 /-- Reciprocal weight is exactly the specialized reciprocal packet above. -/
 theorem stableFarReturnedOwnerWeightedCenteredMass_reciprocal
@@ -195,7 +197,7 @@ theorem stableFarReturned_unit_sub_reciprocal_eq_eulerMemoryWindows
     intro q _hq
     ring
   simp only [one_mul]
-  rw [hsum]
+  rw [← hsum]
   ring
 
 end RHLean.Proof
