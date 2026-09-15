@@ -119,4 +119,32 @@ theorem opposite_cellFibers_firstOwner
   exact firstOwner_of_lowerSignature_eq_and_dvd_xor
     hp hmpos hnpos hsig (Or.inr ⟨hnc.2, hmb.2⟩)
 
+/-- **Compensated block telescope.**  Inside one first-owner cell the signed
+cross-owner covariance is not estimated separately.  Twice the exact cell Gram
+is the parent-cell square minus the two branch squares.  This is the local
+algebraic form of the signed telescope requested by the global proof. -/
+theorem two_mul_lowOwnerFirstOwnerCellGram_eq_compensated_sub_branches
+    (R p : ℕ) (sig : Finset ℕ) :
+    2 * lowOwnerFirstOwnerCellGram R p sig =
+      (lowOwnerFirstOwnerBaseAmplitude R p sig +
+          lowOwnerFirstOwnerChildAmplitude R p sig) ^ 2 -
+        lowOwnerFirstOwnerBaseAmplitude R p sig ^ 2 -
+        lowOwnerFirstOwnerChildAmplitude R p sig ^ 2 := by
+  unfold lowOwnerFirstOwnerCellGram
+  ring
+
+/-- Equivalent one-cell upper bound: any positive owner coherence is paid by
+the compensated parent amplitude, not by a diagonal/frame norm on the two
+branches.  No sign hypothesis is required. -/
+theorem lowOwnerFirstOwnerCellGram_le_quarter_compensated_sq
+    (R p : ℕ) (sig : Finset ℕ) :
+    lowOwnerFirstOwnerCellGram R p sig ≤
+      (1 / 4 : ℝ) *
+        (lowOwnerFirstOwnerBaseAmplitude R p sig +
+          lowOwnerFirstOwnerChildAmplitude R p sig) ^ 2 := by
+  unfold lowOwnerFirstOwnerCellGram
+  nlinarith [sq_nonneg
+    (lowOwnerFirstOwnerBaseAmplitude R p sig -
+      lowOwnerFirstOwnerChildAmplitude R p sig)]
+
 end RHLean.Proof
