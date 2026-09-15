@@ -277,7 +277,7 @@ theorem zeroTargetMellinFreshPrimeSquare_doubleCorner_excess
 ratio has square `1/p`, then the double fresh-prime corner has exactly the
 `1/p` amplitude used by the critical q-square Perron multiplier. -/
 theorem zeroTargetMellinFreshPrimeSquare_doubleCorner_critical
-    {r : ℝ} (hr : 0 ≤ r) {p : ℕ} (hp : 0 < p)
+    {r : ℝ} (hr : 0 ≤ r) {p : ℕ} (_hp : 0 < p)
     (hcritical : r ^ 2 = 1 / (p : ℝ)) (x y : ℝ) :
     zeroTargetCoPartialPair (-(r * x)) (-(r * y)) -
         zeroTargetDivergentPair (-(r * x)) (-(r * y)) =
