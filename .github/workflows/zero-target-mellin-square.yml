@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
+      - research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
       - research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
       - research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
       - research/STABLE_FAR_PERRON_REALIFICATION.lean
@@ -122,6 +123,9 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.olean \
             research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
+
+      - name: Kernel-check reciprocal Perron identification
+        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
 
       - name: Emit clipped zero-target Mellin LCM stencil olean
         run: |
