@@ -185,6 +185,7 @@ theorem lowOwnerZeroFrequencyMobiusDiagonal_le_three_endpoint (R : ℕ) :
   have hzero : 0 ∉ Finset.Icc 1 X := by simp
   unfold lowOwnerZeroFrequencyMobiusDiagonal signedBlockEnergy
   rw [hset, Finset.sum_insert hzero, lowOwnerZeroFrequencyMobiusSite_zero]
+  rw [zero_pow (by norm_num : (2 : ℕ) ≠ 0), zero_add]
   have hsite : ∀ n ∈ Finset.Icc 1 X,
       lowOwnerZeroFrequencyMobiusSite R n ^ 2 ≤
         2 * lowOwnerFarTailWeight R n ^ 2 +
