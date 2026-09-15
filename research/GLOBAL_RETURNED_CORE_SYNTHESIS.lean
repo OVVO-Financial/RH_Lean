@@ -66,6 +66,28 @@ theorem physicalAmplitudeRemainderBound_of_firstOwnerGramBound
   rw [hsq]
   nlinarith
 
+/-- **Name-lock in the reverse direction.**  A root-scale bound on the full AMP
+remainder already bounds the aggregate first-owner Gram with the same constant,
+because the omitted diagonal in the exact square identity is nonnegative.
+Thus the first-owner Gram target is not a weaker bookkeeping discrepancy: up to
+the elementary diagonal in the forward direction, it is the same quantitative
+AMP seam. -/
+theorem firstOwnerGramBound_of_physicalAmplitudeRemainderBound
+    {C : ℝ} (hAmp : LowOwnerPhysicalAmplitudeRemainderBound C) :
+    LowOwnerFirstOwnerGramBound C := by
+  intro R K hR hK
+  have hsq :=
+    norm_sq_lowOwnerPhysicalAmplitudeRemainder_zero_eq_diagonal_add_firstOwners
+      R hR
+  have hbound := hAmp R K hR hK
+  have hdiag0 : 0 ≤ lowOwnerZeroFrequencyMobiusDiagonal R := by
+    unfold lowOwnerZeroFrequencyMobiusDiagonal signedBlockEnergy
+    apply Finset.sum_nonneg
+    intro n _hn
+    exact sq_nonneg _
+  rw [hsq] at hbound
+  linarith
+
 /-- The same sole first-owner estimate therefore gives the already-compiled
 LOW q² correlation inequality with coefficient `1/2`. -/
 theorem correlationLowQ2Energy_of_firstOwnerGramBound
