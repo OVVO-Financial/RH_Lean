@@ -6,21 +6,20 @@ import RHLean.Proof.SquareRootLowPrimeSharpFrameBudget
 # Strict reciprocal-square congestion for the covariance owner map
 
 Raw child multiplicity in the post-root covariance owner descent is not
-uniformly bounded by one.  The correct quantity suggested by the critical
+uniformly bounded by one. The correct quantity suggested by the critical
 Perron/q² coordinate is the owner-weighted congestion
 
   sum_p childMultiplicity(parent,p) / p².
 
-This file proves two elementary facts on the *literal covariance owner map*.
+This file proves two elementary facts on the literal covariance owner map.
 
 1. For a fixed ordered parent and fixed owner prime `p`, there are at most two
    recursive children: insert `p` into the first parent coordinate or into the
-   second, then re-orient as a positive-lag pair.  This is the exact
-   `squarefreePairFreshPrimeOwner_parentCube` geometry, not a support heuristic.
+   second, then re-orient as a positive-lag pair.
 
 2. The reciprocal-square mass of all prime owners has uniform slack below the
-   coarse `1/2` telescope.  The old odd-integer envelope counts the composite
-   site `9`; deleting that single impossible prime site yields
+   coarse `1/2` telescope. The old odd-integer envelope counts the composite
+   site `9`; deleting that impossible prime site yields
 
      sum_{p prime <= N} 1/p² <= 1/2 - 1/81 = 79/162.
 
@@ -28,11 +27,8 @@ Therefore the exact fixed-parent reciprocal-square congestion is at most
 
   2 * 79/162 = 79/81 < 1.
 
-This is a genuine strict contraction coefficient on the owner graph after the
-natural q²/Perron weighting.  It does NOT bound the raw unweighted child
-multiplicity and it is not inverted to control the raw zero-target advantage.
-The remaining proof seam is to transport the clipped zero-target/Mellin edge
-onto this reciprocal-square weighted owner descent.
+This is a strict contraction coefficient only after the natural q²/Perron
+weighting. It does not bound raw multiplicity and is not inverted below.
 -/
 
 noncomputable section
@@ -43,8 +39,6 @@ namespace RHLean.Proof
 open RHLean.Analysis RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
-
-/-! ## Two mixed children per fixed owner -/
 
 /-- Canonical positive-lag orientation of an unordered natural pair. -/
 def covarianceOrderedPair (a b : ℕ) : ℕ × ℕ :=
@@ -75,46 +69,29 @@ def covarianceOwnerChildCandidates
 
 private theorem covariance_mixed_child_mem_candidates
     {p um un m n : ℕ} {parent : ℕ × ℕ}
-    (hmn : m < n) (hne : um ≠ un)
+    (hmn : m < n)
     (hparent : covarianceOrderedPair um un = parent)
     (hmix : (m = p * um ∧ n = un) ∨ (m = um ∧ n = p * un)) :
     (m, n) ∈ covarianceOwnerChildCandidates p parent := by
+  rw [← hparent]
   rcases hmix with hmix | hmix
-  · rcases hmix with ⟨rfl, rfl⟩
+  · rcases hmix with ⟨hm, hn⟩
+    have hmn' : p * um < un := by simpa [hm, hn] using hmn
+    rw [hm, hn]
     by_cases hum : um < un
-    · have hpEq : parent = (um, un) := by
-        simpa [covarianceOrderedPair, hum] using hparent.symm
-      subst parent
-      have hchild : covarianceOrderedPair (p * um) un = (p * um, un) :=
-        covarianceOrderedPair_eq_of_lt hmn
-      simp [covarianceOwnerChildCandidates, hchild]
-    · have hun : un < um := by omega
-      have hpEq : parent = (un, um) := by
-        simpa [covarianceOrderedPair, hum] using hparent.symm
-      subst parent
-      have hchild : covarianceOrderedPair un (p * um) = (p * um, un) := by
-        rw [covarianceOrderedPair_comm]
-        exact covarianceOrderedPair_eq_of_lt hmn
-      simp [covarianceOwnerChildCandidates, hchild]
-  · rcases hmix with ⟨rfl, rfl⟩
+    · simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn']
+    · have hnot : ¬ un < p * um := by omega
+      simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn', hnot]
+  · rcases hmix with ⟨hm, hn⟩
+    have hmn' : um < p * un := by simpa [hm, hn] using hmn
+    rw [hm, hn]
     by_cases hum : um < un
-    · have hpEq : parent = (um, un) := by
-        simpa [covarianceOrderedPair, hum] using hparent.symm
-      subst parent
-      have hchild : covarianceOrderedPair um (p * un) = (um, p * un) :=
-        covarianceOrderedPair_eq_of_lt hmn
-      simp [covarianceOwnerChildCandidates, hchild]
-    · have hun : un < um := by omega
-      have hpEq : parent = (un, um) := by
-        simpa [covarianceOrderedPair, hum] using hparent.symm
-      subst parent
-      have hchild : covarianceOrderedPair (p * un) um = (um, p * un) := by
-        rw [covarianceOrderedPair_comm]
-        exact covarianceOrderedPair_eq_of_lt hmn
-      simp [covarianceOwnerChildCandidates, hchild]
+    · simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn']
+    · have hnot : ¬ p * un < um := by omega
+      simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn', hnot]
 
-/-- Nonzero recursive children with both their chronological owner and their
-ordered stripped parent fixed. -/
+/-- Nonzero recursive children with both chronological owner and stripped
+ordered parent fixed. -/
 def postRootCovarianceFixedOwnerChildFiber
     (W : ℕ) (parent : ℕ × ℕ) (p : ℕ) : Finset (ℕ × ℕ) :=
   ((((postRootCovarianceRemainderRecursivePairCarrier W).filter
@@ -132,7 +109,7 @@ theorem postRootCovarianceFixedOwnerChildFiber_subset_candidates
   rcases Finset.mem_filter.mp hmn with ⟨hownerFilter, hparent⟩
   rcases Finset.mem_filter.mp hownerFilter with ⟨hweightFilter, howner⟩
   rcases Finset.mem_filter.mp hweightFilter with ⟨hrec, hweight⟩
-  rcases Finset.mem_filter.mp hrec with ⟨hremainder, hparentNeProp⟩
+  rcases Finset.mem_filter.mp hrec with ⟨hremainder, _hparentNeProp⟩
   have hphysical :=
     (mem_postRootCovarianceRemainderPhysicalPairCarrier.mp hremainder).1
   rcases mem_mertensPositivePhysicalPairCarrier.mp hphysical with
@@ -148,10 +125,6 @@ theorem postRootCovarianceFixedOwnerChildFiber_subset_candidates
   have hcube := squarefreePairFreshPrimeOwner_parentCube
     hmsq hnsq (ne_of_lt hmnlt) (by omega) (by omega)
   dsimp only at hcube
-  have hne :
-      squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m ≠
-        squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n := by
-    simpa [SquarefreePairFreshPrimeParentsEqual] using hparentNeProp
   have hparent' :
       covarianceOrderedPair
           (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m)
@@ -160,7 +133,7 @@ theorem postRootCovarianceFixedOwnerChildFiber_subset_candidates
     unfold squarefreePairFreshPrimeOrderedParent at hparent
     simpa [covarianceOrderedPair] using hparent
   have hcand := covariance_mixed_child_mem_candidates
-    hmnlt hne hparent' hcube.2.2
+    hmnlt hparent' hcube.2.2
   rw [howner] at hcand
   exact hcand
 
@@ -174,7 +147,7 @@ theorem covarianceOwnerChildCandidates_card_le_two
     ({covarianceOrderedPair parent.1 (p * parent.2)} : Finset (ℕ × ℕ))
   simpa using h
 
-/-- **At most two children for one fixed parent/owner pair.** -/
+/-- At most two children for one fixed parent/owner pair. -/
 theorem postRootCovarianceFixedOwnerChildFiber_card_le_two
     (W : ℕ) (parent : ℕ × ℕ) (p : ℕ) :
     (postRootCovarianceFixedOwnerChildFiber W parent p).card ≤ 2 := by
@@ -182,7 +155,7 @@ theorem postRootCovarianceFixedOwnerChildFiber_card_le_two
     (postRootCovarianceFixedOwnerChildFiber_subset_candidates W parent p)).trans
       (covarianceOwnerChildCandidates_card_le_two p parent)
 
-/-- Fixed-owner child multiplicity, separated from the old total multiplicity. -/
+/-- Fixed-owner child multiplicity. -/
 def postRootCovarianceFixedOwnerChildMultiplicity
     (W : ℕ) (parent : ℕ × ℕ) (p : ℕ) : ℕ :=
   (postRootCovarianceFixedOwnerChildFiber W parent p).card
@@ -203,7 +176,6 @@ private theorem covarianceOddPrimes_subset_envelope_erase_nine (N : ℕ) :
   have hqData := mem_primesUpTo.mp (Finset.mem_erase.mp hq).2
   have hqPrime := hqData.1
   have hqN := hqData.2
-  have hq2 := hqPrime.two_le
   have hqNe2 := (Finset.mem_erase.mp hq).1
   have hqNe9 : q ≠ 9 := by
     intro hq9
@@ -256,8 +228,15 @@ theorem oddPrimeOwnerReciprocalSquareBudget_le_quarter_sub_one_over_81
   have herase := Finset.sum_erase_add
     (s := covarianceOddIntegerEnvelope N)
     (f := fun q => (1 : ℚ) / (q : ℚ) ^ 2) h9
+  have herase' :
+      (∑ q ∈ (covarianceOddIntegerEnvelope N).erase 9,
+        (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 81 =
+      ∑ q ∈ covarianceOddIntegerEnvelope N,
+        (1 : ℚ) / (q : ℚ) ^ 2 := by
+    norm_num at herase
+    simpa [one_div] using herase
   have hall := covarianceOddIntegerEnvelope_reciprocalSquareSum_le_quarter N
-  norm_num at herase
+  rw [← herase'] at hall
   linarith
 
 private theorem small_prime_reciprocalSquareBudget_le_79_over_162
@@ -270,7 +249,7 @@ private theorem small_prime_reciprocalSquareBudget_le_79_over_162
     have hqN := hdata.2
     have hqLt : q < 9 := lt_of_le_of_lt hqN hN
     have hq2 := hp.two_le
-    interval_cases q <;> norm_num at hp ⊢
+    interval_cases q <;> norm_num_all
   unfold primeOwnerReciprocalSquareBudget
   calc
     (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) ≤
@@ -281,7 +260,7 @@ private theorem small_prime_reciprocalSquareBudget_le_79_over_162
             positivity
     _ ≤ 79 / 162 := by norm_num
 
-/-- **Uniform strict prime reciprocal-square budget.** -/
+/-- Uniform strict prime reciprocal-square budget. -/
 theorem primeOwnerReciprocalSquareBudget_le_79_over_162 (N : ℕ) :
     primeOwnerReciprocalSquareBudget N ≤ 79 / 162 := by
   by_cases hN : N < 9
@@ -294,9 +273,19 @@ theorem primeOwnerReciprocalSquareBudget_le_79_over_162 (N : ℕ) :
     have hsplit := Finset.sum_erase_add
       (s := primesUpTo N)
       (f := fun q => (1 : ℚ) / (q : ℚ) ^ 2) htwo
+    have hsplit' :
+        (∑ q ∈ (primesUpTo N).erase 2,
+          (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 =
+        ∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2 := by
+      norm_num at hsplit
+      simpa [one_div] using hsplit
     unfold primeOwnerReciprocalSquareBudget
-    norm_num at hsplit ⊢
-    linarith
+    calc
+      (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) =
+          (∑ q ∈ (primesUpTo N).erase 2,
+            (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 := hsplit'.symm
+      _ ≤ (1 / 4 - 1 / 81) + 1 / 4 := add_le_add_right hodd _
+      _ = 79 / 162 := by norm_num
 
 /-! ## Strict fixed-parent reciprocal-square congestion -/
 
@@ -308,7 +297,7 @@ def postRootCovarianceReciprocalOwnerCongestion
       (p : ℚ) ^ 2
 
 /-- Fixed-parent congestion is bounded by twice the prime reciprocal-square
-budget, because each owner has at most two mixed-corner children. -/
+budget because each owner has at most two mixed-corner children. -/
 theorem postRootCovarianceReciprocalOwnerCongestion_le_two_mul_budget
     (W : ℕ) (parent : ℕ × ℕ) :
     postRootCovarianceReciprocalOwnerCongestion W parent ≤
@@ -322,21 +311,22 @@ theorem postRootCovarianceReciprocalOwnerCongestion_le_two_mul_budget
         apply Finset.sum_le_sum
         intro p hp
         have hpPrime := (mem_primesUpTo.mp hp).1
-        have hpPos : (0 : ℚ) < (p : ℚ) ^ 2 := by positivity
-        have hmultNat := postRootCovarianceFixedOwnerChildMultiplicity_le_two W parent p
+        have hpQ : (0 : ℚ) < (p : ℚ) := by exact_mod_cast hpPrime.pos
+        have hpSq : (0 : ℚ) < (p : ℚ) ^ 2 := sq_pos_of_pos hpQ
+        have hmultNat :=
+          postRootCovarianceFixedOwnerChildMultiplicity_le_two W parent p
         have hmult :
             (postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℚ) ≤ 2 := by
           exact_mod_cast hmultNat
-        apply (div_le_iff₀ hpPos).2
-        have hright :
-            (2 * ((1 : ℚ) / (p : ℚ) ^ 2)) * (p : ℚ) ^ 2 = 2 := by
-          field_simp
-        rw [hright]
-        exact hmult
+        calc
+          (postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℚ) /
+              (p : ℚ) ^ 2 ≤ 2 / (p : ℚ) ^ 2 :=
+            (div_le_div_iff_of_pos_right hpSq).2 hmult
+          _ = 2 * ((1 : ℚ) / (p : ℚ) ^ 2) := by ring
     _ = 2 * ∑ p ∈ primesUpTo W, (1 : ℚ) / (p : ℚ) ^ 2 := by
       rw [Finset.mul_sum]
 
-/-- **Strict reciprocal-square congestion contraction.** -/
+/-- Strict reciprocal-square congestion contraction. -/
 theorem postRootCovarianceReciprocalOwnerCongestion_le_79_over_81
     (W : ℕ) (parent : ℕ × ℕ) :
     postRootCovarianceReciprocalOwnerCongestion W parent ≤ 79 / 81 := by
