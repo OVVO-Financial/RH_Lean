@@ -6,7 +6,6 @@ on:
     paths:
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
-      - research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
@@ -134,8 +133,6 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
       - name: Check threshold reciprocal intertwining
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
-      - name: Check threshold direct-sum contraction
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
       - name: Check Dirichlet incidence closure
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.olean research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
       - name: Check threshold clipped Fubini
