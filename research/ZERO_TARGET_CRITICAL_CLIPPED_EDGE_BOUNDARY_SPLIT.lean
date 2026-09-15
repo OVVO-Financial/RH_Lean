@@ -89,7 +89,6 @@ theorem physicalSuperLcmMellinEdge_eq_firstCrossing_companion
   by_cases hwall : W < p * Nat.lcm a b
   · by_cases hpbW : p * b ≤ W
     · simp [haW, hbW, hpaW, hpbW, hwall]
-      ring
     · simp [haW, hbW, hpaW, hpbW, hwall]
   · simp [haW, hbW, hpaW, hwall]
 
@@ -138,7 +137,8 @@ critical Perron owner energy after squaring. -/
 theorem critical_clippedBoundary_reciprocal_sq_eq_perronEnergy
     (tau : ℝ) {p : ℕ} (hp : p.Prime) :
     (1 / (p : ℝ)) ^ 2 =
-      ‖stableFarCriticalQ2LogMultiplier tau p‖ ^ 2 :=
-  zeroTarget_reciprocalSquare_eq_norm_sq_criticalQ2Multiplier tau hp.pos
+      ‖stableFarCriticalQ2LogMultiplier tau p‖ ^ 2 := by
+  simpa [div_pow] using
+    zeroTarget_reciprocalSquare_eq_norm_sq_criticalQ2Multiplier tau hp.pos
 
 end RHLean.Proof
