@@ -18,6 +18,9 @@ on:
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
       - research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.lean
+      - research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_CORNER_CLASSIFICATION.lean
+      - research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI.lean
       - .github/workflows/unique-greatest-owner-assembly.yml
   workflow_dispatch:
 
@@ -138,6 +141,9 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER.lean
           emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PARENT_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP.lean
+          emit research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_CORNER_CLASSIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI.lean
       - name: Check unique greatest-owner Fubini
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI.lean
       - name: Check unique-owner continuation ledger
@@ -146,3 +152,7 @@ jobs:
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PARENT_FUBINI.lean
       - name: Check unique-owner rank drop
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP.lean
+      - name: Check full-polarization unique-owner Fubini
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
+      - name: Check full-polarization cell owner ledger
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI.lean
