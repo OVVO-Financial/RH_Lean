@@ -70,10 +70,10 @@ theorem zeroTarget_globalGram_reassembly
     unfold zeroTargetCoPartialGram zeroTargetDivergentGram
     rw [← Finset.sum_sub_distrib]
     apply Finset.sum_congr rfl
-    intro i hi
+    intro i _hi
     rw [← Finset.sum_sub_distrib]
     apply Finset.sum_congr rfl
-    intro j hj
+    intro j _hj
     exact (zeroTargetCoPartial_sub_divergent_eq_mul (a i) (a j)).symm
   calc
     (∑ i ∈ s, a i) ^ 2 =
@@ -82,7 +82,7 @@ theorem zeroTarget_globalGram_reassembly
       rw [Finset.sum_mul]
     _ = ∑ i ∈ s, ∑ j ∈ s, a i * a j := by
       apply Finset.sum_congr rfl
-      intro i hi
+      intro i _hi
       rw [Finset.mul_sum]
     _ = zeroTargetCoPartialGram s a - zeroTargetDivergentGram s a := hpair
 
@@ -96,6 +96,57 @@ theorem zeroTarget_globalGram_le_of_coPartial_sub_divergent_le
     (∑ i ∈ s, a i) ^ 2 ≤ B := by
   rw [zeroTarget_globalGram_reassembly]
   exact hB
+
+/-- **Finite first-separation induction.**  Any property that holds on the
+terminal owner class and propagates from the stripped ordered parent to a
+recursive child holds on every nonzero pair in the physical remainder carrier.
+This rules out an infinite unnamed cross-owner population: every such chain
+terminates because the fresh-prime separation rank drops by exactly one. -/
+theorem postRootCovariancePhysicalPair_induction
+    (W : ℕ) (P : ℕ × ℕ → Prop)
+    (hterminal : ∀ {mn : ℕ × ℕ},
+      mn ∈ postRootCovarianceRemainderTerminalPairCarrier W →
+      realMoebiusStep mn.1 * realMoebiusStep mn.2 ≠ 0 → P mn)
+    (hstep : ∀ {mn : ℕ × ℕ},
+      mn ∈ postRootCovarianceRemainderRecursivePairCarrier W →
+      realMoebiusStep mn.1 * realMoebiusStep mn.2 ≠ 0 →
+      P (squarefreePairFreshPrimeOrderedParent mn.1 mn.2) → P mn) :
+    ∀ {mn : ℕ × ℕ},
+      mn ∈ postRootCovarianceRemainderPhysicalPairCarrier W →
+      realMoebiusStep mn.1 * realMoebiusStep mn.2 ≠ 0 → P mn := by
+  let rank : ℕ × ℕ → ℕ := fun mn =>
+    (squarefreePairFreshPrimeSet mn.1 mn.2).card
+  have hstrong : ∀ k : ℕ, ∀ {mn : ℕ × ℕ},
+      rank mn = k →
+      mn ∈ postRootCovarianceRemainderPhysicalPairCarrier W →
+      realMoebiusStep mn.1 * realMoebiusStep mn.2 ≠ 0 → P mn := by
+    intro k
+    induction k using Nat.strong_induction_on with
+    | h k ih =>
+        intro mn hrank hphys hweight
+        by_cases ht : SquarefreePairFreshPrimeParentsEqual mn
+        · exact hterminal (Finset.mem_filter.mpr ⟨hphys, ht⟩) hweight
+        · have hrec : mn ∈ postRootCovarianceRemainderRecursivePairCarrier W :=
+            Finset.mem_filter.mpr ⟨hphys, ht⟩
+          let parent := squarefreePairFreshPrimeOrderedParent mn.1 mn.2
+          have hdesc :=
+            postRootCovarianceRemainderRecursivePair_owner_descent hrec hweight
+          dsimp only at hdesc
+          have hparentWeight :
+              realMoebiusStep parent.1 * realMoebiusStep parent.2 ≠ 0 := by
+            intro hz
+            apply hweight
+            rw [hdesc.2.2.2, hz, neg_zero]
+          have hparentRankLt : rank parent < k := by
+            dsimp [rank, parent]
+            dsimp [rank] at hrank
+            rw [← hrank]
+            omega
+          have hparentP : P parent :=
+            ih (rank parent) hparentRankLt rfl hdesc.1 hparentWeight
+          exact hstep hrec hweight hparentP
+  intro mn hphys hweight
+  exact hstrong (rank mn) rfl hphys hweight
 
 /-- **First admitted-wall critical split.**  Once the stripped owner parent is
 inside the LCM wall, the complete part has a negative coefficient and the only
