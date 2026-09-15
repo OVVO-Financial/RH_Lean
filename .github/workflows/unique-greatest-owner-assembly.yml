@@ -6,6 +6,7 @@ on:
     paths:
       - research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER.lean
+      - research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PARENT_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_DOUBLE_CORNER_POLARIZATION_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.lean
@@ -126,3 +127,5 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI.olean research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI.lean
       - name: Check unique-owner continuation ledger
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER.olean research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER.lean
+      - name: Check unique-owner parent Fubini
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PARENT_FUBINI.olean research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PARENT_FUBINI.lean
