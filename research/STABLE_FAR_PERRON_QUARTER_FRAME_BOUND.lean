@@ -34,6 +34,8 @@ open scoped BigOperators
 
 namespace RHLean.Proof
 
+open RHLean.Arithmetic RHLean.Analysis
+
 attribute [local instance] Classical.propDecidable
 
 /-- Critical q² synthesis over an arbitrary finite owner set. -/
@@ -125,7 +127,6 @@ theorem stableFarCriticalQ2Synthesis_zeroFrequency_twoOwner_kernel :
   rw [stableFarCriticalQ2LogMultiplier_eq_reciprocal_phase 0 (by norm_num : 0 < 3),
     stableFarCriticalQ2LogMultiplier_eq_reciprocal_phase 0 (by norm_num : 0 < 5)]
   simp
-  norm_num
 
 /-- The preceding kernel witness has strictly positive input energy. -/
 theorem stableFarCriticalQ2Synthesis_zeroFrequency_twoOwner_kernel_energy :
