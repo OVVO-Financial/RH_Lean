@@ -1,11 +1,10 @@
 import Mathlib
 import «research.LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT»
-import «research.CANONICAL_DESCENDING_PRIME_CHRONOLOGY»
 import «research.COVARIANCE_RECIPROCAL_OWNER_CONGESTION»
 import RHLean.Proof.StableFarAdaptiveLedgerCollapse
 
 /-!
-# Canonical Mellin-ledger form of the physical AMP remainder
+# Mellin-ledger form of the physical AMP remainder
 
 PR #715 gives the exact physical amplitude transport
 
@@ -17,13 +16,16 @@ difference between the canonical rough correlation and the literal reciprocal
 low-owner Mertens column.
 
 Independently, the adaptive raw chronology is already known to equal the same
-rough correlation on the canonical complete descending prime schedule.  The
-first section therefore identifies the outstanding AMP remainder as one exact
-Mellin endpoint gap
+rough correlation on every complete descending prime schedule.  The first
+section therefore identifies the outstanding AMP remainder as one exact Mellin
+endpoint gap
 
   E_R(0) = raw adaptive Euler ledger - reciprocal q^2 daughter column.
 
 No physical population is normed separately and no estimate is introduced.
+The repository separately constructs a canonical complete descending schedule;
+this module keeps the schedule abstract so the arithmetic splice does not depend
+on that bookkeeping implementation.
 
 The second section packages #714's pointwise `79/81` reciprocal-square
 congestion into the corresponding finite weighted-energy contraction.  This is
@@ -77,36 +79,35 @@ theorem lowOwnerPhysicalAmplitudeRemainder_zero_eq_correlation_sub_reciprocalCol
   rw [lowOwnerCriticalMertensSynthesis_zero_eq_reciprocalColumn R] at h
   linear_combination h
 
-/-- Canonical raw Euler ledger on the repository's explicit descending prime
-schedule. -/
-def canonicalAdaptiveRawCorrelationLedger (R : ℕ) : ℂ :=
-  squareRootCanonicalRoughAdaptiveRawLedger R
-    (squareRootCanonicalRoughDescendingPrimeSchedule R)
+/-- Raw Euler ledger on any chosen descending prime schedule. -/
+def adaptiveRawCorrelationLedger (R : ℕ) (ps : List ℕ) : ℂ :=
+  squareRootCanonicalRoughAdaptiveRawLedger R ps
     (Finset.Icc 1 (squareRootEndpoint R))
     (fun _ => (1 : ℂ))
 
-/-- The canonical raw ledger is literally the rough correlation. -/
-theorem canonicalAdaptiveRawCorrelationLedger_eq_correlation
-    (R : ℕ) (hR : 56 ≤ R) :
-    canonicalAdaptiveRawCorrelationLedger R =
+/-- Every complete descending schedule carries exactly the rough correlation. -/
+theorem adaptiveRawCorrelationLedger_eq_correlation_of_completeSchedule
+    (R : ℕ) (hR : 56 ≤ R) (ps : List ℕ)
+    (hsched : SquareRootCanonicalRoughCompleteDescendingSchedule R ps) :
+    adaptiveRawCorrelationLedger R ps =
       squareRootCanonicalRoughCorrelation R := by
-  unfold canonicalAdaptiveRawCorrelationLedger
+  unfold adaptiveRawCorrelationLedger
   exact adaptiveRawLedger_eq_roughCorrelation_of_completeSchedule
-    R hR (squareRootCanonicalRoughDescendingPrimeSchedule R)
-      (squareRootCanonicalRoughDescendingPrimeSchedule_complete R)
+    R hR ps hsched
 
 /-- The outstanding physical AMP correction is one exact Mellin endpoint gap:
 the complete raw zero-factor Euler ledger minus the reciprocal q^2 daughter
 column.  All stable-far, terminal, owner-two and root populations have already
 been reassembled into the raw ledger before this identity is stated. -/
 theorem lowOwnerPhysicalAmplitudeRemainder_zero_eq_rawLedger_sub_reciprocalColumn
-    (R : ℕ) (hR : 56 ≤ R) :
+    (R : ℕ) (hR : 56 ≤ R) (ps : List ℕ)
+    (hsched : SquareRootCanonicalRoughCompleteDescendingSchedule R ps) :
     lowOwnerPhysicalAmplitudeRemainder R 0 =
-      canonicalAdaptiveRawCorrelationLedger R -
+      adaptiveRawCorrelationLedger R ps -
         lowOwnerReciprocalMertensColumn R := by
   rw [lowOwnerPhysicalAmplitudeRemainder_zero_eq_correlation_sub_reciprocalColumn
       R hR,
-    canonicalAdaptiveRawCorrelationLedger_eq_correlation R hR]
+    adaptiveRawCorrelationLedger_eq_correlation_of_completeSchedule R hR ps hsched]
 
 /-! ## Quantitative consumer from #714 -/
 
