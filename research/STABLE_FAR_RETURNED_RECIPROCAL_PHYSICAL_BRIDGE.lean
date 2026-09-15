@@ -89,7 +89,8 @@ theorem stableFarReturnedPhysicalReciprocalCenteredMass_eq_reciprocalCentered
   rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro e _he
-  rfl
+  rw [show canonicalMoebiusWeight e = (((μ e : ℤ) : ℂ)) by rfl]
+  ring
 
 /-- Raw physical returned centered mass in complex currency. -/
 def stableFarReturnedPhysicalUnitCenteredMass
