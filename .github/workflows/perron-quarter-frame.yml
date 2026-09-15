@@ -7,7 +7,9 @@ on:
       - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
       - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
       - research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
+      - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
       - RHLean/Proof/SquareRootLowPrimeSharpFrameBudget.lean
+      - RHLean/Proof/ComplexVerticalLineGreenKubo.lean
       - .github/workflows/perron-quarter-frame.yml
   workflow_dispatch:
 
@@ -91,3 +93,6 @@ jobs:
 
       - name: Kernel-check Perron quarter-frame theorem
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+
+      - name: Kernel-check zero-target partial-moment covariance
+        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
