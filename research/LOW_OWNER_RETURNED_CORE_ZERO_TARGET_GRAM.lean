@@ -148,6 +148,32 @@ theorem postRootCovariancePhysicalPair_induction
   intro mn hphys hweight
   exact hstrong (rank mn) rfl hphys hweight
 
+/-- **Still-superwall critical propagation.**  If the stripped parent has not
+yet crossed back through the LCM wall, the critical Mellin square propagates
+the same covariance mode with factor `(1-1/p)^2`; the only additional term is
+the reciprocal companion-clipped edge.  This is the exact recursive branch of
+the global telescope. -/
+theorem criticalPhysicalMellinStencil_superwall_eq_propagated_add_clipped
+    {W p a b : ℕ}
+    (hp : p.Prime) (hpa : ¬ p ∣ a) (hpb : ¬ p ∣ b)
+    (hab : a ≤ b) (hbW : b ≤ W) (hpaW : p * a ≤ W)
+    (hSuper : W < Nat.lcm a b) :
+    physicalSuperLcmMellinStencil W p (1 / (p : ℝ)) a b =
+      (1 - 1 / (p : ℝ)) ^ 2 +
+        (1 / (p : ℝ)) * (1 - 1 / (p : ℝ)) *
+          (if W < p * b then 1 else 0) := by
+  rw [physicalSuperLcmMellinStencil_eq_neg_firstCrossing_add_edge_of_mul_le
+    (1 / (p : ℝ)) hp hpa hpb hab hbW hpaW]
+  rw [critical_one_sub_mul_edge_eq_quadratic_add_reciprocalBoundary
+    hp hpa hpb hab hbW hpaW]
+  have hpOne : 1 ≤ p := hp.one_le
+  have hWall : W < p * Nat.lcm a b := by
+    calc
+      W < Nat.lcm a b := hSuper
+      _ ≤ p * Nat.lcm a b := by
+        simpa using Nat.mul_le_mul_right (Nat.lcm a b) hpOne
+  simp [hSuper, hWall]
+
 /-- **First admitted-wall critical split.**  Once the stripped owner parent is
 inside the LCM wall, the complete part has a negative coefficient and the only
 positive geometric leakage is the companion-clipped first-separation term.
