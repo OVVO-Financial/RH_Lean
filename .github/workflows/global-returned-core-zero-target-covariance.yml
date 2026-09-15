@@ -14,6 +14,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELLS.lean
       - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_COMPENSATED_OWNER_BLOCK.lean
+      - research/GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE.lean
       - research/GLOBAL_RETURNED_CORE_ALIGNMENT_RESIDUAL.lean
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_ALIGNMENT_INTERTWINING.lean
       - research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
@@ -134,14 +135,16 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELLS.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_COMPENSATED_OWNER_BLOCK.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE.lean
           emit research/GLOBAL_RETURNED_CORE_ALIGNMENT_RESIDUAL.lean
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_ALIGNMENT_INTERTWINING.lean
           emit research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
           emit research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
-      - name: Kernel-check actual first-owner cells and compensated block
+      - name: Kernel-check actual first-owner signed telescope
         run: |
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_FUBINI.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_COMPENSATED_OWNER_BLOCK.lean
+          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE.lean
       - name: Kernel-check synthesis closure
         run: |
           set -o pipefail
