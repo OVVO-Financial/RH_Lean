@@ -7,7 +7,6 @@ on:
       - research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
       - research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
       - research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
-      - research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
       - research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
       - RHLean/Proof/StableFarAdaptiveLedgerCollapse.lean
       - .github/workflows/amplitude-remainder-mellin-splice.yml
@@ -65,7 +64,52 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Emit low-owner census dependencies
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.CANONICAL_ROUGH_GLOBAL_BOUNDS.olean \
+            research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.CANONICAL_ROUGH_Q2_TAIL_REDUCTION.olean \
+            research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.olean \
+            research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_CHILD_FAR_NORMAL_FORM.olean \
+            research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.olean \
+            research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+
+      - name: Emit critical Perron synthesis dependencies
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_RETURNED_FIBER_PRODUCTION.olean \
+            research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.olean \
+            research/STABLE_FAR_LOG_FREQUENCY_DIAGONIZATION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.olean \
+            research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.olean \
+            research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.olean \
+            research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+
+      - name: Emit physical amplitude and covariance dependencies
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.olean \
+            research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.COVARIANCE_RECIPROCAL_OWNER_CONGESTION.olean \
+            research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
 
       - name: Kernel-check amplitude remainder Mellin splice
         run: |
