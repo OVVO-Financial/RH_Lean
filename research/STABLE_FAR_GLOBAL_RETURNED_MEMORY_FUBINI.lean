@@ -12,8 +12,9 @@ packet.
 
 This file performs only the missing finite Fubini between those layers.  It
 regroups the complete centered q² tower by the actual returned coordinates
-`(r,p)` occurring in the descended carrier.  No norm, estimate, PNT input, or
-RH-scale hypothesis is introduced.
+`(r,p)` occurring in the descended carrier.  In particular, the regrouping
+preserves the literal physical child multiplicities before any estimate.
+No norm, estimate, PNT input, or RH-scale hypothesis is introduced.
 -/
 
 noncomputable section
