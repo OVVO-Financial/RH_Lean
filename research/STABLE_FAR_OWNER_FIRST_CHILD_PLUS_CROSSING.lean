@@ -66,8 +66,8 @@ theorem stableFarOldOwnerChild_add_crossing_eq_predecessorParent
     (r := q) (Y := squareRootEndpoint R / (q * p)) hq
   unfold stableFarOldOwnerChildCofactorMass stableFarOldOwnerChildCofactors
     stableFarOldOwnerCrossingCofactorMass stableFarOldOwnerCrossingCofactors
-  rw [hUpper]
-  omega
+  rw [hUpper, add_comm]
+  exact hsum
 
 /-- Equivalent Euler-step form: the crossing window alone advances the
 predecessor prefix from the q^2 cutoff to the admitted-q prefix. -/
