@@ -1,0 +1,99 @@
+name: Low-owner physical census reconciliation check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+      - research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
+      - research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+      - research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean
+      - .github/workflows/low-owner-physical-census.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Emit global correlation bounds olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.CANONICAL_ROUGH_GLOBAL_BOUNDS.olean \
+            research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+
+      - name: Emit q2 tail reduction olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.CANONICAL_ROUGH_Q2_TAIL_REDUCTION.olean \
+            research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+
+      - name: Emit high-q2 scalar cancellation olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.olean \
+            research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+
+      - name: Emit child-far normal form olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_CHILD_FAR_NORMAL_FORM.olean \
+            research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
+
+      - name: Emit physical census correlation olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.olean \
+            research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+
+      - name: Kernel-check physical census energy transfer
+        run: lake env lean -DwarningAsError=true research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean
