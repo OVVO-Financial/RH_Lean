@@ -18,7 +18,6 @@ on:
       - research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
-      - research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
       - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
       - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
       - research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
@@ -147,7 +146,6 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
-          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
@@ -165,7 +163,6 @@ jobs:
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
