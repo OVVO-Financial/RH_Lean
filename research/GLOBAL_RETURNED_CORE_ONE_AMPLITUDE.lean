@@ -89,6 +89,7 @@ theorem lowOwnerZeroFrequencyMobiusAmplitude_eq_tail_add_reciprocal
     (R : ℕ) :
     lowOwnerZeroFrequencyMobiusAmplitude R =
       lowOwnerFarTailAmplitudeReal R + lowOwnerReciprocalMertensColumnReal R := by
+  rw [lowOwnerReciprocalMertensColumnReal_eq_weightedMobiusSum]
   unfold lowOwnerZeroFrequencyMobiusAmplitude
     lowOwnerZeroFrequencyMobiusWeight lowOwnerFarTailAmplitudeReal
   rw [← Finset.sum_add_distrib]
