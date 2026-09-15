@@ -2,7 +2,7 @@ name: Zero-target Mellin square check
 
 on:
   pull_request:
-    branches: [main, agent/zero-target-critical-clipped-edge]
+    branches: [main, agent/zero-target-critical-clipped-edge, agent/zero-target-clipped-edge-boundary-split]
     paths:
       - research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
       - research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
@@ -10,6 +10,9 @@ on:
       - research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
       - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
       - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
+      - research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
+      - research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+      - research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
       - research/STABLE_FAR_PERRON_REALIFICATION.lean
       - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
       - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
@@ -81,9 +84,14 @@ jobs:
           emit research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
           emit research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
           emit research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
+          emit research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
+          emit research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          emit research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
       - name: Kernel-check complete post-root Mellin cubes
         run: lake env lean -DwarningAsError=true research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
       - name: Kernel-check critical clipped edge
         run: lake env lean -DwarningAsError=true research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
       - name: Kernel-check clipped-edge boundary split
         run: lake env lean -DwarningAsError=true research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
+      - name: Kernel-check clipped owner energy contraction
+        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
