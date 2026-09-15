@@ -9,6 +9,7 @@ on:
       - research/STABLE_FAR_OWNER_FIRST_CHILD_PLUS_CROSSING.lean
       - research/STABLE_FAR_OWNER_FIRST_COLLAPSE.lean
       - research/POST_ROOT_EULER_MEMORY_PARENT_MASS.lean
+      - research/AMPLITUDE_STOKES_MEMORY_SPLIT.lean
       - research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
       - research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
       - RHLean/Proof/StableFarAdaptiveLedgerCollapse.lean
@@ -119,7 +120,10 @@ jobs:
 
       - name: Kernel-check amplitude remainder Mellin splice
         run: |
-          lake env lean -DwarningAsError=true research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.olean \
+            research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
           lake env lean -DwarningAsError=true research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
           lake env lean -DwarningAsError=true research/STABLE_FAR_OWNER_FIRST_CHILD_PLUS_CROSSING.lean
           lake env lean -DwarningAsError=true research/POST_ROOT_EULER_MEMORY_PARENT_MASS.lean
+          lake env lean -DwarningAsError=true research/AMPLITUDE_STOKES_MEMORY_SPLIT.lean
