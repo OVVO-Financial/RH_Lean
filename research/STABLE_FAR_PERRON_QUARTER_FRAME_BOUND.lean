@@ -5,7 +5,7 @@ import RHLean.Proof.SquareRootLowPrimeSharpFrameBudget
 /-!
 # Exact quarter-frame bound for the critical q² Perron synthesis
 
-The critical-line q² multiplier already has exact modulus `1/q`.  Therefore a
+The critical-line q² multiplier already has exact modulus `1/q`. Therefore a
 finite synthesis over owners satisfies a weighted Cauchy--Schwarz bound with
 coefficient equal to the reciprocal-square mass of the owner schedule.
 
@@ -17,14 +17,14 @@ Combining the two facts gives an unconditional frequencywise frame bound
 
   || sum_q m_q(tau) a_q ||^2 <= (1/4) sum_q ||a_q||^2.
 
-This theorem is deliberately directional.  It controls synthesis from arbitrary
-owner amplitudes into one Perron mode.  It does not identify the physical parent
+This theorem is deliberately directional. It controls synthesis from arbitrary
+owner amplitudes into one Perron mode. It does not identify the physical parent
 census with such a synthesis of endpoint Mertens daughters, and hence is not a
 LOW-4 theorem by itself.
 
 The final witness records why this direction warning matters: at zero frequency
 the two owner amplitudes `3` and `-5` synthesize to zero through the owners
-`3` and `5`, while their input energy is nonzero.  Thus no unrestricted inverse
+`3` and `5`, while their input energy is nonzero. Thus no unrestricted inverse
 frame bound can be obtained by merely reversing the Perron synthesis.
 -/
 
@@ -92,9 +92,16 @@ theorem stableFarCriticalQ2Synthesis_energy_le_reciprocalSquareBudget
 theorem oddPrimeOwnerReciprocalSquareBudgetReal_le_quarter (N : ℕ) :
     (∑ q ∈ (primesUpTo N).erase 2, (1 : ℝ) / (q : ℝ) ^ 2) ≤ 1 / 4 := by
   have hQ := oddPrimeOwnerReciprocalSquareBudget_le_quarter N
-  exact_mod_cast hQ
+  have hcast :
+      (((∑ q ∈ (primesUpTo N).erase 2,
+          (1 : ℚ) / (q : ℚ) ^ 2) : ℚ) : ℝ) ≤
+        (((1 / 4 : ℚ)) : ℝ) := by
+    exact_mod_cast hQ
+  push_cast at hcast
+  norm_num at hcast ⊢
+  simpa [Nat.cast_pow] using hcast
 
-/-- **Quarter-frame theorem.**  At every log frequency, the complete odd-prime
+/-- **Quarter-frame theorem.** At every log frequency, the complete odd-prime
 critical q² synthesis has squared operator norm at most `1/4`. -/
 theorem stableFarCriticalQ2OddPrimeSynthesis_energy_le_quarter
     (tau : ℝ) (N : ℕ) (a : ℕ → ℂ) :
@@ -119,7 +126,7 @@ theorem stableFarCriticalQ2OddPrimeSynthesis_energy_le_quarter
       mul_le_mul_of_nonneg_right hbudget henergy
 
 /-- At zero frequency, owners `3` and `5` already give a nontrivial kernel of
-the unrestricted synthesis map.  This prevents reversing the quarter-frame
+the unrestricted synthesis map. This prevents reversing the quarter-frame
 bound without additional arithmetic restrictions on the amplitude family. -/
 theorem stableFarCriticalQ2Synthesis_zeroFrequency_twoOwner_kernel :
     stableFarCriticalQ2LogMultiplier 0 3 * (3 : ℂ) +
