@@ -1,0 +1,79 @@
+name: Low-owner q-memory remainder check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/LOW_OWNER_Q_MEMORY_REMAINDER_NORMAL_FORM.lean
+      - research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
+      - research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
+      - research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+      - .github/workflows/low-owner-q-memory-remainder.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-
+      - name: Emit research dependencies
+        run: |
+          mkdir -p .lake/build/lib/lean
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+          emit research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+          emit research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+          emit research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
+          emit research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+          emit research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+          emit research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
+          emit research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
+          emit research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
+          emit research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+          emit research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
+          emit research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          emit research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
+      - name: Kernel-check q-owner AMP remainder normal form
+        run: lake env lean -DwarningAsError=true research/LOW_OWNER_Q_MEMORY_REMAINDER_NORMAL_FORM.lean
