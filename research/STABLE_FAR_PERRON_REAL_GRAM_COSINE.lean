@@ -75,11 +75,10 @@ theorem stableFarQ2LogFrequencyMultiplier_im
 its real reciprocal. -/
 theorem stableFar_complexReciprocal_nat_eq_ofReal (q : ℕ) :
     (1 / (q : ℂ)) = ((1 / (q : ℝ) : ℝ) : ℂ) := by
-  change (q : ℂ)⁻¹ = (((q : ℝ)⁻¹ : ℝ) : ℂ)
   have hcast : (q : ℂ) = (((q : ℝ) : ℂ)) := by
     norm_num
   rw [hcast]
-  exact (Complex.ofReal_inv (q : ℝ)).symm
+  simpa [one_div] using (Complex.ofReal_inv (q : ℝ)).symm
 
 /-- The critical q^2 multiplier has the expected real cosine coordinate. -/
 theorem stableFarCriticalQ2LogMultiplier_re
