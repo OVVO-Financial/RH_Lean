@@ -60,7 +60,7 @@ theorem zeroTargetCriticalOwnerRatio_sq_eq_criticalPerronEnergy
     zeroTargetCriticalOwnerRatio p ^ 2 =
       ‖stableFarCriticalQ2LogMultiplier tau p‖ ^ 2 := by
   rw [show zeroTargetCriticalOwnerRatio p ^ 2 = 1 / (p : ℝ) ^ 2 by
-    simp [zeroTargetCriticalOwnerRatio, div_pow]]
+    simp [zeroTargetCriticalOwnerRatio]]
   exact zeroTarget_reciprocalSquare_eq_norm_sq_criticalQ2Multiplier tau hp.pos
 
 /-- Both pieces therefore use one and the same owner coordinate: amplitude
