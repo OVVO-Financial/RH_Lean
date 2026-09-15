@@ -21,14 +21,12 @@ and the mixed first-owner Gram is
   G = -(L + C) J.
 
 The compiled AMP owner difference identifies `L - J` with the literal
-`daughterCrossing - rootCrossing` amplitude.  Therefore
+`daughterCrossing - rootCrossing` amplitude. Therefore
 
   2 G = (L - J)^2 - L^2 - J^2 - 2 C J.
 
-This is the desired signed telescope.  The complete population transfers energy
-through `L - J`; the two branch energies remain with favorable sign; and the
-only untelescoped boundary is the mixed admitted/clipped term `C J`.  In
-particular there is no `C^2` loss.
+The cell telescope object itself is defined in this local file so downstream
+pair-level induction does not depend on the global first-owner Fubini splice.
 -/
 
 noncomputable section
@@ -90,8 +88,7 @@ theorem lowOwnerFirstOwnerCompensatedInterior_eq_admitted_sub_returned
     (R := R) (p := p) (n := a) hp.one_le]
   ring
 
-/-- The cell Gram itself has only one clipped occurrence: the clipped p-free
-base multiplies the admitted returned child. -/
+/-- The cell Gram itself has only one clipped occurrence. -/
 theorem lowOwnerFirstOwnerCellGram_eq_neg_basePlusClipped_mul_returned
     {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
     lowOwnerFirstOwnerCellGram R p sig =
@@ -103,17 +100,23 @@ theorem lowOwnerFirstOwnerCellGram_eq_neg_basePlusClipped_mul_returned
     lowOwnerFirstOwnerChildAmplitude_eq_neg_returnedParent hp]
   ring
 
-/-- **Exact signed cell telescope.**  No clipped square survives.  The complete
-owner population is the energy increment `(L-J)^2 - L^2 - J^2`; the sole
-untelescoped term is the mixed clipped/admitted cross term. -/
+/-- Signed telescope contribution of one first-owner cell.  Kept at the local
+cell layer so the unique-owner induction can use it independently of the global
+owner reindexing. -/
+def lowOwnerFirstOwnerSignedCellTelescope
+    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
+  lowOwnerFirstOwnerCompensatedInteriorAmplitude R p sig ^ 2 -
+    lowOwnerFirstOwnerAdmittedBaseAmplitude R p sig ^ 2 -
+    lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig ^ 2 -
+    2 * lowOwnerFirstOwnerClippedAmplitude R p sig *
+      lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig
+
+/-- **Exact signed cell telescope.**  No clipped square survives. -/
 theorem two_mul_lowOwnerFirstOwnerCellGram_eq_completeTelescope_sub_clippedCross
     {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
     2 * lowOwnerFirstOwnerCellGram R p sig =
-      lowOwnerFirstOwnerCompensatedInteriorAmplitude R p sig ^ 2 -
-        lowOwnerFirstOwnerAdmittedBaseAmplitude R p sig ^ 2 -
-        lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig ^ 2 -
-        2 * lowOwnerFirstOwnerClippedAmplitude R p sig *
-          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
+      lowOwnerFirstOwnerSignedCellTelescope R p sig := by
+  unfold lowOwnerFirstOwnerSignedCellTelescope
   rw [lowOwnerFirstOwnerCellGram_eq_neg_basePlusClipped_mul_returned hp,
     lowOwnerFirstOwnerCompensatedInterior_eq_admitted_sub_returned hp]
   ring
