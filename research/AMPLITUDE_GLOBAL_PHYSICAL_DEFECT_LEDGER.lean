@@ -79,8 +79,13 @@ theorem directSumFreshPrimeScaledReciprocalDrop_eq_prime_mul_physicalDefectStep
   have hdrop :=
     amplitudeReciprocalDropStep_evolved_eq_amplitudePhysicalDefectStep
       R pre hR hp hcomplete
-  dsimp [directSumFreshPrimeScaledReciprocalDrop,
-    amplitudePhysicalDefectStep] at hdrop ⊢
+  change (p : ℂ) *
+      amplitudeReciprocalDropStep R p
+        (squareRootCanonicalRoughAdaptiveCarrier pre
+          (Finset.Icc 1 (squareRootEndpoint R)))
+        (squareRootCanonicalRoughAdaptiveRawCoefficient pre
+          (Finset.Icc 1 (squareRootEndpoint R)) (fun _ => (1 : ℂ))) =
+    (p : ℂ) * amplitudePhysicalDefectStep R p pre
   rw [hdrop]
 
 /-- On a complete prefix the Euler memory retained by the coordinate change is
