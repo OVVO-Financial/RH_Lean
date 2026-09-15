@@ -250,7 +250,8 @@ private theorem small_prime_reciprocalSquareBudget_le_79_over_162
     have hqN := hdata.2
     have hqLt : q < 9 := lt_of_le_of_lt hqN hN
     have hq2 := hp.two_le
-    interval_cases q <;> norm_num at hp ⊢
+    interval_cases q <;> norm_num at hp
+    all_goals norm_num
   unfold primeOwnerReciprocalSquareBudget
   calc
     (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) ≤
