@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean
+      - research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
       - research/STABLE_FAR_RETURNED_RECIPROCAL_FROZEN_WINDOW.lean
       - research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
       - research/STABLE_FAR_RETURNED_FIBER_FUBINI.lean
@@ -106,6 +107,7 @@ jobs:
           emit research/DIRECT_SUM_FRESH_PRIME_GLOBAL_COLLAPSE.lean
           emit research/DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.lean
           emit research/AMPLITUDE_GLOBAL_PHYSICAL_DEFECT_LEDGER.lean
+          emit research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
 
       - name: Kernel-check returned AMP bridge
         run: lake env lean -DwarningAsError=true research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean
