@@ -1,6 +1,7 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION»
+import «research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION»
 
 /-!
 # Unique-owner continuation ledger inside one compensated cell
@@ -13,16 +14,11 @@ the global signed induction.
 At the physical endpoint `W = squareRootEndpoint R`, a positive admitted pair
 is either already in a complete post-root family or lies in the post-root
 remainder.  In the remainder, its unique greatest fresh owner invokes the
-compiled five-way continuation theorem:
+compiled five-way continuation theorem.
 
-* equal-parent terminal;
-* clipped owner exit;
-* complete post-root family at the lower endpoint;
-* existing terminal at the lower endpoint;
-* lower-rank recursive remainder.
-
-No sixth/fifth unnamed residual class is introduced and no energy estimate is
-used.
+The same pair is also shown to lie in the literal greatest-owner fixed-parent
+child fibre for its stripped ordered parent.  Thus the unique-owner assembly
+and the local reciprocal contraction now use exactly the same graph.
 -/
 
 noncomputable section
@@ -71,8 +67,8 @@ theorem lowOwnerFirstOwnerGreatestOwnerPositivePair_owner
     IsSquarefreePairGreatestFreshPrimeOwner r m n := by
   exact (Finset.mem_filter.mp (Finset.mem_filter.mp hmn).1).2
 
-/-- The unique owner of a positive admitted cell pair is a prime strictly above
-the current first owner. -/
+/-- The unique owner is prime, strictly above the current first owner, and on
+the physical clock. -/
 theorem lowOwnerFirstOwnerGreatestOwnerPositivePair_owner_data
     {R p r m n : ℕ} {sig : Finset ℕ}
     (hp : p.Prime)
@@ -109,6 +105,23 @@ theorem lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_descendingCross
   have hmCar := (Finset.mem_filter.mp (Finset.mem_filter.mp hmAd).1).1
   have hnCar := (Finset.mem_filter.mp (Finset.mem_filter.mp hnAd).1).1
   exact greatestFreshOwner_descendingCrossPair hrData.1 hmCar hnCar howner
+
+/-- **Graph compatibility.**  The uniquely selected pair is literally a child
+of its stripped ordered parent in the greatest-owner fixed-parent fibre used by
+the `2/9` and `1/9` theorems. -/
+theorem lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_fixedParentChildFiber
+    {R p r m n : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime)
+    (hmn : (m, n) ∈
+      lowOwnerFirstOwnerGreatestOwnerPositivePairFiber R p sig r) :
+    (m, n) ∈ lowOwnerGreatestOwnerFixedParentChildFiber R
+      (squarefreePairPrimeOrderedParent r m n) r := by
+  have hcross :=
+    lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_descendingCross hp hmn
+  have hlt := (Finset.mem_filter.mp hmn).2
+  unfold lowOwnerGreatestOwnerFixedParentChildFiber
+  exact Finset.mem_filter.mpr
+    ⟨Finset.mem_filter.mpr ⟨hcross, hlt⟩, rfl⟩
 
 /-- **Exact unique-owner continuation classification.**  A positive pair in one
 unique greatest-owner fibre is either already removed by a complete post-root
