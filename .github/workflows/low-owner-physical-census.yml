@@ -8,6 +8,8 @@ on:
       - research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
       - research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
       - research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean
+      - research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
+      - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
       - .github/workflows/low-owner-physical-census.yml
   workflow_dispatch:
 
@@ -97,3 +99,24 @@ jobs:
 
       - name: Kernel-check physical census energy transfer
         run: lake env lean -DwarningAsError=true research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean
+
+      - name: Emit critical synthesis dependencies
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_RETURNED_FIBER_PRODUCTION.olean \
+            research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.olean \
+            research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.olean \
+            research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.olean \
+            research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.olean \
+            research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+
+      - name: Kernel-check physical amplitude transport
+        run: lake env lean -DwarningAsError=true research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
