@@ -64,7 +64,7 @@ theorem zeroTargetMellinFreshPrimeSquare_doubleCorner_reciprocal
   have hr : (0 : ℝ) ≤ 1 / (p : ℝ) := by positivity
   have h := zeroTargetMellinFreshPrimeSquare_doubleCorner_excess
     hr x y
-  nlinarith [h]
+  simpa [div_pow] using h
 
 /-- The reciprocal quadratic coefficient is exactly the norm-square of the
 critical q² Perron multiplier, including its arbitrary log-frequency phase. -/
