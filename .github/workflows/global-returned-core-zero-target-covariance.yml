@@ -6,6 +6,7 @@ on:
     paths:
       - research/GLOBAL_RETURNED_CORE_ZERO_TARGET_COVARIANCE.lean
       - research/GLOBAL_RETURNED_CORE_CONTINUATION_CARRIER.lean
+      - research/GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean
       - research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
       - research/LOW_OWNER_RETURNED_AMPLITUDE_CORE.lean
       - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
@@ -112,5 +113,6 @@ jobs:
           emit research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
           emit research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
           emit research/GLOBAL_RETURNED_CORE_ZERO_TARGET_COVARIANCE.lean
-      - name: Kernel-check no-residual continuation carrier
-        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_CONTINUATION_CARRIER.lean
+          emit research/GLOBAL_RETURNED_CORE_CONTINUATION_CARRIER.lean
+      - name: Kernel-check common-clock reciprocal daughter coordinate
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean
