@@ -9,6 +9,7 @@ on:
       - research/LOW_OWNER_RETURNED_CORE_ZERO_TARGET_GRAM.lean
       - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
       - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
+      - research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
       - research/STABLE_FAR_GLOBAL_RETURNED_MEMORY_FUBINI.lean
       - .github/workflows/low-owner-returned-amplitude-core.yml
   workflow_dispatch:
@@ -79,6 +80,7 @@ jobs:
           emit research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
           emit research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
           emit research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          emit research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
           emit research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
           emit research/AMPLITUDE_STOKES_MEMORY_SPLIT.lean
           emit research/AMPLITUDE_RECIPROCAL_DROP_PHYSICAL_DEFECT.lean
@@ -104,5 +106,6 @@ jobs:
           emit research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
           emit research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
           emit research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
+          emit research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
       - name: Kernel-check returned-core zero-target Gram
         run: lake env lean -DwarningAsError=true research/LOW_OWNER_RETURNED_CORE_ZERO_TARGET_GRAM.lean
