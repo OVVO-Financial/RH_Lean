@@ -102,9 +102,16 @@ theorem evolvedEulerNext_sub_rawNext_eq_eulerFactor_mul_parentMass
       ⟨_hcU, hcpos, _hcrough, _hchild⟩
     dsimp [b]
     unfold squareRootCanonicalRoughRawCorrelationSummand
-    rw [natCast_mul_squareRootCanonicalRoughCorrelationReciprocalSummand
-      R hcpos]
-    ring
+    calc
+      (c : ℂ) * a c *
+          squareRootCanonicalRoughCorrelationReciprocalSummand R c =
+        a c * ((c : ℂ) *
+          squareRootCanonicalRoughCorrelationReciprocalSummand R c) := by ring
+      _ = a c *
+          (canonicalMoebiusWeight c *
+            squareRootCanonicalRoughCofactorResponse R c) := by
+        rw [natCast_mul_squareRootCanonicalRoughCorrelationReciprocalSummand
+          R hcpos]
 
   have hsurvivorCoord :
       (∑ n ∈ survivors,
@@ -120,9 +127,16 @@ theorem evolvedEulerNext_sub_rawNext_eq_eulerFactor_mul_parentMass
     have hnpos : 0 < n := by omega
     dsimp [b]
     unfold squareRootCanonicalRoughRawCorrelationSummand
-    rw [natCast_mul_squareRootCanonicalRoughCorrelationReciprocalSummand
-      R hnpos]
-    ring
+    calc
+      (n : ℂ) * a n *
+          squareRootCanonicalRoughCorrelationReciprocalSummand R n =
+        a n * ((n : ℂ) *
+          squareRootCanonicalRoughCorrelationReciprocalSummand R n) := by ring
+      _ = a n *
+          (canonicalMoebiusWeight n *
+            squareRootCanonicalRoughCofactorResponse R n) := by
+        rw [natCast_mul_squareRootCanonicalRoughCorrelationReciprocalSummand
+          R hnpos]
 
   rw [hweighted, hraw, hparentCoord, hsurvivorCoord]
   ring
