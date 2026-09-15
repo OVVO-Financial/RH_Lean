@@ -77,7 +77,8 @@ theorem lowOwnerPhysicalAmplitudeRemainder_zero_eq_correlation_sub_reciprocalCol
     squareRootCanonicalRoughCorrelation_eq_criticalSynthesis_add_physicalRemainder
       R hR 0
   rw [lowOwnerCriticalMertensSynthesis_zero_eq_reciprocalColumn R] at h
-  linear_combination h
+  rw [h]
+  ring
 
 /-- Raw Euler ledger on any chosen descending prime schedule. -/
 def adaptiveRawCorrelationLedger (R : ℕ) (ps : List ℕ) : ℂ :=
