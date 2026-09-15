@@ -67,8 +67,7 @@ theorem weightedMoebiusFreshPrimeFourCornerMass_eq_ownerDifferences
   unfold weightedMoebiusFreshPrimeFourCornerMass
   rw [realMoebiusStep_mul_prime_eq_neg hp hpa,
     realMoebiusStep_mul_prime_eq_neg hp hpb]
-  simp only [postRootZeroTargetPairExcess_eq_weight,
-    zeroTargetPairExcess_eq_mul]
+  simp only [postRootZeroTargetPairExcess_eq_weight]
   ring
 
 /-- Root-tail part of one owner difference. -/
@@ -136,9 +135,18 @@ theorem lowOwnerZeroFrequencyMobiusWeight_sub_mul
       lowOwnerDaughterCrossingWeight R p n -
         lowOwnerRootCrossingIndicator R p n := by
   unfold lowOwnerZeroFrequencyMobiusWeight
-  rw [lowOwnerFarTailWeight_sub_mul hp,
-    lowOwnerReciprocalDaughterWeight_sub_mul hp]
-  ring
+  calc
+    lowOwnerFarTailWeight R n + lowOwnerReciprocalDaughterWeight R n -
+        (lowOwnerFarTailWeight R (p * n) +
+          lowOwnerReciprocalDaughterWeight R (p * n)) =
+      (lowOwnerFarTailWeight R n - lowOwnerFarTailWeight R (p * n)) +
+        (lowOwnerReciprocalDaughterWeight R n -
+          lowOwnerReciprocalDaughterWeight R (p * n)) := by ring
+    _ = lowOwnerDaughterCrossingWeight R p n -
+        lowOwnerRootCrossingIndicator R p n := by
+      rw [lowOwnerFarTailWeight_sub_mul hp,
+        lowOwnerReciprocalDaughterWeight_sub_mul hp]
+      ring
 
 /-- Specialization of the generic complete-owner Gram factorization to the
 actual zero-frequency AMP trajectory. -/
