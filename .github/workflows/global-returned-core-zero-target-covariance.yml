@@ -54,7 +54,7 @@ jobs:
       - uses: leanprover/lean-action@v1
         with:
           use-github-cache: false
-          use-mathlib-cache: true
+          use_mathlib_cache: true
           build: false
           test: false
           lint: false
@@ -73,7 +73,7 @@ jobs:
             .lake/packages/StrongPNT/.lake/build
           key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
           restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}-
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
       - name: Restore RHLean build cache
