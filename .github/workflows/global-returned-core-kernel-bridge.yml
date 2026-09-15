@@ -14,6 +14,11 @@ on:
       - research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.lean
       - research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean
       - research/GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.lean
+      - research/GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER.lean
+      - research/GLOBAL_RETURNED_CORE_ARBITRARY_FRESH_PRIME_DESCENT.lean
+      - research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION.lean
+      - research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.lean
+      - research/GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.lean
       - .github/workflows/global-returned-core-kernel-bridge.yml
   workflow_dispatch:
 
@@ -64,7 +69,7 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-
-      - name: Emit kernel bridge dependency chain
+      - name: Emit kernel bridge foundation
         run: |
           mkdir -p .lake/build/lib/lean
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
@@ -122,23 +127,33 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_COMPENSATED_OWNER_BLOCK.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE.lean
           emit research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
-          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
-          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
-          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
-          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
-          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
-          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
-          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
-          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.lean
-          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean
-          emit research/GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.lean
-      - name: Direct kernel check
-        run: |
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.lean
+      - name: Check threshold incidence kernel
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
+      - name: Check threshold reciprocal intertwining
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
+      - name: Check Dirichlet incidence closure
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.olean research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
+      - name: Check threshold clipped Fubini
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
+      - name: Check Dirichlet signature Fubini
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.olean research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
+      - name: Check signature filtration
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.olean research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
+      - name: Check signature successor
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.olean research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
+      - name: Check signature pair successor
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.olean research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.lean
+      - name: Check signature pair energy
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.olean research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean
+      - name: Check arbitrary prime filtration
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.olean research/GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.lean
+      - name: Check descending pair owner
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER.olean research/GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER.lean
+      - name: Check arbitrary fresh-prime descent
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_ARBITRARY_FRESH_PRIME_DESCENT.olean research/GLOBAL_RETURNED_CORE_ARBITRARY_FRESH_PRIME_DESCENT.lean
+      - name: Check greatest-owner continuation
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION.olean research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION.lean
+      - name: Check greatest-owner congestion
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.olean research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.lean
+      - name: Check threshold signed descent
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.lean
