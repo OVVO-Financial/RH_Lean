@@ -6,6 +6,8 @@ on:
     paths:
       - research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
       - research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
+      - research/STABLE_FAR_OWNER_FIRST_CHILD_PLUS_CROSSING.lean
+      - research/STABLE_FAR_OWNER_FIRST_COLLAPSE.lean
       - research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
       - research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
       - RHLean/Proof/StableFarAdaptiveLedgerCollapse.lean
@@ -110,8 +112,12 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.COVARIANCE_RECIPROCAL_OWNER_CONGESTION.olean \
             research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_OWNER_FIRST_COLLAPSE.olean \
+            research/STABLE_FAR_OWNER_FIRST_COLLAPSE.lean
 
       - name: Kernel-check amplitude remainder Mellin splice
         run: |
           lake env lean -DwarningAsError=true research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
           lake env lean -DwarningAsError=true research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
+          lake env lean -DwarningAsError=true research/STABLE_FAR_OWNER_FIRST_CHILD_PLUS_CROSSING.lean
