@@ -19,6 +19,8 @@ on:
       - research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION.lean
       - research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.lean
+      - research/GLOBAL_RETURNED_CORE_COMPENSATED_CELL_DESCENT_CARRIER.lean
+      - research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
       - .github/workflows/global-returned-core-kernel-bridge.yml
   workflow_dispatch:
 
@@ -157,3 +159,7 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.olean research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.lean
       - name: Check threshold signed descent
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.lean
+      - name: Check compensated-cell descent carrier
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_COMPENSATED_CELL_DESCENT_CARRIER.olean research/GLOBAL_RETURNED_CORE_COMPENSATED_CELL_DESCENT_CARRIER.lean
+      - name: Check threshold double-corner reciprocal bridge
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
