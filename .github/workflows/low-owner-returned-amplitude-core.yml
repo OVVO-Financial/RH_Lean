@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - research/LOW_OWNER_RETURNED_AMPLITUDE_CORE.lean
+      - research/LOW_OWNER_Q_MEMORY_REMAINDER_NORMAL_FORM.lean
+      - research/LOW_OWNER_RETURNED_CORE_ZERO_TARGET_GRAM.lean
+      - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
       - research/STABLE_FAR_GLOBAL_RETURNED_MEMORY_FUBINI.lean
       - .github/workflows/low-owner-returned-amplitude-core.yml
   workflow_dispatch:
@@ -90,5 +93,8 @@ jobs:
           emit research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean
           emit research/STABLE_FAR_RETURNED_RECIPROCAL_PHYSICAL_BRIDGE.lean
           emit research/STABLE_FAR_GLOBAL_RETURNED_MEMORY_FUBINI.lean
-      - name: Kernel-check returned AMP core
-        run: lake env lean -DwarningAsError=true research/LOW_OWNER_RETURNED_AMPLITUDE_CORE.lean
+          emit research/LOW_OWNER_RETURNED_AMPLITUDE_CORE.lean
+          emit research/LOW_OWNER_Q_MEMORY_REMAINDER_NORMAL_FORM.lean
+          emit research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
+      - name: Kernel-check returned-core zero-target Gram
+        run: lake env lean -DwarningAsError=true research/LOW_OWNER_RETURNED_CORE_ZERO_TARGET_GRAM.lean
