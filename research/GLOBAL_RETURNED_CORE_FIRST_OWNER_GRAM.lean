@@ -51,7 +51,7 @@ theorem lowOwnerZeroFrequencyMobiusAmplitude_eq_signedBlockPrefix
   rw [hset]
   rw [Finset.sum_insert]
   · rw [lowOwnerZeroFrequencyMobiusSite_zero]
-    simp
+    simp [lowOwnerZeroFrequencyMobiusSite]
   · simp
 
 /-- **Exact global square expansion.** -/
