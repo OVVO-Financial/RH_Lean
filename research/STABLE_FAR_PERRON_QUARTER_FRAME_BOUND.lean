@@ -140,4 +140,68 @@ theorem stableFarCriticalQ2Synthesis_zeroFrequency_twoOwner_kernel_energy :
     ‖(3 : ℂ)‖ ^ 2 + ‖(-5 : ℂ)‖ ^ 2 = 34 := by
   norm_num
 
+/-! ## Raw daughter normalization
+
+The physical log-frequency Mertens column uses the unit-modulus phase, not
+the critical half-density multiplier. Its exact forward input to the critical
+synthesis is therefore `q * M(Y_q)`. This is a forward identity, with no
+inversion of the many-to-one synthesis operator.
+-/
+
+/-- Restoring the raw owner amplitude cancels the critical half-density. -/
+theorem stableFarCriticalQ2LogMultiplier_mul_owner_amplitude
+    (tau : ℝ) {q : ℕ} (hq : 0 < q) (a : ℂ) :
+    stableFarCriticalQ2LogMultiplier tau q * ((q : ℂ) * a) =
+      stableFarQ2LogFrequencyMultiplier tau q * a := by
+  rw [stableFarCriticalQ2LogMultiplier_eq_reciprocal_phase tau hq]
+  have hqC : (q : ℂ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hq)
+  field_simp [hqC] <;> ring
+
+/-- Exact forward synthesis of a raw phase-weighted family. -/
+theorem stableFarCriticalQ2Synthesis_owner_scaled_eq_phase_sum
+    (tau : ℝ) (S : Finset ℕ) (a : ℕ → ℂ)
+    (hpos : ∀ q ∈ S, 0 < q) :
+    stableFarCriticalQ2Synthesis tau S (fun q => (q : ℂ) * a q) =
+      ∑ q ∈ S, stableFarQ2LogFrequencyMultiplier tau q * a q := by
+  unfold stableFarCriticalQ2Synthesis
+  apply Finset.sum_congr rfl
+  intro q hq
+  exact stableFarCriticalQ2LogMultiplier_mul_owner_amplitude tau (hpos q hq) (a q)
+
+/-- The existing physical Mertens frequency family requires owner-scaled
+inputs to the critical synthesis. At frequency zero it recovers the raw
+Mertens column, not the reciprocal-weighted column. -/
+theorem farFourOddMertensLogFrequencyColumn_eq_criticalSynthesis_owner_scaled
+    (R : ℕ) (tau : ℝ) :
+    farFourOddMertensLogFrequencyColumn R tau =
+      stableFarCriticalQ2Synthesis tau ((primesUpTo (R - 1)).erase 2)
+        (fun q => (q : ℂ) *
+          ((mertensSummatoryInt (squareRootEndpoint R / (q * q)) : ℤ) : ℂ)) := by
+  symm
+  apply stableFarCriticalQ2Synthesis_owner_scaled_eq_phase_sum
+  intro q hq
+  exact (mem_primesUpTo.mp (Finset.mem_erase.mp hq).2).1.pos
+
+/-- The quarter-frame theorem applied to the raw physical frequency family
+has the exact compensating `q^2` input-energy weight. -/
+theorem farFourOddMertensLogFrequencyColumn_energy_le_quarter_owner_weighted
+    (R : ℕ) (tau : ℝ) :
+    ‖farFourOddMertensLogFrequencyColumn R tau‖ ^ 2 ≤
+      (1 / 4 : ℝ) * ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+        (q : ℝ) ^ 2 *
+          ‖((mertensSummatoryInt (squareRootEndpoint R / (q * q)) : ℤ) : ℂ)‖ ^ 2 := by
+  rw [farFourOddMertensLogFrequencyColumn_eq_criticalSynthesis_owner_scaled]
+  have h := stableFarCriticalQ2OddPrimeSynthesis_energy_le_quarter
+    tau (R - 1) (fun q => (q : ℂ) *
+      ((mertensSummatoryInt (squareRootEndpoint R / (q * q)) : ℤ) : ℂ))
+  simpa only [norm_mul, Complex.norm_natCast, mul_pow] using h
+
+/-- Even at zero frequency a single nonzero raw input is changed by inserting
+the critical multiplier. A boundary or input renormalization is necessary. -/
+theorem stableFarCriticalQ2LogMultiplier_zero_three_ne_raw :
+    stableFarCriticalQ2LogMultiplier 0 3 * (1 : ℂ) ≠
+      stableFarQ2LogFrequencyMultiplier 0 3 * (1 : ℂ) := by
+  rw [stableFarCriticalQ2LogMultiplier_eq_reciprocal_phase 0 (by norm_num : 0 < 3)]
+  norm_num
+
 end RHLean.Proof
