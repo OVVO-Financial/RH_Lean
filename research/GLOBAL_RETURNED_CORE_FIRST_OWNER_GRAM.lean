@@ -46,11 +46,10 @@ theorem lowOwnerZeroFrequencyMobiusAmplitude_eq_signedBlockPrefix
       Finset.range (squareRootEndpoint R + 1) =
         insert 0 (Finset.Icc 1 (squareRootEndpoint R)) := by
     ext n
-    simp only [Finset.mem_range, Finset.mem_insert, Finset.mem_singleton,
-      Finset.mem_Icc]
+    simp only [Finset.mem_range, Finset.mem_insert, Finset.mem_Icc]
     omega
   rw [hset]
-  simp
+  simp [lowOwnerZeroFrequencyMobiusSite]
 
 /-- **Exact global square expansion.** -/
 theorem lowOwnerZeroFrequencyMobiusAmplitude_sq_eq_diagonal_add_two_gram
@@ -67,12 +66,17 @@ theorem lowOwnerZeroFrequencyMobiusGram_eq_physicalPairs (R : ℕ) :
     lowOwnerZeroFrequencyMobiusGram R =
       squareRunPhysicalPairCovariance (lowOwnerZeroFrequencyMobiusSite R)
         0 (squareRootEndpoint R + 1) := by
-  have h := signedBlockInnerCovariance_eq_squareRunPhysicalPairCovariance
-    (lowOwnerZeroFrequencyMobiusSite R)
-    (A := 0) (B := squareRootEndpoint R + 1) (Nat.zero_le _)
-  unfold lowOwnerZeroFrequencyMobiusGram signedBlockInnerCovariance at h ⊢
-  simp at h
-  exact h
+  unfold lowOwnerZeroFrequencyMobiusGram
+  calc
+    signedBlockCrossCovariance (lowOwnerZeroFrequencyMobiusSite R)
+        (squareRootEndpoint R + 1) =
+      signedBlockInnerCovariance (lowOwnerZeroFrequencyMobiusSite R)
+        0 (squareRootEndpoint R + 1) := by
+          simp [signedBlockInnerCovariance]
+    _ = squareRunPhysicalPairCovariance (lowOwnerZeroFrequencyMobiusSite R)
+        0 (squareRootEndpoint R + 1) :=
+      signedBlockInnerCovariance_eq_squareRunPhysicalPairCovariance
+        (lowOwnerZeroFrequencyMobiusSite R) (Nat.zero_le _)
 
 /-- Owner-projector expansion of one weighted AMP pair. -/
 def lowOwnerZeroFrequencyFreshPrimeOwnerExpansion
