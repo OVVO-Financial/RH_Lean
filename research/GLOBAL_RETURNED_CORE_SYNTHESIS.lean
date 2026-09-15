@@ -50,7 +50,7 @@ private theorem one_le_lowerEnvelope_returnedCore
 /-- The signed first-owner bound closes the full AMP remainder immediately,
 because the exact diagonal costs at most `3 R²`. -/
 theorem physicalAmplitudeRemainderBound_of_firstOwnerGramBound
-    {C : ℝ} (hC : 0 ≤ C)
+    {C : ℝ} (_hC : 0 ≤ C)
     (hGram : LowOwnerFirstOwnerGramBound C) :
     LowOwnerPhysicalAmplitudeRemainderBound (C + 3) := by
   intro R K hR hK
