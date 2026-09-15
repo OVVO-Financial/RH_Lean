@@ -121,11 +121,6 @@ theorem criticalClippedOwnerFactor_mul_fixedOwnerEnergy_le_one_over_p_sq
     have hM0 : (0 : ℝ) ≤ M := by positivity
     have hfac := criticalClippedOwnerFactor_le_one
       (W := W) (p := p) (parent := parent) hpMem
-    have hfac0 :
-        0 ≤ postRootCovarianceCriticalClippedOwnerFactor W parent p := by
-      unfold postRootCovarianceCriticalClippedOwnerFactor
-      rw [if_pos hclip]
-      positivity
     have hfm :
         postRootCovarianceCriticalClippedOwnerFactor W parent p * (M : ℝ) ≤ 1 := by
       calc
@@ -147,7 +142,7 @@ theorem criticalClippedOwnerFactor_mul_fixedOwnerEnergy_le_one_over_p_sq
   · have hfac0 : postRootCovarianceCriticalClippedOwnerFactor W parent p = 0 := by
       simp [postRootCovarianceCriticalClippedOwnerFactor, hclip]
     rw [hfac0]
-    exact hscale
+    simpa using hscale
 
 /-- **Sharpened clipped contraction.**  Companion clipping deletes one of the
 two generic mixed children, so the exact prime reciprocal-square budget is
@@ -183,7 +178,8 @@ theorem postRootCovarianceCriticalClippedOutgoingEnergy_le_79_over_162
       have hbudgetR :
           (∑ p ∈ primesUpTo W, (1 : ℝ) / (p : ℝ) ^ 2) ≤ 79 / 162 := by
         simpa [Nat.cast_pow] using hbudgetCast
-      exact mul_le_mul_of_nonneg_right hbudgetR
+      have hmul := mul_le_mul_of_nonneg_right hbudgetR
         (postRootCovarianceReciprocalPairEnergy_nonneg parent)
+      simpa [one_div] using hmul
 
 end RHLean.Proof
