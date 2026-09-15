@@ -80,8 +80,9 @@ theorem lowOwnerFirstOwner_mul_mem_child_of_admitted
   rcases Finset.mem_filter.mp haBase with ⟨haCar, hbase⟩
   rcases Finset.mem_filter.mp haCar with ⟨haIcc, hmu⟩
   rcases Finset.mem_Icc.mp haIcc with ⟨ha1, _haX⟩
-  have hpa1 : 1 ≤ p * a := by
-    exact Nat.mul_pos hp.pos (by omega) |>.one_le
+  have haPos : 0 < a := by omega
+  have hpaPos : 0 < p * a := Nat.mul_pos hp.pos haPos
+  have hpa1 : 1 ≤ p * a := by omega
   have hmuMul : realMoebiusStep (p * a) ≠ 0 := by
     rw [realMoebiusStep_mul_prime_eq_neg hp hbase.2]
     exact neg_ne_zero.mpr hmu
@@ -89,7 +90,7 @@ theorem lowOwnerFirstOwner_mul_mem_child_of_admitted
     exact Finset.mem_filter.mpr
       ⟨Finset.mem_Icc.mpr ⟨hpa1, hpaX⟩, hmuMul⟩
   have hsig : squarefreeLowerPrimeSignature p (p * a) = sig := by
-    rw [squarefreeLowerPrimeSignature_mul_owner hp (by omega), hbase.1]
+    rw [squarefreeLowerPrimeSignature_mul_owner hp haPos, hbase.1]
   exact Finset.mem_filter.mpr
     ⟨hcar, ⟨hsig, ⟨a, rfl⟩⟩⟩
 
@@ -125,10 +126,11 @@ theorem lowOwnerFirstOwner_div_mem_base_of_child
     rw [hsign, hz, neg_zero]
   have hnIcc := (Finset.mem_filter.mp hnCar).1
   have hnX := (Finset.mem_Icc.mp hnIcc).2
+  have hdiv1 : 1 ≤ n / p := by omega
   have hdivCar : n / p ∈ lowOwnerNonzeroMobiusCarrier R := by
     exact Finset.mem_filter.mpr
       ⟨Finset.mem_Icc.mpr
-        ⟨hdivpos.one_le, (Nat.div_le_self n p).trans hnX⟩,
+        ⟨hdiv1, (Nat.div_le_self n p).trans hnX⟩,
         hmuDiv⟩
   have hsigMul := squarefreeLowerPrimeSignature_mul_owner hp hdivpos
   have hsig : squarefreeLowerPrimeSignature p (n / p) = sig := by
@@ -168,13 +170,15 @@ theorem lowOwnerFirstOwnerChildAmplitude_eq_neg_returnedAdmitted
   · intro n hn m hm heq
     have hnDvd := (Finset.mem_filter.mp hn).2.2
     have hmDvd := (Finset.mem_filter.mp hm).2.2
+    change n / p = m / p at heq
     calc
       n = p * (n / p) := (Nat.mul_div_cancel' hnDvd).symm
       _ = p * (m / p) := by rw [heq]
       _ = m := Nat.mul_div_cancel' hmDvd
   · intro a ha
     refine ⟨p * a, lowOwnerFirstOwner_mul_mem_child_of_admitted hp ha, ?_⟩
-    rw [Nat.mul_div_left _ hp.pos]
+    change (p * a) / p = a
+    simpa [Nat.mul_comm] using Nat.mul_div_left a hp.pos
   · intro n hn
     have hbase := lowOwnerFirstOwner_div_mem_base_of_child hp hn
     have hnot := (Finset.mem_filter.mp hbase).2.2
@@ -234,17 +238,22 @@ theorem lowOwnerFirstOwnerBase_add_child_eq_compensated_add_clipped
     lowOwnerFirstOwnerChildAmplitude_eq_neg_returnedAdmitted hp]
   unfold lowOwnerFirstOwnerCompensatedInteriorAmplitude
     lowOwnerFirstOwnerClippedAmplitude
-  rw [← Finset.sum_add_distrib]
-  apply congrArg (fun x : ℝ => x +
-    ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber R p sig,
-      lowOwnerZeroFrequencyMobiusSite R a)
-  apply Finset.sum_congr rfl
-  intro a ha
-  have hbase := (Finset.mem_filter.mp ha).1
-  have hpOne : 1 ≤ p := hp.one_le
-  unfold lowOwnerZeroFrequencyMobiusSite
-  rw [← lowOwnerZeroFrequencyMobiusWeight_sub_mul
-    (R := R) (p := p) (n := a) hpOne]
+  have hinter :
+      (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
+        lowOwnerZeroFrequencyMobiusSite R a) +
+        (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
+          -(lowOwnerZeroFrequencyMobiusWeight R (p * a) * realMoebiusStep a)) =
+      ∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
+        (lowOwnerDaughterCrossingWeight R p a -
+          lowOwnerRootCrossingIndicator R p a) * realMoebiusStep a := by
+    rw [← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro a _ha
+    unfold lowOwnerZeroFrequencyMobiusSite
+    rw [← lowOwnerZeroFrequencyMobiusWeight_sub_mul
+      (R := R) (p := p) (n := a) hp.one_le]
+    ring
+  rw [← hinter]
   ring
 
 end RHLean.Proof
