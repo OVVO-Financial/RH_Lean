@@ -11,6 +11,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean
       - research/GLOBAL_RETURNED_CORE_ONE_AMPLITUDE.lean
       - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean
+      - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELLS.lean
       - research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
       - research/LOW_OWNER_RETURNED_AMPLITUDE_CORE.lean
       - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
@@ -122,5 +123,6 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean
           emit research/GLOBAL_RETURNED_CORE_ONE_AMPLITUDE.lean
-      - name: Kernel-check exact first-owner AMP Gram
-        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean
+          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean
+      - name: Kernel-check actual first-owner cells
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELLS.lean
