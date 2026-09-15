@@ -18,7 +18,7 @@ compiled five-way continuation theorem.
 
 The same pair is also shown to lie in the literal greatest-owner fixed-parent
 child fibre for its stripped ordered parent.  Thus the unique-owner assembly
-and the local reciprocal contraction now use exactly the same graph.
+and the local reciprocal contraction use exactly the same graph.
 -/
 
 noncomputable section
@@ -30,11 +30,69 @@ open RHLean.Analysis RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
 
+/-- Positive-lag admitted pairs in one compensated cell. -/
+def lowOwnerFirstOwnerAdmittedPositivePairCarrier
+    (R p : ℕ) (sig : Finset ℕ) : Finset (ℕ × ℕ) :=
+  (lowOwnerFirstOwnerAdmittedPairCarrier R p sig).filter fun mn =>
+    mn.1 < mn.2
+
 /-- Positive-lag part of one unique greatest-owner fibre. -/
 def lowOwnerFirstOwnerGreatestOwnerPositivePairFiber
     (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : Finset (ℕ × ℕ) :=
   (lowOwnerFirstOwnerGreatestOwnerPairFiber R p sig r).filter fun mn =>
     mn.1 < mn.2
+
+/-- Positive greatest-owner fibres are pairwise disjoint. -/
+theorem lowOwnerFirstOwnerGreatestOwnerPositivePairFiber_pairwiseDisjoint
+    (R p : ℕ) (sig : Finset ℕ) :
+    Set.PairwiseDisjoint (↑(lowOwnerRevealedPrimesAbove R p))
+      (lowOwnerFirstOwnerGreatestOwnerPositivePairFiber R p sig) := by
+  intro r _hr s _hs hrs
+  rw [Finset.disjoint_left]
+  intro mn hmr hms
+  have hro := (Finset.mem_filter.mp (Finset.mem_filter.mp hmr).1).2
+  have hso := (Finset.mem_filter.mp (Finset.mem_filter.mp hms).1).2
+  exact hrs (squarefreePairGreatestFreshPrimeOwner_unique hro hso)
+
+/-- **Positive-lag unique-owner partition.**  Every positive admitted pair is
+charged to exactly one greatest remaining fresh owner. -/
+theorem lowOwnerFirstOwnerGreatestOwnerPositivePairFiber_biUnion
+    {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
+    (lowOwnerRevealedPrimesAbove R p).biUnion
+        (lowOwnerFirstOwnerGreatestOwnerPositivePairFiber R p sig) =
+      lowOwnerFirstOwnerAdmittedPositivePairCarrier R p sig := by
+  ext mn
+  rcases mn with ⟨m, n⟩
+  constructor
+  · intro h
+    rcases Finset.mem_biUnion.mp h with ⟨r, _hr, hmn⟩
+    rcases Finset.mem_filter.mp hmn with ⟨howner, hlt⟩
+    have hpair := (Finset.mem_filter.mp (Finset.mem_filter.mp howner).1).1
+    exact Finset.mem_filter.mpr ⟨hpair, hlt⟩
+  · intro hmn
+    rcases Finset.mem_filter.mp hmn with ⟨hpair, hlt⟩
+    have hoff : (m, n) ∈
+        lowOwnerFirstOwnerAdmittedOffDiagonalPairCarrier R p sig :=
+      Finset.mem_filter.mpr ⟨hpair, ne_of_lt hlt⟩
+    rcases lowOwnerFirstOwnerAdmittedOffDiagonalPair_has_greatestOwner
+      hp hoff with ⟨r, hr, howner⟩
+    apply Finset.mem_biUnion.mpr
+    refine ⟨r, hr, ?_⟩
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_filter.mpr ⟨hoff, howner⟩, hlt⟩
+
+/-- **Positive-lag unique-owner signed Fubini.** -/
+theorem sum_lowOwnerFirstOwnerAdmittedPositive_eq_sum_greatestOwnerFibers
+    {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime)
+    (f : ℕ × ℕ → ℝ) :
+    (∑ mn ∈ lowOwnerFirstOwnerAdmittedPositivePairCarrier R p sig,
+        f mn) =
+      ∑ r ∈ lowOwnerRevealedPrimesAbove R p,
+        ∑ mn ∈ lowOwnerFirstOwnerGreatestOwnerPositivePairFiber R p sig r,
+          f mn := by
+  rw [← lowOwnerFirstOwnerGreatestOwnerPositivePairFiber_biUnion hp]
+  exact Finset.sum_biUnion
+    (lowOwnerFirstOwnerGreatestOwnerPositivePairFiber_pairwiseDisjoint R p sig)
 
 /-- A positive pair in a greatest-owner fibre lies on the literal positive
 physical pair carrier at the square-root endpoint. -/
@@ -106,9 +164,7 @@ theorem lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_descendingCross
   have hnCar := (Finset.mem_filter.mp (Finset.mem_filter.mp hnAd).1).1
   exact greatestFreshOwner_descendingCrossPair hrData.1 hmCar hnCar howner
 
-/-- **Graph compatibility.**  The uniquely selected pair is literally a child
-of its stripped ordered parent in the greatest-owner fixed-parent fibre used by
-the `2/9` and `1/9` theorems. -/
+/-- **Graph compatibility.** -/
 theorem lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_fixedParentChildFiber
     {R p r m n : ℕ} {sig : Finset ℕ}
     (hp : p.Prime)
@@ -123,10 +179,7 @@ theorem lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_fixedParentChildFiber
   exact Finset.mem_filter.mpr
     ⟨Finset.mem_filter.mpr ⟨hcross, hlt⟩, rfl⟩
 
-/-- **Exact unique-owner continuation classification.**  A positive pair in one
-unique greatest-owner fibre is either already removed by a complete post-root
-family at the current endpoint, or its unique owner enters exactly one of the
-five named continuation alternatives. -/
+/-- **Exact unique-owner continuation classification.** -/
 theorem lowOwnerFirstOwnerGreatestOwnerPositivePair_namedContinuation
     {R p r m n : ℕ} {sig : Finset ℕ}
     (hp : p.Prime)
