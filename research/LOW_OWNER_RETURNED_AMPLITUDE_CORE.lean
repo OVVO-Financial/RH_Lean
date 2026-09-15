@@ -68,7 +68,6 @@ theorem squareRootCanonicalRoughCorrelation_eq_neg_globalReturnedPackets_sub_roo
   rw [squareRootCanonicalRoughCorrelation_eq_physicalFarCensus_sub_root R hR,
     lowOwnerPhysicalFarCensus_eq_neg_globalReturnedReciprocal_sub_memory_sub_terminal
       R hR]
-  ring
 
 def lowOwnerReturnedAmplitudeCore (R : ℕ) : ℂ :=
   lowOwnerReciprocalMertensColumn R +
