@@ -81,14 +81,14 @@ private theorem covariance_mixed_child_mem_candidates
     by_cases hum : um < un
     · simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn']
     · have hnot : ¬ un < p * um := by omega
-      simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn', hnot]
+      simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hnot]
   · rcases hmix with ⟨hm, hn⟩
     have hmn' : um < p * un := by simpa [hm, hn] using hmn
     rw [hm, hn]
     by_cases hum : um < un
     · simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn']
     · have hnot : ¬ p * un < um := by omega
-      simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn', hnot]
+      simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hnot]
 
 /-- Nonzero recursive children with both chronological owner and stripped
 ordered parent fixed. -/
@@ -176,6 +176,7 @@ private theorem covarianceOddPrimes_subset_envelope_erase_nine (N : ℕ) :
   have hqData := mem_primesUpTo.mp (Finset.mem_erase.mp hq).2
   have hqPrime := hqData.1
   have hqN := hqData.2
+  have hq2 := hqPrime.two_le
   have hqNe2 := (Finset.mem_erase.mp hq).1
   have hqNe9 : q ≠ 9 := by
     intro hq9
@@ -249,7 +250,7 @@ private theorem small_prime_reciprocalSquareBudget_le_79_over_162
     have hqN := hdata.2
     have hqLt : q < 9 := lt_of_le_of_lt hqN hN
     have hq2 := hp.two_le
-    interval_cases q <;> norm_num_all
+    interval_cases q <;> norm_num at hp ⊢
   unfold primeOwnerReciprocalSquareBudget
   calc
     (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) ≤
