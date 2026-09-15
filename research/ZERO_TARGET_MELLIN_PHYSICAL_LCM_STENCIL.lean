@@ -121,19 +121,20 @@ def zeroTargetMellinPhysicalSuperLcmFourCorner
   postRootZeroTargetPairExcess (a, b) *
     physicalSuperLcmMellinStencil W p r a b
 
-/-- Display the preceding definition directly in the four zero-target corner
-weights. -/
+/-- Display the preceding definition directly with the actual child Möbius
+values.  Fresh-prime sign reversal then turns the three child corners into the
+Mellin-scaled zero-target sector exchange. -/
 theorem zeroTargetMellinPhysicalSuperLcmFourCorner_eq_weighted_excess_corners
     {W p a b : ℕ} {r : ℝ} (_hr : 0 ≤ r)
     (hp : p.Prime) (hpa : ¬ p ∣ a) (hpb : ¬ p ∣ b) :
     zeroTargetMellinPhysicalSuperLcmFourCorner W p r a b =
       postRootZeroTargetPairExcess (a, b) * physicalSuperLcmIndicator W a b +
-      zeroTargetPairExcess (-(r * realMoebiusStep a)) (realMoebiusStep b) *
+      zeroTargetPairExcess (r * realMoebiusStep (p * a)) (realMoebiusStep b) *
         physicalSuperLcmIndicator W (p * a) b +
-      zeroTargetPairExcess (realMoebiusStep a) (-(r * realMoebiusStep b)) *
+      zeroTargetPairExcess (realMoebiusStep a) (r * realMoebiusStep (p * b)) *
         physicalSuperLcmIndicator W a (p * b) +
-      zeroTargetPairExcess (-(r * realMoebiusStep a))
-          (-(r * realMoebiusStep b)) *
+      zeroTargetPairExcess (r * realMoebiusStep (p * a))
+          (r * realMoebiusStep (p * b)) *
         physicalSuperLcmIndicator W (p * a) (p * b) := by
   unfold zeroTargetMellinPhysicalSuperLcmFourCorner
     physicalSuperLcmMellinStencil
