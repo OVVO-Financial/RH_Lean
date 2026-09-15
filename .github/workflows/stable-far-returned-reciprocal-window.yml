@@ -1,16 +1,15 @@
-name: Stable-far log-frequency diagonalization check
+name: Stable-far returned reciprocal window check
 
 on:
   pull_request:
     branches: [main]
     paths:
+      - research/STABLE_FAR_RETURNED_RECIPROCAL_FROZEN_WINDOW.lean
+      - research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
       - research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
-      - research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
-      - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
-      - research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
-      - research/STABLE_FAR_PERRON_REALIFICATION.lean
-      - research/STABLE_FAR_PERRON_REAL_GRAM_COSINE.lean
-      - .github/workflows/stable-far-log-frequency.yml
+      - RHLean/Proof/StableFarWallCrossingOwnerWindow.lean
+      - RHLean/Proof/StableFarWallQ2ChildFarSlice.lean
+      - .github/workflows/stable-far-returned-reciprocal-window.yml
   workflow_dispatch:
 
 permissions:
@@ -67,35 +66,19 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Emit returned-fibre production olean
+      - name: Build project dependencies
+        run: |
+          lake build RHLean.Proof.StableFarWallCrossingOwnerWindow
+          lake build RHLean.Proof.StableFarWallQ2ChildFarSlice
+
+      - name: Emit research prerequisites
         run: |
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.STABLE_FAR_RETURNED_FIBER_PRODUCTION.olean \
             research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
-
-      - name: Emit exact log-frequency diagonalization olean
-        run: |
           lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.olean \
-            research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
+            -o .lake/build/lib/lean/research.STABLE_FAR_RECIPROCAL_OWNER_FUBINI.olean \
+            research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
 
-      - name: Emit Perron returned-fibre interface olean
-        run: |
-          lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.olean \
-            research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
-
-      - name: Emit critical q2 energy multiplier olean
-        run: |
-          lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.olean \
-            research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
-
-      - name: Emit Perron realification olean
-        run: |
-          lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_REALIFICATION.olean \
-            research/STABLE_FAR_PERRON_REALIFICATION.lean
-
-      - name: Kernel-check real Perron cosine Gram form
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_REAL_GRAM_COSINE.lean
+      - name: Kernel-check reciprocal returned window
+        run: lake env lean -DwarningAsError=true research/STABLE_FAR_RETURNED_RECIPROCAL_FROZEN_WINDOW.lean

@@ -1,16 +1,13 @@
-name: Stable-far log-frequency diagonalization check
+name: Zero-target square finite-difference check
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
-      - research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
-      - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
-      - research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
-      - research/STABLE_FAR_PERRON_REALIFICATION.lean
-      - research/STABLE_FAR_PERRON_REAL_GRAM_COSINE.lean
-      - .github/workflows/stable-far-log-frequency.yml
+      - research/ZERO_TARGET_SQUARE_FINITE_DIFFERENCE_REDUCTION.lean
+      - research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
+      - RHLean/Proof/PostRootMertensSquareFiniteDifference.lean
+      - .github/workflows/zero-target-square-fd.yml
   workflow_dispatch:
 
 permissions:
@@ -67,35 +64,17 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
-      - name: Emit returned-fibre production olean
+      - name: Emit zero-target partial moments olean
         run: |
           lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.STABLE_FAR_RETURNED_FIBER_PRODUCTION.olean \
-            research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+            -o .lake/build/lib/lean/research.ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.olean \
+            research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
 
-      - name: Emit exact log-frequency diagonalization olean
+      - name: Emit zero-target owner descent olean
         run: |
           lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.olean \
-            research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
+            -o .lake/build/lib/lean/research.ZERO_TARGET_COVARIANCE_OWNER_DESCENT.olean \
+            research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
 
-      - name: Emit Perron returned-fibre interface olean
-        run: |
-          lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.olean \
-            research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
-
-      - name: Emit critical q2 energy multiplier olean
-        run: |
-          lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.olean \
-            research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
-
-      - name: Emit Perron realification olean
-        run: |
-          lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_REALIFICATION.olean \
-            research/STABLE_FAR_PERRON_REALIFICATION.lean
-
-      - name: Kernel-check real Perron cosine Gram form
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_REAL_GRAM_COSINE.lean
+      - name: Kernel-check square finite-difference reduction
+        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_SQUARE_FINITE_DIFFERENCE_REDUCTION.lean

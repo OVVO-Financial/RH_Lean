@@ -1,16 +1,18 @@
-name: Stable-far log-frequency diagonalization check
+name: Perron quarter-frame bound check
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
-      - research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
+      - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
       - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
       - research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
-      - research/STABLE_FAR_PERRON_REALIFICATION.lean
-      - research/STABLE_FAR_PERRON_REAL_GRAM_COSINE.lean
-      - .github/workflows/stable-far-log-frequency.yml
+      - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
+      - research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
+      - RHLean/Proof/SquareRootLowPrimeSharpFrameBudget.lean
+      - RHLean/Proof/ComplexVerticalLineGreenKubo.lean
+      - RHLean/Proof/EndpointCubeAnalyticClosure.lean
+      - .github/workflows/perron-quarter-frame.yml
   workflow_dispatch:
 
 permissions:
@@ -85,17 +87,20 @@ jobs:
             -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.olean \
             research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
 
-      - name: Emit critical q2 energy multiplier olean
+      - name: Emit critical q2 multiplier olean
         run: |
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.olean \
             research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
 
-      - name: Emit Perron realification olean
+      - name: Kernel-check Perron quarter-frame theorem
+        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+
+      - name: Emit zero-target partial-moment covariance olean
         run: |
           lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_REALIFICATION.olean \
-            research/STABLE_FAR_PERRON_REALIFICATION.lean
+            -o .lake/build/lib/lean/research.ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.olean \
+            research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
 
-      - name: Kernel-check real Perron cosine Gram form
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_REAL_GRAM_COSINE.lean
+      - name: Kernel-check zero-target covariance owner descent
+        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
