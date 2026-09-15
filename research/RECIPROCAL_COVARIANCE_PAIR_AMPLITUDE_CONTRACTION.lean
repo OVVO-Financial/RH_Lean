@@ -88,18 +88,16 @@ theorem postRootCovarianceReciprocalPairAmplitude_owner_descent
     hm hn hmn hmpos hnpos
   change (¬ p ∣ um) ∧ (¬ p ∣ un) ∧
       ((m = p * um ∧ n = un) ∨ (m = um ∧ n = p * un)) at hcube
-  have hum0 : (um : ℝ) ≠ 0 := by
-    exact_mod_cast (by
-      intro hum
-      apply hcube.1
-      subst um
-      exact dvd_zero p)
-  have hun0 : (un : ℝ) ≠ 0 := by
-    exact_mod_cast (by
-      intro hun
-      apply hcube.2.1
-      subst un
-      exact dvd_zero p)
+  have humNat0 : um ≠ 0 := by
+    intro hum
+    apply hcube.1
+    simp [hum]
+  have hunNat0 : un ≠ 0 := by
+    intro hun
+    apply hcube.2.1
+    simp [hun]
+  have hum0 : (um : ℝ) ≠ 0 := by exact_mod_cast humNat0
+  have hun0 : (un : ℝ) ≠ 0 := by exact_mod_cast hunNat0
   have hp0 : (p : ℝ) ≠ 0 := by
     exact_mod_cast hp.ne_zero
   have hweight :=
@@ -117,11 +115,13 @@ theorem postRootCovarianceReciprocalPairAmplitude_owner_descent
       push_cast
       ring
   rw [postRootCovarianceReciprocalPairAmplitude_ordered]
-  unfold postRootCovarianceReciprocalPairAmplitude
-  simp only [Prod.fst, Prod.snd]
+  change
+    (realMoebiusStep m * realMoebiusStep n) / ((m : ℝ) * (n : ℝ)) =
+      -(1 / (p : ℝ)) *
+        ((realMoebiusStep um * realMoebiusStep un) /
+          ((um : ℝ) * (un : ℝ)))
   rw [hweight, hprod]
   field_simp [hp0, hum0, hun0]
-  ring
 
 /-- Squaring the preceding amplitude law gives the literal reciprocal-square
 owner factor. -/
@@ -231,12 +231,20 @@ theorem postRootCovarianceReciprocalOutgoingEnergy_le_79_over_81
   rw [← Finset.sum_mul]
   have hcongQ :=
     postRootCovarianceReciprocalOwnerCongestion_le_79_over_81 W parent
+  have hcast :
+      (((∑ p ∈ primesUpTo W,
+          (postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℚ) /
+            (p : ℚ) ^ 2 : ℚ)) : ℝ) ≤
+        (((79 / 81 : ℚ)) : ℝ) := by
+    unfold postRootCovarianceReciprocalOwnerCongestion at hcongQ
+    exact_mod_cast hcongQ
+  push_cast at hcast
+  norm_num at hcast ⊢
   have hcongR :
       (∑ p ∈ primesUpTo W,
         (postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℝ) /
           (p : ℝ) ^ 2) ≤ 79 / 81 := by
-    unfold postRootCovarianceReciprocalOwnerCongestion at hcongQ
-    exact_mod_cast hcongQ
+    simpa [Nat.cast_pow] using hcast
   exact mul_le_mul_of_nonneg_right hcongR
     (postRootCovarianceReciprocalPairEnergy_nonneg parent)
 
