@@ -18,6 +18,8 @@ on:
       - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
       - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
       - research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
+      - research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
+      - research/GLOBAL_RETURNED_CORE_SIGNED_TELESCOPE_SYNTHESIS.lean
       - research/GLOBAL_RETURNED_CORE_ALIGNMENT_RESIDUAL.lean
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_ALIGNMENT_INTERTWINING.lean
       - research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
@@ -142,10 +144,13 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
+          emit research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
           emit research/GLOBAL_RETURNED_CORE_ALIGNMENT_RESIDUAL.lean
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_ALIGNMENT_INTERTWINING.lean
           emit research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
           emit research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_TELESCOPE_SYNTHESIS.lean
       - name: Kernel-check actual first-owner signed telescope
         run: |
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_FUBINI.lean
@@ -154,12 +159,12 @@ jobs:
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
+          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
+          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNED_TELESCOPE_SYNTHESIS.lean
       - name: Kernel-check synthesis closure
         run: |
           set -o pipefail
-          if [ -f research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean ]; then
-            lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean 2>&1 | tee synthesis-lean.log
-          fi
+          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean 2>&1 | tee synthesis-lean.log
       - name: Upload synthesis Lean log
         if: always()
         uses: actions/upload-artifact@v4
