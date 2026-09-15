@@ -77,8 +77,8 @@ theorem stableFar_complexReciprocal_nat_eq_ofReal (q : ℕ) :
     (1 / (q : ℂ)) = ((1 / (q : ℝ) : ℝ) : ℂ) := by
   have hcast : (q : ℂ) = (((q : ℝ) : ℂ)) := by
     norm_num
-  rw [hcast]
-  simpa [one_div] using (Complex.ofReal_inv (q : ℝ)).symm
+  rw [hcast, one_div, one_div]
+  exact (Complex.ofReal_inv (q : ℝ)).symm
 
 /-- The critical q^2 multiplier has the expected real cosine coordinate. -/
 theorem stableFarCriticalQ2LogMultiplier_re
