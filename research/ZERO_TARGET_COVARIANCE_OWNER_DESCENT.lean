@@ -152,7 +152,8 @@ theorem postRootCovarianceRemainder_le_parentMultiplicity_divergent_sub_coPartia
                 (realMoebiusStep parent.1) (realMoebiusStep parent.2) -
               zeroTargetCoPartialPair
                 (realMoebiusStep parent.1) (realMoebiusStep parent.2)) := by
-      rw [Finset.sum_neg_distrib]
+      symm
+      rw [← Finset.sum_neg_distrib]
       apply Finset.sum_congr rfl
       intro parent _hparent
       unfold postRootZeroTargetPairExcess zeroTargetPairExcess
