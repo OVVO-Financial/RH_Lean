@@ -8,8 +8,10 @@ on:
       - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
       - research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
       - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
+      - research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
       - RHLean/Proof/SquareRootLowPrimeSharpFrameBudget.lean
       - RHLean/Proof/ComplexVerticalLineGreenKubo.lean
+      - RHLean/Proof/EndpointCubeAnalyticClosure.lean
       - .github/workflows/perron-quarter-frame.yml
   workflow_dispatch:
 
@@ -94,5 +96,11 @@ jobs:
       - name: Kernel-check Perron quarter-frame theorem
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
 
-      - name: Kernel-check zero-target partial-moment covariance
-        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
+      - name: Emit zero-target partial-moment covariance olean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.olean \
+            research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
+
+      - name: Kernel-check zero-target covariance owner descent
+        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
