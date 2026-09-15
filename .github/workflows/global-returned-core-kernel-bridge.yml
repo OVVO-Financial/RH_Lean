@@ -8,6 +8,9 @@ on:
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
+      - research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
       - .github/workflows/global-returned-core-kernel-bridge.yml
   workflow_dispatch:
 
@@ -120,7 +123,13 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
       - name: Direct kernel check
         run: |
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
+          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
+          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
+          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
