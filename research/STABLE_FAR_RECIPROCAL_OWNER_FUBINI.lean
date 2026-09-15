@@ -170,7 +170,7 @@ theorem lowWheelFarPrimeQ2ReciprocalDescended_add_nonUnitRenewal_eq_centered
             canonicalMoebiusWeight y.2.1 := by
   rw [lowWheelFarPrimeQ2ReciprocalNonUnitRenewalMass_eq_neg_fiberWeights]
   unfold lowWheelFarPrimeQ2ReciprocalDescendedMass
-  rw [← Finset.sum_sub_distrib]
+  rw [← Finset.sum_neg_distrib, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro y hy
   ring
