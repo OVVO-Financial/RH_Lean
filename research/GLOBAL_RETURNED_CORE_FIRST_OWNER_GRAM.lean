@@ -49,7 +49,10 @@ theorem lowOwnerZeroFrequencyMobiusAmplitude_eq_signedBlockPrefix
     simp only [Finset.mem_range, Finset.mem_insert, Finset.mem_Icc]
     omega
   rw [hset]
-  simp [lowOwnerZeroFrequencyMobiusSite]
+  rw [Finset.sum_insert]
+  · rw [lowOwnerZeroFrequencyMobiusSite_zero]
+    simp
+  · simp
 
 /-- **Exact global square expansion.** -/
 theorem lowOwnerZeroFrequencyMobiusAmplitude_sq_eq_diagonal_add_two_gram
