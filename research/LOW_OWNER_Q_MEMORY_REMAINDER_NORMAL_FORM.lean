@@ -83,7 +83,6 @@ theorem sum_lowOwnerAmplitudeTransportCorrection_zero_eq_neg_childFar_sub_recipr
     (Finset.mem_erase.mp (Finset.sdiff_subset hq)).2
   rw [lowOwnerAmplitudeTransportCorrection_zero_eq_neg_childFar_sub_reciprocal
     hprime]
-  ring
 
 /-- Full expanded zero-frequency remainder, with the q-owner normalization
 memory visible before the owner-two / renewal / terminal / root populations. -/
@@ -95,6 +94,5 @@ theorem lowOwnerPhysicalAmplitudeRemainder_zero_eq_signed_qMemory_populations
       stableFarTerminalProductColumn R - frozenTopFarRoughRootCorrection R := by
   rw [lowOwnerPhysicalAmplitudeRemainder_zero_eq_qMemory_sub_root R hR,
     lowOwnerPhysicalQMemoryCensus_eq_signed_populations]
-  ring
 
 end RHLean.Proof
