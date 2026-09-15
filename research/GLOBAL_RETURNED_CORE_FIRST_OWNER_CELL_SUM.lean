@@ -76,10 +76,31 @@ theorem lowOwnerFirstOwnerCellGram_eq_sum_product
           lowOwnerZeroFrequencyMobiusSite R ab.2 := by
   unfold lowOwnerFirstOwnerCellGram
     lowOwnerFirstOwnerBaseAmplitude lowOwnerFirstOwnerChildAmplitude
-  rw [Finset.sum_product, Finset.sum_mul]
-  apply Finset.sum_congr rfl
-  intro a _ha
-  rw [Finset.mul_sum]
+  calc
+    (∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,
+        lowOwnerZeroFrequencyMobiusSite R a) *
+        (∑ b ∈ lowOwnerFirstOwnerChildFiber R p sig,
+          lowOwnerZeroFrequencyMobiusSite R b) =
+      ∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,
+        ∑ b ∈ lowOwnerFirstOwnerChildFiber R p sig,
+          lowOwnerZeroFrequencyMobiusSite R a *
+            lowOwnerZeroFrequencyMobiusSite R b := by
+      rw [Finset.sum_mul]
+      apply Finset.sum_congr rfl
+      intro a _ha
+      rw [Finset.mul_sum]
+    _ = ∑ ab ∈ (lowOwnerFirstOwnerBaseFiber R p sig).product
+          (lowOwnerFirstOwnerChildFiber R p sig),
+        lowOwnerZeroFrequencyMobiusSite R ab.1 *
+          lowOwnerZeroFrequencyMobiusSite R ab.2 := by
+      symm
+      simpa only using
+        (Finset.sum_product
+          (s := lowOwnerFirstOwnerBaseFiber R p sig)
+          (t := lowOwnerFirstOwnerChildFiber R p sig)
+          (f := fun ab : ℕ × ℕ =>
+            lowOwnerZeroFrequencyMobiusSite R ab.1 *
+              lowOwnerZeroFrequencyMobiusSite R ab.2))
 
 /-- **Global signature Fubini.**  Summing the cell Grams is exactly summing the
 actual oriented p-free/p-divisible first-separation cross pairs. -/
@@ -129,7 +150,7 @@ theorem sum_lowOwnerFirstOwnerCellGram_eq_orientedCrossPairs
               (lowOwnerFirstOwnerBaseFiber R p sig).product
                 (lowOwnerFirstOwnerChildFiber R p sig) by
             simpa [S, g] using hfiberSet]
-    _ = ∑ ab ∈ S, f ab := hfiber.symm
+    _ = ∑ ab ∈ S, f ab := hfiber
     _ = _ := rfl
 
 end RHLean.Proof
