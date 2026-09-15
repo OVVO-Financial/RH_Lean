@@ -119,19 +119,22 @@ theorem zeroTargetCoPartial_sub_divergent_eq_mul (x y : ℝ) :
 @[simp] theorem zeroTargetCoPartialPair_neg_left (x y : ℝ) :
     zeroTargetCoPartialPair (-x) y = zeroTargetDivergentPair x y := by
   simp [zeroTargetCoPartialPair, zeroTargetDivergentPair]
+  ring
 
 @[simp] theorem zeroTargetDivergentPair_neg_left (x y : ℝ) :
     zeroTargetDivergentPair (-x) y = zeroTargetCoPartialPair x y := by
   simp [zeroTargetCoPartialPair, zeroTargetDivergentPair]
+  ring
 
 @[simp] theorem zeroTargetCoPartialPair_neg_both (x y : ℝ) :
     zeroTargetCoPartialPair (-x) (-y) = zeroTargetCoPartialPair x y := by
-  simp [zeroTargetCoPartialPair, zeroTargetDivergentPair,
-    zeroTargetCUPM, zeroTargetCLPM]
+  simp [zeroTargetCoPartialPair, zeroTargetCUPM, zeroTargetCLPM]
+  ring
 
 @[simp] theorem zeroTargetDivergentPair_neg_both (x y : ℝ) :
     zeroTargetDivergentPair (-x) (-y) = zeroTargetDivergentPair x y := by
   simp [zeroTargetDivergentPair, zeroTargetDLPM, zeroTargetDUPM]
+  ring
 
 /-! ## Exact Green--Kubo cross-covariance in zero-target currency -/
 
