@@ -44,6 +44,8 @@ noncomputable section
 
 namespace RHLean.Proof
 
+open RHLean.Analysis
+
 /-- Raw four-corner physical LCM indicator stencil. -/
 def physicalSuperLcmRawStencil
     (W p a b : ℕ) : ℝ :=
@@ -122,7 +124,7 @@ def zeroTargetMellinPhysicalSuperLcmFourCorner
 /-- Display the preceding definition directly in the four zero-target corner
 weights. -/
 theorem zeroTargetMellinPhysicalSuperLcmFourCorner_eq_weighted_excess_corners
-    {W p a b : ℕ} {r : ℝ} (hr : 0 ≤ r)
+    {W p a b : ℕ} {r : ℝ} (_hr : 0 ≤ r)
     (hp : p.Prime) (hpa : ¬ p ∣ a) (hpb : ¬ p ∣ b) :
     zeroTargetMellinPhysicalSuperLcmFourCorner W p r a b =
       postRootZeroTargetPairExcess (a, b) * physicalSuperLcmIndicator W a b +
