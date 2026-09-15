@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.PostRootCovarianceLcmBoundaryClosure
 import «research.ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE»
+import «research.ZERO_TARGET_COVARIANCE_OWNER_DESCENT»
 
 /-!
 # Mellin interpolation of the physically clipped LCM fresh-prime square
