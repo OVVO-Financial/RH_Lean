@@ -11,6 +11,9 @@ on:
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
       - research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
+      - research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.lean
+      - research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean
+      - research/GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.lean
       - .github/workflows/global-returned-core-kernel-bridge.yml
   workflow_dispatch:
 
@@ -126,6 +129,9 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean
+          emit research/GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.lean
       - name: Direct kernel check
         run: |
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
@@ -133,3 +139,6 @@ jobs:
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
           lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
+          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.lean
+          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean
+          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.lean
