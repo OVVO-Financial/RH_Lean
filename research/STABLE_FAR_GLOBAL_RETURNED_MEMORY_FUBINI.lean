@@ -66,9 +66,8 @@ theorem stableFarReturnedCoordinatePair_data
   rcases y with ⟨r, ⟨e, p⟩⟩
   have hdata :=
     (mem_lowWheelFarPrimeQ2DescendedTriples_iff_returnedCofactor).1 hy
-  have hrEq : r = rp.1 := congrArg Prod.fst hcoord
-  have hpEq : p = rp.2 := congrArg Prod.snd hcoord
-  simpa [hrEq, hpEq] using ⟨hdata.1, hdata.2.1, hdata.2.2.1, hdata.2.2.2.1⟩
+  subst rp
+  exact ⟨hdata.1, hdata.2.1, hdata.2.2.1, hdata.2.2.2.1⟩
 
 /-- Fibre of the descended carrier over one returned coordinate pair. -/
 def stableFarReturnedCoordinateFiber
@@ -102,8 +101,10 @@ theorem stableFarReturnedCoordinateFiber_eq_cofactorImage
     have hdesc : (rp.1, (e', rp.2)) ∈ lowWheelFarPrimeQ2DescendedTriples R :=
       (mem_lowWheelFarPrimeQ2DescendedTriples_iff_returnedCofactor).2
         ⟨hdata.1, hdata.2.1, hdata.2.2.1, hdata.2.2.2, he'⟩
-    subst y
-    exact Finset.mem_filter.mpr ⟨hdesc, rfl⟩
+    have hz : (rp.1, (e', rp.2)) ∈ stableFarReturnedCoordinateFiber R rp :=
+      Finset.mem_filter.mpr ⟨hdesc, rfl⟩
+    rw [heq] at hz
+    exact hz
 
 /-- Complex form of the literal physical centered mass at fixed returned
 coordinates. -/
