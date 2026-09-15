@@ -135,6 +135,14 @@ jobs:
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELLS.lean
       - name: Kernel-check synthesis closure
         run: |
+          set -o pipefail
           if [ -f research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean ]; then
-            lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean
+            lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean 2>&1 | tee synthesis-lean.log
           fi
+      - name: Upload synthesis Lean log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthesis-lean-log
+          path: synthesis-lean.log
+          if-no-files-found: ignore
