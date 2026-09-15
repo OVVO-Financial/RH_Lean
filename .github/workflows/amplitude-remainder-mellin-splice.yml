@@ -93,7 +93,7 @@ jobs:
             research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.olean \
-            research/STABLE_FAR_LOG_FREQUENCY_DIAGONIZATION.lean
+            research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.olean \
             research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
