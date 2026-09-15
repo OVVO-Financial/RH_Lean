@@ -1,22 +1,13 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS»
+import «research.GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE»
 
 /-!
 # Global signed first-owner telescope
 
 After the exact unordered-to-cell Fubini, the local compensated cell identity
-can be summed without loss.  This file records the resulting global normal
-form for the actual AMP first-owner Gram.
-
-For one owner/signature cell:
-
-  2 G = (L - J)^2 - L^2 - J^2 - 2 C J,
-
-where `L - J` is the literal daughter-crossing minus root-crossing amplitude
-and `C` is the clipped p-child exit.  Summing first over signatures and then
-over the actual prime owners gives the exact off-diagonal AMP covariance in
-this form.  No absolute value, norm estimate, independence hypothesis, or
-frame bound enters.
+can be summed without loss.  The cell telescope itself is defined in the local
+cell module; this file only performs the global owner/signature reindexing.
 -/
 
 noncomputable section
@@ -28,15 +19,6 @@ open RHLean.Analysis RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
 
-/-- Signed telescope contribution of one first-owner cell. -/
-def lowOwnerFirstOwnerSignedCellTelescope
-    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
-  lowOwnerFirstOwnerCompensatedInteriorAmplitude R p sig ^ 2 -
-    lowOwnerFirstOwnerAdmittedBaseAmplitude R p sig ^ 2 -
-    lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig ^ 2 -
-    2 * lowOwnerFirstOwnerClippedAmplitude R p sig *
-      lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig
-
 /-- For one genuine prime owner, twice the actual AMP first-owner Gram is the
 sum of the exact signed cell telescopes. -/
 theorem two_mul_lowOwnerZeroFrequencyFirstOwnerGram_eq_sum_signedCellTelescope
@@ -47,13 +29,10 @@ theorem two_mul_lowOwnerZeroFrequencyFirstOwnerGram_eq_sum_signedCellTelescope
   rw [lowOwnerZeroFrequencyFirstOwnerGram_eq_sum_cells hp, Finset.mul_sum]
   apply Finset.sum_congr rfl
   intro sig _hsig
-  unfold lowOwnerFirstOwnerSignedCellTelescope
   exact
     two_mul_lowOwnerFirstOwnerCellGram_eq_completeTelescope_sub_clippedCross hp
 
-/-- **Global signed-owner telescope.**  The complete off-diagonal first-owner
-coherence of the AMP amplitude is exactly the sum of the compensated cell
-energy increments and mixed clipped exits. -/
+/-- **Global signed-owner telescope.** -/
 theorem two_mul_sum_lowOwnerZeroFrequencyFirstOwnerGram_eq_signedOwnerTelescope
     (R : ℕ) :
     2 * (∑ p ∈ primesUpTo (squareRootEndpoint R),
@@ -69,8 +48,7 @@ theorem two_mul_sum_lowOwnerZeroFrequencyFirstOwnerGram_eq_signedOwnerTelescope
       (mem_primesUpTo.mp hpMem).1
 
 /-- The actual zero-frequency AMP remainder energy is diagonal plus the global
-signed owner telescope.  This is the pre-estimate form needed by the factor-four
-closure: the positive owner coherence is no longer isolated from chronology. -/
+signed owner telescope. -/
 theorem norm_sq_lowOwnerPhysicalAmplitudeRemainder_zero_eq_diagonal_add_signedOwnerTelescope
     (R : ℕ) (hR : 56 ≤ R) :
     ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 =
