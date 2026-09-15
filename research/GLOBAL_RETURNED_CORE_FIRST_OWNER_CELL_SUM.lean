@@ -129,7 +129,7 @@ theorem sum_lowOwnerFirstOwnerCellGram_eq_orientedCrossPairs
               (lowOwnerFirstOwnerBaseFiber R p sig).product
                 (lowOwnerFirstOwnerChildFiber R p sig) by
             simpa [S, g] using hfiberSet]
-    _ = ∑ ab ∈ S, f ab := hfiber
+    _ = ∑ ab ∈ S, f ab := hfiber.symm
     _ = _ := rfl
 
 end RHLean.Proof
