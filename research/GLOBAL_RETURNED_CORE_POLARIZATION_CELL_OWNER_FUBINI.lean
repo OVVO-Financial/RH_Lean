@@ -83,37 +83,27 @@ private theorem sum_symmetric_square_eq_diag_add_two_positive
         · exact ⟨hprod, ne_of_gt hgt⟩
     rw [hunion, Finset.sum_union hdisj]
   have hneg_eq_pos : (∑ ab ∈ neg, f ab) = ∑ ab ∈ pos, f ab := by
-    let swap : ℕ × ℕ → ℕ × ℕ := fun ab => (ab.2, ab.1)
-    have hbij : Set.BijOn swap (↑neg) (↑pos) := by
-      constructor
-      · intro ab hab
-        dsimp [neg, pos, swap] at hab ⊢
-        rcases Finset.mem_filter.mp hab with ⟨hprod, hlt⟩
-        rcases Finset.mem_product.mp hprod with ⟨ha, hb⟩
-        exact Finset.mem_filter.mpr
-          ⟨Finset.mem_product.mpr ⟨hb, ha⟩, hlt⟩
-      · intro x hx y hy hxy
-        rcases x with ⟨x1, x2⟩
-        rcases y with ⟨y1, y2⟩
-        simp [swap] at hxy
-        simp [hxy]
-      · intro ab hab
-        rcases ab with ⟨a, b⟩
-        dsimp [pos, neg, swap] at hab ⊢
-        rcases Finset.mem_filter.mp hab with ⟨hprod, hlt⟩
-        rcases Finset.mem_product.mp hprod with ⟨ha, hb⟩
-        refine ⟨(b, a), ?_, by simp⟩
-        exact Finset.mem_filter.mpr
-          ⟨Finset.mem_product.mpr ⟨hb, ha⟩, hlt⟩
-    have hsum := Finset.sum_bij
-      (fun ab _hab => swap ab)
-      (fun ab hab => hbij.1 hab)
-      (fun ab _hab => by simpa [swap] using hsym ab.1 ab.2)
-      (fun a1 ha1 a2 ha2 heq => hbij.2.1 ha1 ha2 heq)
-      (fun b hb => by
-        rcases hbij.2.2 hb with ⟨a, ha, hab⟩
-        exact ⟨a, ha, hab⟩)
-    simpa [swap] using hsum
+    refine Finset.sum_bij
+      (fun ab _hab => (ab.2, ab.1))
+      ?_ ?_ ?_ ?_
+    · intro ab hab
+      rcases Finset.mem_filter.mp hab with ⟨hprod, hlt⟩
+      rcases Finset.mem_product.mp hprod with ⟨ha, hb⟩
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_product.mpr ⟨hb, ha⟩, hlt⟩
+    · intro a1 ha1 a2 ha2 heq
+      apply Prod.ext
+      · exact congrArg Prod.snd heq
+      · exact congrArg Prod.fst heq
+    · intro ab hab
+      rcases ab with ⟨a, b⟩
+      rcases Finset.mem_filter.mp hab with ⟨hprod, hlt⟩
+      rcases Finset.mem_product.mp hprod with ⟨ha, hb⟩
+      refine ⟨(b, a), ?_, by simp⟩
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_product.mpr ⟨hb, ha⟩, hlt⟩
+    · intro ab _hab
+      simpa using hsym ab.1 ab.2
   rw [hpartition, hdiag, hoff_partition, hneg_eq_pos]
   dsimp [pos]
   ring
