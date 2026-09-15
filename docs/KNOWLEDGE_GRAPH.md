@@ -201,6 +201,23 @@ pull request that touches Lean sources or the tooling, and uploads
 `decl-graph.json`, `decl-graph.dot` and the standard reports as artifacts.  It
 takes a few seconds and needs no Lean toolchain.
 
+## What the graph does not cover
+
+The graph scans `RHLean/` only. That is deliberate -- it is the compiled,
+authoritative tree -- but it is worth knowing what sits outside it.
+
+`research/**.lean` is real Lean that imports `RHLean.*` and proves things, yet
+it is absent from `RHLean.lean` and from the `lakefile.lean` target, so CI never
+compiles it and it never enters the graph. At PR #719 that was 65 files, ~11.5k
+lines and 443 named proofs, 41 of them importing the library -- and it is where
+much of the active frontier work now happens.
+
+`scripts/proof_inventory.py` reports this surface under "Dependent Lean outside
+the scanned tree" and in the JSON under `dependent_lean_outside_scope`. It is
+excluded from every authoritative count, because those proofs are not
+kernel-checked by CI. Treat the figure as a measure of unverified work in
+flight, not as part of the library.
+
 ## Keeping the semantic layer current
 
 Layers 1, 2, 5 and 6 are computed from the sources and stay correct on their
