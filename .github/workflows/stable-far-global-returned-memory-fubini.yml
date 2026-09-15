@@ -1,16 +1,14 @@
-name: Stable-far returned reciprocal physical bridge check
+name: Stable-far global returned memory Fubini check
 
 on:
   pull_request:
     branches: [main]
     paths:
+      - research/STABLE_FAR_GLOBAL_RETURNED_MEMORY_FUBINI.lean
       - research/STABLE_FAR_RETURNED_RECIPROCAL_PHYSICAL_BRIDGE.lean
       - research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean
       - research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
-      - research/STABLE_FAR_RETURNED_RECIPROCAL_FROZEN_WINDOW.lean
-      - research/STABLE_FAR_RETURNED_FIBER_FUBINI.lean
-      - research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
-      - .github/workflows/stable-far-returned-reciprocal-physical-bridge.yml
+      - .github/workflows/stable-far-global-returned-memory-fubini.yml
   workflow_dispatch:
 
 permissions:
@@ -60,7 +58,7 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-
-      - name: Emit research dependencies
+      - name: Emit research dependency chain
         run: |
           mkdir -p .lake/build/lib/lean
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
@@ -92,5 +90,6 @@ jobs:
           emit research/AMPLITUDE_GLOBAL_PHYSICAL_DEFECT_LEDGER.lean
           emit research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
           emit research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean
-      - name: Kernel-check returned reciprocal physical bridge
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_RETURNED_RECIPROCAL_PHYSICAL_BRIDGE.lean
+          emit research/STABLE_FAR_RETURNED_RECIPROCAL_PHYSICAL_BRIDGE.lean
+      - name: Kernel-check global returned memory Fubini
+        run: lake env lean -DwarningAsError=true research/STABLE_FAR_GLOBAL_RETURNED_MEMORY_FUBINI.lean
