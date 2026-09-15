@@ -2,6 +2,7 @@ import Mathlib
 import «research.LOW_OWNER_RETURNED_AMPLITUDE_CORE»
 import «research.LOW_OWNER_Q_MEMORY_REMAINDER_NORMAL_FORM»
 import «research.ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE»
+import «research.ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT»
 
 /-!
 # Returned-core square in global zero-target covariance currency
@@ -95,5 +96,29 @@ theorem zeroTarget_globalGram_le_of_coPartial_sub_divergent_le
     (∑ i ∈ s, a i) ^ 2 ≤ B := by
   rw [zeroTarget_globalGram_reassembly]
   exact hB
+
+/-- **First admitted-wall critical split.**  Once the stripped owner parent is
+inside the LCM wall, the complete part has a negative coefficient and the only
+positive geometric leakage is the companion-clipped first-separation term.
+Parents still beyond the LCM wall are intentionally excluded here: they are the
+recursive branch that must be telescoped by the rank-dropping owner descent. -/
+theorem criticalPhysicalMellinStencil_firstAdmittedWall_eq_negative_add_clipped
+    {W p a b : ℕ}
+    (hp : p.Prime) (hpa : ¬ p ∣ a) (hpb : ¬ p ∣ b)
+    (hab : a ≤ b) (hbW : b ≤ W) (hpaW : p * a ≤ W)
+    (hlcmW : Nat.lcm a b ≤ W) :
+    physicalSuperLcmMellinStencil W p (1 / (p : ℝ)) a b =
+      -((1 / (p : ℝ)) * (2 - 1 / (p : ℝ))) *
+          (if W < p * Nat.lcm a b then 1 else 0) +
+        (1 / (p : ℝ)) * (1 - 1 / (p : ℝ)) *
+          (if W < p * Nat.lcm a b ∧ W < p * b then 1 else 0) := by
+  rw [physicalSuperLcmMellinStencil_eq_neg_firstCrossing_add_edge_of_mul_le
+    (1 / (p : ℝ)) hp hpa hpb hab hbW hpaW]
+  rw [critical_one_sub_mul_edge_eq_quadratic_add_reciprocalBoundary
+    hp hpa hpb hab hbW hpaW]
+  by_cases hwall : W < p * Nat.lcm a b
+  · simp [hlcmW, hpaW, hwall]
+    ring
+  · simp [hwall]
 
 end RHLean.Proof
