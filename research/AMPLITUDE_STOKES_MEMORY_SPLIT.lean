@@ -82,7 +82,7 @@ theorem rawBoundary_add_mismatch_eq_reciprocalDrop_add_eulerMemory
     adaptiveRawWeightedMass_eq_next_add_boundary_add_mismatch
       R U a hR hp
   unfold amplitudeReciprocalDropStep amplitudeEulerMemoryStep
-  linear_combination hraw
+  linear_combination -hraw
 
 /-- Cumulative reciprocal Stokes drops along the actual raw chronology. -/
 def amplitudeReciprocalDropLedger
