@@ -5,27 +5,25 @@ import «research.COVARIANCE_RECIPROCAL_OWNER_CONGESTION»
 /-!
 # Reciprocal-square congestion on the reversed greatest-owner graph
 
-The order-reversed filtration assigns each positive-lag pair to its greatest
-fresh prime.  Fix a stripped ordered parent and one owner prime `p`.  Exactly as
-for the old least-owner graph, there are only two possible mixed children:
+Fix a stripped ordered parent and an owner `p` in the greatest-fresh-prime
+filtration.  A positive-lag child can only be one of the same two mixed
+insertions as in the least-owner graph:
 
-  ordered(p*a,b),   ordered(a,p*b).
+  ordered(p*a,b), ordered(a,p*b).
 
-The greatest-owner predicate can only delete candidates.  Thus fixed-owner
-multiplicity is at most two.  If the larger parent's p-child lies beyond the
-physical endpoint, only the first mixed child can remain physical, so clipped
-multiplicity is at most one.
+Hence fixed-owner multiplicity is at most two.  Under the companion-clipped
+condition `X_R < p * parent.2`, only the first candidate can remain physical,
+so multiplicity is at most one.
 
-By the arbitrary-fresh-prime descent theorem every surviving child carries
-exactly `1/p^2` of its stripped parent's reciprocal pair energy.  Therefore the
-same prime-square budget gives
+Every greatest-owner child carries exactly `1/p^2` of the reciprocal pair
+energy of its stripped parent, by the arbitrary-fresh-prime descent theorem.
+Thus the old prime reciprocal-square budget applies verbatim:
 
-  outgoing greatest-owner energy <= 79/81 * parent energy,
-  clipped greatest-owner energy  <= 79/162 * parent energy.
+  outgoing energy <= 79/81 * parent energy,
+  clipped energy  <= 79/162 * parent energy.
 
-This is a genuine energy contraction on the reversed owner graph.  It is not
-claimed here to bound the raw AMP weighted Gram; that final coefficient bridge
-remains separate.
+This is a contraction only in reciprocal pair currency.  No claim is made here
+that the raw AMP weighted Gram has already been converted to that currency.
 -/
 
 noncomputable section
@@ -45,8 +43,7 @@ def lowOwnerGreatestOwnerFixedParentChildFiber
     (fun mn => mn.1 < mn.2)).filter
     (fun mn => squarefreePairPrimeOrderedParent p mn.1 mn.2 = parent)
 
-/-- Generic mixed child lies in the same two canonical candidates used by the
-least-owner graph. -/
+/-- Generic mixed child lies in the two canonical candidates. -/
 theorem arbitrary_mixed_child_mem_covarianceOwnerChildCandidates
     {p um un m n : ℕ} {parent : ℕ × ℕ}
     (hmn : m < n)
@@ -70,23 +67,17 @@ theorem arbitrary_mixed_child_mem_covarianceOwnerChildCandidates
     · have hnot : ¬ p * un < um := by omega
       simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hnot]
 
-/-- A greatest-owner crossing is obtained from its stripped parents by exactly
-one mixed p-insertion. -/
-theorem descendingGreatestOwner_parentCube
-    {R p m n : ℕ} (hp : p.Prime)
+/-- A cross pair is obtained from its specified-prime parents by one mixed
+p-insertion.  Primality is not needed for this carrier fact; the stored xor is
+enough. -/
+theorem revealedCrossPair_parentCube
+    {R p m n : ℕ}
     (hcross : (m, n) ∈ lowOwnerRevealedCrossPairCarrier R
       (lowOwnerRevealedPrimesAbove R p) p) :
     let um := squarefreePrimeFamilyParent p m
     let un := squarefreePrimeFamilyParent p n
     (m = p * um ∧ n = un) ∨ (m = um ∧ n = p * un) := by
-  have hprod := (Finset.mem_filter.mp hcross).1
-  rcases Finset.mem_product.mp hprod with ⟨hmCar, hnCar⟩
-  have hmPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos hmCar).2
-  have hnPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos hnCar).2
-  have howner := descendingCrossPair_greatestFreshOwner hp hcross
-  have hxor :=
-    (mem_squarefreePairFreshPrimeSet_iff_prime_dvd_xor hp hmPos hnPos).1
-      howner.1
+  have hxor := (Finset.mem_filter.mp hcross).2.2
   dsimp only
   rcases hxor with h | h
   · left
@@ -98,8 +89,7 @@ theorem descendingGreatestOwner_parentCube
     rw [if_neg h.2, if_pos h.1]
     exact ⟨rfl, (Nat.mul_div_cancel' h.1).symm⟩
 
-/-- Every fixed-parent greatest-owner child lies in the same two mixed-corner
-candidate set. -/
+/-- Every fixed-parent greatest-owner child lies in the two mixed candidates. -/
 theorem lowOwnerGreatestOwnerFixedParentChildFiber_subset_candidates
     (R : ℕ) (parent : ℕ × ℕ) (p : ℕ) :
     lowOwnerGreatestOwnerFixedParentChildFiber R parent p ⊆
@@ -108,46 +98,17 @@ theorem lowOwnerGreatestOwnerFixedParentChildFiber_subset_candidates
   rcases mn with ⟨m, n⟩
   rcases Finset.mem_filter.mp hmn with ⟨hltFilter, hparent⟩
   rcases Finset.mem_filter.mp hltFilter with ⟨hcross, hmnlt⟩
-  have hp : p.Prime := by
-    have howner := descendingCrossPair_greatestFreshOwner
-      (by
-        have hprod := (Finset.mem_filter.mp hcross).1
-        rcases Finset.mem_product.mp hprod with ⟨hmCar, hnCar⟩
-        have hmPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos hmCar).2
-        have hnPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos hnCar).2
-        have hdata := (Finset.mem_filter.mp hcross).2.2
-        have hxor := hdata
-        rcases hxor with h | h
-        · have hpf : p ∈ m.primeFactors :=
-            Nat.mem_primeFactors.mpr
-              ⟨by
-                by_contra hnp
-                have : ¬ p.Prime := hnp
-                exact h.2 (Nat.dvd_one.mp ?_) , h.1, hmPos.ne'⟩
-          exact Nat.prime_of_mem_primeFactors hpf
-        · have hpf : p ∈ n.primeFactors :=
-            Nat.mem_primeFactors.mpr
-              ⟨by
-                by_contra hnp
-                have : ¬ p.Prime := hnp
-                exact h.2 (Nat.dvd_one.mp ?_) , h.1, hnPos.ne'⟩
-          exact Nat.prime_of_mem_primeFactors hpf)
-      hcross
-    exact (freshPrime_of_nonzeroPhysicalPair
-      (Finset.mem_product.mp (Finset.mem_filter.mp hcross).1).1
-      (Finset.mem_product.mp (Finset.mem_filter.mp hcross).1).2
-      howner.1).1
   let um := squarefreePrimeFamilyParent p m
   let un := squarefreePrimeFamilyParent p n
   have hparent' : covarianceOrderedPair um un = parent := by
     simpa [squarefreePairPrimeOrderedParent, covarianceOrderedPair, um, un]
       using hparent
-  have hmix := descendingGreatestOwner_parentCube hp hcross
+  have hmix := revealedCrossPair_parentCube hcross
   dsimp only at hmix
   exact arbitrary_mixed_child_mem_covarianceOwnerChildCandidates
     hmnlt hparent' hmix
 
-/-- Fixed-parent greatest-owner multiplicity is at most two. -/
+/-- Fixed-parent multiplicity is at most two. -/
 theorem lowOwnerGreatestOwnerFixedParentChildFiber_card_le_two
     (R : ℕ) (parent : ℕ × ℕ) (p : ℕ) :
     (lowOwnerGreatestOwnerFixedParentChildFiber R parent p).card ≤ 2 := by
@@ -155,10 +116,15 @@ theorem lowOwnerGreatestOwnerFixedParentChildFiber_card_le_two
     (lowOwnerGreatestOwnerFixedParentChildFiber_subset_candidates R parent p)).trans
       (covarianceOwnerChildCandidates_card_le_two p parent)
 
-/-- Greatest-owner fixed-parent multiplicity. -/
+/-- Fixed-parent greatest-owner multiplicity. -/
 def lowOwnerGreatestOwnerFixedParentChildMultiplicity
     (R : ℕ) (parent : ℕ × ℕ) (p : ℕ) : ℕ :=
   (lowOwnerGreatestOwnerFixedParentChildFiber R parent p).card
+
+@[simp] theorem lowOwnerGreatestOwnerFixedParentChildMultiplicity_le_two
+    (R : ℕ) (parent : ℕ × ℕ) (p : ℕ) :
+    lowOwnerGreatestOwnerFixedParentChildMultiplicity R parent p ≤ 2 := by
+  exact lowOwnerGreatestOwnerFixedParentChildFiber_card_le_two R parent p
 
 /-- One greatest-owner child carries exactly `1/p^2` of its fixed stripped
 parent's reciprocal energy. -/
@@ -187,8 +153,7 @@ theorem lowOwnerGreatestOwnerFixedParentChild_energy_eq
     _ = (1 / (p : ℝ) ^ 2) *
           postRootCovarianceReciprocalPairEnergy parent := by rw [hparent]
 
-/-- Exact fixed-owner energy: multiplicity times reciprocal square times parent
-energy. -/
+/-- Exact fixed-owner reciprocal energy. -/
 theorem sum_lowOwnerGreatestOwnerFixedParentChild_energy_eq
     {R p : ℕ} (hp : p.Prime) (parent : ℕ × ℕ) :
     (∑ mn ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent p,
@@ -219,11 +184,13 @@ def lowOwnerGreatestOwnerReciprocalOutgoingEnergy
     ∑ mn ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent p,
       postRootCovarianceReciprocalPairEnergy mn
 
-/-- **79/81 contraction on the reversed owner graph.** -/
-theorem lowOwnerGreatestOwnerReciprocalOutgoingEnergy_le_79_over_81
+/-- Elementary multiplicity reduction before applying the global prime budget. -/
+theorem lowOwnerGreatestOwnerReciprocalOutgoingEnergy_le_twoPrimeBudget
     (R : ℕ) (parent : ℕ × ℕ) :
     lowOwnerGreatestOwnerReciprocalOutgoingEnergy R parent ≤
-      (79 / 81 : ℝ) * postRootCovarianceReciprocalPairEnergy parent := by
+      2 * (∑ p ∈ primesUpTo (squareRootEndpoint R),
+        (1 : ℝ) / (p : ℝ) ^ 2) *
+          postRootCovarianceReciprocalPairEnergy parent := by
   unfold lowOwnerGreatestOwnerReciprocalOutgoingEnergy
   calc
     (∑ p ∈ primesUpTo (squareRootEndpoint R),
@@ -241,43 +208,54 @@ theorem lowOwnerGreatestOwnerReciprocalOutgoingEnergy_le_79_over_81
           postRootCovarianceReciprocalPairEnergy parent := by
       apply Finset.sum_le_sum
       intro p _hp
-      have hmultNat := lowOwnerGreatestOwnerFixedParentChildFiber_card_le_two
-        R parent p
+      have hmultNat :=
+        lowOwnerGreatestOwnerFixedParentChildMultiplicity_le_two R parent p
       have hmult :
           (lowOwnerGreatestOwnerFixedParentChildMultiplicity R parent p : ℝ) ≤ 2 := by
         exact_mod_cast hmultNat
-      have hden : 0 ≤ (1 : ℝ) / (p : ℝ) ^ 2 := by positivity
-      have hE := postRootCovarianceReciprocalPairEnergy_nonneg parent
-      nlinarith
+      have hscale :
+          (lowOwnerGreatestOwnerFixedParentChildMultiplicity R parent p : ℝ) /
+              (p : ℝ) ^ 2 ≤
+            (2 : ℝ) / (p : ℝ) ^ 2 := by
+        exact div_le_div_of_nonneg_right hmult (by positivity)
+      exact mul_le_mul_of_nonneg_right hscale
+        (postRootCovarianceReciprocalPairEnergy_nonneg parent)
     _ = 2 * (∑ p ∈ primesUpTo (squareRootEndpoint R),
         (1 : ℝ) / (p : ℝ) ^ 2) *
           postRootCovarianceReciprocalPairEnergy parent := by
-      rw [Finset.sum_mul]
+      rw [← Finset.sum_mul]
       congr 1
-      rw [← Finset.mul_sum]
+      rw [Finset.mul_sum]
       apply Finset.sum_congr rfl
       intro p _hp
       ring
-    _ ≤ (79 / 81 : ℝ) * postRootCovarianceReciprocalPairEnergy parent := by
-      have hbudgetQ := primeOwnerReciprocalSquareBudget_le_79_over_162
-        (squareRootEndpoint R)
-      have hbudgetCast :
-          (((∑ p ∈ primesUpTo (squareRootEndpoint R),
-              (1 : ℚ) / (p : ℚ) ^ 2 : ℚ)) : ℝ) ≤
-            (((79 / 162 : ℚ)) : ℝ) := by
-        unfold primeOwnerReciprocalSquareBudget at hbudgetQ
-        exact_mod_cast hbudgetQ
-      push_cast at hbudgetCast
-      norm_num at hbudgetCast ⊢
-      have hbudgetR :
-          (∑ p ∈ primesUpTo (squareRootEndpoint R),
-            (1 : ℝ) / (p : ℝ) ^ 2) ≤ 79 / 162 := by
-        simpa [Nat.cast_pow] using hbudgetCast
-      have hE := postRootCovarianceReciprocalPairEnergy_nonneg parent
-      nlinarith
 
-/-- Under the clipped condition, only the child obtained by multiplying the
-smaller parent coordinate can remain physical. -/
+/-- **79/81 contraction on the reversed owner graph.** -/
+theorem lowOwnerGreatestOwnerReciprocalOutgoingEnergy_le_79_over_81
+    (R : ℕ) (parent : ℕ × ℕ) :
+    lowOwnerGreatestOwnerReciprocalOutgoingEnergy R parent ≤
+      (79 / 81 : ℝ) * postRootCovarianceReciprocalPairEnergy parent := by
+  have hout := lowOwnerGreatestOwnerReciprocalOutgoingEnergy_le_twoPrimeBudget
+    R parent
+  have hbudgetQ := primeOwnerReciprocalSquareBudget_le_79_over_162
+    (squareRootEndpoint R)
+  have hbudgetCast :
+      (((∑ p ∈ primesUpTo (squareRootEndpoint R),
+          (1 : ℚ) / (p : ℚ) ^ 2 : ℚ)) : ℝ) ≤
+        (((79 / 162 : ℚ)) : ℝ) := by
+    unfold primeOwnerReciprocalSquareBudget at hbudgetQ
+    exact_mod_cast hbudgetQ
+  push_cast at hbudgetCast
+  norm_num at hbudgetCast ⊢
+  have hbudgetR :
+      (∑ p ∈ primesUpTo (squareRootEndpoint R),
+        (1 : ℝ) / (p : ℝ) ^ 2) ≤ 79 / 162 := by
+    simpa [Nat.cast_pow] using hbudgetCast
+  have hE := postRootCovarianceReciprocalPairEnergy_nonneg parent
+  nlinarith
+
+/-- Under clipping only the candidate multiplying the smaller parent coordinate
+can remain physical. -/
 theorem lowOwnerGreatestOwnerFixedParentChildFiber_subset_singleton_of_clipped
     {R p : ℕ} {parent : ℕ × ℕ}
     (hclip : squareRootEndpoint R < p * parent.2) :
@@ -290,10 +268,8 @@ theorem lowOwnerGreatestOwnerFixedParentChildFiber_subset_singleton_of_clipped
   rcases Finset.mem_filter.mp hltFilter with ⟨hcross, _hlt⟩
   have hprod := (Finset.mem_filter.mp hcross).1
   rcases Finset.mem_product.mp hprod with ⟨hmCar, hnCar⟩
-  have hmX :=
-    (Finset.mem_Icc.mp (Finset.mem_filter.mp hmCar).1).2
-  have hnX :=
-    (Finset.mem_Icc.mp (Finset.mem_filter.mp hnCar).1).2
+  have hmX := (Finset.mem_Icc.mp (Finset.mem_filter.mp hmCar).1).2
+  have hnX := (Finset.mem_Icc.mp (Finset.mem_filter.mp hnCar).1).2
   have hmaxX : max mn.1 mn.2 ≤ squareRootEndpoint R := max_le hmX hnX
   unfold covarianceOwnerChildCandidates at hcand
   simp only [Finset.mem_insert, Finset.mem_singleton] at hcand
@@ -358,10 +334,15 @@ theorem lowOwnerGreatestOwnerClippedOutgoingEnergy_le_79_over_162
           lowOwnerGreatestOwnerFixedParentChildFiber_card_le_one_of_clipped hclip
         have hmult :
             (lowOwnerGreatestOwnerFixedParentChildMultiplicity R parent p : ℝ) ≤ 1 := by
+          unfold lowOwnerGreatestOwnerFixedParentChildMultiplicity
           exact_mod_cast hmultNat
-        have hE := postRootCovarianceReciprocalPairEnergy_nonneg parent
-        have hden : 0 ≤ (1 : ℝ) / (p : ℝ) ^ 2 := by positivity
-        nlinarith
+        have hscale :
+            (lowOwnerGreatestOwnerFixedParentChildMultiplicity R parent p : ℝ) /
+                (p : ℝ) ^ 2 ≤
+              (1 : ℝ) / (p : ℝ) ^ 2 := by
+          exact div_le_div_of_nonneg_right hmult (by positivity)
+        exact mul_le_mul_of_nonneg_right hscale
+          (postRootCovarianceReciprocalPairEnergy_nonneg parent)
       · simp only [hclip, if_false]
         positivity
     _ = (∑ p ∈ primesUpTo (squareRootEndpoint R),
