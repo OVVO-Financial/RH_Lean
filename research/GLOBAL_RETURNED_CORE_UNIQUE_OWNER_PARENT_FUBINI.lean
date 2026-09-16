@@ -51,6 +51,9 @@ theorem lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_pairwiseDisjoint
       (↑(lowOwnerFirstOwnerGreatestOwnerParentSet R p sig r))
       (lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber R p sig r) := by
   intro parent _hp childParent _hc hne
+  change Disjoint
+    (lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber R p sig r parent)
+    (lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber R p sig r childParent)
   rw [Finset.disjoint_left]
   intro mn hmp hmc
   have hpEq := (Finset.mem_filter.mp hmp).2
