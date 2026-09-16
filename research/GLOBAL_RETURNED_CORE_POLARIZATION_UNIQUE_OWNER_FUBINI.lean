@@ -165,8 +165,10 @@ theorem lowOwnerFirstOwner_primeParent_mem_same_base
   have hpFreeU : ¬ p ∣ u := by
     intro hpu
     have hiff := prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
-      hr hp hpne
-    exact haData.2 (hiff.mp hpu)
+      (p := r) (q := p) (n := a) hr hp hpne
+    have hpuParent : p ∣ squarefreePrimeFamilyParent r a := by
+      simpa [u] using hpu
+    exact haData.2 (hiff.mp hpuParent)
   exact Finset.mem_filter.mpr ⟨huCar, ⟨hsigU, hpFreeU⟩⟩
 
 /-- Stripping any fresh coordinate of a full-polarization pair returns both
