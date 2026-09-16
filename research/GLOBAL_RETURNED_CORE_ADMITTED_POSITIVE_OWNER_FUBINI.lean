@@ -59,11 +59,10 @@ private theorem sum_product_symmetric_eq_diag_add_two_pos
     calc
       (∑ ab ∈ s.product s, f ab) =
           ∑ ab ∈ s.product s,
-            (diagTerm ab + ltTerm ab) + gtTerm ab := by
+            (diagTerm ab + ltTerm ab + gtTerm ab) := by
               apply Finset.sum_congr rfl
               intro ab _hab
-              rw [hpoint]
-              ring
+              exact hpoint ab
       _ = _ := by
         rw [Finset.sum_add_distrib, Finset.sum_add_distrib]
   have hdiag :
