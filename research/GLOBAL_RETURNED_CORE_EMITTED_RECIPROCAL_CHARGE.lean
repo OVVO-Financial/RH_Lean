@@ -132,7 +132,7 @@ theorem lowOwnerFirstOwnerCompletedInheritedReciprocalEnergy_eq_active
   · have hempty :
         lowOwnerGreatestOwnerFixedParentChildFiber R parent r = ∅ :=
       Finset.not_nonempty_iff_eq_empty.mp hactive
-    simp [hactive, hempty]
+    simp [hempty]
 
 /-- One completed `(p,sig,r)` gate packet is charged to the already-defined
 admitted reciprocal owner-parent ledger at the same labels. -/
