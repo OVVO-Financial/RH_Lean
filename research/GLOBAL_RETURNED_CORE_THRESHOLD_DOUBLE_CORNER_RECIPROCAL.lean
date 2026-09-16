@@ -47,7 +47,7 @@ def lowOwnerThresholdDoubleCornerBoundary
 /-- **Exact two-boundary decomposition of commuting threshold incidences.** -/
 theorem lowOwnerThresholdClippedDifference_eq_current_sub_doubleCorner
     {c r u W : ℕ}
-    (hc : c.Prime) (hr : r.Prime) (hcr : c < r) (hu : 0 < u) :
+    (hc : c.Prime) (_hr : r.Prime) (hcr : c < r) (_hu : 0 < u) :
     lowOwnerThresholdClippedDifference c r u W =
       lowOwnerThresholdCrossingIndicator c u W -
         lowOwnerThresholdDoubleCornerBoundary c r u W := by
@@ -114,7 +114,7 @@ theorem largerPrime_not_dvd_child
 exactly `-1/r` times its zero-target excess. -/
 theorem zeroTargetCriticalFourCorner_parentChild_doubleCorner_eq_neg_reciprocal
     {W c r u : ℕ}
-    (hc : c.Prime) (hr : r.Prime) (hcr : c < r) (hu : 0 < u)
+    (hc : c.Prime) (hr : r.Prime) (hcr : c < r) (_hu : 0 < u)
     (hru : ¬ r ∣ u)
     (hcuW : c * u ≤ W) (hruW : r * u ≤ W)
     (hdouble : W < r * (c * u)) :
