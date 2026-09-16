@@ -24,6 +24,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_COMPENSATED_CELL_DESCENT_CARRIER.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
       - research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
+      - research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DESCENT.lean
       - .github/workflows/global-returned-core-kernel-bridge.yml
   workflow_dispatch:
 
@@ -172,3 +173,5 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
       - name: Check unique greatest-owner assembly
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.olean research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
+      - name: Check unique-owner rank descent
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DESCENT.olean research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DESCENT.lean
