@@ -96,30 +96,32 @@ theorem sum_lowOwnerFirstOwnerGreatestOwnerPositivePairFiber_eq_sum_parentFibers
 /-- A cell-specific fixed-parent child is a literal child in the full greatest-
 owner graph for the same parent and owner. -/
 theorem lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_subset_graph
-    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ} :
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime) :
     lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber R p sig r parent ⊆
       lowOwnerGreatestOwnerFixedParentChildFiber R parent r := by
   intro mn hmn
   rcases Finset.mem_filter.mp hmn with ⟨hpos, hparent⟩
   have hgraph :=
     lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_fixedParentChildFiber
-      (p := p) (r := r) hpos
+      hp hpos
   simpa [hparent] using hgraph
 
 /-- Cell-specific fixed-parent multiplicity is at most two. -/
 theorem lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_card_le_two
-    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) (parent : ℕ × ℕ) :
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) (parent : ℕ × ℕ)
+    (hp : p.Prime) :
     (lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber
       R p sig r parent).card ≤ 2 := by
   exact (Finset.card_le_card
     (lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_subset_graph
-      (R := R) (p := p) (r := r) (sig := sig) (parent := parent))).trans
+      (R := R) (p := p) (r := r) (sig := sig) (parent := parent) hp)).trans
     (lowOwnerGreatestOwnerFixedParentChildFiber_card_le_two R parent r)
 
 /-- Exact reciprocal-energy inheritance on the cell-specific parent fibre. -/
 theorem sum_lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_energy_eq
     {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
-    (hr : r.Prime) :
+    (hp : p.Prime) (hr : r.Prime) :
     (∑ child ∈ lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber
         R p sig r parent,
       postRootCovarianceReciprocalPairEnergy child) =
@@ -137,7 +139,7 @@ theorem sum_lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_energy_eq
       apply Finset.sum_congr rfl
       intro child hchild
       exact lowOwnerGreatestOwnerFixedParentChild_energy_eq hr
-        (lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_subset_graph hchild)
+        (lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_subset_graph hp hchild)
     _ = ((lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber
           R p sig r parent).card : ℝ) /
         (r : ℝ) ^ 2 * postRootCovarianceReciprocalPairEnergy parent := by
@@ -157,7 +159,7 @@ def lowOwnerFirstOwnerGreatestOwnerFixedParentInheritedEnergy
 retained. -/
 theorem lowOwnerFirstOwnerGreatestOwnerFixedParentInheritedEnergy_eq
     {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
-    (hr : r.Prime) :
+    (hp : p.Prime) (hr : r.Prime) :
     lowOwnerFirstOwnerGreatestOwnerFixedParentInheritedEnergy
         R p sig r parent =
       ((lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber
@@ -168,7 +170,7 @@ theorem lowOwnerFirstOwnerGreatestOwnerFixedParentInheritedEnergy_eq
     lowOwnerThresholdEulerInheritedGreatestChildEnergy
     lowOwnerThresholdEulerParentEnergy
   rw [← Finset.mul_sum]
-  rw [sum_lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_energy_eq hr]
+  rw [sum_lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_energy_eq hp hr]
   ring
 
 /-- **No-congestion local charge.**  One `(r,parent)` block is paid exactly
@@ -179,13 +181,14 @@ theorem lowOwnerFirstOwnerGreatestOwnerFixedParentInheritedEnergy_le_two_ninths
     lowOwnerFirstOwnerGreatestOwnerFixedParentInheritedEnergy
         R p sig r parent ≤
       (2 / 9 : ℝ) * lowOwnerThresholdEulerParentEnergy R p r parent := by
-  rw [lowOwnerFirstOwnerGreatestOwnerFixedParentInheritedEnergy_eq hr]
-  have hr3nat : 3 ≤ r := three_le_of_prime_lt_prime hp hr hpr
+  rw [lowOwnerFirstOwnerGreatestOwnerFixedParentInheritedEnergy_eq hp hr]
+  have hp2 : 2 ≤ p := hp.two_le
+  have hr3nat : 3 ≤ r := by omega
   have hr3 : (3 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr3nat
   have hrpos : (0 : ℝ) < (r : ℝ) := by exact_mod_cast hr.pos
   have hcardNat :=
     lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_card_le_two
-      R p sig r parent
+      R p sig r parent hp
   have hcard :
       ((lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber
           R p sig r parent).card : ℝ) ≤ 2 := by
