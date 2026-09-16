@@ -72,6 +72,7 @@ theorem lowOwnerFirstOwnerAdmittedGreatestOwnerPairUnion_eq_offDiagonal
     apply Finset.mem_filter.mpr
     refine ⟨hpair, ?_⟩
     intro heq
+    have hmnEq : m = n := by simpa using heq
     subst n
     have hfresh := howner.1
     simp [squarefreePairFreshPrimeSet] at hfresh
