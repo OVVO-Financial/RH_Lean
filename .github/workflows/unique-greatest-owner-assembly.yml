@@ -13,6 +13,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
       - research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_CURRENCY.lean
       - research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_FILTRATION.lean
+      - research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_ENDPOINT.lean
       - research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_OWNER_SPLICE.lean
       - research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_AGGREGATE.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_SECTOR_FUBINI.lean
@@ -173,12 +174,15 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_LOCAL_CONFLUENCE.lean
           emit research/GLOBAL_RETURNED_CORE_TWO_PRIME_COMPLETED_BLOCK_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_FILTRATION.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_ENDPOINT.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_OWNER_SPLICE.lean
           emit research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_AGGREGATE.lean
       - name: Check completed polarization currency
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_CURRENCY.lean
       - name: Check signed polarization filtration
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_FILTRATION.lean
+      - name: Check signed polarization endpoint
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_ENDPOINT.lean
       - name: Check signed polarization owner splice
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_OWNER_SPLICE.lean
       - name: Check completed polarization aggregate
