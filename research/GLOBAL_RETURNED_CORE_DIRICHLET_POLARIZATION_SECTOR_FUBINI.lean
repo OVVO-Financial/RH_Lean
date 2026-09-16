@@ -161,18 +161,17 @@ theorem lowOwnerFirstOwnerClippedMixedPolarizationMass_eq
           intro ab hab
           rcases Finset.mem_product.mp hab with ⟨ha, hb⟩
           rw [lowOwnerFirstOwnerDirichletPolarizationAtom_eq_clipped_left ha hb]
+          ring
       _ = -((∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber R p sig,
               lowOwnerFirstOwnerDirichletBaseSite R a) *
             (∑ b ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
               lowOwnerFirstOwnerDirichletReturnedChildSite R p b)) := by
           rw [← sum_product_mul_factor_sector]
           rw [← Finset.sum_neg_distrib]
-          apply Finset.sum_congr rfl
-          intro ab _hab
-          ring
       _ = _ := by
           rw [sum_lowOwnerFirstOwnerDirichletBaseSite_clipped_eq,
             sum_lowOwnerFirstOwnerDirichletReturnedChildSite_admitted_eq]
+          ring
   have hright :
       (∑ ab ∈ (lowOwnerFirstOwnerAdmittedBaseFiber R p sig).product
           (lowOwnerFirstOwnerClippedBaseFiber R p sig),
@@ -191,18 +190,17 @@ theorem lowOwnerFirstOwnerClippedMixedPolarizationMass_eq
           intro ab hab
           rcases Finset.mem_product.mp hab with ⟨ha, hb⟩
           rw [lowOwnerFirstOwnerDirichletPolarizationAtom_eq_clipped_right ha hb]
+          ring
       _ = -((∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
               lowOwnerFirstOwnerDirichletReturnedChildSite R p a) *
             (∑ b ∈ lowOwnerFirstOwnerClippedBaseFiber R p sig,
               lowOwnerFirstOwnerDirichletBaseSite R b)) := by
           rw [← sum_product_mul_factor_sector]
           rw [← Finset.sum_neg_distrib]
-          apply Finset.sum_congr rfl
-          intro ab _hab
-          ring
       _ = _ := by
           rw [sum_lowOwnerFirstOwnerDirichletReturnedChildSite_admitted_eq,
             sum_lowOwnerFirstOwnerDirichletBaseSite_clipped_eq]
+          ring
   rw [hleft, hright]
   ring
 
@@ -214,6 +212,7 @@ theorem lowOwnerFirstOwnerSignedCellTelescope_eq_admitted_add_clippedMixed
         lowOwnerFirstOwnerClippedMixedPolarizationMass R p sig := by
   rw [lowOwnerFirstOwnerAdmittedPolarizationMass_eq hp,
     lowOwnerFirstOwnerClippedMixedPolarizationMass_eq]
-  rfl
+  unfold lowOwnerFirstOwnerSignedCellTelescope
+  ring
 
 end RHLean.Proof
