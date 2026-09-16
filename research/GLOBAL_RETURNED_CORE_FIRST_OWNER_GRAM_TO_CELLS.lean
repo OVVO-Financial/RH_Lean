@@ -111,11 +111,10 @@ theorem lowOwnerZeroFrequencyFirstOwnerGram_eq_positivePairCarrier
           else 0 := by
       apply Finset.sum_congr rfl
       intro n _hn
-      symm
       apply Finset.sum_subset
       · intro m hm
         have hdata := Finset.mem_Ico.mp hm
-        exact Finset.mem_Ico.mpr ⟨by omega, hdata.2⟩
+        exact Finset.mem_Ico.mpr ⟨Nat.zero_le m, hdata.2⟩
       · intro m hm0 hmnot
         have hmData := Finset.mem_Ico.mp hm0
         have hmzero : m = 0 := by
@@ -130,11 +129,10 @@ theorem lowOwnerZeroFrequencyFirstOwnerGram_eq_positivePairCarrier
             lowOwnerZeroFrequencyMobiusSite R m *
               lowOwnerZeroFrequencyMobiusSite R n
           else 0 := by
-      symm
       apply Finset.sum_subset
       · intro n hn
         have hdata := Finset.mem_Ico.mp hn
-        exact Finset.mem_Ico.mpr ⟨by omega, hdata.2⟩
+        exact Finset.mem_Ico.mpr ⟨Nat.zero_le n, hdata.2⟩
       · intro n hn0 hnnot
         have hnData := Finset.mem_Ico.mp hn0
         have hnzero : n = 0 := by
@@ -308,6 +306,10 @@ theorem sum_lowOwnerFirstOwnerUnorderedPairCarrier_eq_orientedCrossPairs
     (fun mn hmn => lowOwnerFirstOwnerArithmeticOrient_mem hp hmn)
     ?_ ?_ ?_
   · intro mn hmn uv huv heq
+    have heq' :
+        lowOwnerFirstOwnerArithmeticOrient p mn =
+          lowOwnerFirstOwnerArithmeticOrient p uv := by
+      simpa using heq
     calc
       mn = covarianceOrderedPair
           (lowOwnerFirstOwnerArithmeticOrient p mn).1
@@ -315,12 +317,14 @@ theorem sum_lowOwnerFirstOwnerUnorderedPairCarrier_eq_orientedCrossPairs
         (covarianceOrderedPair_arithmeticOrient_eq hmn).symm
       _ = covarianceOrderedPair
           (lowOwnerFirstOwnerArithmeticOrient p uv).1
-          (lowOwnerFirstOwnerArithmeticOrient p uv).2 := by rw [heq]
+          (lowOwnerFirstOwnerArithmeticOrient p uv).2 := by rw [heq']
       _ = uv := covarianceOrderedPair_arithmeticOrient_eq huv
   · intro ab hab
-    exact lowOwnerFirstOwnerOrientedCrossPair_has_unorderedPreimage hp hab
+    rcases lowOwnerFirstOwnerOrientedCrossPair_has_unorderedPreimage hp hab with
+      ⟨mn, hmn, horient⟩
+    exact ⟨mn, hmn, by simpa using horient⟩
   · intro mn _hmn
-    exact lowOwnerFirstOwnerArithmeticOrient_pairWeight R p mn
+    exact (lowOwnerFirstOwnerArithmeticOrient_pairWeight R p mn).symm
 
 /-- **Exact final finite Fubini.**  For a genuine prime owner, the actual AMP
 first-owner Gram is exactly the sum of the signed lower-signature cell Grams.
