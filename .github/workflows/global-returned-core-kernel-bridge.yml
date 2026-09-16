@@ -6,6 +6,8 @@ on:
     paths:
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
+      - research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
+      - research/GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
@@ -21,6 +23,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.lean
       - research/GLOBAL_RETURNED_CORE_COMPENSATED_CELL_DESCENT_CARRIER.lean
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
+      - research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
       - .github/workflows/global-returned-core-kernel-bridge.yml
   workflow_dispatch:
 
@@ -133,6 +136,10 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
       - name: Check threshold reciprocal intertwining
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
+      - name: Check threshold direct-sum contraction
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
+      - name: Check threshold four-corner energy bridge
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.lean
       - name: Check Dirichlet incidence closure
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.olean research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
       - name: Check threshold clipped Fubini
@@ -163,3 +170,5 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_COMPENSATED_CELL_DESCENT_CARRIER.olean research/GLOBAL_RETURNED_CORE_COMPENSATED_CELL_DESCENT_CARRIER.lean
       - name: Check threshold double-corner reciprocal bridge
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
+      - name: Check unique greatest-owner assembly
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.olean research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
