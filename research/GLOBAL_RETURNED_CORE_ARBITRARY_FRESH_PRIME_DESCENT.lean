@@ -235,14 +235,12 @@ theorem arbitraryFreshPrime_reciprocalPairAmplitude_descent
       unfold squarefreePrimeFamilyParent
       rw [if_pos h.1, if_neg h.2]
       rw [hmCast]
-      ring
     · have hnEq : p * (n / p) = n := Nat.mul_div_cancel' h.1
       have hnCast : (n : ℝ) = (p : ℝ) * (((n / p : ℕ) : ℝ)) := by
         exact_mod_cast hnEq.symm
       unfold squarefreePrimeFamilyParent
       rw [if_neg h.2, if_pos h.1]
       rw [hnCast]
-      ring
   unfold postRootCovarianceReciprocalPairAmplitude
   rw [hsign, hprod]
   field_simp [hp0, hum0, hun0]
