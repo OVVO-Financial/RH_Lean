@@ -105,15 +105,17 @@ theorem lowOwnerFirstOwnerAdmittedGreatestOwner_nextOwner_lt_current
         (squarefreePairFreshPrimeSet m n).erase r := by
     simpa using freshPrimeSet_stripped_eq_erase
       hrPrime hmSq hnSq hmPos hnPos hrOwner.1
-  have hsFresh : s ∈ squarefreePairFreshPrimeSet m n := by
-    rw [hset] at hs
-    exact (Finset.mem_erase.mp hs.1).2
+  have hsParentFresh :
+      s ∈ squarefreePairFreshPrimeSet
+        (squarefreePrimeFamilyParent r m)
+        (squarefreePrimeFamilyParent r n) := hs.1
+  have hsErase : s ∈ (squarefreePairFreshPrimeSet m n).erase r := by
+    rw [← hset]
+    exact hsParentFresh
+  have hsFresh : s ∈ squarefreePairFreshPrimeSet m n :=
+    (Finset.mem_erase.mp hsErase).2
   have hsle : s ≤ r := hrOwner.2 s hsFresh
-  have hsne : s ≠ r := by
-    intro heq
-    subst s
-    rw [hset] at hs
-    exact (Finset.mem_erase.mp hs.1).1 rfl
+  have hsne : s ≠ r := (Finset.mem_erase.mp hsErase).1
   omega
 
 end RHLean.Proof
