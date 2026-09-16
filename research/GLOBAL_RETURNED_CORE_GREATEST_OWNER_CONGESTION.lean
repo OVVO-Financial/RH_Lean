@@ -344,7 +344,9 @@ theorem lowOwnerGreatestOwnerClippedOutgoingEnergy_le_79_over_162
         exact mul_le_mul_of_nonneg_right hscale
           (postRootCovarianceReciprocalPairEnergy_nonneg parent)
       · simp only [hclip, if_false]
-        positivity
+        exact mul_nonneg
+          (div_nonneg (by norm_num) (sq_nonneg (p : ℝ)))
+          (postRootCovarianceReciprocalPairEnergy_nonneg parent)
     _ = (∑ p ∈ primesUpTo (squareRootEndpoint R),
         (1 : ℝ) / (p : ℝ) ^ 2) *
           postRootCovarianceReciprocalPairEnergy parent := by
@@ -359,7 +361,7 @@ theorem lowOwnerGreatestOwnerClippedOutgoingEnergy_le_79_over_162
         unfold primeOwnerReciprocalSquareBudget at hbudgetQ
         exact_mod_cast hbudgetQ
       push_cast at hbudgetCast
-      norm_num at hbudgetCast ⊢
+      norm_num at hbudgetCast
       have hbudgetR :
           (∑ p ∈ primesUpTo (squareRootEndpoint R),
             (1 : ℝ) / (p : ℝ) ^ 2) ≤ 79 / 162 := by
