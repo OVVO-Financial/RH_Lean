@@ -194,6 +194,5 @@ theorem lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_eq_orbitEven_add
   rw [lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_eq_survivor_add_ownerFiber hr,
     lowOwnerFirstOwnerRevealedPolarizationEnergy_insert_eq_orbitEven_add_inert
       hr (owner_not_mem_lowOwnerRevealedPrimesAbove R r)]
-  ring
 
 end RHLean.Proof
