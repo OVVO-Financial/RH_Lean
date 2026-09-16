@@ -138,10 +138,6 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
       - name: Check threshold reciprocal intertwining
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
-      - name: Check threshold direct-sum contraction
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
-      - name: Check threshold four-corner energy bridge
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.lean
       - name: Check Dirichlet incidence closure
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.olean research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
       - name: Check threshold clipped Fubini
@@ -166,6 +162,10 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION.olean research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION.lean
       - name: Check greatest-owner congestion
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.olean research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.lean
+      - name: Check threshold direct-sum contraction
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
+      - name: Check threshold four-corner energy bridge
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.lean
       - name: Check threshold signed descent
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.olean research/GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.lean
       - name: Check compensated-cell descent carrier
