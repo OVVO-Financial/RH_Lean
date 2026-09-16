@@ -44,7 +44,7 @@ theorem lowOwnerFirstOwner_mul_larger_prime_mem_admittedBase
   rcases Finset.mem_filter.mp ha with ⟨haBase, _hpaX⟩
   rcases Finset.mem_filter.mp haBase with ⟨haCar, hbase⟩
   rcases Finset.mem_filter.mp haCar with ⟨haIcc, hmu⟩
-  have haPos : 0 < a := by omega
+  have haPos : 0 < a := Nat.succ_le_iff.mp (Finset.mem_Icc.mp haIcc).1
   have hraPos : 0 < r * a := Nat.mul_pos hr.pos haPos
   have hraX : r * a ≤ squareRootEndpoint R := by
     have hle : r * a ≤ p * (r * a) := by
@@ -57,13 +57,13 @@ theorem lowOwnerFirstOwner_mul_larger_prime_mem_admittedBase
     exact neg_ne_zero.mpr hmu
   have hcarRA : r * a ∈ lowOwnerNonzeroMobiusCarrier R :=
     Finset.mem_filter.mpr
-      ⟨Finset.mem_Icc.mpr ⟨by omega, hraX⟩, hmuRA⟩
+      ⟨Finset.mem_Icc.mpr ⟨Nat.succ_le_iff.mpr hraPos, hraX⟩, hmuRA⟩
   have hsigRA : squarefreeLowerPrimeSignature p (r * a) = sig := by
     rw [squarefreeLowerPrimeSignature_mul_larger_prime hr hpr haPos, hbase.1]
   have hpnr : ¬ p ∣ r := by
     intro hdiv
     have heq : p = r := (Nat.prime_dvd_prime_iff_eq hp hr).mp hdiv
-    omega
+    exact (ne_of_lt hpr) heq
   have hpra : ¬ p ∣ r * a := by
     intro hdiv
     rcases hp.dvd_mul.mp hdiv with h | h
@@ -141,8 +141,10 @@ theorem lowOwnerFirstOwnerDirichletPolarizationAtom_eq_zero_of_second_outside
     {R p a b : ℕ} (hp : 1 ≤ p)
     (hout : squareRootEndpoint R < b) :
     lowOwnerFirstOwnerDirichletPolarizationAtom R p (a, b) = 0 := by
-  rw [lowOwnerFirstOwnerDirichletPolarizationAtom_comm R p a b]
-  exact lowOwnerFirstOwnerDirichletPolarizationAtom_eq_zero_of_first_outside
-    hp hout
+  rw [lowOwnerFirstOwnerDirichletPolarizationAtom_eq_scalar]
+  rw [lowOwnerDirichletBaseCoefficient_eq_zero_of_outside hout,
+    lowOwnerDirichletReturnedCoefficient_eq_zero_of_outside hp hout,
+    lowOwnerDirichletIncidenceCoefficient_eq_zero_of_outside hp hout]
+  ring
 
 end RHLean.Proof
