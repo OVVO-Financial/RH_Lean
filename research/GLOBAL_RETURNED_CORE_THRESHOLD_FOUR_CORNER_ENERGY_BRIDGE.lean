@@ -1,6 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION»
-import «research.GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE»
+import «research.GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE»
 
 /-!
 # Actual threshold four-corner energy on the greatest-owner graph
