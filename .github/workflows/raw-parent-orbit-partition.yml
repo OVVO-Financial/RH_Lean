@@ -6,6 +6,7 @@ on:
     paths:
       - research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
+      - research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
       - .github/workflows/raw-parent-orbit-partition.yml
   workflow_dispatch:
 
@@ -155,3 +156,5 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_OWNER_SPLICE.lean
           emit research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
+          emit research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_AGGREGATE.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
