@@ -157,7 +157,7 @@ theorem sum_lowOwnerNonzeroMobiusCarrier_eq_amplitude
   by_cases hmu : realMoebiusStep n ≠ 0
   · simp [hmu, lowOwnerZeroFrequencyMobiusSite]
   · have hz : realMoebiusStep n = 0 := not_ne_iff.mp hmu
-    simp [hmu, lowOwnerZeroFrequencyMobiusSite, hz]
+    simp [hz]
 
 /-- **Exact owner-lens reconstruction.**  For every prime owner, summing the
 Dirichlet incidence over all lower-signature cells gives the same full AMP
