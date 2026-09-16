@@ -114,6 +114,14 @@ theorem lowOwnerThresholdIncidencePairMass_add_parent_eq_leftDifference
     simpa [u, v] using hsign
   have haEq : a = r * u := by simpa [u, v] using hdata.1
   have hbEq : b = v := by simpa [u, v] using hdata.2
+  have hga :
+      lowOwnerThresholdOwnerIncidenceWeight R p a =
+        lowOwnerThresholdOwnerIncidenceWeight R p (r * u) :=
+    congrArg (lowOwnerThresholdOwnerIncidenceWeight R p) haEq
+  have hgb :
+      lowOwnerThresholdOwnerIncidenceWeight R p b =
+        lowOwnerThresholdOwnerIncidenceWeight R p v :=
+    congrArg (lowOwnerThresholdOwnerIncidenceWeight R p) hbEq
   unfold lowOwnerThresholdIncidencePairMass
   rw [postRootZeroTargetPairExcess_eq_weight,
     postRootZeroTargetPairExcess_eq_weight]
@@ -124,7 +132,7 @@ theorem lowOwnerThresholdIncidencePairMass_add_parent_eq_leftDifference
       (realMoebiusStep u * realMoebiusStep v) *
         lowOwnerThresholdOwnerIncidenceWeight R p u *
         lowOwnerThresholdOwnerIncidenceWeight R p v = _
-  rw [hsignUV, haEq, hbEq]
+  rw [hsignUV, hga, hgb]
   unfold lowOwnerThresholdSecondOwnerDifference
   ring
 
@@ -154,6 +162,14 @@ theorem lowOwnerThresholdIncidencePairMass_add_parent_eq_rightDifference
     simpa [u, v] using hsign
   have haEq : a = u := by simpa [u, v] using hdata.1
   have hbEq : b = r * v := by simpa [u, v] using hdata.2
+  have hga :
+      lowOwnerThresholdOwnerIncidenceWeight R p a =
+        lowOwnerThresholdOwnerIncidenceWeight R p u :=
+    congrArg (lowOwnerThresholdOwnerIncidenceWeight R p) haEq
+  have hgb :
+      lowOwnerThresholdOwnerIncidenceWeight R p b =
+        lowOwnerThresholdOwnerIncidenceWeight R p (r * v) :=
+    congrArg (lowOwnerThresholdOwnerIncidenceWeight R p) hbEq
   unfold lowOwnerThresholdIncidencePairMass
   rw [postRootZeroTargetPairExcess_eq_weight,
     postRootZeroTargetPairExcess_eq_weight]
@@ -164,7 +180,7 @@ theorem lowOwnerThresholdIncidencePairMass_add_parent_eq_rightDifference
       (realMoebiusStep u * realMoebiusStep v) *
         lowOwnerThresholdOwnerIncidenceWeight R p u *
         lowOwnerThresholdOwnerIncidenceWeight R p v = _
-  rw [hsignUV, haEq, hbEq]
+  rw [hsignUV, hga, hgb]
   unfold lowOwnerThresholdSecondOwnerDifference
   ring
 
