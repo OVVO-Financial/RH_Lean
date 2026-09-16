@@ -41,7 +41,7 @@ theorem mem_squarefreePairFreshPrimeSet_iff_prime_dvd_xor
       ((p ∣ m ∧ ¬ p ∣ n) ∨ (p ∣ n ∧ ¬ p ∣ m)) := by
   have hpm := prime_mem_squarefreePrimeFace_iff_dvd_public hp hm
   have hpn := prime_mem_squarefreePrimeFace_iff_dvd_public hp hn
-  simpa [squarefreePairFreshPrimeSet, hpm, hpn]
+  simp [squarefreePairFreshPrimeSet, hpm, hpn]
 
 /-- Every fresh coordinate of a nonzero physical pair is itself a prime no
 larger than the physical endpoint. -/
