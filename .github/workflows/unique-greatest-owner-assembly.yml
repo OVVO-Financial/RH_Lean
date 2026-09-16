@@ -1,39 +1,30 @@
-name: Global returned-core zero-target covariance check
+name: Unique greatest-owner assembly check
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - research/GLOBAL_RETURNED_CORE_ZERO_TARGET_COVARIANCE.lean
-      - research/GLOBAL_RETURNED_CORE_CONTINUATION_CARRIER.lean
-      - research/GLOBAL_RETURNED_CORE_CLIPPED_QUOTIENT.lean
-      - research/GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean
-      - research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean
-      - research/GLOBAL_RETURNED_CORE_ONE_AMPLITUDE.lean
-      - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean
-      - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELLS.lean
-      - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_FUBINI.lean
-      - research/GLOBAL_RETURNED_CORE_COMPENSATED_OWNER_BLOCK.lean
-      - research/GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE.lean
-      - research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
-      - research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
-      - research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
-      - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
-      - research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
-      - research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
-      - research/GLOBAL_RETURNED_CORE_SIGNED_TELESCOPE_SYNTHESIS.lean
-      - research/GLOBAL_RETURNED_CORE_ALIGNMENT_RESIDUAL.lean
-      - research/GLOBAL_RETURNED_CORE_WEIGHTED_ALIGNMENT_INTERTWINING.lean
-      - research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
-      - research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean
-      - research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
-      - research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
-      - research/LOW_OWNER_RETURNED_AMPLITUDE_CORE.lean
-      - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
-      - research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
-      - research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
-      - research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
-      - .github/workflows/global-returned-core-zero-target-covariance.yml
+      - research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER.lean
+      - research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PARENT_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP.lean
+      - research/GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION.lean
+      - research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
+      - research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
+      - research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_SECTOR_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_ADMITTED_POSITIVE_OWNER_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_DOUBLE_CORNER_POLARIZATION_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
+      - research/GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.lean
+      - research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
+      - research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.lean
+      - research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_CORNER_CLASSIFICATION.lean
+      - research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_LOCAL_CONFLUENCE.lean
+      - research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_OPERATOR_CONFLUENCE.lean
+      - research/GLOBAL_RETURNED_CORE_TWO_PRIME_COMPLETED_BLOCK_FUBINI.lean
+      - .github/workflows/unique-greatest-owner-assembly.yml
   workflow_dispatch:
 
 permissions:
@@ -53,7 +44,7 @@ jobs:
       - uses: leanprover/lean-action@v1
         with:
           use-github-cache: false
-          use_mathlib_cache: true
+          use-mathlib-cache: true
           build: false
           test: false
           lint: false
@@ -83,7 +74,7 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-
-      - name: Emit returned-core research chain
+      - name: Emit assembly dependency chain
         run: |
           mkdir -p .lake/build/lib/lean
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
@@ -118,9 +109,6 @@ jobs:
           emit research/STABLE_FAR_RETURNED_RECIPROCAL_PHYSICAL_BRIDGE.lean
           emit research/STABLE_FAR_GLOBAL_RETURNED_MEMORY_FUBINI.lean
           emit research/LOW_OWNER_RETURNED_AMPLITUDE_CORE.lean
-      - name: Emit zero-target covariance chain
-        run: |
-          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/STABLE_FAR_PERRON_REALIFICATION.lean
           emit research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
           emit research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
@@ -146,35 +134,54 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
-          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
-          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
-          emit research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
-          emit research/GLOBAL_RETURNED_CORE_ALIGNMENT_RESIDUAL.lean
-          emit research/GLOBAL_RETURNED_CORE_WEIGHTED_ALIGNMENT_INTERTWINING.lean
-          emit research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
-          emit research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
-          emit research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean
-          emit research/GLOBAL_RETURNED_CORE_SIGNED_TELESCOPE_SYNTHESIS.lean
-      - name: Kernel-check actual first-owner signed telescope
-        run: |
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_FUBINI.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_COMPENSATED_OWNER_BLOCK.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SIGNED_TELESCOPE_SYNTHESIS.lean
-      - name: Kernel-check synthesis closure
-        run: |
-          set -o pipefail
-          lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean 2>&1 | tee synthesis-lean.log
-      - name: Upload synthesis Lean log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: synthesis-lean-log
-          path: synthesis-lean.log
-          if-no-files-found: ignore
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
+          emit research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_OPERATOR_CONFLUENCE.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_SECTOR_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean
+          emit research/GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.lean
+          emit research/GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER.lean
+          emit research/GLOBAL_RETURNED_CORE_ARBITRARY_FRESH_PRIME_DESCENT.lean
+          emit research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION.lean
+          emit research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.lean
+          emit research/GLOBAL_RETURNED_CORE_COMPENSATED_CELL_DESCENT_CARRIER.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_DOUBLE_CORNER_POLARIZATION_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PARENT_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_ADMITTED_POSITIVE_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP.lean
+          emit research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_CORNER_CLASSIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_LOCAL_CONFLUENCE.lean
+          emit research/GLOBAL_RETURNED_CORE_TWO_PRIME_COMPLETED_BLOCK_FUBINI.lean
+      - name: Check unique greatest-owner Fubini
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI.lean
+      - name: Check unique-owner continuation ledger
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER.lean
+      - name: Check unique-owner parent Fubini
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PARENT_FUBINI.lean
+      - name: Check unique-owner rank drop
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP.lean
+      - name: Check full-polarization unique-owner Fubini
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
+      - name: Check full-polarization cell owner ledger
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI.lean
+      - name: Check two-prime Dirichlet operator confluence
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_OPERATOR_CONFLUENCE.lean
+      - name: Check two-prime completed-state local confluence
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_LOCAL_CONFLUENCE.lean
+      - name: Check two-prime completed block Fubini
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_TWO_PRIME_COMPLETED_BLOCK_FUBINI.lean
