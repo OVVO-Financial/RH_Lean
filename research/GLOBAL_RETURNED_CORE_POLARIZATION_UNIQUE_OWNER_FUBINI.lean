@@ -222,6 +222,9 @@ theorem lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber_pairwiseDisjoint
     Set.PairwiseDisjoint (↑(lowOwnerRevealedPrimesAbove R p))
       (lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber R p sig) := by
   intro r _hr s _hs hrs
+  change Disjoint
+    (lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber R p sig r)
+    (lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber R p sig s)
   rw [Finset.disjoint_left]
   intro ab har has
   have hro := (Finset.mem_filter.mp har).2
@@ -266,6 +269,9 @@ theorem lowOwnerFirstOwnerPolarizationGreatestOwnerPositiveFiber_pairwiseDisjoin
     Set.PairwiseDisjoint (↑(lowOwnerRevealedPrimesAbove R p))
       (lowOwnerFirstOwnerPolarizationGreatestOwnerPositiveFiber R p sig) := by
   intro r _hr s _hs hrs
+  change Disjoint
+    (lowOwnerFirstOwnerPolarizationGreatestOwnerPositiveFiber R p sig r)
+    (lowOwnerFirstOwnerPolarizationGreatestOwnerPositiveFiber R p sig s)
   rw [Finset.disjoint_left]
   intro ab har has
   have hro := (Finset.mem_filter.mp (Finset.mem_filter.mp har).1).2
