@@ -55,7 +55,9 @@ def lowOwnerThresholdEulerInheritedGreatestChildEnergy
     (R p r : ℕ) (parent : ℕ × ℕ) :
     0 ≤ lowOwnerThresholdEulerParentEnergy R p r parent := by
   unfold lowOwnerThresholdEulerParentEnergy
-  positivity
+  exact mul_nonneg
+    (sq_nonneg (lowOwnerThresholdEulerPairCoefficient R p r parent))
+    (postRootCovarianceReciprocalPairEnergy_nonneg parent)
 
 /-- **Exact fixed-owner currency conversion on the greatest-owner graph.** -/
 theorem sum_lowOwnerThresholdEulerInheritedGreatestChildEnergy_eq
@@ -73,7 +75,7 @@ theorem sum_lowOwnerThresholdEulerInheritedGreatestChildEnergy_eq
 
 /-- A genuine chronological next prime is at least three. -/
 theorem three_le_of_prime_lt_prime
-    {p r : ℕ} (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    {p r : ℕ} (hp : p.Prime) (hpr : p < r) :
     3 ≤ r := by
   have hp2 : 2 ≤ p := hp.two_le
   omega
@@ -87,7 +89,7 @@ theorem sum_lowOwnerThresholdEulerInheritedGreatestChildEnergy_le_two_ninths
       lowOwnerThresholdEulerInheritedGreatestChildEnergy R p r parent child) ≤
       (2 / 9 : ℝ) * lowOwnerThresholdEulerParentEnergy R p r parent := by
   rw [sum_lowOwnerThresholdEulerInheritedGreatestChildEnergy_eq hr]
-  have hr3nat : 3 ≤ r := three_le_of_prime_lt_prime hp hr hpr
+  have hr3nat : 3 ≤ r := three_le_of_prime_lt_prime hp hpr
   have hr3 : (3 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr3nat
   have hrpos : (0 : ℝ) < (r : ℝ) := by exact_mod_cast hr.pos
   have hmultNat :=
@@ -120,7 +122,7 @@ theorem sum_lowOwnerThresholdEulerInheritedGreatestChildEnergy_le_one_ninth_of_c
       lowOwnerThresholdEulerInheritedGreatestChildEnergy R p r parent child) ≤
       (1 / 9 : ℝ) * lowOwnerThresholdEulerParentEnergy R p r parent := by
   rw [sum_lowOwnerThresholdEulerInheritedGreatestChildEnergy_eq hr]
-  have hr3nat : 3 ≤ r := three_le_of_prime_lt_prime hp hr hpr
+  have hr3nat : 3 ≤ r := three_le_of_prime_lt_prime hp hpr
   have hr3 : (3 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr3nat
   have hrpos : (0 : ℝ) < (r : ℝ) := by exact_mod_cast hr.pos
   have hmultNat :=
