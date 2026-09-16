@@ -103,7 +103,9 @@ def q2NearestSquareDistance (x : ℕ) : ℕ :=
 theorem q2NearestSquareEndpoint_eq_rootEndpoint (x : ℕ) :
     q2NearestSquareEndpoint x =
       squareRootEndpoint (q2NearestSquareRoot x) := by
-  simp [q2NearestSquareEndpoint, q2NearestSquareRoot]
+  by_cases hmid : x < (Nat.sqrt x) ^ 2 + Nat.sqrt x
+  · simp [q2NearestSquareEndpoint, q2NearestSquareRoot, hmid]
+  · simp [q2NearestSquareEndpoint, q2NearestSquareRoot, hmid]
 
 /-- The explicit nearest-endpoint distance is at most the square-block
 half-radius. -/
