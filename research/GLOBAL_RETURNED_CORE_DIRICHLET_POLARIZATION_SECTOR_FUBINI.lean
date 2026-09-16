@@ -69,7 +69,15 @@ theorem sum_lowOwnerFirstOwnerDirichletBaseSite_admitted_eq
     (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
       lowOwnerFirstOwnerDirichletBaseSite R a) =
       lowOwnerFirstOwnerAdmittedBaseAmplitude R p sig := by
-  rfl
+  unfold lowOwnerFirstOwnerAdmittedBaseAmplitude
+  apply Finset.sum_congr rfl
+  intro a ha
+  have haBase := (Finset.mem_filter.mp ha).1
+  rcases Finset.mem_filter.mp haBase with ⟨haCar, _hbase⟩
+  rcases Finset.mem_filter.mp haCar with ⟨haIcc, _hmu⟩
+  have haX : a ≤ squareRootEndpoint R := (Finset.mem_Icc.mp haIcc).2
+  unfold lowOwnerFirstOwnerDirichletBaseSite lowOwnerZeroFrequencyMobiusSite
+  rw [lowOwnerPhysicalDirichletWeight_eq_weight_of_le haX]
 
 /-- Sum of base sites on clipped parents. -/
 theorem sum_lowOwnerFirstOwnerDirichletBaseSite_clipped_eq
@@ -77,7 +85,15 @@ theorem sum_lowOwnerFirstOwnerDirichletBaseSite_clipped_eq
     (∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber R p sig,
       lowOwnerFirstOwnerDirichletBaseSite R a) =
       lowOwnerFirstOwnerClippedAmplitude R p sig := by
-  rfl
+  unfold lowOwnerFirstOwnerClippedAmplitude
+  apply Finset.sum_congr rfl
+  intro a ha
+  have haBase := (Finset.mem_filter.mp ha).1
+  rcases Finset.mem_filter.mp haBase with ⟨haCar, _hbase⟩
+  rcases Finset.mem_filter.mp haCar with ⟨haIcc, _hmu⟩
+  have haX : a ≤ squareRootEndpoint R := (Finset.mem_Icc.mp haIcc).2
+  unfold lowOwnerFirstOwnerDirichletBaseSite lowOwnerZeroFrequencyMobiusSite
+  rw [lowOwnerPhysicalDirichletWeight_eq_weight_of_le haX]
 
 /-- Sum of returned child sites on admitted parents is `J`. -/
 theorem sum_lowOwnerFirstOwnerDirichletReturnedChildSite_admitted_eq
