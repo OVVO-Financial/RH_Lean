@@ -6,6 +6,7 @@ on:
     paths:
       - research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
       - research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
       - research/GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.lean
       - .github/workflows/raw-parent-orbit-partition.yml
@@ -158,9 +159,28 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_AGGREGATE.lean
           emit research/GLOBAL_RETURNED_CORE_GENERIC_GREATEST_OWNER_CONTRACTION.lean
       - name: Check raw-parent Fubini
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.olean research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean
+        id: raw_parent
+        continue-on-error: true
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.olean \
+            research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean \
+            > raw-parent.log 2>&1
+      - name: Upload raw-parent diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: raw-parent-lean-diagnostic
+          path: raw-parent.log
+      - name: Fail if raw-parent Fubini failed
+        if: steps.raw_parent.outcome != 'success'
+        run: |
+          cat raw-parent.log
+          exit 1
       - name: Check raw-parent orbit partition
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.olean research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
+      - name: Check raw-parent four-corner occupancy
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.olean research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
       - name: Check signed incidence-energy gate
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.olean research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
       - name: Check retained-coefficient outgoing energy
