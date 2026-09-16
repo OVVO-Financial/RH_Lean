@@ -56,8 +56,10 @@ theorem lowOwnerRevealedPairMassWith_empty_cellRestricted_eq
   have hbase : base ⊆ global := by
     intro n hn
     exact lowOwnerFirstOwnerBaseFiber_subset_nonzeroCarrier R p sig hn
-  have hprod : base.product base ⊆ global.product global :=
-    Finset.product_mono hbase hbase
+  have hprod : base.product base ⊆ global.product global := by
+    intro mn hmn
+    rcases Finset.mem_product.mp hmn with ⟨h1, h2⟩
+    exact Finset.mem_product.mpr ⟨hbase h1, hbase h2⟩
   have hzero :
       ∀ mn ∈ global.product global, mn ∉ base.product base →
         lowOwnerFirstOwnerCellRestrictedSite R p sig v mn.1 *
