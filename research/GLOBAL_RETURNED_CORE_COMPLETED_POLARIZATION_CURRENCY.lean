@@ -124,4 +124,17 @@ theorem lowOwnerDirichletPolarization_fourCorner_eq_threshold_sub_branchFourCorn
   simp only [postRootZeroTargetPairExcess_eq_weight]
   ring
 
+/-- **Algebraic pointwise no-go.**  Before using arithmetic structure or a
+completed aggregate Fubini, there is no finite coefficient converting the full
+signed polarization `-(A*B' + A'*B)` into the square of the incidence corner
+`((A-A')*(B-B'))^2`.  Both incidence differences may vanish while the signed
+polarization is strictly positive. -/
+theorem no_pointwise_completedPolarization_le_incidenceCorner_sq :
+    ¬ ∃ c : ℝ, ∀ A A' B B' : ℝ,
+      -(A * B' + A' * B) ≤
+        c * (((A - A') * (B - B')) ^ 2) := by
+  rintro ⟨c, hc⟩
+  have h := hc 1 1 (-1) (-1)
+  norm_num at h
+
 end RHLean.Proof
