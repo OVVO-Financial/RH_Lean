@@ -41,8 +41,7 @@ theorem mem_squarefreePairFreshPrimeSet_iff_prime_dvd_xor
       ((p ∣ m ∧ ¬ p ∣ n) ∨ (p ∣ n ∧ ¬ p ∣ m)) := by
   have hpm := prime_mem_squarefreePrimeFace_iff_dvd_public hp hm
   have hpn := prime_mem_squarefreePrimeFace_iff_dvd_public hp hn
-  simp [squarefreePairFreshPrimeSet, hpm, hpn, and_left_comm,
-    and_comm, and_assoc]
+  simpa [squarefreePairFreshPrimeSet, hpm, hpn]
 
 /-- Every fresh coordinate of a nonzero physical pair is itself a prime no
 larger than the physical endpoint. -/
@@ -54,8 +53,10 @@ theorem freshPrime_of_nonzeroPhysicalPair
     q.Prime ∧ q ≤ squareRootEndpoint R := by
   rcases Finset.mem_filter.mp hm with ⟨hmIcc, _hmMu⟩
   rcases Finset.mem_filter.mp hn with ⟨hnIcc, _hnMu⟩
-  have hmPos : 0 < m := by omega
-  have hnPos : 0 < n := by omega
+  have hmOne : 1 ≤ m := (Finset.mem_Icc.mp hmIcc).1
+  have hnOne : 1 ≤ n := (Finset.mem_Icc.mp hnIcc).1
+  have hmPos : 0 < m := lt_of_lt_of_le Nat.zero_lt_one hmOne
+  have hnPos : 0 < n := lt_of_lt_of_le Nat.zero_lt_one hnOne
   have hmX := (Finset.mem_Icc.mp hmIcc).2
   have hnX := (Finset.mem_Icc.mp hnIcc).2
   simp only [squarefreePairFreshPrimeSet, Finset.mem_union,
@@ -137,18 +138,24 @@ theorem greatestFreshOwner_descendingCrossPair
     constructor
     · rintro ⟨hqm, hqAbove⟩
       rcases Finset.mem_filter.mp hqAbove with ⟨hqUpTo, hpq⟩
-      have hqPrime := (mem_primesUpTo.mp hqUpTo).1
+      have _hqPrime := (mem_primesUpTo.mp hqUpTo).1
+      refine ⟨?_, Finset.mem_filter.mpr ⟨hqUpTo, hpq⟩⟩
       by_contra hqn
       have hqFresh : q ∈ squarefreePairFreshPrimeSet m n := by
-        simp [squarefreePairFreshPrimeSet, hqm, hqn]
+        unfold squarefreePairFreshPrimeSet
+        exact Finset.mem_union.mpr
+          (Or.inl (Finset.mem_sdiff.mpr ⟨hqm, hqn⟩))
       have hqle := howner.2 q hqFresh
       omega
     · rintro ⟨hqn, hqAbove⟩
       rcases Finset.mem_filter.mp hqAbove with ⟨hqUpTo, hpq⟩
-      have hqPrime := (mem_primesUpTo.mp hqUpTo).1
+      have _hqPrime := (mem_primesUpTo.mp hqUpTo).1
+      refine ⟨?_, Finset.mem_filter.mpr ⟨hqUpTo, hpq⟩⟩
       by_contra hqm
       have hqFresh : q ∈ squarefreePairFreshPrimeSet m n := by
-        simp [squarefreePairFreshPrimeSet, hqn, hqm]
+        unfold squarefreePairFreshPrimeSet
+        exact Finset.mem_union.mpr
+          (Or.inr (Finset.mem_sdiff.mpr ⟨hqn, hqm⟩))
       have hqle := howner.2 q hqFresh
       omega
   exact Finset.mem_filter.mpr
