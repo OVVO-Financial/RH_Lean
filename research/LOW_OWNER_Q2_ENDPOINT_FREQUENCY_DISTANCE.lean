@@ -103,8 +103,7 @@ def q2NearestSquareDistance (x : ℕ) : ℕ :=
 theorem q2NearestSquareEndpoint_eq_rootEndpoint (x : ℕ) :
     q2NearestSquareEndpoint x =
       squareRootEndpoint (q2NearestSquareRoot x) := by
-  unfold q2NearestSquareEndpoint q2NearestSquareRoot
-  split <;> rfl
+  simp [q2NearestSquareEndpoint, q2NearestSquareRoot]
 
 /-- The explicit nearest-endpoint distance is at most the square-block
 half-radius. -/
@@ -112,20 +111,29 @@ theorem q2NearestSquareDistance_le_sqrt (x : ℕ) :
     q2NearestSquareDistance x ≤ Nat.sqrt x := by
   let s := Nat.sqrt x
   have hs2 : s ^ 2 ≤ x := by
-    dsimp [s]
-    exact Nat.sqrt_le' x
+    simpa [s] using Nat.sqrt_le' x
+  have hxlt : x < (s + 1) ^ 2 := by
+    simpa [s] using Nat.lt_succ_sqrt' x
   by_cases hmid : x < s ^ 2 + s
-  · unfold q2NearestSquareDistance
-    simp [s, hmid]
-    unfold squareRootEndpoint
-    omega
+  · have hdist :
+        q2NearestSquareDistance x = x - squareRootEndpoint s := by
+      simp [q2NearestSquareDistance, s, hmid]
+    rw [hdist]
+    have hgap : x - squareRootEndpoint s ≤ s := by
+      unfold squareRootEndpoint
+      omega
+    simpa [s] using hgap
   · have hmid' : s ^ 2 + s ≤ x := Nat.le_of_not_gt hmid
+    have hdist :
+        q2NearestSquareDistance x = squareRootEndpoint (s + 1) - x := by
+      simp [q2NearestSquareDistance, s, hmid]
+    rw [hdist]
     have hsquare : (s + 1) ^ 2 = s ^ 2 + 2 * s + 1 := by ring
-    unfold q2NearestSquareDistance
-    simp [s, hmid]
-    unfold squareRootEndpoint
-    rw [hsquare]
-    omega
+    have hgap : squareRootEndpoint (s + 1) - x ≤ s := by
+      unfold squareRootEndpoint
+      rw [hsquare]
+      omega
+    simpa [s] using hgap
 
 /-- Backward frequency response from a completed-square endpoint `S²-1` by a
 known distance `d`.  The first factor is the known endpoint phase at `S²`; the
