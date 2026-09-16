@@ -296,4 +296,88 @@ theorem arbitraryTwoFreshPrimes_reciprocalPairEnergy_descent_comm
   rw [lowOwnerTwoPrimeAtomEnergyMultiplier_comm]
   rw [lowOwnerTwoPrimeParent_comm hr hs hrs]
 
+/-!
+## Completed rewrite system
+
+The preceding atom-level diamond can be exposed directly as a rewrite operator
+on the completed state.  Owners are represented by prime subtypes in the global
+evaluator, so every adjacent swap is either literally the same owner or is the
+distinct-prime diamond above.  `List.Perm.foldl_eq` then gives chronology
+independence directly.  This is the finite deterministic Newman conclusion for
+the terminating owner descent, without adding a second generic rewrite relation.
+-/
+
+/-- Strip one owner from both endpoints and recompute every signed, Dirichlet,
+Euler, class, and reciprocal-energy field of the completed state. -/
+def completedOwnerRewrite
+    (R p t q : ℕ) (S : LowOwnerCompletedSignedEnergyState) :
+    LowOwnerCompletedSignedEnergyState :=
+  lowOwnerCompletedSignedEnergyState R p t
+    (squarefreePrimeFamilyParent q S.parent.1,
+      squarefreePrimeFamilyParent q S.parent.2)
+
+/-- **Named completed-state local diamond.**  Distinct prime owners commute as
+full signed-plus-energy rewrites, not merely as parent coordinates. -/
+theorem completedOwnerRewrite_twoPrime_localConfluent
+    {R p t r s : ℕ} (hr : r.Prime) (hs : s.Prime) (hrs : r ≠ s)
+    (S : LowOwnerCompletedSignedEnergyState) :
+    completedOwnerRewrite R p t s (completedOwnerRewrite R p t r S) =
+      completedOwnerRewrite R p t r (completedOwnerRewrite R p t s S) := by
+  simpa [completedOwnerRewrite, lowOwnerTwoPrimeParent] using
+    (lowOwnerCompletedSignedEnergyState_twoPrime_comm
+      (R := R) (p := p) (t := t) hr hs hrs S.parent)
+
+/-- Prime-typed owner action used by the normal-form evaluator. -/
+def completedPrimeOwnerRewrite
+    (R p t : ℕ) (S : LowOwnerCompletedSignedEnergyState)
+    (q : {q : ℕ // q.Prime}) : LowOwnerCompletedSignedEnergyState :=
+  completedOwnerRewrite R p t q.1 S
+
+/-- Prime-owner rewrites are right-commutative.  Equal owners are trivial;
+distinct owners use the completed two-prime diamond. -/
+theorem completedPrimeOwnerRewrite_rightCommutative
+    (R p t : ℕ) :
+    RightCommutative (completedPrimeOwnerRewrite R p t) := by
+  constructor
+  intro S r s
+  by_cases hrs : r.1 = s.1
+  · have hrs' : r = s := Subtype.ext hrs
+    subst s
+    rfl
+  · simpa [completedPrimeOwnerRewrite] using
+      (completedOwnerRewrite_twoPrime_localConfluent
+        (R := R) (p := p) (t := t) r.property s.property hrs S)
+
+/-- Evaluate a finite owner chronology on the completed signed-plus-energy
+state.  Termination is supplied separately by exact fresh-prime rank descent. -/
+def completedOwnerRewriteNormalForm
+    (R p t : ℕ) (owners : List {q : ℕ // q.Prime})
+    (S : LowOwnerCompletedSignedEnergyState) : LowOwnerCompletedSignedEnergyState :=
+  owners.foldl (completedPrimeOwnerRewrite R p t) S
+
+/-- **Unique completed rewrite normal form.**  Any two linear extensions of the
+same finite prime-owner multiset produce exactly the same completed state. -/
+theorem completedOwnerRewrite_normalForm_unique
+    {R p t : ℕ} {owners₁ owners₂ : List {q : ℕ // q.Prime}}
+    (hperm : owners₁.Perm owners₂)
+    (S : LowOwnerCompletedSignedEnergyState) :
+    completedOwnerRewriteNormalForm R p t owners₁ S =
+      completedOwnerRewriteNormalForm R p t owners₂ S := by
+  letI : RightCommutative (completedPrimeOwnerRewrite R p t) :=
+    completedPrimeOwnerRewrite_rightCommutative R p t
+  unfold completedOwnerRewriteNormalForm
+  exact hperm.foldl_eq S
+
+/-- Greatest-owner descent is therefore a canonical evaluator, not an extra
+arithmetic hypothesis: whenever its owner schedule is a permutation of another
+complete schedule, both evaluate to the same completed normal form. -/
+theorem greatestOwnerNormalForm_eq_completedRewriteNormalForm
+    {R p t : ℕ}
+    {greatestOwnerOrder ownerOrder : List {q : ℕ // q.Prime}}
+    (hperm : greatestOwnerOrder.Perm ownerOrder)
+    (S : LowOwnerCompletedSignedEnergyState) :
+    completedOwnerRewriteNormalForm R p t greatestOwnerOrder S =
+      completedOwnerRewriteNormalForm R p t ownerOrder S :=
+  completedOwnerRewrite_normalForm_unique hperm S
+
 end RHLean.Proof
