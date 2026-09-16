@@ -25,6 +25,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
       - research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
       - research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DESCENT.lean
+      - research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PAIR_FUBINI.lean
       - .github/workflows/global-returned-core-kernel-bridge.yml
   workflow_dispatch:
 
@@ -175,3 +176,5 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.olean research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
       - name: Check unique-owner rank descent
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DESCENT.olean research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DESCENT.lean
+      - name: Check exact unique-owner pair Fubini
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PAIR_FUBINI.olean research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PAIR_FUBINI.lean
