@@ -94,12 +94,30 @@ theorem primeWheelDirichletPrefix_add_sub_eq_zero_add_reducedNonzero
                   (d % reducedAdditiveConductor r) r := by
   rw [primeWheelDirichletPrefix_add_sub_eq_sum_forwardArc W A d]
   classical
+  let f : ZMod W.modulus → ℂ :=
+    fun r => primeWheelForwardArcFrequencyAtom W A d r
+  have hsplitPointwise : ∀ r : ZMod W.modulus,
+      f r =
+        (if r = 0 then f 0 else 0) +
+        (if r = 0 then 0 else f r) := by
+    intro r
+    by_cases hr : r = 0
+    · subst r
+      simp
+    · simp [hr]
   calc
     (∑ r : ZMod W.modulus, primeWheelForwardArcFrequencyAtom W A d r) =
-      primeWheelForwardArcFrequencyAtom W A d 0 +
         ∑ r : ZMod W.modulus,
-          if r = 0 then 0 else primeWheelForwardArcFrequencyAtom W A d r := by
-      rw [← Finset.sum_ite_irrel, Finset.sum_ite_eq']
+          ((if r = 0 then f 0 else 0) +
+            (if r = 0 then 0 else f r)) := by
+      apply Finset.sum_congr rfl
+      intro r _hrmem
+      simpa [f] using hsplitPointwise r
+    _ = (∑ r : ZMod W.modulus, if r = 0 then f 0 else 0) +
+        ∑ r : ZMod W.modulus, if r = 0 then 0 else f r := by
+      rw [Finset.sum_add_distrib]
+    _ = f 0 +
+        ∑ r : ZMod W.modulus, if r = 0 then 0 else f r := by
       simp
     _ = primeWheelForwardArcFrequencyAtom W A d 0 +
         ∑ r : ZMod W.modulus,
@@ -108,6 +126,7 @@ theorem primeWheelDirichletPrefix_add_sub_eq_zero_add_reducedNonzero
               ZMod.stdAddChar r ^ A *
                 primeWheelDirichletKernel W
                   (d % reducedAdditiveConductor r) r := by
+      dsimp [f]
       congr 1
       apply Finset.sum_congr rfl
       intro r _hrmem
