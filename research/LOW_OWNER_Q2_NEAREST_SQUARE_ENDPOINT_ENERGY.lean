@@ -121,8 +121,9 @@ theorem norm_sq_lowOwnerNearestSquareReciprocalColumn_le_quarter_endpointEnergy
 rounded root plus one. -/
 theorem q2NearestSquareRoot_le_sqrt_add_one (x : ℕ) :
     q2NearestSquareRoot x ≤ Nat.sqrt x + 1 := by
-  unfold q2NearestSquareRoot
-  split <;> omega
+  by_cases hmid : x < (Nat.sqrt x) ^ 2 + Nat.sqrt x
+  · simp [q2NearestSquareRoot, hmid]
+  · simp [q2NearestSquareRoot, hmid]
 
 /-- Hence one q² daughter selected root is bounded by the existing rounded-root
 shell scale. -/
