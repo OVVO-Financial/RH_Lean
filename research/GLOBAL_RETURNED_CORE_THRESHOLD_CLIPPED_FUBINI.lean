@@ -72,15 +72,52 @@ theorem lowOwnerThresholdSecondOwnerDifference_eq_clippedFubini
   unfold lowOwnerThresholdSecondOwnerDifference
   rw [lowOwnerThresholdOwnerIncidenceWeight_eq_finiteThresholdEval hR hp,
     lowOwnerThresholdOwnerIncidenceWeight_eq_finiteThresholdEval hR hp]
-  rw [← Finset.sum_sub_distrib]
-  apply congrArg₂ (· - ·)
-  · apply Finset.sum_congr rfl
-    intro q _hq
-    unfold lowOwnerThresholdClippedDifference
-    rw [lowOwnerThresholdCrossing_secondIncidence_comm hp hr]
-    ring
-  · unfold lowOwnerThresholdClippedDifference
-    rw [lowOwnerThresholdCrossing_secondIncidence_comm hp hr]
+  calc
+    ((∑ q ∈ canonicalRoughLowQ2Owners R,
+          (1 / (q : ℝ)) *
+            lowOwnerThresholdCrossingIndicator
+              p n (rawQ2ChildCutoff R q)) -
+        lowOwnerThresholdCrossingIndicator p n (R - 1)) -
+      ((∑ q ∈ canonicalRoughLowQ2Owners R,
+          (1 / (q : ℝ)) *
+            lowOwnerThresholdCrossingIndicator
+              p (r * n) (rawQ2ChildCutoff R q)) -
+        lowOwnerThresholdCrossingIndicator p (r * n) (R - 1)) =
+      ((∑ q ∈ canonicalRoughLowQ2Owners R,
+          (1 / (q : ℝ)) *
+            lowOwnerThresholdCrossingIndicator
+              p n (rawQ2ChildCutoff R q)) -
+        (∑ q ∈ canonicalRoughLowQ2Owners R,
+          (1 / (q : ℝ)) *
+            lowOwnerThresholdCrossingIndicator
+              p (r * n) (rawQ2ChildCutoff R q))) -
+      (lowOwnerThresholdCrossingIndicator p n (R - 1) -
+        lowOwnerThresholdCrossingIndicator p (r * n) (R - 1)) := by ring
+    _ =
+      (∑ q ∈ canonicalRoughLowQ2Owners R,
+        ((1 / (q : ℝ)) *
+            lowOwnerThresholdCrossingIndicator
+              p n (rawQ2ChildCutoff R q) -
+          (1 / (q : ℝ)) *
+            lowOwnerThresholdCrossingIndicator
+              p (r * n) (rawQ2ChildCutoff R q))) -
+      (lowOwnerThresholdCrossingIndicator p n (R - 1) -
+        lowOwnerThresholdCrossingIndicator p (r * n) (R - 1)) := by
+      rw [Finset.sum_sub_distrib]
+    _ =
+      (∑ q ∈ canonicalRoughLowQ2Owners R,
+        (1 / (q : ℝ)) *
+          lowOwnerThresholdClippedDifference
+            p r n (rawQ2ChildCutoff R q)) -
+      lowOwnerThresholdClippedDifference p r n (R - 1) := by
+      apply congrArg₂ (· - ·)
+      · apply Finset.sum_congr rfl
+        intro q _hq
+        unfold lowOwnerThresholdClippedDifference
+        rw [← lowOwnerThresholdCrossing_secondIncidence_comm hp hr]
+        ring
+      · unfold lowOwnerThresholdClippedDifference
+        exact lowOwnerThresholdCrossing_secondIncidence_comm hp hr
 
 /-- Active threshold crossing is exactly the one-coordinate clipped geometry. -/
 theorem lowOwnerThresholdCrossingIndicator_eq_one_iff
