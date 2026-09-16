@@ -241,6 +241,7 @@ theorem arbitraryFreshPrime_reciprocalPairAmplitude_descent
       unfold squarefreePrimeFamilyParent
       rw [if_neg h.2, if_pos h.1]
       rw [hnCast]
+      ring
   unfold postRootCovarianceReciprocalPairAmplitude
   rw [hsign, hprod]
   field_simp [hp0, hum0, hun0]
