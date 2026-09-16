@@ -98,8 +98,13 @@ theorem lowOwnerFirstOwnerAdmittedGreatestOwner_nextOwner_lt_current
   rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos hmCar with ⟨hmSq, hmPos⟩
   rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos hnCar with ⟨hnSq, hnPos⟩
   have hrPrime := (freshPrime_of_nonzeroPhysicalPair hmCar hnCar hrOwner.1).1
-  have hset := freshPrimeSet_stripped_eq_erase
-    hrPrime hmSq hnSq hmPos hnPos hrOwner.1
+  have hset :
+      squarefreePairFreshPrimeSet
+          (squarefreePrimeFamilyParent r m)
+          (squarefreePrimeFamilyParent r n) =
+        (squarefreePairFreshPrimeSet m n).erase r := by
+    simpa using freshPrimeSet_stripped_eq_erase
+      hrPrime hmSq hnSq hmPos hnPos hrOwner.1
   have hsFresh : s ∈ squarefreePairFreshPrimeSet m n := by
     rw [hset] at hs
     exact (Finset.mem_erase.mp hs.1).2
