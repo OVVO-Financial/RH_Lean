@@ -1,7 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION»
-import «research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP»
 import «research.GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE»
 
 /-!
@@ -17,13 +16,13 @@ Every child in one such fibre is one of the two literal mixed corners
 
   (r*a,b), (a,r*b),
 
-its raw parent stays in the same p/signature base cell, both parent coordinates
-are r-free, and the fresh-prime rank drops exactly one.  The raw-parent fibres
-are disjoint and give an exact signed Fubini.
+its raw parent stays in the same p/signature base cell and both parent
+coordinates are r-free.  The raw-parent fibres are disjoint and give an exact
+signed Fubini.
 
-No magnitude estimate is used.  This is the carrier layer needed to complete
-each owner fibre to a Dirichlet four-corner before applying the already compiled
-currency theorem.
+No rank induction, magnitude estimate, or energy conversion is used here.  This
+is only the carrier layer needed to complete each owner fibre to a Dirichlet
+four-corner before applying the compiled currency theorem.
 -/
 
 noncomputable section
@@ -200,32 +199,5 @@ theorem lowOwnerFirstOwnerPolarizationFixedRawParentFiber_card_le_two
   have hcand : candidates.card ≤ 2 := by
     simp [candidates]
   exact hcard.trans hcand
-
-/-- Raw-parent rank is exactly one below every child in its owner fibre. -/
-theorem lowOwnerFirstOwnerPolarizationFixedRawParentFiber_parent_rank_add_one
-    {R p r : ℕ} {sig : Finset ℕ} {parent child : ℕ × ℕ}
-    (hchild : child ∈
-      lowOwnerFirstOwnerPolarizationFixedRawParentFiber
-        R p sig r parent) :
-    lowOwnerFreshPairRank parent + 1 = lowOwnerFreshPairRank child := by
-  rcases child with ⟨m, n⟩
-  rcases Finset.mem_filter.mp hchild with ⟨hmn, hparent⟩
-  rcases Finset.mem_filter.mp hmn with ⟨hoff, howner⟩
-  rcases Finset.mem_filter.mp hoff with ⟨hprod, _hne⟩
-  rcases Finset.mem_product.mp hprod with ⟨hmBase, hnBase⟩
-  have hmCar := (Finset.mem_filter.mp hmBase).1
-  have hnCar := (Finset.mem_filter.mp hnBase).1
-  rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos hmCar with ⟨hmSq, hmPos⟩
-  rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos hnCar with ⟨hnSq, hnPos⟩
-  have hr := (freshPrime_of_nonzeroPhysicalPair hmCar hnCar howner.1).1
-  have hrank := freshPrimeSet_stripped_card_add_one
-    hr hmSq hnSq hmPos hnPos howner.1
-  unfold lowOwnerFreshPairRank
-  have hparent' :
-      (squarefreePrimeFamilyParent r m,
-        squarefreePrimeFamilyParent r n) = parent := by
-    simpa [lowOwnerFirstOwnerPolarizationRawParent] using hparent
-  rw [← hparent']
-  exact hrank
 
 end RHLean.Proof
