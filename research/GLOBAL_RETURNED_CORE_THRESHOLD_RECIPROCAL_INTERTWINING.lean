@@ -111,7 +111,7 @@ theorem lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference
   have hcast : (((r * n : ℕ) : ℝ)) = (r : ℝ) * (n : ℝ) := by
     norm_num
   rw [hcast]
-  field_simp [hr0] <;> ring
+  field_simp [hr0]
 
 /-- Reciprocal form of the preceding normalization. -/
 theorem lowOwnerThresholdSecondOwnerDifference_eq_reciprocalEuler
@@ -122,7 +122,7 @@ theorem lowOwnerThresholdSecondOwnerDifference_eq_reciprocalEuler
   rw [lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr]
   have hn0 : (n : ℝ) ≠ 0 := by
     exact_mod_cast (Nat.ne_of_gt hn)
-  field_simp [hn0] <;> ring
+  field_simp [hn0]
 
 /-- **Pair currency conversion.**  A two-coordinate second incidence is exactly
 reciprocal pair amplitude times the two critical Euler differences. -/
@@ -141,7 +141,7 @@ theorem lowOwnerThresholdSecondOwnerPair_eq_reciprocalPair_mul_eulerDifferences
   have ha0 : (a : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt ha)
   have hb0 : (b : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hb)
   push_cast
-  field_simp [ha0, hb0] <;> ring
+  field_simp [ha0, hb0]
 
 /-- **Complete next-owner four-corner in reciprocal currency.**  After a current
 `p`-incidence has been formed, a complete fresh `r` square is the reciprocal
