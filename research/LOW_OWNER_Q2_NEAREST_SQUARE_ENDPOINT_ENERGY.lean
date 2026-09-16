@@ -53,8 +53,6 @@ theorem norm_sq_lowOwnerNearestSquareReciprocalColumn_le_quarter_endpointEnergy
     (R : ℕ) :
     ‖lowOwnerNearestSquareReciprocalColumn R‖ ^ 2 ≤
       (1 / 4 : ℝ) * lowOwnerNearestSquareEndpointEnergy R := by
-  have hsub : canonicalRoughLowQ2Owners R ⊆
-      (primesUpTo (R - 1)).erase 2 := Finset.sdiff_subset
   have htri :
       ‖lowOwnerNearestSquareReciprocalColumn R‖ ≤
         ∑ q ∈ canonicalRoughLowQ2Owners R,
@@ -71,14 +69,8 @@ theorem norm_sq_lowOwnerNearestSquareReciprocalColumn_le_quarter_endpointEnergy
           ((1 : ℝ) / (q : ℝ)) *
             ‖lowOwnerNearestSquareMertensAmplitude R q‖ := by
         apply Finset.sum_congr rfl
-        intro q hq
-        have hqpos : 0 < q :=
-          (mem_primesUpTo.mp (Finset.mem_erase.mp (hsub hq)).2).1.pos
+        intro q _hq
         rw [norm_mul, norm_div, norm_one, Complex.norm_natCast]
-  have hsum0 :
-      0 ≤ ∑ q ∈ canonicalRoughLowQ2Owners R,
-        ((1 : ℝ) / (q : ℝ)) *
-          ‖lowOwnerNearestSquareMertensAmplitude R q‖ := by positivity
   have hsq :
       ‖lowOwnerNearestSquareReciprocalColumn R‖ ^ 2 ≤
         (∑ q ∈ canonicalRoughLowQ2Owners R,
