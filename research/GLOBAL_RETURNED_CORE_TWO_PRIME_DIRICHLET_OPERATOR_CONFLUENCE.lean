@@ -36,6 +36,9 @@ theorem lowOwnerDirichletOwnerDifference_comm
       lowOwnerDirichletOwnerDifference r
         (fun m => lowOwnerDirichletOwnerDifference s f m) n := by
   unfold lowOwnerDirichletOwnerDifference
+  change
+    (f n - f (r * n)) - (f (s * n) - f (r * (s * n))) =
+      (f n - f (s * n)) - (f (r * n) - f (s * (r * n)))
   have hmul : r * (s * n) = s * (r * n) := by ring
   rw [hmul]
   ring
