@@ -57,7 +57,7 @@ private theorem sum_symmetric_square_eq_diag_add_two_positive
         rw [Finset.sum_eq_single a]
         · simp
         · intro b hb hba
-          simp [hba]
+          simp [Ne.symm hba]
         · exact fun hnot => (hnot ha).elim
   let pos := (s.product s).filter fun ab => ab.1 < ab.2
   let neg := (s.product s).filter fun ab => ab.2 < ab.1
@@ -124,9 +124,16 @@ theorem lowOwnerFirstOwnerSignedCellTelescope_eq_diagonal_add_ownerFibers
     (lowOwnerFirstOwnerDirichletPolarizationAtom R p)
     (lowOwnerFirstOwnerDirichletPolarizationAtom_comm R p)
   rw [hsplit]
-  congr 1
-  rw [sum_lowOwnerFirstOwnerBasePositive_eq_sum_polarizationOwnerFibers
-    hp (lowOwnerFirstOwnerDirichletPolarizationAtom R p)]
+  have hpos :=
+    sum_lowOwnerFirstOwnerBasePositive_eq_sum_polarizationOwnerFibers
+      hp (lowOwnerFirstOwnerDirichletPolarizationAtom R p)
+  simpa [lowOwnerFirstOwnerBasePositivePairCarrier] using
+    congrArg
+      (fun x : ℝ =>
+        (∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,
+          lowOwnerFirstOwnerDirichletPolarizationAtom R p (a, a)) +
+          2 * x)
+      hpos
 
 /-- The only inequality in the outer Fubini is dropping the favorable diagonal. -/
 theorem lowOwnerFirstOwnerSignedCellTelescope_le_two_ownerFibers
