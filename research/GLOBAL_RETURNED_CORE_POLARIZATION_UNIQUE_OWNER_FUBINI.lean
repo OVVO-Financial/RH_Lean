@@ -1,6 +1,8 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION»
 import «research.GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER»
+import «research.GLOBAL_RETURNED_CORE_ARBITRARY_FRESH_PRIME_DESCENT»
+import «research.GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI»
 
 /-!
 # Unique greatest-owner Fubini on the full Dirichlet polarization carrier
@@ -58,7 +60,7 @@ def lowOwnerFirstOwnerPolarizationGreatestOwnerPositiveFiber
 current first owner p.  Admitted/clipped status is irrelevant. -/
 theorem lowOwnerFirstOwnerBasePair_freshPrime_gt_owner
     {R p r a b : ℕ} {sig : Finset ℕ}
-    (hp : p.Prime)
+    (_hp : p.Prime)
     (ha : a ∈ lowOwnerFirstOwnerBaseFiber R p sig)
     (hb : b ∈ lowOwnerFirstOwnerBaseFiber R p sig)
     (hrFresh : r ∈ squarefreePairFreshPrimeSet a b) :
