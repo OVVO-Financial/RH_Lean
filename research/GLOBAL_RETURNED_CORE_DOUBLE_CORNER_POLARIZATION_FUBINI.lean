@@ -98,15 +98,13 @@ theorem lowOwnerThresholdIncidencePairMass_eq_neg_leftDoubleCornerFubini
   dsimp only
   let u := squarefreePrimeFamilyParent r a
   let v := squarefreePrimeFamilyParent r b
-  have hparent := arbitraryFreshPrime_left_parent_data hra hrb
-  dsimp only at hparent
   have huPos : 0 < u := squarefreePrimeFamilyParent_pos_public hr ha
   have hdesc := lowOwnerThresholdIncidencePairMass_add_parent_eq_leftDifference
     (R := R) (p := p) hr haSq hbSq ha hb hra hrb
   dsimp only at hdesc
   rw [lowOwnerThresholdSecondOwnerDifference_eq_current_sub_doubleCornerFubini
     hR hp hr hpr huPos] at hdesc
-  unfold lowOwnerThresholdIncidencePairMass at hdesc
+  unfold lowOwnerThresholdIncidencePairMass at hdesc ⊢
   linear_combination hdesc
 
 /-- **Right signed descent after polarization.** -/
@@ -131,7 +129,7 @@ theorem lowOwnerThresholdIncidencePairMass_eq_neg_rightDoubleCornerFubini
   dsimp only at hdesc
   rw [lowOwnerThresholdSecondOwnerDifference_eq_current_sub_doubleCornerFubini
     hR hp hr hpr hvPos] at hdesc
-  unfold lowOwnerThresholdIncidencePairMass at hdesc
+  unfold lowOwnerThresholdIncidencePairMass at hdesc ⊢
   linear_combination hdesc
 
 /-- Orientation-free form for a greatest-owner fresh coordinate.  Exactly one
