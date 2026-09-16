@@ -120,7 +120,7 @@ theorem lowOwnerDirichletPolarization_fourCorner_eq_threshold_sub_branchFourCorn
       (lowOwnerDirichletReturnedCoefficient R p) hr hraFresh hrbFresh]
   rw [lowOwnerDirichletNextPolarizationScalar_eq_threshold_sub_branches_of_complete
     ha hpa hra hpra hb hpb hrb hprb]
-  unfold lowOwnerThresholdSecondOwnerDifference
+  unfold lowOwnerThresholdSecondOwnerDifference lowOwnerDirichletOwnerDifference
   simp only [postRootZeroTargetPairExcess_eq_weight]
   ring
 
