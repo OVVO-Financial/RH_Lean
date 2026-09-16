@@ -143,4 +143,45 @@ theorem lowOwnerFirstOwnerSignatureEnergy_eq_split_add_two_cellGrams
           lowOwnerFirstOwnerCellGram R p sig := by
             rw [Finset.mul_sum]
 
+/-!
+## Legal whole-cell energy guardrail
+
+The signed telescope is a quadratic polarization decrement, not the square of
+one next-owner four-corner.  At one complete first-owner cell it is bounded by
+the square of the full Dirichlet incidence / signature-cell amplitude.  This
+majorant is legal, but summing it independently over all first owners would
+throw away the exact prime-filtration telescope above.
+-/
+
+/-- Whole-cell polarization is bounded by the full Dirichlet incidence square.
+No standalone clipped square is introduced. -/
+theorem lowOwnerFirstOwnerSignedCellTelescope_le_dirichletIncidence_sq
+    {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
+    lowOwnerFirstOwnerSignedCellTelescope R p sig ≤
+      lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig ^ 2 := by
+  rw [← two_mul_lowOwnerFirstOwnerCellGram_eq_completeTelescope_sub_clippedCross hp]
+  rw [two_mul_lowOwnerFirstOwnerCellGram_eq_dirichletIncidence_sq_sub_branches hp]
+  have hb := sq_nonneg (lowOwnerFirstOwnerBaseAmplitude R p sig)
+  have hj := sq_nonneg (lowOwnerFirstOwnerChildAmplitude R p sig)
+  nlinarith
+
+/-- Same guardrail in the literal signature-cell coordinate. -/
+theorem lowOwnerFirstOwnerSignedCellTelescope_le_signatureCell_sq
+    {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
+    lowOwnerFirstOwnerSignedCellTelescope R p sig ≤
+      lowOwnerFirstOwnerSignatureCellAmplitude R p sig ^ 2 := by
+  rw [← lowOwnerFirstOwnerDirichletIncidenceAmplitude_eq_signatureCellAmplitude hp]
+  exact lowOwnerFirstOwnerSignedCellTelescope_le_dirichletIncidence_sq hp
+
+/-- For one fixed first owner only, the signed telescope is dominated by the
+pre-split signature energy. -/
+theorem sum_lowOwnerFirstOwnerSignedCellTelescope_le_signatureEnergy
+    {R p : ℕ} (hp : p.Prime) :
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      lowOwnerFirstOwnerSignedCellTelescope R p sig) ≤
+      lowOwnerFirstOwnerSignatureEnergy R p := by
+  unfold lowOwnerFirstOwnerSignatureEnergy
+  exact Finset.sum_le_sum fun sig _ =>
+    lowOwnerFirstOwnerSignedCellTelescope_le_signatureCell_sq hp
+
 end RHLean.Proof
