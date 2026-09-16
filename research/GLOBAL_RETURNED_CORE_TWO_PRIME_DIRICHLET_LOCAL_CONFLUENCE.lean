@@ -91,12 +91,12 @@ theorem squarefreePrimeFamilyParent_comm_of_prime_ne
     · have hrDiv : r ∣ n / s := by
         have h :=
           (prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
-            hs hr hrs).2 hrn
+            (p := s) (q := r) (n := n) hs hr hrs).2 hrn
         simpa [squarefreePrimeFamilyParent, hsn] using h
       have hsDiv : s ∣ n / r := by
         have h :=
           (prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
-            hr hs hsr).2 hsn
+            (p := r) (q := s) (n := n) hr hs hsr).2 hsn
         simpa [squarefreePrimeFamilyParent, hrn] using h
       simp [squarefreePrimeFamilyParent, hrn, hsn, hrDiv, hsDiv,
         Nat.div_div_eq_div_mul, Nat.mul_comm]
@@ -104,7 +104,7 @@ theorem squarefreePrimeFamilyParent_comm_of_prime_ne
         intro hdiv
         have h :=
           (prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
-            hr hs hsr).1
+            (p := r) (q := s) (n := n) hr hs hsr).1
             (by simpa [squarefreePrimeFamilyParent, hrn] using hdiv)
         exact hsn h
       simp [squarefreePrimeFamilyParent, hrn, hsn, hsNot]
@@ -113,7 +113,7 @@ theorem squarefreePrimeFamilyParent_comm_of_prime_ne
         intro hdiv
         have h :=
           (prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
-            hs hr hrs).1
+            (p := s) (q := r) (n := n) hs hr hrs).1
             (by simpa [squarefreePrimeFamilyParent, hsn] using hdiv)
         exact hrn h
       simp [squarefreePrimeFamilyParent, hrn, hsn, hrNot]
@@ -131,8 +131,8 @@ theorem lowOwnerTwoPrimeParent_comm
     (mn : ℕ × ℕ) :
     lowOwnerTwoPrimeParent r s mn = lowOwnerTwoPrimeParent s r mn := by
   apply Prod.ext
-  · exact squarefreePrimeFamilyParent_comm_of_prime_ne hr hs hrs
-  · exact squarefreePrimeFamilyParent_comm_of_prime_ne hr hs hrs
+  · exact (squarefreePrimeFamilyParent_comm_of_prime_ne hr hs hrs).symm
+  · exact (squarefreePrimeFamilyParent_comm_of_prime_ne hr hs hrs).symm
 
 /-- Full completed state seen by the signed telescope and reciprocal-energy
 consumer after a sequence of prime strips. -/
@@ -213,8 +213,8 @@ theorem arbitraryTwoFreshPrimes_pairWeight_eq_finalPairWeight
     (mem_squarefreePairFreshPrimeSet_iff_prime_dvd_xor hr hm hn).1 hrFresh
   have hmRPos := squarefreePrimeFamilyParent_pos_public hr hm
   have hnRPos := squarefreePrimeFamilyParent_pos_public hr hn
-  have hmRSq := squarefree_squarefreePrimeFamilyParent hmSq
-  have hnRSq := squarefree_squarefreePrimeFamilyParent hnSq
+  have hmRSq := squarefree_squarefreePrimeFamilyParent (r := r) hmSq
+  have hnRSq := squarefree_squarefreePrimeFamilyParent (r := r) hnSq
   have hsFreshAfterR :
       s ∈ squarefreePairFreshPrimeSet
         (squarefreePrimeFamilyParent r m)
@@ -260,8 +260,8 @@ theorem arbitraryTwoFreshPrimes_reciprocalPairEnergy_descent
     (mem_squarefreePairFreshPrimeSet_iff_prime_dvd_xor hr hm hn).1 hrFresh
   have hmRPos := squarefreePrimeFamilyParent_pos_public hr hm
   have hnRPos := squarefreePrimeFamilyParent_pos_public hr hn
-  have hmRSq := squarefree_squarefreePrimeFamilyParent hmSq
-  have hnRSq := squarefree_squarefreePrimeFamilyParent hnSq
+  have hmRSq := squarefree_squarefreePrimeFamilyParent (r := r) hmSq
+  have hnRSq := squarefree_squarefreePrimeFamilyParent (r := r) hnSq
   have hsFreshAfterR :
       s ∈ squarefreePairFreshPrimeSet
         (squarefreePrimeFamilyParent r m)
@@ -283,10 +283,10 @@ order, before any `2/9` or `1/9` majorant is used. -/
 theorem arbitraryTwoFreshPrimes_reciprocalPairEnergy_descent_comm
     {r s m n : ℕ}
     (hr : r.Prime) (hs : s.Prime) (hrs : r ≠ s)
-    (hmSq : Squarefree m) (hnSq : Squarefree n)
-    (hm : 0 < m) (hn : 0 < n)
-    (hrFresh : r ∈ squarefreePairFreshPrimeSet m n)
-    (hsFresh : s ∈ squarefreePairFreshPrimeSet m n) :
+    (_hmSq : Squarefree m) (_hnSq : Squarefree n)
+    (_hm : 0 < m) (_hn : 0 < n)
+    (_hrFresh : r ∈ squarefreePairFreshPrimeSet m n)
+    (_hsFresh : s ∈ squarefreePairFreshPrimeSet m n) :
     lowOwnerTwoPrimeAtomEnergyMultiplier r s *
         postRootCovarianceReciprocalPairEnergy
           (lowOwnerTwoPrimeParent r s (m, n)) =
