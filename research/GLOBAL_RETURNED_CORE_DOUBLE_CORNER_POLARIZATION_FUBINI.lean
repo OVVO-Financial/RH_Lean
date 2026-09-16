@@ -1,6 +1,7 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT»
 import «research.GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL»
+import «research.GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_CURRENCY»
 
 /-!
 # Double-corner Fubini stays inside the signed Dirichlet polarization
