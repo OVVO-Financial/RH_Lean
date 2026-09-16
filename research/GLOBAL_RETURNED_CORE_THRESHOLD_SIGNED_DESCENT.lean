@@ -108,6 +108,10 @@ theorem lowOwnerThresholdIncidencePairMass_add_parent_eq_leftDifference
   dsimp only at hdata
   have hsign := arbitraryFreshPrime_pairWeight_eq_neg_parentPairWeight
     hr haSq hbSq ha hb (Or.inl ⟨hra, hrb⟩)
+  have hsignUV :
+      realMoebiusStep a * realMoebiusStep b =
+        -(realMoebiusStep u * realMoebiusStep v) := by
+    simpa [u, v] using hsign
   have haEq : a = r * u := by simpa [u, v] using hdata.1
   have hbEq : b = v := by simpa [u, v] using hdata.2
   unfold lowOwnerThresholdIncidencePairMass
@@ -120,7 +124,7 @@ theorem lowOwnerThresholdIncidencePairMass_add_parent_eq_leftDifference
       (realMoebiusStep u * realMoebiusStep v) *
         lowOwnerThresholdOwnerIncidenceWeight R p u *
         lowOwnerThresholdOwnerIncidenceWeight R p v = _
-  rw [hsign, haEq, hbEq]
+  rw [hsignUV, haEq, hbEq]
   unfold lowOwnerThresholdSecondOwnerDifference
   ring
 
@@ -144,6 +148,10 @@ theorem lowOwnerThresholdIncidencePairMass_add_parent_eq_rightDifference
   dsimp only at hdata
   have hsign := arbitraryFreshPrime_pairWeight_eq_neg_parentPairWeight
     hr haSq hbSq ha hb (Or.inr ⟨hrb, hra⟩)
+  have hsignUV :
+      realMoebiusStep a * realMoebiusStep b =
+        -(realMoebiusStep u * realMoebiusStep v) := by
+    simpa [u, v] using hsign
   have haEq : a = u := by simpa [u, v] using hdata.1
   have hbEq : b = r * v := by simpa [u, v] using hdata.2
   unfold lowOwnerThresholdIncidencePairMass
@@ -156,7 +164,7 @@ theorem lowOwnerThresholdIncidencePairMass_add_parent_eq_rightDifference
       (realMoebiusStep u * realMoebiusStep v) *
         lowOwnerThresholdOwnerIncidenceWeight R p u *
         lowOwnerThresholdOwnerIncidenceWeight R p v = _
-  rw [hsign, haEq, hbEq]
+  rw [hsignUV, haEq, hbEq]
   unfold lowOwnerThresholdSecondOwnerDifference
   ring
 
