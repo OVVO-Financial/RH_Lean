@@ -1,7 +1,7 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_CURRENCY»
 import «research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP»
-import «research.GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_FILTRATION»
+import «research.GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_OWNER_SPLICE»
 
 /-!
 # Aggregate completed-polarization ledger before rank induction
