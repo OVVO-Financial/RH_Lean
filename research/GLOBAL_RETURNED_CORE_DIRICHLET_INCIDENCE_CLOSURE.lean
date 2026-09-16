@@ -212,14 +212,16 @@ theorem lowOwnerFirstOwner_mul_larger_prime_mem_clippedBase
   rcases Finset.mem_filter.mp ha with ⟨haBase, _hpaX⟩
   rcases Finset.mem_filter.mp haBase with ⟨haCar, hbase⟩
   rcases Finset.mem_filter.mp haCar with ⟨haIcc, hmu⟩
+  have haOne : 1 ≤ a := (Finset.mem_Icc.mp haIcc).1
   have haPos : 0 < a := by omega
   have hraPos : 0 < r * a := Nat.mul_pos hr.pos haPos
+  have hraOne : 1 ≤ r * a := by omega
   have hmuRA : realMoebiusStep (r * a) ≠ 0 := by
     rw [realMoebiusStep_mul_prime_eq_neg hr hra]
     exact neg_ne_zero.mpr hmu
   have hcarRA : r * a ∈ lowOwnerNonzeroMobiusCarrier R := by
     exact Finset.mem_filter.mpr
-      ⟨Finset.mem_Icc.mpr ⟨by omega, hraX⟩, hmuRA⟩
+      ⟨Finset.mem_Icc.mpr ⟨hraOne, hraX⟩, hmuRA⟩
   have hsigRA : squarefreeLowerPrimeSignature p (r * a) = sig := by
     rw [squarefreeLowerPrimeSignature_mul_larger_prime hr hpr haPos, hbase.1]
   have hpnr : ¬ p ∣ r := by
