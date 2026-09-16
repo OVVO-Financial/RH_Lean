@@ -98,7 +98,7 @@ theorem prime_mem_squarefreePrimeFace_iff_dvd_public
 /-- Revealing a fresh coordinate either inserts p into the old signature or
 leaves the old signature unchanged. -/
 theorem lowOwnerRevealedPrimeSignature_insert
-    {S : Finset ℕ} {p n : ℕ} (hpS : p ∉ S) :
+    {S : Finset ℕ} {p n : ℕ} (_hpS : p ∉ S) :
     lowOwnerRevealedPrimeSignature (insert p S) n =
       if p ∈ squarefreePrimeFace n then
         insert p (lowOwnerRevealedPrimeSignature S n)
@@ -110,8 +110,8 @@ theorem lowOwnerRevealedPrimeSignature_insert
     · simp [lowOwnerRevealedPrimeSignature, hpFace]
     · simp [lowOwnerRevealedPrimeSignature, hpFace]
   · by_cases hpFace : p ∈ squarefreePrimeFace n
-    · simp [lowOwnerRevealedPrimeSignature, hpFace, hqp]
-    · simp [lowOwnerRevealedPrimeSignature, hpFace, hqp]
+    · simp [lowOwnerRevealedPrimeSignature, hpFace]
+    · simp [lowOwnerRevealedPrimeSignature, hpFace]
 
 /-- Since p is fresh for S, it cannot already lie in the old revealed
 signature. -/
