@@ -47,7 +47,7 @@ theorem lowOwnerFirstOwnerSignatureCellCarrier_filter_not_dvd_eq_base
       lowOwnerFirstOwnerBaseFiber R p sig := by
   ext n
   simp [lowOwnerFirstOwnerSignatureCellCarrier,
-    lowOwnerFirstOwnerBaseFiber, and_assoc, and_left_comm, and_comm]
+    lowOwnerFirstOwnerBaseFiber, and_left_comm, and_comm]
 
 /-- The p-divisible half is exactly the existing child fibre. -/
 theorem lowOwnerFirstOwnerSignatureCellCarrier_filter_dvd_eq_child
@@ -57,7 +57,7 @@ theorem lowOwnerFirstOwnerSignatureCellCarrier_filter_dvd_eq_child
       lowOwnerFirstOwnerChildFiber R p sig := by
   ext n
   simp [lowOwnerFirstOwnerSignatureCellCarrier,
-    lowOwnerFirstOwnerChildFiber, and_assoc, and_left_comm, and_comm]
+    lowOwnerFirstOwnerChildFiber, and_left_comm, and_comm]
 
 /-- A signature-cell amplitude is its p-free plus p-divisible branch. -/
 theorem lowOwnerFirstOwnerSignatureCellAmplitude_eq_base_add_child
