@@ -6,6 +6,7 @@ on:
     paths:
       - research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean
       - research/LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE.lean
+      - research/LOW_OWNER_Q2_ENDPOINT_ARC_FUBINI.lean
       - .github/workflows/nearest-square-endpoint.yml
   workflow_dispatch:
 
@@ -79,5 +80,6 @@ jobs:
       - name: Check nearest-square endpoint reduction
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.olean research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean
       - name: Check endpoint frequency-distance reduction
-        if: ${{ hashFiles('research/LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE.lean') != '' }}
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE.olean research/LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE.lean
+      - name: Check endpoint arc Fubini
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LOW_OWNER_Q2_ENDPOINT_ARC_FUBINI.olean research/LOW_OWNER_Q2_ENDPOINT_ARC_FUBINI.lean
