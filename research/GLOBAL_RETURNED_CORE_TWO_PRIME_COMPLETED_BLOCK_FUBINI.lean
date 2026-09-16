@@ -68,13 +68,23 @@ theorem lowOwnerTwoPrimeSequentialChildCube_eq_completed
     lowOwnerTwoPrimeSequentialChildCube r s parent =
       lowOwnerTwoPrimeCompletedChildCube r s parent := by
   rcases parent with ⟨a, b⟩
+  unfold lowOwnerTwoPrimeSequentialChildCube
+  change
+    (({covarianceOrderedPair (r * a) b,
+        covarianceOrderedPair a (r * b)} : Finset (ℕ × ℕ)).biUnion
+      (fun child => covarianceOwnerChildCandidates s child)) =
+      lowOwnerTwoPrimeCompletedChildCube r s (a, b)
+  rw [Finset.biUnion_insert, Finset.singleton_biUnion]
+  rw [covarianceOwnerChildCandidates_orderedParent s (r * a) b,
+    covarianceOwnerChildCandidates_orderedParent s a (r * b)]
+  unfold covarianceOwnerChildCandidates lowOwnerTwoPrimeCompletedChildCube
+  have hleft : s * (r * a) = (r * s) * a := by
+    rw [← Nat.mul_assoc, Nat.mul_comm s r]
+  have hright : s * (r * b) = (r * s) * b := by
+    rw [← Nat.mul_assoc, Nat.mul_comm s r]
+  rw [hleft, hright]
   ext z
-  simp [lowOwnerTwoPrimeSequentialChildCube,
-    lowOwnerTwoPrimeCompletedChildCube,
-    covarianceOwnerChildCandidates,
-    covarianceOwnerChildCandidates_orderedParent,
-    Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc,
-    or_comm, or_left_comm, or_assoc]
+  simp
 
 /-- The completed two-prime terminal cube is exactly symmetric in the two
 owners. -/
@@ -84,7 +94,7 @@ theorem lowOwnerTwoPrimeCompletedChildCube_comm
       lowOwnerTwoPrimeCompletedChildCube s r parent := by
   ext z
   simp [lowOwnerTwoPrimeCompletedChildCube, Nat.mul_comm, Nat.mul_left_comm,
-    Nat.mul_assoc, or_comm, or_left_comm, or_assoc]
+    or_comm, or_left_comm, or_assoc]
 
 /-- **Block-level local confluence.**  The literal sequential child carrier is
 independent of owner order. -/
