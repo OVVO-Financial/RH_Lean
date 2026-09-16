@@ -37,7 +37,7 @@ open AddChar
 
 namespace RHLean.Analysis
 
-open RHLean.Arithmetic
+open RHLean.Arithmetic RHLean.Proof
 open RHLean.Arithmetic.PrimeWheelFiniteSystem
 
 /-- Powers of a finite wheel frequency depend only on the exponent modulo the
