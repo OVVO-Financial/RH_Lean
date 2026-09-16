@@ -43,10 +43,11 @@ private theorem sum_product_symmetric_eq_diag_add_two_pos
   have hpoint : ∀ ab : ℕ × ℕ,
       f ab = diagTerm ab + ltTerm ab + gtTerm ab := by
     intro ab
-    rcases lt_trichotomy ab.1 ab.2 with hlt | heq | hgt
+    rcases ab with ⟨a, b⟩
+    rcases lt_trichotomy a b with hlt | heq | hgt
     · simp [diagTerm, ltTerm, gtTerm, hlt, ne_of_lt hlt,
         not_lt_of_ge (Nat.le_of_lt hlt)]
-    · subst ab.2
+    · subst b
       simp [diagTerm, ltTerm, gtTerm]
     · simp [diagTerm, ltTerm, gtTerm, hgt, ne_of_gt hgt,
         not_lt_of_ge (Nat.le_of_lt hgt)]
@@ -99,7 +100,6 @@ private theorem sum_product_symmetric_eq_diag_add_two_pos
       (∑ ab ∈ s.product s, ltTerm ab) =
         ∑ ab ∈ (s.product s).filter (fun ab => ab.1 < ab.2), f ab := by
     rw [Finset.sum_filter]
-    rfl
   have hgt :
       (∑ ab ∈ s.product s, gtTerm ab) =
         ∑ ab ∈ (s.product s).filter (fun ab => ab.1 < ab.2), f ab := by
