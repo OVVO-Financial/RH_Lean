@@ -42,15 +42,14 @@ theorem lowOwnerFirstOwnerDirichletBase_mul_returned_nonneg
       lowOwnerFirstOwnerDirichletReturnedChildSite R p a := by
   unfold lowOwnerFirstOwnerDirichletBaseSite
     lowOwnerFirstOwnerDirichletReturnedChildSite
-    lowOwnerZeroFrequencyMobiusSite
-  have hw : 0 ≤ lowOwnerZeroFrequencyMobiusWeight R a :=
-    lowOwnerZeroFrequencyMobiusWeight_nonneg R a
+  have hw : 0 ≤ lowOwnerPhysicalDirichletWeight R a :=
+    lowOwnerPhysicalDirichletWeight_nonneg R a
   have hj : 0 ≤ lowOwnerPhysicalDirichletWeight R (p * a) :=
     lowOwnerPhysicalDirichletWeight_nonneg R (p * a)
   calc
-    (lowOwnerZeroFrequencyMobiusWeight R a * realMoebiusStep a) *
+    (lowOwnerPhysicalDirichletWeight R a * realMoebiusStep a) *
         (lowOwnerPhysicalDirichletWeight R (p * a) * realMoebiusStep a) =
-      (lowOwnerZeroFrequencyMobiusWeight R a *
+      (lowOwnerPhysicalDirichletWeight R a *
           lowOwnerPhysicalDirichletWeight R (p * a)) *
         (realMoebiusStep a) ^ 2 := by ring
     _ ≥ 0 := mul_nonneg (mul_nonneg hw hj) (sq_nonneg _)
