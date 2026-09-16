@@ -47,6 +47,19 @@ def lowOwnerNearestSquareEndpointEnergy (R : ℕ) : ℝ :=
   ∑ q ∈ canonicalRoughLowQ2Owners R,
     ‖lowOwnerNearestSquareMertensAmplitude R q‖ ^ 2
 
+/-- The selected endpoint amplitude is exactly the existing terminal
+square-endpoint energy at the selected nearest-square root. -/
+theorem norm_sq_lowOwnerNearestSquareMertensAmplitude_eq_squareEndpointEnergy
+    (R q : ℕ) :
+    ‖lowOwnerNearestSquareMertensAmplitude R q‖ ^ 2 =
+      squareEndpointMertensEnergyReal
+        (q2NearestSquareRoot (rawQ2ChildCutoff R q)) := by
+  unfold lowOwnerNearestSquareMertensAmplitude squareEndpointMertensEnergyReal
+  rw [q2NearestSquareEndpoint_eq_rootEndpoint]
+  rw [Complex.norm_intCast]
+  exact sq_abs (((mertensSummatoryInt
+    (squareRootEndpoint (q2NearestSquareRoot (rawQ2ChildCutoff R q))) : ℤ) : ℝ))
+
 /-- **Quarter-frame endpoint bound.**  The reciprocal nearest-square endpoint
 column has squared norm at most one quarter of the unweighted endpoint energy. -/
 theorem norm_sq_lowOwnerNearestSquareReciprocalColumn_le_quarter_endpointEnergy
