@@ -101,7 +101,10 @@ theorem sum_lowOwnerRetainedCoefficientChildEnergy_le_two_ninths_of_owner_gt
       lowOwnerRetainedCoefficientChildEnergy coefficient child) ≤
       (2 / 9 : ℝ) *
         lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
+  have hr3 : 3 ≤ r := by
+    have hp2 : 2 ≤ p := hp.two_le
+    omega
   exact sum_lowOwnerRetainedCoefficientChildEnergy_le_two_ninths
-    hr (three_le_of_prime_lt_prime hp hpr) coefficient
+    hr hr3 coefficient
 
 end RHLean.Proof
