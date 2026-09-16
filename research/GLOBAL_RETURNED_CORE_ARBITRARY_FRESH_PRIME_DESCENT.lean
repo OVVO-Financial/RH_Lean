@@ -98,7 +98,7 @@ theorem owner_not_mem_squarefreePrimeFace_parent
   by_cases hpn : p ∣ n
   · rw [if_pos hpn]
     exact prime_not_dvd_div_of_squarefree hp hnSq hpn
-  · simpa [hpn]
+  · simp [hpn]
 
 /-- Every q != p fresh coordinate is preserved by stripping p from both
 endpoints. -/
@@ -120,7 +120,7 @@ theorem freshPrimeSet_stripped_eq_erase
     {p m n : ℕ}
     (hp : p.Prime) (hmSq : Squarefree m) (hnSq : Squarefree n)
     (hm : 0 < m) (hn : 0 < n)
-    (hpFresh : p ∈ squarefreePairFreshPrimeSet m n) :
+    (_hpFresh : p ∈ squarefreePairFreshPrimeSet m n) :
     squarefreePairFreshPrimeSet
         (squarefreePrimeFamilyParent p m)
         (squarefreePrimeFamilyParent p n) =
@@ -177,7 +177,7 @@ theorem freshPrimeSet_stripped_card_add_one
 theorem arbitraryFreshPrime_pairWeight_eq_neg_parentPairWeight
     {p m n : ℕ}
     (hp : p.Prime) (hmSq : Squarefree m) (hnSq : Squarefree n)
-    (hm : 0 < m) (hn : 0 < n)
+    (_hm : 0 < m) (_hn : 0 < n)
     (hxor : (p ∣ m ∧ ¬ p ∣ n) ∨ (p ∣ n ∧ ¬ p ∣ m)) :
     realMoebiusStep m * realMoebiusStep n =
       -(realMoebiusStep (squarefreePrimeFamilyParent p m) *
@@ -230,21 +230,22 @@ theorem arbitraryFreshPrime_reciprocalPairAmplitude_descent
         ((squarefreePrimeFamilyParent p n : ℕ) : ℝ) := by
     rcases hxor with h | h
     · have hmEq : p * (m / p) = m := Nat.mul_div_cancel' h.1
+      have hmCast : (m : ℝ) = (p : ℝ) * (m / p : ℝ) := by
+        exact_mod_cast hmEq.symm
       unfold squarefreePrimeFamilyParent
       rw [if_pos h.1, if_neg h.2]
-      rw [← hmEq]
-      push_cast
+      rw [hmCast]
       ring
     · have hnEq : p * (n / p) = n := Nat.mul_div_cancel' h.1
+      have hnCast : (n : ℝ) = (p : ℝ) * (n / p : ℝ) := by
+        exact_mod_cast hnEq.symm
       unfold squarefreePrimeFamilyParent
       rw [if_neg h.2, if_pos h.1]
-      rw [← hnEq]
-      push_cast
+      rw [hnCast]
       ring
   unfold postRootCovarianceReciprocalPairAmplitude
   rw [hsign, hprod]
   field_simp [hp0, hum0, hun0]
-  ring
 
 /-- Squaring gives the genuine reciprocal-square contraction currency. -/
 theorem arbitraryFreshPrime_reciprocalPairEnergy_descent
