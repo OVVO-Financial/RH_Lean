@@ -84,7 +84,8 @@ theorem lowOwnerTwoPrimeSequentialChildCube_eq_completed
     rw [← Nat.mul_assoc, Nat.mul_comm s r]
   rw [hleft, hright]
   ext z
-  simp
+  simp only [Finset.mem_union, Finset.mem_insert, Finset.mem_singleton]
+  tauto
 
 /-- The completed two-prime terminal cube is exactly symmetric in the two
 owners. -/
