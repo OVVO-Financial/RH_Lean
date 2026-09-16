@@ -1,5 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DESCENT»
+import «research.GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_AGGREGATE»
 
 /-!
 # Exact unique-greatest-owner Fubini on one compensated cell
