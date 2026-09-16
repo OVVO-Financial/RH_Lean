@@ -171,7 +171,7 @@ theorem sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
   by_cases hpa : p * a ≤ squareRootEndpoint R
   · simp [hpa, lowOwnerPhysicalDirichletWeight]
   · have hclip : squareRootEndpoint R < p * a := Nat.lt_of_not_ge hpa
-    simp [hpa, lowOwnerPhysicalDirichletWeight, hclip]
+    simp [hpa, lowOwnerPhysicalDirichletWeight]
 
 /-- Cartesian-product factorization for real pair products. -/
 private theorem sum_product_mul_factor
