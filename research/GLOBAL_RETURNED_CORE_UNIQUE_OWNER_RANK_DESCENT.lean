@@ -83,7 +83,6 @@ This makes the reversed recursion triangular rather than merely terminating by
 cardinality. -/
 theorem lowOwnerFirstOwnerAdmittedGreatestOwner_nextOwner_lt_current
     {R p r s m n : ℕ} {sig : Finset ℕ}
-    (hp : p.Prime)
     (hmn : (m, n) ∈
       lowOwnerFirstOwnerAdmittedGreatestOwnerPairFiber R p sig r)
     (hs : IsSquarefreePairGreatestFreshPrimeOwner s
