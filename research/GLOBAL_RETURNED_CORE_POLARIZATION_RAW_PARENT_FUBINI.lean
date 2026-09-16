@@ -197,7 +197,10 @@ theorem lowOwnerFirstOwnerPolarizationFixedRawParentFiber_card_le_two
     · simp [candidates, h]
   have hcard := Finset.card_le_card hsub
   have hcand : candidates.card ≤ 2 := by
-    simp [candidates]
+    have h := Finset.card_insert_le
+      (r * parent.1, parent.2)
+      ({(parent.1, r * parent.2)} : Finset (ℕ × ℕ))
+    simpa [candidates] using h
   exact hcard.trans hcand
 
 end RHLean.Proof
