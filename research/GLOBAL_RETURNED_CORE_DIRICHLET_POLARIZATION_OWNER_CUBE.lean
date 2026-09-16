@@ -27,11 +27,12 @@ For a fresh prime r the complete r-square of `Pi_p` is exactly
 
 Thus the polarization form reproduces itself after one owner reveal.  Equally,
 the sum of the two mixed r-children is the next polarization minus the parent
-and the double child.  The latter two have r removed from their fresh set, so
-this is the exact rank-dropping telescope used by the unique-owner assembly.
+and double child.  The latter two have r removed from their fresh set, so this
+is the exact rank-dropping telescope used by the unique-owner assembly.
 
-Dirichlet zero extension makes the identity valid even when one or more child
-corners leave the physical clock.  No boundary norm is introduced.
+All three scalar coordinates now use the same Dirichlet zero extension, so the
+identity remains valid even when one or more child corners leave the physical
+clock.  No boundary norm is introduced.
 -/
 
 noncomputable section
@@ -98,7 +99,6 @@ theorem lowOwnerFirstOwnerDirichletPolarizationAtom_eq_scalar
     lowOwnerDirichletBaseCoefficient
     lowOwnerDirichletReturnedCoefficient
     lowOwnerPhysicalDirichletIncidenceWeight
-    lowOwnerZeroFrequencyMobiusSite
   ring
 
 /-- **Fresh-owner cube closure.** -/
