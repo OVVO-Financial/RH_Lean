@@ -9,6 +9,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
       - research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
       - research/GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.lean
+      - research/GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.lean
       - .github/workflows/raw-parent-orbit-partition.yml
   workflow_dispatch:
 
@@ -185,3 +186,5 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.olean research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
       - name: Check retained-coefficient outgoing energy
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.olean research/GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.lean
+      - name: Check emitted reciprocal charge
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.olean research/GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.lean
