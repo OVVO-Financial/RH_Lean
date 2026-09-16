@@ -42,7 +42,7 @@ def lowOwnerFirstOwnerAdmittedPairCarrier
 above p. -/
 theorem lowOwnerFirstOwnerAdmittedPair_freshPrime_gt_owner
     {R p r a b : ℕ} {sig : Finset ℕ}
-    (hp : p.Prime)
+    (_hp : p.Prime)
     (ha : a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig)
     (hb : b ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig)
     (hrFresh : r ∈ squarefreePairFreshPrimeSet a b) :
@@ -151,7 +151,7 @@ theorem lowOwnerFirstOwner_primeParent_mem_same_admitted
   have hpFreeU : ¬ p ∣ u := by
     intro hpu
     have hiff := prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
-      hr hp hpne
+      (n := a) hr hp hpne
     exact haData.2 (hiff.mp hpu)
   have huBase : u ∈ lowOwnerFirstOwnerBaseFiber R p sig :=
     Finset.mem_filter.mpr ⟨huCar, ⟨hsigU, hpFreeU⟩⟩
