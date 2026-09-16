@@ -126,7 +126,8 @@ theorem lowOwnerFirstOwnerSignedCellTelescope_eq_diagonal_add_ownerFibers
   rw [hsplit]
   have hpos :=
     sum_lowOwnerFirstOwnerBasePositive_eq_sum_polarizationOwnerFibers
-      hp (lowOwnerFirstOwnerDirichletPolarizationAtom R p)
+      (R := R) (p := p) (sig := sig) hp
+      (lowOwnerFirstOwnerDirichletPolarizationAtom R p)
   simpa [lowOwnerFirstOwnerBasePositivePairCarrier] using
     congrArg
       (fun x : ℝ =>
