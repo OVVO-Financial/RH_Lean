@@ -56,8 +56,11 @@ theorem lowOwnerMultiplicativeIncidence_comm
       lowOwnerMultiplicativeIncidence r
         (fun m => lowOwnerMultiplicativeIncidence p f m) n := by
   unfold lowOwnerMultiplicativeIncidence
+  change
+    (f n - f (r * n)) - (f (p * n) - f (r * (p * n))) =
+      (f n - f (p * n)) - (f (r * n) - f (p * (r * n)))
   have hmul : p * (r * n) = r * (p * n) := by
-    simp [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm]
+    ac_rfl
   rw [hmul]
   ring
 
@@ -109,7 +112,6 @@ theorem lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference
     norm_num
   rw [hcast]
   field_simp [hr0]
-  ring
 
 /-- Reciprocal form of the preceding normalization. -/
 theorem lowOwnerThresholdSecondOwnerDifference_eq_reciprocalEuler
@@ -140,7 +142,6 @@ theorem lowOwnerThresholdSecondOwnerPair_eq_reciprocalPair_mul_eulerDifferences
   have hb0 : (b : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hb)
   push_cast
   field_simp [ha0, hb0]
-  ring
 
 /-- **Complete next-owner four-corner in reciprocal currency.**  After a current
 `p`-incidence has been formed, a complete fresh `r` square is the reciprocal
@@ -200,7 +201,7 @@ theorem lowOwnerThresholdCrossing_secondIncidence_comm
     lowOwnerThresholdCrossingIndicator_eq_tail_sub_mul hr,
     lowOwnerThresholdCrossingIndicator_eq_tail_sub_mul hr]
   have hmul : p * (r * a) = r * (p * a) := by
-    simp [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm]
+    ac_rfl
   rw [hmul]
   ring
 
