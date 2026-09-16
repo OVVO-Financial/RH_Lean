@@ -1,0 +1,117 @@
+import Mathlib
+import «research.GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_LOCAL_CONFLUENCE»
+import «research.COVARIANCE_RECIPROCAL_OWNER_CONGESTION»
+
+/-!
+# Symmetric two-prime completed block Fubini
+
+At block level the exact object is not a product of coarse one-step bounds.  For
+a fixed parent and two owner primes `r,s`, the completed two-owner cube has four
+literal terminal mixed insertions, corresponding to assigning each prime to one
+of the two coordinates.  Reorientation is performed only by the canonical
+unordered-pair map `covarianceOrderedPair`.
+
+This four-point terminal set is manifestly symmetric in `r,s`: the two pure
+corners are unchanged and the two mixed corners exchange places.  Therefore
+any filter on terminal completed states has the same carrier cardinality and
+any terminal weight has exactly the same finite sum in either owner order.
+
+In particular, filtering by the pair of Dirichlet classes keeps
+`clippedExcess` separate from `outside`, and reciprocal-energy sums agree class
+by class.  This is the canonical block target for the local-confluence proof.
+A separate theorem must still identify each sequential one-owner expansion with
+this completed four-corner carrier; no such identification is assumed here.
+-/
+
+noncomputable section
+open scoped BigOperators
+
+namespace RHLean.Proof
+
+attribute [local instance] Classical.propDecidable
+
+/-- The four terminal descendants obtained by assigning each of two owner
+primes to either coordinate of a fixed parent. -/
+def lowOwnerTwoPrimeCompletedChildCube
+    (r s : ℕ) (parent : ℕ × ℕ) : Finset (ℕ × ℕ) :=
+  { covarianceOrderedPair ((r * s) * parent.1) parent.2,
+    covarianceOrderedPair (r * parent.1) (s * parent.2),
+    covarianceOrderedPair (s * parent.1) (r * parent.2),
+    covarianceOrderedPair parent.1 ((r * s) * parent.2) }
+
+/-- The completed two-prime terminal cube is exactly symmetric in the two
+owners. -/
+theorem lowOwnerTwoPrimeCompletedChildCube_comm
+    (r s : ℕ) (parent : ℕ × ℕ) :
+    lowOwnerTwoPrimeCompletedChildCube r s parent =
+      lowOwnerTwoPrimeCompletedChildCube s r parent := by
+  ext z
+  simp [lowOwnerTwoPrimeCompletedChildCube, Nat.mul_comm, Nat.mul_left_comm,
+    Nat.mul_assoc, or_comm, or_left_comm, or_assoc]
+
+/-- Any terminal predicate therefore selects exactly the same completed carrier
+in either owner order. -/
+theorem lowOwnerTwoPrimeCompletedChildCube_filter_comm
+    (r s : ℕ) (parent : ℕ × ℕ) (keep : ℕ × ℕ → Bool) :
+    (lowOwnerTwoPrimeCompletedChildCube r s parent).filter keep =
+      (lowOwnerTwoPrimeCompletedChildCube s r parent).filter keep := by
+  rw [lowOwnerTwoPrimeCompletedChildCube_comm]
+
+/-- Exact path-independent terminal multiplicity for an arbitrary completed
+filter. -/
+theorem lowOwnerTwoPrimeCompletedChildCube_filter_card_comm
+    (r s : ℕ) (parent : ℕ × ℕ) (keep : ℕ × ℕ → Bool) :
+    ((lowOwnerTwoPrimeCompletedChildCube r s parent).filter keep).card =
+      ((lowOwnerTwoPrimeCompletedChildCube s r parent).filter keep).card := by
+  rw [lowOwnerTwoPrimeCompletedChildCube_filter_comm]
+
+/-- Exact finite Fubini for arbitrary terminal weights on an arbitrary completed
+filter. -/
+theorem sum_lowOwnerTwoPrimeCompletedChildCube_filter_comm
+    (r s : ℕ) (parent : ℕ × ℕ) (keep : ℕ × ℕ → Bool)
+    (f : ℕ × ℕ → ℝ) :
+    (∑ child ∈ (lowOwnerTwoPrimeCompletedChildCube r s parent).filter keep,
+        f child) =
+      ∑ child ∈ (lowOwnerTwoPrimeCompletedChildCube s r parent).filter keep,
+        f child := by
+  rw [lowOwnerTwoPrimeCompletedChildCube_filter_comm]
+
+/-- Pair of completed Dirichlet classes of one terminal child. -/
+def lowOwnerCompletedPairClass
+    (R p : ℕ) (child : ℕ × ℕ) :
+    LowOwnerCompletedSiteClass × LowOwnerCompletedSiteClass :=
+  (lowOwnerCompletedSiteClass R p child.1,
+    lowOwnerCompletedSiteClass R p child.2)
+
+/-- Class-specific completed two-prime block.  In particular the four possible
+pairs involving `clippedExcess` remain distinct from the corresponding outside
+classes. -/
+def lowOwnerTwoPrimeCompletedClassFiber
+    (R p r s : ℕ) (parent : ℕ × ℕ)
+    (cls : LowOwnerCompletedSiteClass × LowOwnerCompletedSiteClass) :
+    Finset (ℕ × ℕ) :=
+  (lowOwnerTwoPrimeCompletedChildCube r s parent).filter fun child =>
+    lowOwnerCompletedPairClass R p child = cls
+
+/-- Class-specific multiplicity is owner-order independent. -/
+theorem lowOwnerTwoPrimeCompletedClassFiber_card_comm
+    (R p r s : ℕ) (parent : ℕ × ℕ)
+    (cls : LowOwnerCompletedSiteClass × LowOwnerCompletedSiteClass) :
+    (lowOwnerTwoPrimeCompletedClassFiber R p r s parent cls).card =
+      (lowOwnerTwoPrimeCompletedClassFiber R p s r parent cls).card := by
+  unfold lowOwnerTwoPrimeCompletedClassFiber
+  rw [lowOwnerTwoPrimeCompletedChildCube_comm]
+
+/-- **Exact class-by-class reciprocal-energy Fubini.**  No `2/9` or `1/9`
+majorant is used. -/
+theorem sum_lowOwnerTwoPrimeCompletedClassFiber_energy_comm
+    (R p r s : ℕ) (parent : ℕ × ℕ)
+    (cls : LowOwnerCompletedSiteClass × LowOwnerCompletedSiteClass) :
+    (∑ child ∈ lowOwnerTwoPrimeCompletedClassFiber R p r s parent cls,
+        postRootCovarianceReciprocalPairEnergy child) =
+      ∑ child ∈ lowOwnerTwoPrimeCompletedClassFiber R p s r parent cls,
+        postRootCovarianceReciprocalPairEnergy child := by
+  unfold lowOwnerTwoPrimeCompletedClassFiber
+  rw [lowOwnerTwoPrimeCompletedChildCube_comm]
+
+end RHLean.Proof
