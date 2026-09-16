@@ -21,6 +21,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_CORNER_CLASSIFICATION.lean
       - research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_LOCAL_CONFLUENCE.lean
       - .github/workflows/unique-greatest-owner-assembly.yml
   workflow_dispatch:
 
@@ -161,6 +162,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_CORNER_CLASSIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_LOCAL_CONFLUENCE.lean
       - name: Check unique greatest-owner Fubini
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI.lean
       - name: Check unique-owner continuation ledger
@@ -173,3 +175,5 @@ jobs:
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
       - name: Check full-polarization cell owner ledger
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI.lean
+      - name: Check two-prime completed-state local confluence
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_LOCAL_CONFLUENCE.lean
