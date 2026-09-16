@@ -52,7 +52,7 @@ theorem primeFactor_lt_successor_eq_lt_or_eq
 theorem squarefreeLowerPrimeSignature_successor_of_not_dvd
     {p r n : ℕ}
     (hpr : ConsecutivePrimeCoordinates p r)
-    (hn : 0 < n) (hpn : ¬ p ∣ n) :
+    (_hn : 0 < n) (hpn : ¬ p ∣ n) :
     squarefreeLowerPrimeSignature r n =
       squarefreeLowerPrimeSignature p n := by
   ext q
