@@ -10,7 +10,7 @@ makes that requirement pointwise.
 
 For a p-free base parent `a` define
 
-* `ell(a)` = the physical AMP site on `a`;
+* `ell(a)` = the Dirichlet-extended physical AMP site on `a`;
 * `j_p(a)` = the p-child coefficient pulled back to `a`, using Dirichlet zero
   outside the physical clock;
 * `d_p(a) = ell(a) - j_p(a)`.
@@ -19,7 +19,10 @@ The signed polarization atom is
 
   Pi_p(a,b) = d_p(a)d_p(b) - ell(a)ell(b) - j_p(a)j_p(b).
 
-Summed over the full p-free base fibre it is exactly the signed cell telescope.
+On the physical p-free base fibre the Dirichlet base is exactly the original AMP
+site, so summing over the fibre recovers the already-compiled signed cell
+telescope.  Off the physical clock all three scalar coordinates now use the same
+Dirichlet convention, which makes fresh-prime cube closure genuinely universal.
 Pointwise, clipped/clipped atoms vanish identically and mixed clipped/admitted
 atoms are exactly the existing mixed polarization term.  There is no `C^2`
 object to estimate.
@@ -34,9 +37,11 @@ open RHLean.Analysis RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
 
-/-- Physical base site in parent coordinates. -/
+/-- Dirichlet-extended physical base site in parent coordinates.  On every
+physical base fibre this equals the original AMP site; outside the physical
+clock it vanishes, matching the returned-child convention. -/
 def lowOwnerFirstOwnerDirichletBaseSite (R a : ℕ) : ℝ :=
-  lowOwnerZeroFrequencyMobiusSite R a
+  lowOwnerPhysicalDirichletWeight R a * realMoebiusStep a
 
 /-- Dirichlet p-child coefficient pulled back to the p-free parent coordinate.
 It is automatically zero when the child leaves the physical clock. -/
@@ -59,23 +64,18 @@ def lowOwnerFirstOwnerDirichletPolarizationAtom
     lowOwnerFirstOwnerDirichletReturnedChildSite R p ab.1 *
       lowOwnerFirstOwnerDirichletReturnedChildSite R p ab.2
 
-/-- On every physical base parent, the incidence site is base minus returned
-Dirichlet child. -/
+/-- The incidence site is universally base minus returned Dirichlet child.  The
+base-fibre hypothesis is retained in the interface for downstream compatibility. -/
 theorem lowOwnerFirstOwnerDirichletIncidenceSite_eq_base_sub_returned
     {R p a : ℕ} {sig : Finset ℕ}
-    (ha : a ∈ lowOwnerFirstOwnerBaseFiber R p sig) :
+    (_ha : a ∈ lowOwnerFirstOwnerBaseFiber R p sig) :
     lowOwnerFirstOwnerDirichletIncidenceSite R p a =
       lowOwnerFirstOwnerDirichletBaseSite R a -
         lowOwnerFirstOwnerDirichletReturnedChildSite R p a := by
-  rcases Finset.mem_filter.mp ha with ⟨haCar, _hbase⟩
-  rcases Finset.mem_filter.mp haCar with ⟨haIcc, _hmu⟩
-  have haX : a ≤ squareRootEndpoint R := (Finset.mem_Icc.mp haIcc).2
   unfold lowOwnerFirstOwnerDirichletIncidenceSite
     lowOwnerFirstOwnerDirichletBaseSite
     lowOwnerFirstOwnerDirichletReturnedChildSite
     lowOwnerPhysicalDirichletIncidenceWeight
-    lowOwnerZeroFrequencyMobiusSite
-  rw [lowOwnerPhysicalDirichletWeight_eq_weight_of_le haX]
   ring
 
 /-- Universal algebraic form of one polarization atom on the base fibre. -/
@@ -200,12 +200,20 @@ theorem sum_lowOwnerFirstOwnerDirichletIncidenceSite_eq_amplitude
       lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig := by
   rfl
 
-/-- Sum of base sites is the existing base amplitude. -/
+/-- On the physical base fibre, the Dirichlet extension is the original AMP
+site, so the base-site sum is unchanged. -/
 theorem sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude
     (R p : ℕ) (sig : Finset ℕ) :
     (∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,
       lowOwnerFirstOwnerDirichletBaseSite R a) =
       lowOwnerFirstOwnerBaseAmplitude R p sig := by
+  unfold lowOwnerFirstOwnerBaseAmplitude lowOwnerFirstOwnerDirichletBaseSite
+  apply Finset.sum_congr rfl
+  intro a ha
+  rcases Finset.mem_filter.mp ha with ⟨haCar, _hbase⟩
+  rcases Finset.mem_filter.mp haCar with ⟨haIcc, _hmu⟩
+  have haX : a ≤ squareRootEndpoint R := (Finset.mem_Icc.mp haIcc).2
+  rw [lowOwnerPhysicalDirichletWeight_eq_weight_of_le haX]
   rfl
 
 /-- **Exact pair-level Dirichlet polarization.** -/
