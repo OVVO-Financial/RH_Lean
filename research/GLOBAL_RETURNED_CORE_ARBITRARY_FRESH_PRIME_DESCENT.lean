@@ -230,14 +230,14 @@ theorem arbitraryFreshPrime_reciprocalPairAmplitude_descent
         ((squarefreePrimeFamilyParent p n : ℕ) : ℝ) := by
     rcases hxor with h | h
     · have hmEq : p * (m / p) = m := Nat.mul_div_cancel' h.1
-      have hmCast : (m : ℝ) = (p : ℝ) * (m / p : ℝ) := by
+      have hmCast : (m : ℝ) = (p : ℝ) * (((m / p : ℕ) : ℝ)) := by
         exact_mod_cast hmEq.symm
       unfold squarefreePrimeFamilyParent
       rw [if_pos h.1, if_neg h.2]
       rw [hmCast]
       ring
     · have hnEq : p * (n / p) = n := Nat.mul_div_cancel' h.1
-      have hnCast : (n : ℝ) = (p : ℝ) * (n / p : ℝ) := by
+      have hnCast : (n : ℝ) = (p : ℝ) * (((n / p : ℕ) : ℝ)) := by
         exact_mod_cast hnEq.symm
       unfold squarefreePrimeFamilyParent
       rw [if_neg h.2, if_pos h.1]
