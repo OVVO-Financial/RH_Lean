@@ -8,6 +8,7 @@ on:
       - research/LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE.lean
       - research/LOW_OWNER_Q2_ENDPOINT_ARC_FUBINI.lean
       - research/LOW_OWNER_Q2_NEAREST_SQUARE_WHEEL_SHELL.lean
+      - research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT_ENERGY.lean
       - .github/workflows/nearest-square-endpoint.yml
   workflow_dispatch:
 
@@ -86,3 +87,5 @@ jobs:
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LOW_OWNER_Q2_ENDPOINT_ARC_FUBINI.olean research/LOW_OWNER_Q2_ENDPOINT_ARC_FUBINI.lean
       - name: Check physical nearest-square wheel shell
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LOW_OWNER_Q2_NEAREST_SQUARE_WHEEL_SHELL.olean research/LOW_OWNER_Q2_NEAREST_SQUARE_WHEEL_SHELL.lean
+      - name: Check nearest-square endpoint energy consumer
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT_ENERGY.olean research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT_ENERGY.lean
