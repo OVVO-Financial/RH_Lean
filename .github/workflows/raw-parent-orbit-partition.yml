@@ -159,6 +159,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_OWNER_SPLICE.lean
           emit research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_AGGREGATE.lean
           emit research/GLOBAL_RETURNED_CORE_GENERIC_GREATEST_OWNER_CONTRACTION.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
       - name: Check raw-parent Fubini
         id: raw_parent
         continue-on-error: true
