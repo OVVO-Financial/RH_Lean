@@ -96,6 +96,9 @@ theorem lowOwnerFirstOwnerGreatestOwnerPairFiber_pairwiseDisjoint
     Set.PairwiseDisjoint (↑(lowOwnerRevealedPrimesAbove R p))
       (lowOwnerFirstOwnerGreatestOwnerPairFiber R p sig) := by
   intro r _hr s _hs hrs
+  change Disjoint
+    (lowOwnerFirstOwnerGreatestOwnerPairFiber R p sig r)
+    (lowOwnerFirstOwnerGreatestOwnerPairFiber R p sig s)
   rw [Finset.disjoint_left]
   intro mn hmr hms
   have hro := (Finset.mem_filter.mp hmr).2
