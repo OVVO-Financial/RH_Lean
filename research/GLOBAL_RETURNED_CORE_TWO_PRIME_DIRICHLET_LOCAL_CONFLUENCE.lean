@@ -147,7 +147,6 @@ structure LowOwnerCompletedSignedEnergyState where
   dirichletPolarizationAtom : ℝ
   eulerPairCoefficient : ℝ
   reciprocalPairEnergy : ℝ
-  deriving Repr
 
 /-- Read the complete signed-plus-energy state at a current parent pair.  `t` is
 an arbitrary later owner whose Euler coefficient is retained. -/
