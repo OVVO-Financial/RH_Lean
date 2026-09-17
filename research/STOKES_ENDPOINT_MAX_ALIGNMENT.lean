@@ -100,7 +100,7 @@ theorem reducedAdditiveConductor_primePeriodDifference_dvd_mul
   have hqzero : (p * q) • rq = 0 := by
     apply (addOrderOf_dvd_iff_nsmul_eq_zero).1
     rw [hqord]
-    simp [Nat.mul_comm]
+    simp
   have hdiffzero : (p * q) • (rp - rq) = 0 := by
     rw [nsmul_sub, hpzero, hqzero, sub_zero]
   have horder : addOrderOf (rp - rq) ∣ p * q :=
