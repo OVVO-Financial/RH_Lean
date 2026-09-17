@@ -143,14 +143,11 @@ def lowOwnerBranchReturnedDifferenceSignedSite
     lowOwnerDirichletOwnerDifference r
       (lowOwnerDirichletReturnedCoefficient R p) n
 
-/-- Base four-corner on a full branch parent is the product of two signed base
+/-- Base four-corner on an r-free pair is the product of two signed base
 difference sites. -/
 theorem lowOwnerFirstOwnerBranchBaseFourCorner_eq_siteProduct
     {R r : ℕ} {parent : ℕ × ℕ}
     (hr : r.Prime)
-    (hparent : parent ∈
-      lowOwnerFirstOwnerRawParentBranchCarrier R 0 ∅ r ∨
-      parent ∉ lowOwnerFirstOwnerRawParentBranchCarrier R 0 ∅ r)
     (hra : ¬ r ∣ parent.1) (hrb : ¬ r ∣ parent.2) :
     weightedMoebiusFreshPrimeFourCornerMass
         (lowOwnerDirichletBaseCoefficient R) r parent.1 parent.2 =
@@ -205,7 +202,7 @@ theorem sum_lowOwnerFirstOwnerBranchBaseFourCorner_nonneg
   have hra := (Finset.mem_filter.mp haSite).2
   have hrb := (Finset.mem_filter.mp hbSite).2
   exact (lowOwnerFirstOwnerBranchBaseFourCorner_eq_siteProduct
-    (parent := parent) hr (Or.inr (by simp)) hra hrb).symm
+    (parent := parent) hr hra hrb).symm
 
 /-- Aggregate returned same-branch four-corner is nonnegative. -/
 theorem sum_lowOwnerFirstOwnerBranchReturnedFourCorner_nonneg
