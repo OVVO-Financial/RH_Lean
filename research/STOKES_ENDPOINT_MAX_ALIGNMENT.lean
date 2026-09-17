@@ -71,6 +71,9 @@ theorem primePeriodFrequency_ne_of_ne
   intro hfreq
   have hcond := congrArg
     (fun r : ZMod W.modulus => reducedAdditiveConductor r) hfreq
+  change
+    reducedAdditiveConductor (primePeriodFrequency W p) =
+      reducedAdditiveConductor (primePeriodFrequency W q) at hcond
   rw [reducedAdditiveConductor_primePeriodFrequency W p hpmod,
     reducedAdditiveConductor_primePeriodFrequency W q hqmod] at hcond
   exact hpq hcond
@@ -97,7 +100,7 @@ theorem reducedAdditiveConductor_primePeriodDifference_dvd_mul
   have hqzero : (p * q) • rq = 0 := by
     apply (addOrderOf_dvd_iff_nsmul_eq_zero).1
     rw [hqord]
-    simpa [Nat.mul_comm] using (dvd_mul_right q p)
+    simp [Nat.mul_comm]
   have hdiffzero : (p * q) • (rp - rq) = 0 := by
     rw [nsmul_sub, hpzero, hqzero, sub_zero]
   have horder : addOrderOf (rp - rq) ∣ p * q :=
