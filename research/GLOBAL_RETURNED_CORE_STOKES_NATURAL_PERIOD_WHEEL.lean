@@ -50,6 +50,7 @@ theorem five_le_lowOwnerStokesWheelCutoff
     5 ≤ Nat.sqrt (squareRootEndpoint R) := by
   apply Nat.le_sqrt.mpr
   unfold squareRootEndpoint
+  apply Nat.le_sub_of_add_le
   nlinarith
 
 /-- In the RH-consumer regime, the natural square-sensitive period already
