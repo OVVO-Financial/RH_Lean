@@ -11,6 +11,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_THRESHOLD_ORBIT_AMPLITUDE.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_EQ_TAIL.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_BRANCH_CURRENCY.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_SAME_BRANCH_NONNEG.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.lean
@@ -106,12 +107,13 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_SQUARES.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_EQ_TAIL.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_BRANCH_CURRENCY.lean
 
-      - name: Kernel-check branch currency and orbit identities
+      - name: Kernel-check branch currency and favorable same-branch Gram
         run: |
           lake env lean -DwarningAsError=true \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_ENERGY_NORMAL_FORM.lean
           lake env lean -DwarningAsError=true \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_THRESHOLD_ORBIT_AMPLITUDE.lean
           lake env lean -DwarningAsError=true \
-            research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_BRANCH_CURRENCY.lean
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_SAME_BRANCH_NONNEG.lean
