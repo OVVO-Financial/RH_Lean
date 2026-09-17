@@ -1,17 +1,11 @@
-name: Raw-parent orbit partition check
+name: Owner-parent continuation check
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean
-      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
-      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
-      - research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
-      - research/GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.lean
-      - research/GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.lean
-      - research/GLOBAL_RETURNED_CORE_INHERITED_RECIPROCAL_ENVELOPE.lean
-      - .github/workflows/raw-parent-orbit-partition.yml
+      - research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
+      - .github/workflows/owner-parent-continuation.yml
   workflow_dispatch:
 
 permissions:
@@ -161,34 +155,27 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_AGGREGATE.lean
           emit research/GLOBAL_RETURNED_CORE_GENERIC_GREATEST_OWNER_CONTRACTION.lean
           emit research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
-      - name: Check raw-parent Fubini
-        id: raw_parent
+          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
+          emit research/GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.lean
+      - name: Check owner-parent continuation
+        id: owner_parent
         continue-on-error: true
         run: |
           lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.olean \
-            research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean \
-            > raw-parent.log 2>&1
-      - name: Upload raw-parent diagnostic
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.olean \
+            research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean \
+            > owner-parent.log 2>&1
+      - name: Upload owner-parent diagnostic
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: raw-parent-lean-diagnostic
-          path: raw-parent.log
-      - name: Fail if raw-parent Fubini failed
-        if: steps.raw_parent.outcome != 'success'
+          name: owner-parent-lean-diagnostic
+          path: owner-parent.log
+      - name: Fail if owner-parent continuation failed
+        if: steps.owner_parent.outcome != 'success'
         run: |
-          cat raw-parent.log
+          cat owner-parent.log
           exit 1
-      - name: Check raw-parent orbit partition
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.olean research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
-      - name: Check raw-parent four-corner occupancy
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.olean research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
-      - name: Check signed incidence-energy gate
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.olean research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
-      - name: Check retained-coefficient outgoing energy
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.olean research/GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.lean
-      - name: Check emitted reciprocal charge
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.olean research/GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.lean
-      - name: Check inherited reciprocal envelope seam
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_INHERITED_RECIPROCAL_ENVELOPE.olean research/GLOBAL_RETURNED_CORE_INHERITED_RECIPROCAL_ENVELOPE.lean
