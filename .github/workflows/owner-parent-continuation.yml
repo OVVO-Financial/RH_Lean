@@ -2,9 +2,10 @@ name: Owner-parent continuation check
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, agent/global-reciprocal-parent-charge]
     paths:
       - research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
+      - research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
       - .github/workflows/owner-parent-continuation.yml
   workflow_dispatch:
 
@@ -162,3 +163,5 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.lean
       - name: Check owner-parent continuation
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.olean research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
+      - name: Check deterministic inherited cancellation
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.olean research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
