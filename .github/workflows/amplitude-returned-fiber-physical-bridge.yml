@@ -1,21 +1,16 @@
-name: Zero-target Mellin square check
+name: Amplitude returned-fibre physical bridge check
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
-      - research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
-      - research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
-      - research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
-      - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
-      - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
-      - research/STABLE_FAR_PERRON_REALIFICATION.lean
-      - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
-      - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
-      - research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
-      - RHLean/Proof/PostRootCovarianceLcmBoundaryClosure.lean
-      - .github/workflows/zero-target-mellin-square.yml
+      - research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean
+      - research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
+      - research/STABLE_FAR_RETURNED_RECIPROCAL_FROZEN_WINDOW.lean
+      - research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
+      - research/STABLE_FAR_RETURNED_FIBER_FUBINI.lean
+      - research/AMPLITUDE_GLOBAL_PHYSICAL_DEFECT_LEDGER.lean
+      - .github/workflows/amplitude-returned-fiber-physical-bridge.yml
   workflow_dispatch:
 
 permissions:
@@ -27,11 +22,13 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+
       - name: Restore Lake packages
         uses: actions/cache/restore@v5
         with:
           path: .lake/packages
           key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
       - uses: leanprover/lean-action@v1
         with:
           use-github-cache: false
@@ -39,6 +36,7 @@ jobs:
           build: false
           test: false
           lint: false
+
       - name: Apply StrongPNT 4.24 compatibility patch
         run: |
           python3 scripts/strongpnt_424/apply.py
@@ -46,6 +44,7 @@ jobs:
           python3 scripts/strongpnt_424/apply_pnt5_mid.py
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
+
       - name: Restore StrongPNT port build cache
         uses: actions/cache/restore@v5
         with:
@@ -55,8 +54,10 @@ jobs:
           key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
           restore-keys: |
             strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
+
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
@@ -64,26 +65,49 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
-      - name: Emit prerequisite research oleans
+            rhlean-build-${{ runner.os }}-
+
+      - name: Emit research dependency chain
+        shell: bash
         run: |
+          set -euo pipefail
           mkdir -p .lake/build/lib/lean
-          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit() {
+            f="$1"
+            b="$(basename "$f" .lean)"
+            lake env lean -DwarningAsError=true \
+              -o ".lake/build/lib/lean/research.${b}.olean" "$f"
+          }
+
+          emit research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+          emit research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+          emit research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+          emit research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
+          emit research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+
           emit research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+          emit research/STABLE_FAR_RETURNED_FIBER_FUBINI.lean
+          emit research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
+          emit research/STABLE_FAR_RETURNED_RECIPROCAL_FROZEN_WINDOW.lean
           emit research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
           emit research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
           emit research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
-          emit research/STABLE_FAR_PERRON_REALIFICATION.lean
           emit research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
-          emit research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
-          emit research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
-          emit research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
-          emit research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
-          emit research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
-          emit research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
-      - name: Kernel-check complete post-root Mellin cubes
-        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
-      - name: Kernel-check critical clipped edge
-        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
-      - name: Kernel-check clipped-edge boundary split
-        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
+          emit research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
+          emit research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          emit research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
+          emit research/AMPLITUDE_STOKES_MEMORY_SPLIT.lean
+          emit research/AMPLITUDE_RECIPROCAL_DROP_PHYSICAL_DEFECT.lean
+
+          emit research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean
+          emit research/DIRECT_SUM_LOW_FRESHNESS_ABEL.lean
+          emit research/DIRECT_SUM_COUPLED_PACKET.lean
+          emit research/DIRECT_SUM_COUPLED_FRESH_PRIME_RANGE_EXIT.lean
+          emit research/DIRECT_SUM_COUPLED_RANGE_EXIT_COLLAPSE.lean
+          emit research/DIRECT_SUM_FRESH_PRIME_GLOBAL_COLLAPSE.lean
+          emit research/DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.lean
+          emit research/AMPLITUDE_GLOBAL_PHYSICAL_DEFECT_LEDGER.lean
+          emit research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
+
+      - name: Kernel-check returned AMP bridge
+        run: lake env lean -DwarningAsError=true research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean

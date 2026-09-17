@@ -1,0 +1,67 @@
+name: Weighted Othello Stokes check
+
+on:
+  push:
+    branches: [agent/weighted-othello-stokes]
+  pull_request:
+    branches: [main]
+    paths:
+      - research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
+      - research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
+      - research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
+      - .github/workflows/weighted-othello-stokes.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Build Othello dependency
+        run: lake build RHLean.Proof.GlobalPrefixCarrierOthello
+      - name: Kernel-check and emit weighted Othello Stokes identity
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.olean \
+            research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean \
+            2>&1 | tee weighted-othello-stokes.log
+      - name: Kernel-check and emit pair-coordinate weighted Stokes identity
+        shell: bash
+        run: |
+          set -o pipefail
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.olean \
+            research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean \
+            2>&1 | tee pair-weighted-othello-stokes.log
+      - name: Kernel-check exact iterated pair Stokes telescope
+        shell: bash
+        run: |
+          set -o pipefail
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean \
+            2>&1 | tee iterated-pair-stokes.log
+      - name: Print logs
+        if: ${{ always() }}
+        run: |
+          cat weighted-othello-stokes.log || true
+          cat pair-weighted-othello-stokes.log || true
+          cat iterated-pair-stokes.log || true

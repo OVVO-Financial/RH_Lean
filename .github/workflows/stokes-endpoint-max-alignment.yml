@@ -1,0 +1,40 @@
+name: Stokes endpoint maximum alignment diagnostic
+
+# Manual diagnostic only.  The harmonic lemmas are intentionally not an
+# automatic proof gate until the signed Stokes ledger has been identified
+# exactly with the endpoint/corrected-conductor packet they are meant to bound.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Build harmonic dependencies
+        run: |
+          lake build RHLean.Analysis.PrimeWheelCoconductorTailBound
+          lake build RHLean.Analysis.SquareWheelQuadraticSampling
+          lake build RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
+          mkdir -p .lake/build/lib/lean
+      - name: Kernel-check diagnostic harmonic lemmas only
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STOKES_ENDPOINT_MAX_ALIGNMENT.olean \
+            research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.olean \
+            research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
+          lake env lean -DwarningAsError=true \
+            research/STOKES_COMPLETED_CONDUCTOR_BOUNDARY.lean

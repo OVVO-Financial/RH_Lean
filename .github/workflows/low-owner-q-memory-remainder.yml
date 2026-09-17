@@ -1,21 +1,14 @@
-name: Zero-target Mellin square check
+name: Low-owner q-memory remainder check
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
-      - research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
-      - research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
-      - research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
-      - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
-      - research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
-      - research/STABLE_FAR_PERRON_REALIFICATION.lean
-      - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
-      - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
-      - research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
-      - RHLean/Proof/PostRootCovarianceLcmBoundaryClosure.lean
-      - .github/workflows/zero-target-mellin-square.yml
+      - research/LOW_OWNER_Q_MEMORY_REMAINDER_NORMAL_FORM.lean
+      - research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
+      - research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
+      - research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+      - .github/workflows/low-owner-q-memory-remainder.yml
   workflow_dispatch:
 
 permissions:
@@ -64,26 +57,23 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
-      - name: Emit prerequisite research oleans
+            rhlean-build-${{ runner.os }}-
+      - name: Emit research dependencies
         run: |
           mkdir -p .lake/build/lib/lean
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+          emit research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+          emit research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+          emit research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
+          emit research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
           emit research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
           emit research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
           emit research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
           emit research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
-          emit research/STABLE_FAR_PERRON_REALIFICATION.lean
           emit research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
-          emit research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
-          emit research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
-          emit research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
-          emit research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
-          emit research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
-          emit research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
-      - name: Kernel-check complete post-root Mellin cubes
-        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
-      - name: Kernel-check critical clipped edge
-        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
-      - name: Kernel-check clipped-edge boundary split
-        run: lake env lean -DwarningAsError=true research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
+          emit research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
+          emit research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          emit research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
+      - name: Kernel-check q-owner AMP remainder normal form
+        run: lake env lean -DwarningAsError=true research/LOW_OWNER_Q_MEMORY_REMAINDER_NORMAL_FORM.lean
