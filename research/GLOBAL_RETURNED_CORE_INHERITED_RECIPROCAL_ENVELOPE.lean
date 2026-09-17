@@ -18,6 +18,14 @@ The physical right-rail object retains the literal child factor `1/r^2`, so a
 root-scale estimate may be proved directly on the inherited ledger without
 first proving the visibly stronger unweighted parent-energy estimate.
 
+On the nonzero Mobius carrier there is a further exact simplification.  The
+Euler lift contributes one factor of each parent coordinate, while reciprocal
+pair energy contributes the inverse square of their product.  Since nonzero
+Mobius weights have square one, these factors cancel exactly.  The retained
+parent energy is therefore the square of the two commuting second incidence
+differences of the deterministic threshold potential.  This is an identity,
+not an estimate and not a Mertens input.
+
 This file records that hierarchy as named interfaces.  No signed survivor,
 AMP Gram, rank recurrence, or unweighted parent inventory is introduced into
 the inherited target.
@@ -31,6 +39,47 @@ namespace RHLean.Proof
 open RHLean.Analysis RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
+
+/-- A nonzero real Mobius step has unit square.  Kept local to this seam so the
+cancellation theorem does not depend on an unrelated diagonal-energy module. -/
+private theorem realMoebiusStep_sq_eq_one_of_ne_zero_inherited
+    {n : ℕ} (hn : realMoebiusStep n ≠ 0) :
+    realMoebiusStep n ^ 2 = 1 := by
+  rcases ArithmeticFunction.moebius_eq_or n with h | h | h
+  · exact (hn (by simp [realMoebiusStep, h])).elim
+  · simp [realMoebiusStep, h]
+  · simp [realMoebiusStep, h]
+
+/-- **Exact Mobius/reciprocal cancellation.**  On a positive nonzero parent,
+Euler normalization cancels the reciprocal pair denominators and the squared
+Mobius weights.  What remains is purely the product of the two second mixed
+incidence squares of the deterministic threshold potential. -/
+theorem lowOwnerThresholdEulerParentEnergy_eq_secondOwnerDifference_sq
+    {R p r a b : ℕ}
+    (hr : 0 < r) (ha : 0 < a) (hb : 0 < b)
+    (hma : realMoebiusStep a ≠ 0)
+    (hmb : realMoebiusStep b ≠ 0) :
+    lowOwnerThresholdEulerParentEnergy R p r (a, b) =
+      lowOwnerThresholdSecondOwnerDifference R p r a ^ 2 *
+        lowOwnerThresholdSecondOwnerDifference R p r b ^ 2 := by
+  have hmaSq : realMoebiusStep a ^ 2 = 1 :=
+    realMoebiusStep_sq_eq_one_of_ne_zero_inherited hma
+  have hmbSq : realMoebiusStep b ^ 2 = 1 :=
+    realMoebiusStep_sq_eq_one_of_ne_zero_inherited hmb
+  have ha0 : (a : ℝ) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt ha)
+  have hb0 : (b : ℝ) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt hb)
+  unfold lowOwnerThresholdEulerParentEnergy
+    lowOwnerThresholdEulerPairCoefficient
+    postRootCovarianceReciprocalPairEnergy
+    postRootCovarianceReciprocalPairAmplitude
+  rw [lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr,
+    lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr]
+  rw [div_pow]
+  rw [mul_pow (realMoebiusStep a) (realMoebiusStep b), hmaSq, hmbSq]
+  field_simp [ha0, hb0]
+  ring
 
 /-- Root-scale envelope statement for the actual reciprocal energy emitted by
 all greatest-owner children after the completed incidence gate.  This is the
