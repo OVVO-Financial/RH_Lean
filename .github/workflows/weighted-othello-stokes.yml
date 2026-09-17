@@ -8,6 +8,7 @@ on:
     paths:
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
       - research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
+      - research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
       - .github/workflows/weighted-othello-stokes.yml
   workflow_dispatch:
 
@@ -51,8 +52,16 @@ jobs:
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.olean \
             research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean \
             2>&1 | tee pair-weighted-othello-stokes.log
+      - name: Kernel-check exact iterated pair Stokes telescope
+        shell: bash
+        run: |
+          set -o pipefail
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean \
+            2>&1 | tee iterated-pair-stokes.log
       - name: Print logs
         if: ${{ always() }}
         run: |
           cat weighted-othello-stokes.log || true
           cat pair-weighted-othello-stokes.log || true
+          cat iterated-pair-stokes.log || true
