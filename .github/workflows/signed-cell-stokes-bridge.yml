@@ -165,6 +165,9 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_GLOBAL_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_WHEEL_IDENTIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
+          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_NEAREST_SQUARE_ENDPOINT_LEDGER.lean
@@ -182,9 +185,6 @@ jobs:
       - name: Kernel-check final Stokes boundary consumer wiring
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
-          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
-          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
-          emit research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
           emit research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
           emit research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
           emit research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean
