@@ -6,6 +6,7 @@ on:
     paths:
       - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
       - research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
+      - research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.lean
       - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
       - research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
       - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
@@ -109,6 +110,9 @@ jobs:
 
       - name: Kernel-check zero-target covariance owner descent
         run: lake env lean -DwarningAsError=true research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
+
+      - name: Kernel-check Basel covariance contraction
+        run: lake env lean -DwarningAsError=true research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.lean
 
       - name: Kernel-check final Stokes zero-target covariance bridge
         run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
