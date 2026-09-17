@@ -1,6 +1,6 @@
 import Mathlib
 import «research.STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING»
-import «research.COVARIANCE_RECIPROCAL_OWNER_CONGESTION»
+import «research.RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION»
 
 /-!
 # Basel-sharpened reciprocal covariance contraction
