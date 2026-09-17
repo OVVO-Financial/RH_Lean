@@ -12,6 +12,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_EQ_TAIL.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_BRANCH_CURRENCY.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_SAME_BRANCH_NONNEG.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.lean
@@ -58,7 +59,7 @@ jobs:
             .lake/packages/StrongPNT/.lake/build
           key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
           restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
 
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
@@ -108,12 +109,13 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_EQ_TAIL.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_BRANCH_CURRENCY.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_SAME_BRANCH_NONNEG.lean
 
-      - name: Kernel-check branch currency and favorable same-branch Gram
+      - name: Kernel-check branch currency, orbit, and cross-amplitude gate
         run: |
           lake env lean -DwarningAsError=true \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_ENERGY_NORMAL_FORM.lean
           lake env lean -DwarningAsError=true \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_THRESHOLD_ORBIT_AMPLITUDE.lean
           lake env lean -DwarningAsError=true \
-            research/GLOBAL_RETURNED_CORE_RAW_PARENT_SAME_BRANCH_NONNEG.lean
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
