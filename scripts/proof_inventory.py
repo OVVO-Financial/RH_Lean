@@ -196,6 +196,59 @@ def reachable_from(root: str, graph: dict[str, list[str]]) -> set[str]:
     return seen
 
 
+def survey_dependent_lean_outside_scope() -> dict[str, object]:
+    """Count Lean files outside the scanned tree that build on the library.
+
+    `research/**.lean` is real Lean: it imports `RHLean.*` and proves things.
+    It is not in the root manifest and not a `lakefile.lean` target, so it is
+    never compiled by CI and never enters the declaration graph. Omitting it
+    silently would misreport how much unverified work is in flight, so the
+    inventory states its size while keeping it out of the authoritative counts.
+    """
+
+    import re as _re
+
+    roots = [Path("research"), Path("experiments")]
+    import_re = _re.compile(r"^\s*import\s+(?:«)?(?:research\.)?RHLean\b", _re.M)
+    proof_re = _re.compile(
+        r"^\s*(?:@\[[^\n]*?\]\s*)*"
+        r"(?:(?:private|protected|noncomputable|unsafe|partial|scoped|local)\s+)*"
+        r"(?:theorem|lemma)\b",
+        _re.M,
+    )
+
+    files = 0
+    lines = 0
+    proofs = 0
+    importing = 0
+    for root in roots:
+        if not root.is_dir():
+            continue
+        for path in sorted(root.rglob("*.lean")):
+            text = path.read_text(encoding="utf-8", errors="replace")
+            files += 1
+            lines += len(text.splitlines())
+            proofs += len(proof_re.findall(text))
+            if import_re.search(text):
+                importing += 1
+
+    return {
+        "roots": [str(r) for r in roots if r.is_dir()],
+        "lean_files": files,
+        "physical_lines": lines,
+        "named_proofs": proofs,
+        "files_importing_rhlean": importing,
+        "compiled_by_ci": False,
+        "in_declaration_graph": False,
+        "note": (
+            "Real Lean that depends on the library but is outside the root "
+            "manifest and the lakefile target, so it is neither compiled nor "
+            "represented in the knowledge graph. Reported for visibility only; "
+            "not included in any count above."
+        ),
+    }
+
+
 def build_inventory() -> dict[str, object]:
     files = source_files()
     module_files = [p for p in files if p != ROOT_MANIFEST]
@@ -261,6 +314,7 @@ def build_inventory() -> dict[str, object]:
             "root_manifest": str(ROOT_MANIFEST),
             "excludes": ["export_*", ".lake", "scripts", "research", "docs"],
         },
+        "dependent_lean_outside_scope": survey_dependent_lean_outside_scope(),
         "source": {
             "library_modules": len(module_files),
             "lean_files_including_root_manifest": len(files),
@@ -325,6 +379,18 @@ def print_summary(inv: dict[str, object]) -> None:
     print(f"Manifest missing modules:            {len(imports['manifest_missing_modules']):,}")
     print(f"Manifest extra modules:              {len(imports['manifest_extra_modules']):,}")
     print()
+    out = inv.get("dependent_lean_outside_scope")
+    if out and out.get("lean_files"):
+        print("Dependent Lean outside the scanned tree")
+        print("---------------------------------------")
+        print(f"  files ({', '.join(out['roots'])}):{out['lean_files']:>8,}")
+        print(f"  physical lines:            {out['physical_lines']:>8,}")
+        print(f"  named proofs:              {out['named_proofs']:>8,}")
+        print(f"  importing RHLean.*:        {out['files_importing_rhlean']:>8,}")
+        print("  not compiled by CI, not in the declaration graph;")
+        print("  excluded from every count above.")
+        print()
+
     print("By top-level source area")
     print("------------------------")
     for b, row in inv["buckets"].items():

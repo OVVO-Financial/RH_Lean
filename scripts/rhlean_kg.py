@@ -786,7 +786,11 @@ def statement_shape(statement: str, conclusion_only: bool = True) -> list[str]:
 
 FACETS_PATH = Path(__file__).with_name("semantic_facets.json")
 
-_CAMEL_RE = re.compile(r"(?<=[a-z0-9])(?=[A-Z])")
+# Split lowercase/digit -> uppercase (`PostRoot`), and also an acronym run
+# followed by a capitalised word (`PNTChebyshev` -> `PNT` + `Chebyshev`).
+# Without the second alternative an acronym glues to the word after it and
+# no vocabulary token can ever match it.
+_CAMEL_RE = re.compile(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")
 
 
 def name_tokens(name: str) -> set[str]:

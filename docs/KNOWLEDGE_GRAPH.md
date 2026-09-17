@@ -201,6 +201,55 @@ pull request that touches Lean sources or the tooling, and uploads
 `decl-graph.json`, `decl-graph.dot` and the standard reports as artifacts.  It
 takes a few seconds and needs no Lean toolchain.
 
+## What the graph does not cover
+
+The graph scans `RHLean/` only. That is deliberate -- it is the compiled,
+authoritative tree -- but it is worth knowing what sits outside it.
+
+`research/**.lean` is real Lean that imports `RHLean.*` and proves things, yet
+it is absent from `RHLean.lean` and from the `lakefile.lean` target, so CI never
+compiles it and it never enters the graph. It is where much of the active
+frontier work now happens, and it has been growing considerably faster than the
+compiled tree: run the inventory for the current figures rather than trusting a
+number written here, which is exactly the kind of count that rots.
+
+`scripts/proof_inventory.py` reports this surface under "Dependent Lean outside
+the scanned tree" and in the JSON under `dependent_lean_outside_scope`. It is
+excluded from every authoritative count, because those proofs are not
+kernel-checked by CI. Treat the figure as a measure of unverified work in
+flight, not as part of the library.
+
+## Keeping the semantic layer current
+
+Layers 1, 2, 5 and 6 are computed from the sources and stay correct on their
+own as the library grows.  Layer 3 does not: its vocabulary lives in
+`scripts/semantic_facets.json`, and new research areas arrive with new
+terminology that the existing carrier values do not cover.
+
+This has a specific and quiet failure mode.  `frontier` and `bridges` search by
+carrier, so a proposition with no carrier tag yields **no candidates** -- which
+reads exactly like "nothing to find" while actually meaning "the vocabulary has
+no word for this yet".  `frontier` now says so explicitly rather than printing
+an empty report, but the fix is to add the carrier.
+
+So when a batch of work lands on a new object, check the coverage and extend the
+vocabulary:
+
+```bash
+# which open propositions have no carrier at all?
+python3 scripts/proofq.py open-leaves --rh-only
+# where did the new terminology come from?
+git diff --name-only <last-checked-commit>..HEAD -- RHLean | sed 's#.*/##'
+```
+
+Then add carrier values to `scripts/semantic_facets.json` using token groups
+taken from those module names.  Between PR #585 and PR #705, 103 modules were
+added and the share of closed propositions with no carrier had risen to 41%;
+extending the vocabulary from those module names brought it back to 18%.
+
+Note that `name_tokens` splits `PostRoot` into `post` + `root` **and**
+`PNTChebyshev` into `pnt` + `chebyshev`, so acronym-led names are matchable.
+
 ## On adopting an external extractor
 
 The declaration-graph technique here is the standard one: walk the elaborated
@@ -220,7 +269,7 @@ a build target, so it cannot perturb the pin at all.  That trade is worth
 revisiting if the toolchain ever moves; it is not worth the churn today.
 
 The same reasoning applies to migrating the project wholesale to an external
-orchestration platform pinned to a newer Lean.  Porting 189k lines plus the
+orchestration platform pinned to a newer Lean.  Porting 230k+ lines plus the
 StrongPNT compatibility boundary to gain orchestration would be a large amount
 of change unrelated to the mathematics.  Adopting the *architecture* -- a
 statement DAG, statements separated from proofs, a description on every node --

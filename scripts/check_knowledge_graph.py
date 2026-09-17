@@ -23,12 +23,44 @@ def require(cond: bool, message: str) -> None:
         raise SystemExit(f"ERROR: {message}")
 
 
+def _newest_source_mtime() -> float | None:
+    """Modification time of the most recently touched Lean source, if any."""
+
+    times = [p.stat().st_mtime for p in kg.SOURCE_ROOT.rglob("*.lean")]
+    return max(times) if times else None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("graph", type=Path, nargs="?", default=Path("decl-graph.json"))
+    parser.add_argument(
+        "graph",
+        type=Path,
+        nargs="?",
+        help=(
+            "declaration graph JSON to check. Omit to build one from the current "
+            "sources, which is what you want interactively; CI passes the file it "
+            "just generated."
+        ),
+    )
     args = parser.parse_args()
 
-    data = json.loads(args.graph.read_text(encoding="utf-8"))
+    if args.graph is None:
+        # Build from source rather than reading whatever decl-graph.json happens
+        # to be lying around. A regression gate that silently validates a stale
+        # graph reports success while measuring nothing, which is worse than
+        # failing: it was checking an 8-day-old snapshot of this repository.
+        import decl_graph
+
+        data = decl_graph.build_graph()
+    else:
+        data = json.loads(args.graph.read_text(encoding="utf-8"))
+        newest = _newest_source_mtime()
+        if newest is not None and args.graph.stat().st_mtime < newest:
+            raise SystemExit(
+                f"ERROR: {args.graph} is older than the newest file under "
+                f"{kg.SOURCE_ROOT}/. Rebuild it (scripts/decl_graph.py --json "
+                f"{args.graph}) or omit the argument to build from source."
+            )
     g = KnowledgeGraph(data)
 
     require(
