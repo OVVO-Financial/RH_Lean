@@ -231,7 +231,6 @@ theorem sum_lowOwnerFirstOwnerRawParentNextPolarization_eq_threshold_add_endpoin
     hp]
   rw [lowOwnerFirstOwnerRawParentDirichletIncidenceMass_eq_threshold_add_endpointCorrection
     hR hp]
-  ring
 
 /-- **Descending signed recursion in universal threshold currency.**  The inert
 diagonal has already been discarded favorably.  What remains is the all-raw
