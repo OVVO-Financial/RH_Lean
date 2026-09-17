@@ -139,7 +139,12 @@ theorem lowOwnerStokesNaturalPeriodicRawSpectralPrefix_eq_sum_conductorResponses
       reducedAdditiveConductor r ∈
         Finset.range ((lowOwnerStokesNaturalWheelSystem R hR).modulus + 1) := by
     exact Finset.mem_range.mpr (Nat.lt_succ_iff.mpr hcond)
-  simp [hmem]
+  rw [Finset.sum_eq_single (reducedAdditiveConductor r)]
+  · simp
+  · intro c _hc hne
+    simp [hne]
+  · intro hnot
+    exact (hnot hmem).elim
 
 /-- A genuine LOW q^2 daughter cutoff is positive. -/
 theorem natural_rawQ2ChildCutoff_pos_of_mem_lowQ2Owners
