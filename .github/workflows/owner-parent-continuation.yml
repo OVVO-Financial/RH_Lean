@@ -2,10 +2,11 @@ name: Owner-parent continuation check
 
 on:
   pull_request:
-    branches: [main, agent/global-reciprocal-parent-charge]
+    branches: [main, agent/global-reciprocal-parent-charge, agent/inherited-mixed-daughter-cauchy]
     paths:
       - research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
       - research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
+      - research/GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.lean
       - .github/workflows/owner-parent-continuation.yml
   workflow_dispatch:
 
@@ -109,6 +110,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean
           emit research/GLOBAL_RETURNED_CORE_ONE_AMPLITUDE.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean
+          emit research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELLS.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_COMPENSATED_OWNER_BLOCK.lean
@@ -198,4 +200,23 @@ jobs:
         if: steps.deterministic_cancellation.outcome != 'success'
         run: |
           cat deterministic-cancellation.log
+          exit 1
+      - name: Check mixed-clock L2 bound
+        id: mixed_clock_l2
+        continue-on-error: true
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.olean \
+            research/GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.lean \
+            > mixed-clock-l2.log 2>&1
+      - name: Upload mixed-clock L2 diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mixed-clock-l2-lean-diagnostic
+          path: mixed-clock-l2.log
+      - name: Fail if mixed-clock L2 failed
+        if: steps.mixed_clock_l2.outcome != 'success'
+        run: |
+          cat mixed-clock-l2.log
           exit 1
