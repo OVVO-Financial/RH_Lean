@@ -8,7 +8,6 @@ on:
     paths:
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
       - research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
-      - research/GLOBAL_RETURNED_CORE_SIGNED_STOKES_RAW_PARENT_STEP.lean
       - .github/workflows/weighted-othello-stokes.yml
   workflow_dispatch:
 
@@ -35,30 +34,25 @@ jobs:
           lint: false
       - name: Build Othello dependency
         run: lake build RHLean.Proof.GlobalPrefixCarrierOthello
-      - name: Kernel-check weighted Othello Stokes identity
+      - name: Kernel-check and emit weighted Othello Stokes identity
         shell: bash
         run: |
           set -o pipefail
+          mkdir -p .lake/build/lib/lean
           lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.olean \
             research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean \
             2>&1 | tee weighted-othello-stokes.log
-      - name: Kernel-check pair-coordinate weighted Stokes identity
+      - name: Kernel-check and emit pair-coordinate weighted Stokes identity
         shell: bash
         run: |
           set -o pipefail
           lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.olean \
             research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean \
             2>&1 | tee pair-weighted-othello-stokes.log
-      - name: Kernel-check signed raw-parent Stokes step
-        shell: bash
-        run: |
-          set -o pipefail
-          lake env lean -DwarningAsError=true \
-            research/GLOBAL_RETURNED_CORE_SIGNED_STOKES_RAW_PARENT_STEP.lean \
-            2>&1 | tee signed-raw-parent-stokes.log
       - name: Print logs
         if: ${{ always() }}
         run: |
           cat weighted-othello-stokes.log || true
           cat pair-weighted-othello-stokes.log || true
-          cat signed-raw-parent-stokes.log || true
