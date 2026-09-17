@@ -38,9 +38,11 @@ theorem lowOwnerFirstOwnerCanonicalStokesSchedule_prime
     (R p : ℕ) :
     ∀ r ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p, r.Prime := by
   intro r hr
-  have hr' : r ∈ squareRootCanonicalRoughDescendingPrimeSchedule R := by
+  have hrPair :
+      r ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < r := by
     simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using hr
-  exact (squareRootCanonicalRoughDescendingPrimeSchedule_complete R).1 r hr'
+  exact
+    (squareRootCanonicalRoughDescendingPrimeSchedule_complete R).1 r hrPair.1
 
 /-- Canonical signed escape ledger for one first-owner/signature cell. -/
 def lowOwnerFirstOwnerCanonicalStokesBoundary
@@ -109,7 +111,7 @@ theorem sum_lowOwnerFirstOwnerSignedCellTelescope_eq_canonicalBoundary_add_resid
             lowOwnerFirstOwnerCanonicalStokesResidual R p sig) := by
               apply Finset.sum_congr rfl
               intro p hpMem
-              have hp : p.Prime := (mem_primesUpTo.mp hpMem).1
+              have hp : p.Prime := prime_of_mem_primesUpTo hpMem
               apply Finset.sum_congr rfl
               intro sig _hsig
               exact
