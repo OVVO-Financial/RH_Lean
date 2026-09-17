@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
+      - research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
       - research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
       - research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
@@ -126,13 +127,11 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
-      - name: Emit weighted pair Stokes modules
+      - name: Kernel-check exact signed Stokes chain
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
           emit research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
           emit research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
-      - name: Kernel-check signed-cell Stokes bridge
-        run: |
-          lake env lean -DwarningAsError=true \
-            research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
