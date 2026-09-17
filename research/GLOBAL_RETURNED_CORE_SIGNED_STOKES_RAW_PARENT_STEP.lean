@@ -72,14 +72,47 @@ theorem lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_eq_rawParentOrbi
           (lowOwnerRevealedPrimesAbove R r) r parent) +
       lowOwnerFirstOwnerRawParentInertMass R p sig
         (lowOwnerRevealedPrimesAbove R r) r := by
-  rw [lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_eq_orbitEven_add_inert_add_ownerFiber
-      hr]
-  rw [sum_lowOwnerFirstOwnerOwnerFiber_add_orbitEven_eq_rawParentOrbits
+  have hdesc :=
+    lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_eq_orbitEven_add_inert_add_ownerFiber
+      (R := R) (p := p) (r := r) (sig := sig) hr
+  have horbit :=
+    sum_lowOwnerFirstOwnerOwnerFiber_add_orbitEven_eq_rawParentOrbits
       R p sig (lowOwnerRevealedPrimesAbove R r) r
-      (lowOwnerFirstOwnerDirichletPolarizationAtom R p)]
+      (lowOwnerFirstOwnerDirichletPolarizationAtom R p)
   unfold lowOwnerFirstOwnerRawParentPhysicalOrbitMass
     lowOwnerFirstOwnerRawParentInertMass
-  ring
+  calc
+    lowOwnerFirstOwnerRevealedPolarizationEnergy R p sig
+        (lowOwnerRevealedPrimesAbove R r) =
+      (∑ mn ∈ lowOwnerFirstOwnerRawParentOrbitEvenCarrier R p sig
+          (lowOwnerRevealedPrimesAbove R r) r,
+        lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) +
+      (∑ mn ∈ lowOwnerFirstOwnerRawParentOrbitInertCarrier R p sig
+          (lowOwnerRevealedPrimesAbove R r) r,
+        lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) +
+      ∑ mn ∈ lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber R p sig r,
+        lowOwnerFirstOwnerDirichletPolarizationAtom R p mn := hdesc
+    _ =
+      ((∑ mn ∈ lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber R p sig r,
+          lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) +
+        (∑ mn ∈ lowOwnerFirstOwnerRawParentOrbitEvenCarrier R p sig
+            (lowOwnerRevealedPrimesAbove R r) r,
+          lowOwnerFirstOwnerDirichletPolarizationAtom R p mn)) +
+      (∑ mn ∈ lowOwnerFirstOwnerRawParentOrbitInertCarrier R p sig
+          (lowOwnerRevealedPrimesAbove R r) r,
+        lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) := by ring
+    _ =
+      (∑ parent ∈ lowOwnerFirstOwnerPolarizationRawParentSet R p sig r,
+        ((∑ mn ∈ lowOwnerFirstOwnerPolarizationFixedRawParentFiber
+              R p sig r parent,
+            lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) +
+          ∑ mn ∈ lowOwnerFirstOwnerRawParentOrbitEvenFixedFiber
+              R p sig (lowOwnerRevealedPrimesAbove R r) r parent,
+            lowOwnerFirstOwnerDirichletPolarizationAtom R p mn)) +
+      (∑ mn ∈ lowOwnerFirstOwnerRawParentOrbitInertCarrier R p sig
+          (lowOwnerRevealedPrimesAbove R r) r,
+        lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) := by
+      rw [horbit]
 
 /-- The same identity with the physical-orbit definition expanded.  This form
 is convenient for later completed/incomplete parent partitions and makes it
