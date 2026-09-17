@@ -77,6 +77,7 @@ theorem lowOwnerFirstOwnerRawParentNextPolarizationTerm_eq_dirichletIncidence_su
     lowOwnerDirichletBaseCoefficient
     lowOwnerDirichletReturnedCoefficient
     lowOwnerPhysicalDirichletIncidenceWeight
+  rw [postRootZeroTargetPairExcess_eq_weight]
   ring
 
 /-- Aggregate Dirichlet-incidence mass over all occurring raw parents. -/
@@ -123,8 +124,8 @@ theorem lowOwnerFirstOwnerRawParentDirichletIncidenceMass_eq_completed_add_incom
       lowOwnerFirstOwnerIncompleteDirichletIncidenceMass R p sig r := by
   unfold lowOwnerFirstOwnerRawParentDirichletIncidenceMass
     lowOwnerFirstOwnerCompletedPolarizationRawParentSet
-    lowOwnerFirstOwnerIncompletePolarizationRawParentSet
     lowOwnerFirstOwnerIncompleteDirichletIncidenceMass
+    lowOwnerFirstOwnerIncompletePolarizationRawParentSet
   simpa only using
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerPolarizationRawParentSet R p sig r)
