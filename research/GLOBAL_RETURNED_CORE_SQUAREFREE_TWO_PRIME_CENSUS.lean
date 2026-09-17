@@ -1,10 +1,9 @@
 import Mathlib
-import RHLean.Analysis.PrimeWheelRunOthelloBoundary
 
 /-!
 # Exact squarefree two-prime intersection census
 
-This file keeps the two-prime count on the actual nonzero Mobius carrier.
+This file keeps the two-prime count on the literal nonzero Möbius carrier.
 There is no density estimate and no probabilistic input here.
 
 For distinct primes `q,s`, multiplication by `q*s` identifies the squarefree
@@ -16,7 +15,7 @@ that are squarefree and relatively prime to `q*s`.
 
 Thus the familiar `6/pi^2` squarefree density is not inserted as an assumption:
 the finite carrier is first rewritten exactly into its squarefree cofactor
-coordinate.  Any later asymptotic density estimate can be applied to that
+coordinate. Any later asymptotic density estimate can be applied to that
 literal carrier.
 -/
 
@@ -25,15 +24,13 @@ open scoped BigOperators ArithmeticFunction.Moebius
 
 namespace RHLean.Proof
 
-open RHLean.Analysis RHLean.Arithmetic
-
 attribute [local instance] Classical.propDecidable
 
-/-- The actual nonzero-Mobius sites on `[1,X]` carrying both prime coordinates. -/
+/-- The actual nonzero-Möbius sites on `[1,X]` carrying both prime coordinates. -/
 def lowOwnerTwoPrimeMobiusIntersectionCarrier
     (X q s : ℕ) : Finset ℕ :=
   (Finset.Icc 1 X).filter fun n =>
-    realMoebiusStep n ≠ 0 ∧ q ∣ n ∧ s ∣ n
+    μ n ≠ 0 ∧ q ∣ n ∧ s ∣ n
 
 /-- The same physical population written directly as squarefree sites. -/
 def lowOwnerTwoPrimeSquarefreeIntersectionCarrier
@@ -50,7 +47,7 @@ def lowOwnerTwoPrimeSquarefreeCofactorCarrier
 @[simp] theorem mem_lowOwnerTwoPrimeMobiusIntersectionCarrier
     {X q s n : ℕ} :
     n ∈ lowOwnerTwoPrimeMobiusIntersectionCarrier X q s ↔
-      1 ≤ n ∧ n ≤ X ∧ realMoebiusStep n ≠ 0 ∧ q ∣ n ∧ s ∣ n := by
+      1 ≤ n ∧ n ≤ X ∧ μ n ≠ 0 ∧ q ∣ n ∧ s ∣ n := by
   simp [lowOwnerTwoPrimeMobiusIntersectionCarrier, and_assoc]
 
 @[simp] theorem mem_lowOwnerTwoPrimeSquarefreeIntersectionCarrier
@@ -65,24 +62,18 @@ def lowOwnerTwoPrimeSquarefreeCofactorCarrier
       1 ≤ m ∧ m ≤ X / (q * s) ∧ Squarefree m ∧ IsRelPrime (q * s) m := by
   simp [lowOwnerTwoPrimeSquarefreeCofactorCarrier, and_assoc]
 
-/-- Real Mobius support is exactly squarefree support. -/
-theorem realMoebiusStep_ne_zero_iff_squarefree {n : ℕ} :
-    realMoebiusStep n ≠ 0 ↔ Squarefree n := by
-  constructor
-  · exact squarefree_of_realMoebiusStep_ne_zero
-  · intro hn
-    unfold realMoebiusStep
-    have hmu : μ n ≠ 0 :=
-      ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hn
-    exact_mod_cast hmu
+/-- Nonzero Möbius support is exactly squarefree support. -/
+theorem moebius_ne_zero_iff_squarefree {n : ℕ} :
+    μ n ≠ 0 ↔ Squarefree n :=
+  ArithmeticFunction.moebius_ne_zero_iff_squarefree
 
-/-- The literal nonzero-Mobius intersection carrier is the squarefree carrier. -/
+/-- The literal nonzero-Möbius intersection carrier is the squarefree carrier. -/
 theorem lowOwnerTwoPrimeMobiusIntersectionCarrier_eq_squarefree
     (X q s : ℕ) :
     lowOwnerTwoPrimeMobiusIntersectionCarrier X q s =
       lowOwnerTwoPrimeSquarefreeIntersectionCarrier X q s := by
   ext n
-  simp [realMoebiusStep_ne_zero_iff_squarefree]
+  simp [moebius_ne_zero_iff_squarefree]
 
 /-- Distinct prime coordinates themselves form a squarefree product. -/
 theorem squarefree_two_distinct_primes
@@ -134,7 +125,7 @@ theorem mul_twoPrime_mem_squarefreeIntersection_iff_mem_cofactor
       ⟨Nat.succ_le_iff.mpr hmPos, hmLe, hsplit.1, hsplit.2⟩
   · intro hm
     rcases mem_lowOwnerTwoPrimeSquarefreeCofactorCarrier.mp hm with
-      ⟨hm1, hmLe, hmSq, hrel⟩
+      ⟨_hm1, hmLe, hmSq, hrel⟩
     have hmPos : 0 < m := by omega
     have hX : q * s * m ≤ X := by
       have h := (Nat.le_div_iff_mul_le hprodPos).1 hmLe
@@ -148,7 +139,7 @@ theorem mul_twoPrime_mem_squarefreeIntersection_iff_mem_cofactor
     · exact ⟨s * m, by ring⟩
     · exact ⟨q * m, by ring⟩
 
-/-- **Exact finite squarefree census.**  The physical two-prime intersection
+/-- **Exact finite squarefree census.** The physical two-prime intersection
 population has exactly the cardinality of the squarefree coprime cofactor
 population below `X/(q*s)`. -/
 theorem card_lowOwnerTwoPrimeSquarefreeCofactor_eq_intersection
@@ -183,7 +174,7 @@ theorem card_lowOwnerTwoPrimeSquarefreeCofactor_eq_intersection
       exact hn
     exact ⟨m, hm, hcancel⟩
 
-/-- The same exact census on the actual nonzero-Mobius carrier. -/
+/-- The same exact census on the literal nonzero-Möbius carrier. -/
 theorem card_lowOwnerTwoPrimeMobiusIntersection_eq_squarefreeCofactor
     {X q s : ℕ} (hq : q.Prime) (hs : s.Prime) (hqs : q ≠ s) :
     (lowOwnerTwoPrimeMobiusIntersectionCarrier X q s).card =
