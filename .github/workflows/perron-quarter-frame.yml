@@ -97,10 +97,16 @@ jobs:
             research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
 
       - name: Kernel-check Perron quarter-frame theorem
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.olean \
+            research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
 
       - name: Kernel-check Basel-style frame sharpening
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.olean \
+            research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
 
       - name: Emit zero-target partial-moment covariance olean
         run: |
