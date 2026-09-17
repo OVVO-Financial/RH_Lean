@@ -1,6 +1,6 @@
 import Mathlib
 import RHLean.Analysis.PrimeWheelCoconductorTailBound
-import «research.LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE»
+import RHLean.Analysis.SquareWheelQuadraticSampling
 
 /-!
 # Deterministic completed-period endpoint alignment bound
@@ -99,11 +99,60 @@ theorem reducedAdditiveConductor_primePeriodDifference_dvd_mul
     rw [hqord]
     simpa [Nat.mul_comm] using (dvd_mul_right q p)
   have hdiffzero : (p * q) • (rp - rq) = 0 := by
-    simp [nsmul_sub, hpzero, hqzero]
+    rw [nsmul_sub, hpzero, hqzero, sub_zero]
   have horder : addOrderOf (rp - rq) ∣ p * q :=
     (addOrderOf_dvd_iff_nsmul_eq_zero).2 hdiffzero
   rw [reducedAdditiveConductor_eq_addOrderOf W]
   exact horder
+
+/-- Powers of one finite-wheel character depend only on the exponent modulo its
+reduced additive conductor.  This is the algebraic deletion of completed
+frequency periods. -/
+theorem stokesStdAddChar_pow_eq_mod_reducedAdditiveConductor
+    (W : PrimeWheelFiniteSystem) (N : ℕ)
+    (r : ZMod W.modulus) :
+    ZMod.stdAddChar r ^ N =
+      ZMod.stdAddChar r ^ (N % reducedAdditiveConductor r) := by
+  let c : ℕ := reducedAdditiveConductor r
+  have hcOrder : c = addOrderOf r := by
+    dsimp [c]
+    exact reducedAdditiveConductor_eq_addOrderOf W r
+  have hcDvd : addOrderOf r ∣ c := by
+    rw [hcOrder]
+  have hcsmul : c • r = 0 :=
+    (addOrderOf_dvd_iff_nsmul_eq_zero).1 hcDvd
+  have hpowc : ZMod.stdAddChar r ^ c = 1 := by
+    calc
+      ZMod.stdAddChar r ^ c = ZMod.stdAddChar (c • r) := by
+        symm
+        exact AddChar.map_nsmul_eq_pow
+          (ZMod.stdAddChar : AddChar (ZMod W.modulus) ℂ) c r
+      _ = ZMod.stdAddChar 0 := by rw [hcsmul]
+      _ = 1 := AddChar.map_zero_eq_one _
+  have hdecomp : N % c + c * (N / c) = N := Nat.mod_add_div N c
+  calc
+    ZMod.stdAddChar r ^ N =
+        ZMod.stdAddChar r ^ (N % c + c * (N / c)) := by rw [hdecomp]
+    _ = ZMod.stdAddChar r ^ (N % c) *
+        ZMod.stdAddChar r ^ (c * (N / c)) := by rw [pow_add]
+    _ = ZMod.stdAddChar r ^ (N % c) *
+        (ZMod.stdAddChar r ^ c) ^ (N / c) := by rw [pow_mul]
+    _ = ZMod.stdAddChar r ^ (N % c) := by rw [hpowc]; simp
+    _ = ZMod.stdAddChar r ^
+        (N % reducedAdditiveConductor r) := by rfl
+
+/-- The finite Dirichlet response itself is unchanged after deleting all
+completed conductor periods. -/
+theorem stokesPrimeWheelDirichletKernel_eq_mod_reducedAdditiveConductor
+    (W : PrimeWheelFiniteSystem) (N : ℕ)
+    (r : ZMod W.modulus) (hr : r ≠ 0) :
+    primeWheelDirichletKernel W N r =
+      primeWheelDirichletKernel W
+        (N % reducedAdditiveConductor r) r := by
+  rw [primeWheelDirichletKernel_eq_geom_of_ne_zero W N r hr,
+    primeWheelDirichletKernel_eq_geom_of_ne_zero
+      W (N % reducedAdditiveConductor r) r hr,
+    stokesStdAddChar_pow_eq_mod_reducedAdditiveConductor W N r]
 
 /-- After deleting all completed conductor periods, a nonzero Dirichlet response
 is bounded by one residual conductor length. -/
@@ -112,7 +161,7 @@ theorem norm_primeWheelDirichletKernel_le_reducedConductor
     (r : ZMod W.modulus) (hr : r ≠ 0) :
     ‖primeWheelDirichletKernel W N r‖ ≤
       (reducedAdditiveConductor r : ℝ) := by
-  rw [primeWheelDirichletKernel_eq_mod_reducedAdditiveConductor W N r hr]
+  rw [stokesPrimeWheelDirichletKernel_eq_mod_reducedAdditiveConductor W N r hr]
   have hlen := norm_primeWheelDirichletKernel_le_length W
     (N % reducedAdditiveConductor r) r
   have hcpos : 0 < reducedAdditiveConductor r := by
