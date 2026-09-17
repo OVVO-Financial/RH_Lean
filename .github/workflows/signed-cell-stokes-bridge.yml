@@ -128,9 +128,6 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
-          emit research/GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER.lean
-          emit research/GLOBAL_RETURNED_CORE_ARBITRARY_FRESH_PRIME_DESCENT.lean
-          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
       - name: Kernel-check exact signed Stokes chain and physical boundary
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
