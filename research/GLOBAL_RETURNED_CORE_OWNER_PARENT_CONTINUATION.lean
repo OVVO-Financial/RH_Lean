@@ -84,8 +84,9 @@ theorem lowOwnerFirstOwnerAdmittedGreatestOwnerPair_has_positive_orientation
   · refine ⟨m, n, ?_, rfl⟩
     unfold lowOwnerFirstOwnerGreatestOwnerPositivePairFiber
       lowOwnerFirstOwnerGreatestOwnerPairFiber
+      lowOwnerFirstOwnerAdmittedOffDiagonalPairCarrier
     simp only [Finset.mem_filter]
-    exact ⟨⟨hpair, howner⟩, hlt⟩
+    exact ⟨⟨⟨hpair, hne⟩, howner⟩, hlt⟩
   · have hrev : n < m := by omega
     have hpair' : (n, m) ∈ lowOwnerFirstOwnerAdmittedPairCarrier R p sig :=
       Finset.mem_product.mpr ⟨hn, hm⟩
@@ -94,8 +95,9 @@ theorem lowOwnerFirstOwnerAdmittedGreatestOwnerPair_has_positive_orientation
     refine ⟨n, m, ?_, ?_⟩
     · unfold lowOwnerFirstOwnerGreatestOwnerPositivePairFiber
         lowOwnerFirstOwnerGreatestOwnerPairFiber
+        lowOwnerFirstOwnerAdmittedOffDiagonalPairCarrier
       simp only [Finset.mem_filter]
-      exact ⟨⟨hpair', howner'⟩, hrev⟩
+      exact ⟨⟨⟨hpair', ne_of_lt hrev⟩, howner'⟩, hrev⟩
     · exact (squarefreePairPrimeOrderedParent_comm r m n).symm
 
 /-- Every duplicate-free `(r,parent)` block has a positive-lag child witness on
