@@ -8,6 +8,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_VIRTUAL_CUBE_SPLICE.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_ORBIT_RECURSION.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.lean
       - .github/workflows/raw-parent-virtual-cube-splice.yml
   workflow_dispatch:
 
@@ -92,7 +93,7 @@ jobs:
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
 
-      - name: Check virtual cube splice, full orbit recursion, and inert persistence
+      - name: Check virtual cube splice, full orbit recursion, and lower-owner inert Fubini
         run: |
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_VIRTUAL_CUBE_SPLICE.olean \
@@ -101,4 +102,7 @@ jobs:
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_ORBIT_RECURSION.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_ORBIT_RECURSION.lean
           lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.lean
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.lean
