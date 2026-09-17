@@ -21,6 +21,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_NEAREST_SQUARE_ENDPOINT_LEDGER.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_ARBITRARY_CLOCK_WHEEL.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIOD_WHEEL.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_COMMON_SPECTRUM_LEDGER.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_PERIODIC_RAW_REALIZATION.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_CONDUCTOR_PACKET.lean
@@ -81,6 +82,7 @@ jobs:
           lake build RHLean.Arithmetic.PrimeWheelMobiusRecovery
           lake build RHLean.Analysis.PrimeWheelConductorGram
           lake build RHLean.Analysis.PrimeWheelRawConductorCoefficient
+          lake build RHLean.Analysis.PrimeWheelRawConductorWeight
           lake build RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
       - name: Emit returned-core dependency foundation through owner cube
         run: |
@@ -165,6 +167,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_NEAREST_SQUARE_ENDPOINT_LEDGER.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_ARBITRARY_CLOCK_WHEEL.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIOD_WHEEL.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_COMMON_SPECTRUM_LEDGER.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_PERIODIC_RAW_REALIZATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_CONDUCTOR_PACKET.lean
