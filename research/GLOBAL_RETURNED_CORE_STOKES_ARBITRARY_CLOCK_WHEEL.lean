@@ -45,8 +45,7 @@ theorem lowOwnerStokesSquareSensitivePeriod_pos (R : ℕ) :
   unfold lowOwnerStokesSquareSensitivePeriod
   apply Finset.prod_pos
   intro p hp
-  have hpPrime := lowOwnerStokesWheelPrimes_prime hp
-  positivity
+  exact pow_pos (lowOwnerStokesWheelPrimes_prime hp).pos 2
 
 /-- Every active local square period divides the common raw period. -/
 theorem prime_sq_dvd_lowOwnerStokesSquareSensitivePeriod
@@ -71,11 +70,12 @@ theorem squareRootEndpoint_pos_of_two_le
     {R : ℕ} (hR : 2 ≤ R) :
     0 < squareRootEndpoint R := by
   unfold squareRootEndpoint
+  apply Nat.sub_pos_of_lt
   nlinarith
 
 /-- The physical clock lies strictly inside the chosen common torus. -/
 theorem squareRootEndpoint_lt_lowOwnerStokesCommonTorusModulus
-    {R : ℕ} (hR : 2 ≤ R) :
+    {R : ℕ} (_hR : 2 ≤ R) :
     squareRootEndpoint R < lowOwnerStokesCommonTorusModulus R := by
   have hP : 1 ≤ lowOwnerStokesSquareSensitivePeriod R :=
     Nat.one_le_iff_ne_zero.mpr
@@ -105,9 +105,9 @@ def lowOwnerStokesWheelSystem (R : ℕ) (hR : 2 ≤ R) :
 /-- The raw site field of the arbitrary-clock wheel has the complete
 square-sensitive period. -/
 theorem lowOwnerStokesWheelRawSite_periodic
-    (R : ℕ) (hR : 2 ≤ R) :
+    (R : ℕ) (_hR : 2 ≤ R) :
     Function.Periodic
-      (lowOwnerStokesWheelSystem R hR).rawSite
+      (lowOwnerStokesWheelSystem R _hR).rawSite
       (lowOwnerStokesSquareSensitivePeriod R) := by
   simpa [PrimeWheelFiniteSystem.rawSite, lowOwnerStokesWheelSystem] using
     (seededPrimeComb_periodic_of_squarePeriods_dvd
