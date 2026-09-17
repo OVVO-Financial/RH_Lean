@@ -8,23 +8,30 @@ import «research.GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL»
 This file remains entirely before every positive-energy gate.
 
 The generic weighted Othello/Stokes theorem books two escape faces at one pair
-coordinate.  On a product carrier those faces are exactly products of the
-one-dimensional Othello escape/interior sets.  For the actual first-owner base
+coordinate. On a product carrier those faces are exactly products of the
+one-dimensional Othello escape/interior sets. For the actual first-owner base
 fibre and every larger prime `r`, the one-dimensional escape set has a literal
 physical description:
 
   n is in the cell, r does not divide n, and X_R < r*n.
 
 Thus the first escape face is not a new error population: it is precisely the
-Dirichlet clock clip of the fresh `r` edge.  Equivalently the endpoint threshold
-crossing at `X_R` is active.  The signs and the scalar weights are unchanged.
+Dirichlet clock clip of the fresh `r` edge. Equivalently the endpoint threshold
+crossing at `X_R` is active. The signs and scalar weights are unchanged.
 
 After earlier owners have been peeled, a later escape may occur because a
-higher Boolean corner leaves the clock.  This file names that exact class as a
+higher Boolean corner leaves the clock. This file names that exact class as a
 `higher-corner Dirichlet clip` and proves recursively that every such escape
-terminates at one literal base-cell Dirichlet clip.  The accumulated Stokes
+terminates at one literal base-cell Dirichlet clip. The accumulated Stokes
 boundary is then rewritten exactly as the corresponding signed physical clip
 ledger.
+
+The escaped endpoint is also assigned its exact nearest completed-square
+coordinate. The square-block midpoint determines the orientation, the physical
+stray distance is at most the square-block half-radius `floor(sqrt x)`, and for
+any positive finite-wheel conductor the residual distance is the literal
+remainder modulo that conductor. These are deterministic boundary-geometry
+facts, not energy estimates.
 
 No norm, square, Carleson, Schur, inherited-energy, `2/9`, or `4/9` statement is
 imported or used.
@@ -40,7 +47,7 @@ open RHLean.Analysis RHLean.Arithmetic
 attribute [local instance] Classical.propDecidable
 
 /-- Literal Dirichlet clip face of a larger fresh owner on one p-free base
-cell.  The edge starts on the physical clock and its r-child leaves it. -/
+cell. The edge starts on the physical clock and its r-child leaves it. -/
 def lowOwnerFirstOwnerStokesDirichletClipFace
     (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : Finset ℕ :=
   (lowOwnerFirstOwnerBaseFiber R p sig).filter fun n =>
@@ -119,7 +126,7 @@ theorem lowOwnerFirstOwner_div_larger_prime_mem_same_base
     calc
       n = r * u := heq.symm
       _ = r * (r * k) := by rw [hk]
-      _ = r ^ 2 * k := by rw [pow_two]
+      _ = r ^ 2 * k := by simp [pow_two, Nat.mul_assoc]
   have hmuU : realMoebiusStep u ≠ 0 := by
     have hsign := realMoebiusStep_mul_prime_eq_neg hr hrnotu
     intro hz
@@ -165,12 +172,7 @@ theorem lowOwnerFirstOwner_toggle_of_dvd_mem_same_base
   exact lowOwnerFirstOwner_div_larger_prime_mem_same_base
     hp hr hpr hn hrn
 
-/-- **No hidden one-dimensional escape class at the base cell.**
-
-For a larger prime `r`, the Othello escape set is exactly the fresh r-edge whose
-child crosses the physical Dirichlet endpoint.  A present r-factor always strips
-back into the same base cell, and a missing r-factor stays in the same cell
-whenever `r*n <= X_R`. -/
+/-- **No hidden one-dimensional escape class at the base cell.** -/
 theorem lowOwnerFirstOwner_primeEscapePart_eq_dirichletClipFace
     {R p r : ℕ} {sig : Finset ℕ}
     (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
@@ -222,10 +224,133 @@ theorem lowOwnerFirstOwner_dirichletClipFace_thresholdCrossing_eq_one
   unfold lowOwnerThresholdCrossingIndicator
   simp [hnX, hclip]
 
+/-! ## Exact nearest-square endpoint coordinate of a clip child -/
+
+/-- Canonical completed-square endpoint nearest to an arbitrary integer `x`.
+The midpoint of the square block is the half-integer between the two cases. -/
+def lowOwnerStokesNearestSquareEndpoint (x : ℕ) : ℕ :=
+  let s := Nat.sqrt x
+  if x < s ^ 2 + s then squareRootEndpoint s
+  else squareRootEndpoint (s + 1)
+
+/-- Exact physical distance from `x` to its selected completed-square endpoint. -/
+def lowOwnerStokesNearestSquareDistance (x : ℕ) : ℕ :=
+  let s := Nat.sqrt x
+  if x < s ^ 2 + s then x - squareRootEndpoint s
+  else squareRootEndpoint (s + 1) - x
+
+/-- The square-block midpoint determines the lower-endpoint orientation. -/
+theorem lowOwnerStokesNearestSquareEndpoint_eq_lower
+    {x : ℕ}
+    (hmid : x < (Nat.sqrt x) ^ 2 + Nat.sqrt x) :
+    lowOwnerStokesNearestSquareEndpoint x =
+      squareRootEndpoint (Nat.sqrt x) := by
+  simp [lowOwnerStokesNearestSquareEndpoint, hmid]
+
+/-- At or above the midpoint switch, the upper completed-square endpoint is
+selected. -/
+theorem lowOwnerStokesNearestSquareEndpoint_eq_upper
+    {x : ℕ}
+    (hmid : (Nat.sqrt x) ^ 2 + Nat.sqrt x ≤ x) :
+    lowOwnerStokesNearestSquareEndpoint x =
+      squareRootEndpoint (Nat.sqrt x + 1) := by
+  simp [lowOwnerStokesNearestSquareEndpoint, Nat.not_lt.mpr hmid]
+
+/-- Exact orientation-and-distance dichotomy for an arbitrary physical
+endpoint. -/
+theorem lowOwnerStokesNearestSquareEndpoint_cases (x : ℕ) :
+    (x < (Nat.sqrt x) ^ 2 + Nat.sqrt x ∧
+      lowOwnerStokesNearestSquareEndpoint x =
+        squareRootEndpoint (Nat.sqrt x) ∧
+      lowOwnerStokesNearestSquareDistance x =
+        x - squareRootEndpoint (Nat.sqrt x)) ∨
+    ((Nat.sqrt x) ^ 2 + Nat.sqrt x ≤ x ∧
+      lowOwnerStokesNearestSquareEndpoint x =
+        squareRootEndpoint (Nat.sqrt x + 1) ∧
+      lowOwnerStokesNearestSquareDistance x =
+        squareRootEndpoint (Nat.sqrt x + 1) - x) := by
+  by_cases hmid : x < (Nat.sqrt x) ^ 2 + Nat.sqrt x
+  · left
+    exact ⟨hmid,
+      by simp [lowOwnerStokesNearestSquareEndpoint, hmid],
+      by simp [lowOwnerStokesNearestSquareDistance, hmid]⟩
+  · right
+    have hmid' : (Nat.sqrt x) ^ 2 + Nat.sqrt x ≤ x :=
+      Nat.le_of_not_gt hmid
+    exact ⟨hmid',
+      by simp [lowOwnerStokesNearestSquareEndpoint, hmid],
+      by simp [lowOwnerStokesNearestSquareDistance, hmid]⟩
+
+/-- **Deterministic stray-radius theorem.** The unfinished physical interval
+between `x` and its nearest completed-square endpoint has length at most the
+square-block half-radius `floor(sqrt x)`. -/
+theorem lowOwnerStokesNearestSquareDistance_le_sqrt (x : ℕ) :
+    lowOwnerStokesNearestSquareDistance x ≤ Nat.sqrt x := by
+  let s := Nat.sqrt x
+  have hs2 : s ^ 2 ≤ x := by
+    simpa [s] using Nat.sqrt_le' x
+  have hxlt : x < (s + 1) ^ 2 := by
+    simpa [s] using Nat.lt_succ_sqrt' x
+  by_cases hmid : x < s ^ 2 + s
+  · have hdist :
+        lowOwnerStokesNearestSquareDistance x =
+          x - squareRootEndpoint s := by
+      simp [lowOwnerStokesNearestSquareDistance, s, hmid]
+    rw [hdist]
+    have hgap : x - squareRootEndpoint s ≤ s := by
+      unfold squareRootEndpoint
+      omega
+    simpa [s] using hgap
+  · have hmid' : s ^ 2 + s ≤ x := Nat.le_of_not_gt hmid
+    have hdist :
+        lowOwnerStokesNearestSquareDistance x =
+          squareRootEndpoint (s + 1) - x := by
+      simp [lowOwnerStokesNearestSquareDistance, s, hmid]
+    rw [hdist]
+    have hsquare : (s + 1) ^ 2 = s ^ 2 + 2 * s + 1 := by ring
+    have hgap : squareRootEndpoint (s + 1) - x ≤ s := by
+      unfold squareRootEndpoint
+      rw [hsquare]
+      omega
+    simpa [s] using hgap
+
+/-- Residual endpoint distance at an arbitrary positive finite-wheel conductor.
+This remains an exact coordinate, not a magnitude estimate. -/
+def lowOwnerStokesResidualEndpointDistance (x conductor : ℕ) : ℕ :=
+  lowOwnerStokesNearestSquareDistance x % conductor
+
+/-- A nonzero-frequency wheel state has fewer than `conductor` possible residual
+endpoint distances. -/
+theorem lowOwnerStokesResidualEndpointDistance_lt
+    {x conductor : ℕ} (hc : 0 < conductor) :
+    lowOwnerStokesResidualEndpointDistance x conductor < conductor := by
+  exact Nat.mod_lt _ hc
+
+/-- A literal Stokes clip child therefore carries an explicit square endpoint
+coordinate and lies within its deterministic square-block half-radius. -/
+theorem lowOwnerFirstOwner_dirichletClip_has_bounded_squareEndpointDistance
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    squareRootEndpoint R < r * n ∧
+      lowOwnerStokesNearestSquareDistance (r * n) ≤ Nat.sqrt (r * n) := by
+  rcases mem_lowOwnerFirstOwnerStokesDirichletClipFace.mp hn with
+    ⟨_hbase, _hrn, hclip⟩
+  exact ⟨hclip, lowOwnerStokesNearestSquareDistance_le_sqrt (r * n)⟩
+
+/-- The same clip child has an exact finite residual-distance coordinate at any
+positive wheel conductor. -/
+theorem lowOwnerFirstOwner_dirichletClip_residualEndpointDistance_lt
+    {R p r n conductor : ℕ} {sig : Finset ℕ}
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+    (hc : 0 < conductor) :
+    squareRootEndpoint R < r * n ∧
+      lowOwnerStokesResidualEndpointDistance (r * n) conductor < conductor := by
+  rcases mem_lowOwnerFirstOwnerStokesDirichletClipFace.mp hn with
+    ⟨_hbase, _hrn, hclip⟩
+  exact ⟨hclip, lowOwnerStokesResidualEndpointDistance_lt hc⟩
+
 /-! ## Exact product-carrier factorization of pair escape faces -/
 
-/-- Left pair escape on a product carrier is exactly one one-dimensional escape
-face times the untouched right carrier. -/
 theorem pairPrimeLeftEscapePart_product
     (r : ℕ) (A B : Finset ℕ) :
     pairPrimeLeftEscapePart r (A.product B) =
@@ -236,7 +361,6 @@ theorem pairPrimeLeftEscapePart_product
     pairPrimeCarrierToggleLeft, primeEscapePart]
   aesop
 
-/-- Left pair interior factors coordinatewise on a product carrier. -/
 theorem pairPrimeLeftInteriorPart_product
     (r : ℕ) (A B : Finset ℕ) :
     pairPrimeLeftInteriorPart r (A.product B) =
@@ -247,8 +371,6 @@ theorem pairPrimeLeftInteriorPart_product
     pairPrimeCarrierToggleLeft, primeInteriorPart]
   aesop
 
-/-- After the left coordinate is paired, the right escape face is the left
-interior times the one-dimensional right escape face. -/
 theorem pairPrimeRightEscapeAfterLeft_product
     (r : ℕ) (A B : Finset ℕ) :
     pairPrimeRightEscapeAfterLeft r (A.product B) =
@@ -261,8 +383,6 @@ theorem pairPrimeRightEscapeAfterLeft_product
     primeEscapePart, primeInteriorPart]
   aesop
 
-/-- The complete two-coordinate interior is the product of the two
-one-dimensional interiors. -/
 theorem pairPrimeTwoCoordinateInterior_product
     (r : ℕ) (A B : Finset ℕ) :
     pairPrimeTwoCoordinateInterior r (A.product B) =
@@ -274,8 +394,6 @@ theorem pairPrimeTwoCoordinateInterior_product
     pairPrimeCarrierToggleRight, primeInteriorPart]
   aesop
 
-/-- Specialized left Stokes face: same sites and same signs, now on the named
-Dirichlet clip carrier. -/
 theorem lowOwnerFirstOwner_pairLeftEscape_eq_dirichletClip_product
     {R p r : ℕ} {sig : Finset ℕ}
     (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
@@ -287,7 +405,6 @@ theorem lowOwnerFirstOwner_pairLeftEscape_eq_dirichletClip_product
   rw [pairPrimeLeftEscapePart_product,
     lowOwnerFirstOwner_primeEscapePart_eq_dirichletClipFace hp hr hpr]
 
-/-- Specialized right Stokes face after left pairing. -/
 theorem lowOwnerFirstOwner_pairRightEscape_eq_interior_product_dirichletClip
     {R p r : ℕ} {sig : Finset ℕ}
     (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
@@ -299,9 +416,6 @@ theorem lowOwnerFirstOwner_pairRightEscape_eq_interior_product_dirichletClip
   rw [pairPrimeRightEscapeAfterLeft_product,
     lowOwnerFirstOwner_primeEscapePart_eq_dirichletClipFace hp hr hpr]
 
-/-- The first Stokes boundary step on an actual signed cell is literally the two
-Dirichlet clip faces, with the generic Othello signs and scalar weights left
-unchanged.  This is an identity, not a bound. -/
 theorem lowOwnerFirstOwner_pairBoundaryStep_eq_dirichletClipFaces
     {R p r : ℕ} {sig : Finset ℕ}
     (hp : p.Prime) (hr : r.Prime) (hpr : p < r)
@@ -326,17 +440,10 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_dirichletClipFaces
 
 /-! ## Accumulated escape faces are higher-corner Dirichlet clips -/
 
-/-- The one-dimensional carrier left after a reverse list of already-processed
-owners.  If the chronological processed list is `ps`, the current carrier is
-`stokesReversedInterior ps.reverse B`. -/
 def stokesReversedInterior : List ℕ → Finset ℕ → Finset ℕ
   | [], B => B
   | q :: qs, B => primeInteriorPart q (stokesReversedInterior qs B)
 
-/-- Recursive physical witness for an escape after several owner peels.
-At the base it is literally an Othello escape from the original physical
-carrier.  At one more interior layer, either the current mate already escapes
-the lower carrier, or that mate lies on the earlier owner's escape face. -/
 def stokesPhysicalClipWitness
     (B : Finset ℕ) : List ℕ → ℕ → ℕ → Prop
   | [], r, n => n ∈ B ∧ primeCarrierToggle r n ∉ B
@@ -345,7 +452,6 @@ def stokesPhysicalClipWitness
         (stokesPhysicalClipWitness B qs r n ∨
           stokesPhysicalClipWitness B qs q (primeCarrierToggle r n))
 
-/-- A recursive clip witness always lives on the current nested interior. -/
 theorem stokesPhysicalClipWitness_mem
     (B : Finset ℕ) :
     ∀ (qs : List ℕ) (r n : ℕ),
@@ -360,9 +466,6 @@ theorem stokesPhysicalClipWitness_mem
       intro r n h
       exact h.1
 
-/-- **Exact accumulated escape recursion.**  There is no third escape
-mechanism.  Every escape from a nested complete-interior carrier is exactly a
-recursive physical clip witness. -/
 theorem mem_primeEscapePart_stokesReversedInterior_iff_clipWitness
     (B : Finset ℕ) :
     ∀ (qs : List ℕ) (r n : ℕ),
@@ -412,9 +515,6 @@ theorem mem_primeEscapePart_stokesReversedInterior_iff_clipWitness
           intro hmateInt
           exact hqdata.2 (mem_primeInteriorPart.mp hmateInt).2
 
-/-- Every accumulated clip witness terminates at one literal escape from the
-original physical carrier, at either the current owner or one of the already
-processed owners. -/
 theorem stokesPhysicalClipWitness_exists_baseEscape
     (B : Finset ℕ) :
     ∀ (qs : List ℕ) (r n : ℕ),
@@ -440,15 +540,12 @@ theorem stokesPhysicalClipWitness_exists_baseEscape
         simp only [List.mem_cons] at ht ⊢
         exact Or.inr ht
 
-/-- Named same-site carrier for an accumulated higher-corner clip. -/
 def lowOwnerFirstOwnerStokesHigherCornerClipFace
     (R p : ℕ) (sig : Finset ℕ) (qs : List ℕ) (r : ℕ) : Finset ℕ :=
   (stokesReversedInterior qs (lowOwnerFirstOwnerBaseFiber R p sig)).filter
     fun n => stokesPhysicalClipWitness
       (lowOwnerFirstOwnerBaseFiber R p sig) qs r n
 
-/-- The accumulated Othello escape carrier is exactly the named higher-corner
-Dirichlet clip carrier.  No reindexing and therefore no sign change occurs. -/
 theorem lowOwnerFirstOwner_primeEscapePart_reversedInterior_eq_higherCornerClip
     (R p : ℕ) (sig : Finset ℕ) (qs : List ℕ) (r : ℕ) :
     primeEscapePart r
@@ -464,9 +561,6 @@ theorem lowOwnerFirstOwner_primeEscapePart_reversedInterior_eq_higherCornerClip
   · intro hn
     exact (Finset.mem_filter.mp hn).2
 
-/-- Every accumulated higher-corner clip has a literal base-cell Dirichlet clip
-at one owner in its Boolean history.  Thus repeated Stokes peeling creates no
-new non-Dirichlet escape class. -/
 theorem lowOwnerFirstOwner_higherCornerClip_has_dirichletClipLeaf
     {R p r n : ℕ} {sig : Finset ℕ} {qs : List ℕ}
     (hp : p.Prime)
@@ -486,9 +580,23 @@ theorem lowOwnerFirstOwner_higherCornerClip_has_dirichletClipLeaf
     hp htData.1 htData.2]
   exact hm
 
-/-- Every scalar AMP Othello difference on squarefree support is exactly a
-signed daughter-minus-root threshold crossing.  The sign only records whether
-the current site is the lower or upper endpoint of the involution pair. -/
+/-- Every accumulated higher-corner clip therefore inherits an explicit base
+clip whose escaped child has deterministic nearest-square radius. -/
+theorem lowOwnerFirstOwner_higherCornerClip_has_bounded_squareEndpointLeaf
+    {R p r n : ℕ} {sig : Finset ℕ} {qs : List ℕ}
+    (hp : p.Prime)
+    (howners : ∀ t ∈ r :: qs, t.Prime ∧ p < t)
+    (hn : n ∈ lowOwnerFirstOwnerStokesHigherCornerClipFace R p sig qs r) :
+    ∃ t m, t ∈ r :: qs ∧
+      m ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig t ∧
+      squareRootEndpoint R < t * m ∧
+      lowOwnerStokesNearestSquareDistance (t * m) ≤ Nat.sqrt (t * m) := by
+  rcases lowOwnerFirstOwner_higherCornerClip_has_dirichletClipLeaf
+      hp howners hn with ⟨t, m, ht, hm⟩
+  have hgeom :=
+    lowOwnerFirstOwner_dirichletClip_has_bounded_squareEndpointDistance hm
+  exact ⟨t, m, ht, hm, hgeom.1, hgeom.2⟩
+
 theorem lowOwnerZeroFrequencyMobiusWeight_sub_toggle_eq_signedCrossing
     {R r n : ℕ} (hr : r.Prime) (hnSq : Squarefree n) :
     lowOwnerZeroFrequencyMobiusWeight R n -
@@ -517,9 +625,6 @@ theorem lowOwnerZeroFrequencyMobiusWeight_sub_toggle_eq_signedCrossing
 
 /-! ## Exact value of the accumulated physical clip ledger -/
 
-/-- At an arbitrary accumulated one-dimensional carrier, the left pair boundary
-face is exactly the same-site higher-corner Dirichlet clip times the untouched
-right carrier. -/
 theorem lowOwnerFirstOwner_pairLeftEscape_reversedInterior_eq_higherCornerClip
     (R p : ℕ) (sig : Finset ℕ) (qs : List ℕ) (r : ℕ) :
     pairPrimeLeftEscapePart r
@@ -533,8 +638,6 @@ theorem lowOwnerFirstOwner_pairLeftEscape_reversedInterior_eq_higherCornerClip
   rw [pairPrimeLeftEscapePart_product,
     lowOwnerFirstOwner_primeEscapePart_reversedInterior_eq_higherCornerClip]
 
-/-- The corresponding right escape face after left pairing has the same exact
-higher-corner clip carrier in the right coordinate. -/
 theorem lowOwnerFirstOwner_pairRightEscape_reversedInterior_eq_higherCornerClip
     (R p : ℕ) (sig : Finset ℕ) (qs : List ℕ) (r : ℕ) :
     pairPrimeRightEscapeAfterLeft r
@@ -549,8 +652,6 @@ theorem lowOwnerFirstOwner_pairRightEscape_reversedInterior_eq_higherCornerClip
   rw [pairPrimeRightEscapeAfterLeft_product,
     lowOwnerFirstOwner_primeEscapePart_reversedInterior_eq_higherCornerClip]
 
-/-- One accumulated physical Stokes boundary step written only on the named
-higher-corner Dirichlet clip carriers. -/
 def lowOwnerFirstOwnerStokesHigherCornerBoundaryStep
     (R p : ℕ) (sig : Finset ℕ) (qs : List ℕ) (r : ℕ)
     (f : ℕ × ℕ → ℝ) : ℝ :=
@@ -562,8 +663,6 @@ def lowOwnerFirstOwnerStokesHigherCornerBoundaryStep
         othelloRealMoebiusPair mn *
           (f mn - f (pairPrimeCarrierToggleLeft r mn))
 
-/-- The abstract Stokes boundary step on the current nested carrier is exactly
-the named physical higher-corner clip step, with no reindexing. -/
 theorem lowOwnerFirstOwner_pairBoundaryStep_reversedInterior_eq_higherCorner
     (R p : ℕ) (sig : Finset ℕ) (qs : List ℕ) (r : ℕ)
     (f : ℕ × ℕ → ℝ) :
@@ -578,9 +677,6 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_reversedInterior_eq_higherCorner
   rw [lowOwnerFirstOwner_pairLeftEscape_reversedInterior_eq_higherCornerClip,
     lowOwnerFirstOwner_pairRightEscape_reversedInterior_eq_higherCornerClip]
 
-/-- Physical accumulated boundary ledger, carrying a reverse list of the owners
-already peeled.  It is intentionally an equality-level object: no magnitude is
-part of the definition. -/
 def lowOwnerFirstOwnerPhysicalStokesBoundaryFrom
     (R p : ℕ) (sig : Finset ℕ) :
     List ℕ → List ℕ → (ℕ × ℕ → ℝ) → ℝ
@@ -592,12 +688,6 @@ def lowOwnerFirstOwnerPhysicalStokesBoundaryFrom
           lowOwnerFirstOwnerPhysicalStokesBoundaryFrom R p sig
             (r :: doneRev) rs (pairPrimeMixedDifference r f)
 
-/-- **Full accumulated-boundary identification.**
-
-The generic iterated Stokes escape ledger on the nested physical cell carrier
-is exactly the recursively named higher-corner Dirichlet clip ledger.  The
-identity keeps the same sites, Möbius signs, scalar weights and exact quarter
-multiplicities. -/
 theorem iteratedPairWeightedStokesBoundary_eq_physicalClipLedger :
     ∀ (R p : ℕ) (sig : Finset ℕ) (doneRev ps : List ℕ)
       (f : ℕ × ℕ → ℝ),
@@ -638,15 +728,12 @@ theorem iteratedPairWeightedStokesBoundary_eq_physicalClipLedger :
       rw [ih (doneRev := r :: doneRev)
         (f := pairPrimeMixedDifference r f)]
 
-/-- Canonical physical clip ledger for one first-owner/signature cell. -/
 def lowOwnerFirstOwnerCanonicalStokesClipBoundary
     (R p : ℕ) (sig : Finset ℕ) : ℝ :=
   lowOwnerFirstOwnerPhysicalStokesBoundaryFrom R p sig []
     (lowOwnerFirstOwnerCanonicalStokesSchedule R p)
     (lowOwnerFirstOwnerDirichletPolarizationScalar R p)
 
-/-- The previously abstract canonical Stokes boundary is exactly the physical
-higher-corner Dirichlet clip ledger. -/
 theorem lowOwnerFirstOwnerCanonicalStokesBoundary_eq_clipBoundary
     (R p : ℕ) (sig : Finset ℕ) :
     lowOwnerFirstOwnerCanonicalStokesBoundary R p sig =
@@ -658,15 +745,11 @@ theorem lowOwnerFirstOwnerCanonicalStokesBoundary_eq_clipBoundary
     R p sig [] (lowOwnerFirstOwnerCanonicalStokesSchedule R p)
       (lowOwnerFirstOwnerDirichletPolarizationScalar R p)
 
-/-- Global physical higher-corner clip ledger. -/
 def lowOwnerCanonicalSignedStokesClipBoundary (R : ℕ) : ℝ :=
   ∑ p ∈ primesUpTo (squareRootEndpoint R),
     ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
       lowOwnerFirstOwnerCanonicalStokesClipBoundary R p sig
 
-/-- **Global exact boundary identification.**  This is the requested rewrite of
-`B_R^Stokes`: the accumulated abstract escape ledger is literally the signed
-physical higher-corner Dirichlet clip ledger. -/
 theorem lowOwnerCanonicalSignedStokesBoundary_eq_clipBoundary
     (R : ℕ) :
     lowOwnerCanonicalSignedStokesBoundary R =
