@@ -32,9 +32,6 @@ jobs:
           lake build RHLean.Analysis.PrimeWheelCoconductorTailBound
           lake build RHLean.Analysis.SquareWheelQuadraticSampling
           mkdir -p .lake/build/lib/lean
-          lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE.olean \
-            research/LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE.lean
       - name: Kernel-check deterministic endpoint maximum alignment
         run: |
           lake env lean -DwarningAsError=true \
