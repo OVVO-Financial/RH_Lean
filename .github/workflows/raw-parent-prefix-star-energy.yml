@@ -7,6 +7,9 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_PREFIX_STAR.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_PREFIX_STAR_ENERGY.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_SQUARES.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_ENERGY_NORMAL_FORM.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_THRESHOLD_ORBIT_AMPLITUDE.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.lean
       - .github/workflows/raw-parent-prefix-star-energy.yml
@@ -94,11 +97,15 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_ORBIT_RECURSION.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_PREFIX_STAR.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_PREFIX_STAR_ENERGY.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_SQUARES.lean
 
-      - name: Kernel-check prefix-star square realization
+      - name: Kernel-check branch-energy normal form and owner-orbit amplitude
         run: |
           lake env lean -DwarningAsError=true \
-            research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_SQUARES.lean
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_ENERGY_NORMAL_FORM.lean
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_THRESHOLD_ORBIT_AMPLITUDE.lean
