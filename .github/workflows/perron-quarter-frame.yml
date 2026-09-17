@@ -7,6 +7,7 @@ on:
       - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
       - research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
       - research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+      - research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
       - research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.lean
       - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
       - research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
@@ -108,11 +109,14 @@ jobs:
             -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.olean \
             research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
 
-      - name: Emit covariance reciprocal owner congestion
+      - name: Emit covariance reciprocal owner stack
         run: |
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.COVARIANCE_RECIPROCAL_OWNER_CONGESTION.olean \
             research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.olean \
+            research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
 
       - name: Kernel-check Basel covariance contraction
         run: lake env lean -DwarningAsError=true research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.lean
