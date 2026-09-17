@@ -192,7 +192,6 @@ theorem lowOwnerStokesAllEndpointMertensGap_eq_sum_conductorComponents
               primeWheelConductorComponent W (rawQ2ChildCutoff R q) c)
   rw [hswap]
   rw [← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib]
-  rfl
 
 /-- **Full conductor Gram identity for the Stokes endpoint gap.**  This is the
 legal object on which any later completed-period alignment estimate must act. -/
@@ -214,5 +213,8 @@ theorem lowOwnerStokesEndpointConductorGramEnergy_eq_gap_mul_conj
   rw [hsum]
   rw [map_sum]
   rw [Finset.sum_mul]
+  apply Finset.sum_congr rfl
+  intro c _hc
+  rw [Finset.mul_sum]
 
 end RHLean.Proof
