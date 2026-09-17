@@ -162,6 +162,40 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
           emit research/GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.lean
       - name: Check owner-parent continuation
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.olean research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
+        id: owner_parent
+        continue-on-error: true
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.olean \
+            research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean \
+            > owner-parent.log 2>&1
+      - name: Upload owner-parent diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: owner-parent-lean-diagnostic
+          path: owner-parent.log
+      - name: Fail if owner-parent continuation failed
+        if: steps.owner_parent.outcome != 'success'
+        run: |
+          cat owner-parent.log
+          exit 1
       - name: Check deterministic inherited cancellation
-        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.olean research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
+        id: deterministic_cancellation
+        continue-on-error: true
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.olean \
+            research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean \
+            > deterministic-cancellation.log 2>&1
+      - name: Upload deterministic cancellation diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deterministic-cancellation-lean-diagnostic
+          path: deterministic-cancellation.log
+      - name: Fail if deterministic cancellation failed
+        if: steps.deterministic_cancellation.outcome != 'success'
+        run: |
+          cat deterministic-cancellation.log
+          exit 1
