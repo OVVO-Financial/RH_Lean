@@ -181,7 +181,6 @@ theorem lowOwnerStokesNaturalPeriodicRawSpectrum_eq_rawConductorArithmeticCoeffi
     (lowOwnerStokesWheelPrimes R)
     (fun p hp => lowOwnerStokesWheelPrimes_prime hp)
     (fun p hp => by
-      change p ^ 2 ∣ W.modulus
       simpa [W, lowOwnerStokesNaturalWheelSystem] using
         prime_sq_dvd_lowOwnerStokesNaturalWheelModulus hR hp)
     r
