@@ -107,7 +107,6 @@ theorem lowOwnerThresholdEulerParentEnergy_eq_mixedIncidence
   rw [lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr,
     lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr]
   field_simp [ha0, hb0]
-  ring
 
 /-- The literal fixed-owner inherited child sum is therefore the physical
 `multiplicity / r^2` weight times the deterministic mixed-incidence energy. -/
