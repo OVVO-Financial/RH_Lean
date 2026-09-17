@@ -216,7 +216,6 @@ theorem sum_lowOwnerThresholdSecondOwnerDifference_sq_le_quarter_endpoint_add_fo
       _ = (1 / 2 : ℝ) * A + 2 * B := by
         rw [Finset.sum_add_distrib]
         rw [← Finset.mul_sum, ← Finset.mul_sum]
-        rfl
   calc
     (∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
         lowOwnerThresholdSecondOwnerDifference R p r n ^ 2) ≤
