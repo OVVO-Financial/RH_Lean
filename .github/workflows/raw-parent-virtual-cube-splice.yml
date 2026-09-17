@@ -11,6 +11,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_DIAGONAL_BOUND.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.lean
       - .github/workflows/raw-parent-virtual-cube-splice.yml
   workflow_dispatch:
 
@@ -95,7 +96,7 @@ jobs:
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
 
-      - name: Check virtual cube splice, full orbit recursion, and completed gate split
+      - name: Check virtual cube splice, full orbit recursion, and incomplete classification
         run: |
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_VIRTUAL_CUBE_SPLICE.olean \
@@ -116,4 +117,7 @@ jobs:
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.olean \
             research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
           lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.lean
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.lean
