@@ -2,6 +2,7 @@ import Mathlib
 import «research.GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION»
 import «research.GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION»
 import «research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP»
+import «research.GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI»
 
 /-!
 # Deterministic cancellation in the inherited reciprocal ledger
@@ -227,5 +228,157 @@ theorem lowOwnerThresholdAtomicMixedDifference_sq_eq_activity
   · by_cases hright : r * n ≤ y ∧ y < p * (r * n)
     · simp [hleft, hright]
     · simp [hleft, hright]
+
+/-- The existing clipped-edge coordinate is exactly the atomic mixed window. -/
+theorem lowOwnerThresholdClippedDifference_eq_atomicMixedDifference
+    {p r n y : ℕ} (hp : 1 ≤ p) (hr : 1 ≤ r) :
+    lowOwnerThresholdClippedDifference p r n y =
+      lowOwnerThresholdAtomicMixedDifference p r n y := by
+  unfold lowOwnerThresholdClippedDifference
+    lowOwnerThresholdAtomicMixedDifference
+  exact (lowOwnerThresholdCrossing_secondIncidence_comm hp hr).symm
+
+private theorem lowOwnerInheritedReciprocalSquareBudget_le_quarter (R : ℕ) :
+    (∑ q ∈ canonicalRoughLowQ2Owners R, ((1 : ℝ) / (q : ℝ)) ^ 2) ≤
+      1 / 4 := by
+  have hsub : canonicalRoughLowQ2Owners R ⊆ (primesUpTo (R - 1)).erase 2 :=
+    Finset.sdiff_subset
+  calc
+    (∑ q ∈ canonicalRoughLowQ2Owners R, ((1 : ℝ) / (q : ℝ)) ^ 2) ≤
+        ∑ q ∈ (primesUpTo (R - 1)).erase 2, ((1 : ℝ) / (q : ℝ)) ^ 2 := by
+      apply Finset.sum_le_sum_of_subset_of_nonneg hsub
+      intro q _hq _hnot
+      positivity
+    _ ≤ 1 / 4 := by
+      simpa [div_pow] using
+        (oddPrimeOwnerReciprocalSquareBudgetReal_le_quarter (R - 1))
+
+/-- **Quarter-budget daughter square.**  Cauchy--Schwarz costs exactly the
+compiled odd-prime reciprocal-square budget, while #744 turns each atomic
+square into the sum of two disjoint crossing indicators. -/
+theorem lowOwnerThresholdDaughterClippedSum_sq_le_quarter_activity
+    {R p r n : ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) (hn : 0 < n) :
+    (∑ q ∈ canonicalRoughLowQ2Owners R,
+      ((1 : ℝ) / (q : ℝ)) *
+        lowOwnerThresholdClippedDifference
+          p r n (rawQ2ChildCutoff R q)) ^ 2 ≤
+      (1 / 4 : ℝ) *
+        ∑ q ∈ canonicalRoughLowQ2Owners R,
+          (lowOwnerThresholdCrossingIndicator
+              p n (rawQ2ChildCutoff R q) +
+            lowOwnerThresholdCrossingIndicator
+              p (r * n) (rawQ2ChildCutoff R q)) := by
+  let S := canonicalRoughLowQ2Owners R
+  let b : ℕ → ℝ := fun q =>
+    lowOwnerThresholdClippedDifference p r n (rawQ2ChildCutoff R q)
+  have hcs := Finset.sum_mul_sq_le_sq_mul_sq
+    (R := ℝ) S (fun q => (1 : ℝ) / (q : ℝ)) b
+  have hbSq :
+      (∑ q ∈ S, b q ^ 2) =
+        ∑ q ∈ S,
+          (lowOwnerThresholdCrossingIndicator
+              p n (rawQ2ChildCutoff R q) +
+            lowOwnerThresholdCrossingIndicator
+              p (r * n) (rawQ2ChildCutoff R q)) := by
+    apply Finset.sum_congr rfl
+    intro q _hq
+    unfold b
+    rw [lowOwnerThresholdClippedDifference_eq_atomicMixedDifference
+      hp.one_le hr.one_le]
+    exact lowOwnerThresholdAtomicMixedDifference_sq_eq_activity hpr hn
+  have hbudget :
+      (∑ q ∈ S, ((1 : ℝ) / (q : ℝ)) ^ 2) ≤ 1 / 4 := by
+    exact lowOwnerInheritedReciprocalSquareBudget_le_quarter R
+  have hbNonneg : 0 ≤ ∑ q ∈ S, b q ^ 2 := by
+    apply Finset.sum_nonneg
+    intro q _hq
+    positivity
+  calc
+    (∑ q ∈ canonicalRoughLowQ2Owners R,
+        ((1 : ℝ) / (q : ℝ)) *
+          lowOwnerThresholdClippedDifference
+            p r n (rawQ2ChildCutoff R q)) ^ 2 =
+        (∑ q ∈ S, ((1 : ℝ) / (q : ℝ)) * b q) ^ 2 := by rfl
+    _ ≤ (∑ q ∈ S, ((1 : ℝ) / (q : ℝ)) ^ 2) *
+          ∑ q ∈ S, b q ^ 2 := hcs
+    _ ≤ (1 / 4 : ℝ) * ∑ q ∈ S, b q ^ 2 :=
+      mul_le_mul_of_nonneg_right hbudget hbNonneg
+    _ = (1 / 4 : ℝ) *
+        ∑ q ∈ canonicalRoughLowQ2Owners R,
+          (lowOwnerThresholdCrossingIndicator
+              p n (rawQ2ChildCutoff R q) +
+            lowOwnerThresholdCrossingIndicator
+              p (r * n) (rawQ2ChildCutoff R q)) := by
+      rw [hbSq]
+
+/-- **Pointwise mixed-incidence square bound.**  The full threshold second
+difference costs one half of the daughter activity plus twice the two root
+crossing indicators.  No logarithmic factor and no Möbius estimate enters. -/
+theorem lowOwnerThresholdSecondOwnerDifference_sq_le_activity
+    {R p r n : ℕ}
+    (hR : 1 ≤ R) (hp : p.Prime) (hr : r.Prime)
+    (hpr : p < r) (hn : 0 < n) :
+    lowOwnerThresholdSecondOwnerDifference R p r n ^ 2 ≤
+      (1 / 2 : ℝ) *
+        (∑ q ∈ canonicalRoughLowQ2Owners R,
+          (lowOwnerThresholdCrossingIndicator
+              p n (rawQ2ChildCutoff R q) +
+            lowOwnerThresholdCrossingIndicator
+              p (r * n) (rawQ2ChildCutoff R q))) +
+      2 *
+        (lowOwnerThresholdCrossingIndicator p n (R - 1) +
+          lowOwnerThresholdCrossingIndicator p (r * n) (R - 1)) := by
+  let A : ℝ :=
+    ∑ q ∈ canonicalRoughLowQ2Owners R,
+      ((1 : ℝ) / (q : ℝ)) *
+        lowOwnerThresholdClippedDifference
+          p r n (rawQ2ChildCutoff R q)
+  let B : ℝ := lowOwnerThresholdClippedDifference p r n (R - 1)
+  have hrewrite :
+      lowOwnerThresholdSecondOwnerDifference R p r n = A - B := by
+    simpa [A, B] using
+      (lowOwnerThresholdSecondOwnerDifference_eq_clippedFubini
+        hR hp.one_le hr.one_le)
+  have hA : A ^ 2 ≤
+      (1 / 4 : ℝ) *
+        (∑ q ∈ canonicalRoughLowQ2Owners R,
+          (lowOwnerThresholdCrossingIndicator
+              p n (rawQ2ChildCutoff R q) +
+            lowOwnerThresholdCrossingIndicator
+              p (r * n) (rawQ2ChildCutoff R q))) := by
+    simpa [A] using
+      (lowOwnerThresholdDaughterClippedSum_sq_le_quarter_activity
+        (R := R) hp hr hpr hn)
+  have hB : B ^ 2 =
+      lowOwnerThresholdCrossingIndicator p n (R - 1) +
+        lowOwnerThresholdCrossingIndicator p (r * n) (R - 1) := by
+    unfold B
+    rw [lowOwnerThresholdClippedDifference_eq_atomicMixedDifference
+      hp.one_le hr.one_le]
+    exact lowOwnerThresholdAtomicMixedDifference_sq_eq_activity hpr hn
+  rw [hrewrite]
+  have hquad : (A - B) ^ 2 ≤ 2 * A ^ 2 + 2 * B ^ 2 := by
+    nlinarith [sq_nonneg (A + B)]
+  calc
+    (A - B) ^ 2 ≤ 2 * A ^ 2 + 2 * B ^ 2 := hquad
+    _ ≤ 2 * ((1 / 4 : ℝ) *
+          (∑ q ∈ canonicalRoughLowQ2Owners R,
+            (lowOwnerThresholdCrossingIndicator
+                p n (rawQ2ChildCutoff R q) +
+              lowOwnerThresholdCrossingIndicator
+                p (r * n) (rawQ2ChildCutoff R q)))) +
+        2 * B ^ 2 := by nlinarith [hA]
+    _ = (1 / 2 : ℝ) *
+          (∑ q ∈ canonicalRoughLowQ2Owners R,
+            (lowOwnerThresholdCrossingIndicator
+                p n (rawQ2ChildCutoff R q) +
+              lowOwnerThresholdCrossingIndicator
+                p (r * n) (rawQ2ChildCutoff R q))) +
+        2 *
+          (lowOwnerThresholdCrossingIndicator p n (R - 1) +
+            lowOwnerThresholdCrossingIndicator p (r * n) (R - 1)) := by
+      rw [hB]
+      ring
 
 end RHLean.Proof
