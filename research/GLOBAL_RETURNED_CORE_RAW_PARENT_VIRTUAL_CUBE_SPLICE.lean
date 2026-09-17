@@ -129,7 +129,7 @@ theorem mem_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_leftMixed_iff
       intro heq
       have hfresh := howners.1.1
       rw [heq] at hfresh
-      simpa [squarefreePairFreshPrimeSet] using hfresh
+      simp [squarefreePairFreshPrimeSet] at hfresh
     have hoff : (r * parent.1, parent.2) ∈
         lowOwnerFirstOwnerBaseOffDiagonalPairCarrier R p sig :=
       Finset.mem_filter.mpr ⟨hprod, hne⟩
@@ -177,7 +177,7 @@ theorem mem_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_rightMixed_iff
       intro heq
       have hfresh := howners.2.1
       rw [← heq] at hfresh
-      simpa [squarefreePairFreshPrimeSet] using hfresh
+      simp [squarefreePairFreshPrimeSet] at hfresh
     have hoff : (parent.1, r * parent.2) ∈
         lowOwnerFirstOwnerBaseOffDiagonalPairCarrier R p sig :=
       Finset.mem_filter.mpr ⟨hprod, hne⟩
@@ -203,25 +203,34 @@ theorem sum_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_eq_virtualMixed
         R p (r * parent.1, parent.2) +
       lowOwnerFirstOwnerDirichletPolarizationAtom
         R p (parent.1, r * parent.2) := by
-  let F := lowOwnerFirstOwnerPolarizationFixedRawParentFiber R p sig r parent
+  let F : Finset (ℕ × ℕ) :=
+    lowOwnerFirstOwnerPolarizationFixedRawParentFiber R p sig r parent
   let L : ℕ × ℕ := (r * parent.1, parent.2)
   let U : ℕ × ℕ := (parent.1, r * parent.2)
-  have hLiff :=
-    mem_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_leftMixed_iff
+  change (∑ child ∈ F,
+      lowOwnerFirstOwnerDirichletPolarizationAtom R p child) =
+    lowOwnerFirstOwnerDirichletPolarizationAtom R p L +
+      lowOwnerFirstOwnerDirichletPolarizationAtom R p U
+  have hLiff : L ∈ F ↔ r * parent.1 ≤ squareRootEndpoint R := by
+    dsimp [F, L]
+    exact mem_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_leftMixed_iff
       hp hparent
-  have hUiff :=
-    mem_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_rightMixed_iff
+  have hUiff : U ∈ F ↔ r * parent.2 ≤ squareRootEndpoint R := by
+    dsimp [F, U]
+    exact mem_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_rightMixed_iff
       hp hparent
   have hsub : F ⊆ ({L, U} : Finset (ℕ × ℕ)) := by
     intro child hchild
     rcases lowOwnerFirstOwnerPolarizationFixedRawParentFiber_child_mixed
       hchild with h | h
-    · simpa [F, L, U, h]
-    · simpa [F, L, U, h]
+    · subst child
+      simp [L, U]
+    · subst child
+      simp [L, U]
   by_cases hL : r * parent.1 ≤ squareRootEndpoint R
-  · have hLmem : L ∈ F := by simpa [F, L] using hLiff.mpr hL
+  · have hLmem : L ∈ F := hLiff.mpr hL
     by_cases hU : r * parent.2 ≤ squareRootEndpoint R
-    · have hUmem : U ∈ F := by simpa [F, U] using hUiff.mpr hU
+    · have hUmem : U ∈ F := hUiff.mpr hU
       have hset : F = ({L, U} : Finset (ℕ × ℕ)) := by
         apply Finset.Subset.antisymm hsub
         intro z hz
@@ -238,10 +247,9 @@ theorem sum_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_eq_virtualMixed
         have hfresh := howners.1.1
         change r * parent.1 = parent.1 ∧ parent.2 = r * parent.2 at heq
         rw [heq.1, heq.2] at hfresh
-        simpa [squarefreePairFreshPrimeSet] using hfresh
-      simp [L, U, hne]
-    · have hUnot : U ∉ F := by
-        simpa [F, U] using (not_congr hUiff).mpr hU
+        simp [squarefreePairFreshPrimeSet] at hfresh
+      simp [hne]
+    · have hUnot : U ∉ F := (not_congr hUiff).mpr hU
       have hset : F = ({L} : Finset (ℕ × ℕ)) := by
         apply Finset.Subset.antisymm
         · intro z hz
@@ -251,7 +259,9 @@ theorem sum_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_eq_virtualMixed
           · simp
           · exact False.elim (hUnot hz)
         · intro z hz
-          simpa using hLmem
+          simp only [Finset.mem_singleton] at hz
+          subst z
+          exact hLmem
       have hUout : squareRootEndpoint R < r * parent.2 :=
         Nat.lt_of_not_ge hU
       have hUzero :
@@ -260,9 +270,8 @@ theorem sum_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_eq_virtualMixed
         exact lowOwnerFirstOwnerDirichletPolarizationAtom_eq_zero_of_second_outside
           hp.one_le hUout
       rw [hset]
-      simp [L, U, hUzero]
-  · have hLnot : L ∉ F := by
-      simpa [F, L] using (not_congr hLiff).mpr hL
+      simp [hUzero]
+  · have hLnot : L ∉ F := (not_congr hLiff).mpr hL
     have hLout : squareRootEndpoint R < r * parent.1 :=
       Nat.lt_of_not_ge hL
     have hLzero :
@@ -271,7 +280,7 @@ theorem sum_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_eq_virtualMixed
       exact lowOwnerFirstOwnerDirichletPolarizationAtom_eq_zero_of_first_outside
         hp.one_le hLout
     by_cases hU : r * parent.2 ≤ squareRootEndpoint R
-    · have hUmem : U ∈ F := by simpa [F, U] using hUiff.mpr hU
+    · have hUmem : U ∈ F := hUiff.mpr hU
       have hset : F = ({U} : Finset (ℕ × ℕ)) := by
         apply Finset.Subset.antisymm
         · intro z hz
@@ -281,11 +290,12 @@ theorem sum_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_eq_virtualMixed
           · exact False.elim (hLnot hz)
           · simp
         · intro z hz
-          simpa using hUmem
+          simp only [Finset.mem_singleton] at hz
+          subst z
+          exact hUmem
       rw [hset]
-      simp [L, U, hLzero]
-    · have hUnot : U ∉ F := by
-        simpa [F, U] using (not_congr hUiff).mpr hU
+      simp [hLzero]
+    · have hUnot : U ∉ F := (not_congr hUiff).mpr hU
       have hset : F = ∅ := by
         apply Finset.eq_empty_iff_forall_notMem.mpr
         intro z hz
@@ -302,7 +312,7 @@ theorem sum_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_eq_virtualMixed
         exact lowOwnerFirstOwnerDirichletPolarizationAtom_eq_zero_of_second_outside
           hp.one_le hUout
       rw [hset]
-      simp [L, U, hLzero, hUzero]
+      simp [hLzero, hUzero]
 
 /-- **Exact lower-rank splice on one raw parent.**  After completing missing
 mixed siblings by Dirichlet zero, the actual owner fibre is the existing
