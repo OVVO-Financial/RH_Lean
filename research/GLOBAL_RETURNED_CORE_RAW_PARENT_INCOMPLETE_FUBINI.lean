@@ -53,8 +53,8 @@ private theorem firstClip_disjoint_nextClip
   have hf := (Finset.mem_filter.mp hfirst).2
   have hn := (Finset.mem_filter.mp hnext).2
   rcases hf with hf | hf
-  · omega
-  · omega
+  · exact (Nat.not_lt_of_ge hn.1) hf
+  · exact (Nat.not_lt_of_ge hn.2.1) hf
 
 private theorem firstClip_disjoint_returnedClip
     (R p : ℕ) (sig : Finset ℕ) (r : ℕ) :
@@ -66,8 +66,8 @@ private theorem firstClip_disjoint_returnedClip
   have hf := (Finset.mem_filter.mp hfirst).2
   have hr := (Finset.mem_filter.mp hret).2
   rcases hf with hf | hf
-  · omega
-  · omega
+  · exact (Nat.not_lt_of_ge hr.1) hf
+  · exact (Nat.not_lt_of_ge hr.2.1) hf
 
 private theorem nextClip_disjoint_returnedClip
     (R p : ℕ) (sig : Finset ℕ) (r : ℕ) :
@@ -79,8 +79,8 @@ private theorem nextClip_disjoint_returnedClip
   have hn := (Finset.mem_filter.mp hnext).2
   have hr := (Finset.mem_filter.mp hret).2
   rcases hn.2.2 with h | h
-  · omega
-  · omega
+  · exact (Nat.not_lt_of_ge hr.2.2.1) h
+  · exact (Nat.not_lt_of_ge hr.2.2.2.1) h
 
 private theorem firstClip_disjoint_nextUnionReturned
     (R p : ℕ) (sig : Finset ℕ) (r : ℕ) :
