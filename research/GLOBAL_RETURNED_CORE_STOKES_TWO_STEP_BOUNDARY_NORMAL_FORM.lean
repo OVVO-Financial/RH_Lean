@@ -143,8 +143,9 @@ theorem primeInteriorPart_subset_one_insert_prime_of_top
       simp at hk
       omega
     have hqkLt : q * k < q * 2 := by
-      rw [← hk]
-      exact hnData.2.trans_lt h2q
+      have h : n < 2 * q := hnData.2.trans_lt h2q
+      rw [hk] at h
+      simpa [Nat.mul_comm] using h
     have hkLt : k < 2 :=
       (Nat.mul_lt_mul_left hq.pos).mp hqkLt
     have hk1 : k = 1 := by omega
@@ -182,10 +183,10 @@ theorem card_lowOwnerFirstOwner_topPrimeInterior_le_two
   have hsub :=
     lowOwnerFirstOwner_topPrimeInterior_subset_one_insert_prime
       (R := R) (p := p) (q := q) (sig := sig) hq hqTop
-  calc
-    (primeInteriorPart q (lowOwnerFirstOwnerBaseFiber R p sig)).card ≤
-        (({1, q} : Finset ℕ).card) := Finset.card_le_card hsub
-    _ ≤ 2 := by simp
+  have htwo : (({1, q} : Finset ℕ).card) ≤ 2 := by
+    have h := Finset.card_insert_le 1 ({q} : Finset ℕ)
+    simpa using h
+  exact (Finset.card_le_card hsub).trans htwo
 
 /-- **Top-half pair collapse.**  After the first canonical Stokes peel, the
 complete two-coordinate interior of any first-owner/signature cell has at most
@@ -197,14 +198,15 @@ theorem card_lowOwnerFirstOwner_topPrimePairInterior_le_four
     (pairPrimeTwoCoordinateInterior q
       (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)).card ≤ 4 := by
   unfold lowOwnerFirstOwnerSignedCellPairCarrier
-  rw [pairPrimeTwoCoordinateInterior_product, Finset.card_product]
-  have hcard :=
-    card_lowOwnerFirstOwner_topPrimeInterior_le_two
+  rw [pairPrimeTwoCoordinateInterior_product]
+  let A := primeInteriorPart q (lowOwnerFirstOwnerBaseFiber R p sig)
+  have hcard : A.card ≤ 2 := by
+    dsimp [A]
+    exact card_lowOwnerFirstOwner_topPrimeInterior_le_two
       (R := R) (p := p) (q := q) (sig := sig) hq hqTop
   calc
-    (primeInteriorPart q (lowOwnerFirstOwnerBaseFiber R p sig)).card *
-        (primeInteriorPart q (lowOwnerFirstOwnerBaseFiber R p sig)).card ≤
-      2 * 2 := Nat.mul_le_mul hcard hcard
+    (A.product A).card = A.card * A.card := Finset.card_product _ _
+    _ ≤ 2 * 2 := Nat.mul_le_mul hcard hcard
     _ = 4 := by norm_num
 
 end RHLean.Proof
