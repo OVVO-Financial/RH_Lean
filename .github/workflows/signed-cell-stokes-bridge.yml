@@ -16,6 +16,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_GLOBAL_IDENTIFICATION.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_WHEEL_IDENTIFICATION.lean
       - research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean
       - .github/workflows/signed-cell-stokes-bridge.yml
   workflow_dispatch:
@@ -71,8 +72,10 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-
-      - name: Build Othello dependency
-        run: lake build RHLean.Proof.GlobalPrefixCarrierOthello
+      - name: Build algebraic dependencies
+        run: |
+          lake build RHLean.Proof.GlobalPrefixCarrierOthello
+          lake build RHLean.Arithmetic.PrimeWheelMobiusRecovery
       - name: Emit returned-core dependency foundation through owner cube
         run: |
           mkdir -p .lake/build/lib/lean
@@ -137,7 +140,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
-      - name: Kernel-check exact signed Stokes algebra through global identification
+      - name: Kernel-check exact signed Stokes algebra through corrected-wheel identification
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
@@ -150,6 +153,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_GLOBAL_IDENTIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_WHEEL_IDENTIFICATION.lean
       - name: Kernel-check final Stokes boundary consumer wiring
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
