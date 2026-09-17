@@ -20,6 +20,8 @@ on:
       - research/GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_NEAREST_SQUARE_ENDPOINT_LEDGER.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_ARBITRARY_CLOCK_WHEEL.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_COMMON_SPECTRUM_LEDGER.lean
       - research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean
       - .github/workflows/signed-cell-stokes-bridge.yml
   workflow_dispatch:
@@ -79,6 +81,7 @@ jobs:
         run: |
           lake build RHLean.Proof.GlobalPrefixCarrierOthello
           lake build RHLean.Arithmetic.PrimeWheelMobiusRecovery
+          lake build RHLean.Analysis.PrimeWheelConductorGram
       - name: Emit returned-core dependency foundation through owner cube
         run: |
           mkdir -p .lake/build/lib/lean
@@ -144,7 +147,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
           emit research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean
-      - name: Kernel-check exact signed Stokes algebra through nearest-square endpoint identification
+      - name: Kernel-check exact signed Stokes algebra through common corrected spectrum
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
@@ -161,6 +164,8 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_NEAREST_SQUARE_ENDPOINT_LEDGER.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_ARBITRARY_CLOCK_WHEEL.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_COMMON_SPECTRUM_LEDGER.lean
       - name: Kernel-check final Stokes boundary consumer wiring
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
