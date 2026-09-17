@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
+      - research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.lean
+      - research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CLIPPED_CONTRACTION.lean
       - research/GLOBAL_RETURNED_CORE_INHERITED_BASEL_ACTIVITY.lean
       - research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
       - .github/workflows/inherited-basel-activity.yml
@@ -82,11 +84,19 @@ jobs:
           PY
           bash /tmp/owner-parent-foundation.sh
 
-      - name: Emit Basel sharpening
+      - name: Emit Basel sharpening and covariance contraction
         run: |
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.olean \
             research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.olean \
+            research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.lean
+
+      - name: Kernel-check Basel clipped covariance contraction
+        run: |
+          lake env lean -DwarningAsError=true \
+            research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CLIPPED_CONTRACTION.lean
 
       - name: Emit deterministic inherited cancellation
         run: |
