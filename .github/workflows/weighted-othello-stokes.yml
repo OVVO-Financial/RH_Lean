@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
+      - research/GLOBAL_RETURNED_CORE_SIGNED_STOKES_RAW_PARENT_STEP.lean
       - .github/workflows/weighted-othello-stokes.yml
   workflow_dispatch:
 
@@ -40,6 +41,15 @@ jobs:
           lake env lean -DwarningAsError=true \
             research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean \
             2>&1 | tee weighted-othello-stokes.log
-      - name: Print log
+      - name: Kernel-check signed raw-parent Stokes step
+        shell: bash
+        run: |
+          set -o pipefail
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_SIGNED_STOKES_RAW_PARENT_STEP.lean \
+            2>&1 | tee signed-raw-parent-stokes.log
+      - name: Print logs
         if: ${{ always() }}
-        run: cat weighted-othello-stokes.log
+        run: |
+          cat weighted-othello-stokes.log || true
+          cat signed-raw-parent-stokes.log || true
