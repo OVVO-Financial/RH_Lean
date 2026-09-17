@@ -98,7 +98,6 @@ theorem lowOwnerFirstOwnerRawParentOrbitInert_not_dvd_owner
       unfold lowOwnerFirstOwnerPolarizationRawParent
       simp only
       rw [hrunParent]
-      dsimp [un]
     have hrawMem :
         lowOwnerFirstOwnerPolarizationRawParent r (m, n) ∈
           lowOwnerFirstOwnerPolarizationRawParentSet R p sig r := by
