@@ -29,6 +29,7 @@ jobs:
       - name: Build harmonic dependencies
         run: |
           lake build RHLean.Analysis.PrimeWheelCoconductorTailBound
+          lake build RHLean.Analysis.SquareWheelQuadraticSampling
           mkdir -p .lake/build/lib/lean
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE.olean \
