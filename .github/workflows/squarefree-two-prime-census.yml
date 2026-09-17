@@ -16,7 +16,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: leanprover/lean-action@v1
@@ -26,8 +26,6 @@ jobs:
           build: false
           test: false
           lint: false
-      - name: Build squarefree Mobius support dependency
-        run: lake build RHLean.Analysis.PrimeWheelRunOthelloBoundary
       - name: Kernel-check exact squarefree two-prime census
         run: |
           mkdir -p .lake/build/lib/lean
