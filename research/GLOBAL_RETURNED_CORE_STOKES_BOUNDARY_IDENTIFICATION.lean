@@ -58,19 +58,22 @@ theorem lowOwnerFirstOwner_mul_larger_prime_mem_same_base_of_le
     r * n ∈ lowOwnerFirstOwnerBaseFiber R p sig := by
   rcases Finset.mem_filter.mp hn with ⟨hnCar, hnData⟩
   rcases Finset.mem_filter.mp hnCar with ⟨hnIcc, hmuN⟩
-  have hnPos : 0 < n := by omega
+  have hnOne : 1 ≤ n := (Finset.mem_Icc.mp hnIcc).1
+  have hnPos : 0 < n := Nat.succ_le_iff.mp hnOne
   have hmuRN : realMoebiusStep (r * n) ≠ 0 := by
     rw [realMoebiusStep_mul_prime_eq_neg hr hrn]
     exact neg_ne_zero.mpr hmuN
   have hrnCar : r * n ∈ lowOwnerNonzeroMobiusCarrier R := by
     exact Finset.mem_filter.mpr
-      ⟨Finset.mem_Icc.mpr ⟨by omega, hupper⟩, hmuRN⟩
+      ⟨Finset.mem_Icc.mpr
+        ⟨Nat.succ_le_iff.mpr (Nat.mul_pos hr.pos hnPos), hupper⟩,
+        hmuRN⟩
   have hsig : squarefreeLowerPrimeSignature p (r * n) = sig := by
     rw [squarefreeLowerPrimeSignature_mul_larger_prime hr hpr hnPos, hnData.1]
   have hpnotr : ¬ p ∣ r := by
     intro hdiv
     have heq : p = r := (Nat.prime_dvd_prime_iff_eq hp hr).mp hdiv
-    omega
+    exact (ne_of_lt hpr) heq
   have hpfree : ¬ p ∣ r * n := by
     intro hdiv
     rcases hp.dvd_mul.mp hdiv with h | h
@@ -110,7 +113,7 @@ theorem lowOwnerFirstOwner_div_larger_prime_mem_same_base
     calc
       n = r * u := heq.symm
       _ = r * (r * k) := by rw [hk]
-      _ = r ^ 2 * k := by ring
+      _ = r ^ 2 * k := by simp [pow_two, Nat.mul_assoc]
   have hmuU : realMoebiusStep u ≠ 0 := by
     have hsign := realMoebiusStep_mul_prime_eq_neg hr hrnotu
     intro hz
@@ -225,6 +228,7 @@ theorem pairPrimeLeftEscapePart_product
   rcases mn with ⟨a, b⟩
   simp [pairPrimeLeftEscapePart, weightedOthelloEscapePart,
     pairPrimeCarrierToggleLeft, primeEscapePart]
+  aesop
 
 /-- Left pair interior factors coordinatewise on a product carrier. -/
 theorem pairPrimeLeftInteriorPart_product
@@ -235,6 +239,7 @@ theorem pairPrimeLeftInteriorPart_product
   rcases mn with ⟨a, b⟩
   simp [pairPrimeLeftInteriorPart, weightedOthelloInteriorPart,
     pairPrimeCarrierToggleLeft, primeInteriorPart]
+  aesop
 
 /-- After the left coordinate is paired, the right escape face is the left
 interior times the one-dimensional right escape face. -/
@@ -248,6 +253,7 @@ theorem pairPrimeRightEscapeAfterLeft_product
     weightedOthelloEscapePart, weightedOthelloInteriorPart,
     pairPrimeCarrierToggleLeft, pairPrimeCarrierToggleRight,
     primeEscapePart, primeInteriorPart]
+  aesop
 
 /-- The complete two-coordinate interior is the product of the two
 one-dimensional interiors. -/
@@ -260,6 +266,7 @@ theorem pairPrimeTwoCoordinateInterior_product
   simp [pairPrimeTwoCoordinateInterior, pairPrimeLeftInteriorPart,
     weightedOthelloInteriorPart, pairPrimeCarrierToggleLeft,
     pairPrimeCarrierToggleRight, primeInteriorPart]
+  aesop
 
 /-- Specialized left Stokes face: same sites and same signs, now on the named
 Dirichlet clip carrier. -/
