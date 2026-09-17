@@ -74,7 +74,7 @@ theorem sum_lowOwnerFirstOwnerRawParentOrbitInert_eq_diagonal_add_offDiagonal
         f mn := by
   unfold lowOwnerFirstOwnerRawParentOrbitInertDiagonalCarrier
     lowOwnerFirstOwnerRawParentOrbitInertOffDiagonalCarrier
-  simpa only [not_eq] using
+  exact
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerRawParentOrbitInertCarrier R p sig
         (lowOwnerRevealedPrimesAbove R r) r)
