@@ -1,6 +1,5 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES»
-import «research.GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL»
 
 /-!
@@ -59,9 +58,7 @@ theorem lowOwnerFirstOwner_mul_larger_prime_mem_same_base_of_le
     r * n ∈ lowOwnerFirstOwnerBaseFiber R p sig := by
   rcases Finset.mem_filter.mp hn with ⟨hnCar, hnData⟩
   rcases Finset.mem_filter.mp hnCar with ⟨hnIcc, hmuN⟩
-  have hnPos : 0 < n := by
-    omega
-  have hrnPos : 0 < r * n := Nat.mul_pos hr.pos hnPos
+  have hnPos : 0 < n := by omega
   have hmuRN : realMoebiusStep (r * n) ≠ 0 := by
     rw [realMoebiusStep_mul_prime_eq_neg hr hrn]
     exact neg_ne_zero.mpr hmuN
@@ -81,6 +78,66 @@ theorem lowOwnerFirstOwner_mul_larger_prime_mem_same_base_of_le
     · exact hnData.2 h
   exact Finset.mem_filter.mpr ⟨hrnCar, ⟨hsig, hpfree⟩⟩
 
+/-- Dividing out a present larger prime from a squarefree p-free cell site stays
+in the same base cell. -/
+theorem lowOwnerFirstOwner_div_larger_prime_mem_same_base
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r)
+    (hn : n ∈ lowOwnerFirstOwnerBaseFiber R p sig)
+    (hrn : r ∣ n) :
+    n / r ∈ lowOwnerFirstOwnerBaseFiber R p sig := by
+  rcases Finset.mem_filter.mp hn with ⟨hnCar, hnData⟩
+  rcases Finset.mem_filter.mp hnCar with ⟨hnIcc, hmuN⟩
+  rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos hnCar with
+    ⟨hnSq, hnPos⟩
+  let u := n / r
+  have huPos : 0 < u := by
+    dsimp [u]
+    exact Nat.div_pos (Nat.le_of_dvd hnPos hrn) hr.pos
+  have heq : r * u = n := by
+    dsimp [u]
+    exact Nat.mul_div_cancel' hrn
+  have huX : u ≤ squareRootEndpoint R := by
+    have hun : u ≤ n := by
+      dsimp [u]
+      exact Nat.div_le_self n r
+    exact hun.trans (Finset.mem_Icc.mp hnIcc).2
+  have hrnotu : ¬ r ∣ u := by
+    intro hru
+    apply (Nat.squarefree_iff_prime_squarefree.mp hnSq r hr)
+    rcases hru with ⟨k, hk⟩
+    refine ⟨k, ?_⟩
+    calc
+      n = r * u := heq.symm
+      _ = r * (r * k) := by rw [hk]
+      _ = r ^ 2 * k := by ring
+  have hmuU : realMoebiusStep u ≠ 0 := by
+    have hsign := realMoebiusStep_mul_prime_eq_neg hr hrnotu
+    intro hz
+    apply hmuN
+    rw [← heq, hsign, hz, neg_zero]
+  have huCar : u ∈ lowOwnerNonzeroMobiusCarrier R := by
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_Icc.mpr ⟨by omega, huX⟩, hmuU⟩
+  have hsigU : squarefreeLowerPrimeSignature p u = sig := by
+    have hlower := squarefreeLowerPrimeSignature_mul_larger_prime
+      (p := p) (r := r) (a := u) hr hpr huPos
+    calc
+      squarefreeLowerPrimeSignature p u =
+          squarefreeLowerPrimeSignature p (r * u) := hlower.symm
+      _ = squarefreeLowerPrimeSignature p n := by rw [heq]
+      _ = sig := hnData.1
+  have hpFreeU : ¬ p ∣ u := by
+    intro hpu
+    rcases hpu with ⟨k, hk⟩
+    apply hnData.2
+    refine ⟨r * k, ?_⟩
+    calc
+      n = r * u := heq.symm
+      _ = r * (p * k) := by rw [hk]
+      _ = p * (r * k) := by ring
+  exact Finset.mem_filter.mpr ⟨huCar, ⟨hsigU, hpFreeU⟩⟩
+
 /-- On the squarefree first-owner base fibre, stripping a present larger prime
 is exactly the Othello mate and remains in the same cell. -/
 theorem lowOwnerFirstOwner_toggle_of_dvd_mem_same_base
@@ -95,11 +152,9 @@ theorem lowOwnerFirstOwner_toggle_of_dvd_mem_same_base
     intro hsq
     exact (Nat.squarefree_iff_prime_squarefree.mp hnSq r hr)
       (by simpa [pow_two] using hsq)
-  have hparent := lowOwnerFirstOwner_primeParent_mem_same_base hp hr hpr hn
-  have hparentEq : squarefreePrimeFamilyParent r n = n / r := by
-    simp [squarefreePrimeFamilyParent, hrn]
   rw [primeCarrierToggle_of_dvd hrn hrsq]
-  simpa [hparentEq] using hparent
+  exact lowOwnerFirstOwner_div_larger_prime_mem_same_base
+    hp hr hpr hn hrn
 
 /-- **No hidden one-dimensional escape class at the base cell.**
 
@@ -140,7 +195,8 @@ theorem lowOwnerFirstOwner_primeEscapePart_eq_dirichletClipFace
     have hcar := (Finset.mem_filter.mp hmate).1
     have hIcc := (Finset.mem_filter.mp hcar).1
     have hle : n * r ≤ squareRootEndpoint R := (Finset.mem_Icc.mp hIcc).2
-    have : r * n ≤ squareRootEndpoint R := by simpa [Nat.mul_comm] using hle
+    have hle' : r * n ≤ squareRootEndpoint R := by
+      simpa [Nat.mul_comm] using hle
     omega
 
 /-- The same physical clip is exactly the endpoint threshold crossing of the
@@ -153,8 +209,9 @@ theorem lowOwnerFirstOwner_dirichletClipFace_thresholdCrossing_eq_one
     ⟨hbase, _hrn, hclip⟩
   have hcar := (Finset.mem_filter.mp hbase).1
   have hIcc := (Finset.mem_filter.mp hcar).1
+  have hnX : n ≤ squareRootEndpoint R := (Finset.mem_Icc.mp hIcc).2
   unfold lowOwnerThresholdCrossingIndicator
-  simp [Finset.mem_Icc.mp hIcc |>.2, hclip]
+  simp [hnX, hclip]
 
 /-! ## Exact product-carrier factorization of pair escape faces -/
 
