@@ -7,6 +7,7 @@ on:
       - research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
       - research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.lean
       - research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CLIPPED_CONTRACTION.lean
+      - research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_BASEL_CONTRACTION.lean
       - research/GLOBAL_RETURNED_CORE_INHERITED_BASEL_ACTIVITY.lean
       - research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
       - .github/workflows/inherited-basel-activity.yml
@@ -97,6 +98,17 @@ jobs:
         run: |
           lake env lean -DwarningAsError=true \
             research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CLIPPED_CONTRACTION.lean
+
+      - name: Emit retained-coefficient greatest-owner stack
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.olean \
+            research/GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.lean
+
+      - name: Kernel-check Basel greatest-owner contraction
+        run: |
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_BASEL_CONTRACTION.lean
 
       - name: Emit deterministic inherited cancellation
         run: |
