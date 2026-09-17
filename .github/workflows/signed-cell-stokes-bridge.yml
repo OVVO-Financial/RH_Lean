@@ -13,6 +13,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_CLASSIFICATION.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM.lean
       - .github/workflows/signed-cell-stokes-bridge.yml
   workflow_dispatch:
 
@@ -129,7 +130,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
-      - name: Kernel-check exact signed Stokes chain, physical boundary, and terminal classification
+      - name: Kernel-check exact signed Stokes chain, physical boundary, terminal classification, and two-step normal form
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
@@ -139,3 +140,4 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_CLASSIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM.lean
