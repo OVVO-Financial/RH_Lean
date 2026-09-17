@@ -214,8 +214,5 @@ theorem lowOwnerStokesEndpointConductorGramEnergy_eq_gap_mul_conj
   rw [hsum]
   rw [map_sum]
   rw [Finset.sum_mul]
-  apply Finset.sum_congr rfl
-  intro c _hc
-  rw [Finset.mul_sum]
 
 end RHLean.Proof
