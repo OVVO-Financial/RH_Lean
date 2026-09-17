@@ -241,15 +241,14 @@ theorem sum_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_eq_virtualMixed
       rw [hset]
       have hne : L ≠ U := by
         intro heq
-        have howners :=
-          lowOwnerFirstOwnerPolarizationRawParent_mixedCorners_have_owner
-            hp hparent
-        have hfresh := howners.1.1
+        rcases lowOwnerFirstOwnerPolarizationRawParent_data hp hparent with
+          ⟨_hr, _hpr, _haBase, _hbBase, hra, _hrb⟩
         dsimp [L, U] at heq
         have heq1 : r * parent.1 = parent.1 := congrArg Prod.fst heq
-        have heq2 : parent.2 = r * parent.2 := congrArg Prod.snd heq
-        rw [heq1, heq2] at hfresh
-        simp [squarefreePairFreshPrimeSet] at hfresh
+        have hdvd : r ∣ parent.1 := by
+          rw [← heq1]
+          exact dvd_mul_right r parent.1
+        exact hra hdvd
       simp [hne]
     · have hUnot : U ∉ F := (not_congr hUiff).mpr hU
       have hset : F = ({L} : Finset (ℕ × ℕ)) := by
