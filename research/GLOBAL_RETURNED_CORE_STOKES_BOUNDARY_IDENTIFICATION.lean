@@ -126,7 +126,8 @@ theorem lowOwnerFirstOwner_div_larger_prime_mem_same_base
     calc
       n = r * u := heq.symm
       _ = r * (r * k) := by rw [hk]
-      _ = r ^ 2 * k := by simp [pow_two, Nat.mul_assoc]
+      _ = (r * r) * k := (Nat.mul_assoc r r k).symm
+      _ = r ^ 2 * k := congrArg (fun x : ℕ => x * k) (pow_two r).symm
   have hmuU : realMoebiusStep u ≠ 0 := by
     have hsign := realMoebiusStep_mul_prime_eq_neg hr hrnotu
     intro hz
