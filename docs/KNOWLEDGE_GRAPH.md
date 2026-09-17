@@ -208,9 +208,10 @@ authoritative tree -- but it is worth knowing what sits outside it.
 
 `research/**.lean` is real Lean that imports `RHLean.*` and proves things, yet
 it is absent from `RHLean.lean` and from the `lakefile.lean` target, so CI never
-compiles it and it never enters the graph. At PR #719 that was 65 files, ~11.5k
-lines and 443 named proofs, 41 of them importing the library -- and it is where
-much of the active frontier work now happens.
+compiles it and it never enters the graph. It is where much of the active
+frontier work now happens, and it has been growing considerably faster than the
+compiled tree: run the inventory for the current figures rather than trusting a
+number written here, which is exactly the kind of count that rots.
 
 `scripts/proof_inventory.py` reports this surface under "Dependent Lean outside
 the scanned tree" and in the JSON under `dependent_lean_outside_scope`. It is
