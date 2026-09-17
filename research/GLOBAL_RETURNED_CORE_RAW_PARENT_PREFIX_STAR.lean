@@ -115,12 +115,13 @@ private theorem lowOwnerFirstOwnerPrefixStar_leftChild_mem_ownerFiber
         lowOwnerRevealedPrimeSignature_mul_owner_eq_above hr haPos
       _ = lowOwnerRevealedPrimeSignature
           (lowOwnerRevealedPrimesAbove R r) parent.2 := hsigAbove
+  have hrLeft : r ∣ r * parent.1 := ⟨parent.1, rfl⟩
   have hcross : (r * parent.1, parent.2) ∈
       lowOwnerRevealedCrossPairCarrier R
         (lowOwnerRevealedPrimesAbove R r) r := by
     exact Finset.mem_filter.mpr
       ⟨Finset.mem_product.mpr ⟨hraCar, hbCar⟩,
-        ⟨hsigMoved, Or.inl ⟨dvd_mul_right r parent.1, hrb⟩⟩⟩
+        ⟨hsigMoved, Or.inl ⟨hrLeft, hrb⟩⟩⟩
   have howner :
       IsSquarefreePairGreatestFreshPrimeOwner
         r (r * parent.1) parent.2 :=
@@ -128,8 +129,7 @@ private theorem lowOwnerFirstOwnerPrefixStar_leftChild_mem_ownerFiber
   have hne : r * parent.1 ≠ parent.2 := by
     intro heq
     apply hrb
-    rw [← heq]
-    exact dvd_mul_right r parent.1
+    exact ⟨parent.1, heq.symm⟩
   unfold lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber
     lowOwnerFirstOwnerBaseOffDiagonalPairCarrier
   exact Finset.mem_filter.mpr
@@ -168,12 +168,13 @@ private theorem lowOwnerFirstOwnerPrefixStar_rightChild_mem_ownerFiber
       _ = lowOwnerRevealedPrimeSignature
           (lowOwnerRevealedPrimesAbove R r) (r * parent.2) :=
         (lowOwnerRevealedPrimeSignature_mul_owner_eq_above hr hbPos).symm
+  have hrRight : r ∣ r * parent.2 := ⟨parent.2, rfl⟩
   have hcross : (parent.1, r * parent.2) ∈
       lowOwnerRevealedCrossPairCarrier R
         (lowOwnerRevealedPrimesAbove R r) r := by
     exact Finset.mem_filter.mpr
       ⟨Finset.mem_product.mpr ⟨haCar, hrbCar⟩,
-        ⟨hsigMoved, Or.inr ⟨dvd_mul_right r parent.2, hra⟩⟩⟩
+        ⟨hsigMoved, Or.inr ⟨hrRight, hra⟩⟩⟩
   have howner :
       IsSquarefreePairGreatestFreshPrimeOwner
         r parent.1 (r * parent.2) :=
@@ -181,8 +182,7 @@ private theorem lowOwnerFirstOwnerPrefixStar_rightChild_mem_ownerFiber
   have hne : parent.1 ≠ r * parent.2 := by
     intro heq
     apply hra
-    rw [heq]
-    exact dvd_mul_right r parent.2
+    exact ⟨parent.2, heq⟩
   unfold lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber
     lowOwnerFirstOwnerBaseOffDiagonalPairCarrier
   exact Finset.mem_filter.mpr
@@ -197,7 +197,7 @@ theorem lowOwnerFirstOwnerRawParentPrefixStar_subset_rawParentSet
     lowOwnerFirstOwnerRawParentPrefixStar R p sig r ⊆
       lowOwnerFirstOwnerPolarizationRawParentSet R p sig r := by
   intro parent hstar
-  have hphysical := (Finset.mem_filter.mp hstar).2.2.2.2
+  have hphysical := (Finset.mem_filter.mp hstar).2.2.2
   rcases hphysical with hleft | hright
   · have hchild :=
       lowOwnerFirstOwnerPrefixStar_leftChild_mem_ownerFiber
@@ -206,8 +206,9 @@ theorem lowOwnerFirstOwnerRawParentPrefixStar_subset_rawParentSet
     refine Finset.mem_image.mpr ⟨(r * parent.1, parent.2), hchild, ?_⟩
     unfold lowOwnerFirstOwnerPolarizationRawParent
       squarefreePrimeFamilyParent
-    have hfree := (Finset.mem_filter.mp hstar).2
-    simp [hfree.2.1, hr.pos]
+    have hdata := (Finset.mem_filter.mp hstar).2
+    have hrb : ¬ r ∣ parent.2 := hdata.2.2.1
+    simp [hrb, Nat.mul_div_cancel_left parent.1 hr.pos]
   · have hchild :=
       lowOwnerFirstOwnerPrefixStar_rightChild_mem_ownerFiber
         hp hr hpr hstar hright
@@ -215,8 +216,9 @@ theorem lowOwnerFirstOwnerRawParentPrefixStar_subset_rawParentSet
     refine Finset.mem_image.mpr ⟨(parent.1, r * parent.2), hchild, ?_⟩
     unfold lowOwnerFirstOwnerPolarizationRawParent
       squarefreePrimeFamilyParent
-    have hfree := (Finset.mem_filter.mp hstar).2
-    simp [hfree.1, hr.pos]
+    have hdata := (Finset.mem_filter.mp hstar).2
+    have hra : ¬ r ∣ parent.1 := hdata.2.1
+    simp [hra, Nat.mul_div_cancel_left parent.2 hr.pos]
 
 /-- **Exact prefix-star carrier identification.** -/
 theorem lowOwnerFirstOwnerPolarizationRawParentSet_eq_prefixStar
