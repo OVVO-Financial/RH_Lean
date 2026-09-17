@@ -1,11 +1,10 @@
 import Mathlib
 import RHLean.Analysis.PrimeWheelRunOthelloBoundary
-import «research.GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION»
 
 /-!
 # Exact squarefree two-prime intersection census
 
-This file keeps the Stokes boundary count on the actual nonzero Mobius carrier.
+This file keeps the two-prime count on the actual nonzero Mobius carrier.
 There is no density estimate and no probabilistic input here.
 
 For distinct primes `q,s`, multiplication by `q*s` identifies the squarefree
@@ -166,7 +165,7 @@ theorem card_lowOwnerTwoPrimeSquarefreeCofactor_eq_intersection
     exact Nat.eq_of_mul_eq_mul_left hprodPos hmul
   · intro n hn
     rcases mem_lowOwnerTwoPrimeSquarefreeIntersectionCarrier.mp hn with
-      ⟨hn1, _hnX, _hnSq, hqn, hsn⟩
+      ⟨_hn1, _hnX, _hnSq, hqn, hsn⟩
     have hcop : q.Coprime s := by
       rw [hq.coprime_iff_not_dvd]
       intro hdiv
@@ -201,7 +200,7 @@ theorem lowOwnerTwoPrimeSquarefreeIntersectionCarrier_eq_empty_of_top
   apply Finset.eq_empty_iff_forall_notMem.mpr
   intro n hn
   rcases mem_lowOwnerTwoPrimeSquarefreeIntersectionCarrier.mp hn with
-    ⟨hn1, hnX, _hnSq, hqn, hsn⟩
+    ⟨_hn1, hnX, _hnSq, hqn, hsn⟩
   have hcop : q.Coprime s := by
     rw [hq.coprime_iff_not_dvd]
     intro hdiv
@@ -217,19 +216,5 @@ theorem lowOwnerTwoPrimeSquarefreeIntersectionCarrier_eq_empty_of_top
       _ ≤ s * q := h2le
       _ = q * s := by ring
   omega
-
-/-- Physical-endpoint specialization used by the signed Stokes boundary. -/
-def lowOwnerTwoPrimePhysicalMobiusIntersectionCarrier
-    (R q s : ℕ) : Finset ℕ :=
-  lowOwnerTwoPrimeMobiusIntersectionCarrier (squareRootEndpoint R) q s
-
-/-- Exact physical-clock census after removing two distinct prime coordinates. -/
-theorem card_lowOwnerTwoPrimePhysicalMobiusIntersection_eq_squarefreeCofactor
-    {R q s : ℕ} (hq : q.Prime) (hs : s.Prime) (hqs : q ≠ s) :
-    (lowOwnerTwoPrimePhysicalMobiusIntersectionCarrier R q s).card =
-      (lowOwnerTwoPrimeSquarefreeCofactorCarrier
-        (squareRootEndpoint R) q s).card := by
-  exact card_lowOwnerTwoPrimeMobiusIntersection_eq_squarefreeCofactor
-    hq hs hqs
 
 end RHLean.Proof
