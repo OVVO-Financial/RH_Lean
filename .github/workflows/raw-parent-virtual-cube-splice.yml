@@ -14,6 +14,8 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_NORMAL_FORM.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.lean
+      - research/GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_RECIPROCAL_BRIDGE.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_ORIENTED_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORIENTED_BOUNDARY_NORMAL_FORM.lean
@@ -133,6 +135,12 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_NORMAL_FORM.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_NORMAL_FORM.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.olean \
+            research/GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.lean
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_RECIPROCAL_BRIDGE.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_RECIPROCAL_BRIDGE.lean
