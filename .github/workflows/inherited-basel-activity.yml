@@ -1,0 +1,100 @@
+name: Inherited Basel activity check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
+      - research/GLOBAL_RETURNED_CORE_INHERITED_BASEL_ACTIVITY.lean
+      - research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
+      - .github/workflows/inherited-basel-activity.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-
+
+      - name: Emit owner-parent dependency foundation
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          src = Path('.github/workflows/owner-parent-continuation.yml').read_text()
+          start_marker = '      - name: Emit returned-core dependency foundation\n'
+          end_marker = '      - name: Check owner-parent continuation\n'
+          block = src.split(start_marker, 1)[1].split(end_marker, 1)[0]
+          block = block.split('        run: |\n', 1)[1]
+          lines = []
+          for line in block.splitlines():
+              if line.startswith('          '):
+                  line = line[10:]
+              lines.append(line)
+          Path('/tmp/owner-parent-foundation.sh').write_text('\n'.join(lines) + '\n')
+          PY
+          bash /tmp/owner-parent-foundation.sh
+
+      - name: Emit Basel sharpening
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.olean \
+            research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
+
+      - name: Emit deterministic inherited cancellation
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.olean \
+            research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
+
+      - name: Kernel-check Basel inherited activity
+        run: |
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_INHERITED_BASEL_ACTIVITY.lean
