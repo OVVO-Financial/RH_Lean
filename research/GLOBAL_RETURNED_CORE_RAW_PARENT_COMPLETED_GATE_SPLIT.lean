@@ -116,7 +116,6 @@ theorem sum_lowOwnerFirstOwnerRawParentNextPolarization_eq_gate_sub_sameBranch_a
   rw [sum_lowOwnerFirstOwnerRawParentNextPolarization_eq_completed_add_incomplete]
   rw [sum_lowOwnerFirstOwnerCompletedRawParentNextPolarization_eq_signedCubeMass hp]
   rw [lowOwnerFirstOwnerCompletedSignedCubeMass_eq_incidence_sub_sameBranch]
-  ring
 
 /-- **Descending signed recursion at the energy gate.**  The favorable inert
 diagonal has already been removed.  The completed incidence is now isolated,
