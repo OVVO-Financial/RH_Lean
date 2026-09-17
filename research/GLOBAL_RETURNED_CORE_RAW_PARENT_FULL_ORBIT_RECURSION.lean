@@ -337,22 +337,31 @@ theorem sum_lowOwnerFirstOwnerRawParentOrbitEvenFixedFiber_eq_virtualEven
   let E := lowOwnerFirstOwnerRawParentOrbitEvenFixedFiber
     R p sig (lowOwnerRevealedPrimesAbove R r) r parent
   let D : ℕ × ℕ := (r * parent.1, r * parent.2)
+  change (∑ child ∈ E,
+      lowOwnerFirstOwnerDirichletPolarizationAtom R p child) =
+    lowOwnerFirstOwnerDirichletPolarizationAtom R p parent +
+      lowOwnerFirstOwnerDirichletPolarizationAtom R p D
   have hPmem : parent ∈ E := by
-    simpa [E] using
-      lowOwnerFirstOwnerPolarizationRawParent_mem_evenFixedFiber hp hparent
+    dsimp [E]
+    exact lowOwnerFirstOwnerPolarizationRawParent_mem_evenFixedFiber hp hparent
   have hDiff :=
     mem_lowOwnerFirstOwnerRawParentOrbitEvenFixedFiber_double_iff hp hparent
   have hsub : E ⊆ ({parent, D} : Finset (ℕ × ℕ)) := by
     intro child hchild
+    have hchild' := hchild
+    dsimp [E] at hchild'
     rcases lowOwnerFirstOwnerRawParentOrbitEvenFixedFiber_child_even
-      (by simpa [E] using hchild) with h | h
-    · simpa [D, h]
-    · simpa [D, h]
+      hchild' with h | h
+    · subst child
+      simp
+    · subst child
+      simp [D]
   by_cases hDphys :
       r * parent.1 ≤ squareRootEndpoint R ∧
         r * parent.2 ≤ squareRootEndpoint R
   · have hDmem : D ∈ E := by
-      simpa [E, D] using hDiff.mpr hDphys
+      dsimp [D, E]
+      exact hDiff.mpr hDphys
     have hset : E = ({parent, D} : Finset (ℕ × ℕ)) := by
       apply Finset.Subset.antisymm hsub
       intro z hz
@@ -372,23 +381,29 @@ theorem sum_lowOwnerFirstOwnerRawParentOrbitEvenFixedFiber_eq_virtualEven
     have hne : parent ≠ D := by
       intro hEq
       have hfirst := congrArg Prod.fst hEq
-      exact (ne_of_lt hlt) (by simpa [D] using hfirst)
+      dsimp [D] at hfirst
+      exact (ne_of_lt hlt) hfirst
     rw [hset]
     simp [D, hne]
   · have hDnot : D ∉ E := by
       intro hmem
-      exact hDphys (hDiff.mp (by simpa [E, D] using hmem))
+      have hmem' := hmem
+      dsimp [D, E] at hmem'
+      exact hDphys (hDiff.mp hmem')
     have hset : E = ({parent} : Finset (ℕ × ℕ)) := by
       apply Finset.Subset.antisymm
       · intro z hz
         have hz' := hsub hz
         simp only [Finset.mem_insert, Finset.mem_singleton] at hz'
         rcases hz' with h | h
-        · simpa [h]
+        · subst z
+          simp
         · subst z
           exact False.elim (hDnot hz)
       · intro z hz
-        simpa using hPmem
+        simp only [Finset.mem_singleton] at hz
+        subst z
+        exact hPmem
     have hDzero :
         lowOwnerFirstOwnerDirichletPolarizationAtom R p D = 0 := by
       by_cases haX : r * parent.1 ≤ squareRootEndpoint R
