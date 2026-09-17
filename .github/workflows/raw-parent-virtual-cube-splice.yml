@@ -13,6 +13,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_NORMAL_FORM.lean
       - .github/workflows/raw-parent-virtual-cube-splice.yml
   workflow_dispatch:
 
@@ -97,7 +98,7 @@ jobs:
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
 
-      - name: Check virtual cube splice through incomplete boundary Fubini
+      - name: Check virtual cube splice through named boundary normal form
         run: |
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_VIRTUAL_CUBE_SPLICE.olean \
@@ -124,4 +125,7 @@ jobs:
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.lean
           lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_FUBINI.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_FUBINI.lean
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_NORMAL_FORM.lean
