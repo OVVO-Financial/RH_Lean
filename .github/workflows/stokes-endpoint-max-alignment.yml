@@ -1,0 +1,39 @@
+name: Stokes endpoint maximum alignment check
+
+on:
+  push:
+    branches: [agent/weighted-othello-stokes]
+  pull_request:
+    branches: [main]
+    paths:
+      - research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
+      - .github/workflows/stokes-endpoint-max-alignment.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Build harmonic dependencies
+        run: |
+          lake build RHLean.Analysis.PrimeWheelCoconductorTailBound
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE.olean \
+            research/LOW_OWNER_Q2_ENDPOINT_FREQUENCY_DISTANCE.lean
+      - name: Kernel-check deterministic endpoint maximum alignment
+        run: |
+          lake env lean -DwarningAsError=true \
+            research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
