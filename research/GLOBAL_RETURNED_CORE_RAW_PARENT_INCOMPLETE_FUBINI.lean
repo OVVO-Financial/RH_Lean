@@ -82,6 +82,20 @@ private theorem nextClip_disjoint_returnedClip
   · omega
   · omega
 
+private theorem firstClip_disjoint_nextUnionReturned
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) :
+    Disjoint
+      (lowOwnerFirstOwnerIncompleteFirstClipSet R p sig r)
+      (lowOwnerFirstOwnerIncompleteNextClipSet R p sig r ∪
+        lowOwnerFirstOwnerIncompleteReturnedClipSet R p sig r) := by
+  rw [Finset.disjoint_left]
+  intro parent hfirst hrest
+  rcases Finset.mem_union.mp hrest with hnext | hret
+  · exact (Finset.disjoint_left.mp
+      (firstClip_disjoint_nextClip R p sig r)) hfirst hnext
+  · exact (Finset.disjoint_left.mp
+      (firstClip_disjoint_returnedClip R p sig r)) hfirst hret
+
 /-- The three chronological cutoff classes cover the incomplete raw-parent set. -/
 theorem lowOwnerFirstOwnerIncompletePolarizationRawParentSet_eq_threeClipUnion
     {R p r : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
@@ -122,8 +136,7 @@ theorem sum_lowOwnerFirstOwnerIncompleteRawParents_eq_threeClipSectors
       ∑ parent ∈ lowOwnerFirstOwnerIncompleteReturnedClipSet R p sig r,
         f parent := by
   rw [lowOwnerFirstOwnerIncompletePolarizationRawParentSet_eq_threeClipUnion hp]
-  rw [Finset.sum_union (firstClip_disjoint_nextClip R p sig r |>.mono_right
-    (Finset.subset_union_left))]
+  rw [Finset.sum_union (firstClip_disjoint_nextUnionReturned R p sig r)]
   rw [Finset.sum_union (nextClip_disjoint_returnedClip R p sig r)]
   ring
 
