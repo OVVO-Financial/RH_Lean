@@ -176,7 +176,6 @@ theorem sum_lowOwnerFirstOwnerRawParentNextPolarization_eq_gate_add_incompleteIn
     hp]
   rw [lowOwnerFirstOwnerRawParentDirichletIncidenceMass_eq_completed_add_incomplete]
   rw [sum_lowOwnerCompletedRawParentDirichletIncidence_eq_gateMass]
-  ring
 
 /-- **Cleaner descending one-layer estimate.**  After exact signed reassembly,
 only completed incidence and incomplete incidence are exposed at the gate.  The
