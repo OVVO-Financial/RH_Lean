@@ -13,8 +13,8 @@ one-dimensional site
 
 Therefore the whole raw-parent threshold-incidence ledger is not a generic
 pair sum.  It is exactly the quadratic mass of the full revealed r-free branch
-minus the quadratic mass of the tail where neither mixed r-child remains on
-the physical clock.
+minus the quadratic mass of the tail where neither mixed r-child remains on the
+physical clock.
 
 This removes the pair-count multiplicity before any inequality is attempted.
 No absolute value, norm, or Cauchy--Schwarz estimate is used here.
@@ -74,12 +74,13 @@ theorem sum_lowOwnerFirstOwnerRawParentBranch_eq_prefix_add_tail
         f parent := by
   rw [lowOwnerFirstOwnerRawParentPrefixStar_eq_branch_filter]
   unfold lowOwnerFirstOwnerRawParentTailCarrier
-  exact Finset.sum_filter_add_sum_filter_not
-    (s := lowOwnerFirstOwnerRawParentBranchCarrier R p sig r)
-    (p := fun parent : ℕ × ℕ =>
-      r * parent.1 ≤ squareRootEndpoint R ∨
-        r * parent.2 ≤ squareRootEndpoint R)
-    (f := f)
+  exact
+    (Finset.sum_filter_add_sum_filter_not
+      (s := lowOwnerFirstOwnerRawParentBranchCarrier R p sig r)
+      (p := fun parent : ℕ × ℕ =>
+        r * parent.1 ≤ squareRootEndpoint R ∨
+          r * parent.2 ≤ squareRootEndpoint R)
+      (f := f)).symm
 
 /-- Signed one-dimensional threshold second-incidence site. -/
 def lowOwnerRawParentThresholdSignedSite
