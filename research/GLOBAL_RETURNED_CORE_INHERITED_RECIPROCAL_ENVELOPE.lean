@@ -77,7 +77,7 @@ theorem lowOwnerThresholdEulerParentEnergy_eq_secondOwnerDifference_sq
   rw [lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr,
     lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr]
   rw [div_pow]
-  rw [mul_pow (realMoebiusStep a) (realMoebiusStep b), hmaSq, hmbSq]
+  rw [mul_pow (realMoebiusStep a) (realMoebiusStep b) 2, hmaSq, hmbSq]
   field_simp [ha0, hb0]
   ring
 
