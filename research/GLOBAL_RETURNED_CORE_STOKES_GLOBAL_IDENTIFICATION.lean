@@ -1,7 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM»
 import «research.GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM»
-import «research.GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE»
 
 /-!
 # Global identification gate before any endpoint-frequency estimate
