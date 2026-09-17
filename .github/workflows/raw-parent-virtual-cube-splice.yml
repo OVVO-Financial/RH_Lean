@@ -10,6 +10,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_DIAGONAL_BOUND.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.lean
       - .github/workflows/raw-parent-virtual-cube-splice.yml
   workflow_dispatch:
 
@@ -53,7 +54,7 @@ jobs:
             .lake/packages/StrongPNT/.lake/build
           key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
           restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
 
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
@@ -94,7 +95,7 @@ jobs:
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
 
-      - name: Check virtual cube splice, full orbit recursion, and lower-owner inert Fubini
+      - name: Check virtual cube splice, full orbit recursion, and completed gate split
         run: |
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_VIRTUAL_CUBE_SPLICE.olean \
@@ -109,4 +110,10 @@ jobs:
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.lean
           lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_DIAGONAL_BOUND.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_DIAGONAL_BOUND.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.olean \
+            research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.lean
