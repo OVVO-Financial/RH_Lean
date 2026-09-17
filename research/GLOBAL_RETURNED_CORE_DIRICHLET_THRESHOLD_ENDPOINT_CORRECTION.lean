@@ -61,7 +61,7 @@ theorem lowOwnerPhysicalDirichletIncidenceWeight_eq_threshold_add_endpointClip
     by_cases hpn : p * n ≤ X
     · have hDpn := lowOwnerPhysicalDirichletWeight_eq_weight_of_le hpn
       have hcross : lowOwnerDirichletEndpointClip R p n = 0 := by
-        unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator X
+        unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator
         simp [hn, Nat.not_lt_of_ge hpn]
       unfold lowOwnerPhysicalDirichletIncidenceWeight
         lowOwnerThresholdOwnerIncidenceWeight
@@ -74,7 +74,7 @@ theorem lowOwnerPhysicalDirichletIncidenceWeight_eq_threshold_add_endpointClip
       have hDpn := lowOwnerPhysicalDirichletWeight_eq_zero_of_lt hpnlt
       have hTpn := lowOwnerThresholdPotential_eq_zero_of_endpoint_lt hR hpnlt
       have hcross : lowOwnerDirichletEndpointClip R p n = 1 := by
-        unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator X
+        unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator
         simp [hn, hpnlt]
       unfold lowOwnerPhysicalDirichletIncidenceWeight
         lowOwnerThresholdOwnerIncidenceWeight
@@ -93,7 +93,7 @@ theorem lowOwnerPhysicalDirichletIncidenceWeight_eq_threshold_add_endpointClip
     have hTn := lowOwnerThresholdPotential_eq_zero_of_endpoint_lt hR hnlt
     have hTpn := lowOwnerThresholdPotential_eq_zero_of_endpoint_lt hR hpnlt
     have hcross : lowOwnerDirichletEndpointClip R p n = 0 := by
-      unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator X
+      unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator
       simp [hn]
     unfold lowOwnerPhysicalDirichletIncidenceWeight
       lowOwnerThresholdOwnerIncidenceWeight
@@ -140,6 +140,11 @@ theorem lowOwnerRawParentDirichletIncidenceFourCornerMass_eq_thresholdPlusEndpoi
   unfold lowOwnerRawParentDirichletIncidenceFourCornerMass
   rw [weightedMoebiusFreshPrimeFourCornerMass_eq_ownerDifferences
       (lowOwnerPhysicalDirichletIncidenceWeight R p) hrPrime hra hrb]
+  change postRootZeroTargetPairExcess parent *
+      lowOwnerDirichletOwnerDifference r
+        (lowOwnerPhysicalDirichletIncidenceWeight R p) parent.1 *
+      lowOwnerDirichletOwnerDifference r
+        (lowOwnerPhysicalDirichletIncidenceWeight R p) parent.2 = _
   rw [lowOwnerDirichletIncidence_ownerDifference_eq_threshold_add_endpointClippedDifference
       hR hp.one_le hrPrime.one_le,
     lowOwnerDirichletIncidence_ownerDifference_eq_threshold_add_endpointClippedDifference
@@ -180,6 +185,7 @@ theorem lowOwnerRawParentDirichletIncidenceFourCornerMass_eq_threshold_add_endpo
   rw [weightedMoebiusFreshPrimeFourCornerMass_eq_ownerDifferences
     (lowOwnerThresholdOwnerIncidenceWeight R p) hrPrime hra hrb]
   unfold lowOwnerRawParentEndpointIncidenceCorrectionMass
+    lowOwnerThresholdSecondOwnerDifference
   ring
 
 /-- Threshold-incidence mass over all occurring raw parents. -/
@@ -255,6 +261,7 @@ theorem lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_le_threshold_add
   have hsplit :=
     sum_lowOwnerFirstOwnerRawParentNextPolarization_eq_threshold_add_endpointCorrection_sub_sameBranch
       (R := R) (p := p) (r := r) (sig := sig) hR hp
+  fold lowOwnerFirstOwnerRawParentNextPolarizationTerm at hdesc
   rw [hsplit] at hdesc
   exact hdesc
 
