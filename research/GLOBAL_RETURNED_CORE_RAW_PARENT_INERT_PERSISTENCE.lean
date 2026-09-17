@@ -12,9 +12,10 @@ would produce a physical r-crossing child in the same `(p,sig)` cell, so the
 orientation-preserving stripped pair would already occur in the raw-parent
 orbit set.
 
-Hence every inert pair is r-free in both coordinates, and stripping r fixes the
-pair pointwise.  The inert term is therefore persistence to lower owners, not a
-new boundary or energy error.
+Hence every inert pair is r-free in both coordinates, stripping r fixes the
+pair pointwise, and every fresh prime still separating the pair is strictly
+smaller than r.  The inert term is therefore literal persistence to lower
+owners, not a new same-scale boundary or energy error.
 -/
 
 noncomputable section
@@ -122,5 +123,48 @@ theorem lowOwnerFirstOwnerRawParentOrbitInert_rawParent_eq_self
   rcases mn with ⟨m, n⟩
   simp [lowOwnerFirstOwnerPolarizationRawParent,
     squarefreePrimeFamilyParent, hfree.1, hfree.2]
+
+/-- **Strict chronological descent of the inert packet.**  Every fresh prime
+that still separates an inert pair is strictly below the current owner r. -/
+theorem lowOwnerFirstOwnerRawParentOrbitInert_fresh_lt_owner
+    {R p r q : ℕ} {sig : Finset ℕ} {mn : ℕ × ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r)
+    (hinert : mn ∈
+      lowOwnerFirstOwnerRawParentOrbitInertCarrier R p sig
+        (lowOwnerRevealedPrimesAbove R r) r)
+    (hqFresh : q ∈ squarefreePairFreshPrimeSet mn.1 mn.2) :
+    q < r := by
+  rcases mn with ⟨m, n⟩
+  rcases Finset.mem_filter.mp hinert with ⟨hcell, _hnotRaw⟩
+  rcases Finset.mem_filter.mp hcell with ⟨hsame, hmBase, hnBase⟩
+  rcases Finset.mem_filter.mp hsame with ⟨_hprod, hsigAbove, _hdivIff⟩
+  have hmCar := (Finset.mem_filter.mp hmBase).1
+  have hnCar := (Finset.mem_filter.mp hnBase).1
+  have hmPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos hmCar).2
+  have hnPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos hnCar).2
+  rcases freshPrime_of_nonzeroPhysicalPair hmCar hnCar hqFresh with
+    ⟨hqPrime, hqX⟩
+  have hfree :=
+    lowOwnerFirstOwnerRawParentOrbitInert_not_dvd_owner hp hr hpr hinert
+  by_contra hnotlt
+  have hrq : r ≤ q := Nat.le_of_not_gt hnotlt
+  by_cases hqr : q = r
+  · subst q
+    have hxor :=
+      (mem_squarefreePairFreshPrimeSet_iff_prime_dvd_xor
+        hr hmPos hnPos).1 hqFresh
+    rcases hxor with h | h
+    · exact hfree.1 h.1
+    · exact hfree.2 h.1
+  · have hrqStrict : r < q := by omega
+    have hsameFace :=
+      revealedAbove_signature_eq_implies_face_eq
+        hsigAbove hqPrime hrqStrict hqX
+    unfold squarefreePairFreshPrimeSet at hqFresh
+    rcases Finset.mem_union.mp hqFresh with hleft | hright
+    · rcases Finset.mem_sdiff.mp hleft with ⟨hqm, hqn⟩
+      exact hqn (hsameFace.mp hqm)
+    · rcases Finset.mem_sdiff.mp hright with ⟨hqn, hqm⟩
+      exact hqm (hsameFace.mpr hqn)
 
 end RHLean.Proof
