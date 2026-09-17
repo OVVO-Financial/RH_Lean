@@ -2,7 +2,7 @@ name: Signed cell Stokes bridge check
 
 on:
   push:
-    branches: [agent/weighted-othello-stokes]
+    branches: [agent/weighted-othello-stokes, agent/stokes-boundary-terminal]
   pull_request:
     branches: [main]
     paths:
@@ -11,6 +11,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
       - research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
       - research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
       - .github/workflows/signed-cell-stokes-bridge.yml
   workflow_dispatch:
 
@@ -127,7 +128,10 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
-      - name: Kernel-check exact signed Stokes chain
+          emit research/GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER.lean
+          emit research/GLOBAL_RETURNED_CORE_ARBITRARY_FRESH_PRIME_DESCENT.lean
+          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
+      - name: Kernel-check exact signed Stokes chain and physical boundary
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
@@ -135,3 +139,4 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
           emit research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
