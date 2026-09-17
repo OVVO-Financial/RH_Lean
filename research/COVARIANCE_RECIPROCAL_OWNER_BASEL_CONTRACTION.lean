@@ -1,6 +1,6 @@
 import Mathlib
 import «research.STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING»
-import «research.ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION»
+import «research.COVARIANCE_RECIPROCAL_OWNER_CONGESTION»
 
 /-!
 # Basel-sharpened reciprocal covariance contraction
@@ -16,9 +16,9 @@ and the two-child owner congestion is at most
   2 * 109/225 = 218/225 < 1.
 
 This improves the previous `79/81` coefficient without changing the physical
-owner graph or introducing any analytic assumption.  The clipped critical exit
-inherits the same improved coefficient because it is a nonnegative sub-energy
-of the full reciprocal outgoing energy.
+owner graph or introducing any analytic assumption.  The result is stated on
+the full reciprocal outgoing graph; clipped critical exits inherit it later as
+nonnegative sub-energies once the heavier clipped-energy stack is loaded.
 -/
 
 noncomputable section
@@ -44,7 +44,7 @@ theorem primeOwnerReciprocalSquareBudget_le_109_over_225 (N : ℕ) :
         (∑ q ∈ (primesUpTo N).erase 2,
           (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 =
         ∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2 := by
-      norm_num at hsplit
+      norm_num at hsplit ⊢
       exact hsplit
     calc
       (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) =
@@ -112,15 +112,5 @@ theorem postRootCovarianceReciprocalOutgoingEnergy_le_218_over_225
     simpa [Nat.cast_pow] using hcast
   exact mul_le_mul_of_nonneg_right hcongR
     (postRootCovarianceReciprocalPairEnergy_nonneg parent)
-
-/-- The genuinely clipped critical exit is a sub-energy of the full outgoing
-reciprocal graph, so it inherits the sharpened coefficient unchanged. -/
-theorem postRootCovarianceCriticalClippedOutgoingEnergy_le_218_over_225
-    (W : ℕ) (parent : ℕ × ℕ) :
-    postRootCovarianceCriticalClippedOutgoingEnergy W parent ≤
-      (218 / 225 : ℝ) * postRootCovarianceReciprocalPairEnergy parent := by
-  exact le_trans
-    (postRootCovarianceCriticalClippedOutgoingEnergy_le_outgoingEnergy W parent)
-    (postRootCovarianceReciprocalOutgoingEnergy_le_218_over_225 W parent)
 
 end RHLean.Proof
