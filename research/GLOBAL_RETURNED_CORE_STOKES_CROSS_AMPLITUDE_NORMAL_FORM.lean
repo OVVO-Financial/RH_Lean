@@ -61,8 +61,7 @@ private theorem sum_product_cross_factor
         rw [Finset.mul_sum]
       _ = (∑ a ∈ s, g a) * (∑ b ∈ s, f b) := by
         rw [Finset.sum_mul]
-  rw [← Finset.sum_neg_distrib, Finset.sum_sub_distrib]
-  rw [hfg, hgf]
+  rw [Finset.sum_sub_distrib, Finset.sum_neg_distrib, hfg, hgf]
   ring
 
 /-- **Exact cell cross-amplitude factorization.** -/
