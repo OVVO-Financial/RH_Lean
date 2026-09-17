@@ -56,9 +56,8 @@ theorem primeInteriorPart_primeInteriorPart_eq_empty_of_product_gt
     (hq : q.Prime) (hs : s.Prime) (hqs : q ≠ s)
     (hprod : X < q * s) :
     primeInteriorPart s (primeInteriorPart q B) = ∅ := by
-  ext n
-  simp only [Finset.mem_empty, iff_false]
-  intro hn
+  apply Finset.eq_empty_iff_forall_notMem.mpr
+  intro n hn
   have hnOuter := mem_primeInteriorPart.mp hn
   have hnInner := mem_primeInteriorPart.mp hnOuter.1
   have hsInner := mem_primeInteriorPart.mp hnOuter.2
@@ -279,7 +278,8 @@ theorem lowOwnerFirstOwnerCanonicalStokesResidual_eq_zero_of_twoOwners
   have hqne := lowOwnerFirstOwnerCanonicalStokesSchedule_first_two_ne hps
   have hcarrier :=
     lowOwnerFirstOwner_twoPrimePairInterior_eq_empty_of_top
-      (sig := sig) hqPrime hsPrime hqne hqTop
+      (R := R) (p := p) (q := q) (s := s) (sig := sig)
+      hqPrime hsPrime hqne hqTop
   unfold lowOwnerFirstOwnerCanonicalStokesResidual
   rw [hps]
   simp only [iteratedPairWeightedStokesResidual]
