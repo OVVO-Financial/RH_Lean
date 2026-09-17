@@ -89,7 +89,6 @@ theorem primePeriodReciprocalOffDiagonalMajorant_le_card_sq
       exact_mod_cast Finset.card_le_card (Finset.erase_subset p S)
     _ = (S.card : ℝ) ^ 2 := by
       simp only [Finset.sum_const, nsmul_eq_mul]
-      push_cast
       ring
 
 /-- A quarter reciprocal-square budget gives the diagonal-plus-off-diagonal
