@@ -245,8 +245,10 @@ theorem sum_lowOwnerFirstOwnerPolarizationFixedRawParentFiber_eq_virtualMixed
           lowOwnerFirstOwnerPolarizationRawParent_mixedCorners_have_owner
             hp hparent
         have hfresh := howners.1.1
-        change r * parent.1 = parent.1 ∧ parent.2 = r * parent.2 at heq
-        rw [heq.1, heq.2] at hfresh
+        dsimp [L, U] at heq
+        have heq1 : r * parent.1 = parent.1 := congrArg Prod.fst heq
+        have heq2 : parent.2 = r * parent.2 := congrArg Prod.snd heq
+        rw [heq1, heq2] at hfresh
         simp [squarefreePairFreshPrimeSet] at hfresh
       simp [hne]
     · have hUnot : U ∉ F := (not_congr hUiff).mpr hU
