@@ -45,7 +45,7 @@ theorem squarefreePairPrimeOrderedParent_comm
     · simp [um, un, hmn, hnm]
     · have heq : um = un := Nat.le_antisymm
         (Nat.le_of_not_gt hnm) (Nat.le_of_not_gt hmn)
-      simp [um, un, hmn, hnm, heq]
+      simp [um, un, heq]
 
 /-- Greatest fresh-prime ownership is symmetric in the pair coordinates. -/
 theorem isSquarefreePairGreatestFreshPrimeOwner_comm
