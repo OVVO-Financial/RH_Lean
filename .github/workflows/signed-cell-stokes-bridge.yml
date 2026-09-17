@@ -65,10 +65,6 @@ jobs:
             strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
       - name: Prebuild StrongPNT dependency
         run: lake build StrongPNT.PNT5_Strong
-      - name: Prebuild terminal RH consumer dependencies
-        run: |
-          lake build RHLean.Proof.StableFarAdaptiveLedgerCollapse
-          lake build RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
@@ -166,6 +162,10 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_NEAREST_SQUARE_ENDPOINT_LEDGER.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_ARBITRARY_CLOCK_WHEEL.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_COMMON_SPECTRUM_LEDGER.lean
+      - name: Prebuild terminal RH consumer dependencies
+        run: |
+          lake build RHLean.Proof.StableFarAdaptiveLedgerCollapse
+          lake build RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
       - name: Kernel-check final Stokes boundary consumer wiring
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
