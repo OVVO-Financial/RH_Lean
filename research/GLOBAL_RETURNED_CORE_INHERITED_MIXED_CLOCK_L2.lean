@@ -29,10 +29,10 @@ private theorem lowOwnerThresholdCrossingIndicator_le_cutoffIndicator
     lowOwnerThresholdCrossingIndicator p n y ≤
       if n ≤ y then (1 : ℝ) else 0 := by
   unfold lowOwnerThresholdCrossingIndicator
-  by_cases hcross : n ≤ y ∧ y < p * n
-  · have hn : n ≤ y := hcross.1
-    simp [hcross, hn]
-  · by_cases hn : n ≤ y <;> simp [hcross, hn]
+  by_cases hn : n ≤ y
+  · simp [hn]
+    by_cases hy : y < p * n <;> simp [hy]
+  · simp [hn]
 
 private theorem lowOwnerThresholdTransportedCrossingIndicator_le_cutoffIndicator
     {p r n y : ℕ} (hr : 0 < r) :
@@ -214,8 +214,8 @@ theorem sum_lowOwnerThresholdSecondOwnerDifference_sq_le_quarter_endpoint_add_fo
             exact lowOwnerThresholdSecondOwnerDifference_sq_le_activity
               hR hp hr hpr (Finset.mem_Icc.mp hn).1
       _ = (1 / 2 : ℝ) * A + 2 * B := by
-        simp only [Finset.sum_add_distrib]
-        rw [Finset.mul_sum, Finset.mul_sum]
+        rw [Finset.sum_add_distrib]
+        rw [← Finset.mul_sum, ← Finset.mul_sum]
         rfl
   calc
     (∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
