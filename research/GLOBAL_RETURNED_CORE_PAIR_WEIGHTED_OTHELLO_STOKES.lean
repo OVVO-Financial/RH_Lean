@@ -333,17 +333,12 @@ theorem sum_pairWeightedMoebius_eq_escapeFaces_add_quarter_mixedDifference
       (othelloRealMoebiusPair_right_flip hp)
       (othelloRealMoebiusPair_right_fixed_zero hp)
 
-  change
-    (∑ mn ∈ C, w mn * f mn) =
-      (∑ mn ∈ weightedOthelloEscapePart tauL C, w mn * f mn) +
-      (1 / 2 : ℝ) *
-        (∑ mn ∈ weightedOthelloEscapePart tauR I,
-          w mn * (f mn - f (tauL mn))) +
-      (1 / 4 : ℝ) *
-        ∑ mn ∈ weightedOthelloInteriorPart tauR I,
-          w mn *
-            ((f mn - f (tauL mn)) -
-              (f (tauR mn) - f (tauL (tauR mn))))
+  have hleft' :
+      (∑ mn ∈ C, w mn * f mn) =
+        (∑ mn ∈ weightedOthelloEscapePart tauL C, w mn * f mn) +
+          (1 / 2 : ℝ) * ∑ mn ∈ I, w mn * g mn := by
+    simpa [I, pairPrimeLeftInteriorPart, g, tauL] using hleft
+
   change
     (∑ mn ∈ C, w mn * f mn) =
       (∑ mn ∈ weightedOthelloEscapePart tauL C, w mn * f mn) +
@@ -352,7 +347,23 @@ theorem sum_pairWeightedMoebius_eq_escapeFaces_add_quarter_mixedDifference
       (1 / 4 : ℝ) *
         ∑ mn ∈ weightedOthelloInteriorPart tauR I,
           w mn * (g mn - g (tauR mn))
-  rw [hleft, hright]
-  ring
+  calc
+    (∑ mn ∈ C, w mn * f mn) =
+        (∑ mn ∈ weightedOthelloEscapePart tauL C, w mn * f mn) +
+          (1 / 2 : ℝ) * ∑ mn ∈ I, w mn * g mn := hleft'
+    _ =
+        (∑ mn ∈ weightedOthelloEscapePart tauL C, w mn * f mn) +
+          (1 / 2 : ℝ) *
+            ((∑ mn ∈ weightedOthelloEscapePart tauR I, w mn * g mn) +
+              (1 / 2 : ℝ) *
+                ∑ mn ∈ weightedOthelloInteriorPart tauR I,
+                  w mn * (g mn - g (tauR mn))) := by rw [hright]
+    _ =
+        (∑ mn ∈ weightedOthelloEscapePart tauL C, w mn * f mn) +
+        (1 / 2 : ℝ) *
+          (∑ mn ∈ weightedOthelloEscapePart tauR I, w mn * g mn) +
+        (1 / 4 : ℝ) *
+          ∑ mn ∈ weightedOthelloInteriorPart tauR I,
+            w mn * (g mn - g (tauR mn)) := by ring
 
 end RHLean.Proof
