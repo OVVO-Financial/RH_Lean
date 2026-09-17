@@ -233,7 +233,7 @@ theorem squarefreePairFreshPrimeSet_mul_left_eq_mul_right_of_fresh
   by_cases hqr : q = r
   · subst q
     simp [hraPF, hrbPF]
-  · simp [hqr, or_comm, and_comm, and_left_comm, and_assoc]
+  · simp [hqr, or_comm, and_left_comm, and_assoc]
 
 /-- **Virtual sibling owner transfer.**  Both mixed r-corners over an occurring
 raw parent have r as the same greatest fresh-prime owner, independently of
