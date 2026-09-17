@@ -5,10 +5,12 @@ on:
     branches: [main]
     paths:
       - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+      - research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
       - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
       - research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
       - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
       - research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
       - RHLean/Proof/SquareRootLowPrimeSharpFrameBudget.lean
       - RHLean/Proof/ComplexVerticalLineGreenKubo.lean
       - RHLean/Proof/EndpointCubeAnalyticClosure.lean
@@ -96,6 +98,9 @@ jobs:
       - name: Kernel-check Perron quarter-frame theorem
         run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
 
+      - name: Kernel-check Basel-style frame sharpening
+        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
+
       - name: Emit zero-target partial-moment covariance olean
         run: |
           lake env lean -DwarningAsError=true \
@@ -104,3 +109,6 @@ jobs:
 
       - name: Kernel-check zero-target covariance owner descent
         run: lake env lean -DwarningAsError=true research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
+
+      - name: Kernel-check final Stokes zero-target covariance bridge
+        run: lake env lean -DwarningAsError=true research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
