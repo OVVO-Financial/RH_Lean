@@ -88,7 +88,6 @@ theorem lowOwnerThresholdEulerParentEnergy_eq_secondOwnerDifference_sq
   rw [lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr,
     lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr]
   field_simp [ha0, hb0]
-  ring
 
 /-- Root-scale envelope statement for the actual reciprocal energy emitted by
 all greatest-owner children after the completed incidence gate.  This is the
