@@ -120,14 +120,12 @@ theorem lowOwnerFirstOwner_div_larger_prime_mem_same_base
     exact hun.trans (Finset.mem_Icc.mp hnIcc).2
   have hrnotu : ¬ r ∣ u := by
     intro hru
-    apply (Nat.squarefree_iff_prime_squarefree.mp hnSq r hr)
-    rcases hru with ⟨k, hk⟩
-    refine ⟨k, ?_⟩
-    calc
-      n = r * u := heq.symm
-      _ = r * (r * k) := by rw [hk]
-      _ = (r * r) * k := (Nat.mul_assoc r r k).symm
-      _ = r ^ 2 * k := congrArg (fun x : ℕ => x * k) (pow_two r).symm
+    have hsqdiv : r * r ∣ n := by
+      rcases hru with ⟨k, hk⟩
+      refine ⟨k, ?_⟩
+      rw [← heq, hk]
+      ring
+    exact hr.not_isUnit (hnSq r hsqdiv)
   have hmuU : realMoebiusStep u ≠ 0 := by
     have hsign := realMoebiusStep_mul_prime_eq_neg hr hrnotu
     intro hz
