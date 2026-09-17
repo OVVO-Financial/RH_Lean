@@ -2,11 +2,12 @@ name: Owner-parent continuation check
 
 on:
   pull_request:
-    branches: [main, agent/global-reciprocal-parent-charge, agent/inherited-mixed-daughter-cauchy]
+    branches: [main, agent/global-reciprocal-parent-charge, agent/inherited-mixed-daughter-cauchy, agent/inherited-mixed-clock-l2]
     paths:
       - research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
       - research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
       - research/GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.lean
+      - research/GLOBAL_RETURNED_CORE_INHERITED_OWNER_CLOCK_CARLESON.lean
       - .github/workflows/owner-parent-continuation.yml
   workflow_dispatch:
 
@@ -219,4 +220,22 @@ jobs:
         if: steps.mixed_clock_l2.outcome != 'success'
         run: |
           cat mixed-clock-l2.log
+          exit 1
+      - name: Check owner-clock Carleson bound
+        id: owner_clock
+        continue-on-error: true
+        run: |
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_INHERITED_OWNER_CLOCK_CARLESON.lean \
+            > owner-clock.log 2>&1
+      - name: Upload owner-clock diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: owner-clock-lean-diagnostic
+          path: owner-clock.log
+      - name: Fail if owner-clock Carleson bound failed
+        if: steps.owner_clock.outcome != 'success'
+        run: |
+          cat owner-clock.log
           exit 1
