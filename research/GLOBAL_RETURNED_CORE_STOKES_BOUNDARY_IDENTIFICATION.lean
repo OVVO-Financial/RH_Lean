@@ -98,7 +98,7 @@ theorem lowOwnerFirstOwner_mul_larger_prime_mem_same_base_of_le
 in the same base cell. -/
 theorem lowOwnerFirstOwner_div_larger_prime_mem_same_base
     {R p r n : ℕ} {sig : Finset ℕ}
-    (hp : p.Prime) (hr : r.Prime) (hpr : p < r)
+    (_hp : p.Prime) (hr : r.Prime) (hpr : p < r)
     (hn : n ∈ lowOwnerFirstOwnerBaseFiber R p sig)
     (hrn : r ∣ n) :
     n / r ∈ lowOwnerFirstOwnerBaseFiber R p sig := by
