@@ -1,22 +1,16 @@
-name: Stokes endpoint maximum alignment check
+name: Stokes endpoint maximum alignment diagnostic
 
+# Manual diagnostic only.  The harmonic lemmas are intentionally not an
+# automatic proof gate until the signed Stokes ledger has been identified
+# exactly with the endpoint/corrected-conductor packet they are meant to bound.
 on:
-  push:
-    branches: [agent/weighted-othello-stokes]
-  pull_request:
-    branches: [main]
-    paths:
-      - research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
-      - research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
-      - research/STOKES_COMPLETED_CONDUCTOR_BOUNDARY.lean
-      - .github/workflows/stokes-endpoint-max-alignment.yml
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  check:
+  diagnostic:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -34,7 +28,7 @@ jobs:
           lake build RHLean.Analysis.SquareWheelQuadraticSampling
           lake build RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
           mkdir -p .lake/build/lib/lean
-      - name: Kernel-check deterministic endpoint maximum alignment
+      - name: Kernel-check diagnostic harmonic lemmas only
         run: |
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.STOKES_ENDPOINT_MAX_ALIGNMENT.olean \
