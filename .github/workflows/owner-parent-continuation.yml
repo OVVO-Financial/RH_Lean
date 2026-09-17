@@ -2,9 +2,10 @@ name: Owner-parent continuation check
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, agent/global-reciprocal-parent-charge]
     paths:
       - research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
+      - research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
       - .github/workflows/owner-parent-continuation.yml
   workflow_dispatch:
 
@@ -178,4 +179,23 @@ jobs:
         if: steps.owner_parent.outcome != 'success'
         run: |
           cat owner-parent.log
+          exit 1
+      - name: Check deterministic inherited cancellation
+        id: deterministic_cancellation
+        continue-on-error: true
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.olean \
+            research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean \
+            > deterministic-cancellation.log 2>&1
+      - name: Upload deterministic cancellation diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deterministic-cancellation-lean-diagnostic
+          path: deterministic-cancellation.log
+      - name: Fail if deterministic cancellation failed
+        if: steps.deterministic_cancellation.outcome != 'success'
+        run: |
+          cat deterministic-cancellation.log
           exit 1
