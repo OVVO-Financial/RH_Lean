@@ -45,10 +45,26 @@ cancellation theorem does not depend on an unrelated diagonal-energy module. -/
 private theorem realMoebiusStep_sq_eq_one_of_ne_zero_inherited
     {n : ℕ} (hn : realMoebiusStep n ≠ 0) :
     realMoebiusStep n ^ 2 = 1 := by
-  rcases ArithmeticFunction.moebius_eq_or n with h | h | h
-  · exact (hn (by simp [realMoebiusStep, h])).elim
-  · simp [realMoebiusStep, h]
-  · simp [realMoebiusStep, h]
+  rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
+    simp [realMoebiusStep, h] at hn ⊢
+
+/-- On a nonzero reciprocal pair the reciprocal energy is exactly the inverse
+square of the coordinate product. -/
+private theorem postRootCovarianceReciprocalPairEnergy_eq_inv_product_sq_inherited
+    {a b : ℕ}
+    (hma : realMoebiusStep a ≠ 0)
+    (hmb : realMoebiusStep b ≠ 0) :
+    postRootCovarianceReciprocalPairEnergy (a, b) =
+      1 / (((a : ℝ) ^ 2) * ((b : ℝ) ^ 2)) := by
+  have hmaSq : realMoebiusStep a ^ 2 = 1 :=
+    realMoebiusStep_sq_eq_one_of_ne_zero_inherited hma
+  have hmbSq : realMoebiusStep b ^ 2 = 1 :=
+    realMoebiusStep_sq_eq_one_of_ne_zero_inherited hmb
+  unfold postRootCovarianceReciprocalPairEnergy
+    postRootCovarianceReciprocalPairAmplitude
+  rw [div_pow]
+  rw [mul_pow, hmaSq, hmbSq]
+  ring
 
 /-- **Exact Mobius/reciprocal cancellation.**  On a positive nonzero parent,
 Euler normalization cancels the reciprocal pair denominators and the squared
@@ -62,22 +78,15 @@ theorem lowOwnerThresholdEulerParentEnergy_eq_secondOwnerDifference_sq
     lowOwnerThresholdEulerParentEnergy R p r (a, b) =
       lowOwnerThresholdSecondOwnerDifference R p r a ^ 2 *
         lowOwnerThresholdSecondOwnerDifference R p r b ^ 2 := by
-  have hmaSq : realMoebiusStep a ^ 2 = 1 :=
-    realMoebiusStep_sq_eq_one_of_ne_zero_inherited hma
-  have hmbSq : realMoebiusStep b ^ 2 = 1 :=
-    realMoebiusStep_sq_eq_one_of_ne_zero_inherited hmb
   have ha0 : (a : ℝ) ≠ 0 := by
     exact_mod_cast (Nat.ne_of_gt ha)
   have hb0 : (b : ℝ) ≠ 0 := by
     exact_mod_cast (Nat.ne_of_gt hb)
   unfold lowOwnerThresholdEulerParentEnergy
-    lowOwnerThresholdEulerPairCoefficient
-    postRootCovarianceReciprocalPairEnergy
-    postRootCovarianceReciprocalPairAmplitude
+  rw [postRootCovarianceReciprocalPairEnergy_eq_inv_product_sq_inherited hma hmb]
+  unfold lowOwnerThresholdEulerPairCoefficient
   rw [lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr,
     lowOwnerThresholdCriticalEulerDifference_eq_nat_mul_secondDifference hr]
-  rw [div_pow]
-  rw [mul_pow (realMoebiusStep a) (realMoebiusStep b) 2, hmaSq, hmbSq]
   field_simp [ha0, hb0]
   ring
 
