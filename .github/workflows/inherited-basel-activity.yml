@@ -104,6 +104,9 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.olean \
             research/GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.olean \
+            research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
 
       - name: Kernel-check Basel greatest-owner contraction
         run: |
