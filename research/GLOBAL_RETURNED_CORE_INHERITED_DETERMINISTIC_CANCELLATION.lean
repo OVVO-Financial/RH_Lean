@@ -199,4 +199,33 @@ theorem lowOwnerFirstOwnerAdmittedGreatestOwnerParentBlock_fresh_between_owners
     lowOwnerFirstOwnerAdmittedPair_freshPrime_gt_owner hp hmAd hnAd hqChild
   exact ⟨hpq, hqr⟩
 
+/-- One threshold atom in the mixed `(p,r)` incidence, written on the `p`
+window.  For `p < r`, the two windows are disjoint. -/
+def lowOwnerThresholdAtomicMixedDifference
+    (p r n y : ℕ) : ℝ :=
+  lowOwnerThresholdCrossingIndicator p n y -
+    lowOwnerThresholdCrossingIndicator p (r * n) y
+
+/-- **Exact atomic square identity.**  When `p < r` and the site is positive,
+the two multiplicative threshold windows cannot be simultaneously active, so
+squaring loses nothing: the square of their signed difference is exactly their
+activity count. -/
+theorem lowOwnerThresholdAtomicMixedDifference_sq_eq_activity
+    {p r n y : ℕ} (hpr : p < r) (hn : 0 < n) :
+    lowOwnerThresholdAtomicMixedDifference p r n y ^ 2 =
+      lowOwnerThresholdCrossingIndicator p n y +
+        lowOwnerThresholdCrossingIndicator p (r * n) y := by
+  have hpnrn : p * n < r * n :=
+    Nat.mul_lt_mul_of_pos_right hpr hn
+  unfold lowOwnerThresholdAtomicMixedDifference
+    lowOwnerThresholdCrossingIndicator
+  by_cases hleft : n ≤ y ∧ y < p * n
+  · by_cases hright : r * n ≤ y ∧ y < p * (r * n)
+    · exfalso
+      omega
+    · simp [hleft, hright]
+  · by_cases hright : r * n ≤ y ∧ y < p * (r * n)
+    · simp [hleft, hright]
+    · simp [hleft, hright]
+
 end RHLean.Proof
