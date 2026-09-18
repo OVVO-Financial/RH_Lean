@@ -68,6 +68,7 @@ theorem lowOwnerFirstOwnerBranchNextPolarizationTerm_eq_dirichletIncidence_sub_s
       (lowOwnerDirichletBaseCoefficient R) hr hra hrb,
     weightedMoebiusFreshPrimeFourCornerMass_eq_ownerDifferences
       (lowOwnerDirichletReturnedCoefficient R p) hr hra hrb]
+  rw [postRootZeroTargetPairExcess_eq_weight]
   unfold lowOwnerDirichletNextPolarizationScalar
     lowOwnerDirichletOwnerDifference
     lowOwnerDirichletIncidenceCoefficient
@@ -93,13 +94,18 @@ theorem lowOwnerFirstOwnerBranchDirichletIncidenceFourCorner_eq_threshold_add_en
   rw [weightedMoebiusFreshPrimeFourCornerMass_eq_ownerDifferences
       (lowOwnerPhysicalDirichletIncidenceWeight R p) hr hra hrb,
     weightedMoebiusFreshPrimeFourCornerMass_eq_ownerDifferences
-      (lowOwnerThresholdOwnerIncidenceWeight R p) hr hra hrb,
-    lowOwnerDirichletIncidence_ownerDifference_eq_threshold_add_endpointClippedDifference
+      (lowOwnerThresholdOwnerIncidenceWeight R p) hr hra hrb]
+  change postRootZeroTargetPairExcess parent *
+      lowOwnerDirichletOwnerDifference r
+        (lowOwnerPhysicalDirichletIncidenceWeight R p) parent.1 *
+      lowOwnerDirichletOwnerDifference r
+        (lowOwnerPhysicalDirichletIncidenceWeight R p) parent.2 = _
+  rw [lowOwnerDirichletIncidence_ownerDifference_eq_threshold_add_endpointClippedDifference
       hR hp.one_le hr.one_le,
     lowOwnerDirichletIncidence_ownerDifference_eq_threshold_add_endpointClippedDifference
       hR hp.one_le hr.one_le]
-  rw [postRootZeroTargetPairExcess_eq_weight]
   unfold lowOwnerRawParentEndpointIncidenceCorrectionMass
+    lowOwnerThresholdSecondOwnerDifference
   ring
 
 /-- Threshold four-corner on a full branch parent is exactly the product of its
@@ -119,6 +125,7 @@ theorem lowOwnerFirstOwnerBranchThresholdFourCorner_eq_siteProduct
     (lowOwnerThresholdOwnerIncidenceWeight R p) hr hra hrb]
   rw [postRootZeroTargetPairExcess_eq_weight]
   unfold lowOwnerRawParentThresholdSignedSite
+    lowOwnerThresholdSecondOwnerDifference
   ring
 
 /-- The aggregate threshold four-corner over the full branch is exactly the
