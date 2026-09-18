@@ -106,6 +106,7 @@ theorem lowOwnerRawParentThresholdFourCorner_eq_siteProduct
     (lowOwnerThresholdOwnerIncidenceWeight R p) hr hra hrb]
   rw [postRootZeroTargetPairExcess_eq_weight]
   unfold lowOwnerRawParentThresholdSignedSite
+    lowOwnerThresholdSecondOwnerDifference
   ring
 
 /-- Quadratic threshold mass of the full revealed r-free branch. -/
@@ -159,7 +160,7 @@ theorem lowOwnerFirstOwnerRawParentThresholdIncidenceMass_eq_branchEnergy_sub_ta
         lowOwnerRawParentThresholdSignedSite R p r parent.1 *
           lowOwnerRawParentThresholdSignedSite R p r parent.2)
   unfold lowOwnerFirstOwnerRawParentBranchThresholdEnergy
-    lowOwnerFirstOwnerRawParentTailThresholdEnergy at hpartition ⊢
-  linarith
+    lowOwnerFirstOwnerRawParentTailThresholdEnergy
+  linarith [hpartition]
 
 end RHLean.Proof
