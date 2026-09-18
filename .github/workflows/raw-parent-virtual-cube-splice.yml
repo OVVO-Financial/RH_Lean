@@ -146,6 +146,22 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.lean
+          lake build RHLean.Proof.GlobalPrefixCarrierOthello
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.olean \
+            research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.olean \
+            research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.olean \
+            research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.olean \
+            research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.olean \
+            research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.olean \
             research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
