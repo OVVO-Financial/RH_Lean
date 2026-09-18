@@ -29,6 +29,9 @@ on:
       - research/GLOBAL_RETURNED_CORE_STOKES_PERIODIC_RAW_REALIZATION.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_CONDUCTOR_PACKET.lean
       - research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean
+      - research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
+      - research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
       - .github/workflows/signed-cell-stokes-bridge.yml
   workflow_dispatch:
 
@@ -188,3 +191,6 @@ jobs:
           emit research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
           emit research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean
           emit research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean
+          emit research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
+          emit research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean
