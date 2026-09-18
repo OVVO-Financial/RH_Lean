@@ -82,26 +82,14 @@ theorem lowOwnerFirstOwnerRawParentEndpointIncidenceCorrectionMass_eq_incomplete
       lowOwnerFirstOwnerIncompleteEndpointIncidenceCorrectionMass R p sig r := by
   unfold lowOwnerFirstOwnerRawParentEndpointIncidenceCorrectionMass
     lowOwnerFirstOwnerIncompleteEndpointIncidenceCorrectionMass
-    lowOwnerFirstOwnerCompletedPolarizationRawParentSet
     lowOwnerFirstOwnerIncompletePolarizationRawParentSet
-  have hsplit :=
-    Finset.sum_filter_add_sum_filter_not
-      (s := lowOwnerFirstOwnerPolarizationRawParentSet R p sig r)
-      (p := fun parent : ℕ × ℕ =>
-        LowOwnerCompletedPolarizationBlock R p (r, parent))
-      (f := fun parent =>
-        lowOwnerRawParentEndpointIncidenceCorrectionMass R p r parent)
-  have hcompleted :
-      (∑ parent ∈
-        (lowOwnerFirstOwnerPolarizationRawParentSet R p sig r).filter
-          (fun parent => LowOwnerCompletedPolarizationBlock R p (r, parent)),
-        lowOwnerRawParentEndpointIncidenceCorrectionMass R p r parent) = 0 := by
-    apply Finset.sum_eq_zero
-    intro parent hparent
-    exact lowOwnerRawParentEndpointIncidenceCorrectionMass_eq_zero_of_completed
-      (Finset.mem_filter.mp hparent).2
-  rw [hcompleted] at hsplit
-  linarith
+  refine (Finset.sum_subset (Finset.filter_subset _ _) ?_).symm
+  intro parent hparent hnot
+  have hcompleted : LowOwnerCompletedPolarizationBlock R p (r, parent) := by
+    by_contra hincomplete
+    exact hnot (Finset.mem_filter.mpr ⟨hparent, hincomplete⟩)
+  exact lowOwnerRawParentEndpointIncidenceCorrectionMass_eq_zero_of_completed
+    hcompleted
 
 /-- First-owner endpoint clip atom. -/
 def lowOwnerRawParentFirstEndpointClip
