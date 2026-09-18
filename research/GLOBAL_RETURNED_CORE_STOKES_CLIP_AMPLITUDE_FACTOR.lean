@@ -176,4 +176,90 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedAmplitudeProducts
       (lowOwnerDirichletBaseCoefficient R)
       (lowOwnerDirichletReturnedCoefficient R p)
 
+
+/-! ## Exceptional terminal amplitudes in the same currency -/
+
+/-- Empty remaining schedule: the terminal term is exactly the original
+assembled base/returned cross amplitude of the cell. -/
+theorem lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_schedule_nil
+    {R p : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime)
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = []) :
+    lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig =
+      -2 * lowOwnerFirstOwnerBaseAmplitude R p sig *
+        lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
+  unfold lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary
+  rw [hps]
+  rw [← lowOwnerFirstOwnerSignedCellTelescope_eq_pairWeightedStokesMass
+    (R := R) (p := p) (sig := sig) hp]
+  exact
+    lowOwnerFirstOwnerSignedCellTelescope_eq_neg_two_base_mul_returned
+      (R := R) (p := p) (sig := sig) hp
+
+/-- **Assembled empty-schedule factorization.**  Signatures are summed only
+after the exact cross product has been formed in each cell; no cellwise
+magnitude is introduced. -/
+theorem sum_lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_schedule_nil
+    {R p : ℕ}
+    (hp : p.Prime)
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = []) :
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) =
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        (-2 * lowOwnerFirstOwnerBaseAmplitude R p sig *
+          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig) := by
+  apply Finset.sum_congr rfl
+  intro sig _hsig
+  exact
+    lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_schedule_nil
+      hp hps
+
+/-- One remaining owner: the exact quarter-weighted terminal packet is already
+one half of an interior base/returned difference product.  This is the literal
+Stokes quarter factor after cross-amplitude factorization. -/
+theorem lowOwnerFirstOwnerTopTerminal_eq_neg_half_interiorDifferenceProduct_of_schedule_single
+    {R p q : ℕ} {sig : Finset ℕ}
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = [q]) :
+    lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig =
+      -(1 / 2 : ℝ) *
+        lowOwnerStokesSignedAmplitude
+          (primeInteriorPart q (lowOwnerFirstOwnerBaseFiber R p sig))
+          (lowOwnerStokesToggleDifference q
+            (lowOwnerDirichletBaseCoefficient R)) *
+        lowOwnerStokesSignedAmplitude
+          (primeInteriorPart q (lowOwnerFirstOwnerBaseFiber R p sig))
+          (lowOwnerStokesToggleDifference q
+            (lowOwnerDirichletReturnedCoefficient R p)) := by
+  unfold lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary
+  rw [hps]
+  unfold lowOwnerFirstOwnerSignedCellPairCarrier
+  rw [pairPrimeTwoCoordinateInterior_product]
+  rw [lowOwnerFirstOwnerDirichletPolarizationScalar_eq_cross]
+  rw [pairPrimeMixedDifference_crossScalar]
+  rw [pairWeightedStokesMass_product_crossScalar]
+  ring
+
+/-- **Assembled one-owner terminal factorization.**  The exact quarter-weighted
+mixed difference remains assembled over signatures. -/
+theorem sum_lowOwnerFirstOwnerTopTerminal_eq_neg_half_interiorDifferenceProduct_of_schedule_single
+    {R p q : ℕ}
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = [q]) :
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) =
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        (-(1 / 2 : ℝ) *
+          lowOwnerStokesSignedAmplitude
+            (primeInteriorPart q (lowOwnerFirstOwnerBaseFiber R p sig))
+            (lowOwnerStokesToggleDifference q
+              (lowOwnerDirichletBaseCoefficient R)) *
+          lowOwnerStokesSignedAmplitude
+            (primeInteriorPart q (lowOwnerFirstOwnerBaseFiber R p sig))
+            (lowOwnerStokesToggleDifference q
+              (lowOwnerDirichletReturnedCoefficient R p))) := by
+  apply Finset.sum_congr rfl
+  intro sig _hsig
+  exact
+    lowOwnerFirstOwnerTopTerminal_eq_neg_half_interiorDifferenceProduct_of_schedule_single
+      hps
+
 end RHLean.Proof
