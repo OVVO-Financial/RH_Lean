@@ -274,6 +274,139 @@ def lowOwnerStokesTopTerminalOwnerSet (R : ℕ) : Finset ℕ :=
   (primesUpTo (squareRootEndpoint R)).filter fun p =>
     (lowOwnerFirstOwnerCanonicalStokesSchedule R p).length ≤ 1
 
+
+private theorem lowOwnerStokesFullPrimeSet_nonempty
+    {R : ℕ} (hR : 56 ≤ R) :
+    (primesUpTo (squareRootEndpoint R)).Nonempty := by
+  refine ⟨2, mem_primesUpTo.mpr ⟨Nat.prime_two, ?_⟩⟩
+  unfold squareRootEndpoint
+  nlinarith
+
+/-- Largest physical first-owner prime on the square clock. -/
+def lowOwnerStokesTopPrime (R : ℕ) (hR : 56 ≤ R) : ℕ :=
+  (primesUpTo (squareRootEndpoint R)).max'
+    (lowOwnerStokesFullPrimeSet_nonempty hR)
+
+theorem lowOwnerStokesTopPrime_mem
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerStokesTopPrime R hR ∈ primesUpTo (squareRootEndpoint R) := by
+  exact Finset.max'_mem _ _
+
+private theorem lowOwnerStokesEraseTop_nonempty
+    {R : ℕ} (hR : 56 ≤ R) :
+    ((primesUpTo (squareRootEndpoint R)).erase
+      (lowOwnerStokesTopPrime R hR)).Nonempty := by
+  have h5 : 5 ∈ primesUpTo (squareRootEndpoint R) := by
+    apply mem_primesUpTo.mpr
+    constructor
+    · norm_num
+    · unfold squareRootEndpoint
+      nlinarith
+  have htop5 :
+      5 ≤ lowOwnerStokesTopPrime R hR :=
+    Finset.le_max' _ 5 h5
+  have h2 : 2 ∈ primesUpTo (squareRootEndpoint R) := by
+    exact mem_primesUpTo.mpr ⟨Nat.prime_two, by
+      unfold squareRootEndpoint
+      nlinarith⟩
+  have hne : 2 ≠ lowOwnerStokesTopPrime R hR := by omega
+  exact ⟨2, Finset.mem_erase.mpr ⟨hne, h2⟩⟩
+
+/-- Second-largest physical first-owner prime. -/
+def lowOwnerStokesSecondPrime (R : ℕ) (hR : 56 ≤ R) : ℕ :=
+  ((primesUpTo (squareRootEndpoint R)).erase
+      (lowOwnerStokesTopPrime R hR)).max'
+    (lowOwnerStokesEraseTop_nonempty hR)
+
+theorem lowOwnerStokesSecondPrime_mem_erase
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerStokesSecondPrime R hR ∈
+      (primesUpTo (squareRootEndpoint R)).erase
+        (lowOwnerStokesTopPrime R hR) := by
+  exact Finset.max'_mem _ _
+
+/-- **Exceptional terminal support is literally the top two first-owner
+coordinates.**  Any lower prime has both the top and second-top primes in its
+remaining Stokes schedule, contradicting the terminal length bound. -/
+theorem lowOwnerStokesTopTerminalOwnerSet_subset_top_two
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerStokesTopTerminalOwnerSet R ⊆
+      ({lowOwnerStokesTopPrime R hR,
+        lowOwnerStokesSecondPrime R hR} : Finset ℕ) := by
+  intro p hp
+  rcases Finset.mem_filter.mp hp with ⟨hpS, hlen⟩
+  let t := lowOwnerStokesTopPrime R hR
+  let s := lowOwnerStokesSecondPrime R hR
+  by_cases hpt : p = t
+  · simp [hpt, t, s]
+  by_cases hps : p = s
+  · simp [hps, t, s]
+  exfalso
+  have htS : t ∈ primesUpTo (squareRootEndpoint R) := by
+    simpa [t] using lowOwnerStokesTopPrime_mem hR
+  have hsErase :
+      s ∈ (primesUpTo (squareRootEndpoint R)).erase t := by
+    simpa [s, t] using lowOwnerStokesSecondPrime_mem_erase hR
+  have hsS : s ∈ primesUpTo (squareRootEndpoint R) :=
+    (Finset.mem_erase.mp hsErase).2
+  have hst : s ≠ t := (Finset.mem_erase.mp hsErase).1
+  have hptLe : p ≤ t := by
+    simpa [t] using Finset.le_max'
+      (primesUpTo (squareRootEndpoint R)) p hpS
+  have hptLt : p < t := by omega
+  have hpErase :
+      p ∈ (primesUpTo (squareRootEndpoint R)).erase t :=
+    Finset.mem_erase.mpr ⟨hpt, hpS⟩
+  have hpsLe : p ≤ s := by
+    simpa [s, t] using Finset.le_max'
+      ((primesUpTo (squareRootEndpoint R)).erase t) p hpErase
+  have hpsLt : p < s := by omega
+  have htFull :
+      t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R := by
+    unfold squareRootCanonicalRoughDescendingPrimeSchedule
+    exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 htS
+  have hsFull :
+      s ∈ squareRootCanonicalRoughDescendingPrimeSchedule R := by
+    unfold squareRootCanonicalRoughDescendingPrimeSchedule
+    exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 hsS
+  have htSched :
+      t ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p := by
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+      (show t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < t
+        from ⟨htFull, hptLt⟩)
+  have hsSched :
+      s ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p := by
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+      (show s ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < s
+        from ⟨hsFull, hpsLt⟩)
+  generalize hsched :
+      lowOwnerFirstOwnerCanonicalStokesSchedule R p = ps at hlen htSched hsSched
+  cases ps with
+  | nil =>
+      simp at htSched
+  | cons a tail =>
+      cases tail with
+      | nil =>
+          simp only [List.mem_singleton] at htSched hsSched
+          exact hst (hsSched.trans htSched.symm)
+      | cons b rest =>
+          simp at hlen
+
+theorem card_lowOwnerStokesTopTerminalOwnerSet_le_two
+    {R : ℕ} (hR : 56 ≤ R) :
+    (lowOwnerStokesTopTerminalOwnerSet R).card ≤ 2 := by
+  have hsub := lowOwnerStokesTopTerminalOwnerSet_subset_top_two hR
+  calc
+    (lowOwnerStokesTopTerminalOwnerSet R).card ≤
+        ({lowOwnerStokesTopPrime R hR,
+          lowOwnerStokesSecondPrime R hR} : Finset ℕ).card :=
+      Finset.card_le_card hsub
+    _ ≤ 2 := by
+      have h := Finset.card_insert_le
+        (lowOwnerStokesTopPrime R hR)
+        ({lowOwnerStokesSecondPrime R hR} : Finset ℕ)
+      simpa using h
+
 /-- Outside the zero/one-owner terminal strata the local terminal contribution
 is literally zero. -/
 theorem lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary_eq_zero_of_not_mem_terminalOwners
