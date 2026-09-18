@@ -128,6 +128,8 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_EQ_TAIL.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_BRANCH_CURRENCY.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_SAME_BRANCH_NONNEG.lean
+          emit research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
+          emit research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
 
       - name: Kernel-check branch currency, orbit, and cross-amplitude gate
         run: |
