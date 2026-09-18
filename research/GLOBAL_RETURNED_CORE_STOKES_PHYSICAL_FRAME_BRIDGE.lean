@@ -692,4 +692,151 @@ structure LowOwnerStokesClipPrimePeriodSynthesisDatum where
         lowOwnerStokesPrimePeriodSynthesisEnergy
           R hR (coefficient R hR)
 
+
+/-! ## Lower-envelope scaled coefficient frame
+
+The RH consumer does not require unit coefficients.  Its native scale is the
+lower Mertens envelope `K`.  The same maximum-alignment argument therefore
+extends to any specified coefficient family whose squared norms are bounded by
+`K`.
+-/
+
+/-- If every reciprocal prime-period coefficient has squared norm at most
+`K`, its complete diagonal/off-diagonal envelope is at most `K` times the
+coefficient-free frame majorant. -/
+theorem primePeriodReciprocalCoefficientEnvelope_le_mul_frameMajorant
+    (W : PrimeWheelFiniteSystem) (N : ℕ) (S : Finset ℕ)
+    (a : ℕ → ℂ) (K : ℝ)
+    (hK : 0 ≤ K)
+    (ha : ∀ p ∈ S, ‖a p‖ ^ 2 ≤ K) :
+    primePeriodReciprocalCoefficientEnvelope W N S a ≤
+      K * primePeriodReciprocalFrameMajorant W N S := by
+  have hdiagSum :
+      (∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2) ≤
+        K * ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 := by
+    rw [Finset.mul_sum]
+    apply Finset.sum_le_sum
+    intro p hp
+    have hpw : 0 ≤ ((1 : ℝ) / (p : ℝ)) ^ 2 := sq_nonneg _
+    calc
+      ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2 ≤
+          ((1 : ℝ) / (p : ℝ)) ^ 2 * K :=
+        mul_le_mul_of_nonneg_left (ha p hp) hpw
+      _ = K * ((1 : ℝ) / (p : ℝ)) ^ 2 := by ring
+  have hdiag :
+      (N : ℝ) *
+          (∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2) ≤
+        K * primePeriodReciprocalDiagonalMajorant N S := by
+    unfold primePeriodReciprocalDiagonalMajorant
+    have hN : 0 ≤ (N : ℝ) := by positivity
+    calc
+      (N : ℝ) *
+          (∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2) ≤
+        (N : ℝ) * (K * ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2) :=
+          mul_le_mul_of_nonneg_left hdiagSum hN
+      _ = K * ((N : ℝ) *
+          ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2) := by ring
+  have hnormMul :
+      ∀ p ∈ S, ∀ q ∈ S, ‖a p‖ * ‖a q‖ ≤ K := by
+    intro p hp q hq
+    have hp0 : 0 ≤ ‖a p‖ := norm_nonneg _
+    have hq0 : 0 ≤ ‖a q‖ := norm_nonneg _
+    have hprod0 : 0 ≤ ‖a p‖ * ‖a q‖ := mul_nonneg hp0 hq0
+    have hsquare :
+        (‖a p‖ * ‖a q‖) ^ 2 ≤ K ^ 2 := by
+      calc
+        (‖a p‖ * ‖a q‖) ^ 2 =
+            ‖a p‖ ^ 2 * ‖a q‖ ^ 2 := by ring
+        _ ≤ K * K :=
+          mul_le_mul (ha p hp) (ha q hq) (sq_nonneg _) hK
+        _ = K ^ 2 := by ring
+    nlinarith [sq_nonneg (‖a p‖ * ‖a q‖ - K)]
+  have hoff :
+      (∑ p ∈ S,
+        ∑ q ∈ S.erase p,
+          (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+              ‖primeWheelDirichletKernel W N
+                (primePeriodFrequency W p - primePeriodFrequency W q)‖) *
+            (‖a p‖ * ‖a q‖)) ≤
+        K * primePeriodReciprocalOffDiagonalMajorant W N S := by
+    unfold primePeriodReciprocalOffDiagonalMajorant
+    rw [Finset.mul_sum]
+    apply Finset.sum_le_sum
+    intro p hp
+    rw [Finset.mul_sum]
+    apply Finset.sum_le_sum
+    intro q hq
+    have hqS : q ∈ S := (Finset.mem_erase.mp hq).2
+    have hw :
+        0 ≤
+          ((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+            ‖primeWheelDirichletKernel W N
+              (primePeriodFrequency W p - primePeriodFrequency W q)‖ := by
+      positivity
+    calc
+      (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖) *
+          (‖a p‖ * ‖a q‖) ≤
+        (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖) * K :=
+          mul_le_mul_of_nonneg_left (hnormMul p hp q hqS) hw
+      _ = K *
+        (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖) := by ring
+  unfold primePeriodReciprocalCoefficientEnvelope
+    primePeriodReciprocalFrameMajorant
+  nlinarith
+
+/-- Lower-envelope-scaled physical coefficient interface.  Unlike the earlier
+unit interface, this is stated at exactly the `R^2*K` scale consumed by the
+returned-core induction.  A useful instantiation must still supply an
+arithmetically fixed coefficient constructor. -/
+def LowOwnerStokesClipPrimePeriodCoefficientBounded
+    (coefficient : (R : ℕ) → (hR : 56 ≤ R) → ℕ → ℂ) : Prop :=
+  ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+    LowerMertensCriticalEnvelope R K →
+      (∀ p ∈ lowOwnerStokesOddPrimePeriodSet R,
+        ‖coefficient R hR p‖ ^ 2 ≤ K) ∧
+      lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        primePeriodReciprocalCoefficientEnvelope
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R)
+          (coefficient R hR)
+
+/-- Any *fixed physical* coefficient constructor satisfying the preceding
+lower-envelope interface yields the native `R^2*K` clip estimate immediately. -/
+theorem clip_le_five_fourths_root_sq_mul_lowerEnvelope_of_coefficientBounded
+    (coefficient : (R : ℕ) → (hR : 56 ≤ R) → ℕ → ℂ)
+    (hCoeff : LowOwnerStokesClipPrimePeriodCoefficientBounded coefficient) :
+    ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+      LowerMertensCriticalEnvelope R K →
+      lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by
+  intro R K hR hK
+  rcases hCoeff R K hR hK with ⟨hcoeff, hclip⟩
+  have henv :=
+    primePeriodReciprocalCoefficientEnvelope_le_mul_frameMajorant
+      (lowOwnerStokesNaturalWheelSystem R hR)
+      (squareRootEndpoint R)
+      (lowOwnerStokesOddPrimePeriodSet R)
+      (coefficient R hR) K hK.1 hcoeff
+  have hframe :=
+    lowOwnerStokesOddPrimePeriodFrameMajorant_le_five_fourths_root_sq R hR
+  calc
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        primePeriodReciprocalCoefficientEnvelope
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R)
+          (coefficient R hR) := hclip
+    _ ≤ K * lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by
+      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using henv
+    _ ≤ K * ((5 / 4 : ℝ) * (R : ℝ) ^ 2) :=
+      mul_le_mul_of_nonneg_left hframe hK.1
+    _ = (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by ring
+
 end RHLean.Proof
