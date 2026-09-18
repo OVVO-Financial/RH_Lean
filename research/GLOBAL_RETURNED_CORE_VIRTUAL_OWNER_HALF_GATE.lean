@@ -34,7 +34,7 @@ attribute [local instance] Classical.propDecidable
 private theorem lowOwnerRevealedPrimesAbove_eq_empty_of_endpoint_lt
     {R r : ℕ} (hXr : squareRootEndpoint R < r) :
     lowOwnerRevealedPrimesAbove R r = ∅ := by
-  apply Finset.eq_empty_iff_forall_not_mem.mpr
+  apply Finset.eq_empty_iff_forall_notMem.mpr
   intro q hq
   rcases Finset.mem_filter.mp hq with ⟨hqUpTo, hrq⟩
   have hqX := (mem_primesUpTo.mp hqUpTo).2
