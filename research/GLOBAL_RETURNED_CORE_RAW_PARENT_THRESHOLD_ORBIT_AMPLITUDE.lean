@@ -56,10 +56,13 @@ theorem lowOwnerThresholdOwnerSignedSite_eq_zero_of_endpoint_lt
     (hn : squareRootEndpoint R < n) :
     lowOwnerThresholdOwnerSignedSite R p n = 0 := by
   unfold lowOwnerThresholdOwnerSignedSite
-  rw [lowOwnerThresholdOwnerIncidenceWeight_eq_zero_of_next_clipped
-    (R := R) (p := p) (r := 1) (n := n) hR hp]
-  · ring
-  · simpa using hn
+  have hzero :
+      lowOwnerThresholdOwnerIncidenceWeight R p n = 0 := by
+    simpa using
+      (lowOwnerThresholdOwnerIncidenceWeight_eq_zero_of_next_clipped
+        (R := R) (p := p) (r := 1) (n := n) hR hp (by simpa using hn))
+  rw [hzero]
+  ring
 
 /-- On an r-free branch fibre every signed second-difference site is literally
 its two-point r-orbit sum. -/
