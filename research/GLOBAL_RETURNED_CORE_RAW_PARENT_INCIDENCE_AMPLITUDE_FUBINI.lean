@@ -82,7 +82,6 @@ theorem lowOwnerBranchDirichletIncidenceDifferenceSignedSite_eq_clippedFubini
       hR hp.one_le hr.one_le,
     lowOwnerThresholdSecondOwnerDifference_eq_clippedFubini
       hR1 hp.one_le hr.one_le]
-  ring
 
 /-- **Amplitude-level clipped Fubini.**  The q-synthesis is moved outside the
 physical branch fibre before any square is taken. -/
