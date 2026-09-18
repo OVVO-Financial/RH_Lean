@@ -81,7 +81,7 @@ theorem lowOwnerStokesOddPrimePeriodSet_card_le_root
       unfold lowOwnerStokesWheelPrimes at hpWheel
       exact (mem_primesUpTo.mp hpWheel).2
     exact Finset.mem_range.mpr (hpCut.trans_lt hroot)
-  exact Finset.card_le_card hsub
+  simpa using Finset.card_le_card hsub
 
 /-- The compiled reciprocal prime-period frame on the literal physical odd
 Stokes coordinates and the natural square-sensitive torus. -/
