@@ -14,6 +14,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_SAME_BRANCH_NONNEG.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCIDENCE_AMPLITUDE_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.lean
@@ -135,4 +136,10 @@ jobs:
             -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
           lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INCIDENCE_AMPLITUDE_FUBINI.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCIDENCE_AMPLITUDE_FUBINI.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.olean \
+            research/GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.lean
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY.lean
