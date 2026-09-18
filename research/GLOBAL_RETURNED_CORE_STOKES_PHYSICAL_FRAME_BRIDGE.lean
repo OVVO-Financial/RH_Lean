@@ -3,6 +3,7 @@ import «research.GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE»
 import «research.GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIOD_WHEEL»
 import «research.STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME»
 import «research.STABLE_FAR_PERRON_QUARTER_FRAME_BOUND»
+import «research.GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM»
 
 /-!
 # Physical Stokes boundary -> natural prime-period frame interface
@@ -299,5 +300,184 @@ theorem riemannHypothesis_of_clip_and_exceptionalTerminalFrameDomination
   exact riemannHypothesis_of_primePeriodFrameDomination hC
     (primePeriodFrameDomination_of_clip_add_topTerminal
       hClip (topTerminalPrimePeriodFrameDomination_of_exceptional hTerminal))
+
+
+/-! ## Exact exceptional-terminal normal forms
+
+The terminal support from #758 is now separated according to whether no larger
+owner remains or exactly one larger owner remains. These are algebraic normal
+forms only; they deliberately preserve the signature assembly.
+-/
+
+/-- Terminal first-owner levels with no larger canonical owner remaining. -/
+def lowOwnerStokesEmptyScheduleOwnerSet (R : ℕ) : Finset ℕ :=
+  (primesUpTo (squareRootEndpoint R)).filter fun p =>
+    lowOwnerFirstOwnerCanonicalStokesSchedule R p = []
+
+/-- Terminal first-owner levels with exactly one larger canonical owner
+remaining. -/
+def lowOwnerStokesOneScheduleOwnerSet (R : ℕ) : Finset ℕ :=
+  (primesUpTo (squareRootEndpoint R)).filter fun p =>
+    (lowOwnerFirstOwnerCanonicalStokesSchedule R p).length = 1
+
+/-- On an empty schedule the top-terminal cell is exactly the original signed
+cell telescope, hence the already-compiled cross-amplitude product. -/
+theorem lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_emptySchedule
+    {R p : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime)
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = []) :
+    lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig =
+      -2 * lowOwnerFirstOwnerBaseAmplitude R p sig *
+        lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
+  have hmass :=
+    lowOwnerFirstOwnerSignedCellTelescope_eq_pairWeightedStokesMass
+      (R := R) (p := p) (sig := sig) hp
+  have hcross :=
+    lowOwnerFirstOwnerSignedCellTelescope_eq_neg_two_base_mul_returned
+      (R := R) (p := p) (sig := sig) hp
+  calc
+    lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig =
+        pairWeightedStokesMass
+          (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+          (lowOwnerFirstOwnerDirichletPolarizationScalar R p) := by
+            simp [lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary, hps]
+    _ = lowOwnerFirstOwnerSignedCellTelescope R p sig := hmass.symm
+    _ = -2 * lowOwnerFirstOwnerBaseAmplitude R p sig *
+          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := hcross
+
+/-- Empty-schedule signature assembly. The full signature sum remains assembled
+as one signed base/returned pairing. -/
+theorem sum_lowOwnerFirstOwnerTopTerminal_eq_neg_two_sum_base_mul_returned_of_emptySchedule
+    {R p : ℕ}
+    (hp : p.Prime)
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = []) :
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) =
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        (-2 * lowOwnerFirstOwnerBaseAmplitude R p sig *
+          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig) := by
+  apply Finset.sum_congr rfl
+  intro sig _hsig
+  exact
+    lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_emptySchedule
+      hp hps
+
+/-- One-owner terminal normal form with exact quarter multiplicity and mixed
+difference. -/
+theorem lowOwnerFirstOwnerTopTerminal_eq_quarter_mixed_of_oneSchedule
+    {R p q : ℕ} {sig : Finset ℕ}
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = [q]) :
+    lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig =
+      (1 / 4 : ℝ) *
+        pairWeightedStokesMass
+          (pairPrimeTwoCoordinateInterior q
+            (lowOwnerFirstOwnerSignedCellPairCarrier R p sig))
+          (pairPrimeMixedDifference q
+            (lowOwnerFirstOwnerDirichletPolarizationScalar R p)) := by
+  simp [lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary, hps]
+
+/-- The same one-owner normal form after summing over signatures. -/
+theorem sum_lowOwnerFirstOwnerTopTerminal_eq_quarter_mixed_of_oneSchedule
+    {R p q : ℕ}
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = [q]) :
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) =
+      (1 / 4 : ℝ) *
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          pairWeightedStokesMass
+            (pairPrimeTwoCoordinateInterior q
+              (lowOwnerFirstOwnerSignedCellPairCarrier R p sig))
+            (pairPrimeMixedDifference q
+              (lowOwnerFirstOwnerDirichletPolarizationScalar R p)) := by
+  calc
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) =
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        ((1 / 4 : ℝ) *
+          pairWeightedStokesMass
+            (pairPrimeTwoCoordinateInterior q
+              (lowOwnerFirstOwnerSignedCellPairCarrier R p sig))
+            (pairPrimeMixedDifference q
+              (lowOwnerFirstOwnerDirichletPolarizationScalar R p))) := by
+        apply Finset.sum_congr rfl
+        intro sig _hsig
+        exact lowOwnerFirstOwnerTopTerminal_eq_quarter_mixed_of_oneSchedule hps
+    _ = (1 / 4 : ℝ) *
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          pairWeightedStokesMass
+            (pairPrimeTwoCoordinateInterior q
+              (lowOwnerFirstOwnerSignedCellPairCarrier R p sig))
+            (pairPrimeMixedDifference q
+              (lowOwnerFirstOwnerDirichletPolarizationScalar R p)) := by
+          rw [Finset.mul_sum]
+
+/-- The two exceptional schedule classes cover the #758 terminal owner set. -/
+theorem lowOwnerStokesTopTerminalOwnerSet_eq_empty_union_one
+    (R : ℕ) :
+    lowOwnerStokesTopTerminalOwnerSet R =
+      lowOwnerStokesEmptyScheduleOwnerSet R ∪
+        lowOwnerStokesOneScheduleOwnerSet R := by
+  ext p
+  simp only [lowOwnerStokesTopTerminalOwnerSet,
+    lowOwnerStokesEmptyScheduleOwnerSet, lowOwnerStokesOneScheduleOwnerSet,
+    Finset.mem_filter, Finset.mem_union]
+  constructor
+  · rintro ⟨hp, hlen⟩
+    rcases Nat.eq_zero_or_pos
+        (lowOwnerFirstOwnerCanonicalStokesSchedule R p).length with hzero | hpos
+    · left
+      refine ⟨hp, ?_⟩
+      exact List.length_eq_zero.mp hzero
+    · right
+      refine ⟨hp, ?_⟩
+      omega
+  · rintro (⟨hp, hnil⟩ | ⟨hp, hone⟩)
+    · refine ⟨hp, ?_⟩
+      rw [hnil]
+      simp
+    · exact ⟨hp, by omega⟩
+
+/-- Empty- and one-owner levels are disjoint. -/
+theorem lowOwnerStokesEmptyScheduleOwnerSet_disjoint_oneScheduleOwnerSet
+    (R : ℕ) :
+    Disjoint (lowOwnerStokesEmptyScheduleOwnerSet R)
+      (lowOwnerStokesOneScheduleOwnerSet R) := by
+  apply Finset.disjoint_left.mpr
+  intro p hempty hone
+  have hnil := (Finset.mem_filter.mp hempty).2
+  have hlen := (Finset.mem_filter.mp hone).2
+  rw [hnil] at hlen
+  simp at hlen
+
+/-- Exact global terminal split in the requested attack order. -/
+theorem lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_empty_add_oneSchedule
+    (R : ℕ) :
+    lowOwnerCanonicalSignedStokesTopTerminalBoundary R =
+      (∑ p ∈ lowOwnerStokesEmptyScheduleOwnerSet R,
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) +
+      (∑ p ∈ lowOwnerStokesOneScheduleOwnerSet R,
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) := by
+  rw [lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_terminalOwnerSum,
+    lowOwnerStokesTopTerminalOwnerSet_eq_empty_union_one]
+  exact Finset.sum_union
+    (lowOwnerStokesEmptyScheduleOwnerSet_disjoint_oneScheduleOwnerSet R)
+
+/-- Three-piece final Stokes normal form: physical clip, empty-schedule
+assembled cross amplitude, and one-owner quarter-mixed correction. -/
+theorem lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_empty_add_one
+    (R : ℕ) :
+    lowOwnerCanonicalSignedStokesFinalBoundary R =
+      lowOwnerCanonicalSignedStokesClipBoundary R +
+      (∑ p ∈ lowOwnerStokesEmptyScheduleOwnerSet R,
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) +
+      (∑ p ∈ lowOwnerStokesOneScheduleOwnerSet R,
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) := by
+  rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_topTerminal,
+    lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_empty_add_oneSchedule]
+  ring
 
 end RHLean.Proof
