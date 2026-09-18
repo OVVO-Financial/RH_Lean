@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+      - research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
+      - research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+      - research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
+      - research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.lean
       - research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
       - research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
       - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
@@ -94,7 +98,28 @@ jobs:
             research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
 
       - name: Kernel-check Perron quarter-frame theorem
-        run: lake env lean -DwarningAsError=true research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.olean \
+            research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+
+      - name: Kernel-check Basel-style frame sharpening
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.olean \
+            research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
+
+      - name: Emit covariance reciprocal owner stack
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.COVARIANCE_RECIPROCAL_OWNER_CONGESTION.olean \
+            research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.olean \
+            research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
+
+      - name: Kernel-check Basel covariance contraction
+        run: lake env lean -DwarningAsError=true research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.lean
 
       - name: Emit zero-target partial-moment covariance olean
         run: |

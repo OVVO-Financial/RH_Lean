@@ -1,0 +1,178 @@
+name: Raw-parent virtual cube splice check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_VIRTUAL_CUBE_SPLICE.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_ORBIT_RECURSION.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_DIAGONAL_BOUND.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_NORMAL_FORM.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.lean
+      - research/GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_PREFIX_STAR.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_RECIPROCAL_BRIDGE.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_ORIENTED_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORIENTED_BOUNDARY_NORMAL_FORM.lean
+      - .github/workflows/raw-parent-virtual-cube-splice.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-
+
+      - name: Emit raw-parent dependency foundation
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          src = Path('.github/workflows/raw-parent-orbit-partition.yml').read_text()
+          start_marker = '      - name: Emit returned-core dependency foundation\n'
+          end_marker = '      - name: Check raw-parent Fubini\n'
+          block = src.split(start_marker, 1)[1].split(end_marker, 1)[0]
+          block = block.split('        run: |\n', 1)[1]
+          lines = []
+          for line in block.splitlines():
+              if line.startswith('          '):
+                  line = line[10:]
+              lines.append(line)
+          Path('/tmp/raw-parent-foundation.sh').write_text('\n'.join(lines) + '\n')
+          PY
+          bash /tmp/raw-parent-foundation.sh
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.olean \
+            research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
+
+      - name: Check virtual cube splice through prefix-star carrier
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_VIRTUAL_CUBE_SPLICE.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_VIRTUAL_CUBE_SPLICE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_ORBIT_RECURSION.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_ORBIT_RECURSION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_DIAGONAL_BOUND.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_DIAGONAL_BOUND.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.olean \
+            research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_FUBINI.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_FUBINI.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_NORMAL_FORM.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_NORMAL_FORM.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.olean \
+            research/GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.lean
+          lake build RHLean.Proof.GlobalPrefixCarrierOthello
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.olean \
+            research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.olean \
+            research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.olean \
+            research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.olean \
+            research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.olean \
+            research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.olean \
+            research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_PREFIX_STAR.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_PREFIX_STAR.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_RECIPROCAL_BRIDGE.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_RECIPROCAL_BRIDGE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_ORIENTED_FUBINI.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_ORIENTED_FUBINI.lean
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORIENTED_BOUNDARY_NORMAL_FORM.lean

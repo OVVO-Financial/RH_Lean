@@ -173,4 +173,112 @@ theorem sum_lowOwnerFirstOwnerOwnerFiber_add_orbitEven_eq_rawParentOrbits
     sum_lowOwnerFirstOwnerRawParentOrbitEven_eq_rawParents,
     ← Finset.sum_add_distrib]
 
+/-! ## Virtual mixed-corner owner transfer
+
+The physical occupancy statement above still leaves open whether a missing
+mixed sibling is merely absent from the current finite carrier or is genuinely a
+different owner packet.  The next lemmas close that gap.  A raw parent under an
+r-owner fibre is r-free in both coordinates, lies in the same p/signature cell,
+and both virtual mixed children have exactly the same fresh-prime symmetric
+difference.  Hence r is the greatest owner of both mixed corners before any
+physical cutoff is imposed.
+-/
+
+/-- Arithmetic data carried by every raw parent occurring below one full
+polarization greatest-owner fibre. -/
+theorem lowOwnerFirstOwnerPolarizationRawParent_data
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerPolarizationRawParentSet R p sig r) :
+    r.Prime ∧ p < r ∧
+      parent.1 ∈ lowOwnerFirstOwnerBaseFiber R p sig ∧
+      parent.2 ∈ lowOwnerFirstOwnerBaseFiber R p sig ∧
+      ¬ r ∣ parent.1 ∧ ¬ r ∣ parent.2 := by
+  rcases Finset.mem_image.mp hparent with ⟨child, hchild, hrawEq⟩
+  have hbase :=
+    lowOwnerFirstOwnerPolarization_child_rawParent_mem_same_cell hp hchild
+  have hfree := lowOwnerFirstOwnerPolarization_child_rawParent_not_dvd hchild
+  rw [hrawEq] at hbase hfree
+  rcases child with ⟨m, n⟩
+  rcases Finset.mem_filter.mp hchild with ⟨hoff, howner⟩
+  rcases Finset.mem_filter.mp hoff with ⟨hprod, _hne⟩
+  rcases Finset.mem_product.mp hprod with ⟨hmBase, hnBase⟩
+  have hmCar := (Finset.mem_filter.mp hmBase).1
+  have hnCar := (Finset.mem_filter.mp hnBase).1
+  have hr : r.Prime :=
+    (freshPrime_of_nonzeroPhysicalPair hmCar hnCar howner.1).1
+  have hpr : p < r :=
+    lowOwnerFirstOwnerBasePair_freshPrime_gt_owner hp hmBase hnBase howner.1
+  exact ⟨hr, hpr, hbase.1, hbase.2, hfree.1, hfree.2⟩
+
+/-- Moving a fresh prime from the first endpoint to the second does not change
+the pair's fresh-prime symmetric difference. -/
+theorem squarefreePairFreshPrimeSet_mul_left_eq_mul_right_of_fresh
+    {r a b : ℕ}
+    (hr : r.Prime) (hra : ¬ r ∣ a) (hrb : ¬ r ∣ b)
+    (ha : 0 < a) (hb : 0 < b) :
+    squarefreePairFreshPrimeSet (r * a) b =
+      squarefreePairFreshPrimeSet a (r * b) := by
+  have hraPF : r ∉ a.primeFactors := by
+    intro h
+    exact hra (Nat.dvd_of_mem_primeFactors h)
+  have hrbPF : r ∉ b.primeFactors := by
+    intro h
+    exact hrb (Nat.dvd_of_mem_primeFactors h)
+  unfold squarefreePairFreshPrimeSet squarefreePrimeFace
+  rw [primeFactors_prime_mul hr (Nat.ne_of_gt ha),
+    primeFactors_prime_mul hr (Nat.ne_of_gt hb)]
+  ext q
+  by_cases hqr : q = r
+  · subst q
+    simp [hraPF, hrbPF]
+  · simp [hqr, or_comm, and_left_comm, and_assoc]
+
+/-- **Virtual sibling owner transfer.**  Both mixed r-corners over an occurring
+raw parent have r as the same greatest fresh-prime owner, independently of
+whether one of those corners is clipped by the physical endpoint. -/
+theorem lowOwnerFirstOwnerPolarizationRawParent_mixedCorners_have_owner
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerPolarizationRawParentSet R p sig r) :
+    IsSquarefreePairGreatestFreshPrimeOwner
+        r (r * parent.1) parent.2 ∧
+      IsSquarefreePairGreatestFreshPrimeOwner
+        r parent.1 (r * parent.2) := by
+  rcases lowOwnerFirstOwnerPolarizationRawParent_data hp hparent with
+    ⟨hr, _hpr, haBase, hbBase, hra, hrb⟩
+  have haCar := (Finset.mem_filter.mp haBase).1
+  have hbCar := (Finset.mem_filter.mp hbBase).1
+  have haPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos haCar).2
+  have hbPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos hbCar).2
+  have hfresh :=
+    squarefreePairFreshPrimeSet_mul_left_eq_mul_right_of_fresh
+      hr hra hrb haPos hbPos
+  rcases Finset.mem_image.mp hparent with ⟨child, hchild, hrawEq⟩
+  have hfixed : child ∈
+      lowOwnerFirstOwnerPolarizationFixedRawParentFiber
+        R p sig r parent :=
+    Finset.mem_filter.mpr ⟨hchild, hrawEq⟩
+  have hchildOwner := (Finset.mem_filter.mp hchild).2
+  rcases lowOwnerFirstOwnerPolarizationFixedRawParentFiber_child_mixed hfixed with
+    hleft | hright
+  · have hleftOwner :
+        IsSquarefreePairGreatestFreshPrimeOwner
+          r (r * parent.1) parent.2 := by
+      simpa [hleft] using hchildOwner
+    refine ⟨hleftOwner, ?_⟩
+    unfold IsSquarefreePairGreatestFreshPrimeOwner at hleftOwner ⊢
+    rw [← hfresh]
+    exact hleftOwner
+  · have hrightOwner :
+        IsSquarefreePairGreatestFreshPrimeOwner
+          r parent.1 (r * parent.2) := by
+      simpa [hright] using hchildOwner
+    refine ⟨?_, hrightOwner⟩
+    unfold IsSquarefreePairGreatestFreshPrimeOwner at hrightOwner ⊢
+    rw [hfresh]
+    exact hrightOwner
+
 end RHLean.Proof
