@@ -57,8 +57,21 @@ theorem lowOwnerGlobalBranchIncidenceDifferenceAmplitude_sq_eq_remainderNormSq
   have h :=
     lowOwnerGlobalBranchIncidenceDifferenceAmplitude_cast_eq_neg_physicalRemainder_zero
       hR hp hr hpr
-  rw [← h, Complex.norm_real, Real.norm_eq_abs, sq_abs]
-  rfl
+  have hnorm :
+      |lowOwnerGlobalBranchIncidenceDifferenceAmplitude R p r| =
+        ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ := by
+    calc
+      |lowOwnerGlobalBranchIncidenceDifferenceAmplitude R p r| =
+          ‖((lowOwnerGlobalBranchIncidenceDifferenceAmplitude R p r : ℝ) : ℂ)‖ := by
+            rw [Complex.norm_real, Real.norm_eq_abs]
+      _ = ‖-lowOwnerPhysicalAmplitudeRemainder R 0‖ := by rw [h]
+      _ = ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ := norm_neg _
+  calc
+    lowOwnerGlobalBranchIncidenceDifferenceAmplitude R p r ^ 2 =
+        |lowOwnerGlobalBranchIncidenceDifferenceAmplitude R p r| ^ 2 := by
+          symm
+          exact sq_abs _
+    _ = ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 := by rw [hnorm]
 
 /-- The exact reciprocal Mertens daughter column exposed by #755 inherits the
 already-compiled quarter-frame energy estimate. -/
@@ -89,13 +102,11 @@ theorem lowOwnerPost755GlobalAmplitudeBound_iff_physicalAmplitudeRemainderBound
     LowOwnerPost755GlobalAmplitudeBound C ↔
       LowOwnerPhysicalAmplitudeRemainderBound C := by
   constructor
-  · intro h
-    intro R K hR hK
+  · intro h R K hR hK
     rw [← lowOwnerGlobalBranchIncidenceDifferenceAmplitude_sq_eq_remainderNormSq
       hR (by norm_num : Nat.Prime 2) (by norm_num : Nat.Prime 3) (by norm_num : 2 < 3)]
     exact h R K hR hK
-  · intro h
-    intro R K hR hK
+  · intro h R K hR hK
     rw [lowOwnerGlobalBranchIncidenceDifferenceAmplitude_sq_eq_remainderNormSq
       hR (by norm_num : Nat.Prime 2) (by norm_num : Nat.Prime 3) (by norm_num : 2 < 3)]
     exact h R K hR hK
