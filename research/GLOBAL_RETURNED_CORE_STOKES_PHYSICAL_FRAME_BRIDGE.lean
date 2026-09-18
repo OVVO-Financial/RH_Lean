@@ -392,6 +392,116 @@ theorem lowOwnerStokesTopPrime_admittedBase_eq_one
   rw [hmul'] at hmul
   omega
 
+
+/-- At the maximal owner, the empty lower-signature base cell contains only the
+unit site. -/
+theorem lowOwnerStokesTopPrime_emptyBase_eq_one
+    {R : ℕ} (hR : 56 ≤ R) {a : ℕ}
+    (ha : a ∈ lowOwnerFirstOwnerBaseFiber
+      R (lowOwnerStokesTopPrime R hR) ∅) :
+    a = 1 := by
+  rcases Finset.mem_filter.mp ha with ⟨haCar, hdata⟩
+  rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos haCar with
+    ⟨_haSq, haPos⟩
+  by_contra hane
+  obtain ⟨q, hqPrime, hqDvd⟩ :=
+    Nat.exists_prime_and_dvd (by omega : a ≠ 1)
+  have haIcc := (Finset.mem_filter.mp haCar).1
+  have haX := (Finset.mem_Icc.mp haIcc).2
+  have hqLeA : q ≤ a := Nat.le_of_dvd haPos hqDvd
+  have hqX : q ≤ squareRootEndpoint R := hqLeA.trans haX
+  have hqMem : q ∈ primesUpTo (squareRootEndpoint R) :=
+    mem_primesUpTo.mpr ⟨hqPrime, hqX⟩
+  have hqTop :
+      q ≤ lowOwnerStokesTopPrime R hR :=
+    Finset.le_max' _ q hqMem
+  have hqNeTop : q ≠ lowOwnerStokesTopPrime R hR := by
+    intro heq
+    subst q
+    exact hdata.2 hqDvd
+  have hqLtTop : q < lowOwnerStokesTopPrime R hR := by omega
+  have hqFace : q ∈ squarefreePrimeFace a :=
+    (prime_mem_squarefreePrimeFace_iff_dvd_public hqPrime haPos).2 hqDvd
+  have hqSig :
+      q ∈ squarefreeLowerPrimeSignature
+        (lowOwnerStokesTopPrime R hR) a :=
+    Finset.mem_filter.mpr ⟨hqFace, hqLtTop⟩
+  rw [hdata.1] at hqSig
+  simpa using hqSig
+
+theorem lowOwnerStokesTopPrime_emptyBaseAmplitude_nonneg
+    {R : ℕ} (hR : 56 ≤ R) :
+    0 ≤ lowOwnerFirstOwnerBaseAmplitude
+      R (lowOwnerStokesTopPrime R hR) ∅ := by
+  unfold lowOwnerFirstOwnerBaseAmplitude
+  apply Finset.sum_nonneg
+  intro a ha
+  have ha1 := lowOwnerStokesTopPrime_emptyBase_eq_one hR ha
+  subst a
+  unfold lowOwnerZeroFrequencyMobiusSite
+  have hw := lowOwnerZeroFrequencyMobiusWeight_nonneg R 1
+  norm_num [RHLean.Analysis.realMoebiusStep] at hw ⊢
+  exact hw
+
+theorem lowOwnerStokesTopPrime_emptyReturnedAmplitude_nonneg
+    {R : ℕ} (hR : 56 ≤ R) :
+    0 ≤ lowOwnerFirstOwnerReturnedChildParentAmplitude
+      R (lowOwnerStokesTopPrime R hR) ∅ := by
+  unfold lowOwnerFirstOwnerReturnedChildParentAmplitude
+  apply Finset.sum_nonneg
+  intro a ha
+  have ha1 := lowOwnerStokesTopPrime_admittedBase_eq_one hR ha
+  subst a
+  have hw :=
+    lowOwnerZeroFrequencyMobiusWeight_nonneg
+      R (lowOwnerStokesTopPrime R hR)
+  norm_num [RHLean.Analysis.realMoebiusStep] at hw ⊢
+  exact hw
+
+theorem lowOwnerStokesTopPrime_returnedAmplitude_eq_zero_of_signature_ne_empty
+    {R : ℕ} (hR : 56 ≤ R) {sig : Finset ℕ}
+    (hsig : sig ≠ ∅) :
+    lowOwnerFirstOwnerReturnedChildParentAmplitude
+      R (lowOwnerStokesTopPrime R hR) sig = 0 := by
+  unfold lowOwnerFirstOwnerReturnedChildParentAmplitude
+  apply Finset.sum_eq_zero
+  intro a ha
+  have ha1 := lowOwnerStokesTopPrime_admittedBase_eq_one hR ha
+  subst a
+  have hbase := (Finset.mem_filter.mp ha).1
+  have hsigOne := (Finset.mem_filter.mp hbase).2.1
+  have hone :
+      squarefreeLowerPrimeSignature
+        (lowOwnerStokesTopPrime R hR) 1 = ∅ := by
+    simp [squarefreeLowerPrimeSignature, squarefreePrimeFace]
+  rw [hone] at hsigOne
+  exact (hsig hsigOne.symm).elim
+
+/-- The maximal-owner empty-schedule terminal is favorable. It contributes
+no positive boundary budget: all nonempty signatures have zero returned
+amplitude, while the empty signature has two nonnegative amplitudes multiplied
+by the exact coefficient -2. -/
+theorem sum_lowOwnerStokesTopPrimeTerminal_nonpos
+    {R : ℕ} (hR : 56 ≤ R) :
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet
+        R (lowOwnerStokesTopPrime R hR),
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary
+        R (lowOwnerStokesTopPrime R hR) sig) ≤ 0 := by
+  have hp := lowOwnerStokesTopPrime_prime hR
+  have hsched := lowOwnerStokesTopPrime_schedule_eq_nil hR
+  rw [sum_lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_schedule_nil
+    hp hsched]
+  apply Finset.sum_nonpos
+  intro sig _hsigMem
+  by_cases hsig : sig = ∅
+  · subst sig
+    have hB := lowOwnerStokesTopPrime_emptyBaseAmplitude_nonneg hR
+    have hJ := lowOwnerStokesTopPrime_emptyReturnedAmplitude_nonneg hR
+    nlinarith
+  · rw [lowOwnerStokesTopPrime_returnedAmplitude_eq_zero_of_signature_ne_empty
+      hR hsig]
+    ring
+
 /-- **Exceptional terminal support is literally the top two first-owner
 coordinates.**  Any lower prime has both the top and second-top primes in its
 remaining Stokes schedule, contradicting the terminal length bound. -/
