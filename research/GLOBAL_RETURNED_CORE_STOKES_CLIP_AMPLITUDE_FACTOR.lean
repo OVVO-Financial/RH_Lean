@@ -7,20 +7,14 @@ import «research.GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION»
 The Stokes scalar entering one first-owner cell is not a generic pair weight.
 It is a symmetric cross form
 
-  Cross(L,J)(a,b) = -L(a)J(b) - J(a)L(b),
+  Cross(L,J)(a,b) = -L(a)J(b) - J(a)L(b).
 
-with L the Dirichlet base coefficient and J the returned-child coefficient.
+A mixed prime difference preserves that form, replacing L,J by their
+one-dimensional toggle differences.  Consequently the exact two-coordinate
+Stokes step can be evaluated entirely in signed one-dimensional amplitudes
+before any estimate is made.
 
-Two facts are exact:
-
-* a mixed prime difference preserves this cross form, replacing L,J by their
-  one-dimensional prime differences;
-* on a product carrier, every Stokes escape face therefore factors into
-  products of one-dimensional signed amplitudes.
-
-This is the legal bridge needed before any frame estimate.  It removes the pair
-carrier without taking absolute values, squaring cells separately, or dropping
-the mixed Dirichlet payload.
+No absolute value, packetwise square, or owner-count bound appears here.
 -/
 
 noncomputable section
@@ -76,8 +70,8 @@ def lowOwnerStokesSignedAmplitude
     (S : Finset ℕ) (f : ℕ → ℝ) : ℝ :=
   ∑ n ∈ S, othelloRealMoebius n * f n
 
-/-- A cross scalar on a Cartesian product factors into two signed amplitude
-products, with all signs retained. -/
+/-- A cross scalar on a Cartesian product factors exactly into two signed
+one-dimensional amplitude products. -/
 theorem pairWeightedStokesMass_product_crossScalar
     (A B : Finset ℕ) (L J : ℕ → ℝ) :
     pairWeightedStokesMass (A.product B) (lowOwnerStokesCrossScalar L J) =
@@ -87,201 +81,99 @@ theorem pairWeightedStokesMass_product_crossScalar
           lowOwnerStokesSignedAmplitude B L := by
   unfold pairWeightedStokesMass lowOwnerStokesCrossScalar
     lowOwnerStokesSignedAmplitude othelloRealMoebiusPair
-  rw [Finset.sum_sub_distrib, Finset.sum_neg_distrib]
-  have hLJ :
-      (∑ mn ∈ A.product B,
-        (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
-          (L mn.1 * J mn.2)) =
-        (∑ a ∈ A, othelloRealMoebius a * L a) *
-          (∑ b ∈ B, othelloRealMoebius b * J b) := by
-    calc
-      (∑ mn ∈ A.product B,
-        (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
-          (L mn.1 * J mn.2)) =
-        ∑ a ∈ A, ∑ b ∈ B,
-          (othelloRealMoebius a * L a) *
-            (othelloRealMoebius b * J b) := by
-              simpa only [mul_assoc, mul_left_comm, mul_comm] using
-                (Finset.sum_product
-                  (s := A) (t := B)
-                  (f := fun mn : ℕ × ℕ =>
-                    (othelloRealMoebius mn.1 * L mn.1) *
-                      (othelloRealMoebius mn.2 * J mn.2)))
-      _ = ∑ a ∈ A,
-          (othelloRealMoebius a * L a) *
-            (∑ b ∈ B, othelloRealMoebius b * J b) := by
+  calc
+    (∑ mn ∈ A.product B,
+      (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
+        (-(L mn.1 * J mn.2) - J mn.1 * L mn.2)) =
+      ∑ mn ∈ A.product B,
+        (-((othelloRealMoebius mn.1 * L mn.1) *
+            (othelloRealMoebius mn.2 * J mn.2)) -
+          (othelloRealMoebius mn.1 * J mn.1) *
+            (othelloRealMoebius mn.2 * L mn.2)) := by
+              apply Finset.sum_congr rfl
+              intro mn _hmn
+              ring
+    _ =
+      -(∑ mn ∈ A.product B,
+          (othelloRealMoebius mn.1 * L mn.1) *
+            (othelloRealMoebius mn.2 * J mn.2)) -
+        ∑ mn ∈ A.product B,
+          (othelloRealMoebius mn.1 * J mn.1) *
+            (othelloRealMoebius mn.2 * L mn.2) := by
+              rw [Finset.sum_sub_distrib, Finset.sum_neg_distrib]
+    _ =
+      -((∑ a ∈ A, othelloRealMoebius a * L a) *
+          (∑ b ∈ B, othelloRealMoebius b * J b)) -
+        ((∑ a ∈ A, othelloRealMoebius a * J a) *
+          (∑ b ∈ B, othelloRealMoebius b * L b)) := by
+            rw [Finset.sum_product, Finset.sum_product]
+            congr 1
+            · rw [Finset.sum_mul]
               apply Finset.sum_congr rfl
               intro a _ha
               rw [Finset.mul_sum]
-      _ = _ := by rw [Finset.sum_mul]
-  have hJL :
-      (∑ mn ∈ A.product B,
-        (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
-          (J mn.1 * L mn.2)) =
-        (∑ a ∈ A, othelloRealMoebius a * J a) *
-          (∑ b ∈ B, othelloRealMoebius b * L b) := by
-    calc
-      (∑ mn ∈ A.product B,
-        (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
-          (J mn.1 * L mn.2)) =
-        ∑ a ∈ A, ∑ b ∈ B,
-          (othelloRealMoebius a * J a) *
-            (othelloRealMoebius b * L b) := by
-              simpa only [mul_assoc, mul_left_comm, mul_comm] using
-                (Finset.sum_product
-                  (s := A) (t := B)
-                  (f := fun mn : ℕ × ℕ =>
-                    (othelloRealMoebius mn.1 * J mn.1) *
-                      (othelloRealMoebius mn.2 * L mn.2)))
-      _ = ∑ a ∈ A,
-          (othelloRealMoebius a * J a) *
-            (∑ b ∈ B, othelloRealMoebius b * L b) := by
+            · rw [Finset.sum_mul]
               apply Finset.sum_congr rfl
               intro a _ha
               rw [Finset.mul_sum]
-      _ = _ := by rw [Finset.sum_mul]
-  rw [hLJ, hJL]
+    _ = _ := by rfl
 
-/-- The left-toggle difference of a cross scalar is again a one-sided cross
-form, with only the left coefficient fields differenced. -/
-theorem crossScalar_sub_leftToggle
-    (r : ℕ) (L J : ℕ → ℝ) (mn : ℕ × ℕ) :
-    lowOwnerStokesCrossScalar L J mn -
-        lowOwnerStokesCrossScalar L J (pairPrimeCarrierToggleLeft r mn) =
-      -(lowOwnerStokesToggleDifference r L mn.1 * J mn.2) -
-        lowOwnerStokesToggleDifference r J mn.1 * L mn.2 := by
-  rcases mn with ⟨a, b⟩
-  unfold lowOwnerStokesCrossScalar lowOwnerStokesToggleDifference
-    pairPrimeCarrierToggleLeft
-  simp only
-  ring
+/-- **Exact amplitude form of one Stokes boundary step.**
 
-/-- **One-dimensional factorization of one product-carrier Stokes boundary
-step.**  The pair escape ledger contains only four products of signed
-one-dimensional amplitudes. -/
+The entire pair escape ledger is the current cross amplitude minus one quarter
+of the next complete-interior cross amplitude.  After cross factorization this
+is just
+
+  -2 B J + (1/2) (Delta B)_int (Delta J)_int.
+-/
 theorem pairWeightedStokesBoundaryStep_product_crossScalar
-    (r : ℕ) (A : Finset ℕ) (L J : ℕ → ℝ) :
+    {r : ℕ} (hr : r.Prime) (A : Finset ℕ) (L J : ℕ → ℝ) :
     pairWeightedStokesBoundaryStep r (A.product A)
         (lowOwnerStokesCrossScalar L J) =
-      -(lowOwnerStokesSignedAmplitude (primeEscapePart r A) L *
-          lowOwnerStokesSignedAmplitude A J) -
-        lowOwnerStokesSignedAmplitude (primeEscapePart r A) J *
-          lowOwnerStokesSignedAmplitude A L +
-      (1 / 2 : ℝ) *
-        (-(lowOwnerStokesSignedAmplitude (primeInteriorPart r A)
-              (lowOwnerStokesToggleDifference r L) *
-            lowOwnerStokesSignedAmplitude (primeEscapePart r A) J) -
+      -2 * lowOwnerStokesSignedAmplitude A L *
+          lowOwnerStokesSignedAmplitude A J +
+        (1 / 2 : ℝ) *
           lowOwnerStokesSignedAmplitude (primeInteriorPart r A)
-              (lowOwnerStokesToggleDifference r J) *
-            lowOwnerStokesSignedAmplitude (primeEscapePart r A) L) := by
-  unfold pairWeightedStokesBoundaryStep
-  rw [pairPrimeLeftEscapePart_product,
-    pairPrimeRightEscapeAfterLeft_product]
-  rw [pairWeightedStokesMass_product_crossScalar]
-  have hright :
-      (∑ mn ∈
-        (primeInteriorPart r A).product (primeEscapePart r A),
-        othelloRealMoebiusPair mn *
-          (lowOwnerStokesCrossScalar L J mn -
-            lowOwnerStokesCrossScalar L J
-              (pairPrimeCarrierToggleLeft r mn))) =
-        -(lowOwnerStokesSignedAmplitude (primeInteriorPart r A)
             (lowOwnerStokesToggleDifference r L) *
-          lowOwnerStokesSignedAmplitude (primeEscapePart r A) J) -
-        lowOwnerStokesSignedAmplitude (primeInteriorPart r A)
-            (lowOwnerStokesToggleDifference r J) *
-          lowOwnerStokesSignedAmplitude (primeEscapePart r A) L := by
-    unfold lowOwnerStokesSignedAmplitude othelloRealMoebiusPair
-    rw [Finset.sum_sub_distrib, Finset.sum_neg_distrib]
-    have h1 :
-        (∑ mn ∈ (primeInteriorPart r A).product (primeEscapePart r A),
-          (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
-            (lowOwnerStokesToggleDifference r L mn.1 * J mn.2)) =
-          (∑ a ∈ primeInteriorPart r A,
-              othelloRealMoebius a * lowOwnerStokesToggleDifference r L a) *
-            (∑ b ∈ primeEscapePart r A,
-              othelloRealMoebius b * J b) := by
-      calc
-        _ = ∑ a ∈ primeInteriorPart r A,
-            ∑ b ∈ primeEscapePart r A,
-              (othelloRealMoebius a * lowOwnerStokesToggleDifference r L a) *
-                (othelloRealMoebius b * J b) := by
-                  simpa only [mul_assoc, mul_left_comm, mul_comm] using
-                    (Finset.sum_product
-                      (s := primeInteriorPart r A)
-                      (t := primeEscapePart r A)
-                      (f := fun mn : ℕ × ℕ =>
-                        (othelloRealMoebius mn.1 *
-                          lowOwnerStokesToggleDifference r L mn.1) *
-                        (othelloRealMoebius mn.2 * J mn.2)))
-        _ = ∑ a ∈ primeInteriorPart r A,
-            (othelloRealMoebius a * lowOwnerStokesToggleDifference r L a) *
-              (∑ b ∈ primeEscapePart r A,
-                othelloRealMoebius b * J b) := by
-                  apply Finset.sum_congr rfl
-                  intro a _ha
-                  rw [Finset.mul_sum]
-        _ = _ := by rw [Finset.sum_mul]
-    have h2 :
-        (∑ mn ∈ (primeInteriorPart r A).product (primeEscapePart r A),
-          (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
-            (lowOwnerStokesToggleDifference r J mn.1 * L mn.2)) =
-          (∑ a ∈ primeInteriorPart r A,
-              othelloRealMoebius a * lowOwnerStokesToggleDifference r J a) *
-            (∑ b ∈ primeEscapePart r A,
-              othelloRealMoebius b * L b) := by
-      calc
-        _ = ∑ a ∈ primeInteriorPart r A,
-            ∑ b ∈ primeEscapePart r A,
-              (othelloRealMoebius a * lowOwnerStokesToggleDifference r J a) *
-                (othelloRealMoebius b * L b) := by
-                  simpa only [mul_assoc, mul_left_comm, mul_comm] using
-                    (Finset.sum_product
-                      (s := primeInteriorPart r A)
-                      (t := primeEscapePart r A)
-                      (f := fun mn : ℕ × ℕ =>
-                        (othelloRealMoebius mn.1 *
-                          lowOwnerStokesToggleDifference r J mn.1) *
-                        (othelloRealMoebius mn.2 * L mn.2)))
-        _ = ∑ a ∈ primeInteriorPart r A,
-            (othelloRealMoebius a * lowOwnerStokesToggleDifference r J a) *
-              (∑ b ∈ primeEscapePart r A,
-                othelloRealMoebius b * L b) := by
-                  apply Finset.sum_congr rfl
-                  intro a _ha
-                  rw [Finset.mul_sum]
-        _ = _ := by rw [Finset.sum_mul]
-    calc
-      (∑ mn ∈ (primeInteriorPart r A).product (primeEscapePart r A),
-        othelloRealMoebiusPair mn *
-          (lowOwnerStokesCrossScalar L J mn -
-            lowOwnerStokesCrossScalar L J
-              (pairPrimeCarrierToggleLeft r mn))) =
-        ∑ mn ∈ (primeInteriorPart r A).product (primeEscapePart r A),
-          othelloRealMoebiusPair mn *
-            (-(lowOwnerStokesToggleDifference r L mn.1 * J mn.2) -
-              lowOwnerStokesToggleDifference r J mn.1 * L mn.2) := by
-                apply Finset.sum_congr rfl
-                intro mn _hmn
-                rw [crossScalar_sub_leftToggle]
-      _ = _ := by
-        unfold othelloRealMoebiusPair
-        rw [Finset.sum_sub_distrib, Finset.sum_neg_distrib, h1, h2]
-  rw [hright]
+          lowOwnerStokesSignedAmplitude (primeInteriorPart r A)
+            (lowOwnerStokesToggleDifference r J) := by
+  have hstep :=
+    pairWeightedStokesMass_eq_boundaryStep_add_quarter_interior
+      hr (A.product A) (lowOwnerStokesCrossScalar L J)
+  rw [pairPrimeTwoCoordinateInterior_product] at hstep
+  rw [pairPrimeMixedDifference_crossScalar] at hstep
+  rw [pairWeightedStokesMass_product_crossScalar,
+    pairWeightedStokesMass_product_crossScalar] at hstep
+  linear_combination hstep
 
-/-- Specialization to the literal first-owner Dirichlet polarization. -/
+/-- Specialization to one literal first-owner Stokes cell.  The pair boundary
+is now expressed wholly through one-dimensional signed amplitudes. -/
 theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedAmplitudeProducts
-    {R p r : ℕ} {sig : Finset ℕ} :
+    {R p r : ℕ} {sig : Finset ℕ} (hr : r.Prime) :
     pairWeightedStokesBoundaryStep r
         (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
         (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
-      pairWeightedStokesBoundaryStep r
-        ((lowOwnerFirstOwnerBaseFiber R p sig).product
-          (lowOwnerFirstOwnerBaseFiber R p sig))
-        (lowOwnerStokesCrossScalar
-          (lowOwnerDirichletBaseCoefficient R)
-          (lowOwnerDirichletReturnedCoefficient R p)) := by
+      -2 *
+        lowOwnerStokesSignedAmplitude
+          (lowOwnerFirstOwnerBaseFiber R p sig)
+          (lowOwnerDirichletBaseCoefficient R) *
+        lowOwnerStokesSignedAmplitude
+          (lowOwnerFirstOwnerBaseFiber R p sig)
+          (lowOwnerDirichletReturnedCoefficient R p) +
+      (1 / 2 : ℝ) *
+        lowOwnerStokesSignedAmplitude
+          (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
+          (lowOwnerStokesToggleDifference r
+            (lowOwnerDirichletBaseCoefficient R)) *
+        lowOwnerStokesSignedAmplitude
+          (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
+          (lowOwnerStokesToggleDifference r
+            (lowOwnerDirichletReturnedCoefficient R p)) := by
   unfold lowOwnerFirstOwnerSignedCellPairCarrier
   rw [lowOwnerFirstOwnerDirichletPolarizationScalar_eq_cross]
+  exact pairWeightedStokesBoundaryStep_product_crossScalar
+    hr (lowOwnerFirstOwnerBaseFiber R p sig)
+      (lowOwnerDirichletBaseCoefficient R)
+      (lowOwnerDirichletReturnedCoefficient R p)
 
 end RHLean.Proof
