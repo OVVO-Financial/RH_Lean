@@ -480,4 +480,136 @@ theorem lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_empty_add_one
     lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_empty_add_oneSchedule]
   ring
 
+
+/-! ## Maximum-alignment envelope for the clip attack
+
+The frame majorant really is a maximum-alignment majorant once a physical
+quantity has been assembled into reciprocal prime-period coordinates.  The
+remaining arithmetic issue is therefore representation, not a further harmonic
+inequality.
+-/
+
+/-- Reciprocal prime-period Gram envelope with an arbitrary bounded coefficient
+on each prime mode.  The diagonal and off-diagonal pieces are kept in exactly
+the currency of `primePeriodReciprocalFrameMajorant`. -/
+def primePeriodReciprocalCoefficientEnvelope
+    (W : PrimeWheelFiniteSystem) (N : ℕ) (S : Finset ℕ)
+    (a : ℕ → ℂ) : ℝ :=
+  (N : ℝ) *
+      ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2 +
+    ∑ p ∈ S,
+      ∑ q ∈ S.erase p,
+        (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+            ‖primeWheelDirichletKernel W N
+              (primePeriodFrequency W p - primePeriodFrequency W q)‖) *
+          (‖a p‖ * ‖a q‖)
+
+/-- **Maximum-alignment theorem with coefficients.**  Any family whose mode
+coefficients have norm at most one is dominated by the coefficient-free frame
+majorant. -/
+theorem primePeriodReciprocalCoefficientEnvelope_le_frameMajorant
+    (W : PrimeWheelFiniteSystem) (N : ℕ) (S : Finset ℕ)
+    (a : ℕ → ℂ)
+    (ha : ∀ p ∈ S, ‖a p‖ ≤ 1) :
+    primePeriodReciprocalCoefficientEnvelope W N S a ≤
+      primePeriodReciprocalFrameMajorant W N S := by
+  have hdiagSum :
+      (∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2) ≤
+        ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 := by
+    apply Finset.sum_le_sum
+    intro p hp
+    have hap := ha p hp
+    have hsq : ‖a p‖ ^ 2 ≤ (1 : ℝ) := by
+      nlinarith [norm_nonneg (a p)]
+    calc
+      ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2 ≤
+          ((1 : ℝ) / (p : ℝ)) ^ 2 * 1 :=
+        mul_le_mul_of_nonneg_left hsq (sq_nonneg _)
+      _ = ((1 : ℝ) / (p : ℝ)) ^ 2 := by ring
+  have hdiag :
+      (N : ℝ) *
+          (∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2) ≤
+        primePeriodReciprocalDiagonalMajorant N S := by
+    unfold primePeriodReciprocalDiagonalMajorant
+    exact mul_le_mul_of_nonneg_left hdiagSum (by positivity)
+  have hoff :
+      (∑ p ∈ S,
+        ∑ q ∈ S.erase p,
+          (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+              ‖primeWheelDirichletKernel W N
+                (primePeriodFrequency W p - primePeriodFrequency W q)‖) *
+            (‖a p‖ * ‖a q‖)) ≤
+        primePeriodReciprocalOffDiagonalMajorant W N S := by
+    unfold primePeriodReciprocalOffDiagonalMajorant
+    apply Finset.sum_le_sum
+    intro p hp
+    apply Finset.sum_le_sum
+    intro q hq
+    have hqS : q ∈ S := (Finset.mem_erase.mp hq).2
+    have hpqNorm :
+        ‖a p‖ * ‖a q‖ ≤ (1 : ℝ) := by
+      calc
+        ‖a p‖ * ‖a q‖ ≤ 1 * 1 :=
+          mul_le_mul (ha p hp) (ha q hqS) (norm_nonneg _) (by norm_num)
+        _ = 1 := by ring
+    have hw :
+        0 ≤
+          ((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+            ‖primeWheelDirichletKernel W N
+              (primePeriodFrequency W p - primePeriodFrequency W q)‖ := by
+      positivity
+    calc
+      (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖) *
+          (‖a p‖ * ‖a q‖) ≤
+        (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖) * 1 :=
+          mul_le_mul_of_nonneg_left hpqNorm hw
+      _ =
+        ((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖ := by ring
+  unfold primePeriodReciprocalCoefficientEnvelope
+    primePeriodReciprocalFrameMajorant
+  linarith
+
+/-- Exact physical representation target for the clip.  It asks only that the
+assembled clip lie under one reciprocal prime-period coefficient envelope with
+unit-bounded mode coefficients. -/
+def LowOwnerStokesClipReciprocalCoefficientEnvelope : Prop :=
+  ∀ (R : ℕ) (hR : 56 ≤ R),
+    ∃ a : ℕ → ℂ,
+      (∀ p ∈ lowOwnerStokesOddPrimePeriodSet R, ‖a p‖ ≤ 1) ∧
+      lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        primePeriodReciprocalCoefficientEnvelope
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R) a
+
+/-- Once the physical clip has the reciprocal coefficient envelope, it cannot
+exceed the existing frame majorant: `Cclip = 1`. -/
+theorem clipPrimePeriodFrameDomination_one_of_coefficientEnvelope
+    (hClip : LowOwnerStokesClipReciprocalCoefficientEnvelope) :
+    LowOwnerStokesClipPrimePeriodFrameDomination 1 := by
+  intro R hR
+  rcases hClip R hR with ⟨a, ha, hphysical⟩
+  calc
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        primePeriodReciprocalCoefficientEnvelope
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R) a := hphysical
+    _ ≤ primePeriodReciprocalFrameMajorant
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R) :=
+      primePeriodReciprocalCoefficientEnvelope_le_frameMajorant
+        (lowOwnerStokesNaturalWheelSystem R hR)
+        (squareRootEndpoint R)
+        (lowOwnerStokesOddPrimePeriodSet R) a ha
+    _ = 1 * lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by
+      simp [lowOwnerStokesOddPrimePeriodFrameMajorant]
+
 end RHLean.Proof
