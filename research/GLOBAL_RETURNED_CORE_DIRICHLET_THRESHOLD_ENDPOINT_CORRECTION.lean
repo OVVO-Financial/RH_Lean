@@ -61,8 +61,12 @@ theorem lowOwnerPhysicalDirichletIncidenceWeight_eq_threshold_add_endpointClip
     by_cases hpn : p * n ≤ X
     · have hDpn := lowOwnerPhysicalDirichletWeight_eq_weight_of_le hpn
       have hcross : lowOwnerDirichletEndpointClip R p n = 0 := by
+        have hnot :
+            ¬ (n ≤ squareRootEndpoint R ∧ squareRootEndpoint R < p * n) := by
+          intro h
+          exact (Nat.not_lt_of_ge hpn) h.2
         unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator
-        simp [hn, Nat.not_lt_of_ge hpn]
+        rw [if_neg hnot]
       unfold lowOwnerPhysicalDirichletIncidenceWeight
         lowOwnerThresholdOwnerIncidenceWeight
       rw [hDn, hDpn,
@@ -74,8 +78,11 @@ theorem lowOwnerPhysicalDirichletIncidenceWeight_eq_threshold_add_endpointClip
       have hDpn := lowOwnerPhysicalDirichletWeight_eq_zero_of_lt hpnlt
       have hTpn := lowOwnerThresholdPotential_eq_zero_of_endpoint_lt hR hpnlt
       have hcross : lowOwnerDirichletEndpointClip R p n = 1 := by
+        have hcond :
+            n ≤ squareRootEndpoint R ∧ squareRootEndpoint R < p * n :=
+          ⟨hn, hpnlt⟩
         unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator
-        simp [hn, hpnlt]
+        rw [if_pos hcond]
       unfold lowOwnerPhysicalDirichletIncidenceWeight
         lowOwnerThresholdOwnerIncidenceWeight
       rw [hDn, hDpn,
@@ -93,8 +100,12 @@ theorem lowOwnerPhysicalDirichletIncidenceWeight_eq_threshold_add_endpointClip
     have hTn := lowOwnerThresholdPotential_eq_zero_of_endpoint_lt hR hnlt
     have hTpn := lowOwnerThresholdPotential_eq_zero_of_endpoint_lt hR hpnlt
     have hcross : lowOwnerDirichletEndpointClip R p n = 0 := by
+      have hnot :
+          ¬ (n ≤ squareRootEndpoint R ∧ squareRootEndpoint R < p * n) := by
+        intro h
+        exact hn h.1
       unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator
-      simp [hn]
+      rw [if_neg hnot]
     unfold lowOwnerPhysicalDirichletIncidenceWeight
       lowOwnerThresholdOwnerIncidenceWeight
     rw [hDn, hDpn, hTn, hTpn, hcross]
@@ -261,7 +272,14 @@ theorem lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_le_threshold_add
   have hsplit :=
     sum_lowOwnerFirstOwnerRawParentNextPolarization_eq_threshold_add_endpointCorrection_sub_sameBranch
       (R := R) (p := p) (r := r) (sig := sig) hR hp
-  fold lowOwnerFirstOwnerRawParentNextPolarizationTerm at hdesc
+  change lowOwnerFirstOwnerRevealedPolarizationEnergy R p sig
+      (lowOwnerRevealedPrimesAbove R r) ≤
+    (∑ parent ∈ lowOwnerFirstOwnerPolarizationRawParentSet R p sig r,
+      lowOwnerFirstOwnerRawParentNextPolarizationTerm R p r parent) +
+    ∑ q ∈ lowOwnerFirstOwnerRawParentInertLowerOwnerSchedule R p r,
+      ∑ mn ∈ lowOwnerFirstOwnerRawParentOrbitInertGreatestOwnerFiber
+          R p sig r q,
+        lowOwnerFirstOwnerDirichletPolarizationAtom R p mn at hdesc
   rw [hsplit] at hdesc
   exact hdesc
 
