@@ -125,7 +125,6 @@ private theorem lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy_eq_ce
   · simp [lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy,
       lowOwnerFirstOwnerDirichletIncidenceAmplitude,
       lowOwnerFirstOwnerRawParentBranchSignatureSet,
-      lowOwnerFirstOwnerRawParentBranchSignatureFiber,
       hbranch, hempty]
   · have hne : (lowOwnerFirstOwnerBaseFiber R p sig).Nonempty :=
       Finset.nonempty_iff_ne_empty.mpr hempty
