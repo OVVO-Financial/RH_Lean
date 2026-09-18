@@ -107,7 +107,7 @@ def lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy
 complete r-four-corner has been formed. -/
 theorem lowOwnerFirstOwnerBranchNextPolarizationTerm_eq_crossSites
     {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
-    (hparent : parent ∈ lowOwnerFirstOwnerRawParentBranchCarrier R p sig r) :
+    (_hparent : parent ∈ lowOwnerFirstOwnerRawParentBranchCarrier R p sig r) :
     lowOwnerFirstOwnerRawParentNextPolarizationTerm R p r parent =
       -(lowOwnerBranchBaseDifferenceSignedSite R r parent.1 *
           lowOwnerBranchReturnedDifferenceSignedSite R p r parent.2) -
@@ -250,7 +250,9 @@ theorem sum_lowOwnerFirstOwnerBranchNextPolarization_eq_neg_two_sum_base_mul_ret
         ⟨Finset.mem_product.mpr
           ⟨(Finset.mem_filter.mp haBranch).1,
             (Finset.mem_filter.mp hbBranch).1⟩,
-          ⟨by simpa [hkeyA, hkeyB],
+          ⟨by
+              unfold lowOwnerRawParentRevealedKey at hkeyA hkeyB
+              exact hkeyA.trans hkeyB.symm,
             (Finset.mem_filter.mp haBranch).2,
             (Finset.mem_filter.mp hbBranch).2⟩⟩
     exact lowOwnerFirstOwnerBranchNextPolarizationTerm_eq_crossSites hpair
