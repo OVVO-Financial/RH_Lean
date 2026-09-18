@@ -1,5 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_BRANCH_CURRENCY»
+import «research.GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_SQUARES»
 
 /-!
 # The full-branch same-branch continuation is favorable
@@ -157,6 +158,7 @@ theorem lowOwnerFirstOwnerBranchBaseFourCorner_eq_siteProduct
     (lowOwnerDirichletBaseCoefficient R) hr hra hrb]
   rw [postRootZeroTargetPairExcess_eq_weight]
   unfold lowOwnerBranchBaseDifferenceSignedSite
+    lowOwnerDirichletOwnerDifference
   ring
 
 /-- Returned four-corner has the analogous site-product form. -/
@@ -171,6 +173,7 @@ theorem lowOwnerFirstOwnerBranchReturnedFourCorner_eq_siteProduct
     (lowOwnerDirichletReturnedCoefficient R p) hr hra hrb]
   rw [postRootZeroTargetPairExcess_eq_weight]
   unfold lowOwnerBranchReturnedDifferenceSignedSite
+    lowOwnerDirichletOwnerDifference
   ring
 
 /-- The branch carrier is exactly the generic equal-key carrier on its r-free
