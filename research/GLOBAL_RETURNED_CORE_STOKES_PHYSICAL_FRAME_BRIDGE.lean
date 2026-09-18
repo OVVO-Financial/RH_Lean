@@ -325,6 +325,73 @@ theorem lowOwnerStokesSecondPrime_mem_erase
         (lowOwnerStokesTopPrime R hR) := by
   exact Finset.max'_mem _ _
 
+
+theorem lowOwnerStokesTopPrime_prime
+    {R : ℕ} (hR : 56 ≤ R) :
+    (lowOwnerStokesTopPrime R hR).Prime := by
+  exact (mem_primesUpTo.mp (lowOwnerStokesTopPrime_mem hR)).1
+
+/-- The largest physical owner lies in the top reciprocal band. -/
+theorem squareRootEndpoint_half_lt_lowOwnerStokesTopPrime
+    {R : ℕ} (hR : 56 ≤ R) :
+    squareRootEndpoint R / 2 < lowOwnerStokesTopPrime R hR := by
+  have hX : 3 ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    nlinarith
+  have hhalf : squareRootEndpoint R / 2 ≠ 0 := by omega
+  obtain ⟨q, hqPrime, hqLow, hqHigh⟩ :=
+    Nat.exists_prime_lt_and_le_two_mul (squareRootEndpoint R / 2) hhalf
+  have hqX : q ≤ squareRootEndpoint R := by omega
+  have hqMem : q ∈ primesUpTo (squareRootEndpoint R) :=
+    mem_primesUpTo.mpr ⟨hqPrime, hqX⟩
+  have hqTop :
+      q ≤ lowOwnerStokesTopPrime R hR :=
+    Finset.le_max' _ q hqMem
+  omega
+
+/-- The actual top owner has no remaining larger prime coordinate. -/
+theorem lowOwnerStokesTopPrime_schedule_eq_nil
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerFirstOwnerCanonicalStokesSchedule
+        R (lowOwnerStokesTopPrime R hR) = [] := by
+  unfold lowOwnerFirstOwnerCanonicalStokesSchedule
+  apply List.filter_eq_nil_iff.2
+  intro q hq
+  have hqMem : q ∈ primesUpTo (squareRootEndpoint R) := by
+    unfold squareRootCanonicalRoughDescendingPrimeSchedule at hq
+    exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).1 hq
+  have hqLe :
+      q ≤ lowOwnerStokesTopPrime R hR :=
+    Finset.le_max' _ q hqMem
+  exact Nat.not_lt_of_ge hqLe
+
+/-- A top-owner admitted cofactor is forced to one. -/
+theorem lowOwnerStokesTopPrime_admittedBase_eq_one
+    {R : ℕ} (hR : 56 ≤ R) {sig : Finset ℕ} {a : ℕ}
+    (ha : a ∈ lowOwnerFirstOwnerAdmittedBaseFiber
+      R (lowOwnerStokesTopPrime R hR) sig) :
+    a = 1 := by
+  rcases Finset.mem_filter.mp ha with ⟨haBase, hpaX⟩
+  have haCar := (Finset.mem_filter.mp haBase).1
+  have haPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos haCar).2
+  have htop :=
+    squareRootEndpoint_half_lt_lowOwnerStokesTopPrime hR
+  have hXlt :
+      squareRootEndpoint R <
+        2 * lowOwnerStokesTopPrime R hR := by
+    omega
+  by_contra hne
+  have ha2 : 2 ≤ a := by omega
+  have hmul :
+      2 * lowOwnerStokesTopPrime R hR ≤
+        a * lowOwnerStokesTopPrime R hR :=
+    Nat.mul_le_mul_right (lowOwnerStokesTopPrime R hR) ha2
+  have hmul' :
+      a * lowOwnerStokesTopPrime R hR =
+        lowOwnerStokesTopPrime R hR * a := by omega
+  rw [hmul'] at hmul
+  omega
+
 /-- **Exceptional terminal support is literally the top two first-owner
 coordinates.**  Any lower prime has both the top and second-top primes in its
 remaining Stokes schedule, contradicting the terminal length bound. -/
