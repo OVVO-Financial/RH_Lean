@@ -612,4 +612,84 @@ theorem clipPrimePeriodFrameDomination_one_of_coefficientEnvelope
     _ = 1 * lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by
       simp [lowOwnerStokesOddPrimePeriodFrameMajorant]
 
+
+/-! ## Audit of the existential coefficient interface
+
+The preceding existential envelope is intentionally audited here.  If the
+coefficient family is allowed to be chosen with no physical representation
+constraint, the constant family `a_p = 1` makes its envelope exactly the
+coefficient-free frame.  Thus the existential proposition is *equivalent* to
+the clip/frame inequality and must not be treated as an admissibility proof.
+-/
+
+/-- Unit coefficients saturate the coefficient envelope exactly at the
+coefficient-free reciprocal prime-period frame. -/
+theorem primePeriodReciprocalCoefficientEnvelope_one_eq_frameMajorant
+    (W : PrimeWheelFiniteSystem) (N : ℕ) (S : Finset ℕ) :
+    primePeriodReciprocalCoefficientEnvelope W N S (fun _ => (1 : ℂ)) =
+      primePeriodReciprocalFrameMajorant W N S := by
+  unfold primePeriodReciprocalCoefficientEnvelope
+    primePeriodReciprocalFrameMajorant
+    primePeriodReciprocalDiagonalMajorant
+    primePeriodReciprocalOffDiagonalMajorant
+  simp
+
+/-- **No-progress audit.**  The unconstrained existential coefficient envelope
+is exactly equivalent to the desired unit clip/frame domination.  Therefore a
+real admissibility theorem must construct coefficients from the physical Stokes
+payload (or prove an exact physical synthesis identity); mere existence is
+circular. -/
+theorem lowOwnerStokesClipReciprocalCoefficientEnvelope_iff_frameDomination_one :
+    LowOwnerStokesClipReciprocalCoefficientEnvelope ↔
+      LowOwnerStokesClipPrimePeriodFrameDomination 1 := by
+  constructor
+  · exact clipPrimePeriodFrameDomination_one_of_coefficientEnvelope
+  · intro hFrame R hR
+    refine ⟨fun _ => (1 : ℂ), ?_, ?_⟩
+    · intro p hp
+      simp
+    · rw [primePeriodReciprocalCoefficientEnvelope_one_eq_frameMajorant]
+      have h := hFrame R hR
+      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using h
+
+/-- One actual reciprocal prime-period mode on the natural Stokes torus.  The
+coefficient field in a genuine admissibility theorem must be supplied before
+this synthesis is formed. -/
+def lowOwnerStokesPrimePeriodMode
+    (R : ℕ) (hR : 56 ≤ R) (p j : ℕ) : ℂ :=
+  ((1 : ℂ) / (p : ℂ)) *
+    ZMod.stdAddChar
+      (((j : ℕ) : ZMod (lowOwnerStokesNaturalWheelSystem R hR).modulus) *
+        primePeriodFrequency (lowOwnerStokesNaturalWheelSystem R hR) p)
+
+/-- Samplewise reciprocal prime-period synthesis from a *specified*
+coefficient field. -/
+def lowOwnerStokesPrimePeriodSynthesis
+    (R : ℕ) (hR : 56 ≤ R) (a : ℕ → ℂ) (j : ℕ) : ℂ :=
+  ∑ p ∈ lowOwnerStokesOddPrimePeriodSet R,
+    a p * lowOwnerStokesPrimePeriodMode R hR p j
+
+/-- Physical prefix energy of a specified reciprocal prime-period synthesis. -/
+def lowOwnerStokesPrimePeriodSynthesisEnergy
+    (R : ℕ) (hR : 56 ≤ R) (a : ℕ → ℂ) : ℝ :=
+  ∑ j ∈ Finset.range (squareRootEndpoint R),
+    ‖lowOwnerStokesPrimePeriodSynthesis R hR a j‖ ^ 2
+
+/-- A non-circular admissibility datum packages a *named coefficient
+construction* together with its unit bound and the physical clip comparison.
+Unlike the earlier existential proposition, the coefficient constructor is an
+argument of the structure and can therefore be audited independently. -/
+structure LowOwnerStokesClipPrimePeriodSynthesisDatum where
+  coefficient :
+    (R : ℕ) → (hR : 56 ≤ R) → ℕ → ℂ
+  coefficient_unit :
+    ∀ (R : ℕ) (hR : 56 ≤ R) p,
+      p ∈ lowOwnerStokesOddPrimePeriodSet R →
+        ‖coefficient R hR p‖ ≤ 1
+  clip_le_synthesis_energy :
+    ∀ (R : ℕ) (hR : 56 ≤ R),
+      lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        lowOwnerStokesPrimePeriodSynthesisEnergy
+          R hR (coefficient R hR)
+
 end RHLean.Proof
