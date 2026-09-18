@@ -109,6 +109,85 @@ theorem lowOwnerStokesOddPrimePeriodFrameMajorant_le_five_fourths_root_sq
     exact Nat.sub_le _ _
   · exact lowOwnerStokesOddPrimePeriodSet_card_le_root (by omega)
 
+
+/-- Prime 3 is always an active odd Stokes period in the RH-consumer regime. -/
+theorem three_mem_lowOwnerStokesOddPrimePeriodSet
+    {R : ℕ} (hR : 56 ≤ R) :
+    3 ∈ lowOwnerStokesOddPrimePeriodSet R := by
+  have hcut : 3 ≤ Nat.sqrt (squareRootEndpoint R) := by
+    have h5 := five_le_lowOwnerStokesWheelCutoff hR
+    omega
+  have h3wheel : 3 ∈ lowOwnerStokesWheelPrimes R := by
+    unfold lowOwnerStokesWheelPrimes
+    exact mem_primesUpTo.mpr ⟨by norm_num, hcut⟩
+  unfold lowOwnerStokesOddPrimePeriodSet
+  exact Finset.mem_erase.mpr ⟨by norm_num, h3wheel⟩
+
+/-- The reciprocal-square diagonal contains at least the prime-3 contribution. -/
+theorem one_ninth_le_lowOwnerStokesOddPrimePeriodSet_reciprocalSquareMass
+    {R : ℕ} (hR : 56 ≤ R) :
+    (1 / 9 : ℝ) ≤
+      ∑ p ∈ lowOwnerStokesOddPrimePeriodSet R,
+        ((1 : ℝ) / (p : ℝ)) ^ 2 := by
+  have h3 := three_mem_lowOwnerStokesOddPrimePeriodSet hR
+  have hsingle :
+      ((1 : ℝ) / (3 : ℝ)) ^ 2 ≤
+        ∑ p ∈ lowOwnerStokesOddPrimePeriodSet R,
+          ((1 : ℝ) / (p : ℝ)) ^ 2 := by
+    exact Finset.single_le_sum
+      (s := lowOwnerStokesOddPrimePeriodSet R)
+      (f := fun p => ((1 : ℝ) / (p : ℝ)) ^ 2)
+      (fun p _hp => sq_nonneg ((1 : ℝ) / (p : ℝ))) h3
+  norm_num at hsingle ⊢
+  exact hsingle
+
+/-- The natural prime-period frame is itself root-scale from below.  No
+off-diagonal alignment is needed: the prime-3 diagonal alone gives
+Frame_R >= R^2/18 for every R >= 56. -/
+theorem root_sq_over_eighteen_le_lowOwnerStokesOddPrimePeriodFrameMajorant
+    {R : ℕ} (hR : 56 ≤ R) :
+    (R : ℝ) ^ 2 / 18 ≤
+      lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by
+  let W := lowOwnerStokesNaturalWheelSystem R hR
+  let X := squareRootEndpoint R
+  let S := lowOwnerStokesOddPrimePeriodSet R
+  have hmass :
+      (1 / 9 : ℝ) ≤
+        ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 := by
+    simpa [S] using
+      one_ninth_le_lowOwnerStokesOddPrimePeriodSet_reciprocalSquareMass hR
+  have hoff :
+      0 ≤ primePeriodReciprocalOffDiagonalMajorant W X S := by
+    unfold primePeriodReciprocalOffDiagonalMajorant
+    apply Finset.sum_nonneg
+    intro p hp
+    apply Finset.sum_nonneg
+    intro q hq
+    positivity
+  have hdiag :
+      (X : ℝ) / 9 ≤ primePeriodReciprocalDiagonalMajorant X S := by
+    unfold primePeriodReciprocalDiagonalMajorant
+    have hX0 : 0 ≤ (X : ℝ) := by positivity
+    have hmul := mul_le_mul_of_nonneg_left hmass hX0
+    nlinarith
+  have hframeX :
+      (X : ℝ) / 9 ≤
+        primePeriodReciprocalFrameMajorant W X S := by
+    unfold primePeriodReciprocalFrameMajorant
+    linarith
+  have hnat : R ^ 2 ≤ 2 * squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hsq : 2 ≤ R ^ 2 := by nlinarith
+    omega
+  have hreal :
+      (R : ℝ) ^ 2 ≤ 2 * (squareRootEndpoint R : ℝ) := by
+    exact_mod_cast hnat
+  change (R : ℝ) ^ 2 / 18 ≤
+    primePeriodReciprocalFrameMajorant W X S
+  have hXreal : (X : ℝ) = (squareRootEndpoint R : ℝ) := by rfl
+  rw [hXreal] at hframeX
+  nlinarith
+
 /-- Every admissible lower critical envelope is at least one.  This lets a
 root-scale frame estimate feed the existing R^2*K terminal interface without
 changing the arithmetic constant. -/
