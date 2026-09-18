@@ -13,6 +13,11 @@ on:
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_BRANCH_CURRENCY.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_SAME_BRANCH_NONNEG.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCIDENCE_AMPLITUDE_FUBINI.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY.lean
+      - research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_ENDPOINT_GAP.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_ENDPOINT_CORRECTION_SUPPORT.lean
       - research/GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_DIRICHLET_INCIDENCE_GATE.lean
@@ -117,12 +122,26 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
           emit research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_CLASSIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_GLOBAL_IDENTIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
+          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_PREFIX_STAR.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_PREFIX_STAR_ENERGY.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_SQUARES.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_EQ_TAIL.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_BRANCH_CURRENCY.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_SAME_BRANCH_NONNEG.lean
+          emit research/GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER.lean
+          emit research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
+          emit research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
+          emit research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
 
       - name: Kernel-check branch currency, orbit, and cross-amplitude gate
         run: |
@@ -131,4 +150,22 @@ jobs:
           lake env lean -DwarningAsError=true \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_THRESHOLD_ORBIT_AMPLITUDE.lean
           lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.olean \
             research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_INCIDENCE_AMPLITUDE_FUBINI.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCIDENCE_AMPLITUDE_FUBINI.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.olean \
+            research/GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL.olean \
+            research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY.olean \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY.lean
+          lake env lean -DwarningAsError=true \
+            research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_ENDPOINT_GAP.lean
