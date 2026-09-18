@@ -50,8 +50,6 @@ private theorem sum_signature_q2Column_eq_reciprocalMertensColumnReal
   intro q hq
   rw [sum_signature_branchQ2ClippedDifferenceTotalAmplitude_eq_mertensDaughter
     hp hr hpr]
-  push_cast
-  ring
 
 /-- Root threshold after full signature reassembly is the literal Mertens
 prefix M(R-1). -/
@@ -64,8 +62,14 @@ private theorem sum_signature_rootClipped_eq_mertens
       (mertensSummatoryInt (R - 1) : ℝ) := by
   apply sum_signature_branchClippedDifferenceTotalAmplitude_eq_mertens
     hp hr hpr
+  have h1 : 1 ≤ R := by omega
+  have hRR : R ≤ R ^ 2 := by
+    calc
+      R = R * 1 := by simp
+      _ ≤ R * R := Nat.mul_le_mul_left R h1
+      _ = R ^ 2 := by ring
   unfold squareRootEndpoint
-  omega
+  exact Nat.sub_le_sub_right hRR 1
 
 /-- Endpoint threshold after full signature reassembly is the literal full-clock
 Mertens prefix M(X_R). -/
@@ -123,6 +127,7 @@ theorem lowOwnerGlobalBranchIncidenceDifferenceAmplitude_eq_mertensGap
         lowOwnerFirstOwnerBranchClippedDifferenceTotalAmplitude
           R p sig r (squareRootEndpoint R)) := by
           rw [Finset.sum_add_distrib, Finset.sum_sub_distrib]
+          congr 1
           congr 1
           rw [Finset.sum_comm]
           apply Finset.sum_congr rfl
