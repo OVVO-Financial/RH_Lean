@@ -32,8 +32,8 @@ attribute [local instance] Classical.propDecidable
 /-- A left first-owner clip kills the returned p-coordinate exactly. -/
 theorem lowOwnerRawParentFirstOwnerClipped_left_returnedCoefficient_eq_zero
     {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
-    (hp : p.Prime)
-    (hraw : parent ∈ lowOwnerFirstOwnerPolarizationRawParentSet R p sig r)
+    (_hp : p.Prime)
+    (_hraw : parent ∈ lowOwnerFirstOwnerPolarizationRawParentSet R p sig r)
     (hleft : squareRootEndpoint R < p * parent.1) :
     lowOwnerDirichletReturnedCoefficient R p parent.1 = 0 := by
   unfold lowOwnerDirichletReturnedCoefficient
@@ -56,8 +56,8 @@ theorem lowOwnerRawParentFirstOwnerClipped_left_incidence_eq_base
 /-- Symmetric first-owner clip on the second coordinate. -/
 theorem lowOwnerRawParentFirstOwnerClipped_right_incidence_eq_base
     {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
-    (hp : p.Prime)
-    (hraw : parent ∈ lowOwnerFirstOwnerPolarizationRawParentSet R p sig r)
+    (_hp : p.Prime)
+    (_hraw : parent ∈ lowOwnerFirstOwnerPolarizationRawParentSet R p sig r)
     (hright : squareRootEndpoint R < p * parent.2) :
     lowOwnerDirichletIncidenceCoefficient R p parent.2 =
       lowOwnerDirichletBaseCoefficient R parent.2 := by
