@@ -135,6 +135,21 @@ theorem lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceAmplitude_eq_clipped
           intro n hn
           exact hpoint n hn
     _ =
+        ∑ n ∈ S,
+          (realMoebiusStep n *
+              (∑ q ∈ canonicalRoughLowQ2Owners R,
+                (1 / (q : ℝ)) *
+                  lowOwnerThresholdClippedDifference
+                    p r n (rawQ2ChildCutoff R q)) -
+            realMoebiusStep n *
+              lowOwnerThresholdClippedDifference p r n (R - 1) +
+            realMoebiusStep n *
+              lowOwnerThresholdClippedDifference
+                p r n (squareRootEndpoint R)) := by
+          apply Finset.sum_congr rfl
+          intro n _hn
+          ring
+    _ =
         (∑ n ∈ S,
           realMoebiusStep n *
             (∑ q ∈ canonicalRoughLowQ2Owners R,
@@ -148,11 +163,7 @@ theorem lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceAmplitude_eq_clipped
           realMoebiusStep n *
             lowOwnerThresholdClippedDifference
               p r n (squareRootEndpoint R)) := by
-          apply congrArg (fun x : ℝ => x)
           rw [Finset.sum_add_distrib, Finset.sum_sub_distrib]
-          apply Finset.sum_congr rfl
-          intro n _hn
-          ring
     _ =
         (∑ q ∈ canonicalRoughLowQ2Owners R,
           (1 / (q : ℝ)) *
