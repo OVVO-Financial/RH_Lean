@@ -326,6 +326,118 @@ theorem lowOwnerStokesSecondPrime_mem_erase
   exact Finset.max'_mem _ _
 
 
+theorem lowOwnerStokesSecondPrime_prime
+    {R : ℕ} (hR : 56 ≤ R) :
+    (lowOwnerStokesSecondPrime R hR).Prime := by
+  have hmem := (Finset.mem_erase.mp
+    (lowOwnerStokesSecondPrime_mem_erase hR)).2
+  exact (mem_primesUpTo.mp hmem).1
+
+theorem lowOwnerStokesSecondPrime_lt_topPrime
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerStokesSecondPrime R hR <
+      lowOwnerStokesTopPrime R hR := by
+  have hsErase := lowOwnerStokesSecondPrime_mem_erase hR
+  have hsNe :
+      lowOwnerStokesSecondPrime R hR ≠
+        lowOwnerStokesTopPrime R hR :=
+    (Finset.mem_erase.mp hsErase).1
+  have hsMem := (Finset.mem_erase.mp hsErase).2
+  have hsLe :
+      lowOwnerStokesSecondPrime R hR ≤
+        lowOwnerStokesTopPrime R hR :=
+    Finset.le_max' _ _ hsMem
+  omega
+
+/-- The second-largest physical owner has exactly one remaining Stokes
+coordinate, namely the largest physical prime. -/
+theorem lowOwnerStokesSecondPrime_schedule_eq_single_top
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerFirstOwnerCanonicalStokesSchedule
+        R (lowOwnerStokesSecondPrime R hR) =
+      [lowOwnerStokesTopPrime R hR] := by
+  let s := lowOwnerStokesSecondPrime R hR
+  let t := lowOwnerStokesTopPrime R hR
+  have hst : s < t := by
+    simpa [s, t] using lowOwnerStokesSecondPrime_lt_topPrime hR
+  have htMem : t ∈ primesUpTo (squareRootEndpoint R) := by
+    simpa [t] using lowOwnerStokesTopPrime_mem hR
+  have htFull : t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R := by
+    unfold squareRootCanonicalRoughDescendingPrimeSchedule
+    exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 htMem
+  have htSched :
+      t ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R s := by
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+      (show t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ s < t
+        from ⟨htFull, hst⟩)
+  have huniq :
+      ∀ q ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R s, q = t := by
+    intro q hq
+    have hqData :
+        q ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ s < q := by
+      simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using hq
+    have hqMem : q ∈ primesUpTo (squareRootEndpoint R) := by
+      unfold squareRootCanonicalRoughDescendingPrimeSchedule at hqData
+      exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).1 hqData.1
+    by_contra hqt
+    have hqErase :
+        q ∈ (primesUpTo (squareRootEndpoint R)).erase t :=
+      Finset.mem_erase.mpr ⟨hqt, hqMem⟩
+    have hqLeS : q ≤ s := by
+      simpa [s, t] using
+        Finset.le_max'
+          ((primesUpTo (squareRootEndpoint R)).erase t) q hqErase
+    omega
+  have hnodup :=
+    lowOwnerFirstOwnerCanonicalStokesSchedule_nodup R s
+  generalize hsched :
+      lowOwnerFirstOwnerCanonicalStokesSchedule R s = ps at
+      htSched huniq hnodup
+  cases ps with
+  | nil =>
+      simp at htSched
+  | cons a tail =>
+      have ha : a = t := huniq a (by simp)
+      subst a
+      cases tail with
+      | nil =>
+          rfl
+      | cons b rest =>
+          have hb : b = t := huniq b (by simp)
+          subst b
+          simp at hnodup
+
+/-- The actual second-owner terminal packet is the exact quarter-weighted
+top-prime mixed difference, already assembled over signatures. -/
+theorem sum_lowOwnerStokesSecondPrimeTerminal_eq_neg_half_topDifferenceProduct
+    {R : ℕ} (hR : 56 ≤ R) :
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet
+        R (lowOwnerStokesSecondPrime R hR),
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary
+        R (lowOwnerStokesSecondPrime R hR) sig) =
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet
+        R (lowOwnerStokesSecondPrime R hR),
+        (-(1 / 2 : ℝ) *
+          lowOwnerStokesSignedAmplitude
+            (primeInteriorPart (lowOwnerStokesTopPrime R hR)
+              (lowOwnerFirstOwnerBaseFiber
+                R (lowOwnerStokesSecondPrime R hR) sig))
+            (lowOwnerStokesToggleDifference
+              (lowOwnerStokesTopPrime R hR)
+              (lowOwnerDirichletBaseCoefficient R)) *
+          lowOwnerStokesSignedAmplitude
+            (primeInteriorPart (lowOwnerStokesTopPrime R hR)
+              (lowOwnerFirstOwnerBaseFiber
+                R (lowOwnerStokesSecondPrime R hR) sig))
+            (lowOwnerStokesToggleDifference
+              (lowOwnerStokesTopPrime R hR)
+              (lowOwnerDirichletReturnedCoefficient
+                R (lowOwnerStokesSecondPrime R hR)))) := by
+  exact
+    sum_lowOwnerFirstOwnerTopTerminal_eq_neg_half_interiorDifferenceProduct_of_schedule_single
+      (lowOwnerStokesSecondPrime_schedule_eq_single_top hR)
+
+
 theorem lowOwnerStokesTopPrime_prime
     {R : ℕ} (hR : 56 ≤ R) :
     (lowOwnerStokesTopPrime R hR).Prime := by
