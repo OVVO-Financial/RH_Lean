@@ -197,7 +197,7 @@ theorem lowOwnerFirstOwnerRawParentPrefixStar_subset_rawParentSet
     lowOwnerFirstOwnerRawParentPrefixStar R p sig r ⊆
       lowOwnerFirstOwnerPolarizationRawParentSet R p sig r := by
   intro parent hstar
-  have hphysical := (Finset.mem_filter.mp hstar).2.2.2
+  have hphysical := (Finset.mem_filter.mp hstar).2.2.2.2
   rcases hphysical with hleft | hright
   · have hchild :=
       lowOwnerFirstOwnerPrefixStar_leftChild_mem_ownerFiber
