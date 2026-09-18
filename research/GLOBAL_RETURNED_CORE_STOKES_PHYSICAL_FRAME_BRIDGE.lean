@@ -325,6 +325,39 @@ def LowOwnerStokesClipPrimePeriodFrameDomination (C : ℝ) : Prop :=
     lowOwnerCanonicalSignedStokesClipBoundary R ≤
       C * lowOwnerStokesOddPrimePeriodFrameMajorant R hR
 
+/-- Direct root-scale form of the clip estimate.  Because the natural frame
+has a fixed prime-3 diagonal, this apparently weaker target is already
+sufficient for prime-period frame domination. -/
+def LowOwnerStokesClipRootBound (A : ℝ) : Prop :=
+  ∀ (R : ℕ) (hR : 56 ≤ R),
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+      A * (R : ℝ) ^ 2
+
+/-- Any nonnegative root-scale clip bound feeds the exact #758 frame target.
+The explicit factor 18 comes only from the deterministic prime-3 frame
+diagonal; no off-diagonal alignment is used. -/
+theorem clipPrimePeriodFrameDomination_of_rootBound
+    {A : ℝ} (hA : 0 ≤ A)
+    (hClip : LowOwnerStokesClipRootBound A) :
+    LowOwnerStokesClipPrimePeriodFrameDomination (18 * A) := by
+  intro R hR
+  have hframe :=
+    root_sq_over_eighteen_le_lowOwnerStokesOddPrimePeriodFrameMajorant hR
+  have hscaled :
+      A * ((R : ℝ) ^ 2 / 18) ≤
+        A * lowOwnerStokesOddPrimePeriodFrameMajorant R hR :=
+    mul_le_mul_of_nonneg_left hframe hA
+  calc
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        A * (R : ℝ) ^ 2 := hClip R hR
+    _ = 18 * (A * ((R : ℝ) ^ 2 / 18)) := by ring
+    _ ≤ 18 *
+        (A * lowOwnerStokesOddPrimePeriodFrameMajorant R hR) :=
+      mul_le_mul_of_nonneg_left hscaled (by norm_num)
+    _ = (18 * A) *
+        lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by ring
+
+
 /-- Frame domination for the already-classified terminal correction only. -/
 def LowOwnerStokesTopTerminalPrimePeriodFrameDomination (C : ℝ) : Prop :=
   ∀ (R : ℕ) (hR : 56 ≤ R),
