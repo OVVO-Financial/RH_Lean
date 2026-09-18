@@ -112,7 +112,7 @@ theorem lowOwnerFirstOwnerRawParentTailCarrier_eq_equalKeyProduct
     lowOwnerFirstOwnerRawParentTailSiteCarrier,
     lowOwnerFirstOwnerRawParentBranchSiteCarrier,
     lowOwnerRawParentRevealedKey,
-    not_or, Nat.not_le, and_assoc, and_left_comm, and_comm]
+    not_or, and_assoc, and_left_comm, and_comm]
 
 /-- One key fibre of an equal-key pair carrier is a Cartesian square. -/
 private theorem equalKeyPair_filter_eq_fiberProduct
