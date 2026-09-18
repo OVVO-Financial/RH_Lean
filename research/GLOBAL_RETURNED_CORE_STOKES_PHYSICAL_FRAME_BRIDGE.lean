@@ -4,6 +4,7 @@ import «research.GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIOD_WHEEL»
 import «research.STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME»
 import «research.STABLE_FAR_PERRON_QUARTER_FRAME_BOUND»
 import «research.GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM»
+import «research.GLOBAL_RETURNED_CORE_DOUBLE_CORNER_POLARIZATION_FUBINI»
 
 /-!
 # Physical Stokes boundary -> natural prime-period frame interface
@@ -838,5 +839,76 @@ theorem clip_le_five_fourths_root_sq_mul_lowerEnvelope_of_coefficientBounded
     _ ≤ K * ((5 / 4 : ℝ) * (R : ℝ) ^ 2) :=
       mul_le_mul_of_nonneg_left hframe hK.1
     _ = (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by ring
+
+
+/-! ## Double-corner Fubini is the moved threshold incidence
+
+The signed double-corner Fubini introduced by the clipped-threshold descent is
+not an additional analytic coordinate.  It is exactly the current threshold
+incidence evaluated at the moved `r`-child.
+-/
+
+/-- **Exact child-incidence identification.** -/
+theorem lowOwnerThresholdDoubleCornerFubini_eq_movedIncidence
+    {R p r n : ℕ}
+    (hR : 1 ≤ R) (hp : p.Prime) (hr : r.Prime)
+    (hpr : p < r) (hn : 0 < n) :
+    lowOwnerThresholdDoubleCornerFubini R p r n =
+      lowOwnerThresholdOwnerIncidenceWeight R p (r * n) := by
+  have h :=
+    lowOwnerThresholdSecondOwnerDifference_eq_current_sub_doubleCornerFubini
+      (R := R) (p := p) (r := r) (n := n)
+      hR hp hr hpr hn
+  unfold lowOwnerThresholdSecondOwnerDifference at h
+  linarith
+
+/-- The signed left double-corner descent can therefore be written without the
+auxiliary Fubini object: the residual is the literal moved-child incidence. -/
+theorem lowOwnerThresholdIncidencePairMass_eq_neg_leftMovedIncidence
+    {R p r a b : ℕ}
+    (hR : 1 ≤ R) (hp : p.Prime) (hr : r.Prime) (hpr : p < r)
+    (haSq : Squarefree a) (hbSq : Squarefree b)
+    (ha : 0 < a) (hb : 0 < b)
+    (hra : r ∣ a) (hrb : ¬ r ∣ b) :
+    let u := squarefreePrimeFamilyParent r a
+    let v := squarefreePrimeFamilyParent r b
+    lowOwnerThresholdIncidencePairMass R p (a, b) =
+      -postRootZeroTargetPairExcess (u, v) *
+        lowOwnerThresholdOwnerIncidenceWeight R p (r * u) *
+        lowOwnerThresholdOwnerIncidenceWeight R p v := by
+  dsimp only
+  have h :=
+    lowOwnerThresholdIncidencePairMass_eq_neg_leftDoubleCornerFubini
+      (R := R) (p := p) (r := r) (a := a) (b := b)
+      hR hp hr hpr haSq hbSq ha hb hra hrb
+  dsimp only at h
+  rw [lowOwnerThresholdDoubleCornerFubini_eq_movedIncidence
+      hR hp hr hpr
+      (squarefreePrimeFamilyParent_pos_public hr ha)] at h
+  exact h
+
+/-- Symmetric moved-child form. -/
+theorem lowOwnerThresholdIncidencePairMass_eq_neg_rightMovedIncidence
+    {R p r a b : ℕ}
+    (hR : 1 ≤ R) (hp : p.Prime) (hr : r.Prime) (hpr : p < r)
+    (haSq : Squarefree a) (hbSq : Squarefree b)
+    (ha : 0 < a) (hb : 0 < b)
+    (hra : ¬ r ∣ a) (hrb : r ∣ b) :
+    let u := squarefreePrimeFamilyParent r a
+    let v := squarefreePrimeFamilyParent r b
+    lowOwnerThresholdIncidencePairMass R p (a, b) =
+      -postRootZeroTargetPairExcess (u, v) *
+        lowOwnerThresholdOwnerIncidenceWeight R p u *
+        lowOwnerThresholdOwnerIncidenceWeight R p (r * v) := by
+  dsimp only
+  have h :=
+    lowOwnerThresholdIncidencePairMass_eq_neg_rightDoubleCornerFubini
+      (R := R) (p := p) (r := r) (a := a) (b := b)
+      hR hp hr hpr haSq hbSq ha hb hra hrb
+  dsimp only at h
+  rw [lowOwnerThresholdDoubleCornerFubini_eq_movedIncidence
+      hR hp hr hpr
+      (squarefreePrimeFamilyParent_pos_public hr hb)] at h
+  exact h
 
 end RHLean.Proof
