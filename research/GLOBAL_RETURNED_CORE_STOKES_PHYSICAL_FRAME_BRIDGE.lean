@@ -177,4 +177,127 @@ theorem riemannHypothesis_of_primePeriodFrameBridge
   exact riemannHypothesis_of_primePeriodFrameDomination
     (C := (1 : ℝ)) (by norm_num) hBridge
 
+
+/-! ## Split the physical bridge at the already-classified Stokes boundary
+
+The terminal classification proves that a cell with at least two remaining
+prime coordinates has zero terminal residual.  The only first-owner levels
+which can contribute to the terminal ledger are therefore those whose
+canonical schedule has length zero or one.  We record that support exactly
+before asking for any frame estimate.
+-/
+
+/-- First-owner coordinates on which the canonical Stokes terminal residual
+can survive.  Equivalently, there are at most one larger prime coordinates left
+in the descending schedule. -/
+def lowOwnerStokesTopTerminalOwnerSet (R : ℕ) : Finset ℕ :=
+  (primesUpTo (squareRootEndpoint R)).filter fun p =>
+    (lowOwnerFirstOwnerCanonicalStokesSchedule R p).length ≤ 1
+
+/-- Outside the zero/one-owner terminal strata the local terminal contribution
+is literally zero. -/
+theorem lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary_eq_zero_of_not_mem_terminalOwners
+    {R p : ℕ} {sig : Finset ℕ}
+    (hp : p ∈ primesUpTo (squareRootEndpoint R))
+    (hnot : p ∉ lowOwnerStokesTopTerminalOwnerSet R) :
+    lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig = 0 := by
+  have hlenNot :
+      ¬ (lowOwnerFirstOwnerCanonicalStokesSchedule R p).length ≤ 1 := by
+    intro hlen
+    exact hnot (Finset.mem_filter.mpr ⟨hp, hlen⟩)
+  have htwo :
+      2 ≤ (lowOwnerFirstOwnerCanonicalStokesSchedule R p).length := by
+    omega
+  cases hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p with
+  | nil =>
+      simp [hps] at htwo
+  | cons q qs =>
+      cases qs with
+      | nil =>
+          simp [hps] at htwo
+      | cons s rest =>
+          exact
+            lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary_eq_zero_of_twoOwners
+              (R := R) (p := p) (q := q) (s := s) (sig := sig)
+              (rest := rest) hps
+
+/-- The global top-terminal ledger is supported only on the zero/one-owner
+levels.  This removes every deeper first-owner level exactly, before any
+absolute value or norm is introduced. -/
+theorem lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_terminalOwnerSum
+    (R : ℕ) :
+    lowOwnerCanonicalSignedStokesTopTerminalBoundary R =
+      ∑ p ∈ lowOwnerStokesTopTerminalOwnerSet R,
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig := by
+  unfold lowOwnerCanonicalSignedStokesTopTerminalBoundary
+  symm
+  apply Finset.sum_subset (Finset.filter_subset _ _)
+  intro p hp hnot
+  apply Finset.sum_eq_zero
+  intro sig hsig
+  exact
+    lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary_eq_zero_of_not_mem_terminalOwners
+      hp hnot
+
+/-- Frame domination for the literal physical clip ledger only. -/
+def LowOwnerStokesClipPrimePeriodFrameDomination (C : ℝ) : Prop :=
+  ∀ (R : ℕ) (hR : 56 ≤ R),
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+      C * lowOwnerStokesOddPrimePeriodFrameMajorant R hR
+
+/-- Frame domination for the already-classified terminal correction only. -/
+def LowOwnerStokesTopTerminalPrimePeriodFrameDomination (C : ℝ) : Prop :=
+  ∀ (R : ℕ) (hR : 56 ≤ R),
+    lowOwnerCanonicalSignedStokesTopTerminalBoundary R ≤
+      C * lowOwnerStokesOddPrimePeriodFrameMajorant R hR
+
+/-- Equivalent terminal target with all identically-zero owner levels removed
+from the statement. -/
+def LowOwnerStokesExceptionalTerminalFrameDomination (C : ℝ) : Prop :=
+  ∀ (R : ℕ) (hR : 56 ≤ R),
+    (∑ p ∈ lowOwnerStokesTopTerminalOwnerSet R,
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) ≤
+      C * lowOwnerStokesOddPrimePeriodFrameMajorant R hR
+
+theorem topTerminalPrimePeriodFrameDomination_of_exceptional
+    {C : ℝ}
+    (hTerminal : LowOwnerStokesExceptionalTerminalFrameDomination C) :
+    LowOwnerStokesTopTerminalPrimePeriodFrameDomination C := by
+  intro R hR
+  rw [lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_terminalOwnerSum]
+  exact hTerminal R hR
+
+/-- The exact final payload-to-frame bridge splits into the physical clip
+estimate plus the terminal correction.  Constants add and no sign is discarded. -/
+theorem primePeriodFrameDomination_of_clip_add_topTerminal
+    {Cclip Cterminal : ℝ}
+    (hClip : LowOwnerStokesClipPrimePeriodFrameDomination Cclip)
+    (hTerminal : LowOwnerStokesTopTerminalPrimePeriodFrameDomination Cterminal) :
+    LowOwnerStokesPrimePeriodFrameDomination (Cclip + Cterminal) := by
+  intro R hR
+  rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_topTerminal]
+  calc
+    lowOwnerCanonicalSignedStokesClipBoundary R +
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R ≤
+      Cclip * lowOwnerStokesOddPrimePeriodFrameMajorant R hR +
+        Cterminal * lowOwnerStokesOddPrimePeriodFrameMajorant R hR :=
+      add_le_add (hClip R hR) (hTerminal R hR)
+    _ = (Cclip + Cterminal) *
+        lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by ring
+
+/-- Consumer with the terminal support collapse already built in.  The only
+remaining estimates are the literal clip ledger and the zero/one-owner terminal
+correction. -/
+theorem riemannHypothesis_of_clip_and_exceptionalTerminalFrameDomination
+    {Cclip Cterminal : ℝ}
+    (hC : 0 ≤ Cclip + Cterminal)
+    (hClip : LowOwnerStokesClipPrimePeriodFrameDomination Cclip)
+    (hTerminal : LowOwnerStokesExceptionalTerminalFrameDomination Cterminal) :
+    RiemannHypothesis := by
+  exact riemannHypothesis_of_primePeriodFrameDomination hC
+    (primePeriodFrameDomination_of_clip_add_topTerminal
+      hClip (topTerminalPrimePeriodFrameDomination_of_exceptional hTerminal))
+
 end RHLean.Proof
