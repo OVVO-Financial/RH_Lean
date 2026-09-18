@@ -189,7 +189,7 @@ theorem sum_pFree_realMoebius_ownerDifference_eq_full
         realMoebiusStep a * f a) +
       (∑ n ∈ lowOwnerFirstOwnerPDivisibleCarrier R p,
         realMoebiusStep n * f n) := by
-          rw [hchild]
+          rw [hchild, Finset.sum_neg_distrib]
           ring
     _ = _ := hparts
 
@@ -293,14 +293,12 @@ private theorem sum_signature_branchClippedTotal_eq_ownerLens
   rw [Finset.sum_filter]
   apply Finset.sum_congr rfl
   intro n hnCar
-  by_cases hpfree : ¬ p ∣ n
-  · by_cases hrfree : ¬ r ∣ n
-    · rw [rThresholdWallSite_ownerDifference_eq_clipped hp hr hpr hrfree]
-      simp [hpfree, hrfree]
-    · have hrdvd : r ∣ n := not_not.mp hrfree
-      rw [rThresholdWallSite_ownerDifference_eq_zero_of_dvd hrdvd]
-      simp [hpfree, hrfree]
-  · simp [hpfree]
+  by_cases hrfree : ¬ r ∣ n
+  · rw [rThresholdWallSite_ownerDifference_eq_clipped hp hr hpr hrfree]
+    simp [hrfree]
+  · have hrdvd : r ∣ n := not_not.mp hrfree
+    rw [rThresholdWallSite_ownerDifference_eq_zero_of_dvd hrdvd]
+    simp [hrfree]
 
 /-- Removing the nonzero-Möbius filter and extending only to the threshold does
 not change the r-wall sum. -/
@@ -329,7 +327,7 @@ private theorem sum_nonzeroCarrier_rThresholdWall_eq_prefix
     by_cases hmu : realMoebiusStep n ≠ 0
     · simp [hmu, g, rThresholdWallSite]
     · have hz : realMoebiusStep n = 0 := not_ne_iff.mp hmu
-      simp [hz, g, rThresholdWallSite]
+      simp [hz, g]
   have hsub : Finset.Icc 1 y ⊆ Finset.Icc 1 X := by
     intro n hn
     rcases Finset.mem_Icc.mp hn with ⟨hn1, hny⟩
@@ -372,7 +370,7 @@ theorem sum_signature_branchClippedDifferenceTotalAmplitude_eq_mertens
       ∀ n, squareRootEndpoint R < n →
         rThresholdWallSite r y n = 0 := by
     intro n hXn
-    exact rThresholdWallSite_eq_zero_of_cutoff_lt (hy.lt_of_lt hXn)
+    exact rThresholdWallSite_eq_zero_of_cutoff_lt (lt_of_le_of_lt hy hXn)
   rw [sum_pFree_realMoebius_ownerDifference_eq_full hp
     (rThresholdWallSite r y) hzero]
   rw [sum_nonzeroCarrier_rThresholdWall_eq_prefix hy]
@@ -387,7 +385,9 @@ theorem sum_signature_branchQ2ClippedDifferenceTotalAmplitude_eq_mertensDaughter
       lowOwnerFirstOwnerBranchClippedDifferenceTotalAmplitude
         R p sig r (rawQ2ChildCutoff R q)) =
       (mertensSummatoryInt (rawQ2ChildCutoff R q) : ℝ) := by
-  exact sum_signature_branchClippedDifferenceTotalAmplitude_eq_mertens
-    hp hr hpr (rawQ2ChildCutoff_le_squareRootEndpoint R q)
+  apply sum_signature_branchClippedDifferenceTotalAmplitude_eq_mertens
+    hp hr hpr
+  unfold rawQ2ChildCutoff
+  exact Nat.div_le_self _ _
 
 end RHLean.Proof
