@@ -91,4 +91,73 @@ theorem lowOwnerZeroFrequencyMobiusSite_56_one_not_boolean :
   rw [lowOwnerZeroFrequencyMobiusSite_56_one]
   norm_num
 
+
+/-- The lower-prime signature cell does not freeze the higher-q daughter
+thresholds.  At R=56 and p=3, both 1 and 65 lie in the empty lower-signature
+cell, but 65 has crossed the q=7 daughter cutoff 63 while 1 has not. -/
+theorem signatureCell_56_three_straddles_high_q7_threshold :
+    1 ∈ lowOwnerFirstOwnerSignatureCellCarrier 56 3 (∅ : Finset ℕ) ∧
+      65 ∈ lowOwnerFirstOwnerSignatureCellCarrier 56 3 (∅ : Finset ℕ) ∧
+      lowOwnerReciprocalDaughterWeight 56 1 -
+          lowOwnerReciprocalDaughterWeight 56 65 = (1 : ℝ) / 7 := by
+  have hcell :
+      1 ∈ lowOwnerFirstOwnerSignatureCellCarrier 56 3 (∅ : Finset ℕ) ∧
+        65 ∈ lowOwnerFirstOwnerSignatureCellCarrier 56 3 (∅ : Finset ℕ) := by
+    native_decide
+  refine ⟨hcell.1, hcell.2, ?_⟩
+  rw [lowOwnerReciprocalDaughterWeight_56_one]
+  have h65 :
+      lowOwnerReciprocalDaughterWeight 56 65 = (8 : ℝ) / 15 := by
+    rw [canonicalRoughLowQ2Owners_56]
+    norm_num [lowOwnerReciprocalDaughterWeight, rawQ2ChildCutoff,
+      squareRootEndpoint]
+  rw [h65]
+  norm_num
+
+/-- The owner edge 1 -> 3 gives a second obstruction to a raw coefficient
+Poincare bound: the scalar AMP weights agree, while the Mobius sign flips.
+Thus the coefficient gradient is zero although the signed Gram atom is nonzero.
+The full fresh-prime four-corner cancellation is needed before gradients can
+control covariance. -/
+theorem firstOwner_three_edge_zero_weightGradient_nonzero_siteProduct :
+    IsSquarefreePairFreshPrimeOwner 3 1 3 ∧
+      lowOwnerZeroFrequencyMobiusWeight 56 1 =
+        lowOwnerZeroFrequencyMobiusWeight 56 3 ∧
+      lowOwnerZeroFrequencyMobiusSite 56 1 *
+          lowOwnerZeroFrequencyMobiusSite 56 3 ≠ 0 := by
+  have howner : IsSquarefreePairFreshPrimeOwner 3 1 3 := by
+    native_decide
+  have hthree :
+      lowOwnerReciprocalDaughterWeight 56 3 = (71 : ℝ) / 105 := by
+    rw [canonicalRoughLowQ2Owners_56]
+    norm_num [lowOwnerReciprocalDaughterWeight, rawQ2ChildCutoff,
+      squareRootEndpoint]
+  have hweight1 :
+      lowOwnerZeroFrequencyMobiusWeight 56 1 = (71 : ℝ) / 105 := by
+    unfold lowOwnerZeroFrequencyMobiusWeight
+    rw [lowOwnerReciprocalDaughterWeight_56_one]
+    norm_num [lowOwnerFarTailWeight]
+  have hweight3 :
+      lowOwnerZeroFrequencyMobiusWeight 56 3 = (71 : ℝ) / 105 := by
+    unfold lowOwnerZeroFrequencyMobiusWeight
+    rw [hthree]
+    norm_num [lowOwnerFarTailWeight]
+  have hsite3 :
+      lowOwnerZeroFrequencyMobiusSite 56 3 = -((71 : ℝ) / 105) := by
+    unfold lowOwnerZeroFrequencyMobiusSite
+    rw [hweight3]
+    have hflip :=
+      realMoebiusStep_mul_prime_eq_neg
+        (p := 3) (n := 1) (by norm_num : Nat.Prime 3) (by norm_num : ¬ 3 ∣ 1)
+    have hmu1 : realMoebiusStep 1 = 1 := by
+      norm_num [realMoebiusStep]
+    have hmu3 : realMoebiusStep 3 = -1 := by
+      simpa [hmu1] using hflip
+    rw [hmu3]
+    ring
+  refine ⟨howner, ?_, ?_⟩
+  · rw [hweight1, hweight3]
+  · rw [lowOwnerZeroFrequencyMobiusSite_56_one, hsite3]
+    norm_num
+
 end RHLean.Proof
