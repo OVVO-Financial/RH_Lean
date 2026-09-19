@@ -223,6 +223,53 @@ theorem squareRootLowPrimeMassTransfer_iff_responseForestRootShallowIdentity
   · intro h
     linarith
 
+/-- **Child-Euler form of the kill-shot seam.**  The complete owned response
+cofactor mass is the disjoint sum of response roots and incoming internal-born
+children.  Substituting that exact partition removes both cofactor terms from
+the preceding criterion.  Mass transfer is therefore equivalent to one
+identity involving only the initial shallow mass and the two response-child
+populations. -/
+theorem squareRootLowPrimeMassTransfer_iff_responseChildEulerIdentity
+    {R K j U : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) (hUR : U < R) :
+    (squareRootLowPrimeRunningImbalanceReal R K j U =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K U +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) ↔
+      (squareRootLowPrimeRunningImbalanceReal R K j K +
+          (squareRootLowPrimeBornInternalChildMass R K U).re +
+          (squareRootLowPrimePostRootChildMass R K U).re =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) := by
+  rw [squareRootLowPrimeMassTransfer_iff_responseForestRootShallowIdentity
+    hR hK hKU hUR]
+  have hsplit := congrArg Complex.re
+    (squareRootLowPrimeOwnedResponseCofactorMass_eq_root_add_internal
+      (R := R) (K := K) (U := U) hUR)
+  simp only [map_add] at hsplit
+  constructor <;> intro h <;> linarith
+
+/-- Same criterion with `T(K)` replaced by the literal complete shallow
+creation carrier.  This is the finite Euler-characteristic statement left to
+close: shallow creation roots plus all internal/post-root response children
+must equal head minus packet plus the exact root-equality boundary. -/
+theorem squareRootLowPrimeMassTransfer_iff_creationResponseChildEulerIdentity
+    {R K j U : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) (hUR : U < R) :
+    (squareRootLowPrimeRunningImbalanceReal R K j U =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K U +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) ↔
+      ((∑ x ∈ squareRootLowPrimeCreationCarrierExact R K j,
+          squareRootLowPrimeCreationWeightReal x) +
+          (squareRootLowPrimeBornInternalChildMass R K U).re +
+          (squareRootLowPrimePostRootChildMass R K U).re =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) := by
+  rw [squareRootLowPrimeMassTransfer_iff_responseChildEulerIdentity
+    hR hK hKU hUR]
+  rw [squareRootLowPrimeCreationCarrierExact_realWeight_sum]
+
 /-! ## Canonical unmatched-frontier normal form -/
 
 /-- **Exact first-Othello normal form.**  Specializing the generic
