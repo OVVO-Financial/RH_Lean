@@ -214,6 +214,75 @@ theorem squareRootLowPrimeNonBornFallout_noLater_iff_mem_terminalResponseTail
   · intro h
     exact le_trans (le_max_right _ _) h.1
 
+/-! ## Exact terminal no-reentry fibre -/
+
+/-- Literal terminal seat interval after the first failed owner and every later
+response height have both been accounted for. -/
+def squareRootLowPrimeTerminalNoReentrySeatIndices
+    (R K j U p c : ℕ) : Finset ℕ :=
+  Finset.Ico
+    (max
+      (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
+      (squareRootLowPrimeLaterResponseCeiling R K j U p c))
+    (squareRootLowPrimeCombinedFreshResponse R K j c)
+
+/-- Exact width of the terminal no-reentry response tail. -/
+def squareRootLowPrimeTerminalNoReentryWidth
+    (R K j U p c : ℕ) : ℕ :=
+  squareRootLowPrimeCombinedFreshResponse R K j c -
+    max
+      (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
+      (squareRootLowPrimeLaterResponseCeiling R K j U p c)
+
+@[simp] theorem card_squareRootLowPrimeTerminalNoReentrySeatIndices
+    (R K j U p c : ℕ) :
+    (squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c).card =
+      squareRootLowPrimeTerminalNoReentryWidth R K j U p c := by
+  simp [squareRootLowPrimeTerminalNoReentrySeatIndices,
+    squareRootLowPrimeTerminalNoReentryWidth]
+
+/-- One cofactor's terminal no-reentry unit-seat fibre. -/
+def squareRootLowPrimeTerminalNoReentryFiber
+    (R K j U p c : ℕ) : Finset SquareRootLowPrimeProcessedState :=
+  (squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c).image
+    fun s => some (c, s)
+
+@[simp] theorem mem_squareRootLowPrimeTerminalNoReentryFiber
+    {R K j U p c s : ℕ} :
+    some (c, s) ∈ squareRootLowPrimeTerminalNoReentryFiber R K j U p c ↔
+      s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c := by
+  simp [squareRootLowPrimeTerminalNoReentryFiber]
+
+/-- The terminal no-reentry fibre has no hidden multiplicity: its signed mass is
+one native cofactor sign times the exact terminal response width. -/
+theorem squareRootLowPrimeTerminalNoReentryFiber_weight_sum
+    (R K j U p c : ℕ) :
+    (∑ x ∈ squareRootLowPrimeTerminalNoReentryFiber R K j U p c,
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      ((-μ c : ℤ) : ℝ) *
+        (squareRootLowPrimeTerminalNoReentryWidth R K j U p c : ℝ) := by
+  unfold squareRootLowPrimeTerminalNoReentryFiber
+  calc
+    (∑ x ∈
+        (squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c).image
+          (fun s => some (c, s)),
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      ∑ s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c,
+        squareRootLowPrimeProcessedSeatWeightReal (some (c, s)) := by
+      apply Finset.sum_image
+      intro a _ha b _hb hab
+      simpa using hab
+    _ = ∑ _s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c,
+        ((-μ c : ℤ) : ℝ) := by
+      rfl
+    _ = ((-μ c : ℤ) : ℝ) *
+        ((squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c).card : ℝ) := by
+      simp
+      ring
+    _ = ((-μ c : ℤ) : ℝ) *
+        (squareRootLowPrimeTerminalNoReentryWidth R K j U p c : ℝ) := by
+      rw [card_squareRootLowPrimeTerminalNoReentrySeatIndices]
+
 /-- **Exact dynamic exhaustiveness.**  A non-born first-owner fallout either
 never re-enters at any later processed prime, or the first witnessed re-entry
 routes pointwise into the already-compiled Go two-boundary shell.
