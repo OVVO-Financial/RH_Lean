@@ -151,6 +151,17 @@ theorem squareRootLowPrimeSecondBoundaryDefect_fullFace_cancel
 
 /-! ## Exact identification of the response-forest exit mass -/
 
+/-- For every processed cutoff below the root, the response forest's born
+frontier is exactly the `BornExit` carrier with the same child Möbius weight. -/
+theorem squareRootLowPrimeBornFrontierChildMass_re_eq_bornExitBoundaryMassReal_of_lt
+    {R K U : ℕ} (hUR : U < R) :
+    (squareRootLowPrimeBornFrontierChildMass R K U).re =
+      squareRootLowPrimeBornExitBoundaryMassReal R K U := by
+  rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hUR]
+  unfold squareRootLowPrimeBornFrontierChildMass
+    squareRootLowPrimeBornExitBoundaryMassReal
+  simp [canonicalMoebiusWeight]
+
 /-- At the canonical cutoff the response forest's born frontier is exactly the
 `BornExit` carrier, with the same child Möbius weight.  This is an equality of
 signed masses, not merely the previously compiled cardinality comparison. -/
@@ -168,6 +179,49 @@ theorem squareRootLowPrimeBornFrontierChildMass_re_eq_bornExitBoundaryMassReal
   unfold squareRootLowPrimeBornFrontierChildMass
     squareRootLowPrimeBornExitBoundaryMassReal
   simp [canonicalMoebiusWeight]
+
+/-- **Response-forest elimination of BornExit.**
+
+After the complete response-forest involution, the born frontier is already
+the `BornExit` mass on the target side, so it cancels from the mass-transfer
+equation.  What remains is one exact signed Euler-characteristic seam between
+the initial shallow state and the response root/post-root terms:
+
+`T(K) - RootCofactor + OwnedCofactor + PostRootChild = 1 - V + RootEquality`.
+
+No norm, cardinality bound, or asymptotic input occurs. -/
+theorem squareRootLowPrimeMassTransfer_iff_responseForestRootShallowIdentity
+    {R K j U : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) (hUR : U < R) :
+    (squareRootLowPrimeRunningImbalanceReal R K j U =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K U +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) ↔
+      (squareRootLowPrimeRunningImbalanceReal R K j K -
+          (squareRootLowPrimeResponseRootCofactorMass R K U).re +
+          (squareRootLowPrimeOwnedResponseCofactorMass R K U).re +
+          (squareRootLowPrimePostRootChildMass R K U).re =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) := by
+  have hforest :
+      squareRootLowPrimeRunningImbalanceReal R K j K -
+          squareRootLowPrimeRunningImbalanceReal R K j U =
+        (squareRootLowPrimeResponseRootCofactorMass R K U).re -
+          (squareRootLowPrimeOwnedResponseCofactorMass R K U).re -
+          (squareRootLowPrimeBornFrontierChildMass R K U).re -
+          (squareRootLowPrimePostRootChildMass R K U).re := by
+    simpa using squareRootLowPrimeRunningImbalanceReal_sub_eq_responseForestBoundary
+      (R := R) (K := K) (j := j) (U := U) hR hK hKU hUR
+  have hborn :
+      (squareRootLowPrimeBornFrontierChildMass R K U).re =
+        squareRootLowPrimeBornExitBoundaryMassReal R K U :=
+    squareRootLowPrimeBornFrontierChildMass_re_eq_bornExitBoundaryMassReal_of_lt
+      hUR
+  constructor
+  · intro h
+    linarith
+  · intro h
+    linarith
 
 /-! ## Canonical unmatched-frontier normal form -/
 
