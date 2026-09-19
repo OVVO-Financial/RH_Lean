@@ -1301,4 +1301,91 @@ theorem root_le_squareRootEndpoint
   have h : R + 1 ≤ R ^ 2 := by nlinarith
   omega
 
+
+/-! ## One-step clip as an exact difference of scalar squares
+
+Weighted Othello turns the interior finite-difference amplitude into the
+difference between the total scalar amplitude and its literal escape
+amplitude.  Substituting this into the preceding product factorization makes
+each scalar Stokes boundary a difference of two squares.
+-/
+
+/-- Half of the signed interior owner-difference amplitude is exactly total
+amplitude minus escape amplitude. -/
+theorem half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_escape
+    {r : ℕ} (hr : r.Prime) (S : Finset ℕ) (g : ℕ → ℝ) :
+    (1 / 2 : ℝ) *
+        lowOwnerStokesSignedOwnerDifferenceAmplitude r
+          (primeInteriorPart r S) g =
+      lowOwnerStokesSignedScalarAmplitude S g -
+        lowOwnerStokesSignedScalarAmplitude (primeEscapePart r S) g := by
+  have h :=
+    sum_weightedMoebius_eq_escape_add_half_interiorDifference
+      hr S g
+  unfold lowOwnerStokesSignedScalarAmplitude
+    lowOwnerStokesSignedOwnerDifferenceAmplitude at *
+  linarith
+
+/-- On one returned-core first-owner cell, the fresh-r escape amplitude is the
+literal physical Dirichlet clip amplitude. -/
+theorem half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_dirichletClip
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r)
+    (g : ℕ → ℝ) :
+    (1 / 2 : ℝ) *
+        lowOwnerStokesSignedOwnerDifferenceAmplitude r
+          (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig)) g =
+      lowOwnerStokesSignedScalarAmplitude
+          (lowOwnerFirstOwnerBaseFiber R p sig) g -
+        lowOwnerStokesSignedScalarAmplitude
+          (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) g := by
+  have h :=
+    half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_escape
+      hr (lowOwnerFirstOwnerBaseFiber R p sig) g
+  rw [lowOwnerFirstOwner_primeEscapePart_eq_dirichletClipFace hp hr hpr] at h
+  exact h
+
+/-- **Exact one-step square-decrement normal form.**
+
+For each of the three scalar coordinates (incidence/base/returned), the Stokes
+escape contribution is the decrease of its signed scalar square under removal
+of the escape amplitude.  The polarization boundary is their signed
+combination. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedSquareDecrements
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    let A := lowOwnerFirstOwnerBaseFiber R p sig
+    let E := lowOwnerFirstOwnerStokesDirichletClipFace R p sig r
+    let inc := lowOwnerDirichletIncidenceCoefficient R p
+    let base := lowOwnerDirichletBaseCoefficient R
+    let ret := lowOwnerDirichletReturnedCoefficient R p
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      (lowOwnerStokesSignedScalarAmplitude A inc ^ 2 -
+        (lowOwnerStokesSignedScalarAmplitude A inc -
+          lowOwnerStokesSignedScalarAmplitude E inc) ^ 2) -
+      (lowOwnerStokesSignedScalarAmplitude A base ^ 2 -
+        (lowOwnerStokesSignedScalarAmplitude A base -
+          lowOwnerStokesSignedScalarAmplitude E base) ^ 2) -
+      (lowOwnerStokesSignedScalarAmplitude A ret ^ 2 -
+        (lowOwnerStokesSignedScalarAmplitude A ret -
+          lowOwnerStokesSignedScalarAmplitude E ret) ^ 2) := by
+  dsimp only
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_signedAmplitudeProducts
+      hp hr hpr]
+  have hi :=
+    half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_dirichletClip
+      (R := R) (p := p) (r := r) (sig := sig) hp hr hpr
+      (lowOwnerDirichletIncidenceCoefficient R p)
+  have hb :=
+    half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_dirichletClip
+      (R := R) (p := p) (r := r) (sig := sig) hp hr hpr
+      (lowOwnerDirichletBaseCoefficient R)
+  have hj :=
+    half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_dirichletClip
+      (R := R) (p := p) (r := r) (sig := sig) hp hr hpr
+      (lowOwnerDirichletReturnedCoefficient R p)
+  nlinarith
+
 end RHLean.Proof
