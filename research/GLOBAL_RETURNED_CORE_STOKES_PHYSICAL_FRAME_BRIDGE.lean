@@ -136,10 +136,10 @@ theorem one_ninth_le_lowOwnerStokesOddPrimePeriodSet_reciprocalSquareMass
     (f := fun p => ((1 : ℝ) / (p : ℝ)) ^ 2) h3
   have hrest :
       0 ≤ ∑ p ∈ (lowOwnerStokesOddPrimePeriodSet R).erase 3,
-        ((1 : ℝ) / (p : ℝ)) ^ 2 := by
+        (((p : ℝ) ^ 2)⁻¹) := by
     positivity
   norm_num at hsplit ⊢
-  nlinarith
+  linarith
 
 /-- The natural prime-period frame is itself root-scale from below.  No
 off-diagonal alignment is needed: the prime-3 diagonal alone gives
@@ -626,9 +626,9 @@ theorem lowOwnerStokesTopTerminalOwnerSet_subset_top_two
   let t := lowOwnerStokesTopPrime R hR
   let s := lowOwnerStokesSecondPrime R hR
   by_cases hpt : p = t
-  · simp [hpt]
+  · simp [hpt, t]
   by_cases hps : p = s
-  · simp [hps]
+  · simp [hps, s]
   exfalso
   have htS : t ∈ primesUpTo (squareRootEndpoint R) := by
     simpa [t] using lowOwnerStokesTopPrime_mem hR
