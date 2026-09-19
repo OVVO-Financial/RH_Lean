@@ -1,5 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION»
+import «research.GLOBAL_RETURNED_CORE_STOKES_TERMINAL_CLASSIFICATION»
 
 /-!
 # One-dimensional amplitude factorization of Stokes clip steps
@@ -70,6 +71,29 @@ def lowOwnerStokesSignedAmplitude
     (S : Finset ℕ) (f : ℕ → ℝ) : ℝ :=
   ∑ n ∈ S, othelloRealMoebius n * f n
 
+private theorem sum_product_mobius_separable
+    (A B : Finset ℕ) (f g : ℕ → ℝ) :
+    (∑ mn ∈ A.product B,
+      (othelloRealMoebius mn.1 * f mn.1) *
+        (othelloRealMoebius mn.2 * g mn.2)) =
+      lowOwnerStokesSignedAmplitude A f *
+        lowOwnerStokesSignedAmplitude B g := by
+  unfold lowOwnerStokesSignedAmplitude
+  rw [Finset.sum_product]
+  calc
+    (∑ a ∈ A, ∑ b ∈ B,
+      (othelloRealMoebius a * f a) *
+        (othelloRealMoebius b * g b)) =
+      ∑ a ∈ A,
+        (othelloRealMoebius a * f a) *
+          (∑ b ∈ B, othelloRealMoebius b * g b) := by
+        apply Finset.sum_congr rfl
+        intro a _ha
+        rw [Finset.mul_sum]
+    _ = (∑ a ∈ A, othelloRealMoebius a * f a) *
+        (∑ b ∈ B, othelloRealMoebius b * g b) := by
+      rw [Finset.sum_mul]
+
 /-- A cross scalar on a Cartesian product factors exactly into two signed
 one-dimensional amplitude products. -/
 theorem pairWeightedStokesMass_product_crossScalar
@@ -106,16 +130,8 @@ theorem pairWeightedStokesMass_product_crossScalar
           (∑ b ∈ B, othelloRealMoebius b * J b)) -
         ((∑ a ∈ A, othelloRealMoebius a * J a) *
           (∑ b ∈ B, othelloRealMoebius b * L b)) := by
-            rw [Finset.sum_product, Finset.sum_product]
-            congr 1
-            · rw [Finset.sum_mul]
-              apply Finset.sum_congr rfl
-              intro a _ha
-              rw [Finset.mul_sum]
-            · rw [Finset.sum_mul]
-              apply Finset.sum_congr rfl
-              intro a _ha
-              rw [Finset.mul_sum]
+            rw [sum_product_mobius_separable,
+              sum_product_mobius_separable]
     _ = _ := by rfl
 
 /-- **Exact amplitude form of one Stokes boundary step.**
@@ -144,7 +160,8 @@ theorem pairWeightedStokesBoundaryStep_product_crossScalar
   rw [pairPrimeMixedDifference_crossScalar] at hstep
   rw [pairWeightedStokesMass_product_crossScalar,
     pairWeightedStokesMass_product_crossScalar] at hstep
-  linear_combination hstep
+  ring_nf at hstep ⊢
+  linarith
 
 /-- Specialization to one literal first-owner Stokes cell.  The pair boundary
 is now expressed wholly through one-dimensional signed amplitudes. -/
