@@ -911,4 +911,60 @@ theorem lowOwnerThresholdIncidencePairMass_eq_neg_rightMovedIncidence
       (squarefreePrimeFamilyParent_pos_public hr hb)] at h
   exact h
 
+
+/-! ## Direct owner-to-frame identification is impossible
+
+A genuine admissibility proof must collapse the physical large-owner escape
+payload into the sub-root natural-wheel coordinates.  The canonical Stokes
+schedule itself cannot be reused as the prime-period frame schedule: its first
+remaining owner lies above half the physical clock, whereas every frame period
+prime lies strictly below R.
+-/
+
+/-- Every active natural prime-period coordinate lies strictly below the root
+parameter in the RH-consumer regime. -/
+theorem lowOwnerStokesOddPrimePeriodSet_lt_root
+    {R p : ℕ} (hR : 56 ≤ R)
+    (hp : p ∈ lowOwnerStokesOddPrimePeriodSet R) :
+    p < R := by
+  have hpWheel : p ∈ lowOwnerStokesWheelPrimes R :=
+    (Finset.mem_erase.mp hp).2
+  have hpCut : p ≤ Nat.sqrt (squareRootEndpoint R) := by
+    unfold lowOwnerStokesWheelPrimes at hpWheel
+    exact (mem_primesUpTo.mp hpWheel).2
+  have hroot : Nat.sqrt (squareRootEndpoint R) < R := by
+    apply (Nat.sqrt_lt').2
+    unfold squareRootEndpoint
+    have hpos : 0 < R ^ 2 := by positivity
+    omega
+  exact hpCut.trans_lt hroot
+
+/-- In the RH-consumer regime the physical half-clock already lies at or above
+the root parameter. -/
+theorem root_le_half_squareRootEndpoint
+    {R : ℕ} (hR : 56 ≤ R) :
+    R ≤ squareRootEndpoint R / 2 := by
+  unfold squareRootEndpoint
+  omega
+
+/-- **Support no-go for a direct admissibility map.**  The head of every
+nonempty canonical Stokes schedule is outside the natural odd prime-period
+frame.  Thus the physical escape owner cannot simply be relabelled as a frame
+mode; a real proof must first perform the signed large-owner -> sub-root
+collapse. -/
+theorem lowOwnerFirstOwnerCanonicalStokesSchedule_head_not_mem_primePeriodFrame
+    {R p q : ℕ} {qs : List ℕ}
+    (hR : 56 ≤ R)
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = q :: qs) :
+    q ∉ lowOwnerStokesOddPrimePeriodSet R := by
+  intro hqFrame
+  have hqRoot : q < R :=
+    lowOwnerStokesOddPrimePeriodSet_lt_root hR hqFrame
+  have hqTop :=
+    lowOwnerFirstOwnerCanonicalStokesSchedule_head_gt_half
+      (R := R) (p := p) (q := q) (qs := qs) (by omega) hps
+  have hRhalf : R ≤ squareRootEndpoint R / 2 :=
+    root_le_half_squareRootEndpoint hR
+  omega
+
 end RHLean.Proof
