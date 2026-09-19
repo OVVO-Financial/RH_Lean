@@ -208,6 +208,80 @@ example :
     largePrimeEulerCubeAt 100 1 19 (primesUpTo 10) = -2 := by
   native_decide
 
+/-! ## Coupled smooth/large-prime Euler recurrence
+
+The correct object for the user's "every added prime offsets the previous
+copies" picture is not the post-root sum in isolation. Keep the complete
+low-prime cube and all post-root fibres in one signed state. A fresh low prime
+then acts on the whole coupled state by the same multiplicative finite
+difference.
+-/
+
+/-- Coupled low-cube minus large-prime-extension state. The outer cap U is
+fixed; primes beyond the current inner endpoint are harmless because their
+reciprocal cutoff is zero. Keeping U fixed makes the Euler recurrence literal,
+with no changing-index-set bookkeeping. -/
+def coupledLargePrimeEulerResidual
+    (U R Y : ℕ) (S : Finset ℕ) : ℤ :=
+  frozenPrimeUniverseMass S Y -
+    ∑ p ∈ Finset.range (U + 1),
+      if R < p ∧ p.Prime then
+        frozenPrimeUniverseMass S (Y / p)
+      else 0
+
+/-- Reciprocal floor shifts by two coordinates commute. -/
+theorem div_div_comm (Y p q : ℕ) :
+    (Y / p) / q = (Y / q) / p := by
+  rw [Nat.div_div_eq_div_mul, Nat.div_div_eq_div_mul, Nat.mul_comm p q]
+
+/-- Coupled fresh-prime Euler law. A fresh prime acts simultaneously on the
+smooth cube and on every large-prime extension fibre:
+G_(S union q)(Y) = G_S(Y) - G_S(floor(Y/q)).
+No norm, prime-counting approximation, or endpoint estimate occurs. -/
+theorem coupledLargePrimeEulerResidual_insert
+    {U R Y q : ℕ} {S : Finset ℕ}
+    (hq : q ∉ S) (hqPrime : q.Prime) :
+    coupledLargePrimeEulerResidual U R Y (insert q S) =
+      coupledLargePrimeEulerResidual U R Y S -
+        coupledLargePrimeEulerResidual U R (Y / q) S := by
+  unfold coupledLargePrimeEulerResidual
+  rw [frozenPrimeUniverseMass_insert hq hqPrime]
+  have hsum :
+      (∑ p ∈ Finset.range (U + 1),
+        if R < p ∧ p.Prime then
+          frozenPrimeUniverseMass (insert q S) (Y / p)
+        else 0) =
+      (∑ p ∈ Finset.range (U + 1),
+        if R < p ∧ p.Prime then
+          frozenPrimeUniverseMass S (Y / p)
+        else 0) -
+      (∑ p ∈ Finset.range (U + 1),
+        if R < p ∧ p.Prime then
+          frozenPrimeUniverseMass S ((Y / q) / p)
+        else 0) := by
+    rw [← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro p _hp
+    by_cases hpLarge : R < p ∧ p.Prime
+    · simp only [hpLarge, if_true]
+      rw [frozenPrimeUniverseMass_insert hq hqPrime]
+      rw [div_div_comm Y p q]
+    · simp [hpLarge]
+  rw [hsum]
+  ring
+
+/-- At X=30, processing 2 and then 3 in the coupled state is exactly the
+iterated Euler finite difference, rather than a heuristic cancellation. -/
+example :
+    coupledLargePrimeEulerResidual 30 5 30 ({2, 3} : Finset ℕ) =
+      coupledLargePrimeEulerResidual 30 5 30 ({2} : Finset ℕ) -
+        coupledLargePrimeEulerResidual 30 5 10 ({2} : Finset ℕ) := by
+  have h3 : 3 ∉ ({2} : Finset ℕ) := by norm_num
+  simpa [Finset.insert_comm] using
+    (coupledLargePrimeEulerResidual_insert
+      (U := 30) (R := 5) (Y := 30) (q := 3)
+      (S := ({2} : Finset ℕ)) h3 (by norm_num : Nat.Prime 3))
+
 /-! ## Aggregate square-endpoint identification -/
 
 /-- Sum of all post-root truncated Euler cubes at the square endpoint.  This is
