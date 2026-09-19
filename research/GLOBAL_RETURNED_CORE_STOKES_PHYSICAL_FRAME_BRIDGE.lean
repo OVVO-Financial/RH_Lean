@@ -1577,4 +1577,38 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_existingEscapeCrossTerms
       hp hr hpr]
   ring
 
+
+/-! ## Global audit: the clip is the full owner telescope minus terminal
+
+This identity pins the analytic status of the admissibility problem.  The clip
+is not an auxiliary small boundary created by the Stokes coordinate change: it
+is exactly the full first-owner off-diagonal telescope with only the zero/one
+remaining-owner terminal ledger removed.
+-/
+
+/-- **Exact global clip audit.** -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_signedOwnerTelescope_sub_terminal
+    {R : ℕ} (hR : 2 ≤ R) :
+    lowOwnerCanonicalSignedStokesClipBoundary R =
+      (∑ p ∈ primesUpTo (squareRootEndpoint R),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerSignedCellTelescope R p sig) -
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
+  have hfinal :=
+    sum_lowOwnerFirstOwnerSignedCellTelescope_eq_finalStokesBoundary
+      (R := R) hR
+  have hsplit :=
+    lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_topTerminal R
+  linarith
+
+/-- Same identity in the original first-owner Gram currency. -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_two_firstOwnerGram_sub_terminal
+    {R : ℕ} (hR : 2 ≤ R) :
+    lowOwnerCanonicalSignedStokesClipBoundary R =
+      2 * (∑ p ∈ primesUpTo (squareRootEndpoint R),
+        lowOwnerZeroFrequencyFirstOwnerGram R p) -
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
+  rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_signedOwnerTelescope_sub_terminal hR]
+  rw [← two_mul_sum_lowOwnerZeroFrequencyFirstOwnerGram_eq_signedOwnerTelescope]
+
 end RHLean.Proof
