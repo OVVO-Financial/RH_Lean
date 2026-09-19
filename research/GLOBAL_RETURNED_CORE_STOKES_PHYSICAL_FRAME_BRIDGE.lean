@@ -131,16 +131,15 @@ theorem one_ninth_le_lowOwnerStokesOddPrimePeriodSet_reciprocalSquareMass
       ∑ p ∈ lowOwnerStokesOddPrimePeriodSet R,
         ((1 : ℝ) / (p : ℝ)) ^ 2 := by
   have h3 := three_mem_lowOwnerStokesOddPrimePeriodSet hR
-  have hsingle :
-      ((1 : ℝ) / (3 : ℝ)) ^ 2 ≤
-        ∑ p ∈ lowOwnerStokesOddPrimePeriodSet R,
-          ((1 : ℝ) / (p : ℝ)) ^ 2 := by
-    exact Finset.single_le_sum
-      (s := lowOwnerStokesOddPrimePeriodSet R)
-      (f := fun p => ((1 : ℝ) / (p : ℝ)) ^ 2)
-      (fun p _hp => sq_nonneg ((1 : ℝ) / (p : ℝ))) h3
-  norm_num at hsingle ⊢
-  exact hsingle
+  have hsplit := Finset.sum_erase_add
+    (s := lowOwnerStokesOddPrimePeriodSet R)
+    (f := fun p => ((1 : ℝ) / (p : ℝ)) ^ 2) h3
+  have hrest :
+      0 ≤ ∑ p ∈ (lowOwnerStokesOddPrimePeriodSet R).erase 3,
+        ((1 : ℝ) / (p : ℝ)) ^ 2 := by
+    positivity
+  norm_num at hsplit ⊢
+  nlinarith
 
 /-- The natural prime-period frame is itself root-scale from below.  No
 off-diagonal alignment is needed: the prime-3 diagonal alone gives
@@ -280,7 +279,8 @@ private theorem lowOwnerStokesFullPrimeSet_nonempty
     (primesUpTo (squareRootEndpoint R)).Nonempty := by
   refine ⟨2, mem_primesUpTo.mpr ⟨Nat.prime_two, ?_⟩⟩
   unfold squareRootEndpoint
-  nlinarith
+  have hsq : 3 ≤ R ^ 2 := by nlinarith
+  omega
 
 /-- Largest physical first-owner prime on the square clock. -/
 def lowOwnerStokesTopPrime (R : ℕ) (hR : 56 ≤ R) : ℕ :=
@@ -301,14 +301,16 @@ private theorem lowOwnerStokesEraseTop_nonempty
     constructor
     · norm_num
     · unfold squareRootEndpoint
-      nlinarith
+      have hsq : 6 ≤ R ^ 2 := by nlinarith
+      omega
   have htop5 :
       5 ≤ lowOwnerStokesTopPrime R hR :=
     Finset.le_max' _ 5 h5
   have h2 : 2 ∈ primesUpTo (squareRootEndpoint R) := by
     exact mem_primesUpTo.mpr ⟨Nat.prime_two, by
       unfold squareRootEndpoint
-      nlinarith⟩
+      have hsq : 3 ≤ R ^ 2 := by nlinarith
+      omega⟩
   have hne : 2 ≠ lowOwnerStokesTopPrime R hR := by omega
   exact ⟨2, Finset.mem_erase.mpr ⟨hne, h2⟩⟩
 
@@ -390,9 +392,7 @@ theorem lowOwnerStokesSecondPrime_schedule_eq_single_top
     omega
   have hnodup :=
     lowOwnerFirstOwnerCanonicalStokesSchedule_nodup R s
-  generalize hsched :
-      lowOwnerFirstOwnerCanonicalStokesSchedule R s = ps at
-      htSched huniq hnodup
+  generalize hsched : lowOwnerFirstOwnerCanonicalStokesSchedule R s = ps at htSched huniq hnodup
   cases ps with
   | nil =>
       simp at htSched
@@ -449,7 +449,8 @@ theorem squareRootEndpoint_half_lt_lowOwnerStokesTopPrime
     squareRootEndpoint R / 2 < lowOwnerStokesTopPrime R hR := by
   have hX : 3 ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
-    nlinarith
+    have hsq : 4 ≤ R ^ 2 := by nlinarith
+    omega
   have hhalf : squareRootEndpoint R / 2 ≠ 0 := by omega
   obtain ⟨q, hqPrime, hqLow, hqHigh⟩ :=
     Nat.exists_prime_lt_and_le_two_mul (squareRootEndpoint R / 2) hhalf
@@ -475,7 +476,7 @@ theorem lowOwnerStokesTopPrime_schedule_eq_nil
   have hqLe :
       q ≤ lowOwnerStokesTopPrime R hR :=
     Finset.le_max' _ q hqMem
-  exact Nat.not_lt_of_ge hqLe
+  simpa only [decide_eq_true_eq] using (Nat.not_lt_of_ge hqLe)
 
 /-- A top-owner admitted cofactor is forced to one. -/
 theorem lowOwnerStokesTopPrime_admittedBase_eq_one
@@ -496,12 +497,9 @@ theorem lowOwnerStokesTopPrime_admittedBase_eq_one
   have ha2 : 2 ≤ a := by omega
   have hmul :
       2 * lowOwnerStokesTopPrime R hR ≤
-        a * lowOwnerStokesTopPrime R hR :=
-    Nat.mul_le_mul_right (lowOwnerStokesTopPrime R hR) ha2
-  have hmul' :
-      a * lowOwnerStokesTopPrime R hR =
-        lowOwnerStokesTopPrime R hR * a := by omega
-  rw [hmul'] at hmul
+        lowOwnerStokesTopPrime R hR * a := by
+    simpa [Nat.mul_comm] using
+      Nat.mul_le_mul_right (lowOwnerStokesTopPrime R hR) ha2
   omega
 
 
@@ -532,14 +530,15 @@ theorem lowOwnerStokesTopPrime_emptyBase_eq_one
     subst q
     exact hdata.2 hqDvd
   have hqLtTop : q < lowOwnerStokesTopPrime R hR := by omega
-  have hqFace : q ∈ squarefreePrimeFace a :=
-    (prime_mem_squarefreePrimeFace_iff_dvd_public hqPrime haPos).2 hqDvd
+  have hqFace : q ∈ squarefreePrimeFace a := by
+    unfold squarefreePrimeFace
+    exact Nat.mem_primeFactors.mpr ⟨hqPrime, hqDvd, Nat.ne_of_gt haPos⟩
   have hqSig :
       q ∈ squarefreeLowerPrimeSignature
         (lowOwnerStokesTopPrime R hR) a :=
     Finset.mem_filter.mpr ⟨hqFace, hqLtTop⟩
   rw [hdata.1] at hqSig
-  simpa using hqSig
+  simp at hqSig
 
 theorem lowOwnerStokesTopPrime_emptyBaseAmplitude_nonneg
     {R : ℕ} (hR : 56 ≤ R) :
@@ -612,7 +611,7 @@ theorem sum_lowOwnerStokesTopPrimeTerminal_nonpos
     nlinarith
   · rw [lowOwnerStokesTopPrime_returnedAmplitude_eq_zero_of_signature_ne_empty
       hR hsig]
-    ring
+    norm_num
 
 /-- **Exceptional terminal support is literally the top two first-owner
 coordinates.**  Any lower prime has both the top and second-top primes in its
@@ -627,9 +626,9 @@ theorem lowOwnerStokesTopTerminalOwnerSet_subset_top_two
   let t := lowOwnerStokesTopPrime R hR
   let s := lowOwnerStokesSecondPrime R hR
   by_cases hpt : p = t
-  · simp [hpt, t, s]
+  · simp [hpt]
   by_cases hps : p = s
-  · simp [hps, t, s]
+  · simp [hps]
   exfalso
   have htS : t ∈ primesUpTo (squareRootEndpoint R) := by
     simpa [t] using lowOwnerStokesTopPrime_mem hR
@@ -752,7 +751,7 @@ def LowOwnerStokesClipPrimePeriodFrameDomination (C : ℝ) : Prop :=
 has a fixed prime-3 diagonal, this apparently weaker target is already
 sufficient for prime-period frame domination. -/
 def LowOwnerStokesClipRootBound (A : ℝ) : Prop :=
-  ∀ (R : ℕ) (hR : 56 ≤ R),
+  ∀ (R : ℕ) (_hR : 56 ≤ R),
     lowOwnerCanonicalSignedStokesClipBoundary R ≤
       A * (R : ℝ) ^ 2
 
