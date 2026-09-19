@@ -147,6 +147,73 @@ def squareRootLowPrimeNoLaterSeatReentry
   ∀ q ∈ squareRootLowPrimeFreshPrimeSet K U, p < q →
     squareRootLowPrimeCombinedFreshResponse R K j (q * c) ≤ s
 
+/-- Maximum response height attained by any later processed prime.
+The empty later-prime set has ceiling zero via `Finset.sup`. -/
+def squareRootLowPrimeLaterResponseCeiling
+    (R K j U p c : ℕ) : ℕ :=
+  (((squareRootLowPrimeFreshPrimeSet K U).filter fun q => p < q).image
+      fun q => squareRootLowPrimeCombinedFreshResponse R K j (q * c)).sup id
+
+/-- Every later response is bounded by the finite later-response ceiling. -/
+theorem squareRootLowPrimeCombinedFreshResponse_le_laterResponseCeiling
+    {R K j U p c q : ℕ}
+    (hq : q ∈ squareRootLowPrimeFreshPrimeSet K U)
+    (hpq : p < q) :
+    squareRootLowPrimeCombinedFreshResponse R K j (q * c) ≤
+      squareRootLowPrimeLaterResponseCeiling R K j U p c := by
+  unfold squareRootLowPrimeLaterResponseCeiling
+  apply Finset.le_sup (f := id)
+  exact Finset.mem_image.mpr
+    ⟨q, Finset.mem_filter.mpr ⟨hq, hpq⟩, rfl⟩
+
+/-- The negative universal no-re-entry condition is exactly one positive
+inequality against the finite response ceiling. -/
+theorem squareRootLowPrimeNoLaterSeatReentry_iff_ceiling_le
+    {R K j U p c s : ℕ} :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ↔
+      squareRootLowPrimeLaterResponseCeiling R K j U p c ≤ s := by
+  constructor
+  · intro hno
+    unfold squareRootLowPrimeLaterResponseCeiling
+    apply Finset.sup_le
+    intro n hn
+    rcases Finset.mem_image.mp hn with ⟨q, hq, rfl⟩
+    rcases Finset.mem_filter.mp hq with ⟨hqSet, hpq⟩
+    exact hno q hqSet hpq
+  · intro hceil q hq hpq
+    exact
+      (squareRootLowPrimeCombinedFreshResponse_le_laterResponseCeiling
+        hq hpq).trans hceil
+
+/-- **Positive interval normal form for the terminal no-reentry branch.**
+Once a non-born first-owner fallout has occurred, absence of every later
+re-entry is equivalent to membership in one explicit finite seat interval. -/
+theorem squareRootLowPrimeNonBornFallout_noLater_iff_mem_terminalResponseTail
+    {R K j U p c s : ℕ}
+    (hR : 1 ≤ R)
+    (hp : p.Prime) (hpU : p ≤ U)
+    (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ↔
+      s ∈ Finset.Ico
+        (max
+          (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
+          (squareRootLowPrimeLaterResponseCeiling R K j U p c))
+        (squareRootLowPrimeCombinedFreshResponse R K j c) := by
+  have htail :=
+    squareRootLowPrimeNonBornFirstOwnerFalloff_is_responseTail
+      hR hp hpU hUR hs hnb hfall
+  rw [Finset.mem_Ico]
+  rw [squareRootLowPrimeNoLaterSeatReentry_iff_ceiling_le]
+  constructor
+  · intro hceil
+    exact ⟨max_le htail.1 hceil, htail.2⟩
+  · intro h
+    exact le_trans (le_max_right _ _) h.1
+
 /-- **Exact dynamic exhaustiveness.**  A non-born first-owner fallout either
 never re-enters at any later processed prime, or the first witnessed re-entry
 routes pointwise into the already-compiled Go two-boundary shell.
