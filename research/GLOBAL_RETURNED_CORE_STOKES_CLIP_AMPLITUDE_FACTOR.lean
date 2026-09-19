@@ -199,7 +199,7 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedAmplitudeProducts
 assembled base/returned cross amplitude of the cell. -/
 theorem lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_schedule_nil
     {R p : ℕ} {sig : Finset ℕ}
-    (hp : p.Prime)
+    (_hp : p.Prime)
     (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = []) :
     lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig =
       -2 * lowOwnerFirstOwnerBaseAmplitude R p sig *
