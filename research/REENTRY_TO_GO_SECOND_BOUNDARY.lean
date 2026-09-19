@@ -2,6 +2,9 @@ import Mathlib
 import RHLean.Proof.SquareRootLowPrimeResponseReentryBirthWitness
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 import RHLean.Proof.SquareRootLowPrimeGoFullFacePartner
+import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
+import RHLean.Proof.SquareRootLowPrimeDeepProcessedSeatBridge
+import RHLean.Proof.SquareRootLowPrimeNoTogglePopulationBound
 
 /-!
 # Response re-entry routes canonically into the Go two-boundary shell
@@ -136,5 +139,359 @@ theorem squareRootLowPrimeSecondBoundaryDefect_fullFace_cancel
           (squareRootLowPrimeGoSecondBoundaryFullFaceSource q t c)) = 0 := by
   exact squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
     hR ht hq hqt hcube hcDefect
+
+/-! ## Re-entry closes inside the response forest -/
+
+/-- **A scheduled non-born re-entry is already a response-forest event.**
+The newborn prime supplied by the re-entry theorem is a literal born response
+atom over the re-entered cofactor `q*c`.  It is therefore either internal to
+the processed prime interval, where the response-forest Othello involution
+cancels it against its arithmetic child, or it has crossed the owner cutoff and
+is literally a `BornNoSuccessor` / BornExit atom.
+
+This route has no Go cube hypothesis. -/
+theorem squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_exit
+    {R K j U p q c s : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K) (hc : 0 < c)
+    (hp : p.Prime)
+    (hqSet : q ∈ squareRootLowPrimeFreshPrimeSet K U)
+    (hrough : canonicalLargestPrimeFactor c < p) (hpq : p < q)
+    (hpU : p ≤ U) (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p)
+    (hqAlive : s < squareRootLowPrimeCombinedFreshResponse R K j (q * c)) :
+    ∃ t,
+      t.Prime ∧ q < t ∧ p * c < t ∧
+        ((q * c, t) ∈ squareRootLowPrimeBornInternalAtoms R K U ∨
+          (q * c, t) ∈ squareRootLowPrimeBornNoSuccessorAtoms R K U) := by
+  have hqData := Finset.mem_filter.mp hqSet
+  have hqPrime : q.Prime := hqData.2
+  have hqIoc := Finset.mem_Ioc.mp hqData.1
+  have hKq : K < q := hqIoc.1
+  have hqU : q ≤ U := hqIoc.2
+  obtain ⟨t, htBirth, hqt, hpct⟩ :=
+    squareRootLowPrimeNonBornFalloutReentry_birthWitness
+      (by omega) hc hp hqPrime hrough hpq hpU hUR hs hnb hfall hqAlive
+  have htBorn : t ∈ squareRootBornPartnerSet R (q * c) :=
+    (mem_squareRootBornPartnerBirthBoundary.mp htBirth).1
+  have htData := Finset.mem_filter.mp htBorn
+  have htPrime : t.Prime := htData.2.1
+  have hqcX : q * c ≤ squareRootEndpoint R := by
+    have hprod : (q * c) * t ≤ squareRootEndpoint R :=
+      htData.2.2.2.2
+    calc
+      q * c = (q * c) * 1 := by simp
+      _ ≤ (q * c) * t := Nat.mul_le_mul_left (q * c) (by omega)
+      _ ≤ squareRootEndpoint R := hprod
+  have hparent :
+      some (c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U :=
+    (mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hfall).1
+  have hseat : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+  have hcProcessed :
+      c ∈ squareRootLowPrimeProcessedSignedCofactors R U :=
+    (mem_squareRootLowPrimeProcessedSeatAtoms.mp hseat).1
+  have hcMuNe : μ c ≠ 0 :=
+    (Finset.mem_filter.mp hcProcessed).2.2
+  have hsqC : Squarefree c :=
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hcMuNe
+  have hqRough : canonicalLargestPrimeFactor c < q :=
+    hrough.trans hpq
+  have hqFresh : ¬ q ∣ c :=
+    squareRootLowPrimePrime_fresh_of_lpf_lt hc hqPrime hqRough
+  have hcop : Nat.Coprime q c :=
+    (hqPrime.coprime_iff_not_dvd).2 hqFresh
+  have hsqQC : Squarefree (q * c) :=
+    (Nat.squarefree_mul hcop).2 ⟨hqPrime.squarefree, hsqC⟩
+  have hmuQC : μ (q * c) ≠ 0 :=
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsqQC
+  have hlpfQC : canonicalLargestPrimeFactor (q * c) = q := by
+    simpa [Nat.mul_comm] using
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hqPrime hqRough
+  have hqcProcessed :
+      q * c ∈ squareRootLowPrimeProcessedSignedCofactors R U := by
+    unfold squareRootLowPrimeProcessedSignedCofactors
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_Icc.mpr ⟨Nat.mul_pos hqPrime.pos hc, hqcX⟩, ?_, hmuQC⟩
+    simpa [hlpfQC] using hqU
+  have hqcSeat :
+      (q * c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U :=
+    mem_squareRootLowPrimeProcessedSeatAtoms.mpr ⟨hqcProcessed, hqAlive⟩
+  have hqcCarrier :
+      some (q * c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U := by
+    unfold squareRootLowPrimeProcessedSeatCarrier
+    exact Finset.mem_insert.mpr
+      (Or.inr (Finset.mem_image.mpr ⟨(q * c, s), hqcSeat, rfl⟩))
+  have hdeep : K < canonicalLargestPrimeFactor (q * c) := by
+    simpa [hlpfQC] using hKq
+  have hownedSeat :
+      (q * c, s) ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j U :=
+    squareRootLowPrimeProcessedSeat_mem_ownedResponseSeatCarrier_of_deep
+      hK hqcCarrier hdeep
+  have hownedSigned :
+      q * c ∈ squareRootLowPrimeOwnedSignedCofactors R K U :=
+    (mem_squareRootLowPrimeOwnedResponseSeatCarrier_iff.mp hownedSeat).1
+  have htDeep :
+      t ∈ squareRootLowPrimeDeepPartnerSet R (q * c) := by
+    unfold squareRootLowPrimeDeepPartnerSet
+    exact Finset.mem_union.mpr (Or.inl htBorn)
+  have hAtom :
+      (q * c, t) ∈ squareRootLowPrimeOwnedResponseAtoms R K U :=
+    mem_squareRootLowPrimeOwnedResponseAtoms_iff.mpr
+      ⟨hownedSigned, htDeep⟩
+  have hBornResponse :
+      (q * c, t) ∈ squareRootLowPrimeBornResponseAtoms R K U :=
+    mem_squareRootLowPrimeBornResponseAtoms.mpr ⟨hAtom, htBorn⟩
+  have hcut : squareRootBornPostTailLowPrimeCutoff R < R := by
+    unfold squareRootBornPostTailLowPrimeCutoff
+    have hsqrtPos : 0 < Nat.sqrt R := Nat.sqrt_pos.2 (by omega)
+    omega
+  have hURlt : U < R := lt_of_le_of_lt hUR hcut
+  refine ⟨t, htPrime, hqt, hpct, ?_⟩
+  by_cases htU : t ≤ U
+  · exact Or.inl
+      (mem_squareRootLowPrimeBornInternalAtoms.mpr
+        ⟨hAtom, htBorn, htU⟩)
+  · right
+    rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hURlt]
+    exact mem_squareRootLowPrimeBornFrontierAtoms.mpr
+      ⟨hAtom, htBorn, Nat.lt_of_not_ge htU⟩
+
+/-! ## Exhaustive dynamic split -/
+
+/-- No later same-seat re-entry after the first failed owner.  Every later
+processed prime has response fibre too short to recover the inherited seat. -/
+def squareRootLowPrimeNoLaterSeatReentry
+    (R K j U p c s : ℕ) : Prop :=
+  ∀ q ∈ squareRootLowPrimeFreshPrimeSet K U, p < q →
+    squareRootLowPrimeCombinedFreshResponse R K j (q * c) ≤ s
+
+/-- Maximum response height attained by any later processed prime.
+The empty later-prime set has ceiling zero via `Finset.sup`. -/
+def squareRootLowPrimeLaterResponseCeiling
+    (R K j U p c : ℕ) : ℕ :=
+  (((squareRootLowPrimeFreshPrimeSet K U).filter fun q => p < q).image
+      fun q => squareRootLowPrimeCombinedFreshResponse R K j (q * c)).sup id
+
+/-- Every later response is bounded by the finite later-response ceiling. -/
+theorem squareRootLowPrimeCombinedFreshResponse_le_laterResponseCeiling
+    {R K j U p c q : ℕ}
+    (hq : q ∈ squareRootLowPrimeFreshPrimeSet K U)
+    (hpq : p < q) :
+    squareRootLowPrimeCombinedFreshResponse R K j (q * c) ≤
+      squareRootLowPrimeLaterResponseCeiling R K j U p c := by
+  unfold squareRootLowPrimeLaterResponseCeiling
+  apply Finset.le_sup (f := id)
+  exact Finset.mem_image.mpr
+    ⟨q, Finset.mem_filter.mpr ⟨hq, hpq⟩, rfl⟩
+
+/-- The negative universal no-re-entry condition is exactly one positive
+inequality against the finite response ceiling. -/
+theorem squareRootLowPrimeNoLaterSeatReentry_iff_ceiling_le
+    {R K j U p c s : ℕ} :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ↔
+      squareRootLowPrimeLaterResponseCeiling R K j U p c ≤ s := by
+  constructor
+  · intro hno
+    unfold squareRootLowPrimeLaterResponseCeiling
+    apply Finset.sup_le
+    intro n hn
+    rcases Finset.mem_image.mp hn with ⟨q, hq, rfl⟩
+    rcases Finset.mem_filter.mp hq with ⟨hqSet, hpq⟩
+    exact hno q hqSet hpq
+  · intro hceil q hq hpq
+    exact
+      (squareRootLowPrimeCombinedFreshResponse_le_laterResponseCeiling
+        hq hpq).trans hceil
+
+/-- **Positive interval normal form for the terminal no-reentry branch.**
+Once a non-born first-owner fallout has occurred, absence of every later
+re-entry is equivalent to membership in one explicit finite seat interval. -/
+theorem squareRootLowPrimeNonBornFallout_noLater_iff_mem_terminalResponseTail
+    {R K j U p c s : ℕ}
+    (hR : 1 ≤ R)
+    (hp : p.Prime) (hpU : p ≤ U)
+    (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ↔
+      s ∈ Finset.Ico
+        (max (squareRootBornPartnerCount R c)
+          (max
+            (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
+            (squareRootLowPrimeLaterResponseCeiling R K j U p c)))
+        (squareRootLowPrimeCombinedFreshResponse R K j c) := by
+  have htail :=
+    squareRootLowPrimeNonBornFirstOwnerFalloff_is_responseTail
+      hR hp hpU hUR hs hnb hfall
+  have hborn : squareRootBornPartnerCount R c ≤ s :=
+    Nat.le_of_not_gt hnb
+  rw [Finset.mem_Ico]
+  rw [squareRootLowPrimeNoLaterSeatReentry_iff_ceiling_le]
+  constructor
+  · intro hceil
+    exact ⟨max_le hborn (max_le htail.1 hceil), htail.2⟩
+  · intro h
+    exact le_trans (le_max_right _ _) (le_trans (le_max_right _ _) h.1)
+
+/-! ## Exact terminal no-reentry fibre -/
+
+/-- Exact lower endpoint of the non-born terminal response tail.  It enforces
+all three constraints simultaneously: outside the born prefix, dead at the first
+failed owner, and never alive at any later processed owner. -/
+def squareRootLowPrimeTerminalNoReentryLower
+    (R K j U p c : ℕ) : ℕ :=
+  max (squareRootBornPartnerCount R c)
+    (max
+      (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
+      (squareRootLowPrimeLaterResponseCeiling R K j U p c))
+
+/-- Literal terminal seat interval after the born prefix, the first failed owner,
+and every later response height have all been accounted for. -/
+def squareRootLowPrimeTerminalNoReentrySeatIndices
+    (R K j U p c : ℕ) : Finset ℕ :=
+  Finset.Ico
+    (squareRootLowPrimeTerminalNoReentryLower R K j U p c)
+    (squareRootLowPrimeCombinedFreshResponse R K j c)
+
+/-- Exact width of the non-born terminal no-reentry response tail. -/
+def squareRootLowPrimeTerminalNoReentryWidth
+    (R K j U p c : ℕ) : ℕ :=
+  squareRootLowPrimeCombinedFreshResponse R K j c -
+    squareRootLowPrimeTerminalNoReentryLower R K j U p c
+
+@[simp] theorem card_squareRootLowPrimeTerminalNoReentrySeatIndices
+    (R K j U p c : ℕ) :
+    (squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c).card =
+      squareRootLowPrimeTerminalNoReentryWidth R K j U p c := by
+  simp [squareRootLowPrimeTerminalNoReentrySeatIndices,
+    squareRootLowPrimeTerminalNoReentryWidth,
+    squareRootLowPrimeTerminalNoReentryLower]
+
+/-- One cofactor's terminal no-reentry unit-seat fibre. -/
+def squareRootLowPrimeTerminalNoReentryFiber
+    (R K j U p c : ℕ) : Finset SquareRootLowPrimeProcessedState :=
+  (squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c).image
+    fun s => some (c, s)
+
+@[simp] theorem mem_squareRootLowPrimeTerminalNoReentryFiber
+    {R K j U p c s : ℕ} :
+    some (c, s) ∈ squareRootLowPrimeTerminalNoReentryFiber R K j U p c ↔
+      s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c := by
+  simp [squareRootLowPrimeTerminalNoReentryFiber]
+
+/-- On an actual non-born first-owner fallout, the negative no-reentry
+predicate is *literally* membership in the finite terminal fibre. -/
+theorem squareRootLowPrimeNonBornFallout_noLater_iff_mem_terminalFiber
+    {R K j U p c s : ℕ}
+    (hR : 1 ≤ R)
+    (hp : p.Prime) (hpU : p ≤ U)
+    (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ↔
+      some (c, s) ∈ squareRootLowPrimeTerminalNoReentryFiber R K j U p c := by
+  rw [mem_squareRootLowPrimeTerminalNoReentryFiber]
+  unfold squareRootLowPrimeTerminalNoReentrySeatIndices
+    squareRootLowPrimeTerminalNoReentryLower
+  exact squareRootLowPrimeNonBornFallout_noLater_iff_mem_terminalResponseTail
+    hR hp hpU hUR hs hnb hfall
+
+/-- The terminal no-reentry fibre has no hidden multiplicity: its signed mass is
+one native cofactor sign times the exact terminal response width. -/
+theorem squareRootLowPrimeTerminalNoReentryFiber_weight_sum
+    (R K j U p c : ℕ) :
+    (∑ x ∈ squareRootLowPrimeTerminalNoReentryFiber R K j U p c,
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      ((-μ c : ℤ) : ℝ) *
+        (squareRootLowPrimeTerminalNoReentryWidth R K j U p c : ℝ) := by
+  unfold squareRootLowPrimeTerminalNoReentryFiber
+  calc
+    (∑ x ∈
+        (squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c).image
+          (fun s => some (c, s)),
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      ∑ s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c,
+        squareRootLowPrimeProcessedSeatWeightReal (some (c, s)) := by
+      apply Finset.sum_image
+      intro a _ha b _hb hab
+      simpa using hab
+    _ = ∑ _s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c,
+        ((-μ c : ℤ) : ℝ) := by
+      rfl
+    _ = ((-μ c : ℤ) : ℝ) *
+        ((squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c).card : ℝ) := by
+      simp
+      ring
+    _ = ((-μ c : ℤ) : ℝ) *
+        (squareRootLowPrimeTerminalNoReentryWidth R K j U p c : ℝ) := by
+      rw [card_squareRootLowPrimeTerminalNoReentrySeatIndices]
+
+/-- **Exact dynamic exhaustiveness.**  A non-born first-owner fallout either
+never re-enters at any later processed prime, or the first witnessed re-entry
+routes pointwise into the already-compiled Go two-boundary shell.
+
+No count, norm, or asymptotic input is used. -/
+theorem squareRootLowPrimeNonBornFallout_noLater_or_goShell
+    {R K j U p c s : ℕ}
+    (hR : 1 ≤ R) (hc : 0 < c)
+    (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p)
+    (hpU : p ≤ U) (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ∨
+      ∃ q t,
+        q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+        p < q ∧
+        t.Prime ∧ q < t ∧ p * c < t ∧
+          (c ∈ squareRootLowPrimeGoSmallerOwnerBirthBoundaryParents
+                t (squareRootEndpoint R / (t * t)) q ∨
+            c ∈ squareRootLowPrimeGoSecondBoundaryDefectParents
+                t (squareRootEndpoint R) q) := by
+  classical
+  by_cases hno : squareRootLowPrimeNoLaterSeatReentry R K j U p c s
+  · exact Or.inl hno
+  · right
+    have hex :
+        ∃ q,
+          q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+          p < q ∧
+          s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
+      by_contra h
+      push_neg at h
+      apply hno
+      intro q hq hpq
+      exact Nat.le_of_not_gt (h q hq hpq)
+    obtain ⟨q, hqSet, hpq, hqAlive⟩ := hex
+    have hqPrime : q.Prime := (Finset.mem_filter.mp hqSet).2
+    obtain ⟨t, htPrime, hqt, hpct, hsplit⟩ :=
+      squareRootLowPrimeNonBornFalloutReentry_goTerminal_or_secondBoundary
+        hR hc hp hqPrime hrough hpq hpU hUR hs hnb hfall hqAlive
+    exact ⟨q, t, hqSet, hpq, htPrime, hqt, hpct, hsplit⟩
+
+/-- The old root-equality exception is no longer exceptional once the complete
+Boolean face is used: every such incidence is already a genuine second-boundary
+defect and therefore has an opposite-sign physical full-face mate. -/
+theorem squareRootLowPrimeGoRootEquality_fullFace_cancel
+    {R r q d : ℕ} (hR : 2 ≤ R)
+    (hz : ((r, q), d) ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R) :
+    lowWheelFullTaggedPhysicalWeight
+        (squareRootLowPrimeGoSecondBoundaryFullFaceSource r q d) +
+      lowWheelFullTaggedPhysicalWeight
+        (lowWheelFullFaceQuotientMate R
+          (squareRootLowPrimeGoSecondBoundaryFullFaceSource r q d)) = 0 := by
+  rcases mem_squareRootLowPrimeGoRootEqualityDefectCarrier.mp hz with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _heq, hcube, hd⟩
+  exact squareRootLowPrimeSecondBoundaryDefect_fullFace_cancel
+    hR hq hr hrq hcube hd
 
 end RHLean.Proof
