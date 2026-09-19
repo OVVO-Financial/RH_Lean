@@ -175,9 +175,7 @@ theorem squareRootLowPrimeResponse_highLoss_nonneg
     Nat.mul_le_mul (Nat.le_of_lt hpq) (le_refl c)
   have hmono := squareRootLowPrimeHonestHighResponse_antitone
     (R := R) (K := K) (j := j) hpc hpqmul
-  exact_mod_cast Nat.sub_eq_zero_iff_le.not.mpr (by omega : ¬
-    squareRootLowPrimeHonestHighResponse R K j (p * c) <
-      squareRootLowPrimeHonestHighResponse R K j (q * c))
+  omega
 
 /-! ## Re-entry closes inside the response forest -/
 
