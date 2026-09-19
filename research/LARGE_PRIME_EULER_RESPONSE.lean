@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Analysis.SquareRootMiddleSequentialCoherence
+import RHLean.Proof.LowWheelCanonicalPrimeSplit
 
 /-!
 # Large-prime Euler response at a fixed endpoint
@@ -206,5 +207,61 @@ example :
 example :
     largePrimeEulerCubeAt 100 1 19 (primesUpTo 10) = -2 := by
   native_decide
+
+/-! ## Aggregate square-endpoint identification -/
+
+/-- Sum of all post-root truncated Euler cubes at the square endpoint.  This is
+the user's large-prime response after the entire low-prime Boolean cube has
+been assembled before taking any norm. -/
+def squareRootLargePrimeEulerCubeAggregate (R : ℕ) : ℂ :=
+  ∑ p ∈ Finset.Ioc R (squareRootEndpoint R),
+    if p.Prime then
+      ((largePrimeEulerCubeAt
+        (squareRootEndpoint R) 1 p (primesUpTo R) : ℤ) : ℂ)
+    else 0
+
+/-- Every post-root outer prime sees a completed low universe, so the aggregate
+is exactly the familiar lower-scale Mertens transform. -/
+theorem squareRootLargePrimeEulerCubeAggregate_eq_mertensTransform
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootLargePrimeEulerCubeAggregate R =
+      ∑ p ∈ Finset.Ioc R (squareRootEndpoint R),
+        if p.Prime then
+          mertensSummatory (squareRootEndpoint R / p)
+        else 0 := by
+  unfold squareRootLargePrimeEulerCubeAggregate
+  apply Finset.sum_congr rfl
+  intro p hpI
+  by_cases hp : p.Prime
+  · simp only [hp, if_true]
+    have hRp : R < p := (Finset.mem_Ioc.mp hpI).1
+    have hcut :
+        squareRootEndpoint R / p ≤ R := by
+      exact Nat.le_of_lt
+        (squareRootEndpoint_div_lt_root_of_postRoot (by omega) hRp)
+    simpa using
+      (largePrimeEulerCubeAt_cast_eq_mertens
+        (X := squareRootEndpoint R) (R := R) (m := 1) (p := p) hcut)
+  · simp [hp]
+
+/-- The endpoint-truncated Euler-cube aggregate is not merely analogous to the
+canonical post-root ledger: it is definitionally the same signed arithmetic
+after the existing finite Fubini/reassembly. -/
+theorem squareRootLargePrimeEulerCubeAggregate_eq_postRootDowncrossLedger
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootLargePrimeEulerCubeAggregate R =
+      lowWheelCanonicalPostRootDowncrossLedger R := by
+  rw [squareRootLargePrimeEulerCubeAggregate_eq_mertensTransform R hR,
+    lowWheelCanonicalPostRootDowncrossLedger_eq_mertensTransform R hR]
+
+/-- Hence the aggregate of endpoint-cut Euler cubes is exactly the repository's
+original high-prime transport.  This closes the coordinate identification and
+leaves only the quantitative signed-boundary estimate. -/
+theorem squareRootLargePrimeEulerCubeAggregate_eq_transport
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootLargePrimeEulerCubeAggregate R =
+      squareRootTransportCofactorFirst R := by
+  rw [squareRootLargePrimeEulerCubeAggregate_eq_postRootDowncrossLedger R hR,
+    lowWheelCanonicalPostRootDowncrossLedger_eq_transport R hR]
 
 end RHLean.Proof
