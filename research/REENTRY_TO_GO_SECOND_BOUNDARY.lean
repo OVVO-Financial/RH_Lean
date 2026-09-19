@@ -7,6 +7,7 @@ import RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
 import RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseMap
 import RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv
 import RHLean.Proof.SquareRootLowPrimeProcessedCreationResponseFixedClassification
+import RHLean.Proof.SquareRootLowPrimeCanonicalMatchingInvolution
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 import RHLean.Proof.SquareRootLowPrimeGoFullFacePartner
 import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
@@ -146,6 +147,49 @@ theorem squareRootLowPrimeSecondBoundaryDefect_fullFace_cancel
           (squareRootLowPrimeGoSecondBoundaryFullFaceSource q t c)) = 0 := by
   exact squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
     hR ht hq hqt hcube hcDefect
+
+/-! ## Exact transfer between the two Othello fixed sets -/
+
+/-- **Move order is algebraically irrelevant.**  The chronological canonical
+Euler mate and the creation/response mate are sign-reversing involutions on
+the same processed-seat carrier.  Hence their fixed populations have exactly
+the same signed mass.  The first fixed population is the canonical terminal
+frontier, so no estimate of the alternating paths is required. -/
+theorem squareRootLowPrimeCanonicalTerminal_mass_eq_creationResponseStableMass
+    {R K j U : ℕ} (hR : 1 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) :
+    (∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      ∑ x ∈ finiteOthelloStablePart
+          (squareRootLowPrimeProcessedSeatCarrier R K j U)
+          (squareRootLowPrimeProcessedSeatCreationResponseMate R K j U),
+        squareRootLowPrimeProcessedSeatWeightReal x := by
+  let S := squareRootLowPrimeProcessedSeatCarrier R K j U
+  have hstable := sum_finiteOthelloStablePart_eq_of_two_involutions
+    S
+    (squareRootLowPrimeProcessedSeatCanonicalMate R K j U)
+    (squareRootLowPrimeProcessedSeatCreationResponseMate R K j U)
+    squareRootLowPrimeProcessedSeatWeightReal
+    (fun x hx => squareRootLowPrimeProcessedSeatCanonicalMate_mem
+      R K j U hx)
+    (fun x hx => squareRootLowPrimeProcessedSeatCanonicalMate_involutive
+      R K j U hx)
+    (fun x hx hne => squareRootLowPrimeProcessedSeatCanonicalMate_weight_neg
+      R K j U hx hne)
+    (fun x hx => squareRootLowPrimeProcessedSeatCreationResponseMate_mem
+      hR hK hKU hx)
+    (fun x hx => squareRootLowPrimeProcessedSeatCreationResponseMate_involutive
+      hR hK hKU hx)
+    (fun x hx hne => squareRootLowPrimeProcessedSeatCreationResponseMate_weight_neg
+      hR hK hKU hx hne)
+  have hcanon :
+      finiteOthelloStablePart S
+          (squareRootLowPrimeProcessedSeatCanonicalMate R K j U) =
+        squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U := by
+    simpa [S, finiteOthelloStablePart, signMatchingFixedPart] using
+      signMatchingFixedPart_processedSeatCanonicalMate_eq_terminalFrontier
+        R K j U
+  rw [hcanon] at hstable
+  exact hstable
 
 /-! ## Exact birth-growth conservation -/
 
