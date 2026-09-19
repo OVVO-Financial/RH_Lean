@@ -1640,4 +1640,87 @@ theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_endpointGapNormSq_sub_diago
     squareRootCorrelation_sub_reciprocalColumn_eq_allEndpointMertensGap
       (R := R) (by omega)]
 
+
+/-! ## Canonical lower-envelope coefficient family -/
+
+/-- Canonical frame coefficient obtained from the lower Mertens envelope at the
+prime predecessor, normalized by the square root of its natural length. -/
+def lowOwnerStokesLowerMertensPrimeCoefficient (p : ℕ) : ℂ :=
+  ((((mertensSummatoryInt (p - 1) - 1 : ℤ) : ℝ) /
+    Real.sqrt (p : ℝ) : ℝ) : ℂ)
+
+/-- The coefficient-budget half of admissibility is unconditional.
+Every actual Stokes frame prime lies below R, so the existing lower critical
+envelope gives the exact K bound for the canonical normalized predecessor
+Mertens coefficient. -/
+theorem norm_sq_lowOwnerStokesLowerMertensPrimeCoefficient_le_lowerEnvelope
+    {R p : ℕ} {K : ℝ}
+    (hR : 56 ≤ R)
+    (hK : LowerMertensCriticalEnvelope R K)
+    (hp : p ∈ lowOwnerStokesOddPrimePeriodSet R) :
+    ‖lowOwnerStokesLowerMertensPrimeCoefficient p‖ ^ 2 ≤ K := by
+  have hpPrime : p.Prime := lowOwnerStokesOddPrimePeriodSet_prime hp
+  have hpPosNat : 0 < p := hpPrime.pos
+  have hpLt : p < R := lowOwnerStokesOddPrimePeriodSet_lt_root hR hp
+  have henv := hK.2 (p - 1) (by omega)
+  have hpPos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpPosNat
+  have hsqrtPos : 0 < Real.sqrt (p : ℝ) := Real.sqrt_pos.2 hpPos
+  have hsqrtSq : (Real.sqrt (p : ℝ)) ^ 2 = (p : ℝ) := by
+    rw [sq_sqrt (le_of_lt hpPos)]
+  have hpred :
+      ((((p - 1 + 1 : ℕ) : ℝ))) = (p : ℝ) := by
+    rw [Nat.sub_add_cancel hpPrime.one_le]
+  rw [hpred] at henv
+  unfold lowOwnerStokesLowerMertensPrimeCoefficient
+  rw [Complex.norm_real, Real.norm_eq_abs, div_pow]
+  rw [sq_abs, hsqrtSq]
+  exact (div_le_iff₀ hpPos).2 (by simpa [mul_comm] using henv)
+
+/-- The only still-missing half for this concrete coefficient family: physical
+clip synthesis into its reciprocal prime-period envelope. -/
+def LowOwnerStokesClipLowerMertensSynthesis : Prop :=
+  ∀ (R : ℕ) (hR : 56 ≤ R),
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+      primePeriodReciprocalCoefficientEnvelope
+        (lowOwnerStokesNaturalWheelSystem R hR)
+        (squareRootEndpoint R)
+        (lowOwnerStokesOddPrimePeriodSet R)
+        lowOwnerStokesLowerMertensPrimeCoefficient
+
+/-- A proof of the concrete synthesis identity would finish the native
+R^2*K clip admissibility with no remaining coefficient estimate. -/
+theorem clip_lowerEnvelopeBound_of_lowerMertensSynthesis
+    (hSynth : LowOwnerStokesClipLowerMertensSynthesis) :
+    ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+      LowerMertensCriticalEnvelope R K →
+      lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by
+  intro R K hR hK
+  have hcoeff :
+      ∀ p ∈ lowOwnerStokesOddPrimePeriodSet R,
+        ‖lowOwnerStokesLowerMertensPrimeCoefficient p‖ ^ 2 ≤ K := by
+    intro p hp
+    exact norm_sq_lowOwnerStokesLowerMertensPrimeCoefficient_le_lowerEnvelope
+      hR hK hp
+  have henv :=
+    primePeriodReciprocalCoefficientEnvelope_le_mul_frameMajorant
+      (lowOwnerStokesNaturalWheelSystem R hR)
+      (squareRootEndpoint R)
+      (lowOwnerStokesOddPrimePeriodSet R)
+      lowOwnerStokesLowerMertensPrimeCoefficient K hK.1 hcoeff
+  have hframe :=
+    lowOwnerStokesOddPrimePeriodFrameMajorant_le_five_fourths_root_sq R hR
+  calc
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        primePeriodReciprocalCoefficientEnvelope
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R)
+          lowOwnerStokesLowerMertensPrimeCoefficient := hSynth R hR
+    _ ≤ K * lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by
+      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using henv
+    _ ≤ K * ((5 / 4 : ℝ) * (R : ℝ) ^ 2) :=
+      mul_le_mul_of_nonneg_left hframe hK.1
+    _ = (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by ring
+
 end RHLean.Proof
