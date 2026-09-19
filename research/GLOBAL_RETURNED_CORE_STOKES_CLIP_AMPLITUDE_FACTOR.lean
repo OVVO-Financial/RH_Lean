@@ -71,27 +71,29 @@ def lowOwnerStokesSignedAmplitude
     (S : Finset ℕ) (f : ℕ → ℝ) : ℝ :=
   ∑ n ∈ S, othelloRealMoebius n * f n
 
-private theorem sum_product_mobius_separable
-    (A B : Finset ℕ) (f g : ℕ → ℝ) :
-    (∑ mn ∈ A.product B,
-      (othelloRealMoebius mn.1 * f mn.1) *
-        (othelloRealMoebius mn.2 * g mn.2)) =
-      lowOwnerStokesSignedAmplitude A f *
-        lowOwnerStokesSignedAmplitude B g := by
+private theorem sum_product_othello_separable
+    (S T : Finset ℕ) (g h : ℕ → ℝ) :
+    (∑ mn ∈ S.product T,
+      othelloRealMoebiusPair mn * (g mn.1 * h mn.2)) =
+      lowOwnerStokesSignedAmplitude S g *
+        lowOwnerStokesSignedAmplitude T h := by
   unfold lowOwnerStokesSignedAmplitude
+    othelloRealMoebiusPair
   rw [Finset.sum_product]
   calc
-    (∑ a ∈ A, ∑ b ∈ B,
-      (othelloRealMoebius a * f a) *
-        (othelloRealMoebius b * g b)) =
-      ∑ a ∈ A,
-        (othelloRealMoebius a * f a) *
-          (∑ b ∈ B, othelloRealMoebius b * g b) := by
+    (∑ a ∈ S, ∑ b ∈ T,
+      (othelloRealMoebius a * othelloRealMoebius b) * (g a * h b)) =
+      ∑ a ∈ S,
+        (othelloRealMoebius a * g a) *
+          (∑ b ∈ T, othelloRealMoebius b * h b) := by
         apply Finset.sum_congr rfl
         intro a _ha
         rw [Finset.mul_sum]
-    _ = (∑ a ∈ A, othelloRealMoebius a * f a) *
-        (∑ b ∈ B, othelloRealMoebius b * g b) := by
+        apply Finset.sum_congr rfl
+        intro b _hb
+        ring
+    _ = (∑ a ∈ S, othelloRealMoebius a * g a) *
+        (∑ b ∈ T, othelloRealMoebius b * h b) := by
       rw [Finset.sum_mul]
 
 /-- A cross scalar on a Cartesian product factors exactly into two signed
@@ -104,35 +106,20 @@ theorem pairWeightedStokesMass_product_crossScalar
         lowOwnerStokesSignedAmplitude A J *
           lowOwnerStokesSignedAmplitude B L := by
   unfold pairWeightedStokesMass lowOwnerStokesCrossScalar
-    lowOwnerStokesSignedAmplitude othelloRealMoebiusPair
   calc
     (∑ mn ∈ A.product B,
-      (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
+      othelloRealMoebiusPair mn *
         (-(L mn.1 * J mn.2) - J mn.1 * L mn.2)) =
-      ∑ mn ∈ A.product B,
-        (-((othelloRealMoebius mn.1 * L mn.1) *
-            (othelloRealMoebius mn.2 * J mn.2)) -
-          (othelloRealMoebius mn.1 * J mn.1) *
-            (othelloRealMoebius mn.2 * L mn.2)) := by
-              apply Finset.sum_congr rfl
-              intro mn _hmn
-              ring
-    _ =
       -(∑ mn ∈ A.product B,
-          (othelloRealMoebius mn.1 * L mn.1) *
-            (othelloRealMoebius mn.2 * J mn.2)) -
-        ∑ mn ∈ A.product B,
-          (othelloRealMoebius mn.1 * J mn.1) *
-            (othelloRealMoebius mn.2 * L mn.2) := by
-              rw [Finset.sum_sub_distrib, Finset.sum_neg_distrib]
-    _ =
-      -((∑ a ∈ A, othelloRealMoebius a * L a) *
-          (∑ b ∈ B, othelloRealMoebius b * J b)) -
-        ((∑ a ∈ A, othelloRealMoebius a * J a) *
-          (∑ b ∈ B, othelloRealMoebius b * L b)) := by
-            rw [sum_product_mobius_separable,
-              sum_product_mobius_separable]
-    _ = _ := by rfl
+          othelloRealMoebiusPair mn * (L mn.1 * J mn.2)) -
+        (∑ mn ∈ A.product B,
+          othelloRealMoebiusPair mn * (J mn.1 * L mn.2)) := by
+            rw [← Finset.sum_sub_distrib, ← Finset.sum_neg_distrib]
+            apply Finset.sum_congr rfl
+            intro mn _hmn
+            ring
+    _ = _ := by
+      rw [sum_product_othello_separable, sum_product_othello_separable]
 
 /-- **Exact amplitude form of one Stokes boundary step.**
 
@@ -205,13 +192,11 @@ theorem lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_schedule_n
     lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig =
       -2 * lowOwnerFirstOwnerBaseAmplitude R p sig *
         lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
-  unfold lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary
-  rw [hps]
-  rw [← lowOwnerFirstOwnerSignedCellTelescope_eq_pairWeightedStokesMass
-    (R := R) (p := p) (sig := sig) hp]
-  exact
-    lowOwnerFirstOwnerSignedCellTelescope_eq_neg_two_base_mul_returned
-      (R := R) (p := p) (sig := sig) hp
+  simp only [lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary, hps]
+  unfold lowOwnerFirstOwnerSignedCellPairCarrier
+  rw [lowOwnerFirstOwnerDirichletPolarizationScalar_eq_cross]
+  rw [pairWeightedStokesMass_product_crossScalar]
+  ring
 
 /-- **Assembled empty-schedule factorization.**  Signatures are summed only
 after the exact cross product has been formed in each cell; no cellwise
@@ -247,8 +232,7 @@ theorem lowOwnerFirstOwnerTopTerminal_eq_neg_half_interiorDifferenceProduct_of_s
           (primeInteriorPart q (lowOwnerFirstOwnerBaseFiber R p sig))
           (lowOwnerStokesToggleDifference q
             (lowOwnerDirichletReturnedCoefficient R p)) := by
-  unfold lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary
-  rw [hps]
+  simp only [lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary, hps]
   unfold lowOwnerFirstOwnerSignedCellPairCarrier
   rw [pairPrimeTwoCoordinateInterior_product]
   rw [lowOwnerFirstOwnerDirichletPolarizationScalar_eq_cross]
