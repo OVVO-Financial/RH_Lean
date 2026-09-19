@@ -186,6 +186,30 @@ theorem squareRootLowPrimeRunningImbalanceReal_eq_canonicalUnmatchedFrontiers
       intro x hx
       exact squareRootLowPrimeCanonicalCreationToResponse_weight_cancel hx)
 
+/-- **Mass transfer in first-Othello coordinates.**  The repository's remaining
+closed-form identity is equivalent to an equality involving only the two
+canonical unmatched frontiers.  Thus all chronological terminal-width
+bookkeeping may be discarded once the first Othello normal form is installed. -/
+theorem squareRootLowPrimeMassTransfer_iff_canonicalUnmatchedFrontierIdentity
+    {R K j U : ℕ} (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) :
+    (squareRootLowPrimeRunningImbalanceReal R K j U =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K U +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) ↔
+      ((∑ x ∈ squareRootLowPrimeCreationCarrierExact R K j \
+            squareRootLowPrimeMatchedCreationStates R K j U,
+          squareRootLowPrimeCreationWeightReal x) +
+        ∑ z ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j U \
+            creationResponseMatchedImage
+              (squareRootLowPrimeMatchedCreationStates R K j U)
+              (squareRootLowPrimeCanonicalCreationToResponse R K j U),
+          squareRootLowPrimeResponseSeatWeightReal z =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K U +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) := by
+  rw [squareRootLowPrimeRunningImbalanceReal_eq_canonicalUnmatchedFrontiers
+    hR hK hKU]
+
 /-! ## Exact transfer between the two Othello fixed sets -/
 
 /-- **Move order is algebraically irrelevant.**  The chronological canonical
