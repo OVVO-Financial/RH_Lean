@@ -368,7 +368,6 @@ theorem primeWheelWeightedShiftedArcGram_eq_overlapCensus
       primeWheelWeightedArcOverlapCensus W S w A d := by
   unfold primeWheelWeightedShiftedArcSynthesis
     primeWheelWeightedArcOverlapCensus
-  rw [Finset.mul_sum]
   calc
     ((W.modulus : ℂ)⁻¹) *
         ∑ r : ZMod W.modulus,
