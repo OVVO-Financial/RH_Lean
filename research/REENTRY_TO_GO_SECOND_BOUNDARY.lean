@@ -664,6 +664,76 @@ theorem squareRootLowPrimeGlobalTerminalNoReentryLedger_eq_fiberMass
   intro pc _hpc
   rw [squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_weight_sum]
 
+
+/-- Literal union of all genuine terminal no-reentry first-owner/cofactor
+fibres.  Pairwise disjointness of the labelled fibres makes this a true carrier,
+not merely a support upper bound. -/
+def squareRootLowPrimeGlobalTerminalNoReentryCarrier
+    (R K j U : ℕ) : Finset SquareRootLowPrimeProcessedState :=
+  (squareRootLowPrimeFirstOwnerTerminalNoReentryIndex R K j U).biUnion fun pc =>
+    squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
+      R K j U pc.1 pc.2
+
+/-- The labelled fibre family used in the global carrier is pairwise disjoint. -/
+theorem squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_pairwiseDisjoint
+    (R K j U : ℕ) :
+    Set.PairwiseDisjoint
+      (↑(squareRootLowPrimeFirstOwnerTerminalNoReentryIndex R K j U))
+      (fun pc => squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
+        R K j U pc.1 pc.2) := by
+  intro a _ha b _hb hab
+  exact squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_disjoint hab
+
+/-- The literal global no-reentry carrier has exactly the compiled ledger mass. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentryCarrier_weight_sum
+    (R K j U : ℕ) :
+    (∑ x ∈ squareRootLowPrimeGlobalTerminalNoReentryCarrier R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U := by
+  unfold squareRootLowPrimeGlobalTerminalNoReentryCarrier
+  rw [Finset.sum_biUnion
+    (squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_pairwiseDisjoint
+      R K j U)]
+  exact (squareRootLowPrimeGlobalTerminalNoReentryLedger_eq_fiberMass
+    R K j U).symm
+
+/-- Every state in the global no-reentry carrier is an actual assigned
+canonical terminal. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentryCarrier_subset_assigned
+    (R K j U : ℕ) :
+    squareRootLowPrimeGlobalTerminalNoReentryCarrier R K j U ⊆
+      squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U := by
+  intro x hx
+  rcases Finset.mem_biUnion.mp hx with ⟨pc, _hpc, hxpc⟩
+  rcases Finset.mem_image.mp hxpc with ⟨s, hs, rfl⟩
+  exact
+    (squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data hs).2.1
+
+/-- The remaining assigned-terminal carrier after deleting genuine no-reentry
+states.  This is the concrete population to which the response-forest/BornExit
+classification must now be applied. -/
+def squareRootLowPrimeFirstOwnerNonNoReentryComplementCarrier
+    (R K j U : ℕ) : Finset SquareRootLowPrimeProcessedState :=
+  squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U \
+    squareRootLowPrimeGlobalTerminalNoReentryCarrier R K j U
+
+/-- Exact signed partition of the assigned terminal population. -/
+theorem squareRootLowPrimeCanonicalAssigned_weight_sum_eq_noReentry_add_complement
+    (R K j U : ℕ) :
+    (∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U +
+        ∑ x ∈ squareRootLowPrimeFirstOwnerNonNoReentryComplementCarrier
+            R K j U,
+          squareRootLowPrimeProcessedSeatWeightReal x := by
+  have hsub :=
+    squareRootLowPrimeGlobalTerminalNoReentryCarrier_subset_assigned R K j U
+  have hsplit := Finset.sum_sdiff hsub
+    (f := squareRootLowPrimeProcessedSeatWeightReal)
+  rw [squareRootLowPrimeGlobalTerminalNoReentryCarrier_weight_sum] at hsplit
+  simpa [squareRootLowPrimeFirstOwnerNonNoReentryComplementCarrier,
+    add_comm] using hsplit.symm
+
 /-- The part of the exact intrinsic first-owner mass not belonging to genuine
 terminal no-reentry fibres.  The response-forest layer identifies this
 complement pointwise with already-existing born/boundary mechanisms; defining
