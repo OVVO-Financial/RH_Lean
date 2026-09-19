@@ -4,6 +4,8 @@ import RHLean.Proof.SquareRootLowPrimePacketFreeMassTransfer
 import RHLean.Proof.SquareRootLowPrimeResponseReentryBirthWitness
 import RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution
 import RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
+import RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseMap
+import RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 import RHLean.Proof.SquareRootLowPrimeGoFullFacePartner
 import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
@@ -587,6 +589,125 @@ theorem squareRootLowPrimeCanonicalAssigned_intrinsicFirstOwner_eq_firstOwnerAbo
   exact
     squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_firstOwnerAbove_of_falloff
       hfirst hfall
+
+
+/-- On an assigned terminal, the intrinsic chronological owner is exactly the
+first scheduled prime above the cofactor's canonical largest prime. -/
+theorem squareRootLowPrimeCanonicalAssigned_firstOwnerAbove_eq_of_intrinsicOwner
+    {R K j U c s p : ℕ}
+    (hx : some (c, s) ∈
+      squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U)
+    (howner :
+      squareRootLowPrimeProcessedSeatIntrinsicFirstOwner
+        (squareRootLowPrimeFreshPrimeList K U)
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        (some (c, s)) = some p) :
+    squareRootLowPrimeFirstOwnerAbove
+        (squareRootLowPrimeFreshPrimeList K U)
+        (canonicalLargestPrimeFactor c) = some p := by
+  have hxData := Finset.mem_sdiff.mp hx
+  have hxTerminal := hxData.1
+  have hxNotHead := hxData.2
+  cases hfirst :
+      squareRootLowPrimeFirstOwnerAbove
+        (squareRootLowPrimeFreshPrimeList K U)
+        (canonicalLargestPrimeFactor c) with
+  | none =>
+      exfalso
+      apply hxNotHead
+      apply Finset.mem_filter.mpr
+      exact ⟨hxTerminal, Or.inr hfirst⟩
+  | some q =>
+      have hqOwner :
+          squareRootLowPrimeProcessedSeatIntrinsicFirstOwner
+              (squareRootLowPrimeFreshPrimeList K U)
+              (squareRootLowPrimeProcessedSeatCarrier R K j U)
+              (some (c, s)) = some q :=
+        squareRootLowPrimeCanonicalAssigned_intrinsicFirstOwner_eq_firstOwnerAbove
+          hx hfirst
+      rw [howner] at hqOwner
+      have hpq : p = q := Option.some.inj hqOwner
+      simpa [hpq] using hfirst
+
+/-- **A shallow genuine NoLater terminal is fixed by the first
+creation/response Othello matching.**  Its lower terminal endpoint already
+dominates the first-owner response and every later response ceiling, so no
+fresh prime can carry the corresponding shallow creation seat into the owned
+response carrier. -/
+theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_shallow_not_matchedCreation
+    {R K j U p c s : ℕ}
+    (hR : 1 ≤ R) (hKU : K ≤ U)
+    (hshallow : canonicalLargestPrimeFactor c ≤ K)
+    (hs : s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+      R K j U p c) :
+    squareRootLowPrimeProcessedShallowSeatToCreation R (c, s) ∉
+      squareRootLowPrimeMatchedCreationStates R K j U := by
+  classical
+  have hsData :=
+    squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data hs
+  have hsTerminal := hsData.1
+  have hxAssigned := hsData.2.1
+  have hIntrinsic := hsData.2.2
+  have hfirst :=
+    squareRootLowPrimeCanonicalAssigned_firstOwnerAbove_eq_of_intrinsicOwner
+      hxAssigned hIntrinsic
+  have hbounds :
+      max (squareRootBornPartnerCount R c)
+          (max
+            (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
+            (squareRootLowPrimeLaterResponseCeiling R K j U p c)) ≤ s ∧
+        s < squareRootLowPrimeCombinedFreshResponse R K j c := by
+    simpa [squareRootLowPrimeTerminalNoReentrySeatIndices,
+      squareRootLowPrimeTerminalNoReentryLower] using hsTerminal
+  have hbornLe : squareRootBornPartnerCount R c ≤ s :=
+    (le_max_left _ _).trans hbounds.1
+  have hinner :
+      max
+          (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
+          (squareRootLowPrimeLaterResponseCeiling R K j U p c) ≤ s :=
+    (le_max_right _ _).trans hbounds.1
+  have hpChildLe :
+      squareRootLowPrimeCombinedFreshResponse R K j (p * c) ≤ s :=
+    (le_max_left _ _).trans hinner
+  have hceilingLe :
+      squareRootLowPrimeLaterResponseCeiling R K j U p c ≤ s :=
+    (le_max_right _ _).trans hinner
+  have hnotBorn : ¬ s < squareRootBornPartnerCount R c := by omega
+  let x := squareRootLowPrimeProcessedShallowSeatToCreation R (c, s)
+  have hxCof :
+      squareRootLowPrimeCreationStateCofactor x = c := by
+    simp [x, squareRootLowPrimeProcessedShallowSeatToCreation, hnotBorn,
+      squareRootLowPrimeCreationStateCofactor]
+  have hxSeat :
+      squareRootLowPrimeCreationStateAbsoluteSeat R x = s := by
+    simp [x, squareRootLowPrimeProcessedShallowSeatToCreation, hnotBorn,
+      squareRootLowPrimeCreationStateAbsoluteSeat, Nat.add_sub_of_le hbornLe]
+  intro hmatched
+  have hmData := mem_squareRootLowPrimeMatchedCreationStates.mp hmatched
+  obtain ⟨q, hqEligible⟩ := hmData.2.2
+  have hqData :=
+    mem_squareRootLowPrimeEligibleResponseOwners.mp hqEligible
+  have hqSet := hqData.1
+  have hqSeat := hqData.2
+  have hqAliveRaw :=
+    (mem_squareRootLowPrimeOwnedResponseSeatCarrier_iff.mp hqSeat).2
+  have hqAlive :
+      s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
+    simpa [x, hxCof, hxSeat] using hqAliveRaw
+  have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
+    simpa [squareRootLowPrimeFreshPrimeList] using hqSet
+  have hKq : K < q := (Finset.mem_Ioc.mp (Finset.mem_filter.mp hqSet).1).1
+  have hlpfq : canonicalLargestPrimeFactor c < q := by omega
+  have hpqLe :=
+    squareRootLowPrimeFirstOwnerAbove_le_of_mem hfirst hqList hlpfq
+  by_cases hpqEq : p = q
+  · subst q
+    omega
+  · have hpq : p < q := by omega
+    have hqCeiling :=
+      squareRootLowPrimeCombinedFreshResponse_le_laterResponseCeiling
+        hqSet hpq
+    omega
 
 /-- Seat-level no-reentry indices after imposing the actual terminal target and
 the unique intrinsic first-owner assignment.  The first owner is a property of
