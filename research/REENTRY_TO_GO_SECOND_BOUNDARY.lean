@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Proof.SquareRootLowPrimeRunningTelescope
 import RHLean.Proof.SquareRootLowPrimeResponseReentryBirthWitness
 import RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution
 import RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
@@ -462,6 +463,30 @@ theorem squareRootLowPrimeTerminalNoReentryFiber_weight_sum
         (squareRootLowPrimeTerminalNoReentryWidth R K j U p c : ℝ) := by
       rw [card_squareRootLowPrimeTerminalNoReentrySeatIndices]
 
+
+
+/-! ## Exact forest/telescope normal form -/
+
+/-- **Exact global response cancellation before any estimate.**
+The whole running-state change across the processed prime interval is the real
+part of the response-forest stable boundary. Internal born edges have already
+cancelled algebraically; only response roots, complete cofactor mass, BornExit
+frontier mass, and post-root ancestry-root mass remain. -/
+theorem squareRootLowPrimeRunningImbalanceReal_sub_eq_responseForestBoundary
+    {R K j U : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) (hUR : U < R) :
+    squareRootLowPrimeRunningImbalanceReal R K j K -
+        squareRootLowPrimeRunningImbalanceReal R K j U =
+      (squareRootLowPrimeResponseRootCofactorMass R K U -
+        squareRootLowPrimeOwnedResponseCofactorMass R K U -
+          squareRootLowPrimeBornFrontierChildMass R K U -
+            squareRootLowPrimePostRootChildMass R K U).re := by
+  rw [squareRootLowPrimeRunningImbalanceReal_sub_eq_freshIncrement_sum
+    hK hKU]
+  have h := congrArg Complex.re
+    (squareRootLowPrimeFreshIncrement_sum_eq_responseForestBoundary
+      (R := R) (K := K) (j := j) (U := U) hR hUR)
+  simpa [squareRootLowPrimeFreshIncrementReal] using h
 
 /-! ## Global terminal no-reentry ledger -/
 
