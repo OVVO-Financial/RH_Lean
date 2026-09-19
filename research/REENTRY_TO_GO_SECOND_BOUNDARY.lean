@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeResponseReentryBirthWitness
+import RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 import RHLean.Proof.SquareRootLowPrimeGoFullFacePartner
 import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
@@ -258,6 +259,98 @@ theorem squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_e
     rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hURlt]
     exact mem_squareRootLowPrimeBornFrontierAtoms.mpr
       ⟨hAtom, htBorn, Nat.lt_of_not_ge htU⟩
+
+
+/-- An internal born response atom is not residual: the response-forest
+Othello mate sends it to its literal arithmetic child, and the two tagged
+weights cancel pointwise. -/
+theorem squareRootLowPrimeBornInternalAtom_responseForest_cancel
+    {R K U : ℕ} (hUR : U < R) {a : ℕ × ℕ}
+    (ha : a ∈ squareRootLowPrimeBornInternalAtoms R K U) :
+    squareRootLowPrimeResponseForestOthelloMate R K U (Sum.inl a) =
+        Sum.inr (squareRootLowPrimeBadAtomChild a) ∧
+      squareRootLowPrimeResponseForestOthelloWeight (Sum.inl a) +
+        squareRootLowPrimeResponseForestOthelloWeight
+          (squareRootLowPrimeResponseForestOthelloMate R K U (Sum.inl a)) = 0 := by
+  have hmate :
+      squareRootLowPrimeResponseForestOthelloMate R K U (Sum.inl a) =
+        Sum.inr (squareRootLowPrimeBadAtomChild a) := by
+    simp [squareRootLowPrimeResponseForestOthelloMate,
+      creationResponseOthelloMate, ha]
+  have hne :
+      squareRootLowPrimeResponseForestOthelloMate R K U (Sum.inl a) ≠
+        Sum.inl a := by
+    rw [hmate]
+    simp
+  refine ⟨hmate, ?_⟩
+  rw [squareRootLowPrimeResponseForestOthelloMate_weight_neg hUR
+    (Sum.inl a) hne]
+  abel
+
+/-- **Re-entry is completely consumed by the existing response forest.**
+After a non-born first-owner fallout, there are only three possibilities:
+
+* the seat never re-enters at a later processed owner;
+* a later re-entry produces an internal born atom, paired pointwise with its
+  arithmetic child by the response-forest Othello involution;
+* a later re-entry produces a born no-successor atom, i.e. the existing
+  BornExit frontier.
+
+Thus no re-entry term needs the Go cube hypothesis or a new quantitative
+estimate. -/
+theorem squareRootLowPrimeNonBornFallout_noLater_or_responseForestCancel_or_bornExit
+    {R K j U p c s : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K) (hc : 0 < c)
+    (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p)
+    (hpU : p ≤ U) (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ∨
+      ∃ q t,
+        q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+        p < q ∧
+        t.Prime ∧ q < t ∧ p * c < t ∧
+          (((q * c, t) ∈ squareRootLowPrimeBornInternalAtoms R K U ∧
+              squareRootLowPrimeResponseForestOthelloWeight
+                  (Sum.inl (q * c, t)) +
+                squareRootLowPrimeResponseForestOthelloWeight
+                  (squareRootLowPrimeResponseForestOthelloMate R K U
+                    (Sum.inl (q * c, t))) = 0) ∨
+            (q * c, t) ∈ squareRootLowPrimeBornNoSuccessorAtoms R K U) := by
+  classical
+  have hcut : squareRootBornPostTailLowPrimeCutoff R < R := by
+    unfold squareRootBornPostTailLowPrimeCutoff
+    have hsqrtPos : 0 < Nat.sqrt R := Nat.sqrt_pos.2 (by omega)
+    omega
+  have hURlt : U < R := lt_of_le_of_lt hUR hcut
+  by_cases hno : squareRootLowPrimeNoLaterSeatReentry R K j U p c s
+  · exact Or.inl hno
+  · right
+    have hex :
+        ∃ q,
+          q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+          p < q ∧
+          s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
+      by_contra h
+      push_neg at h
+      apply hno
+      intro q hq hpq
+      exact Nat.le_of_not_gt (h q hq hpq)
+    obtain ⟨q, hqSet, hpq, hqAlive⟩ := hex
+    obtain ⟨t, htPrime, hqt, hpct, hroute⟩ :=
+      squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_exit
+        hR hK hc hp hqSet hrough hpq hpU hUR hs hnb hfall hqAlive
+    refine ⟨q, t, hqSet, hpq, htPrime, hqt, hpct, ?_⟩
+    rcases hroute with hInternal | hExit
+    · exact Or.inl
+        ⟨hInternal,
+          (squareRootLowPrimeBornInternalAtom_responseForest_cancel
+            hURlt hInternal).2⟩
+    · exact Or.inr hExit
+
 
 /-! ## Exhaustive dynamic split -/
 
