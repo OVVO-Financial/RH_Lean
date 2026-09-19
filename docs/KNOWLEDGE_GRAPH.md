@@ -219,6 +219,31 @@ excluded from every authoritative count, because those proofs are not
 kernel-checked by CI. Treat the figure as a measure of unverified work in
 flight, not as part of the library.
 
+### Finding scratch the library has already absorbed
+
+Work leaves the staging tree by being promoted into `RHLean/`, and the scratch
+copy is easy to leave behind. `scripts/research_overlap.py` finds those
+leftovers by comparing the trees declaration by declaration, on two independent
+signals: a research proof whose **short name** already names a library proof,
+and one whose **normalized statement signature** matches a library proof's.
+
+```bash
+python3 scripts/research_overlap.py            # ranked summary
+python3 scripts/research_overlap.py --verbose  # the individual pairings
+```
+
+Neither signal proves duplication, and the script never reports that a file *is*
+redundant -- a research file may legitimately restate a library theorem on its
+way past it. A file scoring high on both is a reason to read both files, and the
+output prints paths and line numbers so that is one step. Matching is by
+declaration, not filename, which matters: the counterpart of
+`research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean` turned out to be
+`RHLean/Proof/PrimeWheelRoughSeatCorrelation.lean`, which no filename heuristic
+would have paired.
+
+The proof-inventory workflow runs this and posts it to the step summary. It is
+informational and never fails the job.
+
 ## Keeping the semantic layer current
 
 Layers 1, 2, 5 and 6 are computed from the sources and stay correct on their

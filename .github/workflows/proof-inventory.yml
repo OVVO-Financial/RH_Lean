@@ -11,6 +11,7 @@ on:
       - 'scripts/decl_graph.py'
       - 'scripts/proofq.py'
       - 'scripts/check_knowledge_graph.py'
+      - 'scripts/research_overlap.py'
       - 'scripts/semantic_facets.json'
       - 'scripts/lean/DeclGraph.lean'
       - '.github/workflows/proof-inventory.yml'
@@ -24,6 +25,7 @@ on:
       - 'scripts/decl_graph.py'
       - 'scripts/proofq.py'
       - 'scripts/check_knowledge_graph.py'
+      - 'scripts/research_overlap.py'
       - 'scripts/semantic_facets.json'
       - 'scripts/lean/DeclGraph.lean'
       - '.github/workflows/proof-inventory.yml'
@@ -120,6 +122,22 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      # research/**.lean is a staging tree outside the compiled library. Work
+      # leaves it by being promoted into RHLean/, and the scratch copy is easy
+      # to leave behind. This reports the leftovers; it is informational and
+      # never fails the job, because name/signature twinning is a heuristic.
+      - name: Research scratch already absorbed by the library
+        continue-on-error: true
+        run: |
+          python3 scripts/research_overlap.py --verbose \
+            > kg-research-overlap.txt || true
+          {
+            echo '## Research scratch already in the library'
+            echo '```text'
+            head -40 kg-research-overlap.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload proof inventory
         uses: actions/upload-artifact@v4
         with:
@@ -137,3 +155,4 @@ jobs:
             kg-obligations.txt
             kg-terminal-cone.txt
             kg-duplicates.txt
+            kg-research-overlap.txt
