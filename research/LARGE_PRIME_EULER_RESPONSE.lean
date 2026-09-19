@@ -310,6 +310,35 @@ example : coupledLargePrimeEulerResidual 30 5 10 ({2} : Finset ℕ) = -1 := by
 example :
     coupledLargePrimeEulerResidual 30 5 6 ({2, 3} : Finset ℕ) = 0 := by
   native_decide
+/-! ## Exact energy polarization of one fresh-prime step -/
+
+/-- Squaring one exact Euler update exposes the only genuinely quadratic term.
+The parent energy and daughter energy are recursive; every departure from a
+formal energy descent is the signed parent/daughter covariance. -/
+theorem coupledLargePrimeEulerResidual_insert_sq
+    (U R Y q : ℕ) (S : Finset ℕ)
+    (hq : q ∉ S) (hprime : q.Prime) :
+    (coupledLargePrimeEulerResidual U R Y (insert q S)) ^ 2 =
+      (coupledLargePrimeEulerResidual U R Y S) ^ 2 +
+        (coupledLargePrimeEulerResidual U R (Y / q) S) ^ 2 -
+          2 * coupledLargePrimeEulerResidual U R Y S *
+            coupledLargePrimeEulerResidual U R (Y / q) S := by
+  rw [coupledLargePrimeEulerResidual_insert hq hprime]
+  ring
+
+/-- Equivalent decrement form: a fresh-prime step lowers energy exactly when
+twice the signed parent/daughter covariance dominates the daughter energy.
+This is the discrete boundary-shadow obstruction in one line. -/
+theorem coupledLargePrimeEulerResidual_energy_sub_insert_eq_covariance
+    (U R Y q : ℕ) (S : Finset ℕ)
+    (hq : q ∉ S) (hprime : q.Prime) :
+    (coupledLargePrimeEulerResidual U R Y S) ^ 2 -
+        (coupledLargePrimeEulerResidual U R Y (insert q S)) ^ 2 =
+      2 * coupledLargePrimeEulerResidual U R Y S *
+          coupledLargePrimeEulerResidual U R (Y / q) S -
+        (coupledLargePrimeEulerResidual U R (Y / q) S) ^ 2 := by
+  rw [coupledLargePrimeEulerResidual_insert_sq U R Y q S hq hprime]
+  ring
 
 /-! ## Arbitrary finite-prime operator form -/
 
