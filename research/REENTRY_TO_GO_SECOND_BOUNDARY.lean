@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Proof.SquareRootLowPrimeResponseReentryBirthWitness
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 import RHLean.Proof.SquareRootLowPrimeGoFullFacePartner
+import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
 
 /-!
 # Response re-entry routes canonically into the Go two-boundary shell
@@ -136,5 +137,75 @@ theorem squareRootLowPrimeSecondBoundaryDefect_fullFace_cancel
           (squareRootLowPrimeGoSecondBoundaryFullFaceSource q t c)) = 0 := by
   exact squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
     hR ht hq hqt hcube hcDefect
+
+/-! ## Exhaustive dynamic split -/
+
+/-- No later same-seat re-entry after the first failed owner.  Every later
+processed prime has response fibre too short to recover the inherited seat. -/
+def squareRootLowPrimeNoLaterSeatReentry
+    (R K j U p c s : ℕ) : Prop :=
+  ∀ q ∈ squareRootLowPrimeFreshPrimeSet K U, p < q →
+    squareRootLowPrimeCombinedFreshResponse R K j (q * c) ≤ s
+
+/-- **Exact dynamic exhaustiveness.**  A non-born first-owner fallout either
+never re-enters at any later processed prime, or the first witnessed re-entry
+routes pointwise into the already-compiled Go two-boundary shell.
+
+No count, norm, or asymptotic input is used. -/
+theorem squareRootLowPrimeNonBornFallout_noLater_or_goShell
+    {R K j U p c s : ℕ}
+    (hR : 1 ≤ R) (hc : 0 < c)
+    (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p)
+    (hpU : p ≤ U) (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ∨
+      ∃ q t,
+        q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+        p < q ∧
+        t.Prime ∧ q < t ∧ p * c < t ∧
+          (c ∈ squareRootLowPrimeGoSmallerOwnerBirthBoundaryParents
+                t (squareRootEndpoint R / (t * t)) q ∨
+            c ∈ squareRootLowPrimeGoSecondBoundaryDefectParents
+                t (squareRootEndpoint R) q) := by
+  classical
+  by_cases hno : squareRootLowPrimeNoLaterSeatReentry R K j U p c s
+  · exact Or.inl hno
+  · right
+    have hex :
+        ∃ q,
+          q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+          p < q ∧
+          s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
+      by_contra h
+      push_neg at h
+      apply hno
+      intro q hq hpq
+      exact Nat.le_of_not_gt (h q hq hpq)
+    obtain ⟨q, hqSet, hpq, hqAlive⟩ := hex
+    have hqPrime : q.Prime := (Finset.mem_filter.mp hqSet).2
+    obtain ⟨t, htPrime, hqt, hpct, hsplit⟩ :=
+      squareRootLowPrimeNonBornFalloutReentry_goTerminal_or_secondBoundary
+        hR hc hp hqPrime hrough hpq hpU hUR hs hnb hfall hqAlive
+    exact ⟨q, t, hqSet, hpq, htPrime, hqt, hpct, hsplit⟩
+
+/-- The old root-equality exception is no longer exceptional once the complete
+Boolean face is used: every such incidence is already a genuine second-boundary
+defect and therefore has an opposite-sign physical full-face mate. -/
+theorem squareRootLowPrimeGoRootEquality_fullFace_cancel
+    {R r q d : ℕ} (hR : 2 ≤ R)
+    (hz : ((r, q), d) ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R) :
+    lowWheelFullTaggedPhysicalWeight
+        (squareRootLowPrimeGoSecondBoundaryFullFaceSource r q d) +
+      lowWheelFullTaggedPhysicalWeight
+        (lowWheelFullFaceQuotientMate R
+          (squareRootLowPrimeGoSecondBoundaryFullFaceSource r q d)) = 0 := by
+  rcases mem_squareRootLowPrimeGoRootEqualityDefectCarrier.mp hz with
+    ⟨_hrR, _hqR, _hdR, hr, hq, hrq, _heq, hcube, hd⟩
+  exact squareRootLowPrimeSecondBoundaryDefect_fullFace_cancel
+    hR hq hr hrq hcube hd
 
 end RHLean.Proof
