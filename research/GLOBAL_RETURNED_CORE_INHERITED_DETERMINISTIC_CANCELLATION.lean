@@ -492,11 +492,14 @@ theorem lowOwnerDaughterCrossingWeight_le_reciprocalDaughterWeight
   intro q hq
   by_cases hcross :
       n ≤ rawQ2ChildCutoff R q ∧ rawQ2ChildCutoff R q < p * n
-  · simp [hcross, hcross.1]
+  · unfold lowOwnerThresholdCrossingIndicator
+    rw [if_pos hcross, if_pos hcross.1]
   · by_cases hn : n ≤ rawQ2ChildCutoff R q
-    · simp [hcross, hn]
-      positivity
-    · simp [hcross, hn]
+    · unfold lowOwnerThresholdCrossingIndicator
+      rw [if_neg hcross, if_pos hn]
+      exact div_nonneg zero_le_one (Nat.cast_nonneg q)
+    · unfold lowOwnerThresholdCrossingIndicator
+      rw [if_neg hcross, if_neg hn]
 
 /-- The reciprocal daughter-crossing field is nonnegative. -/
 theorem lowOwnerDaughterCrossingWeight_nonneg
