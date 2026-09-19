@@ -897,6 +897,121 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_product_le_endpoint
       hR hUR hxAssigned hfirst hwall).1
   omega
 
+
+/-! ## Shallow NoLater pushforward to the first Othello frontier -/
+
+/-- Shallow seat coordinates occurring in the genuine global NoLater carrier. -/
+def squareRootLowPrimeGlobalTerminalNoReentryShallowSeatAtoms
+    (R K j U : ℕ) : Finset (ℕ × ℕ) :=
+  (squareRootLowPrimeProcessedSeatAtoms R K j U).filter fun z =>
+    some z ∈ squareRootLowPrimeGlobalTerminalNoReentryCarrier R K j U ∧
+      canonicalLargestPrimeFactor z.1 ≤ K
+
+/-- Global shallow NoLater membership reduces to one labelled first-owner
+NoLater fibre, so the corresponding shallow creation state is unmatched. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentry_shallow_not_matchedCreation
+    {R K j U c s : ℕ}
+    (hR : 1 ≤ R) (hKU : K ≤ U)
+    (hx : some (c, s) ∈
+      squareRootLowPrimeGlobalTerminalNoReentryCarrier R K j U)
+    (hshallow : canonicalLargestPrimeFactor c ≤ K) :
+    squareRootLowPrimeProcessedShallowSeatToCreation R (c, s) ∉
+      squareRootLowPrimeMatchedCreationStates R K j U := by
+  rcases Finset.mem_biUnion.mp hx with ⟨pc, _hpc, hxpc⟩
+  rcases Finset.mem_image.mp hxpc with ⟨t, ht, hEq⟩
+  have hPair : (pc.2, t) = (c, s) := Option.some.inj hEq
+  have hc : pc.2 = c := congrArg Prod.fst hPair
+  have hs : t = s := congrArg Prod.snd hPair
+  subst pc.2
+  subst t
+  exact squareRootLowPrimeFirstOwnerTerminalNoReentry_shallow_not_matchedCreation
+    hR hKU hshallow ht
+
+/-- The shallow NoLater coordinate map is injective because the canonical
+shallow creation tag restores the original absolute seat exactly. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentryShallow_toCreation_injOn
+    {R K j U : ℕ} (hR : 1 ≤ R) (hKU : K ≤ U) :
+    Set.InjOn (squareRootLowPrimeProcessedShallowSeatToCreation R)
+      (squareRootLowPrimeGlobalTerminalNoReentryShallowSeatAtoms R K j U) := by
+  intro z hz w hw hEq
+  have hzData := Finset.mem_filter.mp (Finset.mem_coe.mp hz)
+  have hwData := Finset.mem_filter.mp (Finset.mem_coe.mp hw)
+  have hzShallow :
+      z ∈ squareRootLowPrimeProcessedShallowSeatAtoms R K j U :=
+    mem_squareRootLowPrimeProcessedShallowSeatAtoms.mpr
+      ⟨hzData.1, hzData.2.2⟩
+  have hwShallow :
+      w ∈ squareRootLowPrimeProcessedShallowSeatAtoms R K j U :=
+    mem_squareRootLowPrimeProcessedShallowSeatAtoms.mpr
+      ⟨hwData.1, hwData.2.2⟩
+  calc
+    z = squareRootLowPrimeCreationToProcessedShallowSeat R
+          (squareRootLowPrimeProcessedShallowSeatToCreation R z) :=
+      (squareRootLowPrimeCreationToProcessedShallowSeat_toCreation
+        hR hKU hzShallow).symm
+    _ = squareRootLowPrimeCreationToProcessedShallowSeat R
+          (squareRootLowPrimeProcessedShallowSeatToCreation R w) := by
+      rw [hEq]
+    _ = w :=
+      squareRootLowPrimeCreationToProcessedShallowSeat_toCreation
+        hR hKU hwShallow
+
+/-- Literal image of the shallow NoLater block in the unmatched creation
+frontier. -/
+def squareRootLowPrimeGlobalTerminalNoReentryShallowCreationImage
+    (R K j U : ℕ) : Finset SquareRootLowPrimeCreationState :=
+  (squareRootLowPrimeGlobalTerminalNoReentryShallowSeatAtoms R K j U).image
+    (squareRootLowPrimeProcessedShallowSeatToCreation R)
+
+/-- Every image point is an actual creation state and is outside the matched
+creation domain. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentryShallowCreationImage_subset_unmatched
+    {R K j U : ℕ} (hR : 1 ≤ R) (hKU : K ≤ U) :
+    squareRootLowPrimeGlobalTerminalNoReentryShallowCreationImage R K j U ⊆
+      squareRootLowPrimeCreationCarrierExact R K j \
+        squareRootLowPrimeMatchedCreationStates R K j U := by
+  intro x hx
+  rcases Finset.mem_image.mp hx with ⟨z, hz, rfl⟩
+  have hzData := Finset.mem_filter.mp hz
+  have hzShallow :
+      z ∈ squareRootLowPrimeProcessedShallowSeatAtoms R K j U :=
+    mem_squareRootLowPrimeProcessedShallowSeatAtoms.mpr
+      ⟨hzData.1, hzData.2.2⟩
+  have hxCreation :=
+    squareRootLowPrimeProcessedShallowSeatToCreation_mem hR hKU hzShallow
+  have hxCreation' :
+      squareRootLowPrimeProcessedShallowSeatToCreation R z ∈
+        squareRootLowPrimeCreationCarrierExact R K j :=
+    (Finset.mem_erase.mp hxCreation).2
+  have hnotMatched :=
+    squareRootLowPrimeGlobalTerminalNoReentry_shallow_not_matchedCreation
+      hR hKU hzData.2.1 hzData.2.2
+  exact Finset.mem_sdiff.mpr ⟨hxCreation', hnotMatched⟩
+
+/-- The shallow NoLater pushforward preserves the native signed mass exactly. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentryShallowCreationImage_weight_sum
+    {R K j U : ℕ} (hR : 1 ≤ R) (hKU : K ≤ U) :
+    (∑ x ∈ squareRootLowPrimeGlobalTerminalNoReentryShallowCreationImage
+        R K j U, squareRootLowPrimeCreationWeightReal x) =
+      ∑ z ∈ squareRootLowPrimeGlobalTerminalNoReentryShallowSeatAtoms R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal (some z) := by
+  unfold squareRootLowPrimeGlobalTerminalNoReentryShallowCreationImage
+  rw [Finset.sum_image
+    (squareRootLowPrimeGlobalTerminalNoReentryShallow_toCreation_injOn hR hKU)]
+  apply Finset.sum_congr rfl
+  intro z hz
+  have hzData := Finset.mem_filter.mp hz
+  have hzShallow :
+      z ∈ squareRootLowPrimeProcessedShallowSeatAtoms R K j U :=
+    mem_squareRootLowPrimeProcessedShallowSeatAtoms.mpr
+      ⟨hzData.1, hzData.2.2⟩
+  let zz : ↥(squareRootLowPrimeProcessedShallowSeatAtoms R K j U) :=
+    ⟨z, hzShallow⟩
+  have hweight :=
+    squareRootLowPrimeProcessedShallowSeatCreationEquiv_weight_eq
+      hR hKU zz
+  simpa [zz, squareRootLowPrimeProcessedShallowSeatCreationEquiv] using hweight
+
 /-- The global ledger is literally the signed mass of its disjoint
 first-owner/cofactor fibres. -/
 theorem squareRootLowPrimeGlobalTerminalNoReentryLedger_eq_fiberMass
