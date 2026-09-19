@@ -676,6 +676,73 @@ def squareRootLowPrimeGlobalTerminalNoReentryLedger
       (squareRootLowPrimeFirstOwnerTerminalNoReentryWidth
         R K j U pc.1 pc.2 : ℝ)
 
+/-- A genuine labelled no-reentry seat can never be a first-owner square-wall
+cell. Product-wall assigned terminals are purely born, whereas this carrier
+starts after the born prefix. Hence every NoLater fibre is an inside-square
+response-tail fibre. -/
+theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_product_le_endpoint
+    {R K j U p c s : ℕ}
+    (hR : 2 ≤ R) (hUR : U < R)
+    (hs : s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+      R K j U p c) :
+    p * c ≤ squareRootEndpoint R := by
+  have hsData :=
+    squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data hs
+  have hsTerm := hsData.1
+  have hxAssigned := hsData.2.1
+  have hIntrinsic := hsData.2.2
+  have hbornLe : squareRootBornPartnerCount R c ≤ s := by
+    have hmem := Finset.mem_Ico.mp hsTerm
+    exact le_trans (le_max_left _ _) hmem.1
+  have hxTerminal :
+      some (c, s) ∈
+        squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U :=
+    (Finset.mem_sdiff.mp hxAssigned).1
+  have hcovered :=
+    squareRootLowPrimeProcessedSeatCanonicalAssigned_covered hxAssigned
+  rcases hcovered with ⟨q, _hqList, hqOwner⟩
+  have hpq : p = q := by
+    have hpOwner := hIntrinsic
+    rw [hqOwner] at hpOwner
+    exact Option.some.inj hpOwner
+  subst q
+  have hfirst :
+      squareRootLowPrimeFirstOwnerAbove
+          (squareRootLowPrimeFreshPrimeList K U)
+          (canonicalLargestPrimeFactor c) = some p := by
+    by_contra hne
+    cases hopt : squareRootLowPrimeFirstOwnerAbove
+        (squareRootLowPrimeFreshPrimeList K U)
+        (canonicalLargestPrimeFactor c) with
+    | none =>
+        have hhead : some (c, s) ∈
+            squareRootLowPrimeProcessedSeatCanonicalTerminalHeads R K j U := by
+          apply Finset.mem_filter.mpr
+          exact ⟨hxTerminal, Or.inr hopt⟩
+        exact (Finset.mem_sdiff.mp hxAssigned).2 hhead
+    | some r =>
+        have hrFall :
+            some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+              (squareRootLowPrimeProcessedSeatCarrier R K j U) r :=
+          squareRootLowPrimeProcessedSeatCanonicalTerminal_firstOwnerAbove_mem_falloff
+            hxTerminal (by simp) hopt
+        have hrIntrinsic :
+            squareRootLowPrimeProcessedSeatIntrinsicFirstOwner
+                (squareRootLowPrimeFreshPrimeList K U)
+                (squareRootLowPrimeProcessedSeatCarrier R K j U)
+                (some (c, s)) = some r :=
+          squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_firstOwnerAbove_of_falloff
+            hopt hrFall
+        rw [hIntrinsic] at hrIntrinsic
+        have : p = r := Option.some.inj hrIntrinsic
+        exact hne (by simpa [this] using hopt)
+  by_contra hwallNot
+  have hwall : squareRootEndpoint R < p * c := Nat.lt_of_not_ge hwallNot
+  have hborn : s < squareRootBornPartnerCount R c :=
+    (squareRootLowPrimeCanonicalAssigned_wall_bornSeat_oldPartner
+      hR hUR hxAssigned hfirst hwall).1
+  omega
+
 /-- The global ledger is literally the signed mass of its disjoint
 first-owner/cofactor fibres. -/
 theorem squareRootLowPrimeGlobalTerminalNoReentryLedger_eq_fiberMass
