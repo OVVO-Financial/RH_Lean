@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Analysis.SquareRootMiddleSequentialCoherence
 import RHLean.Proof.LowWheelCanonicalPrimeSplit
+import RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime
 
 /-!
 # Large-prime Euler response at a fixed endpoint
@@ -306,6 +307,68 @@ example : coupledLargePrimeEulerResidual 30 5 10 ({2} : Finset ℕ) = -1 := by
 
 example :
     coupledLargePrimeEulerResidual 30 5 6 ({2, 3} : Finset ℕ) = 0 := by
+  native_decide
+
+/-! ## Arbitrary finite-prime operator form -/
+
+/-- The unprocessed coupled state.  It is the unit endpoint source minus the
+large-prime extension count, including the cutoff-zero convention. -/
+def coupledLargePrimeEulerSeed (U R : ℕ) : ℕ → ℤ :=
+  fun Y => coupledLargePrimeEulerResidual U R Y ∅
+
+/-- **All finite Euler bookkeeping in one identity.**
+For any finite set of prime coordinates, the fully coupled smooth-minus-large
+prime state is exactly the canonical Möbius finite-difference operator applied
+to the unprocessed seed.  Thus the one-prime recurrence is not merely
+iterable: its arbitrary finite iterate is already the repository's unordered
+Euler operator. -/
+theorem coupledLargePrimeEulerResidual_eq_finiteDifferenceOperator
+    (U R : ℕ) (S : Finset ℕ)
+    (hprime : ∀ q ∈ S, q.Prime) :
+    (fun Y => coupledLargePrimeEulerResidual U R Y S) =
+      RHLean.Arithmetic.finiteDifferenceOperator S
+        (coupledLargePrimeEulerSeed U R) := by
+  classical
+  induction S using Finset.induction_on with
+  | empty =>
+      funext Y
+      simp [coupledLargePrimeEulerSeed,
+        RHLean.Arithmetic.finiteDifferenceOperator_empty]
+  | @insert q S hq ih =>
+      have hqPrime : q.Prime := hprime q (by simp)
+      have hSPrime : ∀ r ∈ S, r.Prime := by
+        intro r hr
+        exact hprime r (Finset.mem_insert_of_mem hr)
+      have ih' := ih hSPrime
+      funext Y
+      rw [coupledLargePrimeEulerResidual_insert hq hqPrime]
+      rw [congrFun ih' Y, congrFun ih' (Y / q)]
+      rw [RHLean.Arithmetic.finiteDifferenceOperator_insert
+        S q hqPrime hq hSPrime (coupledLargePrimeEulerSeed U R)]
+      simp only [Pi.sub_apply]
+      rw [RHLean.Arithmetic.finiteDifferenceOperator_shift_comm]
+      rfl
+
+/-- Pointwise form of the arbitrary finite-prime operator identity. -/
+theorem coupledLargePrimeEulerResidual_eq_finiteDifferenceOperator_apply
+    (U R Y : ℕ) (S : Finset ℕ)
+    (hprime : ∀ q ∈ S, q.Prime) :
+    coupledLargePrimeEulerResidual U R Y S =
+      RHLean.Arithmetic.finiteDifferenceOperator S
+        (coupledLargePrimeEulerSeed U R) Y := by
+  exact congrFun
+    (coupledLargePrimeEulerResidual_eq_finiteDifferenceOperator U R S hprime) Y
+
+/-- The X=30 calculation is therefore one evaluation of the unordered
+three-prime Euler operator, not an order-specific coincidence. -/
+example :
+    RHLean.Arithmetic.finiteDifferenceOperator ({2, 3, 5} : Finset ℕ)
+        (coupledLargePrimeEulerSeed 30 5) 30 = -3 := by
+  rw [← coupledLargePrimeEulerResidual_eq_finiteDifferenceOperator_apply
+    30 5 30 ({2, 3, 5} : Finset ℕ) (by
+      intro q hq
+      simp only [Finset.mem_insert, Finset.mem_singleton] at hq
+      rcases hq with rfl | rfl | rfl <;> norm_num)]
   native_decide
 
 /-! ## Aggregate square-endpoint identification -/
