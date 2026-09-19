@@ -199,47 +199,57 @@ theorem squareRootLowPrimeNonBornFallout_noLater_iff_mem_terminalResponseTail
       (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
     squareRootLowPrimeNoLaterSeatReentry R K j U p c s ↔
       s ∈ Finset.Ico
-        (max
-          (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
-          (squareRootLowPrimeLaterResponseCeiling R K j U p c))
+        (max (squareRootBornPartnerCount R c)
+          (max
+            (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
+            (squareRootLowPrimeLaterResponseCeiling R K j U p c)))
         (squareRootLowPrimeCombinedFreshResponse R K j c) := by
   have htail :=
     squareRootLowPrimeNonBornFirstOwnerFalloff_is_responseTail
       hR hp hpU hUR hs hnb hfall
+  have hborn : squareRootBornPartnerCount R c ≤ s :=
+    Nat.le_of_not_gt hnb
   rw [Finset.mem_Ico]
   rw [squareRootLowPrimeNoLaterSeatReentry_iff_ceiling_le]
   constructor
   · intro hceil
-    exact ⟨max_le htail.1 hceil, htail.2⟩
+    exact ⟨max_le hborn (max_le htail.1 hceil), htail.2⟩
   · intro h
-    exact le_trans (le_max_right _ _) h.1
+    exact le_trans (le_max_right _ _) (le_trans (le_max_right _ _) h.1)
 
 /-! ## Exact terminal no-reentry fibre -/
 
-/-- Literal terminal seat interval after the first failed owner and every later
-response height have both been accounted for. -/
-def squareRootLowPrimeTerminalNoReentrySeatIndices
-    (R K j U p c : ℕ) : Finset ℕ :=
-  Finset.Ico
+/-- Exact lower endpoint of the non-born terminal response tail.  It enforces
+all three constraints simultaneously: outside the born prefix, dead at the first
+failed owner, and never alive at any later processed owner. -/
+def squareRootLowPrimeTerminalNoReentryLower
+    (R K j U p c : ℕ) : ℕ :=
+  max (squareRootBornPartnerCount R c)
     (max
       (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
       (squareRootLowPrimeLaterResponseCeiling R K j U p c))
+
+/-- Literal terminal seat interval after the born prefix, the first failed owner,
+and every later response height have all been accounted for. -/
+def squareRootLowPrimeTerminalNoReentrySeatIndices
+    (R K j U p c : ℕ) : Finset ℕ :=
+  Finset.Ico
+    (squareRootLowPrimeTerminalNoReentryLower R K j U p c)
     (squareRootLowPrimeCombinedFreshResponse R K j c)
 
-/-- Exact width of the terminal no-reentry response tail. -/
+/-- Exact width of the non-born terminal no-reentry response tail. -/
 def squareRootLowPrimeTerminalNoReentryWidth
     (R K j U p c : ℕ) : ℕ :=
   squareRootLowPrimeCombinedFreshResponse R K j c -
-    max
-      (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
-      (squareRootLowPrimeLaterResponseCeiling R K j U p c)
+    squareRootLowPrimeTerminalNoReentryLower R K j U p c
 
 @[simp] theorem card_squareRootLowPrimeTerminalNoReentrySeatIndices
     (R K j U p c : ℕ) :
     (squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c).card =
       squareRootLowPrimeTerminalNoReentryWidth R K j U p c := by
   simp [squareRootLowPrimeTerminalNoReentrySeatIndices,
-    squareRootLowPrimeTerminalNoReentryWidth]
+    squareRootLowPrimeTerminalNoReentryWidth,
+    squareRootLowPrimeTerminalNoReentryLower]
 
 /-- One cofactor's terminal no-reentry unit-seat fibre. -/
 def squareRootLowPrimeTerminalNoReentryFiber
