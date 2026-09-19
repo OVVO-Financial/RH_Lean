@@ -2,6 +2,8 @@ import Mathlib
 import RHLean.Proof.FiniteOthelloMatching
 import RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv
 import RHLean.Proof.SquareRootLowPrimePartialEndpointCarrier
+import RHLean.Proof.SquareRootLowPrimeProcessedCreationResponseInvolution
+import RHLean.Proof.SquareRootLowPrimeProcessedCreationResponseFixedClassification
 
 /-!
 # Boundary-shadow Morse/Othello reduction
@@ -129,5 +131,68 @@ theorem abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_boundaryShado
   apply abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_massTransfer
     hR hKR hV0 hVK
   exact squareRootLowPrimeBoundaryShadow_massTransfer_of_matching M
+
+/-! ## Replace the descending critical set by the creation-response critical set
+
+Both the descending-prime mate and the creation-response mate act on the exact
+same processed-seat carrier, are involutions there, and reverse native signed
+weight on every moved state.  Finite Othello therefore identifies their stable
+masses exactly.  This is the useful Morse move-order invariance: we are free to
+classify whichever fixed set has the cleaner endpoint geometry.
+-/
+
+/-- The two processed-carrier Morse/Othello matchings have exactly the same
+signed critical mass.  No alternating path has to be constructed explicitly. -/
+theorem squareRootLowPrime_creationResponseStableMass_eq_noLibertyStableMass
+    {R K j U : ℕ} (hR : 1 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) :
+    (∑ x ∈ finiteOthelloStablePart
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        (squareRootLowPrimeProcessedSeatCreationResponseMate R K j U),
+      squareRootLowPrimeProcessedSeatWeightReal x) =
+      ∑ x ∈ finiteOthelloStablePart
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        (squareRootLowPrimeProcessedSeatNoLibertyMate R K j U),
+      squareRootLowPrimeProcessedSeatWeightReal x := by
+  exact
+    sum_finiteOthelloStablePart_eq_of_two_involutions
+      (squareRootLowPrimeProcessedSeatCarrier R K j U)
+      (squareRootLowPrimeProcessedSeatCreationResponseMate R K j U)
+      (squareRootLowPrimeProcessedSeatNoLibertyMate R K j U)
+      squareRootLowPrimeProcessedSeatWeightReal
+      (fun x hx =>
+        squareRootLowPrimeProcessedSeatCreationResponseMate_mem hR hK hKU hx)
+      (fun x hx =>
+        squareRootLowPrimeProcessedSeatCreationResponseMate_involutive hR hK hKU hx)
+      (fun x hx hne =>
+        squareRootLowPrimeProcessedSeatCreationResponseMate_weight_neg
+          hR hK hKU hx hne)
+      (fun x hx => squareRootLowPrimeProcessedSeatNoLibertyMate_mem hx)
+      (fun x hx => squareRootLowPrimeProcessedSeatNoLibertyMate_involutive hx)
+      (fun x hx hne =>
+        squareRootLowPrimeProcessedSeatNoLibertyMate_weight_neg hx hne)
+
+/-- Consequently the creation-response fixed set already carries the complete
+running imbalance.  The descending terminal frontier can be discarded from the
+remaining classification problem. -/
+theorem squareRootLowPrime_creationResponseStableMass_eq_runningImbalance
+    {R K j U : ℕ} (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) :
+    (∑ x ∈ finiteOthelloStablePart
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        (squareRootLowPrimeProcessedSeatCreationResponseMate R K j U),
+      squareRootLowPrimeProcessedSeatWeightReal x) =
+      squareRootLowPrimeRunningImbalanceReal R K j U := by
+  calc
+    (∑ x ∈ finiteOthelloStablePart
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        (squareRootLowPrimeProcessedSeatCreationResponseMate R K j U),
+      squareRootLowPrimeProcessedSeatWeightReal x) =
+      ∑ x ∈ finiteOthelloStablePart
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        (squareRootLowPrimeProcessedSeatNoLibertyMate R K j U),
+      squareRootLowPrimeProcessedSeatWeightReal x :=
+        squareRootLowPrime_creationResponseStableMass_eq_noLibertyStableMass
+          (by omega) hK hKU
+    _ = squareRootLowPrimeRunningImbalanceReal R K j U :=
+      squareRootLowPrimeProcessedSeatNoLibertyMate_stableMass_eq_runningImbalance hR
 
 end RHLean.Proof
