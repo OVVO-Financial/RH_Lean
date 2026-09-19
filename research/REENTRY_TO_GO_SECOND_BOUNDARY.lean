@@ -8,6 +8,7 @@ import RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseMap
 import RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv
 import RHLean.Proof.SquareRootLowPrimeProcessedCreationResponseFixedClassification
 import RHLean.Proof.SquareRootLowPrimeCanonicalMatchingInvolution
+import RHLean.Proof.SquareRootLowPrimeEulerCreationResponseEnergyGate
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 import RHLean.Proof.SquareRootLowPrimeGoFullFacePartner
 import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
@@ -147,6 +148,43 @@ theorem squareRootLowPrimeSecondBoundaryDefect_fullFace_cancel
           (squareRootLowPrimeGoSecondBoundaryFullFaceSource q t c)) = 0 := by
   exact squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
     hR ht hq hqt hcube hcDefect
+
+/-! ## Canonical unmatched-frontier normal form -/
+
+/-- **Exact first-Othello normal form.**  Specializing the generic
+creation/response cancellation to the canonical least eligible owner gives
+the terminal running state as the signed mass of the two unmatched frontiers.
+No cardinality or norm estimate enters. -/
+theorem squareRootLowPrimeRunningImbalanceReal_eq_canonicalUnmatchedFrontiers
+    {R K j U : ℕ} (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) :
+    squareRootLowPrimeRunningImbalanceReal R K j U =
+      (∑ x ∈ squareRootLowPrimeCreationCarrierExact R K j \
+          squareRootLowPrimeMatchedCreationStates R K j U,
+        squareRootLowPrimeCreationWeightReal x) +
+      ∑ z ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j U \
+          creationResponseMatchedImage
+            (squareRootLowPrimeMatchedCreationStates R K j U)
+            (squareRootLowPrimeCanonicalCreationToResponse R K j U),
+        squareRootLowPrimeResponseSeatWeightReal z := by
+  rw [squareRootLowPrimeRunningImbalanceReal_eq_creation_add_responseSeats
+    hR hK hKU]
+  exact creationResponse_sum_eq_unmatchedFrontiers
+    (squareRootLowPrimeCreationCarrierExact R K j)
+    (squareRootLowPrimeMatchedCreationStates R K j U)
+    (squareRootLowPrimeOwnedResponseSeatCarrier R K j U)
+    (squareRootLowPrimeCanonicalCreationToResponse R K j U)
+    squareRootLowPrimeCreationWeightReal
+    squareRootLowPrimeResponseSeatWeightReal
+    (by
+      intro x hx
+      exact (mem_squareRootLowPrimeMatchedCreationStates.mp hx).1)
+    (by
+      intro x hx
+      exact squareRootLowPrimeCanonicalCreationToResponse_mem hx)
+    squareRootLowPrimeCanonicalCreationToResponse_injOn
+    (by
+      intro x hx
+      exact squareRootLowPrimeCanonicalCreationToResponse_weight_cancel hx)
 
 /-! ## Exact transfer between the two Othello fixed sets -/
 
