@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeResponseReentryBirthWitness
 import RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution
+import RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 import RHLean.Proof.SquareRootLowPrimeGoFullFacePartner
 import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
@@ -460,6 +461,183 @@ theorem squareRootLowPrimeTerminalNoReentryFiber_weight_sum
     _ = ((-μ c : ℤ) : ℝ) *
         (squareRootLowPrimeTerminalNoReentryWidth R K j U p c : ℝ) := by
       rw [card_squareRootLowPrimeTerminalNoReentrySeatIndices]
+
+
+/-! ## Global terminal no-reentry ledger -/
+
+/-- Seat-level no-reentry indices after imposing the actual terminal target and
+the unique intrinsic first-owner assignment.  The first owner is a property of
+the processed seat, not of the cofactor alone. -/
+def squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+    (R K j U p c : ℕ) : Finset ℕ :=
+  (squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c).filter fun s =>
+    some (c, s) ∈
+        squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U ∧
+      squareRootLowPrimeProcessedSeatIntrinsicFirstOwner
+        (squareRootLowPrimeFreshPrimeList K U)
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        (some (c, s)) = some p
+
+/-- Exact multiplicity of one first-owner/cofactor terminal no-reentry slice. -/
+def squareRootLowPrimeFirstOwnerTerminalNoReentryWidth
+    (R K j U p c : ℕ) : ℕ :=
+  (squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+    R K j U p c).card
+
+/-- Literal processed states in one disjoint first-owner/cofactor no-reentry
+slice. -/
+def squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
+    (R K j U p c : ℕ) : Finset SquareRootLowPrimeProcessedState :=
+  (squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+      R K j U p c).image fun s => some (c, s)
+
+@[simp] theorem mem_squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
+    {R K j U p c s : ℕ} :
+    some (c, s) ∈
+        squareRootLowPrimeFirstOwnerTerminalNoReentryFiber R K j U p c ↔
+      s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+        R K j U p c := by
+  simp [squareRootLowPrimeFirstOwnerTerminalNoReentryFiber]
+
+/-- Membership exposes both pieces that make the global ledger canonical:
+actual terminal membership and the unique seat-level first owner. -/
+theorem squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data
+    {R K j U p c s : ℕ}
+    (hs : s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+      R K j U p c) :
+    s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c ∧
+      some (c, s) ∈
+        squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U ∧
+      squareRootLowPrimeProcessedSeatIntrinsicFirstOwner
+        (squareRootLowPrimeFreshPrimeList K U)
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        (some (c, s)) = some p := by
+  simpa [squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices] using
+    Finset.mem_filter.mp hs
+
+/-- Each first-owner/cofactor no-reentry slice has one native Möbius sign, so
+its exact signed mass is sign times width. -/
+theorem squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_weight_sum
+    (R K j U p c : ℕ) :
+    (∑ x ∈ squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
+        R K j U p c, squareRootLowPrimeProcessedSeatWeightReal x) =
+      ((-μ c : ℤ) : ℝ) *
+        (squareRootLowPrimeFirstOwnerTerminalNoReentryWidth
+          R K j U p c : ℝ) := by
+  unfold squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
+    squareRootLowPrimeFirstOwnerTerminalNoReentryWidth
+  calc
+    (∑ x ∈
+        (squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+          R K j U p c).image (fun s => some (c, s)),
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      ∑ s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+          R K j U p c,
+        squareRootLowPrimeProcessedSeatWeightReal (some (c, s)) := by
+      apply Finset.sum_image
+      intro a _ha b _hb hab
+      simpa using hab
+    _ = ∑ _s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+          R K j U p c, ((-μ c : ℤ) : ℝ) := by
+      rfl
+    _ = ((-μ c : ℤ) : ℝ) *
+        ((squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+          R K j U p c).card : ℝ) := by
+      simp
+      ring
+
+/-- Two terminal no-reentry fibres with different first-owner/cofactor labels
+are disjoint.  This is the global no-double-counting statement that the
+cofactor-only ledger lacks. -/
+theorem squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_disjoint
+    {R K j U p q c d : ℕ} (hpcqd : (p, c) ≠ (q, d)) :
+    Disjoint
+      (squareRootLowPrimeFirstOwnerTerminalNoReentryFiber R K j U p c)
+      (squareRootLowPrimeFirstOwnerTerminalNoReentryFiber R K j U q d) := by
+  rw [Finset.disjoint_left]
+  intro x hx hy
+  rcases Finset.mem_image.mp hx with ⟨s, hs, rfl⟩
+  rcases Finset.mem_image.mp hy with ⟨t, ht, hEq⟩
+  have hpair : (c, s) = (d, t) := Option.some.inj hEq
+  have hcd : c = d := congrArg Prod.fst hpair
+  have hst : s = t := congrArg Prod.snd hpair
+  subst d
+  subst t
+  have hsData :=
+    squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data hs
+  have htData :=
+    squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data ht
+  have hpq : p = q := Option.some.inj (hsData.2.2.symm.trans htData.2.2)
+  exact hpcqd (by simp [hpq])
+
+/-- Index set for the global no-reentry ledger. -/
+def squareRootLowPrimeFirstOwnerTerminalNoReentryIndex
+    (R K j U : ℕ) : Finset (ℕ × ℕ) :=
+  (squareRootLowPrimeFreshPrimeList K U).toFinset ×ˢ
+    squareRootLowPrimeProcessedSignedCofactors R U
+
+/-- The genuine global terminal no-reentry ledger.  It is indexed by the
+seat-level first owner and cofactor; summing only over cofactors would merge
+distinct chronological fallout layers. -/
+def squareRootLowPrimeGlobalTerminalNoReentryLedger
+    (R K j U : ℕ) : ℝ :=
+  ∑ pc ∈ squareRootLowPrimeFirstOwnerTerminalNoReentryIndex R K j U,
+    ((-μ pc.2 : ℤ) : ℝ) *
+      (squareRootLowPrimeFirstOwnerTerminalNoReentryWidth
+        R K j U pc.1 pc.2 : ℝ)
+
+/-- The global ledger is literally the signed mass of its disjoint
+first-owner/cofactor fibres. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentryLedger_eq_fiberMass
+    (R K j U : ℕ) :
+    squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U =
+      ∑ pc ∈ squareRootLowPrimeFirstOwnerTerminalNoReentryIndex R K j U,
+        ∑ x ∈ squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
+          R K j U pc.1 pc.2,
+          squareRootLowPrimeProcessedSeatWeightReal x := by
+  unfold squareRootLowPrimeGlobalTerminalNoReentryLedger
+  apply Finset.sum_congr rfl
+  intro pc _hpc
+  rw [squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_weight_sum]
+
+/-- The part of the exact intrinsic first-owner mass not belonging to genuine
+terminal no-reentry fibres.  The response-forest layer identifies this
+complement pointwise with already-existing born/boundary mechanisms; defining
+it by subtraction keeps the global accounting exact before that identification
+is assembled. -/
+def squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger
+    (R K j U : ℕ) : ℝ :=
+  squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerMass
+      (squareRootLowPrimeFreshPrimeList K U)
+      (squareRootLowPrimeProcessedSeatCarrier R K j U)
+      (squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U) -
+    squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U
+
+/-- **Exact global accounting after the re-entry closure.**  The running
+imbalance is the genuine no-reentry ledger, plus the complementary first-owner
+mass, plus the explicit no-owner heads.  No transport term is duplicated and no
+seat can be counted under two first owners. -/
+theorem squareRootLowPrimeRunningImbalanceReal_eq_terminalNoReentry_add_complement_add_heads
+    {R K j U : ℕ} (hR : 2 ≤ R) :
+    squareRootLowPrimeRunningImbalanceReal R K j U =
+      squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U +
+        squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger R K j U +
+        ∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalHeads R K j U,
+          squareRootLowPrimeProcessedSeatWeightReal x := by
+  rw [squareRootLowPrimeRunningImbalanceReal_eq_firstOwnerMass_add_heads hR]
+  unfold squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger
+  ring
+
+/-- The proposed sum of the post-root downcross ledger and transport would
+double-count the same exact object: the repository already identifies them. -/
+theorem lowWheelCanonicalPostRootDowncrossLedger_add_transport_eq_two_transport
+    {R : ℕ} (hR : 2 ≤ R) :
+    lowWheelCanonicalPostRootDowncrossLedger R +
+        squareRootTransportCofactorFirst R =
+      2 * squareRootTransportCofactorFirst R := by
+  rw [lowWheelCanonicalPostRootDowncrossLedger_eq_transport R hR]
+  ring
+
 
 /-- **Exact dynamic exhaustiveness.**  A non-born first-owner fallout either
 never re-enters at any later processed prime, or the first witnessed re-entry
