@@ -368,28 +368,42 @@ theorem primeWheelWeightedShiftedArcGram_eq_overlapCensus
       primeWheelWeightedArcOverlapCensus W S w A d := by
   unfold primeWheelWeightedShiftedArcSynthesis
     primeWheelWeightedArcOverlapCensus
+  rw [Finset.mul_sum]
   calc
-    ((W.modulus : ℂ)⁻¹) *
-        ∑ r : ZMod W.modulus,
-          (∑ q ∈ S,
+    (∑ r : ZMod W.modulus,
+        ((W.modulus : ℂ)⁻¹) *
+          ((∑ q ∈ S,
               w q * primeWheelShiftedArcKernel W (A q) (d q) (-r)) *
             (∑ q' ∈ S,
-              w q' * primeWheelShiftedArcKernel W (A q') (d q') r) =
-      ∑ q ∈ S, ∑ q' ∈ S,
+              w q' * primeWheelShiftedArcKernel W (A q') (d q') r))) =
+      ∑ r : ZMod W.modulus,
+        ∑ q ∈ S, ∑ q' ∈ S,
+          ((W.modulus : ℂ)⁻¹) *
+            ((w q * primeWheelShiftedArcKernel W (A q) (d q) (-r)) *
+              (w q' * primeWheelShiftedArcKernel W (A q') (d q') r)) := by
+      apply Finset.sum_congr rfl
+      intro r _hr
+      simp_rw [Finset.sum_mul, Finset.mul_sum]
+    _ = ∑ q ∈ S, ∑ q' ∈ S,
+        ∑ r : ZMod W.modulus,
+          ((W.modulus : ℂ)⁻¹) *
+            ((w q * primeWheelShiftedArcKernel W (A q) (d q) (-r)) *
+              (w q' * primeWheelShiftedArcKernel W (A q') (d q') r)) := by
+      rw [Finset.sum_comm]
+      apply Finset.sum_congr rfl
+      intro q _hq
+      rw [Finset.sum_comm]
+    _ = ∑ q ∈ S, ∑ q' ∈ S,
         w q * w q' *
           (((W.modulus : ℂ)⁻¹) *
             ∑ r : ZMod W.modulus,
               primeWheelShiftedArcKernel W (A q) (d q) (-r) *
                 primeWheelShiftedArcKernel W (A q') (d q') r) := by
-      rw [Finset.sum_mul]
-      simp_rw [Finset.mul_sum]
-      rw [Finset.sum_comm]
       apply Finset.sum_congr rfl
       intro q _hq
-      rw [Finset.sum_comm]
       apply Finset.sum_congr rfl
       intro q' _hq'
-      rw [Finset.mul_sum]
+      rw [Finset.mul_sum, Finset.mul_sum]
       apply Finset.sum_congr rfl
       intro r _hr
       ring
