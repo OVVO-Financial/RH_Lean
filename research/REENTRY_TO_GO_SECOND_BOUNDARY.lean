@@ -6,6 +6,7 @@ import RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution
 import RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
 import RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseMap
 import RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv
+import RHLean.Proof.SquareRootLowPrimeProcessedCreationResponseFixedClassification
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 import RHLean.Proof.SquareRootLowPrimeGoFullFacePartner
 import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
@@ -927,6 +928,38 @@ theorem squareRootLowPrimeGlobalTerminalNoReentry_shallow_not_matchedCreation
   subst t
   exact squareRootLowPrimeFirstOwnerTerminalNoReentry_shallow_not_matchedCreation
     hR hKU hshallow ht
+
+/-- **NoLater is literally stable for the first Othello move on the shallow
+sector.**  The previous unmatched-creation theorem is therefore not merely a
+set-theoretic exclusion: after transporting the absolute processed seat into
+the creation/response coordinates, the first Othello involution fixes it
+pointwise. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentry_shallow_creationResponse_fixed
+    {R K j U c s : ℕ}
+    (hR : 1 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U)
+    (hx : some (c, s) ∈
+      squareRootLowPrimeGlobalTerminalNoReentryCarrier R K j U)
+    (hshallow : canonicalLargestPrimeFactor c ≤ K) :
+    squareRootLowPrimeProcessedSeatCreationResponseMate R K j U
+        (some (c, s)) = some (c, s) := by
+  have hxAssigned :
+      some (c, s) ∈
+        squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U :=
+    squareRootLowPrimeGlobalTerminalNoReentryCarrier_subset_assigned
+      R K j U hx
+  have hxTerminal :
+      some (c, s) ∈
+        squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U :=
+    (Finset.mem_sdiff.mp hxAssigned).1
+  have hxCarrier :
+      some (c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U :=
+    squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier_subset
+      (squareRootLowPrimeFreshPrimeList K U)
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) hxTerminal
+  apply (squareRootLowPrimeProcessedSeatCreationResponseMate_shallow_eq_self_iff
+    hR hK hKU hxCarrier hshallow).2
+  exact squareRootLowPrimeGlobalTerminalNoReentry_shallow_not_matchedCreation
+    hR hKU hx hshallow
 
 /-- The shallow NoLater coordinate map is injective because the canonical
 shallow creation tag restores the original absolute seat exactly. -/
