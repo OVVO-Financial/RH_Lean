@@ -174,6 +174,34 @@ N_-(210)=65,
 M(210)=-1.
 ```
 
+
+### Exact amplitude-space decomposition at 210
+
+The same endpoint has a second finite decomposition that is useful for the
+signed-amplitude route. With root cutoff \(14\), the \(129\) squarefree
+states split into \(35\) root-smooth states and \(94\) outer states. The
+outer amplitude is exactly zero.
+
+A \(q=2\) matching cancels \(56\) outer states in \(28\) opposite-sign
+parent/child pairs. The remaining \(38\) boundary states split into \(19\)
+negative primes and \(19\) positive semiprimes, with exact block identity
+
+~~~math
+-19+8+5+4+2=0.
+~~~
+
+This example is intentionally kept signed: taking absolute values first gives
+\(38\), while squaring the five separated block amplitudes gives diagonal
+energy \(470\) and requires cross term \(-470\) to recover the true amplitude
+zero.
+
+See the full census, explicit survivor lists, \(H(c)-H(2c)\) table, and scope
+warning in
+[\`research/AMPLITUDE_X210_EXACT_EXAMPLE.md\`](../research/AMPLITUDE_X210_EXACT_EXAMPLE.md).
+The dependency-free regression is
+[\`experiments/amplitude_x210_exact.py\`](../experiments/amplitude_x210_exact.py).
+
+
 ## What has to be bounded
 
 The lower-left curve is the exact finite prime-comb path
