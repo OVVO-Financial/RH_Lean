@@ -2,7 +2,7 @@ name: Signed cell Stokes bridge check
 
 on:
   push:
-    branches: [agent/weighted-othello-stokes, agent/stokes-boundary-terminal]
+    branches: [agent/weighted-othello-stokes, agent/stokes-boundary-terminal, agent/post-758-clip-terminal-attack]
   pull_request:
     branches: [main]
     paths:
