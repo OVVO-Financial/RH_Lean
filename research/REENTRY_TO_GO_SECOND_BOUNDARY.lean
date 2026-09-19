@@ -1,3 +1,4 @@
+import «research.GLOBAL_RETURNED_CORE_BOOLEAN_CARDINALITY_AUDIT»
 import «research.AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE»
 import RHLean.Proof.StableFarWallExactQ2Split
 import RHLean.Proof.StableFarAdaptiveLedgerCollapse
