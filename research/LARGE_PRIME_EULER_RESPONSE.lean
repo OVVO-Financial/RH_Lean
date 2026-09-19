@@ -4,6 +4,7 @@ import RHLean.Analysis.SquareRootMiddleSequentialCoherence
 import RHLean.Proof.LowWheelCanonicalPrimeSplit
 import RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime
 import RHLean.Arithmetic.PrimeCombComplementSmoothInversion
+import RHLean.Proof.PrimeWheelProperSubwheelDepthTwo
 
 /-!
 # Large-prime Euler response at a fixed endpoint
@@ -418,6 +419,95 @@ theorem coupledLargePrimeEulerSeed_eq_sum_smooth
   simpa [coupledLargePrimeEulerSeed] using
     (coupledLargePrimeEulerResidual_eq_sum_complementSmooth
       U R Y ∅ T (by simp) hT (by simp : Disjoint (∅ : Finset ℕ) T))
+/-! ## Exact recovery of ordinary Mertens below the square wall -/
+
+/-- A frozen prime universe containing every prime through the numerical cutoff
+is already the ordinary integer Mertens prefix. -/
+theorem frozenPrimeUniverseMass_primesUpTo_eq_mertensSummatoryInt_of_le
+    {X Y : ℕ} (hXY : X ≤ Y) :
+    frozenPrimeUniverseMass (primesUpTo Y) X = mertensSummatoryInt X := by
+  have hcast := frozenPrimeUniverseMass_primesUpTo_cast_eq_mertens hXY
+  rw [← mertensSummatoryInt_cast X] at hcast
+  exact_mod_cast hcast
+
+/-- Below R^2, every prime p > R has reciprocal cutoff Y/p < R. Hence the
+chronological moving p-column and the fixed-root p-column agree term by term.
+This is the exact reason the coupled finite-difference state is ordinary
+Mertens throughout the complete sub-square range, not just at X_R. -/
+theorem coupledLargePrimeEulerResidual_primesUpTo_eq_mertensSummatoryInt
+    {R Y : ℕ} (hR : 1 ≤ R) (hRY : R ≤ Y) (hYsq : Y < R ^ 2) :
+    coupledLargePrimeEulerResidual Y R Y (primesUpTo R) =
+      mertensSummatoryInt Y := by
+  have hset :
+      (Finset.range (Y + 1)).filter (fun p => R < p ∧ p.Prime) =
+        frozenPrimeUniverseHighPrimeSet R Y := by
+    ext p
+    simp only [Finset.mem_filter, Finset.mem_range,
+      mem_frozenPrimeUniverseHighPrimeSet]
+    constructor
+    · rintro ⟨hpY, hRp, hpPrime⟩
+      exact ⟨hpPrime, hRp, by omega⟩
+    · rintro ⟨hpPrime, hRp, hpY⟩
+      exact ⟨by omega, hRp, hpPrime⟩
+  have hsum :
+      (∑ p ∈ Finset.range (Y + 1),
+        if R < p ∧ p.Prime then
+          frozenPrimeUniverseMass (primesUpTo R) (Y / p)
+        else 0) =
+      ∑ p ∈ frozenPrimeUniverseHighPrimeSet R Y,
+        frozenPrimeUniverseMass (primesUpTo (p - 1)) (Y / p) := by
+    rw [← Finset.sum_filter]
+    rw [hset]
+    apply Finset.sum_congr rfl
+    intro p hp
+    have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp hp
+    have hpPrime : p.Prime := hpData.1
+    have hRp : R < p := hpData.2.1
+    have hpPos : 0 < p := hpPrime.pos
+    have hRpos : 0 < R := by omega
+    have hRmul : R ^ 2 < R * p := by
+      rw [pow_two]
+      exact Nat.mul_lt_mul_of_pos_left hRp hRpos
+    have hYpR : Y / p < R := by
+      apply (Nat.div_lt_iff_lt_mul hpPos).2
+      exact hYsq.trans hRmul
+    have hroot :
+        frozenPrimeUniverseMass (primesUpTo R) (Y / p) =
+          mertensSummatoryInt (Y / p) :=
+      frozenPrimeUniverseMass_primesUpTo_eq_mertensSummatoryInt_of_le
+        (Nat.le_of_lt hYpR)
+    have hpred :
+        frozenPrimeUniverseMass (primesUpTo (p - 1)) (Y / p) =
+          mertensSummatoryInt (Y / p) :=
+      frozenPrimeUniverseMass_eq_mertensSummatoryInt_of_lt_owner
+        hpPrime (hYpR.trans hRp)
+    rw [hroot, hpred]
+  have hchron :
+      mertensSummatoryInt Y =
+        frozenPrimeUniverseMass (primesUpTo R) Y -
+          ∑ p ∈ frozenPrimeUniverseHighPrimeSet R Y,
+            frozenPrimeUniverseMass (primesUpTo (p - 1)) (Y / p) :=
+    mertensSummatoryInt_eq_properSubwheel_sub_highOwnerColumn Y R hRY
+  unfold coupledLargePrimeEulerResidual
+  rw [hsum]
+  omega
+
+/-- At the physical square endpoint this recovers M(X_R) directly from the
+finite coupled Euler state, with no complex cast and no separate transport
+notation. -/
+theorem coupledLargePrimeEulerResidual_squareRootEndpoint_eq_mertensSummatoryInt
+    {R : ℕ} (hR : 2 ≤ R) :
+    coupledLargePrimeEulerResidual
+        (squareRootEndpoint R) R (squareRootEndpoint R) (primesUpTo R) =
+      mertensSummatoryInt (squareRootEndpoint R) := by
+  apply coupledLargePrimeEulerResidual_primesUpTo_eq_mertensSummatoryInt
+  · omega
+  · unfold squareRootEndpoint
+    have hRR : R + 1 ≤ R ^ 2 := by nlinarith
+    omega
+  · unfold squareRootEndpoint
+    have hpos : 0 < R ^ 2 := by positivity
+    omega
 
 /-! ## Aggregate square-endpoint identification -/
 
