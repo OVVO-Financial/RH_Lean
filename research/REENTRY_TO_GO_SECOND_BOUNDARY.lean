@@ -735,6 +735,42 @@ theorem squareRootLowPrimeCanonicalAssigned_weight_sum_eq_noReentry_add_compleme
     add_comm] using hsplit.symm
 
 
+/-- Born-range part of the literal complement carrier. -/
+def squareRootLowPrimeBornComplementCarrier
+    (R K j U : ℕ) : Finset SquareRootLowPrimeProcessedState :=
+  (squareRootLowPrimeFirstOwnerNonNoReentryComplementCarrier R K j U).filter
+    fun x => match x with
+      | none => False
+      | some z => z.2 < squareRootBornPartnerCount R z.1
+
+/-- Non-born part of the literal complement carrier.  The theorem below shows
+every such state is necessarily a genuine re-entry state. -/
+def squareRootLowPrimeNonBornReentryCarrier
+    (R K j U : ℕ) : Finset SquareRootLowPrimeProcessedState :=
+  (squareRootLowPrimeFirstOwnerNonNoReentryComplementCarrier R K j U).filter
+    fun x => ¬ (match x with
+      | none => False
+      | some z => z.2 < squareRootBornPartnerCount R z.1)
+
+/-- Exact signed split of the complement into born-range and non-born pieces. -/
+theorem squareRootLowPrimeComplementCarrier_weight_sum_eq_born_add_nonBorn
+    (R K j U : ℕ) :
+    (∑ x ∈ squareRootLowPrimeFirstOwnerNonNoReentryComplementCarrier R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      (∑ x ∈ squareRootLowPrimeBornComplementCarrier R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x) +
+      ∑ x ∈ squareRootLowPrimeNonBornReentryCarrier R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x := by
+  unfold squareRootLowPrimeBornComplementCarrier
+    squareRootLowPrimeNonBornReentryCarrier
+  symm
+  exact Finset.sum_filter_add_sum_filter_not
+    (s := squareRootLowPrimeFirstOwnerNonNoReentryComplementCarrier R K j U)
+    (p := fun x => match x with
+      | none => False
+      | some z => z.2 < squareRootBornPartnerCount R z.1)
+    (f := squareRootLowPrimeProcessedSeatWeightReal)
+
 /-- **Concrete complement classification.**  Every assigned-terminal state
 outside the genuine no-reentry carrier is either still in the born prefix, or
 its non-born first-owner fallout necessarily re-enters and is consumed by the
@@ -859,6 +895,65 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
       exact ⟨(p, c), hpc, hxLabelled⟩
     · rcases hroute with ⟨q, t, hq, hpq, ht, hqt, hpct, hclass⟩
       exact ⟨p, q, t, hfirst', hq, hpq, ht, hqt, hpct, hclass⟩
+
+/-- Membership in the non-born complement is exactly the branch to which the
+compiled complement classifier cannot return BornRange. -/
+theorem squareRootLowPrimeNonBornReentryCarrier_routes
+    {R K j U c s : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K)
+    (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hx : some (c, s) ∈ squareRootLowPrimeNonBornReentryCarrier R K j U) :
+    ∃ p q t,
+      squareRootLowPrimeFirstOwnerAbove
+          (squareRootLowPrimeFreshPrimeList K U)
+          (canonicalLargestPrimeFactor c) = some p ∧
+      q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+      p < q ∧
+      t.Prime ∧ q < t ∧ p * c < t ∧
+        (((q * c, t) ∈ squareRootLowPrimeBornInternalAtoms R K U ∧
+            squareRootLowPrimeResponseForestOthelloWeight
+                (Sum.inl (q * c, t)) +
+              squareRootLowPrimeResponseForestOthelloWeight
+                (squareRootLowPrimeResponseForestOthelloMate R K U
+                  (Sum.inl (q * c, t))) = 0) ∨
+          (q * c, t) ∈ squareRootLowPrimeBornNoSuccessorAtoms R K U) := by
+  rcases Finset.mem_filter.mp hx with ⟨hxComp, hNonBorn⟩
+  rcases squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
+      hR hK hUR hxComp with hBorn | hRoute
+  · exact (hNonBorn hBorn).elim
+  · exact hRoute
+
+/-- The scalar complement ledger introduced for bookkeeping is exactly the
+signed mass of the literal complement carrier. -/
+theorem squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger_eq_carrierMass
+    (R K j U : ℕ) :
+    squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger R K j U =
+      ∑ x ∈ squareRootLowPrimeFirstOwnerNonNoReentryComplementCarrier R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x := by
+  unfold squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger
+  rw [← squareRootLowPrimeProcessedSeatCanonicalAssigned_weight_sum_eq_firstOwnerMass]
+  rw [squareRootLowPrimeCanonicalAssigned_weight_sum_eq_noReentry_add_complement]
+  ring
+
+/-- **Carrier-level global normal form.**  The running imbalance is the
+terminal no-reentry ledger, the born-range complement, the forced non-born
+re-entry complement, and the explicit no-owner heads.  The preceding theorem
+routes every state in the third summand to an internal response-forest
+zero-pair or the existing BornExit frontier. -/
+theorem squareRootLowPrimeRunningImbalanceReal_eq_noLater_add_born_add_reentry_add_heads
+    {R K j U : ℕ} (hR : 2 ≤ R) :
+    squareRootLowPrimeRunningImbalanceReal R K j U =
+      squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U +
+        (∑ x ∈ squareRootLowPrimeBornComplementCarrier R K j U,
+          squareRootLowPrimeProcessedSeatWeightReal x) +
+        (∑ x ∈ squareRootLowPrimeNonBornReentryCarrier R K j U,
+          squareRootLowPrimeProcessedSeatWeightReal x) +
+        ∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalHeads R K j U,
+          squareRootLowPrimeProcessedSeatWeightReal x := by
+  rw [squareRootLowPrimeRunningImbalanceReal_eq_terminalNoReentry_add_complement_add_heads hR]
+  rw [squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger_eq_carrierMass]
+  rw [squareRootLowPrimeComplementCarrier_weight_sum_eq_born_add_nonBorn]
+  ring
 
 /-- The part of the exact intrinsic first-owner mass not belonging to genuine
 terminal no-reentry fibres.  The response-forest layer identifies this
