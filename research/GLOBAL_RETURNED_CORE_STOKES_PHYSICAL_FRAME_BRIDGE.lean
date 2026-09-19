@@ -1611,4 +1611,33 @@ theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_two_firstOwnerGram_sub_term
   rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_signedOwnerTelescope_sub_terminal hR]
   rw [← two_mul_sum_lowOwnerZeroFrequencyFirstOwnerGram_eq_signedOwnerTelescope]
 
+
+/-- **Amplitude-level global clip audit.**  In the RH-consumer regime the
+physical Stokes clip is the full AMP remainder energy minus the elementary
+diagonal and minus only the exceptional zero/one-owner terminal ledger. -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_remainderNormSq_sub_diagonal_sub_terminal
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerCanonicalSignedStokesClipBoundary R =
+      ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 -
+        lowOwnerZeroFrequencyMobiusDiagonal R -
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
+  have hfinal :=
+    lowOwnerCanonicalSignedStokesFinalBoundary_eq_remainderNormSq_sub_diagonal hR
+  have hsplit :=
+    lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_topTerminal R
+  linarith
+
+/-- Equivalent endpoint-Mertens form of the same audit. -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_endpointGapNormSq_sub_diagonal_sub_terminal
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerCanonicalSignedStokesClipBoundary R =
+      ‖lowOwnerStokesAllEndpointMertensGap R‖ ^ 2 -
+        lowOwnerZeroFrequencyMobiusDiagonal R -
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
+  rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_remainderNormSq_sub_diagonal_sub_terminal hR]
+  rw [lowOwnerPhysicalAmplitudeRemainder_zero_eq_correlation_sub_reciprocalColumn
+      R hR,
+    squareRootCorrelation_sub_reciprocalColumn_eq_allEndpointMertensGap
+      (R := R) (by omega)]
+
 end RHLean.Proof
