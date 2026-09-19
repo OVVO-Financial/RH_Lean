@@ -79,11 +79,19 @@ private theorem sum_product_othello_separable
         lowOwnerStokesSignedAmplitude T h := by
   unfold lowOwnerStokesSignedAmplitude
     othelloRealMoebiusPair
-  rw [Finset.sum_product]
   calc
-    (∑ a ∈ S, ∑ b ∈ T,
-      (othelloRealMoebius a * othelloRealMoebius b) * (g a * h b)) =
-      ∑ a ∈ S,
+    (∑ mn ∈ S.product T,
+      (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
+        (g mn.1 * h mn.2)) =
+      ∑ a ∈ S, ∑ b ∈ T,
+        (othelloRealMoebius a * othelloRealMoebius b) * (g a * h b) := by
+          simpa only using
+            (Finset.sum_product
+              (s := S) (t := T)
+              (f := fun mn : ℕ × ℕ =>
+                (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
+                  (g mn.1 * h mn.2)))
+    _ = ∑ a ∈ S,
         (othelloRealMoebius a * g a) *
           (∑ b ∈ T, othelloRealMoebius b * h b) := by
         apply Finset.sum_congr rfl
@@ -114,7 +122,7 @@ theorem pairWeightedStokesMass_product_crossScalar
           othelloRealMoebiusPair mn * (L mn.1 * J mn.2)) -
         (∑ mn ∈ A.product B,
           othelloRealMoebiusPair mn * (J mn.1 * L mn.2)) := by
-            rw [← Finset.sum_sub_distrib, ← Finset.sum_neg_distrib]
+            rw [Finset.sum_sub_distrib, Finset.sum_neg_distrib]
             apply Finset.sum_congr rfl
             intro mn _hmn
             ring
@@ -196,6 +204,26 @@ theorem lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_schedule_n
   unfold lowOwnerFirstOwnerSignedCellPairCarrier
   rw [lowOwnerFirstOwnerDirichletPolarizationScalar_eq_cross]
   rw [pairWeightedStokesMass_product_crossScalar]
+  have hbase :
+      lowOwnerStokesSignedAmplitude
+          (lowOwnerFirstOwnerBaseFiber R p sig)
+          (lowOwnerDirichletBaseCoefficient R) =
+        lowOwnerFirstOwnerBaseAmplitude R p sig := by
+    simpa [lowOwnerStokesSignedAmplitude, lowOwnerDirichletBaseCoefficient,
+      lowOwnerFirstOwnerDirichletBaseSite, othelloRealMoebius,
+      RHLean.Analysis.realMoebiusStep] using
+        (sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude R p sig)
+  have hret :
+      lowOwnerStokesSignedAmplitude
+          (lowOwnerFirstOwnerBaseFiber R p sig)
+          (lowOwnerDirichletReturnedCoefficient R p) =
+        lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
+    simpa [lowOwnerStokesSignedAmplitude, lowOwnerDirichletReturnedCoefficient,
+      lowOwnerFirstOwnerDirichletReturnedChildSite, othelloRealMoebius,
+      RHLean.Analysis.realMoebiusStep] using
+        (sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
+          (R := R) (p := p) (sig := sig))
+  rw [hbase, hret]
   ring
 
 /-- **Assembled empty-schedule factorization.**  Signatures are summed only
