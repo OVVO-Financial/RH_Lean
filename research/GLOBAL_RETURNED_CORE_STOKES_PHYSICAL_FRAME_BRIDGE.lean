@@ -967,4 +967,213 @@ theorem lowOwnerFirstOwnerCanonicalStokesSchedule_head_not_mem_primePeriodFrame
     root_le_half_squareRootEndpoint hR
   omega
 
+
+/-! ## One-step physical clip factorization before energy
+
+The pair Stokes escape is a Gram boundary of one-dimensional signed amplitudes.
+This is the correct algebraic surface for a physical admissibility theorem:
+large-owner escape amplitudes must be transported to sub-root reciprocal
+coordinates before any square or norm is taken.
+-/
+
+/-- Signed scalar amplitude on a finite physical carrier. -/
+def lowOwnerStokesSignedScalarAmplitude
+    (S : Finset ℕ) (g : ℕ → ℝ) : ℝ :=
+  ∑ n ∈ S, othelloRealMoebius n * g n
+
+/-- Fresh-owner finite-difference amplitude on a finite carrier. -/
+def lowOwnerStokesSignedOwnerDifferenceAmplitude
+    (r : ℕ) (S : Finset ℕ) (g : ℕ → ℝ) : ℝ :=
+  lowOwnerStokesSignedScalarAmplitude S
+    (fun n => g n - g (primeCarrierToggle r n))
+
+private theorem sum_product_othello_separable
+    (S T : Finset ℕ) (g h : ℕ → ℝ) :
+    (∑ mn ∈ S.product T,
+      othelloRealMoebiusPair mn * (g mn.1 * h mn.2)) =
+      lowOwnerStokesSignedScalarAmplitude S g *
+        lowOwnerStokesSignedScalarAmplitude T h := by
+  unfold lowOwnerStokesSignedScalarAmplitude
+    othelloRealMoebiusPair
+  rw [Finset.sum_product]
+  calc
+    (∑ a ∈ S, ∑ b ∈ T,
+      (othelloRealMoebius a * othelloRealMoebius b) * (g a * h b)) =
+      ∑ a ∈ S,
+        (othelloRealMoebius a * g a) *
+          (∑ b ∈ T, othelloRealMoebius b * h b) := by
+        apply Finset.sum_congr rfl
+        intro a _ha
+        rw [Finset.mul_sum]
+        apply Finset.sum_congr rfl
+        intro b _hb
+        ring
+    _ = (∑ a ∈ S, othelloRealMoebius a * g a) *
+        (∑ b ∈ T, othelloRealMoebius b * h b) := by
+      rw [Finset.sum_mul]
+
+private theorem sum_product_othello_polarization
+    (S T : Finset ℕ) (i b j : ℕ → ℝ) :
+    (∑ mn ∈ S.product T,
+      othelloRealMoebiusPair mn *
+        (i mn.1 * i mn.2 -
+          b mn.1 * b mn.2 -
+          j mn.1 * j mn.2)) =
+      lowOwnerStokesSignedScalarAmplitude S i *
+          lowOwnerStokesSignedScalarAmplitude T i -
+        lowOwnerStokesSignedScalarAmplitude S b *
+          lowOwnerStokesSignedScalarAmplitude T b -
+        lowOwnerStokesSignedScalarAmplitude S j *
+          lowOwnerStokesSignedScalarAmplitude T j := by
+  calc
+    (∑ mn ∈ S.product T,
+      othelloRealMoebiusPair mn *
+        (i mn.1 * i mn.2 -
+          b mn.1 * b mn.2 -
+          j mn.1 * j mn.2)) =
+      (∑ mn ∈ S.product T,
+        othelloRealMoebiusPair mn * (i mn.1 * i mn.2)) -
+      (∑ mn ∈ S.product T,
+        othelloRealMoebiusPair mn * (b mn.1 * b mn.2)) -
+      (∑ mn ∈ S.product T,
+        othelloRealMoebiusPair mn * (j mn.1 * j mn.2)) := by
+          rw [← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib]
+          apply Finset.sum_congr rfl
+          intro mn _hmn
+          ring
+    _ = _ := by
+      rw [sum_product_othello_separable,
+        sum_product_othello_separable,
+        sum_product_othello_separable]
+
+private theorem polarization_leftDifference
+    (r : ℕ) (i b j : ℕ → ℝ) (mn : ℕ × ℕ) :
+    (i mn.1 * i mn.2 -
+        b mn.1 * b mn.2 -
+        j mn.1 * j mn.2) -
+      (i (primeCarrierToggle r mn.1) * i mn.2 -
+        b (primeCarrierToggle r mn.1) * b mn.2 -
+        j (primeCarrierToggle r mn.1) * j mn.2) =
+      (i mn.1 - i (primeCarrierToggle r mn.1)) * i mn.2 -
+        (b mn.1 - b (primeCarrierToggle r mn.1)) * b mn.2 -
+        (j mn.1 - j (primeCarrierToggle r mn.1)) * j mn.2 := by
+  ring
+
+/-- **Exact one-step clip Gram factorization.**
+
+For a genuine larger owner r, the physical pair escape step is a bilinear
+pairing of the signed escape amplitudes with the full surviving amplitudes,
+plus one half of the owner-difference/interior pairing.  In particular, no
+pointwise absolute value or cellwise square is needed to expose the scalar
+boundary amplitudes. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedAmplitudeProducts
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    let A := lowOwnerFirstOwnerBaseFiber R p sig
+    let E := lowOwnerFirstOwnerStokesDirichletClipFace R p sig r
+    let I := primeInteriorPart r A
+    let inc := lowOwnerDirichletIncidenceCoefficient R p
+    let base := lowOwnerDirichletBaseCoefficient R
+    let ret := lowOwnerDirichletReturnedCoefficient R p
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      (lowOwnerStokesSignedScalarAmplitude E inc *
+          lowOwnerStokesSignedScalarAmplitude A inc -
+        lowOwnerStokesSignedScalarAmplitude E base *
+          lowOwnerStokesSignedScalarAmplitude A base -
+        lowOwnerStokesSignedScalarAmplitude E ret *
+          lowOwnerStokesSignedScalarAmplitude A ret) +
+      (1 / 2 : ℝ) *
+        (lowOwnerStokesSignedOwnerDifferenceAmplitude r I inc *
+            lowOwnerStokesSignedScalarAmplitude E inc -
+          lowOwnerStokesSignedOwnerDifferenceAmplitude r I base *
+            lowOwnerStokesSignedScalarAmplitude E base -
+          lowOwnerStokesSignedOwnerDifferenceAmplitude r I ret *
+            lowOwnerStokesSignedScalarAmplitude E ret) := by
+  dsimp only
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_dirichletClipFaces hp hr hpr]
+  unfold lowOwnerFirstOwnerDirichletPolarizationScalar
+  have hleft :=
+    sum_product_othello_polarization
+      (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+      (lowOwnerFirstOwnerBaseFiber R p sig)
+      (lowOwnerDirichletIncidenceCoefficient R p)
+      (lowOwnerDirichletBaseCoefficient R)
+      (lowOwnerDirichletReturnedCoefficient R p)
+  have hright :
+      (∑ mn ∈
+        (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig)).product
+          (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r),
+        othelloRealMoebiusPair mn *
+          ((lowOwnerDirichletIncidenceCoefficient R p mn.1 *
+              lowOwnerDirichletIncidenceCoefficient R p mn.2 -
+            lowOwnerDirichletBaseCoefficient R mn.1 *
+              lowOwnerDirichletBaseCoefficient R mn.2 -
+            lowOwnerDirichletReturnedCoefficient R p mn.1 *
+              lowOwnerDirichletReturnedCoefficient R p mn.2) -
+           (lowOwnerDirichletIncidenceCoefficient R p
+                (primeCarrierToggle r mn.1) *
+              lowOwnerDirichletIncidenceCoefficient R p mn.2 -
+            lowOwnerDirichletBaseCoefficient R
+                (primeCarrierToggle r mn.1) *
+              lowOwnerDirichletBaseCoefficient R mn.2 -
+            lowOwnerDirichletReturnedCoefficient R p
+                (primeCarrierToggle r mn.1) *
+              lowOwnerDirichletReturnedCoefficient R p mn.2))) =
+        lowOwnerStokesSignedOwnerDifferenceAmplitude r
+            (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
+            (lowOwnerDirichletIncidenceCoefficient R p) *
+          lowOwnerStokesSignedScalarAmplitude
+            (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+            (lowOwnerDirichletIncidenceCoefficient R p) -
+        lowOwnerStokesSignedOwnerDifferenceAmplitude r
+            (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
+            (lowOwnerDirichletBaseCoefficient R) *
+          lowOwnerStokesSignedScalarAmplitude
+            (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+            (lowOwnerDirichletBaseCoefficient R) -
+        lowOwnerStokesSignedOwnerDifferenceAmplitude r
+            (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
+            (lowOwnerDirichletReturnedCoefficient R p) *
+          lowOwnerStokesSignedScalarAmplitude
+            (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+            (lowOwnerDirichletReturnedCoefficient R p) := by
+    calc
+      _ =
+        (∑ mn ∈
+          (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig)).product
+            (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r),
+          othelloRealMoebiusPair mn *
+            ((lowOwnerDirichletIncidenceCoefficient R p mn.1 -
+                lowOwnerDirichletIncidenceCoefficient R p
+                  (primeCarrierToggle r mn.1)) *
+                lowOwnerDirichletIncidenceCoefficient R p mn.2 -
+              (lowOwnerDirichletBaseCoefficient R mn.1 -
+                lowOwnerDirichletBaseCoefficient R
+                  (primeCarrierToggle r mn.1)) *
+                lowOwnerDirichletBaseCoefficient R mn.2 -
+              (lowOwnerDirichletReturnedCoefficient R p mn.1 -
+                lowOwnerDirichletReturnedCoefficient R p
+                  (primeCarrierToggle r mn.1)) *
+                lowOwnerDirichletReturnedCoefficient R p mn.2)) := by
+            apply Finset.sum_congr rfl
+            intro mn _hmn
+            rw [polarization_leftDifference]
+      _ = _ := by
+        unfold lowOwnerStokesSignedOwnerDifferenceAmplitude
+        exact sum_product_othello_polarization
+          (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
+          (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+          (fun n => lowOwnerDirichletIncidenceCoefficient R p n -
+            lowOwnerDirichletIncidenceCoefficient R p
+              (primeCarrierToggle r n))
+          (fun n => lowOwnerDirichletBaseCoefficient R n -
+            lowOwnerDirichletBaseCoefficient R
+              (primeCarrierToggle r n))
+          (fun n => lowOwnerDirichletReturnedCoefficient R p n -
+            lowOwnerDirichletReturnedCoefficient R p
+              (primeCarrierToggle r n))
+  rw [hleft, hright]
+
 end RHLean.Proof
