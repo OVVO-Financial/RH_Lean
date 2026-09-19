@@ -263,6 +263,25 @@ def squareRootLowPrimeTerminalNoReentryFiber
       s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c := by
   simp [squareRootLowPrimeTerminalNoReentryFiber]
 
+/-- On an actual non-born first-owner fallout, the negative no-reentry
+predicate is *literally* membership in the finite terminal fibre. -/
+theorem squareRootLowPrimeNonBornFallout_noLater_iff_mem_terminalFiber
+    {R K j U p c s : ℕ}
+    (hR : 1 ≤ R)
+    (hp : p.Prime) (hpU : p ≤ U)
+    (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ↔
+      some (c, s) ∈ squareRootLowPrimeTerminalNoReentryFiber R K j U p c := by
+  rw [mem_squareRootLowPrimeTerminalNoReentryFiber]
+  unfold squareRootLowPrimeTerminalNoReentrySeatIndices
+    squareRootLowPrimeTerminalNoReentryLower
+  exact squareRootLowPrimeNonBornFallout_noLater_iff_mem_terminalResponseTail
+    hR hp hpU hUR hs hnb hfall
+
 /-- The terminal no-reentry fibre has no hidden multiplicity: its signed mass is
 one native cofactor sign times the exact terminal response width. -/
 theorem squareRootLowPrimeTerminalNoReentryFiber_weight_sum
