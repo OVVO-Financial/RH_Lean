@@ -923,6 +923,34 @@ theorem squareRootLowPrimeNonBornReentryCarrier_routes
   · exact (hNonBorn hBorn).elim
   · exact hRoute
 
+/-- The part of the exact intrinsic first-owner mass not belonging to genuine
+terminal no-reentry fibres.  The response-forest layer identifies this
+complement pointwise with already-existing born/boundary mechanisms; defining
+it by subtraction keeps the global accounting exact before that identification
+is assembled. -/
+def squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger
+    (R K j U : ℕ) : ℝ :=
+  squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerMass
+      (squareRootLowPrimeFreshPrimeList K U)
+      (squareRootLowPrimeProcessedSeatCarrier R K j U)
+      (squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U) -
+    squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U
+
+/-- **Exact global accounting after the re-entry closure.**  The running
+imbalance is the genuine no-reentry ledger, plus the complementary first-owner
+mass, plus the explicit no-owner heads.  No transport term is duplicated and no
+seat can be counted under two first owners. -/
+theorem squareRootLowPrimeRunningImbalanceReal_eq_terminalNoReentry_add_complement_add_heads
+    {R K j U : ℕ} (hR : 2 ≤ R) :
+    squareRootLowPrimeRunningImbalanceReal R K j U =
+      squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U +
+        squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger R K j U +
+        ∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalHeads R K j U,
+          squareRootLowPrimeProcessedSeatWeightReal x := by
+  rw [squareRootLowPrimeRunningImbalanceReal_eq_firstOwnerMass_add_heads hR]
+  unfold squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger
+  ring
+
 /-- The scalar complement ledger introduced for bookkeeping is exactly the
 signed mass of the literal complement carrier. -/
 theorem squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger_eq_carrierMass
@@ -955,33 +983,6 @@ theorem squareRootLowPrimeRunningImbalanceReal_eq_noLater_add_born_add_reentry_a
   rw [squareRootLowPrimeComplementCarrier_weight_sum_eq_born_add_nonBorn]
   ring
 
-/-- The part of the exact intrinsic first-owner mass not belonging to genuine
-terminal no-reentry fibres.  The response-forest layer identifies this
-complement pointwise with already-existing born/boundary mechanisms; defining
-it by subtraction keeps the global accounting exact before that identification
-is assembled. -/
-def squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger
-    (R K j U : ℕ) : ℝ :=
-  squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerMass
-      (squareRootLowPrimeFreshPrimeList K U)
-      (squareRootLowPrimeProcessedSeatCarrier R K j U)
-      (squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U) -
-    squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U
-
-/-- **Exact global accounting after the re-entry closure.**  The running
-imbalance is the genuine no-reentry ledger, plus the complementary first-owner
-mass, plus the explicit no-owner heads.  No transport term is duplicated and no
-seat can be counted under two first owners. -/
-theorem squareRootLowPrimeRunningImbalanceReal_eq_terminalNoReentry_add_complement_add_heads
-    {R K j U : ℕ} (hR : 2 ≤ R) :
-    squareRootLowPrimeRunningImbalanceReal R K j U =
-      squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U +
-        squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger R K j U +
-        ∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalHeads R K j U,
-          squareRootLowPrimeProcessedSeatWeightReal x := by
-  rw [squareRootLowPrimeRunningImbalanceReal_eq_firstOwnerMass_add_heads hR]
-  unfold squareRootLowPrimeFirstOwnerNonNoReentryComplementLedger
-  ring
 
 /-- The proposed sum of the post-root downcross ledger and transport would
 double-count the same exact object: the repository already identifies them. -/
