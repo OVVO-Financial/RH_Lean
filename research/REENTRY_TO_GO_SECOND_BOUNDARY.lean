@@ -270,6 +270,55 @@ theorem squareRootLowPrimeMassTransfer_iff_creationResponseChildEulerIdentity
     hR hK hKU hUR]
   rw [squareRootLowPrimeCreationCarrierExact_realWeight_sum]
 
+/-! ## Channel Euler characteristic -/
+
+/-- The complete shallow creation mass splits exactly into the distinguished
+head and the born/high channel roots. -/
+theorem squareRootLowPrimeCreationCarrierExact_realWeight_sum_eq_head_add_channels
+    (R K j : ℕ) :
+    (∑ x ∈ squareRootLowPrimeCreationCarrierExact R K j,
+        squareRootLowPrimeCreationWeightReal x) =
+      1 +
+        (∑ x ∈ squareRootLowPrimeShallowBornCreationStates R K,
+          squareRootLowPrimeCreationWeightReal x) +
+        (∑ x ∈ squareRootLowPrimeShallowHighCreationStates R K j,
+          squareRootLowPrimeCreationWeightReal x) := by
+  unfold squareRootLowPrimeCreationCarrierExact
+  rw [Finset.sum_insert
+      (none_not_mem_squareRootLowPrimeCreationSeats R K j),
+    Finset.sum_union
+      (squareRootLowPrimeShallowBornCreationStates_disjoint_high R K j)]
+  simp [squareRootLowPrimeCreationWeightReal,
+    squareRootLowPrimeCreationWeightComplex]
+
+/-- **Two-channel form of the remaining exact seam.**  After response-forest
+cancellation and removal of the head, mass transfer is equivalent to the sum
+of two native Euler characteristics:
+
+* shallow born roots plus internal-born response children;
+* shallow high roots plus post-root response children.
+
+Their total must be exactly `-V + RootEquality`. -/
+theorem squareRootLowPrimeMassTransfer_iff_twoChannelEulerIdentity
+    {R K j U : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) (hUR : U < R) :
+    (squareRootLowPrimeRunningImbalanceReal R K j U =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K U +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) ↔
+      ((∑ x ∈ squareRootLowPrimeShallowBornCreationStates R K,
+            squareRootLowPrimeCreationWeightReal x) +
+          (squareRootLowPrimeBornInternalChildMass R K U).re +
+        ((∑ x ∈ squareRootLowPrimeShallowHighCreationStates R K j,
+            squareRootLowPrimeCreationWeightReal x) +
+          (squareRootLowPrimePostRootChildMass R K U).re) =
+        -((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) := by
+  rw [squareRootLowPrimeMassTransfer_iff_creationResponseChildEulerIdentity
+    hR hK hKU hUR,
+    squareRootLowPrimeCreationCarrierExact_realWeight_sum_eq_head_add_channels]
+  constructor <;> intro h <;> linarith
+
 /-! ## Canonical unmatched-frontier normal form -/
 
 /-- **Exact first-Othello normal form.**  Specializing the generic
