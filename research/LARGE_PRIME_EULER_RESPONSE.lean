@@ -3,6 +3,7 @@ import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Analysis.SquareRootMiddleSequentialCoherence
 import RHLean.Proof.LowWheelCanonicalPrimeSplit
 import RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime
+import RHLean.Arithmetic.PrimeCombComplementSmoothInversion
 
 /-!
 # Large-prime Euler response at a fixed endpoint
@@ -370,6 +371,53 @@ example :
       simp only [Finset.mem_insert, Finset.mem_singleton] at hq
       rcases hq with rfl | rfl | rfl <;> norm_num)]
   native_decide
+/-- The coupled seed vanishes at cutoff zero, so the terminating
+complement-smooth inversion applies without a boundary-at-zero correction. -/
+theorem coupledLargePrimeEulerSeed_zero (U R : ℕ) :
+    coupledLargePrimeEulerSeed U R 0 = 0 := by
+  simp [coupledLargePrimeEulerSeed, coupledLargePrimeEulerResidual,
+    frozenPrimeUniverseMass_eq_cutoffSum, primeFaceProduct]
+
+/-- **Complement-smooth recovery for the coupled Euler state.**
+After any already-processed prime set S, an arbitrary disjoint set T of
+additional prime coordinates can be processed all at once. The old state is
+then recovered exactly as the terminating sum of the fully processed
+S union T state over T-smooth scale shifts. This is the arbitrary-prime
+version of the offsetting mechanism: no chronology and no norm are used. -/
+theorem coupledLargePrimeEulerResidual_eq_sum_complementSmooth
+    (U R Y : ℕ) (S T : Finset ℕ)
+    (hS : ∀ p ∈ S, p.Prime)
+    (hT : ∀ q ∈ T, q.Prime)
+    (hdisj : Disjoint S T) :
+    coupledLargePrimeEulerResidual U R Y S =
+      ∑ n ∈ RHLean.Arithmetic.primeSetSmoothIcc T Y,
+        coupledLargePrimeEulerResidual U R (Y / n) (S ∪ T) := by
+  rw [coupledLargePrimeEulerResidual_eq_finiteDifferenceOperator_apply
+    U R Y S hS]
+  rw [RHLean.Arithmetic.finiteDifferenceOperator_eq_sum_complementSmooth
+    S T hS hT hdisj (coupledLargePrimeEulerSeed U R)
+    (coupledLargePrimeEulerSeed_zero U R) Y]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  rw [← coupledLargePrimeEulerResidual_eq_finiteDifferenceOperator_apply
+    U R (Y / n) (S ∪ T)]
+  intro q hq
+  rcases Finset.mem_union.mp hq with hq | hq
+  · exact hS q hq
+  · exact hT q hq
+
+/-- Starting from no processed coordinates, the seed is therefore recovered
+from any finite prime wheel by summing the fully processed coupled state over
+that wheel's smooth scale shifts. -/
+theorem coupledLargePrimeEulerSeed_eq_sum_smooth
+    (U R Y : ℕ) (T : Finset ℕ)
+    (hT : ∀ q ∈ T, q.Prime) :
+    coupledLargePrimeEulerSeed U R Y =
+      ∑ n ∈ RHLean.Arithmetic.primeSetSmoothIcc T Y,
+        coupledLargePrimeEulerResidual U R (Y / n) T := by
+  simpa [coupledLargePrimeEulerSeed] using
+    (coupledLargePrimeEulerResidual_eq_sum_complementSmooth
+      U R Y ∅ T (by simp) hT (by simp : Disjoint (∅ : Finset ℕ) T))
 
 /-! ## Aggregate square-endpoint identification -/
 
