@@ -1485,4 +1485,96 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_escapeCrossTerms
       hp hr hpr]
   ring
 
+
+/-! ## Identification with the existing base / returned amplitudes -/
+
+/-- On the physical first-owner base fibre, the signed Stokes base amplitude is
+exactly the already-defined first-owner base amplitude. -/
+theorem lowOwnerStokesSignedScalarAmplitude_base_eq_firstOwnerBaseAmplitude
+    (R p : ℕ) (sig : Finset ℕ) :
+    lowOwnerStokesSignedScalarAmplitude
+        (lowOwnerFirstOwnerBaseFiber R p sig)
+        (lowOwnerDirichletBaseCoefficient R) =
+      lowOwnerFirstOwnerBaseAmplitude R p sig := by
+  have h :=
+    sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude R p sig
+  unfold lowOwnerStokesSignedScalarAmplitude
+    lowOwnerFirstOwnerDirichletBaseSite
+    lowOwnerDirichletBaseCoefficient
+    othelloRealMoebius RHLean.Analysis.realMoebiusStep
+  simpa [mul_comm] using h
+
+/-- On the same base fibre, the signed Stokes returned amplitude is exactly the
+already-defined returned-child parent amplitude. -/
+theorem lowOwnerStokesSignedScalarAmplitude_returned_eq_firstOwnerReturnedAmplitude
+    (R p : ℕ) (sig : Finset ℕ) :
+    lowOwnerStokesSignedScalarAmplitude
+        (lowOwnerFirstOwnerBaseFiber R p sig)
+        (lowOwnerDirichletReturnedCoefficient R p) =
+      lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
+  have h :=
+    sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
+      (R := R) (p := p) (sig := sig)
+  unfold lowOwnerStokesSignedScalarAmplitude
+    lowOwnerFirstOwnerDirichletReturnedChildSite
+    lowOwnerDirichletReturnedCoefficient
+    othelloRealMoebius RHLean.Analysis.realMoebiusStep
+  simpa [mul_comm] using h
+
+/-- Literal signed base amplitude on one Stokes escape face. -/
+def lowOwnerFirstOwnerStokesEscapeBaseAmplitude
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : ℝ :=
+  lowOwnerStokesSignedScalarAmplitude
+    (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+    (lowOwnerDirichletBaseCoefficient R)
+
+/-- Literal signed returned amplitude on one Stokes escape face. -/
+def lowOwnerFirstOwnerStokesEscapeReturnedAmplitude
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : ℝ :=
+  lowOwnerStokesSignedScalarAmplitude
+    (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+    (lowOwnerDirichletReturnedCoefficient R p)
+
+/-- **Existing-cross-amplitude normal form of one physical Stokes peel.**
+
+The initial cross term is exactly the previously compiled `-2 B J` cell
+amplitude.  A Stokes peel replaces it by the same cross product on the
+surviving carrier.  No new square, norm, or standalone endpoint term appears. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_existingCrossAmplitudeDecrement
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      2 * (
+        (lowOwnerFirstOwnerBaseAmplitude R p sig -
+            lowOwnerFirstOwnerStokesEscapeBaseAmplitude R p sig r) *
+          (lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig -
+            lowOwnerFirstOwnerStokesEscapeReturnedAmplitude R p sig r) -
+        lowOwnerFirstOwnerBaseAmplitude R p sig *
+          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig) := by
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_two_crossProductDecrement
+      hp hr hpr]
+  rw [lowOwnerStokesSignedScalarAmplitude_base_eq_firstOwnerBaseAmplitude,
+    lowOwnerStokesSignedScalarAmplitude_returned_eq_firstOwnerReturnedAmplitude]
+  rfl
+
+/-- Expanded existing-amplitude form. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_existingEscapeCrossTerms
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      -2 * (
+        lowOwnerFirstOwnerBaseAmplitude R p sig *
+          lowOwnerFirstOwnerStokesEscapeReturnedAmplitude R p sig r +
+        lowOwnerFirstOwnerStokesEscapeBaseAmplitude R p sig r *
+          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig -
+        lowOwnerFirstOwnerStokesEscapeBaseAmplitude R p sig r *
+          lowOwnerFirstOwnerStokesEscapeReturnedAmplitude R p sig r) := by
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_existingCrossAmplitudeDecrement
+      hp hr hpr]
+  ring
+
 end RHLean.Proof
