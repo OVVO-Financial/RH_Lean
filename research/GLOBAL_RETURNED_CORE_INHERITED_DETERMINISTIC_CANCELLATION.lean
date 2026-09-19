@@ -3,6 +3,7 @@ import «research.GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION»
 import «research.GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION»
 import «research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP»
 import «research.GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI»
+import «research.GLOBAL_RETURNED_CORE_DIAGONAL_BOUND»
 
 /-!
 # Deterministic cancellation in the inherited reciprocal ledger
@@ -380,5 +381,176 @@ theorem lowOwnerThresholdSecondOwnerDifference_sq_le_activity
             lowOwnerThresholdCrossingIndicator p (r * n) (R - 1)) := by
       rw [hB]
       ring
+
+
+/-!
+## Exact q²-threshold overlap census
+
+For a fixed current owner \`p\`, each reciprocal daughter \`q\` contributes the
+literal site window
+
+  n <= Y_q < p*n,
+
+where \`Y_q = floor(X_R/q^2)\`.  The daughter crossing weight is the reciprocal
+superposition of these windows.  Its physical site L² energy is therefore
+exactly the reciprocal weighted overlap census of the windows.  No Cauchy,
+absolute value, or prime-spacing estimate is used.
+-/
+
+/-- Physical overlap mass of two literal q² threshold windows for one current
+owner. -/
+def lowOwnerDaughterThresholdWindowOverlapMass
+    (R p q q' : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
+    lowOwnerThresholdCrossingIndicator
+        p n (rawQ2ChildCutoff R q) *
+      lowOwnerThresholdCrossingIndicator
+        p n (rawQ2ChildCutoff R q')
+
+/-- **Exact reciprocal q² overlap Fubini.**
+
+The diagonal physical site energy of the daughter crossing field is exactly
+the weighted pairwise overlap census of its actual threshold windows. -/
+theorem sum_lowOwnerDaughterCrossingWeight_sq_eq_overlapCensus
+    (R p : ℕ) :
+    (∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
+      lowOwnerDaughterCrossingWeight R p n ^ 2) =
+      ∑ q ∈ canonicalRoughLowQ2Owners R,
+        ∑ q' ∈ canonicalRoughLowQ2Owners R,
+          ((1 : ℝ) / (q : ℝ)) * ((1 : ℝ) / (q' : ℝ)) *
+            lowOwnerDaughterThresholdWindowOverlapMass R p q q' := by
+  simp_rw [lowOwnerDaughterCrossingWeight_eq_threshold_sum]
+  unfold lowOwnerDaughterThresholdWindowOverlapMass
+  simp_rw [pow_two]
+  calc
+    (∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
+        (∑ q ∈ canonicalRoughLowQ2Owners R,
+            ((1 : ℝ) / (q : ℝ)) *
+              lowOwnerThresholdCrossingIndicator
+                p n (rawQ2ChildCutoff R q)) *
+          (∑ q' ∈ canonicalRoughLowQ2Owners R,
+            ((1 : ℝ) / (q' : ℝ)) *
+              lowOwnerThresholdCrossingIndicator
+                p n (rawQ2ChildCutoff R q'))) =
+      ∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
+        ∑ q ∈ canonicalRoughLowQ2Owners R,
+          ∑ q' ∈ canonicalRoughLowQ2Owners R,
+            (((1 : ℝ) / (q : ℝ)) *
+              lowOwnerThresholdCrossingIndicator
+                p n (rawQ2ChildCutoff R q)) *
+            (((1 : ℝ) / (q' : ℝ)) *
+              lowOwnerThresholdCrossingIndicator
+                p n (rawQ2ChildCutoff R q')) := by
+      apply Finset.sum_congr rfl
+      intro n _hn
+      rw [Finset.sum_mul]
+      apply Finset.sum_congr rfl
+      intro q _hq
+      rw [Finset.mul_sum]
+    _ =
+      ∑ q ∈ canonicalRoughLowQ2Owners R,
+        ∑ q' ∈ canonicalRoughLowQ2Owners R,
+          ∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
+            (((1 : ℝ) / (q : ℝ)) *
+              lowOwnerThresholdCrossingIndicator
+                p n (rawQ2ChildCutoff R q)) *
+            (((1 : ℝ) / (q' : ℝ)) *
+              lowOwnerThresholdCrossingIndicator
+                p n (rawQ2ChildCutoff R q')) := by
+      rw [Finset.sum_comm]
+      apply Finset.sum_congr rfl
+      intro q _hq
+      rw [Finset.sum_comm]
+    _ =
+      ∑ q ∈ canonicalRoughLowQ2Owners R,
+        ∑ q' ∈ canonicalRoughLowQ2Owners R,
+          ((1 : ℝ) / (q : ℝ)) * ((1 : ℝ) / (q' : ℝ)) *
+            (∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
+              lowOwnerThresholdCrossingIndicator
+                  p n (rawQ2ChildCutoff R q) *
+                lowOwnerThresholdCrossingIndicator
+                  p n (rawQ2ChildCutoff R q')) := by
+      apply Finset.sum_congr rfl
+      intro q _hq
+      apply Finset.sum_congr rfl
+      intro q' _hq'
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro n _hn
+      ring
+
+
+/-- A threshold-crossing daughter field is pointwise dominated by the full
+reciprocal daughter-prefix field: crossing at \`Y_q\` implies containment in the
+prefix ending at \`Y_q\`. -/
+theorem lowOwnerDaughterCrossingWeight_le_reciprocalDaughterWeight
+    (R p n : ℕ) :
+    lowOwnerDaughterCrossingWeight R p n ≤
+      lowOwnerReciprocalDaughterWeight R n := by
+  unfold lowOwnerDaughterCrossingWeight lowOwnerReciprocalDaughterWeight
+  apply Finset.sum_le_sum
+  intro q hq
+  by_cases hcross :
+      n ≤ rawQ2ChildCutoff R q ∧ rawQ2ChildCutoff R q < p * n
+  · rw [if_pos hcross, if_pos hcross.1]
+  · by_cases hn : n ≤ rawQ2ChildCutoff R q
+    · rw [if_neg hcross, if_pos hn]
+      exact div_nonneg zero_le_one (Nat.cast_nonneg q)
+    · rw [if_neg hcross, if_neg hn]
+
+/-- The reciprocal daughter-crossing field is nonnegative. -/
+theorem lowOwnerDaughterCrossingWeight_nonneg
+    (R p n : ℕ) :
+    0 ≤ lowOwnerDaughterCrossingWeight R p n := by
+  unfold lowOwnerDaughterCrossingWeight
+  apply Finset.sum_nonneg
+  intro q hq
+  split
+  · positivity
+  · norm_num
+
+/-- **Uniform q² threshold-census bound.**
+
+For every current owner \`p\`, the site L² mass of its reciprocal daughter
+crossing field is at most one sixteenth of the physical endpoint.  This is
+deterministic: the crossing windows are subsets of the already bounded daughter
+prefix windows. -/
+theorem sum_lowOwnerDaughterCrossingWeight_sq_le_sixteenth_endpoint
+    (R p : ℕ) :
+    (∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
+      lowOwnerDaughterCrossingWeight R p n ^ 2) ≤
+      (1 / 16 : ℝ) * (squareRootEndpoint R : ℝ) := by
+  have hpoint : ∀ n ∈ Finset.Icc 1 (squareRootEndpoint R),
+      lowOwnerDaughterCrossingWeight R p n ^ 2 ≤
+        lowOwnerReciprocalDaughterWeight R n ^ 2 := by
+    intro n hn
+    have hD0 := lowOwnerDaughterCrossingWeight_nonneg R p n
+    have hW0 := lowOwnerReciprocalDaughterWeight_nonneg R n
+    have hDW :=
+      lowOwnerDaughterCrossingWeight_le_reciprocalDaughterWeight R p n
+    nlinarith
+  calc
+    (∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
+        lowOwnerDaughterCrossingWeight R p n ^ 2) ≤
+      ∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
+        lowOwnerReciprocalDaughterWeight R n ^ 2 := by
+          exact Finset.sum_le_sum hpoint
+    _ ≤ (1 / 16 : ℝ) * (squareRootEndpoint R : ℝ) :=
+      sum_lowOwnerReciprocalDaughterWeight_sq_le_sixteenth_endpoint R
+
+/-- **The exact weighted overlap census is uniformly root-scale.**
+
+Combining the exact q² overlap Fubini with the deterministic site L² bound
+gives the complete reciprocal overlap census with its native \`1/(q q')\`
+weights. -/
+theorem lowOwnerDaughterThresholdOverlapCensus_le_sixteenth_endpoint
+    (R p : ℕ) :
+    (∑ q ∈ canonicalRoughLowQ2Owners R,
+      ∑ q' ∈ canonicalRoughLowQ2Owners R,
+        ((1 : ℝ) / (q : ℝ)) * ((1 : ℝ) / (q' : ℝ)) *
+          lowOwnerDaughterThresholdWindowOverlapMass R p q q') ≤
+      (1 / 16 : ℝ) * (squareRootEndpoint R : ℝ) := by
+  rw [← sum_lowOwnerDaughterCrossingWeight_sq_eq_overlapCensus R p]
+  exact sum_lowOwnerDaughterCrossingWeight_sq_le_sixteenth_endpoint R p
 
 end RHLean.Proof
