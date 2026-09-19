@@ -132,6 +132,101 @@ theorem abs_squareRootLowPrimeRunningImbalanceReal_le_four_root_of_boundaryShado
     hR hKR hV0 hVK
   exact squareRootLowPrimeBoundaryShadow_massTransfer_of_matching M
 
+/-! ## Three-piece normal form of the creation-response critical set -/
+
+/-- Fixed non-head shallow states of the creation-response involution. -/
+def squareRootLowPrimeCreationResponseStableShallow
+    (R K j U : ℕ) : Finset SquareRootLowPrimeProcessedState :=
+  (finiteOthelloStablePart
+      (squareRootLowPrimeProcessedSeatCarrier R K j U)
+      (squareRootLowPrimeProcessedSeatCreationResponseMate R K j U)).filter
+    fun x => x ≠ none ∧ SquareRootLowPrimeProcessedStateShallow K x
+
+/-- Fixed non-head deep states of the creation-response involution. -/
+def squareRootLowPrimeCreationResponseStableDeep
+    (R K j U : ℕ) : Finset SquareRootLowPrimeProcessedState :=
+  (finiteOthelloStablePart
+      (squareRootLowPrimeProcessedSeatCarrier R K j U)
+      (squareRootLowPrimeProcessedSeatCreationResponseMate R K j U)).filter
+    fun x => x ≠ none ∧ ¬ SquareRootLowPrimeProcessedStateShallow K x
+
+theorem squareRootLowPrimeCreationResponseStableShallow_disjoint_deep
+    (R K j U : ℕ) :
+    Disjoint (squareRootLowPrimeCreationResponseStableShallow R K j U)
+      (squareRootLowPrimeCreationResponseStableDeep R K j U) := by
+  rw [Finset.disjoint_left]
+  intro x hx hy
+  have hx' := (Finset.mem_filter.mp hx).2.2
+  have hy' := (Finset.mem_filter.mp hy).2.2
+  exact hy' hx'
+
+/-- The stable set of the creation-response mate is exactly Head plus the two
+literal unmatched populations. -/
+theorem finiteOthelloStablePart_creationResponse_eq_head_union_shallow_union_deep
+    {R K j U : ℕ} :
+    finiteOthelloStablePart
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        (squareRootLowPrimeProcessedSeatCreationResponseMate R K j U) =
+      insert none
+        (squareRootLowPrimeCreationResponseStableShallow R K j U ∪
+          squareRootLowPrimeCreationResponseStableDeep R K j U) := by
+  ext x
+  constructor
+  · intro hx
+    by_cases hxHead : x = none
+    · subst x
+      simp
+    · by_cases hsh : SquareRootLowPrimeProcessedStateShallow K x
+      · apply Finset.mem_insert_of_mem
+        (Finset.mem_union_left _ ?_)
+        exact Finset.mem_filter.mpr ⟨hx, hxHead, hsh⟩
+      · apply Finset.mem_insert_of_mem
+        (Finset.mem_union_right _ ?_)
+        exact Finset.mem_filter.mpr ⟨hx, hxHead, hsh⟩
+  · intro hx
+    rcases Finset.mem_insert.mp hx with hxHead | hxTail
+    · subst x
+      apply Finset.mem_filter.mpr
+      refine ⟨?_, squareRootLowPrimeProcessedSeatCreationResponseMate_head _ _ _ _⟩
+      simp [squareRootLowPrimeProcessedSeatCarrier]
+    · rcases Finset.mem_union.mp hxTail with hxSh | hxDeep
+      · exact (Finset.mem_filter.mp hxSh).1
+      · exact (Finset.mem_filter.mp hxDeep).1
+
+/-- Head is disjoint from both non-head critical populations. -/
+theorem none_not_mem_squareRootLowPrimeCreationResponseStableTail
+    (R K j U : ℕ) :
+    none ∉ squareRootLowPrimeCreationResponseStableShallow R K j U ∪
+      squareRootLowPrimeCreationResponseStableDeep R K j U := by
+  intro h
+  rcases Finset.mem_union.mp h with h | h
+  · exact (Finset.mem_filter.mp h).2.1 rfl
+  · exact (Finset.mem_filter.mp h).2.1 rfl
+
+/-- Exact critical-mass normal form:
+running imbalance = Head + unmatched shallow creation + unmatched deep response.
+This uses only the two Othello involutions and the shallow/deep dichotomy. -/
+theorem squareRootLowPrime_creationResponseStableMass_eq_head_add_shallow_add_deep
+    {R K j U : ℕ} (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) :
+    squareRootLowPrimeRunningImbalanceReal R K j U =
+      1 +
+        (∑ x ∈ squareRootLowPrimeCreationResponseStableShallow R K j U,
+          squareRootLowPrimeProcessedSeatWeightReal x) +
+        (∑ x ∈ squareRootLowPrimeCreationResponseStableDeep R K j U,
+          squareRootLowPrimeProcessedSeatWeightReal x) := by
+  have hmass :=
+    squareRootLowPrime_creationResponseStableMass_eq_runningImbalance
+      (R := R) (K := K) (j := j) (U := U) hR hK hKU
+  rw [finiteOthelloStablePart_creationResponse_eq_head_union_shallow_union_deep]
+    at hmass
+  rw [Finset.sum_insert
+      (none_not_mem_squareRootLowPrimeCreationResponseStableTail R K j U),
+    Finset.sum_union
+      (squareRootLowPrimeCreationResponseStableShallow_disjoint_deep R K j U)]
+    at hmass
+  simp only [squareRootLowPrimeProcessedSeatWeightReal] at hmass
+  linarith
+
 /-! ## Replace the descending critical set by the creation-response critical set
 
 Both the descending-prime mate and the creation-response mate act on the exact
