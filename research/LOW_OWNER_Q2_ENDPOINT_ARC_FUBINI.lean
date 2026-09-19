@@ -192,6 +192,7 @@ theorem dft_primeWheelForwardArcWindow_neg_eq
   have hbase :=
     prefixWindowSpectrum_neg_eq_phase_mul_dirichlet W A r hshort
   rw [primeWheelForwardArcWindow_eq_prefix_sub]
+  rw [map_sub]
   change
     W.prefixWindowSpectrum (W.lower + (A + d)) (-r) -
         W.prefixWindowSpectrum (W.lower + A) (-r) =
@@ -268,13 +269,19 @@ theorem primeWheelShiftedArcGram_eq_physicalOverlap
       dft_primeWheelForwardArcWindow_neg_eq W A d (-r) hAupper
     have hBg :=
       dft_primeWheelForwardArcWindow_neg_eq W B e r hBupper
+    have hAf' :
+        ZMod.dft (primeWheelForwardArcWindow W A d) r =
+          primeWheelPinnedPhase W (-r) *
+            primeWheelShiftedArcKernel W A d (-r) := by
+      simpa only [neg_neg] using hAf
     have hphase := primeWheelPinnedPhase_neg_mul_self W r
     change
       ZMod.dft f r * ZMod.dft g (-r) =
         primeWheelShiftedArcKernel W A d (-r) *
           primeWheelShiftedArcKernel W B e r
     dsimp [f, g]
-    simpa only [neg_neg] using
+    rw [hAf', hBg]
+    exact
       (show
         (primeWheelPinnedPhase W (-r) *
             primeWheelShiftedArcKernel W A d (-r)) *
