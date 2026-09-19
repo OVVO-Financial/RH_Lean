@@ -1,5 +1,4 @@
 import Mathlib
-import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 
 /-!
 # Exact squarefree two-prime intersection census
@@ -25,56 +24,7 @@ open scoped BigOperators ArithmeticFunction.Moebius
 
 namespace RHLean.Proof
 
-open RHLean.Arithmetic
-
 attribute [local instance] Classical.propDecidable
-
-/-- **Elementary centered two-prime collapse on squarefree support.**
-
-For distinct primes, the square-sensitive local comb has only the two Boolean
-states `+1` and `-1` on a squarefree site.  After centering at `1`, the product
-of the two prime coordinates is therefore supported exactly where both primes
-divide the site.  Coprimality turns that joint divisibility into the single
-condition `p*q ∣ n`.
-
-Thus two distinct prime coordinates physically interact only at multiples of
-their product; e.g. `3` and `11` interact only at multiples of `33`. -/
-theorem centered_localPrimeComb_product_eq_four_twoPrimeIndicator
-    {p q n : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q)
-    (hsq : Squarefree n) :
-    (localPrimeComb p n - 1) * (localPrimeComb q n - 1) =
-      if p * q ∣ n then (4 : ℤ) else 0 := by
-  rw [localPrimeComb_eq_ite_dvd_of_squarefree hp hsq,
-    localPrimeComb_eq_ite_dvd_of_squarefree hq hsq]
-  have hcop : Nat.Coprime p q := by
-    rw [hp.coprime_iff_not_dvd]
-    intro hpdq
-    exact hpq ((Nat.prime_dvd_prime_iff_eq hp hq).mp hpdq)
-  by_cases hpn : p ∣ n
-  · by_cases hqn : q ∣ n
-    · have hpqdvd : p * q ∣ n :=
-        hcop.mul_dvd_of_dvd_of_dvd hpn hqn
-      simp [hpn, hqn, hpqdvd]
-    · have hpqNot : ¬ p * q ∣ n := by
-        intro hpqdvd
-        apply hqn
-        exact dvd_trans ⟨p, by ring⟩ hpqdvd
-      simp [hpn, hqn, hpqNot]
-  · have hpqNot : ¬ p * q ∣ n := by
-      intro hpqdvd
-      apply hpn
-      exact dvd_trans ⟨q, rfl⟩ hpqdvd
-    simp [hpn, hpqNot]
-
-/-- Equivalent support statement: on a squarefree site the centered two-prime
-interaction is nonzero exactly at a physical `p*q` multiple. -/
-theorem centered_localPrimeComb_product_ne_zero_iff_twoPrime_dvd
-    {p q n : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q)
-    (hsq : Squarefree n) :
-    (localPrimeComb p n - 1) * (localPrimeComb q n - 1) ≠ 0 ↔
-      p * q ∣ n := by
-  rw [centered_localPrimeComb_product_eq_four_twoPrimeIndicator hp hq hpq hsq]
-  by_cases hdiv : p * q ∣ n <;> simp [hdiv]
 
 /-- The actual nonzero-Möbius sites on `[1,X]` carrying both prime coordinates. -/
 def lowOwnerTwoPrimeMobiusIntersectionCarrier
