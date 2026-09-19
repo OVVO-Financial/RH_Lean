@@ -118,14 +118,18 @@ theorem pairWeightedStokesMass_product_crossScalar
     (∑ mn ∈ A.product B,
       othelloRealMoebiusPair mn *
         (-(L mn.1 * J mn.2) - J mn.1 * L mn.2)) =
+      ∑ mn ∈ A.product B,
+        (-(othelloRealMoebiusPair mn * (L mn.1 * J mn.2)) -
+          othelloRealMoebiusPair mn * (J mn.1 * L mn.2)) := by
+            apply Finset.sum_congr rfl
+            intro mn _hmn
+            ring
+    _ =
       -(∑ mn ∈ A.product B,
           othelloRealMoebiusPair mn * (L mn.1 * J mn.2)) -
         (∑ mn ∈ A.product B,
           othelloRealMoebiusPair mn * (J mn.1 * L mn.2)) := by
             rw [Finset.sum_sub_distrib, Finset.sum_neg_distrib]
-            apply Finset.sum_congr rfl
-            intro mn _hmn
-            ring
     _ = _ := by
       rw [sum_product_othello_separable, sum_product_othello_separable]
 
