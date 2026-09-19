@@ -1176,4 +1176,90 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedAmplitudeProducts
               (primeCarrierToggle r n))
   rw [hleft, hright]
 
+
+/-! ## Literal clip amplitudes are owner differences
+
+On the Stokes escape face the fresh r-child lies outside the physical
+Dirichlet clock.  Hence the child value of every Dirichlet coordinate is zero,
+and the escape-side value is literally its fresh-owner finite difference.
+-/
+
+/-- The base Dirichlet coefficient of the escaped r-child is zero. -/
+theorem lowOwnerFirstOwnerStokesClip_base_child_eq_zero
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    lowOwnerDirichletBaseCoefficient R (r * n) = 0 := by
+  rcases mem_lowOwnerFirstOwnerStokesDirichletClipFace.mp hn with
+    ⟨_hbase, _hrn, hclip⟩
+  unfold lowOwnerDirichletBaseCoefficient
+  exact lowOwnerPhysicalDirichletWeight_eq_zero_of_lt hclip
+
+/-- The returned p-coordinate of the escaped r-child is also zero. -/
+theorem lowOwnerFirstOwnerStokesClip_returned_child_eq_zero
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hp : 1 ≤ p)
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    lowOwnerDirichletReturnedCoefficient R p (r * n) = 0 := by
+  rcases mem_lowOwnerFirstOwnerStokesDirichletClipFace.mp hn with
+    ⟨_hbase, _hrn, hclip⟩
+  have hle : r * n ≤ p * (r * n) := by
+    calc
+      r * n = 1 * (r * n) := by simp
+      _ ≤ p * (r * n) := Nat.mul_le_mul_right (r * n) hp
+  unfold lowOwnerDirichletReturnedCoefficient
+  exact lowOwnerPhysicalDirichletWeight_eq_zero_of_lt (hclip.trans_le hle)
+
+/-- Therefore the incidence coefficient itself vanishes at the escaped child. -/
+theorem lowOwnerFirstOwnerStokesClip_incidence_child_eq_zero
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hp : 1 ≤ p)
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    lowOwnerDirichletIncidenceCoefficient R p (r * n) = 0 := by
+  unfold lowOwnerDirichletIncidenceCoefficient
+  rw [lowOwnerFirstOwnerStokesClip_base_child_eq_zero hn,
+    lowOwnerFirstOwnerStokesClip_returned_child_eq_zero hp hn]
+  ring
+
+/-- On a literal clip, the physical incidence is exactly its r-owner
+difference. -/
+theorem lowOwnerFirstOwnerStokesClip_incidence_eq_ownerDifference
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hrn : ¬ r ∣ n) (hp : 1 ≤ p)
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    lowOwnerDirichletIncidenceCoefficient R p n =
+      lowOwnerDirichletOwnerDifference r
+        (lowOwnerDirichletIncidenceCoefficient R p) n := by
+  unfold lowOwnerDirichletOwnerDifference
+  rw [primeCarrierToggle_of_not_dvd hrn]
+  change lowOwnerDirichletIncidenceCoefficient R p n =
+    lowOwnerDirichletIncidenceCoefficient R p n -
+      lowOwnerDirichletIncidenceCoefficient R p (n * r)
+  have hzero :=
+    lowOwnerFirstOwnerStokesClip_incidence_child_eq_zero hp hn
+  rw [Nat.mul_comm] at hzero
+  rw [hzero]
+  ring
+
+/-- **Exact clip currency decomposition.**
+
+A literal physical Stokes escape coefficient is the reciprocal-Euler threshold
+second difference plus the endpoint clipped-difference.  Thus the endpoint
+piece is not removed merely by changing to reciprocal currency; it remains as
+an explicit signed term which must be globally reassembled. -/
+theorem lowOwnerFirstOwnerStokesClip_incidence_eq_thresholdSecond_add_endpointClip
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hR : 2 ≤ R) (hp : p.Prime) (hr : r.Prime)
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    lowOwnerDirichletIncidenceCoefficient R p n =
+      lowOwnerThresholdSecondOwnerDifference R p r n +
+        lowOwnerThresholdClippedDifference
+          p r n (squareRootEndpoint R) := by
+  have hrn : ¬ r ∣ n :=
+    (mem_lowOwnerFirstOwnerStokesDirichletClipFace.mp hn).2.1
+  rw [lowOwnerFirstOwnerStokesClip_incidence_eq_ownerDifference
+      hrn hp.one_le hn]
+  exact
+    lowOwnerDirichletIncidence_ownerDifference_eq_threshold_add_endpointClippedDifference
+      hR hp.one_le hr.one_le
+
 end RHLean.Proof
