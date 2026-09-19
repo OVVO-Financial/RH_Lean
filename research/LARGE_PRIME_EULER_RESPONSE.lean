@@ -282,6 +282,32 @@ example :
       (U := 30) (R := 5) (Y := 30) (q := 3)
       (S := ({2} : Finset ℕ)) h3 (by norm_num : Nat.Prime 3))
 
+/-- Literal finite evolution at X=30.  The large-prime block starts at -6;
+the fresh primes 2, 3, 5 add the exact displaced corrections +2, +1, 0, and
+the fully processed coupled state is M(30) = -3. -/
+example : coupledLargePrimeEulerResidual 30 5 30 (∅ : Finset ℕ) = -6 := by
+  native_decide
+
+example : coupledLargePrimeEulerResidual 30 5 30 ({2} : Finset ℕ) = -4 := by
+  native_decide
+
+example : coupledLargePrimeEulerResidual 30 5 30 ({2, 3} : Finset ℕ) = -3 := by
+  native_decide
+
+example :
+    coupledLargePrimeEulerResidual 30 5 30 ({2, 3, 5} : Finset ℕ) = -3 := by
+  native_decide
+
+example : coupledLargePrimeEulerResidual 30 5 15 (∅ : Finset ℕ) = -2 := by
+  native_decide
+
+example : coupledLargePrimeEulerResidual 30 5 10 ({2} : Finset ℕ) = -1 := by
+  native_decide
+
+example :
+    coupledLargePrimeEulerResidual 30 5 6 ({2, 3} : Finset ℕ) = 0 := by
+  native_decide
+
 /-! ## Aggregate square-endpoint identification -/
 
 /-- Sum of all post-root truncated Euler cubes at the square endpoint.  This is
