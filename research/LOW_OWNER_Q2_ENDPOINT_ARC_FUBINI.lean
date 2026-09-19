@@ -323,4 +323,90 @@ theorem primeWheelShiftedArcGram_eq_physicalOverlap
           (primeWheelForwardArcWindow W B e) := by rfl
     _ = _ := finiteTorusPairing_forwardArcWindow_eq_overlap W A d B e
 
+
+/-!
+## Weighted owner Fubini
+
+The pairwise overlap identity can be summed over an arbitrary finite owner set
+without changing coefficients.  This is the exact form needed by the reciprocal
+q² daughter column: the physical coefficient \`1/q\` remains inside both sides
+of the Gram.
+-/
+
+/-- Weighted shifted-arc synthesis over a finite owner set. -/
+def primeWheelWeightedShiftedArcSynthesis
+    (W : PrimeWheelFiniteSystem) (S : Finset ℕ)
+    (w : ℕ → ℂ) (A d : ℕ → ℕ)
+    (r : ZMod W.modulus) : ℂ :=
+  ∑ q ∈ S, w q * primeWheelShiftedArcKernel W (A q) (d q) r
+
+/-- Weighted physical overlap census with the exact owner coefficients kept. -/
+def primeWheelWeightedArcOverlapCensus
+    (W : PrimeWheelFiniteSystem) (S : Finset ℕ)
+    (w : ℕ → ℂ) (A d : ℕ → ℕ) : ℂ :=
+  ∑ q ∈ S, ∑ q' ∈ S,
+    w q * w q' *
+      (∑ z : ZMod W.modulus,
+        if (W.lower + A q < z.val ∧
+              z.val ≤ W.lower + (A q + d q)) ∧
+            (W.lower + A q' < z.val ∧
+              z.val ≤ W.lower + (A q' + d q'))
+        then 1 else 0)
+
+/-- **Weighted shifted-arc Gram = weighted physical overlap census.**
+
+No coefficient is replaced by its norm and no ownerwise triangle inequality is
+used.  This is just finite Fubini plus the pairwise offset identity. -/
+theorem primeWheelWeightedShiftedArcGram_eq_overlapCensus
+    (W : PrimeWheelFiniteSystem) (S : Finset ℕ)
+    (w : ℕ → ℂ) (A d : ℕ → ℕ)
+    (hupper : ∀ q ∈ S, W.lower + (A q + d q) ≤ W.upper) :
+    ((W.modulus : ℂ)⁻¹) *
+        ∑ r : ZMod W.modulus,
+          primeWheelWeightedShiftedArcSynthesis W S w A d (-r) *
+            primeWheelWeightedShiftedArcSynthesis W S w A d r =
+      primeWheelWeightedArcOverlapCensus W S w A d := by
+  unfold primeWheelWeightedShiftedArcSynthesis
+    primeWheelWeightedArcOverlapCensus
+  rw [Finset.mul_sum]
+  calc
+    ((W.modulus : ℂ)⁻¹) *
+        ∑ r : ZMod W.modulus,
+          (∑ q ∈ S,
+              w q * primeWheelShiftedArcKernel W (A q) (d q) (-r)) *
+            (∑ q' ∈ S,
+              w q' * primeWheelShiftedArcKernel W (A q') (d q') r) =
+      ∑ q ∈ S, ∑ q' ∈ S,
+        w q * w q' *
+          (((W.modulus : ℂ)⁻¹) *
+            ∑ r : ZMod W.modulus,
+              primeWheelShiftedArcKernel W (A q) (d q) (-r) *
+                primeWheelShiftedArcKernel W (A q') (d q') r) := by
+      rw [Finset.sum_mul]
+      simp_rw [Finset.mul_sum]
+      rw [Finset.sum_comm]
+      apply Finset.sum_congr rfl
+      intro q _hq
+      rw [Finset.sum_comm]
+      apply Finset.sum_congr rfl
+      intro q' _hq'
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro r _hr
+      ring
+    _ = ∑ q ∈ S, ∑ q' ∈ S,
+        w q * w q' *
+          (∑ z : ZMod W.modulus,
+            if (W.lower + A q < z.val ∧
+                  z.val ≤ W.lower + (A q + d q)) ∧
+                (W.lower + A q' < z.val ∧
+                  z.val ≤ W.lower + (A q' + d q'))
+            then 1 else 0) := by
+      apply Finset.sum_congr rfl
+      intro q hq
+      apply Finset.sum_congr rfl
+      intro q' hq'
+      rw [primeWheelShiftedArcGram_eq_physicalOverlap
+        W (A q) (d q) (A q') (d q') (hupper q hq) (hupper q' hq')]
+
 end RHLean.Analysis
