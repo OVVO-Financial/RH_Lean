@@ -1388,4 +1388,101 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedSquareDecrements
       (lowOwnerDirichletReturnedCoefficient R p)
   nlinarith
 
+
+/-! ## Cross-product form of the physical clip decrement
+
+The incidence coordinate is base minus returned.  Therefore the three signed
+square decrements in the preceding theorem contain an exact cancellation:
+the pure incidence/base/returned squares collapse to one base-returned
+cross-product decrement.  In particular no standalone square of the top-scale
+endpoint clip survives.
+-/
+
+/-- Signed scalar amplitude is linear under subtraction. -/
+theorem lowOwnerStokesSignedScalarAmplitude_sub
+    (S : Finset ℕ) (g h : ℕ → ℝ) :
+    lowOwnerStokesSignedScalarAmplitude S (fun n => g n - h n) =
+      lowOwnerStokesSignedScalarAmplitude S g -
+        lowOwnerStokesSignedScalarAmplitude S h := by
+  unfold lowOwnerStokesSignedScalarAmplitude
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  ring
+
+/-- The physical Dirichlet incidence scalar amplitude is exactly base minus
+returned on every finite carrier. -/
+theorem lowOwnerStokesSignedScalarAmplitude_incidence_eq_base_sub_returned
+    (R p : ℕ) (S : Finset ℕ) :
+    lowOwnerStokesSignedScalarAmplitude S
+        (lowOwnerDirichletIncidenceCoefficient R p) =
+      lowOwnerStokesSignedScalarAmplitude S
+          (lowOwnerDirichletBaseCoefficient R) -
+        lowOwnerStokesSignedScalarAmplitude S
+          (lowOwnerDirichletReturnedCoefficient R p) := by
+  unfold lowOwnerDirichletIncidenceCoefficient
+  exact lowOwnerStokesSignedScalarAmplitude_sub S
+    (lowOwnerDirichletBaseCoefficient R)
+    (lowOwnerDirichletReturnedCoefficient R p)
+
+/-- **Exact one-step cross-product decrement.**
+
+Write B,J for the signed base/returned amplitudes on the current first-owner
+carrier and E_B,E_J for their literal physical escape amplitudes.  The Stokes
+boundary step is exactly twice the change of the base-returned cross product
+after deleting the escape face.  Thus the endpoint clip is present only in
+cross terms; its pure square cancels identically. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_two_crossProductDecrement
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    let A := lowOwnerFirstOwnerBaseFiber R p sig
+    let E := lowOwnerFirstOwnerStokesDirichletClipFace R p sig r
+    let base := lowOwnerDirichletBaseCoefficient R
+    let ret := lowOwnerDirichletReturnedCoefficient R p
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      2 * (
+        (lowOwnerStokesSignedScalarAmplitude A base -
+            lowOwnerStokesSignedScalarAmplitude E base) *
+          (lowOwnerStokesSignedScalarAmplitude A ret -
+            lowOwnerStokesSignedScalarAmplitude E ret) -
+        lowOwnerStokesSignedScalarAmplitude A base *
+          lowOwnerStokesSignedScalarAmplitude A ret) := by
+  dsimp only
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_signedSquareDecrements
+      hp hr hpr]
+  have hA :=
+    lowOwnerStokesSignedScalarAmplitude_incidence_eq_base_sub_returned
+      R p (lowOwnerFirstOwnerBaseFiber R p sig)
+  have hE :=
+    lowOwnerStokesSignedScalarAmplitude_incidence_eq_base_sub_returned
+      R p (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+  rw [hA, hE]
+  ring
+
+/-- Expanded form: only the two linear escape cross terms and their compensating
+escape product remain. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_escapeCrossTerms
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    let A := lowOwnerFirstOwnerBaseFiber R p sig
+    let E := lowOwnerFirstOwnerStokesDirichletClipFace R p sig r
+    let base := lowOwnerDirichletBaseCoefficient R
+    let ret := lowOwnerDirichletReturnedCoefficient R p
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      -2 * (
+        lowOwnerStokesSignedScalarAmplitude A base *
+          lowOwnerStokesSignedScalarAmplitude E ret +
+        lowOwnerStokesSignedScalarAmplitude E base *
+          lowOwnerStokesSignedScalarAmplitude A ret -
+        lowOwnerStokesSignedScalarAmplitude E base *
+          lowOwnerStokesSignedScalarAmplitude E ret) := by
+  dsimp only
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_two_crossProductDecrement
+      hp hr hpr]
+  ring
+
 end RHLean.Proof
