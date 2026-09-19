@@ -175,7 +175,19 @@ theorem primeWheelForwardArcWindow_eq_prefix_sub
   funext z
   unfold primeWheelForwardArcWindow
     PrimeWheelFiniteSystem.torusPrefixWindow
-  split_ifs <;> norm_num <;> omega
+  by_cases hzlow : z.val ≤ W.lower
+  · have hlow : ¬ W.lower < z.val := by omega
+    have hstart : ¬ W.lower + A < z.val := by omega
+    simp [hlow, hstart]
+  · have hlow : W.lower < z.val := by omega
+    by_cases hzA : z.val ≤ W.lower + A
+    · have hstart : ¬ W.lower + A < z.val := by omega
+      have hzEnd : z.val ≤ W.lower + (A + d) := by omega
+      simp [hlow, hzA, hstart, hzEnd]
+    · have hstart : W.lower + A < z.val := by omega
+      by_cases hzEnd : z.val ≤ W.lower + (A + d)
+      · simp [hlow, hzA, hstart, hzEnd]
+      · simp [hlow, hzA, hstart, hzEnd]
 
 /-- Exact DFT of a shifted physical arc.  The pinned arithmetic phase is common
 to every arc; the extra factor \`chi(r)^A\` is the physically different starting
@@ -207,8 +219,13 @@ theorem primeWheelPinnedPhase_neg_mul_self
     primeWheelPinnedPhase W (-r) * primeWheelPinnedPhase W r = 1 := by
   unfold primeWheelPinnedPhase
   rw [← map_add_eq_mul]
-  convert AddChar.map_zero_eq_one
-    (ZMod.stdAddChar : AddChar (ZMod W.modulus) ℂ) using 1 <;> ring
+  have hzero :
+      (((W.lower + 1 : ℕ) : ZMod W.modulus) * (-r)) +
+          (((W.lower + 1 : ℕ) : ZMod W.modulus) * r) = 0 := by
+    ring
+  rw [hzero]
+  exact AddChar.map_zero_eq_one
+    (ZMod.stdAddChar : AddChar (ZMod W.modulus) ℂ)
 
 /-- Physical pairing of two shifted arc windows is literally their overlap
 indicator count. -/
