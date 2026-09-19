@@ -1,9 +1,12 @@
 import Mathlib
+import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 import «research.GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE»
 import «research.GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIOD_WHEEL»
 import «research.GLOBAL_RETURNED_CORE_STOKES_CLIP_AMPLITUDE_FACTOR»
 import «research.STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME»
 import «research.STABLE_FAR_PERRON_QUARTER_FRAME_BOUND»
+import «research.GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM»
+import «research.GLOBAL_RETURNED_CORE_DOUBLE_CORNER_POLARIZATION_FUBINI»
 
 /-!
 # Physical Stokes boundary -> natural prime-period frame interface
@@ -37,6 +40,55 @@ namespace RHLean.Proof
 open RHLean.Analysis RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
+
+/-! ## Elementary squarefree two-prime support -/
+
+/-- **Centered two-prime comb support is exactly the `p*q` lattice.**
+
+On a squarefree physical site, each local square-sensitive prime comb is
+Boolean: `+1` off the prime and `-1` on the prime.  Centering at `1` therefore
+kills every site except those carrying both distinct prime coordinates.
+Coprimality identifies those common sites exactly with multiples of `p*q`.
+
+This is the literal arithmetic form of the statement that, for example, the
+`3` and `11` coordinates meet only at `33, 66, 99, ...`. -/
+theorem centered_localPrimeComb_product_eq_four_twoPrimeIndicator
+    {p q n : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q)
+    (hsq : Squarefree n) :
+    (localPrimeComb p n - 1) * (localPrimeComb q n - 1) =
+      if p * q ∣ n then (4 : ℤ) else 0 := by
+  rw [localPrimeComb_eq_ite_dvd_of_squarefree hp hsq,
+    localPrimeComb_eq_ite_dvd_of_squarefree hq hsq]
+  have hcop : Nat.Coprime p q := by
+    rw [hp.coprime_iff_not_dvd]
+    intro hpdq
+    exact hpq ((Nat.prime_dvd_prime_iff_eq hp hq).mp hpdq)
+  by_cases hpn : p ∣ n
+  · by_cases hqn : q ∣ n
+    · have hpqdvd : p * q ∣ n :=
+        hcop.mul_dvd_of_dvd_of_dvd hpn hqn
+      simp [hpn, hqn, hpqdvd]
+    · have hpqNot : ¬ p * q ∣ n := by
+        intro hpqdvd
+        apply hqn
+        exact dvd_trans ⟨p, by ring⟩ hpqdvd
+      simp [hpn, hqn, hpqNot]
+  · have hpqNot : ¬ p * q ∣ n := by
+      intro hpqdvd
+      apply hpn
+      exact dvd_trans ⟨q, rfl⟩ hpqdvd
+    simp [hpn, hpqNot]
+
+/-- The centered two-prime interaction is nonzero exactly at a physical
+`p*q` multiple. -/
+theorem centered_localPrimeComb_product_ne_zero_iff_twoPrime_dvd
+    {p q n : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q)
+    (hsq : Squarefree n) :
+    (localPrimeComb p n - 1) * (localPrimeComb q n - 1) ≠ 0 ↔
+      p * q ∣ n := by
+  rw [centered_localPrimeComb_product_eq_four_twoPrimeIndicator hp hq hpq hsq]
+  by_cases hdiv : p * q ∣ n <;> simp [hdiv]
+
 
 /-- Actual odd prime-period coordinates of the natural Stokes wheel. -/
 def lowOwnerStokesOddPrimePeriodSet (R : ℕ) : Finset ℕ :=
@@ -833,5 +885,1445 @@ theorem riemannHypothesis_of_clip_and_exceptionalTerminalFrameDomination
   exact riemannHypothesis_of_primePeriodFrameDomination hC
     (primePeriodFrameDomination_of_clip_add_topTerminal
       hClip (topTerminalPrimePeriodFrameDomination_of_exceptional hTerminal))
+
+
+/-! ## Exact exceptional-terminal normal forms
+
+The terminal support from #758 is now separated according to whether no larger
+owner remains or exactly one larger owner remains. These are algebraic normal
+forms only; they deliberately preserve the signature assembly.
+-/
+
+/-- Terminal first-owner levels with no larger canonical owner remaining. -/
+def lowOwnerStokesEmptyScheduleOwnerSet (R : ℕ) : Finset ℕ :=
+  (primesUpTo (squareRootEndpoint R)).filter fun p =>
+    lowOwnerFirstOwnerCanonicalStokesSchedule R p = []
+
+/-- Terminal first-owner levels with exactly one larger canonical owner
+remaining. -/
+def lowOwnerStokesOneScheduleOwnerSet (R : ℕ) : Finset ℕ :=
+  (primesUpTo (squareRootEndpoint R)).filter fun p =>
+    (lowOwnerFirstOwnerCanonicalStokesSchedule R p).length = 1
+
+/-- On an empty schedule the top-terminal cell is exactly the original signed
+cell telescope, hence the already-compiled cross-amplitude product. -/
+theorem lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_emptySchedule
+    {R p : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime)
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = []) :
+    lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig =
+      -2 * lowOwnerFirstOwnerBaseAmplitude R p sig *
+        lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
+  have hmass :=
+    lowOwnerFirstOwnerSignedCellTelescope_eq_pairWeightedStokesMass
+      (R := R) (p := p) (sig := sig) hp
+  have hcross :=
+    lowOwnerFirstOwnerSignedCellTelescope_eq_neg_two_base_mul_returned
+      (R := R) (p := p) (sig := sig) hp
+  calc
+    lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig =
+        pairWeightedStokesMass
+          (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+          (lowOwnerFirstOwnerDirichletPolarizationScalar R p) := by
+            simp [lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary, hps]
+    _ = lowOwnerFirstOwnerSignedCellTelescope R p sig := hmass.symm
+    _ = -2 * lowOwnerFirstOwnerBaseAmplitude R p sig *
+          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := hcross
+
+/-- Empty-schedule signature assembly. The full signature sum remains assembled
+as one signed base/returned pairing. -/
+theorem sum_lowOwnerFirstOwnerTopTerminal_eq_neg_two_sum_base_mul_returned_of_emptySchedule
+    {R p : ℕ}
+    (hp : p.Prime)
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = []) :
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) =
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        (-2 * lowOwnerFirstOwnerBaseAmplitude R p sig *
+          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig) := by
+  apply Finset.sum_congr rfl
+  intro sig _hsig
+  exact
+    lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_emptySchedule
+      hp hps
+
+/-- One-owner terminal normal form with exact quarter multiplicity and mixed
+difference. -/
+theorem lowOwnerFirstOwnerTopTerminal_eq_quarter_mixed_of_oneSchedule
+    {R p q : ℕ} {sig : Finset ℕ}
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = [q]) :
+    lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig =
+      (1 / 4 : ℝ) *
+        pairWeightedStokesMass
+          (pairPrimeTwoCoordinateInterior q
+            (lowOwnerFirstOwnerSignedCellPairCarrier R p sig))
+          (pairPrimeMixedDifference q
+            (lowOwnerFirstOwnerDirichletPolarizationScalar R p)) := by
+  simp [lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary, hps]
+
+/-- The same one-owner normal form after summing over signatures. -/
+theorem sum_lowOwnerFirstOwnerTopTerminal_eq_quarter_mixed_of_oneSchedule
+    {R p q : ℕ}
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = [q]) :
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) =
+      (1 / 4 : ℝ) *
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          pairWeightedStokesMass
+            (pairPrimeTwoCoordinateInterior q
+              (lowOwnerFirstOwnerSignedCellPairCarrier R p sig))
+            (pairPrimeMixedDifference q
+              (lowOwnerFirstOwnerDirichletPolarizationScalar R p)) := by
+  calc
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) =
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        ((1 / 4 : ℝ) *
+          pairWeightedStokesMass
+            (pairPrimeTwoCoordinateInterior q
+              (lowOwnerFirstOwnerSignedCellPairCarrier R p sig))
+            (pairPrimeMixedDifference q
+              (lowOwnerFirstOwnerDirichletPolarizationScalar R p))) := by
+        apply Finset.sum_congr rfl
+        intro sig _hsig
+        exact lowOwnerFirstOwnerTopTerminal_eq_quarter_mixed_of_oneSchedule hps
+    _ = (1 / 4 : ℝ) *
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          pairWeightedStokesMass
+            (pairPrimeTwoCoordinateInterior q
+              (lowOwnerFirstOwnerSignedCellPairCarrier R p sig))
+            (pairPrimeMixedDifference q
+              (lowOwnerFirstOwnerDirichletPolarizationScalar R p)) := by
+          rw [Finset.mul_sum]
+
+/-- The two exceptional schedule classes cover the #758 terminal owner set. -/
+theorem lowOwnerStokesTopTerminalOwnerSet_eq_empty_union_one
+    (R : ℕ) :
+    lowOwnerStokesTopTerminalOwnerSet R =
+      lowOwnerStokesEmptyScheduleOwnerSet R ∪
+        lowOwnerStokesOneScheduleOwnerSet R := by
+  ext p
+  simp only [lowOwnerStokesTopTerminalOwnerSet,
+    lowOwnerStokesEmptyScheduleOwnerSet, lowOwnerStokesOneScheduleOwnerSet,
+    Finset.mem_filter, Finset.mem_union]
+  constructor
+  · rintro ⟨hp, hlen⟩
+    rcases Nat.eq_zero_or_pos
+        (lowOwnerFirstOwnerCanonicalStokesSchedule R p).length with hzero | hpos
+    · left
+      refine ⟨hp, ?_⟩
+      exact List.length_eq_zero.mp hzero
+    · right
+      refine ⟨hp, ?_⟩
+      omega
+  · rintro (⟨hp, hnil⟩ | ⟨hp, hone⟩)
+    · refine ⟨hp, ?_⟩
+      rw [hnil]
+      simp
+    · exact ⟨hp, by omega⟩
+
+/-- Empty- and one-owner levels are disjoint. -/
+theorem lowOwnerStokesEmptyScheduleOwnerSet_disjoint_oneScheduleOwnerSet
+    (R : ℕ) :
+    Disjoint (lowOwnerStokesEmptyScheduleOwnerSet R)
+      (lowOwnerStokesOneScheduleOwnerSet R) := by
+  apply Finset.disjoint_left.mpr
+  intro p hempty hone
+  have hnil := (Finset.mem_filter.mp hempty).2
+  have hlen := (Finset.mem_filter.mp hone).2
+  rw [hnil] at hlen
+  simp at hlen
+
+/-- Exact global terminal split in the requested attack order. -/
+theorem lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_empty_add_oneSchedule
+    (R : ℕ) :
+    lowOwnerCanonicalSignedStokesTopTerminalBoundary R =
+      (∑ p ∈ lowOwnerStokesEmptyScheduleOwnerSet R,
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) +
+      (∑ p ∈ lowOwnerStokesOneScheduleOwnerSet R,
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) := by
+  rw [lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_terminalOwnerSum,
+    lowOwnerStokesTopTerminalOwnerSet_eq_empty_union_one]
+  exact Finset.sum_union
+    (lowOwnerStokesEmptyScheduleOwnerSet_disjoint_oneScheduleOwnerSet R)
+
+/-- Three-piece final Stokes normal form: physical clip, empty-schedule
+assembled cross amplitude, and one-owner quarter-mixed correction. -/
+theorem lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_empty_add_one
+    (R : ℕ) :
+    lowOwnerCanonicalSignedStokesFinalBoundary R =
+      lowOwnerCanonicalSignedStokesClipBoundary R +
+      (∑ p ∈ lowOwnerStokesEmptyScheduleOwnerSet R,
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) +
+      (∑ p ∈ lowOwnerStokesOneScheduleOwnerSet R,
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary R p sig) := by
+  rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_topTerminal,
+    lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_empty_add_oneSchedule]
+  ring
+
+
+/-! ## Maximum-alignment envelope for the clip attack
+
+The frame majorant really is a maximum-alignment majorant once a physical
+quantity has been assembled into reciprocal prime-period coordinates.  The
+remaining arithmetic issue is therefore representation, not a further harmonic
+inequality.
+-/
+
+/-- Reciprocal prime-period Gram envelope with an arbitrary bounded coefficient
+on each prime mode.  The diagonal and off-diagonal pieces are kept in exactly
+the currency of `primePeriodReciprocalFrameMajorant`. -/
+def primePeriodReciprocalCoefficientEnvelope
+    (W : PrimeWheelFiniteSystem) (N : ℕ) (S : Finset ℕ)
+    (a : ℕ → ℂ) : ℝ :=
+  (N : ℝ) *
+      ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2 +
+    ∑ p ∈ S,
+      ∑ q ∈ S.erase p,
+        (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+            ‖primeWheelDirichletKernel W N
+              (primePeriodFrequency W p - primePeriodFrequency W q)‖) *
+          (‖a p‖ * ‖a q‖)
+
+/-- **Maximum-alignment theorem with coefficients.**  Any family whose mode
+coefficients have norm at most one is dominated by the coefficient-free frame
+majorant. -/
+theorem primePeriodReciprocalCoefficientEnvelope_le_frameMajorant
+    (W : PrimeWheelFiniteSystem) (N : ℕ) (S : Finset ℕ)
+    (a : ℕ → ℂ)
+    (ha : ∀ p ∈ S, ‖a p‖ ≤ 1) :
+    primePeriodReciprocalCoefficientEnvelope W N S a ≤
+      primePeriodReciprocalFrameMajorant W N S := by
+  have hdiagSum :
+      (∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2) ≤
+        ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 := by
+    apply Finset.sum_le_sum
+    intro p hp
+    have hap := ha p hp
+    have hsq : ‖a p‖ ^ 2 ≤ (1 : ℝ) := by
+      nlinarith [norm_nonneg (a p)]
+    calc
+      ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2 ≤
+          ((1 : ℝ) / (p : ℝ)) ^ 2 * 1 :=
+        mul_le_mul_of_nonneg_left hsq (sq_nonneg _)
+      _ = ((1 : ℝ) / (p : ℝ)) ^ 2 := by ring
+  have hdiag :
+      (N : ℝ) *
+          (∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2) ≤
+        primePeriodReciprocalDiagonalMajorant N S := by
+    unfold primePeriodReciprocalDiagonalMajorant
+    exact mul_le_mul_of_nonneg_left hdiagSum (by positivity)
+  have hoff :
+      (∑ p ∈ S,
+        ∑ q ∈ S.erase p,
+          (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+              ‖primeWheelDirichletKernel W N
+                (primePeriodFrequency W p - primePeriodFrequency W q)‖) *
+            (‖a p‖ * ‖a q‖)) ≤
+        primePeriodReciprocalOffDiagonalMajorant W N S := by
+    unfold primePeriodReciprocalOffDiagonalMajorant
+    apply Finset.sum_le_sum
+    intro p hp
+    apply Finset.sum_le_sum
+    intro q hq
+    have hqS : q ∈ S := (Finset.mem_erase.mp hq).2
+    have hpqNorm :
+        ‖a p‖ * ‖a q‖ ≤ (1 : ℝ) := by
+      calc
+        ‖a p‖ * ‖a q‖ ≤ 1 * 1 :=
+          mul_le_mul (ha p hp) (ha q hqS) (norm_nonneg _) (by norm_num)
+        _ = 1 := by ring
+    have hw :
+        0 ≤
+          ((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+            ‖primeWheelDirichletKernel W N
+              (primePeriodFrequency W p - primePeriodFrequency W q)‖ := by
+      positivity
+    calc
+      (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖) *
+          (‖a p‖ * ‖a q‖) ≤
+        (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖) * 1 :=
+          mul_le_mul_of_nonneg_left hpqNorm hw
+      _ =
+        ((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖ := by ring
+  unfold primePeriodReciprocalCoefficientEnvelope
+    primePeriodReciprocalFrameMajorant
+  linarith
+
+/-- Exact physical representation target for the clip.  It asks only that the
+assembled clip lie under one reciprocal prime-period coefficient envelope with
+unit-bounded mode coefficients. -/
+def LowOwnerStokesClipReciprocalCoefficientEnvelope : Prop :=
+  ∀ (R : ℕ) (hR : 56 ≤ R),
+    ∃ a : ℕ → ℂ,
+      (∀ p ∈ lowOwnerStokesOddPrimePeriodSet R, ‖a p‖ ≤ 1) ∧
+      lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        primePeriodReciprocalCoefficientEnvelope
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R) a
+
+/-- Once the physical clip has the reciprocal coefficient envelope, it cannot
+exceed the existing frame majorant: `Cclip = 1`. -/
+theorem clipPrimePeriodFrameDomination_one_of_coefficientEnvelope
+    (hClip : LowOwnerStokesClipReciprocalCoefficientEnvelope) :
+    LowOwnerStokesClipPrimePeriodFrameDomination 1 := by
+  intro R hR
+  rcases hClip R hR with ⟨a, ha, hphysical⟩
+  calc
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        primePeriodReciprocalCoefficientEnvelope
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R) a := hphysical
+    _ ≤ primePeriodReciprocalFrameMajorant
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R) :=
+      primePeriodReciprocalCoefficientEnvelope_le_frameMajorant
+        (lowOwnerStokesNaturalWheelSystem R hR)
+        (squareRootEndpoint R)
+        (lowOwnerStokesOddPrimePeriodSet R) a ha
+    _ = 1 * lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by
+      simp [lowOwnerStokesOddPrimePeriodFrameMajorant]
+
+
+/-! ## Audit of the existential coefficient interface
+
+The preceding existential envelope is intentionally audited here.  If the
+coefficient family is allowed to be chosen with no physical representation
+constraint, the constant family `a_p = 1` makes its envelope exactly the
+coefficient-free frame.  Thus the existential proposition is *equivalent* to
+the clip/frame inequality and must not be treated as an admissibility proof.
+-/
+
+/-- Unit coefficients saturate the coefficient envelope exactly at the
+coefficient-free reciprocal prime-period frame. -/
+theorem primePeriodReciprocalCoefficientEnvelope_one_eq_frameMajorant
+    (W : PrimeWheelFiniteSystem) (N : ℕ) (S : Finset ℕ) :
+    primePeriodReciprocalCoefficientEnvelope W N S (fun _ => (1 : ℂ)) =
+      primePeriodReciprocalFrameMajorant W N S := by
+  unfold primePeriodReciprocalCoefficientEnvelope
+    primePeriodReciprocalFrameMajorant
+    primePeriodReciprocalDiagonalMajorant
+    primePeriodReciprocalOffDiagonalMajorant
+  simp
+
+/-- **No-progress audit.**  The unconstrained existential coefficient envelope
+is exactly equivalent to the desired unit clip/frame domination.  Therefore a
+real admissibility theorem must construct coefficients from the physical Stokes
+payload (or prove an exact physical synthesis identity); mere existence is
+circular. -/
+theorem lowOwnerStokesClipReciprocalCoefficientEnvelope_iff_frameDomination_one :
+    LowOwnerStokesClipReciprocalCoefficientEnvelope ↔
+      LowOwnerStokesClipPrimePeriodFrameDomination 1 := by
+  constructor
+  · exact clipPrimePeriodFrameDomination_one_of_coefficientEnvelope
+  · intro hFrame R hR
+    refine ⟨fun _ => (1 : ℂ), ?_, ?_⟩
+    · intro p hp
+      simp
+    · rw [primePeriodReciprocalCoefficientEnvelope_one_eq_frameMajorant]
+      have h := hFrame R hR
+      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using h
+
+/-- One actual reciprocal prime-period mode on the natural Stokes torus.  The
+coefficient field in a genuine admissibility theorem must be supplied before
+this synthesis is formed. -/
+def lowOwnerStokesPrimePeriodMode
+    (R : ℕ) (hR : 56 ≤ R) (p j : ℕ) : ℂ :=
+  ((1 : ℂ) / (p : ℂ)) *
+    ZMod.stdAddChar
+      (((j : ℕ) : ZMod (lowOwnerStokesNaturalWheelSystem R hR).modulus) *
+        primePeriodFrequency (lowOwnerStokesNaturalWheelSystem R hR) p)
+
+/-- Samplewise reciprocal prime-period synthesis from a *specified*
+coefficient field. -/
+def lowOwnerStokesPrimePeriodSynthesis
+    (R : ℕ) (hR : 56 ≤ R) (a : ℕ → ℂ) (j : ℕ) : ℂ :=
+  ∑ p ∈ lowOwnerStokesOddPrimePeriodSet R,
+    a p * lowOwnerStokesPrimePeriodMode R hR p j
+
+/-- Physical prefix energy of a specified reciprocal prime-period synthesis. -/
+def lowOwnerStokesPrimePeriodSynthesisEnergy
+    (R : ℕ) (hR : 56 ≤ R) (a : ℕ → ℂ) : ℝ :=
+  ∑ j ∈ Finset.range (squareRootEndpoint R),
+    ‖lowOwnerStokesPrimePeriodSynthesis R hR a j‖ ^ 2
+
+/-- A non-circular admissibility datum packages a *named coefficient
+construction* together with its unit bound and the physical clip comparison.
+Unlike the earlier existential proposition, the coefficient constructor is an
+argument of the structure and can therefore be audited independently. -/
+structure LowOwnerStokesClipPrimePeriodSynthesisDatum where
+  coefficient :
+    (R : ℕ) → (hR : 56 ≤ R) → ℕ → ℂ
+  coefficient_unit :
+    ∀ (R : ℕ) (hR : 56 ≤ R) p,
+      p ∈ lowOwnerStokesOddPrimePeriodSet R →
+        ‖coefficient R hR p‖ ≤ 1
+  clip_le_synthesis_energy :
+    ∀ (R : ℕ) (hR : 56 ≤ R),
+      lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        lowOwnerStokesPrimePeriodSynthesisEnergy
+          R hR (coefficient R hR)
+
+
+/-! ## Lower-envelope scaled coefficient frame
+
+The RH consumer does not require unit coefficients.  Its native scale is the
+lower Mertens envelope `K`.  The same maximum-alignment argument therefore
+extends to any specified coefficient family whose squared norms are bounded by
+`K`.
+-/
+
+/-- If every reciprocal prime-period coefficient has squared norm at most
+`K`, its complete diagonal/off-diagonal envelope is at most `K` times the
+coefficient-free frame majorant. -/
+theorem primePeriodReciprocalCoefficientEnvelope_le_mul_frameMajorant
+    (W : PrimeWheelFiniteSystem) (N : ℕ) (S : Finset ℕ)
+    (a : ℕ → ℂ) (K : ℝ)
+    (hK : 0 ≤ K)
+    (ha : ∀ p ∈ S, ‖a p‖ ^ 2 ≤ K) :
+    primePeriodReciprocalCoefficientEnvelope W N S a ≤
+      K * primePeriodReciprocalFrameMajorant W N S := by
+  have hdiagSum :
+      (∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2) ≤
+        K * ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 := by
+    rw [Finset.mul_sum]
+    apply Finset.sum_le_sum
+    intro p hp
+    have hpw : 0 ≤ ((1 : ℝ) / (p : ℝ)) ^ 2 := sq_nonneg _
+    calc
+      ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2 ≤
+          ((1 : ℝ) / (p : ℝ)) ^ 2 * K :=
+        mul_le_mul_of_nonneg_left (ha p hp) hpw
+      _ = K * ((1 : ℝ) / (p : ℝ)) ^ 2 := by ring
+  have hdiag :
+      (N : ℝ) *
+          (∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2) ≤
+        K * primePeriodReciprocalDiagonalMajorant N S := by
+    unfold primePeriodReciprocalDiagonalMajorant
+    have hN : 0 ≤ (N : ℝ) := by positivity
+    calc
+      (N : ℝ) *
+          (∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 * ‖a p‖ ^ 2) ≤
+        (N : ℝ) * (K * ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2) :=
+          mul_le_mul_of_nonneg_left hdiagSum hN
+      _ = K * ((N : ℝ) *
+          ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2) := by ring
+  have hnormMul :
+      ∀ p ∈ S, ∀ q ∈ S, ‖a p‖ * ‖a q‖ ≤ K := by
+    intro p hp q hq
+    have hp0 : 0 ≤ ‖a p‖ := norm_nonneg _
+    have hq0 : 0 ≤ ‖a q‖ := norm_nonneg _
+    have hprod0 : 0 ≤ ‖a p‖ * ‖a q‖ := mul_nonneg hp0 hq0
+    have hsquare :
+        (‖a p‖ * ‖a q‖) ^ 2 ≤ K ^ 2 := by
+      calc
+        (‖a p‖ * ‖a q‖) ^ 2 =
+            ‖a p‖ ^ 2 * ‖a q‖ ^ 2 := by ring
+        _ ≤ K * K :=
+          mul_le_mul (ha p hp) (ha q hq) (sq_nonneg _) hK
+        _ = K ^ 2 := by ring
+    nlinarith [sq_nonneg (‖a p‖ * ‖a q‖ - K)]
+  have hoff :
+      (∑ p ∈ S,
+        ∑ q ∈ S.erase p,
+          (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+              ‖primeWheelDirichletKernel W N
+                (primePeriodFrequency W p - primePeriodFrequency W q)‖) *
+            (‖a p‖ * ‖a q‖)) ≤
+        K * primePeriodReciprocalOffDiagonalMajorant W N S := by
+    unfold primePeriodReciprocalOffDiagonalMajorant
+    rw [Finset.mul_sum]
+    apply Finset.sum_le_sum
+    intro p hp
+    rw [Finset.mul_sum]
+    apply Finset.sum_le_sum
+    intro q hq
+    have hqS : q ∈ S := (Finset.mem_erase.mp hq).2
+    have hw :
+        0 ≤
+          ((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+            ‖primeWheelDirichletKernel W N
+              (primePeriodFrequency W p - primePeriodFrequency W q)‖ := by
+      positivity
+    calc
+      (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖) *
+          (‖a p‖ * ‖a q‖) ≤
+        (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖) * K :=
+          mul_le_mul_of_nonneg_left (hnormMul p hp q hqS) hw
+      _ = K *
+        (((1 : ℝ) / (p : ℝ)) * ((1 : ℝ) / (q : ℝ)) *
+          ‖primeWheelDirichletKernel W N
+            (primePeriodFrequency W p - primePeriodFrequency W q)‖) := by ring
+  unfold primePeriodReciprocalCoefficientEnvelope
+    primePeriodReciprocalFrameMajorant
+  nlinarith
+
+/-- Lower-envelope-scaled physical coefficient interface.  Unlike the earlier
+unit interface, this is stated at exactly the `R^2*K` scale consumed by the
+returned-core induction.  A useful instantiation must still supply an
+arithmetically fixed coefficient constructor. -/
+def LowOwnerStokesClipPrimePeriodCoefficientBounded
+    (coefficient : (R : ℕ) → (hR : 56 ≤ R) → ℕ → ℂ) : Prop :=
+  ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+    LowerMertensCriticalEnvelope R K →
+      (∀ p ∈ lowOwnerStokesOddPrimePeriodSet R,
+        ‖coefficient R hR p‖ ^ 2 ≤ K) ∧
+      lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        primePeriodReciprocalCoefficientEnvelope
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R)
+          (coefficient R hR)
+
+/-- Any *fixed physical* coefficient constructor satisfying the preceding
+lower-envelope interface yields the native `R^2*K` clip estimate immediately. -/
+theorem clip_le_five_fourths_root_sq_mul_lowerEnvelope_of_coefficientBounded
+    (coefficient : (R : ℕ) → (hR : 56 ≤ R) → ℕ → ℂ)
+    (hCoeff : LowOwnerStokesClipPrimePeriodCoefficientBounded coefficient) :
+    ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+      LowerMertensCriticalEnvelope R K →
+      lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by
+  intro R K hR hK
+  rcases hCoeff R K hR hK with ⟨hcoeff, hclip⟩
+  have henv :=
+    primePeriodReciprocalCoefficientEnvelope_le_mul_frameMajorant
+      (lowOwnerStokesNaturalWheelSystem R hR)
+      (squareRootEndpoint R)
+      (lowOwnerStokesOddPrimePeriodSet R)
+      (coefficient R hR) K hK.1 hcoeff
+  have hframe :=
+    lowOwnerStokesOddPrimePeriodFrameMajorant_le_five_fourths_root_sq R hR
+  calc
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        primePeriodReciprocalCoefficientEnvelope
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R)
+          (coefficient R hR) := hclip
+    _ ≤ K * lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by
+      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using henv
+    _ ≤ K * ((5 / 4 : ℝ) * (R : ℝ) ^ 2) :=
+      mul_le_mul_of_nonneg_left hframe hK.1
+    _ = (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by ring
+
+
+/-! ## Double-corner Fubini is the moved threshold incidence
+
+The signed double-corner Fubini introduced by the clipped-threshold descent is
+not an additional analytic coordinate.  It is exactly the current threshold
+incidence evaluated at the moved `r`-child.
+-/
+
+/-- **Exact child-incidence identification.** -/
+theorem lowOwnerThresholdDoubleCornerFubini_eq_movedIncidence
+    {R p r n : ℕ}
+    (hR : 1 ≤ R) (hp : p.Prime) (hr : r.Prime)
+    (hpr : p < r) (hn : 0 < n) :
+    lowOwnerThresholdDoubleCornerFubini R p r n =
+      lowOwnerThresholdOwnerIncidenceWeight R p (r * n) := by
+  have h :=
+    lowOwnerThresholdSecondOwnerDifference_eq_current_sub_doubleCornerFubini
+      (R := R) (p := p) (r := r) (n := n)
+      hR hp hr hpr hn
+  unfold lowOwnerThresholdSecondOwnerDifference at h
+  linarith
+
+/-- The signed left double-corner descent can therefore be written without the
+auxiliary Fubini object: the residual is the literal moved-child incidence. -/
+theorem lowOwnerThresholdIncidencePairMass_eq_neg_leftMovedIncidence
+    {R p r a b : ℕ}
+    (hR : 1 ≤ R) (hp : p.Prime) (hr : r.Prime) (hpr : p < r)
+    (haSq : Squarefree a) (hbSq : Squarefree b)
+    (ha : 0 < a) (hb : 0 < b)
+    (hra : r ∣ a) (hrb : ¬ r ∣ b) :
+    let u := squarefreePrimeFamilyParent r a
+    let v := squarefreePrimeFamilyParent r b
+    lowOwnerThresholdIncidencePairMass R p (a, b) =
+      -postRootZeroTargetPairExcess (u, v) *
+        lowOwnerThresholdOwnerIncidenceWeight R p (r * u) *
+        lowOwnerThresholdOwnerIncidenceWeight R p v := by
+  dsimp only
+  have h :=
+    lowOwnerThresholdIncidencePairMass_eq_neg_leftDoubleCornerFubini
+      (R := R) (p := p) (r := r) (a := a) (b := b)
+      hR hp hr hpr haSq hbSq ha hb hra hrb
+  dsimp only at h
+  rw [lowOwnerThresholdDoubleCornerFubini_eq_movedIncidence
+      hR hp hr hpr
+      (squarefreePrimeFamilyParent_pos_public hr ha)] at h
+  exact h
+
+/-- Symmetric moved-child form. -/
+theorem lowOwnerThresholdIncidencePairMass_eq_neg_rightMovedIncidence
+    {R p r a b : ℕ}
+    (hR : 1 ≤ R) (hp : p.Prime) (hr : r.Prime) (hpr : p < r)
+    (haSq : Squarefree a) (hbSq : Squarefree b)
+    (ha : 0 < a) (hb : 0 < b)
+    (hra : ¬ r ∣ a) (hrb : r ∣ b) :
+    let u := squarefreePrimeFamilyParent r a
+    let v := squarefreePrimeFamilyParent r b
+    lowOwnerThresholdIncidencePairMass R p (a, b) =
+      -postRootZeroTargetPairExcess (u, v) *
+        lowOwnerThresholdOwnerIncidenceWeight R p u *
+        lowOwnerThresholdOwnerIncidenceWeight R p (r * v) := by
+  dsimp only
+  have h :=
+    lowOwnerThresholdIncidencePairMass_eq_neg_rightDoubleCornerFubini
+      (R := R) (p := p) (r := r) (a := a) (b := b)
+      hR hp hr hpr haSq hbSq ha hb hra hrb
+  dsimp only at h
+  rw [lowOwnerThresholdDoubleCornerFubini_eq_movedIncidence
+      hR hp hr hpr
+      (squarefreePrimeFamilyParent_pos_public hr hb)] at h
+  exact h
+
+
+/-! ## Direct owner-to-frame identification is impossible
+
+A genuine admissibility proof must collapse the physical large-owner escape
+payload into the sub-root natural-wheel coordinates.  The canonical Stokes
+schedule itself cannot be reused as the prime-period frame schedule: its first
+remaining owner lies above half the physical clock, whereas every frame period
+prime lies strictly below R.
+-/
+
+/-- Every active natural prime-period coordinate lies strictly below the root
+parameter in the RH-consumer regime. -/
+theorem lowOwnerStokesOddPrimePeriodSet_lt_root
+    {R p : ℕ} (hR : 56 ≤ R)
+    (hp : p ∈ lowOwnerStokesOddPrimePeriodSet R) :
+    p < R := by
+  have hpWheel : p ∈ lowOwnerStokesWheelPrimes R :=
+    (Finset.mem_erase.mp hp).2
+  have hpCut : p ≤ Nat.sqrt (squareRootEndpoint R) := by
+    unfold lowOwnerStokesWheelPrimes at hpWheel
+    exact (mem_primesUpTo.mp hpWheel).2
+  have hroot : Nat.sqrt (squareRootEndpoint R) < R := by
+    apply (Nat.sqrt_lt').2
+    unfold squareRootEndpoint
+    have hpos : 0 < R ^ 2 := by positivity
+    omega
+  exact hpCut.trans_lt hroot
+
+/-- In the RH-consumer regime the physical half-clock already lies at or above
+the root parameter. -/
+theorem root_le_half_squareRootEndpoint
+    {R : ℕ} (hR : 56 ≤ R) :
+    R ≤ squareRootEndpoint R / 2 := by
+  unfold squareRootEndpoint
+  omega
+
+/-- **Support no-go for a direct admissibility map.**  The head of every
+nonempty canonical Stokes schedule is outside the natural odd prime-period
+frame.  Thus the physical escape owner cannot simply be relabelled as a frame
+mode; a real proof must first perform the signed large-owner -> sub-root
+collapse. -/
+theorem lowOwnerFirstOwnerCanonicalStokesSchedule_head_not_mem_primePeriodFrame
+    {R p q : ℕ} {qs : List ℕ}
+    (hR : 56 ≤ R)
+    (hps : lowOwnerFirstOwnerCanonicalStokesSchedule R p = q :: qs) :
+    q ∉ lowOwnerStokesOddPrimePeriodSet R := by
+  intro hqFrame
+  have hqRoot : q < R :=
+    lowOwnerStokesOddPrimePeriodSet_lt_root hR hqFrame
+  have hqTop :=
+    lowOwnerFirstOwnerCanonicalStokesSchedule_head_gt_half
+      (R := R) (p := p) (q := q) (qs := qs) (by omega) hps
+  have hRhalf : R ≤ squareRootEndpoint R / 2 :=
+    root_le_half_squareRootEndpoint hR
+  omega
+
+
+/-! ## One-step physical clip factorization before energy
+
+The pair Stokes escape is a Gram boundary of one-dimensional signed amplitudes.
+This is the correct algebraic surface for a physical admissibility theorem:
+large-owner escape amplitudes must be transported to sub-root reciprocal
+coordinates before any square or norm is taken.
+-/
+
+/-- Signed scalar amplitude on a finite physical carrier. -/
+def lowOwnerStokesSignedScalarAmplitude
+    (S : Finset ℕ) (g : ℕ → ℝ) : ℝ :=
+  ∑ n ∈ S, othelloRealMoebius n * g n
+
+/-- Fresh-owner finite-difference amplitude on a finite carrier. -/
+def lowOwnerStokesSignedOwnerDifferenceAmplitude
+    (r : ℕ) (S : Finset ℕ) (g : ℕ → ℝ) : ℝ :=
+  lowOwnerStokesSignedScalarAmplitude S
+    (fun n => g n - g (primeCarrierToggle r n))
+
+private theorem sum_product_othello_separable
+    (S T : Finset ℕ) (g h : ℕ → ℝ) :
+    (∑ mn ∈ S.product T,
+      othelloRealMoebiusPair mn * (g mn.1 * h mn.2)) =
+      lowOwnerStokesSignedScalarAmplitude S g *
+        lowOwnerStokesSignedScalarAmplitude T h := by
+  unfold lowOwnerStokesSignedScalarAmplitude
+    othelloRealMoebiusPair
+  rw [Finset.sum_product]
+  calc
+    (∑ a ∈ S, ∑ b ∈ T,
+      (othelloRealMoebius a * othelloRealMoebius b) * (g a * h b)) =
+      ∑ a ∈ S,
+        (othelloRealMoebius a * g a) *
+          (∑ b ∈ T, othelloRealMoebius b * h b) := by
+        apply Finset.sum_congr rfl
+        intro a _ha
+        rw [Finset.mul_sum]
+        apply Finset.sum_congr rfl
+        intro b _hb
+        ring
+    _ = (∑ a ∈ S, othelloRealMoebius a * g a) *
+        (∑ b ∈ T, othelloRealMoebius b * h b) := by
+      rw [Finset.sum_mul]
+
+private theorem sum_product_othello_polarization
+    (S T : Finset ℕ) (i b j : ℕ → ℝ) :
+    (∑ mn ∈ S.product T,
+      othelloRealMoebiusPair mn *
+        (i mn.1 * i mn.2 -
+          b mn.1 * b mn.2 -
+          j mn.1 * j mn.2)) =
+      lowOwnerStokesSignedScalarAmplitude S i *
+          lowOwnerStokesSignedScalarAmplitude T i -
+        lowOwnerStokesSignedScalarAmplitude S b *
+          lowOwnerStokesSignedScalarAmplitude T b -
+        lowOwnerStokesSignedScalarAmplitude S j *
+          lowOwnerStokesSignedScalarAmplitude T j := by
+  calc
+    (∑ mn ∈ S.product T,
+      othelloRealMoebiusPair mn *
+        (i mn.1 * i mn.2 -
+          b mn.1 * b mn.2 -
+          j mn.1 * j mn.2)) =
+      (∑ mn ∈ S.product T,
+        othelloRealMoebiusPair mn * (i mn.1 * i mn.2)) -
+      (∑ mn ∈ S.product T,
+        othelloRealMoebiusPair mn * (b mn.1 * b mn.2)) -
+      (∑ mn ∈ S.product T,
+        othelloRealMoebiusPair mn * (j mn.1 * j mn.2)) := by
+          rw [← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib]
+          apply Finset.sum_congr rfl
+          intro mn _hmn
+          ring
+    _ = _ := by
+      rw [sum_product_othello_separable,
+        sum_product_othello_separable,
+        sum_product_othello_separable]
+
+private theorem polarization_leftDifference
+    (r : ℕ) (i b j : ℕ → ℝ) (mn : ℕ × ℕ) :
+    (i mn.1 * i mn.2 -
+        b mn.1 * b mn.2 -
+        j mn.1 * j mn.2) -
+      (i (primeCarrierToggle r mn.1) * i mn.2 -
+        b (primeCarrierToggle r mn.1) * b mn.2 -
+        j (primeCarrierToggle r mn.1) * j mn.2) =
+      (i mn.1 - i (primeCarrierToggle r mn.1)) * i mn.2 -
+        (b mn.1 - b (primeCarrierToggle r mn.1)) * b mn.2 -
+        (j mn.1 - j (primeCarrierToggle r mn.1)) * j mn.2 := by
+  ring
+
+/-- **Exact one-step clip Gram factorization.**
+
+For a genuine larger owner r, the physical pair escape step is a bilinear
+pairing of the signed escape amplitudes with the full surviving amplitudes,
+plus one half of the owner-difference/interior pairing.  In particular, no
+pointwise absolute value or cellwise square is needed to expose the scalar
+boundary amplitudes. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedAmplitudeProducts
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    let A := lowOwnerFirstOwnerBaseFiber R p sig
+    let E := lowOwnerFirstOwnerStokesDirichletClipFace R p sig r
+    let I := primeInteriorPart r A
+    let inc := lowOwnerDirichletIncidenceCoefficient R p
+    let base := lowOwnerDirichletBaseCoefficient R
+    let ret := lowOwnerDirichletReturnedCoefficient R p
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      (lowOwnerStokesSignedScalarAmplitude E inc *
+          lowOwnerStokesSignedScalarAmplitude A inc -
+        lowOwnerStokesSignedScalarAmplitude E base *
+          lowOwnerStokesSignedScalarAmplitude A base -
+        lowOwnerStokesSignedScalarAmplitude E ret *
+          lowOwnerStokesSignedScalarAmplitude A ret) +
+      (1 / 2 : ℝ) *
+        (lowOwnerStokesSignedOwnerDifferenceAmplitude r I inc *
+            lowOwnerStokesSignedScalarAmplitude E inc -
+          lowOwnerStokesSignedOwnerDifferenceAmplitude r I base *
+            lowOwnerStokesSignedScalarAmplitude E base -
+          lowOwnerStokesSignedOwnerDifferenceAmplitude r I ret *
+            lowOwnerStokesSignedScalarAmplitude E ret) := by
+  dsimp only
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_dirichletClipFaces hp hr hpr]
+  unfold lowOwnerFirstOwnerDirichletPolarizationScalar
+  have hleft :=
+    sum_product_othello_polarization
+      (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+      (lowOwnerFirstOwnerBaseFiber R p sig)
+      (lowOwnerDirichletIncidenceCoefficient R p)
+      (lowOwnerDirichletBaseCoefficient R)
+      (lowOwnerDirichletReturnedCoefficient R p)
+  have hright :
+      (∑ mn ∈
+        (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig)).product
+          (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r),
+        othelloRealMoebiusPair mn *
+          ((lowOwnerDirichletIncidenceCoefficient R p mn.1 *
+              lowOwnerDirichletIncidenceCoefficient R p mn.2 -
+            lowOwnerDirichletBaseCoefficient R mn.1 *
+              lowOwnerDirichletBaseCoefficient R mn.2 -
+            lowOwnerDirichletReturnedCoefficient R p mn.1 *
+              lowOwnerDirichletReturnedCoefficient R p mn.2) -
+           (lowOwnerDirichletIncidenceCoefficient R p
+                (primeCarrierToggle r mn.1) *
+              lowOwnerDirichletIncidenceCoefficient R p mn.2 -
+            lowOwnerDirichletBaseCoefficient R
+                (primeCarrierToggle r mn.1) *
+              lowOwnerDirichletBaseCoefficient R mn.2 -
+            lowOwnerDirichletReturnedCoefficient R p
+                (primeCarrierToggle r mn.1) *
+              lowOwnerDirichletReturnedCoefficient R p mn.2))) =
+        lowOwnerStokesSignedOwnerDifferenceAmplitude r
+            (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
+            (lowOwnerDirichletIncidenceCoefficient R p) *
+          lowOwnerStokesSignedScalarAmplitude
+            (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+            (lowOwnerDirichletIncidenceCoefficient R p) -
+        lowOwnerStokesSignedOwnerDifferenceAmplitude r
+            (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
+            (lowOwnerDirichletBaseCoefficient R) *
+          lowOwnerStokesSignedScalarAmplitude
+            (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+            (lowOwnerDirichletBaseCoefficient R) -
+        lowOwnerStokesSignedOwnerDifferenceAmplitude r
+            (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
+            (lowOwnerDirichletReturnedCoefficient R p) *
+          lowOwnerStokesSignedScalarAmplitude
+            (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+            (lowOwnerDirichletReturnedCoefficient R p) := by
+    calc
+      _ =
+        (∑ mn ∈
+          (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig)).product
+            (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r),
+          othelloRealMoebiusPair mn *
+            ((lowOwnerDirichletIncidenceCoefficient R p mn.1 -
+                lowOwnerDirichletIncidenceCoefficient R p
+                  (primeCarrierToggle r mn.1)) *
+                lowOwnerDirichletIncidenceCoefficient R p mn.2 -
+              (lowOwnerDirichletBaseCoefficient R mn.1 -
+                lowOwnerDirichletBaseCoefficient R
+                  (primeCarrierToggle r mn.1)) *
+                lowOwnerDirichletBaseCoefficient R mn.2 -
+              (lowOwnerDirichletReturnedCoefficient R p mn.1 -
+                lowOwnerDirichletReturnedCoefficient R p
+                  (primeCarrierToggle r mn.1)) *
+                lowOwnerDirichletReturnedCoefficient R p mn.2)) := by
+            apply Finset.sum_congr rfl
+            intro mn _hmn
+            rw [polarization_leftDifference]
+      _ = _ := by
+        unfold lowOwnerStokesSignedOwnerDifferenceAmplitude
+        exact sum_product_othello_polarization
+          (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
+          (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+          (fun n => lowOwnerDirichletIncidenceCoefficient R p n -
+            lowOwnerDirichletIncidenceCoefficient R p
+              (primeCarrierToggle r n))
+          (fun n => lowOwnerDirichletBaseCoefficient R n -
+            lowOwnerDirichletBaseCoefficient R
+              (primeCarrierToggle r n))
+          (fun n => lowOwnerDirichletReturnedCoefficient R p n -
+            lowOwnerDirichletReturnedCoefficient R p
+              (primeCarrierToggle r n))
+  rw [hleft, hright]
+
+
+/-! ## Literal clip amplitudes are owner differences
+
+On the Stokes escape face the fresh r-child lies outside the physical
+Dirichlet clock.  Hence the child value of every Dirichlet coordinate is zero,
+and the escape-side value is literally its fresh-owner finite difference.
+-/
+
+/-- The base Dirichlet coefficient of the escaped r-child is zero. -/
+theorem lowOwnerFirstOwnerStokesClip_base_child_eq_zero
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    lowOwnerDirichletBaseCoefficient R (r * n) = 0 := by
+  rcases mem_lowOwnerFirstOwnerStokesDirichletClipFace.mp hn with
+    ⟨_hbase, _hrn, hclip⟩
+  unfold lowOwnerDirichletBaseCoefficient
+  exact lowOwnerPhysicalDirichletWeight_eq_zero_of_lt hclip
+
+/-- The returned p-coordinate of the escaped r-child is also zero. -/
+theorem lowOwnerFirstOwnerStokesClip_returned_child_eq_zero
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hp : 1 ≤ p)
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    lowOwnerDirichletReturnedCoefficient R p (r * n) = 0 := by
+  rcases mem_lowOwnerFirstOwnerStokesDirichletClipFace.mp hn with
+    ⟨_hbase, _hrn, hclip⟩
+  have hle : r * n ≤ p * (r * n) := by
+    calc
+      r * n = 1 * (r * n) := by simp
+      _ ≤ p * (r * n) := Nat.mul_le_mul_right (r * n) hp
+  unfold lowOwnerDirichletReturnedCoefficient
+  exact lowOwnerPhysicalDirichletWeight_eq_zero_of_lt (hclip.trans_le hle)
+
+/-- Therefore the incidence coefficient itself vanishes at the escaped child. -/
+theorem lowOwnerFirstOwnerStokesClip_incidence_child_eq_zero
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hp : 1 ≤ p)
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    lowOwnerDirichletIncidenceCoefficient R p (r * n) = 0 := by
+  unfold lowOwnerDirichletIncidenceCoefficient
+  rw [lowOwnerFirstOwnerStokesClip_base_child_eq_zero hn,
+    lowOwnerFirstOwnerStokesClip_returned_child_eq_zero hp hn]
+  ring
+
+/-- On a literal clip, the physical incidence is exactly its r-owner
+difference. -/
+theorem lowOwnerFirstOwnerStokesClip_incidence_eq_ownerDifference
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hrn : ¬ r ∣ n) (hp : 1 ≤ p)
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    lowOwnerDirichletIncidenceCoefficient R p n =
+      lowOwnerDirichletOwnerDifference r
+        (lowOwnerDirichletIncidenceCoefficient R p) n := by
+  unfold lowOwnerDirichletOwnerDifference
+  rw [primeCarrierToggle_of_not_dvd hrn]
+  change lowOwnerDirichletIncidenceCoefficient R p n =
+    lowOwnerDirichletIncidenceCoefficient R p n -
+      lowOwnerDirichletIncidenceCoefficient R p (n * r)
+  have hzero :=
+    lowOwnerFirstOwnerStokesClip_incidence_child_eq_zero hp hn
+  rw [Nat.mul_comm] at hzero
+  rw [hzero]
+  ring
+
+/-- **Exact clip currency decomposition.**
+
+A literal physical Stokes escape coefficient is the reciprocal-Euler threshold
+second difference plus the endpoint clipped-difference.  Thus the endpoint
+piece is not removed merely by changing to reciprocal currency; it remains as
+an explicit signed term which must be globally reassembled. -/
+theorem lowOwnerFirstOwnerStokesClip_incidence_eq_thresholdSecond_add_endpointClip
+    {R p r n : ℕ} {sig : Finset ℕ}
+    (hR : 2 ≤ R) (hp : p.Prime) (hr : r.Prime)
+    (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
+    lowOwnerDirichletIncidenceCoefficient R p n =
+      lowOwnerThresholdSecondOwnerDifference R p r n +
+        lowOwnerThresholdClippedDifference
+          p r n (squareRootEndpoint R) := by
+  have hrn : ¬ r ∣ n :=
+    (mem_lowOwnerFirstOwnerStokesDirichletClipFace.mp hn).2.1
+  rw [lowOwnerFirstOwnerStokesClip_incidence_eq_ownerDifference
+      hrn hp.one_le hn]
+  exact
+    lowOwnerDirichletIncidence_ownerDifference_eq_threshold_add_endpointClippedDifference
+      hR hp.one_le hr.one_le
+
+
+/-! ## The endpoint clip carries the top-scale Mertens amplitude
+
+The reciprocal-Euler conversion above leaves one literal endpoint clipped
+difference.  After the already-compiled signed signature reassembly, that term
+is not lower-scale: it is exactly M(X_R).
+-/
+
+/-- Fully assembled endpoint clipped-difference amplitude on one auxiliary
+p<r lens. -/
+def lowOwnerStokesEndpointClippedDifferenceAmplitude
+    (R p r : ℕ) : ℝ :=
+  ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+    lowOwnerFirstOwnerBranchClippedDifferenceTotalAmplitude
+      R p sig r (squareRootEndpoint R)
+
+/-- **Endpoint clip = top-scale Mertens.**
+
+The auxiliary owner labels disappear before any norm: the physical endpoint
+clipped-difference is exactly the Mertens prefix at X_R. -/
+theorem lowOwnerStokesEndpointClippedDifferenceAmplitude_eq_mertensEndpoint
+    {R p r : ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    lowOwnerStokesEndpointClippedDifferenceAmplitude R p r =
+      (mertensSummatoryInt (squareRootEndpoint R) : ℝ) := by
+  unfold lowOwnerStokesEndpointClippedDifferenceAmplitude
+  exact
+    sum_signature_branchClippedDifferenceTotalAmplitude_eq_mertens
+      hp hr hpr (le_refl (squareRootEndpoint R))
+
+/-- The endpoint carried by the clip lies outside the strict lower-envelope
+range as soon as R is nontrivial. -/
+theorem root_le_squareRootEndpoint
+    {R : ℕ} (hR : 2 ≤ R) :
+    R ≤ squareRootEndpoint R := by
+  unfold squareRootEndpoint
+  have h : R + 1 ≤ R ^ 2 := by nlinarith
+  omega
+
+
+/-! ## One-step clip as an exact difference of scalar squares
+
+Weighted Othello turns the interior finite-difference amplitude into the
+difference between the total scalar amplitude and its literal escape
+amplitude.  Substituting this into the preceding product factorization makes
+each scalar Stokes boundary a difference of two squares.
+-/
+
+/-- Half of the signed interior owner-difference amplitude is exactly total
+amplitude minus escape amplitude. -/
+theorem half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_escape
+    {r : ℕ} (hr : r.Prime) (S : Finset ℕ) (g : ℕ → ℝ) :
+    (1 / 2 : ℝ) *
+        lowOwnerStokesSignedOwnerDifferenceAmplitude r
+          (primeInteriorPart r S) g =
+      lowOwnerStokesSignedScalarAmplitude S g -
+        lowOwnerStokesSignedScalarAmplitude (primeEscapePart r S) g := by
+  have h :=
+    sum_weightedMoebius_eq_escape_add_half_interiorDifference
+      hr S g
+  unfold lowOwnerStokesSignedScalarAmplitude
+    lowOwnerStokesSignedOwnerDifferenceAmplitude at *
+  linarith
+
+/-- On one returned-core first-owner cell, the fresh-r escape amplitude is the
+literal physical Dirichlet clip amplitude. -/
+theorem half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_dirichletClip
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r)
+    (g : ℕ → ℝ) :
+    (1 / 2 : ℝ) *
+        lowOwnerStokesSignedOwnerDifferenceAmplitude r
+          (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig)) g =
+      lowOwnerStokesSignedScalarAmplitude
+          (lowOwnerFirstOwnerBaseFiber R p sig) g -
+        lowOwnerStokesSignedScalarAmplitude
+          (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) g := by
+  have h :=
+    half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_escape
+      hr (lowOwnerFirstOwnerBaseFiber R p sig) g
+  rw [lowOwnerFirstOwner_primeEscapePart_eq_dirichletClipFace hp hr hpr] at h
+  exact h
+
+/-- **Exact one-step square-decrement normal form.**
+
+For each of the three scalar coordinates (incidence/base/returned), the Stokes
+escape contribution is the decrease of its signed scalar square under removal
+of the escape amplitude.  The polarization boundary is their signed
+combination. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedSquareDecrements
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    let A := lowOwnerFirstOwnerBaseFiber R p sig
+    let E := lowOwnerFirstOwnerStokesDirichletClipFace R p sig r
+    let inc := lowOwnerDirichletIncidenceCoefficient R p
+    let base := lowOwnerDirichletBaseCoefficient R
+    let ret := lowOwnerDirichletReturnedCoefficient R p
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      (lowOwnerStokesSignedScalarAmplitude A inc ^ 2 -
+        (lowOwnerStokesSignedScalarAmplitude A inc -
+          lowOwnerStokesSignedScalarAmplitude E inc) ^ 2) -
+      (lowOwnerStokesSignedScalarAmplitude A base ^ 2 -
+        (lowOwnerStokesSignedScalarAmplitude A base -
+          lowOwnerStokesSignedScalarAmplitude E base) ^ 2) -
+      (lowOwnerStokesSignedScalarAmplitude A ret ^ 2 -
+        (lowOwnerStokesSignedScalarAmplitude A ret -
+          lowOwnerStokesSignedScalarAmplitude E ret) ^ 2) := by
+  dsimp only
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_signedAmplitudeProducts
+      hp hr hpr]
+  have hi :=
+    half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_dirichletClip
+      (R := R) (p := p) (r := r) (sig := sig) hp hr hpr
+      (lowOwnerDirichletIncidenceCoefficient R p)
+  have hb :=
+    half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_dirichletClip
+      (R := R) (p := p) (r := r) (sig := sig) hp hr hpr
+      (lowOwnerDirichletBaseCoefficient R)
+  have hj :=
+    half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_dirichletClip
+      (R := R) (p := p) (r := r) (sig := sig) hp hr hpr
+      (lowOwnerDirichletReturnedCoefficient R p)
+  nlinarith
+
+
+/-! ## Cross-product form of the physical clip decrement
+
+The incidence coordinate is base minus returned.  Therefore the three signed
+square decrements in the preceding theorem contain an exact cancellation:
+the pure incidence/base/returned squares collapse to one base-returned
+cross-product decrement.  In particular no standalone square of the top-scale
+endpoint clip survives.
+-/
+
+/-- Signed scalar amplitude is linear under subtraction. -/
+theorem lowOwnerStokesSignedScalarAmplitude_sub
+    (S : Finset ℕ) (g h : ℕ → ℝ) :
+    lowOwnerStokesSignedScalarAmplitude S (fun n => g n - h n) =
+      lowOwnerStokesSignedScalarAmplitude S g -
+        lowOwnerStokesSignedScalarAmplitude S h := by
+  unfold lowOwnerStokesSignedScalarAmplitude
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  ring
+
+/-- The physical Dirichlet incidence scalar amplitude is exactly base minus
+returned on every finite carrier. -/
+theorem lowOwnerStokesSignedScalarAmplitude_incidence_eq_base_sub_returned
+    (R p : ℕ) (S : Finset ℕ) :
+    lowOwnerStokesSignedScalarAmplitude S
+        (lowOwnerDirichletIncidenceCoefficient R p) =
+      lowOwnerStokesSignedScalarAmplitude S
+          (lowOwnerDirichletBaseCoefficient R) -
+        lowOwnerStokesSignedScalarAmplitude S
+          (lowOwnerDirichletReturnedCoefficient R p) := by
+  unfold lowOwnerDirichletIncidenceCoefficient
+  exact lowOwnerStokesSignedScalarAmplitude_sub S
+    (lowOwnerDirichletBaseCoefficient R)
+    (lowOwnerDirichletReturnedCoefficient R p)
+
+/-- **Exact one-step cross-product decrement.**
+
+Write B,J for the signed base/returned amplitudes on the current first-owner
+carrier and E_B,E_J for their literal physical escape amplitudes.  The Stokes
+boundary step is exactly twice the change of the base-returned cross product
+after deleting the escape face.  Thus the endpoint clip is present only in
+cross terms; its pure square cancels identically. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_two_crossProductDecrement
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    let A := lowOwnerFirstOwnerBaseFiber R p sig
+    let E := lowOwnerFirstOwnerStokesDirichletClipFace R p sig r
+    let base := lowOwnerDirichletBaseCoefficient R
+    let ret := lowOwnerDirichletReturnedCoefficient R p
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      2 * (
+        (lowOwnerStokesSignedScalarAmplitude A base -
+            lowOwnerStokesSignedScalarAmplitude E base) *
+          (lowOwnerStokesSignedScalarAmplitude A ret -
+            lowOwnerStokesSignedScalarAmplitude E ret) -
+        lowOwnerStokesSignedScalarAmplitude A base *
+          lowOwnerStokesSignedScalarAmplitude A ret) := by
+  dsimp only
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_signedSquareDecrements
+      hp hr hpr]
+  have hA :=
+    lowOwnerStokesSignedScalarAmplitude_incidence_eq_base_sub_returned
+      R p (lowOwnerFirstOwnerBaseFiber R p sig)
+  have hE :=
+    lowOwnerStokesSignedScalarAmplitude_incidence_eq_base_sub_returned
+      R p (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+  rw [hA, hE]
+  ring
+
+/-- Expanded form: only the two linear escape cross terms and their compensating
+escape product remain. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_escapeCrossTerms
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    let A := lowOwnerFirstOwnerBaseFiber R p sig
+    let E := lowOwnerFirstOwnerStokesDirichletClipFace R p sig r
+    let base := lowOwnerDirichletBaseCoefficient R
+    let ret := lowOwnerDirichletReturnedCoefficient R p
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      -2 * (
+        lowOwnerStokesSignedScalarAmplitude A base *
+          lowOwnerStokesSignedScalarAmplitude E ret +
+        lowOwnerStokesSignedScalarAmplitude E base *
+          lowOwnerStokesSignedScalarAmplitude A ret -
+        lowOwnerStokesSignedScalarAmplitude E base *
+          lowOwnerStokesSignedScalarAmplitude E ret) := by
+  dsimp only
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_two_crossProductDecrement
+      hp hr hpr]
+  ring
+
+
+/-! ## Identification with the existing base / returned amplitudes -/
+
+/-- On the physical first-owner base fibre, the signed Stokes base amplitude is
+exactly the already-defined first-owner base amplitude. -/
+theorem lowOwnerStokesSignedScalarAmplitude_base_eq_firstOwnerBaseAmplitude
+    (R p : ℕ) (sig : Finset ℕ) :
+    lowOwnerStokesSignedScalarAmplitude
+        (lowOwnerFirstOwnerBaseFiber R p sig)
+        (lowOwnerDirichletBaseCoefficient R) =
+      lowOwnerFirstOwnerBaseAmplitude R p sig := by
+  have h :=
+    sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude R p sig
+  unfold lowOwnerStokesSignedScalarAmplitude
+    lowOwnerFirstOwnerDirichletBaseSite
+    lowOwnerDirichletBaseCoefficient
+    othelloRealMoebius RHLean.Analysis.realMoebiusStep
+  simpa [mul_comm] using h
+
+/-- On the same base fibre, the signed Stokes returned amplitude is exactly the
+already-defined returned-child parent amplitude. -/
+theorem lowOwnerStokesSignedScalarAmplitude_returned_eq_firstOwnerReturnedAmplitude
+    (R p : ℕ) (sig : Finset ℕ) :
+    lowOwnerStokesSignedScalarAmplitude
+        (lowOwnerFirstOwnerBaseFiber R p sig)
+        (lowOwnerDirichletReturnedCoefficient R p) =
+      lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
+  have h :=
+    sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
+      (R := R) (p := p) (sig := sig)
+  unfold lowOwnerStokesSignedScalarAmplitude
+    lowOwnerFirstOwnerDirichletReturnedChildSite
+    lowOwnerDirichletReturnedCoefficient
+    othelloRealMoebius RHLean.Analysis.realMoebiusStep
+  simpa [mul_comm] using h
+
+/-- Literal signed base amplitude on one Stokes escape face. -/
+def lowOwnerFirstOwnerStokesEscapeBaseAmplitude
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : ℝ :=
+  lowOwnerStokesSignedScalarAmplitude
+    (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+    (lowOwnerDirichletBaseCoefficient R)
+
+/-- Literal signed returned amplitude on one Stokes escape face. -/
+def lowOwnerFirstOwnerStokesEscapeReturnedAmplitude
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : ℝ :=
+  lowOwnerStokesSignedScalarAmplitude
+    (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+    (lowOwnerDirichletReturnedCoefficient R p)
+
+/-- **Existing-cross-amplitude normal form of one physical Stokes peel.**
+
+The initial cross term is exactly the previously compiled `-2 B J` cell
+amplitude.  A Stokes peel replaces it by the same cross product on the
+surviving carrier.  No new square, norm, or standalone endpoint term appears. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_existingCrossAmplitudeDecrement
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      2 * (
+        (lowOwnerFirstOwnerBaseAmplitude R p sig -
+            lowOwnerFirstOwnerStokesEscapeBaseAmplitude R p sig r) *
+          (lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig -
+            lowOwnerFirstOwnerStokesEscapeReturnedAmplitude R p sig r) -
+        lowOwnerFirstOwnerBaseAmplitude R p sig *
+          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig) := by
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_two_crossProductDecrement
+      hp hr hpr]
+  rw [lowOwnerStokesSignedScalarAmplitude_base_eq_firstOwnerBaseAmplitude,
+    lowOwnerStokesSignedScalarAmplitude_returned_eq_firstOwnerReturnedAmplitude]
+  rfl
+
+/-- Expanded existing-amplitude form. -/
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_existingEscapeCrossTerms
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    pairWeightedStokesBoundaryStep r
+        (lowOwnerFirstOwnerSignedCellPairCarrier R p sig)
+        (lowOwnerFirstOwnerDirichletPolarizationScalar R p) =
+      -2 * (
+        lowOwnerFirstOwnerBaseAmplitude R p sig *
+          lowOwnerFirstOwnerStokesEscapeReturnedAmplitude R p sig r +
+        lowOwnerFirstOwnerStokesEscapeBaseAmplitude R p sig r *
+          lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig -
+        lowOwnerFirstOwnerStokesEscapeBaseAmplitude R p sig r *
+          lowOwnerFirstOwnerStokesEscapeReturnedAmplitude R p sig r) := by
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_existingCrossAmplitudeDecrement
+      hp hr hpr]
+  ring
+
+
+/-! ## Global audit: the clip is the full owner telescope minus terminal
+
+This identity pins the analytic status of the admissibility problem.  The clip
+is not an auxiliary small boundary created by the Stokes coordinate change: it
+is exactly the full first-owner off-diagonal telescope with only the zero/one
+remaining-owner terminal ledger removed.
+-/
+
+/-- **Exact global clip audit.** -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_signedOwnerTelescope_sub_terminal
+    {R : ℕ} (hR : 2 ≤ R) :
+    lowOwnerCanonicalSignedStokesClipBoundary R =
+      (∑ p ∈ primesUpTo (squareRootEndpoint R),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerSignedCellTelescope R p sig) -
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
+  have hfinal :=
+    sum_lowOwnerFirstOwnerSignedCellTelescope_eq_finalStokesBoundary
+      (R := R) hR
+  have hsplit :=
+    lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_topTerminal R
+  linarith
+
+/-- Same identity in the original first-owner Gram currency. -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_two_firstOwnerGram_sub_terminal
+    {R : ℕ} (hR : 2 ≤ R) :
+    lowOwnerCanonicalSignedStokesClipBoundary R =
+      2 * (∑ p ∈ primesUpTo (squareRootEndpoint R),
+        lowOwnerZeroFrequencyFirstOwnerGram R p) -
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
+  rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_signedOwnerTelescope_sub_terminal hR]
+  rw [← two_mul_sum_lowOwnerZeroFrequencyFirstOwnerGram_eq_signedOwnerTelescope]
+
+
+/-- **Amplitude-level global clip audit.**  In the RH-consumer regime the
+physical Stokes clip is the full AMP remainder energy minus the elementary
+diagonal and minus only the exceptional zero/one-owner terminal ledger. -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_remainderNormSq_sub_diagonal_sub_terminal
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerCanonicalSignedStokesClipBoundary R =
+      ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 -
+        lowOwnerZeroFrequencyMobiusDiagonal R -
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
+  have hfinal :=
+    lowOwnerCanonicalSignedStokesFinalBoundary_eq_remainderNormSq_sub_diagonal hR
+  have hsplit :=
+    lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_topTerminal R
+  linarith
+
+/-- Equivalent endpoint-Mertens form of the same audit. -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_endpointGapNormSq_sub_diagonal_sub_terminal
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerCanonicalSignedStokesClipBoundary R =
+      ‖lowOwnerStokesAllEndpointMertensGap R‖ ^ 2 -
+        lowOwnerZeroFrequencyMobiusDiagonal R -
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
+  rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_remainderNormSq_sub_diagonal_sub_terminal hR]
+  rw [lowOwnerPhysicalAmplitudeRemainder_zero_eq_correlation_sub_reciprocalColumn
+      R hR,
+    squareRootCorrelation_sub_reciprocalColumn_eq_allEndpointMertensGap
+      (R := R) (by omega)]
+
+
+/-! ## Canonical lower-envelope coefficient family -/
+
+/-- Canonical frame coefficient obtained from the lower Mertens envelope at the
+prime predecessor, normalized by the square root of its natural length. -/
+def lowOwnerStokesLowerMertensPrimeCoefficient (p : ℕ) : ℂ :=
+  ((((mertensSummatoryInt (p - 1) - 1 : ℤ) : ℝ) /
+    Real.sqrt (p : ℝ) : ℝ) : ℂ)
+
+
+/-- **Natural-wheel realization of the canonical frame coefficient.**
+
+For every actual odd prime-period coordinate, the proposed coefficient is
+literally the normalized predecessor residual of the same natural Stokes wheel
+used by the endpoint frame.  Thus no external Mertens surrogate or independently
+chosen coefficient field is being introduced. -/
+theorem lowOwnerStokesLowerMertensPrimeCoefficient_eq_naturalWheelResidual
+    {R p : ℕ} (hR : 56 ≤ R)
+    (hp : p ∈ lowOwnerStokesOddPrimePeriodSet R) :
+    lowOwnerStokesLowerMertensPrimeCoefficient p =
+      ((((((lowOwnerStokesNaturalWheelSystem R hR).residual (p - 1) - 1 : ℤ) : ℝ) /
+        Real.sqrt (p : ℝ) : ℝ) : ℂ)) := by
+  have hpLt : p < R := lowOwnerStokesOddPrimePeriodSet_lt_root hR hp
+  have hRleX : R ≤ squareRootEndpoint R := root_le_squareRootEndpoint (by omega)
+  have hpredX : p - 1 ≤ squareRootEndpoint R := by omega
+  rw [lowOwnerStokesNaturalWheel_residual_eq_mertensSummatoryInt hR hpredX]
+  rfl
+
+/-- The coefficient-budget half of admissibility is unconditional.
+Every actual Stokes frame prime lies below R, so the existing lower critical
+envelope gives the exact K bound for the canonical normalized predecessor
+Mertens coefficient. -/
+theorem norm_sq_lowOwnerStokesLowerMertensPrimeCoefficient_le_lowerEnvelope
+    {R p : ℕ} {K : ℝ}
+    (hR : 56 ≤ R)
+    (hK : LowerMertensCriticalEnvelope R K)
+    (hp : p ∈ lowOwnerStokesOddPrimePeriodSet R) :
+    ‖lowOwnerStokesLowerMertensPrimeCoefficient p‖ ^ 2 ≤ K := by
+  have hpPrime : p.Prime := lowOwnerStokesOddPrimePeriodSet_prime hp
+  have hpPosNat : 0 < p := hpPrime.pos
+  have hpLt : p < R := lowOwnerStokesOddPrimePeriodSet_lt_root hR hp
+  have henv := hK.2 (p - 1) (by omega)
+  have hpPos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpPosNat
+  have hsqrtPos : 0 < Real.sqrt (p : ℝ) := Real.sqrt_pos.2 hpPos
+  have hsqrtSq : (Real.sqrt (p : ℝ)) ^ 2 = (p : ℝ) := by
+    rw [sq_sqrt (le_of_lt hpPos)]
+  have hpred :
+      ((((p - 1 + 1 : ℕ) : ℝ))) = (p : ℝ) := by
+    rw [Nat.sub_add_cancel hpPrime.one_le]
+  rw [hpred] at henv
+  unfold lowOwnerStokesLowerMertensPrimeCoefficient
+  rw [Complex.norm_real, Real.norm_eq_abs, div_pow]
+  rw [sq_abs, hsqrtSq]
+  exact (div_le_iff₀ hpPos).2 (by simpa [mul_comm] using henv)
+
+/-- The only still-missing half for this concrete coefficient family: physical
+clip synthesis into its reciprocal prime-period envelope. -/
+def LowOwnerStokesClipLowerMertensSynthesis : Prop :=
+  ∀ (R : ℕ) (hR : 56 ≤ R),
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+      primePeriodReciprocalCoefficientEnvelope
+        (lowOwnerStokesNaturalWheelSystem R hR)
+        (squareRootEndpoint R)
+        (lowOwnerStokesOddPrimePeriodSet R)
+        lowOwnerStokesLowerMertensPrimeCoefficient
+
+/-- A proof of the concrete synthesis identity would finish the native
+R^2*K clip admissibility with no remaining coefficient estimate. -/
+theorem clip_lowerEnvelopeBound_of_lowerMertensSynthesis
+    (hSynth : LowOwnerStokesClipLowerMertensSynthesis) :
+    ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+      LowerMertensCriticalEnvelope R K →
+      lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by
+  intro R K hR hK
+  have hcoeff :
+      ∀ p ∈ lowOwnerStokesOddPrimePeriodSet R,
+        ‖lowOwnerStokesLowerMertensPrimeCoefficient p‖ ^ 2 ≤ K := by
+    intro p hp
+    exact norm_sq_lowOwnerStokesLowerMertensPrimeCoefficient_le_lowerEnvelope
+      hR hK hp
+  have henv :=
+    primePeriodReciprocalCoefficientEnvelope_le_mul_frameMajorant
+      (lowOwnerStokesNaturalWheelSystem R hR)
+      (squareRootEndpoint R)
+      (lowOwnerStokesOddPrimePeriodSet R)
+      lowOwnerStokesLowerMertensPrimeCoefficient K hK.1 hcoeff
+  have hframe :=
+    lowOwnerStokesOddPrimePeriodFrameMajorant_le_five_fourths_root_sq R hR
+  calc
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+        primePeriodReciprocalCoefficientEnvelope
+          (lowOwnerStokesNaturalWheelSystem R hR)
+          (squareRootEndpoint R)
+          (lowOwnerStokesOddPrimePeriodSet R)
+          lowOwnerStokesLowerMertensPrimeCoefficient := hSynth R hR
+    _ ≤ K * lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by
+      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using henv
+    _ ≤ K * ((5 / 4 : ℝ) * (R : ℝ) ^ 2) :=
+      mul_le_mul_of_nonneg_left hframe hK.1
+    _ = (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by ring
 
 end RHLean.Proof
