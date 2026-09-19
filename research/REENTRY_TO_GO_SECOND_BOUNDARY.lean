@@ -1,3 +1,4 @@
+import «research.AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE»
 import RHLean.Proof.StableFarWallExactQ2Split
 import RHLean.Proof.StableFarAdaptiveLedgerCollapse
 import «research.AMPLITUDE_GLOBAL_PHYSICAL_DEFECT_LEDGER»
@@ -350,6 +351,64 @@ theorem amplitudeScaledPhysicalDefectLedger_eq_unitFace_sub_routed_sub_rootAtom_
       R hR ps hsched,
     frozenTopFarRoughRootCorrection_eq_rootAtom_sub_nearTransport R hR]
   ring
+
+/-- **Canonical global Euler-defect normal form.**  On the repository's
+canonical complete descending prime chronology, the far obstruction is exactly
+the unscaled reciprocal Stokes defect plus its retained `(p-1)D` Euler memory.
+Together they equal the unit far face minus the already-routed q², internal,
+top-image, and root/near populations.  This is the multiplicity-safe global
+version of summing the local `p*c*D = raw boundary` exchange rate. -/
+theorem canonicalAmplitudeDefect_add_memory_eq_unitFace_sub_routed_sub_rootCorrection
+    (R : ℕ) (hR : 56 ≤ R) :
+    canonicalAmplitudePhysicalDefectLedger R +
+        canonicalAmplitudePhysicalMemoryLedger R =
+      lowWheelFarPrimeUnitFaceMass R -
+        lowWheelFarPrimeQ2DescendedMass R -
+        lowWheelFarPrimeQ2CrossingMass R -
+        lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
+        lowWheelFrozenCofactorTopImageLedger R -
+        frozenTopFarRoughRootCorrection R := by
+  let ps := squareRootCanonicalRoughDescendingPrimeSchedule R
+  have hsched : SquareRootCanonicalRoughCompleteDescendingSchedule R ps :=
+    squareRootCanonicalRoughDescendingPrimeSchedule_complete R
+  have hscaled :
+      amplitudeScaledPhysicalDefectLedger R [] ps =
+        lowWheelFarPrimeUnitFaceMass R -
+          lowWheelFarPrimeQ2DescendedMass R -
+          lowWheelFarPrimeQ2CrossingMass R -
+          lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
+          lowWheelFrozenCofactorTopImageLedger R -
+          frozenTopFarRoughRootCorrection R :=
+    amplitudeScaledPhysicalDefectLedger_eq_unitFace_sub_routed_sub_rootCorrection
+      R hR ps hsched
+  have hsplit :
+      amplitudeScaledPhysicalDefectLedger R [] ps =
+        amplitudePhysicalDefectLedger R [] ps +
+          amplitudePhysicalMemoryLedger R [] ps :=
+    amplitudeScaledPhysicalDefectLedger_eq_unscaled_add_memory R [] ps
+  unfold canonicalAmplitudePhysicalDefectLedger
+    canonicalAmplitudePhysicalMemoryLedger
+  dsimp [ps] at hscaled hsplit ⊢
+  rw [← hsplit]
+  exact hscaled
+
+/-- Unit-face rearrangement of the same conservation law.  The explicit unit
+prime face is the sole terminal face outside the reciprocal Stokes defect,
+Euler memory, routed q²/internal/top-image populations, and root correction. -/
+theorem lowWheelFarPrimeUnitFaceMass_eq_canonicalAmplitudeDefect_add_memory_add_routed
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFarPrimeUnitFaceMass R =
+      canonicalAmplitudePhysicalDefectLedger R +
+        canonicalAmplitudePhysicalMemoryLedger R +
+        lowWheelFarPrimeQ2DescendedMass R +
+        lowWheelFarPrimeQ2CrossingMass R +
+        lowWheelCanonicalRepeatedTerminalInternalMateLedger R +
+        lowWheelFrozenCofactorTopImageLedger R +
+        frozenTopFarRoughRootCorrection R := by
+  have h :=
+    canonicalAmplitudeDefect_add_memory_eq_unitFace_sub_routed_sub_rootCorrection
+      R hR
+  linear_combination h
 
 /-! ## Stable-far entry into the reciprocal Euler coordinate -/
 
