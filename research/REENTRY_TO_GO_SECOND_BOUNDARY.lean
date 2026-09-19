@@ -1,3 +1,6 @@
+import RHLean.Proof.StableFarWallExactQ2Split
+import RHLean.Proof.StableFarAdaptiveLedgerCollapse
+import «research.AMPLITUDE_GLOBAL_PHYSICAL_DEFECT_LEDGER»
 import RHLean.Proof.PostRootPartnerReciprocalCompression
 import RHLean.Proof.StableFarWallAdaptiveFourCornerBridge
 import Mathlib
@@ -271,6 +274,82 @@ theorem squareRootLowPrimeMassTransfer_iff_creationResponseChildEulerIdentity
   rw [squareRootLowPrimeMassTransfer_iff_responseChildEulerIdentity
     hR hK hKU hUR]
   rw [squareRootLowPrimeCreationCarrierExact_realWeight_sum]
+
+/-! ## Global reciprocal-defect summation -/
+
+/-- Prime scaling splits exactly into the reciprocal Stokes defect itself plus
+the retained Euler-memory fraction.  Stepwise this is `p D = D + (p-1) D`,
+i.e. the raw boundary decomposes into the `1/p` drop and the
+`(1 - 1/p)` retained component before any norm is taken. -/
+theorem amplitudeScaledPhysicalDefectLedger_eq_unscaled_add_memory
+    (R : ℕ) (pre ps : List ℕ) :
+    amplitudeScaledPhysicalDefectLedger R pre ps =
+      amplitudePhysicalDefectLedger R pre ps +
+        amplitudePhysicalMemoryLedger R pre ps := by
+  induction ps generalizing pre with
+  | nil =>
+      simp [amplitudeScaledPhysicalDefectLedger,
+        amplitudePhysicalDefectLedger, amplitudePhysicalMemoryLedger]
+  | cons p ps ih =>
+      simp only [amplitudeScaledPhysicalDefectLedger,
+        amplitudePhysicalDefectLedger, amplitudePhysicalMemoryLedger]
+      rw [ih (pre := pre ++ [p])]
+      ring
+
+/-- **Global far-wall exchange rate.**  On a complete descending chronology,
+the full frozen/top/far residual is the prime-scaled reciprocal physical-defect
+ledger plus only the already explicit root/near correction.  This is the
+multiplicity-safe global form of the local `p*c*defect = raw boundary` law;
+the chronological raw ledger has already performed the required signed Fubini. -/
+theorem lowWheelFrozenTopFarResidual_eq_scaledPhysicalDefectLedger_add_rootCorrection
+    (R : ℕ) (hR : 56 ≤ R) (ps : List ℕ)
+    (hsched : SquareRootCanonicalRoughCompleteDescendingSchedule R ps) :
+    lowWheelFrozenTopFarResidual R =
+      amplitudeScaledPhysicalDefectLedger R [] ps +
+        frozenTopFarRoughRootCorrection R := by
+  rw [lowWheelFrozenTopFarResidual_eq_roughCorrelation_add_rootCorrection R hR,
+    ← amplitudeScaledPhysicalDefectLedger_eq_roughCorrelation R hR ps hsched]
+
+/-- **Unit-face normal form of the global reciprocal exchange.**  Comparing
+the multiplicity-safe physical-defect ledger with the exact unit/nonunit
+stable-far census isolates the unit far face as the sole terminal face.
+Everything else is an already-routed q² descended/crossing packet, the
+internal-mate/top-image ledger, or the explicit root correction. -/
+theorem amplitudeScaledPhysicalDefectLedger_eq_unitFace_sub_routed_sub_rootCorrection
+    (R : ℕ) (hR : 56 ≤ R) (ps : List ℕ)
+    (hsched : SquareRootCanonicalRoughCompleteDescendingSchedule R ps) :
+    amplitudeScaledPhysicalDefectLedger R [] ps =
+      lowWheelFarPrimeUnitFaceMass R -
+        lowWheelFarPrimeQ2DescendedMass R -
+        lowWheelFarPrimeQ2CrossingMass R -
+        lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
+        lowWheelFrozenCofactorTopImageLedger R -
+        frozenTopFarRoughRootCorrection R := by
+  have hwall :=
+    lowWheelFrozenTopFarResidual_eq_unit_sub_descended_sub_crossing_sub_owned
+      R hR
+  have hdef :=
+    lowWheelFrozenTopFarResidual_eq_scaledPhysicalDefectLedger_add_rootCorrection
+      R hR ps hsched
+  linear_combination hwall - hdef
+
+/-- Root/near-expanded version of the same exact global identity.  The final
+unrouted terminal coordinate is the unit far face; the only root-scale
+correction is the root atom minus the seven-prime near transport. -/
+theorem amplitudeScaledPhysicalDefectLedger_eq_unitFace_sub_routed_sub_rootAtom_add_near
+    (R : ℕ) (hR : 56 ≤ R) (ps : List ℕ)
+    (hsched : SquareRootCanonicalRoughCompleteDescendingSchedule R ps) :
+    amplitudeScaledPhysicalDefectLedger R [] ps =
+      lowWheelFarPrimeUnitFaceMass R -
+        lowWheelFarPrimeQ2DescendedMass R -
+        lowWheelFarPrimeQ2CrossingMass R -
+        lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
+        lowWheelFrozenCofactorTopImageLedger R -
+        canonicalMoebiusWeight R + squareRootNearPrimeTransport R := by
+  rw [amplitudeScaledPhysicalDefectLedger_eq_unitFace_sub_routed_sub_rootCorrection
+      R hR ps hsched,
+    frozenTopFarRoughRootCorrection_eq_rootAtom_sub_nearTransport R hR]
+  ring
 
 /-! ## Stable-far entry into the reciprocal Euler coordinate -/
 
