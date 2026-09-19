@@ -1,4 +1,5 @@
 import Mathlib
+import «research.BOUNDARY_SHADOW_MORSE»
 import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Analysis.SquareRootMiddleSequentialCoherence
 import RHLean.Proof.LowWheelCanonicalPrimeSplit
