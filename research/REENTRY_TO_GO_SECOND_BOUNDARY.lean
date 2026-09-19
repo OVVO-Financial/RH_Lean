@@ -1,3 +1,5 @@
+import RHLean.Proof.PostRootPartnerReciprocalCompression
+import RHLean.Proof.StableFarWallAdaptiveFourCornerBridge
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeRunningTelescope
 import RHLean.Proof.SquareRootLowPrimePacketFreeMassTransfer
@@ -269,6 +271,54 @@ theorem squareRootLowPrimeMassTransfer_iff_creationResponseChildEulerIdentity
   rw [squareRootLowPrimeMassTransfer_iff_responseChildEulerIdentity
     hR hK hKU hUR]
   rw [squareRootLowPrimeCreationCarrierExact_realWeight_sum]
+
+/-! ## Stable-far entry into the reciprocal Euler coordinate -/
+
+/-- **Exact far-wall / reciprocal-defect exchange rate.**  For an actual
+stable-far triple `(q,(d,p))`, write `c=q*d`.  The complete raw partner column
+over `c` is exactly `p*c` times the reciprocal physical defect at the far
+prime `p`.  Thus the surviving far wall is not external to the reciprocal
+Euler machinery: it enters through its native signed defect coordinate with
+the exact scaling restored. -/
+theorem lowWheelFarPrimeLowCofactorTriple_partnerColumn_eq_scaledReciprocalDefect
+    {R : ℕ} {t : ℕ × (ℕ × ℕ)} (hR : 2 ≤ R)
+    (ht : t ∈ lowWheelFarPrimeLowCofactorTriples R) :
+    (∑ _r ∈ squareRootCanonicalRoughPrimePartnerSet R (t.1 * t.2.1),
+        canonicalMoebiusWeight (t.1 * t.2.1)) =
+      (t.2.2 : ℂ) *
+        ((t.1 * t.2.1 : ℕ) : ℂ) *
+          squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect
+            R (t.1 * t.2.1) t.2.2 := by
+  rcases lowWheelFarPrimeLowCofactorTriple_data ht with
+    ⟨hqPrime, _hqR, hd1, hpPrime, _hpR, _hdsq, _hdq, _hcut⟩
+  have hcpos : 0 < t.1 * t.2.1 :=
+    Nat.mul_pos hqPrime.pos (by omega)
+  have hraw :
+      canonicalMoebiusWeight (t.1 * t.2.1) *
+          (((squareRootCanonicalRoughFreshLossBoundary
+              R (t.1 * t.2.1) t.2.2).card : ℂ) -
+            ((squareRootCanonicalRoughFreshBirthBoundary
+              R (t.1 * t.2.1) t.2.2).card : ℂ)) =
+        ∑ _r ∈ squareRootCanonicalRoughPrimePartnerSet R (t.1 * t.2.1),
+          canonicalMoebiusWeight (t.1 * t.2.1) :=
+    lowWheelFarPrimeLowCofactorTriple_farPrimeRawBoundary_eq_partnerIncidenceSum
+      hR ht
+  have hscale :
+      (t.2.2 : ℂ) *
+          (((t.1 * t.2.1 : ℕ) : ℂ) *
+            squareRootCanonicalRoughFreshPrimeReciprocalPhysicalDefect
+              R (t.1 * t.2.1) t.2.2) =
+        canonicalMoebiusWeight (t.1 * t.2.1) *
+          (((squareRootCanonicalRoughFreshLossBoundary
+              R (t.1 * t.2.1) t.2.2).card : ℂ) -
+            ((squareRootCanonicalRoughFreshBirthBoundary
+              R (t.1 * t.2.1) t.2.2).card : ℂ)) := by
+    simpa using
+      (natCast_mul_cofactorWeightedReciprocalDefect_eq_rawBoundary
+        (R := R) (c := t.1 * t.2.1) (p := t.2.2)
+        (fun _ => (1 : ℂ)) hcpos hpPrime)
+  rw [← hraw] at hscale
+  simpa [mul_assoc] using hscale.symm
 
 /-! ## Channel Euler characteristic -/
 
