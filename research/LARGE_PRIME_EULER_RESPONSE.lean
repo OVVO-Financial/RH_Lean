@@ -264,4 +264,34 @@ theorem squareRootLargePrimeEulerCubeAggregate_eq_transport
   rw [squareRootLargePrimeEulerCubeAggregate_eq_postRootDowncrossLedger R hR,
     lowWheelCanonicalPostRootDowncrossLedger_eq_transport R hR]
 
+/-- **Exact smooth/large-prime cancellation in Euler-cube coordinates.**
+At a completed square endpoint, the entire large-prime cube aggregate must be
+subtracted from the complete low-prime smooth mass.  Their signed difference is
+exactly the square-prefix Mertens value.  Thus neither side is required to be
+root-scale separately; the RH-scale object is their assembled difference. -/
+theorem squarePrefixMertens_eq_smooth_sub_largePrimeEulerCubeAggregate
+    (R : ℕ) (hR : 2 ≤ R) :
+    RHLean.Analysis.squarePrefixMertens (R - 1) =
+      squareRootSmoothMass (R - 1) -
+        squareRootLargePrimeEulerCubeAggregate R := by
+  rw [squareRootLargePrimeEulerCubeAggregate_eq_transport R hR]
+  rw [squarePrefixMertens_eq_squareRootSmooth_sub_transport]
+  rw [squareRootTransportMass_pred_eq_cofactorFirst R (by omega)]
+
+/-- The same identity directly at X_R = R^2-1. -/
+theorem mertensSquareRootEndpoint_eq_smooth_sub_largePrimeEulerCubeAggregate
+    (R : ℕ) (hR : 2 ≤ R) :
+    mertensSummatory (squareRootEndpoint R) =
+      squareRootSmoothMass (R - 1) -
+        squareRootLargePrimeEulerCubeAggregate R := by
+  have h :=
+    squarePrefixMertens_eq_smooth_sub_largePrimeEulerCubeAggregate R hR
+  unfold RHLean.Analysis.squarePrefixMertens
+    RHLean.Analysis.squarePrefixEndpoint at h
+  have hend :
+      (R - 1 + 1) ^ 2 - 1 = squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    rw [Nat.sub_add_cancel (by omega : 1 ≤ R)]
+  rwa [hend] at h
+
 end RHLean.Proof
