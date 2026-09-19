@@ -149,6 +149,26 @@ theorem squareRootLowPrimeSecondBoundaryDefect_fullFace_cancel
   exact squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
     hR ht hq hqt hcube hcDefect
 
+/-! ## Exact identification of the response-forest exit mass -/
+
+/-- At the canonical cutoff the response forest's born frontier is exactly the
+`BornExit` carrier, with the same child Möbius weight.  This is an equality of
+signed masses, not merely the previously compiled cardinality comparison. -/
+theorem squareRootLowPrimeBornFrontierChildMass_re_eq_bornExitBoundaryMassReal
+    {R K : ℕ} (hR : 2 ≤ R) :
+    (squareRootLowPrimeBornFrontierChildMass R K
+        (squareRootBornPostTailLowPrimeCutoff R)).re =
+      squareRootLowPrimeBornExitBoundaryMassReal R K
+        (squareRootBornPostTailLowPrimeCutoff R) := by
+  have hcut : squareRootBornPostTailLowPrimeCutoff R < R := by
+    unfold squareRootBornPostTailLowPrimeCutoff
+    have hsqrtPos : 0 < Nat.sqrt R := Nat.sqrt_pos.2 (by omega)
+    omega
+  rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hcut]
+  unfold squareRootLowPrimeBornFrontierChildMass
+    squareRootLowPrimeBornExitBoundaryMassReal
+  simp [canonicalMoebiusWeight]
+
 /-! ## Canonical unmatched-frontier normal form -/
 
 /-- **Exact first-Othello normal form.**  Specializing the generic
