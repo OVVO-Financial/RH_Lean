@@ -3,6 +3,8 @@ import RHLean.Proof.SquareRootLowPrimeResponseReentryBirthWitness
 import RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell
 import RHLean.Proof.SquareRootLowPrimeGoFullFacePartner
 import RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary
+import RHLean.Proof.SquareRootLowPrimeDeepProcessedSeatBridge
+import RHLean.Proof.SquareRootLowPrimeNoTogglePopulationBound
 
 /-!
 # Response re-entry routes canonically into the Go two-boundary shell
@@ -137,6 +139,125 @@ theorem squareRootLowPrimeSecondBoundaryDefect_fullFace_cancel
           (squareRootLowPrimeGoSecondBoundaryFullFaceSource q t c)) = 0 := by
   exact squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
     hR ht hq hqt hcube hcDefect
+
+/-! ## Re-entry closes inside the response forest -/
+
+/-- **A scheduled non-born re-entry is already a response-forest event.**
+The newborn prime supplied by the re-entry theorem is a literal born response
+atom over the re-entered cofactor `q*c`.  It is therefore either internal to
+the processed prime interval, where the response-forest Othello involution
+cancels it against its arithmetic child, or it has crossed the owner cutoff and
+is literally a `BornNoSuccessor` / BornExit atom.
+
+This route has no Go cube hypothesis. -/
+theorem squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_exit
+    {R K j U p q c s : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K) (hc : 0 < c)
+    (hp : p.Prime)
+    (hqSet : q ∈ squareRootLowPrimeFreshPrimeSet K U)
+    (hrough : canonicalLargestPrimeFactor c < p) (hpq : p < q)
+    (hpU : p ≤ U) (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p)
+    (hqAlive : s < squareRootLowPrimeCombinedFreshResponse R K j (q * c)) :
+    ∃ t,
+      t.Prime ∧ q < t ∧ p * c < t ∧
+        ((q * c, t) ∈ squareRootLowPrimeBornInternalAtoms R K U ∨
+          (q * c, t) ∈ squareRootLowPrimeBornNoSuccessorAtoms R K U) := by
+  have hqData := Finset.mem_filter.mp hqSet
+  have hqPrime : q.Prime := hqData.2
+  have hqIoc := Finset.mem_Ioc.mp hqData.1
+  have hKq : K < q := hqIoc.1
+  have hqU : q ≤ U := hqIoc.2
+  obtain ⟨t, htBirth, hqt, hpct⟩ :=
+    squareRootLowPrimeNonBornFalloutReentry_birthWitness
+      (by omega) hc hp hqPrime hrough hpq hpU hUR hs hnb hfall hqAlive
+  have htBorn : t ∈ squareRootBornPartnerSet R (q * c) :=
+    (mem_squareRootBornPartnerBirthBoundary.mp htBirth).1
+  have htData := Finset.mem_filter.mp htBorn
+  have htPrime : t.Prime := htData.2.1
+  have hqcX : q * c ≤ squareRootEndpoint R := by
+    have hprod : (q * c) * t ≤ squareRootEndpoint R :=
+      htData.2.2.2.2
+    calc
+      q * c = (q * c) * 1 := by simp
+      _ ≤ (q * c) * t := Nat.mul_le_mul_left (q * c) (by omega)
+      _ ≤ squareRootEndpoint R := hprod
+  have hparent :
+      some (c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U :=
+    (mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hfall).1
+  have hseat : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+  have hcProcessed :
+      c ∈ squareRootLowPrimeProcessedSignedCofactors R U :=
+    (mem_squareRootLowPrimeProcessedSeatAtoms.mp hseat).1
+  have hcMuNe : μ c ≠ 0 :=
+    (Finset.mem_filter.mp hcProcessed).2.2
+  have hsqC : Squarefree c :=
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hcMuNe
+  have hqRough : canonicalLargestPrimeFactor c < q :=
+    hrough.trans hpq
+  have hqFresh : ¬ q ∣ c :=
+    squareRootLowPrimePrime_fresh_of_lpf_lt hc hqPrime hqRough
+  have hcop : Nat.Coprime q c :=
+    (hqPrime.coprime_iff_not_dvd).2 hqFresh
+  have hsqQC : Squarefree (q * c) :=
+    (Nat.squarefree_mul hcop).2 ⟨hqPrime.squarefree, hsqC⟩
+  have hmuQC : μ (q * c) ≠ 0 :=
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsqQC
+  have hlpfQC : canonicalLargestPrimeFactor (q * c) = q := by
+    simpa [Nat.mul_comm] using
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hqPrime hqRough
+  have hqcProcessed :
+      q * c ∈ squareRootLowPrimeProcessedSignedCofactors R U := by
+    unfold squareRootLowPrimeProcessedSignedCofactors
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_Icc.mpr ⟨Nat.mul_pos hqPrime.pos hc, hqcX⟩, ?_, hmuQC⟩
+    simpa [hlpfQC] using hqU
+  have hqcSeat :
+      (q * c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U :=
+    mem_squareRootLowPrimeProcessedSeatAtoms.mpr ⟨hqcProcessed, hqAlive⟩
+  have hqcCarrier :
+      some (q * c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U := by
+    unfold squareRootLowPrimeProcessedSeatCarrier
+    exact Finset.mem_insert.mpr
+      (Or.inr (Finset.mem_image.mpr ⟨(q * c, s), hqcSeat, rfl⟩))
+  have hdeep : K < canonicalLargestPrimeFactor (q * c) := by
+    simpa [hlpfQC] using hKq
+  have hownedSeat :
+      (q * c, s) ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j U :=
+    squareRootLowPrimeProcessedSeat_mem_ownedResponseSeatCarrier_of_deep
+      hK hqcCarrier hdeep
+  have hownedSigned :
+      q * c ∈ squareRootLowPrimeOwnedSignedCofactors R K U :=
+    (mem_squareRootLowPrimeOwnedResponseSeatCarrier_iff.mp hownedSeat).1
+  have htDeep :
+      t ∈ squareRootLowPrimeDeepPartnerSet R (q * c) := by
+    unfold squareRootLowPrimeDeepPartnerSet
+    exact Finset.mem_union.mpr (Or.inl htBorn)
+  have hAtom :
+      (q * c, t) ∈ squareRootLowPrimeOwnedResponseAtoms R K U :=
+    mem_squareRootLowPrimeOwnedResponseAtoms_iff.mpr
+      ⟨hownedSigned, htDeep⟩
+  have hBornResponse :
+      (q * c, t) ∈ squareRootLowPrimeBornResponseAtoms R K U :=
+    mem_squareRootLowPrimeBornResponseAtoms.mpr ⟨hAtom, htBorn⟩
+  have hcut : squareRootBornPostTailLowPrimeCutoff R < R := by
+    unfold squareRootBornPostTailLowPrimeCutoff
+    have hsqrtPos : 0 < Nat.sqrt R := Nat.sqrt_pos.2 (by omega)
+    omega
+  have hURlt : U < R := lt_of_le_of_lt hUR hcut
+  refine ⟨t, htPrime, hqt, hpct, ?_⟩
+  by_cases htU : t ≤ U
+  · exact Or.inl
+      (mem_squareRootLowPrimeBornInternalAtoms.mpr
+        ⟨hAtom, htBorn, htU⟩)
+  · right
+    rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hURlt]
+    exact mem_squareRootLowPrimeBornFrontierAtoms.mpr
+      ⟨hAtom, htBorn, Nat.lt_of_not_ge htU⟩
 
 /-! ## Exhaustive dynamic split -/
 
