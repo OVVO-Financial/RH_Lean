@@ -1262,4 +1262,43 @@ theorem lowOwnerFirstOwnerStokesClip_incidence_eq_thresholdSecond_add_endpointCl
     lowOwnerDirichletIncidence_ownerDifference_eq_threshold_add_endpointClippedDifference
       hR hp.one_le hr.one_le
 
+
+/-! ## The endpoint clip carries the top-scale Mertens amplitude
+
+The reciprocal-Euler conversion above leaves one literal endpoint clipped
+difference.  After the already-compiled signed signature reassembly, that term
+is not lower-scale: it is exactly M(X_R).
+-/
+
+/-- Fully assembled endpoint clipped-difference amplitude on one auxiliary
+p<r lens. -/
+def lowOwnerStokesEndpointClippedDifferenceAmplitude
+    (R p r : ℕ) : ℝ :=
+  ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+    lowOwnerFirstOwnerBranchClippedDifferenceTotalAmplitude
+      R p sig r (squareRootEndpoint R)
+
+/-- **Endpoint clip = top-scale Mertens.**
+
+The auxiliary owner labels disappear before any norm: the physical endpoint
+clipped-difference is exactly the Mertens prefix at X_R. -/
+theorem lowOwnerStokesEndpointClippedDifferenceAmplitude_eq_mertensEndpoint
+    {R p r : ℕ}
+    (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    lowOwnerStokesEndpointClippedDifferenceAmplitude R p r =
+      (mertensSummatoryInt (squareRootEndpoint R) : ℝ) := by
+  unfold lowOwnerStokesEndpointClippedDifferenceAmplitude
+  exact
+    sum_signature_branchClippedDifferenceTotalAmplitude_eq_mertens
+      hp hr hpr (le_refl (squareRootEndpoint R))
+
+/-- The endpoint carried by the clip lies outside the strict lower-envelope
+range as soon as R is nontrivial. -/
+theorem root_le_squareRootEndpoint
+    {R : ℕ} (hR : 2 ≤ R) :
+    R ≤ squareRootEndpoint R := by
+  unfold squareRootEndpoint
+  have h : R + 1 ≤ R ^ 2 := by nlinarith
+  omega
+
 end RHLean.Proof
