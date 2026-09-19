@@ -210,6 +210,52 @@ theorem squareRootLowPrimeMassTransfer_iff_canonicalUnmatchedFrontierIdentity
   rw [squareRootLowPrimeRunningImbalanceReal_eq_canonicalUnmatchedFrontiers
     hR hK hKU]
 
+/-- **Canonical unmatched-frontier acceptance theorem.**  At the terminal
+cutoff, an exact identity on the two first-Othello unmatched frontiers alone
+implies the packet-free mass-transfer identity.  This is the proof target after
+discarding the chronological terminal-width coordinates. -/
+theorem squareRootLowPrimePacketFree_of_canonicalUnmatchedFrontierIdentity
+    {R K j : ℕ}
+    (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hKU : K ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K)
+    (hunmatched :
+      (∑ x ∈ squareRootLowPrimeCreationCarrierExact R K j \
+            squareRootLowPrimeMatchedCreationStates R K j
+              (squareRootBornPostTailLowPrimeCutoff R),
+          squareRootLowPrimeCreationWeightReal x) +
+        ∑ z ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j
+              (squareRootBornPostTailLowPrimeCutoff R) \
+            creationResponseMatchedImage
+              (squareRootLowPrimeMatchedCreationStates R K j
+                (squareRootBornPostTailLowPrimeCutoff R))
+              (squareRootLowPrimeCanonicalCreationToResponse R K j
+                (squareRootBornPostTailLowPrimeCutoff R)),
+          squareRootLowPrimeResponseSeatWeightReal z =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K
+            (squareRootBornPostTailLowPrimeCutoff R) +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) :
+    (squareRootMatchedBornSmoothTransport R).re +
+        (squareRootBornPostTailAboveCutoffResponse R K j
+          (squareRootBornPostTailLowPrimeCutoff R)).re =
+      1 + squareRootLowPrimeBornExitBoundaryMassReal R K
+            (squareRootBornPostTailLowPrimeCutoff R) +
+        squareRootLowPrimeRootEqualityBoundaryMassReal R := by
+  have hmass :
+      squareRootLowPrimeRunningImbalanceReal R K j
+          (squareRootBornPostTailLowPrimeCutoff R) =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K
+            (squareRootBornPostTailLowPrimeCutoff R) +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R :=
+    (squareRootLowPrimeMassTransfer_iff_canonicalUnmatchedFrontierIdentity
+      (R := R) (K := K) (j := j)
+      (U := squareRootBornPostTailLowPrimeCutoff R) (by omega) hK hKU).2
+      hunmatched
+  exact (squareRootLowPrimeMassTransfer_iff_packetFree R K j
+    (squareRootBornPostTailLowPrimeCutoff R) hR hK hKR hj).1 hmass
+
 /-! ## Exact transfer between the two Othello fixed sets -/
 
 /-- **Move order is algebraically irrelevant.**  The chronological canonical
