@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.SquareRootLowPrimeRunningTelescope
+import RHLean.Proof.SquareRootLowPrimePacketFreeMassTransfer
 import RHLean.Proof.SquareRootLowPrimeResponseReentryBirthWitness
 import RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution
 import RHLean.Proof.SquareRootLowPrimeCanonicalLiberty
@@ -1008,6 +1009,73 @@ theorem squareRootLowPrimeRunningImbalanceReal_eq_noLater_add_born_add_reentry_a
   rw [squareRootLowPrimeComplementCarrier_weight_sum_eq_born_add_nonBorn]
   ring
 
+
+/-- Exact terminal-partition form of the mass-transfer seam.
+At any processed cutoff, the old four-home mass-transfer statement is
+equivalent to one equality on the new literal partition:
+NoLater + BornRange + forced-ReEntry + Heads =
+Head + Partial + BornExit + RootEquality.
+
+This is an equality, not an estimate. -/
+theorem squareRootLowPrimeMassTransfer_iff_terminalPartitionIdentity
+    {R K j U : ℕ} (hR : 2 ≤ R) :
+    (squareRootLowPrimeRunningImbalanceReal R K j U =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K U +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) ↔
+      (squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U +
+          (∑ x ∈ squareRootLowPrimeBornComplementCarrier R K j U,
+            squareRootLowPrimeProcessedSeatWeightReal x) +
+          (∑ x ∈ squareRootLowPrimeNonBornReentryCarrier R K j U,
+            squareRootLowPrimeProcessedSeatWeightReal x) +
+          (∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalHeads R K j U,
+            squareRootLowPrimeProcessedSeatWeightReal x) =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K U +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R) := by
+  rw [squareRootLowPrimeRunningImbalanceReal_eq_noLater_add_born_add_reentry_add_heads
+    hR]
+
+/-- At the canonical cutoff, proving the preceding terminal-partition identity
+is exactly enough to discharge the repository's packet-free identity. -/
+theorem squareRootLowPrimePacketFree_of_terminalPartitionIdentity
+    {R K j : ℕ}
+    (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
+    (hj : j ≤ squareRootReciprocalPrimeLayerCard R K)
+    (hpart :
+      squareRootLowPrimeGlobalTerminalNoReentryLedger R K j
+          (squareRootBornPostTailLowPrimeCutoff R) +
+        (∑ x ∈ squareRootLowPrimeBornComplementCarrier R K j
+            (squareRootBornPostTailLowPrimeCutoff R),
+          squareRootLowPrimeProcessedSeatWeightReal x) +
+        (∑ x ∈ squareRootLowPrimeNonBornReentryCarrier R K j
+            (squareRootBornPostTailLowPrimeCutoff R),
+          squareRootLowPrimeProcessedSeatWeightReal x) +
+        (∑ x ∈ squareRootLowPrimeProcessedSeatCanonicalTerminalHeads R K j
+            (squareRootBornPostTailLowPrimeCutoff R),
+          squareRootLowPrimeProcessedSeatWeightReal x) =
+      1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+        squareRootLowPrimeBornExitBoundaryMassReal R K
+          (squareRootBornPostTailLowPrimeCutoff R) +
+        squareRootLowPrimeRootEqualityBoundaryMassReal R) :
+    (squareRootMatchedBornSmoothTransport R).re +
+        (squareRootBornPostTailAboveCutoffResponse R K j
+          (squareRootBornPostTailLowPrimeCutoff R)).re =
+      1 + squareRootLowPrimeBornExitBoundaryMassReal R K
+            (squareRootBornPostTailLowPrimeCutoff R) +
+        squareRootLowPrimeRootEqualityBoundaryMassReal R := by
+  have hmass :
+      squareRootLowPrimeRunningImbalanceReal R K j
+          (squareRootBornPostTailLowPrimeCutoff R) =
+        1 - ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℝ) +
+          squareRootLowPrimeBornExitBoundaryMassReal R K
+            (squareRootBornPostTailLowPrimeCutoff R) +
+          squareRootLowPrimeRootEqualityBoundaryMassReal R :=
+    (squareRootLowPrimeMassTransfer_iff_terminalPartitionIdentity
+      (R := R) (K := K) (j := j)
+      (U := squareRootBornPostTailLowPrimeCutoff R) (by omega)).2 hpart
+  exact (squareRootLowPrimeMassTransfer_iff_packetFree R K j
+    (squareRootBornPostTailLowPrimeCutoff R) hR hK hKR hj).1 hmass
 
 /-- The proposed sum of the post-root downcross ledger and transport would
 double-count the same exact object: the repository already identifies them. -/
