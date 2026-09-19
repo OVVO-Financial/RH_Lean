@@ -83,7 +83,6 @@ theorem squareRootLowPrimeReentryBirthBoundary_goTerminal_or_secondBoundary
 theorem squareRootLowPrimeNonBornFalloutReentry_goTerminal_or_secondBoundary
     {R K j U p q c s : ℕ}
     (hR : 1 ≤ R) (hc : 0 < c)
-    (hsq : Squarefree c)
     (hp : p.Prime) (hq : q.Prime)
     (hrough : canonicalLargestPrimeFactor c < p) (hpq : p < q)
     (hpU : p ≤ U) (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
@@ -98,6 +97,19 @@ theorem squareRootLowPrimeNonBornFalloutReentry_goTerminal_or_secondBoundary
               t (squareRootEndpoint R / (t * t)) q ∨
           c ∈ squareRootLowPrimeGoSecondBoundaryDefectParents
               t (squareRootEndpoint R) q) := by
+  have hparent :
+      some (c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U :=
+    (mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hfall).1
+  have hseat :
+      (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+  have hcProcessed :
+      c ∈ squareRootLowPrimeProcessedSignedCofactors R U :=
+    (mem_squareRootLowPrimeProcessedSeatAtoms.mp hseat).1
+  have hcMuNe : μ c ≠ 0 := by
+    exact (Finset.mem_filter.mp hcProcessed).2.2
+  have hsq : Squarefree c :=
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hcMuNe
   obtain ⟨t, htBirth, hqt, hpct⟩ :=
     squareRootLowPrimeNonBornFalloutReentry_birthWitness
       hR hc hp hq hrough hpq hpU hUR hs hnb hfall hqAlive
