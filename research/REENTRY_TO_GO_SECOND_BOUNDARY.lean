@@ -144,6 +144,41 @@ theorem squareRootLowPrimeSecondBoundaryDefect_fullFace_cancel
   exact squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
     hR ht hq hqt hcube hcDefect
 
+/-! ## Exact birth-growth conservation -/
+
+/-- The combined response is born mass plus honest high response, so every
+change along two owner children satisfies an exact integer conservation law:
+born growth = combined-response growth + honest-high loss.
+
+This is the equality behind the earlier one-sided re-entry charge. -/
+theorem squareRootLowPrimeResponse_birthGrowth_eq_combinedGrowth_add_highLoss
+    (R K j p q c : ℕ) :
+    (squareRootBornPartnerCount R (q * c) : ℤ) -
+        (squareRootBornPartnerCount R (p * c) : ℤ) =
+      ((squareRootLowPrimeCombinedFreshResponse R K j (q * c) : ℕ) : ℤ) -
+          ((squareRootLowPrimeCombinedFreshResponse R K j (p * c) : ℕ) : ℤ) +
+        (((squareRootLowPrimeHonestHighResponse R K j (p * c) : ℕ) : ℤ) -
+          ((squareRootLowPrimeHonestHighResponse R K j (q * c) : ℕ) : ℤ)) := by
+  rw [squareRootLowPrimeCombinedFreshResponse_eq_born_add_honestHigh,
+    squareRootLowPrimeCombinedFreshResponse_eq_born_add_honestHigh]
+  push_cast
+  ring
+
+/-- Under the usual owner ordering the honest-high loss is nonnegative. -/
+theorem squareRootLowPrimeResponse_highLoss_nonneg
+    {R K j p q c : ℕ} (hc : 0 < c) (hp : 0 < p) (hpq : p < q) :
+    (0 : ℤ) ≤
+      ((squareRootLowPrimeHonestHighResponse R K j (p * c) : ℕ) : ℤ) -
+        ((squareRootLowPrimeHonestHighResponse R K j (q * c) : ℕ) : ℤ) := by
+  have hpc : 0 < p * c := Nat.mul_pos hp hc
+  have hpqmul : p * c ≤ q * c :=
+    Nat.mul_le_mul (Nat.le_of_lt hpq) (le_refl c)
+  have hmono := squareRootLowPrimeHonestHighResponse_antitone
+    (R := R) (K := K) (j := j) hpc hpqmul
+  exact_mod_cast Nat.sub_eq_zero_iff_le.not.mpr (by omega : ¬
+    squareRootLowPrimeHonestHighResponse R K j (p * c) <
+      squareRootLowPrimeHonestHighResponse R K j (q * c))
+
 /-! ## Re-entry closes inside the response forest -/
 
 /-- **A scheduled non-born re-entry is already a response-forest event.**
