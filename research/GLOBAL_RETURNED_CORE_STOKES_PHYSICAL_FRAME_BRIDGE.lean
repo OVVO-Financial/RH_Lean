@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 import «research.GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE»
 import «research.GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIOD_WHEEL»
 import «research.STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME»
@@ -38,6 +39,55 @@ namespace RHLean.Proof
 open RHLean.Analysis RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
+
+/-! ## Elementary squarefree two-prime support -/
+
+/-- **Centered two-prime comb support is exactly the `p*q` lattice.**
+
+On a squarefree physical site, each local square-sensitive prime comb is
+Boolean: `+1` off the prime and `-1` on the prime.  Centering at `1` therefore
+kills every site except those carrying both distinct prime coordinates.
+Coprimality identifies those common sites exactly with multiples of `p*q`.
+
+This is the literal arithmetic form of the statement that, for example, the
+`3` and `11` coordinates meet only at `33, 66, 99, ...`. -/
+theorem centered_localPrimeComb_product_eq_four_twoPrimeIndicator
+    {p q n : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q)
+    (hsq : Squarefree n) :
+    (localPrimeComb p n - 1) * (localPrimeComb q n - 1) =
+      if p * q ∣ n then (4 : ℤ) else 0 := by
+  rw [localPrimeComb_eq_ite_dvd_of_squarefree hp hsq,
+    localPrimeComb_eq_ite_dvd_of_squarefree hq hsq]
+  have hcop : Nat.Coprime p q := by
+    rw [hp.coprime_iff_not_dvd]
+    intro hpdq
+    exact hpq ((Nat.prime_dvd_prime_iff_eq hp hq).mp hpdq)
+  by_cases hpn : p ∣ n
+  · by_cases hqn : q ∣ n
+    · have hpqdvd : p * q ∣ n :=
+        hcop.mul_dvd_of_dvd_of_dvd hpn hqn
+      simp [hpn, hqn, hpqdvd]
+    · have hpqNot : ¬ p * q ∣ n := by
+        intro hpqdvd
+        apply hqn
+        exact dvd_trans ⟨p, by ring⟩ hpqdvd
+      simp [hpn, hqn, hpqNot]
+  · have hpqNot : ¬ p * q ∣ n := by
+      intro hpqdvd
+      apply hpn
+      exact dvd_trans ⟨q, rfl⟩ hpqdvd
+    simp [hpn, hpqNot]
+
+/-- The centered two-prime interaction is nonzero exactly at a physical
+`p*q` multiple. -/
+theorem centered_localPrimeComb_product_ne_zero_iff_twoPrime_dvd
+    {p q n : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q)
+    (hsq : Squarefree n) :
+    (localPrimeComb p n - 1) * (localPrimeComb q n - 1) ≠ 0 ↔
+      p * q ∣ n := by
+  rw [centered_localPrimeComb_product_eq_four_twoPrimeIndicator hp hq hpq hsq]
+  by_cases hdiv : p * q ∣ n <;> simp [hdiv]
+
 
 /-- Actual odd prime-period coordinates of the natural Stokes wheel. -/
 def lowOwnerStokesOddPrimePeriodSet (R : ℕ) : Finset ℕ :=
