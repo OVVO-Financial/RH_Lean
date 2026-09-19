@@ -918,11 +918,12 @@ theorem squareRootLowPrimeGlobalTerminalNoReentry_shallow_not_matchedCreation
     squareRootLowPrimeProcessedShallowSeatToCreation R (c, s) ∉
       squareRootLowPrimeMatchedCreationStates R K j U := by
   rcases Finset.mem_biUnion.mp hx with ⟨pc, _hpc, hxpc⟩
+  rcases pc with ⟨p, d⟩
   rcases Finset.mem_image.mp hxpc with ⟨t, ht, hEq⟩
-  have hPair : (pc.2, t) = (c, s) := Option.some.inj hEq
-  have hc : pc.2 = c := congrArg Prod.fst hPair
+  have hPair : (d, t) = (c, s) := Option.some.inj hEq
+  have hc : d = c := congrArg Prod.fst hPair
   have hs : t = s := congrArg Prod.snd hPair
-  subst pc.2
+  subst d
   subst t
   exact squareRootLowPrimeFirstOwnerTerminalNoReentry_shallow_not_matchedCreation
     hR hKU hshallow ht
