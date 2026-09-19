@@ -1649,6 +1649,25 @@ def lowOwnerStokesLowerMertensPrimeCoefficient (p : ℕ) : ℂ :=
   ((((mertensSummatoryInt (p - 1) - 1 : ℤ) : ℝ) /
     Real.sqrt (p : ℝ) : ℝ) : ℂ)
 
+
+/-- **Natural-wheel realization of the canonical frame coefficient.**
+
+For every actual odd prime-period coordinate, the proposed coefficient is
+literally the normalized predecessor residual of the same natural Stokes wheel
+used by the endpoint frame.  Thus no external Mertens surrogate or independently
+chosen coefficient field is being introduced. -/
+theorem lowOwnerStokesLowerMertensPrimeCoefficient_eq_naturalWheelResidual
+    {R p : ℕ} (hR : 56 ≤ R)
+    (hp : p ∈ lowOwnerStokesOddPrimePeriodSet R) :
+    lowOwnerStokesLowerMertensPrimeCoefficient p =
+      ((((((lowOwnerStokesNaturalWheelSystem R hR).residual (p - 1) - 1 : ℤ) : ℝ) /
+        Real.sqrt (p : ℝ) : ℝ) : ℂ)) := by
+  have hpLt : p < R := lowOwnerStokesOddPrimePeriodSet_lt_root hR hp
+  have hRleX : R ≤ squareRootEndpoint R := root_le_squareRootEndpoint (by omega)
+  have hpredX : p - 1 ≤ squareRootEndpoint R := by omega
+  rw [lowOwnerStokesNaturalWheel_residual_eq_mertensSummatoryInt hR hpredX]
+  rfl
+
 /-- The coefficient-budget half of admissibility is unconditional.
 Every actual Stokes frame prime lies below R, so the existing lower critical
 envelope gives the exact K bound for the canonical normalized predecessor
