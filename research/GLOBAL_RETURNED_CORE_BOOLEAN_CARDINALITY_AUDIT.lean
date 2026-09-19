@@ -1,6 +1,8 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY»
 import «research.GLOBAL_RETURNED_CORE_DIAGONAL_BOUND»
+import «research.GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI»
+import «research.GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL»
 
 /-!
 # Audit of the proposed Boolean-cardinality collapse
@@ -159,5 +161,52 @@ theorem firstOwner_three_edge_zero_weightGradient_nonzero_siteProduct :
   · rw [hweight1, hweight3]
   · rw [lowOwnerZeroFrequencyMobiusSite_56_one, hsite3]
     norm_num
+
+
+/-! ## Amplitude-space audit
+
+The linear AMP coordinate is the right place to preserve cancellation, but its
+prime lenses are not a disjoint first-owner partition.  Every prime lens
+reconstructs the *whole* amplitude.  Summing lenses over primes therefore
+multiplies the amplitude by the number of lenses.
+
+Likewise the exact scalar owner gradient is not positive: it is daughter
+crossing minus root crossing.  The concrete R=56, p=2, n=29 edge below has
+gradient -1.
+-/
+
+/-- Summing complete amplitude lenses over prime owners overcounts the scalar
+amplitude by exactly the number of prime lenses. -/
+theorem sum_primeDirichletLenses_eq_card_mul_fullAmplitude
+    (R X : ℕ) :
+    (∑ p ∈ primesUpTo X,
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig) =
+      ((primesUpTo X).card : ℝ) * lowOwnerZeroFrequencyMobiusAmplitude R := by
+  calc
+    (∑ p ∈ primesUpTo X,
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig) =
+      ∑ _p ∈ primesUpTo X, lowOwnerZeroFrequencyMobiusAmplitude R := by
+        apply Finset.sum_congr rfl
+        intro p hp
+        exact
+          sum_lowOwnerFirstOwnerDirichletIncidenceAmplitude_eq_fullAmplitude
+            (mem_primesUpTo.mp hp).1
+    _ = ((primesUpTo X).card : ℝ) *
+        lowOwnerZeroFrequencyMobiusAmplitude R := by
+      simp
+
+/-- The exact owner gradient is not a positive daughter drop.  At R=56 the
+fresh 2-edge 29 -> 58 crosses the root wall and no low-q^2 daughter wall, so
+the scalar AMP weight drops by -1. -/
+theorem lowOwnerZeroFrequencyMobiusWeight_gradient_56_two_29 :
+    lowOwnerZeroFrequencyMobiusWeight 56 29 -
+        lowOwnerZeroFrequencyMobiusWeight 56 (2 * 29) = -1 := by
+  rw [lowOwnerZeroFrequencyMobiusWeight_sub_mul
+    (R := 56) (p := 2) (n := 29) (by norm_num : 1 ≤ 2)]
+  unfold lowOwnerDaughterCrossingWeight lowOwnerRootCrossingIndicator
+  rw [canonicalRoughLowQ2Owners_56]
+  norm_num [rawQ2ChildCutoff, squareRootEndpoint]
 
 end RHLean.Proof
