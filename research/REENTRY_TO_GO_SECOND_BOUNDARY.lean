@@ -465,6 +465,70 @@ theorem squareRootLowPrimeTerminalNoReentryFiber_weight_sum
 
 /-! ## Global terminal no-reentry ledger -/
 
+
+/-- If a state falls out at the first scheduled prime strictly above its
+canonical largest prime, then the static intrinsic-owner scan returns exactly
+that prime.  Earlier listed coordinates cannot be canonical fallout owners
+because they lie at or below the largest-prime threshold. -/
+theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_firstOwnerAbove_of_falloff
+    {ps : List ℕ} {S : Finset SquareRootLowPrimeProcessedState}
+    {x : SquareRootLowPrimeProcessedState} {p : ℕ}
+    (hfirst : squareRootLowPrimeFirstOwnerAbove ps
+      (canonicalLargestPrimeFactor
+        (squareRootLowPrimeProcessedStateCofactor x)) = some p)
+    (hfall : x ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S p) :
+    squareRootLowPrimeProcessedSeatIntrinsicFirstOwner ps S x = some p := by
+  rcases squareRootLowPrimeFirstOwnerAbove_some_split hfirst with
+    ⟨pre, post, hsplit, hpre, _hrough⟩
+  have hpreNo :
+      ∀ q ∈ pre,
+        x ∉ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S q := by
+    intro q hq hqFall
+    rcases mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hqFall with
+      ⟨_hxS, _hxHead, _hqFresh, _hqMissing, hqRough⟩
+    exact (Nat.not_lt_of_ge (hpre q hq)) hqRough
+  rw [hsplit]
+  induction pre with
+  | nil =>
+      simp [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, hfall]
+  | cons q qs ih =>
+      have hqNo :
+          x ∉ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S q :=
+        hpreNo q (by simp)
+      have hrest :
+          ∀ r ∈ qs,
+            x ∉ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S r := by
+        intro r hr
+        exact hpreNo r (by simp [hr])
+      simp only [List.cons_append,
+        squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, if_neg hqNo]
+      exact ih hrest
+
+/-- On an actual assigned terminal, the intrinsic owner is therefore the
+cofactor-level first eligible owner.  This recovers the cofactor-first picture
+after terminal survival has been imposed. -/
+theorem squareRootLowPrimeCanonicalAssigned_intrinsicFirstOwner_eq_firstOwnerAbove
+    {R K j U c s p : ℕ}
+    (hx : some (c, s) ∈
+      squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U)
+    (hfirst : squareRootLowPrimeFirstOwnerAbove
+      (squareRootLowPrimeFreshPrimeList K U)
+      (canonicalLargestPrimeFactor c) = some p) :
+    squareRootLowPrimeProcessedSeatIntrinsicFirstOwner
+        (squareRootLowPrimeFreshPrimeList K U)
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+        (some (c, s)) = some p := by
+  have hxTerminal :
+      some (c, s) ∈
+        squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U :=
+    (Finset.mem_sdiff.mp hx).1
+  have hfall :=
+    squareRootLowPrimeProcessedSeatCanonicalTerminal_firstOwnerAbove_mem_falloff
+      hxTerminal (by simp) hfirst
+  exact
+    squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_firstOwnerAbove_of_falloff
+      hfirst hfall
+
 /-- Seat-level no-reentry indices after imposing the actual terminal target and
 the unique intrinsic first-owner assignment.  The first owner is a property of
 the processed seat, not of the cofactor alone. -/
