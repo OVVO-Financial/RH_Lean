@@ -310,4 +310,47 @@ theorem physicalAmplitudeRemainderBound_of_memory_match_and_defect
     hmatch R hR]
   exact hD R K hR hK
 
+/-! ## Exact Abel pushforward gate
+
+The zero-frequency AMP remainder is already the unscaled reciprocal Stokes
+defect ledger plus the normalization-memory gap.  Therefore the proposed
+collapse to the pure Stokes defect is not an additional algebraic consequence:
+it is exactly the assertion that the chronological Euler memory equals the
+reciprocal q^2 Mertens daughter column.
+
+This statement is deliberately pointwise in R.  It lets finite diagnostics
+falsify an over-strong pushforward without weakening the signed amplitude route.
+-/
+
+/-- Pointwise canonical-schedule form of the memory/q^2 match required by a
+pure reciprocal-Stokes pushforward. -/
+def CanonicalAmplitudeAbelMemoryMatchAt (R : ℕ) : Prop :=
+  canonicalAmplitudePhysicalMemoryLedger R =
+    lowOwnerReciprocalMertensColumn R
+
+/-- **Exact Abel pushforward gate.**  At a fixed admissible root, the full
+zero-frequency physical AMP remainder is the pure unscaled reciprocal Stokes
+defect ledger if and only if the Euler-memory ledger is exactly the reciprocal
+q^2 Mertens daughter column.
+
+Thus a second reciprocal factor cannot be introduced merely by changing from
+the prime-scaled raw chronology to the reciprocal Stokes coordinate; it has to
+be supplied by this signed finite-Fubini identity (or by a different exact
+pushforward that keeps the endpoint boundary attached). -/
+theorem lowOwnerPhysicalAmplitudeRemainder_zero_eq_canonicalDefect_iff_abelMemoryMatchAt
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowOwnerPhysicalAmplitudeRemainder R 0 =
+        canonicalAmplitudePhysicalDefectLedger R ↔
+      CanonicalAmplitudeAbelMemoryMatchAt R := by
+  rw [lowOwnerPhysicalAmplitudeRemainder_zero_eq_canonicalDefect_add_memoryGap
+    R hR]
+  unfold CanonicalAmplitudeAbelMemoryMatchAt
+  constructor
+  · intro h
+    linear_combination h
+  · intro h
+    rw [h]
+    ring
+
+
 end RHLean.Proof
