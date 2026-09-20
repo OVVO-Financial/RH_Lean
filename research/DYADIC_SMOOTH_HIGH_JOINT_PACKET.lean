@@ -34,6 +34,48 @@ open RHLean.Analysis
 
 attribute [local instance] Classical.propDecidable
 
+/-! ## Generic dyadic boundary scale
+
+These definitions expose the exact same smooth/high partition at an arbitrary
+boundary scale B.  No claim is made that packets at B and B/2 are contractively
+related; this is only the carrier on which such a future theorem must act. -/
+
+/-- Smooth side of the odd dyadic annulus B/2 < m <= B. -/
+def dyadicJointSmoothSetAt (R B : ℕ) : Finset ℕ :=
+  (dyadicCofactorBoundary B).filter fun m =>
+    canonicalLargestPrimeFactor m ≤ R
+
+/-- High-largest-prime side of the same odd dyadic annulus. -/
+def dyadicJointHighSetAt (R B : ℕ) : Finset ℕ :=
+  (dyadicCofactorBoundary B).filter fun m =>
+    R < canonicalLargestPrimeFactor m
+
+/-- Signed smooth mass at dyadic boundary scale B. -/
+def dyadicJointSmoothMassAt (R B : ℕ) : ℂ :=
+  ∑ m ∈ dyadicJointSmoothSetAt R B, canonicalMoebiusWeight m
+
+/-- Signed high mass at dyadic boundary scale B. -/
+def dyadicJointHighMassAt (R B : ℕ) : ℂ :=
+  ∑ m ∈ dyadicJointHighSetAt R B, canonicalMoebiusWeight m
+
+/-- Signed joint packet at an arbitrary dyadic boundary scale. -/
+def dyadicJointPacketAt (R B : ℕ) : ℂ :=
+  dyadicJointSmoothMassAt R B + dyadicJointHighMassAt R B
+
+/-- Exact pre-norm partition at every boundary scale B. -/
+theorem dyadicJointPacketAt_eq_boundaryMass (R B : ℕ) :
+    dyadicJointPacketAt R B = dyadicCofactorBoundaryMass B := by
+  classical
+  unfold dyadicJointPacketAt dyadicJointSmoothMassAt dyadicJointHighMassAt
+    dyadicJointSmoothSetAt dyadicJointHighSetAt dyadicCofactorBoundaryMass
+  rw [← Finset.sum_filter_add_sum_filter_not
+    (s := dyadicCofactorBoundary B)
+    (p := fun m => canonicalLargestPrimeFactor m ≤ R)
+    (f := canonicalMoebiusWeight)]
+  congr 1
+  ext m
+  simp
+
 /-- Smooth part of the top odd dyadic annulus. -/
 def squareRootDyadicAnnulusSmoothSet (R : ℕ) : Finset ℕ :=
   (dyadicCofactorBoundary (squareRootEndpoint R)).filter fun m =>
@@ -79,6 +121,12 @@ theorem squareRootDyadicAnnulusMass_eq_smooth_add_high
     (p := fun m => canonicalLargestPrimeFactor m ≤ R)
     (f := canonicalMoebiusWeight)]
   rw [squareRootDyadicAnnulus_filter_not_smooth_eq_high R]
+
+/-- The top-shell packet is the generic packet specialized to X_R. -/
+theorem squareRootDyadicJointPacket_eq_at_top (R : ℕ) :
+    squareRootDyadicJointPacket R =
+      dyadicJointPacketAt R (squareRootEndpoint R) := by
+  rfl
 
 /-- The joint packet is the complete top odd dyadic annulus. -/
 theorem squareRootDyadicJointPacket_eq_annulusMass
