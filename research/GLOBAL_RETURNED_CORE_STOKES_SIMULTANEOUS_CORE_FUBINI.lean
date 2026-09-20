@@ -389,4 +389,103 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
           subst b
           exact ⟨rest, rfl⟩
 
+
+/-- Exact local clip normal form after the DAG collapse to the two largest
+physical owner coordinates. -/
+def lowOwnerFirstOwnerTopTwoStokesClipNormalForm
+    (R : ℕ) (hR : 56 ≤ R) (p : ℕ) (sig : Finset ℕ) : ℝ :=
+  let C := lowOwnerFirstOwnerSignedCellPairCarrier R p sig
+  let f := lowOwnerFirstOwnerDirichletPolarizationScalar R p
+  if p = topPrime R hR then
+    0
+  else
+    pairWeightedStokesBoundaryStep (topPrime R hR) C f +
+      (if p = secondPrime R hR then
+        0
+      else
+        (1 / 4 : ℝ) *
+          pairWeightedStokesBoundaryStep (secondPrime R hR)
+            (pairPrimeTwoCoordinateInterior (topPrime R hR) C)
+            (pairPrimeMixedDifference (topPrime R hR) f))
+
+/-- **Exact local top-two reduction.**
+
+Every physical first-owner cell has only the two global top prime coordinates
+in its clip ledger.  The largest first owner has empty schedule; the
+second-largest has only the top coordinate; every lower first owner starts with
+the top two coordinates, after which the complete two-coordinate interior is
+already empty. -/
+theorem lowOwnerFirstOwnerCanonicalStokesClipBoundary_eq_topTwoNormalForm
+    {R p : ℕ} (hR : 56 ≤ R)
+    (hpMem : p ∈ primesUpTo (squareRootEndpoint R))
+    (sig : Finset ℕ) :
+    lowOwnerFirstOwnerCanonicalStokesClipBoundary R p sig =
+      lowOwnerFirstOwnerTopTwoStokesClipNormalForm R hR p sig := by
+  by_cases hpTop : p = topPrime R hR
+  · subst p
+    simp [lowOwnerFirstOwnerTopTwoStokesClipNormalForm,
+      lowOwnerFirstOwnerCanonicalStokesClipBoundary,
+      topPrime_schedule_eq_nil hR,
+      lowOwnerFirstOwnerPhysicalStokesBoundaryFrom]
+  · by_cases hpSecond : p = secondPrime R hR
+    · subst p
+      rw [← lowOwnerFirstOwnerCanonicalStokesBoundary_eq_clipBoundary]
+      unfold lowOwnerFirstOwnerCanonicalStokesBoundary
+      rw [secondPrime_schedule_eq_single_top hR]
+      simp [iteratedPairWeightedStokesBoundary,
+        lowOwnerFirstOwnerTopTwoStokesClipNormalForm,
+        hpTop]
+    · obtain ⟨rest, hrest⟩ :=
+        lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
+          hR hpMem hpTop hpSecond
+      have htwo :=
+        lowOwnerFirstOwnerCanonicalStokesClipBoundary_eq_twoSteps_of_twoOwners
+          (R := R) (p := p)
+          (q := topPrime R hR) (s := secondPrime R hR)
+          (sig := sig) (rest := rest) (by omega) hrest
+      simpa [lowOwnerFirstOwnerTopTwoStokesClipNormalForm,
+        hpTop, hpSecond] using htwo
+
+/-- Globally assembled top-two physical clip normal form. -/
+def lowOwnerCanonicalTopTwoStokesClipNormalForm
+    (R : ℕ) (hR : 56 ≤ R) : ℝ :=
+  ∑ p ∈ primesUpTo (squareRootEndpoint R),
+    ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      lowOwnerFirstOwnerTopTwoStokesClipNormalForm R hR p sig
+
+/-- **Global DAG reduction.**  The complete physical Stokes clip is exactly the
+globally assembled two-toggle normal form.  No ownerwise norm, absolute value,
+or prime-counting multiplicity is introduced. -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerCanonicalSignedStokesClipBoundary R =
+      lowOwnerCanonicalTopTwoStokesClipNormalForm R hR := by
+  unfold lowOwnerCanonicalSignedStokesClipBoundary
+    lowOwnerCanonicalTopTwoStokesClipNormalForm
+  apply Finset.sum_congr rfl
+  intro p hpMem
+  apply Finset.sum_congr rfl
+  intro sig _hsig
+  exact
+    lowOwnerFirstOwnerCanonicalStokesClipBoundary_eq_topTwoNormalForm
+      hR hpMem sig
+
+/-- The genuinely remaining quantitative statement after exact DAG reduction:
+bound one globally assembled two-toggle signed ledger at root scale. -/
+def LowOwnerTopTwoStokesClipRootBound (A : ℝ) : Prop :=
+  ∀ (R : ℕ) (hR : 56 ≤ R),
+    lowOwnerCanonicalTopTwoStokesClipNormalForm R hR ≤
+      A * (R : ℝ) ^ 2
+
+/-- A root bound on the top-two normal form is literally a root bound on the
+physical clip; no additional arithmetic estimate is needed to pass between
+them. -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_le_root_sq_of_topTwoBound
+    {A : ℝ} (hA : LowOwnerTopTwoStokesClipRootBound A)
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+      A * (R : ℝ) ^ 2 := by
+  rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm hR]
+  exact hA R hR
+
 end RHLean.Proof
