@@ -98,6 +98,10 @@ for p in [q for q in primes if 3 <= q <= R]:
 
 assert len(glider_boundary) == 634
 assert sum(mu[n] for n in glider_boundary) == mertens[X]
+glider_positive = sum(1 for n in glider_boundary if mu[n] == 1)
+glider_negative = sum(1 for n in glider_boundary if mu[n] == -1)
+assert glider_positive == 320
+assert glider_negative == 314
 
 print("R =", R, "X =", X)
 print("M(X) =", mertens[X])
@@ -110,5 +114,6 @@ print("active-middle residual =", middle_residual)
 print("prime-2 dyadic wall card =", len(dyadic_wall))
 print("iterated glider-boundary card =", len(glider_boundary))
 print("iterated glider-boundary mass =", sum(mu[n] for n in glider_boundary))
+print("glider signs: +", glider_positive, "/ -", glider_negative)
 print("PASS: active middle leaves -6 = -M(3135), not zero;")
 print("      Othello preserves mass 6 while moving it onto explicit escape walls.")
