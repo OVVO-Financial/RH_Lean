@@ -805,6 +805,54 @@ theorem squareRootReplacementCrossingShell_primorial_eq_old_sub_shift
   rw [hins]
   rfl
 
+
+/-- **Presentation-free squarefree operator bridge.**  Every squarefree parent
+is its own prime-factor wheel, so the crossing shell is the same canonical
+finite-difference operator with no chosen primorial presentation.  In
+particular, numerical wheels such as 210 are only regression instances. -/
+theorem squareRootReplacementCrossingShell_squarefree_eq_finiteDifferenceOperator
+    {R c p : ℕ}
+    (hR : 1 ≤ R) (hsq : Squarefree c)
+    (hp : p.Prime) (hfresh : ¬ p ∣ c) :
+    squareRootReplacementCrossingShell R c p =
+      (((finiteDifferenceOperator (insert p c.primeFactors)
+          squareRootReplacementPositiveIndicator) (R - 1) : ℤ) : ℂ) := by
+  have hprime : ∀ q ∈ c.primeFactors, q.Prime := by
+    intro q hq
+    exact (Nat.mem_primeFactors.mp hq).1
+  have hpS : p ∉ c.primeFactors := by
+    intro hpMem
+    exact hfresh (Nat.mem_primeFactors.mp hpMem).2.1
+  have hcWheel : primorial c.primeFactors = c := by
+    simpa [primorial] using Nat.prod_primeFactors_of_squarefree hsq
+  have h :=
+    squareRootReplacementCrossingShell_primorial_eq_finiteDifferenceOperator
+      c.primeFactors R p hR hp hpS hprime
+  simpa [hcWheel] using h
+
+/-- Presentation-free expanded insertion law for every squarefree parent. -/
+theorem squareRootReplacementCrossingShell_squarefree_eq_old_sub_shift
+    {R c p : ℕ}
+    (hR : 1 ≤ R) (hsq : Squarefree c)
+    (hp : p.Prime) (hfresh : ¬ p ∣ c) :
+    squareRootReplacementCrossingShell R c p =
+      (((finiteDifferenceOperator c.primeFactors
+          squareRootReplacementPositiveIndicator) (R - 1) -
+        (finiteDifferenceOperator c.primeFactors
+          (shift p squareRootReplacementPositiveIndicator)) (R - 1) : ℤ) : ℂ) := by
+  have hprime : ∀ q ∈ c.primeFactors, q.Prime := by
+    intro q hq
+    exact (Nat.mem_primeFactors.mp hq).1
+  have hpS : p ∉ c.primeFactors := by
+    intro hpMem
+    exact hfresh (Nat.mem_primeFactors.mp hpMem).2.1
+  have hcWheel : primorial c.primeFactors = c := by
+    simpa [primorial] using Nat.prod_primeFactors_of_squarefree hsq
+  have h :=
+    squareRootReplacementCrossingShell_primorial_eq_old_sub_shift
+      c.primeFactors R p hR hp hpS hprime
+  simpa [hcWheel] using h
+
 /-- Literal divisor-edge carrier of the crossing shell. -/
 def squareRootReplacementCrossingShellCarrier
     (R c p : ℕ) : Finset ℕ :=
