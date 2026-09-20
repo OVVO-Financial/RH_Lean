@@ -58,8 +58,109 @@ theorem lowOwnerZeroFrequencyMobiusWeight_sub_toggle_eq_toggleCrossingDefect
     (lowOwnerZeroFrequencyMobiusWeight_sub_toggle_eq_signedCrossing
       (R := R) (r := r) (n := n) hr hnSq)
 
+/-- Endpoint correction omitted by the unextended threshold defect.  It is
+present exactly when the Othello toggle leaves the physical Dirichlet clock. -/
+def lowOwnerStokesToggleEndpointEscapeCorrection
+    (R r n : ℕ) : ℝ :=
+  if squareRootEndpoint R < primeCarrierToggle r n then
+    lowOwnerZeroFrequencyMobiusWeight R (primeCarrierToggle r n)
+  else 0
+
+/-- **Exact physical Stokes toggle dictionary.**
+
+On a physical squarefree core, the toggle difference of the actual
+Dirichlet-extended Stokes base coefficient is the previously identified
+threshold-crossing defect plus the literal endpoint escape correction.  This
+is the missing endpoint term when the toggled corner lies beyond `X_R`. -/
+theorem lowOwnerStokesBaseToggleDifference_eq_crossing_add_endpointEscape
+    {R r n : ℕ}
+    (hr : r.Prime)
+    (hn : n ∈ lowOwnerNonzeroMobiusCarrier R) :
+    lowOwnerStokesToggleDifference r
+        (lowOwnerDirichletBaseCoefficient R) n =
+      lowOwnerStokesToggleCrossingDefect R r n +
+        lowOwnerStokesToggleEndpointEscapeCorrection R r n := by
+  have hnIcc := (Finset.mem_filter.mp hn).1
+  have hnLe : n ≤ squareRootEndpoint R := (Finset.mem_Icc.mp hnIcc).2
+  have hcross :=
+    lowOwnerZeroFrequencyMobiusWeight_sub_toggle_eq_toggleCrossingDefect
+      (R := R) (r := r) (n := n) hr hn
+  unfold lowOwnerStokesToggleDifference lowOwnerDirichletBaseCoefficient
+  rw [lowOwnerPhysicalDirichletWeight_eq_weight_of_le hnLe]
+  by_cases htoggle :
+      primeCarrierToggle r n ≤ squareRootEndpoint R
+  · rw [lowOwnerPhysicalDirichletWeight_eq_weight_of_le htoggle]
+    have hnot :
+        ¬ squareRootEndpoint R < primeCarrierToggle r n :=
+      Nat.not_lt_of_ge htoggle
+    simp [lowOwnerStokesToggleEndpointEscapeCorrection, hnot]
+    exact hcross
+  · have hout :
+        squareRootEndpoint R < primeCarrierToggle r n :=
+      Nat.lt_of_not_ge htoggle
+    rw [lowOwnerPhysicalDirichletWeight_eq_zero_of_lt hout]
+    simp [lowOwnerStokesToggleEndpointEscapeCorrection, hout]
+    linarith
+
+/-- The genuine physical fracture carrier for the Stokes base coordinate.
+Unlike `lowOwnerStokesFracturedCoreCarrier`, this carrier sees Dirichlet
+endpoint exits as well as threshold crossings. -/
+def lowOwnerStokesPhysicalFracturedCoreCarrier (R : ℕ) : Finset ℕ :=
+  (lowOwnerNonzeroMobiusCarrier R).filter fun n =>
+    ∃ r ∈ primesUpTo (squareRootEndpoint R),
+      lowOwnerStokesToggleDifference r
+        (lowOwnerDirichletBaseCoefficient R) n ≠ 0
+
+theorem lowOwnerStokesPhysicalFracturedCoreCarrier_subset_nonzeroCarrier
+    (R : ℕ) :
+    lowOwnerStokesPhysicalFracturedCoreCarrier R ⊆
+      lowOwnerNonzeroMobiusCarrier R := by
+  intro n hn
+  exact (Finset.mem_filter.mp hn).1
+
+theorem lowOwnerStokesPhysicalFracturedCoreCarrier_subset_clock
+    (R : ℕ) :
+    lowOwnerStokesPhysicalFracturedCoreCarrier R ⊆
+      Finset.Icc 1 (squareRootEndpoint R) := by
+  intro n hn
+  have hnCar :=
+    lowOwnerStokesPhysicalFracturedCoreCarrier_subset_nonzeroCarrier R hn
+  exact (Finset.mem_filter.mp hnCar).1
+
+/-- Off the corrected fracture carrier, the actual Dirichlet Stokes toggle
+difference vanishes for every active physical prime. -/
+theorem physical_clip_toggle_difference_eq_zero_of_not_fractured
+    {R r n : ℕ}
+    (hn : n ∈ lowOwnerNonzeroMobiusCarrier R)
+    (hr : r ∈ primesUpTo (squareRootEndpoint R))
+    (hnfract : n ∉ lowOwnerStokesPhysicalFracturedCoreCarrier R) :
+    lowOwnerStokesToggleDifference r
+        (lowOwnerDirichletBaseCoefficient R) n = 0 := by
+  by_contra hne
+  apply hnfract
+  exact Finset.mem_filter.mpr
+    ⟨hn, ⟨r, hr, hne⟩⟩
+
+/-- The corrected physical fracture support is still bounded by the square
+clock, with no owner multiplicity. -/
+theorem card_lowOwnerStokesPhysicalFracturedCoreCarrier_le_R_sq
+    (R : ℕ) :
+    (lowOwnerStokesPhysicalFracturedCoreCarrier R).card ≤ R ^ 2 := by
+  have hcard :=
+    Finset.card_le_card
+      (lowOwnerStokesPhysicalFracturedCoreCarrier_subset_clock R)
+  have hendpoint :
+      (lowOwnerStokesPhysicalFracturedCoreCarrier R).card ≤
+        squareRootEndpoint R := by
+    simpa [Nat.card_Icc] using hcard
+  exact hendpoint.trans (by
+    unfold squareRootEndpoint
+    omega)
+
 /-- Physical squarefree cores at which at least one active prime toggle sees a
-nonzero threshold defect. -/
+nonzero threshold defect.  This is the threshold-only carrier retained for the
+exact crossing dictionary above; the actual Stokes carrier is
+`lowOwnerStokesPhysicalFracturedCoreCarrier`. -/
 def lowOwnerStokesFracturedCoreCarrier (R : ℕ) : Finset ℕ :=
   (lowOwnerNonzeroMobiusCarrier R).filter fun n =>
     ∃ r ∈ primesUpTo (squareRootEndpoint R),
