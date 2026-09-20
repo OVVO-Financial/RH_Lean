@@ -8,6 +8,10 @@ on:
       - .github/workflows/stokes-terminal-frame-closure.yml
   workflow_dispatch:
 
+concurrency:
+  group: stokes-terminal-frame-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check:
     runs-on: ubuntu-latest
