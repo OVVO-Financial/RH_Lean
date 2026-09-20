@@ -1,5 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION»
+import «research.GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API»
 
 /-!
 # Simultaneous physical-core support of the Stokes clip
@@ -29,6 +30,7 @@ open scoped BigOperators
 namespace RHLean.Proof
 
 open RHLean.Analysis RHLean.Arithmetic
+open StokesTerminalFrame
 
 attribute [local instance] Classical.propDecidable
 
@@ -260,5 +262,131 @@ theorem lowOwnerStokesFracturedCoreCarrier_squarefree_pos
     Squarefree n ∧ 0 < n := by
   exact lowOwnerNonzeroMobiusCarrier_squarefree_pos
     (lowOwnerStokesFracturedCoreCarrier_subset_nonzeroCarrier R hn)
+
+
+/-! ## DAG collapse to the two actual Stokes toggle coordinates -/
+
+/-- **Nonterminal schedules start with the global top two physical primes.**
+
+For an active first owner other than the largest and second-largest physical
+owners, the canonical descending Stokes schedule begins with exactly those two
+owners.  Thus, after the terminal classification, no third prime coordinate can
+enter the physical clip boundary before the two-step interior has already
+vanished. -/
+theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
+    {R p : ℕ} (hR : 56 ≤ R)
+    (hpMem : p ∈ primesUpTo (squareRootEndpoint R))
+    (hpTop : p ≠ topPrime R hR)
+    (hpSecond : p ≠ secondPrime R hR) :
+    ∃ rest : List ℕ,
+      lowOwnerFirstOwnerCanonicalStokesSchedule R p =
+        topPrime R hR :: secondPrime R hR :: rest := by
+  let t := topPrime R hR
+  let u := secondPrime R hR
+  have htMem : t ∈ primesUpTo (squareRootEndpoint R) := by
+    simpa [t] using topPrime_mem hR
+  have huErase :
+      u ∈ (primesUpTo (squareRootEndpoint R)).erase t := by
+    simpa [u, t] using secondPrime_mem_erase hR
+  have huMem : u ∈ primesUpTo (squareRootEndpoint R) :=
+    (Finset.mem_erase.mp huErase).2
+  have hut : u ≠ t := (Finset.mem_erase.mp huErase).1
+  have hptLe : p ≤ t := by
+    simpa [t] using
+      Finset.le_max' (primesUpTo (squareRootEndpoint R)) p hpMem
+  have hpt : p < t := by
+    have hne : p ≠ t := by simpa [t] using hpTop
+    omega
+  have hpErase :
+      p ∈ (primesUpTo (squareRootEndpoint R)).erase t := by
+    exact Finset.mem_erase.mpr ⟨by simpa [t] using hpTop, hpMem⟩
+  have hpuLe : p ≤ u := by
+    simpa [u, t] using
+      Finset.le_max'
+        ((primesUpTo (squareRootEndpoint R)).erase t) p hpErase
+  have hpu : p < u := by
+    have hne : p ≠ u := by simpa [u] using hpSecond
+    omega
+  have htFull :
+      t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R := by
+    unfold squareRootCanonicalRoughDescendingPrimeSchedule
+    exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 htMem
+  have huFull :
+      u ∈ squareRootCanonicalRoughDescendingPrimeSchedule R := by
+    unfold squareRootCanonicalRoughDescendingPrimeSchedule
+    exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 huMem
+  have htSched :
+      t ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p := by
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+      (show t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < t
+        from ⟨htFull, hpt⟩)
+  have huSched :
+      u ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p := by
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+      (show u ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < u
+        from ⟨huFull, hpu⟩)
+  have hmem :
+      ∀ q ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p,
+        q ∈ primesUpTo (squareRootEndpoint R) := by
+    intro q hq
+    have hqData :
+        q ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < q := by
+      simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using hq
+    unfold squareRootCanonicalRoughDescendingPrimeSchedule at hqData
+    exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).1 hqData.1
+  have hsorted := lowOwnerFirstOwnerCanonicalStokesSchedule_sorted R p
+  have hnodup := lowOwnerFirstOwnerCanonicalStokesSchedule_nodup R p
+  generalize hsched :
+      lowOwnerFirstOwnerCanonicalStokesSchedule R p = ps at
+      htSched huSched hmem hsorted hnodup
+  cases ps with
+  | nil =>
+      simp at htSched
+  | cons a tail =>
+      have haMem : a ∈ primesUpTo (squareRootEndpoint R) :=
+        hmem a (by simp)
+      have haLeT : a ≤ t :=
+        Finset.le_max' (primesUpTo (squareRootEndpoint R)) a haMem
+      have haGeT : t ≤ a := by
+        simp only [List.mem_cons] at htSched
+        rcases htSched with hat | htTail
+        · simpa [hat]
+        · exact (List.pairwise_cons.mp hsorted).1 t htTail
+      have ha : a = t := by omega
+      subst a
+      have htailNodup : (t :: tail).Nodup := hnodup
+      have htNotTail : t ∉ tail := (List.nodup_cons.mp htailNodup).1
+      have huTail : u ∈ tail := by
+        simp only [List.mem_cons] at huSched
+        rcases huSched with hutEq | huTail
+        · exact False.elim (hut hutEq.symm)
+        · exact huTail
+      cases tail with
+      | nil =>
+          simp at huTail
+      | cons b rest =>
+          have hbMem : b ∈ primesUpTo (squareRootEndpoint R) :=
+            hmem b (by simp)
+          have hbNeT : b ≠ t := by
+            intro hbt
+            apply htNotTail
+            simp [hbt]
+          have hbErase :
+              b ∈ (primesUpTo (squareRootEndpoint R)).erase t :=
+            Finset.mem_erase.mpr ⟨hbNeT, hbMem⟩
+          have hbLeU : b ≤ u := by
+            simpa [u, t] using
+              Finset.le_max'
+                ((primesUpTo (squareRootEndpoint R)).erase t) b hbErase
+          have htailSorted : List.Sorted (fun x y : ℕ => x ≥ y) (b :: rest) :=
+            (List.pairwise_cons.mp hsorted).2
+          have hbGeU : u ≤ b := by
+            simp only [List.mem_cons] at huTail
+            rcases huTail with hub | huRest
+            · simpa [hub]
+            · exact (List.pairwise_cons.mp htailSorted).1 u huRest
+          have hb : b = u := by omega
+          subst b
+          exact ⟨rest, rfl⟩
 
 end RHLean.Proof
