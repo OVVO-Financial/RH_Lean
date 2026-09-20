@@ -346,9 +346,8 @@ theorem iteratedGliderBoundaryMass_eq_recombinedReplacementRow
     _ = ∑ y ∈ Finset.range R,
         squareRootReplacementCoefficient R y *
           mertensSummatory y :=
-      squareRootLiveGliderMass_eq_recombinedReplacementRow R hR
-        |>.trans
-          (squareRootDyadicJointPacket_eq_liveGliderMass R).symm
+      (squareRootDyadicJointPacket_eq_liveGliderMass R).trans
+        (squareRootLiveGliderMass_eq_recombinedReplacementRow R hR)
 
 /-- **Prime-swap sign guardrail.**  Replacing one fresh prime by another while
 holding the cofactor fixed preserves the Mobius sign: both products are
