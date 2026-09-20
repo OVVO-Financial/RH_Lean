@@ -138,8 +138,12 @@ theorem squareRootLongRangeTether_injective_on_high
     m = n := by
   have hmprod := squareRootLongRangeTether_product_eq hR hm
   have hnprod := squareRootLongRangeTether_product_eq hR hn
-  rw [h] at hmprod
-  exact hmprod.trans hnprod.symm
+  calc
+    m = (squareRootLongRangeTether m).1 *
+        (squareRootLongRangeTether m).2 := hmprod.symm
+    _ = (squareRootLongRangeTether n).1 *
+        (squareRootLongRangeTether n).2 := by rw [h]
+    _ = n := hnprod
 
 /-- The root end of every high-source tether lies strictly below R. -/
 theorem squareRootLongRangeRoot_lt
@@ -192,7 +196,10 @@ theorem squareRootTopFibrePrime_mem_dyadicAnnulusHigh
     omega
   have hRq : R < q := lt_of_le_of_lt hRhalf hhalfq
   have hodd : Odd q := hqPrime.odd_of_ne_two (by omega)
-  have htwice : squareRootEndpoint R < 2 * q := by omega
+  have htwice' : squareRootEndpoint R < q * 2 :=
+    (Nat.div_lt_iff_lt_mul (by norm_num : 0 < (2 : ℕ))).1 hhalfq
+  have htwice : squareRootEndpoint R < 2 * q := by
+    simpa [Nat.mul_comm] using htwice'
   have hboundary :
       q ∈ dyadicCofactorBoundary (squareRootEndpoint R) :=
     mem_dyadicCofactorBoundary.mpr
