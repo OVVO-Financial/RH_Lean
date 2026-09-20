@@ -5,6 +5,7 @@ import RHLean.Proof.VanishingTransitionRelevanceBase
 import RHLean.Analysis.SquareRootPrimeCountGap
 import RHLean.Proof.RecursivePrimeReplacement
 import RHLean.Proof.ReplacementFibreOrientationSplit
+import RHLean.Analysis.SquareRootPostCrossingRenewal
 
 /-!
 # Dyadic Buchstab/Othello splice: the joint packet is already an escape wall
@@ -368,6 +369,123 @@ theorem canonicalMoebiusWeight_primeSwap_eq_of_rough
 theorem squareRootDyadicLiveGliderSet_card_56 :
     (squareRootDyadicLiveGliderSet 56).card = 634 := by
   native_decide
+
+/-! ## Prime-face extraction and the complete Type-II glider splice -/
+
+/-- The admitted packet is removed from the whole signed glider mass.  This is
+the exact interface to the post-crossing renewal, not a pointwise prime swap.
+The smooth carrier is already included in the coupled tail. -/
+theorem squareRootLiveGliderMass_sub_partial_eq_coupledTail
+    (R K j : ℕ) (hR : 3 ≤ R) :
+    (∑ n ∈ squareRootDyadicLiveGliderSet R, canonicalMoebiusWeight n) -
+        ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ) =
+      squareRootPostCrossingCoupledTail R K j := by
+  rw [← squareRootDyadicJointPacket_eq_liveGliderMass,
+    squareRootDyadicJointPacket_eq_at_top,
+    dyadicJointPacketAt_eq_mertensSummatory,
+    postCrossingCoupledTail_eq_mertens_sub_partial R K j hR]
+
+/-- **Glider-to-Type-II splice.**  Prime extraction, composite-root/smooth
+recombination, the predecessor endpoint, and all strict quotient descendants
+are retained in one signed row.  At completed shallow layers the named prime
+diagonal is exactly zero; at the crossing it is the unfilled-seat remainder.
+No estimate is supplied by this equality. -/
+theorem squareRootLiveGliderMass_sub_partial_eq_typeIIRow
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K < R) :
+    (∑ n ∈ squareRootDyadicLiveGliderSet R, canonicalMoebiusWeight n) -
+        ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ) =
+      ∑ y ∈ Finset.Icc 1 (R - 1),
+        ((if y = R - 1 then 1 else 0) +
+            squareRootPostCrossingPrimeDiagonal R K j y +
+            replacementFibreTypeIIWindowMass R y +
+            squareRootOrientedStrictDescendantTransform R y) *
+          mertensSummatory y := by
+  rw [squareRootLiveGliderMass_sub_partial_eq_coupledTail R K j hR,
+    squareRootPostCrossingCoupledTail_eq_primeCancelledRow R K j hR hK hKR]
+  apply Finset.sum_congr rfl
+  intro y hy
+  rcases Finset.mem_Icc.mp hy with ⟨hy1, hyR⟩
+  have hsplice := replacementFibreCompositeRoot_add_smooth_eq_typeIIWindowMass
+    R y (by omega) hy1 (by omega)
+  congr 1
+  unfold squareRootPostCrossingPrimeCancelledCoefficient
+  linear_combination hsplice
+
+/-- **Canonical reciprocal Type-II glider row.**  The diagonal starts at
+cofactor two, while strict descendants still contain their cofactor-one faces.
+Consequently the prime-face cancellation must not be applied a second time
+inside the descendants.  All cross-scale interference remains signed. -/
+theorem squareRootLiveGliderMass_sub_partial_eq_canonicalRoughTypeIIRow
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K < R) :
+    (∑ n ∈ squareRootDyadicLiveGliderSet R, canonicalMoebiusWeight n) -
+        ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ) =
+      ∑ y ∈ Finset.Icc 1 (R - 1),
+        ((if y = R - 1 then 1 else 0) +
+            squareRootPostCrossingPrimeDiagonal R K j y +
+            replacementFibreCanonicalRoughReciprocalMass R y +
+            squareRootCanonicalRoughStrictDescendantTransform R y) *
+          mertensSummatory y := by
+  rw [squareRootLiveGliderMass_sub_partial_eq_typeIIRow R K j hR hK hKR]
+  simp_rw [replacementFibreTypeIIWindowMass_eq_canonicalRoughReciprocalMass
+    R _ (by omega),
+    squareRootOrientedStrictDescendantTransform_eq_canonicalRough R _ (by omega)]
+
+/-- The full first reciprocal fibre includes even states: its mass is nine,
+whereas the odd live-glider wall has mass six. -/
+theorem squareRootReplacementTailMoebiusCoefficient_56_one :
+    squareRootReplacementTailMoebiusCoefficient 56 1 = 9 := by
+  have h : (∑ n ∈ Finset.Icc 56 3135,
+      if 3135 / n = 1 then (μ n : ℤ) else 0) = 9 := by native_decide
+  change (∑ n ∈ Finset.Icc 56 3135,
+    if 3135 / n = 1 then ((μ n : ℤ) : ℂ) else 0) = 9
+  exact_mod_cast h
+
+/-- Exact prime-face extraction at the first production root. -/
+theorem replacementFibrePrimeFaceMass_56_one :
+    replacementFibrePrimeFaceMass 56 1 = -198 := by
+  have h : squareRootReciprocalPrimeLayerCard 56 1 = 198 := by native_decide
+  rw [replacementFibrePrimeFaceMass_eq_neg_reciprocalPrimeLayerCard
+    56 1 (by norm_num) (by norm_num) (by norm_num), h]
+  norm_num
+
+/-- The prime-cancelled composite diagonal is 207, not the glider mass six.
+This finite value does not rule out a bound on the complete signed row; it
+records the multiplicity that any such argument must retain and cancel. -/
+theorem replacementFibreTypeIIWindowMass_56_one :
+    replacementFibreTypeIIWindowMass 56 1 = 207 := by
+  have hsplit :=
+    squareRootReplacementTailMoebiusCoefficient_eq_prime_add_composite_add_smooth
+      56 1 (by norm_num)
+  have hsplice := replacementFibreCompositeRoot_add_smooth_eq_typeIIWindowMass
+    56 1 (by norm_num) (by norm_num) (by norm_num)
+  rw [squareRootReplacementTailMoebiusCoefficient_56_one,
+    replacementFibrePrimeFaceMass_56_one] at hsplit
+  linear_combination -hsplit - hsplice
+
+/-- Reindexing as a canonical rough reciprocal mass preserves the same 207;
+the coordinate change does not itself reduce its amplitude. -/
+theorem replacementFibreCanonicalRoughReciprocalMass_56_one :
+    replacementFibreCanonicalRoughReciprocalMass 56 1 = 207 := by
+  rw [← replacementFibreTypeIIWindowMass_eq_canonicalRoughReciprocalMass
+    56 1 (by norm_num), replacementFibreTypeIIWindowMass_56_one]
+
+/-- The actual shallow crossing admits two seats at depth eighteen and leaves
+zero partial-packet overshoot. -/
+theorem squareRootCrossingLayerPartialPacketInt_56_18_two :
+    squareRootCrossingLayerPartialPacketInt 56 18 2 = 0 := by
+  native_decide
+
+/-- At that crossing the complete Type-II/descendant tail still has mass six.
+The prime-face cancellation is exact without making the entire tail vanish. -/
+theorem squareRootPostCrossingCoupledTail_56_18_two :
+    squareRootPostCrossingCoupledTail 56 18 2 = 6 := by
+  rw [postCrossingCoupledTail_eq_mertens_sub_partial 56 18 2 (by norm_num),
+    squareRootCrossingLayerPartialPacketInt_56_18_two]
+  simp only [Int.cast_zero, sub_zero]
+  change mertensSummatory 3135 = 6
+  have h : squareRootMertensInt 3135 = 6 := by native_decide
+  rw [← squareRootMertensInt_cast_complex, h]
+  norm_num
 
 /-! ## Sign-correct smooth/high Buchstab splice -/
 

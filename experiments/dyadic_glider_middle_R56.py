@@ -16,6 +16,7 @@ No asymptotic estimate is used.
 """
 
 import math
+from bisect import bisect_right
 
 R = 56
 X = R * R - 1
@@ -184,6 +185,95 @@ assert replacement_tail_coeff[1] == -2
 assert replacement_coeff[1] == 2
 assert replacement_row_value == mertens[X] == 6
 
+# Independently construct the cofactor-prime Type-II windows, then compare
+# them to the literal Mobius fibres.  These are exact integer calculations.
+def reciprocal_prime_count(cutoff, endpoint, y):
+    lower = max(cutoff, endpoint // (y + 1))
+    upper = endpoint // y
+    return max(0, bisect_right(primes, upper) - bisect_right(primes, lower))
+
+
+tail_mobius = [0] * R
+prime_face = [0] * R
+for n in range(R, X + 1):
+    tail_mobius[X // n] += mu[n]
+for p in primes:
+    if p >= R:
+        prime_face[X // p] -= 1
+
+type_ii = [0] * R
+canonical_full = [0] * R
+descendants = [0] * R
+for y in range(1, R):
+    root_composite = -sum(
+        mu[c] * reciprocal_prime_count(c, X // c, y)
+        for c in range(2, R)
+    )
+    smooth = -sum(
+        mu[c] * sum(
+            1 for p in primes
+            if max(largest[c], X // c // (y + 1)) < p
+            <= X // c // y and p < c
+        )
+        for c in range(1, X // 2 + 1) if mu[c]
+    )
+    type_ii[y] = -sum(
+        mu[c] * reciprocal_prime_count(largest[c], X // c, y)
+        for c in range(2, X // 2 + 1)
+    )
+    assert root_composite + smooth == type_ii[y]
+    canonical_full[y] = type_ii[y] + prime_face[y]
+    assert canonical_full[y] == tail_mobius[y]
+
+for y in range(1, R):
+    descendants[y] = sum(
+        canonical_full[z] * (z // y - z // (y + 1))
+        for z in range(y + 1, R)
+    )
+    assert replacement_coeff[y] == (
+        (1 if y == R - 1 else 0) + prime_face[y]
+        + type_ii[y] + descendants[y]
+    )
+
+assert prime_face[1] == -198
+assert type_ii[1] == 207
+assert descendants[1] == -7
+assert prime_face[1] + type_ii[1] + descendants[1] == 2
+
+# Find the first complete-layer crossing and the least sufficient seat.
+layer_cards = [0] * R
+for p in primes:
+    if p > R:
+        layer_cards[X // p] += 1
+partial_before = 0
+for K in range(1, R):
+    partial_after = partial_before - layer_cards[K] * mertens[K]
+    if partial_before < 0 <= partial_after:
+        j = next(j for j in range(layer_cards[K] + 1)
+                 if partial_before - j * mertens[K] >= 0)
+        break
+    partial_before = partial_after
+else:
+    raise AssertionError("No crossing found")
+
+partial_packet = partial_before - j * mertens[K]
+assert (K, j, partial_packet) == (18, 2, 0)
+post_crossing_row = []
+for y in range(1, R):
+    removal = layer_cards[y] if y < K else (j if y == K else 0)
+    prime_diagonal = prime_face[y] + removal
+    if y < K:
+        assert prime_diagonal == 0
+    if y == K:
+        assert prime_diagonal == j - layer_cards[K]
+    coefficient = ((1 if y == R - 1 else 0) + prime_diagonal
+                   + type_ii[y] + descendants[y])
+    assert coefficient == replacement_coeff[y] + removal
+    post_crossing_row.append(coefficient * mertens[y])
+
+assert type_ii[1] + descendants[1] == 200
+assert sum(post_crossing_row) == mertens[X] - partial_packet == 6
+
 print("R =", R, "X =", X)
 print("M(X) =", mertens[X])
 print("middle prime count =", len(middle_primes))
@@ -203,6 +293,13 @@ print("same-c prime-swap witness: mu(15) =", mu[15],
 print("replacement tail coefficient z=1 =", replacement_tail_coeff[1])
 print("replacement full coefficient z=1 =", replacement_coeff[1])
 print("recombined replacement row =", replacement_row_value)
+print("z=1 prime face / Type-II / strict descendants =",
+      prime_face[1], type_ii[1], descendants[1])
+print("first crossing K / admitted seats j / partial packet =",
+      K, j, partial_packet)
+print("post-crossing first coefficient =", type_ii[1] + descendants[1])
+print("complete signed canonical Type-II row =", sum(post_crossing_row))
 print("PASS: active middle leaves -6 = -M(3135), not zero;")
 print("      634 live gliders embed in z=1 but are not the whole fibre;")
 print("      same-c fresh-prime replacement preserves Mobius sign.")
+print("      prime-face cancellation and Type-II splice retain all descendants.")
