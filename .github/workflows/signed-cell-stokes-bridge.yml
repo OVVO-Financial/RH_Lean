@@ -2,7 +2,7 @@ name: Signed cell Stokes bridge check
 
 on:
   push:
-    branches: [agent/weighted-othello-stokes, agent/stokes-boundary-terminal]
+    branches: [agent/weighted-othello-stokes, agent/stokes-boundary-terminal, agent/post-773-typeii-fubini-collapse]
   pull_request:
     branches: [main]
     paths:
@@ -31,6 +31,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_CONDUCTOR_PACKET.lean
       - research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_CLOSURE.lean
       - research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
       - research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
       - .github/workflows/signed-cell-stokes-bridge.yml
@@ -196,3 +197,4 @@ jobs:
           emit research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
           emit research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_CLOSURE.lean
