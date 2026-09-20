@@ -147,6 +147,43 @@ assert mu[c0 * q_low] == 1
 assert mu[c0 * p_high] == 1
 assert mu[c0 * q_low] == mu[c0 * p_high]
 
+# Exact recursive-replacement row.  This is the actual nonlocal pushforward:
+# kernel(R,n) = sum_{d|n, d<R} mu(d), then all n with the same quotient y are
+# recombined before multiplying M(y).
+def divisors(n):
+    out = []
+    d = 1
+    while d * d <= n:
+        if n % d == 0:
+            out.append(d)
+            if d * d != n:
+                out.append(n // d)
+        d += 1
+    return out
+
+
+def replacement_kernel(n):
+    return sum(mu[d] for d in divisors(n) if d < R)
+
+
+replacement_tail_coeff = [0] * R
+for n in range(R, X + 1):
+    y = X // n
+    replacement_tail_coeff[y] += replacement_kernel(n)
+
+replacement_coeff = [
+    (1 if y == R - 1 else 0) - replacement_tail_coeff[y]
+    for y in range(R)
+]
+replacement_row_value = sum(
+    replacement_coeff[y] * mertens[y]
+    for y in range(R)
+)
+
+assert replacement_tail_coeff[1] == -2
+assert replacement_coeff[1] == 2
+assert replacement_row_value == mertens[X] == 6
+
 print("R =", R, "X =", X)
 print("M(X) =", mertens[X])
 print("middle prime count =", len(middle_primes))
@@ -163,6 +200,9 @@ print("replacement z=1 full-fibre mass =", sum(mu[n] for n in replacement_fibre_
 print("low-prime count through R =", len(low_primes))
 print("same-c prime-swap witness: mu(15) =", mu[15],
       ", mu(1569) =", mu[1569])
+print("replacement tail coefficient z=1 =", replacement_tail_coeff[1])
+print("replacement full coefficient z=1 =", replacement_coeff[1])
+print("recombined replacement row =", replacement_row_value)
 print("PASS: active middle leaves -6 = -M(3135), not zero;")
 print("      634 live gliders embed in z=1 but are not the whole fibre;")
 print("      same-c fresh-prime replacement preserves Mobius sign.")
