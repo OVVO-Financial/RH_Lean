@@ -87,7 +87,7 @@ theorem mem_lowOwnerStokesFracturedCoreCarrier_iff
       n ∈ lowOwnerNonzeroMobiusCarrier R ∧
         ∃ r ∈ primesUpTo (squareRootEndpoint R),
           lowOwnerStokesToggleCrossingDefect R r n ≠ 0 := by
-  rfl
+  simp [lowOwnerStokesFracturedCoreCarrier]
 
 /-- Exact interior annihilation at first finite-difference level. -/
 theorem clip_toggle_difference_eq_zero_of_not_fractured
