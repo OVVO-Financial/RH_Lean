@@ -62,19 +62,26 @@ def dyadicJointHighMassAt (R B : ℕ) : ℂ :=
 def dyadicJointPacketAt (R B : ℕ) : ℂ :=
   dyadicJointSmoothMassAt R B + dyadicJointHighMassAt R B
 
+/-- The complement of the generic smooth filter is exactly its high filter. -/
+theorem dyadicJoint_filter_not_smooth_eq_high (R B : ℕ) :
+    (dyadicCofactorBoundary B).filter
+        (fun m => ¬ canonicalLargestPrimeFactor m ≤ R) =
+      dyadicJointHighSetAt R B := by
+  ext m
+  simp [dyadicJointHighSetAt]
+
 /-- Exact pre-norm partition at every boundary scale B. -/
 theorem dyadicJointPacketAt_eq_boundaryMass (R B : ℕ) :
     dyadicJointPacketAt R B = dyadicCofactorBoundaryMass B := by
   classical
   unfold dyadicJointPacketAt dyadicJointSmoothMassAt dyadicJointHighMassAt
-    dyadicJointSmoothSetAt dyadicJointHighSetAt dyadicCofactorBoundaryMass
+    dyadicJointSmoothSetAt dyadicCofactorBoundaryMass
+  symm
   rw [← Finset.sum_filter_add_sum_filter_not
     (s := dyadicCofactorBoundary B)
     (p := fun m => canonicalLargestPrimeFactor m ≤ R)
     (f := canonicalMoebiusWeight)]
-  congr 1
-  ext m
-  simp
+  rw [dyadicJoint_filter_not_smooth_eq_high R B]
 
 /-- **Scalar-collapse guardrail.**  After the two orientations are summed, the
 generic joint packet is just the Mertens prefix at B and therefore no longer
