@@ -1,5 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM»
+import «research.GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE»
 import «research.GLOBAL_RETURNED_CORE_STOKES_CLIP_AMPLITUDE_FACTOR»
 import «research.GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIOD_WHEEL»
 import «research.STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME»
@@ -573,15 +574,14 @@ theorem secondPrime_topInterior_eq_pair
       intro hdiv
       exact htPrime.ne_one (Nat.dvd_one.mp hdiv)
     have htoggleOne : primeCarrierToggle t 1 = t := by
-      rw [primeCarrierToggle_of_not_dvd htNotDvdOne]
-      simp
+      simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
     have htSq : ¬ t ^ 2 ∣ t := by
       intro hdiv
       have hle : t ^ 2 ≤ t := Nat.le_of_dvd htPrime.pos hdiv
       nlinarith [htPrime.two_le]
     have htoggleTop : primeCarrierToggle t t = 1 := by
-      rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
-      simp [htPrime.ne_zero]
+      simpa [Nat.div_self htPrime.ne_zero] using
+        (primeCarrierToggle_of_dvd (dvd_refl t) htSq)
     simp only [Finset.mem_insert, Finset.mem_singleton] at hn
     rcases hn with rfl | rfl
     · exact mem_primeInteriorPart.mpr
@@ -599,7 +599,7 @@ theorem secondPrime_topInterior_eq_empty_of_sig_ne_empty
     simpa [t] using topPrime_prime hR
   have hst : s < t := by
     simpa [s, t] using secondPrime_lt_topPrime hR
-  apply Finset.eq_empty_iff_forall_not_mem.mpr
+  apply Finset.eq_empty_iff_forall_notMem.mpr
   intro n hn
   have hsub :=
     secondPrime_topInterior_subset_pair
@@ -703,7 +703,6 @@ private theorem reciprocalDaughterWeight_le_at_one
     simp [hnY, h1Y]
   · by_cases h1Y : 1 ≤ rawQ2ChildCutoff R q
     · simp [hnY, h1Y]
-      positivity
     · simp [hnY, h1Y]
 
 private theorem secondPrime_baseCoefficient_le_one_add_H
@@ -770,11 +769,10 @@ private theorem secondPrime_empty_baseDifferenceAmplitude
     have hle : t ^ 2 ≤ t := Nat.le_of_dvd htPrime.pos hdiv
     nlinarith [htPrime.two_le]
   have htoggleOne : primeCarrierToggle t 1 = t := by
-    rw [primeCarrierToggle_of_not_dvd htNotDvdOne]
-    simp
+    simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
   have htoggleTop : primeCarrierToggle t t = 1 := by
-    rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
-    simp [htPrime.ne_zero]
+    simpa [Nat.div_self htPrime.ne_zero] using
+      (primeCarrierToggle_of_dvd (dvd_refl t) htSq)
   have hI := secondPrime_topInterior_eq_pair hR
   have hL1 := one_baseCoefficient_eq_reciprocal hR
   have hLt := topPrime_baseCoefficient_eq_one hR
@@ -805,11 +803,10 @@ private theorem secondPrime_empty_returnedDifferenceAmplitude
     have hle : t ^ 2 ≤ t := Nat.le_of_dvd htPrime.pos hdiv
     nlinarith [htPrime.two_le]
   have htoggleOne : primeCarrierToggle t 1 = t := by
-    rw [primeCarrierToggle_of_not_dvd htNotDvdOne]
-    simp
+    simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
   have htoggleTop : primeCarrierToggle t t = 1 := by
-    rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
-    simp [htPrime.ne_zero]
+    simpa [Nat.div_self htPrime.ne_zero] using
+      (primeCarrierToggle_of_dvd (dvd_refl t) htSq)
   have hI := secondPrime_topInterior_eq_pair hR
   have hJ1 := secondPrime_returned_one_eq_base hR
   have hJt := secondPrime_returned_top_eq_zero hR
@@ -1015,15 +1012,14 @@ private theorem secondPrime_topInterior_eq_pair
       intro hdiv
       exact htPrime.ne_one (Nat.dvd_one.mp hdiv)
     have htoggleOne : primeCarrierToggle t 1 = t := by
-      rw [primeCarrierToggle_of_not_dvd htNotDvdOne]
-      simp
+      simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
     have htSq : ¬ t ^ 2 ∣ t := by
       intro hdiv
       have hle : t ^ 2 ≤ t := Nat.le_of_dvd htPrime.pos hdiv
       nlinarith [htPrime.two_le]
     have htoggleTop : primeCarrierToggle t t = 1 := by
-      rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
-      simp [htPrime.ne_zero]
+      simpa [Nat.div_self htPrime.ne_zero] using
+        (primeCarrierToggle_of_dvd (dvd_refl t) htSq)
     simp only [Finset.mem_insert, Finset.mem_singleton] at hn
     rcases hn with rfl | rfl
     · exact mem_primeInteriorPart.mpr ⟨h1Base, by simpa [htoggleOne] using htBase⟩
@@ -1037,7 +1033,7 @@ private theorem secondPrime_topInterior_eq_empty_of_sig_ne_empty
   let t := topPrime R hR
   have htPrime : t.Prime := by simpa [t] using topPrime_prime hR
   have hst : s < t := by simpa [s, t] using secondPrime_lt_topPrime hR
-  apply Finset.eq_empty_iff_forall_not_mem.mpr
+  apply Finset.eq_empty_iff_forall_notMem.mpr
   intro n hn
   have hsub := secondPrime_topInterior_subset_pair (R := R) hR (sig := sig) hn
   rcases Finset.mem_insert.mp hsub with h1 | ht
@@ -1199,11 +1195,10 @@ private theorem secondPrime_empty_baseDifferenceAmplitude
     have hle : t ^ 2 ≤ t := Nat.le_of_dvd htPrime.pos hdiv
     nlinarith [htPrime.two_le]
   have htoggleOne : primeCarrierToggle t 1 = t := by
-    rw [primeCarrierToggle_of_not_dvd htNotDvdOne]
-    simp
+    simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
   have htoggleTop : primeCarrierToggle t t = 1 := by
-    rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
-    simp [htPrime.ne_zero]
+    simpa [Nat.div_self htPrime.ne_zero] using
+      (primeCarrierToggle_of_dvd (dvd_refl t) htSq)
   have hI := secondPrime_topInterior_eq_pair hR
   have hL1 := one_baseCoefficient_eq_reciprocal hR
   have hLt := topPrime_baseCoefficient_eq_one hR
@@ -1232,11 +1227,10 @@ private theorem secondPrime_empty_returnedDifferenceAmplitude
     have hle : t ^ 2 ≤ t := Nat.le_of_dvd htPrime.pos hdiv
     nlinarith [htPrime.two_le]
   have htoggleOne : primeCarrierToggle t 1 = t := by
-    rw [primeCarrierToggle_of_not_dvd htNotDvdOne]
-    simp
+    simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
   have htoggleTop : primeCarrierToggle t t = 1 := by
-    rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
-    simp [htPrime.ne_zero]
+    simpa [Nat.div_self htPrime.ne_zero] using
+      (primeCarrierToggle_of_dvd (dvd_refl t) htSq)
   have hI := secondPrime_topInterior_eq_pair hR
   have hJ1 := secondPrime_returned_one_eq_base hR
   have hJt := secondPrime_returned_top_eq_zero hR
@@ -1271,7 +1265,8 @@ theorem secondPrime_terminal_eq_two_one_sub_H_mul_L
   · intro sig hsigMem hsigNe
     rw [secondPrime_topInterior_eq_empty_of_sig_ne_empty hR hsigNe]
     simp [lowOwnerStokesSignedAmplitude]
-  · exact hEmptyMem
+  · intro hnot
+    exact (hnot hEmptyMem).elim
 
 theorem secondPrime_terminal_le_four
     {R : ℕ} (hR : 56 ≤ R) :
