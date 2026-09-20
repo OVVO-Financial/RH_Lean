@@ -423,10 +423,11 @@ theorem lowOwnerFirstOwnerCanonicalStokesClipBoundary_eq_topTwoNormalForm
       lowOwnerFirstOwnerTopTwoStokesClipNormalForm R hR p sig := by
   by_cases hpTop : p = topPrime R hR
   · subst p
-    simp [lowOwnerFirstOwnerTopTwoStokesClipNormalForm,
-      lowOwnerFirstOwnerCanonicalStokesClipBoundary,
-      topPrime_schedule_eq_nil hR,
-      lowOwnerFirstOwnerPhysicalStokesBoundaryFrom]
+    rw [← lowOwnerFirstOwnerCanonicalStokesBoundary_eq_clipBoundary]
+    unfold lowOwnerFirstOwnerCanonicalStokesBoundary
+    rw [topPrime_schedule_eq_nil hR]
+    simp [iteratedPairWeightedStokesBoundary,
+      lowOwnerFirstOwnerTopTwoStokesClipNormalForm]
   · by_cases hpSecond : p = secondPrime R hR
     · subst p
       rw [← lowOwnerFirstOwnerCanonicalStokesBoundary_eq_clipBoundary]
