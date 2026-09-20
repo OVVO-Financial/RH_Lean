@@ -76,6 +76,21 @@ theorem dyadicJointPacketAt_eq_boundaryMass (R B : ℕ) :
   ext m
   simp
 
+/-- **Scalar-collapse guardrail.**  After the two orientations are summed, the
+generic joint packet is just the Mertens prefix at B and therefore no longer
+remembers the smooth/high cutoff R.  Any future power-gain operator must act
+before this scalar collapse, on the structured packet or its labelled support. -/
+theorem dyadicJointPacketAt_eq_mertensSummatory (R B : ℕ) :
+    dyadicJointPacketAt R B = RHLean.Analysis.mertensSummatory B := by
+  rw [dyadicJointPacketAt_eq_boundaryMass,
+    ← mertensSummatory_eq_dyadicCofactorBoundaryMass]
+
+/-- In particular the scalar packet is owner-cutoff independent at fixed B. -/
+theorem dyadicJointPacketAt_ownerIndependent (R R' B : ℕ) :
+    dyadicJointPacketAt R B = dyadicJointPacketAt R' B := by
+  rw [dyadicJointPacketAt_eq_mertensSummatory,
+    dyadicJointPacketAt_eq_mertensSummatory]
+
 /-- Smooth part of the top odd dyadic annulus. -/
 def squareRootDyadicAnnulusSmoothSet (R : ℕ) : Finset ℕ :=
   (dyadicCofactorBoundary (squareRootEndpoint R)).filter fun m =>
