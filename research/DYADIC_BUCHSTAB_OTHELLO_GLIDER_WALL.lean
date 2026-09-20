@@ -737,17 +737,17 @@ theorem primeWheelTruncatedMoebiusKernel_eq_replacementFiniteDifferenceIndicator
   by_cases hdX : d ≤ X
   · have hq1 : 1 ≤ X / d := (Nat.one_le_div_iff hdpos).2 hdX
     have hq0 : X / d ≠ 0 := by omega
-    simp [shift, squareRootReplacementPositiveIndicator, hdX, hq0]
+    simp [squareRootReplacementPositiveIndicator, hdX, hq0]
   · have hXd : X < d := Nat.lt_of_not_ge hdX
     have hq0 : X / d = 0 := Nat.div_eq_of_lt hXd
-    simp [shift, squareRootReplacementPositiveIndicator, hdX, hq0]
+    simp [squareRootReplacementPositiveIndicator, hdX, hq0]
 
 /-- On a squarefree wheel product, the root-truncated replacement kernel is
 literally the ordinary wheel cutoff kernel at R - 1.  This is only a
 coordinate identification; no cancellation or estimate is added here. -/
 theorem squareRootReplacementKernel_primorial_eq_truncatedWheelKernel
     (S : Finset ℕ) (R : ℕ) (hR : 1 ≤ R) :
-    squareRootReplacementKernel R (primorial S) =
+    squareRootReplacementKernel R (RHLean.Arithmetic.primorial S) =
       ((primeWheelTruncatedMoebiusKernel S (R - 1) : ℤ) : ℂ) := by
   unfold squareRootReplacementKernel squareRootReplacementSeed
     primeWheelTruncatedMoebiusKernel
@@ -767,19 +767,20 @@ theorem squareRootReplacementCrossingShell_primorial_eq_finiteDifferenceOperator
     (S : Finset ℕ) (R p : ℕ)
     (hR : 1 ≤ R) (hp : p.Prime) (hpS : p ∉ S)
     (hprime : ∀ q ∈ S, q.Prime) :
-    squareRootReplacementCrossingShell R (primorial S) p =
+    squareRootReplacementCrossingShell R (RHLean.Arithmetic.primorial S) p =
       (((finiteDifferenceOperator (insert p S)
           squareRootReplacementPositiveIndicator) (R - 1) : ℤ) : ℂ) := by
-  have hcpos : 0 < primorial S := by
+  have hcpos : 0 < RHLean.Arithmetic.primorial S := by
     unfold primorial
     exact Finset.prod_pos fun q hq => (hprime q hq).pos
-  have hcop : Nat.Coprime p (primorial S) :=
+  have hcop : Nat.Coprime p (RHLean.Arithmetic.primorial S) :=
     prime_coprime_primorial S p hp hpS hprime
-  have hfresh : ¬ p ∣ primorial S :=
+  have hfresh : ¬ p ∣ RHLean.Arithmetic.primorial S :=
     (hp.coprime_iff_not_dvd).mp hcop
   rw [← squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
     hcpos hp hfresh]
-  have hprod : primorial S * p = primorial (insert p S) := by
+  have hprod : RHLean.Arithmetic.primorial S * p =
+      RHLean.Arithmetic.primorial (insert p S) := by
     rw [primorial_insert S p hpS]
     exact Nat.mul_comm _ _
   rw [hprod,
@@ -793,7 +794,7 @@ theorem squareRootReplacementCrossingShell_primorial_eq_old_sub_shift
     (S : Finset ℕ) (R p : ℕ)
     (hR : 1 ≤ R) (hp : p.Prime) (hpS : p ∉ S)
     (hprime : ∀ q ∈ S, q.Prime) :
-    squareRootReplacementCrossingShell R (primorial S) p =
+    squareRootReplacementCrossingShell R (RHLean.Arithmetic.primorial S) p =
       (((finiteDifferenceOperator S squareRootReplacementPositiveIndicator) (R - 1) -
         (finiteDifferenceOperator S
           (shift p squareRootReplacementPositiveIndicator)) (R - 1) : ℤ) : ℂ) := by
@@ -823,8 +824,8 @@ theorem squareRootReplacementCrossingShell_squarefree_eq_finiteDifferenceOperato
   have hpS : p ∉ c.primeFactors := by
     intro hpMem
     exact hfresh (Nat.mem_primeFactors.mp hpMem).2.1
-  have hcWheel : primorial c.primeFactors = c := by
-    simpa [primorial] using Nat.prod_primeFactors_of_squarefree hsq
+  have hcWheel : RHLean.Arithmetic.primorial c.primeFactors = c := by
+    simpa [RHLean.Arithmetic.primorial] using Nat.prod_primeFactors_of_squarefree hsq
   have h :=
     squareRootReplacementCrossingShell_primorial_eq_finiteDifferenceOperator
       c.primeFactors R p hR hp hpS hprime
@@ -846,8 +847,8 @@ theorem squareRootReplacementCrossingShell_squarefree_eq_old_sub_shift
   have hpS : p ∉ c.primeFactors := by
     intro hpMem
     exact hfresh (Nat.mem_primeFactors.mp hpMem).2.1
-  have hcWheel : primorial c.primeFactors = c := by
-    simpa [primorial] using Nat.prod_primeFactors_of_squarefree hsq
+  have hcWheel : RHLean.Arithmetic.primorial c.primeFactors = c := by
+    simpa [RHLean.Arithmetic.primorial] using Nat.prod_primeFactors_of_squarefree hsq
   have h :=
     squareRootReplacementCrossingShell_primorial_eq_old_sub_shift
       c.primeFactors R p hR hp hpS hprime
@@ -871,8 +872,14 @@ theorem squareRootReplacementCrossingShell_eq_carrierMass
     squareRootReplacementCrossingShell R c p =
       ∑ d ∈ squareRootReplacementCrossingShellCarrier R c p,
         (((μ d : ℤ) : ℂ)) := by
-  simp [squareRootReplacementCrossingShell,
-    squareRootReplacementCrossingShellCarrier]
+  unfold squareRootReplacementCrossingShell
+    squareRootReplacementCrossingShellCarrier
+  rw [← Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro d hd
+  by_cases hcross : d < R ∧ R ≤ p * d
+  · simp [hcross]
+  · simp [hcross]
 
 /-- Divisor-shell atom -> canonical threshold-loss cell.  In the canonical
 fresh orientation P+(c) < p, every admitted divisor edge d < R <= p*d has p
