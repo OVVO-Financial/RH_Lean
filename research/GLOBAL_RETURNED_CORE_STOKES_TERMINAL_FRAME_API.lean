@@ -580,14 +580,22 @@ theorem secondPrime_topInterior_eq_pair
       have hle : t ^ 2 ≤ t := Nat.le_of_dvd htPrime.pos hdiv
       nlinarith [htPrime.two_le]
     have htoggleTop : primeCarrierToggle t t = 1 := by
-      simpa [Nat.div_self htPrime.ne_zero] using
-        (primeCarrierToggle_of_dvd (dvd_refl t) htSq)
+      rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
+      exact Nat.div_self htPrime.pos
     simp only [Finset.mem_insert, Finset.mem_singleton] at hn
     rcases hn with rfl | rfl
-    · exact mem_primeInteriorPart.mpr
-        ⟨h1Base, by simpa [htoggleOne] using htBase⟩
-    · exact mem_primeInteriorPart.mpr
-        ⟨htBase, by simpa [htoggleTop] using h1Base⟩
+    · apply mem_primeInteriorPart.mpr
+      constructor
+      · exact h1Base
+      · change primeCarrierToggle t 1 ∈ lowOwnerFirstOwnerBaseFiber R s ∅
+        rw [htoggleOne]
+        exact htBase
+    · apply mem_primeInteriorPart.mpr
+      constructor
+      · exact htBase
+      · change primeCarrierToggle t t ∈ lowOwnerFirstOwnerBaseFiber R s ∅
+        rw [htoggleTop]
+        exact h1Base
 
 theorem secondPrime_topInterior_eq_empty_of_sig_ne_empty
     {R : ℕ} (hR : 56 ≤ R) {sig : Finset ℕ} (hsig : sig ≠ ∅) :
@@ -662,8 +670,8 @@ private theorem topPrime_baseCoefficient_eq_one
     simpa [t] using endpoint_half_lt_topPrime hR
   have hmul : R * 2 ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
-    have hge : 3 * R ≤ R * R := Nat.mul_le_mul (by omega : 3 ≤ R) (le_refl R)
-    omega
+    apply Nat.le_sub_of_add_le
+    nlinarith
   have hhalf : R ≤ squareRootEndpoint R / 2 :=
     (Nat.le_div_iff_mul_le (by norm_num)).2 hmul
   have hRt : R ≤ t := hhalf.trans (Nat.le_of_lt htTop)
@@ -778,7 +786,7 @@ private theorem secondPrime_empty_baseDifferenceAmplitude
   have hLt := topPrime_baseCoefficient_eq_one hR
   unfold lowOwnerStokesSignedAmplitude lowOwnerStokesToggleDifference
   rw [hI]
-  have h1t : 1 ≠ t := by omega
+  have h1t : 1 ≠ t := Ne.symm htPrime.ne_one
   simp [t, h1t, htoggleOne, htoggleTop, hL1, hLt,
     othelloRealMoebius, ArithmeticFunction.moebius_apply_prime htPrime]
   ring
@@ -812,7 +820,7 @@ private theorem secondPrime_empty_returnedDifferenceAmplitude
   have hJt := secondPrime_returned_top_eq_zero hR
   unfold lowOwnerStokesSignedAmplitude lowOwnerStokesToggleDifference
   rw [hI]
-  have h1t : 1 ≠ t := by omega
+  have h1t : 1 ≠ t := Ne.symm htPrime.ne_one
   simp [t, h1t, htoggleOne, htoggleTop, hJ1, hJt,
     othelloRealMoebius, ArithmeticFunction.moebius_apply_prime htPrime]
   ring
