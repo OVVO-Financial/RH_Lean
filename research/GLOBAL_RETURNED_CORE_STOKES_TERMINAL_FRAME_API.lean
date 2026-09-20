@@ -779,8 +779,8 @@ private theorem secondPrime_empty_baseDifferenceAmplitude
   have htoggleOne : primeCarrierToggle t 1 = t := by
     simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
   have htoggleTop : primeCarrierToggle t t = 1 := by
-    simpa [Nat.div_self htPrime.ne_zero] using
-      (primeCarrierToggle_of_dvd (dvd_refl t) htSq)
+    rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
+    exact Nat.div_self htPrime.pos
   have hI := secondPrime_topInterior_eq_pair hR
   have hL1 := one_baseCoefficient_eq_reciprocal hR
   have hLt := topPrime_baseCoefficient_eq_one hR
@@ -813,8 +813,8 @@ private theorem secondPrime_empty_returnedDifferenceAmplitude
   have htoggleOne : primeCarrierToggle t 1 = t := by
     simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
   have htoggleTop : primeCarrierToggle t t = 1 := by
-    simpa [Nat.div_self htPrime.ne_zero] using
-      (primeCarrierToggle_of_dvd (dvd_refl t) htSq)
+    rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
+    exact Nat.div_self htPrime.pos
   have hI := secondPrime_topInterior_eq_pair hR
   have hJ1 := secondPrime_returned_one_eq_base hR
   have hJt := secondPrime_returned_top_eq_zero hR
