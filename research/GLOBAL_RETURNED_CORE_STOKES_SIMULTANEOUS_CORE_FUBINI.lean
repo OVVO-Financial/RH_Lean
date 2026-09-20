@@ -359,7 +359,7 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
       have huTail : u ∈ tail := by
         simp only [List.mem_cons] at huSched
         rcases huSched with hutEq | huTail
-        · exact False.elim (hut hutEq.symm)
+        · exact False.elim (hut hutEq)
         · exact huTail
       cases tail with
       | nil =>
