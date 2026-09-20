@@ -3,6 +3,8 @@ import «research.DYADIC_LONG_RANGE_TETHER_AUDIT»
 import RHLean.Proof.PrefixCarrierOthelloWalls
 import RHLean.Proof.VanishingTransitionRelevanceBase
 import RHLean.Analysis.SquareRootPrimeCountGap
+import RHLean.Proof.RecursivePrimeReplacement
+import RHLean.Proof.ReplacementFibreOrientationSplit
 
 /-!
 # Dyadic Buchstab/Othello splice: the joint packet is already an escape wall
@@ -46,7 +48,7 @@ attribute [local instance] Classical.propDecidable
 /-- The lower anchor wall is empty for the full prefix (0,B]. -/
 theorem primeTwoAnchorWall_zero (B : ℕ) :
     primeCarrierAnchorWall 2 0 B = ∅ := by
-  apply Finset.eq_empty_iff_forall_not_mem.mpr
+  apply Finset.eq_empty_iff_forall_notMem.mpr
   intro n hn
   rcases mem_primeCarrierAnchorWall.mp hn with
     ⟨hnIoc, _hdvd, _hsq, hle⟩
@@ -235,6 +237,138 @@ theorem squareRootDyadicJointPacket_eq_iteratedGliderBoundaryMass
   rw [squareRootDyadicJointPacket_eq_at_top]
   exact dyadicJointPacketAt_eq_iteratedGliderBoundaryMass
     ps hps R (squareRootEndpoint R)
+
+/-! ## The live glider wall is the odd squarefree part of replacement fibre one -/
+
+/-- Nonzero Mobius atoms on the prime-two escape wall.  This is the literal
+live-cell carrier; nonsquarefree wall sites have zero native weight. -/
+def squareRootDyadicLiveGliderSet (R : ℕ) : Finset ℕ :=
+  (dyadicCofactorBoundary (squareRootEndpoint R)).filter Squarefree
+
+/-- Every point of a strict dyadic boundary has reciprocal quotient exactly one.
+This is the exact reason the top glider wall belongs to replacement fibre
+\`z = 1\`. -/
+theorem dyadicCofactorBoundary_div_eq_one
+    {B n : ℕ} (hn : n ∈ dyadicCofactorBoundary B) :
+    B / n = 1 := by
+  rcases mem_dyadicCofactorBoundary.mp hn with
+    ⟨hn1, hnB, _hodd, hB2n⟩
+  have hnpos : 0 < n := by omega
+  have hlo : 1 ≤ B / n :=
+    (Nat.one_le_div_iff hnpos).2 hnB
+  have hhi : B / n < 2 :=
+    (Nat.div_lt_iff_lt_mul hnpos).2
+      (by simpa [Nat.mul_comm] using hB2n)
+  omega
+
+/-- Every live top-wall atom lies in the replacement fibre \`z = 1\`.
+The converse is intentionally not stated: the full reciprocal fibre also
+contains even atoms already removed by the prime-two Othello pairing. -/
+theorem squareRootDyadicLiveGlider_mem_replacementFibre_one
+    {R n : ℕ} (hn : n ∈ squareRootDyadicLiveGliderSet R) :
+    n ∈ Finset.Icc
+      (squareRootReplacementFibreLower R 1)
+      (squareRootReplacementFibreUpper R 1) := by
+  rcases Finset.mem_filter.mp hn with ⟨hnWall, _hsf⟩
+  have hn1 : 1 ≤ n :=
+    (mem_dyadicCofactorBoundary.mp hnWall).1
+  have hdiv : squareRootEndpoint R / n = 1 :=
+    dyadicCofactorBoundary_div_eq_one hnWall
+  exact
+    (squareRootEndpoint_div_eq_iff_mem_replacementFibre
+      (R := R) (n := n) (z := 1) hn1 (by norm_num)).1 hdiv
+
+/-- The complete prime-two wall mass is already carried by its squarefree live
+cells; nonsquarefree sites vanish rather than needing an estimate. -/
+theorem dyadicCofactorBoundaryMass_eq_liveGliderMass (R : ℕ) :
+    dyadicCofactorBoundaryMass (squareRootEndpoint R) =
+      ∑ n ∈ squareRootDyadicLiveGliderSet R,
+        canonicalMoebiusWeight n := by
+  unfold dyadicCofactorBoundaryMass squareRootDyadicLiveGliderSet
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  by_cases hsf : Squarefree n
+  · simp [hsf]
+  · have hzero : (μ n : ℤ) = 0 :=
+      ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsf
+    simp [hsf, canonicalMoebiusWeight, hzero]
+
+/-- The top joint packet is literally the signed mass of the live glider cells. -/
+theorem squareRootDyadicJointPacket_eq_liveGliderMass (R : ℕ) :
+    squareRootDyadicJointPacket R =
+      ∑ n ∈ squareRootDyadicLiveGliderSet R,
+        canonicalMoebiusWeight n := by
+  rw [squareRootDyadicJointPacket_eq_annulusMass,
+    dyadicCofactorBoundaryMass_eq_liveGliderMass]
+
+/-- **Exact glider-to-replacement pushforward.**  The whole signed live wall,
+not its atoms separately, is the completed-square Mertens value and hence the
+existing lower-triangular recursive replacement row.  All replacement
+coefficients remain recombined before any norm. -/
+theorem squareRootLiveGliderMass_eq_recombinedReplacementRow
+    (R : ℕ) (hR : 2 ≤ R) :
+    (∑ n ∈ squareRootDyadicLiveGliderSet R,
+        canonicalMoebiusWeight n) =
+      ∑ y ∈ Finset.range R,
+        squareRootReplacementCoefficient R y *
+          mertensSummatory y := by
+  calc
+    (∑ n ∈ squareRootDyadicLiveGliderSet R,
+        canonicalMoebiusWeight n) =
+      squareRootDyadicJointPacket R :=
+        (squareRootDyadicJointPacket_eq_liveGliderMass R).symm
+    _ = dyadicJointPacketAt R (squareRootEndpoint R) :=
+      squareRootDyadicJointPacket_eq_at_top R
+    _ = mertensSummatory (squareRootEndpoint R) :=
+      dyadicJointPacketAt_eq_mertensSummatory R (squareRootEndpoint R)
+    _ = ∑ y ∈ Finset.range R,
+        squareRootReplacementCoefficient R y *
+          mertensSummatory y :=
+      mertensEndpoint_eq_recombinedReplacementRow R hR
+
+/-- The same replacement-row pushforward read from any Othello glider boundary.
+The Othello chronology changes the carrier, but not the signed mass. -/
+theorem iteratedGliderBoundaryMass_eq_recombinedReplacementRow
+    (ps : List ℕ) (hps : ∀ p ∈ ps, p.Prime)
+    (R : ℕ) (hR : 2 ≤ R) :
+    (∑ n ∈ dyadicJointGliderBoundary ps (squareRootEndpoint R),
+        canonicalMoebiusWeight n) =
+      ∑ y ∈ Finset.range R,
+        squareRootReplacementCoefficient R y *
+          mertensSummatory y := by
+  calc
+    (∑ n ∈ dyadicJointGliderBoundary ps (squareRootEndpoint R),
+        canonicalMoebiusWeight n) =
+      squareRootDyadicJointPacket R :=
+        (squareRootDyadicJointPacket_eq_iteratedGliderBoundaryMass
+          ps hps R).symm
+    _ = ∑ y ∈ Finset.range R,
+        squareRootReplacementCoefficient R y *
+          mertensSummatory y :=
+      squareRootLiveGliderMass_eq_recombinedReplacementRow R hR
+        |>.trans
+          (squareRootDyadicJointPacket_eq_liveGliderMass R).symm
+
+/-- **Prime-swap sign guardrail.**  Replacing one fresh prime by another while
+holding the cofactor fixed preserves the Mobius sign: both products are
+\`-mu(c)\`.  Therefore replacement fibres are not an atomwise sign-reversing
+matching between low-prime and high-prime multiples of the same cofactor. -/
+theorem canonicalMoebiusWeight_primeSwap_eq_of_rough
+    {c p q : ℕ}
+    (hc : 0 < c)
+    (hp : p.Prime) (hq : q.Prime)
+    (hpFresh : canonicalLargestPrimeFactor c < p)
+    (hqFresh : canonicalLargestPrimeFactor c < q) :
+    canonicalMoebiusWeight (c * p) =
+      canonicalMoebiusWeight (c * q) := by
+  rw [canonicalMoebiusWeight_mul_prime_eq_neg_of_rough hc hp hpFresh,
+    canonicalMoebiusWeight_mul_prime_eq_neg_of_rough hc hq hqFresh]
+
+/-- Kernel-locked size of the first production live-glider wall. -/
+theorem squareRootDyadicLiveGliderSet_card_56 :
+    (squareRootDyadicLiveGliderSet 56).card = 634 := by
+  native_decide
 
 /-! ## Sign-correct smooth/high Buchstab splice -/
 
