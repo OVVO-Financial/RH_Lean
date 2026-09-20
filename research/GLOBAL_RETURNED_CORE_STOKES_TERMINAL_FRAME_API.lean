@@ -366,5 +366,124 @@ theorem secondPrime_topInterior_subset_pair
     (R := R) (p := secondPrime R hR) (q := topPrime R hR) (sig := sig)
     (topPrime_prime hR) (endpoint_half_lt_topPrime hR)
 
+
+/-! ## Zero-owner terminal: favorable sign -/
+
+theorem topPrime_admittedBase_eq_one
+    {R : ℕ} (hR : 56 ≤ R) {sig : Finset ℕ} {a : ℕ}
+    (ha : a ∈ lowOwnerFirstOwnerAdmittedBaseFiber
+      R (topPrime R hR) sig) :
+    a = 1 := by
+  rcases Finset.mem_filter.mp ha with ⟨haBase, hpaX⟩
+  have haCar := (Finset.mem_filter.mp haBase).1
+  have haPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos haCar).2
+  have htop := endpoint_half_lt_topPrime hR
+  have hXlt :
+      squareRootEndpoint R < 2 * topPrime R hR := by
+    omega
+  by_contra hne
+  have ha2 : 2 ≤ a := by omega
+  have hmul :
+      2 * topPrime R hR ≤ topPrime R hR * a := by
+    simpa [Nat.mul_comm] using
+      Nat.mul_le_mul_right (topPrime R hR) ha2
+  omega
+
+theorem topPrime_emptyBase_eq_one
+    {R : ℕ} (hR : 56 ≤ R) {a : ℕ}
+    (ha : a ∈ lowOwnerFirstOwnerBaseFiber R (topPrime R hR) ∅) :
+    a = 1 := by
+  rcases Finset.mem_filter.mp ha with ⟨haCar, hdata⟩
+  rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos haCar with
+    ⟨_haSq, haPos⟩
+  by_contra hane
+  obtain ⟨q, hqPrime, hqDvd⟩ :=
+    Nat.exists_prime_and_dvd (by omega : a ≠ 1)
+  have haIcc := (Finset.mem_filter.mp haCar).1
+  have haX := (Finset.mem_Icc.mp haIcc).2
+  have hqLeA : q ≤ a := Nat.le_of_dvd haPos hqDvd
+  have hqX : q ≤ squareRootEndpoint R := hqLeA.trans haX
+  have hqMem : q ∈ primesUpTo (squareRootEndpoint R) :=
+    mem_primesUpTo.mpr ⟨hqPrime, hqX⟩
+  have hqTop : q ≤ topPrime R hR :=
+    Finset.le_max' _ q hqMem
+  have hqNeTop : q ≠ topPrime R hR := by
+    intro heq
+    subst q
+    exact hdata.2 hqDvd
+  have hqLtTop : q < topPrime R hR := by omega
+  have hqFace : q ∈ squarefreePrimeFace a := by
+    unfold squarefreePrimeFace
+    exact Nat.mem_primeFactors.mpr ⟨hqPrime, hqDvd, Nat.ne_of_gt haPos⟩
+  have hqSig :
+      q ∈ squarefreeLowerPrimeSignature (topPrime R hR) a :=
+    Finset.mem_filter.mpr ⟨hqFace, hqLtTop⟩
+  rw [hdata.1] at hqSig
+  simp at hqSig
+
+theorem topPrime_emptyBaseAmplitude_nonneg
+    {R : ℕ} (hR : 56 ≤ R) :
+    0 ≤ lowOwnerFirstOwnerBaseAmplitude R (topPrime R hR) ∅ := by
+  unfold lowOwnerFirstOwnerBaseAmplitude
+  apply Finset.sum_nonneg
+  intro a ha
+  have ha1 := topPrime_emptyBase_eq_one hR ha
+  subst a
+  unfold lowOwnerZeroFrequencyMobiusSite
+  have hw := lowOwnerZeroFrequencyMobiusWeight_nonneg R 1
+  norm_num [RHLean.Analysis.realMoebiusStep] at hw ⊢
+  exact hw
+
+theorem topPrime_emptyReturnedAmplitude_nonneg
+    {R : ℕ} (hR : 56 ≤ R) :
+    0 ≤ lowOwnerFirstOwnerReturnedChildParentAmplitude
+      R (topPrime R hR) ∅ := by
+  unfold lowOwnerFirstOwnerReturnedChildParentAmplitude
+  apply Finset.sum_nonneg
+  intro a ha
+  have ha1 := topPrime_admittedBase_eq_one hR ha
+  subst a
+  have hw :=
+    lowOwnerZeroFrequencyMobiusWeight_nonneg R (topPrime R hR)
+  norm_num [RHLean.Analysis.realMoebiusStep] at hw ⊢
+  exact hw
+
+theorem topPrime_returnedAmplitude_eq_zero_of_signature_ne_empty
+    {R : ℕ} (hR : 56 ≤ R) {sig : Finset ℕ}
+    (hsig : sig ≠ ∅) :
+    lowOwnerFirstOwnerReturnedChildParentAmplitude
+      R (topPrime R hR) sig = 0 := by
+  unfold lowOwnerFirstOwnerReturnedChildParentAmplitude
+  apply Finset.sum_eq_zero
+  intro a ha
+  have ha1 := topPrime_admittedBase_eq_one hR ha
+  subst a
+  have hbase := (Finset.mem_filter.mp ha).1
+  have hsigOne := (Finset.mem_filter.mp hbase).2.1
+  have hone :
+      squarefreeLowerPrimeSignature (topPrime R hR) 1 = ∅ := by
+    simp [squarefreeLowerPrimeSignature, squarefreePrimeFace]
+  rw [hone] at hsigOne
+  exact (hsig hsigOne.symm).elim
+
+theorem topPrimeTerminal_nonpos
+    {R : ℕ} (hR : 56 ≤ R) :
+    (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R (topPrime R hR),
+      lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary
+        R (topPrime R hR) sig) ≤ 0 := by
+  have hp := topPrime_prime hR
+  have hsched := topPrime_schedule_eq_nil hR
+  rw [sum_lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_schedule_nil
+    hp hsched]
+  apply Finset.sum_nonpos
+  intro sig _hsigMem
+  by_cases hsig : sig = ∅
+  · subst sig
+    have hB := topPrime_emptyBaseAmplitude_nonneg hR
+    have hJ := topPrime_emptyReturnedAmplitude_nonneg hR
+    nlinarith
+  · rw [topPrime_returnedAmplitude_eq_zero_of_signature_ne_empty hR hsig]
+    norm_num
+
 end StokesTerminalFrame
 end RHLean.Proof
