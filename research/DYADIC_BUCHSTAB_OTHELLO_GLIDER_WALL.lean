@@ -357,7 +357,7 @@ holding the cofactor fixed preserves the Mobius sign: both products are
 matching between low-prime and high-prime multiples of the same cofactor. -/
 theorem canonicalMoebiusWeight_primeSwap_eq_of_rough
     {c p q : ℕ}
-    (hc : 0 < c)
+    (_hc : 0 < c)
     (hp : p.Prime) (hq : q.Prime)
     (hpFresh : canonicalLargestPrimeFactor c < p)
     (hqFresh : canonicalLargestPrimeFactor c < q) :
@@ -547,14 +547,14 @@ theorem squareRootReplacementKernel_of_distinct_low_primes
   have hdiv : (p * q).divisors = {1, p, q, p * q} := by
     ext d
     simp [Nat.divisors_mul, hp.divisors, hq.divisors, Finset.mem_mul,
-      eq_comm, or_comm, or_left_comm, or_assoc]
+      eq_comm, or_comm, or_assoc]
   have h1R : 1 < R := hp.one_lt.trans hpR
   have hnot : ¬ p * q < R := Nat.not_lt_of_ge hprod
   have hfilter : ((p * q).divisors.filter (fun d => d < R)) = {1, p, q} := by
-    simp [hdiv, h1R, hpR, hqR, hnot]
+    simp [hdiv]
   unfold squareRootReplacementKernel squareRootReplacementSeed
   rw [← Finset.sum_filter, hfilter]
-  simp [hp.ne_one, hq.ne_one, Ne.symm hp.ne_one, Ne.symm hq.ne_one, hpq,
+  simp [Ne.symm hp.ne_one, Ne.symm hq.ne_one, hpq,
     ArithmeticFunction.moebius_apply_prime hp,
     ArithmeticFunction.moebius_apply_prime hq]
 
@@ -605,7 +605,7 @@ private theorem divisors_mul_prime_eq_union_image
 /-- Freshness makes the old divisor family disjoint from its prime-multiple
 copy. -/
 private theorem disjoint_divisors_mul_freshPrime
-    {c p : ℕ} (hp : p.Prime) (hfresh : ¬ p ∣ c) :
+    {c p : ℕ} (hfresh : ¬ p ∣ c) :
     Disjoint c.divisors
       (c.divisors.image (fun d => p * d)) := by
   classical
@@ -635,7 +635,7 @@ theorem squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
   have hcop : Nat.Coprime p c := (hp.coprime_iff_not_dvd).2 hfresh
   unfold squareRootReplacementKernel
   rw [divisors_mul_prime_eq_union_image hp]
-  rw [Finset.sum_union (disjoint_divisors_mul_freshPrime hp hfresh)]
+  rw [Finset.sum_union (disjoint_divisors_mul_freshPrime hfresh)]
   have hinj : Set.InjOn (fun d : ℕ => p * d) c.divisors := by
     intro a _ha b _hb hab
     exact Nat.mul_left_cancel hp.pos hab
@@ -657,11 +657,11 @@ theorem squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
     · have hnot : ¬ R ≤ p * d := Nat.not_le_of_gt hpdR
       simp [hdR, hpdR, hnot, hmu]
     · have hRpd : R ≤ p * d := Nat.le_of_not_gt hpdR
-      simp [hdR, hpdR, hRpd, hmu]
+      simp [hdR, hpdR, hRpd]
   · have hRd : R ≤ d := Nat.le_of_not_gt hdR
     have hRpd : R ≤ p * d := hRd.trans hdp
     have hnot : ¬ p * d < R := Nat.not_lt_of_ge hRpd
-    simp [hdR, hnot, hRpd, hmu]
+    simp [hdR, hnot, hRpd]
 
 /-- The production counterexample is literally one crossing-shell atom:
 \`d = 29\` crosses the \`R = 56\` mask under the fresh prime \`31\`. -/
