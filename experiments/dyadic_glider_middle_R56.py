@@ -72,6 +72,33 @@ assert known_edge_mass == -239
 assert middle_residual == -6
 assert middle_residual == -mertens[X]
 
+# Prime-two Othello wall and its iterated odd-prime escape boundary.
+def carrier_toggle(p, n):
+    if n % (p * p) == 0:
+        return n
+    if n % p == 0:
+        return n // p
+    return n * p
+
+
+def escape_part(p, carrier):
+    return {n for n in carrier if carrier_toggle(p, n) not in carrier}
+
+
+dyadic_wall = {
+    n for n in range(1, X + 1)
+    if n % 2 == 1 and X < 2 * n
+}
+assert len(dyadic_wall) == 784
+assert sum(mu[n] for n in dyadic_wall) == mertens[X]
+
+glider_boundary = set(dyadic_wall)
+for p in [q for q in primes if 3 <= q <= R]:
+    glider_boundary = escape_part(p, glider_boundary)
+
+assert len(glider_boundary) == 634
+assert sum(mu[n] for n in glider_boundary) == mertens[X]
+
 print("R =", R, "X =", X)
 print("M(X) =", mertens[X])
 print("middle prime count =", len(middle_primes))
@@ -80,4 +107,8 @@ print("middle Mertens tail =", middle_tail)
 print("complete smooth mass =", smooth_mass)
 print("known edge mass =", known_edge_mass)
 print("active-middle residual =", middle_residual)
-print("PASS: active middle leaves -6 = -M(3135), not zero.")
+print("prime-2 dyadic wall card =", len(dyadic_wall))
+print("iterated glider-boundary card =", len(glider_boundary))
+print("iterated glider-boundary mass =", sum(mu[n] for n in glider_boundary))
+print("PASS: active middle leaves -6 = -M(3135), not zero;")
+print("      Othello preserves mass 6 while moving it onto explicit escape walls.")
