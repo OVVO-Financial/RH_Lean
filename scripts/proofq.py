@@ -46,6 +46,7 @@ from pathlib import Path
 import rhlean_kg as kg
 
 DEFAULT_GRAPH = Path("decl-graph.json")
+DEFAULT_REGION_GRAPH = Path("region-graph.json")
 DEFAULT_TERMINAL = "RHLean.Proof.TerminalMertensForward.riemannHypothesis_of_squarePrefixEnergy"
 DEFAULT_RH_PROPOSITION = "RHLean.Analysis.RiemannHypothesisStatement"
 
@@ -67,6 +68,7 @@ class KnowledgeGraph:
         self.rev = kg.invert(self.edges)
         self.facets = kg.load_facets()
         self._tags: dict[str, dict] | None = None
+        self._regions: dict | None = None
         self._closure: dict[str, int] | None = None
         self._order: list[str] | None = None
         self._closed_props: set[str] | None = None
@@ -87,6 +89,35 @@ class KnowledgeGraph:
         import decl_graph
 
         return cls(decl_graph.build_graph())
+
+    # -- regional geometry layer -------------------------------------------
+
+    @property
+    def regions(self) -> dict:
+        """Where on [1, x] each declaration works. See scripts/region_graph.py.
+
+        Read from `region-graph.json` when one is there, since rebuilding walks
+        every source file again. The freshness rule is the same as for the
+        declaration graph: CI builds it, and a local run without one builds it
+        in memory rather than trusting whatever is lying around.
+        """
+
+        if self._regions is None:
+            import region_graph
+
+            if DEFAULT_REGION_GRAPH.is_file():
+                self._regions = json.loads(
+                    DEFAULT_REGION_GRAPH.read_text(encoding="utf-8")
+                )
+            else:
+                sys.stderr.write(
+                    f"note: no {DEFAULT_REGION_GRAPH} found; building it in memory\n"
+                )
+                self._regions = region_graph.build()
+        return self._regions
+
+    def region_tag(self, name: str) -> dict:
+        return self.regions["tags"].get(name, {})
 
     # -- semantic layer ----------------------------------------------------
 
@@ -227,6 +258,19 @@ class KnowledgeGraph:
         else:
             if root not in self.nodes:
                 root = self.require(root)
+            if root not in which:
+                # The condensation covers the reduction graph, whose nodes are
+                # propositions. A theorem name resolves fine against `nodes`
+                # and then misses here, which used to surface as a bare
+                # KeyError several frames down -- unreadable, and easy to
+                # mistake for a corrupt graph.
+                raise SystemExit(
+                    f"{root} is not on any reduction route.\n"
+                    "This query is rooted at a proposition (a `def ... : Prop`), "
+                    "not at a theorem.\n"
+                    "Use `proofq obligations` to list the propositions, or "
+                    "`proofq status` for what proves this one."
+                )
             start = which[root]
             allowed: set[int] = set()
             stack = [start]
@@ -372,6 +416,9 @@ def cmd_show(g: KnowledgeGraph, args) -> int:
     for facet, values in sorted(tag["facets"].items()):
         print(f"  {facet:20s} {', '.join(values)}")
     print(f"  {'role':20s} {', '.join(tag['roles']) or '-'}")
+    print()
+    print("regional geometry (where on [1, x] this works)")
+    print(f"  {_region_line(g, name)}")
     if args.evidence:
         print("\n  evidence")
         for key, why in sorted(tag["evidence"].items()):
@@ -1074,6 +1121,142 @@ def cmd_stats(g: KnowledgeGraph, args) -> int:
     return 0
 
 
+def _region_line(g: KnowledgeGraph, name: str) -> str:
+    """One-line location for a declaration, grades kept apart."""
+
+    tag = g.region_tag(name)
+    if not tag:
+        return "-  (states no cut and names no object defined by one)"
+    parts = []
+    if tag.get("direct"):
+        parts.append("states " + ", ".join(sorted(tag["direct"])))
+    if tag.get("derived"):
+        parts.append("named from " + ", ".join(sorted(tag["derived"])))
+    if tag.get("lexical"):
+        parts.append("name only: " + ", ".join(sorted(tag["lexical"])))
+    return "; ".join(parts) or "-"
+
+
+def cmd_where(g: KnowledgeGraph, args) -> int:
+    """Where on the number line does this declaration work?"""
+
+    name = g.require(args.name)
+    data = g.regions
+    tag = g.region_tag(name)
+    print(name)
+    print("=" * len(name))
+    print(f"status    : {g.status(name)}")
+    print(f"location  : {g.nodes[name].get('path')}:{g.nodes[name].get('line')}")
+    print()
+    if not tag:
+        print("No region. This declaration states no cut of its own and its")
+        print("statement names no object that a cut defines.")
+        print()
+        print("That is not a claim that it has no location. Most helper lemmas")
+        print("inherit a region from whatever calls them, and this layer does not")
+        print("guess on their behalf.")
+        return 0
+    for grade, label in (
+        ("direct", "states the cut itself"),
+        ("derived", "names an object a cut defines"),
+        ("lexical", "matches by name only -- a place to look, not evidence"),
+    ):
+        entries = tag.get(grade) or {}
+        if not entries:
+            continue
+        print(f"{grade} ({label})")
+        for region in sorted(entries):
+            cut = data["regions"][region]["cut"]
+            print(f"  {region:<14} {cut}")
+            for why in entries[region]:
+                print(f"  {'':<14}   {why}")
+        print()
+    return 0
+
+
+def cmd_regions(g: KnowledgeGraph, args) -> int:
+    """Census of the regional geometry, with crossings and gaps."""
+
+    import region_graph
+
+    data = g.regions
+    stats = data["stats"]
+    print("REGIONS OF THE NUMBER LINE")
+    print("=" * 72)
+    print(data["provenance"]["status"])
+    print()
+    print(
+        f"{stats['located']}/{stats['declarations']} declarations located; "
+        f"{stats['untagged']} give no location and are not placed."
+    )
+    print()
+    for region, info in sorted(
+        data["regions"].items(),
+        key=lambda kv: -(kv[1]["declarations_direct"] + kv[1]["declarations_derived"]),
+    ):
+        if args.axis and info["axis"] != args.axis:
+            continue
+        print(f"  {region:<14} {info['cut']}")
+        print(
+            f"  {'':<14} {info['declarations_direct']} direct + "
+            f"{info['declarations_derived']} derived, {info['modules']} modules"
+        )
+    print()
+    print("crossings between regions that neither contains")
+    counts = Counter()
+    for cross in data["crossings"]:
+        for pair in cross["crosses"]:
+            counts[" + ".join(pair)] += 1
+    for pair, count in counts.most_common():
+        print(f"  {pair:<34} {count:>5}")
+    gaps = region_graph.region_gaps(data)
+    print()
+    print(f"pairs with no crossing declaration and no dependency edge ({len(gaps)})")
+    for gap in gaps:
+        a, b = gap["regions"]
+        print(f"  {a} <-> {b}   ({gap['sizes'][0]} vs {gap['sizes'][1]} declarations)")
+    if not gaps:
+        print("  none")
+    return 0
+
+
+def cmd_region(g: KnowledgeGraph, args) -> int:
+    """List what works in one region."""
+
+    data = g.regions
+    if args.name not in data["regions"]:
+        print(f"unknown region {args.name!r}")
+        print("known regions: " + ", ".join(sorted(data["regions"])))
+        return 2
+    info = data["regions"][args.name]
+    print(f"{args.name}: {info['cut']}")
+    print(info["description"])
+    print("-" * 72)
+    rows = [
+        (n, t)
+        for n, t in data["tags"].items()
+        if args.name in (t.get("direct") or {})
+    ]
+    derived = [
+        (n, t)
+        for n, t in data["tags"].items()
+        if args.name in (t.get("derived") or {})
+    ]
+    print(f"states this cut ({len(rows)})")
+    for name, tag in sorted(rows)[: args.limit]:
+        print(f"  [{tag['status']:<10}] {name}")
+        print(f"      {tag['path']}:{tag['line']}")
+    if len(rows) > args.limit:
+        print(f"  ... and {len(rows) - args.limit} more")
+    print()
+    print(f"names an object this cut defines ({len(derived)})")
+    for name, tag in sorted(derived)[: args.limit]:
+        print(f"  [{tag['status']:<10}] {name}")
+    if len(derived) > args.limit:
+        print(f"  ... and {len(derived) - args.limit} more")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         prog="proofq",
@@ -1094,6 +1277,24 @@ def main() -> int:
     p.add_argument("name")
     p.add_argument("--evidence", action="store_true", help="show why each tag was applied")
     p.set_defaults(func=cmd_show)
+
+    p = sub.add_parser(
+        "where", help="where on [1, x] a declaration works", parents=[common]
+    )
+    p.add_argument("name")
+    p.set_defaults(func=cmd_where)
+
+    p = sub.add_parser(
+        "regions", help="census of the regional geometry", parents=[common]
+    )
+    p.add_argument("--axis", choices=["span", "factor"], help="restrict to one axis")
+    p.set_defaults(func=cmd_regions)
+
+    p = sub.add_parser(
+        "region", help="what works in one region", parents=[common]
+    )
+    p.add_argument("name")
+    p.set_defaults(func=cmd_region)
 
     p = sub.add_parser("ancestors", help="transitive dependencies", parents=[common])
     p.add_argument("name")

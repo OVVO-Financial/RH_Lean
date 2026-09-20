@@ -17,6 +17,7 @@ precise about which question, because they are easy to confuse.
 | 4. Statement signatures | which propositions have the same *shape* | folded into layer 2 | heuristic |
 | 5. Proof status | proved / reduced / open / refuted | folded into layer 2 | derived |
 | 6. Reduction DAG | which proposition has been traded for which | folded into layer 2 | derived |
+| 7. Regional geometry | *where on `[1, x]`* a declaration works | `scripts/region_graph.py` | mixed, graded |
 
 Layer 1 is architecture.  Layer 2 is mathematics.  Layers 3 and 4 are search
 heuristics that shorten a candidate list; they are never evidence.  Layers 5
@@ -193,6 +194,128 @@ Rather than "search the repo for relevant covariance theorems":
 7. `proofq nogos --related <proposition>` -- check the route against recorded
    no-go results *before* investing in it.
 8. Confirm every candidate against compiled Lean source.
+
+## Layer 7: where on the number line does this work?
+
+The declaration graph says what depends on what. It says nothing about
+*location*: that `squareRootTopFibreBlock` ranges over `x/2 < q <= x` while
+`primeDilatedLowCofactorMass` ranges over `c < R`, and that these are disjoint
+stretches of the line which only an exact bridge theorem may connect.
+
+`scripts/region_graph.py` adds that axis. It reads each declaration's text,
+finds the variables the statement itself pins to the square-root scale, and
+matches the actual index ranges against the vocabulary in
+`scripts/region_facets.json`.
+
+### The scale convention
+
+The library writes the span as `x = R^2 - 1`, so `R` is exactly the square root
+of `x + 1`. Two definitions make this readable rather than guessable:
+
+```text
+squareRootEndpoint R  = R ^ 2 - 1          RHLean/Analysis/TwoABPrimeDilation.lean:106
+squarePrefixEndpoint n = (n + 1) ^ 2 - 1   RHLean/Analysis/SquarePrefixMertensBridge.lean:15
+```
+
+A variable is treated as the root scale only when the same statement spells one
+of those. Without that anchor `Finset.Ico 1 N` is just "the whole range up to
+`N`", and calling it the below-root region would be a guess. The layer does not
+guess: it reports the declaration as unlocated.
+
+### The regions
+
+| region | cut | axis |
+|---|---|---|
+| `below-root` | `1 <= c < R` | span |
+| `above-root` | `R < q <= x` | span |
+| `mid-band` | `R < q <= x/2` | span |
+| `top-fibre` | `x/2 < q <= x` | span |
+| `full-span` | `1 <= n <= x`, no interior cut | span |
+| `square-block` | `(n+1)^2 <= m < (n+2)^2` | span |
+| `rough-above` | every prime factor of `m` exceeds `b` | factor |
+| `wheel-coprime` | coprime to a primorial wheel | factor |
+
+The two axes are never conflated. A large integer may be rough and a small one
+smooth, so roughness is not a statement about magnitude.
+
+### Two graphs, and the difference between them
+
+**Containment** is exact and comes from the cuts themselves. `mid-band` sits
+inside `above-root` because `(R, x/2]` is a subset of `(R, x]` -- arithmetic,
+not repository convention. The file also records one exact partition,
+
+```text
+above-root = mid-band  disjoint-union  top-fibre
+```
+
+witnessed by `squareRootTransportPrimeFirst_eq_lowerBlock_add_topFibreBlock`
+(`RHLean/Analysis/SquareRootTransportTopFibreNoGo.lean:145`). `--check` fails if
+that witness is ever renamed away, so the claim cannot rot in place.
+
+**Dependency** is measured, not exact: region A points at region B when some
+declaration located in A depends on one located in B. These edges run in both
+directions between most pairs, which is why this is a graph and not a DAG. The
+report says so rather than pretending otherwise.
+
+### Evidence grades
+
+Nothing here merges a strong signal with a weak one.
+
+| grade | meaning | counted as located? |
+|---|---|---|
+| `direct` | a cut written in this declaration -- a theorem's statement, a definition's body | yes |
+| `derived` | this declaration's statement names an object that a cut defines | yes |
+| `lexical` | a word in a name | **no** |
+
+The `derived` grade is what makes the layer usable. `squareRootTopFibreBlock` is
+a `def` whose *body* ranges over `Ioc (x/2) x`; the theorems about it never
+spell the interval. Reading definition bodies and taking one hop from a
+theorem's statement recovers those. It is sound because the definition *is* the
+cut -- unlike a name, which has been wrong here before.
+
+A theorem's proof body is deliberately not read. A proof may travel through any
+region on its way to the conclusion, and tagging from proofs would file almost
+everything under almost everything.
+
+### Using it
+
+```bash
+python3 scripts/region_graph.py                    # the full report
+python3 scripts/region_graph.py --check            # gate: is the vocabulary stale?
+python3 scripts/region_graph.py --census           # raw range shapes, to refresh the vocabulary
+python3 scripts/region_graph.py --modules          # region profile per module
+python3 scripts/region_graph.py --region top-fibre # everything on x/2 < q <= x
+python3 scripts/region_graph.py --dot regions.dot  # the containment + dependency picture
+
+python3 scripts/proofq.py regions                  # census, crossings, gaps
+python3 scripts/proofq.py region mid-band          # what works on R < q <= x/2
+python3 scripts/proofq.py where <declaration>      # where does this one work?
+```
+
+### What to look at first
+
+**Crossings.** A declaration covering two regions that neither contains is
+where the library actually puts disjoint stretches of the line into one
+statement. Nested pairs are excluded: naming both `[1, R)` and `[1, x]`
+transports nothing, it restates the containment.
+
+**Gaps.** Pairs with no crossing declaration *and* no dependency edge. A gap is
+not a defect -- two regions may have nothing to say to each other. It is a
+place to look: if a route needs to move a quantity across one, nothing in the
+library does it yet, and AGENTS.md rule 5 means the bridge has to be proved
+rather than assumed.
+
+### What this layer is not
+
+A shared region tag means two declarations state cuts of the same shape. It is
+not a claim that they are about the same quantity, on the same carrier, or at
+the same scale. Rule 5 of `AGENTS.md` applies here exactly as it does to the
+semantic facets: never infer that two quantities are equal because their
+regions line up. Use or prove an exact bridge theorem.
+
+Coverage is deliberately partial and will stay that way. Most declarations are
+helper lemmas carrying no cut of their own; they are reported as untagged
+rather than assigned a plausible region.
 
 ## Regenerating in CI
 

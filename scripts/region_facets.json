@@ -1,0 +1,229 @@
+{
+  "schema": "rhlean-region-facets/1",
+  "status": "SEARCH HEURISTIC FOR LOCATION, NOT A MATHEMATICAL CLAIM",
+  "disclaimer": [
+    "This file tags declarations with the REGION OF THE NUMBER LINE their",
+    "quantified variable ranges over, relative to the square-root scale.",
+    "",
+    "A region tag is evidence that a declaration's statement text contains a",
+    "particular cut, nothing more. Two declarations sharing a region tag are a",
+    "reason to read both. They are NOT thereby about the same object, on the",
+    "same carrier, or at the same scale, and AGENTS.md rule 5 still applies in",
+    "full: never infer that two quantities are equal because their regions,",
+    "names or prose descriptions line up. Use or prove an exact bridge theorem.",
+    "",
+    "Evidence is reported in two strictly separated grades:",
+    "  direct  -- an actual index range or inequality in the statement text,",
+    "             anchored to a variable the same statement pins to the",
+    "             square-root scale. This is the grade worth trusting.",
+    "  lexical -- a declaration or module name token. A naming convention, and",
+    "             names in this repository have been wrong before. Never used",
+    "             to place a declaration on its own in any report that claims",
+    "             coverage; always shown as the weaker grade it is.",
+    "",
+    "",
+    "Coverage is deliberately low. Most declarations are helper lemmas that",
+    "carry no cut of their own and inherit their region from a caller. The",
+    "layer does not guess for them; an untagged declaration is reported as",
+    "untagged rather than assigned a plausible region."
+  ],
+  "scale_convention": {
+    "note": [
+      "The library's square-root scale variable is written R (also W, X, N).",
+      "The span is x = R^2 - 1, so R is exactly the square root of x + 1.",
+      "Both identities below are definitional in compiled source, which is why",
+      "the two spellings may be normalised onto each other. This is a read",
+      "identity, not an inference from similar names."
+    ],
+    "identities": [
+      {
+        "lean": "squareRootEndpoint R = R ^ 2 - 1",
+        "source": "RHLean/Analysis/TwoABPrimeDilation.lean:106"
+      },
+      {
+        "lean": "squarePrefixEndpoint n = (n + 1) ^ 2 - 1",
+        "source": "RHLean/Analysis/SquarePrefixMertensBridge.lean:15"
+      },
+      {
+        "lean": "RoughAbove b m = forall p in m.primeFactors, b < p",
+        "source": "RHLean/Arithmetic/SignedBuchstabRecursion.lean:29"
+      }
+    ]
+  },
+  "axes": {
+    "span": "Where the running variable sits on [1, x] relative to the root scale R.",
+    "factor": "Where the PRIME FACTORS sit. A different geometry from span: a large integer may be rough, a small one smooth. Never conflated with a span region."
+  },
+  "regions": {
+    "below-root": {
+      "axis": "span",
+      "cut": "1 <= c < R  (that is, c < sqrt(x + 1))",
+      "description": "The square-prefix / low-cofactor region. Work that stays strictly below the square-root scale.",
+      "root_relative": [
+        "Ico\\s+1\\s+{root}\\b",
+        "Icc\\s+[0-9]\\s*\\(\\s*{root}\\s*-\\s*1\\s*\\)",
+        "{lvar}\\s*<\\s*{root}\\b",
+        "{var}\\s*\\u2264\\s*{root}\\s*-\\s*1"
+      ],
+      "scale_free": [
+        "{var}\\s*\\u2264\\s*Nat\\.sqrt\\s+{var}",
+        "{lvar}\\s*<\\s*Nat\\.sqrt\\s+{var}",
+        "Icc\\s+1\\s*\\(\\s*Nat\\.sqrt\\s+{var}\\s*\\)",
+        "Ico\\s+1\\s*\\(\\s*Nat\\.sqrt\\s+{var}\\s*\\)"
+      ],
+      "lexical": [
+        "prefix",
+        "lowcofactor",
+        "subroot",
+        "preroot"
+      ]
+    },
+    "above-root": {
+      "axis": "span",
+      "cut": "R < q <= x",
+      "description": "The post-root region: everything strictly above the square-root scale, with no finer cut stated.",
+      "root_relative": [
+        "Ioc\\s+{root}\\s+\\(\\s*{span}\\s*\\)",
+        "Icc\\s+{root}\\s+\\(\\s*{span}\\s*\\)",
+        "{root}\\s*<\\s*{var}\\b"
+      ],
+      "scale_free": [
+        "Nat\\.sqrt\\s+{var}\\s*<\\s*{var}",
+        "Real\\.sqrt\\s+{var}\\s*<\\s*{var}"
+      ],
+      "lexical": [
+        "postroot",
+        "upperprime",
+        "highprime"
+      ]
+    },
+    "mid-band": {
+      "axis": "span",
+      "cut": "R < q <= x / 2",
+      "description": "The middle band: above the square root, at or below half the span. Strictly inside above-root.",
+      "root_relative": [
+        "Ioc\\s+{root}\\s*\\(\\s*{span}\\s*/\\s*2\\s*\\)",
+        "{var}\\s*\\u2264\\s*{span}\\s*/\\s*2"
+      ],
+      "scale_free": [],
+      "lexical": [
+        "middle",
+        "midband",
+        "lowerblock"
+      ]
+    },
+    "top-fibre": {
+      "axis": "span",
+      "cut": "x / 2 < q <= x",
+      "description": "The top fibre: primes above half the span, where floor(x/q) = 1 so the only surviving cofactor is c = 1. Strictly inside above-root.",
+      "root_relative": [
+        "Ioc\\s*\\(\\s*{span}\\s*/\\s*2\\s*\\)",
+        "{span}\\s*/\\s*2\\s*<\\s*{var}"
+      ],
+      "scale_free": [],
+      "lexical": [
+        "topfibre",
+        "topblock",
+        "topprime"
+      ]
+    },
+    "full-span": {
+      "axis": "span",
+      "cut": "1 <= n <= x",
+      "description": "The whole range to the stated cutoff, with no interior cut. Scale-aware but not located: it does not distinguish either side of the square root.",
+      "root_relative": [
+        "Icc\\s+1\\s*\\(\\s*{span}\\s*\\)",
+        "range\\s*\\(\\s*{span}\\s*\\+\\s*1\\s*\\)",
+        "Ico\\s+1\\s*\\(\\s*{span}\\s*\\+\\s*1\\s*\\)"
+      ],
+      "scale_free": [],
+      "lexical": []
+    },
+    "square-block": {
+      "axis": "span",
+      "cut": "(n + 1) ^ 2 <= m < (n + 2) ^ 2",
+      "description": "One square annulus between consecutive square-prefix endpoints. Indexed by block number, so it is not comparable to the root-relative regions without naming the block.",
+      "root_relative": [],
+      "scale_free": [
+        "Ico\\s*\\(\\s*{var}\\s*\\^\\s*2\\s*\\)",
+        "nativePNTSquarePrefixBlock",
+        "Ioc\\s*\\(\\s*squarePrefixEndpoint\\s+{var}\\s*\\)"
+      ],
+      "lexical": [
+        "squareblock",
+        "annulus"
+      ]
+    },
+    "rough-above": {
+      "axis": "factor",
+      "cut": "every prime factor of m exceeds b",
+      "description": "Roughness: the small primes have been sieved out. A constraint on prime factors, not on magnitude.",
+      "root_relative": [],
+      "scale_free": [
+        "\\bRoughAbove\\b",
+        "\\broughMoebius\\b",
+        "\\broughMertens\\b",
+        "\\broughInterval\\b",
+        "\\broughMoebiusSum\\b"
+      ],
+      "lexical": [
+        "rough"
+      ]
+    },
+    "wheel-coprime": {
+      "axis": "factor",
+      "cut": "coprime to a primorial wheel W",
+      "description": "The wheel-coprime population: the smooth part below the wheel has been removed. Also a prime-factor constraint.",
+      "root_relative": [],
+      "scale_free": [
+        "Nat\\.Coprime",
+        "\\bfiniteWheelCoprime",
+        "\\bprimorialWheelProduct\\b"
+      ],
+      "lexical": [
+        "wheelcoprime",
+        "coprimewheel"
+      ]
+    }
+  },
+  "containment": [
+    {
+      "sub": "mid-band",
+      "sup": "above-root",
+      "why": "(R, x/2] is a subset of (R, x] whenever x/2 <= x."
+    },
+    {
+      "sub": "top-fibre",
+      "sup": "above-root",
+      "why": "(x/2, x] is a subset of (R, x] whenever R <= x/2."
+    },
+    {
+      "sub": "below-root",
+      "sup": "full-span",
+      "why": "[1, R) is a subset of [1, x] whenever R <= x."
+    },
+    {
+      "sub": "above-root",
+      "sup": "full-span",
+      "why": "(R, x] is a subset of [1, x]."
+    }
+  ],
+  "partitions": [
+    {
+      "whole": "above-root",
+      "parts": [
+        "mid-band",
+        "top-fibre"
+      ],
+      "why": "Ioc R x = Ioc R (x/2) union Ioc (x/2) x, disjointly, for R <= x/2.",
+      "witness": "RHLean.Proof.squareRootTransportPrimeFirst_eq_lowerBlock_add_topFibreBlock",
+      "witness_source": "RHLean/Analysis/SquareRootTransportTopFibreNoGo.lean:145"
+    }
+  ],
+  "provenance": [
+    "Region ids, cuts and detection patterns were derived by enumerating every",
+    "Finset range and scale comparison that actually occurs in RHLean/**/*.lean,",
+    "not by proposing a vocabulary and looking for matches. Rebuild the census",
+    "with `python3 scripts/region_graph.py --census` after the library grows."
+  ]
+}

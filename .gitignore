@@ -17,3 +17,5 @@ decl-graph-compare.txt
 proof-inventory.json
 proof-import-graph.dot
 proof-inventory.txt
+region-graph.json
+region-graph.dot
