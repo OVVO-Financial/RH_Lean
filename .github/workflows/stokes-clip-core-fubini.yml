@@ -7,6 +7,12 @@ on:
       - research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_SIMULTANEOUS_CORE_FUBINI.lean
       - .github/workflows/stokes-clip-core-fubini.yml
+  pull_request:
+    branches: [agent/post-774-stokes-terminal-frame-closure]
+    paths:
+      - research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_SIMULTANEOUS_CORE_FUBINI.lean
+      - .github/workflows/stokes-clip-core-fubini.yml
   workflow_dispatch:
 
 concurrency:
