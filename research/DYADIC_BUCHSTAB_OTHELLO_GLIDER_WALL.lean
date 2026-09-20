@@ -11,6 +11,7 @@ import RHLean.Proof.PrimeWheelRoughSeatCorrelation
 import RHLean.Arithmetic.MobiusFiniteDifferenceIdentification
 import RHLean.Proof.SquareRootLowPrimeBornSquareBoundary
 import RHLean.Proof.CanonicalRoughAdaptiveWeightedIteration
+import RHLean.Proof.PrimeCombReciprocalBandCancellation
 
 /-!
 # Dyadic Buchstab/Othello splice: the joint packet is already an escape wall
@@ -712,6 +713,108 @@ theorem squareRootReplacementCrossingShell_56_29_31 :
     (c := 29) (p := 31) (by norm_num) (by norm_num) (by norm_num)]
   norm_num [squareRootReplacementKernel_56_899]
 
+
+
+/-! ## Inherited post-root geometry: consume the old repo invariants -/
+
+/-- The old post-root dichotomy, repackaged for the present splice:
+an admissible post-root replication is either the unit cofactor or it lies in
+the genuine middle corridor.  This is bookkeeping, not a new estimate. -/
+theorem squareRootPostRootReplication_middle_or_unit
+    {R q c : ℕ}
+    (hqPrime : q.Prime) (hRq : R < q)
+    (hc1 : 1 ≤ c) (hcq : c * q ≤ squareRootEndpoint R) :
+    c = 1 ∨ q ∈ middlePrimeSet R := by
+  by_cases hc : c = 1
+  · exact Or.inl hc
+  · have hc2 : 2 ≤ c := by omega
+    exact Or.inr
+      (nontrivialPostRootReplication_mem_middlePrimeSet
+        hqPrime hRq hc2 hcq)
+
+/-- The old top-half rigidity in the exact form used by the current splice:
+above X_R/2 there is no genuine cofactor geometry; the only admissible positive
+cofactor is 1. -/
+theorem squareRootTopReplication_cofactor_eq_one
+    {R q c : ℕ}
+    (hqmem : q ∈ squareRootTopFibrePrimes R)
+    (hc1 : 1 ≤ c) (hcq : c * q ≤ squareRootEndpoint R) :
+    c = 1 :=
+  topPrime_admissibleCofactor_eq_one hqmem hc1 hcq
+
+/-- Once the inserted prime is at or beyond the root while the parent cofactor
+is strictly below the root, the crossing shell is the COMPLETE divisor fibre of
+the cofactor.  Hence its signed mass is the standard divisor-cube delta:
+one for c=1 and zero for every nonunit c. -/
+theorem squareRootReplacementCrossingShell_eq_divisorDelta_of_root_le_prime
+    {R c p : ℕ}
+    (hcpos : 0 < c) (hcR : c < R) (hRp : R ≤ p) :
+    squareRootReplacementCrossingShell R c p =
+      (((if c = 1 then 1 else 0 : ℤ) : ℂ)) := by
+  unfold squareRootReplacementCrossingShell
+  have hcross :
+      ∀ d ∈ c.divisors, d < R ∧ R ≤ p * d := by
+    intro d hd
+    have hddvd : d ∣ c := Nat.dvd_of_mem_divisors hd
+    have hdpos : 0 < d := Nat.pos_of_mem_divisors hd
+    have hdle : d ≤ c := Nat.le_of_dvd hcpos hddvd
+    constructor
+    · exact hdle.trans_lt hcR
+    · calc
+        R ≤ p := hRp
+        _ = p * 1 := by simp
+        _ ≤ p * d := Nat.mul_le_mul_left p hdpos
+  calc
+    (∑ d ∈ c.divisors,
+        if d < R ∧ R ≤ p * d then (((μ d : ℤ) : ℂ)) else 0) =
+      ∑ d ∈ c.divisors, (((μ d : ℤ) : ℂ)) := by
+        apply Finset.sum_congr rfl
+        intro d hd
+        simp [hcross d hd]
+    _ = (((if c = 1 then 1 else 0 : ℤ) : ℂ)) := by
+      exact_mod_cast RHLean.Analysis.sum_moebius_divisors_eq_one_or_zero c
+
+/-- Strong inherited consequence for the replacement kernel at the square
+endpoint.  Every admissible post-root nonunit fibre has already completed its
+divisor cube and is annihilated exactly; only the unit cofactor survives.
+This prevents the current crossing-shell argument from re-opening middle-prime
+transport that the older repo has already collapsed. -/
+theorem squareRootReplacementKernel_postRootReplication_eq_divisorDelta
+    {R q c : ℕ}
+    (hqPrime : q.Prime) (hRq : R ≤ q)
+    (hc1 : 1 ≤ c) (hcR : c < R) :
+    squareRootReplacementKernel R (c * q) =
+      (((if c = 1 then 1 else 0 : ℤ) : ℂ)) := by
+  have hcpos : 0 < c := by omega
+  have hcq : c < q := hcR.trans_le hRq
+  have hfresh : ¬ q ∣ c := by
+    intro hdiv
+    have hqle : q ≤ c := Nat.le_of_dvd hcpos hdiv
+    omega
+  rw [squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
+    hcpos hqPrime hfresh]
+  exact squareRootReplacementCrossingShell_eq_divisorDelta_of_root_le_prime
+    hcpos hcR hRq
+
+/-- In particular, every nonunit post-root replacement fibre vanishes exactly. -/
+theorem squareRootReplacementKernel_postRootReplication_eq_zero_of_nonunit
+    {R q c : ℕ}
+    (hqPrime : q.Prime) (hRq : R ≤ q)
+    (hc2 : 2 ≤ c) (hcR : c < R) :
+    squareRootReplacementKernel R (c * q) = 0 := by
+  rw [squareRootReplacementKernel_postRootReplication_eq_divisorDelta
+    hqPrime hRq (by omega) hcR]
+  simp [show c ≠ 1 by omega]
+
+/-- The arbitrary-endpoint transport theorem from the older prime-comb layer:
+every post-root prime family is already the sign-reversed lower Mertens prefix.
+This is the coordinate in which the middle strip carries the genuine lower
+prefix, while quotient one is the rigid top flip. -/
+theorem inheritedPostRootFamilyMass_eq_neg_mertens
+    {W p : ℕ} (hp : p.Prime) (hpRoot : Nat.sqrt W < p) :
+    primeCombLargePrimeFamilyMass W p =
+      -RHLean.Analysis.mertensSummatory (W / p) :=
+  primeCombLargePrimeFamilyMass_eq_neg_mertens hp hpRoot
 
 /-! ## Operator and adaptive-carrier handoff -/
 
