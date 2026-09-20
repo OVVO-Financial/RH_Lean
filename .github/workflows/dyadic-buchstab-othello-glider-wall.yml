@@ -67,6 +67,8 @@ jobs:
         run: |
           lake build RHLean.Analysis.SquareRootPrimeCountGap
           lake build RHLean.Proof.PrefixCarrierOthelloWalls
+          lake build RHLean.Proof.RecursivePrimeReplacement
+          lake build RHLean.Proof.ReplacementFibreOrientationSplit
           mkdir -p .lake/build/lib/lean
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.DYADIC_SMOOTH_HIGH_JOINT_PACKET.olean \
