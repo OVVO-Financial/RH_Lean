@@ -6,7 +6,11 @@ This checks:
   * the inert top-prime block has 198 primes;
   * the intermediate prime Mertens tail is -245;
   * the complete R-smooth mass is -41;
-  * the exact active-middle residual is -6 = -M(3135).
+  * the exact active-middle residual is -6 = -M(3135);
+  * the 634 gliders are exactly the squarefree odd top-wall cells;
+  * every live glider lies in reciprocal replacement fibre z=1;
+  * the full z=1 fibre is larger and has signed mass 9, not 6;
+  * swapping one fresh prime for another at fixed cofactor preserves Mobius sign.
 
 No asymptotic estimate is used.
 """
@@ -103,6 +107,46 @@ glider_negative = sum(1 for n in glider_boundary if mu[n] == -1)
 assert glider_positive == 320
 assert glider_negative == 314
 
+# The iterated odd-prime wall is exactly the nonzero/squarefree part of the
+# prime-two dyadic wall.
+live_gliders = {n for n in dyadic_wall if mu[n] != 0}
+assert glider_boundary == live_gliders
+assert len(live_gliders) == 634
+
+# Every top-wall glider has floor(X/n)=1, so the complete live wall embeds in
+# reciprocal replacement fibre z=1.
+assert all(X // n == 1 for n in live_gliders)
+
+# The converse is false: replacement fibre z=1 also contains even states that
+# prime-two Othello already paired away. Its full Mobius mass is 9, while the
+# odd live-glider residual has mass 6.
+replacement_fibre_one = {
+    n for n in range(R, X + 1)
+    if X // n == 1
+}
+assert min(replacement_fibre_one) == X // 2 + 1
+assert max(replacement_fibre_one) == X
+assert live_gliders <= replacement_fibre_one
+assert sum(mu[n] for n in replacement_fibre_one) == 9
+assert sum(mu[n] for n in live_gliders) == 6
+
+# Root-cardinality and atomwise replacement remain impossible: the single
+# cofactor c=1 has 198 top-prime edges, versus only 16 low primes through R.
+low_primes = [q for q in primes if q <= R]
+assert len(low_primes) == 16
+assert len(top_primes) == 198
+assert len(top_primes) > len(low_primes)
+
+# Prime replacement at a fixed rough cofactor preserves, rather than reverses,
+# the Mobius sign. Example: c=3, q_low=5, p_high=523.
+c0, q_low, p_high = 3, 5, 523
+assert q_low in primes and p_high in primes
+assert largest[c0] < q_low < R < p_high
+assert c0 * p_high in live_gliders
+assert mu[c0 * q_low] == 1
+assert mu[c0 * p_high] == 1
+assert mu[c0 * q_low] == mu[c0 * p_high]
+
 print("R =", R, "X =", X)
 print("M(X) =", mertens[X])
 print("middle prime count =", len(middle_primes))
@@ -115,5 +159,10 @@ print("prime-2 dyadic wall card =", len(dyadic_wall))
 print("iterated glider-boundary card =", len(glider_boundary))
 print("iterated glider-boundary mass =", sum(mu[n] for n in glider_boundary))
 print("glider signs: +", glider_positive, "/ -", glider_negative)
+print("replacement z=1 full-fibre mass =", sum(mu[n] for n in replacement_fibre_one))
+print("low-prime count through R =", len(low_primes))
+print("same-c prime-swap witness: mu(15) =", mu[15],
+      ", mu(1569) =", mu[1569])
 print("PASS: active middle leaves -6 = -M(3135), not zero;")
-print("      Othello preserves mass 6 while moving it onto explicit escape walls.")
+print("      634 live gliders embed in z=1 but are not the whole fibre;")
+print("      same-c fresh-prime replacement preserves Mobius sign.")
