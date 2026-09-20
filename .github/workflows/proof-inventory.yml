@@ -138,6 +138,29 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Regional geometry of the library
+        run: |
+          # --check is a gate, not a report: it fails when the region
+          # vocabulary has gone stale against the library (a partition witness
+          # renamed away, a cut the library stopped writing that way). That is
+          # a silent failure otherwise -- coverage just quietly drops.
+          python3 scripts/region_graph.py --check
+          # Writing the JSON also prints the report, so this is one rebuild,
+          # not two.
+          python3 scripts/region_graph.py --json region-graph.json > kg-regions.txt
+          {
+            echo '## Regional geometry'
+            echo '```text'
+            sed -n '1,40p' kg-regions.txt
+            echo '```'
+            echo '<details><summary>crossings and gaps</summary>'
+            echo
+            echo '```text'
+            sed -n '/REGION-CROSSING/,$p' kg-regions.txt | head -60
+            echo '```'
+            echo '</details>'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload proof inventory
         uses: actions/upload-artifact@v4
         with:
@@ -156,3 +179,4 @@ jobs:
             kg-terminal-cone.txt
             kg-duplicates.txt
             kg-research-overlap.txt
+            kg-regions.txt
