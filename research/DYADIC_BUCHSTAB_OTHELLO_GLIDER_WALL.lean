@@ -125,6 +125,100 @@ theorem dyadicJointPacketAt_eq_iteratedGliderBoundaryMass
   exact sum_canonicalMoebiusWeight_eq_sum_iteratedPrimeEscapePart
     ps hps (dyadicCofactorBoundary B)
 
+
+/-! ## Subdoubling rigidity: every live atom is already a glider -/
+
+/-- A squarefree atom on the strict dyadic wall has no odd-prime mate on the
+same wall.  If p divides n once, dividing by p falls below B/2; if p does not
+divide n, multiplying by p jumps above B.  A p-square fixed point is excluded
+by squarefreeness. -/
+theorem squarefree_dyadicAtom_toggle_not_mem
+    {B p n : ℕ} (hp : p.Prime) (hp2 : 2 < p)
+    (hn : n ∈ dyadicCofactorBoundary B) (hsf : Squarefree n) :
+    primeCarrierToggle p n ∉ dyadicCofactorBoundary B := by
+  have hsq : ¬ p ^ 2 ∣ n :=
+    (Nat.squarefree_iff_prime_squarefree.mp hsf p hp)
+  rcases mem_dyadicCofactorBoundary.mp hn with
+    ⟨hn1, hnB, _hnOdd, hB2n⟩
+  by_cases hdvd : p ∣ n
+  · rw [primeCarrierToggle_of_dvd hdvd hsq]
+    intro hmate
+    have hmateData := mem_dyadicCofactorBoundary.mp hmate
+    have hmul : p * (n / p) = n := Nat.mul_div_cancel' hdvd
+    have hle : 2 * (n / p) ≤ p * (n / p) :=
+      Nat.mul_le_mul_right (n / p) hp.two_le
+    rw [hmul] at hle
+    omega
+  · rw [primeCarrierToggle_of_not_dvd hdvd]
+    intro hmate
+    have hmateData := mem_dyadicCofactorBoundary.mp hmate
+    have hlt : 2 * n < n * p := by
+      have h :=
+        Nat.mul_lt_mul_of_pos_left hp2 (by omega : 0 < n)
+      simpa [Nat.mul_comm] using h
+    omega
+
+/-- The same escape statement on any subcarrier of the dyadic wall. -/
+theorem squarefree_dyadicAtom_mem_escape_of_subset
+    {B p n : ℕ} {S : Finset ℕ}
+    (hp : p.Prime) (hp2 : 2 < p)
+    (hS : S ⊆ dyadicCofactorBoundary B)
+    (hn : n ∈ S) (hsf : Squarefree n) :
+    n ∈ primeEscapePart p S := by
+  refine mem_primeEscapePart.mpr ⟨hn, ?_⟩
+  intro hmate
+  exact squarefree_dyadicAtom_toggle_not_mem hp hp2 (hS hn) hsf (hS hmate)
+
+/-- Every squarefree live atom survives every finite sequence of odd-prime
+Othello peels.  Repeated fixed-prime pairing can remove square-hit zeroes from
+the dyadic wall, but it cannot pair away any nonzero Mobius atom. -/
+theorem squarefree_dyadicAtom_mem_iteratedEscape_of_subset
+    (ps : List ℕ)
+    (hps : ∀ p ∈ ps, p.Prime ∧ 2 < p)
+    {B n : ℕ} {S : Finset ℕ}
+    (hS : S ⊆ dyadicCofactorBoundary B)
+    (hn : n ∈ S) (hsf : Squarefree n) :
+    n ∈ iteratedPrimeEscapePart ps S := by
+  induction ps generalizing S with
+  | nil =>
+      simpa using hn
+  | cons p ps ih =>
+      have hpData : p.Prime ∧ 2 < p := hps p (by simp)
+      have htail : ∀ q ∈ ps, q.Prime ∧ 2 < q := by
+        intro q hq
+        exact hps q (by simp [hq])
+      have hfirst : n ∈ primeEscapePart p S :=
+        squarefree_dyadicAtom_mem_escape_of_subset
+          hpData.1 hpData.2 hS hn hsf
+      exact ih htail
+        ((primeEscapePart_subset p S).trans hS) hfirst
+
+/-- In particular every squarefree atom of the original dyadic wall survives
+the named glider boundary after any finite odd-prime peel. -/
+theorem squarefree_dyadicAtom_mem_gliderBoundary
+    (ps : List ℕ)
+    (hps : ∀ p ∈ ps, p.Prime ∧ 2 < p)
+    {B n : ℕ}
+    (hn : n ∈ dyadicCofactorBoundary B) (hsf : Squarefree n) :
+    n ∈ dyadicJointGliderBoundary ps B := by
+  unfold dyadicJointGliderBoundary
+  exact squarefree_dyadicAtom_mem_iteratedEscape_of_subset
+    ps hps (Finset.Subset.refl _) hn hsf
+
+/-- Cardinality guardrail: every squarefree live cell remains on the iterated
+odd-prime glider boundary.  Hence a small-boundary proof cannot come merely from
+replaying fixed-prime Othello on the same strict dyadic annulus. -/
+theorem card_squarefreeDyadic_le_gliderBoundary
+    (ps : List ℕ)
+    (hps : ∀ p ∈ ps, p.Prime ∧ 2 < p)
+    (B : ℕ) :
+    ((dyadicCofactorBoundary B).filter Squarefree).card ≤
+      (dyadicJointGliderBoundary ps B).card := by
+  apply Finset.card_le_card
+  intro n hn
+  rcases Finset.mem_filter.mp hn with ⟨hnB, hsf⟩
+  exact squarefree_dyadicAtom_mem_gliderBoundary ps hps hnB hsf
+
 /-- Top-endpoint specialization of the exact glider-boundary theorem. -/
 theorem squareRootDyadicJointPacket_eq_iteratedGliderBoundaryMass
     (ps : List ℕ) (hps : ∀ p ∈ ps, p.Prime) (R : ℕ) :
