@@ -156,6 +156,18 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean
+          emit research/GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.lean
+          emit research/GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER.lean
+          emit research/GLOBAL_RETURNED_CORE_ARBITRARY_FRESH_PRIME_DESCENT.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
+          emit research/GLOBAL_RETURNED_CORE_DOUBLE_CORNER_POLARIZATION_FUBINI.lean
           emit research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean
       - name: Kernel-check exact signed Stokes algebra through natural corrected conductors
         run: |
