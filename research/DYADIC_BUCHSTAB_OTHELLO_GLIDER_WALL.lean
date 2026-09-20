@@ -357,7 +357,7 @@ holding the cofactor fixed preserves the Mobius sign: both products are
 matching between low-prime and high-prime multiples of the same cofactor. -/
 theorem canonicalMoebiusWeight_primeSwap_eq_of_rough
     {c p q : ℕ}
-    (_hc : 0 < c)
+    (hc : 0 < c)
     (hp : p.Prime) (hq : q.Prime)
     (hpFresh : canonicalLargestPrimeFactor c < p)
     (hqFresh : canonicalLargestPrimeFactor c < q) :
@@ -504,7 +504,8 @@ theorem sum_canonicalRoughTypeII_eq_neg_compositePartnerMass (R : ℕ) :
     squareRootCanonicalRoughPrimePartnerCount
     squareRootCanonicalRoughPrimeMultiplicity
   simp_rw [Finset.mul_sum]
-  rw [← Finset.sum_neg_distrib, Finset.sum_comm]
+  simp_rw [← Finset.sum_neg_distrib]
+  rw [Finset.sum_comm]
 
 /-- **Complete signed glider Fubini.**  The unit Mobius renewal sends each
 positive quotient depth to one, not zero.  Consequently the intact cofactor
@@ -529,43 +530,28 @@ At R=56, c=6 has 94 fresh prime partners.  The full divisor sum of six is zero,
 but the cofactor response is a prime-partner count, not that divisor sum. -/
 theorem squareRootCanonicalRoughCofactorResponse_56_six :
     squareRootCanonicalRoughCofactorResponse 56 6 = 94 := by
-  have h : (squareRootCanonicalRoughPrimePartnerSet 56 6).card = 94 := by
+  have hlpf : canonicalLargestPrimeFactor 6 = 3 := by
+    norm_num [canonicalLargestPrimeFactor]
+  have hset :
+      squareRootCanonicalRoughPrimePartnerSet 56 6 =
+        (Finset.Icc 11 522).filter Nat.Prime := by
+    ext q
+    rw [mem_squareRootCanonicalRoughPrimePartnerSet_iff
+      (R := 56) (c := 6) (q := q) (by norm_num) (by norm_num)]
+    rw [hlpf]
+    simp only [Finset.mem_filter, Finset.mem_Icc]
+    constructor
+    · rintro ⟨hqPrime, h3q, hroot, hupper⟩
+      exact ⟨⟨by omega, by omega⟩, hqPrime⟩
+    · rintro ⟨⟨h11, h522⟩, hqPrime⟩
+      exact ⟨hqPrime, by omega, by omega, by omega⟩
+  have hcard : ((Finset.Icc 11 522).filter Nat.Prime).card = 94 := by
     native_decide
   rw [squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount
     56 6 (by norm_num),
-    squareRootCanonicalRoughPrimePartnerCount_eq_partnerSet_card, h]
+    squareRootCanonicalRoughPrimePartnerCount_eq_partnerSet_card,
+    hset, hcard]
   norm_num
-
-/-- Every product of two distinct primes below R whose product reaches R has
-truncated replacement kernel -1.  The missing top divisor p*q has Mobius
-weight +1, so the full divisor cancellation cannot be applied to the retained
-three divisors.  This is an entire composite family, not a prime-power exception. -/
-theorem squareRootReplacementKernel_of_distinct_low_primes
-    {R p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q)
-    (hpR : p < R) (hqR : q < R) (hprod : R ≤ p * q) :
-    squareRootReplacementKernel R (p * q) = -1 := by
-  have hdiv : (p * q).divisors = {1, p, q, p * q} := by
-    ext d
-    simp [Nat.divisors_mul, hp.divisors, hq.divisors, Finset.mem_mul,
-      eq_comm, or_comm, or_assoc]
-  have h1R : 1 < R := hp.one_lt.trans hpR
-  have hnot : ¬ p * q < R := Nat.not_lt_of_ge hprod
-  have hfilter : ((p * q).divisors.filter (fun d => d < R)) = {1, p, q} := by
-    simp [hdiv]
-  unfold squareRootReplacementKernel squareRootReplacementSeed
-  rw [← Finset.sum_filter, hfilter]
-  simp [Ne.symm hp.ne_one, Ne.symm hq.ne_one, hpq,
-    ArithmeticFunction.moebius_apply_prime hp,
-    ArithmeticFunction.moebius_apply_prime hq]
-
-/-- An explicit squarefree composite well below X=3135 retains a nonzero
-truncated divisor sum, although its complete divisor sum vanishes. -/
-theorem squareRootReplacementKernel_56_899 :
-    squareRootReplacementKernel 56 899 = -1 := by
-  exact squareRootReplacementKernel_of_distinct_low_primes
-    (p := 29) (q := 31) (by norm_num) (by norm_num) (by norm_num)
-    (by norm_num) (by norm_num) (by norm_num)
-
 
 /-! ## Fresh-prime cutoff shell: exact masked-fibre Stokes identity -/
 
@@ -626,7 +612,7 @@ zero.  The truncated replacement kernel is therefore exactly the signed flux
 of divisor edges crossing \`d < R <= p*d\`. -/
 theorem squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
     {R c p : ℕ}
-    (hc : 0 < c)
+    (_hc : 0 < c)
     (hp : p.Prime)
     (hfresh : ¬ p ∣ c) :
     squareRootReplacementKernel R (c * p) =
@@ -662,6 +648,36 @@ theorem squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
     have hRpd : R ≤ p * d := hRd.trans hdp
     have hnot : ¬ p * d < R := Nat.not_lt_of_ge hRpd
     simp [hdR, hnot, hRpd]
+
+/-- Every product of two distinct primes below R whose product reaches R has
+truncated replacement kernel -1.  The crossing-shell form shows exactly why:
+the unit divisor stays below the mask after the q-step, while the p-divisor
+crosses it and contributes mu(p) = -1. -/
+theorem squareRootReplacementKernel_of_distinct_low_primes
+    {R p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q)
+    (hpR : p < R) (hqR : q < R) (hprod : R ≤ p * q) :
+    squareRootReplacementKernel R (p * q) = -1 := by
+  have hqFresh : ¬ q ∣ p := by
+    intro hqp
+    rcases hp.eq_one_or_self_of_dvd q hqp with hq1 | hqpEq
+    · exact hq.ne_one hq1
+    · exact hpq hqpEq.symm
+  rw [squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
+    (c := p) (p := q) hp.pos hq hqFresh]
+  have h1R : 1 < R := hp.one_lt.trans hpR
+  have hqNot : ¬ R ≤ q := by omega
+  have hqpCross : R ≤ q * p := by
+    simpa [Nat.mul_comm] using hprod
+  simp [squareRootReplacementCrossingShell, hp.divisors, h1R, hpR,
+    hqNot, hqpCross, ArithmeticFunction.moebius_apply_prime hp]
+
+/-- An explicit squarefree composite well below X=3135 retains a nonzero
+truncated divisor sum, although its complete divisor sum vanishes. -/
+theorem squareRootReplacementKernel_56_899 :
+    squareRootReplacementKernel 56 899 = -1 := by
+  exact squareRootReplacementKernel_of_distinct_low_primes
+    (p := 29) (q := 31) (by norm_num) (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
 
 /-- The production counterexample is literally one crossing-shell atom:
 \`d = 29\` crosses the \`R = 56\` mask under the fresh prime \`31\`. -/
