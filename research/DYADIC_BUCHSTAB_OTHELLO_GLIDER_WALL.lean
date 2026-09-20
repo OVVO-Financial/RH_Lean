@@ -771,7 +771,7 @@ theorem squareRootReplacementCrossingShell_primorial_eq_finiteDifferenceOperator
       (((finiteDifferenceOperator (insert p S)
           squareRootReplacementPositiveIndicator) (R - 1) : ℤ) : ℂ) := by
   have hcpos : 0 < RHLean.Arithmetic.primorial S := by
-    unfold primorial
+    unfold RHLean.Arithmetic.primorial
     exact Finset.prod_pos fun q hq => (hprime q hq).pos
   have hcop : Nat.Coprime p (RHLean.Arithmetic.primorial S) :=
     prime_coprime_primorial S p hp hpS hprime
@@ -875,11 +875,6 @@ theorem squareRootReplacementCrossingShell_eq_carrierMass
   unfold squareRootReplacementCrossingShell
     squareRootReplacementCrossingShellCarrier
   rw [← Finset.sum_filter]
-  apply Finset.sum_congr rfl
-  intro d hd
-  by_cases hcross : d < R ∧ R ≤ p * d
-  · simp [hcross]
-  · simp [hcross]
 
 /-- Divisor-shell atom -> canonical threshold-loss cell.  In the canonical
 fresh orientation P+(c) < p, every admitted divisor edge d < R <= p*d has p
