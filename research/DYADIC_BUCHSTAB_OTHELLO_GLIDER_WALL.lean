@@ -7,7 +7,8 @@ import RHLean.Proof.RecursivePrimeReplacement
 import RHLean.Proof.ReplacementFibreOrientationSplit
 import RHLean.Analysis.SquareRootPostCrossingRenewal
 import RHLean.Proof.TerminalMertensReduction
-import «research.PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION»
+import RHLean.Proof.PrimeWheelRoughSeatCorrelation
+import RHLean.Arithmetic.MobiusFiniteDifferenceIdentification
 import RHLean.Proof.SquareRootLowPrimeBornSquareBoundary
 import RHLean.Proof.CanonicalRoughAdaptiveWeightedIteration
 
@@ -714,6 +715,33 @@ theorem squareRootReplacementCrossingShell_56_29_31 :
 
 /-! ## Operator and adaptive-carrier handoff -/
 
+
+/-- Positive-support indicator used to identify the truncated wheel kernel with
+the production finite-difference operator without importing another research
+module. -/
+def squareRootReplacementPositiveIndicator (y : ℕ) : ℤ :=
+  if y = 0 then 0 else 1
+
+/-- The wheel cutoff kernel is the canonical finite-difference operator applied
+to the positive-support indicator. -/
+theorem primeWheelTruncatedMoebiusKernel_eq_replacementFiniteDifferenceIndicator
+    (S : Finset ℕ) (X : ℕ) :
+    primeWheelTruncatedMoebiusKernel S X =
+      finiteDifferenceOperator S squareRootReplacementPositiveIndicator X := by
+  classical
+  rw [finiteDifferenceOperator_apply]
+  unfold primeWheelTruncatedMoebiusKernel
+  apply Finset.sum_congr rfl
+  intro d hd
+  have hdpos : 0 < d := Nat.pos_of_mem_divisors hd
+  by_cases hdX : d ≤ X
+  · have hq1 : 1 ≤ X / d := (Nat.one_le_div_iff hdpos).2 hdX
+    have hq0 : X / d ≠ 0 := by omega
+    simp [shift, squareRootReplacementPositiveIndicator, hdX, hq0]
+  · have hXd : X < d := Nat.lt_of_not_ge hdX
+    have hq0 : X / d = 0 := Nat.div_eq_of_lt hXd
+    simp [shift, squareRootReplacementPositiveIndicator, hdX, hq0]
+
 /-- On a squarefree wheel product, the root-truncated replacement kernel is
 literally the ordinary wheel cutoff kernel at R - 1.  This is only a
 coordinate identification; no cancellation or estimate is added here. -/
@@ -741,7 +769,7 @@ theorem squareRootReplacementCrossingShell_primorial_eq_finiteDifferenceOperator
     (hprime : ∀ q ∈ S, q.Prime) :
     squareRootReplacementCrossingShell R (primorial S) p =
       (((finiteDifferenceOperator (insert p S)
-          primeWheelPositiveIndicator) (R - 1) : ℤ) : ℂ) := by
+          squareRootReplacementPositiveIndicator) (R - 1) : ℤ) : ℂ) := by
   have hcpos : 0 < primorial S := by
     unfold primorial
     exact Finset.prod_pos fun q hq => (hprime q hq).pos
@@ -757,7 +785,7 @@ theorem squareRootReplacementCrossingShell_primorial_eq_finiteDifferenceOperator
   rw [hprod,
     squareRootReplacementKernel_primorial_eq_truncatedWheelKernel
       (insert p S) R hR,
-    primeWheelTruncatedMoebiusKernel_eq_finiteDifferenceOperator_indicator]
+    primeWheelTruncatedMoebiusKernel_eq_replacementFiniteDifferenceIndicator]
 
 /-- Expanded operator form of the same shell.  This is the exact fresh-prime
 difference D_(S+p) = D_S - D_S after the p-shift. -/
@@ -766,14 +794,14 @@ theorem squareRootReplacementCrossingShell_primorial_eq_old_sub_shift
     (hR : 1 ≤ R) (hp : p.Prime) (hpS : p ∉ S)
     (hprime : ∀ q ∈ S, q.Prime) :
     squareRootReplacementCrossingShell R (primorial S) p =
-      (((finiteDifferenceOperator S primeWheelPositiveIndicator) (R - 1) -
+      (((finiteDifferenceOperator S squareRootReplacementPositiveIndicator) (R - 1) -
         (finiteDifferenceOperator S
-          (shift p primeWheelPositiveIndicator)) (R - 1) : ℤ) : ℂ) := by
+          (shift p squareRootReplacementPositiveIndicator)) (R - 1) : ℤ) : ℂ) := by
   rw [squareRootReplacementCrossingShell_primorial_eq_finiteDifferenceOperator
     S R p hR hp hpS hprime]
   have hins :=
     finiteDifferenceOperator_insert (R := ℤ)
-      S p hp hpS hprime primeWheelPositiveIndicator
+      S p hp hpS hprime squareRootReplacementPositiveIndicator
   rw [hins]
   rfl
 
