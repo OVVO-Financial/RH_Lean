@@ -46,8 +46,13 @@ attribute [local instance] Classical.propDecidable
 /-- The lower anchor wall is empty for the full prefix (0,B]. -/
 theorem primeTwoAnchorWall_zero (B : ℕ) :
     primeCarrierAnchorWall 2 0 B = ∅ := by
-  ext n
-  simp [primeCarrierAnchorWall]
+  apply Finset.eq_empty_iff_forall_not_mem.mpr
+  intro n hn
+  rcases mem_primeCarrierAnchorWall.mp hn with
+    ⟨hnIoc, _hdvd, _hsq, hle⟩
+  have hnBounds := Finset.mem_Ioc.mp hnIoc
+  norm_num at hle
+  omega
 
 /-- The prime-two cutoff wall of (0,B] is literally the odd dyadic annulus. -/
 theorem primeTwoCutoffWall_eq_dyadicCofactorBoundary (B : ℕ) :
@@ -57,6 +62,7 @@ theorem primeTwoCutoffWall_eq_dyadicCofactorBoundary (B : ℕ) :
   · intro hn
     rcases mem_primeCarrierCutoffWall.mp hn with
       ⟨hnIoc, h2n, hcut⟩
+    have hnBounds := Finset.mem_Ioc.mp hnIoc
     have hodd : Odd n := by
       rcases Nat.even_or_odd n with heven | hodd
       · exfalso
@@ -66,7 +72,7 @@ theorem primeTwoCutoffWall_eq_dyadicCofactorBoundary (B : ℕ) :
         omega
       · exact hodd
     exact mem_dyadicCofactorBoundary.mpr
-      ⟨by omega, hnIoc.2, hodd, by simpa [Nat.mul_comm] using hcut⟩
+      ⟨by omega, hnBounds.2, hodd, by simpa [Nat.mul_comm] using hcut⟩
   · intro hn
     rcases mem_dyadicCofactorBoundary.mp hn with
       ⟨hn1, hnB, hodd, hcut⟩
@@ -136,8 +142,9 @@ theorem squarefree_dyadicAtom_toggle_not_mem
     {B p n : ℕ} (hp : p.Prime) (hp2 : 2 < p)
     (hn : n ∈ dyadicCofactorBoundary B) (hsf : Squarefree n) :
     primeCarrierToggle p n ∉ dyadicCofactorBoundary B := by
-  have hsq : ¬ p ^ 2 ∣ n :=
-    (Nat.squarefree_iff_prime_squarefree.mp hsf p hp)
+  have hsq : ¬ p ^ 2 ∣ n := by
+    simpa [pow_two] using
+      (Nat.squarefree_iff_prime_squarefree.mp hsf p hp)
   rcases mem_dyadicCofactorBoundary.mp hn with
     ⟨hn1, hnB, _hnOdd, hB2n⟩
   by_cases hdvd : p ∣ n
