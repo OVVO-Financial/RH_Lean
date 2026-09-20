@@ -1319,27 +1319,32 @@ private theorem topPrime_emptyBase_eq_one
     (ha : a ∈ lowOwnerFirstOwnerBaseFiber R (topPrime R hR) ∅) :
     a = 1 := by
   rcases Finset.mem_filter.mp ha with ⟨haCar, hdata⟩
-  rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos haCar with ⟨_haSq, haPos⟩
+  rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos haCar with
+    ⟨_haSq, haPos⟩
   by_contra hane
-  obtain ⟨p, hpPrime, hpa⟩ := Nat.exists_prime_and_dvd (by omega : a ≠ 1)
-  have hpLtTop : p < topPrime R hR := by
-    have hpLeA : p ≤ a := Nat.le_of_dvd haPos hpa
-    have haLeX := (Finset.mem_Icc.mp (Finset.mem_filter.mp haCar).1).2
-    have hpX : p ≤ squareRootEndpoint R := hpLeA.trans haLeX
-    have hpMem : p ∈ primesUpTo (squareRootEndpoint R) :=
-      mem_primesUpTo.mpr ⟨hpPrime, hpX⟩
-    have hpLeTop := Finset.le_max' _ p hpMem
-    by_contra heq
-    have htopDvd : topPrime R hR ∣ a := by simpa [heq] using hpa
-    have hnot := (Finset.mem_filter.mp ha).2.2
-    exact hnot htopDvd
-  have hpFace : p ∈ squarefreeLowerPrimeSignature (topPrime R hR) a := by
-    unfold squarefreeLowerPrimeSignature squarefreePrimeFace
-    simp only [Finset.mem_filter]
-    exact ⟨mem_primesUpTo.mpr ⟨hpPrime, by omega⟩, hpa⟩
-  have hempty := (Finset.mem_filter.mp ha).2.1
-  rw [hempty] at hpFace
-  simp at hpFace
+  obtain ⟨q, hqPrime, hqDvd⟩ :=
+    Nat.exists_prime_and_dvd (by omega : a ≠ 1)
+  have haIcc := (Finset.mem_filter.mp haCar).1
+  have haX := (Finset.mem_Icc.mp haIcc).2
+  have hqLeA : q ≤ a := Nat.le_of_dvd haPos hqDvd
+  have hqX : q ≤ squareRootEndpoint R := hqLeA.trans haX
+  have hqMem : q ∈ primesUpTo (squareRootEndpoint R) :=
+    mem_primesUpTo.mpr ⟨hqPrime, hqX⟩
+  have hqTop : q ≤ topPrime R hR :=
+    Finset.le_max' _ q hqMem
+  have hqNeTop : q ≠ topPrime R hR := by
+    intro heq
+    subst q
+    exact hdata.2 hqDvd
+  have hqLtTop : q < topPrime R hR := by omega
+  have hqFace : q ∈ squarefreePrimeFace a := by
+    unfold squarefreePrimeFace
+    exact Nat.mem_primeFactors.mpr ⟨hqPrime, hqDvd, Nat.ne_of_gt haPos⟩
+  have hqSig :
+      q ∈ squarefreeLowerPrimeSignature (topPrime R hR) a :=
+    Finset.mem_filter.mpr ⟨hqFace, hqLtTop⟩
+  rw [hdata.1] at hqSig
+  simp at hqSig
 
 private theorem topPrime_emptyBaseAmplitude_nonneg
     {R : ℕ} (hR : 56 ≤ R) :
