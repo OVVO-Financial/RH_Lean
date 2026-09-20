@@ -873,12 +873,16 @@ theorem secondPrimeTerminal_le_four
     dsimp [L, H]
     exact secondPrime_baseCoefficient_le_one_add_H hR
   by_cases hHone : 1 ≤ H
-  · have hnonpos : 2 * (1 - H) * L ≤ 0 := by
-      have hdiff : 1 - H ≤ 0 := by linarith
-      nlinarith
-    linarith
+  · have hdiff : 1 - H ≤ 0 := by linarith
+    have hprod : (1 - H) * L ≤ 0 :=
+      mul_nonpos_of_nonpos_of_nonneg hdiff hL
+    nlinarith
   · have hHlt : H < 1 := lt_of_not_ge hHone
-    have hLlt : L < 2 := by linarith
+    have hdiff0 : 0 ≤ 1 - H := by linarith
+    have hdiff1 : 1 - H ≤ 1 := by linarith
+    have hLle : L ≤ 2 := by linarith
+    have hprod : (1 - H) * L ≤ 1 * 2 :=
+      mul_le_mul hdiff1 hLle hL (by norm_num)
     nlinarith
 
 theorem topTerminalOwnerSet_eq_top_two
