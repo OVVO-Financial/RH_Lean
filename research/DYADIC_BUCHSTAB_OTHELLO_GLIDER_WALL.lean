@@ -7,6 +7,9 @@ import RHLean.Proof.RecursivePrimeReplacement
 import RHLean.Proof.ReplacementFibreOrientationSplit
 import RHLean.Analysis.SquareRootPostCrossingRenewal
 import RHLean.Proof.TerminalMertensReduction
+import «research.PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION»
+import RHLean.Proof.SquareRootLowPrimeBornSquareBoundary
+import RHLean.Proof.CanonicalRoughAdaptiveWeightedIteration
 
 /-!
 # Dyadic Buchstab/Othello splice: the joint packet is already an escape wall
@@ -41,7 +44,8 @@ open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Proof
 
-open RHLean.Analysis
+open RHLean.Analysis RHLean.Arithmetic
+open CanonicalRoughPrimeAdditionDescent
 
 attribute [local instance] Classical.propDecidable
 
@@ -706,6 +710,166 @@ theorem squareRootReplacementCrossingShell_56_29_31 :
   rw [← squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
     (c := 29) (p := 31) (by norm_num) (by norm_num) (by norm_num)]
   norm_num [squareRootReplacementKernel_56_899]
+
+
+/-! ## Operator and adaptive-carrier handoff -/
+
+/-- On a squarefree wheel product, the root-truncated replacement kernel is
+literally the ordinary wheel cutoff kernel at R - 1.  This is only a
+coordinate identification; no cancellation or estimate is added here. -/
+theorem squareRootReplacementKernel_primorial_eq_truncatedWheelKernel
+    (S : Finset ℕ) (R : ℕ) (hR : 1 ≤ R) :
+    squareRootReplacementKernel R (primorial S) =
+      ((primeWheelTruncatedMoebiusKernel S (R - 1) : ℤ) : ℂ) := by
+  unfold squareRootReplacementKernel squareRootReplacementSeed
+    primeWheelTruncatedMoebiusKernel
+  push_cast
+  apply Finset.sum_congr rfl
+  intro d _hd
+  by_cases hdR : d < R
+  · have hdPred : d ≤ R - 1 := by omega
+    simp [hdR, hdPred]
+  · have hdPred : ¬ d ≤ R - 1 := by omega
+    simp [hdR, hdPred]
+
+/-- Crossing shell = the fresh-prime finite-difference operator.  When the
+parent is an old prime wheel, the exact masked-fibre flux is precisely the
+canonical finite-difference operator after adjoining the fresh prime. -/
+theorem squareRootReplacementCrossingShell_primorial_eq_finiteDifferenceOperator
+    (S : Finset ℕ) (R p : ℕ)
+    (hR : 1 ≤ R) (hp : p.Prime) (hpS : p ∉ S)
+    (hprime : ∀ q ∈ S, q.Prime) :
+    squareRootReplacementCrossingShell R (primorial S) p =
+      (((finiteDifferenceOperator (insert p S)
+          primeWheelPositiveIndicator) (R - 1) : ℤ) : ℂ) := by
+  have hcpos : 0 < primorial S := by
+    unfold primorial
+    exact Finset.prod_pos fun q hq => (hprime q hq).pos
+  have hcop : Nat.Coprime p (primorial S) :=
+    prime_coprime_primorial S p hp hpS hprime
+  have hfresh : ¬ p ∣ primorial S :=
+    (hp.coprime_iff_not_dvd).mp hcop
+  rw [← squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
+    hcpos hp hfresh]
+  have hprod : primorial S * p = primorial (insert p S) := by
+    rw [primorial_insert S p hpS]
+    exact Nat.mul_comm _ _
+  rw [hprod,
+    squareRootReplacementKernel_primorial_eq_truncatedWheelKernel
+      (insert p S) R hR,
+    primeWheelTruncatedMoebiusKernel_eq_finiteDifferenceOperator_indicator]
+
+/-- Expanded operator form of the same shell.  This is the exact fresh-prime
+difference D_(S+p) = D_S - D_S after the p-shift. -/
+theorem squareRootReplacementCrossingShell_primorial_eq_old_sub_shift
+    (S : Finset ℕ) (R p : ℕ)
+    (hR : 1 ≤ R) (hp : p.Prime) (hpS : p ∉ S)
+    (hprime : ∀ q ∈ S, q.Prime) :
+    squareRootReplacementCrossingShell R (primorial S) p =
+      (((finiteDifferenceOperator S primeWheelPositiveIndicator) (R - 1) -
+        (finiteDifferenceOperator S
+          (shift p primeWheelPositiveIndicator)) (R - 1) : ℤ) : ℂ) := by
+  rw [squareRootReplacementCrossingShell_primorial_eq_finiteDifferenceOperator
+    S R p hR hp hpS hprime]
+  have hins :=
+    finiteDifferenceOperator_insert (R := ℤ)
+      S p hp hpS hprime primeWheelPositiveIndicator
+  rw [hins]
+  rfl
+
+/-- Literal divisor-edge carrier of the crossing shell. -/
+def squareRootReplacementCrossingShellCarrier
+    (R c p : ℕ) : Finset ℕ :=
+  c.divisors.filter fun d => d < R ∧ R ≤ p * d
+
+@[simp] theorem mem_squareRootReplacementCrossingShellCarrier
+    {R c p d : ℕ} :
+    d ∈ squareRootReplacementCrossingShellCarrier R c p ↔
+      d ∈ c.divisors ∧ d < R ∧ R ≤ p * d := by
+  simp [squareRootReplacementCrossingShellCarrier, and_assoc]
+
+/-- The crossing shell is exactly the signed Mobius mass of its Boolean edge
+carrier. -/
+theorem squareRootReplacementCrossingShell_eq_carrierMass
+    (R c p : ℕ) :
+    squareRootReplacementCrossingShell R c p =
+      ∑ d ∈ squareRootReplacementCrossingShellCarrier R c p,
+        (((μ d : ℤ) : ℂ)) := by
+  simp [squareRootReplacementCrossingShell,
+    squareRootReplacementCrossingShellCarrier]
+
+/-- Divisor-shell atom -> canonical threshold-loss cell.  In the canonical
+fresh orientation P+(c) < p, every admitted divisor edge d < R <= p*d has p
+itself as a literal threshold-loss partner of d.  The physical endpoint
+assumption on c*p is inherited by every divisor d|c. -/
+theorem squareRootReplacementCrossingShellCarrier_selfPrime_mem_thresholdLoss
+    {R c p d : ℕ}
+    (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p)
+    (hupper : c * p ≤ squareRootEndpoint R)
+    (hd : d ∈ squareRootReplacementCrossingShellCarrier R c p) :
+    p ∈ squareRootCanonicalRoughFreshThresholdLossBoundary R d p := by
+  rcases mem_squareRootReplacementCrossingShellCarrier.mp hd with
+    ⟨hdDivs, _hdR, hcross⟩
+  have hdc : d ∣ c := Nat.dvd_of_mem_divisors hdDivs
+  have hdpos : 0 < d := Nat.pos_of_mem_divisors hdDivs
+  have hdle : d ≤ c := Nat.le_of_dvd hc hdc
+  have hdrough : canonicalLargestPrimeFactor d < p := by
+    by_cases hcOne : c = 1
+    · subst c
+      have hdEq : d = 1 := Nat.dvd_one.mp hdc
+      subst d
+      simpa [canonicalLargestPrimeFactor] using hp.one_lt
+    · have hcGt : 1 < c := by omega
+      exact (canonicalLargestPrimeFactor_le_of_dvd hdpos hcGt hdc).trans_lt
+        hrough
+  apply
+    (mem_squareRootCanonicalRoughFreshThresholdLossBoundary_iff
+      hR hdpos hp hdrough).2
+  refine ⟨hp, hdrough, ?_, ?_, le_rfl⟩
+  · simpa [Nat.mul_comm] using hcross
+  · calc
+      d * p ≤ c * p := Nat.mul_le_mul_right p hdle
+      _ ≤ squareRootEndpoint R := hupper
+
+/-- Crossing-shell atom -> four-corner chronology.  On a complete descending
+prime prefix, an admitted shell divisor is a literal threshold-loss cell, while
+the evolved child raw atom is already zero in both inherited coefficient
+placements.  If a larger physical extension exists this is the existing
+four-corner kill; if none exists the child rough response is already empty.
+The surviving signed boundary ledger itself is deliberately not declared zero. -/
+theorem squareRootReplacementCrossingShellCarrier_handoff_to_fourCorner
+    {R c p d : ℕ} (qs : List ℕ)
+    (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p)
+    (hupper : c * p ≤ squareRootEndpoint R)
+    (hcomplete : SquareRootCanonicalRoughCompleteDescendingPrefix R p qs)
+    (hd : d ∈ squareRootReplacementCrossingShellCarrier R c p) :
+    p ∈ squareRootCanonicalRoughFreshThresholdLossBoundary R d p ∧
+      let a := squareRootCanonicalRoughAdaptiveRawCoefficient qs
+        (Finset.Icc 1 (squareRootEndpoint R)) (fun _ => (1 : ℂ))
+      a d * squareRootCanonicalRoughRawCorrelationSummand R (d * p) = 0 ∧
+        a (d * p) *
+          squareRootCanonicalRoughRawCorrelationSummand R (d * p) = 0 := by
+  have hthreshold :=
+    squareRootReplacementCrossingShellCarrier_selfPrime_mem_thresholdLoss
+      hR hc hp hrough hupper hd
+  refine ⟨hthreshold, ?_⟩
+  rcases mem_squareRootReplacementCrossingShellCarrier.mp hd with
+    ⟨hdDivs, _hdR, _hcross⟩
+  have hdc : d ∣ c := Nat.dvd_of_mem_divisors hdDivs
+  have hdpos : 0 < d := Nat.pos_of_mem_divisors hdDivs
+  have hdrough : canonicalLargestPrimeFactor d < p := by
+    by_cases hcOne : c = 1
+    · subst c
+      have hdEq : d = 1 := Nat.dvd_one.mp hdc
+      subst d
+      simpa [canonicalLargestPrimeFactor] using hp.one_lt
+    · have hcGt : 1 < c := by omega
+      exact (canonicalLargestPrimeFactor_le_of_dvd hdpos hcGt hdc).trans_lt
+        hrough
+  exact evolvedRawCoefficient_mul_childRaw_eq_zero_of_completeDescendingPrefix
+    qs hR hdpos hp hdrough hcomplete
 
 /-! ## Sign-correct smooth/high Buchstab splice -/
 
