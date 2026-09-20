@@ -7,6 +7,10 @@ import «research.STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME»
 import «research.STABLE_FAR_PERRON_QUARTER_FRAME_BOUND»
 import «research.GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM»
 import «research.GLOBAL_RETURNED_CORE_DOUBLE_CORNER_POLARIZATION_FUBINI»
+import «research.GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION»
+import «research.GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY»
+import «research.GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION»
+import «research.GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER»
 
 /-!
 # Physical Stokes boundary -> natural prime-period frame interface
@@ -1012,7 +1016,7 @@ theorem lowOwnerStokesTopTerminalOwnerSet_eq_empty_union_one
         (lowOwnerFirstOwnerCanonicalStokesSchedule R p).length with hzero | hpos
     · left
       refine ⟨hp, ?_⟩
-      exact List.length_eq_zero.mp hzero
+      exact List.length_eq_zero_iff.mp hzero
     · right
       refine ⟨hp, ?_⟩
       omega
@@ -1410,7 +1414,7 @@ theorem clip_le_five_fourths_root_sq_mul_lowerEnvelope_of_coefficientBounded
       (lowOwnerStokesOddPrimePeriodSet R)
       (coefficient R hR) K hK.1 hcoeff
   have hframe :=
-    lowOwnerStokesOddPrimePeriodFrameMajorant_le_five_fourths_root_sq R hR
+    lowOwnerStokesOddPrimePeriodFrameMajorant_le_five_fourths_root_sq hR
   calc
     lowOwnerCanonicalSignedStokesClipBoundary R ≤
         primePeriodReciprocalCoefficientEnvelope
@@ -1528,7 +1532,10 @@ the root parameter. -/
 theorem root_le_half_squareRootEndpoint
     {R : ℕ} (hR : 56 ≤ R) :
     R ≤ squareRootEndpoint R / 2 := by
+  apply (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2
   unfold squareRootEndpoint
+  have hsq : R * 2 + 1 ≤ R ^ 2 := by
+    nlinarith
   omega
 
 /-- **Support no-go for a direct admissibility map.**  The head of every
@@ -1579,10 +1586,19 @@ private theorem sum_product_othello_separable
         lowOwnerStokesSignedScalarAmplitude T h := by
   unfold lowOwnerStokesSignedScalarAmplitude
     othelloRealMoebiusPair
-  rw [Finset.sum_product]
   calc
-    (∑ a ∈ S, ∑ b ∈ T,
-      (othelloRealMoebius a * othelloRealMoebius b) * (g a * h b)) =
+    (∑ mn ∈ S.product T,
+      (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
+        (g mn.1 * h mn.2)) =
+      ∑ a ∈ S, ∑ b ∈ T,
+        (othelloRealMoebius a * othelloRealMoebius b) * (g a * h b) := by
+          simpa only using
+            (Finset.sum_product
+              (s := S) (t := T)
+              (f := fun mn : ℕ × ℕ =>
+                (othelloRealMoebius mn.1 * othelloRealMoebius mn.2) *
+                  (g mn.1 * h mn.2)))
+    _ =
       ∑ a ∈ S,
         (othelloRealMoebius a * g a) *
           (∑ b ∈ T, othelloRealMoebius b * h b) := by
@@ -1650,7 +1666,7 @@ pairing of the signed escape amplitudes with the full surviving amplitudes,
 plus one half of the owner-difference/interior pairing.  In particular, no
 pointwise absolute value or cellwise square is needed to expose the scalar
 boundary amplitudes. -/
-theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedAmplitudeProducts
+theorem lowOwnerFirstOwner_pairBoundaryStep_eq_clipSignedAmplitudeProducts
     {R p r : ℕ} {sig : Finset ℕ}
     (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
     let A := lowOwnerFirstOwnerBaseFiber R p sig
@@ -1814,13 +1830,8 @@ theorem lowOwnerFirstOwnerStokesClip_incidence_eq_ownerDifference
       lowOwnerDirichletOwnerDifference r
         (lowOwnerDirichletIncidenceCoefficient R p) n := by
   unfold lowOwnerDirichletOwnerDifference
-  rw [primeCarrierToggle_of_not_dvd hrn]
-  change lowOwnerDirichletIncidenceCoefficient R p n =
-    lowOwnerDirichletIncidenceCoefficient R p n -
-      lowOwnerDirichletIncidenceCoefficient R p (n * r)
   have hzero :=
     lowOwnerFirstOwnerStokesClip_incidence_child_eq_zero hp hn
-  rw [Nat.mul_comm] at hzero
   rw [hzero]
   ring
 
@@ -1903,11 +1914,16 @@ theorem half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_escape
           (primeInteriorPart r S) g =
       lowOwnerStokesSignedScalarAmplitude S g -
         lowOwnerStokesSignedScalarAmplitude (primeEscapePart r S) g := by
+  change
+    (1 / 2 : ℝ) *
+        (∑ n ∈ primeInteriorPart r S,
+          othelloRealMoebius n *
+            (g n - g (primeCarrierToggle r n))) =
+      (∑ n ∈ S, othelloRealMoebius n * g n) -
+        ∑ n ∈ primeEscapePart r S, othelloRealMoebius n * g n
   have h :=
     sum_weightedMoebius_eq_escape_add_half_interiorDifference
       hr S g
-  unfold lowOwnerStokesSignedScalarAmplitude
-    lowOwnerStokesSignedOwnerDifferenceAmplitude at *
   linarith
 
 /-- On one returned-core first-owner cell, the fresh-r escape amplitude is the
@@ -1956,7 +1972,7 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedSquareDecrements
         (lowOwnerStokesSignedScalarAmplitude A ret -
           lowOwnerStokesSignedScalarAmplitude E ret) ^ 2) := by
   dsimp only
-  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_signedAmplitudeProducts
+  rw [lowOwnerFirstOwner_pairBoundaryStep_eq_clipSignedAmplitudeProducts
       hp hr hpr]
   have hi :=
     half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_dirichletClip
@@ -2080,13 +2096,10 @@ theorem lowOwnerStokesSignedScalarAmplitude_base_eq_firstOwnerBaseAmplitude
         (lowOwnerFirstOwnerBaseFiber R p sig)
         (lowOwnerDirichletBaseCoefficient R) =
       lowOwnerFirstOwnerBaseAmplitude R p sig := by
-  have h :=
-    sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude R p sig
-  unfold lowOwnerStokesSignedScalarAmplitude
-    lowOwnerFirstOwnerDirichletBaseSite
-    lowOwnerDirichletBaseCoefficient
-    othelloRealMoebius RHLean.Analysis.realMoebiusStep
-  simpa [mul_comm] using h
+  simpa [lowOwnerStokesSignedScalarAmplitude, lowOwnerDirichletBaseCoefficient,
+    lowOwnerFirstOwnerDirichletBaseSite, othelloRealMoebius,
+    RHLean.Analysis.realMoebiusStep, mul_comm] using
+      (sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude R p sig)
 
 /-- On the same base fibre, the signed Stokes returned amplitude is exactly the
 already-defined returned-child parent amplitude. -/
@@ -2096,14 +2109,12 @@ theorem lowOwnerStokesSignedScalarAmplitude_returned_eq_firstOwnerReturnedAmplit
         (lowOwnerFirstOwnerBaseFiber R p sig)
         (lowOwnerDirichletReturnedCoefficient R p) =
       lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
-  have h :=
-    sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
-      (R := R) (p := p) (sig := sig)
-  unfold lowOwnerStokesSignedScalarAmplitude
-    lowOwnerFirstOwnerDirichletReturnedChildSite
-    lowOwnerDirichletReturnedCoefficient
-    othelloRealMoebius RHLean.Analysis.realMoebiusStep
-  simpa [mul_comm] using h
+  simpa [lowOwnerStokesSignedScalarAmplitude,
+    lowOwnerDirichletReturnedCoefficient,
+    lowOwnerFirstOwnerDirichletReturnedChildSite, othelloRealMoebius,
+    RHLean.Analysis.realMoebiusStep, mul_comm] using
+      (sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
+        (R := R) (p := p) (sig := sig))
 
 /-- Literal signed base amplitude on one Stokes escape face. -/
 def lowOwnerFirstOwnerStokesEscapeBaseAmplitude
@@ -2269,14 +2280,14 @@ theorem norm_sq_lowOwnerStokesLowerMertensPrimeCoefficient_le_lowerEnvelope
   have hpPos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpPosNat
   have hsqrtPos : 0 < Real.sqrt (p : ℝ) := Real.sqrt_pos.2 hpPos
   have hsqrtSq : (Real.sqrt (p : ℝ)) ^ 2 = (p : ℝ) := by
-    rw [sq_sqrt (le_of_lt hpPos)]
+    exact Real.sq_sqrt (le_of_lt hpPos)
   have hpred :
       ((((p - 1 + 1 : ℕ) : ℝ))) = (p : ℝ) := by
     rw [Nat.sub_add_cancel hpPrime.one_le]
   rw [hpred] at henv
   unfold lowOwnerStokesLowerMertensPrimeCoefficient
-  rw [Complex.norm_real, Real.norm_eq_abs, div_pow]
-  rw [sq_abs, hsqrtSq]
+  rw [Complex.norm_real, Real.norm_eq_abs, abs_div,
+    abs_of_pos hsqrtPos, div_pow, sq_abs, hsqrtSq]
   exact (div_le_iff₀ hpPos).2 (by simpa [mul_comm] using henv)
 
 /-- The only still-missing half for this concrete coefficient family: physical
@@ -2312,7 +2323,7 @@ theorem clip_lowerEnvelopeBound_of_lowerMertensSynthesis
       (lowOwnerStokesOddPrimePeriodSet R)
       lowOwnerStokesLowerMertensPrimeCoefficient K hK.1 hcoeff
   have hframe :=
-    lowOwnerStokesOddPrimePeriodFrameMajorant_le_five_fourths_root_sq R hR
+    lowOwnerStokesOddPrimePeriodFrameMajorant_le_five_fourths_root_sq hR
   calc
     lowOwnerCanonicalSignedStokesClipBoundary R ≤
         primePeriodReciprocalCoefficientEnvelope
