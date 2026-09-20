@@ -192,6 +192,16 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_AGGREGATE.lean
           emit research/GLOBAL_RETURNED_CORE_GENERIC_GREATEST_OWNER_CONTRACTION.lean
           emit research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
+          emit research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean
+      - name: Kernel-check exact signed Stokes algebra through natural corrected conductors
+        run: |
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
+          emit research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
+          emit research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
@@ -221,16 +231,6 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY.lean
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY.lean
-          emit research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean
-      - name: Kernel-check exact signed Stokes algebra through natural corrected conductors
-        run: |
-          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
-          emit research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
-          emit research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
-          emit research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
-          emit research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
-          emit research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
-          emit research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_CLASSIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_CLIP_AMPLITUDE_FACTOR.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM.lean
