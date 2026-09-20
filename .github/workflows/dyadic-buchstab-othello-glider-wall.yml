@@ -71,6 +71,10 @@ jobs:
           lake build RHLean.Proof.ReplacementFibreOrientationSplit
           lake build RHLean.Analysis.SquareRootPostCrossingRenewal
           lake build RHLean.Proof.TerminalMertensReduction
+          lake build RHLean.Proof.PrimeWheelRoughSeatCorrelation
+          lake build RHLean.Arithmetic.MobiusFiniteDifferenceIdentification
+          lake build RHLean.Proof.SquareRootLowPrimeBornSquareBoundary
+          lake build RHLean.Proof.CanonicalRoughAdaptiveWeightedIteration
           mkdir -p .lake/build/lib/lean
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.DYADIC_SMOOTH_HIGH_JOINT_PACKET.olean \
