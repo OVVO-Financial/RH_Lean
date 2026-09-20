@@ -566,6 +566,111 @@ theorem squareRootReplacementKernel_56_899 :
     (p := 29) (q := 31) (by norm_num) (by norm_num) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
+
+/-! ## Fresh-prime cutoff shell: exact masked-fibre Stokes identity -/
+
+/-- Signed divisor flux whose fresh-prime edge crosses the strict root mask.
+Every divisor pair \`d <-> p*d\` that lies wholly on one side of the mask
+cancels; only edges with \`d < R <= p*d\` remain. -/
+def squareRootReplacementCrossingShell (R c p : ℕ) : ℂ :=
+  ∑ d ∈ c.divisors,
+    if d < R ∧ R ≤ p * d then (((μ d : ℤ) : ℂ)) else 0
+
+/-- Divisors after adjoining a prime split into the old divisor family and its
+prime-multiple copy.  Freshness is not needed for the set equality, only for
+the disjoint signed cancellation below. -/
+private theorem divisors_mul_prime_eq_union_image
+    {c p : ℕ} (hp : p.Prime) :
+    (c * p).divisors =
+      c.divisors ∪ c.divisors.image (fun d => p * d) := by
+  classical
+  rw [Nat.mul_comm c p, Nat.divisors_mul, hp.divisors]
+  ext n
+  constructor
+  · intro hn
+    rcases Finset.mem_mul.mp hn with ⟨a, ha, b, hb, hab⟩
+    have ha' : a = 1 ∨ a = p := by
+      simpa using ha
+    rcases ha' with rfl | rfl
+    · have hbn : b = n := by simpa using hab
+      exact Finset.mem_union.mpr (Or.inl (hbn ▸ hb))
+    · exact Finset.mem_union.mpr
+        (Or.inr (Finset.mem_image.mpr ⟨b, hb, hab⟩))
+  · intro hn
+    rcases Finset.mem_union.mp hn with hn | hn
+    · exact Finset.mem_mul.mpr ⟨1, by simp, n, hn, by simp⟩
+    · rcases Finset.mem_image.mp hn with ⟨d, hd, hdn⟩
+      exact Finset.mem_mul.mpr ⟨p, by simp, d, hd, hdn⟩
+
+/-- Freshness makes the old divisor family disjoint from its prime-multiple
+copy. -/
+private theorem disjoint_divisors_mul_freshPrime
+    {c p : ℕ} (hp : p.Prime) (hfresh : ¬ p ∣ c) :
+    Disjoint c.divisors
+      (c.divisors.image (fun d => p * d)) := by
+  classical
+  rw [Finset.disjoint_left]
+  intro n hnD hnImage
+  rcases Finset.mem_image.mp hnImage with ⟨d, hdD, hdn⟩
+  have hpdD : p * d ∣ c := by
+    apply Nat.dvd_of_mem_divisors
+    rw [hdn]
+    exact hnD
+  apply hfresh
+  exact dvd_trans ⟨d, rfl⟩ hpdD
+
+/-- **Exact fresh-prime crossing-shell identity.**  A fresh prime flips the
+Mobius sign on its divisor-copy.  All pairs admitted on both sides of the
+strict cutoff cancel pointwise, and all pairs excluded on both sides contribute
+zero.  The truncated replacement kernel is therefore exactly the signed flux
+of divisor edges crossing \`d < R <= p*d\`. -/
+theorem squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
+    {R c p : ℕ}
+    (hc : 0 < c)
+    (hp : p.Prime)
+    (hfresh : ¬ p ∣ c) :
+    squareRootReplacementKernel R (c * p) =
+      squareRootReplacementCrossingShell R c p := by
+  classical
+  have hcop : Nat.Coprime p c := (hp.coprime_iff_not_dvd).2 hfresh
+  unfold squareRootReplacementKernel
+  rw [divisors_mul_prime_eq_union_image hp]
+  rw [Finset.sum_union (disjoint_divisors_mul_freshPrime hp hfresh)]
+  have hinj : Set.InjOn (fun d : ℕ => p * d) c.divisors := by
+    intro a _ha b _hb hab
+    exact Nat.mul_left_cancel hp.pos hab
+  rw [Finset.sum_image hinj]
+  unfold squareRootReplacementCrossingShell squareRootReplacementSeed
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro d hd
+  have hddvd : d ∣ c := Nat.dvd_of_mem_divisors hd
+  have hcopd : Nat.Coprime p d := hcop.of_dvd_right hddvd
+  have hmu : μ (p * d) = -μ d := by
+    rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcopd]
+    rw [ArithmeticFunction.moebius_apply_prime hp]
+    ring
+  have hdp : d ≤ p * d := by
+    simpa using Nat.mul_le_mul_right d hp.one_le
+  by_cases hdR : d < R
+  · by_cases hpdR : p * d < R
+    · have hnot : ¬ R ≤ p * d := Nat.not_le_of_gt hpdR
+      simp [hdR, hpdR, hnot, hmu]
+    · have hRpd : R ≤ p * d := Nat.le_of_not_gt hpdR
+      simp [hdR, hpdR, hRpd, hmu]
+  · have hRd : R ≤ d := Nat.le_of_not_gt hdR
+    have hRpd : R ≤ p * d := hRd.trans hdp
+    have hnot : ¬ p * d < R := Nat.not_lt_of_ge hRpd
+    simp [hdR, hnot, hRpd, hmu]
+
+/-- The production counterexample is literally one crossing-shell atom:
+\`d = 29\` crosses the \`R = 56\` mask under the fresh prime \`31\`. -/
+theorem squareRootReplacementCrossingShell_56_29_31 :
+    squareRootReplacementCrossingShell 56 29 31 = -1 := by
+  rw [← squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
+    (c := 29) (p := 31) (by norm_num) (by norm_num) (by norm_num)]
+  norm_num [squareRootReplacementKernel_56_899]
+
 /-! ## Sign-correct smooth/high Buchstab splice -/
 
 /-- The ordered root-weighted replication response has paper transport sign,
