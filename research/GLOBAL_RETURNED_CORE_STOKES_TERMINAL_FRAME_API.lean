@@ -1097,7 +1097,8 @@ private theorem topPrime_baseCoefficient_eq_one
     simpa [t] using endpoint_half_lt_topPrime hR
   have hRhalf : R ≤ squareRootEndpoint R / 2 := by
     unfold squareRootEndpoint
-    have hsq : 2 * R ≤ R ^ 2 - 1 := by nlinarith
+    have hraw : 2 * R + 1 ≤ R ^ 2 := by nlinarith
+    have hsub : 2 * R ≤ R ^ 2 - 1 := by omega
     omega
   have hRt : R ≤ t := by omega
   have hqzero : lowOwnerReciprocalDaughterWeight R t = 0 := by
