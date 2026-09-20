@@ -852,7 +852,8 @@ theorem secondPrimeTerminal_eq_two_one_sub_H_mul_L
       secondPrime_topInterior_eq_empty_of_sig_ne_empty hR hsigNe
     rw [hI]
     simp [lowOwnerStokesSignedAmplitude]
-  · exact hEmptyMem
+  · intro hnot
+    exact (hnot hEmptyMem).elim
 
 theorem secondPrimeTerminal_le_four
     {R : ℕ} (hR : 56 ≤ R) :
