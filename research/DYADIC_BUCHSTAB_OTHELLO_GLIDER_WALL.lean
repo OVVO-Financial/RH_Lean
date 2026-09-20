@@ -530,11 +530,27 @@ At R=56, c=6 has 94 fresh prime partners.  The full divisor sum of six is zero,
 but the cofactor response is a prime-partner count, not that divisor sum. -/
 theorem squareRootCanonicalRoughCofactorResponse_56_six :
     squareRootCanonicalRoughCofactorResponse 56 6 = 94 := by
+  have hgt : 1 < (6 : ℕ) := by norm_num
+  have hlpfPrime : (canonicalLargestPrimeFactor 6).Prime :=
+    canonicalLargestPrimeFactor_prime hgt
+  have hlpfDvd : canonicalLargestPrimeFactor 6 ∣ 6 :=
+    canonicalLargestPrimeFactor_dvd hgt
+  have hthreeLe : 3 ≤ canonicalLargestPrimeFactor 6 :=
+    CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
+      hgt (by norm_num) (by norm_num)
   have hlpf : canonicalLargestPrimeFactor 6 = 3 := by
-    norm_num [canonicalLargestPrimeFactor]
+    have hprodDvd : canonicalLargestPrimeFactor 6 ∣ 2 * 3 := by
+      simpa using hlpfDvd
+    rcases hlpfPrime.dvd_mul.mp hprodDvd with htwo | hthree
+    · have heq : canonicalLargestPrimeFactor 6 = 2 :=
+        (Nat.prime_dvd_prime_iff_eq hlpfPrime (by norm_num)).mp htwo
+      rw [heq] at hthreeLe
+      omega
+    · exact
+        (Nat.prime_dvd_prime_iff_eq hlpfPrime (by norm_num)).mp hthree
   have hset :
       squareRootCanonicalRoughPrimePartnerSet 56 6 =
-        (Finset.Icc 11 522).filter Nat.Prime := by
+        (Finset.Icc 10 522).filter Nat.Prime := by
     ext q
     rw [mem_squareRootCanonicalRoughPrimePartnerSet_iff
       (R := 56) (c := 6) (q := q) (by norm_num) (by norm_num)]
@@ -542,10 +558,14 @@ theorem squareRootCanonicalRoughCofactorResponse_56_six :
     simp only [Finset.mem_filter, Finset.mem_Icc]
     constructor
     · rintro ⟨hqPrime, h3q, hroot, hupper⟩
+      have hupper' : 6 * q ≤ 3135 := by
+        simpa [squareRootEndpoint] using hupper
       exact ⟨⟨by omega, by omega⟩, hqPrime⟩
-    · rintro ⟨⟨h11, h522⟩, hqPrime⟩
-      exact ⟨hqPrime, by omega, by omega, by omega⟩
-  have hcard : ((Finset.Icc 11 522).filter Nat.Prime).card = 94 := by
+    · rintro ⟨⟨h10, h522⟩, hqPrime⟩
+      refine ⟨hqPrime, by omega, by omega, ?_⟩
+      norm_num [squareRootEndpoint]
+      omega
+  have hcard : ((Finset.Icc 10 522).filter Nat.Prime).card = 94 := by
     native_decide
   rw [squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount
     56 6 (by norm_num),
