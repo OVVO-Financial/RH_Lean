@@ -1,5 +1,4 @@
 import Mathlib
-import «research.LARGE_PRIME_EULER_RESPONSE»
 import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 import «research.GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE»
 import «research.GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIOD_WHEEL»
