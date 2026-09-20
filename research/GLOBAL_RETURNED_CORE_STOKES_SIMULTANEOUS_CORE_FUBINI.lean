@@ -1,6 +1,7 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION»
 import «research.GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API»
+import «research.GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_ORIENTED_FUBINI»
 
 /-!
 # Simultaneous physical-core support of the Stokes clip
@@ -263,6 +264,168 @@ theorem lowOwnerStokesFracturedCoreCarrier_squarefree_pos
   exact lowOwnerNonzeroMobiusCarrier_squarefree_pos
     (lowOwnerStokesFracturedCoreCarrier_subset_nonzeroCarrier R hn)
 
+
+
+/-! ## Exact support splice to the incomplete raw-parent boundary -/
+
+/-- The only one-dimensional physical supports needed by an incomplete
+raw-parent block at owner `r`: either the original first-owner `p` edge is
+already clipped, or the fresh `r` edge is a literal Stokes Dirichlet clip. -/
+def lowOwnerFirstOwnerIncompleteBoundarySiteCarrier
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : Finset ℕ :=
+  lowOwnerFirstOwnerClippedBaseFiber R p sig ∪
+    lowOwnerFirstOwnerStokesDirichletClipFace R p sig r
+
+/-- Left-oriented first-owner clipping charges its first parent coordinate to
+the existing clipped base fibre. -/
+theorem lowOwnerIncompleteFirstClipLeft_charge_mem_boundarySiteCarrier
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerIncompleteFirstClipLeftSet R p sig r) :
+    parent.1 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r := by
+  rcases Finset.mem_filter.mp hparent with ⟨hfirst, hleft⟩
+  rcases Finset.mem_filter.mp hfirst with ⟨hinc, _hclip⟩
+  have hraw := (Finset.mem_filter.mp hinc).1
+  rcases lowOwnerFirstOwnerPolarizationRawParent_data hp hraw with
+    ⟨_hr, _hpr, haBase, _hbBase, _hra, _hrb⟩
+  exact Finset.mem_union.mpr
+    (Or.inl (Finset.mem_filter.mpr ⟨haBase, hleft⟩))
+
+/-- Right-oriented first-owner clipping charges its second parent coordinate to
+the same clipped base fibre. -/
+theorem lowOwnerIncompleteFirstClipRight_charge_mem_boundarySiteCarrier
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerIncompleteFirstClipRightSet R p sig r) :
+    parent.2 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r := by
+  rcases Finset.mem_filter.mp hparent with ⟨hfirst, _hnotLeft⟩
+  rcases Finset.mem_filter.mp hfirst with ⟨hinc, _hclip⟩
+  have hraw := (Finset.mem_filter.mp hinc).1
+  rcases lowOwnerFirstOwnerPolarizationRawParent_data hp hraw with
+    ⟨_hr, _hpr, _haBase, hbBase, _hra, _hrb⟩
+  have hright :=
+    lowOwnerFirstOwnerIncompleteFirstClipRight_mem_implies_rightClip hparent
+  exact Finset.mem_union.mpr
+    (Or.inl (Finset.mem_filter.mpr ⟨hbBase, hright⟩))
+
+/-- A left next-owner physical exit is exactly a site on the Stokes
+Dirichlet-clip face for the same fresh owner `r`. -/
+theorem lowOwnerIncompleteNextClipLeft_charge_mem_stokesClipFace
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerIncompleteNextClipLeftSet R p sig r) :
+    parent.1 ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r := by
+  rcases Finset.mem_filter.mp hparent with ⟨hnext, hleft⟩
+  rcases Finset.mem_filter.mp hnext with ⟨hinc, _hclip⟩
+  have hraw := (Finset.mem_filter.mp hinc).1
+  rcases lowOwnerFirstOwnerPolarizationRawParent_data hp hraw with
+    ⟨_hr, _hpr, haBase, _hbBase, hra, _hrb⟩
+  exact mem_lowOwnerFirstOwnerStokesDirichletClipFace.mpr
+    ⟨haBase, hra, hleft⟩
+
+theorem lowOwnerIncompleteNextClipLeft_charge_mem_boundarySiteCarrier
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerIncompleteNextClipLeftSet R p sig r) :
+    parent.1 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r :=
+  Finset.mem_union.mpr
+    (Or.inr (lowOwnerIncompleteNextClipLeft_charge_mem_stokesClipFace hp hparent))
+
+/-- Symmetric right next-owner exit. -/
+theorem lowOwnerIncompleteNextClipRight_charge_mem_stokesClipFace
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerIncompleteNextClipRightSet R p sig r) :
+    parent.2 ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r := by
+  rcases Finset.mem_filter.mp hparent with ⟨hnext, _hnotLeft⟩
+  rcases Finset.mem_filter.mp hnext with ⟨hinc, _hclip⟩
+  have hraw := (Finset.mem_filter.mp hinc).1
+  rcases lowOwnerFirstOwnerPolarizationRawParent_data hp hraw with
+    ⟨_hr, _hpr, _haBase, hbBase, _hra, hrb⟩
+  have hright :=
+    lowOwnerFirstOwnerIncompleteNextClipRight_mem_implies_rightClip hparent
+  exact mem_lowOwnerFirstOwnerStokesDirichletClipFace.mpr
+    ⟨hbBase, hrb, hright⟩
+
+theorem lowOwnerIncompleteNextClipRight_charge_mem_boundarySiteCarrier
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerIncompleteNextClipRightSet R p sig r) :
+    parent.2 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r :=
+  Finset.mem_union.mpr
+    (Or.inr (lowOwnerIncompleteNextClipRight_charge_mem_stokesClipFace hp hparent))
+
+/-- Returned-after-`r` clipping charges the physical `r*a` site back to the
+existing first-owner clipped base fibre. -/
+theorem lowOwnerIncompleteReturnedClipLeft_charge_mem_boundarySiteCarrier
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerIncompleteReturnedClipLeftSet R p sig r) :
+    r * parent.1 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r := by
+  rcases Finset.mem_filter.mp hparent with ⟨hret, hleft⟩
+  rcases Finset.mem_filter.mp hret with ⟨hinc, hclip⟩
+  have hraw := (Finset.mem_filter.mp hinc).1
+  have hmem :=
+    lowOwnerRawParentReturnedNextClipped_left_mem_clippedBase
+      hp hraw hclip hleft
+  exact Finset.mem_union.mpr (Or.inl hmem)
+
+/-- Symmetric returned-right charge. -/
+theorem lowOwnerIncompleteReturnedClipRight_charge_mem_boundarySiteCarrier
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerIncompleteReturnedClipRightSet R p sig r) :
+    r * parent.2 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r := by
+  rcases Finset.mem_filter.mp hparent with ⟨hret, _hnotLeft⟩
+  rcases Finset.mem_filter.mp hret with ⟨hinc, hclip⟩
+  have hraw := (Finset.mem_filter.mp hinc).1
+  have hright :=
+    lowOwnerFirstOwnerIncompleteReturnedClipRight_mem_implies_rightClip hparent
+  have hmem :=
+    lowOwnerRawParentReturnedNextClipped_right_mem_clippedBase
+      hp hraw hclip hright
+  exact Finset.mem_union.mpr (Or.inl hmem)
+
+/-- **No new one-dimensional support in the incomplete boundary.**
+
+After chronological and left/right orientation, every incomplete raw-parent
+sector charges a physical site in the union of the original first-owner clipped
+base fibre and the literal Stokes Dirichlet clip face for the current fresh
+owner. -/
+theorem lowOwnerIncompleteBoundary_oriented_charge_exhaustive
+    {R p r : ℕ} {sig : Finset ℕ} (hp : p.Prime)
+    (parent : ℕ × ℕ) :
+    (parent ∈ lowOwnerFirstOwnerIncompleteFirstClipLeftSet R p sig r →
+      parent.1 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r) ∧
+    (parent ∈ lowOwnerFirstOwnerIncompleteFirstClipRightSet R p sig r →
+      parent.2 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r) ∧
+    (parent ∈ lowOwnerFirstOwnerIncompleteNextClipLeftSet R p sig r →
+      parent.1 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r) ∧
+    (parent ∈ lowOwnerFirstOwnerIncompleteNextClipRightSet R p sig r →
+      parent.2 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r) ∧
+    (parent ∈ lowOwnerFirstOwnerIncompleteReturnedClipLeftSet R p sig r →
+      r * parent.1 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r) ∧
+    (parent ∈ lowOwnerFirstOwnerIncompleteReturnedClipRightSet R p sig r →
+      r * parent.2 ∈ lowOwnerFirstOwnerIncompleteBoundarySiteCarrier R p sig r) := by
+  constructor
+  · exact lowOwnerIncompleteFirstClipLeft_charge_mem_boundarySiteCarrier hp
+  constructor
+  · exact lowOwnerIncompleteFirstClipRight_charge_mem_boundarySiteCarrier hp
+  constructor
+  · exact lowOwnerIncompleteNextClipLeft_charge_mem_boundarySiteCarrier hp
+  constructor
+  · exact lowOwnerIncompleteNextClipRight_charge_mem_boundarySiteCarrier hp
+  constructor
+  · exact lowOwnerIncompleteReturnedClipLeft_charge_mem_boundarySiteCarrier hp
+  · exact lowOwnerIncompleteReturnedClipRight_charge_mem_boundarySiteCarrier hp
 
 /-! ## DAG collapse to the two actual Stokes toggle coordinates -/
 
