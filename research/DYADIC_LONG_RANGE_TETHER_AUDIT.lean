@@ -190,9 +190,12 @@ theorem squareRootTopFibrePrime_mem_dyadicAnnulusHigh
     q ∈ squareRootDyadicAnnulusHighSet R := by
   rcases Finset.mem_filter.mp hq with ⟨hqRange, hqPrime⟩
   rcases Finset.mem_Ioc.mp hqRange with ⟨hhalfq, hqX⟩
+  have htwoRlt : 2 * R < R * R :=
+    Nat.mul_lt_mul_of_pos_right (by omega : 2 < R) (by omega : 0 < R)
   have hRhalf : R ≤ squareRootEndpoint R / 2 := by
     apply (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).2
     unfold squareRootEndpoint
+    rw [pow_two]
     omega
   have hRq : R < q := lt_of_le_of_lt hRhalf hhalfq
   have hodd : Odd q := hqPrime.odd_of_ne_two (by omega)
