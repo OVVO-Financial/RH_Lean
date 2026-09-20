@@ -6,6 +6,7 @@ import RHLean.Analysis.SquareRootPrimeCountGap
 import RHLean.Proof.RecursivePrimeReplacement
 import RHLean.Proof.ReplacementFibreOrientationSplit
 import RHLean.Analysis.SquareRootPostCrossingRenewal
+import RHLean.Proof.TerminalMertensReduction
 
 /-!
 # Dyadic Buchstab/Othello splice: the joint packet is already an escape wall
@@ -486,6 +487,84 @@ theorem squareRootPostCrossingCoupledTail_56_18_two :
   have h : squareRootMertensInt 3135 = 6 := by native_decide
   rw [← squareRootMertensInt_cast_complex, h]
   norm_num
+
+/-! ## What the complete cross-scale Fubini collapse actually leaves -/
+
+/-- Swapping the reciprocal-depth and cofactor sums in the unweighted Type-II
+diagonal produces signed prime-partner counts.  This diagonal sum is not the
+complete post-crossing row: the latter also has Mertens weights, strict
+descendants, and the explicit packet baseline. -/
+theorem sum_canonicalRoughTypeII_eq_neg_compositePartnerMass (R : ℕ) :
+    (∑ y ∈ Finset.Icc 1 (R - 1),
+        replacementFibreCanonicalRoughReciprocalMass R y) =
+      -∑ c ∈ Finset.Icc 2 (squareRootEndpoint R),
+        canonicalMoebiusWeight c *
+          squareRootCanonicalRoughPrimePartnerCount R c := by
+  unfold replacementFibreCanonicalRoughReciprocalMass
+    squareRootCanonicalRoughPrimePartnerCount
+    squareRootCanonicalRoughPrimeMultiplicity
+  simp_rw [Finset.mul_sum]
+  rw [← Finset.sum_neg_distrib, Finset.sum_comm]
+
+/-- **Complete signed glider Fubini.**  The unit Mobius renewal sends each
+positive quotient depth to one, not zero.  Consequently the intact cofactor
+response collapses to its fresh-prime partner count; the signed correlation
+over cofactors remains after all lower Mertens states have telescoped. -/
+theorem squareRootLiveGliderMass_sub_partial_eq_baseline_sub_partnerMass
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K < R) :
+    (∑ n ∈ squareRootDyadicLiveGliderSet R, canonicalMoebiusWeight n) -
+        ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ) =
+      squareRootPostCrossingCanonicalBaseline R K j -
+        ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+          canonicalMoebiusWeight c *
+            squareRootCanonicalRoughPrimePartnerCount R c := by
+  rw [squareRootLiveGliderMass_sub_partial_eq_coupledTail R K j hR,
+    squareRootPostCrossingCoupledTail_eq_baseline_sub_correlation
+      R K j hR hK hKR,
+    squareRootCanonicalRoughCorrelation_eq_weighted_primePartnerCount
+      R (by omega)]
+
+/-- A composite cofactor survives the complete, un-normed renewal collapse.
+At R=56, c=6 has 94 fresh prime partners.  The full divisor sum of six is zero,
+but the cofactor response is a prime-partner count, not that divisor sum. -/
+theorem squareRootCanonicalRoughCofactorResponse_56_six :
+    squareRootCanonicalRoughCofactorResponse 56 6 = 94 := by
+  have h : (squareRootCanonicalRoughPrimePartnerSet 56 6).card = 94 := by
+    native_decide
+  rw [squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount
+    56 6 (by norm_num),
+    squareRootCanonicalRoughPrimePartnerCount_eq_partnerSet_card, h]
+  norm_num
+
+/-- Every product of two distinct primes below R whose product reaches R has
+truncated replacement kernel -1.  The missing top divisor p*q has Mobius
+weight +1, so the full divisor cancellation cannot be applied to the retained
+three divisors.  This is an entire composite family, not a prime-power exception. -/
+theorem squareRootReplacementKernel_of_distinct_low_primes
+    {R p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q)
+    (hpR : p < R) (hqR : q < R) (hprod : R ≤ p * q) :
+    squareRootReplacementKernel R (p * q) = -1 := by
+  have hdiv : (p * q).divisors = {1, p, q, p * q} := by
+    ext d
+    simp [Nat.divisors_mul, hp.divisors, hq.divisors, Finset.mem_mul,
+      eq_comm, or_comm, or_left_comm, or_assoc]
+  have h1R : 1 < R := hp.one_lt.trans hpR
+  have hnot : ¬ p * q < R := Nat.not_lt_of_ge hprod
+  have hfilter : ((p * q).divisors.filter (fun d => d < R)) = {1, p, q} := by
+    simp [hdiv, h1R, hpR, hqR, hnot]
+  unfold squareRootReplacementKernel squareRootReplacementSeed
+  rw [← Finset.sum_filter, hfilter]
+  simp [hp.ne_one, hq.ne_one, Ne.symm hp.ne_one, Ne.symm hq.ne_one, hpq,
+    ArithmeticFunction.moebius_apply_prime hp,
+    ArithmeticFunction.moebius_apply_prime hq]
+
+/-- An explicit squarefree composite well below X=3135 retains a nonzero
+truncated divisor sum, although its complete divisor sum vanishes. -/
+theorem squareRootReplacementKernel_56_899 :
+    squareRootReplacementKernel 56 899 = -1 := by
+  exact squareRootReplacementKernel_of_distinct_low_primes
+    (p := 29) (q := 31) (by norm_num) (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
 
 /-! ## Sign-correct smooth/high Buchstab splice -/
 

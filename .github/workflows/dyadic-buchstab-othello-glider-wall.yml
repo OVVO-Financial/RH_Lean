@@ -2,7 +2,7 @@ name: Dyadic Buchstab Othello glider wall check
 
 on:
   pull_request:
-    branches: [agent/post-770-long-range-tether-audit, agent/post-771-buchstab-joint-splice]
+    branches: [agent/post-770-long-range-tether-audit, agent/post-771-buchstab-joint-splice, agent/post-772-typeii-glider-splice]
     paths:
       - research/DYADIC_BUCHSTAB_OTHELLO_GLIDER_WALL.lean
       - experiments/dyadic_glider_middle_R56.py
@@ -70,6 +70,7 @@ jobs:
           lake build RHLean.Proof.RecursivePrimeReplacement
           lake build RHLean.Proof.ReplacementFibreOrientationSplit
           lake build RHLean.Analysis.SquareRootPostCrossingRenewal
+          lake build RHLean.Proof.TerminalMertensReduction
           mkdir -p .lake/build/lib/lean
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.DYADIC_SMOOTH_HIGH_JOINT_PACKET.olean \

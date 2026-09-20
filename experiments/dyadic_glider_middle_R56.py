@@ -11,6 +11,9 @@ This checks:
   * every live glider lies in reciprocal replacement fibre z=1;
   * the full z=1 fibre is larger and has signed mass 9, not 6;
   * swapping one fresh prime for another at fixed cofactor preserves Mobius sign.
+  * full cross-scale Fubini gives unit renewal and prime-partner multiplicities;
+  * a composite cofactor survives that collapse, and truncated divisor support
+    contains a whole family of distinct low-prime products.
 
 No asymptotic estimate is used.
 """
@@ -274,6 +277,72 @@ for y in range(1, R):
 assert type_ii[1] + descendants[1] == 200
 assert sum(post_crossing_row) == mertens[X] - partial_packet == 6
 
+# The full quotient/Mertens renewal is ONE, not zero.  Expanding M turns this
+# into the divisor identity summed over all positive products, including one.
+def quotient_kernel(z, y):
+    return z // y - z // (y + 1)
+
+
+renewal_state = [0] + [
+    sum(quotient_kernel(z, y) * mertens[y] for y in range(1, R))
+    for z in range(1, R)
+]
+assert renewal_state[1:] == [1] * (R - 1)
+
+# Independent literal prime-extension census after the Fubini collapse.
+partner_counts = [0] * (X + 1)
+for c in range(1, X // 2 + 1):
+    partner_counts[c] = sum(
+        1 for p in primes if largest[c] < p and R <= c * p <= X
+    )
+    assert partner_counts[c] == sum(
+        reciprocal_prime_count(largest[c], X // c, z)
+        for z in range(1, R)
+    )
+
+partner_correlation = sum(mu[c] * partner_counts[c] for c in range(1, X + 1))
+composite_partner_mass = -sum(
+    mu[c] * partner_counts[c] for c in range(2, X + 1)
+)
+assert partner_counts[1] == 429
+assert partner_counts[6] == 94
+assert composite_partner_mass == sum(type_ii) == 437
+assert partner_correlation == mertens[R - 1] - mertens[X] == -8
+baseline = mertens[R - 1] - partial_packet
+assert baseline - partner_correlation == sum(post_crossing_row) == 6
+
+# Keep the descendants while explicitly computing the composite c=6 response.
+cofactor_multiplicity = [0] + [
+    reciprocal_prime_count(largest[6], X // 6, y) for y in range(1, R)
+]
+cofactor_response = sum(
+    (cofactor_multiplicity[y] + sum(
+        cofactor_multiplicity[z] * quotient_kernel(z, y)
+        for z in range(y + 1, R)
+    )) * mertens[y]
+    for y in range(1, R)
+)
+assert cofactor_response == partner_counts[6] == 94
+assert sum(mu[d] for d in divisors(6)) == 0
+
+# Prime powers have zero COMPLETE divisor sums too.  The missing divisors of
+# the truncated sum, rather than compositeness alone, decide what survives.
+assert all(sum(mu[d] for d in divisors(n)) == 0 for n in [4, 8, 9, 25])
+assert divisors(899) == [1, 899, 29, 31]
+assert sum(mu[d] for d in divisors(899)) == 0
+assert replacement_kernel(899) == -1
+assert 899 < X // 2
+low_semiprimes = [
+    p * q for p in low_primes for q in low_primes
+    if p < q < R and R <= p * q <= X
+]
+assert all(replacement_kernel(n) == -1 for n in low_semiprimes)
+truncated_composite_support = [
+    n for n in range(R, X + 1)
+    if largest[n] != n and replacement_kernel(n) != 0
+]
+assert len(truncated_composite_support) == 744
+
 print("R =", R, "X =", X)
 print("M(X) =", mertens[X])
 print("middle prime count =", len(middle_primes))
@@ -299,6 +368,13 @@ print("first crossing K / admitted seats j / partial packet =",
       K, j, partial_packet)
 print("post-crossing first coefficient =", type_ii[1] + descendants[1])
 print("complete signed canonical Type-II row =", sum(post_crossing_row))
+print("unweighted Type-II diagonal sum =", sum(type_ii))
+print("full renewal state at every positive depth = 1")
+print("composite c=6 response / complete divisor sum =", cofactor_response, 0)
+print("post-Fubini baseline / signed partner correlation =",
+      baseline, partner_correlation)
+print("nonzero truncated composite support =", len(truncated_composite_support))
+print("complete / truncated divisor sums at n=899 =", 0, replacement_kernel(899))
 print("PASS: active middle leaves -6 = -M(3135), not zero;")
 print("      634 live gliders embed in z=1 but are not the whole fibre;")
 print("      same-c fresh-prime replacement preserves Mobius sign.")
