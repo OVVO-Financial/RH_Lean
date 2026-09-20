@@ -79,7 +79,6 @@ theorem squareRootDyadicAnnulusMass_eq_smooth_add_high
     (p := fun m => canonicalLargestPrimeFactor m ≤ R)
     (f := canonicalMoebiusWeight)]
   rw [squareRootDyadicAnnulus_filter_not_smooth_eq_high R]
-  rfl
 
 /-- The joint packet is the complete top odd dyadic annulus. -/
 theorem squareRootDyadicJointPacket_eq_annulusMass
