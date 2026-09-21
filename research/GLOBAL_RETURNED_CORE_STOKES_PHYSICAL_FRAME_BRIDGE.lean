@@ -1401,7 +1401,7 @@ lower-envelope interface yields the native `R^2*K` clip estimate immediately. -/
 theorem clip_le_five_fourths_root_sq_mul_lowerEnvelope_of_coefficientBounded
     (coefficient : (R : ℕ) → (hR : 56 ≤ R) → ℕ → ℂ)
     (hCoeff : LowOwnerStokesClipPrimePeriodCoefficientBounded coefficient) :
-    ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+    ∀ (R : ℕ) (K : ℝ) (_hR : 56 ≤ R),
       LowerMertensCriticalEnvelope R K →
       lowOwnerCanonicalSignedStokesClipBoundary R ≤
         (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by
@@ -1612,6 +1612,44 @@ private theorem sum_product_othello_separable
         (∑ b ∈ T, othelloRealMoebius b * h b) := by
       rw [Finset.sum_mul]
 
+/-- Polarization of a product sum whose left and right carriers may be paired
+against *different* coordinate functions.  The escape step needs the mixed
+form: the interior factor is a fresh-owner finite difference while the clip
+factor is the literal coordinate. -/
+private theorem sum_product_othello_polarization_mixed
+    (S T : Finset ℕ) (i b j i' b' j' : ℕ → ℝ) :
+    (∑ mn ∈ S.product T,
+      othelloRealMoebiusPair mn *
+        (i mn.1 * i' mn.2 -
+          b mn.1 * b' mn.2 -
+          j mn.1 * j' mn.2)) =
+      lowOwnerStokesSignedScalarAmplitude S i *
+          lowOwnerStokesSignedScalarAmplitude T i' -
+        lowOwnerStokesSignedScalarAmplitude S b *
+          lowOwnerStokesSignedScalarAmplitude T b' -
+        lowOwnerStokesSignedScalarAmplitude S j *
+          lowOwnerStokesSignedScalarAmplitude T j' := by
+  calc
+    (∑ mn ∈ S.product T,
+      othelloRealMoebiusPair mn *
+        (i mn.1 * i' mn.2 -
+          b mn.1 * b' mn.2 -
+          j mn.1 * j' mn.2)) =
+      (∑ mn ∈ S.product T,
+        othelloRealMoebiusPair mn * (i mn.1 * i' mn.2)) -
+      (∑ mn ∈ S.product T,
+        othelloRealMoebiusPair mn * (b mn.1 * b' mn.2)) -
+      (∑ mn ∈ S.product T,
+        othelloRealMoebiusPair mn * (j mn.1 * j' mn.2)) := by
+          rw [← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib]
+          apply Finset.sum_congr rfl
+          intro mn _hmn
+          ring
+    _ = _ := by
+      rw [sum_product_othello_separable,
+        sum_product_othello_separable,
+        sum_product_othello_separable]
+
 private theorem sum_product_othello_polarization
     (S T : Finset ℕ) (i b j : ℕ → ℝ) :
     (∑ mn ∈ S.product T,
@@ -1624,27 +1662,8 @@ private theorem sum_product_othello_polarization
         lowOwnerStokesSignedScalarAmplitude S b *
           lowOwnerStokesSignedScalarAmplitude T b -
         lowOwnerStokesSignedScalarAmplitude S j *
-          lowOwnerStokesSignedScalarAmplitude T j := by
-  calc
-    (∑ mn ∈ S.product T,
-      othelloRealMoebiusPair mn *
-        (i mn.1 * i mn.2 -
-          b mn.1 * b mn.2 -
-          j mn.1 * j mn.2)) =
-      (∑ mn ∈ S.product T,
-        othelloRealMoebiusPair mn * (i mn.1 * i mn.2)) -
-      (∑ mn ∈ S.product T,
-        othelloRealMoebiusPair mn * (b mn.1 * b mn.2)) -
-      (∑ mn ∈ S.product T,
-        othelloRealMoebiusPair mn * (j mn.1 * j mn.2)) := by
-          rw [← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib]
-          apply Finset.sum_congr rfl
-          intro mn _hmn
-          ring
-    _ = _ := by
-      rw [sum_product_othello_separable,
-        sum_product_othello_separable,
-        sum_product_othello_separable]
+          lowOwnerStokesSignedScalarAmplitude T j :=
+  sum_product_othello_polarization_mixed S T i b j i b j
 
 private theorem polarization_leftDifference
     (r : ℕ) (i b j : ℕ → ℝ) (mn : ℕ × ℕ) :
@@ -1762,7 +1781,7 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_clipSignedAmplitudeProducts
             rw [polarization_leftDifference]
       _ = _ := by
         unfold lowOwnerStokesSignedOwnerDifferenceAmplitude
-        exact sum_product_othello_polarization
+        exact sum_product_othello_polarization_mixed
           (primeInteriorPart r (lowOwnerFirstOwnerBaseFiber R p sig))
           (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
           (fun n => lowOwnerDirichletIncidenceCoefficient R p n -
@@ -1774,6 +1793,9 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_clipSignedAmplitudeProducts
           (fun n => lowOwnerDirichletReturnedCoefficient R p n -
             lowOwnerDirichletReturnedCoefficient R p
               (primeCarrierToggle r n))
+          (lowOwnerDirichletIncidenceCoefficient R p)
+          (lowOwnerDirichletBaseCoefficient R)
+          (lowOwnerDirichletReturnedCoefficient R p)
   rw [hleft, hright]
 
 
@@ -1824,7 +1846,7 @@ theorem lowOwnerFirstOwnerStokesClip_incidence_child_eq_zero
 difference. -/
 theorem lowOwnerFirstOwnerStokesClip_incidence_eq_ownerDifference
     {R p r n : ℕ} {sig : Finset ℕ}
-    (hrn : ¬ r ∣ n) (hp : 1 ≤ p)
+    (_hrn : ¬ r ∣ n) (hp : 1 ≤ p)
     (hn : n ∈ lowOwnerFirstOwnerStokesDirichletClipFace R p sig r) :
     lowOwnerDirichletIncidenceCoefficient R p n =
       lowOwnerDirichletOwnerDifference r
@@ -1986,7 +2008,20 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_signedSquareDecrements
     half_lowOwnerStokesSignedOwnerDifferenceAmplitude_eq_total_sub_dirichletClip
       (R := R) (p := p) (r := r) (sig := sig) hp hr hpr
       (lowOwnerDirichletReturnedCoefficient R p)
-  nlinarith
+  -- Each coordinate contributes `x ^ 2 - (x - e) ^ 2 = 2 * x * e - e ^ 2`,
+  -- and `hi`/`hb`/`hj` say the half owner-difference amplitude is exactly
+  -- `x - e`.  Scaling them by the matching clip amplitude closes the goal
+  -- without any inequality step.
+  linear_combination
+    lowOwnerStokesSignedScalarAmplitude
+        (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+        (lowOwnerDirichletIncidenceCoefficient R p) * hi -
+      lowOwnerStokesSignedScalarAmplitude
+        (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+        (lowOwnerDirichletBaseCoefficient R) * hb -
+      lowOwnerStokesSignedScalarAmplitude
+        (lowOwnerFirstOwnerStokesDirichletClipFace R p sig r)
+        (lowOwnerDirichletReturnedCoefficient R p) * hj
 
 
 /-! ## Cross-product form of the physical clip decrement
@@ -2305,7 +2340,7 @@ def LowOwnerStokesClipLowerMertensSynthesis : Prop :=
 R^2*K clip admissibility with no remaining coefficient estimate. -/
 theorem clip_lowerEnvelopeBound_of_lowerMertensSynthesis
     (hSynth : LowOwnerStokesClipLowerMertensSynthesis) :
-    ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+    ∀ (R : ℕ) (K : ℝ) (_hR : 56 ≤ R),
       LowerMertensCriticalEnvelope R K →
       lowOwnerCanonicalSignedStokesClipBoundary R ≤
         (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by
