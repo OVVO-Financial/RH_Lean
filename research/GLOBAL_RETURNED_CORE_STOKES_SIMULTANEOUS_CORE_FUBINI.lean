@@ -512,7 +512,7 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
       have haGeT : t ≤ a := by
         simp only [List.mem_cons] at htSched
         rcases htSched with hat | htTail
-        · simpa [hat]
+        · simp [hat]
         · exact (List.pairwise_cons.mp hsorted).1 t htTail
       have ha : a = t := by omega
       subst a
@@ -545,11 +545,11 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
           have hbGeU : u ≤ b := by
             simp only [List.mem_cons] at huTail
             rcases huTail with hub | huRest
-            · simpa [hub]
+            · simp [hub]
             · exact (List.pairwise_cons.mp htailSorted).1 u huRest
           have hb : b = u := by omega
           subst b
-          exact ⟨rest, hsched⟩
+          exact ⟨rest, by simp [t, u]⟩
 
 
 /-- Exact local clip normal form after the DAG collapse to the two largest
