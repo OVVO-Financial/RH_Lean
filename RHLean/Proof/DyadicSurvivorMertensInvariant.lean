@@ -93,9 +93,14 @@ theorem dyadicPostRootSurvivorMass_eq_neg_mertensPrimeTail
   · simp [hpPrime, dyadicLargePrimeSurvivorMass_eq_neg_mertens hpPrime hpRoot]
   · simp [hpPrime]
 
-/-- Square-endpoint specialization of the survivor mass. -/
+/-- Square-endpoint aggregate on the repository's native high-prime
+schedule `R < p <= R^2-1`. -/
 def squareRootDyadicSurvivorMass (R : ℕ) : ℂ :=
-  dyadicPostRootSurvivorMass (squareRootEndpoint R)
+  ∑ p ∈ Finset.Ioc R (squareRootEndpoint R),
+    if p.Prime then
+      dyadicLargePrimeSurvivorMass (squareRootEndpoint R) p
+    else
+      0
 
 /-- **Physical survivor / transport identification.**
 
@@ -106,40 +111,22 @@ theorem squareRootDyadicSurvivorMass_eq_neg_transport
     (R : ℕ) (hR : 0 < R) :
     squareRootDyadicSurvivorMass R =
       -squareRootTransportPrimeFirst R := by
-  unfold squareRootDyadicSurvivorMass dyadicPostRootSurvivorMass
+  unfold squareRootDyadicSurvivorMass squareRootTransportPrimeFirst
   rw [← Finset.sum_neg_distrib]
-  unfold squareRootTransportPrimeFirst
-  apply Finset.sum_congr
-  · ext p
-    simp only [Finset.mem_Ioc]
-    have hsqrt : Nat.sqrt (squareRootEndpoint R) = R - 1 := by
+  apply Finset.sum_congr rfl
+  intro p hpRange
+  have hpR : R < p := (Finset.mem_Ioc.mp hpRange).1
+  have hpRoot : Nat.sqrt (squareRootEndpoint R) < p := by
+    have hsq : Nat.sqrt (squareRootEndpoint R) < R := by
+      apply (Nat.sqrt_lt hR).2
       unfold squareRootEndpoint
-      rw [Nat.sqrt_eq_iff_sq_le_lt_sq]
-      constructor
-      · constructor
-        · omega
-        · nlinarith
-      · omega
-    rw [hsqrt]
-    omega
-  · intro p hpRange
-    have hpR : R < p := (Finset.mem_Ioc.mp hpRange).1
-    have hpRoot : Nat.sqrt (squareRootEndpoint R) < p := by
-      have hsqrt : Nat.sqrt (squareRootEndpoint R) = R - 1 := by
-        unfold squareRootEndpoint
-        rw [Nat.sqrt_eq_iff_sq_le_lt_sq]
-        constructor
-        · constructor
-          · omega
-          · nlinarith
-        · omega
-      rw [hsqrt]
       omega
-    by_cases hpPrime : p.Prime
-    · simp only [hpPrime, if_true]
-      rw [dyadicLargePrimeSurvivorMass_eq_neg_mertens hpPrime hpRoot,
-        primeDilatedLowCofactorMass_eq_mertensSummatory
-          R p hR hpR hpPrime.pos]
-    · simp [hpPrime]
+    exact hsq.trans hpR
+  by_cases hpPrime : p.Prime
+  · simp only [hpPrime, if_true]
+    rw [dyadicLargePrimeSurvivorMass_eq_neg_mertens hpPrime hpRoot,
+      primeDilatedLowCofactorMass_eq_mertensSummatory
+        R p hR hpR hpPrime.pos]
+  · simp [hpPrime]
 
 end RHLean.Proof
