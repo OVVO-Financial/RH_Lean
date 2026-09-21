@@ -98,4 +98,50 @@ theorem norm_bornSmooth_add_dyadicSurvivor_sub_bornSmooth_add_farSurvivor_le
   have hnear := norm_squareRootNearPrimeTransport_le R hR
   simpa [sub_eq_add_neg, add_assoc, add_left_comm, add_comm] using hnear
 
+
+/-- The physical survivor mass from the x=210 autopsy is exactly the
+canonical source-signed high side of the same top dyadic wall. -/
+theorem squareRootDyadicSurvivorMass_eq_dyadicCanonicalHighSourceMass
+    (R : ℕ) (hR : 0 < R) :
+    squareRootDyadicSurvivorMass R =
+      dyadicCanonicalHighSourceMass R := by
+  rw [squareRootDyadicSurvivorMass_eq_neg_transport R hR]
+  rw [← squareRootTransportCofactorFirst_eq_primeFirst R]
+  rw [squareRootTransportCofactorFirst_eq_neg_dyadicCanonicalHighSourceMass R]
+  ring
+
+/-- The matched channel is therefore one signed packet on a common physical
+dyadic carrier: born-smooth plus canonical high-source mass. -/
+theorem squareRootMatchedBornSmoothTransport_eq_bornSmooth_add_dyadicHigh
+    (R : ℕ) (hR : 0 < R) :
+    squareRootMatchedBornSmoothTransport R =
+      squareRootBornSmoothMass R + dyadicCanonicalHighSourceMass R := by
+  rw [squareRootMatchedBornSmoothTransport_eq_bornSmooth_add_dyadicSurvivor
+      R hR,
+    squareRootDyadicSurvivorMass_eq_dyadicCanonicalHighSourceMass R hR]
+
+/-- Adding the positive-orientation smooth side recovers the exact square-prefix
+Mertens value.  This is the main-DAG version of the research joint-packet
+identity, expressed without importing any research module. -/
+theorem squareRootPositiveSmooth_add_bornSmooth_add_dyadicHigh_eq_squarePrefixMertens
+    (R : ℕ) (hR : 1 ≤ R) :
+    squareRootPositiveSmoothMass R +
+        squareRootBornSmoothMass R +
+          dyadicCanonicalHighSourceMass R =
+      RHLean.Analysis.squarePrefixMertens (R - 1) := by
+  rw [← squareRootMatchedBornSmoothTransport_eq_bornSmooth_add_dyadicHigh
+      R (by omega)]
+  exact squarePrefixMertens_eq_positiveSmooth_add_matched R hR
+
+/-- Equivalently, the hard matched channel is exactly the square-prefix value
+minus the positive-orientation smooth packet. -/
+theorem squareRootMatchedBornSmoothTransport_eq_squarePrefixMertens_sub_positiveSmooth
+    (R : ℕ) (hR : 1 ≤ R) :
+    squareRootMatchedBornSmoothTransport R =
+      RHLean.Analysis.squarePrefixMertens (R - 1) -
+        squareRootPositiveSmoothMass R := by
+  have h := squarePrefixMertens_eq_positiveSmooth_add_matched R hR
+  linear_combination h
+
+
 end RHLean.Proof
