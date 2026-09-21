@@ -671,7 +671,7 @@ def LowOwnerTopTwoStokesClipCriticalEnvelopeBound (C : ℝ) : Prop :=
 
 /-- Literal-clip form of the same active K-dependent seam. -/
 def LowOwnerStokesClipCriticalEnvelopeBound (C : ℝ) : Prop :=
-  ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+  ∀ (R : ℕ) (K : ℝ) (_hR : 56 ≤ R),
     LowerMertensCriticalEnvelope R K →
     lowOwnerCanonicalSignedStokesClipBoundary R ≤
       C * (R : ℝ) ^ 2 * K
