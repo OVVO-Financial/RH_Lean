@@ -744,3 +744,80 @@ and no loss of `K`.
 This is now the preferred Stokes route. The proof obligation is no longer
 constant optimization against a frozen frame; it is preservation of the live
 lower-scale Mertens envelope through the signed two-toggle physical ledger.
+
+
+## 33. Exhaustive DAG audit of the K-dependent top-two seam
+
+A repository-wide search around the active Stokes seam leaves one load-bearing
+quantitative step. The surrounding route is already compiled.
+
+### Already proved; do not redo
+
+1. **Exact DAG collapse to two Stokes coordinates.**
+   `lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm` removes
+   every deeper Stokes coordinate exactly.
+2. **Exact cross-amplitude decrement.**
+   `lowOwnerFirstOwner_pairBoundaryStep_eq_existingCrossAmplitudeDecrement`
+   rewrites each surviving Stokes peel as a base/returned cross-product
+   decrement, before norms.
+3. **Exact physical toggle dictionary.**
+   `lowOwnerStokesBaseToggleDifference_eq_crossing_add_endpointEscape`
+   splits a physical toggle into the q^2 threshold-crossing defect plus the
+   literal endpoint escape.
+4. **Incomplete raw-parent classification and oriented Fubini.**
+   The first-clip, next-clip, and returned-next sectors are disjoint, exhaustive,
+   and already mapped to physical boundary-site carriers.
+5. **Reciprocal boundary coordinates.**
+   `GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_RECIPROCAL_BRIDGE` identifies
+   next-owner clips with one-ended Euler edges and returned-next clips with the
+   existing `-1/r` critical four-corner coefficient. These are not new
+   analytic objects.
+6. **q^2 daughter reassembly.**
+   `GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY` removes owner and
+   signature bookkeeping and recovers the literal lower-scale Mertens daughter
+   exactly.
+7. **Local mixed-coordinate L2.**
+   `GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2` already proves the
+   deterministic full-clock bound
+   `sum Delta_{p,r}(n)^2 <= X/4 + 4(R-1)`, and hence a loose `<=5R^2`
+   bound. Local support/L2 analysis is therefore finished.
+8. **Reciprocal-square daughter contraction.**
+   The low-q^2 synthesis has the compiled quarter-frame bound, and the rounded
+   q^2 induction has total squared child-root budget `17/72`.
+9. **Amplification closure.**
+   `squareEndpointRoundedOddQ2EnergyStep_implies_unshifted_amplification`
+   already turns the factor-four q^2 recurrence into a fixed amplification
+   bound with recursive coefficient `17/18`.
+10. **Exceptional terminal and RH consumer.**
+    The terminal sector is `<=4`; the K-dependent top-two clip seam now feeds
+    the final Stokes consumer directly.
+
+### The one missing bridge
+
+What is *not* in the DAG is a theorem that globally reassembles the two
+surviving top-prime Stokes cross-amplitude decrements across all first-owner
+and signature fibres into the already-compiled q^2 daughter recurrence while
+retaining `LowerMertensCriticalEnvelope R K`.
+
+Equivalently, the missing theorem must control the globally assembled signed
+cross term before any ownerwise absolute value:
+
+```
+sum_{p,sig} [ top-step(p,sig) + (1/4) second-step(p,sig) ]
+    <= C * R^2 * K
+```
+
+or identify its crossing component with a contractive q^2 daughter energy plus
+a signed endpoint-wall remainder that is itself `O(R^2 K)`.
+
+This is the only acceptable place for new mathematics. Applying Cauchy--Schwarz
+ownerwise, summing the already-proved local `O(R^2)` bounds, or replacing the
+signed wall by support cardinality recreates the fixed-root-scale/strong-Mertens
+dead lane.
+
+### Work estimate
+
+By theorem/dependency count, approximately 85--90% of the formal route is
+already present and the remaining 10--15% is one bridge/reassembly theorem.
+By mathematical difficulty the proportions are reversed: that final signed
+global inequality carries essentially all of the unresolved analytic content.
