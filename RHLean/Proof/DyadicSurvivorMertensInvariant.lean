@@ -118,8 +118,9 @@ theorem squareRootDyadicSurvivorMass_eq_neg_transport
   have hpR : R < p := (Finset.mem_Ioc.mp hpRange).1
   have hpRoot : Nat.sqrt (squareRootEndpoint R) < p := by
     have hsq : Nat.sqrt (squareRootEndpoint R) < R := by
-      apply (Nat.sqrt_lt hR).2
+      apply (Nat.sqrt_lt').2
       unfold squareRootEndpoint
+      have hpos : 0 < R ^ 2 := by positivity
       omega
     exact hsq.trans hpR
   by_cases hpPrime : p.Prime
