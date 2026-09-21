@@ -186,6 +186,47 @@ jobs:
         run: |
           lake build RHLean.Proof.StableFarAdaptiveLedgerCollapse
           lake build RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
+      - name: Stage physical-frame raw-parent dependencies
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def extract(src_path, start_name, end_name, out_path):
+              src = Path(src_path).read_text()
+              start_marker = f'      - name: {start_name}\n'
+              end_marker = f'      - name: {end_name}\n'
+              block = src.split(start_marker, 1)[1].split(end_marker, 1)[0]
+              block = block.split('        run: |\n', 1)[1]
+              lines = []
+              for line in block.splitlines():
+                  if line.startswith('          '):
+                      line = line[10:]
+                  lines.append(line)
+              Path(out_path).write_text('\n'.join(lines) + '\n')
+
+          extract(
+              '.github/workflows/stokes-clip-core-fubini.yml',
+              'Emit raw-parent boundary orientation dependencies',
+              'Kernel-check exact signed Stokes algebra through natural corrected conductors',
+              '/tmp/stokes-raw-parent-boundary.sh')
+          extract(
+              '.github/workflows/raw-parent-prefix-star-energy.yml',
+              'Emit raw-parent exact chain',
+              'Kernel-check branch currency, orbit, and cross-amplitude gate',
+              '/tmp/raw-parent-exact.sh')
+          PY
+          bash /tmp/stokes-raw-parent-boundary.sh
+          bash /tmp/raw-parent-exact.sh
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_ENERGY_NORMAL_FORM.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_THRESHOLD_ORBIT_AMPLITUDE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCIDENCE_AMPLITUDE_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY.lean
+
       - name: Kernel-check final Stokes boundary consumer wiring
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
