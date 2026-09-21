@@ -500,8 +500,7 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
   have hsorted := lowOwnerFirstOwnerCanonicalStokesSchedule_sorted R p
   have hnodup := lowOwnerFirstOwnerCanonicalStokesSchedule_nodup R p
   generalize hsched :
-      lowOwnerFirstOwnerCanonicalStokesSchedule R p = ps at
-      htSched huSched hmem hsorted hnodup
+      lowOwnerFirstOwnerCanonicalStokesSchedule R p = ps at htSched huSched hmem hsorted hnodup
   cases ps with
   | nil =>
       simp at htSched
