@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """Report research/ scratch that the compiled library has already absorbed.
 
-`research/**.lean` is a staging tree: real Lean that imports `RHLean.*`, but
-outside the root manifest and the `lakefile.lean` target, so CI never compiles
-it and `scripts/decl_graph.py` never sees it.  Work moves out of it by being
+`research/**.lean` is staging Lean outside the root import surface and the
+authoritative declaration graph.  Selected research modules are kernel-elaborated
+by dedicated CI workflows, but they are not promoted into the audited
+`RHLean.lean` / `TerminalAxiomAudit` surface: they are not in the root manifest,
+not a `lakefile.lean` target, and `scripts/decl_graph.py` never sees them.
+
+So "elaborates" and "is library" are different questions here, and only the
+second one this script can answer.  Work leaves the staging tree by being
 promoted into `RHLean/`, and the scratch copy is easy to leave behind.  This
 script finds those leftovers by comparing the two trees declaration by
 declaration.

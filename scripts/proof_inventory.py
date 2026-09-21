@@ -199,11 +199,18 @@ def reachable_from(root: str, graph: dict[str, list[str]]) -> set[str]:
 def survey_dependent_lean_outside_scope() -> dict[str, object]:
     """Count Lean files outside the scanned tree that build on the library.
 
-    `research/**.lean` is real Lean: it imports `RHLean.*` and proves things.
-    It is not in the root manifest and not a `lakefile.lean` target, so it is
-    never compiled by CI and never enters the declaration graph. Omitting it
-    silently would misreport how much unverified work is in flight, so the
-    inventory states its size while keeping it out of the authoritative counts.
+    `research/**.lean` is staging Lean outside the root import surface and the
+    authoritative declaration graph. Selected research modules *are*
+    kernel-elaborated by dedicated CI workflows, but they are not promoted into
+    the audited `RHLean.lean` / `TerminalAxiomAudit` surface: they are not in
+    the root manifest, not a `lakefile.lean` target, and never enter the
+    declaration graph.
+
+    The distinction matters in both directions. Calling this tree "uncompiled"
+    understates it -- much of it elaborates. Counting it as library would
+    overstate it -- no axiom audit covers it. Omitting it silently would
+    misreport how much unpromoted work is in flight, so the inventory states
+    its size while keeping it out of the authoritative counts.
     """
 
     import re as _re
@@ -387,8 +394,11 @@ def print_summary(inv: dict[str, object]) -> None:
         print(f"  physical lines:            {out['physical_lines']:>8,}")
         print(f"  named proofs:              {out['named_proofs']:>8,}")
         print(f"  importing RHLean.*:        {out['files_importing_rhlean']:>8,}")
-        print("  not compiled by CI, not in the declaration graph;")
-        print("  excluded from every count above.")
+        print("  staging Lean: outside the root import surface and the")
+        print("  declaration graph. Selected modules are kernel-elaborated by")
+        print("  dedicated workflows, but none is promoted into the audited")
+        print("  RHLean.lean / TerminalAxiomAudit surface. Excluded from every")
+        print("  count above.")
         print()
 
     print("By top-level source area")
