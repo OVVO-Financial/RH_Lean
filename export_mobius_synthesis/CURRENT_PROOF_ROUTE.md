@@ -679,3 +679,68 @@ Any candidate closure must survive four checks the package can already apply to 
 4. **No hidden RH-strength input.** If an intermediate lemma would itself imply the terminal energy estimate by a trivial bridge, it is the hard theorem rather than an elementary auxiliary fact — and the linear downcross seam is exactly such a case, since it would give the strong Mertens bound.
 
 Separately from those inequalities, one exact construction is outstanding: the weight-preserving classifier of section 19. It remains the only place in this package where a compiled cancellation theorem is waiting on a rematching map rather than on an estimate.
+
+
+## 32. Stokes clip correction after #781: preserve the live lower envelope
+
+The fixed lower-Mertens prime-period synthesis is now a closed lane. The
+problem is not the unit constant. For the frozen coefficients
+`a_p=(M(p-1)-1)/sqrt(p)`, the corresponding coefficient envelope satisfies
+`E_R=O(R^2)`; therefore any fixed finite uniform comparison
+`Clip_R <= C E_R` forces `|G_R|=O(R)`, hence
+`M(R^2-1)=O(R)`, and then `M(x)=O(sqrt x)` by the uniform finite-wheel
+interpolation recorded in #781. This is the strong Mertens bound, not the
+RH-level seam required by the repository.
+
+Accordingly, `LowOwnerStokesClipRootBound`,
+`LowOwnerTopTwoStokesClipRootBound`, and every fixed finite root-scale frame
+domination are diagnostics only. Increasing their constants is not progress.
+
+The active Stokes seam is now name-locked in
+`GLOBAL_RETURNED_CORE_STOKES_SIMULTANEOUS_CORE_FUBINI.lean` as
+
+```
+LowOwnerTopTwoStokesClipCriticalEnvelopeBound C
+```
+
+namely
+
+```
+forall R K, 56 <= R ->
+  LowerMertensCriticalEnvelope R K ->
+  lowOwnerCanonicalTopTwoStokesClipNormalForm R hR
+    <= C * R^2 * K.
+```
+
+The exact DAG theorem
+`lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm` transfers
+this bound to the literal physical clip with no norm, no owner multiplicity,
+and no loss of `K`.
+
+### Attack order
+
+1. Work on the globally assembled top-two normal form, not on an ownerwise
+   absolute-value estimate.
+2. Expand only the two global top-prime toggles. Keep the first-owner/signature
+   sums assembled until the physical-core Fubini reindex has removed chronology.
+3. Split each toggle difference with
+   `lowOwnerStokesBaseToggleDifference_eq_crossing_add_endpointEscape`.
+   The crossing part must be charged to lower-scale Mertens data while still
+   carrying the live `K`; the endpoint-escape part is a literal wall defect
+   and must remain signed until all cross-family cancellation is exposed.
+4. Reindex the crossing sector by daughter endpoint
+   `floor((R^2-1)/q^2)`. The only acceptable estimate is one that consumes
+   `LowerMertensCriticalEnvelope R K` at those smaller endpoints. Any step
+   that replaces the resulting signed sum by a fixed `O(R^2)` envelope has
+   recreated the strong-Mertens dead lane.
+5. Use the already-proved reciprocal-square contraction on the daughter
+   channel before estimating the remaining wall term. The target is a
+   K-preserving recurrence of the form
+   `Clip_R <= alpha * lower_scale_energy + boundary_R` with `alpha < 1`,
+   or an equivalent direct `C R^2 K` inequality.
+6. Only after that contraction is assembled may the bounded exceptional
+   terminal sector be added back. It is not the bottleneck.
+
+This is now the preferred Stokes route. The proof obligation is no longer
+constant optimization against a frozen frame; it is preservation of the live
+lower-scale Mertens envelope through the signed two-toggle physical ledger.
