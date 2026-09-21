@@ -53,12 +53,59 @@ Since R = sqrt(X_R + 1), the two facts turn the domination into
 
     |M(x)|  <=  c * sqrt(x),      c = sqrt((5/4) C + 0.684)  fixed.
 
+THE SAME CONCLUSION WITHOUT ANY MEASUREMENT
+-------------------------------------------
+Neither measured input is actually needed. The repository proves both of the
+pieces that the numbers above were standing in for, so the implication is
+unconditional and internal:
+
+    D_R <= 3 R^2
+        lowOwnerZeroFrequencyMobiusDiagonal_le_three_root_sq
+        research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean:244
+
+    Col_R = NearestSquareCol_R + Shell_R,   ||Shell_R|| <= R/4
+        norm_lowOwnerNearestSquareReciprocalShell_le_quarter_root
+        research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean:210
+
+The diagonal bound replaces the measured 0.684, giving
+||G_R||^2 <= ((5/4)C + 3) R^2, so ||G_R|| <= B R with B = sqrt((5/4)C + 3).
+
+The shell split replaces the measured absence of cancellation, and is what
+breaks the apparent circularity: claiming M(X_R/q^2) = O(R/q) directly would
+assume the bound being proved, but the nearest-square daughters are literal
+smaller square endpoints, so a strong induction on R may use them. With
+|M(X_s)| <= A s for s < R, the packaged endpoint consumer gives
+||NearestSquareCol_R||^2 <= (A^2/2) R^2, hence <= (3/4) A R since 1/2 < 9/16.
+With |M(R-1)| <= R,
+
+    |M(X_R)| <= R + (3/4) A R + (1/4) R + B R = (B + 5/4 + (3/4) A) R
+
+and A = 4B + 5 is the fixed point. Enlarging A once to cover R < 56 closes the
+induction. Square-shell interpolation (S = floor(sqrt x) + 1, so x <= S^2 - 1
+and the gap is at most 2S) carries it to every x. So
+
+    LowOwnerStokesPrimePeriodFrameDomination C  ==>  M(x) = O(sqrt x)
+
+with no appeal to anything this script computes. The numbers remain useful as
+an independent check -- the measured D_R/R^2 = 0.684 sits well inside the
+proved <= 3, and |G|/|M| ~ 1 is what the shell split predicts -- but they are
+no longer load-bearing.
+
+The terminal plumbing shows the overshoot directly.
+`finalStokesBoundaryBound_of_primePeriodFrameDomination`
+(research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean:212) derives a
+uniform (5/4)C R^2 bound with no K in it, then takes `intro R K hR hK` and uses
+K >= 1 to weaken it into the K-parameterised RH-scale consumer. The premise it
+establishes is strictly stronger than the conclusion its consumer needs.
+
 That is the shape of the MERTENS CONJECTURE, not of RH.
 
   * RH gives M(x) << x^(1/2+eps), which permits sqrt(x)*exp((log x)^0.9) --
-    astronomically larger. Even under RH the best known bound is
-    sqrt(x)*exp(C log x / log log x); a pointwise sqrt(x)*(log x)^A bound is
-    open and strictly beyond RH.
+    astronomically larger. A fixed O(sqrt x) bound is NOT KNOWN to follow from
+    RH; even under RH the best known bound is sqrt(x)*exp(C log x / log log x).
+    Stating this as "strictly stronger than RH" would overclaim, since no
+    separation is proved -- the accurate statement is that it does not follow
+    from RH by anything known, and that it implies RH.
   * c = 1 is disproved outright: Odlyzko and te Riele (1985) give
     limsup M(x)/sqrt(x) > 1.06 and liminf < -1.009.
   * Every fixed c is believed false: Ingham (1942) shows that under linear
