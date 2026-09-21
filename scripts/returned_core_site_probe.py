@@ -86,15 +86,22 @@ it comes from the gap between the two smallest entries of
 `canonicalRoughLowQ2Owners`, not from the owner pair.
 
 The mass below that fraction drains as `R` grows (the lowest tenth of the
-support carries 0.561 of the `u^4` mass at R=800 and 0.039 at R=25600) while the
-region above it is uniform. If that continues, the limiting share is
+support carries 0.561 of the `u^4` mass at R=800 and 0.039 at R=25600). It is
+tempting to conclude the region above is uniform and read off a limiting share
+of `max(0, (9/(p*r) - 9/25) / (1 - 9/25))`. That is wrong, and measurably so:
+the `u^4` profile has a spike at the `q = 5` dropout, 0.2522 in the bucket
+holding `9/25` against 0.1151 uniform, so the mass above the threshold is not
+flat. Measured against that formula at R = 25600:
 
-    rho_2/9  ->  max(0, (9/(p*r) - 9/25) / (1 - 9/25))
+    (2,5) 0.818 vs 0.844   (2,7) 0.375 vs 0.442   (3,5) 0.540 vs 0.375
+    (3,7) 0.379 vs 0.107   (5,7) 0.264 vs 0.000   (7,11) 0.032 vs 0.000
 
-which vanishes exactly when `p*r >= 25`. Any power-law fit below that threshold
-is measuring the transient drainage, not an asymptotic exponent -- which is why
-such fits come out non-monotone in `p*r`. Run `--scales` out far enough to see
-which regime a pair is in before reading a decay into it.
+Every pair converges to a positive constant and none vanishes, so no `p*r`
+threshold separates them. Per-fibre power-law fits measure the transient
+drainage below `X/25`, not an asymptotic exponent, which is why they come out
+non-monotone in `p*r`. Do not read a decay into a single fibre.
+
+The decay is global, not per-fibre. See `--global-share`.
 
 WHAT THIS DOES NOT DO
 ---------------------
@@ -271,6 +278,58 @@ def probe(R: int, p: int, r: int, buckets: int = 20) -> dict:
     }
 
 
+def global_share(R: int, p: int) -> dict:
+    """Completed share summed over the whole canonical greatest-owner schedule.
+
+    This is the quantity the architecture actually licenses. Per-fibre shares
+    cannot simply be added up unless the fibres partition the carrier, and they
+    do: `lowOwnerFirstOwnerAdmittedPair_existsUnique_greatestOwner`
+    (research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean:111)
+    gives every admitted off-diagonal pair exactly one greatest owner
+    `r in primesUpTo (squareRootEndpoint R)` with `p < r`, and
+    `lowOwnerFirstOwnerAdmittedGreatestOwnerPairUnion_eq_offDiagonal`
+    (research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PAIR_FUBINI.lean:61) identifies
+    the union of those fibres with the whole off-diagonal carrier. Duplicate-free
+    and exhaustive, so the sum is the honest global object.
+
+    The first owner `p` likewise runs over every prime:
+    `lowOwnerZeroFrequencyMobiusGram_eq_sum_firstOwnerGram`
+    (research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean:137) partitions the
+    Gram over `primesUpTo (squareRootEndpoint R)` with no `erase 2`. So `p = 2`
+    is an ordinary member, and `(2, 3)` is one fibre of thousands rather than a
+    sector with special standing.
+    """
+
+    X = R * R - 1
+    phi = Potential.build(R)
+    supp = phi.support_bound
+    mu = mobius_sieve(supp + 1)
+    num = den = 0.0
+    fibres = live = 0
+    for r in primes_up_to(supp):
+        if r <= p:
+            continue
+        fibres += 1
+        x_pr = X // (p * r)
+        fib_num = fib_den = 0.0
+        for n, u in site_vector(R, p, r, supp, mu, phi):
+            q = (u * u) ** 2
+            fib_den += q
+            if n <= x_pr:
+                fib_num += q
+        num += fib_num
+        den += fib_den
+        if fib_num > 0:
+            live += 1
+    return {
+        "R": R,
+        "p": p,
+        "fibres": fibres,
+        "fibres_with_completed_mass": live,
+        "global_rho_2_9": num / den if den else float("nan"),
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--pairs", default="2,3", help="owner pairs, e.g. '2,3;3,5;5,7'")
@@ -280,6 +339,12 @@ def main() -> int:
         help="geometric sequence of R",
     )
     ap.add_argument("--profile", action="store_true", help="print the u^2 mass profile")
+    ap.add_argument(
+        "--global-share",
+        action="store_true",
+        help="sum over the whole greatest-owner schedule instead of one fibre",
+    )
+    ap.add_argument("--first-owners", default="2,3", help="values of p for --global-share")
     args = ap.parse_args()
 
     pairs = []
@@ -287,6 +352,26 @@ def main() -> int:
         a, b = chunk.split(",")
         pairs.append((int(a), int(b)))
     scales = [int(s) for s in args.scales.split(",")]
+
+    if args.global_share:
+        print("RETURNED-CORE COMPLETION GATE -- GLOBAL SCHEDULE SHARE")
+        print("=" * 78)
+        print("Summed over every greatest-owner fibre, which the unique-owner")
+        print("Fubini licenses. A single fibre is not representative: the schedule")
+        print("has pi(X/9) entries and the completed cutoff X/(p*r) shrinks like")
+        print("1/r, so the handful of small-r fibres that keep an order-one share")
+        print("are a vanishing fraction of it.")
+        print()
+        print(f"{'R':>7} {'p':>3} {'fibres':>8} {'nonempty':>9} {'global rho_2/9':>16}")
+        for R in scales:
+            for p in [int(x) for x in args.first_owners.split(",")]:
+                g = global_share(R, p)
+                print(
+                    f"{R:>7} {p:>3} {g['fibres']:>8,} "
+                    f"{g['fibres_with_completed_mass']:>9,} "
+                    f"{g['global_rho_2_9']:>16.6f}"
+                )
+        return 0
 
     print("RETURNED-CORE COMPLETION GATE PROBE")
     print("=" * 78)
