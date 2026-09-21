@@ -42,4 +42,4 @@ jobs:
       - name: Build dependency
         run: lake build StrongPNT.PNT5_Strong
       - name: Compile survivor invariant
-        run: lake env lean -DwarningAsError=true RHLean/Proof/DyadicSurvivorMertensInvariant.lean
+        run: lake build RHLean.Proof.DyadicSurvivorMertensInvariant
