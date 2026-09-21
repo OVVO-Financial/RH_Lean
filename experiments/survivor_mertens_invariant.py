@@ -75,10 +75,14 @@ def check_x(x: int):
     total=sum(MU[n] for n in survivors)
     assert total == -transform, (x,total,-transform)
 
-    # Every survivor is exactly a top-half outer state.
-    assert survivors == [
-        n for n in outer if n%2==1 and x//2 < n <= x
-    ], x
+    # Once sqrt(x) >= 2, every post-root prime is odd and the survivors are
+    # exactly the odd top-half outer states.  For x=2,3 the exceptional
+    # post-root prime p=2 still satisfies the fibrewise Mertens identity, but
+    # the odd-state description is not applicable.
+    if root >= 2:
+        assert survivors == [
+            n for n in outer if n%2==1 and x//2 < n <= x
+        ], x
 
     return len(survivors), total
 
