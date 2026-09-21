@@ -238,7 +238,7 @@
       "obstruction": "The issue is structural, not the value of C. The audited frozen envelope satisfies E_R=O(R^2). Therefore any fixed finite uniform C gives Clip_R=O(R^2); combined with the exact endpoint-gap identity, D_R=O(R^2), and the bounded exceptional terminal sector, this gives |G_R|=O(R). The q^2 daughter induction then yields |M(R^2-1)|=O(R), and the uniform finite-wheel interval bound interpolates to M(x)=O(sqrt(x)). Thus every fixed finite-C comparison against this frozen envelope asks for the strong Mertens bound rather than the RH-scale K-dependent estimate.",
       "evidence": {
         "lean": "research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean, research/GLOBAL_RETURNED_CORE_STOKES_SIMULTANEOUS_CORE_FUBINI.lean",
-        "numeric": "research/STOKES_LOWER_MERTENS_SYNTHESIS_OBSTRUCTION.md and scripts/stokes_lower_mertens_synthesis_audit.py in PR #781"
+        "numeric": "finite constant audit summarized in CURRENT_PROOF_ROUTE.md"
       },
       "what_would_reopen": "Nothing for a fixed finite uniform multiplier on the same frozen envelope. The live replacement must retain LowerMertensCriticalEnvelope R K, or equivalent R^epsilon/energy slack, through the signed top-two Stokes clip before any absolute-value estimate."
     }
