@@ -1,5 +1,7 @@
 import RHLean.Proof.DyadicSurvivorMertensInvariant
 import RHLean.Proof.MatchedFarSurvivorBridge
+import RHLean.Analysis.SquareRootPostCrossingTail
+import RHLean.Analysis.SquareRootCanonicalRoughCovariance
 
 /-!
 # Dyadic survivor splice into the matched square-root channel
@@ -142,6 +144,48 @@ theorem squareRootMatchedBornSmoothTransport_eq_squarePrefixMertens_sub_positive
         squareRootPositiveSmoothMass R := by
   have h := squarePrefixMertens_eq_positiveSmooth_add_matched R hR
   linear_combination h
+
+
+
+/-- **Autopsy-to-covariance frontier.**
+
+After replacing high transport by its exact physical dyadic survivors, the
+whole signed top packet minus the admitted crossing packet is *exactly* the
+canonical baseline minus one Möbius-weighted fresh-prime partner correlation.
+All lower Mertens descendants have already telescoped before this identity is
+read. -/
+theorem squareRootPhysicalDyadicPacket_sub_partial_eq_baseline_sub_partnerMass
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K < R) :
+    (squareRootPositiveSmoothMass R +
+        squareRootBornSmoothMass R +
+          dyadicCanonicalHighSourceMass R) -
+        ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ) =
+      squareRootPostCrossingCanonicalBaseline R K j -
+        ∑ c ∈ Finset.Icc 1 (squareRootEndpoint R),
+          canonicalMoebiusWeight c *
+            squareRootCanonicalRoughPrimePartnerCount R c := by
+  rw [squareRootPositiveSmooth_add_bornSmooth_add_dyadicHigh_eq_squarePrefixMertens
+      R (by omega)]
+  rw [← postCrossingCoupledTail_eq_mertens_sub_partial R K j hR]
+  rw [squareRootPostCrossingCoupledTail_eq_baseline_sub_correlation
+      R K j hR hK hKR]
+  rw [squareRootCanonicalRoughCorrelation_eq_weighted_primePartnerCount
+      R (by omega)]
+
+/-- Same frontier with the existing correlation object left named. -/
+theorem squareRootPhysicalDyadicPacket_sub_partial_eq_baseline_sub_correlation
+    (R K j : ℕ) (hR : 3 ≤ R) (hK : 1 ≤ K) (hKR : K < R) :
+    (squareRootPositiveSmoothMass R +
+        squareRootBornSmoothMass R +
+          dyadicCanonicalHighSourceMass R) -
+        ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ) =
+      squareRootPostCrossingCanonicalBaseline R K j -
+        squareRootCanonicalRoughCorrelation R := by
+  rw [squareRootPositiveSmooth_add_bornSmooth_add_dyadicHigh_eq_squarePrefixMertens
+      R (by omega)]
+  rw [← postCrossingCoupledTail_eq_mertens_sub_partial R K j hR]
+  exact squareRootPostCrossingCoupledTail_eq_baseline_sub_correlation
+    R K j hR hK hKR
 
 
 end RHLean.Proof
