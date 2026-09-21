@@ -681,7 +681,7 @@ Any candidate closure must survive four checks the package can already apply to 
 Separately from those inequalities, one exact construction is outstanding: the weight-preserving classifier of section 19. It remains the only place in this package where a compiled cancellation theorem is waiting on a rematching map rather than on an estimate.
 
 
-## 32. Stokes clip correction after #781: preserve the live lower envelope
+## 32. Stokes clip correction: preserve the live lower envelope
 
 The fixed lower-Mertens prime-period synthesis is now a closed lane. The
 problem is not the unit constant. For the frozen coefficients
@@ -689,7 +689,7 @@ problem is not the unit constant. For the frozen coefficients
 `E_R=O(R^2)`; therefore any fixed finite uniform comparison
 `Clip_R <= C E_R` forces `|G_R|=O(R)`, hence
 `M(R^2-1)=O(R)`, and then `M(x)=O(sqrt x)` by the uniform finite-wheel
-interpolation recorded in #781. This is the strong Mertens bound, not the
+interpolation recorded in the obstruction audit. This is the strong Mertens bound, not the
 RH-level seam required by the repository.
 
 Accordingly, `LowOwnerStokesClipRootBound`,
