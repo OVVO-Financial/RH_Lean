@@ -549,7 +549,7 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
             · exact (List.pairwise_cons.mp htailSorted).1 u huRest
           have hb : b = u := by omega
           subst b
-          exact ⟨rest, rfl⟩
+          exact ⟨rest, hsched⟩
 
 
 /-- Exact local clip normal form after the DAG collapse to the two largest
