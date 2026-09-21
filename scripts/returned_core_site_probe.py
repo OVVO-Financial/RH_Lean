@@ -62,6 +62,40 @@ whose every conjunct after `r.Prime` touches `a` alone or `b` alone. Since
 
 So completion is a range shrink by `p*r` in each coordinate, and nothing else.
 
+WHAT THE SITE VECTOR LOOKS LIKE
+------------------------------
+Two exact facts about `u` shape every number this script prints, and both are
+worth knowing before reading a ratio.
+
+`Phi_R` reaches `n` only from owners with `X/q^2 >= n`, so its support ends at
+`X/q_min^2 = X/9` (`q_min = 3`, the smallest odd owner clearing `q^2 < R`).
+Above that every one of the four potentials in `u` vanishes, so `u` does too.
+The completion cutoff `X/(p*r)` therefore does not bind at all when `p*r <= 9`,
+which only `(p, r) = (2, 3)` satisfies: there every share is 1 by support rather
+than by survival, and the diagnostic is measuring nothing.
+
+Above `n = X/25` only `q = 3` still reaches, so `Phi(n) = 1/3`, while `p*n`,
+`r*n` and `p*r*n` are all past the support and contribute zero. Hence
+
+    u(n) = mu(n) / 3     exactly,  for n > X/25
+
+-- measured as a single distinct value `|u| = 1/3` across all 237,766 sites
+above 0.45 of the support at R = 3200. `X/25` is the fraction `9/25 = 0.36` of
+the support, and the constant 25 is `q_2^2` for the *second* smallest owner, so
+it comes from the gap between the two smallest entries of
+`canonicalRoughLowQ2Owners`, not from the owner pair.
+
+The mass below that fraction drains as `R` grows (the lowest tenth of the
+support carries 0.561 of the `u^4` mass at R=800 and 0.039 at R=25600) while the
+region above it is uniform. If that continues, the limiting share is
+
+    rho_2/9  ->  max(0, (9/(p*r) - 9/25) / (1 - 9/25))
+
+which vanishes exactly when `p*r >= 25`. Any power-law fit below that threshold
+is measuring the transient drainage, not an asymptotic exponent -- which is why
+such fits come out non-monotone in `p*r`. Run `--scales` out far enough to see
+which regime a pair is in before reading a decay into it.
+
 WHAT THIS DOES NOT DO
 ---------------------
 It reports shares of a local `(p, sig, r)` ledger. It says nothing about the
@@ -182,7 +216,13 @@ def probe(R: int, p: int, r: int, buckets: int = 20) -> dict:
     x_r = X // r
     x_pr = X // (p * r)
     phi = Potential.build(R)
-    mu = mobius_sieve(x_r + 1)
+    # `u` vanishes above the daughter-weight support: there the weight part of
+    # every one of the four potentials is zero, and the `-[n < R]` part is zero
+    # too because the support bound X/q_min^2 exceeds R for R > q_min^2. So the
+    # scan and the sieve both stop at the support, not at x_r -- for r < 9 that
+    # is the difference between sieving X/r and X/9.
+    scan = min(x_r, phi.support_bound)
+    mu = mobius_sieve(scan + 1)
 
     # Prefix accumulators. For consecutive (p, r) the equal-revealed-key fibres
     # are singletons, so the general per-key cumulative sums collapse to these.
@@ -192,7 +232,7 @@ def probe(R: int, p: int, r: int, buckets: int = 20) -> dict:
     sites = 0
     last_nonzero = 0
 
-    for n, u in site_vector(R, p, r, x_r, mu, phi):
+    for n, u in site_vector(R, p, r, scan, mu, phi):
         sites += 1
         last_nonzero = n
         a, s = abs(u), u * u
