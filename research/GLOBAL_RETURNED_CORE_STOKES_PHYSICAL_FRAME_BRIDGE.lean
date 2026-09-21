@@ -1796,7 +1796,11 @@ theorem lowOwnerFirstOwner_pairBoundaryStep_eq_clipSignedAmplitudeProducts
           (lowOwnerDirichletIncidenceCoefficient R p)
           (lowOwnerDirichletBaseCoefficient R)
           (lowOwnerDirichletReturnedCoefficient R p)
-  rw [hleft, hright]
+  rw [hleft]
+  -- The interior sum still carries the pair toggle as `pairPrimeCarrierToggleLeft`;
+  -- unfolding it exposes the left-coordinate toggle that `hright` is stated with.
+  simp only [pairPrimeCarrierToggleLeft]
+  rw [hright]
 
 
 /-! ## Literal clip amplitudes are owner differences
