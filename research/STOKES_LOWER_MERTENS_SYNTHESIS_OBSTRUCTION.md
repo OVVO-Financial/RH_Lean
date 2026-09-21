@@ -326,6 +326,61 @@ Equations (8) and (10) give
 does not assume RH. The integer and real endpoint limsups agree because
 \(M(x)=M(\lfloor x\rfloor)\). Thus (11) contradicts that published result.
 
+## 8. Any fixed finite multiplier still forces strong Mertens
+
+The unit constant is not the only issue. Suppose more generally that there is
+one fixed finite constant \(C\ge0\) such that, for all sufficiently large
+\(R\),
+
+\[
+\mathrm{Clip}_R\le C E_R.
+\tag{12}
+\]
+
+Section 2 gives \(E_R=O(R^2)\), while Section 3 gives \(D_R=O(R^2)\), and the
+compiled terminal estimate gives \(T_R\le4\). Therefore the exact identity (1)
+forces
+
+\[
+|G_R|=O(R).
+\tag{13}
+\]
+
+The strong-induction argument of Section 5 does not use the special numerical
+constant \(0.882\); it only needs a bound of the form \(|G_R|\le B R\) for some
+fixed \(B\). Hence (13) gives
+
+\[
+|M(R^2-1)|=O(R).
+\]
+
+The uniform finite-wheel interval estimate (8) then interpolates from square
+endpoints to every integer endpoint and yields
+
+\[
+\boxed{M(x)=O(\sqrt{x}).}
+\tag{14}
+\]
+
+Thus replacing coefficient one by a larger fixed multiplier does not restore
+an RH-level target. Every finite uniform comparison against this same frozen
+coefficient envelope still implies the strong Mertens bound. The repository
+must therefore not treat targets such as `Clip <= C * E` with fixed finite
+`C`, `LowOwnerStokesClipRootBound`, or fixed root-scale frame domination as a
+mere constant-optimization problem.
+
+This section proves only the forward implication needed for the obstruction:
+a finite uniform fixed-envelope ratio implies strong Mertens. A converse would
+require a separate lower-control audit of the signed terminal term and is not
+asserted here.
+
+The viable seam is the already-existing adaptive statement
+`LowOwnerFinalStokesBoundaryBound C`, which retains
+`LowerMertensCriticalEnvelope R K` on the right-hand side. Any replacement
+synthesis should preserve that live lower-scale envelope (or equivalent
+\(R^\varepsilon\)/energy slack) rather than collapse it to a fixed
+\(R^2\)-scale envelope.
+
 ## Consequence and verification boundary
 
 The literal fixed-coefficient synthesis with constant one cannot be the final
@@ -335,9 +390,11 @@ It does not identify that family as coefficients of the signed physical clip.
 The two-toggle identity likewise remains valid; it changes neither (1) nor
 the contradiction.
 
-The conclusion here is specific. A comparison with an additional constant or
-remainder requires a new numerical audit. This note does not supply a faithful
-alternative synthesis or an RH proof.
+The unit-constant contradiction is numerical, but Section 8 gives a broader
+structural obstruction: any fixed finite multiplier on this same frozen
+envelope implies the strong Mertens bound. The correct replacement must retain
+the live `K` dependence (or equivalent scale slack). This note does not supply
+that replacement synthesis or an RH proof.
 
 Run `python3 scripts/stokes_lower_mertens_synthesis_audit.py` to reproduce the
 finite and rational checks. The script also independently checks the Möbius
