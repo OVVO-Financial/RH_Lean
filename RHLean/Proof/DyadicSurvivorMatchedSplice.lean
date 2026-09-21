@@ -54,6 +54,7 @@ theorem squareRootMatchedBornSmoothTransport_eq_bornSmooth_add_farDyadicSurvivor
   rw [squareRootMatchedBornSmoothTransport_eq_bornSmooth_add_dyadicSurvivor
       R (by omega),
     squareRootDyadicSurvivorMass_eq_farSurvivor_sub_near R hR]
+  ring
 
 /-- RH-scale boundedness statement written only in physical born-smooth and
 dyadic-survivor coordinates. -/
@@ -131,9 +132,12 @@ theorem squareRootPositiveSmooth_add_bornSmooth_add_dyadicHigh_eq_squarePrefixMe
         squareRootBornSmoothMass R +
           dyadicCanonicalHighSourceMass R =
       RHLean.Analysis.squarePrefixMertens (R - 1) := by
-  rw [← squareRootMatchedBornSmoothTransport_eq_bornSmooth_add_dyadicHigh
-      R (by omega)]
-  exact squarePrefixMertens_eq_positiveSmooth_add_matched R hR
+  have hmatched :=
+    squareRootMatchedBornSmoothTransport_eq_bornSmooth_add_dyadicHigh
+      R (by omega)
+  have hsquare := squarePrefixMertens_eq_positiveSmooth_add_matched R hR
+  rw [hmatched] at hsquare
+  simpa [add_assoc] using hsquare.symm
 
 /-- Equivalently, the hard matched channel is exactly the square-prefix value
 minus the positive-orientation smooth packet. -/
@@ -143,7 +147,7 @@ theorem squareRootMatchedBornSmoothTransport_eq_squarePrefixMertens_sub_positive
       RHLean.Analysis.squarePrefixMertens (R - 1) -
         squareRootPositiveSmoothMass R := by
   have h := squarePrefixMertens_eq_positiveSmooth_add_matched R hR
-  linear_combination h
+  linear_combination -h
 
 
 
@@ -166,6 +170,13 @@ theorem squareRootPhysicalDyadicPacket_sub_partial_eq_baseline_sub_partnerMass
             squareRootCanonicalRoughPrimePartnerCount R c := by
   rw [squareRootPositiveSmooth_add_bornSmooth_add_dyadicHigh_eq_squarePrefixMertens
       R (by omega)]
+  have hclock :
+      RHLean.Analysis.squarePrefixMertens (R - 1) =
+        RHLean.Analysis.mertensSummatory (squareRootEndpoint R) := by
+    unfold RHLean.Analysis.squarePrefixMertens
+      RHLean.Analysis.squarePrefixEndpoint squareRootEndpoint
+    rw [Nat.sub_add_cancel (by omega : 1 ≤ R)]
+  rw [hclock]
   rw [← postCrossingCoupledTail_eq_mertens_sub_partial R K j hR]
   rw [squareRootPostCrossingCoupledTail_eq_baseline_sub_correlation
       R K j hR hK hKR]
@@ -183,6 +194,13 @@ theorem squareRootPhysicalDyadicPacket_sub_partial_eq_baseline_sub_correlation
         squareRootCanonicalRoughCorrelation R := by
   rw [squareRootPositiveSmooth_add_bornSmooth_add_dyadicHigh_eq_squarePrefixMertens
       R (by omega)]
+  have hclock :
+      RHLean.Analysis.squarePrefixMertens (R - 1) =
+        RHLean.Analysis.mertensSummatory (squareRootEndpoint R) := by
+    unfold RHLean.Analysis.squarePrefixMertens
+      RHLean.Analysis.squarePrefixEndpoint squareRootEndpoint
+    rw [Nat.sub_add_cancel (by omega : 1 ≤ R)]
+  rw [hclock]
   rw [← postCrossingCoupledTail_eq_mertens_sub_partial R K j hR]
   exact squareRootPostCrossingCoupledTail_eq_baseline_sub_correlation
     R K j hR hK hKR
