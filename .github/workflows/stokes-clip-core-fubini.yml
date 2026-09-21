@@ -1,0 +1,225 @@
+name: Stokes simultaneous core Fubini check
+
+on:
+  push:
+    branches: [agent/post-776-global-clip-core-fubini]
+    paths:
+      - research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_SIMULTANEOUS_CORE_FUBINI.lean
+      - .github/workflows/stokes-clip-core-fubini.yml
+  pull_request:
+    branches: [agent/post-774-stokes-terminal-frame-closure]
+    paths:
+      - research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
+      - research/GLOBAL_RETURNED_CORE_STOKES_SIMULTANEOUS_CORE_FUBINI.lean
+      - .github/workflows/stokes-clip-core-fubini.yml
+  workflow_dispatch:
+
+concurrency:
+  group: stokes-clip-core-fubini-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-
+      - name: Build algebraic dependencies
+        run: |
+          lake build RHLean.Proof.GlobalPrefixCarrierOthello
+          lake build RHLean.Arithmetic.PrimeWheelMobiusRecovery
+          lake build RHLean.Analysis.PrimeWheelConductorGram
+          lake build RHLean.Analysis.PrimeWheelRawConductorCoefficient
+          lake build RHLean.Analysis.PrimeWheelRawConductorWeight
+          lake build RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
+      - name: Emit returned-core dependency foundation through owner cube
+        run: |
+          mkdir -p .lake/build/lib/lean
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+          emit research/STABLE_FAR_RETURNED_FIBER_FUBINI.lean
+          emit research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
+          emit research/STABLE_FAR_RETURNED_RECIPROCAL_FROZEN_WINDOW.lean
+          emit research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+          emit research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+          emit research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+          emit research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
+          emit research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+          emit research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
+          emit research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
+          emit research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
+          emit research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+          emit research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
+          emit research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          emit research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
+          emit research/AMPLITUDE_STOKES_MEMORY_SPLIT.lean
+          emit research/AMPLITUDE_RECIPROCAL_DROP_PHYSICAL_DEFECT.lean
+          emit research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean
+          emit research/DIRECT_SUM_LOW_FRESHNESS_ABEL.lean
+          emit research/DIRECT_SUM_COUPLED_PACKET.lean
+          emit research/DIRECT_SUM_COUPLED_FRESH_PRIME_RANGE_EXIT.lean
+          emit research/DIRECT_SUM_COUPLED_RANGE_EXIT_COLLAPSE.lean
+          emit research/DIRECT_SUM_FRESH_PRIME_GLOBAL_COLLAPSE.lean
+          emit research/DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.lean
+          emit research/AMPLITUDE_GLOBAL_PHYSICAL_DEFECT_LEDGER.lean
+          emit research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
+          emit research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean
+          emit research/STABLE_FAR_RETURNED_RECIPROCAL_PHYSICAL_BRIDGE.lean
+          emit research/STABLE_FAR_GLOBAL_RETURNED_MEMORY_FUBINI.lean
+          emit research/LOW_OWNER_RETURNED_AMPLITUDE_CORE.lean
+          emit research/STABLE_FAR_PERRON_REALIFICATION.lean
+          emit research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
+          emit research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
+          emit research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
+          emit research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
+          emit research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
+          emit research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
+          emit research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
+          emit research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
+          emit research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
+          emit research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
+          emit research/GLOBAL_RETURNED_CORE_ZERO_TARGET_COVARIANCE.lean
+          emit research/GLOBAL_RETURNED_CORE_CONTINUATION_CARRIER.lean
+          emit research/GLOBAL_RETURNED_CORE_CLIPPED_QUOTIENT.lean
+          emit research/GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean
+          emit research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean
+          emit research/GLOBAL_RETURNED_CORE_ONE_AMPLITUDE.lean
+          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean
+          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELLS.lean
+          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_COMPENSATED_OWNER_BLOCK.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE.lean
+          emit research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
+          emit research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean
+      - name: Emit raw-parent boundary orientation dependencies
+        run: |
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_OPERATOR_CONFLUENCE.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_SECTOR_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_CLIPPED_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_DIRICHLET_SIGNATURE_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_FILTRATION.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_SUCCESSOR.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_SUCCESSOR.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean
+          emit research/GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION.lean
+          emit research/GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER.lean
+          emit research/GLOBAL_RETURNED_CORE_ARBITRARY_FRESH_PRIME_DESCENT.lean
+          emit research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION.lean
+          emit research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_DIRECT_SUM_CONTRACTION.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_SIGNED_DESCENT.lean
+          emit research/GLOBAL_RETURNED_CORE_COMPENSATED_CELL_DESCENT_CARRIER.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_DOUBLE_CORNER_RECIPROCAL.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_CURRENCY.lean
+          emit research/GLOBAL_RETURNED_CORE_DOUBLE_CORNER_POLARIZATION_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_PARENT_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_ADMITTED_POSITIVE_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP.lean
+          emit research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_CORNER_CLASSIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_TWO_PRIME_DIRICHLET_LOCAL_CONFLUENCE.lean
+          emit research/GLOBAL_RETURNED_CORE_TWO_PRIME_COMPLETED_BLOCK_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_FILTRATION.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_ENDPOINT.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_OWNER_SPLICE.lean
+          emit research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_AGGREGATE.lean
+          emit research/GLOBAL_RETURNED_CORE_GENERIC_GREATEST_OWNER_CONTRACTION.lean
+          emit research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
+          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_VIRTUAL_CUBE_SPLICE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_ORBIT_RECURSION.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_DIAGONAL_BOUND.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_NORMAL_FORM.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_RECIPROCAL_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_ORIENTED_FUBINI.lean
+      - name: Kernel-check exact signed Stokes algebra through natural corrected conductors
+        run: |
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
+          emit research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
+          emit research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_CLASSIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_CLIP_AMPLITUDE_FACTOR.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_GLOBAL_IDENTIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_WHEEL_IDENTIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
+          emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_NEAREST_SQUARE_ENDPOINT_LEDGER.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_ARBITRARY_CLOCK_WHEEL.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIOD_WHEEL.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIODIC_RAW_REALIZATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_CORRECTED_CONDUCTOR_PACKET.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_COMMON_SPECTRUM_LEDGER.lean
+      - name: Kernel-check terminal API and simultaneous core Fubini
+        run: |
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
+          emit research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_SIMULTANEOUS_CORE_FUBINI.lean
