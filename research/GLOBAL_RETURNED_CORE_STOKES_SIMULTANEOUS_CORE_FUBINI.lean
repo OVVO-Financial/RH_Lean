@@ -668,6 +668,28 @@ def LowOwnerTopTwoStokesClipCriticalEnvelopeBound (C : ℝ) : Prop :=
     lowOwnerCanonicalTopTwoStokesClipNormalForm R hR ≤
       C * (R : ℝ) ^ 2 * K
 
+
+/-- Literal-clip form of the same active K-dependent seam. -/
+def LowOwnerStokesClipCriticalEnvelopeBound (C : ℝ) : Prop :=
+  ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+    LowerMertensCriticalEnvelope R K →
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+      C * (R : ℝ) ^ 2 * K
+
+/-- The top-two and literal-clip K-dependent seams are exactly equivalent.
+This is only the compiled DAG rewrite; no estimate is introduced. -/
+theorem lowOwnerTopTwoStokesClipCriticalEnvelopeBound_iff_clipCriticalEnvelopeBound
+    (C : ℝ) :
+    LowOwnerTopTwoStokesClipCriticalEnvelopeBound C ↔
+      LowOwnerStokesClipCriticalEnvelopeBound C := by
+  constructor
+  · intro h R K hR hK
+    rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm hR]
+    exact h R K hR hK
+  · intro h R K hR hK
+    rw [← lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm hR]
+    exact h R K hR hK
+
 /-- The active top-two seam transfers to the literal physical Stokes clip
 without any inequality, ownerwise norm, or loss of the live `K` factor. -/
 theorem lowOwnerCanonicalSignedStokesClipBoundary_le_root_sq_mul_lowerEnvelope_of_topTwoBound
