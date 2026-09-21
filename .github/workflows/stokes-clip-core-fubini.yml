@@ -136,6 +136,40 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
           emit research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
           emit research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean
+      - name: Emit raw-parent boundary orientation dependencies
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          src = Path('.github/workflows/raw-parent-orbit-partition.yml').read_text()
+          start_marker = '      - name: Emit returned-core dependency foundation\n'
+          end_marker = '      - name: Check raw-parent Fubini\n'
+          block = src.split(start_marker, 1)[1].split(end_marker, 1)[0]
+          block = block.split('        run: |\n', 1)[1]
+          lines = []
+          for line in block.splitlines():
+              if line.startswith('          '):
+                  line = line[10:]
+              lines.append(line)
+          Path('/tmp/raw-parent-foundation.sh').write_text('\n'.join(lines) + '\n')
+          PY
+          bash /tmp/raw-parent-foundation.sh
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_ORBIT_PARTITION.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FOUR_CORNER_OCCUPANCY.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_VIRTUAL_CUBE_SPLICE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_FULL_ORBIT_RECURSION.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_PERSISTENCE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_OWNER_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INERT_DIAGONAL_BOUND.lean
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_CLASSIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCOMPLETE_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_NORMAL_FORM.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_RECIPROCAL_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_ORIENTED_FUBINI.lean
+
       - name: Kernel-check exact signed Stokes algebra through natural corrected conductors
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
