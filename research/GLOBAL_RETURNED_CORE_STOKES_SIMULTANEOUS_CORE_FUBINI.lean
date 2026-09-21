@@ -633,8 +633,12 @@ theorem lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm
     lowOwnerFirstOwnerCanonicalStokesClipBoundary_eq_topTwoNormalForm
       hR hpMem sig
 
-/-- The genuinely remaining quantitative statement after exact DAG reduction:
-bound one globally assembled two-toggle signed ledger at root scale. -/
+/-- Strong-Mertens surrogate retained only as a diagnostic/dead-lane target.
+
+A fixed root-scale bound on this normal form erases the live lower-scale
+Mertens envelope.  The #781 obstruction shows that a fixed finite root-scale
+bound here propagates to `M(x) = O(sqrt x)`, so this definition must not be
+used as the active RH-level seam. -/
 def LowOwnerTopTwoStokesClipRootBound (A : ℝ) : Prop :=
   ∀ (R : ℕ) (hR : 56 ≤ R),
     lowOwnerCanonicalTopTwoStokesClipNormalForm R hR ≤
@@ -650,5 +654,51 @@ theorem lowOwnerCanonicalSignedStokesClipBoundary_le_root_sq_of_topTwoBound
       A * (R : ℝ) ^ 2 := by
   rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm hR]
   exact hA R hR
+
+
+/-- **Active RH-level clip seam.**
+
+Unlike `LowOwnerTopTwoStokesClipRootBound`, this keeps the lower-scale
+Mertens critical envelope live.  No fixed root-scale estimate is requested.
+The top-two DAG reduction is exact, so this is the same signed physical clip
+ledger with precisely the scale slack consumed by the existing RH chain. -/
+def LowOwnerTopTwoStokesClipCriticalEnvelopeBound (C : ℝ) : Prop :=
+  ∀ (R : ℕ) (K : ℝ) (hR : 56 ≤ R),
+    LowerMertensCriticalEnvelope R K →
+    lowOwnerCanonicalTopTwoStokesClipNormalForm R hR ≤
+      C * (R : ℝ) ^ 2 * K
+
+
+/-- Literal-clip form of the same active K-dependent seam. -/
+def LowOwnerStokesClipCriticalEnvelopeBound (C : ℝ) : Prop :=
+  ∀ (R : ℕ) (K : ℝ) (_hR : 56 ≤ R),
+    LowerMertensCriticalEnvelope R K →
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+      C * (R : ℝ) ^ 2 * K
+
+/-- The top-two and literal-clip K-dependent seams are exactly equivalent.
+This is only the compiled DAG rewrite; no estimate is introduced. -/
+theorem lowOwnerTopTwoStokesClipCriticalEnvelopeBound_iff_clipCriticalEnvelopeBound
+    (C : ℝ) :
+    LowOwnerTopTwoStokesClipCriticalEnvelopeBound C ↔
+      LowOwnerStokesClipCriticalEnvelopeBound C := by
+  constructor
+  · intro h R K hR hK
+    rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm hR]
+    exact h R K hR hK
+  · intro h R K hR hK
+    rw [← lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm hR]
+    exact h R K hR hK
+
+/-- The active top-two seam transfers to the literal physical Stokes clip
+without any inequality, ownerwise norm, or loss of the live `K` factor. -/
+theorem lowOwnerCanonicalSignedStokesClipBoundary_le_root_sq_mul_lowerEnvelope_of_topTwoBound
+    {C : ℝ} (hC : LowOwnerTopTwoStokesClipCriticalEnvelopeBound C)
+    {R : ℕ} {K : ℝ} (hR : 56 ≤ R)
+    (hK : LowerMertensCriticalEnvelope R K) :
+    lowOwnerCanonicalSignedStokesClipBoundary R ≤
+      C * (R : ℝ) ^ 2 * K := by
+  rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm hR]
+  exact hC R K hR hK
 
 end RHLean.Proof

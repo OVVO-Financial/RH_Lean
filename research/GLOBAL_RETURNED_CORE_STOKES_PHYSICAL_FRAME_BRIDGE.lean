@@ -11,6 +11,7 @@ import «research.GLOBAL_RETURNED_CORE_DIRICHLET_THRESHOLD_ENDPOINT_CORRECTION»
 import «research.GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY»
 import «research.GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION»
 import «research.GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER»
+import «research.GLOBAL_RETURNED_CORE_STOKES_SIMULTANEOUS_CORE_FUBINI»
 
 /-!
 # Physical Stokes boundary -> natural prime-period frame interface
@@ -2375,5 +2376,51 @@ theorem clip_lowerEnvelopeBound_of_lowerMertensSynthesis
     _ ≤ K * ((5 / 4 : ℝ) * (R : ℝ) ^ 2) :=
       mul_le_mul_of_nonneg_left hframe hK.1
     _ = (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by ring
+
+
+
+/-! ## K-dependent top-two seam: complete downstream closure -/
+
+/-- The exceptional zero/one-owner terminal ledger is uniformly at most four,
+in the literal global terminal currency used by the final Stokes boundary. -/
+theorem lowOwnerCanonicalSignedStokesTopTerminalBoundary_le_four
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerCanonicalSignedStokesTopTerminalBoundary R ≤ 4 := by
+  rw [lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_terminalOwnerSum]
+  simpa [lowOwnerStokesTopTerminalOwnerSet,
+    StokesTerminalFrame.exceptionalTerminalBoundary,
+    StokesTerminalFrame.topTerminalOwnerSet] using
+      (StokesTerminalFrame.exceptionalTerminalBoundary_le_four hR)
+
+/-- **Downstream DAG closure.**
+
+Once the active K-dependent top-two clip estimate is proved, no further
+analytic input remains: the exceptional terminal cost four is absorbed by one
+additional R^2 K, and the existing final-Stokes consumer closes RH. -/
+theorem riemannHypothesis_of_topTwoStokesClipCriticalEnvelopeBound
+    {C : ℝ} (hC : 0 ≤ C)
+    (hClip : LowOwnerTopTwoStokesClipCriticalEnvelopeBound C) :
+    RiemannHypothesis := by
+  apply riemannHypothesis_of_finalStokesBoundaryBound
+    (C := C + 1) (by positivity)
+  intro R K hR hK
+  rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_topTerminal]
+  have hclip :=
+    lowOwnerCanonicalSignedStokesClipBoundary_le_root_sq_mul_lowerEnvelope_of_topTwoBound
+      hClip hR hK
+  have hterm :=
+    lowOwnerCanonicalSignedStokesTopTerminalBoundary_le_four hR
+  have hKone : 1 ≤ K :=
+    lowerMertensCriticalEnvelope_one_le (by omega) hK
+  have hscale : (4 : ℝ) ≤ (R : ℝ) ^ 2 * K := by
+    have hRreal : (56 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+    nlinarith
+  calc
+    lowOwnerCanonicalSignedStokesClipBoundary R +
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R ≤
+      C * (R : ℝ) ^ 2 * K + 4 := add_le_add hclip hterm
+    _ ≤ C * (R : ℝ) ^ 2 * K + (R : ℝ) ^ 2 * K :=
+      add_le_add_left hscale _
+    _ = (C + 1) * (R : ℝ) ^ 2 * K := by ring
 
 end RHLean.Proof

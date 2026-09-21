@@ -256,6 +256,10 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY.lean
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_RECIPROCAL_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_ORIENTED_FUBINI.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_SIMULTANEOUS_CORE_FUBINI.lean
       - name: Kernel-check Stokes physical frame bridge
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
