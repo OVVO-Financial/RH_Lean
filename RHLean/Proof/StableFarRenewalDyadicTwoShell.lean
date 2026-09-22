@@ -1192,9 +1192,9 @@ theorem stableFarRenewalRoughBoundaryColumn_eq_q2DaughterFarRoughDyadicColumn
     {R r : ℕ} (hr : r.Prime) (hrR : r < R) :
     stableFarRenewalRoughBoundaryColumn R r =
       q2DaughterFarRoughDyadicColumn R r := by
-  rw [stableFarRenewalFarPrimeSet_eq_highPrimeSet hr hrR]
   unfold stableFarRenewalRoughBoundaryColumn
-    q2DaughterFarRoughDyadicColumn
+  rw [stableFarRenewalFarPrimeSet_eq_highPrimeSet hr hrR]
+  unfold q2DaughterFarRoughDyadicColumn
   dsimp
   apply Finset.sum_congr rfl
   intro p _hp
