@@ -201,6 +201,70 @@ theorem lowOwnerRevealedPairMassWith_empty_eq_diagonal_add_offDiagonal
     lowOwnerRevealedPrimeSignature
   simpa [P] using hpart.symm
 
+/-- The physical diagonal carrier is the image of the one-dimensional clock. -/
+theorem lowOwnerGlobalDiagonalPairCarrier_eq_image
+    (R : ℕ) :
+    lowOwnerGlobalDiagonalPairCarrier R =
+      (lowOwnerNonzeroMobiusCarrier R).image (fun n => (n, n)) := by
+  ext mn
+  rcases mn with ⟨m, n⟩
+  constructor
+  · intro h
+    rcases Finset.mem_filter.mp h with ⟨hprod, heq⟩
+    rcases Finset.mem_product.mp hprod with ⟨hm, _hn⟩
+    dsimp only at heq
+    subst n
+    exact Finset.mem_image.mpr ⟨m, hm, rfl⟩
+  · intro h
+    rcases Finset.mem_image.mp h with ⟨n, hn, hmn⟩
+    have hpair : (m, n) = (n, n) := hmn
+    have hmEq : m = n := congrArg Prod.fst hpair
+    subst m
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_product.mpr ⟨hn, hn⟩, rfl⟩
+
+/-- Diagonal mass is the one-dimensional sum of site squares. -/
+theorem lowOwnerGlobalDiagonalPairMassWith_eq_sum_sq
+    (R : ℕ) (v : ℕ → ℝ) :
+    lowOwnerGlobalDiagonalPairMassWith R v =
+      ∑ n ∈ lowOwnerNonzeroMobiusCarrier R, v n ^ 2 := by
+  unfold lowOwnerGlobalDiagonalPairMassWith
+  rw [lowOwnerGlobalDiagonalPairCarrier_eq_image]
+  rw [Finset.sum_image]
+  · apply Finset.sum_congr rfl
+    intro n _hn
+    ring
+  · intro a _ha b _hb hab
+    exact congrArg Prod.fst hab
+
+/-- At the empty revealed state the arbitrary-site pair mass is literally the
+square of its one-dimensional amplitude. -/
+theorem lowOwnerRevealedPairMassWith_empty_eq_sum_sq
+    (R : ℕ) (v : ℕ → ℝ) :
+    lowOwnerRevealedPairMassWith R ∅ v =
+      (∑ n ∈ lowOwnerNonzeroMobiusCarrier R, v n) ^ 2 := by
+  unfold lowOwnerRevealedPairMassWith lowOwnerRevealedPairCarrier
+    lowOwnerRevealedPrimeSignature
+  simp only [Finset.inter_empty]
+  simp only [ite_true]
+  let S := lowOwnerNonzeroMobiusCarrier R
+  change
+    (∑ mn ∈ S.product S, v mn.1 * v mn.2) =
+      (∑ n ∈ S, v n) ^ 2
+  calc
+    (∑ mn ∈ S.product S, v mn.1 * v mn.2) =
+      ∑ m ∈ S, ∑ n ∈ S, v m * v n := by
+        simpa only using
+          (Finset.sum_product
+            (s := S) (t := S)
+            (f := fun mn : ℕ × ℕ => v mn.1 * v mn.2))
+    _ = (∑ m ∈ S, v m) * (∑ n ∈ S, v n) := by
+        rw [Finset.sum_mul]
+        apply Finset.sum_congr rfl
+        intro m _hm
+        rw [Finset.mul_sum]
+    _ = (∑ n ∈ S, v n) ^ 2 := by ring
+
 /-- **Global descending energy decomposition for an arbitrary signed site.**
 
 Every off-diagonal term is paid exactly once by its greatest fresh owner. -/
