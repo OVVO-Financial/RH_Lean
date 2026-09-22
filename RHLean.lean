@@ -587,6 +587,7 @@ import RHLean.Proof.PhysicalQ2BookkeepingSynthesis
 import RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
 import RHLean.Proof.PhysicalQ2FourFrameTerminalSynthesis
 import RHLean.Proof.PhysicalQ2TerminalSynthesis
+import RHLean.Proof.Post787BoundaryMainTermObstruction
 import RHLean.Proof.PostRootCovarianceGlobalExponentTransfer
 import RHLean.Proof.PostRootCovarianceLcmBoundary
 import RHLean.Proof.PostRootCovarianceLcmBoundaryClosure
