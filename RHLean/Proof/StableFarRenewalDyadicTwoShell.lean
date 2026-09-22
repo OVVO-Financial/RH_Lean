@@ -1627,4 +1627,80 @@ theorem stableFarRenewalOwnerDifferenceWeight_eq_indicatorSum
   push_cast
   rfl
 
+
+theorem stableFarRenewalOwnerDifferenceWeight_eq_sum_indicatorWeight
+    (R r p d : ℕ) :
+    stableFarRenewalOwnerDifferenceWeight R r p d =
+      ∑ q ∈ primesUpTo (R - 1),
+        ((stableFarRenewalOwnerIndicatorDifference R q r d p : ℤ) : ℂ) *
+          canonicalMoebiusWeight d := by
+  rw [stableFarRenewalOwnerDifferenceWeight_eq_indicatorSum]
+  push_cast
+  rw [Finset.sum_mul]
+
+abbrev StableFarRenewalLocalShellTag := ℕ × ℕ
+
+def stableFarRenewalLocalOddTwoShellCarrier
+    (R r p B : ℕ) : Finset StableFarRenewalLocalShellTag :=
+  ((primesUpTo (R - 1)).product
+      ((squareRootLowPrimeGoSmoothCofactors r B).filter Odd)).filter fun qd =>
+    stableFarRenewalFirstCutShell R qd.1 r qd.2 p ∨
+      stableFarRenewalSecondCrossShell R qd.1 r qd.2 p
+
+def stableFarRenewalLocalOddTwoShellIndicatorMass
+    (R r p B : ℕ) : ℂ :=
+  ∑ qd ∈ stableFarRenewalLocalOddTwoShellCarrier R r p B,
+    ((stableFarRenewalOwnerIndicatorDifference R qd.1 r qd.2 p : ℤ) : ℂ) *
+      canonicalMoebiusWeight qd.2
+
+/-- Fixed returned coordinates: the owner-cardinality difference is exactly the
+signed two-shell incidence sum.  No contribution remains off the two shells. -/
+theorem stableFarRenewalOwnerDifferenceMass_eq_localTwoShellIndicatorMass
+    (R r p B : ℕ) :
+    stableFarRenewalOwnerDifferenceMass R r p B =
+      stableFarRenewalLocalOddTwoShellIndicatorMass R r p B := by
+  rw [stableFarRenewalOwnerDifferenceMass_eq_smoothOdd]
+  calc
+    (∑ d ∈ (squareRootLowPrimeGoSmoothCofactors r B).filter Odd,
+        stableFarRenewalOwnerDifferenceWeight R r p d) =
+      ∑ d ∈ (squareRootLowPrimeGoSmoothCofactors r B).filter Odd,
+        ∑ q ∈ primesUpTo (R - 1),
+          ((stableFarRenewalOwnerIndicatorDifference R q r d p : ℤ) : ℂ) *
+            canonicalMoebiusWeight d := by
+      apply Finset.sum_congr rfl
+      intro d _hd
+      exact stableFarRenewalOwnerDifferenceWeight_eq_sum_indicatorWeight
+        R r p d
+    _ =
+      ∑ q ∈ primesUpTo (R - 1),
+        ∑ d ∈ (squareRootLowPrimeGoSmoothCofactors r B).filter Odd,
+          ((stableFarRenewalOwnerIndicatorDifference R q r d p : ℤ) : ℂ) *
+            canonicalMoebiusWeight d := by
+      exact Finset.sum_comm
+    _ = stableFarRenewalLocalOddTwoShellIndicatorMass R r p B := by
+      unfold stableFarRenewalLocalOddTwoShellIndicatorMass
+        stableFarRenewalLocalOddTwoShellCarrier
+      rw [Finset.sum_filter, Finset.sum_product]
+      apply Finset.sum_congr rfl
+      intro q hq
+      apply Finset.sum_congr rfl
+      intro d hd
+      by_cases hshell :
+          stableFarRenewalFirstCutShell R q r d p ∨
+            stableFarRenewalSecondCrossShell R q r d p
+      · simp [hshell]
+      · have hzero :
+            stableFarRenewalOwnerIndicatorDifference R q r d p = 0 := by
+          by_contra hne
+          have hcases :=
+            renewalOwnerIndicatorDifference_ne_zero_imp_two_shells
+              (R := R) (q := q) (r := r) (e := d) (p := p) hne
+          apply hshell
+          rcases hcases with ⟨hq', hrq, hfirst | hsecond⟩
+          · left
+            exact ⟨hq', hrq, hfirst.1, hfirst.2.1, hfirst.2.2⟩
+          · right
+            exact ⟨hq', hrq, hsecond.1, hsecond.2.1, hsecond.2.2⟩
+        simp [hshell, hzero]
+
 end RHLean.Proof
