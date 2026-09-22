@@ -178,6 +178,7 @@ import RHLean.Analysis.PrimeBoundaryCollisionQuotientNoGo
 import RHLean.Analysis.PrimeBoundaryDefectBridge
 import RHLean.Analysis.PrimeDilateCofactorPrimeWindows
 import RHLean.Analysis.PrimeDilateTransportCompression
+import RHLean.Analysis.PrimeExtensionEnergyTelescope
 import RHLean.Analysis.PrimeSieveAbelIdentity
 import RHLean.Analysis.PrimeSieveAbelTwoObligations
 import RHLean.Analysis.PrimeSieveAffineExcursion
