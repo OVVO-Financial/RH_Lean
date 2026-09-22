@@ -89,7 +89,6 @@ theorem sum_lowOwnerQ2DaughterFirstOwnerGram_eq_positiveLag
   apply Finset.sum_congr rfl
   intro n _hn
   rw [Finset.sum_comm]
-  rfl
 
 private theorem rawQ2ChildEnergyReal_eq_realMertensLength_sq
     (R q : ℕ) :
