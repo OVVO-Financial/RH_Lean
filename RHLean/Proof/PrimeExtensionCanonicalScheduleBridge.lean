@@ -156,7 +156,7 @@ theorem primeExtensionCanonicalAscendingSchedule_admissible
   have hascNodup :
       (primeExtensionCanonicalAscendingSchedule R).Nodup := by
     unfold primeExtensionCanonicalAscendingSchedule
-    simpa using hdescNodup.reverse
+    simpa using hdescNodup
   have hascPrime :
       ∀ p ∈ primeExtensionCanonicalAscendingSchedule R, p.Prime := by
     intro p hp
@@ -168,9 +168,7 @@ theorem primeExtensionCanonicalAscendingSchedule_admissible
   have hdisj :
       ∀ p ∈ primeExtensionCanonicalAscendingSchedule R, ¬ p ∣ 1 := by
     intro p hp hpd
-    have hpPrime := hascPrime p hp
-    have hple : p ≤ 1 := Nat.le_of_dvd (by omega) hpd
-    omega
+    exact (hascPrime p hp).not_dvd_one hpd
   exact primeExtensionChainAdmissible_of_squarefree_disjoint
     (by simp) hascPrime hascNodup hdisj
 
@@ -195,11 +193,14 @@ private theorem canonicalAscending_toFinset (R : ℕ) :
 
 /-- Above the square root the q² daughter cutoff is zero. -/
 private theorem mertensSquareDaughter_eq_zero_of_root_le
-    {R p : ℕ} (hpR : R ≤ p) :
+    {R p : ℕ} (hp : p.Prime) (hpR : R ≤ p) :
     mertensSummatoryInt (squareRootEndpoint R / (p * p)) = 0 := by
+  have hsq : R * R ≤ p * p := Nat.mul_le_mul hpR hpR
+  have hppos : 0 < p * p := Nat.mul_pos hp.pos hp.pos
   have hlt : squareRootEndpoint R < p * p := by
     unfold squareRootEndpoint
-    nlinarith
+    rw [pow_two]
+    omega
   rw [Nat.div_eq_of_lt hlt]
   simp [mertensSummatoryInt]
 
@@ -219,7 +220,7 @@ theorem primeExtensionCanonicalMertensSum_eq_squareEndpointQ2MertensColumn
         (primeExtensionCanonicalDescendingSchedule R).Nodup := by
       unfold primeExtensionCanonicalDescendingSchedule
       exact Finset.sort_nodup _ _
-    simpa using h.reverse
+    simpa using h
   rw [primeExtensionMertensSum_eq_toFinset (squareRootEndpoint R) hnodup,
     canonicalAscending_toFinset]
   unfold squareEndpointQ2MertensColumn
@@ -229,8 +230,10 @@ theorem primeExtensionCanonicalMertensSum_eq_squareEndpointQ2MertensColumn
     have hpData := mem_primesUpTo.mp hp
     apply mem_primesUpTo.mpr
     refine ⟨hpData.1, hpData.2.trans ?_⟩
+    have hRsq : R ≤ R ^ 2 := by
+      nlinarith
     unfold squareRootEndpoint
-    nlinarith
+    omega
   symm
   apply Finset.sum_subset hsub
   intro p hpBig hpNotSmall
@@ -239,7 +242,7 @@ theorem primeExtensionCanonicalMertensSum_eq_squareEndpointQ2MertensColumn
     by_contra hlt
     have hpLe : p ≤ R - 1 := by omega
     exact hpNotSmall (mem_primesUpTo.mpr ⟨hpData.1, hpLe⟩)
-  exact mertensSquareDaughter_eq_zero_of_root_le hpR
+  exact mertensSquareDaughter_eq_zero_of_root_le hpData.1 hpR
 
 
 /-! ## Saturated terminal wheel and response collapse -/
@@ -279,7 +282,7 @@ theorem primeExtensionCanonicalTerminalWheel_eq_primorialWheelProduct
         (primeExtensionCanonicalDescendingSchedule R).Nodup := by
       unfold primeExtensionCanonicalDescendingSchedule
       exact Finset.sort_nodup _ _
-    simpa using h.reverse
+    simpa using h
   rw [primeExtensionWheel_eq_listProd_mul, mul_one,
     listProd_eq_toFinsetProd hnodup, canonicalAscending_toFinset]
   rfl
@@ -321,6 +324,7 @@ private theorem roughMertens_fullPrimeWheel_eq_one
         exact hpPrime.not_dvd_one hpone
       simp [roughMoebius, hncop]
   · intro hnot
+    exfalso
     apply hnot
     exact Finset.mem_range.mpr (by omega)
 
@@ -333,8 +337,10 @@ theorem roughMertens_primeExtensionCanonicalTerminal_eq_one
         (squareRootEndpoint R) = 1 := by
   rw [primeExtensionCanonicalTerminalWheel_eq_primorialWheelProduct]
   apply roughMertens_fullPrimeWheel_eq_one
+  have hsq : 4 ≤ R ^ 2 := by
+    nlinarith
   unfold squareRootEndpoint
-  nlinarith
+  omega
 
 private theorem roughMertens_one_eq_mertensSummatoryInt (X : ℕ) :
     roughMertens 1 X = mertensSummatoryInt X := by
@@ -476,13 +482,6 @@ theorem roughPrimeExtensionCanonicalPhysicalGammaSum_eq_q2Square_sub_diagonal
 
 
 /-! ## Direct #789 / #788 coordinate equivalence -/
-
-/-- The predecessor square-prefix endpoint is the native `R^2-1` endpoint. -/
-private theorem squarePrefixEndpoint_pred_eq_squareRootEndpoint
-    (R : ℕ) (hR : 1 ≤ R) :
-    squarePrefixEndpoint (R - 1) = squareRootEndpoint R := by
-  unfold squarePrefixEndpoint squareRootEndpoint
-  rw [Nat.sub_add_cancel hR]
 
 /-- **#789 and #788 are the same complete energy telescope.**
 
