@@ -341,7 +341,7 @@ theorem post787CoupledInteriorReal_eq_mertens_sub_root
   simp only [Complex.add_re] at h
   unfold post787CoupledInteriorReal post787OddChildFarReal
     post787MacroscopicCountertermReal
-  linear_combination h
+  linarith [h]
 
 /-- **Unconditional cancellation theorem.**  The complete post-#787 interior
 C_R + D_R has no X/log X main term.  This is exactly the cancellation that must
