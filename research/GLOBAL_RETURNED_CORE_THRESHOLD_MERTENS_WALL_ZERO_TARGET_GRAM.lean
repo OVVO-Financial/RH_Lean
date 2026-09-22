@@ -54,7 +54,6 @@ theorem lowOwnerQ2ThresholdWallZeroTargetGram_eq_childEnergy
     lowOwnerThresholdMertensWallZeroTargetGram p (rawQ2ChildCutoff R q) =
       rawQ2ChildEnergyReal R q := by
   rw [lowOwnerThresholdMertensWallZeroTargetGram_eq_mertens_sq hp]
-  rfl
 
 /-- Any prime-valued choice of exposing owner gives the same total low-q^2
 wall energy: the canonical recursive Mertens daughter budget. -/
