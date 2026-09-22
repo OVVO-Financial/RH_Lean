@@ -1,6 +1,7 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL_ZERO_TARGET_GRAM»
 import «research.GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION»
+import «research.GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER»
 
 /-!
 # Prime-signature filtration on one threshold Mertens wall
@@ -342,6 +343,53 @@ theorem lowOwnerThresholdWallRevealedPairEnergy_full_eq_diagonal
   rw [← hs]
   simpa [D] using
     sum_lowOwnerThresholdWallDiagonalPairCarrier_eq p y
+
+
+/-! ## Descending chronology interface -/
+
+/-- The threshold-wall filtration can be run on the *same* descending revealed
+state as the raw-parent/Stokes chronology.  This is deliberately parameterized
+by the root clock `R`, even when the wall cutoff is a lower q^2 daughter
+endpoint, so the two carrier descriptions use literally the same state. -/
+theorem lowOwnerThresholdWallRevealedPairEnergy_descending_step
+    {R p y r : ℕ} (hr : r.Prime) :
+    lowOwnerThresholdWallRevealedPairEnergy p y
+        (lowOwnerRevealedPrimesAbove R r) =
+      lowOwnerThresholdWallRevealedPairEnergy p y
+          (insert r (lowOwnerRevealedPrimesAbove R r)) +
+        lowOwnerThresholdWallRevealedCrossPairMass p y
+          (lowOwnerRevealedPrimesAbove R r) r := by
+  exact lowOwnerThresholdWallRevealedPairEnergy_eq_insert_add_cross
+    hr (owner_not_mem_lowOwnerRevealedPrimesAbove R r)
+
+/-- Difference form of the same descending step.  This is the form that can be
+summed through the raw-parent owner chronology without an ownerwise norm: the
+current signed wall crossing is exactly the drop in the surviving wall energy. -/
+theorem lowOwnerThresholdWallRevealedCrossPairMass_descending_eq_energyDrop
+    {R p y r : ℕ} (hr : r.Prime) :
+    lowOwnerThresholdWallRevealedCrossPairMass p y
+        (lowOwnerRevealedPrimesAbove R r) r =
+      lowOwnerThresholdWallRevealedPairEnergy p y
+          (lowOwnerRevealedPrimesAbove R r) -
+        lowOwnerThresholdWallRevealedPairEnergy p y
+          (insert r (lowOwnerRevealedPrimesAbove R r)) := by
+  have h :=
+    lowOwnerThresholdWallRevealedPairEnergy_descending_step
+      (R := R) (p := p) (y := y) hr
+  linarith
+
+/-- q^2-daughter specialization in the exact root-clock chronology used by the
+Stokes descent.  No estimate occurs here. -/
+theorem lowOwnerQ2ThresholdWallRevealedPairEnergy_descending_step
+    {R q p r : ℕ} (hr : r.Prime) :
+    lowOwnerThresholdWallRevealedPairEnergy p (rawQ2ChildCutoff R q)
+        (lowOwnerRevealedPrimesAbove R r) =
+      lowOwnerThresholdWallRevealedPairEnergy p (rawQ2ChildCutoff R q)
+          (insert r (lowOwnerRevealedPrimesAbove R r)) +
+        lowOwnerThresholdWallRevealedCrossPairMass p
+          (rawQ2ChildCutoff R q) (lowOwnerRevealedPrimesAbove R r) r := by
+  exact lowOwnerThresholdWallRevealedPairEnergy_descending_step
+    (R := R) (p := p) (y := rawQ2ChildCutoff R q) hr
 
 
 end RHLean.Proof
