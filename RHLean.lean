@@ -457,6 +457,7 @@ import RHLean.Proof.DeathShellDivisorFibers
 import RHLean.Proof.DeathShellSubpolynomial
 import RHLean.Proof.DegreeShellTransfer
 import RHLean.Proof.DyadicCompressedPacketGram
+import RHLean.Proof.DyadicSurvivorMatchedSplice
 import RHLean.Proof.DyadicSurvivorMertensInvariant
 import RHLean.Proof.EndpointCubeAnalyticClosure
 import RHLean.Proof.EndpointProjectionBridge
