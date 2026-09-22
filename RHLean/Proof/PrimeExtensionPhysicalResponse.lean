@@ -257,4 +257,156 @@ theorem roughMertens_sq_primeExtensionChain_physical
             roughPrimeExtensionPhysicalGammaSum]
           ring
 
+
+/-! ## Global finite covariance reassembly
+
+The one-step physical response above is an amplitude object.  When the #789
+energy defects are summed over a chain, the passage from the diagonal daughter
+energy to the square of the assembled daughter column necessarily creates the
+off-diagonal owner covariance.  The following identities expose that finite
+bookkeeping exactly. -/
+
+/-- Sum of the once-dilated child amplitudes encountered along an ordered
+prime-extension chain. -/
+def roughPrimeExtensionChildAmplitudeSum (W x : ℕ) : List ℕ → ℤ
+  | [] => 0
+  | p :: ps =>
+      roughMertens (p * W) (x / p) +
+        roughPrimeExtensionChildAmplitudeSum (p * W) x ps
+
+/-- Exact amplitude telescope underlying the #789 energy telescope. -/
+theorem roughMertens_primeExtensionChain_amplitude
+    {W x : ℕ} {ps : List ℕ}
+    (hchain : PrimeExtensionChainAdmissible W ps) :
+    roughMertens W x =
+      roughMertens (primeExtensionWheel W ps) x -
+        roughPrimeExtensionChildAmplitudeSum W x ps := by
+  induction ps generalizing W with
+  | nil =>
+      simp [primeExtensionWheel, roughPrimeExtensionChildAmplitudeSum]
+  | cons p ps ih =>
+      simp only [PrimeExtensionChainAdmissible] at hchain
+      rcases hchain with ⟨hp, hpW, htail⟩
+      have hstep := roughMertens_prime_extension (W := W) hp hpW x
+      have htailAmp := ih (W := p * W) htail
+      calc
+        roughMertens W x =
+            roughMertens (p * W) x -
+              roughMertens (p * W) (x / p) := by
+          linarith
+        _ =
+            (roughMertens (primeExtensionWheel (p * W) ps) x -
+              roughPrimeExtensionChildAmplitudeSum (p * W) x ps) -
+              roughMertens (p * W) (x / p) := by
+          rw [htailAmp]
+        _ =
+            roughMertens (primeExtensionWheel W (p :: ps)) x -
+              roughPrimeExtensionChildAmplitudeSum W x (p :: ps) := by
+          simp [primeExtensionWheel, roughPrimeExtensionChildAmplitudeSum]
+          ring
+
+/-- Sum of the genuine lower-scale Mertens amplitudes exposed along a chain. -/
+def primeExtensionMertensSum (x : ℕ) : List ℕ → ℤ
+  | [] => 0
+  | p :: ps =>
+      mertensSummatoryInt (x / (p * p)) +
+        primeExtensionMertensSum x ps
+
+/-- Sum of the physically defined rough-seat/frozen-cube responses along the
+same chain. -/
+def roughPrimeExtensionPhysicalResponseSum (W x : ℕ) : List ℕ → ℤ
+  | [] => 0
+  | p :: ps =>
+      roughPrimeExtensionPhysicalResponse W p x +
+        roughPrimeExtensionPhysicalResponseSum (p * W) x ps
+
+/-- The complete child-amplitude column splits exactly into the true q² Mertens
+column plus the assembled physical response column. -/
+theorem roughPrimeExtensionChildAmplitudeSum_eq_mertensSum_add_physicalResponseSum
+    {W x : ℕ} {ps : List ℕ}
+    (hchain : PrimeExtensionChainAdmissible W ps) :
+    roughPrimeExtensionChildAmplitudeSum W x ps =
+      primeExtensionMertensSum x ps +
+        roughPrimeExtensionPhysicalResponseSum W x ps := by
+  induction ps generalizing W with
+  | nil =>
+      simp [roughPrimeExtensionChildAmplitudeSum, primeExtensionMertensSum,
+        roughPrimeExtensionPhysicalResponseSum]
+  | cons p ps ih =>
+      simp only [PrimeExtensionChainAdmissible] at hchain
+      rcases hchain with ⟨_hp, hpW, htail⟩
+      have hchild :=
+        roughMertens_primeExtensionChild_eq_mertensSquare_add_physicalResponse
+          (W := W) (p := p) hpW x
+      have htailSplit := ih (W := p * W) htail
+      simp only [roughPrimeExtensionChildAmplitudeSum, primeExtensionMertensSum,
+        roughPrimeExtensionPhysicalResponseSum]
+      rw [hchild, htailSplit]
+      ring
+
+/-- Corrected chain-level amplitude normal form: terminal rough amplitude minus
+the genuine q² Mertens column minus one assembled physical-response column. -/
+theorem roughMertens_primeExtensionChain_physical_amplitude
+    {W x : ℕ} {ps : List ℕ}
+    (hchain : PrimeExtensionChainAdmissible W ps) :
+    roughMertens W x =
+      roughMertens (primeExtensionWheel W ps) x -
+        primeExtensionMertensSum x ps -
+        roughPrimeExtensionPhysicalResponseSum W x ps := by
+  rw [roughMertens_primeExtensionChain_amplitude hchain,
+    roughPrimeExtensionChildAmplitudeSum_eq_mertensSum_add_physicalResponseSum
+      hchain]
+  ring
+
+/-- Off-diagonal covariance created when the true q² daughter amplitudes are
+assembled before squaring.  This is exactly the difference between the square
+of the daughter column and its diagonal energy. -/
+def primeExtensionMertensCrossCovariance (x : ℕ) (ps : List ℕ) : ℤ :=
+  primeExtensionMertensSum x ps ^ 2 -
+    primeExtensionMertensSquareSum x ps
+
+/-- **Exact global form of the signed Gamma response.**
+
+The summed #789 response is not a linear boundary population.  It consists of
+the off-diagonal q²-owner covariance, its cross coupling with the assembled
+physical response, the response self-energy, and the two terminal-wheel cross
+terms.  This is the finite bookkeeping obstruction that disappears if the
+physical amplitudes are squared owner-by-owner. -/
+theorem roughPrimeExtensionPhysicalGammaSum_eq_crossCovariance_reassembly
+    {W x : ℕ} {ps : List ℕ}
+    (hchain : PrimeExtensionChainAdmissible W ps) :
+    roughPrimeExtensionPhysicalGammaSum W x ps =
+      primeExtensionMertensCrossCovariance x ps +
+        2 * primeExtensionMertensSum x ps *
+          roughPrimeExtensionPhysicalResponseSum W x ps +
+        roughPrimeExtensionPhysicalResponseSum W x ps ^ 2 -
+        2 * roughMertens (primeExtensionWheel W ps) x *
+          primeExtensionMertensSum x ps -
+        2 * roughMertens (primeExtensionWheel W ps) x *
+          roughPrimeExtensionPhysicalResponseSum W x ps := by
+  have henergy :=
+    roughMertens_sq_primeExtensionChain_physical
+      (W := W) (x := x) (ps := ps) hchain
+  have hamp :=
+    roughMertens_primeExtensionChain_physical_amplitude
+      (W := W) (x := x) (ps := ps) hchain
+  calc
+    roughPrimeExtensionPhysicalGammaSum W x ps =
+        roughMertens W x ^ 2 -
+          roughMertens (primeExtensionWheel W ps) x ^ 2 -
+          primeExtensionMertensSquareSum x ps := by
+      linarith
+    _ =
+        primeExtensionMertensCrossCovariance x ps +
+          2 * primeExtensionMertensSum x ps *
+            roughPrimeExtensionPhysicalResponseSum W x ps +
+          roughPrimeExtensionPhysicalResponseSum W x ps ^ 2 -
+          2 * roughMertens (primeExtensionWheel W ps) x *
+            primeExtensionMertensSum x ps -
+          2 * roughMertens (primeExtensionWheel W ps) x *
+            roughPrimeExtensionPhysicalResponseSum W x ps := by
+      rw [hamp]
+      unfold primeExtensionMertensCrossCovariance
+      ring
+
 end RHLean.Proof
