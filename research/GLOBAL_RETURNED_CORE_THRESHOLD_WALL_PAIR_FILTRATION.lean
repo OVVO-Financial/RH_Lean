@@ -2,6 +2,7 @@ import Mathlib
 import «research.GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL_ZERO_TARGET_GRAM»
 import «research.GLOBAL_RETURNED_CORE_ARBITRARY_PRIME_FILTRATION»
 import «research.GLOBAL_RETURNED_CORE_DESCENDING_PAIR_OWNER»
+import «research.GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY»
 
 /-!
 # Prime-signature filtration on one threshold Mertens wall
@@ -347,6 +348,50 @@ theorem lowOwnerThresholdWallRevealedPairEnergy_full_eq_diagonal
 
 
 /-! ## Single-cutoff signed descent -/
+
+
+/-- Signed site of one literal p-threshold wall, before any q-synthesis. -/
+def lowOwnerSingleThresholdSignedSite (p y n : ℕ) : ℝ :=
+  realMoebiusStep n * lowOwnerThresholdCrossingIndicator p n y
+
+/-- **One-dimensional q-resolved owner orbit.**
+
+The signed clipped difference at a fresh owner r is exactly the sum of the
+single-threshold site on the r-free parent and its r-child.  The fresh-prime
+Mobius sign reversal is what turns the orbit sum into a difference. -/
+theorem lowOwnerClippedDifferenceSignedSite_eq_singleThresholdOwnerOrbit
+    {p r n y : ℕ}
+    (hp : 1 ≤ p) (hr : r.Prime) (hrn : ¬ r ∣ n) :
+    realMoebiusStep n * lowOwnerThresholdClippedDifference p r n y =
+      lowOwnerSingleThresholdSignedSite p y n +
+        lowOwnerSingleThresholdSignedSite p y (r * n) := by
+  unfold lowOwnerSingleThresholdSignedSite
+  rw [realMoebiusStep_mul_prime_eq_neg hr hrn]
+  unfold lowOwnerThresholdClippedDifference
+  rw [← lowOwnerThresholdCrossing_secondIncidence_comm hp hr.one_le]
+  ring
+
+/-- The existing q-specific clipped amplitude on one revealed raw-parent fibre
+is therefore an exact sum of completed r-orbits of the corresponding threshold
+wall site.  This is the pre-square bridge from raw-parent coordinates to the
+wall filtration. -/
+theorem lowOwnerFirstOwnerBranchClippedDifferenceAmplitude_eq_singleThresholdOrbits
+    {R p r y : ℕ} {sig tau : Finset ℕ}
+    (hp : 1 ≤ p) (hr : r.Prime) :
+    lowOwnerFirstOwnerBranchClippedDifferenceAmplitude
+        R p sig tau r y =
+      ∑ n ∈ lowOwnerFirstOwnerRawParentBranchSignatureFiber
+          R p sig tau r,
+        (lowOwnerSingleThresholdSignedSite p y n +
+          lowOwnerSingleThresholdSignedSite p y (r * n)) := by
+  unfold lowOwnerFirstOwnerBranchClippedDifferenceAmplitude
+  apply Finset.sum_congr rfl
+  intro n hn
+  have hbranch := (Finset.mem_filter.mp hn).1
+  have hrn := (Finset.mem_filter.mp hbranch).2
+  exact lowOwnerClippedDifferenceSignedSite_eq_singleThresholdOwnerOrbit
+    hp hr hrn
+
 
 /-- Pair mass of one *single* p-threshold incidence at cutoff `y`.
 This is the q^2-resolved version of `lowOwnerThresholdIncidencePairMass`:
