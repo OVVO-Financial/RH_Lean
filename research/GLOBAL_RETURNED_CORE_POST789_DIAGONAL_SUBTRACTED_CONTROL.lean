@@ -2,6 +2,7 @@ import Mathlib
 import «research.GLOBAL_RETURNED_CORE_POST755_AMPLITUDE_CLOSURE»
 import «research.GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION»
 import «research.GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE»
+import «research.LOW_OWNER_RETURNED_AMPLITUDE_CORE»
 
 /-!
 # Post-#789 diagonal-subtracted quantitative target
@@ -146,6 +147,29 @@ private theorem canonicalRoughLowQ2DaughterEnergy_nonneg_post789 (R : ℕ) :
   unfold rawQ2ChildEnergyReal
   positivity
 
+/-- Quantitative target on the coupled returned amplitude core.  This is the
+zero-target owner-descent surface: the q-owner physical memory packet is exactly
+its negative before the root correction is restored. -/
+def LowOwnerReturnedCoreQ2EnergyBound (A C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    56 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    ‖lowOwnerReturnedAmplitudeCore R‖ ^ 2 ≤
+      A * canonicalRoughLowQ2DaughterEnergy R +
+        C * (R : ℝ) ^ 2 * K
+
+/-- Asymmetric Young inequality tuned so a returned-core coefficient `3/2`
+becomes exactly the admissible final-Stokes coefficient `7/4`. -/
+private theorem norm_add_sq_le_seven_six_seven (u v : ℂ) :
+    ‖u + v‖ ^ 2 ≤
+      (7 / 6 : ℝ) * ‖u‖ ^ 2 + 7 * ‖v‖ ^ 2 := by
+  have htri : ‖u + v‖ ≤ ‖u‖ + ‖v‖ := norm_add_le u v
+  have hnon : 0 ≤ ‖u + v‖ := norm_nonneg _
+  have huv : 0 ≤ ‖u‖ + ‖v‖ := by positivity
+  have hsq : ‖u + v‖ ^ 2 ≤ (‖u‖ + ‖v‖) ^ 2 := by
+    nlinarith
+  nlinarith [sq_nonneg (‖u‖ - 6 * ‖v‖)]
+
 /-- Quantitative final-Stokes target with the recursive q^2 energy kept live. -/
 def LowOwnerFinalStokesQ2EnergyBound (B C : ℝ) : Prop :=
   ∀ R : ℕ, ∀ K : ℝ,
@@ -154,6 +178,82 @@ def LowOwnerFinalStokesQ2EnergyBound (B C : ℝ) : Prop :=
     lowOwnerCanonicalSignedStokesFinalBoundary R ≤
       B * canonicalRoughLowQ2DaughterEnergy R +
         C * (R : ℝ) ^ 2 * K
+
+/-- **Returned-core 3/2 -> final-Stokes 7/4.**
+
+The exact q-memory identity gives
+`AMP_R = -ReturnedCore_R - Root_R`, with `||Root_R|| <= 8 R`.
+Applying the tuned Young inequality above sends `3/2` to
+`(7/6)*(3/2)=7/4`; the root contribution is only `448 R^2`.
+The nonnegative Möbius diagonal is then discarded in the favorable direction.
+
+Thus the zero-target returned-core analysis only needs recursive coefficient
+`3/2`, not a root-scale bound and not FAR-3/FAR-4. -/
+theorem finalStokesQ2EnergyBound_of_returnedCoreThreeHalves
+    {C : ℝ}
+    (hCore : LowOwnerReturnedCoreQ2EnergyBound (3 / 2) C) :
+    LowOwnerFinalStokesQ2EnergyBound
+      (7 / 4) ((7 / 6) * C + 448) := by
+  intro R K hR hK
+  have hCoreR := hCore R K hR hK
+  have hRoot :=
+    norm_returnedAmplitudeRootCorrection_le_eight_root R hR
+  have hRootSq :
+      ‖frozenTopFarRoughRootCorrection R‖ ^ 2 ≤
+        64 * (R : ℝ) ^ 2 := by
+    have hn : 0 ≤ ‖frozenTopFarRoughRootCorrection R‖ := norm_nonneg _
+    have hR0 : 0 ≤ (R : ℝ) := by positivity
+    nlinarith [sq_nonneg
+      (8 * (R : ℝ) - ‖frozenTopFarRoughRootCorrection R‖)]
+  have hYoung :=
+    norm_add_sq_le_seven_six_seven
+      (-lowOwnerReturnedAmplitudeCore R)
+      (-frozenTopFarRoughRootCorrection R)
+  simp only [norm_neg] at hYoung
+  have hAmpRepr :=
+    lowOwnerPhysicalAmplitudeRemainder_zero_eq_neg_returnedCore_sub_root
+      R hR
+  have hAmp :
+      ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
+        (7 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
+          ((7 / 6 : ℝ) * C + 448) * (R : ℝ) ^ 2 * K := by
+    have hK1 : 1 ≤ K := by
+      have h0 := hK.2 0 (by omega)
+      have hm0 : mertensSummatoryInt 0 = 0 := by
+        simp [mertensSummatoryInt]
+      rw [hm0] at h0
+      norm_num at h0
+    have hYoungAmp :
+        ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
+          (7 / 6 : ℝ) * ‖lowOwnerReturnedAmplitudeCore R‖ ^ 2 +
+            7 * ‖frozenTopFarRoughRootCorrection R‖ ^ 2 := by
+      rw [hAmpRepr]
+      simpa [sub_eq_add_neg] using hYoung
+    have hR2 : 0 ≤ (R : ℝ) ^ 2 := sq_nonneg _
+    nlinarith
+  have hdiag0 : 0 ≤ lowOwnerZeroFrequencyMobiusDiagonal R := by
+    unfold lowOwnerZeroFrequencyMobiusDiagonal signedBlockEnergy
+    apply Finset.sum_nonneg
+    intro j _hj
+    positivity
+  rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_remainderNormSq_sub_diagonal
+    hR]
+  linarith
+
+/-- A nonnegative returned-core `3/2` estimate already implies RH through the
+existing `7/4` signed-cell/CORR-4 corridor. -/
+theorem riemannHypothesis_of_returnedCoreThreeHalves
+    {C : ℝ} (hC : 0 ≤ C)
+    (hCore : LowOwnerReturnedCoreQ2EnergyBound (3 / 2) C) :
+    RiemannHypothesis := by
+  have hFinal :=
+    finalStokesQ2EnergyBound_of_returnedCoreThreeHalves hCore
+  have hC' : 0 ≤ (7 / 6 : ℝ) * C + 448 := by positivity
+  exact
+    riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
+      (correlationFour_of_finalStokesQ2EnergyBound
+        (B := 7 / 4) (C := (7 / 6) * C + 448)
+        (by norm_num) (by norm_num) hC' hFinal)
 
 /-- The same target in the exact signed-cell/unique-owner currency.  This is
 the quantitative endpoint that the one-sided owner recursion should prove:
