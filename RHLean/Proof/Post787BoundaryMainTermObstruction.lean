@@ -141,9 +141,9 @@ def Post787CoupledInteriorLogNegligible : Prop :=
 incompatible with a nonzero ChildFar main term plus cancellation in I_R. -/
 def Post787CountertermLinearEnergy : Prop :=
   ∃ B : ℝ, 0 ≤ B ∧
-    ∀ᶠ R : ℕ in atTop,
+    (∀ᶠ R : ℕ in atTop,
       post787MacroscopicCountertermReal R ^ 2 ≤
-        B * (squareRootEndpoint R : ℝ)
+        B * (squareRootEndpoint R : ℝ))
 
 /-- The counterterm inherits the opposite X/log X main term from the exact
 identity I_R = C_R + D_R. -/
@@ -170,7 +170,7 @@ theorem no_eventual_linear_energy_of_nonzero_scaled_limit
     (hscaled : Tendsto (fun n => D n * w n) atTop (𝓝 κ))
     (hvanish : Tendsto (fun n => X n * (w n) ^ 2) atTop (𝓝 0)) :
     ¬ ∃ B : ℝ, 0 ≤ B ∧
-      ∀ᶠ n : ℕ in atTop, D n ^ 2 ≤ B * X n := by
+      (∀ᶠ n : ℕ in atTop, D n ^ 2 ≤ B * X n) := by
   rintro ⟨B, hB, hbound⟩
   have hleft :
       Tendsto (fun n => (D n * w n) ^ 2) atTop (𝓝 (κ ^ 2)) :=
