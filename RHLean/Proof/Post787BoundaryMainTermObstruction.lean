@@ -241,8 +241,7 @@ private theorem squarePrefixMertens_pred_eq_squareRootEndpoint
     squarePrefixMertens (R - 1) =
       mertensSummatory (squareRootEndpoint R) := by
   unfold squarePrefixMertens squarePrefixEndpoint squareRootEndpoint
-  congr 1
-  omega
+  rw [Nat.sub_add_cancel hR]
 
 /-- The actual Mertens endpoint is negligible on the X/log X scale.  This is
 already an unconditional theorem of the repository's strong-Mertens/PNT layer. -/
@@ -258,8 +257,7 @@ theorem post787MertensEndpoint_scaled_tendsto_zero :
   filter_upwards [eventually_ge_atTop 1] with R hR
   rw [squarePrefixMertens_pred_eq_squareRootEndpoint R hR,
     RHLean.Analysis.mertensSummatory_eq_complex_nativeMertensSummatory]
-  simp [post787EndpointScale, RHLean.Analysis.k2LogRecipWeight,
-    Function.comp_def]
+  simp [post787EndpointScale, RHLean.Analysis.k2LogRecipWeight]
 
 /-- The genuinely small root boundary vanishes on the same X/log X scale. -/
 theorem post787RootBoundaryReal_scaled_tendsto_zero :
@@ -339,8 +337,10 @@ theorem post787CoupledInteriorReal_eq_mertens_sub_root
   have h :=
     congrArg Complex.re
       (squarePrefixMertens_eq_post787CoupledInterior_add_rootBoundary R hR)
+  unfold post787CoupledInterior at h
   simp only [Complex.add_re] at h
-  unfold post787CoupledInteriorReal post787CoupledInterior
+  unfold post787CoupledInteriorReal post787OddChildFarReal
+    post787MacroscopicCountertermReal
   linear_combination h
 
 /-- **Unconditional cancellation theorem.**  The complete post-#787 interior
@@ -352,7 +352,14 @@ theorem post787CoupledInterior_logNegligible :
   have h :=
     post787MertensEndpoint_scaled_tendsto_zero.sub
       post787RootBoundaryReal_scaled_tendsto_zero
-  refine h.congr' ?_
+  have h' :
+      Tendsto
+        (fun R : ℕ =>
+          (squarePrefixMertens (R - 1)).re * post787EndpointScale R -
+            (finalCompensatedRootBoundary R).re * post787EndpointScale R)
+        atTop (𝓝 0) := by
+    simpa using h
+  refine h'.congr' ?_
   filter_upwards [eventually_ge_atTop 56] with R hR
   rw [post787CoupledInteriorReal_eq_mertens_sub_root R hR]
   ring
