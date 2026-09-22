@@ -1703,4 +1703,105 @@ theorem stableFarRenewalOwnerDifferenceMass_eq_localTwoShellIndicatorMass
             exact ⟨hq', hrq, hsecond.1, hsecond.2.1, hsecond.2.2⟩
         simp [hshell, hzero]
 
+
+/-! ## Local-to-global shell carrier identification -/
+
+def stableFarRenewalOddOwnerTwoShellCarrier
+    (R : ℕ) : Finset StableFarRenewalShellTag :=
+  (stableFarRenewalOddTwoShellCarrier R).filter fun t => t.2.1 ≠ 2
+
+def stableFarRenewalOddOwnerTwoShellCoordinateFiber
+    (R : ℕ) (rp : ℕ × ℕ) : Finset StableFarRenewalShellTag :=
+  (stableFarRenewalOddOwnerTwoShellCarrier R).filter fun t =>
+    (t.2.1, t.2.2.2) = rp
+
+def stableFarRenewalLocalToGlobal
+    (r p : ℕ) (qd : StableFarRenewalLocalShellTag) :
+    StableFarRenewalShellTag :=
+  (qd.1, (r, (qd.2, p)))
+
+theorem stableFarRenewalLocalToGlobal_injective
+    (r p : ℕ) :
+    Function.Injective (stableFarRenewalLocalToGlobal r p) := by
+  intro a b h
+  exact Prod.ext
+    (congrArg (fun t : StableFarRenewalShellTag => t.1) h)
+    (congrArg (fun t : StableFarRenewalShellTag => t.2.2.1) h)
+
+theorem stableFarRenewalLocalCarrier_image_eq_globalCoordinateFiber
+    {R : ℕ} {rp : ℕ × ℕ}
+    (hrp : rp ∈ stableFarRenewalOddCoordinatePairs R) :
+    (stableFarRenewalLocalOddTwoShellCarrier
+        R rp.1 rp.2 (stableFarReturnedCofactorCutoff R rp.1 rp.2)).image
+      (stableFarRenewalLocalToGlobal rp.1 rp.2) =
+        stableFarRenewalOddOwnerTwoShellCoordinateFiber R rp := by
+  have hrpBase : rp ∈ stableFarRenewalCoordinatePairs R :=
+    (Finset.mem_filter.mp hrp).1
+  have hrne : rp.1 ≠ 2 := (Finset.mem_filter.mp hrp).2
+  have hdata := stableFarRenewalCoordinatePair_data hrpBase
+  ext t
+  constructor
+  · intro ht
+    rcases Finset.mem_image.mp ht with ⟨qd, hqd, rfl⟩
+    rcases Finset.mem_filter.mp hqd with ⟨hprod, hshell⟩
+    rcases Finset.mem_product.mp hprod with ⟨hq, hdOddSmooth⟩
+    rcases Finset.mem_filter.mp hdOddSmooth with ⟨hdSmooth, hdOdd⟩
+    have hy :
+        (rp.1, (qd.2, rp.2)) ∈ lowWheelFarPrimeQ2DescendedTriples R :=
+      (mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor).2
+        ⟨hdata.1, hdata.2.1, hdata.2.2.1, hdata.2.2.2.1, hdSmooth⟩
+    have hfull :
+        (qd.1, (rp.1, (qd.2, rp.2))) ∈
+          stableFarRenewalTwoShellCarrier R :=
+      Finset.mem_filter.mpr
+        ⟨Finset.mem_product.mpr ⟨hq, hy⟩, hshell⟩
+    have hodd :
+        (qd.1, (rp.1, (qd.2, rp.2))) ∈
+          stableFarRenewalOddTwoShellCarrier R :=
+      Finset.mem_filter.mpr ⟨hfull, hdOdd⟩
+    have howner :
+        (qd.1, (rp.1, (qd.2, rp.2))) ∈
+          stableFarRenewalOddOwnerTwoShellCarrier R :=
+      Finset.mem_filter.mpr ⟨hodd, hrne⟩
+    exact Finset.mem_filter.mpr ⟨howner, rfl⟩
+  · intro ht
+    rcases Finset.mem_filter.mp ht with ⟨howner, hcoord⟩
+    have hoddCarrier := (Finset.mem_filter.mp howner).1
+    have hfull := (Finset.mem_filter.mp hoddCarrier).1
+    have hodd := (Finset.mem_filter.mp hoddCarrier).2
+    rcases stableFarRenewalTwoShellCarrier_data hfull with
+      ⟨hq, hy, hshell⟩
+    rcases t with ⟨q, ⟨r, ⟨d, p⟩⟩⟩
+    have hrEq : r = rp.1 := congrArg Prod.fst hcoord
+    have hpEq : p = rp.2 := congrArg Prod.snd hcoord
+    subst r
+    subst p
+    have hyData :=
+      (mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor).1 hy
+    have hdSmooth := hyData.2.2.2.2
+    have hlocal :
+        (q, d) ∈ stableFarRenewalLocalOddTwoShellCarrier
+          R rp.1 rp.2 (stableFarReturnedCofactorCutoff R rp.1 rp.2) := by
+      apply Finset.mem_filter.mpr
+      exact ⟨Finset.mem_product.mpr
+        ⟨hq, Finset.mem_filter.mpr ⟨hdSmooth, hodd⟩⟩, hshell⟩
+    exact Finset.mem_image.mpr ⟨(q, d), hlocal, rfl⟩
+
+/-- At one actual odd returned coordinate pair, the local two-shell indicator
+mass is exactly the corresponding global shell-fibre indicator mass. -/
+theorem stableFarRenewalLocalIndicatorMass_eq_globalCoordinateFiber
+    {R : ℕ} {rp : ℕ × ℕ}
+    (hrp : rp ∈ stableFarRenewalOddCoordinatePairs R) :
+    stableFarRenewalLocalOddTwoShellIndicatorMass
+        R rp.1 rp.2 (stableFarReturnedCofactorCutoff R rp.1 rp.2) =
+      ∑ t ∈ stableFarRenewalOddOwnerTwoShellCoordinateFiber R rp,
+        ((stableFarRenewalOwnerIndicatorDifference
+            R t.1 t.2.1 t.2.2.1 t.2.2.2 : ℤ) : ℂ) *
+          canonicalMoebiusWeight t.2.2.1 := by
+  rw [← stableFarRenewalLocalCarrier_image_eq_globalCoordinateFiber hrp]
+  rw [Finset.sum_image]
+  · rfl
+  · intro a _ha b _hb hab
+    exact stableFarRenewalLocalToGlobal_injective rp.1 rp.2 hab
+
 end RHLean.Proof
