@@ -178,6 +178,7 @@ import RHLean.Analysis.PrimeBoundaryCollisionQuotientNoGo
 import RHLean.Analysis.PrimeBoundaryDefectBridge
 import RHLean.Analysis.PrimeDilateCofactorPrimeWindows
 import RHLean.Analysis.PrimeDilateTransportCompression
+import RHLean.Analysis.PrimeExtensionEnergyTelescope
 import RHLean.Analysis.PrimeSieveAbelIdentity
 import RHLean.Analysis.PrimeSieveAbelTwoObligations
 import RHLean.Analysis.PrimeSieveAffineExcursion
@@ -612,6 +613,8 @@ import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Proof.PrimeCombVisualizationFrames
 import RHLean.Proof.PrimeCombVisualizationRecurrence
 import RHLean.Proof.PrimeCombWheelBoundary
+import RHLean.Proof.PrimeExtensionCanonicalScheduleBridge
+import RHLean.Proof.PrimeExtensionPhysicalResponse
 import RHLean.Proof.PrimeSievePostSqrtGap
 import RHLean.Proof.PrimeSieveSquareRootTransport
 import RHLean.Proof.PrimeWheelFrozenRoughSeatBridge
