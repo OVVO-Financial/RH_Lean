@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.FiniteWheelReciprocalMertensImprovement
 import RHLean.Proof.FarSurvivorRenewal_is_LowerMertens
 import RHLean.Proof.PrimeExtensionPhysicalResponse
 
@@ -238,6 +239,167 @@ theorem primeExtensionCanonicalMertensSum_eq_squareEndpointQ2MertensColumn
     have hpLe : p ≤ R - 1 := by omega
     exact hpNotSmall (mem_primesUpTo.mpr ⟨hpData.1, hpLe⟩)
   exact mertensSquareDaughter_eq_zero_of_root_le hpR
+
+
+/-! ## Saturated terminal wheel and response collapse -/
+
+private theorem primeExtensionWheel_eq_listProd_mul
+    (W : ℕ) (ps : List ℕ) :
+    primeExtensionWheel W ps = ps.prod * W := by
+  induction ps generalizing W with
+  | nil =>
+      simp [primeExtensionWheel]
+  | cons p ps ih =>
+      rw [primeExtensionWheel, ih]
+      simp only [List.prod_cons]
+      ac_rfl
+
+private theorem listProd_eq_toFinsetProd
+    {ps : List ℕ} (hnodup : ps.Nodup) :
+    ps.prod = ps.toFinset.prod id := by
+  induction ps with
+  | nil =>
+      simp
+  | cons p ps ih =>
+      have hnot : p ∉ ps := (List.nodup_cons.mp hnodup).1
+      have htail : ps.Nodup := (List.nodup_cons.mp hnodup).2
+      simp [hnot, ih htail]
+
+/-- The complete canonical #789 chain terminates at the product of every prime
+coordinate active at the endpoint. -/
+theorem primeExtensionCanonicalTerminalWheel_eq_primorialWheelProduct
+    (R : ℕ) :
+    primeExtensionWheel 1 (primeExtensionCanonicalAscendingSchedule R) =
+      primorialWheelProduct (primesUpTo (squareRootEndpoint R)) := by
+  have hnodup :
+      (primeExtensionCanonicalAscendingSchedule R).Nodup := by
+    unfold primeExtensionCanonicalAscendingSchedule
+    have h :
+        (primeExtensionCanonicalDescendingSchedule R).Nodup := by
+      unfold primeExtensionCanonicalDescendingSchedule
+      exact Finset.sort_nodup _ _
+    simpa using h.reverse
+  rw [primeExtensionWheel_eq_listProd_mul, mul_one,
+    listProd_eq_toFinsetProd hnodup, canonicalAscending_toFinset]
+  rfl
+
+/-- A wheel containing every prime through the cutoff has exactly one rough
+seat in that prefix: the unit seat. -/
+private theorem roughMertens_fullPrimeWheel_eq_one
+    {X : ℕ} (hX : 1 ≤ X) :
+    roughMertens (primorialWheelProduct (primesUpTo X)) X = 1 := by
+  unfold roughMertens
+  rw [Finset.sum_eq_single 1]
+  · simp [roughMoebius]
+  · intro n hn hn1
+    have hnle : n ≤ X := by
+      have hnlt : n < X + 1 := Finset.mem_range.mp hn
+      omega
+    by_cases hn0 : n = 0
+    · subst n
+      simp [roughMoebius]
+    · obtain ⟨p, hpPrime, hpdn⟩ :=
+        Nat.exists_prime_and_dvd (by omega : n ≠ 1)
+      have hpLeN : p ≤ n := Nat.le_of_dvd (Nat.pos_of_ne_zero hn0) hpdn
+      have hpLeX : p ≤ X := hpLeN.trans hnle
+      have hpMem : p ∈ primesUpTo X :=
+        mem_primesUpTo.mpr ⟨hpPrime, hpLeX⟩
+      have hprimeSet : ∀ q ∈ primesUpTo X, q.Prime := by
+        intro q hq
+        exact prime_of_mem_primesUpTo hq
+      have hpdW : p ∣ primorialWheelProduct (primesUpTo X) :=
+        (prime_dvd_primorialWheelProduct_iff hpPrime hprimeSet).2 hpMem
+      have hncop :
+          ¬ Nat.Coprime n (primorialWheelProduct (primesUpTo X)) := by
+        intro hcop
+        have hpgcd :
+            p ∣ Nat.gcd n (primorialWheelProduct (primesUpTo X)) :=
+          Nat.dvd_gcd hpdn hpdW
+        have hpone : p ∣ 1 := by
+          simpa [hcop.gcd_eq_one] using hpgcd
+        exact hpPrime.not_dvd_one hpone
+      simp [roughMoebius, hncop]
+  · intro hnot
+    apply hnot
+    exact Finset.mem_range.mpr (by omega)
+
+/-- Hence the terminal rough amplitude of the complete canonical chain is
+literally one. -/
+theorem roughMertens_primeExtensionCanonicalTerminal_eq_one
+    (R : ℕ) (hR : 2 ≤ R) :
+    roughMertens
+        (primeExtensionWheel 1 (primeExtensionCanonicalAscendingSchedule R))
+        (squareRootEndpoint R) = 1 := by
+  rw [primeExtensionCanonicalTerminalWheel_eq_primorialWheelProduct]
+  apply roughMertens_fullPrimeWheel_eq_one
+  unfold squareRootEndpoint
+  nlinarith
+
+private theorem roughMertens_one_eq_mertensSummatoryInt (X : ℕ) :
+    roughMertens 1 X = mertensSummatoryInt X := by
+  unfold roughMertens mertensSummatoryInt roughMoebius
+  simp
+
+/-- **Complete canonical amplitude response.**
+
+After saturating the wheel, every chronological response term collapses to one
+closed finite identity: unit terminal minus the endpoint Mertens amplitude minus
+the complete q² daughter column. -/
+theorem primeExtensionCanonicalPhysicalResponseSum_eq
+    (R : ℕ) (hR : 2 ≤ R) :
+    roughPrimeExtensionPhysicalResponseSum 1 (squareRootEndpoint R)
+        (primeExtensionCanonicalAscendingSchedule R) =
+      1 - mertensSummatoryInt (squareRootEndpoint R) -
+        squareEndpointQ2MertensColumn R := by
+  have hchain :=
+    primeExtensionCanonicalAscendingSchedule_admissible R
+  have hamp :=
+    roughMertens_primeExtensionChain_physical_amplitude
+      (W := 1) (x := squareRootEndpoint R)
+      (ps := primeExtensionCanonicalAscendingSchedule R) hchain
+  rw [roughMertens_one_eq_mertensSummatoryInt,
+    roughMertens_primeExtensionCanonicalTerminal_eq_one R hR,
+    primeExtensionCanonicalMertensSum_eq_squareEndpointQ2MertensColumn R hR]
+      at hamp
+  linarith
+
+/-- **Chronological response = existing physical synthesis error.**
+
+All q² daughter amplitudes cancel when the complete chronological response is
+reassembled against the existing covariance identity.  What remains is only
+the already-formalized all-prime ownerwise physical synthesis error, the unit
+terminal, the predecessor Mertens endpoint, and the explicit root correction.
+No inequality is used. -/
+theorem primeExtensionCanonicalPhysicalResponseSum_cast_eq_ownerwiseError
+    (R : ℕ) (hR : 56 ≤ R) :
+    ((roughPrimeExtensionPhysicalResponseSum 1 (squareRootEndpoint R)
+        (primeExtensionCanonicalAscendingSchedule R) : ℤ) : ℂ) =
+      1 - mertensSummatory (R - 1) +
+        farFourAllPrimeOwnerwiseSynthesisError R -
+        frozenTopFarRoughRootCorrection R := by
+  have hresp :=
+    primeExtensionCanonicalPhysicalResponseSum_eq R (by omega)
+  have hcorr :=
+    squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint
+      R (by omega)
+  have hphysical :=
+    roughCorrelation_add_rootCorrection_eq_oddMertensColumn_add_ownerwiseError
+      R hR
+  have hq2 :=
+    squareEndpointQ2MertensColumn_eq_oddColumn_add_two R (by omega)
+  have hcast := congrArg (fun z : ℤ => (z : ℂ)) hresp
+  push_cast at hcast
+  simp only [mertensSummatoryInt_cast] at hcast
+  unfold farFourOddMertensColumn farFourOwnerwiseSynthesisError at hphysical
+  push_cast at hphysical
+  rw [hq2] at hcast
+  push_cast at hcast
+  have hcorr' :
+      squareRootCanonicalRoughCorrelation R =
+        mertensSummatory (R - 1) -
+          mertensSummatory (squareRootEndpoint R) := hcorr
+  linear_combination hcast + hphysical - hcorr'
+
 
 /-- The existing global Euler/q² bridge, now instantiated on the canonical
 prime chronology with no external schedule witness. -/
