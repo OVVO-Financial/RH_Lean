@@ -1,6 +1,7 @@
 import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
 import RHLean.Proof.LowWheelFrozenSecondContactScaleFlux
+import RHLean.Proof.PostRootPartnerLogAlignment
 import RHLean.Proof.SquareRootLowPrimeGoAncestryClock
 import RHLean.Proof.SquareWheelSurvivorProcessedResponseBridge
 import RHLean.Proof.SurvivorDyadicActivityMismatch
@@ -228,6 +229,30 @@ theorem roughCofactorMobiusPrefixMass_eq_roughDyadicBoundaryMass
       unfold roughDyadicCofactorBoundary roughDyadicWeight
       rw [Finset.sum_filter]
 
+/-- The frozen q-predecessor cube is exactly the q-rough Mobius prefix in
+complex currency.  This generic form lets the dyadic compression be applied at
+every reciprocal cutoff `Y/p` in ChildFar, not only at the whole q^2 daughter
+cutoff. -/
+theorem frozenPrimeUniverseMass_cast_eq_roughCofactorMobiusPrefixMass
+    {q B : ℕ} (hq : q.Prime) :
+    ((frozenPrimeUniverseMass (primesUpTo (q - 1)) B : ℤ) : ℂ) =
+      roughCofactorMobiusPrefixMass q B := by
+  rw [frozenPrimeUniverseMass_eq_goSmoothCofactorSum hq]
+  push_cast
+  unfold squareRootLowPrimeGoSmoothCofactors
+    roughCofactorMobiusPrefixMass
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro d hd
+  by_cases hrough : canonicalLargestPrimeFactor d < q
+  · rw [if_pos hrough]
+    by_cases hsq : Squarefree d
+    · simp [hsq, hrough, canonicalMoebiusWeight]
+    · have hmu : μ d = 0 :=
+        ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
+      simp [hsq, hrough, canonicalMoebiusWeight, hmu]
+  · simp [hrough]
+
 /-- The literal Go q^2 daughter therefore lives on the q-rough dyadic boundary
 for every odd owner q. -/
 theorem squareRootLowPrimeGoWallSquareResidual_cast_eq_roughDyadicBoundaryMass
@@ -236,5 +261,65 @@ theorem squareRootLowPrimeGoWallSquareResidual_cast_eq_roughDyadicBoundaryMass
       roughDyadicCofactorBoundaryMass q (X / (q * q)) := by
   rw [squareRootLowPrimeGoWallSquareResidual_cast_eq_roughCofactorMobiusPrefixMass hq,
     roughCofactorMobiusPrefixMass_eq_roughDyadicBoundaryMass hq hqgt]
+
+/-- Far-prime ChildFar column after exact q-rough dyadic compression in each
+reciprocal p-fibre. -/
+def q2DaughterFarRoughDyadicColumn (R q : ℕ) : ℂ :=
+  let Y := squareRootEndpoint R / (q * q)
+  ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R + 7) Y,
+    roughDyadicCofactorBoundaryMass q (Y / p)
+
+/-- The common q-predecessor far column compresses fibrewise to the q-rough
+dyadic wall for every odd owner. -/
+theorem q2DaughterFarBaseColumn_cast_eq_roughDyadicColumn
+    {R q : ℕ} (hq : q.Prime) (hqgt : 2 < q) :
+    ((q2DaughterFarBaseColumn R q : ℤ) : ℂ) =
+      q2DaughterFarRoughDyadicColumn R q := by
+  let Y := squareRootEndpoint R / (q * q)
+  unfold q2DaughterFarBaseColumn q2DaughterFarRoughDyadicColumn
+  push_cast
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [frozenPrimeUniverseMass_cast_eq_roughCofactorMobiusPrefixMass hq,
+    roughCofactorMobiusPrefixMass_eq_roughDyadicBoundaryMass hq hqgt]
+
+/-- **ChildFar compression.**  For every odd q^2 owner, the literal physical
+ChildFar mass is exactly a sum of q-rough odd dyadic walls, one at each
+reciprocal cutoff `Y_q/p`.  This is still a signed identity before norms. -/
+theorem lowWheelFarPrimeQ2ChildFarSlice_mass_eq_roughDyadicColumn
+    {R q : ℕ} (hq : q.Prime) (hqgt : 2 < q) :
+    (∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+        canonicalMoebiusWeight dp.1) =
+      q2DaughterFarRoughDyadicColumn R q := by
+  calc
+    (∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+        canonicalMoebiusWeight dp.1) =
+      ((q2DaughterFarBaseColumn R q : ℤ) : ℂ) :=
+        (q2DaughterFarBaseColumn_cast_eq_childFarSliceMass hq).symm
+    _ = q2DaughterFarRoughDyadicColumn R q :=
+      q2DaughterFarBaseColumn_cast_eq_roughDyadicColumn hq hqgt
+
+/-- Aggregate odd-owner ChildFar mass after the same exact compression. -/
+def squareEndpointQ2OddChildFarRoughDyadicColumn (R : ℕ) : ℂ :=
+  ∑ q ∈ (primesUpTo (R - 1)).erase 2,
+    q2DaughterFarRoughDyadicColumn R q
+
+/-- The whole odd-owner ChildFar column is carried by the wheel-truncated
+dyadic walls.  Owner two is deliberately absent from both sides. -/
+theorem squareEndpointQ2OddChildFarSlice_eq_roughDyadicColumn
+    (R : ℕ) :
+    (∑ q ∈ (primesUpTo (R - 1)).erase 2,
+      ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R q,
+        canonicalMoebiusWeight dp.1) =
+      squareEndpointQ2OddChildFarRoughDyadicColumn R := by
+  unfold squareEndpointQ2OddChildFarRoughDyadicColumn
+  apply Finset.sum_congr rfl
+  intro q hq
+  rcases Finset.mem_erase.mp hq with ⟨hqne, hqmem⟩
+  have hqPrime : q.Prime := (mem_primesUpTo.mp hqmem).1
+  have hqgt : 2 < q := by
+    have hq2 := hqPrime.two_le
+    omega
+  exact lowWheelFarPrimeQ2ChildFarSlice_mass_eq_roughDyadicColumn hqPrime hqgt
 
 end RHLean.Proof
