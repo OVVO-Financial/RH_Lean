@@ -34,16 +34,27 @@ Then
 
   FinalStokes_R = Q_R^2 + X_R.
 
-Therefore the single sufficient estimate is
+The strongest cancellation target is
 
-  X_R <= -(1/4) E_R^(q^2) + C R^2 K.
+  X_R <= -(1/4) E_R^(q^2) + C R^2 K,
 
-The negative quarter exactly cancels the already-compiled reciprocal daughter
-frame.  No absolute value, parent-square estimate, ownerwise square, or frozen
-coefficient synthesis appears.
+which cancels the reciprocal daughter frame completely.  But the existing
+correlation consumer only needs coefficient 4.  Passing the final Stokes bound
+through the exact AMP inequality sends a remainder coefficient A to correlation
+coefficient
 
-This module name-locks that target and wires it directly to the final RH
-consumer.
+  1/2 + 2 * (A + 1/4) = 2*A + 1.
+
+Hence the actual quantitative threshold is only
+
+  A <= 3/2.
+
+This is substantially weaker than full quarter cancellation.  No absolute
+value, parent-square estimate, ownerwise square, or frozen coefficient synthesis
+appears.
+
+This module name-locks both the exact-cancellation special case and the weaker
+A <= 3/2 threshold that is already sufficient for the existing RH consumer.
 -/
 
 noncomputable section
@@ -166,6 +177,115 @@ theorem finalStokesQ2EnergyBound_of_post789SignedRemainderBound
     hR]
   nlinarith
 
+/-- A post-#789 signed remainder estimate gives an AMP remainder estimate
+without discarding the diagonal subtraction.  The only extra cost is the
+elementary diagonal `D_R <= 3 R^2`, absorbed by the live lower envelope
+`K >= 1`. -/
+theorem physicalAmplitudeRemainderQ2EnergyBound_of_post789SignedRemainderBound
+    {A C : ℝ}
+    (hRem : LowOwnerPost789SignedCrossDiagonalRemainderBound A C) :
+    ∀ R : ℕ, ∀ K : ℝ,
+      56 ≤ R →
+      LowerMertensCriticalEnvelope R K →
+      ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
+        (A + 1 / 4) * canonicalRoughLowQ2DaughterEnergy R +
+          (C + 3) * (R : ℝ) ^ 2 * K := by
+  intro R K hR hK
+  have hFinal :=
+    finalStokesQ2EnergyBound_of_post789SignedRemainderBound hRem
+      R K hR hK
+  have hDiag := lowOwnerZeroFrequencyMobiusDiagonal_le_three_root_sq R
+  have hK1 : 1 ≤ K := by
+    have h0 := hK.2 0 (by omega)
+    have hm0 : mertensSummatoryInt 0 = 0 := by
+      simp [mertensSummatoryInt]
+    rw [hm0] at h0
+    norm_num at h0
+  have hR2 : 0 ≤ (R : ℝ) ^ 2 := sq_nonneg _
+  have hDiagK :
+      lowOwnerZeroFrequencyMobiusDiagonal R ≤
+        3 * (R : ℝ) ^ 2 * K := by
+    calc
+      lowOwnerZeroFrequencyMobiusDiagonal R ≤
+          3 * (R : ℝ) ^ 2 := hDiag
+      _ ≤ 3 * (R : ℝ) ^ 2 * K := by
+        nlinarith
+  have hIdentity :=
+    lowOwnerCanonicalSignedStokesFinalBoundary_eq_remainderNormSq_sub_diagonal
+      hR
+  rw [hIdentity] at hFinal
+  nlinarith
+
+/-- Passing the post-#789 remainder through the exact AMP transport sends
+daughter coefficient `A` to correlation coefficient `2*A + 1`.  This is the
+key quantitative conversion: the reciprocal quarter frame and the AMP
+one-half/two-square inequality are accounted for exactly. -/
+theorem correlationLowQ2Energy_of_post789SignedRemainderBound
+    {A C : ℝ}
+    (hRem : LowOwnerPost789SignedCrossDiagonalRemainderBound A C) :
+    CanonicalRoughCorrelationLowQ2EnergyStatementWith
+      (2 * A + 1) (2 * (C + 3)) := by
+  intro R K hR hK
+  have hCorr :=
+    correlation_energy_le_half_lowEnergy_add_twice_physicalRemainder
+      R hR 0
+  have hAmp :=
+    physicalAmplitudeRemainderQ2EnergyBound_of_post789SignedRemainderBound
+      hRem R K hR hK
+  nlinarith
+
+/-- **Relaxed post-#789 closure corridor.**
+
+For `-1/4 <= A <= 3/2`, the induced correlation coefficient satisfies
+
+  0 <= 2*A + 1 <= 4.
+
+The low-q^2 estimate therefore localizes to the full daughter family and fits
+the already-compiled CORR-4 terminal interface. -/
+theorem correlationFour_of_post789SignedRemainderBound
+    {A C : ℝ}
+    (hAlo : -1 / 4 ≤ A) (hAhi : A ≤ 3 / 2) (hC : 0 ≤ C)
+    (hRem : LowOwnerPost789SignedCrossDiagonalRemainderBound A C) :
+    CanonicalRoughCorrelationFourQ2EnergyStatement := by
+  let C0 : ℝ := 2 * (C + 3)
+  have hCoeff0 : 0 ≤ 2 * A + 1 := by
+    nlinarith
+  have hLow :=
+    correlationLowQ2Energy_of_post789SignedRemainderBound hRem
+  have hFull :
+      CanonicalRoughCorrelationQ2EnergyStatementWith (2 * A + 1) C0 := by
+    simpa [C0] using correlationLowQ2Energy_implies_full hCoeff0 hLow
+  have hC0 : 0 ≤ C0 := by
+    dsimp [C0]
+    nlinarith
+  refine ⟨C0, hC0, ?_⟩
+  intro R K hR hK
+  have h := hFull R K hR hK
+  have hE : 0 ≤ farFourOddQ2DaughterEnergy R := by
+    unfold farFourOddQ2DaughterEnergy
+    apply Finset.sum_nonneg
+    intro q _hq
+    unfold rawQ2ChildEnergyReal
+    positivity
+  have hCoeff : 2 * A + 1 ≤ 4 := by
+    nlinarith
+  have hMono :
+      (2 * A + 1) * farFourOddQ2DaughterEnergy R ≤
+        4 * farFourOddQ2DaughterEnergy R :=
+    mul_le_mul_of_nonneg_right hCoeff hE
+  exact h.trans (add_le_add_right hMono _)
+
+/-- In the relaxed corridor the post-#789 signed remainder already implies RH.
+No complete cancellation of the recursive q^2 daughter energy is required. -/
+theorem riemannHypothesis_of_post789CorridorRemainderBound
+    {A C : ℝ}
+    (hAlo : -1 / 4 ≤ A) (hAhi : A ≤ 3 / 2) (hC : 0 ≤ C)
+    (hRem : LowOwnerPost789SignedCrossDiagonalRemainderBound A C) :
+    RiemannHypothesis :=
+  riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
+    (correlationFour_of_post789SignedRemainderBound
+      hAlo hAhi hC hRem)
+
 /-- **Quarter-cancellation closure.**
 
 If the signed cross/diagonal remainder contributes at most minus one quarter of
@@ -200,6 +320,24 @@ theorem finalStokesBoundaryBound_of_post789SubquarterCancellation
       (A + 1 / 4) * canonicalRoughLowQ2DaughterEnergy R ≤ 0 :=
     mul_nonpos_of_nonpos_of_nonneg hcoef hE
   linarith
+
+/-- **Sharp sufficient coefficient threshold.**
+
+Any post-#789 signed remainder coefficient `A <= 3/2` is sufficient.  If
+`A <= -1/4`, the final Stokes daughter term cancels directly.  Otherwise
+`-1/4 < A <= 3/2` lies in the relaxed CORR-4 corridor above. -/
+theorem riemannHypothesis_of_post789SignedRemainderBound
+    {A C : ℝ} (hA : A ≤ 3 / 2) (hC : 0 ≤ C)
+    (hRem : LowOwnerPost789SignedCrossDiagonalRemainderBound A C) :
+    RiemannHypothesis := by
+  by_cases hQuarter : A ≤ -1 / 4
+  · exact riemannHypothesis_of_finalStokesBoundaryBound hC
+      (finalStokesBoundaryBound_of_post789SubquarterCancellation
+        hQuarter hRem)
+  · have hAlo : -1 / 4 ≤ A := by
+      exact le_of_lt (not_le.mp hQuarter)
+    exact riemannHypothesis_of_post789CorridorRemainderBound
+      hAlo hA hC hRem
 
 /-- **Direct RH closure from the post-#789 signed remainder.** -/
 theorem riemannHypothesis_of_post789QuarterCancellation
