@@ -2084,4 +2084,50 @@ theorem stableFarRenewalOddOwnerDifferenceTotal_eq_imageCanonicalCharge_add_two_
     stableFarRenewalOddOwnerTransportMass_eq_canonicalCharge_add_two_firstCut,
     stableFarRenewalOddOwnerCanonicalPullbackCharge_eq_imageCharge]
 
+
+/-! ## Canonical shell complement of the renewal image -/
+
+def stableFarRenewalCanonicalComplement (R : ℕ) : Finset ℕ :=
+  orderedEulerCutSquarefreeShell R \
+    stableFarRenewalOddOwnerTwoShellImage R
+
+def stableFarRenewalCanonicalComplementCharge (R : ℕ) : ℂ :=
+  ∑ n ∈ stableFarRenewalCanonicalComplement R,
+    -canonicalMoebiusWeight n
+
+theorem canonicalDefectSquarefreeShellCharge_eq_renewalImage_add_complement
+    {R : ℕ} (hR : 2 ≤ R) :
+    canonicalDefectSquarefreeShellCharge R =
+      (∑ n ∈ stableFarRenewalOddOwnerTwoShellImage R,
+        -canonicalMoebiusWeight n) +
+      stableFarRenewalCanonicalComplementCharge R := by
+  unfold canonicalDefectSquarefreeShellCharge
+    stableFarRenewalCanonicalComplementCharge
+    stableFarRenewalCanonicalComplement
+  have hsub :=
+    stableFarRenewalOddOwnerTwoShellImage_subset_squarefreeShell hR
+  exact (Finset.sum_sdiff hsub).symm
+
+theorem lowWheelCanonicalDefectLedger_eq_renewalImage_add_complement
+    {R : ℕ} (hR : 2 ≤ R) :
+    lowWheelCanonicalDefectLedger R =
+      (∑ n ∈ stableFarRenewalOddOwnerTwoShellImage R,
+        -canonicalMoebiusWeight n) +
+      stableFarRenewalCanonicalComplementCharge R := by
+  rw [canonicalDefectLedger_eq_squarefreeShellCharge R hR,
+    canonicalDefectSquarefreeShellCharge_eq_renewalImage_add_complement hR]
+
+/-- Exact localization of the odd-owner renewal difference inside the canonical
+defect shell.  The only discrepancy from the full canonical defect is the
+complementary shell charge and twice the first-cut orientation sector. -/
+theorem stableFarRenewalOddOwnerDifferenceTotal_eq_defect_sub_complement_add_two_firstCut
+    {R : ℕ} (hR : 2 ≤ R) :
+    stableFarRenewalOddOwnerDifferenceTotal R =
+      lowWheelCanonicalDefectLedger R -
+        stableFarRenewalCanonicalComplementCharge R +
+      2 * stableFarRenewalOddOwnerFirstCutMass R := by
+  rw [stableFarRenewalOddOwnerDifferenceTotal_eq_imageCanonicalCharge_add_two_firstCut,
+    lowWheelCanonicalDefectLedger_eq_renewalImage_add_complement hR]
+  ring
+
 end RHLean.Proof
