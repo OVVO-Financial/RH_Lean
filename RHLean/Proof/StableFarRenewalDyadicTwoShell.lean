@@ -890,4 +890,53 @@ theorem farFourQ2CenteredTower_eq_sum_stableFarCenteredReturnedFibre
   exact stableFarRenewalCoordinateFiber_centeredMass hrp
 
 
+
+/-! ## Owner-two / odd-returned-owner split -/
+
+def stableFarRenewalOwnerTwoCoordinatePairs (R : ℕ) : Finset (ℕ × ℕ) :=
+  (stableFarRenewalCoordinatePairs R).filter fun rp => rp.1 = 2
+
+def stableFarRenewalOddCoordinatePairs (R : ℕ) : Finset (ℕ × ℕ) :=
+  (stableFarRenewalCoordinatePairs R).filter fun rp => rp.1 ≠ 2
+
+/-- The actual centered q² tower is an explicit owner-two packet plus the
+dyadically compressed odd-returned-owner fibres. -/
+theorem farFourQ2CenteredTower_eq_ownerTwo_add_oddDyadicFibres
+    (R : ℕ) :
+    farFourQ2CenteredTower R =
+      (∑ rp ∈ stableFarRenewalOwnerTwoCoordinatePairs R,
+        stableFarCenteredReturnedFibre R rp.1 rp.2) +
+      ∑ rp ∈ stableFarRenewalOddCoordinatePairs R,
+        ((∑ d ∈ oddCofactorPrefix
+            (stableFarReturnedCofactorCutoff R rp.1 rp.2 / 2),
+          if canonicalLargestPrimeFactor d < rp.1 then
+            (((∑ q ∈ primesUpTo (R - 1),
+                stableFarRenewalOwnerIndicatorDifference
+                  R q rp.1 d rp.2 : ℤ) : ℂ) *
+              canonicalMoebiusWeight d)
+          else 0) +
+        ∑ d ∈ roughDyadicCofactorBoundary rp.1
+            (stableFarReturnedCofactorCutoff R rp.1 rp.2),
+          stableFarCenteredRenewalWeight R rp.1 d rp.2) := by
+  rw [farFourQ2CenteredTower_eq_sum_stableFarCenteredReturnedFibre]
+  let S := stableFarRenewalCoordinatePairs R
+  let f : ℕ × ℕ → ℂ := fun rp =>
+    stableFarCenteredReturnedFibre R rp.1 rp.2
+  have hsplit :=
+    Finset.sum_filter_add_sum_filter_not S (fun rp => rp.1 = 2) f
+  change (∑ rp ∈ S, f rp) = _
+  rw [← hsplit]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro rp hrpOdd
+  rcases Finset.mem_filter.mp hrpOdd with ⟨hrp, hrne⟩
+  have hdata := stableFarRenewalCoordinatePair_data hrp
+  have hrgt : 2 < rp.1 := by
+    have hr2 := hdata.1.two_le
+    omega
+  simpa [f] using
+    stableFarCenteredReturnedFibre_eq_ownerIndicatorSum_add_boundary
+      hdata.1 hrgt
+
+
 end RHLean.Proof
