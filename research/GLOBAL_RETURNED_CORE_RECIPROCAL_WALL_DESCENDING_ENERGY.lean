@@ -1,5 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_GLOBAL_DESCENDING_SITE_FUBINI»
+import «research.GLOBAL_RETURNED_CORE_GLOBAL_FIRST_OWNER_SITE_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL»
 import «research.GLOBAL_RETURNED_CORE_POST755_AMPLITUDE_CLOSURE»
 import «research.GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION»
@@ -222,6 +223,24 @@ theorem sum_lowOwnerReciprocalThresholdWall_descendingCross_le_quarter_q2Energy
   exact
     (sum_lowOwnerReciprocalThresholdWall_descendingCross_le_column_sq hr).trans
       (lowOwnerReciprocalMertensColumnReal_sq_le_quarter_lowQ2DaughterEnergy R)
+
+/-- **Quarter-energy bound in the raw-parent outer coordinate.**
+
+The same assembled reciprocal wall synthesis is now partitioned by the *least*
+fresh owner.  This is the outer owner coordinate used by the raw-parent
+chronology; every ordered off-diagonal pair is charged exactly once. -/
+theorem sum_lowOwnerReciprocalThresholdWall_firstOwnerMass_le_quarter_q2Energy
+    {R r : ℕ} (hr : r.Prime) :
+    (∑ p ∈ primesUpTo (squareRootEndpoint R),
+      lowOwnerGlobalFirstOwnerPairMassWith R p
+        (lowOwnerReciprocalThresholdWallSignedSite R r)) ≤
+      (1 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R := by
+  have hempty :=
+    sum_lowOwnerGlobalFirstOwnerPairMassWith_le_emptyEnergy
+      R (lowOwnerReciprocalThresholdWallSignedSite R r)
+  rw [lowOwnerReciprocalThresholdWall_emptyEnergy_eq_column_sq hr] at hempty
+  exact hempty.trans
+    (lowOwnerReciprocalMertensColumnReal_sq_le_quarter_lowQ2DaughterEnergy R)
 
 /-- The synthesized wall diagonal is deterministic and root-scale for each
 exposing owner r. -/
