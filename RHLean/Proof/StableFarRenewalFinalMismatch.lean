@@ -73,8 +73,7 @@ theorem q2TransportFarMismatch_eq_near_sub_tower_sub_physicalBoundary_ownerTwo
   have hchron :=
     stableFarRenewalColumn_add_terminal_eq_physicalBoundary_add_ownerTwo
       R (by omega)
-  rw [hchron] at hmis
-  linear_combination hmis
+  linear_combination hmis - hchron
 
 /-- The final q2 survivor correction in the same physical normal form. -/
 theorem finalQ2SurvivorCorrection_eq_root_sub_near_add_tower_add_physicalBoundary
