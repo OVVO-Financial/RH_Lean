@@ -1220,6 +1220,7 @@ theorem stableFarRenewalCoordinateOwnerFiber_eq_highPrimeImage
   · intro h
     rcases Finset.mem_filter.mp h with ⟨hab, ha⟩
     have hdata := (mem_stableFarRenewalCoordinatePairs_iff).1 hab
+    have haEq : a = r := by simpa using ha
     subst a
     exact Finset.mem_image.mpr ⟨b, hdata.2.2, rfl⟩
   · intro h
@@ -1287,7 +1288,7 @@ theorem farFourQ2CenteredTower_eq_ownerwise_difference_add_childFar
     intro rp hrp
     have hdata := stableFarRenewalCoordinatePair_data hrp
     exact mem_primesUpTo.mpr
-      ⟨hdata.1, Nat.le_pred_of_lt (by omega) hdata.2.1⟩
+      ⟨hdata.1, Nat.le_pred_of_lt hdata.2.1⟩
   have hfiber := Finset.sum_fiberwise_of_maps_to
     (s := S) (t := T) (g := g) hmaps f
   have hraw :
@@ -1330,15 +1331,45 @@ theorem farFourQ2CenteredTower_eq_ownerTwo_add_oddDifference_add_childFar
   rw [farFourQ2CenteredTower_eq_ownerwise_difference_add_childFar R (by omega)]
   have htwo : 2 ∈ primesUpTo (R - 1) :=
     mem_primesUpTo.mpr ⟨Nat.prime_two, by omega⟩
+  let F : ℕ → ℂ := fun r =>
+    if r = 2 then
+      ∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R r,
+        stableFarCenteredReturnedFibre R rp.1 rp.2
+    else
+      stableFarRenewalOwnerDifferenceColumn R r +
+        q2DaughterFarRoughDyadicColumn R r
   have hsplit := Finset.sum_erase_add
-    (s := primesUpTo (R - 1))
-    (f := fun r =>
-      if r = 2 then
-        ∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R r,
-          stableFarCenteredReturnedFibre R rp.1 rp.2
-      else
-        stableFarRenewalOwnerDifferenceColumn R r +
-          q2DaughterFarRoughDyadicColumn R r) htwo
-  simpa [add_comm] using hsplit.symm
+    (s := primesUpTo (R - 1)) (f := F) htwo
+  have herase :
+      (∑ r ∈ (primesUpTo (R - 1)).erase 2, F r) =
+        ∑ r ∈ (primesUpTo (R - 1)).erase 2,
+          (stableFarRenewalOwnerDifferenceColumn R r +
+            q2DaughterFarRoughDyadicColumn R r) := by
+    apply Finset.sum_congr rfl
+    intro r hr
+    have hrne : r ≠ 2 := (Finset.mem_erase.mp hr).1
+    simp [F, hrne]
+  have htwoF :
+      F 2 =
+        ∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R 2,
+          stableFarCenteredReturnedFibre R rp.1 rp.2 := by
+    simp [F]
+  calc
+    (∑ r ∈ primesUpTo (R - 1), F r) =
+        (∑ r ∈ (primesUpTo (R - 1)).erase 2, F r) + F 2 :=
+      hsplit.symm
+    _ =
+        (∑ r ∈ (primesUpTo (R - 1)).erase 2,
+          (stableFarRenewalOwnerDifferenceColumn R r +
+            q2DaughterFarRoughDyadicColumn R r)) +
+          (∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R 2,
+            stableFarCenteredReturnedFibre R rp.1 rp.2) := by
+      rw [herase, htwoF]
+    _ =
+        (∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R 2,
+          stableFarCenteredReturnedFibre R rp.1 rp.2) +
+        ∑ r ∈ (primesUpTo (R - 1)).erase 2,
+          (stableFarRenewalOwnerDifferenceColumn R r +
+            q2DaughterFarRoughDyadicColumn R r) := by ring
 
 end RHLean.Proof
