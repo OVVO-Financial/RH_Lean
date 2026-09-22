@@ -1680,7 +1680,33 @@ theorem stableFarRenewalOwnerDifferenceMass_eq_localTwoShellIndicatorMass
     _ = stableFarRenewalLocalOddTwoShellIndicatorMass R r p B := by
       unfold stableFarRenewalLocalOddTwoShellIndicatorMass
         stableFarRenewalLocalOddTwoShellCarrier
-      rw [Finset.sum_filter, Finset.sum_product]
+      rw [Finset.sum_filter]
+      have hprod :
+          (∑ a ∈ (primesUpTo (R - 1)).product
+              ((squareRootLowPrimeGoSmoothCofactors r B).filter Odd),
+            if stableFarRenewalFirstCutShell R a.1 r a.2 p ∨
+                stableFarRenewalSecondCrossShell R a.1 r a.2 p then
+              ((stableFarRenewalOwnerIndicatorDifference R a.1 r a.2 p : ℤ) : ℂ) *
+                canonicalMoebiusWeight a.2
+            else 0) =
+          ∑ q ∈ primesUpTo (R - 1),
+            ∑ d ∈ (squareRootLowPrimeGoSmoothCofactors r B).filter Odd,
+              if stableFarRenewalFirstCutShell R q r d p ∨
+                  stableFarRenewalSecondCrossShell R q r d p then
+                ((stableFarRenewalOwnerIndicatorDifference R q r d p : ℤ) : ℂ) *
+                  canonicalMoebiusWeight d
+              else 0 := by
+        simpa only using
+          (Finset.sum_product
+            (s := primesUpTo (R - 1))
+            (t := (squareRootLowPrimeGoSmoothCofactors r B).filter Odd)
+            (f := fun a : ℕ × ℕ =>
+              if stableFarRenewalFirstCutShell R a.1 r a.2 p ∨
+                  stableFarRenewalSecondCrossShell R a.1 r a.2 p then
+                ((stableFarRenewalOwnerIndicatorDifference R a.1 r a.2 p : ℤ) : ℂ) *
+                  canonicalMoebiusWeight a.2
+              else 0))
+      rw [hprod]
       apply Finset.sum_congr rfl
       intro q hq
       apply Finset.sum_congr rfl
@@ -1749,7 +1775,7 @@ theorem stableFarRenewalLocalCarrier_image_eq_globalCoordinateFiber
     have hy :
         (rp.1, (qd.2, rp.2)) ∈ lowWheelFarPrimeQ2DescendedTriples R :=
       (mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor).2
-        ⟨hdata.1, hdata.2.1, hdata.2.2.1, hdata.2.2.2.1, hdSmooth⟩
+        ⟨hdata.1, hdata.2.1, hdata.2.2.1, hdata.2.2.2, hdSmooth⟩
     have hfull :
         (qd.1, (rp.1, (qd.2, rp.2))) ∈
           stableFarRenewalTwoShellCarrier R :=
@@ -1857,7 +1883,9 @@ theorem sum_oddRenewalCoordinateDifferenceMass_eq_ownerDifferenceTotal
   have hrMem := (Finset.mem_erase.mp hrT).2
   have hrne : r ≠ 2 := (Finset.mem_erase.mp hrT).1
   have hrData := mem_primesUpTo.mp hrMem
-  have hrR : r < R := Nat.lt_of_le_pred (by omega) hrData.2
+  have hrpos : 0 < r := hrData.1.pos
+  have hRpos : 0 < R := by omega
+  have hrR : r < R := Nat.lt_of_le_pred hRpos hrData.2
   have hset :
       (S.filter fun rp => g rp = r) =
         stableFarRenewalCoordinateOwnerFiber R r := by
@@ -1999,7 +2027,7 @@ theorem stableFarRenewalOddOwnerTransportMass_eq_canonicalCharge_add_two_firstCu
   unfold stableFarRenewalOddOwnerTwoShellTransportMass
     stableFarRenewalOddOwnerCanonicalPullbackCharge
     stableFarRenewalOddOwnerFirstCutMass
-  rw [← Finset.sum_add_distrib]
+  rw [Finset.mul_sum, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro t _ht
   by_cases hfirst :
@@ -2041,11 +2069,7 @@ theorem stableFarRenewalOddOwnerCanonicalPullbackCharge_eq_imageCharge
         -canonicalMoebiusWeight n := by
   unfold stableFarRenewalOddOwnerCanonicalPullbackCharge
     stableFarRenewalOddOwnerTwoShellImage
-  rw [Finset.sum_image]
-  · rfl
-  · intro a ha b hb hab
-    exact stableFarRenewalOddOwnerTwoShellTransport_injOn R
-      (Finset.mem_coe.mpr ha) (Finset.mem_coe.mpr hb) hab
+  rw [Finset.sum_image (stableFarRenewalOddOwnerTwoShellTransport_injOn R)]
 
 /-- The global odd-owner renewal difference is the canonical squarefree-shell
 charge on its injective renewal image, plus exactly twice the first-cut
