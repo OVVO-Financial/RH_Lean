@@ -937,4 +937,55 @@ theorem farFourQ2CenteredTower_eq_ownerTwo_add_oddDyadicFibres
       hdata.1 hrgt
 
 
+
+/-! ## The unpaired returned top boundary has no doubled owner -/
+
+/-- On the unpaired q-rough top dyadic boundary of one returned fibre, doubling
+the returned cofactor already crosses the first-power cutoff for every possible
+old owner.  Hence the doubled child has no old owner at all. -/
+theorem crossingOuterOwnerSet_double_eq_empty_of_roughBoundary
+    {R r p d : ℕ} (hr : r.Prime) (hp : p.Prime)
+    (hd : d ∈ roughDyadicCofactorBoundary r
+      (stableFarReturnedCofactorCutoff R r p)) :
+    lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (2 * d, p)) = ∅ := by
+  apply Finset.eq_empty_iff_forall_notMem.mpr
+  intro q hq
+  rcases Finset.mem_filter.mp hq with ⟨_hqOld, hrq, hcut, _hcross⟩
+  have hdWall := (mem_roughDyadicCofactorBoundary.mp hd).1
+  have hhalf :=
+    (mem_dyadicCofactorBoundary.mp hdWall).2.2.2
+  have hdenPos : 0 < r * r * p :=
+    Nat.mul_pos (Nat.mul_pos hr.pos hr.pos) hp.pos
+  have hXlt : squareRootEndpoint R < (2 * d) * (r * r * p) := by
+    unfold stableFarReturnedCofactorCutoff at hhalf
+    exact (Nat.div_lt_iff_lt_mul hdenPos).1 hhalf
+  have hrqle : r ≤ q := Nat.le_of_lt hrq
+  have hmul :
+      (2 * d) * (r * r * p) ≤ q * r * (2 * d) * p := by
+    have h :=
+      Nat.mul_le_mul_right (r * (2 * d) * p) hrqle
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+  exact (Nat.not_lt_of_ge hcut) (hXlt.trans_le hmul)
+
+/-- Consequently the centered weight on the unpaired top boundary is its
+native Mobius weight plus the same owner-window finite difference used on the
+paired interior. -/
+theorem stableFarCenteredRenewalWeight_eq_difference_add_native_of_roughBoundary
+    {R r p d : ℕ} (hr : r.Prime) (hp : p.Prime)
+    (hd : d ∈ roughDyadicCofactorBoundary r
+      (stableFarReturnedCofactorCutoff R r p)) :
+    stableFarCenteredRenewalWeight R r d p =
+      ((((lowWheelFarPrimeQ2CrossingOuterOwnerSet
+          R (r, (2 * d, p))).card : ℂ) -
+        ((lowWheelFarPrimeQ2CrossingOuterOwnerSet
+          R (r, (d, p))).card : ℂ)) *
+          canonicalMoebiusWeight d) +
+        canonicalMoebiusWeight d := by
+  have hempty :=
+    crossingOuterOwnerSet_double_eq_empty_of_roughBoundary hr hp hd
+  unfold stableFarCenteredRenewalWeight stableFarCenteredRenewalCoeff
+  rw [hempty]
+  simp
+  ring
+
 end RHLean.Proof
