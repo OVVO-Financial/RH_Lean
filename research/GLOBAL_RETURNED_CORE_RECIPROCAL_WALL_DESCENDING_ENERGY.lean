@@ -1,6 +1,7 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_GLOBAL_DESCENDING_SITE_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_GLOBAL_FIRST_OWNER_SITE_FUBINI»
+import «research.GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS»
 import «research.GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL»
 import «research.GLOBAL_RETURNED_CORE_POST755_AMPLITUDE_CLOSURE»
 import «research.GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION»
@@ -241,6 +242,51 @@ theorem sum_lowOwnerReciprocalThresholdWall_firstOwnerMass_le_quarter_q2Energy
   rw [lowOwnerReciprocalThresholdWall_emptyEnergy_eq_column_sq hr] at hempty
   exact hempty.trans
     (lowOwnerReciprocalMertensColumnReal_sq_le_quarter_lowQ2DaughterEnergy R)
+
+/-- **Eighth-energy bound on the exact raw-parent cell carrier.**
+
+The global first-owner budget is ordered in both coordinate orientations.
+Each existing raw-parent cell is arithmetically oriented p-free × p-divisible,
+so the exact factor-two carrier identity improves the quarter budget to one
+eighth on the `(p,sig)` cell sum. -/
+theorem sum_lowOwnerReciprocalThresholdWall_cellMass_le_eighth_q2Energy
+    {R r : ℕ} (hr : r.Prime) :
+    (∑ p ∈ primesUpTo (squareRootEndpoint R),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        lowOwnerFirstOwnerCellGramWith R p sig
+          (lowOwnerReciprocalThresholdWallSignedSite R r)) ≤
+      (1 / 8 : ℝ) * canonicalRoughLowQ2DaughterEnergy R := by
+  have hquarter :=
+    sum_lowOwnerReciprocalThresholdWall_firstOwnerMass_le_quarter_q2Energy
+      (R := R) hr
+  have hrewrite :
+      (∑ p ∈ primesUpTo (squareRootEndpoint R),
+        lowOwnerGlobalFirstOwnerPairMassWith R p
+          (lowOwnerReciprocalThresholdWallSignedSite R r)) =
+        2 * (∑ p ∈ primesUpTo (squareRootEndpoint R),
+          ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+            lowOwnerFirstOwnerCellGramWith R p sig
+              (lowOwnerReciprocalThresholdWallSignedSite R r)) := by
+    calc
+      (∑ p ∈ primesUpTo (squareRootEndpoint R),
+        lowOwnerGlobalFirstOwnerPairMassWith R p
+          (lowOwnerReciprocalThresholdWallSignedSite R r)) =
+        ∑ p ∈ primesUpTo (squareRootEndpoint R),
+          2 * (∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+            lowOwnerFirstOwnerCellGramWith R p sig
+              (lowOwnerReciprocalThresholdWallSignedSite R r)) := by
+          apply Finset.sum_congr rfl
+          intro p hp
+          exact lowOwnerGlobalFirstOwnerPairMassWith_eq_two_sum_cells
+            (mem_primesUpTo.mp hp).1
+            (lowOwnerReciprocalThresholdWallSignedSite R r)
+      _ = 2 * (∑ p ∈ primesUpTo (squareRootEndpoint R),
+          ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+            lowOwnerFirstOwnerCellGramWith R p sig
+              (lowOwnerReciprocalThresholdWallSignedSite R r)) := by
+          rw [Finset.mul_sum]
+  rw [hrewrite] at hquarter
+  nlinarith
 
 /-- The synthesized wall diagonal is deterministic and root-scale for each
 exposing owner r. -/
