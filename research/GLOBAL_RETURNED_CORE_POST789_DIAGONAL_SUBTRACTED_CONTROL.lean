@@ -146,6 +146,152 @@ private theorem canonicalRoughLowQ2DaughterEnergy_nonneg_post789 (R : ℕ) :
   unfold rawQ2ChildEnergyReal
   positivity
 
+/-- Quantitative final-Stokes target with the recursive q^2 energy kept live. -/
+def LowOwnerFinalStokesQ2EnergyBound (B C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    56 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    lowOwnerCanonicalSignedStokesFinalBoundary R ≤
+      B * canonicalRoughLowQ2DaughterEnergy R +
+        C * (R : ℝ) ^ 2 * K
+
+/-- The same target in the exact signed-cell/unique-owner currency.  This is
+the quantitative endpoint that the one-sided owner recursion should prove:
+the signed cell telescope is allowed a recursive q^2 term instead of being
+forced to root scale outright. -/
+def LowOwnerSignedCellQ2EnergyAssemblyBound (B C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    56 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    (∑ p ∈ primesUpTo (squareRootEndpoint R),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        lowOwnerFirstOwnerSignedCellTelescope R p sig) ≤
+      B * canonicalRoughLowQ2DaughterEnergy R +
+        C * (R : ℝ) ^ 2 * K
+
+/-- The signed-cell target and the final-Stokes target are literally the same
+inequality; no estimate or ownerwise norm is used in the transfer. -/
+theorem signedCellQ2EnergyAssemblyBound_iff_finalStokesQ2EnergyBound
+    (B C : ℝ) :
+    LowOwnerSignedCellQ2EnergyAssemblyBound B C ↔
+      LowOwnerFinalStokesQ2EnergyBound B C := by
+  constructor
+  · intro h R K hR hK
+    have hs := h R K hR hK
+    rw [sum_lowOwnerFirstOwnerSignedCellTelescope_eq_finalStokesBoundary
+      (R := R) (by omega : 2 ≤ R)] at hs
+    exact hs
+  · intro h R K hR hK
+    have hs := h R K hR hK
+    rw [← sum_lowOwnerFirstOwnerSignedCellTelescope_eq_finalStokesBoundary
+      (R := R) (by omega : 2 ≤ R)] at hs
+    exact hs
+
+/-- A final-Stokes q^2 estimate transfers through the exact AMP identity.
+The elementary diagonal costs only `3 R^2 K`. -/
+theorem physicalAmplitudeRemainderQ2EnergyBound_of_finalStokesQ2EnergyBound
+    {B C : ℝ}
+    (hFinal : LowOwnerFinalStokesQ2EnergyBound B C) :
+    ∀ R : ℕ, ∀ K : ℝ,
+      56 ≤ R →
+      LowerMertensCriticalEnvelope R K →
+      ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
+        B * canonicalRoughLowQ2DaughterEnergy R +
+          (C + 3) * (R : ℝ) ^ 2 * K := by
+  intro R K hR hK
+  have h := hFinal R K hR hK
+  have hDiag := lowOwnerZeroFrequencyMobiusDiagonal_le_three_root_sq R
+  have hK1 : 1 ≤ K := by
+    have h0 := hK.2 0 (by omega)
+    have hm0 : mertensSummatoryInt 0 = 0 := by
+      simp [mertensSummatoryInt]
+    rw [hm0] at h0
+    norm_num at h0
+  have hR2 : 0 ≤ (R : ℝ) ^ 2 := sq_nonneg _
+  have hDiagK :
+      lowOwnerZeroFrequencyMobiusDiagonal R ≤
+        3 * (R : ℝ) ^ 2 * K := by
+    calc
+      lowOwnerZeroFrequencyMobiusDiagonal R ≤
+          3 * (R : ℝ) ^ 2 := hDiag
+      _ ≤ 3 * (R : ℝ) ^ 2 * K := by
+        nlinarith
+  have hIdentity :=
+    lowOwnerCanonicalSignedStokesFinalBoundary_eq_remainderNormSq_sub_diagonal
+      hR
+  rw [hIdentity] at h
+  nlinarith
+
+/-- Passing a final-Stokes coefficient `B` through AMP gives correlation
+coefficient `1/2 + 2B`. -/
+theorem correlationLowQ2Energy_of_finalStokesQ2EnergyBound
+    {B C : ℝ}
+    (hFinal : LowOwnerFinalStokesQ2EnergyBound B C) :
+    CanonicalRoughCorrelationLowQ2EnergyStatementWith
+      (1 / 2 + 2 * B) (2 * (C + 3)) := by
+  intro R K hR hK
+  have hCorr :=
+    correlation_energy_le_half_lowEnergy_add_twice_physicalRemainder
+      R hR 0
+  have hAmp :=
+    physicalAmplitudeRemainderQ2EnergyBound_of_finalStokesQ2EnergyBound
+      hFinal R K hR hK
+  nlinarith
+
+/-- **The actual signed-cell coefficient threshold.**
+
+Any globally assembled signed-cell estimate with
+`-1/4 <= B <= 7/4` fits the existing CORR-4 consumer.  In particular the
+owner recursion only needs coefficient `7/4`; a root-scale-only Stokes bound
+is far stronger than necessary. -/
+theorem correlationFour_of_finalStokesQ2EnergyBound
+    {B C : ℝ}
+    (hBlo : -1 / 4 ≤ B) (hBhi : B ≤ 7 / 4) (hC : 0 ≤ C)
+    (hFinal : LowOwnerFinalStokesQ2EnergyBound B C) :
+    CanonicalRoughCorrelationFourQ2EnergyStatement := by
+  let C0 : ℝ := 2 * (C + 3)
+  have hCoeff0 : 0 ≤ 1 / 2 + 2 * B := by
+    nlinarith
+  have hLow :=
+    correlationLowQ2Energy_of_finalStokesQ2EnergyBound hFinal
+  have hFull :
+      CanonicalRoughCorrelationQ2EnergyStatementWith
+        (1 / 2 + 2 * B) C0 := by
+    simpa [C0] using correlationLowQ2Energy_implies_full hCoeff0 hLow
+  have hC0 : 0 ≤ C0 := by
+    dsimp [C0]
+    nlinarith
+  refine ⟨C0, hC0, ?_⟩
+  intro R K hR hK
+  have h := hFull R K hR hK
+  have hE : 0 ≤ farFourOddQ2DaughterEnergy R := by
+    unfold farFourOddQ2DaughterEnergy
+    apply Finset.sum_nonneg
+    intro q _hq
+    unfold rawQ2ChildEnergyReal
+    positivity
+  have hCoeff : 1 / 2 + 2 * B ≤ 4 := by
+    nlinarith
+  have hMono :
+      (1 / 2 + 2 * B) * farFourOddQ2DaughterEnergy R ≤
+        4 * farFourOddQ2DaughterEnergy R :=
+    mul_le_mul_of_nonneg_right hCoeff hE
+  exact h.trans (add_le_add_right hMono _)
+
+/-- A `7/4` signed-cell q^2 assembly bound is already sufficient for RH. -/
+theorem riemannHypothesis_of_signedCellQ2EnergyAssemblyBound
+    {B C : ℝ}
+    (hBlo : -1 / 4 ≤ B) (hBhi : B ≤ 7 / 4) (hC : 0 ≤ C)
+    (hCells : LowOwnerSignedCellQ2EnergyAssemblyBound B C) :
+    RiemannHypothesis := by
+  have hFinal :
+      LowOwnerFinalStokesQ2EnergyBound B C :=
+    (signedCellQ2EnergyAssemblyBound_iff_finalStokesQ2EnergyBound B C).mp hCells
+  exact
+    riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
+      (correlationFour_of_finalStokesQ2EnergyBound
+        hBlo hBhi hC hFinal)
+
 /-- Quantitative target with the lower-scale envelope kept live.
 
 The coefficient `A` is allowed to be negative.  The critical target is
