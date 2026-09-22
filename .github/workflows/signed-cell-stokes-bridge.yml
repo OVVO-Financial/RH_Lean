@@ -275,6 +275,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_RECIPROCAL_WALL_DESCENDING_ENERGY.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
           emit research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean
+          emit research/GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_SIGNED_CELL_SPLIT.lean
           emit research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
           emit research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
       - name: Kernel-check Stokes physical frame bridge
