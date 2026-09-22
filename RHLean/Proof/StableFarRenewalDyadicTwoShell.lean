@@ -683,6 +683,10 @@ theorem stableFarCenteredReturnedFibre_eq_ownerDifference_add_boundary
           (stableFarReturnedCofactorCutoff R r p),
         stableFarCenteredRenewalWeight R r d p := by
   unfold stableFarCenteredReturnedFibre
+  change
+    (∑ e ∈ squareRootLowPrimeGoSmoothCofactors r
+        (stableFarReturnedCofactorCutoff R r p),
+      stableFarCenteredRenewalCoeff R r e p * canonicalMoebiusWeight e) = _
   rw [squareRootLowPrimeGoSmoothCofactorWeightedMass_eq_dyadicPairs_add_boundary
     hr hrgt (fun e => stableFarCenteredRenewalCoeff R r e p)]
   congr 1
@@ -723,6 +727,7 @@ theorem stableFarCenteredReturnedFibre_eq_ownerIndicatorSum_add_boundary
       (crossingOuterOwnerSet_card_difference_eq_indicator_sum R r d p)
     push_cast at hcast
     rw [hcast]
+    push_cast
   · simp [hrough]
 
 
