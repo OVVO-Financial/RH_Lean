@@ -697,9 +697,6 @@ theorem stableFarCenteredReturnedFibre_eq_ownerDifference_add_boundary
       unfold stableFarCenteredRenewalCoeff
       ring
     · simp [hrough]
-  · apply Finset.sum_congr rfl
-    intro d _hd
-    rfl
 
 /-- Expanding the owner-cardinality difference by finite Fubini removes the
 last prime-count abstraction.  Every paired returned cofactor is now a signed
@@ -728,6 +725,7 @@ theorem stableFarCenteredReturnedFibre_eq_ownerIndicatorSum_add_boundary
     push_cast at hcast
     rw [hcast]
     push_cast
+    rfl
   · simp [hrough]
 
 
