@@ -731,4 +731,163 @@ theorem stableFarCenteredReturnedFibre_eq_ownerIndicatorSum_add_boundary
   · simp [hrough]
 
 
+
+/-! ## Production returned-coordinate Fubini -/
+
+def stableFarRenewalCoordinatePairs (R : ℕ) : Finset (ℕ × ℕ) :=
+  (lowWheelFarPrimeQ2DescendedTriples R).image fun y => (y.1, y.2.2)
+
+theorem mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor
+    {R r e p : ℕ} :
+    (r, (e, p)) ∈ lowWheelFarPrimeQ2DescendedTriples R ↔
+      r.Prime ∧ r < R ∧ p.Prime ∧ R + 8 ≤ p ∧
+        e ∈ squareRootLowPrimeGoSmoothCofactors r
+          (stableFarReturnedCofactorCutoff R r p) := by
+  constructor
+  · intro hdesc
+    have hbase : (r, (e, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
+      (Finset.mem_filter.mp hdesc).1
+    have hq2 := (Finset.mem_filter.mp hdesc).2
+    rcases lowWheelFarPrimeLowCofactorTriple_data hbase with
+      ⟨hr, hrR, he1, hp, hpR, heSq, her, _hcut⟩
+    have hdenPos : 0 < r * r * p :=
+      Nat.mul_pos (Nat.mul_pos hr.pos hr.pos) hp.pos
+    have heCut : e ≤ stableFarReturnedCofactorCutoff R r p := by
+      unfold stableFarReturnedCofactorCutoff
+      apply (Nat.le_div_iff_mul_le hdenPos).2
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2
+    refine ⟨hr, hrR, hp, hpR, ?_⟩
+    exact mem_squareRootLowPrimeGoSmoothCofactors.mpr
+      ⟨he1, heCut, heSq, her⟩
+  · rintro ⟨hr, hrR, hp, hpR, he⟩
+    rcases mem_squareRootLowPrimeGoSmoothCofactors.mp he with
+      ⟨he1, heCut, heSq, heRough⟩
+    have hdenPos : 0 < r * r * p :=
+      Nat.mul_pos (Nat.mul_pos hr.pos hr.pos) hp.pos
+    have hq2raw : e * (r * r * p) ≤ squareRootEndpoint R := by
+      apply (Nat.le_div_iff_mul_le hdenPos).1
+      simpa [stableFarReturnedCofactorCutoff] using heCut
+    have hq2 : r * r * e * p ≤ squareRootEndpoint R := by
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2raw
+    have hbaseCut : r * e * p ≤ squareRootEndpoint R := by
+      have hr1 : 1 ≤ r := hr.one_le
+      have hle : r * e * p ≤ r * r * e * p := by
+        have h := Nat.mul_le_mul_right (r * e * p) hr1
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+      exact hle.trans hq2
+    have hbase : (r, (e, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
+      lowWheelFarPrimeLowCofactorTriple_mem_of_data
+        hr hrR he1 hp hpR heSq heRough hbaseCut
+    exact Finset.mem_filter.mpr ⟨hbase, hq2⟩
+
+theorem stableFarRenewalCoordinatePair_data
+    {R : ℕ} {rp : ℕ × ℕ}
+    (hrp : rp ∈ stableFarRenewalCoordinatePairs R) :
+    rp.1.Prime ∧ rp.1 < R ∧ rp.2.Prime ∧ R + 8 ≤ rp.2 := by
+  rcases Finset.mem_image.mp hrp with ⟨y, hy, hcoord⟩
+  rcases y with ⟨r, ⟨e, p⟩⟩
+  have hdata :=
+    (mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor).1 hy
+  have hrEq : r = rp.1 := congrArg Prod.fst hcoord
+  have hpEq : p = rp.2 := congrArg Prod.snd hcoord
+  subst r
+  subst p
+  exact ⟨hdata.1, hdata.2.1, hdata.2.2.1, hdata.2.2.2.1⟩
+
+def stableFarRenewalCoordinateFiber
+    (R : ℕ) (rp : ℕ × ℕ) : Finset (ℕ × (ℕ × ℕ)) :=
+  (lowWheelFarPrimeQ2DescendedTriples R).filter fun y =>
+    (y.1, y.2.2) = rp
+
+theorem stableFarRenewalCoordinateFiber_eq_cofactorImage
+    {R : ℕ} {rp : ℕ × ℕ}
+    (hrp : rp ∈ stableFarRenewalCoordinatePairs R) :
+    stableFarRenewalCoordinateFiber R rp =
+      (squareRootLowPrimeGoSmoothCofactors rp.1
+        (stableFarReturnedCofactorCutoff R rp.1 rp.2)).image
+          (fun e => (rp.1, (e, rp.2))) := by
+  have hdata := stableFarRenewalCoordinatePair_data hrp
+  ext y
+  rcases y with ⟨r, ⟨e, p⟩⟩
+  constructor
+  · intro hy
+    rcases Finset.mem_filter.mp hy with ⟨hdesc, hcoord⟩
+    have hrEq : r = rp.1 := congrArg Prod.fst hcoord
+    have hpEq : p = rp.2 := congrArg Prod.snd hcoord
+    subst r
+    subst p
+    have he :=
+      (mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor).1 hdesc
+    exact Finset.mem_image.mpr ⟨e, he.2.2.2.2, rfl⟩
+  · intro hy
+    rcases Finset.mem_image.mp hy with ⟨e', he', heq⟩
+    have hdesc :
+        (rp.1, (e', rp.2)) ∈ lowWheelFarPrimeQ2DescendedTriples R :=
+      (mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor).2
+        ⟨hdata.1, hdata.2.1, hdata.2.2.1, hdata.2.2.2, he'⟩
+    have hz :
+        (rp.1, (e', rp.2)) ∈ stableFarRenewalCoordinateFiber R rp :=
+      Finset.mem_filter.mpr ⟨hdesc, rfl⟩
+    rw [heq] at hz
+    exact hz
+
+theorem stableFarRenewalCoordinateFiber_centeredMass
+    {R : ℕ} {rp : ℕ × ℕ}
+    (hrp : rp ∈ stableFarRenewalCoordinatePairs R) :
+    (∑ y ∈ stableFarRenewalCoordinateFiber R rp,
+      (1 - (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ)) *
+        canonicalMoebiusWeight y.2.1) =
+      stableFarCenteredReturnedFibre R rp.1 rp.2 := by
+  rw [stableFarRenewalCoordinateFiber_eq_cofactorImage hrp]
+  rw [Finset.sum_image]
+  · unfold stableFarCenteredReturnedFibre
+    apply Finset.sum_congr rfl
+    intro e he
+    have hdata := stableFarRenewalCoordinatePair_data hrp
+    have hdesc :
+        (rp.1, (e, rp.2)) ∈ lowWheelFarPrimeQ2DescendedTriples R :=
+      (mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor).2
+        ⟨hdata.1, hdata.2.1, hdata.2.2.1, hdata.2.2.2, he⟩
+    have hm :=
+      lowWheelFarPrimeQ2CrossingNextMultiplicity_eq_ownerSet_card hdesc
+    rw [hm]
+    rfl
+  · intro a _ha b _hb hab
+    exact congrArg (fun y : ℕ × (ℕ × ℕ) => y.2.1) hab
+
+/-- **Global production Fubini.**  The repo's actual centered q² tower is the
+sum of the exact returned fibres that the weighted dyadic theorem compresses. -/
+theorem farFourQ2CenteredTower_eq_sum_stableFarCenteredReturnedFibre
+    (R : ℕ) :
+    farFourQ2CenteredTower R =
+      ∑ rp ∈ stableFarRenewalCoordinatePairs R,
+        stableFarCenteredReturnedFibre R rp.1 rp.2 := by
+  let S := lowWheelFarPrimeQ2DescendedTriples R
+  let T := stableFarRenewalCoordinatePairs R
+  let g : ℕ × (ℕ × ℕ) → ℕ × ℕ := fun y => (y.1, y.2.2)
+  let f : ℕ × (ℕ × ℕ) → ℂ := fun y =>
+    (1 - (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ)) *
+      canonicalMoebiusWeight y.2.1
+  have hmaps : ∀ y ∈ S, g y ∈ T := by
+    intro y hy
+    exact Finset.mem_image.mpr ⟨y, hy, rfl⟩
+  have hfiber := Finset.sum_fiberwise_of_maps_to
+    (s := S) (t := T) (g := g) hmaps f
+  have hraw :
+      (∑ y ∈ S, f y) =
+        ∑ rp ∈ T, ∑ y ∈ S with g y = rp, f y := hfiber.symm
+  unfold farFourQ2CenteredTower
+  change (∑ y ∈ S, f y) =
+    ∑ rp ∈ T, stableFarCenteredReturnedFibre R rp.1 rp.2
+  rw [hraw]
+  apply Finset.sum_congr rfl
+  intro rp hrp
+  change
+    (∑ y ∈ stableFarRenewalCoordinateFiber R rp,
+      (1 - (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ)) *
+        canonicalMoebiusWeight y.2.1) =
+      stableFarCenteredReturnedFibre R rp.1 rp.2
+  exact stableFarRenewalCoordinateFiber_centeredMass hrp
+
+
 end RHLean.Proof
