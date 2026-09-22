@@ -613,6 +613,7 @@ import RHLean.Proof.PrimeCombVisualizationDynamics
 import RHLean.Proof.PrimeCombVisualizationFrames
 import RHLean.Proof.PrimeCombVisualizationRecurrence
 import RHLean.Proof.PrimeCombWheelBoundary
+import RHLean.Proof.PrimeExtensionCanonicalScheduleBridge
 import RHLean.Proof.PrimeExtensionPhysicalResponse
 import RHLean.Proof.PrimeSievePostSqrtGap
 import RHLean.Proof.PrimeSieveSquareRootTransport
