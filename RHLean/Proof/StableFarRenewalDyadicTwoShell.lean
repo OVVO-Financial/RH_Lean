@@ -137,4 +137,46 @@ theorem renewalOwnerIndicatorDifference_ne_zero_imp_two_shells
       simp [hparent, hchild] at hne
   exact (crossingOuterOwnerSet_membership_mismatch_iff_two_shells).mp hmismatch
 
+
+theorem crossingOuterOwnerSet_card_difference_eq_indicator_sum
+    (R r e p : ℕ) :
+    ((lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (2 * e, p))).card : ℤ) -
+        ((lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (e, p))).card : ℤ) =
+      ∑ q ∈ primesUpTo (R - 1),
+        stableFarRenewalOwnerIndicatorDifference R q r e p := by
+  unfold lowWheelFarPrimeQ2CrossingOuterOwnerSet
+    stableFarRenewalOwnerIndicatorDifference
+  push_cast
+  rw [Finset.card_filter, Finset.card_filter]
+  simp only [Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro q hq
+  by_cases hchild :
+      r < q ∧
+        q * r * (2 * e) * p ≤ squareRootEndpoint R ∧
+        squareRootEndpoint R < q * q * r * (2 * e) * p
+  · by_cases hparent :
+        r < q ∧
+          q * r * e * p ≤ squareRootEndpoint R ∧
+          squareRootEndpoint R < q * q * r * e * p
+    · simp [hq, hchild, hparent]
+    · simp [hq, hchild, hparent]
+  · by_cases hparent :
+        r < q ∧
+          q * r * e * p ≤ squareRootEndpoint R ∧
+          squareRootEndpoint R < q * q * r * e * p
+    · simp [hq, hchild, hparent]
+    · simp [hq, hchild, hparent]
+
+theorem stableFarCenteredRenewalWeight_add_double_eq_ownerDifferenceSum
+    {R r e p : ℕ} (he : Odd e) :
+    stableFarCenteredRenewalWeight R r e p +
+        stableFarCenteredRenewalWeight R r (2 * e) p =
+      ((∑ q ∈ primesUpTo (R - 1),
+          stableFarRenewalOwnerIndicatorDifference R q r e p : ℤ) : ℂ) *
+        canonicalMoebiusWeight e := by
+  rw [stableFarCenteredRenewalWeight_add_double he]
+  rw [← crossingOuterOwnerSet_card_difference_eq_indicator_sum R r e p]
+  push_cast
+
 end RHLean.Proof
