@@ -1202,4 +1202,143 @@ theorem stableFarRenewalRoughBoundaryColumn_eq_q2DaughterFarRoughDyadicColumn
   simp [stableFarReturnedCofactorCutoff,
     Nat.div_div_eq_div_mul, Nat.mul_assoc]
 
+
+/-! ## Global returned-owner synthesis -/
+
+def stableFarRenewalCoordinateOwnerFiber
+    (R r : ℕ) : Finset (ℕ × ℕ) :=
+  (stableFarRenewalCoordinatePairs R).filter fun rp => rp.1 = r
+
+theorem stableFarRenewalCoordinateOwnerFiber_eq_highPrimeImage
+    {R r : ℕ} (hr : r.Prime) (hrR : r < R) :
+    stableFarRenewalCoordinateOwnerFiber R r =
+      (frozenPrimeUniverseHighPrimeSet (R + 7)
+        (squareRootEndpoint R / (r * r))).image (fun p => (r, p)) := by
+  ext rp
+  rcases rp with ⟨a, b⟩
+  constructor
+  · intro h
+    rcases Finset.mem_filter.mp h with ⟨hab, ha⟩
+    have hdata := (mem_stableFarRenewalCoordinatePairs_iff).1 hab
+    subst a
+    exact Finset.mem_image.mpr ⟨b, hdata.2.2, rfl⟩
+  · intro h
+    rcases Finset.mem_image.mp h with ⟨p, hp, heq⟩
+    have hpair :
+        (r, p) ∈ stableFarRenewalCoordinatePairs R :=
+      (mem_stableFarRenewalCoordinatePairs_iff).2 ⟨hr, hrR, hp⟩
+    have hmem :
+        (r, p) ∈ stableFarRenewalCoordinateOwnerFiber R r :=
+      Finset.mem_filter.mpr ⟨hpair, rfl⟩
+    simpa [heq] using hmem
+
+def stableFarRenewalOwnerDifferenceColumn (R r : ℕ) : ℂ :=
+  ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R + 7)
+      (squareRootEndpoint R / (r * r)),
+    stableFarRenewalOwnerDifferenceMass R r p
+      (stableFarReturnedCofactorCutoff R r p)
+
+/-- For one odd returned owner, the complete centered contribution is exactly
+one transported renewal-difference column plus the already formalized ChildFar
+rough dyadic column. -/
+theorem stableFarRenewalCoordinateOwnerFiber_centeredMass_eq_difference_add_childFar
+    {R r : ℕ} (hr : r.Prime) (hrR : r < R) (hrgt : 2 < r) :
+    (∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R r,
+        stableFarCenteredReturnedFibre R rp.1 rp.2) =
+      stableFarRenewalOwnerDifferenceColumn R r +
+        q2DaughterFarRoughDyadicColumn R r := by
+  rw [stableFarRenewalCoordinateOwnerFiber_eq_highPrimeImage hr hrR]
+  rw [Finset.sum_image]
+  · unfold stableFarRenewalOwnerDifferenceColumn
+    rw [← stableFarRenewalRoughBoundaryColumn_eq_q2DaughterFarRoughDyadicColumn
+      hr hrR]
+    unfold stableFarRenewalRoughBoundaryColumn
+    rw [stableFarRenewalFarPrimeSet_eq_highPrimeSet hr hrR]
+    rw [← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro p hp
+    have hpPrime := (mem_frozenPrimeUniverseHighPrimeSet.mp hp).1
+    simpa using
+      stableFarCenteredReturnedFibre_eq_fullDifference_add_roughBoundaryMass
+        hr hrgt hpPrime
+  · intro a _ha b _hb hab
+    exact congrArg Prod.snd hab
+
+/-- **Ownerwise normal form of the actual centered q² tower.**  The returned
+owner 2 is left explicit.  Every other returned owner is a prime above 2 and
+therefore has the exact difference-plus-ChildFar decomposition above. -/
+theorem farFourQ2CenteredTower_eq_ownerwise_difference_add_childFar
+    (R : ℕ) (hR : 2 ≤ R) :
+    farFourQ2CenteredTower R =
+      ∑ r ∈ primesUpTo (R - 1),
+        if r = 2 then
+          ∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R r,
+            stableFarCenteredReturnedFibre R rp.1 rp.2
+        else
+          stableFarRenewalOwnerDifferenceColumn R r +
+            q2DaughterFarRoughDyadicColumn R r := by
+  rw [farFourQ2CenteredTower_eq_sum_stableFarCenteredReturnedFibre]
+  let S := stableFarRenewalCoordinatePairs R
+  let T := primesUpTo (R - 1)
+  let g : ℕ × ℕ → ℕ := Prod.fst
+  let f : ℕ × ℕ → ℂ := fun rp =>
+    stableFarCenteredReturnedFibre R rp.1 rp.2
+  have hmaps : ∀ rp ∈ S, g rp ∈ T := by
+    intro rp hrp
+    have hdata := stableFarRenewalCoordinatePair_data hrp
+    exact mem_primesUpTo.mpr
+      ⟨hdata.1, Nat.le_pred_of_lt (by omega) hdata.2.1⟩
+  have hfiber := Finset.sum_fiberwise_of_maps_to
+    (s := S) (t := T) (g := g) hmaps f
+  have hraw :
+      (∑ rp ∈ S, f rp) =
+        ∑ r ∈ T, ∑ rp ∈ S with g rp = r, f rp := hfiber.symm
+  change (∑ rp ∈ S, f rp) = _
+  rw [hraw]
+  apply Finset.sum_congr rfl
+  intro r hrT
+  have hrData := mem_primesUpTo.mp hrT
+  have hrR : r < R := Nat.lt_of_le_pred (by omega) hrData.2
+  by_cases hr2 : r = 2
+  · subst r
+    rw [if_pos rfl]
+    rfl
+  · rw [if_neg hr2]
+    have hrgt : 2 < r := by
+      have hrle := hrData.1.two_le
+      omega
+    change
+      (∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R r,
+        stableFarCenteredReturnedFibre R rp.1 rp.2) =
+          stableFarRenewalOwnerDifferenceColumn R r +
+            q2DaughterFarRoughDyadicColumn R r
+    exact
+      stableFarRenewalCoordinateOwnerFiber_centeredMass_eq_difference_add_childFar
+        hrData.1 hrR hrgt
+
+/-- For stable-far scales the ownerwise normal form may be split literally into
+the owner-2 fibre and the odd-owner synthesis used by the existing FAR energy
+consumer. -/
+theorem farFourQ2CenteredTower_eq_ownerTwo_add_oddDifference_add_childFar
+    (R : ℕ) (hR : 56 ≤ R) :
+    farFourQ2CenteredTower R =
+      (∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R 2,
+        stableFarCenteredReturnedFibre R rp.1 rp.2) +
+      ∑ r ∈ (primesUpTo (R - 1)).erase 2,
+        (stableFarRenewalOwnerDifferenceColumn R r +
+          q2DaughterFarRoughDyadicColumn R r) := by
+  rw [farFourQ2CenteredTower_eq_ownerwise_difference_add_childFar R (by omega)]
+  have htwo : 2 ∈ primesUpTo (R - 1) :=
+    mem_primesUpTo.mpr ⟨Nat.prime_two, by omega⟩
+  have hsplit := Finset.sum_erase_add
+    (s := primesUpTo (R - 1))
+    (f := fun r =>
+      if r = 2 then
+        ∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R r,
+          stableFarCenteredReturnedFibre R rp.1 rp.2
+      else
+        stableFarRenewalOwnerDifferenceColumn R r +
+          q2DaughterFarRoughDyadicColumn R r) htwo
+  simpa [add_comm] using hsplit.symm
+
 end RHLean.Proof
