@@ -192,7 +192,8 @@ theorem no_eventual_linear_energy_of_nonzero_scaled_limit
       (D n * w n) ^ 2 - B * (X n * w n ^ 2) ≤ 0 := by
         rw [mul_pow]
         nlinarith [hmul]
-  have hpos : 0 < κ ^ 2 := sq_pos_of_ne_zero hκ
+  have hpos : 0 < κ ^ 2 := by
+    positivity
   exact (not_lt_of_ge hnonpos) hpos
 
 /-- Post-#787 boundary no-go.  Once the actual ChildFar column has a
