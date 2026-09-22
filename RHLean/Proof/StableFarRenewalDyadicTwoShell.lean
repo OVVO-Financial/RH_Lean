@@ -618,11 +618,7 @@ theorem stableFarRenewalTwoShellTransport_injOn
       hy hy' hqOld hrq hqOld' hrq'
       (by simpa [stableFarRenewalTwoShellTransport] using hab)
   rcases hlabels with ⟨hqq, hrr, hee, hpp⟩
-  subst q'
-  subst r'
-  subst e'
-  subst p'
-  rfl
+  exact Prod.ext hqq (Prod.ext hrr (Prod.ext hee hpp))
 
 def stableFarRenewalTwoShellImage (R : ℕ) : Finset ℕ :=
   (stableFarRenewalTwoShellCarrier R).image
