@@ -283,8 +283,11 @@ private theorem rough_weighted_sum_even_eq_sum_double
     have h2eB : 2 * e ≤ B := by
       have hmul := (Nat.le_div_iff_mul_le (by omega : 0 < 2)).1 heB
       simpa [Nat.mul_comm] using hmul
+    have hePos : 0 < e := by omega
+    have h2ePos : 0 < 2 * e :=
+      Nat.mul_pos (by norm_num) hePos
     exact mem_evenCofactorPrefix.mpr
-      ⟨by omega, h2eB, even_two_mul e⟩
+      ⟨Nat.succ_le_iff.mpr h2ePos, h2eB, even_two_mul e⟩
   · intro e1 _he1 e2 _he2 h
     change 2 * e1 = 2 * e2 at h
     omega
@@ -398,34 +401,8 @@ theorem squareRootLowPrimeGoSmoothCofactorWeightedMass_eq_dyadicPairs_add_bounda
     apply Finset.sum_congr rfl
     intro d _hd
     by_cases hrough : canonicalLargestPrimeFactor d < q <;> simp [hrough]
-  calc
-    ((∑ d ∈ dyadicCofactorBoundary B,
-          roughDyadicWeightedWeight q a d) +
-        ∑ d ∈ oddCofactorPrefix (B / 2),
-          roughDyadicWeightedWeight q a d) +
-      ∑ d ∈ oddCofactorPrefix (B / 2),
-        -(a (2 * d) * roughDyadicWeight q d)) =
-      (∑ d ∈ dyadicCofactorBoundary B,
-          roughDyadicWeightedWeight q a d) +
-        ((∑ d ∈ oddCofactorPrefix (B / 2),
-            roughDyadicWeightedWeight q a d) +
-          ∑ d ∈ oddCofactorPrefix (B / 2),
-            -(a (2 * d) * roughDyadicWeight q d)) := by ring
-    _ =
-      (∑ d ∈ dyadicCofactorBoundary B,
-          roughDyadicWeightedWeight q a d) +
-        (∑ d ∈ oddCofactorPrefix (B / 2),
-          if canonicalLargestPrimeFactor d < q then
-            (a d - a (2 * d)) * canonicalMoebiusWeight d else 0) := by
-      rw [hpair]
-    _ =
-      (∑ d ∈ oddCofactorPrefix (B / 2),
-          if canonicalLargestPrimeFactor d < q then
-            (a d - a (2 * d)) * canonicalMoebiusWeight d else 0) +
-        ∑ d ∈ roughDyadicCofactorBoundary q B,
-          a d * canonicalMoebiusWeight d := by
-      rw [hboundary]
-      ring
+  rw [add_assoc, hpair, hboundary]
+  ring
 
 /-- The frozen q-predecessor cube is exactly the q-rough Mobius prefix in
 complex currency.  This generic form lets the dyadic compression be applied at
