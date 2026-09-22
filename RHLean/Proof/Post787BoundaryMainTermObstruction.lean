@@ -193,9 +193,9 @@ theorem no_eventual_linear_energy_of_nonzero_scaled_limit
       (D n * w n) ^ 2 - B * (X n * w n ^ 2) ≤ 0 := by
         rw [mul_pow]
         nlinarith [hmul]
-  have hpos : 0 < κ ^ 2 := by
-    positivity
-  exact (not_lt_of_ge hnonpos) hpos
+  have hkzero : κ = 0 := by
+    nlinarith [sq_nonneg κ]
+  contradiction
 
 private theorem post787_log_sq_div_natCast_atTop :
     Tendsto
@@ -226,7 +226,12 @@ theorem post787EndpointScale_square_vanish :
       with R hX
   have hXne : (squareRootEndpoint R : ℝ) ≠ 0 := by
     positivity
-  unfold post787EndpointScale
+  change
+    (Real.log (squareRootEndpoint R : ℝ)) ^ 2 /
+        (squareRootEndpoint R : ℝ) =
+      (squareRootEndpoint R : ℝ) *
+        (Real.log (squareRootEndpoint R : ℝ) /
+          (squareRootEndpoint R : ℝ)) ^ 2
   field_simp [hXne]
   ring
 
