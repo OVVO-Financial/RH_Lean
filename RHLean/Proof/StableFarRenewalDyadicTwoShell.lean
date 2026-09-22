@@ -1804,4 +1804,174 @@ theorem stableFarRenewalLocalIndicatorMass_eq_globalCoordinateFiber
   · intro a _ha b _hb hab
     exact stableFarRenewalLocalToGlobal_injective rp.1 rp.2 hab
 
+
+/-! ## Global odd-owner renewal difference = oriented transported shell mass -/
+
+theorem stableFarRenewalCoordinateOwnerFiber_differenceMass_eq_column
+    {R r : ℕ} (hr : r.Prime) (hrR : r < R) :
+    (∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R r,
+        stableFarRenewalOwnerDifferenceMass R rp.1 rp.2
+          (stableFarReturnedCofactorCutoff R rp.1 rp.2)) =
+      stableFarRenewalOwnerDifferenceColumn R r := by
+  rw [stableFarRenewalCoordinateOwnerFiber_eq_highPrimeImage hr hrR]
+  rw [Finset.sum_image]
+  · rfl
+  · intro a _ha b _hb hab
+    exact congrArg Prod.snd hab
+
+def stableFarRenewalOddOwnerDifferenceTotal (R : ℕ) : ℂ :=
+  ∑ r ∈ (primesUpTo (R - 1)).erase 2,
+    stableFarRenewalOwnerDifferenceColumn R r
+
+theorem sum_oddRenewalCoordinateDifferenceMass_eq_ownerDifferenceTotal
+    (R : ℕ) :
+    (∑ rp ∈ stableFarRenewalOddCoordinatePairs R,
+        stableFarRenewalOwnerDifferenceMass R rp.1 rp.2
+          (stableFarReturnedCofactorCutoff R rp.1 rp.2)) =
+      stableFarRenewalOddOwnerDifferenceTotal R := by
+  let S := stableFarRenewalOddCoordinatePairs R
+  let T := (primesUpTo (R - 1)).erase 2
+  let g : ℕ × ℕ → ℕ := Prod.fst
+  let f : ℕ × ℕ → ℂ := fun rp =>
+    stableFarRenewalOwnerDifferenceMass R rp.1 rp.2
+      (stableFarReturnedCofactorCutoff R rp.1 rp.2)
+  have hmaps : ∀ rp ∈ S, g rp ∈ T := by
+    intro rp hrp
+    have hrpBase : rp ∈ stableFarRenewalCoordinatePairs R :=
+      (Finset.mem_filter.mp hrp).1
+    have hrne : rp.1 ≠ 2 := (Finset.mem_filter.mp hrp).2
+    have hdata := stableFarRenewalCoordinatePair_data hrpBase
+    exact Finset.mem_erase.mpr
+      ⟨hrne, mem_primesUpTo.mpr
+        ⟨hdata.1, Nat.le_pred_of_lt hdata.2.1⟩⟩
+  have hfiber := Finset.sum_fiberwise_of_maps_to
+    (s := S) (t := T) (g := g) hmaps f
+  have hraw :
+      (∑ rp ∈ S, f rp) =
+        ∑ r ∈ T, ∑ rp ∈ S with g rp = r, f rp := hfiber.symm
+  change (∑ rp ∈ S, f rp) = _
+  rw [hraw]
+  unfold stableFarRenewalOddOwnerDifferenceTotal
+  apply Finset.sum_congr rfl
+  intro r hrT
+  have hrMem := (Finset.mem_erase.mp hrT).2
+  have hrne : r ≠ 2 := (Finset.mem_erase.mp hrT).1
+  have hrData := mem_primesUpTo.mp hrMem
+  have hrR : r < R := Nat.lt_of_le_pred (by omega) hrData.2
+  have hset :
+      (S.filter fun rp => g rp = r) =
+        stableFarRenewalCoordinateOwnerFiber R r := by
+    ext rp
+    constructor
+    · intro hp
+      rcases Finset.mem_filter.mp hp with ⟨hpS, hpr⟩
+      have hpBase := (Finset.mem_filter.mp hpS).1
+      exact Finset.mem_filter.mpr ⟨hpBase, hpr⟩
+    · intro hp
+      rcases Finset.mem_filter.mp hp with ⟨hpBase, hpr⟩
+      have hpNe : rp.1 ≠ 2 := by
+        rw [hpr]
+        exact hrne
+      have hpS : rp ∈ S :=
+        Finset.mem_filter.mpr ⟨hpBase, hpNe⟩
+      exact Finset.mem_filter.mpr ⟨hpS, hpr⟩
+  rw [hset]
+  exact stableFarRenewalCoordinateOwnerFiber_differenceMass_eq_column
+    hrData.1 hrR
+
+def stableFarRenewalOddOwnerTwoShellIndicatorMass (R : ℕ) : ℂ :=
+  ∑ t ∈ stableFarRenewalOddOwnerTwoShellCarrier R,
+    ((stableFarRenewalOwnerIndicatorDifference
+        R t.1 t.2.1 t.2.2.1 t.2.2.2 : ℤ) : ℂ) *
+      canonicalMoebiusWeight t.2.2.1
+
+def stableFarRenewalOddOwnerTwoShellTransportMass (R : ℕ) : ℂ :=
+  ∑ t ∈ stableFarRenewalOddOwnerTwoShellCarrier R,
+    stableFarRenewalOrientedTransportWeight R t
+
+theorem stableFarRenewalOddOwnerTwoShellIndicatorMass_eq_transportMass
+    (R : ℕ) :
+    stableFarRenewalOddOwnerTwoShellIndicatorMass R =
+      stableFarRenewalOddOwnerTwoShellTransportMass R := by
+  unfold stableFarRenewalOddOwnerTwoShellIndicatorMass
+    stableFarRenewalOddOwnerTwoShellTransportMass
+  apply Finset.sum_congr rfl
+  intro t ht
+  have htOdd := (Finset.mem_filter.mp ht).1
+  have htFull := (Finset.mem_filter.mp htOdd).1
+  rcases stableFarRenewalTwoShellCarrier_data htFull with
+    ⟨_hq, hy, hshell⟩
+  rcases t with ⟨q, ⟨r, ⟨e, p⟩⟩⟩
+  by_cases hfirst : stableFarRenewalFirstCutShell R q r e p
+  · rw [firstCutShell_indicator_weight_eq_transportWeight hy hfirst]
+    simp [stableFarRenewalOrientedTransportWeight,
+      stableFarRenewalTwoShellTransport, hfirst]
+  · have hsecond : stableFarRenewalSecondCrossShell R q r e p :=
+      hshell.resolve_left hfirst
+    rw [secondCrossShell_indicator_weight_eq_neg_transportWeight hy hsecond]
+    simp [stableFarRenewalOrientedTransportWeight,
+      stableFarRenewalTwoShellTransport, hfirst]
+
+theorem stableFarRenewalOddOwnerTwoShellIndicatorMass_eq_sum_coordinateFibres
+    (R : ℕ) :
+    stableFarRenewalOddOwnerTwoShellIndicatorMass R =
+      ∑ rp ∈ stableFarRenewalOddCoordinatePairs R,
+        ∑ t ∈ stableFarRenewalOddOwnerTwoShellCoordinateFiber R rp,
+          ((stableFarRenewalOwnerIndicatorDifference
+              R t.1 t.2.1 t.2.2.1 t.2.2.2 : ℤ) : ℂ) *
+            canonicalMoebiusWeight t.2.2.1 := by
+  let S := stableFarRenewalOddOwnerTwoShellCarrier R
+  let T := stableFarRenewalOddCoordinatePairs R
+  let g : StableFarRenewalShellTag → ℕ × ℕ :=
+    fun t => (t.2.1, t.2.2.2)
+  let f : StableFarRenewalShellTag → ℂ := fun t =>
+    ((stableFarRenewalOwnerIndicatorDifference
+        R t.1 t.2.1 t.2.2.1 t.2.2.2 : ℤ) : ℂ) *
+      canonicalMoebiusWeight t.2.2.1
+  have hmaps : ∀ t ∈ S, g t ∈ T := by
+    intro t ht
+    have htOddOwner := (Finset.mem_filter.mp ht)
+    have htOdd := htOddOwner.1
+    have hrne := htOddOwner.2
+    have htFull := (Finset.mem_filter.mp htOdd).1
+    rcases stableFarRenewalTwoShellCarrier_data htFull with
+      ⟨_hq, hy, _hshell⟩
+    have hp :
+        (t.2.1, t.2.2.2) ∈ stableFarRenewalCoordinatePairs R :=
+      Finset.mem_image.mpr ⟨t.2, hy, rfl⟩
+    exact Finset.mem_filter.mpr ⟨hp, hrne⟩
+  have hfiber := Finset.sum_fiberwise_of_maps_to
+    (s := S) (t := T) (g := g) hmaps f
+  unfold stableFarRenewalOddOwnerTwoShellIndicatorMass
+  change (∑ t ∈ S, f t) = _
+  rw [hfiber.symm]
+  apply Finset.sum_congr rfl
+  intro rp _hrp
+  rfl
+
+/-- **Global renewal multiplicity collapse.**  The complete odd-owner
+cardinality-difference field is exactly the signed mass on the global
+multiplicity-one two-shell carrier. -/
+theorem stableFarRenewalOddOwnerDifferenceTotal_eq_twoShellIndicatorMass
+    (R : ℕ) :
+    stableFarRenewalOddOwnerDifferenceTotal R =
+      stableFarRenewalOddOwnerTwoShellIndicatorMass R := by
+  rw [← sum_oddRenewalCoordinateDifferenceMass_eq_ownerDifferenceTotal R,
+    stableFarRenewalOddOwnerTwoShellIndicatorMass_eq_sum_coordinateFibres R]
+  apply Finset.sum_congr rfl
+  intro rp hrp
+  rw [← stableFarRenewalLocalIndicatorMass_eq_globalCoordinateFiber hrp]
+  exact
+    stableFarRenewalOwnerDifferenceMass_eq_localTwoShellIndicatorMass
+      R rp.1 rp.2 (stableFarReturnedCofactorCutoff R rp.1 rp.2)
+
+/-- Hence the entire odd-owner renewal difference is a literal oriented,
+globally multiplicity-one transport on the canonical squarefree shell. -/
+theorem stableFarRenewalOddOwnerDifferenceTotal_eq_orientedTransportMass
+    (R : ℕ) :
+    stableFarRenewalOddOwnerDifferenceTotal R =
+      stableFarRenewalOddOwnerTwoShellTransportMass R := by
+  rw [stableFarRenewalOddOwnerDifferenceTotal_eq_twoShellIndicatorMass,
+    stableFarRenewalOddOwnerTwoShellIndicatorMass_eq_transportMass]
+
 end RHLean.Proof
