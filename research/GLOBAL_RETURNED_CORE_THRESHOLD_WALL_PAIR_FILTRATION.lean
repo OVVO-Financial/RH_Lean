@@ -226,4 +226,122 @@ theorem lowOwnerQ2ThresholdWallRevealedPairEnergy_empty_eq_childEnergy
   rw [lowOwnerThresholdWallRevealedPairEnergy_empty_eq_zeroTargetGram]
   exact lowOwnerQ2ThresholdWallZeroTargetGram_eq_childEnergy hp
 
+
+/-- Diagonal wall pairs, used to identify the fully revealed endpoint. -/
+def lowOwnerThresholdWallDiagonalPairCarrier
+    (p y : ℕ) : Finset (ℕ × ℕ) :=
+  (lowOwnerThresholdMertensCrossingCarrier p y).image (fun n => (n, n))
+
+/-- Every diagonal wall pair survives every revealed coordinate set. -/
+theorem lowOwnerThresholdWallDiagonalPairCarrier_subset_revealed
+    (p y : ℕ) (S : Finset ℕ) :
+    lowOwnerThresholdWallDiagonalPairCarrier p y ⊆
+      lowOwnerThresholdWallRevealedPairCarrier p y S := by
+  intro mn hmn
+  rcases Finset.mem_image.mp hmn with ⟨n, hn, rfl⟩
+  exact Finset.mem_filter.mpr
+    ⟨Finset.mem_product.mpr ⟨hn, hn⟩, rfl⟩
+
+/-- After all primes up to the wall cutoff have been revealed, every
+off-diagonal surviving pair has zero Mobius weight. -/
+theorem lowOwnerThresholdWall_fullReveal_offDiagonal_zero
+    {p y : ℕ} {mn : ℕ × ℕ}
+    (hmn : mn ∈
+      lowOwnerThresholdWallRevealedPairCarrier p y (primesUpTo y))
+    (hne : mn.1 ≠ mn.2) :
+    realMoebiusStep mn.1 * realMoebiusStep mn.2 = 0 := by
+  rcases mn with ⟨m, n⟩
+  by_contra hnon
+  have hm0 : realMoebiusStep m ≠ 0 := by
+    intro hm
+    exact hnon (by rw [hm, zero_mul])
+  have hn0 : realMoebiusStep n ≠ 0 := by
+    intro hn
+    exact hnon (by rw [hn, mul_zero])
+  have hmsq : Squarefree m := squarefree_of_realMoebiusStep_ne_zero hm0
+  have hnsq : Squarefree n := squarefree_of_realMoebiusStep_ne_zero hn0
+  rcases Finset.mem_filter.mp hmn with ⟨hprod, hsig⟩
+  rcases Finset.mem_product.mp hprod with ⟨hmWall, hnWall⟩
+  have hmIcc := (Finset.mem_filter.mp hmWall).1
+  have hnIcc := (Finset.mem_filter.mp hnWall).1
+  have hmLe : m ≤ y := (Finset.mem_Icc.mp hmIcc).2
+  have hnLe : n ≤ y := (Finset.mem_Icc.mp hnIcc).2
+  have hmSig :
+      lowOwnerRevealedPrimeSignature (primesUpTo y) m =
+        squarefreePrimeFace m := by
+    unfold lowOwnerRevealedPrimeSignature
+    exact Finset.inter_eq_left.mpr
+      (squarefreePrimeFace_subset_primesUpTo hmsq hmLe)
+  have hnSig :
+      lowOwnerRevealedPrimeSignature (primesUpTo y) n =
+        squarefreePrimeFace n := by
+    unfold lowOwnerRevealedPrimeSignature
+    exact Finset.inter_eq_left.mpr
+      (squarefreePrimeFace_subset_primesUpTo hnsq hnLe)
+  rw [hmSig, hnSig] at hsig
+  have hmnEq : m = n := by
+    calc
+      m = primeFaceProduct (squarefreePrimeFace m) :=
+        (primeFaceProduct_squarefreePrimeFace hmsq).symm
+      _ = primeFaceProduct (squarefreePrimeFace n) := by rw [hsig]
+      _ = n := primeFaceProduct_squarefreePrimeFace hnsq
+  exact hne hmnEq
+
+/-- Sum on the diagonal pair carrier is the literal squarefree diagonal. -/
+theorem sum_lowOwnerThresholdWallDiagonalPairCarrier_eq
+    (p y : ℕ) :
+    (∑ mn ∈ lowOwnerThresholdWallDiagonalPairCarrier p y,
+      realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      ∑ n ∈ lowOwnerThresholdMertensCrossingCarrier p y,
+        realMoebiusStep n ^ 2 := by
+  unfold lowOwnerThresholdWallDiagonalPairCarrier
+  rw [Finset.sum_image]
+  · apply Finset.sum_congr rfl
+    intro n _hn
+    ring
+  · intro a _ha b _hb hab
+    exact congrArg Prod.fst hab
+
+/-- **Fully revealed wall energy is exactly diagonal.**
+
+Thus every off-diagonal contribution of one threshold Mertens wall is exhausted
+by the fresh-prime crossing packets; no positive off-diagonal terminal remains. -/
+theorem lowOwnerThresholdWallRevealedPairEnergy_full_eq_diagonal
+    (p y : ℕ) :
+    lowOwnerThresholdWallRevealedPairEnergy p y (primesUpTo y) =
+      ∑ n ∈ lowOwnerThresholdMertensCrossingCarrier p y,
+        realMoebiusStep n ^ 2 := by
+  let D := lowOwnerThresholdWallDiagonalPairCarrier p y
+  let P := lowOwnerThresholdWallRevealedPairCarrier p y (primesUpTo y)
+  have hsub : D ⊆ P := by
+    exact lowOwnerThresholdWallDiagonalPairCarrier_subset_revealed
+      p y (primesUpTo y)
+  have hzero :
+      ∀ mn ∈ P, mn ∉ D →
+        realMoebiusStep mn.1 * realMoebiusStep mn.2 = 0 := by
+    intro mn hmn hnot
+    have hne : mn.1 ≠ mn.2 := by
+      intro heq
+      apply hnot
+      rcases mn with ⟨m, n⟩
+      dsimp only at heq ⊢
+      subst n
+      have hprod := (Finset.mem_filter.mp hmn).1
+      have hmWall := (Finset.mem_product.mp hprod).1
+      exact Finset.mem_image.mpr ⟨m, hmWall, rfl⟩
+    exact lowOwnerThresholdWall_fullReveal_offDiagonal_zero hmn hne
+  have hs :
+      (∑ mn ∈ D,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      ∑ mn ∈ P,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2 :=
+    Finset.sum_subset hsub hzero
+  unfold lowOwnerThresholdWallRevealedPairEnergy
+  change (∑ mn ∈ P,
+    realMoebiusStep mn.1 * realMoebiusStep mn.2) = _
+  rw [← hs]
+  simpa [D] using
+    sum_lowOwnerThresholdWallDiagonalPairCarrier_eq p y
+
+
 end RHLean.Proof
