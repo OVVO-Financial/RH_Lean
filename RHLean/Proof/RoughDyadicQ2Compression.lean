@@ -419,7 +419,7 @@ theorem roughDyadicQ2FarLift_unique
   have hqLe : q ≤ q' := by
     have hqDiv : q ∣ q' * q' * d' := by
       rw [← hcore]
-      simp
+      exact ⟨q * d, by ring⟩
     rcases hq.dvd_mul.mp hqDiv with hqq' | hqd'
     · rcases hq.dvd_mul.mp hqq' with hqq' | hqq'
       · exact Nat.le_of_dvd hq'.pos hqq'
@@ -434,7 +434,7 @@ theorem roughDyadicQ2FarLift_unique
   have hq'Le : q' ≤ q := by
     have hq'Div : q' ∣ q * q * d := by
       rw [hcore]
-      simp
+      exact ⟨q' * d', by ring⟩
     rcases hq'.dvd_mul.mp hq'Div with hqq | hq'd
     · rcases hq'.dvd_mul.mp hqq with hq'q | hq'q
       · exact Nat.le_of_dvd hq.pos hq'q
