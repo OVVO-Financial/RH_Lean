@@ -346,6 +346,79 @@ theorem lowOwnerThresholdWallRevealedPairEnergy_full_eq_diagonal
 
 
 
+/-! ## Single-cutoff signed descent -/
+
+/-- Pair mass of one *single* p-threshold incidence at cutoff `y`.
+This is the q^2-resolved version of `lowOwnerThresholdIncidencePairMass`:
+no reciprocal q-sum and no root threshold have yet been assembled. -/
+def lowOwnerSingleThresholdIncidencePairMass
+    (p y : ℕ) (mn : ℕ × ℕ) : ℝ :=
+  postRootZeroTargetPairExcess mn *
+    lowOwnerThresholdCrossingIndicator p mn.1 y *
+    lowOwnerThresholdCrossingIndicator p mn.2 y
+
+/-- On two sites of the literal p-threshold wall, the single-threshold
+incidence pair mass is just their signed Mobius pair weight. -/
+theorem lowOwnerSingleThresholdIncidencePairMass_eq_wallPairWeight
+    {p y m n : ℕ}
+    (hm : m ∈ lowOwnerThresholdMertensCrossingCarrier p y)
+    (hn : n ∈ lowOwnerThresholdMertensCrossingCarrier p y) :
+    lowOwnerSingleThresholdIncidencePairMass p y (m, n) =
+      realMoebiusStep m * realMoebiusStep n := by
+  have hmData := (Finset.mem_filter.mp hm).2
+  have hnData := (Finset.mem_filter.mp hn).2
+  have hmLe := (Finset.mem_Icc.mp (Finset.mem_filter.mp hm).1).2
+  have hnLe := (Finset.mem_Icc.mp (Finset.mem_filter.mp hn).1).2
+  have hmCross :
+      lowOwnerThresholdCrossingIndicator p m y = 1 :=
+    lowOwnerThresholdCrossingIndicator_eq_one_iff.mpr
+      ⟨hmLe, hmData.2⟩
+  have hnCross :
+      lowOwnerThresholdCrossingIndicator p n y = 1 :=
+    lowOwnerThresholdCrossingIndicator_eq_one_iff.mpr
+      ⟨hnLe, hnData.2⟩
+  unfold lowOwnerSingleThresholdIncidencePairMass
+  rw [postRootZeroTargetPairExcess_eq_weight, hmCross, hnCross]
+  ring
+
+/-- **Single-cutoff signed descent, owner inserted on the left.**
+
+A fresh r-child pair plus its stripped parent pair is exactly the one-coordinate
+clipped residual at the same cutoff.  This is the pointwise identity behind the
+wall-energy drop and the raw-parent `completed - continuation` normal form. -/
+theorem lowOwnerSingleThresholdIncidencePairMass_mul_left_add_parent_eq_clipped
+    {p r a b y : ℕ}
+    (hp : 1 ≤ p) (hr : r.Prime) (hra : ¬ r ∣ a) :
+    lowOwnerSingleThresholdIncidencePairMass p y (r * a, b) +
+        lowOwnerSingleThresholdIncidencePairMass p y (a, b) =
+      postRootZeroTargetPairExcess (a, b) *
+        lowOwnerThresholdClippedDifference p r a y *
+        lowOwnerThresholdCrossingIndicator p b y := by
+  unfold lowOwnerSingleThresholdIncidencePairMass
+  simp only [postRootZeroTargetPairExcess_eq_weight]
+  rw [realMoebiusStep_mul_prime_eq_neg hr hra]
+  unfold lowOwnerThresholdClippedDifference
+  rw [← lowOwnerThresholdCrossing_secondIncidence_comm hp hr.one_le]
+  ring
+
+/-- Symmetric single-cutoff signed descent when the fresh r-child lies in the
+right coordinate. -/
+theorem lowOwnerSingleThresholdIncidencePairMass_mul_right_add_parent_eq_clipped
+    {p r a b y : ℕ}
+    (hp : 1 ≤ p) (hr : r.Prime) (hrb : ¬ r ∣ b) :
+    lowOwnerSingleThresholdIncidencePairMass p y (a, r * b) +
+        lowOwnerSingleThresholdIncidencePairMass p y (a, b) =
+      postRootZeroTargetPairExcess (a, b) *
+        lowOwnerThresholdCrossingIndicator p a y *
+        lowOwnerThresholdClippedDifference p r b y := by
+  unfold lowOwnerSingleThresholdIncidencePairMass
+  simp only [postRootZeroTargetPairExcess_eq_weight]
+  rw [realMoebiusStep_mul_prime_eq_neg hr hrb]
+  unfold lowOwnerThresholdClippedDifference
+  rw [← lowOwnerThresholdCrossing_secondIncidence_comm hp hr.one_le]
+  ring
+
+
 /-! ## Exact embedding into the global revealed-pair carrier -/
 
 /-- The global revealed crossing packet restricted to the two threshold-wall
