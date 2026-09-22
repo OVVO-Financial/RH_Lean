@@ -195,7 +195,7 @@ theorem renewalTransportSite_weight_eq_neg_returned
     simpa [Nat.mul_comm] using h
   have hlpf_re : canonicalLargestPrimeFactor (r * e) = r := by
     simpa [Nat.mul_comm] using
-      canonicalLargestPrimeFactor_mul_prime_eq_of_rough hre1 hrPrime her
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough he1 hrPrime her
   have hreq : canonicalLargestPrimeFactor (r * e) < q := by
     rw [hlpf_re]
     exact hrq
@@ -356,7 +356,9 @@ theorem crossingOuterOwnerSet_membership_mismatch_iff_named_shells
         q ∈ lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (2 * e, p))) ↔
       (stableFarRenewalFirstCutShell R q r e p ∨
         stableFarRenewalSecondCrossShell R q r e p) := by
-  exact crossingOuterOwnerSet_membership_mismatch_iff_two_shells
+  simpa [stableFarRenewalFirstCutShell, stableFarRenewalSecondCrossShell] using
+    (crossingOuterOwnerSet_membership_mismatch_iff_two_shells
+      (R := R) (q := q) (r := r) (e := e) (p := p))
 
 def stableFarCenteredRenewalCoeff
     (R r e p : ℕ) : ℂ :=
