@@ -184,16 +184,16 @@ theorem no_eventual_linear_energy_of_nonzero_scaled_limit
         atTop (𝓝 (κ ^ 2)) := by
     simpa using hleft.sub hright
   have hnonpos : κ ^ 2 ≤ 0 := by
-    apply le_of_tendsto' hdiff
+    apply le_of_tendsto hdiff
     filter_upwards [hbound] with n hn
     have hw : 0 ≤ w n ^ 2 := sq_nonneg (w n)
     have hmul := mul_le_mul_of_nonneg_right hn hw
     calc
       (D n * w n) ^ 2 - B * (X n * w n ^ 2) ≤ 0 := by
         rw [mul_pow]
-        nlinarith
+        nlinarith [hmul]
   have hpos : 0 < κ ^ 2 := sq_pos_of_ne_zero hκ
-  linarith
+  exact (not_lt_of_ge hnonpos) hpos
 
 /-- Post-#787 boundary no-go.  Once the actual ChildFar column has a
 nonzero X/log X main term and the coupled interior cancels that main term, the
