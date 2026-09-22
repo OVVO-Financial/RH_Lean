@@ -356,9 +356,19 @@ theorem crossingOuterOwnerSet_membership_mismatch_iff_named_shells
         q ∈ lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (2 * e, p))) ↔
       (stableFarRenewalFirstCutShell R q r e p ∨
         stableFarRenewalSecondCrossShell R q r e p) := by
-  simpa [stableFarRenewalFirstCutShell, stableFarRenewalSecondCrossShell] using
-    (crossingOuterOwnerSet_membership_mismatch_iff_two_shells
-      (R := R) (q := q) (r := r) (e := e) (p := p))
+  constructor
+  · intro h
+    have hs :=
+      (crossingOuterOwnerSet_membership_mismatch_iff_two_shells
+        (R := R) (q := q) (r := r) (e := e) (p := p)).mp h
+    unfold stableFarRenewalFirstCutShell stableFarRenewalSecondCrossShell
+    tauto
+  · intro h
+    apply
+      (crossingOuterOwnerSet_membership_mismatch_iff_two_shells
+        (R := R) (q := q) (r := r) (e := e) (p := p)).mpr
+    unfold stableFarRenewalFirstCutShell stableFarRenewalSecondCrossShell at h
+    tauto
 
 def stableFarCenteredRenewalCoeff
     (R r e p : ℕ) : ℂ :=
