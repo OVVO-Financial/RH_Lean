@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Proof.RoughDyadicQ2Compression
 import RHLean.Proof.StableFarWallCrossingOwnerWindow
+import RHLean.Proof.StableFarAdaptiveLedgerCollapse
 import RHLean.Proof.StableFarWallSignedReassembly
 import RHLean.Proof.ComplexVerticalLineSquarefreeDiagonal
 import RHLean.Proof.SurvivorDyadicStaticCancellation
@@ -1415,5 +1416,60 @@ theorem lowWheelFrozenTopFarResidual_eq_neg_ownerTwo_sub_oddDifferenceChildFar_s
     farFourQ2CenteredTower_eq_ownerTwo_add_oddDifference_add_childFarSlices
       R hR]
   ring
+
+
+/-! ## Canonical rough-correlation splice -/
+
+def stableFarRenewalDyadicPhysicalCensus (R : ℕ) : ℂ :=
+  -(∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R 2,
+      stableFarCenteredReturnedFibre R rp.1 rp.2) -
+    (∑ r ∈ (primesUpTo (R - 1)).erase 2,
+      (stableFarRenewalOwnerDifferenceColumn R r +
+        ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R r,
+          canonicalMoebiusWeight dp.1)) -
+    farFourTerminalRemainder R
+
+/-- The new dyadic census is not a surrogate: it is exactly the existing
+frozen/top/far residual. -/
+theorem stableFarRenewalDyadicPhysicalCensus_eq_frozenTopFarResidual
+    (R : ℕ) (hR : 56 ≤ R) :
+    stableFarRenewalDyadicPhysicalCensus R =
+      lowWheelFrozenTopFarResidual R := by
+  unfold stableFarRenewalDyadicPhysicalCensus
+  exact
+    (lowWheelFrozenTopFarResidual_eq_neg_ownerTwo_sub_oddDifferenceChildFar_sub_terminal
+      R hR).symm
+
+/-- The RH-critical canonical rough correlation differs from the fully
+reassembled dyadic physical census only by the already explicit root-scale
+correction. -/
+theorem squareRootCanonicalRoughCorrelation_eq_renewalDyadicCensus_sub_rootCorrection
+    (R : ℕ) (hR : 56 ≤ R) :
+    squareRootCanonicalRoughCorrelation R =
+      stableFarRenewalDyadicPhysicalCensus R -
+        frozenTopFarRoughRootCorrection R := by
+  have hcensus :=
+    stableFarRenewalDyadicPhysicalCensus_eq_frozenTopFarResidual R hR
+  have hfar :=
+    lowWheelFrozenTopFarResidual_eq_roughCorrelation_add_rootCorrection R hR
+  linear_combination hcensus - hfar
+
+/-- Quantitatively, changing from the canonical rough correlation to the new
+dyadic physical census costs at most the already-proved eight-root correction.
+No census packet is normed separately. -/
+theorem norm_squareRootCanonicalRoughCorrelation_sub_renewalDyadicCensus_le_eight_root
+    (R : ℕ) (hR : 56 ≤ R) :
+    ‖squareRootCanonicalRoughCorrelation R -
+        stableFarRenewalDyadicPhysicalCensus R‖ ≤
+      8 * (R : ℝ) := by
+  rw [squareRootCanonicalRoughCorrelation_eq_renewalDyadicCensus_sub_rootCorrection
+    R hR]
+  have hcancel :
+      stableFarRenewalDyadicPhysicalCensus R -
+          frozenTopFarRoughRootCorrection R -
+          stableFarRenewalDyadicPhysicalCensus R =
+        -frozenTopFarRoughRootCorrection R := by ring
+  rw [hcancel, norm_neg]
+  exact norm_frozenTopFarRoughRootCorrection_le_eight_root R hR
 
 end RHLean.Proof
