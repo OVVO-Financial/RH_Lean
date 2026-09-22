@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Analysis.FiniteWheelReciprocalMertensImprovement
 import RHLean.Proof.FarSurvivorRenewal_is_LowerMertens
 import RHLean.Proof.PrimeExtensionPhysicalResponse
+import RHLean.Proof.Post787BoundaryMainTermObstruction
 
 /-!
 # Canonical schedule bridge for the prime-extension telescope
@@ -471,6 +472,63 @@ theorem roughPrimeExtensionCanonicalPhysicalGammaSum_eq_q2Square_sub_diagonal
             (primeExtensionCanonicalAscendingSchedule R) := by
   rw [roughPrimeExtensionCanonicalPhysicalGammaSum_eq_covariance_reassembly R hR,
     primeExtensionCanonicalMertensCrossCovariance_eq R hR]
+
+
+
+/-! ## Direct #789 / #788 coordinate equivalence -/
+
+/-- The predecessor square-prefix endpoint is the native `R^2-1` endpoint. -/
+private theorem squarePrefixEndpoint_pred_eq_squareRootEndpoint
+    (R : ℕ) (hR : 1 ≤ R) :
+    squarePrefixEndpoint (R - 1) = squareRootEndpoint R := by
+  unfold squarePrefixEndpoint squareRootEndpoint
+  rw [Nat.sub_add_cancel hR]
+
+/-- **#789 and #788 are the same complete energy telescope.**
+
+On the canonical complete prime-extension chain, the terminal wheel contributes
+the unit energy.  The diagonal q² daughter energy plus the full signed #789
+Gamma response is therefore exactly the square of #788's already assembled
+physical interior plus its genuine root boundary.
+
+No norm, inequality, asymptotic estimate, or positivity statement enters this
+identity. -/
+theorem primeExtensionCanonicalEnergy_eq_post787CoupledPhysicalSquare
+    (R : ℕ) (hR : 56 ≤ R) :
+    (1 : ℂ) +
+        (primeExtensionMertensSquareSum (squareRootEndpoint R)
+          (primeExtensionCanonicalAscendingSchedule R) : ℂ) +
+        (roughPrimeExtensionPhysicalGammaSum 1 (squareRootEndpoint R)
+          (primeExtensionCanonicalAscendingSchedule R) : ℂ) =
+      (post787CoupledInterior R + finalCompensatedRootBoundary R) ^ 2 := by
+  have hchain :=
+    primeExtensionCanonicalAscendingSchedule_admissible R
+  have henergy :=
+    roughMertens_sq_primeExtensionChain_physical
+      (W := 1) (x := squareRootEndpoint R)
+      (ps := primeExtensionCanonicalAscendingSchedule R) hchain
+  rw [roughMertens_one_eq_mertensSummatoryInt,
+    roughMertens_primeExtensionCanonicalTerminal_eq_one R (by omega)]
+      at henergy
+  have henergyCast := congrArg (fun z : ℤ => (z : ℂ)) henergy
+  push_cast at henergyCast
+  simp only [mertensSummatoryInt_cast] at henergyCast
+  have h788 :=
+    squarePrefixMertens_eq_post787CoupledInterior_add_rootBoundary R hR
+  have hend :=
+    squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)
+  unfold squarePrefixMertens at h788
+  rw [hend] at h788
+  calc
+    (1 : ℂ) +
+          (primeExtensionMertensSquareSum (squareRootEndpoint R)
+            (primeExtensionCanonicalAscendingSchedule R) : ℂ) +
+          (roughPrimeExtensionPhysicalGammaSum 1 (squareRootEndpoint R)
+            (primeExtensionCanonicalAscendingSchedule R) : ℂ) =
+        mertensSummatory (squareRootEndpoint R) ^ 2 := by
+          linear_combination -henergyCast
+    _ = (post787CoupledInterior R + finalCompensatedRootBoundary R) ^ 2 := by
+          rw [h788]
 
 
 /-- The existing global Euler/q² bridge, now instantiated on the canonical
