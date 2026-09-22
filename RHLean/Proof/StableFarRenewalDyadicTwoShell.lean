@@ -1372,4 +1372,48 @@ theorem farFourQ2CenteredTower_eq_ownerTwo_add_oddDifference_add_childFar
           (stableFarRenewalOwnerDifferenceColumn R r +
             q2DaughterFarRoughDyadicColumn R r) := by ring
 
+
+/-! ## Literal ChildFar and final-residual splice -/
+
+theorem farFourQ2CenteredTower_eq_ownerTwo_add_oddDifference_add_childFarSlices
+    (R : ℕ) (hR : 56 ≤ R) :
+    farFourQ2CenteredTower R =
+      (∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R 2,
+        stableFarCenteredReturnedFibre R rp.1 rp.2) +
+      ∑ r ∈ (primesUpTo (R - 1)).erase 2,
+        (stableFarRenewalOwnerDifferenceColumn R r +
+          ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R r,
+            canonicalMoebiusWeight dp.1) := by
+  rw [farFourQ2CenteredTower_eq_ownerTwo_add_oddDifference_add_childFar R hR]
+  apply congrArg (fun z : ℂ =>
+    (∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R 2,
+      stableFarCenteredReturnedFibre R rp.1 rp.2) + z)
+  apply Finset.sum_congr rfl
+  intro r hr
+  have hrData := mem_primesUpTo.mp (Finset.mem_erase.mp hr).2
+  have hrne : r ≠ 2 := (Finset.mem_erase.mp hr).1
+  have hrgt : 2 < r := by
+    have hr2 := hrData.1.two_le
+    omega
+  rw [lowWheelFarPrimeQ2ChildFarSlice_mass_eq_roughDyadicColumn
+    hrData.1 hrgt]
+
+/-- The final frozen/top/far residual in the new autopsy coordinates.  No norm
+has been taken: the residual is exactly owner 2, the odd transported renewal
+difference, the literal odd ChildFar slices, and the existing terminal packet. -/
+theorem lowWheelFrozenTopFarResidual_eq_neg_ownerTwo_sub_oddDifferenceChildFar_sub_terminal
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowWheelFrozenTopFarResidual R =
+      -(∑ rp ∈ stableFarRenewalCoordinateOwnerFiber R 2,
+          stableFarCenteredReturnedFibre R rp.1 rp.2) -
+      (∑ r ∈ (primesUpTo (R - 1)).erase 2,
+        (stableFarRenewalOwnerDifferenceColumn R r +
+          ∑ dp ∈ lowWheelFarPrimeQ2ChildFarSlice R r,
+            canonicalMoebiusWeight dp.1)) -
+      farFourTerminalRemainder R := by
+  rw [lowWheelFrozenTopFarResidual_eq_neg_q2CenteredTower_sub_terminal R hR,
+    farFourQ2CenteredTower_eq_ownerTwo_add_oddDifference_add_childFarSlices
+      R hR]
+  ring
+
 end RHLean.Proof
