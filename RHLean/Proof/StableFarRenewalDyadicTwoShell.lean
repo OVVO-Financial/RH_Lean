@@ -1974,4 +1974,90 @@ theorem stableFarRenewalOddOwnerDifferenceTotal_eq_orientedTransportMass
   rw [stableFarRenewalOddOwnerDifferenceTotal_eq_twoShellIndicatorMass,
     stableFarRenewalOddOwnerTwoShellIndicatorMass_eq_transportMass]
 
+
+/-! ## Orientation defect: only first-cut atoms disagree with canonical charge -/
+
+def stableFarRenewalOddOwnerCanonicalPullbackCharge (R : ℕ) : ℂ :=
+  ∑ t ∈ stableFarRenewalOddOwnerTwoShellCarrier R,
+    -canonicalMoebiusWeight (stableFarRenewalTwoShellTransport t)
+
+def stableFarRenewalOddOwnerFirstCutMass (R : ℕ) : ℂ :=
+  ∑ t ∈ stableFarRenewalOddOwnerTwoShellCarrier R,
+    if stableFarRenewalFirstCutShell
+        R t.1 t.2.1 t.2.2.1 t.2.2.2 then
+      canonicalMoebiusWeight (stableFarRenewalTwoShellTransport t)
+    else 0
+
+/-- Second-cross atoms already carry the canonical defect orientation.  The
+entire sign discrepancy of the transported renewal field is twice the
+first-cut transported mass. -/
+theorem stableFarRenewalOddOwnerTransportMass_eq_canonicalCharge_add_two_firstCut
+    (R : ℕ) :
+    stableFarRenewalOddOwnerTwoShellTransportMass R =
+      stableFarRenewalOddOwnerCanonicalPullbackCharge R +
+        2 * stableFarRenewalOddOwnerFirstCutMass R := by
+  unfold stableFarRenewalOddOwnerTwoShellTransportMass
+    stableFarRenewalOddOwnerCanonicalPullbackCharge
+    stableFarRenewalOddOwnerFirstCutMass
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro t _ht
+  by_cases hfirst :
+      stableFarRenewalFirstCutShell
+        R t.1 t.2.1 t.2.2.1 t.2.2.2
+  · simp [stableFarRenewalOrientedTransportWeight, hfirst]
+    ring
+  · simp [stableFarRenewalOrientedTransportWeight, hfirst]
+
+def stableFarRenewalOddOwnerTwoShellImage (R : ℕ) : Finset ℕ :=
+  (stableFarRenewalOddOwnerTwoShellCarrier R).image
+    stableFarRenewalTwoShellTransport
+
+theorem stableFarRenewalOddOwnerTwoShellTransport_injOn
+    (R : ℕ) :
+    Set.InjOn stableFarRenewalTwoShellTransport
+      (stableFarRenewalOddOwnerTwoShellCarrier R :
+        Set StableFarRenewalShellTag) := by
+  intro a ha b hb hab
+  apply stableFarRenewalOddTwoShellTransport_injOn R
+  · exact Finset.mem_coe.mpr (Finset.mem_filter.mp (Finset.mem_coe.mp ha)).1
+  · exact Finset.mem_coe.mpr (Finset.mem_filter.mp (Finset.mem_coe.mp hb)).1
+  · exact hab
+
+theorem stableFarRenewalOddOwnerTwoShellImage_subset_squarefreeShell
+    {R : ℕ} (hR : 2 ≤ R) :
+    stableFarRenewalOddOwnerTwoShellImage R ⊆
+      orderedEulerCutSquarefreeShell R := by
+  intro n hn
+  rcases Finset.mem_image.mp hn with ⟨t, ht, rfl⟩
+  have htOdd := (Finset.mem_filter.mp ht).1
+  exact stableFarRenewalOddTwoShellImage_subset_squarefreeShell hR
+    (Finset.mem_image.mpr ⟨t, htOdd, rfl⟩)
+
+theorem stableFarRenewalOddOwnerCanonicalPullbackCharge_eq_imageCharge
+    (R : ℕ) :
+    stableFarRenewalOddOwnerCanonicalPullbackCharge R =
+      ∑ n ∈ stableFarRenewalOddOwnerTwoShellImage R,
+        -canonicalMoebiusWeight n := by
+  unfold stableFarRenewalOddOwnerCanonicalPullbackCharge
+    stableFarRenewalOddOwnerTwoShellImage
+  rw [Finset.sum_image]
+  · rfl
+  · intro a ha b hb hab
+    exact stableFarRenewalOddOwnerTwoShellTransport_injOn R
+      (Finset.mem_coe.mpr ha) (Finset.mem_coe.mpr hb) hab
+
+/-- The global odd-owner renewal difference is the canonical squarefree-shell
+charge on its injective renewal image, plus exactly twice the first-cut
+orientation defect. -/
+theorem stableFarRenewalOddOwnerDifferenceTotal_eq_imageCanonicalCharge_add_two_firstCut
+    (R : ℕ) :
+    stableFarRenewalOddOwnerDifferenceTotal R =
+      (∑ n ∈ stableFarRenewalOddOwnerTwoShellImage R,
+        -canonicalMoebiusWeight n) +
+      2 * stableFarRenewalOddOwnerFirstCutMass R := by
+  rw [stableFarRenewalOddOwnerDifferenceTotal_eq_orientedTransportMass,
+    stableFarRenewalOddOwnerTransportMass_eq_canonicalCharge_add_two_firstCut,
+    stableFarRenewalOddOwnerCanonicalPullbackCharge_eq_imageCharge]
+
 end RHLean.Proof
