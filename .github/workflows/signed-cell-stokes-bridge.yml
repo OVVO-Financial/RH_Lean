@@ -31,6 +31,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_CONDUCTOR_PACKET.lean
       - research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean
+      - research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean
       - research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
       - research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
       - .github/workflows/signed-cell-stokes-bridge.yml
@@ -193,6 +194,7 @@ jobs:
           emit research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
           emit research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean
           emit research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean
           emit research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
           emit research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
       - name: Stage physical-frame raw-parent dependency closure
