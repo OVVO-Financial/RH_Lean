@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Proof.RoughDyadicQ2Compression
 import RHLean.Proof.StableFarWallCrossingOwnerWindow
 import RHLean.Proof.StableFarWallSignedReassembly
 import RHLean.Proof.ComplexVerticalLineSquarefreeDiagonal
@@ -649,5 +650,80 @@ theorem stableFarRenewalTwoShellImage_card_eq_carrier
   unfold stableFarRenewalTwoShellImage
   exact Finset.card_image_iff.mpr
     (stableFarRenewalTwoShellTransport_injOn R)
+
+
+/-! ## Full returned-fibre dyadic reassembly -/
+
+def stableFarReturnedCofactorCutoff (R r p : ℕ) : ℕ :=
+  squareRootEndpoint R / (r * r * p)
+
+def stableFarCenteredReturnedFibre
+    (R r p : ℕ) : ℂ :=
+  ∑ e ∈ squareRootLowPrimeGoSmoothCofactors r
+      (stableFarReturnedCofactorCutoff R r p),
+    stableFarCenteredRenewalWeight R r e p
+
+/-- The whole centered returned fibre, not an isolated owner shell, pairs
+exactly under e -> 2e.  The baseline disappears from every interior pair; only
+the owner-window finite difference and the explicit q-rough top boundary
+remain. -/
+theorem stableFarCenteredReturnedFibre_eq_ownerDifference_add_boundary
+    {R r p : ℕ} (hr : r.Prime) (hrgt : 2 < r) :
+    stableFarCenteredReturnedFibre R r p =
+      (∑ d ∈ oddCofactorPrefix
+          (stableFarReturnedCofactorCutoff R r p / 2),
+        if canonicalLargestPrimeFactor d < r then
+          (((lowWheelFarPrimeQ2CrossingOuterOwnerSet
+              R (r, (2 * d, p))).card : ℂ) -
+            ((lowWheelFarPrimeQ2CrossingOuterOwnerSet
+              R (r, (d, p))).card : ℂ)) *
+            canonicalMoebiusWeight d
+        else 0) +
+      ∑ d ∈ roughDyadicCofactorBoundary r
+          (stableFarReturnedCofactorCutoff R r p),
+        stableFarCenteredRenewalWeight R r d p := by
+  unfold stableFarCenteredReturnedFibre
+  rw [squareRootLowPrimeGoSmoothCofactorWeightedMass_eq_dyadicPairs_add_boundary
+    hr hrgt (fun e => stableFarCenteredRenewalCoeff R r e p)]
+  congr 1
+  · apply Finset.sum_congr rfl
+    intro d _hd
+    by_cases hrough : canonicalLargestPrimeFactor d < r
+    · rw [if_pos hrough, if_pos hrough]
+      unfold stableFarCenteredRenewalCoeff
+      ring
+    · simp [hrough]
+  · apply Finset.sum_congr rfl
+    intro d _hd
+    rfl
+
+/-- Expanding the owner-cardinality difference by finite Fubini removes the
+last prime-count abstraction.  Every paired returned cofactor is now a signed
+sum of pointwise old-owner changes, before any absolute value. -/
+theorem stableFarCenteredReturnedFibre_eq_ownerIndicatorSum_add_boundary
+    {R r p : ℕ} (hr : r.Prime) (hrgt : 2 < r) :
+    stableFarCenteredReturnedFibre R r p =
+      (∑ d ∈ oddCofactorPrefix
+          (stableFarReturnedCofactorCutoff R r p / 2),
+        if canonicalLargestPrimeFactor d < r then
+          (((∑ q ∈ primesUpTo (R - 1),
+              stableFarRenewalOwnerIndicatorDifference R q r d p : ℤ) : ℂ) *
+            canonicalMoebiusWeight d)
+        else 0) +
+      ∑ d ∈ roughDyadicCofactorBoundary r
+          (stableFarReturnedCofactorCutoff R r p),
+        stableFarCenteredRenewalWeight R r d p := by
+  rw [stableFarCenteredReturnedFibre_eq_ownerDifference_add_boundary hr hrgt]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro d _hd
+  by_cases hrough : canonicalLargestPrimeFactor d < r
+  · rw [if_pos hrough, if_pos hrough]
+    have hcast := congrArg (fun z : ℤ => (z : ℂ))
+      (crossingOuterOwnerSet_card_difference_eq_indicator_sum R r d p)
+    push_cast at hcast
+    rw [hcast]
+  · simp [hrough]
+
 
 end RHLean.Proof
