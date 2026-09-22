@@ -188,5 +188,6 @@ theorem stableFarCenteredRenewalWeight_add_double_eq_ownerDifferenceSum
   push_cast at hcast
   rw [hcast]
   push_cast
+  rfl
 
 end RHLean.Proof
