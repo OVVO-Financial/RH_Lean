@@ -2,6 +2,7 @@ import Mathlib
 import «research.GLOBAL_RETURNED_CORE_POST755_AMPLITUDE_CLOSURE»
 import «research.GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION»
 import «research.GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE»
+import «research.GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE»
 import «research.LOW_OWNER_RETURNED_AMPLITUDE_CORE»
 
 /-!
@@ -178,6 +179,65 @@ def LowOwnerFinalStokesQ2EnergyBound (B C : ℝ) : Prop :=
     lowOwnerCanonicalSignedStokesFinalBoundary R ≤
       B * canonicalRoughLowQ2DaughterEnergy R +
         C * (R : ℝ) ^ 2 * K
+
+/-- Direct zero-target cross-Gram target.  Since FinalStokes is exactly twice
+the off-diagonal target-zero co-partial-minus-divergent excess, this is the
+diagonal-free quantitative surface on which first-separation owner descent
+should act. -/
+def LowOwnerZeroTargetCrossQ2EnergyBound (B C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    56 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    (zeroTargetCoPartialCross
+        (lowOwnerZeroFrequencyMobiusSite R)
+        (squareRootEndpoint R + 1) -
+      zeroTargetDivergentCross
+        (lowOwnerZeroFrequencyMobiusSite R)
+        (squareRootEndpoint R + 1)) ≤
+      B * canonicalRoughLowQ2DaughterEnergy R +
+        C * (R : ℝ) ^ 2 * K
+
+/-- **Exact coefficient dictionary for the zero-target attack.**
+
+A cross-Gram coefficient `B` is exactly a FinalStokes coefficient `2B`.
+No diagonal, root correction, owner norm, or support estimate enters. -/
+theorem zeroTargetCrossQ2EnergyBound_iff_finalStokesQ2EnergyBound
+    (B C : ℝ) :
+    LowOwnerZeroTargetCrossQ2EnergyBound B C ↔
+      LowOwnerFinalStokesQ2EnergyBound (2 * B) (2 * C) := by
+  constructor
+  · intro h R K hR hK
+    have hx := h R K hR hK
+    rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_two_zeroTargetCrossExcess
+      (R := R) (by omega : 2 ≤ R)]
+    nlinarith
+  · intro h R K hR hK
+    have hf := h R K hR hK
+    rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_two_zeroTargetCrossExcess
+      (R := R) (by omega : 2 ≤ R)] at hf
+    nlinarith
+
+/-- **Sharp direct zero-target kill target.**
+
+It is enough to prove the globally assembled off-diagonal zero-target excess
+with q^2 coefficient `7/8`.  Doubling gives FinalStokes coefficient `7/4`,
+which is already inside the compiled CORR-4/RH consumer. -/
+theorem riemannHypothesis_of_zeroTargetCrossSevenEighths
+    {C : ℝ} (hC : 0 ≤ C)
+    (hCross : LowOwnerZeroTargetCrossQ2EnergyBound (7 / 8) C) :
+    RiemannHypothesis := by
+  have hRaw :=
+    (zeroTargetCrossQ2EnergyBound_iff_finalStokesQ2EnergyBound
+      (7 / 8) C).mp hCross
+  have hFinal :
+      LowOwnerFinalStokesQ2EnergyBound (7 / 4) (2 * C) := by
+    convert hRaw using 1 <;> norm_num
+  have hC2 : 0 ≤ 2 * C := by positivity
+  exact
+    riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
+      (correlationFour_of_finalStokesQ2EnergyBound
+        (B := 7 / 4) (C := 2 * C)
+        (by norm_num) (by norm_num) hC2 hFinal)
 
 /-- **Returned-core 3/2 -> final-Stokes 7/4.**
 
