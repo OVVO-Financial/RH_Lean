@@ -231,6 +231,179 @@ theorem roughCofactorMobiusPrefixMass_eq_roughDyadicBoundaryMass
       unfold roughDyadicCofactorBoundary roughDyadicWeight
       rw [Finset.sum_filter]
 
+
+/-! ## Weighted q-rough dyadic compression -/
+
+private def roughDyadicWeightedWeight
+    (q : ℕ) (a : ℕ → ℂ) (d : ℕ) : ℂ :=
+  a d * roughDyadicWeight q d
+
+private theorem roughDyadicWeightedWeight_two_mul
+    (q d : ℕ) (a : ℕ → ℂ) (hq : q.Prime) (hqgt : 2 < q) :
+    roughDyadicWeightedWeight q a (2 * d) =
+      if Odd d then -(a (2 * d) * roughDyadicWeight q d) else 0 := by
+  unfold roughDyadicWeightedWeight
+  rw [roughDyadicWeight_two_mul q d hq hqgt]
+  by_cases hd : Odd d <;> simp [hd]
+
+private theorem rough_weighted_sum_Icc_eq_odd_add_even
+    (q B : ℕ) (a : ℕ → ℂ) :
+    (∑ d ∈ Finset.Icc 1 B, roughDyadicWeightedWeight q a d) =
+      (∑ d ∈ oddCofactorPrefix B, roughDyadicWeightedWeight q a d) +
+        ∑ d ∈ evenCofactorPrefix B, roughDyadicWeightedWeight q a d := by
+  calc
+    (∑ d ∈ Finset.Icc 1 B, roughDyadicWeightedWeight q a d) =
+        ∑ d ∈ Finset.Icc 1 B,
+          ((if Odd d then roughDyadicWeightedWeight q a d else 0) +
+            (if Even d then roughDyadicWeightedWeight q a d else 0)) := by
+      apply Finset.sum_congr rfl
+      intro d _hd
+      by_cases hodd : Odd d
+      · have hnotEven : ¬ Even d := Nat.not_even_iff_odd.mpr hodd
+        simp [hodd, hnotEven]
+      · have heven : Even d := Nat.not_odd_iff_even.mp hodd
+        simp [hodd, heven]
+    _ =
+        (∑ d ∈ oddCofactorPrefix B, roughDyadicWeightedWeight q a d) +
+          ∑ d ∈ evenCofactorPrefix B, roughDyadicWeightedWeight q a d := by
+      rw [Finset.sum_add_distrib]
+      unfold oddCofactorPrefix evenCofactorPrefix
+      rw [Finset.sum_filter, Finset.sum_filter]
+
+private theorem rough_weighted_sum_even_eq_sum_double
+    (q B : ℕ) (a : ℕ → ℂ) :
+    (∑ d ∈ evenCofactorPrefix B, roughDyadicWeightedWeight q a d) =
+      ∑ e ∈ Finset.Icc 1 (B / 2),
+        roughDyadicWeightedWeight q a (2 * e) := by
+  classical
+  symm
+  refine Finset.sum_bij (fun e _ => 2 * e) ?_ ?_ ?_ ?_
+  · intro e he
+    rcases Finset.mem_Icc.mp he with ⟨he1, heB⟩
+    have h2eB : 2 * e ≤ B := by
+      have hmul := (Nat.le_div_iff_mul_le (by omega : 0 < 2)).1 heB
+      simpa [Nat.mul_comm] using hmul
+    have hePos : 0 < e := by omega
+    have h2ePos : 0 < 2 * e :=
+      Nat.mul_pos (by norm_num) hePos
+    exact mem_evenCofactorPrefix.mpr
+      ⟨Nat.succ_le_iff.mpr h2ePos, h2eB, even_two_mul e⟩
+  · intro e1 _he1 e2 _he2 h
+    change 2 * e1 = 2 * e2 at h
+    omega
+  · intro d hd
+    rcases mem_evenCofactorPrefix.mp hd with ⟨hd1, hdB, hdeven⟩
+    have hdouble : 2 * (d / 2) = d := Nat.two_mul_div_two_of_even hdeven
+    refine ⟨d / 2, ?_, hdouble⟩
+    apply Finset.mem_Icc.mpr
+    constructor
+    · have hdne : d ≠ 0 := by omega
+      have hdgt : 1 < d := Nat.one_lt_of_ne_zero_of_even hdne hdeven
+      omega
+    · apply (Nat.le_div_iff_mul_le (by omega : 0 < 2)).2
+      have hmul : d / 2 * 2 = d := by
+        simpa [Nat.mul_comm] using hdouble
+      rw [hmul]
+      exact hdB
+  · intro e _he
+    rfl
+
+private theorem smooth_weighted_eq_masked
+    (q B : ℕ) (a : ℕ → ℂ) :
+    (∑ d ∈ squareRootLowPrimeGoSmoothCofactors q B,
+        a d * canonicalMoebiusWeight d) =
+      ∑ d ∈ Finset.Icc 1 B, roughDyadicWeightedWeight q a d := by
+  unfold squareRootLowPrimeGoSmoothCofactors
+    roughDyadicWeightedWeight roughDyadicWeight
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro d _hd
+  by_cases hsq : Squarefree d
+  · by_cases hrough : canonicalLargestPrimeFactor d < q
+    · simp [hsq, hrough]
+    · simp [hrough]
+  · have hmuZ : μ d = 0 :=
+      ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
+    have hmu : canonicalMoebiusWeight d = 0 := by
+      simp [canonicalMoebiusWeight, hmuZ]
+    simp [hsq, hmu]
+
+/-- **Weighted predecessor-wheel dyadic compression.**
+
+For every odd prime owner, an arbitrary coefficient field on the q-rough
+squarefree prefix can be paired before any norm.  Interior odd/even pairs retain
+only the coefficient difference `a(d)-a(2d)`; the sole unpaired population is
+the explicit q-rough top dyadic boundary. -/
+theorem squareRootLowPrimeGoSmoothCofactorWeightedMass_eq_dyadicPairs_add_boundary
+    {q B : ℕ} (hq : q.Prime) (hqgt : 2 < q) (a : ℕ → ℂ) :
+    (∑ d ∈ squareRootLowPrimeGoSmoothCofactors q B,
+        a d * canonicalMoebiusWeight d) =
+      (∑ d ∈ oddCofactorPrefix (B / 2),
+        if canonicalLargestPrimeFactor d < q then
+          (a d - a (2 * d)) * canonicalMoebiusWeight d else 0) +
+      ∑ d ∈ roughDyadicCofactorBoundary q B,
+        a d * canonicalMoebiusWeight d := by
+  rw [smooth_weighted_eq_masked q B a,
+    rough_weighted_sum_Icc_eq_odd_add_even q B a,
+    rough_weighted_sum_even_eq_sum_double q B a]
+  have heven :
+      (∑ d ∈ Finset.Icc 1 (B / 2),
+          roughDyadicWeightedWeight q a (2 * d)) =
+        ∑ d ∈ oddCofactorPrefix (B / 2),
+          -(a (2 * d) * roughDyadicWeight q d) := by
+    calc
+      (∑ d ∈ Finset.Icc 1 (B / 2),
+          roughDyadicWeightedWeight q a (2 * d)) =
+        ∑ d ∈ Finset.Icc 1 (B / 2),
+          if Odd d then -(a (2 * d) * roughDyadicWeight q d) else 0 := by
+            apply Finset.sum_congr rfl
+            intro d _hd
+            exact roughDyadicWeightedWeight_two_mul q d a hq hqgt
+      _ = ∑ d ∈ oddCofactorPrefix (B / 2),
+          -(a (2 * d) * roughDyadicWeight q d) := by
+            unfold oddCofactorPrefix
+            rw [Finset.sum_filter]
+  rw [heven]
+  have hsubset := oddCofactorPrefix_half_subset B
+  have hoddSplit :
+      (∑ d ∈ oddCofactorPrefix B, roughDyadicWeightedWeight q a d) =
+        (∑ d ∈ dyadicCofactorBoundary B,
+          roughDyadicWeightedWeight q a d) +
+        ∑ d ∈ oddCofactorPrefix (B / 2),
+          roughDyadicWeightedWeight q a d := by
+    unfold dyadicCofactorBoundary
+    exact (Finset.sum_sdiff hsubset).symm
+  rw [hoddSplit]
+  have hpair :
+      (∑ d ∈ oddCofactorPrefix (B / 2),
+          roughDyadicWeightedWeight q a d) +
+        (∑ d ∈ oddCofactorPrefix (B / 2),
+          -(a (2 * d) * roughDyadicWeight q d)) =
+        ∑ d ∈ oddCofactorPrefix (B / 2),
+          if canonicalLargestPrimeFactor d < q then
+            (a d - a (2 * d)) * canonicalMoebiusWeight d else 0 := by
+    rw [← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro d _hd
+    unfold roughDyadicWeightedWeight roughDyadicWeight
+    by_cases hrough : canonicalLargestPrimeFactor d < q
+    · simp [hrough]
+      ring
+    · simp [hrough]
+  have hboundary :
+      (∑ d ∈ dyadicCofactorBoundary B,
+          roughDyadicWeightedWeight q a d) =
+        ∑ d ∈ roughDyadicCofactorBoundary q B,
+          a d * canonicalMoebiusWeight d := by
+    unfold roughDyadicCofactorBoundary roughDyadicWeightedWeight
+      roughDyadicWeight
+    rw [Finset.sum_filter]
+    apply Finset.sum_congr rfl
+    intro d _hd
+    by_cases hrough : canonicalLargestPrimeFactor d < q <;> simp [hrough]
+  rw [add_assoc, hpair, hboundary]
+  ring
+
 /-- The frozen q-predecessor cube is exactly the q-rough Mobius prefix in
 complex currency.  This generic form lets the dyadic compression be applied at
 every reciprocal cutoff `Y/p` in ChildFar, not only at the whole q^2 daughter

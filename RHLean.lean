@@ -782,6 +782,7 @@ import RHLean.Proof.StableFarCoordinateOverlap
 import RHLean.Proof.StableFarOwnedSmoothShell
 import RHLean.Proof.StableFarOwnedSmoothShellCompletion
 import RHLean.Proof.StableFarPrimeWallTransport
+import RHLean.Proof.StableFarRenewalDyadicTwoShell
 import RHLean.Proof.StableFarWallAdaptiveFourCornerBridge
 import RHLean.Proof.StableFarWallCrossingOwnerWindow
 import RHLean.Proof.StableFarWallCrossingRenewal
