@@ -1048,7 +1048,6 @@ theorem stableFarCenteredReturnedFibre_eq_fullDifference_add_roughBoundaryMass
           stableFarRenewalOwnerDifferenceWeight R r p d := by
     unfold F roughDyadicCofactorBoundary
     rw [Finset.sum_filter]
-    rfl
   have hsubset := oddCofactorPrefix_half_subset B
   have hpartition :
       (∑ d ∈ dyadicCofactorBoundary B, F d) +
@@ -1058,6 +1057,7 @@ theorem stableFarCenteredReturnedFibre_eq_fullDifference_add_roughBoundaryMass
     exact Finset.sum_sdiff hsubset
   rw [hboundary] at hbase
   rw [← hdefectBoundary] at hbase
+  rw [← add_assoc] at hbase
   have hrecombine :
       (∑ d ∈ oddCofactorPrefix (B / 2), F d) +
           (∑ d ∈ dyadicCofactorBoundary B, F d) =
