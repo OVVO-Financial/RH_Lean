@@ -345,6 +345,94 @@ theorem lowOwnerThresholdWallRevealedPairEnergy_full_eq_diagonal
     sum_lowOwnerThresholdWallDiagonalPairCarrier_eq p y
 
 
+
+/-! ## Exact embedding into the global revealed-pair carrier -/
+
+/-- The global revealed crossing packet restricted to the two threshold-wall
+coordinates.  This is the carrier on which the wall chronology and the
+raw-parent/Stokes chronology can be compared literally. -/
+def lowOwnerThresholdWallGlobalRevealedCrossCarrier
+    (R p y : ℕ) (S : Finset ℕ) (r : ℕ) : Finset (ℕ × ℕ) :=
+  (lowOwnerRevealedCrossPairCarrier R S r).filter fun mn =>
+    mn.1 ∈ lowOwnerThresholdMertensCrossingCarrier p y ∧
+      mn.2 ∈ lowOwnerThresholdMertensCrossingCarrier p y
+
+/-- **Wall/global carrier Fubini.**
+
+When the wall cutoff lies on the physical root clock, the signed wall crossing
+mass is exactly the same sum on the global nonzero revealed-pair carrier,
+restricted only by wall membership.  Wall sites with zero Mobius weight are
+discarded exactly; no absolute value or estimate is used. -/
+theorem lowOwnerThresholdWallRevealedCrossPairMass_eq_globalRestricted
+    {R p y r : ℕ} {S : Finset ℕ}
+    (hy : y ≤ squareRootEndpoint R) :
+    lowOwnerThresholdWallRevealedCrossPairMass p y S r =
+      ∑ mn ∈ lowOwnerThresholdWallGlobalRevealedCrossCarrier R p y S r,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2 := by
+  let W := lowOwnerThresholdMertensCrossingCarrier p y
+  let A := lowOwnerThresholdWallRevealedCrossPairCarrier p y S r
+  let B := lowOwnerThresholdWallGlobalRevealedCrossCarrier R p y S r
+  have hsub : B ⊆ A := by
+    intro mn hmn
+    rcases Finset.mem_filter.mp hmn with ⟨hcross, hmWall, hnWall⟩
+    have hdata := (Finset.mem_filter.mp hcross).2
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_product.mpr ⟨hmWall, hnWall⟩, hdata⟩
+  have hzero :
+      ∀ mn ∈ A, mn ∉ B →
+        realMoebiusStep mn.1 * realMoebiusStep mn.2 = 0 := by
+    intro mn hmn hnot
+    by_contra hnon
+    have hm0 : realMoebiusStep mn.1 ≠ 0 := by
+      intro hm
+      exact hnon (by rw [hm, zero_mul])
+    have hn0 : realMoebiusStep mn.2 ≠ 0 := by
+      intro hn
+      exact hnon (by rw [hn, mul_zero])
+    rcases Finset.mem_filter.mp hmn with ⟨hprod, hdata⟩
+    rcases Finset.mem_product.mp hprod with ⟨hmWall, hnWall⟩
+    have hmIcc := (Finset.mem_filter.mp hmWall).1
+    have hnIcc := (Finset.mem_filter.mp hnWall).1
+    have hmCar : mn.1 ∈ lowOwnerNonzeroMobiusCarrier R := by
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_Icc.mpr
+          ⟨(Finset.mem_Icc.mp hmIcc).1,
+            (Finset.mem_Icc.mp hmIcc).2.trans hy⟩,
+          hm0⟩
+    have hnCar : mn.2 ∈ lowOwnerNonzeroMobiusCarrier R := by
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_Icc.mpr
+          ⟨(Finset.mem_Icc.mp hnIcc).1,
+            (Finset.mem_Icc.mp hnIcc).2.trans hy⟩,
+          hn0⟩
+    have hcross : mn ∈ lowOwnerRevealedCrossPairCarrier R S r :=
+      Finset.mem_filter.mpr
+        ⟨Finset.mem_product.mpr ⟨hmCar, hnCar⟩, hdata⟩
+    apply hnot
+    exact Finset.mem_filter.mpr ⟨hcross, hmWall, hnWall⟩
+  have hs :
+      (∑ mn ∈ B, realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+        ∑ mn ∈ A, realMoebiusStep mn.1 * realMoebiusStep mn.2 :=
+    Finset.sum_subset hsub hzero
+  unfold lowOwnerThresholdWallRevealedCrossPairMass
+  change
+    (∑ mn ∈ A, realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      ∑ mn ∈ B, realMoebiusStep mn.1 * realMoebiusStep mn.2
+  exact hs.symm
+
+/-- q^2 specialization of the exact wall/global crossing identification. -/
+theorem lowOwnerQ2ThresholdWallRevealedCrossPairMass_eq_globalRestricted
+    {R q p r : ℕ} {S : Finset ℕ} :
+    lowOwnerThresholdWallRevealedCrossPairMass p
+        (rawQ2ChildCutoff R q) S r =
+      ∑ mn ∈ lowOwnerThresholdWallGlobalRevealedCrossCarrier
+          R p (rawQ2ChildCutoff R q) S r,
+        realMoebiusStep mn.1 * realMoebiusStep mn.2 := by
+  apply lowOwnerThresholdWallRevealedCrossPairMass_eq_globalRestricted
+  unfold rawQ2ChildCutoff
+  exact Nat.div_le_self _ _
+
+
 /-! ## Descending chronology interface -/
 
 /-- The threshold-wall filtration can be run on the *same* descending revealed
