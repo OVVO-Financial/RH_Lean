@@ -988,4 +988,84 @@ theorem stableFarCenteredRenewalWeight_eq_difference_add_native_of_roughBoundary
   simp
   ring
 
+
+/-! ## Complete returned-fibre recombination -/
+
+def stableFarRenewalOwnerDifferenceWeight
+    (R r p d : ℕ) : ℂ :=
+  (((lowWheelFarPrimeQ2CrossingOuterOwnerSet
+      R (r, (2 * d, p))).card : ℂ) -
+    ((lowWheelFarPrimeQ2CrossingOuterOwnerSet
+      R (r, (d, p))).card : ℂ)) *
+    canonicalMoebiusWeight d
+
+def stableFarRenewalOwnerDifferenceMass
+    (R r p B : ℕ) : ℂ :=
+  ∑ d ∈ oddCofactorPrefix B,
+    if canonicalLargestPrimeFactor d < r then
+      stableFarRenewalOwnerDifferenceWeight R r p d
+    else 0
+
+/-- **Complete fibre normal form.**  After exact dyadic pairing, every renewal
+multiplicity is carried by one owner-window finite-difference field over the
+whole odd r-rough prefix.  The only unpaired term is the native, unweighted
+r-rough dyadic boundary mass already used by the q² ChildFar compression. -/
+theorem stableFarCenteredReturnedFibre_eq_fullDifference_add_roughBoundaryMass
+    {R r p : ℕ} (hr : r.Prime) (hrgt : 2 < r) (hp : p.Prime) :
+    stableFarCenteredReturnedFibre R r p =
+      stableFarRenewalOwnerDifferenceMass R r p
+        (stableFarReturnedCofactorCutoff R r p) +
+      roughDyadicCofactorBoundaryMass r
+        (stableFarReturnedCofactorCutoff R r p) := by
+  let B := stableFarReturnedCofactorCutoff R r p
+  let F : ℕ → ℂ := fun d =>
+    if canonicalLargestPrimeFactor d < r then
+      stableFarRenewalOwnerDifferenceWeight R r p d
+    else 0
+  have hbase :=
+    stableFarCenteredReturnedFibre_eq_ownerDifference_add_boundary
+      (R := R) (r := r) (p := p) hr hrgt
+  change stableFarCenteredReturnedFibre R r p =
+      (∑ d ∈ oddCofactorPrefix (B / 2), F d) +
+        ∑ d ∈ roughDyadicCofactorBoundary r B,
+          stableFarCenteredRenewalWeight R r d p at hbase
+  have hboundary :
+      (∑ d ∈ roughDyadicCofactorBoundary r B,
+          stableFarCenteredRenewalWeight R r d p) =
+        (∑ d ∈ roughDyadicCofactorBoundary r B,
+          stableFarRenewalOwnerDifferenceWeight R r p d) +
+        ∑ d ∈ roughDyadicCofactorBoundary r B,
+          canonicalMoebiusWeight d := by
+    rw [← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro d hd
+    exact
+      stableFarCenteredRenewalWeight_eq_difference_add_native_of_roughBoundary
+        hr hp hd
+  have hdefectBoundary :
+      (∑ d ∈ dyadicCofactorBoundary B, F d) =
+        ∑ d ∈ roughDyadicCofactorBoundary r B,
+          stableFarRenewalOwnerDifferenceWeight R r p d := by
+    unfold F roughDyadicCofactorBoundary
+    rw [Finset.sum_filter]
+    rfl
+  have hsubset := oddCofactorPrefix_half_subset B
+  have hpartition :
+      (∑ d ∈ dyadicCofactorBoundary B, F d) +
+        ∑ d ∈ oddCofactorPrefix (B / 2), F d =
+      ∑ d ∈ oddCofactorPrefix B, F d := by
+    unfold dyadicCofactorBoundary
+    exact Finset.sum_sdiff hsubset
+  rw [hboundary] at hbase
+  rw [← hdefectBoundary] at hbase
+  have hrecombine :
+      (∑ d ∈ oddCofactorPrefix (B / 2), F d) +
+          (∑ d ∈ dyadicCofactorBoundary B, F d) =
+        ∑ d ∈ oddCofactorPrefix B, F d := by
+    rw [add_comm]
+    exact hpartition
+  rw [hrecombine] at hbase
+  simpa [stableFarRenewalOwnerDifferenceMass,
+    roughDyadicCofactorBoundaryMass, B, F] using hbase
+
 end RHLean.Proof
