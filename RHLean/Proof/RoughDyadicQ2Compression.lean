@@ -153,8 +153,10 @@ private theorem rough_sum_even_eq_sum_double
     have h2eB : 2 * e ≤ B := by
       have hmul := (Nat.le_div_iff_mul_le (by omega : 0 < 2)).1 heB
       simpa [Nat.mul_comm] using hmul
+    have hePos : 0 < e := by omega
+    have h2ePos : 0 < 2 * e := Nat.mul_pos (by norm_num) hePos
     exact mem_evenCofactorPrefix.mpr
-      ⟨by omega, h2eB, even_two_mul e⟩
+      ⟨h2ePos, h2eB, even_two_mul e⟩
   · intro e1 _he1 e2 _he2 h
     change 2 * e1 = 2 * e2 at h
     omega
