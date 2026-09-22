@@ -187,5 +187,6 @@ theorem stableFarCenteredRenewalWeight_add_double_eq_ownerDifferenceSum
     (crossingOuterOwnerSet_card_difference_eq_indicator_sum R r e p)
   push_cast at hcast
   rw [hcast]
+  push_cast
 
 end RHLean.Proof
