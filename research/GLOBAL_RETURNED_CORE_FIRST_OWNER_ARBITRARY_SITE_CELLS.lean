@@ -124,10 +124,6 @@ theorem lowOwnerGlobalFirstOwnerPDivFirstFiber_eq_swapImage
       exact hdata.2.1 hdata.2.2
     have howner :
         IsSquarefreePairFreshPrimeOwner p b a := by
-      have hownerAB :=
-        (isSquarefreePairFreshPrimeOwner_iff_sameLowerSignature_dvdXor
-          hp ha hb (Ne.symm hne)).2
-          ⟨hdata.1, Or.inr ⟨hdata.2.2, hdata.2.1⟩⟩
       have hsig :=
         (isSquarefreePairFreshPrimeOwner_iff_sameLowerSignature_dvdXor
           hp hb ha hne)
