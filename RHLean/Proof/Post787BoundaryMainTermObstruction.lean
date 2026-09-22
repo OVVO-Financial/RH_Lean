@@ -172,7 +172,7 @@ theorem no_eventual_linear_energy_of_nonzero_scaled_limit
     (hvanish : Tendsto (fun n => X n * (w n) ^ 2) atTop (𝓝 0)) :
     ¬ (∃ B : ℝ, 0 ≤ B ∧
       (∀ᶠ n : ℕ in atTop, D n ^ 2 ≤ B * X n)) := by
-  rintro ⟨B, hB, hbound⟩
+  rintro ⟨B, _hB, hbound⟩
   have hleft :
       Tendsto (fun n => (D n * w n) ^ 2) atTop (𝓝 (κ ^ 2)) :=
     hscaled.pow 2
@@ -189,13 +189,11 @@ theorem no_eventual_linear_energy_of_nonzero_scaled_limit
     filter_upwards [hbound] with n hn
     have hw : 0 ≤ w n ^ 2 := sq_nonneg (w n)
     have hmul := mul_le_mul_of_nonneg_right hn hw
-    calc
-      (D n * w n) ^ 2 - B * (X n * w n ^ 2) ≤ 0 := by
-        rw [mul_pow]
-        nlinarith [hmul]
+    rw [mul_pow]
+    nlinarith [hmul]
   have hkzero : κ = 0 := by
     nlinarith [sq_nonneg κ]
-  contradiction
+  exact hκ hkzero
 
 private theorem post787_log_sq_div_natCast_atTop :
     Tendsto
@@ -233,7 +231,6 @@ theorem post787EndpointScale_square_vanish :
         (Real.log (squareRootEndpoint R : ℝ) /
           (squareRootEndpoint R : ℝ)) ^ 2
   field_simp [hXne]
-  ring
 
 /-- Post-#787 boundary no-go.  Once the actual ChildFar column has a
 nonzero X/log X main term and the coupled interior cancels that main term, the
