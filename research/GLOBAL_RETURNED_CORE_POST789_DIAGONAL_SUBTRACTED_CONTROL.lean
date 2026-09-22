@@ -654,4 +654,63 @@ theorem riemannHypothesis_of_post789QuarterCancellation
   riemannHypothesis_of_finalStokesBoundaryBound hC
     (finalStokesBoundaryBound_of_post789QuarterCancellation hRem)
 
+
+/-! ## Exact reciprocal-wall comparison target -/
+
+/-- A direct comparison from the full signed-cell/Stokes ledger to the exact
+oriented reciprocal q^2 wall cell Gram.  The exposing wall owner is fixed to
+the prime 2; the assembled wall amplitude is independent of that choice, while
+this choice makes the quantitative target canonical.
+
+No estimate is asserted here: this is the remaining carrier comparison in the
+same raw-parent (p,sig) coordinate. -/
+def LowOwnerSignedCellToReciprocalWallCellBound (L C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    56 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    (∑ p ∈ primesUpTo (squareRootEndpoint R),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        lowOwnerFirstOwnerSignedCellTelescope R p sig) ≤
+      L * (∑ p ∈ primesUpTo (squareRootEndpoint R),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          lowOwnerFirstOwnerCellGramWith R p sig
+            (lowOwnerReciprocalThresholdWallSignedSite R 2)) +
+      C * (R : ℝ) ^ 2 * K
+
+/-- **Factor-14 closure criterion.**
+
+The exact oriented reciprocal-wall cell Gram costs at most one eighth of the
+recursive q^2 daughter energy.  Hence any nonnegative carrier-comparison loss
+L <= 14 gives a FinalStokes coefficient L/8 <= 7/4, exactly inside the compiled
+CORR-4/RH consumer.
+
+This makes the remaining quantitative problem explicit: prove the signed
+Stokes/raw-parent ledger is at most fourteen times the reciprocal-wall cell
+ledger, up to the allowed root-scale lower-envelope remainder. -/
+theorem riemannHypothesis_of_signedCellToReciprocalWallCellBound
+    {L C : ℝ}
+    (hL0 : 0 ≤ L) (hL14 : L ≤ 14) (hC : 0 ≤ C)
+    (hBridge : LowOwnerSignedCellToReciprocalWallCellBound L C) :
+    RiemannHypothesis := by
+  have hCells :
+      LowOwnerSignedCellQ2EnergyAssemblyBound (L / 8) C := by
+    intro R K hR hK
+    have hb := hBridge R K hR hK
+    have hw :=
+      sum_lowOwnerReciprocalThresholdWall_cellMass_le_eighth_q2Energy
+        (R := R) (r := 2) (by norm_num : Nat.Prime 2)
+    have hmul :
+        L * (∑ p ∈ primesUpTo (squareRootEndpoint R),
+          ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+            lowOwnerFirstOwnerCellGramWith R p sig
+              (lowOwnerReciprocalThresholdWallSignedSite R 2)) ≤
+          (L / 8) * canonicalRoughLowQ2DaughterEnergy R := by
+      have := mul_le_mul_of_nonneg_left hw hL0
+      nlinarith
+    linarith
+  have hBlo : -1 / 4 ≤ L / 8 := by nlinarith
+  have hBhi : L / 8 ≤ 7 / 4 := by nlinarith
+  exact riemannHypothesis_of_signedCellQ2EnergyAssemblyBound
+    hBlo hBhi hC hCells
+
 end RHLean.Proof
