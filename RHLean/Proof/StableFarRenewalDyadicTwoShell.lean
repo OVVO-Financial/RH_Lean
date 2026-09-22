@@ -1452,7 +1452,8 @@ theorem squareRootCanonicalRoughCorrelation_eq_renewalDyadicCensus_sub_rootCorre
     stableFarRenewalDyadicPhysicalCensus_eq_frozenTopFarResidual R hR
   have hfar :=
     lowWheelFrozenTopFarResidual_eq_roughCorrelation_add_rootCorrection R hR
-  linear_combination -hcensus - hfar
+  rw [hcensus, hfar]
+  ring
 
 /-- Quantitatively, changing from the canonical rough correlation to the new
 dyadic physical census costs at most the already-proved eight-root correction.
