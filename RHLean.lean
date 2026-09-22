@@ -823,3 +823,8 @@ import RHLean.Proof.VanishingTransitionRelevanceBase
 import RHLean.Proof.WheelToLedgerEquivariance
 import RHLean.Proof.WheelToLedgerPushforward
 import RHLean.Verification.FiniteRangeCertificates
+import RHLean.Proof.StableFarRenewalChildFarCancellation
+import RHLean.Proof.StableFarRenewalFinalMismatch
+import RHLean.Proof.StableFarRenewalGlobalBoundary
+import RHLean.Proof.StableFarRenewalOwnerDifferenceFubini
+import RHLean.Proof.StableFarRenewalShellDictionary
