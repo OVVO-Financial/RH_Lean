@@ -472,9 +472,9 @@ theorem roughDyadicQ2FarLift_unique_of_mem
   have hdWall := mem_dyadicCofactorBoundary.mp hdData.1
   have hdWall' := mem_dyadicCofactorBoundary.mp hdData'.1
   exact roughDyadicQ2FarLift_unique
-    hq hqR hq' hqR'
+    hq hqR hq' hq'R
     hdWall.1 hdData.2 hdWall'.1 hdData'.2
-    hp hpR hp' hpR' heq
+    hp hpR hp' hp'R heq
 
 /-- Aggregate odd-owner ChildFar mass after the same exact compression. -/
 def squareEndpointQ2OddChildFarRoughDyadicColumn (R : ℕ) : ℂ :=
