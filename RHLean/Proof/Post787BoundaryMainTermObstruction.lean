@@ -170,8 +170,8 @@ theorem no_eventual_linear_energy_of_nonzero_scaled_limit
     (hκ : κ ≠ 0)
     (hscaled : Tendsto (fun n => D n * w n) atTop (𝓝 κ))
     (hvanish : Tendsto (fun n => X n * (w n) ^ 2) atTop (𝓝 0)) :
-    ¬ ∃ B : ℝ, 0 ≤ B ∧
-      (∀ᶠ n : ℕ in atTop, D n ^ 2 ≤ B * X n) := by
+    ¬ (∃ B : ℝ, 0 ≤ B ∧
+      (∀ᶠ n : ℕ in atTop, D n ^ 2 ≤ B * X n)) := by
   rintro ⟨B, hB, hbound⟩
   have hleft :
       Tendsto (fun n => (D n * w n) ^ 2) atTop (𝓝 (κ ^ 2)) :=
@@ -219,10 +219,10 @@ theorem post787EndpointScale_square_vanish :
       atTop (𝓝 0) := by
   have h :=
     post787_log_sq_div_natCast_atTop.comp
-      RHLean.Analysis.squareRootEndpoint_tendsto_atTop
+      squareRootEndpoint_tendsto_atTop
   refine h.congr' ?_
   filter_upwards
-      [RHLean.Analysis.squareRootEndpoint_tendsto_atTop.eventually_ge_atTop 1]
+      [squareRootEndpoint_tendsto_atTop.eventually_ge_atTop 1]
       with R hX
   have hXne : (squareRootEndpoint R : ℝ) ≠ 0 := by
     positivity
