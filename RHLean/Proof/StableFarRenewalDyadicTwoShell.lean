@@ -561,4 +561,97 @@ theorem stableFarCenteredRenewalWeight_add_double_eq_ownerDifferenceSum
   push_cast
   rfl
 
+
+/-! ## Global multiplicity-one transport of the renewal defect -/
+
+abbrev StableFarRenewalShellTag := ℕ × (ℕ × (ℕ × ℕ))
+
+def stableFarRenewalTwoShellCarrier
+    (R : ℕ) : Finset StableFarRenewalShellTag :=
+  ((primesUpTo (R - 1)).product
+      (lowWheelFarPrimeQ2DescendedTriples R)).filter fun t =>
+    stableFarRenewalFirstCutShell R t.1 t.2.1 t.2.2.1 t.2.2.2 ∨
+      stableFarRenewalSecondCrossShell R t.1 t.2.1 t.2.2.1 t.2.2.2
+
+def stableFarRenewalTwoShellTransport
+    (t : StableFarRenewalShellTag) : ℕ :=
+  stableFarRenewalTransportSite t.1 t.2.1 t.2.2.1 t.2.2.2
+
+theorem stableFarRenewalTwoShellCarrier_data
+    {R : ℕ} {t : StableFarRenewalShellTag}
+    (ht : t ∈ stableFarRenewalTwoShellCarrier R) :
+    t.1 ∈ primesUpTo (R - 1) ∧
+      t.2 ∈ lowWheelFarPrimeQ2DescendedTriples R ∧
+      (stableFarRenewalFirstCutShell R t.1 t.2.1 t.2.2.1 t.2.2.2 ∨
+        stableFarRenewalSecondCrossShell R t.1 t.2.1 t.2.2.1 t.2.2.2) := by
+  rcases Finset.mem_filter.mp ht with ⟨hprod, hshell⟩
+  rcases Finset.mem_product.mp hprod with ⟨hq, hy⟩
+  exact ⟨hq, hy, hshell⟩
+
+/-- The transported renewal defect has global multiplicity one.  No two
+different owner/returned-coordinate shell atoms land on the same squarefree
+physical site. -/
+theorem stableFarRenewalTwoShellTransport_injOn
+    (R : ℕ) :
+    Set.InjOn stableFarRenewalTwoShellTransport
+      (stableFarRenewalTwoShellCarrier R :
+        Set StableFarRenewalShellTag) := by
+  intro a ha b hb hab
+  have haFin : a ∈ stableFarRenewalTwoShellCarrier R := by simpa using ha
+  have hbFin : b ∈ stableFarRenewalTwoShellCarrier R := by simpa using hb
+  rcases a with ⟨q, ⟨r, ⟨e, p⟩⟩⟩
+  rcases b with ⟨q', ⟨r', ⟨e', p'⟩⟩⟩
+  rcases stableFarRenewalTwoShellCarrier_data haFin with
+    ⟨hqOld, hy, hshell⟩
+  rcases stableFarRenewalTwoShellCarrier_data hbFin with
+    ⟨hqOld', hy', hshell'⟩
+  have hrq : r < q := by
+    rcases hshell with hfirst | hsecond
+    · exact hfirst.2.1
+    · exact hsecond.2.1
+  have hrq' : r' < q' := by
+    rcases hshell' with hfirst | hsecond
+    · exact hfirst.2.1
+    · exact hsecond.2.1
+  have hlabels :=
+    renewalTransportSite_unique_of_descended
+      hy hy' hqOld hrq hqOld' hrq'
+      (by simpa [stableFarRenewalTwoShellTransport] using hab)
+  rcases hlabels with ⟨hqq, hrr, hee, hpp⟩
+  subst q'
+  subst r'
+  subst e'
+  subst p'
+  rfl
+
+def stableFarRenewalTwoShellImage (R : ℕ) : Finset ℕ :=
+  (stableFarRenewalTwoShellCarrier R).image
+    stableFarRenewalTwoShellTransport
+
+/-- Every transported renewal defect lies on the same canonical squarefree
+physical shell that carries the canonical defect ledger. -/
+theorem stableFarRenewalTwoShellImage_subset_squarefreeShell
+    {R : ℕ} (hR : 2 ≤ R) :
+    stableFarRenewalTwoShellImage R ⊆ orderedEulerCutSquarefreeShell R := by
+  intro n hn
+  rcases Finset.mem_image.mp hn with ⟨t, ht, rfl⟩
+  rcases t with ⟨q, ⟨r, ⟨e, p⟩⟩⟩
+  rcases stableFarRenewalTwoShellCarrier_data ht with
+    ⟨_hqOld, hy, hshell⟩
+  rcases hshell with hfirst | hsecond
+  · simpa [stableFarRenewalTwoShellTransport] using
+      firstCutShell_transportSite_mem_squarefreeShell hR hy hfirst
+  · simpa [stableFarRenewalTwoShellTransport] using
+      secondCrossShell_transportSite_mem_squarefreeShell hR hy hsecond
+
+/-- The image census loses no atoms: the global physical transport is genuinely
+multiplicity-free. -/
+theorem stableFarRenewalTwoShellImage_card_eq_carrier
+    (R : ℕ) :
+    (stableFarRenewalTwoShellImage R).card =
+      (stableFarRenewalTwoShellCarrier R).card := by
+  unfold stableFarRenewalTwoShellImage
+  exact Finset.card_image_iff.mpr
+    (stableFarRenewalTwoShellTransport_injOn R)
+
 end RHLean.Proof
