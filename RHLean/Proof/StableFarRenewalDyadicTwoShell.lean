@@ -215,6 +215,110 @@ theorem renewalTransportSite_weight_eq_neg_returned
 
 /-- First renewal defect shell: the old owner is active at e, but doubling e
 pushes the first-power product through the endpoint. -/
+
+/-- The transported renewal site retains the full ordered prime hierarchy
+P+(e) < r < q < R < p, so its arithmetic factorization recovers every label. -/
+theorem renewalTransportSite_unique
+    {R q r e p q' r' e' p' : ℕ}
+    (hr : r.Prime) (he1 : 1 ≤ e)
+    (her : canonicalLargestPrimeFactor e < r)
+    (hq : q.Prime) (hrq : r < q) (hqR : q < R)
+    (hp : p.Prime) (hRp : R < p)
+    (hr' : r'.Prime) (he1' : 1 ≤ e')
+    (her' : canonicalLargestPrimeFactor e' < r')
+    (hq' : q'.Prime) (hrq' : r' < q') (hqR' : q' < R)
+    (hp' : p'.Prime) (hRp' : R < p')
+    (heq :
+      stableFarRenewalTransportSite q r e p =
+        stableFarRenewalTransportSite q' r' e' p') :
+    q = q' ∧ r = r' ∧ e = e' ∧ p = p' := by
+  have hlpf_re : canonicalLargestPrimeFactor (r * e) = r := by
+    simpa [Nat.mul_comm] using
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough
+        (by omega : 0 < e) hr her
+  have hre1 : 1 ≤ r * e := by positivity
+  have hreq : canonicalLargestPrimeFactor (r * e) < q := by
+    rw [hlpf_re]
+    exact hrq
+  have hlpf_qre : canonicalLargestPrimeFactor (q * (r * e)) = q := by
+    simpa [Nat.mul_comm] using
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough hre1 hq hreq
+  have hqre1 : 1 ≤ q * (r * e) := by positivity
+  have hqrep : canonicalLargestPrimeFactor (q * (r * e)) < p := by
+    rw [hlpf_qre]
+    omega
+  have hlpf_site :
+      canonicalLargestPrimeFactor ((q * (r * e)) * p) = p :=
+    canonicalLargestPrimeFactor_mul_prime_eq_of_rough hqre1 hp hqrep
+
+  have hlpf_re' : canonicalLargestPrimeFactor (r' * e') = r' := by
+    simpa [Nat.mul_comm] using
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough
+        (by omega : 0 < e') hr' her'
+  have hre1' : 1 ≤ r' * e' := by positivity
+  have hreq' : canonicalLargestPrimeFactor (r' * e') < q' := by
+    rw [hlpf_re']
+    exact hrq'
+  have hlpf_qre' : canonicalLargestPrimeFactor (q' * (r' * e')) = q' := by
+    simpa [Nat.mul_comm] using
+      canonicalLargestPrimeFactor_mul_prime_eq_of_rough hre1' hq' hreq'
+  have hqre1' : 1 ≤ q' * (r' * e') := by positivity
+  have hqrep' : canonicalLargestPrimeFactor (q' * (r' * e')) < p' := by
+    rw [hlpf_qre']
+    omega
+  have hlpf_site' :
+      canonicalLargestPrimeFactor ((q' * (r' * e')) * p') = p' :=
+    canonicalLargestPrimeFactor_mul_prime_eq_of_rough hqre1' hp' hqrep'
+
+  have heqNested :
+      (q * (r * e)) * p = (q' * (r' * e')) * p' := by
+    simpa [stableFarRenewalTransportSite, Nat.mul_assoc] using heq
+  have hpp : p = p' := by
+    rw [← hlpf_site, ← hlpf_site', heqNested]
+  subst p'
+  have hcore : q * (r * e) = q' * (r' * e') :=
+    Nat.mul_right_cancel hp.pos heqNested
+  have hqq : q = q' := by
+    rw [← hlpf_qre, ← hlpf_qre', hcore]
+  subst q'
+  have hre : r * e = r' * e' :=
+    Nat.mul_left_cancel hq.pos hcore
+  have hrr : r = r' := by
+    rw [← hlpf_re, ← hlpf_re', hre]
+  subst r'
+  have hee : e = e' :=
+    Nat.mul_left_cancel hr.pos hre
+  exact ⟨rfl, rfl, hee, rfl⟩
+
+/-- On actual returned states and old-owner shell data, the transported map is
+globally injective. -/
+theorem renewalTransportSite_unique_of_descended
+    {R q r e p q' r' e' p' : ℕ}
+    (hy : (r, (e, p)) ∈ lowWheelFarPrimeQ2DescendedTriples R)
+    (hy' : (r', (e', p')) ∈ lowWheelFarPrimeQ2DescendedTriples R)
+    (hqOld : q ∈ primesUpTo (R - 1)) (hrq : r < q)
+    (hqOld' : q' ∈ primesUpTo (R - 1)) (hrq' : r' < q')
+    (heq :
+      stableFarRenewalTransportSite q r e p =
+        stableFarRenewalTransportSite q' r' e' p') :
+    q = q' ∧ r = r' ∧ e = e' ∧ p = p' := by
+  have hyBase : (r, (e, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
+    (Finset.mem_filter.mp hy).1
+  have hyBase' : (r', (e', p')) ∈ lowWheelFarPrimeLowCofactorTriples R :=
+    (Finset.mem_filter.mp hy').1
+  rcases lowWheelFarPrimeLowCofactorTriple_data hyBase with
+    ⟨hr, hrR, he1, hp, hpR, _heSq, her, _hcut⟩
+  rcases lowWheelFarPrimeLowCofactorTriple_data hyBase' with
+    ⟨hr', hrR', he1', hp', hpR', _heSq', her', _hcut'⟩
+  rcases mem_primesUpTo.mp hqOld with ⟨hq, hqPred⟩
+  rcases mem_primesUpTo.mp hqOld' with ⟨hq', hqPred'⟩
+  have hRpos : 0 < R := hr.pos.trans hrR
+  have hqR : q < R := Nat.lt_of_le_pred hRpos hqPred
+  have hqR' : q' < R := Nat.lt_of_le_pred hRpos hqPred'
+  exact renewalTransportSite_unique
+    hr he1 her hq hrq hqR hp (by omega)
+    hr' he1' her' hq' hrq' hqR' hp' (by omega) heq
+
 def stableFarRenewalFirstCutShell
     (R q r e p : ℕ) : Prop :=
   q ∈ primesUpTo (R - 1) ∧ r < q ∧
