@@ -1473,4 +1473,88 @@ theorem norm_squareRootCanonicalRoughCorrelation_sub_renewalDyadicCensus_le_eigh
   rw [hcancel, norm_neg]
   exact norm_frozenTopFarRoughRootCorrection_le_eight_root R hR
 
+
+/-! ## Oriented multiplicity-one renewal transport -/
+
+def stableFarRenewalOddTwoShellCarrier
+    (R : ℕ) : Finset StableFarRenewalShellTag :=
+  (stableFarRenewalTwoShellCarrier R).filter fun t => Odd t.2.2.1
+
+def stableFarRenewalOrientedTransportWeight
+    (R : ℕ) (t : StableFarRenewalShellTag) : ℂ :=
+  if stableFarRenewalFirstCutShell R t.1 t.2.1 t.2.2.1 t.2.2.2 then
+    canonicalMoebiusWeight (stableFarRenewalTwoShellTransport t)
+  else
+    -canonicalMoebiusWeight (stableFarRenewalTwoShellTransport t)
+
+def stableFarRenewalOddTwoShellIndicatorMass (R : ℕ) : ℂ :=
+  ∑ t ∈ stableFarRenewalOddTwoShellCarrier R,
+    ((stableFarRenewalOwnerIndicatorDifference
+        R t.1 t.2.1 t.2.2.1 t.2.2.2 : ℤ) : ℂ) *
+      canonicalMoebiusWeight t.2.2.1
+
+def stableFarRenewalOddTwoShellTransportMass (R : ℕ) : ℂ :=
+  ∑ t ∈ stableFarRenewalOddTwoShellCarrier R,
+    stableFarRenewalOrientedTransportWeight R t
+
+/-- The signed pointwise renewal finite difference is exactly the oriented
+transported Mobius weight on every odd two-shell atom. -/
+theorem stableFarRenewalOddTwoShellIndicatorMass_eq_transportMass
+    (R : ℕ) :
+    stableFarRenewalOddTwoShellIndicatorMass R =
+      stableFarRenewalOddTwoShellTransportMass R := by
+  unfold stableFarRenewalOddTwoShellIndicatorMass
+    stableFarRenewalOddTwoShellTransportMass
+  apply Finset.sum_congr rfl
+  intro t ht
+  have htShell : t ∈ stableFarRenewalTwoShellCarrier R :=
+    (Finset.mem_filter.mp ht).1
+  rcases stableFarRenewalTwoShellCarrier_data htShell with
+    ⟨_hq, hy, hshell⟩
+  rcases t with ⟨q, ⟨r, ⟨e, p⟩⟩⟩
+  by_cases hfirst : stableFarRenewalFirstCutShell R q r e p
+  · rw [firstCutShell_indicator_weight_eq_transportWeight hy hfirst]
+    simp [stableFarRenewalOrientedTransportWeight,
+      stableFarRenewalTwoShellTransport, hfirst]
+  · have hsecond : stableFarRenewalSecondCrossShell R q r e p :=
+      hshell.resolve_left hfirst
+    rw [secondCrossShell_indicator_weight_eq_neg_transportWeight hy hsecond]
+    simp [stableFarRenewalOrientedTransportWeight,
+      stableFarRenewalTwoShellTransport, hfirst]
+
+/-- Restricting to odd dyadic parents preserves the global multiplicity-one
+transport proved for the full two-shell carrier. -/
+theorem stableFarRenewalOddTwoShellTransport_injOn
+    (R : ℕ) :
+    Set.InjOn stableFarRenewalTwoShellTransport
+      (stableFarRenewalOddTwoShellCarrier R :
+        Set StableFarRenewalShellTag) := by
+  intro a ha b hb hab
+  apply stableFarRenewalTwoShellTransport_injOn R
+  · exact Finset.mem_coe.mpr (Finset.mem_filter.mp (Finset.mem_coe.mp ha)).1
+  · exact Finset.mem_coe.mpr (Finset.mem_filter.mp (Finset.mem_coe.mp hb)).1
+  · exact hab
+
+def stableFarRenewalOddTwoShellImage (R : ℕ) : Finset ℕ :=
+  (stableFarRenewalOddTwoShellCarrier R).image
+    stableFarRenewalTwoShellTransport
+
+theorem stableFarRenewalOddTwoShellImage_subset_squarefreeShell
+    {R : ℕ} (hR : 2 ≤ R) :
+    stableFarRenewalOddTwoShellImage R ⊆ orderedEulerCutSquarefreeShell R := by
+  intro n hn
+  rcases Finset.mem_image.mp hn with ⟨t, ht, rfl⟩
+  have htFull : t ∈ stableFarRenewalTwoShellCarrier R :=
+    (Finset.mem_filter.mp ht).1
+  exact stableFarRenewalTwoShellImage_subset_squarefreeShell hR
+    (Finset.mem_image.mpr ⟨t, htFull, rfl⟩)
+
+theorem stableFarRenewalOddTwoShellImage_card_eq_carrier
+    (R : ℕ) :
+    (stableFarRenewalOddTwoShellImage R).card =
+      (stableFarRenewalOddTwoShellCarrier R).card := by
+  unfold stableFarRenewalOddTwoShellImage
+  exact Finset.card_image_iff.mpr
+    (stableFarRenewalOddTwoShellTransport_injOn R)
+
 end RHLean.Proof
