@@ -357,6 +357,125 @@ theorem roughDyadicQ2FarAtom_mem_topBoundary_of_highPrime
   exact roughDyadicQ2FarAtom_mem_topBoundary
     hq hqgt hpPrime (by omega) hd
 
+private theorem largePrime_not_dvd_roughCofactor
+    {r q d : ℕ} (hr : r.Prime) (hqr : q < r)
+    (hd1 : 1 ≤ d) (hrough : canonicalLargestPrimeFactor d < q) :
+    ¬ r ∣ d := by
+  intro hrd
+  by_cases hdOne : d = 1
+  · subst d
+    exact hr.not_dvd_one hrd
+  · have hdgt : 1 < d := by omega
+    have hrLe :=
+      prime_dvd_le_canonicalLargestPrimeFactor hdgt hr hrd
+    omega
+
+/-- **Global multiplicity-free lift.**  An odd q^2 owner, its q-rough
+cofactor and a post-root far prime are uniquely recoverable from the lifted
+physical site `q^2*d*p`.  Thus distinct ChildFar atoms cannot pile up on the
+same point of the global top dyadic wall. -/
+theorem roughDyadicQ2FarLift_unique
+    {R q q' d d' p p' : ℕ}
+    (hq : q.Prime) (hqR : q < R)
+    (hq' : q'.Prime) (hq'R : q' < R)
+    (hd1 : 1 ≤ d) (hdrough : canonicalLargestPrimeFactor d < q)
+    (hd1' : 1 ≤ d') (hdrough' : canonicalLargestPrimeFactor d' < q')
+    (hp : p.Prime) (hpR : R < p)
+    (hp' : p'.Prime) (hp'R : R < p')
+    (heq : q * q * d * p = q' * q' * d' * p') :
+    q = q' ∧ d = d' ∧ p = p' := by
+  have hpLe : p ≤ p' := by
+    have hpDiv : p ∣ q' * q' * d' * p' := by
+      rw [← heq]
+      simp
+    rcases hp.dvd_mul.mp hpDiv with hbase | hpp'
+    · rcases hp.dvd_mul.mp hbase with hqq' | hpd'
+      · rcases hp.dvd_mul.mp hqq' with hpq' | hpq'
+        · have hle := Nat.le_of_dvd hq'.pos hpq'
+          omega
+        · have hle := Nat.le_of_dvd hq'.pos hpq'
+          omega
+      · exact (largePrime_not_dvd_roughCofactor
+          hp (by omega : q' < p) hd1' hdrough' hpd').elim
+    · exact Nat.le_of_dvd hp'.pos hpp'
+  have hp'Le : p' ≤ p := by
+    have hp'Div : p' ∣ q * q * d * p := by
+      rw [heq]
+      simp
+    rcases hp'.dvd_mul.mp hp'Div with hbase | hp'p
+    · rcases hp'.dvd_mul.mp hbase with hqq | hp'd
+      · rcases hp'.dvd_mul.mp hqq with hp'q | hp'q
+        · have hle := Nat.le_of_dvd hq.pos hp'q
+          omega
+        · have hle := Nat.le_of_dvd hq.pos hp'q
+          omega
+      · exact (largePrime_not_dvd_roughCofactor
+          hp' (by omega : q < p') hd1 hdrough hp'd).elim
+    · exact Nat.le_of_dvd hp.pos hp'p
+  have hpp : p = p' := Nat.le_antisymm hpLe hp'Le
+  subst p'
+  have hcore : q * q * d = q' * q' * d' :=
+    Nat.mul_right_cancel hp.pos heq
+  have hqLe : q ≤ q' := by
+    have hqDiv : q ∣ q' * q' * d' := by
+      rw [← hcore]
+      simp
+    rcases hq.dvd_mul.mp hqDiv with hqq' | hqd'
+    · rcases hq.dvd_mul.mp hqq' with hqq' | hqq'
+      · exact Nat.le_of_dvd hq'.pos hqq'
+      · exact Nat.le_of_dvd hq'.pos hqq'
+    · by_cases hdOne : d' = 1
+      · subst d'
+        exact (hq.not_dvd_one hqd').elim
+      · have hdgt : 1 < d' := by omega
+        have hle :=
+          prime_dvd_le_canonicalLargestPrimeFactor hdgt hq hqd'
+        omega
+  have hq'Le : q' ≤ q := by
+    have hq'Div : q' ∣ q * q * d := by
+      rw [hcore]
+      simp
+    rcases hq'.dvd_mul.mp hq'Div with hqq | hq'd
+    · rcases hq'.dvd_mul.mp hqq with hq'q | hq'q
+      · exact Nat.le_of_dvd hq.pos hq'q
+      · exact Nat.le_of_dvd hq.pos hq'q
+    · by_cases hdOne : d = 1
+      · subst d
+        exact (hq'.not_dvd_one hq'd).elim
+      · have hdgt : 1 < d := by omega
+        have hle :=
+          prime_dvd_le_canonicalLargestPrimeFactor hdgt hq' hq'd
+        omega
+  have hqq : q = q' := Nat.le_antisymm hqLe hq'Le
+  subst q'
+  have hdd : d = d' := by
+    exact Nat.mul_left_cancel (Nat.mul_pos hq.pos hq.pos) hcore
+  exact ⟨rfl, hdd, rfl⟩
+
+/-- On the actual rough dyadic ChildFar support, positivity and roughness are
+automatic; only the owner/root and far-prime clock inequalities need to be
+supplied to recover the full atom uniquely. -/
+theorem roughDyadicQ2FarLift_unique_of_mem
+    {R q q' d d' p p' : ℕ}
+    (hq : q.Prime) (hqR : q < R)
+    (hq' : q'.Prime) (hq'R : q' < R)
+    (hp : p.Prime) (hpR : R < p)
+    (hp' : p'.Prime) (hp'R : R < p')
+    (hd : d ∈ roughDyadicCofactorBoundary q
+      ((squareRootEndpoint R / (q * q)) / p))
+    (hd' : d' ∈ roughDyadicCofactorBoundary q'
+      ((squareRootEndpoint R / (q' * q')) / p'))
+    (heq : q * q * d * p = q' * q' * d' * p') :
+    q = q' ∧ d = d' ∧ p = p' := by
+  have hdData := mem_roughDyadicCofactorBoundary.mp hd
+  have hdData' := mem_roughDyadicCofactorBoundary.mp hd'
+  have hdWall := mem_dyadicCofactorBoundary.mp hdData.1
+  have hdWall' := mem_dyadicCofactorBoundary.mp hdData'.1
+  exact roughDyadicQ2FarLift_unique
+    hq hqR hq' hqR'
+    hdWall.1 hdData.2 hdWall'.1 hdData'.2
+    hp hpR hp' hpR' heq
+
 /-- Aggregate odd-owner ChildFar mass after the same exact compression. -/
 def squareEndpointQ2OddChildFarRoughDyadicColumn (R : ℕ) : ℂ :=
   ∑ q ∈ (primesUpTo (R - 1)).erase 2,
