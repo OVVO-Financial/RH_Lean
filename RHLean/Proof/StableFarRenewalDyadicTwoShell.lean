@@ -212,6 +212,121 @@ theorem renewalTransportSite_weight_eq_neg_returned
   rw [show q * r * e * p = (q * (r * e)) * p by ring, hpFlip, hqFlip, hreFlip]
   ring
 
+
+/-- First renewal defect shell: the old owner is active at e, but doubling e
+pushes the first-power product through the endpoint. -/
+def stableFarRenewalFirstCutShell
+    (R q r e p : ℕ) : Prop :=
+  q ∈ primesUpTo (R - 1) ∧ r < q ∧
+    q * r * e * p ≤ squareRootEndpoint R ∧
+    squareRootEndpoint R < q * q * r * e * p ∧
+    ¬ (q * r * (2 * e) * p ≤ squareRootEndpoint R)
+
+/-- Second renewal defect shell: doubling e creates the q-square crossing
+while the doubled first-power product remains physical. -/
+def stableFarRenewalSecondCrossShell
+    (R q r e p : ℕ) : Prop :=
+  q ∈ primesUpTo (R - 1) ∧ r < q ∧
+    q * r * (2 * e) * p ≤ squareRootEndpoint R ∧
+    squareRootEndpoint R < q * q * r * (2 * e) * p ∧
+    ¬ (squareRootEndpoint R < q * q * r * e * p)
+
+/-- The two-shell theorem in named form. -/
+theorem crossingOuterOwnerSet_membership_mismatch_iff_named_shells
+    {R q r e p : ℕ} :
+    ¬ (q ∈ lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (e, p)) ↔
+        q ∈ lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (2 * e, p))) ↔
+      (stableFarRenewalFirstCutShell R q r e p ∨
+        stableFarRenewalSecondCrossShell R q r e p) := by
+  exact crossingOuterOwnerSet_membership_mismatch_iff_two_shells
+
+theorem ownerIndicatorDifference_eq_neg_one_of_firstCutShell
+    {R q r e p : ℕ}
+    (h : stableFarRenewalFirstCutShell R q r e p) :
+    stableFarRenewalOwnerIndicatorDifference R q r e p = -1 := by
+  rcases h with ⟨hq, hrq, hcut, hcross, hchildCut⟩
+  have hparent :
+      q ∈ lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (e, p)) := by
+    exact mem_crossingOuterOwnerSet_iff_active.mpr
+      ⟨hq, hrq, hcut, hcross⟩
+  have hchild :
+      q ∉ lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (2 * e, p)) := by
+    intro hc
+    have hcData := mem_crossingOuterOwnerSet_iff_active.mp hc
+    exact hchildCut hcData.2.2.1
+  simp [stableFarRenewalOwnerIndicatorDifference, hparent, hchild]
+
+theorem ownerIndicatorDifference_eq_one_of_secondCrossShell
+    {R q r e p : ℕ}
+    (h : stableFarRenewalSecondCrossShell R q r e p) :
+    stableFarRenewalOwnerIndicatorDifference R q r e p = 1 := by
+  rcases h with ⟨hq, hrq, hchildCut, hchildCross, hparentCross⟩
+  have hchild :
+      q ∈ lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (2 * e, p)) := by
+    exact mem_crossingOuterOwnerSet_iff_active.mpr
+      ⟨hq, hrq, hchildCut, hchildCross⟩
+  have hparent :
+      q ∉ lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (e, p)) := by
+    intro hp0
+    have hpData := mem_crossingOuterOwnerSet_iff_active.mp hp0
+    exact hparentCross hpData.2.2.2
+  simp [stableFarRenewalOwnerIndicatorDifference, hparent, hchild]
+
+/-- On shell 1 the pointwise renewal contribution is the transported Mobius
+weight itself: it is the negative of the canonical child charge. -/
+theorem firstCutShell_indicator_weight_eq_transportWeight
+    {R q r e p : ℕ}
+    (hy : (r, (e, p)) ∈ lowWheelFarPrimeQ2DescendedTriples R)
+    (h : stableFarRenewalFirstCutShell R q r e p) :
+    ((stableFarRenewalOwnerIndicatorDifference R q r e p : ℤ) : ℂ) *
+        canonicalMoebiusWeight e =
+      canonicalMoebiusWeight (stableFarRenewalTransportSite q r e p) := by
+  rcases h with ⟨hq, hrq, hcut, hcross, hchildCut⟩
+  rw [ownerIndicatorDifference_eq_neg_one_of_firstCutShell
+      ⟨hq, hrq, hcut, hcross, hchildCut⟩]
+  push_cast
+  rw [renewalTransportSite_weight_eq_neg_returned hy hq hrq hcut]
+  ring
+
+/-- On shell 2 the pointwise renewal contribution is exactly the canonical
+child charge, namely minus the transported Mobius weight. -/
+theorem secondCrossShell_indicator_weight_eq_neg_transportWeight
+    {R q r e p : ℕ}
+    (hy : (r, (e, p)) ∈ lowWheelFarPrimeQ2DescendedTriples R)
+    (h : stableFarRenewalSecondCrossShell R q r e p) :
+    ((stableFarRenewalOwnerIndicatorDifference R q r e p : ℤ) : ℂ) *
+        canonicalMoebiusWeight e =
+      -canonicalMoebiusWeight (stableFarRenewalTransportSite q r e p) := by
+  rcases h with ⟨hq, hrq, hchildCut, hchildCross, hparentCross⟩
+  have hcut : q * r * e * p ≤ squareRootEndpoint R :=
+    renewalOwner_child_cut_implies_parent hchildCut
+  rw [ownerIndicatorDifference_eq_one_of_secondCrossShell
+      ⟨hq, hrq, hchildCut, hchildCross, hparentCross⟩]
+  push_cast
+  rw [renewalTransportSite_weight_eq_neg_returned hy hq hrq hcut]
+  ring
+
+/-- Both renewal shells transport to the canonical squarefree physical shell. -/
+theorem firstCutShell_transportSite_mem_squarefreeShell
+    {R q r e p : ℕ} (hR : 2 ≤ R)
+    (hy : (r, (e, p)) ∈ lowWheelFarPrimeQ2DescendedTriples R)
+    (h : stableFarRenewalFirstCutShell R q r e p) :
+    stableFarRenewalTransportSite q r e p ∈
+      orderedEulerCutSquarefreeShell R := by
+  rcases h with ⟨hq, hrq, hcut, _hcross, _hchildCut⟩
+  exact renewalTransportSite_mem_squarefreeShell_of_cut hR hy hq hrq hcut
+
+theorem secondCrossShell_transportSite_mem_squarefreeShell
+    {R q r e p : ℕ} (hR : 2 ≤ R)
+    (hy : (r, (e, p)) ∈ lowWheelFarPrimeQ2DescendedTriples R)
+    (h : stableFarRenewalSecondCrossShell R q r e p) :
+    stableFarRenewalTransportSite q r e p ∈
+      orderedEulerCutSquarefreeShell R := by
+  rcases h with ⟨hq, hrq, hchildCut, _hchildCross, _hparentCross⟩
+  have hcut : q * r * e * p ≤ squareRootEndpoint R :=
+    renewalOwner_child_cut_implies_parent hchildCut
+  exact renewalTransportSite_mem_squarefreeShell_of_cut hR hy hq hrq hcut
+
 def stableFarCenteredRenewalCoeff
     (R r e p : ℕ) : ℂ :=
   1 - ((lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (e, p))).card : ℂ)
