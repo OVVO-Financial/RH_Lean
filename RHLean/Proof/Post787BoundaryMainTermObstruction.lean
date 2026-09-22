@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.NativePNTTransfer
+import RHLean.Analysis.SquareRootShallowReciprocalCrossing
 import RHLean.Proof.StableFarRenewalFinalMismatch
 
 /-!
@@ -196,22 +197,46 @@ theorem no_eventual_linear_energy_of_nonzero_scaled_limit
     positivity
   exact (not_lt_of_ge hnonpos) hpos
 
+private theorem post787_log_sq_div_natCast_atTop :
+    Tendsto
+      (fun N : ℕ => (Real.log (N : ℝ)) ^ 2 / (N : ℝ))
+      atTop (𝓝 0) := by
+  have h := RHLean.Analysis.nativeLog_div_sqrt_natCast_atTop
+  have hsq := h.mul h
+  rw [zero_mul] at hsq
+  refine hsq.congr' ?_
+  filter_upwards [eventually_ge_atTop 1] with N hN
+  have hNnonneg : (0 : ℝ) ≤ (N : ℝ) := by positivity
+  rw [div_mul_div_comm, Real.mul_self_sqrt hNnonneg]
+  ring
+
+/-- The square-endpoint normalization used by the obstruction has vanishing
+linear-energy scale: X_R * (log X_R / X_R)^2 -> 0. -/
+theorem post787EndpointScale_square_vanish :
+    Tendsto
+      (fun R : ℕ =>
+        (squareRootEndpoint R : ℝ) * post787EndpointScale R ^ 2)
+      atTop (𝓝 0) := by
+  have h :=
+    post787_log_sq_div_natCast_atTop.comp
+      RHLean.Analysis.squareRootEndpoint_tendsto_atTop
+  refine h.congr' ?_
+  filter_upwards
+      [RHLean.Analysis.squareRootEndpoint_tendsto_atTop.eventually_ge_atTop 1]
+      with R hX
+  have hXne : (squareRootEndpoint R : ℝ) ≠ 0 := by
+    positivity
+  unfold post787EndpointScale
+  field_simp [hXne]
+  ring
+
 /-- Post-#787 boundary no-go.  Once the actual ChildFar column has a
 nonzero X/log X main term and the coupled interior cancels that main term, the
-physical-boundary/owner-two/terminal group cannot have squared amplitude O(X).
-
-The only remaining purely analytic side condition is the elementary
-log^2(X_R)/X_R -> 0, expressed here in the algebraically equivalent form
-X_R * scale(R)^2 -> 0. -/
+physical-boundary/owner-two/terminal group cannot have squared amplitude O(X). -/
 theorem not_post787CountertermLinearEnergy
     {κ : ℝ} (hκ : 0 < κ)
     (hC : Post787OddChildFarMainTerm κ)
-    (hI : Post787CoupledInteriorLogNegligible)
-    (hscale :
-      Tendsto
-        (fun R : ℕ =>
-          (squareRootEndpoint R : ℝ) * post787EndpointScale R ^ 2)
-        atTop (𝓝 0)) :
+    (hI : Post787CoupledInteriorLogNegligible) :
     ¬ Post787CountertermLinearEnergy := by
   apply no_eventual_linear_energy_of_nonzero_scaled_limit
     (X := fun R => (squareRootEndpoint R : ℝ))
@@ -220,6 +245,6 @@ theorem not_post787CountertermLinearEnergy
     (κ := -κ)
   · linarith
   · exact post787Counterterm_scaled_tendsto_neg hC hI
-  · exact hscale
+  · exact post787EndpointScale_square_vanish
 
 end RHLean.Proof
