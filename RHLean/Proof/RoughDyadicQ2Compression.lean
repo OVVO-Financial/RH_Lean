@@ -299,6 +299,62 @@ theorem lowWheelFarPrimeQ2ChildFarSlice_mass_eq_roughDyadicColumn
     _ = q2DaughterFarRoughDyadicColumn R q :=
       q2DaughterFarBaseColumn_cast_eq_roughDyadicColumn hq hqgt
 
+/-- Every compressed q^2 ChildFar atom lifts to the *single global* top
+odd dyadic wall.  Although the compression occurs at the reciprocal scale
+`(X_R/q^2)/p`, multiplying back by `q^2 p` sends its strict half-window
+exactly to `X_R/2 < q^2*d*p <= X_R`. -/
+theorem roughDyadicQ2FarAtom_mem_topBoundary
+    {R q p d : ℕ} (hq : q.Prime) (hqgt : 2 < q)
+    (hp : p.Prime) (hpgt : 2 < p)
+    (hd : d ∈ roughDyadicCofactorBoundary q
+      ((squareRootEndpoint R / (q * q)) / p)) :
+    q * q * d * p ∈ dyadicCofactorBoundary (squareRootEndpoint R) := by
+  have hdWall := (mem_roughDyadicCofactorBoundary.mp hd).1
+  rcases mem_dyadicCofactorBoundary.mp hdWall with
+    ⟨hd1, hdCut, hdOdd, hhalf⟩
+  have hq2Pos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
+  have hdp :
+      d * p ≤ squareRootEndpoint R / (q * q) :=
+    (Nat.le_div_iff_mul_le hp.pos).1 hdCut
+  have hupper0 :
+      (d * p) * (q * q) ≤ squareRootEndpoint R :=
+    (Nat.le_div_iff_mul_le hq2Pos).1 hdp
+  have hupper :
+      q * q * d * p ≤ squareRootEndpoint R := by
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hupper0
+  have hchildHalf :
+      squareRootEndpoint R / (q * q) < (2 * d) * p :=
+    (Nat.div_lt_iff_lt_mul hp.pos).1 hhalf
+  have hlower0 :
+      squareRootEndpoint R < ((2 * d) * p) * (q * q) :=
+    (Nat.div_lt_iff_lt_mul hq2Pos).1 hchildHalf
+  have hlower :
+      squareRootEndpoint R < 2 * (q * q * d * p) := by
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hlower0
+  have hqOdd : Odd q := hq.odd_of_ne_two (by omega)
+  have hpOdd : Odd p := hp.odd_of_ne_two (by omega)
+  have hnOdd : Odd (q * q * d * p) :=
+    ((hqOdd.mul hqOdd).mul hdOdd).mul hpOdd
+  have hdPos : 0 < d := by omega
+  have hnPos : 0 < q * q * d * p := by positivity
+  exact mem_dyadicCofactorBoundary.mpr
+    ⟨by omega, hupper, hnOdd, hlower⟩
+
+/-- The far-prime schedule used by ChildFar supplies the oddness hypothesis
+automatically, so every atom of every compressed odd-owner p-fibre lands on the
+same global top wall. -/
+theorem roughDyadicQ2FarAtom_mem_topBoundary_of_highPrime
+    {R q p d : ℕ} (hq : q.Prime) (hqgt : 2 < q)
+    (hp : p ∈ frozenPrimeUniverseHighPrimeSet (R + 7)
+      (squareRootEndpoint R / (q * q)))
+    (hd : d ∈ roughDyadicCofactorBoundary q
+      ((squareRootEndpoint R / (q * q)) / p)) :
+    q * q * d * p ∈ dyadicCofactorBoundary (squareRootEndpoint R) := by
+  rcases mem_frozenPrimeUniverseHighPrimeSet.mp hp with
+    ⟨hpPrime, hpLo, _hpHi⟩
+  exact roughDyadicQ2FarAtom_mem_topBoundary
+    hq hqgt hpPrime (by omega) hd
+
 /-- Aggregate odd-owner ChildFar mass after the same exact compression. -/
 def squareEndpointQ2OddChildFarRoughDyadicColumn (R : ℕ) : ℂ :=
   ∑ q ∈ (primesUpTo (R - 1)).erase 2,
