@@ -2106,9 +2106,8 @@ theorem canonicalDefectSquarefreeShellCharge_eq_renewalImage_add_complement
     stableFarRenewalCanonicalComplement
   have hsub :=
     stableFarRenewalOddOwnerTwoShellImage_subset_squarefreeShell hR
-  have hsplit := Finset.sum_sdiff hsub
-    (f := fun n : ℕ => -canonicalMoebiusWeight n)
-  simpa [add_comm] using hsplit.symm
+  rw [← Finset.sum_sdiff hsub]
+  ring
 
 theorem lowWheelCanonicalDefectLedger_eq_renewalImage_add_complement
     {R : ℕ} (hR : 2 ≤ R) :
