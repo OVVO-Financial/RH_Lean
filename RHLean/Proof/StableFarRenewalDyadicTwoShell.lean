@@ -1557,4 +1557,74 @@ theorem stableFarRenewalOddTwoShellImage_card_eq_carrier
   exact Finset.card_image_iff.mpr
     (stableFarRenewalOddTwoShellTransport_injOn R)
 
+
+/-! ## Exact support of the owner-difference mass -/
+
+theorem stableFarRenewalOwnerDifferenceMass_eq_smoothOdd
+    (R r p B : ℕ) :
+    stableFarRenewalOwnerDifferenceMass R r p B =
+      ∑ d ∈ (squareRootLowPrimeGoSmoothCofactors r B).filter Odd,
+        stableFarRenewalOwnerDifferenceWeight R r p d := by
+  unfold stableFarRenewalOwnerDifferenceMass
+  let A := (squareRootLowPrimeGoSmoothCofactors r B).filter Odd
+  have hsub : A ⊆ oddCofactorPrefix B := by
+    intro d hd
+    rcases Finset.mem_filter.mp hd with ⟨hdSmooth, hdOdd⟩
+    rcases mem_squareRootLowPrimeGoSmoothCofactors.mp hdSmooth with
+      ⟨hd1, hdB, _hdSq, _hdRough⟩
+    exact mem_oddCofactorPrefix.mpr ⟨hd1, hdB, hdOdd⟩
+  calc
+    (∑ d ∈ oddCofactorPrefix B,
+        if canonicalLargestPrimeFactor d < r then
+          stableFarRenewalOwnerDifferenceWeight R r p d
+        else 0) =
+      ∑ d ∈ A,
+        if canonicalLargestPrimeFactor d < r then
+          stableFarRenewalOwnerDifferenceWeight R r p d
+        else 0 := by
+      symm
+      apply Finset.sum_subset hsub
+      intro d hdOdd hdNotA
+      rcases mem_oddCofactorPrefix.mp hdOdd with
+        ⟨hd1, hdB, hdParity⟩
+      by_cases hrough : canonicalLargestPrimeFactor d < r
+      · have hnsq : ¬ Squarefree d := by
+          intro hsq
+          have hdSmooth :
+              d ∈ squareRootLowPrimeGoSmoothCofactors r B :=
+            mem_squareRootLowPrimeGoSmoothCofactors.mpr
+              ⟨hd1, hdB, hsq, hrough⟩
+          exact hdNotA (Finset.mem_filter.mpr ⟨hdSmooth, hdParity⟩)
+        have hmuZ : μ d = 0 :=
+          ArithmeticFunction.moebius_eq_zero_of_not_squarefree hnsq
+        have hmu : canonicalMoebiusWeight d = 0 := by
+          simp [canonicalMoebiusWeight, hmuZ]
+        simp [hrough, stableFarRenewalOwnerDifferenceWeight, hmu]
+      · simp [hrough]
+    _ =
+      ∑ d ∈ A, stableFarRenewalOwnerDifferenceWeight R r p d := by
+      apply Finset.sum_congr rfl
+      intro d hd
+      have hdSmooth := (Finset.mem_filter.mp hd).1
+      have hrough :=
+        (mem_squareRootLowPrimeGoSmoothCofactors.mp hdSmooth).2.2.2
+      simp [hrough]
+    _ =
+      ∑ d ∈ (squareRootLowPrimeGoSmoothCofactors r B).filter Odd,
+        stableFarRenewalOwnerDifferenceWeight R r p d := by rfl
+
+theorem stableFarRenewalOwnerDifferenceWeight_eq_indicatorSum
+    (R r p d : ℕ) :
+    stableFarRenewalOwnerDifferenceWeight R r p d =
+      (((∑ q ∈ primesUpTo (R - 1),
+          stableFarRenewalOwnerIndicatorDifference R q r d p : ℤ) : ℂ) *
+        canonicalMoebiusWeight d) := by
+  unfold stableFarRenewalOwnerDifferenceWeight
+  have hcast := congrArg (fun z : ℤ => (z : ℂ))
+    (crossingOuterOwnerSet_card_difference_eq_indicator_sum R r d p)
+  push_cast at hcast
+  rw [hcast]
+  push_cast
+  rfl
+
 end RHLean.Proof
