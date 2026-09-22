@@ -1,4 +1,6 @@
 import Mathlib
+import RHLean.Analysis.K2RecipMomentBoundaryScratch
+import RHLean.Analysis.NativePNTQuantitativeStatements
 import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.SquareRootShallowReciprocalCrossing
 import RHLean.Proof.StableFarRenewalFinalMismatch
@@ -232,6 +234,129 @@ theorem post787EndpointScale_square_vanish :
           (squareRootEndpoint R : ℝ)) ^ 2
   field_simp [hXne]
 
+/-- The square-prefix notation at predecessor root R-1 is exactly the
+square-root endpoint notation used by the stable-far decomposition. -/
+private theorem squarePrefixMertens_pred_eq_squareRootEndpoint
+    (R : ℕ) (hR : 1 ≤ R) :
+    squarePrefixMertens (R - 1) =
+      mertensSummatory (squareRootEndpoint R) := by
+  unfold squarePrefixMertens squarePrefixEndpoint squareRootEndpoint
+  congr 1
+  omega
+
+/-- The actual Mertens endpoint is negligible on the X/log X scale.  This is
+already an unconditional theorem of the repository's strong-Mertens/PNT layer. -/
+theorem post787MertensEndpoint_scaled_tendsto_zero :
+    Tendsto
+      (fun R : ℕ =>
+        (squarePrefixMertens (R - 1)).re * post787EndpointScale R)
+      atTop (𝓝 0) := by
+  have h0 :=
+    RHLean.Analysis.k2StrongMertens_logRecip_endpoint_tendsto_zero 1
+  have h := h0.comp squareRootEndpoint_tendsto_atTop
+  refine h.congr' ?_
+  filter_upwards [eventually_ge_atTop 1] with R hR
+  rw [squarePrefixMertens_pred_eq_squareRootEndpoint R hR,
+    RHLean.Analysis.mertensSummatory_eq_complex_nativeMertensSummatory]
+  simp [post787EndpointScale, RHLean.Analysis.k2LogRecipWeight,
+    Function.comp_def]
+
+/-- The genuinely small root boundary vanishes on the same X/log X scale. -/
+theorem post787RootBoundaryReal_scaled_tendsto_zero :
+    Tendsto
+      (fun R : ℕ =>
+        (finalCompensatedRootBoundary R).re * post787EndpointScale R)
+      atTop (𝓝 0) := by
+  have hupper :
+      Tendsto
+        (fun R : ℕ =>
+          200 * ((squareRootEndpoint R : ℝ) *
+            post787EndpointScale R ^ 2))
+        atTop (𝓝 0) := by
+    simpa using
+      tendsto_const_nhds.mul post787EndpointScale_square_vanish
+  have hsq :
+      Tendsto
+        (fun R : ℕ =>
+          ((finalCompensatedRootBoundary R).re *
+            post787EndpointScale R) ^ 2)
+        atTop (𝓝 0) := by
+    refine squeeze_zero' (Eventually.of_forall fun R => sq_nonneg _) ?_ hupper
+    filter_upwards [eventually_ge_atTop 56] with R hR
+    have hroot := norm_post787RootBoundary_le_ten_root R hR
+    have hre :
+        |(finalCompensatedRootBoundary R).re| ≤ 10 * (R : ℝ) :=
+      (Complex.abs_re_le_norm _).trans hroot
+    have hten : 0 ≤ 10 * (R : ℝ) := by positivity
+    have hresq :
+        (finalCompensatedRootBoundary R).re ^ 2 ≤
+          (10 * (R : ℝ)) ^ 2 := by
+      have habssq :=
+        (sq_le_sq₀ (abs_nonneg _) hten).2 hre
+      simpa [sq_abs] using habssq
+    have hR2 : 2 ≤ R ^ 2 := by nlinarith
+    have hRXnat : R ^ 2 ≤ 2 * squareRootEndpoint R := by
+      unfold squareRootEndpoint
+      omega
+    have hRX :
+        (R : ℝ) ^ 2 ≤ 2 * (squareRootEndpoint R : ℝ) := by
+      exact_mod_cast hRXnat
+    have hscale0 : 0 ≤ post787EndpointScale R ^ 2 :=
+      sq_nonneg _
+    have hrootMul :=
+      mul_le_mul_of_nonneg_right hresq hscale0
+    have hRMul :=
+      mul_le_mul_of_nonneg_right hRX hscale0
+    nlinarith
+  have hsqrt :
+      Tendsto
+        (fun R : ℕ =>
+          Real.sqrt
+            (((finalCompensatedRootBoundary R).re *
+              post787EndpointScale R) ^ 2))
+        atTop (𝓝 0) := by
+    have hcont := (Real.continuous_sqrt.tendsto 0).comp hsq
+    simpa [Function.comp_def] using hcont
+  have habs :
+      Tendsto
+        (fun R : ℕ =>
+          |(finalCompensatedRootBoundary R).re *
+            post787EndpointScale R|)
+        atTop (𝓝 0) := by
+    convert hsqrt using 1
+    · funext R
+      rw [Real.sqrt_sq_eq_abs]
+  rw [tendsto_zero_iff_norm_tendsto_zero]
+  simpa [Real.norm_eq_abs] using habs
+
+/-- Real form of the exact #787 identity: the only difference between the
+coupled interior and the Mertens endpoint is the genuine root boundary. -/
+theorem post787CoupledInteriorReal_eq_mertens_sub_root
+    (R : ℕ) (hR : 56 ≤ R) :
+    post787CoupledInteriorReal R =
+      (squarePrefixMertens (R - 1)).re -
+        (finalCompensatedRootBoundary R).re := by
+  have h :=
+    congrArg Complex.re
+      (squarePrefixMertens_eq_post787CoupledInterior_add_rootBoundary R hR)
+  simp only [Complex.add_re] at h
+  unfold post787CoupledInteriorReal post787CoupledInterior
+  linear_combination h
+
+/-- **Unconditional cancellation theorem.**  The complete post-#787 interior
+C_R + D_R has no X/log X main term.  This is exactly the cancellation that must
+be preserved before taking energy. -/
+theorem post787CoupledInterior_logNegligible :
+    Post787CoupledInteriorLogNegligible := by
+  unfold Post787CoupledInteriorLogNegligible
+  have h :=
+    post787MertensEndpoint_scaled_tendsto_zero.sub
+      post787RootBoundaryReal_scaled_tendsto_zero
+  refine h.congr' ?_
+  filter_upwards [eventually_ge_atTop 56] with R hR
+  rw [post787CoupledInteriorReal_eq_mertens_sub_root R hR]
+  ring
+
 /-- Post-#787 boundary no-go.  Once the actual ChildFar column has a
 nonzero X/log X main term and the coupled interior cancels that main term, the
 physical-boundary/owner-two/terminal group cannot have squared amplitude O(X). -/
@@ -248,5 +373,15 @@ theorem not_post787CountertermLinearEnergy
   · linarith
   · exact post787Counterterm_scaled_tendsto_neg hC hI
   · exact post787EndpointScale_square_vanish
+
+/-- Once the positive ChildFar main term is established, the macroscopic
+counterterm obstruction is completely unconditional: the coupled-interior
+negligibility and endpoint-scale decay are already proved above. -/
+theorem not_post787CountertermLinearEnergy_of_childFarMainTerm
+    {κ : ℝ} (hκ : 0 < κ)
+    (hC : Post787OddChildFarMainTerm κ) :
+    ¬ Post787CountertermLinearEnergy :=
+  not_post787CountertermLinearEnergy
+    hκ hC post787CoupledInterior_logNegligible
 
 end RHLean.Proof
