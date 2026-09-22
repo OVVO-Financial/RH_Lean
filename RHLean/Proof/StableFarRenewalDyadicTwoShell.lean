@@ -1055,17 +1055,43 @@ theorem stableFarCenteredReturnedFibre_eq_fullDifference_add_roughBoundaryMass
       ∑ d ∈ oddCofactorPrefix B, F d := by
     unfold dyadicCofactorBoundary
     exact Finset.sum_sdiff hsubset
-  rw [hboundary] at hbase
-  rw [← hdefectBoundary] at hbase
-  rw [← add_assoc] at hbase
   have hrecombine :
       (∑ d ∈ oddCofactorPrefix (B / 2), F d) +
           (∑ d ∈ dyadicCofactorBoundary B, F d) =
         ∑ d ∈ oddCofactorPrefix B, F d := by
     rw [add_comm]
     exact hpartition
-  rw [hrecombine] at hbase
-  simpa [stableFarRenewalOwnerDifferenceMass,
-    roughDyadicCofactorBoundaryMass, B, F] using hbase
+  calc
+    stableFarCenteredReturnedFibre R r p =
+        (∑ d ∈ oddCofactorPrefix (B / 2), F d) +
+          ∑ d ∈ roughDyadicCofactorBoundary r B,
+            stableFarCenteredRenewalWeight R r d p := hbase
+    _ =
+        (∑ d ∈ oddCofactorPrefix (B / 2), F d) +
+          ((∑ d ∈ roughDyadicCofactorBoundary r B,
+              stableFarRenewalOwnerDifferenceWeight R r p d) +
+            ∑ d ∈ roughDyadicCofactorBoundary r B,
+              canonicalMoebiusWeight d) := by rw [hboundary]
+    _ =
+        (∑ d ∈ oddCofactorPrefix (B / 2), F d) +
+          ((∑ d ∈ dyadicCofactorBoundary B, F d) +
+            ∑ d ∈ roughDyadicCofactorBoundary r B,
+              canonicalMoebiusWeight d) := by rw [hdefectBoundary]
+    _ =
+        ((∑ d ∈ oddCofactorPrefix (B / 2), F d) +
+          ∑ d ∈ dyadicCofactorBoundary B, F d) +
+            ∑ d ∈ roughDyadicCofactorBoundary r B,
+              canonicalMoebiusWeight d := by ring
+    _ =
+        (∑ d ∈ oddCofactorPrefix B, F d) +
+          ∑ d ∈ roughDyadicCofactorBoundary r B,
+            canonicalMoebiusWeight d := by rw [hrecombine]
+    _ =
+        stableFarRenewalOwnerDifferenceMass R r p
+            (stableFarReturnedCofactorCutoff R r p) +
+          roughDyadicCofactorBoundaryMass r
+            (stableFarReturnedCofactorCutoff R r p) := by
+      simp [stableFarRenewalOwnerDifferenceMass,
+        roughDyadicCofactorBoundaryMass, B, F]
 
 end RHLean.Proof
