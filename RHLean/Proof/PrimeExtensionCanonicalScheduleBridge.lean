@@ -401,6 +401,78 @@ theorem primeExtensionCanonicalPhysicalResponseSum_cast_eq_ownerwiseError
   linear_combination hcast + hphysical - hcorr'
 
 
+
+/-! ## Canonical energy reassembly -/
+
+/-- On the canonical square-endpoint chain, the off-diagonal covariance is
+literally the square of the complete q² Mertens column minus the #789 diagonal
+daughter energy. -/
+theorem primeExtensionCanonicalMertensCrossCovariance_eq
+    (R : ℕ) (hR : 2 ≤ R) :
+    primeExtensionMertensCrossCovariance (squareRootEndpoint R)
+        (primeExtensionCanonicalAscendingSchedule R) =
+      squareEndpointQ2MertensColumn R ^ 2 -
+        primeExtensionMertensSquareSum (squareRootEndpoint R)
+          (primeExtensionCanonicalAscendingSchedule R) := by
+  unfold primeExtensionMertensCrossCovariance
+  rw [primeExtensionCanonicalMertensSum_eq_squareEndpointQ2MertensColumn R hR]
+
+/-- **Canonical #789 energy response in assembled physical coordinates.**
+
+Write `Q_R` for the complete q² Mertens amplitude column and `S_R` for the
+chronological physical-response amplitude.  The full signed Gamma correction is
+
+`crossCov_R + 2 Q_R S_R + S_R^2 - 2 Q_R - 2 S_R`.
+
+Thus the obstruction to treating the #789 correction as a linear physical
+boundary is exactly the off-diagonal owner covariance together with the
+quadratic response terms. -/
+theorem roughPrimeExtensionCanonicalPhysicalGammaSum_eq_covariance_reassembly
+    (R : ℕ) (hR : 2 ≤ R) :
+    roughPrimeExtensionPhysicalGammaSum 1 (squareRootEndpoint R)
+        (primeExtensionCanonicalAscendingSchedule R) =
+      primeExtensionMertensCrossCovariance (squareRootEndpoint R)
+          (primeExtensionCanonicalAscendingSchedule R) +
+        2 * squareEndpointQ2MertensColumn R *
+          roughPrimeExtensionPhysicalResponseSum 1 (squareRootEndpoint R)
+            (primeExtensionCanonicalAscendingSchedule R) +
+        roughPrimeExtensionPhysicalResponseSum 1 (squareRootEndpoint R)
+            (primeExtensionCanonicalAscendingSchedule R) ^ 2 -
+        2 * squareEndpointQ2MertensColumn R -
+        2 * roughPrimeExtensionPhysicalResponseSum 1 (squareRootEndpoint R)
+            (primeExtensionCanonicalAscendingSchedule R) := by
+  have hchain :=
+    primeExtensionCanonicalAscendingSchedule_admissible R
+  have h :=
+    roughPrimeExtensionPhysicalGammaSum_eq_crossCovariance_reassembly
+      (W := 1) (x := squareRootEndpoint R)
+      (ps := primeExtensionCanonicalAscendingSchedule R) hchain
+  rw [primeExtensionCanonicalMertensSum_eq_squareEndpointQ2MertensColumn R hR,
+    roughMertens_primeExtensionCanonicalTerminal_eq_one R hR] at h
+  simpa using h
+
+/-- Equivalent diagonal-energy form: after exposing the covariance explicitly,
+the diagonal q² daughter energy cancels against the covariance deficit in the
+assembled square. -/
+theorem roughPrimeExtensionCanonicalPhysicalGammaSum_eq_q2Square_sub_diagonal
+    (R : ℕ) (hR : 2 ≤ R) :
+    roughPrimeExtensionPhysicalGammaSum 1 (squareRootEndpoint R)
+        (primeExtensionCanonicalAscendingSchedule R) =
+      squareEndpointQ2MertensColumn R ^ 2 -
+        primeExtensionMertensSquareSum (squareRootEndpoint R)
+          (primeExtensionCanonicalAscendingSchedule R) +
+        2 * squareEndpointQ2MertensColumn R *
+          roughPrimeExtensionPhysicalResponseSum 1 (squareRootEndpoint R)
+            (primeExtensionCanonicalAscendingSchedule R) +
+        roughPrimeExtensionPhysicalResponseSum 1 (squareRootEndpoint R)
+            (primeExtensionCanonicalAscendingSchedule R) ^ 2 -
+        2 * squareEndpointQ2MertensColumn R -
+        2 * roughPrimeExtensionPhysicalResponseSum 1 (squareRootEndpoint R)
+            (primeExtensionCanonicalAscendingSchedule R) := by
+  rw [roughPrimeExtensionCanonicalPhysicalGammaSum_eq_covariance_reassembly R hR,
+    primeExtensionCanonicalMertensCrossCovariance_eq R hR]
+
+
 /-- The existing global Euler/q² bridge, now instantiated on the canonical
 prime chronology with no external schedule witness. -/
 theorem canonicalRawLedger_add_rootCorrection_eq_oddMertensColumn_add_ownerwiseError
