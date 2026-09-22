@@ -139,6 +139,7 @@ jobs:
           emit research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
           emit research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
           emit research/GLOBAL_RETURNED_CORE_ZERO_TARGET_COVARIANCE.lean
+          emit research/LOW_OWNER_Q_MEMORY_REMAINDER_NORMAL_FORM.lean
           emit research/LOW_OWNER_RETURNED_CORE_ZERO_TARGET_GRAM.lean
           emit research/GLOBAL_RETURNED_CORE_CONTINUATION_CARRIER.lean
           emit research/GLOBAL_RETURNED_CORE_CLIPPED_QUOTIENT.lean
@@ -184,27 +185,6 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIODIC_RAW_REALIZATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_CORRECTED_CONDUCTOR_PACKET.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_COMMON_SPECTRUM_LEDGER.lean
-      - name: Prebuild terminal RH consumer dependencies
-        run: |
-          lake build RHLean.Proof.StableFarAdaptiveLedgerCollapse
-          lake build RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
-      - name: Kernel-check final Stokes boundary consumer wiring
-        run: |
-          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
-          emit research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
-          emit research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
-          emit research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean
-          emit research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean
-          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY.lean
-          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY.lean
-          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_ENDPOINT_GAP.lean
-          emit research/GLOBAL_RETURNED_CORE_POST755_AMPLITUDE_CLOSURE.lean
-          emit research/GLOBAL_RETURNED_CORE_Q2_DAUGHTER_FIRST_OWNER_GRAM.lean
-          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL_ZERO_TARGET_GRAM.lean
-          emit research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
-          emit research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean
-          emit research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
-          emit research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
       - name: Stage physical-frame raw-parent dependency closure
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
@@ -270,6 +250,27 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_ORIENTED_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_SIMULTANEOUS_CORE_FUBINI.lean
+      - name: Prebuild terminal RH consumer dependencies
+        run: |
+          lake build RHLean.Proof.StableFarAdaptiveLedgerCollapse
+          lake build RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
+      - name: Kernel-check final Stokes boundary consumer wiring
+        run: |
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
+          emit research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean
+          emit research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_AMPLITUDE_REASSEMBLY.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_Q2_MERTENS_REASSEMBLY.lean
+          emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_GLOBAL_ENDPOINT_GAP.lean
+          emit research/GLOBAL_RETURNED_CORE_POST755_AMPLITUDE_CLOSURE.lean
+          emit research/GLOBAL_RETURNED_CORE_Q2_DAUGHTER_FIRST_OWNER_GRAM.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL_ZERO_TARGET_GRAM.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
+          emit research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean
+          emit research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
+          emit research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
       - name: Kernel-check Stokes physical frame bridge
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
