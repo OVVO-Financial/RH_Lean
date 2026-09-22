@@ -1094,4 +1094,112 @@ theorem stableFarCenteredReturnedFibre_eq_fullDifference_add_roughBoundaryMass
       simp [stableFarRenewalOwnerDifferenceMass,
         roughDyadicCofactorBoundaryMass, B, F]
 
+
+/-! ## Exact returned far-prime range and #785 boundary-column splice -/
+
+theorem mem_stableFarRenewalCoordinatePairs_iff
+    {R r p : ℕ} :
+    (r, p) ∈ stableFarRenewalCoordinatePairs R ↔
+      r.Prime ∧ r < R ∧
+        p ∈ frozenPrimeUniverseHighPrimeSet (R + 7)
+          (squareRootEndpoint R / (r * r)) := by
+  constructor
+  · intro hrp
+    rcases Finset.mem_image.mp hrp with ⟨y, hy, hcoord⟩
+    rcases y with ⟨r', ⟨e, p'⟩⟩
+    have hrEq : r' = r := congrArg Prod.fst hcoord
+    have hpEq : p' = p := congrArg Prod.snd hcoord
+    subst r'
+    subst p'
+    have hdata :=
+      (mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor).1 hy
+    rcases hdata with ⟨hr, hrR, hp, hpR, he⟩
+    rcases mem_squareRootLowPrimeGoSmoothCofactors.mp he with
+      ⟨he1, heCut, _heSq, _heRough⟩
+    have hB1 :
+        1 ≤ stableFarReturnedCofactorCutoff R r p :=
+      he1.trans heCut
+    have hdenPos : 0 < r * r * p :=
+      Nat.mul_pos (Nat.mul_pos hr.pos hr.pos) hp.pos
+    have hprod : r * r * p ≤ squareRootEndpoint R := by
+      unfold stableFarReturnedCofactorCutoff at hB1
+      exact (Nat.one_le_div_iff hdenPos).1 hB1
+    have hrrPos : 0 < r * r := Nat.mul_pos hr.pos hr.pos
+    have hpUpper : p ≤ squareRootEndpoint R / (r * r) := by
+      apply (Nat.le_div_iff_mul_le hrrPos).2
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hprod
+    exact ⟨hr, hrR,
+      mem_frozenPrimeUniverseHighPrimeSet.mpr
+        ⟨hp, by omega, hpUpper⟩⟩
+  · rintro ⟨hr, hrR, hpSet⟩
+    rcases mem_frozenPrimeUniverseHighPrimeSet.mp hpSet with
+      ⟨hp, hpLo, hpUpper⟩
+    have hrrPos : 0 < r * r := Nat.mul_pos hr.pos hr.pos
+    have hprod0 : p * (r * r) ≤ squareRootEndpoint R :=
+      (Nat.le_div_iff_mul_le hrrPos).1 hpUpper
+    have hprod : r * r * p ≤ squareRootEndpoint R := by
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hprod0
+    have hdenPos : 0 < r * r * p :=
+      Nat.mul_pos hrrPos hp.pos
+    have hcut1 :
+        1 ≤ stableFarReturnedCofactorCutoff R r p := by
+      unfold stableFarReturnedCofactorCutoff
+      exact (Nat.one_le_div_iff hdenPos).2 hprod
+    have hone :
+        1 ∈ squareRootLowPrimeGoSmoothCofactors r
+          (stableFarReturnedCofactorCutoff R r p) := by
+      apply mem_squareRootLowPrimeGoSmoothCofactors.mpr
+      refine ⟨by norm_num, hcut1, squarefree_one, ?_⟩
+      simpa [canonicalLargestPrimeFactor] using hr.one_lt
+    have hdesc :
+        (r, (1, p)) ∈ lowWheelFarPrimeQ2DescendedTriples R :=
+      (mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor).2
+        ⟨hr, hrR, hp, by omega, hone⟩
+    exact Finset.mem_image.mpr ⟨(r, (1, p)), hdesc, rfl⟩
+
+def stableFarRenewalFarPrimeSet (R r : ℕ) : Finset ℕ :=
+  ((stableFarRenewalCoordinatePairs R).filter fun rp => rp.1 = r).image
+    Prod.snd
+
+theorem stableFarRenewalFarPrimeSet_eq_highPrimeSet
+    {R r : ℕ} (hr : r.Prime) (hrR : r < R) :
+    stableFarRenewalFarPrimeSet R r =
+      frozenPrimeUniverseHighPrimeSet (R + 7)
+        (squareRootEndpoint R / (r * r)) := by
+  ext p
+  constructor
+  · intro hp
+    rcases Finset.mem_image.mp hp with ⟨rp, hrpFilter, hrpSnd⟩
+    rcases Finset.mem_filter.mp hrpFilter with ⟨hrp, hrpFst⟩
+    have hdata := (mem_stableFarRenewalCoordinatePairs_iff).1 hrp
+    have hrEq : rp.1 = r := hrpFst
+    have hpEq : rp.2 = p := hrpSnd
+    simpa [hrEq, hpEq] using hdata.2.2
+  · intro hp
+    have hrp :
+        (r, p) ∈ stableFarRenewalCoordinatePairs R :=
+      (mem_stableFarRenewalCoordinatePairs_iff).2 ⟨hr, hrR, hp⟩
+    apply Finset.mem_image.mpr
+    refine ⟨(r, p), ?_, rfl⟩
+    exact Finset.mem_filter.mpr ⟨hrp, rfl⟩
+
+def stableFarRenewalRoughBoundaryColumn (R r : ℕ) : ℂ :=
+  ∑ p ∈ stableFarRenewalFarPrimeSet R r,
+    roughDyadicCofactorBoundaryMass r
+      (stableFarReturnedCofactorCutoff R r p)
+
+theorem stableFarRenewalRoughBoundaryColumn_eq_q2DaughterFarRoughDyadicColumn
+    {R r : ℕ} (hr : r.Prime) (hrR : r < R) :
+    stableFarRenewalRoughBoundaryColumn R r =
+      q2DaughterFarRoughDyadicColumn R r := by
+  rw [stableFarRenewalFarPrimeSet_eq_highPrimeSet hr hrR]
+  unfold stableFarRenewalRoughBoundaryColumn
+    q2DaughterFarRoughDyadicColumn
+  dsimp
+  apply Finset.sum_congr rfl
+  intro p _hp
+  congr 1
+  simp [stableFarReturnedCofactorCutoff,
+    Nat.div_div_eq_div_mul, Nat.mul_assoc]
+
 end RHLean.Proof
