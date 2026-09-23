@@ -121,8 +121,9 @@ theorem lowOwnerGlobalFirstOwnerPDivFirstFiber_eq_swapImage
     rcases Finset.mem_product.mp hprod with ⟨ha, hb⟩
     have hne : b ≠ a := by
       intro hba
-      subst b
-      exact hdata.2.1 hdata.2.2
+      have hpdivA : p ∣ a := by
+        simpa [hba] using hdata.2.2
+      exact hdata.2.1 hpdivA
     have howner :
         IsSquarefreePairFreshPrimeOwner p b a := by
       have hsig :=
