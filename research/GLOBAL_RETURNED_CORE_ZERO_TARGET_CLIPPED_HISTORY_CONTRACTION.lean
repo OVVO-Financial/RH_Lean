@@ -60,7 +60,6 @@ theorem lowOwnerZeroTargetHistoryParentEnergy_eq_rawExcessSq
   simp only [mul_pow]
   rw [hma, hmb]
   field_simp [ha0, hb0]
-  ring
 
 def lowOwnerZeroTargetHistoryClippedOutgoingEnergy
     (R : ℕ) (history : ℝ) (parent : ℕ × ℕ) : ℝ :=
@@ -113,14 +112,16 @@ theorem lowOwnerZeroTargetHistoryClippedOutgoingEnergy_le_reciprocal
       · simp only [hclip, if_true]
         apply Finset.sum_le_sum
         intro child _hchild
+        have hchild0 :
+            0 ≤ lowOwnerRetainedCoefficientChildEnergy
+              (lowOwnerZeroTargetHistoryReciprocalScale history parent) child := by
+          exact mul_nonneg
+            (sq_nonneg (lowOwnerZeroTargetHistoryReciprocalScale history parent))
+            (postRootCovarianceReciprocalPairEnergy_nonneg child)
         exact mul_le_mul_of_nonneg_right
           (critical_one_sub_reciprocal_sq_le_one
             (mem_primesUpTo.mp hpMem).1)
-          (by
-            unfold lowOwnerRetainedCoefficientChildEnergy
-            exact mul_nonneg
-              (sq_nonneg (lowOwnerZeroTargetHistoryReciprocalScale history parent))
-              (postRootCovarianceReciprocalPairEnergy_nonneg child))
+          hchild0
       · simp [hclip]
     _ =
       (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
@@ -399,14 +400,17 @@ theorem lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
             · simp only [hclip, if_true]
               apply Finset.sum_le_sum
               intro child _hchild
+              have hchild0 :
+                  0 ≤ lowOwnerRetainedCoefficientChildEnergy
+                    (lowOwnerZeroTargetHistoryReciprocalScale history parent)
+                    child := by
+                exact mul_nonneg
+                  (sq_nonneg
+                    (lowOwnerZeroTargetHistoryReciprocalScale history parent))
+                  (postRootCovarianceReciprocalPairEnergy_nonneg child)
               exact mul_le_mul_of_nonneg_right
                 (critical_one_sub_reciprocal_sq_le_one hrPrime)
-                (by
-                  unfold lowOwnerRetainedCoefficientChildEnergy
-                  exact mul_nonneg
-                    (sq_nonneg
-                      (lowOwnerZeroTargetHistoryReciprocalScale history parent))
-                    (postRootCovarianceReciprocalPairEnergy_nonneg child))
+                hchild0
             · simp [hclip]
       _ =
         (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
