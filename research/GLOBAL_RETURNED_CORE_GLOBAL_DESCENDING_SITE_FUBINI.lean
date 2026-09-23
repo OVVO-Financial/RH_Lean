@@ -246,9 +246,14 @@ theorem lowOwnerRevealedPairMassWith_empty_eq_sum_sq
     (R : ℕ) (v : ℕ → ℝ) :
     lowOwnerRevealedPairMassWith R ∅ v =
       (∑ n ∈ lowOwnerNonzeroMobiusCarrier R, v n) ^ 2 := by
-  unfold lowOwnerRevealedPairMassWith lowOwnerRevealedPairCarrier
-    lowOwnerRevealedPrimeSignature
-  simp only [Finset.inter_empty, ite_true]
+  have hcarrier :
+      lowOwnerRevealedPairCarrier R ∅ =
+        (lowOwnerNonzeroMobiusCarrier R).product
+          (lowOwnerNonzeroMobiusCarrier R) := by
+    ext mn
+    simp [lowOwnerRevealedPairCarrier, lowOwnerRevealedPrimeSignature]
+  unfold lowOwnerRevealedPairMassWith
+  rw [hcarrier]
   let S := lowOwnerNonzeroMobiusCarrier R
   change
     (∑ mn ∈ S.product S, v mn.1 * v mn.2) =
