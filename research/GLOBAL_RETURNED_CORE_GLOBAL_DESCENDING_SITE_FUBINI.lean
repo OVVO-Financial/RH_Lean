@@ -176,7 +176,7 @@ theorem lowOwnerGlobalDiagonalPairMassWith_nonneg
   intro mn hmn
   have heq := (Finset.mem_filter.mp hmn).2
   rw [heq]
-  exact sq_nonneg (v mn.2)
+  simpa [pow_two] using sq_nonneg (v mn.2)
 
 /-- Empty revealed state is the full ordered carrier, split into diagonal and
 off-diagonal parts. -/
@@ -216,12 +216,15 @@ theorem lowOwnerGlobalDiagonalPairCarrier_eq_image
     subst n
     exact Finset.mem_image.mpr ⟨m, hm, rfl⟩
   · intro h
-    rcases Finset.mem_image.mp h with ⟨n, hn, hmn⟩
-    have hpair : (m, n) = (n, n) := hmn
-    have hmEq : m = n := congrArg Prod.fst hpair
+    rcases Finset.mem_image.mp h with ⟨a, ha, hEq⟩
+    have hm : m = a := by
+      simpa using congrArg Prod.fst hEq.symm
+    have hn : n = a := by
+      simpa using congrArg Prod.snd hEq.symm
     subst m
+    subst n
     exact Finset.mem_filter.mpr
-      ⟨Finset.mem_product.mpr ⟨hn, hn⟩, rfl⟩
+      ⟨Finset.mem_product.mpr ⟨ha, ha⟩, rfl⟩
 
 /-- Diagonal mass is the one-dimensional sum of site squares. -/
 theorem lowOwnerGlobalDiagonalPairMassWith_eq_sum_sq
@@ -245,8 +248,7 @@ theorem lowOwnerRevealedPairMassWith_empty_eq_sum_sq
       (∑ n ∈ lowOwnerNonzeroMobiusCarrier R, v n) ^ 2 := by
   unfold lowOwnerRevealedPairMassWith lowOwnerRevealedPairCarrier
     lowOwnerRevealedPrimeSignature
-  simp only [Finset.inter_empty]
-  simp only [ite_true]
+  simp only [Finset.inter_empty, ite_true]
   let S := lowOwnerNonzeroMobiusCarrier R
   change
     (∑ mn ∈ S.product S, v mn.1 * v mn.2) =
