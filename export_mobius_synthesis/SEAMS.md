@@ -548,6 +548,10 @@ Multiplication by the prime-11 Euler sign has average $19/23$ on the $115$ zero-
 
 The limit of the seam is compiled alongside it, which is what makes it usable. The theorem permits an arbitrary field on a coprime complementary coordinate; it does not permit an arbitrary function of the same $11^2$ coordinate. And even on a retained cell, the selected-prime projection carries only the selected sign while the Mertens-visible observable carries the parity of every prime factor. Both distinctions are certified finitely, so neither can be hidden inside a later norm estimate.
 
+The sharpest form is a refutation, not a caveat. On the complete aligned period the actual Möbius complement does not satisfy the weight-one factor: the actual and stripped coordinate masses are $-8$ and $-14$, so the observed one-period multiplier is $4/7$ rather than $19/23$. Crossing this seam with the recovered field therefore requires constructing a genuine coprime complementary coordinate, or an exact signed compensation that removes the correlation — substituting the recovered field into the tensor law is proved not to work.
+
+One related identity belongs here for the same reason. The literal Go predecessor cube is not the full Mertens daughter until the high transport is retained, since $M(Y)=F_{q^-}(Y)-\mathrm{highTransport}(Y)$ and for owner $3$ the frozen Go piece can already be zero while the full Mertens child is nonzero. Any final action on this layer must preserve that signed compensation.
+
 **Formal modules:** `RHLean.Analysis.ElevenWeightOneFirstMoment`, `RHLean.Analysis.FinitePrimeHigherWeightOne`, and `RHLean.Analysis.PhysicalRecoveredPrimeTensorCompatibility`.
 
 ## 54. Rough-seat seam
