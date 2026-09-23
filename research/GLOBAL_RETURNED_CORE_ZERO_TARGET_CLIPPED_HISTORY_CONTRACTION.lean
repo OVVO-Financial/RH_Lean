@@ -57,7 +57,8 @@ theorem lowOwnerZeroTargetHistoryParentEnergy_eq_rawExcessSq
   rw [postRootCovarianceReciprocalPairEnergy_eq_inv_product_sq_of_nonzero
     haMu hbMu]
   rw [postRootZeroTargetPairExcess_eq_weight]
-  rw [mul_pow, hma, hmb]
+  simp only [mul_pow]
+  rw [hma, hmb]
   field_simp [ha0, hb0]
   ring
 
@@ -115,8 +116,11 @@ theorem lowOwnerZeroTargetHistoryClippedOutgoingEnergy_le_reciprocal
         exact mul_le_mul_of_nonneg_right
           (critical_one_sub_reciprocal_sq_le_one
             (mem_primesUpTo.mp hpMem).1)
-          (lowOwnerRetainedCoefficientChildEnergy_nonneg
-            (lowOwnerZeroTargetHistoryReciprocalScale history parent) child)
+          (by
+            unfold lowOwnerRetainedCoefficientChildEnergy
+            exact mul_nonneg
+              (sq_nonneg (lowOwnerZeroTargetHistoryReciprocalScale history parent))
+              (postRootCovarianceReciprocalPairEnergy_nonneg child))
       · simp [hclip]
     _ =
       (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
@@ -133,7 +137,7 @@ theorem lowOwnerZeroTargetHistoryClippedOutgoingEnergy_le_reciprocal
         rw [Finset.mul_sum]
         apply Finset.sum_congr rfl
         intro child _hchild
-        unfold lowOwnerRetainedCoefficientChildEnergy
+        rfl
       · simp [hclip]
     _ = (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
         lowOwnerGreatestOwnerClippedOutgoingEnergy R parent := by
@@ -174,11 +178,12 @@ theorem lowOwnerZeroTargetHistoryClippedOutgoingEnergy_le_79_over_162
     _ ≤ (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
           ((79 / 162 : ℝ) *
             postRootCovarianceReciprocalPairEnergy parent) := hscaled
+    _ = (79 / 162 : ℝ) *
+          ((lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
+            postRootCovarianceReciprocalPairEnergy parent) := by ring
     _ = (79 / 162 : ℝ) * history ^ 2 *
           postRootZeroTargetPairExcess parent ^ 2 := by
-      rw [mul_assoc]
-      rw [← hnorm]
-      unfold lowOwnerRetainedCoefficientParentEnergy
+      rw [hnorm]
       ring
 
 /-! ## First-owner restricted contraction: 1/2 recursive, 1/4 clipped -/
@@ -325,7 +330,8 @@ theorem lowOwnerGreatestOwnerAboveFirstClippedOutgoingEnergy_le_quarter
           exact mul_le_mul_of_nonneg_right hscale
             (postRootCovarianceReciprocalPairEnergy_nonneg parent)
         · simp only [hclip, if_false]
-          positivity
+          exact mul_nonneg (by positivity)
+            (postRootCovarianceReciprocalPairEnergy_nonneg parent)
     _ =
       (∑ r ∈ lowOwnerRevealedPrimesAbove R first,
         (1 : ℝ) / (r : ℝ) ^ 2) *
@@ -395,9 +401,12 @@ theorem lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
               intro child _hchild
               exact mul_le_mul_of_nonneg_right
                 (critical_one_sub_reciprocal_sq_le_one hrPrime)
-                (lowOwnerRetainedCoefficientChildEnergy_nonneg
-                  (lowOwnerZeroTargetHistoryReciprocalScale history parent)
-                  child)
+                (by
+                  unfold lowOwnerRetainedCoefficientChildEnergy
+                  exact mul_nonneg
+                    (sq_nonneg
+                      (lowOwnerZeroTargetHistoryReciprocalScale history parent))
+                    (postRootCovarianceReciprocalPairEnergy_nonneg child))
             · simp [hclip]
       _ =
         (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
@@ -414,7 +423,7 @@ theorem lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
                 rw [Finset.mul_sum]
                 apply Finset.sum_congr rfl
                 intro child _hchild
-                unfold lowOwnerRetainedCoefficientChildEnergy
+                rfl
               · simp [hclip]
       _ = _ := rfl
   have hquarter :=
@@ -439,11 +448,12 @@ theorem lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
       (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
         ((1 / 4 : ℝ) *
           postRootCovarianceReciprocalPairEnergy parent) := hscaled
+    _ = (1 / 4 : ℝ) *
+        ((lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
+          postRootCovarianceReciprocalPairEnergy parent) := by ring
     _ = (1 / 4 : ℝ) * history ^ 2 *
         postRootZeroTargetPairExcess parent ^ 2 := by
-      rw [mul_assoc]
-      rw [← hnorm]
-      unfold lowOwnerRetainedCoefficientParentEnergy
+      rw [hnorm]
       ring
 
 
