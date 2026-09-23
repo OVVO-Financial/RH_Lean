@@ -218,28 +218,6 @@ theorem zeroTargetCrossQ2EnergyBound_iff_finalStokesQ2EnergyBound
       (R := R) (by omega : 2 ≤ R)] at hf
     nlinarith
 
-/-- **Sharp direct zero-target kill target.**
-
-It is enough to prove the globally assembled off-diagonal zero-target excess
-with q^2 coefficient `7/8`.  Doubling gives FinalStokes coefficient `7/4`,
-which is already inside the compiled CORR-4/RH consumer. -/
-theorem riemannHypothesis_of_zeroTargetCrossSevenEighths
-    {C : ℝ} (hC : 0 ≤ C)
-    (hCross : LowOwnerZeroTargetCrossQ2EnergyBound (7 / 8) C) :
-    RiemannHypothesis := by
-  have hRaw :=
-    (zeroTargetCrossQ2EnergyBound_iff_finalStokesQ2EnergyBound
-      (7 / 8) C).mp hCross
-  have hFinal :
-      LowOwnerFinalStokesQ2EnergyBound (7 / 4) (2 * C) := by
-    convert hRaw using 1 <;> norm_num
-  have hC2 : 0 ≤ 2 * C := by positivity
-  exact
-    riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
-      (correlationFour_of_finalStokesQ2EnergyBound
-        (B := 7 / 4) (C := 2 * C)
-        (by norm_num) (by norm_num) hC2 hFinal)
-
 /-- **Returned-core 3/2 -> final-Stokes 7/4.**
 
 The exact q-memory identity gives
@@ -284,6 +262,7 @@ theorem finalStokesQ2EnergyBound_of_returnedCoreThreeHalves
         simp [mertensSummatoryInt]
       rw [hm0] at h0
       norm_num at h0
+      exact h0
     have hYoungAmp :
         ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
           (7 / 6 : ℝ) * ‖lowOwnerReturnedAmplitudeCore R‖ ^ 2 +
@@ -300,21 +279,6 @@ theorem finalStokesQ2EnergyBound_of_returnedCoreThreeHalves
   rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_remainderNormSq_sub_diagonal
     hR]
   linarith
-
-/-- A nonnegative returned-core `3/2` estimate already implies RH through the
-existing `7/4` signed-cell/CORR-4 corridor. -/
-theorem riemannHypothesis_of_returnedCoreThreeHalves
-    {C : ℝ} (hC : 0 ≤ C)
-    (hCore : LowOwnerReturnedCoreQ2EnergyBound (3 / 2) C) :
-    RiemannHypothesis := by
-  have hFinal :=
-    finalStokesQ2EnergyBound_of_returnedCoreThreeHalves hCore
-  have hC' : 0 ≤ (7 / 6 : ℝ) * C + 448 := by positivity
-  exact
-    riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
-      (correlationFour_of_finalStokesQ2EnergyBound
-        (B := 7 / 4) (C := (7 / 6) * C + 448)
-        (by norm_num) (by norm_num) hC' hFinal)
 
 /-- The same target in the exact signed-cell/unique-owner currency.  This is
 the quantitative endpoint that the one-sided owner recursion should prove:
@@ -452,6 +416,43 @@ theorem riemannHypothesis_of_signedCellQ2EnergyAssemblyBound
     riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
       (correlationFour_of_finalStokesQ2EnergyBound
         hBlo hBhi hC hFinal)
+
+/-- **Sharp direct zero-target kill target.**
+
+It is enough to prove the globally assembled off-diagonal zero-target excess
+with q^2 coefficient `7/8`.  Doubling gives FinalStokes coefficient `7/4`,
+which is already inside the compiled CORR-4/RH consumer. -/
+theorem riemannHypothesis_of_zeroTargetCrossSevenEighths
+    {C : ℝ} (hC : 0 ≤ C)
+    (hCross : LowOwnerZeroTargetCrossQ2EnergyBound (7 / 8) C) :
+    RiemannHypothesis := by
+  have hRaw :=
+    (zeroTargetCrossQ2EnergyBound_iff_finalStokesQ2EnergyBound
+      (7 / 8) C).mp hCross
+  have hFinal :
+      LowOwnerFinalStokesQ2EnergyBound (7 / 4) (2 * C) := by
+    convert hRaw using 1 <;> norm_num
+  have hC2 : 0 ≤ 2 * C := by positivity
+  exact
+    riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
+      (correlationFour_of_finalStokesQ2EnergyBound
+        (B := 7 / 4) (C := 2 * C)
+        (by norm_num) (by norm_num) hC2 hFinal)
+
+/-- A nonnegative returned-core `3/2` estimate already implies RH through the
+existing `7/4` signed-cell/CORR-4 corridor. -/
+theorem riemannHypothesis_of_returnedCoreThreeHalves
+    {C : ℝ} (hC : 0 ≤ C)
+    (hCore : LowOwnerReturnedCoreQ2EnergyBound (3 / 2) C) :
+    RiemannHypothesis := by
+  have hFinal :=
+    finalStokesQ2EnergyBound_of_returnedCoreThreeHalves hCore
+  have hC' : 0 ≤ (7 / 6 : ℝ) * C + 448 := by positivity
+  exact
+    riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
+      (correlationFour_of_finalStokesQ2EnergyBound
+        (B := 7 / 4) (C := (7 / 6) * C + 448)
+        (by norm_num) (by norm_num) hC' hFinal)
 
 /-- Quantitative target with the lower-scale envelope kept live.
 
