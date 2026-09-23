@@ -1,6 +1,7 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_POLARIZATION_CELL_OWNER_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL»
+import «research.GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE»
 
 /-!
 # Post-#791 closure in the existing unique-owner polarization currency
@@ -163,5 +164,79 @@ theorem riemannHypothesis_of_polarizationOwnerFiberQ2EnergyBound
     riemannHypothesis_of_signedCellQ2EnergyAssemblyBound
       hBlo hBhi hC
       (signedCellQ2EnergyAssemblyBound_of_polarizationOwnerFiber hOwner)
+
+/-! ## Collapse the exact signed ledger to the two surviving Stokes coordinates -/
+
+/-- **Exact global collapse.**
+
+The diagonal-retaining unique-owner polarization ledger is the literal final
+Stokes boundary.  The existing Stokes DAG then reduces its nonterminal clip to
+the two global top toggle coordinates; the only remainder is the already
+classified zero/one-owner terminal sector. -/
+theorem lowOwnerGlobalPolarizationSignedLedger_eq_topTwoStokesClip_add_terminal
+    {R : ℕ} (hR : 56 ≤ R) :
+    lowOwnerGlobalPolarizationSignedLedger R =
+      lowOwnerCanonicalTopTwoStokesClipNormalForm R hR +
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
+  rw [← sum_lowOwnerFirstOwnerSignedCellTelescope_eq_globalPolarizationSignedLedger R]
+  rw [sum_lowOwnerFirstOwnerSignedCellTelescope_eq_finalStokesBoundary
+    (R := R) (by omega : 2 ≤ R)]
+  rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_clip_add_topTerminal]
+  rw [lowOwnerCanonicalSignedStokesClipBoundary_eq_topTwoNormalForm hR]
+
+/-- The #791-aware quantitative target on the already-collapsed top-two Stokes
+clip.  Unlike the older root-scale target, this permits the genuine recursive
+q² daughter energy to survive with coefficient B. -/
+def LowOwnerTopTwoStokesClipQ2EnergyBound (B C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ, ∀ hR : 56 ≤ R,
+    LowerMertensCriticalEnvelope R K →
+    lowOwnerCanonicalTopTwoStokesClipNormalForm R hR ≤
+      B * canonicalRoughLowQ2DaughterEnergy R +
+        C * (R : ℝ) ^ 2 * K
+
+/-- A q²-aware top-two clip estimate gives the exact diagonal-retaining signed
+ledger bound with the same recursive coefficient.  The exceptional terminal is
+uniformly at most four, hence costs only one extra R²K. -/
+theorem polarizationSignedLedgerQ2EnergyBound_of_topTwoStokesClip
+    {B C : ℝ}
+    (hClip : LowOwnerTopTwoStokesClipQ2EnergyBound B C) :
+    LowOwnerPolarizationSignedLedgerQ2EnergyBound B (C + 1) := by
+  intro R K hR hK
+  rw [lowOwnerGlobalPolarizationSignedLedger_eq_topTwoStokesClip_add_terminal hR]
+  have hclip := hClip R K hR hK
+  have hterm :=
+    lowOwnerCanonicalSignedStokesTopTerminalBoundary_le_four hR
+  have hKone : 1 ≤ K :=
+    lowerMertensCriticalEnvelope_one_le (by omega) hK
+  have hscale : (4 : ℝ) ≤ (R : ℝ) ^ 2 * K := by
+    have hRreal : (56 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+    nlinarith
+  calc
+    lowOwnerCanonicalTopTwoStokesClipNormalForm R hR +
+        lowOwnerCanonicalSignedStokesTopTerminalBoundary R ≤
+      (B * canonicalRoughLowQ2DaughterEnergy R +
+        C * (R : ℝ) ^ 2 * K) + 4 := add_le_add hclip hterm
+    _ ≤ (B * canonicalRoughLowQ2DaughterEnergy R +
+        C * (R : ℝ) ^ 2 * K) + (R : ℝ) ^ 2 * K :=
+      add_le_add_left hscale _
+    _ = B * canonicalRoughLowQ2DaughterEnergy R +
+        (C + 1) * (R : ℝ) ^ 2 * K := by ring
+
+/-- **Sharpened post-#791 Stokes consumer.**
+
+It is enough to control the globally assembled two surviving Stokes
+cross-decrements by any q² coefficient in the admissible interval
+[-1/4, 7/4], plus a nonnegative root-scale envelope.  The bounded exceptional
+terminal does not alter B. -/
+theorem riemannHypothesis_of_topTwoStokesClipQ2EnergyBound
+    {B C : ℝ}
+    (hBlo : -1 / 4 ≤ B) (hBhi : B ≤ 7 / 4) (hC : 0 ≤ C)
+    (hClip : LowOwnerTopTwoStokesClipQ2EnergyBound B C) :
+    RiemannHypothesis := by
+  exact
+    riemannHypothesis_of_polarizationSignedLedgerQ2EnergyBound
+      hBlo hBhi (by linarith : 0 ≤ C + 1)
+      (polarizationSignedLedgerQ2EnergyBound_of_topTwoStokesClip hClip)
+
 
 end RHLean.Proof
