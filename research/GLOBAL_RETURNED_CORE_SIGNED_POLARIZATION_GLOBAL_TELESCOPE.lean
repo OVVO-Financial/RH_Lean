@@ -10,17 +10,17 @@ The multiplicity-safe outer Fubini was already proved in
 
   SignedCell(p,sig)
     = diagonal(p,sig)
-      + 2 * sum_{r > p} OwnerFiber(p,sig,r),
+      + 2 * sum_{r > p} OwnerFiber(p,sig,r).
 
-with the terminal diagonal nonpositive.  Hence
+The diagonal is nonpositive, so the owner-fibre term alone gives a stronger
+one-sided target.  But the post-#789 lesson is that diagonal/cross cancellation
+can be load-bearing.  Therefore this file keeps two interfaces:
 
-  SignedCell(p,sig)
-    <= 2 * sum_{r > p} OwnerFiber(p,sig,r).
+1. an exact global signed ledger retaining the diagonal;
+2. the stronger owner-fibre-only sufficient target.
 
-This file does not reprove that Fubini.  It only wires the existing exact
-unique-owner ledger into the sharper post-#791 q^2 consumer.  Therefore the
-remaining quantitative theorem is stated directly on the signed owner fibres
-which charge every off-diagonal pair exactly once.
+The exact ledger is the preferred coordinate for the remaining global
+q^2/wall reassembly.
 -/
 
 noncomputable section
@@ -32,7 +32,7 @@ open RHLean.Analysis RHLean.Arithmetic
 
 attribute [local instance] Classical.propDecidable
 
-/-- Complete signed unique-greatest-owner polarization ledger.
+/-- Complete signed unique-greatest-owner polarization off-diagonal ledger.
 
 The factor 2 restores the opposite orientation of every positive-lag pair. -/
 def lowOwnerGlobalPolarizationOwnerFiberLedger (R : ℕ) : ℝ :=
@@ -43,9 +43,45 @@ def lowOwnerGlobalPolarizationOwnerFiberLedger (R : ℕ) : ℝ :=
             R p sig r,
           lowOwnerFirstOwnerDirichletPolarizationAtom R p ab
 
-/-- The full signed-cell assembly is bounded by the already-compiled
-multiplicity-safe unique-owner ledger.  The only discarded term is the
-nonpositive cell diagonal. -/
+/-- Global terminal diagonal retained in the polarization coordinate. -/
+def lowOwnerGlobalPolarizationDiagonalLedger (R : ℕ) : ℝ :=
+  ∑ p ∈ primesUpTo (squareRootEndpoint R),
+    ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      ∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,
+        lowOwnerFirstOwnerDirichletPolarizationAtom R p (a, a)
+
+/-- Exact signed polarization ledger: favorable diagonal plus the unique-owner
+off-diagonal ledger. -/
+def lowOwnerGlobalPolarizationSignedLedger (R : ℕ) : ℝ :=
+  lowOwnerGlobalPolarizationDiagonalLedger R +
+    lowOwnerGlobalPolarizationOwnerFiberLedger R
+
+/-- **Exact global unique-owner normal form.**
+
+This is only finite Fubini plus the already-proved cell identity.  In
+particular, no diagonal term is discarded. -/
+theorem sum_lowOwnerFirstOwnerSignedCellTelescope_eq_globalPolarizationSignedLedger
+    (R : ℕ) :
+    (∑ p ∈ primesUpTo (squareRootEndpoint R),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        lowOwnerFirstOwnerSignedCellTelescope R p sig) =
+      lowOwnerGlobalPolarizationSignedLedger R := by
+  unfold lowOwnerGlobalPolarizationSignedLedger
+    lowOwnerGlobalPolarizationDiagonalLedger
+    lowOwnerGlobalPolarizationOwnerFiberLedger
+  rw [Finset.mul_sum]
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro p hpMem
+  rw [Finset.mul_sum]
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro sig _hsig
+  exact lowOwnerFirstOwnerSignedCellTelescope_eq_diagonal_add_ownerFibers
+    (mem_primesUpTo.mp hpMem).1
+
+/-- The owner-fibre-only ledger is a valid but strictly stronger one-sided
+majorant, obtained by discarding only the already-proved nonpositive diagonal. -/
 theorem sum_lowOwnerFirstOwnerSignedCellTelescope_le_globalPolarizationOwnerFiberLedger
     (R : ℕ) :
     (∑ p ∈ primesUpTo (squareRootEndpoint R),
@@ -62,8 +98,43 @@ theorem sum_lowOwnerFirstOwnerSignedCellTelescope_le_globalPolarizationOwnerFibe
   exact lowOwnerFirstOwnerSignedCellTelescope_le_two_ownerFibers
     (mem_primesUpTo.mp hpMem).1
 
-/-- Remaining quantitative target after #791, now on the exact unique-owner
-signed polarization ledger rather than on repeatedly-paid surviving energies. -/
+/-- Preferred post-#791 target: keep the terminal polarization diagonal inside
+the globally assembled signed ledger. -/
+def LowOwnerPolarizationSignedLedgerQ2EnergyBound (B C : ℝ) : Prop :=
+  ∀ R : ℕ, ∀ K : ℝ,
+    56 ≤ R →
+    LowerMertensCriticalEnvelope R K →
+    lowOwnerGlobalPolarizationSignedLedger R ≤
+      B * canonicalRoughLowQ2DaughterEnergy R +
+        C * (R : ℝ) ^ 2 * K
+
+/-- The exact signed-ledger target is literally equivalent to the #791
+signed-cell target. -/
+theorem polarizationSignedLedgerQ2EnergyBound_iff_signedCellQ2EnergyAssemblyBound
+    (B C : ℝ) :
+    LowOwnerPolarizationSignedLedgerQ2EnergyBound B C ↔
+      LowOwnerSignedCellQ2EnergyAssemblyBound B C := by
+  constructor
+  · intro h R K hR hK
+    rw [sum_lowOwnerFirstOwnerSignedCellTelescope_eq_globalPolarizationSignedLedger]
+    exact h R K hR hK
+  · intro h R K hR hK
+    rw [← sum_lowOwnerFirstOwnerSignedCellTelescope_eq_globalPolarizationSignedLedger]
+    exact h R K hR hK
+
+/-- Direct RH consumer in the exact diagonal-retaining owner coordinate. -/
+theorem riemannHypothesis_of_polarizationSignedLedgerQ2EnergyBound
+    {B C : ℝ}
+    (hBlo : -1 / 4 ≤ B) (hBhi : B ≤ 7 / 4) (hC : 0 ≤ C)
+    (hLedger : LowOwnerPolarizationSignedLedgerQ2EnergyBound B C) :
+    RiemannHypothesis := by
+  exact
+    riemannHypothesis_of_signedCellQ2EnergyAssemblyBound
+      hBlo hBhi hC
+      ((polarizationSignedLedgerQ2EnergyBound_iff_signedCellQ2EnergyAssemblyBound
+        B C).1 hLedger)
+
+/-- Stronger optional target obtained after dropping the favorable diagonal. -/
 def LowOwnerPolarizationOwnerFiberQ2EnergyBound (B C : ℝ) : Prop :=
   ∀ R : ℕ, ∀ K : ℝ,
     56 ≤ R →
@@ -72,8 +143,7 @@ def LowOwnerPolarizationOwnerFiberQ2EnergyBound (B C : ℝ) : Prop :=
       B * canonicalRoughLowQ2DaughterEnergy R +
         C * (R : ℝ) ^ 2 * K
 
-/-- Any q^2/root-scale bound on the unique-owner ledger gives exactly the #791
-signed-cell assembly bound with the same coefficients. -/
+/-- The stronger owner-fibre-only target implies the exact signed target. -/
 theorem signedCellQ2EnergyAssemblyBound_of_polarizationOwnerFiber
     {B C : ℝ}
     (hOwner : LowOwnerPolarizationOwnerFiberQ2EnergyBound B C) :
@@ -83,10 +153,7 @@ theorem signedCellQ2EnergyAssemblyBound_of_polarizationOwnerFiber
     (sum_lowOwnerFirstOwnerSignedCellTelescope_le_globalPolarizationOwnerFiberLedger R).trans
       (hOwner R K hR hK)
 
-/-- Direct post-#791 RH consumer.
-
-Any estimate on the exact owner-fibre ledger with an admissible q^2 coefficient
--1/4 <= B <= 7/4 closes through the existing CORR-4 chain. -/
+/-- Direct RH consumer for the stronger owner-fibre-only target. -/
 theorem riemannHypothesis_of_polarizationOwnerFiberQ2EnergyBound
     {B C : ℝ}
     (hBlo : -1 / 4 ≤ B) (hBhi : B ≤ 7 / 4) (hC : 0 ≤ C)
