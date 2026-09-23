@@ -314,7 +314,7 @@ theorem lowOwnerReciprocalThresholdWall_diagonal_le_sixteenth_endpoint
       rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
         simp [realMoebiusStep, h] at hmu ⊢
     · rw [if_neg hfree]
-      exact sq_nonneg (lowOwnerDaughterCrossingWeight R r n)
+      simpa using sq_nonneg (lowOwnerDaughterCrossingWeight R r n)
   calc
     (∑ n ∈ lowOwnerNonzeroMobiusCarrier R,
       lowOwnerReciprocalThresholdWallSignedSite R r n ^ 2) ≤
