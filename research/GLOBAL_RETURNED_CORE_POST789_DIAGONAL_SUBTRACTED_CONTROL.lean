@@ -332,6 +332,7 @@ theorem physicalAmplitudeRemainderQ2EnergyBound_of_finalStokesQ2EnergyBound
       simp [mertensSummatoryInt]
     rw [hm0] at h0
     norm_num at h0
+    exact h0
   have hR2 : 0 ≤ (R : ℝ) ^ 2 := sq_nonneg _
   have hDiagK :
       lowOwnerZeroFrequencyMobiusDiagonal R ≤
@@ -509,6 +510,7 @@ theorem physicalAmplitudeRemainderQ2EnergyBound_of_post789SignedRemainderBound
       simp [mertensSummatoryInt]
     rw [hm0] at h0
     norm_num at h0
+    exact h0
   have hR2 : 0 ≤ (R : ℝ) ^ 2 := sq_nonneg _
   have hDiagK :
       lowOwnerZeroFrequencyMobiusDiagonal R ≤
