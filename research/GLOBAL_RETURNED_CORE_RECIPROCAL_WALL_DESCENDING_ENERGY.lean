@@ -60,14 +60,13 @@ theorem lowOwnerReciprocalThresholdWallSignedSite_eq
       else 0 := by
   unfold lowOwnerReciprocalThresholdWallSignedSite
   by_cases hrn : ¬ r ∣ n
-  · simp only [hrn, if_true]
+  · simp only [if_pos hrn]
     rw [lowOwnerDaughterCrossingWeight_eq_threshold_sum]
     rw [Finset.sum_mul]
     apply Finset.sum_congr rfl
     intro q _hq
     ring
-  · have hrd : r ∣ n := not_not.mp hrn
-    simp [hrn, hrd]
+  · simp only [if_neg hrn]
 
 /-- A fixed r-free threshold wall at cutoff y sums to the whole Mertens
 amplitude M(y), even when evaluated on the common nonzero-Mobius clock. -/
@@ -162,10 +161,11 @@ theorem sum_lowOwnerReciprocalThresholdWallSignedSite_eq_column
           (mertensSummatoryInt (rawQ2ChildCutoff R q) : ℝ) := by
         apply Finset.sum_congr rfl
         intro q _hq
-        rw [sum_nonzeroCarrier_rFree_thresholdCrossing_eq_mertens hr]
-        · rfl
-        · unfold rawQ2ChildCutoff
+        have hy :
+            rawQ2ChildCutoff R q ≤ squareRootEndpoint R := by
+          unfold rawQ2ChildCutoff
           exact Nat.div_le_self _ _
+        rw [sum_nonzeroCarrier_rFree_thresholdCrossing_eq_mertens hr hy]
     _ = lowOwnerReciprocalMertensColumnReal R := by
       rfl
 
@@ -322,10 +322,9 @@ theorem lowOwnerReciprocalThresholdWall_diagonal_le_sixteenth_endpoint
           exact Finset.sum_le_sum hpoint
     _ ≤ ∑ n ∈ Finset.Icc 1 (squareRootEndpoint R),
         lowOwnerDaughterCrossingWeight R r n ^ 2 := by
-          exact Finset.sum_le_sum_of_subset_of_nonneg hsub
-            (by
-              intro n _hn _hnot
-              exact sq_nonneg _)
+          refine Finset.sum_le_sum_of_subset_of_nonneg hsub ?_
+          intro n _hn _hnot
+          positivity
     _ ≤ (1 / 16 : ℝ) * (squareRootEndpoint R : ℝ) :=
       sum_lowOwnerDaughterCrossingWeight_sq_le_sixteenth_endpoint R r
 
