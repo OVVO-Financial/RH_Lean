@@ -115,7 +115,8 @@ theorem lowOwnerGlobalFirstOwnerPDivFirstFiber_eq_swapImage
     rcases ab with ⟨a, b⟩
     have hpair : (m, n) = (b, a) := by
       simpa using habEq.symm
-    cases hpair
+    have hmEq : m = b := congrArg Prod.fst hpair
+    have hnEq : n = a := congrArg Prod.snd hpair
     rcases Finset.mem_filter.mp hab with ⟨hprod, hdata⟩
     rcases Finset.mem_product.mp hprod with ⟨ha, hb⟩
     have hne : b ≠ a := by
@@ -129,12 +130,15 @@ theorem lowOwnerGlobalFirstOwnerPDivFirstFiber_eq_swapImage
           hp hb ha hne)
       exact hsig.2
         ⟨hdata.1.symm, Or.inl ⟨hdata.2.2, hdata.2.1⟩⟩
-    exact Finset.mem_filter.mpr
-      ⟨Finset.mem_filter.mpr
+    have hba :
+        (b, a) ∈ lowOwnerGlobalFirstOwnerPDivFirstFiber R p := by
+      exact Finset.mem_filter.mpr
         ⟨Finset.mem_filter.mpr
-          ⟨Finset.mem_product.mpr ⟨hb, ha⟩, hne⟩,
-          howner⟩,
-        hdata.2.2⟩
+          ⟨Finset.mem_filter.mpr
+            ⟨Finset.mem_product.mpr ⟨hb, ha⟩, hne⟩,
+            howner⟩,
+          hdata.2.2⟩
+    simpa [hmEq, hnEq] using hba
 
 /-- The two orientation halves partition the global first-owner fibre. -/
 theorem lowOwnerGlobalFirstOwnerPairMassWith_eq_orientation_halves
