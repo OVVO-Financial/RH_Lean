@@ -38,6 +38,25 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
+### Post-795 research composition (verification pending)
+
+The dependency chain for the new research layer is:
+
+1. `GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE`: the endpoint
+   correction completes the physical Dirichlet branch square.
+2. `GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_ENDPOINT`: empty revealed state
+   equals the signed first-owner cell.
+3. `GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_GLOBAL_TELESCOPE`: global signed
+   cells equal top-two Stokes clip plus the exceptional terminal.
+4. `GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY`: compose these at
+   the global top prime, keeping the same-branch subtraction; the result is
+   exactly `Q_R^2 + SignedCrossDiagonalRemainder_R`.
+
+This layer is an exact carrier/energy audit. It does not remove the remaining
+signed estimate. The reciprocal quarter-frame pays only `Q_R^2`, while the
+endpoint cross/diagonal remainder remains in the existing post-789 currency.
+The research workflow, not the library root manifest, checks this chain.
+
 The root library currently imports 145 theorem modules, as enumerated directly by `RHLean.lean`.
 
 ### Arithmetic and cell structure
