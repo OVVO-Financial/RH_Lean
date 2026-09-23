@@ -66,7 +66,8 @@ theorem lowOwnerReciprocalThresholdWallSignedSite_eq
     apply Finset.sum_congr rfl
     intro q _hq
     ring
-  · simp only [if_neg hrn]
+  · have hdiv : r ∣ n := not_not.mp hrn
+    simp [hdiv]
 
 /-- A fixed r-free threshold wall at cutoff y sums to the whole Mertens
 amplitude M(y), even when evaluated on the common nonzero-Mobius clock. -/
@@ -313,7 +314,7 @@ theorem lowOwnerReciprocalThresholdWall_diagonal_le_sixteenth_endpoint
       rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
         simp [realMoebiusStep, h] at hmu ⊢
     · rw [if_neg hfree]
-      exact sq_nonneg _
+      exact sq_nonneg (lowOwnerDaughterCrossingWeight R r n)
   calc
     (∑ n ∈ lowOwnerNonzeroMobiusCarrier R,
       lowOwnerReciprocalThresholdWallSignedSite R r n ^ 2) ≤
