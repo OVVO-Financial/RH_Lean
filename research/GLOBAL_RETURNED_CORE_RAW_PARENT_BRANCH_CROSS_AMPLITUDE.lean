@@ -485,4 +485,24 @@ theorem lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy_eq_branchThre
           rw [sum_lowOwnerFirstOwnerBranchThresholdFourCorner_eq_branchThresholdEnergy hr]
           rfl
 
+
+/-- **Compensated branch-energy gate.**
+
+The endpoint correction is kept inside the completed physical incidence square;
+it is never bounded as a separate endpoint packet. -/
+theorem lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_le_half_branchThresholdEnergy_add_endpointCorrection
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hR : 2 ≤ R) (hp : p.Prime) (hr : r.Prime) (hpr : p < r) :
+    lowOwnerFirstOwnerRevealedPolarizationEnergy R p sig
+        (lowOwnerRevealedPrimesAbove R r) ≤
+      (1 / 2 : ℝ) *
+        (lowOwnerFirstOwnerRawParentBranchThresholdEnergy R p sig r +
+          lowOwnerFirstOwnerBranchEndpointIncidenceCorrectionMass R p sig r) := by
+  have h :=
+    lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_le_half_dirichletIncidenceEnergy
+      (R := R) (p := p) (r := r) (sig := sig) hp hr hpr
+  rw [lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy_eq_branchThresholdEnergy_add_endpointCorrection
+    hR hp hr] at h
+  exact h
+
 end RHLean.Proof
