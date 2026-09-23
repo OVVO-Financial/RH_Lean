@@ -142,8 +142,8 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.lean
           emit research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER.lean
           emit research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
-          emit research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
           emit research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean
+          emit research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
 
       - name: Kernel-check branch currency, orbit, and cross-amplitude gate
         run: |
