@@ -118,10 +118,11 @@ theorem lowOwnerZeroTargetHistoryClippedOutgoingEnergy_le_reciprocal
           exact mul_nonneg
             (sq_nonneg (lowOwnerZeroTargetHistoryReciprocalScale history parent))
             (postRootCovarianceReciprocalPairEnergy_nonneg child)
-        exact mul_le_mul_of_nonneg_right
-          (critical_one_sub_reciprocal_sq_le_one
-            (mem_primesUpTo.mp hpMem).1)
-          hchild0
+        simpa only [one_mul] using
+          (mul_le_mul_of_nonneg_right
+            (critical_one_sub_reciprocal_sq_le_one
+              (mem_primesUpTo.mp hpMem).1)
+            hchild0)
       · simp [hclip]
     _ =
       (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
@@ -408,9 +409,10 @@ theorem lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
                   (sq_nonneg
                     (lowOwnerZeroTargetHistoryReciprocalScale history parent))
                   (postRootCovarianceReciprocalPairEnergy_nonneg child)
-              exact mul_le_mul_of_nonneg_right
-                (critical_one_sub_reciprocal_sq_le_one hrPrime)
-                hchild0
+              simpa only [one_mul] using
+                (mul_le_mul_of_nonneg_right
+                  (critical_one_sub_reciprocal_sq_le_one hrPrime)
+                  hchild0)
             · simp [hclip]
       _ =
         (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
