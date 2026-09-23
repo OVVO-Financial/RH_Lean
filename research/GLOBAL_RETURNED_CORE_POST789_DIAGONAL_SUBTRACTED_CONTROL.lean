@@ -432,7 +432,7 @@ theorem riemannHypothesis_of_zeroTargetCrossSevenEighths
       (7 / 8) C).mp hCross
   have hFinal :
       LowOwnerFinalStokesQ2EnergyBound (7 / 4) (2 * C) := by
-    convert hRaw using 1 <;> norm_num
+    convert hRaw using 1 ; norm_num
   have hC2 : 0 ≤ 2 * C := by positivity
   exact
     riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
