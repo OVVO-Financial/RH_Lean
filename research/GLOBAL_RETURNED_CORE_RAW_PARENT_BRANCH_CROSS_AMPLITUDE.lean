@@ -319,4 +319,170 @@ theorem lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_le_half_dirichle
     (lowOwnerFirstOwnerBranchBaseDifferenceAmplitude R p sig tau r)
     (lowOwnerFirstOwnerBranchReturnedDifferenceAmplitude R p sig tau r)
 
+
+/-! ## Endpoint correction completes the physical incidence square -/
+
+/-- Square of one assembled Dirichlet-incidence fibre amplitude as its literal
+ordered pair sum. -/
+private theorem lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceAmplitude_sq_eq_pairSum
+    (R p : ℕ) (sig tau : Finset ℕ) (r : ℕ) :
+    lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceAmplitude
+        R p sig tau r ^ 2 =
+      ∑ mn ∈
+        (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r).product
+          (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r),
+        lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r mn.1 *
+          lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r mn.2 := by
+  unfold lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceAmplitude
+  calc
+    (∑ n ∈ lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r,
+        lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r n) ^ 2 =
+      (∑ m ∈ lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r,
+        lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r m) *
+      (∑ n ∈ lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r,
+        lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r n) := by
+          ring
+    _ =
+      ∑ m ∈ lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r,
+        ∑ n ∈ lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r,
+          lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r m *
+            lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r n := by
+          rw [Finset.sum_mul]
+          apply Finset.sum_congr rfl
+          intro m _hm
+          rw [Finset.mul_sum]
+    _ = _ := by
+      symm
+      simpa only using
+        (Finset.sum_product
+          (s := lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r)
+          (t := lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r)
+          (f := fun mn : ℕ × ℕ =>
+            lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r mn.1 *
+              lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r mn.2))
+
+/-- The assembled Dirichlet-incidence fibre energy is exactly the equal-key
+Gram on the full revealed r-free branch. -/
+theorem lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy_eq_pairSum
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) :
+    lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy R p sig r =
+      ∑ parent ∈ lowOwnerFirstOwnerRawParentBranchCarrier R p sig r,
+        lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r parent.1 *
+          lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r parent.2 := by
+  let P := lowOwnerFirstOwnerRawParentBranchCarrier R p sig r
+  let T := lowOwnerFirstOwnerRawParentBranchSignatureSet R p sig r
+  let key : ℕ → Finset ℕ := lowOwnerRawParentRevealedKey R r
+  let F : ℕ × ℕ → ℝ := fun parent =>
+    lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r parent.1 *
+      lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r parent.2
+  have hmaps : ∀ parent ∈ P, key parent.1 ∈ T := by
+    intro parent hparent
+    have hprod := (Finset.mem_filter.mp hparent).1
+    have haBase := (Finset.mem_product.mp hprod).1
+    have hra := (Finset.mem_filter.mp hparent).2.2.1
+    have haSite : parent.1 ∈
+        lowOwnerFirstOwnerRawParentBranchSiteCarrier R p sig r :=
+      Finset.mem_filter.mpr ⟨haBase, hra⟩
+    exact Finset.mem_image.mpr ⟨parent.1, haSite, rfl⟩
+  have hfiber := Finset.sum_fiberwise_of_maps_to
+    (s := P) (t := T) (g := fun parent => key parent.1) hmaps F
+  unfold lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy
+  change (∑ tau ∈ T,
+      lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceAmplitude
+        R p sig tau r ^ 2) = ∑ parent ∈ P, F parent
+  calc
+    (∑ tau ∈ T,
+      lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceAmplitude
+        R p sig tau r ^ 2) =
+      ∑ tau ∈ T,
+        ∑ parent ∈
+          (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r).product
+            (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r),
+          F parent := by
+            apply Finset.sum_congr rfl
+            intro tau _htau
+            exact
+              lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceAmplitude_sq_eq_pairSum
+                R p sig tau r
+    _ = ∑ tau ∈ T,
+        ∑ parent ∈ P.filter (fun parent => key parent.1 = tau), F parent := by
+          apply Finset.sum_congr rfl
+          intro tau _htau
+          have hset :=
+            lowOwnerFirstOwnerRawParentBranch_keyFiber_eq_product
+              R p sig tau r
+          rw [show P.filter (fun parent => key parent.1 = tau) =
+              (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r).product
+                (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r) by
+            simpa [P, key] using hset]
+    _ = ∑ parent ∈ P, F parent := hfiber
+
+/-- A physical Dirichlet-incidence four-corner on the full branch is the
+product of its two signed one-dimensional incidence differences. -/
+theorem lowOwnerFirstOwnerBranchDirichletIncidenceFourCorner_eq_siteProduct
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hr : r.Prime)
+    (hparent : parent ∈ lowOwnerFirstOwnerRawParentBranchCarrier R p sig r) :
+    lowOwnerRawParentDirichletIncidenceFourCornerMass R p r parent =
+      lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r parent.1 *
+        lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r parent.2 := by
+  rcases Finset.mem_filter.mp hparent with
+    ⟨_hprod, _hsigAbove, hra, hrb⟩
+  unfold lowOwnerRawParentDirichletIncidenceFourCornerMass
+  rw [weightedMoebiusFreshPrimeFourCornerMass_eq_ownerDifferences
+    (lowOwnerPhysicalDirichletIncidenceWeight R p) hr hra hrb]
+  rw [postRootZeroTargetPairExcess_eq_weight]
+  unfold lowOwnerBranchDirichletIncidenceDifferenceSignedSite
+    lowOwnerDirichletOwnerDifference
+  ring
+
+/-- **Endpoint-energy completion identity.**
+
+The endpoint correction is not an independent error term.  After full
+equal-signature reassembly it is exactly the signed cross/square completion
+which turns the threshold branch energy into the physical Dirichlet-incidence
+energy.  No norm or inequality is used. -/
+theorem lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy_eq_branchThresholdEnergy_add_endpointCorrection
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hR : 2 ≤ R) (hp : p.Prime) (hr : r.Prime) :
+    lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy R p sig r =
+      lowOwnerFirstOwnerRawParentBranchThresholdEnergy R p sig r +
+        lowOwnerFirstOwnerBranchEndpointIncidenceCorrectionMass R p sig r := by
+  rw [lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy_eq_pairSum]
+  calc
+    (∑ parent ∈ lowOwnerFirstOwnerRawParentBranchCarrier R p sig r,
+      lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r parent.1 *
+        lowOwnerBranchDirichletIncidenceDifferenceSignedSite R p r parent.2) =
+      ∑ parent ∈ lowOwnerFirstOwnerRawParentBranchCarrier R p sig r,
+        lowOwnerRawParentDirichletIncidenceFourCornerMass R p r parent := by
+          apply Finset.sum_congr rfl
+          intro parent hparent
+          symm
+          exact lowOwnerFirstOwnerBranchDirichletIncidenceFourCorner_eq_siteProduct
+            hr hparent
+    _ =
+      ∑ parent ∈ lowOwnerFirstOwnerRawParentBranchCarrier R p sig r,
+        (weightedMoebiusFreshPrimeFourCornerMass
+            (lowOwnerThresholdOwnerIncidenceWeight R p)
+            r parent.1 parent.2 +
+          lowOwnerRawParentEndpointIncidenceCorrectionMass R p r parent) := by
+            apply Finset.sum_congr rfl
+            intro parent hparent
+            exact
+              lowOwnerFirstOwnerBranchDirichletIncidenceFourCorner_eq_threshold_add_endpointCorrection
+                hR hp hr hparent
+    _ =
+      (∑ parent ∈ lowOwnerFirstOwnerRawParentBranchCarrier R p sig r,
+        weightedMoebiusFreshPrimeFourCornerMass
+          (lowOwnerThresholdOwnerIncidenceWeight R p)
+          r parent.1 parent.2) +
+      ∑ parent ∈ lowOwnerFirstOwnerRawParentBranchCarrier R p sig r,
+        lowOwnerRawParentEndpointIncidenceCorrectionMass R p r parent := by
+          rw [Finset.sum_add_distrib]
+    _ =
+      lowOwnerFirstOwnerRawParentBranchThresholdEnergy R p sig r +
+        lowOwnerFirstOwnerBranchEndpointIncidenceCorrectionMass R p sig r := by
+          rw [sum_lowOwnerFirstOwnerBranchThresholdFourCorner_eq_branchThresholdEnergy hr]
+          rfl
+
 end RHLean.Proof
