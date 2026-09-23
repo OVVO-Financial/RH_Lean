@@ -24,8 +24,10 @@ It also reports the discarded gate slack summed over first owners.  Numerical
 evidence is a filter only, never proof.
 
 Usage: python3 experiments/top_two_branch_gate_composition.py 56 60 66 72
+       python3 experiments/top_two_branch_gate_composition.py --hand
 """
 import sys
+from math import isqrt
 
 
 def sieve(N):
@@ -46,8 +48,12 @@ def sieve(N):
     return mu, primes
 
 
-def run(R):
-    X = R * R - 1
+def run(R, X=None):
+    """Production clock X = R^2 - 1 by default.  Passing X decouples the clock
+    from R (the x = 210 / x = 317 structural hand models use R = isqrt(x));
+    the compiled theorems are stated only on the production clock."""
+    if X is None:
+        X = R * R - 1
     mu, primes = sieve(X)
     M = [0] * (X + 1)
     for n in range(1, X + 1):
@@ -162,7 +168,27 @@ def run(R):
             slack_sum += 0.5 * slack ** 2
             completed_sum += 0.5 * ampI ** 2
     XR = G ** 2 + 2 * Qcol * G - D
+    # Owner-2 endpoint window versus the survivor ledger of
+    # research/SURVIVOR_MERTENS_INVARIANT.md: the window is every odd
+    # squarefree n in (X/2, X]; its outer part (largest prime factor above
+    # isqrt(X)) is the hand survivor population.
+    root = isqrt(X)
+
+    def lpf(n):
+        big = 1
+        for q in primes:
+            if q > n:
+                break
+            if n % q == 0:
+                big = q
+        return big
+
+    window2 = [n for n in range(1, X + 1) if mu[n] != 0 and n % 2 == 1 and X / 2 < n]
+    outer = [n for n in window2 if lpf(n) > root]
+    ok['window2_is_M_X'] = sum(mu[n] for n in window2) == M[X]
+    survivors = (len(outer), sum(mu[n] for n in outer))
     return dict(R=R, X=X, top=t, second=s, lowOwners=Q, E=E, Q2=Qcol ** 2, G=G,
+                MX=M[X], survivors=survivors,
                 D=D, XR=XR, terminal=terminal, topTwoClip=sum_top2,
                 normalFormErr=abs(sum_top2 - (Qcol ** 2 + XR - terminal)),
                 finalStokesErr=abs(sum_top2 + terminal - (A * A - D)),
@@ -170,6 +196,29 @@ def run(R):
                 halfSlackOverR2=slack_sum / R ** 2, **ok)
 
 
+def hand_models():
+    """x = 210 and x = 317 structural hand models (root cutoff isqrt(x)).
+
+    Cross-checks the hand ledgers of research/AMPLITUDE_X210_EXACT_EXAMPLE.md
+    and research/SURVIVOR_MERTENS_INVARIANT.md: M(210) = -1 with 38 outer
+    survivors of amplitude 0, and 59 outer survivors of amplitude -1 at 317.
+    """
+    expected = {210: (-1, (38, 0)), 317: (None, (59, -1))}
+    for x, (mx, surv) in expected.items():
+        o = run(isqrt(x), x)
+        if mx is not None:
+            assert o['MX'] == mx, (x, o['MX'])
+        assert o['survivors'] == surv, (x, o['survivors'])
+        flags = [k for k, v in o.items() if isinstance(v, bool)]
+        assert all(o[k] for k in flags), (x, {k: o[k] for k in flags})
+        assert o['normalFormErr'] < 1e-9 and o['finalStokesErr'] < 1e-9, x
+        print(o, flush=True)
+
+
 if __name__ == "__main__":
-    for R in map(int, sys.argv[1:] or ["56"]):
-        print(run(R), flush=True)
+    args = sys.argv[1:]
+    if args == ["--hand"]:
+        hand_models()
+    else:
+        for R in map(int, args or ["56"]):
+            print(run(R), flush=True)
