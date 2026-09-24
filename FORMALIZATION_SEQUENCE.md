@@ -132,10 +132,23 @@ families are screened structurally before any harness is built:
   its theorems (`PrimeExtensionPhysicalResponse`,
   `PrimeExtensionCanonicalScheduleBridge`) are not compiled on `main`. The
   rejection uses only the elementary amplitude identity.
-- Family 3, replacement-fibre exchange after global Fubini: open. Pre-screen:
-  after summing every signed contribution landing on each q^2 daughter, are the
-  daughters literal `M(floor(X/q^2))`, what is the net coefficient, and can
-  `C_R` be isolated without a full top-scale remainder?
+- Family 3, replacement-fibre exchange after global Fubini: rejected. Summing
+  the fibre label `z` exactly (`ReplacementFibreCofactorWindows`,
+  `research/REPLACEMENT_TYPEII_SCALAR_GATE.md`) gives
+  `C_R = B_root + B_smooth` with
+  `B_root = sum_{c<R} mu(c) #{q prime : c < q, R <= cq <= X}` and
+  `B_smooth = sum_c mu(c) #{q prime : P+(c) < q < c, R <= cq <= X}`.
+  The exchange lands on prime-window counts indexed by the cofactor `c`; no
+  `M(floor(X/q^2))` daughter appears, so there is no coefficient `a_{R,q}` to
+  measure. The two channels are exactly the tail split already closed by the
+  prime/smooth kill gate (e.g. `B_root = -22096`, `B_smooth = 21909` at
+  `R = 2000`).
+
+All four internal families are closed. The existing exact combinatorics either
+give unit q^2 coefficients, restricted non-Mertens daughters, or no q^2
+daughters at all, and every exact route to `C_R` keeps a full top-scale state.
+A certificate with `sum_q a_{R,q}^2 < 4` would have to come from new analytic
+input rather than another exact coordinate of the existing ledgers.
 
 The root library currently imports 145 theorem modules, as enumerated directly by `RHLean.lean`.
 
