@@ -110,7 +110,7 @@ recorded kills
 | dyadic local pairing | coherent mode survives |
 | signed second Selberg | coherent zero spectrum survives and gets $\log x$ weighting |
 
-sthe repository is a formal reduction and obstruction map. Elementary and
+the repository is a formal reduction and obstruction map. Elementary and
 combinatorial structure stops here. Further internal DAG search is
 frozen.
 
