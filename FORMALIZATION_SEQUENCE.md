@@ -109,6 +109,34 @@ the same. Anti-alignment is Mertens cancellation restated with two large
 numbers, so this route is closed. Do not formalize another prime/smooth Gram
 or ledger theorem without a genuinely small channel.
 
+Linear certificate search. The live target is an exact identity
+`C_R = sum_{q^2<R} a_{R,q} M(floor(X_R/q^2)) + e_R` with `sum_q a_{R,q}^2 < 4`
+and `e_R^2 <= B R^2 K`, which with Cauchy--Schwarz gives CORR-4. Candidate
+families are screened structurally before any harness is built:
+
+- Liouville `M(N) = L(N) - sum_{d>=2} M(N/d^2)`: rejected. All low-owner
+  coefficients are 1, so `c_R` counts owners, and `L(N)` stays top-scale.
+- Family 1, square-residual q^2 telescope
+  (`lowWheelFrozenSecondContactSquareResidualMass_eq_q2Telescope`): rejected.
+  The daughters are restricted windows `d <= X/(A q^2)`, rough above `P+(A)`,
+  `P+(d) < q`, one per source scale `A`; they are not `M(floor(X/q^2))`.
+  Isolating `C_R` through `FinalCompensatedParentReduction` leaves
+  `squareRootSmoothMass (R-1)` and the defect ledger, or the frozen/top/far
+  residual, in `e_R`: a full top-scale state.
+- Family 2, #789 prime-extension telescope: rejected. The daughters are the
+  literal `M(floor(X/p^2))`, but each enters with coefficient `-1`
+  (`M(X) = 1 - sum_{p<R} M(floor(X/p^2)) - Response_R`), so
+  `c_R = pi(R-1)`. Its response collapses to the existing ownerwise synthesis
+  error. Note: #789 was merged into the stacked branch
+  `agent/post787-boundary-main-term-obstruction`, which never reached `main`;
+  its theorems (`PrimeExtensionPhysicalResponse`,
+  `PrimeExtensionCanonicalScheduleBridge`) are not compiled on `main`. The
+  rejection uses only the elementary amplitude identity.
+- Family 3, replacement-fibre exchange after global Fubini: open. Pre-screen:
+  after summing every signed contribution landing on each q^2 daughter, are the
+  daughters literal `M(floor(X/q^2))`, what is the net coefficient, and can
+  `C_R` be isolated without a full top-scale remainder?
+
 The root library currently imports 145 theorem modules, as enumerated directly by `RHLean.lean`.
 
 ### Arithmetic and cell structure
