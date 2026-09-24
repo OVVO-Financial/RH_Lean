@@ -101,6 +101,14 @@ this gap cannot be closed inside `X_R`. On `R = 56..3000` the exact probe finds
 `X_R <= (3/2) E_R + C R^2 K_R` already with `C = -0.33`. That is finite
 evidence only; it certifies no uniform constant.
 
+Prime-root / smooth kill gate (`scripts/prime_smooth_channel_probe.py`,
+exact, `R = 56..3000`): `P_R + S_R = M(R^2-1) - 1` and both splits at `R`
+hold exactly, but `|P_R|` and `|S_R|` each grow to about `12 R sqrt(K_R)` by
+`R = 3000` while `|P_R + S_R| <= 0.35 R sqrt(K_R)`; the tails above `R` behave
+the same. Anti-alignment is Mertens cancellation restated with two large
+numbers, so this route is closed. Do not formalize another prime/smooth Gram
+or ledger theorem without a genuinely small channel.
+
 The root library currently imports 145 theorem modules, as enumerated directly by `RHLean.lean`.
 
 ### Arithmetic and cell structure
