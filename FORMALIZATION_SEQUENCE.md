@@ -150,6 +150,19 @@ daughters at all, and every exact route to `C_R` keeps a full top-scale state.
 A certificate with `sum_q a_{R,q}^2 < 4` would have to come from new analytic
 input rather than another exact coordinate of the existing ledgers.
 
+Heuristic no-go for fixed linear filters (explicit-formula heuristic, not a
+Lean theorem). If `M(N) = sum_q a_q M(N/q^2) + e(N)` with weights `a_q` fixed
+independently of the Mobius values, then `E(s) = (1 - A(2s))/zeta(s)` with
+`A(w) = sum_q a_q q^(-w)`. For `sum_q a_q^2 < 4` and `Re s >= 1/2`,
+`|A(2s)| <= 2 (sum_{odd p} p^-2)^(1/2) ~ 0.90`, so the multiplier lies between
+about 0.1 and 1.9 in modulus and cancels no pole of `1/zeta`. The error keeps
+every zero-driven oscillation of `M` with amplitude at least a tenth, so
+bounding it is the original problem. The same applies to any fixed linear
+relation among the far-survivor values `M(X/q)` across different primes. Open
+caveats: convergence at `Re s = 1/2`, and the `R`-dependent owner cutoff. A
+data-dependent map is either circular or reduces to the analytic CORR-4
+inequality itself.
+
 The root library currently imports 145 theorem modules, as enumerated directly by `RHLean.lean`.
 
 ### Arithmetic and cell structure
