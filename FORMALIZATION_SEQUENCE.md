@@ -87,6 +87,20 @@ q² coefficient. The branch completion and top-two Stokes composition did not
 narrow the seam: what remains is the top-endpoint correlation estimate that
 `riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy` already consumes.
 
+`GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND` records the strongest
+global bound currently available from compiled unconditional input. Feeding
+`strongNativeMertensSubexp` through the Young comparison gives, for every
+`R >= 56` with no envelope hypothesis,
+
+    X_R <= (1/4) E_R + 4 B(R^2-1)^2 + 4 B(R-1)^2,
+    B(x) = C x exp(-c (log x)^(1/10)).
+
+The RH consumer needs `(3/2) E_R + C R^2 K`. The unconditional bound is larger
+by a factor `R^2 exp(-c' (log R)^(1/10))`, and the lower comparison shows that
+this gap cannot be closed inside `X_R`. On `R = 56..3000` the exact probe finds
+`X_R <= (3/2) E_R + C R^2 K_R` already with `C = -0.33`. That is finite
+evidence only; it certifies no uniform constant.
+
 The root library currently imports 145 theorem modules, as enumerated directly by `RHLean.lean`.
 
 ### Arithmetic and cell structure

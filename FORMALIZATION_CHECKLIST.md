@@ -95,6 +95,11 @@ Each PR description and checklist update must identify:
   `2A+1`. The #796 assembly dominates half the top-endpoint Mertens square.
 - Exact corrective content: the #796 remainder is not a lower-order term; the
   completed-branch/top-two route returned to the terminal CORR hypothesis.
+- Added `research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean`:
+  from `strongNativeMertensSubexp`, `X_R <= (1/4) E_R + 4 B(R^2-1)^2 +
+  4 B(R-1)^2` for every `R >= 56` with `B(x) = C x exp(-c (log x)^(1/10))`.
+  This is unconditional but misses the `(3/2) E_R + C R^2 K` target by a
+  factor `R^2 exp(-c' (log R)^(1/10))`.
 - Gates: signed-cell Stokes workflow (warning-fatal kernel check of the new
   module) and the exact-rational comparison probe for `R = 56..400`.
 - No contraction, no new analytic assumption, and no RH proof is claimed.

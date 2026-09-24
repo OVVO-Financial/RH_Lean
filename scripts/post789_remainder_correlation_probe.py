@@ -125,6 +125,11 @@ def main() -> None:
 
     rows = [measure(r, mertens, squarefree)
             for r in range(args.min_root, args.max_root + 1)]
+    # Exact lower critical envelope: K_R = max_{y < R} (M(y) - 1)^2 / (y + 1).
+    envelope, running = {}, 0.0
+    for y in range(args.max_root):
+        running = max(running, (mertens[y] - 1) ** 2 / (y + 1))
+        envelope[y + 1] = running
     if args.verbose:
         for row in rows:
             print(" ".join(f"{k}={v:.6g}" if isinstance(v, float) else f"{k}={v}"
@@ -141,6 +146,13 @@ def main() -> None:
           f"D_R/R^2 = {worst['D'] / worst['R'] ** 2:.4f})")
     print(f"max D_R/R^2 = {max(row['D'] / row['R'] ** 2 for row in rows):.4f} "
           "(compiled bound: 3)")
+    needed = max(rows, key=lambda row: (row["X"] - 1.5 * row["E"])
+                 / (row["R"] ** 2 * envelope[row["R"]]))
+    needed_c = (needed["X"] - 1.5 * needed["E"]) / (
+        needed["R"] ** 2 * envelope[needed["R"]])
+    print(f"smallest C with X_R <= (3/2) E_R + C R^2 K_R on this range: "
+          f"{needed_c:.4f} (attained at R = {needed['R']}); a finite range "
+          "cannot certify a uniform constant")
     print("Two-sided CORR comparison and quarter frame hold at every root.")
 
 

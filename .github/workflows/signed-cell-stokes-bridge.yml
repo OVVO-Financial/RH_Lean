@@ -47,6 +47,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean
       - scripts/top_two_completed_branch_probe.py
       - research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean
+      - research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean
       - scripts/post789_remainder_correlation_probe.py
       - research/GLOBAL_RETURNED_CORE_ZERO_TARGET_CLIPPED_HISTORY_CONTRACTION.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
@@ -318,5 +319,13 @@ jobs:
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean
+      - name: Prebuild unconditional strong Mertens input
+        run: |
+          lake build RHLean.Analysis.NativePNTQuantitativeStatements
+          lake build RHLean.Analysis.StrongMertensLogNineBalance
+      - name: Kernel-check unconditional global post-789 bound
+        run: |
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean
       - name: Check exact post-789 remainder / CORR comparison
         run: python3 scripts/post789_remainder_correlation_probe.py --max-root 400
