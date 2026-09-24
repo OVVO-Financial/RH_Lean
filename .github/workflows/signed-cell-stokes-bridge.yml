@@ -44,9 +44,11 @@ on:
       - research/GLOBAL_RETURNED_CORE_RECIPROCAL_WALL_DESCENDING_ENERGY.lean
       - research/GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_SIGNED_CELL_SPLIT.lean
       - research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_GLOBAL_TELESCOPE.lean
-      - research/GLOBAL_RETURNED_CORE_ZERO_TARGET_CLIPPED_HISTORY_CONTRACTION.lean
       - research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_COMPOSITION.lean
       - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
+      - research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean
+      - scripts/top_two_completed_branch_probe.py
+      - research/GLOBAL_RETURNED_CORE_ZERO_TARGET_CLIPPED_HISTORY_CONTRACTION.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
       - research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
       - research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
@@ -229,7 +231,6 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_CORNER_CLASSIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_POLARIZATION_UNIQUE_OWNER_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_FILTRATION.lean
-          emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_ENDPOINT.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_OWNER_SPLICE.lean
           emit research/GLOBAL_RETURNED_CORE_COMPLETED_POLARIZATION_AGGREGATE.lean
           emit research/GLOBAL_RETURNED_CORE_UNIQUE_GREATEST_OWNER_ASSEMBLY.lean
@@ -306,4 +307,11 @@ jobs:
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_GLOBAL_TELESCOPE.lean
+      - name: Kernel-check completed branch through global top-two assembly
+        run: |
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_ENDPOINT.lean
+          emit research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean
           emit research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_COMPOSITION.lean
+      - name: Check exact finite branch and two-toggle identities
+        run: python3 scripts/top_two_completed_branch_probe.py

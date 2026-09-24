@@ -81,6 +81,23 @@ Each PR description and checklist update must identify:
 
 ## 4. Successful PR ledger
 
+### Post-795 completed branch / top-two composition (verification pending)
+
+- Dependency: #795, green at `4f67daa765c57c2e650b6ae448bb940141e31f12`.
+- Added `research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean`.
+- The top-prime branch is evaluated once per first owner; the full incidence
+  square minus its same-branch square mass is exactly the signed cell.
+- Global Fubini identifies this assembly with the top-two clip plus the
+  existing terminal, and with `Q_R^2 + SignedCrossDiagonalRemainder_R`.
+- The exact remaining inequality retains the endpoint cross term and terminal
+  separately. No new contraction or unconditional RH proof is claimed.
+- Research modules are checked by the warning-fatal signed-cell Stokes workflow;
+  they are outside the generated `RHLean.lean` library surface.
+- Gates: source/root/export audits, hosted library build, signed-cell research
+  closure, and the exact-rational diagnostic at R = 56, 64, 99.
+- Numerical checks are diagnostics only. The uniform signed remainder estimate
+  remains open; no ownerwise positive branch-energy sum pays it.
+
 A checked entry visible on `main` means the PR reached `main` through the required process. The ledger is append-only.
 
 - [x] **#1** — Initialized Lean 4/Lake, pinned mathlib `v4.24.0`, added CI/source audit, Fermat coordinates, and fixed packets.
