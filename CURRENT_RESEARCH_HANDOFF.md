@@ -12,7 +12,7 @@ Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjo
 
 Question: once #795 completes the Dirichlet-incidence branch energy by its endpoint correction, and #792 collapses the signed ledger to the global top-two Stokes clip, is the assembled two-toggle clip now literally a q² daughter contraction plus the closed terminal sector?
 
-Answer: **no**. `research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_COMPOSITION.lean` records the exact reason.
+Answer: **no**. The merged #796 module `research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean` reaches the same normal form independently (`lowOwnerTopTwoStokesClip_eq_q2Sq_add_signedRemainder_sub_terminal`). `research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_COMPOSITION.lean` imports it and records the exact reason.
 
 1. **The clip removes nothing below the top two owners.** `lowOwnerFirstOwnerTopTwoStokesClipNormalForm_eq_signedCellTelescope_of_lower`: for every first owner other than the two largest clock primes, the canonical residual vanishes and the top-two normal form is the whole cell telescope `2 Base Child`. The top-toggle escape faces cover everything except the `{1,t}^2` block, and the second-prime step returns that block in full.
 2. **Exact normal form.** `lowOwnerCanonicalTopTwoStokesClipNormalForm_eq_q2Sq_add_endpointGap_sub_diagonal_sub_terminal`:

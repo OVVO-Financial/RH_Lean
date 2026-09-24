@@ -1,7 +1,5 @@
 import Mathlib
-import «research.GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_GLOBAL_TELESCOPE»
-import «research.GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_ENDPOINT»
-import «research.GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE»
+import «research.GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY»
 
 /-!
 # Top-two Stokes clip composed with the completed branch energy
@@ -25,7 +23,10 @@ obstruction is exact.
    cell telescope `2 * Base * Child`.  Globally,
    `TopTwoClip = FinalStokes - Terminal`.
 
-2. **Exact global normal form.**  With the compiled post-#789 split,
+2. **Exact global normal form.**  The #796 assembly module already proves
+   `TopTwoClip = Q^2 + Remainder789 - Terminal`
+   (`lowOwnerTopTwoStokesClip_eq_q2Sq_add_signedRemainder_sub_terminal`).
+   Writing the post-#789 remainder out,
 
      TopTwoClip = Q^2 + (G^2 + 2 Q G - D) - Terminal,
 
@@ -121,28 +122,7 @@ theorem lowOwnerFirstOwnerTopTwoStokesClipNormalForm_eq_signedCellTelescope_of_l
 
 /-! ## 2. Exact global normal form of the two-toggle clip -/
 
-/-- **Exact normal form of the assembled two-toggle clip.**
-
-The clip is the reciprocal q² column square, plus the single post-#789 signed
-remainder carrying the top endpoint gap, minus the exceptional terminal. -/
-theorem lowOwnerCanonicalTopTwoStokesClipNormalForm_eq_q2Sq_add_post789Remainder_sub_terminal
-    {R : ℕ} (hR : 56 ≤ R) :
-    lowOwnerCanonicalTopTwoStokesClipNormalForm R hR =
-      lowOwnerReciprocalMertensColumnReal R ^ 2 +
-        lowOwnerPost789SignedCrossDiagonalRemainder R -
-          lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
-  have hLedger :=
-    lowOwnerGlobalPolarizationSignedLedger_eq_topTwoStokesClip_add_terminal hR
-  have hCells :=
-    sum_lowOwnerFirstOwnerSignedCellTelescope_eq_globalPolarizationSignedLedger R
-  have hFinal :=
-    sum_lowOwnerFirstOwnerSignedCellTelescope_eq_finalStokesBoundary
-      (R := R) (by omega : 2 ≤ R)
-  have hPost :=
-    lowOwnerCanonicalSignedStokesFinalBoundary_eq_q2Sq_add_post789Remainder hR
-  linarith
-
-/-- The same normal form with the remainder written out: the only term that is
+/-- The #796 normal form with the remainder written out: the only term that is
 not a q² column square, the diagonal, or the terminal is the top endpoint gap
 `G = M(X_R) - M(R-1)` together with its cross term against the column. -/
 theorem lowOwnerCanonicalTopTwoStokesClipNormalForm_eq_q2Sq_add_endpointGap_sub_diagonal_sub_terminal
@@ -154,8 +134,7 @@ theorem lowOwnerCanonicalTopTwoStokesClipNormalForm_eq_q2Sq_add_endpointGap_sub_
             lowOwnerPost789EndpointGapReal R) -
         lowOwnerZeroFrequencyMobiusDiagonal R -
           lowOwnerCanonicalSignedStokesTopTerminalBoundary R := by
-  rw [lowOwnerCanonicalTopTwoStokesClipNormalForm_eq_q2Sq_add_post789Remainder_sub_terminal
-    hR]
+  rw [lowOwnerTopTwoStokesClip_eq_q2Sq_add_signedRemainder_sub_terminal hR]
   unfold lowOwnerPost789SignedCrossDiagonalRemainder
   ring
 
@@ -180,8 +159,7 @@ theorem topEndpointGapQ2EnergyBound_of_topTwoStokesClipQ2EnergyBound
     LowOwnerTopEndpointGapQ2EnergyBound (2 * B + 1 / 2) (2 * C + 7) := by
   intro R K hR hK
   have hclip := hClip R K hR hK
-  rw [lowOwnerCanonicalTopTwoStokesClipNormalForm_eq_q2Sq_add_post789Remainder_sub_terminal
-    hR] at hclip
+  rw [lowOwnerTopTwoStokesClip_eq_q2Sq_add_signedRemainder_sub_terminal hR] at hclip
   unfold lowOwnerPost789SignedCrossDiagonalRemainder at hclip
   have hterm := lowOwnerCanonicalSignedStokesTopTerminalBoundary_le_four hR
   have hdiag := lowOwnerZeroFrequencyMobiusDiagonal_le_three_root_sq R
@@ -251,19 +229,6 @@ theorem lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_eq_half_complete
       hp hr hpr,
     lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy_eq_branchThresholdEnergy_add_endpointCorrection
       hR hp hr]
-
-/-- Nothing lies above the top clock prime. -/
-theorem lowOwnerRevealedPrimesAbove_topPrime_eq_empty
-    {R : ℕ} (hR : 56 ≤ R) :
-    lowOwnerRevealedPrimesAbove R (topPrime R hR) = ∅ := by
-  ext q
-  constructor
-  · intro hq
-    rcases Finset.mem_filter.mp hq with ⟨hqMem, hqGt⟩
-    have hle : q ≤ topPrime R hR := Finset.le_max' _ q hqMem
-    exact absurd hqGt (Nat.not_lt.mpr hle)
-  · intro hq
-    simp at hq
 
 /-- **Top-coordinate composition.**  For every first owner below the top prime,
 the signed cell telescope is exactly half the completed top-coordinate branch
