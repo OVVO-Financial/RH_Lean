@@ -136,6 +136,28 @@ physicalReassembledQ2Daughter K q = M(4*K/q^2),
 
 So a future parent theorem must not introduce another daughter-normalization hypothesis. If a proof attempt still asks for one, it has chosen the wrong carrier.
 
+## Stokes / branch-completion route status (post-#796)
+
+The returned-core Stokes route ends at the exact compiled identity
+
+```text
+TopCompletedBranchAssembly_R = Q_R^2 + X_R,
+X_R = G_R^2 + 2 Q_R G_R - D_R,   G_R = M(R^2-1) - M(R-1).
+```
+
+`research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean` proves that
+`X_R` is not a lower-order remainder. Because `corr_R = -G_R`,
+
+```text
+(1/2) corr_R^2 - (1/2) E_R - 3 R^2 <= X_R <= (1+a) corr_R^2 + b E_R,  4ab = 1,
+```
+
+so a post-789 bound exists exactly when a CORR-low bound exists. Do not attack
+`X_R` as though it were smaller than the CORR square. Any estimate for it is an
+estimate for the top-endpoint Mertens correlation itself. Its negative sign on
+finite ranges comes from the root-scale diagonal `D_R`, which carries no
+q² information.
+
 ## What is bookkeeping versus what is genuinely new
 
 The following are now bookkeeping and should be discharged by synthesis of existing declarations:

@@ -38,7 +38,7 @@ The governing invariants are:
 
 ## 1. Compiled inventory
 
-### Post-795 research composition (verification pending)
+### Post-795 research composition (verified; merged as #796)
 
 The dependency chain for the new research layer is:
 
@@ -56,6 +56,36 @@ This layer is an exact carrier/energy audit. It does not remove the remaining
 signed estimate. The reciprocal quarter-frame pays only `Q_R^2`, while the
 endpoint cross/diagonal remainder remains in the existing post-789 currency.
 The research workflow, not the library root manifest, checks this chain.
+
+### Post-796 carrier audit: the signed remainder is the CORR square
+
+`GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE` checks whether
+`SignedCrossDiagonalRemainder_R = G_R^2 + 2 Q_R G_R - D_R` is smaller than
+the terminal object. It is not. By the compiled covariance identity
+`corr_R = M(R-1) - M(R^2-1) = -G_R`, so `G_R^2` is exactly the CORR square.
+Using only `Q_R^2 <= E_R/4` and `0 <= D_R <= 3 R^2`:
+
+    (1/2) corr_R^2 - (1/2) E_R - 3 R^2 <= X_R <= (1+a) corr_R^2 + b E_R,
+    a > 0, 4ab = 1.
+
+Consequences, all compiled:
+
+- a post-789 coefficient `A` forces CORR-low coefficient `2A+1` directly
+  (this reproduces the AMP transfer constant without AMP);
+- CORR-low `(beta, c)` gives post-789 coefficient `(1+a) beta + b`; CORR-low
+  `1/2` lands at `5/4`, inside the `A <= 3/2` corridor;
+- "some post-789 bound" and "some CORR-low bound" are the same existence
+  statement;
+- the #796 completed-branch assembly is at least half the top-endpoint Mertens
+  square minus `E_R/2` and `3 R^2`.
+
+Finite diagnostic (`scripts/post789_remainder_correlation_probe.py`, exact
+rationals, `R = 56..3000`): `X_R < 0` at every root, but at 2756 of 2945 roots
+only because of the diagonal (`D_R/R^2 <= 0.683`), which the `C R^2 K` budget
+absorbs anyway. The favorable sign therefore carries no information about the
+q² coefficient. The branch completion and top-two Stokes composition did not
+narrow the seam: what remains is the top-endpoint correlation estimate that
+`riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy` already consumes.
 
 The root library currently imports 145 theorem modules, as enumerated directly by `RHLean.lean`.
 

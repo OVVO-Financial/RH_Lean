@@ -81,6 +81,24 @@ Each PR description and checklist update must identify:
 
 ## 4. Successful PR ledger
 
+### Post-796 remainder / CORR carrier audit (verification pending)
+
+- Dependency: #796, all five checks green at
+  `ae0e4ae637b972084df0e9af33b578a8b9cb1047` and merged as `983a3a3`; this
+  records that the #796 entry below is verified.
+- Added `research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean`
+  and `scripts/post789_remainder_correlation_probe.py`.
+- The post-789 signed remainder is pinned to the CORR square from both sides:
+  `(1/2) corr^2 - (1/2) E - 3 R^2 <= X <= (1+a) corr^2 + b E`, `4ab = 1`.
+- Existence of a post-789 bound is equivalent to existence of a CORR-low
+  bound; CORR-low `1/2` gives post-789 `5/4`; post-789 `A` gives CORR-low
+  `2A+1`. The #796 assembly dominates half the top-endpoint Mertens square.
+- Exact corrective content: the #796 remainder is not a lower-order term; the
+  completed-branch/top-two route returned to the terminal CORR hypothesis.
+- Gates: signed-cell Stokes workflow (warning-fatal kernel check of the new
+  module) and the exact-rational comparison probe for `R = 56..400`.
+- No contraction, no new analytic assumption, and no RH proof is claimed.
+
 ### Post-795 completed branch / top-two composition (verification pending)
 
 - Dependency: #795, green at `4f67daa765c57c2e650b6ae448bb940141e31f12`.
