@@ -1,5 +1,10 @@
 # Möbius Synthesis
 
+> Export snapshot: mathematical and build claims below concern the modules
+> shipped in this package. For the development repository’s current frontier
+> and research closeout, see the [current proof contract](https://github.com/OVVO-Financial/RH_Lean/blob/main/CURRENT_PROOF_CONTRACT.md).
+> Development research modules are not implicitly included in this export.
+
 This is a self-contained Lake package. `RHLean.lean` imports every shipped module, so `lake build RHLean --wfail` builds the whole development.
 
 The project is a Lean 4 formalization of square-sensitive and prime-wheel cancellation in the Möbius summatory function. Its central arithmetic object is the signed field

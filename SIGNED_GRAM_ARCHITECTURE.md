@@ -1,5 +1,9 @@
 # Full signed Gram closure architecture
 
+> Historical architecture/research note. For the current frontier, completed
+> forward bridge, and route freeze, read [CURRENT_PROOF_CONTRACT.md](CURRENT_PROOF_CONTRACT.md).
+> Open/next-step labels below describe their original checkpoint.
+
 The high-sector theorem must control the signed recombination of all structural components. It must not attempt to prove that every height shell, cofactor block, or resonant mode is individually small.
 
 ## 1. Revised empirical lesson

@@ -1,8 +1,12 @@
 # Formalization inventory and sequence
 
-This document is the canonical implementation order for `RH_Lean`.
+This document is the dependency catalog and append-only research ledger for
+`RH_Lean`. Current mathematical status is governed by
+[`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md); older implementation
+orders below are historical, not an instruction to repeat closed routes.
 
-It records only what is actually compiled, distinguishes exact algebraic layers from unproved analytic obligations, and preserves corrections explicitly rather than rewriting the PR history.
+It distinguishes compiled algebraic layers, numerical diagnostics, and unproved
+analytic obligations, and preserves corrections explicitly.
 
 The governing invariants are:
 
@@ -20,8 +24,9 @@ The governing invariants are:
   total/high criterion equivalence must use the two norm inequalities and the
   separately proved local low-sector bound;
 - the canonical square-prefix endpoint is exactly `X_n = (n+1)^2 - 1`;
-- the final mathlib integration theorem must accept the classical Mertens↔RH
-  equivalence directly, without an abstract start-sequence bridge;
+- the forward Mathlib integration uses the internally proved Mertens-to-RH
+  implication; historical two-way interfaces keep their explicit classical
+  criterion parameter, without an abstract start-sequence bridge;
 - a death-shell divisor bound must sum divisor fibers over every integer height
   in the half-open shell window, not use the divisor count of one endpoint;
 - a bound on the death process alone does not bound the endpoint survivor
@@ -35,6 +40,34 @@ The governing invariants are:
   scale-transfer discrepancy;
 - finite correlations and baseline `R^2` values remain numerical diagnostics
   unless introduced through the repository's certificate architecture.
+
+## Repository closeout — 2026-09-26
+
+- #797 and #799 are merged with successful checks of their recorded heads.
+- #800 is merged after correcting its Dirichlet-series formulas and adding a
+  successful finite diagnostic gate at `18b70f645009dbbea76b1ad6248a793b3fabeb65`.
+- #798 carries the integrated CORR audit and this documentation cleanup;
+  hosted checks on its final head remain the merge gate.
+- The README, contract, agent instructions, handoff, and route registry now
+  agree: exact assembly and the forward bridge are available; CORR-4 remains
+  open. Archive and export headers distinguish snapshots from current status.
+- `Documentation checks` validates relative Markdown file links and existing
+  source/import/boundary audits. No Lean source, theorem signature, axiom
+  policy, export module list, or mathematical consumer is changed by cleanup.
+
+## K₂ diagnostic closeout (#800; 2026-09-26 correction)
+
+`research/K2_COHERENT_MODE_KILL_GATE.md` records the existing compiled
+summatory K₂ comparison with the PNT error. Its Dirichlet-series formulas
+are corrected: the ordinary second von Mangoldt series is `zeta''/zeta`,
+and the signed K₂ series is `2 (zeta'/zeta)^2 - zeta''/zeta`. Zeta zeros
+produce double poles in the signed series, not zeros.
+
+`k2-coherent-mode.yml` checks the C probe against an independent divisor
+convolution through 2000 and reproduces the finite regression through
+20,000,000. This adds diagnostic coverage, not a Lean theorem or an RH
+estimate. Existing internal identity searches remain frozen pending new
+quantitative input; the freeze is not a universal mathematical no-go theorem.
 
 ## 1. Compiled inventory
 
@@ -163,7 +196,10 @@ caveats: convergence at `Re s = 1/2`, and the `R`-dependent owner cutoff. A
 data-dependent map is either circular or reduces to the analytic CORR-4
 inequality itself.
 
-The root library currently imports 145 theorem modules, as enumerated directly by `RHLean.lean`.
+The numbered catalog below is historical and is not a live module count.
+`RHLean.lean` is the generated source of truth; `python3 scripts/check_root_manifest.py`
+checks its complete, sorted import surface (825 modules at this closeout).
+Research modules are tracked by their dedicated workflow closures.
 
 ### Arithmetic and cell structure
 

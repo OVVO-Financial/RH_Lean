@@ -1,5 +1,10 @@
 # Square-Block Möbius
 
+> Export snapshot: mathematical and build claims below concern the modules
+> shipped in this package. For the development repository’s current frontier
+> and research closeout, see the [current proof contract](https://github.com/OVVO-Financial/RH_Lean/blob/main/CURRENT_PROOF_CONTRACT.md).
+> Development research modules are not implicitly included in this export.
+
 **Square-Block Möbius** develops a square-block approach to the Möbius and Mertens functions, together with a machine-checked Lean formalization of its exact arithmetic and geometric reductions.
 
 The central idea is to group integers between consecutive squares and track how canonical Möbius sources are born, persist, and disappear as the square scale advances. This produces an exact square-endpoint description of the Mertens path and isolates the remaining cancellation problem in a concrete signed survivor operator.

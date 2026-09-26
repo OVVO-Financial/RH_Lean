@@ -1,5 +1,10 @@
 # Current proof route
 
+> Export snapshot: mathematical and build claims below concern the modules
+> shipped in this package. For the development repository’s current frontier
+> and research closeout, see the [current proof contract](https://github.com/OVVO-Financial/RH_Lean/blob/main/CURRENT_PROOF_CONTRACT.md).
+> Development research modules are not implicitly included in this export.
+
 ## 1. Exact architecture
 
 The active arithmetic decomposition uses complete four-cells

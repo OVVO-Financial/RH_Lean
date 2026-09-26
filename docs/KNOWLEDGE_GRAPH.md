@@ -1,5 +1,9 @@
 # The RHLean knowledge graph
 
+> The graph is a navigation and audit tool. The current quantitative target
+> and the freeze on repeated internal identity searches are in the
+> [proof contract](../CURRENT_PROOF_CONTRACT.md); graph reachability does not prove an open estimate.
+
 At hundreds of modules and thousands of declarations, `grep` no longer
 finds the structure that matters.  The generated inventory is authoritative for
 current counts; this directory's tooling treats the library as a mathematical

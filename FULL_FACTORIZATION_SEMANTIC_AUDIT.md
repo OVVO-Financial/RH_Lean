@@ -1,5 +1,9 @@
 # Full Prime-Factorization Semantic Audit
 
+> Historical architecture/research note. For the current frontier, completed
+> forward bridge, and route freeze, read [CURRENT_PROOF_CONTRACT.md](CURRENT_PROOF_CONTRACT.md).
+> Open/next-step labels below describe their original checkpoint.
+
 ## Scope
 
 This audit reviews every repository concept using Möbius parity together with
