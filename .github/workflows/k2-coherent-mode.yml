@@ -1,0 +1,31 @@
+name: K2 coherent-mode diagnostic
+
+on:
+  pull_request:
+    paths:
+      - research/K2_COHERENT_MODE_KILL_GATE.md
+      - scripts/k2_coherent_mode_probe.c
+      - scripts/check_k2_coherent_mode_probe.py
+      - .github/workflows/k2-coherent-mode.yml
+  push:
+    branches: [main]
+    paths:
+      - research/K2_COHERENT_MODE_KILL_GATE.md
+      - scripts/k2_coherent_mode_probe.c
+      - scripts/check_k2_coherent_mode_probe.py
+      - .github/workflows/k2-coherent-mode.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile with warnings as errors
+        run: cc -std=c11 -O2 -Wall -Wextra -Werror -o /tmp/k2_coherent_mode_probe scripts/k2_coherent_mode_probe.c -lm
+      - name: Check the kernel and reproduce the finite regression
+        run: python3 scripts/check_k2_coherent_mode_probe.py /tmp/k2_coherent_mode_probe

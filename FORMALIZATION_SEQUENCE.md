@@ -36,6 +36,20 @@ The governing invariants are:
 - finite correlations and baseline `R^2` values remain numerical diagnostics
   unless introduced through the repository's certificate architecture.
 
+## K₂ diagnostic closeout (#800; 2026-09-26 correction)
+
+`research/K2_COHERENT_MODE_KILL_GATE.md` records the existing compiled
+summatory K₂ comparison with the PNT error. Its Dirichlet-series formulas
+are corrected: the ordinary second von Mangoldt series is `zeta''/zeta`,
+and the signed K₂ series is `2 (zeta'/zeta)^2 - zeta''/zeta`. Zeta zeros
+produce double poles in the signed series, not zeros.
+
+`k2-coherent-mode.yml` checks the C probe against an independent divisor
+convolution through 2000 and reproduces the finite regression through
+20,000,000. This adds diagnostic coverage, not a Lean theorem or an RH
+estimate. Existing internal identity searches remain frozen pending new
+quantitative input; the freeze is not a universal mathematical no-go theorem.
+
 ## 1. Compiled inventory
 
 ### Post-795 research composition (verification pending)
