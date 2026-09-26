@@ -1,9 +1,9 @@
 # Prime-Wheel Möbius
 
-> Export snapshot: mathematical and build claims below concern the modules
-> shipped in this package. For the development repository’s current frontier
-> and research closeout, see the [current proof contract](https://github.com/OVVO-Financial/RH_Lean/blob/main/CURRENT_PROOF_CONTRACT.md).
-> Development research modules are not implicitly included in this export.
+> Package snapshot: mathematical and build claims below concern the modules
+> shipped here. Historical route entries describe their original checkpoint.
+> No unconditional proof of RH is claimed. Compilation checks theorem statements
+> together with their ordinary hypotheses; finite probes remain diagnostics.
 
 Public companion repository for **Seeded Prime-Comb Dynamics and the Finite Harmonic Reduction of Primorial-Block Möbius Sums**.
 
