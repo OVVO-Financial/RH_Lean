@@ -956,3 +956,27 @@ The live root import manifest on this branch now contains **248 Lean modules**. 
 - [ ] No prime-number-theorem error estimate is proved here. In particular, the reciprocal intervals become very short near the square-root edge, so a future analytic theorem must match this exact weighted/centered family rather than cite a generic long-interval PNT by analogy.
 - [ ] The centered PNT-corrected comb remains a separate analytic target. The quotient reindexing isolates the prime-distribution component but does not by itself close the `H_{k,n}` power bound.
 - [ ] Next analytic dependency: estimate the centered Mertens-weighted reciprocal prime discrepancies, potentially by an averaged short-interval or dispersion theorem matched exactly to these endpoints, while separately controlling the complementary centered comb.
+
+## Möbius inversion as the global cross-prime cancellation
+
+`research/MOBIUS_INVERSION_GLOBAL_CANCELLATION.lean` identifies the cancellation
+between born-smooth and the far-upper survivor that finite locality screens
+could not see. It is the summatory form of `mu * 1 = delta`:
+
+    sum_{d <= X} M(floor(X/d)) = 1        (sum_mertensSummatory_floor_div_eq_one)
+
+At `X = R^2 - 1`, splitting `d` into `1`, primes `< R+8`, primes `>= R+8` and
+composites, and composing with the compiled square-prefix and far-survivor
+theorems gives, for `R >= 56`,
+
+    bornSmooth + farSurvivor = M(R^2 - 1) + E_root,
+    E_root = nearTransport + sum_{q <= R prime} M(q - 1),
+    bornSmooth = 1 - compositeColumn - lowPrimeColumn + E_root.
+
+Every Mertens argument in `E_root` is below `R`. The composite divisor column
+is the Möbius inverse that completes all prime fibres at once, which is why no
+block of reciprocal cutoffs sees the cancellation. The residual of the
+mechanism is `M(R^2 - 1)` itself. Exact values (`scripts/mobius_inversion_autopsy_probe.py`
+and the same formulas in C): at `R = 5561`, `M(X) = -2544`,
+`bornSmooth = -127748`, `farSurvivor = 124378`, sum `-3370`, `E_root = -826`.
+No estimate is asserted; the RH-scale size of `M(R^2 - 1)` remains open.

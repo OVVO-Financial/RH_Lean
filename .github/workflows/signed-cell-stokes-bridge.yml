@@ -44,6 +44,8 @@ on:
       - research/GLOBAL_RETURNED_CORE_RECIPROCAL_WALL_DESCENDING_ENERGY.lean
       - research/GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_SIGNED_CELL_SPLIT.lean
       - research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_GLOBAL_TELESCOPE.lean
+      - research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_COMPOSITION.lean
+      - research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
       - research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean
       - scripts/top_two_completed_branch_probe.py
       - research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean
@@ -313,6 +315,7 @@ jobs:
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_ENDPOINT.lean
           emit research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean
+          emit research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_COMPOSITION.lean
       - name: Check exact finite branch and two-toggle identities
         run: python3 scripts/top_two_completed_branch_probe.py
       - name: Kernel-check post-789 remainder / CORR equivalence
