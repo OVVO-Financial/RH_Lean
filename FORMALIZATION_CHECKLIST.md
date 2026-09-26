@@ -81,6 +81,20 @@ Each PR description and checklist update must identify:
 
 ## 4. Successful PR ledger
 
+### PR #800 — K₂ diagnostic closeout and correction
+
+- [x] Preserve the compiled signed-K₂/PNT comparison and label the numerical
+  regression as diagnostic only.
+- [x] Correct the swapped Dirichlet-series formulas and the zero/pole wording;
+  include the derivation from the logarithmic derivative.
+- [x] Compile the C probe with `-std=c11 -O2 -Wall -Wextra -Werror`.
+- [x] Check all prefixes through 2000 against independent divisor convolution
+  and reproduce 2000 samples through 20,000,000 (correlation 0.998330).
+- [x] Add the dedicated `K2 coherent-mode diagnostic` CI gate.
+- [ ] Hosted check on the final PR head is required before merge.
+- No Lean source, theorem signatures, exports, or analytic assumptions change.
+
+
 ### Post-795 completed branch / top-two composition (verification pending)
 
 - Dependency: #795, green at `4f67daa765c57c2e650b6ae448bb940141e31f12`.

@@ -1,7 +1,7 @@
 # K₂ coherent-mode kill gate
 
-Diagnostic closeout only. This is not a proof PR, not a new RH route,
-and not a comment on #799.
+Diagnostic closeout of the existing K₂ route. The finite regression is not
+an RH estimate; the compiled summatory bound is identified separately below.
 
 The repository already contained the structural obstruction. Export
 `SEAMS.md` §23 and
@@ -42,18 +42,30 @@ K_2(p^a)=-(\log p)^2,\qquad
 K_2(p^a q^b)=2\log p\log q.
 $$
 
-### 2. Dirichlet series
+### 2. Dirichlet series (corrected 2026-09-26)
+
+For $\Re s>1$, put $H=\zeta'/\zeta$. The classical identity
+$\sum_n\Lambda(n)n^{-s}=-H(s)$ is
+[DLMF 27.4.12](https://dlmf.nist.gov/27.4.E12). Differentiation gives
+$\sum_n\Lambda(n)\log n\,n^{-s}=H'(s)$, while convolution gives $H(s)^2$.
+Consequently,
 
 $$
 \sum_{n\ge1}\frac{\Lambda_2(n)}{n^s}
-=2\Bigl(\frac{\zeta'}{\zeta}\Bigr)^2-\frac{\zeta''}{\zeta},
+=\frac{\zeta''}{\zeta},
 \qquad
-\sum_{n\ge1}\frac{K_2(n)}{n^s}=\frac{\zeta''}{\zeta}.
+\sum_{n\ge1}\frac{K_2(n)}{n^s}
+=2\Bigl(\frac{\zeta'}{\zeta}\Bigr)^2-\frac{\zeta''}{\zeta}
+=H^2-H'.
 $$
 
-The second formula is the first minus twice the Dirichlet series of
-$\Lambda\log$. Zeros of $\zeta$ remain zeros of both generating
-functions.
+The earlier draft swapped these formulas and incorrectly called the
+zero-spectrum singularities "zeros". If $\rho$ is a zeta zero of multiplicity
+$m\ge1$, then $H(s)=m/(s-\rho)+O(1)$ and
+$H^2-H'=m(m+1)/(s-\rho)^2+O((s-\rho)^{-1})$. Thus the signed K₂ series
+retains a double pole at each such zero. At the pole $s=1$, the double-pole
+coefficient cancels instead. This is a classical meromorphic calculation,
+not a new Lean theorem in this PR.
 
 ### 3. Cancellation at $s=1$ versus the zero spectrum
 
@@ -83,8 +95,8 @@ $$
 
 On $10^4\le x\le 2\cdot10^7$ (2000 sample points) the Pearson
 correlation is $0.99833$. The raw ratio
-$(\sum K_2+2(\psi-x)\log x)/x$ sits at $-1.1544\approx-2\gamma$, so the
-$O(x)$ remainder is the predicted constant mode. The oscillating piece
+$(\sum K_2+2(\psi-x)\log x)/x$ sits at $-1.1544\approx-2\gamma$,
+consistent with a constant-mode remainder on this range. The oscillating piece
 tracks $\psi(x)-x$ with a $\log x$ weight.
 
 ## Classification
@@ -93,9 +105,10 @@ $$
 \text{$K_2$ closed as a mechanism for controlling the coherent prime mode.}
 $$
 
-Not "$K_2$ is useless". The reciprocal cancellation theorem remains
-valid. The kernel cannot be the missing RH mechanism: it preserves the
-zero spectrum and weights it by $\log x$.
+The reciprocal cancellation theorem remains valid. These identities supply
+no independent control of the zero-driven component: the signed series
+retains its poles, and the compiled summatory comparison retains the PNT
+error with a $\log x$ weight.
 
 ## Project consequence
 
@@ -110,9 +123,10 @@ recorded kills
 | dyadic local pairing | coherent mode survives |
 | signed second Selberg | coherent zero spectrum survives and gets $\log x$ weighting |
 
-the repository is a formal reduction and obstruction map. Elementary and
-combinatorial structure stops here. Further internal DAG search is
-frozen.
+the repository is a formal reduction and obstruction map. Further searches
+among these existing internal identities are frozen pending a new quantitative
+ingredient. This is a research decision about the tested routes, not an
+impossibility theorem for every elementary or combinatorial approach.
 
 The next mathematical question, if any, is external:
 
@@ -130,4 +144,10 @@ identity search.
 cc -O2 -o k2_coherent_mode_probe scripts/k2_coherent_mode_probe.c -lm
 ./k2_coherent_mode_probe
 ./k2_coherent_mode_probe 20000000 10000
+python3 scripts/check_k2_coherent_mode_probe.py ./k2_coherent_mode_probe
 ```
+
+The checker compares every prefix through 2000 against an independent
+divisor-convolution calculation, then reproduces the documented full-range
+regression. The dedicated workflow compiles with warnings as errors and runs
+both checks. Floating-point diagnostics remain distinct from kernel proofs.
