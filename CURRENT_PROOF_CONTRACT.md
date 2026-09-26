@@ -112,6 +112,14 @@ No new induction theorem is presently needed.
 
 5. **A local endpoint bound must be attached to the same parent decomposition.** Existing `OutsidePrimeLeastSquareEndpoint` bounds are useful only after the exact parent theorem identifies its remainder with that endpoint carrier. Do not substitute an independently bounded endpoint object by name resemblance.
 
+6. **The top-two Stokes clip is not a q² contraction plus the terminal sector.** `research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_COMPOSITION.lean` proves that below the two largest clock primes the two-toggle clip *is* the whole signed cell telescope, and that globally
+
+   ```text
+   TopTwoClip = Q^2 + (G^2 + 2 Q G - D) - Terminal,   G = M(X_R) - M(R-1).
+   ```
+
+   Any q²-aware top-two estimate `TopTwoClip <= B E + C R^2 K` forces `G^2 <= (2B + 1/2) E + (2C + 7) R^2 K` (`topEndpointGapQ2EnergyBound_of_topTwoStokesClipQ2EnergyBound`). The post-#794 branch-energy completion does not remove `G`. At the top coordinate there is only one revealed fibre, and for the first owner `2` the completed branch energy is literally `(Q + G)^2`. So the gate `T <= 1/2 (Threshold + Endpoint)` is the scalar inequality `4BC <= (B+C)^2`, and what it discards, `1/2 (B-C)^2`, is as large as what it keeps.
+
 ## The single remaining quantitative seam
 
 The daughter side is now exact. The remaining theorem is a **parent/interior contraction on the fully compensated physical carrier**.

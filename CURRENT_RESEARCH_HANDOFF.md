@@ -8,6 +8,23 @@ Do not search for a new coordinate system first. The recent formalization has pr
 
 Keep the proof elementary and Eulerian. The genuine arithmetic operation is adjoining a fresh prime.
 
+## Top-two Stokes clip composed with the completed branch energy (post-#795)
+
+Question: once #795 completes the Dirichlet-incidence branch energy by its endpoint correction, and #792 collapses the signed ledger to the global top-two Stokes clip, is the assembled two-toggle clip now literally a q² daughter contraction plus the closed terminal sector?
+
+Answer: **no**. The merged #796 module `research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean` reaches the same normal form independently (`lowOwnerTopTwoStokesClip_eq_q2Sq_add_signedRemainder_sub_terminal`). `research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_COMPOSITION.lean` imports it and records the exact reason.
+
+1. **The clip removes nothing below the top two owners.** `lowOwnerFirstOwnerTopTwoStokesClipNormalForm_eq_signedCellTelescope_of_lower`: for every first owner other than the two largest clock primes, the canonical residual vanishes and the top-two normal form is the whole cell telescope `2 Base Child`. The top-toggle escape faces cover everything except the `{1,t}^2` block, and the second-prime step returns that block in full.
+2. **Exact normal form.** `lowOwnerCanonicalTopTwoStokesClipNormalForm_eq_q2Sq_add_endpointGap_sub_diagonal_sub_terminal`:
+   `TopTwoClip = Q^2 + G^2 + 2QG - D - Terminal`, with `G = M(X_R) - M(R-1)`. Only `Q^2 <= E/4` is a q² contraction. `G` is the top-scale Mertens value.
+3. **Necessity.** `topEndpointGapQ2EnergyBound_of_topTwoStokesClipQ2EnergyBound`: any `TopTwoClip <= B E + C R^2 K` implies `G^2 <= (2B + 1/2) E + (2C + 7) R^2 K`. So the #792 target contains a quantitative top-endpoint Mertens bound. Up to the quarter frame and constants it is the post-#789 remainder target again.
+4. **The branch gate as an identity.** `lowOwnerFirstOwnerRevealedPolarizationEnergy_descending_eq_half_completedBranchEnergy_sub_half_slack`:
+   `SignedPolarization(above r) = 1/2 (Threshold_r + Endpoint_r) - 1/2 Slack_r`, with `Slack_r = sum_tau (B_tau + J_tau)^2`. At the top prime the revealed set is empty, so the left side is the whole cell (`..._eq_half_topBranchCompletedEnergy_sub_half_slack`). There is exactly one revealed fibre (`..._topPrime_eq_totalAmplitude_sq`, `lowOwnerFirstOwnerBranchGateSlack_topPrime_eq_sq`). For owner `2` the completed energy is `(Q + G)^2` (`lowOwnerFirstOwnerCompletedTopBranchEnergy_two_eq_globalAmplitude_sq`). The assembled form is `lowOwnerCanonicalSignedStokesFinalBoundary_eq_topRow_add_topBranchGate`.
+
+Numerical filter (`experiments/top_two_branch_gate_composition.py`, R = 56, 60, 66, 72, and `--hand`). Every identity above holds to rounding. It also holds on the x = 210 and x = 317 structural hand models, run off the production clock with R = isqrt(x), and on the production neighbours R = 14, 15, 17, 18. There the owner-2 endpoint window is exactly `M(x)`, by the dyadic identity of `SURVIVOR_MERTENS_INVARIANT.md`. Its outer part reproduces the hand survivor ledgers: 38 survivors of amplitude 0 at 210 (so `M(210) = -1` sits entirely on root-smooth odd states), 59 of amplitude -1 at 317, and 42 of amplitude 4 at 224. At the top coordinate the completed amplitude is `Base + Child` and the slack amplitude is `Base - Child`. The endpoint part of the amplitude is the window mass `sum_{n in F, X/p < n <= X} mu(n)`. Summed over first owners, half the completed energy and half the slack are each about `5.9e3 R^2` at R = 56 and about `1.0e4 R^2` at R = 66, while their difference is the O(R^2) quantity `A^2 - D`. The ownerwise gate therefore discards a term as large as the one it keeps. This is the ownerwise-squaring no-go again, in the completed-energy currency.
+
+Consequence: stacking the completed branch energy on the top-two clip is not a route. A useful next step must supply a signed identity that moves the top endpoint gap `G` itself onto lower-scale Mertens-visible packets. More reassembly of the q² side cannot touch it.
+
 ## Contact-frame no-go: counting is not cancellation
 
 `ExceptionalContactFrameEnergyNoGo.lean` closes off a recurring proposal: compute
