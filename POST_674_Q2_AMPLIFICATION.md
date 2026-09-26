@@ -1,5 +1,9 @@
 # Post-674 q² amplification target
 
+> Historical architecture/research note. For the current frontier, completed
+> forward bridge, and route freeze, read [CURRENT_PROOF_CONTRACT.md](CURRENT_PROOF_CONTRACT.md).
+> Open/next-step labels below describe their original checkpoint.
+
 The merged #674 reassembly lives at the physical square endpoint `X_R = R^2 - 1`. The all-complete-cell factor-four recurrence from #673 is stronger than necessary: with a fixed additive coefficient at every complete cell it yields a uniform linear Mertens-energy envelope.
 
 The new target is square-endpoint only. For each odd prime owner `q`, let

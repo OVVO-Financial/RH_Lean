@@ -1,5 +1,10 @@
 # Current proof route
 
+> Package snapshot: mathematical and build claims below concern the modules
+> shipped here. Historical route entries describe their original checkpoint.
+> No unconditional proof of RH is claimed. Compilation checks theorem statements
+> together with their ordinary hypotheses; finite probes remain diagnostics.
+
 ## 1. Exact architecture
 
 The active arithmetic decomposition uses complete four-cells

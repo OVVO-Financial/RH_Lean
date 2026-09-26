@@ -2,7 +2,7 @@
 
 This file is the mandatory closeout record for every pull request in `RH_Lean`.
 
-`FORMALIZATION_SEQUENCE.md` is the single source of truth for theorem dependency order. This checklist records the execution rules, visible completion status, and append-only PR ledger.
+`CURRENT_PROOF_CONTRACT.md` is the current mathematical status; `FORMALIZATION_SEQUENCE.md` records theorem dependency order and historical checkpoints. This checklist records the execution rules, visible completion status, and append-only PR ledger.
 
 A PR is not complete unless this file is updated on the same branch before the substantive merge-gating CI run. Do not add a post-green documentation-only commit merely to record CI status.
 
@@ -29,8 +29,8 @@ Every PR must preserve all of the following:
   `S = S_low + S_high`, the total/high criterion equivalence must use norm
   inequalities plus the proved low-sector bound, not subtraction of energies;
 - use the exact manuscript endpoint `X_n = (n+1)^2 - 1` for the concrete square-prefix sequence;
-- expose the final external input exactly as
-  `MertensEnergyBoundedStatement ↔ RiemannHypothesisStatement`;
+- use the internally proved forward `MertensEnergyBoundedStatement -> RiemannHypothesis`
+  consumer; retain the explicit criterion parameter on historical two-way interfaces;
 - do not reintroduce an abstract start-sequence realization or project-specific RH bridge into the final concrete theorem;
 - expose every remaining analytic implication, equivalence, and realization as an ordinary typed premise;
 - do not describe a conditional bridge as an unconditional proof of RH;
@@ -56,10 +56,10 @@ Copy this task list into the PR description and prepopulate it before merge-gati
 - [ ] Inspect exact theorem names and signatures at mathlib `v4.24.0`.
 - [ ] Branch from current `main` as `agent/<focused-description>`.
 - [ ] Implement the smallest stable module or correction.
-- [ ] Import every new theorem module from `RHLean.lean`.
+- [ ] Import new library modules from the generated `RHLean.lean`; register research modules outside `RHLean/` in their explicit warning-fatal workflow closures.
 - [ ] Prepopulate both formalization documents and the PR body.
 - [ ] Pass `bash scripts/audit_assumptions.sh`.
-- [ ] Pass `lake build RHLean --wfail` with no warnings.
+- [ ] Pass the hosted Lean build and repository-owned warning gate; run the applicable local CI script when its toolchain and dependency cache are available.
 - [ ] Fix only exact compiler or CI diagnostics.
 - [ ] After three failed substantive attempts, request the complete job log as a diagnostic delimiter and continue until green.
 - [ ] Do not add a documentation-only commit after green CI.
@@ -81,6 +81,48 @@ Each PR description and checklist update must identify:
 
 ## 4. Successful PR ledger
 
+### Repository cleanup — 2026-09-26 (integrated with #798)
+
+- [x] Review all four open PRs (#797–#800), their exact heads, changed files,
+  CI runs, and review threads. Preserve each distinct result.
+- [x] Merge #797 and #799 after successful Lean/source/export checks.
+- [x] Correct #800 and merge after its new diagnostic gate succeeds.
+- [x] Preserve both sides of the checklist integration and the full signed-cell
+  workflow closure when updating #798 from main.
+- [x] Replace the stale September 11 contract and obsolete README obligations;
+  align agent instructions, route registry, handoff, and documentation index.
+- [x] Label earlier architecture notes and export descriptions as snapshots.
+- [x] Keep numerical evidence, compiled implications, and open estimates distinct.
+- Acceptance gate: merge #798 only after every applicable check of its final
+  head succeeds; GitHub records the resulting checks and merge status.
+- The integrated CI result is authoritative; this prepopulated checklist does
+  not announce a future green result. Earlier unchecked entries are historical
+  records and are not separate current proof obligations.
+
+
+### Post-796 remainder / CORR carrier audit (#798)
+
+- Dependency: #796, all five checks green at
+  `ae0e4ae637b972084df0e9af33b578a8b9cb1047` and merged as `983a3a3`; this
+  records that the #796 entry below is verified.
+- Added `research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean`
+  and `scripts/post789_remainder_correlation_probe.py`.
+- The post-789 signed remainder is pinned to the CORR square from both sides:
+  `(1/2) corr^2 - (1/2) E - 3 R^2 <= X <= (1+a) corr^2 + b E`, `4ab = 1`.
+- Existence of a post-789 bound is equivalent to existence of a CORR-low
+  bound; CORR-low `1/2` gives post-789 `5/4`; post-789 `A` gives CORR-low
+  `2A+1`. The #796 assembly dominates half the top-endpoint Mertens square.
+- Exact corrective content: the #796 remainder is not a lower-order term; the
+  completed-branch/top-two route returned to the terminal CORR hypothesis.
+- Added `research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean`:
+  from `strongNativeMertensSubexp`, `X_R <= (1/4) E_R + 4 B(R^2-1)^2 +
+  4 B(R-1)^2` for every `R >= 56` with `B(x) = C x exp(-c (log x)^(1/10))`.
+  This is unconditional but misses the `(3/2) E_R + C R^2 K` target by a
+  factor `R^2 exp(-c' (log R)^(1/10))`.
+- Gates: signed-cell Stokes workflow (warning-fatal kernel check of the new
+  module) and the exact-rational comparison probe for `R = 56..400`.
+- No contraction, no new analytic assumption, and no RH proof is claimed.
+
 ### PR #800 — K₂ diagnostic closeout and correction
 
 - [x] Preserve the compiled signed-K₂/PNT comparison and label the numerical
@@ -91,11 +133,11 @@ Each PR description and checklist update must identify:
 - [x] Check all prefixes through 2000 against independent divisor convolution
   and reproduce 2000 samples through 20,000,000 (correlation 0.998330).
 - [x] Add the dedicated `K2 coherent-mode diagnostic` CI gate.
-- [ ] Hosted check on the final PR head is required before merge.
+- [x] Hosted K₂ diagnostic succeeded at `18b70f645009dbbea76b1ad6248a793b3fabeb65` before #800 merged.
 - No Lean source, theorem signatures, exports, or analytic assumptions change.
 
 
-### Post-795 completed branch / top-two composition (verification pending)
+### Post-795 completed branch / top-two composition (verified; merged as #796)
 
 - Dependency: #795, green at `4f67daa765c57c2e650b6ae448bb940141e31f12`.
 - Added `research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean`.

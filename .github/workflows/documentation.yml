@@ -1,0 +1,32 @@
+name: Documentation checks
+
+on:
+  pull_request:
+    paths:
+      - '**.md'
+      - scripts/check_documentation.py
+      - .github/workflows/documentation.yml
+  push:
+    branches: [main]
+    paths:
+      - '**.md'
+      - scripts/check_documentation.py
+      - .github/workflows/documentation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check relative Markdown file links
+        run: python3 scripts/check_documentation.py
+      - name: Check existing source, import, and boundary invariants
+        run: |
+          bash scripts/audit_assumptions.sh
+          python3 scripts/check_root_manifest.py
+          bash scripts/check_paper_analysis_boundary.sh

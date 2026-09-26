@@ -1,5 +1,10 @@
 # Prime-Wheel Möbius
 
+> Package snapshot: mathematical and build claims below concern the modules
+> shipped here. Historical route entries describe their original checkpoint.
+> No unconditional proof of RH is claimed. Compilation checks theorem statements
+> together with their ordinary hypotheses; finite probes remain diagnostics.
+
 Public companion repository for **Seeded Prime-Comb Dynamics and the Finite Harmonic Reduction of Primorial-Block Möbius Sums**.
 
 ## Visualization

@@ -1,177 +1,166 @@
 # RH_Lean current proof contract
 
-Status date: 2026-09-11, after merged #665 and the #666 bookkeeping integration branch.
+Status date: 2026-09-26. This contract incorporates the #796–#800 closeout.
+Compiled Lean source and successful checks of the relevant commit are
+authoritative. Historical handoffs and plans do not override this contract.
 
-Compiled Lean source is authoritative. This file records the narrow current frontier and must be corrected whenever it conflicts with compiled declarations.
+**RH is not proved. One quantitative top-scale estimate remains.** The forward
+Mertens-to-RH implication, signed reassembly, and conditional terminal induction
+are available. Repeating the existing coordinate changes does not supply the
+missing estimate. Searches among the tested internal identity families are
+frozen pending a new quantitative ingredient.
 
 ## Governing rule
 
 **Signed physical reassembly first. Energy second.**
 
-Never square, norm, take absolute values of, or replace by coefficient `L2` mass a family of physical `q^2` daughters before all required parent/current-response/first-power-mate compensation, earlier-owner transfer, second-contact transport, and endpoint reassembly have been performed.
+Preserve parent/current-response/first-power-mate compensation, earlier-owner
+transfer, second-contact transport, and endpoint terms before squaring. The
+energy of a complete signed Mertens packet is different from the sum of squares
+of unsummed coefficients.
 
-The recursive energy consumed by the induction is the energy of a complete signed lower-scale Mertens-visible packet. It is not the sum of squares of unsummed daughter coefficients.
+## Exact target and conventions
 
-## What is now compiled
+Write `M(y) = sum_{1 <= n <= y} mu(n)`, with `M(0) = 0`. For `R >= 56`:
 
-The coefficient and daughter dictionary is no longer the active seam.
+| Symbol | Definition / Lean object |
+| --- | --- |
+| `X` | `R² − 1`, `squareRootEndpoint R` |
+| `G_R` | `M(X) − M(R − 1)`, `lowOwnerPost789EndpointGapReal R` |
+| `corr_R` | `−G_R`, `squareRootCanonicalRoughCorrelation R` |
+| `E_R` | `sum_{q odd prime, q² < R} M(floor(X/q²))²`, `canonicalRoughLowQ2DaughterEnergy R` |
+| `K` | `LowerMertensCriticalEnvelope R K`: `0 <= K` and `(M(y) − 1)² <= K (y + 1)` for every natural `y < R` |
+| `Q_R` | `sum_{q odd prime, q² < R} M(floor(X/q²))/q`, `lowOwnerReciprocalMertensColumnReal R` |
+| `D_R` | The nonnegative physical Möbius diagonal, `lowOwnerZeroFrequencyMobiusDiagonal R` |
+| `S_R` | `G_R² + 2 Q_R G_R − D_R`, `lowOwnerPost789SignedCrossDiagonalRemainder R` |
 
-1. **Physical two-step compensation.** `JointDaughterCrossEnergyAudit.lean` proves coefficient-by-coefficient
+Here `X` is always an endpoint; `S_R` names the remainder. Some historical
+notes use `X_R` for both, so read their Lean definitions to disambiguate.
+The envelope implies `K >= 1` by taking `y = 0`.
 
-   ```text
-   fourSlotCellSum
-     - physicalEulerResponseCellIncrement q
-     - physicalEulerMateCellIncrement q
-     = physicalQ2DaughterCellIncrement q.
-   ```
-
-   Thus the literal `q^2` child is produced from the true Möbius prefix endpoints before any norm is taken.
-
-2. **Exceptional lower-triangular owner transfer.** Merged #663 proves that omitted `5^2` contacts transfer only to owner `3`, and omitted `7^2` contacts only to owners `3` or `5`, preserving an arbitrary additive observable.
-
-3. **Intact signed predecessor/high-transport incidence.** Merged #664 identifies every omitted exceptional contact pointwise with an incidence of the existing signed state
-
-   ```text
-   exceptionalSignedPredecessorState p = F_{p^-} - T_{p^-} = M
-   ```
-
-   at the square-dilated endpoints. The high transport therefore remains attached before any square is formed.
-
-4. **Arbitrary-prefix exact q² telescope.** Merged #665 proves for every prime `q >= 3` and every physical cutoff `K`
-
-   ```text
-   sum_{k in physicalSquareHitCells K q}
-     physicalQ2DaughterCellIncrement q k
-       = mertensSummatoryInt (4*K/(q*q))
-       = exceptionalSignedPredecessorState q (4*K/(q*q)).
-   ```
-
-   A nonzero daughter increment is supported on a genuine physical `q^2` contact. The only extra floor crossing would be offset four, and for odd `q` that crossing is Möbius-zero. There is therefore **no incomplete-period daughter error** after signed reassembly.
-
-5. **Generic all-odd-owner reassembly.** The #666 integration branch adds `PhysicalQ2BookkeepingSynthesis.lean`. It upgrades the special `3,5,7` owner bookkeeping to every prime `q`: the full q-hit carrier is partitioned by its actual least odd square-prime owner `r <= q`, and the partition preserves an arbitrary additive observable. Consequently the fully owner-reassembled packet
-
-   ```text
-   physicalReassembledQ2Daughter K q
-   ```
-
-   is exactly `M(4*K/q^2)` for every prime `q >= 3`, and only **after this signed reassembly** its square is definitionally the recursive `mertensEnergy (4*K/q^2)`.
-
-6. **The q=2 distinction is explicit.** Prime `2` has no physical square-contact carrier because the six active offsets are `{1,2,3,5,6,7}`. But the algebraic two-step `2^2` remainder is not zero:
-
-   ```text
-   physicalQ2DaughterCellIncrement 2 k = mu(k+1).
-   ```
-
-   Thus `2` belongs to the base mod-four geometry and must be erased from the physical owner schedule; it cannot be treated as an ordinary contact daughter.
-
-## What is quantitatively ready
-
-The induction and scale budgets are already compiled.
-
-- `SquareRootLowPrimeTSectorQ2Renormalization.lean` defines `ElevenQ2EnergyStep` and proves that any profile satisfying the corresponding recurrence is linear.
-- `SquareRootLowPrimeSharpFrameBudget.lean` proves the finite odd-prime reciprocal-square budget
-
-  ```text
-  sum_{q odd prime <= N} 1/q^2 <= 1/4
-  ```
-
-  and the sharper `17/72` bound.
-- The same module proves conditional bulk/boundary closure theorems. In particular `elevenQ2_bulk_boundary_fourFrame_oddOwners_implies_linear` accepts
-
-  ```text
-  E X <= (I X + b X)^2,
-  I(X)^2 <= 4 * (19/23)^2 * sum_{q odd prime <= X} E(X/q^2),
-  b(X)^2 <= B*X,
-  ```
-
-  and returns a linear energy envelope.
-- `ThreeSlotDegreeOneCriterion.lean` proves that the complete-cell degree-one energy statement is equivalent to the protected recovered/Mertens energy criterion and is sufficient for `RiemannHypothesis`.
-
-No new induction theorem is presently needed.
-
-## Hard no-go constraints that remain binding
-
-1. **Finite mask is not a finite Möbius field.** The contact mask is periodic; the physical Möbius observable is not. A fixed vector on a finite residue torus cannot be reused as the true Möbius field across physical periods.
-
-2. **Coefficient energy is not recursive Mertens energy.** `ExceptionalContactFrameEnergyNoGo.lean` gives a finite witness at daughter cutoff two: recursive Mertens energy vanishes while assembled coefficient square mass is positive. The #665/#666 whole-packet theorem fixes the dictionary only by summing with signs first.
-
-3. **Selected-prime 11 tensor is not automatically the true Möbius tensor.** `PhysicalRecoveredPrimeTensorCompatibility.lean` gives executable counterexamples:
-   - on an actually retained cell the selected `{11}` degree-one observable can differ from the true Möbius degree-one observable;
-   - on the complete aligned `[0,121)` period the selected retained mass is `21` while the true Möbius mass is `-11`;
-   - `elevenActualMobius_not_weightOneTensor` proves the actual one-period Möbius field does not receive the abstract `19/23` factor (the diagnostic ratio there is `4/7`).
-
-   Therefore the final contraction cannot be obtained by simply substituting the recovered Möbius field into `eleven_coprimeTensor_firstMoment`.
-
-4. **The literal Go predecessor cube is not the full Mertens daughter until high transport is retained.** `TwoWheelQ2GoCompatibility.lean` proves exactly
-
-   ```text
-   M(X/q^2) = Go_q(X) - highTransport_q(X).
-   ```
-
-   For owner `3` the frozen Go piece can already be zero while the full Mertens child is nonzero. Any final 11-action must therefore preserve the signed high-transport compensation.
-
-5. **A local endpoint bound must be attached to the same parent decomposition.** Existing `OutsidePrimeLeastSquareEndpoint` bounds are useful only after the exact parent theorem identifies its remainder with that endpoint carrier. Do not substitute an independently bounded endpoint object by name resemblance.
-
-6. **The top-two Stokes clip is not a q² contraction plus the terminal sector.** `research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_COMPOSITION.lean` proves that below the two largest clock primes the two-toggle clip *is* the whole signed cell telescope, and that globally
-
-   ```text
-   TopTwoClip = Q^2 + (G^2 + 2 Q G - D) - Terminal,   G = M(X_R) - M(R-1).
-   ```
-
-   Any q²-aware top-two estimate `TopTwoClip <= B E + C R^2 K` forces `G^2 <= (2B + 1/2) E + (2C + 7) R^2 K` (`topEndpointGapQ2EnergyBound_of_topTwoStokesClipQ2EnergyBound`). The post-#794 branch-energy completion does not remove `G`. At the top coordinate there is only one revealed fibre, and for the first owner `2` the completed branch energy is literally `(Q + G)^2`. So the gate `T <= 1/2 (Threshold + Endpoint)` is the scalar inequality `4BC <= (B+C)^2`, and what it discards, `1/2 (B-C)^2`, is as large as what it keeps.
-
-## The single remaining quantitative seam
-
-The daughter side is now exact. The remaining theorem is a **parent/interior contraction on the fully compensated physical carrier**.
-
-The clean target is to define the actual Mertens-visible physical interior `I` and boundary `b` produced by one exact parent decomposition and prove, without replacing the Möbius field by the raw selected-11 field,
+The sufficient CORR-4 target is
 
 ```text
-E X <= (I X + b X)^2,
-I(X)^2 <= 4 * elevenWeightOneEnergyFactor
-            * sum_{q in (primesUpTo X).erase 2} E(X/(q*q)),
-b(X)^2 <= B*X.
+exists C >= 0, for every R >= 56 and every K,
+  LowerMertensCriticalEnvelope R K ->
+  G_R² <= 4 E_R + C R² K.
 ```
 
-Equivalent constants or a stronger direct `ElevenQ2EnergyStep` are acceptable. The critical requirement is that the 11 action be applied to the **compensated recovered/high-transport object** whose q² children are the whole packets certified by #665/#666.
+The constant is independent of `R` and `K`. The estimate is not proved.
 
-At complete four-cell cutoffs the child dictionary is already literal:
+[`CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean`](research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean)
+defines the low-owner energy and bounds the nonrecursive `q² >= R` tail by
+`3 R² K`. Thus existence of the fixed-coefficient low-owner bound is equivalent
+to existence of the full odd-owner bound, with only the boundary constant
+changed. [`CORRELATION_FOUR_TERMINAL_BRIDGE.lean`](research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean)
+proves `correlationFour_iff_exists_lowQ2Energy` and
+`riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy`. Its resulting
+coefficient `10201/2500` passes the compiled terminal budget. No further
+bookkeeping assumption or new induction theorem is needed by that consumer.
+
+## Signed normal forms and sufficient coefficients
+
+The compiled quarter frame and diagonal bounds give
 
 ```text
-physicalReassembledQ2Daughter K q = M(4*K/q^2),
-(physicalReassembledQ2Daughter K q)^2 = mertensEnergy(4*K/q^2).
+Q_R² <= E_R/4,                    0 <= D_R <= 3 R²,
+FinalStokes_R = Q_R² + S_R,
+TopTwoClip_R = Q_R² + S_R − Terminal_R.
 ```
 
-So a future parent theorem must not introduce another daughter-normalization hypothesis. If a proof attempt still asks for one, it has chosen the wrong carrier.
+The terminal term stays separate; it does not replace `S_R`. The [completed
+branch assembly](research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean)
+and [branch-gate composition](research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_COMPOSITION.lean)
+prove these identities. At first owner `2`, the completed top-branch energy
+is `(Q_R + G_R)²`, so completing the branch has not removed the endpoint gap.
 
-## What is bookkeeping versus what is genuinely new
+The [post-789 consumer](research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean)
+accepts either uniform estimate below, with `C >= 0` and the same envelope
+quantifiers:
 
-The following are now bookkeeping and should be discharged by synthesis of existing declarations:
+| Sufficient input | Allowed coefficient | Compiled transfer |
+| --- | --- | --- |
+| `FinalStokes_R <= B E_R + C R² K` | `−1/4 <= B <= 7/4` | CORR coefficient `1/2 + 2B <= 4` |
+| `S_R <= A E_R + C R² K` | `−1/4 <= A <= 3/2` | CORR coefficient `2A + 1 <= 4` |
 
-- `q=3,5,7` earlier-owner restoration;
-- arbitrary-prefix q² support;
-- q² daughter telescoping;
-- generic odd-prime least-owner partition;
-- q=2 exclusion from the physical owner schedule;
-- high-transport identity `F-T=M` inside each whole daughter;
-- odd-prime reciprocal-square scale budget;
-- final linear-energy induction once its hypotheses are instantiated;
-- complete-cell Mertens/three-slot/RH terminal wiring.
+Full quarter cancellation is stronger than required. Conversely, the
+[correlation comparison](research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean)
+proves
 
-The following is **not** currently a compiled bookkeeping identity:
+```text
+G_R²/2 − E_R/2 − 3 R² <= S_R,
+S_R <= (1+a) G_R² + b E_R       (a > 0, 4ab = 1).
+```
 
-- an RH-useful contraction of the true fully compensated parent interior through the prime-11 action (or an alternative equally strong parent inequality).
+Existence of some remainder bound is equivalent to existence of some CORR-low
+bound. This statement does not preserve an arbitrary fixed coefficient and
+does not say that every finite coefficient closes RH. The displayed consumer
+thresholds must still be met.
 
-That distinction is now the research frontier.
+## What the latest work does and does not prove
 
-## Preservation rules
+- **#797:** the top-two clip retains the whole signed cell below the top two
+  owners. A top-two estimate forces a bound on the endpoint gap. Discarding
+  the branch slack loses the cancellation one needs to estimate.
+- **#798:** the remainder is the top CORR square in another coordinate. The
+  [unconditional global bound](research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean)
+  gives `S_R <= E_R/4 + 4 B(X)² + 4 B(R−1)²`, with
+  `B(x) = C x exp(−c (log x)^(1/10))`. Its leading envelope is of order
+  `R⁴ exp(−c' (log R)^(1/10))`, not the required `R² K` scale.
+- **#799:** [Möbius inversion](research/MOBIUS_INVERSION_GLOBAL_CANCELLATION.lean)
+  proves `sum_{d<=X} M(floor(X/d)) = 1` for `X >= 1`, and
+  `bornSmooth + farSurvivor = M(X) + E_root` with an explicit root strip.
+  The root strip uses lower arguments; that fact alone is not a bound on its
+  aggregate size. The top Mertens value remains.
+- **#800:** the [K₂ closeout](research/K2_COHERENT_MODE_KILL_GATE.md) separates
+  the compiled summatory/PNT comparison from a classical Dirichlet-series
+  calculation and a finite regression. Its corrected signed series is
+  `2 (zeta'/zeta)² − zeta''/zeta`, retaining double poles at zeta zeros.
 
-- Keep all obstruction/counterexample modules as executable regression tests.
-- Preserve signed compensation until whole daughter packets have been formed.
-- Do not use `sorry`, `admit`, project-local analytic axioms, probabilistic independence, or a renamed Mertens/RH-strength hypothesis.
-- Preserve the proof inventory, declaration graph, root import audit, public export audit, owned-warning gate, and terminal axiom audit.
-- When a candidate synthesis fails, record the exact Lean goal or a finite counterexample rather than opening a parallel coordinate route.
+Finite examples can falsify a proposed identity or reproduce these exact
+relations. A negative remainder on all tested roots, or strong cancellation
+between large terms, cannot certify a constant uniform over all roots.
 
-## Success condition
+## Existing forward analytic bridge
 
-The current route closes if the compensated physical parent theorem above is proved and its boundary is attached to an already admissible linear-square carrier. The existing odd-owner induction then yields linear complete-cell energy, `ThreeSlotDegreeOneCriterion` upgrades this to the protected Mertens energy statement, and the repository's terminal forward theorem yields `RiemannHypothesis` without adding an assumption of equivalent strength.
+[`MertensEnergyRHForward.lean`](RHLean/Analysis/MertensEnergyRHForward.lean)
+proves `riemannHypothesis_of_mertensEnergy` from
+`MertensEnergyBoundedStatement`. The latter is the all-epsilon bound
+`|M(x)|² <= C_epsilon (x+1)^(1+epsilon)`.
+[`TerminalMertensForward.lean`](RHLean/Proof/TerminalMertensForward.lean)
+constructs `mertensForwardCriterion` and the square-prefix-to-RH implication.
+These forward consumers do not take `ClassicalMertensRHCriterion` as an
+external argument. Historical equivalences still do; the reverse implication
+is not needed for the present proof route. An implication from an unproved
+energy estimate is not a proof of RH.
+
+## Regression constraints retained from earlier contracts
+
+1. A periodic contact mask is not a periodic physical Möbius field.
+2. [Coefficient energy is not recursive Mertens energy](RHLean/Proof/ExceptionalContactFrameEnergyNoGo.lean):
+   at daughter cutoff two, Mertens energy vanishes while coefficient mass is
+   positive. Sum with signs first.
+3. [Selected prime-11 tensors are not the true Möbius tensor](RHLean/Analysis/PhysicalRecoveredPrimeTensorCompatibility.lean).
+   The abstract `19/23` factor cannot be substituted without the physical
+   compatibility theorem that the executable counterexamples rule out.
+4. [Go daughters require high transport](RHLean/Proof/TwoWheelQ2GoCompatibility.lean):
+   `M(X/q²) = Go_q(X) − highTransport_q(X)`.
+5. [Whole physical daughters are already reassembled](RHLean/Proof/PhysicalQ2BookkeepingSynthesis.lean):
+   `physicalReassembledQ2Daughter K q = M(4K/q²)` for odd prime owners.
+   Prime `2` belongs to the base mod-four geometry, not the odd contact schedule.
+6. A bounded endpoint may be used only after an exact theorem attaches it to
+   the same parent decomposition. No replacement by a similarly named object.
+7. Support counts, coefficient norms, positive ownerwise energy, the prime-11
+   budget, and a coordinate change do not supply the open signed estimate.
+
+## Preservation and success conditions
+
+Preserve all obstruction modules, exact reassembly theorems, root/export
+manifests, declaration-graph checks, owned-warning gates, and terminal axiom
+checks. Do not add unfinished proofs, new analytic axioms, independence
+assumptions, or a renamed RH-strength hypothesis.
+
+A new route must identify the quantitative ingredient, its exact carrier and
+quantifiers, and the compiled consumer it meets. Success means proving a
+sufficient uniform estimate and composing it with that consumer without a new
+open premise. The present closeout makes no such claim.

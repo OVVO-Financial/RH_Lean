@@ -1,5 +1,9 @@
 # Least-prime parabolas and endpoint-cube decomposition
 
+> Historical architecture/research note. For the current frontier, completed
+> forward bridge, and route freeze, read [CURRENT_PROOF_CONTRACT.md](CURRENT_PROOF_CONTRACT.md).
+> Open/next-step labels below describe their original checkpoint.
+
 This note records a new exact geometric decomposition of the squarefree integers. It is intentionally separated from the compiled Lean theorem graph until the elementary identities are formalized and the analytic estimates are proved.
 
 The construction begins from the original squared-complex factor geometry, not from the later largest-prime transport parameterization.
