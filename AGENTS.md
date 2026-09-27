@@ -48,7 +48,7 @@ Global squarefree density may be used only where the carrier and theorem justify
 
 Several historically separate coordinate systems are compiled descriptions of the same signed endpoint/run arithmetic and should not be treated as independent analytic seams. These include the endpoint/interval, ordered Euler-cut, oriented Euler ledger, downcross, defect, prefix-lifetime, transport, and square-root prime-wheel descriptions documented throughout the repository.
 
-For the present exceptional-owner `q^2` descent, the critical distinction is between:
+For the preserved exceptional-owner `q^2` descent, the critical distinction is between:
 
 - the true physical coefficient daughter produced by parent/current-response/first-power-mate compensation;
 - the signed packet obtained only after earlier-owner and second-contact reassembly;
@@ -87,13 +87,20 @@ Treat rediscovery of these as a failed branch unless a genuinely new signed ingr
 
 ## Current quantitative objective
 
-The active target is the signed exceptional-owner `q^2` reassembly theorem described in `CURRENT_PROOF_CONTRACT.md`.
+The current target is CORR-4, with the exact carrier, lower-envelope
+quantifiers, and sufficient Stokes/remainder thresholds in
+`CURRENT_PROOF_CONTRACT.md`. The signed daughter dictionary and the forward
+Mertens-to-RH bridge are already available. The unresolved input is a uniform
+quantitative bound on the top-endpoint correlation, not another bookkeeping
+identification.
 
-Starting from the physically compensated `q^2` children, match all contacts removed by least-owner restriction to the existing earlier-owner/second-contact reconstruction while preserving signs. Then identify the fully reassembled child packet with the genuine lower-scale Mertens-visible packet, up to an endpoint term with an admissible linear square bound.
-
-Only after this bridge is proved should the repository's subcritical `q^{-2}` budget, universal factor-three synthesis, prime-11 contraction, or `ElevenQ2EnergyStep`-style induction be invoked.
-
-Do not announce success merely because a coefficient-level descent, mask norm, frame constant, or full-contact period identity is proved. Success requires the resulting statement to feed the compiled recursive energy and terminal RH bridge.
+The #797–#800 closeout freezes further searches among the existing internal
+identity families pending a new quantitative ingredient. Preserve the exact
+identities, counterexamples, and diagnostics. A new route must state what
+estimate it adds and how that estimate reaches the compiled consumer; a
+coordinate rename, completed square, finite regression, or reciprocal budget
+alone does not qualify. This freeze does not assert impossibility of every
+elementary approach.
 
 ## Lean and repository rules
 

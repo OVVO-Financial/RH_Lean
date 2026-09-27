@@ -1,5 +1,10 @@
 # Möbius Synthesis
 
+> Package snapshot: mathematical and build claims below concern the modules
+> shipped here. Historical route entries describe their original checkpoint.
+> No unconditional proof of RH is claimed. Compilation checks theorem statements
+> together with their ordinary hypotheses; finite probes remain diagnostics.
+
 This is a self-contained Lake package. `RHLean.lean` imports every shipped module, so `lake build RHLean --wfail` builds the whole development.
 
 The project is a Lean 4 formalization of square-sensitive and prime-wheel cancellation in the Möbius summatory function. Its central arithmetic object is the signed field

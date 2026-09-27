@@ -1,5 +1,9 @@
 # Multi-route RH criterion formalization plan
 
+> Historical architecture/research note. For the current frontier, completed
+> forward bridge, and route freeze, read [CURRENT_PROOF_CONTRACT.md](CURRENT_PROOF_CONTRACT.md).
+> Open/next-step labels below describe their original checkpoint.
+
 This document records the dependency-bounded program for developing multiple rigorous routes into the repository's existing square-prefix/Mertens criterion.
 
 It does not introduce a second definition of the RH target. Every route must terminate in one of the already compiled propositions

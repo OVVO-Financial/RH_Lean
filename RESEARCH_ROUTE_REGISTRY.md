@@ -5,14 +5,33 @@ square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
-The protected target does not change:
+## Current closeout — 2026-09-26
+
+[`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md) gives the exact
+quantifiers and sufficient constants. The present forward route is
 
 ```text
-SquarePrefixUniformLocalBoundedStatement
+CORR-4 uniform correlation estimate (open)
+  -> subcritical q² energy recurrence (compiled implication)
   -> MertensEnergyBoundedStatement
-  -> ClassicalMertensRHCriterion
-  -> RiemannHypothesisStatement.
+  -> RiemannHypothesis (compiled forward implication).
 ```
+
+`ClassicalMertensRHCriterion` remains a parameter in historical two-way
+interfaces, but is not an additional missing premise of this forward route.
+
+| Recent route audit | Status / evidence |
+| --- | --- |
+| #797: completed branch through top-two Stokes | Exact normal form retains the top gap; no new contraction. |
+| #798: remainder/CORR comparison | Compiled two-sided comparison; unconditional subexponential bound remains too large. |
+| #798: four internal linear-certificate families | Screened families retain a top-scale state, unsuitable daughters, or excessive coefficients; see the dated sequence entry. |
+| #799: global cross-prime cancellation | Compiled Möbius-inversion identity leaves `M(R²−1)` plus a root strip. |
+| #800: signed K₂ | Existing comparison retains the PNT error; corrected spectral calculation and finite diagnostic in the [closeout note](research/K2_COHERENT_MODE_KILL_GATE.md). |
+
+Further searches among these existing identity families are frozen pending a
+new quantitative ingredient. This is a research decision. Finite screens and
+explicit-formula heuristics are not universal impossibility theorems. Retain
+the older route records below as history and distinguish their evidence grades.
 
 Numerical experiments are diagnostics only. A route marked **closed** must not
 be restarted by merely increasing the finite range, renaming the same

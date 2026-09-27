@@ -1,5 +1,9 @@
 # Big-picture proof map
 
+> Historical architecture/research note. For the current frontier, completed
+> forward bridge, and route freeze, read [CURRENT_PROOF_CONTRACT.md](CURRENT_PROOF_CONTRACT.md).
+> Open/next-step labels below describe their original checkpoint.
+
 This document is the strategic invariant for every subsequent theorem and pull request in `RH_Lean`.
 
 ## 1. The final object is the full signed subtraction

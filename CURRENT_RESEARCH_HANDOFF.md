@@ -1,8 +1,28 @@
 # Current RH_Lean research handoff
 
-This file records the current mathematical frontier for any research agent continuing the repository. It is intentionally model-agnostic.
+This file preserves the research history. The current mathematical frontier is
+specified by [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md), which
+overrides older instructions and open/closed labels below.
 
-## Governing rule
+## Current handoff — 2026-09-26
+
+The #797–#800 closeout leaves one quantitative input: CORR-4, or a signed
+Stokes/remainder bound within its sufficient coefficient corridor. The
+forward analytic bridge is internal. The completed branch, global top-two
+Stokes identity, and Möbius inversion all preserve the top-scale Mertens gap;
+they do not reduce it to the already controlled terminal sector.
+
+Read the contract for exact quantifiers and source links. Read
+[`research/K2_COHERENT_MODE_KILL_GATE.md`](research/K2_COHERENT_MODE_KILL_GATE.md)
+for the corrected K₂ diagnostic. Existing internal identity searches are
+frozen pending new quantitative input. Numerical cancellation remains a
+filter, not an all-scale bound. No unconditional RH proof is claimed.
+
+The entries below are historical snapshots. Instructions such as "the next
+target" and "the immediate missing theorem" describe the state at their
+original checkpoint; they do not reopen a superseded route.
+
+## Historical governing approach
 
 Do not search for a new coordinate system first. The recent formalization has proved that several historically separate descriptions are exact representations of the same signed endpoint/run object. The task is now to exploit the strongest theorem available in each representation on that common carrier.
 

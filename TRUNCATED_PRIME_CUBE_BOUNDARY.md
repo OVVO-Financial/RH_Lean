@@ -1,5 +1,9 @@
 # Truncated prime-cube boundary layer
 
+> Historical architecture/research note. For the current frontier, completed
+> forward bridge, and route freeze, read [CURRENT_PROOF_CONTRACT.md](CURRENT_PROOF_CONTRACT.md).
+> Open/next-step labels below describe their original checkpoint.
+
 This note records the exact finite statement introduced after PR #118.
 
 Let `s` be a finite coordinate set and let `admissible` be a downward-closed

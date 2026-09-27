@@ -1,8 +1,12 @@
 # Formalization inventory and sequence
 
-This document is the canonical implementation order for `RH_Lean`.
+This document is the dependency catalog and append-only research ledger for
+`RH_Lean`. Current mathematical status is governed by
+[`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md); older implementation
+orders below are historical, not an instruction to repeat closed routes.
 
-It records only what is actually compiled, distinguishes exact algebraic layers from unproved analytic obligations, and preserves corrections explicitly rather than rewriting the PR history.
+It distinguishes compiled algebraic layers, numerical diagnostics, and unproved
+analytic obligations, and preserves corrections explicitly.
 
 The governing invariants are:
 
@@ -20,8 +24,9 @@ The governing invariants are:
   total/high criterion equivalence must use the two norm inequalities and the
   separately proved local low-sector bound;
 - the canonical square-prefix endpoint is exactly `X_n = (n+1)^2 - 1`;
-- the final mathlib integration theorem must accept the classical Mertens↔RH
-  equivalence directly, without an abstract start-sequence bridge;
+- the forward Mathlib integration uses the internally proved Mertens-to-RH
+  implication; historical two-way interfaces keep their explicit classical
+  criterion parameter, without an abstract start-sequence bridge;
 - a death-shell divisor bound must sum divisor fibers over every integer height
   in the half-open shell window, not use the divisor count of one endpoint;
 - a bound on the death process alone does not bound the endpoint survivor
@@ -35,6 +40,20 @@ The governing invariants are:
   scale-transfer discrepancy;
 - finite correlations and baseline `R^2` values remain numerical diagnostics
   unless introduced through the repository's certificate architecture.
+
+## Repository closeout — 2026-09-26
+
+- #797 and #799 are merged with successful checks of their recorded heads.
+- #800 is merged after correcting its Dirichlet-series formulas and adding a
+  successful finite diagnostic gate at `18b70f645009dbbea76b1ad6248a793b3fabeb65`.
+- #798 carries the integrated CORR audit and this documentation cleanup;
+  hosted checks on its final head remain the merge gate.
+- The README, contract, agent instructions, handoff, and route registry now
+  agree: exact assembly and the forward bridge are available; CORR-4 remains
+  open. Archive and export headers distinguish snapshots from current status.
+- `Documentation checks` validates relative Markdown file links and existing
+  source/import/boundary audits. No Lean source, theorem signature, axiom
+  policy, export module list, or mathematical consumer is changed by cleanup.
 
 ## K₂ diagnostic closeout (#800; 2026-09-26 correction)
 
@@ -52,7 +71,7 @@ quantitative input; the freeze is not a universal mathematical no-go theorem.
 
 ## 1. Compiled inventory
 
-### Post-795 research composition (verification pending)
+### Post-795 research composition (verified; merged as #796)
 
 The dependency chain for the new research layer is:
 
@@ -71,7 +90,116 @@ signed estimate. The reciprocal quarter-frame pays only `Q_R^2`, while the
 endpoint cross/diagonal remainder remains in the existing post-789 currency.
 The research workflow, not the library root manifest, checks this chain.
 
-The root library currently imports 145 theorem modules, as enumerated directly by `RHLean.lean`.
+### Post-796 carrier audit: the signed remainder is the CORR square
+
+`GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE` checks whether
+`SignedCrossDiagonalRemainder_R = G_R^2 + 2 Q_R G_R - D_R` is smaller than
+the terminal object. It is not. By the compiled covariance identity
+`corr_R = M(R-1) - M(R^2-1) = -G_R`, so `G_R^2` is exactly the CORR square.
+Using only `Q_R^2 <= E_R/4` and `0 <= D_R <= 3 R^2`:
+
+    (1/2) corr_R^2 - (1/2) E_R - 3 R^2 <= X_R <= (1+a) corr_R^2 + b E_R,
+    a > 0, 4ab = 1.
+
+Consequences, all compiled:
+
+- a post-789 coefficient `A` forces CORR-low coefficient `2A+1` directly
+  (this reproduces the AMP transfer constant without AMP);
+- CORR-low `(beta, c)` gives post-789 coefficient `(1+a) beta + b`; CORR-low
+  `1/2` lands at `5/4`, inside the `A <= 3/2` corridor;
+- "some post-789 bound" and "some CORR-low bound" are the same existence
+  statement;
+- the #796 completed-branch assembly is at least half the top-endpoint Mertens
+  square minus `E_R/2` and `3 R^2`.
+
+Finite diagnostic (`scripts/post789_remainder_correlation_probe.py`, exact
+rationals, `R = 56..3000`): `X_R < 0` at every root, but at 2756 of 2945 roots
+only because of the diagonal (`D_R/R^2 <= 0.683`), which the `C R^2 K` budget
+absorbs anyway. The favorable sign therefore carries no information about the
+q² coefficient. The branch completion and top-two Stokes composition did not
+narrow the seam: what remains is the top-endpoint correlation estimate that
+`riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy` already consumes.
+
+`GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND` records the strongest
+global bound currently available from compiled unconditional input. Feeding
+`strongNativeMertensSubexp` through the Young comparison gives, for every
+`R >= 56` with no envelope hypothesis,
+
+    X_R <= (1/4) E_R + 4 B(R^2-1)^2 + 4 B(R-1)^2,
+    B(x) = C x exp(-c (log x)^(1/10)).
+
+The RH consumer needs `(3/2) E_R + C R^2 K`. The unconditional bound is larger
+by a factor `R^2 exp(-c' (log R)^(1/10))`, and the lower comparison shows that
+this gap cannot be closed inside `X_R`. On `R = 56..3000` the exact probe finds
+`X_R <= (3/2) E_R + C R^2 K_R` already with `C = -0.33`. That is finite
+evidence only; it certifies no uniform constant.
+
+Prime-root / smooth kill gate (`scripts/prime_smooth_channel_probe.py`,
+exact, `R = 56..3000`): `P_R + S_R = M(R^2-1) - 1` and both splits at `R`
+hold exactly, but `|P_R|` and `|S_R|` each grow to about `12 R sqrt(K_R)` by
+`R = 3000` while `|P_R + S_R| <= 0.35 R sqrt(K_R)`; the tails above `R` behave
+the same. Anti-alignment is Mertens cancellation restated with two large
+numbers, so this route is closed. Do not formalize another prime/smooth Gram
+or ledger theorem without a genuinely small channel.
+
+Linear certificate search. The live target is an exact identity
+`C_R = sum_{q^2<R} a_{R,q} M(floor(X_R/q^2)) + e_R` with `sum_q a_{R,q}^2 < 4`
+and `e_R^2 <= B R^2 K`, which with Cauchy--Schwarz gives CORR-4. Candidate
+families are screened structurally before any harness is built:
+
+- Liouville `M(N) = L(N) - sum_{d>=2} M(N/d^2)`: rejected. All low-owner
+  coefficients are 1, so `c_R` counts owners, and `L(N)` stays top-scale.
+- Family 1, square-residual q^2 telescope
+  (`lowWheelFrozenSecondContactSquareResidualMass_eq_q2Telescope`): rejected.
+  The daughters are restricted windows `d <= X/(A q^2)`, rough above `P+(A)`,
+  `P+(d) < q`, one per source scale `A`; they are not `M(floor(X/q^2))`.
+  Isolating `C_R` through `FinalCompensatedParentReduction` leaves
+  `squareRootSmoothMass (R-1)` and the defect ledger, or the frozen/top/far
+  residual, in `e_R`: a full top-scale state.
+- Family 2, #789 prime-extension telescope: rejected. The daughters are the
+  literal `M(floor(X/p^2))`, but each enters with coefficient `-1`
+  (`M(X) = 1 - sum_{p<R} M(floor(X/p^2)) - Response_R`), so
+  `c_R = pi(R-1)`. Its response collapses to the existing ownerwise synthesis
+  error. Note: #789 was merged into the stacked branch
+  `agent/post787-boundary-main-term-obstruction`, which never reached `main`;
+  its theorems (`PrimeExtensionPhysicalResponse`,
+  `PrimeExtensionCanonicalScheduleBridge`) are not compiled on `main`. The
+  rejection uses only the elementary amplitude identity.
+- Family 3, replacement-fibre exchange after global Fubini: rejected. Summing
+  the fibre label `z` exactly (`ReplacementFibreCofactorWindows`,
+  `research/REPLACEMENT_TYPEII_SCALAR_GATE.md`) gives
+  `C_R = B_root + B_smooth` with
+  `B_root = sum_{c<R} mu(c) #{q prime : c < q, R <= cq <= X}` and
+  `B_smooth = sum_c mu(c) #{q prime : P+(c) < q < c, R <= cq <= X}`.
+  The exchange lands on prime-window counts indexed by the cofactor `c`; no
+  `M(floor(X/q^2))` daughter appears, so there is no coefficient `a_{R,q}` to
+  measure. The two channels are exactly the tail split already closed by the
+  prime/smooth kill gate (e.g. `B_root = -22096`, `B_smooth = 21909` at
+  `R = 2000`).
+
+All four internal families are closed. The existing exact combinatorics either
+give unit q^2 coefficients, restricted non-Mertens daughters, or no q^2
+daughters at all, and every exact route to `C_R` keeps a full top-scale state.
+A certificate with `sum_q a_{R,q}^2 < 4` would have to come from new analytic
+input rather than another exact coordinate of the existing ledgers.
+
+Heuristic no-go for fixed linear filters (explicit-formula heuristic, not a
+Lean theorem). If `M(N) = sum_q a_q M(N/q^2) + e(N)` with weights `a_q` fixed
+independently of the Mobius values, then `E(s) = (1 - A(2s))/zeta(s)` with
+`A(w) = sum_q a_q q^(-w)`. For `sum_q a_q^2 < 4` and `Re s >= 1/2`,
+`|A(2s)| <= 2 (sum_{odd p} p^-2)^(1/2) ~ 0.90`, so the multiplier lies between
+about 0.1 and 1.9 in modulus and cancels no pole of `1/zeta`. The error keeps
+every zero-driven oscillation of `M` with amplitude at least a tenth, so
+bounding it is the original problem. The same applies to any fixed linear
+relation among the far-survivor values `M(X/q)` across different primes. Open
+caveats: convergence at `Re s = 1/2`, and the `R`-dependent owner cutoff. A
+data-dependent map is either circular or reduces to the analytic CORR-4
+inequality itself.
+
+The numbered catalog below is historical and is not a live module count.
+`RHLean.lean` is the generated source of truth; `python3 scripts/check_root_manifest.py`
+checks its complete, sorted import surface (825 modules at this closeout).
+Research modules are tracked by their dedicated workflow closures.
 
 ### Arithmetic and cell structure
 

@@ -1,5 +1,9 @@
 # RH_Lean architecture
 
+> Historical architecture/research note. For the current frontier, completed
+> forward bridge, and route freeze, read [CURRENT_PROOF_CONTRACT.md](CURRENT_PROOF_CONTRACT.md).
+> Open/next-step labels below describe their original checkpoint.
+
 This repository formalizes the square-prefix Möbius program through small, reviewable theorem layers. The architecture is deliberately split into exact arithmetic, exact geometry, finite-modulus resonance, and analytic closure. No analytic estimate may be represented by an axiom, opaque constant, weakened theorem, or circular RH assumption.
 
 ## 1. Two independent structural branches
