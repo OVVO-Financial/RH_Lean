@@ -142,4 +142,43 @@ theorem post789SignedRemainder_unconditional_quartic_bound
   nlinarith
 
 
+
+/-- **Loose-first target at the sharpened remainder coefficient.**
+
+The daughter coefficient is already the RH-sufficient value `2`; only the
+unconditional surplus is still quartic.  This makes the next tightening target
+purely a scale problem: replace `8 R^4` by `C R^2 K` without changing the
+daughter coefficient. -/
+theorem post789SignedRemainder_unconditional_two_q2_add_quartic
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowOwnerPost789SignedCrossDiagonalRemainder R ≤
+      2 * canonicalRoughLowQ2DaughterEnergy R +
+        8 * (R : ℝ) ^ 4 := by
+  have h :=
+    post789SignedRemainder_unconditional_quartic_bound R hR
+  have hE : 0 ≤ canonicalRoughLowQ2DaughterEnergy R := by
+    unfold canonicalRoughLowQ2DaughterEnergy
+    apply Finset.sum_nonneg
+    intro q _hq
+    unfold rawQ2ChildEnergyReal
+    positivity
+  nlinarith
+
+/-- **Loose-first target at the sharpened FinalStokes coefficient.**
+
+The exact quarter frame upgrades the preceding theorem to the final-Stokes
+coefficient `9/4`, again with only a quartic surplus. -/
+theorem finalStokes_unconditional_nineQuarters_q2_add_quartic
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowOwnerCanonicalSignedStokesFinalBoundary R ≤
+      (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
+        8 * (R : ℝ) ^ 4 := by
+  have hS :=
+    post789SignedRemainder_unconditional_two_q2_add_quartic R hR
+  have hQ :=
+    lowOwnerReciprocalMertensColumnReal_sq_le_quarter_lowQ2DaughterEnergy R
+  rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_q2Sq_add_post789Remainder
+    hR]
+  nlinarith
+
 end RHLean.Proof
