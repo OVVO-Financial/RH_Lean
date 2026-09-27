@@ -30,15 +30,25 @@ Consequences recorded below:
   coefficient `2 A + 1` (this recovers the compiled AMP transfer without AMP);
 * conversely CORR-low `(beta, c)` gives a post-#789 bound with coefficient
   `(1 + a) beta + b`; in particular CORR-low `1/2` lands at `5/4`, inside the
-  `A <= 3/2` corridor;
+  original `A <= 3/2` corridor;
 * hence "some post-#789 bound" and "some CORR-low bound" are the same
   existence statement, and the #796 completed-branch assembly dominates half
   of the top-endpoint Mertens square up to `E_R/2` and root scale.
 
+The 2026-09-27 sharpening at the end of this module also gives
+
+  (3/4) corr_R^2 - E_R - 3 R^2 <= X_R,
+  (3/4) corr_R^2 - (3/4) E_R - 3 R^2 <= FinalStokes_R.
+
+These transfers admit remainder coefficient `2` and final-Stokes coefficient
+`9/4`, respectively, at CORR coefficient `4`. The earlier theorems remain
+unchanged. This improves sufficient coefficients, not the arithmetic scale:
+no uniform upper estimate for the remainder or final Stokes term is proved.
+
 This is an exact carrier audit.  It proves no contraction.  The remaining
 quantitative seam is exactly the top-endpoint correlation estimate already
 consumed by `riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy`; the
-branch completion and top-two Stokes composition did not narrow it.
+branch completion and top-two Stokes composition did not remove it.
 -/
 
 noncomputable section
@@ -239,5 +249,139 @@ theorem half_correlationSq_le_topCompletedBranchAssembly_add
     (R := R) (by omega)
   have hQ := sq_nonneg (lowOwnerReciprocalMertensColumnReal R)
   linarith
+
+/-! ## Sharpened coefficient transfers, 2026-09-27
+
+These are unconditional algebraic comparisons followed by conditional
+consumers. They do not assert either uniform arithmetic upper bound.
+-/
+
+/-- Exact square certificate for the three-quarter remainder comparison. -/
+theorem post789_remainder_threeQuarters_certificate (G Q E D r : ℝ) :
+    (G ^ 2 + 2 * Q * G - D) -
+        ((3 / 4 : ℝ) * G ^ 2 - E - 3 * r ^ 2) =
+      (1 / 4 : ℝ) * (G + 4 * Q) ^ 2 +
+        (E - 4 * Q ^ 2) + (3 * r ^ 2 - D) := by
+  ring
+
+/-- Exact square certificate for the three-quarter final-Stokes comparison. -/
+theorem post789_finalStokes_threeQuarters_certificate (G Q E D : ℝ) :
+    4 * ((G + Q) ^ 2 - D) - 3 * G ^ 2 + 3 * E + 4 * D =
+      (G + 4 * Q) ^ 2 + 3 * (E - 4 * Q ^ 2) := by
+  ring
+
+/-- A different square completion retains three quarters of the CORR square,
+with one daughter energy and the same diagonal budget. -/
+theorem threeQuarters_correlationSq_sub_le_post789SignedRemainder
+    {R : ℕ} (hR : 2 ≤ R) :
+    (3 / 4 : ℝ) * ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 -
+        canonicalRoughLowQ2DaughterEnergy R - 3 * (R : ℝ) ^ 2 ≤
+      lowOwnerPost789SignedCrossDiagonalRemainder R := by
+  rw [norm_sq_squareRootCanonicalRoughCorrelation_eq_post789EndpointGap_sq hR]
+  unfold lowOwnerPost789SignedCrossDiagonalRemainder
+  have hQ :=
+    lowOwnerReciprocalMertensColumnReal_sq_le_quarter_lowQ2DaughterEnergy R
+  have hD := lowOwnerZeroFrequencyMobiusDiagonal_le_three_root_sq R
+  nlinarith [sq_nonneg (lowOwnerPost789EndpointGapReal R +
+    4 * lowOwnerReciprocalMertensColumnReal R)]
+
+/-- The final-Stokes comparison retains its actual reciprocal square rather
+than dropping it before completing the square. -/
+theorem threeQuarters_correlationSq_sub_le_finalStokes
+    {R : ℕ} (hR : 56 ≤ R) :
+    (3 / 4 : ℝ) * ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 -
+        (3 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R -
+        3 * (R : ℝ) ^ 2 ≤
+      lowOwnerCanonicalSignedStokesFinalBoundary R := by
+  rw [norm_sq_squareRootCanonicalRoughCorrelation_eq_post789EndpointGap_sq
+      (by omega : 2 ≤ R),
+    lowOwnerCanonicalSignedStokesFinalBoundary_eq_q2Sq_add_post789Remainder hR]
+  unfold lowOwnerPost789SignedCrossDiagonalRemainder
+  have hQ :=
+    lowOwnerReciprocalMertensColumnReal_sq_le_quarter_lowQ2DaughterEnergy R
+  have hD := lowOwnerZeroFrequencyMobiusDiagonal_le_three_root_sq R
+  nlinarith [sq_nonneg (lowOwnerPost789EndpointGapReal R +
+    4 * lowOwnerReciprocalMertensColumnReal R)]
+
+private theorem root_sq_le_lowerEnvelope_scale_corrEquiv
+    {R : ℕ} {K : ℝ} (hR : 1 ≤ R)
+    (hK : LowerMertensCriticalEnvelope R K) :
+    (R : ℝ) ^ 2 ≤ (R : ℝ) ^ 2 * K := by
+  have hK1 : 1 ≤ K := by
+    have h0 := hK.2 0 (by omega)
+    have hm0 : mertensSummatoryInt 0 = 0 := by
+      simp [mertensSummatoryInt]
+    rw [hm0] at h0
+    norm_num at h0
+    exact h0
+  simpa only [mul_one] using
+    (mul_le_mul_of_nonneg_left hK1 (sq_nonneg (R : ℝ)))
+
+/-- Sharpened remainder transfer: `A` maps to `4*(A+1)/3`, with boundary
+constant `4*C/3+4`. The upper bound remains an explicit hypothesis. -/
+theorem correlationLowQ2Energy_of_post789SignedRemainderBound_threeQuarters
+    {A C : ℝ}
+    (hRem : LowOwnerPost789SignedCrossDiagonalRemainderBound A C) :
+    CanonicalRoughCorrelationLowQ2EnergyStatementWith
+      ((4 / 3 : ℝ) * (A + 1)) ((4 / 3 : ℝ) * C + 4) := by
+  intro R K hR hK
+  have hLow := threeQuarters_correlationSq_sub_le_post789SignedRemainder
+    (R := R) (by omega)
+  have hUpper := hRem R K hR hK
+  have hScale := root_sq_le_lowerEnvelope_scale_corrEquiv
+    (by omega : 1 ≤ R) hK
+  nlinarith [hLow, hUpper, hScale]
+
+/-- Sharpened final-Stokes transfer: `B` maps to `4*B/3+1`, with boundary
+constant `4*C/3+4`. No unsigned ownerwise estimate is introduced. -/
+theorem correlationLowQ2Energy_of_finalStokesQ2EnergyBound_threeQuarters
+    {B C : ℝ}
+    (hFinal : LowOwnerFinalStokesQ2EnergyBound B C) :
+    CanonicalRoughCorrelationLowQ2EnergyStatementWith
+      ((4 / 3 : ℝ) * B + 1) ((4 / 3 : ℝ) * C + 4) := by
+  intro R K hR hK
+  have hLow := threeQuarters_correlationSq_sub_le_finalStokes hR
+  have hUpper := hFinal R K hR hK
+  have hScale := root_sq_le_lowerEnvelope_scale_corrEquiv
+    (by omega : 1 ≤ R) hK
+  nlinarith [hLow, hUpper, hScale]
+
+/-- A uniform signed remainder bound with coefficient `2` suffices for CORR-4. -/
+theorem correlationFour_of_post789SignedRemainderBound_two
+    {C : ℝ} (hC : 0 ≤ C)
+    (hRem : LowOwnerPost789SignedCrossDiagonalRemainderBound 2 C) :
+    CanonicalRoughCorrelationFourQ2EnergyStatement := by
+  apply correlationFour_iff_exists_lowQ2Energy.mpr
+  refine ⟨(4 / 3 : ℝ) * C + 4, by positivity, ?_⟩
+  have hLow :=
+    correlationLowQ2Energy_of_post789SignedRemainderBound_threeQuarters hRem
+  convert hLow using 1; norm_num
+
+/-- A uniform final-Stokes bound with coefficient `9/4` suffices for CORR-4. -/
+theorem correlationFour_of_finalStokesQ2EnergyBound_nineQuarters
+    {C : ℝ} (hC : 0 ≤ C)
+    (hFinal : LowOwnerFinalStokesQ2EnergyBound (9 / 4) C) :
+    CanonicalRoughCorrelationFourQ2EnergyStatement := by
+  apply correlationFour_iff_exists_lowQ2Energy.mpr
+  refine ⟨(4 / 3 : ℝ) * C + 4, by positivity, ?_⟩
+  have hLow :=
+    correlationLowQ2Energy_of_finalStokesQ2EnergyBound_threeQuarters hFinal
+  convert hLow using 1; norm_num
+
+/-- Conditional closure at the relaxed remainder coefficient `2`. -/
+theorem riemannHypothesis_of_post789SignedRemainderBound_two
+    {C : ℝ} (hC : 0 ≤ C)
+    (hRem : LowOwnerPost789SignedCrossDiagonalRemainderBound 2 C) :
+    RiemannHypothesis :=
+  riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
+    (correlationFour_of_post789SignedRemainderBound_two hC hRem)
+
+/-- Conditional closure at the relaxed final-Stokes coefficient `9/4`. -/
+theorem riemannHypothesis_of_finalStokesQ2EnergyBound_nineQuarters
+    {C : ℝ} (hC : 0 ≤ C)
+    (hFinal : LowOwnerFinalStokesQ2EnergyBound (9 / 4) C) :
+    RiemannHypothesis :=
+  riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy
+    (correlationFour_of_finalStokesQ2EnergyBound_nineQuarters hC hFinal)
 
 end RHLean.Proof

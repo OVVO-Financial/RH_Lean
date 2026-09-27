@@ -1,14 +1,17 @@
 # RH_Lean current proof contract
 
-Status date: 2026-09-26. This contract incorporates the #796–#800 closeout.
+Status date: 2026-09-27. This contract incorporates the #796–#800 closeout
+and the three-quarter coefficient sharpening documented below.
 Compiled Lean source and successful checks of the relevant commit are
 authoritative. Historical handoffs and plans do not override this contract.
 
 **RH is not proved. One quantitative top-scale estimate remains.** The forward
 Mertens-to-RH implication, signed reassembly, and conditional terminal induction
 are available. Repeating the existing coordinate changes does not supply the
-missing estimate. Searches among the tested internal identity families are
-frozen pending a new quantitative ingredient.
+missing estimate. The pause on repeating tested internal identity searches is
+a research policy, not a theorem that the reduced estimates are unprovable.
+Coefficient-transfer improvements and new quantitative arguments must be
+assessed on their mathematical content.
 
 ## Governing rule
 
@@ -74,18 +77,49 @@ and [branch-gate composition](research/GLOBAL_RETURNED_CORE_TOP_TWO_BRANCH_GATE_
 prove these identities. At first owner `2`, the completed top-branch energy
 is `(Q_R + G_R)²`, so completing the branch has not removed the endpoint gap.
 
-The [post-789 consumer](research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean)
-accepts either uniform estimate below, with `C >= 0` and the same envelope
-quantifiers:
+The [sharpened correlation comparison](research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean)
+uses a three-quarter square completion. With `C >= 0` and exactly the same
+uniform lower-envelope quantifiers, the sufficient endpoint coefficients are:
 
-| Sufficient input | Allowed coefficient | Compiled transfer |
+| Sufficient input | Endpoint coefficient | Sharpened transfer to CORR |
 | --- | --- | --- |
-| `FinalStokes_R <= B E_R + C R² K` | `−1/4 <= B <= 7/4` | CORR coefficient `1/2 + 2B <= 4` |
-| `S_R <= A E_R + C R² K` | `−1/4 <= A <= 3/2` | CORR coefficient `2A + 1 <= 4` |
+| `FinalStokes_R <= B E_R + C R² K` | `B = 9/4` | `4B/3 + 1 = 4` |
+| `S_R <= A E_R + C R² K` | `A = 2` | `4(A+1)/3 = 4` |
 
-Full quarter cancellation is stronger than required. Conversely, the
-[correlation comparison](research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean)
-proves
+In either case the low-owner CORR boundary constant becomes `4C/3 + 4`.
+Any smaller coefficient also suffices by `E_R >= 0`. These are sufficient
+thresholds for the displayed comparisons, not a claim that no other method
+could allow larger coefficients. The old `B <= 7/4` and `A <= 3/2` consumers
+in the [post-789 control module](research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean)
+remain valid and unchanged; they are not the strongest sufficient targets now
+available. Historical snapshots that quote them should be read accordingly.
+
+The exact certificates, writing `F = FinalStokes_R`, are
+
+```text
+S_R − (3G_R²/4 − E_R − 3R²)
+  = (G_R + 4Q_R)²/4 + (E_R − 4Q_R²) + (3R² − D_R),
+4F − 3G_R² + 3E_R + 4D_R
+  = (G_R + 4Q_R)² + 3(E_R − 4Q_R²).
+```
+
+All terms on the right are nonnegative. Consequently
+
+```text
+3G_R²/4 − E_R − 3R² <= S_R,
+3G_R²/4 − 3E_R/4 − 3R² <= FinalStokes_R.
+```
+
+The comparison module contains both polynomial certificates, both lower
+comparisons, both general coefficient transfers, and conditional CORR-4/RH
+consumers at `A = 2` and `B = 9/4`. The uniform upper bounds are still explicit
+hypotheses. Relevant hosted Lean checks at the PR head certify elaboration;
+symbolic checks alone are not Lean certification. See the
+[research-state note](research/POST789_SHARPENED_COEFFICIENT_CORRIDOR.md)
+for the derivation, exact quantifiers, and two-sided research interpretation.
+
+Full quarter cancellation is stronger than required. The original comparison
+also proves
 
 ```text
 G_R²/2 − E_R/2 − 3 R² <= S_R,
@@ -99,14 +133,25 @@ thresholds must still be met.
 
 ## What the latest work does and does not prove
 
+- **Coefficient sharpening (2026-09-27):** the same exact signed carrier and
+  quarter frame admit `A = 2` or `B = 9/4`, rather than only `3/2` or `7/4`.
+  This improves the sufficient coefficient budget. It does not prove the
+  required uniform arithmetic upper estimate or a converse from RH.
 - **#797:** the top-two clip retains the whole signed cell below the top two
   owners. A top-two estimate forces a bound on the endpoint gap. Discarding
   the branch slack loses the cancellation one needs to estimate.
-- **#798:** the remainder is the top CORR square in another coordinate. The
-  [unconditional global bound](research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean)
-  gives `S_R <= E_R/4 + 4 B(X)² + 4 B(R−1)²`, with
+- **Unconditional finite baseline (2026-09-27):** the same
+  [global-bound module](research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean)
+  now kernel-proves the elementary all-scale estimate
+  `S_R <= E_R/4 + 8 R^4` for every `R >= 56`.  This uses only
+  `|M(n)| <= n`, the exact correlation dictionary, and the compiled Young
+  comparison.  It is the first explicit polynomial rung in the tightening
+  ladder; it is not yet a bound of the target form `A E_R + C R^2 K` because
+  the quartic surplus cannot be absorbed by a fixed root-scale constant.
+- **#798:** the stronger asymptotic unconditional bound gives
+  `S_R <= E_R/4 + 4 B(X)² + 4 B(R−1)²`, with
   `B(x) = C x exp(−c (log x)^(1/10))`. Its leading envelope is of order
-  `R⁴ exp(−c' (log R)^(1/10))`, not the required `R² K` scale.
+  `R⁴ exp(−c' (log R)^(1/10))`, still above the required `R² K` scale.
 - **#799:** [Möbius inversion](research/MOBIUS_INVERSION_GLOBAL_CANCELLATION.lean)
   proves `sum_{d<=X} M(floor(X/d)) = 1` for `X >= 1`, and
   `bornSmooth + farSurvivor = M(X) + E_root` with an explicit root strip.
@@ -120,6 +165,13 @@ thresholds must still be met.
 Finite examples can falsify a proposed identity or reproduce these exact
 relations. A negative remainder on all tested roots, or strong cancellation
 between large terms, cannot certify a constant uniform over all roots.
+A finite certificate plus a proved all-scale induction can certify such a
+bound; a finite list of successful evaluations alone cannot.
+
+Failure of one sufficient bound is not a disproof of RH. A reverse implication
+must first be proved for that same statement and its exact quantifiers.
+Neither the source audits nor the research pause establish impossibility of
+proving the remaining estimates.
 
 ## Existing forward analytic bridge
 
@@ -163,4 +215,4 @@ assumptions, or a renamed RH-strength hypothesis.
 A new route must identify the quantitative ingredient, its exact carrier and
 quantifiers, and the compiled consumer it meets. Success means proving a
 sufficient uniform estimate and composing it with that consumer without a new
-open premise. The present closeout makes no such claim.
+open premise. The present coefficient sharpening makes no such closure claim.
