@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Analysis.NativePNTQuantitativeStatements
 import RHLean.Analysis.StrongMertensLogNineBalance
 import «research.GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE»
+import «research.CANONICAL_ROUGH_GLOBAL_BOUNDS»
 
 /-!
 # Unconditional global bound for the post-#789 signed remainder
@@ -141,6 +142,37 @@ theorem post789SignedRemainder_unconditional_quartic_bound
     (R := R) (by omega) (a := 1) (b := 1 / 4) (by norm_num) (by norm_num)
   nlinarith
 
+
+
+/-- **Optimized unconditional loose-first rung.**
+
+Using the sharp interval bound on the canonical correlation and the Young split
+a = 1/8, b = 2 gives the target daughter coefficient 2 with only 9/8 R^4
+surplus. -/
+theorem post789SignedRemainder_unconditional_two_q2_add_nineEighths_quartic
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowOwnerPost789SignedCrossDiagonalRemainder R ≤
+      2 * canonicalRoughLowQ2DaughterEnergy R +
+        (9 / 8 : ℝ) * (R : ℝ) ^ 4 := by
+  have hY := post789SignedRemainder_le_correlationSq_young
+    (R := R) (by omega) (a := 1 / 8) (b := 2) (by norm_num) (by norm_num)
+  have hG := squareRootCanonicalRoughCorrelation_energy_le_root_fourth
+    R (by omega)
+  nlinarith
+
+/-- Final-Stokes form of the optimized unconditional loose-first rung. -/
+theorem finalStokes_unconditional_nineQuarters_q2_add_nineEighths_quartic
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowOwnerCanonicalSignedStokesFinalBoundary R ≤
+      (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
+        (9 / 8 : ℝ) * (R : ℝ) ^ 4 := by
+  have hS :=
+    post789SignedRemainder_unconditional_two_q2_add_nineEighths_quartic R hR
+  have hQ :=
+    lowOwnerReciprocalMertensColumnReal_sq_le_quarter_lowQ2DaughterEnergy R
+  rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_q2Sq_add_post789Remainder
+    hR]
+  nlinarith
 
 
 /-- **Loose-first target at the sharpened remainder coefficient.**
