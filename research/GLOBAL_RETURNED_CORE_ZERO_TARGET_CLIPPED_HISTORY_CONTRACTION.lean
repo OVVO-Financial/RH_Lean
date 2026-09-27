@@ -478,9 +478,17 @@ def lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy
 private theorem critical_one_sub_reciprocal_fourth_le_one
     {p : ℕ} (hp : p.Prime) :
     (1 - 1 / (p : ℝ)) ^ 4 ≤ 1 := by
-  have hsq := critical_one_sub_reciprocal_sq_le_one hp
+  have hsq :
+      (1 - 1 / (p : ℝ)) ^ 2 ≤ 1 :=
+    critical_one_sub_reciprocal_sq_le_one hp
   have hnon : 0 ≤ (1 - 1 / (p : ℝ)) ^ 2 := sq_nonneg _
-  nlinarith [sq_nonneg ((1 - 1 / (p : ℝ)) ^ 2 - 1)]
+  calc
+    (1 - 1 / (p : ℝ)) ^ 4 =
+        (1 - 1 / (p : ℝ)) ^ 2 * (1 - 1 / (p : ℝ)) ^ 2 := by ring
+    _ ≤ 1 * (1 - 1 / (p : ℝ)) ^ 2 :=
+      mul_le_mul_of_nonneg_right hsq hnon
+    _ ≤ 1 * 1 := mul_le_mul_of_nonneg_left hsq (by norm_num)
+    _ = 1 := by ring
 
 /-- **History-safe half contraction for the quadratic continuation.**
 
@@ -542,13 +550,11 @@ theorem lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy_le_half
           (∑ r ∈ lowOwnerRevealedPrimesAbove R first,
             ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
               postRootCovarianceReciprocalPairEnergy child) := by
+            unfold lowOwnerRetainedCoefficientChildEnergy
             rw [Finset.mul_sum]
             apply Finset.sum_congr rfl
             intro r _hr
             rw [Finset.mul_sum]
-            apply Finset.sum_congr rfl
-            intro child _hchild
-            rfl
       _ = _ := rfl
   have hhalf :=
     lowOwnerGreatestOwnerAboveFirstReciprocalOutgoingEnergy_le_half
