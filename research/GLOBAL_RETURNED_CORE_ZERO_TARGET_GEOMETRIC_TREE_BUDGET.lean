@@ -125,8 +125,8 @@ theorem lowOwnerRetainedCoefficientTreeEnergy_nonneg
     0 ≤ lowOwnerRetainedCoefficientTreeEnergy R depth parent coefficient := by
   induction depth generalizing parent with
   | zero =>
-      simp [lowOwnerRetainedCoefficientTreeEnergy]
-      exact lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent
+      simpa [lowOwnerRetainedCoefficientTreeEnergy] using
+        (lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent)
   | succ d ih =>
       simp only [lowOwnerRetainedCoefficientTreeEnergy]
       apply add_nonneg
