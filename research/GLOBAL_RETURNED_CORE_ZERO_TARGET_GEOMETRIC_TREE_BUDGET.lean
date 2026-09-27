@@ -5,28 +5,34 @@ import «research.GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY»
 import «research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_BASEL_CONTRACTION»
 
 /-!
-# Finite-rank geometric budget for the zero-target continuation tree
+# Finite-rank geometric budgets for reciprocal-weighted downstream trees
 
-The local history-safe estimates now give exactly the two constants needed for
-a finite-rank invariant:
+This file records two deliberately separated facts.
 
-* recursive continuation <= one half of incoming energy;
-* positive clipped exit <= one quarter of incoming energy.
+First, an abstract finite-rank invariant shows that *if* a generation energy
+contracts by one half and its positive exit costs one quarter, then accumulated
+exits have a uniform half-budget. The current zero-target history module proves
+the half estimate only for a reciprocal-weighted diagnostic side ledger, not
+for the raw signed quadratic continuation. Therefore this abstract invariant is
+not instantiated here as a bound on that signed continuation.
 
-Because unique greatest-owner descent drops the fresh-pair rank by exactly one,
-any actual recursive branch is finite.  The purely quantitative part can be
-closed without an infinite geometric series: if E_k is the aggregate energy
-remaining at rank generation k and X_k is the positive exit emitted there,
-then
+Second, after a legal incidence-energy gate has already placed a coefficient in
+reciprocal currency, the repository does have a genuine all-owner contraction
+on the literal greatest-owner child graph. The retained-coefficient tree below
+iterates that legal downstream currency and obtains a depth-independent finite
+constant.
+
+For the abstract invariant, if E_k is the generation energy and X_k the
+positive exit, then
 
   2 * sum_{j < n} X_j + E_n <= E_0.
 
-Hence every finite collection of positive exits is bounded by E_0 / 2,
-independently of the depth.  This module records that finite invariant as the
-consumer for the forthcoming carrier-level generation reindex.
+Hence every finite prefix is bounded by E_0 / 2 independently of depth, under
+those stated hypotheses.
 
-No RH hypothesis, Mertens magnitude estimate, limit, or asymptotic argument is
-used here.
+No claim is made here that the signed top-scale Stokes/endpoint-gap quantity has
+entered reciprocal currency, and no RH hypothesis, Mertens magnitude estimate,
+limit, or asymptotic argument is used.
 -/
 
 noncomputable section
