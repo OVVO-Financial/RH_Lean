@@ -602,10 +602,12 @@ theorem lowOwnerZeroTargetHistoryAboveFirst_recursive_add_clipped_le_threeQuarte
         postRootZeroTargetPairExcess parent ^ 2 := by
   have hrec :=
     lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy_le_half
-      (R := R) hfirst haPos hbPos haMu hbMu
+      (R := R) (first := first) (history := history) (parent := parent)
+      hfirst haPos hbPos haMu hbMu
   have hclip :=
     lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
-      (R := R) hfirst haPos hbPos haMu hbMu
+      (R := R) (first := first) (history := history) (parent := parent)
+      hfirst haPos hbPos haMu hbMu
   nlinarith
 
 
