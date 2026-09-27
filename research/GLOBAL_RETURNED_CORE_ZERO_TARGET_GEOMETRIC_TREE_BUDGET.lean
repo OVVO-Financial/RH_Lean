@@ -244,4 +244,134 @@ theorem lowOwnerRetainedCoefficientTreeEnergy_le_twoHundredTwentyFiveOverSeven
             lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
               nlinarith
 
+
+/-! ## First-owner chronology: the sharper half-contractive tree -/
+
+/-- Retained-coefficient outgoing energy restricted to genuine later owners of
+one fixed first owner. -/
+def lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy
+    (R first : ℕ) (parent : ℕ × ℕ) (coefficient : ℝ) : ℝ :=
+  ∑ r ∈ lowOwnerRevealedPrimesAbove R first,
+    ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
+      lowOwnerRetainedCoefficientChildEnergy coefficient child
+
+/-- The retained scalar factors out of the first-owner-restricted outgoing
+ledger exactly. -/
+theorem lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy_eq
+    (R first : ℕ) (parent : ℕ × ℕ) (coefficient : ℝ) :
+    lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy
+        R first parent coefficient =
+      coefficient ^ 2 *
+        lowOwnerGreatestOwnerAboveFirstReciprocalOutgoingEnergy
+          R first parent := by
+  unfold lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy
+    lowOwnerGreatestOwnerAboveFirstReciprocalOutgoingEnergy
+    lowOwnerRetainedCoefficientChildEnergy
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [Finset.mul_sum]
+
+/-- **Chronology-preserving retained-coefficient half contraction.**
+
+After fixing the first owner, all legal later owners are odd.  The compiled
+odd-prime reciprocal-square budget therefore gives a factor one half for the
+entire retained-coefficient outgoing ledger. -/
+theorem lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy_le_half
+    {R first : ℕ} (hfirst : first.Prime)
+    (parent : ℕ × ℕ) (coefficient : ℝ) :
+    lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy
+        R first parent coefficient ≤
+      (1 / 2 : ℝ) *
+        lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
+  rw [lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy_eq,
+    lowOwnerRetainedCoefficientParentEnergy_eq_coefficient_sq_mul]
+  have hout :=
+    lowOwnerGreatestOwnerAboveFirstReciprocalOutgoingEnergy_le_half
+      (R := R) hfirst parent
+  exact mul_le_mul_of_nonneg_left hout (sq_nonneg coefficient)
+
+/-- Finite-depth literal descendant tree retaining the fixed first-owner
+chronology at every generation. -/
+def lowOwnerRetainedCoefficientAboveFirstTreeEnergy
+    (R first depth : ℕ) (parent : ℕ × ℕ) (coefficient : ℝ) : ℝ :=
+  match depth with
+  | 0 => lowOwnerRetainedCoefficientParentEnergy coefficient parent
+  | d + 1 =>
+      lowOwnerRetainedCoefficientParentEnergy coefficient parent +
+        ∑ r ∈ lowOwnerRevealedPrimesAbove R first,
+          ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
+            lowOwnerRetainedCoefficientAboveFirstTreeEnergy
+              R first d child coefficient
+
+/-- The chronology-preserving finite tree is nonnegative. -/
+theorem lowOwnerRetainedCoefficientAboveFirstTreeEnergy_nonneg
+    (R first depth : ℕ) (parent : ℕ × ℕ) (coefficient : ℝ) :
+    0 ≤ lowOwnerRetainedCoefficientAboveFirstTreeEnergy
+      R first depth parent coefficient := by
+  induction depth generalizing parent with
+  | zero =>
+      simpa [lowOwnerRetainedCoefficientAboveFirstTreeEnergy] using
+        (lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent)
+  | succ d ih =>
+      simp only [lowOwnerRetainedCoefficientAboveFirstTreeEnergy]
+      apply add_nonneg
+      · exact lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent
+      · apply Finset.sum_nonneg
+        intro r _hr
+        apply Finset.sum_nonneg
+        intro child _hchild
+        exact ih child
+
+/-- **Uniform factor-two bound on the legal later-owner tree.**
+
+For every finite depth, once the first owner is fixed and reciprocal currency
+has been legally introduced, the entire retained-coefficient descendant tree
+costs at most twice its root energy. -/
+theorem lowOwnerRetainedCoefficientAboveFirstTreeEnergy_le_two
+    {R first : ℕ} (hfirst : first.Prime)
+    (depth : ℕ) (parent : ℕ × ℕ) (coefficient : ℝ) :
+    lowOwnerRetainedCoefficientAboveFirstTreeEnergy
+        R first depth parent coefficient ≤
+      2 * lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
+  induction depth generalizing parent with
+  | zero =>
+      simp only [lowOwnerRetainedCoefficientAboveFirstTreeEnergy]
+      have hnon :=
+        lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent
+      nlinarith
+  | succ d ih =>
+      simp only [lowOwnerRetainedCoefficientAboveFirstTreeEnergy]
+      have hchildren :
+          (∑ r ∈ lowOwnerRevealedPrimesAbove R first,
+            ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
+              lowOwnerRetainedCoefficientAboveFirstTreeEnergy
+                R first d child coefficient) ≤
+            2 * lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy
+              R first parent coefficient := by
+        unfold lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy
+        rw [Finset.mul_sum]
+        apply Finset.sum_le_sum
+        intro r _hr
+        rw [Finset.mul_sum]
+        apply Finset.sum_le_sum
+        intro child _hchild
+        exact ih child
+      have hout :=
+        lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy_le_half
+          (R := R) hfirst parent coefficient
+      calc
+        lowOwnerRetainedCoefficientParentEnergy coefficient parent +
+            (∑ r ∈ lowOwnerRevealedPrimesAbove R first,
+              ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
+                lowOwnerRetainedCoefficientAboveFirstTreeEnergy
+                  R first d child coefficient) ≤
+          lowOwnerRetainedCoefficientParentEnergy coefficient parent +
+            2 * lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy
+              R first parent coefficient :=
+                add_le_add_left hchildren _
+        _ ≤ 2 * lowOwnerRetainedCoefficientParentEnergy
+              coefficient parent := by
+                nlinarith
+
 end RHLean.Proof
