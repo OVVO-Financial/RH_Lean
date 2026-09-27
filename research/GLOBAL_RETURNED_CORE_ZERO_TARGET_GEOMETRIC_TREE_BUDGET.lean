@@ -2,6 +2,7 @@ import Mathlib
 import «research.GLOBAL_RETURNED_CORE_ZERO_TARGET_CLIPPED_HISTORY_CONTRACTION»
 import «research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP»
 import «research.GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY»
+import «research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_BASEL_CONTRACTION»
 
 /-!
 # Finite-rank geometric budget for the zero-target continuation tree
@@ -185,6 +186,55 @@ theorem lowOwnerRetainedCoefficientTreeEnergy_le_eightyOneOverTwo
               lowOwnerRetainedCoefficientOutgoingEnergy R parent coefficient :=
                 add_le_add_left hchildren _
         _ ≤ (81 / 2 : ℝ) *
+            lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
+              nlinarith
+
+
+/-- **Basel-sharpened all-depth tree bound.**
+
+Using the already-compiled `218/225` all-owner contraction instead of
+`79/81`, every finite truncation of the literal retained-coefficient tree is
+bounded by `225/7` times its root energy. -/
+theorem lowOwnerRetainedCoefficientTreeEnergy_le_twoHundredTwentyFiveOverSeven
+    (R depth : ℕ) (parent : ℕ × ℕ) (coefficient : ℝ) :
+    lowOwnerRetainedCoefficientTreeEnergy R depth parent coefficient ≤
+      (225 / 7 : ℝ) *
+        lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
+  induction depth generalizing parent with
+  | zero =>
+      simp only [lowOwnerRetainedCoefficientTreeEnergy]
+      have hnon :=
+        lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent
+      nlinarith
+  | succ d ih =>
+      simp only [lowOwnerRetainedCoefficientTreeEnergy]
+      have hchildren :
+          (∑ r ∈ primesUpTo (squareRootEndpoint R),
+            ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
+              lowOwnerRetainedCoefficientTreeEnergy R d child coefficient) ≤
+            (225 / 7 : ℝ) *
+              lowOwnerRetainedCoefficientOutgoingEnergy R parent coefficient := by
+        unfold lowOwnerRetainedCoefficientOutgoingEnergy
+        rw [Finset.mul_sum]
+        apply Finset.sum_le_sum
+        intro r _hr
+        rw [Finset.mul_sum]
+        apply Finset.sum_le_sum
+        intro child _hchild
+        exact ih child
+      have hout :=
+        lowOwnerRetainedCoefficientOutgoingEnergy_le_218_over_225
+          R parent coefficient
+      calc
+        lowOwnerRetainedCoefficientParentEnergy coefficient parent +
+            (∑ r ∈ primesUpTo (squareRootEndpoint R),
+              ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
+                lowOwnerRetainedCoefficientTreeEnergy R d child coefficient) ≤
+          lowOwnerRetainedCoefficientParentEnergy coefficient parent +
+            (225 / 7 : ℝ) *
+              lowOwnerRetainedCoefficientOutgoingEnergy R parent coefficient :=
+                add_le_add_left hchildren _
+        _ ≤ (225 / 7 : ℝ) *
             lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
               nlinarith
 
