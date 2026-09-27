@@ -40,6 +40,8 @@ open scoped BigOperators
 
 namespace RHLean.Proof
 
+open RHLean.Analysis RHLean.Arithmetic
+
 /-- Abstract finite-rank energy conditions matching the compiled local
 zero-target continuation estimates. -/
 def LowOwnerZeroTargetGenerationBudget
@@ -131,8 +133,8 @@ theorem lowOwnerRetainedCoefficientTreeEnergy_nonneg
     0 ≤ lowOwnerRetainedCoefficientTreeEnergy R depth parent coefficient := by
   induction depth generalizing parent with
   | zero =>
-      simpa [lowOwnerRetainedCoefficientTreeEnergy] using
-        (lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent)
+      change 0 ≤ lowOwnerRetainedCoefficientParentEnergy coefficient parent
+      exact lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent
   | succ d ih =>
       simp only [lowOwnerRetainedCoefficientTreeEnergy]
       apply add_nonneg
@@ -320,8 +322,8 @@ theorem lowOwnerRetainedCoefficientAboveFirstTreeEnergy_nonneg
       R first depth parent coefficient := by
   induction depth generalizing parent with
   | zero =>
-      simpa [lowOwnerRetainedCoefficientAboveFirstTreeEnergy] using
-        (lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent)
+      change 0 ≤ lowOwnerRetainedCoefficientParentEnergy coefficient parent
+      exact lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent
   | succ d ih =>
       simp only [lowOwnerRetainedCoefficientAboveFirstTreeEnergy]
       apply add_nonneg
