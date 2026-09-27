@@ -115,6 +115,43 @@ The appended declarations are:
 No premise supplying the missing arithmetic estimate is introduced under a new
 name. The consumers take the existing bound predicates as explicit arguments.
 
+## Compiled unconditional finite baseline
+
+The research state now has an explicit all-scale finite upper bound, not only
+finite diagnostics.  In
+[GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean](GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean),
+the theorem
+
+`post789SignedRemainder_unconditional_quartic_bound`
+
+proves, for every natural `R >= 56`,
+
+```text
+S_R <= E_R/4 + 8 R^4.
+```
+
+The proof uses only the trivial Mertens estimate `|M(n)| <= n`, the exact
+identity `corr_R = -G_R`, and the already-compiled Young comparison.  No
+lower-envelope hypothesis, PNT estimate, RH hypothesis, numerical cutoff, or
+new axiom enters.
+
+This is intentionally a coarse starting rung.  It proves that the signed
+remainder has a fixed explicit polynomial envelope at every scale.  It does
+**not** prove existence of fixed `A,C` in
+
+```text
+S_R <= A E_R + C R^2 K,
+```
+
+because `8 R^4` is not uniformly absorbable into `C R^2 K`.  The next
+tightening problem can therefore be stated cleanly as reducing the surplus
+scale from quartic toward root-energy scale while preserving the signed
+assembly.
+
+The warning-fatal Signed cell Stokes workflow kernel-checked this theorem on
+commit `6d7b2b2afae59dcc00dd03fb77c824c57cf77176`, including the dedicated
+`Kernel-check unconditional global post-789 bound` step.
+
 ## An exact normalized research target
 
 Define, in this explanatory note,

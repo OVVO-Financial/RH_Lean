@@ -140,11 +140,18 @@ thresholds must still be met.
 - **#797:** the top-two clip retains the whole signed cell below the top two
   owners. A top-two estimate forces a bound on the endpoint gap. Discarding
   the branch slack loses the cancellation one needs to estimate.
-- **#798:** the remainder is the top CORR square in another coordinate. The
-  [unconditional global bound](research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean)
-  gives `S_R <= E_R/4 + 4 B(X)² + 4 B(R−1)²`, with
+- **Unconditional finite baseline (2026-09-27):** the same
+  [global-bound module](research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean)
+  now kernel-proves the elementary all-scale estimate
+  `S_R <= E_R/4 + 8 R^4` for every `R >= 56`.  This uses only
+  `|M(n)| <= n`, the exact correlation dictionary, and the compiled Young
+  comparison.  It is the first explicit polynomial rung in the tightening
+  ladder; it is not yet a bound of the target form `A E_R + C R^2 K` because
+  the quartic surplus cannot be absorbed by a fixed root-scale constant.
+- **#798:** the stronger asymptotic unconditional bound gives
+  `S_R <= E_R/4 + 4 B(X)² + 4 B(R−1)²`, with
   `B(x) = C x exp(−c (log x)^(1/10))`. Its leading envelope is of order
-  `R⁴ exp(−c' (log R)^(1/10))`, not the required `R² K` scale.
+  `R⁴ exp(−c' (log R)^(1/10))`, still above the required `R² K` scale.
 - **#799:** [Möbius inversion](research/MOBIUS_INVERSION_GLOBAL_CANCELLATION.lean)
   proves `sum_{d<=X} M(floor(X/d)) = 1` for `X >= 1`, and
   `bornSmooth + farSurvivor = M(X) + E_root` with an explicit root strip.
