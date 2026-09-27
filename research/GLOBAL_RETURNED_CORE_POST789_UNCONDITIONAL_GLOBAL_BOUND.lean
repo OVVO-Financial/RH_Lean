@@ -181,4 +181,87 @@ theorem finalStokes_unconditional_nineQuarters_q2_add_quartic
     hR]
   nlinarith
 
+
+/-- **Every finite root horizon has the target adaptive shape explicitly.**
+
+For a fixed horizon `N`, the loose quartic surplus is absorbed into the live
+lower envelope with the explicit constant `8 N^2`.  The daughter coefficient
+is already the sharpened value `2`.  Thus the finite-range problem is closed
+for every `N`; the remaining all-scale problem is exactly to replace this
+horizon-dependent constant by one constant independent of `N`. -/
+theorem post789SignedRemainder_finiteRange_two_q2_add_rootEnvelope
+    (N R : ℕ) (hR : 56 ≤ R) (hRN : R ≤ N) (K : ℝ)
+    (hK : LowerMertensCriticalEnvelope R K) :
+    lowOwnerPost789SignedCrossDiagonalRemainder R ≤
+      2 * canonicalRoughLowQ2DaughterEnergy R +
+        (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 * K := by
+  have hLoose :=
+    post789SignedRemainder_unconditional_two_q2_add_quartic R hR
+  have hK1 : 1 ≤ K := by
+    have h0 := hK.2 0 (by omega)
+    have hm0 : mertensSummatoryInt 0 = 0 := by
+      simp [mertensSummatoryInt]
+    rw [hm0] at h0
+    norm_num at h0
+    exact h0
+  have hRNreal : (R : ℝ) ≤ (N : ℝ) := by
+    exact_mod_cast hRN
+  have hsq : (R : ℝ) ^ 2 ≤ (N : ℝ) ^ 2 := by
+    nlinarith
+  have hstep :
+      8 * (R : ℝ) ^ 4 ≤
+        (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 := by
+    calc
+      8 * (R : ℝ) ^ 4 =
+          (8 * (R : ℝ) ^ 2) * (R : ℝ) ^ 2 := by ring
+      _ ≤ (8 * (R : ℝ) ^ 2) * (N : ℝ) ^ 2 :=
+        mul_le_mul_of_nonneg_left hsq (by positivity)
+      _ = (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 := by ring
+  have hcoef :
+      0 ≤ (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 := by positivity
+  have hscale :
+      (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 ≤
+        (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 * K := by
+    have hmul := mul_le_mul_of_nonneg_left hK1 hcoef
+    simpa using hmul
+  nlinarith [hstep, hscale]
+
+/-- Finite-horizon FinalStokes form at the sharpened coefficient `9/4`. -/
+theorem finalStokes_finiteRange_nineQuarters_q2_add_rootEnvelope
+    (N R : ℕ) (hR : 56 ≤ R) (hRN : R ≤ N) (K : ℝ)
+    (hK : LowerMertensCriticalEnvelope R K) :
+    lowOwnerCanonicalSignedStokesFinalBoundary R ≤
+      (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
+        (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 * K := by
+  have hLoose :=
+    finalStokes_unconditional_nineQuarters_q2_add_quartic R hR
+  have hK1 : 1 ≤ K := by
+    have h0 := hK.2 0 (by omega)
+    have hm0 : mertensSummatoryInt 0 = 0 := by
+      simp [mertensSummatoryInt]
+    rw [hm0] at h0
+    norm_num at h0
+    exact h0
+  have hRNreal : (R : ℝ) ≤ (N : ℝ) := by
+    exact_mod_cast hRN
+  have hsq : (R : ℝ) ^ 2 ≤ (N : ℝ) ^ 2 := by
+    nlinarith
+  have hstep :
+      8 * (R : ℝ) ^ 4 ≤
+        (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 := by
+    calc
+      8 * (R : ℝ) ^ 4 =
+          (8 * (R : ℝ) ^ 2) * (R : ℝ) ^ 2 := by ring
+      _ ≤ (8 * (R : ℝ) ^ 2) * (N : ℝ) ^ 2 :=
+        mul_le_mul_of_nonneg_left hsq (by positivity)
+      _ = (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 := by ring
+  have hcoef :
+      0 ≤ (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 := by positivity
+  have hscale :
+      (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 ≤
+        (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 * K := by
+    have hmul := mul_le_mul_of_nonneg_left hK1 hcoef
+    simpa using hmul
+  nlinarith [hstep, hscale]
+
 end RHLean.Proof
