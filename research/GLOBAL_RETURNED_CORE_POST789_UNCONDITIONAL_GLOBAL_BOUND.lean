@@ -82,4 +82,64 @@ theorem post789SignedRemainder_unconditional_global_bound :
     (R := R) (by omega) (a := 1) (b := 1 / 4) (by norm_num) (by norm_num)
   exact post789_global_bound_algebra hY (norm_nonneg _) hcorr
 
+
+/-- **Explicit unconditional quartic baseline.**
+
+For every root R >= 56, the signed post-#789 remainder has the all-scale bound
+
+  S_R <= E_R / 4 + 8 R^4.
+
+This uses only the trivial Mertens bound, the exact correlation dictionary,
+and the existing Young comparison. It is deliberately weaker than the target
+A E_R + C R^2 K: the point is a fixed explicit finite rung from which later
+scale improvements can be measured. -/
+theorem post789SignedRemainder_unconditional_quartic_bound
+    (R : ℕ) (hR : 56 ≤ R) :
+    lowOwnerPost789SignedCrossDiagonalRemainder R ≤
+      (1 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
+        8 * (R : ℝ) ^ 4 := by
+  have hMR :=
+    norm_mertensSummatory_sub_le 0 (R - 1) (Nat.zero_le (R - 1))
+  rw [mertensSummatory_zero, sub_zero] at hMR
+  have hMX :=
+    norm_mertensSummatory_sub_le 0 (squareRootEndpoint R)
+      (Nat.zero_le (squareRootEndpoint R))
+  rw [mertensSummatory_zero, sub_zero] at hMX
+  have hRmNat : R - 1 ≤ R := Nat.sub_le R 1
+  have hXNat : squareRootEndpoint R ≤ R ^ 2 := by
+    unfold squareRootEndpoint
+    omega
+  have hRm : (((R - 1 : ℕ) : ℝ)) ≤ (R : ℝ) := by
+    exact_mod_cast hRmNat
+  have hX : (squareRootEndpoint R : ℝ) ≤ (R : ℝ) ^ 2 := by
+    exact_mod_cast hXNat
+  have hR0 : 0 ≤ (R : ℝ) := by positivity
+  have hRleR2 : (R : ℝ) ≤ (R : ℝ) ^ 2 := by
+    have hRone : (1 : ℝ) ≤ R := by
+      exact_mod_cast (show 1 ≤ R by omega)
+    nlinarith
+  have hcorr :
+      ‖squareRootCanonicalRoughCorrelation R‖ ≤ 2 * (R : ℝ) ^ 2 := by
+    rw [squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint
+      R (by omega)]
+    calc
+      ‖mertensSummatory (R - 1) -
+          mertensSummatory (squareRootEndpoint R)‖ ≤
+          ‖mertensSummatory (R - 1)‖ +
+            ‖mertensSummatory (squareRootEndpoint R)‖ := norm_sub_le _ _
+      _ ≤ (((R - 1 : ℕ) : ℝ)) + (squareRootEndpoint R : ℝ) :=
+        add_le_add hMR hMX
+      _ ≤ 2 * (R : ℝ) ^ 2 := by
+        nlinarith
+  have hcorr0 : 0 ≤ ‖squareRootCanonicalRoughCorrelation R‖ := norm_nonneg _
+  have hcorrSq :
+      ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 ≤
+        4 * (R : ℝ) ^ 4 := by
+    nlinarith [sq_nonneg (2 * (R : ℝ) ^ 2 -
+      ‖squareRootCanonicalRoughCorrelation R‖)]
+  have hY := post789SignedRemainder_le_correlationSq_young
+    (R := R) (by omega) (a := 1) (b := 1 / 4) (by norm_num) (by norm_num)
+  nlinarith
+
+
 end RHLean.Proof
