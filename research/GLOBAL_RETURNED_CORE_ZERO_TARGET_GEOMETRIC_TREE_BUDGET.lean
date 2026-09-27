@@ -289,7 +289,16 @@ theorem lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy_le_half
   have hout :=
     lowOwnerGreatestOwnerAboveFirstReciprocalOutgoingEnergy_le_half
       (R := R) hfirst parent
-  exact mul_le_mul_of_nonneg_left hout (sq_nonneg coefficient)
+  calc
+    coefficient ^ 2 *
+        lowOwnerGreatestOwnerAboveFirstReciprocalOutgoingEnergy
+          R first parent ≤
+      coefficient ^ 2 *
+        ((1 / 2 : ℝ) * postRootCovarianceReciprocalPairEnergy parent) :=
+      mul_le_mul_of_nonneg_left hout (sq_nonneg coefficient)
+    _ = (1 / 2 : ℝ) *
+        (coefficient ^ 2 * postRootCovarianceReciprocalPairEnergy parent) := by
+      ring
 
 /-- Finite-depth literal descendant tree retaining the fixed first-owner
 chronology at every generation. -/
