@@ -355,7 +355,7 @@ theorem correlationFour_of_post789SignedRemainderBound_two
   refine ⟨(4 / 3 : ℝ) * C + 4, by positivity, ?_⟩
   have hLow :=
     correlationLowQ2Energy_of_post789SignedRemainderBound_threeQuarters hRem
-  convert hLow using 1 <;> norm_num
+  convert hLow using 1; norm_num
 
 /-- A uniform final-Stokes bound with coefficient `9/4` suffices for CORR-4. -/
 theorem correlationFour_of_finalStokesQ2EnergyBound_nineQuarters
@@ -366,7 +366,7 @@ theorem correlationFour_of_finalStokesQ2EnergyBound_nineQuarters
   refine ⟨(4 / 3 : ℝ) * C + 4, by positivity, ?_⟩
   have hLow :=
     correlationLowQ2Energy_of_finalStokesQ2EnergyBound_threeQuarters hFinal
-  convert hLow using 1 <;> norm_num
+  convert hLow using 1; norm_num
 
 /-- Conditional closure at the relaxed remainder coefficient `2`. -/
 theorem riemannHypothesis_of_post789SignedRemainderBound_two
