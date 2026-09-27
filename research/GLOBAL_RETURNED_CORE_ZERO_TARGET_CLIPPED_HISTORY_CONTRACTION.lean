@@ -464,9 +464,15 @@ theorem lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
 
 
 
-/-- Recursive continuation energy with arbitrary prior history.  The current
-owner contributes its exact quadratic continuation factor
-`(1 - 1/r)^2`; after squaring this becomes the fourth power below. -/
+/-- Reciprocal-weighted diagnostic ledger for recursive continuation candidates
+with arbitrary prior history. The current owner contributes the exact quadratic
+continuation factor `(1 - 1/r)^2`, but each candidate is deliberately measured
+in *child reciprocal-energy currency*, which inserts an additional `1/r^2`
+relative to the raw signed continuation square.
+
+This object is therefore not the actual quadratic continuation energy. It is a
+downstream side ledger useful only where reciprocal currency has already been
+legally introduced. -/
 def lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy
     (R first : ℕ) (history : ℝ) (parent : ℕ × ℕ) : ℝ :=
   ∑ r ∈ lowOwnerRevealedPrimesAbove R first,
@@ -490,12 +496,18 @@ private theorem critical_one_sub_reciprocal_fourth_le_one
     _ ≤ 1 * 1 := mul_le_mul_of_nonneg_left hsq (by norm_num)
     _ = 1 := by ring
 
-/-- **History-safe half contraction for the quadratic continuation.**
+/-- **History-safe half contraction for the reciprocal-weighted continuation
+side ledger.**
 
-After summing over every genuine later owner, the full recursive continuation
-energy is at most one half of the incoming zero-target history energy.  The
-proof keeps the owner labels until the existing reciprocal-square budget has
-been applied, so there is no owner-count loss. -/
+After summing over every genuine later owner, the child-reciprocal diagnostic
+ledger is at most one half of the incoming zero-target history energy. The proof
+keeps owner labels until the reciprocal-square budget is applied, so there is
+no owner-count loss.
+
+Crucially, this does **not** bound the raw signed quadratic continuation from
+`zeroTargetMellinPhysicalSuperLcmFourCorner_critical_eq_threeTerm`: that term
+has no `1/r^2` factor and must still remain signed/telescope through rank
+descent. -/
 theorem lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy_le_half
     {R first : ℕ} {history : ℝ} {parent : ℕ × ℕ}
     (hfirst : first.Prime)
@@ -586,8 +598,11 @@ theorem lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy_le_half
       rw [hnorm]
       ring
 
-/-- One generation of recursive continuation plus the positive clipped exit
-costs at most three quarters of the incoming history energy. -/
+/-- The reciprocal-weighted continuation side ledger plus the genuine positive
+clipped-exit ledger costs at most three quarters of the incoming history energy.
+
+This is a side-ledger statement, not a bound on one full signed continuation
+generation. -/
 theorem lowOwnerZeroTargetHistoryAboveFirst_recursive_add_clipped_le_threeQuarters
     {R first : ℕ} {history : ℝ} {parent : ℕ × ℕ}
     (hfirst : first.Prime)
