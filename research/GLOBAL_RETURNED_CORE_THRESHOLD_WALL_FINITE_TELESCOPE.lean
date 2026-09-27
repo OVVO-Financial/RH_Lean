@@ -87,7 +87,7 @@ theorem lowOwnerThresholdWallListCrossMass_eq_energyDrop
         simp [hqr, hqS]
       have hstep :=
         lowOwnerThresholdWallRevealedPairEnergy_eq_insert_add_cross
-          (R := 0) (S := S) hrPrime hrFreshS
+          (S := S) hrPrime hrFreshS
       have htail := ih (insert r S) hnodTail hprimeTail hfreshTail
       simp only [lowOwnerThresholdWallListCrossMass, lowOwnerRevealList]
       linarith
@@ -111,8 +111,6 @@ theorem lowOwnerThresholdWall_allPrimeListCrossMass_eq_empty_sub_diagonal
     lowOwnerThresholdWallListCrossMass_eq_energyDrop
       (p := p) (y := y) (S := ∅) (rs := (primesUpTo y).toList)
       hnod hprime hfresh
-  rw [lowOwnerRevealList_eq_union_toFinset] at htel
-  simp only [Finset.empty_union, Finset.coe_sort_coe] at htel
   have hfinal :
       lowOwnerRevealList (∅ : Finset ℕ) (primesUpTo y).toList =
         primesUpTo y := by
