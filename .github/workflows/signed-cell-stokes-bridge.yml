@@ -333,7 +333,9 @@ jobs:
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/PRIME_FLIP_PNT_TELESCOPE.lean
+          emit research/PRIME_FLIP_STATIC_CHRONOLOGY.lean
           emit research/PRIME_FLIP_PNT_FINAL_STOKES_BRIDGE.lean
+          emit research/PRIME_FLIP_SECOND_ORDER_PNT_CLOSURE.lean
       - name: Audit prime-flip PNT bridge axioms
         run: |
           cat > /tmp/PrimeFlipPNTBridgeAxioms.lean <<'LEAN'
@@ -345,6 +347,11 @@ jobs:
           #print axioms RHLean.Analysis.finalStokesQ2EnergyBound_of_primeFlipPNTSplit
           #print axioms RHLean.Analysis.finalStokesQ2EnergyBound_nineQuarters_of_primeFlipPNTSplit
           #print axioms RHLean.Analysis.riemannHypothesis_of_primeFlipPNTModel_two_replacement_quarter
+          #print axioms RHLean.Analysis.squareRootSecondOrderPNTAtomError_eq_primeFlipPNTError
+          #print axioms RHLean.Analysis.primeFlipPNTReplacementEffectBound_of_secondOrderPNT
+          #print axioms RHLean.Analysis.riemannHypothesis_of_secondOrderPNT_and_liModel
+          #print axioms RHLean.Analysis.riemannHypothesis_of_secondOrderPNTClosure
+          #print axioms RHLean.Analysis.riemannHypothesis_of_perfectLiMultiplicity_and_liModel
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTBridgeAxioms.lean 2>&1 | tee prime-flip-pnt-bridge-axioms.log
@@ -353,7 +360,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-bridge-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 7, records
+          assert len(records) == 12, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
