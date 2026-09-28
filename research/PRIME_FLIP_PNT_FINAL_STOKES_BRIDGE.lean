@@ -46,6 +46,32 @@ def lowOwnerPrimeFlipPNTReplacementEffect (R : ℕ) : ℝ :=
   let e := squareRootPrimeFlipPNTErrorReal R
   4 * lowOwnerPrimeFlipPNTModelAmplitude R * e + 4 * e ^ 2
 
+/-- The same replacement effect in actual-amplitude coordinates.  This is the
+form that retains the favorable negative error square:
+`4 A e - 4 e^2 = 4 e (A-e)`, where `A=G+Q`. -/
+theorem lowOwnerPrimeFlipPNTReplacementEffect_eq_actualCross_sub_errorSq
+    (R : ℕ) :
+    lowOwnerPrimeFlipPNTReplacementEffect R =
+      4 * (lowOwnerPost789EndpointGapReal R +
+          lowOwnerReciprocalMertensColumnReal R) *
+          squareRootPrimeFlipPNTErrorReal R -
+        4 * squareRootPrimeFlipPNTErrorReal R ^ 2 := by
+  unfold lowOwnerPrimeFlipPNTReplacementEffect
+    lowOwnerPrimeFlipPNTModelAmplitude
+  dsimp
+  ring
+
+/-- Factored version of the same signed replacement term. -/
+theorem lowOwnerPrimeFlipPNTReplacementEffect_eq_four_error_mul_actual_sub_error
+    (R : ℕ) :
+    lowOwnerPrimeFlipPNTReplacementEffect R =
+      4 * squareRootPrimeFlipPNTErrorReal R *
+        ((lowOwnerPost789EndpointGapReal R +
+            lowOwnerReciprocalMertensColumnReal R) -
+          squareRootPrimeFlipPNTErrorReal R) := by
+  rw [lowOwnerPrimeFlipPNTReplacementEffect_eq_actualCross_sub_errorSq]
+  ring
+
 /-- **Production energy split.**  The current final-Stokes object is exactly
 the PNT-multiplicity model plus the signed replacement effect.  No norm is
 taken on the two pieces separately. -/
