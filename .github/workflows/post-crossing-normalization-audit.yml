@@ -1,0 +1,96 @@
+name: Post-crossing normalization audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/GLOBAL_RETURNED_CORE_POST_CROSSING_NORMALIZATION_AUDIT.lean
+      - .github/workflows/post-crossing-normalization-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-
+      - name: Audit repository assumptions
+        run: bash scripts/audit_assumptions.sh
+      - name: Build exact library dependencies
+        run: |
+          lake build RHLean.Proof.SquareRootLowPrimeTSectorQ2Renormalization
+      - name: Compile research dependency chain
+        run: |
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          emit research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
+          emit research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONGESTION.lean
+          emit research/GLOBAL_RETURNED_CORE_GENERIC_GREATEST_OWNER_CONTRACTION.lean
+      - name: Kernel-check normalization audit
+        run: |
+          mkdir -p .lake/build/lib/lean
+          set -o pipefail
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_POST_CROSSING_NORMALIZATION_AUDIT.olean research/GLOBAL_RETURNED_CORE_POST_CROSSING_NORMALIZATION_AUDIT.lean 2>&1 | tee post-crossing-normalization-audit.log
+      - name: Audit named theorem axioms
+        run: |
+          cat > /tmp/PostCrossingNormalizationAxioms.lean <<'LEAN'
+          import «research.GLOBAL_RETURNED_CORE_POST_CROSSING_NORMALIZATION_AUDIT»
+          #print axioms RHLean.Proof.reciprocalSquareTail_Ioc_le_inv_sub_inv
+          #print axioms RHLean.Proof.postCrossingPrimeOwnerReciprocalSquareBudget_le_inv
+          #print axioms RHLean.Proof.lowOwnerRetainedCoefficientPostCrossingOutgoingEnergy_le_two_div
+          #print axioms RHLean.Proof.lowOwnerRetainedCoefficientChildEnergy_eq_invSq_mul_parent
+          #print axioms RHLean.Proof.lowOwnerOwnerRescaledChildEnergy_eq_parent
+          #print axioms RHLean.Proof.reciprocalSquare_18353
+          #print axioms RHLean.Proof.lowOwnerRetainedCoefficientPostCrossingOutgoingEnergy_le_18349
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/PostCrossingNormalizationAxioms.lean 2>&1 | tee post-crossing-normalization-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s = Path('post-crossing-normalization-axioms.log').read_text()
+          records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
+          assert len(records) == 7, records
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              actual = {a.strip() for a in record.split(',') if a.strip()}
+              assert actual <= allowed, actual
+          PY
+      - name: Retain compiler logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: post-crossing-normalization-audit-logs
+          path: post-crossing-normalization-*.log
+          if-no-files-found: ignore
