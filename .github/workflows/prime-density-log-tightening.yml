@@ -1,0 +1,153 @@
+name: Prime density logarithmic tightening
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/PRIME_DENSITY_LOG_TIGHTENING.lean
+      - research/PRIME_DENSITY_PNT_LOG_BOUND.lean
+      - research/PRIME_DENSITY_LOG_TIGHTENING.md
+      - .github/workflows/prime-density-log-tightening.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Append research ledger entry before validation
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'agent/prime-density-log-tightening'
+        env:
+          HEAD_BRANCH: ${{ github.head_ref }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          marker = '## Density logarithmic tightening (2026-09-28; stacked on #803)'
+          entry = '''
+
+          ## Density logarithmic tightening (2026-09-28; stacked on #803)
+
+          This layer preserves the verified #803 baseline at 67aa49064362416b22d9d10cb52e3a1b89cbb688.
+          The new source is research/PRIME_DENSITY_LOG_TIGHTENING.lean; its companion
+          research/PRIME_DENSITY_LOG_TIGHTENING.md records the precise constants and scope.
+          It retains the actual harmonic tail, reassembles unit-density transport by
+          signed cofactors, and applies nativeMertensRecip_abs_le_one before estimating
+          the fractional remainder. No density model, owner set, floor convention,
+          Mertens coefficient, or existing terminal consumer is redefined.
+
+          The proposed finite statements are checked by the dedicated warning-fatal
+          Prime density logarithmic tightening workflow. Its exact final-head compiler
+          and axiom results are authoritative; this append-only entry does not declare
+          checks successful in advance. The stage adds universal density-model bounds
+          and a conditional signed-energy coefficient transfer, not the open all-scale
+          FinalStokes arithmetic estimate. No new analytic premise is discharged by
+          the transfer alone. Prior obstructions, exports, and declarations remain.
+
+          - [x] Read current contract, agent instructions, sequence and checklist.
+          - [x] Stack explicitly on verified #803; leave its branch and #802 unchanged.
+          - [x] Preserve exact signed reassembly before energy; retain both error terms.
+          - [x] Register the research module in a dedicated compiler/axiom workflow.
+          - [ ] Compiler, axiom, source and export checks pass on the final PR head.
+          - [ ] Merge explicitly authorized.
+          '''
+          import textwrap
+          entry = textwrap.dedent(entry)
+          for name in ('FORMALIZATION_SEQUENCE.md', 'FORMALIZATION_CHECKLIST.md'):
+              p = Path(name)
+              old = p.read_text()
+              if marker not in old:
+                  p.write_text(old.rstrip() + entry + '\n')
+          PY
+          if ! git diff --quiet -- FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add FORMALIZATION_SEQUENCE.md FORMALIZATION_CHECKLIST.md
+            git commit -m 'Append density tightening formalization records before validation'
+            git push origin "HEAD:refs/heads/$HEAD_BRANCH"
+          fi
+          git rev-parse HEAD
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-
+      - name: Audit repository assumptions
+        run: bash scripts/audit_assumptions.sh
+      - name: Build unchanged dependencies
+        run: lake build RHLean.Analysis.PrimeSieveQuotientPNTError RHLean.Analysis.NativePNTMertens
+      - name: Kernel-check baseline and tightening
+        run: |
+          mkdir -p .lake/build/lib/lean
+          set -o pipefail
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_UNIVERSAL_BASELINE.olean research/PRIME_DENSITY_UNIVERSAL_BASELINE.lean 2>&1 | tee density-baseline.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_LOG_TIGHTENING.olean research/PRIME_DENSITY_LOG_TIGHTENING.lean 2>&1 | tee density-tightening.log
+      - name: Audit named theorem axioms
+        run: |
+          cat > /tmp/DensityTightAxioms.lean <<'LEAN'
+          import «research.PRIME_DENSITY_LOG_TIGHTENING»
+          #print axioms RHLean.Analysis.norm_primeSieveEqualDensityBulk_le_endpoint
+          #print axioms RHLean.Analysis.norm_primeSievePNTBulk_le_endpoint
+          #print axioms RHLean.Analysis.norm_primeSieveUnitDensityBulk_le_two_mul
+          #print axioms RHLean.Analysis.primeSieveEqualDensityBulk_energy_tight
+          #print axioms RHLean.Analysis.norm_primeSievePNTError_le_two_mul
+          #print axioms RHLean.Analysis.densityTight_signed_energy_budget
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/DensityTightAxioms.lean 2>&1 | tee density-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s = Path('density-axioms.log').read_text()
+          records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
+          assert len(records) == 6, records
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              actual = {a.strip() for a in record.split(',') if a.strip()}
+              assert actual <= allowed, actual
+          PY
+      - name: Retain compiler and axiom logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: density-tightening-logs
+          path: density-*.log
+          if-no-files-found: ignore
