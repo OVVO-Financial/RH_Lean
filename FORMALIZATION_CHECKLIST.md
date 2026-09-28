@@ -660,6 +660,8 @@ the transfer alone. Prior obstructions, exports, and declarations remain.
 - [x] Prove the replacement error equals endpoint prime discrepancy minus the existing Mertens-weighted PNT error.
 - [x] Compose with the Abel identity so square-endpoint interior coefficients reduce to individual `mu(d)` atoms plus one lower endpoint boundary.
 - [x] Keep the signed cross term in the assembled quadratic energy.
+- [x] Identify current FinalStokes exactly as PNT-model Stokes plus signed multiplicity-replacement effect.
+- [x] Wire model coefficient `2` and replacement coefficient `1/4` to the existing `9/4` FinalStokes RH consumer.
 - [ ] Warning-fatal compiler passes for `research/PRIME_FLIP_PNT_TELESCOPE.lean`.
 - [ ] Named theorem axiom audit reports only the repository-allowed logical axioms.
 - [ ] The remaining analytic obligation is a uniform bound on the signed assembled replacement effect strong enough for the current FinalStokes/CORR consumer.
