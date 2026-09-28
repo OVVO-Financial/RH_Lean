@@ -380,6 +380,34 @@ theorem squareBlockOutsidePrimeLeastCompleteSource_sub_exceptionalResponses_subM
       P R 7
   linear_combination hsrc + h3 + h5 + h7
 
+/-- **Full deletion-carrier exceptional reconstruction with endpoint.**
+
+After subtracting the three current-owner responses and three first-power mates
+from the true Möbius source on the full outside-prime deletion carrier, the
+result is exactly the three literal q² daughter packets plus the aggregate
+incomplete-super-orbit endpoint.  The latter has linear amplitude by
+`abs_squareBlockOutsidePrimeLeastEndpointSource_le_linear`. -/
+theorem squareBlockOutsidePrimeDeletionSource_sub_exceptionalResponses_subMates_eq_q2Daughters_add_endpoint
+    {P : Finset ℕ} {R : ℕ}
+    (hcert : OutsidePrimeGenericBlockerCertificate R P) :
+    squareBlockOutsidePrimeDeletionSource P R -
+      (exceptionalCompleteOwnerResponsePacket P R 3 +
+        exceptionalCompleteOwnerResponsePacket P R 5 +
+          exceptionalCompleteOwnerResponsePacket P R 7) -
+      (exceptionalCompleteOwnerMatePacket P R 3 +
+        exceptionalCompleteOwnerMatePacket P R 5 +
+          exceptionalCompleteOwnerMatePacket P R 7) =
+      exceptionalCompleteOwnerQ2DaughterPacket P R 3 +
+        exceptionalCompleteOwnerQ2DaughterPacket P R 5 +
+          exceptionalCompleteOwnerQ2DaughterPacket P R 7 +
+            squareBlockOutsidePrimeLeastEndpointSource P R := by
+  have hfull :=
+    squareBlockOutsidePrimeDeletionSource_eq_exceptionalSources_add_endpoint hcert
+  have hcomp :=
+    squareBlockOutsidePrimeLeastCompleteSource_sub_exceptionalResponses_subMates_eq_q2Daughters
+      hcert
+  linear_combination hfull + hcomp
+
 /-! ## Exact unit descent for square contacts -/
 
 /-- One-step increment of the positive Mobius prefix. -/
