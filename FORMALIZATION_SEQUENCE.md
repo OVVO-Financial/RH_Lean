@@ -1071,7 +1071,13 @@ At `x=R^2-1, y=R`, the `d=1` endpoint cancels exactly, leaving only
 individual Möbius atoms `mu(d)` for `2 <= d < R` plus the single lower
 boundary `(M(R-1)-1) Delta(R)`.  The module also keeps the density-replacement
 error inside the assembled quadratic energy and proves its exact signed cross
-term before any Young/triangle fallback.
+term before any Young/triangle fallback.  The production bridge identifies the
+current `lowOwnerCanonicalSignedStokesFinalBoundary` exactly as the
+PNT-multiplicity model Stokes term plus this signed replacement effect.  A
+compiled coefficient splitter shows that model coefficient `2` plus
+replacement coefficient `1/4` lands exactly at the current `9/4` FinalStokes
+consumer, and therefore gives RH once both uniform root-scale bounds are
+supplied.
 
 - [x] Stack on verified #804 head `00d781477a9e41814531c10d44428bf8c04353e1`.
 - [x] Preserve original quotient intervals, floor conventions, Li density, and inherited Möbius responses.
