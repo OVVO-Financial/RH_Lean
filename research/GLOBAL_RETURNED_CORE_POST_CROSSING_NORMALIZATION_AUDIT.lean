@@ -184,10 +184,31 @@ theorem lowOwnerRetainedCoefficientPostCrossingOutgoingEnergy_le_two_div
         (∑ p ∈ postCrossingPrimeOwnerSet K (squareRootEndpoint R),
           (1 : ℝ) / (p : ℝ) ^ 2) *
             lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
-      rw [← Finset.sum_mul, Finset.mul_sum]
-      apply Finset.sum_congr rfl
-      intro p _hp
-      ring
+      calc
+        (∑ p ∈ postCrossingPrimeOwnerSet K (squareRootEndpoint R),
+            (2 : ℝ) / (p : ℝ) ^ 2 *
+              lowOwnerRetainedCoefficientParentEnergy coefficient parent) =
+          ∑ p ∈ postCrossingPrimeOwnerSet K (squareRootEndpoint R),
+            2 * ((1 : ℝ) / (p : ℝ) ^ 2 *
+              lowOwnerRetainedCoefficientParentEnergy coefficient parent) := by
+            apply Finset.sum_congr rfl
+            intro p _hp
+            ring
+        _ = 2 *
+            (∑ p ∈ postCrossingPrimeOwnerSet K (squareRootEndpoint R),
+              (1 : ℝ) / (p : ℝ) ^ 2 *
+                lowOwnerRetainedCoefficientParentEnergy coefficient parent) := by
+              rw [Finset.mul_sum]
+        _ = 2 *
+            ((∑ p ∈ postCrossingPrimeOwnerSet K (squareRootEndpoint R),
+              (1 : ℝ) / (p : ℝ) ^ 2) *
+                lowOwnerRetainedCoefficientParentEnergy coefficient parent) := by
+              rw [Finset.sum_mul]
+        _ = 2 *
+            (∑ p ∈ postCrossingPrimeOwnerSet K (squareRootEndpoint R),
+              (1 : ℝ) / (p : ℝ) ^ 2) *
+                lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
+              ring
     _ ≤
       (2 / (K : ℝ)) *
         lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
@@ -195,7 +216,23 @@ theorem lowOwnerRetainedCoefficientPostCrossingOutgoingEnergy_le_two_div
         postCrossingPrimeOwnerReciprocalSquareBudgetReal_le_inv hK hKR
       have hparent :=
         lowOwnerRetainedCoefficientParentEnergy_nonneg coefficient parent
-      nlinarith
+      have hscaled :
+          2 *
+              (∑ p ∈ postCrossingPrimeOwnerSet K (squareRootEndpoint R),
+                (1 : ℝ) / (p : ℝ) ^ 2) ≤
+            2 * (1 / (K : ℝ)) :=
+        mul_le_mul_of_nonneg_left htail (by norm_num)
+      calc
+        2 *
+            (∑ p ∈ postCrossingPrimeOwnerSet K (squareRootEndpoint R),
+              (1 : ℝ) / (p : ℝ) ^ 2) *
+              lowOwnerRetainedCoefficientParentEnergy coefficient parent ≤
+          (2 * (1 / (K : ℝ))) *
+              lowOwnerRetainedCoefficientParentEnergy coefficient parent :=
+            mul_le_mul_of_nonneg_right hscaled hparent
+        _ = (2 / (K : ℝ)) *
+              lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
+            ring
 
 /-- Pointwise fixed-coefficient form: the literal `1/p^2` survives exactly
 when the child retains the parent's coefficient. -/
@@ -233,7 +270,6 @@ theorem lowOwnerOwnerRescaledChildEnergy_eq_parent
   have hp0 : (p : ℝ) ≠ 0 := by
     exact_mod_cast hp.ne_zero
   field_simp [hp0]
-  ring
 
 /-- Finite arithmetic sanity check at the first prime above the certified
 crossing cutoff. -/
