@@ -6,6 +6,7 @@ on:
     paths:
       - research/PRIME_DENSITY_LOG_TIGHTENING.lean
       - research/PRIME_DENSITY_PNT_LOG_BOUND.lean
+      - research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean
       - research/PRIME_DENSITY_LOG_TIGHTENING.md
       - .github/workflows/prime-density-log-tightening.yml
   workflow_dispatch:
@@ -76,10 +77,14 @@ jobs:
         run: |
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_PNT_LOG_BOUND.olean research/PRIME_DENSITY_PNT_LOG_BOUND.lean 2>&1 | tee density-pnt-log.log
+      - name: Kernel-check integral-sensitive constant
+        run: |
+          set -o pipefail
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_INTEGRAL_TIGHTENING.olean research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean 2>&1 | tee density-integral.log
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/DensityTightAxioms.lean <<'LEAN'
-          import «research.PRIME_DENSITY_PNT_LOG_BOUND»
+          import «research.PRIME_DENSITY_INTEGRAL_TIGHTENING»
           #print axioms RHLean.Analysis.norm_primeSieveEqualDensityBulk_le_endpoint
           #print axioms RHLean.Analysis.norm_primeSievePNTBulk_le_endpoint
           #print axioms RHLean.Analysis.norm_primeSieveUnitDensityBulk_le_two_mul
@@ -89,6 +94,9 @@ jobs:
           #print axioms RHLean.Analysis.primeSievePNTBulk_energy_tight
           #print axioms RHLean.Analysis.norm_primeSievePNTError_le_log_envelope
           #print axioms RHLean.Analysis.densityTight_signed_energy_budget_nine_quarters
+          #print axioms RHLean.Analysis.norm_primeSievePNTBulk_le_log_two_mul
+          #print axioms RHLean.Analysis.primeSievePNTBulk_energy_integral_tight
+          #print axioms RHLean.Analysis.norm_primeSievePNTError_le_one_add_log_two
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/DensityTightAxioms.lean 2>&1 | tee density-axioms.log
@@ -97,7 +105,7 @@ jobs:
           from pathlib import Path
           s = Path('density-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 9, records
+          assert len(records) == 12, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
