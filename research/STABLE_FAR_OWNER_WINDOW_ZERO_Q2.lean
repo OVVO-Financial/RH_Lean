@@ -131,7 +131,6 @@ theorem lowWheelFarPrimeQ2CrossingOwnerWindow_mertens_sq_le_two_root_envelope_ad
 chronology, before any ownerwise norm. -/
 theorem lowWheelFarPrimeQ2CrossingOwnerWindow_chronology_sq_le_two_root_envelope_add_two
     {R : ℕ} {K : ℝ} {y : ℕ × (ℕ × ℕ)}
-    (hR : 1 ≤ R)
     (hK : LowerMertensCriticalEnvelope R K)
     (hy : y ∈ lowWheelFarPrimeQ2DescendedTriples R) :
     ((((frozenPrimeUniverseMass
