@@ -339,7 +339,7 @@ jobs:
       - name: Audit prime-flip PNT bridge axioms
         run: |
           cat > /tmp/PrimeFlipPNTBridgeAxioms.lean <<'LEAN'
-          import «research.PRIME_FLIP_PNT_FINAL_STOKES_BRIDGE»
+          import «research.PRIME_FLIP_SECOND_ORDER_PNT_CLOSURE»
           #print axioms RHLean.Analysis.lowOwnerPost789GlobalAmplitude_eq_primeFlipRootBase_add_exact
           #print axioms RHLean.Analysis.lowOwnerPrimeFlipPNTModelAmplitude_eq_rootBase_add_pnt
           #print axioms RHLean.Analysis.lowOwnerPrimeFlipPNTReplacementEffect_eq_actualCross_sub_errorSq
