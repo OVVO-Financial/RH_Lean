@@ -158,9 +158,14 @@ theorem sum_primeIndicator_sub_density_Ioc_eq_discrepancy_sub
     Finset.sum_Ioc_consecutive
       (f := primeSievePrimeIndicator) (Nat.zero_le y) hxy
   have hli := sum_primeSievePNTDensity_Ioc hxy
+  have hprimeDiff :
+      (∑ q ∈ Finset.Ioc y x, primeSievePrimeIndicator q) =
+        (∑ q ∈ Finset.Ioc 0 x, primeSievePrimeIndicator q) -
+          ∑ q ∈ Finset.Ioc 0 y, primeSievePrimeIndicator q :=
+    (eq_sub_iff_add_eq).2 hprime
   unfold primeSievePrimeDiscrepancy primeSievePrefixPrimeCount
-  rw [Finset.sum_sub_distrib, hli]
-  linear_combination -hprime
+  rw [Finset.sum_sub_distrib, hli, hprimeDiff]
+  ring
 
 /-- First telescope of the replacement error.  The constant part of
 `1-M(floor(x/q))` is the ordinary prime-count discrepancy increment; the
@@ -221,7 +226,9 @@ theorem squareRoot_primeFlipPNTError_eq_moebiusAtoms
         (mertensSummatory (R - 1) - 1) * primeSievePrimeDiscrepancy R := by
   have hRX : R ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
-    nlinarith
+    have hquad : R + 1 ≤ R ^ 2 := by
+      nlinarith
+    omega
   rw [primeFlipPNTError_eq_endpoint_sub_moebiusDiscrepancy_add_boundary hRX]
   have htop :
       squareRootEndpoint R / (R + 1) = R - 1 :=
