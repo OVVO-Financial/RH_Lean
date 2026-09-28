@@ -278,7 +278,6 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL.lean
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL_ZERO_TARGET_GRAM.lean
           emit research/STABLE_FAR_OWNER_WINDOW_ZERO_Q2.lean
-          emit research/GLOBAL_RETURNED_CORE_ENDPOINT_AMPLIFICATION_POST789_TRANSFER.lean
           emit research/GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCIDENCE_AMPLITUDE_FUBINI.lean
@@ -336,6 +335,11 @@ jobs:
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean
+      - name: Kernel-check endpoint amplification transfer
+        run: |
+          lake build RHLean.Proof.SquareRootMertensEndpointAmplification
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/GLOBAL_RETURNED_CORE_ENDPOINT_AMPLIFICATION_POST789_TRANSFER.lean
       - name: Prebuild unconditional strong Mertens input
         run: |
           lake build RHLean.Analysis.NativePNTQuantitativeStatements
