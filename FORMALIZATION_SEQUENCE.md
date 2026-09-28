@@ -1103,3 +1103,19 @@ nontrivial endpoints the resulting replacement error Abel-telescopes from
 Mertens-prefix weights to individual Möbius atoms plus one root-boundary term.
 
 No asymptotic estimate or RH hypothesis is introduced.
+
+
+### Second-order PNT conditional closure (2026-09-28)
+
+`research/PRIME_FLIP_SECOND_ORDER_PNT_CLOSURE.lean` states the exact stronger
+prime-counting hypothesis exposed by the chronology/PNT telescope.  The
+square-clock replacement error is rewritten entirely as a Möbius-weighted
+`pi-Li` atom sum plus the single root boundary.  A signed replacement-effect
+bound at coefficient `1/4`, together with a deterministic Li-model Stokes
+bound at coefficient `2`, feeds the existing `9/4` FinalStokes consumer and
+therefore closes RH conditionally.
+
+This layer explicitly records that the ordinary first-order PNT is not being
+relabelled as the required second-order hypothesis.  It also proves that even
+the idealized zero-error Li multiplicity statement removes only the replacement
+term; the Li-model Stokes estimate remains a separate obligation.
