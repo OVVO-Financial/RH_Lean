@@ -349,7 +349,7 @@ jobs:
           import re
           from pathlib import Path
           s = Path('prime-flip-pnt-bridge-axioms.log').read_text()
-          records = re.findall(r"depends on axioms:\\s*\\[([^\\]]*)\\]", s, re.S)
+          records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
           assert len(records) == 4, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
