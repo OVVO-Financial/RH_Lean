@@ -666,3 +666,17 @@ the transfer alone. Prior obstructions, exports, and declarations remain.
 - [ ] Named theorem axiom audit reports only the repository-allowed logical axioms.
 - [ ] The remaining analytic obligation is a uniform bound on the signed assembled replacement effect strong enough for the current FinalStokes/CORR consumer.
 - [ ] Merge explicitly authorized.
+
+
+### Arbitrary-snapshot chronology layer (2026-09-28)
+
+- [x] Formalize uniqueness of an upper-prime owner for any site `n <= W`.
+- [x] Prove each unresolved squarefree seat `c*p` stores the completed lower value `mu(c)` after the exact square-root frame.
+- [x] Prove the fresh upper owner changes that weight to `-mu(c)`.
+- [x] Prove primes above `W/2` have no proper-multiple action and zero late score increment.
+- [x] Identify the literal chronological late correction with twice the inherited-response operator.
+- [x] Reindex the correction exactly by reciprocal quotient bands.
+- [x] Prove every inherited quotient is at or below `sqrt W`.
+- [x] Replace only prime multiplicity by Li/PNT density and retain the exact signed error.
+- [x] Atomize the arbitrary-endpoint PNT replacement error into Möbius atoms plus one boundary.
+- [ ] Warning-fatal compilation and axiom audit green on the final head.
