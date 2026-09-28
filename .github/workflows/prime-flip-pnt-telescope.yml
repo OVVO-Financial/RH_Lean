@@ -86,6 +86,10 @@ jobs:
           #print axioms RHLean.Analysis.primeFlipAssembledEnergy_prime_eq_pnt_add_signedEffect
           #print axioms RHLean.Analysis.primeFlipPNTReplacementSignedEffect_le_four_error_sq
           #print axioms RHLean.Analysis.primeFlipPNTReplacementSignedEffect_le_model_sq_add_eight_error_sq
+          #print axioms RHLean.Analysis.lowOwnerFinalStokes_eq_primeFlipPNTModel_add_replacement
+          #print axioms RHLean.Analysis.finalStokesQ2EnergyBound_of_primeFlipPNTSplit
+          #print axioms RHLean.Analysis.finalStokesQ2EnergyBound_nineQuarters_of_primeFlipPNTSplit
+          #print axioms RHLean.Analysis.riemannHypothesis_of_primeFlipPNTModel_two_replacement_quarter
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -94,7 +98,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 8, records
+          assert len(records) == 12, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
