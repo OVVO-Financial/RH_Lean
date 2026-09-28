@@ -338,6 +338,8 @@ jobs:
         run: |
           cat > /tmp/PrimeFlipPNTBridgeAxioms.lean <<'LEAN'
           import «research.PRIME_FLIP_PNT_FINAL_STOKES_BRIDGE»
+          #print axioms RHLean.Analysis.lowOwnerPost789GlobalAmplitude_eq_primeFlipRootBase_add_exact
+          #print axioms RHLean.Analysis.lowOwnerPrimeFlipPNTModelAmplitude_eq_rootBase_add_pnt
           #print axioms RHLean.Analysis.lowOwnerPrimeFlipPNTReplacementEffect_eq_actualCross_sub_errorSq
           #print axioms RHLean.Analysis.lowOwnerFinalStokes_eq_primeFlipPNTModel_add_replacement
           #print axioms RHLean.Analysis.finalStokesQ2EnergyBound_of_primeFlipPNTSplit
@@ -351,7 +353,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-bridge-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 5, records
+          assert len(records) == 7, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
