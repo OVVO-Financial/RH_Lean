@@ -1,6 +1,7 @@
 import RHLean.Analysis.PhysicalExceptionalLocalIntertwine
 import RHLean.Proof.TwoWheelQ2GoCompatibility
 import RHLean.Proof.ExceptionalDeletionParentPartition
+import RHLean.Analysis.PhysicalSquareCRTTransfer
 
 /-!
 # Exact signed recovery on the exceptional physical carriers
@@ -146,6 +147,97 @@ theorem squareBlockOutsidePrimeLeastCompleteSource_eq_exceptionalSourcePackets
       threeSlotDegreeOneValue (threeSlotState k)) = _
   rw [Finset.sum_union hA_BC, Finset.sum_union hBC]
   rfl
+
+/-- True Möbius source mass on the full outside-prime deletion carrier. -/
+def squareBlockOutsidePrimeDeletionSource
+    (P : Finset ℕ) (R : ℕ) : ℤ :=
+  ∑ k ∈ squareBlockOutsidePrimeDeletionCells P R,
+    threeSlotDegreeOneValue (threeSlotState k)
+
+/-- True Möbius source mass on the aggregate incomplete-super-orbit endpoint. -/
+def squareBlockOutsidePrimeLeastEndpointSource
+    (P : Finset ℕ) (R : ℕ) : ℤ :=
+  ∑ k ∈ squareBlockOutsidePrimeLeastEndpointCells P R,
+    threeSlotDegreeOneValue (threeSlotState k)
+
+private theorem abs_threeSlotDegreeOneValue_state_le_three (k : ℕ) :
+    |threeSlotDegreeOneValue (threeSlotState k)| ≤ 3 := by
+  simpa [RHLean.Analysis.physicalTCellValue] using
+    RHLean.Analysis.abs_physicalTCellValue_le_three k
+
+private theorem abs_trueSource_sum_le_three_mul_card
+    (S : Finset ℕ) :
+    |∑ k ∈ S, threeSlotDegreeOneValue (threeSlotState k)| ≤
+      3 * (S.card : ℤ) := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => simp
+  | @insert a S ha ih =>
+      rw [Finset.sum_insert ha, Finset.card_insert_of_notMem ha]
+      calc
+        |threeSlotDegreeOneValue (threeSlotState a) +
+            ∑ k ∈ S, threeSlotDegreeOneValue (threeSlotState k)| ≤
+          |threeSlotDegreeOneValue (threeSlotState a)| +
+            |∑ k ∈ S, threeSlotDegreeOneValue (threeSlotState k)| :=
+          abs_add_le _ _
+        _ ≤ 3 + 3 * (S.card : ℤ) :=
+          add_le_add (abs_threeSlotDegreeOneValue_state_le_three a) ih
+        _ = 3 * ((S.card + 1 : ℕ) : ℤ) := by
+          push_cast
+          ring
+
+/-- **True-source endpoint control.**  The aggregate physical endpoint omitted
+by complete exceptional super-orbits has only linear amplitude.  This is the
+actual Möbius source observable, not the selected-prime proxy. -/
+theorem abs_squareBlockOutsidePrimeLeastEndpointSource_le_linear
+    (P : Finset ℕ) (R : ℕ) :
+    |squareBlockOutsidePrimeLeastEndpointSource P R| ≤
+      3 * (((2 * R + 1 : ℕ) : ℤ)) := by
+  have hsum :=
+    abs_trueSource_sum_le_three_mul_card
+      (squareBlockOutsidePrimeLeastEndpointCells P R)
+  have hcardNat :=
+    squareBlockOutsidePrimeLeastEndpointCells_card_le_linear P R
+  have hcardInt :
+      ((squareBlockOutsidePrimeLeastEndpointCells P R).card : ℤ) ≤
+        ((2 * R + 1 : ℕ) : ℤ) := by
+    exact_mod_cast hcardNat
+  unfold squareBlockOutsidePrimeLeastEndpointSource
+  exact hsum.trans
+    (mul_le_mul_of_nonneg_left hcardInt (by norm_num))
+
+/-- Exact true-source complete/endpoint split on the deletion carrier. -/
+theorem squareBlockOutsidePrimeDeletionSource_eq_complete_add_endpoint
+    (P : Finset ℕ) (R : ℕ) :
+    squareBlockOutsidePrimeDeletionSource P R =
+      (∑ k ∈ squareBlockOutsidePrimeLeastCompleteCells P R,
+        threeSlotDegreeOneValue (threeSlotState k)) +
+      squareBlockOutsidePrimeLeastEndpointSource P R := by
+  have hsub :
+      squareBlockOutsidePrimeLeastCompleteCells P R ⊆
+        squareBlockOutsidePrimeDeletionCells P R :=
+    Finset.filter_subset _ _
+  unfold squareBlockOutsidePrimeDeletionSource
+    squareBlockOutsidePrimeLeastEndpointSource
+    squareBlockOutsidePrimeLeastEndpointCells
+  rw [← Finset.sum_sdiff hsub]
+
+/-- **True-source exceptional decomposition with linear endpoint.**
+
+The full outside-prime deletion source is the sum of the three complete
+exceptional-owner source packets plus one aggregate endpoint whose amplitude is
+already bounded linearly in the root. -/
+theorem squareBlockOutsidePrimeDeletionSource_eq_exceptionalSources_add_endpoint
+    {P : Finset ℕ} {R : ℕ}
+    (hcert : OutsidePrimeGenericBlockerCertificate R P) :
+    squareBlockOutsidePrimeDeletionSource P R =
+      exceptionalCompleteOwnerSourcePacket P R 3 +
+        exceptionalCompleteOwnerSourcePacket P R 5 +
+          exceptionalCompleteOwnerSourcePacket P R 7 +
+            squareBlockOutsidePrimeLeastEndpointSource P R := by
+  rw [squareBlockOutsidePrimeDeletionSource_eq_complete_add_endpoint,
+    squareBlockOutsidePrimeLeastCompleteSource_eq_exceptionalSourcePackets hcert]
+  ring
 
 /-- Exact physical recovery with independent blocker and recovery wheels. -/
 theorem exceptionalCompleteOwnerSourcePacket_eq_recoveredIncidence
