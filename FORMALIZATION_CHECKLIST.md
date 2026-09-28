@@ -649,3 +649,18 @@ the transfer alone. Prior obstructions, exports, and declarations remain.
 - [ ] Compiler, axiom, source and export checks pass on the final PR head.
 - [ ] Merge explicitly authorized.
 
+
+
+## Prime-flip PNT telescope (2026-09-28; stacked on #804)
+
+- [x] Use the exact inherited post-root response `1-M(floor(x/q))`; do not approximate lower Möbius values.
+- [x] Group only identical quotient responses after the Euler/sign-flip cancellation has been formed.
+- [x] Replace only reciprocal-band prime multiplicities by the repository's Li/PNT masses.
+- [x] Retain the exact prime-count-minus-Li discrepancy on each original reciprocal interval.
+- [x] Prove the replacement error equals endpoint prime discrepancy minus the existing Mertens-weighted PNT error.
+- [x] Compose with the Abel identity so square-endpoint interior coefficients reduce to individual `mu(d)` atoms plus one lower endpoint boundary.
+- [x] Keep the signed cross term in the assembled quadratic energy.
+- [ ] Warning-fatal compiler passes for `research/PRIME_FLIP_PNT_TELESCOPE.lean`.
+- [ ] Named theorem axiom audit reports only the repository-allowed logical axioms.
+- [ ] The remaining analytic obligation is a uniform bound on the signed assembled replacement effect strong enough for the current FinalStokes/CORR consumer.
+- [ ] Merge explicitly authorized.
