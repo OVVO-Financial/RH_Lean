@@ -102,7 +102,6 @@ The harmless additive `2` comes only from converting the shifted envelope
 `(M(T)-1)^2` back to `M(T)^2`. -/
 theorem lowWheelFarPrimeQ2CrossingOwnerWindow_mertens_sq_le_two_root_envelope_add_two
     {R : ℕ} {K : ℝ} {y : ℕ × (ℕ × ℕ)}
-    (hR : 1 ≤ R)
     (hK : LowerMertensCriticalEnvelope R K)
     (hy : y ∈ lowWheelFarPrimeQ2DescendedTriples R) :
     (((mertensSummatoryInt
@@ -148,7 +147,7 @@ theorem lowWheelFarPrimeQ2CrossingOwnerWindow_chronology_sq_le_two_root_envelope
     lowWheelFarPrimeQ2CrossingOwnerWindow_telescope_eq_mertens hy
   have hbound :=
     lowWheelFarPrimeQ2CrossingOwnerWindow_mertens_sq_le_two_root_envelope_add_two
-      hR hK hy
+      hK hy
   rw [htel]
   exact hbound
 
