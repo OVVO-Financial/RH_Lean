@@ -1085,3 +1085,21 @@ supplied.
 - [ ] Dedicated warning-fatal compilation and named-axiom audit pass on final head.
 - [ ] No uniform RH-scale bound is claimed until the signed replacement effect is quantitatively controlled.
 - [ ] Merge explicitly authorized.
+
+
+### Arbitrary-snapshot chronology layer (2026-09-28)
+
+`research/PRIME_FLIP_STATIC_CHRONOLOGY.lean` freezes the ordered-prime process
+into a static endpoint statement.  For any endpoint `W`, every squarefree
+late seat `c*p <= W` with `p > sqrt W` has `c <= sqrt W`; after the root
+frame it literally stores `mu(c)`, and the unique upper owner flips the final
+weight to `-mu(c)`.  Two distinct upper primes cannot divide the same site.
+Primes above `W/2` are inert.
+
+The complete post-root correction is then proved equal to twice the exact
+inherited-response operator, reindexed exactly by reciprocal quotient bands.
+Only the prime multiplicity is replaced in the Li/PNT model.  At arbitrary
+nontrivial endpoints the resulting replacement error Abel-telescopes from
+Mertens-prefix weights to individual Möbius atoms plus one root-boundary term.
+
+No asymptotic estimate or RH hypothesis is introduced.
