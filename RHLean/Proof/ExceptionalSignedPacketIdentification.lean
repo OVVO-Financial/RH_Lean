@@ -1,5 +1,6 @@
 import RHLean.Analysis.PhysicalExceptionalLocalIntertwine
 import RHLean.Proof.TwoWheelQ2GoCompatibility
+import RHLean.Proof.ExceptionalDeletionParentPartition
 
 /-!
 # Exact signed recovery on the exceptional physical carriers
@@ -109,6 +110,42 @@ def exceptionalCompleteOwnerSourcePacket
     (P : Finset ℕ) (R q : ℕ) : ℤ :=
   ∑ k ∈ exceptionalCompleteOwnerCells P R q,
     threeSlotDegreeOneValue (threeSlotState k)
+
+/-- **True-source exceptional-owner partition.**
+
+Under the blocker certificate, the complete physical least-owner carrier is
+the disjoint union of the owner-3, owner-5, and owner-7 fibres.  This is the
+true Möbius source analogue of the selected-packet partition: no selected-prime
+observable appears. -/
+theorem squareBlockOutsidePrimeLeastCompleteSource_eq_exceptionalSourcePackets
+    {P : Finset ℕ} {R : ℕ}
+    (hcert : OutsidePrimeGenericBlockerCertificate R P) :
+    (∑ k ∈ squareBlockOutsidePrimeLeastCompleteCells P R,
+      threeSlotDegreeOneValue (threeSlotState k)) =
+      exceptionalCompleteOwnerSourcePacket P R 3 +
+        exceptionalCompleteOwnerSourcePacket P R 5 +
+          exceptionalCompleteOwnerSourcePacket P R 7 := by
+  let A := exceptionalCompleteOwnerCells P R 3
+  let B := exceptionalCompleteOwnerCells P R 5
+  let C := exceptionalCompleteOwnerCells P R 7
+  have hBC : Disjoint B C := by
+    dsimp [B, C, exceptionalCompleteOwnerCells]
+    exact exceptionalCompleteOwnerCells_disjoint P R (by norm_num)
+  have hA_BC : Disjoint A (B ∪ C) := by
+    apply Finset.disjoint_left.mpr
+    intro k hkA hkBC
+    rcases Finset.mem_union.mp hkBC with hkB | hkC
+    · exact (Finset.disjoint_left.mp
+        (exceptionalCompleteOwnerCells_disjoint P R (by norm_num : 3 ≠ 5)))
+          hkA hkB
+    · exact (Finset.disjoint_left.mp
+        (exceptionalCompleteOwnerCells_disjoint P R (by norm_num : 3 ≠ 7)))
+          hkA hkC
+  rw [squareBlockOutsidePrimeLeastCompleteCells_eq_exceptionalOwners hcert]
+  change (∑ k ∈ A ∪ (B ∪ C),
+      threeSlotDegreeOneValue (threeSlotState k)) = _
+  rw [Finset.sum_union hA_BC, Finset.sum_union hBC]
+  rfl
 
 /-- Exact physical recovery with independent blocker and recovery wheels. -/
 theorem exceptionalCompleteOwnerSourcePacket_eq_recoveredIncidence
