@@ -116,9 +116,11 @@ theorem lowWheelFarPrimeQ2CrossingOwnerWindow_mertens_sq_le_two_root_envelope_ad
   have hT1 : (((T + 1 : ℕ) : ℝ)) ≤ (R : ℝ) := by
     exact_mod_cast (Nat.succ_le_iff.mpr hTR)
   have hK0 : 0 ≤ K := hK.1
+  have hT1' : (T : ℝ) + 1 ≤ (R : ℝ) := by
+    exact_mod_cast (Nat.succ_le_iff.mpr hTR)
   have hKR :
-      K * (((T + 1 : ℕ) : ℝ)) ≤ K * (R : ℝ) :=
-    mul_le_mul_of_nonneg_left hT1 hK0
+      K * ((T : ℝ) + 1) ≤ K * (R : ℝ) :=
+    mul_le_mul_of_nonneg_left hT1' hK0
   let m : ℝ := ((mertensSummatoryInt T : ℤ) : ℝ)
   have hm :
       m ^ 2 ≤ 2 * (m - 1) ^ 2 + 2 := by
