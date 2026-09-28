@@ -114,7 +114,8 @@ private theorem densityBaseline_half_le_log {y : ℕ} (hy : 2 ≤ y) :
     (1 / 2 : ℝ) ≤ Real.log (y : ℝ) := by
   have hyr : (2 : ℝ) ≤ y := by exact_mod_cast hy
   have hypos : (0 : ℝ) < y := by linarith
-  have hinv : (y : ℝ)⁻¹ ≤ (2 : ℝ)⁻¹ := inv_le_inv₀ (by norm_num) hyr
+  have hinv : (y : ℝ)⁻¹ ≤ (2 : ℝ)⁻¹ :=
+    (inv_le_inv₀ hypos (by norm_num)).2 hyr
   have hlog := Real.one_sub_inv_le_log_of_pos hypos
   norm_num at hinv
   linarith
@@ -159,7 +160,8 @@ theorem norm_primeSieveEqualDensityBulk_le_four_mul
   intro q _hq
   have hl : 0 ≤ (Real.log (y : ℝ))⁻¹ :=
     inv_nonneg.mpr (le_trans (by norm_num) (densityBaseline_half_le_log hy))
-  simp [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hl]
+  change ‖(((Real.log (y : ℝ))⁻¹ : ℝ) : ℂ)‖ ≤ (Real.log (y : ℝ))⁻¹
+  simp only [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hl, le_refl]
 
 private theorem densityBaseline_invLog_intervalIntegrable
     {a b : ℝ} (ha : 2 ≤ a) (hb : 2 ≤ b) :
@@ -167,7 +169,7 @@ private theorem densityBaseline_invLog_intervalIntegrable
   apply ContinuousOn.intervalIntegrable
   intro t ht
   have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
-  exact ((Real.continuousAt_log (by linarith)).inv
+  exact ((Real.continuousAt_log (by linarith)).inv₀
     (ne_of_gt (Real.log_pos (by linarith)))).continuousWithinAt
 
 /-- The actual Li increment is bounded by the frozen lower-end density.
@@ -200,7 +202,7 @@ theorem norm_primeSievePNTDensity_le_inv_log
       have hypos : (0 : ℝ) < y := by exact_mod_cast (show 0 < y by omega)
       have hlog := Real.log_le_log hypos hyt
       rw [Real.norm_eq_abs, abs_of_pos (inv_pos.mpr (hylog.trans_le hlog))]
-      exact inv_le_inv₀ hylog hlog)
+      exact (inv_le_inv₀ (hylog.trans_le hlog) hylog).2 hlog)
   have hlen : |(q : ℝ) - ((q - 1 : ℕ) : ℝ)| = 1 := by
     have hp : ((q - 1 : ℕ) : ℝ) + 1 = (q : ℝ) := by exact_mod_cast hpred
     rw [show (q : ℝ) - ((q - 1 : ℕ) : ℝ) = 1 by linarith]
@@ -290,5 +292,25 @@ theorem densityBaseline_signed_energy_transfer (model error diagonal : ℝ) :
     (model - error) ^ 2 - diagonal =
       (model ^ 2 - diagonal) - 2 * model * error + error ^ 2 := by
   ring
+
+/-- Direct production-clock corollary: one universal quartic bound for each
+model and for the exact Li-substitution error, for every root R >= 2. -/
+theorem primeDensity_squareEndpoint_universal (R : ℕ) (hR : 2 ≤ R) :
+    ‖primeSieveEqualDensityBulk R (R ^ 2 - 1)‖ ^ 2 ≤ 16 * (R : ℝ) ^ 4 ∧
+    ‖primeSievePNTBulk R (R ^ 2 - 1)‖ ^ 2 ≤ 16 * (R : ℝ) ^ 4 ∧
+    ‖primeSievePNTError R (R ^ 2 - 1)‖ ^ 2 ≤ 25 * (R : ℝ) ^ 4 := by
+  have hx : R ^ 2 - 1 ≤ R ^ 2 := Nat.sub_le _ _
+  have hroot : Nat.sqrt (R ^ 2 - 1) < R := by
+    apply Nat.sqrt_lt.mpr
+    have hp : 0 < R * R := Nat.mul_pos (by omega) (by omega)
+    simpa only [pow_two] using Nat.sub_lt hp (by norm_num : 0 < 1)
+  have hxr : ((R ^ 2 - 1 : ℕ) : ℝ) ≤ (R : ℝ) ^ 2 := by exact_mod_cast hx
+  have hxx := mul_self_le_mul_self (Nat.cast_nonneg (R ^ 2 - 1) : (0 : ℝ) ≤ _) hxr
+  have heq := primeSieveEqualDensityBulk_energy_le_sixteen hR hx
+  have hpnt := primeSievePNTBulk_energy_le_sixteen hR hx
+  have herr := primeSievePNTError_energy_le_twentyFive hR hx hroot
+  constructor
+  · nlinarith
+  constructor <;> nlinarith
 
 end RHLean.Analysis
