@@ -48,7 +48,7 @@ def lowOwnerRevealList : Finset ℕ → List ℕ → Finset ℕ
   | cons r rs ih =>
       simp only [lowOwnerRevealList, ih, List.toFinset_cons]
       ext q
-      simp [or_assoc, or_left_comm, or_comm]
+      simp
 
 /-- **Exact finite wall telescope.**
 
@@ -87,7 +87,7 @@ theorem lowOwnerThresholdWallListCrossMass_eq_energyDrop
         simp [hqr, hqS]
       have hstep :=
         lowOwnerThresholdWallRevealedPairEnergy_eq_insert_add_cross
-          (S := S) hrPrime hrFreshS
+          (p := p) (y := y) (S := S) hrPrime hrFreshS
       have htail := ih (insert r S) hnodTail hprimeTail hfreshTail
       simp only [lowOwnerThresholdWallListCrossMass, lowOwnerRevealList]
       linarith
@@ -126,14 +126,14 @@ The full signed owner-crossing telescope at one q² daughter cutoff is no larger
 than the literal q² child energy, because the fully-revealed terminal is a
 nonnegative squarefree diagonal. -/
 theorem lowOwnerQ2ThresholdWall_allPrimeListCrossMass_le_childEnergy
-    (R q p : ℕ) :
+    (R q p : ℕ) (hp : p.Prime) :
     lowOwnerThresholdWallListCrossMass p (rawQ2ChildCutoff R q)
         ∅ (primesUpTo (rawQ2ChildCutoff R q)).toList ≤
       rawQ2ChildEnergyReal R q := by
   rw [lowOwnerThresholdWall_allPrimeListCrossMass_eq_empty_sub_diagonal]
   have hempty :=
     lowOwnerQ2ThresholdWallRevealedPairEnergy_empty_eq_childEnergy
-      (R := R) (q := q) (p := p)
+      (R := R) (q := q) (p := p) hp
   rw [hempty]
   have hdiag :
       0 ≤
