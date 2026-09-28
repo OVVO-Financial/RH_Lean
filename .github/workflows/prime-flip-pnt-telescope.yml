@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - research/PRIME_FLIP_PNT_TELESCOPE.lean
+      - research/PRIME_FLIP_STATIC_CHRONOLOGY.lean
       - FORMALIZATION_SEQUENCE.md
       - FORMALIZATION_CHECKLIST.md
       - .github/workflows/prime-flip-pnt-telescope.yml
@@ -69,15 +70,18 @@ jobs:
           lake build RHLean.Analysis.PrimeSieveAbelIdentity
           lake build RHLean.Analysis.SquareRootMiddleSequentialCoherence
           lake build RHLean.Proof.LargePrimeTerminalFlipLayers
+          lake build RHLean.Proof.PrimeCombVisualizationFrames
+          lake build RHLean.Proof.PrimeCombReciprocalBandCancellation
       - name: Kernel-check prime flip telescope
         run: |
           mkdir -p .lake/build/lib/lean
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_PNT_TELESCOPE.olean research/PRIME_FLIP_PNT_TELESCOPE.lean 2>&1 | tee prime-flip-pnt.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_STATIC_CHRONOLOGY.olean research/PRIME_FLIP_STATIC_CHRONOLOGY.lean 2>&1 | tee prime-flip-static-chronology.log
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
-          import «research.PRIME_FLIP_PNT_TELESCOPE»
+          import «research.PRIME_FLIP_STATIC_CHRONOLOGY»
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_reciprocalPrimeCounts
           #print axioms RHLean.Analysis.primeFlipPNTError_eq_reciprocalDiscrepancy
@@ -86,6 +90,12 @@ jobs:
           #print axioms RHLean.Analysis.primeFlipAssembledEnergy_prime_eq_pnt_add_signedEffect
           #print axioms RHLean.Analysis.primeFlipPNTReplacementSignedEffect_le_four_error_sq
           #print axioms RHLean.Analysis.primeFlipPNTReplacementSignedEffect_le_model_sq_add_eight_error_sq
+          #print axioms RHLean.Analysis.primeFlipSnapshot_postRootOwner_unique
+          #print axioms RHLean.Analysis.primeFlipSnapshot_tailSeat_chronology
+          #print axioms RHLean.Analysis.primeFlipSnapshot_topHalf_inert
+          #print axioms RHLean.Analysis.primeFlipSnapshotLateCorrection_eq_two_exactResponse
+          #print axioms RHLean.Analysis.primeFlipSnapshotLateCorrection_eq_reciprocalBands
+          #print axioms RHLean.Analysis.primeFlipSnapshotPNTError_eq_moebiusAtoms
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -94,7 +104,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 8, records
+          assert len(records) == 14, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -105,5 +115,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: prime-flip-pnt-logs
-          path: prime-flip-pnt*.log
+          path: |
+            prime-flip-pnt*.log
+            prime-flip-static-chronology.log
           if-no-files-found: ignore
