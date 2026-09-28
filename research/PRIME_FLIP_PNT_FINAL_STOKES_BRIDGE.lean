@@ -113,6 +113,9 @@ theorem lowOwnerFinalStokes_eq_primeFlipPNTModel_add_replacement
       lowOwnerPrimeFlipPNTModelStokes R +
         lowOwnerPrimeFlipPNTReplacementEffect R := by
   rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_post789GlobalAmplitudeSq_sub_diagonal hR]
+  rw [lowOwnerGlobalBranchIncidenceDifferenceAmplitude_eq_reciprocal_add_endpointGap
+    (R := R) (p := 2) (r := 3) (by omega)
+      Nat.prime_two (by norm_num) (by norm_num)]
   unfold lowOwnerPrimeFlipPNTModelStokes lowOwnerPrimeFlipPNTReplacementEffect
     lowOwnerPrimeFlipPNTModelAmplitude squareRootPrimeFlipPNTErrorReal
   dsimp
@@ -158,7 +161,8 @@ theorem finalStokesQ2EnergyBound_nineQuarters_of_primeFlipPNTSplit
     (hEffect : LowOwnerPrimeFlipPNTReplacementEffectBound (1 / 4) Ce) :
     LowOwnerFinalStokesQ2EnergyBound (9 / 4) (Cm + Ce) := by
   have h := finalStokesQ2EnergyBound_of_primeFlipPNTSplit hModel hEffect
-  convert h using 1 <;> norm_num
+  convert h using 1
+  norm_num
 
 /-- Direct conditional RH closure for the four-step prime-flip/PNT route.  The
 two displayed quantitative hypotheses are exactly what remains to be proved in
