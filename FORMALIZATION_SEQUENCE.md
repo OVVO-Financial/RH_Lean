@@ -1042,3 +1042,40 @@ the transfer alone. Prior obstructions, exports, and declarations remain.
 - [ ] Compiler, axiom, source and export checks pass on the final PR head.
 - [ ] Merge explicitly authorized.
 
+
+
+## Prime-flip PNT telescope (2026-09-28; stacked on #804)
+
+This layer formalizes the late-prime mechanism only after the exact Euler
+response has been formed.  The inherited response of quotient band `d` is
+`1-M(d)`; actual prime multiplicities, Li multiplicities, and their difference
+are then grouped on the same reciprocal intervals.
+
+The new research module is `research/PRIME_FLIP_PNT_TELESCOPE.lean`.
+It proves the exact split
+
+```text
+actual flip response = Li/PNT flip response + signed multiplicity error,
+```
+
+and reindexes all three terms by the unchanged reciprocal quotient fibres.
+The signed error has two further exact telescopes:
+
+```text
+flip error
+  = (Delta(x)-Delta(y)) - primeSievePNTError(y,x)
+  = endpoint discrepancy - Moebius-weighted discrepancy sum + Abel boundary.
+```
+
+At `x=R^2-1, y=R`, the `d=1` endpoint cancels exactly, leaving only
+individual Möbius atoms `mu(d)` for `2 <= d < R` plus the single lower
+boundary `(M(R-1)-1) Delta(R)`.  The module also keeps the density-replacement
+error inside the assembled quadratic energy and proves its exact signed cross
+term before any Young/triangle fallback.
+
+- [x] Stack on verified #804 head `00d781477a9e41814531c10d44428bf8c04353e1`.
+- [x] Preserve original quotient intervals, floor conventions, Li density, and inherited Möbius responses.
+- [x] Record exact signed energy replacement before taking an unsigned bound.
+- [ ] Dedicated warning-fatal compilation and named-axiom audit pass on final head.
+- [ ] No uniform RH-scale bound is claimed until the signed replacement effect is quantitatively controlled.
+- [ ] Merge explicitly authorized.
