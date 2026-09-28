@@ -184,7 +184,8 @@ theorem lowOwnerFirstOwnerCompletedInheritedReciprocalEnergy_le_weightedBaselAct
       0 ≤
         (lowOwnerGreatestOwnerFixedParentChildMultiplicity R parent r : ℝ) /
           (r : ℝ) ^ 2 := by positivity
-  exact mul_le_mul_of_nonneg_left hprod hmult
+  have hscaled := mul_le_mul_of_nonneg_left hprod hmult
+  simpa [mul_assoc] using hscaled
 
 /-- Global positive packing ledger produced by the preceding local reduction. -/
 def lowOwnerCompletedGateWeightedBaselActivity (R : ℕ) : ℝ :=
