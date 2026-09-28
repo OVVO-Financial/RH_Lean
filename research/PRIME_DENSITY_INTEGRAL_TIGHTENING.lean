@@ -59,8 +59,9 @@ private theorem densityIntegral_loglog_primitive
   have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
   have ht0 : t ≠ 0 := by linarith
   have hl0 : Real.log t ≠ 0 := ne_of_gt (Real.log_pos (by linarith))
-  convert (Real.hasDerivAt_log ht0).log hl0 using 1 <;>
-    simp only [div_eq_mul_inv, mul_inv_rev] <;> ring
+  convert (Real.hasDerivAt_log ht0).log hl0 using 1
+  simp only [div_eq_mul_inv, mul_inv_rev]
+  ring
 
 /-- One exact Li interval pays a log-log increment, not a frozen log density. -/
 theorem densityTightLiWeight_div_le_loglog_step {q : ℕ} (hq : 3 ≤ q) :
