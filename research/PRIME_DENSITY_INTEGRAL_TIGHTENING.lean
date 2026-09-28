@@ -42,14 +42,19 @@ private theorem densityIntegral_loglog_integrable
   have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
   have ht0 : t ≠ 0 := by linarith
   have hl0 : Real.log t ≠ 0 := ne_of_gt (Real.log_pos (by linarith))
-  exact (continuousAt_const.div
-    (continuousAt_id.mul (Real.continuousAt_log ht0)) (mul_ne_zero ht0 hl0)).continuousWithinAt
+  have hc0 : ContinuousAt (fun s : ℝ => s * Real.log s) t :=
+    continuousAt_id.mul (Real.continuousAt_log ht0)
+  have hc1 : ContinuousAt (fun s : ℝ => 1 / (s * Real.log s)) t :=
+    continuousAt_const.div hc0 (mul_ne_zero ht0 hl0)
+  exact hc1.continuousWithinAt
 
 private theorem densityIntegral_loglog_primitive
     {a b : ℝ} (ha : 2 ≤ a) (hb : 2 ≤ b) :
     (∫ t in a..b, 1 / (t * Real.log t)) =
       Real.log (Real.log b) - Real.log (Real.log a) := by
-  apply intervalIntegral.integral_eq_sub_of_hasDerivAt _ (densityIntegral_loglog_integrable ha hb)
+  apply intervalIntegral.integral_eq_sub_of_hasDerivAt
+    (f := fun t : ℝ => Real.log (Real.log t)) _
+    (densityIntegral_loglog_integrable ha hb)
   intro t ht
   have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
   have ht0 : t ≠ 0 := by linarith
