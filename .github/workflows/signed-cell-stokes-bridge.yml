@@ -117,6 +117,9 @@ jobs:
           lake build RHLean.Analysis.PrimeWheelRawConductorCoefficient
           lake build RHLean.Analysis.PrimeWheelRawConductorWeight
           lake build RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
+          lake build RHLean.Proof.SquareRootLowPrimeSharpFrameBudget
+          lake build RHLean.Proof.StableFarWallCrossingOwnerWindow
+          lake build RHLean.Proof.SquareRootLegalAncestryGramReduction
       - name: Emit returned-core dependency foundation through owner cube
         run: |
           mkdir -p .lake/build/lib/lean
