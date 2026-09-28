@@ -161,10 +161,12 @@ theorem sum_primeIndicator_sub_density_Ioc_eq_discrepancy_sub
   have hprimeDiff :
       (∑ q ∈ Finset.Ioc y x, primeSievePrimeIndicator q) =
         (∑ q ∈ Finset.Ioc 0 x, primeSievePrimeIndicator q) -
-          ∑ q ∈ Finset.Ioc 0 y, primeSievePrimeIndicator q :=
-    (eq_sub_iff_add_eq).2 hprime
+          ∑ q ∈ Finset.Ioc 0 y, primeSievePrimeIndicator q := by
+    apply (eq_sub_iff_add_eq).2
+    simpa [add_comm] using hprime
   unfold primeSievePrimeDiscrepancy primeSievePrefixPrimeCount
   rw [Finset.sum_sub_distrib, hli, hprimeDiff]
+  push_cast
   ring
 
 /-- First telescope of the replacement error.  The constant part of
