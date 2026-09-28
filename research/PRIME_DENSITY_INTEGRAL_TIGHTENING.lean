@@ -60,7 +60,7 @@ private theorem densityIntegral_loglog_primitive
   have ht0 : t ≠ 0 := by linarith
   have hl0 : Real.log t ≠ 0 := ne_of_gt (Real.log_pos (by linarith))
   convert (Real.hasDerivAt_log ht0).log hl0 using 1 <;>
-    simp only [one_div, div_eq_mul_inv, mul_inv_rev] <;> ring
+    simp only [div_eq_mul_inv, mul_inv_rev] <;> ring
 
 /-- One exact Li interval pays a log-log increment, not a frozen log density. -/
 theorem densityTightLiWeight_div_le_loglog_step {q : ℕ} (hq : 3 ≤ q) :
@@ -81,14 +81,17 @@ theorem densityTightLiWeight_div_le_loglog_step {q : ℕ} (hq : 3 ≤ q) :
       calc
         (Real.log t)⁻¹ / (q : ℝ) ≤ (Real.log t)⁻¹ / t :=
           div_le_div_of_nonneg_left hl (by linarith) ht.2
-        _ = 1 / (t * Real.log t) := by simp only [one_div, div_eq_mul_inv, mul_inv_rev]
+        _ = 1 / (t * Real.log t) := by simp only [div_eq_mul_inv, mul_inv_rev, one_mul]
     _ = _ := densityIntegral_loglog_primitive ha hb
 
 private theorem densityIntegral_sum_backward_difference
     (f : ℕ → ℝ) {y x : ℕ} (hyx : y ≤ x) :
     (∑ q ∈ Finset.Ioc y x, (f q - f (q - 1))) = f x - f y := by
   induction x with
-  | zero => have hy : y = 0 := by omega; subst y; simp
+  | zero =>
+      have hy : y = 0 := by omega
+      subst y
+      simp
   | succ x ih =>
       by_cases h : y ≤ x
       · rw [Finset.sum_Ioc_succ_top h, ih h]
@@ -143,7 +146,8 @@ theorem norm_primeSievePNTBulk_le_log_two_mul
         change ‖(densityTightLiWeight q : ℂ) * mertensSummatory (x / q)‖ ≤ _
         rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hn]
         have h := mul_le_mul_of_nonneg_left ((densityIntegral_mertens_norm_le (x / q)).trans hdiv) hn
-        convert h using 1 <;> ring
+        convert h using 1
+        ring
       _ = (x : ℝ) * ∑ q ∈ Finset.Ioc y x, densityTightLiWeight q / (q : ℝ) := (Finset.mul_sum _ _ _).symm
       _ ≤ (x : ℝ) * Real.log 2 := mul_le_mul_of_nonneg_left hm (Nat.cast_nonneg x)
       _ = Real.log 2 * (x : ℝ) := mul_comm _ _
