@@ -680,3 +680,13 @@ the transfer alone. Prior obstructions, exports, and declarations remain.
 - [x] Replace only prime multiplicity by Li/PNT density and retain the exact signed error.
 - [x] Atomize the arbitrary-endpoint PNT replacement error into Möbius atoms plus one boundary.
 - [ ] Warning-fatal compilation and axiom audit green on the final head.
+
+
+### Second-order PNT conditional closure (2026-09-28)
+
+- [x] Expose the production PNT error as the explicit Möbius-weighted `pi-Li` atom sum.
+- [x] Define the signed second-order PNT replacement bound at the remaining `1/4` q² coefficient.
+- [x] Keep the deterministic Li-model Stokes bound separate at coefficient `2`.
+- [x] Compile the implication `2 + 1/4 = 9/4 -> FinalStokes consumer -> RH` conditionally.
+- [x] Record an idealized zero-error Li multiplicity theorem without calling it ordinary PNT.
+- [ ] Warning-fatal compile and named axiom audit green on the final head.
