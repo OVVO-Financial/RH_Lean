@@ -196,7 +196,8 @@ theorem squareBlockOutsidePrimeLeastCompleteSource_eq_exceptionalSourcePackets
   change (∑ k ∈ A ∪ (B ∪ C),
       threeSlotDegreeOneValue (threeSlotState k)) = _
   rw [Finset.sum_union hA_BC, Finset.sum_union hBC]
-  rfl
+  simp [exceptionalCompleteOwnerSourcePacket, A, B, C]
+  ring
 
 private theorem abs_threeSlotDegreeOneValue_state_le_three (k : ℕ) :
     |threeSlotDegreeOneValue (threeSlotState k)| ≤ 3 := by
@@ -257,6 +258,7 @@ theorem squareBlockOutsidePrimeDeletionSource_eq_complete_add_endpoint
     squareBlockOutsidePrimeLeastEndpointSource
     squareBlockOutsidePrimeLeastEndpointCells
   rw [← Finset.sum_sdiff hsub]
+  ring
 
 /-- Full true-source deletion packet equals the three exceptional owner packets
 plus one aggregate linear endpoint. -/
@@ -270,6 +272,5 @@ theorem squareBlockOutsidePrimeDeletionSource_eq_exceptionalSources_add_endpoint
             squareBlockOutsidePrimeLeastEndpointSource P R := by
   rw [squareBlockOutsidePrimeDeletionSource_eq_complete_add_endpoint,
     squareBlockOutsidePrimeLeastCompleteSource_eq_exceptionalSourcePackets hcert]
-  ring
 
 end RHLean.Proof
