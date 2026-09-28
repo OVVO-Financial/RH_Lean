@@ -49,7 +49,7 @@ def SquareRootMertensEndpointAmplificationWith (A : ℝ) : Prop :=
 The lower endpoint M(R-1)-1 is already controlled by the defining critical
 envelope.  The top endpoint M(R^2-1)-1 is the sole new input. -/
 theorem canonicalRoughCorrelation_rootBound_of_endpointAmplificationWith
-    {A : ℝ} (hA : 0 ≤ A)
+    {A : ℝ}
     (hAmp : SquareRootMertensEndpointAmplificationWith A) :
     CanonicalRoughCorrelationLowQ2EnergyStatementWith 0 (2 * A + 2) := by
   intro R K hR hK
@@ -97,12 +97,12 @@ theorem canonicalRoughCorrelation_rootBound_of_endpointAmplificationWith
 Choosing Young parameters a=1/8 and b=2 preserves the RH-sufficient daughter
 coefficient 2. -/
 theorem post789SignedRemainderBound_two_of_endpointAmplificationWith
-    {A : ℝ} (hA : 0 ≤ A)
+    {A : ℝ}
     (hAmp : SquareRootMertensEndpointAmplificationWith A) :
     LowOwnerPost789SignedCrossDiagonalRemainderBound
       2 ((9 / 4 : ℝ) * (A + 1)) := by
   have hCorr :=
-    canonicalRoughCorrelation_rootBound_of_endpointAmplificationWith hA hAmp
+    canonicalRoughCorrelation_rootBound_of_endpointAmplificationWith hAmp
   have h :=
     post789SignedRemainderBound_of_correlationLowQ2Energy
       (a := 1 / 8) (b := 2) (by norm_num) (by norm_num) hCorr
@@ -121,6 +121,6 @@ theorem exists_post789SignedRemainderBound_two_of_endpointAmplification
   refine ⟨(9 / 4 : ℝ) * (A + 1), ?_, ?_⟩
   · positivity
   · exact post789SignedRemainderBound_two_of_endpointAmplificationWith
-      hA hAmpA
+      hAmpA
 
 end RHLean.Proof
