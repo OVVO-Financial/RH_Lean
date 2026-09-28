@@ -28,12 +28,44 @@ open RHLean.Proof
 def squareRootPrimeFlipPNTErrorReal (R : ℕ) : ℝ :=
   primeFlipPNTErrorReal R (squareRootEndpoint R)
 
+/-- The part of the post-789 amplitude held fixed while the late-prime
+multiplicities are changed.  It contains the actual endpoint/reciprocal
+coordinates minus the already-assembled exact late-prime response. -/
+def lowOwnerPrimeFlipRootBase (R : ℕ) : ℝ :=
+  lowOwnerPost789EndpointGapReal R +
+    lowOwnerReciprocalMertensColumnReal R -
+      2 * primeFlipExactResponseReal R (squareRootEndpoint R)
+
+/-- The actual post-789 amplitude is the fixed base plus the exact inherited
+late-prime response.  This is an exact decomposition, not an estimate. -/
+theorem lowOwnerPost789GlobalAmplitude_eq_primeFlipRootBase_add_exact
+    (R : ℕ) :
+    lowOwnerPost789EndpointGapReal R +
+        lowOwnerReciprocalMertensColumnReal R =
+      lowOwnerPrimeFlipRootBase R +
+        2 * primeFlipExactResponseReal R (squareRootEndpoint R) := by
+  unfold lowOwnerPrimeFlipRootBase
+  ring
+
 /-- The post-789 global amplitude with only the late-prime multiplicities
 replaced by the Li/PNT model.  The actual lower Möbius responses are unchanged. -/
 def lowOwnerPrimeFlipPNTModelAmplitude (R : ℕ) : ℝ :=
   lowOwnerPost789EndpointGapReal R +
     lowOwnerReciprocalMertensColumnReal R -
       2 * squareRootPrimeFlipPNTErrorReal R
+
+/-- **Literal multiplicity replacement.**  The PNT model amplitude is the same
+fixed root base with the exact late-prime response replaced only by the Li/PNT
+multiplicity response. -/
+theorem lowOwnerPrimeFlipPNTModelAmplitude_eq_rootBase_add_pnt
+    (R : ℕ) :
+    lowOwnerPrimeFlipPNTModelAmplitude R =
+      lowOwnerPrimeFlipRootBase R +
+        2 * primeFlipPNTResponseReal R (squareRootEndpoint R) := by
+  unfold lowOwnerPrimeFlipPNTModelAmplitude lowOwnerPrimeFlipRootBase
+    squareRootPrimeFlipPNTErrorReal
+  rw [primeFlipExactResponseReal_eq_pnt_add_error]
+  ring
 
 /-- Final-Stokes energy of the multiplicity-replaced model. -/
 def lowOwnerPrimeFlipPNTModelStokes (R : ℕ) : ℝ :=
