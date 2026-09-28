@@ -194,7 +194,9 @@ theorem norm_primeSieveUnitDensityBulk_le_two_mul (y x : ℕ) :
       exact_mod_cast Nat.div_mul_le_self x m
     have hhi : (x : ℝ) / (m : ℝ) < ((x / m : ℕ) : ℝ) + 1 := by
       apply (div_lt_iff₀ hmr).mpr
-      exact_mod_cast Nat.lt_mul_div_succ x hmp
+      have hh : x < (x / m + 1) * m := by
+        simpa only [Nat.mul_comm] using Nat.lt_mul_div_succ x hmp
+      exact_mod_cast hh
     dsimp [r]
     constructor <;> linarith
   have hid : primeSieveUnitDensityBulk y x =
@@ -218,7 +220,7 @@ theorem norm_primeSieveUnitDensityBulk_le_two_mul (y x : ℕ) :
         intro m hm
         rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hr m hm).1]
         exact (mul_le_mul_of_nonneg_right (norm_canonicalMoebiusWeight_le_one m) (hr m hm).1).trans (by simpa using (hr m hm).2)
-      _ = (n : ℝ) * ((y : ℝ) + 1) := by simp
+      _ = (n : ℝ) * ((y : ℝ) + 1) := by simp; ring
       _ ≤ (x : ℝ) := by exact_mod_cast Nat.div_mul_le_self x (y + 1)
   rw [hid]
   calc
