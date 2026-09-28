@@ -1051,7 +1051,7 @@ response has been formed.  The inherited response of quotient band `d` is
 `1-M(d)`; actual prime multiplicities, Li multiplicities, and their difference
 are then grouped on the same reciprocal intervals.
 
-The new research module is `research/PRIME_FLIP_PNT_TELESCOPE.lean`.
+The lightweight exact telescope is `research/PRIME_FLIP_PNT_TELESCOPE.lean`; the production consumer wiring is isolated in `research/PRIME_FLIP_PNT_FINAL_STOKES_BRIDGE.lean`.
 It proves the exact split
 
 ```text
