@@ -404,10 +404,12 @@ theorem squareBlockOutsidePrimeDeletionSource_sub_exceptionalResponses_subMates_
             squareBlockOutsidePrimeLeastEndpointSource P R := by
   have hfull :=
     squareBlockOutsidePrimeDeletionSource_eq_exceptionalSources_add_endpoint hcert
+  have hpart :=
+    squareBlockOutsidePrimeLeastCompleteSource_eq_exceptionalSourcePackets hcert
   have hcomp :=
     squareBlockOutsidePrimeLeastCompleteSource_sub_exceptionalResponses_subMates_eq_q2Daughters
       hcert
-  linear_combination hfull + hcomp
+  linear_combination hfull + hpart + hcomp
 
 /-! ## Exact unit descent for square contacts -/
 
