@@ -72,8 +72,12 @@ theorem densityTightLiWeight_antitone_step {q : ℕ} (hq : 3 ≤ q) :
     apply ContinuousOn.intervalIntegrable
     intro t ht
     have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
-    exact (((continuousAt_id.add_const 1).log (by linarith)).inv₀
-      (ne_of_gt (Real.log_pos (by linarith)))).continuousWithinAt
+    have hc0 : ContinuousAt (fun s : ℝ => s + 1) t := continuousAt_id.add_const 1
+    have hc1 : ContinuousAt (fun s : ℝ => Real.log (s + 1)) t :=
+      (Real.continuousAt_log (x := t + 1) (by linarith)).comp t hc0
+    have hc2 : ContinuousAt (fun s : ℝ => (Real.log (s + 1))⁻¹) t :=
+      hc1.inv₀ (ne_of_gt (Real.log_pos (by linarith)))
+    exact hc2.continuousWithinAt
   apply intervalIntegral.integral_mono_on hab hfi (densityTight_invLog_integrable ha hb)
   intro t ht
   have ht2 : (2 : ℝ) ≤ t := ha.trans ht.1
@@ -82,7 +86,7 @@ theorem densityTightLiWeight_antitone_step {q : ℕ} (hq : 3 ≤ q) :
 
 /-- Abel invariant with the terminal endpoint still attached. -/
 theorem densityTight_weighted_difference_invariant
-    (d : ℕ → ℝ) (F : ℕ → ℂ) (y : ℕ) {B : ℝ} (hB : 0 ≤ B)
+    (d : ℕ → ℝ) (F : ℕ → ℂ) (y : ℕ) {B : ℝ} (_hB : 0 ≤ B)
     (hd : ∀ q, y < q → 0 ≤ d q)
     (hanti : ∀ q, y < q → d (q + 1) ≤ d q)
     (hF : ∀ q, y ≤ q → ‖F q‖ ≤ B)
