@@ -214,6 +214,41 @@ theorem primeFlipPNTError_eq_endpoint_sub_moebiusDiscrepancy_add_boundary
     primeSievePNTError_eq_moebiusDiscrepancySum_sub_abelBoundary]
   ring
 
+/-- **Arbitrary-endpoint atomization.**  As soon as the post-cutoff range
+has at least one possible multiplier, the top discrepancy cancels the `d=1`
+term exactly.  The replacement error is therefore a signed sum of individual
+Möbius atoms against reciprocal prime discrepancies, plus one lower endpoint
+boundary.  This applies directly to the x=210 and x=317 structural models. -/
+theorem primeFlipPNTError_eq_moebiusAtoms
+    {y x : ℕ} (hxy : y ≤ x) (hstep : y + 1 ≤ x) :
+    primeFlipPNTError y x =
+      -(∑ d ∈ Finset.Icc 2 (x / (y + 1)),
+          (((μ d : ℤ) : ℂ)) * primeSievePrimeDiscrepancy (x / d)) +
+        (mertensSummatory (x / (y + 1)) - 1) *
+          primeSievePrimeDiscrepancy y := by
+  rw [primeFlipPNTError_eq_endpoint_sub_moebiusDiscrepancy_add_boundary hxy]
+  have hK1 : 1 ≤ x / (y + 1) := by
+    apply (Nat.le_div_iff_mul_le (by omega : 0 < y + 1)).2
+    simpa [Nat.mul_comm] using hstep
+  have hset :
+      Finset.Icc 1 (x / (y + 1)) =
+        ({1} : Finset ℕ) ∪ Finset.Icc 2 (x / (y + 1)) := by
+    ext d
+    simp only [Finset.mem_Icc, Finset.mem_union, Finset.mem_singleton]
+    omega
+  have hdisj :
+      Disjoint ({1} : Finset ℕ) (Finset.Icc 2 (x / (y + 1))) := by
+    rw [Finset.disjoint_left]
+    intro d hd1 hd2
+    rw [Finset.mem_singleton] at hd1
+    subst d
+    simp at hd2
+  unfold primeSieveMoebiusDiscrepancySum primeSieveQuotientSupport
+    primeSieveAbelBoundary
+  rw [hset, Finset.sum_union hdisj, Finset.sum_singleton]
+  simp
+  ring
+
 /-- Square-endpoint specialization of the atomized replacement error.
 
 The endpoint discrepancy at `X=R^2-1` cancels the `d=1` Möbius term exactly.
