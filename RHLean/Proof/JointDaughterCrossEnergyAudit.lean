@@ -409,7 +409,7 @@ theorem squareBlockOutsidePrimeDeletionSource_sub_exceptionalResponses_subMates_
   have hcomp :=
     squareBlockOutsidePrimeLeastCompleteSource_sub_exceptionalResponses_subMates_eq_q2Daughters
       hcert
-  linear_combination hfull + hpart + hcomp
+  linear_combination hfull + hcomp - hpart
 
 /-! ## Exact unit descent for square contacts -/
 
