@@ -112,6 +112,7 @@ theorem lowWheelFarPrimeQ2CrossingOwnerWindow_mertens_sq_le_two_root_envelope_ad
   have hTR : T < R :=
     lowWheelFarPrimeQ2CrossingOwnerDepth_lt_root hy
   have henv := hK.2 T hTR
+  push_cast at henv
   have hT1 : (((T + 1 : ℕ) : ℝ)) ≤ (R : ℝ) := by
     exact_mod_cast (Nat.succ_le_iff.mpr hTR)
   have hK0 : 0 ≤ K := hK.1
@@ -123,7 +124,7 @@ theorem lowWheelFarPrimeQ2CrossingOwnerWindow_mertens_sq_le_two_root_envelope_ad
       m ^ 2 ≤ 2 * (m - 1) ^ 2 + 2 := by
     nlinarith [sq_nonneg (m - 2)]
   dsimp [m, T] at hm ⊢
-  nlinarith
+  nlinarith [henv, hKR, hm]
 
 /-- The same estimate stated directly on the complete Euler owner-window
 chronology, before any ownerwise norm. -/
