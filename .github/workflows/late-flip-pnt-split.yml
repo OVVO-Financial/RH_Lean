@@ -1,0 +1,31 @@
+name: Late-flip PNT split diagnostic
+
+on:
+  pull_request:
+    paths:
+      - research/LATE_FLIP_PNT_SPLIT_DIAGNOSTIC.md
+      - scripts/late_flip_pnt_split_probe.c
+      - scripts/check_late_flip_pnt_split_probe.py
+      - .github/workflows/late-flip-pnt-split.yml
+  push:
+    branches: [main]
+    paths:
+      - research/LATE_FLIP_PNT_SPLIT_DIAGNOSTIC.md
+      - scripts/late_flip_pnt_split_probe.c
+      - scripts/check_late_flip_pnt_split_probe.py
+      - .github/workflows/late-flip-pnt-split.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile with warnings as errors
+        run: cc -std=c11 -O2 -Wall -Wextra -Werror -o /tmp/late_flip_pnt_split_probe scripts/late_flip_pnt_split_probe.c -lm
+      - name: Check literal identities and reproduce the finite summary
+        run: python3 scripts/check_late_flip_pnt_split_probe.py /tmp/late_flip_pnt_split_probe
