@@ -474,6 +474,47 @@ theorem activatedFloorChild_eq_floor_sub_ltStep
     simp [h, hn, hdiv]
 
 
+/-- Activated floor dilations compose multiplicatively. -/
+theorem activatedFloorChild_comp
+    (F : ℕ → ℂ) {q r x : ℕ}
+    (hq : 1 ≤ q) (hr : 1 ≤ r) :
+    activatedFloorChild
+        (fun m => activatedFloorChild F r m) q x =
+      activatedFloorChild F (q * r) x := by
+  have hqpos : 0 < q := by omega
+  by_cases hqr : q * r ≤ x
+  · have hqx : q ≤ x := by
+      calc
+        q = q * 1 := by simp
+        _ ≤ q * r := Nat.mul_le_mul_left q hr
+        _ ≤ x := hqr
+    have hrdiv : r ≤ x / q := by
+      apply (Nat.le_div_iff_mul_le hqpos).2
+      simpa [Nat.mul_comm] using hqr
+    simp [activatedFloorChild, hqx, hrdiv, hqr,
+      Nat.div_div_eq_div_mul]
+  · by_cases hqx : q ≤ x
+    · have hrnot : ¬ r ≤ x / q := by
+        intro hrdiv
+        have hmul := (Nat.le_div_iff_mul_le hqpos).1 hrdiv
+        apply hqr
+        simpa [Nat.mul_comm] using hmul
+      simp [activatedFloorChild, hqx, hrnot, hqr]
+    · simp [activatedFloorChild, hqx, hqr]
+
+/-- Activated floor dilations commute. -/
+theorem activatedFloorChild_comm
+    (F : ℕ → ℂ) {q r x : ℕ}
+    (hq : 1 ≤ q) (hr : 1 ≤ r) :
+    activatedFloorChild
+        (fun m => activatedFloorChild F r m) q x =
+      activatedFloorChild
+        (fun m => activatedFloorChild F q m) r x := by
+  rw [activatedFloorChild_comp F hq hr,
+    activatedFloorChild_comp F hr hq, Nat.mul_comm]
+
+
+
 /-- One fresh-site hard-core update. -/
 def frequencyHardCoreUpdate
     (a : ℂ) (q : ℕ) (F : ℕ → ℂ) (x : ℕ) : ℂ :=
