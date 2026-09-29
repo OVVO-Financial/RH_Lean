@@ -1,5 +1,6 @@
 import RHLean.Analysis.TwoWheelQ2Compensation
 import RHLean.Proof.ExceptionalSignedPacketIdentification
+import RHLean.Proof.ExceptionalDeletionParentPartition
 import RHLean.Proof.ExceptionalTransportCoboundary
 import RHLean.Proof.ExceptionalOwnerEnergyClosure
 
@@ -344,6 +345,71 @@ theorem exceptionalCompleteOwnerSourcePacket_sub_response_sub_mate_eq_q2Daughter
       moebius_four_mul_add_four]
   rw [hsource]
   exact fourSlotCellSum_sub_response_sub_mate_eq_q2Daughter q k
+
+/-- **Complete-interior compensated exceptional reconstruction.**
+
+After partitioning the true Möbius source by its unique complete least-square
+owner, the complete physical interior minus the three current-owner responses
+and their three first-power mates is exactly the sum of the literal q² daughter
+packets for owners 3, 5, and 7.
+
+This is a signed identity before any norm or Cauchy step. -/
+theorem squareBlockOutsidePrimeLeastCompleteSource_sub_exceptionalResponses_subMates_eq_q2Daughters
+    {P : Finset ℕ} {R : ℕ}
+    (hcert : OutsidePrimeGenericBlockerCertificate R P) :
+    (∑ k ∈ squareBlockOutsidePrimeLeastCompleteCells P R,
+        threeSlotDegreeOneValue (threeSlotState k)) -
+      (exceptionalCompleteOwnerResponsePacket P R 3 +
+        exceptionalCompleteOwnerResponsePacket P R 5 +
+          exceptionalCompleteOwnerResponsePacket P R 7) -
+      (exceptionalCompleteOwnerMatePacket P R 3 +
+        exceptionalCompleteOwnerMatePacket P R 5 +
+          exceptionalCompleteOwnerMatePacket P R 7) =
+      exceptionalCompleteOwnerQ2DaughterPacket P R 3 +
+        exceptionalCompleteOwnerQ2DaughterPacket P R 5 +
+          exceptionalCompleteOwnerQ2DaughterPacket P R 7 := by
+  have hsrc :=
+    squareBlockOutsidePrimeLeastCompleteSource_eq_exceptionalSourcePackets hcert
+  have h3 :=
+    exceptionalCompleteOwnerSourcePacket_sub_response_sub_mate_eq_q2Daughter
+      P R 3
+  have h5 :=
+    exceptionalCompleteOwnerSourcePacket_sub_response_sub_mate_eq_q2Daughter
+      P R 5
+  have h7 :=
+    exceptionalCompleteOwnerSourcePacket_sub_response_sub_mate_eq_q2Daughter
+      P R 7
+  linear_combination hsrc + h3 + h5 + h7
+
+/-- **Full deletion-carrier exceptional reconstruction with endpoint.**
+
+After subtracting the three current-owner responses and three first-power mates
+from the true Möbius source on the full outside-prime deletion carrier, the
+result is exactly the three literal q² daughter packets plus the aggregate
+incomplete-super-orbit endpoint.  The latter has linear amplitude by
+`abs_squareBlockOutsidePrimeLeastEndpointSource_le_linear`. -/
+theorem squareBlockOutsidePrimeDeletionSource_sub_exceptionalResponses_subMates_eq_q2Daughters_add_endpoint
+    {P : Finset ℕ} {R : ℕ}
+    (hcert : OutsidePrimeGenericBlockerCertificate R P) :
+    squareBlockOutsidePrimeDeletionSource P R -
+      (exceptionalCompleteOwnerResponsePacket P R 3 +
+        exceptionalCompleteOwnerResponsePacket P R 5 +
+          exceptionalCompleteOwnerResponsePacket P R 7) -
+      (exceptionalCompleteOwnerMatePacket P R 3 +
+        exceptionalCompleteOwnerMatePacket P R 5 +
+          exceptionalCompleteOwnerMatePacket P R 7) =
+      exceptionalCompleteOwnerQ2DaughterPacket P R 3 +
+        exceptionalCompleteOwnerQ2DaughterPacket P R 5 +
+          exceptionalCompleteOwnerQ2DaughterPacket P R 7 +
+            squareBlockOutsidePrimeLeastEndpointSource P R := by
+  have hfull :=
+    squareBlockOutsidePrimeDeletionSource_eq_exceptionalSources_add_endpoint hcert
+  have hpart :=
+    squareBlockOutsidePrimeLeastCompleteSource_eq_exceptionalSourcePackets hcert
+  have hcomp :=
+    squareBlockOutsidePrimeLeastCompleteSource_sub_exceptionalResponses_subMates_eq_q2Daughters
+      hcert
+  linear_combination hfull + hcomp - hpart
 
 /-! ## Exact unit descent for square contacts -/
 

@@ -52,6 +52,10 @@ on:
       - research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean
       - scripts/post789_remainder_correlation_probe.py
       - research/GLOBAL_RETURNED_CORE_ZERO_TARGET_CLIPPED_HISTORY_CONTRACTION.lean
+      - research/GLOBAL_RETURNED_CORE_ZERO_TARGET_GEOMETRIC_TREE_BUDGET.lean
+      - research/GLOBAL_RETURNED_CORE_COMPLETED_GATE_WEIGHTED_BASEL_PACKING.lean
+      - research/GLOBAL_RETURNED_CORE_THRESHOLD_WALL_FINITE_TELESCOPE.lean
+      - research/GLOBAL_RETURNED_CORE_ENDPOINT_AMPLIFICATION_POST789_TRANSFER.lean
       - research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
       - research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
       - research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
@@ -113,6 +117,9 @@ jobs:
           lake build RHLean.Analysis.PrimeWheelRawConductorCoefficient
           lake build RHLean.Analysis.PrimeWheelRawConductorWeight
           lake build RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
+          lake build RHLean.Proof.SquareRootLowPrimeSharpFrameBudget
+          lake build RHLean.Proof.StableFarWallCrossingOwnerWindow
+          lake build RHLean.Proof.SquareRootLegalAncestryGramReduction
       - name: Emit returned-core dependency foundation through owner cube
         run: |
           mkdir -p .lake/build/lib/lean
@@ -262,8 +269,16 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_EMITTED_RECIPROCAL_CHARGE.lean
           emit research/GLOBAL_RETURNED_CORE_OWNER_PARENT_CONTINUATION.lean
           emit research/GLOBAL_RETURNED_CORE_INHERITED_DETERMINISTIC_CANCELLATION.lean
+          emit research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean
+          emit research/GLOBAL_RETURNED_CORE_INHERITED_BASEL_ACTIVITY.lean
           emit research/GLOBAL_RETURNED_CORE_GENERIC_GREATEST_OWNER_CONTRACTION.lean
           emit research/GLOBAL_RETURNED_CORE_ZERO_TARGET_CLIPPED_HISTORY_CONTRACTION.lean
+          emit research/COVARIANCE_RECIPROCAL_OWNER_BASEL_CONTRACTION.lean
+          emit research/GLOBAL_RETURNED_CORE_RETAINED_COEFFICIENT_OUTGOING_ENERGY.lean
+          emit research/GLOBAL_RETURNED_CORE_GREATEST_OWNER_BASEL_CONTRACTION.lean
+          emit research/GLOBAL_RETURNED_CORE_ZERO_TARGET_GEOMETRIC_TREE_BUDGET.lean
+          emit research/GLOBAL_RETURNED_CORE_COMPLETED_GATE_WEIGHTED_BASEL_PACKING.lean
+          emit research/STABLE_FAR_OWNER_WINDOW_ZERO_Q2.lean
           emit research/GLOBAL_RETURNED_CORE_INHERITED_MIXED_CLOCK_L2.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_BRANCH_CROSS_AMPLITUDE.lean
           emit research/GLOBAL_RETURNED_CORE_RAW_PARENT_INCIDENCE_AMPLITUDE_FUBINI.lean
@@ -294,6 +309,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_Q2_DAUGHTER_FIRST_OWNER_GRAM.lean
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL_ZERO_TARGET_GRAM.lean
           emit research/GLOBAL_RETURNED_CORE_THRESHOLD_WALL_PAIR_FILTRATION.lean
+          emit research/GLOBAL_RETURNED_CORE_THRESHOLD_WALL_FINITE_TELESCOPE.lean
           emit research/GLOBAL_RETURNED_CORE_GLOBAL_DESCENDING_SITE_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_GLOBAL_FIRST_OWNER_SITE_FUBINI.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS.lean
@@ -322,6 +338,11 @@ jobs:
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean
+      - name: Kernel-check endpoint amplification transfer
+        run: |
+          lake build RHLean.Proof.SquareRootMertensEndpointAmplification
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/GLOBAL_RETURNED_CORE_ENDPOINT_AMPLIFICATION_POST789_TRANSFER.lean
       - name: Prebuild unconditional strong Mertens input
         run: |
           lake build RHLean.Analysis.NativePNTQuantitativeStatements
