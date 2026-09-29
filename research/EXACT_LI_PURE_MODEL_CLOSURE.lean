@@ -882,7 +882,7 @@ kernel has uniformly bounded n^(-1/2)-weighted total variation H, then their
 multiplicative convolution is O(sqrt X). -/
 theorem norm_finiteMultiplicativeConvolution_le_sqrt
     (h M : ℕ → ℂ) (B H : ℝ)
-    (hB : 0 ≤ B) (hH : 0 ≤ H)
+    (hB : 0 ≤ B)
     (hM : ∀ m : ℕ, ‖M m‖ ≤ B)
     (hvar : ∀ X : ℕ, criticalWeightedVariation h X ≤ H)
     (X : ℕ) :
@@ -939,7 +939,7 @@ theorem norm_finiteMultiplicativeConvolution_le_sqrt
 /-- Square-endpoint form of the critical convolution transfer. -/
 theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
     (h M : ℕ → ℂ) (B H : ℝ)
-    (hB : 0 ≤ B) (hH : 0 ≤ H)
+    (hB : 0 ≤ B)
     (hM : ∀ m : ℕ, ‖M m‖ ≤ B)
     (hvar : ∀ X : ℕ, criticalWeightedVariation h X ≤ H)
     (R : ℕ) :
@@ -961,7 +961,7 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
           rw [Real.sqrt_sq_eq_abs, abs_of_nonneg hRpos]
     have hbase :=
       norm_finiteMultiplicativeConvolution_le_sqrt
-        h M B H hB hH hM hvar (squareRootEndpoint R)
+        h M B H hB hM hvar (squareRootEndpoint R)
     calc
       ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖
           ≤ B * Real.sqrt (squareRootEndpoint R : ℝ) * H := hbase
