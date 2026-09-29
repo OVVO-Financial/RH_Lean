@@ -1,6 +1,7 @@
 import Mathlib
 import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
 import RHLean.Proof.FinitePartialMoments
+import «research.PRIME_DENSITY_UNIVERSAL_BASELINE»
 
 /-!
 # Pure exact-Li model closure spine
@@ -122,6 +123,158 @@ theorem abs_weightedDegreeOneLowerMass_sub_le_transport
           apply mul_le_mul_of_nonneg_left _ (hw i hi)
           have h := abs_negativePart_sub_negativePart_le (x i - t) (y i - t)
           simpa [sub_sub_sub_cancel_right] using h
+
+
+/-! ## Critical Li collision summability -/
+
+/-- The elementary logarithmic-harmonic tail used for the critical
+freshness correction. -/
+def exactLiLogHarmonicTail (p n : ℕ) : ℝ :=
+  1 / (((n + 3 : ℕ) : ℝ) * (Real.log ((n + 3 : ℕ) : ℝ)) ^ p)
+
+/-- Cauchy condensation gives summability for every logarithmic power p > 1.
+This is entirely model-side real analysis. -/
+theorem exactLiLogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
+    Summable (exactLiLogHarmonicTail p) := by
+  have hnonneg : ∀ n, 0 ≤ exactLiLogHarmonicTail p n := by
+    intro n
+    unfold exactLiLogHarmonicTail
+    positivity
+  have hmono : ∀ ⦃m n⦄, 0 < m → m ≤ n →
+      exactLiLogHarmonicTail p n ≤ exactLiLogHarmonicTail p m := by
+    intro m n _hm hmn
+    unfold exactLiLogHarmonicTail
+    have hmnNat : m + 3 ≤ n + 3 := by omega
+    have hmnR : (((m + 3 : ℕ) : ℝ)) ≤ ((n + 3 : ℕ) : ℝ) := by
+      exact_mod_cast hmnNat
+    have hmpos : 0 < (((m + 3 : ℕ) : ℝ)) := by positivity
+    have hlogm : 0 ≤ Real.log ((m + 3 : ℕ) : ℝ) :=
+      Real.log_nonneg (by exact_mod_cast (show 1 ≤ m + 3 by omega))
+    have hlogmpos : 0 < Real.log ((m + 3 : ℕ) : ℝ) :=
+      Real.log_pos (by exact_mod_cast (show 1 < m + 3 by omega))
+    have hlogle :
+        Real.log ((m + 3 : ℕ) : ℝ) ≤ Real.log ((n + 3 : ℕ) : ℝ) :=
+      Real.log_le_log hmpos hmnR
+    have hpowle : (Real.log ((m + 3 : ℕ) : ℝ)) ^ p ≤
+        (Real.log ((n + 3 : ℕ) : ℝ)) ^ p :=
+      pow_le_pow_left₀ hlogm hlogle p
+    have hdenle :
+        (((m + 3 : ℕ) : ℝ)) * (Real.log ((m + 3 : ℕ) : ℝ)) ^ p ≤
+          ((n + 3 : ℕ) : ℝ) * (Real.log ((n + 3 : ℕ) : ℝ)) ^ p := by
+      exact mul_le_mul hmnR hpowle (by positivity) (by positivity)
+    exact one_div_le_one_div_of_le
+      (mul_pos hmpos (pow_pos hlogmpos p)) hdenle
+  rw [← summable_condensed_iff_of_nonneg hnonneg hmono]
+  rw [← summable_nat_add_iff 1 (G := ℝ)]
+  let D : ℝ := 1 / (Real.log 2) ^ p
+  have hpseries0 : Summable (fun n : ℕ => 1 / (n : ℝ) ^ p) :=
+    Real.summable_one_div_nat_pow.mpr hp
+  have hpseries : Summable (fun k : ℕ => 1 / (((k + 1 : ℕ) : ℝ) ^ p)) :=
+    (summable_nat_add_iff 1 (G := ℝ)).2 hpseries0
+  have hmajor :
+      Summable (fun k : ℕ => D * (1 / (((k + 1 : ℕ) : ℝ) ^ p))) :=
+    hpseries.mul_left D
+  apply Summable.of_nonneg_of_le
+    (fun k => mul_nonneg (by positivity) (hnonneg (2 ^ (k + 1)))) ?_ hmajor
+  intro k
+  let q : ℕ := 2 ^ (k + 1)
+  have hqNatPos : 0 < q := by
+    dsimp [q]
+    positivity
+  have hqpos : 0 < (q : ℝ) := by exact_mod_cast hqNatPos
+  have hqleNat : q ≤ q + 3 := by omega
+  have hqle : (q : ℝ) ≤ ((q + 3 : ℕ) : ℝ) := by exact_mod_cast hqleNat
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have hlogq : Real.log (q : ℝ) =
+      ((k + 1 : ℕ) : ℝ) * Real.log 2 := by
+    dsimp [q]
+    push_cast
+    rw [Real.log_pow]
+    push_cast
+    rfl
+  have hlogle : Real.log (q : ℝ) ≤ Real.log ((q + 3 : ℕ) : ℝ) :=
+    Real.log_le_log hqpos hqle
+  have hlogqpos : 0 < Real.log (q : ℝ) := by
+    rw [hlogq]
+    positivity
+  have hpowle : (Real.log (q : ℝ)) ^ p ≤
+      (Real.log ((q + 3 : ℕ) : ℝ)) ^ p :=
+    pow_le_pow_left₀ hlogqpos.le hlogle p
+  have hsmallpos : 0 < (q : ℝ) * (Real.log (q : ℝ)) ^ p := by positivity
+  have hq3nat : 1 < q + 3 := by omega
+  have hq3 : (1 : ℝ) < ((q + 3 : ℕ) : ℝ) := by exact_mod_cast hq3nat
+  have hlogbigpos : 0 < Real.log ((q + 3 : ℕ) : ℝ) := Real.log_pos hq3
+  have hbigpos :
+      0 < ((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p :=
+    mul_pos (by positivity) (pow_pos hlogbigpos p)
+  have hdenle : (q : ℝ) * (Real.log (q : ℝ)) ^ p ≤
+      ((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p := by
+    exact mul_le_mul hqle hpowle (by positivity) (by positivity)
+  have hquot :
+      (q : ℝ) /
+          (((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p) ≤
+        (q : ℝ) / ((q : ℝ) * (Real.log (q : ℝ)) ^ p) := by
+    exact (div_le_div_iff_of_pos_left hqpos hbigpos hsmallpos).2 hdenle
+  calc
+    (2 : ℝ) ^ (k + 1) * exactLiLogHarmonicTail p (2 ^ (k + 1)) =
+        (q : ℝ) /
+          (((q + 3 : ℕ) : ℝ) * (Real.log ((q + 3 : ℕ) : ℝ)) ^ p) := by
+      dsimp [q, exactLiLogHarmonicTail]
+      push_cast
+      ring
+    _ ≤ (q : ℝ) / ((q : ℝ) * (Real.log (q : ℝ)) ^ p) := hquot
+    _ = 1 / (Real.log (q : ℝ)) ^ p := by
+      field_simp [ne_of_gt hqpos]
+    _ = D * (1 / (((k + 1 : ℕ) : ℝ) ^ p)) := by
+      dsimp [D]
+      rw [hlogq, mul_pow]
+      field_simp [ne_of_gt hlog2]
+
+/-- Critical freshness correction is absolutely summable.
+For the repository's exact singleton Li masses w_q, the second-order
+half-weighted correction |w_q|^2/q has finite total mass. -/
+theorem exactLiCriticalCollision_summable :
+    Summable (fun q : ℕ =>
+      ‖primeSievePNTDensity q‖ ^ 2 / (q : ℝ)) := by
+  rw [← summable_nat_add_iff 4 (G := ℝ)]
+  have hmajor := exactLiLogHarmonicTail_summable (p := 2) (by norm_num)
+  apply Summable.of_nonneg_of_le
+    (fun n => div_nonneg (sq_nonneg _) (Nat.cast_nonneg _)) ?_ hmajor
+  intro n
+  let q : ℕ := n + 4
+  let y : ℕ := q - 1
+  have hy2 : 2 ≤ y := by
+    dsimp [q, y]
+    omega
+  have hyq : y < q := by
+    dsimp [y]
+    omega
+  have hnorm : ‖primeSievePNTDensity q‖ ≤
+      (Real.log (y : ℝ))⁻¹ :=
+    norm_primeSievePNTDensity_le_inv_log hy2 hyq
+  have hypos : (0 : ℝ) < y := by exact_mod_cast (show 0 < y by omega)
+  have hqpos : (0 : ℝ) < q := by exact_mod_cast (show 0 < q by omega)
+  have hlogpos : 0 < Real.log (y : ℝ) :=
+    Real.log_pos (by exact_mod_cast (show 1 < y by omega))
+  have hsq :
+      ‖primeSievePNTDensity q‖ ^ 2 ≤
+        ((Real.log (y : ℝ))⁻¹) ^ 2 :=
+    pow_le_pow_left₀ (norm_nonneg _) hnorm 2
+  have hyqR : (y : ℝ) ≤ (q : ℝ) := by exact_mod_cast (Nat.le_of_lt hyq)
+  have hinv : (q : ℝ)⁻¹ ≤ (y : ℝ)⁻¹ :=
+    (inv_le_inv₀ hypos hqpos).2 hyqR
+  change ‖primeSievePNTDensity q‖ ^ 2 / (q : ℝ) ≤
+    exactLiLogHarmonicTail 2 n
+  rw [div_eq_mul_inv]
+  calc
+    ‖primeSievePNTDensity q‖ ^ 2 * (q : ℝ)⁻¹ ≤
+        ((Real.log (y : ℝ))⁻¹) ^ 2 * (y : ℝ)⁻¹ := by
+      exact mul_le_mul hsq hinv (by positivity) (sq_nonneg _)
+    _ = exactLiLogHarmonicTail 2 n := by
+      dsimp [exactLiLogHarmonicTail, q, y]
+      rw [show n + 4 - 1 = n + 3 by omega]
+      simp only [one_div, mul_inv_rev, inv_pow]
+      ring
 
 /-- A uniformly bounded continuous/reference diagonal. -/
 def UniformReferenceDiagonalBounded (M : ℕ → ℂ) : Prop :=
