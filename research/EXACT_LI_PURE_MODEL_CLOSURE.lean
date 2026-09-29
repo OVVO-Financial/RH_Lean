@@ -1,5 +1,6 @@
 import Mathlib
 import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
+import «research.PRIME_DENSITY_INTEGRAL_TIGHTENING»
 import RHLean.Proof.FinitePartialMoments
 
 /-!
@@ -1061,6 +1062,59 @@ theorem reciprocalWeight_mul (a b : ℕ) :
 /-- Li owner weight after the exact reciprocal transform. -/
 def reciprocalLiFrequencyWeight (q : ℕ) : ℂ :=
   primeSievePNTDensity q * reciprocalWeight q
+
+
+/-- On every root-to-square interval the total reciprocal Li owner mass is
+strictly contractive: at most log 2.  This is the exact discrete analogue of
+the unit-length Dickman delay mass after logarithmic rescaling. -/
+theorem reciprocalLiFrequencyWeight_norm_sum_rootSquare_le_log_two
+    {y x : ℕ} (hy : 2 ≤ y) (hxy : x ≤ y ^ 2) :
+    (∑ q ∈ Finset.Ioc y x, ‖reciprocalLiFrequencyWeight q‖) ≤
+      Real.log 2 := by
+  by_cases hyx : y ≤ x
+  · have hypos : (0 : ℝ) < y := by
+      exact_mod_cast (show 0 < y by omega)
+    have hxpos : (0 : ℝ) < x := by
+      exact_mod_cast (show 0 < x by omega)
+    have hly : 0 < Real.log (y : ℝ) :=
+      Real.log_pos (by exact_mod_cast (show 1 < y by omega))
+    have hlx : 0 < Real.log (x : ℝ) :=
+      hly.trans_le (Real.log_le_log hypos (by exact_mod_cast hyx))
+    have hxlog : Real.log (x : ℝ) ≤ 2 * Real.log (y : ℝ) := by
+      calc
+        Real.log (x : ℝ) ≤ Real.log ((y : ℝ) ^ 2) :=
+          Real.log_le_log hxpos (by exact_mod_cast hxy)
+        _ = 2 * Real.log (y : ℝ) := by
+          rw [Real.log_pow]
+          norm_num
+    have hll := Real.log_le_log hlx hxlog
+    rw [Real.log_mul (by norm_num) (ne_of_gt hly)] at hll
+    have hmass := densityTightLi_reciprocal_mass_le hy hyx
+    have hm :
+        (∑ q ∈ Finset.Ioc y x,
+          densityTightLiWeight q / (q : ℝ)) ≤ Real.log 2 := by
+      linarith
+    calc
+      (∑ q ∈ Finset.Ioc y x, ‖reciprocalLiFrequencyWeight q‖)
+          = ∑ q ∈ Finset.Ioc y x,
+              densityTightLiWeight q / (q : ℝ) := by
+            apply Finset.sum_congr rfl
+            intro q hq
+            have hq3 : 3 ≤ q := by
+              have := (Finset.mem_Ioc.mp hq).1
+              omega
+            have hn : 0 ≤ densityTightLiWeight q :=
+              densityTightLiWeight_nonneg hq3
+            have hqpos : (0 : ℝ) < q := by
+              exact_mod_cast (show 0 < q by omega)
+            unfold reciprocalLiFrequencyWeight reciprocalWeight
+              primeSievePNTDensity densityTightLiWeight
+            rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
+              abs_of_nonneg hn, norm_inv]
+            simp [div_eq_mul_inv, abs_of_pos hqpos]
+      _ ≤ Real.log 2 := hm
+  · rw [Finset.Ioc_eq_empty_of_le (Nat.le_of_not_ge hyx)]
+    simp
 
 /-- Reciprocal transform of an all-scale Li state.  This is the discrete
 counterpart of A(x)=∫ u^(-1) dν(u) in the continuous Dickman derivation. -/
