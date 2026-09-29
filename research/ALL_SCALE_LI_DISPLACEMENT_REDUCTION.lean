@@ -89,8 +89,7 @@ theorem primeFrequencyState_sub_eq_signedDisplacement
     apply Finset.sum_congr rfl
     intro q hq
     ring
-  rw [hsum]
-  ring
+  linear_combination -hsum
 
 /-- Specialization: actual-prime state minus all-scale Li state is driven only
 by prime-indicator-minus-Li displacement and the lower triangular propagated
@@ -142,9 +141,14 @@ theorem primeFrequencyState_squareRoot_split
     intro q hq
     rcases Finset.mem_Ioc.mp hq with ⟨hRq, hqX⟩
     have hqpos : 0 < q := by omega
-    have hXlt : squareRootEndpoint R < q * q := by
+    have hXltRsq : squareRootEndpoint R < R ^ 2 := by
       unfold squareRootEndpoint
-      nlinarith
+      have hpos : 0 < R ^ 2 := by positivity
+      omega
+    have hRsqLt : R ^ 2 < q ^ 2 :=
+      Nat.pow_lt_pow_left hRq (by omega)
+    have hXlt : squareRootEndpoint R < q * q := by
+      simpa [pow_two] using hXltRsq.trans hRsqLt
     have hdivlt : squareRootEndpoint R / q < q := by
       apply (Nat.div_lt_iff_lt_mul hqpos).2
       simpa [Nat.mul_comm] using hXlt
