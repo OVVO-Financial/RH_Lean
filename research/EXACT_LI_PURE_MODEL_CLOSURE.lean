@@ -807,6 +807,85 @@ theorem criticalLiFrequencyWeight_sq_summable :
   exact (norm_criticalLiFrequencyWeight_sq q).symm
 
 
+/-! ## Exact local hard-core / Poisson cancellation -/
+
+/-- Scalar local correction factor comparing one hard-core factor `1-z`
+against its Poissonized exponential factor `exp(-z)`.  Multiplying the latter
+by this correction gives the former exactly. -/
+def hardCorePoissonScalarCorrection (z : ℂ) : ℂ :=
+  (1 - z) * Complex.exp z
+
+/-- The local correction is exactly the identity plus a second-order
+remainder: the first-order term cancels. -/
+theorem hardCorePoissonScalarCorrection_sub_one_eq (z : ℂ) :
+    hardCorePoissonScalarCorrection z - 1 =
+      (Complex.exp z - 1 - z) - z * (Complex.exp z - 1) := by
+  unfold hardCorePoissonScalarCorrection
+  ring
+
+/-- **Quadratic local correction bound.**
+Inside the unit ball, the hard-core/Poisson discrepancy is at most
+`3 * ‖z‖^2`; in particular there is no first-order loss. -/
+theorem norm_hardCorePoissonScalarCorrection_sub_one_le
+    {z : ℂ} (hz : ‖z‖ ≤ 1) :
+    ‖hardCorePoissonScalarCorrection z - 1‖ ≤
+      3 * ‖z‖ ^ 2 := by
+  rw [hardCorePoissonScalarCorrection_sub_one_eq]
+  calc
+    ‖(Complex.exp z - 1 - z) - z * (Complex.exp z - 1)‖
+        ≤ ‖Complex.exp z - 1 - z‖ +
+            ‖z * (Complex.exp z - 1)‖ := norm_sub_le _ _
+    _ = ‖Complex.exp z - 1 - z‖ +
+          ‖z‖ * ‖Complex.exp z - 1‖ := by rw [norm_mul]
+    _ ≤ ‖z‖ ^ 2 + ‖z‖ * (2 * ‖z‖) := by
+          exact add_le_add
+            (Complex.norm_exp_sub_one_sub_id_le hz)
+            (mul_le_mul_of_nonneg_left
+              (Complex.norm_exp_sub_one_le hz) (norm_nonneg z))
+    _ = 3 * ‖z‖ ^ 2 := by ring
+
+/-- Critical square-root test weights have norm at most one away from zero. -/
+theorem norm_criticalSqrtWeight_le_one
+    {q : ℕ} (hq : 1 ≤ q) :
+    ‖criticalSqrtWeight q‖ ≤ 1 := by
+  have hsq := norm_criticalSqrtWeight_sq q
+  have hqR : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hinv : 1 / (q : ℝ) ≤ 1 := by
+    exact (one_div_le_one (by positivity)).2 hqR
+  have hnonneg := norm_nonneg (criticalSqrtWeight q)
+  nlinarith
+
+/-- From site four onward, every critical Li owner lies in the unit ball. -/
+theorem norm_criticalLiFrequencyWeight_le_one
+    {q : ℕ} (hq : 4 ≤ q) :
+    ‖criticalLiFrequencyWeight q‖ ≤ 1 := by
+  let y : ℕ := q - 1
+  have hy3 : 3 ≤ y := by
+    dsimp [y]
+    omega
+  have hy2 : 2 ≤ y := by omega
+  have hyq : y < q := by
+    dsimp [y]
+    omega
+  have hw :=
+    exactLi_norm_pntDensity_le_inv_log hy2 hyq
+  have hlog3 : (1 : ℝ) < Real.log 3 := by
+    rw [Real.lt_log_iff_exp_lt (by norm_num)]
+    exact Real.exp_one_lt_three
+  have hyR : (3 : ℝ) ≤ (y : ℝ) := by exact_mod_cast hy3
+  have hlogy : (1 : ℝ) ≤ Real.log (y : ℝ) := by
+    have hmono :=
+      Real.log_le_log (by norm_num : (0 : ℝ) < 3) hyR
+    linarith
+  have hinv : (Real.log (y : ℝ))⁻¹ ≤ 1 :=
+    inv_le_one_of_one_le₀ hlogy
+  have hw1 : ‖primeSievePNTDensity q‖ ≤ 1 := hw.trans hinv
+  unfold criticalLiFrequencyWeight
+  rw [norm_mul]
+  exact (mul_le_mul hw1
+    (norm_criticalSqrtWeight_le_one (by omega : 1 ≤ q))
+    (norm_nonneg _) zero_le_one).trans_eq (mul_one 1)
+
 /-! ## Uniform multiplicative budget for hard-core/Poisson correction -/
 
 /-- Total second-order mass of the critical transformed Li owner weights. -/
