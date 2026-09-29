@@ -807,6 +807,27 @@ theorem criticalLiFrequencyWeight_sq_summable :
   exact (norm_criticalLiFrequencyWeight_sq q).symm
 
 
+/-! ## Uniform multiplicative budget for hard-core/Poisson correction -/
+
+/-- Total second-order mass of the critical transformed Li owner weights. -/
+def criticalLiCollisionBudget : ℝ :=
+  ∑' q : ℕ, ‖criticalLiFrequencyWeight q‖ ^ 2
+
+theorem criticalLiCollisionBudget_nonneg :
+    0 ≤ criticalLiCollisionBudget := by
+  unfold criticalLiCollisionBudget
+  exact tsum_nonneg (fun q => sq_nonneg ‖criticalLiFrequencyWeight q‖)
+
+/-- Every finite collection of critical collision masses is bounded by the
+single universal collision budget. -/
+theorem criticalLiFrequencyWeight_sq_finset_sum_le
+    (s : Finset ℕ) :
+    (∑ q ∈ s, ‖criticalLiFrequencyWeight q‖ ^ 2) ≤
+      criticalLiCollisionBudget := by
+  unfold criticalLiCollisionBudget
+  exact criticalLiFrequencyWeight_sq_summable.sum_le_tsum s
+    (fun q hq => sq_nonneg ‖criticalLiFrequencyWeight q‖)
+
 /-! ## Exact local hard-core / Poisson cancellation -/
 
 /-- Scalar local correction factor comparing one hard-core factor `1-z`
@@ -911,7 +932,7 @@ theorem norm_criticalLiScalarCorrection_le
     _ ≤ ‖hardCorePoissonScalarCorrection (criticalLiFrequencyWeight q) - 1‖ +
           ‖(1 : ℂ)‖ := norm_add_le _ _
     _ ≤ 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 + 1 := by
-          exact add_le_add hquad (le_refl 1)
+          simpa using add_le_add hquad (le_refl (‖(1 : ℂ)‖))
     _ = 1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 := by ring
 
 /-- Finite Euler product bound for the quadratic local correction envelopes. -/
@@ -945,40 +966,34 @@ theorem norm_prod_criticalLiScalarCorrection_le_exp_collisionBudget
     (∏ q ∈ s, ‖criticalLiScalarCorrection q‖)
         ≤ ∏ q ∈ s,
             (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
-          apply Finset.prod_le_prod₀
-          · intro q hq
-            exact norm_nonneg _
-          · intro q hq
-            exact norm_criticalLiScalarCorrection_le (hs q hq)
+          classical
+          revert hs
+          induction s using Finset.induction_on with
+          | empty =>
+              intro hs
+              simp
+          | @insert q s hq ih =>
+              intro hs
+              rw [Finset.prod_insert hq, Finset.prod_insert hq]
+              have hq4 : 4 ≤ q := hs q (Finset.mem_insert_self q s)
+              have hs4 : ∀ r ∈ s, 4 ≤ r := by
+                intro r hr
+                exact hs r (Finset.mem_insert_of_mem hr)
+              exact mul_le_mul
+                (norm_criticalLiScalarCorrection_le hq4)
+                (ih hs4) (by positivity) (norm_nonneg _)
     _ ≤ Real.exp
           (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) :=
           criticalLi_prod_one_add_three_sq_le_exp_sum s
     _ ≤ Real.exp (3 * criticalLiCollisionBudget) := by
           apply Real.exp_le_exp.mpr
-          rw [← Finset.mul_sum]
-          exact mul_le_mul_of_nonneg_left
-            (criticalLiFrequencyWeight_sq_finset_sum_le s) (by norm_num)
-
-/-! ## Uniform multiplicative budget for hard-core/Poisson correction -/
-
-/-- Total second-order mass of the critical transformed Li owner weights. -/
-def criticalLiCollisionBudget : ℝ :=
-  ∑' q : ℕ, ‖criticalLiFrequencyWeight q‖ ^ 2
-
-theorem criticalLiCollisionBudget_nonneg :
-    0 ≤ criticalLiCollisionBudget := by
-  unfold criticalLiCollisionBudget
-  exact tsum_nonneg (fun q => sq_nonneg ‖criticalLiFrequencyWeight q‖)
-
-/-- Every finite collection of critical collision masses is bounded by the
-single universal collision budget. -/
-theorem criticalLiFrequencyWeight_sq_finset_sum_le
-    (s : Finset ℕ) :
-    (∑ q ∈ s, ‖criticalLiFrequencyWeight q‖ ^ 2) ≤
-      criticalLiCollisionBudget := by
-  unfold criticalLiCollisionBudget
-  exact criticalLiFrequencyWeight_sq_summable.sum_le_tsum s
-    (fun q hq => sq_nonneg ‖criticalLiFrequencyWeight q‖)
+          calc
+            (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2)
+                = 3 * (∑ q ∈ s, ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+                    rw [Finset.mul_sum]
+            _ ≤ 3 * criticalLiCollisionBudget :=
+              mul_le_mul_of_nonneg_left
+                (criticalLiFrequencyWeight_sq_finset_sum_le s) (by norm_num)
 
 /-- Elementary finite Euler correction: a product of local factors 1+a_q is
 controlled by exp(sum a_q). -/
