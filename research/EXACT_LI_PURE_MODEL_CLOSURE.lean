@@ -949,6 +949,9 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
   · subst R
     simp [finiteMultiplicativeConvolution, squareRootEndpoint]
   · have hRpos : (0 : ℝ) ≤ R := by positivity
+    have hH : 0 ≤ H := by
+      have h0 := hvar 0
+      simpa [criticalWeightedVariation] using h0
     have hXle :
         (squareRootEndpoint R : ℝ) ≤ (R : ℝ) ^ 2 := by
       exact_mod_cast (Nat.sub_le (R ^ 2) 1)
