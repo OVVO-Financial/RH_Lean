@@ -52,6 +52,74 @@ theorem degreeZeroLowerMass_add_upperMass
   · have ht : t < x i := lt_of_not_ge h
     simp [h, ht]
 
+
+/-! ## Degree-one transport control -/
+
+/-- Weighted degree-one lower partial mass.  With threshold `t`, the point
+`x i` contributes `w i * max (t - x i) 0`. -/
+def weightedDegreeOneLowerMass {ι : Type*}
+    (s : Finset ι) (w x : ι → ℝ) (t : ℝ) : ℝ :=
+  ∑ i ∈ s, w i * negativePart (x i - t)
+
+/-- Positive part is 1-Lipschitz. -/
+theorem abs_positivePart_sub_positivePart_le (a b : ℝ) :
+    |positivePart a - positivePart b| ≤ |a - b| := by
+  by_cases ha : 0 ≤ a
+  · by_cases hb : 0 ≤ b
+    · simp [positivePart, ha, hb]
+    · have hb' : b ≤ 0 := le_of_not_ge hb
+      have hab : 0 ≤ a - b := by linarith
+      have hle : a ≤ a - b := by linarith
+      simp [positivePart, ha, hb', abs_of_nonneg ha, abs_of_nonneg hab, hle]
+  · have ha' : a ≤ 0 := le_of_not_ge ha
+    by_cases hb : 0 ≤ b
+    · have hba : 0 ≤ b - a := by linarith
+      have hle : b ≤ b - a := by linarith
+      rw [abs_sub_comm a b]
+      simp [positivePart, ha', hb, abs_of_nonneg hb, abs_of_nonneg hba, hle]
+    · have hb' : b ≤ 0 := le_of_not_ge hb
+      simp [positivePart, ha', hb']
+
+/-- Negative part is 1-Lipschitz. -/
+theorem abs_negativePart_sub_negativePart_le (a b : ℝ) :
+    |negativePart a - negativePart b| ≤ |a - b| := by
+  unfold negativePart
+  have h := abs_positivePart_sub_positivePart_le (-a) (-b)
+  simpa [positivePart, abs_sub_comm] using h
+
+/-- **Degree-one common-mass transport inequality.**
+For nonnegative common weights, moving support point `x i` to `y i` changes
+the degree-one lower partial mass by at most mass times transport distance. -/
+theorem abs_weightedDegreeOneLowerMass_sub_le_transport
+    {ι : Type*} [DecidableEq ι]
+    (s : Finset ι) (w x y : ι → ℝ) (t : ℝ)
+    (hw : ∀ i ∈ s, 0 ≤ w i) :
+    |weightedDegreeOneLowerMass s w x t -
+        weightedDegreeOneLowerMass s w y t| ≤
+      ∑ i ∈ s, w i * |x i - y i| := by
+  unfold weightedDegreeOneLowerMass
+  rw [← Finset.sum_sub_distrib]
+  calc
+    |∑ i ∈ s,
+        (w i * negativePart (x i - t) -
+          w i * negativePart (y i - t))|
+        ≤ ∑ i ∈ s,
+            |w i * negativePart (x i - t) -
+              w i * negativePart (y i - t)| := by
+            exact Finset.abs_sum_le_sum_abs _ _
+    _ = ∑ i ∈ s,
+          w i * |negativePart (x i - t) -
+            negativePart (y i - t)| := by
+          apply Finset.sum_congr rfl
+          intro i hi
+          rw [← mul_sub, abs_mul, abs_of_nonneg (hw i hi)]
+    _ ≤ ∑ i ∈ s, w i * |x i - y i| := by
+          apply Finset.sum_le_sum
+          intro i hi
+          apply mul_le_mul_of_nonneg_left _ (hw i hi)
+          have h := abs_negativePart_sub_negativePart_le (x i - t) (y i - t)
+          simpa [sub_sub_sub_cancel_right] using h
+
 /-- A uniformly bounded continuous/reference diagonal. -/
 def UniformReferenceDiagonalBounded (M : ℕ → ℂ) : Prop :=
   ∃ B : ℝ, 0 ≤ B ∧ ∀ x : ℕ, ‖M x‖ ≤ B
