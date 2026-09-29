@@ -341,27 +341,29 @@ private theorem sum_Ico_forwardDiff_real
     Finset.sum_range_sub f a]
   abel
 
-/-- Exact finite Abel identity at square-root weight. -/
+/-- Exact finite Abel identity at square-root weight.
+The boundary formula is valid from the first nonzero index onward. -/
 theorem sum_sqrtAbelIncrement_eq
-    (A : ℕ → ℂ) (N : ℕ) :
+    (A : ℕ → ℂ) (N : ℕ) (hN : 1 ≤ N) :
     (∑ n ∈ Finset.Icc 1 N, sqrtAbelIncrement A n) =
       (Real.sqrt (N : ℝ) : ℂ) * A N - A 0 -
         ∑ n ∈ Finset.Ico 1 N,
           A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
             Real.sqrt (n : ℝ) : ℝ) : ℂ) := by
-  induction N with
+  cases N with
   | zero =>
-      simp [sqrtAbelIncrement]
-  | succ N ih =>
-      by_cases hN : N = 0
-      · subst N
-        norm_num [sqrtAbelIncrement]
-      · have hN1 : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr hN
-        rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1),
-          Finset.sum_Ico_succ_top hN1, ih]
-        unfold sqrtAbelIncrement
-        push_cast
-        ring
+      omega
+  | succ N =>
+      induction N with
+      | zero =>
+          norm_num [sqrtAbelIncrement]
+      | succ N ih =>
+          have hN1 : 1 ≤ N + 1 := by omega
+          rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 2),
+            Finset.sum_Ico_succ_top hN1, ih]
+          unfold sqrtAbelIncrement
+          push_cast
+          ring
 
 /-- Square-root increments telescope exactly. -/
 theorem sum_Ico_sqrt_step {N : ℕ} (hN : 1 ≤ N) :
@@ -381,7 +383,7 @@ theorem norm_sum_sqrtAbelIncrement_le
     (hA : ∀ n, n ≤ N → ‖A n‖ ≤ B) :
     ‖∑ n ∈ Finset.Icc 1 N, sqrtAbelIncrement A n‖ ≤
       2 * Real.sqrt (N : ℝ) * B := by
-  rw [sum_sqrtAbelIncrement_eq]
+  rw [sum_sqrtAbelIncrement_eq A N hN]
   have hN0 : (0 : ℝ) ≤ N := by positivity
   have hsqrtN : 0 ≤ Real.sqrt (N : ℝ) := Real.sqrt_nonneg _
   have hA0 : ‖A 0‖ ≤ B := hA 0 (Nat.zero_le N)
