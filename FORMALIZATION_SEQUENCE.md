@@ -1119,3 +1119,29 @@ This layer explicitly records that the ordinary first-order PNT is not being
 relabelled as the required second-order hypothesis.  It also proves that even
 the idealized zero-error Li multiplicity statement removes only the replacement
 term; the Li-model Stokes estimate remains a separate obligation.
+
+## Li-model discretization and discrepancy identity (2026-09-29)
+
+`research/LI_MODEL_DISCRETIZATION.lean` formalizes the internal discretization
+of the hybrid Li model
+
+```text
+F_R      = squareRootSmoothMass(R-1) - squareRootTransportDiscretePNTMain R
+F_R^cont = squareRootSmoothMass(R-1) - squareRootTransportSmoothMain R
+```
+
+which keeps the actual `R`-smooth sector and gives only the post-root primes
+Li frequencies.  It proves:
+
+- `F_R - F_R^cont = -Q_R` and `|F_R - F_R^cont| <= (R-1)/log R`;
+- the exact owner-two pairing of the Li tail onto odd cofactors, using
+  `mu(2c) = -mu(c)` for odd `c` and `mu(2c) = 0` for even `c`;
+- replacing each paired Li interval mass by the rank-grid count
+  `floor(L(t) - L(R))` moves the model by at most the number of odd cofactors
+  below `R`, hence at most `R/2`;
+- `F_R = M(X) + sum_{c<R} mu(c) Delta(floor(X/c)) - M(R-1) Delta(R)`.
+
+These are internal Li-model discretization facts only.  By the last identity
+`F_R - M(X)` is exactly the existing `squareRootTransportPNTError`, so a
+root-scale bound for `F_R` is not independent of the actual prime-count
+discrepancy.  No estimate for `F_R` itself is asserted.

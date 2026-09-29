@@ -690,3 +690,14 @@ the transfer alone. Prior obstructions, exports, and declarations remain.
 - [x] Compile the implication `2 + 1/4 = 9/4 -> FinalStokes consumer -> RH` conditionally.
 - [x] Record an idealized zero-error Li multiplicity theorem without calling it ordinary PNT.
 - [ ] Warning-fatal compile and named axiom audit green on the final head.
+
+## Li-model discretization and discrepancy identity (2026-09-29)
+
+- [x] Floor-removal identity `F_R - F_R^cont = -Q_R` on the existing transport coordinates.
+- [x] Floor-removal bound `(R-1)/log R` from the existing Li Lipschitz lemma.
+- [x] Exact owner-two pairing of the Li tail onto odd cofactors before any norm.
+- [x] Paired rank-grid quantization bound: odd-cofactor count, at most `R/2`.
+- [x] Identity `F_R = M(X) + sum mu(c) Delta(X/c) - M(R-1) Delta(R)`.
+- [ ] Warning-fatal compiler pass for `research/LI_MODEL_DISCRETIZATION.lean`.
+- [ ] Named theorem axiom audit reports only the repository-allowed logical axioms.
+- [ ] No root-scale bound for `F_R` is claimed; it carries the actual prime-count discrepancy.
