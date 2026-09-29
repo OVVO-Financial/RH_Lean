@@ -360,7 +360,7 @@ theorem sum_sqrtAbelIncrement_eq
       | succ N ih =>
           have hN1 : 1 ≤ N + 1 := by omega
           rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 2),
-            Finset.sum_Ico_succ_top hN1, ih]
+            Finset.sum_Ico_succ_top hN1, ih hN1]
           unfold sqrtAbelIncrement
           push_cast
           ring
