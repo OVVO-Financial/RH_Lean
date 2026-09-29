@@ -981,7 +981,7 @@ theorem norm_prod_criticalLiScalarCorrection_le_exp_collisionBudget
                 exact hs r (Finset.mem_insert_of_mem hr)
               exact mul_le_mul
                 (norm_criticalLiScalarCorrection_le hq4)
-                (ih hs4) (by positivity) (norm_nonneg _)
+                (ih hs4) (by positivity) (by positivity)
     _ ≤ Real.exp
           (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) :=
           criticalLi_prod_one_add_three_sq_le_exp_sum s
