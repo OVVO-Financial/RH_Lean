@@ -735,6 +735,110 @@ private theorem sum_Ico_forwardDiff_real
     Finset.sum_range_sub f a]
   abel
 
+
+/-! ## First-order critical bin transport budget -/
+
+/-- Critical cost of moving the Li mass in the unit bin (n,n+1] from the
+left critical weight n^(-1/2) to the discrete endpoint (n+1)^(-1/2). -/
+def criticalLiEndpointBinGap (n : ℕ) : ℝ :=
+  ‖primeSievePNTDensity (n + 1)‖ *
+    ((Real.sqrt (n : ℝ))⁻¹ -
+      (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹)
+
+/-- The critical endpoint shift in one Li bin is nonnegative. -/
+theorem criticalLiEndpointBinGap_nonneg
+    {n : ℕ} (hn : 1 ≤ n) :
+    0 ≤ criticalLiEndpointBinGap n := by
+  unfold criticalLiEndpointBinGap
+  have hnpos : (0 : ℝ) < n := by exact_mod_cast (show 0 < n by omega)
+  have hnp : (0 : ℝ) < n + 1 := by positivity
+  have hsqrtn : 0 < Real.sqrt (n : ℝ) := Real.sqrt_pos.2 hnpos
+  have hsqrtnp : 0 < Real.sqrt ((n + 1 : ℕ) : ℝ) :=
+    Real.sqrt_pos.2 hnp
+  have hsqrtle :
+      Real.sqrt (n : ℝ) ≤ Real.sqrt ((n + 1 : ℕ) : ℝ) := by
+    apply Real.sqrt_le_sqrt
+    norm_num
+  have hinv :
+      (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ ≤
+        (Real.sqrt (n : ℝ))⁻¹ :=
+    (inv_le_inv₀ hsqrtnp hsqrtn).2 hsqrtle
+  exact mul_nonneg (norm_nonneg _) (sub_nonneg.mpr hinv)
+
+/-- **Uniform first-order discrete/continuous critical transport budget.**
+The Li mass in every unit bin is the same on both sides; only its location
+moves.  At critical weight n^(-1/2), these endpoint moves telescope, so their
+total cost is uniformly finite. -/
+theorem criticalLiEndpointBinGap_sum_le
+    {N : ℕ} (hN : 2 ≤ N) :
+    (∑ n ∈ Finset.Ico 2 N, criticalLiEndpointBinGap n) ≤
+      (Real.log 2)⁻¹ * (Real.sqrt 2)⁻¹ := by
+  let C : ℝ := (Real.log 2)⁻¹
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have hC : 0 ≤ C := by
+    dsimp [C]
+    positivity
+  have hterm :
+      ∀ n ∈ Finset.Ico 2 N,
+        criticalLiEndpointBinGap n ≤
+          C * ((Real.sqrt (n : ℝ))⁻¹ -
+            (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹) := by
+    intro n hnmem
+    have hn2 : 2 ≤ n := (Finset.mem_Ico.mp hnmem).1
+    have hweight :
+        ‖primeSievePNTDensity (n + 1)‖ ≤ C := by
+      dsimp [C]
+      exact exactLi_norm_pntDensity_le_inv_log
+        (y := 2) (q := n + 1) (by norm_num) (by omega)
+    have hgap :
+        0 ≤ (Real.sqrt (n : ℝ))⁻¹ -
+          (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ := by
+      have hnpos : (0 : ℝ) < n := by exact_mod_cast (show 0 < n by omega)
+      have hnp : (0 : ℝ) < n + 1 := by positivity
+      have hsqrtn : 0 < Real.sqrt (n : ℝ) := Real.sqrt_pos.2 hnpos
+      have hsqrtnp : 0 < Real.sqrt ((n + 1 : ℕ) : ℝ) :=
+        Real.sqrt_pos.2 hnp
+      have hsqrtle :
+          Real.sqrt (n : ℝ) ≤ Real.sqrt ((n + 1 : ℕ) : ℝ) := by
+        apply Real.sqrt_le_sqrt
+        norm_num
+      exact sub_nonneg.mpr ((inv_le_inv₀ hsqrtnp hsqrtn).2 hsqrtle)
+    unfold criticalLiEndpointBinGap
+    exact mul_le_mul_of_nonneg_right hweight hgap
+  calc
+    (∑ n ∈ Finset.Ico 2 N, criticalLiEndpointBinGap n)
+        ≤ ∑ n ∈ Finset.Ico 2 N,
+            C * ((Real.sqrt (n : ℝ))⁻¹ -
+              (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹) := by
+          exact Finset.sum_le_sum hterm
+    _ = C * (∑ n ∈ Finset.Ico 2 N,
+          ((Real.sqrt (n : ℝ))⁻¹ -
+            (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹)) := by
+          rw [Finset.mul_sum]
+    _ = C * ((Real.sqrt 2)⁻¹ - (Real.sqrt (N : ℝ))⁻¹) := by
+          have hforward := sum_Ico_forwardDiff_real
+            (fun n : ℕ => (Real.sqrt (n : ℝ))⁻¹) hN
+          have hback :
+              (∑ n ∈ Finset.Ico 2 N,
+                ((Real.sqrt (n : ℝ))⁻¹ -
+                  (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹)) =
+                (Real.sqrt 2)⁻¹ - (Real.sqrt (N : ℝ))⁻¹ := by
+            calc
+              _ = -(∑ n ∈ Finset.Ico 2 N,
+                    ((Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ -
+                      (Real.sqrt (n : ℝ))⁻¹)) := by
+                    rw [Finset.sum_neg_distrib]
+                    apply Finset.sum_congr rfl
+                    intro n hn
+                    ring
+              _ = _ := by rw [hforward]; ring
+          rw [hback]
+    _ ≤ C * (Real.sqrt 2)⁻¹ := by
+          have hNinv : 0 ≤ (Real.sqrt (N : ℝ))⁻¹ := by positivity
+          nlinarith
+    _ = (Real.log 2)⁻¹ * (Real.sqrt 2)⁻¹ := by
+          rfl
+
 /-- Exact finite Abel identity at square-root weight.
 The boundary formula is valid from the first nonzero index onward. -/
 theorem sum_sqrtAbelIncrement_eq
