@@ -84,8 +84,10 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
       have hab : a ≤ b := by
         dsimp [a, b]
         norm_num
-      have hfint : IntervalIntegrable f MeasureTheory.volume a b := by
-        simpa [uIcc_of_le hab] using hf.intervalIntegrable
+      have hfu : ContinuousOn f [[a, b]] := by
+        simpa [uIcc_of_le hab] using hf
+      have hfint : IntervalIntegrable f MeasureTheory.volume a b :=
+        hfu.intervalIntegrable
       have hprim :
           ContinuousOn (fun u : ℝ => ∫ v in a..u, f v)
             (Icc a b) := by
@@ -104,7 +106,8 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
                 ∫ v in a..u, f v)
             (Icc a b) :=
         hconst.sub hprim
-      simpa [exactLiDickmanSegment, a, b, f] using hout
+      simpa only [exactLiDickmanSegment, a, b, f, Nat.cast_add,
+        Nat.cast_one, add_assoc] using hout
 
 /-- The delay integrand on one successor segment is interval-integrable. -/
 theorem exactLiDickmanSegment_delay_intervalIntegrable
@@ -141,7 +144,12 @@ theorem exactLiDickmanSegment_delay_intervalIntegrable
   have hab : a ≤ b := by
     dsimp [a, b]
     norm_num
-  simpa [a, b, uIcc_of_le hab] using hf.intervalIntegrable
+  have hfu :
+      ContinuousOn
+        (fun v : ℝ => exactLiDickmanSegment n (v - 1) / v)
+        [[a, b]] := by
+    simpa [uIcc_of_le hab] using hf
+  simpa [a, b] using hfu.intervalIntegrable
 
 
 /-- **Dickman delay differential equation on each open successor segment.**
@@ -185,7 +193,7 @@ theorem exactLiDickmanSegment_succ_hasDerivAt
   have hgAt : ContinuousAt g u :=
     (hgcont u (Ioo_subset_Icc_self hu')).continuousAt
       (Icc_mem_nhds hu'.1 hu'.2)
-  have hgmeas : StronglyMeasurableAtFilter g (𝓝 u) := by
+  have hgmeas : StronglyMeasurableAtFilter g (Filter.nhds u) := by
     exact (hgcont.mono Ioo_subset_Icc_self).stronglyMeasurableAtFilter
       isOpen_Ioo u hu'
   have hab : a ≤ b := by
