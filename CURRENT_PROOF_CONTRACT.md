@@ -133,6 +133,13 @@ thresholds must still be met.
 
 ## What the latest work does and does not prove
 
+- **Prefix-tail mixed remainder (2026-09-29):** the far-tail/mixed cell
+  mass left after the reciprocal prefix is
+  [exactly](research/GLOBAL_RETURNED_CORE_PREFIX_TAIL_MIXED_REMAINDER_IDENTITY.lean)
+  `2·Mixed_R = S_R + D_P` with `0 <= D_P <= 3 R²`. A mixed bound with
+  coefficient `B` is therefore an `S_R` bound with the same `B`. Coefficient
+  `2` already closes the consumer, and the remainder is not a narrower seam
+  than `S_R`.
 - **Owner-two clipped exit (2026-09-29):** at first owner `2` there is a
   single compensated cell, and
   [its exact evaluation](research/GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean)
