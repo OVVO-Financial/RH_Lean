@@ -770,4 +770,105 @@ theorem sum_exactLiDickmanVariationSegment_le (N : ℕ) :
     _ = 2 * (Real.exp 2 - 1) :=
           tsum_exactLiDickmanFactorialMajorant
 
+
+/-- Final partial logarithmic Dickman segment, from the left integer endpoint
+to an arbitrary point in the native unit interval. -/
+def exactLiDickmanVariationPartial (N : ℕ) (u : ℝ) : ℝ :=
+  ∫ v in (N : ℝ)..u, exactLiDickmanVariationIntegrand N v
+
+/-- A partial final segment is nonnegative. -/
+theorem exactLiDickmanVariationPartial_nonneg
+    (N : ℕ) {u : ℝ}
+    (hu : u ∈ Icc ((N : ℕ) : ℝ) (((N + 1 : ℕ) : ℝ))) :
+    0 ≤ exactLiDickmanVariationPartial N u := by
+  unfold exactLiDickmanVariationPartial
+  apply intervalIntegral.integral_nonneg hu.1
+  intro v hv
+  exact exactLiDickmanVariationIntegrand_nonneg N
+    ⟨hv.1.trans hu.1.le, hv.2.trans hu.2⟩
+
+/-- A partial final segment is bounded by the same factorial majorant as the
+complete segment. -/
+theorem exactLiDickmanVariationPartial_le_majorant
+    (N : ℕ) {u : ℝ}
+    (hu : u ∈ Icc ((N : ℕ) : ℝ) (((N + 1 : ℕ) : ℝ))) :
+    exactLiDickmanVariationPartial N u ≤
+      exactLiDickmanFactorialMajorant N := by
+  have hfullInt :
+      IntervalIntegrable (exactLiDickmanVariationIntegrand N)
+        MeasureTheory.volume (N : ℝ) (((N + 1 : ℕ) : ℝ)) := by
+    have hab : (N : ℝ) ≤ (((N + 1 : ℕ) : ℝ)) := by norm_num
+    have hc := exactLiDickmanVariationIntegrand_continuousOn N
+    have hucc :
+        ContinuousOn (exactLiDickmanVariationIntegrand N)
+          [[(N : ℝ), (((N + 1 : ℕ) : ℝ))]] := by
+      simpa [uIcc_of_le hab] using hc
+    exact hucc.intervalIntegrable
+  have hnonneg :
+      0 ≤ᵐ[MeasureTheory.volume.restrict
+        (Ioc ((N : ℕ) : ℝ) (((N + 1 : ℕ) : ℝ)))]
+        exactLiDickmanVariationIntegrand N := by
+    filter_upwards [ae_restrict_mem measurableSet_Ioc] with v hv
+    exact exactLiDickmanVariationIntegrand_nonneg N
+      ⟨hv.1.le, hv.2.le⟩
+  have hpartialFull :
+      exactLiDickmanVariationPartial N u ≤
+        exactLiDickmanVariationSegment N := by
+    unfold exactLiDickmanVariationPartial exactLiDickmanVariationSegment
+    exact intervalIntegral.integral_mono_interval
+      le_rfl hu.1 hu.2 hnonneg hfullInt
+  exact hpartialFull.trans
+    (exactLiDickmanVariationSegment_le_majorant N)
+
+/-- Continuous exact-Li variation accumulated through all complete logarithmic
+segments below N and one final partial segment. -/
+def exactLiDickmanVariationPrimitive (N : ℕ) (u : ℝ) : ℝ :=
+  (∑ n ∈ Finset.range N, exactLiDickmanVariationSegment n) +
+    exactLiDickmanVariationPartial N u
+
+/-- The finite continuous exact-Li variation primitive is nonnegative. -/
+theorem exactLiDickmanVariationPrimitive_nonneg
+    (N : ℕ) {u : ℝ}
+    (hu : u ∈ Icc ((N : ℕ) : ℝ) (((N + 1 : ℕ) : ℝ))) :
+    0 ≤ exactLiDickmanVariationPrimitive N u := by
+  unfold exactLiDickmanVariationPrimitive
+  exact add_nonneg
+    (Finset.sum_nonneg fun n hn => exactLiDickmanVariationSegment_nonneg n)
+    (exactLiDickmanVariationPartial_nonneg N hu)
+
+/-- **Uniform continuous exact-Li total-variation bound.**
+At every finite logarithmic endpoint, complete segments plus the last partial
+segment cost at most the universal Dickman constant `2 * (exp 2 - 1)`. -/
+theorem exactLiDickmanVariationPrimitive_le
+    (N : ℕ) {u : ℝ}
+    (hu : u ∈ Icc ((N : ℕ) : ℝ) (((N + 1 : ℕ) : ℝ))) :
+    exactLiDickmanVariationPrimitive N u ≤
+      2 * (Real.exp 2 - 1) := by
+  have hpart :=
+    exactLiDickmanVariationPartial_le_majorant N hu
+  have hsum :
+      (∑ n ∈ Finset.range N, exactLiDickmanVariationSegment n) ≤
+        ∑ n ∈ Finset.range N, exactLiDickmanFactorialMajorant n := by
+    apply Finset.sum_le_sum
+    intro n hn
+    exact exactLiDickmanVariationSegment_le_majorant n
+  have hcombine :
+      exactLiDickmanVariationPrimitive N u ≤
+        ∑ n ∈ Finset.range (N + 1),
+          exactLiDickmanFactorialMajorant n := by
+    unfold exactLiDickmanVariationPrimitive
+    rw [Finset.sum_range_succ]
+    exact add_le_add hsum hpart
+  calc
+    exactLiDickmanVariationPrimitive N u
+        ≤ ∑ n ∈ Finset.range (N + 1),
+            exactLiDickmanFactorialMajorant n := hcombine
+    _ ≤ ∑' n : ℕ, exactLiDickmanFactorialMajorant n := by
+          exact exactLiDickmanFactorialMajorant_summable.sum_le_tsum
+            (Finset.range (N + 1)) (fun n hn => by
+              unfold exactLiDickmanFactorialMajorant
+              positivity)
+    _ = 2 * (Real.exp 2 - 1) :=
+          tsum_exactLiDickmanFactorialMajorant
+
 end RHLean.Analysis
