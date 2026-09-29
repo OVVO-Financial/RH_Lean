@@ -473,6 +473,38 @@ theorem activatedFloorChild_eq_floor_sub_ltStep
     have hdiv : n / q = 0 := Nat.div_eq_of_lt hn
     simp [h, hn, hdiv]
 
+
+/-- One fresh-site hard-core update. -/
+def frequencyHardCoreUpdate
+    (a : ℂ) (q : ℕ) (F : ℕ → ℂ) (x : ℕ) : ℂ :=
+  F x - a * activatedFloorChild F q x
+
+/-- **Exact sequential cutoff law.**
+Once the cutoff is at least one, adjoining the next site is literally the
+hard-core update `I - w(q) A_q`, where `A_q` is the activated floor
+dilation. -/
+theorem primeFrequencyState_cutoff_succ
+    {w : ℕ → ℂ} {S : ℕ → ℕ → ℂ}
+    (hS : IsPrimeFrequencyState w S)
+    (x y : ℕ) (hy : 1 ≤ y) :
+    S x (y + 1) =
+      frequencyHardCoreUpdate (w (y + 1)) (y + 1)
+        (fun m => S m y) x := by
+  unfold frequencyHardCoreUpdate
+  by_cases henter : y + 1 ≤ x
+  · have hyx : y ≤ x := by omega
+    rw [hS x (y + 1), hS x y]
+    unfold primeFrequencyStep
+    rw [min_eq_right henter, min_eq_right hyx,
+      Finset.sum_Ioc_succ_top hy]
+    simp [activatedFloorChild, henter]
+    ring
+  · have hxle : x ≤ y := by omega
+    rw [hS x (y + 1), hS x y]
+    unfold primeFrequencyStep
+    rw [min_eq_left (hxle.trans (Nat.le_succ y)), min_eq_left hxle]
+    simp [activatedFloorChild, henter]
+
 /-- The finite difference of the pre-entry step is a single negative atom at
 the owner site. -/
 theorem weightedForwardDifferencePrefix_ltStep
