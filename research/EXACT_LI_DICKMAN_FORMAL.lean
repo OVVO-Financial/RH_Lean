@@ -323,4 +323,115 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
 
 
 
+
+/-- A nonnegative preceding Dickman segment forces the successor segment to be
+antitone on its native unit interval. -/
+theorem exactLiDickmanSegment_succ_antitoneOn_of_prev_nonneg
+    (n : ℕ)
+    (hprev : ∀ u ∈ Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ)),
+      0 ≤ exactLiDickmanSegment n u) :
+    AntitoneOn (exactLiDickmanSegment (n + 1))
+      (Icc (((n + 1 : ℕ) : ℝ)) (((n + 2 : ℕ) : ℝ))) := by
+  apply antitoneOn_of_deriv_nonpos
+    (convex_Icc (((n + 1 : ℕ) : ℝ)) (((n + 2 : ℕ) : ℝ)))
+    (exactLiDickmanSegment_continuousOn (n + 1))
+  · rw [interior_Icc]
+    intro u hu
+    exact
+      (exactLiDickmanSegment_succ_hasDerivAt n
+        (u := u) hu).differentiableAt.differentiableWithinAt
+  · rw [interior_Icc]
+    intro u hu
+    have hd :=
+      exactLiDickmanSegment_succ_hasDerivAt n
+        (u := u) hu
+    rw [hd.deriv]
+    have hshift :
+        u - 1 ∈ Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ)) := by
+      constructor <;> norm_num at hu ⊢ <;> linarith
+    have hnum := hprev (u - 1) hshift
+    have hupos : 0 < u := by
+      have : (0 : ℝ) < ((n + 1 : ℕ) : ℝ) := by positivity
+      linarith [hu.1]
+    have hdiv :
+        0 ≤ exactLiDickmanSegment n (u - 1) / u :=
+      div_nonneg hnum hupos.le
+    linarith
+
+/-- If the previous Dickman segment is nonnegative, then the successor segment
+is nonnegative as well.  The key endpoint step uses the exact endpoint-average
+identity: an antitone function has integral at least its right endpoint, while
+the identity multiplies that same endpoint by n+2. -/
+theorem exactLiDickmanSegment_succ_nonneg_of_prev_nonneg
+    (n : ℕ)
+    (hprev : ∀ u ∈ Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ)),
+      0 ≤ exactLiDickmanSegment n u) :
+    ∀ u ∈ Icc (((n + 1 : ℕ) : ℝ)) (((n + 2 : ℕ) : ℝ)),
+      0 ≤ exactLiDickmanSegment (n + 1) u := by
+  let a : ℝ := ((n + 1 : ℕ) : ℝ)
+  let b : ℝ := ((n + 2 : ℕ) : ℝ)
+  let f : ℝ → ℝ := exactLiDickmanSegment (n + 1)
+  have hab : a ≤ b := by
+    dsimp [a, b]
+    norm_num
+  have hanti : AntitoneOn f (Icc a b) := by
+    simpa [a, b, f] using
+      exactLiDickmanSegment_succ_antitoneOn_of_prev_nonneg n hprev
+  have hcont : ContinuousOn f [[a, b]] := by
+    have hc := exactLiDickmanSegment_continuousOn (n + 1)
+    simpa [a, b, f, uIcc_of_le hab] using hc
+  have hfint : IntervalIntegrable f MeasureTheory.volume a b :=
+    hcont.intervalIntegrable
+  have hconstint :
+      IntervalIntegrable (fun _ : ℝ => f b) MeasureTheory.volume a b := by
+    exact (continuousOn_const :
+      ContinuousOn (fun _ : ℝ => f b) [[a, b]]).intervalIntegrable
+  have hbmem : b ∈ Icc a b := ⟨hab, le_rfl⟩
+  have hmono :
+      (∫ x in a..b, f b) ≤ ∫ x in a..b, f x := by
+    apply intervalIntegral.integral_mono_on hab hconstint hfint
+    intro x hx
+    exact hanti hx hbmem hx.2
+  have hconst :
+      (∫ _x in a..b, f b) = f b := by
+    simp [a, b]
+  rw [hconst] at hmono
+  have hid := exactLiDickmanSegment_endpoint_identity (n + 1)
+  have hid' :
+      b * f b = ∫ x in a..b, f x := by
+    simpa [a, b, f] using hid
+  rw [← hid'] at hmono
+  have hbgt : (1 : ℝ) < b := by
+    dsimp [b]
+    exact_mod_cast (show 1 < n + 2 by omega)
+  have hright : 0 ≤ f b := by
+    nlinarith
+  intro u hu
+  exact hright.trans (hanti hu hbmem hu.2)
+
+/-- Every method-of-steps Dickman segment is nonnegative on its native unit
+interval. -/
+theorem exactLiDickmanSegment_nonneg (n : ℕ) :
+    ∀ u ∈ Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ)),
+      0 ≤ exactLiDickmanSegment n u := by
+  induction n with
+  | zero =>
+      intro u hu
+      simp [exactLiDickmanSegment]
+  | succ n ih =>
+      exact exactLiDickmanSegment_succ_nonneg_of_prev_nonneg n ih
+
+/-- Hence every Dickman segment is antitone on its native interval. -/
+theorem exactLiDickmanSegment_antitoneOn (n : ℕ) :
+    AntitoneOn (exactLiDickmanSegment n)
+      (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
+  cases n with
+  | zero =>
+      intro x hx y hy hxy
+      simp [exactLiDickmanSegment]
+  | succ n =>
+      exact
+        exactLiDickmanSegment_succ_antitoneOn_of_prev_nonneg n
+          (exactLiDickmanSegment_nonneg n)
+
 end RHLean.Analysis
