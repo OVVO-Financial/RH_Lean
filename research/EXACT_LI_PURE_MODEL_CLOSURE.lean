@@ -751,7 +751,8 @@ theorem criticalLiEndpointBinGap_nonneg
     0 ≤ criticalLiEndpointBinGap n := by
   unfold criticalLiEndpointBinGap
   have hnpos : (0 : ℝ) < n := by exact_mod_cast (show 0 < n by omega)
-  have hnp : (0 : ℝ) < n + 1 := by positivity
+  have hnp : (0 : ℝ) < ((n + 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 0 < n + 1 by omega)
   have hsqrtn : 0 < Real.sqrt (n : ℝ) := Real.sqrt_pos.2 hnpos
   have hsqrtnp : 0 < Real.sqrt ((n + 1 : ℕ) : ℝ) :=
     Real.sqrt_pos.2 hnp
@@ -827,7 +828,7 @@ theorem criticalLiEndpointBinGap_sum_le
               _ = -(∑ n ∈ Finset.Ico 2 N,
                     ((Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ -
                       (Real.sqrt (n : ℝ))⁻¹)) := by
-                    rw [Finset.sum_neg_distrib]
+                    rw [← Finset.sum_neg_distrib]
                     apply Finset.sum_congr rfl
                     intro n hn
                     ring
