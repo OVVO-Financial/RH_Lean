@@ -56,7 +56,7 @@ theorem squareRootDyadicJointPacket_eq_smooth_sub_transport
 lost if the smooth and post-root packets are normed separately. -/
 def ownerTwoSmoothTransportCross (R : ℕ) : ℝ :=
   2 *
-    (Complex.conj (squareRootSmoothMass (R - 1)) *
+    (starRingEnd ℂ (squareRootSmoothMass (R - 1)) *
       squareRootTransportCofactorFirst R).re
 
 /-- Exact polarization of the complete owner-two annulus. -/
