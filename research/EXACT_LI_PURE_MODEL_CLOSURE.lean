@@ -2288,96 +2288,6 @@ theorem allScaleLiSquareRootBounded_of_criticalPrefixBounded
         ≤ ((2 * B + 1) * (R : ℝ)) ^ 2 := hsq
     _ = (2 * B + 1) ^ 2 * (R : ℝ) ^ 2 := by ring
 
-/-! ## Canonical zero-target increment transfer -/
-
-/-- One increment of the sampled continuous Dickman reference. -/
-def exactLiDickmanIntegerReferenceIncrement (n : ℕ) : ℂ :=
-  exactLiDickmanIntegerReference n -
-    exactLiDickmanIntegerReference (n - 1)
-
-/-- Canonical local discrete/continuous error at target zero: the difference
-between one discrete all-scale Li diagonal increment and the corresponding
-sampled Dickman-reference increment. -/
-def allScaleLiDickmanIncrementError
-    (L : ℕ → ℕ → ℂ) (n : ℕ) : ℂ :=
-  allScaleLiDiagonalIncrement L n -
-    exactLiDickmanIntegerReferenceIncrement n
-
-@[simp] theorem exactLiDickmanIntegerReference_zero :
-    exactLiDickmanIntegerReference 0 = 1 := by
-  simp [exactLiDickmanIntegerReference]
-
-/-- Finite forward differences telescope from 1 through N. -/
-private theorem sum_Icc_forwardDiff_complex
-    (F : ℕ → ℂ) (N : ℕ) :
-    (∑ n ∈ Finset.Icc 1 N, (F n - F (n - 1))) =
-      F N - F 0 := by
-  induction N with
-  | zero =>
-      simp
-  | succ N ih =>
-      rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1), ih]
-      simp only [Nat.add_sub_cancel]
-      ring
-
-/-- **Exact canonical error telescope.**
-The sum of the zero-target local increment errors is exactly the endpoint
-difference between the discrete all-scale Li state and the sampled continuous
-Dickman reference. -/
-theorem sum_allScaleLiDickmanIncrementError_eq
-    {L : ℕ → ℕ → ℂ} (N : ℕ) (hL : IsAllScaleLiState L) :
-    (∑ n ∈ Finset.Icc 1 N, allScaleLiDickmanIncrementError L n) =
-      L N N - exactLiDickmanIntegerReference N := by
-  unfold allScaleLiDickmanIncrementError
-    exactLiDickmanIntegerReferenceIncrement
-  rw [Finset.sum_sub_distrib,
-    sum_allScaleLiDiagonalIncrement_eq L N,
-    sum_Icc_forwardDiff_complex exactLiDickmanIntegerReference N,
-    allScaleLiState_zero_zero hL,
-    exactLiDickmanIntegerReference_zero]
-  ring
-
-/-- The canonical increment-error energy is uniformly bounded at target zero.
-This is now the precise local transfer statement: unlike an arbitrary endpoint
-decomposition, its summands are fixed by the two models themselves. -/
-def AllScaleLiDickmanIncrementErrorEnergyBounded : Prop :=
-  ∃ E : ℝ, 0 ≤ E ∧
-    ∀ (L : ℕ → ℕ → ℂ) (N : ℕ),
-      IsAllScaleLiState L →
-      zeroTargetComplexDegreeTwoEnergy
-        (Finset.Icc 1 N) (allScaleLiDickmanIncrementError L) ≤ E
-
-/-- A uniform bound on the canonical zero-target increment energy produces the
-exact degree-two transfer certificate consumed by the final Li closure. -/
-theorem allScaleLiZeroTargetDegreeTwoTransfer_of_incrementErrorEnergyBounded
-    (hE : AllScaleLiDickmanIncrementErrorEnergyBounded) :
-    AllScaleLiZeroTargetDegreeTwoTransfer
-      exactLiDickmanIntegerReference := by
-  rcases hE with ⟨E, hE0, hbound⟩
-  refine ⟨E, hE0, ?_⟩
-  intro L R hL hsat hR
-  let X : ℕ := squareRootEndpoint R
-  have hX1 : 1 ≤ X := by
-    dsimp [X, squareRootEndpoint]
-    have hR2 : 4 ≤ R ^ 2 := by nlinarith
-    omega
-  refine ⟨Finset.Icc 1 X, allScaleLiDickmanIncrementError L, ?_, ?_, ?_⟩
-  · simpa [X] using sum_allScaleLiDickmanIncrementError_eq X hL
-  · rw [Nat.card_Icc]
-    have hcard : X + 1 - 1 = X := by omega
-    rw [hcard]
-  · exact hbound L X hL
-
-/-- **Canonical increment-energy endgame.**
-Once the native discrete-vs-Dickman diagonal increment errors have uniformly
-bounded degree-two energy about zero, the intrinsic all-scale Li model is
-proved at square-root scale. -/
-theorem allScaleLiSquareRootBounded_of_incrementErrorEnergyBounded
-    (hE : AllScaleLiDickmanIncrementErrorEnergyBounded) :
-    AllScaleLiSquareRootBoundedStatement :=
-  allScaleLiSquareRootBounded_of_exactLiDickman_zeroTargetDegreeTwoTransfer
-    (allScaleLiZeroTargetDegreeTwoTransfer_of_incrementErrorEnergyBounded hE)
-
 /-- A uniformly bounded continuous/reference diagonal. -/
 def UniformReferenceDiagonalBounded (M : ℕ → ℂ) : Prop :=
   ∃ B : ℝ, 0 ≤ B ∧ ∀ x : ℕ, ‖M x‖ ≤ B
@@ -2501,6 +2411,96 @@ theorem allScaleLiSquareRootBounded_of_exactLiDickman_zeroTargetDegreeTwoTransfe
   allScaleLiSquareRootBounded_of_uniformReference_zeroTargetDegreeTwoTransfer
     exactLiDickmanIntegerReference
     exactLiDickmanIntegerReference_isUniformlyBounded hT
+
+/-! ## Canonical zero-target increment transfer -/
+
+/-- One increment of the sampled continuous Dickman reference. -/
+def exactLiDickmanIntegerReferenceIncrement (n : ℕ) : ℂ :=
+  exactLiDickmanIntegerReference n -
+    exactLiDickmanIntegerReference (n - 1)
+
+/-- Canonical local discrete/continuous error at target zero: the difference
+between one discrete all-scale Li diagonal increment and the corresponding
+sampled Dickman-reference increment. -/
+def allScaleLiDickmanIncrementError
+    (L : ℕ → ℕ → ℂ) (n : ℕ) : ℂ :=
+  allScaleLiDiagonalIncrement L n -
+    exactLiDickmanIntegerReferenceIncrement n
+
+@[simp] theorem exactLiDickmanIntegerReference_zero :
+    exactLiDickmanIntegerReference 0 = 1 := by
+  simp [exactLiDickmanIntegerReference]
+
+/-- Finite forward differences telescope from 1 through N. -/
+private theorem sum_Icc_forwardDiff_complex
+    (F : ℕ → ℂ) (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N, (F n - F (n - 1))) =
+      F N - F 0 := by
+  induction N with
+  | zero =>
+      simp
+  | succ N ih =>
+      rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1), ih]
+      simp only [Nat.add_sub_cancel]
+      ring
+
+/-- **Exact canonical error telescope.**
+The sum of the zero-target local increment errors is exactly the endpoint
+difference between the discrete all-scale Li state and the sampled continuous
+Dickman reference. -/
+theorem sum_allScaleLiDickmanIncrementError_eq
+    {L : ℕ → ℕ → ℂ} (N : ℕ) (hL : IsAllScaleLiState L) :
+    (∑ n ∈ Finset.Icc 1 N, allScaleLiDickmanIncrementError L n) =
+      L N N - exactLiDickmanIntegerReference N := by
+  unfold allScaleLiDickmanIncrementError
+    exactLiDickmanIntegerReferenceIncrement
+  rw [Finset.sum_sub_distrib,
+    sum_allScaleLiDiagonalIncrement_eq L N,
+    sum_Icc_forwardDiff_complex exactLiDickmanIntegerReference N,
+    allScaleLiState_zero_zero hL,
+    exactLiDickmanIntegerReference_zero]
+  ring
+
+/-- The canonical increment-error energy is uniformly bounded at target zero.
+This is now the precise local transfer statement: unlike an arbitrary endpoint
+decomposition, its summands are fixed by the two models themselves. -/
+def AllScaleLiDickmanIncrementErrorEnergyBounded : Prop :=
+  ∃ E : ℝ, 0 ≤ E ∧
+    ∀ (L : ℕ → ℕ → ℂ) (N : ℕ),
+      IsAllScaleLiState L →
+      zeroTargetComplexDegreeTwoEnergy
+        (Finset.Icc 1 N) (allScaleLiDickmanIncrementError L) ≤ E
+
+/-- A uniform bound on the canonical zero-target increment energy produces the
+exact degree-two transfer certificate consumed by the final Li closure. -/
+theorem allScaleLiZeroTargetDegreeTwoTransfer_of_incrementErrorEnergyBounded
+    (hE : AllScaleLiDickmanIncrementErrorEnergyBounded) :
+    AllScaleLiZeroTargetDegreeTwoTransfer
+      exactLiDickmanIntegerReference := by
+  rcases hE with ⟨E, hE0, hbound⟩
+  refine ⟨E, hE0, ?_⟩
+  intro L R hL hsat hR
+  let X : ℕ := squareRootEndpoint R
+  have hX1 : 1 ≤ X := by
+    dsimp [X, squareRootEndpoint]
+    have hR2 : 4 ≤ R ^ 2 := by nlinarith
+    omega
+  refine ⟨Finset.Icc 1 X, allScaleLiDickmanIncrementError L, ?_, ?_, ?_⟩
+  · simpa [X] using sum_allScaleLiDickmanIncrementError_eq X hL
+  · rw [Nat.card_Icc]
+    have hcard : X + 1 - 1 = X := by omega
+    rw [hcard]
+  · exact hbound L X hL
+
+/-- **Canonical increment-energy endgame.**
+Once the native discrete-vs-Dickman diagonal increment errors have uniformly
+bounded degree-two energy about zero, the intrinsic all-scale Li model is
+proved at square-root scale. -/
+theorem allScaleLiSquareRootBounded_of_incrementErrorEnergyBounded
+    (hE : AllScaleLiDickmanIncrementErrorEnergyBounded) :
+    AllScaleLiSquareRootBoundedStatement :=
+  allScaleLiSquareRootBounded_of_exactLiDickman_zeroTargetDegreeTwoTransfer
+    (allScaleLiZeroTargetDegreeTwoTransfer_of_incrementErrorEnergyBounded hE)
 
 /-- Linear discrete-to-reference transfer at square-root endpoints. -/
 def AllScaleLiLinearReferenceTransfer (M : ℕ → ℂ) : Prop :=
