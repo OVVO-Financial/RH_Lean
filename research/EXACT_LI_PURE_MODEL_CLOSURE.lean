@@ -601,7 +601,7 @@ theorem primeFrequencyState_eq_hardCoreIterate
     (k x : ℕ) :
     S x (k + 1) =
       frequencyHardCoreIterate w k (fun _ => 1) x := by
-  induction k with
+  induction k generalizing x with
   | zero =>
       rw [hS x 1]
       simp [primeFrequencyStep, frequencyHardCoreIterate]
@@ -839,11 +839,12 @@ private theorem criticalLi_prod_one_add_sq_le_exp_sum
       simp
   | @insert q s hq ih =>
       rw [Finset.prod_insert hq, Finset.sum_insert hq, Real.exp_add]
-      exact mul_le_mul
-        (Real.add_one_le_exp (‖criticalLiFrequencyWeight q‖ ^ 2))
-        ih
-        (by positivity)
-        (by positivity)
+      have hfac :
+          1 + ‖criticalLiFrequencyWeight q‖ ^ 2 ≤
+            Real.exp (‖criticalLiFrequencyWeight q‖ ^ 2) := by
+        simpa [add_comm] using
+          (Real.add_one_le_exp (‖criticalLiFrequencyWeight q‖ ^ 2))
+      exact mul_le_mul hfac ih (by positivity) (by positivity)
 
 /-- **Uniform finite hard-core Euler correction bound.**
 Square summability upgrades to a single multiplicative constant independent of
@@ -920,7 +921,6 @@ theorem norm_finiteMultiplicativeConvolution_le_sqrt
             _ = B * (Real.sqrt (n : ℝ) *
                   (‖h n‖ / Real.sqrt (n : ℝ))) := by
                 field_simp [hsqrtnne]
-                ring
             _ ≤ B * (Real.sqrt (X : ℝ) *
                   (‖h n‖ / Real.sqrt (n : ℝ))) := by
                 exact mul_le_mul_of_nonneg_left
@@ -1071,7 +1071,8 @@ theorem criticalLiEndpointBinGap_sum_le
         0 ≤ (Real.sqrt (n : ℝ))⁻¹ -
           (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ := by
       have hnpos : (0 : ℝ) < n := by exact_mod_cast (show 0 < n by omega)
-      have hnp : (0 : ℝ) < n + 1 := by positivity
+      have hnp : (0 : ℝ) < ((n + 1 : ℕ) : ℝ) := by
+        exact_mod_cast (show 0 < n + 1 by omega)
       have hsqrtn : 0 < Real.sqrt (n : ℝ) := Real.sqrt_pos.2 hnpos
       have hsqrtnp : 0 < Real.sqrt ((n + 1 : ℕ) : ℝ) :=
         Real.sqrt_pos.2 hnp
