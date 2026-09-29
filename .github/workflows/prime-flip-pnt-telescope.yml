@@ -87,6 +87,7 @@ jobs:
           cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
           import «research.PRIME_FLIP_STATIC_CHRONOLOGY»
           import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
+          import «research.EXACT_LI_PURE_MODEL_CLOSURE»
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_reciprocalPrimeCounts
           #print axioms RHLean.Analysis.primeFlipPNTError_eq_reciprocalDiscrepancy
