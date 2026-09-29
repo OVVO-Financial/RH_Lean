@@ -611,7 +611,8 @@ private theorem exactLiDickmanVariationIntegrand_continuousOn (n : ℕ) :
       ∀ u ∈ Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ)),
         u + 1 ≠ 0 := by
     intro u hu
-    have hunonneg : 0 ≤ u := (by exact_mod_cast (Nat.zero_le n)).trans hu.1
+    have hnn : (0 : ℝ) ≤ (n : ℝ) := by positivity
+    have hunonneg : 0 ≤ u := hnn.trans hu.1
     linarith
   have hnum :
       ContinuousOn
@@ -642,7 +643,10 @@ theorem exactLiDickmanVariationIntegrand_le_majorant
       (u + 1) * Real.log 2 ≤
         (((n + 2 : ℕ) : ℝ)) * Real.log 2 := by
     apply mul_le_mul_of_nonneg_right _ hlog2.le
-    exact_mod_cast hu.2
+    have huupper : u ≤ (n : ℝ) + 1 := by
+      simpa [Nat.cast_add, Nat.cast_one] using hu.2
+    have hshift : u + 1 ≤ (n : ℝ) + 2 := by linarith
+    simpa [Nat.cast_add, Nat.cast_one, add_assoc] using hshift
   have hexp :
       Real.exp ((u + 1) * Real.log 2) ≤
         (2 : ℝ) ^ (n + 2) := by
@@ -654,8 +658,8 @@ theorem exactLiDickmanVariationIntegrand_le_majorant
             rw [Real.exp_nat_mul, Real.exp_log (by norm_num : (0 : ℝ) < 2)]
   have hdenle :
       ((n + 1 : ℕ) : ℝ) ≤ u + 1 := by
-    have := hu.1
-    exact_mod_cast this
+    have hshift : (n : ℝ) + 1 ≤ u + 1 := by linarith [hu.1]
+    simpa [Nat.cast_add, Nat.cast_one] using hshift
   have hfrac :
       Real.exp ((u + 1) * Real.log 2) / (u + 1) ≤
         (2 : ℝ) ^ (n + 2) / ((n + 1 : ℕ) : ℝ) := by
