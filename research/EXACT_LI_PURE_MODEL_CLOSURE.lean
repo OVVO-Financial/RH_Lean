@@ -1,7 +1,6 @@
 import Mathlib
 import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
 import RHLean.Proof.FinitePartialMoments
-import «research.PRIME_DENSITY_UNIVERSAL_BASELINE»
 
 /-!
 # Pure exact-Li model closure spine
@@ -230,6 +229,60 @@ theorem exactLiLogHarmonicTail_summable {p : ℕ} (hp : 1 < p) :
       rw [hlogq, mul_pow]
       field_simp [ne_of_gt hlog2]
 
+
+private theorem exactLi_invLog_intervalIntegrable
+    {a b : ℝ} (ha : 2 ≤ a) (hb : 2 ≤ b) :
+    IntervalIntegrable (fun t : ℝ => (Real.log t)⁻¹) MeasureTheory.volume a b := by
+  apply ContinuousOn.intervalIntegrable
+  intro t ht
+  have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
+  exact ((Real.continuousAt_log (by linarith)).inv₀
+    (ne_of_gt (Real.log_pos (by linarith)))).continuousWithinAt
+
+/-- One exact Li singleton mass is at most the inverse logarithm at any
+integer lower anchor inside its unit bin. -/
+theorem exactLi_norm_pntDensity_le_inv_log
+    {y q : ℕ} (hy : 2 ≤ y) (hyq : y < q) :
+    ‖primeSievePNTDensity q‖ ≤ (Real.log (y : ℝ))⁻¹ := by
+  have hpred : q - 1 + 1 = q := by omega
+  have hyPred : y ≤ q - 1 := by omega
+  have ha2 : (2 : ℝ) ≤ ((q - 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 2 ≤ q - 1 by omega)
+  have hb2 : (2 : ℝ) ≤ (q : ℝ) := by
+    exact_mod_cast (show 2 ≤ q by omega)
+  have hab : ((q - 1 : ℕ) : ℝ) ≤ (q : ℝ) := by
+    exact_mod_cast Nat.sub_le q 1
+  have hadd := intervalIntegral.integral_add_adjacent_intervals
+    (exactLi_invLog_intervalIntegrable (a := 2) (by norm_num) ha2)
+    (exactLi_invLog_intervalIntegrable ha2 hb2)
+  have hdiff : logarithmicIntegralFromTwo (q : ℝ) -
+        logarithmicIntegralFromTwo ((q - 1 : ℕ) : ℝ) =
+      ∫ t in ((q - 1 : ℕ) : ℝ)..(q : ℝ), (Real.log t)⁻¹ := by
+    unfold logarithmicIntegralFromTwo
+    linarith [hadd]
+  have hylog : 0 < Real.log (y : ℝ) :=
+    Real.log_pos (by exact_mod_cast (show 1 < y by omega))
+  have hbound := intervalIntegral.norm_integral_le_of_norm_le_const
+    (a := ((q - 1 : ℕ) : ℝ)) (b := (q : ℝ))
+    (C := (Real.log (y : ℝ))⁻¹) (f := fun t : ℝ => (Real.log t)⁻¹) (by
+      intro t ht
+      rw [Set.uIoc_of_le hab] at ht
+      have hyt : (y : ℝ) ≤ t :=
+        le_trans (by exact_mod_cast hyPred) ht.1.le
+      have hypos : (0 : ℝ) < y := by
+        exact_mod_cast (show 0 < y by omega)
+      have hlog := Real.log_le_log hypos hyt
+      rw [Real.norm_eq_abs, abs_of_pos (inv_pos.mpr (hylog.trans_le hlog))]
+      exact (inv_le_inv₀ (hylog.trans_le hlog) hylog).2 hlog)
+  have hlen : |(q : ℝ) - ((q - 1 : ℕ) : ℝ)| = 1 := by
+    have hp : ((q - 1 : ℕ) : ℝ) + 1 = (q : ℝ) := by
+      exact_mod_cast hpred
+    rw [show (q : ℝ) - ((q - 1 : ℕ) : ℝ) = 1 by linarith]
+    norm_num
+  rw [hlen, mul_one] at hbound
+  simpa only [primeSievePNTDensity, hdiff, Complex.norm_real,
+    Real.norm_eq_abs] using hbound
+
 /-- Critical freshness correction is absolutely summable.
 For the repository's exact singleton Li masses w_q, the second-order
 half-weighted correction |w_q|^2/q has finite total mass. -/
@@ -251,7 +304,7 @@ theorem exactLiCriticalCollision_summable :
     omega
   have hnorm : ‖primeSievePNTDensity q‖ ≤
       (Real.log (y : ℝ))⁻¹ :=
-    norm_primeSievePNTDensity_le_inv_log hy2 hyq
+    exactLi_norm_pntDensity_le_inv_log hy2 hyq
   have hypos : (0 : ℝ) < y := by exact_mod_cast (show 0 < y by omega)
   have hqpos : (0 : ℝ) < q := by exact_mod_cast (show 0 < q by omega)
   have hlogpos : 0 < Real.log (y : ℝ) :=
