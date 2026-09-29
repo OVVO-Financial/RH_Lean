@@ -85,6 +85,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_LOG_TIGHTENING.olean research/PRIME_DENSITY_LOG_TIGHTENING.lean 2>&1 | tee prime-density-log-tightening.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_PNT_LOG_BOUND.olean research/PRIME_DENSITY_PNT_LOG_BOUND.lean 2>&1 | tee prime-density-pnt-log-bound.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_INTEGRAL_TIGHTENING.olean research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean 2>&1 | tee prime-density-integral-tightening.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_DICKMAN_FORMAL.olean research/EXACT_LI_DICKMAN_FORMAL.lean 2>&1 | tee exact-li-dickman-formal.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_PURE_MODEL_CLOSURE.olean research/EXACT_LI_PURE_MODEL_CLOSURE.lean 2>&1 | tee exact-li-pure-model-closure.log
       - name: Audit named theorem axioms
         run: |
