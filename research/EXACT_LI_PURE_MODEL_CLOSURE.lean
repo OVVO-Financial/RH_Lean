@@ -138,14 +138,17 @@ theorem primeFrequencyState_sub_reference_eq_propagated_sub_residual
       -(∑ q ∈ Finset.Ioc 1 (min x y),
           w q * (L (x / q) (q - 1) - C (x / q) (q - 1))) -
         primeFrequencyReferenceResidual w C x y := by
-  rw [hL x y]
+  have hsum :
+      (∑ q ∈ Finset.Ioc 1 (min x y),
+          w q * (L (x / q) (q - 1) - C (x / q) (q - 1))) =
+        (∑ q ∈ Finset.Ioc 1 (min x y), w q * L (x / q) (q - 1)) -
+          ∑ q ∈ Finset.Ioc 1 (min x y), w q * C (x / q) (q - 1) := by
+    rw [← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro q hq
+    ring
+  rw [hL x y, hsum]
   unfold primeFrequencyReferenceResidual primeFrequencyStep
-  ring_nf
-  rw [← Finset.sum_sub_distrib]
-  apply congrArg (fun z : ℂ => -z - (C x y - (1 -
-    ∑ q ∈ Finset.Ioc 1 (min x y), w q * C (x / q) (q - 1)))) ?_
-  apply Finset.sum_congr rfl
-  intro q hq
   ring
 
 /-- Specialization to the all-scale singleton-Li weights. -/
