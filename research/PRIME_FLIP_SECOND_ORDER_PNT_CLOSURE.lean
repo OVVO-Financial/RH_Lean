@@ -157,9 +157,8 @@ theorem primeFlipPNTReplacementEffectBound_zero_of_perfectLiMultiplicity
   rw [lowOwnerPrimeFlipPNTReplacementEffect_eq_actualCross_sub_errorSq,
     ← squareRootSecondOrderPNTAtomErrorReal_eq_replacementError R (by omega),
     he]
-  have hE : 0 ≤ canonicalRoughLowQ2DaughterEnergy R := by
-    unfold canonicalRoughLowQ2DaughterEnergy
-    positivity
+  have hE : 0 ≤ canonicalRoughLowQ2DaughterEnergy R :=
+    canonicalRoughLowQ2DaughterEnergy_nonneg R
   have hquarter :
       0 ≤ (1 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R :=
     mul_nonneg (by norm_num) hE
