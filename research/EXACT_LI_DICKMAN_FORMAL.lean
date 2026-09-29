@@ -236,8 +236,8 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
         dsimp [a, b]
         norm_num
       have hrcont : ContinuousOn r (Icc a b) := by
-        simpa [r, a, b] using
-          exactLiDickmanSegment_continuousOn (n + 1)
+        convert exactLiDickmanSegment_continuousOn (n + 1) using 1 <;>
+          norm_num [r, a, b]
       have hshift :
           ContinuousOn (fun u : ℝ => u - 1) (Icc a b) := by
         fun_prop
@@ -272,8 +272,13 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
             r u + u * (-p (u - 1) / u) =
               r u - p (u - 1) := by
           field_simp [hu0]
-        rw [hcoef] at hmul
-        exact hmul.hasDerivWithinAt
+          ring
+        have hmul' :
+            HasDerivAt (fun t : ℝ => t * r t)
+              (r u + u * (-p (u - 1) / u)) u := by
+          simpa using hmul
+        rw [hcoef] at hmul'
+        exact hmul'.hasDerivWithinAt
       have hr_uIcc : ContinuousOn r [[a, b]] := by
         simpa [uIcc_of_le hab] using hrcont
       have hp_uIcc :
@@ -295,11 +300,13 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
           (f' := fun u : ℝ => r u - p (u - 1))
           hab hprodcont hderiv hdiffint
       rw [intervalIntegral.integral_sub hrint hpint] at hFTC
+      change (∫ u in a..b, r u) - (∫ u in a..b, p (u - 1)) =
+        b * r b - a * r a at hFTC
       have hpShift :
           (∫ u in a..b, p (u - 1)) =
             ∫ u in (n : ℝ)..a, p u := by
         rw [intervalIntegral.integral_comp_sub_right]
-        norm_num [a, b]
+        congr 1 <;> push_cast <;> ring
       have ih' :
           a * p a = ∫ u in (n : ℝ)..a, p u := by
         simpa [a, p] using ih
