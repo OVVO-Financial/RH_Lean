@@ -1257,12 +1257,31 @@ theorem prod_criticalLiLocalCorrectionVariation_le_exp_collisionBudget
     (s : Finset ℕ) (hs : ∀ q ∈ s, 4 ≤ q) :
     (∏ q ∈ s, criticalLiLocalCorrectionVariation q) ≤
       Real.exp (3 * criticalLiCollisionBudget) := by
+  have hprod :
+      (∏ q ∈ s, criticalLiLocalCorrectionVariation q) ≤
+        ∏ q ∈ s, (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+    classical
+    revert hs
+    induction s using Finset.induction_on with
+    | empty =>
+        intro hs
+        simp
+    | @insert q s hq ih =>
+        intro hs
+        rw [Finset.prod_insert hq, Finset.prod_insert hq]
+        have hq4 : 4 ≤ q := hs q (Finset.mem_insert_self q s)
+        have hs4 : ∀ r ∈ s, 4 ≤ r := by
+          intro r hr
+          exact hs r (Finset.mem_insert_of_mem hr)
+        exact mul_le_mul
+          (criticalLiLocalCorrectionVariation_le hq4)
+          (ih hs4)
+          (criticalLiLocalCorrectionVariation_nonneg q)
+          (by positivity)
   calc
     (∏ q ∈ s, criticalLiLocalCorrectionVariation q)
         ≤ ∏ q ∈ s,
-            (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
-          exact Finset.prod_le_prod
-            (fun q hq => criticalLiLocalCorrectionVariation_le (hs q hq))
+            (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := hprod
     _ ≤ Real.exp
           (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) :=
           criticalLi_prod_one_add_three_sq_le_exp_sum s
@@ -2486,7 +2505,7 @@ theorem allScaleLiZeroTargetDegreeTwoTransfer_of_incrementErrorEnergyBounded
     have hR2 : 4 ≤ R ^ 2 := by nlinarith
     omega
   refine ⟨Finset.Icc 1 X, allScaleLiDickmanIncrementError L, ?_, ?_, ?_⟩
-  · simpa [X] using sum_allScaleLiDickmanIncrementError_eq X hL
+  · simpa [X] using (sum_allScaleLiDickmanIncrementError_eq X hL).symm
   · rw [Nat.card_Icc]
     have hcard : X + 1 - 1 = X := by omega
     rw [hcard]
