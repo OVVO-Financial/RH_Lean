@@ -23,6 +23,8 @@ open scoped BigOperators
 
 namespace RHLean.Analysis
 
+open RHLean.Proof
+
 /-- Degree-zero lower partial mass: the weighted CDF/counting functional.
 This is deliberately separate from `lowerPartialMomentNat 0`. -/
 def degreeZeroLowerMass {ι : Type*}
