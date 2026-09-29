@@ -519,6 +519,20 @@ theorem norm_sum_sqrtAbelIncrement_le
     _ = 2 * Real.sqrt (N : ℝ) * B := by ring
 
 
+
+/-! ## Saturation and fixed-cutoff critical coordinate -/
+
+/-- Saturation is automatic for every prime-frequency state because the
+recursion depends on the cutoff only through `min x y`. -/
+theorem primeFrequencyState_saturated
+    {w : ℕ → ℂ} {S : ℕ → ℕ → ℂ}
+    (hS : IsPrimeFrequencyState w S) :
+    PrimeFrequencySaturated S := by
+  intro x y hxy
+  rw [hS x y, hS x x]
+  unfold primeFrequencyStep
+  rw [min_eq_left hxy, min_self]
+
 /-! ## Critical half-prefix of the all-scale Li diagonal -/
 
 /-- One increment of the diagonal all-scale state. -/
