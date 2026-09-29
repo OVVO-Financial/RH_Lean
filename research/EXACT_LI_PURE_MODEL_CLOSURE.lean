@@ -552,6 +552,35 @@ theorem allScaleLiCriticalPrefix_succ (L : ℕ → ℕ → ℂ) (N : ℕ) :
   unfold allScaleLiCriticalPrefix
   rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1)]
 
+
+/-- The diagonal critical prefix is exactly the fixed-cutoff weighted
+first-coordinate prefix. -/
+theorem allScaleLiCriticalPrefix_eq_fixedCutoffWeighted
+    {L : ℕ → ℕ → ℂ} (N : ℕ)
+    (hsat : PrimeFrequencySaturated L) :
+    allScaleLiCriticalPrefix L N =
+      weightedForwardDifferencePrefix criticalSqrtWeight
+        (fun n => L n N) N := by
+  unfold allScaleLiCriticalPrefix weightedForwardDifferencePrefix
+    allScaleLiDiagonalIncrement criticalSqrtWeight
+  apply Finset.sum_congr rfl
+  intro n hn
+  have hnN : n ≤ N := (Finset.mem_Icc.mp hn).2
+  have hpredN : n - 1 ≤ N := (Nat.sub_le n 1).trans hnN
+  rw [hsat n N hnN, hsat (n - 1) N hpredN]
+  rw [div_eq_mul_inv]
+  ring
+
+/-- State-only form of the same identification; no separate saturation
+hypothesis is needed. -/
+theorem allScaleLiCriticalPrefix_eq_fixedCutoffWeighted_of_state
+    {L : ℕ → ℕ → ℂ} (N : ℕ) (hL : IsAllScaleLiState L) :
+    allScaleLiCriticalPrefix L N =
+      weightedForwardDifferencePrefix criticalSqrtWeight
+        (fun n => L n N) N := by
+  exact allScaleLiCriticalPrefix_eq_fixedCutoffWeighted N
+    (primeFrequencyState_saturated hL)
+
 /-- The Abel increment of the critical prefix is exactly the original diagonal
 increment. -/
 theorem sqrtAbelIncrement_allScaleLiCriticalPrefix
