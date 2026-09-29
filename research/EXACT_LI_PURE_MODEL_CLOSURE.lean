@@ -865,6 +865,100 @@ theorem norm_hardCorePoissonScalarCorrection_sub_one_le
               (Complex.norm_exp_sub_one_le hz) (norm_nonneg z))
     _ = 3 * ‖z‖ ^ 2 := by ring
 
+/-- Coefficient of `T^m` in the exact local correction
+`(1 - z*T) * exp(z*T)`.  The formula makes the vanishing linear term
+literal: coefficient zero is one and coefficient one is zero. -/
+def hardCorePoissonCorrectionCoeff (z : ℂ) (m : ℕ) : ℂ :=
+  ((1 : ℂ) - (m : ℂ)) * z ^ m / (Nat.factorial m : ℂ)
+
+@[simp] theorem hardCorePoissonCorrectionCoeff_zero (z : ℂ) :
+    hardCorePoissonCorrectionCoeff z 0 = 1 := by
+  simp [hardCorePoissonCorrectionCoeff]
+
+@[simp] theorem hardCorePoissonCorrectionCoeff_one (z : ℂ) :
+    hardCorePoissonCorrectionCoeff z 1 = 0 := by
+  simp [hardCorePoissonCorrectionCoeff]
+
+/-- Exact norm of the genuinely corrective coefficient, indexed from degree
+two. -/
+theorem norm_hardCorePoissonCorrectionCoeff_add_two
+    (z : ℂ) (m : ℕ) :
+    ‖hardCorePoissonCorrectionCoeff z (m + 2)‖ =
+      ((m + 1 : ℕ) : ℝ) * ‖z‖ ^ (m + 2) /
+        (Nat.factorial (m + 2) : ℝ) := by
+  have hnum :
+      ‖(1 : ℂ) - ((m + 2 : ℕ) : ℂ)‖ = (((m + 1 : ℕ) : ℝ)) := by
+    rw [show (1 : ℂ) - ((m + 2 : ℕ) : ℂ) =
+        -(((m + 1 : ℕ) : ℂ)) by
+          push_cast
+          ring,
+      norm_neg, Complex.norm_natCast]
+  unfold hardCorePoissonCorrectionCoeff
+  rw [norm_div, norm_mul, hnum, norm_pow, Complex.norm_natCast]
+
+/-- Real nonnegative tail coefficient controlling the critical variation of
+one local correction factor. -/
+def hardCorePoissonCorrectionTailTerm (a : ℝ) (m : ℕ) : ℝ :=
+  ((m + 1 : ℕ) : ℝ) * a ^ (m + 2) /
+    (Nat.factorial (m + 2) : ℝ)
+
+/-- Inside the unit interval, every correction-tail coefficient is bounded by
+`a^2 / m!`.  This is the coefficient-level form of the second-order
+cancellation. -/
+theorem hardCorePoissonCorrectionTailTerm_le
+    {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) (m : ℕ) :
+    hardCorePoissonCorrectionTailTerm a m ≤
+      a ^ 2 * (1 / (Nat.factorial m : ℝ)) := by
+  have hpowa : a ^ (m + 2) ≤ a ^ 2 := by
+    calc
+      a ^ (m + 2) = a ^ m * a ^ 2 := by rw [pow_add]
+      _ ≤ 1 * a ^ 2 := by
+        exact mul_le_mul_of_nonneg_right
+          (pow_le_one₀ ha0 ha1) (sq_nonneg a)
+      _ = a ^ 2 := by ring
+  have hfacNat :
+      Nat.factorial (m + 2) =
+        (m + 2) * (m + 1) * Nat.factorial m := by
+    rw [show m + 2 = (m + 1) + 1 by omega,
+      Nat.factorial_succ, Nat.factorial_succ]
+    ring
+  have hfac :
+      (Nat.factorial (m + 2) : ℝ) =
+        (((m + 2 : ℕ) : ℝ) * ((m + 1 : ℕ) : ℝ)) *
+          (Nat.factorial m : ℝ) := by
+    exact_mod_cast hfacNat
+  have hfm : (0 : ℝ) < (Nat.factorial m : ℝ) := by positivity
+  have hm1 : (0 : ℝ) < ((m + 1 : ℕ) : ℝ) := by positivity
+  have hm2 : (0 : ℝ) < ((m + 2 : ℕ) : ℝ) := by positivity
+  have hratio :
+      ((m + 1 : ℕ) : ℝ) / (Nat.factorial (m + 2) : ℝ) ≤
+        1 / (Nat.factorial m : ℝ) := by
+    rw [hfac]
+    have heq :
+        ((m + 1 : ℕ) : ℝ) /
+            ((((m + 2 : ℕ) : ℝ) * ((m + 1 : ℕ) : ℝ)) *
+              (Nat.factorial m : ℝ)) =
+          1 / (((m + 2 : ℕ) : ℝ) * (Nat.factorial m : ℝ)) := by
+      field_simp
+      ring
+    rw [heq]
+    simp only [one_div]
+    apply (inv_le_inv₀ (mul_pos hm2 hfm) hfm).2
+    nlinarith
+  unfold hardCorePoissonCorrectionTailTerm
+  calc
+    ((m + 1 : ℕ) : ℝ) * a ^ (m + 2) /
+          (Nat.factorial (m + 2) : ℝ)
+        = a ^ (m + 2) *
+            (((m + 1 : ℕ) : ℝ) /
+              (Nat.factorial (m + 2) : ℝ)) := by ring
+    _ ≤ a ^ 2 *
+          (((m + 1 : ℕ) : ℝ) /
+            (Nat.factorial (m + 2) : ℝ)) := by
+          exact mul_le_mul_of_nonneg_right hpowa (by positivity)
+    _ ≤ a ^ 2 * (1 / (Nat.factorial m : ℝ)) :=
+          mul_le_mul_of_nonneg_left hratio (sq_nonneg a)
+
 /-- Critical square-root test weights have norm at most one away from zero. -/
 theorem norm_criticalSqrtWeight_le_one
     {q : ℕ} (hq : 1 ≤ q) :
