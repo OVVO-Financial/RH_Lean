@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.StableFarWallCrossingOwnerWindow
+import RHLean.Proof.SquareRootLegalAncestryGramReduction
 
 /-!
 # Stable-far returned-owner window has zero local q^2 column
@@ -88,5 +89,65 @@ theorem lowWheelFarPrimeQ2CrossingOwnerWindow_telescope_eq_mertens
   have hz := lowWheelFarPrimeQ2CrossingOwnerWindow_q2Column_eq_zero hy
   rw [hz, add_zero] at h
   exact h
+
+
+/-- **Live-envelope energy bound for one complete returned-owner window.**
+
+The entire solved first-power owner chronology on an actual stable-far returned
+child is exactly one lower Mertens state at reciprocal depth `T < R`.
+Consequently its square is bounded by the live lower critical envelope without
+paying the number of owners in the window.
+
+The harmless additive `2` comes only from converting the shifted envelope
+`(M(T)-1)^2` back to `M(T)^2`. -/
+theorem lowWheelFarPrimeQ2CrossingOwnerWindow_mertens_sq_le_two_root_envelope_add_two
+    {R : ℕ} {K : ℝ} {y : ℕ × (ℕ × ℕ)}
+    (hK : LowerMertensCriticalEnvelope R K)
+    (hy : y ∈ lowWheelFarPrimeQ2DescendedTriples R) :
+    (((mertensSummatoryInt
+        (lowWheelFarPrimeQ2CrossingOwnerDepth R y) : ℤ) : ℝ) ^ 2) ≤
+      2 * K * (R : ℝ) + 2 := by
+  let T := lowWheelFarPrimeQ2CrossingOwnerDepth R y
+  have hTR : T < R :=
+    lowWheelFarPrimeQ2CrossingOwnerDepth_lt_root hy
+  have henv := hK.2 T hTR
+  push_cast at henv
+  have hT1 : (((T + 1 : ℕ) : ℝ)) ≤ (R : ℝ) := by
+    exact_mod_cast (Nat.succ_le_iff.mpr hTR)
+  have hK0 : 0 ≤ K := hK.1
+  have hT1' : (T : ℝ) + 1 ≤ (R : ℝ) := by
+    exact_mod_cast (Nat.succ_le_iff.mpr hTR)
+  have hKR :
+      K * ((T : ℝ) + 1) ≤ K * (R : ℝ) :=
+    mul_le_mul_of_nonneg_left hT1' hK0
+  let m : ℝ := ((mertensSummatoryInt T : ℤ) : ℝ)
+  have hm :
+      m ^ 2 ≤ 2 * (m - 1) ^ 2 + 2 := by
+    nlinarith [sq_nonneg (m - 2)]
+  dsimp [m, T] at hm ⊢
+  nlinarith [henv, hKR, hm]
+
+/-- The same estimate stated directly on the complete Euler owner-window
+chronology, before any ownerwise norm. -/
+theorem lowWheelFarPrimeQ2CrossingOwnerWindow_chronology_sq_le_two_root_envelope_add_two
+    {R : ℕ} {K : ℝ} {y : ℕ × (ℕ × ℕ)}
+    (hK : LowerMertensCriticalEnvelope R K)
+    (hy : y ∈ lowWheelFarPrimeQ2DescendedTriples R) :
+    ((((frozenPrimeUniverseMass
+          (primesUpTo (lowWheelFarPrimeQ2CrossingOwnerLower R y))
+          (lowWheelFarPrimeQ2CrossingOwnerDepth R y) -
+        (∑ q ∈ frozenPrimeUniverseHighPrimeSet
+            (lowWheelFarPrimeQ2CrossingOwnerLower R y)
+            (lowWheelFarPrimeQ2CrossingOwnerDepth R y),
+          frozenPrimeUniverseMass (primesUpTo q)
+            (lowWheelFarPrimeQ2CrossingOwnerDepth R y / q))) : ℤ) : ℝ) ^ 2) ≤
+      2 * K * (R : ℝ) + 2 := by
+  have htel :=
+    lowWheelFarPrimeQ2CrossingOwnerWindow_telescope_eq_mertens hy
+  have hbound :=
+    lowWheelFarPrimeQ2CrossingOwnerWindow_mertens_sq_le_two_root_envelope_add_two
+      hK hy
+  rw [htel]
+  exact hbound
 
 end RHLean.Proof
