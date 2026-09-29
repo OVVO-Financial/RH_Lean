@@ -1,6 +1,5 @@
 import Mathlib
 import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
-import «research.PRIME_DENSITY_INTEGRAL_TIGHTENING»
 import RHLean.Proof.FinitePartialMoments
 
 /-!
@@ -1064,6 +1063,130 @@ def reciprocalLiFrequencyWeight (q : ℕ) : ℂ :=
   primeSievePNTDensity q * reciprocalWeight q
 
 
+
+private theorem exactLi_loglog_intervalIntegrable
+    {a b : ℝ} (ha : 2 ≤ a) (hb : 2 ≤ b) :
+    IntervalIntegrable (fun t : ℝ => 1 / (t * Real.log t))
+      MeasureTheory.volume a b := by
+  apply ContinuousOn.intervalIntegrable
+  intro t ht
+  have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
+  have ht0 : t ≠ 0 := by linarith
+  have hl0 : Real.log t ≠ 0 :=
+    ne_of_gt (Real.log_pos (by linarith))
+  have hc0 : ContinuousAt (fun s : ℝ => s * Real.log s) t :=
+    continuousAt_id.mul (Real.continuousAt_log ht0)
+  exact (continuousAt_const.div hc0 (mul_ne_zero ht0 hl0)).continuousWithinAt
+
+private theorem exactLi_loglog_primitive
+    {a b : ℝ} (ha : 2 ≤ a) (hb : 2 ≤ b) :
+    (∫ t in a..b, 1 / (t * Real.log t)) =
+      Real.log (Real.log b) - Real.log (Real.log a) := by
+  apply intervalIntegral.integral_eq_sub_of_hasDerivAt
+    (f := fun t : ℝ => Real.log (Real.log t)) _
+    (exactLi_loglog_intervalIntegrable ha hb)
+  intro t ht
+  have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
+  have ht0 : t ≠ 0 := by linarith
+  have hl0 : Real.log t ≠ 0 :=
+    ne_of_gt (Real.log_pos (by linarith))
+  convert (Real.hasDerivAt_log ht0).log hl0 using 1
+  simp only [div_eq_mul_inv, mul_inv_rev]
+  ring
+
+/-- One exact singleton Li mass, after reciprocal weighting, is bounded by the
+corresponding log-log increment. -/
+theorem exactLi_norm_pntDensity_div_le_loglog_step
+    {q : ℕ} (hq : 3 ≤ q) :
+    ‖primeSievePNTDensity q‖ / (q : ℝ) ≤
+      Real.log (Real.log (q : ℝ)) -
+        Real.log (Real.log ((q - 1 : ℕ) : ℝ)) := by
+  have ha : (2 : ℝ) ≤ ((q - 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 2 ≤ q - 1 by omega)
+  have hb : (2 : ℝ) ≤ (q : ℝ) := by
+    exact_mod_cast (show 2 ≤ q by omega)
+  have hab : ((q - 1 : ℕ) : ℝ) ≤ (q : ℝ) := by
+    exact_mod_cast Nat.sub_le q 1
+  have hadd := intervalIntegral.integral_add_adjacent_intervals
+    (exactLi_invLog_intervalIntegrable (a := 2) (by norm_num) ha)
+    (exactLi_invLog_intervalIntegrable ha hb)
+  have hdiff :
+      logarithmicIntegralFromTwo (q : ℝ) -
+          logarithmicIntegralFromTwo ((q - 1 : ℕ) : ℝ) =
+        ∫ t in ((q - 1 : ℕ) : ℝ)..(q : ℝ), (Real.log t)⁻¹ := by
+    unfold logarithmicIntegralFromTwo
+    linarith [hadd]
+  have hnonneg :
+      0 ≤ logarithmicIntegralFromTwo (q : ℝ) -
+        logarithmicIntegralFromTwo ((q - 1 : ℕ) : ℝ) := by
+    rw [hdiff]
+    apply intervalIntegral.integral_nonneg hab
+    intro t ht
+    apply inv_nonneg.mpr
+    apply Real.log_nonneg
+    linarith [ht.1]
+  rw [primeSievePNTDensity, Complex.norm_real, Real.norm_eq_abs,
+    abs_of_nonneg hnonneg, hdiff, ← intervalIntegral.integral_div]
+  calc
+    (∫ t in ((q - 1 : ℕ) : ℝ)..(q : ℝ),
+        (Real.log t)⁻¹ / (q : ℝ))
+        ≤ ∫ t in ((q - 1 : ℕ) : ℝ)..(q : ℝ),
+            1 / (t * Real.log t) := by
+      apply intervalIntegral.integral_mono_on hab
+        ((exactLi_invLog_intervalIntegrable ha hb).div_const (q : ℝ))
+        (exactLi_loglog_intervalIntegrable ha hb)
+      intro t ht
+      have ht2 : (2 : ℝ) ≤ t := ha.trans ht.1
+      have hl : 0 ≤ (Real.log t)⁻¹ :=
+        inv_nonneg.mpr (Real.log_nonneg (by linarith))
+      calc
+        (Real.log t)⁻¹ / (q : ℝ) ≤
+            (Real.log t)⁻¹ / t :=
+          div_le_div_of_nonneg_left hl (by linarith) ht.2
+        _ = 1 / (t * Real.log t) := by
+          simp only [div_eq_mul_inv, mul_inv_rev, one_mul]
+    _ = _ := exactLi_loglog_primitive ha hb
+
+private theorem exactLi_sum_backward_difference
+    (g : ℕ → ℝ) {y x : ℕ} (hyx : y ≤ x) :
+    (∑ q ∈ Finset.Ioc y x, (g q - g (q - 1))) =
+      g x - g y := by
+  induction x with
+  | zero =>
+      have hy : y = 0 := by omega
+      subst y
+      simp
+  | succ x ih =>
+      by_cases h : y ≤ x
+      · rw [Finset.sum_Ioc_succ_top h, ih h]
+        simp only [Nat.add_sub_cancel]
+        ring
+      · have heq : y = x + 1 := by omega
+        subst y
+        simp
+
+/-- The reciprocal mass of exact singleton Li weights telescopes to a log-log
+endpoint increment, without importing any external research module. -/
+theorem exactLi_reciprocal_mass_le
+    {y x : ℕ} (hy : 2 ≤ y) (hyx : y ≤ x) :
+    (∑ q ∈ Finset.Ioc y x,
+        ‖primeSievePNTDensity q‖ / (q : ℝ)) ≤
+      Real.log (Real.log (x : ℝ)) -
+        Real.log (Real.log (y : ℝ)) := by
+  calc
+    _ ≤ ∑ q ∈ Finset.Ioc y x,
+        (Real.log (Real.log (q : ℝ)) -
+          Real.log (Real.log ((q - 1 : ℕ) : ℝ))) := by
+      apply Finset.sum_le_sum
+      intro q hq
+      exact exactLi_norm_pntDensity_div_le_loglog_step
+        (by
+          have := (Finset.mem_Ioc.mp hq).1
+          omega)
+    _ = _ :=
+      exactLi_sum_backward_difference
+        (fun q => Real.log (Real.log (q : ℝ))) hyx
+
 /-- On every root-to-square interval the total reciprocal Li owner mass is
 strictly contractive: at most log 2.  This is the exact discrete analogue of
 the unit-length Dickman delay mass after logarithmic rescaling. -/
@@ -1089,28 +1212,23 @@ theorem reciprocalLiFrequencyWeight_norm_sum_rootSquare_le_log_two
           norm_num
     have hll := Real.log_le_log hlx hxlog
     rw [Real.log_mul (by norm_num) (ne_of_gt hly)] at hll
-    have hmass := densityTightLi_reciprocal_mass_le hy hyx
+    have hmass := exactLi_reciprocal_mass_le hy hyx
     have hm :
         (∑ q ∈ Finset.Ioc y x,
-          densityTightLiWeight q / (q : ℝ)) ≤ Real.log 2 := by
+          ‖primeSievePNTDensity q‖ / (q : ℝ)) ≤ Real.log 2 := by
       linarith
     calc
       (∑ q ∈ Finset.Ioc y x, ‖reciprocalLiFrequencyWeight q‖)
           = ∑ q ∈ Finset.Ioc y x,
-              densityTightLiWeight q / (q : ℝ) := by
+              ‖primeSievePNTDensity q‖ / (q : ℝ) := by
             apply Finset.sum_congr rfl
             intro q hq
-            have hq3 : 3 ≤ q := by
-              have := (Finset.mem_Ioc.mp hq).1
-              omega
-            have hn : 0 ≤ densityTightLiWeight q :=
-              densityTightLiWeight_nonneg hq3
             have hqpos : (0 : ℝ) < q := by
-              exact_mod_cast (show 0 < q by omega)
+              exact_mod_cast (show 0 < q by
+                have := (Finset.mem_Ioc.mp hq).1
+                omega)
             unfold reciprocalLiFrequencyWeight reciprocalWeight
-              primeSievePNTDensity densityTightLiWeight
-            rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
-              abs_of_nonneg hn, norm_inv]
+            rw [norm_mul, norm_inv]
             simp [div_eq_mul_inv, abs_of_pos hqpos]
       _ ≤ Real.log 2 := hm
   · rw [Finset.Ioc_eq_empty_of_le (Nat.le_of_not_ge hyx)]
