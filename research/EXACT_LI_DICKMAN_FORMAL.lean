@@ -748,4 +748,26 @@ theorem exactLiDickmanVariationSegment_nonneg (n : ℕ) :
   intro u hu
   exact exactLiDickmanVariationIntegrand_nonneg n hu
 
+
+/-- **Uniform complete-segment total-variation bound.**
+Every finite collection of complete logarithmic Dickman segments is bounded by
+the same explicit constant `2 * (exp 2 - 1)`. -/
+theorem sum_exactLiDickmanVariationSegment_le (N : ℕ) :
+    (∑ n ∈ Finset.range N, exactLiDickmanVariationSegment n) ≤
+      2 * (Real.exp 2 - 1) := by
+  calc
+    (∑ n ∈ Finset.range N, exactLiDickmanVariationSegment n)
+        ≤ ∑ n ∈ Finset.range N,
+            exactLiDickmanFactorialMajorant n := by
+          apply Finset.sum_le_sum
+          intro n hn
+          exact exactLiDickmanVariationSegment_le_majorant n
+    _ ≤ ∑' n : ℕ, exactLiDickmanFactorialMajorant n := by
+          exact exactLiDickmanFactorialMajorant_summable.sum_le_tsum
+            (Finset.range N) (fun n hn => by
+              unfold exactLiDickmanFactorialMajorant
+              positivity)
+    _ = 2 * (Real.exp 2 - 1) :=
+          tsum_exactLiDickmanFactorialMajorant
+
 end RHLean.Analysis
