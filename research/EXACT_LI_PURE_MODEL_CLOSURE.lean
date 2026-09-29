@@ -996,7 +996,7 @@ critical variation, and the exact diagonal convolution factorization imply the
 intrinsic all-scale Li square-root theorem. -/
 theorem allScaleLiSquareRootBounded_of_convolutionReference
     (h M : ℕ → ℂ)
-    (hM : UniformReferenceDiagonalBounded M)
+    (hM : ∃ B : ℝ, 0 ≤ B ∧ ∀ x : ℕ, ‖M x‖ ≤ B)
     (hh : UniformCriticalWeightedVariation h)
     (hfac : AllScaleLiDiagonalConvolutionFactorization h M) :
     AllScaleLiSquareRootBoundedStatement := by
