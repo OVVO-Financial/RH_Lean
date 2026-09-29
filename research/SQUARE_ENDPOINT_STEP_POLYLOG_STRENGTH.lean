@@ -42,18 +42,6 @@ theorem lowerMertensCriticalEnvelope_mono_of_le
     LowerMertensCriticalEnvelope S K :=
   ⟨hK.1, fun y hy => hK.2 y (lt_of_lt_of_le hy hSR)⟩
 
-/-- Every admissible envelope at a positive root is at least one. -/
-theorem one_le_of_lowerMertensCriticalEnvelope
-    {R : ℕ} {K : ℝ} (hR : 1 ≤ R)
-    (hK : LowerMertensCriticalEnvelope R K) :
-    1 ≤ K := by
-  have h0 := hK.2 0 (by omega)
-  have hm0 : mertensSummatoryInt 0 = 0 := by
-    simp [mertensSummatoryInt]
-  rw [hm0] at h0
-  norm_num at h0
-  exact h0
-
 /-- The integer Mertens increment is at most the length of the interval. -/
 theorem abs_mertensSummatoryInt_sub_le
     {e y : ℕ} (hey : e ≤ y) :
