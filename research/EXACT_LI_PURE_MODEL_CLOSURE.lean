@@ -1205,33 +1205,6 @@ theorem criticalLiLocalCorrectionVariation_nonneg (q : ℕ) :
     fun m => hardCorePoissonCorrectionTailTerm_nonneg hz0 m
   exact add_nonneg zero_le_one (tsum_nonneg hterm)
 
-/-- **Uniform product bound for the coefficient-level correction kernels.**
-For any finite family of sites beyond the initial exceptional range, the
-product of their complete local critical variations is bounded by the same
-universal exponential collision constant. -/
-theorem prod_criticalLiLocalCorrectionVariation_le_exp_collisionBudget
-    (s : Finset ℕ) (hs : ∀ q ∈ s, 4 ≤ q) :
-    (∏ q ∈ s, criticalLiLocalCorrectionVariation q) ≤
-      Real.exp (3 * criticalLiCollisionBudget) := by
-  calc
-    (∏ q ∈ s, criticalLiLocalCorrectionVariation q)
-        ≤ ∏ q ∈ s,
-            (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
-          exact Finset.prod_le_prod
-            (fun q hq => criticalLiLocalCorrectionVariation_le (hs q hq))
-    _ ≤ Real.exp
-          (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) :=
-          criticalLi_prod_one_add_three_sq_le_exp_sum s
-    _ ≤ Real.exp (3 * criticalLiCollisionBudget) := by
-          apply Real.exp_le_exp.mpr
-          calc
-            (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2)
-                = 3 * (∑ q ∈ s, ‖criticalLiFrequencyWeight q‖ ^ 2) := by
-                    rw [Finset.mul_sum]
-            _ ≤ 3 * criticalLiCollisionBudget :=
-              mul_le_mul_of_nonneg_left
-                (criticalLiFrequencyWeight_sq_finset_sum_le s) (by norm_num)
-
 /-- Critical Li specialization of the scalar hard-core/Poisson correction. -/
 def criticalLiScalarCorrection (q : ℕ) : ℂ :=
   hardCorePoissonScalarCorrection (criticalLiFrequencyWeight q)
@@ -1275,6 +1248,33 @@ private theorem criticalLi_prod_one_add_three_sq_le_exp_sum
         simpa [add_comm] using
           (Real.add_one_le_exp (3 * ‖criticalLiFrequencyWeight q‖ ^ 2))
       exact mul_le_mul hfac ih (by positivity) (by positivity)
+
+/-- **Uniform product bound for the coefficient-level correction kernels.**
+For any finite family of sites beyond the initial exceptional range, the
+product of their complete local critical variations is bounded by the same
+universal exponential collision constant. -/
+theorem prod_criticalLiLocalCorrectionVariation_le_exp_collisionBudget
+    (s : Finset ℕ) (hs : ∀ q ∈ s, 4 ≤ q) :
+    (∏ q ∈ s, criticalLiLocalCorrectionVariation q) ≤
+      Real.exp (3 * criticalLiCollisionBudget) := by
+  calc
+    (∏ q ∈ s, criticalLiLocalCorrectionVariation q)
+        ≤ ∏ q ∈ s,
+            (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+          exact Finset.prod_le_prod
+            (fun q hq => criticalLiLocalCorrectionVariation_le (hs q hq))
+    _ ≤ Real.exp
+          (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) :=
+          criticalLi_prod_one_add_three_sq_le_exp_sum s
+    _ ≤ Real.exp (3 * criticalLiCollisionBudget) := by
+          apply Real.exp_le_exp.mpr
+          calc
+            (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2)
+                = 3 * (∑ q ∈ s, ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+                    rw [Finset.mul_sum]
+            _ ≤ 3 * criticalLiCollisionBudget :=
+              mul_le_mul_of_nonneg_left
+                (criticalLiFrequencyWeight_sq_finset_sum_le s) (by norm_num)
 
 /-- **Uniform finite hard-core/Poisson correction product.**
 For any finite collection of Li sites beyond the finitely many initial ones,
