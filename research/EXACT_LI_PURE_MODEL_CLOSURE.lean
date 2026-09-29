@@ -940,11 +940,16 @@ theorem hardCorePoissonCorrectionTailTerm_le
               (Nat.factorial m : ℝ)) =
           1 / (((m + 2 : ℕ) : ℝ) * (Nat.factorial m : ℝ)) := by
       field_simp
-      ring
     rw [heq]
     simp only [one_div]
     apply (inv_le_inv₀ (mul_pos hm2 hfm) hfm).2
-    nlinarith
+    calc
+      (Nat.factorial m : ℝ) =
+          1 * (Nat.factorial m : ℝ) := by ring
+      _ ≤ ((m + 2 : ℕ) : ℝ) * (Nat.factorial m : ℝ) := by
+        apply mul_le_mul_of_nonneg_right
+        · exact_mod_cast (show 1 ≤ m + 2 by omega)
+        · exact hfm.le
   unfold hardCorePoissonCorrectionTailTerm
   calc
     ((m + 1 : ℕ) : ℝ) * a ^ (m + 2) /
