@@ -27,6 +27,7 @@ interfaces, but is not an additional missing premise of this forward route.
 | #798: four internal linear-certificate families | Screened families retain a top-scale state, unsuitable daughters, or excessive coefficients; see the dated sequence entry. |
 | #799: global cross-prime cancellation | Compiled Möbius-inversion identity leaves `M(R²−1)` plus a root strip. |
 | #800: signed K₂ | Existing comparison retains the PNT error; corrected spectral calculation and finite diagnostic in the [closeout note](research/K2_COHERENT_MODE_KILL_GATE.md). |
+| Late-flip PNT split (2026-09-28) | Compiled bridge: location error `eta = 2 Disc − 2 primeSievePNTError`; finite fit `eta ≈ 1.35 M(X)` (heuristic `2 log 2`); see the [diagnostic](research/LATE_FLIP_PNT_SPLIT_DIAGNOSTIC.md). |
 
 Further searches among these existing identity families are frozen pending a
 new quantitative ingredient. This is a research decision. Finite screens and

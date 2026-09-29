@@ -486,6 +486,7 @@ import RHLean.Proof.InternalBlockLifetimeGram
 import RHLean.Proof.JointDaughterCrossEnergyAudit
 import RHLean.Proof.JointGramControl
 import RHLean.Proof.LargePrimeTerminalFlipLayers
+import RHLean.Proof.LateFlipPNTSplitBridge
 import RHLean.Proof.LifetimeActiveSet
 import RHLean.Proof.LifetimeEndpointDecomposition
 import RHLean.Proof.LifetimeEndpointDiscrepancyAttack
