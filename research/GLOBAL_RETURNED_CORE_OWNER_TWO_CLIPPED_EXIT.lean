@@ -240,11 +240,11 @@ theorem lowOwnerFirstOwnerClippedAmplitude_two_eq_topMertens
     Finset.sum_filter]
   apply Finset.sum_congr rfl
   intro a _ha
-  simp only [squarefreeLowerPrimeSignature_two, eq_self_iff_true, true_and]
+  simp only [squarefreeLowerPrimeSignature_two, true_and]
   by_cases hP : ¬ 2 ∣ a ∧ squareRootEndpoint R < 2 * a
   · have hw := lowOwnerZeroFrequencyMobiusWeight_eq_one_of_ownerTwo_clipped hR hP.2
     by_cases hmu : realMoebiusStep a = 0
-    · simp [hmu, lowOwnerZeroFrequencyMobiusSite]
+    · simp [hmu]
     · simp [hP, hmu, hw, lowOwnerZeroFrequencyMobiusSite]
   · rw [if_neg hP, if_neg]
     intro h
@@ -263,7 +263,7 @@ theorem lowOwnerFirstOwnerBase_add_child_two_eq_amplitude (R : ℕ) :
     Finset.sum_filter, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro n _hn
-  simp only [squarefreeLowerPrimeSignature_two, eq_self_iff_true, true_and,
+  simp only [squarefreeLowerPrimeSignature_two, true_and,
     lowOwnerZeroFrequencyMobiusSite]
   by_cases hmu : realMoebiusStep n = 0
   · simp [hmu]
