@@ -81,6 +81,10 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_PNT_TELESCOPE.olean research/PRIME_FLIP_PNT_TELESCOPE.lean 2>&1 | tee prime-flip-pnt.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_STATIC_CHRONOLOGY.olean research/PRIME_FLIP_STATIC_CHRONOLOGY.lean 2>&1 | tee prime-flip-static-chronology.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION.olean research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean 2>&1 | tee all-scale-li-displacement.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_UNIVERSAL_BASELINE.olean research/PRIME_DENSITY_UNIVERSAL_BASELINE.lean 2>&1 | tee prime-density-universal-baseline.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_LOG_TIGHTENING.olean research/PRIME_DENSITY_LOG_TIGHTENING.lean 2>&1 | tee prime-density-log-tightening.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_PNT_LOG_BOUND.olean research/PRIME_DENSITY_PNT_LOG_BOUND.lean 2>&1 | tee prime-density-pnt-log-bound.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_INTEGRAL_TIGHTENING.olean research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean 2>&1 | tee prime-density-integral-tightening.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_PURE_MODEL_CLOSURE.olean research/EXACT_LI_PURE_MODEL_CLOSURE.lean 2>&1 | tee exact-li-pure-model-closure.log
       - name: Audit named theorem axioms
         run: |
