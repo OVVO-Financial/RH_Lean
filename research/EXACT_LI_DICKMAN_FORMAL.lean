@@ -908,4 +908,87 @@ theorem norm_exactLiDickmanCumulativeReferenceC_le
   rw [Complex.norm_real, Real.norm_eq_abs]
   exact abs_exactLiDickmanCumulativeReference_le N hu
 
+
+/-- Logarithmic Dickman coordinate corresponding to an ordinary endpoint x:
+x = 2^(u+1). -/
+def exactLiDickmanLogCoordinate (x : ℕ) : ℝ :=
+  Real.log (x : ℝ) / Real.log 2 - 1
+
+/-- Native Dickman segment containing the logarithmic coordinate. -/
+def exactLiDickmanLogSegment (x : ℕ) : ℕ :=
+  ⌊exactLiDickmanLogCoordinate x⌋₊
+
+/-- For integer endpoints at least two, the logarithmic coordinate is
+nonnegative. -/
+theorem exactLiDickmanLogCoordinate_nonneg
+    {x : ℕ} (hx : 2 ≤ x) :
+    0 ≤ exactLiDickmanLogCoordinate x := by
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have hxR : (2 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
+  have hlogle :
+      Real.log 2 ≤ Real.log (x : ℝ) :=
+    Real.log_le_log (by norm_num) hxR
+  have hdiv :
+      (1 : ℝ) ≤ Real.log (x : ℝ) / Real.log 2 := by
+    rw [le_div_iff₀ hlog2]
+    simpa using hlogle
+  unfold exactLiDickmanLogCoordinate
+  linarith
+
+/-- The floor-selected segment really contains the logarithmic coordinate. -/
+theorem exactLiDickmanLogCoordinate_mem_native
+    {x : ℕ} (hx : 2 ≤ x) :
+    exactLiDickmanLogCoordinate x ∈
+      Icc ((exactLiDickmanLogSegment x : ℕ) : ℝ)
+        (((exactLiDickmanLogSegment x + 1 : ℕ) : ℝ)) := by
+  let u : ℝ := exactLiDickmanLogCoordinate x
+  let N : ℕ := exactLiDickmanLogSegment x
+  have hu0 : 0 ≤ u := by
+    dsimp [u]
+    exact exactLiDickmanLogCoordinate_nonneg hx
+  have hlow : (N : ℝ) ≤ u := by
+    dsimp [N, exactLiDickmanLogSegment]
+    exact Nat.floor_le hu0
+  have hhigh : u < (N : ℝ) + 1 := by
+    dsimp [N, exactLiDickmanLogSegment]
+    exact Nat.lt_floor_add_one u
+  constructor
+  · exact hlow
+  · have : u ≤ (N : ℝ) + 1 := hhigh.le
+    simpa [Nat.cast_add, Nat.cast_one] using this
+
+/-- Concrete integer-sampled continuous exact-Li Dickman reference. -/
+def exactLiDickmanIntegerReference (x : ℕ) : ℂ :=
+  if 2 ≤ x then
+    exactLiDickmanCumulativeReferenceC
+      (exactLiDickmanLogSegment x) (exactLiDickmanLogCoordinate x)
+  else 1
+
+/-- **Uniform integer reference bound.**
+The concrete sampled Dickman reference is bounded at every integer endpoint by
+the same universal constant 2 e^2 - 1. -/
+theorem norm_exactLiDickmanIntegerReference_le (x : ℕ) :
+    ‖exactLiDickmanIntegerReference x‖ ≤
+      2 * Real.exp 2 - 1 := by
+  by_cases hx : 2 ≤ x
+  · rw [exactLiDickmanIntegerReference, if_pos hx]
+    exact norm_exactLiDickmanCumulativeReferenceC_le
+      (exactLiDickmanLogSegment x)
+      (exactLiDickmanLogCoordinate_mem_native hx)
+  · rw [exactLiDickmanIntegerReference, if_neg hx, norm_one]
+    have hexp : (1 : ℝ) ≤ Real.exp 2 :=
+      Real.one_le_exp_iff.mpr (by norm_num)
+    nlinarith
+
+/-- Existential form consumed by the pure-model reference interface. -/
+theorem exactLiDickmanIntegerReference_uniformly_bounded :
+    ∃ B : ℝ, 0 ≤ B ∧
+      ∀ x : ℕ, ‖exactLiDickmanIntegerReference x‖ ≤ B := by
+  refine ⟨2 * Real.exp 2 - 1, ?_, ?_⟩
+  · have hexp : (1 : ℝ) ≤ Real.exp 2 :=
+      Real.one_le_exp_iff.mpr (by norm_num)
+    nlinarith
+  · intro x
+    exact norm_exactLiDickmanIntegerReference_le x
+
 end RHLean.Analysis
