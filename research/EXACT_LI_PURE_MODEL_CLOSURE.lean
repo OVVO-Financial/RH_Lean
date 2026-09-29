@@ -1384,6 +1384,50 @@ theorem allScaleLiCriticalPrefix_eq_fixedCutoffWeighted_of_state
     (primeFrequencyState_saturated hL)
 
 
+
+/-- Reciprocal-weighted prefix of the diagonal increments. -/
+def allScaleLiReciprocalPrefix
+    (L : ℕ → ℕ → ℂ) (N : ℕ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 N,
+    allScaleLiDiagonalIncrement L n / (n : ℂ)
+
+/-- The diagonal reciprocal prefix is exactly the fixed-cutoff reciprocal
+first-coordinate prefix. -/
+theorem allScaleLiReciprocalPrefix_eq_fixedCutoffWeighted
+    {L : ℕ → ℕ → ℂ} (N : ℕ)
+    (hsat : PrimeFrequencySaturated L) :
+    allScaleLiReciprocalPrefix L N =
+      weightedForwardDifferencePrefix reciprocalWeight
+        (fun n => L n N) N := by
+  unfold allScaleLiReciprocalPrefix weightedForwardDifferencePrefix
+    allScaleLiDiagonalIncrement reciprocalWeight
+  apply Finset.sum_congr rfl
+  intro n hn
+  have hnN : n ≤ N := (Finset.mem_Icc.mp hn).2
+  have hpredN : n - 1 ≤ N := (Nat.sub_le n 1).trans hnN
+  change (L n n - L (n - 1) (n - 1)) / (n : ℂ) =
+    ((n : ℂ))⁻¹ * (L n N - L (n - 1) N)
+  rw [hsat n N hnN, hsat (n - 1) N hpredN, div_eq_mul_inv]
+  ring
+
+/-- State-only form of the reciprocal-prefix identification. -/
+theorem allScaleLiReciprocalPrefix_eq_fixedCutoffWeighted_of_state
+    {L : ℕ → ℕ → ℂ} (N : ℕ) (hL : IsAllScaleLiState L) :
+    allScaleLiReciprocalPrefix L N =
+      weightedForwardDifferencePrefix reciprocalWeight
+        (fun n => L n N) N := by
+  exact allScaleLiReciprocalPrefix_eq_fixedCutoffWeighted N
+    (primeFrequencyState_saturated hL)
+
+/-- On the diagonal, the reciprocal/Dickman state is exactly one plus the
+reciprocal-weighted diagonal prefix. -/
+theorem allScaleLiReciprocalState_diagonal_eq
+    {L : ℕ → ℕ → ℂ} (N : ℕ) (hL : IsAllScaleLiState L) :
+    allScaleLiReciprocalState L N N =
+      1 + allScaleLiReciprocalPrefix L N := by
+  unfold allScaleLiReciprocalState
+  rw [allScaleLiReciprocalPrefix_eq_fixedCutoffWeighted_of_state N hL]
+
 /-- On the diagonal, the transformed state is exactly one plus the critical
 half-weighted prefix. -/
 theorem allScaleLiCriticalState_diagonal_eq
