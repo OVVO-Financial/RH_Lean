@@ -209,16 +209,13 @@ theorem sum_Ico_even_eq_sum_double {R : ℕ} (f : ℕ → ℂ) :
   rw [← Finset.sum_filter, ← Finset.sum_filter]
   apply Finset.sum_nbij' (fun c => c / 2) (fun d => 2 * d)
   · intro c hc
-    simp only [Finset.coe_filter, Finset.mem_Ico, Set.mem_setOf_eq,
-      Nat.even_iff] at hc ⊢
+    simp only [Finset.mem_filter, Finset.mem_Ico, Nat.even_iff] at hc ⊢
     omega
   · intro d hd
-    simp only [Finset.coe_filter, Finset.mem_Ico, Set.mem_setOf_eq,
-      Nat.even_iff] at hd ⊢
+    simp only [Finset.mem_filter, Finset.mem_Ico, Nat.even_iff] at hd ⊢
     omega
   · intro c hc
-    simp only [Finset.coe_filter, Finset.mem_Ico, Set.mem_setOf_eq,
-      Nat.even_iff] at hc
+    simp only [Finset.mem_filter, Finset.mem_Ico, Nat.even_iff] at hc
     omega
   · intro d _hd
     omega
@@ -469,8 +466,13 @@ theorem squareRootTransportRaw_sub_liDisc_eq_discrepancy
         (∑ q ∈ Finset.range (R + 1), if q.Prime then (1 : ℂ) else 0) +
           ∑ q ∈ Finset.Ioc R (squareRootEndpoint R / c),
             if q.Prime then (1 : ℂ) else 0 := by
-    rw [Finset.range_eq_Ico, Finset.range_eq_Ico, ← Nat.Ico_succ_succ,
-      Finset.sum_Ico_consecutive _ (Nat.zero_le _) (by omega)]
+    rw [Finset.range_eq_Ico, ← Finset.sum_Ico_consecutive _
+      (Nat.zero_le (R + 1)) (by omega : R + 1 ≤ squareRootEndpoint R / c + 1)]
+    congr 1
+    refine Finset.sum_congr ?_ (fun _ _ => rfl)
+    ext q
+    simp only [Finset.mem_Ico, Finset.mem_Ioc]
+    omega
   unfold primeCountLiDiscrepancy squareRootTransportLiDiscWeight
   rw [hsplit]
   push_cast
