@@ -49,6 +49,8 @@ on:
       - research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean
       - scripts/top_two_completed_branch_probe.py
       - research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean
+      - research/PRIME_FLIP_PNT_TELESCOPE.lean
+      - research/PRIME_FLIP_PNT_FINAL_STOKES_BRIDGE.lean
       - research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean
       - scripts/post789_remainder_correlation_probe.py
       - research/GLOBAL_RETURNED_CORE_ZERO_TARGET_CLIPPED_HISTORY_CONTRACTION.lean
@@ -343,6 +345,41 @@ jobs:
           lake build RHLean.Proof.SquareRootMertensEndpointAmplification
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
           emit research/GLOBAL_RETURNED_CORE_ENDPOINT_AMPLIFICATION_POST789_TRANSFER.lean
+      - name: Build prime-flip PNT root dependencies
+        run: |
+          lake build RHLean.Analysis.PrimeSieveAbelIdentity
+          lake build RHLean.Analysis.SquareRootMiddleSequentialCoherence
+          lake build RHLean.Proof.LargePrimeTerminalFlipLayers
+      - name: Kernel-check prime-flip PNT FinalStokes bridge
+        run: |
+          emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
+          emit research/PRIME_FLIP_PNT_TELESCOPE.lean
+          emit research/PRIME_FLIP_PNT_FINAL_STOKES_BRIDGE.lean
+      - name: Audit prime-flip PNT bridge axioms
+        run: |
+          cat > /tmp/PrimeFlipPNTBridgeAxioms.lean <<'LEAN'
+          import «research.PRIME_FLIP_PNT_FINAL_STOKES_BRIDGE»
+          #print axioms RHLean.Analysis.lowOwnerPost789GlobalAmplitude_eq_primeFlipRootBase_add_exact
+          #print axioms RHLean.Analysis.lowOwnerPrimeFlipPNTModelAmplitude_eq_rootBase_add_pnt
+          #print axioms RHLean.Analysis.lowOwnerPrimeFlipPNTReplacementEffect_eq_actualCross_sub_errorSq
+          #print axioms RHLean.Analysis.lowOwnerFinalStokes_eq_primeFlipPNTModel_add_replacement
+          #print axioms RHLean.Analysis.finalStokesQ2EnergyBound_of_primeFlipPNTSplit
+          #print axioms RHLean.Analysis.finalStokesQ2EnergyBound_nineQuarters_of_primeFlipPNTSplit
+          #print axioms RHLean.Analysis.riemannHypothesis_of_primeFlipPNTModel_two_replacement_quarter
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTBridgeAxioms.lean 2>&1 | tee prime-flip-pnt-bridge-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s = Path('prime-flip-pnt-bridge-axioms.log').read_text()
+          records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
+          assert len(records) == 7, records
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              actual = {a.strip() for a in record.split(',') if a.strip()}
+              assert actual <= allowed, actual
+          PY
       - name: Prebuild unconditional strong Mertens input
         run: |
           lake build RHLean.Analysis.NativePNTQuantitativeStatements

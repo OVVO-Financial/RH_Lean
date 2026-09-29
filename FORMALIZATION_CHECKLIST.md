@@ -649,3 +649,34 @@ the transfer alone. Prior obstructions, exports, and declarations remain.
 - [ ] Compiler, axiom, source and export checks pass on the final PR head.
 - [ ] Merge explicitly authorized.
 
+
+
+## Prime-flip PNT telescope (2026-09-28; stacked on #804)
+
+- [x] Use the exact inherited post-root response `1-M(floor(x/q))`; do not approximate lower Möbius values.
+- [x] Group only identical quotient responses after the Euler/sign-flip cancellation has been formed.
+- [x] Replace only reciprocal-band prime multiplicities by the repository's Li/PNT masses.
+- [x] Retain the exact prime-count-minus-Li discrepancy on each original reciprocal interval.
+- [x] Prove the replacement error equals endpoint prime discrepancy minus the existing Mertens-weighted PNT error.
+- [x] Compose with the Abel identity so square-endpoint interior coefficients reduce to individual `mu(d)` atoms plus one lower endpoint boundary.
+- [x] Keep the signed cross term in the assembled quadratic energy.
+- [x] Identify current FinalStokes exactly as PNT-model Stokes plus signed multiplicity-replacement effect.
+- [x] Wire model coefficient `2` and replacement coefficient `1/4` to the existing `9/4` FinalStokes RH consumer.
+- [ ] Warning-fatal compiler passes for `research/PRIME_FLIP_PNT_TELESCOPE.lean`.
+- [ ] Named theorem axiom audit reports only the repository-allowed logical axioms.
+- [ ] The remaining analytic obligation is a uniform bound on the signed assembled replacement effect strong enough for the current FinalStokes/CORR consumer.
+- [ ] Merge explicitly authorized.
+
+
+### Arbitrary-snapshot chronology layer (2026-09-28)
+
+- [x] Formalize uniqueness of an upper-prime owner for any site `n <= W`.
+- [x] Prove each unresolved squarefree seat `c*p` stores the completed lower value `mu(c)` after the exact square-root frame.
+- [x] Prove the fresh upper owner changes that weight to `-mu(c)`.
+- [x] Prove primes above `W/2` have no proper-multiple action and zero late score increment.
+- [x] Identify the literal chronological late correction with twice the inherited-response operator.
+- [x] Reindex the correction exactly by reciprocal quotient bands.
+- [x] Prove every inherited quotient is at or below `sqrt W`.
+- [x] Replace only prime multiplicity by Li/PNT density and retain the exact signed error.
+- [x] Atomize the arbitrary-endpoint PNT replacement error into Möbius atoms plus one boundary.
+- [ ] Warning-fatal compilation and axiom audit green on the final head.

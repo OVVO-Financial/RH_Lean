@@ -1,0 +1,121 @@
+name: Prime flip PNT telescope
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/PRIME_FLIP_PNT_TELESCOPE.lean
+      - research/PRIME_FLIP_STATIC_CHRONOLOGY.lean
+      - FORMALIZATION_SEQUENCE.md
+      - FORMALIZATION_CHECKLIST.md
+      - .github/workflows/prime-flip-pnt-telescope.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify append-only formalization records
+        run: |
+          grep -F '## Prime-flip PNT telescope (2026-09-28; stacked on #804)' FORMALIZATION_SEQUENCE.md
+          grep -F '## Prime-flip PNT telescope (2026-09-28; stacked on #804)' FORMALIZATION_CHECKLIST.md
+          git rev-parse HEAD
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-
+      - name: Audit repository assumptions
+        run: bash scripts/audit_assumptions.sh
+      - name: Build exact dependencies
+        run: |
+          lake build RHLean.Analysis.PrimeSieveAbelIdentity
+          lake build RHLean.Analysis.SquareRootMiddleSequentialCoherence
+          lake build RHLean.Proof.LargePrimeTerminalFlipLayers
+          lake build RHLean.Proof.PrimeCombVisualizationFrames
+          lake build RHLean.Proof.PrimeCombReciprocalBandCancellation
+      - name: Kernel-check prime flip telescope
+        run: |
+          mkdir -p .lake/build/lib/lean
+          set -o pipefail
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_PNT_TELESCOPE.olean research/PRIME_FLIP_PNT_TELESCOPE.lean 2>&1 | tee prime-flip-pnt.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_STATIC_CHRONOLOGY.olean research/PRIME_FLIP_STATIC_CHRONOLOGY.lean 2>&1 | tee prime-flip-static-chronology.log
+      - name: Audit named theorem axioms
+        run: |
+          cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
+          import «research.PRIME_FLIP_STATIC_CHRONOLOGY»
+          #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
+          #print axioms RHLean.Analysis.primeFlipExactResponse_eq_reciprocalPrimeCounts
+          #print axioms RHLean.Analysis.primeFlipPNTError_eq_reciprocalDiscrepancy
+          #print axioms RHLean.Analysis.primeFlipPNTError_eq_endpointDiscrepancy_sub_mertensPNTError
+          #print axioms RHLean.Analysis.squareRoot_primeFlipPNTError_eq_moebiusAtoms
+          #print axioms RHLean.Analysis.primeFlipAssembledEnergy_prime_eq_pnt_add_signedEffect
+          #print axioms RHLean.Analysis.primeFlipPNTReplacementSignedEffect_le_four_error_sq
+          #print axioms RHLean.Analysis.primeFlipPNTReplacementSignedEffect_le_model_sq_add_eight_error_sq
+          #print axioms RHLean.Analysis.primeFlipSnapshot_postRootOwner_unique
+          #print axioms RHLean.Analysis.primeFlipSnapshot_tailSeat_chronology
+          #print axioms RHLean.Analysis.primeFlipSnapshot_topHalf_inert
+          #print axioms RHLean.Analysis.primeFlipSnapshotLateCorrection_eq_two_exactResponse
+          #print axioms RHLean.Analysis.primeFlipSnapshotLateCorrection_eq_reciprocalBands
+          #print axioms RHLean.Analysis.primeFlipSnapshotPNTError_eq_moebiusAtoms
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s = Path('prime-flip-pnt-axioms.log').read_text()
+          records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
+          assert len(records) == 14, records
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              actual = {a.strip() for a in record.split(',') if a.strip()}
+              assert actual <= allowed, actual
+          PY
+      - name: Retain compiler and axiom logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prime-flip-pnt-logs
+          path: |
+            prime-flip-pnt*.log
+            prime-flip-static-chronology.log
+          if-no-files-found: ignore
