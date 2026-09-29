@@ -695,6 +695,62 @@ theorem criticalLiFrequencyWeight_sq_summable :
   intro q
   exact (norm_criticalLiFrequencyWeight_sq q).symm
 
+
+/-! ## Uniform multiplicative budget for hard-core/Poisson correction -/
+
+/-- Total second-order mass of the critical transformed Li owner weights. -/
+def criticalLiCollisionBudget : ℝ :=
+  ∑' q : ℕ, ‖criticalLiFrequencyWeight q‖ ^ 2
+
+theorem criticalLiCollisionBudget_nonneg :
+    0 ≤ criticalLiCollisionBudget := by
+  unfold criticalLiCollisionBudget
+  exact tsum_nonneg (fun q => sq_nonneg ‖criticalLiFrequencyWeight q‖)
+
+/-- Every finite collection of critical collision masses is bounded by the
+single universal collision budget. -/
+theorem criticalLiFrequencyWeight_sq_finset_sum_le
+    (s : Finset ℕ) :
+    (∑ q ∈ s, ‖criticalLiFrequencyWeight q‖ ^ 2) ≤
+      criticalLiCollisionBudget := by
+  unfold criticalLiCollisionBudget
+  exact criticalLiFrequencyWeight_sq_summable.sum_le_tsum s
+    (fun q hq => sq_nonneg ‖criticalLiFrequencyWeight q‖)
+
+/-- Elementary finite Euler correction: a product of local factors 1+a_q is
+controlled by exp(sum a_q). -/
+private theorem criticalLi_prod_one_add_sq_le_exp_sum
+    (s : Finset ℕ) :
+    (∏ q ∈ s, (1 + ‖criticalLiFrequencyWeight q‖ ^ 2)) ≤
+      Real.exp (∑ q ∈ s, ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty =>
+      simp
+  | @insert q s hq ih =>
+      rw [Finset.prod_insert hq, Finset.sum_insert hq, Real.exp_add]
+      exact mul_le_mul
+        (Real.add_one_le_exp (‖criticalLiFrequencyWeight q‖ ^ 2))
+        ih
+        (by positivity)
+        (by positivity)
+
+/-- **Uniform finite hard-core Euler correction bound.**
+Square summability upgrades to a single multiplicative constant independent of
+the number of Li sites. -/
+theorem criticalLi_prod_one_add_sq_le_exp_budget
+    (s : Finset ℕ) :
+    (∏ q ∈ s, (1 + ‖criticalLiFrequencyWeight q‖ ^ 2)) ≤
+      Real.exp criticalLiCollisionBudget := by
+  calc
+    (∏ q ∈ s, (1 + ‖criticalLiFrequencyWeight q‖ ^ 2))
+        ≤ Real.exp (∑ q ∈ s, ‖criticalLiFrequencyWeight q‖ ^ 2) :=
+          criticalLi_prod_one_add_sq_le_exp_sum s
+    _ ≤ Real.exp criticalLiCollisionBudget := by
+          exact Real.exp_le_exp.mpr
+            (criticalLiFrequencyWeight_sq_finset_sum_le s)
+
+
 /-- Critical transform of an all-scale Li state. -/
 def allScaleLiCriticalState
     (L : ℕ → ℕ → ℂ) (x y : ℕ) : ℂ :=
