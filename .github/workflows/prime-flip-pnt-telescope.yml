@@ -6,6 +6,7 @@ on:
     paths:
       - research/PRIME_FLIP_PNT_TELESCOPE.lean
       - research/PRIME_FLIP_STATIC_CHRONOLOGY.lean
+      - research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean
       - FORMALIZATION_SEQUENCE.md
       - FORMALIZATION_CHECKLIST.md
       - .github/workflows/prime-flip-pnt-telescope.yml
@@ -78,10 +79,12 @@ jobs:
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_PNT_TELESCOPE.olean research/PRIME_FLIP_PNT_TELESCOPE.lean 2>&1 | tee prime-flip-pnt.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_STATIC_CHRONOLOGY.olean research/PRIME_FLIP_STATIC_CHRONOLOGY.lean 2>&1 | tee prime-flip-static-chronology.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION.olean research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean 2>&1 | tee all-scale-li-displacement.log
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
           import «research.PRIME_FLIP_STATIC_CHRONOLOGY»
+          import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_reciprocalPrimeCounts
           #print axioms RHLean.Analysis.primeFlipPNTError_eq_reciprocalDiscrepancy
@@ -96,6 +99,11 @@ jobs:
           #print axioms RHLean.Analysis.primeFlipSnapshotLateCorrection_eq_two_exactResponse
           #print axioms RHLean.Analysis.primeFlipSnapshotLateCorrection_eq_reciprocalBands
           #print axioms RHLean.Analysis.primeFlipSnapshotPNTError_eq_moebiusAtoms
+          #print axioms RHLean.Analysis.primeFrequencyState_sub_eq_signedDisplacement
+          #print axioms RHLean.Analysis.primeFrequencyState_squareRoot_split
+          #print axioms RHLean.Analysis.allScaleLiState_squareRoot_assembled_eq_diagonal
+          #print axioms RHLean.Analysis.squareRoot_primeFlipPNTError_eq_neg_centeredDisplacement
+          #print axioms RHLean.Analysis.squareRoot_centeredPrimeDisplacement_eq_moebiusAtoms
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -104,7 +112,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 14, records
+          assert len(records) == 19, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -118,4 +126,5 @@ jobs:
           path: |
             prime-flip-pnt*.log
             prime-flip-static-chronology.log
+            all-scale-li-displacement.log
           if-no-files-found: ignore
