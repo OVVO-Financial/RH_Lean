@@ -236,8 +236,8 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
         dsimp [a, b]
         norm_num
       have hrcont : ContinuousOn r (Icc a b) := by
-        convert exactLiDickmanSegment_continuousOn (n + 1) using 1 <;>
-          norm_num [r, a, b]
+        simpa [r, a, b, Nat.cast_add, Nat.cast_one, add_assoc] using
+          exactLiDickmanSegment_continuousOn (n + 1)
       have hshift :
           ContinuousOn (fun u : ℝ => u - 1) (Icc a b) := by
         fun_prop
@@ -319,7 +319,7 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
       have htarget :
           b * r b = ∫ u in a..b, r u := by
         linarith
-      convert htarget using 1 <;> dsimp [a, b, r] <;> push_cast <;> ring
+      simpa [a, b, r, Nat.cast_add, Nat.cast_one, add_assoc] using htarget
 
 
 
@@ -356,7 +356,10 @@ theorem exactLiDickmanSegment_succ_antitoneOn_of_prev_nonneg
     have hdiv :
         0 ≤ exactLiDickmanSegment n (u - 1) / u :=
       div_nonneg hnum hupos.le
-    linarith
+    have hneg :
+        -(exactLiDickmanSegment n (u - 1) / u) ≤ 0 :=
+      neg_nonpos.mpr hdiv
+    simpa [neg_div] using hneg
 
 /-- If the previous Dickman segment is nonnegative, then the successor segment
 is nonnegative as well.  The key endpoint step uses the exact endpoint-average
@@ -379,7 +382,7 @@ theorem exactLiDickmanSegment_succ_nonneg_of_prev_nonneg
       exactLiDickmanSegment_succ_antitoneOn_of_prev_nonneg n hprev
   have hcont : ContinuousOn f [[a, b]] := by
     have hc := exactLiDickmanSegment_continuousOn (n + 1)
-    simpa [a, b, f, uIcc_of_le hab] using hc
+    simpa [a, b, f, uIcc_of_le hab, Nat.cast_add, Nat.cast_one, add_assoc] using hc
   have hfint : IntervalIntegrable f MeasureTheory.volume a b :=
     hcont.intervalIntegrable
   have hconstint :
@@ -394,12 +397,15 @@ theorem exactLiDickmanSegment_succ_nonneg_of_prev_nonneg
     exact hanti hx hbmem hx.2
   have hconst :
       (∫ _x in a..b, f b) = f b := by
-    simp [a, b]
+    rw [intervalIntegral.integral_const]
+    dsimp [a, b]
+    push_cast
+    ring
   rw [hconst] at hmono
   have hid := exactLiDickmanSegment_endpoint_identity (n + 1)
   have hid' :
       b * f b = ∫ x in a..b, f x := by
-    simpa [a, b, f] using hid
+    simpa [a, b, f, Nat.cast_add, Nat.cast_one, add_assoc] using hid
   rw [← hid'] at hmono
   have hbgt : (1 : ℝ) < b := by
     dsimp [b]
