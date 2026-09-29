@@ -625,6 +625,42 @@ theorem weightedForwardDifferencePrefix_primeFrequencyState
 def criticalLiFrequencyWeight (q : ℕ) : ℂ :=
   primeSievePNTDensity q * criticalSqrtWeight q
 
+
+/-- Exact critical norm: the square-root test contributes precisely one
+reciprocal factor. -/
+theorem norm_criticalSqrtWeight_sq (q : ℕ) :
+    ‖criticalSqrtWeight q‖ ^ 2 = 1 / (q : ℝ) := by
+  by_cases hq : q = 0
+  · subst q
+    simp [criticalSqrtWeight]
+  · have hqpos : (0 : ℝ) < q := by
+      exact_mod_cast Nat.pos_of_ne_zero hq
+    have hsqrtpos : 0 < Real.sqrt (q : ℝ) := Real.sqrt_pos.2 hqpos
+    rw [criticalSqrtWeight, norm_inv, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_pos hsqrtpos]
+    have hsqrt_sq : (Real.sqrt (q : ℝ)) ^ 2 = (q : ℝ) :=
+      Real.sq_sqrt hqpos.le
+    rw [inv_pow, hsqrt_sq]
+    rfl
+
+/-- The square norm of one transformed Li owner is exactly the collision
+summand already proved summable above. -/
+theorem norm_criticalLiFrequencyWeight_sq (q : ℕ) :
+    ‖criticalLiFrequencyWeight q‖ ^ 2 =
+      ‖primeSievePNTDensity q‖ ^ 2 / (q : ℝ) := by
+  unfold criticalLiFrequencyWeight
+  rw [norm_mul, mul_pow, norm_criticalSqrtWeight_sq]
+  ring
+
+/-- **Critical transformed Li owners are square-summable.**
+This is the precise second-order budget for replacing the hard-core
+fresh-site product by a continuous/Poissonized reference. -/
+theorem criticalLiFrequencyWeight_sq_summable :
+    Summable (fun q : ℕ => ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+  apply exactLiCriticalCollision_summable.congr
+  intro q
+  exact (norm_criticalLiFrequencyWeight_sq q).symm
+
 /-- Critical transform of an all-scale Li state. -/
 def allScaleLiCriticalState
     (L : ℕ → ℕ → ℂ) (x y : ℕ) : ℂ :=
