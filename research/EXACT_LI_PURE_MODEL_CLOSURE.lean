@@ -2472,7 +2472,7 @@ theorem sampledCriticalPrefix_eq_abel
               (by omega : (1 : ℕ) ≤ N + 2)]
             simp only [Nat.add_sub_cancel]
           rw [hstep, ih hN1, Finset.sum_Ico_succ_top hN1]
-          simp only [Nat.add_sub_cancel, div_eq_mul_inv]
+          simp only [div_eq_mul_inv]
           push_cast
           ring
 
@@ -2526,7 +2526,7 @@ theorem norm_sampledCriticalPrefix_le_two_mul
             apply Finset.sum_congr rfl
             intro n hn
             ring
-      _ = _ := by rw [hf]; norm_num; ring
+      _ = _ := by rw [hf]; norm_num
   calc
     ‖M N / (Real.sqrt (N : ℝ) : ℂ) - M 0 +
         ∑ n ∈ Finset.Ico 1 N,
