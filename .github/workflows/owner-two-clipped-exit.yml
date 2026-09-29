@@ -6,6 +6,8 @@ on:
     paths:
       - research/GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean
       - research/SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH.lean
+      - research/OWNER_TWO_UPPER_HALF_POLARIZATION.lean
+      - research/DYADIC_SMOOTH_HIGH_JOINT_PACKET.lean
       - .github/workflows/owner-two-clipped-exit.yml
   workflow_dispatch:
 
@@ -50,7 +52,7 @@ jobs:
         run: bash scripts/audit_assumptions.sh
       - name: Build exact library dependencies
         run: |
-          lake build RHLean.Proof.SquareRootLowPrimeTSectorQ2Renormalization
+          lake build RHLean.Proof.SquareRootLowPrimeTSectorQ2Renormalization RHLean.Proof.VanishingTransitionRelevanceBase
       - name: Compile research dependency chain
         run: |
           mkdir -p .lake/build/lib/lean
@@ -112,11 +114,14 @@ jobs:
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.olean research/GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean 2>&1 | tee owner-two-clipped-exit.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH.olean research/SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH.lean 2>&1 | tee -a owner-two-clipped-exit.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.DYADIC_SMOOTH_HIGH_JOINT_PACKET.olean research/DYADIC_SMOOTH_HIGH_JOINT_PACKET.lean 2>&1 | tee -a owner-two-clipped-exit.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.OWNER_TWO_UPPER_HALF_POLARIZATION.olean research/OWNER_TWO_UPPER_HALF_POLARIZATION.lean 2>&1 | tee -a owner-two-clipped-exit.log
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/OwnerTwoClippedExitAxioms.lean <<'LEAN'
           import «research.GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT»
           import «research.SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH»
+          import «research.OWNER_TWO_UPPER_HALF_POLARIZATION»
           #print axioms RHLean.Proof.lowOwnerFirstOwnerClippedAmplitude_two_eq_topMertens
           #print axioms RHLean.Proof.lowOwnerFirstOwnerCompensatedInteriorAmplitude_two_eq
           #print axioms RHLean.Proof.lowOwnerZeroFrequencyMobiusAmplitude_eq_ownerTwoInterior_add_clipped
@@ -129,6 +134,11 @@ jobs:
           #print axioms RHLean.Proof.lowerMertensCriticalEnvelope_sq_of_amplification
           #print axioms RHLean.Proof.lowerMertensCriticalEnvelope_doubleExponential_of_amplification
           #print axioms RHLean.Proof.squareEndpointRoundedOddQ2EnergyStep_forces_polylogMertensEnvelope
+          #print axioms RHLean.Proof.squareRootDyadicJointPacket_eq_smooth_sub_transport
+          #print axioms RHLean.Proof.squareRootDyadicJointPacket_normSq_eq_smooth_transport_polarization
+          #print axioms RHLean.Proof.squareEndpointMertensEnergyReal_eq_ownerTwoJointPacket_normSq
+          #print axioms RHLean.Proof.squareEndpointMertensEnergyReal_eq_smooth_transport_polarization
+          #print axioms RHLean.Proof.squareEndpointRoundedOddQ2EnergyStep_iff_ownerTwoSmoothTransportCovariance
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/OwnerTwoClippedExitAxioms.lean 2>&1 | tee owner-two-clipped-exit-axioms.log
@@ -137,7 +147,7 @@ jobs:
           from pathlib import Path
           s = Path('owner-two-clipped-exit-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 12, records
+          assert len(records) == 17, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
