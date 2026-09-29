@@ -785,7 +785,7 @@ theorem exactLiDickmanVariationPartial_nonneg
   apply intervalIntegral.integral_nonneg hu.1
   intro v hv
   exact exactLiDickmanVariationIntegrand_nonneg N
-    ⟨hv.1.trans hu.1, hv.2.trans hu.2⟩
+    ⟨hv.1, hv.2.trans hu.2⟩
 
 /-- A partial final segment is bounded by the same factorial majorant as the
 complete segment. -/
@@ -810,7 +810,7 @@ theorem exactLiDickmanVariationPartial_le_majorant
         exactLiDickmanVariationIntegrand N := by
     filter_upwards [ae_restrict_mem measurableSet_Ioc] with v hv
     exact exactLiDickmanVariationIntegrand_nonneg N
-      ⟨hv.1, hv.2⟩
+      ⟨hv.1.le, hv.2⟩
   have hpartialFull :
       exactLiDickmanVariationPartial N u ≤
         exactLiDickmanVariationSegment N := by
