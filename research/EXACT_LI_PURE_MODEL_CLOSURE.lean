@@ -1276,7 +1276,8 @@ theorem prod_criticalLiLocalCorrectionVariation_le_exp_collisionBudget
         exact mul_le_mul
           (criticalLiLocalCorrectionVariation_le hq4)
           (ih hs4)
-          (criticalLiLocalCorrectionVariation_nonneg q)
+          (Finset.prod_nonneg fun r hr =>
+            criticalLiLocalCorrectionVariation_nonneg r)
           (by positivity)
   calc
     (∏ q ∈ s, criticalLiLocalCorrectionVariation q)
