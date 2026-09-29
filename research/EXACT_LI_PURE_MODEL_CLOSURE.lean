@@ -374,6 +374,30 @@ theorem weightedForwardDifferencePrefix_floor_div
         rw [hdiv]
         simp
 
+
+/-! ## Critical square-root weight -/
+
+/-- Critical multiplicative weight n^(-1/2). -/
+def criticalSqrtWeight (n : ℕ) : ℂ :=
+  (Real.sqrt (n : ℝ) : ℂ)⁻¹
+
+/-- The critical square-root weight is exactly multiplicative. -/
+theorem criticalSqrtWeight_mul (a b : ℕ) :
+    criticalSqrtWeight (a * b) =
+      criticalSqrtWeight a * criticalSqrtWeight b := by
+  simp [criticalSqrtWeight, Nat.cast_mul,
+    Real.sqrt_mul (by positivity : (0 : ℝ) ≤ (a : ℝ))]
+
+/-- The generic floor-dilation law at the critical square-root weight. -/
+theorem criticalSqrtWeightedPrefix_floor_div
+    (F : ℕ → ℂ) (q N : ℕ) :
+    weightedForwardDifferencePrefix criticalSqrtWeight
+        (fun n => F (n / q)) N =
+      criticalSqrtWeight q *
+        weightedForwardDifferencePrefix criticalSqrtWeight F (N / q) := by
+  exact weightedForwardDifferencePrefix_floor_div
+    criticalSqrtWeight F q criticalSqrtWeight_mul N
+
 /-! ## Sharp finite Abel return from the critical half-weight -/
 
 /-- The increment recovered from a half-weighted prefix profile. -/
