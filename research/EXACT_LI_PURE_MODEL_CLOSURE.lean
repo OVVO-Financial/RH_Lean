@@ -315,7 +315,7 @@ theorem exactLiCriticalCollision_summable :
     pow_le_pow_left₀ (norm_nonneg _) hnorm 2
   have hyqR : (y : ℝ) ≤ (q : ℝ) := by exact_mod_cast (Nat.le_of_lt hyq)
   have hinv : (q : ℝ)⁻¹ ≤ (y : ℝ)⁻¹ :=
-    (inv_le_inv₀ hypos hqpos).2 hyqR
+    (inv_le_inv₀ hqpos hypos).2 hyqR
   change ‖primeSievePNTDensity q‖ ^ 2 / (q : ℝ) ≤
     exactLiLogHarmonicTail 2 n
   rw [div_eq_mul_inv]
@@ -325,7 +325,6 @@ theorem exactLiCriticalCollision_summable :
       exact mul_le_mul hsq hinv (by positivity) (sq_nonneg _)
     _ = exactLiLogHarmonicTail 2 n := by
       dsimp [exactLiLogHarmonicTail, q, y]
-      rw [show n + 4 - 1 = n + 3 by omega]
       simp only [one_div, mul_inv_rev, inv_pow]
       ring
 
