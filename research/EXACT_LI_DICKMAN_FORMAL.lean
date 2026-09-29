@@ -214,4 +214,104 @@ theorem exactLiDickmanSegment_succ_hasDerivAt
   have hsub := hconst.sub hint
   simpa [exactLiDickmanSegment, a, g, neg_div] using hsub
 
+
+/-- **Dickman unit-interval endpoint identity.**
+For every method-of-steps segment,
+  (n+1) * rho(n+1) = ∫_n^{n+1} rho(u) du.
+This is the finite form used for the factorial envelope. -/
+theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
+    (((n + 1 : ℕ) : ℝ)) *
+        exactLiDickmanSegment n (n + 1 : ℕ) =
+      ∫ u in (n : ℝ)..(((n + 1 : ℕ) : ℝ)),
+        exactLiDickmanSegment n u := by
+  induction n with
+  | zero =>
+      norm_num [exactLiDickmanSegment]
+  | succ n ih =>
+      let a : ℝ := ((n + 1 : ℕ) : ℝ)
+      let b : ℝ := ((n + 2 : ℕ) : ℝ)
+      let p : ℝ → ℝ := exactLiDickmanSegment n
+      let r : ℝ → ℝ := exactLiDickmanSegment (n + 1)
+      have hab : a ≤ b := by
+        dsimp [a, b]
+        norm_num
+      have hrcont : ContinuousOn r (Icc a b) := by
+        simpa [r, a, b] using
+          exactLiDickmanSegment_continuousOn (n + 1)
+      have hshift :
+          ContinuousOn (fun u : ℝ => u - 1) (Icc a b) := by
+        fun_prop
+      have hmap :
+          MapsTo (fun u : ℝ => u - 1) (Icc a b)
+            (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
+        simpa [a, b] using exactLiDickman_shift_mapsTo n
+      have hpcont :
+          ContinuousOn (fun u : ℝ => p (u - 1)) (Icc a b) := by
+        dsimp [p]
+        exact (exactLiDickmanSegment_continuousOn n).comp hshift hmap
+      have hprodcont :
+          ContinuousOn (fun u : ℝ => u * r u) (Icc a b) :=
+        continuousOn_id.mul hrcont
+      have hderiv :
+          ∀ u ∈ Ioo a b,
+            HasDerivWithinAt (fun t : ℝ => t * r t)
+              (r u - p (u - 1)) (Ioi u) u := by
+        intro u hu
+        have hu0 : u ≠ 0 := by
+          have ha1 : (1 : ℝ) ≤ a := by
+            dsimp [a]
+            exact_mod_cast (show 1 ≤ n + 1 by omega)
+          exact ne_of_gt (lt_of_lt_of_le (by norm_num) (ha1.trans hu.1.le))
+        have hrder :
+            HasDerivAt r (-p (u - 1) / u) u := by
+          simpa [r, p, a, b] using
+            exactLiDickmanSegment_succ_hasDerivAt n
+              (by simpa [a, b] using hu)
+        have hmul := (hasDerivAt_id u).mul hrder
+        have hcoef :
+            r u + u * (-p (u - 1) / u) =
+              r u - p (u - 1) := by
+          field_simp [hu0]
+        rw [hcoef] at hmul
+        exact hmul.hasDerivWithinAt
+      have hr_uIcc : ContinuousOn r [[a, b]] := by
+        simpa [uIcc_of_le hab] using hrcont
+      have hp_uIcc :
+          ContinuousOn (fun u : ℝ => p (u - 1)) [[a, b]] := by
+        simpa [uIcc_of_le hab] using hpcont
+      have hrint : IntervalIntegrable r MeasureTheory.volume a b :=
+        hr_uIcc.intervalIntegrable
+      have hpint :
+          IntervalIntegrable (fun u : ℝ => p (u - 1))
+            MeasureTheory.volume a b :=
+        hp_uIcc.intervalIntegrable
+      have hdiffint :
+          IntervalIntegrable (fun u : ℝ => r u - p (u - 1))
+            MeasureTheory.volume a b :=
+        hrint.sub hpint
+      have hFTC :=
+        intervalIntegral.integral_eq_sub_of_hasDeriv_right_of_le
+          (a := a) (b := b) (f := fun u : ℝ => u * r u)
+          (f' := fun u : ℝ => r u - p (u - 1))
+          hab hprodcont hderiv hdiffint
+      rw [intervalIntegral.integral_sub hrint hpint] at hFTC
+      have hpShift :
+          (∫ u in a..b, p (u - 1)) =
+            ∫ u in (n : ℝ)..a, p u := by
+        rw [intervalIntegral.integral_comp_sub_right]
+        norm_num [a, b]
+      have ih' :
+          a * p a = ∫ u in (n : ℝ)..a, p u := by
+        simpa [a, p] using ih
+      have hpIntegral :
+          (∫ u in a..b, p (u - 1)) = a * p a := by
+        rw [hpShift, ← ih']
+      have hglue : r a = p a := by
+        simpa [r, p, a] using exactLiDickmanSegment_succ_left n
+      rw [hpIntegral, hglue] at hFTC
+      have htarget :
+          b * r b = ∫ u in a..b, r u := by
+        linarith
+      simpa [a, b, r] using htarget
+
 end RHLean.Analysis
