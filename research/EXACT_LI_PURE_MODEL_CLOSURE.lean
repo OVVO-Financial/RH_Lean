@@ -1056,7 +1056,7 @@ def reciprocalWeight (n : ℕ) : ℂ :=
 theorem reciprocalWeight_mul (a b : ℕ) :
     reciprocalWeight (a * b) =
       reciprocalWeight a * reciprocalWeight b := by
-  simp [reciprocalWeight, Nat.cast_mul, mul_inv_rev]
+  simp [reciprocalWeight, Nat.cast_mul, mul_inv_rev, mul_comm]
 
 /-- Li owner weight after the exact reciprocal transform. -/
 def reciprocalLiFrequencyWeight (q : ℕ) : ℂ :=
@@ -1223,16 +1223,13 @@ theorem reciprocalLiFrequencyWeight_norm_sum_rootSquare_le_log_two
               ‖primeSievePNTDensity q‖ / (q : ℝ) := by
             apply Finset.sum_congr rfl
             intro q hq
-            have hqpos : (0 : ℝ) < q := by
-              exact_mod_cast (show 0 < q by
-                have := (Finset.mem_Ioc.mp hq).1
-                omega)
             unfold reciprocalLiFrequencyWeight reciprocalWeight
             rw [norm_mul, norm_inv]
-            simp [div_eq_mul_inv, abs_of_pos hqpos]
+            simp [div_eq_mul_inv]
       _ ≤ Real.log 2 := hm
   · rw [Finset.Ioc_eq_empty_of_le (Nat.le_of_not_ge hyx)]
-    simp
+    simp only [Finset.sum_empty]
+    exact Real.log_nonneg (by norm_num)
 
 /-- Reciprocal transform of an all-scale Li state.  This is the discrete
 counterpart of A(x)=∫ u^(-1) dν(u) in the continuous Dickman derivation. -/
@@ -1262,7 +1259,6 @@ theorem allScaleLiReciprocalState_isPrimeFrequencyState
   apply Finset.sum_congr rfl
   intro q hq
   rw [hzero q]
-  ring
 
 /-! ## Sharp finite Abel return from the critical half-weight -/
 
