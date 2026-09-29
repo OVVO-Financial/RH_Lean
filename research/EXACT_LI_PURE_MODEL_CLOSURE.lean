@@ -125,6 +125,86 @@ theorem abs_weightedDegreeOneLowerMass_sub_le_transport
           simpa [sub_sub_sub_cancel_right] using h
 
 
+/-! ## Zero-target partial-moment error control -/
+
+/-- Degree-one total partial-moment mass about target zero.
+No mean-centering occurs: this is exactly upper plus lower mass at zero. -/
+def zeroTargetDegreeOneErrorMass {ι : Type*}
+    (s : Finset ι) (e : ι → ℝ) : ℝ :=
+  upperPartialMass s e + lowerPartialMass s e
+
+/-- Degree-two total partial-moment energy about target zero. -/
+def zeroTargetDegreeTwoErrorEnergy {ι : Type*}
+    (s : Finset ι) (e : ι → ℝ) : ℝ :=
+  upperPartialMomentNat 2 s e + lowerPartialMomentNat 2 s e
+
+/-- Degree one at target zero is exactly total absolute error mass. -/
+theorem zeroTargetDegreeOneErrorMass_eq_finiteAbsoluteMass
+    {ι : Type*} (s : Finset ι) (e : ι → ℝ) :
+    zeroTargetDegreeOneErrorMass s e = finiteAbsoluteMass s e := by
+  unfold zeroTargetDegreeOneErrorMass
+  exact upperPartialMass_add_lowerPartialMass_eq_finiteAbsoluteMass s e
+
+/-- Degree two at target zero is exactly the finite squared-error energy. -/
+theorem zeroTargetDegreeTwoErrorEnergy_eq_sum_sq
+    {ι : Type*} (s : Finset ι) (e : ι → ℝ) :
+    zeroTargetDegreeTwoErrorEnergy s e =
+      ∑ i ∈ s, e i ^ 2 := by
+  unfold zeroTargetDegreeTwoErrorEnergy
+  rw [upperPartialMomentNat_add_lowerPartialMomentNat 2 (by norm_num)]
+  unfold absolutePowerMomentNat
+  apply Finset.sum_congr rfl
+  intro i hi
+  simp only [sq_abs]
+
+/-- **Zero-target degree hierarchy.**
+The square of the degree-one absolute error mass is bounded by cardinality
+times the degree-two error energy.  This is the finite Cauchy--Schwarz step
+needed at square endpoints. -/
+theorem zeroTargetDegreeOneErrorMass_sq_le_card_mul_degreeTwoErrorEnergy
+    {ι : Type*} (s : Finset ι) (e : ι → ℝ) :
+    zeroTargetDegreeOneErrorMass s e ^ 2 ≤
+      (s.card : ℝ) * zeroTargetDegreeTwoErrorEnergy s e := by
+  rw [zeroTargetDegreeOneErrorMass_eq_finiteAbsoluteMass,
+    zeroTargetDegreeTwoErrorEnergy_eq_sum_sq]
+  unfold finiteAbsoluteMass
+  simpa only [sq_abs] using
+    (sq_sum_le_card_mul_sum_sq
+      (s := s) (f := fun i => |e i|))
+
+/-- Complex/radial degree-two error energy about zero.
+This is the normed-space analogue used by the Li state, whose bookkeeping is
+complex-valued even though the exact Li weights are real. -/
+def zeroTargetComplexDegreeTwoEnergy {ι : Type*}
+    (s : Finset ι) (e : ι → ℂ) : ℝ :=
+  ∑ i ∈ s, ‖e i‖ ^ 2
+
+theorem zeroTargetComplexDegreeTwoEnergy_nonneg
+    {ι : Type*} (s : Finset ι) (e : ι → ℂ) :
+    0 ≤ zeroTargetComplexDegreeTwoEnergy s e := by
+  unfold zeroTargetComplexDegreeTwoEnergy
+  exact Finset.sum_nonneg fun i hi => sq_nonneg ‖e i‖
+
+/-- **Zero-target complex energy domination.**
+A finite sum of local complex errors has squared norm at most cardinality
+times the degree-two radial error energy. -/
+theorem norm_finset_sum_sq_le_card_mul_zeroTargetComplexDegreeTwoEnergy
+    {ι : Type*} (s : Finset ι) (e : ι → ℂ) :
+    ‖∑ i ∈ s, e i‖ ^ 2 ≤
+      (s.card : ℝ) * zeroTargetComplexDegreeTwoEnergy s e := by
+  have hnorm :
+      ‖∑ i ∈ s, e i‖ ≤ ∑ i ∈ s, ‖e i‖ :=
+    norm_sum_le _ _
+  calc
+    ‖∑ i ∈ s, e i‖ ^ 2
+        ≤ (∑ i ∈ s, ‖e i‖) ^ 2 :=
+          pow_le_pow_left₀ (norm_nonneg _) hnorm 2
+    _ ≤ (s.card : ℝ) * ∑ i ∈ s, ‖e i‖ ^ 2 := by
+          exact sq_sum_le_card_mul_sum_sq
+    _ = (s.card : ℝ) * zeroTargetComplexDegreeTwoEnergy s e := by
+          rfl
+
+
 /-! ## Critical Li collision summability -/
 
 /-- The elementary logarithmic-harmonic tail used for the critical
@@ -2067,6 +2147,126 @@ theorem allScaleLiSquareRootBounded_of_criticalPrefixBounded
 /-- A uniformly bounded continuous/reference diagonal. -/
 def UniformReferenceDiagonalBounded (M : ℕ → ℂ) : Prop :=
   ∃ B : ℝ, 0 ≤ B ∧ ∀ x : ℕ, ‖M x‖ ≤ B
+
+/-- A zero-target degree-two transfer certificate.
+At each square-root endpoint, the discrete/reference error is decomposed into
+at most the endpoint number of local errors, and their total degree-two energy
+about zero is uniformly bounded.  This is deliberately not centered at a
+mean. -/
+def AllScaleLiZeroTargetDegreeTwoTransfer (M : ℕ → ℂ) : Prop :=
+  ∃ E : ℝ, 0 ≤ E ∧
+    ∀ (L : ℕ → ℕ → ℂ) (R : ℕ),
+      IsAllScaleLiState L →
+      PrimeFrequencySaturated L →
+      2 ≤ R →
+      ∃ (s : Finset ℕ) (e : ℕ → ℂ),
+        L (squareRootEndpoint R) (squareRootEndpoint R) -
+            M (squareRootEndpoint R) =
+          ∑ i ∈ s, e i ∧
+        (s.card : ℝ) ≤ (squareRootEndpoint R : ℝ) ∧
+        zeroTargetComplexDegreeTwoEnergy s e ≤ E
+
+/-- **Zero-target partial-moment closure.**
+A bounded reference plus a uniformly bounded degree-two error-energy
+certificate about target zero proves the intrinsic all-scale Li square-root
+theorem.  The proof works directly at squared scale; no mean, variance
+decomposition, or square-root extraction is used. -/
+theorem allScaleLiSquareRootBounded_of_uniformReference_zeroTargetDegreeTwoTransfer
+    (M : ℕ → ℂ)
+    (hM : UniformReferenceDiagonalBounded M)
+    (hT : AllScaleLiZeroTargetDegreeTwoTransfer M) :
+    AllScaleLiSquareRootBoundedStatement := by
+  rcases hM with ⟨B, hB, hMb⟩
+  rcases hT with ⟨E, hE, hT⟩
+  refine ⟨2 * E + 2 * B ^ 2, by positivity, ?_⟩
+  intro L R hL hsat hR
+  rcases hT L R hL hsat hR with ⟨s, e, hdecomp, hcard, henergy⟩
+  have henergy0 : 0 ≤ zeroTargetComplexDegreeTwoEnergy s e :=
+    zeroTargetComplexDegreeTwoEnergy_nonneg s e
+  have hX0 : 0 ≤ (squareRootEndpoint R : ℝ) := by positivity
+  have hXleR2 :
+      (squareRootEndpoint R : ℝ) ≤ (R : ℝ) ^ 2 := by
+    exact_mod_cast (Nat.sub_le (R ^ 2) 1)
+  have hdiffSq :
+      ‖L (squareRootEndpoint R) (squareRootEndpoint R) -
+          M (squareRootEndpoint R)‖ ^ 2 ≤
+        E * (R : ℝ) ^ 2 := by
+    rw [hdecomp]
+    calc
+      ‖∑ i ∈ s, e i‖ ^ 2
+          ≤ (s.card : ℝ) * zeroTargetComplexDegreeTwoEnergy s e :=
+            norm_finset_sum_sq_le_card_mul_zeroTargetComplexDegreeTwoEnergy s e
+      _ ≤ (squareRootEndpoint R : ℝ) * E := by
+            exact mul_le_mul hcard henergy henergy0 hX0
+      _ ≤ (R : ℝ) ^ 2 * E :=
+            mul_le_mul_of_nonneg_right hXleR2 hE
+      _ = E * (R : ℝ) ^ 2 := by ring
+  have hM_sq :
+      ‖M (squareRootEndpoint R)‖ ^ 2 ≤ B ^ 2 :=
+    pow_le_pow_left₀ (norm_nonneg _) (hMb (squareRootEndpoint R)) 2
+  have hR1 : (1 : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast (show 1 ≤ R by omega)
+  have hR2 : (1 : ℝ) ≤ (R : ℝ) ^ 2 := by nlinarith
+  have hBscale : B ^ 2 ≤ B ^ 2 * (R : ℝ) ^ 2 := by
+    calc
+      B ^ 2 = B ^ 2 * 1 := by ring
+      _ ≤ B ^ 2 * (R : ℝ) ^ 2 :=
+        mul_le_mul_of_nonneg_left hR2 (sq_nonneg B)
+  have hM_sq_scale :
+      ‖M (squareRootEndpoint R)‖ ^ 2 ≤
+        B ^ 2 * (R : ℝ) ^ 2 :=
+    hM_sq.trans hBscale
+  have htri :
+      ‖L (squareRootEndpoint R) (squareRootEndpoint R)‖ ≤
+        ‖L (squareRootEndpoint R) (squareRootEndpoint R) -
+            M (squareRootEndpoint R)‖ +
+          ‖M (squareRootEndpoint R)‖ := by
+    calc
+      ‖L (squareRootEndpoint R) (squareRootEndpoint R)‖ =
+          ‖(L (squareRootEndpoint R) (squareRootEndpoint R) -
+              M (squareRootEndpoint R)) +
+            M (squareRootEndpoint R)‖ := by
+              congr 1
+              ring
+      _ ≤ _ := norm_add_le _ _
+  have htriSq :=
+    pow_le_pow_left₀
+      (norm_nonneg (L (squareRootEndpoint R) (squareRootEndpoint R)))
+      htri 2
+  have hab :
+      (‖L (squareRootEndpoint R) (squareRootEndpoint R) -
+            M (squareRootEndpoint R)‖ +
+          ‖M (squareRootEndpoint R)‖) ^ 2 ≤
+        2 * ‖L (squareRootEndpoint R) (squareRootEndpoint R) -
+              M (squareRootEndpoint R)‖ ^ 2 +
+          2 * ‖M (squareRootEndpoint R)‖ ^ 2 := by
+    nlinarith [sq_nonneg
+      (‖L (squareRootEndpoint R) (squareRootEndpoint R) -
+          M (squareRootEndpoint R)‖ -
+        ‖M (squareRootEndpoint R)‖)]
+  calc
+    ‖L (squareRootEndpoint R) (squareRootEndpoint R)‖ ^ 2
+        ≤ (‖L (squareRootEndpoint R) (squareRootEndpoint R) -
+              M (squareRootEndpoint R)‖ +
+            ‖M (squareRootEndpoint R)‖) ^ 2 := htriSq
+    _ ≤ 2 * ‖L (squareRootEndpoint R) (squareRootEndpoint R) -
+              M (squareRootEndpoint R)‖ ^ 2 +
+          2 * ‖M (squareRootEndpoint R)‖ ^ 2 := hab
+    _ ≤ 2 * (E * (R : ℝ) ^ 2) +
+          2 * (B ^ 2 * (R : ℝ) ^ 2) := by
+            nlinarith
+    _ = (2 * E + 2 * B ^ 2) * (R : ℝ) ^ 2 := by ring
+
+/-- The concrete bounded Dickman reference reduces the remaining pure-Li
+problem to one zero-target degree-two transfer certificate. -/
+theorem allScaleLiSquareRootBounded_of_exactLiDickman_zeroTargetDegreeTwoTransfer
+    (hT :
+      AllScaleLiZeroTargetDegreeTwoTransfer
+        exactLiDickmanIntegerReference) :
+    AllScaleLiSquareRootBoundedStatement :=
+  allScaleLiSquareRootBounded_of_uniformReference_zeroTargetDegreeTwoTransfer
+    exactLiDickmanIntegerReference
+    exactLiDickmanIntegerReference_isUniformlyBounded hT
 
 /-- Linear discrete-to-reference transfer at square-root endpoints. -/
 def AllScaleLiLinearReferenceTransfer (M : ℕ → ℂ) : Prop :=
