@@ -491,6 +491,8 @@ theorem primeFrequencyState_cutoff_succ
       frequencyHardCoreUpdate (w (y + 1)) (y + 1)
         (fun m => S m y) x := by
   unfold frequencyHardCoreUpdate
+  change S x (y + 1) =
+    S x y - w (y + 1) * activatedFloorChild (fun m => S m y) (y + 1) x
   by_cases henter : y + 1 ≤ x
   · have hyx : y ≤ x := by omega
     rw [hS x (y + 1), hS x y]
