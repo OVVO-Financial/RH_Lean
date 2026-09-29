@@ -444,7 +444,7 @@ theorem weightedForwardDifferencePrefix_finset_sum
   unfold weightedForwardDifferencePrefix
   calc
     (∑ n ∈ Finset.Icc 1 N,
-        r n * ((∑ i ∈ s, F i n) - ∑ i ∈ s, F i (n - 1))) : ℂ) =
+        r n * ((∑ i ∈ s, F i n) - ∑ i ∈ s, F i (n - 1))) =
         ∑ n ∈ Finset.Icc 1 N,
           ∑ i ∈ s, r n * (F i n - F i (n - 1)) := by
       apply Finset.sum_congr rfl
@@ -486,7 +486,7 @@ theorem weightedForwardDifferencePrefix_ltStep
   calc
     (∑ n ∈ Finset.Icc 1 N,
         r n * ((if n < q then c else 0) -
-          (if n - 1 < q then c else 0)) : ℂ) =
+          (if n - 1 < q then c else 0)) =
         r q * ((if q < q then c else 0) -
           (if q - 1 < q then c else 0)) := by
       apply Finset.sum_eq_single_of_mem q
@@ -594,6 +594,8 @@ theorem weightedForwardDifferencePrefix_primeFrequencyState
     intro n hn
     have hnle : n ≤ x := (Finset.mem_Icc.mp hn).2
     have hpredle : n - 1 ≤ x := (Nat.sub_le n 1).trans hnle
+    change r n * (S n y - S (n - 1) y) =
+      r n * ((1 - A n) - (1 - A (n - 1)))
     rw [hpoint n hnle, hpoint (n - 1) hpredle]
   rw [hpref, weightedForwardDifferencePrefix_sub,
     weightedForwardDifferencePrefix_const]
@@ -649,16 +651,6 @@ theorem allScaleLiCriticalState_isPrimeFrequencyState
   apply Finset.sum_congr rfl
   intro q hq
   rw [hzero q]
-  ring
-
-/-- On the diagonal, the transformed state is exactly one plus the critical
-half-weighted prefix. -/
-theorem allScaleLiCriticalState_diagonal_eq
-    {L : ℕ → ℕ → ℂ} (N : ℕ) (hL : IsAllScaleLiState L) :
-    allScaleLiCriticalState L N N =
-      1 + allScaleLiCriticalPrefix L N := by
-  unfold allScaleLiCriticalState
-  rw [allScaleLiCriticalPrefix_eq_fixedCutoffWeighted_of_state N hL]
 
 /-! ## Sharp finite Abel return from the critical half-weight -/
 
@@ -844,6 +836,16 @@ theorem allScaleLiCriticalPrefix_eq_fixedCutoffWeighted_of_state
         (fun n => L n N) N := by
   exact allScaleLiCriticalPrefix_eq_fixedCutoffWeighted N
     (primeFrequencyState_saturated hL)
+
+
+/-- On the diagonal, the transformed state is exactly one plus the critical
+half-weighted prefix. -/
+theorem allScaleLiCriticalState_diagonal_eq
+    {L : ℕ → ℕ → ℂ} (N : ℕ) (hL : IsAllScaleLiState L) :
+    allScaleLiCriticalState L N N =
+      1 + allScaleLiCriticalPrefix L N := by
+  unfold allScaleLiCriticalState
+  rw [allScaleLiCriticalPrefix_eq_fixedCutoffWeighted_of_state N hL]
 
 /-- The Abel increment of the critical prefix is exactly the original diagonal
 increment. -/
