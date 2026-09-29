@@ -851,7 +851,8 @@ theorem norm_criticalSqrtWeight_le_one
   have hsq := norm_criticalSqrtWeight_sq q
   have hqR : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hinv : 1 / (q : ℝ) ≤ 1 := by
-    exact (one_div_le_one (by positivity)).2 hqR
+    have h := inv_le_one_of_one_le₀ hqR
+    simpa [one_div] using h
   have hnonneg := norm_nonneg (criticalSqrtWeight q)
   nlinarith
 
@@ -870,8 +871,9 @@ theorem norm_criticalLiFrequencyWeight_le_one
   have hw :=
     exactLi_norm_pntDensity_le_inv_log hy2 hyq
   have hlog3 : (1 : ℝ) < Real.log 3 := by
-    rw [Real.lt_log_iff_exp_lt (by norm_num)]
-    exact Real.exp_one_lt_three
+    rw [show (1 : ℝ) = Real.log (Real.exp 1) by rw [Real.log_exp]]
+    apply Real.log_lt_log (Real.exp_pos 1)
+    exact Real.exp_one_lt_d9.trans (by norm_num)
   have hyR : (3 : ℝ) ≤ (y : ℝ) := by exact_mod_cast hy3
   have hlogy : (1 : ℝ) ≤ Real.log (y : ℝ) := by
     have hmono :=
