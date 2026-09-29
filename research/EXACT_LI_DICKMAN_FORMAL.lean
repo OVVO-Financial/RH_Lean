@@ -590,4 +590,158 @@ theorem tsum_exactLiDickmanFactorialMajorant :
     _ = 2 * ∑' n : ℕ, f (n + 1) := by rw [tsum_mul_left]
     _ = 2 * (Real.exp 2 - 1) := by rw [htail]
 
+
+/-- The total-variation integrand on logarithmic segment `n`.
+Under `t = 2^(u+1)`, this is exactly
+`2^(u+1) * rho(u) / (u+1)`. -/
+def exactLiDickmanVariationIntegrand (n : ℕ) (u : ℝ) : ℝ :=
+  Real.exp ((u + 1) * Real.log 2) / (u + 1) *
+    exactLiDickmanSegment n u
+
+/-- One complete logarithmic Dickman segment of the continuous Li
+total-variation integral. -/
+def exactLiDickmanVariationSegment (n : ℕ) : ℝ :=
+  ∫ u in (n : ℝ)..((n + 1 : ℕ) : ℝ),
+    exactLiDickmanVariationIntegrand n u
+
+private theorem exactLiDickmanVariationIntegrand_continuousOn (n : ℕ) :
+    ContinuousOn (exactLiDickmanVariationIntegrand n)
+      (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
+  have hden :
+      ∀ u ∈ Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ)),
+        u + 1 ≠ 0 := by
+    intro u hu
+    have hunonneg : 0 ≤ u := (by exact_mod_cast (Nat.zero_le n)).trans hu.1
+    linarith
+  have hnum :
+      ContinuousOn
+        (fun u : ℝ => Real.exp ((u + 1) * Real.log 2))
+        (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
+    fun_prop
+  have hdencont :
+      ContinuousOn (fun u : ℝ => u + 1)
+        (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
+    fun_prop
+  unfold exactLiDickmanVariationIntegrand
+  exact (hnum.div hdencont hden).mul
+    (exactLiDickmanSegment_continuousOn n)
+
+/-- Pointwise factorial majorant for the continuous Li variation density on a
+native Dickman segment. -/
+theorem exactLiDickmanVariationIntegrand_le_majorant
+    (n : ℕ) {u : ℝ}
+    (hu : u ∈ Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) :
+    exactLiDickmanVariationIntegrand n u ≤
+      exactLiDickmanFactorialMajorant n := by
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have hn1pos : (0 : ℝ) < ((n + 1 : ℕ) : ℝ) := by positivity
+  have hu1pos : 0 < u + 1 := by
+    have hnn : (0 : ℝ) ≤ (n : ℝ) := by positivity
+    linarith [hu.1]
+  have harg :
+      (u + 1) * Real.log 2 ≤
+        (((n + 2 : ℕ) : ℝ)) * Real.log 2 := by
+    apply mul_le_mul_of_nonneg_right _ hlog2.le
+    exact_mod_cast hu.2
+  have hexp :
+      Real.exp ((u + 1) * Real.log 2) ≤
+        (2 : ℝ) ^ (n + 2) := by
+    calc
+      Real.exp ((u + 1) * Real.log 2)
+          ≤ Real.exp ((((n + 2 : ℕ) : ℝ)) * Real.log 2) :=
+            Real.exp_le_exp.mpr harg
+      _ = (2 : ℝ) ^ (n + 2) := by
+            rw [Real.exp_nat_mul, Real.exp_log (by norm_num : (0 : ℝ) < 2)]
+  have hdenle :
+      ((n + 1 : ℕ) : ℝ) ≤ u + 1 := by
+    have := hu.1
+    exact_mod_cast this
+  have hfrac :
+      Real.exp ((u + 1) * Real.log 2) / (u + 1) ≤
+        (2 : ℝ) ^ (n + 2) / ((n + 1 : ℕ) : ℝ) := by
+    calc
+      Real.exp ((u + 1) * Real.log 2) / (u + 1)
+          ≤ (2 : ℝ) ^ (n + 2) / (u + 1) :=
+            div_le_div_of_nonneg_right hexp hu1pos.le
+      _ ≤ (2 : ℝ) ^ (n + 2) / ((n + 1 : ℕ) : ℝ) :=
+            div_le_div_of_nonneg_left (by positivity) hn1pos hdenle
+  have hrho0 : 0 ≤ exactLiDickmanSegment n u :=
+    exactLiDickmanSegment_nonneg n u hu
+  have hrho :
+      exactLiDickmanSegment n u ≤
+        (Nat.factorial n : ℝ)⁻¹ :=
+    exactLiDickmanSegment_le_inv_factorial n u hu
+  unfold exactLiDickmanVariationIntegrand
+  calc
+    Real.exp ((u + 1) * Real.log 2) / (u + 1) *
+        exactLiDickmanSegment n u
+        ≤ ((2 : ℝ) ^ (n + 2) / ((n + 1 : ℕ) : ℝ)) *
+            exactLiDickmanSegment n u :=
+          mul_le_mul_of_nonneg_right hfrac hrho0
+    _ ≤ ((2 : ℝ) ^ (n + 2) / ((n + 1 : ℕ) : ℝ)) *
+          (Nat.factorial n : ℝ)⁻¹ := by
+          exact mul_le_mul_of_nonneg_left hrho (by positivity)
+    _ = exactLiDickmanFactorialMajorant n := by
+          unfold exactLiDickmanFactorialMajorant
+          rw [Nat.factorial_succ]
+          push_cast
+          simp only [div_eq_mul_inv, mul_inv_rev]
+          ring
+
+/-- The continuous Li variation integrand is nonnegative on each native
+Dickman segment. -/
+theorem exactLiDickmanVariationIntegrand_nonneg
+    (n : ℕ) {u : ℝ}
+    (hu : u ∈ Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) :
+    0 ≤ exactLiDickmanVariationIntegrand n u := by
+  unfold exactLiDickmanVariationIntegrand
+  have hu1pos : 0 < u + 1 := by
+    have hnn : (0 : ℝ) ≤ (n : ℝ) := by positivity
+    linarith [hu.1]
+  exact mul_nonneg
+    (div_nonneg (Real.exp_pos _).le hu1pos.le)
+    (exactLiDickmanSegment_nonneg n u hu)
+
+/-- **One-segment variation bound.**
+Every complete logarithmic Dickman segment contributes at most
+`2^(n+2)/(n+1)!`. -/
+theorem exactLiDickmanVariationSegment_le_majorant (n : ℕ) :
+    exactLiDickmanVariationSegment n ≤
+      exactLiDickmanFactorialMajorant n := by
+  have hab : (n : ℝ) ≤ (((n + 1 : ℕ) : ℝ)) := by norm_num
+  have hcont := exactLiDickmanVariationIntegrand_continuousOn n
+  have hint : IntervalIntegrable
+      (exactLiDickmanVariationIntegrand n) MeasureTheory.volume
+      (n : ℝ) (((n + 1 : ℕ) : ℝ)) := by
+    have hu :
+        ContinuousOn (exactLiDickmanVariationIntegrand n)
+          [[(n : ℝ), (((n + 1 : ℕ) : ℝ))]] := by
+      simpa [uIcc_of_le hab] using hcont
+    exact hu.intervalIntegrable
+  have hconst : IntervalIntegrable
+      (fun _ : ℝ => exactLiDickmanFactorialMajorant n)
+      MeasureTheory.volume (n : ℝ) (((n + 1 : ℕ) : ℝ)) := by
+    exact (continuousOn_const :
+      ContinuousOn (fun _ : ℝ => exactLiDickmanFactorialMajorant n)
+        [[(n : ℝ), (((n + 1 : ℕ) : ℝ))]]).intervalIntegrable
+  unfold exactLiDickmanVariationSegment
+  calc
+    (∫ u in (n : ℝ)..((n + 1 : ℕ) : ℝ),
+        exactLiDickmanVariationIntegrand n u)
+        ≤ ∫ _u in (n : ℝ)..((n + 1 : ℕ) : ℝ),
+            exactLiDickmanFactorialMajorant n := by
+          apply intervalIntegral.integral_mono_on hab hint hconst
+          intro u hu
+          exact exactLiDickmanVariationIntegrand_le_majorant n hu
+    _ = exactLiDickmanFactorialMajorant n := by
+          simp
+
+/-- Every complete continuous-Li variation segment is nonnegative. -/
+theorem exactLiDickmanVariationSegment_nonneg (n : ℕ) :
+    0 ≤ exactLiDickmanVariationSegment n := by
+  unfold exactLiDickmanVariationSegment
+  apply intervalIntegral.integral_nonneg (by norm_num)
+  intro u hu
+  exact exactLiDickmanVariationIntegrand_nonneg n hu
+
 end RHLean.Analysis
