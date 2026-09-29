@@ -125,6 +125,7 @@ jobs:
           #print axioms RHLean.Proof.squareEndpointRoundedOddQ2EnergyStep_iff_ownerTwoClippedExit
           #print axioms RHLean.Proof.lowOwnerFirstOwnerCompensatedInteriorAmplitude_two_sq_le
           #print axioms RHLean.Proof.ownerTwoCompensatedInterior_fourEnergyBound_unconditional
+          #print axioms RHLean.Proof.lowerMertensCriticalEnvelope_two_one_kernel
           #print axioms RHLean.Proof.lowerMertensCriticalEnvelope_sq_of_amplification
           #print axioms RHLean.Proof.lowerMertensCriticalEnvelope_doubleExponential_of_amplification
           #print axioms RHLean.Proof.squareEndpointRoundedOddQ2EnergyStep_forces_polylogMertensEnvelope
@@ -136,7 +137,7 @@ jobs:
           from pathlib import Path
           s = Path('owner-two-clipped-exit-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 11, records
+          assert len(records) == 12, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}

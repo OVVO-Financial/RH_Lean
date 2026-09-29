@@ -42,6 +42,23 @@ theorem lowerMertensCriticalEnvelope_mono_of_le
     LowerMertensCriticalEnvelope S K :=
   ⟨hK.1, fun y hy => hK.2 y (lt_of_lt_of_le hy hSR)⟩
 
+/-- The unit envelope at the first nontrivial root, proved by rewriting only
+(the compiled `lowerMertensCriticalEnvelope_two_one` uses `native_decide`, which
+would add compiler-trust axioms to this audit). -/
+theorem lowerMertensCriticalEnvelope_two_one_kernel :
+    LowerMertensCriticalEnvelope 2 1 := by
+  refine ⟨by norm_num, ?_⟩
+  intro y hy
+  have hyCases : y = 0 ∨ y = 1 := by omega
+  rcases hyCases with rfl | rfl
+  · norm_num [mertensSummatoryInt]
+  · have hM : mertensSummatoryInt 1 = 1 := by
+      unfold mertensSummatoryInt
+      rw [Finset.sum_range_succ, Finset.sum_range_one]
+      simp
+    rw [hM]
+    norm_num
+
 /-- The integer Mertens increment is at most the length of the interval. -/
 theorem abs_mertensSummatoryInt_sub_le
     {e y : ℕ} (hey : e ≤ y) :
@@ -167,7 +184,7 @@ theorem lowerMertensCriticalEnvelope_doubleExponential_of_amplification
   refine ⟨2 * A + 8, by linarith, ?_⟩
   intro j
   induction j with
-  | zero => simpa using lowerMertensCriticalEnvelope_two_one
+  | zero => simpa using lowerMertensCriticalEnvelope_two_one_kernel
   | succ j ih =>
       have hR : 2 ≤ 2 ^ 2 ^ j := by
         have hj : 1 ≤ 2 ^ j := Nat.one_le_two_pow
