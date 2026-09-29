@@ -434,4 +434,96 @@ theorem exactLiDickmanSegment_antitoneOn (n : ℕ) :
         exactLiDickmanSegment_succ_antitoneOn_of_prev_nonneg n
           (exactLiDickmanSegment_nonneg n)
 
+
+/-- **Factorial Dickman envelope.**
+On the native segment `[n,n+1]`, the method-of-steps solution is at most
+`1/n!`.  The proof uses the endpoint-average identity and antitonicity; no
+asymptotic estimate is used. -/
+theorem exactLiDickmanSegment_le_inv_factorial (n : ℕ) :
+    ∀ u ∈ Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ)),
+      exactLiDickmanSegment n u ≤
+        (Nat.factorial n : ℝ)⁻¹ := by
+  induction n with
+  | zero =>
+      intro u hu
+      norm_num [exactLiDickmanSegment]
+  | succ n ih =>
+      let a : ℝ := ((n + 1 : ℕ) : ℝ)
+      let b : ℝ := ((n + 2 : ℕ) : ℝ)
+      let p : ℝ → ℝ := exactLiDickmanSegment n
+      let f : ℝ → ℝ := exactLiDickmanSegment (n + 1)
+      have hab : a ≤ b := by
+        dsimp [a, b]
+        norm_num
+      have hna : ((n : ℕ) : ℝ) ≤ a := by
+        dsimp [a]
+        norm_num
+      have hpcont :
+          ContinuousOn p
+            [[((n : ℕ) : ℝ), a]] := by
+        have hc := exactLiDickmanSegment_continuousOn n
+        simpa [p, a, uIcc_of_le hna] using hc
+      have hpint :
+          IntervalIntegrable p MeasureTheory.volume ((n : ℕ) : ℝ) a :=
+        hpcont.intervalIntegrable
+      have hcint :
+          IntervalIntegrable (fun _ : ℝ => (Nat.factorial n : ℝ)⁻¹)
+            MeasureTheory.volume ((n : ℕ) : ℝ) a := by
+        exact (continuousOn_const :
+          ContinuousOn (fun _ : ℝ => (Nat.factorial n : ℝ)⁻¹)
+            [[((n : ℕ) : ℝ), a]]).intervalIntegrable
+      have hint_le :
+          (∫ x in ((n : ℕ) : ℝ)..a, p x) ≤
+            (Nat.factorial n : ℝ)⁻¹ := by
+        calc
+          (∫ x in ((n : ℕ) : ℝ)..a, p x)
+              ≤ ∫ _x in ((n : ℕ) : ℝ)..a,
+                  (Nat.factorial n : ℝ)⁻¹ := by
+                apply intervalIntegral.integral_mono_on hna hpint hcint
+                intro x hx
+                exact ih x (by simpa [a] using hx)
+          _ = (Nat.factorial n : ℝ)⁻¹ := by
+                simp [a]
+      have hid := exactLiDickmanSegment_endpoint_identity n
+      have hid' :
+          a * p a =
+            ∫ x in ((n : ℕ) : ℝ)..a, p x := by
+        simpa [a, p] using hid
+      have hprod :
+          a * p a ≤ (Nat.factorial n : ℝ)⁻¹ := by
+        rw [hid']
+        exact hint_le
+      have hapos : 0 < a := by
+        dsimp [a]
+        positivity
+      have hpa :
+          p a ≤ (Nat.factorial n : ℝ)⁻¹ / a := by
+        apply (le_div_iff₀ hapos).2
+        simpa [mul_comm] using hprod
+      have hfac :
+          (Nat.factorial (n + 1) : ℝ) =
+            a * (Nat.factorial n : ℝ) := by
+        dsimp [a]
+        rw [Nat.factorial_succ]
+        push_cast
+        ring
+      have hratio :
+          (Nat.factorial n : ℝ)⁻¹ / a =
+            (Nat.factorial (n + 1) : ℝ)⁻¹ := by
+        rw [hfac]
+        simp only [div_eq_mul_inv, mul_inv_rev]
+        ring
+      have hleft :
+          f a ≤ (Nat.factorial (n + 1) : ℝ)⁻¹ := by
+        have hglue : f a = p a := by
+          simpa [f, p, a] using exactLiDickmanSegment_succ_left n
+        rw [hglue, ← hratio]
+        exact hpa
+      have hanti : AntitoneOn f (Icc a b) := by
+        simpa [f, a, b] using exactLiDickmanSegment_antitoneOn (n + 1)
+      intro u hu
+      have hamem : a ∈ Icc a b := ⟨le_rfl, hab⟩
+      have hule : f u ≤ f a := hanti hamem hu hu.1
+      exact hule.trans hleft
+
 end RHLean.Analysis
