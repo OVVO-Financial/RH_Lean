@@ -1044,6 +1044,89 @@ theorem hardCorePoissonCorrectionTailTerm_le
     _ ≤ a ^ 2 * (1 / (Nat.factorial m : ℝ)) :=
           mul_le_mul_of_nonneg_left hratio (sq_nonneg a)
 
+/-- The real tail majorant is nonnegative. -/
+theorem hardCorePoissonCorrectionTailTerm_nonneg
+    {a : ℝ} (ha0 : 0 ≤ a) (m : ℕ) :
+    0 ≤ hardCorePoissonCorrectionTailTerm a m := by
+  unfold hardCorePoissonCorrectionTailTerm
+  exact div_nonneg
+    (mul_nonneg (by positivity) (pow_nonneg ha0 _))
+    (by positivity)
+
+/-- The full absolute correction tail is summable on the unit interval. -/
+theorem hardCorePoissonCorrectionTailTerm_summable
+    {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) :
+    Summable (hardCorePoissonCorrectionTailTerm a) := by
+  have hfact :
+      Summable (fun m : ℕ => 1 / (Nat.factorial m : ℝ)) := by
+    simpa using Real.summable_pow_div_factorial 1
+  have hmajor :
+      Summable
+        (fun m : ℕ => a ^ 2 * (1 / (Nat.factorial m : ℝ))) :=
+    hfact.mul_left (a ^ 2)
+  exact Summable.of_nonneg_of_le
+    (fun m => hardCorePoissonCorrectionTailTerm_nonneg ha0 m)
+    (fun m => hardCorePoissonCorrectionTailTerm_le ha0 ha1 m)
+    hmajor
+
+/-- The factorial majorant sums to exp(1). -/
+private theorem tsum_one_div_factorial_eq_exp_one :
+    (∑' m : ℕ, 1 / (Nat.factorial m : ℝ)) = Real.exp 1 := by
+  have h :
+      (∑' m : ℕ, (1 : ℝ) ^ m / (Nat.factorial m : ℝ)) =
+        Real.exp 1 := by
+    rw [Real.exp_eq_exp_ℝ, NormedSpace.exp_eq_tsum_div]
+  simpa using h
+
+/-- **Coefficient-level quadratic correction bound.**
+For 0 <= a <= 1, the complete absolute tail of
+`(1-aT) exp(aT)` beyond degrees zero and one is at most `3 a^2`.
+This is stronger than bounding the scalar value: it controls exactly the
+degree-one/total-variation mass of the correction kernel about target zero. -/
+theorem tsum_hardCorePoissonCorrectionTailTerm_le_three_sq
+    {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) :
+    (∑' m : ℕ, hardCorePoissonCorrectionTailTerm a m) ≤
+      3 * a ^ 2 := by
+  have htail :=
+    hardCorePoissonCorrectionTailTerm_summable ha0 ha1
+  have hfact :
+      Summable (fun m : ℕ => 1 / (Nat.factorial m : ℝ)) := by
+    simpa using Real.summable_pow_div_factorial 1
+  have hmajor :
+      Summable
+        (fun m : ℕ => a ^ 2 * (1 / (Nat.factorial m : ℝ))) :=
+    hfact.mul_left (a ^ 2)
+  calc
+    (∑' m : ℕ, hardCorePoissonCorrectionTailTerm a m)
+        ≤ ∑' m : ℕ, a ^ 2 * (1 / (Nat.factorial m : ℝ)) := by
+          exact Summable.tsum_le_tsum
+            (fun m => hardCorePoissonCorrectionTailTerm_le ha0 ha1 m)
+            htail hmajor
+    _ = a ^ 2 * (∑' m : ℕ, 1 / (Nat.factorial m : ℝ)) := by
+          rw [tsum_mul_left]
+    _ = a ^ 2 * Real.exp 1 := by
+          rw [tsum_one_div_factorial_eq_exp_one]
+    _ ≤ a ^ 2 * 3 := by
+          exact mul_le_mul_of_nonneg_left
+            (Real.exp_one_lt_d9.trans (by norm_num)).le (sq_nonneg a)
+    _ = 3 * a ^ 2 := by ring
+
+/-- Every finite truncation of the absolute correction tail obeys the same
+quadratic bound. -/
+theorem sum_range_hardCorePoissonCorrectionTailTerm_le_three_sq
+    {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) (K : ℕ) :
+    (∑ m ∈ Finset.range K, hardCorePoissonCorrectionTailTerm a m) ≤
+      3 * a ^ 2 := by
+  have hs :=
+    hardCorePoissonCorrectionTailTerm_summable ha0 ha1
+  calc
+    (∑ m ∈ Finset.range K, hardCorePoissonCorrectionTailTerm a m)
+        ≤ ∑' m : ℕ, hardCorePoissonCorrectionTailTerm a m := by
+          exact hs.sum_le_tsum (Finset.range K)
+            (fun m hm => hardCorePoissonCorrectionTailTerm_nonneg ha0 m)
+    _ ≤ 3 * a ^ 2 :=
+      tsum_hardCorePoissonCorrectionTailTerm_le_three_sq ha0 ha1
+
 /-- Critical square-root test weights have norm at most one away from zero. -/
 theorem norm_criticalSqrtWeight_le_one
     {q : ℕ} (hq : 1 ≤ q) :
