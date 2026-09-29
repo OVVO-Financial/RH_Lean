@@ -1500,6 +1500,87 @@ theorem primeFrequencyState_saturated
   unfold primeFrequencyStep
   rw [min_eq_left hxy, min_self]
 
+
+/-! ## Reciprocal square-root contraction -/
+
+/-- Exact square-root split for the reciprocal/Dickman transform. -/
+theorem allScaleLiReciprocalState_squareRoot_split
+    {L : ℕ → ℕ → ℂ}
+    (R : ℕ) (hR : 2 ≤ R) (hL : IsAllScaleLiState L) :
+    allScaleLiReciprocalState L (squareRootEndpoint R) (squareRootEndpoint R) =
+      allScaleLiReciprocalState L (squareRootEndpoint R) R -
+        ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+          reciprocalLiFrequencyWeight q *
+            allScaleLiReciprocalState L
+              (squareRootEndpoint R / q) (squareRootEndpoint R / q) := by
+  have hT :=
+    allScaleLiReciprocalState_isPrimeFrequencyState hL
+  exact primeFrequencyState_squareRoot_split R hR hT
+    (primeFrequencyState_saturated hT)
+
+/-- **Strict reciprocal high-owner contraction.**
+On the square endpoint, the entire owner packet above the root costs at most
+`log 2` times a bound for the smaller diagonal children. -/
+theorem norm_allScaleLiReciprocalState_squareRoot_highTail_le
+    {L : ℕ → ℕ → ℂ}
+    (R : ℕ) (B : ℝ)
+    (hR : 2 ≤ R) (hL : IsAllScaleLiState L) (hB : 0 ≤ B)
+    (hdiag : ∀ d : ℕ, d < R →
+      ‖allScaleLiReciprocalState L d d‖ ≤ B) :
+    ‖allScaleLiReciprocalState L (squareRootEndpoint R) R -
+        allScaleLiReciprocalState L
+          (squareRootEndpoint R) (squareRootEndpoint R)‖ ≤
+      Real.log 2 * B := by
+  have hsplit :=
+    allScaleLiReciprocalState_squareRoot_split R hR hL
+  have hdiff :
+      allScaleLiReciprocalState L (squareRootEndpoint R) R -
+          allScaleLiReciprocalState L
+            (squareRootEndpoint R) (squareRootEndpoint R) =
+        ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+          reciprocalLiFrequencyWeight q *
+            allScaleLiReciprocalState L
+              (squareRootEndpoint R / q) (squareRootEndpoint R / q) := by
+    rw [hsplit]
+    ring
+  rw [hdiff]
+  calc
+    ‖∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+        reciprocalLiFrequencyWeight q *
+          allScaleLiReciprocalState L
+            (squareRootEndpoint R / q) (squareRootEndpoint R / q)‖
+        ≤ ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+            ‖reciprocalLiFrequencyWeight q *
+              allScaleLiReciprocalState L
+                (squareRootEndpoint R / q) (squareRootEndpoint R / q)‖ :=
+          norm_sum_le _ _
+    _ ≤ ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+          ‖reciprocalLiFrequencyWeight q‖ * B := by
+      apply Finset.sum_le_sum
+      intro q hq
+      rcases Finset.mem_Ioc.mp hq with ⟨hRq, hqX⟩
+      have hqpos : 0 < q := by omega
+      have hXltRsq : squareRootEndpoint R < R ^ 2 := by
+        unfold squareRootEndpoint
+        have hpos : 0 < R ^ 2 := by positivity
+        omega
+      have hRsqLt : R ^ 2 < R * q := by
+        nlinarith
+      have hchild : squareRootEndpoint R / q < R := by
+        apply (Nat.div_lt_iff_lt_mul hqpos).2
+        exact hXltRsq.trans hRsqLt
+      rw [norm_mul]
+      exact mul_le_mul_of_nonneg_left
+        (hdiag (squareRootEndpoint R / q) hchild)
+        (norm_nonneg _)
+    _ = (∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+          ‖reciprocalLiFrequencyWeight q‖) * B := by
+      rw [Finset.sum_mul]
+    _ ≤ Real.log 2 * B := by
+      apply mul_le_mul_of_nonneg_right _ hB
+      exact reciprocalLiFrequencyWeight_norm_sum_rootSquare_le_log_two
+        hR (Nat.sub_le (R ^ 2) 1)
+
 /-! ## Critical half-prefix of the all-scale Li diagonal -/
 
 /-- One increment of the diagonal all-scale state. -/
