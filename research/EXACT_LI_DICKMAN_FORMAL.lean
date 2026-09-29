@@ -532,4 +532,62 @@ theorem exactLiDickmanSegment_le_inv_factorial (n : ℕ) :
       have hule : f u ≤ f a := hanti hamem hu hu.1
       exact hule.trans hleft
 
+
+/-- The elementary majorant for one logarithmic Dickman segment in the
+continuous exact-Li total-variation integral. -/
+def exactLiDickmanFactorialMajorant (n : ℕ) : ℝ :=
+  (2 : ℝ) ^ (n + 2) / (Nat.factorial (n + 1) : ℝ)
+
+/-- The factorial Dickman majorant is summable. -/
+theorem exactLiDickmanFactorialMajorant_summable :
+    Summable exactLiDickmanFactorialMajorant := by
+  let f : ℕ → ℝ := fun n =>
+    (2 : ℝ) ^ n / (Nat.factorial n : ℝ)
+  have hs : Summable f := by
+    simpa [f] using Real.summable_pow_div_factorial 2
+  have hshift : Summable (fun n : ℕ => f (n + 1)) :=
+    (summable_nat_add_iff 1 (G := ℝ)).2 hs
+  have hpoint :
+      exactLiDickmanFactorialMajorant =
+        fun n : ℕ => 2 * f (n + 1) := by
+    funext n
+    unfold exactLiDickmanFactorialMajorant
+    dsimp [f]
+    rw [show n + 2 = (n + 1) + 1 by omega, pow_succ]
+    ring
+  rw [hpoint]
+  exact hshift.mul_left 2
+
+/-- **Exact majorant sum.**
+The segment bounds add to the explicit constant `2 * (exp 2 - 1)`. -/
+theorem tsum_exactLiDickmanFactorialMajorant :
+    (∑' n : ℕ, exactLiDickmanFactorialMajorant n) =
+      2 * (Real.exp 2 - 1) := by
+  let f : ℕ → ℝ := fun n =>
+    (2 : ℝ) ^ n / (Nat.factorial n : ℝ)
+  have hs : Summable f := by
+    simpa [f] using Real.summable_pow_div_factorial 2
+  have hsplit := hs.sum_add_tsum_nat_add 1
+  have hsum : (∑' n : ℕ, f n) = Real.exp 2 := by
+    dsimp [f]
+    rw [Real.exp_eq_exp_ℝ, NormedSpace.exp_eq_tsum_div]
+  have hprefix : (∑ n ∈ Finset.range 1, f n) = 1 := by
+    simp [f]
+  have htail : (∑' n : ℕ, f (n + 1)) = Real.exp 2 - 1 := by
+    rw [hprefix, hsum] at hsplit
+    linarith
+  have hpoint :
+      ∀ n : ℕ, exactLiDickmanFactorialMajorant n =
+        2 * f (n + 1) := by
+    intro n
+    unfold exactLiDickmanFactorialMajorant
+    dsimp [f]
+    rw [show n + 2 = (n + 1) + 1 by omega, pow_succ]
+    ring
+  calc
+    (∑' n : ℕ, exactLiDickmanFactorialMajorant n)
+        = ∑' n : ℕ, 2 * f (n + 1) := tsum_congr hpoint
+    _ = 2 * ∑' n : ℕ, f (n + 1) := by rw [tsum_mul_left]
+    _ = 2 * (Real.exp 2 - 1) := by rw [htail]
+
 end RHLean.Analysis
