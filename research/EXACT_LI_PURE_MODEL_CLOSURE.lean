@@ -328,6 +328,115 @@ theorem exactLiCriticalCollision_summable :
       simp only [one_div, mul_inv_rev, inv_pow]
       ring
 
+
+/-! ## Sharp finite Abel return from the critical half-weight -/
+
+/-- The increment recovered from a half-weighted prefix profile. -/
+def sqrtAbelIncrement (A : ℕ → ℂ) (n : ℕ) : ℂ :=
+  (Real.sqrt (n : ℝ) : ℂ) * (A n - A (n - 1))
+
+private theorem sum_Ico_forwardDiff_real
+    (f : ℕ → ℝ) {a b : ℕ} (hab : a ≤ b) :
+    (∑ k ∈ Finset.Ico a b, (f (k + 1) - f k)) = f b - f a := by
+  rw [Finset.sum_Ico_eq_sub _ hab, Finset.sum_range_sub f b,
+    Finset.sum_range_sub f a]
+  abel
+
+/-- Exact finite Abel identity at square-root weight. -/
+theorem sum_sqrtAbelIncrement_eq
+    (A : ℕ → ℂ) (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N, sqrtAbelIncrement A n) =
+      (Real.sqrt (N : ℝ) : ℂ) * A N -
+        ∑ n ∈ Finset.Ico 1 N,
+          A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
+            Real.sqrt (n : ℝ) : ℝ) : ℂ) := by
+  induction N with
+  | zero =>
+      simp [sqrtAbelIncrement]
+  | succ N ih =>
+      by_cases hN : N = 0
+      · subst N
+        norm_num [sqrtAbelIncrement]
+      · have hN1 : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr hN
+        rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1),
+          Finset.sum_Ico_succ_top hN1, ih]
+        unfold sqrtAbelIncrement
+        push_cast
+        ring
+
+/-- Square-root increments telescope exactly. -/
+theorem sum_Ico_sqrt_step {N : ℕ} (hN : 1 ≤ N) :
+    (∑ n ∈ Finset.Ico 1 N,
+      (Real.sqrt ((n + 1 : ℕ) : ℝ) - Real.sqrt (n : ℝ))) =
+      Real.sqrt (N : ℝ) - 1 := by
+  have h := sum_Ico_forwardDiff_real
+    (fun n : ℕ => Real.sqrt (n : ℝ)) hN
+  simpa using h
+
+/-- Quantitative square-root Abel return.  A uniform bound B on the
+half-weighted prefix profile costs at most 2 B sqrt(N) in the unweighted
+reconstruction. -/
+theorem norm_sum_sqrtAbelIncrement_le
+    (A : ℕ → ℂ) (N : ℕ) (B : ℝ)
+    (hN : 1 ≤ N) (hB : 0 ≤ B)
+    (hA : ∀ n, n ≤ N → ‖A n‖ ≤ B) :
+    ‖∑ n ∈ Finset.Icc 1 N, sqrtAbelIncrement A n‖ ≤
+      2 * Real.sqrt (N : ℝ) * B := by
+  rw [sum_sqrtAbelIncrement_eq]
+  have hN0 : (0 : ℝ) ≤ N := by positivity
+  have hsqrtN : 0 ≤ Real.sqrt (N : ℝ) := Real.sqrt_nonneg _
+  have hhead :
+      ‖(Real.sqrt (N : ℝ) : ℂ) * A N‖ ≤ Real.sqrt (N : ℝ) * B := by
+    rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg hsqrtN]
+    exact mul_le_mul_of_nonneg_left (hA N le_rfl) hsqrtN
+  have htail :
+      ‖∑ n ∈ Finset.Ico 1 N,
+          A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
+            Real.sqrt (n : ℝ) : ℝ) : ℂ)‖ ≤
+        (Real.sqrt (N : ℝ) - 1) * B := by
+    calc
+      ‖∑ n ∈ Finset.Ico 1 N,
+          A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
+            Real.sqrt (n : ℝ) : ℝ) : ℂ)‖
+          ≤ ∑ n ∈ Finset.Ico 1 N,
+              ‖A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
+                Real.sqrt (n : ℝ) : ℝ) : ℂ)‖ := norm_sum_le _ _
+      _ ≤ ∑ n ∈ Finset.Ico 1 N,
+            B * (Real.sqrt ((n + 1 : ℕ) : ℝ) -
+              Real.sqrt (n : ℝ)) := by
+          apply Finset.sum_le_sum
+          intro n hn
+          have hnle : n ≤ N := (Finset.mem_Ico.mp hn).2.le
+          have hstep : 0 ≤ Real.sqrt ((n + 1 : ℕ) : ℝ) -
+              Real.sqrt (n : ℝ) := by
+            exact sub_nonneg.mpr (Real.sqrt_le_sqrt (by norm_num))
+          rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
+            abs_of_nonneg hstep]
+          exact mul_le_mul (hA n hnle) le_rfl hstep (norm_nonneg _)
+      _ = B * (∑ n ∈ Finset.Ico 1 N,
+            (Real.sqrt ((n + 1 : ℕ) : ℝ) - Real.sqrt (n : ℝ))) := by
+          rw [Finset.mul_sum]
+      _ = B * (Real.sqrt (N : ℝ) - 1) := by
+          rw [sum_Ico_sqrt_step hN]
+      _ = (Real.sqrt (N : ℝ) - 1) * B := by ring
+  calc
+    ‖(Real.sqrt (N : ℝ) : ℂ) * A N -
+        ∑ n ∈ Finset.Ico 1 N,
+          A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
+            Real.sqrt (n : ℝ) : ℝ) : ℂ)‖
+        ≤ ‖(Real.sqrt (N : ℝ) : ℂ) * A N‖ +
+          ‖∑ n ∈ Finset.Ico 1 N,
+            A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
+              Real.sqrt (n : ℝ) : ℝ) : ℂ)‖ := norm_sub_le _ _
+    _ ≤ Real.sqrt (N : ℝ) * B +
+        (Real.sqrt (N : ℝ) - 1) * B := add_le_add hhead htail
+    _ ≤ 2 * Real.sqrt (N : ℝ) * B := by
+      have hsqrt1 : 1 ≤ Real.sqrt (N : ℝ) := by
+        rw [← Real.sqrt_one]
+        exact Real.sqrt_le_sqrt (by exact_mod_cast hN)
+      nlinarith [mul_nonneg hB (sub_nonneg.mpr hsqrt1)]
+
 /-- A uniformly bounded continuous/reference diagonal. -/
 def UniformReferenceDiagonalBounded (M : ℕ → ℂ) : Prop :=
   ∃ B : ℝ, 0 ≤ B ∧ ∀ x : ℕ, ‖M x‖ ≤ B
