@@ -85,7 +85,10 @@ theorem abs_negativePart_sub_negativePart_le (a b : ℝ) :
     |negativePart a - negativePart b| ≤ |a - b| := by
   unfold negativePart
   have h := abs_positivePart_sub_positivePart_le (-a) (-b)
-  simpa [positivePart, abs_sub_comm] using h
+  calc
+    |positivePart (-a) - positivePart (-b)| ≤ |-a - (-b)| := h
+    _ = |a - b| := by
+      rw [show -a - (-b) = -(a - b) by ring, abs_neg]
 
 /-- **Degree-one common-mass transport inequality.**
 For nonnegative common weights, moving support point `x i` to `y i` changes
