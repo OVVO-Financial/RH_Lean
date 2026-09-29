@@ -399,6 +399,267 @@ theorem criticalSqrtWeightedPrefix_floor_div
   exact weightedForwardDifferencePrefix_floor_div
     criticalSqrtWeight F q criticalSqrtWeight_mul N
 
+
+/-! ## Critical transform of the largest-site recursion -/
+
+/-- Linearity under subtraction for the weighted finite-difference prefix. -/
+theorem weightedForwardDifferencePrefix_sub
+    (r F G : ℕ → ℂ) (N : ℕ) :
+    weightedForwardDifferencePrefix r (fun n => F n - G n) N =
+      weightedForwardDifferencePrefix r F N -
+        weightedForwardDifferencePrefix r G N := by
+  unfold weightedForwardDifferencePrefix
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro n hn
+  ring
+
+/-- Constant functions have zero weighted finite-difference prefix. -/
+theorem weightedForwardDifferencePrefix_const
+    (r : ℕ → ℂ) (c : ℂ) (N : ℕ) :
+    weightedForwardDifferencePrefix r (fun _ => c) N = 0 := by
+  unfold weightedForwardDifferencePrefix
+  apply Finset.sum_eq_zero
+  intro n hn
+  ring
+
+/-- A constant scalar factors through the weighted prefix. -/
+theorem weightedForwardDifferencePrefix_const_mul
+    (r : ℕ → ℂ) (c : ℂ) (F : ℕ → ℂ) (N : ℕ) :
+    weightedForwardDifferencePrefix r (fun n => c * F n) N =
+      c * weightedForwardDifferencePrefix r F N := by
+  unfold weightedForwardDifferencePrefix
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro n hn
+  ring
+
+/-- Finite sums commute with the weighted finite-difference prefix. -/
+theorem weightedForwardDifferencePrefix_finset_sum
+    {ι : Type*} [DecidableEq ι]
+    (r : ℕ → ℂ) (s : Finset ι) (F : ι → ℕ → ℂ) (N : ℕ) :
+    weightedForwardDifferencePrefix r
+        (fun n => ∑ i ∈ s, F i n) N =
+      ∑ i ∈ s, weightedForwardDifferencePrefix r (F i) N := by
+  unfold weightedForwardDifferencePrefix
+  calc
+    (∑ n ∈ Finset.Icc 1 N,
+        r n * ((∑ i ∈ s, F i n) - ∑ i ∈ s, F i (n - 1))) : ℂ) =
+        ∑ n ∈ Finset.Icc 1 N,
+          ∑ i ∈ s, r n * (F i n - F i (n - 1)) := by
+      apply Finset.sum_congr rfl
+      intro n hn
+      rw [← Finset.sum_sub_distrib, Finset.mul_sum]
+    _ = ∑ i ∈ s,
+          ∑ n ∈ Finset.Icc 1 N,
+            r n * (F i n - F i (n - 1)) := by
+      rw [Finset.sum_comm]
+    _ = ∑ i ∈ s, weightedForwardDifferencePrefix r (F i) N := by
+      rfl
+
+/-- A floor-child is active only once its owner site has entered. -/
+def activatedFloorChild (F : ℕ → ℂ) (q n : ℕ) : ℂ :=
+  if q ≤ n then F (n / q) else 0
+
+theorem activatedFloorChild_eq_floor_sub_ltStep
+    (F : ℕ → ℂ) (q n : ℕ) :
+    activatedFloorChild F q n =
+      F (n / q) - (if n < q then F 0 else 0) := by
+  unfold activatedFloorChild
+  by_cases h : q ≤ n
+  · have hn : ¬ n < q := not_lt.mpr h
+    simp [h, hn]
+  · have hn : n < q := lt_of_not_ge h
+    have hdiv : n / q = 0 := Nat.div_eq_of_lt hn
+    simp [h, hn, hdiv]
+
+/-- The finite difference of the pre-entry step is a single negative atom at
+the owner site. -/
+theorem weightedForwardDifferencePrefix_ltStep
+    (r : ℕ → ℂ) (c : ℂ) {q N : ℕ}
+    (hq : 1 ≤ q) (hqN : q ≤ N) :
+    weightedForwardDifferencePrefix r
+        (fun n => if n < q then c else 0) N =
+      -(r q * c) := by
+  unfold weightedForwardDifferencePrefix
+  have hqmem : q ∈ Finset.Icc 1 N := Finset.mem_Icc.mpr ⟨hq, hqN⟩
+  calc
+    (∑ n ∈ Finset.Icc 1 N,
+        r n * ((if n < q then c else 0) -
+          (if n - 1 < q then c else 0)) : ℂ) =
+        r q * ((if q < q then c else 0) -
+          (if q - 1 < q then c else 0)) := by
+      apply Finset.sum_eq_single_of_mem q
+      · exact hqmem
+      · intro n hn hne
+        by_cases hnq : n < q
+        · have hpred : n - 1 < q := (Nat.sub_le n 1).trans_lt hnq
+          simp [hnq, hpred]
+        · have hqn : q < n := by omega
+          have hpred : ¬ n - 1 < q := by omega
+          simp [hnq, hpred]
+    _ = -(r q * c) := by
+      have hpred : q - 1 < q := by omega
+      simp [hpred]
+
+/-- Activated floor dilation.  Compared with the ordinary floor-dilation law,
+the first activation contributes the missing base value F(0). -/
+theorem weightedForwardDifferencePrefix_activatedFloor
+    (r F : ℕ → ℂ) {q N : ℕ}
+    (hrmul : ∀ a b : ℕ, r (a * b) = r a * r b)
+    (hq : 1 ≤ q) (hqN : q ≤ N) :
+    weightedForwardDifferencePrefix r (activatedFloorChild F q) N =
+      r q * (F 0 + weightedForwardDifferencePrefix r F (N / q)) := by
+  have hfun :
+      activatedFloorChild F q =
+        fun n => F (n / q) - (if n < q then F 0 else 0) := by
+    funext n
+    exact activatedFloorChild_eq_floor_sub_ltStep F q n
+  rw [hfun, weightedForwardDifferencePrefix_sub,
+    weightedForwardDifferencePrefix_floor_div r F q hrmul N,
+    weightedForwardDifferencePrefix_ltStep r (F 0) hq hqN]
+  ring
+
+/-- Rewrite a state recurrence against one fixed ambient owner set.  Owners
+which have not yet entered are represented by an activated floor child. -/
+theorem primeFrequencyState_eq_fixedAmbientActivated
+    {w : ℕ → ℂ} {S : ℕ → ℕ → ℂ}
+    (hS : IsPrimeFrequencyState w S)
+    {n X y : ℕ} (hnX : n ≤ X) :
+    S n y =
+      1 - ∑ q ∈ Finset.Ioc 1 (min X y),
+        w q * activatedFloorChild (fun m => S m (q - 1)) q n := by
+  rw [hS n y]
+  unfold primeFrequencyStep
+  have hsub :
+      Finset.Ioc 1 (min n y) ⊆ Finset.Ioc 1 (min X y) := by
+    intro q hq
+    rcases Finset.mem_Ioc.mp hq with ⟨hq1, hqtop⟩
+    apply Finset.mem_Ioc.mpr
+    constructor
+    · exact hq1
+    · have hqn : q ≤ n := hqtop.trans (min_le_left n y)
+      have hqy : q ≤ y := hqtop.trans (min_le_right n y)
+      exact le_min (hqn.trans hnX) hqy
+  congr 1
+  calc
+    (∑ q ∈ Finset.Ioc 1 (min n y),
+        w q * S (n / q) (q - 1) : ℂ) =
+        ∑ q ∈ Finset.Ioc 1 (min n y),
+          w q * activatedFloorChild (fun m => S m (q - 1)) q n := by
+      apply Finset.sum_congr rfl
+      intro q hq
+      have hqn : q ≤ n := by
+        exact (Finset.mem_Ioc.mp hq).2.trans (min_le_left n y)
+      simp [activatedFloorChild, hqn]
+    _ = ∑ q ∈ Finset.Ioc 1 (min X y),
+          w q * activatedFloorChild (fun m => S m (q - 1)) q n := by
+      apply Finset.sum_subset hsub
+      intro q hqBig hqNot
+      rcases Finset.mem_Ioc.mp hqBig with ⟨hq1, hqtop⟩
+      have hqy : q ≤ y := hqtop.trans (min_le_right X y)
+      have hqn : ¬ q ≤ n := by
+        intro hqn
+        apply hqNot
+        exact Finset.mem_Ioc.mpr
+          ⟨hq1, le_min hqn hqy⟩
+      simp [activatedFloorChild, hqn]
+
+/-- Exact weighted recursion for the critical transform of any frequency
+state.  The owner weight is multiplied by the multiplicative test weight r(q). -/
+theorem weightedForwardDifferencePrefix_primeFrequencyState
+    {w r : ℕ → ℂ} {S : ℕ → ℕ → ℂ}
+    (hS : IsPrimeFrequencyState w S)
+    (hrmul : ∀ a b : ℕ, r (a * b) = r a * r b)
+    (x y : ℕ) :
+    weightedForwardDifferencePrefix r (fun n => S n y) x =
+      -(∑ q ∈ Finset.Ioc 1 (min x y),
+          w q * r q *
+            (S 0 (q - 1) +
+              weightedForwardDifferencePrefix r
+                (fun m => S m (q - 1)) (x / q))) := by
+  let owners := Finset.Ioc 1 (min x y)
+  let A : ℕ → ℂ := fun n =>
+    ∑ q ∈ owners,
+      w q * activatedFloorChild (fun m => S m (q - 1)) q n
+  have hpoint : ∀ n, n ≤ x → S n y = 1 - A n := by
+    intro n hnx
+    simpa [owners, A] using
+      primeFrequencyState_eq_fixedAmbientActivated hS hnx
+  have hpref :
+      weightedForwardDifferencePrefix r (fun n => S n y) x =
+        weightedForwardDifferencePrefix r (fun n => 1 - A n) x := by
+    unfold weightedForwardDifferencePrefix
+    apply Finset.sum_congr rfl
+    intro n hn
+    have hnle : n ≤ x := (Finset.mem_Icc.mp hn).2
+    have hpredle : n - 1 ≤ x := (Nat.sub_le n 1).trans hnle
+    rw [hpoint n hnle, hpoint (n - 1) hpredle]
+  rw [hpref, weightedForwardDifferencePrefix_sub,
+    weightedForwardDifferencePrefix_const]
+  have hsum :
+      weightedForwardDifferencePrefix r A x =
+        ∑ q ∈ owners,
+          w q *
+            weightedForwardDifferencePrefix r
+              (activatedFloorChild (fun m => S m (q - 1)) q) x := by
+    unfold A
+    rw [weightedForwardDifferencePrefix_finset_sum]
+    apply Finset.sum_congr rfl
+    intro q hq
+    rw [weightedForwardDifferencePrefix_const_mul]
+  rw [hsum, zero_sub]
+  apply congrArg Neg.neg
+  apply Finset.sum_congr rfl
+  intro q hq
+  have hqdata := Finset.mem_Ioc.mp hq
+  have hqone : 1 ≤ q := by omega
+  have hqx : q ≤ x := hqdata.2.trans (min_le_left x y)
+  rw [weightedForwardDifferencePrefix_activatedFloor
+    r (fun m => S m (q - 1)) hrmul hqone hqx]
+  ring
+
+/-- Critical Li owner weight after the exact n^(-1/2) transform. -/
+def criticalLiFrequencyWeight (q : ℕ) : ℂ :=
+  primeSievePNTDensity q * criticalSqrtWeight q
+
+/-- Critical transform of an all-scale Li state. -/
+def allScaleLiCriticalState
+    (L : ℕ → ℕ → ℂ) (x y : ℕ) : ℂ :=
+  1 + weightedForwardDifferencePrefix criticalSqrtWeight
+    (fun n => L n y) x
+
+/-- The critical transform is itself an exact largest-site frequency state,
+with Li singleton weights divided by sqrt(q). -/
+theorem allScaleLiCriticalState_isPrimeFrequencyState
+    {L : ℕ → ℕ → ℂ} (hL : IsAllScaleLiState L) :
+    IsPrimeFrequencyState criticalLiFrequencyWeight
+      (allScaleLiCriticalState L) := by
+  intro x y
+  unfold allScaleLiCriticalState primeFrequencyStep criticalLiFrequencyWeight
+  have hzero : ∀ q : ℕ, L 0 (q - 1) = 1 := by
+    intro q
+    rw [hL 0 (q - 1)]
+    simp [primeFrequencyStep]
+  have hrec :=
+    weightedForwardDifferencePrefix_primeFrequencyState
+      hL criticalSqrtWeight_mul x y
+  rw [hrec]
+  apply congrArg (fun z : ℂ => 1 - z)
+  apply Finset.sum_congr rfl
+  intro q hq
+  rw [hzero q]
+  ring
+
+/-- On the diagonal, the transformed state is exactly one plus the critical
+half-weighted prefix. -/
+theorem allScaleLiCriticalState_diagonal_eq
+    {L : ℕ → ℕ → ℂ} (N : ℕ) (hL : IsAllScaleLiState L) :
+    allScaleLiCriticalState L N N =
+      1 + allScaleLiCriticalPrefix L N := by
+  unfold allScaleLiCriticalState
+  rw [allScaleLiCriticalPrefix_eq_fixedCutoffWeighted_of_state N hL]
+
 /-! ## Sharp finite Abel return from the critical half-weight -/
 
 /-- The increment recovered from a half-weighted prefix profile. -/
