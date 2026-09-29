@@ -328,6 +328,51 @@ theorem exactLiCriticalCollision_summable :
       simp only [one_div, mul_inv_rev, inv_pow]
 
 
+
+/-! ## Exact weighted floor dilation -/
+
+/-- Weighted finite-difference prefix. -/
+def weightedForwardDifferencePrefix
+    (r : ℕ → ℂ) (F : ℕ → ℂ) (N : ℕ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 N, r n * (F n - F (n - 1))
+
+/-- One-step extension of a weighted finite-difference prefix. -/
+theorem weightedForwardDifferencePrefix_succ
+    (r : ℕ → ℂ) (F : ℕ → ℂ) (N : ℕ) :
+    weightedForwardDifferencePrefix r F (N + 1) =
+      weightedForwardDifferencePrefix r F N +
+        r (N + 1) * (F (N + 1) - F N) := by
+  unfold weightedForwardDifferencePrefix
+  rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1)]
+
+/-- Exact floor-dilation law for multiplicative weights.
+Only multiples of q survive the finite difference of F(n/q), and a
+multiplicative weight factors at those sites. -/
+theorem weightedForwardDifferencePrefix_floor_div
+    (r : ℕ → ℂ) (F : ℕ → ℂ) {q : ℕ} (hq : 0 < q)
+    (hrmul : ∀ a b : ℕ, r (a * b) = r a * r b) (N : ℕ) :
+    weightedForwardDifferencePrefix r (fun n => F (n / q)) N =
+      r q * weightedForwardDifferencePrefix r F (N / q) := by
+  induction N with
+  | zero =>
+      simp [weightedForwardDifferencePrefix]
+  | succ N ih =>
+      rw [weightedForwardDifferencePrefix_succ, ih]
+      by_cases hdvd : q ∣ N + 1
+      · have hdiv : (N + 1) / q = N / q + 1 := by
+          rw [Nat.succ_div, if_pos hdvd]
+        have hmul : N + 1 = q * ((N + 1) / q) := by
+          symm
+          exact Nat.mul_div_cancel' hdvd
+        rw [hdiv, weightedForwardDifferencePrefix_succ]
+        rw [hmul, hrmul]
+        rw [hdiv]
+        ring
+      · have hdiv : (N + 1) / q = N / q := by
+          rw [Nat.succ_div, if_neg hdvd, add_zero]
+        rw [hdiv]
+        simp
+
 /-! ## Sharp finite Abel return from the critical half-weight -/
 
 /-- The increment recovered from a half-weighted prefix profile. -/
