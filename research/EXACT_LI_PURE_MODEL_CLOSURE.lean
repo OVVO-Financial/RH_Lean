@@ -751,6 +751,116 @@ theorem criticalLi_prod_one_add_sq_le_exp_budget
             (criticalLiFrequencyWeight_sq_finset_sum_le s)
 
 
+
+/-! ## Generic critical convolution transfer -/
+
+/-- Finite multiplicative convolution at an integer endpoint. -/
+def finiteMultiplicativeConvolution
+    (h M : ℕ → ℂ) (X : ℕ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 X, h n * M (X / n)
+
+/-- Critical weighted total variation of a correction kernel up to X. -/
+def criticalWeightedVariation
+    (h : ℕ → ℂ) (X : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 X,
+    ‖h n‖ / Real.sqrt (n : ℝ)
+
+/-- **Critical convolution transfer.**
+If the reference cumulative state is uniformly bounded by B and the correction
+kernel has uniformly bounded n^(-1/2)-weighted total variation H, then their
+multiplicative convolution is O(sqrt X). -/
+theorem norm_finiteMultiplicativeConvolution_le_sqrt
+    (h M : ℕ → ℂ) (B H : ℝ)
+    (hB : 0 ≤ B) (hH : 0 ≤ H)
+    (hM : ∀ m : ℕ, ‖M m‖ ≤ B)
+    (hvar : ∀ X : ℕ, criticalWeightedVariation h X ≤ H)
+    (X : ℕ) :
+    ‖finiteMultiplicativeConvolution h M X‖ ≤
+      B * Real.sqrt (X : ℝ) * H := by
+  unfold finiteMultiplicativeConvolution
+  calc
+    ‖∑ n ∈ Finset.Icc 1 X, h n * M (X / n)‖
+        ≤ ∑ n ∈ Finset.Icc 1 X, ‖h n * M (X / n)‖ :=
+          norm_sum_le _ _
+    _ = ∑ n ∈ Finset.Icc 1 X, ‖h n‖ * ‖M (X / n)‖ := by
+          apply Finset.sum_congr rfl
+          intro n hn
+          rw [norm_mul]
+    _ ≤ ∑ n ∈ Finset.Icc 1 X,
+          (B * Real.sqrt (X : ℝ)) *
+            (‖h n‖ / Real.sqrt (n : ℝ)) := by
+          apply Finset.sum_le_sum
+          intro n hn
+          rcases Finset.mem_Icc.mp hn with ⟨hn1, hnX⟩
+          have hnpos : (0 : ℝ) < (n : ℝ) := by
+            exact_mod_cast (show 0 < n by omega)
+          have hsqrtnpos : 0 < Real.sqrt (n : ℝ) :=
+            Real.sqrt_pos.2 hnpos
+          have hsqrtnne : Real.sqrt (n : ℝ) ≠ 0 :=
+            ne_of_gt hsqrtnpos
+          have hsqrtle :
+              Real.sqrt (n : ℝ) ≤ Real.sqrt (X : ℝ) := by
+            apply Real.sqrt_le_sqrt
+            exact_mod_cast hnX
+          have hquot : 0 ≤ ‖h n‖ / Real.sqrt (n : ℝ) := by
+            positivity
+          calc
+            ‖h n‖ * ‖M (X / n)‖ ≤ ‖h n‖ * B :=
+              mul_le_mul_of_nonneg_left (hM (X / n)) (norm_nonneg _)
+            _ = B * (Real.sqrt (n : ℝ) *
+                  (‖h n‖ / Real.sqrt (n : ℝ))) := by
+                field_simp [hsqrtnne]
+                ring
+            _ ≤ B * (Real.sqrt (X : ℝ) *
+                  (‖h n‖ / Real.sqrt (n : ℝ))) := by
+                exact mul_le_mul_of_nonneg_left
+                  (mul_le_mul_of_nonneg_right hsqrtle hquot) hB
+            _ = (B * Real.sqrt (X : ℝ)) *
+                  (‖h n‖ / Real.sqrt (n : ℝ)) := by ring
+    _ = (B * Real.sqrt (X : ℝ)) *
+          criticalWeightedVariation h X := by
+          unfold criticalWeightedVariation
+          rw [Finset.mul_sum]
+    _ ≤ (B * Real.sqrt (X : ℝ)) * H := by
+          exact mul_le_mul_of_nonneg_left (hvar X)
+            (mul_nonneg hB (Real.sqrt_nonneg _))
+    _ = B * Real.sqrt (X : ℝ) * H := by ring
+
+/-- Square-endpoint form of the critical convolution transfer. -/
+theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
+    (h M : ℕ → ℂ) (B H : ℝ)
+    (hB : 0 ≤ B) (hH : 0 ≤ H)
+    (hM : ∀ m : ℕ, ‖M m‖ ≤ B)
+    (hvar : ∀ X : ℕ, criticalWeightedVariation h X ≤ H)
+    (R : ℕ) :
+    ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖ ≤
+      B * H * (R : ℝ) := by
+  by_cases hR : R = 0
+  · subst R
+    simp [finiteMultiplicativeConvolution, squareRootEndpoint]
+  · have hRpos : (0 : ℝ) ≤ R := by positivity
+    have hXle :
+        (squareRootEndpoint R : ℝ) ≤ (R : ℝ) ^ 2 := by
+      exact_mod_cast (Nat.sub_le (R ^ 2) 1)
+    have hsqrt :
+        Real.sqrt (squareRootEndpoint R : ℝ) ≤ (R : ℝ) := by
+      calc
+        Real.sqrt (squareRootEndpoint R : ℝ) ≤
+            Real.sqrt ((R : ℝ) ^ 2) := Real.sqrt_le_sqrt hXle
+        _ = (R : ℝ) := by
+          rw [Real.sqrt_sq_eq_abs, abs_of_nonneg hRpos]
+    have hbase :=
+      norm_finiteMultiplicativeConvolution_le_sqrt
+        h M B H hB hH hM hvar (squareRootEndpoint R)
+    calc
+      ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖
+          ≤ B * Real.sqrt (squareRootEndpoint R : ℝ) * H := hbase
+      _ ≤ B * (R : ℝ) * H := by
+            exact mul_le_mul_of_nonneg_right
+              (mul_le_mul_of_nonneg_left hsqrt hB) hH
+      _ = B * H * (R : ℝ) := by ring
+
+
 /-- Critical transform of an all-scale Li state. -/
 def allScaleLiCriticalState
     (L : ℕ → ℕ → ℂ) (x y : ℕ) : ℂ :=
