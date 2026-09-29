@@ -1,6 +1,5 @@
 import Mathlib
 import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
-import «research.LI_MODEL_DISCRETIZATION»
 import RHLean.Proof.FinitePartialMoments
 
 /-!
