@@ -974,6 +974,50 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
       _ = B * H * (R : ℝ) := by ring
 
 
+
+/-! ## Convolution-reference closure of the pure Li model -/
+
+/-- A correction kernel has uniformly bounded critical weighted variation. -/
+def UniformCriticalWeightedVariation (h : ℕ → ℂ) : Prop :=
+  ∃ H : ℝ, 0 ≤ H ∧
+    ∀ X : ℕ, criticalWeightedVariation h X ≤ H
+
+/-- Exact diagonal factorization of every all-scale Li state through a fixed
+reference cumulative model and a multiplicative correction kernel. -/
+def AllScaleLiDiagonalConvolutionFactorization
+    (h M : ℕ → ℂ) : Prop :=
+  ∀ (L : ℕ → ℕ → ℂ) (X : ℕ),
+    IsAllScaleLiState L →
+    L X X = finiteMultiplicativeConvolution h M X
+
+/-- **Correction-kernel pure-model closure.**
+A uniformly bounded reference, a correction kernel with uniformly bounded
+critical variation, and the exact diagonal convolution factorization imply the
+intrinsic all-scale Li square-root theorem. -/
+theorem allScaleLiSquareRootBounded_of_convolutionReference
+    (h M : ℕ → ℂ)
+    (hM : UniformReferenceDiagonalBounded M)
+    (hh : UniformCriticalWeightedVariation h)
+    (hfac : AllScaleLiDiagonalConvolutionFactorization h M) :
+    AllScaleLiSquareRootBoundedStatement := by
+  rcases hM with ⟨B, hB, hMb⟩
+  rcases hh with ⟨H, hH, hvar⟩
+  refine ⟨(B * H) ^ 2, sq_nonneg _, ?_⟩
+  intro L R hL hsat hR
+  have hconv :=
+    norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
+      h M B H hB hMb hvar R
+  rw [← hfac L (squareRootEndpoint R) hL] at hconv
+  have hBH : 0 ≤ B * H := mul_nonneg hB hH
+  have hR0 : 0 ≤ (R : ℝ) := by positivity
+  have hright : 0 ≤ (B * H) * (R : ℝ) :=
+    mul_nonneg hBH hR0
+  have hsquare :=
+    mul_self_le_mul_self
+      (norm_nonneg (L (squareRootEndpoint R) (squareRootEndpoint R)))
+      hconv
+  simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using hsquare
+
 /-- Critical transform of an all-scale Li state. -/
 def allScaleLiCriticalState
     (L : ℕ → ℕ → ℂ) (x y : ℕ) : ℂ :=
