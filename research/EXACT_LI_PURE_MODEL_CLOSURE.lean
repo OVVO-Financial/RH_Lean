@@ -443,8 +443,8 @@ theorem weightedForwardDifferencePrefix_finset_sum
       ∑ i ∈ s, weightedForwardDifferencePrefix r (F i) N := by
   unfold weightedForwardDifferencePrefix
   calc
-    (∑ n ∈ Finset.Icc 1 N,
-        r n * ((∑ i ∈ s, F i n) - ∑ i ∈ s, F i (n - 1))) =
+    ∑ n ∈ Finset.Icc 1 N,
+        r n * ((∑ i ∈ s, F i n) - ∑ i ∈ s, F i (n - 1)) =
         ∑ n ∈ Finset.Icc 1 N,
           ∑ i ∈ s, r n * (F i n - F i (n - 1)) := by
       apply Finset.sum_congr rfl
@@ -484,7 +484,7 @@ theorem weightedForwardDifferencePrefix_ltStep
   unfold weightedForwardDifferencePrefix
   have hqmem : q ∈ Finset.Icc 1 N := Finset.mem_Icc.mpr ⟨hq, hqN⟩
   calc
-    (∑ n ∈ Finset.Icc 1 N,
+    ∑ n ∈ Finset.Icc 1 N,
         r n * ((if n < q then c else 0) -
           (if n - 1 < q then c else 0)) =
         r q * ((if q < q then c else 0) -
