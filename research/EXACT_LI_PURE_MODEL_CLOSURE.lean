@@ -1045,6 +1045,53 @@ theorem allScaleLiCriticalState_isPrimeFrequencyState
   intro q hq
   rw [hzero q]
 
+
+/-! ## Exact reciprocal/Dickman coordinate -/
+
+/-- Multiplicative reciprocal weight n^(-1). -/
+def reciprocalWeight (n : ℕ) : ℂ :=
+  ((n : ℂ))⁻¹
+
+/-- The reciprocal weight is exactly multiplicative. -/
+theorem reciprocalWeight_mul (a b : ℕ) :
+    reciprocalWeight (a * b) =
+      reciprocalWeight a * reciprocalWeight b := by
+  simp [reciprocalWeight, Nat.cast_mul, mul_inv_rev]
+
+/-- Li owner weight after the exact reciprocal transform. -/
+def reciprocalLiFrequencyWeight (q : ℕ) : ℂ :=
+  primeSievePNTDensity q * reciprocalWeight q
+
+/-- Reciprocal transform of an all-scale Li state.  This is the discrete
+counterpart of A(x)=∫ u^(-1) dν(u) in the continuous Dickman derivation. -/
+def allScaleLiReciprocalState
+    (L : ℕ → ℕ → ℂ) (x y : ℕ) : ℂ :=
+  1 + weightedForwardDifferencePrefix reciprocalWeight
+    (fun n => L n y) x
+
+/-- The reciprocal transform is itself an exact largest-site frequency state,
+with singleton Li owner weight w_q/q. -/
+theorem allScaleLiReciprocalState_isPrimeFrequencyState
+    {L : ℕ → ℕ → ℂ} (hL : IsAllScaleLiState L) :
+    IsPrimeFrequencyState reciprocalLiFrequencyWeight
+      (allScaleLiReciprocalState L) := by
+  intro x y
+  unfold allScaleLiReciprocalState primeFrequencyStep
+    reciprocalLiFrequencyWeight
+  have hzero : ∀ q : ℕ, L 0 (q - 1) = 1 := by
+    intro q
+    rw [hL 0 (q - 1)]
+    simp [primeFrequencyStep]
+  have hrec :=
+    weightedForwardDifferencePrefix_primeFrequencyState
+      hL reciprocalWeight_mul x y
+  rw [hrec]
+  apply congrArg (fun z : ℂ => 1 - z)
+  apply Finset.sum_congr rfl
+  intro q hq
+  rw [hzero q]
+  ring
+
 /-! ## Sharp finite Abel return from the critical half-weight -/
 
 /-- The increment recovered from a half-weighted prefix profile. -/
