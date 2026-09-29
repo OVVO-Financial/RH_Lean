@@ -387,6 +387,7 @@ theorem criticalSqrtWeight_mul (a b : ℕ) :
       criticalSqrtWeight a * criticalSqrtWeight b := by
   simp [criticalSqrtWeight, Nat.cast_mul,
     Real.sqrt_mul (by positivity : (0 : ℝ) ≤ (a : ℝ))]
+  ring
 
 /-- The generic floor-dilation law at the critical square-root weight. -/
 theorem criticalSqrtWeightedPrefix_floor_div
