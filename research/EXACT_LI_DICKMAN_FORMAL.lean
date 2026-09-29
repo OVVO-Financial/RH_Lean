@@ -106,8 +106,8 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
                 ∫ v in a..u, f v)
             (Icc a b) :=
         hconst.sub hprim
-      simpa only [exactLiDickmanSegment, a, b, f, Nat.cast_add,
-        Nat.cast_one, add_assoc] using hout
+      convert hout using 1 <;>
+        norm_num [exactLiDickmanSegment, a, b, f]
 
 /-- The delay integrand on one successor segment is interval-integrable. -/
 theorem exactLiDickmanSegment_delay_intervalIntegrable
@@ -193,7 +193,7 @@ theorem exactLiDickmanSegment_succ_hasDerivAt
   have hgAt : ContinuousAt g u :=
     (hgcont u (Ioo_subset_Icc_self hu')).continuousAt
       (Icc_mem_nhds hu'.1 hu'.2)
-  have hgmeas : StronglyMeasurableAtFilter g (Filter.nhds u) := by
+  have hgmeas : StronglyMeasurableAtFilter g (nhds u) := by
     exact (hgcont.mono Ioo_subset_Icc_self).stronglyMeasurableAtFilter
       isOpen_Ioo u hu'
   have hab : a ≤ b := by
