@@ -463,4 +463,167 @@ theorem lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
       ring
 
 
+
+/-- Reciprocal-weighted diagnostic ledger for recursive continuation candidates
+with arbitrary prior history. The current owner contributes the exact quadratic
+continuation factor `(1 - 1/r)^2`, but each candidate is deliberately measured
+in *child reciprocal-energy currency*, which inserts an additional `1/r^2`
+relative to the raw signed continuation square.
+
+This object is therefore not the actual quadratic continuation energy. It is a
+downstream side ledger useful only where reciprocal currency has already been
+legally introduced. -/
+def lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy
+    (R first : ℕ) (history : ℝ) (parent : ℕ × ℕ) : ℝ :=
+  ∑ r ∈ lowOwnerRevealedPrimesAbove R first,
+    ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
+      (1 - 1 / (r : ℝ)) ^ 4 *
+        lowOwnerRetainedCoefficientChildEnergy
+          (lowOwnerZeroTargetHistoryReciprocalScale history parent) child
+
+private theorem critical_one_sub_reciprocal_fourth_le_one
+    {p : ℕ} (hp : p.Prime) :
+    (1 - 1 / (p : ℝ)) ^ 4 ≤ 1 := by
+  have hsq :
+      (1 - 1 / (p : ℝ)) ^ 2 ≤ 1 :=
+    critical_one_sub_reciprocal_sq_le_one hp
+  have hnon : 0 ≤ (1 - 1 / (p : ℝ)) ^ 2 := sq_nonneg _
+  calc
+    (1 - 1 / (p : ℝ)) ^ 4 =
+        (1 - 1 / (p : ℝ)) ^ 2 * (1 - 1 / (p : ℝ)) ^ 2 := by ring
+    _ ≤ 1 * (1 - 1 / (p : ℝ)) ^ 2 :=
+      mul_le_mul_of_nonneg_right hsq hnon
+    _ ≤ 1 * 1 := mul_le_mul_of_nonneg_left hsq (by norm_num)
+    _ = 1 := by ring
+
+/-- **History-safe half contraction for the reciprocal-weighted continuation
+side ledger.**
+
+After summing over every genuine later owner, the child-reciprocal diagnostic
+ledger is at most one half of the incoming zero-target history energy. The proof
+keeps owner labels until the reciprocal-square budget is applied, so there is
+no owner-count loss.
+
+Crucially, this does **not** bound the raw signed quadratic continuation from
+`zeroTargetMellinPhysicalSuperLcmFourCorner_critical_eq_threeTerm`: that term
+has no `1/r^2` factor and must still remain signed/telescope through rank
+descent. -/
+theorem lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy_le_half
+    {R first : ℕ} {history : ℝ} {parent : ℕ × ℕ}
+    (hfirst : first.Prime)
+    (haPos : 0 < parent.1) (hbPos : 0 < parent.2)
+    (haMu : realMoebiusStep parent.1 ≠ 0)
+    (hbMu : realMoebiusStep parent.2 ≠ 0) :
+    lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy
+        R first history parent ≤
+      (1 / 2 : ℝ) * history ^ 2 *
+        postRootZeroTargetPairExcess parent ^ 2 := by
+  have hdrop :
+      lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy
+          R first history parent ≤
+        (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
+          lowOwnerGreatestOwnerAboveFirstReciprocalOutgoingEnergy
+            R first parent := by
+    unfold lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy
+      lowOwnerGreatestOwnerAboveFirstReciprocalOutgoingEnergy
+    calc
+      (∑ r ∈ lowOwnerRevealedPrimesAbove R first,
+        ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
+          (1 - 1 / (r : ℝ)) ^ 4 *
+            lowOwnerRetainedCoefficientChildEnergy
+              (lowOwnerZeroTargetHistoryReciprocalScale history parent)
+              child) ≤
+        ∑ r ∈ lowOwnerRevealedPrimesAbove R first,
+          ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
+            lowOwnerRetainedCoefficientChildEnergy
+              (lowOwnerZeroTargetHistoryReciprocalScale history parent)
+              child := by
+          apply Finset.sum_le_sum
+          intro r hr
+          have hrPrime : r.Prime :=
+            (mem_primesUpTo.mp (Finset.mem_filter.mp hr).1).1
+          apply Finset.sum_le_sum
+          intro child _hchild
+          have hchild0 :
+              0 ≤ lowOwnerRetainedCoefficientChildEnergy
+                (lowOwnerZeroTargetHistoryReciprocalScale history parent)
+                child := by
+            unfold lowOwnerRetainedCoefficientChildEnergy
+            exact mul_nonneg
+              (sq_nonneg (lowOwnerZeroTargetHistoryReciprocalScale
+                history parent))
+              (postRootCovarianceReciprocalPairEnergy_nonneg child)
+          simpa only [one_mul] using
+            (mul_le_mul_of_nonneg_right
+              (critical_one_sub_reciprocal_fourth_le_one hrPrime)
+              hchild0)
+      _ =
+        (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
+          (∑ r ∈ lowOwnerRevealedPrimesAbove R first,
+            ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
+              postRootCovarianceReciprocalPairEnergy child) := by
+            unfold lowOwnerRetainedCoefficientChildEnergy
+            rw [Finset.mul_sum]
+            apply Finset.sum_congr rfl
+            intro r _hr
+            rw [Finset.mul_sum]
+      _ = _ := rfl
+  have hhalf :=
+    lowOwnerGreatestOwnerAboveFirstReciprocalOutgoingEnergy_le_half
+      (R := R) hfirst parent
+  have hscale0 :
+      0 ≤ (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 :=
+    sq_nonneg _
+  have hscaled := mul_le_mul_of_nonneg_left hhalf hscale0
+  have hnorm :=
+    lowOwnerZeroTargetHistoryParentEnergy_eq_rawExcessSq
+      (history := history) (parent := parent)
+      haPos hbPos haMu hbMu
+  unfold lowOwnerRetainedCoefficientParentEnergy at hnorm
+  calc
+    lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy
+        R first history parent ≤
+      (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
+        lowOwnerGreatestOwnerAboveFirstReciprocalOutgoingEnergy
+          R first parent := hdrop
+    _ ≤
+      (lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
+        ((1 / 2 : ℝ) *
+          postRootCovarianceReciprocalPairEnergy parent) := hscaled
+    _ = (1 / 2 : ℝ) *
+        ((lowOwnerZeroTargetHistoryReciprocalScale history parent) ^ 2 *
+          postRootCovarianceReciprocalPairEnergy parent) := by ring
+    _ = (1 / 2 : ℝ) * history ^ 2 *
+        postRootZeroTargetPairExcess parent ^ 2 := by
+      rw [hnorm]
+      ring
+
+/-- The reciprocal-weighted continuation side ledger plus the genuine positive
+clipped-exit ledger costs at most three quarters of the incoming history energy.
+
+This is a side-ledger statement, not a bound on one full signed continuation
+generation. -/
+theorem lowOwnerZeroTargetHistoryAboveFirst_recursive_add_clipped_le_threeQuarters
+    {R first : ℕ} {history : ℝ} {parent : ℕ × ℕ}
+    (hfirst : first.Prime)
+    (haPos : 0 < parent.1) (hbPos : 0 < parent.2)
+    (haMu : realMoebiusStep parent.1 ≠ 0)
+    (hbMu : realMoebiusStep parent.2 ≠ 0) :
+    lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy
+        R first history parent +
+      lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy
+        R first history parent ≤
+      (3 / 4 : ℝ) * history ^ 2 *
+        postRootZeroTargetPairExcess parent ^ 2 := by
+  have hrec :=
+    lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy_le_half
+      (R := R) (first := first) (history := history) (parent := parent)
+      hfirst haPos hbPos haMu hbMu
+  have hclip :=
+    lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
+      (R := R) (first := first) (history := history) (parent := parent)
+      hfirst haPos hbPos haMu hbMu
+  nlinarith
+
+
 end RHLean.Proof

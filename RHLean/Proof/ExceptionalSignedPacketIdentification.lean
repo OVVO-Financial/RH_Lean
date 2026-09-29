@@ -1,5 +1,6 @@
 import RHLean.Analysis.PhysicalExceptionalLocalIntertwine
 import RHLean.Proof.TwoWheelQ2GoCompatibility
+import RHLean.Analysis.PhysicalSquareCRTTransfer
 
 /-!
 # Exact signed recovery on the exceptional physical carriers
