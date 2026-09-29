@@ -106,8 +106,7 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
                 ∫ v in a..u, f v)
             (Icc a b) :=
         hconst.sub hprim
-      convert hout using 1 <;>
-        norm_num [exactLiDickmanSegment, a, b, f]
+      convert hout using 1
 
 /-- The delay integrand on one successor segment is interval-integrable. -/
 theorem exactLiDickmanSegment_delay_intervalIntegrable
