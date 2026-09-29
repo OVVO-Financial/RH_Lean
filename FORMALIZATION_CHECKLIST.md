@@ -623,3 +623,29 @@ has to be guessed against mathlib `v4.24.0`.
 - [ ] No pointwise or averaged PNT error estimate, short-interval theorem, Bombieri--Vinogradov estimate, large-sieve estimate, or RH-scale power saving is claimed.
 - [ ] Remaining analytic targets are separate: control the centered PNT-corrected comb and control the centered Mertens-weighted reciprocal-interval prime discrepancies strongly enough for the existing `H_{k,n}` power-bound interface.
 - [ ] The final merge-gating CI must run on one frozen head after this checklist, `FORMALIZATION_SEQUENCE.md`, and synthesis provenance updates are all present.
+
+## Density logarithmic tightening (2026-09-28; stacked on #803)
+
+This layer preserves the verified #803 baseline at 67aa49064362416b22d9d10cb52e3a1b89cbb688.
+The new source is research/PRIME_DENSITY_LOG_TIGHTENING.lean; its companion
+research/PRIME_DENSITY_LOG_TIGHTENING.md records the precise constants and scope.
+It retains the actual harmonic tail, reassembles unit-density transport by
+signed cofactors, and applies nativeMertensRecip_abs_le_one before estimating
+the fractional remainder. No density model, owner set, floor convention,
+Mertens coefficient, or existing terminal consumer is redefined.
+
+The proposed finite statements are checked by the dedicated warning-fatal
+Prime density logarithmic tightening workflow. Its exact final-head compiler
+and axiom results are authoritative; this append-only entry does not declare
+checks successful in advance. The stage adds universal density-model bounds
+and a conditional signed-energy coefficient transfer, not the open all-scale
+FinalStokes arithmetic estimate. No new analytic premise is discharged by
+the transfer alone. Prior obstructions, exports, and declarations remain.
+
+- [x] Read current contract, agent instructions, sequence and checklist.
+- [x] Stack explicitly on verified #803; leave its branch and #802 unchanged.
+- [x] Preserve exact signed reassembly before energy; retain both error terms.
+- [x] Register the research module in a dedicated compiler/axiom workflow.
+- [ ] Compiler, axiom, source and export checks pass on the final PR head.
+- [ ] Merge explicitly authorized.
+

@@ -1,0 +1,120 @@
+name: Prime density logarithmic tightening
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/PRIME_DENSITY_LOG_TIGHTENING.lean
+      - research/PRIME_DENSITY_PNT_LOG_BOUND.lean
+      - research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean
+      - research/PRIME_DENSITY_LOG_TIGHTENING.md
+      - .github/workflows/prime-density-log-tightening.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify append-only formalization records
+        run: |
+          grep -F '## Density logarithmic tightening (2026-09-28; stacked on #803)' FORMALIZATION_SEQUENCE.md
+          grep -F '## Density logarithmic tightening (2026-09-28; stacked on #803)' FORMALIZATION_CHECKLIST.md
+          git rev-parse HEAD
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-
+      - name: Audit repository assumptions
+        run: bash scripts/audit_assumptions.sh
+      - name: Build unchanged dependencies
+        run: lake build RHLean.Analysis.PrimeSieveQuotientPNTError RHLean.Analysis.NativePNTMertens
+      - name: Kernel-check baseline and reciprocal tightening
+        run: |
+          mkdir -p .lake/build/lib/lean
+          set -o pipefail
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_UNIVERSAL_BASELINE.olean research/PRIME_DENSITY_UNIVERSAL_BASELINE.lean 2>&1 | tee density-baseline.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_LOG_TIGHTENING.olean research/PRIME_DENSITY_LOG_TIGHTENING.lean 2>&1 | tee density-tightening.log
+      - name: Kernel-check PNT logarithmic transfer
+        run: |
+          set -o pipefail
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_PNT_LOG_BOUND.olean research/PRIME_DENSITY_PNT_LOG_BOUND.lean 2>&1 | tee density-pnt-log.log
+      - name: Kernel-check integral-sensitive constant
+        run: |
+          set -o pipefail
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_INTEGRAL_TIGHTENING.olean research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean 2>&1 | tee density-integral.log
+      - name: Audit named theorem axioms
+        run: |
+          cat > /tmp/DensityTightAxioms.lean <<'LEAN'
+          import «research.PRIME_DENSITY_INTEGRAL_TIGHTENING»
+          #print axioms RHLean.Analysis.norm_primeSieveEqualDensityBulk_le_endpoint
+          #print axioms RHLean.Analysis.norm_primeSievePNTBulk_le_endpoint
+          #print axioms RHLean.Analysis.norm_primeSieveUnitDensityBulk_le_two_mul
+          #print axioms RHLean.Analysis.primeSieveEqualDensityBulk_energy_tight
+          #print axioms RHLean.Analysis.norm_primeSievePNTError_le_two_mul
+          #print axioms RHLean.Analysis.densityTight_signed_energy_budget
+          #print axioms RHLean.Analysis.primeSievePNTBulk_energy_tight
+          #print axioms RHLean.Analysis.norm_primeSievePNTError_le_log_envelope
+          #print axioms RHLean.Analysis.densityTight_signed_energy_budget_nine_quarters
+          #print axioms RHLean.Analysis.norm_primeSievePNTBulk_le_log_two_mul
+          #print axioms RHLean.Analysis.primeSievePNTBulk_energy_integral_tight
+          #print axioms RHLean.Analysis.norm_primeSievePNTError_le_one_add_log_two
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/DensityTightAxioms.lean 2>&1 | tee density-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s = Path('density-axioms.log').read_text()
+          records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
+          assert len(records) == 12, records
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              actual = {a.strip() for a in record.split(',') if a.strip()}
+              assert actual <= allowed, actual
+          PY
+      - name: Retain compiler and axiom logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: density-tightening-logs
+          path: density-*.log
+          if-no-files-found: ignore
