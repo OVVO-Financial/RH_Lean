@@ -326,7 +326,6 @@ theorem exactLiCriticalCollision_summable :
     _ = exactLiLogHarmonicTail 2 n := by
       dsimp [exactLiLogHarmonicTail, q, y]
       simp only [one_div, mul_inv_rev, inv_pow]
-      ring
 
 
 /-! ## Sharp finite Abel return from the critical half-weight -/
@@ -346,7 +345,7 @@ private theorem sum_Ico_forwardDiff_real
 theorem sum_sqrtAbelIncrement_eq
     (A : ℕ → ℂ) (N : ℕ) :
     (∑ n ∈ Finset.Icc 1 N, sqrtAbelIncrement A n) =
-      (Real.sqrt (N : ℝ) : ℂ) * A N -
+      (Real.sqrt (N : ℝ) : ℂ) * A N - A 0 -
         ∑ n ∈ Finset.Ico 1 N,
           A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
             Real.sqrt (n : ℝ) : ℝ) : ℂ) := by
@@ -385,6 +384,7 @@ theorem norm_sum_sqrtAbelIncrement_le
   rw [sum_sqrtAbelIncrement_eq]
   have hN0 : (0 : ℝ) ≤ N := by positivity
   have hsqrtN : 0 ≤ Real.sqrt (N : ℝ) := Real.sqrt_nonneg _
+  have hA0 : ‖A 0‖ ≤ B := hA 0 (Nat.zero_le N)
   have hhead :
       ‖(Real.sqrt (N : ℝ) : ℂ) * A N‖ ≤ Real.sqrt (N : ℝ) * B := by
     rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
@@ -413,7 +413,7 @@ theorem norm_sum_sqrtAbelIncrement_le
             exact sub_nonneg.mpr (Real.sqrt_le_sqrt (by norm_num))
           rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
             abs_of_nonneg hstep]
-          exact mul_le_mul (hA n hnle) le_rfl hstep (norm_nonneg _)
+          exact mul_le_mul (hA n hnle) le_rfl hstep hB
       _ = B * (∑ n ∈ Finset.Ico 1 N,
             (Real.sqrt ((n + 1 : ℕ) : ℝ) - Real.sqrt (n : ℝ))) := by
           rw [Finset.mul_sum]
@@ -421,21 +421,29 @@ theorem norm_sum_sqrtAbelIncrement_le
           rw [sum_Ico_sqrt_step hN]
       _ = (Real.sqrt (N : ℝ) - 1) * B := by ring
   calc
-    ‖(Real.sqrt (N : ℝ) : ℂ) * A N -
+    ‖(Real.sqrt (N : ℝ) : ℂ) * A N - A 0 -
         ∑ n ∈ Finset.Ico 1 N,
           A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
             Real.sqrt (n : ℝ) : ℝ) : ℂ)‖
-        ≤ ‖(Real.sqrt (N : ℝ) : ℂ) * A N‖ +
+        ≤ ‖(Real.sqrt (N : ℝ) : ℂ) * A N‖ + ‖A 0‖ +
           ‖∑ n ∈ Finset.Ico 1 N,
             A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
-              Real.sqrt (n : ℝ) : ℝ) : ℂ)‖ := norm_sub_le _ _
-    _ ≤ Real.sqrt (N : ℝ) * B +
-        (Real.sqrt (N : ℝ) - 1) * B := add_le_add hhead htail
-    _ ≤ 2 * Real.sqrt (N : ℝ) * B := by
-      have hsqrt1 : 1 ≤ Real.sqrt (N : ℝ) := by
-        rw [← Real.sqrt_one]
-        exact Real.sqrt_le_sqrt (by exact_mod_cast hN)
-      nlinarith [mul_nonneg hB (sub_nonneg.mpr hsqrt1)]
+              Real.sqrt (n : ℝ) : ℝ) : ℂ)‖ := by
+          calc
+            _ ≤ ‖(Real.sqrt (N : ℝ) : ℂ) * A N - A 0‖ +
+                ‖∑ n ∈ Finset.Ico 1 N,
+                  A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
+                    Real.sqrt (n : ℝ) : ℝ) : ℂ)‖ := norm_sub_le _ _
+            _ ≤ (‖(Real.sqrt (N : ℝ) : ℂ) * A N‖ + ‖A 0‖) +
+                ‖∑ n ∈ Finset.Ico 1 N,
+                  A n * ((Real.sqrt ((n + 1 : ℕ) : ℝ) -
+                    Real.sqrt (n : ℝ) : ℝ) : ℂ)‖ := by
+                  gcongr
+                  exact norm_sub_le _ _
+    _ ≤ Real.sqrt (N : ℝ) * B + B +
+        (Real.sqrt (N : ℝ) - 1) * B := by
+          gcongr
+    _ = 2 * Real.sqrt (N : ℝ) * B := by ring
 
 
 /-! ## Critical half-prefix of the all-scale Li diagonal -/
