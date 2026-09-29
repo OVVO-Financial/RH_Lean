@@ -139,4 +139,59 @@ theorem exactLiDickmanSegment_delay_intervalIntegrable
     hprev.div continuousOn_id hne
   simpa [a, b] using hf.intervalIntegrable
 
+
+/-- **Dickman delay differential equation on each open successor segment.**
+For u in (n+1,n+2), the method-of-steps segment satisfies
+  rho'(u) = -rho(u-1)/u.
+This is the differential core of the exact-Li continuous reference. -/
+theorem exactLiDickmanSegment_succ_hasDerivAt
+    (n : ℕ) {u : ℝ}
+    (hu : u ∈ Ioo (((n + 1 : ℕ) : ℝ)) (((n + 2 : ℕ) : ℝ))) :
+    HasDerivAt (exactLiDickmanSegment (n + 1))
+      (- exactLiDickmanSegment n (u - 1) / u) u := by
+  let a : ℝ := ((n + 1 : ℕ) : ℝ)
+  let b : ℝ := ((n + 2 : ℕ) : ℝ)
+  let g : ℝ → ℝ := fun v => exactLiDickmanSegment n (v - 1) / v
+  have hu' : u ∈ Ioo a b := by
+    simpa [a, b] using hu
+  have hshift :
+      ContinuousOn (fun v : ℝ => v - 1) (Icc a b) := by
+    fun_prop
+  have hmap :
+      MapsTo (fun v : ℝ => v - 1) (Icc a b)
+        (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
+    simpa [a, b] using exactLiDickman_shift_mapsTo n
+  have hprev :
+      ContinuousOn (fun v : ℝ => exactLiDickmanSegment n (v - 1))
+        (Icc a b) :=
+    (exactLiDickmanSegment_continuousOn n).comp hshift hmap
+  have hne : ∀ v ∈ Icc a b, v ≠ 0 := by
+    intro v hv
+    have ha : (1 : ℝ) ≤ a := by
+      dsimp [a]
+      exact_mod_cast (show 1 ≤ n + 1 by omega)
+    have hvpos : 0 < v := lt_of_lt_of_le (by norm_num) (ha.trans hv.1)
+    exact ne_of_gt hvpos
+  have hgcont : ContinuousOn g (Icc a b) := by
+    dsimp [g]
+    exact hprev.div continuousOn_id hne
+  have hgint : IntervalIntegrable g MeasureTheory.volume a b := by
+    simpa [a, b, g] using
+      exactLiDickmanSegment_delay_intervalIntegrable n
+  have hgAt : ContinuousAt g u :=
+    (hgcont u (Ioo_subset_Icc_self hu')).continuousAt
+      (Icc_mem_nhds hu'.1 hu'.2)
+  have hgmeas : StronglyMeasurableAtFilter g (𝓝 u) := by
+    exact (hgcont.mono Ioo_subset_Icc_self).stronglyMeasurableAtFilter
+      isOpen_Ioo u hu'
+  have hint :
+      HasDerivAt (fun z : ℝ => ∫ v in a..z, g v) (g u) u :=
+    intervalIntegral.integral_hasDerivAt_right hgint hgmeas hgAt
+  have hconst :
+      HasDerivAt
+        (fun _ : ℝ => exactLiDickmanSegment n (n + 1 : ℕ)) 0 u :=
+    hasDerivAt_const u _
+  have hsub := hconst.sub hint
+  simpa [exactLiDickmanSegment, a, g] using hsub
+
 end RHLean.Analysis
