@@ -2462,22 +2462,18 @@ theorem sampledCriticalPrefix_eq_abel
           norm_num [sampledCriticalPrefix]
       | succ N ih =>
           have hN1 : 1 ≤ N + 1 := by omega
-          rw [show sampledCriticalPrefix M (N + 2) =
-              sampledCriticalPrefix M (N + 1) +
-                (M (N + 2) - M (N + 1)) /
-                  (Real.sqrt ((N + 2 : ℕ) : ℝ) : ℂ) by
-                unfold sampledCriticalPrefix
-                rw [Finset.sum_Icc_succ_top
-                  (by omega : (1 : ℕ) ≤ N + 2)],
-            ih hN1,
-            Finset.sum_Ico_succ_top hN1]
-          have hnp1 : (0 : ℝ) < (N + 1 : ℕ) := by positivity
-          have hnp2 : (0 : ℝ) < (N + 2 : ℕ) := by positivity
-          have hs1 : (Real.sqrt ((N + 1 : ℕ) : ℝ) : ℂ) ≠ 0 := by
-            exact_mod_cast (ne_of_gt (Real.sqrt_pos.2 hnp1))
-          have hs2 : (Real.sqrt ((N + 2 : ℕ) : ℝ) : ℂ) ≠ 0 := by
-            exact_mod_cast (ne_of_gt (Real.sqrt_pos.2 hnp2))
-          field_simp [hs1, hs2]
+          have hstep :
+              sampledCriticalPrefix M (N + 2) =
+                sampledCriticalPrefix M (N + 1) +
+                  (M (N + 2) - M (N + 1)) /
+                    (Real.sqrt ((N + 2 : ℕ) : ℝ) : ℂ) := by
+            unfold sampledCriticalPrefix
+            rw [Finset.sum_Icc_succ_top
+              (by omega : (1 : ℕ) ≤ N + 2)]
+            simp only [Nat.add_sub_cancel]
+          rw [hstep, ih hN1, Finset.sum_Ico_succ_top hN1]
+          simp only [Nat.add_sub_cancel, div_eq_mul_inv]
+          push_cast
           ring
 
 /-- A uniformly bounded sampled reference has a uniformly bounded critical
