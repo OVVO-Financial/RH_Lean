@@ -16,7 +16,7 @@ with its left endpoint glued to the preceding segment.
 
 noncomputable section
 
-open MeasureTheory Set
+open MeasureTheory Set Filter
 open scoped BigOperators Interval
 
 namespace RHLean.Analysis
@@ -52,7 +52,8 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
       (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
   induction n with
   | zero =>
-      simp [exactLiDickmanSegment]
+      simpa [exactLiDickmanSegment] using
+        (continuousOn_const : ContinuousOn (fun _ : ℝ => (1 : ℝ)) (Icc 0 1))
   | succ n ih =>
       let a : ℝ := ((n + 1 : ℕ) : ℝ)
       let b : ℝ := ((n + 2 : ℕ) : ℝ)
@@ -80,17 +81,17 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
       have hf : ContinuousOn f (Icc a b) := by
         dsimp [f]
         exact hprev.div hden hne
-      have hfint : IntervalIntegrable f MeasureTheory.volume a b :=
-        hf.intervalIntegrable
+      have hab : a ≤ b := by
+        dsimp [a, b]
+        norm_num
+      have hfint : IntervalIntegrable f MeasureTheory.volume a b := by
+        simpa [uIcc_of_le hab] using hf.intervalIntegrable
       have hprim :
           ContinuousOn (fun u : ℝ => ∫ v in a..u, f v)
             (Icc a b) := by
         have ha_mem : a ∈ [[a, b]] := left_mem_uIcc
         have hp :=
           intervalIntegral.continuousOn_primitive_interval' hfint ha_mem
-        have hab : a ≤ b := by
-          dsimp [a, b]
-          norm_num
         simpa [uIcc_of_le hab] using hp
       have hconst :
           ContinuousOn (fun _ : ℝ =>
@@ -137,7 +138,10 @@ theorem exactLiDickmanSegment_delay_intervalIntegrable
         (fun v : ℝ => exactLiDickmanSegment n (v - 1) / v)
         (Icc a b) :=
     hprev.div continuousOn_id hne
-  simpa [a, b] using hf.intervalIntegrable
+  have hab : a ≤ b := by
+    dsimp [a, b]
+    norm_num
+  simpa [a, b, uIcc_of_le hab] using hf.intervalIntegrable
 
 
 /-- **Dickman delay differential equation on each open successor segment.**
@@ -184,14 +188,23 @@ theorem exactLiDickmanSegment_succ_hasDerivAt
   have hgmeas : StronglyMeasurableAtFilter g (𝓝 u) := by
     exact (hgcont.mono Ioo_subset_Icc_self).stronglyMeasurableAtFilter
       isOpen_Ioo u hu'
+  have hab : a ≤ b := by
+    dsimp [a, b]
+    norm_num
+  have hau : a ≤ u := hu'.1.le
+  have hgint_u : IntervalIntegrable g MeasureTheory.volume a u := by
+    apply IntervalIntegrable.mono_set hgint
+    rw [uIcc_of_le hau, uIcc_of_le hab]
+    intro x hx
+    exact ⟨hx.1, hx.2.trans hu'.2.le⟩
   have hint :
       HasDerivAt (fun z : ℝ => ∫ v in a..z, g v) (g u) u :=
-    intervalIntegral.integral_hasDerivAt_right hgint hgmeas hgAt
+    intervalIntegral.integral_hasDerivAt_right hgint_u hgmeas hgAt
   have hconst :
       HasDerivAt
         (fun _ : ℝ => exactLiDickmanSegment n (n + 1 : ℕ)) 0 u :=
     hasDerivAt_const u _
   have hsub := hconst.sub hint
-  simpa [exactLiDickmanSegment, a, g] using hsub
+  simpa [exactLiDickmanSegment, a, g, neg_div] using hsub
 
 end RHLean.Analysis
