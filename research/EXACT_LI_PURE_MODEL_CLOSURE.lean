@@ -641,7 +641,7 @@ theorem norm_criticalSqrtWeight_sq (q : ℕ) :
     have hsqrt_sq : (Real.sqrt (q : ℝ)) ^ 2 = (q : ℝ) :=
       Real.sq_sqrt hqpos.le
     rw [inv_pow, hsqrt_sq]
-    rfl
+    simp [one_div]
 
 /-- The square norm of one transformed Li owner is exactly the collision
 summand already proved summable above. -/
