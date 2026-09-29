@@ -582,6 +582,41 @@ theorem frequencyHardCoreUpdate_comm
   rw [hcomm]
   ring
 
+
+/-- Iterate the hard-core factors at sites 2,...,k+1. -/
+def frequencyHardCoreIterate
+    (w : ℕ → ℂ) : ℕ → (ℕ → ℂ) → (ℕ → ℂ)
+  | 0, F => F
+  | k + 1, F =>
+      fun x =>
+        frequencyHardCoreUpdate (w (k + 2)) (k + 2)
+          (frequencyHardCoreIterate w k F) x
+
+/-- **Exact finite hard-core product representation.**
+Every frequency state is obtained by successively adjoining the sites
+2,...,k+1 to the unit state. -/
+theorem primeFrequencyState_eq_hardCoreIterate
+    {w : ℕ → ℂ} {S : ℕ → ℕ → ℂ}
+    (hS : IsPrimeFrequencyState w S)
+    (k x : ℕ) :
+    S x (k + 1) =
+      frequencyHardCoreIterate w k (fun _ => 1) x := by
+  induction k with
+  | zero =>
+      rw [hS x 1]
+      simp [primeFrequencyStep, frequencyHardCoreIterate]
+  | succ k ih =>
+      have hy : 1 ≤ k + 1 := by omega
+      have hstep :=
+        primeFrequencyState_cutoff_succ hS x (k + 1) hy
+      have ihfun :
+          (fun m => S m (k + 1)) =
+            frequencyHardCoreIterate w k (fun _ => 1) := by
+        funext m
+        exact ih m
+      rw [hstep, ihfun]
+      rfl
+
 /-- The finite difference of the pre-entry step is a single negative atom at
 the owner site. -/
 theorem weightedForwardDifferencePrefix_ltStep
