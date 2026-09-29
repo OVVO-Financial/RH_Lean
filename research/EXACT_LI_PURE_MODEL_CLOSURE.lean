@@ -1171,6 +1171,67 @@ theorem norm_criticalLiFrequencyWeight_le_one
     (norm_criticalSqrtWeight_le_one (by omega : 1 ≤ q))
     (norm_nonneg _) zero_le_one).trans_eq (mul_one 1)
 
+/-- Absolute coefficient variation of one local hard-core/Poisson
+correction factor at the critical coordinate.  Degree zero contributes one,
+degree one vanishes, and the remaining degrees are indexed by the quadratic
+tail above. -/
+def criticalLiLocalCorrectionVariation (q : ℕ) : ℝ :=
+  1 + ∑' m : ℕ,
+    hardCorePoissonCorrectionTailTerm
+      ‖criticalLiFrequencyWeight q‖ m
+
+/-- One local correction has critical coefficient variation bounded by
+`1 + 3 |z_q|^2`. -/
+theorem criticalLiLocalCorrectionVariation_le
+    {q : ℕ} (hq : 4 ≤ q) :
+    criticalLiLocalCorrectionVariation q ≤
+      1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 := by
+  unfold criticalLiLocalCorrectionVariation
+  have hz0 : 0 ≤ ‖criticalLiFrequencyWeight q‖ := norm_nonneg _
+  have hz1 : ‖criticalLiFrequencyWeight q‖ ≤ 1 :=
+    norm_criticalLiFrequencyWeight_le_one hq
+  exact add_le_add_left
+    (tsum_hardCorePoissonCorrectionTailTerm_le_three_sq hz0 hz1) 1
+
+/-- The local coefficient variation is nonnegative. -/
+theorem criticalLiLocalCorrectionVariation_nonneg (q : ℕ) :
+    0 ≤ criticalLiLocalCorrectionVariation q := by
+  unfold criticalLiLocalCorrectionVariation
+  have hz0 : 0 ≤ ‖criticalLiFrequencyWeight q‖ := norm_nonneg _
+  have hterm :
+      ∀ m : ℕ, 0 ≤
+        hardCorePoissonCorrectionTailTerm
+          ‖criticalLiFrequencyWeight q‖ m :=
+    fun m => hardCorePoissonCorrectionTailTerm_nonneg hz0 m
+  exact add_nonneg zero_le_one (tsum_nonneg hterm)
+
+/-- **Uniform product bound for the coefficient-level correction kernels.**
+For any finite family of sites beyond the initial exceptional range, the
+product of their complete local critical variations is bounded by the same
+universal exponential collision constant. -/
+theorem prod_criticalLiLocalCorrectionVariation_le_exp_collisionBudget
+    (s : Finset ℕ) (hs : ∀ q ∈ s, 4 ≤ q) :
+    (∏ q ∈ s, criticalLiLocalCorrectionVariation q) ≤
+      Real.exp (3 * criticalLiCollisionBudget) := by
+  calc
+    (∏ q ∈ s, criticalLiLocalCorrectionVariation q)
+        ≤ ∏ q ∈ s,
+            (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+          exact Finset.prod_le_prod
+            (fun q hq => criticalLiLocalCorrectionVariation_le (hs q hq))
+    _ ≤ Real.exp
+          (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) :=
+          criticalLi_prod_one_add_three_sq_le_exp_sum s
+    _ ≤ Real.exp (3 * criticalLiCollisionBudget) := by
+          apply Real.exp_le_exp.mpr
+          calc
+            (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2)
+                = 3 * (∑ q ∈ s, ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+                    rw [Finset.mul_sum]
+            _ ≤ 3 * criticalLiCollisionBudget :=
+              mul_le_mul_of_nonneg_left
+                (criticalLiFrequencyWeight_sq_finset_sum_le s) (by norm_num)
+
 /-- Critical Li specialization of the scalar hard-core/Poisson correction. -/
 def criticalLiScalarCorrection (q : ℕ) : ℂ :=
   hardCorePoissonScalarCorrection (criticalLiFrequencyWeight q)
