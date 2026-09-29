@@ -437,6 +437,130 @@ theorem norm_sum_sqrtAbelIncrement_le
         exact Real.sqrt_le_sqrt (by exact_mod_cast hN)
       nlinarith [mul_nonneg hB (sub_nonneg.mpr hsqrt1)]
 
+
+/-! ## Critical half-prefix of the all-scale Li diagonal -/
+
+/-- One increment of the diagonal all-scale state. -/
+def allScaleLiDiagonalIncrement (L : ℕ → ℕ → ℂ) (n : ℕ) : ℂ :=
+  L n n - L (n - 1) (n - 1)
+
+/-- Critical half-weighted prefix of the diagonal increments. -/
+def allScaleLiCriticalPrefix (L : ℕ → ℕ → ℂ) (N : ℕ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 N,
+    allScaleLiDiagonalIncrement L n / (Real.sqrt (n : ℝ) : ℂ)
+
+theorem allScaleLiCriticalPrefix_succ (L : ℕ → ℕ → ℂ) (N : ℕ) :
+    allScaleLiCriticalPrefix L (N + 1) =
+      allScaleLiCriticalPrefix L N +
+        allScaleLiDiagonalIncrement L (N + 1) /
+          (Real.sqrt ((N + 1 : ℕ) : ℝ) : ℂ) := by
+  unfold allScaleLiCriticalPrefix
+  rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1)]
+
+/-- The Abel increment of the critical prefix is exactly the original diagonal
+increment. -/
+theorem sqrtAbelIncrement_allScaleLiCriticalPrefix
+    (L : ℕ → ℕ → ℂ) {n : ℕ} (hn : 1 ≤ n) :
+    sqrtAbelIncrement (allScaleLiCriticalPrefix L) n =
+      allScaleLiDiagonalIncrement L n := by
+  have hpred : n - 1 + 1 = n := Nat.sub_add_cancel hn
+  have hs := allScaleLiCriticalPrefix_succ L (n - 1)
+  rw [hpred] at hs
+  unfold sqrtAbelIncrement
+  rw [hs]
+  have hnpos : (0 : ℝ) < (n : ℝ) := by exact_mod_cast (show 0 < n by omega)
+  have hsqrtpos : 0 < Real.sqrt (n : ℝ) := Real.sqrt_pos.2 hnpos
+  have hsqrtne : (Real.sqrt (n : ℝ) : ℂ) ≠ 0 := by
+    exact_mod_cast (ne_of_gt hsqrtpos)
+  field_simp [hsqrtne]
+  ring
+
+/-- Diagonal increments telescope to the endpoint minus the zero endpoint. -/
+theorem sum_allScaleLiDiagonalIncrement_eq (L : ℕ → ℕ → ℂ) (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N, allScaleLiDiagonalIncrement L n) =
+      L N N - L 0 0 := by
+  induction N with
+  | zero =>
+      simp [allScaleLiDiagonalIncrement]
+  | succ N ih =>
+      rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1), ih]
+      unfold allScaleLiDiagonalIncrement
+      simp only [Nat.add_sub_cancel]
+      ring
+
+/-- Every all-scale Li state starts from the unit atom. -/
+theorem allScaleLiState_zero_zero
+    {L : ℕ → ℕ → ℂ} (hL : IsAllScaleLiState L) :
+    L 0 0 = 1 := by
+  change IsPrimeFrequencyState primeSievePNTDensity L at hL
+  rw [hL 0 0]
+  simp [primeFrequencyStep]
+
+/-- The sole quantitative target left after the critical-coordinate reduction:
+a universal bound on the half-weighted diagonal prefix. -/
+def AllScaleLiCriticalPrefixBoundedStatement : Prop :=
+  ∃ B : ℝ, 0 ≤ B ∧
+    ∀ (L : ℕ → ℕ → ℂ) (N : ℕ),
+      IsAllScaleLiState L →
+      ‖allScaleLiCriticalPrefix L N‖ ≤ B
+
+/-- A bounded critical half-prefix already closes the pure all-scale Li
+square-root theorem by the sharp finite Abel return. -/
+theorem allScaleLiSquareRootBounded_of_criticalPrefixBounded
+    (hcrit : AllScaleLiCriticalPrefixBoundedStatement) :
+    AllScaleLiSquareRootBoundedStatement := by
+  rcases hcrit with ⟨B, hB, hcrit⟩
+  refine ⟨(2 * B + 1) ^ 2, sq_nonneg _, ?_⟩
+  intro L R hL hsat hR
+  let X : ℕ := squareRootEndpoint R
+  have hX1 : 1 ≤ X := by
+    dsimp [X, squareRootEndpoint]
+    have hR2 : 4 ≤ R ^ 2 := by nlinarith
+    omega
+  have hprefix : ∀ n, n ≤ X → ‖allScaleLiCriticalPrefix L n‖ ≤ B := by
+    intro n hn
+    exact hcrit L n hL
+  have habel :=
+    norm_sum_sqrtAbelIncrement_le
+      (allScaleLiCriticalPrefix L) X B hX1 hB hprefix
+  have hsum :
+      (∑ n ∈ Finset.Icc 1 X,
+          sqrtAbelIncrement (allScaleLiCriticalPrefix L) n) =
+        ∑ n ∈ Finset.Icc 1 X, allScaleLiDiagonalIncrement L n := by
+    apply Finset.sum_congr rfl
+    intro n hn
+    exact sqrtAbelIncrement_allScaleLiCriticalPrefix L (Finset.mem_Icc.mp hn).1
+  rw [hsum, sum_allScaleLiDiagonalIncrement_eq L X,
+    allScaleLiState_zero_zero hL] at habel
+  have hXleR2 : (X : ℝ) ≤ (R : ℝ) ^ 2 := by
+    dsimp [X, squareRootEndpoint]
+    exact_mod_cast (Nat.sub_le (R ^ 2) 1)
+  have hsqrtXleR : Real.sqrt (X : ℝ) ≤ (R : ℝ) := by
+    calc
+      Real.sqrt (X : ℝ) ≤ Real.sqrt ((R : ℝ) ^ 2) :=
+        Real.sqrt_le_sqrt hXleR2
+      _ = (R : ℝ) := by
+        rw [Real.sqrt_sq_eq_abs, abs_of_nonneg]
+        positivity
+  have hnorm :
+      ‖L X X‖ ≤ (2 * B + 1) * (R : ℝ) := by
+    calc
+      ‖L X X‖ = ‖(L X X - 1) + 1‖ := by ring_nf
+      _ ≤ ‖L X X - 1‖ + ‖(1 : ℂ)‖ := norm_add_le _ _
+      _ ≤ 2 * Real.sqrt (X : ℝ) * B + 1 := by
+        simpa using add_le_add habel (le_refl (1 : ℝ))
+      _ ≤ 2 * (R : ℝ) * B + 1 := by
+        nlinarith [mul_nonneg hB (sub_nonneg.mpr hsqrtXleR)]
+      _ ≤ (2 * B + 1) * (R : ℝ) := by
+        have hR1 : (1 : ℝ) ≤ R := by exact_mod_cast (show 1 ≤ R by omega)
+        nlinarith [mul_nonneg (by linarith : 0 ≤ 2 * B + 1) (sub_nonneg.mpr hR1)]
+  have hsq := pow_le_pow_left₀ (norm_nonneg (L X X)) hnorm 2
+  dsimp [X] at hsq ⊢
+  calc
+    ‖L (squareRootEndpoint R) (squareRootEndpoint R)‖ ^ 2
+        ≤ ((2 * B + 1) * (R : ℝ)) ^ 2 := hsq
+    _ = (2 * B + 1) ^ 2 * (R : ℝ) ^ 2 := by ring
+
 /-- A uniformly bounded continuous/reference diagonal. -/
 def UniformReferenceDiagonalBounded (M : ℕ → ℂ) : Prop :=
   ∃ B : ℝ, 0 ≤ B ∧ ∀ x : ℕ, ‖M x‖ ≤ B
