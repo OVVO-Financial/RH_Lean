@@ -1505,6 +1505,7 @@ reference cumulative model and a multiplicative correction kernel. -/
 def AllScaleLiDiagonalConvolutionFactorization
     (h M : ℕ → ℂ) : Prop :=
   ∀ (L : ℕ → ℕ → ℂ) (X : ℕ),
+    1 ≤ X →
     IsAllScaleLiState L →
     L X X = finiteMultiplicativeConvolution h M X
 
@@ -1522,10 +1523,14 @@ theorem allScaleLiSquareRootBounded_of_convolutionReference
   rcases hh with ⟨H, hH, hvar⟩
   refine ⟨(B * H) ^ 2, sq_nonneg _, ?_⟩
   intro L R hL hsat hR
+  have hX1 : 1 ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hR2 : 4 ≤ R ^ 2 := by nlinarith
+    omega
   have hconv :=
     norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
       h M B H hB hMb hvar R
-  rw [← hfac L (squareRootEndpoint R) hL] at hconv
+  rw [← hfac L (squareRootEndpoint R) hX1 hL] at hconv
   have hBH : 0 ≤ B * H := mul_nonneg hB hH
   have hR0 : 0 ≤ (R : ℝ) := by positivity
   have hright : 0 ≤ (B * H) * (R : ℝ) :=
@@ -2432,6 +2437,195 @@ theorem allScaleLiSquareRootBounded_of_exactLiDickman_zeroTargetDegreeTwoTransfe
     exactLiDickmanIntegerReference
     exactLiDickmanIntegerReference_isUniformlyBounded hT
 
+/-! ## Correct critical-weighted reference transfer -/
+
+/-- Half-weighted forward-difference prefix of an arbitrary sampled reference.
+This is the same critical coordinate used by the all-scale Li state. -/
+def sampledCriticalPrefix (M : ℕ → ℂ) (N : ℕ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 N,
+    (M n - M (n - 1)) / (Real.sqrt (n : ℝ) : ℂ)
+
+/-- Abel summation for the sampled critical prefix. -/
+theorem sampledCriticalPrefix_eq_abel
+    (M : ℕ → ℂ) {N : ℕ} (hN : 1 ≤ N) :
+    sampledCriticalPrefix M N =
+      M N / (Real.sqrt (N : ℝ) : ℂ) - M 0 +
+        ∑ n ∈ Finset.Ico 1 N,
+          M n * (((Real.sqrt (n : ℝ))⁻¹ -
+            (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ : ℝ) : ℂ) := by
+  cases N with
+  | zero =>
+      omega
+  | succ N =>
+      induction N with
+      | zero =>
+          norm_num [sampledCriticalPrefix]
+      | succ N ih =>
+          have hN1 : 1 ≤ N + 1 := by omega
+          rw [show sampledCriticalPrefix M (N + 2) =
+              sampledCriticalPrefix M (N + 1) +
+                (M (N + 2) - M (N + 1)) /
+                  (Real.sqrt ((N + 2 : ℕ) : ℝ) : ℂ) by
+                unfold sampledCriticalPrefix
+                rw [Finset.sum_Icc_succ_top
+                  (by omega : (1 : ℕ) ≤ N + 2)],
+            ih hN1,
+            Finset.sum_Ico_succ_top hN1]
+          have hnp1 : (0 : ℝ) < (N + 1 : ℕ) := by positivity
+          have hnp2 : (0 : ℝ) < (N + 2 : ℕ) := by positivity
+          have hs1 : (Real.sqrt ((N + 1 : ℕ) : ℝ) : ℂ) ≠ 0 := by
+            exact_mod_cast (ne_of_gt (Real.sqrt_pos.2 hnp1))
+          have hs2 : (Real.sqrt ((N + 2 : ℕ) : ℝ) : ℂ) ≠ 0 := by
+            exact_mod_cast (ne_of_gt (Real.sqrt_pos.2 hnp2))
+          field_simp [hs1, hs2]
+          ring
+
+/-- A uniformly bounded sampled reference has a uniformly bounded critical
+prefix.  This is the correct Abel normalization: no unweighted increment
+energy is required. -/
+theorem norm_sampledCriticalPrefix_le_two_mul
+    (M : ℕ → ℂ) (B : ℝ) (hB : 0 ≤ B)
+    (hM : ∀ n : ℕ, ‖M n‖ ≤ B)
+    (N : ℕ) :
+    ‖sampledCriticalPrefix M N‖ ≤ 2 * B := by
+  by_cases hN0 : N = 0
+  · subst N
+    simp [sampledCriticalPrefix, hB]
+  have hN : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr hN0
+  rw [sampledCriticalPrefix_eq_abel M hN]
+  have hsNpos : 0 < Real.sqrt (N : ℝ) :=
+    Real.sqrt_pos.2 (by exact_mod_cast (Nat.pos_of_ne_zero hN0))
+  have hinvN : 0 ≤ (Real.sqrt (N : ℝ))⁻¹ := by positivity
+  have hinvNle : (Real.sqrt (N : ℝ))⁻¹ ≤ 1 := by
+    have hNR : (1 : ℝ) ≤ N := by exact_mod_cast hN
+    have hsN1 : 1 ≤ Real.sqrt (N : ℝ) := by
+      rw [← Real.sqrt_one]
+      exact Real.sqrt_le_sqrt hNR
+    exact inv_le_one_of_one_le₀ hsN1
+  have hstep : ∀ n ∈ Finset.Ico 1 N,
+      0 ≤ (Real.sqrt (n : ℝ))⁻¹ -
+        (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ := by
+    intro n hn
+    have hn1 : 1 ≤ n := (Finset.mem_Ico.mp hn).1
+    have hnpos : (0 : ℝ) < n := by exact_mod_cast (show 0 < n by omega)
+    have hnp : (0 : ℝ) < ((n + 1 : ℕ) : ℝ) := by positivity
+    have hsqrtn : 0 < Real.sqrt (n : ℝ) := Real.sqrt_pos.2 hnpos
+    have hsqrtnp : 0 < Real.sqrt ((n + 1 : ℕ) : ℝ) :=
+      Real.sqrt_pos.2 hnp
+    exact sub_nonneg.mpr
+      ((inv_le_inv₀ hsqrtnp hsqrtn).2
+        (Real.sqrt_le_sqrt (by norm_num)))
+  have htel :
+      (∑ n ∈ Finset.Ico 1 N,
+        ((Real.sqrt (n : ℝ))⁻¹ -
+          (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹)) =
+        1 - (Real.sqrt (N : ℝ))⁻¹ := by
+    have hf := sum_Ico_forwardDiff_real
+      (fun n : ℕ => (Real.sqrt (n : ℝ))⁻¹) hN
+    calc
+      _ = -(∑ n ∈ Finset.Ico 1 N,
+          ((Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ -
+            (Real.sqrt (n : ℝ))⁻¹)) := by
+            rw [← Finset.sum_neg_distrib]
+            apply Finset.sum_congr rfl
+            intro n hn
+            ring
+      _ = _ := by rw [hf]; norm_num; ring
+  calc
+    ‖M N / (Real.sqrt (N : ℝ) : ℂ) - M 0 +
+        ∑ n ∈ Finset.Ico 1 N,
+          M n * (((Real.sqrt (n : ℝ))⁻¹ -
+            (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ : ℝ) : ℂ)‖
+        ≤ ‖M N / (Real.sqrt (N : ℝ) : ℂ)‖ + ‖M 0‖ +
+          ∑ n ∈ Finset.Ico 1 N,
+            ‖M n * (((Real.sqrt (n : ℝ))⁻¹ -
+              (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ : ℝ) : ℂ)‖ := by
+          calc
+            _ ≤ ‖M N / (Real.sqrt (N : ℝ) : ℂ) - M 0‖ +
+                ‖∑ n ∈ Finset.Ico 1 N,
+                  M n * (((Real.sqrt (n : ℝ))⁻¹ -
+                    (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ : ℝ) : ℂ)‖ :=
+              norm_add_le _ _
+            _ ≤ (‖M N / (Real.sqrt (N : ℝ) : ℂ)‖ + ‖M 0‖) +
+                ∑ n ∈ Finset.Ico 1 N,
+                  ‖M n * (((Real.sqrt (n : ℝ))⁻¹ -
+                    (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ : ℝ) : ℂ)‖ := by
+              gcongr
+              · exact norm_sub_le _ _
+              · exact norm_sum_le _ _
+    _ ≤ B * (Real.sqrt (N : ℝ))⁻¹ + B +
+          B * (1 - (Real.sqrt (N : ℝ))⁻¹) := by
+          have hhead :
+              ‖M N / (Real.sqrt (N : ℝ) : ℂ)‖ ≤
+                B * (Real.sqrt (N : ℝ))⁻¹ := by
+            rw [norm_div, Complex.norm_real, Real.norm_eq_abs,
+              abs_of_pos hsNpos, div_eq_mul_inv]
+            exact mul_le_mul_of_nonneg_right (hM N) hinvN
+          have htail :
+              (∑ n ∈ Finset.Ico 1 N,
+                ‖M n * (((Real.sqrt (n : ℝ))⁻¹ -
+                  (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹ : ℝ) : ℂ)‖) ≤
+                B * (1 - (Real.sqrt (N : ℝ))⁻¹) := by
+            calc
+              _ ≤ ∑ n ∈ Finset.Ico 1 N,
+                  B * ((Real.sqrt (n : ℝ))⁻¹ -
+                    (Real.sqrt ((n + 1 : ℕ) : ℝ))⁻¹) := by
+                apply Finset.sum_le_sum
+                intro n hn
+                rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
+                  abs_of_nonneg (hstep n hn)]
+                exact mul_le_mul_of_nonneg_right (hM n) (hstep n hn)
+              _ = B * (1 - (Real.sqrt (N : ℝ))⁻¹) := by
+                rw [← Finset.mul_sum, htel]
+          exact add_le_add (add_le_add hhead (hM 0)) htail
+    _ = 2 * B := by ring
+
+/-- Correctly normalized discrete-to-reference transfer target: the difference
+of critical half-weighted increment prefixes is uniformly bounded. -/
+def AllScaleLiCriticalReferenceTransferBounded (M : ℕ → ℂ) : Prop :=
+  ∃ A : ℝ, 0 ≤ A ∧
+    ∀ (L : ℕ → ℕ → ℂ) (N : ℕ),
+      IsAllScaleLiState L →
+      ‖allScaleLiCriticalPrefix L N - sampledCriticalPrefix M N‖ ≤ A
+
+/-- A bounded sampled reference plus bounded critical transfer closes the
+critical prefix, hence the pure Li square-root theorem. -/
+theorem allScaleLiCriticalPrefixBounded_of_referenceTransfer
+    (M : ℕ → ℂ)
+    (hM : UniformReferenceDiagonalBounded M)
+    (hT : AllScaleLiCriticalReferenceTransferBounded M) :
+    AllScaleLiCriticalPrefixBoundedStatement := by
+  rcases hM with ⟨B, hB, hMb⟩
+  rcases hT with ⟨A, hA, hTb⟩
+  refine ⟨A + 2 * B, by positivity, ?_⟩
+  intro L N hL
+  have hdiff := hTb L N hL
+  have href := norm_sampledCriticalPrefix_le_two_mul M B hB hMb N
+  calc
+    ‖allScaleLiCriticalPrefix L N‖ =
+        ‖(allScaleLiCriticalPrefix L N - sampledCriticalPrefix M N) +
+          sampledCriticalPrefix M N‖ := by
+            congr 1
+            ring
+    _ ≤ ‖allScaleLiCriticalPrefix L N - sampledCriticalPrefix M N‖ +
+          ‖sampledCriticalPrefix M N‖ := norm_add_le _ _
+    _ ≤ A + 2 * B := add_le_add hdiff href
+
+/-- Concrete Dickman-reference critical transfer is the single correctly
+normalized assembly statement that remains to close the pure Li model. -/
+def ExactLiDickmanCriticalTransferBounded : Prop :=
+  AllScaleLiCriticalReferenceTransferBounded
+    exactLiDickmanIntegerReference
+
+theorem allScaleLiSquareRootBounded_of_exactLiDickmanCriticalTransfer
+    (hT : ExactLiDickmanCriticalTransferBounded) :
+    AllScaleLiSquareRootBoundedStatement :=
+  allScaleLiSquareRootBounded_of_criticalPrefixBounded
+    (allScaleLiCriticalPrefixBounded_of_referenceTransfer
+      exactLiDickmanIntegerReference
+      exactLiDickmanIntegerReference_isUniformlyBounded hT)
+
+
 /-! ## Canonical zero-target increment transfer -/
 
 /-- One increment of the sampled continuous Dickman reference. -/
@@ -2481,9 +2675,10 @@ theorem sum_allScaleLiDickmanIncrementError_eq
     exactLiDickmanIntegerReference_zero]
   ring
 
-/-- The canonical increment-error energy is uniformly bounded at target zero.
-This is now the precise local transfer statement: unlike an arbitrary endpoint
-decomposition, its summands are fixed by the two models themselves. -/
+/-- An intentionally strong *conditional* increment-error certificate.
+This unweighted l2 statement is not used as the primary pure-Li target:
+the critical closure below uses the native n^(-1/2) normalization.  It is kept
+only as a valid sufficient interface when supplied independently. -/
 def AllScaleLiDickmanIncrementErrorEnergyBounded : Prop :=
   ∃ E : ℝ, 0 ≤ E ∧
     ∀ (L : ℕ → ℕ → ℂ) (N : ℕ),
@@ -2512,10 +2707,10 @@ theorem allScaleLiZeroTargetDegreeTwoTransfer_of_incrementErrorEnergyBounded
     rw [hcard]
   · exact hbound L X hL
 
-/-- **Canonical increment-energy endgame.**
-Once the native discrete-vs-Dickman diagonal increment errors have uniformly
-bounded degree-two energy about zero, the intrinsic all-scale Li model is
-proved at square-root scale. -/
+/-- **Over-strong conditional increment-energy endgame.**
+The implication is valid, but its premise is deliberately not claimed
+unconditionally; the native critical-weighted transfer below is the correct
+model-side closure target. -/
 theorem allScaleLiSquareRootBounded_of_incrementErrorEnergyBounded
     (hE : AllScaleLiDickmanIncrementErrorEnergyBounded) :
     AllScaleLiSquareRootBoundedStatement :=
