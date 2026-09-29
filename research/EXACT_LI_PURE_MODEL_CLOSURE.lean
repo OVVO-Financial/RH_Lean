@@ -515,6 +515,23 @@ theorem activatedFloorChild_comm
 
 
 
+
+/-- Activated floor dilation is linear under subtraction. -/
+theorem activatedFloorChild_sub
+    (F G : ℕ → ℂ) (q x : ℕ) :
+    activatedFloorChild (fun m => F m - G m) q x =
+      activatedFloorChild F q x - activatedFloorChild G q x := by
+  unfold activatedFloorChild
+  by_cases h : q ≤ x <;> simp [h]
+
+/-- Activated floor dilation commutes with a constant scalar. -/
+theorem activatedFloorChild_const_mul
+    (c : ℂ) (F : ℕ → ℂ) (q x : ℕ) :
+    activatedFloorChild (fun m => c * F m) q x =
+      c * activatedFloorChild F q x := by
+  unfold activatedFloorChild
+  by_cases h : q ≤ x <;> simp [h]
+
 /-- One fresh-site hard-core update. -/
 def frequencyHardCoreUpdate
     (a : ℂ) (q : ℕ) (F : ℕ → ℂ) (x : ℕ) : ℂ :=
@@ -547,6 +564,23 @@ theorem primeFrequencyState_cutoff_succ
     unfold primeFrequencyStep
     rw [min_eq_left (hxle.trans (Nat.le_succ y)), min_eq_left hxle]
     simp [activatedFloorChild, henter]
+
+
+/-- Fresh-site hard-core updates commute because the activated floor
+dilations commute. -/
+theorem frequencyHardCoreUpdate_comm
+    (a b : ℂ) (F : ℕ → ℂ) {q r x : ℕ}
+    (hq : 1 ≤ q) (hr : 1 ≤ r) :
+    frequencyHardCoreUpdate a q
+        (fun m => frequencyHardCoreUpdate b r F m) x =
+      frequencyHardCoreUpdate b r
+        (fun m => frequencyHardCoreUpdate a q F m) x := by
+  unfold frequencyHardCoreUpdate
+  rw [activatedFloorChild_sub, activatedFloorChild_const_mul,
+    activatedFloorChild_sub, activatedFloorChild_const_mul]
+  have hcomm := activatedFloorChild_comm F hq hr (x := x)
+  rw [hcomm]
+  ring
 
 /-- The finite difference of the pre-entry step is a single negative atom at
 the owner site. -/
