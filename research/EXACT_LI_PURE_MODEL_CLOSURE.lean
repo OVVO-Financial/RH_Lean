@@ -108,4 +108,55 @@ theorem allScaleLiSquareRootBounded_of_uniformReference_linearTransfer
       (L (squareRootEndpoint R) (squareRootEndpoint R))) hnorm
   simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using hsquare
 
+
+/-! ## Exact residual propagation for a reference model -/
+
+/-- Residual of an arbitrary reference state against the same prime-frequency
+recursion.  For the continuous/Dickman reference this is exactly where the
+unit-bin discretization error is to be estimated. -/
+def primeFrequencyReferenceResidual
+    (w : ℕ → ℂ) (C : ℕ → ℕ → ℂ) (x y : ℕ) : ℂ :=
+  C x y - primeFrequencyStep w C x y
+
+/-- An exact state has zero reference residual. -/
+theorem primeFrequencyReferenceResidual_eq_zero
+    {w : ℕ → ℂ} {C : ℕ → ℕ → ℂ}
+    (hC : IsPrimeFrequencyState w C) (x y : ℕ) :
+    primeFrequencyReferenceResidual w C x y = 0 := by
+  unfold primeFrequencyReferenceResidual
+  rw [hC x y]
+  ring
+
+/-- **Exact Duhamel/Volterra propagation identity.**
+If `L` is the exact discrete frequency state and `C` is any reference
+state, their difference is the propagated child difference plus only the local
+reference residual.  No actual-prime or prime-discrepancy object occurs. -/
+theorem primeFrequencyState_sub_reference_eq_propagated_sub_residual
+    {w : ℕ → ℂ} {L C : ℕ → ℕ → ℂ}
+    (hL : IsPrimeFrequencyState w L) (x y : ℕ) :
+    L x y - C x y =
+      -(∑ q ∈ Finset.Ioc 1 (min x y),
+          w q * (L (x / q) (q - 1) - C (x / q) (q - 1))) -
+        primeFrequencyReferenceResidual w C x y := by
+  rw [hL x y]
+  unfold primeFrequencyReferenceResidual primeFrequencyStep
+  ring_nf
+  rw [← Finset.sum_sub_distrib]
+  apply congrArg (fun z : ℂ => -z - (C x y - (1 -
+    ∑ q ∈ Finset.Ioc 1 (min x y), w q * C (x / q) (q - 1)))) ?_
+  apply Finset.sum_congr rfl
+  intro q hq
+  ring
+
+/-- Specialization to the all-scale singleton-Li weights. -/
+theorem allScaleLiState_sub_reference_eq_propagated_sub_residual
+    {L C : ℕ → ℕ → ℂ}
+    (hL : IsAllScaleLiState L) (x y : ℕ) :
+    L x y - C x y =
+      -(∑ q ∈ Finset.Ioc 1 (min x y),
+          primeSievePNTDensity q *
+            (L (x / q) (q - 1) - C (x / q) (q - 1))) -
+        primeFrequencyReferenceResidual primeSievePNTDensity C x y :=
+  primeFrequencyState_sub_reference_eq_propagated_sub_residual hL x y
+
 end RHLean.Analysis
