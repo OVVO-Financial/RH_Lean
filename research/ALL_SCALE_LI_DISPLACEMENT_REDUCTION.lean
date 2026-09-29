@@ -272,4 +272,79 @@ theorem squareRootPrimeDisplacementRootBounded_iff_centered :
       norm_neg]
     exact hb
 
+/-! ## Exact Li allocation: the displacement channel is identically zero -/
+
+/-- The theoretical exact-Li allocation hypothesis at the square endpoint.
+It says that every reciprocal quotient band carries exactly its Li mass.
+This is a model hypothesis, not a claim about the actual discrete primes. -/
+def SquareRootExactLiAllocation (R : ℕ) : Prop :=
+  ∀ d ∈ Finset.Icc 1 (R - 1),
+    primeSieveReciprocalPrimeDiscrepancy R (squareRootEndpoint R) d = 0
+
+/-- Under exact Li allocation, the centered prime-displacement scalar vanishes
+term by term.  There is no prime-location error left to estimate inside the
+theoretical Li model. -/
+theorem squareRoot_centeredPrimeDisplacement_eq_zero_of_exactLiAllocation
+    (R : ℕ) (hLi : SquareRootExactLiAllocation R) :
+    squareRootCenteredPrimeDisplacement R = 0 := by
+  unfold squareRootCenteredPrimeDisplacement
+  apply Finset.sum_eq_zero
+  intro d hd
+  rw [hLi d hd, zero_mul]
+
+/-- Under exact Li allocation, the complete chronological PNT replacement
+error is exactly zero. -/
+theorem squareRoot_primeFlipPNTError_eq_zero_of_exactLiAllocation
+    (R : ℕ) (hR : 2 ≤ R) (hLi : SquareRootExactLiAllocation R) :
+    primeFlipPNTError R (squareRootEndpoint R) = 0 := by
+  rw [squareRoot_primeFlipPNTError_eq_neg_centeredDisplacement R hR,
+    squareRoot_centeredPrimeDisplacement_eq_zero_of_exactLiAllocation R hLi,
+    neg_zero]
+
+/-- Exact Li allocation at every square-root stage. -/
+def ExactLiAllocationAtAllSquareRoots : Prop :=
+  ∀ R : ℕ, 2 ≤ R → SquareRootExactLiAllocation R
+
+/-- With exact Li allocation, the displacement bound is automatic with constant
+zero.  Hence the displacement theorem is not part of the intrinsic Li-model
+bound: it belongs only to the later transfer back to actual primes. -/
+theorem squareRootPrimeDisplacementRootBounded_of_exactLiAllocation
+    (hLi : ExactLiAllocationAtAllSquareRoots) :
+    SquareRootPrimeDisplacementRootBoundedStatement := by
+  refine ⟨0, by norm_num, ?_⟩
+  intro R K hR hK
+  rw [squareRoot_primeFlipPNTError_eq_zero_of_exactLiAllocation R hR (hLi R hR)]
+  simp
+
+/-! ## Intrinsic all-scale Li target -/
+
+/-- The pure all-scale Li square-root theorem.  No actual-prime indicator and
+no prime-count discrepancy occurs in this statement.  This is the quantitative
+question that remains *inside* the exact Li allocation model. -/
+def AllScaleLiSquareRootBoundedStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ (L : ℕ → ℕ → ℂ) (R : ℕ),
+      IsAllScaleLiState L →
+      PrimeFrequencySaturated L →
+      2 ≤ R →
+      ‖L (squareRootEndpoint R) (squareRootEndpoint R)‖ ^ 2 ≤
+        C * (R : ℝ) ^ 2
+
+/-- Equivalent assembled formulation of the intrinsic Li target at one scale:
+the root-sector state minus the Li-weighted upper sector is exactly the
+diagonal Li state, so any diagonal estimate transfers with no displacement
+term. -/
+theorem allScaleLiState_squareRoot_assembled_norm_sq_eq_diagonal
+    {L : ℕ → ℕ → ℂ}
+    (R : ℕ) (hR : 2 ≤ R)
+    (hL : IsAllScaleLiState L)
+    (hsat : PrimeFrequencySaturated L) :
+    ‖L (squareRootEndpoint R) R -
+        ∑ q ∈ Finset.Ioc R (squareRootEndpoint R),
+          primeSievePNTDensity q *
+            L (squareRootEndpoint R / q) (squareRootEndpoint R / q)‖ ^ 2 =
+      ‖L (squareRootEndpoint R) (squareRootEndpoint R)‖ ^ 2 := by
+  rw [allScaleLiState_squareRoot_assembled_eq_diagonal R hR hL hsat]
+
+
 end RHLean.Analysis

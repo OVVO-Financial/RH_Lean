@@ -104,6 +104,10 @@ jobs:
           #print axioms RHLean.Analysis.allScaleLiState_squareRoot_assembled_eq_diagonal
           #print axioms RHLean.Analysis.squareRoot_primeFlipPNTError_eq_neg_centeredDisplacement
           #print axioms RHLean.Analysis.squareRoot_centeredPrimeDisplacement_eq_moebiusAtoms
+          #print axioms RHLean.Analysis.squareRoot_centeredPrimeDisplacement_eq_zero_of_exactLiAllocation
+          #print axioms RHLean.Analysis.squareRoot_primeFlipPNTError_eq_zero_of_exactLiAllocation
+          #print axioms RHLean.Analysis.squareRootPrimeDisplacementRootBounded_of_exactLiAllocation
+          #print axioms RHLean.Analysis.allScaleLiState_squareRoot_assembled_norm_sq_eq_diagonal
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -112,7 +116,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 19, records
+          assert len(records) == 23, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
