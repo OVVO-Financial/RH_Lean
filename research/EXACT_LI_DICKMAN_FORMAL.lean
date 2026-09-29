@@ -518,7 +518,6 @@ theorem exactLiDickmanSegment_le_inv_factorial (n : ℕ) :
             (Nat.factorial (n + 1) : ℝ)⁻¹ := by
         rw [hfac]
         simp only [div_eq_mul_inv, mul_inv_rev]
-        ring
       have hleft :
           f a ≤ (Nat.factorial (n + 1) : ℝ)⁻¹ := by
         have hglue : f a = p a := by
@@ -526,7 +525,8 @@ theorem exactLiDickmanSegment_le_inv_factorial (n : ℕ) :
         rw [hglue, ← hratio]
         exact hpa
       have hanti : AntitoneOn f (Icc a b) := by
-        simpa [f, a, b] using exactLiDickmanSegment_antitoneOn (n + 1)
+        simpa [f, a, b, Nat.cast_add, Nat.cast_one, add_assoc] using
+          exactLiDickmanSegment_antitoneOn (n + 1)
       intro u hu
       have hamem : a ∈ Icc a b := ⟨le_rfl, hab⟩
       have hule : f u ≤ f a := hanti hamem hu hu.1
