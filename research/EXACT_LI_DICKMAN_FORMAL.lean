@@ -306,7 +306,7 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
           (∫ u in a..b, p (u - 1)) =
             ∫ u in (n : ℝ)..a, p u := by
         rw [intervalIntegral.integral_comp_sub_right]
-        congr 1 <;> push_cast <;> ring
+        congr 1 <;> dsimp [a, b] <;> push_cast <;> ring
       have ih' :
           a * p a = ∫ u in (n : ℝ)..a, p u := by
         simpa [a, p] using ih
@@ -319,108 +319,8 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
       have htarget :
           b * r b = ∫ u in a..b, r u := by
         linarith
-      simpa [a, b, r] using htarget
+      convert htarget using 1 <;> dsimp [a, b, r] <;> push_cast <;> ring
 
 
-/-- **Endpoint-average Dickman identity.**
-At the right endpoint of every method-of-steps segment,
-`(n+1) rho(n+1)` is exactly the integral of rho across the preceding
-unit interval.  This is the invariant that makes positivity propagate. -/
-theorem exactLiDickmanSegment_endpoint_average (n : ℕ) :
-    (((n + 1 : ℕ) : ℝ)) *
-        exactLiDickmanSegment n (n + 1 : ℕ) =
-      ∫ u in ((n : ℕ) : ℝ)..(((n + 1 : ℕ) : ℝ)),
-        exactLiDickmanSegment n u := by
-  induction n with
-  | zero =>
-      norm_num [exactLiDickmanSegment]
-  | succ n ih =>
-      let a : ℝ := ((n + 1 : ℕ) : ℝ)
-      let b : ℝ := ((n + 2 : ℕ) : ℝ)
-      let f : ℝ → ℝ := exactLiDickmanSegment (n + 1)
-      let fp : ℝ → ℝ := fun x => exactLiDickmanSegment n (x - 1)
-      let g : ℝ → ℝ := fun x => - exactLiDickmanSegment n (x - 1) / x
-      have hab : a ≤ b := by
-        dsimp [a, b]
-        norm_num
-      have hcontF : ContinuousOn f [[a, b]] := by
-        have h := exactLiDickmanSegment_continuousOn (n + 1)
-        simpa [f, a, b, uIcc_of_le hab] using h
-      have hcontId : ContinuousOn (fun x : ℝ => x) [[a, b]] :=
-        continuousOn_id
-      have hderivId :
-          ∀ x ∈ Ioo (min a b) (max a b),
-            HasDerivAt (fun x : ℝ => x) 1 x := by
-        intro x hx
-        simpa using (hasDerivAt_id x)
-      have hderivF :
-          ∀ x ∈ Ioo (min a b) (max a b), HasDerivAt f (g x) x := by
-        intro x hx
-        have hx' : x ∈ Ioo a b := by
-          simpa [min_eq_left hab, max_eq_right hab] using hx
-        have h :=
-          exactLiDickmanSegment_succ_hasDerivAt n
-            (u := x) (by simpa [a, b] using hx')
-        simpa [f, g] using h
-      have hOneInt :
-          IntervalIntegrable (fun _ : ℝ => (1 : ℝ))
-            MeasureTheory.volume a b := by
-        exact (continuousOn_const :
-          ContinuousOn (fun _ : ℝ => (1 : ℝ)) [[a, b]]).intervalIntegrable
-      have hgInt : IntervalIntegrable g MeasureTheory.volume a b := by
-        have h :=
-          (exactLiDickmanSegment_delay_intervalIntegrable n).neg
-        simpa [g, a, b] using h
-      have hparts :=
-        intervalIntegral.integral_deriv_mul_eq_sub_of_hasDerivAt
-          hcontId hcontF hderivId hderivF hOneInt hgInt
-      have hleft :
-          (∫ x in a..b, (1 : ℝ) * f x + x * g x) =
-            ∫ x in a..b, f x - fp x := by
-        apply intervalIntegral.integral_congr
-        intro x hx
-        have hx' : x ∈ Icc a b := by
-          simpa [uIcc_of_le hab] using hx
-        have ha1 : (1 : ℝ) ≤ a := by
-          dsimp [a]
-          exact_mod_cast (show 1 ≤ n + 1 by omega)
-        have hxpos : 0 < x := lt_of_lt_of_le (by norm_num) (ha1.trans hx'.1)
-        dsimp [g, fp]
-        field_simp [ne_of_gt hxpos]
-        ring
-      rw [hleft] at hparts
-      have hfInt : IntervalIntegrable f MeasureTheory.volume a b :=
-        hcontF.intervalIntegrable
-      have hprevInt :
-          IntervalIntegrable (exactLiDickmanSegment n)
-            MeasureTheory.volume ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ)) := by
-        have hcont := exactLiDickmanSegment_continuousOn n
-        have hnb :
-            ((n : ℕ) : ℝ) ≤ (((n + 1 : ℕ) : ℝ)) := by norm_num
-        have hu :
-            ContinuousOn (exactLiDickmanSegment n)
-              [[((n : ℕ) : ℝ), (((n + 1 : ℕ) : ℝ))]] := by
-          simpa [uIcc_of_le hnb] using hcont
-        exact hu.intervalIntegrable
-      have hfpInt : IntervalIntegrable fp MeasureTheory.volume a b := by
-        have h := hprevInt.comp_sub_right 1
-        simpa [fp, a, b] using h
-      rw [intervalIntegral.integral_sub hfInt hfpInt] at hparts
-      have hshift :
-          (∫ x in a..b, fp x) =
-            ∫ x in ((n : ℕ) : ℝ)..(((n + 1 : ℕ) : ℝ)),
-              exactLiDickmanSegment n x := by
-        dsimp [fp]
-        have h :=
-          intervalIntegral.integral_comp_sub_right
-            (a := a) (b := b) (exactLiDickmanSegment n) 1
-        simpa [a, b] using h
-      have hprevavg : (∫ x in a..b, fp x) = a * f a := by
-        rw [hshift, ← ih]
-        simp [a, f]
-      rw [hprevavg] at hparts
-      have hfinal : b * f b = ∫ x in a..b, f x := by
-        linarith
-      simpa [a, b, f] using hfinal
 
 end RHLean.Analysis
