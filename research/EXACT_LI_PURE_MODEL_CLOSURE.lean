@@ -567,6 +567,9 @@ theorem allScaleLiCriticalPrefix_eq_fixedCutoffWeighted
   intro n hn
   have hnN : n ≤ N := (Finset.mem_Icc.mp hn).2
   have hpredN : n - 1 ≤ N := (Nat.sub_le n 1).trans hnN
+  change (L n n - L (n - 1) (n - 1)) /
+      (Real.sqrt (n : ℝ) : ℂ) =
+    (Real.sqrt (n : ℝ) : ℂ)⁻¹ * (L n N - L (n - 1) N)
   rw [hsat n N hnN, hsat (n - 1) N hpredN]
   rw [div_eq_mul_inv]
   ring
