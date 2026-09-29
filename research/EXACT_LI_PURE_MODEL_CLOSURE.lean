@@ -344,12 +344,13 @@ theorem weightedForwardDifferencePrefix_succ
         r (N + 1) * (F (N + 1) - F N) := by
   unfold weightedForwardDifferencePrefix
   rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1)]
+  simp only [Nat.add_sub_cancel]
 
 /-- Exact floor-dilation law for multiplicative weights.
 Only multiples of q survive the finite difference of F(n/q), and a
 multiplicative weight factors at those sites. -/
 theorem weightedForwardDifferencePrefix_floor_div
-    (r : ℕ → ℂ) (F : ℕ → ℂ) {q : ℕ} (hq : 0 < q)
+    (r : ℕ → ℂ) (F : ℕ → ℂ) (q : ℕ)
     (hrmul : ∀ a b : ℕ, r (a * b) = r a * r b) (N : ℕ) :
     weightedForwardDifferencePrefix r (fun n => F (n / q)) N =
       r q * weightedForwardDifferencePrefix r F (N / q) := by
