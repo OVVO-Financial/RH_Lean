@@ -888,6 +888,77 @@ theorem norm_criticalLiFrequencyWeight_le_one
     (norm_criticalSqrtWeight_le_one (by omega : 1 ≤ q))
     (norm_nonneg _) zero_le_one).trans_eq (mul_one 1)
 
+/-- Critical Li specialization of the scalar hard-core/Poisson correction. -/
+def criticalLiScalarCorrection (q : ℕ) : ℂ :=
+  hardCorePoissonScalarCorrection (criticalLiFrequencyWeight q)
+
+/-- One critical Li correction factor differs from one only at quadratic
+order, hence its norm is controlled by `1 + 3 |z_q|^2`. -/
+theorem norm_criticalLiScalarCorrection_le
+    {q : ℕ} (hq : 4 ≤ q) :
+    ‖criticalLiScalarCorrection q‖ ≤
+      1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 := by
+  have hz := norm_criticalLiFrequencyWeight_le_one hq
+  have hquad :=
+    norm_hardCorePoissonScalarCorrection_sub_one_le hz
+  unfold criticalLiScalarCorrection
+  calc
+    ‖hardCorePoissonScalarCorrection (criticalLiFrequencyWeight q)‖ =
+        ‖(hardCorePoissonScalarCorrection (criticalLiFrequencyWeight q) - 1) +
+            1‖ := by
+          congr 1
+          ring
+    _ ≤ ‖hardCorePoissonScalarCorrection (criticalLiFrequencyWeight q) - 1‖ +
+          ‖(1 : ℂ)‖ := norm_add_le _ _
+    _ ≤ 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 + 1 := by
+          exact add_le_add hquad (le_refl 1)
+    _ = 1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 := by ring
+
+/-- Finite Euler product bound for the quadratic local correction envelopes. -/
+private theorem criticalLi_prod_one_add_three_sq_le_exp_sum
+    (s : Finset ℕ) :
+    (∏ q ∈ s, (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2)) ≤
+      Real.exp (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty =>
+      simp
+  | @insert q s hq ih =>
+      rw [Finset.prod_insert hq, Finset.sum_insert hq, Real.exp_add]
+      have hfac :
+          1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 ≤
+            Real.exp (3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+        simpa [add_comm] using
+          (Real.add_one_le_exp (3 * ‖criticalLiFrequencyWeight q‖ ^ 2))
+      exact mul_le_mul hfac ih (by positivity) (by positivity)
+
+/-- **Uniform finite hard-core/Poisson correction product.**
+For any finite collection of Li sites beyond the finitely many initial ones,
+the full scalar correction is bounded by a single universal constant depending
+only on the certified square-summable collision budget. -/
+theorem norm_prod_criticalLiScalarCorrection_le_exp_collisionBudget
+    (s : Finset ℕ) (hs : ∀ q ∈ s, 4 ≤ q) :
+    ‖∏ q ∈ s, criticalLiScalarCorrection q‖ ≤
+      Real.exp (3 * criticalLiCollisionBudget) := by
+  rw [norm_prod]
+  calc
+    (∏ q ∈ s, ‖criticalLiScalarCorrection q‖)
+        ≤ ∏ q ∈ s,
+            (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+          apply Finset.prod_le_prod₀
+          · intro q hq
+            exact norm_nonneg _
+          · intro q hq
+            exact norm_criticalLiScalarCorrection_le (hs q hq)
+    _ ≤ Real.exp
+          (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) :=
+          criticalLi_prod_one_add_three_sq_le_exp_sum s
+    _ ≤ Real.exp (3 * criticalLiCollisionBudget) := by
+          apply Real.exp_le_exp.mpr
+          rw [← Finset.mul_sum]
+          exact mul_le_mul_of_nonneg_left
+            (criticalLiFrequencyWeight_sq_finset_sum_le s) (by norm_num)
+
 /-! ## Uniform multiplicative budget for hard-core/Poisson correction -/
 
 /-- Total second-order mass of the critical transformed Li owner weights. -/
