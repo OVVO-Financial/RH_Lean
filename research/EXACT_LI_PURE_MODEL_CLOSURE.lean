@@ -1,6 +1,7 @@
 import Mathlib
 import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
 import RHLean.Proof.FinitePartialMoments
+import «research.EXACT_LI_DICKMAN_FORMAL»
 
 /-!
 # Pure exact-Li model closure spine
@@ -976,6 +977,13 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
 
 
 /-! ## Convolution-reference closure of the pure Li model -/
+
+/-- The formal Dickman construction supplies the concrete uniformly bounded
+integer reference required by the convolution closure. -/
+theorem exactLiDickmanIntegerReference_isUniformlyBounded :
+    ∃ B : ℝ, 0 ≤ B ∧
+      ∀ x : ℕ, ‖exactLiDickmanIntegerReference x‖ ≤ B :=
+  exactLiDickmanIntegerReference_uniformly_bounded
 
 /-- A correction kernel has uniformly bounded critical weighted variation. -/
 def UniformCriticalWeightedVariation (h : ℕ → ℂ) : Prop :=
