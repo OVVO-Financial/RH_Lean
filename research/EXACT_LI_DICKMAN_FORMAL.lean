@@ -871,4 +871,41 @@ theorem exactLiDickmanVariationPrimitive_le
     _ = 2 * (Real.exp 2 - 1) :=
           tsum_exactLiDickmanFactorialMajorant
 
+
+/-- Continuous exact-Li Dickman cumulative reference in logarithmic
+coordinates.  The signed density beyond the unit atom is negative, so the
+cumulative value is one minus the accumulated positive variation. -/
+def exactLiDickmanCumulativeReference (N : ℕ) (u : ℝ) : ℝ :=
+  1 - exactLiDickmanVariationPrimitive N u
+
+/-- **Uniform continuous exact-Li reference bound.**
+On every native logarithmic segment the cumulative Dickman reference is bounded
+by the explicit constant `2 * exp 2 - 1`. -/
+theorem abs_exactLiDickmanCumulativeReference_le
+    (N : ℕ) {u : ℝ}
+    (hu : u ∈ Icc ((N : ℕ) : ℝ) (((N + 1 : ℕ) : ℝ))) :
+    |exactLiDickmanCumulativeReference N u| ≤
+      2 * Real.exp 2 - 1 := by
+  have hV0 := exactLiDickmanVariationPrimitive_nonneg N hu
+  have hV := exactLiDickmanVariationPrimitive_le N hu
+  have hexp : (1 : ℝ) ≤ Real.exp 2 :=
+    Real.one_le_exp_iff.mpr (by norm_num)
+  unfold exactLiDickmanCumulativeReference
+  rw [abs_le]
+  constructor <;> nlinarith
+
+/-- Complex-cast form used by the pure-model convolution/transfer layer. -/
+def exactLiDickmanCumulativeReferenceC (N : ℕ) (u : ℝ) : ℂ :=
+  (exactLiDickmanCumulativeReference N u : ℂ)
+
+/-- The same uniform bound in complex norm. -/
+theorem norm_exactLiDickmanCumulativeReferenceC_le
+    (N : ℕ) {u : ℝ}
+    (hu : u ∈ Icc ((N : ℕ) : ℝ) (((N + 1 : ℕ) : ℝ))) :
+    ‖exactLiDickmanCumulativeReferenceC N u‖ ≤
+      2 * Real.exp 2 - 1 := by
+  unfold exactLiDickmanCumulativeReferenceC
+  rw [Complex.norm_real, Real.norm_eq_abs]
+  exact abs_exactLiDickmanCumulativeReference_le N hu
+
 end RHLean.Analysis
