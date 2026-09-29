@@ -133,6 +133,18 @@ thresholds must still be met.
 
 ## What the latest work does and does not prove
 
+- **Owner-two clipped exit (2026-09-29):** at first owner `2` there is a
+  single compensated cell, and
+  [its exact evaluation](research/GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean)
+  gives clipped exit `= M(X_R)` and compensated interior `= Q_R − M(R−1)`.
+  The interior satisfies `I² <= 4 E_R + 8 R² K` unconditionally, and
+  `SquareEndpointRoundedOddQ2EnergyStep C` is literally a bound on the
+  clipped-exit square. A
+  [companion module](research/SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH.lean)
+  proves that the step forces `(M(x)−1)² <= B^j (x+1)` for `x < 2^(2^j)`, a
+  polylogarithmic Mertens envelope. See the
+  [audit note](research/OWNER_TWO_CLIPPED_EXIT_AUDIT.md). Neither module
+  proves the step.
 - **Coefficient sharpening (2026-09-27):** the same exact signed carrier and
   quarter frame admit `A = 2` or `B = 9/4`, rather than only `3/2` or `7/4`.
   This improves the sufficient coefficient budget. It does not prove the
@@ -204,6 +216,9 @@ energy estimate is not a proof of RH.
    the same parent decomposition. No replacement by a similarly named object.
 7. Support counts, coefficient norms, positive ownerwise energy, the prime-11
    budget, and a coordinate change do not supply the open signed estimate.
+8. [The compensated interior is not the seam](research/GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean):
+   at owner `2` the clipped exit is exactly `M(X_R)`. A bound on the
+   reassembled interior is already unconditional and cannot close CORR-4.
 
 ## Preservation and success conditions
 
