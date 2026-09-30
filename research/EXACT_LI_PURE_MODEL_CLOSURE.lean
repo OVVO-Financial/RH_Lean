@@ -1462,8 +1462,15 @@ theorem coeff_hardCorePoissonCorrectionSeries
       hardCorePoissonCorrectionCoeff z m := by
   cases m with
   | zero =>
-      simp [hardCorePoissonCorrectionSeries,
-        hardCorePoissonCorrectionCoeff]
+      simp only [hardCorePoissonCorrectionSeries,
+        hardCorePoissonCorrectionCoeff, Nat.cast_zero, sub_zero, pow_zero,
+        Nat.factorial_zero, Nat.cast_one, div_one]
+      rw [sub_mul, one_mul]
+      simp only [map_sub, PowerSeries.coeff_zero_eq_constantCoeff_apply,
+        map_mul, map_one]
+      rw [← PowerSeries.coeff_zero_eq_constantCoeff_apply,
+        PowerSeries.coeff_rescale, PowerSeries.coeff_exp]
+      simp
   | succ n =>
       let E : PowerSeries ℂ :=
         PowerSeries.rescale z (PowerSeries.exp ℂ)
