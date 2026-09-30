@@ -3106,7 +3106,8 @@ theorem arithmeticPoissonProduct_cumulative_succ_eq_linear_add_tail
   have hX1 : 1 ≤ X := by omega
   have h0E : 0 ∈ E := by
     dsimp [E, liCorrectionExponentSet]
-    simp [hX1]
+    simp only [Finset.mem_filter, Finset.mem_range, pow_zero]
+    exact ⟨by omega, hX1⟩
   have h1E : 1 ∈ E := by
     dsimp [E, liCorrectionExponentSet]
     exact Finset.mem_filter.mpr
