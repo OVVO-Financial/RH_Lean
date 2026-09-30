@@ -103,6 +103,11 @@ theorem vfMidSquareBandCompositeOwner_prime_le_root
   rcases Finset.mem_filter.mp hnComp with ⟨hnBand, hnNotPrime⟩
   rcases Finset.mem_Ioo.mp hnBand with ⟨hnLow, hnHigh⟩
   have hnpos : 0 < n := by omega
+  have h2sq : 2 ^ 2 ≤ R ^ 2 :=
+    Nat.pow_le_pow_left hR 2
+  have hR2 : 1 < R ^ 2 := by
+    norm_num at h2sq
+    omega
   have hn1 : n ≠ 1 := by omega
   have hpPrime : p.Prime := by
     simpa [hmin] using Nat.minFac_prime hn1
@@ -127,7 +132,7 @@ theorem vfMidSquareBandCompositeOwner_mul_div
 
 /-- The stripped child of any owned composite is at least its owner. -/
 theorem vfMidSquareBandCompositeOwner_le_child
-    {R p n : ℕ} (hR : 2 ≤ R)
+    {R p n : ℕ} (_hR : 2 ≤ R)
     (hn : n ∈ vfMidSquareBandCompositeOwner R p) :
     p ≤ n / p := by
   rcases vfMidSquareBandCompositeOwner_mem hn with ⟨hnComp, hmin⟩
@@ -170,7 +175,7 @@ theorem vfMidSquareBandCompositeOwner_child_prime_of_upperSquare_le_cube
   have hpPrime := hpData.1
   have hpChild := vfMidSquareBandCompositeOwner_le_child hR hn
   have hmul := vfMidSquareBandCompositeOwner_mul_div hn
-  rcases vfMidSquareBandCompositeOwner_mem hn with ⟨hnComp, _hmin⟩
+  rcases vfMidSquareBandCompositeOwner_mem hn with ⟨hnComp, hmin⟩
   rcases Finset.mem_filter.mp hnComp with ⟨hnBand, _hnNotPrime⟩
   have hnHigh : n < (R + 1) ^ 2 := (Finset.mem_Ioo.mp hnBand).2
   let q : ℕ := n / p
