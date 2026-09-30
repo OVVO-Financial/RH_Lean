@@ -56,8 +56,9 @@ def vfMidSquareWheelPrimes (R : ℕ) : Finset ℕ :=
   (vfMidSquareWheelSites R).filter Nat.Prime
 
 /-- Common-wheel survivors on the interior square carrier. -/
-def vfMidSquareWheelSurvivors (R : ℕ) : Finset ℕ :=
-  (vfMidSquareWheelSites R).filter (lowWheelHighSurvivor R)
+def vfMidSquareWheelSurvivors (R : ℕ) : Finset ℕ := by
+  classical
+  exact (vfMidSquareWheelSites R).filter (lowWheelHighSurvivor R)
 
 /-- On one square block, every interior integer is tested against the same
 prime coordinates <= R: survival under that wheel is exactly primality. -/
@@ -69,10 +70,33 @@ theorem vfMidSquareBand_commonWheelSurvivor_iff_prime
   have hRltSq : R < R ^ 2 := by
     nlinarith
   have hRn : R < n := hRltSq.trans hnI.1
-  have hnX : n ≤ squareRootEndpoint R := by
-    unfold squareRootEndpoint
+  constructor
+  · intro hsurv
+    by_contra hnPrime
+    have hnPos : 0 < n := by omega
+    have hnOne : n ≠ 1 := by omega
+    let p := n.minFac
+    have hpPrime : p.Prime := by
+      simpa [p] using Nat.minFac_prime hnOne
+    have hpDvd : p ∣ n := by
+      simpa [p] using Nat.minFac_dvd n
+    have hpSqLe : p ^ 2 ≤ n := by
+      simpa [p] using Nat.minFac_sq_le_self hnPos hnPrime
+    have hpLt : p < R + 1 := by
+      by_contra hnot
+      have hRp : R + 1 ≤ p := Nat.le_of_not_gt hnot
+      have hpow : (R + 1) ^ 2 ≤ p ^ 2 :=
+        Nat.pow_le_pow_left hRp 2
+      omega
+    have hpMem : p ∈ primesUpTo R :=
+      mem_primesUpTo.mpr ⟨hpPrime, by omega⟩
+    exact hsurv p hpMem hpDvd
+  · intro hnPrime p hpMem hpDvd
+    have hpPrime : p.Prime := prime_of_mem_primesUpTo hpMem
+    have hpR : p ≤ R := (mem_primesUpTo.mp hpMem).2
+    have hpn : p = n :=
+      (Nat.prime_dvd_prime_iff_eq hpPrime hnPrime).mp hpDvd
     omega
-  exact lowWheelHighSurvivor_iff_prime hR hRn hnX
 
 /-- Fundamental-factorization form: every composite interior site is killed by
 at least one prime coordinate in the common wheel through R. -/
