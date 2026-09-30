@@ -1,4 +1,5 @@
 import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
+import Mathlib.Analysis.SpecialFunctions.Log.InvLog
 import Mathlib.Analysis.SumIntegralComparisons
 import Mathlib.Analysis.PSeries
 import Mathlib.Analysis.Calculus.MeanValue
@@ -170,6 +171,210 @@ theorem deriv_inv_log_formula {x : ℝ} (hx : 1 < x) :
   have hx0 : x ≠ 0 := by linarith
   have hlog0 : Real.log x ≠ 0 := ne_of_gt (Real.log_pos hx)
   exact ((Real.hasDerivAt_log hx0).inv hlog0).deriv
+
+
+/-! ## Root-scale quadrature bridge -/
+
+/-- A fixed envelope for one completed or partial square-tile midpoint error.
+The exact constant is intentionally crude: root scale is all the von-Koch
+transfer needs. -/
+def vfMidTileQuadratureBound : ℝ :=
+  9 / Real.log 4 ^ 2
+
+theorem vfMidTileQuadratureBound_nonneg :
+    0 ≤ vfMidTileQuadratureBound := by
+  unfold vfMidTileQuadratureBound
+  positivity
+
+/-- The inverse-log density is interval-integrable on every interval to the
+right of 1. -/
+theorem vfMid_invLog_intervalIntegrable {a b : ℝ}
+    (ha : 1 < a) (hab : a ≤ b) :
+    IntervalIntegrable (fun t : ℝ => (Real.log t)⁻¹) volume a b := by
+  apply ContinuousOn.intervalIntegrable_of_Icc hab
+  exact Real.differentiableOn_inv_log.continuousOn.mono <| by
+    intro t ht
+    exact mem_Ioi.2 (ha.trans_le ht.1)
+
+/-- On square tile r, the derivative of 1/log is bounded by the left endpoint
+and the fixed log(4) denominator. -/
+theorem abs_deriv_inv_log_le_squareTile
+    {r : ℕ} (hr : 2 ≤ r) {t : ℝ}
+    (ht : t ∈ Icc ((r : ℝ) ^ 2) ((((r + 1 : ℕ) : ℝ) ^ 2))) :
+    |deriv (fun u : ℝ => (Real.log u)⁻¹) t| ≤
+      1 / (((r : ℝ) ^ 2) * Real.log 4 ^ 2) := by
+  have hr0 : 0 < (r : ℝ) := by exact_mod_cast (lt_of_lt_of_le (by norm_num : 0 < 2) hr)
+  have hr4 : (4 : ℝ) ≤ (r : ℝ) ^ 2 := by
+    have : (4 : ℕ) ≤ r ^ 2 := by nlinarith
+    exact_mod_cast this
+  have ht4 : (4 : ℝ) ≤ t := hr4.trans ht.1
+  have ht0 : 0 < t := by linarith
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have hlogt : 0 < Real.log t := Real.log_pos (by linarith)
+  have hlogle : Real.log 4 ≤ Real.log t :=
+    Real.log_le_log (by norm_num) ht4
+  have hlogsq : Real.log 4 ^ 2 ≤ Real.log t ^ 2 := by
+    nlinarith
+  have hden :
+      ((r : ℝ) ^ 2) * Real.log 4 ^ 2 ≤
+        t * Real.log t ^ 2 := by
+    exact mul_le_mul ht.1 hlogsq (sq_nonneg _) (by positivity)
+  have hden0 : 0 < ((r : ℝ) ^ 2) * Real.log 4 ^ 2 := by positivity
+  rw [Real.deriv_inv_log_apply]
+  have hneg : -t⁻¹ / Real.log t ^ 2 ≤ 0 := by
+    exact div_nonpos_of_nonpos_of_nonneg
+      (neg_nonpos.mpr (inv_nonneg.mpr ht0.le)) (sq_nonneg _)
+  rw [abs_of_nonpos hneg]
+  have hrewrite :
+      -(-t⁻¹ / Real.log t ^ 2) =
+        1 / (t * Real.log t ^ 2) := by
+    field_simp [ht0.ne', hlogt.ne']
+    ring
+  rw [hrewrite]
+  exact one_div_le_one_div_of_le hden0 hden
+
+/-- Uniform error on any live prefix of one square tile.  Only first
+derivatives are used. -/
+theorem abs_vfMid_partialBandQuadratureError_le
+    {r : ℕ} (hr : 2 ≤ r) {y : ℝ}
+    (hyl : (r : ℝ) ^ 2 ≤ y)
+    (hyu : y ≤ (((r + 1 : ℕ) : ℝ) ^ 2)) :
+    |(y - (r : ℝ) ^ 2) /
+          Real.log (((r : ℝ) ^ 2 + y) / 2) -
+        ∫ t in ((r : ℝ) ^ 2)..y, (Real.log t)⁻¹|
+      ≤ vfMidTileQuadratureBound := by
+  let a : ℝ := (r : ℝ) ^ 2
+  let m : ℝ := (a + y) / 2
+  let h : ℝ := y - a
+  let K : ℝ := 1 / (a * Real.log 4 ^ 2)
+  have hr0 : 0 < (r : ℝ) := by exact_mod_cast (lt_of_lt_of_le (by norm_num : 0 < 2) hr)
+  have ha4 : (4 : ℝ) ≤ a := by
+    dsimp [a]
+    have : (4 : ℕ) ≤ r ^ 2 := by nlinarith
+    exact_mod_cast this
+  have ha1 : 1 < a := by linarith
+  have hy1 : 1 < y := ha1.trans_le hyl
+  have hm_mem : m ∈ Icc a y := by
+    dsimp [m]
+    constructor <;> linarith
+  have hI : IntervalIntegrable (fun t : ℝ => (Real.log t)⁻¹) volume a y :=
+    vfMid_invLog_intervalIntegrable ha1 hyl
+  have hdiff :
+      ∀ t ∈ Icc a y,
+        |(Real.log m)⁻¹ - (Real.log t)⁻¹| ≤ K * |t - m| := by
+    intro t ht
+    have htTile :
+        t ∈ Icc ((r : ℝ) ^ 2) ((((r + 1 : ℕ) : ℝ) ^ 2)) := by
+      constructor
+      · simpa [a] using ht.1
+      · exact ht.2.trans hyu
+    have hmTile :
+        m ∈ Icc ((r : ℝ) ^ 2) ((((r + 1 : ℕ) : ℝ) ^ 2)) := by
+      constructor
+      · simpa [a] using hm_mem.1
+      · exact hm_mem.2.trans hyu
+    have hLip :=
+      Convex.norm_image_sub_le_of_norm_deriv_le
+        (s := Icc ((r : ℝ) ^ 2) ((((r + 1 : ℕ) : ℝ) ^ 2)))
+        (f := fun u : ℝ => (Real.log u)⁻¹)
+        (x := m) (y := t)
+        (fun u hu =>
+          Real.differentiableOn_inv_log.differentiableAt
+            (Ioi_mem_nhds (by
+              have hu4 : (4 : ℝ) ≤ u := by
+                have hr4 : (4 : ℝ) ≤ (r : ℝ) ^ 2 := by
+                  have : (4 : ℕ) ≤ r ^ 2 := by nlinarith
+                  exact_mod_cast this
+                exact hr4.trans hu.1
+              linarith)))
+        (fun u hu => by
+          simpa [K, a, Real.norm_eq_abs] using
+            abs_deriv_inv_log_le_squareTile hr hu)
+        (convex_Icc _ _) hmTile htTile
+    simpa [Real.norm_eq_abs, abs_sub_comm] using hLip
+  have hwidth : 0 ≤ h := by dsimp [h, a]; linarith
+  have hdist : ∀ t ∈ Icc a y, |t - m| ≤ h := by
+    intro t ht
+    rw [abs_le]
+    dsimp [m, h]
+    constructor <;> linarith
+  have hpoint : ∀ t ∈ Icc a y,
+      |(Real.log m)⁻¹ - (Real.log t)⁻¹| ≤ K * h := by
+    intro t ht
+    exact (hdiff t ht).trans
+      (mul_le_mul_of_nonneg_left (hdist t ht) (by
+        dsimp [K, a]
+        positivity))
+  have hIntConst :
+      (∫ _t in a..y, (Real.log m)⁻¹) = h * (Real.log m)⁻¹ := by
+    simp [h]
+  have hErrEq :
+      h * (Real.log m)⁻¹ - ∫ t in a..y, (Real.log t)⁻¹ =
+        ∫ t in a..y, ((Real.log m)⁻¹ - (Real.log t)⁻¹) := by
+    rw [intervalIntegral.integral_sub intervalIntegrable_const hI, hIntConst]
+  have hIntBound :
+      |h * (Real.log m)⁻¹ - ∫ t in a..y, (Real.log t)⁻¹| ≤
+        (K * h) * h := by
+    rw [hErrEq, ← Real.norm_eq_abs]
+    have hnorm :=
+      intervalIntegral.norm_integral_le_of_norm_le_const
+        (a := a) (b := y) (C := K * h)
+        (f := fun t : ℝ => (Real.log m)⁻¹ - (Real.log t)⁻¹)
+        (fun t ht => by
+          rw [uIoc_of_le hyl] at ht
+          simpa [Real.norm_eq_abs] using hpoint t (Ioc_subset_Icc_self ht))
+    simpa [h, abs_of_nonneg hwidth] using hnorm
+  have hh : h ≤ 3 * (r : ℝ) := by
+    dsimp [h, a]
+    have hycast : y ≤ ((r : ℝ) + 1) ^ 2 := by
+      simpa [Nat.cast_add, Nat.cast_one] using hyu
+    nlinarith
+  have hrsq : 0 < (r : ℝ) ^ 2 := by positivity
+  have hlog4sq : 0 < Real.log 4 ^ 2 := by
+    exact sq_pos_of_pos (Real.log_pos (by norm_num))
+  have hratio : h ^ 2 / (r : ℝ) ^ 2 ≤ 9 := by
+    rw [div_le_iff₀ hrsq]
+    nlinarith [sq_nonneg (h - 3 * (r : ℝ))]
+  have hKh :
+      (K * h) * h ≤ vfMidTileQuadratureBound := by
+    unfold vfMidTileQuadratureBound
+    dsimp [K, a]
+    have heq :
+        (1 / ((r : ℝ) ^ 2 * Real.log 4 ^ 2) * h) * h =
+          (h ^ 2 / (r : ℝ) ^ 2) / Real.log 4 ^ 2 := by
+      field_simp [ne_of_gt hrsq, ne_of_gt hlog4sq]
+      ring
+    rw [heq]
+    exact div_le_div_of_nonneg_right hratio hlog4sq.le
+  have hmform :
+      h * (Real.log m)⁻¹ =
+        (y - (r : ℝ) ^ 2) /
+          Real.log (((r : ℝ) ^ 2 + y) / 2) := by
+    dsimp [h, m, a]
+    ring
+  rw [← hmform]
+  exact hIntBound.trans hKh
+
+/-- Every completed square band obeys the same absolute quadrature budget. -/
+theorem abs_vfMidBandQuadratureError_le
+    {r : ℕ} (hr : 2 ≤ r) :
+    |vfMidBandQuadratureError r| ≤ vfMidTileQuadratureBound := by
+  have h := abs_vfMid_partialBandQuadratureError_le
+    (r := r) hr
+    (y := (((r + 1 : ℕ) : ℝ) ^ 2))
+    (by positivity) le_rfl
+  simpa [vfMidBandQuadratureError, vfMidBandMass, vfMidBandIntegral,
+    vfMidBandMidpoint, Nat.cast_add, Nat.cast_one] using h
+
+/-- The live band obeys the same absolute quadrature budget. -/
+theorem abs_vfMidLiveQuadratureError_le
+    {R : ℕ} (hR : 2 ≤ R) {x : ℝ}
+    (hxl : (R : ℝ) ^ 2 ≤ x)
+    (hxu : x ≤ (((R + 1 : ℕ) : ℝ) ^ 2)) :
+    |vfMidLiveQuadratureError R x| ≤ vfMidTileQuadratureBound := by
+  simpa [vfMidLiveQuadratureError, vfMidLiveIntegral] using
+    abs_vfMid_partialBandQuadratureError_le (r := R) hR hxl hxu
+
 
 /-! ## Frozen analytic statements -/
 
