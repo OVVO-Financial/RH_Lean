@@ -2527,6 +2527,261 @@ theorem arithmeticHardCoreProduct_eq_correctionProduct_mul_poissonProduct
       ac_rfl
 
 
+/-! ## Stabilized hard-core/Poisson kernels -/
+
+/-- At a pure power of its site, the arithmetic Poisson factor is the
+corresponding exponential coefficient. -/
+theorem arithmeticPoissonLocalFactor_apply_pow
+    {q : ℕ} (hq : 1 < q) (a : ℂ) (m : ℕ) :
+    arithmeticPoissonLocalFactor a hq (q ^ m) =
+      (-a) ^ m / (Nat.factorial m : ℂ) := by
+  unfold arithmeticPoissonLocalFactor poissonExponentialSeries
+  rw [liArithmeticOfPowerSeries_apply_pow hq,
+    PowerSeries.coeff_rescale, PowerSeries.coeff_exp]
+  simp [div_eq_mul_inv]
+
+/-- Away from powers of its site, one arithmetic Poisson factor vanishes. -/
+theorem arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow
+    {q n : ℕ} (hq : 1 < q) (a : ℂ)
+    (hn : ¬ ∃ m : ℕ, q ^ m = n) :
+    arithmeticPoissonLocalFactor a hq n = 0 := by
+  unfold arithmeticPoissonLocalFactor
+  rw [liArithmeticOfPowerSeries_apply hq,
+    Function.extend_apply' _ _ _ hn, Pi.zero_apply]
+
+private theorem pow_site_not_eq_of_pos_lt
+    {q n : ℕ} (hq : 1 < q) (hn : 1 ≤ n) (hnq : n < q)
+    (hn1 : n ≠ 1) :
+    ¬ ∃ m : ℕ, q ^ m = n := by
+  rintro ⟨m, hm⟩
+  cases m with
+  | zero =>
+      simp only [pow_zero] at hm
+      exact hn1 hm.symm
+  | succ m =>
+      have hqle : q ≤ q ^ (m + 1) := by
+        calc
+          q = q * 1 := by simp
+          _ ≤ q * q ^ m := by
+            exact Nat.mul_le_mul_left q
+              (Nat.one_le_pow m q (by omega))
+          _ = q ^ (m + 1) := by
+            simp [pow_succ, Nat.mul_comm]
+      rw [hm] at hqle
+      omega
+
+private theorem arithmeticHardCorePoissonCorrectionFactor_apply_of_pos_lt
+    {q n : ℕ} (hq : 1 < q) (hn : 1 ≤ n) (hnq : n < q)
+    (a : ℂ) :
+    arithmeticHardCorePoissonCorrectionFactor a hq n =
+      if n = 1 then 1 else 0 := by
+  by_cases hn1 : n = 1
+  · subst n
+    simpa using
+      (arithmeticHardCorePoissonCorrectionFactor_apply_pow hq a 0)
+  · have hnot := pow_site_not_eq_of_pos_lt hq hn hnq hn1
+    rw [arithmeticHardCorePoissonCorrectionFactor_apply_eq_zero_of_not_pow
+      hq a hnot]
+    simp [hn1]
+
+private theorem arithmeticPoissonLocalFactor_apply_of_pos_lt
+    {q n : ℕ} (hq : 1 < q) (hn : 1 ≤ n) (hnq : n < q)
+    (a : ℂ) :
+    arithmeticPoissonLocalFactor a hq n =
+      if n = 1 then 1 else 0 := by
+  by_cases hn1 : n = 1
+  · subst n
+    simpa using (arithmeticPoissonLocalFactor_apply_pow hq a 0)
+  · have hnot := pow_site_not_eq_of_pos_lt hq hn hnq hn1
+    rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow hq a hnot]
+    simp [hn1]
+
+private theorem arithmeticCoefficientCumulative_correctionFactor_mul_of_lt
+    {q Y : ℕ} (hq : 1 < q) (hY : 1 ≤ Y) (hYq : Y < q)
+    (a : ℂ) (f : ArithmeticFunction ℂ) :
+    arithmeticCoefficientCumulative
+        (arithmeticHardCorePoissonCorrectionFactor a hq * f) Y =
+      arithmeticCoefficientCumulative f Y := by
+  rw [arithmeticCoefficientCumulative_mul]
+  rw [Finset.sum_eq_single 1]
+  · have hone :=
+      arithmeticHardCorePoissonCorrectionFactor_apply_of_pos_lt
+        hq (by omega : (1 : ℕ) ≤ 1) (by omega : (1 : ℕ) < q) a
+    simp at hone
+    rw [hone]
+    simp
+  · intro n hn hn1
+    rcases Finset.mem_Icc.mp hn with ⟨hnpos, hnY⟩
+    have hnq : n < q := hnY.trans_lt hYq
+    rw [arithmeticHardCorePoissonCorrectionFactor_apply_of_pos_lt
+      hq hnpos hnq a]
+    simp [hn1]
+  · exact Finset.mem_Icc.mpr ⟨by omega, hY⟩
+
+private theorem arithmeticCoefficientCumulative_poissonFactor_mul_of_lt
+    {q Y : ℕ} (hq : 1 < q) (hY : 1 ≤ Y) (hYq : Y < q)
+    (a : ℂ) (f : ArithmeticFunction ℂ) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonLocalFactor a hq * f) Y =
+      arithmeticCoefficientCumulative f Y := by
+  rw [arithmeticCoefficientCumulative_mul]
+  rw [Finset.sum_eq_single 1]
+  · have hone :=
+      arithmeticPoissonLocalFactor_apply_of_pos_lt
+        hq (by omega : (1 : ℕ) ≤ 1) (by omega : (1 : ℕ) < q) a
+    simp at hone
+    rw [hone]
+    simp
+  · intro n hn hn1
+    rcases Finset.mem_Icc.mp hn with ⟨hnpos, hnY⟩
+    have hnq : n < q := hnY.trans_lt hYq
+    rw [arithmeticPoissonLocalFactor_apply_of_pos_lt hq hnpos hnq a]
+    simp [hn1]
+  · exact Finset.mem_Icc.mpr ⟨by omega, hY⟩
+
+private theorem
+    arithmeticHardCorePoissonCorrectionProduct_cumulative_natAdd_stable
+    (w : ℕ → ℂ) (Y g : ℕ) (hY : 1 ≤ Y) :
+    arithmeticCoefficientCumulative
+        (arithmeticHardCorePoissonCorrectionProduct w ((Y - 1) + g)) Y =
+      arithmeticCoefficientCumulative
+        (arithmeticHardCorePoissonCorrectionProduct w (Y - 1)) Y := by
+  induction g with
+  | zero =>
+      simp
+  | succ g ih =>
+      have hq : 1 < (Y - 1) + g + 2 := by omega
+      have hYq : Y < (Y - 1) + g + 2 := by omega
+      rw [show (Y - 1) + (g + 1) = ((Y - 1) + g) + 1 by omega,
+        arithmeticHardCorePoissonCorrectionProduct,
+        arithmeticCoefficientCumulative_correctionFactor_mul_of_lt
+          hq hY hYq]
+      exact ih
+
+private theorem arithmeticPoissonProduct_cumulative_natAdd_stable
+    (w : ℕ → ℂ) (Y g : ℕ) (hY : 1 ≤ Y) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w ((Y - 1) + g)) Y =
+      arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w (Y - 1)) Y := by
+  induction g with
+  | zero =>
+      simp
+  | succ g ih =>
+      have hq : 1 < (Y - 1) + g + 2 := by omega
+      have hYq : Y < (Y - 1) + g + 2 := by omega
+      rw [show (Y - 1) + (g + 1) = ((Y - 1) + g) + 1 by omega,
+        arithmeticPoissonProduct,
+        arithmeticCoefficientCumulative_poissonFactor_mul_of_lt
+          hq hY hYq]
+      exact ih
+
+private theorem
+    arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
+    (w : ℕ → ℂ) {Y X : ℕ} (hY : 1 ≤ Y) (hYX : Y ≤ X) :
+    arithmeticCoefficientCumulative
+        (arithmeticHardCorePoissonCorrectionProduct w (X - 1)) Y =
+      arithmeticCoefficientCumulative
+        (arithmeticHardCorePoissonCorrectionProduct w (Y - 1)) Y := by
+  have hidx : X - 1 = (Y - 1) + (X - Y) := by omega
+  rw [hidx]
+  exact
+    arithmeticHardCorePoissonCorrectionProduct_cumulative_natAdd_stable
+      w Y (X - Y) hY
+
+private theorem arithmeticPoissonProduct_cumulative_stable
+    (w : ℕ → ℂ) {Y X : ℕ} (hY : 1 ≤ Y) (hYX : Y ≤ X) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w (X - 1)) Y =
+      arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w (Y - 1)) Y := by
+  have hidx : X - 1 = (Y - 1) + (X - Y) := by omega
+  rw [hidx]
+  exact arithmeticPoissonProduct_cumulative_natAdd_stable
+    w Y (X - Y) hY
+
+private theorem arithmeticFunction_apply_eq_cumulative_sub
+    (f : ArithmeticFunction ℂ) {n : ℕ} (hn : 1 ≤ n) :
+    f n =
+      arithmeticCoefficientCumulative f n -
+        arithmeticCoefficientCumulative f (n - 1) := by
+  have hsum :
+      arithmeticCoefficientCumulative f n =
+        arithmeticCoefficientCumulative f (n - 1) + f n := by
+    unfold arithmeticCoefficientCumulative
+    have hpred : n - 1 + 1 = n := Nat.sub_add_cancel hn
+    calc
+      (∑ i ∈ Finset.Icc 1 n, f i) =
+          ∑ i ∈ Finset.Icc 1 (n - 1 + 1), f i := by
+            rw [hpred]
+      _ = (∑ i ∈ Finset.Icc 1 (n - 1), f i) + f (n - 1 + 1) := by
+            rw [Finset.sum_Icc_succ_top (by omega)]
+      _ = (∑ i ∈ Finset.Icc 1 (n - 1), f i) + f n := by
+            rw [hpred]
+  rw [hsum]
+  ring
+
+private theorem
+    arithmeticHardCorePoissonCorrectionProduct_apply_stable
+    (w : ℕ → ℂ) {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
+    arithmeticHardCorePoissonCorrectionProduct w (X - 1) n =
+      arithmeticHardCorePoissonCorrectionProduct w (n - 1) n := by
+  by_cases hn1 : n = 1
+  · subst n
+    have hcum :=
+      arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
+        w (Y := 1) (X := X) (by omega) hnX
+    simpa [arithmeticCoefficientCumulative] using hcum
+  · have hnm1 : 1 ≤ n - 1 := by omega
+    rw [arithmeticFunction_apply_eq_cumulative_sub _ hn,
+      arithmeticFunction_apply_eq_cumulative_sub _ hn]
+    rw [arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
+      w hn hnX]
+    rw [arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
+      w hnm1 (by omega : n - 1 ≤ X)]
+    rw [arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
+      w hnm1 (by omega : n - 1 ≤ n)]
+
+/-- The fixed correction kernel obtained by freezing each coefficient at the
+first cutoff at which it can be visible. -/
+def exactLiCorrectionKernel (n : ℕ) : ℂ :=
+  if h : 1 ≤ n then
+    arithmeticHardCorePoissonCorrectionProduct
+      primeSievePNTDensity (n - 1) n
+  else 0
+
+/-- The integer cumulative reference of the exact Poissonized Li product. -/
+def exactLiPoissonIntegerReference (X : ℕ) : ℂ :=
+  if hX : 1 ≤ X then
+    arithmeticCoefficientCumulative
+      (arithmeticPoissonProduct primeSievePNTDensity (X - 1)) X
+  else 1
+
+/-- Raising the Li cutoff above a visible coefficient does not change that
+coefficient. -/
+theorem exactLiCorrectionKernel_eq_cutoff
+    {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
+    exactLiCorrectionKernel n =
+      arithmeticHardCorePoissonCorrectionProduct
+        primeSievePNTDensity (X - 1) n := by
+  simp only [exactLiCorrectionKernel, dif_pos hn]
+  exact
+    (arithmeticHardCorePoissonCorrectionProduct_apply_stable
+      primeSievePNTDensity hn hnX).symm
+
+/-- Raising the Poisson cutoff above a positive child endpoint leaves its
+cumulative reference unchanged. -/
+theorem exactLiPoissonIntegerReference_eq_child
+    {Y X : ℕ} (hY : 1 ≤ Y) (hYX : Y ≤ X) :
+    exactLiPoissonIntegerReference Y =
+      arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct primeSievePNTDensity (X - 1)) Y := by
+  simp only [exactLiPoissonIntegerReference, dif_pos hY]
+  exact
+    (arithmeticPoissonProduct_cumulative_stable
+      primeSievePNTDensity hY hYX).symm
+
+
 /-! ## Generic critical convolution transfer -/
 
 /-- Finite multiplicative convolution at an integer endpoint. -/
