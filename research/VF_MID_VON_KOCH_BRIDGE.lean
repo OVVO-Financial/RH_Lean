@@ -7,7 +7,9 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 import Mathlib.NumberTheory.LSeries.RiemannZeta
 import Mathlib.NumberTheory.PrimeCounting
+import Mathlib.Tactic.Convert
 import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Grind
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.NormNum
 import Mathlib.Tactic.Positivity
@@ -36,7 +38,7 @@ criterion is introduced here.
 noncomputable section
 
 open Set MeasureTheory intervalIntegral
-open scoped BigOperators Interval
+open scoped BigOperators Interval Topology
 
 namespace RHLean.Analysis
 
@@ -247,13 +249,17 @@ theorem summable_nat_inv_div_log_sq :
       have hn2 : 2 ≤ n := hm2.trans hmn
       have hcast : (m : ℝ) ≤ (n : ℝ) := by exact_mod_cast hmn
       have hanti' := hanti
-        (show (m : ℝ) ∈ Ici 2 by exact_mod_cast hm2)
-        (show (n : ℝ) ∈ Ici 2 by exact_mod_cast hn2) hcast
+        (show (m : ℝ) ∈ Ici 2 by
+          change (2 : ℝ) ≤ (m : ℝ)
+          exact_mod_cast hm2)
+        (show (n : ℝ) ∈ Ici 2 by
+          change (2 : ℝ) ≤ (n : ℝ)
+          exact_mod_cast hn2) hcast
       have hn1 : n ≠ 1 := by omega
       simpa [F, f, hm1, hn1] using hanti'
   have hp :
       Summable (fun k : ℕ => 1 / (k : ℝ) ^ 2) :=
-    summable_one_div_nat_pow.mpr (by norm_num)
+    Real.summable_one_div_nat_pow.mpr (by norm_num)
   have hpShift :
       Summable (fun k : ℕ => 1 / ((k + 1 : ℕ) : ℝ) ^ 2) :=
     (summable_nat_add_iff 1).mpr hp
@@ -264,7 +270,7 @@ theorem summable_nat_inv_div_log_sq :
       Summable (fun k : ℕ =>
         (2 : ℝ) ^ (k + 1) * F (2 ^ (k + 1))) := by
     have hs :=
-      hpShift.mul_left ((Real.log (2 : ℝ))⁻²)
+      hpShift.mul_left ((Real.log (2 : ℝ) ^ 2)⁻¹)
     refine hs.congr ?_
     intro k
     have hpow : (2 : ℕ) ^ (k + 1) ≠ 1 := by
@@ -325,11 +331,9 @@ private theorem vfMidTrapError_le_of_lt
   have hdg (y : ℝ) (hy : y ∈ Icc a b) :
       HasDerivWithinAt g (dg y) (Icc a b) y := by
     unfold g vfMidTrapError vfMidTrapIntegral
-    refine fun_sub
-      (fun_mul
-        (div_const (sub_const _ (hasDerivWithinAt_id _ _)) _)
-        (const_add _ (hdf y hy).hasDerivWithinAt))
-      ?_
+    refine
+      ((div_const (sub_const _ (hasDerivWithinAt_id _ _)) _).mul
+        (const_add _ (hdf y hy).hasDerivWithinAt)).sub ?_
     have := Fact.mk hy
     apply integral_hasDerivWithinAt_right
     · exact
@@ -341,11 +345,10 @@ private theorem vfMidTrapError_le_of_lt
     let dfy := derivWithin f (Icc a b) y
     rw [(by ring :
       ddg y = (1 / 2) * dfy + ((1 / 2) * dfy + ddg y) - dfy)]
-    refine fun_sub
-      (fun_add
-        (const_mul _ (const_add _ (hdf y hy).hasDerivWithinAt))
-        (fun_mul (div_const (sub_const _ (hasDerivWithinAt_id _ _)) _) ?_))
-      (hdf y hy).hasDerivWithinAt
+    refine
+      ((const_mul _ (const_add _ (hdf y hy).hasDerivWithinAt)).add
+        ((div_const (sub_const _ (hasDerivWithinAt_id _ _)) _).mul ?_)).sub
+          (hdf y hy).hasDerivWithinAt
     rw [iteratedDerivWithin_eq_iterate]
     exact (hddf y hy).hasDerivWithinAt
   have hddgBound (x : ℝ) (hx : x ∈ Icc a b) :
