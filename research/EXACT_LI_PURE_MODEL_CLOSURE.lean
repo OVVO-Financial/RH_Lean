@@ -2905,8 +2905,7 @@ theorem tsum_norm_exactLiPoissonCoeff_critical_add_two_le_collision
   have h :=
     tsum_norm_poissonCoeff_critical_add_two_le_collision
       (q := q) (by omega : 1 ≤ q) (primeSievePNTDensity q) hz
-  rw [norm_criticalLiFrequencyWeight_sq] at h
-  simpa using h
+  simpa [norm_criticalLiFrequencyWeight_sq] using h
 
 /-- **Exact one-site Poisson cumulative recurrence.**
 Multiplying a coefficient sequence by the Poisson exponential at site `q`
