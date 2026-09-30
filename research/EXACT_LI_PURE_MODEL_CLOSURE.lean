@@ -1518,6 +1518,79 @@ theorem arithmeticCoefficientCumulative_hardCoreLocalFactor_mul
   rw [sub_mul, one_mul, arithmeticCoefficientCumulative_sub,
     arithmeticCoefficientCumulative_siteAtom_mul hq]
 
+
+/-- Finite hard-core arithmetic coefficient product over the sites
+`2,...,k+1`, in the same order as `frequencyHardCoreIterate`. -/
+def arithmeticHardCoreProduct
+    (w : ℕ → ℂ) : ℕ → ArithmeticFunction ℂ
+  | 0 => 1
+  | k + 1 =>
+      arithmeticHardCoreLocalFactor (w (k + 2)) (k + 2) *
+        arithmeticHardCoreProduct w k
+
+/-- The cumulative unit arithmetic function is one at every positive endpoint. -/
+theorem arithmeticCoefficientCumulative_one
+    {X : ℕ} (hX : 1 ≤ X) :
+    arithmeticCoefficientCumulative (1 : ArithmeticFunction ℂ) X = 1 := by
+  unfold arithmeticCoefficientCumulative
+  have h1 : (1 : ℕ) ∈ Finset.Icc 1 X :=
+    Finset.mem_Icc.mpr ⟨le_rfl, hX⟩
+  simp [ArithmeticFunction.one_apply, h1]
+
+/-- **Exact global hard-core coefficient realization.**
+At every positive endpoint, the cumulative finite Euler coefficient product is
+literally the same state produced by the recursive activated hard-core
+operators. -/
+theorem arithmeticHardCoreProduct_cumulative_eq_frequencyHardCoreIterate
+    (w : ℕ → ℂ) (k X : ℕ) (hX : 1 ≤ X) :
+    arithmeticCoefficientCumulative (arithmeticHardCoreProduct w k) X =
+      frequencyHardCoreIterate w k (fun _ => 1) X := by
+  induction k generalizing X with
+  | zero =>
+      simp [arithmeticHardCoreProduct, frequencyHardCoreIterate,
+        arithmeticCoefficientCumulative_one hX]
+  | succ k ih =>
+      rw [arithmeticHardCoreProduct,
+        arithmeticCoefficientCumulative_hardCoreLocalFactor_mul
+          (q := k + 2) (by omega : 1 ≤ k + 2)]
+      change
+        arithmeticCoefficientCumulative (arithmeticHardCoreProduct w k) X -
+            w (k + 2) *
+              arithmeticCoefficientCumulative
+                (arithmeticHardCoreProduct w k) (X / (k + 2)) =
+          frequencyHardCoreUpdate (w (k + 2)) (k + 2)
+            (frequencyHardCoreIterate w k (fun _ => 1)) X
+      rw [ih X hX]
+      unfold frequencyHardCoreUpdate
+      by_cases henter : k + 2 ≤ X
+      · have hqpos : 0 < k + 2 := by omega
+        have hchild : 1 ≤ X / (k + 2) :=
+          (Nat.one_le_div_iff hqpos).2 henter
+        rw [ih (X / (k + 2)) hchild]
+        simp [activatedFloorChild, henter]
+      · have hlt : X < k + 2 := lt_of_not_ge henter
+        have hdiv : X / (k + 2) = 0 := Nat.div_eq_of_lt hlt
+        rw [hdiv]
+        simp [activatedFloorChild, henter,
+          arithmeticCoefficientCumulative]
+
+/-- Every all-scale Li state diagonal is exactly the cumulative hard-core
+arithmetic coefficient product through the same cutoff. -/
+theorem allScaleLiState_diagonal_eq_hardCoreProductCumulative
+    {L : ℕ → ℕ → ℂ} (X : ℕ) (hX : 1 ≤ X)
+    (hL : IsAllScaleLiState L) :
+    L X X =
+      arithmeticCoefficientCumulative
+        (arithmeticHardCoreProduct primeSievePNTDensity (X - 1)) X := by
+  have hiter :=
+    primeFrequencyState_eq_hardCoreIterate hL (X - 1) X
+  have hpred : X - 1 + 1 = X := Nat.sub_add_cancel hX
+  rw [hpred] at hiter
+  rw [hiter]
+  symm
+  exact arithmeticHardCoreProduct_cumulative_eq_frequencyHardCoreIterate
+    primeSievePNTDensity (X - 1) X hX
+
 /-! ## Generic critical convolution transfer -/
 
 /-- Finite multiplicative convolution at an integer endpoint. -/
