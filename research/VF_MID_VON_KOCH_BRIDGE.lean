@@ -296,7 +296,6 @@ theorem abs_vfMid_partialBandQuadratureError_le
         (Real.log 4 ^ 2)⁻¹ * ((r : ℝ) ^ 2)⁻¹ = K := by
       dsimp [K, a]
       field_simp
-      ring
     rw [hKnorm] at hLip
     simpa [Real.norm_eq_abs, abs_sub_comm] using hLip
   have hwidth : 0 ≤ h := by dsimp [h, a]; linarith
@@ -375,7 +374,11 @@ theorem abs_vfMidBandQuadratureError_le
       nlinarith)
     le_rfl
   unfold vfMidBandQuadratureError vfMidBandMass vfMidBandIntegral vfMidBandMidpoint
-  convert h using 1 <;> norm_num [Nat.cast_add, Nat.cast_one] <;> ring
+  convert h using 1
+  · norm_num [Nat.cast_add, Nat.cast_one]
+    ring
+  · norm_num [Nat.cast_add, Nat.cast_one]
+    ring
 
 /-- The live band obeys the same absolute quadrature budget. -/
 theorem abs_vfMidLiveQuadratureError_le
