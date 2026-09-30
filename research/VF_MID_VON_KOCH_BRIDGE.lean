@@ -107,6 +107,21 @@ def vfMidLiError (x : ℝ) : ℝ :=
 def vfMidPrimeLiError (x : ℝ) : ℝ :=
   vfMidPrimeCount x - logarithmicIntegralFromTwo x
 
+/-- At integer cutoffs, the real staircase is exactly the real part of the
+repository's existing prefix prime count. -/
+theorem vfMidPrimeCount_nat (N : ℕ) :
+    vfMidPrimeCount (N : ℝ) = (primeSievePrefixPrimeCount N).re := by
+  rw [primeSievePrefixPrimeCount_eq_card]
+  simp [vfMidPrimeCount]
+
+/-- At integer cutoffs, the new real prime-minus-Li field is exactly the real
+part of the repository's existing classical prime discrepancy. -/
+theorem vfMidPrimeLiError_nat (N : ℕ) :
+    vfMidPrimeLiError (N : ℝ) = (primeSievePrimeDiscrepancy N).re := by
+  unfold vfMidPrimeLiError primeSievePrimeDiscrepancy
+  rw [vfMidPrimeCount_nat]
+  simp
+
 /-- The exact algebraic decomposition: prime-minus-Li is
 prime-minus-VF plus VF-minus-Li. -/
 theorem vfMidPrimeLiError_eq_primeError_add_liError (x : ℝ) :
