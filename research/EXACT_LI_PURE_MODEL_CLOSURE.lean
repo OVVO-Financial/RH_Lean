@@ -1453,6 +1453,71 @@ theorem arithmeticCoefficientCumulative_mul
   rw [← Finset.mul_sum]
 
 
+
+/-- Cumulative coefficient mass is linear under subtraction. -/
+theorem arithmeticCoefficientCumulative_sub
+    (f g : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative (f - g) X =
+      arithmeticCoefficientCumulative f X -
+        arithmeticCoefficientCumulative g X := by
+  unfold arithmeticCoefficientCumulative
+  rw [← Finset.sum_sub_distrib]
+  rfl
+
+/-- One coefficient atom at a positive multiplicative site.  The explicit
+`q ≠ 0` guard makes this an arithmetic function for all natural `q`; all
+hard-core uses below have `q ≥ 1`. -/
+def arithmeticSiteAtom (q : ℕ) (a : ℂ) : ArithmeticFunction ℂ :=
+  ⟨fun n => if n = q ∧ q ≠ 0 then a else 0, by simp⟩
+
+@[simp] theorem arithmeticSiteAtom_apply_of_pos
+    {q : ℕ} (hq : 1 ≤ q) (a : ℂ) (n : ℕ) :
+    arithmeticSiteAtom q a n = if n = q then a else 0 := by
+  unfold arithmeticSiteAtom
+  have hq0 : q ≠ 0 := by omega
+  by_cases hn : n = q
+  · simp [hn, hq0]
+  · simp [hn]
+
+/-- Convolving with one positive-site atom shifts the cumulative endpoint by
+the exact floor quotient. -/
+theorem arithmeticCoefficientCumulative_siteAtom_mul
+    {q : ℕ} (hq : 1 ≤ q) (a : ℂ)
+    (f : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative (arithmeticSiteAtom q a * f) X =
+      a * arithmeticCoefficientCumulative f (X / q) := by
+  rw [arithmeticCoefficientCumulative_mul]
+  by_cases hqX : q ≤ X
+  · have hqmem : q ∈ Finset.Icc 1 X :=
+      Finset.mem_Icc.mpr ⟨hq, hqX⟩
+    simp [arithmeticSiteAtom_apply_of_pos hq, hqmem]
+  · have hXq : X < q := lt_of_not_ge hqX
+    have hdiv : X / q = 0 := Nat.div_eq_of_lt hXq
+    have hqnot : q ∉ Finset.Icc 1 X := by
+      simp [Finset.mem_Icc, hqX]
+    rw [hdiv]
+    simp [arithmeticCoefficientCumulative,
+      arithmeticSiteAtom_apply_of_pos hq, hqnot]
+
+/-- One exact hard-core Euler coefficient factor `1 - a δ_q`. -/
+def arithmeticHardCoreLocalFactor
+    (a : ℂ) (q : ℕ) : ArithmeticFunction ℂ :=
+  1 - arithmeticSiteAtom q a
+
+/-- **Coefficient-level hard-core update identity.**
+Cumulative multiplication by `1-a δ_q` is exactly the activated floor
+update used by the all-scale frequency recursion. -/
+theorem arithmeticCoefficientCumulative_hardCoreLocalFactor_mul
+    {q : ℕ} (hq : 1 ≤ q) (a : ℂ)
+    (f : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative
+        (arithmeticHardCoreLocalFactor a q * f) X =
+      arithmeticCoefficientCumulative f X -
+        a * arithmeticCoefficientCumulative f (X / q) := by
+  unfold arithmeticHardCoreLocalFactor
+  rw [sub_mul, one_mul, arithmeticCoefficientCumulative_sub,
+    arithmeticCoefficientCumulative_siteAtom_mul hq]
+
 /-! ## Generic critical convolution transfer -/
 
 /-- Finite multiplicative convolution at an integer endpoint. -/
