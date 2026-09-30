@@ -1454,6 +1454,41 @@ theorem hardCorePoissonCorrectionSeries_mul_poissonExponentialSeries
   simp
 
 
+/-- The coefficient formula used by the quadratic variation budget is exactly
+the coefficient sequence of the formal correction series above. -/
+theorem coeff_hardCorePoissonCorrectionSeries
+    (z : ℂ) (m : ℕ) :
+    PowerSeries.coeff m (hardCorePoissonCorrectionSeries z) =
+      hardCorePoissonCorrectionCoeff z m := by
+  cases m with
+  | zero =>
+      simp [hardCorePoissonCorrectionSeries,
+        hardCorePoissonCorrectionCoeff]
+  | succ n =>
+      let E : PowerSeries ℂ :=
+        PowerSeries.rescale z (PowerSeries.exp ℂ)
+      have hE (k : ℕ) :
+          PowerSeries.coeff k E =
+            z ^ k / (Nat.factorial k : ℂ) := by
+        dsimp [E]
+        rw [PowerSeries.coeff_rescale, PowerSeries.coeff_exp]
+        simp [div_eq_mul_inv]
+      change
+        PowerSeries.coeff (n + 1)
+            ((1 - PowerSeries.C z * PowerSeries.X) * E) =
+          ((1 : ℂ) - ((n + 1 : ℕ) : ℂ)) * z ^ (n + 1) /
+            (Nat.factorial (n + 1) : ℂ)
+      rw [sub_mul, one_mul]
+      simp only [map_sub]
+      rw [mul_assoc, PowerSeries.coeff_C_mul,
+        PowerSeries.coeff_succ_X_mul, hE, hE, Nat.factorial_succ]
+      push_cast
+      have hfac : (Nat.factorial n : ℂ) ≠ 0 := by
+        exact_mod_cast Nat.factorial_ne_zero n
+      field_simp [hfac]
+      ring
+
+
 
 /-! ## Arithmetic-function coefficient factorization bridge -/
 
