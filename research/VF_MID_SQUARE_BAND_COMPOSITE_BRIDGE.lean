@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_VON_KOCH_BRIDGE»
 import RHLean.Proof.LowWheelHighPrimeSurvivor
+import RHLean.Analysis.SquareRootPrimeCountGap
 
 /-!
 # VF-mid square-band composite complement
@@ -42,7 +43,10 @@ def vfMidSquareBandComposites (R : ℕ) : Finset ℕ :=
 theorem vfMidSquareBandSites_card (R : ℕ) :
     (vfMidSquareBandSites R).card = 2 * R := by
   unfold vfMidSquareBandSites
-  rw [Finset.card_Ioo]
+  rw [Nat.card_Ioo]
+  have hsq : (R + 1) ^ 2 = R ^ 2 + (2 * R + 1) := by
+    ring
+  rw [hsq]
   omega
 
 /-- Prime and composite sites partition the complete square band exactly. -/
@@ -51,7 +55,16 @@ theorem vfMidSquareBand_prime_composite_partition (R : ℕ) :
       vfMidSquareBandSites R := by
   classical
   ext n
-  simp [vfMidSquareBandPrimes, vfMidSquareBandComposites]
+  simp only [vfMidSquareBandPrimes, vfMidSquareBandComposites,
+    Finset.mem_union, Finset.mem_filter]
+  constructor
+  · rintro (h | h)
+    · exact h.1
+    · exact h.1
+  · intro hn
+    by_cases hp : n.Prime
+    · exact Or.inl ⟨hn, hp⟩
+    · exact Or.inr ⟨hn, hp⟩
 
 /-- The prime and composite populations in one complete square band are
 disjoint. -/
@@ -93,9 +106,11 @@ theorem vfMidSquareBand_prime_card_add_primeCounting_sq (R : ℕ) :
         intro hn
         subst n
         have hcomp : ¬ ((R + 1) ^ 2).Prime := by
-          exact Nat.not_prime_pow' (R + 1) 2 (by omega)
+          intro hsqPrime
+          have hexp := hsqPrime.eq_one_of_pow
+          omega
         exact hcomp hp
-      exact ⟨⟨hlow, lt_of_le_of_ne hhigh (Ne.symm hne)⟩, hp⟩
+      exact ⟨⟨hlow, lt_of_le_of_ne hhigh hne⟩, hp⟩
     · rintro ⟨⟨hlow, hhigh⟩, hp⟩
       exact ⟨⟨hlow, hhigh.le⟩, hp⟩
   rw [hset] at h
@@ -118,16 +133,22 @@ theorem vfMidSquareBand_lowWheelSurvivor_iff_prime
   exact lowWheelHighSurvivor_iff_prime (R := R + 1) (q := n)
     (by omega) hlow hhigh
 
+/-- Survivor set for the completed low wheel used by the legacy
+square-band bridge. -/
+def vfMidSquareBandLowWheelSurvivors (R : ℕ) : Finset ℕ := by
+  classical
+  exact (vfMidSquareBandSites R).filter (lowWheelHighSurvivor (R + 1))
+
 /-- The prime population of a square band is exactly the survivor population
 of the completed low wheel.  This is the finite sieve form of the
 prime/composite complement. -/
 theorem vfMidSquareBandPrimes_eq_lowWheelSurvivors
     (R : ℕ) (hR : 2 ≤ R) :
-    vfMidSquareBandPrimes R =
-      (vfMidSquareBandSites R).filter (lowWheelHighSurvivor (R + 1)) := by
+    vfMidSquareBandPrimes R = vfMidSquareBandLowWheelSurvivors R := by
   classical
   ext n
-  simp only [vfMidSquareBandPrimes, Finset.mem_filter]
+  simp only [vfMidSquareBandPrimes, vfMidSquareBandLowWheelSurvivors,
+    Finset.mem_filter]
   constructor
   · rintro ⟨hn, hp⟩
     exact ⟨hn, (vfMidSquareBand_lowWheelSurvivor_iff_prime hR hn).2 hp⟩
@@ -169,8 +190,8 @@ theorem vfMidSquareEndpointError_succ
           (Nat.primeCounting (R ^ 2) : ℝ) =
         (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
     exact_mod_cast hp
-  rw [vfMidFinishedMass_succ hR]
   unfold vfMidSquareEndpointError vfMidSquareBandError
+  rw [vfMidFinishedMass_succ hR]
   linarith
 
 /-- The recurrence can be written with no prime indicator at all: the next
