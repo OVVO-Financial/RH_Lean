@@ -2550,7 +2550,7 @@ theorem arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow
     Function.extend_apply' _ _ _ hn, Pi.zero_apply]
 
 private theorem pow_site_not_eq_of_pos_lt
-    {q n : ℕ} (hq : 1 < q) (hn : 1 ≤ n) (hnq : n < q)
+    {q n : ℕ} (hq : 1 < q) (hnq : n < q)
     (hn1 : n ≠ 1) :
     ¬ ∃ m : ℕ, q ^ m = n := by
   rintro ⟨m, hm⟩
@@ -2579,7 +2579,7 @@ private theorem arithmeticHardCorePoissonCorrectionFactor_apply_of_pos_lt
   · subst n
     simpa using
       (arithmeticHardCorePoissonCorrectionFactor_apply_pow hq a 0)
-  · have hnot := pow_site_not_eq_of_pos_lt hq hn hnq hn1
+  · have hnot := pow_site_not_eq_of_pos_lt hq hnq hn1
     rw [arithmeticHardCorePoissonCorrectionFactor_apply_eq_zero_of_not_pow
       hq a hnot]
     simp [hn1]
@@ -2592,7 +2592,7 @@ private theorem arithmeticPoissonLocalFactor_apply_of_pos_lt
   by_cases hn1 : n = 1
   · subst n
     simpa using (arithmeticPoissonLocalFactor_apply_pow hq a 0)
-  · have hnot := pow_site_not_eq_of_pos_lt hq hn hnq hn1
+  · have hnot := pow_site_not_eq_of_pos_lt hq hnq hn1
     rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow hq a hnot]
     simp [hn1]
 
@@ -2616,7 +2616,7 @@ private theorem arithmeticCoefficientCumulative_correctionFactor_mul_of_lt
     rw [arithmeticHardCorePoissonCorrectionFactor_apply_of_pos_lt
       hq hnpos hnq a]
     simp [hn1]
-  · exact Finset.mem_Icc.mpr ⟨by omega, hY⟩
+  · exact Finset.mem_Icc.mpr ⟨le_rfl, hY⟩
 
 private theorem arithmeticCoefficientCumulative_poissonFactor_mul_of_lt
     {q Y : ℕ} (hq : 1 < q) (hY : 1 ≤ Y) (hYq : Y < q)
@@ -2637,7 +2637,7 @@ private theorem arithmeticCoefficientCumulative_poissonFactor_mul_of_lt
     have hnq : n < q := hnY.trans_lt hYq
     rw [arithmeticPoissonLocalFactor_apply_of_pos_lt hq hnpos hnq a]
     simp [hn1]
-  · exact Finset.mem_Icc.mpr ⟨by omega, hY⟩
+  · exact Finset.mem_Icc.mpr ⟨le_rfl, hY⟩
 
 private theorem
     arithmeticHardCorePoissonCorrectionProduct_cumulative_natAdd_stable
@@ -2745,14 +2745,14 @@ private theorem
 /-- The fixed correction kernel obtained by freezing each coefficient at the
 first cutoff at which it can be visible. -/
 def exactLiCorrectionKernel (n : ℕ) : ℂ :=
-  if h : 1 ≤ n then
+  if 1 ≤ n then
     arithmeticHardCorePoissonCorrectionProduct
       primeSievePNTDensity (n - 1) n
   else 0
 
 /-- The integer cumulative reference of the exact Poissonized Li product. -/
 def exactLiPoissonIntegerReference (X : ℕ) : ℂ :=
-  if hX : 1 ≤ X then
+  if 1 ≤ X then
     arithmeticCoefficientCumulative
       (arithmeticPoissonProduct primeSievePNTDensity (X - 1)) X
   else 1
@@ -2764,7 +2764,7 @@ theorem exactLiCorrectionKernel_eq_cutoff
     exactLiCorrectionKernel n =
       arithmeticHardCorePoissonCorrectionProduct
         primeSievePNTDensity (X - 1) n := by
-  simp only [exactLiCorrectionKernel, dif_pos hn]
+  simp only [exactLiCorrectionKernel, if_pos hn]
   exact
     (arithmeticHardCorePoissonCorrectionProduct_apply_stable
       primeSievePNTDensity hn hnX).symm
@@ -2776,7 +2776,7 @@ theorem exactLiPoissonIntegerReference_eq_child
     exactLiPoissonIntegerReference Y =
       arithmeticCoefficientCumulative
         (arithmeticPoissonProduct primeSievePNTDensity (X - 1)) Y := by
-  simp only [exactLiPoissonIntegerReference, dif_pos hY]
+  simp only [exactLiPoissonIntegerReference, if_pos hY]
   exact
     (arithmeticPoissonProduct_cumulative_stable
       primeSievePNTDensity hY hYX).symm
@@ -3240,7 +3240,6 @@ theorem norm_finiteMultiplicativeConvolution_le_sqrt_of_sqrtRef
             _ = (B * Real.sqrt (X : ℝ)) *
                   (‖h n‖ / Real.sqrt (n : ℝ)) := by
               field_simp [hsqrtnne]
-              ring
     _ = (B * Real.sqrt (X : ℝ)) *
           criticalWeightedVariation h X := by
           unfold criticalWeightedVariation
