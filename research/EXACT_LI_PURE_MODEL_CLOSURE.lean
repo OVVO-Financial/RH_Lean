@@ -3336,6 +3336,12 @@ theorem allScaleLiState_diagonal_eq_poissonConvolution
   have hchild1 : 1 ≤ X / n :=
     (Nat.one_le_div_iff hnpos).2 hnX
   have hchildX : X / n ≤ X := Nat.div_le_self X n
+  change
+    arithmeticHardCorePoissonCorrectionProduct
+        primeSievePNTDensity (X - 1) n *
+      arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct primeSievePNTDensity (X - 1)) (X / n) =
+      exactLiCorrectionKernel n * exactLiPoissonIntegerReference (X / n)
   rw [← exactLiCorrectionKernel_eq_cutoff hn1 hnX,
     ← exactLiPoissonIntegerReference_eq_child hchild1 hchildX]
 
