@@ -416,4 +416,156 @@ theorem abs_vfMidDirectLogPositionPrefix_le (R : ℕ) :
       exact mul_le_mul_of_nonneg_right hcardR (by positivity)
     _ = (9 / Real.log 4) * (R : ℝ) := by ring
 
+/-! ## Accumulating the direct band dynamics back to D_R -/
+
+/-- Exact square-endpoint discrepancy D_R = pi(R^2) - VF_mid(R^2). -/
+def vfMidDirectSquareEndpointError (R : ℕ) : ℝ :=
+  (Nat.primeCounting (R ^ 2) : ℝ) - vfMidFinishedMass R
+
+/-- The direct square-endpoint coordinate is literally the existing VF-mid
+prime error at R^2. -/
+theorem vfMidDirectSquareEndpointError_eq_vfMidPrimeError
+    {R : ℕ} (hR : 2 ≤ R) :
+    vfMidDirectSquareEndpointError R =
+      vfMidPrimeError ((R : ℝ) ^ 2) := by
+  unfold vfMidDirectSquareEndpointError vfMidPrimeError
+  rw [vfMid_sq hR]
+  have hcount :
+      vfMidPrimeCount ((R : ℝ) ^ 2) =
+        (Nat.primeCounting (R ^ 2) : ℝ) := by
+    simp [vfMidPrimeCount, ← Nat.cast_pow]
+  rw [hcount]
+
+/-- Exact recurrence D_(R+1) = D_R + epsilon_R. -/
+theorem vfMidDirectSquareEndpointError_succ
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidDirectSquareEndpointError (R + 1) =
+      vfMidDirectSquareEndpointError R + vfMidDirectBandError R := by
+  have hp := vfMidDirectPrimeBand_card_add_primeCounting_eq R
+  have hpR :
+      ((vfMidDirectPrimeBand R).card : ℝ) +
+          (Nat.primeCounting (R ^ 2) : ℝ) =
+        (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
+    exact_mod_cast hp
+  rw [vfMidFinishedMass_succ hR]
+  unfold vfMidDirectSquareEndpointError vfMidDirectBandError
+    vfMidDirectPrimeBandCount
+  linarith
+
+/-- Generic finite-difference telescope on a natural interval. -/
+private theorem vfMidDirect_sum_increment_Ico
+    (f : ℕ → ℝ) {a b : ℕ} (hab : a ≤ b) :
+    (∑ k ∈ Finset.Ico a b, (f (k + 1) - f k)) =
+      f b - f a := by
+  rw [Finset.sum_Ico_eq_sub _ hab, Finset.sum_range_sub f b,
+    Finset.sum_range_sub f a]
+  abel
+
+/-- Cumulative signed square-band error. -/
+def vfMidDirectBandErrorPrefix (R : ℕ) : ℝ :=
+  ∑ r ∈ Finset.Ico 2 R, vfMidDirectBandError r
+
+/-- The signed band errors telescope exactly to the square-endpoint error. -/
+theorem vfMidDirectBandErrorPrefix_eq_endpoint_sub
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidDirectBandErrorPrefix R =
+      vfMidDirectSquareEndpointError R -
+        vfMidDirectSquareEndpointError 2 := by
+  unfold vfMidDirectBandErrorPrefix
+  calc
+    (∑ r ∈ Finset.Ico 2 R, vfMidDirectBandError r) =
+        ∑ r ∈ Finset.Ico 2 R,
+          (vfMidDirectSquareEndpointError (r + 1) -
+            vfMidDirectSquareEndpointError r) := by
+      apply Finset.sum_congr rfl
+      intro r hr
+      have hr2 : 2 ≤ r := (Finset.mem_Ico.mp hr).1
+      rw [vfMidDirectSquareEndpointError_succ r hr2]
+      ring
+    _ = vfMidDirectSquareEndpointError R -
+          vfMidDirectSquareEndpointError 2 :=
+      vfMidDirect_sum_increment_Ico vfMidDirectSquareEndpointError hR
+
+/-- The only RH-scale term left after exact log reweighting. -/
+def vfMidDirectThetaWeightedPrefix (R : ℕ) : ℝ :=
+  ∑ r ∈ Finset.Ico 2 R,
+    vfMidDirectThetaBandError r / Real.log (vfMidBandMidpoint r)
+
+/-- Exact cumulative split: raw signed prime-count error equals weighted
+centered theta mass plus the within-band prime-location correction. -/
+theorem vfMidDirectBandErrorPrefix_eq_theta_add_position
+    (R : ℕ) :
+    vfMidDirectBandErrorPrefix R =
+      vfMidDirectThetaWeightedPrefix R +
+        vfMidDirectLogPositionPrefix R := by
+  unfold vfMidDirectBandErrorPrefix vfMidDirectThetaWeightedPrefix
+    vfMidDirectLogPositionPrefix
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  exact vfMidDirectBandError_eq_theta_add_position r
+
+/-- **Direct endpoint reduction.**
+
+This is the requested D_R attack in exact finite form:
+D_R is its fixed base value plus the weighted signed theta-band sum plus a
+location term already proved to be only O(R). -/
+theorem vfMidDirectSquareEndpointError_eq_base_add_theta_add_position
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidDirectSquareEndpointError R =
+      vfMidDirectSquareEndpointError 2 +
+        vfMidDirectThetaWeightedPrefix R +
+        vfMidDirectLogPositionPrefix R := by
+  have htel := vfMidDirectBandErrorPrefix_eq_endpoint_sub R hR
+  have hsplit := vfMidDirectBandErrorPrefix_eq_theta_add_position R
+  linarith
+
+/-- The exact theta-band term is the first difference of the square-endpoint
+theta error inside the weighted prefix. -/
+theorem vfMidDirectThetaWeightedPrefix_eq_endpointDiff
+    (R : ℕ) :
+    vfMidDirectThetaWeightedPrefix R =
+      ∑ r ∈ Finset.Ico 2 R,
+        (vfMidDirectThetaEndpointError (r + 1) -
+            vfMidDirectThetaEndpointError r) /
+          Real.log (vfMidBandMidpoint r) := by
+  unfold vfMidDirectThetaWeightedPrefix
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [vfMidDirectThetaBandError_eq_endpoint_diff]
+
+/-- **Root-scale remainder theorem for D_R itself.**
+
+Up to an explicit O(R) term, the actual VF-mid square-endpoint discrepancy is
+exactly the slowly weighted first differences of
+theta(R^2) - R^2. -/
+theorem abs_vfMidDirectSquareEndpointError_sub_thetaWeighted_le
+    (R : ℕ) (hR : 2 ≤ R) :
+    |vfMidDirectSquareEndpointError R -
+        vfMidDirectSquareEndpointError 2 -
+        vfMidDirectThetaWeightedPrefix R| ≤
+      (9 / Real.log 4) * (R : ℝ) := by
+  have heq :=
+    vfMidDirectSquareEndpointError_eq_base_add_theta_add_position R hR
+  have hpos := abs_vfMidDirectLogPositionPrefix_le R
+  have hrearr :
+      vfMidDirectSquareEndpointError R -
+          vfMidDirectSquareEndpointError 2 -
+          vfMidDirectThetaWeightedPrefix R =
+        vfMidDirectLogPositionPrefix R := by
+    linarith
+  rw [hrearr]
+  exact hpos
+
+/-- The same root-scale reduction stated directly in the existing
+vfMidPrimeError coordinate used by the #823 endpoint theorem. -/
+theorem abs_vfMidPrimeError_sq_sub_directThetaWeighted_le
+    (R : ℕ) (hR : 2 ≤ R) :
+    |vfMidPrimeError ((R : ℝ) ^ 2) -
+        vfMidDirectSquareEndpointError 2 -
+        vfMidDirectThetaWeightedPrefix R| ≤
+      (9 / Real.log 4) * (R : ℝ) := by
+  rw [← vfMidDirectSquareEndpointError_eq_vfMidPrimeError hR]
+  exact abs_vfMidDirectSquareEndpointError_sub_thetaWeighted_le R hR
+
 end RHLean.Analysis
