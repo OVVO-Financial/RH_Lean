@@ -4977,17 +4977,21 @@ theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq
     ext n
     simp only [Finset.mem_Icc, Finset.mem_insert]
     omega
-  unfold sampledCriticalPrefix
-  rw [hIcc, Finset.sum_insert]
-  · simp only [exactLiPoissonIntegerReference_one_sub_zero, zero_div,
-      zero_add]
-    apply Finset.sum_congr rfl
-    intro n hn
-    have hn2 : 2 ≤ n := (Finset.mem_Icc.mp hn).1
-    rw [exactLiPoissonIntegerReference_sub_pred_eq_coefficient hn2]
-  · intro hmem
+  have hnot : 1 ∉ Finset.Icc 2 N := by
+    intro hmem
     have htwo : 2 ≤ (1 : ℕ) := (Finset.mem_Icc.mp hmem).1
     omega
+  have hfirst :
+      (exactLiPoissonIntegerReference 1 -
+          exactLiPoissonIntegerReference (1 - 1)) /
+          (Real.sqrt ((1 : ℕ) : ℝ) : ℂ) = 0 := by
+    norm_num
+  unfold sampledCriticalPrefix
+  rw [hIcc, Finset.sum_insert hnot, hfirst, zero_add]
+  apply Finset.sum_congr rfl
+  intro n hn
+  have hn2 : 2 ≤ n := (Finset.mem_Icc.mp hn).1
+  rw [exactLiPoissonIntegerReference_sub_pred_eq_coefficient hn2]
 
 /-- **Exact critical Poisson reduction.**
 The native sampled critical prefix of the original Poisson reference is
