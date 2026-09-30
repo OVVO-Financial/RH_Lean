@@ -817,6 +817,66 @@ theorem primeLiVonKochBounded_of_vfMid
           add_le_add_left hroot _
         _ = (C + B / ell) * Real.sqrt x * Real.log x := by ring
 
+/-- Conversely, the classical prime-minus-Li von-Koch bound and the proved
+root-scale midpoint quadrature bound give the VF_mid von-Koch bound. Thus the
+midpoint model has not weakened the RH-scale arithmetic requirement. -/
+theorem vfMidVonKochBounded_of_primeLi
+    (hprime : PrimeLiVonKochBoundedStatement) :
+    VFMidVonKochBoundedStatement := by
+  rcases hprime with ⟨C, hC0, hC⟩
+  rcases vfMidLiRootBounded with ⟨B, hB0, hB⟩
+  let ell : ℝ := Real.log 4
+  have hell0 : 0 < ell := by
+    dsimp [ell]
+    exact Real.log_pos (by norm_num)
+  refine ⟨C + B / ell, add_nonneg hC0 (div_nonneg hB0 hell0.le), ?_⟩
+  intro x hx
+  have hlog : ell ≤ Real.log x := by
+    dsimp [ell]
+    exact Real.log_le_log (by norm_num) hx
+  have hsqrt0 : 0 ≤ Real.sqrt x := Real.sqrt_nonneg x
+  have hcoef0 : 0 ≤ (B / ell) * Real.sqrt x :=
+    mul_nonneg (div_nonneg hB0 hell0.le) hsqrt0
+  have hroot :
+      B * Real.sqrt x ≤ (B / ell) * Real.sqrt x * Real.log x := by
+    have hm := mul_le_mul_of_nonneg_left hlog hcoef0
+    have heq : (B / ell) * Real.sqrt x * ell = B * Real.sqrt x := by
+      field_simp [hell0.ne']
+    linarith
+  have herr :
+      vfMidPrimeError x = vfMidPrimeLiError x - vfMidLiError x := by
+    have hsum := vfMidPrimeLiError_eq_primeError_add_liError x
+    linarith
+  calc
+    |vfMidPrimeError x|
+        = |vfMidPrimeLiError x - vfMidLiError x| := by rw [herr]
+    _ ≤ |vfMidPrimeLiError x| + |vfMidLiError x| := abs_sub _ _
+    _ ≤ C * Real.sqrt x * Real.log x + B * Real.sqrt x :=
+      add_le_add (hC x hx) (hB x hx)
+    _ ≤ (C + B / ell) * Real.sqrt x * Real.log x := by
+      calc
+        C * Real.sqrt x * Real.log x + B * Real.sqrt x
+            ≤ C * Real.sqrt x * Real.log x +
+                (B / ell) * Real.sqrt x * Real.log x :=
+          add_le_add_left hroot _
+        _ = (C + B / ell) * Real.sqrt x * Real.log x := by ring
+
+/-- With the unconditional midpoint quadrature theorem installed, the direct
+VF_mid target is quantitatively equivalent to the classical von-Koch
+prime-counting error bound. -/
+theorem vfMidVonKochBounded_iff_primeLiVonKochBounded :
+    VFMidVonKochBoundedStatement ↔ PrimeLiVonKochBoundedStatement :=
+  ⟨primeLiVonKochBounded_of_vfMid vfMidLiRootBounded,
+    vfMidVonKochBounded_of_primeLi⟩
+
+/-- The square-endpoint target isolated by the direct route is therefore
+equivalent to the classical prime-minus-Li von-Koch bound as well. -/
+theorem vfMidSquareEndpointVonKochBounded_iff_primeLiVonKochBounded :
+    VFMidSquareEndpointVonKochBoundedStatement ↔
+      PrimeLiVonKochBoundedStatement := by
+  rw [vfMidSquareEndpointVonKochBounded_iff,
+    vfMidVonKochBounded_iff_primeLiVonKochBounded]
+
 /-- Once the unconditional quadrature bridge is kernel-checked, the only
 remaining hypothesis in this route is VFMidVonKochBoundedStatement. -/
 theorem riemannHypothesis_of_vfMidVonKoch
