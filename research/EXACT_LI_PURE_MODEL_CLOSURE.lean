@@ -3172,6 +3172,121 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
 
 
 
+
+/-- A reference cumulative model is bounded at the exact square-root scale. -/
+def SquareRootReferenceBounded (M : ℕ → ℂ) : Prop :=
+  ∃ B : ℝ, 0 ≤ B ∧
+    ∀ X : ℕ, ‖M X‖ ≤ B * Real.sqrt (X : ℝ)
+
+/-- **Critical convolution transfer with a square-root reference.**
+The floor child loses exactly one square-root divisor weight, so the same
+critical variation controls a square-root-sized reference. -/
+theorem norm_finiteMultiplicativeConvolution_le_sqrt_of_sqrtRef
+    (h M : ℕ → ℂ) (B H : ℝ)
+    (hB : 0 ≤ B)
+    (hM : ∀ m : ℕ, ‖M m‖ ≤ B * Real.sqrt (m : ℝ))
+    (hvar : ∀ X : ℕ, criticalWeightedVariation h X ≤ H)
+    (X : ℕ) :
+    ‖finiteMultiplicativeConvolution h M X‖ ≤
+      B * Real.sqrt (X : ℝ) * H := by
+  have hH : 0 ≤ H := by
+    have h0 := hvar 0
+    simpa [criticalWeightedVariation] using h0
+  unfold finiteMultiplicativeConvolution
+  calc
+    ‖∑ n ∈ Finset.Icc 1 X, h n * M (X / n)‖
+        ≤ ∑ n ∈ Finset.Icc 1 X, ‖h n * M (X / n)‖ :=
+          norm_sum_le _ _
+    _ = ∑ n ∈ Finset.Icc 1 X, ‖h n‖ * ‖M (X / n)‖ := by
+          apply Finset.sum_congr rfl
+          intro n hn
+          rw [norm_mul]
+    _ ≤ ∑ n ∈ Finset.Icc 1 X,
+          (B * Real.sqrt (X : ℝ)) *
+            (‖h n‖ / Real.sqrt (n : ℝ)) := by
+          apply Finset.sum_le_sum
+          intro n hn
+          rcases Finset.mem_Icc.mp hn with ⟨hn1, hnX⟩
+          have hnposNat : 0 < n := by omega
+          have hnpos : (0 : ℝ) < (n : ℝ) := by
+            exact_mod_cast hnposNat
+          have hsqrtnpos : 0 < Real.sqrt (n : ℝ) :=
+            Real.sqrt_pos.2 hnpos
+          have hsqrtnne : Real.sqrt (n : ℝ) ≠ 0 :=
+            ne_of_gt hsqrtnpos
+          have hcast :
+              ((X / n : ℕ) : ℝ) ≤ (X : ℝ) / (n : ℝ) :=
+            Nat.cast_div_le
+          have hsqrt := Real.sqrt_le_sqrt hcast
+          have hsqrtDiv :
+              Real.sqrt ((X : ℝ) / (n : ℝ)) =
+                Real.sqrt (X : ℝ) / Real.sqrt (n : ℝ) := by
+            exact Real.sqrt_div
+              (show 0 ≤ (X : ℝ) by positivity) (n : ℝ)
+          have hchild :
+              Real.sqrt ((X / n : ℕ) : ℝ) ≤
+                Real.sqrt (X : ℝ) / Real.sqrt (n : ℝ) := by
+            rw [← hsqrtDiv]
+            exact hsqrt
+          calc
+            ‖h n‖ * ‖M (X / n)‖
+                ≤ ‖h n‖ *
+                    (B * Real.sqrt ((X / n : ℕ) : ℝ)) :=
+              mul_le_mul_of_nonneg_left (hM (X / n)) (norm_nonneg _)
+            _ ≤ ‖h n‖ *
+                    (B * (Real.sqrt (X : ℝ) / Real.sqrt (n : ℝ))) := by
+              exact mul_le_mul_of_nonneg_left
+                (mul_le_mul_of_nonneg_left hchild hB) (norm_nonneg _)
+            _ = (B * Real.sqrt (X : ℝ)) *
+                  (‖h n‖ / Real.sqrt (n : ℝ)) := by
+              field_simp [hsqrtnne]
+              ring
+    _ = (B * Real.sqrt (X : ℝ)) *
+          criticalWeightedVariation h X := by
+          unfold criticalWeightedVariation
+          rw [Finset.mul_sum]
+    _ ≤ (B * Real.sqrt (X : ℝ)) * H := by
+          exact mul_le_mul_of_nonneg_left (hvar X)
+            (mul_nonneg hB (Real.sqrt_nonneg _))
+    _ = B * Real.sqrt (X : ℝ) * H := by ring
+
+/-- Square-endpoint form of the critical convolution transfer for a
+square-root-bounded reference. -/
+theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_of_sqrtRef
+    (h M : ℕ → ℂ) (B H : ℝ)
+    (hB : 0 ≤ B)
+    (hM : ∀ m : ℕ, ‖M m‖ ≤ B * Real.sqrt (m : ℝ))
+    (hvar : ∀ X : ℕ, criticalWeightedVariation h X ≤ H)
+    (R : ℕ) :
+    ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖ ≤
+      B * H * (R : ℝ) := by
+  have hH : 0 ≤ H := by
+    have h0 := hvar 0
+    simpa [criticalWeightedVariation] using h0
+  have hRpos : (0 : ℝ) ≤ R := by positivity
+  have hXle :
+      (squareRootEndpoint R : ℝ) ≤ (R : ℝ) ^ 2 := by
+    exact_mod_cast (Nat.sub_le (R ^ 2) 1)
+  have hsqrt :
+      Real.sqrt (squareRootEndpoint R : ℝ) ≤ (R : ℝ) := by
+    calc
+      Real.sqrt (squareRootEndpoint R : ℝ) ≤
+          Real.sqrt ((R : ℝ) ^ 2) := Real.sqrt_le_sqrt hXle
+      _ = (R : ℝ) := by
+        rw [Real.sqrt_sq_eq_abs, abs_of_nonneg hRpos]
+  have hbase :=
+    norm_finiteMultiplicativeConvolution_le_sqrt_of_sqrtRef
+      h M B H hB hM hvar (squareRootEndpoint R)
+  calc
+    ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖
+        ≤ B * Real.sqrt (squareRootEndpoint R : ℝ) * H := hbase
+    _ ≤ B * (R : ℝ) * H := by
+          exact mul_le_mul_of_nonneg_right
+            (mul_le_mul_of_nonneg_left hsqrt hB) hH
+    _ = B * H * (R : ℝ) := by ring
+
+
+
 /-! ## Convolution-reference closure of the pure Li model -/
 
 /-- The formal Dickman construction supplies the concrete uniformly bounded
