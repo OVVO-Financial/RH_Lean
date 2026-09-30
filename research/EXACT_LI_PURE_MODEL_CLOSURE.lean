@@ -2027,6 +2027,91 @@ def criticalWeightedVariation
     ‖h n‖ / Real.sqrt (n : ℝ)
 
 
+private theorem sum_Icc_divisorsAntidiagonal_eq_sum_div_real
+    (F : ℕ → ℕ → ℝ) (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N,
+        ∑ p ∈ n.divisorsAntidiagonal, F p.1 p.2) =
+      ∑ a ∈ Finset.Icc 1 N,
+        ∑ b ∈ Finset.Icc 1 (N / a), F a b := by
+  classical
+  calc
+    (∑ n ∈ Finset.Icc 1 N,
+        ∑ p ∈ n.divisorsAntidiagonal, F p.1 p.2) =
+        ∑ z ∈ (Finset.Icc 1 N).sigma
+            (fun n => n.divisorsAntidiagonal),
+          F z.2.1 z.2.2 :=
+      Finset.sum_sigma' (Finset.Icc 1 N)
+        (fun n => n.divisorsAntidiagonal)
+        (fun _ p => F p.1 p.2)
+    _ = ∑ w ∈ (Finset.Icc 1 N).sigma
+            (fun a => Finset.Icc 1 (N / a)),
+          F w.1 w.2 := by
+      refine Finset.sum_nbij'
+        (i := fun z => ⟨z.2.1, z.2.2⟩)
+        (j := fun w => ⟨w.1 * w.2, (w.1, w.2)⟩)
+        ?_ ?_ ?_ ?_ ?_
+      · rintro ⟨n, a, b⟩ hz
+        rw [Finset.mem_sigma] at hz ⊢
+        obtain ⟨hn, hp⟩ := hz
+        rw [Finset.mem_Icc] at hn
+        rw [Nat.mem_divisorsAntidiagonal] at hp
+        obtain ⟨hab, hn0⟩ := hp
+        have ha0 : 0 < a := by
+          rcases Nat.eq_zero_or_pos a with h | h
+          · exfalso
+            apply hn0
+            rw [← hab, h, Nat.zero_mul]
+          · exact h
+        have hb0 : 0 < b := by
+          rcases Nat.eq_zero_or_pos b with h | h
+          · exfalso
+            apply hn0
+            rw [← hab, h, Nat.mul_zero]
+          · exact h
+        have habN : a * b ≤ N := by
+          rw [hab]
+          exact hn.2
+        constructor
+        · rw [Finset.mem_Icc]
+          refine ⟨ha0, ?_⟩
+          exact le_trans (Nat.le_mul_of_pos_right a hb0) habN
+        · rw [Finset.mem_Icc]
+          refine ⟨hb0, ?_⟩
+          rw [Nat.le_div_iff_mul_le ha0]
+          rw [Nat.mul_comm]
+          exact habN
+      · rintro ⟨a, b⟩ hw
+        rw [Finset.mem_sigma] at hw ⊢
+        obtain ⟨ha, hb⟩ := hw
+        rw [Finset.mem_Icc] at ha hb
+        have habN : a * b ≤ N := by
+          have h := (Nat.le_div_iff_mul_le ha.1).1 hb.2
+          rw [Nat.mul_comm] at h
+          exact h
+        have hab0 : 0 < a * b := Nat.mul_pos ha.1 hb.1
+        constructor
+        · rw [Finset.mem_Icc]
+          exact ⟨hab0, habN⟩
+        · rw [Nat.mem_divisorsAntidiagonal]
+          exact ⟨rfl, hab0.ne'⟩
+      · rintro ⟨n, a, b⟩ hz
+        rw [Finset.mem_sigma] at hz
+        obtain ⟨-, hp⟩ := hz
+        rw [Nat.mem_divisorsAntidiagonal] at hp
+        obtain ⟨hab, -⟩ := hp
+        have hab' : a * b = n := hab
+        subst hab'
+        rfl
+      · rintro ⟨a, b⟩ _
+        rfl
+      · rintro ⟨n, a, b⟩ _
+        rfl
+    _ = ∑ a ∈ Finset.Icc 1 N,
+          ∑ b ∈ Finset.Icc 1 (N / a), F a b :=
+      (Finset.sum_sigma' (Finset.Icc 1 N)
+        (fun a => Finset.Icc 1 (N / a))
+        (fun a b => F a b)).symm
+
 /-- **Critical weighted variation is submultiplicative for Dirichlet
 convolution.**  The weight `n^(-1/2)` is exactly multiplicative, so after
 the divisor-pair Fubini swap all multiplicative collisions are harmless. -/
@@ -2070,7 +2155,7 @@ theorem criticalWeightedVariation_arithmetic_mul_le
           ∑ b ∈ Finset.Icc 1 (X / a),
             (‖f a‖ / Real.sqrt (a : ℝ)) *
               (‖g b‖ / Real.sqrt (b : ℝ)) :=
-        sum_Icc_divisorsAntidiagonal_eq_sum_div
+        sum_Icc_divisorsAntidiagonal_eq_sum_div_real
           (fun a b =>
             (‖f a‖ / Real.sqrt (a : ℝ)) *
               (‖g b‖ / Real.sqrt (b : ℝ))) X
