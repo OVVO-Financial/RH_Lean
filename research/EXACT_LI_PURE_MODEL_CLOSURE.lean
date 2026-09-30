@@ -2405,6 +2405,64 @@ theorem criticalWeightedVariation_liCorrectionFactor_le_localVariation
     _ = criticalLiLocalCorrectionVariation q :=
       tsum_norm_hardCorePoissonCorrectionCoeff_eq_localVariation hq
 
+/-- **Arithmetic local correction variation at every Li site.**
+The q=2 exact cancellation and q=3 unit-ball bound remove the last exceptional
+range from the raw Li correction estimate.  The critical denominator in
+`V_X` is transferred exactly to the coefficient before the quadratic
+majorant is applied. -/
+theorem criticalWeightedVariation_liCorrectionFactor_le_localVariation_of_two_le
+    {q : ℕ} (hq : 2 ≤ q) (X : ℕ) :
+    criticalWeightedVariation
+        (fun n =>
+          arithmeticHardCorePoissonCorrectionFactor
+            (primeSievePNTDensity q) (by omega : 1 < q) n) X ≤
+      criticalLiLocalCorrectionVariation q := by
+  have hq1 : 1 ≤ q := by omega
+  have hz :
+      ‖criticalLiFrequencyWeight q‖ ≤ 1 :=
+    norm_criticalLiFrequencyWeight_le_one_of_two_le hq
+  have hs :=
+    hardCorePoissonCorrectionVariationTerm_summable
+      (criticalLiFrequencyWeight q) hz
+  rw [criticalWeightedVariation_hardCorePoissonCorrectionFactor_eq
+    (q := q) (by omega : 1 < q)]
+  calc
+    (∑ m ∈ liCorrectionExponentSet q X,
+        ‖hardCorePoissonCorrectionCoeff
+            (primeSievePNTDensity q) m‖ /
+          Real.sqrt ((q ^ m : ℕ) : ℝ))
+        =
+      ∑ m ∈ liCorrectionExponentSet q X,
+        hardCorePoissonCorrectionVariationTerm
+          (criticalLiFrequencyWeight q) m := by
+          apply Finset.sum_congr rfl
+          intro m hm
+          calc
+            ‖hardCorePoissonCorrectionCoeff
+                (primeSievePNTDensity q) m‖ /
+              Real.sqrt ((q ^ m : ℕ) : ℝ)
+                =
+              ‖hardCorePoissonCorrectionCoeff
+                (criticalLiFrequencyWeight q) m‖ := by
+                  simpa [criticalLiFrequencyWeight] using
+                    (norm_hardCorePoissonCorrectionCoeff_div_sqrt_pow_eq
+                      (q := q) hq1 (primeSievePNTDensity q) m)
+            _ = hardCorePoissonCorrectionVariationTerm
+                  (criticalLiFrequencyWeight q) m :=
+              norm_hardCorePoissonCorrectionCoeff_eq_variationTerm _ _
+    _ ≤ ∑' m : ℕ,
+          hardCorePoissonCorrectionVariationTerm
+            (criticalLiFrequencyWeight q) m := by
+          exact hs.sum_le_tsum
+            (liCorrectionExponentSet q X)
+            (fun m hm =>
+              hardCorePoissonCorrectionVariationTerm_nonneg
+                (criticalLiFrequencyWeight q) m)
+    _ = criticalLiLocalCorrectionVariation q := by
+          rw [tsum_hardCorePoissonCorrectionVariationTerm_eq
+            (criticalLiFrequencyWeight q) hz]
+          rfl
+
 /-- Finite product of the quadratic correction factors over sites
 `2,...,k+1`, ordered exactly like `arithmeticHardCoreProduct`. -/
 def arithmeticHardCorePoissonCorrectionProduct
@@ -2726,6 +2784,87 @@ theorem criticalWeightedVariation_correctionProduct_le_exp_collisionBudget
         ≤ ∏ q ∈ Finset.Icc 2 (k + 1),
             criticalLiLocalCorrectionVariation q :=
       criticalWeightedVariation_correctionProduct_le_localProduct k X
+    _ ≤ Real.exp (3 * criticalLiCollisionBudget) := by
+      exact
+        prod_criticalLiLocalCorrectionVariation_le_exp_collisionBudget_of_two_le
+          (Finset.Icc 2 (k + 1))
+          (by
+            intro q hq
+            exact (Finset.mem_Icc.mp hq).1)
+
+/-- **The raw Li correction product has the required critical variation.**
+This is the product that occurs in the exact factorization of the original
+Li hard-core state, before any critical transform is inserted into the owner
+weights.  Repeated hyperbola submultiplicativity introduces no collision loss. -/
+theorem criticalWeightedVariation_liCorrectionProduct_le_localProduct
+    (k X : ℕ) :
+    criticalWeightedVariation
+        (fun n =>
+          arithmeticHardCorePoissonCorrectionProduct
+            primeSievePNTDensity k n) X ≤
+      ∏ q ∈ Finset.Icc 2 (k + 1),
+        criticalLiLocalCorrectionVariation q := by
+  induction k with
+  | zero =>
+      simpa [arithmeticHardCorePoissonCorrectionProduct] using
+        criticalWeightedVariation_arithmetic_one_le_one X
+  | succ k ih =>
+      rw [arithmeticHardCorePoissonCorrectionProduct]
+      calc
+        criticalWeightedVariation
+            (fun n =>
+              (arithmeticHardCorePoissonCorrectionFactor
+                  (primeSievePNTDensity (k + 2))
+                  (q := k + 2) (by omega) *
+                arithmeticHardCorePoissonCorrectionProduct
+                  primeSievePNTDensity k) n) X
+            ≤ criticalWeightedVariation
+                (fun n =>
+                  arithmeticHardCorePoissonCorrectionFactor
+                    (primeSievePNTDensity (k + 2))
+                    (q := k + 2) (by omega) n) X *
+              criticalWeightedVariation
+                (fun n =>
+                  arithmeticHardCorePoissonCorrectionProduct
+                    primeSievePNTDensity k n) X :=
+          criticalWeightedVariation_arithmetic_mul_le _ _ X
+        _ ≤ criticalLiLocalCorrectionVariation (k + 2) *
+              (∏ q ∈ Finset.Icc 2 (k + 1),
+                criticalLiLocalCorrectionVariation q) := by
+              exact mul_le_mul
+                (criticalWeightedVariation_liCorrectionFactor_le_localVariation_of_two_le
+                  (q := k + 2) (by omega) X)
+                ih
+                (criticalWeightedVariation_nonneg _ X)
+                (criticalLiLocalCorrectionVariation_nonneg (k + 2))
+        _ = ∏ q ∈ Finset.Icc 2 (k + 2),
+              criticalLiLocalCorrectionVariation q := by
+              rw [Finset.prod_Icc_succ_top (by omega : 2 ≤ k + 2)]
+              ring
+        _ = ∏ q ∈ Finset.Icc 2 (Nat.succ k + 1),
+              criticalLiLocalCorrectionVariation q := by
+              congr 3
+              omega
+
+/-- **Uniform weighted variation of the complete raw quadratic correction
+product.**  The bound is independent of both the Li Euler cutoff and the
+arithmetic endpoint, and is therefore the exact correction estimate consumed
+by the original-state convolution closure. -/
+theorem criticalWeightedVariation_liCorrectionProduct_le_exp_collisionBudget
+    (k X : ℕ) :
+    criticalWeightedVariation
+        (fun n =>
+          arithmeticHardCorePoissonCorrectionProduct
+            primeSievePNTDensity k n) X ≤
+      Real.exp (3 * criticalLiCollisionBudget) := by
+  calc
+    criticalWeightedVariation
+        (fun n =>
+          arithmeticHardCorePoissonCorrectionProduct
+            primeSievePNTDensity k n) X
+        ≤ ∏ q ∈ Finset.Icc 2 (k + 1),
+            criticalLiLocalCorrectionVariation q :=
+      criticalWeightedVariation_liCorrectionProduct_le_localProduct k X
     _ ≤ Real.exp (3 * criticalLiCollisionBudget) := by
       exact
         prod_criticalLiLocalCorrectionVariation_le_exp_collisionBudget_of_two_le
