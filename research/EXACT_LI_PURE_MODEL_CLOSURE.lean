@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.MobiusRenewalTelescope
 import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
 import «research.PRIME_DENSITY_PNT_LOG_BOUND»
 import RHLean.Proof.FinitePartialMoments
@@ -1423,6 +1424,43 @@ theorem criticalLi_prod_one_add_sq_le_exp_budget
           exact Real.exp_le_exp.mpr
             (criticalLiFrequencyWeight_sq_finset_sum_le s)
 
+
+
+
+/-! ## Arithmetic-function coefficient factorization bridge -/
+
+/-- Cumulative mass of an arithmetic coefficient sequence through an integer
+endpoint. -/
+def arithmeticCoefficientCumulative
+    (f : ArithmeticFunction ℂ) (X : ℕ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 X, f n
+
+/-- **Finite cumulative Dirichlet-convolution identity.**
+The cumulative mass of a coefficient convolution is the multiplicative
+convolution of the first coefficient sequence with the cumulative second
+sequence.  This is the exact bridge from local Euler-factor identities to the
+finite cumulative convolution closure below. -/
+theorem arithmeticCoefficientCumulative_mul
+    (f g : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative (f * g) X =
+      ∑ a ∈ Finset.Icc 1 X,
+        f a * arithmeticCoefficientCumulative g (X / a) := by
+  unfold arithmeticCoefficientCumulative
+  simp_rw [ArithmeticFunction.mul_apply]
+  rw [sum_Icc_divisorsAntidiagonal_eq_sum_div]
+  apply Finset.sum_congr rfl
+  intro a ha
+  rw [← Finset.mul_sum]
+
+/-- The same exact identity in the generic finite multiplicative-convolution
+notation already consumed by the pure-Li root-bound theorem. -/
+theorem arithmeticCoefficientCumulative_mul_eq_finiteMultiplicativeConvolution
+    (f g : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative (f * g) X =
+      finiteMultiplicativeConvolution
+        (fun n => f n) (arithmeticCoefficientCumulative g) X := by
+  rw [arithmeticCoefficientCumulative_mul]
+  rfl
 
 
 /-! ## Generic critical convolution transfer -/
