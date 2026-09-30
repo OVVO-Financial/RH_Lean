@@ -230,7 +230,6 @@ theorem abs_deriv_inv_log_le_squareTile
       -(-t⁻¹ / Real.log t ^ 2) =
         1 / (t * Real.log t ^ 2) := by
     field_simp [ht0.ne', hlogt.ne']
-    ring
   rw [hrewrite]
   exact one_div_le_one_div_of_le hden0 hden
 
@@ -293,13 +292,20 @@ theorem abs_vfMid_partialBandQuadratureError_le
           simpa [K, a, Real.norm_eq_abs] using
             abs_deriv_inv_log_le_squareTile hr hu)
         (convex_Icc _ _) hmTile htTile
+    have hKnorm :
+        (Real.log 4 ^ 2)⁻¹ * ((r : ℝ) ^ 2)⁻¹ = K := by
+      dsimp [K, a]
+      field_simp
+      ring
+    rw [hKnorm] at hLip
     simpa [Real.norm_eq_abs, abs_sub_comm] using hLip
   have hwidth : 0 ≤ h := by dsimp [h, a]; linarith
+  have hay : a ≤ y := by simpa [a] using hyl
   have hdist : ∀ t ∈ Icc a y, |t - m| ≤ h := by
     intro t ht
     rw [abs_le]
     dsimp [m, h]
-    constructor <;> linarith
+    constructor <;> linarith [ht.1, ht.2, hay]
   have hpoint : ∀ t ∈ Icc a y,
       |(Real.log m)⁻¹ - (Real.log t)⁻¹| ≤ K * h := by
     intro t ht
@@ -345,7 +351,6 @@ theorem abs_vfMid_partialBandQuadratureError_le
         (1 / ((r : ℝ) ^ 2 * Real.log 4 ^ 2) * h) * h =
           (h ^ 2 / (r : ℝ) ^ 2) / Real.log 4 ^ 2 := by
       field_simp [ne_of_gt hrsq, ne_of_gt hlog4sq]
-      ring
     rw [heq]
     exact div_le_div_of_nonneg_right hratio hlog4sq.le
   have hmform :
@@ -364,9 +369,13 @@ theorem abs_vfMidBandQuadratureError_le
   have h := abs_vfMid_partialBandQuadratureError_le
     (r := r) hr
     (y := (((r + 1 : ℕ) : ℝ) ^ 2))
-    (by positivity) le_rfl
-  simpa [vfMidBandQuadratureError, vfMidBandMass, vfMidBandIntegral,
-    vfMidBandMidpoint, Nat.cast_add, Nat.cast_one] using h
+    (by
+      have hr0 : 0 ≤ (r : ℝ) := by positivity
+      norm_num [Nat.cast_add, Nat.cast_one]
+      nlinarith)
+    le_rfl
+  unfold vfMidBandQuadratureError vfMidBandMass vfMidBandIntegral vfMidBandMidpoint
+  convert h using 1 <;> norm_num [Nat.cast_add, Nat.cast_one] <;> ring
 
 /-- The live band obeys the same absolute quadrature budget. -/
 theorem abs_vfMidLiveQuadratureError_le
