@@ -7,6 +7,7 @@ on:
       - research/PRIME_FLIP_PNT_TELESCOPE.lean
       - research/PRIME_FLIP_STATIC_CHRONOLOGY.lean
       - research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean
+      - research/EXACT_LI_PURE_MODEL_CLOSURE.lean
       - FORMALIZATION_SEQUENCE.md
       - FORMALIZATION_CHECKLIST.md
       - .github/workflows/prime-flip-pnt-telescope.yml
@@ -80,11 +81,18 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_PNT_TELESCOPE.olean research/PRIME_FLIP_PNT_TELESCOPE.lean 2>&1 | tee prime-flip-pnt.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_STATIC_CHRONOLOGY.olean research/PRIME_FLIP_STATIC_CHRONOLOGY.lean 2>&1 | tee prime-flip-static-chronology.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION.olean research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean 2>&1 | tee all-scale-li-displacement.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_UNIVERSAL_BASELINE.olean research/PRIME_DENSITY_UNIVERSAL_BASELINE.lean 2>&1 | tee prime-density-universal-baseline.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_LOG_TIGHTENING.olean research/PRIME_DENSITY_LOG_TIGHTENING.lean 2>&1 | tee prime-density-log-tightening.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_PNT_LOG_BOUND.olean research/PRIME_DENSITY_PNT_LOG_BOUND.lean 2>&1 | tee prime-density-pnt-log-bound.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_INTEGRAL_TIGHTENING.olean research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean 2>&1 | tee prime-density-integral-tightening.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_DICKMAN_FORMAL.olean research/EXACT_LI_DICKMAN_FORMAL.lean 2>&1 | tee exact-li-dickman-formal.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_PURE_MODEL_CLOSURE.olean research/EXACT_LI_PURE_MODEL_CLOSURE.lean 2>&1 | tee exact-li-pure-model-closure.log
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
           import «research.PRIME_FLIP_STATIC_CHRONOLOGY»
           import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
+          import «research.EXACT_LI_PURE_MODEL_CLOSURE»
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_reciprocalPrimeCounts
           #print axioms RHLean.Analysis.primeFlipPNTError_eq_reciprocalDiscrepancy
@@ -108,6 +116,8 @@ jobs:
           #print axioms RHLean.Analysis.squareRoot_primeFlipPNTError_eq_zero_of_exactLiAllocation
           #print axioms RHLean.Analysis.squareRootPrimeDisplacementRootBounded_of_exactLiAllocation
           #print axioms RHLean.Analysis.allScaleLiState_squareRoot_assembled_norm_sq_eq_diagonal
+          #print axioms RHLean.Analysis.degreeZeroLowerMass_add_upperMass
+          #print axioms RHLean.Analysis.allScaleLiSquareRootBounded_of_uniformReference_linearTransfer
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -116,7 +126,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 23, records
+          assert len(records) == 25, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -131,4 +141,5 @@ jobs:
             prime-flip-pnt*.log
             prime-flip-static-chronology.log
             all-scale-li-displacement.log
+            exact-li-pure-model-closure.log
           if-no-files-found: ignore
