@@ -3310,6 +3310,85 @@ def AllScaleLiDiagonalConvolutionFactorization
     IsAllScaleLiState L →
     L X X = finiteMultiplicativeConvolution h M X
 
+/-- Every all-scale exact-Li diagonal factors through the stabilized
+quadratic correction kernel and stabilized Poisson cumulative reference. -/
+theorem allScaleLiState_diagonal_eq_poissonConvolution
+    {L : ℕ → ℕ → ℂ} {X : ℕ} (hX : 1 ≤ X)
+    (hL : IsAllScaleLiState L) :
+    L X X =
+      finiteMultiplicativeConvolution
+        exactLiCorrectionKernel exactLiPoissonIntegerReference X := by
+  rw [allScaleLiState_diagonal_eq_hardCoreProductCumulative X hX,
+    arithmeticHardCoreProduct_eq_correctionProduct_mul_poissonProduct,
+    arithmeticCoefficientCumulative_mul_eq_finiteMultiplicativeConvolution]
+  unfold finiteMultiplicativeConvolution
+  apply Finset.sum_congr rfl
+  intro n hn
+  rcases Finset.mem_Icc.mp hn with ⟨hn1, hnX⟩
+  have hnpos : 0 < n := by omega
+  have hchild1 : 1 ≤ X / n :=
+    (Nat.one_le_div_iff hnpos).2 hnX
+  have hchildX : X / n ≤ X := Nat.div_le_self X n
+  rw [← exactLiCorrectionKernel_eq_cutoff hn1 hnX,
+    ← exactLiPoissonIntegerReference_eq_child hchild1 hchildX]
+
+/-- The stabilized exact-Li correction kernel has the same uniform critical
+variation budget as every sufficiently large finite cutoff. -/
+theorem exactLiCorrectionKernel_uniformVariation :
+    UniformCriticalWeightedVariation exactLiCorrectionKernel := by
+  refine ⟨Real.exp (3 * criticalLiCollisionBudget), (Real.exp_pos _).le, ?_⟩
+  intro X
+  by_cases hX0 : X = 0
+  · subst X
+    simp [criticalWeightedVariation]
+  · have hX : 1 ≤ X := by omega
+    calc
+      criticalWeightedVariation exactLiCorrectionKernel X =
+          criticalWeightedVariation
+            (fun n =>
+              arithmeticHardCorePoissonCorrectionProduct
+                primeSievePNTDensity (X - 1) n) X := by
+            unfold criticalWeightedVariation
+            apply Finset.sum_congr rfl
+            intro n hn
+            rcases Finset.mem_Icc.mp hn with ⟨hn1, hnX⟩
+            rw [exactLiCorrectionKernel_eq_cutoff hn1 hnX]
+      _ ≤ Real.exp (3 * criticalLiCollisionBudget) :=
+        criticalWeightedVariation_liCorrectionProduct_le_exp_collisionBudget
+          (X - 1) X
+
+/-- **Square-root-reference correction-kernel closure.**
+A square-root-bounded reference, uniformly bounded critical correction
+variation, and exact diagonal convolution factorization close the intrinsic
+all-scale exact-Li square-root theorem. -/
+theorem allScaleLiSquareRootBounded_of_sqrtReference_convolution
+    (h M : ℕ → ℂ)
+    (hM : SquareRootReferenceBounded M)
+    (hh : UniformCriticalWeightedVariation h)
+    (hfac : AllScaleLiDiagonalConvolutionFactorization h M) :
+    AllScaleLiSquareRootBoundedStatement := by
+  rcases hM with ⟨B, hB, hMb⟩
+  rcases hh with ⟨H, hH, hvar⟩
+  refine ⟨(B * H) ^ 2, sq_nonneg _, ?_⟩
+  intro L R hL _hsat hR
+  have hX1 : 1 ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hR2 : 4 ≤ R ^ 2 := by nlinarith
+    omega
+  have hconv :=
+    norm_finiteMultiplicativeConvolution_squareRootEndpoint_of_sqrtRef
+      h M B H hB hMb hvar R
+  rw [← hfac L (squareRootEndpoint R) hX1 hL] at hconv
+  have hBH : 0 ≤ B * H := mul_nonneg hB hH
+  have hR0 : 0 ≤ (R : ℝ) := by positivity
+  have hright : 0 ≤ (B * H) * (R : ℝ) :=
+    mul_nonneg hBH hR0
+  have hsquare :=
+    mul_self_le_mul_self
+      (norm_nonneg (L (squareRootEndpoint R) (squareRootEndpoint R)))
+      hconv
+  simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using hsquare
+
 /-- **Correction-kernel pure-model closure.**
 A uniformly bounded reference, a correction kernel with uniformly bounded
 critical variation, and the exact diagonal convolution factorization imply the
