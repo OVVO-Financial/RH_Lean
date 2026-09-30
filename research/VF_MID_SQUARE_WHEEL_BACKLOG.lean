@@ -242,13 +242,12 @@ theorem abs_vfMidIntegerBlockBacklog_increment_add_bandError_lt_one
     rfl
   rw [hcast]
   unfold vfMidSquareBandError
-  rw [hsupply]
   have hsupplyCast :
-      ((vfMidIntegerBlockPrimeSupply R : ℕ) : ℝ) =
-        (((vfMidSquareBandPrimes R).card : ℕ) : ℝ) := by
+      (vfMidIntegerBlockPrimeSupply R : ℝ) =
+        ((vfMidSquareBandPrimes R).card : ℝ) := by
     exact_mod_cast hsupply
   rw [hsupplyCast]
-  linarith
+  simpa only [sub_add_sub_cancel] using hdemand
 
 /-- Immediate capture gives the sharper 2R+1 real endpoint bound because the
 upper square is composite and the actual prime supply lives on only 2R
