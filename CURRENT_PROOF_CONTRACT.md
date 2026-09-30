@@ -26,10 +26,18 @@ this is `VFMidSquareEndpointVonKochBoundedStatement`.
 ```
 
 `primeLiVonKochBounded_of_vfMidSquareEndpoint` discharges the quadrature input
-using the proved `vfMidLiRootBounded`. The prime-discrepancy estimate itself
-remains unproved. The final RH wrapper still takes `ClassicalVonKochRHCriterion`
-as an explicit interface; this module does not construct that classical
-analytic equivalence internally.
+using the proved `vfMidLiRootBounded`. Conversely,
+`vfMidVonKochBounded_of_primeLi` uses that same unconditional quadrature bound
+to recover the VF-mid estimate from the classical prime-minus-Li estimate.
+Consequently
+`vfMidSquareEndpointVonKochBounded_iff_primeLiVonKochBounded` proves that the
+square-endpoint target is quantitatively equivalent to
+`PrimeLiVonKochBoundedStatement`; the direct midpoint route has isolated the
+classical von-Koch-strength cancellation rather than weakened it.
+
+The prime-discrepancy estimate itself remains unproved. The final RH wrapper
+still takes `ClassicalVonKochRHCriterion` as an explicit interface; this module
+does not construct that classical analytic equivalence internally.
 
 The composite realization from #821 is optional, frozen infrastructure. The
 canonical direct consumer does not import it or the Li/Poisson model. Naming
